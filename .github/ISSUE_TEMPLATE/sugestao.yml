@@ -1,0 +1,22 @@
+name: Sugerir conteúdo
+description: Proponha uma trilha nova, uma aula que falta ou uma melhoria.
+title: "Sugestão: "
+labels: ["sugestao"]
+body:
+  - type: textarea
+    id: ideia
+    attributes:
+      label: O que você sugere
+      description: Qual assunto, para qual público, e por que faz falta.
+    validations:
+      required: true
+  - type: dropdown
+    id: ajuda
+    attributes:
+      label: Você pode ajudar a escrever?
+      options:
+        - Sim, quero escrever
+        - Posso revisar
+        - Só estou sugerindo
+    validations:
+      required: true

@@ -1,36 +1,43 @@
-export const metadata = { title: "Denunciar — Perenidade" };
+import { Suspense } from "react";
+import { PageHeading } from "@/components/PageHeading";
+import { ReportForm } from "@/components/ReportForm";
 
-export default async function Denunciar({ searchParams }: PageProps<"/denunciar">) {
-  const sp = await searchParams;
-  const item = typeof sp.item === "string" ? sp.item : "";
+export const metadata = {
+  title: "Denunciar conteúdo",
+  description: "Avise sobre violação de direitos autorais, erros ou conteúdo impróprio no acervo.",
+};
 
+const stages = [
+  ["Registro público", "A denúncia vira um registro aberto, com data, que qualquer pessoa pode acompanhar."],
+  ["Quarentena", "Em denúncias de direitos autorais, a moderação tira o item do ar enquanto analisa."],
+  ["Decisão", "Confirmado o problema, o item é removido ou corrigido. O histórico da decisão fica guardado."],
+];
+
+export default function Denunciar() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.3em] text-gold">Direitos autorais · DMCA</p>
-      <h1 className="mt-2 text-5xl font-semibold">Denunciar conteúdo</h1>
-      <p className="mt-4 text-lg text-ink-soft">
-        Respeitamos direitos autorais. Todo item denunciado é colocado em quarentena (<code className="font-mono">is_active = false</code>)
-        até a revisão, e removido se a violação for confirmada.
-      </p>
+      <PageHeading eyebrow="Direitos autorais e qualidade" title="Denunciar conteúdo">
+        Respeitamos direitos autorais. Se algo aqui não deveria estar, avise e nós tiramos do ar para analisar.
+      </PageHeading>
 
-      <form className="mt-10 space-y-5 font-sans text-sm">
-        <label className="block">
-          Item ou URL
-          <input defaultValue={item} disabled className="mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2 font-mono disabled:opacity-60" />
-        </label>
-        <label className="block">
-          Motivo
-          <textarea disabled rows={6} className="mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2 disabled:opacity-60" />
-        </label>
-        <label className="block">
-          E-mail para contato
-          <input type="email" disabled className="mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2 disabled:opacity-60" />
-        </label>
-        <button disabled className="bg-oxblood px-8 py-3 font-medium text-parchment disabled:opacity-50">
-          Enviar denúncia
-        </button>
-        <p className="font-mono text-xs text-ink-soft">Formulário será ativado junto com o banco de dados.</p>
-      </form>
+      <ol className="mt-10 grid gap-5 font-sans text-sm sm:grid-cols-3">
+        {stages.map(([title, description], i) => (
+          <li key={title} className="border-l-2 border-gold pl-4">
+            <p className="font-mono text-xs text-gold">{String(i + 1).padStart(2, "0")}</p>
+            <p className="font-semibold">{title}</p>
+            <p className="mt-1 text-ink-soft">{description}</p>
+          </li>
+        ))}
+      </ol>
+
+      <Suspense>
+        <ReportForm />
+      </Suspense>
+
+      <p className="mt-10 border-t border-rule pt-6 font-sans text-sm text-ink-soft">
+        A denúncia é registrada no GitHub e fica pública, junto com o nome da sua conta. Não inclua dados pessoais no
+        texto.
+      </p>
     </div>
   );
 }
