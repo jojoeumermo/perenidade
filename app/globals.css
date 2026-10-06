@@ -5,13 +5,15 @@
   --parchment-deep: #e9dcbc;
   --ink: #1f1a14;
   --ink-soft: #5a4e3c;
-  --gold: #a9792b;
+  --gold: #8a5f1c;
   --oxblood: #6e1f1a;
   --rule: #cdbb91;
+  --ok: #2f5d34;
 }
 
+/* Tema escuro: segue o sistema, a menos que a pessoa escolha um tema no botão do cabeçalho. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --parchment: #17130e;
     --parchment-deep: #221c13;
     --ink: #efe4c8;
@@ -19,7 +21,19 @@
     --gold: #d4a24c;
     --oxblood: #e0837a;
     --rule: #3a3020;
+    --ok: #8fc796;
   }
+}
+
+:root[data-theme="dark"] {
+  --parchment: #17130e;
+  --parchment-deep: #221c13;
+  --ink: #efe4c8;
+  --ink-soft: #b3a584;
+  --gold: #d4a24c;
+  --oxblood: #e0837a;
+  --rule: #3a3020;
+  --ok: #8fc796;
 }
 
 @theme inline {
@@ -30,6 +44,7 @@
   --color-gold: var(--gold);
   --color-oxblood: var(--oxblood);
   --color-rule: var(--rule);
+  --color-ok: var(--ok);
   --font-serif: var(--font-serif-display);
   --font-sans: var(--font-ui);
   --font-mono: var(--font-archive);
@@ -44,4 +59,104 @@ body {
 .paper {
   background-image: radial-gradient(color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1px);
   background-size: 22px 22px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Texto das aulas (Markdown renderizado). */
+.prose-lesson {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  overflow-wrap: break-word;
+}
+.prose-lesson > * + * {
+  margin-top: 1.1em;
+}
+.prose-lesson h2 {
+  margin-top: 2em;
+  font-size: 1.6em;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.prose-lesson h3 {
+  margin-top: 1.6em;
+  font-size: 1.25em;
+  font-weight: 600;
+}
+.prose-lesson a {
+  color: var(--oxblood);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-lesson ul,
+.prose-lesson ol {
+  padding-left: 1.4em;
+}
+.prose-lesson ul {
+  list-style: disc;
+}
+.prose-lesson ol {
+  list-style: decimal;
+}
+.prose-lesson li + li {
+  margin-top: 0.3em;
+}
+.prose-lesson blockquote {
+  border-left: 3px solid var(--gold);
+  padding-left: 1em;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.prose-lesson code {
+  font-family: var(--font-archive), monospace;
+  font-size: 0.82em;
+  background: var(--parchment-deep);
+  border: 1px solid var(--rule);
+  padding: 0.1em 0.35em;
+}
+.prose-lesson pre {
+  background: var(--parchment-deep);
+  border: 1px solid var(--rule);
+  padding: 1em;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+.prose-lesson pre code {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+.prose-lesson table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-ui), sans-serif;
+  font-size: 0.8em;
+}
+.prose-lesson th,
+.prose-lesson td {
+  border: 1px solid var(--rule);
+  padding: 0.45em 0.7em;
+  text-align: left;
+}
+.prose-lesson th {
+  background: var(--parchment-deep);
+}
+.prose-lesson hr {
+  border-color: var(--rule);
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .paper {
+    background-image: none;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
 }

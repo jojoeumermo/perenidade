@@ -1,53 +1,77 @@
-import { areas } from "@/lib/data";
+import Link from "next/link";
+import { ContributeForm } from "@/components/ContributeForm";
+import { PageHeading } from "@/components/PageHeading";
+import { getTracks } from "@/lib/content";
+import { github } from "@/lib/site";
 
-export const metadata = { title: "Contribuir — Perenidade" };
+export const metadata = {
+  title: "Contribuir",
+  description: "Escreva uma aula ou indique uma obra livre. Toda contribuição passa por revisão pública antes de entrar.",
+};
 
 const rules = [
-  "Envie apenas texto (Markdown). Não aceitamos upload de PDFs ou arquivos.",
-  "Só conteúdo seu, de domínio público ou com licença aberta (CC BY, CC BY-SA…).",
-  "Todo envio vira um rascunho: a moderação apenas aprova ou recusa. Nada é editado direto no acervo.",
-  "Tudo fica versionado no Git, então qualquer erro é revertido na hora.",
+  "Envie apenas texto (Markdown). Não aceitamos PDFs, imagens ou outros arquivos.",
+  "Só conteúdo seu, de domínio público ou com licença aberta. Nada copiado de livros, sites ou cursos protegidos.",
+  "Todo envio vira uma proposta pública. Ela só entra no acervo depois de revisada e aprovada.",
+  "Tudo fica versionado no Git, então qualquer erro é desfeito na hora.",
+];
+
+const steps = [
+  ["Escreva", "Preencha o formulário abaixo. O rascunho fica salvo no seu navegador."],
+  ["Envie", "O botão abre o GitHub com o arquivo pronto. Você confirma e cria a proposta (Pull Request)."],
+  ["Revisão", "A proposta aparece na fila de moderação, onde qualquer pessoa pode ver e comentar."],
+  ["Publicação", "Aprovada, a aula entra no site na próxima atualização, com seu nome no histórico."],
 ];
 
 export default function Contribuir() {
+  const tracks = getTracks().map((track) => ({
+    slug: track.slug,
+    title: track.title,
+    nextOrder: Math.max(0, ...track.lessons.map((l) => l.order)) + 1,
+  }));
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.3em] text-gold">Fila de moderação</p>
-      <h1 className="mt-2 text-5xl font-semibold">Contribuir</h1>
-      <ul className="mt-6 list-disc space-y-1 pl-5 text-lg text-ink-soft">
-        {rules.map((r) => (
-          <li key={r}>{r}</li>
+      <PageHeading eyebrow="Construa a biblioteca" title="Contribuir">
+        Você não precisa de permissão para ensinar. Escreva, envie e a comunidade revisa.
+      </PageHeading>
+
+      <ul className="mt-8 list-disc space-y-1 pl-5 text-lg text-ink-soft">
+        {rules.map((rule) => (
+          <li key={rule}>{rule}</li>
         ))}
       </ul>
 
-      <form className="mt-10 space-y-5 font-sans text-sm">
-        <label className="block">
-          Título
-          <input disabled className="mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2 disabled:opacity-60" />
-        </label>
-        <label className="block">
-          Área
-          <select disabled className="mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2 disabled:opacity-60">
-            {areas.map((a) => (
-              <option key={a}>{a}</option>
-            ))}
-          </select>
-        </label>
-        <label className="block">
-          Conteúdo (Markdown)
-          <textarea disabled rows={10} className="mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2 font-mono disabled:opacity-60" />
-        </label>
-        <label className="flex items-start gap-2">
-          <input type="checkbox" disabled className="mt-1" />
-          Declaro que o texto é meu ou de domínio público/licença aberta.
-        </label>
-        <button disabled className="bg-oxblood px-8 py-3 font-medium text-parchment disabled:opacity-50">
-          Enviar para revisão
-        </button>
-        <p className="font-mono text-xs text-ink-soft">
-          Envio em breve: depende do login (Supabase Auth) e da fila de moderação.
+      <ol className="mt-10 grid gap-5 font-sans text-sm sm:grid-cols-2">
+        {steps.map(([title, description], i) => (
+          <li key={title} className="border-l-2 border-gold pl-4">
+            <p className="font-mono text-xs text-gold">{String(i + 1).padStart(2, "0")}</p>
+            <p className="font-semibold">{title}</p>
+            <p className="mt-1 text-ink-soft">{description}</p>
+          </li>
+        ))}
+      </ol>
+
+      <ContributeForm tracks={tracks} />
+
+      <div className="mt-10 space-y-3 border-t border-rule pt-6 font-sans text-sm text-ink-soft">
+        <p>
+          O envio usa uma conta gratuita do GitHub, que é onde o acervo fica guardado. Ainda não há envio sem conta.
         </p>
-      </form>
+        <p>
+          Quer corrigir algo que já existe? Cada aula e cada obra tem um link “Sugerir correção”. Quer propor uma trilha
+          nova ou um assunto que falta?{" "}
+          <a
+            href={github.newIssue("sugestao.yml", {})}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-oxblood"
+          >
+            Abra uma sugestão
+          </a>
+          . Veja também a <Link href="/moderacao" className="underline hover:text-oxblood">fila de moderação</Link>.
+        </p>
+      </div>
     </div>
   );
 }
