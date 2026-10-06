@@ -4,6 +4,7 @@ const links = [
   ["Acervo", "/acervo"],
   ["Trilhas", "/trilhas"],
   ["Contribuir", "/contribuir"],
+  ["Sobre", "/sobre"],
   ["Denunciar", "/denunciar"],
 ];
 
