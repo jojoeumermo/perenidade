@@ -1,12 +1,16 @@
-# Perenidade
+# Projeto Lucia
 
-Biblioteca de Alexandria comunitária: conhecimento livre, gratuito e preservado.
+Biblioteca de Alexandria comunitária: conhecimento livre, gratuito e preservado. Um projeto de esquerda, feito por voluntários.
+
+Disponível em português, inglês, espanhol, chinês e russo.
 
 - **Trilhas e aulas** escritas pela comunidade, em Markdown, com teste ao final de cada aula.
 - **Acervo**: índice de obras em domínio público e licenças abertas. Guardamos só os metadados e o link para a fonte legítima. Nenhum arquivo de terceiros é hospedado.
 - **Moderação pública**: toda contribuição é um Pull Request, revisado antes de entrar.
 - **Histórico completo**: o Git guarda cada versão. Nada se perde e tudo é reversível.
-- **Sem cadastro**: o progresso do aluno fica no navegador dele.
+- **Sem cadastro e sem rastreamento**: o progresso do estudante fica no navegador dele.
+- **Autores, Memorial, Glossário e Linha do tempo das lutas**: o pensamento revolucionário e a memória de quem lutou.
+- **Acessibilidade**: alto contraste, modo e-ink, texto ampliado e espaçado, modo foco e leitura em voz alta.
 
 ## Rodando na sua máquina
 
@@ -34,10 +38,16 @@ content/
   trilhas/<trilha>/_trilha.md     dados da trilha
   trilhas/<trilha>/NN-slug.md     uma aula (NN define a ordem)
   acervo/<obra>.md                ficha de uma obra
-app/                              páginas (Next.js, App Router)
+  autores/<autor>.md              biografia curta de um autor
+  memorial/<nome>.md              uma homenagem do Memorial
+  paginas/<pagina>.md             sobre, voluntários, glossário, linha do tempo
+  **/<arquivo>.<idioma>.md        tradução (en, es, zh, ru) do arquivo ao lado
+i18n/                             textos da interface, um arquivo por idioma
+app/[lang]/                       páginas (Next.js, App Router)
 components/                       componentes de interface
 lib/content.ts                    lê e valida o conteúdo
 lib/history.ts                    lê o histórico do Git
+proxy.ts                          manda quem chega sem idioma para o idioma do navegador
 supabase/schema.sql               camada opcional de contas (ainda não usada)
 docs/MODERACAO.md                 guia de moderação
 ```

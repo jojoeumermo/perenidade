@@ -2,14 +2,17 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { areas, licenses } from "@/lib/areas";
+import { plural } from "@/i18n/config";
+import { areaSlugs, licenses } from "@/lib/areas";
 import type { Book } from "@/lib/content";
 import { normalize } from "@/lib/text";
-import { BookCard } from "./Cards";
+import { BookCard, licenseName } from "./Cards";
+import { useI18n } from "./I18n";
 
 const field = "border-2 border-ink bg-parchment-deep px-3 py-2";
 
 export function AcervoBrowser({ books }: { books: Book[] }) {
+  const { lang, t } = useI18n();
   const params = useSearchParams();
   const [query, setQuery] = useState(params.get("q") ?? "");
   const [area, setArea] = useState(params.get("area") ?? "");
@@ -30,35 +33,37 @@ export function AcervoBrowser({ books }: { books: Book[] }) {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          aria-label="Buscar por título ou autor"
-          placeholder="Título, autor…"
+          aria-label={t.library.searchLabel}
+          placeholder={t.library.searchPlaceholder}
           className={`${field} min-w-60 flex-1 font-mono outline-none`}
         />
-        <select value={area} onChange={(e) => setArea(e.target.value)} aria-label="Área" className={field}>
-          <option value="">Todas as áreas</option>
-          {areas.map((a) => (
-            <option key={a.slug} value={a.slug}>
-              {a.name}
+        <select value={area} onChange={(e) => setArea(e.target.value)} aria-label={t.library.area} className={field}>
+          <option value="">{t.library.allAreas}</option>
+          {areaSlugs.map((slug) => (
+            <option key={slug} value={slug}>
+              {t.areas[slug][0]}
             </option>
           ))}
         </select>
-        <select value={license} onChange={(e) => setLicense(e.target.value)} aria-label="Licença" className={field}>
-          <option value="">Todas as licenças</option>
+        <select value={license} onChange={(e) => setLicense(e.target.value)} aria-label={t.library.license} className={field}>
+          <option value="">{t.library.allLicenses}</option>
           {licenses.map((l) => (
-            <option key={l}>{l}</option>
+            <option key={l} value={l}>
+              {licenseName(t, l)}
+            </option>
           ))}
         </select>
       </div>
 
       <p role="status" className="mt-6 font-mono text-xs text-ink-soft">
-        {results.length} {results.length === 1 ? "obra" : "obras"}
+        {plural(lang, results.length, t.common.works)}
       </p>
       <div className="mt-4 grid gap-5 md:grid-cols-2">
         {results.map((book) => (
-          <BookCard key={book.id} book={book} />
+          <BookCard key={book.id} book={book} lang={lang} t={t} />
         ))}
       </div>
-      {results.length === 0 && <p className="mt-8 text-xl text-ink-soft">Nada encontrado. Tente outro termo ou remova um filtro.</p>}
+      {results.length === 0 && <p className="mt-8 text-xl text-ink-soft">{t.library.nothing}</p>}
     </>
   );
 }

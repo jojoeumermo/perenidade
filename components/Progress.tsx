@@ -1,26 +1,28 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { fill } from "@/i18n/config";
 import { rememberLesson, setCompleted, useCompleted, useLastLesson, type LastLesson } from "@/lib/progress";
+import { L, useI18n } from "./I18n";
 
 interface LessonLink {
   id: string;
-  href: string;
+  path: string;
   title: string;
 }
 
 /** Lista de aulas da trilha, com a marca de concluída vinda do navegador. */
 export function LessonList({ lessons, currentId }: { lessons: LessonLink[]; currentId?: string }) {
   const done = useCompleted();
+  const { t } = useI18n();
   return (
     <ol className="space-y-1 border-l border-rule font-sans text-sm">
       {lessons.map((lesson, i) => {
         const current = lesson.id === currentId;
         return (
           <li key={lesson.id}>
-            <Link
-              href={lesson.href}
+            <L
+              href={lesson.path}
               aria-current={current ? "page" : undefined}
               className={`-ml-px flex gap-3 border-l-2 py-1.5 pl-3 ${
                 current ? "border-oxblood font-semibold text-oxblood" : "border-transparent hover:text-oxblood"
@@ -31,9 +33,9 @@ export function LessonList({ lessons, currentId }: { lessons: LessonLink[]; curr
               </span>
               <span>
                 {lesson.title}
-                {done.has(lesson.id) && <span className="sr-only"> (concluída)</span>}
+                {done.has(lesson.id) && <span className="sr-only"> ({t.tracks.doneMark})</span>}
               </span>
-            </Link>
+            </L>
           </li>
         );
       })}
@@ -43,6 +45,7 @@ export function LessonList({ lessons, currentId }: { lessons: LessonLink[]; curr
 
 export function TrackProgress({ ids }: { ids: string[] }) {
   const done = useCompleted();
+  const { t } = useI18n();
   const count = ids.filter((id) => done.has(id)).length;
   const percent = ids.length ? Math.round((count / ids.length) * 100) : 0;
   return (
@@ -52,20 +55,19 @@ export function TrackProgress({ ids }: { ids: string[] }) {
         aria-valuenow={percent}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label="Progresso na trilha"
+        aria-label={t.tracks.progress}
         className="h-1.5 bg-rule"
       >
         <div className="h-full bg-gold" style={{ width: `${percent}%` }} />
       </div>
-      <p className="mt-1.5">
-        {count} de {ids.length} {ids.length === 1 ? "aula concluída" : "aulas concluídas"}
-      </p>
+      <p className="mt-1.5">{fill(t.tracks.completed, { a: count, b: ids.length })}</p>
     </div>
   );
 }
 
-export function CompleteButton({ id, next }: { id: string; next?: { href: string; title: string } }) {
+export function CompleteButton({ id, next }: { id: string; next?: { path: string; title: string } }) {
   const done = useCompleted().has(id);
+  const { t } = useI18n();
   return (
     <div className="no-print mt-12 flex flex-wrap items-center gap-4 font-sans text-sm">
       <button
@@ -76,42 +78,64 @@ export function CompleteButton({ id, next }: { id: string; next?: { href: string
           done ? "border-ok text-ok" : "border-ink bg-ink text-parchment hover:border-oxblood hover:bg-oxblood"
         }`}
       >
-        {done ? "✓ Aula concluída" : "Marcar como concluída"}
+        {done ? `✓ ${t.lesson.done}` : t.lesson.markDone}
       </button>
       {done && next && (
-        <Link href={next.href} className="underline hover:text-oxblood">
-          Próxima: {next.title} →
-        </Link>
+        <L href={next.path} className="underline hover:text-oxblood">
+          {t.lesson.next} {next.title} →
+        </L>
       )}
     </div>
   );
 }
 
 /** Guarda a última aula aberta, para o "continue de onde parou" da página inicial. */
-export function RememberLesson(lesson: LastLesson) {
-  const { href, title, track } = lesson;
+export function RememberLesson({ path, title, track }: LastLesson) {
   useEffect(() => {
-    rememberLesson({ href, title, track });
-  }, [href, title, track]);
+    rememberLesson({ path, title, track });
+  }, [path, title, track]);
   return null;
 }
 
 export function ContinueCard() {
   const last = useLastLesson();
-  if (!last) return null;
+  const { t } = useI18n();
+  if (!last?.path) return null;
   return (
     <section className="mx-auto max-w-6xl px-4 pb-4">
-      <Link
-        href={last.href}
+      <L
+        href={last.path}
         className="flex flex-wrap items-center justify-between gap-3 border-2 border-gold bg-parchment-deep px-6 py-4 hover:border-oxblood"
       >
         <span>
-          <span className="block font-mono text-xs uppercase tracking-widest text-gold">Continue de onde parou</span>
+          <span className="block font-mono text-xs uppercase tracking-widest text-gold">{t.home.continue}</span>
           <span className="text-xl font-semibold">{last.title}</span>
           <span className="text-ink-soft"> · {last.track}</span>
         </span>
-        <span aria-hidden className="font-sans text-sm">Retomar →</span>
-      </Link>
+        <span aria-hidden className="font-sans text-sm">{t.home.resume} →</span>
+      </L>
     </section>
+  );
+}
+
+/** Copia uma citação pronta da aula (autor, título, site, endereço). */
+export function CiteButton({ citation }: { citation: string }) {
+  const { t } = useI18n();
+  const [copied, setCopied] = useState(false);
+  return (
+    <button
+      type="button"
+      className="cursor-pointer underline hover:text-oxblood"
+      onClick={async () => {
+        try {
+          await navigator.clipboard.writeText(`${citation} ${window.location.href}`);
+          setCopied(true);
+        } catch {
+          setCopied(false);
+        }
+      }}
+    >
+      <span role="status">{copied ? t.lesson.cited : t.lesson.cite}</span>
+    </button>
   );
 }

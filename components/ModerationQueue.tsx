@@ -1,19 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { fill, htmlLang } from "@/i18n/config";
+import type { Dict } from "@/i18n/pt";
 import { repoApi, repoUrl } from "@/lib/site";
+import { useI18n } from "./I18n";
 
 // Lê só dados públicos da API do GitHub, sem chave nem login.
 // Aprovar ou recusar acontece no GitHub, que é quem confere a permissão de cada pessoa.
-
-interface Item {
-  number: number;
-  title: string;
-  url: string;
-  author: string;
-  date: string;
-  draft: boolean;
-}
 
 interface ApiItem {
   number: number;
@@ -25,30 +19,24 @@ interface ApiItem {
   pull_request?: unknown;
 }
 
-type State = { status: "loading" } | { status: "error"; message: string } | { status: "ready"; pulls: Item[]; reports: Item[] };
+type State = { status: "loading" } | { status: "error"; code: number } | { status: "ready"; pulls: ApiItem[]; reports: ApiItem[] };
 
 async function load(path: string): Promise<ApiItem[]> {
   const response = await fetch(`${repoApi}${path}`, { headers: { Accept: "application/vnd.github+json" } });
-  if (response.status === 403 || response.status === 429) {
-    throw new Error("O GitHub limitou as consultas deste endereço por alguns minutos.");
-  }
-  if (response.status === 404) {
-    throw new Error("O repositório do acervo ainda não está público, então a fila não pode ser exibida aqui.");
-  }
-  if (!response.ok) throw new Error(`O GitHub respondeu com o erro ${response.status}.`);
+  if (!response.ok) throw new Error(String(response.status));
   return (await response.json()) as ApiItem[];
 }
 
-const toItem = (item: ApiItem): Item => ({
-  number: item.number,
-  title: item.title,
-  url: item.html_url,
-  author: item.user?.login ?? "desconhecido",
-  date: new Date(item.created_at).toLocaleDateString("pt-BR"),
-  draft: item.draft === true,
-});
+interface QueueProps {
+  title: string;
+  empty: string;
+  items: ApiItem[];
+  action: (item: ApiItem) => [string, string];
+  m: Dict["moderation"];
+  locale: string;
+}
 
-function Queue({ title, empty, items, action }: { title: string; empty: string; items: Item[]; action: (item: Item) => [string, string] }) {
+function Queue({ title, empty, items, action, m, locale }: QueueProps) {
   return (
     <section className="mt-12">
       <h2 className="border-b border-rule pb-3 text-3xl font-semibold">
@@ -61,11 +49,11 @@ function Queue({ title, empty, items, action }: { title: string; empty: string; 
           <table className="w-full border-collapse font-sans text-sm">
             <thead>
               <tr className="text-left font-mono text-xs uppercase tracking-widest text-gold">
-                <th className="py-2 pr-4 font-normal">Título</th>
-                <th className="py-2 pr-4 font-normal">Autor</th>
-                <th className="py-2 pr-4 font-normal">Data</th>
+                <th className="py-2 pr-4 font-normal">{m.colTitle}</th>
+                <th className="py-2 pr-4 font-normal">{m.colAuthor}</th>
+                <th className="py-2 pr-4 font-normal">{m.colDate}</th>
                 <th className="py-2 font-normal">
-                  <span className="sr-only">Ação</span>
+                  <span className="sr-only">{m.colAction}</span>
                 </th>
               </tr>
             </thead>
@@ -76,10 +64,10 @@ function Queue({ title, empty, items, action }: { title: string; empty: string; 
                   <tr key={item.number} className="border-t border-rule">
                     <td className="py-3 pr-4">
                       <span className="font-mono text-ink-soft">#{item.number}</span> {item.title}
-                      {item.draft && <span className="ml-2 font-mono text-xs text-ink-soft">(rascunho)</span>}
+                      {item.draft && <span className="ml-2 font-mono text-xs text-ink-soft">({m.draft})</span>}
                     </td>
-                    <td className="py-3 pr-4 whitespace-nowrap">{item.author}</td>
-                    <td className="py-3 pr-4 whitespace-nowrap">{item.date}</td>
+                    <td className="py-3 pr-4 whitespace-nowrap">{item.user?.login ?? "?"}</td>
+                    <td className="py-3 pr-4 whitespace-nowrap">{new Date(item.created_at).toLocaleDateString(locale)}</td>
                     <td className="py-3 text-right whitespace-nowrap">
                       <a href={href} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">
                         {label} ↗
@@ -97,22 +85,19 @@ function Queue({ title, empty, items, action }: { title: string; empty: string; 
 }
 
 export function ModerationQueue() {
+  const { lang, t } = useI18n();
+  const m = t.moderation;
   const [state, setState] = useState<State>({ status: "loading" });
 
   useEffect(() => {
     let cancelled = false;
     Promise.all([load("/pulls?state=open&per_page=50"), load("/issues?state=open&labels=denuncia&per_page=50")])
       .then(([pulls, issues]) => {
-        if (cancelled) return;
-        setState({
-          status: "ready",
-          pulls: pulls.map(toItem),
-          reports: issues.filter((issue) => !issue.pull_request).map(toItem),
-        });
+        if (!cancelled) setState({ status: "ready", pulls, reports: issues.filter((issue) => !issue.pull_request) });
       })
       .catch((error: unknown) => {
-        if (cancelled) return;
-        setState({ status: "error", message: error instanceof Error ? error.message : "Falha de conexão." });
+        // Código 0: a consulta nem chegou ao GitHub (sem conexão).
+        if (!cancelled) setState({ status: "error", code: error instanceof Error ? Number(error.message) || 0 : 0 });
       });
     return () => {
       cancelled = true;
@@ -120,32 +105,32 @@ export function ModerationQueue() {
   }, []);
 
   if (state.status === "loading") {
-    return <p role="status" className="mt-12 font-mono text-xs text-ink-soft">Consultando a fila no GitHub…</p>;
+    return <p role="status" className="mt-12 font-mono text-xs text-ink-soft">{m.loading}</p>;
   }
   if (state.status === "error") {
+    const reason =
+      state.code === 404
+        ? m.private
+        : state.code === 403 || state.code === 429
+          ? m.limited
+          : state.code === 0
+            ? m.offline
+            : fill(m.error, { code: state.code });
     return (
       <p role="alert" className="mt-12 border-l-2 border-oxblood pl-4 font-sans text-sm">
-        Não foi possível carregar a fila agora. {state.message}{" "}
+        {m.failed} {reason}{" "}
         <a href={`${repoUrl}/pulls`} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">
-          Ver direto no GitHub ↗
+          {m.seeOnGitHub} ↗
         </a>
       </p>
     );
   }
+
+  const locale = htmlLang[lang];
   return (
     <>
-      <Queue
-        title="Contribuições aguardando revisão"
-        empty="Nenhuma contribuição na fila. A próxima pode ser a sua."
-        items={state.pulls}
-        action={(item) => ["Revisar mudanças", `${item.url}/files`]}
-      />
-      <Queue
-        title="Denúncias em análise"
-        empty="Nenhuma denúncia em aberto."
-        items={state.reports}
-        action={(item) => ["Abrir", item.url]}
-      />
+      <Queue m={m} locale={locale} title={m.pulls} empty={m.noPulls} items={state.pulls} action={(item) => [m.review, `${item.html_url}/files`]} />
+      <Queue m={m} locale={locale} title={m.reports} empty={m.noReports} items={state.reports} action={(item) => [m.open, item.html_url]} />
     </>
   );
 }

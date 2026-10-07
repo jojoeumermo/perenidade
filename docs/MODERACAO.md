@@ -1,6 +1,6 @@
 # Guia de moderação
 
-A moderação da Perenidade acontece no GitHub. O site só mostra a fila (página **Fila de moderação**), lendo dados públicos. Não existe painel com senha: quem pode aprovar é quem tem permissão de escrita neste repositório.
+A moderação do Projeto Lucia acontece no GitHub. O site só mostra a fila (página **Fila de moderação**), lendo dados públicos. Não existe painel com senha: quem pode aprovar é quem tem permissão de escrita neste repositório.
 
 ## Revisar uma contribuição
 

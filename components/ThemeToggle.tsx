@@ -1,37 +1,31 @@
 "use client";
 
 import { useLayoutEffect } from "react";
+import { applyPrefs, prefsScript, readPrefs } from "@/lib/prefs";
+import { getItem, KEYS, setItem } from "@/lib/storage";
+import { useI18n } from "./I18n";
 
-const KEY = "perenidade:tema";
-
-// Roda antes da primeira pintura, para a página não piscar no tema errado.
-const themeScript = `(function(){try{var t=localStorage.getItem("${KEY}");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`;
-
+// Aplica tema e preferências de acessibilidade antes da primeira pintura, para a página não piscar.
 // O tipo muda no cliente para o React não reclamar de <script> dentro de componente:
 // o script só precisa rodar no HTML vindo do servidor.
-export function ThemeScript() {
+export function PrefsScript() {
   return (
     <script
       type={typeof window === "undefined" ? "text/javascript" : "text/plain"}
       suppressHydrationWarning
-      dangerouslySetInnerHTML={{ __html: themeScript }}
+      dangerouslySetInnerHTML={{ __html: prefsScript }}
     />
   );
 }
 
-function stored(): string | null {
-  try {
-    return localStorage.getItem(KEY);
-  } catch {
-    return null;
-  }
-}
-
 export function ThemeToggle() {
-  // No modo de desenvolvimento o React remonta a árvore e apaga o atributo posto pelo script.
+  const { t } = useI18n();
+
+  // No modo de desenvolvimento o React remonta a árvore e apaga os atributos postos pelo script.
   useLayoutEffect(() => {
-    const theme = stored();
+    const theme = getItem(KEYS.theme);
     if (theme === "light" || theme === "dark") document.documentElement.setAttribute("data-theme", theme);
+    applyPrefs(readPrefs());
   }, []);
 
   function toggle() {
@@ -40,19 +34,15 @@ export function ThemeToggle() {
       (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     const next = current === "dark" ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", next);
-    try {
-      localStorage.setItem(KEY, next);
-    } catch {
-      // Sem armazenamento, a escolha vale só para esta visita.
-    }
+    setItem(KEYS.theme, next);
   }
 
   return (
     <button
       type="button"
       onClick={toggle}
-      aria-label="Alternar entre tema claro e escuro"
-      title="Alternar tema claro/escuro"
+      aria-label={t.common.theme}
+      title={t.common.theme}
       className="cursor-pointer text-ink-soft hover:text-oxblood"
     >
       <svg aria-hidden viewBox="0 0 20 20" className="h-5 w-5">

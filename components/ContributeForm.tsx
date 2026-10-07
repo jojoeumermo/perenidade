@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { areas, licenses } from "@/lib/areas";
-import { useHydrated } from "@/lib/progress";
+import type { Dict } from "@/i18n/pt";
+import { areaSlugs, licenses } from "@/lib/areas";
 import { github, MAX_PREFILL_LENGTH } from "@/lib/site";
+import { KEYS, getItem, parse, setItem, useHydrated } from "@/lib/storage";
 import { slugify } from "@/lib/text";
+import { licenseName } from "./Cards";
+import { useI18n } from "./I18n";
 import { Markdown } from "./Markdown";
-
-const DRAFT_KEY = "perenidade:rascunho";
 
 interface TrackOption {
   slug: string;
@@ -38,22 +39,18 @@ const emptyDraft: Draft = {
   credit: "",
   body: "",
   author: "",
-  area: areas[0].slug,
+  area: areaSlugs[0],
   license: licenses[0],
   source: "",
   url: "",
   language: "Português",
 };
 
-function loadDraft(firstTrack: string): Draft {
-  try {
-    const raw = localStorage.getItem(DRAFT_KEY);
-    if (raw) return { ...emptyDraft, track: firstTrack, ...(JSON.parse(raw) as Partial<Draft>) };
-  } catch {
-    // Rascunho ilegível ou armazenamento bloqueado: começa em branco.
-  }
-  return { ...emptyDraft, track: firstTrack };
-}
+const loadDraft = (firstTrack: string): Draft => ({
+  ...emptyDraft,
+  track: firstTrack,
+  ...parse<Partial<Draft>>(getItem(KEYS.draft), {}),
+});
 
 // JSON.stringify produz uma string entre aspas que também é YAML válido.
 const yaml = (value: string) => JSON.stringify(value.trim());
@@ -89,21 +86,21 @@ function buildFile(draft: Draft, tracks: TrackOption[]): { path: string; content
   };
 }
 
-function problems(draft: Draft, declared: boolean): string[] {
+function problems(draft: Draft, declared: boolean, p: Dict["contribute"]["problems"]): string[] {
   const list: string[] = [];
-  if (draft.title.trim().length < 3) list.push("Dê um título.");
+  if (draft.title.trim().length < 3) list.push(p.title);
   if (draft.kind === "aula") {
-    if (!draft.track) list.push("Escolha a trilha.");
-    if (!draft.summary.trim()) list.push("Escreva um resumo de uma linha.");
-    if (draft.body.trim().length < 200) list.push("O conteúdo da aula precisa de pelo menos 200 caracteres.");
+    if (!draft.track) list.push(p.track);
+    if (!draft.summary.trim()) list.push(p.summary);
+    if (draft.body.trim().length < 200) list.push(p.body);
   } else {
-    if (!draft.author.trim()) list.push("Informe o autor da obra.");
-    if (!draft.source.trim()) list.push("Informe a fonte (ex.: Project Gutenberg).");
-    if (!/^https:\/\/\S+$/.test(draft.url.trim())) list.push("O link precisa começar com https://.");
-    else if (/\.pdf($|\?)/i.test(draft.url.trim())) list.push("Aponte para a página da obra na fonte, não direto para um PDF.");
-    if (draft.body.trim().length < 40) list.push("Escreva uma sinopse com suas palavras.");
+    if (!draft.author.trim()) list.push(p.author);
+    if (!draft.source.trim()) list.push(p.source);
+    if (!/^https:\/\/\S+$/.test(draft.url.trim())) list.push(p.https);
+    else if (/\.pdf($|\?)/i.test(draft.url.trim())) list.push(p.pdf);
+    if (draft.body.trim().length < 40) list.push(p.synopsis);
   }
-  if (!declared) list.push("Confirme a declaração de licença.");
+  if (!declared) list.push(p.declare);
   return list;
 }
 
@@ -113,36 +110,35 @@ const action = "cursor-pointer border-2 border-ink px-5 py-2.5 font-medium hover
 export function ContributeForm({ tracks }: { tracks: TrackOption[] }) {
   // O rascunho mora no localStorage, então o formulário só é montado no navegador.
   const hydrated = useHydrated();
-  if (!hydrated) return <p className="mt-10 font-mono text-xs text-ink-soft">Carregando o editor…</p>;
+  const { t } = useI18n();
+  if (!hydrated) return <p className="mt-10 font-mono text-xs text-ink-soft">{t.contribute.loading}</p>;
   return <Editor tracks={tracks} />;
 }
 
 function Editor({ tracks }: { tracks: TrackOption[] }) {
+  const { lang, t } = useI18n();
+  const c = t.contribute;
   const [draft, setDraft] = useState<Draft>(() => loadDraft(tracks[0]?.slug ?? ""));
   const [declared, setDeclared] = useState(false);
   const [preview, setPreview] = useState(false);
   const [notice, setNotice] = useState("");
 
   useEffect(() => {
-    try {
-      localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
-    } catch {
-      // Sem armazenamento, o rascunho vive só enquanto a aba estiver aberta.
-    }
+    setItem(KEYS.draft, JSON.stringify(draft));
   }, [draft]);
 
   const update = <K extends keyof Draft>(key: K, value: Draft[K]) => setDraft((prev) => ({ ...prev, [key]: value }));
   const file = buildFile(draft, tracks);
-  const issues = problems(draft, declared);
+  const issues = problems(draft, declared, c.problems);
   const isLesson = draft.kind === "aula";
 
   async function copy(): Promise<boolean> {
     try {
       await navigator.clipboard.writeText(file.content);
-      setNotice("Arquivo copiado para a área de transferência.");
+      setNotice(c.notices.copied);
       return true;
     } catch {
-      setNotice("Não foi possível copiar automaticamente. Use o botão de baixar o arquivo.");
+      setNotice(c.notices.copyFailed);
       return false;
     }
   }
@@ -162,26 +158,29 @@ function Editor({ tracks }: { tracks: TrackOption[] }) {
     const copying = fits ? null : copy();
     window.open(github.newFile(file.path, fits ? file.content : undefined), "_blank", "noopener");
     if (!copying) {
-      setNotice("Abrimos o GitHub em outra aba. Lá, clique em “Commit changes” e depois em “Create pull request”.");
+      setNotice(c.notices.opened);
       return;
     }
-    setNotice(
-      (await copying)
-        ? "O texto é longo demais para ir pronto no link, então foi copiado. No GitHub, cole no editor (Ctrl+V), clique em “Commit changes” e depois em “Create pull request”."
-        : "O texto é longo demais para ir pronto no link. Baixe o arquivo e cole o conteúdo dele no editor do GitHub.",
-    );
+    setNotice((await copying) ? c.notices.longCopied : c.notices.longFailed);
   }
 
   function reset() {
     setDraft({ ...emptyDraft, kind: draft.kind, track: tracks[0]?.slug ?? "" });
     setDeclared(false);
-    setNotice("Rascunho apagado.");
+    setNotice(c.notices.cleared);
   }
+
+  const input = (key: "title" | "summary" | "credit" | "author" | "language" | "source" | "url", label: string, extra = {}) => (
+    <label className="block">
+      {label}
+      <input value={draft[key]} onChange={(e) => update(key, e.target.value)} className={field} {...extra} />
+    </label>
+  );
 
   return (
     <form className="mt-10 space-y-5 font-sans text-sm" onSubmit={(e) => e.preventDefault()}>
       <fieldset className="flex flex-wrap gap-3">
-        <legend className="sr-only">O que você quer enviar</legend>
+        <legend className="sr-only">{c.kindLegend}</legend>
         {(["aula", "obra"] as const).map((kind) => (
           <label
             key={kind}
@@ -189,110 +188,73 @@ function Editor({ tracks }: { tracks: TrackOption[] }) {
               draft.kind === kind ? "border-ink bg-ink text-parchment" : "border-rule hover:border-gold"
             }`}
           >
-            <input
-              type="radio"
-              name="kind"
-              value={kind}
-              checked={draft.kind === kind}
-              onChange={() => update("kind", kind)}
-              className="sr-only"
-            />
-            {kind === "aula" ? "Uma aula" : "Uma obra para o acervo"}
+            <input type="radio" name="kind" value={kind} checked={draft.kind === kind} onChange={() => update("kind", kind)} className="sr-only" />
+            {kind === "aula" ? c.kindLesson : c.kindWork}
           </label>
         ))}
       </fieldset>
 
       {isLesson && (
         <label className="block">
-          Trilha
+          {c.track}
           <select value={draft.track} onChange={(e) => update("track", e.target.value)} className={field}>
-            {tracks.map((t) => (
-              <option key={t.slug} value={t.slug}>
-                {t.title}
+            {tracks.map((track) => (
+              <option key={track.slug} value={track.slug}>
+                {track.title}
               </option>
             ))}
           </select>
         </label>
       )}
 
-      <label className="block">
-        {isLesson ? "Título da aula" : "Título da obra"}
-        <input value={draft.title} onChange={(e) => update("title", e.target.value)} maxLength={120} className={field} />
-      </label>
+      {input("title", isLesson ? c.lessonTitle : c.workTitle, { maxLength: 120 })}
 
       {isLesson ? (
         <>
-          <label className="block">
-            Resumo (uma linha)
-            <input value={draft.summary} onChange={(e) => update("summary", e.target.value)} maxLength={200} className={field} />
-          </label>
-          <label className="block">
-            Como você quer ser creditado (opcional)
-            <input value={draft.credit} onChange={(e) => update("credit", e.target.value)} maxLength={80} className={field} />
-          </label>
+          {input("summary", c.summary, { maxLength: 200 })}
+          {input("credit", c.credit, { maxLength: 80 })}
         </>
       ) : (
         <div className="grid gap-5 sm:grid-cols-2">
+          {input("author", c.author)}
+          {input("language", c.language)}
           <label className="block">
-            Autor
-            <input value={draft.author} onChange={(e) => update("author", e.target.value)} className={field} />
-          </label>
-          <label className="block">
-            Idioma
-            <input value={draft.language} onChange={(e) => update("language", e.target.value)} className={field} />
-          </label>
-          <label className="block">
-            Área
+            {c.area}
             <select value={draft.area} onChange={(e) => update("area", e.target.value)} className={field}>
-              {areas.map((a) => (
-                <option key={a.slug} value={a.slug}>
-                  {a.name}
+              {areaSlugs.map((slug) => (
+                <option key={slug} value={slug}>
+                  {t.areas[slug][0]}
                 </option>
               ))}
             </select>
           </label>
           <label className="block">
-            Licença
+            {c.license}
             <select value={draft.license} onChange={(e) => update("license", e.target.value)} className={field}>
               {licenses.map((l) => (
-                <option key={l}>{l}</option>
+                <option key={l} value={l}>
+                  {licenseName(t, l)}
+                </option>
               ))}
             </select>
           </label>
-          <label className="block">
-            Fonte
-            <input
-              value={draft.source}
-              onChange={(e) => update("source", e.target.value)}
-              placeholder="Project Gutenberg"
-              className={field}
-            />
-          </label>
-          <label className="block">
-            Link da obra na fonte
-            <input
-              type="url"
-              value={draft.url}
-              onChange={(e) => update("url", e.target.value)}
-              placeholder="https://…"
-              className={`${field} font-mono`}
-            />
-          </label>
+          {input("source", c.source, { placeholder: "Project Gutenberg" })}
+          {input("url", c.url, { type: "url", placeholder: "https://…" })}
         </div>
       )}
 
       <div>
         <div className="flex items-end justify-between gap-3">
-          <label htmlFor="conteudo-md">{isLesson ? "Conteúdo (Markdown)" : "Sinopse, com suas palavras"}</label>
+          <label htmlFor="conteudo-md">{isLesson ? c.body : c.synopsis}</label>
           {isLesson && (
             <button type="button" onClick={() => setPreview((p) => !p)} className="cursor-pointer underline hover:text-oxblood">
-              {preview ? "Voltar a escrever" : "Pré-visualizar"}
+              {preview ? c.write : c.preview}
             </button>
           )}
         </div>
         {preview && isLesson ? (
           <div className="mt-1 min-h-64 border-2 border-rule bg-parchment p-5 font-serif">
-            <Markdown>{draft.body || "*Nada para mostrar ainda.*"}</Markdown>
+            <Markdown lang={lang}>{draft.body || c.emptyPreview}</Markdown>
           </div>
         ) : (
           <textarea
@@ -300,24 +262,22 @@ function Editor({ tracks }: { tracks: TrackOption[] }) {
             value={draft.body}
             onChange={(e) => update("body", e.target.value)}
             rows={isLesson ? 16 : 5}
-            placeholder={isLesson ? "## Um subtítulo\n\nEscreva aqui. **Negrito**, *itálico*, listas com - e tabelas funcionam." : ""}
+            placeholder={isLesson ? c.bodyPlaceholder : ""}
             className={`${field} font-mono`}
           />
         )}
-        <p className="mt-1 font-mono text-xs text-ink-soft">Rascunho salvo automaticamente neste navegador.</p>
+        <p className="mt-1 font-mono text-xs text-ink-soft">{c.autosave}</p>
       </div>
 
       <label className="flex items-start gap-2">
         <input type="checkbox" checked={declared} onChange={(e) => setDeclared(e.target.checked)} className="mt-1" />
-        <span>
-          {isLesson
-            ? "Declaro que este texto é de minha autoria (ou está em domínio público) e aceito publicá-lo sob a licença CC BY-SA 4.0."
-            : "Declaro que conferi a licença na fonte e que o link aponta para uma publicação legítima da obra."}
-        </span>
+        <span>{isLesson ? c.declareLesson : c.declareWork}</span>
       </label>
 
       <div className="border border-rule bg-parchment-deep p-5">
-        <p className="font-mono text-xs text-ink-soft">Arquivo que será proposto: {file.path}</p>
+        <p className="font-mono text-xs text-ink-soft">
+          {c.file} {file.path}
+        </p>
         {issues.length > 0 ? (
           <ul className="mt-3 list-disc space-y-1 pl-5 text-oxblood">
             {issues.map((issue) => (
@@ -325,7 +285,7 @@ function Editor({ tracks }: { tracks: TrackOption[] }) {
             ))}
           </ul>
         ) : (
-          <p className="mt-3 text-ok">Tudo certo. Escolha como enviar:</p>
+          <p className="mt-3 text-ok">{c.ready}</p>
         )}
         <div className="mt-4 flex flex-wrap gap-3">
           <button
@@ -334,16 +294,16 @@ function Editor({ tracks }: { tracks: TrackOption[] }) {
             onClick={openOnGitHub}
             className="cursor-pointer bg-oxblood px-6 py-2.5 font-medium text-parchment hover:bg-ink disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Enviar pelo GitHub ↗
+            {c.send} ↗
           </button>
           <button type="button" onClick={copy} className={action}>
-            Copiar arquivo
+            {c.copy}
           </button>
           <button type="button" onClick={download} className={action}>
-            Baixar .md
+            {c.download}
           </button>
           <button type="button" onClick={reset} className="cursor-pointer px-2 text-ink-soft underline hover:text-oxblood">
-            Apagar rascunho
+            {c.clear}
           </button>
         </div>
         <p role="status" className="mt-3 min-h-5 text-ink-soft">

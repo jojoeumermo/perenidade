@@ -14,7 +14,7 @@ for (const name of files) {
   try {
     const response = await fetch(url, {
       redirect: "follow",
-      headers: { "User-Agent": "Mozilla/5.0 (verificador de links da Perenidade)" },
+      headers: { "User-Agent": "Mozilla/5.0 (verificador de links do Projeto Lucia)" },
       signal: AbortSignal.timeout(30_000),
     });
     result = response.ok ? "ok" : `HTTP ${response.status}`;
