@@ -1,22 +1,14 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { defaultLocale, isLocale, locales } from "@/i18n/config";
+import { defaultLocale, locales } from "@/i18n/config";
 
-/** Primeiro idioma do navegador que o site oferece; senão, português. */
-function preferred(request: NextRequest): string {
-  const header = request.headers.get("accept-language") ?? "";
-  for (const part of header.split(",")) {
-    const code = part.split(";")[0].trim().toLowerCase().split("-")[0];
-    if (isLocale(code)) return code;
-  }
-  return defaultLocale;
-}
-
-// Todo endereço sem prefixo de idioma ("/", "/trilhas") é redirecionado para o idioma da pessoa.
+// O idioma principal é o português: todo endereço sem prefixo de idioma ("/", "/trilhas")
+// abre em português, seja qual for o idioma do navegador. Os outros idiomas são escolhidos
+// pela pessoa no seletor do cabeçalho.
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   if (locales.some((code) => pathname === `/${code}` || pathname.startsWith(`/${code}/`))) return;
   const url = request.nextUrl.clone();
-  url.pathname = `/${preferred(request)}${pathname === "/" ? "" : pathname}`;
+  url.pathname = `/${defaultLocale}${pathname === "/" ? "" : pathname}`;
   return NextResponse.redirect(url);
 }
 

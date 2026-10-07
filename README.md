@@ -47,7 +47,7 @@ app/[lang]/                       páginas (Next.js, App Router)
 components/                       componentes de interface
 lib/content.ts                    lê e valida o conteúdo
 lib/history.ts                    lê o histórico do Git
-proxy.ts                          manda quem chega sem idioma para o idioma do navegador
+proxy.ts                          abre em português quem chega sem idioma no endereço
 supabase/schema.sql               camada opcional de contas (ainda não usada)
 docs/MODERACAO.md                 guia de moderação
 ```
