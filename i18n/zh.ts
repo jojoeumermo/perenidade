@@ -36,6 +36,7 @@ export const zh: Dict = {
     history: "馆藏历史",
     reportContent: "举报内容",
     myData: "我的数据",
+    dedication: "献词",
     code: "GitHub 上的代码",
   },
   footer: {
@@ -338,6 +339,26 @@ export const zh: Dict = {
     contributors: "已经参与贡献的人",
     contributorsLead: "名字取自馆藏的历史记录，按加入的先后排列。",
     none: "本站的这份副本中没有历史记录。",
+  },
+  dedication: {
+    "eyebrow": "献词",
+    "title": "献给 Lúcia",
+    "kind": "女性专有名词",
+    "etymLabel": "词源",
+    "etym": "源自拉丁语 Lucia，是 Lucius 的阴性形式，来自 lux, lucis：“光”。",
+    "senses": [
+      "光明的人；带来光的人。",
+      "相传在古罗马，这个名字用来称呼黎明时分出生的孩子。",
+      "在本项目中：这座图书馆所献给的那位祖母。"
+    ],
+    "related": "同一词根的词：lúcido（清醒的）、iluminar（照亮）。",
+    "text": [
+      "这个项目以 Lúcia 命名，她是创建者的祖母。",
+      "她已经不在了，但名字留了下来，也留下了这个名字所许诺的东西：光。",
+      "每一座图书馆，都是为某个人点亮一盏灯。愿每一位在这里学到东西的人，都把这份光亮带向更远的地方。"
+    ],
+    "closing": "Lúcia，永远在场。",
+    "sign": "怀着爱与思念。"
   },
   notFound: {
     eyebrow: "错误 404",

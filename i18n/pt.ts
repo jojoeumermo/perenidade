@@ -42,6 +42,7 @@ export const pt = {
     history: "Histórico do acervo",
     reportContent: "Denunciar conteúdo",
     myData: "Meus dados",
+    dedication: "Dedicatória",
     code: "Código no GitHub",
   },
   footer: {
@@ -349,6 +350,26 @@ export const pt = {
     contributors: "Quem já contribuiu",
     contributorsLead: "Nomes tirados do histórico do acervo, em ordem de chegada.",
     none: "O histórico não está disponível nesta cópia do site.",
+  },
+  dedication: {
+    "eyebrow": "Dedicatória",
+    "title": "Para Lúcia",
+    "kind": "substantivo próprio feminino",
+    "etymLabel": "Origem",
+    "etym": "Do latim Lucia, feminino de Lucius, derivado de lux, lucis: «luz».",
+    "senses": [
+      "A luminosa; aquela que traz a luz.",
+      "Segundo a tradição, nome dado na Roma antiga às crianças nascidas ao amanhecer.",
+      "Neste projeto: a avó a quem esta biblioteca é dedicada."
+    ],
+    "related": "Da mesma raiz: lúcido, luzir, elucidar, iluminar.",
+    "text": [
+      "Este projeto leva o nome de Lúcia, avó de quem o criou.",
+      "Ela já não está aqui, mas o nome ficou, e com ele o que um nome assim promete: luz.",
+      "Toda biblioteca é um jeito de acender a luz para alguém. Que cada pessoa que aprender alguma coisa aqui leve um pouco dessa claridade adiante."
+    ],
+    "closing": "Lúcia, presente.",
+    "sign": "Com amor e saudade."
   },
   notFound: {
     eyebrow: "Erro 404",

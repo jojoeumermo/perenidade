@@ -37,6 +37,7 @@ export const en: Dict = {
     history: "History of the collection",
     reportContent: "Report content",
     myData: "My data",
+    dedication: "Dedication",
     code: "Code on GitHub",
   },
   footer: {
@@ -340,6 +341,26 @@ export const en: Dict = {
     contributors: "Who has contributed so far",
     contributorsLead: "Names taken from the history of the collection, in order of arrival.",
     none: "The history is not available in this copy of the site.",
+  },
+  dedication: {
+    "eyebrow": "Dedication",
+    "title": "For Lúcia",
+    "kind": "feminine proper noun",
+    "etymLabel": "Origin",
+    "etym": "From Latin Lucia, feminine of Lucius, derived from lux, lucis: “light”.",
+    "senses": [
+      "The luminous one; she who brings light.",
+      "According to tradition, a name given in ancient Rome to children born at dawn.",
+      "In this project: the grandmother to whom this library is dedicated."
+    ],
+    "related": "From the same root: lucid, elucidate, illuminate.",
+    "text": [
+      "This project bears the name of Lúcia, the grandmother of the person who created it.",
+      "She is no longer here, but the name remained, and with it what such a name promises: light.",
+      "Every library is a way of turning on the light for someone. May everyone who learns something here carry a little of that brightness forward."
+    ],
+    "closing": "Lúcia, present.",
+    "sign": "With love and longing."
   },
   notFound: {
     eyebrow: "Error 404",
