@@ -1,0 +1,1 @@
+The last leader of the Quilombo dos Palmares, the largest community of people who escaped slavery in the Americas, which resisted the colonisers' attacks for almost a century. He was killed on 20 November 1695. The date is now Black Consciousness Day in Brazil.

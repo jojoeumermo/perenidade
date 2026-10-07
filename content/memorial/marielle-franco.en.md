@@ -1,0 +1,1 @@
+A Black woman raised in the Maré favela, sociologist and Rio de Janeiro city councillor. She devoted her term to defending human rights, women, Black people and favela residents, and denounced police violence. She was shot dead on 14 March 2018, together with her driver, Anderson Gomes. Her name became a seed.

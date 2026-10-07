@@ -1,7 +1,7 @@
 ---
 titulo: "Frações"
 resumo: "O que é uma fração, como simplificar e como somar."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "Qual fração é equivalente a 2/4?"
     opcoes: ["1/2", "2/8", "4/2"]

@@ -1,0 +1,1 @@
+Cauchero y sindicalista. Organizó a los trabajadores de la selva para impedir, con sus propios cuerpos, la tala de los árboles, y mostró al mundo que defender la Amazonia es defender a quienes viven en ella. Fue asesinado en la puerta de su casa el 22 de diciembre de 1988.

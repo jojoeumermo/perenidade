@@ -1,0 +1,1 @@
+Economista, escritora y dirigente revolucionaria. Pasó años en prisión por oponerse a la Primera Guerra Mundial y nunca dejó de defender que el socialismo solo puede ser obra de los propios trabajadores. Fue asesinada por paramilitares el 15 de enero de 1919, y su cuerpo fue arrojado a un canal de Berlín.

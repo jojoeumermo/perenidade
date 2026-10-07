@@ -1,7 +1,7 @@
 ---
 titulo: "A Biblioteca de Alexandria"
 resumo: "O maior centro de conhecimento da Antiguidade, e o que seu desaparecimento ensina."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "Quem criou a Biblioteca de Alexandria?"
     opcoes: ["Alexandre, o Grande", "Os primeiros reis da dinastia dos Ptolomeus", "O imperador romano Júlio César"]

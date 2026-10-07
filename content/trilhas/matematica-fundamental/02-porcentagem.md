@@ -1,7 +1,7 @@
 ---
 titulo: "Porcentagem"
 resumo: "Calcular descontos, aumentos e a parte de um total, sem decorar fórmula."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "Quanto é 20% de 150?"
     opcoes: ["20", "30", "75"]

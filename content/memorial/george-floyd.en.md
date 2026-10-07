@@ -1,0 +1,1 @@
+A Black man, a father, a worker. He died on 25 May 2020 in Minneapolis, after a police officer kept a knee on his neck for more than nine minutes while he said he could not breathe. His death brought millions of people onto the streets, in dozens of countries, against racism and police violence. The officer was convicted of murder in 2021.

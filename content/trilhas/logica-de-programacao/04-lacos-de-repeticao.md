@@ -1,7 +1,7 @@
 ---
 titulo: "Laços de repetição"
 resumo: "Como mandar o computador repetir uma tarefa sem reescrever o código."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "Quais números o comando for i in range(3) percorre?"
     opcoes: ["1, 2, 3", "0, 1, 2", "0, 1, 2, 3"]

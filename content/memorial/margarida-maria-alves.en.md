@@ -1,0 +1,1 @@
+A rural worker and president of her town's union. She fought for sugar-cane cutters to have formal contracts, paid holidays and a year-end bonus, and filed hundreds of lawsuits against mill owners. She was murdered at her front door on 12 August 1983. In her memory, rural women hold the Marcha das Margaridas (March of the Daisies).
