@@ -1,0 +1,1 @@
+A journalist and head of news at TV Cultura. He presented himself voluntarily for questioning and was killed under torture at the DOI-CODI, a repression agency of the military dictatorship, on 25 October 1975. The regime tried to pass his death off as suicide. The lie did not hold, and his death became a landmark of the resistance to the dictatorship.

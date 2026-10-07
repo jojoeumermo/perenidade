@@ -1,0 +1,1 @@
+Misionera nacida en Estados Unidos y naturalizada brasileña. Vivió décadas en la Amazonia junto a los trabajadores rurales, defendiendo la reforma agraria y la selva frente a acaparadores de tierras y madereros. Fue asesinada a tiros el 12 de febrero de 2005, en un camino de tierra en Anapu.

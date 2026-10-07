@@ -1,7 +1,7 @@
 ---
 titulo: "Como funciona a internet"
 resumo: "O caminho que uma página percorre do servidor até a sua tela."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "O que o DNS faz?"
     opcoes: ["Protege o computador contra vírus", "Traduz nomes de sites em endereços IP", "Aumenta a velocidade da conexão"]

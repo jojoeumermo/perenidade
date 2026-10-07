@@ -1,7 +1,7 @@
 ---
 titulo: "Por onde começar"
 resumo: "Quem foi Machado, o que torna seus livros diferentes e uma ordem de leitura sugerida."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "O que há de incomum no narrador de Memórias Póstumas de Brás Cubas?"
     opcoes: ["Ele é uma criança", "Ele já morreu e conta a própria vida", "Ele é um animal"]

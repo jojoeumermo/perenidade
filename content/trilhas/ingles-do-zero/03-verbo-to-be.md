@@ -1,7 +1,7 @@
 ---
 titulo: "O verbo to be"
 resumo: "O verbo mais usado do inglês, que vale por \"ser\" e por \"estar\"."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "Complete: \"She ___ a teacher.\""
     opcoes: ["am", "is", "are"]

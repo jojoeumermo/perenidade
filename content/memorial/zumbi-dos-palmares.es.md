@@ -1,0 +1,1 @@
+Último líder del Quilombo de Palmares, la mayor comunidad de personas que escaparon de la esclavitud en las Américas, que resistió durante casi un siglo los ataques de los colonizadores. Fue muerto el 20 de noviembre de 1695. Hoy esa fecha es el Día de la Conciencia Negra en Brasil.

@@ -1,7 +1,7 @@
 ---
 titulo: "Funções"
 resumo: "Como dar nome a um trecho de código para usá-lo quantas vezes quiser."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "O que a palavra return faz dentro de uma função?"
     opcoes: ["Mostra um valor na tela", "Devolve um valor para quem chamou a função", "Repete a função desde o início"]

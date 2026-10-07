@@ -1,7 +1,7 @@
 ---
 titulo: "Mesopotâmia: o berço da escrita"
 resumo: "Como as primeiras cidades, a escrita e as leis escritas nasceram entre dois rios."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "O que significa a palavra \"Mesopotâmia\"?"
     opcoes: ["Terra dos reis", "Terra entre rios", "Terra do sol"]

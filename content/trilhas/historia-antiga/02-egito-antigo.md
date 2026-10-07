@@ -1,7 +1,7 @@
 ---
 titulo: "Egito Antigo: a civilização do Nilo"
 resumo: "Como um rio no meio do deserto sustentou três mil anos de história."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "Por que o Nilo era tão importante para o Egito?"
     opcoes: ["Porque suas cheias fertilizavam as margens", "Porque era a única fronteira do país", "Porque dele se extraía ouro"]

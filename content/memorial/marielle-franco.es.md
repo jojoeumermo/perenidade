@@ -1,0 +1,1 @@
+Mujer negra, criada en la favela de Maré, socióloga y concejala de Río de Janeiro. Dedicó su mandato a defender los derechos humanos, a las mujeres, a la población negra y a los habitantes de las favelas, y denunció la violencia policial. Fue asesinada a tiros el 14 de marzo de 2018, junto con su conductor, Anderson Gomes. Su nombre se volvió semilla.

@@ -1,7 +1,7 @@
 ---
 titulo: "Condições"
 resumo: "Como fazer o programa tomar decisões com se, senão e os operadores de comparação."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "Qual operador testa se dois valores são iguais?"
     opcoes: ["=", "==", "=>"]

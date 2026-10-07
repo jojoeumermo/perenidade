@@ -1,0 +1,1 @@
+A missionary born in the United States who became a Brazilian citizen. She lived for decades in the Amazon alongside rural workers, defending land reform and the forest against land-grabbers and loggers. She was shot dead on 12 February 2005, on a dirt road in Anapu.
