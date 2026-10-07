@@ -1,16 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { fill } from "@/i18n/config";
 import type { QuizQuestion } from "@/lib/content";
+import { useI18n } from "./I18n";
 
 export function Quiz({ questions }: { questions: QuizQuestion[] }) {
+  const { t } = useI18n();
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const right = questions.filter((q, i) => answers[i] === q.answer).length;
   const finished = Object.keys(answers).length === questions.length;
 
   return (
     <section aria-labelledby="quiz-titulo" className="no-print mt-12 border border-rule bg-parchment-deep p-6">
-      <h2 id="quiz-titulo" className="text-2xl font-semibold">Teste o que você aprendeu</h2>
+      <h2 id="quiz-titulo" className="text-2xl font-semibold">{t.lesson.quizTitle}</h2>
       <ol className="mt-6 space-y-8 font-sans">
         {questions.map((q, i) => {
           const chosen = answers[i];
@@ -48,7 +51,7 @@ export function Quiz({ questions }: { questions: QuizQuestion[] }) {
               {answered && (
                 <p role="status" className="mt-3 text-sm text-ink-soft">
                   <strong className={chosen === q.answer ? "text-ok" : "text-oxblood"}>
-                    {chosen === q.answer ? "Correto." : "Ainda não."}
+                    {chosen === q.answer ? t.lesson.correct : t.lesson.notYet}
                   </strong>{" "}
                   {q.explanation}
                 </p>
@@ -59,11 +62,9 @@ export function Quiz({ questions }: { questions: QuizQuestion[] }) {
       </ol>
       {finished && (
         <div className="mt-8 flex flex-wrap items-center gap-4 border-t border-rule pt-5 font-sans text-sm">
-          <p>
-            Você acertou <strong>{right}</strong> de {questions.length}.
-          </p>
+          <p>{fill(t.lesson.score, { a: right, b: questions.length })}</p>
           <button type="button" onClick={() => setAnswers({})} className="cursor-pointer underline hover:text-oxblood">
-            Tentar de novo
+            {t.lesson.tryAgain}
           </button>
         </div>
       )}

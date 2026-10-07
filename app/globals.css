@@ -160,3 +160,70 @@ body {
     color: #000;
   }
 }
+
+/* ---- Acessibilidade: modos ligados pelo botão flutuante (components/A11yWidget.tsx) ---- */
+
+/* Alto contraste: amarelo e branco sobre preto. */
+:root[data-contrast] {
+  --parchment: #000;
+  --parchment-deep: #000;
+  --ink: #fff;
+  --ink-soft: #fff;
+  --gold: #ffe600;
+  --oxblood: #ffe600;
+  --rule: #fff;
+  --ok: #7dff7d;
+}
+:root[data-contrast] .paper {
+  background-image: none;
+}
+:root[data-contrast] a {
+  text-decoration: underline;
+}
+
+/* E-ink: preto e branco, sem animação nem textura, para telas de tinta eletrônica. */
+:root[data-eink] {
+  --parchment: #f2f2f2;
+  --parchment-deep: #f2f2f2;
+  --ink: #000;
+  --ink-soft: #222;
+  --gold: #000;
+  --oxblood: #000;
+  --rule: #000;
+  --ok: #000;
+}
+:root[data-eink] .paper {
+  background-image: none;
+}
+:root[data-eink] *,
+:root[data-eink] *::before,
+:root[data-eink] *::after {
+  transition: none !important;
+  animation: none !important;
+  box-shadow: none !important;
+}
+:root[data-eink] a {
+  text-decoration: underline;
+}
+
+/* Texto espaçado. */
+:root[data-spacing] body {
+  letter-spacing: 0.04em;
+  word-spacing: 0.14em;
+}
+:root[data-spacing] .prose-lesson {
+  line-height: 2;
+}
+
+/* Modo foco: só o texto. */
+:root[data-focus] .no-focus {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}

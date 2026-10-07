@@ -80,8 +80,44 @@ ano: "1899"
 Sinopse escrita com as suas palavras.
 ```
 
-- `licenca`: `Domínio público`, `CC BY`, `CC BY-SA`, `CC BY-NC`, `CC BY-NC-SA` ou `CC BY-NC-ND`. **Confira a licença na página da fonte** antes de enviar.
+- `licenca`: `Domínio público`, `CC BY`, `CC BY-SA`, `CC BY-NC`, `CC BY-NC-SA`, `CC BY-NC-ND` ou `Conforme a fonte` (para acervos em que a licença muda de texto para texto). **Confira a licença na página da fonte** antes de enviar.
 - `ano` é opcional.
+
+### Uma tradução
+
+A tradução de qualquer arquivo de conteúdo fica **ao lado do original**, com o código do idioma antes de `.md`:
+
+```
+content/trilhas/matematica-fundamental/01-fracoes.md       original (português)
+content/trilhas/matematica-fundamental/01-fracoes.en.md    tradução para o inglês
+```
+
+Os códigos são `en`, `es`, `zh` e `ru`. No cabeçalho da tradução, repita só os campos de texto (`titulo`, `resumo`, `quiz`). O resto vem do original. Enquanto não houver tradução, o site mostra o texto em português com um aviso.
+
+Traduções feitas só por máquina não são aceitas: o texto precisa ser revisado por quem domina o idioma.
+
+Os textos da interface (menus, botões) ficam em `i18n/`, um arquivo por idioma. O arquivo `pt.ts` é a origem; os outros precisam ter as mesmas chaves.
+
+### Um nome para o Memorial
+
+Crie `content/memorial/<nome>.md`:
+
+```markdown
+---
+nome: "Nome completo"
+nascimento: "1979"
+morte: "2018"
+local: "Cidade, País"
+---
+
+Um parágrafo curto e factual: quem foi, pelo que lutou, como e quando morreu.
+```
+
+Use só fatos bem documentados e cite a fonte no Pull Request.
+
+### Um autor
+
+Crie `content/autores/<autor>.md` com `nome`, `anos`, `origem` e, se houver, `arquivo` (link para um acervo livre das obras) e `arquivo_fonte` (nome desse acervo). Para ligar uma obra do acervo ao autor, acrescente `autores: ["<autor>"]` à ficha da obra.
 
 ## Antes de enviar
 

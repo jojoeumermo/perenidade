@@ -1,7 +1,7 @@
 import { normalize } from "./text";
 
 export interface SearchEntry {
-  kind: "aula" | "obra" | "trilha";
+  kind: "aula" | "obra" | "trilha" | "autor" | "memorial";
   title: string;
   href: string;
   area: string;

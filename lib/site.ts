@@ -3,7 +3,7 @@ const name = "perenidade";
 const branch = "master";
 
 export const site = {
-  name: "Perenidade",
+  name: "Projeto Lucia",
   description:
     "Conhecimento livre, gratuito e preservado. Aulas, trilhas e um índice de obras de domínio público, mantidos pela comunidade.",
   // Defina NEXT_PUBLIC_SITE_URL no deploy para sitemap e metadados apontarem para o domínio certo.

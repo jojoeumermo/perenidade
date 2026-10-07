@@ -1,20 +1,20 @@
-export const areas = [
-  { slug: "ingles", name: "Inglês", blurb: "Do alfabeto à conversação." },
-  { slug: "historia", name: "História", blurb: "Da Antiguidade ao mundo atual." },
-  { slug: "informatica", name: "Informática", blurb: "Como os computadores funcionam." },
-  { slug: "programacao", name: "Programação", blurb: "Lógica, web e além." },
-  { slug: "matematica", name: "Matemática", blurb: "Do básico ao raciocínio formal." },
-  { slug: "literatura", name: "Literatura", blurb: "Clássicos em domínio público." },
+// Os nomes e descrições de cada área ficam nos dicionários (i18n/), um por idioma.
+export const areaSlugs = [
+  "ingles",
+  "portugues",
+  "literatura",
+  "historia",
+  "geografia",
+  "sociologia",
+  "filosofia",
+  "politica",
+  "matematica",
+  "ciencias",
+  "informatica",
+  "programacao",
 ] as const;
 
-export type Area = (typeof areas)[number];
-export type AreaSlug = Area["slug"];
-
-export const areaSlugs = areas.map((a) => a.slug) as readonly string[];
-
-export function areaName(slug: string): string {
-  return areas.find((a) => a.slug === slug)?.name ?? slug;
-}
+export type AreaSlug = (typeof areaSlugs)[number];
 
 export const licenses = [
   "Domínio público",
@@ -23,6 +23,8 @@ export const licenses = [
   "CC BY-NC",
   "CC BY-NC-SA",
   "CC BY-NC-ND",
+  // Para arquivos como o marxists.org, em que a licença muda de texto para texto.
+  "Conforme a fonte",
 ] as const;
 
 export type License = (typeof licenses)[number];
