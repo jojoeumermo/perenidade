@@ -8,6 +8,8 @@ A Biblioteca de Alexandria não desapareceu em um único incêndio. Ela definhou
 
 O saber que a humanidade acumulou foi produzido por gerações de trabalhadoras e trabalhadores. Ele não pode ser mercadoria nem privilégio de quem pode pagar. Aqui ninguém paga, ninguém precisa de conta para aprender, e ninguém lucra.
 
+O nome é uma homenagem: veja a [dedicatória](/dedicatoria).
+
 ## De que lado estamos
 
 Este é um projeto de esquerda, e não esconde isso. Estamos do lado de quem trabalha, de quem luta por terra, por moradia, por salário, por liberdade, e de todos os povos que resistem à exploração e à opressão.

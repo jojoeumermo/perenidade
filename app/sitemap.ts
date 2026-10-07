@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/moderacao",
     "/historico",
     "/sobre",
+    "/dedicatoria",
     "/meus-dados",
     "/denunciar",
   ];

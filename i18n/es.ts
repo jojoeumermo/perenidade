@@ -37,6 +37,7 @@ export const es: Dict = {
     history: "Historial del acervo",
     reportContent: "Denunciar contenido",
     myData: "Mis datos",
+    dedication: "Dedicatoria",
     code: "Código en GitHub",
   },
   footer: {
@@ -340,6 +341,26 @@ export const es: Dict = {
     contributors: "Quiénes ya contribuyeron",
     contributorsLead: "Nombres tomados del historial del acervo, por orden de llegada.",
     none: "El historial no está disponible en esta copia del sitio.",
+  },
+  dedication: {
+    "eyebrow": "Dedicatoria",
+    "title": "Para Lúcia",
+    "kind": "nombre propio femenino",
+    "etymLabel": "Origen",
+    "etym": "Del latín Lucia, femenino de Lucius, derivado de lux, lucis: «luz».",
+    "senses": [
+      "La luminosa; la que trae la luz.",
+      "Según la tradición, nombre que se daba en la antigua Roma a los niños nacidos al amanecer.",
+      "En este proyecto: la abuela a quien está dedicada esta biblioteca."
+    ],
+    "related": "De la misma raíz: lúcido, lucir, elucidar, iluminar.",
+    "text": [
+      "Este proyecto lleva el nombre de Lúcia, abuela de quien lo creó.",
+      "Ella ya no está aquí, pero el nombre quedó, y con él lo que un nombre así promete: luz.",
+      "Toda biblioteca es una forma de encender la luz para alguien. Que cada persona que aprenda algo aquí lleve un poco de esa claridad más adelante."
+    ],
+    "closing": "Lúcia, presente.",
+    "sign": "Con amor y añoranza."
   },
   notFound: {
     eyebrow: "Error 404",
