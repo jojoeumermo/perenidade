@@ -1,7 +1,7 @@
 ---
 titulo: "Variáveis e tipos"
 resumo: "Como o programa guarda informações e por que o tipo de cada uma importa."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "Depois de executar x = 5 e, em seguida, x = x + 2, quanto vale x?"
     opcoes: ["5", "7", "A linha dá erro"]

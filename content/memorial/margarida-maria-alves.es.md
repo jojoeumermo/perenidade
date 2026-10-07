@@ -1,0 +1,1 @@
+Trabajadora rural y presidenta del sindicato de su ciudad. Luchó para que los cortadores de caña tuvieran contrato formal, vacaciones y aguinaldo, y presentó cientos de demandas contra los dueños de los ingenios. Fue asesinada en la puerta de su casa el 12 de agosto de 1983. En su memoria, las mujeres del campo realizan la Marcha de las Margaritas.

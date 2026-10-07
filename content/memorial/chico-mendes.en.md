@@ -1,0 +1,1 @@
+A rubber tapper and union leader. He organised the workers of the forest to stop the felling of trees with their own bodies, and showed the world that defending the Amazon means defending those who live in it. He was murdered at the door of his home on 22 December 1988.

@@ -1,7 +1,7 @@
 ---
 titulo: "Saudações e apresentações"
 resumo: "Como cumprimentar, dizer seu nome e se despedir."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "São 20h e você acabou de chegar a um jantar. O que você diz?"
     opcoes: ["Good night", "Good evening", "Good afternoon"]

@@ -1,7 +1,7 @@
 ---
 titulo: "Alfabeto e sons"
 resumo: "As 26 letras, como se chamam em inglês e os sons que não existem em português."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "Como se diz o nome da letra E em inglês?"
     opcoes: ["Como o nosso \"é\"", "Como o nosso \"i\"", "Como \"ei\""]

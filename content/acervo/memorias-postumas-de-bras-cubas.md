@@ -1,6 +1,7 @@
 ---
 titulo: "Memórias Póstumas de Brás Cubas"
 autor: "Machado de Assis"
+autores: ["machado-de-assis"]
 area: literatura
 licenca: "Domínio público"
 fonte: "Project Gutenberg"

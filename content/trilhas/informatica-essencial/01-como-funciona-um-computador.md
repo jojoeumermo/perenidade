@@ -1,7 +1,7 @@
 ---
 titulo: "Como funciona um computador"
 resumo: "As peças principais, o que cada uma faz e o papel do sistema operacional."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "Qual é a diferença entre hardware e software?"
     opcoes: ["Hardware é a parte física; software são os programas", "Hardware é mais caro que software", "Hardware é o que vem de fábrica; software é o que se compra depois"]

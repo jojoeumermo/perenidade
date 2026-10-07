@@ -1,0 +1,1 @@
+An economist, writer and revolutionary leader. She spent years in prison for opposing the First World War and never stopped arguing that socialism can only be the work of the workers themselves. She was murdered by paramilitaries on 15 January 1919, and her body was thrown into a Berlin canal.

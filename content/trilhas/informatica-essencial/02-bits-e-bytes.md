@@ -1,7 +1,7 @@
 ---
 titulo: "Bits e bytes"
 resumo: "Como textos, fotos e músicas viram zeros e uns."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "Quantos bits tem um byte?"
     opcoes: ["2", "8", "10"]

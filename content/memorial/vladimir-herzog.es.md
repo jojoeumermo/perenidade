@@ -1,0 +1,1 @@
+Periodista, director de informativos de TV Cultura. Se presentó voluntariamente a declarar y fue asesinado bajo tortura en las dependencias del DOI-CODI, órgano de represión de la dictadura militar, el 25 de octubre de 1975. El régimen intentó hacer pasar su muerte por un suicidio. La mentira no se sostuvo, y su muerte se convirtió en un hito de la resistencia a la dictadura.

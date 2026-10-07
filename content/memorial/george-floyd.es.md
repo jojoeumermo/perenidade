@@ -1,0 +1,1 @@
+Hombre negro, padre, trabajador. Murió el 25 de mayo de 2020 en Mineápolis, después de que un policía mantuviera la rodilla sobre su cuello durante más de nueve minutos mientras él decía que no podía respirar. Su muerte llevó a millones de personas a las calles, en decenas de países, contra el racismo y la violencia policial. El policía fue condenado por asesinato en 2021.

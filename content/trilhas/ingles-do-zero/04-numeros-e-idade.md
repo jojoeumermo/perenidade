@@ -1,7 +1,7 @@
 ---
 titulo: "Números e idade"
 resumo: "Contar de 0 a 100 e dizer quantos anos você tem."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "Como se diz \"Eu tenho 25 anos\"?"
     opcoes: ["I have 25 years", "I am 25 years old", "I am with 25 years"]

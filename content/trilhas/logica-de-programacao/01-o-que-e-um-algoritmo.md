@@ -1,7 +1,7 @@
 ---
 titulo: "O que é um algoritmo"
 resumo: "Uma sequência de passos claros para resolver um problema."
-autores: ["Equipe Perenidade"]
+autores: ["Equipe Projeto Lucia"]
 quiz:
   - pergunta: "O que é um algoritmo?"
     opcoes: ["Um tipo de computador", "Uma sequência finita de passos para resolver um problema", "Uma linguagem de programação"]
