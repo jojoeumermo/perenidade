@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { fill, localePath, plural } from "@/i18n/config";
 import { search, type SearchEntry } from "@/lib/search";
-
-const labels = { aula: "Aula", obra: "Obra", trilha: "Trilha" } as const;
+import { L, useI18n } from "./I18n";
 
 export function SearchClient() {
+  const { lang, t } = useI18n();
   const params = useSearchParams();
   const [query, setQuery] = useState(params.get("q") ?? "");
   const [entries, setEntries] = useState<SearchEntry[] | null>(null);
@@ -15,7 +15,7 @@ export function SearchClient() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/indice.json")
+    fetch(localePath(lang, "/indice.json"))
       .then((response) => {
         if (!response.ok) throw new Error(String(response.status));
         return response.json() as Promise<SearchEntry[]>;
@@ -29,7 +29,7 @@ export function SearchClient() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [lang]);
 
   const hits = entries ? search(entries, query) : [];
   const typed = query.trim().length > 0;
@@ -42,39 +42,39 @@ export function SearchClient() {
           autoFocus
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          aria-label="Buscar em aulas, trilhas e obras"
-          placeholder="Ex.: algoritmo, Machado, verbo to be…"
+          aria-label={t.search.label}
+          placeholder={t.search.placeholder}
           className="min-w-0 flex-1 bg-transparent px-4 py-3 font-mono text-sm outline-none placeholder:text-ink-soft"
         />
       </div>
 
       <p role="status" className="mt-6 font-mono text-xs text-ink-soft">
         {failed
-          ? "Não foi possível carregar o índice de busca. Recarregue a página para tentar de novo."
+          ? t.search.failed
           : !entries
-            ? "Carregando o índice…"
+            ? t.search.loading
             : typed
-              ? `${hits.length} ${hits.length === 1 ? "resultado" : "resultados"}`
-              : `${entries.length} itens no índice. Digite para buscar.`}
+              ? plural(lang, hits.length, t.search.results)
+              : fill(t.search.indexSize, { n: entries.length })}
       </p>
 
       <ul className="mt-4 divide-y divide-rule border-y border-rule">
         {hits.map(({ entry, snippet }) => (
           <li key={entry.href}>
-            <Link href={entry.href} className="group block py-5">
+            <L href={entry.href} className="group block py-5">
               <p className="font-mono text-xs text-gold">
-                {labels[entry.kind]} · {entry.area} · {entry.context}
+                {[t.search.kinds[entry.kind], entry.area, entry.context].filter(Boolean).join(" · ")}
               </p>
               <p className="mt-1 text-2xl font-semibold group-hover:text-oxblood">{entry.title}</p>
               <p className="mt-1 text-ink-soft">{snippet}</p>
-            </Link>
+            </L>
           </li>
         ))}
       </ul>
       {entries && typed && hits.length === 0 && (
         <p className="mt-8 text-xl text-ink-soft">
-          Nada encontrado para “{query.trim()}”. Se esse assunto faz falta,{" "}
-          <Link href="/contribuir" className="underline hover:text-oxblood">você pode contribuir com ele</Link>.
+          {fill(t.search.nothingFor, { q: query.trim() })}{" "}
+          <L href="/contribuir" className="underline hover:text-oxblood">{t.search.canContribute}</L>.
         </p>
       )}
     </>

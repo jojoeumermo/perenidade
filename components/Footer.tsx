@@ -1,40 +1,48 @@
 import Link from "next/link";
-import { repoUrl } from "@/lib/site";
+import { localePath, type Locale } from "@/i18n/config";
+import type { Dict } from "@/i18n/pt";
+import { repoUrl, site } from "@/lib/site";
 
-const columns = [
-  {
-    title: "Aprender",
-    links: [
-      ["Trilhas", "/trilhas"],
-      ["Acervo", "/acervo"],
-      ["Buscar", "/busca"],
-    ],
-  },
-  {
-    title: "Comunidade",
-    links: [
-      ["Contribuir", "/contribuir"],
-      ["Fila de moderação", "/moderacao"],
-      ["Histórico do acervo", "/historico"],
-    ],
-  },
-  {
-    title: "Projeto",
-    links: [
-      ["Sobre e licenças", "/sobre"],
-      ["Denunciar conteúdo", "/denunciar"],
-      ["Código no GitHub", repoUrl],
-    ],
-  },
-] as const;
+export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
+  const columns = [
+    {
+      title: t.footer.learn,
+      links: [
+        [t.nav.tracks, "/trilhas"],
+        [t.nav.library, "/acervo"],
+        [t.nav.authors, "/autores"],
+        [t.nav.glossary, "/glossario"],
+        [t.nav.timeline, "/linha-do-tempo"],
+      ],
+    },
+    {
+      title: t.footer.community,
+      links: [
+        [t.nav.volunteers, "/voluntarios"],
+        [t.nav.contribute, "/contribuir"],
+        [t.nav.moderation, "/moderacao"],
+        [t.nav.history, "/historico"],
+        [t.nav.memorial, "/memorial"],
+      ],
+    },
+    {
+      title: t.footer.project,
+      links: [
+        [t.nav.about, "/sobre"],
+        [t.nav.myData, "/meus-dados"],
+        [t.nav.reportContent, "/denunciar"],
+        [t.nav.code, repoUrl],
+      ],
+    },
+  ];
 
-export function Footer() {
   return (
-    <footer className="no-print mt-20 border-t border-rule">
+    <footer className="no-print no-focus mt-20 border-t border-rule">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 font-sans text-sm sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <p className="font-serif text-2xl font-semibold">Perenidade</p>
-          <p className="mt-2 text-ink-soft">Conhecimento livre, para todos, para sempre.</p>
+          <p className="font-serif text-2xl font-semibold">{site.name}</p>
+          <p className="mt-2 text-ink-soft">{t.footer.tagline}</p>
+          <p className="mt-4 font-serif text-lg italic text-oxblood">{t.footer.slogan}</p>
         </div>
         {columns.map((column) => (
           <nav key={column.title} aria-label={column.title}>
@@ -43,7 +51,7 @@ export function Footer() {
               {column.links.map(([label, href]) => (
                 <li key={href}>
                   {href.startsWith("/") ? (
-                    <Link href={href} className="hover:text-oxblood">{label}</Link>
+                    <Link href={localePath(lang, href)} className="hover:text-oxblood">{label}</Link>
                   ) : (
                     <a href={href} target="_blank" rel="noopener noreferrer" className="hover:text-oxblood">{label} ↗</a>
                   )}
@@ -53,9 +61,7 @@ export function Footer() {
           </nav>
         ))}
       </div>
-      <p className="border-t border-rule px-4 py-4 text-center font-mono text-xs text-ink-soft">
-        Aulas sob CC BY-SA 4.0 · Só domínio público, licenças abertas e texto da comunidade · Nenhum arquivo de terceiros é hospedado aqui
-      </p>
+      <p className="border-t border-rule px-4 py-4 text-center font-mono text-xs text-ink-soft">{t.footer.legal}</p>
     </footer>
   );
 }

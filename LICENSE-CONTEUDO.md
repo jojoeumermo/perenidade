@@ -6,7 +6,7 @@ Os textos das aulas e trilhas são publicados sob a licença **Creative Commons 
 
 Você pode copiar, redistribuir, adaptar e usar esse conteúdo para qualquer fim, inclusive comercial, desde que:
 
-- **dê o crédito** à Perenidade e aos autores, indique a licença e diga se fez alterações;
+- **dê o crédito** ao Projeto Lucia e aos autores, indique a licença e diga se fez alterações;
 - **compartilhe pela mesma licença** qualquer obra derivada.
 
 Texto completo da licença: https://creativecommons.org/licenses/by-sa/4.0/legalcode.pt
