@@ -20,7 +20,6 @@ export function NavLinks() {
     [t.nav.dedication, "/dedicatoria"],
     [t.nav.contribute, "/contribuir"],
     [t.nav.more, "/explorar"],
-    [t.nav.search, "/busca"],
   ];
   const link = (label: React.ReactNode, path: string, name?: string) => {
     const href = localePath(lang, path);
@@ -39,7 +38,7 @@ export function NavLinks() {
   };
   return (
     <>
-      {links.slice(0, 7).map(([label, path]) => link(label, path))}
+      {links.map(([label, path]) => link(label, path))}
       {/* O único destaque do menu: as letras de "Apoie" mudam de cor, uma depois da outra. */}
       {link(
         <span className="apoie font-semibold">
@@ -52,7 +51,6 @@ export function NavLinks() {
         "/apoie",
         t.nav.support,
       )}
-      {links.slice(7).map(([label, path]) => link(label, path))}
     </>
   );
 }
