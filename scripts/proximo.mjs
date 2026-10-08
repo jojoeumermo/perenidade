@@ -10,7 +10,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import matter from "gray-matter";
+import { lerCabecalho } from "./cabecalho.mjs";
 
 const pasta = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../content/trilhas");
 const [filtro, quantas = "5"] = process.argv.slice(2);
@@ -21,7 +21,7 @@ const trilhas = fs
   .filter((entrada) => entrada.isDirectory())
   .map((entrada) => {
     const dir = path.join(pasta, entrada.name);
-    const { data } = matter(fs.readFileSync(path.join(dir, "_trilha.md"), "utf8"));
+    const { dados: data } = lerCabecalho(fs.readFileSync(path.join(dir, "_trilha.md"), "utf8"));
     const prontas = new Set(fs.readdirSync(dir).filter((nome) => /^[a-z0-9-]+\.md$/.test(nome) && nome !== "_trilha.md").map((nome) => nome.replace(/^\d+-/, "").replace(/\.md$/, "")));
     const arquivo = path.join(dir, "plano.json");
     const plano = fs.existsSync(arquivo) ? JSON.parse(fs.readFileSync(arquivo, "utf8")) : [];

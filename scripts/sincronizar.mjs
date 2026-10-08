@@ -14,7 +14,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import matter from "gray-matter";
+import { montarArquivo } from "./cabecalho.mjs";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const conteudo = path.join(raiz, "content");
@@ -290,7 +290,7 @@ for (const item of pendentes.slice(0, LIMITE)) {
     } else if (montar[item.tipo]) {
       const { arquivo, dados, texto } = montar[item.tipo](item);
       fs.mkdirSync(path.dirname(arquivo), { recursive: true });
-      fs.writeFileSync(arquivo, matter.stringify(texto ? `\n${texto}\n` : "", { ...dados, origem: item.id }));
+      fs.writeFileSync(arquivo, montarArquivo({ ...dados, origem: item.id }, texto));
       resumo.push(`${rotulo} → ${path.relative(raiz, arquivo).replaceAll("\\", "/")}`);
     }
     // Correções e sugestões aprovadas não geram arquivo: quem aprovou faz a mudança à mão.

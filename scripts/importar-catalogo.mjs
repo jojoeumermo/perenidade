@@ -31,15 +31,26 @@ function lerCsv(texto) {
   for (let i = 0; i < texto.length; i++) {
     const c = texto[i];
     if (aspas) {
-      if (c === '"' && texto[i + 1] === '"') (campo += '"'), i++;
-      else if (c === '"') aspas = false;
+      if (c === '"' && texto[i + 1] === '"') {
+        campo += '"';
+        i++;
+      } else if (c === '"') aspas = false;
       else campo += c;
     } else if (c === '"') aspas = true;
-    else if (c === ",") (linha.push(campo), (campo = ""));
-    else if (c === "\n") (linha.push(campo), linhas.push(linha), (linha = []), (campo = ""));
-    else if (c !== "\r") campo += c;
+    else if (c === ",") {
+      linha.push(campo);
+      campo = "";
+    } else if (c === "\n") {
+      linha.push(campo);
+      linhas.push(linha);
+      linha = [];
+      campo = "";
+    } else if (c !== "\r") campo += c;
   }
-  if (campo || linha.length) (linha.push(campo), linhas.push(linha));
+  if (campo || linha.length) {
+    linha.push(campo);
+    linhas.push(linha);
+  }
   const [cabecalho, ...resto] = linhas;
   return resto.map((valores) => Object.fromEntries(cabecalho.map((nome, i) => [nome, valores[i] ?? ""])));
 }

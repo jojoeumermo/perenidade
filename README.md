@@ -35,6 +35,7 @@ Isso sobe um banco de teste em memória e o site em `http://localhost:3100`. As 
 | `npm run testar:banco` | instala o banco do zero em memória e testa cada permissão |
 | `npm run proximo` | mostra, por disciplina, qual é a próxima aula a escrever |
 | `npm run sincronizar` | leva para `content/` o que foi aprovado no painel |
+| `npm run importar:catalogo` | refaz o catálogo ampliado a partir de catálogos abertos |
 
 ## Onde fica cada coisa
 
