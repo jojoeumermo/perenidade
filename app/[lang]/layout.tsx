@@ -1,3 +1,4 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import type { Metadata } from "next";
 import { EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
@@ -5,9 +6,11 @@ import { A11yWidget } from "@/components/A11yWidget";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { I18nProvider } from "@/components/I18n";
+import { RadioPlayer } from "@/components/RadioPlayer";
 import { Shortcuts } from "@/components/Shortcuts";
 import { PrefsScript } from "@/components/ThemeToggle";
 import { loadLang } from "@/i18n";
+import { pickCore } from "@/i18n/core";
 import { htmlLang, locales } from "@/i18n/config";
 import { site } from "@/lib/site";
 
@@ -45,12 +48,13 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         <PrefsScript />
       </head>
       <body className="paper min-h-full flex flex-col">
-        <I18nProvider lang={lang} t={t}>
+        <I18nProvider lang={lang} t={pickCore(t)}>
           <Header lang={lang} t={t} />
           <main id="conteudo" className="flex-1">
             {children}
           </main>
           <Footer lang={lang} t={t} />
+          <RadioPlayer />
           <A11yWidget />
           <Shortcuts />
         </I18nProvider>

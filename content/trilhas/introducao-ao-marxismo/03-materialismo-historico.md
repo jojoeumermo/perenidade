@@ -1,7 +1,16 @@
 ---
 titulo: "Materialismo histórico"
 resumo: "Um método para entender a história a partir de como as pessoas produzem a própria vida."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Prefácio de Para a Crítica da Economia Política"
+    autor: "Karl Marx"
+    ano: "1859"
+    url: "https://www.marxists.org/portugues/marx/1859/01/prefacio.htm"
+  - titulo: "Do Socialismo Utópico ao Socialismo Científico"
+    autor: "Friedrich Engels"
+    ano: "1880"
+    url: "https://www.marxists.org/portugues/marx/1880/socialismo/index.htm"
 quiz:
   - pergunta: "De que pergunta parte o materialismo histórico?"
     opcoes: ["Quais foram os maiores líderes de cada época?", "Como as pessoas produzem o que precisam para viver?", "Qual é a vontade dos deuses?"]

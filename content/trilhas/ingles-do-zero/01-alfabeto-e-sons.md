@@ -1,7 +1,13 @@
 ---
 titulo: "Alfabeto e sons"
 resumo: "As 26 letras, como se chamam em inglês e os sons que não existem em português."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Inglês"
+    autor: "Wikilivros"
+    url: "https://pt.wikibooks.org/wiki/Ingl%C3%AAs"
+  - titulo: "Essential Grammar in Use"
+    autor: "Raymond Murphy (Cambridge University Press)"
 quiz:
   - pergunta: "Como se diz o nome da letra E em inglês?"
     opcoes: ["Como o nosso \"é\"", "Como o nosso \"i\"", "Como \"ei\""]

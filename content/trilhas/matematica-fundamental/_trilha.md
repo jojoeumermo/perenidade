@@ -1,7 +1,8 @@
 ---
 titulo: "Matemática fundamental"
 area: matematica
-nivel: "Iniciante"
+etapa: fundamental
+ordem: 1
 resumo: "Frações e porcentagens, com exemplos do dia a dia."
 ---
 

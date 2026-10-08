@@ -1,8 +1,9 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import Link from "next/link";
 import { localePath, type Locale } from "@/i18n/config";
-import type { Dict } from "@/i18n/pt";
+import type { Dict } from "@/i18n/types";
 import { site } from "@/lib/site";
-import { LanguageSwitcher, NavLinks } from "./NavLinks";
+import { AccountLink, LanguageSwitcher, NavLinks } from "./NavLinks";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Header({ lang, t }: { lang: Locale; t: Dict }) {
@@ -15,23 +16,21 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
         {t.common.skip}
       </a>
       <div className="bg-ink px-4 py-1.5 text-center font-mono text-xs tracking-wide text-parchment">{t.common.strip}</div>
-      {/* Em telas estreitas os links descem para a linha de baixo; idioma e tema ficam ao lado do nome. */}
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-5">
+      {/* Primeira linha: nome, idioma, tema e conta. Segunda linha: as seções do site. */}
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 pt-5">
         <Link href={localePath(lang, "/")} className="mr-auto flex items-baseline gap-3">
           <span aria-hidden className="text-3xl text-gold">◈</span>
           <span className="text-3xl font-semibold tracking-tight">{site.name}</span>
         </Link>
-        <nav
-          aria-label={t.nav.main}
-          className="order-3 flex w-full flex-wrap items-center gap-x-5 gap-y-2 font-sans text-sm text-ink-soft lg:order-2 lg:w-auto"
-        >
-          <NavLinks />
-        </nav>
-        <div className="order-2 flex items-center gap-3 lg:order-3">
+        <div className="flex items-center gap-4">
+          <AccountLink />
           <LanguageSwitcher />
           <ThemeToggle />
         </div>
       </div>
+      <nav aria-label={t.nav.main} className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-2 px-4 pb-5 pt-3 font-sans text-sm text-ink-soft">
+        <NavLinks />
+      </nav>
     </header>
   );
 }

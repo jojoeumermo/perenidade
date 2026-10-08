@@ -1,12 +1,13 @@
-import type { Locale } from "@/i18n/config";
-import type { Dict } from "@/i18n/pt";
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+import Link from "next/link";
+import { localePath, type Locale } from "@/i18n/config";
+import type { Dict } from "@/i18n/types";
 import { getPage } from "@/lib/content";
-import { github } from "@/lib/site";
 import { Markdown } from "./Markdown";
 import { PageHeading } from "./PageHeading";
 import { originalLang, Untranslated } from "./Untranslated";
 
-/** Página de texto corrido vinda de content/paginas (sobre, voluntários, glossário, linha do tempo). */
+/** Página de texto corrido vinda de content/paginas (sobre, voluntários, linha do tempo, guia de fontes). */
 export function ContentPageView({ slug, lang, t, children }: { slug: string; lang: Locale; t: Dict; children?: React.ReactNode }) {
   const page = getPage(slug, lang);
   return (
@@ -22,9 +23,9 @@ export function ContentPageView({ slug, lang, t, children }: { slug: string; lan
       </div>
       {children}
       <p className="no-print mt-10 border-t border-rule pt-6 font-sans text-sm text-ink-soft">
-        <a href={github.edit(page.file)} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">
+        <Link href={`${localePath(lang, "/contribuir")}?corrigir=${encodeURIComponent(`/${slug}`)}`} className="underline hover:text-oxblood">
           {t.common.suggestFix}
-        </a>
+        </Link>
       </p>
     </div>
   );

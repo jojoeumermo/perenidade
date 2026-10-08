@@ -1,7 +1,13 @@
 ---
 titulo: "O verbo to be"
 resumo: "O verbo mais usado do inglês, que vale por \"ser\" e por \"estar\"."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Essential Grammar in Use"
+    autor: "Raymond Murphy (Cambridge University Press)"
+  - titulo: "Inglês"
+    autor: "Wikilivros"
+    url: "https://pt.wikibooks.org/wiki/Ingl%C3%AAs"
 quiz:
   - pergunta: "Complete: \"She ___ a teacher.\""
     opcoes: ["am", "is", "are"]

@@ -1,7 +1,13 @@
 ---
 titulo: "Saudações e apresentações"
 resumo: "Como cumprimentar, dizer seu nome e se despedir."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Inglês"
+    autor: "Wikilivros"
+    url: "https://pt.wikibooks.org/wiki/Ingl%C3%AAs"
+  - titulo: "Essential Grammar in Use"
+    autor: "Raymond Murphy (Cambridge University Press)"
 quiz:
   - pergunta: "São 20h e você acabou de chegar a um jantar. O que você diz?"
     opcoes: ["Good night", "Good evening", "Good afternoon"]

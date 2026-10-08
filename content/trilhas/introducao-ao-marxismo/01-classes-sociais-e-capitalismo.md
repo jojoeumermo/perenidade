@@ -1,7 +1,16 @@
 ---
 titulo: "Classes sociais e capitalismo"
 resumo: "O que é o capitalismo, quem são a burguesia e o proletariado e por que seus interesses se chocam."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Manifesto do Partido Comunista"
+    autor: "Karl Marx e Friedrich Engels"
+    ano: "1848"
+    url: "https://www.marxists.org/portugues/marx/1848/ManifestoDoPartidoComunista/index.htm"
+  - titulo: "Trabalho Assalariado e Capital"
+    autor: "Karl Marx"
+    ano: "1849"
+    url: "https://www.marxists.org/portugues/marx/1849/04/05.htm"
 quiz:
   - pergunta: "Para o marxismo, o que define a classe social de uma pessoa?"
     opcoes: ["O valor do salário que ela recebe", "A sua relação com os meios de produção", "O bairro onde ela mora"]

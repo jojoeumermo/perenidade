@@ -1,7 +1,8 @@
 ---
 titulo: "Informática essencial"
 area: informatica
-nivel: "Iniciante"
+etapa: fundamental
+ordem: 1
 resumo: "O que acontece dentro do computador e como a internet funciona."
 ---
 

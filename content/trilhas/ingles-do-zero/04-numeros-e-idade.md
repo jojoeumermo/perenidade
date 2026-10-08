@@ -1,7 +1,13 @@
 ---
 titulo: "Números e idade"
 resumo: "Contar de 0 a 100 e dizer quantos anos você tem."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Essential Grammar in Use"
+    autor: "Raymond Murphy (Cambridge University Press)"
+  - titulo: "Inglês"
+    autor: "Wikilivros"
+    url: "https://pt.wikibooks.org/wiki/Ingl%C3%AAs"
 quiz:
   - pergunta: "Como se diz \"Eu tenho 25 anos\"?"
     opcoes: ["I have 25 years", "I am 25 years old", "I am with 25 years"]

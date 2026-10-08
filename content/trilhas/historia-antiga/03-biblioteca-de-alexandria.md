@@ -1,7 +1,14 @@
 ---
 titulo: "A Biblioteca de Alexandria"
 resumo: "O maior centro de conhecimento da Antiguidade, e o que seu desaparecimento ensina."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Alexandria: Library of Dreams"
+    autor: "Roger S. Bagnall (Proceedings of the American Philosophical Society, v. 146, n. 4)"
+    ano: "2002"
+  - titulo: "Bibliotecas no mundo antigo"
+    autor: "Lionel Casson"
+    ano: "2001"
 quiz:
   - pergunta: "Quem criou a Biblioteca de Alexandria?"
     opcoes: ["Alexandre, o Grande", "Os primeiros reis da dinastia dos Ptolomeus", "O imperador romano Júlio César"]

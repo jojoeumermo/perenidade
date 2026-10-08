@@ -1,3 +1,4 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 "use client";
 
 import { useSyncExternalStore } from "react";
@@ -9,6 +10,9 @@ export const KEYS = {
   draft: "lucia:rascunho",
   theme: "lucia:tema",
   a11y: "lucia:acessibilidade",
+  session: "lucia:sessao",
+  notes: "lucia:fichamento",
+  radio: "lucia:radio",
 } as const;
 
 const listeners = new Set<() => void>();

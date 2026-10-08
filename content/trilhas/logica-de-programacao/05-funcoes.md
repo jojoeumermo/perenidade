@@ -1,7 +1,14 @@
 ---
 titulo: "Funções"
 resumo: "Como dar nome a um trecho de código para usá-lo quantas vezes quiser."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Lógica de programação: a construção de algoritmos e estruturas de dados"
+    autor: "André Forbellone e Henri Eberspächer"
+    ano: "2005"
+  - titulo: "O tutorial de Python"
+    autor: "Python Software Foundation"
+    url: "https://docs.python.org/pt-br/3/tutorial/"
 quiz:
   - pergunta: "O que a palavra return faz dentro de uma função?"
     opcoes: ["Mostra um valor na tela", "Devolve um valor para quem chamou a função", "Repete a função desde o início"]

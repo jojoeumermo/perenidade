@@ -1,3 +1,4 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -28,19 +29,21 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
   if (!track) notFound();
 
   const to = (path: string) => localePath(lang, path);
-  const lessons = track.lessons.map((lesson) => ({
-    id: lessonId(track.slug, lesson.slug),
-    path: `/trilhas/${track.slug}/${lesson.slug}`,
-    title: lesson.title,
+  const items = track.plan.map((item) => ({
+    id: lessonId(track.slug, item.slug),
+    path: `/trilhas/${track.slug}/${item.slug}`,
+    title: item.title,
+    ready: item.ready,
   }));
+  const ready = items.filter((item) => item.ready);
   const minutes = track.lessons.reduce((sum, lesson) => sum + lesson.minutes, 0);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <Link href={to("/trilhas")} className="font-sans text-sm text-ink-soft hover:text-oxblood">← {t.tracks.back}</Link>
+      <Link href={to(`/estantes/${track.area}`)} className="font-sans text-sm text-ink-soft hover:text-oxblood">← {t.areas[track.area][0]}</Link>
       <p className="mt-6 font-mono text-xs uppercase tracking-[0.3em] text-gold">
-        <Link href={to(`/estantes/${track.area}`)} className="hover:text-oxblood">{t.areas[track.area][0]}</Link> ·{" "}
-        {t.levels[track.level]} · {fill(t.tracks.minutes, { n: minutes })}
+        {t.stages[track.stage]} · {fill(t.tracks.ready, { a: ready.length, b: items.length })}
+        {minutes > 0 && ` · ${fill(t.tracks.minutes, { n: minutes })}`}
       </p>
       <div {...originalLang(track.translated)}>
         <h1 className="mt-2 text-4xl font-semibold sm:text-5xl">{track.title}</h1>
@@ -56,19 +59,24 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
 
       <div className="mt-10 border border-rule bg-parchment-deep p-6">
         <h2 className="text-2xl font-semibold">{t.tracks.lessonsTitle}</h2>
-        <div className="mt-4">
-          <TrackProgress ids={lessons.map((lesson) => lesson.id)} />
-        </div>
+        {ready.length > 0 && (
+          <div className="mt-4">
+            <TrackProgress ids={ready.map((item) => item.id)} />
+          </div>
+        )}
         <div className="mt-5" {...originalLang(track.translated)}>
-          <LessonList lessons={lessons} />
+          <LessonList lessons={items} />
         </div>
-        {lessons[0] && (
-          <Link
-            href={to(lessons[0].path)}
-            className="mt-6 inline-block bg-ink px-8 py-3 font-sans text-sm font-medium text-parchment hover:bg-oxblood"
-          >
+        {ready[0] && (
+          <Link href={to(ready[0].path)} className="mt-6 inline-block bg-ink px-8 py-3 font-sans text-sm font-medium text-parchment hover:bg-oxblood">
             {t.tracks.startFirst}
           </Link>
+        )}
+        {ready.length < items.length && (
+          <p className="mt-6 font-sans text-sm text-ink-soft">
+            {t.tracks.plannedHelp}{" "}
+            <Link href={`${to("/contribuir")}?trilha=${track.slug}`} className="underline hover:text-oxblood">{t.tracks.plannedLink}</Link>
+          </p>
         )}
       </div>
     </div>

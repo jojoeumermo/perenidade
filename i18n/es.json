@@ -1,0 +1,1009 @@
+{
+  "meta": {
+    "title": "Instituto Lúcia — la biblioteca comunitaria",
+    "description": "Conocimiento libre, gratuito y preservado. Lecciones, rutas de estudio y un acervo de obras de dominio público, mantenidos por la comunidad."
+  },
+  "common": {
+    "skip": "Saltar al contenido",
+    "strip": "Archivo vivo · 100 % gratuito · contenido versionado y reversible",
+    "language": "Idioma",
+    "theme": "Cambiar entre tema claro y oscuro",
+    "notTranslated": "Este contenido aún no se ha traducido a tu idioma, por eso aparece en portugués.",
+    "helpTranslate": "Ayuda a traducirlo",
+    "readAt": "Leer en {source}",
+    "report": "Denunciar",
+    "suggestFix": "Sugerir corrección",
+    "lessons": {
+      "one": "lección",
+      "other": "lecciones"
+    },
+    "works": {
+      "one": "obra",
+      "other": "obras"
+    },
+    "tracks": {
+      "one": "ruta",
+      "other": "rutas"
+    },
+    "disciplines": {
+      "one": "asignatura",
+      "other": "asignaturas"
+    },
+    "sources": "Fuentes",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "loading": "Cargando…"
+  },
+  "nav": {
+    "main": "Principal",
+    "disciplines": "Asignaturas",
+    "library": "Acervo",
+    "journal": "Periódico",
+    "community": "Comunidad",
+    "memorial": "Memorial",
+    "dedication": "Dedicatoria",
+    "contribute": "Contribuir",
+    "more": "Más",
+    "search": "Buscar",
+    "support": "Apoya",
+    "panel": "Panel",
+    "signIn": "Entrar",
+    "tools": "Herramientas de práctica",
+    "glossary": "Glosario",
+    "questions": "Empieza por una pregunta",
+    "authors": "Autores",
+    "volunteers": "Voluntarios",
+    "factCheck": "Verificación de hechos",
+    "debates": "Tarjetas de debate",
+    "about": "Acerca de y licencias",
+    "timeline": "Línea de tiempo de las luchas",
+    "myData": "Mis datos",
+    "reportContent": "Denunciar contenido",
+    "videos": "Videos",
+    "sources": "Guía de fuentes",
+    "radio": "Radio",
+    "history": "Historial del acervo"
+  },
+  "footer": {
+    "tagline": "Conocimiento libre, para todos, para siempre.",
+    "learn": "Aprender",
+    "community": "Comunidad",
+    "project": "Proyecto",
+    "legal": "Lecciones bajo CC BY-SA 4.0 · Sin rastreadores, sin anuncios · Aquí no se aloja ningún archivo de terceros",
+    "slogan": "¡Proletarios de todos los países, uníos!"
+  },
+  "home": {
+    "eyebrow": "Biblioteca de Alejandría · edición comunitaria",
+    "h1a": "Todo el conocimiento,",
+    "h1b": "para todos",
+    "h1c": ", para siempre.",
+    "lead": "Aprende gratis. Contribuye si quieres. Nada se pierde: cada lección está versionada, revisada por la comunidad y preservada.",
+    "searchLabel": "Buscar en todo el acervo",
+    "searchPlaceholder": "Busca en todo el acervo…",
+    "searchButton": "Buscar",
+    "indexed": "indexadas",
+    "shelves": "Los estantes",
+    "startTrack": "Empieza por una ruta",
+    "seeAll": "Ver todas",
+    "timelineTitle": "Línea de tiempo del acervo",
+    "timelineSub": "como la Wayback Machine: se guarda cada versión",
+    "fullHistory": "Historial completo",
+    "soon": "próximamente",
+    "yourContribution": "Tu contribución va aquí",
+    "pillars": [
+      [
+        "Sin PDF de terceros",
+        "El acervo indexa obras de dominio público y de licencias abiertas, apuntando a fuentes legítimas."
+      ],
+      [
+        "Toda lección cita sus fuentes",
+        "La curaduría lee cada contribución antes de que entre. Todo queda registrado y puede deshacerse."
+      ],
+      [
+        "Sin datos sensibles",
+        "Para estudiar no hace falta cuenta ni contraseña. Tu progreso se queda solo en tu navegador."
+      ]
+    ],
+    "wingsTitle": "Más allá de las lecciones",
+    "wings": [
+      [
+        "Herramientas de práctica",
+        "Afinador, metrónomo, editor de Python y PHP, tabla periódica y más.",
+        "/ferramentas"
+      ],
+      [
+        "Memorial",
+        "Para recordar a quienes cayeron luchando por la justicia. Marielle, Martin Luther King, Chico Mendes y otros.",
+        "/memorial"
+      ],
+      [
+        "Voluntarios",
+        "El instituto lo hacen quienes lo usan. Revisa, traduce, enseña o escribe.",
+        "/voluntarios"
+      ]
+    ],
+    "ctaTitle": "Ayuda a construir la biblioteca",
+    "ctaText": "Escribe una lección, propón una obra libre o corrige un error. Todo pasa por revisión antes de entrar.",
+    "ctaButton": "Enviar una contribución",
+    "questionsTitle": "Empieza por una pregunta"
+  },
+  "areas": {
+    "portugues": [
+      "Portugués",
+      "Leer, escribir e interpretar: de la alfabetización a la redacción."
+    ],
+    "literatura": [
+      "Literatura",
+      "De los clásicos en dominio público a la literatura que nace del pueblo."
+    ],
+    "ingles": [
+      "Inglés",
+      "De cero a la lectura de textos, sin pagar un curso."
+    ],
+    "espanhol": [
+      "Español",
+      "La lengua de casi toda América Latina."
+    ],
+    "chines": [
+      "Chino (mandarín)",
+      "Tonos, pinyin y los primeros caracteres."
+    ],
+    "artes": [
+      "Artes",
+      "Historia del arte, artes visuales, teatro, cine y cultura popular."
+    ],
+    "musica": [
+      "Música",
+      "Del sonido a la partitura: teoría, lectura y práctica."
+    ],
+    "matematica": [
+      "Matemáticas",
+      "De las tablas de multiplicar al cálculo, paso a paso."
+    ],
+    "fisica": [
+      "Física",
+      "Movimiento, energía, electricidad y la estructura de la materia."
+    ],
+    "quimica": [
+      "Química",
+      "Del átomo a las reacciones que mueven la vida diaria y la industria."
+    ],
+    "biologia": [
+      "Biología",
+      "La vida, de la célula a los ecosistemas, y la salud del pueblo."
+    ],
+    "astronomia": [
+      "Astronomía y astronáutica",
+      "El cielo, el Sistema Solar y la carrera espacial."
+    ],
+    "informatica": [
+      "Informática",
+      "Del primer contacto con la computadora a la seguridad digital."
+    ],
+    "programacao": [
+      "Programación",
+      "Primero la lógica; después, Python y PHP."
+    ],
+    "inteligencia-artificial": [
+      "Inteligencia artificial",
+      "Cómo aprenden las máquinas, qué pueden hacer y a quién sirven."
+    ],
+    "historia": [
+      "Historia",
+      "La historia contada desde el punto de vista de quienes trabajan."
+    ],
+    "geografia": [
+      "Geografía",
+      "Territorio, población, ciudad y campo."
+    ],
+    "sociologia": [
+      "Sociología",
+      "Clases, trabajo, cultura y desigualdad."
+    ],
+    "filosofia": [
+      "Filosofía",
+      "De los griegos al materialismo: aprender a pensar por cuenta propia."
+    ],
+    "economia": [
+      "Economía",
+      "Trabajo, salario, precio, deuda y crisis, sin jerga."
+    ],
+    "politica": [
+      "Política y ciudadanía",
+      "Estado, derechos, elecciones y participación popular."
+    ],
+    "educacao-popular": [
+      "Educación popular",
+      "Paulo Freire y la pedagogía de quien enseña aprendiendo."
+    ],
+    "midia": [
+      "Medios y comunicación",
+      "Leer la noticia con mirada crítica y hacer comunicación propia."
+    ],
+    "meio-ambiente": [
+      "Medio ambiente",
+      "Clima, tierra, agua y quién paga la cuenta de la destrucción."
+    ],
+    "marxismo": [
+      "Marxismo",
+      "Marx y Engels desde el principio: clases, plusvalía y materialismo histórico."
+    ],
+    "socialismo": [
+      "Socialismo",
+      "De las utopías a las revoluciones: experiencias, conquistas y debates."
+    ],
+    "comunismo": [
+      "Comunismo",
+      "La idea de una sociedad sin clases y la historia de quienes lucharon por ella."
+    ],
+    "ideologia-e-politica": [
+      "Ideología y política",
+      "Moral, derecho y sociedad: la formación política que se estudia en las escuelas de China."
+    ],
+    "trabalho": [
+      "Educación para el trabajo",
+      "Derechos laborales, sindicato, cooperativa y economía solidaria."
+    ],
+    "luta-negra": [
+      "Lucha de los pueblos negros",
+      "De la resistencia a la esclavitud al movimiento negro de hoy."
+    ],
+    "feminismo": [
+      "Feminismo",
+      "La lucha de las mujeres por la igualdad, en el trabajo y en la vida."
+    ],
+    "lgbtqia": [
+      "Lucha LGBTQIA+",
+      "Historia, derechos y resistencia."
+    ],
+    "deficiencia": [
+      "Personas con discapacidad",
+      "Derechos, accesibilidad y la lucha contra el capacitismo."
+    ],
+    "povos-indigenas": [
+      "Pueblos indígenas",
+      "Historia, tierra y resistencia de los pueblos originarios."
+    ]
+  },
+  "tracks": {
+    "eyebrow": "Aprendizaje guiado",
+    "title": "Asignaturas",
+    "lead": "Cada asignatura se divide en rutas, de la educación primaria a la superior. Las lecciones son cortas, siguen un orden y terminan con una prueba. Tu progreso se guarda en este navegador.",
+    "description": "Asignaturas y rutas de lecciones gratuitas, con fuentes, escritas y revisadas por voluntarios.",
+    "back": "Asignaturas",
+    "minutes": "~{n} min de lectura",
+    "lessonsTitle": "Lecciones",
+    "startFirst": "Empezar por la primera lección",
+    "progress": "Progreso en la ruta",
+    "completed": "{a} de {b} completadas",
+    "doneMark": "completada",
+    "continue": "Continúa donde lo dejaste",
+    "resume": "Retomar",
+    "ready": "{a} de {b} lecciones listas",
+    "planned": "en preparación",
+    "plannedHelp": "Las lecciones marcadas como «en preparación» forman parte del plan de esta ruta y todavía no se han escrito.",
+    "plannedLink": "¿Quieres escribir una?"
+  },
+  "lesson": {
+    "position": "lección {i} de {n}",
+    "awaitingReview": "Esta lección aún espera la revisión de la comunidad. ¿Encontraste un error?",
+    "suggestOne": "Sugiere una corrección",
+    "inThisLesson": "En esta lección",
+    "quizTitle": "Pon a prueba lo que aprendiste",
+    "correct": "Correcto.",
+    "notYet": "Todavía no.",
+    "score": "Acertaste {a} de {b}.",
+    "tryAgain": "Intentar de nuevo",
+    "markDone": "Marcar como completada",
+    "done": "Lección completada",
+    "next": "Siguiente:",
+    "neighbors": "Lecciones vecinas",
+    "by": "Por {names}",
+    "lastChange": "Último cambio el {date}",
+    "saved": {
+      "one": "versión guardada",
+      "other": "versiones guardadas"
+    },
+    "noHistory": "Aún sin historial publicado",
+    "license": "Licencia CC BY-SA 4.0",
+    "plainText": "Texto plano",
+    "cite": "Copiar cita",
+    "cited": "Cita copiada",
+    "keys": "Usa las flechas ← → del teclado para cambiar de lección.",
+    "sources": "Fuentes de esta lección",
+    "tryCode": "Probar este código",
+    "reread": "Todavía no. Vuelve a leer el fragmento de arriba e inténtalo de nuevo."
+  },
+  "library": {
+    "eyebrow": "Índice de obras",
+    "title": "Acervo",
+    "lead": "Solo metadatos y enlaces a fuentes legítimas. No alojamos archivos de terceros.",
+    "description": "Índice de obras en dominio público y con licencias abiertas, con enlace a la fuente legítima de cada una.",
+    "searchLabel": "Buscar por título o autor",
+    "searchPlaceholder": "Título, autor…",
+    "area": "Área",
+    "allAreas": "Todas las áreas",
+    "license": "Licencia",
+    "allLicenses": "Todas las licencias",
+    "nothing": "No se encontró nada. Prueba con otro término o quita un filtro.",
+    "back": "Acervo",
+    "language": "Idioma",
+    "source": "Fuente",
+    "varies": "La situación legal puede variar según el país; consulta los términos en la página de la fuente.",
+    "fix": "Corregir esta ficha",
+    "licenseNames": {
+      "Domínio público": "Dominio público",
+      "Conforme a fonte": "Según la fuente",
+      "Direitos reservados": "Derechos reservados"
+    },
+    "licenseNotes": {
+      "Domínio público": "Los derechos patrimoniales han expirado. La obra puede leerse, copiarse y redistribuirse libremente.",
+      "CC BY": "Puede copiarse y adaptarse, incluso con fines comerciales, siempre que se dé crédito al autor.",
+      "CC BY-SA": "Puede copiarse y adaptarse dando crédito al autor; las obras derivadas deben mantener la misma licencia.",
+      "CC BY-NC": "Puede copiarse y adaptarse dando crédito al autor, solo con fines no comerciales.",
+      "CC BY-NC-SA": "Uso no comercial, con crédito al autor; las obras derivadas deben mantener la misma licencia.",
+      "CC BY-NC-ND": "Puede redistribuirse sin cambios, con crédito al autor, solo con fines no comerciales.",
+      "Conforme a fonte": "La licencia varía de un texto a otro. Los términos de cada uno están en la página de la fuente.",
+      "Direitos reservados": "Obra protegida por derechos de autor. Esta ficha es solo una referencia bibliográfica: el enlace lleva a la editorial o a una biblioteca, nunca a una copia del libro."
+    },
+    "catalogTitle": "Catálogo ampliado",
+    "catalogLead": "Obras reunidas a partir de catálogos abiertos, con enlace directo a la fuente. La ficha es más sencilla que la de las obras seleccionadas por la curaduría.",
+    "seeAt": "Ver en {source}"
+  },
+  "shelf": {
+    "eyebrow": "Asignatura",
+    "tracks": "Rutas",
+    "noTracks": "Todavía no hay rutas en este estante.",
+    "writeFirst": "¿Qué tal escribir la primera lección?",
+    "works": "Obras del acervo",
+    "noWorks": "Aún no hay obras indexadas.",
+    "suggestWork": "Propón una obra libre.",
+    "tools": "Para practicar",
+    "videos": "Videos"
+  },
+  "search": {
+    "eyebrow": "Todo el acervo",
+    "title": "Buscar",
+    "lead": "Busca en el texto completo de las lecciones, en las fichas de las obras, en el glosario y en el periódico. Los acentos y las mayúsculas no importan.",
+    "label": "Buscar en lecciones, asignaturas y obras",
+    "placeholder": "Ej.: plusvalía, Machado, verbo to be…",
+    "loading": "Cargando el índice…",
+    "failed": "No se pudo cargar el índice de búsqueda. Recarga la página para intentarlo de nuevo.",
+    "results": {
+      "one": "resultado",
+      "other": "resultados"
+    },
+    "indexSize": "{n} elementos en el índice. Escribe para buscar.",
+    "nothingFor": "No se encontró nada para “{q}”. Si ese tema hace falta,",
+    "canContribute": "puedes contribuir con él",
+    "kinds": {
+      "aula": "Lección",
+      "obra": "Obra",
+      "trilha": "Ruta",
+      "autor": "Autor",
+      "memorial": "Memorial",
+      "verbete": "Glosario",
+      "materia": "Periódico",
+      "checagem": "Verificación",
+      "debate": "Debate",
+      "pergunta": "Pregunta"
+    }
+  },
+  "authors": {
+    "eyebrow": "Archivo por autor",
+    "title": "Autores",
+    "lead": "Quién escribió lo que está en los estantes. Cada nombre lleva a las obras disponibles en fuentes libres.",
+    "inLibrary": "En el acervo",
+    "fullArchive": "Archivo completo en {source}",
+    "none": "Aún sin obras catalogadas. Puedes proponer una."
+  },
+  "memorial": {
+    "eyebrow": "Presentes",
+    "title": "Memorial",
+    "lead": "Para recordar a quienes cayeron luchando por la justicia, por la tierra, por la libertad. Mientras se les recuerde, siguen presentes.",
+    "add": "¿Falta alguien aquí? El memorial lo construye la comunidad.",
+    "addLink": "Propón un nombre",
+    "present": "¡Presente!"
+  },
+  "contribute": {
+    "eyebrow": "Construcción colectiva",
+    "title": "Contribuir",
+    "lead": "Escribe una lección, propón una obra libre, corrige un error o comparte una idea. No hace falta cuenta. La curaduría lo lee todo antes de que entre en el acervo.",
+    "description": "Envía una lección, propón una obra libre o corrige un error. Toda contribución pasa por revisión.",
+    "rules": [
+      "Escribe con tus propias palabras. No copies textos protegidos por derechos de autor.",
+      "Toda lección necesita al menos una fuente fiable.",
+      "No envíes archivos ni enlaces a copias piratas: el acervo solo apunta a fuentes legítimas.",
+      "Las lecciones publicadas quedan bajo la licencia CC BY-SA 4.0."
+    ],
+    "steps": [
+      [
+        "Tú envías",
+        "Rellena el formulario de abajo. El borrador se guarda en este navegador mientras escribes."
+      ],
+      [
+        "La curaduría lee",
+        "Personas voluntarias revisan las fuentes, el texto y la licencia."
+      ],
+      [
+        "Entra en el acervo",
+        "Una vez aprobada, la contribución se publica con el nombre que indiques."
+      ],
+      [
+        "Queda guardada",
+        "Cada versión queda registrada. Si algo sale mal, basta con volver a la versión anterior."
+      ]
+    ],
+    "more": "¿Quieres ayudar con frecuencia, revisando, traduciendo o dando clases? Mira la página de voluntarios.",
+    "loading": "Cargando el formulario…",
+    "kindLegend": "¿Qué quieres enviar?",
+    "kindLesson": "Una lección",
+    "kindWork": "Una obra para el acervo",
+    "kindFix": "Una corrección",
+    "kindIdea": "Una idea",
+    "track": "Ruta",
+    "planned": "Lección del plan",
+    "plannedOther": "Otra lección, fuera del plan",
+    "target": "Dirección de la página con el error",
+    "lessonTitle": "Título de la lección",
+    "workTitle": "Título de la obra",
+    "subject": "Asunto",
+    "summary": "Resumen en una frase",
+    "author": "Autor de la obra",
+    "language": "Idioma de la obra",
+    "area": "Asignatura",
+    "license": "Licencia",
+    "source": "Nombre de la fuente (p. ej.: Project Gutenberg)",
+    "url": "Dirección de la obra en la fuente",
+    "body": "Texto de la lección",
+    "synopsis": "Sinopsis",
+    "details": "Describe",
+    "bodyPlaceholder": "Escribe aquí. Usa los botones de arriba para títulos, listas y enlaces.",
+    "autosave": "El borrador se guarda en este navegador.",
+    "credit": "Tu nombre o apodo, como debe aparecer (opcional)",
+    "declareLesson": "Declaro que este texto es de mi autoría o está bajo licencia libre, y acepto publicarlo bajo la licencia CC BY-SA 4.0.",
+    "declareWork": "Declaro que la obra está en dominio público o bajo licencia abierta, y que el enlace lleva a una fuente legítima.",
+    "sent": "Recibimos tu contribución. ¡Gracias! La curaduría la leerá antes de que entre en el acervo.",
+    "ready": "Todo listo para enviar.",
+    "offline": "El envío desde el sitio todavía no está activo en esta copia.",
+    "send": "Enviar a revisión",
+    "clear": "Vaciar el formulario",
+    "editor": {
+      "bold": "Negrita",
+      "italic": "Cursiva",
+      "heading": "Título",
+      "subheading": "Subtítulo",
+      "quote": "Cita",
+      "list": "Lista",
+      "numbered": "Lista numerada",
+      "link": "Enlace",
+      "linkPrompt": "Dirección del enlace (https://…)",
+      "preview": "Ver cómo queda",
+      "write": "Volver a escribir",
+      "empty": "Todavía no hay nada que mostrar."
+    },
+    "sourcesField": {
+      "title": "Fuentes",
+      "hint": "¿De dónde viene lo que escribiste? Libros, artículos, páginas oficiales. Al menos una.",
+      "name": "Título de la fuente",
+      "author": "Autor o institución",
+      "url": "Dirección (https://…), si la hay",
+      "add": "Añadir otra fuente",
+      "remove": "Quitar esta fuente"
+    },
+    "problems": {
+      "title": "Falta el título.",
+      "track": "Elige la ruta.",
+      "summary": "Falta el resumen en una frase.",
+      "body": "El texto de la lección es demasiado corto (mínimo 200 caracteres).",
+      "sources": "Indica al menos una fuente.",
+      "author": "Falta el autor de la obra.",
+      "source": "Falta el nombre de la fuente.",
+      "https": "La dirección debe empezar por https://.",
+      "pdf": "El enlace debe llevar a la página de la obra en la fuente, no directamente a un archivo PDF.",
+      "synopsis": "La sinopsis es demasiado corta (mínimo 40 caracteres).",
+      "details": "Describe con un poco más de detalle (mínimo 20 caracteres).",
+      "declare": "Marca la declaración para continuar."
+    }
+  },
+  "report": {
+    "eyebrow": "Derechos de autor y calidad",
+    "title": "Denunciar contenido",
+    "lead": "Respetamos los derechos de autor. Si algo aquí no debería estar, avísanos y lo retiramos para analizarlo.",
+    "description": "Avisa sobre infracciones de derechos de autor, errores o contenido inapropiado en el acervo.",
+    "stages": [
+      [
+        "Registro",
+        "La denuncia se registra con fecha y va directamente a la curaduría."
+      ],
+      [
+        "Cuarentena",
+        "En las denuncias de derechos de autor, el elemento se retira mientras se analiza."
+      ],
+      [
+        "Decisión",
+        "Confirmado el problema, el elemento se elimina o se corrige. La decisión queda guardada."
+      ]
+    ],
+    "item": "Página o elemento denunciado",
+    "reason": "Motivo",
+    "details": "Qué está mal",
+    "detailsPlaceholder": "Explica el problema. En caso de derechos de autor, di cuál es la obra y quién es el titular.",
+    "submit": "Enviar denuncia",
+    "notReady": "Indica el elemento y describe el problema (al menos 20 caracteres) para continuar.",
+    "reasons": [
+      "Derechos de autor",
+      "Información errónea",
+      "Contenido ofensivo o discurso de odio",
+      "Datos personales expuestos",
+      "Otro motivo"
+    ],
+    "sent": "Denuncia recibida. La curaduría la analizará.",
+    "offline": "El envío de denuncias desde el sitio todavía no está activo en esta copia."
+  },
+  "history": {
+    "eyebrow": "Nada se pierde",
+    "title": "Historial del acervo",
+    "lead": "Cada cambio en el contenido queda registrado con fecha, y cualquier versión anterior puede recuperarse.",
+    "description": "Todos los cambios hechos en el acervo, del más reciente al más antiguo.",
+    "unavailable": "El historial no está disponible en esta copia del sitio.",
+    "more": "y {n} más"
+  },
+  "volunteers": {
+    "contributors": "Quiénes ya contribuyeron",
+    "contributorsLead": "Nombres tomados del historial del acervo, por orden de llegada.",
+    "none": "El historial no está disponible en esta copia del sitio."
+  },
+  "dedication": {
+    "eyebrow": "Dedicatoria",
+    "title": "Para Lúcia",
+    "kind": "nombre propio femenino",
+    "etymLabel": "Origen",
+    "etym": "Del latín Lucia, femenino de Lucius, derivado de lux, lucis: «luz».",
+    "senses": [
+      "La luminosa; la que trae la luz.",
+      "Según la tradición, nombre que se daba en la antigua Roma a los niños nacidos al amanecer.",
+      "En este proyecto: la abuela a quien está dedicada esta biblioteca."
+    ],
+    "related": "De la misma raíz: lúcido, lucir, elucidar, iluminar.",
+    "text": [
+      "Este proyecto lleva el nombre de Lúcia, abuela de quien lo creó.",
+      "Ella ya no está aquí, pero el nombre quedó, y con él lo que un nombre así promete: luz.",
+      "Toda biblioteca es una forma de encender la luz para alguien. Que cada persona que aprenda algo aquí lleve un poco de esa claridad más adelante."
+    ],
+    "closing": "Lúcia, presente.",
+    "sign": "Con amor y añoranza.",
+    "bustAlt": "Busto de Lúcia"
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "Este rollo no está en el estante",
+    "text": "La página puede haber cambiado de lugar o no haber existido nunca. El acervo sigue entero.",
+    "search": "Buscar en el acervo",
+    "home": "Página de inicio"
+  },
+  "a11y": {
+    "button": "Accesibilidad",
+    "title": "Accesibilidad",
+    "close": "Cerrar",
+    "textSize": "Tamaño del texto",
+    "sizes": [
+      "Normal",
+      "Grande",
+      "Más grande"
+    ],
+    "contrast": "Alto contraste",
+    "contrastHint": "Amarillo y blanco sobre negro, con bordes marcados.",
+    "eink": "Modo tinta electrónica",
+    "einkHint": "Blanco y negro, sin animaciones. Bueno para pantallas de tinta electrónica y para ahorrar batería.",
+    "spacing": "Texto espaciado",
+    "spacingHint": "Más espacio entre letras, palabras y líneas.",
+    "focus": "Modo concentración",
+    "focusHint": "Oculta los menús y el pie de página y deja solo el texto.",
+    "read": "Leer en voz alta",
+    "readHint": "Lee el fragmento seleccionado o, si no hay nada seleccionado, la página entera.",
+    "readPage": "Leer esta página",
+    "readAgain": "Leer de nuevo",
+    "stop": "Detener",
+    "reading": "Leyendo en voz alta",
+    "noSpeech": "Este navegador no tiene lectura en voz alta.",
+    "reset": "Restaurar valores por defecto"
+  },
+  "data": {
+    "eyebrow": "Tus datos son tuyos",
+    "title": "Mis datos",
+    "lead": "Para estudiar no hace falta registrarse. Lo que el sitio sabe sobre tu estudio está guardado en este navegador, y solo en él.",
+    "description": "Descarga, restaura o borra el progreso guardado en tu navegador.",
+    "stored": "Qué hay guardado aquí",
+    "doneLessons": "Lecciones completadas: {n}",
+    "nothing": "Todavía no hay nada guardado.",
+    "export": "Descargar mis datos (JSON)",
+    "import": "Restaurar desde un archivo",
+    "imported": "Datos restaurados.",
+    "importFailed": "Este archivo no parece una copia de tus datos.",
+    "clear": "Borrar todo de este navegador",
+    "cleared": "Todo borrado.",
+    "clearHint": "Borra el progreso, los borradores y las preferencias. Útil en computadoras compartidas, como las de cibercafés y bibliotecas.",
+    "panicTitle": "Salida rápida",
+    "panic": "En cualquier página, pulsa la tecla Esc tres veces seguidas para salir del sitio al instante: lo guardado en este navegador se borra y se abre una página neutra en su lugar.",
+    "dumpTitle": "Llévate la biblioteca",
+    "dump": "Todo el acervo cabe en un archivo. Nadie puede secuestrar este conocimiento.",
+    "dumpLink": "Descargar el acervo completo (JSON)",
+    "textHint": "Cada lección existe también en texto plano: basta con añadir /texto a su dirección. Funciona incluso desde la terminal, con curl.",
+    "trackingTitle": "Cero rastreo",
+    "tracking": "Sin Google Analytics, sin píxeles de redes sociales, sin cookies de publicidad. No vendemos tus datos porque no los tenemos.",
+    "exitNow": "Salir ahora"
+  },
+  "groups": {
+    "linguagens": "Lenguajes y artes",
+    "ciencias": "Ciencias y tecnología",
+    "humanidades": "Humanidades",
+    "teoria": "Teoría revolucionaria",
+    "lutas": "Luchas del pueblo"
+  },
+  "stages": {
+    "fundamental": "Educación primaria",
+    "medio": "Educación secundaria",
+    "superior": "Educación superior"
+  },
+  "study": {
+    "notesTitle": "Mis fichas de lectura",
+    "notesHint": "Selecciona un fragmento de la lección y elige una etiqueta para guardarlo. Se guarda solo en este navegador.",
+    "tags": [
+      "Concepto",
+      "Duda",
+      "Cita"
+    ],
+    "notesEmpty": "Todavía no hay fragmentos guardados.",
+    "notesPrint": "Imprimir mis fichas",
+    "remove": "Quitar",
+    "selectFirst": "Primero selecciona un fragmento de la lección.",
+    "zine": "Imprimir como fanzine",
+    "print": "Imprimir la lección",
+    "annotationsTitle": "Notas de la comunidad",
+    "annotate": "Anotar el fragmento seleccionado",
+    "annotatePlaceholder": "Explica el fragmento, da contexto o indica una fuente.",
+    "save": "Enviar nota",
+    "cancel": "Cancelar",
+    "pending": "en espera de revisión",
+    "goTo": "ver el fragmento"
+  },
+  "toolNames": {
+    "python": [
+      "Python en el navegador",
+      "Escribe y ejecuta código Python sin instalar nada."
+    ],
+    "php": [
+      "PHP en el navegador",
+      "Prueba tus scripts PHP en la propia página."
+    ],
+    "afinador": [
+      "Afinador",
+      "Afina la guitarra, el cavaquinho, la voz u otro instrumento con el micrófono."
+    ],
+    "metronomo": [
+      "Metrónomo",
+      "Marca el tiempo para que estudies al ritmo correcto."
+    ],
+    "teclado": [
+      "Teclado",
+      "Un piano de dos octavas para oír notas, escalas y acordes."
+    ],
+    "leitura-de-notas": [
+      "Lectura de notas",
+      "Practica el reconocimiento de las notas en el pentagrama, en clave de sol y de fa."
+    ],
+    "tabela-periodica": [
+      "Tabla periódica",
+      "Los 118 elementos, con masa, familia y configuración electrónica."
+    ],
+    "calculadora": [
+      "Calculadora científica",
+      "Potencias, raíces, logaritmos y trigonometría."
+    ],
+    "juros-compostos": [
+      "Interés compuesto",
+      "Mira cuánto rinde un ahorro y cuánto cuesta una deuda."
+    ],
+    "bases-numericas": [
+      "Bases numéricas",
+      "Convierte entre decimal, binario, octal y hexadecimal, paso a paso."
+    ],
+    "pronuncia": [
+      "Pronunciación",
+      "Escucha cualquier frase en inglés, español, chino o ruso, a la velocidad que quieras."
+    ]
+  },
+  "tools": {
+    "eyebrow": "Práctica",
+    "title": "Herramientas de práctica",
+    "lead": "Para practicar lo que enseñan las lecciones. Todo funciona en tu dispositivo: nada de lo que escribes, tocas o dices se envía fuera.",
+    "usedIn": "Se usa en:",
+    "code": {
+      "code": "Código",
+      "input": "Entradas, una por línea (para programas que usan input)",
+      "run": "Ejecutar",
+      "stop": "Detener",
+      "stopped": "Ejecución detenida.",
+      "timeout": "El programa pasó de 15 segundos y fue detenido. Revisa si hay un bucle sin fin.",
+      "failed": "No se pudo cargar el intérprete. Recarga la página e inténtalo de nuevo.",
+      "loading": "Cargando el intérprete (solo la primera vez)…",
+      "running": "Ejecutando…",
+      "shortcut": "Atajo: Ctrl + Enter",
+      "output": "Salida",
+      "empty": "La salida del programa aparece aquí.",
+      "note": "El código se ejecuta dentro de tu navegador, sin instalar nada y sin enviar nada a servidores. No tiene acceso a los archivos de tu dispositivo."
+    },
+    "music": {
+      "start": "Empezar",
+      "stop": "Detener",
+      "micDenied": "No se pudo usar el micrófono. Permite el acceso en la configuración del navegador.",
+      "listen": "Toca o canta una nota",
+      "inTune": "Afinado",
+      "tooLow": "Está bajo: sube la nota",
+      "tooHigh": "Está alto: baja la nota",
+      "tunerNote": "El sonido del micrófono se analiza en tu dispositivo; no se graba ni se envía. Referencia: la = 440 Hz.",
+      "bpm": "pulsos por minuto",
+      "tempo": "Tempo",
+      "beats": "Tiempos por compás",
+      "keyboardNote": "Toca con el dedo o con el ratón. En la computadora, las teclas A S D F G H J K L tocan las notas blancas, y W E T Y U O P, las negras.",
+      "clefG": "Clave de sol",
+      "clefF": "Clave de fa",
+      "whichNote": "¿Qué nota es esta?",
+      "right": "¡Eso es!",
+      "wrong": "Era {note}.",
+      "score": "{a} de {b} aciertos",
+      "notes": [
+        "do",
+        "re",
+        "mi",
+        "fa",
+        "sol",
+        "la",
+        "si"
+      ]
+    },
+    "table": {
+      "search": "Buscar elemento (nombre, símbolo o número)",
+      "number": "Número atómico",
+      "mass": "Masa atómica",
+      "config": "Configuración electrónica",
+      "state": "Estado físico en condiciones estándar",
+      "groups": {
+        "nao-metal": "No metales",
+        "gas-nobre": "Gases nobles",
+        "metal-alcalino": "Metales alcalinos",
+        "alcalino-terroso": "Metales alcalinotérreos",
+        "semimetal": "Semimetales",
+        "halogenio": "Halógenos",
+        "outro-metal": "Otros metales",
+        "metal-de-transicao": "Metales de transición",
+        "lantanideo": "Lantánidos",
+        "actinideo": "Actínidos"
+      },
+      "states": {
+        "Gas": "Gaseoso",
+        "Solid": "Sólido",
+        "Liquid": "Líquido",
+        "Expected to be a Solid": "Sólido (previsto)",
+        "Expected to be a Gas": "Gaseoso (previsto)"
+      },
+      "source": "Datos: PubChem, de los Institutos Nacionales de Salud de Estados Unidos. Los nombres de los elementos aparecen en inglés."
+    },
+    "calc": {
+      "expression": "Operación",
+      "placeholder": "p. ej.: (2 + 3) × 4 ^ 2",
+      "result": "Calcular",
+      "invalid": "No se pudo entender esta operación. Revisa los paréntesis y los signos.",
+      "help": "Acepta + − × ÷, potencia (^), porcentaje (%), factorial (!), paréntesis, π, e, y las funciones raiz( ), sen( ), cos( ), tan( ), log( ) en base 10, ln( ) y abs( ). La coma separa los decimales.",
+      "history": "Operaciones anteriores",
+      "clear": "Borrar",
+      "erase": "Borrar el último carácter",
+      "angle": "Unidad de ángulo",
+      "degrees": "Grados",
+      "radians": "Radianes",
+      "sin": "sen",
+      "decimal": ","
+    },
+    "interest": {
+      "initial": "Monto inicial",
+      "monthly": "Depósito por mes",
+      "rate": "Tasa de interés (%)",
+      "perMonth": "al mes",
+      "perYear": "al año",
+      "months": "Tiempo, en meses",
+      "total": "Total al final",
+      "invested": "Total depositado",
+      "earned": "Intereses",
+      "compare": "Con interés simple, a la misma tasa, el total sería {simple}: {diff} menos.",
+      "month": "Mes",
+      "invalid": "Revisa los valores: usa números positivos y un tiempo de entre 1 y 1200 meses.",
+      "note": "El interés compuesto es interés sobre interés: cada mes, la tasa se aplica a todo lo acumulado. Así crece un ahorro, y así también se dispara la deuda de la tarjeta de crédito. El cálculo supone que el depósito se hace al final de cada mes."
+    },
+    "bases": {
+      "number": "Número",
+      "base": "Está escrito en",
+      "decimal": "Decimal",
+      "binary": "Binario",
+      "octal": "Octal",
+      "hex": "Hexadecimal",
+      "expansion": "Cómo llegar al decimal",
+      "division": "Cómo llegar al binario",
+      "remainder": "resto",
+      "readUp": "Lee los restos de abajo hacia arriba: ese es el número en binario.",
+      "invalid": "Este número no existe en la base elegida ({base}). Revisa las cifras.",
+      "note": "La computadora guarda todo en binario, con 0 y 1. El hexadecimal es una forma corta de escribir el binario: cada cifra hexadecimal vale cuatro bits."
+    },
+    "speak": {
+      "text": "Frase",
+      "language": "Idioma",
+      "speed": "Velocidad",
+      "speak": "Escuchar",
+      "slow": "Escuchar despacio",
+      "stop": "Detener",
+      "noVoice": "Tu dispositivo no tiene una voz instalada para este idioma. Instala el paquete de voz en la configuración del sistema o prueba con otro navegador.",
+      "unsupported": "Este navegador no tiene lectura en voz alta.",
+      "note": "La voz es la de tu propio dispositivo: la calidad cambia de un dispositivo a otro, y nada de lo que escribes se envía fuera. Escucha, repite en voz alta y compara."
+    }
+  },
+  "journal": {
+    "eyebrow": "Prensa popular",
+    "title": "Periódico",
+    "lead": "Noticias y análisis escritos por periodistas voluntarios, siempre con las fuentes a la vista.",
+    "empty": "Se está preparando la primera edición."
+  },
+  "factCheck": {
+    "eyebrow": "Contra la desinformación",
+    "title": "Verificación de hechos",
+    "lead": "Rumores y medias verdades que circulan por ahí, contrastados con fuentes públicas.",
+    "empty": "Todavía no hay verificaciones publicadas.",
+    "claim": "Lo que se dice"
+  },
+  "debates": {
+    "eyebrow": "Argumentos a mano",
+    "title": "Tarjetas de debate",
+    "lead": "Respuestas cortas, con fuente, para las frases hechas que todo el mundo ha oído.",
+    "claim": "Dicen que",
+    "answer": "Respuesta",
+    "more": "Para profundizar"
+  },
+  "questions": {
+    "eyebrow": "Por dónde empezar",
+    "title": "Empieza por una pregunta",
+    "lead": "Las dudas de quien trabaja son un buen comienzo para estudiar. Elige una y mira por dónde seguir."
+  },
+  "glossary": {
+    "eyebrow": "Vocabulario",
+    "title": "Glosario",
+    "lead": "Las palabras difíciles, explicadas en lenguaje sencillo. En las lecciones, los términos subrayados muestran su explicación.",
+    "missing": "¿Falta algún término?"
+  },
+  "videos": {
+    "eyebrow": "Para ver",
+    "title": "Videos",
+    "lead": "Clases y canales gratuitos, elegidos por la curaduría. Los videos se abren en su sitio de origen."
+  },
+  "more": {
+    "eyebrow": "Todo lo que hay aquí",
+    "title": "Más",
+    "lead": "Lo que no cupo en el menú, reunido en un solo lugar.",
+    "critical": "Lectura crítica",
+    "items": {
+      "tools": "Afinador, editor de código, tabla periódica y otras.",
+      "questions": "Dudas de la vida diaria que llevan a las lecciones adecuadas.",
+      "glossary": "Los términos difíciles en lenguaje sencillo.",
+      "authors": "Quiénes escribieron las obras del acervo.",
+      "videos": "Clases y canales gratuitos.",
+      "sources": "Dónde encontrar libros, datos y noticias fiables.",
+      "timeline": "De las revueltas del pasado a las luchas de hoy.",
+      "factCheck": "Rumores contrastados con fuentes públicas.",
+      "debates": "Respuestas cortas para frases hechas.",
+      "radio": "Música y palabra para acompañar el estudio.",
+      "volunteers": "Revisa, traduce, enseña o escribe.",
+      "about": "Qué es el instituto y bajo qué licencias está el contenido.",
+      "history": "Todo lo que ha cambiado en el acervo, con fecha.",
+      "myData": "Descarga o borra lo que está guardado en este navegador."
+    }
+  },
+  "support": {
+    "eyebrow": "Financiación colectiva",
+    "title": "Apoya al Instituto Lúcia",
+    "lead": "El acervo es gratuito y sin anuncios, y seguirá siéndolo, con o sin tu contribución.",
+    "paragraphs": [
+      "El Instituto Lúcia no tiene patrocinador, no vende cursos y no vende tus datos. Se mantiene con trabajo voluntario, porque el conocimiento no es una mercancía.",
+      "Aun así, mantener un sitio en línea cuesta dinero. Quien puede ayudar a pagar esa cuenta garantiza el acceso de quien no puede. Así ha construido siempre la clase trabajadora lo que es suyo: juntando lo poco de cada uno.",
+      "El dinero recaudado tiene un destino claro:"
+    ],
+    "costs": [
+      "Dominio y alojamiento del sitio.",
+      "Almacenamiento de los audios y de las copias de seguridad del acervo.",
+      "Lo que sobre se destina a ampliar el acervo: más lecciones, más traducciones, más revisión."
+    ],
+    "optional": "Donar es totalmente opcional. Nadie pierde acceso a nada por no contribuir, y no existe contenido exclusivo para quien dona. Si el dinero no alcanza, no dones: estudia, comparte una lección o hazte voluntario. Eso también sostiene el proyecto.",
+    "button": "Apoyar en Benfeitoria",
+    "note": "La contribución se hace en Benfeitoria, una plataforma brasileña de financiación colectiva. Este sitio no recibe ni guarda datos de pago.",
+    "wallTitle": "Mural de quienes apoyan",
+    "wallLead": "Quienes ayudaron a mantener el instituto en pie y quisieron dejar su nombre aquí.",
+    "wallEmpty": "El mural todavía está vacío."
+  },
+  "auth": {
+    "eyebrow": "Voluntarios y comunidad",
+    "title": "Entrar",
+    "lead": "Para estudiar no hace falta cuenta. El acceso es para quien quiere participar en las conversaciones o trabajar como voluntario.",
+    "email": "Tu correo electrónico",
+    "send": "Recibir enlace de acceso",
+    "sent": "Te enviamos un enlace por correo. Abre el mensaje en este dispositivo y toca el enlace para entrar.",
+    "google": "Entrar con Google",
+    "failed": "No se pudo entrar. Inténtalo de nuevo en unos minutos.",
+    "why": "No usamos contraseña: sin contraseña guardada, no hay contraseña que pueda filtrarse. Guardamos solo tu correo y el nombre que elijas mostrar.",
+    "offline": "El acceso todavía no está activo en esta copia del sitio."
+  },
+  "radio": {
+    "eyebrow": "Al aire",
+    "title": "Rádio Lúcia",
+    "lead": "Música y palabra para acompañar el estudio.",
+    "soon": "Próximamente",
+    "soonText": "La radio se está preparando y saldrá al aire pronto.",
+    "play": "Reproducir",
+    "pause": "Pausar",
+    "next": "Pista siguiente",
+    "previous": "Pista anterior",
+    "live": "En vivo",
+    "liveTitle": "Transmisión en vivo",
+    "close": "Cerrar el reproductor",
+    "preview": "La radio todavía no está al aire: solo la coordinación ve esta página así.",
+    "empty": "Todavía no hay canales registrados."
+  },
+  "errors": {
+    "entre_primeiro": "Entra en tu cuenta para continuar.",
+    "sem_permissao": "No tienes permiso para hacer eso.",
+    "muitos_pedidos": "Demasiados envíos en poco tiempo. Espera un poco e inténtalo de nuevo.",
+    "falta_fonte": "Indica al menos una fuente.",
+    "conta_suspensa": "Esta cuenta está suspendida.",
+    "nao_encontrado": "No encontramos lo que buscas.",
+    "topico_trancado": "Esta conversación está cerrada a nuevas respuestas.",
+    "sem_conexao": "Sin conexión. Revisa tu internet e inténtalo de nuevo.",
+    "sem_servico": "Esta función todavía no está activa en esta copia del sitio.",
+    "invalido": "Revisa el campo: {campo}.",
+    "falha": "Algo salió mal. Inténtalo de nuevo en un momento."
+  },
+  "community": {
+    "eyebrow": "Comunidad",
+    "title": "Conversaciones",
+    "lead": "Resuelve dudas, propón estudios y ayuda a quien está empezando. El foco del instituto es la enseñanza; este espacio existe para apoyar el estudio.",
+    "rules": [
+      "Respeto siempre: discrepa de las ideas, no ataques a las personas.",
+      "Nada de racismo, machismo, LGBTfobia, capacitismo ni ningún discurso de odio.",
+      "No publiques datos personales, ni tuyos ni de otras personas.",
+      "¿Afirmaste un hecho? Indica la fuente."
+    ],
+    "offline": "La comunidad todavía no está activa en esta copia del sitio.",
+    "hot": "En auge",
+    "new": "Nuevas",
+    "top": "Más votadas",
+    "discipline": "Asignatura",
+    "all": "Todas",
+    "newTopic": "Nueva conversación",
+    "signInToPost": "Entra para participar",
+    "titleLabel": "Título",
+    "bodyLabel": "Mensaje",
+    "post": "Publicar",
+    "empty": "Todavía no hay conversaciones por aquí.",
+    "replies": {
+      "one": "respuesta",
+      "other": "respuestas"
+    },
+    "locked": "conversación cerrada",
+    "hidden": "oculta",
+    "back": "Todas las conversaciones",
+    "show": "Mostrar",
+    "hide": "Ocultar",
+    "lock": "Cerrar la conversación",
+    "unlock": "Reabrir la conversación",
+    "reply": "Responder",
+    "replyPlaceholder": "Escribe tu respuesta…",
+    "up": "Voto a favor",
+    "down": "Voto en contra",
+    "points": "puntos"
+  }
+}

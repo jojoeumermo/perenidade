@@ -1,7 +1,12 @@
 ---
 titulo: "Egito Antigo: a civilização do Nilo"
 resumo: "Como um rio no meio do deserto sustentou três mil anos de história."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "World History, Volume 1: to 1500, seção 3.3, Ancient Egypt"
+    autor: "Ann Kordas e outros (OpenStax)"
+    ano: "2023"
+    url: "https://openstax.org/books/world-history-volume-1/pages/3-3-ancient-egypt"
 quiz:
   - pergunta: "Por que o Nilo era tão importante para o Egito?"
     opcoes: ["Porque suas cheias fertilizavam as margens", "Porque era a única fronteira do país", "Porque dele se extraía ouro"]

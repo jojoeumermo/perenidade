@@ -1,7 +1,15 @@
 ---
 titulo: "Mesopotâmia: o berço da escrita"
 resumo: "Como as primeiras cidades, a escrita e as leis escritas nasceram entre dois rios."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "World History, Volume 1: to 1500, seção 3.2, Ancient Mesopotamia"
+    autor: "Ann Kordas e outros (OpenStax)"
+    ano: "2023"
+    url: "https://openstax.org/books/world-history-volume-1/pages/3-2-ancient-mesopotamia"
+  - titulo: "A história começa na Suméria"
+    autor: "Samuel Noah Kramer"
+    ano: "1956"
 quiz:
   - pergunta: "O que significa a palavra \"Mesopotâmia\"?"
     opcoes: ["Terra dos reis", "Terra entre rios", "Terra do sol"]

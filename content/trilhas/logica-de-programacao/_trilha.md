@@ -1,7 +1,8 @@
 ---
 titulo: "Lógica de programação"
 area: programacao
-nivel: "Iniciante"
+etapa: fundamental
+ordem: 1
 resumo: "Algoritmos, variáveis, condições, laços e funções: a base de qualquer linguagem."
 ---
 

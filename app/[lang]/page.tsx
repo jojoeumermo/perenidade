@@ -1,10 +1,12 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import Link from "next/link";
 import { TrackCard } from "@/components/Cards";
+import { DailyQuote } from "@/components/DailyQuote";
 import { ContinueCard } from "@/components/Progress";
 import { loadLang } from "@/i18n";
 import { htmlLang, localePath, plural } from "@/i18n/config";
-import { areaSlugs } from "@/lib/areas";
-import { getBooks, getTracks } from "@/lib/content";
+import { groups } from "@/lib/areas";
+import { getBooks, getCatalog, getQuestions, getQuotes, getTracks } from "@/lib/content";
 import { getHistory } from "@/lib/history";
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
@@ -14,8 +16,11 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   const tracks = getTracks(lang);
   const books = getBooks(lang);
   const lessons = tracks.reduce((sum, track) => sum + track.lessons.length, 0);
+  const works = books.length + groups.flatMap((group) => group.areas).reduce((sum, area) => sum + getCatalog(area).length, 0);
   const recent = getHistory().slice(0, 3);
   const date = new Intl.DateTimeFormat(htmlLang[lang], { timeZone: "UTC" });
+  const started = tracks.filter((track) => track.lessons.length > 0).sort((a, b) => b.lessons.length - a.lessons.length);
+  const questions = getQuestions().slice(0, 4);
 
   return (
     <>
@@ -39,8 +44,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           <button className="cursor-pointer bg-ink px-6 font-sans text-sm font-medium text-parchment hover:bg-oxblood">{h.searchButton}</button>
         </form>
         <p className="mt-5 font-mono text-xs text-ink-soft">
-          {plural(lang, tracks.length, t.common.tracks)} · {plural(lang, lessons, t.common.lessons)} ·{" "}
-          {plural(lang, books.length, t.common.works)} {h.indexed}
+          {plural(lang, groups.flatMap((group) => group.areas).length, t.common.disciplines)} · {plural(lang, lessons, t.common.lessons)} ·{" "}
+          {plural(lang, works, t.common.works)} {h.indexed}
         </p>
       </section>
 
@@ -48,44 +53,67 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
       <section className="mx-auto max-w-6xl px-4 py-10">
         <h2 className="border-b border-rule pb-3 text-3xl font-semibold">{h.shelves}</h2>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {areaSlugs.map((slug) => {
-            const areaLessons = tracks.filter((track) => track.area === slug).reduce((sum, track) => sum + track.lessons.length, 0);
-            const areaBooks = books.filter((book) => book.area === slug).length;
-            const [name, blurb] = t.areas[slug];
-            return (
-              <Link
-                key={slug}
-                href={to(`/estantes/${slug}`)}
-                className="group border border-rule bg-parchment-deep p-6 transition hover:-translate-y-0.5 hover:border-gold"
-              >
-                <p className="font-mono text-xs text-gold">
-                  {plural(lang, areaLessons, t.common.lessons)} · {plural(lang, areaBooks, t.common.works)}
-                </p>
-                <h3 className="mt-2 text-2xl font-semibold group-hover:text-oxblood">{name}</h3>
-                <p className="mt-1 text-ink-soft">{blurb}</p>
-              </Link>
-            );
-          })}
-        </div>
+        {groups.map((group) => (
+          <div key={group.id} className="mt-8">
+            <h3 className="font-mono text-xs uppercase tracking-[0.3em] text-gold">{t.groups[group.id]}</h3>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {group.areas.map((slug) => {
+                const inArea = tracks.filter((track) => track.area === slug);
+                const ready = inArea.reduce((sum, track) => sum + track.lessons.length, 0);
+                const areaWorks = books.filter((book) => book.area === slug).length + getCatalog(slug).length;
+                const [name, blurb] = t.areas[slug];
+                return (
+                  <Link
+                    key={slug}
+                    href={to(`/estantes/${slug}`)}
+                    className="group border border-rule bg-parchment-deep p-5 transition hover:-translate-y-0.5 hover:border-gold"
+                  >
+                    <p className="font-mono text-xs text-gold">
+                      {plural(lang, ready, t.common.lessons)} · {plural(lang, areaWorks, t.common.works)}
+                    </p>
+                    <p className="mt-2 text-2xl font-semibold group-hover:text-oxblood">{name}</p>
+                    <p className="mt-1 text-ink-soft">{blurb}</p>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-10">
-        <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-rule pb-3">
-          <h2 className="text-3xl font-semibold">{h.startTrack}</h2>
-          <Link href={to("/trilhas")} className="font-sans text-sm underline hover:text-oxblood">{h.seeAll}</Link>
-        </div>
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {tracks.slice(0, 3).map((track) => (
-            <TrackCard key={track.slug} track={track} lang={lang} t={t} />
-          ))}
-        </div>
-      </section>
+      <DailyQuote quotes={getQuotes()} />
 
-      <section className="mx-auto max-w-4xl px-4 py-10 text-center">
-        <blockquote className="text-3xl italic leading-snug">“{h.quote}”</blockquote>
-        <p className="mt-4 font-mono text-xs uppercase tracking-widest text-gold">{h.quoteBy}</p>
-      </section>
+      {questions.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 py-10">
+          <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-rule pb-3">
+            <h2 className="text-3xl font-semibold">{h.questionsTitle}</h2>
+            <Link href={to("/perguntas")} className="font-sans text-sm underline hover:text-oxblood">{h.seeAll}</Link>
+          </div>
+          <ul className="mt-6 grid gap-3 font-sans sm:grid-cols-2" lang="pt-BR">
+            {questions.map((question, i) => (
+              <li key={question.pergunta}>
+                <Link href={`${to("/perguntas")}#p${i + 1}`} className="block border-l-2 border-gold py-1 pl-4 text-lg hover:text-oxblood">
+                  {question.pergunta}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {started.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 py-10">
+          <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-rule pb-3">
+            <h2 className="text-3xl font-semibold">{h.startTrack}</h2>
+            <Link href={to("/trilhas")} className="font-sans text-sm underline hover:text-oxblood">{h.seeAll}</Link>
+          </div>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {started.slice(0, 3).map((track) => (
+              <TrackCard key={track.slug} track={track} lang={lang} t={t} />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="mx-auto max-w-6xl px-4 py-10">
         <h2 className="border-b border-rule pb-3 text-3xl font-semibold">{h.wingsTitle}</h2>
@@ -99,29 +127,31 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-10">
-        <div className="border border-rule bg-parchment-deep p-8">
-          <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <h2 className="text-3xl font-semibold">{h.timelineTitle}</h2>
-            <Link href={to("/historico")} className="font-sans text-sm underline hover:text-oxblood">{h.fullHistory}</Link>
-          </div>
-          <p className="mt-1 font-mono text-xs text-ink-soft">{h.timelineSub}</p>
-          <ol className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start">
-            {recent.map((change) => (
-              <li key={change.hash} className="flex-1 border-t-2 border-gold pt-3">
-                <p className="font-mono text-sm text-gold">{date.format(new Date(change.date))}</p>
-                <p className="text-lg" lang="pt-BR">{change.subject}</p>
+      {recent.length > 0 && (
+        <section className="mx-auto max-w-6xl px-4 py-10">
+          <div className="border border-rule bg-parchment-deep p-8">
+            <div className="flex flex-wrap items-baseline justify-between gap-3">
+              <h2 className="text-3xl font-semibold">{h.timelineTitle}</h2>
+              <Link href={to("/historico")} className="font-sans text-sm underline hover:text-oxblood">{h.fullHistory}</Link>
+            </div>
+            <p className="mt-1 font-mono text-xs text-ink-soft">{h.timelineSub}</p>
+            <ol className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start">
+              {recent.map((change) => (
+                <li key={change.hash} className="flex-1 border-t-2 border-gold pt-3">
+                  <p className="font-mono text-sm text-gold">{date.format(new Date(change.date))}</p>
+                  <p className="text-lg" lang="pt-BR">{change.subject}</p>
+                </li>
+              ))}
+              <li className="flex-1 border-t-2 border-dashed border-gold pt-3">
+                <p className="font-mono text-sm text-gold">{h.soon}</p>
+                <p className="text-lg">
+                  <Link href={to("/contribuir")} className="underline hover:text-oxblood">{h.yourContribution}</Link>
+                </p>
               </li>
-            ))}
-            <li className="flex-1 border-t-2 border-dashed border-gold pt-3">
-              <p className="font-mono text-sm text-gold">{h.soon}</p>
-              <p className="text-lg">
-                <Link href={to("/contribuir")} className="underline hover:text-oxblood">{h.yourContribution}</Link>
-              </p>
-            </li>
-          </ol>
-        </div>
-      </section>
+            </ol>
+          </div>
+        </section>
+      )}
 
       <section className="mx-auto grid max-w-6xl gap-6 px-4 py-10 font-sans md:grid-cols-3">
         {h.pillars.map(([title, description]) => (

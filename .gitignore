@@ -40,3 +40,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# notas locais de ferramentas de desenvolvimento
+CLAUDE.md
+AGENTS.md
+.claude/
+
+# gerados na instalacao
+/public/pyodide/
+/public/php/

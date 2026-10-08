@@ -1,3 +1,4 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import type { Metadata } from "next";
 import { DataPanel } from "@/components/DataPanel";
 import { PageHeading } from "@/components/PageHeading";
@@ -21,9 +22,7 @@ export default async function MeusDados({ params }: PageProps<"/[lang]/meus-dado
       <PageHeading eyebrow={d.eyebrow} title={d.title}>
         {d.lead}
       </PageHeading>
-
-      <DataPanel />
-
+      <DataPanel s={d} />
       <div className="mt-10 grid gap-6 font-sans text-sm sm:grid-cols-2">
         {blocks.map(([title, description]) => (
           <div key={title} className="border-l-2 border-gold pl-4">
@@ -32,11 +31,10 @@ export default async function MeusDados({ params }: PageProps<"/[lang]/meus-dado
           </div>
         ))}
       </div>
-
       <section className="mt-10 border-t border-rule pt-6 font-sans text-sm">
         <h2 className="font-serif text-2xl font-semibold">{d.dumpTitle}</h2>
         <p className="mt-2 text-ink-soft">{d.dump}</p>
-        <a href={localePath(lang, "/indice.json")} download="projeto-lucia-acervo.json" className="mt-3 inline-block underline hover:text-oxblood">
+        <a href={localePath(lang, "/indice.json")} download="instituto-lucia-acervo.json" className="mt-3 inline-block underline hover:text-oxblood">
           {d.dumpLink}
         </a>
         <p className="mt-4 text-ink-soft">{d.textHint}</p>

@@ -1,0 +1,134 @@
+{
+  "aula": {
+    "rotulo": "Aula",
+    "ajuda": "Uma aula de uma trilha. Escolha uma aula do roteiro que ainda falta escrever, ou proponha um tema novo.",
+    "titulo": "Título da aula",
+    "disciplina": "trilha",
+    "fonte": true,
+    "corpo": { "rotulo": "Texto da aula", "min": 200, "editor": true },
+    "campos": [
+      { "nome": "trilha", "rotulo": "Trilha", "tipo": "trilha", "obrigatorio": true },
+      { "nome": "slug", "rotulo": "Aula do roteiro", "tipo": "plano" },
+      { "nome": "resumo", "rotulo": "Resumo (uma linha)", "tipo": "texto", "obrigatorio": true, "max": 200 }
+    ]
+  },
+  "obra": {
+    "rotulo": "Obra para o acervo",
+    "ajuda": "Só a ficha: título, autor e o link para a página da obra em uma fonte legítima. Nunca um PDF.",
+    "titulo": "Título da obra",
+    "disciplina": "obrigatoria",
+    "fonte": false,
+    "corpo": { "rotulo": "Sinopse, com as suas palavras", "min": 40, "editor": false },
+    "campos": [
+      { "nome": "autor", "rotulo": "Autor", "tipo": "texto", "obrigatorio": true, "max": 160 },
+      { "nome": "licenca", "rotulo": "Licença", "tipo": "licenca", "obrigatorio": true },
+      { "nome": "fonte", "rotulo": "Onde a obra está (ex.: Project Gutenberg)", "tipo": "texto", "obrigatorio": true, "max": 80 },
+      { "nome": "url", "rotulo": "Link da obra na fonte", "tipo": "url", "obrigatorio": true },
+      { "nome": "idioma", "rotulo": "Idioma da obra", "tipo": "texto", "obrigatorio": true, "max": 40 },
+      { "nome": "ano", "rotulo": "Ano (opcional)", "tipo": "texto", "max": 20 }
+    ]
+  },
+  "artigo": {
+    "rotulo": "Matéria para o jornal",
+    "ajuda": "Texto jornalístico. Fatos conferidos, fontes citadas e cuidado ao falar de pessoas e organizações.",
+    "titulo": "Título",
+    "papel": "jornalismo",
+    "disciplina": "nao",
+    "fonte": true,
+    "corpo": { "rotulo": "Texto", "min": 300, "editor": true },
+    "campos": [
+      { "nome": "subtitulo", "rotulo": "Subtítulo (linha fina)", "tipo": "texto", "max": 220 },
+      { "nome": "editoria", "rotulo": "Editoria (ex.: Trabalho, Educação, Internacional)", "tipo": "texto", "max": 40 }
+    ]
+  },
+  "checagem": {
+    "rotulo": "Checagem de fato",
+    "ajuda": "Uma afirmação que está circulando, conferida com documentos e dados.",
+    "titulo": "Título curto da checagem",
+    "disciplina": "nao",
+    "fonte": true,
+    "corpo": { "rotulo": "O que os fatos mostram", "min": 100, "editor": true },
+    "campos": [
+      { "nome": "alegacao", "rotulo": "O que está circulando (a frase, como aparece)", "tipo": "texto", "obrigatorio": true, "max": 300 },
+      { "nome": "veredito", "rotulo": "Conclusão", "tipo": "select", "opcoes": ["Falso", "Enganoso", "Falta contexto", "Verdadeiro"], "obrigatorio": true }
+    ]
+  },
+  "debate": {
+    "rotulo": "Resposta para o guia de debates",
+    "ajuda": "Uma frase que se ouve muito e uma resposta curta, com fonte, pronta para copiar.",
+    "titulo": "Título curto",
+    "disciplina": "nao",
+    "fonte": true,
+    "corpo": { "rotulo": "Entenda melhor (opcional)", "min": 0, "editor": true },
+    "campos": [
+      { "nome": "afirmacao", "rotulo": "O que dizem", "tipo": "texto", "obrigatorio": true, "max": 200 },
+      { "nome": "resposta", "rotulo": "Resposta curta", "tipo": "longo", "obrigatorio": true, "max": 700 }
+    ]
+  },
+  "verbete": {
+    "rotulo": "Verbete do glossário",
+    "ajuda": "Um termo e a explicação em linguagem simples.",
+    "titulo": "Termo",
+    "disciplina": "nao",
+    "fonte": true,
+    "corpo": { "rotulo": "Explicação (opcional)", "min": 0, "editor": true },
+    "campos": [{ "nome": "resumo", "rotulo": "Definição em uma frase", "tipo": "texto", "obrigatorio": true, "max": 220 }]
+  },
+  "memorial": {
+    "rotulo": "Nome para o Memorial",
+    "ajuda": "Só fatos bem documentados: quem foi, pelo que lutou, como e quando morreu.",
+    "titulo": "Nome",
+    "disciplina": "nao",
+    "fonte": true,
+    "corpo": { "rotulo": "Texto da homenagem", "min": 60, "editor": false },
+    "campos": [
+      { "nome": "nascimento", "rotulo": "Ano de nascimento", "tipo": "texto", "obrigatorio": true, "max": 12 },
+      { "nome": "morte", "rotulo": "Ano da morte", "tipo": "texto", "obrigatorio": true, "max": 4 },
+      { "nome": "local", "rotulo": "Cidade e país", "tipo": "texto", "obrigatorio": true, "max": 80 }
+    ]
+  },
+  "video": {
+    "rotulo": "Vídeo indicado",
+    "ajuda": "O vídeo não fica hospedado aqui: indicamos o canal ou a lista de quem produziu.",
+    "titulo": "Título do vídeo, curso ou canal",
+    "disciplina": "obrigatoria",
+    "fonte": false,
+    "corpo": { "rotulo": "Por que vale assistir", "min": 20, "editor": false },
+    "campos": [
+      { "nome": "canal", "rotulo": "Canal", "tipo": "texto", "obrigatorio": true, "max": 80 },
+      { "nome": "url", "rotulo": "Link", "tipo": "url", "obrigatorio": true },
+      { "nome": "idioma", "rotulo": "Idioma", "tipo": "texto", "obrigatorio": true, "max": 40 }
+    ]
+  },
+  "frase": {
+    "rotulo": "Frase para a página inicial",
+    "ajuda": "Só frases com fonte conferida: obra, discurso ou entrevista, com o ano. Nada de frase de rede social sem origem.",
+    "titulo": "Autor ou autora da frase",
+    "disciplina": "nao",
+    "fonte": true,
+    "corpo": { "rotulo": "A frase", "min": 10, "editor": false },
+    "campos": []
+  },
+  "traducao": {
+    "rotulo": "Tradução",
+    "ajuda": "Tradução de uma página que já existe. Precisa ser revisada por quem domina o idioma.",
+    "titulo": "Título traduzido",
+    "disciplina": "nao",
+    "fonte": false,
+    "corpo": { "rotulo": "Texto traduzido", "min": 100, "editor": true },
+    "campos": [
+      { "nome": "alvo", "rotulo": "Endereço da página original (ex.: /trilhas/matematica-fundamental/fracoes)", "tipo": "caminho", "obrigatorio": true },
+      { "nome": "idioma", "rotulo": "Idioma da tradução", "tipo": "select", "opcoes": ["en", "es", "zh", "ru"], "obrigatorio": true },
+      { "nome": "resumo", "rotulo": "Resumo traduzido (uma linha)", "tipo": "texto", "max": 220 }
+    ]
+  },
+  "sugestao": {
+    "rotulo": "Sugestão",
+    "ajuda": "Uma ideia de trilha, de assunto ou de melhoria.",
+    "titulo": "Assunto",
+    "disciplina": "opcional",
+    "fonte": false,
+    "corpo": { "rotulo": "Sua sugestão", "min": 20, "editor": false },
+    "campos": []
+  }
+}
