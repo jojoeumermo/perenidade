@@ -72,7 +72,8 @@ function BassClef({ x }: { x: number }) {
   );
 }
 
-export function Staff({ spec }: { spec: string }) {
+/** `secret` esconde o nome das notas da descrição lida em voz alta (para exercícios de leitura). */
+export function Staff({ spec, secret = false }: { spec: string; secret?: boolean }) {
   const { clef, time, names, notes } = parse(spec);
   // Posição diatônica contada a partir da linha de baixo: mi3... na clave de sol é o E4; na de fá, o G2.
   const bottom = clef === "sol" ? 4 * 7 + 2 : 2 * 7 + 4;
@@ -135,7 +136,7 @@ export function Staff({ spec }: { spec: string }) {
 
   return (
     <div className="overflow-x-auto border border-rule bg-parchment-deep p-3">
-      <svg role="img" aria-label={`Pauta na clave de ${clef === "sol" ? "sol" : "fá"}: ${described}`} viewBox={`0 0 ${width} ${height}`} width={width} height={height} className="max-w-none text-ink">
+      <svg role="img" aria-label={`Pauta na clave de ${clef === "sol" ? "sol" : "fá"}${secret ? "" : `: ${described}`}`} viewBox={`0 0 ${width} ${height}`} width={width} height={height} className="max-w-none text-ink">
         {[0, 1, 2, 3, 4].map((line) => (
           <line key={line} x1="6" x2={width - 6} y1={TOP + line * GAP} y2={TOP + line * GAP} stroke="currentColor" strokeWidth="1" />
         ))}

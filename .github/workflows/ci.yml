@@ -1,4 +1,4 @@
-name: CI
+name: Verificação
 
 on:
   pull_request:
@@ -20,5 +20,8 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npm run typecheck
+      - run: npm run conferir:i18n
+      # Instala o banco do zero em memória e confere cada permissão do painel.
+      - run: npm run testar:banco
       # O build lê e valida todo o conteúdo de content/: arquivo inválido falha aqui.
       - run: npm run build

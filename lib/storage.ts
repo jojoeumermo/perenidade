@@ -44,6 +44,11 @@ export function setItem(key: string, value: string | null) {
   listeners.forEach((listener) => listener());
 }
 
+/** Avisa os componentes de que algo mudou por fora de setItem (a sessão, gravada pelo cliente de contas). */
+export function notifyStored() {
+  listeners.forEach((listener) => listener());
+}
+
 export function parse<T>(raw: string, fallback: T): T {
   try {
     return raw ? (JSON.parse(raw) as T) : fallback;

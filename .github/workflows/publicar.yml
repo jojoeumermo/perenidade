@@ -1,0 +1,47 @@
+name: Publicar contribuições aprovadas
+
+# De hora em hora, leva para o acervo o que a coordenação aprovou no painel.
+# Cada rodada vira um registro no histórico: para desfazer uma publicação, basta reverter esse registro.
+# Sem os dois segredos configurados (SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY) a rodada termina sem fazer nada.
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run sincronizar
+      - name: Há algo novo?
+        id: novo
+        run: |
+          git add -A content
+          if git diff --cached --quiet; then echo "sim=nao" >> "$GITHUB_OUTPUT"; else echo "sim=sim" >> "$GITHUB_OUTPUT"; fi
+      # O build confere cada arquivo novo com as mesmas regras do site: conteúdo inválido não entra.
+      - if: steps.novo.outputs.sim == 'sim'
+        run: npm run build
+      - if: steps.novo.outputs.sim == 'sim'
+        run: |
+          git config user.name "Publicação do Instituto Lúcia"
+          git config user.email "publicacao@users.noreply.github.com"
+          git commit -m "Publica contribuições aprovadas no painel"
+          git push
+      # Só depois de o arquivo estar no acervo o painel passa a mostrar o item como publicado.
+      - run: npm run sincronizar -- --marcar
