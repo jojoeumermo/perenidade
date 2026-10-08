@@ -2,7 +2,8 @@ name: Publicar contribuições aprovadas
 
 # De hora em hora, leva para o acervo o que a coordenação aprovou no painel.
 # Cada rodada vira um registro no histórico: para desfazer uma publicação, basta reverter esse registro.
-# Sem os dois segredos configurados (SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY) a rodada termina sem fazer nada.
+# A rotina só roda depois de criada a variável PUBLICAR com o valor "sim" (Settings → Secrets and variables →
+# Actions → Variables). Antes disso ela é pulada e não consome minutos. Para pausar as publicações, apague a variável.
 on:
   schedule:
     - cron: "17 * * * *"
@@ -17,6 +18,7 @@ concurrency:
 
 jobs:
   publicar:
+    if: ${{ vars.PUBLICAR == 'sim' }}
     runs-on: ubuntu-latest
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}

@@ -161,7 +161,7 @@ Sem esta etapa o site funciona, só não aparecem o painel, a comunidade e a rá
    ```
 
    A partir daí o painel mostra as abas da coordenação.
-8. Para a publicação automática (seção 7), cadastre nos segredos do repositório `SUPABASE_URL` (a mesma *Project URL*) e `SUPABASE_SERVICE_ROLE_KEY` (a chave *service_role*). **Essa chave nunca vai para o site nem para o `.env` de ninguém.**
+8. Para a publicação automática (seção 7), cadastre nos segredos do repositório `SUPABASE_URL` (a mesma *Project URL*) e `SUPABASE_SERVICE_ROLE_KEY` (a chave *service_role*). **Essa chave nunca vai para o site nem para o `.env` de ninguém.** Depois crie, na aba *Variables* da mesma tela, a variável `PUBLICAR` com o valor `sim`: é ela que liga a rotina de hora em hora.
 9. Opcional — entrada com o Google: ligue o provedor em **Authentication → Providers → Google** e crie a variável `NEXT_PUBLIC_AUTH_GOOGLE=1`.
 
 ### Papéis
@@ -184,7 +184,7 @@ Quem contribui sem conta, pela página Contribuir, entra na mesma fila.
 3. De hora em hora, a rotina **Publicar contribuições aprovadas** roda `scripts/sincronizar.mjs`: busca os itens aprovados, confere tudo de novo, grava os arquivos em `content/`, monta o site para validar e registra a mudança no histórico.
 4. Só então o painel marca o item como publicado.
 
-Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, desative a rotina.
+Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, apague a variável `PUBLICAR`.
 
 ## 8. Segurança: o que protege o quê
 
