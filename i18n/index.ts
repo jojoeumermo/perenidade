@@ -1,3 +1,4 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "./config";
 import en from "./en.json";

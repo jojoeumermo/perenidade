@@ -549,11 +549,6 @@
     "unavailable": "The history is not available in this copy of the site.",
     "more": "and {n} more"
   },
-  "volunteers": {
-    "contributors": "Who has contributed so far",
-    "contributorsLead": "Names taken from the history of the collection, in order of arrival.",
-    "none": "The history is not available in this copy of the site."
-  },
   "dedication": {
     "eyebrow": "Dedication",
     "title": "For Lúcia",

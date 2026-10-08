@@ -1,24 +1,26 @@
-MIT License
+Instituto Lúcia
+Copyright © 2026 Jonathan Santos. Todos os direitos reservados.
 
-Copyright (c) 2026 Projeto Lucia contributors
+O código-fonte deste repositório — programas, estilos, estrutura do banco de
+dados, roteiros de automação e demais arquivos que fazem o site funcionar — é
+propriedade de Jonathan Santos.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Não é permitido copiar, modificar, publicar, distribuir, sublicenciar, vender
+ou usar este código, no todo ou em parte, sem autorização prévia e por escrito
+do titular.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Esta restrição vale para o código. O conteúdo educacional guardado em
+"content/" tem licença própria, descrita em LICENSE-CONTEUDO.md. As bibliotecas
+de terceiros usadas pelo projeto continuam sob as suas próprias licenças.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+O SOFTWARE É FORNECIDO "COMO ESTÁ", SEM GARANTIA DE QUALQUER TIPO, EXPRESSA OU
+IMPLÍCITA. EM NENHUMA HIPÓTESE O TITULAR SERÁ RESPONSÁVEL POR QUALQUER DANO
+DECORRENTE DO USO DESTE SOFTWARE.
 
-This license covers the source code of the site. The lessons and other texts
-under content/ are licensed separately: see LICENSE-CONTEUDO.md.
+--------------------------------------------------------------------------------
+
+All rights reserved. The source code in this repository is the property of
+Jonathan Santos. No part of it may be copied, modified, published, distributed,
+sublicensed, sold or used without the owner's prior written permission. The
+educational content under "content/" is licensed separately (see
+LICENSE-CONTEUDO.md). Third-party libraries remain under their own licences.

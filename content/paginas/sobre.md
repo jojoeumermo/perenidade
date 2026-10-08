@@ -1,10 +1,10 @@
 ---
-titulo: "Por que Projeto Lucia"
+titulo: "Por que Instituto Lúcia"
 sobretitulo: "Manifesto"
-resumo: "Uma biblioteca feita pelo povo, para o povo. Sem dono, sem preço e sem cadeado."
+resumo: "Uma escola e uma biblioteca feitas pelo povo, para o povo. Sem preço e sem cadeado."
 ---
 
-A Biblioteca de Alexandria não desapareceu em um único incêndio. Ela definhou por séculos de descuido, cortes e conflitos, e o que se perdeu, perdeu-se porque existia em poucas cópias. O Projeto Lucia nasce para o contrário: conhecimento livre, gratuito e copiado por todos.
+A Biblioteca de Alexandria não desapareceu em um único incêndio. Ela definhou por séculos de descuido, cortes e conflitos, e o que se perdeu, perdeu-se porque existia em poucas cópias. O Instituto Lúcia nasce para o contrário: conhecimento livre, gratuito e copiado por todos.
 
 O saber que a humanidade acumulou foi produzido por gerações de trabalhadoras e trabalhadores. Ele não pode ser mercadoria nem privilégio de quem pode pagar. Aqui ninguém paga, ninguém precisa de conta para aprender, e ninguém lucra.
 
@@ -14,36 +14,42 @@ O nome é uma homenagem: veja a [dedicatória](/dedicatoria).
 
 Este é um projeto de esquerda, e não esconde isso. Estamos do lado de quem trabalha, de quem luta por terra, por moradia, por salário, por liberdade, e de todos os povos que resistem à exploração e à opressão.
 
-Por isso a nossa estante de História é contada do ponto de vista de quem a fez com as próprias mãos. Por isso há aqui um [Memorial](/memorial) para quem tombou na luta, uma seção de [Autores](/autores) que reúne o pensamento revolucionário, um [Glossário](/glossario) de conceitos e uma [Linha do tempo das lutas](/linha-do-tempo).
+Por isso a nossa História é contada do ponto de vista de quem a fez com as próprias mãos. Por isso há aqui um [Memorial](/memorial) para quem tombou na luta, uma seção de [Autores](/autores) que reúne o pensamento revolucionário, um [Glossário](/glossario) de conceitos e uma [Linha do tempo das lutas](/linha-do-tempo).
 
-Mas a biblioteca não é só de teoria política. Quem quer aprender inglês, matemática, informática ou programação encontra aqui o mesmo cuidado. Educação é ferramenta de emancipação em qualquer área.
+Mas o instituto não é só de teoria política. Quem quer aprender inglês, matemática, música, informática ou programação encontra aqui o mesmo cuidado. Educação é ferramenta de emancipação em qualquer área.
 
 ## Como funciona
 
-- **Trilhas e aulas** são textos escritos por voluntários, guardados como arquivos simples.
+- **As disciplinas** se dividem em trilhas, do ensino fundamental ao superior. Cada aula é curta, termina com um teste e mostra as fontes em que se apoia.
 - **O acervo** é um índice: título, autor, sinopse e um link para a fonte legítima da obra. Nenhum arquivo de terceiros é hospedado aqui.
-- **A moderação** é pública. Toda contribuição passa pela [fila de moderação](/moderacao) antes de entrar.
-- **O histórico** guarda todas as versões. Veja o [histórico do acervo](/historico).
-- **O código** é aberto. Se um dia este site sair do ar, qualquer pessoa pode copiá-lo e colocá-lo de pé outra vez.
+- **As ferramentas de prática** (afinador, editor de código, tabela periódica e outras) funcionam no seu próprio aparelho.
+- **A curadoria** lê tudo antes de publicar. Qualquer pessoa pode [contribuir](/contribuir), com ou sem conta, e toda aula precisa citar pelo menos uma fonte.
+- **O histórico** guarda todas as versões. Se algo errado for publicado, basta voltar à versão anterior. Veja o [histórico do acervo](/historico).
 
 ## Nossos princípios, em um minuto
 
 1. O conhecimento é livre. Nada aqui é vendido.
-2. Não vendemos seus dados, porque não os temos.
+2. Não vendemos seus dados. Para estudar, nem precisamos deles.
 3. Sem anúncios, sem rastreadores, sem ranking, sem pressa. Cada pessoa aprende no seu tempo.
-4. Ninguém é dono da biblioteca. Quem a usa pode melhorá-la.
+4. O que se ensina aqui tem fonte, e quem lê pode conferir.
 5. Respeitamos o trabalho de quem escreve: só entra aqui o que é livre para circular.
+
+## Quem mantém
+
+O instituto é mantido por voluntários: educadores, revisores, tradutores, curadores e jornalistas. Veja como participar em [Voluntariado](/voluntarios). Os custos de manter o site no ar são pagos por quem pode e quer ajudar: veja [Apoie](/apoie). Doar é opcional, e o acesso é igual para todos.
 
 ## Licenças
 
 As aulas escritas pela comunidade são publicadas sob a licença [Creative Commons Atribuição-CompartilhaIgual 4.0 (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/deed.pt-br): qualquer pessoa pode copiar, adaptar e redistribuir, desde que dê crédito e mantenha a mesma licença.
 
-As obras do acervo pertencem aos seus autores e seguem a licença indicada em cada ficha. O código do site é aberto, sob a licença MIT.
+As obras do acervo pertencem aos seus autores e seguem a licença indicada em cada ficha.
 
 ## Privacidade
 
-O site não tem cadastro, não usa cookies de rastreamento e não coleta dados pessoais. As aulas que você conclui, o tema escolhido e os rascunhos de contribuição ficam guardados apenas no seu navegador. Em [Meus dados](/meus-dados) você pode baixar ou apagar tudo. A única exceção é a fila de moderação, que consulta o GitHub direto do seu navegador para listar as contribuições em aberto.
+Para estudar não há cadastro. As aulas que você conclui, o tema escolhido, o seu fichamento e os rascunhos ficam guardados apenas no seu navegador. Em [Meus dados](/meus-dados) você pode baixar ou apagar tudo.
+
+A conta é opcional e só serve para quem quer participar das conversas ou trabalhar como voluntário. Nesse caso guardamos o seu e-mail e o nome que você escolher mostrar, e nada mais. Você pode apagar a conta quando quiser, pelo próprio painel. O site não usa cookies de rastreamento nem anúncios.
 
 ## Direitos autorais
 
-Só entram aqui obras em domínio público, com licença aberta ou escritas pela própria comunidade. Se algo estiver errado, [denuncie](/denunciar): o item sai do ar enquanto é analisado.
+Só entram aqui obras em domínio público, com licença aberta ou escritas pela própria comunidade. Livros protegidos aparecem apenas como referência bibliográfica, com link para a editora ou para uma biblioteca. Se algo estiver errado, [denuncie](/denunciar): o item sai do ar enquanto é analisado.

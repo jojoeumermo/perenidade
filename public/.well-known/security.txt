@@ -1,4 +1,0 @@
-# Encontrou uma falha de segurança? Avise em particular antes de divulgar.
-Contact: https://github.com/jojoeumermo/perenidade/security/advisories/new
-Expires: 2027-10-01T00:00:00.000Z
-Preferred-Languages: pt, en, es

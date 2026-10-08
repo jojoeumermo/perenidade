@@ -543,11 +543,6 @@
     "unavailable": "本站的这份副本中没有历史记录。",
     "more": "以及另外 {n} 项"
   },
-  "volunteers": {
-    "contributors": "已经参与贡献的人",
-    "contributorsLead": "名字取自馆藏的历史记录，按加入的先后排列。",
-    "none": "本站的这份副本中没有历史记录。"
-  },
   "dedication": {
     "eyebrow": "献词",
     "title": "献给 Lúcia",
