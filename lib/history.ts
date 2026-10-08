@@ -1,3 +1,4 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import { execFileSync } from "node:child_process";
 import { cache } from "react";
 

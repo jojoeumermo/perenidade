@@ -1,3 +1,4 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { AcervoBrowser } from "@/components/AcervoBrowser";

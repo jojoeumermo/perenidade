@@ -549,11 +549,6 @@
     "unavailable": "O histórico não está disponível nesta cópia do site.",
     "more": "e mais {n}"
   },
-  "volunteers": {
-    "contributors": "Quem já contribuiu",
-    "contributorsLead": "Nomes tirados do histórico do acervo, em ordem de chegada.",
-    "none": "O histórico não está disponível nesta cópia do site."
-  },
   "dedication": {
     "eyebrow": "Dedicatória",
     "title": "Para Lúcia",

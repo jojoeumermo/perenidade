@@ -1,3 +1,4 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 /** Minúsculas e sem acentos, para busca e comparação. */
 export function normalize(text: string): string {
   return text
