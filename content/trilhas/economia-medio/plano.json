@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "oferta-e-demanda",
+    "titulo": "Oferta e demanda"
+  },
+  {
+    "slug": "pib-o-que-mede-e-o-que-esconde",
+    "titulo": "PIB: o que mede e o que esconde"
+  },
+  {
+    "slug": "inflacao-e-indices-de-precos",
+    "titulo": "Inflação e índices de preços"
+  },
+  {
+    "slug": "desemprego",
+    "titulo": "Desemprego"
+  },
+  {
+    "slug": "moeda-bancos-e-banco-central",
+    "titulo": "Moeda, bancos e Banco Central"
+  },
+  {
+    "slug": "cambio",
+    "titulo": "Câmbio"
+  },
+  {
+    "slug": "orcamento-publico-e-divida-publica",
+    "titulo": "Orçamento público e dívida pública"
+  },
+  {
+    "slug": "sistema-tributario-quem-paga-a-conta",
+    "titulo": "Sistema tributário: quem paga a conta"
+  },
+  {
+    "slug": "desigualdade-e-distribuicao-de-renda",
+    "titulo": "Desigualdade e distribuição de renda"
+  },
+  {
+    "slug": "comercio-internacional",
+    "titulo": "Comércio internacional"
+  },
+  {
+    "slug": "crises-economicas",
+    "titulo": "Crises econômicas"
+  },
+  {
+    "slug": "desenvolvimento-e-subdesenvolvimento",
+    "titulo": "Desenvolvimento e subdesenvolvimento"
+  }
+]

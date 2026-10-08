@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "historia-da-inteligencia-artificial",
+    "titulo": "História da inteligência artificial"
+  },
+  {
+    "slug": "aprendizado-supervisionado",
+    "titulo": "Aprendizado supervisionado"
+  },
+  {
+    "slug": "aprendizado-nao-supervisionado",
+    "titulo": "Aprendizado não supervisionado"
+  },
+  {
+    "slug": "redes-neurais-a-ideia",
+    "titulo": "Redes neurais: a ideia"
+  },
+  {
+    "slug": "como-se-treina-um-modelo",
+    "titulo": "Como se treina um modelo"
+  },
+  {
+    "slug": "vies-algoritmico-e-discriminacao",
+    "titulo": "Viés algorítmico e discriminação"
+  },
+  {
+    "slug": "modelos-de-linguagem",
+    "titulo": "Modelos de linguagem"
+  },
+  {
+    "slug": "visao-computacional",
+    "titulo": "Visão computacional"
+  },
+  {
+    "slug": "o-trabalho-invisivel-por-tras-das-maquinas",
+    "titulo": "O trabalho invisível por trás das máquinas"
+  },
+  {
+    "slug": "a-regulacao-da-inteligencia-artificial-no-mundo",
+    "titulo": "A regulação da inteligência artificial no mundo"
+  }
+]

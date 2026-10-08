@@ -1,0 +1,46 @@
+[
+  {
+    "slug": "o-que-e-php-e-o-seu-primeiro-script",
+    "titulo": "O que é PHP e o seu primeiro script"
+  },
+  {
+    "slug": "variaveis-tipos-e-operadores-em-php",
+    "titulo": "Variáveis, tipos e operadores em PHP"
+  },
+  {
+    "slug": "condicoes-e-lacos-em-php",
+    "titulo": "Condições e laços em PHP"
+  },
+  {
+    "slug": "arrays-em-php",
+    "titulo": "Arrays em PHP"
+  },
+  {
+    "slug": "funcoes-em-php",
+    "titulo": "Funções em PHP"
+  },
+  {
+    "slug": "textos-e-datas-em-php",
+    "titulo": "Textos e datas em PHP"
+  },
+  {
+    "slug": "formularios-get-e-post",
+    "titulo": "Formulários: GET e POST"
+  },
+  {
+    "slug": "validacao-e-seguranca-dos-dados-de-entrada",
+    "titulo": "Validação e segurança dos dados de entrada"
+  },
+  {
+    "slug": "sessoes-e-cookies",
+    "titulo": "Sessões e cookies"
+  },
+  {
+    "slug": "php-e-banco-de-dados-com-pdo",
+    "titulo": "PHP e banco de dados com PDO"
+  },
+  {
+    "slug": "projeto-um-mural-de-recados",
+    "titulo": "Projeto: um mural de recados"
+  }
+]

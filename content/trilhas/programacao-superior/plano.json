@@ -1,0 +1,46 @@
+[
+  {
+    "slug": "orientacao-a-objetos",
+    "titulo": "Orientação a objetos"
+  },
+  {
+    "slug": "recursao",
+    "titulo": "Recursão"
+  },
+  {
+    "slug": "pilhas-filas-e-listas-ligadas",
+    "titulo": "Pilhas, filas e listas ligadas"
+  },
+  {
+    "slug": "arvores-e-grafos",
+    "titulo": "Árvores e grafos"
+  },
+  {
+    "slug": "busca-e-ordenacao",
+    "titulo": "Busca e ordenação"
+  },
+  {
+    "slug": "controle-de-versao",
+    "titulo": "Controle de versão"
+  },
+  {
+    "slug": "testes-automatizados",
+    "titulo": "Testes automatizados"
+  },
+  {
+    "slug": "bancos-de-dados-e-sql-para-programadores",
+    "titulo": "Bancos de dados e SQL para programadores"
+  },
+  {
+    "slug": "apis-e-o-protocolo-http",
+    "titulo": "APIs e o protocolo HTTP"
+  },
+  {
+    "slug": "seguranca-de-aplicacoes-as-falhas-mais-comuns",
+    "titulo": "Segurança de aplicações: as falhas mais comuns"
+  },
+  {
+    "slug": "padroes-de-projeto",
+    "titulo": "Padrões de projeto"
+  }
+]

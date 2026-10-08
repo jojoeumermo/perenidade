@@ -1,0 +1,46 @@
+[
+  {
+    "slug": "hardware-por-dentro",
+    "titulo": "Hardware por dentro"
+  },
+  {
+    "slug": "redes-ip-roteador-e-wi-fi",
+    "titulo": "Redes: IP, roteador e Wi-Fi"
+  },
+  {
+    "slug": "como-funciona-a-web-http-e-html",
+    "titulo": "Como funciona a web: HTTP e HTML"
+  },
+  {
+    "slug": "linha-de-comando",
+    "titulo": "Linha de comando"
+  },
+  {
+    "slug": "linux-primeiros-passos",
+    "titulo": "Linux: primeiros passos"
+  },
+  {
+    "slug": "bancos-de-dados-a-ideia",
+    "titulo": "Bancos de dados: a ideia"
+  },
+  {
+    "slug": "backup-e-recuperacao-de-arquivos",
+    "titulo": "Backup e recuperação de arquivos"
+  },
+  {
+    "slug": "criptografia-a-ideia",
+    "titulo": "Criptografia: a ideia"
+  },
+  {
+    "slug": "seguranca-digital-para-militantes-e-jornalistas",
+    "titulo": "Segurança digital para militantes e jornalistas"
+  },
+  {
+    "slug": "planilhas-avancadas",
+    "titulo": "Planilhas avançadas"
+  },
+  {
+    "slug": "manutencao-basica-de-computadores",
+    "titulo": "Manutenção básica de computadores"
+  }
+]

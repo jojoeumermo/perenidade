@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "limites",
+    "titulo": "Limites"
+  },
+  {
+    "slug": "derivadas",
+    "titulo": "Derivadas"
+  },
+  {
+    "slug": "integrais",
+    "titulo": "Integrais"
+  },
+  {
+    "slug": "algebra-linear-vetores-e-matrizes",
+    "titulo": "Álgebra linear: vetores e matrizes"
+  },
+  {
+    "slug": "logica-e-demonstracoes",
+    "titulo": "Lógica e demonstrações"
+  },
+  {
+    "slug": "teoria-dos-conjuntos",
+    "titulo": "Teoria dos conjuntos"
+  },
+  {
+    "slug": "equacoes-diferenciais-uma-introducao",
+    "titulo": "Equações diferenciais: uma introdução"
+  },
+  {
+    "slug": "probabilidade-e-distribuicoes",
+    "titulo": "Probabilidade e distribuições"
+  },
+  {
+    "slug": "inferencia-estatistica",
+    "titulo": "Inferência estatística"
+  },
+  {
+    "slug": "historia-da-matematica",
+    "titulo": "História da matemática"
+  }
+]

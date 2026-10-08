@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "estrutura-atomica-e-orbitais",
+    "titulo": "Estrutura atômica e orbitais"
+  },
+  {
+    "slug": "termodinamica-quimica",
+    "titulo": "Termodinâmica química"
+  },
+  {
+    "slug": "quimica-organica-mecanismos-de-reacao",
+    "titulo": "Química orgânica: mecanismos de reação"
+  },
+  {
+    "slug": "quimica-analitica",
+    "titulo": "Química analítica"
+  },
+  {
+    "slug": "bioquimica-proteinas-carboidratos-e-lipidios",
+    "titulo": "Bioquímica: proteínas, carboidratos e lipídios"
+  },
+  {
+    "slug": "quimica-verde",
+    "titulo": "Química verde"
+  },
+  {
+    "slug": "quimica-industrial-e-petroleo",
+    "titulo": "Química industrial e petróleo"
+  },
+  {
+    "slug": "historia-da-quimica",
+    "titulo": "História da química"
+  }
+]

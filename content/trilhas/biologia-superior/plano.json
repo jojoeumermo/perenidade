@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "biologia-molecular",
+    "titulo": "Biologia molecular"
+  },
+  {
+    "slug": "genetica-de-populacoes",
+    "titulo": "Genética de populações"
+  },
+  {
+    "slug": "evolucao-a-sintese-moderna",
+    "titulo": "Evolução: a síntese moderna"
+  },
+  {
+    "slug": "microbiologia",
+    "titulo": "Microbiologia"
+  },
+  {
+    "slug": "imunologia",
+    "titulo": "Imunologia"
+  },
+  {
+    "slug": "neurociencia-uma-introducao",
+    "titulo": "Neurociência: uma introdução"
+  },
+  {
+    "slug": "ecologia-e-conservacao",
+    "titulo": "Ecologia e conservação"
+  },
+  {
+    "slug": "epidemiologia",
+    "titulo": "Epidemiologia"
+  },
+  {
+    "slug": "determinantes-sociais-da-saude",
+    "titulo": "Determinantes sociais da saúde"
+  },
+  {
+    "slug": "bioetica",
+    "titulo": "Bioética"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "slug": "modelos-atomicos",
+    "titulo": "Modelos atômicos"
+  },
+  {
+    "slug": "distribuicao-eletronica",
+    "titulo": "Distribuição eletrônica"
+  },
+  {
+    "slug": "ligacoes-quimicas",
+    "titulo": "Ligações químicas"
+  },
+  {
+    "slug": "funcoes-inorganicas",
+    "titulo": "Funções inorgânicas"
+  },
+  {
+    "slug": "reacoes-quimicas-e-balanceamento",
+    "titulo": "Reações químicas e balanceamento"
+  },
+  {
+    "slug": "mol-e-estequiometria",
+    "titulo": "Mol e estequiometria"
+  },
+  {
+    "slug": "solucoes-e-concentracao",
+    "titulo": "Soluções e concentração"
+  },
+  {
+    "slug": "termoquimica",
+    "titulo": "Termoquímica"
+  },
+  {
+    "slug": "cinetica-e-equilibrio-quimico",
+    "titulo": "Cinética e equilíbrio químico"
+  },
+  {
+    "slug": "ph",
+    "titulo": "pH"
+  },
+  {
+    "slug": "eletroquimica-pilhas-e-eletrolise",
+    "titulo": "Eletroquímica: pilhas e eletrólise"
+  },
+  {
+    "slug": "quimica-organica-cadeias-e-funcoes",
+    "titulo": "Química orgânica: cadeias e funções"
+  },
+  {
+    "slug": "polimeros-e-plasticos",
+    "titulo": "Polímeros e plásticos"
+  },
+  {
+    "slug": "quimica-ambiental",
+    "titulo": "Química ambiental"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "o-que-e-noticia",
+    "titulo": "O que é notícia"
+  },
+  {
+    "slug": "fato-opiniao-e-propaganda",
+    "titulo": "Fato, opinião e propaganda"
+  },
+  {
+    "slug": "como-identificar-uma-noticia-falsa",
+    "titulo": "Como identificar uma notícia falsa"
+  },
+  {
+    "slug": "quem-sao-os-donos-da-midia",
+    "titulo": "Quem são os donos da mídia"
+  },
+  {
+    "slug": "como-funcionam-as-redes-sociais",
+    "titulo": "Como funcionam as redes sociais"
+  },
+  {
+    "slug": "o-algoritmo-e-a-bolha",
+    "titulo": "O algoritmo e a bolha"
+  },
+  {
+    "slug": "manchete-e-enquadramento",
+    "titulo": "Manchete e enquadramento"
+  },
+  {
+    "slug": "fotografia-e-manipulacao",
+    "titulo": "Fotografia e manipulação"
+  },
+  {
+    "slug": "publicidade",
+    "titulo": "Publicidade"
+  },
+  {
+    "slug": "seus-dados-valem-dinheiro",
+    "titulo": "Seus dados valem dinheiro"
+  }
+]
