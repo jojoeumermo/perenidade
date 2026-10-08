@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "o-que-e-um-algoritmo",
+    "titulo": "O que é um algoritmo"
+  },
+  {
+    "slug": "variaveis-e-tipos",
+    "titulo": "Variáveis e tipos"
+  },
+  {
+    "slug": "condicoes",
+    "titulo": "Condições"
+  },
+  {
+    "slug": "lacos-de-repeticao",
+    "titulo": "Laços de repetição"
+  },
+  {
+    "slug": "funcoes",
+    "titulo": "Funções"
+  },
+  {
+    "slug": "listas-e-vetores",
+    "titulo": "Listas e vetores"
+  },
+  {
+    "slug": "depuracao-como-achar-o-erro",
+    "titulo": "Depuração: como achar o erro"
+  },
+  {
+    "slug": "como-dividir-um-problema-em-partes",
+    "titulo": "Como dividir um problema em partes"
+  },
+  {
+    "slug": "exercicios-de-logica-resolvidos",
+    "titulo": "Exercícios de lógica resolvidos"
+  }
+]

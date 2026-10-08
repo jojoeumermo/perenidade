@@ -1,0 +1,54 @@
+[
+  {
+    "slug": "os-pre-socraticos",
+    "titulo": "Os pré-socráticos"
+  },
+  {
+    "slug": "platao",
+    "titulo": "Platão"
+  },
+  {
+    "slug": "aristoteles",
+    "titulo": "Aristóteles"
+  },
+  {
+    "slug": "filosofia-medieval",
+    "titulo": "Filosofia medieval"
+  },
+  {
+    "slug": "descartes-e-o-racionalismo",
+    "titulo": "Descartes e o racionalismo"
+  },
+  {
+    "slug": "o-empirismo-locke-e-hume",
+    "titulo": "O empirismo: Locke e Hume"
+  },
+  {
+    "slug": "kant",
+    "titulo": "Kant"
+  },
+  {
+    "slug": "hegel-e-a-dialetica",
+    "titulo": "Hegel e a dialética"
+  },
+  {
+    "slug": "marx-e-o-materialismo",
+    "titulo": "Marx e o materialismo"
+  },
+  {
+    "slug": "nietzsche",
+    "titulo": "Nietzsche"
+  },
+  {
+    "slug": "existencialismo-sartre-e-beauvoir",
+    "titulo": "Existencialismo: Sartre e Beauvoir"
+  },
+  {
+    "slug": "logica-uma-introducao",
+    "titulo": "Lógica: uma introdução"
+  },
+  {
+    "slug": "filosofia-politica-os-contratualistas",
+    "titulo": "Filosofia política: os contratualistas"
+  }
+]

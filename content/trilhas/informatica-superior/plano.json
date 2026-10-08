@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "arquitetura-de-computadores",
+    "titulo": "Arquitetura de computadores"
+  },
+  {
+    "slug": "sistemas-operacionais-processos-e-memoria",
+    "titulo": "Sistemas operacionais: processos e memória"
+  },
+  {
+    "slug": "redes-o-modelo-em-camadas",
+    "titulo": "Redes: o modelo em camadas"
+  },
+  {
+    "slug": "bancos-de-dados-relacionais-e-sql",
+    "titulo": "Bancos de dados relacionais e SQL"
+  },
+  {
+    "slug": "estruturas-de-dados",
+    "titulo": "Estruturas de dados"
+  },
+  {
+    "slug": "complexidade-de-algoritmos",
+    "titulo": "Complexidade de algoritmos"
+  },
+  {
+    "slug": "engenharia-de-software",
+    "titulo": "Engenharia de software"
+  },
+  {
+    "slug": "seguranca-da-informacao",
+    "titulo": "Segurança da informação"
+  },
+  {
+    "slug": "computacao-e-sociedade",
+    "titulo": "Computação e sociedade"
+  },
+  {
+    "slug": "historia-da-computacao",
+    "titulo": "História da computação"
+  }
+]

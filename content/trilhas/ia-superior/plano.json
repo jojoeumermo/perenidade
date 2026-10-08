@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "regressao-linear-e-logistica",
+    "titulo": "Regressão linear e logística"
+  },
+  {
+    "slug": "arvores-de-decisao",
+    "titulo": "Árvores de decisão"
+  },
+  {
+    "slug": "redes-neurais-e-retropropagacao",
+    "titulo": "Redes neurais e retropropagação"
+  },
+  {
+    "slug": "redes-convolucionais",
+    "titulo": "Redes convolucionais"
+  },
+  {
+    "slug": "transformers-e-o-mecanismo-de-atencao",
+    "titulo": "Transformers e o mecanismo de atenção"
+  },
+  {
+    "slug": "como-avaliar-um-modelo",
+    "titulo": "Como avaliar um modelo"
+  },
+  {
+    "slug": "aprendizado-por-reforco",
+    "titulo": "Aprendizado por reforço"
+  },
+  {
+    "slug": "etica-e-seguranca",
+    "titulo": "Ética e segurança"
+  },
+  {
+    "slug": "inteligencia-artificial-capitalismo-e-trabalho",
+    "titulo": "Inteligência artificial, capitalismo e trabalho"
+  },
+  {
+    "slug": "soberania-tecnologica",
+    "titulo": "Soberania tecnológica"
+  }
+]

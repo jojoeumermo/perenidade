@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "epistemologia",
+    "titulo": "Epistemologia"
+  },
+  {
+    "slug": "filosofia-da-ciencia",
+    "titulo": "Filosofia da ciência"
+  },
+  {
+    "slug": "etica-as-principais-teorias",
+    "titulo": "Ética: as principais teorias"
+  },
+  {
+    "slug": "materialismo-dialetico",
+    "titulo": "Materialismo dialético"
+  },
+  {
+    "slug": "filosofia-da-linguagem",
+    "titulo": "Filosofia da linguagem"
+  },
+  {
+    "slug": "fenomenologia",
+    "titulo": "Fenomenologia"
+  },
+  {
+    "slug": "teoria-critica",
+    "titulo": "Teoria crítica"
+  },
+  {
+    "slug": "filosofia-latino-americana",
+    "titulo": "Filosofia latino-americana"
+  },
+  {
+    "slug": "filosofia-africana",
+    "titulo": "Filosofia africana"
+  },
+  {
+    "slug": "frantz-fanon",
+    "titulo": "Frantz Fanon"
+  }
+]

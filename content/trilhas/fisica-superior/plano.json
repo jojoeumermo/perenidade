@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "mecanica-classica",
+    "titulo": "Mecânica clássica"
+  },
+  {
+    "slug": "oscilacoes-e-ondas",
+    "titulo": "Oscilações e ondas"
+  },
+  {
+    "slug": "termodinamica-e-fisica-estatistica",
+    "titulo": "Termodinâmica e física estatística"
+  },
+  {
+    "slug": "eletromagnetismo-e-as-equacoes-de-maxwell",
+    "titulo": "Eletromagnetismo e as equações de Maxwell"
+  },
+  {
+    "slug": "relatividade-restrita",
+    "titulo": "Relatividade restrita"
+  },
+  {
+    "slug": "mecanica-quantica-os-fundamentos",
+    "titulo": "Mecânica quântica: os fundamentos"
+  },
+  {
+    "slug": "fisica-nuclear-e-de-particulas",
+    "titulo": "Física nuclear e de partículas"
+  },
+  {
+    "slug": "energia-nuclear-e-sociedade",
+    "titulo": "Energia nuclear e sociedade"
+  },
+  {
+    "slug": "historia-e-filosofia-da-fisica",
+    "titulo": "História e filosofia da física"
+  }
+]

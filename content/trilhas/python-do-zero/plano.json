@@ -1,0 +1,54 @@
+[
+  {
+    "slug": "seu-primeiro-programa-em-python",
+    "titulo": "Seu primeiro programa em Python"
+  },
+  {
+    "slug": "variaveis-tipos-e-entrada-de-dados-em-python",
+    "titulo": "Variáveis, tipos e entrada de dados em Python"
+  },
+  {
+    "slug": "operadores-e-expressoes-em-python",
+    "titulo": "Operadores e expressões em Python"
+  },
+  {
+    "slug": "condicoes-em-python-if-elif-e-else",
+    "titulo": "Condições em Python: if, elif e else"
+  },
+  {
+    "slug": "lacos-em-python-while-e-for",
+    "titulo": "Laços em Python: while e for"
+  },
+  {
+    "slug": "listas-em-python",
+    "titulo": "Listas em Python"
+  },
+  {
+    "slug": "textos-strings-em-python",
+    "titulo": "Textos (strings) em Python"
+  },
+  {
+    "slug": "funcoes-em-python",
+    "titulo": "Funções em Python"
+  },
+  {
+    "slug": "dicionarios-em-python",
+    "titulo": "Dicionários em Python"
+  },
+  {
+    "slug": "arquivos-em-python",
+    "titulo": "Arquivos em Python"
+  },
+  {
+    "slug": "como-tratar-erros-em-python",
+    "titulo": "Como tratar erros em Python"
+  },
+  {
+    "slug": "modulos-e-a-biblioteca-padrao",
+    "titulo": "Módulos e a biblioteca padrão"
+  },
+  {
+    "slug": "projeto-um-jogo-de-adivinhacao",
+    "titulo": "Projeto: um jogo de adivinhação"
+  }
+]

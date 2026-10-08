@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "o-que-a-fisica-estuda",
+    "titulo": "O que a física estuda"
+  },
+  {
+    "slug": "medidas-e-unidades",
+    "titulo": "Medidas e unidades"
+  },
+  {
+    "slug": "movimento-e-velocidade-media",
+    "titulo": "Movimento e velocidade média"
+  },
+  {
+    "slug": "forca-e-as-leis-de-newton",
+    "titulo": "Força e as leis de Newton"
+  },
+  {
+    "slug": "peso-massa-e-gravidade",
+    "titulo": "Peso, massa e gravidade"
+  },
+  {
+    "slug": "energia-e-suas-transformacoes",
+    "titulo": "Energia e suas transformações"
+  },
+  {
+    "slug": "calor-e-temperatura",
+    "titulo": "Calor e temperatura"
+  },
+  {
+    "slug": "som",
+    "titulo": "Som"
+  },
+  {
+    "slug": "luz-sombra-e-cores",
+    "titulo": "Luz, sombra e cores"
+  },
+  {
+    "slug": "eletricidade-em-casa",
+    "titulo": "Eletricidade em casa"
+  },
+  {
+    "slug": "imas-e-magnetismo",
+    "titulo": "Ímãs e magnetismo"
+  },
+  {
+    "slug": "maquinas-simples",
+    "titulo": "Máquinas simples"
+  }
+]
