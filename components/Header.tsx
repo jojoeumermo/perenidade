@@ -16,21 +16,21 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
         {t.common.skip}
       </a>
       <div className="bg-ink px-4 py-1.5 text-center font-mono text-xs tracking-wide text-parchment">{t.common.strip}</div>
-      {/* Primeira linha: nome, idioma, tema e conta. Segunda linha: as seções do site. */}
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 pt-5">
-        <Link href={localePath(lang, "/")} className="mr-auto flex items-baseline gap-3">
+      {/* Tudo em uma linha: nome, seções do site e, à direita, conta, idioma e tema. Em telas estreitas, quebra. */}
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-5">
+        <Link href={localePath(lang, "/")} className="flex items-baseline gap-3">
           <span aria-hidden className="text-3xl text-gold">◈</span>
           <span className="text-3xl font-semibold tracking-tight">{site.name}</span>
         </Link>
+        <nav aria-label={t.nav.main} className="mr-auto flex flex-wrap items-center gap-x-4 gap-y-2 font-sans text-sm text-ink-soft">
+          <NavLinks />
+        </nav>
         <div className="flex items-center gap-4">
           <AccountLink />
           <LanguageSwitcher />
           <ThemeToggle />
         </div>
       </div>
-      <nav aria-label={t.nav.main} className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-5 gap-y-2 px-4 pb-5 pt-3 font-sans text-sm text-ink-soft">
-        <NavLinks />
-      </nav>
     </header>
   );
 }
