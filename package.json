@@ -15,7 +15,8 @@
     "conferir:links": "node scripts/conferir-links.mjs",
     "testar:banco": "node scripts/testar-banco.mjs",
     "sincronizar": "node scripts/sincronizar.mjs",
-    "proximo": "node scripts/proximo.mjs"
+    "proximo": "node scripts/proximo.mjs",
+    "importar:catalogo": "node scripts/importar-catalogo.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",

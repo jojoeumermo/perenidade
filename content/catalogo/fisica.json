@@ -1,0 +1,962 @@
+[
+ {
+  "t": "Tratado das Cores",
+  "a": "Diogo de Carvalho e Sampaio",
+  "u": "https://www.gutenberg.org/ebooks/31190",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Português"
+ },
+ {
+  "t": "Faraday as a Discoverer",
+  "a": "John Tyndall",
+  "u": "https://www.gutenberg.org/ebooks/1225",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Story of Electricity",
+  "a": "John Munro",
+  "u": "https://www.gutenberg.org/ebooks/4710",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Five of Maxwell's Papers",
+  "a": "James Clerk Maxwell",
+  "u": "https://www.gutenberg.org/ebooks/4908",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Sidelights on Relativity",
+  "a": "Albert Einstein",
+  "u": "https://www.gutenberg.org/ebooks/7333",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Ancient and Modern Physics",
+  "a": "Thomas Edgar Willson",
+  "u": "https://www.gutenberg.org/ebooks/10773",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Einstein Theory of Relativity: A Concise Statement",
+  "a": "H. A. Lorentz",
+  "u": "https://www.gutenberg.org/ebooks/11335",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Experimental Determination of the Velocity of Light",
+  "a": "Albert A. Michelson",
+  "u": "https://www.gutenberg.org/ebooks/11753",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Experiments with Alternate Currents of High Potential and High Frequency",
+  "a": "Nikola Tesla",
+  "u": "https://www.gutenberg.org/ebooks/13476",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Six Lectures on Light",
+  "a": "John Tyndall",
+  "u": "https://www.gutenberg.org/ebooks/14000",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Experiments and Considerations Touching Colours (1664)",
+  "a": "Robert Boyle",
+  "u": "https://www.gutenberg.org/ebooks/14504",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Treatise on light",
+  "a": "Christiaan Huygens",
+  "u": "https://www.gutenberg.org/ebooks/14725",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Experimental Researches in Electricity, Volume 1",
+  "a": "Michael Faraday",
+  "u": "https://www.gutenberg.org/ebooks/14986",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The New Physics and Its Evolution",
+  "a": "Lucien Poincaré",
+  "u": "https://www.gutenberg.org/ebooks/15207",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Hurricane Guide",
+  "a": "William Radcliff Birt",
+  "u": "https://www.gutenberg.org/ebooks/18534",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Book of the Damned",
+  "a": "Charles Fort",
+  "u": "https://www.gutenberg.org/ebooks/22472",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Barometer and Weather Guide",
+  "a": "Robert Fitzroy",
+  "u": "https://www.gutenberg.org/ebooks/23921",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Fragments of Science: A Series of Detached Essays, Addresses, and Reviews. V. 1-2",
+  "a": "John Tyndall",
+  "u": "https://www.gutenberg.org/ebooks/24527",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Rollo's Philosophy. [Air]",
+  "a": "Jacob Abbott",
+  "u": "https://www.gutenberg.org/ebooks/25206",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Standard Electrical Dictionary",
+  "a": "T. O'Conor Sloane",
+  "u": "https://www.gutenberg.org/ebooks/26535",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Splash of a Drop",
+  "a": "A. M. Worthington",
+  "u": "https://www.gutenberg.org/ebooks/27125",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Machinery of the Universe: Mechanical Conceptions of Physical Phenomena",
+  "a": "A. E. Dolbear",
+  "u": "https://www.gutenberg.org/ebooks/29444",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Space, Time and Gravitation: An Outline of the General Relativity Theory",
+  "a": "Arthur Stanley Eddington",
+  "u": "https://www.gutenberg.org/ebooks/29782",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Rain Cloud",
+  "a": "Charles Tomlinson",
+  "u": "https://www.gutenberg.org/ebooks/30706",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Matter, Ether, and Motion: The Factors and Relations of Physical Science",
+  "a": "A. E. Dolbear",
+  "u": "https://www.gutenberg.org/ebooks/31428",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "A Brief Account of Radio-activity",
+  "a": "F. P. Venable",
+  "u": "https://www.gutenberg.org/ebooks/32307",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Theory of the Relativity of Motion",
+  "a": "Richard C. Tolman",
+  "u": "https://www.gutenberg.org/ebooks/32857",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Soap-Bubbles and the Forces Which Mould Them",
+  "a": "C. V. Boys",
+  "u": "https://www.gutenberg.org/ebooks/33370",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Philosophy of the Weather. And a Guide to Its Changes",
+  "a": "T. B. Butler",
+  "u": "https://www.gutenberg.org/ebooks/33429",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Opticks",
+  "a": "Isaac Newton",
+  "u": "https://www.gutenberg.org/ebooks/33504",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "On the magnet, magnetick bodies also, and on the great magnet the earth",
+  "a": "William Gilbert",
+  "u": "https://www.gutenberg.org/ebooks/33810",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Electricity and Magnetism",
+  "a": "Elisha Gray",
+  "u": "https://www.gutenberg.org/ebooks/34221",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Sounding the Ocean of Air",
+  "a": "Abbott Lawrence Rotch",
+  "u": "https://www.gutenberg.org/ebooks/36252",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Mentor: The Weather",
+  "a": "Charles Fitzhugh Talman",
+  "u": "https://www.gutenberg.org/ebooks/36344",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Autobiography of an Electron",
+  "a": "Charles R. Gibson",
+  "u": "https://www.gutenberg.org/ebooks/36456",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "A Treatise on Meteorological Instruments",
+  "a": "Enrico Angelo Lodovico Negretti e Joseph Zambra",
+  "u": "https://www.gutenberg.org/ebooks/36457",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Notes on Recent Researches in Electricity and Magnetism",
+  "a": "J. J. Thomson",
+  "u": "https://www.gutenberg.org/ebooks/36525",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Wind and Weather",
+  "a": "Alexander McAdie",
+  "u": "https://www.gutenberg.org/ebooks/38072",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Heroes of Science: Physicists",
+  "a": "William Garnett",
+  "u": "https://www.gutenberg.org/ebooks/38583",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Meteorology; or, Weather Explained",
+  "a": "J. G. M'Pherson",
+  "u": "https://www.gutenberg.org/ebooks/38928",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Colour Measurement and Mixture",
+  "a": "William de Wiveleslie Abney",
+  "u": "https://www.gutenberg.org/ebooks/38984",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Eight Lectures on Theoretical Physics, Delivered at Columbia University in 1909",
+  "a": "Max Planck",
+  "u": "https://www.gutenberg.org/ebooks/39017",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Lord Kelvin: An account of his scientific life and work",
+  "a": "Andrew Gray",
+  "u": "https://www.gutenberg.org/ebooks/39373",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Popular scientific lectures",
+  "a": "Ernst Mach",
+  "u": "https://www.gutenberg.org/ebooks/39508",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "A Study of Splashes",
+  "a": "A. M. Worthington",
+  "u": "https://www.gutenberg.org/ebooks/39831",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Curiosities of Light and Sight",
+  "a": "Shelford Bidwell",
+  "u": "https://www.gutenberg.org/ebooks/40119",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Ether of Space",
+  "a": "Oliver Lodge",
+  "u": "https://www.gutenberg.org/ebooks/40911",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Storm. An Essay.",
+  "a": "Daniel Defoe",
+  "u": "https://www.gutenberg.org/ebooks/41063",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Practical Exercises in Elementary Meteorology",
+  "a": "Robert DeCourcy Ward",
+  "u": "https://www.gutenberg.org/ebooks/41351",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Storm",
+  "a": "Daniel Defoe",
+  "u": "https://www.gutenberg.org/ebooks/42234",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "A Course of Mechanical, Magnetical, Optical, Hydrostatical and Pneumatical Experiments",
+  "a": "William Whiston e Francis Hauksbee",
+  "u": "https://www.gutenberg.org/ebooks/44019",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Makers of Electricity",
+  "a": "Brother Potamian e James J. Walsh",
+  "u": "https://www.gutenberg.org/ebooks/45446",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Experiments and Observations on Electricity Made at Philadelphia in America",
+  "a": "Benjamin Franklin",
+  "u": "https://www.gutenberg.org/ebooks/45515",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "William Gilbert, and Terrestial Magnetism in the Time of Queen Elizabeth",
+  "a": "Silvanus P. Thompson",
+  "u": "https://www.gutenberg.org/ebooks/45893",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Experiments and Observations Tending to Illustrate the Nature and Properties of Electricity",
+  "a": "William Watson",
+  "u": "https://www.gutenberg.org/ebooks/46168",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Michael Faraday, Man of Science",
+  "a": "Walter Jerrold",
+  "u": "https://www.gutenberg.org/ebooks/46763",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Meteorology: The Science of the Atmosphere",
+  "a": "Charles Fitzhugh Talman",
+  "u": "https://www.gutenberg.org/ebooks/47059",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Michael Faraday",
+  "a": "J. H. Gladstone",
+  "u": "https://www.gutenberg.org/ebooks/47396",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Goethe's Theory of Colours",
+  "a": "Johann Wolfgang von Goethe",
+  "u": "https://www.gutenberg.org/ebooks/50572",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Elementary Principles of Statistical Mechanics",
+  "a": "J. Willard Gibbs",
+  "u": "https://www.gutenberg.org/ebooks/50992",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "On the various forces of nature and their relations to each other",
+  "a": "Michael Faraday",
+  "u": "https://www.gutenberg.org/ebooks/52293",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "An Essay to Shew the Cause of Electricity; and Why Some Things are Non-Electricable.",
+  "a": "John Freke",
+  "u": "https://www.gutenberg.org/ebooks/52439",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Life of Sir Isaac Newton",
+  "a": "David Brewster",
+  "u": "https://www.gutenberg.org/ebooks/53311",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "First Lessons in Natural Philosophy for Beginners",
+  "a": "Joseph C. Martindale",
+  "u": "https://www.gutenberg.org/ebooks/53778",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Standard Measures of United States, Great Britain and France",
+  "a": "Arthur S. C. Wurtele",
+  "u": "https://www.gutenberg.org/ebooks/54208",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Sound",
+  "a": "John Tyndall",
+  "u": "https://www.gutenberg.org/ebooks/54969",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Cloud Studies",
+  "a": "Arthur William Clayden",
+  "u": "https://www.gutenberg.org/ebooks/55126",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Auroræ: Their Characters and Spectra",
+  "a": "J. Rand Capron",
+  "u": "https://www.gutenberg.org/ebooks/56159",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "An Account of the Late Improvements in Galvanism",
+  "a": "Giovanni Aldini",
+  "u": "https://www.gutenberg.org/ebooks/57267",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Light and Colour Theories, and their relation to light and colour standardization",
+  "a": "Joseph W. Lovibond",
+  "u": "https://www.gutenberg.org/ebooks/57335",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Grounds of Natural Philosophy: Divided into Thirteen Parts",
+  "a": "Margaret Cavendish Newcastle",
+  "u": "https://www.gutenberg.org/ebooks/58404",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Ye Magick Mirrour of Old Japan",
+  "a": "Silvanus P. Thompson",
+  "u": "https://www.gutenberg.org/ebooks/59230",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The Mathematical Theory of Relativity",
+  "a": "Arthur Stanley Eddington",
+  "u": "https://www.gutenberg.org/ebooks/59248",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "A Treatise on Electricity",
+  "a": "Francis Penrose",
+  "u": "https://www.gutenberg.org/ebooks/60392",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Radio-Active Substances",
+  "a": "Marie Curie",
+  "u": "https://www.gutenberg.org/ebooks/60564",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Experimental Mechanics",
+  "a": "Robert S. Ball",
+  "u": "https://www.gutenberg.org/ebooks/61732",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Color Standards and Color Nomenclature",
+  "a": "Robert Ridgway",
+  "u": "https://www.gutenberg.org/ebooks/63087",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Geography of the Air",
+  "a": "A. W. Greely",
+  "u": "https://www.gutenberg.org/ebooks/63122",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Radio-Activity",
+  "a": "Ernest Rutherford",
+  "u": "https://www.gutenberg.org/ebooks/64693",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "James Clerk Maxwell and Modern Physics",
+  "a": "Richard Glazebrook",
+  "u": "https://www.gutenberg.org/ebooks/65359",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Michael Faraday, His Life and Work",
+  "a": "Silvanus P. Thompson",
+  "u": "https://www.gutenberg.org/ebooks/65735",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "A Treatise on Mechanics",
+  "a": "Henry Kater e Dionysius Lardner",
+  "u": "https://www.gutenberg.org/ebooks/66078",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Einstein and the universe: A popular exposition of the famous theory",
+  "a": "Charles Nordmann e R. B. Haldane Haldane",
+  "u": "https://www.gutenberg.org/ebooks/68462",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Lightning, Thunder and Lightning Conductors",
+  "a": "Gerald Molloy",
+  "u": "https://www.gutenberg.org/ebooks/68994",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The conservation of energy",
+  "a": "Balfour Stewart",
+  "u": "https://www.gutenberg.org/ebooks/69053",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Signalling across space without wires",
+  "a": "Oliver Lodge",
+  "u": "https://www.gutenberg.org/ebooks/69253",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The aneroid barometer: its construction and use",
+  "a": "George W. Plympton",
+  "u": "https://www.gutenberg.org/ebooks/69513",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The natural and artificial disintegration of the elements",
+  "a": "Ernest Rutherford",
+  "u": "https://www.gutenberg.org/ebooks/69551",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Fundamental ideas and problems of the theory of relativity",
+  "a": "Albert Einstein",
+  "u": "https://www.gutenberg.org/ebooks/69572",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Recent research on radioactivity",
+  "a": "Pierre Curie",
+  "u": "https://www.gutenberg.org/ebooks/69635",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "An elementary treatise on electricity",
+  "a": "James Clerk Maxwell",
+  "u": "https://www.gutenberg.org/ebooks/69914",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The theory of relativity and its influence on scientific thought",
+  "a": "Arthur Stanley Eddington",
+  "u": "https://www.gutenberg.org/ebooks/70272",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Clerk Maxwell's electromagnetic theory",
+  "a": "H. A. Lorentz",
+  "u": "https://www.gutenberg.org/ebooks/70453",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The highest aim of the physicist",
+  "a": "Henry Augustus Rowland",
+  "u": "https://www.gutenberg.org/ebooks/70791",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "On the effect of the motion of a body upon the velocity with which it is traversed by light",
+  "a": "H. Fizeau",
+  "u": "https://www.gutenberg.org/ebooks/70863",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "On the relative motion of the earth and the luminiferous æther",
+  "a": "Albert A. Michelson e Edward Williams Morley",
+  "u": "https://www.gutenberg.org/ebooks/70888",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The chemical nature of the alpha particles from radioactive substances",
+  "a": "Ernest Rutherford",
+  "u": "https://www.gutenberg.org/ebooks/71088",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Physical significance of entropy or of the second law",
+  "a": "Joseph Frederic Klein",
+  "u": "https://www.gutenberg.org/ebooks/71291",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The stereoscope",
+  "a": "David Brewster",
+  "u": "https://www.gutenberg.org/ebooks/71483",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Waves and ripples in water, air, and æther",
+  "a": "J. A. Fleming",
+  "u": "https://www.gutenberg.org/ebooks/71757",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Robert Boyle",
+  "a": "Flora Masson",
+  "u": "https://www.gutenberg.org/ebooks/73234",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The electron, its isolation and measurement and the determination of some of its properties",
+  "a": "Robert Andrews Millikan",
+  "u": "https://www.gutenberg.org/ebooks/73297",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Lives of the electricians",
+  "a": "William T. Jeans",
+  "u": "https://www.gutenberg.org/ebooks/73641",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The kaleidoscope",
+  "a": "David Brewster",
+  "u": "https://www.gutenberg.org/ebooks/74417",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Bibliographical history of electricity & magnetism, chronologically arranged",
+  "a": "Paul Fleury Mottelay e Richard Glazebrook e Silvanus P. Thompson",
+  "u": "https://www.gutenberg.org/ebooks/74764",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The evolution of mathematical physics",
+  "a": "Horace Lamb",
+  "u": "https://www.gutenberg.org/ebooks/74838",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Weather proverbs",
+  "a": "H. H. C. Dunwoody",
+  "u": "https://www.gutenberg.org/ebooks/74916",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "An epitome of electricity & galvanism",
+  "a": "Jacob Green e Erskine Hazard",
+  "u": "https://www.gutenberg.org/ebooks/74933",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The new air world",
+  "a": "Willis L. Moore",
+  "u": "https://www.gutenberg.org/ebooks/75114",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "X-ray, violet ray, and other rays",
+  "a": "Maynard Shipley",
+  "u": "https://www.gutenberg.org/ebooks/75150",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Principles of electricity",
+  "a": "Maynard Shipley",
+  "u": "https://www.gutenberg.org/ebooks/75464",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Easy lessons in Einstein",
+  "a": "Edwin E. Slosson",
+  "u": "https://www.gutenberg.org/ebooks/75807",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Geological and solar climates",
+  "a": "Marsden Manson",
+  "u": "https://www.gutenberg.org/ebooks/77456",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Atoms and electrons",
+  "a": "J. W. N. Sullivan",
+  "u": "https://www.gutenberg.org/ebooks/77675",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Snow-flakes",
+  "a": "Israel P. Warren",
+  "u": "https://www.gutenberg.org/ebooks/77946",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Introduction to Einstein",
+  "a": "William F. Hudgings",
+  "u": "https://www.gutenberg.org/ebooks/78274",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Wonders of physical science",
+  "a": "E. E. Fournier d'Albe",
+  "u": "https://www.gutenberg.org/ebooks/78559",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "The life of James Clerk Maxwell",
+  "a": "Lewis Campbell e William Garnett",
+  "u": "https://www.gutenberg.org/ebooks/79044",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "Concerning the nature of things",
+  "a": "William Henry Bragg",
+  "u": "https://www.gutenberg.org/ebooks/79146",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ },
+ {
+  "t": "On the theory of light and colours",
+  "a": "Thomas Young",
+  "u": "https://www.gutenberg.org/ebooks/79490",
+  "f": "Project Gutenberg",
+  "l": "Domínio público",
+  "i": "Inglês"
+ }
+]
