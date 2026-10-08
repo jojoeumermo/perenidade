@@ -1,12 +1,13 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BookCard, TrackCard } from "@/components/Cards";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
-import { localePath } from "@/i18n/config";
-import { areaSlugs, type AreaSlug } from "@/lib/areas";
-import { getBooks, getTracks } from "@/lib/content";
+import { localePath, plural } from "@/i18n/config";
+import { areaSlugs, areaTools, isArea, stages } from "@/lib/areas";
+import { getBooks, getCatalog, getTracks, getVideos } from "@/lib/content";
 import { withLangs } from "@/lib/params";
 
 export const dynamicParams = false;
@@ -14,8 +15,6 @@ export const dynamicParams = false;
 export function generateStaticParams() {
   return withLangs(areaSlugs.map((area) => ({ area })));
 }
-
-const isArea = (value: string): value is AreaSlug => (areaSlugs as readonly string[]).includes(value);
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/estantes/[area]">): Promise<Metadata> {
   const { t } = await loadLang(params);
@@ -28,41 +27,102 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
   const { area } = await params;
   if (!isArea(area)) notFound();
 
+  const to = (path: string) => localePath(lang, path);
   const tracks = getTracks(lang).filter((track) => track.area === area);
   const books = getBooks(lang).filter((book) => book.area === area);
-  const contribute = localePath(lang, "/contribuir");
+  const catalog = getCatalog(area);
+  const videos = getVideos(lang).filter((video) => video.area === area);
+  const toolIds = areaTools[area] ?? [];
+  const heading = "mt-12 border-b border-rule pb-3 text-3xl font-semibold";
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
-      <PageHeading eyebrow={t.shelf.eyebrow} title={t.areas[area][0]}>
-        {t.areas[area][1]}
-      </PageHeading>
+      <Link href={to("/trilhas")} className="font-sans text-sm text-ink-soft hover:text-oxblood">← {t.tracks.title}</Link>
+      <div className="mt-6">
+        <PageHeading eyebrow={t.shelf.eyebrow} title={t.areas[area][0]}>
+          {t.areas[area][1]}
+        </PageHeading>
+      </div>
 
-      <h2 className="mt-12 border-b border-rule pb-3 text-3xl font-semibold">{t.shelf.tracks}</h2>
-      {tracks.length > 0 ? (
-        <div className="mt-6 grid gap-5 md:grid-cols-2">
-          {tracks.map((track) => (
-            <TrackCard key={track.slug} track={track} lang={lang} t={t} />
+      {toolIds.length > 0 && (
+        <p className="mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-1 font-sans text-sm">
+          <span className="font-mono text-xs uppercase tracking-widest text-gold">{t.shelf.tools}</span>
+          {toolIds.map((id) => (
+            <Link key={id} href={to(`/ferramentas/${id}`)} className="underline hover:text-oxblood">
+              {(t.toolNames as Record<string, string[]>)[id][0]}
+            </Link>
           ))}
-        </div>
-      ) : (
-        <p className="mt-6 text-lg text-ink-soft">
-          {t.shelf.noTracks} <Link href={contribute} className="underline hover:text-oxblood">{t.shelf.writeFirst}</Link>
         </p>
       )}
 
-      <h2 className="mt-12 border-b border-rule pb-3 text-3xl font-semibold">{t.shelf.works}</h2>
-      {books.length > 0 ? (
-        <div className="mt-6 grid gap-5 md:grid-cols-2">
-          {books.map((book) => (
-            <BookCard key={book.id} book={book} lang={lang} t={t} />
-          ))}
-        </div>
-      ) : (
-        <p className="mt-6 text-lg text-ink-soft">
-          {t.shelf.noWorks} <Link href={contribute} className="underline hover:text-oxblood">{t.shelf.suggestWork}</Link>
-        </p>
+      {/* As trilhas seguem a ordem do currículo comum: fundamental, médio e superior. */}
+      {stages.map((stage) => {
+        const inStage = tracks.filter((track) => track.stage === stage);
+        return (
+          <section key={stage}>
+            <h2 className={heading}>{t.stages[stage]}</h2>
+            {inStage.length > 0 ? (
+              <div className="mt-6 grid gap-5 md:grid-cols-2">
+                {inStage.map((track) => (
+                  <TrackCard key={track.slug} track={track} lang={lang} t={t} />
+                ))}
+              </div>
+            ) : (
+              <p className="mt-6 text-lg text-ink-soft">
+                {t.shelf.noTracks} <Link href={to("/contribuir")} className="underline hover:text-oxblood">{t.shelf.writeFirst}</Link>
+              </p>
+            )}
+          </section>
+        );
+      })}
+
+      {videos.length > 0 && (
+        <section>
+          <h2 className={heading}>{t.shelf.videos}</h2>
+          <ul className="mt-6 grid gap-4 font-sans text-sm md:grid-cols-2">
+            {videos.map((video) => (
+              <li key={video.slug} className="border border-rule bg-parchment-deep p-5">
+                <p className="font-mono text-xs text-gold">{video.channel} · {video.language}</p>
+                <a href={video.url} target="_blank" rel="noopener noreferrer" className="mt-1 block font-serif text-xl font-semibold hover:text-oxblood">{video.title} ↗</a>
+                <p className="mt-1 text-ink-soft" lang="pt-BR">{video.description}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
+
+      <section>
+        <h2 className={heading}>{t.shelf.works}</h2>
+        {books.length > 0 ? (
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            {books.map((book) => (
+              <BookCard key={book.id} book={book} lang={lang} t={t} />
+            ))}
+          </div>
+        ) : (
+          catalog.length === 0 && (
+            <p className="mt-6 text-lg text-ink-soft">
+              {t.shelf.noWorks} <Link href={to("/contribuir")} className="underline hover:text-oxblood">{t.shelf.suggestWork}</Link>
+            </p>
+          )
+        )}
+        {catalog.length > 0 && (
+          <details className="mt-8 border border-rule bg-parchment-deep p-5">
+            <summary className="cursor-pointer font-sans text-sm font-semibold">
+              {t.library.catalogTitle} ({plural(lang, catalog.length, t.common.works)})
+            </summary>
+            <p className="mt-3 font-sans text-sm text-ink-soft">{t.library.catalogLead}</p>
+            <ul className="mt-4 space-y-1.5 font-sans text-sm">
+              {catalog.map((entry) => (
+                <li key={entry.u}>
+                  <a href={entry.u} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">{entry.t}</a>
+                  <span className="text-ink-soft"> · {entry.a} · {entry.i} · {entry.f}</span>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
+      </section>
     </div>
   );
 }

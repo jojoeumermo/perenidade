@@ -1,7 +1,9 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+import MiniSearch from "minisearch";
 import { normalize } from "./text";
 
 export interface SearchEntry {
-  kind: "aula" | "obra" | "trilha" | "autor" | "memorial";
+  kind: "aula" | "obra" | "trilha" | "autor" | "memorial" | "verbete" | "materia" | "checagem" | "debate" | "pergunta";
   title: string;
   href: string;
   area: string;
@@ -14,40 +16,36 @@ export interface SearchHit {
   snippet: string;
 }
 
-export function search(entries: SearchEntry[], query: string, limit = 40): SearchHit[] {
-  const terms = normalize(query).split(/\s+/).filter(Boolean);
-  if (terms.length === 0) return [];
+/**
+ * Monta o motor de busca no navegador: tolera erro de digitação, ignora acentos e maiúsculas,
+ * completa palavras pela metade e dá mais peso ao título do que ao corpo do texto.
+ */
+export function buildSearch(entries: SearchEntry[]) {
+  const engine = new MiniSearch<SearchEntry & { id: number }>({
+    fields: ["title", "context", "area", "text"],
+    processTerm: (term) => normalize(term),
+    searchOptions: {
+      boost: { title: 6, context: 2.5, area: 1.5 },
+      prefix: true,
+      fuzzy: (term) => (term.length > 4 ? 0.2 : false),
+      combineWith: "AND",
+    },
+  });
+  engine.addAll(entries.map((entry, id) => ({ ...entry, id })));
 
-  const scored: { hit: SearchHit; score: number }[] = [];
-  for (const entry of entries) {
-    const title = normalize(entry.title);
-    const context = normalize(entry.context);
-    const body = normalize(entry.text);
-    let score = 0;
-    let matched = true;
-    for (const term of terms) {
-      if (title.includes(term)) score += 10;
-      else if (context.includes(term)) score += 4;
-      else if (body.includes(term)) score += 1;
-      else {
-        matched = false;
-        break;
-      }
-    }
-    if (!matched) continue;
-
-    // normalize() preserva o comprimento na prática (só remove acentos combinados),
-    // então o índice no texto normalizado serve de aproximação para o trecho original.
-    const at = body.indexOf(terms[0]);
-    const start = Math.max(0, at - 60);
-    const snippet =
-      at < 0
-        ? entry.text.slice(0, 160)
-        : (start > 0 ? "…" : "") + entry.text.slice(start, start + 180).trim() + "…";
-    scored.push({ hit: { entry, snippet }, score });
-  }
-  return scored
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit)
-    .map((s) => s.hit);
+  return (query: string, limit = 50): SearchHit[] => {
+    const clean = query.trim();
+    if (!clean) return [];
+    let found = engine.search(clean);
+    // Nada com todas as palavras? Aceita resultados com parte delas, em vez de devolver vazio.
+    if (found.length === 0) found = engine.search(clean, { combineWith: "OR" });
+    const first = normalize(clean).split(/\s+/)[0];
+    return found.slice(0, limit).map((result) => {
+      const entry = entries[result.id as number];
+      const at = normalize(entry.text).indexOf(first);
+      const start = Math.max(0, at - 60);
+      const snippet = at < 0 ? entry.text.slice(0, 170) : (start > 0 ? "…" : "") + entry.text.slice(start, start + 190).trim() + "…";
+      return { entry, snippet };
+    });
+  };
 }

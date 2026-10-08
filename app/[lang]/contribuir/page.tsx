@@ -1,11 +1,11 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import { ContributeForm } from "@/components/ContributeForm";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
-import { getTracks } from "@/lib/content";
-import { github } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/contribuir">): Promise<Metadata> {
   const { t } = await loadLang(params);
@@ -15,11 +15,6 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/contribuir
 export default async function Contribuir({ params }: PageProps<"/[lang]/contribuir">) {
   const { lang, t } = await loadLang(params);
   const c = t.contribute;
-  const tracks = getTracks(lang).map((track) => ({
-    slug: track.slug,
-    title: track.title,
-    nextOrder: Math.max(0, ...track.lessons.map((lesson) => lesson.order)) + 1,
-  }));
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
@@ -43,19 +38,13 @@ export default async function Contribuir({ params }: PageProps<"/[lang]/contribu
         ))}
       </ol>
 
-      <ContributeForm tracks={tracks} />
+      <Suspense>
+        <ContributeForm s={c} />
+      </Suspense>
 
-      <div className="mt-10 space-y-3 border-t border-rule pt-6 font-sans text-sm text-ink-soft">
-        <p>{c.account}</p>
-        <p>
-          {c.fixExisting}{" "}
-          <a href={github.newIssue("sugestao.yml", {})} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">
-            {c.openSuggestion}
-          </a>
-          . {c.seeQueue}{" "}
-          <Link href={localePath(lang, "/moderacao")} className="underline hover:text-oxblood">{t.nav.moderation}</Link>.
-        </p>
-      </div>
+      <p className="mt-10 border-t border-rule pt-6 font-sans text-sm text-ink-soft">
+        <Link href={localePath(lang, "/voluntarios")} className="underline hover:text-oxblood">{c.more}</Link>
+      </p>
     </div>
   );
 }

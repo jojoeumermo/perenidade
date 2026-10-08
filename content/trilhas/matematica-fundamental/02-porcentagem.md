@@ -1,7 +1,12 @@
 ---
 titulo: "Porcentagem"
 resumo: "Calcular descontos, aumentos e a parte de um total, sem decorar fórmula."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Prealgebra 2e, capítulo 6, Percents"
+    autor: "Lynn Marecek e outros (OpenStax)"
+    ano: "2020"
+    url: "https://openstax.org/books/prealgebra-2e/pages/6-introduction-to-percents"
 quiz:
   - pergunta: "Quanto é 20% de 150?"
     opcoes: ["20", "30", "75"]

@@ -1,7 +1,15 @@
 ---
 titulo: "O que é um algoritmo"
 resumo: "Uma sequência de passos claros para resolver um problema."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Lógica de programação: a construção de algoritmos e estruturas de dados"
+    autor: "André Forbellone e Henri Eberspächer"
+    ano: "2005"
+  - titulo: "Introduction to Computer Science"
+    autor: "Jean-Claude Franchitti e outros (OpenStax)"
+    ano: "2024"
+    url: "https://openstax.org/details/books/introduction-computer-science"
 quiz:
   - pergunta: "O que é um algoritmo?"
     opcoes: ["Um tipo de computador", "Uma sequência finita de passos para resolver um problema", "Uma linguagem de programação"]

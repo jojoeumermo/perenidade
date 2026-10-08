@@ -1,7 +1,15 @@
 ---
 titulo: "A Comuna de Paris"
 resumo: "Os 72 dias em que os trabalhadores governaram uma das maiores cidades do mundo."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "A Guerra Civil em França"
+    autor: "Karl Marx"
+    ano: "1871"
+    url: "https://www.marxists.org/portugues/marx/1871/guerra_civil/index.htm"
+  - titulo: "História da Comuna de 1871"
+    autor: "Prosper-Olivier Lissagaray"
+    ano: "1876"
 quiz:
   - pergunta: "Quanto tempo durou a Comuna de Paris?"
     opcoes: ["72 dias", "2 anos", "Uma semana"]

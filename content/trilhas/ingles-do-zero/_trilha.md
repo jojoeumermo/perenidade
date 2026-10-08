@@ -1,7 +1,8 @@
 ---
 titulo: "Inglês do zero"
 area: ingles
-nivel: "Iniciante"
+etapa: fundamental
+ordem: 1
 resumo: "Do alfabeto às primeiras conversas, para quem nunca estudou inglês."
 ---
 

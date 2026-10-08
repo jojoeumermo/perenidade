@@ -1,7 +1,8 @@
 ---
 titulo: "Introdução ao marxismo"
-area: politica
-nivel: "Iniciante"
+area: marxismo
+etapa: medio
+ordem: 1
 resumo: "Classes sociais, mais-valia e materialismo histórico, explicados do começo."
 ---
 

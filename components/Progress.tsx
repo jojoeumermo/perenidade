@@ -1,3 +1,4 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 "use client";
 
 import { useEffect, useState } from "react";
@@ -9,9 +10,11 @@ interface LessonLink {
   id: string;
   path: string;
   title: string;
+  /** false para aulas do roteiro que ainda não foram escritas. */
+  ready?: boolean;
 }
 
-/** Lista de aulas da trilha, com a marca de concluída vinda do navegador. */
+/** Lista de aulas da trilha: as prontas com a marca de concluída, as do roteiro como "em preparação". */
 export function LessonList({ lessons, currentId }: { lessons: LessonLink[]; currentId?: string }) {
   const done = useCompleted();
   const { t } = useI18n();
@@ -19,6 +22,21 @@ export function LessonList({ lessons, currentId }: { lessons: LessonLink[]; curr
     <ol className="space-y-1 border-l border-rule font-sans text-sm">
       {lessons.map((lesson, i) => {
         const current = lesson.id === currentId;
+        const number = (
+          <span className={`w-5 shrink-0 font-mono ${done.has(lesson.id) ? "text-ok" : "text-gold"}`}>
+            {done.has(lesson.id) ? "✓" : String(i + 1).padStart(2, "0")}
+          </span>
+        );
+        if (lesson.ready === false) {
+          return (
+            <li key={lesson.id} className="-ml-px flex gap-3 border-l-2 border-transparent py-1.5 pl-3 text-ink-soft">
+              {number}
+              <span>
+                {lesson.title} <span className="font-mono text-xs">· {t.tracks.planned}</span>
+              </span>
+            </li>
+          );
+        }
         return (
           <li key={lesson.id}>
             <L
@@ -28,9 +46,7 @@ export function LessonList({ lessons, currentId }: { lessons: LessonLink[]; curr
                 current ? "border-oxblood font-semibold text-oxblood" : "border-transparent hover:text-oxblood"
               }`}
             >
-              <span className={`w-5 shrink-0 font-mono ${done.has(lesson.id) ? "text-ok" : "text-gold"}`}>
-                {done.has(lesson.id) ? "✓" : String(i + 1).padStart(2, "0")}
-              </span>
+              {number}
               <span>
                 {lesson.title}
                 {done.has(lesson.id) && <span className="sr-only"> ({t.tracks.doneMark})</span>}
@@ -108,11 +124,11 @@ export function ContinueCard() {
         className="flex flex-wrap items-center justify-between gap-3 border-2 border-gold bg-parchment-deep px-6 py-4 hover:border-oxblood"
       >
         <span>
-          <span className="block font-mono text-xs uppercase tracking-widest text-gold">{t.home.continue}</span>
+          <span className="block font-mono text-xs uppercase tracking-widest text-gold">{t.tracks.continue}</span>
           <span className="text-xl font-semibold">{last.title}</span>
           <span className="text-ink-soft"> · {last.track}</span>
         </span>
-        <span aria-hidden className="font-sans text-sm">{t.home.resume} →</span>
+        <span aria-hidden className="font-sans text-sm">{t.tracks.resume} →</span>
       </L>
     </section>
   );

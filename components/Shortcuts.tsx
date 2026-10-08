@@ -1,3 +1,4 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -5,16 +6,32 @@ import { useEffect } from "react";
 import { localePath } from "@/i18n/config";
 import { useI18n } from "./I18n";
 
-// Página neutra para a saída rápida (Esc três vezes).
-const NEUTRAL_PAGE = "https://pt.wikipedia.org/wiki/Matem%C3%A1tica";
-
 const typing = (target: EventTarget | null) =>
   target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName));
 
 /**
+ * Saída rápida: apaga tudo o que o site guardou neste navegador (progresso, rascunhos, sessão)
+ * e troca a aba por um buscador, sem deixar o site no botão "voltar".
+ * Para quem lê em um ambiente em que não é seguro ser visto aqui.
+ */
+export function quickExit() {
+  try {
+    localStorage.clear();
+    sessionStorage.clear();
+    for (const cookie of document.cookie.split(";")) {
+      const name = cookie.split("=")[0].trim();
+      if (name) document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+    }
+  } catch {
+    // Mesmo sem conseguir limpar, o importante é sair.
+  }
+  window.location.replace("https://www.google.com/");
+}
+
+/**
  * Atalhos de teclado do site inteiro:
  * "/" abre a busca; ← e → trocam de aula (links marcados com data-prev / data-next);
- * Esc três vezes em um segundo e meio sai do site na hora.
+ * Esc três vezes em um segundo e meio aciona a saída rápida.
  */
 export function Shortcuts() {
   const router = useRouter();
@@ -26,8 +43,7 @@ export function Shortcuts() {
       if (e.key === "Escape") {
         const now = Date.now();
         escapes = [...escapes.filter((time) => now - time < 1500), now];
-        // replace() tira o site do botão "voltar" do navegador.
-        if (escapes.length >= 3) window.location.replace(NEUTRAL_PAGE);
+        if (escapes.length >= 3) quickExit();
         return;
       }
       if (e.ctrlKey || e.metaKey || e.altKey || typing(e.target)) return;

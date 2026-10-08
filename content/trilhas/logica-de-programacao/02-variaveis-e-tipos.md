@@ -1,7 +1,14 @@
 ---
 titulo: "Variáveis e tipos"
 resumo: "Como o programa guarda informações e por que o tipo de cada uma importa."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Lógica de programação: a construção de algoritmos e estruturas de dados"
+    autor: "André Forbellone e Henri Eberspächer"
+    ano: "2005"
+  - titulo: "O tutorial de Python"
+    autor: "Python Software Foundation"
+    url: "https://docs.python.org/pt-br/3/tutorial/"
 quiz:
   - pergunta: "Depois de executar x = 5 e, em seguida, x = x + 2, quanto vale x?"
     opcoes: ["5", "7", "A linha dá erro"]

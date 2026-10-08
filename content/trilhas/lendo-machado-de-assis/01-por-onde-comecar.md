@@ -1,7 +1,19 @@
 ---
 titulo: "Por onde começar"
 resumo: "Quem foi Machado, o que torna seus livros diferentes e uma ordem de leitura sugerida."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Machado de Assis: biografia"
+    autor: "Academia Brasileira de Letras"
+    url: "https://www.academia.org.br/academicos/machado-de-assis/biografia"
+  - titulo: "Dom Casmurro"
+    autor: "Machado de Assis"
+    ano: "1899"
+    url: "https://www.gutenberg.org/ebooks/55752"
+  - titulo: "Memórias Póstumas de Brás Cubas"
+    autor: "Machado de Assis"
+    ano: "1881"
+    url: "https://www.gutenberg.org/ebooks/54829"
 quiz:
   - pergunta: "O que há de incomum no narrador de Memórias Póstumas de Brás Cubas?"
     opcoes: ["Ele é uma criança", "Ele já morreu e conta a própria vida", "Ele é um animal"]

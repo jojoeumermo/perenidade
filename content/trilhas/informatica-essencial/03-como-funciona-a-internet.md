@@ -1,7 +1,14 @@
 ---
 titulo: "Como funciona a internet"
 resumo: "O caminho que uma página percorre do servidor até a sua tela."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Como a internet funciona?"
+    autor: "MDN Web Docs (Mozilla)"
+    url: "https://developer.mozilla.org/pt-BR/docs/Learn_web_development/Howto/Web_mechanics/How_does_the_Internet_work"
+  - titulo: "Cartilha de Segurança para Internet"
+    autor: "CERT.br / NIC.br"
+    url: "https://cartilha.cert.br/"
 quiz:
   - pergunta: "O que o DNS faz?"
     opcoes: ["Protege o computador contra vírus", "Traduz nomes de sites em endereços IP", "Aumenta a velocidade da conexão"]

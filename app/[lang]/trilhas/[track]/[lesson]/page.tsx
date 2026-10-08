@@ -1,18 +1,21 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import GithubSlugger from "github-slugger";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { SourceList } from "@/components/Cards";
 import { Markdown } from "@/components/Markdown";
 import { CiteButton, CompleteButton, LessonList, RememberLesson } from "@/components/Progress";
 import { Quiz } from "@/components/Quiz";
+import { StudyTools } from "@/components/StudyTools";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { defaultLocale, fill, htmlLang, localePath, plural } from "@/i18n/config";
-import { getTrack, getTracks } from "@/lib/content";
+import { getGlossary, getTrack, getTracks } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
 import { lessonId } from "@/lib/ids";
 import { withLangs } from "@/lib/params";
-import { github, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
@@ -32,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return track && lesson ? { title: `${lesson.title} · ${track.title}`, description: lesson.summary } : {};
 }
 
-/** Subtítulos (##) da aula, com as mesmas âncoras que o rehype-slug gera no texto. */
+/** Subtítulos (##) da aula, com as mesmas âncoras que o texto recebe. */
 function sections(body: string): { id: string; title: string }[] {
   const slugger = new GithubSlugger();
   return body
@@ -62,22 +65,24 @@ export default async function LessonPage({ params }: Props) {
   const id = lessonId(track.slug, lesson.slug);
   const history = fileHistory(lesson.file);
   const toc = sections(lesson.body);
-  const external = { target: "_blank", rel: "noopener noreferrer", className: "underline hover:text-oxblood" };
   const updated = history.updated && new Intl.DateTimeFormat(htmlLang[lang], { timeZone: "UTC" }).format(new Date(history.updated));
+  // O glossário só é ligado ao texto quando os dois estão no mesmo idioma.
+  const terms = lesson.translated ? getGlossary(lang).filter((term) => term.translated).map(({ slug, term, summary }) => ({ slug, term, summary })) : [];
+  const fix = `${to("/contribuir")}?corrigir=${encodeURIComponent(path(lesson.slug))}`;
 
   return (
     <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-[16rem_1fr]">
       <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} />
 
       <aside className="no-print no-focus font-sans text-sm md:sticky md:top-6 md:self-start">
-        <Link href={to("/trilhas")} className="text-ink-soft hover:text-oxblood">← {t.tracks.back}</Link>
+        <Link href={to(`/estantes/${track.area}`)} className="text-ink-soft hover:text-oxblood">← {t.areas[track.area][0]}</Link>
         <h2 className="mt-3 font-serif text-xl font-semibold" {...originalLang(track.translated)}>
           <Link href={to(`/trilhas/${track.slug}`)} className="hover:text-oxblood">{track.title}</Link>
         </h2>
         <div className="mt-4" {...originalLang(track.translated)}>
           <LessonList
             currentId={id}
-            lessons={track.lessons.map((l) => ({ id: lessonId(track.slug, l.slug), path: path(l.slug), title: l.title }))}
+            lessons={track.plan.map((item) => ({ id: lessonId(track.slug, item.slug), path: path(item.slug), title: item.title, ready: item.ready }))}
           />
         </div>
         {toc.length > 1 && (
@@ -96,7 +101,7 @@ export default async function LessonPage({ params }: Props) {
 
       <article className="min-w-0 max-w-prose">
         <p className="font-mono text-xs text-gold">
-          {t.areas[track.area][0]} · {fill(t.lesson.position, { i: index + 1, n: track.lessons.length })} ·{" "}
+          {t.areas[track.area][0]} · {t.stages[track.stage]} · {fill(t.lesson.position, { i: index + 1, n: track.lessons.length })} ·{" "}
           {fill(t.tracks.minutes, { n: lesson.minutes })}
         </p>
         <div {...originalLang(lesson.translated)}>
@@ -107,15 +112,16 @@ export default async function LessonPage({ params }: Props) {
         <Untranslated lang={lang} t={t} show={!lesson.translated} />
         {!lesson.reviewed && (
           <p className="no-print mt-6 border-l-2 border-gold pl-4 font-sans text-sm text-ink-soft">
-            {t.lesson.awaitingReview} <a href={github.edit(lesson.file)} {...external}>{t.lesson.suggestOne}</a>.
+            {t.lesson.awaitingReview} <Link href={fix} className="underline hover:text-oxblood">{t.lesson.suggestOne}</Link>.
           </p>
         )}
 
         <div {...originalLang(lesson.translated)}>
-          <div className="mt-8">
-            <Markdown lang={lang}>{lesson.body}</Markdown>
+          <div id="texto-da-aula" className="mt-8">
+            <Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode}>{lesson.body}</Markdown>
           </div>
           {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} />}
+          <SourceList sources={lesson.sources} title={t.lesson.sources} />
         </div>
 
         <CompleteButton id={id} next={next && { path: path(next.slug), title: next.title }} />
@@ -124,6 +130,8 @@ export default async function LessonPage({ params }: Props) {
           {prev ? <Link href={to(path(prev.slug))} data-prev className="hover:text-oxblood">← {prev.title}</Link> : <span />}
           {next ? <Link href={to(path(next.slug))} data-next className="text-right hover:text-oxblood">{next.title} →</Link> : <span />}
         </nav>
+
+        <StudyTools id={id} path={path(lesson.slug)} s={t.study} />
 
         <footer className="mt-8 space-y-2 font-mono text-xs text-ink-soft">
           <p>
@@ -134,8 +142,7 @@ export default async function LessonPage({ params }: Props) {
             · {t.lesson.license}
           </p>
           <p className="no-print flex flex-wrap gap-x-5 gap-y-1">
-            <a href={github.history(lesson.file)} {...external}>{t.lesson.allVersions}</a>
-            <a href={github.edit(lesson.file)} {...external}>{t.common.suggestFix}</a>
+            <Link href={fix} className="underline hover:text-oxblood">{t.common.suggestFix}</Link>
             <a href={to(`${path(lesson.slug)}/texto`)} className="underline hover:text-oxblood">{t.lesson.plainText}</a>
             <CiteButton citation={`${lesson.authors.join(", ") || site.name}. “${lesson.title}”. ${track.title}. ${site.name}.`} />
             <Link href={to(`/denunciar?item=${encodeURIComponent(path(lesson.slug))}`)} className="underline hover:text-oxblood">

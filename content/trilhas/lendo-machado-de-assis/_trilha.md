@@ -1,7 +1,8 @@
 ---
 titulo: "Lendo Machado de Assis"
 area: literatura
-nivel: "Iniciante"
+etapa: medio
+ordem: 1
 resumo: "Um guia para começar a ler o maior escritor brasileiro sem medo."
 ---
 

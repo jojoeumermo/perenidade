@@ -1,9 +1,10 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fill, localePath, plural } from "@/i18n/config";
-import { search, type SearchEntry } from "@/lib/search";
+import { buildSearch, type SearchEntry } from "@/lib/search";
 import { L, useI18n } from "./I18n";
 
 export function SearchClient() {
@@ -31,8 +32,10 @@ export function SearchClient() {
     };
   }, [lang]);
 
-  const hits = entries ? search(entries, query) : [];
+  const search = useMemo(() => (entries ? buildSearch(entries) : null), [entries]);
+  const hits = search ? search(query) : [];
   const typed = query.trim().length > 0;
+  const kinds = t.search.kinds as Record<string, string>;
 
   return (
     <>
@@ -62,9 +65,7 @@ export function SearchClient() {
         {hits.map(({ entry, snippet }) => (
           <li key={entry.href}>
             <L href={entry.href} className="group block py-5">
-              <p className="font-mono text-xs text-gold">
-                {[t.search.kinds[entry.kind], entry.area, entry.context].filter(Boolean).join(" · ")}
-              </p>
+              <p className="font-mono text-xs text-gold">{[kinds[entry.kind], entry.area, entry.context].filter(Boolean).join(" · ")}</p>
               <p className="mt-1 text-2xl font-semibold group-hover:text-oxblood">{entry.title}</p>
               <p className="mt-1 text-ink-soft">{snippet}</p>
             </L>

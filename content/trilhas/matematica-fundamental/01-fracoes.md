@@ -1,7 +1,12 @@
 ---
 titulo: "Frações"
 resumo: "O que é uma fração, como simplificar e como somar."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Prealgebra 2e, capítulo 4, Fractions"
+    autor: "Lynn Marecek e outros (OpenStax)"
+    ano: "2020"
+    url: "https://openstax.org/books/prealgebra-2e/pages/4-introduction-to-fractions"
 quiz:
   - pergunta: "Qual fração é equivalente a 2/4?"
     opcoes: ["1/2", "2/8", "4/2"]

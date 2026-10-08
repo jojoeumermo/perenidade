@@ -1,7 +1,14 @@
 ---
 titulo: "Condições"
 resumo: "Como fazer o programa tomar decisões com se, senão e os operadores de comparação."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Lógica de programação: a construção de algoritmos e estruturas de dados"
+    autor: "André Forbellone e Henri Eberspächer"
+    ano: "2005"
+  - titulo: "O tutorial de Python"
+    autor: "Python Software Foundation"
+    url: "https://docs.python.org/pt-br/3/tutorial/"
 quiz:
   - pergunta: "Qual operador testa se dois valores são iguais?"
     opcoes: ["=", "==", "=>"]

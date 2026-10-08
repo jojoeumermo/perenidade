@@ -1,7 +1,15 @@
 ---
 titulo: "Bits e bytes"
 resumo: "Como textos, fotos e músicas viram zeros e uns."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Introduction to Computer Science"
+    autor: "Jean-Claude Franchitti e outros (OpenStax)"
+    ano: "2024"
+    url: "https://openstax.org/details/books/introduction-computer-science"
+  - titulo: "Code: The Hidden Language of Computer Hardware and Software"
+    autor: "Charles Petzold"
+    ano: "1999"
 quiz:
   - pergunta: "Quantos bits tem um byte?"
     opcoes: ["2", "8", "10"]

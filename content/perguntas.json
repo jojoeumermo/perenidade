@@ -1,0 +1,66 @@
+[
+  {
+    "pergunta": "Por que eu trabalho tanto e o dinheiro nunca sobra?",
+    "resposta": "O salário paga só uma parte do valor que o trabalho produz. Entender de onde vem o lucro ajuda a enxergar que o aperto no fim do mês não é falha pessoal.",
+    "links": [
+      { "titulo": "Aula: Mais-valia", "href": "/trilhas/introducao-ao-marxismo/mais-valia" },
+      { "titulo": "Aula: Classes sociais e capitalismo", "href": "/trilhas/introducao-ao-marxismo/classes-sociais-e-capitalismo" }
+    ]
+  },
+  {
+    "pergunta": "Por que a dívida do cartão cresce tão rápido?",
+    "resposta": "Por causa dos juros compostos: a cada mês, os juros são cobrados também sobre os juros do mês anterior. Faça a conta com os seus números.",
+    "links": [
+      { "titulo": "Ferramenta: Juros compostos", "href": "/ferramentas/juros-compostos" },
+      { "titulo": "Aula: Porcentagem", "href": "/trilhas/matematica-fundamental/porcentagem" }
+    ]
+  },
+  {
+    "pergunta": "Por que existem ricos e pobres?",
+    "resposta": "A desigualdade não é obra do acaso nem do merecimento: ela nasce da forma como a sociedade organiza a produção e reparte o que é produzido.",
+    "links": [
+      { "titulo": "Aula: Classes sociais e capitalismo", "href": "/trilhas/introducao-ao-marxismo/classes-sociais-e-capitalismo" },
+      { "titulo": "Aula: Materialismo histórico", "href": "/trilhas/introducao-ao-marxismo/materialismo-historico" }
+    ]
+  },
+  {
+    "pergunta": "Como saber se uma notícia é verdadeira?",
+    "resposta": "Pergunte quem escreveu, de onde vem o dado e se outras fontes confirmam. O guia de fontes reúne lugares confiáveis para conferir.",
+    "links": [
+      { "titulo": "Guia de fontes", "href": "/guia" },
+      { "titulo": "Checagem de fatos", "href": "/checagens" }
+    ]
+  },
+  {
+    "pergunta": "Parei de estudar cedo. Dá para retomar a matemática?",
+    "resposta": "Dá. Quase sempre o que trava é uma base que ficou para trás. Comece pelas frações e pelas porcentagens, que aparecem em toda conta do dia a dia.",
+    "links": [
+      { "titulo": "Aula: Frações", "href": "/trilhas/matematica-fundamental/fracoes" },
+      { "titulo": "Aula: Porcentagem", "href": "/trilhas/matematica-fundamental/porcentagem" }
+    ]
+  },
+  {
+    "pergunta": "Nunca mexi direito em computador. Por onde começo?",
+    "resposta": "Pelo básico: o que existe dentro da máquina, como a informação é guardada e como a internet funciona. Com isso, o resto fica mais fácil.",
+    "links": [
+      { "titulo": "Aula: Como funciona um computador", "href": "/trilhas/informatica-essencial/como-funciona-um-computador" },
+      { "titulo": "Aula: Como funciona a internet", "href": "/trilhas/informatica-essencial/como-funciona-a-internet" }
+    ]
+  },
+  {
+    "pergunta": "Quero aprender a programar do zero. É possível?",
+    "resposta": "É. Antes de qualquer linguagem vem a lógica: aprender a explicar um problema passo a passo. Depois, é só praticar, e dá para fazer isso aqui mesmo.",
+    "links": [
+      { "titulo": "Aula: O que é um algoritmo", "href": "/trilhas/logica-de-programacao/o-que-e-um-algoritmo" },
+      { "titulo": "Ferramenta: Python no navegador", "href": "/ferramentas/python" }
+    ]
+  },
+  {
+    "pergunta": "Dá para aprender inglês sem pagar curso?",
+    "resposta": "Dá para ir bem longe. Comece pelos sons e pelas primeiras frases, e use a ferramenta de pronúncia para treinar o ouvido.",
+    "links": [
+      { "titulo": "Aula: Alfabeto e sons", "href": "/trilhas/ingles-do-zero/alfabeto-e-sons" },
+      { "titulo": "Ferramenta: Pronúncia", "href": "/ferramentas/pronuncia" }
+    ]
+  }
+]

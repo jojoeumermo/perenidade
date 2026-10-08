@@ -1,7 +1,8 @@
 ---
 titulo: "História Antiga"
 area: historia
-nivel: "Iniciante"
+etapa: fundamental
+ordem: 1
 resumo: "Das primeiras cidades da Mesopotâmia à Biblioteca de Alexandria."
 ---
 

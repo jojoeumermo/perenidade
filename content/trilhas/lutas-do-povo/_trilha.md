@@ -1,7 +1,8 @@
 ---
 titulo: "Lutas do povo"
 area: historia
-nivel: "Iniciante"
+etapa: medio
+ordem: 1
 resumo: "Momentos em que gente comum mudou o rumo da história."
 ---
 

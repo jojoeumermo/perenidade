@@ -1,8 +1,10 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import type { Metadata } from "next";
-import { TrackCard } from "@/components/Cards";
+import Link from "next/link";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
-import { areaSlugs } from "@/lib/areas";
+import { fill, localePath } from "@/i18n/config";
+import { groups } from "@/lib/areas";
 import { getTracks } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/trilhas">): Promise<Metadata> {
@@ -10,7 +12,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/trilhas">)
   return { title: t.tracks.title, description: t.tracks.description };
 }
 
-export default async function Trilhas({ params }: PageProps<"/[lang]/trilhas">) {
+export default async function Disciplinas({ params }: PageProps<"/[lang]/trilhas">) {
   const { lang, t } = await loadLang(params);
   const tracks = getTracks(lang);
   return (
@@ -18,20 +20,25 @@ export default async function Trilhas({ params }: PageProps<"/[lang]/trilhas">) 
       <PageHeading eyebrow={t.tracks.eyebrow} title={t.tracks.title}>
         {t.tracks.lead}
       </PageHeading>
-      {areaSlugs.map((area) => {
-        const inArea = tracks.filter((track) => track.area === area);
-        if (inArea.length === 0) return null;
-        return (
-          <section key={area}>
-            <h2 className="mt-12 border-b border-rule pb-3 text-3xl font-semibold">{t.areas[area][0]}</h2>
-            <div className="mt-6 grid gap-5 md:grid-cols-2">
-              {inArea.map((track) => (
-                <TrackCard key={track.slug} track={track} lang={lang} t={t} />
-              ))}
-            </div>
-          </section>
-        );
-      })}
+      {groups.map((group) => (
+        <section key={group.id}>
+          <h2 className="mt-12 border-b border-rule pb-3 text-3xl font-semibold">{t.groups[group.id]}</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {group.areas.map((slug) => {
+              const inArea = tracks.filter((track) => track.area === slug);
+              const ready = inArea.reduce((sum, track) => sum + track.lessons.length, 0);
+              const planned = inArea.reduce((sum, track) => sum + track.plan.length, 0);
+              return (
+                <Link key={slug} href={localePath(lang, `/estantes/${slug}`)} className="group border border-rule bg-parchment-deep p-5 hover:border-gold">
+                  <p className="font-mono text-xs text-gold">{fill(t.tracks.ready, { a: ready, b: planned })}</p>
+                  <p className="mt-2 text-2xl font-semibold group-hover:text-oxblood">{t.areas[slug][0]}</p>
+                  <p className="mt-1 text-ink-soft">{t.areas[slug][1]}</p>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }

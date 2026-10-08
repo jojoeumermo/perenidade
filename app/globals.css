@@ -9,6 +9,7 @@
   --oxblood: #6e1f1a;
   --rule: #cdbb91;
   --ok: #2f5d34;
+  --apoie-luz: 38%;
 }
 
 /* Tema escuro: segue o sistema, a menos que a pessoa escolha um tema no botão do cabeçalho. */
@@ -22,6 +23,7 @@
     --oxblood: #e0837a;
     --rule: #3a3020;
     --ok: #8fc796;
+    --apoie-luz: 68%;
   }
 }
 
@@ -34,6 +36,7 @@
   --oxblood: #e0837a;
   --rule: #3a3020;
   --ok: #8fc796;
+  --apoie-luz: 68%;
 }
 
 @theme inline {
@@ -148,6 +151,61 @@ body {
   border-color: var(--rule);
 }
 
+/* Termo do glossário dentro de uma aula: pontilhado discreto, com a definição ao passar o mouse. */
+.prose-lesson a.termo {
+  color: inherit;
+  text-decoration: underline dotted var(--gold);
+  text-underline-offset: 4px;
+  cursor: help;
+}
+
+/* Parágrafo com nota da comunidade, e o destaque rápido ao pular até ele. */
+.tem-nota {
+  box-shadow: -0.7em 0 0 -0.55em var(--gold);
+}
+.nota-foco {
+  background: color-mix(in srgb, var(--gold) 24%, transparent);
+  transition: background 0.4s;
+}
+
+/* Etiquetas do fichamento: conceito, dúvida, citação. */
+.etiqueta-0 {
+  border-color: var(--gold);
+}
+.etiqueta-1 {
+  border-color: var(--oxblood);
+}
+.etiqueta-2 {
+  border-color: var(--ok);
+}
+
+/* "Apoie": o único ponto do menu com cor em movimento. Cada letra percorre as cores com um pequeno atraso. */
+.apoie > span[aria-hidden] {
+  color: var(--oxblood);
+  animation: apoie 5s linear infinite;
+}
+@keyframes apoie {
+  0%,
+  100% {
+    color: hsl(0 78% var(--apoie-luz));
+  }
+  17% {
+    color: hsl(32 90% var(--apoie-luz));
+  }
+  33% {
+    color: hsl(125 55% var(--apoie-luz));
+  }
+  50% {
+    color: hsl(188 80% var(--apoie-luz));
+  }
+  67% {
+    color: hsl(228 72% var(--apoie-luz));
+  }
+  83% {
+    color: hsl(300 60% var(--apoie-luz));
+  }
+}
+
 @media print {
   .no-print {
     display: none !important;
@@ -159,6 +217,44 @@ body {
     background: #fff;
     color: #000;
   }
+  .prose-lesson a.termo {
+    text-decoration: none;
+  }
+
+  /* Zine: a aula em duas colunas, com a folha deitada, para dobrar e passar adiante. */
+  html[data-print="zine"] body {
+    page: zine;
+  }
+  html[data-print="zine"] .prose-lesson {
+    columns: 2;
+    column-gap: 1.4cm;
+    font-size: 10.5pt;
+    line-height: 1.4;
+  }
+  html[data-print="zine"] .prose-lesson h2,
+  html[data-print="zine"] .prose-lesson h3 {
+    break-after: avoid;
+  }
+  html[data-print="zine"] #fichamento {
+    display: none;
+  }
+
+  /* Fichamento: só os trechos guardados saem no papel. */
+  html[data-print="notes"] #conteudo * {
+    visibility: hidden;
+  }
+  html[data-print="notes"] #fichamento,
+  html[data-print="notes"] #fichamento * {
+    visibility: visible;
+  }
+  html[data-print="notes"] #fichamento {
+    position: absolute;
+    inset: 0 0 auto 0;
+  }
+}
+@page zine {
+  size: A4 landscape;
+  margin: 1.2cm;
 }
 
 /* ---- Acessibilidade: modos ligados pelo botão flutuante (components/A11yWidget.tsx) ---- */
@@ -179,6 +275,10 @@ body {
 }
 :root[data-contrast] a {
   text-decoration: underline;
+}
+:root[data-contrast] .apoie > span[aria-hidden] {
+  animation: none;
+  color: var(--gold);
 }
 
 /* E-ink: preto e branco, sem animação nem textura, para telas de tinta eletrônica. */

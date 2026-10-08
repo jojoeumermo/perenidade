@@ -1,7 +1,14 @@
 ---
 titulo: "A Revolução Haitiana"
 resumo: "A única revolução de pessoas escravizadas que derrotou um império e fundou um país."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Os jacobinos negros: Toussaint L'Ouverture e a revolução de São Domingos"
+    autor: "C. L. R. James"
+    ano: "1938"
+  - titulo: "Avengers of the New World: The Story of the Haitian Revolution"
+    autor: "Laurent Dubois"
+    ano: "2004"
 quiz:
   - pergunta: "O que tornava a colônia de São Domingos tão valiosa para a França?"
     opcoes: ["As minas de ouro", "A produção de açúcar e café com trabalho escravizado", "A posição militar no Pacífico"]

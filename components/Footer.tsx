@@ -1,18 +1,20 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import Link from "next/link";
 import { localePath, type Locale } from "@/i18n/config";
-import type { Dict } from "@/i18n/pt";
-import { repoUrl, site } from "@/lib/site";
+import type { Dict } from "@/i18n/types";
+import { site } from "@/lib/site";
 
 export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
   const columns = [
     {
       title: t.footer.learn,
       links: [
-        [t.nav.tracks, "/trilhas"],
+        [t.nav.disciplines, "/trilhas"],
         [t.nav.library, "/acervo"],
-        [t.nav.authors, "/autores"],
+        [t.nav.tools, "/ferramentas"],
         [t.nav.glossary, "/glossario"],
-        [t.nav.timeline, "/linha-do-tempo"],
+        [t.nav.questions, "/perguntas"],
+        [t.nav.authors, "/autores"],
       ],
     },
     {
@@ -20,9 +22,10 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
       links: [
         [t.nav.volunteers, "/voluntarios"],
         [t.nav.contribute, "/contribuir"],
-        [t.nav.moderation, "/moderacao"],
-        [t.nav.history, "/historico"],
-        [t.nav.memorial, "/memorial"],
+        [t.nav.community, "/comunidade"],
+        [t.nav.journal, "/jornal"],
+        [t.nav.factCheck, "/checagens"],
+        [t.nav.debates, "/debates"],
       ],
     },
     {
@@ -30,9 +33,11 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
       links: [
         [t.nav.about, "/sobre"],
         [t.nav.dedication, "/dedicatoria"],
+        [t.nav.memorial, "/memorial"],
+        [t.nav.timeline, "/linha-do-tempo"],
+        [t.nav.support, "/apoie"],
         [t.nav.myData, "/meus-dados"],
         [t.nav.reportContent, "/denunciar"],
-        [t.nav.code, repoUrl],
       ],
     },
   ];
@@ -51,11 +56,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
             <ul className="mt-3 space-y-2 text-ink-soft">
               {column.links.map(([label, href]) => (
                 <li key={href}>
-                  {href.startsWith("/") ? (
-                    <Link href={localePath(lang, href)} className="hover:text-oxblood">{label}</Link>
-                  ) : (
-                    <a href={href} target="_blank" rel="noopener noreferrer" className="hover:text-oxblood">{label} ↗</a>
-                  )}
+                  <Link href={localePath(lang, href)} className="hover:text-oxblood">{label}</Link>
                 </li>
               ))}
             </ul>

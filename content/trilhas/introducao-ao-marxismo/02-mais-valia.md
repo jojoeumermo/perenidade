@@ -1,7 +1,16 @@
 ---
 titulo: "Mais-valia"
 resumo: "De onde vem o lucro: a parte da jornada que o trabalhador entrega sem receber."
-autores: ["Equipe Projeto Lucia"]
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Salário, Preço e Lucro"
+    autor: "Karl Marx"
+    ano: "1865"
+    url: "https://www.marxists.org/portugues/marx/1865/salario/index.htm"
+  - titulo: "O Capital: crítica da economia política, Livro I"
+    autor: "Karl Marx"
+    ano: "1867"
+    url: "https://www.marxists.org/portugues/marx/1867/capital/index.htm"
 quiz:
   - pergunta: "O que o trabalhador vende ao patrão, segundo Marx?"
     opcoes: ["O produto pronto", "A sua força de trabalho, por um certo tempo", "As suas ferramentas"]

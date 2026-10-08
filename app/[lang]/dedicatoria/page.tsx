@@ -1,12 +1,15 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import type { Metadata } from "next";
+import Image from "next/image";
 import { loadLang } from "@/i18n";
+import bust from "@/public/lucia.png";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/dedicatoria">): Promise<Metadata> {
   const { t } = await loadLang(params);
   return { title: t.dedication.title, description: t.dedication.text[0] };
 }
 
-// A homenagem a quem dá nome ao projeto, no formato de um verbete de dicionário.
+// A homenagem a quem dá nome ao instituto, no formato de um verbete de dicionário.
 export default async function Dedicatoria({ params }: PageProps<"/[lang]/dedicatoria">) {
   const { t } = await loadLang(params);
   const d = t.dedication;
@@ -37,7 +40,10 @@ export default async function Dedicatoria({ params }: PageProps<"/[lang]/dedicat
         </div>
       </article>
 
-      <div className="mx-auto mt-14 max-w-xl space-y-5 text-center text-2xl leading-relaxed">
+      {/* O busto de Lúcia, logo antes do texto da dedicatória. */}
+      <Image src={bust} alt={d.bustAlt} priority sizes="(max-width: 640px) 80vw, 360px" className="mx-auto mt-14 h-auto w-4/5 max-w-[360px]" />
+
+      <div className="mx-auto mt-10 max-w-xl space-y-5 text-center text-2xl leading-relaxed">
         {d.text.map((paragraph) => (
           <p key={paragraph}>{paragraph}</p>
         ))}

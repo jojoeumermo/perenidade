@@ -1,3 +1,4 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -7,7 +8,6 @@ import { loadLang } from "@/i18n";
 import { defaultLocale, fill, localePath } from "@/i18n/config";
 import { getAuthors, getBook, getBooks } from "@/lib/content";
 import { withLangs } from "@/lib/params";
-import { github } from "@/lib/site";
 
 export const dynamicParams = false;
 
@@ -29,7 +29,7 @@ export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id
   const to = (path: string) => localePath(lang, path);
   const authors = getAuthors(lang).filter((author) => book.authorSlugs.includes(author.slug));
   const label = "font-mono text-xs uppercase tracking-widest text-gold";
-  const link = { target: "_blank", rel: "noopener noreferrer", className: "underline hover:text-oxblood" };
+  const reserved = book.license === "Direitos reservados";
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12">
@@ -51,7 +51,7 @@ export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id
         rel="noopener noreferrer"
         className="mt-8 inline-block bg-ink px-8 py-3 font-sans text-sm font-medium text-parchment hover:bg-oxblood"
       >
-        {fill(t.common.readAt, { source: book.source })} ↗
+        {fill(reserved ? t.library.seeAt : t.common.readAt, { source: book.source })} ↗
       </a>
 
       <dl className="mt-10 grid gap-x-8 gap-y-4 border-t border-rule pt-6 font-sans text-sm sm:grid-cols-[8rem_1fr]">
@@ -74,13 +74,13 @@ export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id
         <dd>{book.source}</dd>
         <dt className={label}>{t.library.license}</dt>
         <dd>
-          <strong>{licenseName(t, book.license)}.</strong> {t.library.licenseNotes[book.license]} {t.library.varies}
+          <strong>{licenseName(t, book.license)}.</strong> {(t.library.licenseNotes as Record<string, string>)[book.license]}{" "}
+          {!reserved && t.library.varies}
         </dd>
       </dl>
 
       <p className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-sans text-sm text-ink-soft">
-        <a href={github.edit(book.file)} {...link}>{t.library.fix}</a>
-        <a href={github.history(book.file)} {...link}>{t.common.versions}</a>
+        <Link href={`${to("/contribuir")}?corrigir=${encodeURIComponent(`/acervo/${book.id}`)}`} className="underline hover:text-oxblood">{t.library.fix}</Link>
         <Link href={to(`/denunciar?item=${encodeURIComponent(`/acervo/${book.id}`)}`)} className="underline hover:text-oxblood">
           {t.common.report}
         </Link>

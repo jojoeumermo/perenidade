@@ -1,10 +1,11 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHeading } from "@/components/PageHeading";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
-import { htmlLang } from "@/i18n/config";
+import { htmlLang, localePath } from "@/i18n/config";
 import { getTributes } from "@/lib/content";
-import { github } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/memorial">): Promise<Metadata> {
   const { t } = await loadLang(params);
@@ -22,6 +23,12 @@ export default async function Memorial({ params }: PageProps<"/[lang]/memorial">
       </PageHeading>
       <Untranslated lang={lang} t={t} show={tributes.some((tribute) => !tribute.translated)} />
 
+      <nav aria-label={t.memorial.title} className="mt-8 flex flex-wrap gap-x-4 gap-y-1 font-sans text-sm">
+        {tributes.map((tribute) => (
+          <a key={tribute.slug} href={`#${tribute.slug}`} className="underline hover:text-oxblood">{tribute.name}</a>
+        ))}
+      </nav>
+
       <div className="mt-10 space-y-6">
         {tributes.map((tribute) => (
           <article key={tribute.slug} id={tribute.slug} className="scroll-mt-6 border-l-4 border-oxblood bg-parchment-deep p-6" {...originalLang(tribute.translated)}>
@@ -37,10 +44,7 @@ export default async function Memorial({ params }: PageProps<"/[lang]/memorial">
 
       <p className="no-print mt-10 border-t border-rule pt-6 font-sans text-sm text-ink-soft">
         {t.memorial.add}{" "}
-        <a href={github.newIssue("sugestao.yml", {})} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">
-          {t.memorial.addLink}
-        </a>
-        .
+        <Link href={localePath(lang, "/contribuir")} className="underline hover:text-oxblood">{t.memorial.addLink}</Link>.
       </p>
     </div>
   );

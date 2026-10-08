@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Interpretadores copiados das dependências (scripts/preparar.mjs).
+    "public/pyodide/**",
+    "public/php/**",
   ]),
 ]);
 

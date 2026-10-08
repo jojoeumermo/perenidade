@@ -1,3 +1,4 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { PageHeading } from "@/components/PageHeading";
@@ -16,7 +17,6 @@ export default async function Denunciar({ params }: PageProps<"/[lang]/denunciar
       <PageHeading eyebrow={t.report.eyebrow} title={t.report.title}>
         {t.report.lead}
       </PageHeading>
-
       <ol className="mt-10 grid gap-5 font-sans text-sm sm:grid-cols-3">
         {t.report.stages.map(([title, description], i) => (
           <li key={title} className="border-l-2 border-gold pl-4">
@@ -26,12 +26,9 @@ export default async function Denunciar({ params }: PageProps<"/[lang]/denunciar
           </li>
         ))}
       </ol>
-
       <Suspense>
-        <ReportForm />
+        <ReportForm s={t.report} />
       </Suspense>
-
-      <p className="mt-10 border-t border-rule pt-6 font-sans text-sm text-ink-soft">{t.report.public}</p>
     </div>
   );
 }
