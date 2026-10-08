@@ -1,10 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import fs from "node:fs";
 import path from "node:path";
-import matter from "gray-matter";
 import { cache } from "react";
 import { defaultLocale, type Locale } from "@/i18n/config";
 import { areaSlugs, licenses, stages, type AreaSlug, type License, type Stage } from "./areas";
+import { parseFrontmatter } from "./frontmatter";
 import { plainText } from "./text";
 
 // Todo o conteúdo vive em arquivos dentro de content/. Cada mudança fica no histórico de versões,
@@ -254,7 +254,7 @@ function parseQuiz(raw: unknown, file: string): QuizQuestion[] {
 const absolute = (file: string) => path.join(CONTENT_DIR, file.slice("content/".length));
 
 function parse(file: string) {
-  const parsed = matter(fs.readFileSync(absolute(file), "utf8"));
+  const parsed = parseFrontmatter(fs.readFileSync(absolute(file), "utf8"));
   return { data: parsed.data as Data, body: parsed.content.trim() };
 }
 

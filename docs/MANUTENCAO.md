@@ -213,6 +213,8 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 | `testar-banco.mjs` | instala o banco do zero e testa cada permissão |
 | `sincronizar.mjs` | leva as contribuições aprovadas para `content/` |
 | `proximo.mjs` | mostra o que falta escrever |
+| `importar-catalogo.mjs` | refaz o catálogo ampliado a partir do Project Gutenberg (só autores em domínio público no Brasil) e do Arquivo Marxista. As disciplinas das lutas sociais ficam de fora da importação automática: nelas, cada obra é escolhida à mão |
+| `cabecalho.mjs` | leitura e escrita do cabeçalho dos arquivos de conteúdo, usada pelos outros roteiros |
 | `conferir-i18n.mjs` | compara os cinco dicionários |
 | `conferir-links.mjs` | testa os endereços citados no conteúdo |
 
