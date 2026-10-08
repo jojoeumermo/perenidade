@@ -8,9 +8,18 @@
     ]
   },
   {
+    "pergunta": "Quais são os meus direitos no trabalho?",
+    "resposta": "Jornada, hora extra, férias, décimo terceiro, FGTS: os direitos básicos estão na CLT e na Constituição, e vale conhecê-los antes de precisar deles.",
+    "links": [
+      { "titulo": "Aula: O que é a CLT", "href": "/trilhas/direitos-no-trabalho/o-que-e-a-clt" },
+      { "titulo": "Obra: Consolidação das Leis do Trabalho", "href": "/acervo/consolidacao-das-leis-do-trabalho" }
+    ]
+  },
+  {
     "pergunta": "Por que a dívida do cartão cresce tão rápido?",
     "resposta": "Por causa dos juros compostos: a cada mês, os juros são cobrados também sobre os juros do mês anterior. Faça a conta com os seus números.",
     "links": [
+      { "titulo": "Aula: Juros, o preço do dinheiro", "href": "/trilhas/economia-fundamental/juros-o-preco-do-dinheiro" },
       { "titulo": "Ferramenta: Juros compostos", "href": "/ferramentas/juros-compostos" },
       { "titulo": "Aula: Porcentagem", "href": "/trilhas/matematica-fundamental/porcentagem" }
     ]
@@ -20,23 +29,38 @@
     "resposta": "A desigualdade não é obra do acaso nem do merecimento: ela nasce da forma como a sociedade organiza a produção e reparte o que é produzido.",
     "links": [
       { "titulo": "Aula: Classes sociais e capitalismo", "href": "/trilhas/introducao-ao-marxismo/classes-sociais-e-capitalismo" },
-      { "titulo": "Aula: Materialismo histórico", "href": "/trilhas/introducao-ao-marxismo/materialismo-historico" }
+      { "titulo": "Aula: O que é sociologia", "href": "/trilhas/sociologia-medio/o-que-e-sociologia" }
+    ]
+  },
+  {
+    "pergunta": "Socialismo e comunismo são a mesma coisa?",
+    "resposta": "Não exatamente. As duas palavras têm história e significados próprios, muito diferentes das caricaturas que circulam por aí.",
+    "links": [
+      { "titulo": "Aula: O que é socialismo", "href": "/trilhas/socialismo-fundamental/o-que-e-socialismo" },
+      { "titulo": "Aula: O que é comunismo", "href": "/trilhas/comunismo-fundamental/o-que-e-comunismo" }
     ]
   },
   {
     "pergunta": "Como saber se uma notícia é verdadeira?",
-    "resposta": "Pergunte quem escreveu, de onde vem o dado e se outras fontes confirmam. O guia de fontes reúne lugares confiáveis para conferir.",
+    "resposta": "Pergunte quem escreveu, de onde vem o dado e se outras fontes confirmam. E, na dúvida, não compartilhe.",
     "links": [
+      { "titulo": "Aula: Como identificar uma notícia falsa", "href": "/trilhas/midia-fundamental/como-identificar-uma-noticia-falsa" },
       { "titulo": "Guia de fontes", "href": "/guia" },
       { "titulo": "Checagem de fatos", "href": "/checagens" }
     ]
   },
   {
+    "pergunta": "Sofro violência em casa. O que a lei garante?",
+    "resposta": "A Lei Maria da Penha protege contra a violência física, psicológica, sexual, patrimonial e moral, e prevê medidas de proteção urgentes. O Ligue 180 atende de graça, 24 horas.",
+    "links": [{ "titulo": "Aula: A Lei Maria da Penha", "href": "/trilhas/feminismo-fundamental/a-lei-maria-da-penha" }]
+  },
+  {
     "pergunta": "Parei de estudar cedo. Dá para retomar a matemática?",
-    "resposta": "Dá. Quase sempre o que trava é uma base que ficou para trás. Comece pelas frações e pelas porcentagens, que aparecem em toda conta do dia a dia.",
+    "resposta": "Dá. Quase sempre o que trava é uma base que ficou para trás. Comece pelas frações, pelos decimais e pelas porcentagens, que aparecem em toda conta do dia a dia.",
     "links": [
       { "titulo": "Aula: Frações", "href": "/trilhas/matematica-fundamental/fracoes" },
-      { "titulo": "Aula: Porcentagem", "href": "/trilhas/matematica-fundamental/porcentagem" }
+      { "titulo": "Aula: Números decimais", "href": "/trilhas/matematica-fundamental/numeros-decimais" },
+      { "titulo": "Aula: Equações do 1º grau", "href": "/trilhas/matematica-fundamental/equacoes-do-1-grau" }
     ]
   },
   {
@@ -49,10 +73,20 @@
   },
   {
     "pergunta": "Quero aprender a programar do zero. É possível?",
-    "resposta": "É. Antes de qualquer linguagem vem a lógica: aprender a explicar um problema passo a passo. Depois, é só praticar, e dá para fazer isso aqui mesmo.",
+    "resposta": "É. Antes de qualquer linguagem vem a lógica: aprender a explicar um problema passo a passo. Depois, Python e PHP, praticando aqui mesmo.",
     "links": [
       { "titulo": "Aula: O que é um algoritmo", "href": "/trilhas/logica-de-programacao/o-que-e-um-algoritmo" },
+      { "titulo": "Aula: Seu primeiro programa em Python", "href": "/trilhas/python-do-zero/seu-primeiro-programa-em-python" },
       { "titulo": "Ferramenta: Python no navegador", "href": "/ferramentas/python" }
+    ]
+  },
+  {
+    "pergunta": "Quero aprender música, mas não sei ler partitura.",
+    "resposta": "Ninguém nasce sabendo. A partitura anota quatro coisas que o seu ouvido já conhece, e dá para aprender uma de cada vez.",
+    "links": [
+      { "titulo": "Aula: O que é som", "href": "/trilhas/teoria-musical-do-zero/o-que-e-som-altura-duracao-intensidade-e-timbre" },
+      { "titulo": "Aula: A pauta e as claves", "href": "/trilhas/teoria-musical-do-zero/a-pauta-e-as-claves" },
+      { "titulo": "Ferramenta: Leitura de notas", "href": "/ferramentas/leitura-de-notas" }
     ]
   },
   {
@@ -62,5 +96,15 @@
       { "titulo": "Aula: Alfabeto e sons", "href": "/trilhas/ingles-do-zero/alfabeto-e-sons" },
       { "titulo": "Ferramenta: Pronúncia", "href": "/ferramentas/pronuncia" }
     ]
+  },
+  {
+    "pergunta": "A inteligência artificial vai tirar o meu emprego?",
+    "resposta": "A tecnologia não decide sozinha: quem decide como ela é usada são empresas e governos. Entender o que essas máquinas fazem, e o que não fazem, é o primeiro passo para discutir o assunto.",
+    "links": [{ "titulo": "Aula: O que é inteligência artificial", "href": "/trilhas/ia-fundamental/o-que-e-inteligencia-artificial" }]
+  },
+  {
+    "pergunta": "Por que se fala tanto em aquecimento global?",
+    "resposta": "Porque a temperatura média do planeta já subiu mais de um grau, e as consequências caem com mais força sobre quem menos contribuiu para o problema.",
+    "links": [{ "titulo": "Aula: Efeito estufa e aquecimento global", "href": "/trilhas/meio-ambiente-medio/efeito-estufa-e-aquecimento-global" }]
   }
 ]
