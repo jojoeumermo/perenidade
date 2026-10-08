@@ -1,7 +1,7 @@
 name: Links do acervo
 
-# Toda segunda-feira confere se as fontes do acervo ainda respondem.
-# Se alguma cair, a execução falha e o GitHub avisa por e-mail.
+# Toda segunda-feira confere se as fontes citadas ainda respondem.
+# Se alguma cair, a execução falha e o aviso chega por e-mail.
 on:
   schedule:
     - cron: "0 9 * * 1"
@@ -19,5 +19,5 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
-      - run: npm run check:links
+      - run: npm ci --ignore-scripts
+      - run: npm run conferir:links

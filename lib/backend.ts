@@ -3,7 +3,7 @@
 
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
-import { KEYS, useStored } from "./storage";
+import { KEYS, notifyStored, useStored } from "./storage";
 
 // Contas, fila de contribuições, comunidade e rádio dependem de um serviço externo opcional.
 // Sem as duas variáveis abaixo o site funciona normalmente e essas partes ficam escondidas.
@@ -31,9 +31,12 @@ let client: Promise<SupabaseClient> | null = null;
 /** O cliente completo (contas e sessão) só é baixado quando alguém realmente precisa dele. */
 export function getClient(): Promise<SupabaseClient> {
   if (!hasBackend) return Promise.reject(new BackendError("sem_servico"));
-  client ??= import("@supabase/supabase-js").then(({ createClient }) =>
-    createClient(url, key, { auth: { storageKey: KEYS.session, persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } }),
-  );
+  client ??= import("@supabase/supabase-js").then(({ createClient }) => {
+    const supabase = createClient(url, key, { auth: { storageKey: KEYS.session, persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
+    // Entrar e sair mudam o cabeçalho ("Entrar" vira "Painel") sem recarregar a página.
+    supabase.auth.onAuthStateChange(() => setTimeout(notifyStored, 0));
+    return supabase;
+  });
   return client;
 }
 
@@ -139,5 +142,6 @@ export async function signOut() {
     } catch {
       // sem armazenamento, não há sessão para apagar
     }
+    notifyStored();
   }
 }

@@ -22,7 +22,7 @@ export function NavLinks() {
     [t.nav.more, "/explorar"],
     [t.nav.search, "/busca"],
   ];
-  const link = (label: React.ReactNode, path: string, extra = "") => {
+  const link = (label: React.ReactNode, path: string, name?: string) => {
     const href = localePath(lang, path);
     const active = pathname === href || pathname.startsWith(`${href}/`);
     return (
@@ -30,7 +30,8 @@ export function NavLinks() {
         key={path}
         href={href}
         aria-current={active ? "page" : undefined}
-        className={`whitespace-nowrap hover:text-oxblood ${extra} ${active ? "text-oxblood underline decoration-gold underline-offset-8" : ""}`}
+        aria-label={name}
+        className={`whitespace-nowrap hover:text-oxblood ${active ? "text-oxblood underline decoration-gold underline-offset-8" : ""}`}
       >
         {label}
       </Link>
@@ -42,7 +43,6 @@ export function NavLinks() {
       {/* O único destaque do menu: as letras de "Apoie" mudam de cor, uma depois da outra. */}
       {link(
         <span className="apoie font-semibold">
-          <span className="sr-only">{t.nav.support}</span>
           {[...t.nav.support].map((letter, i) => (
             <span key={i} aria-hidden style={{ animationDelay: `${i * -0.35}s` }}>
               {letter}
@@ -50,6 +50,7 @@ export function NavLinks() {
           ))}
         </span>,
         "/apoie",
+        t.nav.support,
       )}
       {links.slice(7).map(([label, path]) => link(label, path))}
     </>

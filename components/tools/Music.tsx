@@ -4,6 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
+import { useHydrated } from "@/lib/storage";
 import { Staff } from "../Staff";
 
 type S = Dict["tools"]["music"];
@@ -272,6 +273,12 @@ const LETTERS = "CDEFGAB";
 
 /** Treino de leitura: aparece uma nota na pauta e a pessoa diz qual é. */
 export function NoteReading({ s }: { s: S }) {
+  // A nota é sorteada, então o exercício só é montado no navegador (no servidor o sorteio seria outro).
+  const hydrated = useHydrated();
+  return hydrated ? <NoteDrill s={s} /> : <div className="mt-8 h-64" />;
+}
+
+function NoteDrill({ s }: { s: S }) {
   const [clef, setClef] = useState<"sol" | "fa">("sol");
   const [score, setScore] = useState({ right: 0, total: 0 });
   const [last, setLast] = useState<{ right: boolean; name: string } | null>(null);
@@ -314,7 +321,7 @@ export function NoteReading({ s }: { s: S }) {
       </div>
       <p className="mt-6 font-medium">{s.whichNote}</p>
       <div className="mt-3 max-w-xs">
-        <Staff spec={`clave: ${clef}\nnotas: ${letter}${octave}/1`} />
+        <Staff secret spec={`clave: ${clef}\nnotas: ${letter}${octave}/1`} />
       </div>
       <div className="mt-4 flex flex-wrap gap-2">
         {s.notes.map((name, i) => (
