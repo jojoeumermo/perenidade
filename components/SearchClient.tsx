@@ -4,6 +4,7 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { fill, localePath, plural } from "@/i18n/config";
+import synonyms from "@/content/busca.json";
 import { buildSearch, type SearchEntry } from "@/lib/search";
 import { L, useI18n } from "./I18n";
 
@@ -32,7 +33,7 @@ export function SearchClient() {
     };
   }, [lang]);
 
-  const search = useMemo(() => (entries ? buildSearch(entries) : null), [entries]);
+  const search = useMemo(() => (entries ? buildSearch(entries, synonyms) : null), [entries]);
   const hits = search ? search(query) : [];
   const typed = query.trim().length > 0;
   const kinds = t.search.kinds as Record<string, string>;
