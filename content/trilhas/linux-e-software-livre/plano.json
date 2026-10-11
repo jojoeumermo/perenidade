@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "o-que-e-software-livre",
+    "titulo": "O que é software livre"
+  },
+  {
+    "slug": "o-que-e-o-linux-e-o-que-e-uma-distribuicao",
+    "titulo": "O que é o Linux e o que é uma distribuição"
+  },
+  {
+    "slug": "instalar-o-linux-ao-lado-do-windows",
+    "titulo": "Instalar o Linux ao lado do Windows"
+  },
+  {
+    "slug": "o-terminal-os-primeiros-comandos",
+    "titulo": "O terminal: os primeiros comandos"
+  },
+  {
+    "slug": "arquivos-pastas-e-permissoes",
+    "titulo": "Arquivos, pastas e permissões"
+  },
+  {
+    "slug": "instalar-programas",
+    "titulo": "Instalar programas"
+  },
+  {
+    "slug": "usuarios-e-seguranca",
+    "titulo": "Usuários e segurança"
+  },
+  {
+    "slug": "redes-ip-dns-e-wi-fi",
+    "titulo": "Redes: IP, DNS e Wi-Fi"
+  },
+  {
+    "slug": "montar-um-servidor-caseiro",
+    "titulo": "Montar um servidor caseiro"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "metodo-de-diagnostico-do-mais-simples-ao-mais-dificil",
+    "titulo": "Método de diagnóstico: do mais simples ao mais difícil"
+  },
+  {
+    "slug": "o-computador-nao-liga",
+    "titulo": "O computador não liga"
+  },
+  {
+    "slug": "lentidao-memoria-disco-e-programas",
+    "titulo": "Lentidão: memória, disco e programas"
+  },
+  {
+    "slug": "limpeza-interna-e-troca-de-pasta-termica",
+    "titulo": "Limpeza interna e troca de pasta térmica"
+  },
+  {
+    "slug": "notebook-abrir-sem-quebrar",
+    "titulo": "Notebook: abrir sem quebrar"
+  },
+  {
+    "slug": "troca-de-tela-teclado-e-bateria-de-notebook",
+    "titulo": "Troca de tela, teclado e bateria de notebook"
+  },
+  {
+    "slug": "copia-de-seguranca-e-recuperacao-de-dados",
+    "titulo": "Cópia de segurança e recuperação de dados"
+  },
+  {
+    "slug": "formatar-e-reinstalar-o-sistema",
+    "titulo": "Formatar e reinstalar o sistema"
+  },
+  {
+    "slug": "reaproveitar-computadores-antigos-com-linux-leve",
+    "titulo": "Reaproveitar computadores antigos com Linux leve"
+  },
+  {
+    "slug": "descarte-de-lixo-eletronico",
+    "titulo": "Descarte de lixo eletrônico"
+  }
+]

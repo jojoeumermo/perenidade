@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "tensao-corrente-e-resistencia",
+    "titulo": "Tensão, corrente e resistência"
+  },
+  {
+    "slug": "o-multimetro",
+    "titulo": "O multímetro"
+  },
+  {
+    "slug": "resistores-capacitores-e-diodos",
+    "titulo": "Resistores, capacitores e diodos"
+  },
+  {
+    "slug": "transistores-e-reguladores-de-tensao",
+    "titulo": "Transistores e reguladores de tensão"
+  },
+  {
+    "slug": "solda-e-dessolda",
+    "titulo": "Solda e dessolda"
+  },
+  {
+    "slug": "ler-um-esquema-eletrico",
+    "titulo": "Ler um esquema elétrico"
+  },
+  {
+    "slug": "fontes-chaveadas",
+    "titulo": "Fontes chaveadas"
+  },
+  {
+    "slug": "reparo-em-nivel-de-componente",
+    "titulo": "Reparo em nível de componente"
+  }
+]
