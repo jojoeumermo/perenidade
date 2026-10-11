@@ -941,7 +941,10 @@
       "degrees": "Degrees",
       "radians": "Radians",
       "sin": "sin",
-      "decimal": "."
+      "decimal": ".",
+      "steps": "Step by step",
+      "stepsCopy": "Copy the working to paste into a lesson",
+      "stepsCopied": "Copied. Paste it into the lesson text: it shows up formatted."
     },
     "interest": {
       "initial": "Starting amount",

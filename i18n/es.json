@@ -941,7 +941,10 @@
       "degrees": "Grados",
       "radians": "Radianes",
       "sin": "sen",
-      "decimal": ","
+      "decimal": ",",
+      "steps": "Paso a paso",
+      "stepsCopy": "Copiar la cuenta para pegarla en una clase",
+      "stepsCopied": "Copiado. Pégalo en el texto de la clase: aparece con formato."
     },
     "interest": {
       "initial": "Monto inicial",

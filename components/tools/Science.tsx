@@ -4,6 +4,7 @@
 import { useMemo, useState } from "react";
 import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
+import { explain } from "@/lib/steps";
 import elements from "@/lib/elementos.json";
 
 type Tools = Dict["tools"];
@@ -222,6 +223,8 @@ export function Calculator({ s, lang }: { s: Tools["calc"]; lang: string }) {
   const [degrees, setDegrees] = useState(true);
   const [history, setHistory] = useState<[string, string][]>([]);
   const [invalid, setInvalid] = useState(false);
+  const [steps, setSteps] = useState<string[]>([]);
+  const [copied, setCopied] = useState(false);
   const format = (value: number) => new Intl.NumberFormat(lang, { maximumSignificantDigits: 12, useGrouping: false }).format(Number(value.toPrecision(12)));
 
   function solve() {
@@ -230,8 +233,25 @@ export function Calculator({ s, lang }: { s: Tools["calc"]; lang: string }) {
       const result = format(evaluate(text, degrees));
       setHistory((lines) => [[text, result] as [string, string], ...lines].slice(0, 12));
       setInvalid(false);
+      setCopied(false);
+      // As passagens usam menos casas para caber na linha; o resultado acima continua com a precisão toda.
+      try {
+        setSteps(explain(text, degrees, (value) => new Intl.NumberFormat(lang, { maximumSignificantDigits: 8, useGrouping: false }).format(Number(value.toPrecision(8)))));
+      } catch {
+        setSteps([]);
+      }
     } catch {
       setInvalid(true);
+      setSteps([]);
+    }
+  }
+
+  async function copySteps() {
+    try {
+      await navigator.clipboard.writeText(["```conta", ...steps, "```"].join("\n"));
+      setCopied(true);
+    } catch {
+      setCopied(false);
     }
   }
 
@@ -279,6 +299,21 @@ export function Calculator({ s, lang }: { s: Tools["calc"]; lang: string }) {
           </label>
         ))}
       </fieldset>
+      {steps.length > 2 && history[0]?.[0] === text && (
+        <section aria-labelledby="passos" className="mt-6">
+          <p id="passos" className="font-mono text-xs uppercase tracking-widest text-gold">{s.steps}</p>
+          <div className="conta !my-2 font-serif" role="math" aria-label={steps.join(" ")}>
+            {steps.map((line, i) => (
+              <div key={i} className={line.startsWith("=") ? "passo" : undefined}>
+                {line}
+              </div>
+            ))}
+          </div>
+          <button type="button" onClick={copySteps} className="cursor-pointer underline hover:text-oxblood">
+            {copied ? s.stepsCopied : s.stepsCopy}
+          </button>
+        </section>
+      )}
       {history.length > 0 && (
         <>
           <p className="mt-6 font-mono text-xs uppercase tracking-widest text-gold">{s.history}</p>

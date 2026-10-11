@@ -941,7 +941,10 @@
       "degrees": "Graus",
       "radians": "Radianos",
       "sin": "sen",
-      "decimal": ","
+      "decimal": ",",
+      "steps": "Passo a passo",
+      "stepsCopy": "Copiar a conta para colar em uma aula",
+      "stepsCopied": "Copiado. Cole no texto da aula: ela aparece formatada."
     },
     "interest": {
       "initial": "Valor inicial",
