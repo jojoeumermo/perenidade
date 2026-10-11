@@ -26,6 +26,8 @@ export function Masthead({ lang, s, updated, small = false }: { lang: Locale; s:
         )}
         <span aria-hidden>·</span>
         <span>{s.free}</span>
+        <span aria-hidden>·</span>
+        <Link href={localePath(lang, "/noticias")} className="underline hover:text-oxblood">{s.round}</Link>
       </p>
     </header>
   );

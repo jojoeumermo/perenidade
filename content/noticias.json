@@ -1,0 +1,87 @@
+[
+  {
+    "nome": "Brasil de Fato",
+    "site": "https://www.brasildefato.com.br",
+    "feed": "https://www.brasildefato.com.br/feed/"
+  },
+  {
+    "nome": "Agência Brasil",
+    "site": "https://agenciabrasil.ebc.com.br",
+    "feed": "https://agenciabrasil.ebc.com.br/rss/ultimasnoticias/feed.xml"
+  },
+  {
+    "nome": "Agência Pública",
+    "site": "https://apublica.org",
+    "feed": "https://apublica.org/feed/"
+  },
+  {
+    "nome": "Repórter Brasil",
+    "site": "https://reporterbrasil.org.br",
+    "feed": "https://reporterbrasil.org.br/feed/"
+  },
+  {
+    "nome": "Ponte Jornalismo",
+    "site": "https://ponte.org",
+    "feed": "https://ponte.org/feed/"
+  },
+  {
+    "nome": "MST",
+    "site": "https://mst.org.br",
+    "feed": "https://mst.org.br/feed/"
+  },
+  {
+    "nome": "Outras Palavras",
+    "site": "https://outraspalavras.net",
+    "feed": "https://outraspalavras.net/feed/"
+  },
+  {
+    "nome": "Opera Mundi",
+    "site": "https://operamundi.uol.com.br",
+    "feed": "https://operamundi.uol.com.br/feed/"
+  },
+  {
+    "nome": "Le Monde Diplomatique Brasil",
+    "site": "https://diplomatique.org.br",
+    "feed": "https://diplomatique.org.br/feed/"
+  },
+  {
+    "nome": "Jacobin Brasil",
+    "site": "https://jacobin.com.br",
+    "feed": "https://jacobin.com.br/feed/"
+  },
+  {
+    "nome": "Intercept Brasil",
+    "site": "https://www.intercept.com.br",
+    "feed": "https://www.intercept.com.br/feed/"
+  },
+  {
+    "nome": "Mídia Ninja",
+    "site": "https://midianinja.org",
+    "feed": "https://midianinja.org/feed/"
+  },
+  {
+    "nome": "Marco Zero Conteúdo",
+    "site": "https://marcozero.org",
+    "feed": "https://marcozero.org/feed/"
+  },
+  {
+    "nome": "Amazônia Real",
+    "site": "https://amazoniareal.com.br",
+    "feed": "https://amazoniareal.com.br/feed/"
+  },
+  {
+    "nome": "De Olho nos Ruralistas",
+    "site": "https://deolhonosruralistas.com.br",
+    "feed": "https://deolhonosruralistas.com.br/feed/"
+  },
+  {
+    "nome": "Sul21",
+    "site": "https://sul21.com.br",
+    "feed": "https://sul21.com.br/feed/"
+  },
+  {
+    "nome": "Instituto Tricontinental",
+    "site": "https://thetricontinental.org",
+    "feed": "https://thetricontinental.org/pt-pt/feed/"
+  }
+]
