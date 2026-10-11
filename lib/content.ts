@@ -47,6 +47,8 @@ export interface Lesson extends Localized {
   quiz: QuizQuestion[];
   sources: Source[];
   minutes: number;
+  /** Termos que a própria aula define (campo "glossario" do cabeçalho): entram sozinhos no glossário do site. */
+  terms: { term: string; summary: string }[];
 }
 
 /** Item do roteiro de uma trilha: aula já escrita ou ainda em preparação. */
@@ -127,6 +129,12 @@ export interface Term extends Localized {
   term: string;
   summary: string;
   body: string;
+}
+
+/** Verbete do glossário completo: sabe em quais disciplinas e aulas o termo aparece. */
+export interface IndexedTerm extends Term {
+  areas: AreaSlug[];
+  lessons: { href: string; title: string }[];
 }
 
 export interface Article extends Localized {
@@ -325,6 +333,12 @@ function loadLesson(file: string, name: string, lang: Locale): (Lesson & { numbe
     title: text(data, "titulo", file),
     summary: text(data, "resumo", file),
     authors: Array.isArray(data.autores) ? data.autores.map(String) : [],
+    terms: (Array.isArray(data.glossario) ? (data.glossario as Data[]) : []).map((item) => {
+      const term = typeof item?.termo === "string" ? item.termo.trim() : "";
+      const summary = typeof item?.definicao === "string" ? item.definicao.trim() : "";
+      if (!term || !summary) fail(file, `cada item de "glossario" precisa de "termo" e "definicao"`);
+      return { term, summary };
+    }),
     reviewed: data.revisada === true,
     body,
     quiz: parseQuiz(data.quiz, file),
@@ -467,6 +481,38 @@ export const getGlossary = cache((lang: Locale): Term[] =>
     file,
   })).sort((a, b) => a.term.localeCompare(b.term, lang)),
 );
+
+/**
+ * O glossário inteiro, refeito a cada montagem do site: os verbetes da curadoria mais os termos que as aulas
+ * definem no próprio cabeçalho. Para cada termo, a lista das disciplinas e das aulas em que ele aparece
+ * (procurado no título e no texto de todas as aulas), para a página poder filtrar por disciplina.
+ */
+export const getGlossaryIndex = cache((lang: Locale): IndexedTerm[] => {
+  const plain = (value: string) => ` ${value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim()} `;
+  const terms = new Map<string, IndexedTerm>(getGlossary(lang).map((term) => [plain(term.term), { ...term, areas: [], lessons: [] }]));
+  const tracks = getTracks(lang);
+  for (const track of tracks) {
+    for (const lesson of track.lessons) {
+      for (const own of lesson.terms) {
+        const key = plain(own.term);
+        if (terms.has(key)) continue;
+        const slug = key.trim().replace(/ /g, "-");
+        terms.set(key, { slug, term: own.term, summary: own.summary, body: "", translated: lesson.translated, file: lesson.file, areas: [], lessons: [] });
+      }
+    }
+  }
+  for (const track of tracks) {
+    for (const lesson of track.lessons) {
+      const text = plain(`${lesson.title} ${lesson.summary} ${lesson.body}`);
+      for (const [key, term] of terms) {
+        if (!text.includes(key)) continue;
+        if (!term.areas.includes(track.area)) term.areas.push(track.area);
+        if (term.lessons.length < 5) term.lessons.push({ href: `/trilhas/${track.slug}/${lesson.slug}`, title: lesson.title });
+      }
+    }
+  }
+  return [...terms.values()].sort((a, b) => a.term.localeCompare(b.term, lang));
+});
 
 export const getArticles = cache((lang: Locale): Article[] =>
   collection("jornal", lang, ({ slug, file, data, body, translated }) => {
