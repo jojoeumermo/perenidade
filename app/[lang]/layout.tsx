@@ -36,9 +36,17 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     metadataBase: new URL(site.url),
     title: { default: t.meta.title, template: `%s — ${site.name}` },
     description: t.meta.description,
-    // A imagem do cartão (app/opengraph-image.png) e o ícone (app/icon.png) entram sozinhos.
-    openGraph: { type: "website", locale: htmlLang[lang], siteName: site.name, title: t.meta.title, description: t.meta.description },
-    twitter: { card: "summary_large_image" },
+    // O ícone (app/icon.png) entra sozinho. A imagem do cartão de compartilhamento precisa ser dita aqui:
+    // posta como arquivo solto em app/, ela se perde quando este layout define "openGraph".
+    openGraph: {
+      type: "website",
+      locale: htmlLang[lang],
+      siteName: site.name,
+      title: t.meta.title,
+      description: t.meta.description,
+      images: [{ url: "/cartao.png", width: 1200, height: 630, alt: site.name }],
+    },
+    twitter: { card: "summary_large_image", images: ["/cartao.png"] },
     applicationName: site.name,
     formatDetection: { telephone: false, email: false, address: false },
   };
