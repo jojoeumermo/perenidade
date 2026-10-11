@@ -70,7 +70,8 @@
     "privacy": "Privacy",
     "terms": "Terms of use",
     "start": "Where to start",
-    "news": "News"
+    "news": "News",
+    "gallery": "Poster gallery"
   },
   "footer": {
     "tagline": "Free knowledge, for everyone, forever.",
@@ -1070,7 +1071,8 @@
       "contribute": "Send a lesson, a work, a correction or an idea.",
       "support": "Help pay for the server and the domain.",
       "start": "Short books and lessons for the first steps.",
-      "news": "Headlines from grassroots, independent and public outlets, updated automatically."
+      "news": "Headlines from grassroots, independent and public outlets, updated automatically.",
+      "gallery": "Posters and images of the workers' struggle, with the story behind each one."
     }
   },
   "support": {
@@ -1369,5 +1371,13 @@
     "byOutlet": "By outlet",
     "empty": "The headlines could not be fetched right now. Try again in a few minutes.",
     "note": "The institute does not write, edit or answer for these texts: it shows only the title, date and link that each outlet distributes publicly. The institute's own stories are in the Journal."
+  },
+  "gallery": {
+    "eyebrow": "Art and press of the struggle",
+    "title": "Poster gallery",
+    "lead": "Before radio and television, the wall was the newspaper of working people. These posters, prints and photographs were made to call, to teach and to denounce. Each one comes with who made it, when and why.",
+    "description": "Historical posters, prints and photographs of the workers' struggle, in the public domain, with context and source.",
+    "publicDomain": "Public domain image. Source:",
+    "note": "Only public domain works are shown here, stored on this site with their source. A poster is a document of its time: showing it is not endorsing everything that was done in its name."
   }
 }

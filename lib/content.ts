@@ -567,6 +567,31 @@ export const getStartSteps = cache((lang: Locale): StartStep[] => {
   }));
 });
 
+export interface GalleryPiece {
+  slug: string;
+  titulo: string;
+  autor: string;
+  ano: string;
+  lugar: string;
+  texto: string;
+  imagem: string;
+  largura: number;
+  altura: number;
+  fonte: string;
+}
+
+/** Cartazes e imagens históricas em domínio público, guardados no próprio site, cada um com contexto e fonte. */
+export const getGallery = cache((): GalleryPiece[] => {
+  const file = "content/galeria.json";
+  const pieces = readJson<GalleryPiece[]>(file, []);
+  for (const piece of pieces) {
+    if (!piece.titulo || !piece.autor || !piece.ano || !piece.texto) fail(file, `"${piece.slug}" precisa de título, autor, ano e texto`);
+    if (!/^\/imagens\/galeria\/[a-z0-9-]+\.webp$/.test(piece.imagem)) fail(file, `"${piece.slug}": a imagem precisa estar em /imagens/galeria`);
+    if (!/^https:\/\/commons\.wikimedia\.org\/wiki\//.test(piece.fonte)) fail(file, `"${piece.slug}": falta o endereço da fonte`);
+  }
+  return pieces.sort((a, b) => a.ano.localeCompare(b.ano));
+});
+
 /** Perguntas do dia a dia ("por que o aluguel é tão caro?") com os materiais que ajudam a responder. */
 export const getQuestions = cache((): Question[] => readJson<Question[]>("content/perguntas.json", []));
 

@@ -70,7 +70,8 @@
     "privacy": "Privacidade",
     "terms": "Termos de uso",
     "start": "Por onde começar",
-    "news": "Notícias"
+    "news": "Notícias",
+    "gallery": "Galeria de cartazes"
   },
   "footer": {
     "tagline": "Conhecimento livre, para todos, para sempre.",
@@ -1070,7 +1071,8 @@
       "contribute": "Envie uma aula, uma obra, uma correção ou uma ideia.",
       "support": "Ajude a pagar o servidor e o domínio.",
       "start": "Livros curtos e aulas para dar os primeiros passos.",
-      "news": "Manchetes de veículos populares, independentes e públicos, atualizadas sozinhas."
+      "news": "Manchetes de veículos populares, independentes e públicos, atualizadas sozinhas.",
+      "gallery": "Cartazes e imagens da luta dos trabalhadores, com a história de cada um."
     }
   },
   "support": {
@@ -1369,5 +1371,13 @@
     "byOutlet": "Por veículo",
     "empty": "Não foi possível buscar as manchetes agora. Tente de novo em alguns minutos.",
     "note": "O instituto não escreve, não edita e não responde por estes textos: mostra só o título, a data e o link que cada veículo distribui publicamente. As matérias do próprio instituto ficam no Jornal."
+  },
+  "gallery": {
+    "eyebrow": "Arte e imprensa de luta",
+    "title": "Galeria de cartazes",
+    "lead": "Antes do rádio e da televisão, a parede era o jornal de quem trabalhava. Estes cartazes, gravuras e fotografias foram feitos para convocar, ensinar e denunciar. Cada um vem com quem fez, quando e por quê.",
+    "description": "Cartazes, gravuras e fotografias históricas da luta dos trabalhadores, em domínio público, com contexto e fonte.",
+    "publicDomain": "Imagem em domínio público. Fonte:",
+    "note": "Só entram aqui obras em domínio público, guardadas no próprio site e com a fonte indicada. Um cartaz é um documento do seu tempo: mostrá-lo não é assinar embaixo de tudo o que foi feito em nome dele."
   }
 }

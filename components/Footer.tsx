@@ -40,6 +40,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
         [t.nav.dedication, "/dedicatoria"],
         [t.nav.memorial, "/memorial"],
         [t.nav.timeline, "/linha-do-tempo"],
+        [t.nav.gallery, "/galeria"],
         [t.nav.support, "/apoie"],
         [t.nav.myData, "/meus-dados"],
         [t.nav.privacy, "/privacidade"],
