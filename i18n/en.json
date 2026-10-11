@@ -62,7 +62,8 @@
     "videos": "Videos",
     "sources": "Guide to sources",
     "radio": "Radio",
-    "history": "History of the collection"
+    "history": "History of the collection",
+    "mural": "Workers' Wall"
   },
   "footer": {
     "tagline": "Free knowledge, for everyone, forever.",
@@ -263,6 +264,42 @@
     "povos-indigenas": [
       "Indigenous peoples",
       "History, land and resistance of the original peoples."
+    ],
+    "danca": [
+      "Dance",
+      "The body that expresses itself: the social history of dance and the dances of the Brazilian people."
+    ],
+    "primeiros-socorros": [
+      "First aid",
+      "What to do, and what not to do, until help arrives."
+    ],
+    "psicologia": [
+      "Psychology",
+      "Basic notions and the mental suffering linked to work and social life."
+    ],
+    "direito": [
+      "Law and the Constitution",
+      "Brazil's 1988 Constitution, workers' rights, the right to strike and to protest."
+    ],
+    "teologia": [
+      "Theology and religions",
+      "History of religions, early Christianity and Liberation Theology."
+    ],
+    "luta-dos-professores": [
+      "Teachers' struggle",
+      "Strikes, unions and the defence of public schools."
+    ],
+    "sindicalismo": [
+      "Trade unionism",
+      "Workplace organisation, general strikes and collective bargaining."
+    ],
+    "pessoas-idosas": [
+      "Older people's struggle",
+      "Pensions, the Statute of Older Persons and the right to grow old with dignity."
+    ],
+    "favelas": [
+      "Struggle of the favelas",
+      "Housing, sanitation, collective building and the organisation of those who built the city."
     ]
   },
   "tracks": {
@@ -626,7 +663,7 @@
     "dumpLink": "Download the full collection (JSON)",
     "textHint": "Every lesson also exists as plain text: just add /texto to its address. It even works from the terminal, with curl.",
     "trackingTitle": "Zero tracking",
-    "tracking": "No Google Analytics, no social-network pixel, no advertising cookies. We do not sell your data because we do not have it.",
+    "tracking": "No Google Analytics, no social media pixel, no advertising cookies. We only count how many visits each page receives, anonymously and without cookies. We do not sell your data because we do not have it.",
     "exitNow": "Leave now"
   },
   "groups": {
@@ -897,7 +934,8 @@
       "volunteers": "Review, translate, teach or write.",
       "about": "What the institute is and how the content is licensed.",
       "history": "Everything that has changed in the collection, with dates.",
-      "myData": "Download or erase what is stored in this browser."
+      "myData": "Download or erase what is stored in this browser.",
+      "mural": "Cooperatives, trades, art and initiatives by working people."
     }
   },
   "support": {
@@ -960,7 +998,8 @@
     "sem_conexao": "No connection. Check your internet and try again.",
     "sem_servico": "This feature is not active on this copy of the site yet.",
     "invalido": "Check this field: {campo}.",
-    "falha": "Something went wrong. Try again in a moment."
+    "falha": "Something went wrong. Try again in a moment.",
+    "limite_anuncios": "Each person can have up to three listings. Remove one to post another."
   },
   "community": {
     "eyebrow": "Community",
@@ -1000,5 +1039,62 @@
     "up": "Vote up",
     "down": "Vote down",
     "points": "points"
+  },
+  "mural": {
+    "eyebrow": "Solidarity economy",
+    "title": "Workers' Wall",
+    "lead": "Cooperatives, trades, art and initiatives by people who live from their own work. No paid ads, no middlemen, no fees.",
+    "description": "A free space for working people to publicise cooperatives, services, products, art and initiatives.",
+    "rulesTitle": "How the wall works",
+    "rules": [
+      "It is for those who live from their own work: cooperatives, associations, self-employed workers, artisans, artists, collectives and community initiatives.",
+      "Not accepted: companies looking for labour, catalogue reselling, pyramid schemes, loans, betting, promises of easy money and election advertising.",
+      "Every listing is read by the curators before it goes up and stays visible for 180 days. Whoever posted it renews it for as long as the initiative exists.",
+      "The contact details you write are public. Post only what anyone may see.",
+      "The institute charges nothing, takes no share of any sale and does not vouch for the services listed. Seen something wrong? Use the Report link."
+    ],
+    "offline": "The wall is not active on this copy of the site yet.",
+    "empty": "No listings here yet.",
+    "category": "Type",
+    "allCategories": "All types",
+    "state": "State",
+    "allStates": "All of Brazil",
+    "categories": {
+      "cooperativa": "Cooperative or association",
+      "servico": "Service",
+      "produto": "Product",
+      "arte": "Art and culture",
+      "iniciativa": "Community initiative"
+    },
+    "contact": "Contact",
+    "by": "Posted by {name}",
+    "signIn": "Sign in to post a listing",
+    "newAd": "Post a listing",
+    "mine": "My listings",
+    "formTitle": "Your listing",
+    "fields": {
+      "title": "Title",
+      "description": "What you do or offer",
+      "city": "City",
+      "state": "State",
+      "contact": "Contact (phone, social media or email)",
+      "link": "Website or page (optional)"
+    },
+    "contactHint": "Note: the contact details are shown to anyone who opens the wall.",
+    "send": "Send to the curators",
+    "sent": "Listing sent. It appears on the wall once the curators have read it.",
+    "cancel": "Cancel",
+    "status": {
+      "pendente": "waiting for the curators",
+      "aprovado": "live",
+      "recusado": "not approved",
+      "vencido": "expired: renew it to put it back up"
+    },
+    "edit": "Edit",
+    "remove": "Remove",
+    "removed": "Listing removed.",
+    "renew": "Renew",
+    "renewed": "Listing renewed for another 180 days.",
+    "validUntil": "until {date}"
   }
 }

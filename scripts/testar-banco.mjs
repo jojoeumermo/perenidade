@@ -181,6 +181,37 @@ await recusa("curadoria não mexe no mural", () => rpc(como(ids.curadora), "apoi
 await espera("coordenação adiciona apoiador", () => rpc(como(ids.coord), "apoiador_salvar", { p_id: null, p_nome: "Maria da Silva", p_mensagem: "Pela educação popular." }), (r) => Boolean(r.id));
 await espera("mural é público", () => rpc(anon, "apoiadores_listar"), (r) => r.length === 1 && r[0].nome === "Maria da Silva");
 
+// ── Mural dos Trabalhadores ──
+const anuncio = (extra = {}) => ({ categoria: "cooperativa", titulo: "Cooperativa de costureiras", descricao: "Uniformes, consertos e bolsas feitos por doze costureiras associadas.", cidade: "Recife", uf: "pe", contato: "WhatsApp (81) 90000-0000", link: "", ...extra });
+let anuncioId;
+await recusa("anônimo não anuncia no mural", () => rpc(anon, "mural_enviar", { p: anuncio() }), "entre_primeiro");
+await recusa("categoria desconhecida é recusada", () => rpc(como(ids.prof), "mural_enviar", { p: anuncio({ categoria: "emprestimo" }) }), "invalido:categoria");
+await recusa("link do mural precisa ser https", () => rpc(como(ids.prof), "mural_enviar", { p: anuncio({ link: "javascript:alert(1)" }) }), "invalido:link");
+await recusa("descrição curta demais é recusada", () => rpc(como(ids.prof), "mural_enviar", { p: anuncio({ descricao: "curta" }) }), "invalido:descricao");
+await espera("trabalhador envia anúncio", async () => (anuncioId = (await rpc(como(ids.prof), "mural_enviar", { p: anuncio() })).id), (r) => Boolean(r));
+await espera("anúncio pendente não aparece para o público", () => rpc(anon, "mural_listar"), (r) => r.length === 0);
+await espera("quem enviou vê o próprio anúncio aguardando", () => rpc(como(ids.prof), "mural_meus"), (r) => r.length === 1 && r[0].status === "pendente");
+await recusa("educador não decide anúncios", () => rpc(como(ids.prof), "mural_decidir", { p_id: anuncioId, p_aprovar: true, p_nota: "" }), "sem_permissao");
+await recusa("quem não é curadoria não vê a fila do mural", () => rpc(como(ids.jornal), "mural_fila"), "sem_permissao");
+await espera("curadoria vê a fila do mural", () => rpc(como(ids.curadora), "mural_fila"), (r) => r.length === 1 && r[0].nome === "Paulo Professor");
+await espera("curadoria aprova", () => rpc(como(ids.curadora), "mural_decidir", { p_id: anuncioId, p_aprovar: true, p_nota: "" }), (r) => r.ok);
+await espera("anúncio aprovado aparece, com a sigla do estado corrigida", () => rpc(anon, "mural_listar"), (r) => r.length === 1 && r[0].uf === "PE" && r[0].status === undefined);
+await espera("filtro por categoria", () => rpc(anon, "mural_listar", { p_categoria: "arte", p_uf: null }), (r) => r.length === 0);
+await espera("filtro por estado", () => rpc(anon, "mural_listar", { p_categoria: null, p_uf: "pe" }), (r) => r.length === 1);
+await recusa("outra pessoa não edita o anúncio alheio", () => rpc(como(ids.jornal), "mural_enviar", { p: anuncio({ id: anuncioId, titulo: "Tomado por outra pessoa" }) }), "nao_encontrado");
+await recusa("outra pessoa não retira o anúncio alheio", () => rpc(como(ids.jornal), "mural_remover", { p_id: anuncioId }), "nao_encontrado");
+await espera("editar devolve o anúncio para a curadoria", async () => { await rpc(como(ids.prof), "mural_enviar", { p: anuncio({ id: anuncioId, titulo: "Cooperativa de costura do Ibura" }) }); return rpc(anon, "mural_listar"); }, (r) => r.length === 0);
+await espera("anúncio vencido sai do ar e pode ser renovado", async () => {
+  await rpc(como(ids.coord), "mural_decidir", { p_id: anuncioId, p_aprovar: true, p_nota: "" });
+  await dono("update interno.mural set validade = now() - interval '1 day' where id = $1", [anuncioId]);
+  const vencido = await rpc(anon, "mural_listar");
+  await rpc(como(ids.prof), "mural_renovar", { p_id: anuncioId });
+  return [vencido.length, (await rpc(anon, "mural_listar")).length];
+}, (r) => r[0] === 0 && r[1] === 1);
+await recusa("no máximo três anúncios por pessoa", async () => { for (let i = 0; i < 3; i++) await rpc(como(ids.prof), "mural_enviar", { p: anuncio({ titulo: `Outro anúncio ${i}` }) }); }, "limite_anuncios");
+await espera("resumo do painel conta o mural", () => rpc(como(ids.curadora), "painel_resumo"), (r) => r.mural === 2);
+await espera("curadoria retira anúncio indevido", () => rpc(como(ids.curadora), "mural_remover", { p_id: anuncioId }), (r) => r.ok);
+
 // ── Rádio ──
 await espera("rádio fora do ar: público só vê que está fora", () => rpc(anon, "radio_estado"), (r) => r.no_ar === false && r.canais === undefined);
 await recusa("curadoria não configura a rádio", () => rpc(como(ids.curadora), "radio_configurar", { p_no_ar: true, p_ao_vivo: "" }), "sem_permissao");

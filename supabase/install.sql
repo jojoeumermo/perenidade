@@ -143,6 +143,26 @@ create table if not exists interno.apoiadores (
   criado_em timestamptz not null default now()
 );
 
+-- Mural dos Trabalhadores: anúncios de cooperativas, ofícios, arte e iniciativas de quem vive do próprio trabalho.
+-- Só texto, sem imagem nem arquivo. Todo anúncio passa pela curadoria e vence sozinho, para o mural não envelhecer.
+create table if not exists interno.mural (
+  id uuid primary key default gen_random_uuid(),
+  autor uuid not null references interno.perfis (id) on delete cascade,
+  categoria text not null check (categoria in ('cooperativa', 'servico', 'produto', 'arte', 'iniciativa')),
+  titulo text not null check (char_length(titulo) between 4 and 100),
+  descricao text not null check (char_length(descricao) between 20 and 1200),
+  cidade text not null check (char_length(cidade) between 2 and 80),
+  uf text not null default '' check (uf ~ '^([A-Z]{2})?$'),
+  contato text not null check (char_length(contato) between 4 and 160),
+  link text not null default '' check (link = '' or (link ~ '^https://[^[:space:]]+$' and char_length(link) <= 300)),
+  status text not null default 'pendente' check (status in ('pendente', 'aprovado', 'recusado')),
+  nota text not null default '',
+  criado_em timestamptz not null default now(),
+  decidido_em timestamptz,
+  validade timestamptz
+);
+create index if not exists mural_no_ar on interno.mural (status, validade);
+
 create table if not exists interno.radio_canais (
   id uuid primary key default gen_random_uuid(),
   nome text not null check (char_length(nome) between 2 and 60),
@@ -804,6 +824,100 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
+-- ───────────────────────────── Mural dos Trabalhadores ─────────────────────────────
+
+create or replace function interno.mural_json(m interno.mural, p_completo boolean) returns jsonb
+language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'id', m.id, 'categoria', m.categoria, 'titulo', m.titulo, 'descricao', m.descricao, 'cidade', m.cidade, 'uf', m.uf,
+    'contato', m.contato, 'link', m.link, 'nome', coalesce((select f.nome from perfis f where f.id = m.autor), ''), 'publicado_em', m.decidido_em)
+  || case when p_completo then jsonb_build_object('status', m.status, 'nota', m.nota, 'criado_em', m.criado_em, 'validade', m.validade,
+       'vencido', m.status = 'aprovado' and m.validade <= now()) else '{}'::jsonb end
+$$;
+
+/** O que o público vê: só anúncios aprovados e dentro da validade. */
+create or replace function public.mural_listar(p_categoria text default null, p_uf text default null) returns jsonb
+language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(interno.mural_json(m, false) order by m.decidido_em desc), '[]'::jsonb)
+  from (select * from mural
+        where status = 'aprovado' and validade > now()
+          and (coalesce(p_categoria, '') = '' or categoria = p_categoria)
+          and (coalesce(p_uf, '') = '' or uf = upper(p_uf))
+        order by decidido_em desc limit 300) m
+$$;
+
+/** Enviar ou corrigir um anúncio. Precisa de conta; no máximo três anúncios por pessoa; toda mudança volta para a curadoria. */
+create or replace function public.mural_enviar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu();
+  v_id uuid := nullif(p ->> 'id', '')::uuid;
+  v_categoria text := coalesce(p ->> 'categoria', '');
+  v_uf text := upper(btrim(coalesce(p ->> 'uf', '')));
+  v_link text := btrim(coalesce(p ->> 'link', ''));
+begin
+  perform interno.limite('mural', 6, 1440);
+  if v_categoria not in ('cooperativa', 'servico', 'produto', 'arte', 'iniciativa') then perform interno.erro('invalido:categoria'); end if;
+  if v_uf !~ '^([A-Z]{2})?$' then perform interno.erro('invalido:uf'); end if;
+  if v_link <> '' and (v_link !~ '^https://[^[:space:]]+$' or char_length(v_link) > 300) then perform interno.erro('invalido:link'); end if;
+  if v_id is null then
+    if (select count(*) from mural where autor = v and status <> 'recusado') >= 3 then perform interno.erro('limite_anuncios'); end if;
+    insert into mural (autor, categoria, titulo, descricao, cidade, uf, contato, link)
+    values (v, v_categoria, interno.txt(p ->> 'titulo', 'titulo', 4, 100), interno.txt(p ->> 'descricao', 'descricao', 20, 1200),
+            interno.txt(p ->> 'cidade', 'cidade', 2, 80), v_uf, interno.txt(p ->> 'contato', 'contato', 4, 160), v_link)
+    returning id into v_id;
+  else
+    update mural set categoria = v_categoria, titulo = interno.txt(p ->> 'titulo', 'titulo', 4, 100),
+      descricao = interno.txt(p ->> 'descricao', 'descricao', 20, 1200), cidade = interno.txt(p ->> 'cidade', 'cidade', 2, 80),
+      uf = v_uf, contato = interno.txt(p ->> 'contato', 'contato', 4, 160), link = v_link,
+      status = 'pendente', nota = '', decidido_em = null, validade = null
+    where id = v_id and autor = v;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.mural_meus() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(interno.mural_json(m, true) order by m.criado_em desc), '[]'::jsonb)
+  from mural m where m.autor = auth.uid() and auth.uid() is not null
+$$;
+
+/** Quem publicou pode retirar o próprio anúncio; a curadoria pode retirar qualquer um. */
+create or replace function public.mural_remover(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  delete from mural where id = p_id and (autor = v or interno.curador());
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Anúncio aprovado vale 180 dias. Quem publicou renova com um clique enquanto a iniciativa existir. */
+create or replace function public.mural_renovar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  update mural set validade = now() + interval '180 days' where id = p_id and autor = v and status = 'aprovado';
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.mural_fila(p_status text default 'pendente') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.curador() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(interno.mural_json(m, true) order by m.criado_em), '[]'::jsonb)
+          from (select * from mural where status = coalesce(p_status, 'pendente') order by criado_em limit 300) m);
+end $$;
+
+create or replace function public.mural_decidir(p_id uuid, p_aprovar boolean, p_nota text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.curador() then perform interno.erro('sem_permissao'); end if;
+  update mural set status = case when p_aprovar then 'aprovado' else 'recusado' end, nota = interno.txt(p_nota, 'nota', 0, 500),
+    decidido_em = now(), validade = case when p_aprovar then now() + interval '180 days' end
+  where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
 -- ───────────────────────────── Rádio ─────────────────────────────
 
 /** Programação da rádio. Enquanto não estiver no ar, só a coordenação enxerga os canais. */
@@ -911,6 +1025,7 @@ begin
     'candidaturas', case when interno.coord() then (select count(*) from candidaturas where status = 'pendente') else 0 end,
     'denuncias', case when interno.curador() then (select count(*) from denuncias where status = 'aberta') else 0 end,
     'anotacoes', case when interno.cuida() then (select count(*) from anotacoes where status = 'pendente') else 0 end,
+    'mural', case when interno.curador() then (select count(*) from mural where status = 'pendente') else 0 end,
     'minhas', (select count(*) from contribuicoes where autor = auth.uid()));
 end $$;
 
@@ -927,7 +1042,8 @@ begin
              'contribuicao_ver', 'contribuicao_editar', 'parecer', 'contribuicao_decidir', 'publicacoes_pendentes', 'publicacoes_marcar', 'topicos_listar',
              'topico_ver', 'topico_criar', 'responder', 'votar', 'comunidade_cuidar', 'denunciar', 'denuncias_listar', 'denuncia_resolver', 'anotacoes_listar',
              'anotar', 'anotacoes_fila', 'anotacao_decidir', 'apoiadores_listar', 'apoiador_salvar', 'apoiador_remover', 'radio_estado', 'radio_configurar',
-             'radio_canal_salvar', 'radio_canal_remover', 'radio_faixa_salvar', 'radio_faixa_remover', 'progresso_salvar', 'progresso_listar', 'painel_resumo'))
+             'radio_canal_salvar', 'radio_canal_remover', 'radio_faixa_salvar', 'radio_faixa_remover', 'progresso_salvar', 'progresso_listar', 'painel_resumo',
+             'mural_listar', 'mural_enviar', 'mural_meus', 'mural_remover', 'mural_renovar', 'mural_fila', 'mural_decidir'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then

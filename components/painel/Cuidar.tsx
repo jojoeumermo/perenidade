@@ -325,3 +325,67 @@ export function RadioAdmin() {
     </div>
   );
 }
+
+interface Anuncio {
+  id: string;
+  categoria: string;
+  titulo: string;
+  descricao: string;
+  cidade: string;
+  uf: string;
+  contato: string;
+  link: string;
+  nome: string;
+  criado_em: string;
+}
+
+const tiposDeAnuncio: Record<string, string> = { cooperativa: "Cooperativa ou associação", servico: "Serviço", produto: "Produto", arte: "Arte e cultura", iniciativa: "Iniciativa comunitária" };
+
+/** Anúncios do Mural dos Trabalhadores à espera de leitura. */
+export function MuralFila() {
+  const lista = useLista<Anuncio[]>("mural_fila", { p_status: "pendente" });
+  const acao = useAcao(lista.recarregar);
+  const [notas, setNotas] = useState<Record<string, string>>({});
+  return (
+    <div>
+      <p className="max-w-3xl text-ink-soft">
+        O mural é para quem vive do próprio trabalho: cooperativas, associações, autônomos, artesãos, artistas e iniciativas comunitárias. Não aprove empresas à procura de mão de obra, revenda por
+        catálogo, pirâmides, empréstimos, apostas, promessas de ganho fácil nem propaganda eleitoral. Na dúvida, recuse com uma nota explicando o motivo: a pessoa pode corrigir e reenviar.
+      </p>
+      <Aviso texto={lista.erro || acao.aviso} />
+      {lista.dados?.length === 0 && <p className="text-ink-soft">Nenhum anúncio aguardando.</p>}
+      <ul className="mt-2 space-y-5">
+        {lista.dados?.map((item) => (
+          <li key={item.id} className="border border-rule bg-parchment-deep p-5">
+            <p className={rotulo}>
+              {tiposDeAnuncio[item.categoria] ?? item.categoria} · {item.cidade}
+              {item.uf && `, ${item.uf}`} · {data(item.criado_em)}
+            </p>
+            <p className="mt-2 font-serif text-2xl font-semibold">{item.titulo}</p>
+            <p className="mt-2 whitespace-pre-line font-serif text-lg">{item.descricao}</p>
+            <p className="mt-2">Contato: {item.contato}</p>
+            {item.link && <p className="break-all">Link: {item.link}</p>}
+            <p className="text-ink-soft">Enviado por {item.nome || "pessoa sem nome no perfil"}</p>
+            <label className="mt-3 block">
+              Nota para quem enviou (obrigatória ao recusar)
+              <input value={notas[item.id] ?? ""} onChange={(e) => setNotas({ ...notas, [item.id]: e.target.value })} maxLength={500} className={campo} />
+            </label>
+            <div className="mt-3 flex flex-wrap gap-3">
+              <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("mural_decidir", { p_id: item.id, p_aprovar: true, p_nota: notas[item.id] ?? "" }, "Anúncio no ar por 180 dias.")}>
+                Aprovar
+              </button>
+              <button
+                type="button"
+                className={botaoClaro}
+                disabled={acao.ocupado || (notas[item.id] ?? "").trim().length < 5}
+                onClick={() => acao.agir("mural_decidir", { p_id: item.id, p_aprovar: false, p_nota: notas[item.id] ?? "" }, "Anúncio recusado.")}
+              >
+                Não aprovar
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}

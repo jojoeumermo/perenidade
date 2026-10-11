@@ -7,7 +7,7 @@ import { areaSlugs } from "@/lib/areas";
 import { can, hasBackend, rpc, signOut, useMe, type Me, type Role } from "@/lib/backend";
 import { L, useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, data, elo, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
-import { Apoiadores, Comunidade, RadioAdmin } from "./Cuidar";
+import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
 import { Escrever } from "./Escrever";
 import { Fila } from "./Fila";
 import { Pessoas } from "./Pessoas";
@@ -18,6 +18,7 @@ interface Resumo {
   candidaturas: number;
   denuncias: number;
   anotacoes: number;
+  mural: number;
   minhas: number;
 }
 
@@ -46,6 +47,7 @@ export function Painel() {
     ["minhas", "Minhas contribuições", true],
     ["fila", "Fila de revisão", voluntario],
     ["comunidade", "Comunidade", can(eu, "coordenacao", "curadoria", "educacao")],
+    ["mural", "Mural", can(eu, "coordenacao", "curadoria")],
     ["pessoas", "Voluntários", can(eu, "coordenacao")],
     ["apoiadores", "Apoiadores", can(eu, "coordenacao")],
     ["radio", "Rádio", can(eu, "coordenacao")],
@@ -71,6 +73,7 @@ export function Painel() {
         {aba === "minhas" && <Fila me={eu} minhas />}
         {aba === "fila" && <Fila me={eu} />}
         {aba === "comunidade" && <Comunidade me={eu} />}
+        {aba === "mural" && <MuralFila />}
         {aba === "pessoas" && <Pessoas />}
         {aba === "apoiadores" && <Apoiadores />}
         {aba === "radio" && <RadioAdmin />}
@@ -100,6 +103,7 @@ function Inicio({ me, recarregar, ir }: { me: Me; recarregar: () => void; ir: (a
         ["Pedidos de voluntariado", r.candidaturas, "pessoas"],
         ["Denúncias abertas", r.denuncias, "comunidade"],
         ["Anotações aguardando", r.anotacoes, "comunidade"],
+        ["Anúncios do mural aguardando", r.mural, "mural"],
         ["Minhas contribuições", r.minhas, "minhas"],
       ]
     : [];

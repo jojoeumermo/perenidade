@@ -62,7 +62,8 @@
     "videos": "Vídeos",
     "sources": "Guia de fontes",
     "radio": "Rádio",
-    "history": "Histórico do acervo"
+    "history": "Histórico do acervo",
+    "mural": "Mural dos Trabalhadores"
   },
   "footer": {
     "tagline": "Conhecimento livre, para todos, para sempre.",
@@ -263,6 +264,42 @@
     "povos-indigenas": [
       "Povos indígenas",
       "História, terra e resistência dos povos originários."
+    ],
+    "danca": [
+      "Dança",
+      "O corpo que se expressa: história social da dança e as danças do povo brasileiro."
+    ],
+    "primeiros-socorros": [
+      "Primeiros socorros",
+      "O que fazer, e o que não fazer, até o socorro chegar."
+    ],
+    "psicologia": [
+      "Psicologia",
+      "Noções fundamentais e o sofrimento psíquico ligado ao trabalho e à vida social."
+    ],
+    "direito": [
+      "Direito e Constituição",
+      "A Constituição de 1988, os direitos de quem trabalha, o direito de greve e de manifestação."
+    ],
+    "teologia": [
+      "Teologia e religiões",
+      "História das religiões, cristianismo primitivo e Teologia da Libertação."
+    ],
+    "luta-dos-professores": [
+      "Luta dos professores",
+      "Greves, sindicatos e a defesa da escola pública."
+    ],
+    "sindicalismo": [
+      "Sindicalismo",
+      "Organização no local de trabalho, greves gerais e negociação coletiva."
+    ],
+    "pessoas-idosas": [
+      "Luta das pessoas idosas",
+      "Previdência, Estatuto da Pessoa Idosa e o direito de envelhecer com dignidade."
+    ],
+    "favelas": [
+      "Luta das favelas",
+      "Moradia, saneamento, mutirões e a organização de quem construiu a cidade."
     ]
   },
   "tracks": {
@@ -626,7 +663,7 @@
     "dumpLink": "Baixar o acervo completo (JSON)",
     "textHint": "Cada aula também existe em texto puro: basta acrescentar /texto ao endereço dela. Funciona até pelo terminal, com curl.",
     "trackingTitle": "Zero rastreamento",
-    "tracking": "Sem Google Analytics, sem pixel de rede social, sem cookies de anúncio. Nós não vendemos seus dados porque não os temos.",
+    "tracking": "Sem Google Analytics, sem pixel de rede social, sem cookies de anúncio. Contamos apenas quantas visitas cada página recebe, de forma anônima e sem cookies. Nós não vendemos seus dados porque não os temos.",
     "exitNow": "Sair agora"
   },
   "groups": {
@@ -897,7 +934,8 @@
       "volunteers": "Revise, traduza, ensine ou escreva.",
       "about": "O que é o instituto e como o conteúdo é licenciado.",
       "history": "Tudo o que mudou no acervo, com data.",
-      "myData": "Baixe ou apague o que está guardado neste navegador."
+      "myData": "Baixe ou apague o que está guardado neste navegador.",
+      "mural": "Cooperativas, ofícios, arte e iniciativas de quem trabalha."
     }
   },
   "support": {
@@ -960,7 +998,8 @@
     "sem_conexao": "Sem conexão. Confira a internet e tente de novo.",
     "sem_servico": "Este recurso ainda não está ativo nesta cópia do site.",
     "invalido": "Confira o campo: {campo}.",
-    "falha": "Algo deu errado. Tente de novo em instantes."
+    "falha": "Algo deu errado. Tente de novo em instantes.",
+    "limite_anuncios": "Cada pessoa pode ter até três anúncios. Retire um para publicar outro."
   },
   "community": {
     "eyebrow": "Comunidade",
@@ -1000,5 +1039,62 @@
     "up": "Voto a favor",
     "down": "Voto contra",
     "points": "pontos"
+  },
+  "mural": {
+    "eyebrow": "Economia solidária",
+    "title": "Mural dos Trabalhadores",
+    "lead": "Cooperativas, ofícios, arte e iniciativas de quem vive do próprio trabalho. Sem anúncio pago, sem intermediário, sem taxa.",
+    "description": "Espaço gratuito para trabalhadoras e trabalhadores divulgarem cooperativas, serviços, produtos, arte e iniciativas.",
+    "rulesTitle": "Como o mural funciona",
+    "rules": [
+      "É para quem vive do próprio trabalho: cooperativas, associações, autônomos, artesãos, artistas, coletivos e iniciativas comunitárias.",
+      "Não entram: empresas à procura de mão de obra, revenda por catálogo, esquemas de pirâmide, empréstimos, apostas, promessas de ganho fácil e propaganda eleitoral.",
+      "Todo anúncio é lido pela curadoria antes de ir ao ar e fica visível por 180 dias. Quem publicou renova enquanto a iniciativa existir.",
+      "O contato que você escrever fica público. Publique só o que pode ser visto por qualquer pessoa.",
+      "O instituto não cobra nada, não fica com parte de nenhuma venda e não garante os serviços anunciados. Viu algo errado? Use o link Denunciar."
+    ],
+    "offline": "O mural ainda não está ativo nesta cópia do site.",
+    "empty": "Nenhum anúncio por aqui ainda.",
+    "category": "Tipo",
+    "allCategories": "Todos os tipos",
+    "state": "Estado",
+    "allStates": "Todo o Brasil",
+    "categories": {
+      "cooperativa": "Cooperativa ou associação",
+      "servico": "Serviço",
+      "produto": "Produto",
+      "arte": "Arte e cultura",
+      "iniciativa": "Iniciativa comunitária"
+    },
+    "contact": "Contato",
+    "by": "Publicado por {name}",
+    "signIn": "Entre para anunciar",
+    "newAd": "Anunciar",
+    "mine": "Meus anúncios",
+    "formTitle": "Seu anúncio",
+    "fields": {
+      "title": "Título",
+      "description": "O que você faz ou oferece",
+      "city": "Cidade",
+      "state": "Estado",
+      "contact": "Contato (telefone, rede social ou e-mail)",
+      "link": "Site ou página (opcional)"
+    },
+    "contactHint": "Atenção: o contato aparece para qualquer pessoa que abrir o mural.",
+    "send": "Enviar para a curadoria",
+    "sent": "Anúncio enviado. Ele aparece no mural depois de lido pela curadoria.",
+    "cancel": "Cancelar",
+    "status": {
+      "pendente": "aguardando a curadoria",
+      "aprovado": "no ar",
+      "recusado": "não aprovado",
+      "vencido": "vencido: renove para voltar ao ar"
+    },
+    "edit": "Editar",
+    "remove": "Retirar",
+    "removed": "Anúncio retirado.",
+    "renew": "Renovar",
+    "renewed": "Anúncio renovado por mais 180 dias.",
+    "validUntil": "até {date}"
   }
 }

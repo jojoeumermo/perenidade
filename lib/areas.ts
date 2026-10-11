@@ -2,17 +2,17 @@
 // Os nomes e descrições de cada disciplina ficam nos dicionários (i18n/), um por idioma.
 
 export const groups = [
-  { id: "linguagens", areas: ["portugues", "literatura", "ingles", "espanhol", "chines", "artes", "musica"] },
+  { id: "linguagens", areas: ["portugues", "literatura", "ingles", "espanhol", "chines", "artes", "musica", "danca"] },
   {
     id: "ciencias",
-    areas: ["matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "inteligencia-artificial"],
+    areas: ["matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "inteligencia-artificial", "primeiros-socorros"],
   },
   {
     id: "humanidades",
-    areas: ["historia", "geografia", "sociologia", "filosofia", "economia", "politica", "educacao-popular", "midia", "meio-ambiente"],
+    areas: ["historia", "geografia", "sociologia", "filosofia", "economia", "politica", "direito", "psicologia", "teologia", "educacao-popular", "midia", "meio-ambiente"],
   },
   { id: "teoria", areas: ["marxismo", "socialismo", "comunismo", "ideologia-e-politica"] },
-  { id: "lutas", areas: ["trabalho", "luta-negra", "feminismo", "lgbtqia", "deficiencia", "povos-indigenas"] },
+  { id: "lutas", areas: ["trabalho", "luta-negra", "feminismo", "lgbtqia", "deficiencia", "povos-indigenas", "sindicalismo", "luta-dos-professores", "pessoas-idosas", "favelas"] },
 ] as const;
 
 export type GroupId = (typeof groups)[number]["id"];
