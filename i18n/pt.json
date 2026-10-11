@@ -1019,10 +1019,11 @@
   "debates": {
     "eyebrow": "Argumentos à mão",
     "title": "Cartões de debate",
-    "lead": "Respostas curtas, com fonte, para frases feitas que todo mundo já ouviu.",
+    "lead": "Respostas curtas, com fonte, para frases feitas que todo mundo já ouviu. Cada cartão pode ser copiado ou baixado como imagem, pronto para mandar em uma conversa ou imprimir.",
     "claim": "Dizem que",
     "answer": "Resposta",
-    "more": "Para se aprofundar"
+    "more": "Para se aprofundar",
+    "download": "Baixar como imagem"
   },
   "questions": {
     "eyebrow": "Por onde começar",

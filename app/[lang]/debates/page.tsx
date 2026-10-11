@@ -7,6 +7,8 @@ import { PageHeading } from "@/components/PageHeading";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { getDebates } from "@/lib/content";
+import { CardImage } from "@/components/CardImage";
+import { site } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/debates">): Promise<Metadata> {
   const { t } = await loadLang(params);
@@ -16,6 +18,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/debates">)
 export default async function Debates({ params }: PageProps<"/[lang]/debates">) {
   const { lang, t } = await loadLang(params);
   const cards = getDebates(lang);
+  const host = site.url.replace(/^https?:\/\//, "");
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <PageHeading eyebrow={t.debates.eyebrow} title={t.debates.title}>
@@ -31,6 +34,8 @@ export default async function Debates({ params }: PageProps<"/[lang]/debates">) 
             <p className="mt-1 text-xl leading-relaxed">{card.answer}</p>
             <p className="no-print mt-2 font-sans text-sm text-ink-soft">
               <CopyButton text={card.answer} label={t.common.copy} done={t.common.copied} />
+              {" · "}
+              <CardImage claim={card.claim} answer={card.answer} file={`cartao-${card.slug}`} labels={{ claim: t.debates.claim, answer: t.debates.answer, button: t.debates.download, kicker: t.debates.title, site: `${host}/debates` }} />
             </p>
             {card.body && (
               <details className="mt-4">

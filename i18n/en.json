@@ -1019,10 +1019,11 @@
   "debates": {
     "eyebrow": "Arguments at hand",
     "title": "Debate cards",
-    "lead": "Short, sourced answers to the stock phrases everyone has heard.",
+    "lead": "Short, sourced answers to clichés everyone has heard. Each card can be copied or downloaded as an image, ready to send in a chat or to print.",
     "claim": "They say",
     "answer": "Answer",
-    "more": "To go deeper"
+    "more": "To go deeper",
+    "download": "Download as an image"
   },
   "questions": {
     "eyebrow": "Where to begin",
