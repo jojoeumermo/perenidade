@@ -4,7 +4,7 @@ import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { fill, htmlLang } from "@/i18n/config";
 import { notFound } from "next/navigation";
-import { getHistory } from "@/lib/history";
+import { publicHistory } from "@/lib/history";
 import { site } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/historico">): Promise<Metadata> {
@@ -18,7 +18,7 @@ const describe = (file: string) => file.replace(/^content\//, "").replace(/\/\d+
 export default async function Historico({ params }: PageProps<"/[lang]/historico">) {
   const { lang, t } = await loadLang(params);
   if (!site.historyFrom) notFound();
-  const changes = getHistory().filter((change) => change.date >= site.historyFrom);
+  const changes = publicHistory(site.historyFrom);
   const date = new Intl.DateTimeFormat(htmlLang[lang], { timeZone: "UTC" });
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">

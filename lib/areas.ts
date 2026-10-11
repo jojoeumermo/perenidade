@@ -32,7 +32,7 @@ export const groups = [
       "arquivologia",
     ],
   },
-  { id: "teoria", areas: ["capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica"] },
+  { id: "teoria", areas: ["capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo"] },
   {
     id: "lutas",
     areas: [

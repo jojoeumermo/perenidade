@@ -135,7 +135,8 @@
     "ctaTitle": "Ajude a construir a biblioteca",
     "ctaText": "Escreva uma aula, indique uma obra livre ou corrija um erro. Tudo passa por revisão antes de entrar.",
     "ctaButton": "Enviar uma contribuição",
-    "questionsTitle": "Comece por uma pergunta"
+    "questionsTitle": "Comece por uma pergunta",
+    "shelvesHint": "São muitas. Escolha o essencial ou a etapa que você quer estudar."
   },
   "areas": {
     "portugues": [
@@ -369,6 +370,18 @@
     "arquivologia": [
       "Bibliotecas, arquivos e museus",
       "Guardar, organizar e abrir a memória: biblioteconomia, arquivologia e museologia."
+    ],
+    "dependencia": [
+      "Teoria da Dependência e América Latina",
+      "Por que a América Latina continua pobre mesmo crescendo: Marini, Bambirra, Theotonio dos Santos e a superexploração do trabalho."
+    ],
+    "imperialismo": [
+      "Imperialismo e Geopolítica Contemporânea",
+      "Quem manda no mundo e como: capital financeiro, guerras, sanções, dívida e a disputa entre potências hoje."
+    ],
+    "ecossocialismo": [
+      "Ecossocialismo",
+      "A crise do clima como crise do capitalismo: natureza, trabalho e a saída que não cabe no lucro."
     ]
   },
   "tracks": {
@@ -1007,7 +1020,18 @@
     "updated": "Atualizado em {date}",
     "more": "Mais notícias",
     "back": "Voltar à capa do jornal",
-    "round": "Giro de notícias do país"
+    "round": "Giro de notícias do país",
+    "newsletter": {
+      "title": "Receba o jornal por e-mail",
+      "lead": "Os jornalistas do instituto mandam um boletim com as matérias novas. Sem anúncio, sem repassar o seu endereço a ninguém.",
+      "email": "Seu e-mail",
+      "button": "Quero receber",
+      "done": "Pronto. Você vai receber o próximo boletim.",
+      "leave": "Para sair da lista, escreva para",
+      "roundTitle": "Giro de notícias do país",
+      "roundLead": "As manchetes de agora da imprensa popular, independente e pública, de dezessete veículos, em uma página só. Atualiza sozinha a cada quinze minutos.",
+      "roundButton": "Abrir o giro de notícias"
+    }
   },
   "factCheck": {
     "eyebrow": "Contra a desinformação",

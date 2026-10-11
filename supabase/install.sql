@@ -445,6 +445,12 @@ begin
   end if;
 end $$;
 
+-- Quem pediu para receber o boletim do jornal. Só o endereço, nada mais.
+create table if not exists interno.boletim (
+  email text primary key check (email ~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' and char_length(email) <= 200),
+  criado_em timestamptz not null default now()
+);
+
 -- Trancadas duas vezes: sem permissões e com segurança por linha ligada (sem nenhuma regra = ninguém passa).
 do $$
 declare t record;
@@ -2357,6 +2363,37 @@ begin
   return jsonb_build_object('apoios', (select count(*) from arquivos_apoios where arquivo = p_id));
 end $$;
 
+-- ───────────────────────────── Boletim do jornal ─────────────────────────────
+
+/** Qualquer pessoa entra na lista. A resposta é a mesma para endereço novo ou repetido: ninguém descobre por aqui quem já assina. */
+create or replace function public.boletim_assinar(p_email text, p_site text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_email text := lower(btrim(coalesce(p_email, '')));
+begin
+  if coalesce(p_site, '') <> '' then return jsonb_build_object('ok', true); end if;
+  perform interno.limite('boletim', 5, 60);
+  if v_email !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_email) > 200 then perform interno.erro('invalido:email'); end if;
+  insert into boletim (email) values (v_email) on conflict do nothing;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** A lista, para a coordenação e para quem escreve o jornal mandarem o boletim. */
+create or replace function public.boletim_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('jornalismo')) then perform interno.erro('sem_permissao'); end if;
+  perform interno.registrar('boletim_lido');
+  return (select coalesce(jsonb_agg(jsonb_build_object('email', email, 'criado_em', criado_em) order by criado_em desc), '[]'::jsonb) from boletim);
+end $$;
+
+create or replace function public.boletim_remover(p_email text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('jornalismo')) then perform interno.erro('sem_permissao'); end if;
+  delete from boletim where email = lower(btrim(coalesce(p_email, '')));
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
 -- ───────────────────────────── Iscas do site ─────────────────────────────
 
 /**
@@ -2397,7 +2434,7 @@ begin
              'certificado_emitir', 'certificado_cancelar', 'certificados_listar', 'certificado_conferir', 'arquivo_bloquear', 'arquivos_bloqueados',
              'arquivo_registrar', 'arquivos_listar', 'arquivo_decidir', 'arquivos_aprovados', 'arquivo_publicado',
              'convite_criar', 'convites_listar', 'convite_revogar', 'convite_ver', 'convidar_pelo_banco', 'mural_cidades', 'mural_retirar',
-             'equipe_chave_definir', 'equipe_apagar_tudo', 'arquivo_apoiar', 'isca'))
+             'equipe_chave_definir', 'equipe_apagar_tudo', 'arquivo_apoiar', 'isca', 'boletim_assinar', 'boletim_listar', 'boletim_remover'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then

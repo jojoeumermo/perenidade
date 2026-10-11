@@ -5,10 +5,11 @@ import { DailyQuote } from "@/components/DailyQuote";
 import { ContinueCard } from "@/components/Progress";
 import { loadLang } from "@/i18n";
 import { htmlLang, localePath, plural } from "@/i18n/config";
-import { groups } from "@/lib/areas";
+import { essential, groups, type Stage, stages } from "@/lib/areas";
 import { getBooks, getCatalog, getQuestions, getQuotes, getTracks } from "@/lib/content";
-import { getHistory } from "@/lib/history";
+import { publicHistory } from "@/lib/history";
 import { site } from "@/lib/site";
+import { DisciplineBrowser, type DisciplineGroup } from "@/components/DisciplineBrowser";
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang, t } = await loadLang(params);
@@ -18,8 +19,21 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   const books = getBooks(lang);
   const lessons = tracks.reduce((sum, track) => sum + track.lessons.length, 0);
   const works = books.length + groups.flatMap((group) => group.areas).reduce((sum, area) => sum + getCatalog(area).length, 0);
-  const recent = site.historyFrom ? getHistory().filter((change) => change.date >= site.historyFrom).slice(0, 3) : [];
+  const recent = publicHistory(site.historyFrom).slice(0, 3);
   const date = new Intl.DateTimeFormat(htmlLang[lang], { timeZone: "UTC" });
+  const shelves: DisciplineGroup[] = groups.map((group) => ({
+    id: group.id,
+    title: t.groups[group.id],
+    areas: group.areas.map((slug) => {
+      const counts = Object.fromEntries(stages.map((stage) => [stage, [0, 0]])) as Record<Stage, [number, number]>;
+      for (const track of tracks) {
+        if (track.area !== slug) continue;
+        counts[track.stage][0] += track.lessons.length;
+        counts[track.stage][1] += track.plan.length;
+      }
+      return { slug, name: t.areas[slug][0], description: t.areas[slug][1], essential: essential.includes(slug), counts };
+    }),
+  }));
   const started = tracks.filter((track) => track.lessons.length > 0).sort((a, b) => b.lessons.length - a.lessons.length);
   const questions = getQuestions().slice(0, 4);
 
@@ -53,33 +67,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <ContinueCard />
 
       <section className="mx-auto max-w-6xl px-4 py-10">
-        <h2 className="border-b border-rule pb-3 text-3xl font-semibold">{h.shelves}</h2>
-        {groups.map((group) => (
-          <div key={group.id} className="mt-8">
-            <h3 className="font-mono text-xs uppercase tracking-[0.3em] text-gold">{t.groups[group.id]}</h3>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {group.areas.map((slug) => {
-                const inArea = tracks.filter((track) => track.area === slug);
-                const ready = inArea.reduce((sum, track) => sum + track.lessons.length, 0);
-                const areaWorks = books.filter((book) => book.area === slug).length + getCatalog(slug).length;
-                const [name, blurb] = t.areas[slug];
-                return (
-                  <Link
-                    key={slug}
-                    href={to(`/estantes/${slug}`)}
-                    className="group border border-rule bg-parchment-deep p-5 transition hover:-translate-y-0.5 hover:border-gold"
-                  >
-                    <p className="font-mono text-xs text-gold">
-                      {plural(lang, ready, t.common.lessons)} · {plural(lang, areaWorks, t.common.works)}
-                    </p>
-                    <p className="mt-2 text-2xl font-semibold group-hover:text-oxblood">{name}</p>
-                    <p className="mt-1 text-ink-soft">{blurb}</p>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+        <h2 className="text-4xl font-semibold">{h.shelves}</h2>
+        <p className="mt-2 text-lg text-ink-soft">{h.shelvesHint}</p>
+        <DisciplineBrowser groups={shelves} s={t.tracks} stageNames={t.stages} />
       </section>
 
       <DailyQuote quotes={getQuotes()} />

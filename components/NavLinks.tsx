@@ -63,7 +63,7 @@ export function AccountLink() {
   const session = useStored(KEYS.session);
   if (!hasBackend || !hydrated) return null;
   return (
-    <Link href={localePath(lang, session ? "/painel" : "/entrar")} className="whitespace-nowrap font-sans text-sm text-ink-soft hover:text-oxblood">
+    <Link href={localePath(lang, session ? "/painel" : "/entrar")} className="whitespace-nowrap font-sans text-xs text-ink-soft hover:text-oxblood sm:text-sm">
       {session ? t.nav.panel : t.nav.signIn}
     </Link>
   );
@@ -80,7 +80,7 @@ export function LanguageSwitcher() {
       aria-label={t.common.language}
       value={lang}
       onChange={(e) => router.push(`/${e.target.value}${rest ? `/${rest}` : ""}`)}
-      className="cursor-pointer border border-rule bg-parchment px-1.5 py-1 font-mono text-xs text-ink-soft hover:border-gold"
+      className="max-w-[5.25rem] cursor-pointer border border-rule bg-parchment px-1 py-1 font-mono text-xs text-ink-soft hover:border-gold sm:max-w-none sm:px-1.5"
     >
       {locales.map((code) => (
         <option key={code} value={code} lang={code}>

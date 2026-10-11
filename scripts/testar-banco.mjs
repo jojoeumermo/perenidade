@@ -304,6 +304,14 @@ await espera("convite vencido deixa de valer", async () => { const c = await rpc
 await recusa("logado não gera convite pelo banco", () => rpc(como(ids.coord), "convidar_pelo_banco", { p_email: "x@teste.local" }), "permission denied");
 await espera("dono do banco gera convite de emergência", () => dono("select public.convidar_pelo_banco('socorro@teste.local') as r"), (r) => /^\/pt\/entrar\?convite=[a-f0-9]{64}$/.test(r.rows[0].r));
 
+// ── Boletim do jornal ──
+await recusa("boletim recusa endereço inválido", () => rpc({ papel: "anon", ip: "198.51.100.40" }, "boletim_assinar", { p_email: "sem-arroba" }), "invalido:email");
+await espera("qualquer pessoa assina o boletim, e assinar duas vezes não duplica", async () => { await rpc({ papel: "anon", ip: "198.51.100.40" }, "boletim_assinar", { p_email: " Leitora@Exemplo.com " }); await rpc({ papel: "anon", ip: "198.51.100.41" }, "boletim_assinar", { p_email: "leitora@exemplo.com" }); return dono("select email from interno.boletim"); }, (r) => r.rows.length === 1 && r.rows[0].email === "leitora@exemplo.com");
+await espera("campo-isca no boletim não guarda nada", async () => { await rpc({ papel: "anon", ip: "198.51.100.42" }, "boletim_assinar", { p_email: "robo@exemplo.com", p_site: "x" }); return dono("select count(*)::int as n from interno.boletim"); }, (r) => r.rows[0].n === 1);
+await recusa("quem não é do jornal não lê a lista do boletim", () => rpc(como(ids.prof), "boletim_listar"), "sem_permissao");
+await recusa("anônimo não lê a lista do boletim", () => rpc(anon, "boletim_listar"), "entre_primeiro");
+await espera("jornalista lê a lista e tira um endereço", async () => { const antes = await rpc(como(ids.jornal), "boletim_listar"); await rpc(como(ids.jornal), "boletim_remover", { p_email: "leitora@exemplo.com" }); return [antes.length, (await rpc(como(ids.coord), "boletim_listar")).length]; }, (r) => r[0] === 1 && r[1] === 0);
+
 // ── Segundo fator, aparelhos e iscas ──
 await recusa("exigência de segundo fator só liga com o próprio confirmado", () => rpc(como(ids.coord), "seguranca_configurar", { p_exigir_2fa: true }), "confirme_segundo_fator");
 await espera("coordenação liga a exigência já com o segundo fator", () => rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: true }), (r) => r.exigir_2fa === true);

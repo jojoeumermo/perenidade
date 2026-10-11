@@ -43,6 +43,15 @@ export const getHistory = cache((): Change[] => {
   }
 });
 
+// O histórico público fala de aulas, obras e páginas. Mudanças de funcionamento interno do site
+// (entrada, painel, proteção, regras) não são assunto dele e ficam de fora.
+const internal = /privacidade|seguran|senha|convite|isca|filtro|cifra|entrada|painel|banco|manuten|prote[cç]|regra|termos|aviso|coordena|den[uú]ncia|dados/i;
+
+/** As mudanças que a página de histórico e a página inicial mostram, a partir da data dada. */
+export function publicHistory(from: string): Change[] {
+  return from ? getHistory().filter((change) => change.date >= from && !internal.test(change.subject)) : [];
+}
+
 export function fileHistory(file: string): { updated?: string; revisions: number } {
   const changes = getHistory().filter((c) => c.files.includes(file));
   return { updated: changes[0]?.date, revisions: changes.length };
