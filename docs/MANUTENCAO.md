@@ -32,6 +32,10 @@ Este é o documento de referência do projeto: como ele é organizado, como se e
 | `content/frases.json`, `content/perguntas.json`, `content/comecar.json` | frase do dia, perguntas de partida e a lista de leitura "Por onde começar" (só cita aulas e obras que existem; se alguma sumir, a montagem do site avisa) |
 | `content/radios.json` | rádios populares e comunitárias que o tocador oferece (só transmissões abertas e conferidas) |
 | `content/abertura.json` | aviso que aparece ao abrir o site; a coordenação pode trocá-lo ou desligá-lo pelo painel |
+| `content/noticias.json` | veículos do giro de notícias (nome, site e endereço de distribuição RSS); a página se refaz sozinha a cada quinze minutos |
+| `content/galeria.json` e `public/imagens/galeria/` | cartazes e imagens históricas em domínio público, cada um com contexto e fonte |
+| `content/busca.json` | termos em inglês e espanhol e o nome que o assunto tem nas aulas, para a busca entender quem escreve em outro idioma |
+| `public/imagens/memorial/` | retratos do memorial (só imagens de licença livre, com crédito e fonte no cabeçalho da ficha) |
 | `public/arquivos/` | imagens e PDFs aprovados no painel, já limpos de dados embutidos (ver seção 7) |
 | `i18n/` | textos da interface (`pt.json` é a referência) |
 | `lib/areas.ts` | lista de disciplinas, grupos, etapas, licenças e ferramentas |
@@ -124,7 +128,7 @@ Na pauta, cada nota é `LetraOitava/Duração` (C4 é o dó central; `#` e `b` d
 | --- | --- |
 | `acervo` | `titulo, autor, area, licenca, fonte, url, idioma`, opcionais `ano`, `autores: [slug]`; o texto é a sinopse |
 | `autores` | `nome, anos, origem`, opcionais `arquivo` (https), `arquivo_fonte`; o texto é a biografia |
-| `memorial` | `nome, nascimento, morte, local`; o texto é a homenagem |
+| `memorial` | `nome, nascimento, morte, local`, opcionais `foto` (em `/imagens/memorial/`), `foto_credito` e `foto_fonte`; o texto é a homenagem |
 | `glossario` | `termo, resumo`; texto opcional |
 | `jornal` | `titulo, autor, data (AAAA-MM-DD), fontes`, opcionais `subtitulo`, `editoria` |
 | `checagens` | `alegacao, veredito (Falso, Enganoso, Falta contexto ou Verdadeiro), data, fontes` |
@@ -132,6 +136,16 @@ Na pauta, cada nota é `LetraOitava/Duração` (C4 é o dó central; `#` e `b` d
 | `videos` | `titulo, canal, url, area, idioma`; o texto diz por que vale assistir |
 
 `ativo: false` no cabeçalho tira qualquer item do ar sem apagá-lo (é a "quarentena" das denúncias).
+
+**O glossário cresce sozinho.** Além das fichas de `content/glossario/`, cada aula pode definir os próprios termos no cabeçalho:
+
+```yaml
+glossario:
+  - termo: "Mais-valia"
+    definicao: "A diferença entre o valor que o trabalhador produz e o salário que recebe."
+```
+
+A cada montagem, o site junta tudo, procura cada termo no texto de todas as aulas e mostra, na página do glossário, em quais disciplinas e aulas ele aparece.
 
 ### Traduções
 
@@ -157,14 +171,20 @@ Sem esta etapa o site funciona, só não aparecem o painel, a comunidade e a rá
 3. Em **Project Settings → API**, confira que em *Exposed schemas* **não** aparece `interno` (o padrão já é só `public`).
 4. Ainda em **API**, copie a *Project URL* e a chave *anon public*. No serviço de hospedagem do site, crie as variáveis `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` com esses valores e publique o site de novo.
 5. Em **Authentication → URL Configuration**, ponha o endereço do site em *Site URL* e acrescente `https://SEU-DOMINIO/**` em *Redirect URLs*.
-6. Em **Authentication → Providers → Email**, deixe o e-mail ligado. Estudantes entram por link enviado ao e-mail, sem senha; a equipe pode entrar com e-mail e senha (as contas da equipe são criadas pela coordenação em **Authentication → Users → Add user**). O envio de e-mails embutido é limitado a poucas mensagens por hora: para uso real, configure um SMTP próprio em **Authentication → SMTP Settings**.
-7. Entre no site uma vez com o seu e-mail. Depois, no **SQL Editor**, rode:
+6. Em **Authentication → Sign In / Providers → Email**: deixe o e-mail ligado, **desligue "Confirm email"** (o convite já prova quem é a pessoa) e deixe ligado "Allow new users to sign up" (quem barra o cadastro é o banco: sem convite válido, a conta não é criada). Ponha o tamanho mínimo da senha em 12.
+7. **A primeira conta (a sua).** Em **Authentication → Users → Add user → Create new user**, digite o seu e-mail e a sua senha e marque "Auto Confirm User". Enquanto não existe coordenação, essa criação é livre. Depois, no **SQL Editor**, rode:
 
    ```sql
    select public.promover_coordenacao('seu-email@exemplo.com');
    ```
 
-   A partir daí o painel mostra as abas da coordenação.
+   A partir daí o painel mostra as abas da coordenação, e **nenhuma conta nova é criada sem convite**. A senha nunca é escrita em arquivo, mensagem ou código: só nesse campo do painel do serviço de contas.
+
+   **Convites.** No painel, aba **Voluntários → Convites**: o convite pessoal leva o e-mail da pessoa e, se quiser, a função; o convite da comunidade vale para várias pessoas, sem função. O endereço aparece uma única vez. Quem recebe abre o endereço, cria a própria senha e entra.
+
+   **Senha perdida.** O site não tem "esqueci minha senha". A coordenação resolve em **Authentication → Users**: nos três pontinhos da pessoa, "Send password recovery" (precisa de SMTP configurado; o link abre a tela de senha nova do site) ou apaga a conta e manda um convite novo.
+
+   **Ninguém consegue entrar no painel?** No SQL Editor: `select public.convidar_pelo_banco('email@exemplo.com');` devolve o final do endereço de um convite pessoal, válido por dois dias.
 8. Para a publicação automática (seção 7), cadastre nos segredos do repositório `SUPABASE_URL` (a mesma *Project URL*) e `SUPABASE_SERVICE_ROLE_KEY` (a chave *service_role*). **Essa chave nunca vai para o site nem para o `.env` de ninguém.** Depois crie, na aba *Variables* da mesma tela, a variável `PUBLICAR` com o valor `sim`: é ela que liga a rotina de hora em hora.
 9. Opcional — entrada com o Google: ligue o provedor em **Authentication → Providers → Google** e crie a variável `NEXT_PUBLIC_AUTH_GOOGLE=1`.
 10. **Proteção contra robôs (Cloudflare Turnstile).** Crie o widget no painel da Cloudflare. A *site key* (pública) vai para a variável `NEXT_PUBLIC_TURNSTILE_SITE_KEY` na hospedagem. A *secret key* vai **somente** em **Authentication → Attack Protection → Enable Captcha protection → Turnstile**, no Supabase. Ela nunca entra no repositório, em `.env` nem em mensagem. Ordem certa: primeiro publique o site com a *site key*; só depois ligue a proteção no Supabase. Na ordem inversa ninguém consegue entrar até o site novo subir.
@@ -194,6 +214,14 @@ Cada pessoa vê no painel só as abas da sua função. O banco confere a funçã
 
 Quem contribui sem conta, pela página Contribuir, entra na mesma fila.
 
+### Conversa da equipe
+
+As mensagens são cifradas no navegador de quem escreve, com uma chave derivada de uma **frase da equipe**. O banco recusa texto aberto e guarda só o resultado cifrado. O líder define a frase na aba **Equipe** e a passa aos demais por fora do site. A frase não fica guardada em lugar nenhum: se for perdida, define-se outra (e as conversas guardadas são apagadas). Tudo some sozinho depois de trinta dias, e o líder tem o botão "Apagar todas as conversas agora". Troque a frase sempre que alguém sair da equipe.
+
+### Imagens e arquivos
+
+Quem envia uma imagem ou um PDF não publica sozinho: o arquivo aparece na aba **Equipe** para os colegas olharem e apoiarem. Com dois apoios, a coordenação pode aprovar (o líder pode aprovar sem esperar; recusar, qualquer um dos dois pode).
+
 ### Sucessão
 
 A coordenação indica, na aba **Segurança e sucessão**, uma lista ordenada de sucessores. Se o líder ficar **90 dias** sem entrar no painel, a coordenação passa sozinha para a primeira pessoa da lista que tenha entrado nos últimos 30 dias; o antigo líder vira vice. A troca fica no registro de atividades e todos da coordenação são avisados. O líder também pode passar o cargo na hora, pelo mesmo painel.
@@ -222,8 +250,8 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 - **Texto, não código.** O conteúdo é Markdown sem HTML; links só http(s); imagens só as que estão em `public/arquivos/` e `public/imagens/`. Os cabeçalhos de segurança (`next.config.ts`) impedem scripts de fora.
 - **Limites.** Envios anônimos têm limite por origem, campo-isca contra robôs e tamanho máximo. A entrada (pedido de link, senha da equipe e cadastro) passa pela verificação do Turnstile, conferida pelo próprio serviço de contas. Os formulários abertos (contribuir, mural, denúncia, reforço) são protegidos pelo limite de envios e pelo campo-isca, dentro do banco.
 - **Segundo fator** para as funções com poder de decisão (seção 6) e **aviso de aparelho novo**: quando uma conta da equipe entra de um aparelho que nunca usou, a pessoa e a coordenação são avisadas no painel.
-- **Iscas.** Endereços que só robôs de invasão procuram (`/wp-admin`, `/.env`, `/phpmyadmin`…) respondem "não encontrado" sem gastar nada. No banco existem funções com nomes tentadores (`exportar_usuarios`, `admin_senhas`, `chaves_api`) que não devolvem nada: quem chama fica registrado e a coordenação é avisada.
-- **Comunidade.** Mensagem com palavra da lista vetada não vai ao ar: fica retida até a curadoria olhar. A lista se edita na aba **Comunidade**, em *Filtro de palavras*.
+- **Iscas.** Endereços que só robôs de invasão procuram (`/wp-admin`, `/.env`, `/phpmyadmin`, arquivos `.php`, `.sql`, `.bak`…) respondem "não encontrado" sem gastar nada, e a visita fica no **Registro de atividades** como `isca` (só o caminho e o programa usado, sem endereço de rede, por trinta dias). No banco existem funções com nomes tentadores (`exportar_usuarios`, `admin_senhas`, `chaves_api`) que não devolvem nada: quem chama fica registrado e a coordenação é avisada.
+- **Filtro do que vem de fora.** Na comunidade, mensagem com termo da lista vetada fica retida até a curadoria olhar. Nos envios de quem não tem conta (anúncio do mural, pedido de reforço, contribuição), o texto com termo vetado é recusado na hora; o reforço também recusa endereços de sites e nomes de arquivos. A lista se edita na aba **Comunidade**, em *Filtro de palavras*. Filtro de palavra é a primeira barreira, não a única: nada de fora vai ao ar sem uma pessoa da equipe ler.
 - **Pouco para roubar.** O banco não guarda senha (isso é do serviço de contas), endereço, documento nem telefone. O nome público padrão é um codinome ("Estudante 12345"). Um vazamento exporia e-mails e mensagens, e é por isso que a regra é guardar o mínimo.
 - **Interpretadores isolados.** Python e PHP rodam no navegador de quem usa, dentro de um Worker sem acesso à página.
 
@@ -247,6 +275,7 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 | `banco-local.mjs`, `backend-local.mjs`, `dev-local.mjs` | banco de teste em memória para desenvolver o painel |
 | `testar-banco.mjs` | instala o banco do zero e testa cada permissão |
 | `sincronizar.mjs` | leva as contribuições aprovadas para `content/` e os arquivos aprovados para `public/arquivos/` |
+| `gerar-epub.mjs` | monta um livro digital (EPUB) de cada trilha com aula escrita, em `public/epub/`; roda sozinho antes de `npm run build` |
 | `proximo.mjs` | mostra o que falta escrever |
 | `importar-catalogo.mjs` | refaz o catálogo ampliado a partir do Project Gutenberg (só autores em domínio público no Brasil) e do Arquivo Marxista. As disciplinas das lutas sociais ficam de fora da importação automática: nelas, cada obra é escolhida à mão |
 | `cabecalho.mjs` | leitura e escrita do cabeçalho dos arquivos de conteúdo, usada pelos outros roteiros |
@@ -288,3 +317,21 @@ Enquanto o instituto não tiver CNPJ, o certificado é uma **declaração de um 
 O aviso que aparece ao abrir o site sai de `content/abertura.json`, tem data para sumir sozinho e só aparece em português. A coordenação pode trocá-lo ou desligá-lo na aba **Aviso de abertura**, sem publicar o site de novo.
 
 Manifestação de apoio a candidatura na internet é livre para pessoa física, mas a lei eleitoral proíbe o anonimato: o aviso precisa dizer quem assina. Propaganda eleitoral em site de **pessoa jurídica** é proibida: se o instituto virar associação com CNPJ, esse tipo de aviso sai do ar. No dia da votação, não se publica conteúdo novo de campanha. Nada de ofensa a adversário: fato documentado e linguagem sóbria.
+
+## 15. Mural dos Trabalhadores
+
+Qualquer pessoa anuncia, sem conta: escolhe o tipo, escreve o ofício, o título, a descrição, a **cidade**, o **estado** e o contato. O anúncio passa pelo filtro de palavras e fica esperando: **só a coordenação (líder e vice) aprova**, na aba **Mural** do painel. Aprovado, fica no ar por 180 dias. Quem anunciou sem conta recebe um código para retirar o anúncio quando quiser. Quem procura filtra por estado, cidade, tipo e palavra.
+
+## 16. Leitor digital, livro em EPUB e aplicativo
+
+- **Kindle e outros leitores de tinta eletrônica.** O site reconhece o aparelho (pelo nome do navegador e pelo tipo de tela) e entra em um visual de livro: uma coluna, preto no branco, nada flutuando. As regras ficam no fim de `app/globals.css`, em CSS simples de propósito. Mudou o desenho de uma página importante? Confira em um leitor de verdade.
+- **EPUB.** Cada trilha com aula escrita tem um livro para baixar na própria página da trilha. Os arquivos são refeitos a cada montagem do site.
+- **Aplicativo.** O site é instalável ("Adicionar à tela inicial") no Android e no iPhone e abre sem internet o que já foi visitado. Para publicar como aplicativo de Android, o site precisa declarar que confia no aplicativo: preencha `ANDROID_PACKAGE` e `ANDROID_SHA256` na hospedagem e confira `https://SEU-DOMINIO/.well-known/assetlinks.json`.
+
+## 17. Giro de notícias
+
+A página **Notícias** lê os endereços de distribuição (RSS) dos veículos listados em `content/noticias.json` e mostra só título, data e link. Para acrescentar um veículo, inclua nome, site e endereço do feed; o link de cada manchete só é aceito se apontar para o próprio site do veículo. Veículo fora do ar some da página e volta sozinho.
+
+## 18. Histórico público
+
+A página de histórico de mudanças está **desligada**. Para ligá-la, ponha uma data em `historyFrom`, em `lib/site.ts`: ela volta ao ar mostrando só o que mudou daquele dia em diante.
