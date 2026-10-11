@@ -11,7 +11,7 @@
 --   3. O conteúdo publicado do site NÃO mora aqui: ele vai para os arquivos do site, com histórico.
 --      Se este banco for invadido ou apagado, o acervo continua no ar e nada do que foi publicado se perde.
 --
--- Depois de entrar no site pela primeira vez com o seu e-mail, torne-se coordenação rodando aqui:
+-- Crie a primeira conta no painel do serviço de contas (Authentication → Users → Add user) e torne-a coordenação rodando aqui:
 --   select public.promover_coordenacao('seu-email@exemplo.com');
 
 create schema if not exists interno;
@@ -964,7 +964,7 @@ begin
     raise exception 'sem_permissao' using errcode = 'P0001';
   end if;
   select id into v from auth.users where lower(email) = lower(btrim(p_email));
-  if v is null then return 'Ninguém entrou no site com esse e-mail ainda. Entre uma vez e rode de novo.'; end if;
+  if v is null then return 'Não existe conta com esse e-mail. Crie a conta primeiro (Authentication, Users, Add user) e rode de novo.'; end if;
   insert into perfis (id, nome) values (v, 'Coordenação') on conflict do nothing;
   delete from papeis where usuario = v and papel = 'vice';
   insert into papeis (usuario, papel) values (v, 'coordenacao') on conflict do nothing;
