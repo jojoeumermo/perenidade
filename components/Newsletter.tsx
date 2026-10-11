@@ -31,28 +31,28 @@ export function Newsletter({ s }: { s: Dict["journal"]["newsletter"] }) {
   }
 
   return (
-    <section aria-labelledby="boletim" className="no-print mt-10 border-4 border-ink bg-parchment-deep p-5 sm:p-7">
-      <h2 id="boletim" className="jornal-manchete text-3xl">{s.title}</h2>
-      <p className="mt-2 text-lg text-ink-soft">{s.lead}</p>
+    <section aria-labelledby="boletim" className="no-print mt-10 max-w-xl border-l-4 border-ink bg-parchment-deep px-5 py-4">
+      <h2 id="boletim" className="font-serif text-xl font-semibold">{s.title}</h2>
+      <p className="mt-1 font-sans text-sm text-ink-soft">{s.lead}</p>
       {state === "done" ? (
-        <p role="status" className="mt-4 border-l-4 border-ok pl-4 text-lg">{s.done}</p>
+        <p role="status" className="mt-3 font-sans text-sm font-medium">{s.done}</p>
       ) : (
-        <form className="mt-4 flex flex-wrap items-end gap-3 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void submit(); }}>
-          <label className="block min-w-56 flex-1">
+        <form className="mt-3 flex flex-wrap items-end gap-2 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void submit(); }}>
+          <label className="block min-w-48 flex-1">
             {s.email}
-            <input type="email" required autoComplete="email" maxLength={200} value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full border-2 border-ink bg-parchment px-3 py-2.5 text-base" />
+            <input type="email" required autoComplete="email" maxLength={200} value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full border-2 border-ink bg-parchment px-3 py-2" />
           </label>
           <label className="sr-only" aria-hidden>
             Site
             <input tabIndex={-1} autoComplete="off" value={trap} onChange={(e) => setTrap(e.target.value)} />
           </label>
-          <button type="submit" disabled={state === "sending" || !email.includes("@")} className="jornal-faixa cursor-pointer px-6 py-3 text-base font-bold uppercase tracking-wide disabled:cursor-not-allowed disabled:opacity-50">
+          <button type="submit" disabled={state === "sending" || !email.includes("@")} className="cursor-pointer whitespace-nowrap border-2 border-ink bg-ink px-4 py-2 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50">
             {s.button}
           </button>
         </form>
       )}
       {error && <p role="alert" className="mt-2 font-sans text-sm text-oxblood">{error}</p>}
-      <p className="mt-3 font-sans text-xs text-ink-soft">
+      <p className="mt-2 font-sans text-xs text-ink-soft">
         {s.leave} <a href={`mailto:${site.newsletter}`} className="underline hover:text-oxblood">{site.newsletter}</a>.
       </p>
     </section>
