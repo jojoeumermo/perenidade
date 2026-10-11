@@ -110,6 +110,9 @@ export interface Tribute extends Localized {
   died: string;
   place: string;
   body: string;
+  photo?: string;
+  photoCredit?: string;
+  photoSource?: string;
 }
 
 export interface ContentPage extends Localized {
@@ -427,6 +430,16 @@ export const getAuthors = cache((lang: Locale): Author[] => {
   return authors.sort((a, b) => a.name.localeCompare(b.name, lang));
 });
 
+/** Retrato opcional: só imagem guardada no próprio site, sempre com o crédito e o endereço de onde veio. */
+function portrait(data: Data, file: string): { photo?: string; photoCredit?: string; photoSource?: string } {
+  const photo = optional(data, "foto");
+  if (!photo) return {};
+  if (!/^\/imagens\/memorial\/[a-z0-9-]+\.webp$/.test(photo)) fail(file, `"foto" precisa ser uma imagem de /imagens/memorial`);
+  const photoCredit = text(data, "foto_credito", file);
+  const photoSource = httpsUrl(data, "foto_fonte", file);
+  return { photo, photoCredit, photoSource };
+}
+
 export const getTributes = cache((lang: Locale): Tribute[] =>
   collection("memorial", lang, ({ slug, file, data, body, translated }) => {
     if (!body) fail(file, "falta o texto de homenagem");
@@ -436,6 +449,7 @@ export const getTributes = cache((lang: Locale): Tribute[] =>
       born: text(data, "nascimento", file),
       died: text(data, "morte", file),
       place: text(data, "local", file),
+      ...portrait(data, file),
       body,
       translated,
       file,
