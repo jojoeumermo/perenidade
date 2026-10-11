@@ -4,6 +4,14 @@ import { locales } from "@/i18n/config";
 import { getArticles, getAuthors, getBooks, getDebates, getFactChecks, getGlossary, getQuestions, getTracks, getTributes } from "@/lib/content";
 import type { SearchEntry } from "@/lib/search";
 import { plainText } from "@/lib/text";
+import en from "@/i18n/en.json";
+import es from "@/i18n/es.json";
+import pt from "@/i18n/pt.json";
+import ru from "@/i18n/ru.json";
+import zh from "@/i18n/zh.json";
+
+/** O nome da disciplina nos cinco idiomas: quem escreve "math", "matemáticas" ou "数学" encontra matemática. */
+const everywhere = (slug: string) => [pt, en, es, zh, ru].map((dict) => (dict.areas as Record<string, string[]>)[slug]?.[0] ?? "").join(" ");
 
 // Índice de busca gerado na publicação: um arquivo estático por idioma.
 // Como traz o texto completo, também serve de cópia de segurança do acervo.
@@ -19,14 +27,16 @@ export async function GET(_request: Request, { params }: RouteContext<"/[lang]/i
   const entries: SearchEntry[] = [];
   for (const track of getTracks(lang)) {
     const area = t.areas[track.area][0];
-    if (track.lessons.length === 0) continue;
-    entries.push({ kind: "trilha", title: track.title, href: `/trilhas/${track.slug}`, area, context: t.stages[track.stage], text: `${track.summary} ${plainText(track.intro)}` });
+    const also = everywhere(track.area);
+    // A trilha entra na busca mesmo sem aula escrita: o roteiro (os títulos das aulas previstas) já diz o que ela cobre.
+    const planned = track.plan.filter((item) => !item.ready).map((item) => item.title).join(" · ");
+    entries.push({ kind: "trilha", title: track.title, href: `/trilhas/${track.slug}`, area, context: t.stages[track.stage], text: `${track.summary} ${plainText(track.intro)} ${planned}`, also });
     for (const lesson of track.lessons) {
-      entries.push({ kind: "aula", title: lesson.title, href: `/trilhas/${track.slug}/${lesson.slug}`, area, context: track.title, text: `${lesson.summary} ${plainText(lesson.body)}` });
+      entries.push({ kind: "aula", title: lesson.title, href: `/trilhas/${track.slug}/${lesson.slug}`, area, context: track.title, text: `${lesson.summary} ${plainText(lesson.body)}`, also });
     }
   }
   for (const book of getBooks(lang)) {
-    entries.push({ kind: "obra", title: book.title, href: `/acervo/${book.id}`, area: t.areas[book.area][0], context: book.author, text: book.synopsis });
+    entries.push({ kind: "obra", title: book.title, href: `/acervo/${book.id}`, area: t.areas[book.area][0], context: book.author, text: book.synopsis, also: everywhere(book.area) });
   }
   for (const author of getAuthors(lang)) {
     entries.push({ kind: "autor", title: author.name, href: `/autores#${author.slug}`, area: "", context: author.years, text: author.bio });
