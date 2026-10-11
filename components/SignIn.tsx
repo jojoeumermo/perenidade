@@ -36,7 +36,8 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [again, setAgain] = useState("");
-  const [state, setState] = useState<"idle" | "sending" | "wrong" | "invalid" | "confirm" | "saved">("idle");
+  const [state, setState] = useState<"idle" | "sending" | "wrong" | "failed" | "invalid" | "confirm" | "saved">("idle");
+  const [detail, setDetail] = useState("");
   const [token, setToken] = useState("");
   const [round, setRound] = useState(0);
   const receive = useCallback((value: string) => setToken(value), []);
@@ -92,8 +93,12 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       const { error } = await supabase.auth.signInWithPassword({ email, password: localBackend ? "local" : password, options: { captchaToken: token || undefined } });
       if (error) throw error;
       setState("idle");
-    } catch {
-      setState("wrong");
+    } catch (failure) {
+      // O motivo exato ajuda a coordenação a consertar: senha errada é uma coisa, serviço fora do ar é outra.
+      const reason = failure as { code?: string; status?: number; message?: string };
+      const code = reason.code ?? "";
+      setDetail(code === "invalid_credentials" ? "" : [reason.status, code, reason.message].filter(Boolean).join(" · ").slice(0, 200));
+      setState(code === "invalid_credentials" ? "wrong" : "failed");
     } finally {
       done();
     }
@@ -204,6 +209,12 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       <Captcha action="entrar" lang={lang} round={round} onToken={receive} />
       <button type="submit" disabled={state === "sending" || !email.includes("@") || waiting || password.length < 1} className={primary}>{s.enter}</button>
       {state === "wrong" && <p role="alert" className="text-oxblood">{s.wrong}</p>}
+      {state === "failed" && (
+        <p role="alert" className="text-oxblood">
+          {s.failed}
+          {detail && <span className="mt-1 block font-mono text-xs">{detail}</span>}
+        </p>
+      )}
       <p className="text-ink-soft">{s.why}</p>
       {footer}
     </form>
