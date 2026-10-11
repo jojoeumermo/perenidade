@@ -981,6 +981,11 @@ create or replace function interno.ve_fila(p_disciplina text) returns boolean la
     or (p_disciplina is not null and exists (select 1 from interno.papeis where usuario = auth.uid() and papel = 'educacao' and disciplina = p_disciplina))
 $$;
 
+/** As matérias do jornal passam pelo crivo de mais gente: além de curadoria e revisão, qualquer educador lê e dá parecer. */
+create or replace function interno.ve_item(c interno.contribuicoes) returns boolean language sql stable as $$
+  select interno.ve_fila(c.disciplina) or (c.tipo = 'artigo' and interno.tem('educacao'))
+$$;
+
 create or replace function public.contribuicoes_minhas() returns jsonb language sql security definer set search_path = interno, pg_temp as $$
   select coalesce(jsonb_agg(interno.contribuicao_json(c, false) order by c.criado_em desc), '[]'::jsonb)
   from contribuicoes c where c.autor = auth.uid() and auth.uid() is not null
@@ -993,7 +998,7 @@ begin
   return (
     select coalesce(jsonb_agg(interno.contribuicao_json(c, false) order by c.criado_em), '[]'::jsonb)
     from (select * from contribuicoes where status = coalesce(p_status, 'pendente') order by criado_em limit 300) c
-    where interno.ve_fila(c.disciplina));
+    where interno.ve_item(c));
 end $$;
 
 create or replace function public.contribuicao_ver(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -1001,7 +1006,7 @@ declare c contribuicoes;
 begin
   select * into c from contribuicoes where id = p_id;
   if not found then perform interno.erro('nao_encontrado'); end if;
-  if not (c.autor = auth.uid() or interno.ve_fila(c.disciplina)) then perform interno.erro('sem_permissao'); end if;
+  if not (c.autor = auth.uid() or interno.ve_item(c)) then perform interno.erro('sem_permissao'); end if;
   return interno.contribuicao_json(c, true);
 end $$;
 
@@ -1029,7 +1034,7 @@ begin
   perform interno.limite('parecer', 60, 60);
   select * into c from contribuicoes where id = p_id;
   if not found then perform interno.erro('nao_encontrado'); end if;
-  if not interno.ve_fila(c.disciplina) then perform interno.erro('sem_permissao'); end if;
+  if not interno.ve_item(c) then perform interno.erro('sem_permissao'); end if;
   insert into pareceres (contribuicao, autor, favoravel, texto) values (p_id, v, p_favoravel, interno.txt(p_texto, 'texto', 3, 2000));
   return jsonb_build_object('ok', true);
 end $$;
@@ -1972,7 +1977,7 @@ create or replace function public.painel_resumo() returns jsonb language plpgsql
 declare v uuid := interno.eu();
 begin
   return jsonb_build_object(
-    'fila', case when interno.voluntario() then (select count(*) from contribuicoes c where c.status = 'pendente' and interno.ve_fila(c.disciplina)) else 0 end,
+    'fila', case when interno.voluntario() then (select count(*) from contribuicoes c where c.status = 'pendente' and interno.ve_item(c)) else 0 end,
     'aguardando_publicacao', case when interno.curador() then (select count(*) from contribuicoes where status = 'aprovada') else 0 end,
     'candidaturas', case when interno.coord() then (select count(*) from candidaturas where status = 'pendente') else 0 end,
     'denuncias', case when interno.curador() then (select count(*) from denuncias where status = 'aberta') else 0 end,

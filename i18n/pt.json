@@ -964,9 +964,16 @@
   },
   "journal": {
     "eyebrow": "Imprensa popular",
-    "title": "Jornal",
+    "title": "Jornal Revolucionário Lúcia",
     "lead": "Notícias e análises escritas por jornalistas voluntários, sempre com as fontes à vista.",
-    "empty": "A primeira edição está sendo preparada."
+    "empty": "A primeira edição está no prelo.",
+    "nameTop": "Jornal Revolucionário",
+    "nameBottom": "Lúcia",
+    "tagline": "Imprensa popular, feita por voluntários",
+    "free": "Gratuito",
+    "updated": "Atualizado em {date}",
+    "more": "Mais notícias",
+    "back": "Voltar à capa do jornal"
   },
   "factCheck": {
     "eyebrow": "Contra a desinformação",
@@ -1085,7 +1092,18 @@
     "liveTitle": "Transmissão ao vivo",
     "close": "Fechar o tocador",
     "preview": "A rádio ainda não está no ar: só a coordenação vê esta página assim.",
-    "empty": "Nenhum canal cadastrado ainda."
+    "empty": "Nenhum canal cadastrado ainda.",
+    "stations": "Rádios do povo, no ar agora",
+    "stationsLead": "Emissoras populares, comunitárias e de trabalhadores do Brasil e do mundo. Dê o play e continue navegando: o som acompanha você pelo site.",
+    "listen": "Ouvir",
+    "site": "Site da emissora",
+    "siteOnly": "Ouvir no site da emissora",
+    "fronts": {
+      "brasil": "Brasil",
+      "latina": "América Latina",
+      "mundo": "Europa e América do Norte"
+    },
+    "stationsNote": "O som vem direto de cada emissora, que responde pela própria programação; o instituto só aponta para elas e não guarda nada do que toca. É de uma dessas rádios e quer sair da lista, ou conhece outra que deveria estar aqui? Escreva pela página Contribuir."
   },
   "errors": {
     "entre_primeiro": "Entre na sua conta para continuar.",

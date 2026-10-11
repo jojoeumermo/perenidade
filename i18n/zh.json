@@ -958,9 +958,16 @@
   },
   "journal": {
     "eyebrow": "人民的报刊",
-    "title": "报纸",
+    "title": "Jornal Revolucionário Lúcia（露西亚革命报）",
     "lead": "由志愿记者撰写的新闻与分析，资料来源一律公开。",
-    "empty": "创刊号正在筹备中。"
+    "empty": "创刊号正在印制中。",
+    "nameTop": "Jornal Revolucionário",
+    "nameBottom": "Lúcia",
+    "tagline": "志愿者办的人民报刊",
+    "free": "免费",
+    "updated": "更新于 {date}",
+    "more": "更多新闻",
+    "back": "返回头版"
   },
   "factCheck": {
     "eyebrow": "反对虚假信息",
@@ -1079,7 +1086,18 @@
     "liveTitle": "现场直播",
     "close": "关闭播放器",
     "preview": "电台尚未开播：只有协调组能看到这个页面现在的样子。",
-    "empty": "还没有任何频道。"
+    "empty": "还没有任何频道。",
+    "stations": "人民的电台，正在播出",
+    "stationsLead": "来自巴西和世界各地的民间电台、社区电台和劳动者电台。点击播放后可以继续浏览：声音会跟着你在本站各处播放。",
+    "listen": "收听",
+    "site": "电台网站",
+    "siteOnly": "到电台网站收听",
+    "fronts": {
+      "brasil": "巴西",
+      "latina": "拉丁美洲",
+      "mundo": "欧洲与北美"
+    },
+    "stationsNote": "声音直接来自各家电台，节目内容由电台自己负责；本站只提供指引，不保存任何播放内容。你来自其中某家电台、希望从列表中移除，或者知道还有哪家电台应该列在这里？请通过“参与贡献”页面告诉我们。"
   },
   "errors": {
     "entre_primeiro": "请先登录。",

@@ -964,9 +964,16 @@
   },
   "journal": {
     "eyebrow": "Prensa popular",
-    "title": "Periódico",
+    "title": "Jornal Revolucionário Lúcia",
     "lead": "Noticias y análisis escritos por periodistas voluntarios, siempre con las fuentes a la vista.",
-    "empty": "Se está preparando la primera edición."
+    "empty": "La primera edición está en prensa.",
+    "nameTop": "Jornal Revolucionário",
+    "nameBottom": "Lúcia",
+    "tagline": "Prensa popular, hecha por voluntarios",
+    "free": "Gratuito",
+    "updated": "Actualizado el {date}",
+    "more": "Más noticias",
+    "back": "Volver a la portada"
   },
   "factCheck": {
     "eyebrow": "Contra la desinformación",
@@ -1085,7 +1092,18 @@
     "liveTitle": "Transmisión en vivo",
     "close": "Cerrar el reproductor",
     "preview": "La radio todavía no está al aire: solo la coordinación ve esta página así.",
-    "empty": "Todavía no hay canales registrados."
+    "empty": "Todavía no hay canales registrados.",
+    "stations": "Radios del pueblo, en el aire ahora",
+    "stationsLead": "Emisoras populares, comunitarias y de trabajadores de Brasil y del mundo. Dale al play y sigue navegando: el sonido te acompaña por el sitio.",
+    "listen": "Escuchar",
+    "site": "Sitio de la emisora",
+    "siteOnly": "Escuchar en el sitio de la emisora",
+    "fronts": {
+      "brasil": "Brasil",
+      "latina": "América Latina",
+      "mundo": "Europa y América del Norte"
+    },
+    "stationsNote": "El sonido viene directamente de cada emisora, que responde por su propia programación; el instituto solo las señala y no guarda nada de lo que suena. ¿Eres de una de estas radios y quieres salir de la lista, o conoces otra que debería estar aquí? Escríbenos desde la página Contribuir."
   },
   "errors": {
     "entre_primeiro": "Entra en tu cuenta para continuar.",

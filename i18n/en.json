@@ -964,9 +964,16 @@
   },
   "journal": {
     "eyebrow": "People's press",
-    "title": "Newspaper",
+    "title": "Jornal Revolucionário Lúcia",
     "lead": "News and analysis written by volunteer journalists, always with the sources in plain sight.",
-    "empty": "The first issue is being prepared."
+    "empty": "The first edition is on the press.",
+    "nameTop": "Jornal Revolucionário",
+    "nameBottom": "Lúcia",
+    "tagline": "People's press, made by volunteers",
+    "free": "Free",
+    "updated": "Updated on {date}",
+    "more": "More news",
+    "back": "Back to the front page"
   },
   "factCheck": {
     "eyebrow": "Against disinformation",
@@ -1085,7 +1092,18 @@
     "liveTitle": "Live broadcast",
     "close": "Close the player",
     "preview": "The radio is not on air yet: only the coordination sees this page like this.",
-    "empty": "No channel registered yet."
+    "empty": "No channel registered yet.",
+    "stations": "People's radio, on air now",
+    "stationsLead": "Grassroots, community and workers' stations from Brazil and around the world. Press play and keep browsing: the sound follows you across the site.",
+    "listen": "Listen",
+    "site": "Station website",
+    "siteOnly": "Listen on the station's website",
+    "fronts": {
+      "brasil": "Brazil",
+      "latina": "Latin America",
+      "mundo": "Europe and North America"
+    },
+    "stationsNote": "The audio comes straight from each station, which is responsible for its own programming; the institute only points to them and stores nothing of what is played. Are you from one of these stations and want to be removed, or do you know another one that belongs here? Write to us through the Contribute page."
   },
   "errors": {
     "entre_primeiro": "Sign in to continue.",
