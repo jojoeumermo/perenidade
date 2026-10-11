@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { fill, localePath } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
-import { stages, type Stage } from "@/lib/areas";
+import { stageAreas, stages, type AreaSlug, type Stage } from "@/lib/areas";
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
 import { useI18n } from "./I18n";
 
@@ -38,7 +38,7 @@ export function DisciplineBrowser({ groups, s, stageNames }: { groups: Disciplin
 
   const total = (card: DisciplineCard): [number, number] =>
     filter === "todas" || filter === "essencial" ? stages.reduce<[number, number]>((sum, stage) => [sum[0] + card.counts[stage][0], sum[1] + card.counts[stage][1]], [0, 0]) : card.counts[filter];
-  const shown = (card: DisciplineCard) => (filter === "todas" ? true : filter === "essencial" ? card.essential : card.counts[filter][1] > 0);
+  const shown = (card: DisciplineCard) => (filter === "todas" ? true : filter === "essencial" ? card.essential : stageAreas[filter].includes(card.slug as AreaSlug));
   const visible = groups.map((group) => ({ ...group, areas: group.areas.filter(shown) })).filter((group) => group.areas.length > 0);
 
   return (

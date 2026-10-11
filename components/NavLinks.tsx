@@ -4,7 +4,6 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { localeNames, localePath, locales } from "@/i18n/config";
-import { hasBackend } from "@/lib/backend";
 import { KEYS, useHydrated, useStored } from "@/lib/storage";
 import { useI18n } from "./I18n";
 
@@ -61,7 +60,7 @@ export function AccountLink() {
   const { lang, t } = useI18n();
   const hydrated = useHydrated();
   const session = useStored(KEYS.session);
-  if (!hasBackend || !hydrated) return null;
+  if (!hydrated) return null;
   return (
     <Link href={localePath(lang, session ? "/painel" : "/entrar")} className="whitespace-nowrap font-sans text-xs text-ink-soft hover:text-oxblood sm:text-sm">
       {session ? t.nav.panel : t.nav.signIn}
@@ -80,7 +79,7 @@ export function LanguageSwitcher() {
       aria-label={t.common.language}
       value={lang}
       onChange={(e) => router.push(`/${e.target.value}${rest ? `/${rest}` : ""}`)}
-      className="max-w-[5.25rem] cursor-pointer border border-rule bg-parchment px-1 py-1 font-mono text-xs text-ink-soft hover:border-gold sm:max-w-none sm:px-1.5"
+      className="max-w-[4.75rem] cursor-pointer border border-rule bg-parchment px-1 py-1 font-mono text-xs text-ink-soft hover:border-gold sm:max-w-none sm:px-1.5"
     >
       {locales.map((code) => (
         <option key={code} value={code} lang={code}>
@@ -103,13 +102,36 @@ export function RadioLink() {
       aria-label={t.nav.radio}
       title={t.nav.radio}
       aria-current={active ? "page" : undefined}
-      className={`flex h-8 w-8 shrink-0 items-center justify-center hover:text-oxblood ${active ? "text-oxblood" : "text-ink-soft"}`}
+      className={`flex h-8 w-7 shrink-0 items-center justify-center hover:text-oxblood sm:w-8 ${active ? "text-oxblood" : "text-ink-soft"}`}
     >
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <rect x="3" y="9" width="18" height="11" rx="1.5" />
         <path d="M7 9 17 4" />
         <circle cx="8.5" cy="14.5" r="2.5" />
         <path d="M14 13h4M14 16h4" />
+      </svg>
+    </Link>
+  );
+}
+
+/** Atalho para o giro de notícias do país, ao lado da rádio. */
+export function NewsLink() {
+  const pathname = usePathname();
+  const { lang, t } = useI18n();
+  const href = localePath(lang, "/noticias");
+  const active = pathname === href;
+  return (
+    <Link
+      href={href}
+      aria-label={t.nav.news}
+      title={t.nav.news}
+      aria-current={active ? "page" : undefined}
+      className={`flex h-8 w-7 shrink-0 items-center justify-center hover:text-oxblood sm:w-8 ${active ? "text-oxblood" : "text-ink-soft"}`}
+    >
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <path d="M4 5h13v14H6a2 2 0 0 1-2-2z" />
+        <path d="M17 9h3v8a2 2 0 0 1-2 2" />
+        <path d="M7.5 9h6M7.5 12.5h6M7.5 16h3.5" />
       </svg>
     </Link>
   );

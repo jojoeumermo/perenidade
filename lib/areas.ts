@@ -62,6 +62,16 @@ export const isArea = (value: string): value is AreaSlug => (areaSlugs as readon
 /** O essencial: ler, escrever, contar, línguas e ciências. É o que aparece no filtro "Essencial" das disciplinas. */
 export const essential: readonly AreaSlug[] = ["alfabetizacao", "portugues", "matematica", "ingles", "chines", "historia", "geografia", "fisica", "quimica", "biologia", "informatica", "enem"];
 
+/**
+ * As disciplinas de cada etapa, para o filtro: o que se estuda no ensino fundamental, no médio e no superior.
+ * Uma disciplina pode estar em mais de uma etapa (português e matemática acompanham a vida escolar inteira).
+ */
+export const stageAreas: Record<"fundamental" | "medio" | "superior", readonly AreaSlug[]> = {
+  fundamental: ["alfabetizacao", "portugues", "matematica", "ingles", "espanhol", "artes", "desenho", "musica", "danca", "educacao-fisica", "historia", "geografia", "biologia", "informatica", "primeiros-socorros", "meio-ambiente"],
+  medio: ["enem", "portugues", "literatura", "ingles", "espanhol", "chines", "artes", "teatro", "cinema", "educacao-fisica", "matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "historia", "geografia", "sociologia", "filosofia", "economia", "politica", "midia", "meio-ambiente", "trabalho", "primeiros-socorros"],
+  superior: ["literatura", "design", "cinema", "matematica", "fisica", "quimica", "biologia", "astronomia", "programacao", "inteligencia-artificial", "manutencao", "historia", "geografia", "sociologia", "antropologia", "filosofia", "economia", "politica", "direito", "psicologia", "servico-social", "teologia", "educacao-popular", "midia", "arquitetura", "arquivologia", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo", "sindicalismo", "luta-negra", "feminismo", "lgbtqia", "deficiencia", "povos-indigenas", "luta-pela-terra", "favelas", "luta-dos-professores", "movimento-estudantil", "pessoas-idosas"],
+};
+
 /** Etapas do currículo comum, usadas para organizar as trilhas dentro de cada disciplina. */
 export const stages = ["fundamental", "medio", "superior"] as const;
 export type Stage = (typeof stages)[number];
