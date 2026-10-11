@@ -1,10 +1,11 @@
 // Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import Link from "next/link";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { localePath } from "@/i18n/config";
 import { InlineCheck } from "./InlineCheck";
+import { PendingImage, VideoEmbed } from "./LessonMedia";
 import { KeyboardDiagram, Staff } from "./Staff";
 
 export interface GlossaryLink {
@@ -71,8 +72,25 @@ const numberBlocks = () => (tree: Node) => {
 
 const textOf = (node: Node | undefined): string => (node?.value ?? "") + (node?.children ?? []).map(textOf).join("");
 
-// HTML cru não é interpretado e imagens ficam de fora: o acervo aceita só texto,
-// o que evita tanto scripts quanto imagens de terceiros sem licença.
+/** Imagem enviada pela equipe e ainda não publicada: "envio:<pessoa>/<arquivo>". */
+const pending = /^envio:([0-9a-f-]{36}\/[a-z0-9-]{8,60}\.(webp|jpg))$/;
+
+/** Conta passo a passo: a expressão na primeira linha e uma passagem por linha, cada uma começando com "=". */
+function Calculation({ spec }: { spec: string }) {
+  const lines = spec.split("\n").map((line) => line.trim()).filter(Boolean);
+  return (
+    <div className="conta" role="math" aria-label={lines.join(" ")}>
+      {lines.map((line, i) => (
+        <div key={i} className={line.startsWith("=") ? "passo" : undefined}>
+          {line}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// HTML cru não é interpretado. Imagens só as guardadas no próprio site (/arquivos, /imagens): nada de
+// terceiros é carregado, e toda imagem publicada passou pela equipe. Vídeo só aparece quando a pessoa pede.
 // Links internos ("/acervo/...") ganham o prefixo do idioma atual.
 export function Markdown({ children, lang, terms, tryCode }: { children: string; lang: string; terms?: GlossaryLink[]; tryCode?: string }) {
   return (
@@ -80,8 +98,22 @@ export function Markdown({ children, lang, terms, tryCode }: { children: string;
       <ReactMarkdown
         remarkPlugins={terms?.length ? [remarkGfm, linkGlossary(terms)] : [remarkGfm]}
         rehypePlugins={[rehypeSlug, numberBlocks]}
-        disallowedElements={["img"]}
+        urlTransform={(url) => (pending.test(url) ? url : defaultUrlTransform(url))}
         components={{
+          // A legenda vem do título da imagem: ![descrição](/arquivos/x.webp "Autor, licença").
+          img: ({ src, alt = "", title }) => {
+            const address = typeof src === "string" ? src : "";
+            const waiting = pending.exec(address);
+            if (waiting) return <PendingImage path={waiting[1]} alt={alt} caption={title} />;
+            if (!/^\/(arquivos|imagens)\/[A-Za-z0-9/._-]+$/.test(address)) return null;
+            return (
+              <span className="figura">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={address} alt={alt} loading="lazy" decoding="async" />
+                {title && <span className="legenda">{title}</span>}
+              </span>
+            );
+          },
           a: ({ href = "", children: label, className, title }) =>
             href.startsWith("/") ? (
               <Link href={localePath(lang, href)} className={className} title={title}>{label}</Link>
@@ -105,6 +137,8 @@ export function Markdown({ children, lang, terms, tryCode }: { children: string;
             if (language === "pauta") return <Staff spec={source} />;
             if (language === "teclado") return <KeyboardDiagram spec={source} />;
             if (language === "verificar") return <InlineCheck spec={source} />;
+            if (language === "video") return <VideoEmbed spec={source} />;
+            if (language === "conta") return <Calculation spec={source} />;
             const runnable = (language === "python" || language === "php") && tryCode;
             return (
               <div>

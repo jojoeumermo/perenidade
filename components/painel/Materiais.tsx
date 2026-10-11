@@ -1,9 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 "use client";
 
-import { useState } from "react";
-import { can, type Me } from "@/lib/backend";
-import { Aviso, botao, botaoClaro, campo, elo, rotulo, useAcao, useLista } from "./comum";
+import { useRef, useState } from "react";
+import { can, rpc, type Me } from "@/lib/backend";
+import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
+import { Aviso, botao, botaoClaro, campo, data, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 
 export interface Material {
   id: string;
@@ -94,6 +95,8 @@ export function Materiais({ me }: { me: Me }) {
         <Aviso texto={acao.aviso} />
       </form>
 
+      <Arquivos me={me} usar={(destino) => setForm({ ...form, url: destino })} />
+
       <section>
         <h2 className="font-serif text-2xl font-semibold">Materiais cadastrados</h2>
         <Aviso texto={lista.erro} />
@@ -121,5 +124,114 @@ export function Materiais({ me }: { me: Me }) {
         </ul>
       </section>
     </div>
+  );
+}
+
+interface Arquivo {
+  id: string;
+  caminho: string;
+  nome: string;
+  status: "pendente" | "aprovado" | "recusado" | "publicado";
+  destino: string;
+  criado_em: string;
+  de: string;
+  meu: boolean;
+}
+
+const situacaoDoArquivo: Record<Arquivo["status"], string> = {
+  pendente: "aguardando a liderança",
+  aprovado: "aprovado: entra no site na próxima publicação",
+  recusado: "não aprovado",
+  publicado: "no site",
+};
+
+/**
+ * Envio de arquivos avulsos: a imagem do aviso de abertura, um panfleto em PDF. O arquivo fica em um
+ * depósito fechado até a liderança aprovar; a publicação do site o copia para dentro do próprio site
+ * (sem dados embutidos) e devolve o endereço final, que é o que se cola nos outros campos.
+ */
+function Arquivos({ me, usar }: { me: Me; usar: (destino: string) => void }) {
+  const lista = useLista<Arquivo[]>("arquivos_listar");
+  const acao = useAcao(lista.recarregar);
+  const escolha = useRef<HTMLInputElement>(null);
+  const [nome, setNome] = useState("");
+  const [aviso, setAviso] = useState("");
+  const [ocupado, setOcupado] = useState(false);
+  const aprova = can(me, "coordenacao");
+
+  async function enviar() {
+    const arquivo = escolha.current?.files?.[0];
+    if (!arquivo) return;
+    setOcupado(true);
+    setAviso("Preparando e enviando…");
+    try {
+      const pdf = arquivo.type === "application/pdf";
+      const pronto = pdf ? { blob: arquivo as Blob, extension: "pdf" as const } : await cleanImage(arquivo);
+      const caminho = await sendFile(pronto.blob, pronto.extension);
+      await rpc("arquivo_registrar", { p_caminho: caminho, p_nome: nome });
+      setAviso("Arquivo enviado. Ele aguarda a aprovação da liderança.");
+      setNome("");
+      if (escolha.current) escolha.current.value = "";
+      lista.recarregar();
+    } catch (erro) {
+      setAviso(erro instanceof UploadError ? (uploadMessages[erro.message] ?? uploadMessages.envio) : textoDoErro(erro));
+    } finally {
+      setOcupado(false);
+    }
+  }
+
+  return (
+    <section>
+      <h2 className="font-serif text-2xl font-semibold">Arquivos</h2>
+      <p className="mt-1 max-w-3xl text-ink-soft">
+        Imagens (JPG, PNG, WebP) são redesenhadas neste navegador antes de sair: local da foto, modelo do aparelho e nome do autor não vão junto. PDFs são limpos na publicação. Até 8 MB. Depois de publicado, o arquivo ganha um endereço que começa com /arquivos/.
+      </p>
+      <form className="mt-3 flex max-w-3xl flex-wrap items-end gap-3" onSubmit={(e) => { e.preventDefault(); void enviar(); }}>
+        <label className="block min-w-60 flex-1">
+          O que é este arquivo
+          <input value={nome} onChange={(e) => setNome(e.target.value)} required minLength={3} maxLength={120} placeholder="Ex.: panfleto da jornada de lutas, frente e verso" className={campo} />
+        </label>
+        <label className="block">
+          Arquivo
+          <input ref={escolha} type="file" required accept="image/jpeg,image/png,image/webp,application/pdf" className={`${campo} py-1.5`} />
+        </label>
+        <button type="submit" className={botao} disabled={ocupado || nome.trim().length < 3}>
+          Enviar
+        </button>
+      </form>
+      <Aviso texto={aviso || lista.erro || acao.aviso} />
+      <ul className="mt-2 divide-y divide-rule border-y border-rule">
+        {lista.dados?.map((arquivo) => (
+          <li key={arquivo.id} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-2">
+            <span>
+              <strong>{arquivo.nome}</strong>{" "}
+              <span className="text-ink-soft">
+                · {arquivo.caminho.split(".").pop()?.toUpperCase()} · {data(arquivo.criado_em)}
+                {!arquivo.meu && arquivo.de && ` · de ${arquivo.de}`} · {situacaoDoArquivo[arquivo.status]}
+              </span>
+              {arquivo.destino && <code className="ml-2 break-all font-mono text-xs">{arquivo.destino}</code>}
+            </span>
+            <span className="flex gap-3">
+              {arquivo.destino && (
+                <button type="button" className={elo} onClick={() => usar(arquivo.destino)}>
+                  Usar no material acima
+                </button>
+              )}
+              {aprova && arquivo.status === "pendente" && (
+                <>
+                  <button type="button" className={elo} disabled={acao.ocupado} onClick={() => acao.agir("arquivo_decidir", { p_id: arquivo.id, p_aprovar: true }, "Arquivo aprovado.")}>
+                    Aprovar
+                  </button>
+                  <button type="button" className={elo} disabled={acao.ocupado} onClick={() => acao.agir("arquivo_decidir", { p_id: arquivo.id, p_aprovar: false }, "Arquivo recusado.")}>
+                    Recusar
+                  </button>
+                </>
+              )}
+            </span>
+          </li>
+        ))}
+      </ul>
+      {lista.dados?.length === 0 && <p className="text-ink-soft">Nenhum arquivo enviado.</p>}
+    </section>
   );
 }

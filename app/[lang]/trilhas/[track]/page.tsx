@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Markdown } from "@/components/Markdown";
+import { SaveOffline } from "@/components/Offline";
 import { LessonList, TrackProgress } from "@/components/Progress";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
@@ -80,6 +81,7 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
         ) : (
           ready.length > 0 && <p className="mt-4 font-sans text-sm text-ink-soft">{t.tracks.examNeed}</p>
         )}
+        {ready.length > 0 && <SaveOffline paths={[to(`/trilhas/${track.slug}`), ...ready.map((item) => to(item.path))]} s={t.tracks} />}
         {ready.length < items.length && (
           <p className="mt-6 font-sans text-sm text-ink-soft">
             {t.tracks.plannedHelp}{" "}

@@ -398,7 +398,12 @@
     "examNeed": "La prueba aparece cuando el itinerario tenga al menos diez preguntas.",
     "examAgain": "Sortear otra prueba",
     "examResult": "Acertaste {a} de {b}.",
-    "examFrom": "De la clase: {title}"
+    "examFrom": "De la clase: {title}",
+    "offlineSave": "Guardar este itinerario para leer sin internet",
+    "offlineSaving": "Guardando las clases…",
+    "offlineSaved": "Guardado en este dispositivo. Puedes abrir las clases sin conexión.",
+    "offlineFailed": "No se pudo guardar ahora. Revisa la conexión e inténtalo de nuevo.",
+    "offlineUnsupported": "Este navegador no permite guardar páginas."
   },
   "lesson": {
     "position": "lección {i} de {n}",
@@ -428,7 +433,11 @@
     "keys": "Usa las flechas ← → del teclado para cambiar de lección.",
     "sources": "Fuentes de esta lección",
     "tryCode": "Probar este código",
-    "reread": "Todavía no. Vuelve a leer el fragmento de arriba e inténtalo de nuevo."
+    "reread": "Todavía no. Vuelve a leer el fragmento de arriba e inténtalo de nuevo.",
+    "videoLoad": "Cargar el video ({host})",
+    "videoNote": "El video está en otro sitio. Al cargarlo, ese sitio pasa a ver tu acceso.",
+    "videoOpen": "Abrir el video en otra pestaña",
+    "imagePending": "imagen en espera de publicación"
   },
   "library": {
     "eyebrow": "Índice de obras",
@@ -596,7 +605,20 @@
       "linkPrompt": "Dirección del enlace (https://…)",
       "preview": "Ver cómo queda",
       "write": "Volver a escribir",
-      "empty": "Todavía no hay nada que mostrar."
+      "empty": "Todavía no hay nada que mostrar.",
+      "video": "Video",
+      "videoPrompt": "Dirección del video (https://…), de YouTube, Vimeo o PeerTube:",
+      "math": "Cuenta paso a paso",
+      "image": "Imagen",
+      "imageAlt": "Describe la imagen para quien no ve:",
+      "imageCredit": "Crédito y licencia de la imagen:",
+      "sending": "Enviando la imagen…",
+      "check": "Revisar ortografía y gramática",
+      "checking": "Revisando…",
+      "checkNone": "Ninguna observación.",
+      "checkNote": "El texto se envía al servicio abierto LanguageTool solo cuando aprietas el botón.",
+      "checkFailed": "La revisión no respondió. Inténtalo de nuevo en un minuto.",
+      "checkStale": "El texto cambió: revísalo de nuevo."
     },
     "sourcesField": {
       "title": "Fuentes",

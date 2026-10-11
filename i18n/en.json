@@ -398,7 +398,12 @@
     "examNeed": "The exam appears once the track has at least ten questions.",
     "examAgain": "Draw another exam",
     "examResult": "You got {a} out of {b} right.",
-    "examFrom": "From the lesson: {title}"
+    "examFrom": "From the lesson: {title}",
+    "offlineSave": "Save this track to read offline",
+    "offlineSaving": "Saving the lessons…",
+    "offlineSaved": "Saved on this device. You can open the lessons without a connection.",
+    "offlineFailed": "Could not save right now. Check your connection and try again.",
+    "offlineUnsupported": "This browser cannot save pages."
   },
   "lesson": {
     "position": "lesson {i} of {n}",
@@ -428,7 +433,11 @@
     "keys": "Use the ← → arrow keys to move between lessons.",
     "sources": "Sources for this lesson",
     "tryCode": "Try this code",
-    "reread": "Not yet. Reread the passage above and try again."
+    "reread": "Not yet. Reread the passage above and try again.",
+    "videoLoad": "Load the video ({host})",
+    "videoNote": "The video is hosted on another site. Once loaded, that site can see your visit.",
+    "videoOpen": "Open the video in another tab",
+    "imagePending": "image awaiting publication"
   },
   "library": {
     "eyebrow": "Index of works",
@@ -596,7 +605,20 @@
       "linkPrompt": "Link address (https://…)",
       "preview": "See how it looks",
       "write": "Back to writing",
-      "empty": "Nothing to show yet."
+      "empty": "Nothing to show yet.",
+      "video": "Video",
+      "videoPrompt": "Video address (https://…), from YouTube, Vimeo or PeerTube:",
+      "math": "Step-by-step calculation",
+      "image": "Image",
+      "imageAlt": "Describe the image for people who cannot see it:",
+      "imageCredit": "Image credit and licence:",
+      "sending": "Sending the image…",
+      "check": "Check spelling and grammar",
+      "checking": "Checking…",
+      "checkNone": "Nothing to point out.",
+      "checkNote": "The text is sent to the open LanguageTool service only when you press the button.",
+      "checkFailed": "The checker did not answer. Try again in a minute.",
+      "checkStale": "The text has changed: check again."
     },
     "sourcesField": {
       "title": "Sources",

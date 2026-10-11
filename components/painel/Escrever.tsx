@@ -43,6 +43,19 @@ export const editorPt: EditorLabels = {
   preview: "Pré-visualizar",
   write: "Voltar a escrever",
   empty: "*Nada para mostrar ainda.*",
+  video: "Vídeo (endereço do YouTube, Vimeo ou PeerTube)",
+  videoPrompt: "Endereço do vídeo (https://…). O vídeo fica onde está; a aula só aponta para ele.",
+  math: "Conta passo a passo",
+  image: "Imagem",
+  imageAlt: "Descreva a imagem para quem não enxerga (o que aparece nela):",
+  imageCredit: "Crédito e licença (autor, ano, de onde veio). Só envie imagem sua, em domínio público ou com licença livre:",
+  sending: "Limpando os dados embutidos e enviando a imagem…",
+  check: "Conferir ortografia e gramática",
+  checking: "Conferindo…",
+  checkNone: "Nenhum apontamento.",
+  checkNote: "O texto é enviado ao serviço aberto LanguageTool só quando você aperta o botão.",
+  checkFailed: "A conferência não respondeu. Tente de novo em um minuto.",
+  checkStale: "O texto mudou: confira de novo.",
 };
 
 export const fontesPt: SourceLabels = {
@@ -227,7 +240,7 @@ export function Escrever({ me }: { me: Me }) {
         <label htmlFor="painel-corpo">{tipo.corpo.rotulo}</label>
         <div className="mt-1">
           {tipo.corpo.editor ? (
-            <MarkdownEditor id="painel-corpo" value={corpo} onChange={setCorpo} labels={editorPt} />
+            <MarkdownEditor id="painel-corpo" value={corpo} onChange={setCorpo} labels={editorPt} upload={can(me, "coordenacao", "curadoria", "educacao", "jornalismo", "design")} />
           ) : (
             <textarea id="painel-corpo" value={corpo} onChange={(e) => setCorpo(e.target.value)} rows={6} className="w-full border-2 border-ink bg-parchment-deep px-3 py-2" />
           )}

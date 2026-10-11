@@ -240,6 +240,7 @@ await espera("vice-liderança confia papéis de trabalho", async () => {
   await rpc(como(ids.vice), "papel_conceder", { p_usuario: ids.designer, p_papel: "design", p_disciplina: null });
   return rpc(como(ids.mentora), "eu");
 }, (r) => r.papeis[0].papel === "mentoria" && r.avisos === 1);
+await espera("vice-liderança faz tudo o que a curadoria faz", async () => [await rpc(como(ids.vice), "mural_fila"), await rpc(como(ids.vice), "denuncias_listar"), await rpc(como(ids.vice), "fila")], (r) => r.every(Array.isArray));
 await recusa("vice-liderança não nomeia outra vice", () => rpc(como(ids.vice), "papel_conceder", { p_usuario: ids.curadora, p_papel: "vice", p_disciplina: null }), "sem_permissao");
 await recusa("vice-liderança não remove a liderança", () => rpc(como(ids.vice), "papel_remover", { p_id: papelCoord }), "sem_permissao");
 await recusa("vice-liderança não suspende a liderança", () => rpc(como(ids.vice), "usuario_suspender", { p_usuario: ids.coord, p_suspenso: true }), "sem_permissao");
@@ -403,6 +404,18 @@ await espera("educador envia questão de prova", () => rpc(como(ids.prof), "cont
 await recusa("educador não bloqueia arquivo", () => rpc(como(ids.prof), "arquivo_bloquear", { p_sha256: marca("c"), p_motivo: "teste" }), "sem_permissao");
 await espera("curadoria bloqueia e a rotina de publicação lê a lista", async () => { await rpc(como(ids.curadora), "arquivo_bloquear", { p_sha256: marca("c"), p_motivo: "PDF adulterado" }); return rpc(servico, "arquivos_bloqueados"); }, (r) => r.length === 1);
 await recusa("ninguém logado lê a lista de bloqueados", () => rpc(como(ids.coord), "arquivos_bloqueados"), "sem_permissao");
+const caminho = (dono) => `${dono}/imagem-de-teste-01.webp`;
+await recusa("quem não escreve não registra arquivo", () => rpc(como(ids.revisor), "arquivo_registrar", { p_caminho: caminho(ids.revisor), p_nome: "Imagem" }), "sem_permissao");
+await recusa("ninguém registra arquivo na pasta de outra pessoa", () => rpc(como(ids.prof), "arquivo_registrar", { p_caminho: caminho(ids.coord), p_nome: "Imagem alheia" }), "invalido:caminho");
+await recusa("caminho com truque é recusado", () => rpc(como(ids.prof), "arquivo_registrar", { p_caminho: `${ids.prof}/../../segredo.webp`, p_nome: "Truque" }), "invalido:caminho");
+let arquivoId;
+await espera("educador registra o arquivo enviado", async () => (arquivoId = (await rpc(como(ids.prof), "arquivo_registrar", { p_caminho: caminho(ids.prof), p_nome: "Gráfico da função afim" })).id), (r) => Boolean(r));
+await espera("cada um vê os próprios arquivos; a liderança vê todos", async () => [(await rpc(como(ids.designer), "arquivos_listar")).length, (await rpc(como(ids.prof), "arquivos_listar")).length, (await rpc(como(ids.vice), "arquivos_listar")).length], (r) => r[0] === 0 && r[1] === 1 && r[2] === 1);
+await recusa("curadoria não aprova arquivo", () => rpc(como(ids.curadora), "arquivo_decidir", { p_id: arquivoId, p_aprovar: true }), "sem_permissao");
+await espera("arquivo pendente não vai para a publicação", () => rpc(servico, "arquivos_aprovados"), (r) => r.length === 0);
+await espera("liderança aprova e a rotina de publicação o encontra", async () => { await rpc(como(ids.coord), "arquivo_decidir", { p_id: arquivoId, p_aprovar: true }); return rpc(servico, "arquivos_aprovados"); }, (r) => r.length === 1 && r[0].caminho === caminho(ids.prof));
+await recusa("logado não marca arquivo como publicado", () => rpc(como(ids.coord), "arquivo_publicado", { p_id: arquivoId, p_destino: "/arquivos/0123456789abcdef0123.webp" }), "sem_permissao");
+await espera("a rotina anota o endereço final e avisa quem enviou", async () => { await rpc(servico, "arquivo_publicado", { p_id: arquivoId, p_destino: "/arquivos/0123456789abcdef0123.webp" }); return rpc(como(ids.prof), "arquivos_listar"); }, (r) => r[0].status === "publicado" && r[0].destino === "/arquivos/0123456789abcdef0123.webp");
 
 // ── Painel e saída ──
 await espera("resumo da coordenação", () => rpc(como(ids.coord), "painel_resumo"), (r) => typeof r.fila === "number" && r.candidaturas === 0);

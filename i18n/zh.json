@@ -394,7 +394,12 @@
     "examNeed": "本路径至少有十道题时才会出现测验。",
     "examAgain": "重新抽题",
     "examResult": "你答对了 {a} / {b} 题。",
-    "examFrom": "出自课程：{title}"
+    "examFrom": "出自课程：{title}",
+    "offlineSave": "保存本路径以便离线阅读",
+    "offlineSaving": "正在保存课程…",
+    "offlineSaved": "已保存到本设备。没有网络也能打开这些课程。",
+    "offlineFailed": "暂时无法保存。请检查网络后再试。",
+    "offlineUnsupported": "此浏览器不支持保存页面。"
   },
   "lesson": {
     "position": "第 {i} 课，共 {n} 课",
@@ -423,7 +428,11 @@
     "keys": "用键盘上的 ← → 方向键切换课程。",
     "sources": "本课资料来源",
     "tryCode": "运行这段代码",
-    "reread": "还不对。请重读上面的内容，再试一次。"
+    "reread": "还不对。请重读上面的内容，再试一次。",
+    "videoLoad": "加载视频（{host}）",
+    "videoNote": "视频存放在其他网站。加载后，该网站可以看到你的访问。",
+    "videoOpen": "在新标签页中打开视频",
+    "imagePending": "图片等待发布"
   },
   "library": {
     "eyebrow": "作品索引",
@@ -590,7 +599,20 @@
       "linkPrompt": "链接地址（https://…）",
       "preview": "预览效果",
       "write": "继续写",
-      "empty": "还没有可显示的内容。"
+      "empty": "还没有可显示的内容。",
+      "video": "视频",
+      "videoPrompt": "视频地址（https://…），来自 YouTube、Vimeo 或 PeerTube：",
+      "math": "分步计算",
+      "image": "图片",
+      "imageAlt": "为看不见的人描述这张图片：",
+      "imageCredit": "图片的署名与许可：",
+      "sending": "正在上传图片…",
+      "check": "检查拼写和语法",
+      "checking": "正在检查…",
+      "checkNone": "没有需要注意的地方。",
+      "checkNote": "只有在你按下按钮时，文字才会发送到开放服务 LanguageTool。",
+      "checkFailed": "检查服务没有响应。请一分钟后再试。",
+      "checkStale": "文字已更改：请重新检查。"
     },
     "sourcesField": {
       "title": "资料来源",

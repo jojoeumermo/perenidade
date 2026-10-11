@@ -70,6 +70,41 @@ body {
   outline-offset: 2px;
 }
 
+/* ---- Imagens e contas dentro das aulas ---- */
+.figura {
+  display: block;
+  margin: 1.75rem 0;
+  text-align: center;
+}
+.figura img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  background: #fff;
+}
+.figura .legenda {
+  display: block;
+  margin-top: 0.4rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.conta {
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.2rem;
+  border-left: 3px solid var(--gold);
+  background: var(--parchment-deep);
+  font-size: 1.35rem;
+  line-height: 1.9;
+  white-space: pre;
+  overflow-x: auto;
+  font-variant-numeric: tabular-nums;
+}
+.conta .passo {
+  padding-left: 1.4rem;
+}
+
 /* ---- Jornal: desenho de imprensa operária ---- */
 :root {
   --prelo: #c21f16;

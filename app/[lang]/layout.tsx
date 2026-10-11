@@ -7,6 +7,7 @@ import { BottomNav } from "@/components/BottomNav";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { I18nProvider } from "@/components/I18n";
+import { OfflineSupport } from "@/components/Offline";
 import { OpeningNotice } from "@/components/OpeningNotice";
 import { RadioPlayer } from "@/components/RadioPlayer";
 import { Shortcuts } from "@/components/Shortcuts";
@@ -66,6 +67,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <BottomNav />
           <OpeningNotice initial={abertura} close={t.a11y.close} />
           <Shortcuts />
+          <OfflineSupport />
           {/* A contagem anônima de visitas só existe no site publicado. */}
           {process.env.NODE_ENV === "production" && <Analytics />}
         </I18nProvider>
