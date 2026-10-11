@@ -6,6 +6,7 @@ import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { fill, htmlLang, localePath } from "@/i18n/config";
 import { getArticles, type Article } from "@/lib/content";
+import { Newsletter } from "@/components/Newsletter";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/jornal">): Promise<Metadata> {
   const { t } = await loadLang(params);
@@ -40,6 +41,12 @@ export default async function Jornal({ params }: PageProps<"/[lang]/jornal">) {
     <div className="mx-auto max-w-5xl px-4 py-8">
       <Masthead lang={lang} s={s} updated={lead ? fill(s.updated, { date: date.format(new Date(lead.date)) }) : undefined} />
       <p className="mt-3 text-lg text-ink-soft">{s.lead}</p>
+      {/* O giro de notícias em destaque: uma faixa inteira, logo abaixo do nome do jornal. */}
+      <Link href={localePath(lang, "/noticias")} className="jornal-faixa no-print mt-5 block px-5 py-5 sm:px-7">
+        <span className="block font-sans text-2xl font-black uppercase italic leading-tight sm:text-3xl">{s.newsletter.roundTitle} →</span>
+        <span className="mt-1 block text-lg leading-snug">{s.newsletter.roundLead}</span>
+        <span className="mt-3 inline-block border-2 border-white px-4 py-1.5 font-sans text-sm font-bold uppercase tracking-wide">{s.newsletter.roundButton}</span>
+      </Link>
       <Untranslated lang={lang} t={t} show={articles.some((article) => !article.translated)} />
       {!lead && <p className="mt-10 border-y-2 border-ink py-10 text-center text-3xl font-bold">{s.empty}</p>}
 
@@ -86,6 +93,7 @@ export default async function Jornal({ params }: PageProps<"/[lang]/jornal">) {
           </ul>
         </section>
       )}
+      <Newsletter s={s.newsletter} />
     </div>
   );
 }

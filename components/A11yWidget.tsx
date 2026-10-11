@@ -55,7 +55,7 @@ export function A11yWidget() {
   }, [open]);
 
   return (
-    <div className="no-print fixed bottom-20 right-4 z-40 font-sans text-sm md:bottom-4">
+    <div className="no-print fixed bottom-[4.75rem] right-3 z-40 font-sans text-sm md:bottom-4 md:right-4">
       {open && (
         <div
           ref={panelRef}

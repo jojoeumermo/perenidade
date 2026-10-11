@@ -135,7 +135,8 @@
     "ctaTitle": "Help build the library",
     "ctaText": "Write a lesson, suggest a free work or fix a mistake. Everything is reviewed before it is accepted.",
     "ctaButton": "Send a contribution",
-    "questionsTitle": "Start from a question"
+    "questionsTitle": "Start from a question",
+    "shelvesHint": "There are many. Choose the essentials or the stage you want to study."
   },
   "areas": {
     "portugues": [
@@ -369,6 +370,18 @@
     "arquivologia": [
       "Libraries, archives and museums",
       "Keeping, organising and opening up memory: library science, archival science and museology."
+    ],
+    "dependencia": [
+      "Dependency Theory and Latin America",
+      "Why Latin America stays poor even when it grows: Marini, Bambirra, Theotonio dos Santos and the super-exploitation of labour."
+    ],
+    "imperialismo": [
+      "Imperialism and Contemporary Geopolitics",
+      "Who runs the world and how: finance capital, wars, sanctions, debt and the rivalry between powers today."
+    ],
+    "ecossocialismo": [
+      "Ecosocialism",
+      "The climate crisis as a crisis of capitalism: nature, labour and the way out that does not fit into profit."
     ]
   },
   "tracks": {
@@ -1007,7 +1020,18 @@
     "updated": "Updated on {date}",
     "more": "More news",
     "back": "Back to the front page",
-    "round": "News round-up"
+    "round": "News round-up",
+    "newsletter": {
+      "title": "Get the journal by e-mail",
+      "lead": "The institute's journalists send a newsletter with the new stories. No ads, and your address is never passed on.",
+      "email": "Your e-mail",
+      "button": "Subscribe",
+      "done": "Done. You will receive the next newsletter.",
+      "leave": "To leave the list, write to",
+      "roundTitle": "News round-up from Brazil",
+      "roundLead": "Right-now headlines from the grassroots, independent and public press, seventeen outlets on a single page. Refreshes by itself every fifteen minutes.",
+      "roundButton": "Open the news round-up"
+    }
   },
   "factCheck": {
     "eyebrow": "Against disinformation",

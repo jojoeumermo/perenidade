@@ -9,6 +9,7 @@ import { registerDevice } from "@/lib/device";
 import { L, useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
+import { Boletim } from "./Boletim";
 import { Equipe } from "./Equipe";
 import { Escrever } from "./Escrever";
 import { Fila } from "./Fila";
@@ -88,6 +89,7 @@ export function Painel() {
     ["horas", "Horas e certificados", voluntario],
     ["mural", "Mural", can(eu, "coordenacao")],
     ["materiais", "Materiais", can(eu, "coordenacao", "curadoria", "design")],
+    ["boletim", "Boletim do jornal", can(eu, "coordenacao", "jornalismo")],
   ];
   const lideranca: [string, string, boolean][] = [
     ["pessoas", "Voluntários", lidera],
@@ -135,6 +137,7 @@ export function Painel() {
         {aba === "horas" && <Horas me={eu} />}
         {aba === "mural" && <MuralFila />}
         {aba === "materiais" && <Materiais me={eu} />}
+        {aba === "boletim" && <Boletim />}
         {aba === "pessoas" && <Pessoas me={eu} />}
         {aba === "abertura" && <AvisoDeAbertura />}
         {aba === "seguranca" && <SegurancaSucessao me={eu} />}

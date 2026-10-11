@@ -135,7 +135,8 @@
     "ctaTitle": "Ayuda a construir la biblioteca",
     "ctaText": "Escribe una lección, propón una obra libre o corrige un error. Todo pasa por revisión antes de entrar.",
     "ctaButton": "Enviar una contribución",
-    "questionsTitle": "Empieza por una pregunta"
+    "questionsTitle": "Empieza por una pregunta",
+    "shelvesHint": "Son muchas. Elige lo esencial o la etapa que quieres estudiar."
   },
   "areas": {
     "portugues": [
@@ -369,6 +370,18 @@
     "arquivologia": [
       "Bibliotecas, archivos y museos",
       "Guardar, organizar y abrir la memoria: bibliotecología, archivística y museología."
+    ],
+    "dependencia": [
+      "Teoría de la Dependencia y América Latina",
+      "Por qué América Latina sigue pobre aunque crezca: Marini, Bambirra, Theotonio dos Santos y la superexplotación del trabajo."
+    ],
+    "imperialismo": [
+      "Imperialismo y Geopolítica Contemporánea",
+      "Quién manda en el mundo y cómo: capital financiero, guerras, sanciones, deuda y la disputa entre potencias hoy."
+    ],
+    "ecossocialismo": [
+      "Ecosocialismo",
+      "La crisis del clima como crisis del capitalismo: naturaleza, trabajo y la salida que no cabe en la ganancia."
     ]
   },
   "tracks": {
@@ -1007,7 +1020,18 @@
     "updated": "Actualizado el {date}",
     "more": "Más noticias",
     "back": "Volver a la portada",
-    "round": "Ronda de noticias"
+    "round": "Ronda de noticias",
+    "newsletter": {
+      "title": "Recibe el periódico por correo",
+      "lead": "Los periodistas del instituto envían un boletín con las notas nuevas. Sin anuncios y sin pasar tu dirección a nadie.",
+      "email": "Tu correo",
+      "button": "Quiero recibirlo",
+      "done": "Listo. Recibirás el próximo boletín.",
+      "leave": "Para salir de la lista, escribe a",
+      "roundTitle": "Ronda de noticias de Brasil",
+      "roundLead": "Los titulares de ahora de la prensa popular, independiente y pública, de diecisiete medios, en una sola página. Se actualiza sola cada quince minutos.",
+      "roundButton": "Abrir la ronda de noticias"
+    }
   },
   "factCheck": {
     "eyebrow": "Contra la desinformación",
