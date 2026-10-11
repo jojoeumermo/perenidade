@@ -1,12 +1,13 @@
 // Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
 import type { Metadata } from "next";
 import { PageHeading } from "@/components/PageHeading";
-import { RadioPage } from "@/components/RadioPage";
+import { RadioPage, type Station } from "@/components/RadioPage";
+import stations from "@/content/radios.json";
 import { loadLang } from "@/i18n";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/radio">): Promise<Metadata> {
   const { t } = await loadLang(params);
-  return { title: t.radio.title, description: t.radio.lead };
+  return { title: t.radio.title, description: t.radio.lead, robots: { index: false } };
 }
 
 export default async function Radio({ params }: PageProps<"/[lang]/radio">) {
@@ -16,7 +17,7 @@ export default async function Radio({ params }: PageProps<"/[lang]/radio">) {
       <PageHeading eyebrow={t.radio.eyebrow} title={t.radio.title}>
         {t.radio.lead}
       </PageHeading>
-      <RadioPage />
+      <RadioPage stations={stations as Station[]} />
     </div>
   );
 }

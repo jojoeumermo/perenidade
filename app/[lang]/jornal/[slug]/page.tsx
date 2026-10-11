@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SourceList } from "@/components/Cards";
 import { Markdown } from "@/components/Markdown";
+import { Masthead } from "@/components/Masthead";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { defaultLocale, fill, htmlLang, localePath } from "@/i18n/config";
@@ -34,23 +35,26 @@ export default async function Materia({ params }: PageProps<"/[lang]/jornal/[slu
   const terms = article.translated ? getGlossary(lang).filter((term) => term.translated).map(({ slug: s, term, summary }) => ({ slug: s, term, summary })) : [];
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-12">
-      <Link href={localePath(lang, "/jornal")} className="no-print font-sans text-sm text-ink-soft hover:text-oxblood">← {t.journal.title}</Link>
-      <div {...originalLang(article.translated)}>
-        <p className="mt-6 font-mono text-xs uppercase tracking-[0.3em] text-gold">{article.section || t.journal.eyebrow}</p>
-        <h1 className="mt-2 text-4xl font-semibold sm:text-5xl">{article.title}</h1>
-        {article.subtitle && <p className="mt-3 text-2xl text-ink-soft">{article.subtitle}</p>}
-        <p className="mt-5 font-sans text-sm text-ink-soft">
+    <article className="mx-auto max-w-3xl px-4 py-8">
+      <Masthead lang={lang} s={t.journal} small />
+      <div className="mt-6" {...originalLang(article.translated)}>
+        <span className="jornal-editoria">{article.section || t.journal.eyebrow}</span>
+        <h1 className="jornal-manchete mt-3 text-4xl sm:text-6xl">{article.title}</h1>
+        {article.subtitle && <p className="mt-4 text-2xl font-semibold text-ink-soft">{article.subtitle}</p>}
+        <p className="mt-5 border-y border-ink py-2 font-sans text-xs font-semibold uppercase tracking-wide">
           {fill(t.lesson.by, { names: article.author })} · {date.format(new Date(article.date))} · {fill(t.tracks.minutes, { n: article.minutes })}
         </p>
       </div>
       <Untranslated lang={lang} t={t} show={!article.translated} />
       <div {...originalLang(article.translated)}>
-        <div className="mt-8">
+        <div className="jornal-materia mt-8">
           <Markdown lang={lang} terms={terms}>{article.body}</Markdown>
         </div>
         <SourceList sources={article.sources} title={t.common.sources} />
       </div>
+      <p className="no-print mt-10 border-t-4 border-ink pt-4 font-sans text-sm">
+        <Link href={localePath(lang, "/jornal")} className="font-semibold uppercase tracking-wide hover:text-oxblood">← {t.journal.back}</Link>
+      </p>
     </article>
   );
 }

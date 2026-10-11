@@ -1,0 +1,165 @@
+[
+  {
+    "frente": "brasil",
+    "id": "brasil-de-fato",
+    "nome": "Rádio Brasil de Fato",
+    "lugar": "Brasil",
+    "descricao": "A rádio do jornal Brasil de Fato.",
+    "site": "https://www.brasildefato.com.br/radioagencia/",
+    "transmissao": "https://s09.hstbr.net:8238/live"
+  },
+  {
+    "frente": "brasil",
+    "id": "aconchego",
+    "nome": "Rádio Comunitária Aconchego",
+    "lugar": "Brasil",
+    "descricao": "Rádio comunitária. No próprio dizer dela: rádio para ouvir, rádio para falar.",
+    "site": "https://radioaconchego.org/",
+    "transmissao": "https://fm.radioaconchego.org"
+  },
+  {
+    "frente": "brasil",
+    "id": "peao-brasil",
+    "nome": "Rádio Peão Brasil",
+    "lugar": "Brasil",
+    "descricao": "Site de notícias com foco no mundo do trabalho.",
+    "site": "https://radiopeaobrasil.com.br/"
+  },
+  {
+    "frente": "brasil",
+    "id": "cantareira",
+    "nome": "Rádio Cantareira",
+    "lugar": "São Paulo, Brasil",
+    "descricao": "Rádio comunitária.",
+    "site": "https://radiocantareira.org/"
+  },
+  {
+    "frente": "brasil",
+    "id": "campeche",
+    "nome": "Rádio Comunitária Campeche",
+    "lugar": "Florianópolis, Brasil",
+    "descricao": "Rádio comunitária.",
+    "site": "https://radiocampeche.com.br/"
+  },
+  {
+    "frente": "latina",
+    "id": "am530",
+    "nome": "AM 530 Somos Radio",
+    "lugar": "Buenos Aires, Argentina",
+    "descricao": "A rádio das Mães da Praça de Maio.",
+    "site": "https://am530somosradio.com/",
+    "transmissao": "https://cdn.instream.audio:9288/stream"
+  },
+  {
+    "frente": "latina",
+    "id": "pichincha",
+    "nome": "Radio Pichincha",
+    "lugar": "Quito, Equador",
+    "descricao": "Emissora equatoriana.",
+    "site": "https://radiopichincha.com/",
+    "transmissao": "https://icecast.radiopichincha.com/radiopichincha"
+  },
+  {
+    "frente": "latina",
+    "id": "rnv",
+    "nome": "Radio Nacional de Venezuela (canal informativo)",
+    "lugar": "Venezuela",
+    "descricao": "Emissora pública venezuelana.",
+    "site": "https://rnv.gob.ve/",
+    "transmissao": "https://guri.tepuyserver.net/8048/stream"
+  },
+  {
+    "frente": "latina",
+    "id": "rebelde",
+    "nome": "Radio Rebelde",
+    "lugar": "Cuba",
+    "descricao": "Emissora nacional cubana.",
+    "site": "https://www.radiorebelde.cu/"
+  },
+  {
+    "frente": "latina",
+    "id": "cx36",
+    "nome": "CX 36 Radio Centenario",
+    "lugar": "Montevidéu, Uruguai",
+    "descricao": "Emissora uruguaia.",
+    "site": "https://radio36.com.uy/"
+  },
+  {
+    "frente": "latina",
+    "id": "kawsachun",
+    "nome": "Radio Kawsachun Coca",
+    "lugar": "Bolívia",
+    "descricao": "Emissora boliviana.",
+    "site": "https://kawsachuncoca.com/"
+  },
+  {
+    "frente": "latina",
+    "id": "progreso",
+    "nome": "Radio Progreso",
+    "lugar": "Honduras",
+    "descricao": "No próprio dizer dela: a voz que está com você.",
+    "site": "https://www.radioprogresohn.net/"
+  },
+  {
+    "frente": "mundo",
+    "id": "kpfa",
+    "nome": "KPFA 94.1 FM",
+    "lugar": "Berkeley, Estados Unidos",
+    "descricao": "Rádio comunitária mantida pelos ouvintes.",
+    "site": "https://kpfa.org/",
+    "transmissao": "https://streams.kpfa.org:8443/kpfa"
+  },
+  {
+    "frente": "mundo",
+    "id": "wbai",
+    "nome": "WBAI 99.5 FM",
+    "lugar": "Nova York, Estados Unidos",
+    "descricao": "Rádio comunitária mantida pelos ouvintes.",
+    "site": "https://www.wbai.org/"
+  },
+  {
+    "frente": "mundo",
+    "id": "onda-durto",
+    "nome": "Radio Onda d'Urto",
+    "lugar": "Bréscia, Itália",
+    "descricao": "No próprio dizer dela: emissora antagonista.",
+    "site": "https://www.radiondadurto.org/",
+    "transmissao": "https://hochimin.urtostream.org:8443/radiondadurto.mp3"
+  },
+  {
+    "frente": "mundo",
+    "id": "popolare",
+    "nome": "Radio Popolare",
+    "lugar": "Milão, Itália",
+    "descricao": "Rádio independente italiana.",
+    "site": "https://www.radiopopolare.it/",
+    "transmissao": "https://livex.radiopopolare.it/radiopop2"
+  },
+  {
+    "frente": "mundo",
+    "id": "citta-aperta",
+    "nome": "Radio Città Aperta",
+    "lugar": "Roma, Itália",
+    "descricao": "No próprio dizer dela: a rádio livre e independente.",
+    "site": "https://www.radiocittaperta.it/",
+    "transmissao": "https://be.server89.com/8020/stream"
+  },
+  {
+    "frente": "mundo",
+    "id": "fpp",
+    "nome": "Fréquence Paris Plurielle",
+    "lugar": "Paris, França",
+    "descricao": "Rádio associativa parisiense.",
+    "site": "https://rfpp.net/",
+    "transmissao": "https://direct.rfpp.net/fpp.mp3"
+  },
+  {
+    "frente": "mundo",
+    "id": "radio-z",
+    "nome": "Radio Z",
+    "lugar": "Nuremberg, Alemanha",
+    "descricao": "No próprio dizer dela: a rádio livre de Nuremberg.",
+    "site": "https://www.radio-z.net/",
+    "transmissao": "https://snd.radio-z.net/Radio-Z"
+  }
+]

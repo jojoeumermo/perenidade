@@ -66,7 +66,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <BottomNav />
           <OpeningNotice initial={abertura} close={t.a11y.close} />
           <Shortcuts />
-          <Analytics />
+          {/* A contagem anônima de visitas só existe no site publicado. */}
+          {process.env.NODE_ENV === "production" && <Analytics />}
         </I18nProvider>
       </body>
     </html>

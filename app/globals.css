@@ -70,6 +70,68 @@ body {
   outline-offset: 2px;
 }
 
+/* ---- Jornal: desenho de imprensa operária ---- */
+:root {
+  --prelo: #c21f16;
+}
+.jornal-faixa {
+  background: var(--prelo);
+  color: #fff;
+}
+.jornal-faixa:hover {
+  background: #a51810;
+}
+.jornal-editoria {
+  display: inline-block;
+  background: var(--prelo);
+  color: #fff;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+}
+.jornal-manchete {
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.jornal-texto {
+  text-align: justify;
+  hyphens: auto;
+}
+/* A matéria abre com capitular, como no jornal impresso. */
+.jornal-materia .prose-lesson > p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.6em;
+  line-height: 0.85;
+  font-weight: 800;
+  padding: 0.06em 0.1em 0 0;
+  color: var(--prelo);
+}
+.jornal-materia .prose-lesson p {
+  text-align: justify;
+  hyphens: auto;
+}
+.jornal-materia .prose-lesson h2 {
+  font-weight: 800;
+  border-top: 2px solid var(--ink);
+  padding-top: 0.5rem;
+}
+:root[data-contrast] .jornal-faixa,
+:root[data-contrast] .jornal-editoria,
+:root[data-eink] .jornal-faixa,
+:root[data-eink] .jornal-editoria {
+  background: var(--ink);
+  color: var(--parchment);
+}
+:root[data-contrast] .jornal-materia .prose-lesson > p:first-of-type::first-letter,
+:root[data-eink] .jornal-materia .prose-lesson > p:first-of-type::first-letter {
+  color: var(--ink);
+}
+
 /* Texto das aulas (Markdown renderizado). */
 .prose-lesson {
   font-size: 1.25rem;

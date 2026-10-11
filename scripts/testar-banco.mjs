@@ -101,7 +101,8 @@ await espera("quem enviou sem conta fica com o nome que deu", () => rpc(como(ids
 await recusa("leitora não vê a fila", () => rpc(como(ids.leitora), "fila"), "sem_permissao");
 await recusa("anônimo não vê a fila", () => rpc(anon, "fila"), "entre_primeiro");
 await recusa("leitora não vê contribuição alheia", () => rpc(como(ids.leitora), "contribuicao_ver", { p_id: doProf.id }), "sem_permissao");
-await espera("educador vê só a fila da disciplina dele", () => rpc(como(ids.prof), "fila"), (r) => r.length === 2 && r.every((c) => c.disciplina === "matematica"));
+await espera("educador vê a fila da disciplina dele e as matérias do jornal", () => rpc(como(ids.prof), "fila"), (r) => r.length === 3 && r.every((c) => c.disciplina === "matematica" || c.tipo === "artigo"));
+await espera("educador dá parecer em matéria do jornal, mas não aprova", () => rpc(como(ids.prof), "parecer", { p_id: artigo.id, p_favoravel: true, p_texto: "Conferi os números da matéria." }));
 await espera("revisor vê a fila inteira", () => rpc(como(ids.revisor), "fila"), (r) => r.length === 3);
 await espera("jornalista não vê aulas na fila", () => rpc(como(ids.jornal), "fila"), (r) => r.length === 0);
 await espera("revisor dá parecer", () => rpc(como(ids.revisor), "parecer", { p_id: doProf.id, p_favoravel: true, p_texto: "Conferi as contas, está correto." }));
