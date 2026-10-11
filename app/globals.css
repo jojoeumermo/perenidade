@@ -488,3 +488,401 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/*
+ * Leitor digital (Kindle, Kobo e parentes). O aparelho é reconhecido de dois jeitos: pelo nome do navegador
+ * (o site marca <html data-leitor>) e pelo tipo de tela (monocromática ou de atualização lenta). O visual é
+ * de livro: uma coluna, preto no branco, nada flutuando, botões grandes. As regras são CSS simples de propósito,
+ * para valerem mesmo em navegadores que não entendem o resto da folha de estilo.
+ */
+
+:root[data-leitor] {
+  font-size: 118%;
+  --parchment: #fff;
+  --parchment-deep: #fff;
+  --ink: #000;
+  --ink-soft: #000;
+  --gold: #000;
+  --oxblood: #000;
+  --rule: #000;
+  --ok: #000;
+}
+:root[data-leitor] body {
+  background: #fff !important;
+  background-image: none !important;
+  color: #000 !important;
+  line-height: 1.55;
+}
+:root[data-leitor] *,
+:root[data-leitor] *::before,
+:root[data-leitor] *::after {
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+/* Nada flutua nem gruda: a tela de tinta redesenha devagar e o que fica por cima atrapalha a leitura. */
+:root[data-leitor] .fixed,
+:root[data-leitor] .sticky {
+  position: static !important;
+}
+:root[data-leitor] .radio-player,
+:root[data-leitor] dialog,
+:root[data-leitor] iframe,
+:root[data-leitor] video,
+:root[data-leitor] .no-leitor {
+  display: none !important;
+}
+:root[data-leitor] .hidden {
+  display: none !important;
+}
+:root[data-leitor] .sr-only {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+/* Uma coluna só, do começo ao fim. */
+:root[data-leitor] .grid,
+:root[data-leitor] .flex {
+  display: block !important;
+}
+:root[data-leitor] main,
+:root[data-leitor] main > div,
+:root[data-leitor] header > div,
+:root[data-leitor] footer > div {
+  max-width: 100% !important;
+  padding-left: 4% !important;
+  padding-right: 4% !important;
+}
+:root[data-leitor] img,
+:root[data-leitor] svg {
+  max-width: 100% !important;
+  height: auto;
+}
+:root[data-leitor] a svg,
+:root[data-leitor] button svg,
+:root[data-leitor] nav svg {
+  display: none !important;
+}
+:root[data-leitor] a {
+  color: #000 !important;
+  text-decoration: underline;
+}
+/* Cartão inteiro clicável: sem sublinhar tudo, com o título em destaque. */
+:root[data-leitor] main a[class*="border"] {
+  text-decoration: none !important;
+}
+/* Tema e rádio não fazem sentido em tela de tinta. */
+:root[data-leitor] header.no-print button,
+:root[data-leitor] header.no-print a[href$="/radio"] {
+  display: none !important;
+}
+:root[data-leitor] h1 {
+  font-size: 1.7em !important;
+  line-height: 1.2 !important;
+  margin: 0.5em 0 0.3em;
+}
+:root[data-leitor] h2 {
+  font-size: 1.35em !important;
+  line-height: 1.25 !important;
+  margin: 0.9em 0 0.3em;
+}
+:root[data-leitor] h3 {
+  font-size: 1.15em !important;
+  margin: 0.8em 0 0.2em;
+}
+:root[data-leitor] p,
+:root[data-leitor] li {
+  font-size: 1em !important;
+}
+/* O cabeçalho vira duas linhas simples: o nome e, embaixo, os botões. */
+:root[data-leitor] body > header,
+:root[data-leitor] header.no-print {
+  border-bottom: 2px solid #000;
+}
+:root[data-leitor] header.no-print img {
+  display: inline !important;
+  width: 1.6em !important;
+  height: 1.6em !important;
+  vertical-align: middle;
+}
+:root[data-leitor] header.no-print a,
+:root[data-leitor] header.no-print select,
+:root[data-leitor] header.no-print button {
+  display: inline-block !important;
+  vertical-align: middle;
+  margin: 0.2em 0.4em 0.2em 0;
+}
+/* A navegação do celular vira o menu do leitor: botões de texto, grandes o bastante para o dedo. */
+:root[data-leitor] nav.fixed {
+  border-top: 2px solid #000;
+  padding: 0.5em 4%;
+  background: #fff !important;
+}
+:root[data-leitor] nav.fixed li {
+  display: inline-block !important;
+  list-style: none;
+  margin: 0.2em 0.3em 0.2em 0;
+}
+:root[data-leitor] nav.fixed a {
+  display: inline-block !important;
+  min-height: 0 !important;
+  padding: 0.5em 0.7em !important;
+  border: 1px solid #000;
+  font-size: 0.95em !important;
+  text-decoration: none;
+  background: #fff !important;
+  color: #000 !important;
+}
+:root[data-leitor] nav.fixed a[aria-current] {
+  background: #000 !important;
+  color: #fff !important;
+}
+/* Cartões e botões: contorno preto, toque fácil. */
+:root[data-leitor] main a[class*="border"],
+:root[data-leitor] main li[class*="border"],
+:root[data-leitor] main article,
+:root[data-leitor] main section[class*="border"] {
+  display: block !important;
+  border: 1px solid #000 !important;
+  padding: 0.6em 0.8em !important;
+  margin: 0 0 0.7em !important;
+  background: #fff !important;
+}
+:root[data-leitor] button,
+:root[data-leitor] select,
+:root[data-leitor] input,
+:root[data-leitor] textarea {
+  font-size: 1em !important;
+  border: 1px solid #000 !important;
+  background: #fff !important;
+  color: #000 !important;
+  padding: 0.45em 0.7em !important;
+  max-width: 100%;
+}
+:root[data-leitor] table {
+  border-collapse: collapse;
+  width: 100%;
+}
+:root[data-leitor] th,
+:root[data-leitor] td {
+  border: 1px solid #000 !important;
+  padding: 0.3em 0.45em !important;
+  text-align: left;
+}
+:root[data-leitor] footer {
+  margin-top: 1.5em !important;
+  padding-bottom: 1em !important;
+  border-top: 2px solid #000;
+}
+:root[data-leitor] footer a {
+  display: inline-block;
+  padding: 0.3em 0.6em 0.3em 0;
+}
+:root[data-leitor] .jornal-faixa,
+:root[data-leitor] .jornal-editoria {
+  background: #000 !important;
+  color: #fff !important;
+}
+:root[data-leitor] .jornal-nome {
+  font-size: 1.5em !important;
+  white-space: normal;
+}
+@media (monochrome), (update: slow) {
+  :root {
+    font-size: 118%;
+    --parchment: #fff;
+    --parchment-deep: #fff;
+    --ink: #000;
+    --ink-soft: #000;
+    --gold: #000;
+    --oxblood: #000;
+    --rule: #000;
+    --ok: #000;
+  }
+  :root body {
+    background: #fff !important;
+    background-image: none !important;
+    color: #000 !important;
+    line-height: 1.55;
+  }
+  :root *,
+  :root *::before,
+  :root *::after {
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  /* Nada flutua nem gruda: a tela de tinta redesenha devagar e o que fica por cima atrapalha a leitura. */
+  :root .fixed,
+  :root .sticky {
+    position: static !important;
+  }
+  :root .radio-player,
+  :root dialog,
+  :root iframe,
+  :root video,
+  :root .no-leitor {
+    display: none !important;
+  }
+  :root .hidden {
+    display: none !important;
+  }
+  :root .sr-only {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+  }
+  /* Uma coluna só, do começo ao fim. */
+  :root .grid,
+  :root .flex {
+    display: block !important;
+  }
+  :root main,
+  :root main > div,
+  :root header > div,
+  :root footer > div {
+    max-width: 100% !important;
+    padding-left: 4% !important;
+    padding-right: 4% !important;
+  }
+  :root img,
+  :root svg {
+    max-width: 100% !important;
+    height: auto;
+  }
+  :root a svg,
+  :root button svg,
+  :root nav svg {
+    display: none !important;
+  }
+  :root a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+  /* Cartão inteiro clicável: sem sublinhar tudo, com o título em destaque. */
+  :root main a[class*="border"] {
+    text-decoration: none !important;
+  }
+  /* Tema e rádio não fazem sentido em tela de tinta. */
+  :root header.no-print button,
+  :root header.no-print a[href$="/radio"] {
+    display: none !important;
+  }
+  :root h1 {
+    font-size: 1.7em !important;
+    line-height: 1.2 !important;
+    margin: 0.5em 0 0.3em;
+  }
+  :root h2 {
+    font-size: 1.35em !important;
+    line-height: 1.25 !important;
+    margin: 0.9em 0 0.3em;
+  }
+  :root h3 {
+    font-size: 1.15em !important;
+    margin: 0.8em 0 0.2em;
+  }
+  :root p,
+  :root li {
+    font-size: 1em !important;
+  }
+  /* O cabeçalho vira duas linhas simples: o nome e, embaixo, os botões. */
+  :root body > header,
+  :root header.no-print {
+    border-bottom: 2px solid #000;
+  }
+  :root header.no-print img {
+    display: inline !important;
+    width: 1.6em !important;
+    height: 1.6em !important;
+    vertical-align: middle;
+  }
+  :root header.no-print a,
+  :root header.no-print select,
+  :root header.no-print button {
+    display: inline-block !important;
+    vertical-align: middle;
+    margin: 0.2em 0.4em 0.2em 0;
+  }
+  /* A navegação do celular vira o menu do leitor: botões de texto, grandes o bastante para o dedo. */
+  :root nav.fixed {
+    border-top: 2px solid #000;
+    padding: 0.5em 4%;
+    background: #fff !important;
+  }
+  :root nav.fixed li {
+    display: inline-block !important;
+    list-style: none;
+    margin: 0.2em 0.3em 0.2em 0;
+  }
+  :root nav.fixed a {
+    display: inline-block !important;
+    min-height: 0 !important;
+    padding: 0.5em 0.7em !important;
+    border: 1px solid #000;
+    font-size: 0.95em !important;
+    text-decoration: none;
+    background: #fff !important;
+    color: #000 !important;
+  }
+  :root nav.fixed a[aria-current] {
+    background: #000 !important;
+    color: #fff !important;
+  }
+  /* Cartões e botões: contorno preto, toque fácil. */
+  :root main a[class*="border"],
+  :root main li[class*="border"],
+  :root main article,
+  :root main section[class*="border"] {
+    display: block !important;
+    border: 1px solid #000 !important;
+    padding: 0.6em 0.8em !important;
+    margin: 0 0 0.7em !important;
+    background: #fff !important;
+  }
+  :root button,
+  :root select,
+  :root input,
+  :root textarea {
+    font-size: 1em !important;
+    border: 1px solid #000 !important;
+    background: #fff !important;
+    color: #000 !important;
+    padding: 0.45em 0.7em !important;
+    max-width: 100%;
+  }
+  :root table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  :root th,
+  :root td {
+    border: 1px solid #000 !important;
+    padding: 0.3em 0.45em !important;
+    text-align: left;
+  }
+  :root footer {
+    margin-top: 1.5em !important;
+    padding-bottom: 1em !important;
+    border-top: 2px solid #000;
+  }
+  :root footer a {
+    display: inline-block;
+    padding: 0.3em 0.6em 0.3em 0;
+  }
+  :root .jornal-faixa,
+  :root .jornal-editoria {
+    background: #000 !important;
+    color: #fff !important;
+  }
+  :root .jornal-nome {
+    font-size: 1.5em !important;
+    white-space: normal;
+  }
+}

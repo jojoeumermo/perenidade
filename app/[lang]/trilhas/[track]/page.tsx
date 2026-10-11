@@ -81,6 +81,12 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
         ) : (
           ready.length > 0 && <p className="mt-4 font-sans text-sm text-ink-soft">{t.tracks.examNeed}</p>
         )}
+        {ready.length > 0 && (
+          <p className="mt-4 font-sans text-sm">
+            <a href={`/epub/${track.slug}.epub`} download className="underline hover:text-oxblood">{t.tracks.epub}</a>
+            <span className="text-ink-soft"> · {t.tracks.epubHint}</span>
+          </p>
+        )}
         {ready.length > 0 && <SaveOffline paths={[to(`/trilhas/${track.slug}`), ...ready.map((item) => to(item.path))]} s={t.tracks} />}
         {ready.length < items.length && (
           <p className="mt-6 font-sans text-sm text-ink-soft">

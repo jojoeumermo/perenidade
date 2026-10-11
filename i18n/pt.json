@@ -403,7 +403,9 @@
     "offlineSaving": "Guardando as aulas…",
     "offlineSaved": "Guardada neste aparelho. Dá para abrir as aulas sem conexão.",
     "offlineFailed": "Não deu para guardar agora. Confira a conexão e tente de novo.",
-    "offlineUnsupported": "Este navegador não permite guardar páginas."
+    "offlineUnsupported": "Este navegador não permite guardar páginas.",
+    "epub": "Baixar a trilha como livro digital (EPUB)",
+    "epubHint": "abre no Kindle (pelo Enviar para o Kindle), no Kobo e em aplicativos de leitura"
   },
   "lesson": {
     "position": "aula {i} de {n}",
@@ -762,14 +764,18 @@
     "cleared": "Tudo apagado.",
     "clearHint": "Apaga progresso, rascunhos e preferências. Útil em computadores compartilhados, como os de lan houses e bibliotecas.",
     "panicTitle": "Saída rápida",
-    "panic": "Em qualquer página, aperte a tecla Esc três vezes seguidas para sair do site na hora: o que está guardado neste navegador é apagado e uma página neutra é aberta no lugar.",
+    "panic": "Em qualquer página, aperte a tecla Esc três vezes seguidas para sair do site na hora. No celular, toque cinco vezes seguidas na faixa escura do alto da página. Tudo o que está guardado neste navegador é apagado, inclusive as páginas guardadas para ler sem internet, e uma página neutra é aberta no lugar.",
     "dumpTitle": "Leve a biblioteca com você",
     "dump": "Todo o acervo cabe em um arquivo. Ninguém pode sequestrar este conhecimento.",
     "dumpLink": "Baixar o acervo completo (JSON)",
     "textHint": "Cada aula também existe em texto puro: basta acrescentar /texto ao endereço dela. Funciona até pelo terminal, com curl.",
     "trackingTitle": "Zero rastreamento",
     "tracking": "Sem Google Analytics, sem pixel de rede social, sem cookies de anúncio. Contamos apenas quantas visitas cada página recebe, de forma anônima e sem cookies. Nós não vendemos seus dados porque não os temos.",
-    "exitNow": "Sair agora"
+    "exitNow": "Sair agora",
+    "purgeTitle": "Apagar tudo sozinho",
+    "purgeNever": "Nunca (só quando eu mandar)",
+    "purgeAfter": "Depois de {n} dia(s) sem abrir o site",
+    "purgeHint": "Para quem pode ter o aparelho tomado ou revistado: passado o prazo sem uso, o site apaga progresso, rascunhos, preferências, sessão e páginas guardadas assim que for aberto de novo. Isso não apaga o histórico do próprio navegador: para isso, use a janela anônima."
   },
   "groups": {
     "linguagens": "Linguagens e artes",

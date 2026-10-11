@@ -28,13 +28,19 @@ const flags = ["contrast", "eink", "spacing", "focus", "black", "light"] as cons
 export function applyPrefs(prefs: Prefs) {
   const root = document.documentElement;
   root.style.fontSize = prefs.scale === 100 ? "" : `${prefs.scale}%`;
+  const reader = isReader();
   for (const key of flags) {
-    if (prefs[key]) root.setAttribute(`data-${key}`, "");
+    if (prefs[key] || (reader && key === "eink")) root.setAttribute(`data-${key}`, "");
     else root.removeAttribute(`data-${key}`);
   }
+  if (reader) root.setAttribute("data-leitor", "");
 }
 
-export const prefsScript = `(function(){try{var d=document.documentElement,t=localStorage.getItem("${KEYS.theme}");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);var p=JSON.parse(localStorage.getItem("${KEYS.a11y}")||"{}");if(p.scale>100)d.style.fontSize=p.scale+"%";["contrast","eink","spacing","focus","black","light"].forEach(function(k){if(p[k])d.setAttribute("data-"+k,"")})}catch(e){}})()`;
+/** Leitores de tinta eletrônica (Kindle, Kobo e parentes): o site entra sozinho no visual próprio para eles. */
+export const readerDevice = /Kindle|Silk|EBRD|E-?Reader|Kobo|PocketBook|Tolino|Onyx|BOOX|E Ink/i;
+export const isReader = () => typeof navigator !== "undefined" && readerDevice.test(navigator.userAgent);
+
+export const prefsScript = `(function(){try{var d=document.documentElement;if(${readerDevice}.test(navigator.userAgent)){d.setAttribute("data-leitor","");d.setAttribute("data-eink","")}}catch(e){}try{var d=document.documentElement,t=localStorage.getItem("${KEYS.theme}");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);var p=JSON.parse(localStorage.getItem("${KEYS.a11y}")||"{}");if(p.scale>100)d.style.fontSize=p.scale+"%";["contrast","eink","spacing","focus","black","light"].forEach(function(k){if(p[k])d.setAttribute("data-"+k,"")})}catch(e){}})()`;
 
 export function readPrefs(): Prefs {
   return { ...defaultPrefs, ...parse<Partial<Prefs>>(getItem(KEYS.a11y), {}) };

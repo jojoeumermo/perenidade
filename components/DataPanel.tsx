@@ -6,17 +6,18 @@ import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { applyPrefs, defaultPrefs } from "@/lib/prefs";
 import { useCompleted } from "@/lib/progress";
-import { getItem, KEYS, setItem } from "@/lib/storage";
+import { getItem, KEYS, setItem, useStored } from "@/lib/storage";
 import { quickExit } from "./Shortcuts";
 
 const action = "cursor-pointer border-2 border-ink px-5 py-2.5 font-medium hover:border-oxblood hover:text-oxblood";
 // A sessão de quem tem conta não entra na cópia: é uma credencial, não um dado de estudo.
-const portable = Object.values(KEYS).filter((key) => key !== KEYS.session);
+const portable = Object.values(KEYS).filter((key) => key !== KEYS.session && key !== KEYS.seen);
 
 /** Baixar, restaurar e apagar o que o site guarda neste navegador. */
 export function DataPanel({ s }: { s: Dict["data"] }) {
   const done = useCompleted();
   const [notice, setNotice] = useState("");
+  const purge = useStored(KEYS.purge) ?? "0";
   const fileRef = useRef<HTMLInputElement>(null);
 
   function exportData() {
@@ -77,6 +78,25 @@ export function DataPanel({ s }: { s: Dict["data"] }) {
         </button>
       </div>
       <p className="mt-3 text-ink-soft">{s.clearHint}</p>
+      <label className="mt-6 block max-w-md">
+        <span className="font-serif text-xl font-semibold">{s.purgeTitle}</span>
+        <select
+          value={purge}
+          onChange={(e) => {
+            setItem(KEYS.purge, e.target.value === "0" ? null : e.target.value);
+            setItem(KEYS.seen, e.target.value === "0" ? null : String(Date.now()));
+          }}
+          className="mt-2 w-full border-2 border-ink bg-parchment px-3 py-2"
+        >
+          <option value="0">{s.purgeNever}</option>
+          {[1, 7, 30].map((days) => (
+            <option key={days} value={days}>
+              {fill(s.purgeAfter, { n: days })}
+            </option>
+          ))}
+        </select>
+      </label>
+      <p className="mt-2 text-ink-soft">{s.purgeHint}</p>
       <p role="status" className="mt-3 min-h-5 font-medium">
         {notice}
       </p>

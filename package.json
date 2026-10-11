@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "next dev",
     "dev:local": "node scripts/dev-local.mjs",
+    "prebuild": "node scripts/gerar-epub.mjs",
     "build": "next build",
+    "epub": "node scripts/gerar-epub.mjs",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
