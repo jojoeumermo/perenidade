@@ -45,3 +45,6 @@ next-env.d.ts
 
 # anotacao temporaria da publicacao automatica
 .publicados.json
+
+# livros digitais gerados a cada montagem do site (npm run epub)
+/public/epub/

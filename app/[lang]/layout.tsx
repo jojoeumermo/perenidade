@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
 import { A11yWidget } from "@/components/A11yWidget";
@@ -23,6 +23,18 @@ import { Analytics } from "@vercel/analytics/next";
 const serif = EB_Garamond({ variable: "--font-serif-display", subsets: ["latin", "latin-ext", "cyrillic"] });
 const ui = Inter({ variable: "--font-ui", subsets: ["latin", "latin-ext", "cyrillic"] });
 const mono = IBM_Plex_Mono({ variable: "--font-archive", subsets: ["latin", "latin-ext", "cyrillic"], weight: ["400", "500"] });
+
+// A cor da barra do navegador acompanha o tema, e a página ocupa a tela inteira em celulares com recorte:
+// as margens de segurança são respeitadas pelo cabeçalho e pela navegação de baixo.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4ecd8" },
+    { media: "(prefers-color-scheme: dark)", color: "#17130e" },
+  ],
+};
 
 export const dynamicParams = false;
 
@@ -48,6 +60,8 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     },
     twitter: { card: "summary_large_image", images: ["/cartao.png"] },
     applicationName: site.name,
+    // No iPhone, "Adicionar à Tela de Início" abre o site sem as barras do navegador.
+    appleWebApp: { capable: true, title: site.name, statusBarStyle: "default" },
     formatDetection: { telephone: false, email: false, address: false },
   };
 }

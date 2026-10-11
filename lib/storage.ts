@@ -17,6 +17,8 @@ export const KEYS = {
   notice: "lucia:aviso",
   light: "lucia:leve",
   filter: "lucia:filtro",
+  purge: "lucia:purga",
+  seen: "lucia:visto",
 } as const;
 
 const listeners = new Set<() => void>();

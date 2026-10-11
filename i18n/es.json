@@ -403,7 +403,9 @@
     "offlineSaving": "Guardando las clases…",
     "offlineSaved": "Guardado en este dispositivo. Puedes abrir las clases sin conexión.",
     "offlineFailed": "No se pudo guardar ahora. Revisa la conexión e inténtalo de nuevo.",
-    "offlineUnsupported": "Este navegador no permite guardar páginas."
+    "offlineUnsupported": "Este navegador no permite guardar páginas.",
+    "epub": "Descargar el itinerario como libro digital (EPUB)",
+    "epubHint": "se abre en Kindle (con Enviar a Kindle), Kobo y aplicaciones de lectura"
   },
   "lesson": {
     "position": "lección {i} de {n}",
@@ -762,14 +764,18 @@
     "cleared": "Todo borrado.",
     "clearHint": "Borra el progreso, los borradores y las preferencias. Útil en computadoras compartidas, como las de cibercafés y bibliotecas.",
     "panicTitle": "Salida rápida",
-    "panic": "En cualquier página, pulsa la tecla Esc tres veces seguidas para salir del sitio al instante: lo guardado en este navegador se borra y se abre una página neutra en su lugar.",
+    "panic": "En cualquier página, pulsa la tecla Esc tres veces seguidas para salir del sitio al instante. En el móvil, toca cinco veces seguidas la franja oscura de arriba. Todo lo guardado en este navegador se borra, incluidas las páginas guardadas para leer sin internet, y se abre una página neutra en su lugar.",
     "dumpTitle": "Llévate la biblioteca",
     "dump": "Todo el acervo cabe en un archivo. Nadie puede secuestrar este conocimiento.",
     "dumpLink": "Descargar el acervo completo (JSON)",
     "textHint": "Cada lección existe también en texto plano: basta con añadir /texto a su dirección. Funciona incluso desde la terminal, con curl.",
     "trackingTitle": "Cero rastreo",
     "tracking": "Sin Google Analytics, sin píxel de redes sociales, sin cookies publicitarias. Solo contamos cuántas visitas recibe cada página, de forma anónima y sin cookies. No vendemos tus datos porque no los tenemos.",
-    "exitNow": "Salir ahora"
+    "exitNow": "Salir ahora",
+    "purgeTitle": "Borrar todo automáticamente",
+    "purgeNever": "Nunca (solo cuando yo lo pida)",
+    "purgeAfter": "Tras {n} día(s) sin abrir el sitio",
+    "purgeHint": "Para quien puede sufrir la incautación o el registro del aparato: pasado el plazo sin uso, el sitio borra progreso, borradores, preferencias, sesión y páginas guardadas en cuanto se abra de nuevo. Esto no borra el historial del navegador: para eso, usa la ventana privada."
   },
   "groups": {
     "linguagens": "Lenguajes y artes",

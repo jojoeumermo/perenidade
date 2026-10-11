@@ -399,7 +399,9 @@
     "offlineSaving": "正在保存课程…",
     "offlineSaved": "已保存到本设备。没有网络也能打开这些课程。",
     "offlineFailed": "暂时无法保存。请检查网络后再试。",
-    "offlineUnsupported": "此浏览器不支持保存页面。"
+    "offlineUnsupported": "此浏览器不支持保存页面。",
+    "epub": "把本课程下载为电子书（EPUB）",
+    "epubHint": "可在 Kindle（通过 Send to Kindle）、Kobo 和阅读应用中打开"
   },
   "lesson": {
     "position": "第 {i} 课，共 {n} 课",
@@ -756,14 +758,18 @@
     "cleared": "已全部清除。",
     "clearHint": "清除进度、草稿和偏好设置。在网吧、图书馆等公用电脑上很有用。",
     "panicTitle": "快速离开",
-    "panic": "在任何页面上连按三次 Esc 键，即可立即离开本站：保存在这个浏览器里的内容会被清除，并打开一个中性页面。",
+    "panic": "在任何页面，连续按三次 Esc 键即可立刻离开本站。在手机上，连续点五次页面顶部的深色横条。本浏览器中保存的一切都会被清除，包括为离线阅读保存的页面，并打开一个中性页面。",
     "dumpTitle": "把图书馆带走",
     "dump": "整个馆藏可以装进一个文件。没有人能把这些知识据为己有。",
     "dumpLink": "下载完整馆藏（JSON）",
     "textHint": "每节课也有纯文本版本：只需在其地址后加上 /texto。甚至可以在终端里用 curl 读取。",
     "trackingTitle": "零追踪",
     "tracking": "没有 Google Analytics，没有社交网络像素，没有广告 cookie。我们只匿名统计每个页面的访问次数，不使用 cookie。我们不出售你的数据，因为我们根本没有这些数据。",
-    "exitNow": "立即离开"
+    "exitNow": "立即离开",
+    "purgeTitle": "自动清除全部",
+    "purgeNever": "从不（只在我要求时）",
+    "purgeAfter": "{n} 天未打开本站之后",
+    "purgeHint": "适用于设备可能被没收或搜查的人：超过期限未使用，再次打开本站时会立即清除进度、草稿、偏好、登录状态和已保存的页面。这不会清除浏览器自身的历史记录：如有需要，请使用无痕窗口。"
   },
   "groups": {
     "linguagens": "语言与艺术",

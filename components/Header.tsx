@@ -15,7 +15,8 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
       >
         {t.common.skip}
       </a>
-      <div className="bg-ink px-4 py-1.5 text-center font-mono text-xs tracking-wide text-parchment">{t.common.strip}</div>
+      {/* Cinco toques seguidos nesta faixa acionam a saída rápida (veja Shortcuts). */}
+      <div data-saida className="bg-ink px-4 py-1.5 text-center font-mono text-xs tracking-wide text-parchment">{t.common.strip}</div>
       {/* Três colunas: o nome à esquerda, o menu no centro da página (alinhado com a faixa de cima) e, à direita, conta, idioma e tema. */}
       <div className="mx-auto flex max-w-7xl items-center gap-x-5 px-4 py-4 lg:grid lg:grid-cols-[1fr_auto_1fr]">
         <Link href={localePath(lang, "/")} className="flex shrink-0 items-center gap-2.5 lg:justify-self-start">

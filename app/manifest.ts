@@ -14,18 +14,24 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: "/pt",
     scope: "/",
     display: "standalone",
+    display_override: ["standalone", "minimal-ui"],
+    orientation: "any",
+    dir: "ltr",
+    prefer_related_applications: false,
     background_color: "#f4ecd8",
     theme_color: "#6e1f1a",
     categories: ["education", "books"],
     icons: [
       { src: "/icone-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
       { src: "/icone-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
-      { src: "/icone-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+      // Ícone com margem de segurança: o Android recorta em círculo, gota ou quadrado sem comer o emblema.
+      { src: "/icone-recorte-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
     shortcuts: [
       { name: pt.nav.disciplines, url: "/pt/trilhas" },
       { name: pt.nav.library, url: "/pt/acervo" },
       { name: pt.nav.community, url: "/pt/comunidade" },
+      { name: pt.nav.radio, url: "/pt/radio" },
     ],
   };
 }

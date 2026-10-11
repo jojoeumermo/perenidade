@@ -403,7 +403,9 @@
     "offlineSaving": "Saving the lessons…",
     "offlineSaved": "Saved on this device. You can open the lessons without a connection.",
     "offlineFailed": "Could not save right now. Check your connection and try again.",
-    "offlineUnsupported": "This browser cannot save pages."
+    "offlineUnsupported": "This browser cannot save pages.",
+    "epub": "Download the track as an e-book (EPUB)",
+    "epubHint": "opens on Kindle (through Send to Kindle), Kobo and reading apps"
   },
   "lesson": {
     "position": "lesson {i} of {n}",
@@ -762,14 +764,18 @@
     "cleared": "Everything erased.",
     "clearHint": "Erases progress, drafts and preferences. Useful on shared computers, such as those in internet cafés and libraries.",
     "panicTitle": "Quick exit",
-    "panic": "On any page, press the Esc key three times in a row to leave the site at once: what is stored in this browser is erased and a neutral page opens in its place.",
+    "panic": "On any page, press the Esc key three times in a row to leave the site at once. On a phone, tap the dark strip at the top of the page five times in a row. Everything stored in this browser is erased, including the pages saved for offline reading, and a neutral page opens in its place.",
     "dumpTitle": "Take the library with you",
     "dump": "The whole collection fits in one file. Nobody can hold this knowledge hostage.",
     "dumpLink": "Download the full collection (JSON)",
     "textHint": "Every lesson also exists as plain text: just add /texto to its address. It even works from the terminal, with curl.",
     "trackingTitle": "Zero tracking",
     "tracking": "No Google Analytics, no social media pixel, no advertising cookies. We only count how many visits each page receives, anonymously and without cookies. We do not sell your data because we do not have it.",
-    "exitNow": "Leave now"
+    "exitNow": "Leave now",
+    "purgeTitle": "Erase everything automatically",
+    "purgeNever": "Never (only when I say so)",
+    "purgeAfter": "After {n} day(s) without opening the site",
+    "purgeHint": "For those whose device may be seized or searched: once the period passes without use, the site erases progress, drafts, preferences, session and saved pages as soon as it is opened again. This does not erase the browser's own history: for that, use a private window."
   },
   "groups": {
     "linguagens": "Languages and arts",
