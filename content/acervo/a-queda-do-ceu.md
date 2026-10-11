@@ -3,8 +3,8 @@ titulo: "A Queda do Céu: palavras de um xamã yanomami"
 autor: "Davi Kopenawa e Bruce Albert"
 area: povos-indigenas
 licenca: "Direitos reservados"
-fonte: "Companhia das Letras"
-url: "https://www.companhiadasletras.com.br/"
+fonte: "Open Library (ficha bibliográfica)"
+url: "https://openlibrary.org/works/OL35216133W"
 idioma: "Português"
 ano: "2010"
 ---

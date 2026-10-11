@@ -3,8 +3,8 @@ titulo: "Ideias para Adiar o Fim do Mundo"
 autor: "Ailton Krenak"
 area: povos-indigenas
 licenca: "Direitos reservados"
-fonte: "Companhia das Letras"
-url: "https://www.companhiadasletras.com.br/"
+fonte: "Open Library (ficha bibliográfica)"
+url: "https://openlibrary.org/works/OL22004806W"
 idioma: "Português"
 ano: "2019"
 ---

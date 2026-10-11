@@ -19,8 +19,10 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
     [
       t.footer.learn,
       [
-        [n.tools, "/ferramentas", d.tools],
+        [n.start, "/comecar", d.start],
         [n.questions, "/perguntas", d.questions],
+        [n.tutoring, "/reforco", d.tutoring],
+        [n.tools, "/ferramentas", d.tools],
         [n.glossary, "/glossario", d.glossary],
         [n.authors, "/autores", d.authors],
         [n.videos, "/videos", d.videos],
@@ -33,17 +35,25 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         [n.timeline, "/linha-do-tempo", d.timeline],
         [n.factCheck, "/checagens", d.factCheck],
         [n.debates, "/debates", d.debates],
+        [n.journal, "/jornal", d.journal],
         [n.radio, "/radio", d.radio],
         [n.mural, "/mural", d.mural],
+        [n.materials, "/materiais", d.materials],
+        [n.memorial, "/memorial", d.memorial],
       ],
     ],
     [
       t.footer.project,
       [
         [n.volunteers, "/voluntarios", d.volunteers],
+        [n.contribute, "/contribuir", d.contribute],
+        [n.support, "/apoie", d.support],
         [n.about, "/sobre", d.about],
+        [n.dedication, "/dedicatoria", d.dedication],
         [n.history, "/historico", d.history],
         [n.myData, "/meus-dados", d.myData],
+        [n.privacy, "/privacidade", d.privacy],
+        [n.terms, "/termos", d.terms],
       ],
     ],
   ];

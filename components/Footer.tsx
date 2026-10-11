@@ -11,6 +11,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
       links: [
         [t.nav.disciplines, "/trilhas"],
         [t.nav.library, "/acervo"],
+        [t.nav.start, "/comecar"],
         [t.nav.tools, "/ferramentas"],
         [t.nav.glossary, "/glossario"],
         [t.nav.questions, "/perguntas"],

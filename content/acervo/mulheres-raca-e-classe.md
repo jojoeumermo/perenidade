@@ -3,8 +3,8 @@ titulo: "Mulheres, Raça e Classe"
 autor: "Angela Davis"
 area: feminismo
 licenca: "Direitos reservados"
-fonte: "Boitempo"
-url: "https://www.boitempoeditorial.com.br/"
+fonte: "Open Library (ficha bibliográfica)"
+url: "https://openlibrary.org/works/OL2709375W"
 idioma: "Português"
 ano: "1981"
 ---

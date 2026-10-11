@@ -469,7 +469,7 @@
       "CC BY-NC-SA": "Uso não comercial, com crédito ao autor; obras derivadas devem manter a mesma licença.",
       "CC BY-NC-ND": "Pode ser redistribuída sem alterações, com crédito ao autor, apenas para fins não comerciais.",
       "Conforme a fonte": "A licença varia de texto para texto. Os termos de cada um estão na página da fonte.",
-      "Direitos reservados": "Obra protegida por direitos autorais. Esta ficha é só uma referência bibliográfica: o link leva à editora ou a uma biblioteca, nunca a uma cópia do livro."
+      "Direitos reservados": "Obra protegida por direitos autorais. Esta ficha é só uma referência bibliográfica: o link leva a um catálogo de bibliotecas, nunca a uma loja nem a uma cópia do livro."
     },
     "catalogTitle": "Catálogo ampliado",
     "catalogLead": "Obras reunidas a partir de catálogos abertos, com link direto para a fonte. A ficha é mais simples que a das obras selecionadas pela curadoria. A presença de uma obra aqui não significa concordância com o que ela diz.",
@@ -1101,7 +1101,8 @@
     "wrong": "E-mail ou senha incorretos, ou a verificação de segurança expirou. Tente de novo.",
     "withLink": "Entrar com link enviado ao e-mail",
     "team": "Sou da equipe: entrar com senha",
-    "teamWhy": "As contas da equipe são criadas pela liderança. Depois da senha, o painel pede o código do aplicativo autenticador."
+    "teamWhy": "As contas da equipe são criadas pela liderança. Depois da senha, o painel pede o código do aplicativo autenticador.",
+    "consent": "Ao entrar, você aceita os termos de uso e confirma que leu como cuidamos dos seus dados:"
   },
   "radio": {
     "eyebrow": "No ar",
@@ -1322,5 +1323,14 @@
     "issued": "Emitido em",
     "witnesses": "Testemunhas",
     "offline": "A conferência ainda não está ativa nesta cópia do site."
+  },
+  "start": {
+    "eyebrow": "Lista de leitura",
+    "title": "Por onde começar",
+    "lead": "Sete passos para quem está chegando, do que se vive no trabalho até os textos mais longos. Tudo aqui é gratuito e está no próprio site.",
+    "lessons": "Aulas",
+    "readings": "Leituras",
+    "reference": "ficha de referência, procure em biblioteca",
+    "after": "Terminou? Siga pelas disciplinas, pelo acervo ou leve as suas dúvidas à comunidade:"
   }
 }

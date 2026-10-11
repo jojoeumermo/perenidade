@@ -42,6 +42,6 @@ Isso sobe um banco de teste em memória e o site em `http://localhost:3100`. As 
 - `content/` — todo o conteúdo, em arquivos de texto (aulas, acervo, memorial, glossário, jornal…).
 - `app/` e `components/` — as páginas e as peças do site.
 - `i18n/` — os textos da interface, um arquivo por idioma.
-- `supabase/install.sql` — o banco de apoio (contas, fila, comunidade, rádio), em um arquivo só.
+- `supabase/install.sql` — o banco de apoio (contas, funções da equipe, fila, comunidade, reforço, rádio), em um arquivo só.
 - `scripts/` — roteiros de apoio.
 - `docs/MANUTENCAO.md` — **o guia completo**: como o projeto funciona, como escrever conteúdo, como ligar as contas e o que fazer se algo der errado.

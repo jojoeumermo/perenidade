@@ -521,6 +521,38 @@ export const getQuotes = cache((): Quote[] => {
   return quotes;
 });
 
+/** Um passo da lista "Por onde começar": aulas e obras do próprio site, já com título e endereço. */
+export interface StartStep {
+  title: string;
+  text: string;
+  lessons: { href: string; title: string; track: string }[];
+  books: { href: string; title: string; author: string; reference: boolean }[];
+}
+
+/** A lista de leitura de quem está chegando. Cada aula e cada obra citada precisa existir de verdade. */
+export const getStartSteps = cache((lang: Locale): StartStep[] => {
+  const file = "content/comecar.json";
+  const steps = readJson<{ titulo: string; texto: string; aulas: string[]; obras: string[] }[]>(file, []);
+  const tracks = getTracks(lang);
+  const books = getBooks(lang);
+  return steps.map((step) => ({
+    title: step.titulo,
+    text: step.texto,
+    lessons: step.aulas.map((ref) => {
+      const [trackSlug, lessonSlug] = ref.split("/");
+      const track = tracks.find((item) => item.slug === trackSlug);
+      const lesson = track?.lessons.find((item) => item.slug === lessonSlug);
+      if (!track || !lesson) fail(file, `a aula "${ref}" não existe`);
+      return { href: `/trilhas/${track.slug}/${lesson.slug}`, title: lesson.title, track: track.title };
+    }),
+    books: step.obras.map((id) => {
+      const book = books.find((item) => item.id === id);
+      if (!book) fail(file, `a obra "${id}" não existe no acervo`);
+      return { href: `/acervo/${book.id}`, title: book.title, author: book.author, reference: book.license === "Direitos reservados" };
+    }),
+  }));
+});
+
 /** Perguntas do dia a dia ("por que o aluguel é tão caro?") com os materiais que ajudam a responder. */
 export const getQuestions = cache((): Question[] => readJson<Question[]>("content/perguntas.json", []));
 

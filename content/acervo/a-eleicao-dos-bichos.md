@@ -3,8 +3,8 @@ titulo: "A Eleição dos Bichos"
 autor: "André Rodrigues, Larissa Ribeiro, Paula Desgualdo e Pedro Markun"
 area: politica
 licenca: "Direitos reservados"
-fonte: "Companhia das Letrinhas"
-url: "https://www.companhiadasletras.com.br/"
+fonte: "Open Library (ficha bibliográfica)"
+url: "https://openlibrary.org/works/OL43426761W"
 idioma: "Português"
 ano: "2018"
 ---
