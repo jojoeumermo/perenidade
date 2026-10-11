@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/voluntarios",
     "/glossario",
     "/linha-do-tempo",
+    "/galeria",
     "/ferramentas",
     "/checagens",
     "/debates",

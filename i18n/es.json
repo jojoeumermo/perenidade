@@ -70,7 +70,8 @@
     "privacy": "Privacidad",
     "terms": "Términos de uso",
     "start": "Por dónde empezar",
-    "news": "Noticias"
+    "news": "Noticias",
+    "gallery": "Galería de carteles"
   },
   "footer": {
     "tagline": "Conocimiento libre, para todos, para siempre.",
@@ -1070,7 +1071,8 @@
       "contribute": "Envía una clase, una obra, una corrección o una idea.",
       "support": "Ayuda a pagar el servidor y el dominio.",
       "start": "Libros cortos y clases para dar los primeros pasos.",
-      "news": "Titulares de medios populares, independientes y públicos, actualizados solos."
+      "news": "Titulares de medios populares, independientes y públicos, actualizados solos.",
+      "gallery": "Carteles e imágenes de la lucha de los trabajadores, con la historia de cada uno."
     }
   },
   "support": {
@@ -1369,5 +1371,13 @@
     "byOutlet": "Por medio",
     "empty": "No se pudieron buscar los titulares ahora. Inténtalo de nuevo en unos minutos.",
     "note": "El instituto no escribe, no edita ni responde por estos textos: muestra solo el título, la fecha y el enlace que cada medio distribuye públicamente. Las notas del propio instituto están en el Periódico."
+  },
+  "gallery": {
+    "eyebrow": "Arte y prensa de lucha",
+    "title": "Galería de carteles",
+    "lead": "Antes de la radio y la televisión, la pared era el periódico de quien trabajaba. Estos carteles, grabados y fotografías se hicieron para convocar, enseñar y denunciar. Cada uno viene con quién lo hizo, cuándo y por qué.",
+    "description": "Carteles, grabados y fotografías históricas de la lucha de los trabajadores, en dominio público, con contexto y fuente.",
+    "publicDomain": "Imagen en dominio público. Fuente:",
+    "note": "Aquí solo entran obras en dominio público, guardadas en el propio sitio y con la fuente indicada. Un cartel es un documento de su tiempo: mostrarlo no es suscribir todo lo que se hizo en su nombre."
   }
 }

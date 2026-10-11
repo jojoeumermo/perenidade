@@ -33,6 +33,7 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
       t.more.critical,
       [
         [n.timeline, "/linha-do-tempo", d.timeline],
+        [n.gallery, "/galeria", d.gallery],
         [n.factCheck, "/checagens", d.factCheck],
         [n.debates, "/debates", d.debates],
         [n.news, "/noticias", d.news],
