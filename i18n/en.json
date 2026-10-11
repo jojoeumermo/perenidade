@@ -1134,7 +1134,7 @@
     "email": "Your e-mail",
     "password": "Password",
     "enter": "Sign in",
-    "wrong": "Wrong e-mail or password, or the security check expired. Try again.",
+    "wrong": "Wrong e-mail or password.",
     "failed": "Could not finish. Try again in a few minutes.",
     "why": "There is no open sign-up and no \"forgot my password\" here: accounts are created by invitation from the coordination. Lost your password? Talk to whoever invited you.",
     "offline": "Sign-in is not active in this copy of the site yet.",

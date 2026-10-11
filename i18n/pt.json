@@ -1134,7 +1134,7 @@
     "email": "Seu e-mail",
     "password": "Senha",
     "enter": "Entrar",
-    "wrong": "E-mail ou senha incorretos, ou a verificação de segurança expirou. Tente de novo.",
+    "wrong": "E-mail ou senha incorretos.",
     "failed": "Não foi possível concluir. Tente de novo em alguns minutos.",
     "why": "Aqui não há cadastro aberto nem \"esqueci minha senha\": as contas são criadas por convite da coordenação. Perdeu a senha? Fale com quem convidou você.",
     "offline": "A entrada ainda não está ativa nesta cópia do site.",
