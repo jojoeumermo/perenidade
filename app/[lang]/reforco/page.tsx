@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { PageHeading } from "@/components/PageHeading";
 import { Tutoring } from "@/components/Tutoring";

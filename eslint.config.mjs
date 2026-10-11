@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";

@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { defaultLocale, isLocale } from "@/i18n/config";
 import { getTrack, getTracks } from "@/lib/content";
 import { withLangs } from "@/lib/params";

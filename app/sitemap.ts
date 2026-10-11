@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { MetadataRoute } from "next";
 import { defaultLocale, htmlLang, locales } from "@/i18n/config";
 import { areaSlugs, tools } from "@/lib/areas";

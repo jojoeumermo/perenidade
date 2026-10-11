@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Um substituto local do serviço de banco e contas, para desenvolver e testar o painel sem
 // tocar no banco de verdade. Escuta só em 127.0.0.1 e guarda tudo na memória.

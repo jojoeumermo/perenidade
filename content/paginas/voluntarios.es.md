@@ -47,6 +47,18 @@ El acervo solo indexa: guarda el título, el autor, una sinopsis y el enlace a l
 
 El [Periódico](/jornal) publica noticias y análisis desde el punto de vista de quien trabaja. Hechos comprobados, fuentes a la vista y cuidado al hablar de personas y organizaciones: el objetivo es informar y educar.
 
+## En las clases de refuerzo
+
+Quien se traba en una materia puede [pedir refuerzo](/reforco). El pedido llega a los voluntarios de esa disciplina; quien lo toma responde por correo, con paciencia y mostrando el camino, no solo la respuesta. Es una buena forma de ayudar para quien tiene poco tiempo: una duda a la vez.
+
+## Como diseñador
+
+Las clases mejoran con un buen dibujo: un esquema, un gráfico, un mapa, un cartel para imprimir. Quien diseña atiende los pedidos de los educadores y del periódico y prepara fanzines, volantes y carteles para la página de [materiales](/materiais). Toda imagen debe ser propia o tener licencia libre, con el crédito a la vista.
+
+## Como desarrollador
+
+El sitio es software libre y hay mucho por hacer: nuevas herramientas de práctica, accesibilidad, rendimiento en celulares sencillos y conexiones lentas, traducciones de la interfaz. Quien programa acuerda el trabajo con la dirección comunitaria desde el panel.
+
 ## Difundiendo
 
 Habla del instituto con tus compañeros, en tu sindicato, en tu curso popular, en tu escuela. Un profesor puede imprimir una lección y llevarla al aula. Un grupo de estudio puede usar una ruta entera. Para eso existe.

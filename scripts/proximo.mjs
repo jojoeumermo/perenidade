@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Mostra de onde continuar: para cada disciplina, quantas aulas do roteiro já existem e quais são as próximas.
 // O roteiro de cada trilha fica em content/trilhas/<trilha>/plano.json; uma aula conta como pronta quando

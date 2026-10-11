@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 // Os nomes e descrições de cada disciplina ficam nos dicionários (i18n/), um por idioma.
 
 export const groups = [

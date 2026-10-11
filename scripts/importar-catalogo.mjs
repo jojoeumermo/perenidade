@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Monta o "catálogo ampliado" de cada disciplina (content/catalogo/<disciplina>.json) a partir de dois
 // catálogos abertos. Nada é copiado para cá além de título, autor e endereço: a obra continua na fonte.

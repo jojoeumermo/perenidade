@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Prova as regras do banco: quem pode o quê. Uso: npm run testar:banco
 import { criarBanco } from "./banco-local.mjs";

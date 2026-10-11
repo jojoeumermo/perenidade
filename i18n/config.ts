@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 export const locales = ["pt", "en", "es", "zh", "ru"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "pt";

@@ -1,4 +1,4 @@
--- Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+-- Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 --
 -- Banco de apoio do site: contas, voluntariado, fila de contribuições, comunidade, anotações,
 -- apoiadores e rádio. Rode este arquivo inteiro no SQL Editor. Pode rodar de novo sem medo:

@@ -1,6 +1,6 @@
 # Licença do conteúdo
 
-O código do site tem todos os direitos reservados (veja `LICENSE`). O **conteúdo educacional** é livre, nos termos abaixo.
+O código do site é software livre sob a licença GNU AGPL versão 3 ou posterior (veja `LICENSE`). O **conteúdo educacional** é livre, nos termos abaixo.
 
 ## Aulas, trilhas e demais textos (`content/`)
 

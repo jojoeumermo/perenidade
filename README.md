@@ -2,7 +2,7 @@
 
 Escola e biblioteca comunitária, gratuita e sem anúncios: disciplinas do ensino fundamental ao superior, um acervo de obras livres, ferramentas de prática, memorial, jornal e comunidade. Em português, inglês, espanhol, chinês e russo.
 
-> Código: © Jonathan Santos, todos os direitos reservados (`LICENSE`).
+> Código: © Jonathan Santos, software livre sob a GNU AGPL versão 3 ou posterior (`LICENSE`).
 > Conteúdo educacional: CC BY-SA 4.0 (`LICENSE-CONTEUDO.md`).
 
 ## Rodar na sua máquina

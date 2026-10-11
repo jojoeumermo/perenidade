@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Dict } from "./types";
 
 // Só os textos usados em todas as páginas viajam para o navegador. Os de uma página específica
