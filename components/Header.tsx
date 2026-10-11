@@ -3,7 +3,7 @@ import Link from "next/link";
 import { localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { site } from "@/lib/site";
-import { AccountLink, LanguageSwitcher, NavLinks, RadioLink } from "./NavLinks";
+import { AccountLink, LanguageSwitcher, NavLinks, NewsLink, RadioLink } from "./NavLinks";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Header({ lang, t }: { lang: Locale; t: Dict }) {
@@ -21,7 +21,7 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
       <div className="mx-auto flex max-w-7xl items-center gap-x-2 px-3 py-3 sm:gap-x-5 sm:px-4 sm:py-4 lg:grid lg:grid-cols-[1fr_auto_1fr]">
         <Link href={localePath(lang, "/")} className="flex min-w-0 items-center gap-2 sm:shrink-0 sm:gap-2.5 lg:justify-self-start">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/emblema-96.png" alt="" width={44} height={44} className="h-9 w-9 shrink-0 sm:h-11 sm:w-11" />
+          <img src="/emblema-96.png" alt="" width={44} height={44} className="h-8 w-8 shrink-0 sm:h-11 sm:w-11" />
           <span className="whitespace-nowrap text-lg font-semibold leading-none tracking-tight sm:text-2xl lg:text-3xl">{site.name}</span>
         </Link>
         {/* No celular o menu fica embaixo (BottomNav); aqui ele aparece a partir de telas médias, sempre em uma linha. */}
@@ -31,6 +31,7 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
         <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-2 md:ml-0 lg:gap-3 lg:justify-self-end">
           <AccountLink />
           <LanguageSwitcher />
+          <NewsLink />
           <RadioLink />
           <ThemeToggle />
         </div>
