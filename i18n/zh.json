@@ -935,7 +935,10 @@
       "degrees": "角度",
       "radians": "弧度",
       "sin": "sin",
-      "decimal": "."
+      "decimal": ".",
+      "steps": "分步计算",
+      "stepsCopy": "复制演算过程，粘贴到课程里",
+      "stepsCopied": "已复制。粘贴到课程正文中即可按格式显示。"
     },
     "interest": {
       "initial": "初始金额",
