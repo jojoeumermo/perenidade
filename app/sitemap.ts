@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/perguntas",
     "/guia",
     "/videos",
+    "/mural",
     "/historico",
     "/sobre",
     "/meus-dados",

@@ -62,7 +62,8 @@
     "videos": "Videos",
     "sources": "Guía de fuentes",
     "radio": "Radio",
-    "history": "Historial del acervo"
+    "history": "Historial del acervo",
+    "mural": "Mural de los Trabajadores"
   },
   "footer": {
     "tagline": "Conocimiento libre, para todos, para siempre.",
@@ -263,6 +264,42 @@
     "povos-indigenas": [
       "Pueblos indígenas",
       "Historia, tierra y resistencia de los pueblos originarios."
+    ],
+    "danca": [
+      "Danza",
+      "El cuerpo que se expresa: historia social de la danza y las danzas del pueblo brasileño."
+    ],
+    "primeiros-socorros": [
+      "Primeros auxilios",
+      "Qué hacer, y qué no hacer, hasta que llegue la ayuda."
+    ],
+    "psicologia": [
+      "Psicología",
+      "Nociones fundamentales y el sufrimiento psíquico ligado al trabajo y a la vida social."
+    ],
+    "direito": [
+      "Derecho y Constitución",
+      "La Constitución brasileña de 1988, los derechos de quien trabaja, el derecho de huelga y de manifestación."
+    ],
+    "teologia": [
+      "Teología y religiones",
+      "Historia de las religiones, cristianismo primitivo y Teología de la Liberación."
+    ],
+    "luta-dos-professores": [
+      "Lucha de los docentes",
+      "Huelgas, sindicatos y la defensa de la escuela pública."
+    ],
+    "sindicalismo": [
+      "Sindicalismo",
+      "Organización en el lugar de trabajo, huelgas generales y negociación colectiva."
+    ],
+    "pessoas-idosas": [
+      "Lucha de las personas mayores",
+      "Jubilación, Estatuto de la Persona Mayor y el derecho a envejecer con dignidad."
+    ],
+    "favelas": [
+      "Lucha de las favelas",
+      "Vivienda, saneamiento, trabajo colectivo y la organización de quienes construyeron la ciudad."
     ]
   },
   "tracks": {
@@ -626,7 +663,7 @@
     "dumpLink": "Descargar el acervo completo (JSON)",
     "textHint": "Cada lección existe también en texto plano: basta con añadir /texto a su dirección. Funciona incluso desde la terminal, con curl.",
     "trackingTitle": "Cero rastreo",
-    "tracking": "Sin Google Analytics, sin píxeles de redes sociales, sin cookies de publicidad. No vendemos tus datos porque no los tenemos.",
+    "tracking": "Sin Google Analytics, sin píxel de redes sociales, sin cookies publicitarias. Solo contamos cuántas visitas recibe cada página, de forma anónima y sin cookies. No vendemos tus datos porque no los tenemos.",
     "exitNow": "Salir ahora"
   },
   "groups": {
@@ -897,7 +934,8 @@
       "volunteers": "Revisa, traduce, enseña o escribe.",
       "about": "Qué es el instituto y bajo qué licencias está el contenido.",
       "history": "Todo lo que ha cambiado en el acervo, con fecha.",
-      "myData": "Descarga o borra lo que está guardado en este navegador."
+      "myData": "Descarga o borra lo que está guardado en este navegador.",
+      "mural": "Cooperativas, oficios, arte e iniciativas de quienes trabajan."
     }
   },
   "support": {
@@ -960,7 +998,8 @@
     "sem_conexao": "Sin conexión. Revisa tu internet e inténtalo de nuevo.",
     "sem_servico": "Esta función todavía no está activa en esta copia del sitio.",
     "invalido": "Revisa el campo: {campo}.",
-    "falha": "Algo salió mal. Inténtalo de nuevo en un momento."
+    "falha": "Algo salió mal. Inténtalo de nuevo en un momento.",
+    "limite_anuncios": "Cada persona puede tener hasta tres anuncios. Retira uno para publicar otro."
   },
   "community": {
     "eyebrow": "Comunidad",
@@ -1000,5 +1039,62 @@
     "up": "Voto a favor",
     "down": "Voto en contra",
     "points": "puntos"
+  },
+  "mural": {
+    "eyebrow": "Economía solidaria",
+    "title": "Mural de los Trabajadores",
+    "lead": "Cooperativas, oficios, arte e iniciativas de quienes viven de su propio trabajo. Sin anuncios pagados, sin intermediarios, sin comisiones.",
+    "description": "Espacio gratuito para que trabajadoras y trabajadores difundan cooperativas, servicios, productos, arte e iniciativas.",
+    "rulesTitle": "Cómo funciona el mural",
+    "rules": [
+      "Es para quien vive de su propio trabajo: cooperativas, asociaciones, autónomos, artesanos, artistas, colectivos e iniciativas comunitarias.",
+      "No se admiten: empresas en busca de mano de obra, reventa por catálogo, esquemas piramidales, préstamos, apuestas, promesas de dinero fácil ni propaganda electoral.",
+      "La curaduría lee cada anuncio antes de publicarlo, y este queda visible 180 días. Quien lo publicó lo renueva mientras exista la iniciativa.",
+      "El contacto que escribas es público. Publica solo lo que pueda ver cualquier persona.",
+      "El instituto no cobra nada, no se queda con parte de ninguna venta y no garantiza los servicios anunciados. ¿Viste algo mal? Usa el enlace Denunciar."
+    ],
+    "offline": "El mural todavía no está activo en esta copia del sitio.",
+    "empty": "Todavía no hay anuncios por aquí.",
+    "category": "Tipo",
+    "allCategories": "Todos los tipos",
+    "state": "Estado",
+    "allStates": "Todo Brasil",
+    "categories": {
+      "cooperativa": "Cooperativa o asociación",
+      "servico": "Servicio",
+      "produto": "Producto",
+      "arte": "Arte y cultura",
+      "iniciativa": "Iniciativa comunitaria"
+    },
+    "contact": "Contacto",
+    "by": "Publicado por {name}",
+    "signIn": "Entra para anunciar",
+    "newAd": "Anunciar",
+    "mine": "Mis anuncios",
+    "formTitle": "Tu anuncio",
+    "fields": {
+      "title": "Título",
+      "description": "Qué haces u ofreces",
+      "city": "Ciudad",
+      "state": "Estado",
+      "contact": "Contacto (teléfono, red social o correo)",
+      "link": "Sitio o página (opcional)"
+    },
+    "contactHint": "Atención: el contacto se muestra a cualquier persona que abra el mural.",
+    "send": "Enviar a la curaduría",
+    "sent": "Anuncio enviado. Aparecerá en el mural cuando la curaduría lo haya leído.",
+    "cancel": "Cancelar",
+    "status": {
+      "pendente": "en espera de la curaduría",
+      "aprovado": "publicado",
+      "recusado": "no aprobado",
+      "vencido": "vencido: renuévalo para que vuelva a publicarse"
+    },
+    "edit": "Editar",
+    "remove": "Retirar",
+    "removed": "Anuncio retirado.",
+    "renew": "Renovar",
+    "renewed": "Anuncio renovado por 180 días más.",
+    "validUntil": "hasta el {date}"
   }
 }

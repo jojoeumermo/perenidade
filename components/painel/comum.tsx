@@ -39,6 +39,7 @@ const erros: Record<string, string> = {
   nao_encontrado: "Não encontrado.",
   ja_decidida: "Esta contribuição já foi decidida.",
   ja_pediu: "Você já fez esse pedido e ele está em análise.",
+  limite_anuncios: "Cada pessoa pode ter até três anúncios no mural.",
   ultima_coordenacao: "O instituto precisa de pelo menos uma pessoa na coordenação.",
   sem_conexao: "Sem conexão com o serviço.",
   falha: "Algo deu errado. Tente de novo.",
