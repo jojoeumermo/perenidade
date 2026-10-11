@@ -1,0 +1,92 @@
+[
+  {
+    "titulo": "1. Dê nome ao que você já vive",
+    "texto": "Antes de qualquer livro, entenda a engrenagem: por que quem trabalha fica com a menor parte. São aulas curtas, com exemplos de conta.",
+    "aulas": [
+      "o-que-e-o-capitalismo/o-que-e-o-capitalismo",
+      "introducao-ao-marxismo/classes-sociais-e-capitalismo",
+      "introducao-ao-marxismo/mais-valia",
+      "direitos-no-trabalho/o-que-e-a-clt",
+      "sindicalismo-fundamental/o-que-e-um-sindicato"
+    ],
+    "obras": []
+  },
+  {
+    "titulo": "2. Os primeiros textos",
+    "texto": "Textos curtos, escritos para trabalhadores e militantes, que se leem em uma ou duas noites. Comece pelos Princípios, que são perguntas e respostas; o Manifesto vem logo depois.",
+    "aulas": [],
+    "obras": [
+      "principios-basicos-do-comunismo",
+      "manifesto-do-partido-comunista",
+      "trabalho-assalariado-e-capital",
+      "salario-preco-e-lucro",
+      "as-tres-fontes-e-as-tres-partes-constitutivas-do-marxismo"
+    ]
+  },
+  {
+    "titulo": "3. De onde vêm as ideias",
+    "texto": "O que é socialismo, o que é comunismo e o que distingue o marxismo dos sonhos de sociedade perfeita que vieram antes dele.",
+    "aulas": [
+      "socialismo-fundamental/o-que-e-socialismo",
+      "comunismo-fundamental/o-que-e-comunismo",
+      "revolucoes-socialistas/socialismo-utopico-e-socialismo-cientifico",
+      "introducao-ao-marxismo/materialismo-historico"
+    ],
+    "obras": [
+      "prefacio-de-para-a-critica-da-economia-politica"
+    ]
+  },
+  {
+    "titulo": "4. A classe tem cor e tem gênero",
+    "texto": "No Brasil, a maior parte do povo é negra (55,5% no Censo de 2022, somando pretos e pardos), e as mulheres somam ao emprego a maior parte do trabalho de casa. Não se entende a classe sem isso.",
+    "aulas": [
+      "luta-negra-fundamental/quilombos-palmares-zumbi-e-dandara",
+      "lutas-do-povo/revolucao-haitiana",
+      "feminismo-fundamental/a-lei-maria-da-penha"
+    ],
+    "obras": [
+      "o-comunismo-e-a-familia",
+      "escritos-de-clara-zetkin",
+      "escritos-de-amilcar-cabral",
+      "escritos-de-frantz-fanon",
+      "mulheres-raca-e-classe"
+    ]
+  },
+  {
+    "titulo": "5. O Estado e as revoluções",
+    "texto": "Para quem o Estado trabalha, o que os trabalhadores já tentaram pôr no lugar e o que deu certo e errado. Aqui os textos são mais longos: leia devagar.",
+    "aulas": [
+      "lutas-do-povo/comuna-de-paris",
+      "revolucoes-socialistas/a-revolucao-russa-de-1917",
+      "revolucoes-socialistas/che-guevara-e-a-revolucao-cubana"
+    ],
+    "obras": [
+      "a-guerra-civil-em-franca",
+      "o-estado-e-a-revolucao",
+      "reforma-ou-revolucao",
+      "imperialismo-fase-superior-do-capitalismo"
+    ]
+  },
+  {
+    "titulo": "6. Ler junto",
+    "texto": "Ninguém se forma sozinho. Chame duas ou três pessoas, combinem um texto curto por semana e conversem sobre o que ele tem a ver com a vida de vocês. Foi assim que Paulo Freire alfabetizou e é assim que se estuda em sindicatos e movimentos.",
+    "aulas": [
+      "educacao-popular-fundamental/quem-foi-paulo-freire"
+    ],
+    "obras": [
+      "dicionario-politico",
+      "acervo-paulo-freire"
+    ]
+  },
+  {
+    "titulo": "7. Para ler com as crianças",
+    "texto": "Livros ilustrados que explicam classes, mais-valia e ditadura para os pequenos. São obras protegidas por direitos autorais: a ficha indica onde procurá-las em bibliotecas.",
+    "aulas": [],
+    "obras": [
+      "o-que-sao-classes-sociais",
+      "o-capital-para-criancas",
+      "a-ditadura-e-assim",
+      "amoras"
+    ]
+  }
+]

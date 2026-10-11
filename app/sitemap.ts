@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/checagens",
     "/debates",
     "/perguntas",
+    "/comecar",
     "/guia",
     "/videos",
     "/mural",

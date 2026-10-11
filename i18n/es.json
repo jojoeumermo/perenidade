@@ -469,7 +469,7 @@
       "CC BY-NC-SA": "Uso no comercial, con crédito al autor; las obras derivadas deben mantener la misma licencia.",
       "CC BY-NC-ND": "Puede redistribuirse sin cambios, con crédito al autor, solo con fines no comerciales.",
       "Conforme a fonte": "La licencia varía de un texto a otro. Los términos de cada uno están en la página de la fuente.",
-      "Direitos reservados": "Obra protegida por derechos de autor. Esta ficha es solo una referencia bibliográfica: el enlace lleva a la editorial o a una biblioteca, nunca a una copia del libro."
+      "Direitos reservados": "Obra protegida por derechos de autor. Esta ficha es solo una referencia bibliográfica: el enlace lleva a un catálogo de bibliotecas, nunca a una tienda ni a una copia del libro."
     },
     "catalogTitle": "Catálogo ampliado",
     "catalogLead": "Obras reunidas a partir de catálogos abiertos, con enlace directo a la fuente. La ficha es más sencilla que la de las obras seleccionadas por la curaduría. Que una obra figure aquí no significa que se comparta lo que dice.",
@@ -1101,7 +1101,8 @@
     "wrong": "Correo o contraseña incorrectos, o la verificación de seguridad caducó. Inténtalo de nuevo.",
     "withLink": "Entrar con un enlace enviado al correo",
     "team": "Soy del equipo: entrar con contraseña",
-    "teamWhy": "Las cuentas del equipo las crea la dirección comunitaria. Después de la contraseña, el panel pide el código de la aplicación autenticadora."
+    "teamWhy": "Las cuentas del equipo las crea la dirección comunitaria. Después de la contraseña, el panel pide el código de la aplicación autenticadora.",
+    "consent": "Al entrar, aceptas los términos de uso y confirmas que leíste cómo cuidamos tus datos:"
   },
   "radio": {
     "eyebrow": "Al aire",
@@ -1322,5 +1323,14 @@
     "issued": "Emitido el",
     "witnesses": "Testigos",
     "offline": "La verificación todavía no está activa en esta copia del sitio."
+  },
+  "start": {
+    "eyebrow": "Lista de lectura",
+    "title": "Por dónde empezar",
+    "lead": "Siete pasos para quien llega, desde lo que se vive en el trabajo hasta los textos más largos. Todo aquí es gratuito y está en el propio sitio.",
+    "lessons": "Clases",
+    "readings": "Lecturas",
+    "reference": "ficha de referencia, búscalo en una biblioteca",
+    "after": "¿Terminaste? Sigue por las disciplinas, por el acervo o lleva tus dudas a la comunidad:"
   }
 }

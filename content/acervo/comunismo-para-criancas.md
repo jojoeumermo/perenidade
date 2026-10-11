@@ -4,7 +4,7 @@ autor: "Bini Adamczak"
 area: comunismo
 licenca: "Direitos reservados"
 fonte: "Open Library (ficha bibliográfica)"
-url: "https://openlibrary.org/search?q=comunismo+para+crian%C3%A7as"
+url: "https://openlibrary.org/works/OL19150887W"
 idioma: "Português"
 ano: "2018"
 ---

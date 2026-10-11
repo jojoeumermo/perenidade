@@ -469,7 +469,7 @@
       "CC BY-NC-SA": "Non-commercial use, with credit to the author; derivative works must keep the same licence.",
       "CC BY-NC-ND": "May be redistributed unchanged, with credit to the author, for non-commercial purposes only.",
       "Conforme a fonte": "The licence varies from text to text. The terms of each one are on the source's page.",
-      "Direitos reservados": "This work is protected by copyright. This entry is only a bibliographic reference: the link leads to the publisher or to a library, never to a copy of the book."
+      "Direitos reservados": "This work is protected by copyright. This entry is only a bibliographic reference: the link leads to a library catalogue, never to a shop or to a copy of the book."
     },
     "catalogTitle": "Extended catalogue",
     "catalogLead": "Works gathered from open catalogues, with a direct link to the source. These entries are simpler than those selected by the curators. A work being listed here does not mean agreement with what it says.",
@@ -1101,7 +1101,8 @@
     "wrong": "Wrong e-mail or password, or the security check expired. Please try again.",
     "withLink": "Sign in with a link sent by e-mail",
     "team": "I am on the team: sign in with a password",
-    "teamWhy": "Team accounts are created by the community lead. After the password, the panel asks for the code from your authenticator app."
+    "teamWhy": "Team accounts are created by the community lead. After the password, the panel asks for the code from your authenticator app.",
+    "consent": "By signing in you accept the terms of use and confirm you have read how we handle your data:"
   },
   "radio": {
     "eyebrow": "On air",
@@ -1322,5 +1323,14 @@
     "issued": "Issued on",
     "witnesses": "Witnesses",
     "offline": "Verification is not active on this copy of the site yet."
+  },
+  "start": {
+    "eyebrow": "Reading list",
+    "title": "Where to start",
+    "lead": "Seven steps for newcomers, from what you live at work to the longer texts. Everything here is free and on this site.",
+    "lessons": "Lessons",
+    "readings": "Readings",
+    "reference": "reference entry, look for it in a library",
+    "after": "Finished? Go on through the subjects, the library, or take your questions to the community:"
   }
 }

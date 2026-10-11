@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { Dict } from "@/i18n/types";
 import { getClient, googleEnabled, hasBackend, localBackend, useMe } from "@/lib/backend";
 import { Captcha, captchaEnabled } from "./Captcha";
-import { useI18n } from "./I18n";
+import { L, useI18n } from "./I18n";
 
 const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
 const primary = "cursor-pointer bg-ink px-6 py-2.5 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
@@ -17,7 +17,7 @@ const primary = "cursor-pointer bg-ink px-6 py-2.5 font-medium text-parchment ho
  * com o código do aplicativo autenticador já dentro do painel.
  */
 export function SignIn({ s }: { s: Dict["auth"] }) {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   const router = useRouter();
   const me = useMe();
   const [email, setEmail] = useState("");
@@ -96,6 +96,12 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         </button>
       </p>
       <p className="text-ink-soft">{team ? s.teamWhy : s.why}</p>
+      <p className="font-sans text-sm text-ink-soft">
+        {s.consent}{" "}
+        <L href="/termos" className="underline hover:text-oxblood">{t.nav.terms}</L>
+        {" · "}
+        <L href="/privacidade" className="underline hover:text-oxblood">{t.nav.privacy}</L>
+      </p>
     </form>
   );
 }
