@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/trilhas",
     "/acervo",
     "/jornal",
+    "/noticias",
     "/comunidade",
     "/memorial",
     "/dedicatoria",

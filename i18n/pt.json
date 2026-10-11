@@ -69,7 +69,8 @@
     "materials": "Materiais para imprimir",
     "privacy": "Privacidade",
     "terms": "Termos de uso",
-    "start": "Por onde começar"
+    "start": "Por onde começar",
+    "news": "Notícias"
   },
   "footer": {
     "tagline": "Conhecimento livre, para todos, para sempre.",
@@ -1004,7 +1005,8 @@
     "free": "Gratuito",
     "updated": "Atualizado em {date}",
     "more": "Mais notícias",
-    "back": "Voltar à capa do jornal"
+    "back": "Voltar à capa do jornal",
+    "round": "Giro de notícias do país"
   },
   "factCheck": {
     "eyebrow": "Contra a desinformação",
@@ -1067,7 +1069,8 @@
       "dedication": "De onde vem o nome do instituto.",
       "contribute": "Envie uma aula, uma obra, uma correção ou uma ideia.",
       "support": "Ajude a pagar o servidor e o domínio.",
-      "start": "Livros curtos e aulas para dar os primeiros passos."
+      "start": "Livros curtos e aulas para dar os primeiros passos.",
+      "news": "Manchetes de veículos populares, independentes e públicos, atualizadas sozinhas."
     }
   },
   "support": {
@@ -1355,5 +1358,16 @@
     "readings": "Leituras",
     "reference": "ficha de referência, procure em biblioteca",
     "after": "Terminou? Siga pelas disciplinas, pelo acervo ou leve as suas dúvidas à comunidade:"
+  },
+  "news": {
+    "eyebrow": "Giro de notícias",
+    "title": "Notícias do país",
+    "lead": "As manchetes mais recentes da imprensa popular, independente e pública, reunidas em um lugar só. Toque na manchete para ler a matéria na casa de quem escreveu.",
+    "description": "Manchetes recentes da imprensa popular, independente e pública do Brasil, atualizadas a cada quinze minutos.",
+    "updated": "Atualizado às {time} (horário de Brasília); a lista se renova a cada quinze minutos",
+    "latest": "Últimas",
+    "byOutlet": "Por veículo",
+    "empty": "Não foi possível buscar as manchetes agora. Tente de novo em alguns minutos.",
+    "note": "O instituto não escreve, não edita e não responde por estes textos: mostra só o título, a data e o link que cada veículo distribui publicamente. As matérias do próprio instituto ficam no Jornal."
   }
 }

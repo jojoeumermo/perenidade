@@ -69,7 +69,8 @@
     "materials": "Materiales para imprimir",
     "privacy": "Privacidad",
     "terms": "Términos de uso",
-    "start": "Por dónde empezar"
+    "start": "Por dónde empezar",
+    "news": "Noticias"
   },
   "footer": {
     "tagline": "Conocimiento libre, para todos, para siempre.",
@@ -1004,7 +1005,8 @@
     "free": "Gratuito",
     "updated": "Actualizado el {date}",
     "more": "Más noticias",
-    "back": "Volver a la portada"
+    "back": "Volver a la portada",
+    "round": "Ronda de noticias"
   },
   "factCheck": {
     "eyebrow": "Contra la desinformación",
@@ -1067,7 +1069,8 @@
       "dedication": "De dónde viene el nombre del instituto.",
       "contribute": "Envía una clase, una obra, una corrección o una idea.",
       "support": "Ayuda a pagar el servidor y el dominio.",
-      "start": "Libros cortos y clases para dar los primeros pasos."
+      "start": "Libros cortos y clases para dar los primeros pasos.",
+      "news": "Titulares de medios populares, independientes y públicos, actualizados solos."
     }
   },
   "support": {
@@ -1355,5 +1358,16 @@
     "readings": "Lecturas",
     "reference": "ficha de referencia, búscalo en una biblioteca",
     "after": "¿Terminaste? Sigue por las disciplinas, por el acervo o lleva tus dudas a la comunidad:"
+  },
+  "news": {
+    "eyebrow": "Ronda de noticias",
+    "title": "Noticias de Brasil",
+    "lead": "Los titulares más recientes de la prensa popular, independiente y pública de Brasil, reunidos en un solo lugar. Toca el titular para leer la nota en el sitio de quien la escribió. Los titulares están en portugués.",
+    "description": "Titulares recientes de la prensa popular, independiente y pública de Brasil, actualizados cada quince minutos.",
+    "updated": "Actualizado a las {time} (hora de Brasilia); la lista se renueva cada quince minutos",
+    "latest": "Últimas",
+    "byOutlet": "Por medio",
+    "empty": "No se pudieron buscar los titulares ahora. Inténtalo de nuevo en unos minutos.",
+    "note": "El instituto no escribe, no edita ni responde por estos textos: muestra solo el título, la fecha y el enlace que cada medio distribuye públicamente. Las notas del propio instituto están en el Periódico."
   }
 }

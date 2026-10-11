@@ -69,7 +69,8 @@
     "materials": "Printable materials",
     "privacy": "Privacy",
     "terms": "Terms of use",
-    "start": "Where to start"
+    "start": "Where to start",
+    "news": "News"
   },
   "footer": {
     "tagline": "Free knowledge, for everyone, forever.",
@@ -1004,7 +1005,8 @@
     "free": "Free",
     "updated": "Updated on {date}",
     "more": "More news",
-    "back": "Back to the front page"
+    "back": "Back to the front page",
+    "round": "News round-up"
   },
   "factCheck": {
     "eyebrow": "Against disinformation",
@@ -1067,7 +1069,8 @@
       "dedication": "Where the institute's name comes from.",
       "contribute": "Send a lesson, a work, a correction or an idea.",
       "support": "Help pay for the server and the domain.",
-      "start": "Short books and lessons for the first steps."
+      "start": "Short books and lessons for the first steps.",
+      "news": "Headlines from grassroots, independent and public outlets, updated automatically."
     }
   },
   "support": {
@@ -1355,5 +1358,16 @@
     "readings": "Readings",
     "reference": "reference entry, look for it in a library",
     "after": "Finished? Go on through the subjects, the library, or take your questions to the community:"
+  },
+  "news": {
+    "eyebrow": "News round-up",
+    "title": "News from Brazil",
+    "lead": "The latest headlines from Brazil's grassroots, independent and public press, gathered in one place. Tap a headline to read the story on the publisher's own site. The headlines are in Portuguese.",
+    "description": "Recent headlines from Brazil's grassroots, independent and public press, updated every fifteen minutes.",
+    "updated": "Updated at {time} (Brasília time); the list refreshes every fifteen minutes",
+    "latest": "Latest",
+    "byOutlet": "By outlet",
+    "empty": "The headlines could not be fetched right now. Try again in a few minutes.",
+    "note": "The institute does not write, edit or answer for these texts: it shows only the title, date and link that each outlet distributes publicly. The institute's own stories are in the Journal."
   }
 }
