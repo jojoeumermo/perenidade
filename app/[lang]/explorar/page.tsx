@@ -50,7 +50,6 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         [n.support, "/apoie", d.support],
         [n.about, "/sobre", d.about],
         [n.dedication, "/dedicatoria", d.dedication],
-        [n.history, "/historico", d.history],
         [n.myData, "/meus-dados", d.myData],
         [n.privacy, "/privacidade", d.privacy],
         [n.terms, "/termos", d.terms],

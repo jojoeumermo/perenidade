@@ -90,3 +90,27 @@ export function LanguageSwitcher() {
     </select>
   );
 }
+
+/** Atalho para a rádio, ao lado do botão de tema: um toque e a música começa. */
+export function RadioLink() {
+  const pathname = usePathname();
+  const { lang, t } = useI18n();
+  const href = localePath(lang, "/radio");
+  const active = pathname === href;
+  return (
+    <Link
+      href={href}
+      aria-label={t.nav.radio}
+      title={t.nav.radio}
+      aria-current={active ? "page" : undefined}
+      className={`flex h-8 w-8 shrink-0 items-center justify-center hover:text-oxblood ${active ? "text-oxblood" : "text-ink-soft"}`}
+    >
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <rect x="3" y="9" width="18" height="11" rx="1.5" />
+        <path d="M7 9 17 4" />
+        <circle cx="8.5" cy="14.5" r="2.5" />
+        <path d="M14 13h4M14 16h4" />
+      </svg>
+    </Link>
+  );
+}

@@ -31,7 +31,7 @@ Este é o documento de referência do projeto: como ele é organizado, como se e
 | `content/paginas/` | páginas de texto corrido (sobre, voluntariado, linha do tempo, guia de fontes, privacidade, termos de uso) |
 | `content/frases.json`, `content/perguntas.json`, `content/comecar.json` | frase do dia, perguntas de partida e a lista de leitura "Por onde começar" (só cita aulas e obras que existem; se alguma sumir, a montagem do site avisa) |
 | `content/radios.json` | rádios populares e comunitárias que o tocador oferece (só transmissões abertas e conferidas) |
-| `content/abertura.json` | aviso que aparece ao abrir o site; a liderança pode trocá-lo ou desligá-lo pelo painel |
+| `content/abertura.json` | aviso que aparece ao abrir o site; a coordenação pode trocá-lo ou desligá-lo pelo painel |
 | `public/arquivos/` | imagens e PDFs aprovados no painel, já limpos de dados embutidos (ver seção 7) |
 | `i18n/` | textos da interface (`pt.json` é a referência) |
 | `lib/areas.ts` | lista de disciplinas, grupos, etapas, licenças e ferramentas |
@@ -157,18 +157,18 @@ Sem esta etapa o site funciona, só não aparecem o painel, a comunidade e a rá
 3. Em **Project Settings → API**, confira que em *Exposed schemas* **não** aparece `interno` (o padrão já é só `public`).
 4. Ainda em **API**, copie a *Project URL* e a chave *anon public*. No serviço de hospedagem do site, crie as variáveis `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` com esses valores e publique o site de novo.
 5. Em **Authentication → URL Configuration**, ponha o endereço do site em *Site URL* e acrescente `https://SEU-DOMINIO/**` em *Redirect URLs*.
-6. Em **Authentication → Providers → Email**, deixe o e-mail ligado. Estudantes entram por link enviado ao e-mail, sem senha; a equipe pode entrar com e-mail e senha (as contas da equipe são criadas pela liderança em **Authentication → Users → Add user**). O envio de e-mails embutido é limitado a poucas mensagens por hora: para uso real, configure um SMTP próprio em **Authentication → SMTP Settings**.
+6. Em **Authentication → Providers → Email**, deixe o e-mail ligado. Estudantes entram por link enviado ao e-mail, sem senha; a equipe pode entrar com e-mail e senha (as contas da equipe são criadas pela coordenação em **Authentication → Users → Add user**). O envio de e-mails embutido é limitado a poucas mensagens por hora: para uso real, configure um SMTP próprio em **Authentication → SMTP Settings**.
 7. Entre no site uma vez com o seu e-mail. Depois, no **SQL Editor**, rode:
 
    ```sql
    select public.promover_coordenacao('seu-email@exemplo.com');
    ```
 
-   A partir daí o painel mostra as abas da liderança.
+   A partir daí o painel mostra as abas da coordenação.
 8. Para a publicação automática (seção 7), cadastre nos segredos do repositório `SUPABASE_URL` (a mesma *Project URL*) e `SUPABASE_SERVICE_ROLE_KEY` (a chave *service_role*). **Essa chave nunca vai para o site nem para o `.env` de ninguém.** Depois crie, na aba *Variables* da mesma tela, a variável `PUBLICAR` com o valor `sim`: é ela que liga a rotina de hora em hora.
 9. Opcional — entrada com o Google: ligue o provedor em **Authentication → Providers → Google** e crie a variável `NEXT_PUBLIC_AUTH_GOOGLE=1`.
 10. **Proteção contra robôs (Cloudflare Turnstile).** Crie o widget no painel da Cloudflare. A *site key* (pública) vai para a variável `NEXT_PUBLIC_TURNSTILE_SITE_KEY` na hospedagem. A *secret key* vai **somente** em **Authentication → Attack Protection → Enable Captcha protection → Turnstile**, no Supabase. Ela nunca entra no repositório, em `.env` nem em mensagem. Ordem certa: primeiro publique o site com a *site key*; só depois ligue a proteção no Supabase. Na ordem inversa ninguém consegue entrar até o site novo subir.
-11. **Segundo fator.** Em **Authentication → Sign In / Providers → Multi-Factor**, ligue o TOTP (aplicativo autenticador). Cada pessoa da equipe cadastra o seu no painel, aba **Início**, em *Aplicativo autenticador (segundo fator)*. Depois que a liderança tiver cadastrado o próprio, pode ligar na aba **Segurança e sucessão** a exigência de segundo fator para todas as funções com poder de decisão. Se a liderança perder o aparelho e ficar trancada do lado de fora, rode no **SQL Editor**:
+11. **Segundo fator.** Em **Authentication → Sign In / Providers → Multi-Factor**, ligue o TOTP (aplicativo autenticador). Cada pessoa da equipe cadastra o seu no painel, aba **Início**, em *Aplicativo autenticador (segundo fator)*. Depois que a coordenação tiver cadastrado o próprio, pode ligar na aba **Segurança e sucessão** a exigência de segundo fator para todas as funções com poder de decisão. Se a coordenação perder o aparelho e ficar trancada do lado de fora, rode no **SQL Editor**:
 
     ```sql
     update interno.configuracoes set valor = '{"exigir_2fa": false}' where chave = 'seguranca';
@@ -182,7 +182,7 @@ Cada pessoa vê no painel só as abas da sua função. O banco confere a funçã
 | Papel (nome no banco) | Nome no site | O que pode |
 | --- | --- | --- |
 | `coordenacao` | líder comunitário | tudo: aprova voluntários, distribui funções e disciplinas, decide publicações, cuida do mural e da rádio, define a sucessão, lê o registro de atividades. Só existe um |
-| `vice` | vice-líder | o mesmo que a liderança, menos: nomear ou tirar vice, passar a liderança, mexer na sucessão, mudar a exigência de segundo fator, definir a sala da equipe e emitir certificados |
+| `vice` | vice-líder | o mesmo que a coordenação, menos: nomear ou tirar vice, passar a coordenação, mexer na sucessão, mudar a exigência de segundo fator, definir a sala da equipe e emitir certificados |
 | `curadoria` | curadoria | lê a fila inteira, edita e decide; cuida da comunidade (mensagens retidas, palavras vetadas) |
 | `educacao` (por disciplina) | educador | escreve aulas da sua disciplina, vê a fila dela e dá parecer nas matérias do jornal |
 | `revisao` | revisor | lê a fila e dá parecer |
@@ -196,13 +196,13 @@ Quem contribui sem conta, pela página Contribuir, entra na mesma fila.
 
 ### Sucessão
 
-A liderança indica, na aba **Segurança e sucessão**, uma lista ordenada de sucessores. Se o líder ficar **90 dias** sem entrar no painel, a liderança passa sozinha para a primeira pessoa da lista que tenha entrado nos últimos 30 dias; o antigo líder vira vice. A troca fica no registro de atividades e todos da liderança são avisados. O líder também pode passar o cargo na hora, pelo mesmo painel.
+A coordenação indica, na aba **Segurança e sucessão**, uma lista ordenada de sucessores. Se o líder ficar **90 dias** sem entrar no painel, a coordenação passa sozinha para a primeira pessoa da lista que tenha entrado nos últimos 30 dias; o antigo líder vira vice. A troca fica no registro de atividades e todos da coordenação são avisados. O líder também pode passar o cargo na hora, pelo mesmo painel.
 
 A sucessão do banco não resolve a da **infraestrutura**: domínio, hospedagem, Cloudflare, Supabase e repositório estão em contas pessoais. Guarde essas senhas em um gerenciador com acesso de emergência para a pessoa de confiança.
 
 ### Registro de atividades
 
-Toda decisão (aprovar, recusar, dar ou tirar função, suspender, mudar configuração, emitir certificado, passar a liderança) é gravada com autor, data e o que mudou. A liderança lê na aba **Registro de atividades**. Ninguém apaga nem edita o registro pelo painel; a faxina automática (seção 6, item 12) descarta só o que tem mais de 400 dias.
+Toda decisão (aprovar, recusar, dar ou tirar função, suspender, mudar configuração, emitir certificado, passar a coordenação) é gravada com autor, data e o que mudou. A coordenação lê na aba **Registro de atividades**. Ninguém apaga nem edita o registro pelo painel; a faxina automática (seção 6, item 12) descarta só o que tem mais de 400 dias.
 
 ## 7. Como uma contribuição vira página
 
@@ -221,8 +221,8 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 - **Chaves.** A chave *anon* é pública por natureza e não abre nada sozinha. A *service_role* existe só nos segredos da publicação automática.
 - **Texto, não código.** O conteúdo é Markdown sem HTML; links só http(s); imagens só as que estão em `public/arquivos/` e `public/imagens/`. Os cabeçalhos de segurança (`next.config.ts`) impedem scripts de fora.
 - **Limites.** Envios anônimos têm limite por origem, campo-isca contra robôs e tamanho máximo. A entrada (pedido de link, senha da equipe e cadastro) passa pela verificação do Turnstile, conferida pelo próprio serviço de contas. Os formulários abertos (contribuir, mural, denúncia, reforço) são protegidos pelo limite de envios e pelo campo-isca, dentro do banco.
-- **Segundo fator** para as funções com poder de decisão (seção 6) e **aviso de aparelho novo**: quando uma conta da equipe entra de um aparelho que nunca usou, a pessoa e a liderança são avisadas no painel.
-- **Iscas.** Endereços que só robôs de invasão procuram (`/wp-admin`, `/.env`, `/phpmyadmin`…) respondem "não encontrado" sem gastar nada. No banco existem funções com nomes tentadores (`exportar_usuarios`, `admin_senhas`, `chaves_api`) que não devolvem nada: quem chama fica registrado e a liderança é avisada.
+- **Segundo fator** para as funções com poder de decisão (seção 6) e **aviso de aparelho novo**: quando uma conta da equipe entra de um aparelho que nunca usou, a pessoa e a coordenação são avisadas no painel.
+- **Iscas.** Endereços que só robôs de invasão procuram (`/wp-admin`, `/.env`, `/phpmyadmin`…) respondem "não encontrado" sem gastar nada. No banco existem funções com nomes tentadores (`exportar_usuarios`, `admin_senhas`, `chaves_api`) que não devolvem nada: quem chama fica registrado e a coordenação é avisada.
 - **Comunidade.** Mensagem com palavra da lista vetada não vai ao ar: fica retida até a curadoria olhar. A lista se edita na aba **Comunidade**, em *Filtro de palavras*.
 - **Pouco para roubar.** O banco não guarda senha (isso é do serviço de contas), endereço, documento nem telefone. O nome público padrão é um codinome ("Estudante 12345"). Um vazamento exporia e-mails e mensagens, e é por isso que a regra é guardar o mínimo.
 - **Interpretadores isolados.** Python e PHP rodam no navegador de quem usa, dentro de um Worker sem acesso à página.
@@ -233,7 +233,7 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 | --- | --- |
 | Foi publicado algo indevido | Reverta o registro de publicação no histórico. O site volta ao estado anterior. |
 | Conta de voluntário comprometida | No painel, aba Voluntários: suspenda a conta e retire as funções. Confira no registro de atividades o que ela fez. |
-| A liderança perdeu o segundo fator | Rode no SQL Editor o comando da seção 6, item 11, entre e cadastre um aparelho novo. |
+| A coordenação perdeu o segundo fator | Rode no SQL Editor o comando da seção 6, item 11, entre e cadastre um aparelho novo. |
 | Alguém caiu em uma isca | Está no registro de atividades, com a conta e a hora. Se for conta da equipe, trate como conta comprometida. |
 | Suspeita de invasão do banco | Desative a rotina de publicação. No Supabase, gere chaves novas (**API → Roll keys**), atualize as variáveis e os segredos. O acervo não é afetado. |
 | Banco perdido | Crie outro projeto e rode `supabase/install.sql`. Perdem-se contas, fila e conversas; o conteúdo publicado continua intacto. |
@@ -271,20 +271,20 @@ O modo sem internet (`public/sw.js`) só funciona no site montado (`npm run buil
 
 O tocador tem duas partes. As **rádios populares** vêm de `content/radios.json`: só entram emissoras com transmissão aberta em https, conferida na hora de cadastrar; as que não deixam tocar de fora aparecem como link para o site delas. Rode `npm run conferir:links` de tempos em tempos, porque endereço de transmissão muda sem aviso.
 
-A **rádio própria** fica "Em breve" para o público até a liderança clicar em **Pôr no ar** na aba Rádio do painel. Os áudios são enviados pelo próprio painel ou indicados por endereço. Só publique gravações próprias, em domínio público ou com licença que permita a transmissão: música comercial exige licenciamento.
+A **rádio própria** fica "Em breve" para o público até a coordenação clicar em **Pôr no ar** na aba Rádio do painel. Os áudios são enviados pelo próprio painel ou indicados por endereço. Só publique gravações próprias, em domínio público ou com licença que permita a transmissão: música comercial exige licenciamento.
 
 ## 12. Apoio financeiro
 
-O endereço da campanha fica em `lib/site.ts`. O mural de apoiadores é preenchido pela liderança na aba Apoiadores do painel; só entra o nome de quem autorizou.
+O endereço da campanha fica em `lib/site.ts`. O mural de apoiadores é preenchido pela coordenação na aba Apoiadores do painel; só entra o nome de quem autorizou.
 
 ## 13. Voluntariado, horas e certificados
 
-O voluntário aceita no painel um termo de adesão baseado na Lei nº 9.608/1998 (serviço voluntário: sem salário e sem vínculo de emprego). Depois registra as horas, que a liderança confere. O certificado de horas é aberto e emitido pela liderança (nunca para si mesma); se foram indicadas testemunhas da equipe, ele só sai depois que todas confirmam. Qualquer pessoa confere a autenticidade em `/certificado`, com o código impresso.
+O voluntário aceita no painel um termo de adesão baseado na Lei nº 9.608/1998 (serviço voluntário: sem salário e sem vínculo de emprego). Depois registra as horas, que a coordenação confere. O certificado de horas é aberto e emitido pela coordenação (nunca para si mesma); se foram indicadas testemunhas da equipe, ele só sai depois que todas confirmam. Qualquer pessoa confere a autenticidade em `/certificado`, com o código impresso.
 
 Enquanto o instituto não tiver CNPJ, o certificado é uma **declaração de um projeto comunitário**, assinada por pessoa física. Vale como comprovação de atividade; cada escola ou empresa decide se aceita como hora complementar. Não prometa mais do que isso.
 
 ## 14. Aviso de abertura e período eleitoral
 
-O aviso que aparece ao abrir o site sai de `content/abertura.json`, tem data para sumir sozinho e só aparece em português. A liderança pode trocá-lo ou desligá-lo na aba **Aviso de abertura**, sem publicar o site de novo.
+O aviso que aparece ao abrir o site sai de `content/abertura.json`, tem data para sumir sozinho e só aparece em português. A coordenação pode trocá-lo ou desligá-lo na aba **Aviso de abertura**, sem publicar o site de novo.
 
 Manifestação de apoio a candidatura na internet é livre para pessoa física, mas a lei eleitoral proíbe o anonimato: o aviso precisa dizer quem assina. Propaganda eleitoral em site de **pessoa jurídica** é proibida: se o instituto virar associação com CNPJ, esse tipo de aviso sai do ar. No dia da votação, não se publica conteúdo novo de campanha. Nada de ofensa a adversário: fato documentado e linguagem sóbria.

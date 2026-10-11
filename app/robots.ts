@@ -2,16 +2,22 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
 
-// Robôs que copiam sites inteiros para treinar produtos comerciais. O acervo é livre para gente e para
-// buscadores; para esse uso, pedimos que fiquem de fora.
-const scrapers = ["GPTBot", "ChatGPT-User", "OAI-SearchBot", "CCBot", "Google-Extended", "anthropic-ai", "ClaudeBot", "Claude-Web", "Bytespider", "Amazonbot", "PerplexityBot", "meta-externalagent", "FacebookBot", "Applebot-Extended", "cohere-ai", "Diffbot", "ImagesiftBot", "Omgilibot", "YouBot"];
+// A regra é ao contrário do costume: ninguém entra, a não ser quem está na lista.
+// Entram os buscadores (para o site aparecer nas buscas), os robôs que montam a prévia de um link
+// colado em uma conversa e o arquivo da internet, que guarda cópias para o futuro.
+const buscadores = ["Googlebot", "Googlebot-Image", "Bingbot", "DuckDuckBot", "Applebot", "YandexBot", "Baiduspider", "Qwantbot", "Ecosia", "MojeekBot", "SeznamBot"];
+const previas = ["facebookexternalhit", "Twitterbot", "WhatsApp", "TelegramBot", "LinkedInBot", "Slackbot", "Discordbot", "Mastodon", "Signal"];
+const arquivo = ["archive.org_bot", "ia_archiver"];
+
+// O que nem os buscadores precisam ver: o painel, a entrada, a busca interna e as páginas que só fazem
+// sentido para quem está usando o site naquele momento.
+const fechado = ["/*/painel", "/*/entrar", "/*/radio", "/*/certificado", "/*/meus-dados", "/*/busca", "/*/denunciar", "/*/reforco", "/api/"];
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      // O painel, a entrada, a rádio e a conferência de certificados não têm nada para os buscadores.
-      { userAgent: "*", allow: "/", disallow: ["/*/painel", "/*/entrar", "/*/radio", "/*/certificado", "/*/meus-dados"] },
-      { userAgent: scrapers, disallow: "/" },
+      { userAgent: [...buscadores, ...previas, ...arquivo], allow: "/", disallow: fechado },
+      { userAgent: "*", disallow: "/" },
     ],
     sitemap: `${site.url}/sitemap.xml`,
     host: site.url,

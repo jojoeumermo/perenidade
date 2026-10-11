@@ -24,7 +24,7 @@ Pero el instituto no es solo de teoría política. Quien quiere aprender inglés
 - **El acervo** es un índice: título, autor, sinopsis y un enlace a la fuente legítima de la obra. Aquí no se aloja ningún archivo de terceros.
 - **Las herramientas de práctica** (afinador, editor de código, tabla periódica y otras) funcionan en tu propio dispositivo.
 - **La curaduría** lo lee todo antes de publicarlo. Cualquier persona puede [contribuir](/contribuir), con o sin cuenta, y toda lección debe citar al menos una fuente.
-- **El historial** guarda todas las versiones. Si se publica algo equivocado, basta con volver a la versión anterior. Mira el [historial del acervo](/historico).
+- **El historial** guarda todas las versiones. Si se publica algo equivocado, basta con volver a la versión anterior.
 
 ## Nuestros principios, en un minuto
 

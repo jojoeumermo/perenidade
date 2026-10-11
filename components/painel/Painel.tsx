@@ -4,7 +4,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
-import { can, hasBackend, rpc, signOut, useMe, type Me, type Role } from "@/lib/backend";
+import { can, hasBackend, leads, type Me, type Role, rpc, signOut, useMe } from "@/lib/backend";
 import { registerDevice } from "@/lib/device";
 import { L, useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
@@ -76,7 +76,7 @@ export function Painel() {
 
   const voluntario = eu.papeis.length > 0;
   const lidera = can(eu, "coordenacao");
-  // Cada função enxerga só as ferramentas dela. A liderança e a vice-liderança enxergam todas.
+  // Cada função enxerga só as ferramentas dela. A coordenação e a vice-coordenação enxergam todas.
   const trabalho: [string, string, boolean][] = [
     ["inicio", eu.avisos > 0 ? `Início (${eu.avisos})` : "Início", true],
     ["escrever", "Escrever", true],
@@ -86,7 +86,7 @@ export function Painel() {
     ["reforco", "Aula de reforço", can(eu, "coordenacao", "curadoria", "mentoria", "educacao")],
     ["equipe", "Equipe", voluntario],
     ["horas", "Horas e certificados", voluntario],
-    ["mural", "Mural", can(eu, "coordenacao", "curadoria")],
+    ["mural", "Mural", can(eu, "coordenacao")],
     ["materiais", "Materiais", can(eu, "coordenacao", "curadoria", "design")],
   ];
   const lideranca: [string, string, boolean][] = [
@@ -118,8 +118,8 @@ export function Painel() {
           {botoes(trabalho)}
         </nav>
         {lidera && (
-          <nav aria-label="Liderança" className="mt-3 flex flex-wrap items-center gap-2">
-            <span className={`${rotulo} mr-1`}>Liderança</span>
+          <nav aria-label="Coordenação" className="mt-3 flex flex-wrap items-center gap-2">
+            <span className={`${rotulo} mr-1`}>Coordenação</span>
             {botoes(lideranca)}
           </nav>
         )}
@@ -131,7 +131,7 @@ export function Painel() {
         {aba === "fila" && <Fila me={eu} />}
         {aba === "comunidade" && <Comunidade me={eu} />}
         {aba === "reforco" && <Reforco />}
-        {aba === "equipe" && <Equipe />}
+        {aba === "equipe" && <Equipe lider={leads(eu)} />}
         {aba === "horas" && <Horas me={eu} />}
         {aba === "mural" && <MuralFila />}
         {aba === "materiais" && <Materiais me={eu} />}
@@ -229,7 +229,7 @@ function Inicio({ me, recarregar, ir }: { me: Me; recarregar: () => void; ir: (a
 
       <section>
         <h2 className="font-serif text-2xl font-semibold">Quero ser voluntário</h2>
-        <p className="mt-1 text-ink-soft">Diga em que quer ajudar e conte um pouco da sua experiência. A liderança responde por aqui.</p>
+        <p className="mt-1 text-ink-soft">Diga em que quer ajudar e conte um pouco da sua experiência. A coordenação responde por aqui.</p>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <label className="block">
             Em que papel

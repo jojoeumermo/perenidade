@@ -6,4 +6,9 @@ export const site = {
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.NODE_ENV === "production" ? "https://institutolucia.org" : "http://localhost:3000")).replace(/\/$/, ""),
   /** Campanha de financiamento coletivo que ajuda a pagar servidor e domínio. */
   support: "https://benfeitoria.com/projeto/instituto-lucia-28cx",
+  /**
+   * O histórico público de mudanças. Vazio: a página não existe e nada aparece na página inicial.
+   * Com uma data (AAAA-MM-DD), a página volta ao ar e mostra só o que mudou daquele dia em diante.
+   */
+  historyFrom: "" as string,
 } as const;

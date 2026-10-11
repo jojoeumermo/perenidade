@@ -9,9 +9,9 @@ Tudo o que está aqui foi escrito, revisado e organizado por pessoas que acredit
 ## Como começar
 
 - **Sem conta:** a página [Contribuir](/contribuir) aceita aulas, indicações de obras, correções e ideias de qualquer pessoa. Tudo é lido pela curadoria antes de entrar.
-- **Como voluntário:** [entre](/entrar) com o seu e-mail e, no painel, peça para ser voluntário, dizendo em que quer ajudar. A liderança responde por lá e indica a disciplina ou a tarefa de cada um. Cada função enxerga no painel só as ferramentas do próprio trabalho.
+- **Como voluntário:** [entre](/entrar) com o seu e-mail e, no painel, peça para ser voluntário, dizendo em que quer ajudar. A coordenação responde por lá e indica a disciplina ou a tarefa de cada um. Cada função enxerga no painel só as ferramentas do próprio trabalho.
 
-Nesta fase inicial, toda publicação passa pela aprovação da liderança. Quem dedica horas ao instituto pode registrá-las no painel e, com elas conferidas, receber um certificado de trabalho voluntário (ainda em fase de teste).
+Nesta fase inicial, toda publicação passa pela aprovação da coordenação. Quem dedica horas ao instituto pode registrá-las no painel e, com elas conferidas, receber um certificado de trabalho voluntário (ainda em fase de teste).
 
 ## Como revisor
 
@@ -57,7 +57,7 @@ Aulas ficam melhores com um bom desenho: um esquema, um gráfico, um mapa, um ca
 
 ## Como desenvolvedor
 
-O site é software livre e tem muito por fazer: novas ferramentas de prática, acessibilidade, desempenho em celular simples e internet lenta, traduções da interface. Quem programa combina o trabalho com a liderança pelo painel.
+O site é software livre e tem muito por fazer: novas ferramentas de prática, acessibilidade, desempenho em celular simples e internet lenta, traduções da interface. Quem programa combina o trabalho com a coordenação pelo painel.
 
 ## Divulgando
 

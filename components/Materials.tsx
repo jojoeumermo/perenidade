@@ -14,7 +14,7 @@ interface Material {
   url: string;
 }
 
-/** Zines, panfletos, cartazes e banners para baixar, imprimir e distribuir. A lista é mantida pela liderança. */
+/** Zines, panfletos, cartazes e banners para baixar, imprimir e distribuir. A lista é mantida pela coordenação. */
 export function Materials({ s }: { s: Dict["materials"] }) {
   const [list, setList] = useState<Material[] | null>(null);
 

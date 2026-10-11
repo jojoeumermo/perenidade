@@ -24,7 +24,7 @@ But the institute is not only about political theory. Anyone who wants to learn 
 - **The library** is an index: title, author, synopsis and a link to the legitimate source of the work. No third-party file is hosted here.
 - **The practice tools** (tuner, code editor, periodic table and others) run on your own device.
 - **The curators** read everything before it is published. Anyone can [contribute](/contribuir), with or without an account, and every lesson must cite at least one source.
-- **The history** keeps every version. If something wrong is published, we simply go back to the previous version. See the [history of the collection](/historico).
+- **The history** keeps every version. If something wrong is published, we simply go back to the previous version.
 
 ## Our principles, in one minute
 

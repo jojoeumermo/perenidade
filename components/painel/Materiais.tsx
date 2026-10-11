@@ -21,7 +21,7 @@ export const tiposDeMaterial: Record<string, string> = { zine: "Zine", panfleto:
 
 const novo = { id: "", tipo: "panfleto", titulo: "", descricao: "", campanha: "", url: "", publicado: false, ordem: 0 };
 
-/** Zines, panfletos, cartazes e banners de campanha. Curadoria e design preparam; a liderança põe no ar. */
+/** Zines, panfletos, cartazes e banners de campanha. Curadoria e design preparam; a coordenação põe no ar. */
 export function Materiais({ me }: { me: Me }) {
   const publica = can(me, "coordenacao");
   const lista = useLista<Material[]>("materiais_listar");
@@ -136,10 +136,11 @@ interface Arquivo {
   criado_em: string;
   de: string;
   meu: boolean;
+  apoios: number;
 }
 
 const situacaoDoArquivo: Record<Arquivo["status"], string> = {
-  pendente: "aguardando a liderança",
+  pendente: "aguardando a coordenação",
   aprovado: "aprovado: entra no site na próxima publicação",
   recusado: "não aprovado",
   publicado: "no site",
@@ -147,7 +148,7 @@ const situacaoDoArquivo: Record<Arquivo["status"], string> = {
 
 /**
  * Envio de arquivos avulsos: a imagem do aviso de abertura, um panfleto em PDF. O arquivo fica em um
- * depósito fechado até a liderança aprovar; a publicação do site o copia para dentro do próprio site
+ * depósito fechado até a coordenação aprovar; a publicação do site o copia para dentro do próprio site
  * (sem dados embutidos) e devolve o endereço final, que é o que se cola nos outros campos.
  */
 function Arquivos({ me, usar }: { me: Me; usar: (destino: string) => void }) {
@@ -169,7 +170,7 @@ function Arquivos({ me, usar }: { me: Me; usar: (destino: string) => void }) {
       const pronto = pdf ? { blob: arquivo as Blob, extension: "pdf" as const } : await cleanImage(arquivo);
       const caminho = await sendFile(pronto.blob, pronto.extension);
       await rpc("arquivo_registrar", { p_caminho: caminho, p_nome: nome });
-      setAviso("Arquivo enviado. Ele aguarda a aprovação da liderança.");
+      setAviso("Arquivo enviado. Ele aparece na aba Equipe para os colegas apoiarem; com dois apoios, a coordenação pode aprovar.");
       setNome("");
       if (escolha.current) escolha.current.value = "";
       lista.recarregar();
@@ -208,6 +209,7 @@ function Arquivos({ me, usar }: { me: Me; usar: (destino: string) => void }) {
               <span className="text-ink-soft">
                 · {arquivo.caminho.split(".").pop()?.toUpperCase()} · {data(arquivo.criado_em)}
                 {!arquivo.meu && arquivo.de && ` · de ${arquivo.de}`} · {situacaoDoArquivo[arquivo.status]}
+                {arquivo.status === "pendente" && ` · ${arquivo.apoios} de 2 apoios da equipe`}
               </span>
               {arquivo.destino && <code className="ml-2 break-all font-mono text-xs">{arquivo.destino}</code>}
             </span>

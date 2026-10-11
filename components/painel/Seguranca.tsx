@@ -184,7 +184,7 @@ interface Aparelho {
   ultimo: string;
 }
 
-/** Onde a conta já foi aberta. Aparelho que a pessoa não reconhece é sinal para sair de todos e avisar a liderança. */
+/** Onde a conta já foi aberta. Aparelho que a pessoa não reconhece é sinal para sair de todos e avisar a coordenação. */
 export function Aparelhos() {
   const lista = useLista<Aparelho[]>("aparelhos_meus");
   const acao = useAcao(lista.recarregar);

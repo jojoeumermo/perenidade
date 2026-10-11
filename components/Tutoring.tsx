@@ -7,7 +7,7 @@ import { errorText } from "@/i18n/core";
 import type { Dict } from "@/i18n/types";
 import { areaSlugs } from "@/lib/areas";
 import { BackendError, hasBackend, rpc, useMe } from "@/lib/backend";
-import { L, useI18n } from "./I18n";
+import { useI18n } from "./I18n";
 
 interface Request {
   id: string;
@@ -19,7 +19,8 @@ interface Request {
 }
 
 const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
-const empty = { disciplina: "", assunto: "", duvida: "", email: "" };
+// "site" é um campo-isca: gente não vê, robô preenche, e o pedido é descartado sem aviso.
+const empty = { disciplina: "", assunto: "", duvida: "", email: "", site: "" };
 
 /** Pedido de aula de reforço: a pessoa escreve a dúvida e alguém da equipe responde por e-mail. */
 export function Tutoring({ s }: { s: Dict["tutoring"] }) {
@@ -68,14 +69,13 @@ export function Tutoring({ s }: { s: Dict["tutoring"] }) {
 
   return (
     <div className="mt-8 font-sans text-sm">
-      {logged ? (
-        <form
-          className="max-w-2xl space-y-4"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            if (await run("reforco_pedir", { p: form }, s.sent)) setForm({ ...empty, email: form.email });
-          }}
-        >
+      <form
+        className="max-w-2xl space-y-4"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          if (await run("reforco_pedir", { p: form }, s.sent)) setForm({ ...empty, email: form.email });
+        }}
+      >
           <label className="block">
             {s.discipline}
             <select value={form.disciplina} onChange={set("disciplina")} required className={field}>
@@ -100,17 +100,15 @@ export function Tutoring({ s }: { s: Dict["tutoring"] }) {
             <input type="email" value={form.email} onChange={set("email")} required autoComplete="email" maxLength={200} className={field} />
             <span className="mt-1 block text-ink-soft">{s.emailHint}</span>
           </label>
+          <p className="text-ink-soft">{s.textOnly}</p>
+          <label className="sr-only" aria-hidden>
+            Site
+            <input tabIndex={-1} autoComplete="off" value={form.site} onChange={set("site")} />
+          </label>
           <button type="submit" disabled={busy} className="cursor-pointer bg-ink px-6 py-2.5 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50">
             {s.send}
           </button>
-        </form>
-      ) : (
-        <p className="text-lg">
-          <L href="/entrar" className="underline hover:text-oxblood">
-            {s.signIn}
-          </L>
-        </p>
-      )}
+      </form>
       <p role="status" className="mt-3 min-h-5 text-oxblood">
         {message}
       </p>

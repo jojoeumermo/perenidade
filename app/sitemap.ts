@@ -34,7 +34,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/mural",
     "/reforco",
     "/materiais",
-    "/historico",
     "/sobre",
     "/privacidade",
     "/termos",
