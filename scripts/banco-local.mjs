@@ -75,8 +75,9 @@ export async function criarBanco() {
       return pg.query(texto, valores);
     });
 
-  const criarUsuario = async (email, nome) =>
-    (await dono("insert into auth.users (email, raw_user_meta_data) values ($1, $2) returning id", [email, JSON.stringify({ full_name: nome })])).rows[0].id;
+  /** Cria uma conta. Depois que existe coordenação, só entra quem traz o código de um convite válido. */
+  const criarUsuario = async (email, nome, convite) =>
+    (await dono("insert into auth.users (email, raw_user_meta_data) values ($1, $2) returning id", [email, JSON.stringify({ full_name: nome, ...(convite ? { convite } : {}) })])).rows[0].id;
 
   return { pg, rpc, dono, criarUsuario, exclusivo, instalarDeNovo: () => exclusivo(() => pg.exec(sql)) };
 }

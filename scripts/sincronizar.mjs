@@ -404,7 +404,7 @@ for (const item of pendentes.slice(0, LIMITE)) {
   }
 }
 
-// Arquivos avulsos aprovados pela liderança (imagem do aviso de abertura, panfleto em PDF).
+// Arquivos avulsos aprovados pela coordenação (imagem do aviso de abertura, panfleto em PDF).
 const avulsos = [];
 for (const avulso of (await chamar("arquivos_aprovados")).slice(0, LIMITE)) {
   try {

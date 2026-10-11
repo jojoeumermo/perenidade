@@ -8,6 +8,7 @@ import { htmlLang, localePath, plural } from "@/i18n/config";
 import { groups } from "@/lib/areas";
 import { getBooks, getCatalog, getQuestions, getQuotes, getTracks } from "@/lib/content";
 import { getHistory } from "@/lib/history";
+import { site } from "@/lib/site";
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang, t } = await loadLang(params);
@@ -17,7 +18,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   const books = getBooks(lang);
   const lessons = tracks.reduce((sum, track) => sum + track.lessons.length, 0);
   const works = books.length + groups.flatMap((group) => group.areas).reduce((sum, area) => sum + getCatalog(area).length, 0);
-  const recent = getHistory().slice(0, 3);
+  const recent = site.historyFrom ? getHistory().filter((change) => change.date >= site.historyFrom).slice(0, 3) : [];
   const date = new Intl.DateTimeFormat(htmlLang[lang], { timeZone: "UTC" });
   const started = tracks.filter((track) => track.lessons.length > 0).sort((a, b) => b.lessons.length - a.lessons.length);
   const questions = getQuestions().slice(0, 4);

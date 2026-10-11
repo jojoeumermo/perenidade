@@ -1088,21 +1088,26 @@
   "auth": {
     "eyebrow": "Volunteers and community",
     "title": "Sign in",
-    "lead": "You do not need an account to study. Signing in is for those who want to join the conversations or work as volunteers.",
-    "email": "Your email",
-    "send": "Send me a sign-in link",
-    "sent": "We have sent a link to your email. Open the message on this device and tap the link to sign in.",
-    "google": "Sign in with Google",
-    "failed": "Sign-in failed. Try again in a few minutes.",
-    "why": "People who study or join the community sign in without a password: with no password stored, there is no password to leak. We keep only your e-mail; the name shown on the site is a pseudonym you can change.",
-    "offline": "Sign-in is not active on this copy of the site yet.",
+    "lead": "You do not need an account to study. Signing in is for people invited by the coordination: volunteers and community members.",
+    "email": "Your e-mail",
     "password": "Password",
     "enter": "Sign in",
-    "wrong": "Wrong e-mail or password, or the security check expired. Please try again.",
-    "withLink": "Sign in with a link sent by e-mail",
-    "team": "I am on the team: sign in with a password",
-    "teamWhy": "Team accounts are created by the community lead. After the password, the panel asks for the code from your authenticator app.",
-    "consent": "By signing in you accept the terms of use and confirm you have read how we handle your data:"
+    "wrong": "Wrong e-mail or password, or the security check expired. Try again.",
+    "failed": "Could not finish. Try again in a few minutes.",
+    "why": "There is no open sign-up and no \"forgot my password\" here: accounts are created by invitation from the coordination. Lost your password? Talk to whoever invited you.",
+    "offline": "Sign-in is not active in this copy of the site yet.",
+    "consent": "By signing in you accept the terms of use and confirm you have read how we handle your data:",
+    "inviteTitle": "You have been invited",
+    "inviteWhy": "We keep only your e-mail. The name shown on the site starts as a codename, which you can change.",
+    "inviteInvalid": "This invitation is no longer valid, or it is not for this e-mail. Ask the sender for another one.",
+    "passwordNew": "Create a password (at least 12 characters; a phrase works well)",
+    "passwordAgain": "Repeat the password",
+    "mismatch": "The two passwords are not the same.",
+    "create": "Create account",
+    "confirm": "Account created. If a confirmation e-mail arrives, open it; then sign in with your e-mail and password.",
+    "newPasswordTitle": "Choose a new password",
+    "save": "Save password",
+    "saved": "Password saved."
   },
   "radio": {
     "eyebrow": "On air",
@@ -1144,7 +1149,9 @@
     "invalido": "Check this field: {campo}.",
     "falha": "Something went wrong. Try again in a moment.",
     "limite_anuncios": "Each person can have up to three listings. Remove one to post another.",
-    "limite_pedidos": "You already have three open requests. Wait for an answer or cancel one."
+    "limite_pedidos": "You already have three open requests. Wait for an answer or cancel one.",
+    "conteudo_recusado": "The text has words this site does not accept. Rewrite it and send again.",
+    "sem_links": "Text only here: no website addresses, images or files."
   },
   "community": {
     "eyebrow": "Community",
@@ -1204,13 +1211,13 @@
   "mural": {
     "eyebrow": "Solidarity economy",
     "title": "Workers' Wall",
-    "lead": "Cooperatives, trades, art and initiatives by people who live from their own work. No paid ads, no middlemen, no fees.",
+    "lead": "Looking for a laundress, a bricklayer, a seamstress, a cooperative? Choose the state and the city. Self-employed? Post an ad: it is free, with no middleman and no fee.",
     "description": "A free space for working people to publicise cooperatives, services, products, art and initiatives.",
     "rulesTitle": "How the wall works",
     "rules": [
       "It is for those who live from their own work: cooperatives, associations, self-employed workers, artisans, artists, collectives and community initiatives.",
       "Not accepted: companies looking for labour, catalogue reselling, pyramid schemes, loans, betting, promises of easy money and election advertising.",
-      "Every listing is read by the curators before it goes up and stays visible for 180 days. Whoever posted it renews it for as long as the initiative exists.",
+      "No account is needed to post. Every ad is read by the coordination before it goes up and stays visible for 180 days. City and state are required.",
       "The contact details you write are public. Post only what anyone may see.",
       "The institute charges nothing, takes no share of any sale and does not vouch for the services listed. Seen something wrong? Use the Report link."
     ],
@@ -1229,8 +1236,7 @@
     },
     "contact": "Contact",
     "by": "Posted by {name}",
-    "signIn": "Sign in to post a listing",
-    "newAd": "Post a listing",
+    "newAd": "Post an ad for free",
     "mine": "My listings",
     "formTitle": "Your listing",
     "fields": {
@@ -1239,14 +1245,15 @@
       "city": "City",
       "state": "State",
       "contact": "Contact (phone, social media or email)",
-      "link": "Website or page (optional)"
+      "link": "Website or page (optional)",
+      "trade": "Trade or service (for example: laundress, electrician)"
     },
     "contactHint": "Note: the contact details are shown to anyone who opens the wall.",
-    "send": "Send to the curators",
-    "sent": "Listing sent. It appears on the wall once the curators have read it.",
+    "send": "Send to the coordination",
+    "sent": "Ad sent. It appears on the board after the coordination reads it.",
     "cancel": "Cancel",
     "status": {
-      "pendente": "waiting for the curators",
+      "pendente": "waiting for the coordination",
       "aprovado": "live",
       "recusado": "not approved",
       "vencido": "expired: renew it to put it back up"
@@ -1256,7 +1263,17 @@
     "removed": "Listing removed.",
     "renew": "Renew",
     "renewed": "Listing renewed for another 180 days.",
-    "validUntil": "until {date}"
+    "validUntil": "until {date}",
+    "search": "What are you looking for?",
+    "searchPlaceholder": "laundry, electrician, cake, guitar lessons…",
+    "city": "City",
+    "allCities": "All cities",
+    "found": "{n} ad(s)",
+    "none": "Nothing found with these filters. Try another word or another city.",
+    "withdraw": "Remove an ad",
+    "withdrawLabel": "Ad code",
+    "codeTitle": "Keep this code",
+    "codeText": "You will need it to remove the ad whenever you want. It will not be shown again."
   },
   "tutoring": {
     "eyebrow": "Nobody studies alone",
@@ -1264,7 +1281,7 @@
     "lead": "Stuck on a subject? Write your question. A volunteer from the teaching team answers by e-mail.",
     "description": "Ask for help in any subject: a volunteer from Instituto Lúcia answers your question by e-mail, free of charge.",
     "how": [
-      "Sign in and write your question, saying what you have already tried.",
+      "Write your question and say what you have already tried. No account needed.",
       "Someone from that subject's team takes the request and answers at the e-mail address you give.",
       "Your e-mail is seen only by the person who took the request and is erased from our database as soon as the answer is sent."
     ],
@@ -1275,8 +1292,7 @@
     "email": "E-mail address for the answer",
     "emailHint": "Check the address: the explanation is sent there. Look in your spam folder too.",
     "send": "Ask for tutoring",
-    "sent": "Request sent. You will get a notice in the panel when someone takes it.",
-    "signIn": "Sign in to ask for tutoring",
+    "sent": "Request sent. The answer will arrive at the e-mail you gave.",
     "mine": "My requests",
     "status": {
       "aberto": "waiting",
@@ -1286,7 +1302,8 @@
     },
     "cancel": "Cancel request",
     "cancelled": "Request cancelled.",
-    "offline": "Tutoring is not active on this copy of the site yet."
+    "offline": "Tutoring is not active on this copy of the site yet.",
+    "textOnly": "Text only: website addresses, images and files are not accepted."
   },
   "materials": {
     "eyebrow": "To print and hand out",

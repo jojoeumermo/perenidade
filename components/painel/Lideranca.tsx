@@ -161,7 +161,7 @@ export function SegurancaSucessao({ me }: { me: Me }) {
       <section>
         <h2 className="font-serif text-2xl font-semibold">Segundo fator obrigatório</h2>
         <p className="mt-1 text-ink-soft">
-          Com esta exigência ligada, liderança, vice-liderança e curadoria só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
+          Com esta exigência ligada, coordenação, vice-coordenação e curadoria só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
         </p>
         <p className="mt-2">
           Situação: <strong>{seguranca.dados?.exigir_2fa ? "ligada" : "desligada"}</strong>
@@ -185,11 +185,11 @@ export function SegurancaSucessao({ me }: { me: Me }) {
       <section>
         <h2 className="font-serif text-2xl font-semibold">Ordem de sucessão</h2>
         <p className="mt-1 text-ink-soft">
-          Se a liderança ficar mais de 90 dias sem entrar no painel, ela passa sozinha para a primeira pessoa desta lista que tenha entrado nos últimos 30 dias. Quem saiu continua na equipe, como vice-liderança.
+          Se a coordenação ficar mais de 90 dias sem entrar no painel, ela passa sozinha para a primeira pessoa desta lista que tenha entrado nos últimos 30 dias. Quem saiu continua na equipe, como vice-coordenação.
         </p>
         {sucessao.dados?.lideranca.map((pessoa) => (
           <p key={pessoa.id} className="mt-2">
-            Liderança hoje: <strong>{pessoa.nome}</strong> <span className="text-ink-soft">· último acesso em {data(pessoa.visto_em)}</span>
+            Coordenação hoje: <strong>{pessoa.nome}</strong> <span className="text-ink-soft">· último acesso em {data(pessoa.visto_em)}</span>
           </p>
         ))}
         <ol className="mt-3 divide-y divide-rule border-y border-rule">
@@ -208,7 +208,7 @@ export function SegurancaSucessao({ me }: { me: Me }) {
             </li>
           ))}
         </ol>
-        {atual.length === 0 && <p className="mt-2 text-ink-soft">Ninguém na lista: hoje, se a liderança sumir, o posto fica vago.</p>}
+        {atual.length === 0 && <p className="mt-2 text-ink-soft">Ninguém na lista: hoje, se a coordenação sumir, o posto fica vago.</p>}
         {lider && (
           <div className="mt-3 flex flex-wrap items-end gap-3">
             <label className="block min-w-60 flex-1">
@@ -237,8 +237,8 @@ export function SegurancaSucessao({ me }: { me: Me }) {
 
       {lider && (
         <section>
-          <h2 className="font-serif text-2xl font-semibold">Passar a liderança</h2>
-          <p className="mt-1 text-ink-soft">Você entrega o posto e passa a ser vice-liderança. Só a nova liderança pode devolver.</p>
+          <h2 className="font-serif text-2xl font-semibold">Passar a coordenação</h2>
+          <p className="mt-1 text-ink-soft">Você entrega o posto e passa a ser vice-coordenação. Só a nova coordenação pode devolver.</p>
           <div className="mt-3 flex flex-wrap items-end gap-3">
             <label className="block min-w-60 flex-1">
               Para quem
@@ -252,12 +252,12 @@ export function SegurancaSucessao({ me }: { me: Me }) {
               </select>
             </label>
             {confirma ? (
-              <button type="button" className="cursor-pointer bg-oxblood px-5 py-2.5 font-medium text-parchment" disabled={acao.ocupado} onClick={async () => { if (await acao.agir("lideranca_passar", { p_usuario: herdeiro }, "Liderança passada.")) window.location.reload(); }}>
-                Confirmar: passar a liderança
+              <button type="button" className="cursor-pointer bg-oxblood px-5 py-2.5 font-medium text-parchment" disabled={acao.ocupado} onClick={async () => { if (await acao.agir("lideranca_passar", { p_usuario: herdeiro }, "Coordenação passada.")) window.location.reload(); }}>
+                Confirmar: passar a coordenação
               </button>
             ) : (
               <button type="button" className={botaoClaro} disabled={!herdeiro} onClick={() => setConfirma(true)}>
-                Passar a liderança
+                Passar a coordenação
               </button>
             )}
           </div>
@@ -305,10 +305,10 @@ const acoes: Record<string, string> = {
   pedido_recusado: "recusou o pedido de voluntariado de",
   conta_suspensa: "suspendeu a conta de",
   conta_reativada: "reativou a conta de",
-  lideranca_passada: "passou a liderança para",
-  lideranca_promovida: "liderança definida direto no banco para",
+  lideranca_passada: "passou a coordenação para",
+  lideranca_promovida: "coordenação definida direto no banco para",
   sucessao_definida: "definiu a ordem de sucessão",
-  sucessao_automatica: "sucessão automática: a liderança passou para",
+  sucessao_automatica: "sucessão automática: a coordenação passou para",
   seguranca_configurada: "mudou a exigência de segundo fator",
   aparelho_novo: "conta aberta em aparelho novo:",
   armadilha: "ALERTA: função-isca chamada",

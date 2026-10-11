@@ -12,7 +12,6 @@ const url = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/$/, "");
 const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 
 export const hasBackend = Boolean(url && key);
-export const googleEnabled = process.env.NEXT_PUBLIC_AUTH_GOOGLE === "1";
 /** Verdadeiro só no ambiente de teste local, onde existe a entrada simplificada. */
 export const localBackend = /^http:\/\/(127\.0\.0\.1|localhost)[:/]/.test(url);
 export const storageUrl = (path: string) => `${url}/storage/v1/object/public/${path}`;
@@ -99,10 +98,10 @@ export interface Me {
   avisos: number;
 }
 
-/** A vice-liderança pode tudo o que a liderança pode, menos mexer na própria liderança (isso é conferido por leads). */
+/** A vice-coordenação pode tudo o que a coordenação pode, menos mexer na própria coordenação (isso é conferido por leads). */
 export const can = (me: Me | null, ...roles: Role["papel"][]) =>
   Boolean(me?.papeis.some((role) => roles.includes(role.papel) || (role.papel === "vice" && roles.includes("coordenacao"))));
-/** Só a liderança comunitária. */
+/** Só a coordenação comunitária. */
 export const leads = (me: Me | null) => Boolean(me?.papeis.some((role) => role.papel === "coordenacao"));
 
 type MeState = { status: "loading" } | { status: "out" } | { status: "in"; me: Me };

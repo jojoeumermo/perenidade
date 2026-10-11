@@ -64,6 +64,6 @@ O site é oferecido como está, feito por voluntários. Ele pode sair do ar, mud
 
 ## Mudanças e lei aplicável
 
-Estes termos podem mudar; a data no alto indica a última alteração e o [histórico do site](/historico) guarda as versões. Aplica-se a lei brasileira.
+Estes termos podem mudar; a data no alto indica a última alteração. Aplica-se a lei brasileira.
 
 Veja também a [Política de privacidade](/privacidade).

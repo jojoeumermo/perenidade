@@ -34,7 +34,7 @@ interface Saved {
 const SEIS_HORAS = 6 * 3600 * 1000;
 
 /**
- * O quadro que abre junto com o site. O texto vem dos arquivos do site; se a liderança guardou
+ * O quadro que abre junto com o site. O texto vem dos arquivos do site; se a coordenação guardou
  * outro pelo painel, vale o do painel (conferido no máximo uma vez a cada seis horas por navegador).
  * Quem fecha não vê de novo até o aviso mudar. Só aparece em português.
  */
@@ -65,7 +65,8 @@ export function OpeningNotice({ initial, close }: { initial: Notice | null; clos
 
   const remote = saved.valor && saved.valor.definido ? (saved.valor as Notice) : null;
   const notice = remote ?? initial;
-  const today = hydrated ? new Date().toLocaleDateString("sv-SE") : "";
+  // O último dia vale até 23h59min59s no horário de Brasília, esteja o aparelho onde estiver.
+  const today = hydrated ? new Date().toLocaleDateString("sv-SE", { timeZone: "America/Sao_Paulo" }) : "";
   const inside = /\/(painel|entrar)(\/|$)/.test(pathname);
   const show = Boolean(hydrated && lang === "pt" && !inside && notice?.ativo && notice.titulo && (!notice.ate || today <= notice.ate) && saved.fechado !== notice.versao);
 
@@ -92,9 +93,10 @@ export function OpeningNotice({ initial, close }: { initial: Notice | null; clos
       </form>
       <div className="grid sm:grid-cols-[14rem_1fr]">
         {notice.imagem && (
-          <figure className="relative h-48 bg-oxblood sm:h-auto">
+          <figure className="relative aspect-[4/3] bg-oxblood sm:aspect-auto sm:h-auto">
+            {/* No celular a foto ocupa a largura toda, em uma faixa que mostra o rosto inteiro; ao lado do texto, ela cobre a coluna. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={notice.imagem} alt="" width={440} height={586} className="absolute inset-0 h-full w-full object-cover object-top" />
+            <img src={notice.imagem} alt="" width={440} height={586} className="absolute inset-0 h-full w-full object-cover object-[50%_28%] sm:object-top" />
           </figure>
         )}
         <div className={`p-6 pr-14 ${notice.imagem ? "" : "sm:col-span-2"}`}>

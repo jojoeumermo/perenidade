@@ -6,6 +6,7 @@ import { areaSlugs } from "@/lib/areas";
 import { leads, type Me, type Role } from "@/lib/backend";
 import { useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, useAcao, useLista } from "./comum";
+import { Convites } from "./Convites";
 
 interface Candidatura {
   id: string;
@@ -27,11 +28,11 @@ interface Pessoa {
   papeis: Role[];
 }
 
-/** Liderança e vice-liderança: aceitar pedidos de voluntariado, confiar papéis e disciplinas, suspender contas. */
+/** Coordenação e vice-coordenação: aceitar pedidos de voluntariado, confiar papéis e disciplinas, suspender contas. */
 export function Pessoas({ me }: { me: Me }) {
   const { t } = useI18n();
   const lider = leads(me);
-  // A liderança não se concede por aqui (muda de mãos em Segurança e sucessão); a vice-liderança, só a liderança nomeia.
+  // A coordenação não se concede por aqui (muda de mãos em Segurança e sucessão); a vice-coordenação, só a coordenação nomeia.
   const concediveis = (Object.keys(papeis) as Role["papel"][]).filter((papel) => papel !== "coordenacao" && (papel !== "vice" || lider));
   const pedidos = useLista<Candidatura[]>("candidaturas_listar");
   const pessoas = useLista<Pessoa[]>("voluntarios_listar");
@@ -47,6 +48,7 @@ export function Pessoas({ me }: { me: Me }) {
 
   return (
     <div className="space-y-10">
+      <Convites me={me} />
       <section>
         <h2 className="font-serif text-2xl font-semibold">Pedidos de voluntariado</h2>
         <Aviso texto={pedidos.erro} />

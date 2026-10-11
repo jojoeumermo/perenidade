@@ -121,12 +121,8 @@ export async function iniciar({ silencioso = false } = {}) {
       if (url.pathname === "/auth/v1/token" && req.method === "POST") {
         const tipo = url.searchParams.get("grant_type");
         if (tipo === "password") {
-          let u = await usuarioPorEmail(corpo.email);
-          if (!u) {
-            if (!/^[^@\s]+@[^@\s]+$/.test(String(corpo.email ?? ""))) return json(res, 400, { error_code: "invalid_credentials", msg: "Invalid login credentials" });
-            await banco.criarUsuario(String(corpo.email).trim().toLowerCase(), String(corpo.email).split("@")[0]);
-            u = await usuarioPorEmail(corpo.email);
-          }
+          const u = await usuarioPorEmail(corpo.email);
+          if (!u) return json(res, 400, { error_code: "invalid_credentials", msg: "Invalid login credentials" });
           return json(res, 200, sessao(u));
         }
         if (tipo === "refresh_token") {
@@ -138,23 +134,22 @@ export async function iniciar({ silencioso = false } = {}) {
         }
         return json(res, 400, { error_code: "invalid_grant", msg: "unsupported grant type" });
       }
-      if (url.pathname === "/auth/v1/otp" && req.method === "POST") {
+      // Conta nova: só passa se o banco aceitar o convite (a regra está em install.sql).
+      if (url.pathname === "/auth/v1/signup" && req.method === "POST") {
         const email = String(corpo.email ?? "").trim().toLowerCase();
-        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) && !email.endsWith("@local")) return json(res, 422, { error_code: "validation_failed", msg: "Unable to validate email address" });
-        if (!(await usuarioPorEmail(email))) await banco.criarUsuario(email, email.split("@")[0]);
-        const token = crypto.randomBytes(12).toString("hex");
-        const destino = url.searchParams.get("redirect_to") ?? corpo.options?.emailRedirectTo ?? "http://localhost:3100/pt/painel";
-        links.set(token, { email, destino });
-        if (!silencioso) console.log(`[local] link de entrada para ${email}: ${URL_LOCAL}/auth/v1/verify?token=${token}`);
-        return json(res, 200, {});
+        if (!/^[^@\s]+@[^@\s]+$/.test(email)) return json(res, 422, { error_code: "validation_failed", msg: "Unable to validate email address" });
+        if (await usuarioPorEmail(email)) return json(res, 422, { error_code: "user_already_exists", msg: "User already registered" });
+        try {
+          await banco.criarUsuario(email, email.split("@")[0], String(corpo.data?.convite ?? ""));
+        } catch {
+          return json(res, 500, { error_code: "unexpected_failure", msg: "Database error saving new user" });
+        }
+        return json(res, 200, sessao(await usuarioPorEmail(email)));
       }
-      if (url.pathname === "/auth/v1/verify" && req.method === "GET") {
-        const link = links.get(url.searchParams.get("token"));
-        if (!link) return json(res, 403, { error_code: "otp_expired", msg: "Email link is invalid or has expired" });
-        links.delete(url.searchParams.get("token"));
-        const s = sessao(await usuarioPorEmail(link.email));
-        res.writeHead(302, { location: `${link.destino}#access_token=${s.access_token}&refresh_token=${s.refresh_token}&expires_in=3600&expires_at=${s.expires_at}&token_type=bearer&type=magiclink` });
-        return res.end();
+      if (url.pathname === "/auth/v1/user" && req.method === "PUT") {
+        const dados = portador(req);
+        const u = dados?.sub ? await usuarioPorId(dados.sub) : null;
+        return u ? json(res, 200, usuarioJson(u)) : json(res, 403, { error_code: "session_not_found", msg: "Session not found" });
       }
       if (url.pathname === "/auth/v1/user" && req.method === "GET") {
         const dados = portador(req);

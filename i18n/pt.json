@@ -1088,21 +1088,26 @@
   "auth": {
     "eyebrow": "Voluntários e comunidade",
     "title": "Entrar",
-    "lead": "Para estudar não é preciso conta. A entrada serve para quem quer participar das conversas ou trabalhar como voluntário.",
+    "lead": "Para estudar não é preciso conta. A entrada é para quem recebeu um convite da coordenação: voluntários e participantes da comunidade.",
     "email": "Seu e-mail",
-    "send": "Receber link de acesso",
-    "sent": "Enviamos um link para o seu e-mail. Abra a mensagem neste aparelho e toque no link para entrar.",
-    "google": "Entrar com o Google",
-    "failed": "Não foi possível entrar. Tente de novo em alguns minutos.",
-    "why": "Quem estuda ou participa da comunidade entra sem senha: sem senha guardada, não há senha para vazar. Guardamos só o seu e-mail; o nome que aparece no site é um codinome, que você troca se quiser.",
-    "offline": "A entrada ainda não está ativa nesta cópia do site.",
     "password": "Senha",
     "enter": "Entrar",
     "wrong": "E-mail ou senha incorretos, ou a verificação de segurança expirou. Tente de novo.",
-    "withLink": "Entrar com link enviado ao e-mail",
-    "team": "Sou da equipe: entrar com senha",
-    "teamWhy": "As contas da equipe são criadas pela liderança. Depois da senha, o painel pede o código do aplicativo autenticador.",
-    "consent": "Ao entrar, você aceita os termos de uso e confirma que leu como cuidamos dos seus dados:"
+    "failed": "Não foi possível concluir. Tente de novo em alguns minutos.",
+    "why": "Aqui não há cadastro aberto nem \"esqueci minha senha\": as contas são criadas por convite da coordenação. Perdeu a senha? Fale com quem convidou você.",
+    "offline": "A entrada ainda não está ativa nesta cópia do site.",
+    "consent": "Ao entrar, você aceita os termos de uso e confirma que leu como cuidamos dos seus dados:",
+    "inviteTitle": "Você recebeu um convite",
+    "inviteWhy": "Guardamos só o seu e-mail. O nome que aparece no site nasce como um codinome, que você troca se quiser.",
+    "inviteInvalid": "Este convite não vale mais, ou não é para este e-mail. Peça outro a quem enviou.",
+    "passwordNew": "Crie uma senha (pelo menos 12 caracteres; uma frase funciona bem)",
+    "passwordAgain": "Repita a senha",
+    "mismatch": "As duas senhas não são iguais.",
+    "create": "Criar conta",
+    "confirm": "Conta criada. Se chegar um e-mail de confirmação, abra-o; depois entre com o seu e-mail e a sua senha.",
+    "newPasswordTitle": "Escolha uma senha nova",
+    "save": "Guardar senha",
+    "saved": "Senha guardada."
   },
   "radio": {
     "eyebrow": "No ar",
@@ -1144,7 +1149,9 @@
     "invalido": "Confira o campo: {campo}.",
     "falha": "Algo deu errado. Tente de novo em instantes.",
     "limite_anuncios": "Cada pessoa pode ter até três anúncios. Retire um para publicar outro.",
-    "limite_pedidos": "Você já tem três pedidos em aberto. Espere a resposta ou cancele um."
+    "limite_pedidos": "Você já tem três pedidos em aberto. Espere a resposta ou cancele um.",
+    "conteudo_recusado": "O texto tem palavras que o site não aceita. Reescreva e envie de novo.",
+    "sem_links": "Aqui só entra texto: sem endereços de sites, imagens ou arquivos."
   },
   "community": {
     "eyebrow": "Comunidade",
@@ -1204,13 +1211,13 @@
   "mural": {
     "eyebrow": "Economia solidária",
     "title": "Mural dos Trabalhadores",
-    "lead": "Cooperativas, ofícios, arte e iniciativas de quem vive do próprio trabalho. Sem anúncio pago, sem intermediário, sem taxa.",
+    "lead": "Procurando uma lavadeira, um pedreiro, uma costureira, uma cooperativa? Escolha o estado e a cidade. Trabalha por conta própria? Anuncie: é de graça, sem intermediário e sem taxa.",
     "description": "Espaço gratuito para trabalhadoras e trabalhadores divulgarem cooperativas, serviços, produtos, arte e iniciativas.",
     "rulesTitle": "Como o mural funciona",
     "rules": [
       "É para quem vive do próprio trabalho: cooperativas, associações, autônomos, artesãos, artistas, coletivos e iniciativas comunitárias.",
       "Não entram: empresas à procura de mão de obra, revenda por catálogo, esquemas de pirâmide, empréstimos, apostas, promessas de ganho fácil e propaganda eleitoral.",
-      "Todo anúncio é lido pela curadoria antes de ir ao ar e fica visível por 180 dias. Quem publicou renova enquanto a iniciativa existir.",
+      "Não precisa de conta para anunciar. Todo anúncio é lido pela coordenação antes de ir ao ar e fica visível por 180 dias. Cidade e estado são obrigatórios.",
       "O contato que você escrever fica público. Publique só o que pode ser visto por qualquer pessoa.",
       "O instituto não cobra nada, não fica com parte de nenhuma venda e não garante os serviços anunciados. Viu algo errado? Use o link Denunciar."
     ],
@@ -1229,8 +1236,7 @@
     },
     "contact": "Contato",
     "by": "Publicado por {name}",
-    "signIn": "Entre para anunciar",
-    "newAd": "Anunciar",
+    "newAd": "Anunciar de graça",
     "mine": "Meus anúncios",
     "formTitle": "Seu anúncio",
     "fields": {
@@ -1239,14 +1245,15 @@
       "city": "Cidade",
       "state": "Estado",
       "contact": "Contato (telefone, rede social ou e-mail)",
-      "link": "Site ou página (opcional)"
+      "link": "Site ou página (opcional)",
+      "trade": "Ofício ou serviço (por exemplo: lavadeira, eletricista)"
     },
     "contactHint": "Atenção: o contato aparece para qualquer pessoa que abrir o mural.",
-    "send": "Enviar para a curadoria",
-    "sent": "Anúncio enviado. Ele aparece no mural depois de lido pela curadoria.",
+    "send": "Enviar para a coordenação",
+    "sent": "Anúncio enviado. Ele aparece no mural depois de lido pela coordenação.",
     "cancel": "Cancelar",
     "status": {
-      "pendente": "aguardando a curadoria",
+      "pendente": "aguardando a coordenação",
       "aprovado": "no ar",
       "recusado": "não aprovado",
       "vencido": "vencido: renove para voltar ao ar"
@@ -1256,7 +1263,17 @@
     "removed": "Anúncio retirado.",
     "renew": "Renovar",
     "renewed": "Anúncio renovado por mais 180 dias.",
-    "validUntil": "até {date}"
+    "validUntil": "até {date}",
+    "search": "O que você procura?",
+    "searchPlaceholder": "lavadeira, eletricista, bolo, aula de violão…",
+    "city": "Cidade",
+    "allCities": "Todas as cidades",
+    "found": "{n} anúncio(s)",
+    "none": "Nada encontrado com esses filtros. Tente outra palavra ou outra cidade.",
+    "withdraw": "Retirar um anúncio",
+    "withdrawLabel": "Código do anúncio",
+    "codeTitle": "Guarde este código",
+    "codeText": "É com ele que você retira o anúncio quando quiser. Ele não será mostrado de novo."
   },
   "tutoring": {
     "eyebrow": "Ninguém estuda sozinho",
@@ -1264,7 +1281,7 @@
     "lead": "Travou em uma matéria? Escreva a dúvida. Uma pessoa voluntária da equipe de ensino responde por e-mail.",
     "description": "Peça ajuda em qualquer disciplina: um voluntário do Instituto Lúcia responde a sua dúvida por e-mail, de graça.",
     "how": [
-      "Entre com a sua conta e escreva a dúvida, dizendo o que você já tentou.",
+      "Escreva a dúvida, dizendo o que você já tentou. Não precisa de conta.",
       "Alguém da equipe da disciplina assume o pedido e responde no e-mail que você indicar.",
       "O seu e-mail só é visto por quem assumiu o pedido e é apagado do nosso banco assim que a resposta é dada."
     ],
@@ -1275,8 +1292,7 @@
     "email": "E-mail para receber a resposta",
     "emailHint": "Confira o endereço: é por ele que a explicação chega. Olhe também a caixa de spam.",
     "send": "Pedir reforço",
-    "sent": "Pedido enviado. Você recebe um aviso no painel quando alguém assumir.",
-    "signIn": "Entre para pedir reforço",
+    "sent": "Pedido enviado. A resposta chega no e-mail que você indicou.",
     "mine": "Meus pedidos",
     "status": {
       "aberto": "aguardando",
@@ -1286,7 +1302,8 @@
     },
     "cancel": "Cancelar pedido",
     "cancelled": "Pedido cancelado.",
-    "offline": "O reforço ainda não está ativo nesta cópia do site."
+    "offline": "O reforço ainda não está ativo nesta cópia do site.",
+    "textOnly": "Só texto: endereços de sites, imagens e arquivos não são aceitos."
   },
   "materials": {
     "eyebrow": "Para imprimir e distribuir",

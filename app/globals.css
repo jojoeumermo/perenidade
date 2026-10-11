@@ -113,6 +113,21 @@ body {
   background: var(--prelo);
   color: #fff;
 }
+/* O nome do jornal cabe sempre em uma linha: a letra é medida pela largura da própria faixa. */
+.jornal-faixa {
+  container-type: inline-size;
+}
+.jornal-nome {
+  white-space: nowrap;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  font-size: 4.4vw;
+  font-size: min(5.9cqw, 4.6rem);
+}
+.jornal-nome-menor {
+  font-size: 3.6vw;
+  font-size: min(5.9cqw, 2.4rem);
+}
 .jornal-faixa:hover {
   background: #a51810;
 }

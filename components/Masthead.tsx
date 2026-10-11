@@ -10,8 +10,9 @@ export function Masthead({ lang, s, updated, small = false }: { lang: Locale; s:
   return (
     <header className="jornal-topo">
       <Link href={localePath(lang, "/jornal")} className={`jornal-faixa block ${small ? "px-4 py-3" : "px-4 py-5 sm:px-6 sm:py-7"}`}>
-        <span className={`block font-sans font-black uppercase italic leading-[0.9] tracking-tight ${small ? "text-3xl sm:text-4xl" : "text-5xl sm:text-7xl"}`}>{s.nameTop}</span>
-        <span className={`block font-sans font-black uppercase italic leading-[0.9] tracking-tight ${small ? "text-3xl sm:text-4xl" : "text-5xl sm:text-7xl"}`}>{s.nameBottom}</span>
+        <span className={`jornal-nome block font-sans font-black uppercase italic ${small ? "jornal-nome-menor" : ""}`}>
+          {s.nameTop} {s.nameBottom}
+        </span>
       </Link>
       <p className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b-4 border-ink px-1 py-1.5 font-sans text-[0.7rem] font-semibold uppercase tracking-wide">
         <span>{s.tagline}</span>

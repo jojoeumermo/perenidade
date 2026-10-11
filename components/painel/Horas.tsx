@@ -10,9 +10,9 @@ export const VERSAO_DO_TERMO = "2026-10";
 
 export const TERMO: string[] = [
   "O Instituto Lúcia é uma iniciativa educacional gratuita e sem fins lucrativos, mantida por trabalho voluntário.",
-  "Participo por vontade própria e sem remuneração, nas atividades combinadas com a liderança: escrita e revisão de aulas, curadoria, tradução, jornal, aula de reforço, design ou desenvolvimento.",
+  "Participo por vontade própria e sem remuneração, nas atividades combinadas com a coordenação: escrita e revisão de aulas, curadoria, tradução, jornal, aula de reforço, design ou desenvolvimento.",
   "Nos termos da Lei nº 9.608, de 18 de fevereiro de 1998, o serviço voluntário não gera vínculo empregatício nem obrigação de natureza trabalhista, previdenciária ou afim.",
-  "Não há horário fixo nem meta obrigatória. Registro no painel as horas que de fato dediquei, com a descrição do que fiz. As horas só contam para certificado depois de conferidas pela liderança.",
+  "Não há horário fixo nem meta obrigatória. Registro no painel as horas que de fato dediquei, com a descrição do que fiz. As horas só contam para certificado depois de conferidas pela coordenação.",
   "Posso deixar o voluntariado a qualquer momento, e o instituto pode encerrar a minha participação, sem ônus para nenhuma das partes.",
   "O que eu escrever para o site é publicado sob a licença de conteúdo do instituto, com o crédito que eu escolher.",
   "Comprometo-me a não inventar informações, a citar as fontes do que escrevo e a guardar sigilo sobre dados pessoais a que tiver acesso no painel.",
@@ -223,7 +223,7 @@ export function Horas({ me }: { me: Me }) {
   );
 }
 
-/** Liderança e vice-liderança conferem as horas registradas pelos outros. */
+/** Coordenação e vice-coordenação conferem as horas registradas pelos outros. */
 function Conferir() {
   const fila = useLista<HoraDaFila[]>("horas_fila");
   const acao = useAcao(fila.recarregar);
@@ -253,7 +253,7 @@ function Conferir() {
   );
 }
 
-/** Só a liderança: abre o processo de um certificado, com as testemunhas que acompanharam o trabalho. */
+/** Só a coordenação: abre o processo de um certificado, com as testemunhas que acompanharam o trabalho. */
 function Abrir({ depois }: { depois: () => void }) {
   const pessoas = useLista<Pessoa[]>("voluntarios_listar");
   const acao = useAcao(depois);
@@ -304,7 +304,7 @@ function Abrir({ depois }: { depois: () => void }) {
           <textarea value={form.atividades} onChange={(e) => setForm({ ...form, atividades: e.target.value })} rows={3} required minLength={10} maxLength={3000} className={campo} />
         </label>
         <fieldset>
-          <legend>Testemunhas (educadores, curadoria ou vice-liderança)</legend>
+          <legend>Testemunhas (educadores, curadoria ou vice-coordenação)</legend>
           <div className="mt-1 flex flex-wrap gap-x-5 gap-y-1">
             {aptas.map((pessoa) => (
               <label key={pessoa.id} className="flex items-center gap-2">

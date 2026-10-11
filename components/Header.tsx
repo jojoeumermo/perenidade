@@ -3,7 +3,7 @@ import Link from "next/link";
 import { localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { site } from "@/lib/site";
-import { AccountLink, LanguageSwitcher, NavLinks } from "./NavLinks";
+import { AccountLink, LanguageSwitcher, NavLinks, RadioLink } from "./NavLinks";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Header({ lang, t }: { lang: Locale; t: Dict }) {
@@ -30,6 +30,7 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
         <div className="ml-auto flex shrink-0 items-center gap-2 md:ml-0 lg:gap-3 lg:justify-self-end">
           <AccountLink />
           <LanguageSwitcher />
+          <RadioLink />
           <ThemeToggle />
         </div>
       </div>

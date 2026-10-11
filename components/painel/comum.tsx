@@ -13,8 +13,8 @@ export const elo = "cursor-pointer underline hover:text-oxblood";
 export const rotulo = "font-mono text-xs uppercase tracking-widest text-gold";
 
 export const papeis: Record<Role["papel"], string> = {
-  coordenacao: "Liderança comunitária",
-  vice: "Vice-liderança",
+  coordenacao: "Coordenação comunitária",
+  vice: "Vice-coordenação",
   curadoria: "Curadoria",
   educacao: "Educação",
   revisao: "Revisão",
@@ -27,8 +27,8 @@ export const papeis: Record<Role["papel"], string> = {
 
 /** O que cada papel enxerga e faz no painel. É a regra do banco, escrita para gente. */
 export const oQueFaz: Record<Role["papel"], string> = {
-  coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-liderança, define a sucessão, publica materiais e emite certificados.",
-  vice: "Tudo o que a liderança faz, menos mexer na liderança, nomear outra vice-liderança, definir a sucessão e emitir certificados.",
+  coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-coordenação, define a sucessão, publica materiais e emite certificados.",
+  vice: "Tudo o que a coordenação faz, menos mexer na coordenação, nomear outra vice-coordenação, definir a sucessão e emitir certificados.",
   curadoria: "Aprova ou recusa contribuições e anúncios do mural, cuida da comunidade, das denúncias e do filtro de palavras.",
   educacao: "Escreve e revisa na disciplina confiada, cuida da comunidade e atende pedidos de reforço da disciplina.",
   revisao: "Lê a fila inteira e dá parecer; não aprova.",
@@ -58,13 +58,17 @@ const erros: Record<string, string> = {
   ja_decidida: "Esta contribuição já foi decidida.",
   ja_pediu: "Você já fez esse pedido e ele está em análise.",
   limite_anuncios: "Cada pessoa pode ter até três anúncios no mural.",
-  ultima_coordenacao: "O instituto precisa de uma pessoa na liderança.",
+  ultima_coordenacao: "O instituto precisa de uma pessoa na coordenação.",
   limite_pedidos: "Você já tem três pedidos em aberto.",
   confirme_segundo_fator: "Confirme primeiro o seu próprio código do aplicativo autenticador.",
   falta_termo: "Falta o aceite do termo de adesão ao trabalho voluntário.",
   sem_horas: "Não há horas confirmadas nesse período.",
   falta_testemunha: "Ainda falta testemunha confirmar.",
   topico_trancado: "Esta conversa está trancada.",
+  falta_apoio: "Faltam apoios da equipe: são precisos dois antes de aprovar.",
+  sem_chave: "A coordenação ainda não definiu a chave da conversa da equipe.",
+  conteudo_recusado: "O texto tem palavras que o filtro não aceita.",
+  sem_links: "Só texto: sem endereços, imagens ou arquivos.",
   sem_conexao: "Sem conexão com o serviço.",
   falha: "Algo deu errado. Tente de novo.",
 };

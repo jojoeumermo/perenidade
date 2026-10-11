@@ -94,6 +94,7 @@ let publica, doProf, artigo;
 await espera("qualquer pessoa contribui", async () => (publica = await rpc(anon, "contribuir", { p: aula({ nome: "Visitante" }) })), (r) => Boolean(r.id));
 await espera("campo-isca preenchido não guarda nada", () => rpc(anon, "contribuir", { p: aula({ site: "http://spam" }) }), (r) => Boolean(r.id));
 await espera("isca não entrou na fila", () => dono("select count(*)::int as n from interno.contribuicoes"), (r) => r.rows[0].n === 1);
+await recusa("contribuição sem conta com apologia ao nazismo não chega à fila", () => rpc({ papel: "anon", ip: "198.51.100.30" }, "contribuir", { p: aula({ corpo: "Texto dizendo que o holocausto é mentira e outras coisas assim." }) }), "conteudo_recusado");
 await espera("educador contribui na própria disciplina", async () => (doProf = await rpc(como(ids.prof), "contribuir", { p: aula({ titulo: "Regra de três" }) })), (r) => Boolean(r.id));
 await espera("jornalista envia matéria", async () => (artigo = await rpc(como(ids.jornal), "contribuir", { p: aula({ tipo: "artigo", disciplina: null, titulo: "Greve dos metalúrgicos completa uma semana", dados: { subtitulo: "Categoria pede reposição." } }) })), (r) => Boolean(r.id));
 await espera("contribuição do educador é marcada como tal e assinada", () => rpc(como(ids.prof), "contribuicao_ver", { p_id: doProf.id }), (r) => r.como === "educacao" && r.nome_autor === "Paulo Professor" && r.status === "pendente");
@@ -188,18 +189,31 @@ await espera("mural é público", () => rpc(anon, "apoiadores_listar"), (r) => r
 // ── Mural dos Trabalhadores ──
 const anuncio = (extra = {}) => ({ categoria: "cooperativa", titulo: "Cooperativa de costureiras", descricao: "Uniformes, consertos e bolsas feitos por doze costureiras associadas.", cidade: "Recife", uf: "pe", contato: "WhatsApp (81) 90000-0000", link: "", ...extra });
 let anuncioId;
-await recusa("anônimo não anuncia no mural", () => rpc(anon, "mural_enviar", { p: anuncio() }), "entre_primeiro");
+let semConta;
+await espera("quem não tem conta anuncia e recebe um código de retirada", async () => (semConta = await rpc({ papel: "anon", ip: "198.51.100.7" }, "mural_enviar", { p: anuncio({ titulo: "Lavadeira no Ibura", oficio: "Lavadeira", cidade: "Recife" }) })), (r) => Boolean(r.id) && /^[0-9A-F]{10}$/.test(r.codigo));
+await recusa("anúncio sem estado é recusado", () => rpc({ papel: "anon", ip: "198.51.100.8" }, "mural_enviar", { p: anuncio({ uf: "" }) }), "invalido:uf");
+await recusa("estado que não existe é recusado", () => rpc({ papel: "anon", ip: "198.51.100.8" }, "mural_enviar", { p: anuncio({ uf: "XX" }) }), "invalido:uf");
+await recusa("anúncio sem cidade é recusado", () => rpc({ papel: "anon", ip: "198.51.100.8" }, "mural_enviar", { p: anuncio({ cidade: "" }) }), "invalido:cidade");
+await recusa("anúncio com ameaça não entra nem na fila", () => rpc({ papel: "anon", ip: "198.51.100.9" }, "mural_enviar", { p: anuncio({ descricao: "Faço serviço de pedreiro. Quem não pagar, eu sei onde você mora." }) }), "conteudo_recusado");
+await espera("campo-isca no mural finge que deu certo e não guarda nada", async () => { await rpc({ papel: "anon", ip: "198.51.100.10" }, "mural_enviar", { p: anuncio({ site: "http://spam" }) }); return dono("select count(*)::int as n from interno.mural"); }, (r) => r.rows[0].n === 1);
+await recusa("código errado não retira anúncio", () => rpc(anon, "mural_retirar", { p_codigo: "0000000000" }), "nao_encontrado");
+await espera("o código não fica guardado, só o selo dele", () => dono("select codigo from interno.mural where id = $1", [semConta.id]), (r) => /^[a-f0-9]{64}$/.test(r.rows[0].codigo) && !r.rows[0].codigo.includes(semConta.codigo.toLowerCase()));
 await recusa("categoria desconhecida é recusada", () => rpc(como(ids.prof), "mural_enviar", { p: anuncio({ categoria: "emprestimo" }) }), "invalido:categoria");
 await recusa("link do mural precisa ser https", () => rpc(como(ids.prof), "mural_enviar", { p: anuncio({ link: "javascript:alert(1)" }) }), "invalido:link");
 await recusa("descrição curta demais é recusada", () => rpc(como(ids.prof), "mural_enviar", { p: anuncio({ descricao: "curta" }) }), "invalido:descricao");
 await espera("trabalhador envia anúncio", async () => (anuncioId = (await rpc(como(ids.prof), "mural_enviar", { p: anuncio() })).id), (r) => Boolean(r));
 await espera("anúncio pendente não aparece para o público", () => rpc(anon, "mural_listar"), (r) => r.length === 0);
+await recusa("curadoria não decide o mural: é da coordenação", () => rpc(como(ids.curadora), "mural_decidir", { p_id: anuncioId, p_aprovar: true, p_nota: "" }), "sem_permissao");
 await espera("quem enviou vê o próprio anúncio aguardando", () => rpc(como(ids.prof), "mural_meus"), (r) => r.length === 1 && r[0].status === "pendente");
 await recusa("educador não decide anúncios", () => rpc(como(ids.prof), "mural_decidir", { p_id: anuncioId, p_aprovar: true, p_nota: "" }), "sem_permissao");
 await recusa("quem não é curadoria não vê a fila do mural", () => rpc(como(ids.jornal), "mural_fila"), "sem_permissao");
-await espera("curadoria vê a fila do mural", () => rpc(como(ids.curadora), "mural_fila"), (r) => r.length === 1 && r[0].nome === "Paulo Professor");
-await espera("curadoria aprova", () => rpc(como(ids.curadora), "mural_decidir", { p_id: anuncioId, p_aprovar: true, p_nota: "" }), (r) => r.ok);
-await espera("anúncio aprovado aparece, com a sigla do estado corrigida", () => rpc(anon, "mural_listar"), (r) => r.length === 1 && r[0].uf === "PE" && r[0].status === undefined);
+await espera("coordenação vê a fila do mural, com os dois pedidos", () => rpc(como(ids.coord), "mural_fila"), (r) => r.length === 2 && r.some((a) => a.nome === "Paulo Professor") && r.some((a) => a.sem_conta && a.oficio === "Lavadeira"));
+await espera("coordenação aprova os dois", async () => { await rpc(como(ids.coord), "mural_decidir", { p_id: semConta.id, p_aprovar: true, p_nota: "" }); return rpc(como(ids.coord), "mural_decidir", { p_id: anuncioId, p_aprovar: true, p_nota: "" }); }, (r) => r.ok);
+await espera("anúncio aprovado aparece, com a sigla do estado corrigida", () => rpc(anon, "mural_listar"), (r) => r.length === 2 && r.every((a) => a.uf === "PE" && a.status === undefined));
+await espera("filtro por cidade ignora acento e maiúsculas", () => rpc(anon, "mural_listar", { p_categoria: null, p_uf: "PE", p_cidade: "RECIFE", p_busca: null }), (r) => r.length === 2);
+await espera("busca por ofício", () => rpc(anon, "mural_listar", { p_categoria: null, p_uf: null, p_cidade: null, p_busca: "lavadeira" }), (r) => r.length === 1 && r[0].titulo === "Lavadeira no Ibura");
+await espera("lista de cidades com anúncio no ar", () => rpc(anon, "mural_cidades", { p_uf: "pe" }), (r) => r.length === 1 && r[0].cidade === "Recife" && r[0].total === 2);
+await espera("quem anunciou sem conta retira com o código", async () => { await rpc(anon, "mural_retirar", { p_codigo: semConta.codigo.toLowerCase() }); return rpc(anon, "mural_listar"); }, (r) => r.length === 1);
 await espera("filtro por categoria", () => rpc(anon, "mural_listar", { p_categoria: "arte", p_uf: null }), (r) => r.length === 0);
 await espera("filtro por estado", () => rpc(anon, "mural_listar", { p_categoria: null, p_uf: "pe" }), (r) => r.length === 1);
 await recusa("outra pessoa não edita o anúncio alheio", () => rpc(como(ids.jornal), "mural_enviar", { p: anuncio({ id: anuncioId, titulo: "Tomado por outra pessoa" }) }), "nao_encontrado");
@@ -213,8 +227,9 @@ await espera("anúncio vencido sai do ar e pode ser renovado", async () => {
   return [vencido.length, (await rpc(anon, "mural_listar")).length];
 }, (r) => r[0] === 0 && r[1] === 1);
 await recusa("no máximo três anúncios por pessoa", async () => { for (let i = 0; i < 3; i++) await rpc(como(ids.prof), "mural_enviar", { p: anuncio({ titulo: `Outro anúncio ${i}` }) }); }, "limite_anuncios");
-await espera("resumo do painel conta o mural", () => rpc(como(ids.curadora), "painel_resumo"), (r) => r.mural === 2);
-await espera("curadoria retira anúncio indevido", () => rpc(como(ids.curadora), "mural_remover", { p_id: anuncioId }), (r) => r.ok);
+await espera("resumo do painel conta o mural", () => rpc(como(ids.coord), "painel_resumo"), (r) => r.mural === 2);
+await recusa("curadoria não retira anúncio do mural", () => rpc(como(ids.curadora), "mural_remover", { p_id: anuncioId }), "nao_encontrado");
+await espera("coordenação retira anúncio indevido", () => rpc(como(ids.coord), "mural_remover", { p_id: anuncioId }), (r) => r.ok);
 
 // ── Rádio ──
 await espera("rádio fora do ar: público só vê que está fora", () => rpc(anon, "radio_estado"), (r) => r.no_ar === false && r.canais === undefined);
@@ -231,48 +246,77 @@ await recusa("anônimo não guarda progresso", () => rpc(anon, "progresso_salvar
 await espera("progresso guardado e lido", async () => { await rpc(como(ids.leitora), "progresso_salvar", { p_faixa: faixa.id, p_segundos: 95 }); return rpc(como(ids.leitora), "progresso_listar"); }, (r) => r[faixa.id] === 95);
 await espera("progresso é de cada pessoa", () => rpc(como(ids.prof), "progresso_listar"), (r) => Object.keys(r).length === 0);
 
-// ── Liderança, vice-liderança e sucessão ──
-await recusa("ninguém recebe a liderança por papel_conceder", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.vice, p_papel: "coordenacao", p_disciplina: null }), "invalido:papel");
-await recusa("curadoria não nomeia vice-liderança", () => rpc(como(ids.curadora), "papel_conceder", { p_usuario: ids.vice, p_papel: "vice", p_disciplina: null }), "sem_permissao");
-await espera("liderança nomeia a vice-liderança", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.vice, p_papel: "vice", p_disciplina: null }));
-await espera("vice-liderança confia papéis de trabalho", async () => {
+// ── Coordenação, vice-coordenação e sucessão ──
+await recusa("ninguém recebe a coordenação por papel_conceder", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.vice, p_papel: "coordenacao", p_disciplina: null }), "invalido:papel");
+await recusa("curadoria não nomeia vice-coordenação", () => rpc(como(ids.curadora), "papel_conceder", { p_usuario: ids.vice, p_papel: "vice", p_disciplina: null }), "sem_permissao");
+await espera("coordenação nomeia a vice-coordenação", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.vice, p_papel: "vice", p_disciplina: null }));
+await espera("vice-coordenação confia papéis de trabalho", async () => {
   await rpc(como(ids.vice), "papel_conceder", { p_usuario: ids.mentora, p_papel: "mentoria", p_disciplina: "matematica" });
   await rpc(como(ids.vice), "papel_conceder", { p_usuario: ids.designer, p_papel: "design", p_disciplina: null });
   return rpc(como(ids.mentora), "eu");
 }, (r) => r.papeis[0].papel === "mentoria" && r.avisos === 1);
-await espera("vice-liderança faz tudo o que a curadoria faz", async () => [await rpc(como(ids.vice), "mural_fila"), await rpc(como(ids.vice), "denuncias_listar"), await rpc(como(ids.vice), "fila")], (r) => r.every(Array.isArray));
-await recusa("vice-liderança não nomeia outra vice", () => rpc(como(ids.vice), "papel_conceder", { p_usuario: ids.curadora, p_papel: "vice", p_disciplina: null }), "sem_permissao");
-await recusa("vice-liderança não remove a liderança", () => rpc(como(ids.vice), "papel_remover", { p_id: papelCoord }), "sem_permissao");
-await recusa("vice-liderança não suspende a liderança", () => rpc(como(ids.vice), "usuario_suspender", { p_usuario: ids.coord, p_suspenso: true }), "sem_permissao");
-await recusa("curadoria não suspende a vice-liderança", () => rpc(como(ids.curadora), "usuario_suspender", { p_usuario: ids.vice, p_suspenso: true }), "sem_permissao");
-await espera("vice-liderança vê voluntários e registro", async () => [await rpc(como(ids.vice), "voluntarios_listar"), await rpc(como(ids.vice), "auditoria_listar")], (r) => r[0].length === 10 && r[1].some((a) => a.acao === "papel_confiado"));
+await espera("vice-coordenação faz tudo o que a curadoria faz", async () => [await rpc(como(ids.vice), "mural_fila"), await rpc(como(ids.vice), "denuncias_listar"), await rpc(como(ids.vice), "fila")], (r) => r.every(Array.isArray));
+await recusa("vice-coordenação não nomeia outra vice", () => rpc(como(ids.vice), "papel_conceder", { p_usuario: ids.curadora, p_papel: "vice", p_disciplina: null }), "sem_permissao");
+await recusa("vice-coordenação não remove a coordenação", () => rpc(como(ids.vice), "papel_remover", { p_id: papelCoord }), "sem_permissao");
+await recusa("vice-coordenação não suspende a coordenação", () => rpc(como(ids.vice), "usuario_suspender", { p_usuario: ids.coord, p_suspenso: true }), "sem_permissao");
+await recusa("curadoria não suspende a vice-coordenação", () => rpc(como(ids.curadora), "usuario_suspender", { p_usuario: ids.vice, p_suspenso: true }), "sem_permissao");
+await espera("vice-coordenação vê voluntários e registro", async () => [await rpc(como(ids.vice), "voluntarios_listar"), await rpc(como(ids.vice), "auditoria_listar")], (r) => r[0].length === 10 && r[1].some((a) => a.acao === "papel_confiado"));
 await recusa("curadoria não lê o registro de atividades", () => rpc(como(ids.curadora), "auditoria_listar"), "sem_permissao");
-await recusa("vice-liderança não define a sucessão", () => rpc(como(ids.vice), "sucessao_definir", { p_usuarios: [ids.vice] }), "sem_permissao");
-await recusa("a liderança não entra na própria sucessão", () => rpc(como(ids.coord), "sucessao_definir", { p_usuarios: [ids.coord] }), "invalido:usuarios");
-await espera("liderança define a ordem de sucessão", async () => { await rpc(como(ids.coord), "sucessao_definir", { p_usuarios: [ids.vice, ids.curadora] }); return rpc(como(ids.vice), "sucessao_ver"); }, (r) => r.ordem.length === 2 && r.ordem[0].nome === "Vera Vice");
-await espera("com a liderança ativa nada muda", () => rpc(como(ids.vice), "eu"), (r) => r.papeis.some((p) => p.papel === "vice") && !r.papeis.some((p) => p.papel === "coordenacao"));
-await espera("liderança parada há mais de 90 dias: a primeira da ordem assume", async () => {
+await recusa("vice-coordenação não define a sucessão", () => rpc(como(ids.vice), "sucessao_definir", { p_usuarios: [ids.vice] }), "sem_permissao");
+await recusa("a coordenação não entra na própria sucessão", () => rpc(como(ids.coord), "sucessao_definir", { p_usuarios: [ids.coord] }), "invalido:usuarios");
+await espera("coordenação define a ordem de sucessão", async () => { await rpc(como(ids.coord), "sucessao_definir", { p_usuarios: [ids.vice, ids.curadora] }); return rpc(como(ids.vice), "sucessao_ver"); }, (r) => r.ordem.length === 2 && r.ordem[0].nome === "Vera Vice");
+await espera("com a coordenação ativa nada muda", () => rpc(como(ids.vice), "eu"), (r) => r.papeis.some((p) => p.papel === "vice") && !r.papeis.some((p) => p.papel === "coordenacao"));
+await espera("coordenação parada há mais de 90 dias: a primeira da ordem assume", async () => {
   await dono("update interno.perfis set visto_em = now() - interval '91 days' where id = $1", [ids.coord]);
   const vice = await rpc(como(ids.vice), "eu");
   const antigo = (await dono("select papel from interno.papeis where usuario = $1", [ids.coord])).rows.map((x) => x.papel);
   return [vice.papeis.map((p) => p.papel), antigo];
 }, (r) => r[0].includes("coordenacao") && !r[0].includes("vice") && r[1].includes("vice") && !r[1].includes("coordenacao"));
-await espera("quem assumiu devolve a liderança", async () => { await rpc(como(ids.vice), "lideranca_passar", { p_usuario: ids.coord }); return rpc(como(ids.coord), "eu"); }, (r) => r.papeis.some((p) => p.papel === "coordenacao"));
-await recusa("quem não lidera não passa a liderança", () => rpc(como(ids.vice), "lideranca_passar", { p_usuario: ids.vice }), "sem_permissao");
+await espera("quem assumiu devolve a coordenação", async () => { await rpc(como(ids.vice), "lideranca_passar", { p_usuario: ids.coord }); return rpc(como(ids.coord), "eu"); }, (r) => r.papeis.some((p) => p.papel === "coordenacao"));
+await recusa("quem não lidera não passa a coordenação", () => rpc(como(ids.vice), "lideranca_passar", { p_usuario: ids.vice }), "sem_permissao");
+
+// ── Convites: não existe cadastro aberto ──
+let convite;
+await recusa("depois que existe coordenação, conta sem convite não é criada", () => criarUsuario("penetra@teste.local", "Penetra"), "convite_obrigatorio");
+await recusa("código inventado não cria conta", () => criarUsuario("penetra@teste.local", "Penetra", "0".repeat(64)), "convite_invalido");
+await recusa("educador não cria convite", () => rpc(como(ids.prof), "convite_criar", { p: { email: "nova@teste.local" } }), "sem_permissao");
+await recusa("anônimo não cria convite", () => rpc(anon, "convite_criar", { p: { email: "nova@teste.local" } }), "entre_primeiro");
+await recusa("convite com função precisa de e-mail", () => rpc(como(ids.coord), "convite_criar", { p: { papel: "revisao" } }), "invalido:email");
+await recusa("convite de educador precisa de disciplina", () => rpc(como(ids.coord), "convite_criar", { p: { email: "nova@teste.local", papel: "educacao" } }), "invalido:disciplina");
+await recusa("ninguém convida para a coordenação", () => rpc(como(ids.coord), "convite_criar", { p: { email: "nova@teste.local", papel: "coordenacao" } }), "invalido:papel");
+await recusa("vice não convida curadoria", () => rpc(como(ids.vice), "convite_criar", { p: { email: "nova@teste.local", papel: "curadoria" } }), "sem_permissao");
+await espera("coordenação cria convite pessoal de educadora de química", async () => (convite = await rpc(como(ids.coord), "convite_criar", { p: { email: "Quimica@Teste.Local", papel: "educacao", disciplina: "quimica", nota: "Professora da rede estadual" } })), (r) => /^[a-f0-9]{64}$/.test(r.codigo));
+await espera("o banco guarda o selo, nunca o código", () => dono("select selo from interno.convites where id = $1", [convite.id]), (r) => r.rows[0].selo !== convite.codigo && r.rows[0].selo.length === 64);
+await espera("a página de entrada reconhece o convite", () => rpc(anon, "convite_ver", { p_codigo: convite.codigo }), (r) => r.valido && r.email === "quimica@teste.local" && r.papel === "educacao");
+await espera("de convite que não existe, não diz nada", () => rpc(anon, "convite_ver", { p_codigo: "abc" }), (r) => r.valido === false && Object.keys(r).length === 1);
+await recusa("convite pessoal não serve para outro e-mail", () => criarUsuario("outra@teste.local", "Outra", convite.codigo), "convite_de_outro_email");
+await espera("quem foi convidada cria a conta e já chega com a função", async () => { ids.quimica = await criarUsuario("quimica@teste.local", "Quitéria", convite.codigo); return rpc(como(ids.quimica), "eu"); }, (r) => r.papeis.length === 1 && r.papeis[0].papel === "educacao" && r.papeis[0].disciplina === "quimica" && /^Estudante \d{5}$/.test(r.nome));
+await espera("o código gasto não fica guardado junto da conta", () => dono("select raw_user_meta_data from auth.users where id = $1", [ids.quimica]), (r) => !("convite" in r.rows[0].raw_user_meta_data));
+await recusa("convite pessoal vale uma vez só", () => criarUsuario("quimica2@teste.local", "Q2", convite.codigo), "convite_invalido");
+await espera("aceite fica no registro de atividades", () => rpc(como(ids.coord), "auditoria_listar", { p_pagina: 0, p_acao: "convite_aceito" }), (r) => r.length === 1);
+let aberto;
+await espera("vice cria convite da comunidade, para várias pessoas e sem função", async () => (aberto = await rpc(como(ids.vice), "convite_criar", { p: { usos: 2, dias: 3, nota: "Grupo do cursinho" } })), (r) => Boolean(r.codigo));
+await espera("duas pessoas entram com o mesmo convite, sem função nenhuma", async () => { const a = await criarUsuario("aluna1@teste.local", "A1", aberto.codigo); await criarUsuario("aluno2@teste.local", "A2", aberto.codigo); return rpc(como(a), "eu"); }, (r) => r.papeis.length === 0);
+await recusa("a terceira já não entra", () => criarUsuario("aluna3@teste.local", "A3", aberto.codigo), "convite_invalido");
+await espera("coordenação vê os convites sem ver nenhum código", () => rpc(como(ids.coord), "convites_listar"), (r) => r.length === 2 && r.every((c) => !("selo" in c) && !("codigo" in c)) && r.every((c) => c.valido === false));
+await espera("convite revogado deixa de valer", async () => { const c = await rpc(como(ids.coord), "convite_criar", { p: { email: "tarde@teste.local" } }); await rpc(como(ids.vice), "convite_revogar", { p_id: c.id }); return rpc(anon, "convite_ver", { p_codigo: c.codigo }); }, (r) => r.valido === false);
+await espera("convite vencido deixa de valer", async () => { const c = await rpc(como(ids.coord), "convite_criar", { p: { email: "velho@teste.local" } }); await dono("update interno.convites set expira_em = now() - interval '1 minute' where id = $1", [c.id]); return rpc(anon, "convite_ver", { p_codigo: c.codigo }); }, (r) => r.valido === false);
+await recusa("logado não gera convite pelo banco", () => rpc(como(ids.coord), "convidar_pelo_banco", { p_email: "x@teste.local" }), "permission denied");
+await espera("dono do banco gera convite de emergência", () => dono("select public.convidar_pelo_banco('socorro@teste.local') as r"), (r) => /^\/pt\/entrar\?convite=[a-f0-9]{64}$/.test(r.rows[0].r));
 
 // ── Segundo fator, aparelhos e iscas ──
 await recusa("exigência de segundo fator só liga com o próprio confirmado", () => rpc(como(ids.coord), "seguranca_configurar", { p_exigir_2fa: true }), "confirme_segundo_fator");
-await espera("liderança liga a exigência já com o segundo fator", () => rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: true }), (r) => r.exigir_2fa === true);
-await recusa("sem segundo fator, a curadoria não decide nada", () => rpc(como(ids.curadora), "mural_fila"), "sem_permissao");
-await espera("com segundo fator, decide", () => rpc({ ...como(ids.curadora), aal: "aal2" }, "mural_fila"), (r) => Array.isArray(r));
+await espera("coordenação liga a exigência já com o segundo fator", () => rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: true }), (r) => r.exigir_2fa === true);
+await recusa("sem segundo fator, a curadoria não decide nada", () => rpc(como(ids.curadora), "denuncias_listar"), "sem_permissao");
+await espera("com segundo fator, decide", () => rpc({ ...como(ids.curadora), aal: "aal2" }, "denuncias_listar"), (r) => Array.isArray(r));
 await espera("o painel sabe que falta o segundo fator", () => rpc(como(ids.curadora), "eu"), (r) => r.exige_segundo_fator === true && r.segundo_fator === false);
 await espera("educador não precisa de segundo fator", () => rpc(como(ids.prof), "eu"), (r) => r.exige_segundo_fator === false);
-await recusa("sem segundo fator, nem a liderança desliga", () => rpc(como(ids.coord), "seguranca_configurar", { p_exigir_2fa: false }), "sem_permissao");
-await espera("liderança desliga a exigência", () => rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: false }), (r) => r.exigir_2fa === false);
+await recusa("sem segundo fator, nem a coordenação desliga", () => rpc(como(ids.coord), "seguranca_configurar", { p_exigir_2fa: false }), "sem_permissao");
+await espera("coordenação desliga a exigência", () => rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: false }), (r) => r.exigir_2fa === false);
 const marca = (n) => String(n).repeat(64).slice(0, 64);
 await recusa("marca de aparelho malformada", () => rpc(como(ids.prof), "acesso_registrar", { p_marca: "abc", p_rotulo: "Firefox" }), "invalido:marca");
 await espera("primeiro aparelho não gera aviso", () => rpc(como(ids.prof), "acesso_registrar", { p_marca: marca("a"), p_rotulo: "Firefox em Linux" }), (r) => r.novo === false);
-await espera("aparelho novo avisa a pessoa e a liderança", async () => {
+await espera("aparelho novo avisa a pessoa e a coordenação", async () => {
   const antes = (await rpc(como(ids.coord), "avisos_meus")).length;
   const resposta = await rpc(como(ids.prof), "acesso_registrar", { p_marca: marca("b"), p_rotulo: "Chrome em Android" });
   return [resposta.novo, (await rpc(como(ids.prof), "avisos_meus")).some((a) => a.texto.includes("aparelho novo")), (await rpc(como(ids.coord), "avisos_meus")).length - antes];
@@ -280,7 +324,7 @@ await espera("aparelho novo avisa a pessoa e a liderança", async () => {
 await espera("o mesmo aparelho de novo não avisa", () => rpc(como(ids.prof), "acesso_registrar", { p_marca: marca("b"), p_rotulo: "Chrome em Android" }), (r) => r.novo === false);
 await espera("recados marcados como lidos", async () => { await rpc(como(ids.prof), "aviso_ler", { p_id: null }); return rpc(como(ids.prof), "eu"); }, (r) => r.avisos === 0);
 await espera("função-isca devolve vazio, registra e suspende a conta comum", async () => {
-  const curioso = await criarUsuario("curioso@teste.local", "Curioso");
+  const curioso = await criarUsuario("curioso@teste.local", "Curioso", (await rpc(como(ids.coord), "convite_criar", { p: { email: "curioso@teste.local" } })).codigo);
   await rpc(como(curioso), "eu");
   const resposta = await rpc(como(curioso), "exportar_usuarios");
   const suspenso = (await dono("select suspenso from interno.perfis where id = $1", [curioso])).rows[0].suspenso;
@@ -288,6 +332,8 @@ await espera("função-isca devolve vazio, registra e suspende a conta comum", a
   return [resposta.length, suspenso, registro];
 }, (r) => r[0] === 0 && r[1] === true && r[2] === 1);
 await espera("isca chamada sem conta também fica registrada", async () => { await rpc({ papel: "anon", ip: "203.0.113.50" }, "admin_senhas"); return rpc(como(ids.coord), "auditoria_listar", { p_pagina: 0, p_acao: "armadilha" }); }, (r) => r.length === 2);
+await espera("endereço-isca do site fica registrado, sem endereço de rede", async () => { await rpc({ papel: "anon", ip: "203.0.113.60" }, "isca", { p_caminho: "/wp-admin/install.php", p_agente: "sqlmap/1.7" }); return rpc(como(ids.coord), "auditoria_listar", { p_pagina: 0, p_acao: "isca" }); }, (r) => r.length === 1 && r[0].alvo === "/wp-admin/install.php" && r[0].detalhes.agente === "sqlmap/1.7" && !("origem" in r[0].detalhes));
+await recusa("enxurrada de iscas da mesma origem é barrada", async () => { for (let n = 0; n < 25; n++) await rpc({ papel: "anon", ip: "203.0.113.61" }, "isca", { p_caminho: "/.env", p_agente: "x" }); }, "muitos_pedidos");
 
 // ── Comunidade: dúvidas, resposta aceita e filtro ──
 let duvida, r2;
@@ -318,21 +364,27 @@ await recusa("no máximo três conversas novas por hora", async () => { for (let
 await espera("sem aviso definido, o público recebe 'não definido'", () => rpc(anon, "abertura"), (r) => r.definido === false);
 await recusa("curadoria não muda o aviso de abertura", () => rpc(como(ids.curadora), "abertura_salvar", { p: { ativo: true, titulo: "x", texto: "y" } }), "sem_permissao");
 await recusa("imagem do aviso precisa estar no próprio site", () => rpc(como(ids.coord), "abertura_salvar", { p: { ativo: true, titulo: "Aviso", texto: "Texto", imagem: "https://exemplo.test/x.png" } }), "invalido:imagem");
-await espera("vice-liderança publica o aviso", async () => { await rpc(como(ids.vice), "abertura_salvar", { p: { ativo: true, titulo: "Aviso", texto: "Texto do aviso.", imagem: "/imagens/x.webp", link: "/pt/sobre", link_texto: "Saiba mais", ate: "2030-01-01" } }); return rpc(anon, "abertura"); },
+await espera("vice-coordenação publica o aviso", async () => { await rpc(como(ids.vice), "abertura_salvar", { p: { ativo: true, titulo: "Aviso", texto: "Texto do aviso.", imagem: "/imagens/x.webp", link: "/pt/sobre", link_texto: "Saiba mais", ate: "2030-01-01" } }); return rpc(anon, "abertura"); },
   (r) => r.definido === true && r.ativo === true && r.titulo === "Aviso" && typeof r.versao === "number");
 
 // ── Aula de reforço ──
 const pedido = (extra = {}) => ({ disciplina: "matematica", assunto: "Equação do segundo grau", duvida: "Não consigo entender de onde vem a fórmula de Bhaskara.", email: "Aluna@Exemplo.com", ...extra });
 let reforco;
-await recusa("reforço precisa de conta", () => rpc(anon, "reforco_pedir", { p: pedido() }), "entre_primeiro");
+let avulso;
+await espera("quem não tem conta pede reforço", async () => (avulso = await rpc({ papel: "anon", ip: "198.51.100.20" }, "reforco_pedir", { p: pedido({ disciplina: "historia", assunto: "Revolução Francesa" }) })), (r) => Boolean(r.id));
+await recusa("pedido com endereço de site é recusado", () => rpc({ papel: "anon", ip: "198.51.100.21" }, "reforco_pedir", { p: pedido({ duvida: "Olhem só isto aqui: https://exemplo.com/coisa e me respondam." }) }), "sem_links");
+await recusa("pedido com nome de imagem é recusado", () => rpc({ papel: "anon", ip: "198.51.100.21" }, "reforco_pedir", { p: pedido({ duvida: "Segue a foto do exercício em anexo: exercicio.jpg, por favor." }) }), "sem_links");
+await recusa("pedido com apologia ao nazismo é recusado", () => rpc({ papel: "anon", ip: "198.51.100.22" }, "reforco_pedir", { p: pedido({ duvida: "Quero que expliquem por que Hitler tinha razão em tudo." }) }), "conteudo_recusado");
+await espera("campo-isca no reforço não guarda nada", async () => { await rpc({ papel: "anon", ip: "198.51.100.23" }, "reforco_pedir", { p: pedido({ site: "x" }) }); return dono("select count(*)::int as n from interno.reforco"); }, (r) => r.rows[0].n === 1);
+await dono("delete from interno.reforco where id = $1", [avulso.id]);
 await recusa("reforço precisa de e-mail válido", () => rpc(como(ids.jornal), "reforco_pedir", { p: pedido({ email: "sem-arroba" }) }), "invalido:email");
 await espera("pedir reforço", async () => (reforco = await rpc(como(ids.jornal), "reforco_pedir", { p: pedido() })), (r) => Boolean(r.id));
 await recusa("quem não é da área não vê a fila de reforço", () => rpc(como(ids.designer), "reforco_fila"), "sem_permissao");
 await espera("mentora de matemática vê o pedido, sem o e-mail", () => rpc(como(ids.mentora), "reforco_fila"), (r) => r.length === 1 && r[0].email === "" && !JSON.stringify(r).includes("exemplo.com"));
 await espera("educador de outra disciplina não vê", async () => {
-  const quimico = await criarUsuario("quimico@teste.local", "Q");
+  const quimico = ids.quimica;
   await rpc(como(quimico), "eu");
-  await rpc(como(ids.coord), "papel_conceder", { p_usuario: quimico, p_papel: "educacao", p_disciplina: "quimica" });
+
   return rpc(como(quimico), "reforco_fila");
 }, (r) => r.length === 0);
 await espera("ao assumir, a mentora recebe o e-mail", () => rpc(como(ids.mentora), "reforco_assumir", { p_id: reforco.id }), (r) => r.email === "aluna@exemplo.com");
@@ -345,18 +397,28 @@ await espera("quem pediu acompanha", () => rpc(como(ids.jornal), "reforco_meus")
 // ── Conversa da equipe ──
 await recusa("quem não é da equipe não vê os canais", () => rpc(como(ids.troll), "equipe_canais"), "conta_suspensa");
 await espera("designer vê geral, pedidos e design", () => rpc(como(ids.designer), "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "design"]));
-await espera("liderança vê todos os canais", () => rpc(como(ids.coord), "equipe_canais"), (r) => r.canais.length === 11);
+await espera("coordenação vê todos os canais", () => rpc(como(ids.coord), "equipe_canais"), (r) => r.canais.length === 11);
 await recusa("designer não lê o canal dos educadores", () => rpc(como(ids.designer), "equipe_listar", { p_canal: "educacao" }), "sem_permissao");
-await recusa("designer não escreve no canal da liderança", () => rpc(como(ids.designer), "equipe_escrever", { p_canal: "coordenacao", p_corpo: "Olá" }), "sem_permissao");
-await recusa("pedido de ajuda precisa dizer para quem", () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "pedidos", p_corpo: "Preciso de um diagrama." }), "invalido:para");
+await recusa("designer não escreve no canal da coordenação", () => rpc(como(ids.designer), "equipe_escrever", { p_canal: "coordenacao", p_corpo: "Olá" }), "sem_permissao");
+await recusa("sem chave definida, ninguém escreve", () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" }), "sem_chave");
+await recusa("vice não define a chave da equipe", () => rpc(como(ids.vice), "equipe_chave_definir", { p_prova: "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" }), "sem_permissao");
+await recusa("prova da chave em texto aberto é recusada", () => rpc(como(ids.coord), "equipe_chave_definir", { p_prova: "instituto-lucia" }), "invalido:prova");
+await espera("coordenação define a chave e todos recebem o sal e a prova", async () => { await rpc(como(ids.coord), "equipe_chave_definir", { p_prova: "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" }); return rpc(como(ids.designer), "equipe_canais"); }, (r) => /^[a-f0-9]{32}$/.test(r.sal) && r.prova === "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+await recusa("o banco recusa mensagem em texto aberto", () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: "Bom dia, pessoal." }), "invalido:corpo");
+await recusa("pedido de ajuda precisa dizer para quem", () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "pedidos", p_corpo: "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" }), "invalido:para");
 let recado;
-await espera("educador pede ajuda ao design", async () => (recado = await rpc(como(ids.prof), "equipe_escrever", { p_canal: "pedidos", p_corpo: "Preciso de um diagrama do teorema de Pitágoras.", p_resposta_a: null, p_para: "design" })), (r) => Boolean(r.id));
-await espera("designer responde e o pedido aparece com a resposta", async () => { await rpc(como(ids.designer), "equipe_escrever", { p_canal: "pedidos", p_corpo: "Faço até sexta.", p_resposta_a: recado.id }); return rpc(como(ids.designer), "equipe_listar", { p_canal: "pedidos" }); },
+await espera("educador pede ajuda ao design", async () => (recado = await rpc(como(ids.prof), "equipe_escrever", { p_canal: "pedidos", p_corpo: "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB", p_resposta_a: null, p_para: "design" })), (r) => Boolean(r.id));
+await espera("designer responde e o pedido aparece com a resposta", async () => { await rpc(como(ids.designer), "equipe_escrever", { p_canal: "pedidos", p_corpo: "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB", p_resposta_a: recado.id }); return rpc(como(ids.designer), "equipe_listar", { p_canal: "pedidos" }); },
   (r) => r.length === 1 && r[0].para === "design" && r[0].respostas.length === 1 && r[0].autor === "Paulo Professor");
 await recusa("outra pessoa não apaga recado alheio", () => rpc(como(ids.designer), "equipe_apagar", { p_id: recado.id }), "nao_encontrado");
 await espera("autor marca o pedido como resolvido", () => rpc(como(ids.prof), "equipe_marcar", { p_id: recado.id, p_resolvido: true }), (r) => r.ok);
-await recusa("vice-liderança não define a sala da equipe", () => rpc(como(ids.vice), "equipe_sala_salvar", { p_url: "https://matrix.to/#/!sala:exemplo.org" }), "sem_permissao");
-await espera("liderança indica a sala cifrada", async () => { await rpc(como(ids.coord), "equipe_sala_salvar", { p_url: "https://matrix.to/#/!sala:exemplo.org" }); return rpc(como(ids.designer), "equipe_canais"); }, (r) => r.sala.startsWith("https://matrix.to/"));
+await recusa("vice-coordenação não define a sala da equipe", () => rpc(como(ids.vice), "equipe_sala_salvar", { p_url: "https://matrix.to/#/!sala:exemplo.org" }), "sem_permissao");
+await espera("coordenação indica a sala cifrada", async () => { await rpc(como(ids.coord), "equipe_sala_salvar", { p_url: "https://matrix.to/#/!sala:exemplo.org" }); return rpc(como(ids.designer), "equipe_canais"); }, (r) => r.sala.startsWith("https://matrix.to/"));
+await espera("indicar a sala não apaga a chave", () => rpc(como(ids.coord), "equipe_canais"), (r) => r.prova === "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" && r.sala.startsWith("https://"));
+await espera("mensagem com mais de trinta dias some sozinha", async () => { await dono("update interno.equipe_mensagens set criado_em = now() - interval '31 days' where resposta_a is null"); return rpc(como(ids.coord), "equipe_listar", { p_canal: "pedidos" }); }, (r) => r.length === 0);
+await recusa("vice não apaga tudo", () => rpc(como(ids.vice), "equipe_apagar_tudo"), "sem_permissao");
+await espera("o líder apaga todas as conversas de uma vez", async () => { await rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" }); const r = await rpc(como(ids.coord), "equipe_apagar_tudo"); return [r.apagadas, (await dono("select count(*)::int as n from interno.equipe_mensagens")).rows[0].n]; }, (r) => r[0] === 1 && r[1] === 0);
+await espera("trocar a chave apaga as conversas antigas", async () => { await rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" }); await rpc(como(ids.coord), "equipe_chave_definir", { p_prova: "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" }); return dono("select count(*)::int as n from interno.equipe_mensagens"); }, (r) => r.rows[0].n === 0);
 
 // ── Materiais de campanha ──
 const material = (extra = {}) => ({ tipo: "panfleto", titulo: "Panfleto da jornada de lutas", descricao: "Frente e verso, A5.", campanha: "Jornada de lutas", url: "/arquivos/abc123.pdf", publicado: true, ...extra });
@@ -365,7 +427,7 @@ await recusa("educador não cadastra material", () => rpc(como(ids.prof), "mater
 await recusa("endereço estranho é recusado", () => rpc(como(ids.designer), "material_salvar", { p: material({ url: "javascript:alert(1)" }) }), "invalido:url");
 await espera("designer guarda o material, mas não publica", async () => (materialId = (await rpc(como(ids.designer), "material_salvar", { p: material() })).id), (r) => Boolean(r));
 await espera("rascunho não aparece para o público", () => rpc(anon, "materiais_listar"), (r) => r.length === 0);
-await espera("liderança publica", async () => { await rpc(como(ids.coord), "material_salvar", { p: material({ id: materialId }) }); return rpc(anon, "materiais_listar"); }, (r) => r.length === 1 && r[0].publicado === true);
+await espera("coordenação publica", async () => { await rpc(como(ids.coord), "material_salvar", { p: material({ id: materialId }) }); return rpc(anon, "materiais_listar"); }, (r) => r.length === 1 && r[0].publicado === true);
 await recusa("designer não remove o que já está no ar", () => rpc(como(ids.designer), "material_remover", { p_id: materialId }), "nao_encontrado");
 
 // ── Horas de voluntariado e certificados ──
@@ -379,16 +441,16 @@ let horaId;
 await espera("registrar horas", async () => (horaId = (await rpc(como(ids.prof), "horas_registrar", { p_dia: hoje, p_horas: 3.5, p_atividade: "Escrevi e revisei a aula de regra de três." })).id), (r) => Boolean(r));
 await recusa("curadoria não confere horas", () => rpc(como(ids.curadora), "horas_conferir", { p_id: horaId, p_confirmar: true }), "sem_permissao");
 await recusa("sem horas confirmadas não há certificado", () => rpc(como(ids.coord), "certificado_abrir", { p: { usuario: ids.prof, inicio: hoje, fim: hoje, atividades: "Redação de aulas de matemática.", testemunhas: [] } }), "sem_horas");
-await espera("vice-liderança confere as horas", () => rpc(como(ids.vice), "horas_conferir", { p_id: horaId, p_confirmar: true }), (r) => r.ok);
-await recusa("vice-liderança não abre certificado", () => rpc(como(ids.vice), "certificado_abrir", { p: { usuario: ids.prof, inicio: hoje, fim: hoje, atividades: "Redação de aulas de matemática.", testemunhas: [] } }), "sem_permissao");
+await espera("vice-coordenação confere as horas", () => rpc(como(ids.vice), "horas_conferir", { p_id: horaId, p_confirmar: true }), (r) => r.ok);
+await recusa("vice-coordenação não abre certificado", () => rpc(como(ids.vice), "certificado_abrir", { p: { usuario: ids.prof, inicio: hoje, fim: hoje, atividades: "Redação de aulas de matemática.", testemunhas: [] } }), "sem_permissao");
 await recusa("testemunha precisa ser da equipe de ensino", () => rpc(como(ids.coord), "certificado_abrir", { p: { usuario: ids.prof, inicio: hoje, fim: hoje, atividades: "Redação de aulas de matemática.", testemunhas: [ids.designer] } }), "invalido:testemunhas");
 let certificado;
-await espera("liderança abre o certificado com uma testemunha", async () => (certificado = await rpc(como(ids.coord), "certificado_abrir", { p: { usuario: ids.prof, inicio: hoje, fim: hoje, atividades: "Redação e revisão de aulas de matemática.", testemunhas: [ids.curadora] } })), (r) => Number(r.horas) === 3.5);
+await espera("coordenação abre o certificado com uma testemunha", async () => (certificado = await rpc(como(ids.coord), "certificado_abrir", { p: { usuario: ids.prof, inicio: hoje, fim: hoje, atividades: "Redação e revisão de aulas de matemática.", testemunhas: [ids.curadora] } })), (r) => Number(r.horas) === 3.5);
 await recusa("sem a testemunha confirmar, não emite", () => rpc(como(ids.coord), "certificado_emitir", { p_id: certificado.id }), "falta_testemunha");
 await recusa("quem não é testemunha não confirma", () => rpc(como(ids.revisor), "certificado_testemunhar", { p_id: certificado.id }), "sem_permissao");
 await espera("testemunha vê o pedido no resumo e confirma", async () => { const antes = (await rpc(como(ids.curadora), "painel_resumo")).testemunhar; await rpc(como(ids.curadora), "certificado_testemunhar", { p_id: certificado.id }); return [antes, (await rpc(como(ids.curadora), "painel_resumo")).testemunhar]; }, (r) => r[0] === 1 && r[1] === 0);
 let codigo;
-await espera("liderança emite", async () => (codigo = (await rpc(como(ids.coord), "certificado_emitir", { p_id: certificado.id })).codigo), (r) => /^[A-Z0-9]{12}$/.test(r));
+await espera("coordenação emite", async () => (codigo = (await rpc(como(ids.coord), "certificado_emitir", { p_id: certificado.id })).codigo), (r) => /^[A-Z0-9]{12}$/.test(r));
 await espera("qualquer pessoa confere o código, com ou sem traços", () => rpc(anon, "certificado_conferir", { p_codigo: `${codigo.slice(0, 4)}-${codigo.slice(4, 8)}-${codigo.slice(8).toLowerCase()}` }), (r) => r.valido === true && r.nome === "Paulo Roberto Professor" && Number(r.horas) === 3.5 && r.testemunhas[0] === "Carla Curadora");
 await espera("código inventado não existe", () => rpc(anon, "certificado_conferir", { p_codigo: "AAAAAAAAAAAA" }), (r) => r.encontrado === false);
 await espera("as mesmas horas não entram em dois certificados", () => rpc(como(ids.prof), "horas_minhas"), (r) => r.lista[0].certificado === true && Number(r.confirmadas) === 3.5);
@@ -410,10 +472,15 @@ await recusa("ninguém registra arquivo na pasta de outra pessoa", () => rpc(com
 await recusa("caminho com truque é recusado", () => rpc(como(ids.prof), "arquivo_registrar", { p_caminho: `${ids.prof}/../../segredo.webp`, p_nome: "Truque" }), "invalido:caminho");
 let arquivoId;
 await espera("educador registra o arquivo enviado", async () => (arquivoId = (await rpc(como(ids.prof), "arquivo_registrar", { p_caminho: caminho(ids.prof), p_nome: "Gráfico da função afim" })).id), (r) => Boolean(r));
-await espera("cada um vê os próprios arquivos; a liderança vê todos", async () => [(await rpc(como(ids.designer), "arquivos_listar")).length, (await rpc(como(ids.prof), "arquivos_listar")).length, (await rpc(como(ids.vice), "arquivos_listar")).length], (r) => r[0] === 0 && r[1] === 1 && r[2] === 1);
+await espera("toda a equipe vê o arquivo que espera apoio", async () => [(await rpc(como(ids.designer), "arquivos_listar")).length, (await rpc(como(ids.prof), "arquivos_listar")).length, (await rpc(como(ids.vice), "arquivos_listar")).length], (r) => r[0] === 1 && r[1] === 1 && r[2] === 1);
+await recusa("quem enviou não apoia o próprio arquivo", () => rpc(como(ids.prof), "arquivo_apoiar", { p_id: arquivoId }), "nao_encontrado");
+await recusa("quem não é da equipe não apoia", () => rpc(como(ids.leitora), "arquivo_apoiar", { p_id: arquivoId }), "sem_permissao");
+await recusa("sem dois apoios, a vice não aprova", () => rpc(como(ids.vice), "arquivo_decidir", { p_id: arquivoId, p_aprovar: true }), "falta_apoio");
+await espera("colegas apoiam, e apoiar duas vezes conta uma", async () => { await rpc(como(ids.designer), "arquivo_apoiar", { p_id: arquivoId }); await rpc(como(ids.designer), "arquivo_apoiar", { p_id: arquivoId }); return rpc(como(ids.revisor), "arquivo_apoiar", { p_id: arquivoId }); }, (r) => r.apoios === 2);
+await espera("a lista mostra os apoios e quem já apoiou", () => rpc(como(ids.designer), "arquivos_listar"), (r) => r[0].apoios === 2 && r[0].apoiei === true && r[0].meu === false);
 await recusa("curadoria não aprova arquivo", () => rpc(como(ids.curadora), "arquivo_decidir", { p_id: arquivoId, p_aprovar: true }), "sem_permissao");
 await espera("arquivo pendente não vai para a publicação", () => rpc(servico, "arquivos_aprovados"), (r) => r.length === 0);
-await espera("liderança aprova e a rotina de publicação o encontra", async () => { await rpc(como(ids.coord), "arquivo_decidir", { p_id: arquivoId, p_aprovar: true }); return rpc(servico, "arquivos_aprovados"); }, (r) => r.length === 1 && r[0].caminho === caminho(ids.prof));
+await espera("coordenação aprova e a rotina de publicação o encontra", async () => { await rpc(como(ids.coord), "arquivo_decidir", { p_id: arquivoId, p_aprovar: true }); return rpc(servico, "arquivos_aprovados"); }, (r) => r.length === 1 && r[0].caminho === caminho(ids.prof));
 await recusa("logado não marca arquivo como publicado", () => rpc(como(ids.coord), "arquivo_publicado", { p_id: arquivoId, p_destino: "/arquivos/0123456789abcdef0123.webp" }), "sem_permissao");
 await espera("a rotina anota o endereço final e avisa quem enviou", async () => { await rpc(servico, "arquivo_publicado", { p_id: arquivoId, p_destino: "/arquivos/0123456789abcdef0123.webp" }); return rpc(como(ids.prof), "arquivos_listar"); }, (r) => r[0].status === "publicado" && r[0].destino === "/arquivos/0123456789abcdef0123.webp");
 

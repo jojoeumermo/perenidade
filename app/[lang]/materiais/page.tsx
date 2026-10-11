@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/materiais"
   return { title: t.materials.title, description: t.materials.description };
 }
 
-// Materiais para imprimir e distribuir: zines, panfletos, cartazes e banners publicados pela liderança.
+// Materiais para imprimir e distribuir: zines, panfletos, cartazes e banners publicados pela coordenação.
 export default async function Materiais({ params }: PageProps<"/[lang]/materiais">) {
   const { t } = await loadLang(params);
   const s = t.materials;
