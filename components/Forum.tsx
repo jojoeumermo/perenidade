@@ -24,6 +24,8 @@ interface TopicRow {
   criado_em: string;
   autor: string;
   meu_voto: number;
+  tipo: "conversa" | "duvida";
+  resolvida?: boolean;
 }
 
 interface Reply {
@@ -34,11 +36,15 @@ interface Reply {
   criado_em: string;
   autor: string;
   meu_voto: number;
+  aceita: boolean;
+  da_equipe: boolean;
 }
 
 interface Topic extends TopicRow {
   corpo: string;
   pode_cuidar: boolean;
+  meu: boolean;
+  aceita: string | null;
   respostas_lista?: never;
 }
 
@@ -85,15 +91,18 @@ function TopicList({ s }: { s: S }) {
   const me = useMe();
   const [order, setOrder] = useState("alta");
   const [area, setArea] = useState("");
+  const [kind, setKind] = useState("");
+  const [typed, setTyped] = useState("");
+  const [query, setQuery] = useState("");
   const [list, setList] = useState<TopicRow[] | null>(null);
-  const [draft, setDraft] = useState({ title: "", body: "", area: "" });
+  const [draft, setDraft] = useState({ title: "", body: "", area: "", kind: "duvida" });
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const date = new Intl.DateTimeFormat(htmlLang[lang]);
 
   useEffect(() => {
     let cancelled = false;
-    rpc<TopicRow[]>("topicos_listar", { p_ordem: order, p_disciplina: area || null, p_pagina: 0 })
+    rpc<TopicRow[]>("topicos_listar", { p_ordem: order, p_disciplina: area || null, p_pagina: 0, p_tipo: kind || null, p_busca: query || null })
       .then((data) => {
         if (!cancelled) setList(data);
       })
@@ -103,20 +112,38 @@ function TopicList({ s }: { s: S }) {
     return () => {
       cancelled = true;
     };
-  }, [order, area]);
+  }, [order, area, kind, query]);
 
   async function create() {
     try {
-      const created = await rpc<{ id: string }>("topico_criar", { p_titulo: draft.title, p_corpo: draft.body, p_disciplina: draft.area || null });
+      const created = await rpc<{ id: string; retido: boolean }>("topico_criar", { p_titulo: draft.title, p_corpo: draft.body, p_disciplina: draft.area || null, p_tipo: draft.kind });
+      // Mensagem segurada pelo filtro só aparece depois que alguém da equipe ler.
+      if (created.retido) {
+        setMessage(s.held);
+        setDraft({ ...draft, title: "", body: "" });
+        return;
+      }
       router.push(`/${lang}/comunidade?t=${created.id}`);
     } catch (error) {
       setMessage(errorText(t, error instanceof BackendError ? error.code : "falha"));
     }
   }
 
-  const orders: [string, string][] = [["alta", s.hot], ["novos", s.new], ["melhores", s.top]];
+  const orders: [string, string][] = [["alta", s.hot], ["novos", s.new], ["melhores", s.top], ["sem_resposta", s.unanswered]];
+  const kinds: [string, string][] = [["", s.kinds.all], ["duvida", s.kinds.question], ["conversa", s.kinds.talk]];
   return (
     <div className="mt-8 font-sans text-sm">
+      <div className="mb-3 flex flex-wrap items-center gap-2">
+        {kinds.map(([value, label]) => (
+          <button key={value} type="button" onClick={() => setKind(value)} aria-pressed={kind === value} className={`cursor-pointer border-b-2 px-2 py-1 text-base ${kind === value ? "border-oxblood font-semibold text-oxblood" : "border-transparent text-ink-soft hover:text-oxblood"}`}>
+            {label}
+          </button>
+        ))}
+        <form role="search" className="ml-auto flex gap-2" onSubmit={(e) => { e.preventDefault(); setQuery(typed.trim()); }}>
+          <input type="search" value={typed} onChange={(e) => { setTyped(e.target.value); if (!e.target.value) setQuery(""); }} maxLength={80} aria-label={s.search} placeholder={s.search} className="w-44 border-2 border-ink bg-parchment-deep px-3 py-1.5 sm:w-60" />
+          <button type="submit" className="cursor-pointer border-2 border-ink px-3 py-1.5 hover:border-oxblood hover:text-oxblood">{t.nav.search}</button>
+        </form>
+      </div>
       <div className="flex flex-wrap items-center gap-2">
         {orders.map(([value, label]) => (
           <button key={value} type="button" onClick={() => setOrder(value)} aria-pressed={order === value} className={`cursor-pointer border-2 px-3 py-1.5 ${order === value ? "border-ink bg-ink text-parchment" : "border-rule hover:border-gold"}`}>
@@ -142,6 +169,15 @@ function TopicList({ s }: { s: S }) {
 
       {open && (
         <form className="mt-5 space-y-3 border border-rule bg-parchment-deep p-5" onSubmit={(e) => { e.preventDefault(); void create(); }}>
+          <fieldset className="flex flex-wrap gap-x-6 gap-y-1">
+            <legend className="sr-only">{s.kindLabel}</legend>
+            {([["duvida", s.kinds.askQuestion], ["conversa", s.kinds.startTalk]] as const).map(([value, label]) => (
+              <label key={value} className="flex items-center gap-2">
+                <input type="radio" name="tipo" value={value} checked={draft.kind === value} onChange={() => setDraft({ ...draft, kind: value })} className="h-4 w-4" />
+                {label}
+              </label>
+            ))}
+          </fieldset>
           <label className="block">
             {s.titleLabel}
             <input value={draft.title} onChange={(e) => setDraft({ ...draft, title: e.target.value })} maxLength={140} required minLength={5} className={field} />
@@ -174,6 +210,7 @@ function TopicList({ s }: { s: S }) {
             <div className="min-w-0">
               <L href={`/comunidade?t=${row.id}`} className="font-serif text-2xl font-semibold hover:text-oxblood">{row.titulo}</L>
               <p className="mt-1 text-ink-soft">
+                {row.tipo === "duvida" && <span className={row.resolvida ? "font-medium text-ok" : "font-medium text-oxblood"}>{row.resolvida ? s.solved : s.kinds.question} · </span>}
                 {row.autor || "—"} · {date.format(new Date(row.criado_em))} · {plural(lang, row.respostas, s.replies)}
                 {row.disciplina && ` · ${t.areas[row.disciplina as keyof typeof t.areas]?.[0] ?? row.disciplina}`}
                 {row.trancado && ` · ${s.locked}`}
@@ -219,8 +256,8 @@ function TopicView({ id, s }: { id: string; s: S }) {
 
   async function act(fn: string, args: Record<string, unknown>) {
     try {
-      await rpc(fn, args);
-      setMessage("");
+      const result = await rpc<{ retido?: boolean } | null>(fn, args);
+      setMessage(result?.retido ? s.held : "");
       reload();
       return true;
     } catch (error) {
@@ -242,6 +279,7 @@ function TopicView({ id, s }: { id: string; s: S }) {
         <div className="min-w-0 flex-1">
           <h2 className="font-serif text-3xl font-semibold">{topic.titulo}</h2>
           <p className="mt-1 text-ink-soft">
+            {topic.tipo === "duvida" && <span className={topic.aceita ? "font-medium text-ok" : "font-medium text-oxblood"}>{topic.aceita ? s.solved : s.kinds.question} · </span>}
             {topic.autor || "—"} · {date.format(new Date(topic.criado_em))}
             {topic.disciplina && ` · ${t.areas[topic.disciplina as keyof typeof t.areas]?.[0] ?? topic.disciplina}`}
             {topic.trancado && ` · ${s.locked}`}
@@ -261,17 +299,24 @@ function TopicView({ id, s }: { id: string; s: S }) {
       <h3 className="mt-8 border-b border-rule pb-2 font-mono text-xs uppercase tracking-widest text-gold">{plural(lang, replies.length, s.replies)}</h3>
       <ul className="divide-y divide-rule">
         {replies.map((item) => (
-          <li key={item.id} className={`flex gap-3 py-4 ${item.oculto ? "opacity-60" : ""}`}>
+          <li key={item.id} className={`flex gap-3 py-4 ${item.oculto ? "opacity-60" : ""} ${item.aceita ? "border-l-4 border-ok pl-3" : ""}`}>
             <Votes kind="resposta" id={item.id} points={item.pontos} mine={item.meu_voto} onChange={() => {}} s={s} disabled={!logged} />
             <div className="min-w-0 flex-1">
+              {item.aceita && <p className="mb-1 font-mono text-xs uppercase tracking-widest text-ok">✓ {s.accepted}</p>}
               <div className="font-serif">
                 <Markdown lang={lang}>{item.corpo}</Markdown>
               </div>
               <p className="mt-2 flex flex-wrap gap-x-4 text-ink-soft">
                 <span>
-                  {item.autor || "—"} · {date.format(new Date(item.criado_em))}
+                  {item.autor || "—"}
+                  {item.da_equipe && ` (${s.staff})`} · {date.format(new Date(item.criado_em))}
                   {item.oculto && ` · ${s.hidden}`}
                 </span>
+                {topic.tipo === "duvida" && (topic.meu || topic.pode_cuidar) && !item.oculto && (
+                  <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => act("resposta_aceitar", { p_topico: topic.id, p_resposta: item.aceita ? null : item.id })}>
+                    {item.aceita ? s.unaccept : s.accept}
+                  </button>
+                )}
                 {topic.pode_cuidar && care("resposta", item.id, item.oculto ? "mostrar" : "ocultar", item.oculto ? s.show : s.hide)}
               </p>
             </div>

@@ -44,14 +44,14 @@ export async function criarBanco() {
 
   /**
    * Chama uma função pública como a API faria: com o papel do banco e os dados do token.
-   * quem = { papel: "anon" | "authenticated" | "service_role", sub?: uuid, ip?: string }
+   * quem = { papel: "anon" | "authenticated" | "service_role", sub?: uuid, ip?: string, aal?: "aal1" | "aal2" }
    */
   const rpc = (quem, funcao, argumentos = {}) =>
     exclusivo(async () => {
       if (!/^[a-z_]+$/.test(funcao)) throw new Error("função inválida");
       const nomes = Object.keys(argumentos);
-      for (const nome of nomes) if (!/^[a-z_]+$/.test(nome)) throw new Error("argumento inválido");
-      const claims = JSON.stringify({ role: quem.papel, ...(quem.sub ? { sub: quem.sub } : {}) });
+      for (const nome of nomes) if (!/^[a-z_][a-z0-9_]*$/.test(nome)) throw new Error("argumento inválido");
+      const claims = JSON.stringify({ role: quem.papel, ...(quem.sub ? { sub: quem.sub } : {}), ...(quem.aal ? { aal: quem.aal } : {}) });
       const headers = JSON.stringify({ "x-forwarded-for": quem.ip ?? "127.0.0.1" });
       await pg.query("select set_config('request.jwt.claims', $1, false), set_config('request.headers', $2, false)", [claims, headers]);
       await pg.exec(`set role ${quem.papel === "service_role" ? "service_role" : quem.papel === "authenticated" ? "authenticated" : "anon"}`);

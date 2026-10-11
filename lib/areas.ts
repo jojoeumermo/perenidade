@@ -2,17 +2,54 @@
 // Os nomes e descrições de cada disciplina ficam nos dicionários (i18n/), um por idioma.
 
 export const groups = [
-  { id: "linguagens", areas: ["portugues", "literatura", "ingles", "espanhol", "chines", "artes", "musica", "danca"] },
+  { id: "percursos", areas: ["alfabetizacao", "enem"] },
+  {
+    id: "linguagens",
+    areas: ["portugues", "literatura", "ingles", "espanhol", "chines", "artes", "desenho", "design", "musica", "danca", "teatro", "cinema", "educacao-fisica"],
+  },
   {
     id: "ciencias",
-    areas: ["matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "inteligencia-artificial", "primeiros-socorros"],
+    areas: ["matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "inteligencia-artificial", "manutencao", "primeiros-socorros"],
   },
   {
     id: "humanidades",
-    areas: ["historia", "geografia", "sociologia", "filosofia", "economia", "politica", "direito", "psicologia", "teologia", "educacao-popular", "midia", "meio-ambiente"],
+    areas: [
+      "historia",
+      "geografia",
+      "sociologia",
+      "antropologia",
+      "filosofia",
+      "economia",
+      "politica",
+      "direito",
+      "psicologia",
+      "servico-social",
+      "teologia",
+      "educacao-popular",
+      "midia",
+      "meio-ambiente",
+      "arquitetura",
+      "arquivologia",
+    ],
   },
-  { id: "teoria", areas: ["marxismo", "socialismo", "comunismo", "ideologia-e-politica"] },
-  { id: "lutas", areas: ["trabalho", "luta-negra", "feminismo", "lgbtqia", "deficiencia", "povos-indigenas", "sindicalismo", "luta-dos-professores", "pessoas-idosas", "favelas"] },
+  { id: "teoria", areas: ["capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica"] },
+  {
+    id: "lutas",
+    areas: [
+      "trabalho",
+      "sindicalismo",
+      "luta-negra",
+      "feminismo",
+      "lgbtqia",
+      "deficiencia",
+      "povos-indigenas",
+      "luta-pela-terra",
+      "favelas",
+      "luta-dos-professores",
+      "movimento-estudantil",
+      "pessoas-idosas",
+    ],
+  },
 ] as const;
 
 export type GroupId = (typeof groups)[number]["id"];
@@ -21,6 +58,9 @@ export type AreaSlug = (typeof groups)[number]["areas"][number];
 export const areaSlugs = groups.flatMap((group) => group.areas) as readonly AreaSlug[];
 
 export const isArea = (value: string): value is AreaSlug => (areaSlugs as readonly string[]).includes(value);
+
+/** O essencial: ler, escrever, contar, línguas e ciências. É o que aparece no filtro "Essencial" das disciplinas. */
+export const essential: readonly AreaSlug[] = ["alfabetizacao", "portugues", "matematica", "ingles", "chines", "historia", "geografia", "fisica", "quimica", "biologia", "informatica", "enem"];
 
 /** Etapas do currículo comum, usadas para organizar as trilhas dentro de cada disciplina. */
 export const stages = ["fundamental", "medio", "superior"] as const;

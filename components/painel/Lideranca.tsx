@@ -1,0 +1,395 @@
+// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+"use client";
+
+import { useEffect, useState } from "react";
+import { leads, rpc, type Me } from "@/lib/backend";
+import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+
+// ───────────── Aviso de abertura ─────────────
+
+interface Abertura {
+  definido: boolean;
+  ativo?: boolean;
+  titulo?: string;
+  texto?: string;
+  imagem?: string;
+  credito?: string;
+  link?: string;
+  link_texto?: string;
+  assinatura?: string;
+  ate?: string;
+}
+
+const vazio = { ativo: false, titulo: "", texto: "", imagem: "", credito: "", link: "", link_texto: "", assinatura: "", ate: "" };
+
+/** O quadro que abre junto com o site. Enquanto nada for guardado aqui, vale o aviso que está nos arquivos do site. */
+export function AvisoDeAbertura() {
+  const [form, setForm] = useState(vazio);
+  const [definido, setDefinido] = useState<boolean | null>(null);
+  const acao = useAcao(() => setDefinido(true));
+
+  useEffect(() => {
+    let cancelado = false;
+    rpc<Abertura>("abertura")
+      .then((atual) => {
+        if (cancelado) return;
+        setDefinido(Boolean(atual?.definido));
+        if (atual?.definido) setForm({ ...vazio, ...atual, ativo: Boolean(atual.ativo) });
+      })
+      .catch(() => {
+        if (!cancelado) setDefinido(false);
+      });
+    return () => {
+      cancelado = true;
+    };
+  }, []);
+
+  const mudar = (campoDoForm: keyof typeof vazio) => (e: { target: { value: string } }) => setForm({ ...form, [campoDoForm]: e.target.value });
+
+  return (
+    <div className="max-w-3xl space-y-4">
+      <p className="text-ink-soft">
+        Um quadro pequeno que abre no meio da tela na primeira visita, com um botão para fechar. Quem fecha não vê de novo até o texto mudar.
+        {definido === false && " Hoje vale o aviso guardado nos arquivos do site; ao guardar aqui, este passa a valer."}
+      </p>
+      <div className="border-l-2 border-oxblood pl-4 text-ink-soft">
+        <p className="font-medium text-ink">Antes de usar para apoio a candidatura, leia:</p>
+        <ul className="mt-1 list-disc space-y-1 pl-5">
+          <li>A lei eleitoral (Lei 9.504/1997, art. 57-D) proíbe o anonimato: assine com o nome de quem responde pela manifestação.</li>
+          <li>Pessoa jurídica não pode fazer propaganda eleitoral em site próprio, nem de graça (art. 57-C). Se o instituto virar associação com CNPJ, este quadro não pode mais pedir voto.</li>
+          <li>Não pague para impulsionar. Não publique conteúdo novo de campanha no dia da votação.</li>
+          <li>Fale do que você defende. Não atribua crime nem xingue adversário: ofensa em propaganda eleitoral é crime (Código Eleitoral, arts. 324 a 326).</li>
+        </ul>
+      </div>
+      <label className="flex items-center gap-2">
+        <input type="checkbox" checked={form.ativo} onChange={(e) => setForm({ ...form, ativo: e.target.checked })} className="h-4 w-4" />
+        Mostrar o aviso
+      </label>
+      <label className="block">
+        Título
+        <input value={form.titulo} onChange={mudar("titulo")} maxLength={80} className={campo} />
+      </label>
+      <label className="block">
+        Texto
+        <textarea value={form.texto} onChange={mudar("texto")} rows={5} maxLength={700} className={campo} />
+      </label>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <label className="block">
+          Imagem (caminho dentro do site, por exemplo /imagens/aviso.webp)
+          <input value={form.imagem} onChange={mudar("imagem")} maxLength={200} placeholder="/imagens/…" className={campo} />
+        </label>
+        <label className="block">
+          Crédito da imagem (autor e licença)
+          <input value={form.credito} onChange={mudar("credito")} maxLength={200} className={campo} />
+        </label>
+        <label className="block">
+          Link do botão (opcional)
+          <input value={form.link} onChange={mudar("link")} maxLength={300} placeholder="/pt/materiais ou https://…" className={campo} />
+        </label>
+        <label className="block">
+          Texto do botão
+          <input value={form.link_texto} onChange={mudar("link_texto")} maxLength={40} className={campo} />
+        </label>
+        <label className="block">
+          Quem assina
+          <input value={form.assinatura} onChange={mudar("assinatura")} maxLength={120} className={campo} />
+        </label>
+        <label className="block">
+          Mostrar até (opcional)
+          <input type="date" value={form.ate} onChange={mudar("ate")} className={campo} />
+        </label>
+      </div>
+      <button type="button" className={botao} disabled={acao.ocupado || (form.ativo && (form.titulo.trim().length < 3 || form.texto.trim().length < 10))} onClick={() => acao.agir("abertura_salvar", { p: form }, "Aviso guardado. Os visitantes passam a ver em até seis horas (é o tempo que o navegador de cada um guarda a versão anterior).")}>
+        Guardar aviso
+      </button>
+      <Aviso texto={acao.aviso} />
+    </div>
+  );
+}
+
+// ───────────── Segurança e sucessão ─────────────
+
+interface Pessoa {
+  id: string;
+  nome: string;
+  email: string;
+  suspenso: boolean;
+  visto_em: string;
+}
+
+interface Seguranca {
+  exigir_2fa: boolean;
+  segundo_fator: boolean;
+  sem_segundo_fator: string[] | null;
+}
+
+interface Sucessao {
+  lideranca: { id: string; nome: string; visto_em: string }[];
+  ordem: { id: string; nome: string; visto_em: string }[];
+}
+
+export function SegurancaSucessao({ me }: { me: Me }) {
+  const lider = leads(me);
+  const seguranca = useLista<Seguranca>("seguranca_ver");
+  const sucessao = useLista<Sucessao>("sucessao_ver");
+  const pessoas = useLista<Pessoa[]>("voluntarios_listar");
+  const canais = useLista<{ sala: string }>("equipe_canais");
+  const acao = useAcao(() => {
+    seguranca.recarregar();
+    sucessao.recarregar();
+    canais.recarregar();
+  });
+  const [ordem, setOrdem] = useState<string[] | null>(null);
+  const [nova, setNova] = useState("");
+  const [herdeiro, setHerdeiro] = useState("");
+  const [confirma, setConfirma] = useState(false);
+  const [sala, setSala] = useState<string | null>(null);
+
+  const atual = ordem ?? sucessao.dados?.ordem.map((pessoa) => pessoa.id) ?? [];
+  const nomeDe = (id: string) => pessoas.dados?.find((pessoa) => pessoa.id === id)?.nome ?? sucessao.dados?.ordem.find((pessoa) => pessoa.id === id)?.nome ?? "…";
+  const candidatos = pessoas.dados?.filter((pessoa) => !pessoa.suspenso && pessoa.id !== me.id && !atual.includes(pessoa.id)) ?? [];
+  const mover = (indice: number, passo: number) => {
+    const lista = [...atual];
+    const destino = indice + passo;
+    if (destino < 0 || destino >= lista.length) return;
+    [lista[indice], lista[destino]] = [lista[destino], lista[indice]];
+    setOrdem(lista);
+  };
+
+  return (
+    <div className="max-w-3xl space-y-10">
+      <section>
+        <h2 className="font-serif text-2xl font-semibold">Segundo fator obrigatório</h2>
+        <p className="mt-1 text-ink-soft">
+          Com esta exigência ligada, liderança, vice-liderança e curadoria só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
+        </p>
+        <p className="mt-2">
+          Situação: <strong>{seguranca.dados?.exigir_2fa ? "ligada" : "desligada"}</strong>
+        </p>
+        {seguranca.dados?.sem_segundo_fator && seguranca.dados.sem_segundo_fator.length > 0 && (
+          <p className="mt-1 text-oxblood">Ainda sem aplicativo autenticador: {seguranca.dados.sem_segundo_fator.join(", ")}. Avise essas pessoas antes de ligar.</p>
+        )}
+        {lider && (
+          <button
+            type="button"
+            className={`mt-3 ${botaoClaro}`}
+            disabled={acao.ocupado}
+            onClick={() => acao.agir("seguranca_configurar", { p_exigir_2fa: !seguranca.dados?.exigir_2fa }, seguranca.dados?.exigir_2fa ? "Exigência desligada." : "Exigência ligada.")}
+          >
+            {seguranca.dados?.exigir_2fa ? "Desligar a exigência" : "Ligar a exigência"}
+          </button>
+        )}
+        <p className="mt-2 text-ink-soft">Só é possível ligar depois de cadastrar e confirmar o seu próprio aplicativo (em Início → Segurança da conta). Assim ninguém se tranca do lado de fora.</p>
+      </section>
+
+      <section>
+        <h2 className="font-serif text-2xl font-semibold">Ordem de sucessão</h2>
+        <p className="mt-1 text-ink-soft">
+          Se a liderança ficar mais de 90 dias sem entrar no painel, ela passa sozinha para a primeira pessoa desta lista que tenha entrado nos últimos 30 dias. Quem saiu continua na equipe, como vice-liderança.
+        </p>
+        {sucessao.dados?.lideranca.map((pessoa) => (
+          <p key={pessoa.id} className="mt-2">
+            Liderança hoje: <strong>{pessoa.nome}</strong> <span className="text-ink-soft">· último acesso em {data(pessoa.visto_em)}</span>
+          </p>
+        ))}
+        <ol className="mt-3 divide-y divide-rule border-y border-rule">
+          {atual.map((id, indice) => (
+            <li key={id} className="flex flex-wrap items-center justify-between gap-2 py-2">
+              <span>
+                {indice + 1}. {nomeDe(id)}
+              </span>
+              {lider && (
+                <span className="flex gap-3">
+                  <button type="button" className={elo} aria-label={`Subir ${nomeDe(id)}`} disabled={indice === 0} onClick={() => mover(indice, -1)}>↑</button>
+                  <button type="button" className={elo} aria-label={`Descer ${nomeDe(id)}`} disabled={indice === atual.length - 1} onClick={() => mover(indice, 1)}>↓</button>
+                  <button type="button" className={elo} onClick={() => setOrdem(atual.filter((item) => item !== id))}>Tirar</button>
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
+        {atual.length === 0 && <p className="mt-2 text-ink-soft">Ninguém na lista: hoje, se a liderança sumir, o posto fica vago.</p>}
+        {lider && (
+          <div className="mt-3 flex flex-wrap items-end gap-3">
+            <label className="block min-w-60 flex-1">
+              Acrescentar à lista
+              <select value={nova} onChange={(e) => setNova(e.target.value)} className={campo}>
+                <option value="">Escolha…</option>
+                {candidatos.map((pessoa) => (
+                  <option key={pessoa.id} value={pessoa.id}>
+                    {pessoa.nome} ({pessoa.email})
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button type="button" className={botaoClaro} disabled={!nova || atual.length >= 10} onClick={() => { setOrdem([...atual, nova]); setNova(""); }}>
+              Acrescentar
+            </button>
+            <button type="button" className={botao} disabled={acao.ocupado || ordem === null} onClick={async () => { if (await acao.agir("sucessao_definir", { p_usuarios: atual }, "Ordem de sucessão guardada.")) setOrdem(null); }}>
+              Guardar ordem
+            </button>
+          </div>
+        )}
+        <p className="mt-3 text-ink-soft">
+          Atenção: esta lista só passa o comando do painel. As contas do domínio, da hospedagem e do banco continuam no nome de quem as criou; guarde o acesso de emergência a elas em um cofre de senhas com herdeiro definido.
+        </p>
+      </section>
+
+      {lider && (
+        <section>
+          <h2 className="font-serif text-2xl font-semibold">Passar a liderança</h2>
+          <p className="mt-1 text-ink-soft">Você entrega o posto e passa a ser vice-liderança. Só a nova liderança pode devolver.</p>
+          <div className="mt-3 flex flex-wrap items-end gap-3">
+            <label className="block min-w-60 flex-1">
+              Para quem
+              <select value={herdeiro} onChange={(e) => { setHerdeiro(e.target.value); setConfirma(false); }} className={campo}>
+                <option value="">Escolha…</option>
+                {pessoas.dados?.filter((pessoa) => !pessoa.suspenso && pessoa.id !== me.id).map((pessoa) => (
+                  <option key={pessoa.id} value={pessoa.id}>
+                    {pessoa.nome} ({pessoa.email})
+                  </option>
+                ))}
+              </select>
+            </label>
+            {confirma ? (
+              <button type="button" className="cursor-pointer bg-oxblood px-5 py-2.5 font-medium text-parchment" disabled={acao.ocupado} onClick={async () => { if (await acao.agir("lideranca_passar", { p_usuario: herdeiro }, "Liderança passada.")) window.location.reload(); }}>
+                Confirmar: passar a liderança
+              </button>
+            ) : (
+              <button type="button" className={botaoClaro} disabled={!herdeiro} onClick={() => setConfirma(true)}>
+                Passar a liderança
+              </button>
+            )}
+          </div>
+        </section>
+      )}
+
+      <section>
+        <h2 className="font-serif text-2xl font-semibold">Sala cifrada da equipe</h2>
+        <p className="mt-1 text-ink-soft">
+          Para conversa de voz, vídeo e assuntos sensíveis, use uma sala com criptografia de ponta a ponta fora do site (por exemplo, uma sala Matrix aberta no aplicativo Element). Cole aqui o endereço de convite: ele aparece na aba Equipe para todos os voluntários.
+        </p>
+        <div className="mt-3 flex flex-wrap items-end gap-3">
+          <label className="block min-w-60 flex-1">
+            Endereço da sala (https)
+            <input value={sala ?? canais.dados?.sala ?? ""} onChange={(e) => setSala(e.target.value)} maxLength={300} placeholder="https://matrix.to/#/…" disabled={!lider} className={campo} />
+          </label>
+          {lider && (
+            <button type="button" className={botaoClaro} disabled={acao.ocupado || sala === null} onClick={() => acao.agir("equipe_sala_salvar", { p_url: sala ?? "" }, "Endereço guardado.")}>
+              Guardar
+            </button>
+          )}
+        </div>
+      </section>
+      <Aviso texto={seguranca.erro || sucessao.erro || acao.aviso} />
+    </div>
+  );
+}
+
+// ───────────── Registro de atividades ─────────────
+
+interface Registro {
+  id: number;
+  nome: string;
+  acao: string;
+  alvo: string;
+  alvo_nome: string;
+  detalhes: Record<string, unknown>;
+  criado_em: string;
+}
+
+const acoes: Record<string, string> = {
+  papel_confiado: "confiou um papel a",
+  papel_retirado: "retirou um papel de",
+  pedido_aceito: "aceitou o pedido de voluntariado de",
+  pedido_recusado: "recusou o pedido de voluntariado de",
+  conta_suspensa: "suspendeu a conta de",
+  conta_reativada: "reativou a conta de",
+  lideranca_passada: "passou a liderança para",
+  lideranca_promovida: "liderança definida direto no banco para",
+  sucessao_definida: "definiu a ordem de sucessão",
+  sucessao_automatica: "sucessão automática: a liderança passou para",
+  seguranca_configurada: "mudou a exigência de segundo fator",
+  aparelho_novo: "conta aberta em aparelho novo:",
+  armadilha: "ALERTA: função-isca chamada",
+  contribuicao_aprovada: "aprovou a contribuição",
+  contribuicao_recusada: "recusou a contribuição",
+  anuncio_aprovado: "aprovou um anúncio do mural",
+  anuncio_recusado: "recusou um anúncio do mural",
+  radio_configurada: "mudou a rádio",
+  comunidade_ocultar: "ocultou uma mensagem da comunidade",
+  comunidade_mostrar: "liberou uma mensagem da comunidade",
+  comunidade_trancar: "trancou uma conversa",
+  comunidade_destrancar: "destrancou uma conversa",
+  filtro_incluido: "acrescentou ao filtro:",
+  filtro_retirado: "tirou do filtro:",
+  abertura_salva: "mudou o aviso de abertura",
+  reforco_assumido: "assumiu um pedido de reforço",
+  reforco_concluido: "concluiu um pedido de reforço",
+  sala_da_equipe: "mudou o endereço da sala da equipe",
+  material_publicado: "publicou um material",
+  material_guardado: "guardou um material",
+  material_removido: "removeu um material",
+  termo_aceito: "aceitou o termo de adesão",
+  horas_confirmadas: "confirmou horas",
+  horas_recusadas: "recusou horas",
+  certificado_aberto: "abriu um certificado para",
+  certificado_testemunhado: "testemunhou um certificado",
+  certificado_emitido: "emitiu um certificado para",
+  certificado_cancelado: "cancelou um certificado",
+  arquivo_bloqueado: "bloqueou um arquivo",
+};
+
+/** Quem fez o quê no painel. Guarda por pouco mais de um ano; não registra endereço de rede de ninguém. */
+export function RegistroDeAtividades() {
+  const [pagina, setPagina] = useState(0);
+  const [filtro, setFiltro] = useState("");
+  const [estado, setEstado] = useState<{ lista: Registro[] | null; erro: string }>({ lista: null, erro: "" });
+
+  useEffect(() => {
+    let cancelado = false;
+    rpc<Registro[]>("auditoria_listar", { p_pagina: pagina, p_acao: filtro || null })
+      .then((lista) => {
+        if (!cancelado) setEstado({ lista, erro: "" });
+      })
+      .catch((erro: unknown) => {
+        if (!cancelado) setEstado({ lista: [], erro: textoDoErro(erro) });
+      });
+    return () => {
+      cancelado = true;
+    };
+  }, [pagina, filtro]);
+
+  return (
+    <div>
+      <label className="block max-w-sm">
+        Mostrar
+        <select value={filtro} onChange={(e) => { setFiltro(e.target.value); setPagina(0); }} className={campo}>
+          <option value="">Tudo</option>
+          <option value="armadilha">Só alertas de função-isca</option>
+          <option value="aparelho_novo">Só acessos de aparelho novo</option>
+          <option value="papel_confiado">Só papéis confiados</option>
+          <option value="papel_retirado">Só papéis retirados</option>
+          <option value="conta_suspensa">Só contas suspensas</option>
+        </select>
+      </label>
+      <Aviso texto={estado.erro} />
+      <ul className="mt-2 divide-y divide-rule border-y border-rule">
+        {estado.lista?.map((item) => (
+          <li key={item.id} className={`py-2 ${item.acao === "armadilha" ? "text-oxblood" : ""}`}>
+            <span className={rotulo}>{dataHora(item.criado_em)}</span>
+            <p>
+              <strong>{item.nome || "Alguém sem conta"}</strong> {acoes[item.acao] ?? item.acao} {item.alvo_nome || (/^[0-9a-f-]{36}$/.test(item.alvo) ? "" : item.alvo)}
+              {Object.keys(item.detalhes ?? {}).length > 0 && <span className="text-ink-soft"> · {Object.entries(item.detalhes).map(([chave, valor]) => `${chave}: ${typeof valor === "string" ? valor : JSON.stringify(valor)}`).join(" · ")}</span>}
+            </p>
+          </li>
+        ))}
+      </ul>
+      {estado.lista?.length === 0 && <p className="mt-2 text-ink-soft">Nada registrado.</p>}
+      <div className="mt-3 flex gap-4">
+        <button type="button" className={elo} disabled={pagina === 0} onClick={() => setPagina(pagina - 1)}>← Mais recentes</button>
+        <button type="button" className={elo} disabled={(estado.lista?.length ?? 0) < 100} onClick={() => setPagina(pagina + 1)}>Mais antigos →</button>
+      </div>
+    </div>
+  );
+}

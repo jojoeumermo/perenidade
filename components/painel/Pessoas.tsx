@@ -3,9 +3,9 @@
 
 import { useState } from "react";
 import { areaSlugs } from "@/lib/areas";
-import type { Role } from "@/lib/backend";
+import { leads, type Me, type Role } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Aviso, botao, botaoClaro, campo, data, elo, papeis, rotulo, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, useAcao, useLista } from "./comum";
 
 interface Candidatura {
   id: string;
@@ -23,12 +23,16 @@ interface Pessoa {
   nome: string;
   email: string;
   suspenso: boolean;
+  visto_em: string;
   papeis: Role[];
 }
 
-/** Só a coordenação: aceitar pedidos de voluntariado, confiar papéis e disciplinas, suspender contas. */
-export function Pessoas() {
+/** Liderança e vice-liderança: aceitar pedidos de voluntariado, confiar papéis e disciplinas, suspender contas. */
+export function Pessoas({ me }: { me: Me }) {
   const { t } = useI18n();
+  const lider = leads(me);
+  // A liderança não se concede por aqui (muda de mãos em Segurança e sucessão); a vice-liderança, só a liderança nomeia.
+  const concediveis = (Object.keys(papeis) as Role["papel"][]).filter((papel) => papel !== "coordenacao" && (papel !== "vice" || lider));
   const pedidos = useLista<Candidatura[]>("candidaturas_listar");
   const pessoas = useLista<Pessoa[]>("voluntarios_listar");
   const acao = useAcao(() => {
@@ -83,7 +87,7 @@ export function Pessoas() {
           <label className="block">
             Papel
             <select value={novo.papel} onChange={(e) => setNovo({ ...novo, papel: e.target.value as Role["papel"] })} className={campo}>
-              {(Object.keys(papeis) as Role["papel"][]).map((papel) => (
+              {concediveis.map((papel) => (
                 <option key={papel} value={papel}>
                   {papeis[papel]}
                 </option>
@@ -110,7 +114,12 @@ export function Pessoas() {
         >
           Confiar papel
         </button>
-        <p className="mt-2 text-ink-soft">Educadores só publicam como tal na disciplina confiada a eles; uma mesma pessoa pode cuidar de várias, e uma disciplina pode ter vários educadores.</p>
+        <p className="mt-2 text-ink-soft">
+          <strong>{papeis[novo.papel]}:</strong> {oQueFaz[novo.papel]}
+        </p>
+        <p className="mt-2 text-ink-soft">
+          Para criar a conta de alguém da equipe com e-mail e senha definidos por você, use o painel do serviço de contas (o passo a passo está no guia de manutenção). Depois que a pessoa entrar uma vez, ela aparece aqui para receber o papel.
+        </p>
       </section>
 
       <section>
@@ -123,7 +132,9 @@ export function Pessoas() {
               <p className="font-serif text-xl font-semibold">
                 {pessoa.nome} {pessoa.suspenso && <span className="font-sans text-sm text-oxblood">(suspensa)</span>}
               </p>
-              <p className="font-mono text-xs text-ink-soft">{pessoa.email}</p>
+              <p className="font-mono text-xs text-ink-soft">
+                {pessoa.email} · último acesso em {data(pessoa.visto_em)}
+              </p>
               <ul className="mt-1 flex flex-wrap gap-2">
                 {pessoa.papeis.map((papel) => (
                   <li key={papel.id} className="border border-rule bg-parchment-deep px-2 py-1">

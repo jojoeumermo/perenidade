@@ -307,6 +307,54 @@ body {
   text-decoration: underline;
 }
 
+/* Preto absoluto: só muda o tema escuro. Em tela AMOLED, ponto preto é ponto apagado. */
+@media (prefers-color-scheme: dark) {
+  :root[data-black]:not([data-theme="light"]):not([data-contrast]):not([data-eink]) {
+    --parchment: #000;
+    --parchment-deep: #0c0c0c;
+    --ink: #f2ead6;
+    --ink-soft: #c9bd9e;
+    --rule: #3d3d3d;
+  }
+  :root[data-black]:not([data-theme="light"]) .paper {
+    background-image: none;
+  }
+}
+:root[data-black][data-theme="dark"]:not([data-contrast]):not([data-eink]) {
+  --parchment: #000;
+  --parchment-deep: #0c0c0c;
+  --ink: #f2ead6;
+  --ink-soft: #c9bd9e;
+  --rule: #3d3d3d;
+}
+:root[data-black][data-theme="dark"] .paper {
+  background-image: none;
+}
+
+/* Modo leve: sem imagens, sem textura, sem animação e com as fontes que o aparelho já tem. */
+:root[data-light] {
+  --font-serif-display: Georgia, "Times New Roman", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-archive: ui-monospace, Consolas, "Courier New", monospace;
+}
+:root[data-light] .paper {
+  background-image: none;
+}
+:root[data-light] img,
+:root[data-light] figure,
+:root[data-light] video,
+:root[data-light] iframe,
+:root[data-light] canvas,
+:root[data-light] .radio-player {
+  display: none !important;
+}
+:root[data-light] *,
+:root[data-light] *::before,
+:root[data-light] *::after {
+  transition: none !important;
+  animation: none !important;
+}
+
 /* Texto espaçado. */
 :root[data-spacing] body {
   letter-spacing: 0.04em;

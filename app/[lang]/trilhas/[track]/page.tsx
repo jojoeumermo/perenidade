@@ -37,6 +37,7 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
   }));
   const ready = items.filter((item) => item.ready);
   const minutes = track.lessons.reduce((sum, lesson) => sum + lesson.minutes, 0);
+  const questionCount = track.lessons.reduce((sum, lesson) => sum + lesson.quiz.length, 0);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
@@ -71,6 +72,13 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
           <Link href={to(ready[0].path)} className="mt-6 inline-block bg-ink px-8 py-3 font-sans text-sm font-medium text-parchment hover:bg-oxblood">
             {t.tracks.startFirst}
           </Link>
+        )}
+        {questionCount >= 10 ? (
+          <Link href={to(`/trilhas/${track.slug}/prova`)} className="ml-0 mt-4 inline-block border-2 border-ink px-8 py-2.5 font-sans text-sm font-medium hover:border-oxblood hover:text-oxblood sm:ml-4">
+            {t.tracks.exam}
+          </Link>
+        ) : (
+          ready.length > 0 && <p className="mt-4 font-sans text-sm text-ink-soft">{t.tracks.examNeed}</p>
         )}
         {ready.length < items.length && (
           <p className="mt-6 font-sans text-sm text-ink-soft">

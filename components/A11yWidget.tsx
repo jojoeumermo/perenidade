@@ -55,7 +55,7 @@ export function A11yWidget() {
   }, [open]);
 
   return (
-    <div className="no-print fixed bottom-4 right-4 z-40 font-sans text-sm">
+    <div className="no-print fixed bottom-20 right-4 z-40 font-sans text-sm md:bottom-4">
       {open && (
         <div
           ref={panelRef}
@@ -94,6 +94,8 @@ export function A11yWidget() {
           <Switch checked={prefs.eink} onChange={(eink) => setPrefs({ eink })} label={t.a11y.eink} hint={t.a11y.einkHint} />
           <Switch checked={prefs.spacing} onChange={(spacing) => setPrefs({ spacing })} label={t.a11y.spacing} hint={t.a11y.spacingHint} />
           <Switch checked={prefs.focus} onChange={(focus) => setPrefs({ focus })} label={t.a11y.focus} hint={t.a11y.focusHint} />
+          <Switch checked={prefs.black} onChange={(black) => setPrefs({ black })} label={t.a11y.black} hint={t.a11y.blackHint} />
+          <Switch checked={prefs.light} onChange={(light) => setPrefs({ light })} label={t.a11y.light} hint={t.a11y.lightHint} />
 
           <div>
             <p className="font-semibold">{t.a11y.read}</p>

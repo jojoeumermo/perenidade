@@ -59,7 +59,7 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
       {stages.map((stage) => {
         const inStage = tracks.filter((track) => track.stage === stage);
         return (
-          <section key={stage}>
+          <section key={stage} id={stage} className="scroll-mt-6">
             <h2 className={heading}>{t.stages[stage]}</h2>
             {inStage.length > 0 ? (
               <div className="mt-6 grid gap-5 md:grid-cols-2">

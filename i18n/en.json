@@ -63,15 +63,22 @@
     "sources": "Guide to sources",
     "radio": "Radio",
     "history": "History of the collection",
-    "mural": "Workers' Wall"
+    "mural": "Workers' Wall",
+    "home": "Home",
+    "tutoring": "Tutoring",
+    "materials": "Printable materials",
+    "privacy": "Privacy",
+    "terms": "Terms of use",
+    "start": "Where to start"
   },
   "footer": {
     "tagline": "Free knowledge, for everyone, forever.",
     "learn": "Learn",
     "community": "Community",
     "project": "Project",
-    "legal": "Lessons under CC BY-SA 4.0 · No trackers, no ads · No third-party file is hosted here",
-    "slogan": "Workers of all countries, unite!"
+    "legal": "Lessons under CC BY-SA 4.0 · No ads, no advertising trackers · Every work and image shows its source and licence",
+    "slogan": "Workers of all countries, unite!",
+    "team": "Volunteer sign-in"
   },
   "home": {
     "eyebrow": "Library of Alexandria · community edition",
@@ -214,8 +221,8 @@
       "State, rights, elections and popular participation."
     ],
     "educacao-popular": [
-      "Popular education",
-      "Paulo Freire and the pedagogy of those who teach while learning."
+      "Popular education and pedagogy",
+      "Paulo Freire, historical-critical pedagogy and the school as a place where teaching is also learning."
     ],
     "midia": [
       "Media and communication",
@@ -270,8 +277,8 @@
       "The body that expresses itself: the social history of dance and the dances of the Brazilian people."
     ],
     "primeiros-socorros": [
-      "First aid",
-      "What to do, and what not to do, until help arrives."
+      "Health and first aid",
+      "Looking after your health, knowing Brazil's public health system and what to do until help arrives."
     ],
     "psicologia": [
       "Psychology",
@@ -300,6 +307,66 @@
     "favelas": [
       "Struggle of the favelas",
       "Housing, sanitation, collective building and the organisation of those who built the city."
+    ],
+    "desenho": [
+      "Drawing",
+      "From line to perspective: observation, proportion, light and shade, with pencil and paper."
+    ],
+    "design": [
+      "Design",
+      "Posters, typography and object design: form in the service of those who use it."
+    ],
+    "teatro": [
+      "Theatre and performing arts",
+      "From theatre games to the Theatre of the Oppressed: the stage as a place to think and act."
+    ],
+    "cinema": [
+      "Cinema and audiovisual",
+      "How a film is made and read; Brazilian cinema and the cinema of struggle."
+    ],
+    "educacao-fisica": [
+      "Physical education",
+      "Body, play, sport and health: movement as a right, not a commodity."
+    ],
+    "alfabetizacao": [
+      "Literacy",
+      "Learning to read and write at any age, starting from the words of the learner's own life."
+    ],
+    "enem": [
+      "ENEM",
+      "How Brazil's national secondary-school exam works, how to study each area and how to write the essay."
+    ],
+    "manutencao": [
+      "Building and repairing computers and phones",
+      "Parts, assembly, diagnosis and repair of desktops, laptops and mobile phones."
+    ],
+    "capitalismo": [
+      "What is capitalism",
+      "Commodity, wage, profit and crisis: how the system we live in works, seen from below."
+    ],
+    "luta-pela-terra": [
+      "Struggle for land",
+      "The agrarian question, land reform and Brazil's peasant movements."
+    ],
+    "movimento-estudantil": [
+      "Students' struggle",
+      "Student unions, occupations and the defence of public education."
+    ],
+    "antropologia": [
+      "Anthropology",
+      "Culture, kinship, ritual and difference: the study of ways of living."
+    ],
+    "servico-social": [
+      "Social work",
+      "The social question, public policy and the work of those who serve the people."
+    ],
+    "arquitetura": [
+      "Architecture and urbanism",
+      "The house, the street and the city: how space is built, and for whom."
+    ],
+    "arquivologia": [
+      "Libraries, archives and museums",
+      "Keeping, organising and opening up memory: library science, archival science and museology."
     ]
   },
   "tracks": {
@@ -319,7 +386,19 @@
     "ready": "{a} of {b} lessons ready",
     "planned": "in preparation",
     "plannedHelp": "Lessons marked “in preparation” are part of this track's roadmap and have not been written yet.",
-    "plannedLink": "Would you like to write one?"
+    "plannedLink": "Would you like to write one?",
+    "filter": "Show",
+    "filterAll": "All subjects",
+    "filterEssential": "Essentials",
+    "filterEssentialHint": "Just the basics: reading, writing, numbers, languages and science.",
+    "filterNone": "No subject has a track at this stage yet.",
+    "exam": "Track exam",
+    "examLead": "Up to thirty questions drawn from the lessons in this track. It is not graded: it shows what you already know and what is worth rereading.",
+    "examStart": "Take the exam",
+    "examNeed": "The exam appears once the track has at least ten questions.",
+    "examAgain": "Draw another exam",
+    "examResult": "You got {a} out of {b} right.",
+    "examFrom": "From the lesson: {title}"
   },
   "lesson": {
     "position": "lesson {i} of {n}",
@@ -639,7 +718,11 @@
     "stop": "Stop",
     "reading": "Reading aloud",
     "noSpeech": "This browser cannot read aloud.",
-    "reset": "Restore defaults"
+    "reset": "Restore defaults",
+    "black": "Pure black",
+    "blackHint": "A fully black background in the dark theme: uses less battery on AMOLED screens.",
+    "light": "Light mode",
+    "lightHint": "Hides images and the radio player, removes animations and uses your device's own fonts. Good for slow connections."
   },
   "data": {
     "eyebrow": "Your data is yours",
@@ -671,7 +754,8 @@
     "ciencias": "Science and technology",
     "humanidades": "Humanities",
     "teoria": "Revolutionary theory",
-    "lutas": "People's struggles"
+    "lutas": "People's struggles",
+    "percursos": "Literacy and ENEM"
   },
   "stages": {
     "fundamental": "Primary and lower secondary",
@@ -935,7 +1019,17 @@
       "about": "What the institute is and how the content is licensed.",
       "history": "Everything that has changed in the collection, with dates.",
       "myData": "Download or erase what is stored in this browser.",
-      "mural": "Cooperatives, trades, art and initiatives by working people."
+      "mural": "Cooperatives, trades, art and initiatives by working people.",
+      "tutoring": "Stuck on a subject? A volunteer answers your question by e-mail.",
+      "materials": "Zines, leaflets, posters and banners to download and hand out.",
+      "privacy": "What the site stores, where and for how long, and how to erase it.",
+      "terms": "The rules of the site and the limits of our responsibility.",
+      "journal": "News and analysis written by the newspaper team.",
+      "memorial": "Those who fought and must not be forgotten.",
+      "dedication": "Where the institute's name comes from.",
+      "contribute": "Send a lesson, a work, a correction or an idea.",
+      "support": "Help pay for the server and the domain.",
+      "start": "Short books and lessons for the first steps."
     }
   },
   "support": {
@@ -968,8 +1062,14 @@
     "sent": "We have sent a link to your email. Open the message on this device and tap the link to sign in.",
     "google": "Sign in with Google",
     "failed": "Sign-in failed. Try again in a few minutes.",
-    "why": "We do not use passwords: with no password stored, there is no password to leak. We keep only your email and the name you choose to show.",
-    "offline": "Sign-in is not active on this copy of the site yet."
+    "why": "People who study or join the community sign in without a password: with no password stored, there is no password to leak. We keep only your e-mail; the name shown on the site is a pseudonym you can change.",
+    "offline": "Sign-in is not active on this copy of the site yet.",
+    "password": "Password",
+    "enter": "Sign in",
+    "wrong": "Wrong e-mail or password, or the security check expired. Please try again.",
+    "withLink": "Sign in with a link sent by e-mail",
+    "team": "I am on the team: sign in with a password",
+    "teamWhy": "Team accounts are created by the community lead. After the password, the panel asks for the code from your authenticator app."
   },
   "radio": {
     "eyebrow": "On air",
@@ -999,7 +1099,8 @@
     "sem_servico": "This feature is not active on this copy of the site yet.",
     "invalido": "Check this field: {campo}.",
     "falha": "Something went wrong. Try again in a moment.",
-    "limite_anuncios": "Each person can have up to three listings. Remove one to post another."
+    "limite_anuncios": "Each person can have up to three listings. Remove one to post another.",
+    "limite_pedidos": "You already have three open requests. Wait for an answer or cancel one."
   },
   "community": {
     "eyebrow": "Community",
@@ -1038,7 +1139,23 @@
     "replyPlaceholder": "Write your reply…",
     "up": "Vote up",
     "down": "Vote down",
-    "points": "points"
+    "points": "points",
+    "kinds": {
+      "all": "Everything",
+      "question": "Question",
+      "talk": "Conversation",
+      "askQuestion": "I have a study question",
+      "startTalk": "I want to start a conversation"
+    },
+    "kindLabel": "Kind of post",
+    "unanswered": "Unanswered",
+    "search": "Search the community",
+    "solved": "Solved",
+    "accept": "This answer solved it",
+    "unaccept": "Unmark",
+    "accepted": "Answer chosen by the person who asked",
+    "staff": "team",
+    "held": "Message received. It will appear once someone on the team has read it."
   },
   "mural": {
     "eyebrow": "Solidarity economy",
@@ -1096,5 +1213,71 @@
     "renew": "Renew",
     "renewed": "Listing renewed for another 180 days.",
     "validUntil": "until {date}"
+  },
+  "tutoring": {
+    "eyebrow": "Nobody studies alone",
+    "title": "Tutoring",
+    "lead": "Stuck on a subject? Write your question. A volunteer from the teaching team answers by e-mail.",
+    "description": "Ask for help in any subject: a volunteer from Instituto Lúcia answers your question by e-mail, free of charge.",
+    "how": [
+      "Sign in and write your question, saying what you have already tried.",
+      "Someone from that subject's team takes the request and answers at the e-mail address you give.",
+      "Your e-mail is seen only by the person who took the request and is erased from our database as soon as the answer is sent."
+    ],
+    "discipline": "Subject",
+    "choose": "Choose…",
+    "subject": "Topic (for example: quadratic equations)",
+    "question": "Your question",
+    "email": "E-mail address for the answer",
+    "emailHint": "Check the address: the explanation is sent there. Look in your spam folder too.",
+    "send": "Ask for tutoring",
+    "sent": "Request sent. You will get a notice in the panel when someone takes it.",
+    "signIn": "Sign in to ask for tutoring",
+    "mine": "My requests",
+    "status": {
+      "aberto": "waiting",
+      "em_atendimento": "being answered",
+      "atendido": "answered by e-mail",
+      "cancelado": "cancelled"
+    },
+    "cancel": "Cancel request",
+    "cancelled": "Request cancelled.",
+    "offline": "Tutoring is not active on this copy of the site yet."
+  },
+  "materials": {
+    "eyebrow": "To print and hand out",
+    "title": "Materials",
+    "lead": "Zines, leaflets, posters and banners made by the institute. Download, print and pass them on.",
+    "description": "Zines, leaflets, posters and banners by Instituto Lúcia to download, print and hand out.",
+    "empty": "No materials have been published yet.",
+    "offline": "Materials are not active on this copy of the site yet.",
+    "open": "Open or download",
+    "types": {
+      "zine": "Zine",
+      "panfleto": "Leaflet",
+      "cartaz": "Poster",
+      "banner": "Banner",
+      "video": "Video",
+      "texto": "Text"
+    }
+  },
+  "certificate": {
+    "eyebrow": "Volunteering",
+    "title": "Check a certificate",
+    "lead": "Type the code printed on a volunteer work certificate to confirm that the institute issued it.",
+    "description": "Public verification of the volunteer work certificates issued by Instituto Lúcia.",
+    "code": "Certificate code",
+    "check": "Check",
+    "failed": "Could not check right now. Please try again in a few minutes.",
+    "notFound": "There is no certificate with that code.",
+    "cancelled": "This certificate was cancelled and is not valid.",
+    "valid": "Genuine certificate, issued by Instituto Lúcia.",
+    "name": "Name",
+    "hours": "Hours",
+    "period": "Period",
+    "activities": "Activities",
+    "issued": "Issued on",
+    "witnesses": "Witnesses",
+    "offline": "Verification is not active on this copy of the site yet."
   }
 }

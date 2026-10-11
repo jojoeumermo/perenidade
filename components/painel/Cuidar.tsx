@@ -29,10 +29,91 @@ export function Comunidade({ me }: { me: Me }) {
   const curador = can(me, "coordenacao", "curadoria");
   return (
     <div className="space-y-10">
+      <Retidos />
       {curador && <Denuncias />}
       <Anotacoes />
+      {curador && <Filtro />}
       <p className="text-ink-soft">Para ocultar ou trancar uma conversa, abra o tópico na página Comunidade: os botões aparecem para quem cuida.</p>
     </div>
+  );
+}
+
+interface Retido {
+  tipo: "topico" | "resposta";
+  id: string;
+  titulo: string;
+  corpo: string;
+  autor: string;
+  criado_em: string;
+}
+
+/** Mensagens que o filtro de palavras segurou. Ninguém de fora as vê até alguém da equipe liberar. */
+function Retidos() {
+  const lista = useLista<Retido[]>("comunidade_retidos");
+  const acao = useAcao(lista.recarregar);
+  if (!lista.dados || lista.dados.length === 0) return null;
+  return (
+    <section>
+      <h2 className="font-serif text-2xl font-semibold">Retidas pelo filtro</h2>
+      <p className="mt-1 text-ink-soft">O filtro erra para os dois lados: uma citação em aula de história pode cair aqui. Leia o contexto antes de decidir.</p>
+      <Aviso texto={lista.erro || acao.aviso} />
+      <ul className="mt-3 space-y-4">
+        {lista.dados.map((item) => (
+          <li key={item.id} className="border border-rule bg-parchment-deep p-4">
+            <p className={rotulo}>
+              {item.tipo === "topico" ? "Conversa nova" : "Resposta"} · {item.autor || "—"} · {data(item.criado_em)}
+            </p>
+            <p className="mt-1 font-semibold">{item.titulo}</p>
+            <p className="mt-1 whitespace-pre-line font-serif text-lg">{item.corpo}</p>
+            <div className="mt-3 flex gap-3">
+              <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("comunidade_cuidar", { p_tipo: item.tipo, p_alvo: item.id, p_acao: "mostrar" }, "Mensagem liberada.")}>Liberar</button>
+              <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => acao.agir("comunidade_cuidar", { p_tipo: item.tipo, p_alvo: item.id, p_acao: "ocultar" }, "Mensagem mantida oculta.")}>Manter oculta</button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** A lista de palavras e expressões que seguram uma mensagem para leitura. Só a curadoria vê e edita. */
+function Filtro() {
+  const lista = useLista<string[]>("filtro_listar");
+  const acao = useAcao(lista.recarregar);
+  const [termo, setTermo] = useState("");
+  const [aberto, setAberto] = useState(false);
+  return (
+    <section>
+      <h2 className="font-serif text-2xl font-semibold">Filtro de palavras</h2>
+      <p className="mt-1 text-ink-soft">
+        Mensagem com uma destas palavras ou expressões não é apagada: fica retida até alguém da equipe ler. Evite palavras com sentido comum (nome de animal, de lugar): elas seguram conversa inocente.
+      </p>
+      <div className="mt-3 flex flex-wrap items-end gap-3">
+        <label className="block min-w-60">
+          Acrescentar palavra ou expressão
+          <input value={termo} onChange={(e) => setTermo(e.target.value)} maxLength={40} className={campo} />
+        </label>
+        <button type="button" className={botaoClaro} disabled={acao.ocupado || termo.trim().length < 3} onClick={async () => { if (await acao.agir("filtro_salvar", { p_termo: termo, p_incluir: true }, "Acrescentado ao filtro.")) setTermo(""); }}>
+          Acrescentar
+        </button>
+        <button type="button" className={elo} onClick={() => setAberto(!aberto)}>
+          {aberto ? "Esconder a lista" : `Mostrar a lista (${lista.dados?.length ?? 0})`}
+        </button>
+      </div>
+      <Aviso texto={lista.erro || acao.aviso} />
+      {aberto && (
+        <ul className="mt-2 flex flex-wrap gap-2">
+          {lista.dados?.map((item) => (
+            <li key={item} className="border border-rule bg-parchment-deep px-2 py-1">
+              {item}{" "}
+              <button type="button" aria-label={`Tirar ${item} do filtro`} className="cursor-pointer px-1 hover:text-oxblood" onClick={() => acao.agir("filtro_salvar", { p_termo: item, p_incluir: false }, "Retirado do filtro.")}>
+                ✕
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
   );
 }
 

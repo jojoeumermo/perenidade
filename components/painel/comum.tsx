@@ -13,12 +13,30 @@ export const elo = "cursor-pointer underline hover:text-oxblood";
 export const rotulo = "font-mono text-xs uppercase tracking-widest text-gold";
 
 export const papeis: Record<Role["papel"], string> = {
-  coordenacao: "Coordenação",
+  coordenacao: "Liderança comunitária",
+  vice: "Vice-liderança",
   curadoria: "Curadoria",
   educacao: "Educação",
   revisao: "Revisão",
   traducao: "Tradução",
   jornalismo: "Jornalismo",
+  mentoria: "Aula de reforço",
+  design: "Design",
+  desenvolvimento: "Desenvolvimento",
+};
+
+/** O que cada papel enxerga e faz no painel. É a regra do banco, escrita para gente. */
+export const oQueFaz: Record<Role["papel"], string> = {
+  coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-liderança, define a sucessão, publica materiais e emite certificados.",
+  vice: "Tudo o que a liderança faz, menos mexer na liderança, nomear outra vice-liderança, definir a sucessão e emitir certificados.",
+  curadoria: "Aprova ou recusa contribuições e anúncios do mural, cuida da comunidade, das denúncias e do filtro de palavras.",
+  educacao: "Escreve e revisa na disciplina confiada, cuida da comunidade e atende pedidos de reforço da disciplina.",
+  revisao: "Lê a fila inteira e dá parecer; não aprova.",
+  traducao: "Envia traduções; não vê a fila dos outros.",
+  jornalismo: "Escreve para o jornal; toda matéria passa pela revisão antes de sair.",
+  mentoria: "Atende pedidos de reforço da disciplina confiada e responde por e-mail.",
+  design: "Prepara materiais gráficos e atende pedidos de ajuda das outras funções.",
+  desenvolvimento: "Cuida do código e atende pedidos de ajuda das outras funções.",
 };
 
 export const situacoes: Record<string, string> = {
@@ -40,7 +58,13 @@ const erros: Record<string, string> = {
   ja_decidida: "Esta contribuição já foi decidida.",
   ja_pediu: "Você já fez esse pedido e ele está em análise.",
   limite_anuncios: "Cada pessoa pode ter até três anúncios no mural.",
-  ultima_coordenacao: "O instituto precisa de pelo menos uma pessoa na coordenação.",
+  ultima_coordenacao: "O instituto precisa de uma pessoa na liderança.",
+  limite_pedidos: "Você já tem três pedidos em aberto.",
+  confirme_segundo_fator: "Confirme primeiro o seu próprio código do aplicativo autenticador.",
+  falta_termo: "Falta o aceite do termo de adesão ao trabalho voluntário.",
+  sem_horas: "Não há horas confirmadas nesse período.",
+  falta_testemunha: "Ainda falta testemunha confirmar.",
+  topico_trancado: "Esta conversa está trancada.",
   sem_conexao: "Sem conexão com o serviço.",
   falha: "Algo deu errado. Tente de novo.",
 };
@@ -53,6 +77,9 @@ export function textoDoErro(erro: unknown): string {
 }
 
 export const data = (iso: string) => new Date(iso).toLocaleDateString("pt-BR");
+export const dataHora = (iso: string) => new Date(iso).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+/** Datas sem hora (AAAA-MM-DD) não podem passar pelo fuso: viram o dia anterior no Brasil. */
+export const dia = (iso: string) => iso.slice(0, 10).split("-").reverse().join("/");
 
 /** Carrega uma lista do serviço e devolve um jeito de recarregar. */
 export function useLista<T>(funcao: string, argumentos: Record<string, unknown> = {}) {

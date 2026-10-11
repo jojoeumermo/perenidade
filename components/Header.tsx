@@ -17,15 +17,17 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
       </a>
       <div className="bg-ink px-4 py-1.5 text-center font-mono text-xs tracking-wide text-parchment">{t.common.strip}</div>
       {/* Tudo em uma linha: nome, seções do site e, à direita, conta, idioma e tema. Em telas estreitas, quebra. */}
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-5">
-        <Link href={localePath(lang, "/")} className="flex items-baseline gap-3">
-          <span aria-hidden className="text-3xl text-gold">◈</span>
-          <span className="text-3xl font-semibold tracking-tight">{site.name}</span>
+      <div className="mx-auto flex max-w-7xl items-center gap-x-5 px-4 py-4">
+        <Link href={localePath(lang, "/")} className="flex shrink-0 items-center gap-2.5">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/emblema-96.png" alt="" width={44} height={44} className="h-11 w-11" />
+          <span className="text-2xl font-semibold leading-none tracking-tight sm:text-3xl">{site.name}</span>
         </Link>
-        <nav aria-label={t.nav.main} className="mr-auto flex flex-wrap items-center gap-x-4 gap-y-2 font-sans text-sm text-ink-soft">
+        {/* No celular o menu fica embaixo (BottomNav); aqui ele aparece a partir de telas médias, sempre em uma linha. */}
+        <nav aria-label={t.nav.main} className="mr-auto hidden items-center gap-x-4 font-sans text-sm leading-none text-ink-soft md:flex">
           <NavLinks />
         </nav>
-        <div className="flex items-center gap-4">
+        <div className="ml-auto flex shrink-0 items-center gap-3 md:ml-0">
           <AccountLink />
           <LanguageSwitcher />
           <ThemeToggle />
