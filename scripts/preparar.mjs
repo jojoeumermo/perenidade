@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Copia para public/ os interpretadores de Python e PHP que rodam no navegador (ferramentas de prática).
 // Eles vêm das dependências instaladas e não entram no repositório. Roda sozinho depois de "npm install".

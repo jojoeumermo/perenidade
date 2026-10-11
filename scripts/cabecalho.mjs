@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Leitura e escrita do cabeçalho dos arquivos de conteúdo, para os roteiros de apoio.
 // (O site usa lib/frontmatter.ts, com a mesma regra.)

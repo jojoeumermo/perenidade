@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Confere se os cinco dicionários têm exatamente as mesmas chaves que o português (a referência)
 // e se nenhum texto ficou vazio. Uso: npm run conferir:i18n

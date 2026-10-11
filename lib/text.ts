@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 /** Minúsculas e sem acentos, para busca e comparação. */
 export function normalize(text: string): string {
   return text

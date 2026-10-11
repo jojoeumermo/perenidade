@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Confere se os endereços citados no conteúdo ainda respondem: fichas do acervo, fontes das aulas,
 // vídeos, arquivos de autores e links dentro dos textos. Uso: npm run conferir:links

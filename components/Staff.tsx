@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 
 // Desenha uma pauta musical a partir de um texto simples, para as aulas de música.
 // Exemplo dentro de uma aula:

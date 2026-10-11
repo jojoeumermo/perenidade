@@ -9,9 +9,9 @@ Tudo o que está aqui foi escrito, revisado e organizado por pessoas que acredit
 ## Como começar
 
 - **Sem conta:** a página [Contribuir](/contribuir) aceita aulas, indicações de obras, correções e ideias de qualquer pessoa. Tudo é lido pela curadoria antes de entrar.
-- **Como voluntário:** [entre](/entrar) com o seu e-mail e, no painel, peça para ser voluntário, dizendo em que quer ajudar. A coordenação responde por lá e indica a disciplina ou a tarefa de cada um.
+- **Como voluntário:** [entre](/entrar) com o seu e-mail e, no painel, peça para ser voluntário, dizendo em que quer ajudar. A liderança responde por lá e indica a disciplina ou a tarefa de cada um. Cada função enxerga no painel só as ferramentas do próprio trabalho.
 
-Nesta fase inicial, toda publicação passa pela aprovação da coordenação.
+Nesta fase inicial, toda publicação passa pela aprovação da liderança. Quem dedica horas ao instituto pode registrá-las no painel e, com elas conferidas, receber um certificado de trabalho voluntário (ainda em fase de teste).
 
 ## Como revisor
 
@@ -46,6 +46,18 @@ O acervo só indexa: guarda o título, o autor, uma sinopse e o link para a font
 ## Como jornalista
 
 O [Jornal](/jornal) publica notícias e análises do ponto de vista de quem trabalha. Fatos conferidos, fontes à vista e cuidado ao falar de pessoas e organizações: o objetivo é informar e educar.
+
+## Na aula de reforço
+
+Quem trava em uma matéria pode [pedir reforço](/reforco). O pedido chega para os voluntários daquela disciplina; quem assume responde por e-mail, com paciência e mostrando o caminho, não só a resposta. É um bom jeito de ajudar para quem tem pouco tempo: uma dúvida de cada vez.
+
+## Como designer
+
+Aulas ficam melhores com um bom desenho: um esquema, um gráfico, um mapa, um cartaz para imprimir. O designer atende os pedidos dos educadores e do jornal e prepara zines, panfletos e cartazes para a página de [materiais](/materiais). Toda imagem enviada precisa ser sua ou ter licença livre, com o crédito à vista.
+
+## Como desenvolvedor
+
+O site é software livre e tem muito por fazer: novas ferramentas de prática, acessibilidade, desempenho em celular simples e internet lenta, traduções da interface. Quem programa combina o trabalho com a liderança pelo painel.
 
 ## Divulgando
 

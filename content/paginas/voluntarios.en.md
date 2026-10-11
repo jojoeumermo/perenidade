@@ -47,6 +47,18 @@ The library only indexes: it keeps the title, the author, a synopsis and the lin
 
 The [Newspaper](/jornal) publishes news and analysis from the point of view of those who work. Checked facts, sources in plain sight and care when writing about people and organisations: the aim is to inform and to educate.
 
+## In tutoring
+
+Anyone stuck on a subject can [ask for tutoring](/reforco). The request goes to the volunteers of that subject; whoever takes it answers by e-mail, patiently, showing the way and not just the answer. It is a good way to help if you have little time: one question at a time.
+
+## As a designer
+
+Lessons get better with good drawing: a diagram, a chart, a map, a poster to print. Designers answer requests from educators and from the newspaper, and prepare zines, leaflets and posters for the [materials](/materiais) page. Every image must be your own or freely licensed, with the credit in plain sight.
+
+## As a developer
+
+The site is free software and there is a lot to do: new practice tools, accessibility, performance on basic phones and slow connections, interface translations. Developers agree on the work with the community lead through the panel.
+
 ## Spreading the word
 
 Tell your colleagues, your union, your community prep course and your school about the institute. A teacher can print a lesson and take it to class. A study group can use a whole track. That is what it is for.

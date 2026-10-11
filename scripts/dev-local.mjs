@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Todos os direitos reservados.
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Sobe o banco de teste local e o site apontando para ele. Uso: npm run dev:local [porta]
 import { spawn } from "node:child_process";
