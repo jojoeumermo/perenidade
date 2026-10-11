@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "como-a-internet-funciona",
+    "titulo": "Como a internet funciona"
+  },
+  {
+    "slug": "http-pedido-e-resposta",
+    "titulo": "HTTP: pedido e resposta"
+  },
+  {
+    "slug": "html-a-estrutura",
+    "titulo": "HTML: a estrutura"
+  },
+  {
+    "slug": "css-a-aparencia",
+    "titulo": "CSS: a aparência"
+  },
+  {
+    "slug": "javascript-o-comportamento",
+    "titulo": "JavaScript: o comportamento"
+  },
+  {
+    "slug": "git-guardar-versoes",
+    "titulo": "Git: guardar versões"
+  },
+  {
+    "slug": "banco-de-dados-e-sql",
+    "titulo": "Banco de dados e SQL"
+  },
+  {
+    "slug": "publicar-um-site-de-graca",
+    "titulo": "Publicar um site de graça"
+  },
+  {
+    "slug": "seguranca-basica-de-sites",
+    "titulo": "Segurança básica de sites"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "porcentagem-no-noticiario",
+    "titulo": "Porcentagem no noticiário"
+  },
+  {
+    "slug": "media-mediana-e-moda",
+    "titulo": "Média, mediana e moda"
+  },
+  {
+    "slug": "como-ler-um-grafico-sem-ser-enganado",
+    "titulo": "Como ler um gráfico sem ser enganado"
+  },
+  {
+    "slug": "o-que-e-uma-pesquisa-por-amostragem",
+    "titulo": "O que é uma pesquisa por amostragem"
+  },
+  {
+    "slug": "margem-de-erro",
+    "titulo": "Margem de erro"
+  },
+  {
+    "slug": "o-censo",
+    "titulo": "O Censo"
+  },
+  {
+    "slug": "desemprego-como-o-ibge-mede",
+    "titulo": "Desemprego: como o IBGE mede"
+  },
+  {
+    "slug": "inflacao-o-que-e-o-ipca",
+    "titulo": "Inflação: o que é o IPCA"
+  },
+  {
+    "slug": "desigualdade-o-indice-de-gini",
+    "titulo": "Desigualdade: o índice de Gini"
+  },
+  {
+    "slug": "correlacao-nao-e-causa",
+    "titulo": "Correlação não é causa"
+  }
+]

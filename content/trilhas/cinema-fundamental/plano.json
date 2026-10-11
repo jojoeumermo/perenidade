@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "o-que-e-cinema",
+    "titulo": "O que é cinema"
+  },
+  {
+    "slug": "o-plano-enquadramento-e-angulo",
+    "titulo": "O plano: enquadramento e ângulo"
+  },
+  {
+    "slug": "a-montagem-o-corte-conta-a-historia",
+    "titulo": "A montagem: o corte conta a história"
+  },
+  {
+    "slug": "som-e-trilha",
+    "titulo": "Som e trilha"
+  },
+  {
+    "slug": "roteiro-comeco-meio-e-fim",
+    "titulo": "Roteiro: começo, meio e fim"
+  },
+  {
+    "slug": "documentario-e-ficcao",
+    "titulo": "Documentário e ficção"
+  },
+  {
+    "slug": "filmar-com-o-celular",
+    "titulo": "Filmar com o celular"
+  },
+  {
+    "slug": "cineclube-como-organizar-uma-sessao-no-seu-bairro",
+    "titulo": "Cineclube: como organizar uma sessão no seu bairro"
+  }
+]

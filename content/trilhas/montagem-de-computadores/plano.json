@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "as-pecas-de-um-computador",
+    "titulo": "As peças de um computador"
+  },
+  {
+    "slug": "seguranca-energia-eletricidade-estatica-e-ferramentas",
+    "titulo": "Segurança: energia, eletricidade estática e ferramentas"
+  },
+  {
+    "slug": "placa-mae-processador-e-memoria-como-se-encaixam",
+    "titulo": "Placa-mãe, processador e memória: como se encaixam"
+  },
+  {
+    "slug": "armazenamento-hd-e-ssd",
+    "titulo": "Armazenamento: HD e SSD"
+  },
+  {
+    "slug": "fonte-e-gabinete",
+    "titulo": "Fonte e gabinete"
+  },
+  {
+    "slug": "montando-passo-a-passo",
+    "titulo": "Montando passo a passo"
+  },
+  {
+    "slug": "a-primeira-vez-que-liga-bios-e-uefi",
+    "titulo": "A primeira vez que liga: BIOS e UEFI"
+  },
+  {
+    "slug": "instalando-o-sistema-linux-ou-windows",
+    "titulo": "Instalando o sistema: Linux ou Windows"
+  },
+  {
+    "slug": "como-escolher-pecas-usadas-sem-cair-em-cilada",
+    "titulo": "Como escolher peças usadas sem cair em cilada"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "linguagens-interpretacao-de-texto-acima-de-tudo",
+    "titulo": "Linguagens: interpretação de texto acima de tudo"
+  },
+  {
+    "slug": "linguagens-literatura-artes-e-lingua-estrangeira",
+    "titulo": "Linguagens: literatura, artes e língua estrangeira"
+  },
+  {
+    "slug": "ciencias-humanas-historia-e-geografia",
+    "titulo": "Ciências humanas: história e geografia"
+  },
+  {
+    "slug": "ciencias-humanas-filosofia-e-sociologia",
+    "titulo": "Ciências humanas: filosofia e sociologia"
+  },
+  {
+    "slug": "ciencias-da-natureza-fisica",
+    "titulo": "Ciências da natureza: física"
+  },
+  {
+    "slug": "ciencias-da-natureza-quimica",
+    "titulo": "Ciências da natureza: química"
+  },
+  {
+    "slug": "ciencias-da-natureza-biologia",
+    "titulo": "Ciências da natureza: biologia"
+  },
+  {
+    "slug": "matematica-o-que-mais-cai",
+    "titulo": "Matemática: o que mais cai"
+  },
+  {
+    "slug": "matematica-ler-graficos-e-tabelas",
+    "titulo": "Matemática: ler gráficos e tabelas"
+  }
+]
