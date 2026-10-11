@@ -1032,8 +1032,14 @@
   "glossary": {
     "eyebrow": "Vocabulary",
     "title": "Glossary",
-    "lead": "Difficult words, explained in plain language. In the lessons, underlined terms show their explanation.",
-    "missing": "Is a term missing?"
+    "lead": "Hard words explained in plain language. The list grows by itself: every term a new lesson defines shows up here, and you can see only those of one subject. In the lessons, underlined terms carry the explanation.",
+    "missing": "Is a term missing?",
+    "filter": "Show the terms used in",
+    "all": "All subjects",
+    "find": "Find a term",
+    "count": "{n} term(s)",
+    "usedIn": "Appears in:",
+    "none": "No term matches this filter."
   },
   "videos": {
     "eyebrow": "To watch",

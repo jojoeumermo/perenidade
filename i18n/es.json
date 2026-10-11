@@ -1032,8 +1032,14 @@
   "glossary": {
     "eyebrow": "Vocabulario",
     "title": "Glosario",
-    "lead": "Las palabras difíciles, explicadas en lenguaje sencillo. En las lecciones, los términos subrayados muestran su explicación.",
-    "missing": "¿Falta algún término?"
+    "lead": "Las palabras difíciles, explicadas en lenguaje sencillo. La lista crece sola: cada término que define una clase nueva aparece aquí, y se pueden ver solo los de una disciplina. En las clases, los términos subrayados traen la explicación.",
+    "missing": "¿Falta algún término?",
+    "filter": "Mostrar los términos usados en",
+    "all": "Todas las disciplinas",
+    "find": "Buscar un término",
+    "count": "{n} término(s)",
+    "usedIn": "Aparece en:",
+    "none": "Ningún término con ese filtro."
   },
   "videos": {
     "eyebrow": "Para ver",

@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { loadLang } from "@/i18n";
 import { locales } from "@/i18n/config";
-import { getArticles, getAuthors, getBooks, getDebates, getFactChecks, getGlossary, getQuestions, getTracks, getTributes } from "@/lib/content";
+import { getArticles, getAuthors, getBooks, getDebates, getFactChecks, getGlossaryIndex, getQuestions, getTracks, getTributes } from "@/lib/content";
 import type { SearchEntry } from "@/lib/search";
 import { plainText } from "@/lib/text";
 import en from "@/i18n/en.json";
@@ -44,7 +44,7 @@ export async function GET(_request: Request, { params }: RouteContext<"/[lang]/i
   for (const tribute of getTributes(lang)) {
     entries.push({ kind: "memorial", title: tribute.name, href: `/memorial#${tribute.slug}`, area: "", context: `${tribute.born} – ${tribute.died}`, text: tribute.body });
   }
-  for (const term of getGlossary(lang)) {
+  for (const term of getGlossaryIndex(lang)) {
     entries.push({ kind: "verbete", title: term.term, href: `/glossario#${term.slug}`, area: "", context: "", text: `${term.summary} ${plainText(term.body)}` });
   }
   for (const article of getArticles(lang)) {
