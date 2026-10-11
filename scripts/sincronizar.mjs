@@ -11,7 +11,10 @@
 //   node scripts/sincronizar.mjs --marcar   avisa o banco de que os itens anotados já foram publicados
 //
 // Variáveis: SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY (esta última nunca vai para o site).
+import { execFileSync } from "node:child_process";
+import crypto from "node:crypto";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { montarArquivo } from "./cabecalho.mjs";
@@ -19,6 +22,7 @@ import { montarArquivo } from "./cabecalho.mjs";
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const conteudo = path.join(raiz, "content");
 const anotacao = path.join(raiz, ".publicados.json");
+const pastaDeArquivos = path.join(raiz, "public", "arquivos");
 const tipos = JSON.parse(fs.readFileSync(path.join(raiz, "lib/tipos.json"), "utf8"));
 const base = (process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/$/, "");
 const chave = process.env.SUPABASE_SERVICE_ROLE_KEY ?? "";
@@ -111,6 +115,94 @@ function livre(pasta, nome) {
 
 const data = (texto) => (/^\d{4}-\d{2}-\d{2}/.test(String(texto)) ? String(texto).slice(0, 10) : new Date().toISOString().slice(0, 10));
 const assinatura = (item) => linha(item.nome_autor, "nome", { max: 80, obrigatorio: false }) || "Colaboração voluntária";
+
+// ───────────── Imagens e arquivos enviados pela equipe ─────────────
+
+const sha256 = (dados) => crypto.createHash("sha256").update(dados).digest("hex");
+
+/** O arquivo é mesmo do tipo que diz ser? Confere pelos primeiros bytes, não pelo nome. */
+const assinaturas = {
+  webp: (b) => b.length > 16 && b.toString("latin1", 0, 4) === "RIFF" && b.toString("latin1", 8, 12) === "WEBP",
+  jpg: (b) => b.length > 4 && b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff,
+  pdf: (b) => b.toString("latin1", 0, 5) === "%PDF-",
+};
+
+/** Blocos de dados embutidos em uma imagem (local da foto, aparelho, autor, programa de edição). */
+function temDadosEmbutidos(dados, extensao) {
+  if (extensao === "webp") {
+    for (let i = 12; i + 8 <= dados.length; ) {
+      const bloco = dados.toString("latin1", i, i + 4);
+      if (bloco === "EXIF" || bloco === "XMP ") return true;
+      const tamanho = dados.readUInt32LE(i + 4);
+      i += 8 + tamanho + (tamanho % 2);
+    }
+    return false;
+  }
+  // JPEG: percorre os segmentos até o começo da imagem; APP1 é onde moram Exif e XMP.
+  for (let i = 2; i + 4 <= dados.length && dados[i] === 0xff; ) {
+    const marca = dados[i + 1];
+    if (marca === 0xda) break;
+    if (marca === 0xe1 || marca === 0xed) return true;
+    i += 2 + dados.readUInt16BE(i + 2);
+  }
+  return false;
+}
+
+/** Regrava o PDF sem autor, programa, datas nem histórico de edição. Precisa de exiftool e qpdf na máquina. */
+function limparPdf(dados) {
+  const temporario = path.join(os.tmpdir(), `lucia-${crypto.randomUUID()}.pdf`);
+  fs.writeFileSync(temporario, dados);
+  try {
+    execFileSync("exiftool", ["-all:all=", "-overwrite_original", "-q", temporario], { stdio: "pipe" });
+    // O exiftool só risca os dados; é regravar o arquivo que de fato os apaga.
+    execFileSync("qpdf", ["--object-streams=disable", "--linearize", "--replace-input", temporario], { stdio: "pipe" });
+    return fs.readFileSync(temporario);
+  } catch {
+    return recusar("não foi possível limpar o PDF (esta máquina precisa das ferramentas exiftool e qpdf)");
+  } finally {
+    for (const resto of [temporario, `${temporario}.~qpdf-orig`, `${temporario}_original`]) fs.rmSync(resto, { force: true });
+  }
+}
+
+let bloqueados = null;
+
+/**
+ * Busca um arquivo do depósito fechado, confere e grava em public/arquivos. O nome final vem do próprio
+ * conteúdo: o mesmo arquivo sempre cai no mesmo endereço, e ninguém troca um arquivo já publicado.
+ */
+async function publicarArquivo(caminho) {
+  const extensao = /^[0-9a-f-]{36}\/[a-z0-9-]{8,60}\.(webp|jpg|pdf)$/.exec(String(caminho))?.[1];
+  if (!extensao) recusar("caminho de arquivo inválido");
+  const resposta = await fetch(`${base}/storage/v1/object/envios/${caminho}`, { headers: { apikey: chave, Authorization: `Bearer ${chave}` }, signal: AbortSignal.timeout(60_000) });
+  if (!resposta.ok) recusar(`arquivo não encontrado no depósito (${caminho})`);
+  let dados = Buffer.from(await resposta.arrayBuffer());
+  if (dados.length === 0 || dados.length > 8 * 1024 * 1024) recusar("arquivo vazio ou maior que 8 MB");
+  if (!assinaturas[extensao](dados)) recusar("o conteúdo do arquivo não é do tipo que o nome diz");
+  bloqueados ??= new Set(await chamar("arquivos_bloqueados"));
+  if (bloqueados.has(sha256(dados))) recusar("arquivo bloqueado pela curadoria");
+  if (extensao === "pdf") {
+    dados = limparPdf(dados);
+    if (/\/(JavaScript|JS|Launch|EmbeddedFile|RichMedia)\b/.test(dados.toString("latin1"))) recusar("PDF com programa, anexo ou ação automática embutida");
+  } else if (temDadosEmbutidos(dados, extensao)) {
+    recusar("imagem com dados embutidos (local, aparelho ou autor): envie de novo pelo painel, que limpa o arquivo");
+  }
+  const nome = `${sha256(dados).slice(0, 20)}.${extensao}`;
+  fs.mkdirSync(pastaDeArquivos, { recursive: true });
+  fs.writeFileSync(path.join(pastaDeArquivos, nome), dados);
+  return `/arquivos/${nome}`;
+}
+
+/** Troca, no texto de uma contribuição, cada imagem enviada pelo endereço dela dentro do site. */
+async function trazerImagens(texto, usados) {
+  const caminhos = [...new Set([...texto.matchAll(/envio:([0-9a-f-]{36}\/[a-z0-9-]{8,60}\.(?:webp|jpg))/g)].map((achado) => achado[1]))];
+  if (caminhos.length > 12) recusar("imagens demais em um texto só (o limite é 12)");
+  let saida = texto;
+  for (const caminho of caminhos) {
+    saida = saida.replaceAll(`envio:${caminho}`, await publicarArquivo(caminho));
+    usados.push(caminho);
+  }
+  return saida;
+}
 
 // ───────────── Um arquivo por tipo de contribuição ─────────────
 
@@ -263,10 +355,16 @@ if (process.argv.includes("--marcar")) {
     console.log("Nada a marcar.");
     process.exit(0);
   }
-  const ids = JSON.parse(fs.readFileSync(anotacao, "utf8"));
+  const lido = JSON.parse(fs.readFileSync(anotacao, "utf8"));
+  const { ids = [], avulsos = [], apagar = [] } = Array.isArray(lido) ? { ids: lido } : lido;
   if (ids.length > 0) await chamar("publicacoes_marcar", { p_ids: ids });
+  for (const avulso of avulsos) await chamar("arquivo_publicado", { p_id: avulso.id, p_destino: avulso.destino });
+  // O que já está dentro do site sai do depósito: ele não é lugar de guardar nada.
+  for (const caminho of apagar) {
+    await fetch(`${base}/storage/v1/object/envios/${caminho}`, { method: "DELETE", headers: { apikey: chave, Authorization: `Bearer ${chave}` }, signal: AbortSignal.timeout(30_000) }).catch(() => {});
+  }
   fs.rmSync(anotacao);
-  console.log(`${ids.length} item(ns) marcados como publicados.`);
+  console.log(`${ids.length} item(ns) e ${avulsos.length} arquivo(s) marcados como publicados.`);
   process.exit(0);
 }
 
@@ -275,6 +373,7 @@ if (!Array.isArray(pendentes)) throw new Error("resposta inesperada do serviço"
 const feitos = jaPublicados();
 const marcar = [];
 const resumo = [];
+const apagar = [];
 let recusados = 0;
 
 for (const item of pendentes.slice(0, LIMITE)) {
@@ -289,8 +388,11 @@ for (const item of pendentes.slice(0, LIMITE)) {
       if (acrescentarFrase(item)) resumo.push(rotulo);
     } else if (montar[item.tipo]) {
       const { arquivo, dados, texto } = montar[item.tipo](item);
+      const usados = [];
+      const final = await trazerImagens(texto, usados);
       fs.mkdirSync(path.dirname(arquivo), { recursive: true });
-      fs.writeFileSync(arquivo, montarArquivo({ ...dados, origem: item.id }, texto));
+      fs.writeFileSync(arquivo, montarArquivo({ ...dados, origem: item.id }, final));
+      apagar.push(...usados);
       resumo.push(`${rotulo} → ${path.relative(raiz, arquivo).replaceAll("\\", "/")}`);
     }
     // Correções e sugestões aprovadas não geram arquivo: quem aprovou faz a mudança à mão.
@@ -302,7 +404,24 @@ for (const item of pendentes.slice(0, LIMITE)) {
   }
 }
 
-fs.writeFileSync(anotacao, JSON.stringify(marcar));
+// Arquivos avulsos aprovados pela liderança (imagem do aviso de abertura, panfleto em PDF).
+const avulsos = [];
+for (const avulso of (await chamar("arquivos_aprovados")).slice(0, LIMITE)) {
+  try {
+    const destinoFinal = await publicarArquivo(avulso.caminho);
+    avulsos.push({ id: avulso.id, destino: destinoFinal });
+    apagar.push(avulso.caminho);
+    resumo.push(`arquivo → public${destinoFinal}`);
+  } catch (erro) {
+    if (!(erro instanceof Recusa)) throw erro;
+    recusados++;
+    avulsos.push({ id: avulso.id, destino: "" });
+    apagar.push(avulso.caminho);
+    console.log(`RECUSADO arquivo ${avulso.caminho}: ${erro.message}`);
+  }
+}
+
+fs.writeFileSync(anotacao, JSON.stringify({ ids: marcar, avulsos, apagar }));
 console.log(resumo.length ? `Publicado:\n${resumo.map((linhaDoResumo) => `- ${linhaDoResumo}`).join("\n")}` : "Nenhum arquivo novo.");
 if (pendentes.length > LIMITE) console.log(`Ficaram ${pendentes.length - LIMITE} itens para a próxima rodada.`);
 if (recusados) console.log(`${recusados} item(ns) recusados: continuam aprovados no painel até serem corrigidos ou recusados lá.`);

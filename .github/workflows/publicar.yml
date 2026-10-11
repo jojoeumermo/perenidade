@@ -30,11 +30,13 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Ferramentas que apagam de um PDF o autor, o programa e o histórico de edição antes de ele entrar no site.
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends libimage-exiftool-perl qpdf
       - run: npm run sincronizar
       - name: Há algo novo?
         id: novo
         run: |
-          git add -A content
+          git add -A content public/arquivos
           if git diff --cached --quiet; then echo "sim=nao" >> "$GITHUB_OUTPUT"; else echo "sim=sim" >> "$GITHUB_OUTPUT"; fi
       # O build confere cada arquivo novo com as mesmas regras do site: conteúdo inválido não entra.
       - if: steps.novo.outputs.sim == 'sim'

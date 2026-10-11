@@ -224,8 +224,20 @@ export async function iniciar({ silencioso = false } = {}) {
         const le = pasta === dados?.sub || papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "revisao"].includes(papel));
         if (req.method === "POST") {
           if (!escreve || pasta !== dados?.sub) return json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
-          if (!["image/webp", "application/pdf"].includes(req.headers["content-type"] ?? "") || bruto.length > 8388608) return json(res, 415, { statusCode: "415", error: "invalid_mime_type", message: "mime type not supported" });
-          arquivos.set(caminho, { tipo: req.headers["content-type"], dados: bruto });
+          // O cliente manda o arquivo dentro de um formulário de várias partes: tira de lá o tipo e os bytes.
+          let tipo = req.headers["content-type"] ?? "";
+          let conteudo = bruto;
+          const limite = /^multipart\/form-data;\s*boundary=(.+)$/i.exec(tipo)?.[1];
+          if (limite) {
+            const texto = bruto.toString("latin1");
+            const parte = texto.split(`--${limite}`).find((pedaco) => /filename=/i.test(pedaco));
+            const corte = parte ? parte.indexOf("\r\n\r\n") : -1;
+            if (corte < 0) return json(res, 400, { statusCode: "400", error: "invalid_request", message: "no file" });
+            tipo = /content-type:\s*([^\r\n]+)/i.exec(parte.slice(0, corte))?.[1]?.trim() ?? "";
+            conteudo = Buffer.from(parte.slice(corte + 4).replace(/\r\n$/, ""), "latin1");
+          }
+          if (!["image/webp", "image/jpeg", "application/pdf"].includes(tipo) || conteudo.length > 8388608) return json(res, 415, { statusCode: "415", error: "invalid_mime_type", message: "mime type not supported" });
+          arquivos.set(caminho, { tipo, dados: conteudo });
           return json(res, 200, { Key: caminho, Id: crypto.randomUUID() });
         }
         if (req.method === "GET") {

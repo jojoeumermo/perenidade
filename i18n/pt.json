@@ -398,7 +398,12 @@
     "examNeed": "A prova aparece quando a trilha tiver pelo menos dez questões.",
     "examAgain": "Sortear outra prova",
     "examResult": "Você acertou {a} de {b}.",
-    "examFrom": "Da aula: {title}"
+    "examFrom": "Da aula: {title}",
+    "offlineSave": "Guardar esta trilha para ler sem internet",
+    "offlineSaving": "Guardando as aulas…",
+    "offlineSaved": "Guardada neste aparelho. Dá para abrir as aulas sem conexão.",
+    "offlineFailed": "Não deu para guardar agora. Confira a conexão e tente de novo.",
+    "offlineUnsupported": "Este navegador não permite guardar páginas."
   },
   "lesson": {
     "position": "aula {i} de {n}",
@@ -428,7 +433,11 @@
     "keys": "Use as setas ← → do teclado para trocar de aula.",
     "sources": "Fontes desta aula",
     "tryCode": "Testar este código",
-    "reread": "Ainda não. Releia o trecho acima e tente de novo."
+    "reread": "Ainda não. Releia o trecho acima e tente de novo.",
+    "videoLoad": "Carregar o vídeo ({host})",
+    "videoNote": "O vídeo fica em outro site. Ao carregar, esse site passa a ver o seu acesso.",
+    "videoOpen": "Abrir o vídeo em outra aba",
+    "imagePending": "imagem aguardando publicação"
   },
   "library": {
     "eyebrow": "Índice de obras",
@@ -596,7 +605,20 @@
       "linkPrompt": "Endereço do link (https://…)",
       "preview": "Ver como fica",
       "write": "Voltar a escrever",
-      "empty": "Nada para mostrar ainda."
+      "empty": "Nada para mostrar ainda.",
+      "video": "Vídeo",
+      "videoPrompt": "Endereço do vídeo (https://…), do YouTube, Vimeo ou PeerTube:",
+      "math": "Conta passo a passo",
+      "image": "Imagem",
+      "imageAlt": "Descreva a imagem para quem não enxerga:",
+      "imageCredit": "Crédito e licença da imagem:",
+      "sending": "Enviando a imagem…",
+      "check": "Conferir ortografia e gramática",
+      "checking": "Conferindo…",
+      "checkNone": "Nenhum apontamento.",
+      "checkNote": "O texto é enviado ao serviço aberto LanguageTool só quando você aperta o botão.",
+      "checkFailed": "A conferência não respondeu. Tente de novo em um minuto.",
+      "checkStale": "O texto mudou: confira de novo."
     },
     "sourcesField": {
       "title": "Fontes",

@@ -353,6 +353,18 @@ create table if not exists interno.arquivos_bloqueados (
   criado_em timestamptz not null default now()
 );
 
+-- Arquivos avulsos enviados pela equipe (imagem do aviso de abertura, panfleto em PDF). Só a liderança aprova;
+-- a publicação do site copia o arquivo aprovado para dentro do próprio site e anota aqui o endereço final.
+create table if not exists interno.arquivos (
+  id uuid primary key default gen_random_uuid(),
+  caminho text not null unique check (caminho ~ '^[0-9a-f-]{36}/[a-z0-9-]{8,60}[.](webp|jpg|pdf)$'),
+  nome text not null check (char_length(nome) between 3 and 120),
+  dono uuid references interno.perfis (id) on delete set null,
+  status text not null default 'pendente' check (status in ('pendente', 'aprovado', 'recusado', 'publicado')),
+  destino text not null default '' check (destino = '' or destino ~ '^/arquivos/[a-f0-9]{20}[.](webp|jpg|pdf)$'),
+  criado_em timestamptz not null default now()
+);
+
 insert into interno.configuracoes (chave, valor) values
   ('seguranca', '{"exigir_2fa": false}'::jsonb),
   ('abertura', '{"definido": false}'::jsonb),
@@ -435,7 +447,8 @@ $$;
 create or replace function interno.lider() returns boolean language sql stable as $$ select interno.tem('coordenacao') $$;
 /** Liderança ou vice-liderança: tudo o que a liderança faz, menos mexer na própria liderança. */
 create or replace function interno.coord() returns boolean language sql stable as $$ select interno.tem('coordenacao') or interno.tem('vice') $$;
-create or replace function interno.curador() returns boolean language sql stable as $$ select interno.tem('coordenacao') or interno.tem('curadoria') $$;
+/** Curadoria: quem aprova e recusa. Liderança e vice-liderança também podem. */
+create or replace function interno.curador() returns boolean language sql stable as $$ select interno.coord() or interno.tem('curadoria') $$;
 create or replace function interno.voluntario() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select auth.uid() is not null and exists (select 1 from papeis p join perfis f on f.id = p.usuario where p.usuario = auth.uid() and not f.suspenso)
 $$;
@@ -1948,6 +1961,54 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
+/** Depois de enviar um arquivo ao depósito, quem enviou registra o que ele é. Só entra no site se a liderança aprovar. */
+create or replace function public.arquivo_registrar(p_caminho text, p_nome text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid;
+begin
+  if not interno.envia() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('arquivo', 30, 1440);
+  if coalesce(p_caminho, '') !~ '^[0-9a-f-]{36}/[a-z0-9-]{8,60}[.](webp|jpg|pdf)$' or split_part(p_caminho, '/', 1) <> v::text then perform interno.erro('invalido:caminho'); end if;
+  insert into arquivos (caminho, nome, dono) values (p_caminho, interno.txt(p_nome, 'nome', 3, 120), v) returning id into v_id;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** Cada pessoa vê os próprios envios; a liderança vê todos. */
+create or replace function public.arquivos_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.envia() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'caminho', a.caminho, 'nome', a.nome, 'status', a.status, 'destino', a.destino, 'criado_em', a.criado_em,
+            'de', coalesce(f.nome, ''), 'meu', a.dono is not null and a.dono = v) order by a.criado_em desc), '[]'::jsonb)
+          from (select * from arquivos where dono = v or interno.coord() order by criado_em desc limit 200) a left join perfis f on f.id = a.dono);
+end $$;
+
+create or replace function public.arquivo_decidir(p_id uuid, p_aprovar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  update arquivos set status = case when p_aprovar then 'aprovado' else 'recusado' end where id = p_id and status = 'pendente';
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.registrar(case when p_aprovar then 'arquivo_aprovado' else 'arquivo_recusado' end, p_id::text);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Para a rotina de publicação: arquivos aprovados que ainda não foram copiados para o site. Só com a chave de serviço. */
+create or replace function public.arquivos_aprovados() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', id, 'caminho', caminho) order by criado_em), '[]'::jsonb) from arquivos where status = 'aprovado');
+end $$;
+
+create or replace function public.arquivo_publicado(p_id uuid, p_destino text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  update arquivos set status = case when coalesce(p_destino, '') = '' then 'recusado' else 'publicado' end, destino = coalesce(p_destino, '') where id = p_id and status = 'aprovado';
+  perform interno.avisar((select dono from arquivos where id = p_id),
+    case when coalesce(p_destino, '') = '' then 'Um arquivo que você enviou foi recusado na publicação (formato inválido, dados embutidos ou arquivo bloqueado).'
+         else 'Seu arquivo foi publicado. O endereço dele está em Materiais → Arquivos.' end);
+  return jsonb_build_object('ok', true);
+end $$;
+
 /** Para a rotina de publicação: impressões digitais que não podem entrar no site. Só com a chave de serviço. */
 create or replace function public.arquivos_bloqueados() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
@@ -2013,7 +2074,8 @@ begin
              'reforco_fila', 'reforco_assumir', 'reforco_soltar', 'reforco_concluir', 'equipe_canais', 'equipe_listar', 'equipe_escrever', 'equipe_marcar',
              'equipe_apagar', 'equipe_sala_salvar', 'materiais_listar', 'material_salvar', 'material_remover', 'termo_meu', 'termo_aceitar',
              'horas_registrar', 'horas_minhas', 'horas_remover', 'horas_fila', 'horas_conferir', 'certificado_abrir', 'certificado_testemunhar',
-             'certificado_emitir', 'certificado_cancelar', 'certificados_listar', 'certificado_conferir', 'arquivo_bloquear', 'arquivos_bloqueados'))
+             'certificado_emitir', 'certificado_cancelar', 'certificados_listar', 'certificado_conferir', 'arquivo_bloquear', 'arquivos_bloqueados',
+             'arquivo_registrar', 'arquivos_listar', 'arquivo_decidir', 'arquivos_aprovados', 'arquivo_publicado'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then
@@ -2055,7 +2117,7 @@ do $$
 begin
   if exists (select 1 from pg_namespace where nspname = 'storage') then
     insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-    values ('envios', 'envios', false, 8388608, array['image/webp', 'application/pdf'])
+    values ('envios', 'envios', false, 8388608, array['image/webp', 'image/jpeg', 'application/pdf'])
     on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
 
     execute 'drop policy if exists "envios_envio" on storage.objects';

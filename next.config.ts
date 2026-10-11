@@ -13,8 +13,20 @@ function serviceOrigin(): string {
 }
 const service = serviceOrigin();
 
-// Desafio contra robôs da página de entrada: a única coisa que o site carrega de fora.
+// Desafio contra robôs da página de entrada: o único programa que o site carrega de fora.
 const captcha = "https://challenges.cloudflare.com";
+// Vídeos de aula ficam em outros sites e só carregam quando a pessoa clica. Servidores PeerTube entram por NEXT_PUBLIC_VIDEO_HOSTS.
+const videos = [
+  "https://www.youtube-nocookie.com",
+  "https://player.vimeo.com",
+  ...(process.env.NEXT_PUBLIC_VIDEO_HOSTS ?? "")
+    .split(",")
+    .map((host) => host.trim().toLowerCase())
+    .filter((host) => /^[a-z0-9.-]+\.[a-z]{2,}$/.test(host))
+    .map((host) => `https://${host}`),
+].join(" ");
+// Conferência de ortografia e gramática do editor: só é chamada quando quem escreve aperta o botão.
+const spelling = "https://api.languagetool.org";
 
 // Fora o desafio da entrada, o site não carrega nada de terceiros: scripts, estilos e fontes vêm do próprio domínio.
 const policy = (script: string) =>
@@ -25,12 +37,12 @@ const policy = (script: string) =>
     // blob: é a prévia de uma imagem antes do envio; o serviço de contas mostra à equipe as imagens ainda em revisão.
     `img-src 'self' data: blob: ${service}`.trim(),
     "font-src 'self'",
-    `connect-src 'self' ${service}${dev ? " ws:" : ""}`.trim(),
+    `connect-src 'self' ${spelling} ${service}${dev ? " ws:" : ""}`.trim(),
     // A rádio toca arquivos do próprio acervo ou a transmissão ao vivo indicada pela coordenação.
     "media-src 'self' https:",
     "worker-src 'self'",
     "manifest-src 'self'",
-    `frame-src ${captcha}`,
+    `frame-src ${captcha} ${videos}`,
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
@@ -66,6 +78,8 @@ const nextConfig: NextConfig = {
       { source: "/(pyodide|php)/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=604800" }] },
       // Imagens e arquivos publicados têm o nome derivado do próprio conteúdo: nunca mudam, podem ficar guardados por um ano.
       { source: "/(arquivos|imagens)/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
+      // O arquivo que liga o modo sem internet é conferido a cada visita, para as correções chegarem logo.
+      { source: "/sw.js", headers: [{ key: "Cache-Control", value: "no-cache" }, { key: "Service-Worker-Allowed", value: "/" }] },
       // O painel e a entrada nunca ficam guardados em intermediários.
       { source: "/:lang/(painel|entrar)", headers: [{ key: "Cache-Control", value: "private, no-store" }] },
     ];
