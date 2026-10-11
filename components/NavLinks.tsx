@@ -11,17 +11,18 @@ import { useI18n } from "./I18n";
 export function NavLinks() {
   const pathname = usePathname();
   const { lang, t } = useI18n();
-  const links = [
-    [t.nav.disciplines, "/trilhas"],
-    [t.nav.library, "/acervo"],
-    [t.nav.journal, "/jornal"],
-    [t.nav.community, "/comunidade"],
-    [t.nav.memorial, "/memorial"],
-    [t.nav.dedication, "/dedicatoria"],
-    [t.nav.contribute, "/contribuir"],
-    [t.nav.more, "/explorar"],
+  // Em telas menores, os itens menos usados saem da linha: todos continuam em "Mais".
+  const links: [string, string, string][] = [
+    [t.nav.disciplines, "/trilhas", ""],
+    [t.nav.library, "/acervo", ""],
+    [t.nav.journal, "/jornal", ""],
+    [t.nav.community, "/comunidade", ""],
+    [t.nav.memorial, "/memorial", "hidden xl:inline"],
+    [t.nav.dedication, "/dedicatoria", "hidden xl:inline"],
+    [t.nav.contribute, "/contribuir", "hidden lg:inline"],
+    [t.nav.more, "/explorar", ""],
   ];
-  const link = (label: React.ReactNode, path: string, name?: string) => {
+  const link = (label: React.ReactNode, path: string, name?: string, show = "") => {
     const href = localePath(lang, path);
     const active = pathname === href || pathname.startsWith(`${href}/`);
     return (
@@ -30,7 +31,7 @@ export function NavLinks() {
         href={href}
         aria-current={active ? "page" : undefined}
         aria-label={name}
-        className={`whitespace-nowrap hover:text-oxblood ${active ? "text-oxblood underline decoration-gold underline-offset-8" : ""}`}
+        className={`whitespace-nowrap py-2 hover:text-oxblood ${show} ${active ? "text-oxblood underline decoration-gold underline-offset-8" : ""}`}
       >
         {label}
       </Link>
@@ -38,7 +39,7 @@ export function NavLinks() {
   };
   return (
     <>
-      {links.map(([label, path]) => link(label, path))}
+      {links.map(([label, path, show]) => link(label, path, undefined, show))}
       {/* O único destaque do menu: as letras de "Apoie" mudam de cor, uma depois da outra. */}
       {link(
         <span className="apoie font-semibold">

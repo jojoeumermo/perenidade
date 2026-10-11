@@ -13,6 +13,10 @@ export const KEYS = {
   session: "lucia:sessao",
   notes: "lucia:fichamento",
   radio: "lucia:radio",
+  device: "lucia:aparelho",
+  notice: "lucia:aviso",
+  light: "lucia:leve",
+  filter: "lucia:filtro",
 } as const;
 
 const listeners = new Set<() => void>();

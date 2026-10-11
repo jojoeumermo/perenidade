@@ -6,7 +6,9 @@
 //   npm run dev:local      sobe este servidor e o site apontando para ele
 //
 // Contas de teste (qualquer senha serve aqui, e só aqui):
-//   coord@local  curadora@local  prof@local (educador de matemática)  jornal@local  revisor@local  leitora@local
+//   coord@local  vice@local  curadora@local  prof@local (educador de matemática)  mentora@local  designer@local
+//   jornal@local  revisor@local  leitora@local
+// Segundo fator: no cadastro e na confirmação, o código é sempre 123456.
 import crypto from "node:crypto";
 import http from "node:http";
 import { criarBanco } from "./banco-local.mjs";
@@ -40,14 +42,18 @@ export const CHAVE_SERVICO = assinar({ role: "service_role", iss: "local", exp: 
 
 export async function iniciar({ silencioso = false } = {}) {
   const banco = await criarBanco();
-  const contas = { coord: "Jonathan Santos", curadora: "Carla Curadora", prof: "Paulo Professor", jornal: "Joana Jornalista", revisor: "Rui Revisor", leitora: "Lia Leitora" };
+  const contas = { coord: "Jonathan Santos", vice: "Vera Vice", curadora: "Carla Curadora", prof: "Paulo Professor", mentora: "Marta Mentora", designer: "Davi Designer", jornal: "Joana Jornalista", revisor: "Rui Revisor", leitora: "Lia Leitora" };
   const ids = {};
   for (const [chave, nome] of Object.entries(contas)) {
     ids[chave] = await banco.criarUsuario(`${chave}@local`, nome);
     await banco.rpc({ papel: "authenticated", sub: ids[chave] }, "eu");
+    await banco.rpc({ papel: "authenticated", sub: ids[chave] }, "perfil_salvar", { p_nome: nome, p_bio: "" });
   }
   await banco.dono("select public.promover_coordenacao('coord@local')");
   const coord = { papel: "authenticated", sub: ids.coord };
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.vice, p_papel: "vice", p_disciplina: null });
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.mentora, p_papel: "mentoria", p_disciplina: "matematica" });
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.designer, p_papel: "design", p_disciplina: null });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.curadora, p_papel: "curadoria", p_disciplina: null });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.prof, p_papel: "educacao", p_disciplina: "matematica" });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.jornal, p_papel: "jornalismo", p_disciplina: null });
@@ -56,15 +62,19 @@ export async function iniciar({ silencioso = false } = {}) {
   const renovacoes = new Map();
   const links = new Map();
   const arquivos = new Map();
+  /** Aplicativos autenticadores de mentira, por pessoa. */
+  const fatores = new Map();
+  const fatoresDe = (id) => fatores.get(id) ?? [];
 
   const usuarioPorEmail = async (email) => (await banco.dono("select * from auth.users where email = $1", [String(email ?? "").trim().toLowerCase()])).rows[0] ?? null;
   const usuarioPorId = async (id) => (await banco.dono("select * from auth.users where id = $1", [id])).rows[0] ?? null;
-  const usuarioJson = (u) => ({ id: u.id, aud: "authenticated", role: "authenticated", email: u.email, email_confirmed_at: u.created_at, app_metadata: { provider: "email" }, user_metadata: u.raw_user_meta_data ?? {}, identities: [], created_at: u.created_at });
-  function sessao(u) {
+  const usuarioJson = (u) => ({ id: u.id, aud: "authenticated", role: "authenticated", email: u.email, email_confirmed_at: u.created_at, app_metadata: { provider: "email" }, user_metadata: u.raw_user_meta_data ?? {}, identities: [], factors: fatoresDe(u.id), created_at: u.created_at });
+  function sessao(u, aal = "aal1") {
     const agora = Math.floor(Date.now() / 1000);
     const renovacao = crypto.randomBytes(16).toString("hex");
-    renovacoes.set(renovacao, u.id);
-    return { access_token: assinar({ aud: "authenticated", role: "authenticated", sub: u.id, email: u.email, iat: agora, exp: agora + 3600 }), token_type: "bearer", expires_in: 3600, expires_at: agora + 3600, refresh_token: renovacao, user: usuarioJson(u) };
+    renovacoes.set(renovacao, { id: u.id, aal });
+    const amr = [{ method: "password", timestamp: agora }, ...(aal === "aal2" ? [{ method: "totp", timestamp: agora }] : [])];
+    return { access_token: assinar({ aud: "authenticated", role: "authenticated", sub: u.id, email: u.email, aal, amr, session_id: crypto.randomUUID(), iat: agora, exp: agora + 3600 }), token_type: "bearer", expires_in: 3600, expires_at: agora + 3600, refresh_token: renovacao, user: usuarioJson(u) };
   }
   const portador = (req) => conferir((req.headers.authorization ?? "").replace(/^Bearer\s+/i, ""));
 
@@ -99,7 +109,7 @@ export async function iniciar({ silencioso = false } = {}) {
       const funcao = /^\/rest\/v1\/rpc\/([a-z_]+)$/.exec(url.pathname);
       if (funcao && req.method === "POST") {
         const dados = portador(req);
-        const quem = dados?.role === "service_role" ? { papel: "service_role" } : dados?.role === "authenticated" && dados.sub ? { papel: "authenticated", sub: dados.sub } : { papel: "anon" };
+        const quem = dados?.role === "service_role" ? { papel: "service_role" } : dados?.role === "authenticated" && dados.sub ? { papel: "authenticated", sub: dados.sub, aal: dados.aal } : { papel: "anon" };
         try {
           return json(res, 200, await banco.rpc({ ...quem, ip: req.socket.remoteAddress }, funcao[1], corpo));
         } catch (erro) {
@@ -120,11 +130,11 @@ export async function iniciar({ silencioso = false } = {}) {
           return json(res, 200, sessao(u));
         }
         if (tipo === "refresh_token") {
-          const id = renovacoes.get(corpo.refresh_token);
-          const u = id ? await usuarioPorId(id) : null;
+          const antiga = renovacoes.get(corpo.refresh_token);
+          const u = antiga ? await usuarioPorId(antiga.id) : null;
           if (!u) return json(res, 400, { error_code: "refresh_token_not_found", msg: "Invalid Refresh Token" });
           renovacoes.delete(corpo.refresh_token);
-          return json(res, 200, sessao(u));
+          return json(res, 200, sessao(u, antiga.aal));
         }
         return json(res, 400, { error_code: "invalid_grant", msg: "unsupported grant type" });
       }
@@ -151,6 +161,32 @@ export async function iniciar({ silencioso = false } = {}) {
         const u = dados?.sub ? await usuarioPorId(dados.sub) : null;
         return u ? json(res, 200, usuarioJson(u)) : json(res, 403, { error_code: "session_not_found", msg: "Session not found" });
       }
+      // ── Segundo fator (de mentira: o código é sempre 123456) ──
+      if (url.pathname === "/auth/v1/factors" && req.method === "POST") {
+        const dados = portador(req);
+        if (!dados?.sub) return json(res, 401, { error_code: "no_authorization", msg: "No authorization" });
+        const fator = { id: crypto.randomUUID(), friendly_name: String(corpo.friendly_name ?? ""), factor_type: "totp", status: "unverified", created_at: new Date().toISOString(), updated_at: new Date().toISOString() };
+        fatores.set(dados.sub, [...fatoresDe(dados.sub), fator]);
+        const desenho = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='white'/><text x='100' y='95' text-anchor='middle' font-size='16'>teste local</text><text x='100' y='125' text-anchor='middle' font-size='22'>123456</text></svg>`;
+        return json(res, 200, { id: fator.id, type: "totp", totp: { qr_code: desenho, secret: "CHAVEDETESTELOCAL", uri: "otpauth://totp/local?secret=CHAVEDETESTELOCAL" } });
+      }
+      const fatorPedido = /^\/auth\/v1\/factors\/([0-9a-f-]{36})(\/challenge|\/verify)?$/.exec(url.pathname);
+      if (fatorPedido) {
+        const dados = portador(req);
+        const lista = dados?.sub ? fatoresDe(dados.sub) : [];
+        const fator = lista.find((item) => item.id === fatorPedido[1]);
+        if (!fator) return json(res, 404, { error_code: "mfa_factor_not_found", msg: "Factor not found" });
+        if (req.method === "DELETE" && !fatorPedido[2]) {
+          fatores.set(dados.sub, lista.filter((item) => item.id !== fator.id));
+          return json(res, 200, { id: fator.id });
+        }
+        if (req.method === "POST" && fatorPedido[2] === "/challenge") return json(res, 200, { id: crypto.randomUUID(), type: "totp", expires_at: Math.floor(Date.now() / 1000) + 300 });
+        if (req.method === "POST" && fatorPedido[2] === "/verify") {
+          if (String(corpo.code ?? "") !== "123456") return json(res, 422, { error_code: "mfa_verification_failed", msg: "Invalid TOTP code entered" });
+          fator.status = "verified";
+          return json(res, 200, sessao(await usuarioPorId(dados.sub), "aal2"));
+        }
+      }
       if (url.pathname === "/auth/v1/logout" && req.method === "POST") {
         res.writeHead(204);
         return res.end();
@@ -161,10 +197,43 @@ export async function iniciar({ silencioso = false } = {}) {
       const envio = /^\/storage\/v1\/object\/(radio\/.+)$/.exec(url.pathname);
       if (envio && req.method === "POST") {
         const dados = portador(req);
-        const pode = dados?.sub ? await banco.dono("select 1 from interno.papeis where usuario = $1 and papel = 'coordenacao'", [dados.sub]) : { rows: [] };
+        const pode = dados?.sub ? await banco.dono("select 1 from interno.papeis where usuario = $1 and papel in ('coordenacao', 'vice')", [dados.sub]) : { rows: [] };
         if (pode.rows.length === 0) return json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
         arquivos.set(envio[1], { tipo: req.headers["content-type"] ?? "application/octet-stream", dados: bruto });
         return json(res, 200, { Key: envio[1], Id: crypto.randomUUID() });
+      }
+      const guardado = /^\/storage\/v1\/object\/(?:authenticated\/)?(envios\/.+)$/.exec(url.pathname);
+      if (guardado) {
+        const dados = portador(req);
+        const caminho = decodeURIComponent(guardado[1]);
+        const pasta = caminho.split("/")[1];
+        if (dados?.role === "service_role") {
+          if (req.method === "GET") {
+            const arquivo = arquivos.get(caminho);
+            if (!arquivo) return json(res, 404, { message: "not found" });
+            res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length });
+            return res.end(arquivo.dados);
+          }
+          if (req.method === "DELETE") {
+            arquivos.delete(caminho);
+            return json(res, 200, { message: "ok" });
+          }
+        }
+        const papeisDe = dados?.sub ? (await banco.dono("select papel from interno.papeis where usuario = $1", [dados.sub])).rows.map((linha) => linha.papel) : [];
+        const escreve = papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "educacao", "jornalismo", "design"].includes(papel));
+        const le = pasta === dados?.sub || papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "revisao"].includes(papel));
+        if (req.method === "POST") {
+          if (!escreve || pasta !== dados?.sub) return json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
+          if (!["image/webp", "application/pdf"].includes(req.headers["content-type"] ?? "") || bruto.length > 8388608) return json(res, 415, { statusCode: "415", error: "invalid_mime_type", message: "mime type not supported" });
+          arquivos.set(caminho, { tipo: req.headers["content-type"], dados: bruto });
+          return json(res, 200, { Key: caminho, Id: crypto.randomUUID() });
+        }
+        if (req.method === "GET") {
+          const arquivo = le ? arquivos.get(caminho) : null;
+          if (!arquivo) return json(res, 404, { message: "not found" });
+          res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length });
+          return res.end(arquivo.dados);
+        }
       }
       const leitura = /^\/storage\/v1\/object\/public\/(radio\/.+)$/.exec(url.pathname);
       if (leitura && req.method === "GET") {

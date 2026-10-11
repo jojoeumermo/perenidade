@@ -16,6 +16,8 @@ export const googleEnabled = process.env.NEXT_PUBLIC_AUTH_GOOGLE === "1";
 /** Verdadeiro só no ambiente de teste local, onde existe a entrada simplificada. */
 export const localBackend = /^http:\/\/(127\.0\.0\.1|localhost)[:/]/.test(url);
 export const storageUrl = (path: string) => `${url}/storage/v1/object/public/${path}`;
+/** Chave pública do desafio contra robôs na entrada. Sem ela, o desafio não aparece. */
+export const captchaKey = localBackend ? "" : (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "");
 
 export class BackendError extends Error {
   /** Código curto devolvido pelo serviço: "entre_primeiro", "sem_permissao", "invalido:titulo"… */
@@ -79,7 +81,7 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
 
 export interface Role {
   id: string;
-  papel: "coordenacao" | "curadoria" | "educacao" | "revisao" | "traducao" | "jornalismo";
+  papel: "coordenacao" | "vice" | "curadoria" | "educacao" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "desenvolvimento";
   disciplina: string | null;
 }
 
@@ -89,9 +91,19 @@ export interface Me {
   bio: string;
   suspenso: boolean;
   papeis: Role[];
+  /** A sessão foi confirmada com o código do aplicativo autenticador. */
+  segundo_fator: boolean;
+  /** O papel da pessoa exige essa confirmação antes de abrir o painel. */
+  exige_segundo_fator: boolean;
+  /** Recados não lidos. */
+  avisos: number;
 }
 
-export const can = (me: Me | null, ...roles: Role["papel"][]) => Boolean(me?.papeis.some((role) => roles.includes(role.papel)));
+/** A vice-liderança pode tudo o que a liderança pode, menos mexer na própria liderança (isso é conferido por leads). */
+export const can = (me: Me | null, ...roles: Role["papel"][]) =>
+  Boolean(me?.papeis.some((role) => roles.includes(role.papel) || (role.papel === "vice" && roles.includes("coordenacao"))));
+/** Só a liderança comunitária. */
+export const leads = (me: Me | null) => Boolean(me?.papeis.some((role) => role.papel === "coordenacao"));
 
 type MeState = { status: "loading" } | { status: "out" } | { status: "in"; me: Me };
 

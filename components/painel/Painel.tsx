@@ -2,15 +2,22 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { can, hasBackend, rpc, signOut, useMe, type Me, type Role } from "@/lib/backend";
+import { registerDevice } from "@/lib/device";
 import { L, useI18n } from "../I18n";
-import { Aviso, botao, botaoClaro, campo, data, elo, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
+import { Equipe } from "./Equipe";
 import { Escrever } from "./Escrever";
 import { Fila } from "./Fila";
+import { Horas } from "./Horas";
+import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lideranca";
+import { Materiais } from "./Materiais";
 import { Pessoas } from "./Pessoas";
+import { Reforco } from "./Reforco";
+import { Aparelhos, Recados, SegundoFator } from "./Seguranca";
 
 interface Resumo {
   fila: number;
@@ -18,7 +25,11 @@ interface Resumo {
   candidaturas: number;
   denuncias: number;
   anotacoes: number;
+  retidos: number;
   mural: number;
+  reforco: number;
+  horas: number;
+  testemunhar: number;
   minhas: number;
 }
 
@@ -28,6 +39,12 @@ export function Painel() {
   const params = useSearchParams();
   const router = useRouter();
   const { lang } = useI18n();
+  const dentro = me.status === "in";
+
+  // Avisa o serviço de que a conta foi aberta neste navegador (gera alerta se for um aparelho novo).
+  useEffect(() => {
+    if (dentro) void registerDevice();
+  }, [dentro]);
 
   if (!hasBackend) return <p className="mt-8 text-lg text-ink-soft">O painel ainda não foi ligado neste endereço.</p>;
   if (me.status === "loading") return <p className="mt-8 font-mono text-xs text-ink-soft">Carregando…</p>;
@@ -40,41 +57,88 @@ export function Painel() {
   }
 
   const eu = me.me;
+
+  // Papel sensível com a exigência ligada: nada do painel abre antes do código do aplicativo autenticador.
+  if (eu.exige_segundo_fator && !eu.segundo_fator) {
+    return (
+      <div className="mt-8 max-w-xl font-sans text-sm">
+        <h2 className="font-serif text-3xl font-semibold">Confirme que é você</h2>
+        <p className="mt-2 text-ink-soft">O seu papel no instituto exige uma segunda confirmação antes de abrir o painel.</p>
+        <div className="mt-5">
+          <SegundoFator me={eu} recarregar={me.reload} />
+        </div>
+        <button type="button" className={`mt-8 ${botaoClaro}`} onClick={async () => { await signOut(); router.replace(`/${lang}`); }}>
+          Sair
+        </button>
+      </div>
+    );
+  }
+
   const voluntario = eu.papeis.length > 0;
-  const abas: [string, string, boolean][] = [
-    ["inicio", "Início", true],
+  const lidera = can(eu, "coordenacao");
+  // Cada função enxerga só as ferramentas dela. A liderança e a vice-liderança enxergam todas.
+  const trabalho: [string, string, boolean][] = [
+    ["inicio", eu.avisos > 0 ? `Início (${eu.avisos})` : "Início", true],
     ["escrever", "Escrever", true],
     ["minhas", "Minhas contribuições", true],
-    ["fila", "Fila de revisão", voluntario],
+    ["fila", "Fila de revisão", can(eu, "coordenacao", "curadoria", "revisao", "educacao")],
     ["comunidade", "Comunidade", can(eu, "coordenacao", "curadoria", "educacao")],
+    ["reforco", "Aula de reforço", can(eu, "coordenacao", "curadoria", "mentoria", "educacao")],
+    ["equipe", "Equipe", voluntario],
+    ["horas", "Horas e certificados", voluntario],
     ["mural", "Mural", can(eu, "coordenacao", "curadoria")],
-    ["pessoas", "Voluntários", can(eu, "coordenacao")],
-    ["apoiadores", "Apoiadores", can(eu, "coordenacao")],
-    ["radio", "Rádio", can(eu, "coordenacao")],
+    ["materiais", "Materiais", can(eu, "coordenacao", "curadoria", "design")],
   ];
-  const visiveis = abas.filter(([, , mostra]) => mostra);
+  const lideranca: [string, string, boolean][] = [
+    ["pessoas", "Voluntários", lidera],
+    ["abertura", "Aviso de abertura", lidera],
+    ["seguranca", "Segurança e sucessão", lidera],
+    ["registro", "Registro de atividades", lidera],
+    ["apoiadores", "Apoiadores", lidera],
+    ["radio", "Rádio", lidera],
+  ];
+  const visiveis = [...trabalho, ...lideranca].filter(([, , mostra]) => mostra);
   const pedida = params.get("aba") ?? "inicio";
   const aba = visiveis.some(([id]) => id === pedida) ? pedida : "inicio";
   const ir = (id: string) => router.replace(`/${lang}/painel?aba=${id}`);
+  const botoes = (lista: [string, string, boolean][]) =>
+    lista
+      .filter(([, , mostra]) => mostra)
+      .map(([id, nome]) => (
+        <button key={id} type="button" onClick={() => ir(id)} aria-current={aba === id ? "page" : undefined} className={`cursor-pointer border-2 px-4 py-2 font-medium ${aba === id ? "border-ink bg-ink text-parchment" : "border-rule hover:border-gold"}`}>
+          {nome}
+        </button>
+      ));
 
   return (
     <div className="mt-8 font-sans text-sm">
-      {eu.suspenso && <p className="mb-6 border-l-2 border-oxblood pl-4 text-oxblood">Esta conta está suspensa: você pode ler, mas não enviar.</p>}
-      <nav aria-label="Seções do painel" className="flex flex-wrap gap-2 border-b border-rule pb-4">
-        {visiveis.map(([id, nome]) => (
-          <button key={id} type="button" onClick={() => ir(id)} aria-current={aba === id ? "page" : undefined} className={`cursor-pointer border-2 px-4 py-2 font-medium ${aba === id ? "border-ink bg-ink text-parchment" : "border-rule hover:border-gold"}`}>
-            {nome}
-          </button>
-        ))}
-      </nav>
+      {eu.suspenso && <p className="no-print mb-6 border-l-2 border-oxblood pl-4 text-oxblood">Esta conta está suspensa: você pode ler, mas não enviar.</p>}
+      <div className="no-print border-b border-rule pb-4">
+        <nav aria-label="Seções do painel" className="flex flex-wrap gap-2">
+          {botoes(trabalho)}
+        </nav>
+        {lidera && (
+          <nav aria-label="Liderança" className="mt-3 flex flex-wrap items-center gap-2">
+            <span className={`${rotulo} mr-1`}>Liderança</span>
+            {botoes(lideranca)}
+          </nav>
+        )}
+      </div>
       <div className="mt-8">
         {aba === "inicio" && <Inicio me={eu} recarregar={me.reload} ir={ir} />}
         {aba === "escrever" && <Escrever me={eu} />}
         {aba === "minhas" && <Fila me={eu} minhas />}
         {aba === "fila" && <Fila me={eu} />}
         {aba === "comunidade" && <Comunidade me={eu} />}
+        {aba === "reforco" && <Reforco />}
+        {aba === "equipe" && <Equipe />}
+        {aba === "horas" && <Horas me={eu} />}
         {aba === "mural" && <MuralFila />}
-        {aba === "pessoas" && <Pessoas />}
+        {aba === "materiais" && <Materiais me={eu} />}
+        {aba === "pessoas" && <Pessoas me={eu} />}
+        {aba === "abertura" && <AvisoDeAbertura />}
+        {aba === "seguranca" && <SegurancaSucessao me={eu} />}
+        {aba === "registro" && <RegistroDeAtividades />}
         {aba === "apoiadores" && <Apoiadores />}
         {aba === "radio" && <RadioAdmin />}
       </div>
@@ -103,6 +167,10 @@ function Inicio({ me, recarregar, ir }: { me: Me; recarregar: () => void; ir: (a
         ["Pedidos de voluntariado", r.candidaturas, "pessoas"],
         ["Denúncias abertas", r.denuncias, "comunidade"],
         ["Anotações aguardando", r.anotacoes, "comunidade"],
+        ["Mensagens retidas pelo filtro", r.retidos, "comunidade"],
+        ["Pedidos de reforço aguardando", r.reforco, "reforco"],
+        ["Horas para conferir", r.horas, "horas"],
+        ["Certificados aguardando o seu testemunho", r.testemunhar, "horas"],
         ["Anúncios do mural aguardando", r.mural, "mural"],
         ["Minhas contribuições", r.minhas, "minhas"],
       ]
@@ -113,10 +181,13 @@ function Inicio({ me, recarregar, ir }: { me: Me; recarregar: () => void; ir: (a
       <section>
         <h2 className="font-serif text-3xl font-semibold">Olá, {me.nome}</h2>
         {me.papeis.length > 0 ? (
-          <ul className="mt-3 flex flex-wrap gap-2">
+          <ul className="mt-3 space-y-2">
             {me.papeis.map((papel) => (
-              <li key={papel.id} className="border border-rule bg-parchment-deep px-3 py-1">
-                {papeis[papel.papel]} · {nomeDaArea(papel.disciplina)}
+              <li key={papel.id} className="border border-rule bg-parchment-deep px-3 py-2">
+                <strong>
+                  {papeis[papel.papel]} · {nomeDaArea(papel.disciplina)}
+                </strong>
+                <span className="block text-ink-soft">{oQueFaz[papel.papel]}</span>
               </li>
             ))}
           </ul>
@@ -135,9 +206,11 @@ function Inicio({ me, recarregar, ir }: { me: Me; recarregar: () => void; ir: (a
         </div>
       </section>
 
+      <Recados recarregar={recarregar} />
+
       <section>
         <h2 className="font-serif text-2xl font-semibold">Seu perfil</h2>
-        <p className="mt-1 text-ink-soft">O nome aparece em tudo o que você publicar.</p>
+        <p className="mt-1 text-ink-soft">O nome aparece em tudo o que você publicar. Ele nasce como um codinome sorteado: troque pelo nome que quiser mostrar. O seu e-mail nunca aparece no site.</p>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <label className="block">
             Nome
@@ -156,12 +229,12 @@ function Inicio({ me, recarregar, ir }: { me: Me; recarregar: () => void; ir: (a
 
       <section>
         <h2 className="font-serif text-2xl font-semibold">Quero ser voluntário</h2>
-        <p className="mt-1 text-ink-soft">Diga em que quer ajudar e conte um pouco da sua experiência. A coordenação responde por aqui.</p>
+        <p className="mt-1 text-ink-soft">Diga em que quer ajudar e conte um pouco da sua experiência. A liderança responde por aqui.</p>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <label className="block">
             Em que papel
             <select value={quero.papel} onChange={(e) => setQuero({ ...quero, papel: e.target.value })} className={campo}>
-              {(["educacao", "revisao", "traducao", "jornalismo", "curadoria"] as const).map((papel) => (
+              {(["educacao", "mentoria", "revisao", "traducao", "jornalismo", "curadoria", "design", "desenvolvimento"] as const).map((papel) => (
                 <option key={papel} value={papel}>
                   {papeis[papel]}
                 </option>
@@ -195,6 +268,7 @@ function Inicio({ me, recarregar, ir }: { me: Me; recarregar: () => void; ir: (a
         >
           Enviar pedido
         </button>
+        <p className="mt-1 text-ink-soft">{oQueFaz[quero.papel as Role["papel"]]}</p>
         <Aviso texto={pedido.aviso} />
         {(pedidos.dados?.length ?? 0) > 0 && (
           <ul className="mt-3 space-y-1 text-ink-soft">
@@ -205,6 +279,18 @@ function Inicio({ me, recarregar, ir }: { me: Me; recarregar: () => void; ir: (a
             ))}
           </ul>
         )}
+      </section>
+
+      <section>
+        <h2 className="font-serif text-2xl font-semibold">Segurança da conta</h2>
+        <h3 className="mt-3 font-semibold">Aplicativo autenticador (segundo fator)</h3>
+        <div className="mt-2 max-w-2xl">
+          <SegundoFator me={me} recarregar={recarregar} />
+        </div>
+        <h3 className="mt-6 font-semibold">Aparelhos em que esta conta já entrou</h3>
+        <div className="mt-2 max-w-2xl">
+          <Aparelhos />
+        </div>
       </section>
 
       <section className="border-t border-rule pt-6">

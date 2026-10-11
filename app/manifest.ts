@@ -3,16 +3,29 @@ import type { MetadataRoute } from "next";
 import pt from "@/i18n/pt.json";
 import { site } from "@/lib/site";
 
-// Permite "instalar" o site na tela inicial do celular.
+// Permite "instalar" o site na tela inicial do celular e abri-lo como um aplicativo.
 export default function manifest(): MetadataRoute.Manifest {
   return {
+    id: "/pt",
     name: site.name,
     short_name: "Lúcia",
     description: pt.meta.description,
-    start_url: "/",
+    lang: "pt-BR",
+    start_url: "/pt",
+    scope: "/",
     display: "standalone",
     background_color: "#f4ecd8",
-    theme_color: "#1f1a14",
-    icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" }],
+    theme_color: "#6e1f1a",
+    categories: ["education", "books"],
+    icons: [
+      { src: "/icone-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/icone-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/icone-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+    ],
+    shortcuts: [
+      { name: pt.nav.disciplines, url: "/pt/trilhas" },
+      { name: pt.nav.library, url: "/pt/acervo" },
+      { name: pt.nav.community, url: "/pt/comunidade" },
+    ],
   };
 }

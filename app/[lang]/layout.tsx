@@ -3,12 +3,15 @@ import type { Metadata } from "next";
 import { EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
 import { A11yWidget } from "@/components/A11yWidget";
+import { BottomNav } from "@/components/BottomNav";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { I18nProvider } from "@/components/I18n";
+import { OpeningNotice } from "@/components/OpeningNotice";
 import { RadioPlayer } from "@/components/RadioPlayer";
 import { Shortcuts } from "@/components/Shortcuts";
 import { PrefsScript } from "@/components/ThemeToggle";
+import abertura from "@/content/abertura.json";
 import { loadLang } from "@/i18n";
 import { pickCore } from "@/i18n/core";
 import { htmlLang, locales } from "@/i18n/config";
@@ -32,8 +35,11 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     metadataBase: new URL(site.url),
     title: { default: t.meta.title, template: `%s — ${site.name}` },
     description: t.meta.description,
-    alternates: { languages: Object.fromEntries(locales.map((code) => [htmlLang[code], `/${code}`])) },
+    // A imagem do cartão (app/opengraph-image.png) e o ícone (app/icon.png) entram sozinhos.
     openGraph: { type: "website", locale: htmlLang[lang], siteName: site.name, title: t.meta.title, description: t.meta.description },
+    twitter: { card: "summary_large_image" },
+    applicationName: site.name,
+    formatDetection: { telephone: false, email: false, address: false },
   };
 }
 
@@ -57,6 +63,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <Footer lang={lang} t={t} />
           <RadioPlayer />
           <A11yWidget />
+          <BottomNav />
+          <OpeningNotice initial={abertura} close={t.a11y.close} />
           <Shortcuts />
           <Analytics />
         </I18nProvider>
