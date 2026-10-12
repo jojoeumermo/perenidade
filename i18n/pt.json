@@ -1160,7 +1160,8 @@
     "createTitle": "Criar conta",
     "createWhy": "A conta serve para perguntar e responder na Comunidade. Tudo o que você escrever é lido pela mediação antes de aparecer. Guardamos só o seu e-mail; o nome que aparece no site nasce como um codinome, que você troca se quiser.",
     "createFailed": "Não foi possível criar a conta. Este e-mail pode já ter conta, ou o cadastro pode estar fechado no momento.",
-    "volunteerLink": "Quer ser voluntário? Preencha a candidatura"
+    "volunteerLink": "Quer ser voluntário? Preencha a candidatura",
+    "whyClosed": "Aqui não há \"esqueci minha senha\" e, no momento, as contas são criadas por convite da coordenação. Perdeu a senha? Fale com quem convidou você."
   },
   "radio": {
     "eyebrow": "No ar",
