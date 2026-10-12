@@ -2,15 +2,17 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
-import { can, hasBackend, leads, type Me, type Role, rpc, signOut, useMe } from "@/lib/backend";
+import { can, getClient, hasBackend, leads, type Me, type Role, rpc, signOut, useMe } from "@/lib/backend";
 import { registerDevice } from "@/lib/device";
+import { applyPrefs, readPrefs } from "@/lib/prefs";
+import { getItem, KEYS, setItem } from "@/lib/storage";
 import { L, useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
 import { Boletim } from "./Boletim";
-import { Equipe } from "./Equipe";
+import { Equipe, type Membro } from "./Equipe";
 import { Escrever } from "./Escrever";
 import { Fila } from "./Fila";
 import { Horas } from "./Horas";
@@ -19,6 +21,7 @@ import { Materiais } from "./Materiais";
 import { Pessoas } from "./Pessoas";
 import { Reforco } from "./Reforco";
 import { Aparelhos, Recados, SegundoFator } from "./Seguranca";
+import { type Controles, Site } from "./Site";
 
 interface Resumo {
   fila: number;
@@ -32,14 +35,87 @@ interface Resumo {
   horas: number;
   testemunhar: number;
   minhas: number;
+  /** Contribuições pendentes de colegas que me chamaram para trabalhar junto. */
+  juntas: number;
 }
 
-/** Mesa de trabalho de quem faz o instituto. O que cada pessoa vê depende dos papéis que recebeu. */
+interface Secao {
+  id: string;
+  nome: string;
+  /** Uma linha que diz para que a seção serve. */
+  sobre: string;
+  grupo: string;
+  mostra: boolean;
+  /** Quantas coisas esperam por alguém nesta seção. */
+  conta?: number;
+}
+
+/** Sem uso por este tempo, o painel se fecha sozinho: aparelho esquecido aberto não vira porta de entrada. */
+const OCIOSO = 30 * 60 * 1000;
+
+const iniciais = (nome: string) =>
+  nome
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((parte) => parte[0]?.toUpperCase() ?? "")
+    .join("") || "?";
+
+/** Claro ou escuro, como no site: a escolha fica guardada no navegador. */
+function Tema() {
+  // O cabeçalho do site não existe aqui dentro, então é o painel que reaplica o tema e as preferências de leitura.
+  useLayoutEffect(() => {
+    const tema = getItem(KEYS.theme);
+    if (tema === "light" || tema === "dark") document.documentElement.setAttribute("data-theme", tema);
+    applyPrefs(readPrefs());
+  }, []);
+
+  function trocar() {
+    const atual = document.documentElement.getAttribute("data-theme") ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const novo = atual === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", novo);
+    setItem(KEYS.theme, novo);
+  }
+
+  return (
+    <button type="button" onClick={trocar} className="cursor-pointer underline hover:text-white">
+      Claro / escuro
+    </button>
+  );
+}
+
+/** Tela inteira para os estados em que o painel ainda não abriu (carregando, sem conta, segundo fator). */
+function Porta({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[#17130e] px-4 py-10 font-sans text-sm text-[#efe4c8]">
+      <div className="w-full max-w-md">
+        <p className="flex items-center gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/emblema-96.png" alt="" width={40} height={40} className="h-10 w-10" />
+          <span>
+            <span className="block font-serif text-2xl font-semibold leading-none">Instituto Lúcia</span>
+            <span className="mt-1 block font-mono text-[0.65rem] uppercase tracking-[0.3em] text-[#c9a84a]">Coordenação</span>
+          </span>
+        </p>
+        <div className="mt-8 border border-[#3a3226] bg-[#1f1a14] p-6">{children}</div>
+        <p className="mt-6">
+          <L href="/" className="underline hover:text-white">← Voltar ao site</L>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * O ambiente de trabalho de quem faz o instituto. É uma tela à parte do site: menu lateral por área,
+ * uma seção de cada vez, e cada pessoa vê só o que diz respeito à função que recebeu.
+ */
 export function Painel() {
   const me = useMe();
   const params = useSearchParams();
   const router = useRouter();
   const { lang } = useI18n();
+  const [menu, setMenu] = useState(false);
   const dentro = me.status === "in";
 
   // Avisa o serviço de que a conta foi aberta neste navegador (gera alerta se for um aparelho novo).
@@ -47,260 +123,456 @@ export function Painel() {
     if (dentro) void registerDevice();
   }, [dentro]);
 
-  if (!hasBackend) return <p className="mt-8 text-lg text-ink-soft">O painel ainda não foi ligado neste endereço.</p>;
-  if (me.status === "loading") return <p className="mt-8 font-mono text-xs text-ink-soft">Carregando…</p>;
+  // Fecha a sessão depois de meia hora sem ninguém mexer.
+  useEffect(() => {
+    if (!dentro) return;
+    let ultimo = Date.now();
+    const tocar = () => {
+      ultimo = Date.now();
+    };
+    const sinais = ["pointerdown", "keydown", "scroll"] as const;
+    for (const sinal of sinais) window.addEventListener(sinal, tocar, { passive: true });
+    const relogio = window.setInterval(() => {
+      if (Date.now() - ultimo > OCIOSO) void signOut().then(() => router.replace(`/${lang}/entrar`));
+    }, 30_000);
+    return () => {
+      for (const sinal of sinais) window.removeEventListener(sinal, tocar);
+      window.clearInterval(relogio);
+    };
+  }, [dentro, router, lang]);
+
+  if (!hasBackend) return <Porta><p>O painel ainda não foi ligado neste endereço.</p></Porta>;
+  if (me.status === "loading") return <Porta><p className="font-mono text-xs">Abrindo…</p></Porta>;
   if (me.status === "out") {
     return (
-      <p className="mt-8 text-lg">
-        Para usar o painel, <L href="/entrar" className={elo}>entre com a sua conta</L>.
-      </p>
+      <Porta>
+        <p className="text-base">Esta é a área de trabalho da equipe.</p>
+        <p className="mt-4">
+          <L href="/entrar" className="inline-block bg-[#efe4c8] px-5 py-2.5 font-medium text-[#17130e] hover:bg-white">Entrar com a minha conta</L>
+        </p>
+      </Porta>
     );
   }
 
   const eu = me.me;
+  const sair = async () => {
+    await signOut();
+    router.replace(`/${lang}`);
+  };
 
-  // Papel sensível com a exigência ligada: nada do painel abre antes do código do aplicativo autenticador.
+  // Função sensível com a exigência ligada: nada do painel abre antes do código do aplicativo autenticador.
   if (eu.exige_segundo_fator && !eu.segundo_fator) {
     return (
-      <div className="mt-8 max-w-xl font-sans text-sm">
-        <h2 className="font-serif text-3xl font-semibold">Confirme que é você</h2>
-        <p className="mt-2 text-ink-soft">O seu papel no instituto exige uma segunda confirmação antes de abrir o painel.</p>
-        <div className="mt-5">
+      <Porta>
+        <h1 className="font-serif text-2xl font-semibold">Confirme que é você</h1>
+        <p className="mt-2 text-[#b9ad90]">A sua função exige uma segunda confirmação antes de abrir o painel.</p>
+        <div className="mt-5 bg-parchment p-4 text-ink">
           <SegundoFator me={eu} recarregar={me.reload} />
         </div>
-        <button type="button" className={`mt-8 ${botaoClaro}`} onClick={async () => { await signOut(); router.replace(`/${lang}`); }}>
-          Sair
-        </button>
-      </div>
+        <button type="button" className="mt-6 cursor-pointer underline hover:text-white" onClick={sair}>Sair</button>
+      </Porta>
     );
   }
 
+  return <Dentro eu={eu} recarregar={me.reload} sair={sair} aba={params.get("aba") ?? "mesa"} menu={menu} setMenu={setMenu} />;
+}
+
+function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarregar: () => void; sair: () => void; aba: string; menu: boolean; setMenu: (aberto: boolean) => void }) {
+  const router = useRouter();
+  const { lang } = useI18n();
+  const resumo = useLista<Resumo>("painel_resumo");
+  const r = resumo.dados;
   const voluntario = eu.papeis.length > 0;
   const lidera = can(eu, "coordenacao");
   // Cada função enxerga só as ferramentas dela. A coordenação e a vice-coordenação enxergam todas.
-  const trabalho: [string, string, boolean][] = [
-    ["inicio", eu.avisos > 0 ? `Início (${eu.avisos})` : "Início", true],
-    ["escrever", "Escrever", true],
-    ["minhas", "Minhas contribuições", true],
-    ["fila", "Fila de revisão", can(eu, "coordenacao", "curadoria", "revisao", "educacao")],
-    ["comunidade", "Comunidade", can(eu, "coordenacao", "curadoria", "educacao")],
-    ["reforco", "Aula de reforço", can(eu, "coordenacao", "curadoria", "mentoria", "educacao")],
-    ["equipe", "Equipe", voluntario],
-    ["horas", "Horas e certificados", voluntario],
-    ["mural", "Mural", can(eu, "coordenacao")],
-    ["materiais", "Materiais", can(eu, "coordenacao", "curadoria", "design")],
-    ["boletim", "Boletim do jornal", can(eu, "coordenacao", "jornalismo")],
-  ];
-  const lideranca: [string, string, boolean][] = [
-    ["pessoas", "Voluntários", lidera],
-    ["abertura", "Aviso de abertura", lidera],
-    ["seguranca", "Segurança e sucessão", lidera],
-    ["registro", "Registro de atividades", lidera],
-    ["apoiadores", "Apoiadores", lidera],
-    ["radio", "Rádio", lidera],
-  ];
-  const visiveis = [...trabalho, ...lideranca].filter(([, , mostra]) => mostra);
-  const pedida = params.get("aba") ?? "inicio";
-  const aba = visiveis.some(([id]) => id === pedida) ? pedida : "inicio";
-  const ir = (id: string) => router.replace(`/${lang}/painel?aba=${id}`);
-  const botoes = (lista: [string, string, boolean][]) =>
-    lista
-      .filter(([, , mostra]) => mostra)
-      .map(([id, nome]) => (
-        <button key={id} type="button" onClick={() => ir(id)} aria-current={aba === id ? "page" : undefined} className={`cursor-pointer border-2 px-4 py-2 font-medium ${aba === id ? "border-ink bg-ink text-parchment" : "border-rule hover:border-gold"}`}>
-          {nome}
-        </button>
-      ));
+  const secoes: Secao[] = (
+    [
+      { id: "mesa", nome: "Mesa", sobre: "O que espera por você hoje.", grupo: "", mostra: true, conta: eu.avisos },
+      { id: "rede", nome: "Rede interna", sobre: "A conversa da equipe, cifrada neste aparelho antes de sair.", grupo: "", mostra: voluntario },
+      { id: "escrever", nome: "Escrever", sobre: "Aulas, matérias, verbetes e tudo o que vai para o site.", grupo: "Produção", mostra: true },
+      { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: true },
+      { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
+      { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "revisao", "educacao"), conta: r?.fila },
+      { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design") },
+      { id: "comunidade", nome: "Comunidade", sobre: "Denúncias, anotações, mensagens retidas e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
+      { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mentoria", "educacao"), conta: r?.reforco },
+      { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação.", grupo: "Atendimento", mostra: lidera, conta: r?.mural },
+      { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
+      { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: lidera, conta: r?.candidaturas },
+      { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar : undefined },
+      { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
+      { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
+      { id: "radio", nome: "Rádio", sobre: "Canais, faixas e o que está no ar.", grupo: "Site", mostra: lidera },
+      { id: "apoiadores", nome: "Apoiadores", sobre: "Quem autorizou aparecer no mural de apoio.", grupo: "Site", mostra: lidera },
+      { id: "seguranca", nome: "Segurança e sucessão", sobre: "Segundo fator obrigatório, vice e ordem de sucessão.", grupo: "Segurança", mostra: lidera },
+      { id: "registro", nome: "Registro de atividades", sobre: "Tudo o que foi decidido, por quem e quando.", grupo: "Segurança", mostra: lidera },
+      { id: "conta", nome: "Minha conta", sobre: "Seu nome, sua senha e a proteção da sua conta.", grupo: "Você", mostra: true },
+    ] satisfies Secao[]
+  ).filter((secao) => secao.mostra);
+
+  const atual = secoes.find((secao) => secao.id === aba) ?? secoes[0];
+  const ir = (id: string) => {
+    setMenu(false);
+    router.replace(`/${lang}/painel?aba=${id}`);
+    window.scrollTo(0, 0);
+  };
+  const grupos = [...new Set(secoes.map((secao) => secao.grupo))];
+  const funcao = voluntario ? [...new Set(eu.papeis.map((papel) => papeis[papel.papel]))].join(" · ") : "Comunidade";
 
   return (
-    <div className="mt-8 font-sans text-sm">
-      {eu.suspenso && <p className="no-print mb-6 border-l-2 border-oxblood pl-4 text-oxblood">Esta conta está suspensa: você pode ler, mas não enviar.</p>}
-      <div className="no-print border-b border-rule pb-4">
-        <nav aria-label="Seções do painel" className="flex flex-wrap gap-2">
-          {botoes(trabalho)}
-        </nav>
-        {lidera && (
-          <nav aria-label="Coordenação" className="mt-3 flex flex-wrap items-center gap-2">
-            <span className={`${rotulo} mr-1`}>Coordenação</span>
-            {botoes(lideranca)}
-          </nav>
-        )}
+    <div className="min-h-screen bg-parchment font-sans text-sm text-ink lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
+      {/* Barra do alto no celular: nome e botão do menu. */}
+      <div className="no-print sticky top-0 z-30 flex items-center justify-between bg-[#17130e] px-4 py-3 text-[#efe4c8] lg:hidden">
+        <span className="font-serif text-lg font-semibold">
+          Instituto Lúcia <span className="font-mono text-[0.6rem] uppercase tracking-[0.25em] text-[#c9a84a]">Coordenação</span>
+        </span>
+        <button type="button" onClick={() => setMenu(!menu)} aria-expanded={menu} aria-controls="menu-do-painel" className="cursor-pointer border border-[#5a4e3a] px-3 py-1.5">
+          {menu ? "Fechar" : "Menu"}
+        </button>
       </div>
-      <div className="mt-8">
-        {aba === "inicio" && <Inicio me={eu} recarregar={me.reload} ir={ir} />}
-        {aba === "escrever" && <Escrever me={eu} />}
-        {aba === "minhas" && <Fila me={eu} minhas />}
-        {aba === "fila" && <Fila me={eu} />}
-        {aba === "comunidade" && <Comunidade me={eu} />}
-        {aba === "reforco" && <Reforco />}
-        {aba === "equipe" && <Equipe lider={leads(eu)} />}
-        {aba === "horas" && <Horas me={eu} />}
-        {aba === "mural" && <MuralFila />}
-        {aba === "materiais" && <Materiais me={eu} />}
-        {aba === "boletim" && <Boletim />}
-        {aba === "pessoas" && <Pessoas me={eu} />}
-        {aba === "abertura" && <AvisoDeAbertura />}
-        {aba === "seguranca" && <SegurancaSucessao me={eu} />}
-        {aba === "registro" && <RegistroDeAtividades />}
-        {aba === "apoiadores" && <Apoiadores />}
-        {aba === "radio" && <RadioAdmin />}
+
+      <aside id="menu-do-painel" className={`no-print bg-[#17130e] text-[#efe4c8] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r lg:border-[#3a3226] ${menu ? "block" : "hidden"}`}>
+        <div className="hidden items-center gap-3 px-5 pt-6 lg:flex">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/emblema-96.png" alt="" width={40} height={40} className="h-10 w-10" />
+          <span>
+            <span className="block font-serif text-xl font-semibold leading-none">Instituto Lúcia</span>
+            <span className="mt-1 block font-mono text-[0.6rem] uppercase tracking-[0.3em] text-[#c9a84a]">Coordenação</span>
+          </span>
+        </div>
+        <nav aria-label="Seções do painel" className="flex-1 overflow-y-auto px-3 py-5 [scrollbar-color:#4a4032_transparent] [scrollbar-width:thin]">
+          {grupos.map((grupo) => (
+            <div key={grupo || "inicio"} className="mb-4">
+              {grupo && <p className="px-2 pb-1 font-mono text-[0.6rem] uppercase tracking-[0.25em] text-[#8f8468]">{grupo}</p>}
+              <ul>
+                {secoes
+                  .filter((secao) => secao.grupo === grupo)
+                  .map((secao) => {
+                    const ativa = secao.id === atual.id;
+                    return (
+                      <li key={secao.id}>
+                        <button
+                          type="button"
+                          onClick={() => ir(secao.id)}
+                          aria-current={ativa ? "page" : undefined}
+                          className={`flex w-full cursor-pointer items-center justify-between gap-2 border-l-2 px-3 py-2 text-left ${ativa ? "border-[#c9a84a] bg-[#2a231a] font-semibold text-white" : "border-transparent text-[#d9cdb0] hover:bg-[#221c15] hover:text-white"}`}
+                        >
+                          <span>{secao.nome}</span>
+                          {Boolean(secao.conta) && <span className="min-w-6 bg-[#c21f17] px-1.5 py-0.5 text-center font-mono text-[0.7rem] font-semibold leading-none text-white">{secao.conta}</span>}
+                        </button>
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+          ))}
+        </nav>
+        <div className="border-t border-[#3a3226] px-4 py-4">
+          <p className="flex items-center gap-3">
+            <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center bg-[#efe4c8] font-semibold text-[#17130e]">{iniciais(eu.nome)}</span>
+            <span className="min-w-0">
+              <span className="block truncate font-semibold">{eu.nome}</span>
+              <span className="block truncate text-xs text-[#b9ad90]">{funcao}</span>
+            </span>
+          </p>
+          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+            <L href="/" className="underline hover:text-white">← Voltar ao site</L>
+            <Tema />
+            <button type="button" onClick={sair} className="cursor-pointer underline hover:text-white">Sair</button>
+          </p>
+        </div>
+      </aside>
+
+      <div className={menu ? "hidden lg:block" : ""}>
+        <header className="border-b border-rule bg-parchment-deep px-5 py-5 sm:px-8">
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-gold">{atual.grupo || "Coordenação"}</p>
+          <h1 className="mt-1 font-serif text-3xl font-semibold leading-tight">{atual.nome}</h1>
+          <p className="mt-1 text-ink-soft">{atual.sobre}</p>
+        </header>
+        <div className="mx-auto max-w-5xl px-5 py-7 sm:px-8">
+          {eu.suspenso && <p className="mb-6 border-l-2 border-oxblood pl-4 text-oxblood">Esta conta está suspensa: você pode ler, mas não enviar.</p>}
+          {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} />}
+          {atual.id === "rede" && <Equipe lider={leads(eu)} />}
+          {atual.id === "escrever" && <Escrever me={eu} />}
+          {atual.id === "minhas" && <Fila key="minhas" me={eu} minhas />}
+          {atual.id === "juntas" && <Fila key="juntas" me={eu} juntas />}
+          {atual.id === "fila" && <Fila key="fila" me={eu} />}
+          {atual.id === "materiais" && <Materiais me={eu} />}
+          {atual.id === "comunidade" && <Comunidade me={eu} />}
+          {atual.id === "reforco" && <Reforco />}
+          {atual.id === "mural" && <MuralFila />}
+          {atual.id === "boletim" && <Boletim />}
+          {atual.id === "pessoas" && <Pessoas me={eu} />}
+          {atual.id === "horas" && <Horas me={eu} />}
+          {atual.id === "site" && <Site />}
+          {atual.id === "abertura" && <AvisoDeAbertura />}
+          {atual.id === "radio" && <RadioAdmin />}
+          {atual.id === "apoiadores" && <Apoiadores />}
+          {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
+          {atual.id === "registro" && <RegistroDeAtividades />}
+          {atual.id === "conta" && <Conta me={eu} recarregar={recarregar} sair={sair} />}
+        </div>
       </div>
     </div>
   );
 }
 
-function Inicio({ me, recarregar, ir }: { me: Me; recarregar: () => void; ir: (aba: string) => void }) {
-  const { t, lang } = useI18n();
-  const router = useRouter();
-  const resumo = useLista<Resumo>("painel_resumo");
-  const pedidos = useLista<{ id: string; papel: Role["papel"]; disciplina: string | null; status: string; criado_em: string }[]>("candidaturas_minhas");
-  const perfil = useAcao(recarregar);
-  const pedido = useAcao(pedidos.recarregar);
-  const [nome, setNome] = useState(me.nome);
-  const [bio, setBio] = useState(me.bio);
-  const [quero, setQuero] = useState<{ papel: string; disciplina: string; mensagem: string }>({ papel: "educacao", disciplina: "", mensagem: "" });
-  const [confirma, setConfirma] = useState(false);
-  const [aviso, setAviso] = useState("");
-  const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
-  const r = resumo.dados;
-  const cartoes: [string, number, string][] = r
-    ? [
-        ["Na fila de revisão", r.fila, "fila"],
-        ["Aprovadas aguardando publicação", r.aguardando_publicacao, "fila"],
-        ["Pedidos de voluntariado", r.candidaturas, "pessoas"],
-        ["Denúncias abertas", r.denuncias, "comunidade"],
-        ["Anotações aguardando", r.anotacoes, "comunidade"],
-        ["Mensagens retidas pelo filtro", r.retidos, "comunidade"],
-        ["Pedidos de reforço aguardando", r.reforco, "reforco"],
-        ["Horas para conferir", r.horas, "horas"],
-        ["Certificados aguardando o seu testemunho", r.testemunhar, "horas"],
-        ["Anúncios do mural aguardando", r.mural, "mural"],
-        ["Minhas contribuições", r.minhas, "minhas"],
-      ]
+/** A primeira tela: só o que pede atenção agora. */
+function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; recarregar: () => void; ir: (aba: string) => void }) {
+  const { t } = useI18n();
+  const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
+  const r = resumo;
+  const pendencias: [string, number, string][] = r
+    ? (
+        [
+          ["Colegas chamaram você para trabalhar junto", r.juntas, "juntas"],
+          ["Na fila de revisão", r.fila, "fila"],
+          ["Aprovadas, esperando a publicação", r.aguardando_publicacao, "fila"],
+          ["Pedidos de voluntariado", r.candidaturas, "pessoas"],
+          ["Denúncias abertas", r.denuncias, "comunidade"],
+          ["Anotações para olhar", r.anotacoes, "comunidade"],
+          ["Mensagens retidas pelo filtro", r.retidos, "comunidade"],
+          ["Pedidos de reforço", r.reforco, "reforco"],
+          ["Horas para conferir", r.horas, "horas"],
+          ["Certificados esperando o seu testemunho", r.testemunhar, "horas"],
+          ["Anúncios do mural", r.mural, "mural"],
+        ] as [string, number, string][]
+      ).filter(([, total]) => total > 0)
     : [];
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-9">
       <section>
-        <h2 className="font-serif text-3xl font-semibold">Olá, {me.nome}</h2>
+        <h2 className="font-serif text-2xl font-semibold">Olá, {me.nome.split(" ")[0]}</h2>
         {me.papeis.length > 0 ? (
-          <ul className="mt-3 space-y-2">
+          <ul className="mt-3 flex flex-wrap gap-2">
             {me.papeis.map((papel) => (
-              <li key={papel.id} className="border border-rule bg-parchment-deep px-3 py-2">
-                <strong>
-                  {papeis[papel.papel]} · {nomeDaArea(papel.disciplina)}
-                </strong>
-                <span className="block text-ink-soft">{oQueFaz[papel.papel]}</span>
+              <li key={papel.id} title={oQueFaz[papel.papel]} className="border border-rule bg-parchment-deep px-3 py-1.5">
+                <strong>{papeis[papel.papel]}</strong>
+                {papel.disciplina && <span className="text-ink-soft"> · {nomeDaArea(papel.disciplina)}</span>}
               </li>
             ))}
           </ul>
         ) : (
-          <p className="mt-2 text-ink-soft">Você ainda não tem um papel no instituto. Qualquer pessoa pode escrever e enviar; para revisar, traduzir ou cuidar de uma disciplina, peça um papel abaixo.</p>
+          <p className="mt-2 max-w-2xl text-ink-soft">Você participa da comunidade e pode escrever e enviar contribuições. Para revisar, traduzir, ensinar ou cuidar de uma disciplina, peça uma função abaixo.</p>
         )}
-        <div className="mt-5 grid gap-3 sm:grid-cols-3">
-          {cartoes
-            .filter(([, total]) => total > 0)
-            .map(([titulo, total, destino]) => (
-              <button key={titulo} type="button" onClick={() => ir(destino)} className="cursor-pointer border border-rule bg-parchment-deep p-4 text-left hover:border-gold">
-                <span className="block font-serif text-3xl font-semibold">{total}</span>
+      </section>
+
+      <section>
+        <h2 className={rotulo}>Esperando por você</h2>
+        {pendencias.length === 0 ? (
+          <p className="mt-3 border border-rule bg-parchment-deep px-4 py-5 text-ink-soft">{r ? "Nada pendente. Tudo em dia." : "Carregando…"}</p>
+        ) : (
+          <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {pendencias.map(([titulo, total, destino]) => (
+              <button key={titulo} type="button" onClick={() => ir(destino)} className="flex cursor-pointer items-center gap-4 border border-rule bg-parchment-deep p-4 text-left hover:border-ink">
+                <span className="font-serif text-4xl font-semibold leading-none">{total}</span>
                 <span className="text-ink-soft">{titulo}</span>
               </button>
             ))}
-        </div>
+          </div>
+        )}
+        <p className="mt-4 flex flex-wrap gap-3">
+          <button type="button" className={botao} onClick={() => ir("escrever")}>Escrever</button>
+          {me.papeis.length > 0 && <button type="button" className={botaoClaro} onClick={() => ir("rede")}>Abrir a rede interna</button>}
+          {(r?.minhas ?? 0) > 0 && <button type="button" className={botaoClaro} onClick={() => ir("minhas")}>Meus envios ({r?.minhas})</button>}
+        </p>
       </section>
+
+      {me.papeis.length > 0 && <Situacao lidera={can(me, "coordenacao")} ir={ir} />}
 
       <Recados recarregar={recarregar} />
 
-      <section>
-        <h2 className="font-serif text-2xl font-semibold">Seu perfil</h2>
-        <p className="mt-1 text-ink-soft">O nome aparece em tudo o que você publicar. Ele nasce como um codinome sorteado: troque pelo nome que quiser mostrar. O seu e-mail nunca aparece no site.</p>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <label className="block">
-            Nome
-            <input value={nome} onChange={(e) => setNome(e.target.value)} maxLength={60} className={campo} />
-          </label>
-          <label className="block">
-            Sobre você (opcional)
-            <input value={bio} onChange={(e) => setBio(e.target.value)} maxLength={500} className={campo} />
-          </label>
-        </div>
-        <button type="button" className={`mt-3 ${botaoClaro}`} disabled={perfil.ocupado} onClick={() => perfil.agir("perfil_salvar", { p_nome: nome, p_bio: bio }, "Perfil guardado.")}>
-          Guardar perfil
+      {me.papeis.length === 0 && <Candidatura />}
+    </div>
+  );
+}
+
+/** Como o instituto está agora, em três quadros: quem é a equipe e, para a coordenação, o estado do site. */
+function Situacao({ lidera, ir }: { lidera: boolean; ir: (aba: string) => void }) {
+  const membros = useLista<Membro[]>("equipe_membros");
+  const site = useLista<Controles>("site");
+  const porAqui = membros.dados?.filter((membro) => membro.por_aqui).length ?? 0;
+  const quadro = "border border-rule bg-parchment-deep p-4 text-left";
+  const alerta = "border-2 border-oxblood bg-parchment-deep p-4 text-left";
+  return (
+    <section>
+      <h2 className={rotulo}>Como estamos</h2>
+      <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <button type="button" onClick={() => ir("rede")} className={`${quadro} cursor-pointer hover:border-ink`}>
+          <span className="block text-ink-soft">Equipe</span>
+          <span className="mt-1 block font-serif text-2xl font-semibold leading-tight">{membros.dados ? `${membros.dados.length} ${membros.dados.length === 1 ? "pessoa" : "pessoas"}` : "…"}</span>
+          <span className="mt-1 block text-ink-soft">{porAqui > 0 ? `${porAqui} por aqui na última hora e meia` : "Ninguém mais por aqui agora"}</span>
+        </button>
+        {site.dados &&
+          (lidera ? (
+            <>
+              <button type="button" onClick={() => ir("site")} className={`${site.dados.pausa ? alerta : `${quadro} hover:border-ink`} cursor-pointer`}>
+                <span className="block text-ink-soft">Envios do público</span>
+                <span className={`mt-1 block font-serif text-2xl font-semibold leading-tight ${site.dados.pausa ? "text-oxblood" : ""}`}>{site.dados.pausa ? "Pausados" : "Abertos"}</span>
+                <span className="mt-1 block text-ink-soft">{site.dados.pausa ? "Ninguém de fora envia nada até você reabrir" : "Mural, reforço, boletim, contribuições e comunidade"}</span>
+              </button>
+              <button type="button" onClick={() => ir("site")} className={`${quadro} cursor-pointer hover:border-ink`}>
+                <span className="block text-ink-soft">Faixa do alto</span>
+                <span className="mt-1 block font-serif text-2xl font-semibold leading-tight">{site.dados.faixa ? "Com chamado" : "Texto de sempre"}</span>
+                <span className="mt-1 block truncate text-ink-soft">{site.dados.faixa || "Nenhum chamado no ar"}</span>
+              </button>
+            </>
+          ) : (
+            site.dados.pausa && (
+              <div className={alerta}>
+                <span className="block text-ink-soft">Envios do público</span>
+                <span className="mt-1 block font-serif text-2xl font-semibold leading-tight text-oxblood">Pausados</span>
+                <span className="mt-1 block text-ink-soft">A coordenação pausou o que vem de fora. O trabalho da equipe segue normal.</span>
+              </div>
+            )
+          ))}
+      </div>
+    </section>
+  );
+}
+
+/** Quem ainda não tem função pede uma aqui; a coordenação responde pelo próprio painel. */
+function Candidatura() {
+  const { t } = useI18n();
+  const pedidos = useLista<{ id: string; papel: Role["papel"]; disciplina: string | null; status: string; criado_em: string }[]>("candidaturas_minhas");
+  const pedido = useAcao(pedidos.recarregar);
+  const [quero, setQuero] = useState<{ papel: string; disciplina: string; mensagem: string }>({ papel: "educacao", disciplina: "", mensagem: "" });
+  const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
+  return (
+    <section className="border border-rule bg-parchment-deep p-5">
+      <h2 className="font-serif text-2xl font-semibold">Quero ser voluntário</h2>
+      <p className="mt-1 text-ink-soft">Diga em que quer ajudar e conte um pouco da sua experiência.</p>
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <label className="block">
+          Em que função
+          <select value={quero.papel} onChange={(e) => setQuero({ ...quero, papel: e.target.value })} className={campo}>
+            {(["educacao", "mentoria", "revisao", "traducao", "jornalismo", "curadoria", "design", "desenvolvimento"] as const).map((papel) => (
+              <option key={papel} value={papel}>{papeis[papel]}</option>
+            ))}
+          </select>
+        </label>
+        <label className="block">
+          Disciplina{quero.papel === "educacao" ? "" : " (opcional)"}
+          <select value={quero.disciplina} onChange={(e) => setQuero({ ...quero, disciplina: e.target.value })} className={campo}>
+            <option value="">{quero.papel === "educacao" ? "Escolha…" : "Todo o site"}</option>
+            {areaSlugs.map((area) => (
+              <option key={area} value={area}>{t.areas[area][0]}</option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <label className="mt-3 block">
+        Sua experiência e por que quer ajudar
+        <textarea value={quero.mensagem} onChange={(e) => setQuero({ ...quero, mensagem: e.target.value })} rows={3} maxLength={2000} className={campo} />
+      </label>
+      <p className="mt-1 text-ink-soft">{oQueFaz[quero.papel as Role["papel"]]}</p>
+      <button
+        type="button"
+        className={`mt-3 ${botao}`}
+        disabled={pedido.ocupado || quero.mensagem.trim().length < 20 || (quero.papel === "educacao" && !quero.disciplina)}
+        onClick={async () => {
+          const ok = await pedido.agir("candidatar", { p_papel: quero.papel, p_disciplina: quero.disciplina || null, p_mensagem: quero.mensagem }, "Pedido enviado à coordenação.");
+          if (ok) setQuero({ ...quero, mensagem: "" });
+        }}
+      >
+        Enviar pedido
+      </button>
+      <Aviso texto={pedido.aviso} />
+      {(pedidos.dados?.length ?? 0) > 0 && (
+        <ul className="mt-2 space-y-1 text-ink-soft">
+          {pedidos.dados?.map((item) => (
+            <li key={item.id}>
+              {papeis[item.papel]} · {nomeDaArea(item.disciplina)} · {data(item.criado_em)} · <span className={rotulo}>{situacoes[item.status] ?? item.status}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+/** Tudo o que é da própria pessoa: como aparece, como entra e como se protege. */
+function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair: () => void }) {
+  const perfil = useAcao(recarregar);
+  const [nome, setNome] = useState(me.nome);
+  const [bio, setBio] = useState(me.bio);
+  const [senha, setSenha] = useState("");
+  const [repete, setRepete] = useState("");
+  const [avisoSenha, setAvisoSenha] = useState("");
+  const [confirma, setConfirma] = useState(false);
+  const [aviso, setAviso] = useState("");
+  const cartao = "border border-rule bg-parchment-deep p-5";
+
+  async function trocarSenha() {
+    setAvisoSenha("");
+    try {
+      const supabase = await getClient();
+      const { error } = await supabase.auth.updateUser({ password: senha });
+      if (error) throw error;
+      setSenha("");
+      setRepete("");
+      setAvisoSenha("Senha trocada.");
+    } catch {
+      setAvisoSenha("Não foi possível trocar a senha agora. Saia, entre de novo e tente outra vez.");
+    }
+  }
+
+  return (
+    <div className="grid gap-6 lg:grid-cols-2">
+      <section className={cartao}>
+        <h2 className="font-serif text-xl font-semibold">Como você aparece</h2>
+        <p className="mt-1 text-ink-soft">O nome assina o que você publica. O seu e-mail nunca aparece.</p>
+        <label className="mt-3 block">
+          Nome
+          <input value={nome} onChange={(e) => setNome(e.target.value)} maxLength={60} className={campo} />
+        </label>
+        <label className="mt-3 block">
+          Sobre você (opcional)
+          <input value={bio} onChange={(e) => setBio(e.target.value)} maxLength={500} className={campo} />
+        </label>
+        <button type="button" className={`mt-3 ${botao}`} disabled={perfil.ocupado} onClick={() => perfil.agir("perfil_salvar", { p_nome: nome, p_bio: bio }, "Perfil guardado.")}>
+          Guardar
         </button>
         <Aviso texto={perfil.aviso} />
       </section>
 
-      <section>
-        <h2 className="font-serif text-2xl font-semibold">Quero ser voluntário</h2>
-        <p className="mt-1 text-ink-soft">Diga em que quer ajudar e conte um pouco da sua experiência. A coordenação responde por aqui.</p>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          <label className="block">
-            Em que papel
-            <select value={quero.papel} onChange={(e) => setQuero({ ...quero, papel: e.target.value })} className={campo}>
-              {(["educacao", "mentoria", "revisao", "traducao", "jornalismo", "curadoria", "design", "desenvolvimento"] as const).map((papel) => (
-                <option key={papel} value={papel}>
-                  {papeis[papel]}
-                </option>
-              ))}
-            </select>
+      <section className={cartao}>
+        <h2 className="font-serif text-xl font-semibold">Senha</h2>
+        <p className="mt-1 text-ink-soft">Pelo menos 12 caracteres. Uma frase de quatro ou cinco palavras funciona bem.</p>
+        <form onSubmit={(e) => { e.preventDefault(); void trocarSenha(); }}>
+          <label className="mt-3 block">
+            Senha nova
+            <input type="password" autoComplete="new-password" minLength={12} maxLength={200} value={senha} onChange={(e) => setSenha(e.target.value)} className={campo} />
           </label>
-          <label className="block">
-            Disciplina{quero.papel === "educacao" ? "" : " (opcional)"}
-            <select value={quero.disciplina} onChange={(e) => setQuero({ ...quero, disciplina: e.target.value })} className={campo}>
-              <option value="">{quero.papel === "educacao" ? "Escolha…" : "Todo o site"}</option>
-              {areaSlugs.map((area) => (
-                <option key={area} value={area}>
-                  {t.areas[area][0]}
-                </option>
-              ))}
-            </select>
+          <label className="mt-3 block">
+            Repita a senha
+            <input type="password" autoComplete="new-password" maxLength={200} value={repete} onChange={(e) => setRepete(e.target.value)} className={campo} />
           </label>
-        </div>
-        <label className="mt-3 block">
-          Sua experiência e por que quer ajudar
-          <textarea value={quero.mensagem} onChange={(e) => setQuero({ ...quero, mensagem: e.target.value })} rows={3} maxLength={2000} className={campo} />
-        </label>
-        <button
-          type="button"
-          className={`mt-3 ${botao}`}
-          disabled={pedido.ocupado || quero.mensagem.trim().length < 20 || (quero.papel === "educacao" && !quero.disciplina)}
-          onClick={async () => {
-            const ok = await pedido.agir("candidatar", { p_papel: quero.papel, p_disciplina: quero.disciplina || null, p_mensagem: quero.mensagem }, "Pedido enviado à coordenação.");
-            if (ok) setQuero({ ...quero, mensagem: "" });
-          }}
-        >
-          Enviar pedido
-        </button>
-        <p className="mt-1 text-ink-soft">{oQueFaz[quero.papel as Role["papel"]]}</p>
-        <Aviso texto={pedido.aviso} />
-        {(pedidos.dados?.length ?? 0) > 0 && (
-          <ul className="mt-3 space-y-1 text-ink-soft">
-            {pedidos.dados?.map((item) => (
-              <li key={item.id}>
-                {papeis[item.papel]} · {nomeDaArea(item.disciplina)} · {data(item.criado_em)} · <span className={rotulo}>{situacoes[item.status] ?? item.status}</span>
-              </li>
-            ))}
-          </ul>
-        )}
+          <button type="submit" className={`mt-3 ${botao}`} disabled={senha.length < 12 || senha !== repete}>Trocar a senha</button>
+        </form>
+        <Aviso texto={avisoSenha} />
       </section>
 
-      <section>
-        <h2 className="font-serif text-2xl font-semibold">Segurança da conta</h2>
-        <h3 className="mt-3 font-semibold">Aplicativo autenticador (segundo fator)</h3>
-        <div className="mt-2 max-w-2xl">
+      <section className={cartao}>
+        <h2 className="font-serif text-xl font-semibold">Segundo fator</h2>
+        <p className="mt-1 text-ink-soft">Um código do aplicativo autenticador, além da senha. Quem descobre a sua senha continua do lado de fora.</p>
+        <div className="mt-3">
           <SegundoFator me={me} recarregar={recarregar} />
         </div>
-        <h3 className="mt-6 font-semibold">Aparelhos em que esta conta já entrou</h3>
-        <div className="mt-2 max-w-2xl">
+      </section>
+
+      <section className={cartao}>
+        <h2 className="font-serif text-xl font-semibold">Aparelhos</h2>
+        <p className="mt-1 text-ink-soft">Onde esta conta já foi aberta. Não reconhece algum? Troque a senha e avise a coordenação.</p>
+        <div className="mt-3">
           <Aparelhos />
         </div>
       </section>
 
-      <section className="border-t border-rule pt-6">
-        <div className="flex flex-wrap gap-4">
-          <button type="button" className={botaoClaro} onClick={async () => { await signOut(); router.replace(`/${lang}`); }}>
-            Sair
-          </button>
+      <section className="lg:col-span-2">
+        <div className="flex flex-wrap items-center gap-4 border-t border-rule pt-5">
+          <button type="button" className={botaoClaro} onClick={sair}>Sair do painel</button>
           {confirma ? (
             <button
               type="button"
@@ -308,8 +580,7 @@ function Inicio({ me, recarregar, ir }: { me: Me; recarregar: () => void; ir: (a
               onClick={async () => {
                 try {
                   await rpc("conta_apagar");
-                  await signOut();
-                  router.replace(`/${lang}`);
+                  sair();
                 } catch (erro) {
                   setAviso(textoDoErro(erro));
                 }
@@ -321,7 +592,7 @@ function Inicio({ me, recarregar, ir }: { me: Me; recarregar: () => void; ir: (a
             <button type="button" className={elo} onClick={() => setConfirma(true)}>Apagar minha conta</button>
           )}
         </div>
-        <p className="mt-2 text-ink-soft">Apagar a conta remove seu perfil, seus papéis e seus votos. O que já foi publicado continua no acervo.</p>
+        <p className="mt-2 text-ink-soft">Apagar a conta remove o perfil, as funções e os votos. O que já foi publicado continua no acervo.</p>
         <Aviso texto={aviso} />
       </section>
     </div>

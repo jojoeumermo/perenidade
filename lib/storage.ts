@@ -19,6 +19,7 @@ export const KEYS = {
   filter: "lucia:filtro",
   purge: "lucia:purga",
   seen: "lucia:visto",
+  site: "lucia:site",
 } as const;
 
 const listeners = new Set<() => void>();

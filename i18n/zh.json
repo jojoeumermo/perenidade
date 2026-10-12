@@ -1187,7 +1187,8 @@
     "limite_anuncios": "每人最多可发布三条信息。请先撤下一条，再发布新的。",
     "limite_pedidos": "你已有三个未完成的请求。请等待答复，或取消其中一个。",
     "conteudo_recusado": "文字中含有本站不接受的词语。请改写后重新提交。",
-    "sem_links": "这里只接受文字：不能包含网址、图片或文件。"
+    "sem_links": "这里只接受文字：不能包含网址、图片或文件。",
+    "envios_pausados": "目前暂停接收提交。"
   },
   "community": {
     "eyebrow": "社区",

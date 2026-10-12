@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { rpc, type Role } from "@/lib/backend";
 import { deriveKey, PROOF, recallKey, rememberKey, seal, unseal } from "@/lib/cipher";
 import { previewFile } from "@/lib/upload";
-import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { useI18n } from "../I18n";
+import { Aviso, botao, botaoClaro, campo, data, elo, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 
 interface Resposta {
   id: string;
@@ -28,8 +29,17 @@ interface Canais {
   canais: string[];
 }
 
+export interface Membro {
+  id: string;
+  nome: string;
+  bio: string;
+  eu: boolean;
+  por_aqui: boolean;
+  papeis: { papel: Role["papel"]; disciplina: string | null }[];
+}
+
 const nomes: Record<string, string> = {
-  geral: "Geral",
+  geral: "Todos",
   pedidos: "Pedidos de ajuda",
   coordenacao: "Coordenação",
   curadoria: "Curadoria",
@@ -47,12 +57,40 @@ const funcoes: Role["papel"][] = ["design", "desenvolvimento", "educacao", "cura
 const MAXIMO = 2000;
 const ILEGIVEL = "[não foi possível abrir esta mensagem com a chave atual]";
 
+const iniciais = (nome: string) =>
+  nome
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((parte) => parte[0]?.toUpperCase() ?? "")
+    .join("") || "?";
+
+/** "agora", "há 12 min", "há 3 h" ou a data, para o mural parecer uma conversa e não um relatório. */
+function quando(iso: string) {
+  const minutos = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+  if (minutos < 1) return "agora";
+  if (minutos < 60) return `há ${minutos} min`;
+  if (minutos < 60 * 24) return `há ${Math.round(minutos / 60)} h`;
+  return new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+}
+
+function Rosto({ nome, menor = false }: { nome: string; menor?: boolean }) {
+  return (
+    <span aria-hidden className={`flex shrink-0 items-center justify-center bg-ink font-semibold text-parchment ${menor ? "h-7 w-7 text-[0.7rem]" : "h-10 w-10"}`}>
+      {iniciais(nome)}
+    </span>
+  );
+}
+
 /**
- * Conversa de trabalho da equipe: um canal geral, um por função e um de pedidos entre funções.
- * Tudo é cifrado neste aparelho com a chave da equipe antes de ser enviado, e some depois de trinta dias.
+ * A rede interna da equipe: publicações e comentários por canal (um para todos, um por função e um de pedidos
+ * de ajuda entre funções). Tudo é cifrado neste aparelho com a chave da equipe antes de ser enviado, e some
+ * depois de trinta dias.
  */
 export function Equipe({ lider }: { lider: boolean }) {
+  const { t } = useI18n();
   const canais = useLista<Canais>("equipe_canais");
+  const membros = useLista<Membro[]>("equipe_membros");
   const [chave, setChave] = useState<CryptoKey | null>(null);
   const [canal, setCanal] = useState("geral");
   const lista = useLista<Recado[]>("equipe_listar", { p_canal: canal });
@@ -64,6 +102,7 @@ export function Equipe({ lider }: { lider: boolean }) {
   const [abertos, setAbertos] = useState<Record<string, string>>({});
   const [aviso, setAviso] = useState("");
   const dados = canais.dados;
+  const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
 
   // A chave guardada nesta aba só vale se ainda abrir a prova que está no banco.
   useEffect(() => {
@@ -95,11 +134,11 @@ export function Equipe({ lider }: { lider: boolean }) {
     };
   }, [chave, lista.dados]);
 
-  // Novos recados aparecem sozinhos, sem a pessoa precisar recarregar.
+  // Publicações novas aparecem sozinhas, sem a pessoa precisar recarregar.
   useEffect(() => {
     const relogio = window.setInterval(() => {
       if (document.visibilityState === "visible") recarregar();
-    }, 45000);
+    }, 30000);
     return () => window.clearInterval(relogio);
   }, [recarregar]);
 
@@ -122,120 +161,163 @@ export function Equipe({ lider }: { lider: boolean }) {
 
   if (!dados) return <Aviso texto={canais.erro || "Carregando…"} />;
 
-  return (
-    <div>
-      {dados.sala ? (
-        <p className="border-l-2 border-ok pl-4">
-          Voz e vídeo:{" "}
-          <a href={dados.sala} target="_blank" rel="noopener noreferrer" className={elo}>
-            abrir a sala da equipe
-          </a>
-          .
+  if (!chave) {
+    return (
+      <div>
+        <p className="max-w-2xl text-ink-soft">
+          Aqui a equipe conversa, pede ajuda e combina o trabalho. O que cada pessoa escreve é cifrado no próprio aparelho antes de sair: o que fica guardado é ilegível sem a chave da equipe.
         </p>
-      ) : (
-        <p className="border-l-2 border-rule pl-4 text-ink-soft">A coordenação ainda não indicou a sala de voz e vídeo da equipe.</p>
-      )}
-      <p className="mt-2 max-w-3xl text-ink-soft">
-        As mensagens são cifradas neste aparelho antes de sair: o que fica guardado é ilegível sem a chave da equipe. Elas somem sozinhas depois de trinta dias, e a coordenação pode apagar tudo de uma vez. Mesmo assim, não escreva aqui endereço, telefone nem documento de ninguém.
-      </p>
-
-      {!chave ? (
         <Chave dados={dados} lider={lider} aoAbrir={(nova) => { setChave(nova); canais.recarregar(); recarregar(); }} />
-      ) : (
-        <>
-          <nav aria-label="Canais da equipe" className="mt-5 flex flex-wrap gap-2">
-            {dados.canais.map((id) => (
-              <button key={id} type="button" onClick={() => setCanal(id)} aria-current={canal === id ? "page" : undefined} className={`cursor-pointer border-2 px-3 py-1.5 ${canal === id ? "border-ink bg-ink text-parchment" : "border-rule hover:border-ink"}`}>
-                {nomes[id] ?? id}
-              </button>
-            ))}
-          </nav>
+      </div>
+    );
+  }
 
-          <form className="mt-5" onSubmit={async (e) => { e.preventDefault(); if (await escrever(texto, null)) setTexto(""); }}>
-            {canal === "pedidos" && (
-              <label className="mb-3 block max-w-sm">
-                Preciso da ajuda de
-                <select value={para} onChange={(e) => setPara(e.target.value as Role["papel"])} className={campo}>
-                  {funcoes.map((funcao) => (
-                    <option key={funcao} value={funcao}>{papeis[funcao]}</option>
-                  ))}
-                </select>
-              </label>
-            )}
-            <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={3} maxLength={MAXIMO} aria-label={`Escrever em ${nomes[canal] ?? canal}`} placeholder={canal === "pedidos" ? "Do que você precisa, para quando e para qual aula ou matéria." : "Escreva para a equipe…"} className={campo} />
-            <button type="submit" className={`mt-2 ${botao}`} disabled={acao.ocupado || texto.trim().length === 0}>
+  return (
+    <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_15rem]">
+      <div className="min-w-0">
+        <nav aria-label="Canais" className="flex flex-wrap gap-1.5">
+          {dados.canais.map((id) => (
+            <button key={id} type="button" onClick={() => setCanal(id)} aria-current={canal === id ? "page" : undefined} className={`cursor-pointer border px-3 py-1.5 ${canal === id ? "border-ink bg-ink text-parchment" : "border-rule bg-parchment-deep hover:border-ink"}`}>
+              {nomes[id] ?? id}
+            </button>
+          ))}
+        </nav>
+
+        <form className="mt-4 border border-rule bg-parchment-deep p-4" onSubmit={async (e) => { e.preventDefault(); if (await escrever(texto, null)) setTexto(""); }}>
+          {canal === "pedidos" && (
+            <label className="mb-3 block max-w-xs">
+              Preciso da ajuda de
+              <select value={para} onChange={(e) => setPara(e.target.value as Role["papel"])} className={campo}>
+                {funcoes.map((funcao) => (
+                  <option key={funcao} value={funcao}>{papeis[funcao]}</option>
+                ))}
+              </select>
+            </label>
+          )}
+          <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={3} maxLength={MAXIMO} aria-label={`Publicar em ${nomes[canal] ?? canal}`} placeholder={canal === "pedidos" ? "Do que você precisa, para quando e para qual aula ou matéria." : `Escreva para ${canal === "geral" ? "toda a equipe" : (nomes[canal] ?? canal).toLowerCase()}…`} className={`${campo} mt-0 bg-parchment`} />
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+            <span className="text-xs text-ink-soft">Cifrado neste aparelho · some em 30 dias</span>
+            <button type="submit" className={botao} disabled={acao.ocupado || texto.trim().length === 0}>
               {canal === "pedidos" ? "Pedir ajuda" : "Publicar"}
             </button>
-          </form>
-          <Aviso texto={lista.erro || acao.aviso || aviso} />
+          </div>
+        </form>
+        <Aviso texto={lista.erro || acao.aviso || aviso} />
 
-          <ul className="mt-4 space-y-5">
-            {lista.dados?.map((recado) => (
-              <li key={recado.id} className={`border border-rule p-4 ${recado.resolvido ? "opacity-70" : "bg-parchment-deep"}`}>
-                <p className={rotulo}>
-                  {recado.autor || "—"} · {dataHora(recado.criado_em)}
-                  {recado.para && ` · para ${papeis[recado.para]}`}
-                  {recado.resolvido && " · resolvido"}
-                </p>
-                <p className="mt-2 whitespace-pre-line font-serif text-lg">{abertos[recado.id] ?? "…"}</p>
-                <ul className="mt-3 space-y-2 border-l-2 border-rule pl-4">
+        <ul className="mt-2 space-y-4">
+          {lista.dados?.map((recado) => (
+            <li key={recado.id} className={`border border-rule ${recado.resolvido ? "opacity-70" : "bg-parchment-deep"}`}>
+              <div className="flex items-start gap-3 px-4 pt-4">
+                <Rosto nome={recado.autor} />
+                <div className="min-w-0 flex-1">
+                  <p>
+                    <strong>{recado.autor || "Alguém que saiu da equipe"}</strong> <span className="text-ink-soft">· {quando(recado.criado_em)}</span>
+                  </p>
+                  <p className="flex flex-wrap gap-1.5 text-xs">
+                    {recado.para && <span className="border border-ink px-1.5 py-0.5">para {papeis[recado.para]}</span>}
+                    {recado.resolvido && <span className="bg-ink px-1.5 py-0.5 text-parchment">resolvido</span>}
+                  </p>
+                </div>
+              </div>
+              <p className="whitespace-pre-line px-4 py-3 font-serif text-lg leading-snug">{abertos[recado.id] ?? "…"}</p>
+              {recado.respostas.length > 0 && (
+                <ul className="space-y-3 border-t border-rule bg-parchment px-4 py-3">
                   {recado.respostas.map((resposta) => (
-                    <li key={resposta.id}>
-                      <span className={rotulo}>
-                        {resposta.autor || "—"} · {dataHora(resposta.criado_em)}
-                      </span>
-                      <p className="whitespace-pre-line">{abertos[resposta.id] ?? "…"}</p>
+                    <li key={resposta.id} className="flex items-start gap-2.5">
+                      <Rosto nome={resposta.autor} menor />
+                      <div className="min-w-0">
+                        <p className="text-xs">
+                          <strong>{resposta.autor || "—"}</strong> <span className="text-ink-soft">· {quando(resposta.criado_em)}</span>
+                        </p>
+                        <p className="whitespace-pre-line">{abertos[resposta.id] ?? "…"}</p>
+                      </div>
                     </li>
                   ))}
                 </ul>
-                <form
-                  className="mt-3 flex flex-wrap gap-2"
-                  onSubmit={async (e) => {
-                    e.preventDefault();
-                    if (await escrever(respostas[recado.id] ?? "", recado.id)) setRespostas({ ...respostas, [recado.id]: "" });
-                  }}
-                >
-                  <input value={respostas[recado.id] ?? ""} onChange={(e) => setRespostas({ ...respostas, [recado.id]: e.target.value })} maxLength={MAXIMO} aria-label="Responder" placeholder="Responder" className={`${campo} mt-0 min-w-40 flex-1`} />
-                  <button type="submit" className={botaoClaro} disabled={acao.ocupado || !(respostas[recado.id] ?? "").trim()}>
-                    Responder
+              )}
+              <form
+                className="flex flex-wrap gap-2 border-t border-rule px-4 py-3"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (await escrever(respostas[recado.id] ?? "", recado.id)) setRespostas({ ...respostas, [recado.id]: "" });
+                }}
+              >
+                <input value={respostas[recado.id] ?? ""} onChange={(e) => setRespostas({ ...respostas, [recado.id]: e.target.value })} maxLength={MAXIMO} aria-label="Comentar" placeholder="Comentar…" className={`${campo} mt-0 min-w-40 flex-1 bg-parchment`} />
+                <button type="submit" className={botaoClaro} disabled={acao.ocupado || !(respostas[recado.id] ?? "").trim()}>
+                  Comentar
+                </button>
+              </form>
+              <p className="flex gap-4 px-4 pb-3 text-xs text-ink-soft">
+                <button type="button" className={elo} onClick={() => acao.agir("equipe_marcar", { p_id: recado.id, p_resolvido: !recado.resolvido }, "")}>
+                  {recado.resolvido ? "Reabrir" : "Marcar como resolvido"}
+                </button>
+                {(recado.meu || lider) && (
+                  <button type="button" className={elo} onClick={() => acao.agir("equipe_apagar", { p_id: recado.id }, "Publicação apagada.")}>
+                    Apagar
                   </button>
-                </form>
-                <p className="mt-2 flex gap-4 text-ink-soft">
-                  <button type="button" className={elo} onClick={() => acao.agir("equipe_marcar", { p_id: recado.id, p_resolvido: !recado.resolvido }, "")}>
-                    {recado.resolvido ? "Reabrir" : "Marcar como resolvido"}
-                  </button>
-                  {(recado.meu || lider) && (
-                    <button type="button" className={elo} onClick={() => acao.agir("equipe_apagar", { p_id: recado.id }, "Recado apagado.")}>
-                      Apagar
-                    </button>
-                  )}
-                </p>
+                )}
+              </p>
+            </li>
+          ))}
+        </ul>
+        {lista.dados?.length === 0 && <p className="mt-4 border border-rule bg-parchment-deep px-4 py-6 text-center text-ink-soft">Ninguém escreveu aqui ainda. Comece a conversa.</p>}
+
+        <Apoios />
+      </div>
+
+      <aside className="space-y-6">
+        <section>
+          <h2 className={rotulo}>Quem está na equipe</h2>
+          <Aviso texto={membros.erro} />
+          <ul className="mt-2 space-y-2.5">
+            {membros.dados?.map((membro) => (
+              <li key={membro.id} className="flex items-start gap-2.5" title={membro.bio || undefined}>
+                <span className="relative">
+                  <Rosto nome={membro.nome} menor />
+                  {membro.por_aqui && <span title="Passou por aqui há pouco" className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-parchment bg-ok" />}
+                </span>
+                <span className="min-w-0">
+                  <span className="block truncate font-semibold">{membro.nome}{membro.eu && " (você)"}</span>
+                  <span className="block text-xs leading-snug text-ink-soft">
+                    {membro.papeis.map((papel) => `${papeis[papel.papel]}${papel.disciplina ? ` de ${nomeDaArea(papel.disciplina)}` : ""}`).join(" · ")}
+                  </span>
+                </span>
               </li>
             ))}
           </ul>
-          {lista.dados?.length === 0 && <p className="mt-4 text-ink-soft">Nada por aqui ainda.</p>}
+        </section>
 
-          <p className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-rule pt-4 text-ink-soft">
-            <button type="button" className={elo} onClick={() => { void rememberKey(null); setChave(null); setAbertos({}); }}>
-              Fechar a conversa neste aparelho
-            </button>
-            {lider && (
-              <button type="button" className={`${elo} text-oxblood`} onClick={() => void apagarTudo()}>
+        <section className="border-t border-rule pt-4 text-ink-soft">
+          <h2 className={rotulo}>Voz e vídeo</h2>
+          {dados.sala ? (
+            <p className="mt-2">
+              <a href={dados.sala} target="_blank" rel="noopener noreferrer" className={elo}>Abrir a sala da equipe</a>
+            </p>
+          ) : (
+            <p className="mt-2">Nenhuma sala indicada pela coordenação.</p>
+          )}
+        </section>
+
+        <section className="space-y-2 border-t border-rule pt-4 text-xs text-ink-soft">
+          <h2 className={rotulo}>Sigilo</h2>
+          <p>Não escreva endereço, telefone nem documento de ninguém, mesmo aqui.</p>
+          <button type="button" className={elo} onClick={() => { void rememberKey(null); setChave(null); setAbertos({}); }}>
+            Fechar a rede neste aparelho
+          </button>
+          {lider && (
+            <>
+              <button type="button" className={`${elo} block text-oxblood`} onClick={() => void apagarTudo()}>
                 Apagar todas as conversas agora
               </button>
-            )}
-          </p>
-          {lider && (
-            <details className="mt-3">
-              <summary className="cursor-pointer text-ink-soft hover:text-oxblood">Trocar a chave da equipe</summary>
-              <p className="mt-2 max-w-2xl text-ink-soft">Troque a chave quando alguém sair da equipe. As conversas guardadas são apagadas na troca, porque ficariam ilegíveis com a chave nova.</p>
-              <Chave dados={{ ...dados, prova: "" }} lider aoAbrir={(nova) => { setChave(nova); setAbertos({}); canais.recarregar(); recarregar(); }} />
-            </details>
+              <details>
+                <summary className="cursor-pointer hover:text-oxblood">Trocar a chave da equipe</summary>
+                <p className="mt-2">Troque quando alguém sair da equipe. As conversas guardadas são apagadas na troca.</p>
+                <Chave dados={{ ...dados, prova: "" }} lider aoAbrir={(nova) => { setChave(nova); setAbertos({}); canais.recarregar(); recarregar(); }} />
+              </details>
+            </>
           )}
-        </>
-      )}
-
-      <Apoios />
+        </section>
+      </aside>
     </div>
   );
 }
@@ -248,7 +330,7 @@ function Chave({ dados, lider, aoAbrir }: { dados: Canais; lider: boolean; aoAbr
   const [ocupado, setOcupado] = useState(false);
   const definir = dados.prova === "";
 
-  if (definir && !lider) return <p className="mt-5 border-l-2 border-rule pl-4">A coordenação ainda não definiu a chave da conversa. Assim que definir, ela passa a frase para a equipe por fora do site.</p>;
+  if (definir && !lider) return <p className="mt-5 max-w-xl border-l-2 border-rule pl-4">A coordenação ainda não definiu a chave da rede. Assim que definir, ela passa a frase para a equipe por fora do site.</p>;
 
   async function abrir() {
     setOcupado(true);
@@ -273,7 +355,7 @@ function Chave({ dados, lider, aoAbrir }: { dados: Canais; lider: boolean; aoAbr
   }
 
   return (
-    <form className="mt-5 max-w-xl space-y-3 border border-rule bg-parchment-deep p-4" onSubmit={(e) => { e.preventDefault(); void abrir(); }}>
+    <form className="mt-5 max-w-xl space-y-3 border border-rule bg-parchment-deep p-5 text-sm text-ink" onSubmit={(e) => { e.preventDefault(); void abrir(); }}>
       <h3 className="font-serif text-xl font-semibold">{definir ? "Definir a chave da equipe" : "Chave da equipe"}</h3>
       <p className="text-ink-soft">
         {definir
@@ -291,7 +373,7 @@ function Chave({ dados, lider, aoAbrir }: { dados: Canais; lider: boolean; aoAbr
         </label>
       )}
       <button type="submit" className={botao} disabled={ocupado || (definir ? frase.length < 16 || frase !== repete : frase.length === 0)}>
-        {definir ? "Definir a chave" : "Abrir a conversa"}
+        {definir ? "Definir a chave" : "Abrir a rede"}
       </button>
       <Aviso texto={aviso} />
     </form>
@@ -326,11 +408,11 @@ function Apoios() {
 
   if (esperando.length === 0) return null;
   return (
-    <section className="mt-10 border-t-2 border-ink pt-6">
-      <h2 className="font-serif text-2xl font-semibold">Imagens e arquivos esperando o apoio da equipe</h2>
-      <p className="mt-1 max-w-3xl text-ink-soft">Nada que tenha imagem vai ao ar por decisão de uma pessoa só. Abra, olhe com calma e apoie se estiver correto, bem-feito e dentro das regras da casa. Com dois apoios, a coordenação pode aprovar.</p>
+    <section className="mt-8 border-2 border-ink p-4">
+      <h2 className="font-serif text-xl font-semibold">Imagens e arquivos esperando o apoio da equipe</h2>
+      <p className="mt-1 text-ink-soft">Nada que tenha imagem vai ao ar por decisão de uma pessoa só. Abra, olhe com calma e apoie se estiver correto. Com dois apoios, a coordenação pode aprovar.</p>
       <Aviso texto={lista.erro || acao.aviso} />
-      <ul className="mt-2 divide-y divide-rule border-y border-rule">
+      <ul className="divide-y divide-rule">
         {esperando.map((arquivo) => (
           <li key={arquivo.id} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-2">
             <span>

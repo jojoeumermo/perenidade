@@ -70,6 +70,9 @@ create table if not exists interno.contribuicoes (
   criado_em timestamptz not null default now()
 );
 create index if not exists contribuicoes_status on interno.contribuicoes (status, criado_em);
+-- Quem mexeu por último e quando: é o que impede duas pessoas de sobrescreverem uma à outra.
+alter table interno.contribuicoes add column if not exists editado_em timestamptz;
+alter table interno.contribuicoes add column if not exists editado_por uuid references interno.perfis (id) on delete set null;
 
 create table if not exists interno.pareceres (
   id uuid primary key default gen_random_uuid(),
@@ -451,6 +454,15 @@ create table if not exists interno.boletim (
   criado_em timestamptz not null default now()
 );
 
+-- Trabalho em conjunto: quem escreve libera a própria contribuição para colegas específicos, enquanto ela está pendente.
+create table if not exists interno.colaboradores (
+  contribuicao uuid not null references interno.contribuicoes (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  concedido_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  primary key (contribuicao, usuario)
+);
+
 -- Trancadas duas vezes: sem permissões e com segurança por linha ligada (sem nenhuma regra = ninguém passa).
 do $$
 declare t record;
@@ -517,6 +529,10 @@ create or replace function interno.coord() returns boolean language sql stable a
 create or replace function interno.curador() returns boolean language sql stable as $$ select interno.coord() or interno.tem('curadoria') $$;
 create or replace function interno.voluntario() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select auth.uid() is not null and exists (select 1 from papeis p join perfis f on f.id = p.usuario where p.usuario = auth.uid() and not f.suspenso)
+$$;
+/** Esta contribuição foi aberta para mim por quem a escreveu? */
+create or replace function interno.colabora(p_contribuicao uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select auth.uid() is not null and exists (select 1 from colaboradores k join perfis f on f.id = k.usuario where k.contribuicao = p_contribuicao and k.usuario = auth.uid() and not f.suspenso)
 $$;
 /** Quem pode cuidar da comunidade: coordenação, curadoria e educadores. */
 create or replace function interno.cuida() returns boolean language sql stable as $$ select interno.curador() or interno.tem('educacao') $$;
@@ -1086,25 +1102,40 @@ declare c contribuicoes;
 begin
   select * into c from contribuicoes where id = p_id;
   if not found then perform interno.erro('nao_encontrado'); end if;
-  if not (c.autor = auth.uid() or interno.ve_item(c)) then perform interno.erro('sem_permissao'); end if;
-  return interno.contribuicao_json(c, true);
+  if not (c.autor = auth.uid() or interno.ve_item(c) or interno.colabora(c.id)) then perform interno.erro('sem_permissao'); end if;
+  return interno.contribuicao_json(c, true) || jsonb_build_object(
+    'minha', c.autor is not null and c.autor = auth.uid(),
+    'colaboro', interno.colabora(c.id),
+    'versao', coalesce(c.editado_em, c.criado_em), 'editado_em', c.editado_em,
+    'editado_por', coalesce((select nome from perfis where id = c.editado_por), ''),
+    'colaboradores', coalesce((select jsonb_agg(jsonb_build_object('id', f.id, 'nome', f.nome) order by k.criado_em)
+                               from colaboradores k join perfis f on f.id = k.usuario where k.contribuicao = c.id), '[]'::jsonb));
 end $$;
 
-/** Ajustes antes da decisão: a própria pessoa enquanto está pendente, ou a curadoria. */
+/**
+ * Ajustes antes da decisão: a própria pessoa enquanto está pendente, quem ela chamou para trabalhar junto, ou a curadoria.
+ * Quem edita manda a versão que abriu; se alguém guardou outra nesse meio-tempo, nada é sobrescrito.
+ */
 create or replace function public.contribuicao_editar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); c contribuicoes;
 begin
   select * into c from contribuicoes where id = p_id for update;
   if not found then perform interno.erro('nao_encontrado'); end if;
   if c.status <> 'pendente' then perform interno.erro('ja_decidida'); end if;
-  if not (c.autor = v or interno.curador()) then perform interno.erro('sem_permissao'); end if;
+  if not (c.autor = v or interno.curador() or interno.colabora(c.id)) then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p ->> 'versao', '') <> '' then
+    if (p ->> 'versao') !~ '^[0-9T:.+ Z-]{10,40}$' then perform interno.erro('invalido:versao'); end if;
+    if (p ->> 'versao')::timestamptz is distinct from coalesce(c.editado_em, c.criado_em) then perform interno.erro('mudou_enquanto_editava'); end if;
+  end if;
   if jsonb_typeof(coalesce(p -> 'dados', '{}'::jsonb)) <> 'object' or pg_column_size(coalesce(p -> 'dados', '{}'::jsonb)) > 20000 then perform interno.erro('invalido:dados'); end if;
   update contribuicoes set
     titulo = interno.txt(p ->> 'titulo', 'titulo', 3, 160),
     corpo = interno.txt(p ->> 'corpo', 'corpo', case when c.tipo in ('obra', 'video', 'frase', 'debate', 'verbete') then 0 else 20 end, 60000),
     dados = coalesce(p -> 'dados', '{}'::jsonb),
-    fontes = interno.fontes_ok(p -> 'fontes', c.tipo in ('aula', 'artigo', 'checagem', 'debate', 'verbete', 'memorial', 'frase'))
+    fontes = interno.fontes_ok(p -> 'fontes', c.tipo in ('aula', 'artigo', 'checagem', 'debate', 'verbete', 'memorial', 'frase')),
+    editado_em = clock_timestamp(), editado_por = v
   where id = p_id;
+  if c.autor is distinct from v then perform interno.registrar('contribuicao_editada', p_id::text); end if;
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -2167,7 +2198,8 @@ begin
     'horas', case when interno.coord() then (select count(*) from horas where status = 'pendente' and usuario <> v) else 0 end,
     'testemunhar', (select count(*) from certificados c where c.status = 'aberto'
                     and exists (select 1 from jsonb_array_elements(c.testemunhas) x where x ->> 'id' = v::text and x ->> 'confirmou_em' is null)),
-    'minhas', (select count(*) from contribuicoes where autor = v));
+    'minhas', (select count(*) from contribuicoes where autor = v),
+    'juntas', (select count(*) from colaboradores k join contribuicoes c on c.id = k.contribuicao where k.usuario = v and c.status = 'pendente'));
 end $$;
 
 -- ───────────────────────────── Convites ─────────────────────────────
@@ -2394,6 +2426,104 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
+-- ───────────────────────────── Trabalho em conjunto ─────────────────────────────
+
+/**
+ * Quem escreve pode chamar um colega específico para mexer na própria contribuição (um educador chama uma designer
+ * para pôr os gráficos da aula, por exemplo). O acesso vale só para aquela contribuição, só enquanto ela está
+ * pendente, e quem liberou tira quando quiser. A pessoa chamada recebe um recado na hora.
+ */
+create or replace function public.colaboracao_abrir(p_id uuid, p_usuario uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c contribuicoes;
+begin
+  select * into c from contribuicoes where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (c.autor = v or interno.curador()) then perform interno.erro('sem_permissao'); end if;
+  if c.status <> 'pendente' then perform interno.erro('ja_decidida'); end if;
+  if p_usuario = v or p_usuario is not distinct from c.autor
+     or not exists (select 1 from papeis p join perfis f on f.id = p.usuario where p.usuario = p_usuario and not f.suspenso) then perform interno.erro('invalido:usuario'); end if;
+  if (select count(*) from colaboradores where contribuicao = p_id) >= 5 then perform interno.erro('limite_colaboradores'); end if;
+  insert into colaboradores (contribuicao, usuario, concedido_por) values (p_id, p_usuario, v) on conflict do nothing;
+  perform interno.avisar(p_usuario, coalesce((select nome from perfis where id = v), 'Alguém da equipe') || ' chamou você para trabalhar em "' || left(c.titulo, 120) || '". Está em Produção, Compartilhadas comigo.');
+  perform interno.registrar('colaboracao_aberta', p_id::text, jsonb_build_object('para', p_usuario));
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Encerra o acesso: quem liberou, a curadoria, ou a própria pessoa chamada (que sai quando quiser). */
+create or replace function public.colaboracao_fechar(p_id uuid, p_usuario uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not (p_usuario = v or interno.curador() or exists (select 1 from contribuicoes where id = p_id and autor = v)) then perform interno.erro('sem_permissao'); end if;
+  delete from colaboradores where contribuicao = p_id and usuario = p_usuario;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.registrar('colaboracao_fechada', p_id::text, jsonb_build_object('de', p_usuario));
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** As contribuições de colegas que estão abertas para mim. */
+create or replace function public.colaboracoes_minhas() returns jsonb language sql security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(interno.contribuicao_json(c, false) order by k.criado_em desc), '[]'::jsonb)
+  from colaboradores k join contribuicoes c on c.id = k.contribuicao
+  where k.usuario = auth.uid() and auth.uid() is not null
+    and not exists (select 1 from perfis f where f.id = auth.uid() and f.suspenso)
+$$;
+
+/** Quem faz parte da equipe, para a rede interna e para escolher com quem trabalhar junto. Só a equipe vê. */
+create or replace function public.equipe_membros() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (
+    select coalesce(jsonb_agg(jsonb_build_object(
+      'id', f.id, 'nome', f.nome, 'bio', f.bio, 'eu', f.id = auth.uid(), 'por_aqui', f.visto_em > now() - interval '90 minutes',
+      'papeis', (select jsonb_agg(jsonb_build_object('papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina) from papeis p where p.usuario = f.id))
+      order by f.nome), '[]'::jsonb)
+    from perfis f where not f.suspenso and exists (select 1 from papeis p where p.usuario = f.id));
+end $$;
+
+-- ───────────────────────────── Controles do site ─────────────────────────────
+
+/** O que o site inteiro consulta: o texto da faixa do alto (se a coordenação trocou) e se os envios estão pausados. */
+create or replace function public.site() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'faixa', coalesce((select valor ->> 'faixa' from configuracoes where chave = 'site'), ''),
+    'pausa', coalesce((select (valor ->> 'pausa')::boolean from configuracoes where chave = 'site'), false),
+    'motivo', coalesce((select valor ->> 'motivo' from configuracoes where chave = 'site'), ''))
+$$;
+
+/** Só a coordenação. A pausa fecha, na hora, tudo o que o público pode enviar; a equipe continua trabalhando. */
+create or replace function public.site_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_valor jsonb;
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  v_valor := jsonb_build_object(
+    'faixa', interno.txt(p ->> 'faixa', 'faixa', 0, 140),
+    'pausa', coalesce((p ->> 'pausa')::boolean, false),
+    'motivo', interno.txt(p ->> 'motivo', 'motivo', 0, 200));
+  insert into configuracoes (chave, valor) values ('site', v_valor) on conflict (chave) do update set valor = excluded.valor;
+  perform interno.registrar('site_configurado', '', v_valor);
+  if (v_valor ->> 'pausa')::boolean then perform interno.avisar_lideranca('Os envios do público foram pausados pela coordenação.', auth.uid()); end if;
+  return v_valor;
+end $$;
+
+/** Com a pausa ligada, nada de quem não é da equipe entra: mural, reforço, boletim, contribuições e comunidade. */
+create or replace function interno.pausa() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if coalesce((select (valor ->> 'pausa')::boolean from configuracoes where chave = 'site'), false) and not interno.voluntario() and not interno.servico() then
+    raise exception 'envios_pausados' using errcode = 'P0001';
+  end if;
+  return new;
+end $$;
+do $$
+declare tabela text;
+begin
+  foreach tabela in array array['mural', 'reforco', 'boletim', 'contribuicoes', 'topicos', 'respostas'] loop
+    execute format('drop trigger if exists lucia_pausa on interno.%I', tabela);
+    execute format('create trigger lucia_pausa before insert on interno.%I for each row execute function interno.pausa()', tabela);
+  end loop;
+end $$;
+
 -- ───────────────────────────── Iscas do site ─────────────────────────────
 
 /**
@@ -2434,7 +2564,8 @@ begin
              'certificado_emitir', 'certificado_cancelar', 'certificados_listar', 'certificado_conferir', 'arquivo_bloquear', 'arquivos_bloqueados',
              'arquivo_registrar', 'arquivos_listar', 'arquivo_decidir', 'arquivos_aprovados', 'arquivo_publicado',
              'convite_criar', 'convites_listar', 'convite_revogar', 'convite_ver', 'convidar_pelo_banco', 'mural_cidades', 'mural_retirar',
-             'equipe_chave_definir', 'equipe_apagar_tudo', 'arquivo_apoiar', 'isca', 'boletim_assinar', 'boletim_listar', 'boletim_remover'))
+             'equipe_chave_definir', 'equipe_apagar_tudo', 'arquivo_apoiar', 'isca', 'boletim_assinar', 'boletim_listar', 'boletim_remover',
+             'colaboracao_abrir', 'colaboracao_fechar', 'colaboracoes_minhas', 'equipe_membros', 'site', 'site_salvar'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then

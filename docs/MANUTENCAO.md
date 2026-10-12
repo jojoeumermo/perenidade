@@ -188,16 +188,36 @@ Sem esta etapa o site funciona, só não aparecem o painel, a comunidade e a rá
 8. Para a publicação automática (seção 7), cadastre nos segredos do repositório `SUPABASE_URL` (a mesma *Project URL*) e `SUPABASE_SERVICE_ROLE_KEY` (a chave *service_role*). **Essa chave nunca vai para o site nem para o `.env` de ninguém.** Depois crie, na aba *Variables* da mesma tela, a variável `PUBLICAR` com o valor `sim`: é ela que liga a rotina de hora em hora.
 9. Opcional — entrada com o Google: ligue o provedor em **Authentication → Providers → Google** e crie a variável `NEXT_PUBLIC_AUTH_GOOGLE=1`.
 10. **Proteção contra robôs (Cloudflare Turnstile).** Crie o widget no painel da Cloudflare. A *site key* (pública) vai para a variável `NEXT_PUBLIC_TURNSTILE_SITE_KEY` na hospedagem. A *secret key* vai **somente** em **Authentication → Attack Protection → Enable Captcha protection → Turnstile**, no Supabase. Ela nunca entra no repositório, em `.env` nem em mensagem. Ordem certa: primeiro publique o site com a *site key*; só depois ligue a proteção no Supabase. Na ordem inversa ninguém consegue entrar até o site novo subir.
-11. **Segundo fator.** Em **Authentication → Sign In / Providers → Multi-Factor**, ligue o TOTP (aplicativo autenticador). Cada pessoa da equipe cadastra o seu no painel, aba **Início**, em *Aplicativo autenticador (segundo fator)*. Depois que a coordenação tiver cadastrado o próprio, pode ligar na aba **Segurança e sucessão** a exigência de segundo fator para todas as funções com poder de decisão. Se a coordenação perder o aparelho e ficar trancada do lado de fora, rode no **SQL Editor**:
+11. **Segundo fator.** Em **Authentication → Sign In / Providers → Multi-Factor**, ligue o TOTP (aplicativo autenticador). Cada pessoa da equipe cadastra o seu no painel, em **Minha conta → Segundo fator**. Depois que a coordenação tiver cadastrado o próprio, pode ligar na aba **Segurança e sucessão** a exigência de segundo fator para todas as funções com poder de decisão. Se a coordenação perder o aparelho e ficar trancada do lado de fora, rode no **SQL Editor**:
 
     ```sql
     update interno.configuracoes set valor = '{"exigir_2fa": false}' where chave = 'seguranca';
     ```
 12. Opcional — faxina automática: se a extensão `pg_cron` estiver ligada (**Database → Extensions**) quando o `install.sql` rodar, o banco descarta sozinho, toda madrugada, o que ficou velho: contadores de limite, avisos lidos há mais de 30 dias, aparelhos sem uso há 180 dias, pedidos de reforço encerrados, denúncias resolvidas há mais de um ano e registro de atividades com mais de 400 dias. Sem ela, nada quebra; só não há descarte.
 
+### O painel
+
+O painel (`/painel`) é um ambiente à parte do site: ocupa a tela inteira, sem cabeçalho, rodapé, rádio nem menu do site público (quem esconde isso é `components/OutsidePanel.tsx`, usado no layout), e tem um único caminho de volta, "Voltar ao site". O menu lateral é dividido por área:
+
+| Área | Seções | Quem vê |
+| --- | --- | --- |
+| (início) | Mesa, Rede interna | todos; a rede, só quem tem função |
+| Produção | Escrever, Meus envios, Compartilhadas comigo, Fila de revisão, Materiais e arquivos | conforme a função |
+| Atendimento | Comunidade, Aula de reforço, Mural dos Trabalhadores, Boletim do jornal | conforme a função; o mural, só coordenação |
+| Pessoas | Voluntários e convites, Horas e certificados | a primeira, só coordenação |
+| Site | Controles do site, Aviso de abertura, Rádio, Apoiadores | só coordenação |
+| Segurança | Segurança e sucessão, Registro de atividades | só coordenação |
+| Você | Minha conta (nome, senha, segundo fator, aparelhos) | todos |
+
+A lista de seções e a regra de quem vê cada uma estão em um só lugar, no começo de `Dentro`, em `components/painel/Painel.tsx`. Para criar uma seção nova: escreva o componente em `components/painel/`, acrescente uma linha a essa lista e a linha que o mostra logo abaixo. Sem ninguém mexer por meia hora, o painel fecha a sessão sozinho.
+
+**Controles do site** (só coordenação) mudam o site inteiro na hora, sem publicar nada: o texto da **faixa do alto** e a **pausa geral de envios**, que fecha tudo o que o público pode enviar (mural, reforço, boletim, contribuições, comunidade) enquanto a equipe continua trabalhando. A pausa é conferida no banco (gatilho `lucia_pausa`), não só na tela. O site público lê isso pela função `site()` (`components/Strip.tsx`), no máximo de dez em dez minutos por visitante.
+
+**Trabalho em conjunto.** Quem enviou uma contribuição (ou a curadoria) chama um colega específico em *Meus envios → abrir → Trabalho em conjunto*. A pessoa chamada recebe um recado na hora, vê a contribuição em *Compartilhadas comigo* e pode abrir e editar só aquela, só enquanto está pendente; o acesso é tirado por quem liberou ou pela própria pessoa. São no máximo cinco por contribuição. Não é edição simultânea letra a letra: cada um guarda a sua vez, a tela se atualiza sozinha a cada vinte segundos, e se alguém guardou enquanto outro editava, o segundo é avisado e nada é sobrescrito (campo `versao`).
+
 ### Papéis
 
-Cada pessoa vê no painel só as abas da sua função. O banco confere a função de novo em cada pedido: esconder a aba é conforto, não é a proteção.
+Cada pessoa vê no painel só as seções da sua função. O banco confere a função de novo em cada pedido: esconder a seção é conforto, não é a proteção.
 
 | Papel (nome no banco) | Nome no site | O que pode |
 | --- | --- | --- |
@@ -214,13 +234,13 @@ Cada pessoa vê no painel só as abas da sua função. O banco confere a funçã
 
 Quem contribui sem conta, pela página Contribuir, entra na mesma fila.
 
-### Conversa da equipe
+### Rede interna (conversa da equipe)
 
-As mensagens são cifradas no navegador de quem escreve, com uma chave derivada de uma **frase da equipe**. O banco recusa texto aberto e guarda só o resultado cifrado. O líder define a frase na aba **Equipe** e a passa aos demais por fora do site. A frase não fica guardada em lugar nenhum: se for perdida, define-se outra (e as conversas guardadas são apagadas). Tudo some sozinho depois de trinta dias, e o líder tem o botão "Apagar todas as conversas agora". Troque a frase sempre que alguém sair da equipe.
+É um mural de publicações e comentários, com um canal para todos, um por função e um de pedidos de ajuda entre funções, e a lista de quem está na equipe ao lado. As mensagens são cifradas no navegador de quem escreve, com uma chave derivada de uma **frase da equipe**. O banco recusa texto aberto e guarda só o resultado cifrado. O líder define a frase na **Rede interna** e a passa aos demais por fora do site. A frase não fica guardada em lugar nenhum: se for perdida, define-se outra (e as conversas guardadas são apagadas). Tudo some sozinho depois de trinta dias, e o líder tem o botão "Apagar todas as conversas agora". Troque a frase sempre que alguém sair da equipe.
 
 ### Imagens e arquivos
 
-Quem envia uma imagem ou um PDF não publica sozinho: o arquivo aparece na aba **Equipe** para os colegas olharem e apoiarem. Com dois apoios, a coordenação pode aprovar (o líder pode aprovar sem esperar; recusar, qualquer um dos dois pode).
+Quem envia uma imagem ou um PDF não publica sozinho: o arquivo aparece na **Rede interna** para os colegas olharem e apoiarem. Com dois apoios, a coordenação pode aprovar (o líder pode aprovar sem esperar; recusar, qualquer um dos dois pode).
 
 ### Sucessão
 

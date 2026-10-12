@@ -170,7 +170,7 @@ function Arquivos({ me, usar }: { me: Me; usar: (destino: string) => void }) {
       const pronto = pdf ? { blob: arquivo as Blob, extension: "pdf" as const } : await cleanImage(arquivo);
       const caminho = await sendFile(pronto.blob, pronto.extension);
       await rpc("arquivo_registrar", { p_caminho: caminho, p_nome: nome });
-      setAviso("Arquivo enviado. Ele aparece na aba Equipe para os colegas apoiarem; com dois apoios, a coordenação pode aprovar.");
+      setAviso("Arquivo enviado. Ele aparece na Rede interna para os colegas apoiarem; com dois apoios, a coordenação pode aprovar.");
       setNome("");
       if (escolha.current) escolha.current.value = "";
       lista.recarregar();
