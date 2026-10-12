@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { can, leads, type Me } from "@/lib/backend";
-import { type Certificado, Impresso } from "./Certificado";
+import { type Certificado, Folha, Impresso } from "./Certificado";
 import { Aviso, botao, botaoClaro, campo, dia, elo, rotulo, useAcao, useLista } from "./comum";
 
 export const VERSAO_DO_TERMO = "2026-10";
@@ -46,7 +46,7 @@ interface Pessoa {
   id: string;
   nome: string;
   email: string;
-  papeis: { papel: string }[];
+  papeis: { papel: string; disciplina?: string | null }[];
 }
 
 const situacao: Record<string, string> = { pendente: "aguardando conferência", confirmada: "confirmada", recusada: "não confirmada", aberto: "aguardando assinaturas", emitido: "emitido", cancelado: "cancelado" };
@@ -214,7 +214,7 @@ export function Horas({ me }: { me: Me }) {
         </ul>
       </section>
 
-      {leads(me) && <Abrir depois={certificados.recarregar} />}
+      {leads(me) && <Abrir me={me} depois={certificados.recarregar} />}
       <Aviso texto={termo.erro || minhas.erro || certificados.erro || acao.aviso} />
     </div>
   );
@@ -251,7 +251,7 @@ function Conferir() {
 }
 
 /** Só o coordenador: abre o processo de um certificado e indica quem assina com ele. */
-function Abrir({ depois }: { depois: () => void }) {
+function Abrir({ me, depois }: { me: Me; depois: () => void }) {
   const pessoas = useLista<Pessoa[]>("voluntarios_listar");
   const acao = useAcao(depois);
   const [form, setForm] = useState({ usuario: "", educador: "", vice: "", inicio: "", fim: new Date().toLocaleDateString("sv-SE"), atividades: "" });
@@ -259,6 +259,29 @@ function Abrir({ depois }: { depois: () => void }) {
   const tem = (pessoa: Pessoa, papel: string) => pessoa.papeis.some((item) => item.papel === papel);
   const educadores = equipe.filter((pessoa) => pessoa.id !== form.usuario && tem(pessoa, "educacao") && !tem(pessoa, "coordenacao"));
   const vices = equipe.filter((pessoa) => pessoa.id !== form.usuario && pessoa.id !== form.educador && tem(pessoa, "vice"));
+  const [previa, setPrevia] = useState(false);
+  const nomeDe = (id: string) => equipe.find((pessoa) => pessoa.id === id)?.nome ?? "";
+  const educador = equipe.find((pessoa) => pessoa.id === form.educador);
+  const vice = form.vice ? nomeDe(form.vice) : vices.length === 1 ? vices[0].nome : "";
+  /** A folha como ela sairia agora, montada com o que está no formulário. Nada disto é guardado. */
+  const rascunho: Certificado = {
+    id: "previa",
+    codigo: "",
+    usuario: form.usuario || null,
+    nome: nomeDe(form.usuario),
+    horas: 0,
+    inicio: form.inicio,
+    fim: form.fim,
+    atividades: form.atividades.trim(),
+    testemunhas: [
+      { id: "educador", nome: educador?.nome || "Educador(a) que assina", papel: "educacao", disciplina: educador?.papeis.find((item) => item.papel === "educacao")?.disciplina ?? null, confirmou_em: null },
+      { id: "vice", nome: vice || "Vice-coordenador que assina", papel: "vice", confirmou_em: null },
+      { id: "coordenacao", nome: me.nome, papel: "coordenacao", confirmou_em: null },
+    ],
+    status: "aberto",
+    emitido_em: new Date().toISOString(),
+    impressao: "",
+  };
 
   return (
     <section>
@@ -330,11 +353,25 @@ function Abrir({ depois }: { depois: () => void }) {
             {vices.length === 0 ? "Não há vice-coordenador disponível para assinar: nomeie um em Voluntários e convites." : ""}
           </p>
         )}
-        <button type="submit" className={botao} disabled={acao.ocupado || !form.usuario || !form.educador || vices.length === 0}>
-          Abrir processo
-        </button>
+        <div className="flex flex-wrap gap-3">
+          <button type="submit" className={botao} disabled={acao.ocupado || !form.usuario || !form.educador || vices.length === 0}>
+            Abrir processo
+          </button>
+          <button type="button" className={botaoClaro} aria-expanded={previa} onClick={() => setPrevia(!previa)}>
+            {previa ? "Fechar a prévia" : "Ver prévia"}
+          </button>
+        </div>
         <Aviso texto={pessoas.erro || acao.aviso} />
       </form>
+      {previa && (
+        <div className="mt-5">
+          <p className="mb-3 max-w-3xl text-ink-soft">
+            A folha abaixo acompanha o que você preenche: nome, período, atividades, quem assina e a data de hoje. As horas entram sozinhas na abertura (são as já confirmadas da pessoa no
+            período), e o número e a impressão digital nascem junto. Nada desta prévia é guardado.
+          </p>
+          <Folha certificado={rascunho} rascunho />
+        </div>
+      )}
     </section>
   );
 }

@@ -50,7 +50,8 @@ export async function iniciar({ silencioso = false } = {}) {
     await banco.rpc({ papel: "authenticated", sub: ids[chave] }, "perfil_salvar", { p_nome: nome, p_bio: "" });
   }
   await banco.dono("select public.promover_coordenacao('coord@local')");
-  const coord = { papel: "authenticated", sub: ids.coord };
+  // A exigência de segundo fator nasce ligada: a semeadura age como a coordenação já confirmada pelo aplicativo.
+  const coord = { papel: "authenticated", sub: ids.coord, aal: "aal2" };
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.vice, p_papel: "vice", p_disciplina: null });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.mentora, p_papel: "mentoria", p_disciplina: "matematica" });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.designer, p_papel: "design", p_disciplina: null });
