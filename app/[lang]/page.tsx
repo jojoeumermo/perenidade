@@ -36,19 +36,25 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   }));
   const started = tracks.filter((track) => track.lessons.length > 0).sort((a, b) => b.lessons.length - a.lessons.length);
   const questions = getQuestions().slice(0, 4);
+  const shortcuts: [string, string, string][] = [
+    [t.nav.start, "/comecar", "M12 3v18M5 10l7-7 7 7"],
+    [t.nav.journal, "/jornal", "M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M7.5 9h6M7.5 12.5h6M7.5 16h3.5"],
+    [t.nav.radio, "/radio", "M3 9h18v11H3zM7 9l10-5M8.5 12a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M14 13h4M14 16h4"],
+    [t.nav.tools, "/ferramentas", "M14.5 6.5a4 4 0 0 0-5.3 5.3L4 17v3h3l5.2-5.2a4 4 0 0 0 5.3-5.3l-2.6 2.6-2.4-.6-.6-2.4z"],
+  ];
 
   return (
     <>
-      <section className="mx-auto max-w-6xl px-4 pt-16 pb-12 text-center">
+      <section className="mx-auto max-w-6xl px-4 pt-16 pb-12 text-center app:max-md:pt-8 app:max-md:pb-6">
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-gold">{h.eyebrow}</p>
-        <h1 className="mt-5 text-5xl font-semibold leading-[1.05] sm:text-7xl">
+        <h1 className="mt-5 text-5xl font-semibold leading-[1.05] app:max-md:mt-3 app:max-md:text-[2.5rem] sm:text-7xl">
           {h.h1a}
           <br />
           <span className="italic text-oxblood">{h.h1b}</span>
           {h.h1c}
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-xl text-ink-soft">{h.lead}</p>
-        <form action={to("/busca")} role="search" className="mx-auto mt-10 flex max-w-xl border-2 border-ink bg-parchment-deep">
+        <p className="mx-auto mt-6 max-w-2xl text-xl text-ink-soft app:max-md:mt-4 app:max-md:text-lg">{h.lead}</p>
+        <form action={to("/busca")} role="search" className="mx-auto mt-10 flex max-w-xl border-2 border-ink bg-parchment-deep app:max-md:mt-6">
           <input
             name="q"
             type="search"
@@ -62,6 +68,17 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           {plural(lang, groups.flatMap((group) => group.areas).length, t.common.disciplines)} · {plural(lang, lessons, t.common.lessons)} ·{" "}
           {plural(lang, works, t.common.works)} {h.indexed}
         </p>
+        {/* Só no aplicativo: quatro atalhos ao alcance do polegar para o que mais se abre no dia a dia. */}
+        <nav aria-label={t.nav.more} className="mt-6 hidden grid-cols-4 gap-2 font-sans text-xs app:max-md:grid">
+          {shortcuts.map(([label, path, icon]) => (
+            <Link key={path} href={to(path)} className="flex min-h-[4.5rem] flex-col items-center justify-center gap-1.5 border border-rule bg-parchment-deep px-1 py-2 leading-tight">
+              <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6 text-oxblood" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <path d={icon} />
+              </svg>
+              <span className="line-clamp-2">{label}</span>
+            </Link>
+          ))}
+        </nav>
       </section>
 
       <ContinueCard />

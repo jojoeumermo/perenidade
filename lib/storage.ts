@@ -20,6 +20,7 @@ export const KEYS = {
   purge: "lucia:purga",
   seen: "lucia:visto",
   site: "lucia:site",
+  passkey: "lucia:digital",
 } as const;
 
 const listeners = new Set<() => void>();
