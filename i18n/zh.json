@@ -1122,6 +1122,11 @@
     "wallEmpty": "这面墙还是空的。"
   },
   "auth": {
+    "or": "或",
+    "fingerprint": "用指纹登录",
+    "fingerprintHint": "先在面板的“我的账户”里登记本机指纹后即可使用。指纹不会离开你的手机。",
+    "fingerprintCancelled": "指纹读取已取消。再点一次重试，或用密码登录。",
+    "fingerprintFailed": "无法在本机用指纹登录。请用密码登录。",
     "eyebrow": "志愿者与社区",
     "title": "登录",
     "lead": "学习不需要账号。账号用于参与社区，以及供志愿者工作使用。",

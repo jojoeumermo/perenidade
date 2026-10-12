@@ -29,14 +29,16 @@ export function BottomNav() {
     ["more", t.nav.more, "/explorar"],
   ];
   return (
-    <nav aria-label={t.nav.main} className="no-print no-focus fixed inset-x-0 bottom-0 z-30 border-t-2 border-ink bg-parchment pb-[env(safe-area-inset-bottom,0px)] md:hidden">
+    <nav aria-label={t.nav.main} className="no-print no-focus fixed inset-x-0 bottom-0 z-30 border-t-2 border-ink bg-parchment pb-[env(safe-area-inset-bottom,0px)] app:border-t app:border-rule md:hidden">
       <ul className="grid grid-cols-5">
         {items.map(([icon, label, path]) => {
           const href = localePath(lang, path);
           const active = path === "/" ? pathname === href : pathname === href || pathname.startsWith(`${href}/`) || (path === "/trilhas" && pathname.includes("/estantes/"));
           return (
             <li key={path}>
-              <Link href={href} aria-current={active ? "page" : undefined} className={`flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 font-sans text-[0.7rem] leading-tight ${active ? "bg-ink text-parchment" : "text-ink hover:text-oxblood"}`}>
+              <Link href={href} aria-current={active ? "page" : undefined} className={`relative flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 font-sans text-[0.7rem] leading-tight ${active ? "bg-ink text-parchment app:bg-transparent app:font-semibold app:text-oxblood" : "text-ink hover:text-oxblood app:text-ink-soft"}`}>
+                {/* No aplicativo a aba ativa é marcada por um traço vermelho em cima, não pelo bloco escuro. */}
+                {active && <span aria-hidden className="absolute top-0 hidden h-[3px] w-10 bg-oxblood app:block" />}
                 <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   {icons[icon]}
                 </svg>

@@ -6,12 +6,15 @@ import { useCallback, useEffect, useState } from "react";
 import type { Dict } from "@/i18n/types";
 import { getClient, hasBackend, localBackend, rpc, signOut, useMe } from "@/lib/backend";
 import { useCadastro } from "@/lib/cadastro";
-import { useHydrated } from "@/lib/storage";
+import { fingerprintAvailable, signInWithFingerprint } from "@/lib/passkey";
+import { KEYS, useHydrated, useStored } from "@/lib/storage";
 import { Captcha, captchaEnabled } from "./Captcha";
 import { L, useI18n } from "./I18n";
 
 const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
-const primary = "cursor-pointer bg-ink px-6 py-2.5 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
+// No aplicativo os botões ocupam a largura toda e ficam mais altos: é o polegar que aperta.
+const primary = "cursor-pointer bg-ink px-6 py-2.5 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50 app:max-md:w-full app:max-md:py-3.5 app:max-md:text-base";
+const secondary = "flex cursor-pointer items-center justify-center gap-2.5 border-2 border-ink px-6 py-2.5 font-medium hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50 app:max-md:w-full app:max-md:py-3.5 app:max-md:text-base";
 /** Senha criada aqui tem pelo menos doze caracteres. */
 const MINIMO = 12;
 
@@ -51,6 +54,11 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   const [token, setToken] = useState("");
   const [round, setRound] = useState(0);
   const receive = useCallback((value: string) => setToken(value), []);
+  /** O aparelho tem leitor de digital e sabe usar chave de acesso: só então o botão aparece. */
+  const [finger, setFinger] = useState(false);
+  const [fingerNote, setFingerNote] = useState<"" | "cancelled" | "failed">("");
+  /** Este aparelho já cadastrou (ou já usou) a digital: o botão sobe para o começo da tela. */
+  const known = useStored(KEYS.passkey) === "1";
   const changing = recovering || recovery;
 
   // Quem já entrou segue direto para o painel (menos quem veio escolher uma senha nova ou ainda deve o código do aplicativo).
@@ -86,6 +94,16 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     return () => stop();
   }, [recovering]);
 
+  useEffect(() => {
+    let cancelled = false;
+    void fingerprintAvailable().then((value) => {
+      if (!cancelled) setFinger(value);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   if (!hasBackend) return <p className="mt-8 text-lg text-ink-soft">{s.offline}</p>;
   const waiting = captchaEnabled && !token;
   const creating = Boolean(code);
@@ -97,22 +115,46 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     setRound((value) => value + 1);
   };
 
+  /** Senha certa (ou digital conferida) não basta para quem cadastrou o aplicativo autenticador: a entrada só termina com o código. */
+  async function finish() {
+    const supabase = await getClient();
+    const [{ data: level }, { data: factors }] = await Promise.all([supabase.auth.mfa.getAuthenticatorAssuranceLevel(), supabase.auth.mfa.listFactors()]);
+    const verified = factors?.totp?.find((item) => item.status === "verified");
+    if (verified && level?.currentLevel !== "aal2") {
+      setFactor(verified.id);
+      setDigits("");
+      setState("code");
+    } else {
+      setState("idle");
+    }
+  }
+
+  async function enterWithFingerprint() {
+    setState("sending");
+    setFingerNote("");
+    const result = await signInWithFingerprint(token);
+    done();
+    if (result.outcome !== "ok") {
+      setDetail(result.detail);
+      setFingerNote(result.outcome === "cancelled" ? "cancelled" : "failed");
+      setState("idle");
+      return;
+    }
+    try {
+      await finish();
+    } catch {
+      setState("idle");
+    }
+  }
+
   async function enter() {
     setState("sending");
+    setFingerNote("");
     try {
       const supabase = await getClient();
       const { error } = await supabase.auth.signInWithPassword({ email, password: localBackend ? "local" : password, options: { captchaToken: token || undefined } });
       if (error) throw error;
-      // Senha certa não basta para quem cadastrou o aplicativo autenticador: a entrada só termina com o código.
-      const [{ data: level }, { data: factors }] = await Promise.all([supabase.auth.mfa.getAuthenticatorAssuranceLevel(), supabase.auth.mfa.listFactors()]);
-      const verified = factors?.totp?.find((item) => item.status === "verified");
-      if (verified && level?.currentLevel !== "aal2") {
-        setFactor(verified.id);
-        setDigits("");
-        setState("code");
-      } else {
-        setState("idle");
-      }
+      await finish();
     } catch (failure) {
       // O motivo exato ajuda a coordenação a consertar: senha errada é uma coisa, serviço fora do ar é outra.
       const reason = failure as { code?: string; status?: number; message?: string };
@@ -189,6 +231,25 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     </>
   );
   const weak = password.length < MINIMO || password !== again;
+  const fingerprint = finger && (
+    <div className="space-y-2">
+      <button type="button" disabled={state === "sending" || waiting} onClick={() => void enterWithFingerprint()} className={known ? `${primary} flex items-center justify-center gap-2.5` : secondary}>
+        <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+          <path d="M6.5 6.2A8 8 0 0 1 20 12v1.5M4 12a8 8 0 0 1 .7-3.3M8 19.5A12 12 0 0 1 7 12a5 5 0 0 1 10 0c0 2.6.3 4.6.9 6.3M12 12c0 3.4.5 6 1.6 8.5M4.6 15.5c.2 1 .5 2 .9 2.9M10 20.8A15 15 0 0 1 9.4 15" />
+        </svg>
+        {s.fingerprint}
+      </button>
+      {fingerNote === "cancelled" && <p role="status" className="text-ink-soft">{s.fingerprintCancelled}</p>}
+      {fingerNote === "failed" && (
+        <p role="alert" className="text-oxblood">
+          {s.fingerprintFailed}
+          {detail && <span className="mt-1 block font-mono text-xs">{detail}</span>}
+        </p>
+      )}
+      {fingerNote === "" && <p className="text-ink-soft">{s.fingerprintHint}</p>}
+    </div>
+  );
+  const or = <p aria-hidden className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-ink-soft before:h-px before:flex-1 before:bg-rule after:h-px after:flex-1 after:bg-rule">{s.or}</p>;
 
   if (state === "saved") {
     return (
@@ -283,6 +344,12 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
 
   return (
     <form className="mt-8 max-w-md space-y-5 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void enter(); }}>
+      {fingerprint && known && (
+        <>
+          {fingerprint}
+          {or}
+        </>
+      )}
       <label className="block">
         {s.email}
         <input type="email" required autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} className={field} />
@@ -299,6 +366,12 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
           {s.failed}
           {detail && <span className="mt-1 block font-mono text-xs">{detail}</span>}
         </p>
+      )}
+      {fingerprint && !known && (
+        <>
+          {or}
+          {fingerprint}
+        </>
       )}
       <p className="text-ink-soft">{cadastro.aberto ? s.why : s.whyClosed}</p>
       {cadastro.aberto && (

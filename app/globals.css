@@ -40,6 +40,9 @@
   --apoie-luz: 68%;
 }
 
+/* "app:" vale só quando o site roda como aplicativo (PWA instalado ou WebView do Android): veja isApp em lib/prefs.ts. */
+@custom-variant app (&:where([data-app], [data-app] *));
+
 @theme inline {
   --color-parchment: var(--parchment);
   --color-parchment-deep: var(--parchment-deep);
@@ -72,6 +75,45 @@ body {
   video,
   iframe {
     max-width: 100%;
+  }
+}
+
+/* ---- Visual de aplicativo ----
+   Só com <html data-app>. Regras curtas e sem efeito caro (nada de desfoque nem sombra animada):
+   precisa rodar liso em celular simples. */
+:root[data-app] {
+  -webkit-tap-highlight-color: transparent;
+}
+:root[data-app] body {
+  /* A barra de cima fica presa e ocupa, ela mesma, o espaço do relógio. */
+  padding-top: 0;
+  overscroll-behavior-x: none;
+}
+:root[data-app] :is(a, button, summary, label, select) {
+  touch-action: manipulation;
+}
+/* Resposta ao toque: o dedo sente que apertou, sem animação. */
+:root[data-app] :is(a, button, summary):active {
+  opacity: 0.65;
+}
+:root[data-app] :is(header.no-print, nav) {
+  -webkit-user-select: none;
+  user-select: none;
+}
+@media (max-width: 767.98px) {
+  /* Sem rodapé no aplicativo: o conteúdo termina acima das abas. */
+  :root[data-app] main#conteudo {
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+  }
+  /* Páginas começam mais perto do topo: a tela é pequena e a barra já diz onde a pessoa está. */
+  :root[data-app] main#conteudo > .py-12 {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+  /* Campos com letra de 16px (abaixo disso o Android aproxima a tela ao focar) e altura boa para o polegar. */
+  :root[data-app] :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"]), select, textarea) {
+    min-height: 3rem;
+    font-size: 1rem;
   }
 }
 

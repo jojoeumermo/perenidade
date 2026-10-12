@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "next/link";
+import { LanguageSwitcher } from "@/components/NavLinks";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
@@ -63,14 +64,27 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
       <PageHeading eyebrow={t.more.eyebrow} title={t.more.title}>
         {t.more.lead}
       </PageHeading>
+      {/* No aplicativo o idioma sai da barra de cima e mora aqui. */}
+      <label className="mt-6 hidden items-center justify-between gap-4 border-y border-rule py-3 font-sans app:flex">
+        {t.common.language}
+        <LanguageSwitcher />
+      </label>
+      {/* No navegador, cartões; no aplicativo, uma lista corrida de linhas largas, como a tela de ajustes do celular. */}
       {sections.map(([title, items]) => (
         <section key={title}>
-          <h2 className="mt-12 border-b border-rule pb-3 text-3xl font-semibold">{title}</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <h2 className="mt-12 border-b border-rule pb-3 text-3xl font-semibold app:max-md:mt-8 app:max-md:border-b-2 app:max-md:border-ink app:max-md:pb-2 app:max-md:text-2xl">{title}</h2>
+          <div className="mt-6 grid gap-4 app:max-md:mt-0 app:max-md:gap-0 sm:grid-cols-2">
             {items.map(([label, path, description]) => (
-              <Link key={path} href={localePath(lang, path)} className="group border border-rule bg-parchment-deep p-5 hover:border-gold">
-                <p className="text-2xl font-semibold group-hover:text-oxblood">{label}</p>
-                <p className="mt-1 text-ink-soft">{description}</p>
+              <Link
+                key={path}
+                href={localePath(lang, path)}
+                className="group flex items-center justify-between gap-3 border border-rule bg-parchment-deep p-5 hover:border-gold app:max-md:border-0 app:max-md:border-b app:max-md:bg-transparent app:max-md:px-1 app:max-md:py-3.5"
+              >
+                <span className="block min-w-0">
+                  <span className="block text-2xl font-semibold group-hover:text-oxblood app:max-md:text-xl">{label}</span>
+                  <span className="mt-1 block text-ink-soft app:max-md:mt-0.5 app:max-md:font-sans app:max-md:text-sm">{description}</span>
+                </span>
+                <span aria-hidden className="hidden shrink-0 font-sans text-2xl leading-none text-ink-soft app:max-md:block">›</span>
               </Link>
             ))}
           </div>

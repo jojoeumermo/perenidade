@@ -21,7 +21,7 @@ import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lide
 import { Materiais } from "./Materiais";
 import { Pessoas } from "./Pessoas";
 import { Reforco } from "./Reforco";
-import { Aparelhos, Recados, SegundoFator } from "./Seguranca";
+import { Aparelhos, Digital, Recados, SegundoFator } from "./Seguranca";
 import { type Controles, Site } from "./Site";
 
 interface Resumo {
@@ -571,6 +571,14 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
           <button type="submit" className={`mt-3 ${botao}`} disabled={senha.length < 12 || senha !== repete}>Trocar a senha</button>
         </form>
         <Aviso texto={avisoSenha} />
+      </section>
+
+      <section className={cartao}>
+        <h2 className="font-serif text-xl font-semibold">Entrar com a digital</h2>
+        <p className="mt-1 text-ink-soft">Cadastre a impressão digital deste celular e entre sem digitar a senha. A digital fica só no aparelho; a senha continua valendo como reserva.</p>
+        <div className="mt-3">
+          <Digital />
+        </div>
       </section>
 
       <section className={cartao}>
