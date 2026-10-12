@@ -19,9 +19,9 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
       <Strip fallback={t.common.strip} />
       {/* Três colunas: o nome à esquerda, o menu no centro da página (alinhado com a faixa de cima) e, à direita, conta, idioma e tema. */}
       <div className="mx-auto flex max-w-7xl items-center gap-x-2 px-3 py-3 sm:gap-x-5 sm:px-4 sm:py-4 lg:grid lg:gap-x-10 lg:grid-cols-[1fr_auto_1fr]">
-        <Link href={localePath(lang, "/")} className="flex min-w-0 items-center gap-2 sm:shrink-0 sm:gap-2.5 lg:justify-self-start">
+        <Link href={localePath(lang, "/")} className="flex min-w-0 items-center gap-2 sm:shrink-0 sm:gap-3 lg:justify-self-start">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/emblema-96.png" alt="" width={44} height={44} className="h-8 w-8 shrink-0 sm:h-11 sm:w-11" />
+          <img src="/emblema-96.png" alt="" width={44} height={44} className="h-9 w-9 shrink-0 sm:h-11 sm:w-11 lg:h-12 lg:w-12" />
           <span className="whitespace-nowrap text-lg font-semibold leading-none tracking-tight sm:text-2xl lg:text-3xl">{site.name}</span>
         </Link>
         {/* No celular o menu fica embaixo (BottomNav); aqui ele aparece a partir de telas médias, sempre em uma linha. */}

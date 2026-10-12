@@ -4,8 +4,8 @@
 import { useEffect, useState } from "react";
 import type { Dict } from "@/i18n/types";
 
-/** O mesmo nome usado em public/sw.js. */
-const PAGINAS = "lucia-paginas-v1";
+/** Tem de ser o mesmo nome de public/sw.js (lucia-paginas- mais a VERSAO de lá): se divergirem, o que se guarda aqui é apagado na ativação. */
+const PAGINAS = "lucia-paginas-v3";
 
 /** Liga o funcionamento sem internet. Só no site publicado: durante o desenvolvimento ele atrapalharia. */
 export function OfflineSupport() {

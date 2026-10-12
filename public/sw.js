@@ -2,7 +2,8 @@
 //
 // Faz o site abrir sem internet. Guarda as páginas que a pessoa já visitou (e as trilhas que ela
 // mandou guardar) e os arquivos fixos do site. Nada do painel nem da entrada é guardado.
-const VERSAO = "v2";
+// Mudou a VERSAO? Mude também o nome em components/Offline.tsx: os dois precisam ser iguais.
+const VERSAO = "v3";
 const PAGINAS = `lucia-paginas-${VERSAO}`;
 const FIXOS = `lucia-fixos-${VERSAO}`;
 const LIMITE_DE_PAGINAS = 300;

@@ -37,21 +37,10 @@ const horasPorExtenso = (valor: number) => `${String(valor).replace(".", ",")} $
 /** A hora da assinatura sai sempre no horário de Brasília, seja onde for que a folha é aberta. */
 const quandoAssinou = (iso: string) => `${new Date(iso).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short", timeZone: "America/Sao_Paulo" })} (Brasília)`;
 
-/** A folha do certificado: uma página A4 deitada, igual para todos, que se salva em PDF pelo próprio navegador. */
+/** A folha com os controles de quem vai salvar: CPF (opcional, só na tela), salvar em PDF e voltar. */
 export function Impresso({ certificado, fechar }: { certificado: Certificado; fechar: () => void }) {
-  const { t } = useI18n();
   const [cpf, setCpf] = useState("");
   const emitido = certificado.status === "emitido";
-  const endereco = `${site.url.replace(/^https?:\/\//, "")}/pt/certificado`;
-  const cargo = (assinatura: Assinatura) =>
-    assinatura.papel === "coordenacao"
-      ? "Coordenador"
-      : assinatura.papel === "vice"
-        ? "Vice-coordenador"
-        : assinatura.papel === "educacao"
-          ? `Educador(a)${assinatura.disciplina ? ` de ${t.areas[assinatura.disciplina as keyof typeof t.areas]?.[0] ?? assinatura.disciplina}` : ""}`
-          : "Testemunha";
-
   return (
     <div>
       {/* Enquanto a folha está na tela, a página de impressão é A4 deitada e sem margens. */}
@@ -73,52 +62,75 @@ export function Impresso({ certificado, fechar }: { certificado: Certificado; fe
             : "Esta é a prévia. O certificado só pode ser salvo depois das três assinaturas."}
         </p>
       </div>
-
-      <article className="certificado" lang="pt-BR">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/emblema.png" alt="" className="certificado-fundo" />
-        {!emitido && <p className="certificado-previa">Prévia · sem validade</p>}
-        <div className="certificado-folha">
-          <header>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/emblema.png" alt="" className="certificado-emblema" />
-            <p className="certificado-casa">{site.name}</p>
-            <h2 className="certificado-titulo">Certificado</h2>
-            <p className="certificado-subtitulo">de trabalho voluntário</p>
-          </header>
-
-          <div className="certificado-corpo">
-            <p>O {site.name}, projeto educacional gratuito e sem fins lucrativos, certifica que</p>
-            <p className="certificado-nome">{certificado.nome}</p>
-            <p>
-              {cpf.trim() && <>CPF {cpf.trim()}, </>}
-              atuou como voluntária(o) no período de <strong>{dia(certificado.inicio)}</strong> a <strong>{dia(certificado.fim)}</strong>, cumprindo carga horária total de{" "}
-              <strong>{horasPorExtenso(Number(certificado.horas))}</strong>.
-            </p>
-            <p className="certificado-rotulo">Atividades realizadas</p>
-            <p className={`certificado-atividades ${certificado.atividades.length > 420 ? "certificado-atividades-longas" : ""}`}>{certificado.atividades}</p>
-            <p className="certificado-lei">Trabalho prestado sem remuneração, nos termos da Lei nº 9.608/1998, mediante termo de adesão aceito pela pessoa voluntária.</p>
-          </div>
-
-          <ul className="certificado-assinaturas">
-            {certificado.testemunhas.map((assinatura) => (
-              <li key={`${assinatura.id}${assinatura.papel ?? ""}`}>
-                <span className="certificado-selo">{assinatura.confirmou_em ? `Assinado eletronicamente em ${quandoAssinou(assinatura.confirmou_em)}` : "Aguardando assinatura"}</span>
-                <span className="certificado-assina">{assinatura.nome}</span>
-                <span className="certificado-cargo">{cargo(assinatura)}</span>
-              </li>
-            ))}
-          </ul>
-
-          <footer>
-            <p>
-              Certificado nº {codigoBonito(certificado.codigo)}
-              {certificado.emitido_em && <> · emitido em {new Date(certificado.emitido_em).toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo" })}</>} · confira a autenticidade em {endereco}
-            </p>
-            <p>Impressão digital (SHA-256): {certificado.impressao}</p>
-          </footer>
-        </div>
-      </article>
+      <Folha certificado={certificado} cpf={cpf} />
     </div>
+  );
+}
+
+/**
+ * A folha do certificado: uma página A4 deitada, igual para todos, que se salva em PDF pelo próprio navegador.
+ * Também serve de prévia ao vivo enquanto a coordenação preenche o formulário: nesse caso as horas e o número
+ * ainda não existem, e a folha diz isso no lugar deles.
+ */
+export function Folha({ certificado, cpf = "", rascunho = false }: { certificado: Certificado; cpf?: string; rascunho?: boolean }) {
+  const { t } = useI18n();
+  const emitido = certificado.status === "emitido";
+  const data = (iso: string) => (iso ? dia(iso) : "__/__/____");
+  const endereco = `${site.url.replace(/^https?:\/\//, "")}/pt/certificado`;
+  const cargo = (assinatura: Assinatura) =>
+    assinatura.papel === "coordenacao"
+      ? "Coordenador"
+      : assinatura.papel === "vice"
+        ? "Vice-coordenador"
+        : assinatura.papel === "educacao"
+          ? `Educador(a)${assinatura.disciplina ? ` de ${t.areas[assinatura.disciplina as keyof typeof t.areas]?.[0] ?? assinatura.disciplina}` : ""}`
+          : "Testemunha";
+
+  return (
+    <article className="certificado" lang="pt-BR">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/emblema.png" alt="" className="certificado-fundo" />
+      {!emitido && <p className="certificado-previa">Prévia · sem validade</p>}
+      <div className="certificado-folha">
+        <header>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/emblema.png" alt="" className="certificado-emblema" />
+          <p className="certificado-casa">{site.name}</p>
+          <h2 className="certificado-titulo">Certificado</h2>
+          <p className="certificado-subtitulo">de trabalho voluntário</p>
+        </header>
+
+        <div className="certificado-corpo">
+          <p>O {site.name}, projeto educacional gratuito e sem fins lucrativos, certifica que</p>
+          <p className="certificado-nome">{certificado.nome || "Nome de quem recebe"}</p>
+          <p>
+            {cpf.trim() && <>CPF {cpf.trim()}, </>}
+            atuou como voluntária(o) no período de <strong>{data(certificado.inicio)}</strong> a <strong>{data(certificado.fim)}</strong>, cumprindo carga horária total de{" "}
+            <strong>{rascunho ? "__ horas" : horasPorExtenso(Number(certificado.horas))}</strong>.
+          </p>
+          <p className="certificado-rotulo">Atividades realizadas</p>
+          <p className={`certificado-atividades ${certificado.atividades.length > 420 ? "certificado-atividades-longas" : ""}`}>{certificado.atividades || "As atividades que você descrever aparecem aqui."}</p>
+          <p className="certificado-lei">Trabalho prestado sem remuneração, nos termos da Lei nº 9.608/1998, mediante termo de adesão aceito pela pessoa voluntária.</p>
+        </div>
+
+        <ul className="certificado-assinaturas">
+          {certificado.testemunhas.map((assinatura) => (
+            <li key={`${assinatura.id}${assinatura.papel ?? ""}`}>
+              <span className="certificado-selo">{assinatura.confirmou_em ? `Assinado eletronicamente em ${quandoAssinou(assinatura.confirmou_em)}` : "Aguardando assinatura"}</span>
+              <span className="certificado-assina">{assinatura.nome}</span>
+              <span className="certificado-cargo">{cargo(assinatura)}</span>
+            </li>
+          ))}
+        </ul>
+
+        <footer>
+          <p>
+            Certificado nº {rascunho ? "a definir na abertura" : codigoBonito(certificado.codigo)}
+            {certificado.emitido_em && <> · emitido em {new Date(certificado.emitido_em).toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo" })}</>} · confira a autenticidade em {endereco}
+          </p>
+          <p>Impressão digital (SHA-256): {rascunho ? "calculada na abertura do processo" : certificado.impressao}</p>
+        </footer>
+      </div>
+    </article>
   );
 }
