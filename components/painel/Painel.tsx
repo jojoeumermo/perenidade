@@ -32,6 +32,8 @@ interface Resumo {
   anotacoes: number;
   retidos: number;
   mural: number;
+  /** Envios do público que a moderação ainda não leu. */
+  triagem?: number;
   reforco: number;
   horas: number;
   testemunhar: number;
@@ -204,10 +206,11 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: true },
       { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "revisao", "educacao"), conta: r?.fila },
+      { id: "triagem", nome: "Triagem", sobre: "A primeira leitura do que o público envia: o que passa segue para a fila de revisão.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "moderacao"), conta: r?.triagem },
       { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design") },
-      { id: "comunidade", nome: "Comunidade", sobre: "Denúncias, anotações, mensagens retidas e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
+      { id: "comunidade", nome: "Comunidade", sobre: "Fila de moderação, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "moderacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
       { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mentoria", "educacao"), conta: r?.reforco },
-      { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação.", grupo: "Atendimento", mostra: lidera, conta: r?.mural },
+      { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da moderação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "moderacao"), conta: r?.mural },
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: lidera, conta: r?.candidaturas },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar : undefined },
@@ -309,6 +312,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "minhas" && <Fila key="minhas" me={eu} minhas />}
           {atual.id === "juntas" && <Fila key="juntas" me={eu} juntas />}
           {atual.id === "fila" && <Fila key="fila" me={eu} />}
+          {atual.id === "triagem" && <Fila key="triagem" me={eu} triagem />}
           {atual.id === "materiais" && <Materiais me={eu} />}
           {atual.id === "comunidade" && <Comunidade me={eu} />}
           {atual.id === "reforco" && <Reforco />}
@@ -338,12 +342,13 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
     ? (
         [
           ["Colegas chamaram você para trabalhar junto", r.juntas, "juntas"],
+          ["Envios do público para a triagem", r.triagem ?? 0, "triagem"],
           ["Na fila de revisão", r.fila, "fila"],
           ["Aprovadas, esperando a publicação", r.aguardando_publicacao, "fila"],
           ["Pedidos de voluntariado", r.candidaturas, "pessoas"],
           ["Denúncias abertas", r.denuncias, "comunidade"],
           ["Anotações para olhar", r.anotacoes, "comunidade"],
-          ["Mensagens retidas pelo filtro", r.retidos, "comunidade"],
+          ["Mensagens esperando a moderação", r.retidos, "comunidade"],
           ["Pedidos de reforço", r.reforco, "reforco"],
           ["Horas para conferir", r.horas, "horas"],
           ["Certificados esperando a sua assinatura", r.testemunhar, "horas"],
@@ -459,7 +464,7 @@ function Candidatura() {
         <label className="block">
           Em que função
           <select value={quero.papel} onChange={(e) => setQuero({ ...quero, papel: e.target.value })} className={campo}>
-            {(["educacao", "mentoria", "revisao", "traducao", "jornalismo", "curadoria", "design", "desenvolvimento"] as const).map((papel) => (
+            {(["educacao", "mentoria", "moderacao", "revisao", "traducao", "jornalismo", "curadoria", "design", "desenvolvimento"] as const).map((papel) => (
               <option key={papel} value={papel}>{papeis[papel]}</option>
             ))}
           </select>

@@ -22,6 +22,8 @@ interface Resumo {
   nota: string;
   criado_em: string;
   pareceres: number;
+  /** "aguardando": veio de fora e a moderação ainda não leu. */
+  triagem?: string;
 }
 
 interface Completa extends Resumo {
@@ -42,24 +44,33 @@ interface Completa extends Resumo {
 }
 
 const nomeDoTipo = (tipo: string) => (tipos as Record<string, { rotulo: string }>)[tipo]?.rotulo ?? (tipo === "correcao" ? "Correção" : tipo);
+/** Veio de fora e a moderação ainda não leu. */
+const naTriagem = (item: Resumo) => item.status === "pendente" && item.triagem === "aguardando";
 const origem: Record<string, string> = { publico: "contribuição pública", educacao: "educador(a) da disciplina", jornalismo: "jornalismo", curadoria: "curadoria", revisao: "revisão", traducao: "tradução" };
 
 /**
- * A mesma lista em três usos: a fila de revisão (quem tem função lê e dá parecer; curadoria e coordenação decidem),
- * os envios da própria pessoa, e as contribuições de colegas que a chamaram para trabalhar junto.
+ * A mesma lista em quatro usos: a fila de revisão (quem tem função lê e dá parecer; curadoria e coordenação decidem),
+ * os envios da própria pessoa, as contribuições de colegas que a chamaram para trabalhar junto, e a triagem
+ * (a moderação lê primeiro o que vem de fora e decide se segue para a fila de revisão).
  */
-export function Fila({ me, minhas = false, juntas = false }: { me: Me; minhas?: boolean; juntas?: boolean }) {
+export function Fila({ me, minhas = false, juntas = false, triagem = false }: { me: Me; minhas?: boolean; juntas?: boolean; triagem?: boolean }) {
   const { t } = useI18n();
   const [status, setStatus] = useState("pendente");
   const propria = minhas || juntas;
-  const lista = useLista<Resumo[]>(minhas ? "contribuicoes_minhas" : juntas ? "colaboracoes_minhas" : "fila", propria ? {} : { p_status: status });
+  const lista = useLista<Resumo[]>(minhas ? "contribuicoes_minhas" : juntas ? "colaboracoes_minhas" : triagem ? "triagem_fila" : "fila", propria || triagem ? {} : { p_status: status });
   const [aberta, setAberta] = useState<string | null>(null);
 
-  if (aberta) return <Detalhe id={aberta} me={me} semParecer={propria} voltar={() => { setAberta(null); lista.recarregar(); }} />;
+  if (aberta) return <Detalhe id={aberta} me={me} semParecer={propria || triagem} triagem={triagem} voltar={() => { setAberta(null); lista.recarregar(); }} />;
 
   return (
     <div>
-      {!propria && (
+      {triagem && (
+        <p className="max-w-3xl text-ink-soft">
+          Aqui chega tudo o que o público envia, antes de ir para a mesa de educadores e revisores. Barre propaganda, vandalismo, texto sem pé nem cabeça e envio repetido; acerte a forma se for
+          só isso que falta; e libere o resto. Julgar se o conteúdo está certo não é desta etapa: isso é da fila de revisão.
+        </p>
+      )}
+      {!propria && !triagem && (
         <div className="flex flex-wrap gap-2">
           {["pendente", "aprovada", "publicada", "recusada", "resolvida"].map((opcao) => (
             <button key={opcao} type="button" onClick={() => setStatus(opcao)} aria-pressed={status === opcao} className={`cursor-pointer border-2 px-3 py-1.5 ${status === opcao ? "border-ink bg-ink text-parchment" : "border-rule hover:border-gold"}`}>
@@ -71,7 +82,7 @@ export function Fila({ me, minhas = false, juntas = false }: { me: Me; minhas?: 
       <Aviso texto={lista.erro} />
       {lista.dados?.length === 0 && (
         <p className="mt-4 border border-rule bg-parchment-deep px-4 py-6 text-center text-ink-soft">
-          {minhas ? "Você ainda não enviou nada." : juntas ? "Ninguém chamou você para trabalhar junto por enquanto. Quando chamar, a contribuição aparece aqui e você recebe um recado na Mesa." : "Nada nesta situação."}
+          {minhas ? "Você ainda não enviou nada." : juntas ? "Ninguém chamou você para trabalhar junto por enquanto. Quando chamar, a contribuição aparece aqui e você recebe um recado na Mesa." : triagem ? "Nada esperando a triagem." : "Nada nesta situação."}
         </p>
       )}
       <ul className="mt-4 divide-y divide-rule border-y border-rule">
@@ -85,7 +96,7 @@ export function Fila({ me, minhas = false, juntas = false }: { me: Me; minhas?: 
               {item.titulo}
             </button>
             <p className="mt-1 text-ink-soft">
-              {item.nome_autor || "sem nome"} · {origem[item.como] ?? item.como} · {situacoes[item.status] ?? item.status}
+              {item.nome_autor || "sem nome"} · {origem[item.como] ?? item.como} · {naTriagem(item) ? "aguardando a triagem" : (situacoes[item.status] ?? item.status)}
               {item.pareceres > 0 && ` · ${item.pareceres} parecer(es)`}
             </p>
             {minhas && item.nota && <p className="mt-1">Recado da curadoria: {item.nota}</p>}
@@ -96,7 +107,7 @@ export function Fila({ me, minhas = false, juntas = false }: { me: Me; minhas?: 
   );
 }
 
-function Detalhe({ id, me, semParecer, voltar }: { id: string; me: Me; semParecer: boolean; voltar: () => void }) {
+function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; me: Me; semParecer: boolean; triagem?: boolean; voltar: () => void }) {
   const { lang, t } = useI18n();
   const item = useLista<Completa>("contribuicao_ver", { p_id: id });
   const { recarregar } = item;
@@ -118,10 +129,21 @@ function Detalhe({ id, me, semParecer, voltar }: { id: string; me: Me; semParece
 
   const decide = can(me, "coordenacao", "curadoria");
   const pendente = c.status === "pendente";
-  const podeEditar = pendente && (decide || c.minha || c.colaboro);
+  /** Esta pessoa está fazendo a triagem deste envio. */
+  const tria = triagem && pendente && c.triagem === "aguardando";
+  const podeEditar = pendente && (decide || c.minha || c.colaboro || tria);
   /** Alguém guardou outra versão enquanto esta pessoa está com o editor aberto. */
   const mudou = edicao !== null && edicao.versao !== c.versao;
   const exigeFonte = (tipos as Record<string, { fonte: boolean }>)[c.tipo]?.fonte ?? false;
+
+  async function triar(liberar: boolean) {
+    try {
+      await rpc("triagem_decidir", { p_id: id, p_liberar: liberar, p_nota: nota });
+      voltar();
+    } catch (erro) {
+      acao.setAviso(textoDoErro(erro));
+    }
+  }
 
   async function decidir(aprovar: boolean) {
     try {
@@ -138,7 +160,7 @@ function Detalhe({ id, me, semParecer, voltar }: { id: string; me: Me; semParece
       <div>
         <p className={rotulo}>
           {nomeDoTipo(c.tipo)}
-          {c.disciplina && ` · ${t.areas[c.disciplina as keyof typeof t.areas]?.[0] ?? c.disciplina}`} · {situacoes[c.status] ?? c.status}
+          {c.disciplina && ` · ${t.areas[c.disciplina as keyof typeof t.areas]?.[0] ?? c.disciplina}`} · {naTriagem(c) ? "aguardando a triagem" : (situacoes[c.status] ?? c.status)}
         </p>
         <h2 className="mt-1 font-serif text-3xl font-semibold">{c.titulo}</h2>
         <p className="mt-1 text-ink-soft">
@@ -211,7 +233,7 @@ function Detalhe({ id, me, semParecer, voltar }: { id: string; me: Me; semParece
           )}
           {podeEditar && (
             <button type="button" className={botaoClaro} onClick={() => setEdicao({ titulo: c.titulo, corpo: c.corpo, versao: c.versao, fontes: c.fontes.length > 0 ? c.fontes.map((f) => ({ titulo: f.titulo, autor: f.autor ?? "", url: f.url ?? "" })) : [{ titulo: "", autor: "", url: "" }] })}>
-              {c.minha || c.colaboro ? "Editar" : "Editar antes de decidir"}
+              {c.minha || c.colaboro ? "Editar" : tria ? "Acertar a forma" : "Editar antes de decidir"}
             </button>
           )}
         </>
@@ -254,6 +276,18 @@ function Detalhe({ id, me, semParecer, voltar }: { id: string; me: Me; semParece
           </div>
         )}
       </section>
+
+      {tria && (
+        <section className="border-2 border-ink p-5">
+          <p className={rotulo}>Triagem</p>
+          <textarea value={nota} onChange={(e) => setNota(e.target.value)} rows={2} maxLength={2000} placeholder="Recado para quem enviou (obrigatório ao barrar)" aria-label="Recado para quem enviou" className={campo} />
+          <div className="mt-3 flex flex-wrap gap-3">
+            <button type="button" className={botao} onClick={() => triar(true)}>Liberar para a fila de revisão</button>
+            <button type="button" className={botaoClaro} disabled={nota.trim().length < 5} onClick={() => triar(false)}>Barrar</button>
+          </div>
+          <p className="mt-2 text-ink-soft">Liberar não aprova nem publica: o envio segue para educadores, revisores e curadoria. Barrar encerra o envio e manda o recado para quem enviou, se a pessoa tiver conta.</p>
+        </section>
+      )}
 
       {decide && pendente && !semParecer && (
         <section className="border-2 border-ink p-5">

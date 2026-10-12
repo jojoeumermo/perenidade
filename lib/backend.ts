@@ -80,7 +80,7 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
 
 export interface Role {
   id: string;
-  papel: "coordenacao" | "vice" | "curadoria" | "educacao" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "desenvolvimento";
+  papel: "coordenacao" | "vice" | "curadoria" | "moderacao" | "educacao" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "desenvolvimento";
   disciplina: string | null;
 }
 

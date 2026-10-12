@@ -21,6 +21,8 @@ interface TopicRow {
   respostas: number;
   trancado: boolean;
   oculto: boolean;
+  /** Ainda espera a leitura da moderação: só quem escreveu e quem cuida a veem. */
+  retido?: boolean;
   criado_em: string;
   autor: string;
   meu_voto: number;
@@ -33,6 +35,7 @@ interface Reply {
   corpo: string;
   pontos: number;
   oculto: boolean;
+  retido?: boolean;
   criado_em: string;
   autor: string;
   meu_voto: number;
@@ -98,6 +101,7 @@ function TopicList({ s }: { s: S }) {
   const [draft, setDraft] = useState({ title: "", body: "", area: "", kind: "duvida" });
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [tick, setTick] = useState(0);
   const date = new Intl.DateTimeFormat(htmlLang[lang]);
 
   useEffect(() => {
@@ -112,15 +116,16 @@ function TopicList({ s }: { s: S }) {
     return () => {
       cancelled = true;
     };
-  }, [order, area, kind, query]);
+  }, [order, area, kind, query, tick]);
 
   async function create() {
     try {
       const created = await rpc<{ id: string; retido: boolean }>("topico_criar", { p_titulo: draft.title, p_corpo: draft.body, p_disciplina: draft.area || null, p_tipo: draft.kind });
-      // Mensagem segurada pelo filtro só aparece depois que alguém da equipe ler.
+      // O que o público escreve espera a moderação: quem enviou vê a própria mensagem na lista, marcada como aguardando.
       if (created.retido) {
         setMessage(s.held);
         setDraft({ ...draft, title: "", body: "" });
+        setTick((value) => value + 1);
         return;
       }
       router.push(`/${lang}/comunidade?t=${created.id}`);
@@ -214,7 +219,7 @@ function TopicList({ s }: { s: S }) {
                 {row.autor || "—"} · {date.format(new Date(row.criado_em))} · {plural(lang, row.respostas, s.replies)}
                 {row.disciplina && ` · ${t.areas[row.disciplina as keyof typeof t.areas]?.[0] ?? row.disciplina}`}
                 {row.trancado && ` · ${s.locked}`}
-                {row.oculto && ` · ${s.hidden}`}
+                {row.oculto && ` · ${row.retido ? s.pending : s.hidden}`}
               </p>
             </div>
           </li>
@@ -283,7 +288,7 @@ function TopicView({ id, s }: { id: string; s: S }) {
             {topic.autor || "—"} · {date.format(new Date(topic.criado_em))}
             {topic.disciplina && ` · ${t.areas[topic.disciplina as keyof typeof t.areas]?.[0] ?? topic.disciplina}`}
             {topic.trancado && ` · ${s.locked}`}
-            {topic.oculto && ` · ${s.hidden}`}
+            {topic.oculto && ` · ${topic.retido ? s.pending : s.hidden}`}
           </p>
           <div className="mt-3 font-serif">
             <Markdown lang={lang}>{topic.corpo}</Markdown>
@@ -310,7 +315,7 @@ function TopicView({ id, s }: { id: string; s: S }) {
                 <span>
                   {item.autor || "—"}
                   {item.da_equipe && ` (${s.staff})`} · {date.format(new Date(item.criado_em))}
-                  {item.oculto && ` · ${s.hidden}`}
+                  {item.oculto && ` · ${item.retido ? s.pending : s.hidden}`}
                 </span>
                 {topic.tipo === "duvida" && (topic.meu || topic.pode_cuidar) && !item.oculto && (
                   <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => act("resposta_aceitar", { p_topico: topic.id, p_resposta: item.aceita ? null : item.id })}>
@@ -324,7 +329,9 @@ function TopicView({ id, s }: { id: string; s: S }) {
         ))}
       </ul>
 
-      {topic.trancado ? (
+      {topic.retido ? (
+        <p className="mt-6 text-ink-soft">{s.held}</p>
+      ) : topic.trancado ? (
         <p className="mt-6 text-ink-soft">{s.locked}</p>
       ) : logged ? (
         <form

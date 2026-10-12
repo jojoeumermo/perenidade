@@ -12,7 +12,7 @@ Este é o documento de referência do projeto: como ele é organizado, como se e
 
 - **Design:** não se mexe em fontes, cores nem no texto central da página inicial. Novas páginas reaproveitam as peças que já existem.
 - **Simplicidade:** o foco é o ensino. Fórum, jornal e rádio são complementos e ficam fora do caminho de quem só quer estudar.
-- **Palavras:** no site se fala em *coordenador, vice-coordenador, curadoria, educador, revisor, tradutor, jornalista, voluntário*. Não se usam "administrador", "moderador" nem "líder".
+- **Palavras:** no site se fala em *coordenador, vice-coordenador, curadoria, moderador, educador, revisor, tradutor, jornalista, voluntário*. Não se usam "administrador" nem "líder".
 - **Fontes:** toda aula, matéria, checagem, verbete e homenagem cita pelo menos uma fonte. Nada inventado.
 - **Pessoas e organizações:** ao falar de pessoas vivas, partidos ou empresas, só fatos documentados e linguagem sóbria. O objetivo é educar.
 - **Direitos autorais:** nenhum arquivo de terceiros é hospedado. O acervo guarda a ficha e o link para a fonte legítima; nunca um link direto para PDF, nunca um link de loja ou de editora. Obra protegida vira "ficha de referência" e aponta para um catálogo de bibliotecas. Letras de música e livros protegidos não são reproduzidos.
@@ -202,8 +202,8 @@ O painel (`/painel`) é um ambiente à parte do site: ocupa a tela inteira, sem 
 | Área | Seções | Quem vê |
 | --- | --- | --- |
 | (início) | Mesa, Conversas, Mural da equipe | todos; conversas e mural, só quem tem função |
-| Produção | Escrever, Meus envios, Compartilhadas comigo, Fila de revisão, Materiais e arquivos | conforme a função |
-| Atendimento | Comunidade, Aula de reforço, Mural dos Trabalhadores, Boletim do jornal | conforme a função; o mural, só coordenação |
+| Produção | Escrever, Meus envios, Compartilhadas comigo, Fila de revisão, Triagem, Materiais e arquivos | conforme a função; a triagem, moderação, curadoria e coordenação |
+| Atendimento | Comunidade, Aula de reforço, Mural dos Trabalhadores, Boletim do jornal | conforme a função; o mural, coordenação e moderação |
 | Pessoas | Voluntários e convites, Horas e certificados | a primeira, só coordenação |
 | Site | Controles do site, Aviso de abertura, Rádio, Apoiadores | só coordenação |
 | Segurança | Segurança e sucessão, Registro de atividades | só coordenação |
@@ -223,7 +223,8 @@ Cada pessoa vê no painel só as seções da sua função. O banco confere a fun
 | --- | --- | --- |
 | `coordenacao` | coordenador | tudo: aprova voluntários, distribui funções e disciplinas, decide publicações, cuida do mural e da rádio, define a sucessão, lê o registro de atividades. Só existe um |
 | `vice` | vice-coordenador | o mesmo que a coordenação, menos: nomear ou tirar vice, passar a coordenação, mexer na sucessão, mudar a exigência de segundo fator, definir a sala da equipe e emitir certificados |
-| `curadoria` | curadoria | lê a fila inteira, edita e decide; cuida da comunidade (mensagens retidas, palavras vetadas) |
+| `curadoria` | curadoria | lê a fila inteira, edita e decide; cuida da comunidade (fila de moderação, palavras vetadas) e pode fazer a triagem |
+| `moderacao` | moderador | a primeira leitura do que o público envia: aprova, edita ou recusa mensagens da Comunidade e anúncios do Mural dos Trabalhadores; faz a triagem das contribuições de fora (libera para a fila de revisão ou barra, com nota); decide anotações de leitura. Não aprova conteúdo de ensino, não vê a fila de revisão, não mexe em pessoas, no filtro de palavras, nas denúncias nem nos controles do site |
 | `educacao` (por disciplina) | educador | escreve aulas da sua disciplina, vê a fila dela e dá parecer nas matérias do jornal |
 | `revisao` | revisor | lê a fila e dá parecer |
 | `traducao` | tradutor | envia traduções |
@@ -232,7 +233,15 @@ Cada pessoa vê no painel só as seções da sua função. O banco confere a fun
 | `design` | designer | envia materiais para imprimir (zines, cartazes) e imagens |
 | `desenvolvimento` | desenvolvedor | vê o mural interno da equipe; não tem poder sobre conteúdo nem sobre pessoas |
 
-Quem contribui sem conta, pela página Contribuir, entra na mesma fila.
+Quem contribui sem conta, pela página Contribuir, entra na mesma fila, depois de passar pela triagem.
+
+### Moderação: Comunidade, mural e triagem
+
+A página **Comunidade** é aberta: qualquer visitante lê dúvidas, conversas e respostas. Escrever exige conta, e **tudo** o que o público escreve entra retido (`retido`), invisível para os outros, até alguém que cuida da comunidade (moderação, curadoria, educadores, coordenação) aprovar, editar ou recusar em *Comunidade → Fila de moderação*. Quem escreveu vê a própria mensagem marcada como "aguardando moderação" e recebe um recado com a decisão. Só quem cuida da comunidade publica direto, e mesmo assim o filtro de palavras retém.
+
+O **Mural dos Trabalhadores** é decidido pela coordenação e pela moderação, que também pode acertar o texto de um anúncio pendente. Retirar do ar um anúncio já aprovado continua só com a coordenação.
+
+A **Triagem** é a primeira barreira das contribuições: o que vem de quem não é da equipe nasce com `triagem = aguardando` e não aparece para educadores nem revisores. A moderação lê, acerta a forma se for o caso, e **libera** (segue para a fila de revisão) ou **barra** (encerra como não aprovado, com nota obrigatória). Curadoria e coordenação enxergam tudo e também podem triar, então a fila não trava se faltar moderador. O que a equipe escreve pula a triagem.
 
 ### Conversas e Mural da equipe
 
@@ -257,9 +266,10 @@ Toda decisão (aprovar, recusar, dar ou tirar função, suspender, mudar configu
 ## 7. Como uma contribuição vira página
 
 1. Alguém envia (pela página Contribuir ou pelo painel). O banco confere tamanho, campos, fonte obrigatória e limite de envios.
-2. A coordenação ou a curadoria aprova no painel. Nada muda no site ainda.
-3. De hora em hora, a rotina **Publicar contribuições aprovadas** roda `scripts/sincronizar.mjs`: busca os itens aprovados, confere tudo de novo, grava os arquivos em `content/`, monta o site para validar e registra a mudança no histórico.
-4. Só então o painel marca o item como publicado.
+2. Se veio de fora da equipe, a moderação faz a triagem: libera para a fila de revisão ou barra.
+3. A coordenação ou a curadoria aprova no painel. Nada muda no site ainda.
+4. De hora em hora, a rotina **Publicar contribuições aprovadas** roda `scripts/sincronizar.mjs`: busca os itens aprovados, confere tudo de novo, grava os arquivos em `content/`, monta o site para validar e registra a mudança no histórico.
+5. Só então o painel marca o item como publicado.
 
 **Imagens e PDFs** seguem o mesmo caminho. Quem envia uma imagem pelo editor tem o arquivo refeito no próprio navegador (vira WebP novo, sem localização, sem modelo de câmera, sem nome de autor) antes de sair do aparelho. O arquivo fica em um depósito fechado até a curadoria aprovar. Na publicação, a rotina baixa só os aprovados, confere pelos primeiros bytes se o arquivo é mesmo o que diz ser, recusa imagem que ainda traga dados embutidos, limpa os PDFs e grava em `public/arquivos/` com um nome derivado do conteúdo. **Vídeo não é hospedado:** a aula aponta para o endereço do vídeo, que só carrega quando a pessoa clica.
 
@@ -273,7 +283,7 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 - **Limites.** Envios anônimos têm limite por origem, campo-isca contra robôs e tamanho máximo. A entrada (pedido de link, senha da equipe e cadastro) passa pela verificação do Turnstile, conferida pelo próprio serviço de contas. Os formulários abertos (contribuir, mural, denúncia, reforço) são protegidos pelo limite de envios e pelo campo-isca, dentro do banco.
 - **Segundo fator** para as funções com poder de decisão (seção 6) e **aviso de aparelho novo**: quando uma conta da equipe entra de um aparelho que nunca usou, a pessoa e a coordenação são avisadas no painel.
 - **Iscas.** Endereços que só robôs de invasão procuram (`/wp-admin`, `/.env`, `/phpmyadmin`, arquivos `.php`, `.sql`, `.bak`…) respondem "não encontrado" sem gastar nada, e a visita fica no **Registro de atividades** como `isca` (só o caminho e o programa usado, sem endereço de rede, por trinta dias). No banco existem funções com nomes tentadores (`exportar_usuarios`, `admin_senhas`, `chaves_api`) que não devolvem nada: quem chama fica registrado e a coordenação é avisada.
-- **Filtro do que vem de fora.** Na comunidade, mensagem com termo da lista vetada fica retida até a curadoria olhar. Nos envios de quem não tem conta (anúncio do mural, pedido de reforço, contribuição), o texto com termo vetado é recusado na hora; o reforço também recusa endereços de sites e nomes de arquivos. A lista se edita na aba **Comunidade**, em *Filtro de palavras*. Filtro de palavra é a primeira barreira, não a única: nada de fora vai ao ar sem uma pessoa da equipe ler.
+- **Filtro do que vem de fora.** Na comunidade, toda mensagem do público espera a moderação, e a que tem termo da lista vetada chega marcada. Nos envios de quem não tem conta (anúncio do mural, pedido de reforço, contribuição), o texto com termo vetado é recusado na hora; o reforço também recusa endereços de sites e nomes de arquivos. A lista se edita na aba **Comunidade**, em *Filtro de palavras*. Filtro de palavra é a primeira barreira, não a única: nada de fora vai ao ar sem uma pessoa da equipe ler.
 - **Pouco para roubar.** O banco não guarda senha (isso é do serviço de contas), endereço, documento nem telefone. O nome público padrão é um codinome ("Estudante 12345"). Um vazamento exporia e-mails e mensagens, e é por isso que a regra é guardar o mínimo.
 - **Interpretadores isolados.** Python e PHP rodam no navegador de quem usa, dentro de um Worker sem acesso à página.
 

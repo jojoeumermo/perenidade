@@ -24,7 +24,7 @@ interface Anotacao {
   criado_em: string;
 }
 
-/** Cuidado da comunidade: denúncias (curadoria) e anotações de leitura aguardando (curadoria e educadores). */
+/** Cuidado da comunidade: a fila de moderação e as anotações (moderação, curadoria e educadores), denúncias e filtro (curadoria). */
 export function Comunidade({ me }: { me: Me }) {
   const curador = can(me, "coordenacao", "curadoria");
   const [aba, setAba] = useState<"retidas" | "denuncias" | "anotacoes" | "filtro">("retidas");
@@ -34,7 +34,7 @@ export function Comunidade({ me }: { me: Me }) {
         atual={aba}
         escolher={setAba}
         opcoes={[
-          { id: "retidas" as const, nome: "Retidas pelo filtro" },
+          { id: "retidas" as const, nome: "Fila de moderação" },
           { id: "denuncias" as const, nome: "Denúncias" },
           { id: "anotacoes" as const, nome: "Anotações" },
           { id: "filtro" as const, nome: "Filtro de palavras" },
@@ -56,7 +56,7 @@ export function Comunidade({ me }: { me: Me }) {
           <Filtro />
         </div>
       )}
-      <p className="mt-8 text-ink-soft">Para ocultar ou trancar uma conversa, abra o tópico na página Comunidade: os botões aparecem para quem cuida.</p>
+      <p className="mt-8 text-ink-soft">Para ocultar ou trancar uma conversa que já está no ar, abra o tópico na página Comunidade: os botões aparecem para quem cuida.</p>
     </div>
   );
 }
@@ -68,31 +68,69 @@ interface Retido {
   corpo: string;
   autor: string;
   criado_em: string;
+  /** Além de esperar a moderação, esbarrou na lista de palavras. */
+  filtro?: boolean;
 }
 
-/** Mensagens que o filtro de palavras segurou. Ninguém de fora as vê até alguém da equipe liberar. */
+/** Tudo o que o público escreveu na Comunidade e ainda espera leitura. Ninguém de fora vê nada daqui até alguém aprovar. */
 function Retidos() {
   const lista = useLista<Retido[]>("comunidade_retidos");
   const acao = useAcao(lista.recarregar);
+  const [edicao, setEdicao] = useState<{ id: string; titulo: string; corpo: string } | null>(null);
   if (!lista.dados) return <Aviso texto={lista.erro || "Carregando…"} />;
-  if (lista.dados.length === 0) return <p className="text-ink-soft">Nenhuma mensagem retida pelo filtro.</p>;
+  if (lista.dados.length === 0) return <p className="text-ink-soft">Nenhuma mensagem esperando a moderação.</p>;
   return (
     <section>
-      <h2 className="font-serif text-2xl font-semibold">Retidas pelo filtro</h2>
-      <p className="mt-1 text-ink-soft">O filtro erra para os dois lados: uma citação em aula de história pode cair aqui. Leia o contexto antes de decidir.</p>
+      <h2 className="font-serif text-2xl font-semibold">Fila de moderação</h2>
+      <p className="mt-1 max-w-3xl text-ink-soft">
+        Toda dúvida, conversa e resposta do público passa por aqui antes de aparecer. Aprove o que respeita as regras da página; edite para tirar um dado pessoal ou um palavrão sem perder a
+        pergunta; recuse propaganda, ataque e discurso de ódio. O filtro de palavras erra para os dois lados: uma citação em aula de história pode vir marcada. Leia o contexto antes de decidir.
+      </p>
       <Aviso texto={lista.erro || acao.aviso} />
       <ul className="mt-3 space-y-4">
         {lista.dados.map((item) => (
           <li key={item.id} className="border border-rule bg-parchment-deep p-4">
             <p className={rotulo}>
               {item.tipo === "topico" ? "Conversa nova" : "Resposta"} · {item.autor || "—"} · {data(item.criado_em)}
+              {item.filtro && <span className="text-oxblood"> · marcada pelo filtro de palavras</span>}
             </p>
-            <p className="mt-1 font-semibold">{item.titulo}</p>
-            <p className="mt-1 whitespace-pre-line font-serif text-lg">{item.corpo}</p>
-            <div className="mt-3 flex gap-3">
-              <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("comunidade_cuidar", { p_tipo: item.tipo, p_alvo: item.id, p_acao: "mostrar" }, "Mensagem liberada.")}>Liberar</button>
-              <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => acao.agir("comunidade_cuidar", { p_tipo: item.tipo, p_alvo: item.id, p_acao: "ocultar" }, "Mensagem mantida oculta.")}>Manter oculta</button>
-            </div>
+            {edicao?.id === item.id ? (
+              <div className="mt-2 space-y-3">
+                {item.tipo === "topico" && (
+                  <label className="block">
+                    Título
+                    <input value={edicao.titulo} onChange={(e) => setEdicao({ ...edicao, titulo: e.target.value })} maxLength={140} className={campo} />
+                  </label>
+                )}
+                <label className="block">
+                  Mensagem
+                  <textarea value={edicao.corpo} onChange={(e) => setEdicao({ ...edicao, corpo: e.target.value })} rows={5} maxLength={8000} className={campo} />
+                </label>
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    className={botao}
+                    disabled={acao.ocupado}
+                    onClick={async () => {
+                      if (await acao.agir("comunidade_editar", { p_tipo: item.tipo, p_alvo: item.id, p_titulo: edicao.titulo, p_corpo: edicao.corpo }, "Texto guardado. A mensagem continua esperando a decisão.")) setEdicao(null);
+                    }}
+                  >
+                    Guardar
+                  </button>
+                  <button type="button" className={elo} onClick={() => setEdicao(null)}>Cancelar</button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <p className="mt-1 font-semibold">{item.tipo === "resposta" ? `Em: ${item.titulo}` : item.titulo}</p>
+                <p className="mt-1 whitespace-pre-line font-serif text-lg">{item.corpo}</p>
+                <div className="mt-3 flex flex-wrap items-center gap-3">
+                  <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("comunidade_cuidar", { p_tipo: item.tipo, p_alvo: item.id, p_acao: "mostrar" }, "Mensagem aprovada: já aparece na Comunidade.")}>Aprovar</button>
+                  <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => setEdicao({ id: item.id, titulo: item.titulo, corpo: item.corpo })}>Editar</button>
+                  <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => acao.agir("comunidade_cuidar", { p_tipo: item.tipo, p_alvo: item.id, p_acao: "ocultar" }, "Mensagem recusada: não vai aparecer.")}>Recusar</button>
+                </div>
+              </>
+            )}
           </li>
         ))}
       </ul>
@@ -434,6 +472,7 @@ export function RadioAdmin() {
 interface Anuncio {
   id: string;
   categoria: string;
+  oficio: string;
   titulo: string;
   descricao: string;
   cidade: string;
@@ -451,6 +490,7 @@ export function MuralFila() {
   const lista = useLista<Anuncio[]>("mural_fila", { p_status: "pendente" });
   const acao = useAcao(lista.recarregar);
   const [notas, setNotas] = useState<Record<string, string>>({});
+  const [edicao, setEdicao] = useState<{ id: string; titulo: string; oficio: string; descricao: string; contato: string; link: string } | null>(null);
   return (
     <div>
       <p className="max-w-3xl text-ink-soft">
@@ -466,10 +506,55 @@ export function MuralFila() {
               {tiposDeAnuncio[item.categoria] ?? item.categoria} · {item.cidade}
               {item.uf && `, ${item.uf}`} · {data(item.criado_em)}
             </p>
-            <p className="mt-2 font-serif text-2xl font-semibold">{item.titulo}</p>
-            <p className="mt-2 whitespace-pre-line font-serif text-lg">{item.descricao}</p>
-            <p className="mt-2">Contato: {item.contato}</p>
-            {item.link && <p className="break-all">Link: {item.link}</p>}
+            {edicao?.id === item.id ? (
+              <div className="mt-2 space-y-3">
+                <label className="block">
+                  Título
+                  <input value={edicao.titulo} onChange={(e) => setEdicao({ ...edicao, titulo: e.target.value })} maxLength={100} className={campo} />
+                </label>
+                <label className="block">
+                  Ofício (opcional)
+                  <input value={edicao.oficio} onChange={(e) => setEdicao({ ...edicao, oficio: e.target.value })} maxLength={60} className={campo} />
+                </label>
+                <label className="block">
+                  Descrição
+                  <textarea value={edicao.descricao} onChange={(e) => setEdicao({ ...edicao, descricao: e.target.value })} rows={5} maxLength={1200} className={campo} />
+                </label>
+                <label className="block">
+                  Contato
+                  <input value={edicao.contato} onChange={(e) => setEdicao({ ...edicao, contato: e.target.value })} maxLength={160} className={campo} />
+                </label>
+                <label className="block">
+                  Link (opcional, só https)
+                  <input value={edicao.link} onChange={(e) => setEdicao({ ...edicao, link: e.target.value })} maxLength={300} className={campo} />
+                </label>
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    type="button"
+                    className={botaoClaro}
+                    disabled={acao.ocupado}
+                    onClick={async () => {
+                      const { id, ...p } = edicao;
+                      if (await acao.agir("mural_editar", { p_id: id, p }, "Texto do anúncio guardado. Ele continua esperando a decisão.")) setEdicao(null);
+                    }}
+                  >
+                    Guardar o texto
+                  </button>
+                  <button type="button" className={elo} onClick={() => setEdicao(null)}>Cancelar</button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <p className="mt-2 font-serif text-2xl font-semibold">{item.titulo}</p>
+                {item.oficio && <p className="text-ink-soft">{item.oficio}</p>}
+                <p className="mt-2 whitespace-pre-line font-serif text-lg">{item.descricao}</p>
+                <p className="mt-2">Contato: {item.contato}</p>
+                {item.link && <p className="break-all">Link: {item.link}</p>}
+                <button type="button" className={`mt-1 ${elo}`} onClick={() => setEdicao({ id: item.id, titulo: item.titulo, oficio: item.oficio ?? "", descricao: item.descricao, contato: item.contato, link: item.link })}>
+                  Editar o texto
+                </button>
+              </>
+            )}
             <p className="text-ink-soft">Enviado por {item.nome || "pessoa sem nome no perfil"}</p>
             <label className="mt-3 block">
               Nota para quem enviou (obrigatória ao recusar)

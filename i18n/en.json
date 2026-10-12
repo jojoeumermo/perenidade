@@ -1206,6 +1206,7 @@
     "title": "Conversations",
     "lead": "Ask questions, propose study groups and help those who are starting out. The institute's focus is teaching; this space exists to support study.",
     "rules": [
+      "Anyone can read. Asking or answering requires an account, and every message is moderated before it appears.",
       "Respect always: disagree with ideas, do not attack people.",
       "No racism, sexism, LGBT-phobia, ableism or any hate speech.",
       "Do not post personal data, yours or anyone else's.",
@@ -1254,7 +1255,8 @@
     "unaccept": "Unmark",
     "accepted": "Answer chosen by the person who asked",
     "staff": "team",
-    "held": "Message received. It will appear once someone on the team has read it."
+    "held": "Message received. It will appear for everyone once a moderator has read it.",
+    "pending": "awaiting moderation"
   },
   "mural": {
     "eyebrow": "Solidarity economy",
