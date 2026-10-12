@@ -29,7 +29,7 @@ type Filter = "todas" | "essencial" | Stage;
  * As disciplinas, com um filtro para quem não quer ver tudo de uma vez: só o essencial, ou só o que
  * tem trilha no ensino fundamental, no médio ou no superior. A escolha fica guardada neste navegador.
  */
-export function DisciplineBrowser({ groups, s, stageNames }: { groups: DisciplineGroup[]; s: Dict["tracks"]; stageNames: Dict["stages"] }) {
+export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { labels?: boolean; groups: DisciplineGroup[]; s: Dict["tracks"]; stageNames: Dict["stages"] }) {
   const { lang } = useI18n();
   const hydrated = useHydrated();
   const stored = useStored(KEYS.filter);
@@ -40,6 +40,8 @@ export function DisciplineBrowser({ groups, s, stageNames }: { groups: Disciplin
     filter === "todas" || filter === "essencial" ? stages.reduce<[number, number]>((sum, stage) => [sum[0] + card.counts[stage][0], sum[1] + card.counts[stage][1]], [0, 0]) : card.counts[filter];
   const shown = (card: DisciplineCard) => (filter === "todas" ? true : filter === "essencial" ? card.essential : stageAreas[filter].includes(card.slug as AreaSlug));
   const visible = groups.map((group) => ({ ...group, areas: group.areas.filter(shown) })).filter((group) => group.areas.length > 0);
+
+  const Title = labels ? "h3" : "h2";
 
   return (
     <div>
@@ -55,8 +57,8 @@ export function DisciplineBrowser({ groups, s, stageNames }: { groups: Disciplin
       {visible.length === 0 && <p className="mt-10 text-lg text-ink-soft">{s.filterNone}</p>}
       {visible.map((group) => (
         <section key={group.id}>
-          <h2 className="mt-12 border-b border-rule pb-3 text-3xl font-semibold">{group.title}</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Title className={labels ? "mt-8 font-mono text-xs font-normal uppercase tracking-[0.3em] text-gold" : "mt-12 border-b border-rule pb-3 text-3xl font-semibold"}>{group.title}</Title>
+          <div className={`${labels ? "mt-4" : "mt-6"} grid gap-4 sm:grid-cols-2 lg:grid-cols-3`}>
             {group.areas.map((card) => {
               const [ready, planned] = total(card);
               const anchor = filter === "todas" || filter === "essencial" ? "" : `#${filter}`;
