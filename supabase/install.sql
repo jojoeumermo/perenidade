@@ -463,6 +463,34 @@ create table if not exists interno.colaboradores (
   primary key (contribuicao, usuario)
 );
 
+-- Conversas da equipe: privadas (duas pessoas) ou em grupo. As mensagens chegam cifradas, como as da rede interna.
+create table if not exists interno.conversas (
+  id uuid primary key default gen_random_uuid(),
+  tipo text not null check (tipo in ('direta', 'grupo')),
+  nome text not null default '' check (char_length(nome) <= 60),
+  -- Só nas privadas: os dois participantes, em ordem, para existir uma única conversa por dupla.
+  par text unique,
+  criada_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  movida_em timestamptz not null default now()
+);
+create table if not exists interno.conversa_membros (
+  conversa uuid not null references interno.conversas (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  lido_em timestamptz not null default now(),
+  entrou_em timestamptz not null default now(),
+  primary key (conversa, usuario)
+);
+create index if not exists conversa_membros_usuario on interno.conversa_membros (usuario);
+create table if not exists interno.conversa_mensagens (
+  id uuid primary key default gen_random_uuid(),
+  conversa uuid not null references interno.conversas (id) on delete cascade,
+  autor uuid references interno.perfis (id) on delete set null,
+  corpo text not null check (char_length(corpo) between 1 and 4000),
+  criado_em timestamptz not null default clock_timestamp()
+);
+create index if not exists conversa_mensagens_ordem on interno.conversa_mensagens (conversa, criado_em);
+
 -- Trancadas duas vezes: sem permissões e com segurança por linha ligada (sem nenhuma regra = ninguém passa).
 do $$
 declare t record;
@@ -1551,7 +1579,7 @@ begin
           from (select * from mural where status = coalesce(p_status, 'pendente') order by criado_em limit 300) m);
 end $$;
 
-/** Só a coordenação (líder e vice) decide o que vai para o mural. */
+/** Só a coordenação (coordenador e vice) decide o que vai para o mural. */
 create or replace function public.mural_decidir(p_id uuid, p_aprovar boolean, p_nota text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   perform interno.eu();
@@ -2005,9 +2033,9 @@ create or replace function interno.certificado_json(c interno.certificados) retu
 $$;
 
 /**
- * O líder abre o processo: escolhe a pessoa, o período e o educador que acompanhou o trabalho. Todo certificado
+ * O coordenador abre o processo: escolhe a pessoa, o período e o educador que acompanhou o trabalho. Todo certificado
  * leva três assinaturas eletrônicas, cada uma dada pela própria pessoa, na própria conta: a do educador, a do
- * vice-líder e, por último, a do líder (que é a emissão). Ninguém assina o próprio certificado. As horas
+ * vice-coordenador e, por último, a do coordenador (que é a emissão). Ninguém assina o próprio certificado. As horas
  * confirmadas do período entram no certificado e deixam de valer para outro.
  * (A coluna guarda as assinaturas com o nome antigo, "testemunhas".)
  */
@@ -2050,7 +2078,7 @@ begin
   return jsonb_build_object('id', v_id, 'horas', v_horas);
 end $$;
 
-/** A assinatura do educador e a do vice-líder: cada um assina só a própria linha, com a própria conta. */
+/** A assinatura do educador e a do vice-coordenador: cada um assina só a própria linha, com a própria conta. */
 create or replace function public.certificado_testemunhar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); c certificados; v_novas jsonb;
 begin
@@ -2063,13 +2091,13 @@ begin
   update certificados set testemunhas = v_novas where id = p_id;
   perform interno.registrar('certificado_testemunhado', p_id::text);
   if not exists (select 1 from jsonb_array_elements(v_novas) x where x ->> 'confirmou_em' is null and coalesce(x ->> 'papel', '') <> 'coordenacao') then
-    perform interno.avisar((x ->> 'id')::uuid, 'Um certificado de horas já tem as assinaturas do educador e do vice-líder. Falta a sua para emitir.')
+    perform interno.avisar((x ->> 'id')::uuid, 'Um certificado de horas já tem as assinaturas do educador e do vice-coordenador. Falta a sua para emitir.')
     from jsonb_array_elements(v_novas) x where x ->> 'papel' = 'coordenacao';
   end if;
   return jsonb_build_object('ok', true);
 end $$;
 
-/** A assinatura do líder é a última e é a emissão. Vale quem é líder no dia de assinar. */
+/** A assinatura do coordenador é a última e é a emissão. Vale quem é coordenador no dia de assinar. */
 create or replace function public.certificado_emitir(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); c certificados; v_minha jsonb;
 begin
@@ -2154,7 +2182,7 @@ begin
           from (select * from arquivos where dono = v or status = 'pendente' or interno.coord() order by criado_em desc limit 200) a left join perfis f on f.id = a.dono);
 end $$;
 
-/** A coordenação aprova depois de dois apoios da equipe. O líder pode aprovar sem esperar; recusar, qualquer um dos dois pode. */
+/** A coordenação aprova depois de dois apoios da equipe. O coordenador pode aprovar sem esperar; recusar, qualquer um dos dois pode. */
 create or replace function public.arquivo_decidir(p_id uuid, p_aprovar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   perform interno.eu();
@@ -2201,6 +2229,7 @@ begin
   delete from reforco where status in ('atendido', 'cancelado') and criado_em < now() - interval '180 days';
   delete from denuncias where status = 'resolvida' and criado_em < now() - interval '365 days';
   delete from equipe_mensagens where criado_em < now() - interval '30 days';
+  delete from conversa_mensagens where criado_em < now() - interval '30 days';
   delete from convites where expira_em < now() - interval '30 days';
   delete from mural where status = 'recusado' and decidido_em < now() - interval '30 days';
   delete from mural where status = 'aprovado' and validade < now() - interval '60 days';
@@ -2392,20 +2421,24 @@ begin
   if not interno.lider() then perform interno.erro('sem_permissao'); end if;
   if coalesce(p_prova, '') !~ '^c1[.][A-Za-z0-9_-]{16}[.][A-Za-z0-9_-]{20,200}$' then perform interno.erro('invalido:prova'); end if;
   delete from equipe_mensagens where true;
+  delete from conversa_mensagens where true;
   insert into configuracoes (chave, valor) values ('equipe', jsonb_build_object('prova', p_prova))
   on conflict (chave) do update set valor = configuracoes.valor || jsonb_build_object('prova', p_prova);
   perform interno.registrar('equipe_chave_definida');
   return jsonb_build_object('ok', true);
 end $$;
 
-/** O botão de apagar tudo: só o líder, na hora, sem volta. */
+/** O botão de apagar tudo: só o coordenador, na hora, sem volta. */
 create or replace function public.equipe_apagar_tudo() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_total integer;
+declare v_total integer; v_conversas integer;
 begin
   perform interno.eu();
   if not interno.lider() then perform interno.erro('sem_permissao'); end if;
   delete from equipe_mensagens where true;
   get diagnostics v_total = row_count;
+  delete from conversa_mensagens where true;
+  get diagnostics v_conversas = row_count;
+  v_total := v_total + v_conversas;
   perform interno.registrar('equipe_apagada', '', jsonb_build_object('mensagens', v_total));
   return jsonb_build_object('ok', true, 'apagadas', v_total);
 end $$;
@@ -2507,6 +2540,7 @@ begin
   return (
     select coalesce(jsonb_agg(jsonb_build_object(
       'id', f.id, 'nome', f.nome, 'bio', f.bio, 'eu', f.id = auth.uid(), 'por_aqui', f.visto_em > now() - interval '90 minutes',
+      'online', f.visto_em > now() - interval '2 minutes', 'visto_em', f.visto_em,
       'papeis', (select jsonb_agg(jsonb_build_object('papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina) from papeis p where p.usuario = f.id))
       order by f.nome), '[]'::jsonb)
     from perfis f where not f.suspenso and exists (select 1 from papeis p where p.usuario = f.id));
@@ -2555,6 +2589,169 @@ begin
   end loop;
 end $$;
 
+-- ───────────────────────────── Conversas da equipe ─────────────────────────────
+
+create or replace function interno.da_equipe(p_usuario uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select exists (select 1 from papeis r join perfis f on f.id = r.usuario where r.usuario = p_usuario and not f.suspenso)
+$$;
+
+create or replace function interno.na_conversa(p_conversa uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.voluntario() and exists (select 1 from conversa_membros where conversa = p_conversa and usuario = auth.uid())
+$$;
+
+/**
+ * O painel chama de minuto em minuto enquanto está aberto: marca que a pessoa está por aqui (é o "online" e o
+ * "visto por último" que a equipe vê) e devolve quantas conversas têm mensagem nova.
+ */
+create or replace function public.presenca() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  update perfis set visto_em = now() where id = v and visto_em < now() - interval '30 seconds';
+  return jsonb_build_object('conversas', case when interno.voluntario() then (
+    select count(*) from conversa_membros m
+    where m.usuario = v and exists (select 1 from conversa_mensagens g where g.conversa = m.conversa and g.criado_em > m.lido_em and g.autor is distinct from v)) else 0 end);
+end $$;
+
+/** As minhas conversas, da mais recente para a mais antiga. Ninguém vê conversa de que não participa, nem a coordenação. */
+create or replace function public.chat_conversas() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  update perfis set visto_em = now() where id = v and visto_em < now() - interval '30 seconds';
+  -- Nada fica guardado por mais de trinta dias.
+  delete from conversa_mensagens where criado_em < now() - interval '30 days';
+  return (
+    select coalesce(jsonb_agg(jsonb_build_object(
+      'id', c.id, 'tipo', c.tipo, 'dona', c.criada_por = v,
+      'nome', case when c.tipo = 'grupo' then c.nome else coalesce(o.nome, 'Alguém que saiu da equipe') end,
+      'outro', case when c.tipo = 'direta' then o.id end,
+      'online', case when c.tipo = 'direta' then coalesce(o.visto_em > now() - interval '2 minutes', false) end,
+      'visto_em', case when c.tipo = 'direta' then o.visto_em end,
+      'membros', (select count(*) from conversa_membros x where x.conversa = c.id),
+      'ultima', (select jsonb_build_object('corpo', g.corpo, 'minha', g.autor = v, 'autor', coalesce((select nome from perfis where id = g.autor), ''), 'criado_em', g.criado_em)
+                 from conversa_mensagens g where g.conversa = c.id order by g.criado_em desc limit 1),
+      'nao_lidas', (select count(*) from conversa_mensagens g where g.conversa = c.id and g.criado_em > m.lido_em and g.autor is distinct from v),
+      'movida_em', c.movida_em) order by c.movida_em desc), '[]'::jsonb)
+    from conversa_membros m
+    join conversas c on c.id = m.conversa
+    left join lateral (select f.id, f.nome, f.visto_em from conversa_membros x join perfis f on f.id = x.usuario
+                       where x.conversa = c.id and x.usuario <> v and c.tipo = 'direta' limit 1) o on true
+    where m.usuario = v);
+end $$;
+
+/** Abre (ou reencontra) a conversa privada com uma pessoa da equipe. */
+create or replace function public.chat_direta(p_usuario uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_par text; v_id uuid;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  if p_usuario is null or p_usuario = v or not interno.da_equipe(p_usuario) then perform interno.erro('invalido:usuario'); end if;
+  v_par := least(v::text, p_usuario::text) || ':' || greatest(v::text, p_usuario::text);
+  insert into conversas (tipo, par, criada_por) values ('direta', v_par, v) on conflict (par) do nothing;
+  select id into v_id from conversas where par = v_par;
+  insert into conversa_membros (conversa, usuario) values (v_id, v), (v_id, p_usuario) on conflict do nothing;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** Qualquer pessoa da equipe cria um grupo e escolhe quem entra. Quem criou (e a coordenação) cuida dele depois. */
+create or replace function public.chat_grupo_criar(p_nome text, p_membros uuid[]) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid := gen_random_uuid(); v_nome text := interno.txt(p_nome, 'nome', 2, 60); m uuid;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('grupo', 20, 60);
+  if coalesce(cardinality(p_membros), 0) not between 1 and 60 then perform interno.erro('invalido:membros'); end if;
+  insert into conversas (id, tipo, nome, criada_por) values (v_id, 'grupo', v_nome, v);
+  insert into conversa_membros (conversa, usuario) values (v_id, v);
+  foreach m in array p_membros loop
+    if m = v then continue; end if;
+    if not interno.da_equipe(m) then perform interno.erro('invalido:membros'); end if;
+    insert into conversa_membros (conversa, usuario) values (v_id, m) on conflict do nothing;
+    perform interno.avisar(m, coalesce((select nome from perfis where id = v), 'Alguém da equipe') || ' colocou você no grupo "' || v_nome || '". Está em Conversas.');
+  end loop;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** Trocar o nome, pôr e tirar gente: quem criou o grupo ou a coordenação. */
+create or replace function public.chat_grupo_mudar(p_id uuid, p_nome text default null, p_incluir uuid[] default '{}', p_tirar uuid[] default '{}') returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c conversas; m uuid;
+begin
+  select * into c from conversas where id = p_id and tipo = 'grupo';
+  if not found or not interno.na_conversa(p_id) then perform interno.erro('nao_encontrado'); end if;
+  if not (c.criada_por = v or interno.coord()) then perform interno.erro('sem_permissao'); end if;
+  if nullif(btrim(coalesce(p_nome, '')), '') is not null then update conversas set nome = interno.txt(p_nome, 'nome', 2, 60) where id = p_id; end if;
+  foreach m in array coalesce(p_incluir, '{}') loop
+    if not interno.da_equipe(m) then perform interno.erro('invalido:membros'); end if;
+    if (select count(*) from conversa_membros where conversa = p_id) >= 61 then perform interno.erro('invalido:membros'); end if;
+    insert into conversa_membros (conversa, usuario) values (p_id, m) on conflict do nothing;
+    if found then perform interno.avisar(m, coalesce((select nome from perfis where id = v), 'Alguém da equipe') || ' colocou você no grupo "' || c.nome || '". Está em Conversas.'); end if;
+  end loop;
+  delete from conversa_membros where conversa = p_id and usuario = any (coalesce(p_tirar, '{}')) and usuario <> v;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Sair de um grupo. O grupo que fica vazio some. */
+create or replace function public.chat_sair(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not exists (select 1 from conversas where id = p_id and tipo = 'grupo') then perform interno.erro('nao_encontrado'); end if;
+  delete from conversa_membros where conversa = p_id and usuario = v;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  delete from conversas where id = p_id and not exists (select 1 from conversa_membros where conversa = p_id);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Apagar o grupo inteiro, com as mensagens: quem criou ou a coordenação. */
+create or replace function public.chat_grupo_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.na_conversa(p_id) then perform interno.erro('nao_encontrado'); end if;
+  delete from conversas where id = p_id and tipo = 'grupo' and (criada_por = v or interno.coord());
+  if not found then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Abre uma conversa: quem participa, quem está por aqui, as últimas mensagens. Abrir marca como lida. */
+create or replace function public.chat_ver(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c conversas;
+begin
+  if not interno.na_conversa(p_id) then perform interno.erro('nao_encontrado'); end if;
+  select * into c from conversas where id = p_id;
+  update conversa_membros set lido_em = clock_timestamp() where conversa = p_id and usuario = v;
+  update perfis set visto_em = now() where id = v and visto_em < now() - interval '30 seconds';
+  return jsonb_build_object(
+    'id', c.id, 'tipo', c.tipo, 'nome', c.nome, 'dona', c.criada_por = v or (c.tipo = 'grupo' and interno.coord()),
+    'membros', (select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', f.nome, 'eu', f.id = v, 'online', f.visto_em > now() - interval '2 minutes',
+                                                              'visto_em', f.visto_em, 'lido_em', m.lido_em) order by f.nome), '[]'::jsonb)
+                from conversa_membros m join perfis f on f.id = m.usuario where m.conversa = p_id),
+    'mensagens', (select coalesce(jsonb_agg(x.j order by x.criado_em), '[]'::jsonb) from (
+                    select g.criado_em, jsonb_build_object('id', g.id, 'autor', g.autor, 'nome', coalesce(f.nome, 'Alguém que saiu da equipe'), 'minha', g.autor = v,
+                                                           'corpo', g.corpo, 'criado_em', g.criado_em) as j
+                    from conversa_mensagens g left join perfis f on f.id = g.autor where g.conversa = p_id order by g.criado_em desc limit 300) x));
+end $$;
+
+create or replace function public.chat_enviar(p_id uuid, p_corpo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid;
+begin
+  if not interno.na_conversa(p_id) then perform interno.erro('nao_encontrado'); end if;
+  perform interno.limite('conversa', 600, 60);
+  if coalesce((select valor ->> 'prova' from configuracoes where chave = 'equipe'), '') = '' then perform interno.erro('sem_chave'); end if;
+  -- O banco recusa texto aberto: só entra o que já chega cifrado.
+  if coalesce(p_corpo, '') !~ '^c1[.][A-Za-z0-9_-]{16}[.][A-Za-z0-9_-]+$' or char_length(p_corpo) not between 40 and 4000 then perform interno.erro('invalido:corpo'); end if;
+  insert into conversa_mensagens (conversa, autor, corpo) values (p_id, v, p_corpo) returning id into v_id;
+  update conversas set movida_em = now() where id = p_id;
+  update conversa_membros set lido_em = clock_timestamp() where conversa = p_id and usuario = v;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** Cada pessoa apaga as próprias mensagens. */
+create or replace function public.chat_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  delete from conversa_mensagens where id = p_id and autor = v and interno.na_conversa(conversa);
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
 -- ───────────────────────────── Iscas do site ─────────────────────────────
 
 /**
@@ -2596,7 +2793,8 @@ begin
              'arquivo_registrar', 'arquivos_listar', 'arquivo_decidir', 'arquivos_aprovados', 'arquivo_publicado',
              'convite_criar', 'convites_listar', 'convite_revogar', 'convite_ver', 'convidar_pelo_banco', 'mural_cidades', 'mural_retirar',
              'equipe_chave_definir', 'equipe_apagar_tudo', 'arquivo_apoiar', 'isca', 'boletim_assinar', 'boletim_listar', 'boletim_remover',
-             'colaboracao_abrir', 'colaboracao_fechar', 'colaboracoes_minhas', 'equipe_membros', 'site', 'site_salvar'))
+             'colaboracao_abrir', 'colaboracao_fechar', 'colaboracoes_minhas', 'equipe_membros', 'site', 'site_salvar',
+             'presenca', 'chat_conversas', 'chat_direta', 'chat_grupo_criar', 'chat_grupo_mudar', 'chat_sair', 'chat_grupo_apagar', 'chat_ver', 'chat_enviar', 'chat_apagar'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then

@@ -22,7 +22,7 @@ interface Recado extends Resposta {
   respostas: Resposta[];
 }
 
-interface Canais {
+export interface Canais {
   sala: string;
   sal: string;
   prova: string;
@@ -35,6 +35,9 @@ export interface Membro {
   bio: string;
   eu: boolean;
   por_aqui: boolean;
+  /** Com o painel aberto nos últimos dois minutos. */
+  online: boolean;
+  visto_em: string;
   papeis: { papel: Role["papel"]; disciplina: string | null }[];
 }
 
@@ -82,6 +85,27 @@ function Rosto({ nome, menor = false }: { nome: string; menor?: boolean }) {
   );
 }
 
+/** A chave guardada nesta aba só vale se ainda abrir a prova que está no banco. */
+export function useChave(prova: string | undefined) {
+  const [chave, setChave] = useState<CryptoKey | null>(null);
+  useEffect(() => {
+    if (!prova) return;
+    let cancelado = false;
+    void recallKey().then(async (guardada) => {
+      if (!guardada || cancelado) return;
+      if ((await unseal(guardada, prova)) === PROOF) {
+        if (!cancelado) setChave(guardada);
+      } else {
+        void rememberKey(null);
+      }
+    });
+    return () => {
+      cancelado = true;
+    };
+  }, [prova]);
+  return [chave, setChave] as const;
+}
+
 /**
  * A rede interna da equipe: publicações e comentários por canal (um para todos, um por função e um de pedidos
  * de ajuda entre funções). Tudo é cifrado neste aparelho com a chave da equipe antes de ser enviado, e some
@@ -91,7 +115,7 @@ export function Equipe({ lider }: { lider: boolean }) {
   const { t } = useI18n();
   const canais = useLista<Canais>("equipe_canais");
   const membros = useLista<Membro[]>("equipe_membros");
-  const [chave, setChave] = useState<CryptoKey | null>(null);
+  const [chave, setChave] = useChave(canais.dados?.prova);
   const [canal, setCanal] = useState("geral");
   const lista = useLista<Recado[]>("equipe_listar", { p_canal: canal });
   const { recarregar } = lista;
@@ -103,23 +127,6 @@ export function Equipe({ lider }: { lider: boolean }) {
   const [aviso, setAviso] = useState("");
   const dados = canais.dados;
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
-
-  // A chave guardada nesta aba só vale se ainda abrir a prova que está no banco.
-  useEffect(() => {
-    if (!dados?.prova) return;
-    let cancelado = false;
-    void recallKey().then(async (guardada) => {
-      if (!guardada || cancelado) return;
-      if ((await unseal(guardada, dados.prova)) === PROOF) {
-        if (!cancelado) setChave(guardada);
-      } else {
-        void rememberKey(null);
-      }
-    });
-    return () => {
-      cancelado = true;
-    };
-  }, [dados?.prova]);
 
   // Abre no aparelho o que veio cifrado do banco.
   useEffect(() => {
@@ -274,7 +281,7 @@ export function Equipe({ lider }: { lider: boolean }) {
               <li key={membro.id} className="flex items-start gap-2.5" title={membro.bio || undefined}>
                 <span className="relative">
                   <Rosto nome={membro.nome} menor />
-                  {membro.por_aqui && <span title="Passou por aqui há pouco" className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-parchment bg-ok" />}
+                  {membro.online && <span title="online" className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-parchment bg-ok" />}
                 </span>
                 <span className="min-w-0">
                   <span className="block truncate font-semibold">{membro.nome}{membro.eu && " (você)"}</span>
@@ -323,7 +330,7 @@ export function Equipe({ lider }: { lider: boolean }) {
 }
 
 /** Pede a frase da equipe. A coordenação define a frase na primeira vez; os demais digitam a que receberam. */
-function Chave({ dados, lider, aoAbrir }: { dados: Canais; lider: boolean; aoAbrir: (chave: CryptoKey) => void }) {
+export function Chave({ dados, lider, aoAbrir }: { dados: Canais; lider: boolean; aoAbrir: (chave: CryptoKey) => void }) {
   const [frase, setFrase] = useState("");
   const [repete, setRepete] = useState("");
   const [aviso, setAviso] = useState("");

@@ -12,7 +12,7 @@ Este é o documento de referência do projeto: como ele é organizado, como se e
 
 - **Design:** não se mexe em fontes, cores nem no texto central da página inicial. Novas páginas reaproveitam as peças que já existem.
 - **Simplicidade:** o foco é o ensino. Fórum, jornal e rádio são complementos e ficam fora do caminho de quem só quer estudar.
-- **Palavras:** no site se fala em *líder comunitário, vice-líder, curadoria, educador, revisor, tradutor, jornalista, voluntário*. Não se usam "administrador" nem "moderador".
+- **Palavras:** no site se fala em *coordenador, vice-coordenador, curadoria, educador, revisor, tradutor, jornalista, voluntário*. Não se usam "administrador", "moderador" nem "líder".
 - **Fontes:** toda aula, matéria, checagem, verbete e homenagem cita pelo menos uma fonte. Nada inventado.
 - **Pessoas e organizações:** ao falar de pessoas vivas, partidos ou empresas, só fatos documentados e linguagem sóbria. O objetivo é educar.
 - **Direitos autorais:** nenhum arquivo de terceiros é hospedado. O acervo guarda a ficha e o link para a fonte legítima; nunca um link direto para PDF, nunca um link de loja ou de editora. Obra protegida vira "ficha de referência" e aponta para um catálogo de bibliotecas. Letras de música e livros protegidos não são reproduzidos.
@@ -201,7 +201,7 @@ O painel (`/painel`) é um ambiente à parte do site: ocupa a tela inteira, sem 
 
 | Área | Seções | Quem vê |
 | --- | --- | --- |
-| (início) | Mesa, Rede interna | todos; a rede, só quem tem função |
+| (início) | Mesa, Conversas, Mural da equipe | todos; conversas e mural, só quem tem função |
 | Produção | Escrever, Meus envios, Compartilhadas comigo, Fila de revisão, Materiais e arquivos | conforme a função |
 | Atendimento | Comunidade, Aula de reforço, Mural dos Trabalhadores, Boletim do jornal | conforme a função; o mural, só coordenação |
 | Pessoas | Voluntários e convites, Horas e certificados | a primeira, só coordenação |
@@ -221,8 +221,8 @@ Cada pessoa vê no painel só as seções da sua função. O banco confere a fun
 
 | Papel (nome no banco) | Nome no site | O que pode |
 | --- | --- | --- |
-| `coordenacao` | líder comunitário | tudo: aprova voluntários, distribui funções e disciplinas, decide publicações, cuida do mural e da rádio, define a sucessão, lê o registro de atividades. Só existe um |
-| `vice` | vice-líder | o mesmo que a coordenação, menos: nomear ou tirar vice, passar a coordenação, mexer na sucessão, mudar a exigência de segundo fator, definir a sala da equipe e emitir certificados |
+| `coordenacao` | coordenador | tudo: aprova voluntários, distribui funções e disciplinas, decide publicações, cuida do mural e da rádio, define a sucessão, lê o registro de atividades. Só existe um |
+| `vice` | vice-coordenador | o mesmo que a coordenação, menos: nomear ou tirar vice, passar a coordenação, mexer na sucessão, mudar a exigência de segundo fator, definir a sala da equipe e emitir certificados |
 | `curadoria` | curadoria | lê a fila inteira, edita e decide; cuida da comunidade (mensagens retidas, palavras vetadas) |
 | `educacao` (por disciplina) | educador | escreve aulas da sua disciplina, vê a fila dela e dá parecer nas matérias do jornal |
 | `revisao` | revisor | lê a fila e dá parecer |
@@ -234,17 +234,19 @@ Cada pessoa vê no painel só as seções da sua função. O banco confere a fun
 
 Quem contribui sem conta, pela página Contribuir, entra na mesma fila.
 
-### Rede interna (conversa da equipe)
+### Conversas e Mural da equipe
 
-É um mural de publicações e comentários, com um canal para todos, um por função e um de pedidos de ajuda entre funções, e a lista de quem está na equipe ao lado. As mensagens são cifradas no navegador de quem escreve, com uma chave derivada de uma **frase da equipe**. O banco recusa texto aberto e guarda só o resultado cifrado. O líder define a frase na **Rede interna** e a passa aos demais por fora do site. A frase não fica guardada em lugar nenhum: se for perdida, define-se outra (e as conversas guardadas são apagadas). Tudo some sozinho depois de trinta dias, e o líder tem o botão "Apagar todas as conversas agora". Troque a frase sempre que alguém sair da equipe.
+**Conversas** é o bate-papo: privado (duas pessoas) ou em grupo. Qualquer pessoa da equipe procura outra pelo nome e começa uma conversa, ou cria um grupo e escolhe quem entra (dá para marcar de uma vez todos de uma função). Só quem participa de uma conversa a lê: nem a coordenação abre conversa alheia. Aparece quem está online (painel aberto nos últimos dois minutos) e o "visto por último" de cada um. Não há canal aberto permanente com o banco: a conversa aberta se atualiza a cada três segundos e a lista a cada oito, o que na prática é tempo real. As mensagens usam a mesma chave da equipe do mural, somem em trinta dias, e o botão "Apagar todas as conversas agora" do coordenador leva tudo junto. Como a chave é uma só para a equipe, quem tem a frase **e** acesso direto ao banco conseguiria abrir mensagens alheias; pelo painel, não.
+
+O **Mural da equipe** é um mural de publicações e comentários, com um canal para todos, um por função e um de pedidos de ajuda entre funções, e a lista de quem está na equipe ao lado. As mensagens são cifradas no navegador de quem escreve, com uma chave derivada de uma **frase da equipe**. O banco recusa texto aberto e guarda só o resultado cifrado. O coordenador define a frase no **Mural da equipe** ou em **Conversas** e a passa aos demais por fora do site. A frase não fica guardada em lugar nenhum: se for perdida, define-se outra (e as conversas guardadas são apagadas). Tudo some sozinho depois de trinta dias, e o coordenador tem o botão "Apagar todas as conversas agora". Troque a frase sempre que alguém sair da equipe.
 
 ### Imagens e arquivos
 
-Quem envia uma imagem ou um PDF não publica sozinho: o arquivo aparece na **Rede interna** para os colegas olharem e apoiarem. Com dois apoios, a coordenação pode aprovar (o líder pode aprovar sem esperar; recusar, qualquer um dos dois pode).
+Quem envia uma imagem ou um PDF não publica sozinho: o arquivo aparece no **Mural da equipe** para os colegas olharem e apoiarem. Com dois apoios, a coordenação pode aprovar (o coordenador pode aprovar sem esperar; recusar, qualquer um dos dois pode).
 
 ### Sucessão
 
-A coordenação indica, na aba **Segurança e sucessão**, uma lista ordenada de sucessores. Se o líder ficar **90 dias** sem entrar no painel, a coordenação passa sozinha para a primeira pessoa da lista que tenha entrado nos últimos 30 dias; o antigo líder vira vice. A troca fica no registro de atividades e todos da coordenação são avisados. O líder também pode passar o cargo na hora, pelo mesmo painel.
+A coordenação indica, na aba **Segurança e sucessão**, uma lista ordenada de sucessores. Se o coordenador ficar **90 dias** sem entrar no painel, a coordenação passa sozinha para a primeira pessoa da lista que tenha entrado nos últimos 30 dias; o antigo coordenador vira vice. A troca fica no registro de atividades e todos da coordenação são avisados. O coordenador também pode passar o cargo na hora, pelo mesmo painel.
 
 A sucessão do banco não resolve a da **infraestrutura**: domínio, hospedagem, Cloudflare, Supabase e repositório estão em contas pessoais. Guarde essas senhas em um gerenciador com acesso de emergência para a pessoa de confiança.
 
@@ -328,7 +330,7 @@ O endereço da campanha fica em `lib/site.ts`. O mural de apoiadores é preenchi
 
 ## 13. Voluntariado, horas e certificados
 
-O voluntário aceita no painel um termo de adesão baseado na Lei nº 9.608/1998 (serviço voluntário: sem salário e sem vínculo de emprego). Depois registra as horas, que a coordenação confere. O certificado de horas é aberto pelo líder (nunca para si mesmo) e leva sempre **três assinaturas eletrônicas**: a de um educador, a do vice-líder e, por último, a do líder, que é a emissão. Cada um assina na própria conta, em *Horas e certificados*; fica guardado quem assinou, em nome de que função, o dia e a hora. Ninguém assina o próprio certificado, e sem vice-líder nomeado não se emite. A folha é única (`components/painel/Certificado.tsx`, estilo em `app/globals.css`): A4 deitada, salva em PDF pelo navegador, com o número do certificado e uma impressão digital (SHA-256) do que ele afirma. É assinatura eletrônica simples, feita dentro do site; quem precisar de mais força pode, além disso, assinar o PDF em um serviço de assinatura como o do gov.br. Qualquer pessoa confere a autenticidade em `/certificado`, com o código impresso.
+O voluntário aceita no painel um termo de adesão baseado na Lei nº 9.608/1998 (serviço voluntário: sem salário e sem vínculo de emprego). Depois registra as horas, que a coordenação confere. O certificado de horas é aberto pelo coordenador (nunca para si mesmo) e leva sempre **três assinaturas eletrônicas**: a de um educador, a do vice-coordenador e, por último, a do coordenador, que é a emissão. Cada um assina na própria conta, em *Horas e certificados*; fica guardado quem assinou, em nome de que função, o dia e a hora. Ninguém assina o próprio certificado, e sem vice-coordenador nomeado não se emite. A folha é única (`components/painel/Certificado.tsx`, estilo em `app/globals.css`): A4 deitada, salva em PDF pelo navegador, com o número do certificado e uma impressão digital (SHA-256) do que ele afirma. É assinatura eletrônica simples, feita dentro do site; quem precisar de mais força pode, além disso, assinar o PDF em um serviço de assinatura como o do gov.br. Qualquer pessoa confere a autenticidade em `/certificado`, com o código impresso.
 
 Enquanto o instituto não tiver CNPJ, o certificado é uma **declaração de um projeto comunitário**, assinada por pessoa física. Vale como comprovação de atividade; cada escola ou empresa decide se aceita como hora complementar. Não prometa mais do que isso.
 
@@ -340,7 +342,7 @@ Manifestação de apoio a candidatura na internet é livre para pessoa física, 
 
 ## 15. Mural dos Trabalhadores
 
-Qualquer pessoa anuncia, sem conta: escolhe o tipo, escreve o ofício, o título, a descrição, a **cidade**, o **estado** e o contato. O anúncio passa pelo filtro de palavras e fica esperando: **só a coordenação (líder e vice) aprova**, na aba **Mural** do painel. Aprovado, fica no ar por 180 dias. Quem anunciou sem conta recebe um código para retirar o anúncio quando quiser. Quem procura filtra por estado, cidade, tipo e palavra.
+Qualquer pessoa anuncia, sem conta: escolhe o tipo, escreve o ofício, o título, a descrição, a **cidade**, o **estado** e o contato. O anúncio passa pelo filtro de palavras e fica esperando: **só a coordenação (coordenador e vice) aprova**, na aba **Mural** do painel. Aprovado, fica no ar por 180 dias. Quem anunciou sem conta recebe um código para retirar o anúncio quando quiser. Quem procura filtra por estado, cidade, tipo e palavra.
 
 ## 16. Leitor digital, livro em EPUB e aplicativo
 
