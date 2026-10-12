@@ -9,7 +9,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 |---|---|---|---|---|
 | Percursos | alfabetizacao | 1 | 27 | 26 |
 | Percursos | enem | 1 | 25 | 24 |
-| Linguagens | portugues | 18 | 43 | 25 |
+| Linguagens | portugues | 24 | 43 | 19 |
 | Linguagens | literatura | 1 | 49 | 48 |
 | Linguagens | ingles | 4 | 46 | 42 |
 | Linguagens | espanhol | 1 | 28 | 27 |
@@ -68,7 +68,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Lutas do Povo | luta-dos-professores | 1 | 27 | 26 |
 | Lutas do Povo | movimento-estudantil | 2 | 26 | 24 |
 | Lutas do Povo | pessoas-idosas | 1 | 24 | 23 |
-| | **Total** | **333** | **2086** | **1753** |
+| | **Total** | **339** | **2086** | **1747** |
 
 ## Percursos
 
@@ -140,18 +140,13 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 ## Linguagens
 
-### portugues — 18 de 43 prontas (faltam 25)
+### portugues — 24 de 43 prontas (faltam 19)
 
 **Português: ler e escrever bem** (fundamental, `portugues-fundamental`): 12/12 prontas
 - (completa)
 
-**Português: gramática e redação** (medio, `portugues-medio`): 6/12 prontas
-- Variação linguística e preconceito linguístico
-- Gêneros textuais
-- O texto dissertativo-argumentativo
-- Coesão e coerência
-- Como fazer um resumo e um fichamento
-- Leitura crítica de notícias
+**Português: gramática e redação** (medio, `portugues-medio`): 12/12 prontas
+- (completa)
 
 **Português: linguística e escrita acadêmica** (superior, `portugues-superior`): 0/10 prontas
 - O que estuda a linguística
