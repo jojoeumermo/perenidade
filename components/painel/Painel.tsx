@@ -12,6 +12,7 @@ import { L, useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
 import { Boletim } from "./Boletim";
+import { Conversas } from "./Conversas";
 import { Equipe, type Membro } from "./Equipe";
 import { Escrever } from "./Escrever";
 import { Fila } from "./Fila";
@@ -182,13 +183,23 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const { lang } = useI18n();
   const resumo = useLista<Resumo>("painel_resumo");
   const r = resumo.dados;
+  // De minuto em minuto o painel diz que a pessoa está por aqui e pergunta se chegou mensagem nova.
+  const presenca = useLista<{ conversas: number }>("presenca");
+  const avisarPresenca = presenca.recarregar;
+  useEffect(() => {
+    const relogio = window.setInterval(() => {
+      if (document.visibilityState === "visible") avisarPresenca();
+    }, 60_000);
+    return () => window.clearInterval(relogio);
+  }, [avisarPresenca]);
   const voluntario = eu.papeis.length > 0;
   const lidera = can(eu, "coordenacao");
   // Cada função enxerga só as ferramentas dela. A coordenação e a vice-coordenação enxergam todas.
   const secoes: Secao[] = (
     [
       { id: "mesa", nome: "Mesa", sobre: "O que espera por você hoje.", grupo: "", mostra: true, conta: eu.avisos },
-      { id: "rede", nome: "Rede interna", sobre: "A conversa da equipe, cifrada neste aparelho antes de sair.", grupo: "", mostra: voluntario },
+      { id: "conversas", nome: "Conversas", sobre: "Mensagens privadas e grupos da equipe, cifradas neste aparelho.", grupo: "", mostra: voluntario, conta: aba === "conversas" ? 0 : presenca.dados?.conversas },
+      { id: "rede", nome: "Mural da equipe", sobre: "Publicações e pedidos de ajuda para todos ou por função, cifrados neste aparelho.", grupo: "", mostra: voluntario },
       { id: "escrever", nome: "Escrever", sobre: "Aulas, matérias, verbetes e tudo o que vai para o site.", grupo: "Produção", mostra: true },
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: true },
       { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
@@ -292,6 +303,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
         <div className="mx-auto max-w-5xl px-5 py-7 sm:px-8">
           {eu.suspenso && <p className="mb-6 border-l-2 border-oxblood pl-4 text-oxblood">Esta conta está suspensa: você pode ler, mas não enviar.</p>}
           {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} />}
+          {atual.id === "conversas" && <Conversas me={eu} lider={leads(eu)} />}
           {atual.id === "rede" && <Equipe lider={leads(eu)} />}
           {atual.id === "escrever" && <Escrever me={eu} />}
           {atual.id === "minhas" && <Fila key="minhas" me={eu} minhas />}
@@ -374,7 +386,7 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
         )}
         <p className="mt-4 flex flex-wrap gap-3">
           <button type="button" className={botao} onClick={() => ir("escrever")}>Escrever</button>
-          {me.papeis.length > 0 && <button type="button" className={botaoClaro} onClick={() => ir("rede")}>Abrir a rede interna</button>}
+          {me.papeis.length > 0 && <button type="button" className={botaoClaro} onClick={() => ir("conversas")}>Abrir as conversas</button>}
           {(r?.minhas ?? 0) > 0 && <button type="button" className={botaoClaro} onClick={() => ir("minhas")}>Meus envios ({r?.minhas})</button>}
         </p>
       </section>
@@ -392,17 +404,17 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
 function Situacao({ lidera, ir }: { lidera: boolean; ir: (aba: string) => void }) {
   const membros = useLista<Membro[]>("equipe_membros");
   const site = useLista<Controles>("site");
-  const porAqui = membros.dados?.filter((membro) => membro.por_aqui).length ?? 0;
+  const online = membros.dados?.filter((membro) => membro.online && !membro.eu).length ?? 0;
   const quadro = "border border-rule bg-parchment-deep p-4 text-left";
   const alerta = "border-2 border-oxblood bg-parchment-deep p-4 text-left";
   return (
     <section>
       <h2 className={rotulo}>Como estamos</h2>
       <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        <button type="button" onClick={() => ir("rede")} className={`${quadro} cursor-pointer hover:border-ink`}>
+        <button type="button" onClick={() => ir("conversas")} className={`${quadro} cursor-pointer hover:border-ink`}>
           <span className="block text-ink-soft">Equipe</span>
           <span className="mt-1 block font-serif text-2xl font-semibold leading-tight">{membros.dados ? `${membros.dados.length} ${membros.dados.length === 1 ? "pessoa" : "pessoas"}` : "…"}</span>
-          <span className="mt-1 block text-ink-soft">{porAqui > 0 ? `${porAqui} por aqui na última hora e meia` : "Ninguém mais por aqui agora"}</span>
+          <span className="mt-1 block text-ink-soft">{online > 0 ? `${online} online agora` : "Ninguém mais online agora"}</span>
         </button>
         {site.dados &&
           (lidera ? (

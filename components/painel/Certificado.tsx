@@ -45,9 +45,9 @@ export function Impresso({ certificado, fechar }: { certificado: Certificado; fe
   const endereco = `${site.url.replace(/^https?:\/\//, "")}/pt/certificado`;
   const cargo = (assinatura: Assinatura) =>
     assinatura.papel === "coordenacao"
-      ? "Líder comunitário"
+      ? "Coordenador"
       : assinatura.papel === "vice"
-        ? "Vice-líder"
+        ? "Vice-coordenador"
         : assinatura.papel === "educacao"
           ? `Educador(a)${assinatura.disciplina ? ` de ${t.areas[assinatura.disciplina as keyof typeof t.areas]?.[0] ?? assinatura.disciplina}` : ""}`
           : "Testemunha";
