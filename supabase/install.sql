@@ -1992,66 +1992,96 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
+/** O nome que vai na linha de assinatura: o completo do termo de adesão, quando a pessoa aceitou um. */
+create or replace function interno.nome_de_assinar(p_usuario uuid) returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((select nome_completo from termos_adesao where usuario = p_usuario), (select nome from perfis where id = p_usuario), '')
+$$;
+
+/** A impressão digital junta tudo o que o certificado afirma: mudou uma letra, muda a impressão. */
 create or replace function interno.certificado_json(c interno.certificados) returns jsonb language sql stable as $$
   select jsonb_build_object('id', c.id, 'codigo', c.codigo, 'usuario', c.usuario, 'nome', c.nome, 'horas', c.horas, 'inicio', c.inicio, 'fim', c.fim,
-    'atividades', c.atividades, 'testemunhas', c.testemunhas, 'status', c.status, 'emitido_em', c.emitido_em, 'criado_em', c.criado_em)
+    'atividades', c.atividades, 'testemunhas', c.testemunhas, 'status', c.status, 'emitido_em', c.emitido_em, 'criado_em', c.criado_em,
+    'impressao', encode(sha256(convert_to(c.codigo || '|' || c.nome || '|' || c.horas::text || '|' || c.inicio::text || '|' || c.fim::text || '|' || c.atividades, 'UTF8')), 'hex'))
 $$;
 
 /**
- * A coordenação abre o processo: escolhe a pessoa, o período e quem testemunha. As horas confirmadas do período
- * entram no certificado e deixam de valer para outro.
+ * O líder abre o processo: escolhe a pessoa, o período e o educador que acompanhou o trabalho. Todo certificado
+ * leva três assinaturas eletrônicas, cada uma dada pela própria pessoa, na própria conta: a do educador, a do
+ * vice-líder e, por último, a do líder (que é a emissão). Ninguém assina o próprio certificado. As horas
+ * confirmadas do período entram no certificado e deixam de valer para outro.
+ * (A coluna guarda as assinaturas com o nome antigo, "testemunhas".)
  */
 create or replace function public.certificado_abrir(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare
   v uuid := interno.eu();
   v_usuario uuid := nullif(p ->> 'usuario', '')::uuid;
+  v_educador uuid := nullif(p ->> 'educador', '')::uuid;
+  v_vice uuid := nullif(p ->> 'vice', '')::uuid;
   v_inicio date := nullif(p ->> 'inicio', '')::date;
   v_fim date := nullif(p ->> 'fim', '')::date;
-  v_nome text; v_horas numeric; v_id uuid := gen_random_uuid(); v_testemunhas jsonb := '[]'::jsonb; t text;
+  v_nome text; v_horas numeric; v_id uuid := gen_random_uuid(); v_assinaturas jsonb;
 begin
   if not interno.lider() then perform interno.erro('sem_permissao'); end if;
   if v_usuario is null or v_usuario = v then perform interno.erro('invalido:usuario'); end if;
   if v_inicio is null or v_fim is null or v_fim < v_inicio then perform interno.erro('invalido:periodo'); end if;
   select nome_completo into v_nome from termos_adesao where usuario = v_usuario;
   if v_nome is null then perform interno.erro('falta_termo'); end if;
-  if jsonb_typeof(coalesce(p -> 'testemunhas', '[]'::jsonb)) <> 'array' or jsonb_array_length(coalesce(p -> 'testemunhas', '[]'::jsonb)) > 5 then perform interno.erro('invalido:testemunhas'); end if;
-  for t in select jsonb_array_elements_text(coalesce(p -> 'testemunhas', '[]'::jsonb)) loop
-    if t::uuid = v_usuario or not exists (select 1 from papeis where usuario = t::uuid and papel in ('educacao', 'curadoria', 'vice')) then perform interno.erro('invalido:testemunhas'); end if;
-    v_testemunhas := v_testemunhas || jsonb_build_array(jsonb_build_object('id', t, 'nome', (select nome from perfis where id = t::uuid), 'confirmou_em', null));
-  end loop;
+  if v_educador is null or v_educador in (v_usuario, v)
+     or not exists (select 1 from papeis r join perfis f on f.id = r.usuario where r.usuario = v_educador and r.papel = 'educacao' and not f.suspenso) then perform interno.erro('invalido:educador'); end if;
+  if v_vice is null then
+    select r.usuario into v_vice from papeis r join perfis f on f.id = r.usuario
+    where r.papel = 'vice' and not f.suspenso and r.usuario not in (v_usuario, v_educador, v) order by f.visto_em desc limit 1;
+  end if;
+  if v_vice is null or v_vice in (v_usuario, v_educador, v)
+     or not exists (select 1 from papeis r join perfis f on f.id = r.usuario where r.usuario = v_vice and r.papel = 'vice' and not f.suspenso) then perform interno.erro('falta_vice'); end if;
   select coalesce(sum(horas), 0) into v_horas from horas where usuario = v_usuario and status = 'confirmada' and certificado is null and dia between v_inicio and v_fim;
   if v_horas <= 0 then perform interno.erro('sem_horas'); end if;
+  v_assinaturas := jsonb_build_array(
+    jsonb_build_object('id', v_educador, 'nome', interno.nome_de_assinar(v_educador), 'papel', 'educacao',
+                       'disciplina', (select min(disciplina) from papeis where usuario = v_educador and papel = 'educacao'), 'confirmou_em', null),
+    jsonb_build_object('id', v_vice, 'nome', interno.nome_de_assinar(v_vice), 'papel', 'vice', 'disciplina', null, 'confirmou_em', null),
+    jsonb_build_object('id', v, 'nome', interno.nome_de_assinar(v), 'papel', 'coordenacao', 'disciplina', null, 'confirmou_em', null));
   insert into certificados (id, codigo, usuario, nome, horas, inicio, fim, atividades, testemunhas)
-  values (v_id, upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 12)), v_usuario, v_nome, v_horas, v_inicio, v_fim, interno.txt(p ->> 'atividades', 'atividades', 10, 3000), v_testemunhas);
+  values (v_id, upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 12)), v_usuario, v_nome, v_horas, v_inicio, v_fim, interno.txt(p ->> 'atividades', 'atividades', 10, 700), v_assinaturas);
   update horas set certificado = v_id where usuario = v_usuario and status = 'confirmada' and certificado is null and dia between v_inicio and v_fim;
-  for t in select jsonb_array_elements_text(coalesce(p -> 'testemunhas', '[]'::jsonb)) loop
-    perform interno.avisar(t::uuid, 'Você foi indicada(o) como testemunha de um certificado de horas de voluntariado. Abra "Horas e certificados" no painel para confirmar.');
-  end loop;
+  perform interno.avisar(v_educador, 'Há um certificado de horas de voluntariado esperando a sua assinatura. Abra "Horas e certificados" no painel.');
+  perform interno.avisar(v_vice, 'Há um certificado de horas de voluntariado esperando a sua assinatura. Abra "Horas e certificados" no painel.');
   perform interno.registrar('certificado_aberto', v_usuario::text, jsonb_build_object('horas', v_horas));
   return jsonb_build_object('id', v_id, 'horas', v_horas);
 end $$;
 
+/** A assinatura do educador e a do vice-líder: cada um assina só a própria linha, com a própria conta. */
 create or replace function public.certificado_testemunhar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); c certificados;
+declare v uuid := interno.eu(); c certificados; v_novas jsonb;
 begin
   select * into c from certificados where id = p_id for update;
   if not found or c.status <> 'aberto' then perform interno.erro('nao_encontrado'); end if;
-  if not exists (select 1 from jsonb_array_elements(c.testemunhas) x where x ->> 'id' = v::text and x ->> 'confirmou_em' is null) then perform interno.erro('sem_permissao'); end if;
-  update certificados set testemunhas = (
-    select jsonb_agg(case when x ->> 'id' = v::text then x || jsonb_build_object('confirmou_em', now()) else x end) from jsonb_array_elements(c.testemunhas) x)
-  where id = p_id;
+  if not exists (select 1 from jsonb_array_elements(c.testemunhas) x
+                 where x ->> 'id' = v::text and x ->> 'confirmou_em' is null and coalesce(x ->> 'papel', '') <> 'coordenacao') then perform interno.erro('sem_permissao'); end if;
+  select jsonb_agg(case when x ->> 'id' = v::text and coalesce(x ->> 'papel', '') <> 'coordenacao' then x || jsonb_build_object('confirmou_em', now()) else x end order by n)
+  into v_novas from jsonb_array_elements(c.testemunhas) with ordinality as e(x, n);
+  update certificados set testemunhas = v_novas where id = p_id;
   perform interno.registrar('certificado_testemunhado', p_id::text);
+  if not exists (select 1 from jsonb_array_elements(v_novas) x where x ->> 'confirmou_em' is null and coalesce(x ->> 'papel', '') <> 'coordenacao') then
+    perform interno.avisar((x ->> 'id')::uuid, 'Um certificado de horas já tem as assinaturas do educador e do vice-líder. Falta a sua para emitir.')
+    from jsonb_array_elements(v_novas) x where x ->> 'papel' = 'coordenacao';
+  end if;
   return jsonb_build_object('ok', true);
 end $$;
 
+/** A assinatura do líder é a última e é a emissão. Vale quem é líder no dia de assinar. */
 create or replace function public.certificado_emitir(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); c certificados;
+declare v uuid := interno.eu(); c certificados; v_minha jsonb;
 begin
   if not interno.lider() then perform interno.erro('sem_permissao'); end if;
   select * into c from certificados where id = p_id for update;
   if not found or c.status <> 'aberto' then perform interno.erro('nao_encontrado'); end if;
-  if exists (select 1 from jsonb_array_elements(c.testemunhas) x where x ->> 'confirmou_em' is null) then perform interno.erro('falta_testemunha'); end if;
-  update certificados set status = 'emitido', emitido_por = v, emitido_em = now() where id = p_id;
+  if c.usuario = v then perform interno.erro('sem_permissao'); end if;
+  if exists (select 1 from jsonb_array_elements(c.testemunhas) x where x ->> 'confirmou_em' is null and coalesce(x ->> 'papel', '') <> 'coordenacao') then perform interno.erro('falta_assinatura'); end if;
+  v_minha := jsonb_build_object('id', v, 'nome', interno.nome_de_assinar(v), 'papel', 'coordenacao', 'disciplina', null, 'confirmou_em', now());
+  update certificados set status = 'emitido', emitido_por = v, emitido_em = now(),
+    testemunhas = coalesce((select jsonb_agg(x order by n) from jsonb_array_elements(c.testemunhas) with ordinality as e(x, n) where coalesce(x ->> 'papel', '') <> 'coordenacao'), '[]'::jsonb) || jsonb_build_array(v_minha)
+  where id = p_id;
   perform interno.registrar('certificado_emitido', c.usuario::text, jsonb_build_object('codigo', c.codigo, 'horas', c.horas));
   perform interno.avisar(c.usuario, 'Seu certificado de horas de voluntariado foi emitido. Ele está em "Horas e certificados", no painel.');
   return jsonb_build_object('codigo', c.codigo);
@@ -2068,7 +2098,7 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
-/** A coordenação vê todos; cada pessoa vê os próprios e aqueles em que é testemunha. */
+/** A coordenação vê todos; cada pessoa vê os próprios e aqueles que assina. */
 create or replace function public.certificados_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu();
 begin
@@ -2085,7 +2115,8 @@ begin
   if not found then return jsonb_build_object('encontrado', false); end if;
   if c.status = 'cancelado' then return jsonb_build_object('encontrado', true, 'valido', false); end if;
   return jsonb_build_object('encontrado', true, 'valido', true, 'nome', c.nome, 'horas', c.horas, 'inicio', c.inicio, 'fim', c.fim,
-    'atividades', c.atividades, 'emitido_em', c.emitido_em, 'testemunhas', (select coalesce(jsonb_agg(x ->> 'nome'), '[]'::jsonb) from jsonb_array_elements(c.testemunhas) x));
+    'atividades', c.atividades, 'emitido_em', c.emitido_em, 'impressao', interno.certificado_json(c) ->> 'impressao',
+    'testemunhas', (select coalesce(jsonb_agg(x ->> 'nome' order by n), '[]'::jsonb) from jsonb_array_elements(c.testemunhas) with ordinality as e(x, n) where x ->> 'confirmou_em' is not null));
 end $$;
 
 -- ───────────────────────────── Arquivos enviados pela equipe ─────────────────────────────

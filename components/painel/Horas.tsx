@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { can, leads, type Me } from "@/lib/backend";
-import { site } from "@/lib/site";
+import { type Certificado, Impresso } from "./Certificado";
 import { Aviso, botao, botaoClaro, campo, dia, elo, rotulo, useAcao, useLista } from "./comum";
 
 export const VERSAO_DO_TERMO = "2026-10";
@@ -42,26 +42,6 @@ interface HoraDaFila {
   atividade: string;
 }
 
-interface Testemunha {
-  id: string;
-  nome: string;
-  confirmou_em: string | null;
-}
-
-interface Certificado {
-  id: string;
-  codigo: string;
-  usuario: string | null;
-  nome: string;
-  horas: number;
-  inicio: string;
-  fim: string;
-  atividades: string;
-  testemunhas: Testemunha[];
-  status: "aberto" | "emitido" | "cancelado";
-  emitido_em: string | null;
-}
-
 interface Pessoa {
   id: string;
   nome: string;
@@ -69,9 +49,10 @@ interface Pessoa {
   papeis: { papel: string }[];
 }
 
-const situacao: Record<string, string> = { pendente: "aguardando conferência", confirmada: "confirmada", recusada: "não confirmada", aberto: "aguardando testemunhas", emitido: "emitido", cancelado: "cancelado" };
+const situacao: Record<string, string> = { pendente: "aguardando conferência", confirmada: "confirmada", recusada: "não confirmada", aberto: "aguardando assinaturas", emitido: "emitido", cancelado: "cancelado" };
+/** O que a pessoa declara ao assinar. A assinatura fica presa à conta dela, com data e hora. */
+const DECLARACAO = "Ao assinar, você declara que acompanhou este trabalho e confirma o período, as horas e as atividades descritas. A assinatura fica registrada com a sua conta, a data e a hora, e não pode ser desfeita. Assinar?";
 const horasPt = (valor: number) => `${String(valor).replace(".", ",")} h`;
-const codigoBonito = (codigo: string) => codigo.replace(/(.{4})(?=.)/g, "$1-");
 
 export function Horas({ me }: { me: Me }) {
   const termo = useLista<Termo | null>("termo_meu");
@@ -92,7 +73,7 @@ export function Horas({ me }: { me: Me }) {
   return (
     <div className="space-y-10">
       <p className="max-w-3xl border-l-2 border-gold pl-4 text-ink-soft">
-        Versão de teste. O certificado traz um código que qualquer pessoa confere na página Conferir certificado. A aceitação como horas complementares depende de cada faculdade: pergunte na coordenação do seu curso antes de contar com ele.
+        Todo certificado leva três assinaturas eletrônicas (um educador, o vice-líder e o líder comunitário) e um código que qualquer pessoa confere na página Conferir certificado. A aceitação como horas complementares depende de cada faculdade: pergunte na coordenação do seu curso antes de contar com ele.
       </p>
 
       <section>
@@ -176,7 +157,8 @@ export function Horas({ me }: { me: Me }) {
         {certificados.dados?.length === 0 && <p className="mt-2 text-ink-soft">Nenhum certificado ainda.</p>}
         <ul className="mt-3 space-y-4">
           {certificados.dados?.map((certificado) => {
-            const falta = certificado.testemunhas.find((testemunha) => testemunha.id === me.id && !testemunha.confirmou_em);
+            const minha = certificado.testemunhas.find((assinatura) => assinatura.id === me.id && !assinatura.confirmou_em && assinatura.papel !== "coordenacao");
+            const faltam = certificado.testemunhas.filter((assinatura) => assinatura.papel !== "coordenacao" && !assinatura.confirmou_em).length;
             return (
               <li key={certificado.id} className="border border-rule bg-parchment-deep p-4">
                 <p className={rotulo}>
@@ -186,23 +168,38 @@ export function Horas({ me }: { me: Me }) {
                 <p className="mt-1 whitespace-pre-line">{certificado.atividades}</p>
                 {certificado.testemunhas.length > 0 && (
                   <p className="mt-1 text-ink-soft">
-                    Testemunhas: {certificado.testemunhas.map((testemunha) => `${testemunha.nome} (${testemunha.confirmou_em ? "confirmou" : "falta confirmar"})`).join(", ")}
+                    Assinaturas: {certificado.testemunhas.map((assinatura) => `${assinatura.nome} (${assinatura.confirmou_em ? "assinou" : "falta assinar"})`).join(", ")}
                   </p>
                 )}
                 <p className="mt-3 flex flex-wrap gap-3">
-                  {falta && certificado.status === "aberto" && (
-                    <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("certificado_testemunhar", { p_id: certificado.id }, "Testemunho registrado.")}>
-                      Confirmo que acompanhei este trabalho
+                  {minha && certificado.status === "aberto" && (
+                    <button
+                      type="button"
+                      className={botao}
+                      disabled={acao.ocupado}
+                      onClick={() => {
+                        if (window.confirm(DECLARACAO)) void acao.agir("certificado_testemunhar", { p_id: certificado.id }, "Assinatura registrada.");
+                      }}
+                    >
+                      Assinar eletronicamente
                     </button>
                   )}
                   {leads(me) && certificado.status === "aberto" && (
-                    <button type="button" className={botao} disabled={acao.ocupado || certificado.testemunhas.some((testemunha) => !testemunha.confirmou_em)} onClick={() => acao.agir("certificado_emitir", { p_id: certificado.id }, "Certificado emitido.")}>
-                      Emitir
+                    <button
+                      type="button"
+                      className={botao}
+                      disabled={acao.ocupado || faltam > 0}
+                      title={faltam > 0 ? "A sua assinatura é a última: faltam as outras duas." : undefined}
+                      onClick={() => {
+                        if (window.confirm(DECLARACAO)) void acao.agir("certificado_emitir", { p_id: certificado.id }, "Certificado assinado e emitido.");
+                      }}
+                    >
+                      Assinar e emitir
                     </button>
                   )}
-                  {certificado.status === "emitido" && (
+                  {certificado.status !== "cancelado" && (
                     <button type="button" className={botaoClaro} onClick={() => setVer(certificado)}>
-                      Ver e imprimir
+                      {certificado.status === "emitido" ? "Ver e salvar em PDF" : "Ver a prévia"}
                     </button>
                   )}
                   {leads(me) && certificado.status !== "cancelado" && (
@@ -253,35 +250,33 @@ function Conferir() {
   );
 }
 
-/** Só a coordenação: abre o processo de um certificado, com as testemunhas que acompanharam o trabalho. */
+/** Só o líder: abre o processo de um certificado e indica quem assina com ele. */
 function Abrir({ depois }: { depois: () => void }) {
   const pessoas = useLista<Pessoa[]>("voluntarios_listar");
   const acao = useAcao(depois);
-  const [form, setForm] = useState({ usuario: "", inicio: "", fim: new Date().toLocaleDateString("sv-SE"), atividades: "" });
-  const [testemunhas, setTestemunhas] = useState<string[]>([]);
+  const [form, setForm] = useState({ usuario: "", educador: "", vice: "", inicio: "", fim: new Date().toLocaleDateString("sv-SE"), atividades: "" });
   const equipe = pessoas.dados?.filter((pessoa) => pessoa.papeis.length > 0) ?? [];
-  const aptas = equipe.filter((pessoa) => pessoa.id !== form.usuario && pessoa.papeis.some((papel) => ["educacao", "curadoria", "vice"].includes(papel.papel)));
+  const tem = (pessoa: Pessoa, papel: string) => pessoa.papeis.some((item) => item.papel === papel);
+  const educadores = equipe.filter((pessoa) => pessoa.id !== form.usuario && tem(pessoa, "educacao") && !tem(pessoa, "coordenacao"));
+  const vices = equipe.filter((pessoa) => pessoa.id !== form.usuario && pessoa.id !== form.educador && tem(pessoa, "vice"));
 
   return (
     <section>
       <h2 className="font-serif text-2xl font-semibold">Abrir um certificado</h2>
       <p className="mt-1 max-w-3xl text-ink-soft">
-        Entram no certificado as horas já confirmadas da pessoa dentro do período. Cada testemunha precisa confirmar pelo próprio painel antes da emissão. O CPF não é guardado: quem imprime digita na hora.
+        Entram no certificado as horas já confirmadas da pessoa dentro do período. Ele é assinado por um educador, pelo vice-líder e por você: cada um assina na própria conta, e a sua assinatura, a última, é a emissão. Ninguém assina o próprio certificado. O CPF não é guardado: quem salva o PDF digita na hora.
       </p>
       <form
         className="mt-3 max-w-3xl space-y-3"
         onSubmit={async (e) => {
           e.preventDefault();
-          if (await acao.agir("certificado_abrir", { p: { ...form, testemunhas } }, "Processo aberto. As testemunhas foram avisadas.")) {
-            setForm({ ...form, usuario: "", atividades: "" });
-            setTestemunhas([]);
-          }
+          if (await acao.agir("certificado_abrir", { p: form }, "Processo aberto. Quem assina já foi avisado.")) setForm({ ...form, usuario: "", educador: "", vice: "", atividades: "" });
         }}
       >
         <div className="grid gap-3 sm:grid-cols-3">
           <label className="block">
             Quem recebe
-            <select value={form.usuario} onChange={(e) => { setForm({ ...form, usuario: e.target.value }); setTestemunhas([]); }} required className={campo}>
+            <select value={form.usuario} onChange={(e) => setForm({ ...form, usuario: e.target.value, educador: "", vice: "" })} required className={campo}>
               <option value="">Escolha…</option>
               {equipe.map((pessoa) => (
                 <option key={pessoa.id} value={pessoa.id}>
@@ -301,91 +296,45 @@ function Abrir({ depois }: { depois: () => void }) {
         </div>
         <label className="block">
           Atividades realizadas (sai no certificado)
-          <textarea value={form.atividades} onChange={(e) => setForm({ ...form, atividades: e.target.value })} rows={3} required minLength={10} maxLength={3000} className={campo} />
+          <textarea value={form.atividades} onChange={(e) => setForm({ ...form, atividades: e.target.value })} rows={3} required minLength={10} maxLength={700} className={campo} />
+          <span className="block text-right font-mono text-xs text-ink-soft">{form.atividades.length}/700</span>
         </label>
-        <fieldset>
-          <legend>Testemunhas (educadores, curadoria ou vice-coordenação)</legend>
-          <div className="mt-1 flex flex-wrap gap-x-5 gap-y-1">
-            {aptas.map((pessoa) => (
-              <label key={pessoa.id} className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  className="h-4 w-4"
-                  checked={testemunhas.includes(pessoa.id)}
-                  onChange={(e) => setTestemunhas(e.target.checked ? [...testemunhas, pessoa.id].slice(0, 5) : testemunhas.filter((id) => id !== pessoa.id))}
-                />
-                {pessoa.nome}
-              </label>
-            ))}
-            {aptas.length === 0 && <span className="text-ink-soft">Ninguém apto ainda.</span>}
-          </div>
-        </fieldset>
-        <button type="submit" className={botao} disabled={acao.ocupado || !form.usuario}>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label className="block">
+            Educador(a) que assina
+            <select value={form.educador} onChange={(e) => setForm({ ...form, educador: e.target.value, vice: "" })} required className={campo}>
+              <option value="">Escolha…</option>
+              {educadores.map((pessoa) => (
+                <option key={pessoa.id} value={pessoa.id}>
+                  {pessoa.nome}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="block">
+            Vice-líder que assina
+            <select value={form.vice} onChange={(e) => setForm({ ...form, vice: e.target.value })} className={campo}>
+              <option value="">{vices.length === 1 ? vices[0].nome : vices.length === 0 ? "Ninguém disponível" : "Quem entrou por último"}</option>
+              {vices.length > 1 &&
+                vices.map((pessoa) => (
+                  <option key={pessoa.id} value={pessoa.id}>
+                    {pessoa.nome}
+                  </option>
+                ))}
+            </select>
+          </label>
+        </div>
+        {pessoas.dados && form.usuario && (educadores.length === 0 || vices.length === 0) && (
+          <p className="border-l-2 border-oxblood pl-3 text-oxblood">
+            {educadores.length === 0 ? "Não há outro educador na equipe para assinar. " : ""}
+            {vices.length === 0 ? "Não há vice-líder disponível para assinar: nomeie um em Voluntários e convites." : ""}
+          </p>
+        )}
+        <button type="submit" className={botao} disabled={acao.ocupado || !form.usuario || !form.educador || vices.length === 0}>
           Abrir processo
         </button>
         <Aviso texto={pessoas.erro || acao.aviso} />
       </form>
     </section>
-  );
-}
-
-/** A folha que vai para a faculdade. Só o certificado sai na impressão. */
-function Impresso({ certificado, fechar }: { certificado: Certificado; fechar: () => void }) {
-  const [cpf, setCpf] = useState("");
-  const [assina, setAssina] = useState("");
-  const endereco = `${site.url}/pt/certificado?codigo=${certificado.codigo}`;
-  return (
-    <div>
-      <div className="no-print mb-6 flex flex-wrap items-end gap-3">
-        <label className="block">
-          CPF de quem recebe (não é guardado)
-          <input value={cpf} onChange={(e) => setCpf(e.target.value)} maxLength={14} inputMode="numeric" placeholder="000.000.000-00" className={campo} />
-        </label>
-        <label className="block min-w-60 flex-1">
-          Nome de quem assina pela coordenação do projeto
-          <input value={assina} onChange={(e) => setAssina(e.target.value)} maxLength={120} className={campo} />
-        </label>
-        <button type="button" className={botao} onClick={() => window.print()}>
-          Imprimir ou salvar em PDF
-        </button>
-        <button type="button" className={botaoClaro} onClick={fechar}>
-          Voltar
-        </button>
-      </div>
-      <article className="mx-auto max-w-3xl border-4 border-double border-ink bg-parchment px-8 py-10 text-center font-serif text-ink print:border-2">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/emblema.png" alt="" width={96} height={96} className="mx-auto h-24 w-24" />
-        <p className="mt-3 font-mono text-xs uppercase tracking-[0.3em]">{site.name}</p>
-        <h2 className="mt-4 text-4xl font-semibold">Certificado de trabalho voluntário</h2>
-        <p className="mt-8 text-xl leading-relaxed">
-          Certificamos que <strong>{certificado.nome}</strong>
-          {cpf.trim() && <>, CPF {cpf.trim()},</>} atuou como voluntária(o) no {site.name}, projeto educacional gratuito e sem fins lucrativos, no período de <strong>{dia(certificado.inicio)}</strong> a{" "}
-          <strong>{dia(certificado.fim)}</strong>, cumprindo carga horária total de <strong>{horasPt(Number(certificado.horas)).replace(" h", " horas")}</strong>.
-        </p>
-        <p className="mt-6 text-left text-lg">
-          <strong>Atividades realizadas:</strong>
-        </p>
-        <p className="mt-1 whitespace-pre-line text-left text-lg">{certificado.atividades}</p>
-        <p className="mt-6 text-left text-base">
-          O trabalho foi prestado sem remuneração, nos termos da Lei nº 9.608/1998, mediante termo de adesão aceito pela pessoa voluntária.
-        </p>
-        <div className="mt-14 grid gap-10 text-base sm:grid-cols-2">
-          <div>
-            <p className="border-t border-ink pt-2">{assina.trim() || " "}</p>
-            <p className="text-sm">Coordenação do projeto</p>
-          </div>
-          {certificado.testemunhas.map((testemunha) => (
-            <div key={testemunha.id}>
-              <p className="border-t border-ink pt-2">{testemunha.nome}</p>
-              <p className="text-sm">Testemunha · confirmou em {dia(testemunha.confirmou_em ?? "")}</p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-10 font-mono text-xs">
-          Emitido em {dia(certificado.emitido_em ?? "")} · código {codigoBonito(certificado.codigo)}
-        </p>
-        <p className="mt-1 break-all font-mono text-xs">Confira a autenticidade em {endereco}</p>
-      </article>
-    </div>
   );
 }

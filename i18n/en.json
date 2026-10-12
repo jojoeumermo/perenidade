@@ -1381,7 +1381,7 @@
     "period": "Period",
     "activities": "Activities",
     "issued": "Issued on",
-    "witnesses": "Witnesses",
+    "witnesses": "Signed by",
     "offline": "Verification is not active on this copy of the site yet."
   },
   "start": {

@@ -345,7 +345,7 @@ const acoes: Record<string, string> = {
   horas_confirmadas: "confirmou horas",
   horas_recusadas: "recusou horas",
   certificado_aberto: "abriu um certificado para",
-  certificado_testemunhado: "testemunhou um certificado",
+  certificado_testemunhado: "assinou um certificado",
   certificado_emitido: "emitiu um certificado para",
   certificado_cancelado: "cancelou um certificado",
   arquivo_bloqueado: "bloqueou um arquivo",
