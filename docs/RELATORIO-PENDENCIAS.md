@@ -53,9 +53,9 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Teoria | socialismo | 29 | 35 | 6 |
 | Teoria | comunismo | 25 | 30 | 5 |
 | Teoria | ideologia-e-politica | 23 | 34 | 11 |
-| Teoria | dependencia | 0 | 21 | 21 |
-| Teoria | imperialismo | 0 | 21 | 21 |
-| Teoria | ecossocialismo | 0 | 22 | 22 |
+| Teoria | dependencia | 21 | 21 | 0 |
+| Teoria | imperialismo | 10 | 21 | 11 |
+| Teoria | ecossocialismo | 11 | 22 | 11 |
 | Lutas do Povo | trabalho | 1 | 36 | 35 |
 | Lutas do Povo | sindicalismo | 1 | 38 | 37 |
 | Lutas do Povo | luta-negra | 2 | 57 | 55 |
@@ -68,7 +68,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Lutas do Povo | luta-dos-professores | 1 | 27 | 26 |
 | Lutas do Povo | movimento-estudantil | 2 | 26 | 24 |
 | Lutas do Povo | pessoas-idosas | 1 | 24 | 23 |
-| | **Total** | **230** | **2086** | **1856** |
+| | **Total** | **272** | **2086** | **1814** |
 
 ## Percursos
 
@@ -117,6 +117,16 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - O dia da prova: o que levar e como administrar o tempo
 - Cursinhos populares: estudar junto e de graça
 
+**ENEM: redação** (medio, `enem-redacao`): 0/8 prontas
+- A estrutura da redação do ENEM
+- Competência 1: a norma-padrão
+- Competência 2: entender o tema e usar repertório
+- Competência 3: organizar os argumentos
+- Competência 4: coesão
+- Competência 5: a proposta de intervenção
+- O que zera a redação
+- Como treinar: escrever, reler e reescrever
+
 **ENEM: as quatro áreas** (medio, `enem-por-area`): 0/9 prontas
 - Linguagens: interpretação de texto acima de tudo
 - Linguagens: literatura, artes e língua estrangeira
@@ -127,16 +137,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Ciências da natureza: biologia
 - Matemática: o que mais cai
 - Matemática: ler gráficos e tabelas
-
-**ENEM: redação** (medio, `enem-redacao`): 0/8 prontas
-- A estrutura da redação do ENEM
-- Competência 1: a norma-padrão
-- Competência 2: entender o tema e usar repertório
-- Competência 3: organizar os argumentos
-- Competência 4: coesão
-- Competência 5: a proposta de intervenção
-- O que zera a redação
-- Como treinar: escrever, reler e reescrever
 
 ## Linguagens
 
@@ -169,17 +169,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Como fazer um resumo e um fichamento
 - Leitura crítica de notícias
 
-**Linguística: como as línguas funcionam** (superior, `linguistica`): 0/9 prontas
-- O que é linguística
-- Saussure: língua e fala
-- Variação linguística
-- Preconceito linguístico: Marcos Bagno
-- As línguas do Brasil
-- O português brasileiro e as línguas africanas
-- Bakhtin e Volóchinov: linguagem e ideologia
-- Análise do discurso
-- Língua de sinais é língua
-
 **Português: linguística e escrita acadêmica** (superior, `portugues-superior`): 0/10 prontas
 - O que estuda a linguística
 - Fonética e fonologia do português
@@ -191,6 +180,17 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Escrita acadêmica: artigo, resenha e relatório
 - Citações e referências
 - Análise do discurso: uma introdução
+
+**Linguística: como as línguas funcionam** (superior, `linguistica`): 0/9 prontas
+- O que é linguística
+- Saussure: língua e fala
+- Variação linguística
+- Preconceito linguístico: Marcos Bagno
+- As línguas do Brasil
+- O português brasileiro e as línguas africanas
+- Bakhtin e Volóchinov: linguagem e ideologia
+- Análise do discurso
+- Língua de sinais é língua
 
 ### literatura — 1 de 49 prontas (faltam 48)
 
@@ -228,18 +228,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Poesia do século XX: Drummond, Cecília Meireles e João Cabral
 - Literatura marginal e periférica
 
-**Literatura radical e poesia de combate** (superior, `literatura-de-combate`): 0/10 prontas
-- Castro Alves e a poesia abolicionista
-- Lima Barreto
-- Maiakóvski
-- Brecht poeta
-- Pablo Neruda e Nicolás Guillén
-- Solano Trindade
-- Carolina Maria de Jesus
-- Ferreira Gullar e o Poema Sujo
-- A literatura marginal e periférica
-- Conceição Evaristo e a escrevivência
-
 **Teoria literária e literaturas do mundo** (superior, `literatura-superior`): 0/10 prontas
 - O que é teoria literária
 - Gêneros literários
@@ -251,6 +239,18 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Lukács e a teoria do romance
 - Crítica literária marxista
 - Literatura comparada
+
+**Literatura radical e poesia de combate** (superior, `literatura-de-combate`): 0/10 prontas
+- Castro Alves e a poesia abolicionista
+- Lima Barreto
+- Maiakóvski
+- Brecht poeta
+- Pablo Neruda e Nicolás Guillén
+- Solano Trindade
+- Carolina Maria de Jesus
+- Ferreira Gullar e o Poema Sujo
+- A literatura marginal e periférica
+- Conceição Evaristo e a escrevivência
 
 ### ingles — 4 de 46 prontas (faltam 42)
 
@@ -409,16 +409,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Arte de rua e grafite
 - O Teatro do Oprimido de Augusto Boal
 
-**Arte, estética e hegemonia cultural** (superior, `arte-e-hegemonia`): 0/8 prontas
-- Marx e Engels sobre arte e literatura
-- Lukács e o realismo
-- Benjamin e Adorno
-- Gramsci: cultura e hegemonia
-- A indústria cultural
-- O muralismo mexicano
-- O CPC da UNE
-- Cultura de massa, redes e algoritmo
-
 **Estética e sociedade** (superior, `artes-superior`): 0/9 prontas
 - Estética: o que é o belo
 - Arte e sociedade
@@ -429,6 +419,16 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Museus e curadoria
 - Arte contemporânea
 - Economia da cultura e direitos autorais
+
+**Arte, estética e hegemonia cultural** (superior, `arte-e-hegemonia`): 0/8 prontas
+- Marx e Engels sobre arte e literatura
+- Lukács e o realismo
+- Benjamin e Adorno
+- Gramsci: cultura e hegemonia
+- A indústria cultural
+- O muralismo mexicano
+- O CPC da UNE
+- Cultura de massa, redes e algoritmo
 
 ### desenho — 0 de 24 prontas (faltam 24)
 
@@ -688,18 +688,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Medidas: comprimento, massa, tempo e capacidade
 - Leitura de gráficos e tabelas
 
-**Estatística para ler o Brasil** (medio, `estatistica-para-ler-o-brasil`): 0/10 prontas
-- Porcentagem no noticiário
-- Média, mediana e moda
-- Como ler um gráfico sem ser enganado
-- O que é uma pesquisa por amostragem
-- Margem de erro
-- O Censo
-- Desemprego: como o IBGE mede
-- Inflação: o que é o IPCA
-- Desigualdade: o índice de Gini
-- Correlação não é causa
-
 **Matemática do ensino médio** (medio, `matematica-medio`): 0/14 prontas
 - Conjuntos e intervalos
 - Funções: a ideia
@@ -715,6 +703,18 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Probabilidade
 - Estatística: média, mediana e moda
 - Matrizes e sistemas lineares
+
+**Estatística para ler o Brasil** (medio, `estatistica-para-ler-o-brasil`): 0/10 prontas
+- Porcentagem no noticiário
+- Média, mediana e moda
+- Como ler um gráfico sem ser enganado
+- O que é uma pesquisa por amostragem
+- Margem de erro
+- O Censo
+- Desemprego: como o IBGE mede
+- Inflação: o que é o IPCA
+- Desigualdade: o índice de Gini
+- Correlação não é causa
 
 **Cálculo, álgebra e estatística** (superior, `matematica-superior`): 0/10 prontas
 - Limites
@@ -887,15 +887,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 ### informatica — 5 de 61 prontas (faltam 56)
 
-**Autodefesa digital** (fundamental, `autodefesa-digital`): 1/8 prontas
-- Golpes pelo celular: como reconhecer
-- Atualizações e cópia de segurança
-- Mensagens com criptografia de ponta a ponta
-- Privacidade nas redes sociais
-- Navegar com menos rastros
-- Celular perdido ou roubado: o que fazer
-- Segurança digital em grupos e movimentos
-
 **Informática essencial** (fundamental, `informatica-essencial`): 3/14 prontas
 - Arquivos, pastas e extensões
 - Sistemas operacionais
@@ -908,6 +899,15 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Como pesquisar na internet
 - Software livre
 - Privacidade: o que acontece com os seus dados
+
+**Autodefesa digital** (fundamental, `autodefesa-digital`): 1/8 prontas
+- Golpes pelo celular: como reconhecer
+- Atualizações e cópia de segurança
+- Mensagens com criptografia de ponta a ponta
+- Privacidade nas redes sociais
+- Navegar com menos rastros
+- Celular perdido ou roubado: o que fazer
+- Segurança digital em grupos e movimentos
 
 **Redes, sistemas e segurança** (medio, `informatica-medio`): 0/11 prontas
 - Hardware por dentro
@@ -932,17 +932,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Redes: IP, DNS e Wi-Fi
 - Montar um servidor caseiro
 
-**Plataformas, vigilância e cibernética** (superior, `capitalismo-de-vigilancia`): 0/9 prontas
-- Uma breve história da internet
-- A economia dos dados
-- Shoshana Zuboff e o capitalismo de vigilância
-- Algoritmos de recomendação
-- Trabalho por plataforma e gestão algorítmica
-- Cybersyn: a cibernética no Chile de Allende
-- Soberania digital
-- A LGPD e a proteção de dados
-- Software livre como projeto político
-
 **Ciência da computação** (superior, `informatica-superior`): 0/10 prontas
 - Arquitetura de computadores
 - Sistemas operacionais: processos e memória
@@ -955,6 +944,17 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Computação e sociedade
 - História da computação
 
+**Plataformas, vigilância e cibernética** (superior, `capitalismo-de-vigilancia`): 0/9 prontas
+- Uma breve história da internet
+- A economia dos dados
+- Shoshana Zuboff e o capitalismo de vigilância
+- Algoritmos de recomendação
+- Trabalho por plataforma e gestão algorítmica
+- Cybersyn: a cibernética no Chile de Allende
+- Soberania digital
+- A LGPD e a proteção de dados
+- Software livre como projeto político
+
 ### programacao — 17 de 53 prontas (faltam 36)
 
 **Lógica de programação** (fundamental, `logica-de-programacao`): 5/9 prontas
@@ -963,14 +963,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Como dividir um problema em partes
 - Exercícios de lógica resolvidos
 
-**PHP do zero** (medio, `php-do-zero`): 5/11 prontas
-- Textos e datas em PHP
-- Formulários: GET e POST
-- Validação e segurança dos dados de entrada
-- Sessões e cookies
-- PHP e banco de dados com PDO
-- Projeto: um mural de recados
-
 **Python do zero** (medio, `python-do-zero`): 7/13 prontas
 - Textos (strings) em Python
 - Dicionários em Python
@@ -978,6 +970,14 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Como tratar erros em Python
 - Módulos e a biblioteca padrão
 - Projeto: um jogo de adivinhação
+
+**PHP do zero** (medio, `php-do-zero`): 5/11 prontas
+- Textos e datas em PHP
+- Formulários: GET e POST
+- Validação e segurança dos dados de entrada
+- Sessões e cookies
+- PHP e banco de dados com PDO
+- Projeto: um mural de recados
 
 **Redes e a web por dentro** (medio, `redes-e-web`): 0/9 prontas
 - Como a internet funciona
@@ -1016,17 +1016,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Privacidade e vigilância
 - Como usar com senso crítico
 
-**Inteligência artificial e sociedade** (medio, `ia-e-sociedade`): 0/9 prontas
-- O que a IA faz e o que ela não faz
-- De onde vêm os dados
-- Quem faz o trabalho escondido: os anotadores de dados
-- Viés: quando a máquina discrimina
-- Desinformação e imagens falsas
-- IA e emprego
-- Energia, água e mineração
-- Regulação: o que se discute no Brasil e no mundo
-- Como usar com espírito crítico
-
 **Aprendizado de máquina** (medio, `ia-medio`): 0/10 prontas
 - História da inteligência artificial
 - Aprendizado supervisionado
@@ -1038,6 +1027,17 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Visão computacional
 - O trabalho invisível por trás das máquinas
 - A regulação da inteligência artificial no mundo
+
+**Inteligência artificial e sociedade** (medio, `ia-e-sociedade`): 0/9 prontas
+- O que a IA faz e o que ela não faz
+- De onde vêm os dados
+- Quem faz o trabalho escondido: os anotadores de dados
+- Viés: quando a máquina discrimina
+- Desinformação e imagens falsas
+- IA e emprego
+- Energia, água e mineração
+- Regulação: o que se discute no Brasil e no mundo
+- Como usar com espírito crítico
 
 **Inteligência artificial: fundamentos técnicos** (superior, `ia-superior`): 0/10 prontas
 - Regressão linear e logística
@@ -1063,17 +1063,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Instalando o sistema: Linux ou Windows
 - Como escolher peças usadas sem cair em cilada
 
-**Manutenção de celulares** (medio, `manutencao-de-celulares`): 0/9 prontas
-- Como é um celular por dentro
-- Ferramentas e cuidados: bateria de lítio não se fura
-- O celular não carrega
-- Troca de bateria
-- Troca de tela
-- Celular molhado: o que fazer e o que é mito
-- Restaurar o sistema e cópia de segurança
-- Privacidade antes de consertar ou vender
-- O direito de consertar
-
 **Manutenção de computadores e notebooks** (medio, `manutencao-de-computadores-e-notebooks`): 0/10 prontas
 - Método de diagnóstico: do mais simples ao mais difícil
 - O computador não liga
@@ -1085,6 +1074,17 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Formatar e reinstalar o sistema
 - Reaproveitar computadores antigos com Linux leve
 - Descarte de lixo eletrônico
+
+**Manutenção de celulares** (medio, `manutencao-de-celulares`): 0/9 prontas
+- Como é um celular por dentro
+- Ferramentas e cuidados: bateria de lítio não se fura
+- O celular não carrega
+- Troca de bateria
+- Troca de tela
+- Celular molhado: o que fazer e o que é mito
+- Restaurar o sistema e cópia de segurança
+- Privacidade antes de consertar ou vender
+- O direito de consertar
 
 **Eletrônica para manutenção** (superior, `eletronica-para-manutencao`): 0/8 prontas
 - Tensão, corrente e resistência
@@ -1159,17 +1159,15 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - A Idade Média
 - O Islã medieval
 
-**A ditadura militar de 1964** (medio, `ditadura-de-1964`): 0/10 prontas
-- O governo João Goulart e as reformas de base
-- O golpe de 1º de abril de 1964
-- Os atos institucionais e o AI-5
-- Censura, tortura e desaparecimentos
-- O "milagre" econômico e o arrocho
-- A resistência: estudantes, operários, Igreja e luta armada
-- A Guerrilha do Araguaia
-- A anistia de 1979
-- Diretas Já
-- A Comissão Nacional da Verdade
+**Lutas do povo** (medio, `lutas-do-povo`): 3/11 prontas
+- Palmares e os quilombos
+- Revolta dos Malês
+- Canudos
+- Revolta da Chibata
+- A greve geral de 1917
+- As greves do ABC
+- A luta contra o apartheid
+- A luta do povo palestino
 
 **História do Brasil** (medio, `historia-do-brasil`): 0/10 prontas
 - Os povos originários antes de 1500
@@ -1183,15 +1181,17 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - A redemocratização e a Constituição de 1988
 - O Brasil no século XXI
 
-**Lutas do povo** (medio, `lutas-do-povo`): 3/11 prontas
-- Palmares e os quilombos
-- Revolta dos Malês
-- Canudos
-- Revolta da Chibata
-- A greve geral de 1917
-- As greves do ABC
-- A luta contra o apartheid
-- A luta do povo palestino
+**A ditadura militar de 1964** (medio, `ditadura-de-1964`): 0/10 prontas
+- O governo João Goulart e as reformas de base
+- O golpe de 1º de abril de 1964
+- Os atos institucionais e o AI-5
+- Censura, tortura e desaparecimentos
+- O "milagre" econômico e o arrocho
+- A resistência: estudantes, operários, Igreja e luta armada
+- A Guerrilha do Araguaia
+- A anistia de 1979
+- Diretas Já
+- A Comissão Nacional da Verdade
 
 **Teoria e métodos da história** (superior, `historia-superior`): 0/10 prontas
 - O que faz um historiador
@@ -1405,18 +1405,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Crises econômicas
 - Desenvolvimento e subdesenvolvimento
 
-**Economia do Brasil, dependência e finanças** (superior, `economia-do-brasil-e-dependencia`): 0/10 prontas
-- Caio Prado Júnior: o sentido da colonização
-- Celso Furtado e a Formação Econômica do Brasil
-- A Cepal e o estruturalismo
-- A teoria marxista da dependência
-- A industrialização por substituição de importações
-- A dívida externa e a década perdida
-- O Plano Real
-- Juros, dívida pública e orçamento
-- Capital fictício e crises financeiras
-- Desindustrialização
-
 **Economia política** (superior, `economia-superior`): 0/11 prontas
 - Adam Smith e David Ricardo
 - A crítica da economia política
@@ -1429,6 +1417,18 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Financeirização
 - Planejamento econômico
 - A economia chinesa contemporânea
+
+**Economia do Brasil, dependência e finanças** (superior, `economia-do-brasil-e-dependencia`): 0/10 prontas
+- Caio Prado Júnior: o sentido da colonização
+- Celso Furtado e a Formação Econômica do Brasil
+- A Cepal e o estruturalismo
+- A teoria marxista da dependência
+- A industrialização por substituição de importações
+- A dívida externa e a década perdida
+- O Plano Real
+- Juros, dívida pública e orçamento
+- Capital fictício e crises financeiras
+- Desindustrialização
 
 ### politica — 1 de 32 prontas (faltam 31)
 
@@ -1580,15 +1580,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 ### teologia — 2 de 36 prontas (faltam 34)
 
-**Religiões de matriz africana** (fundamental, `religioes-de-matriz-africana`): 1/8 prontas
-- De onde vieram: iorubás, jejes e bantos no Brasil
-- Os orixás, os voduns e os inquices
-- O terreiro como família, escola e quilombo
-- Tambor de mina, batuque, xangô e jurema: o Brasil tem muitas tradições
-- Mãe Menininha, Mãe Stella e outras ialorixás
-- Racismo religioso: o que é e como denunciar
-- A lei que manda ensinar história e cultura afro-brasileira
-
 **As religiões do mundo** (fundamental, `religioes-do-mundo`): 0/9 prontas
 - O que é religião e por que estudar todas
 - Judaísmo: um povo e um livro
@@ -1599,6 +1590,15 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Espiritismo no Brasil
 - Quem não tem religião: ateus, agnósticos e sem religião
 - Estado laico: o que a Constituição diz
+
+**Religiões de matriz africana** (fundamental, `religioes-de-matriz-africana`): 1/8 prontas
+- De onde vieram: iorubás, jejes e bantos no Brasil
+- Os orixás, os voduns e os inquices
+- O terreiro como família, escola e quilombo
+- Tambor de mina, batuque, xangô e jurema: o Brasil tem muitas tradições
+- Mãe Menininha, Mãe Stella e outras ialorixás
+- Racismo religioso: o que é e como denunciar
+- A lei que manda ensinar história e cultura afro-brasileira
 
 **Fé e libertação** (medio, `fe-e-libertacao`): 1/10 prontas
 - O cristianismo primitivo: uma religião de pobres e escravizados
@@ -1681,18 +1681,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Publicidade
 - Seus dados valem dinheiro
 
-**Comunicação popular e mídia independente** (medio, `comunicacao-popular`): 0/10 prontas
-- O que é comunicação popular
-- Como escrever uma notícia
-- Entrevista
-- Fotografia com o celular
-- Jornal de bairro e boletim sindical
-- Rádio comunitária e podcast
-- Vídeo para redes
-- Checar antes de publicar
-- Direito de imagem e de resposta
-- A concentração da mídia no Brasil
-
 **Comunicação popular** (medio, `midia-medio`): 0/10 prontas
 - História da imprensa no Brasil
 - A imprensa operária
@@ -1704,6 +1692,18 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Checagem de fatos: o método
 - O direito à comunicação
 - Concentração da mídia
+
+**Comunicação popular e mídia independente** (medio, `comunicacao-popular`): 0/10 prontas
+- O que é comunicação popular
+- Como escrever uma notícia
+- Entrevista
+- Fotografia com o celular
+- Jornal de bairro e boletim sindical
+- Rádio comunitária e podcast
+- Vídeo para redes
+- Checar antes de publicar
+- Direito de imagem e de resposta
+- A concentração da mídia no Brasil
 
 **Teorias da comunicação** (superior, `midia-superior`): 0/9 prontas
 - Teorias da comunicação: um panorama
@@ -1730,16 +1730,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Horta comunitária e compostagem
 - O que é a mudança do clima
 
-**Crise climática** (medio, `crise-climatica`): 1/9 prontas
-- O efeito estufa
-- De onde vêm as emissões
-- O que já mudou: calor, chuva e mar
-- O IPCC e os relatórios
-- O Acordo de Paris
-- O Brasil: desmatamento e agropecuária
-- Adaptação: preparar as cidades
-- Negacionismo climático
-
 **Ambiente e sociedade** (medio, `meio-ambiente-medio`): 1/10 prontas
 - Energia: fontes e impactos
 - A Amazônia
@@ -1751,15 +1741,15 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Os acordos do clima
 - A legislação ambiental brasileira
 
-**Ecossocialismo e justiça climática** (superior, `ecossocialismo`): 0/8 prontas
-- Marx e a fratura metabólica
-- John Bellamy Foster
-- Michael Löwy e o ecossocialismo
-- Chico Mendes e o socialismo da floresta
-- Justiça climática e racismo ambiental
-- Dívida ecológica
-- Decrescimento e transição justa
-- Kohei Saito e o comunismo de decrescimento
+**Crise climática** (medio, `crise-climatica`): 1/9 prontas
+- O efeito estufa
+- De onde vêm as emissões
+- O que já mudou: calor, chuva e mar
+- O IPCC e os relatórios
+- O Acordo de Paris
+- O Brasil: desmatamento e agropecuária
+- Adaptação: preparar as cidades
+- Negacionismo climático
 
 **Ecologia política** (superior, `meio-ambiente-superior`): 0/9 prontas
 - O que é ecologia política
@@ -1771,6 +1761,16 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Transição energética justa
 - Antropoceno ou capitaloceno?
 - Conservação e povos tradicionais
+
+**Ecossocialismo e justiça climática** (superior, `ecossocialismo`): 0/8 prontas
+- Marx e a fratura metabólica
+- John Bellamy Foster
+- Michael Löwy e o ecossocialismo
+- Chico Mendes e o socialismo da floresta
+- Justiça climática e racismo ambiental
+- Dívida ecológica
+- Decrescimento e transição justa
+- Kohei Saito e o comunismo de decrescimento
 
 ### arquitetura — 0 de 24 prontas (faltam 24)
 
@@ -1841,9 +1841,11 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 ### capitalismo — 26 de 32 prontas (faltam 6)
 
-**O que é o capitalismo** (fundamental, `o-que-e-o-capitalismo`): 8/8 prontas — completa
+**O que é o capitalismo** (fundamental, `o-que-e-o-capitalismo`): 8/8 prontas
+- (completa)
 
-**Como o capitalismo surgiu e mudou** (medio, `como-o-capitalismo-surgiu`): 9/9 prontas — completa
+**Como o capitalismo surgiu e mudou** (medio, `como-o-capitalismo-surgiu`): 9/9 prontas
+- (completa)
 
 **Capitalismo contemporâneo** (superior, `capitalismo-contemporaneo`): 9/15 prontas
 - A lei da queda tendencial da taxa de lucro: o debate
@@ -1855,9 +1857,11 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 ### marxismo — 35 de 42 prontas (faltam 7)
 
-**Marxismo: primeiros passos** (fundamental, `marxismo-fundamental`): 10/10 prontas — completa
+**Marxismo: primeiros passos** (fundamental, `marxismo-fundamental`): 10/10 prontas
+- (completa)
 
-**Introdução ao marxismo** (medio, `introducao-ao-marxismo`): 12/12 prontas — completa
+**Introdução ao marxismo** (medio, `introducao-ao-marxismo`): 12/12 prontas
+- (completa)
 
 **O Capital e a tradição marxista** (superior, `marxismo-superior`): 13/20 prontas
 - O Livro II: circulação e esquemas de reprodução
@@ -1870,9 +1874,11 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 ### socialismo — 29 de 35 prontas (faltam 6)
 
-**O que é socialismo** (fundamental, `socialismo-fundamental`): 8/8 prontas — completa
+**O que é socialismo** (fundamental, `socialismo-fundamental`): 8/8 prontas
+- (completa)
 
-**As revoluções socialistas** (medio, `revolucoes-socialistas`): 11/11 prontas — completa
+**As revoluções socialistas** (medio, `revolucoes-socialistas`): 11/11 prontas
+- (completa)
 
 **Economia e Estado na transição** (superior, `socialismo-superior`): 10/16 prontas
 - A autogestão iugoslava
@@ -1884,9 +1890,11 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 ### comunismo — 25 de 30 prontas (faltam 5)
 
-**O que é comunismo** (fundamental, `comunismo-fundamental`): 8/8 prontas — completa
+**O que é comunismo** (fundamental, `comunismo-fundamental`): 8/8 prontas
+- (completa)
 
-**História do movimento comunista** (medio, `comunismo-medio`): 9/9 prontas — completa
+**História do movimento comunista** (medio, `comunismo-medio`): 9/9 prontas
+- (completa)
 
 **A sociedade sem classes** (superior, `comunismo-superior`): 8/13 prontas
 - Os comuns e a tradição comunista
@@ -1897,14 +1905,16 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 ### ideologia-e-politica — 23 de 34 prontas (faltam 11)
 
-**Moral e Estado de Direito** (fundamental, `moral-e-estado-de-direito`): 8/8 prontas — completa
+**Moral e Estado de Direito** (fundamental, `moral-e-estado-de-direito`): 8/8 prontas
+- (completa)
+
+**Ideologia e Política** (medio, `ideologia-e-politica-medio`): 8/8 prontas
+- (completa)
 
 **Antifascismo** (medio, `antifascismo`): 7/10 prontas
 - A extrema direita hoje
 - Desinformação e redes
 - Como se defende a democracia
-
-**Ideologia e Política** (medio, `ideologia-e-politica-medio`): 8/8 prontas — completa
 
 **Teoria política no ensino superior chinês** (superior, `teoria-politica-chinesa`): 0/8 prontas
 - Princípios básicos do marxismo
@@ -1916,46 +1926,18 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Moral e fundamentos do direito
 - Situação e políticas
 
-### dependencia — 0 de 21 prontas (faltam 21)
+### dependencia — 21 de 21 prontas (faltam 0)
 
-**Por que a América Latina é dependente** (medio, `dependencia-e-america-latina`): 0/10 prontas
-- O que quer dizer "dependência"
-- Da colônia à exportação de matérias-primas
-- Centro e periferia: a CEPAL e a deterioração dos termos de troca
-- A industrialização por substituição de importações e os seus limites
-- Desenvolvimento e subdesenvolvimento: duas faces do mesmo processo
-- A superexploração da força de trabalho
-- Dívida externa: como se paga e nunca se quita
-- As ditaduras do Cone Sul e o projeto econômico por trás delas
-- Neoliberalismo e reprimarização: de volta à soja e ao minério
-- Integração latino-americana: da Pátria Grande à CELAC
+**Por que a América Latina é dependente** (medio, `dependencia-e-america-latina`): 10/10 prontas
+- (completa)
 
-**A teoria marxista da dependência** (superior, `teoria-marxista-da-dependencia`): 0/11 prontas
-- Ruy Mauro Marini e a Dialética da Dependência
-- Vânia Bambirra e o capitalismo dependente latino-americano
-- Theotonio dos Santos e a nova dependência
-- André Gunder Frank e o desenvolvimento do subdesenvolvimento
-- Transferência de valor e troca desigual
-- O subimperialismo brasileiro
-- A cisão entre o ciclo do capital e o consumo dos trabalhadores
-- A polêmica com Fernando Henrique Cardoso e José Serra
-- Florestan Fernandes e o capitalismo dependente
-- Mariátegui e o marxismo indo-americano
-- A teoria da dependência hoje: plataformas, finanças e extrativismo
+**A teoria marxista da dependência** (superior, `teoria-marxista-da-dependencia`): 11/11 prontas
+- (completa)
 
-### imperialismo — 0 de 21 prontas (faltam 21)
+### imperialismo — 10 de 21 prontas (faltam 11)
 
-**O que é imperialismo** (medio, `o-que-e-imperialismo`): 0/10 prontas
-- Colonialismo e imperialismo: qual é a diferença
-- A partilha da África e a Conferência de Berlim
-- Lênin e o imperialismo como fase do capitalismo
-- Monopólios e capital financeiro
-- As duas guerras mundiais como disputa entre potências
-- A descolonização da Ásia e da África
-- A Guerra Fria e as intervenções na América Latina
-- O FMI, o Banco Mundial e os planos de ajuste
-- Bases militares, sanções e bloqueios
-- Como reconhecer o imperialismo no noticiário
+**O que é imperialismo** (medio, `o-que-e-imperialismo`): 10/10 prontas
+- (completa)
 
 **Geopolítica contemporânea** (superior, `geopolitica-contemporanea`): 0/11 prontas
 - O "momento unipolar" e as guerras do começo do século XXI
@@ -1970,20 +1952,10 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Guerra híbrida, informação e golpes sem tanques
 - As Nações Unidas e os limites do direito internacional
 
-### ecossocialismo — 0 de 22 prontas (faltam 22)
+### ecossocialismo — 11 de 22 prontas (faltam 11)
 
-**Ecossocialismo: natureza e capital** (medio, `ecossocialismo-basico`): 0/11 prontas
-- O que é ecossocialismo
-- A natureza como "recurso grátis": de onde vem a crise
-- Marx e a ruptura metabólica
-- Crescer sempre: a lógica do capital e os limites do planeta
-- Quem polui e quem paga: justiça climática
-- Racismo ambiental
-- Capitalismo verde: mercado de carbono e outras promessas
-- Agronegócio, desmatamento e a comida que chega à mesa
-- Agroecologia e reforma agrária popular
-- Povos indígenas e quilombolas como guardiões do território
-- Transição justa: emprego e clima no mesmo plano
+**Ecossocialismo: natureza e capital** (medio, `ecossocialismo-basico`): 11/11 prontas
+- (completa)
 
 **Ecossocialismo: teoria e estratégia** (superior, `ecossocialismo-teoria-e-estrategia`): 0/11 prontas
 - Michael Löwy e o Manifesto Ecossocialista
@@ -2105,16 +2077,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - O que é racismo
 - Racismo é crime
 
-**A escravidão no Brasil** (medio, `escravidao-no-brasil`): 0/8 prontas
-- O tráfico atlântico em números
-- O trabalho escravizado no engenho, na mina e na cidade
-- Quilombos e Palmares
-- Revoltas: Malês, Balaiada e Cabanagem
-- As leis que adiaram a abolição
-- O movimento abolicionista negro: Luiz Gama, André Rebouças e José do Patrocínio
-- 13 de maio de 1888 e o dia seguinte
-- A Lei de Terras e a abolição sem reparação
-
 **Do abolicionismo ao movimento negro** (medio, `luta-negra-medio`): 0/12 prontas
 - Luiz Gama e o abolicionismo negro
 - A abolição sem reparação
@@ -2138,16 +2100,15 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Blocos afro e afoxés da Bahia
 - Carnaval, trabalho e dinheiro: quem faz e quem lucra
 
-**Marxismo negro e pensamento decolonial** (superior, `marxismo-negro`): 0/9 prontas
-- C. L. R. James e Os Jacobinos Negros
-- W. E. B. Du Bois e a Reconstrução Negra
-- Frantz Fanon
-- Clóvis Moura e a rebelião da senzala
-- Lélia Gonzalez
-- Angela Davis: mulheres, raça e classe
-- Cedric Robinson e o capitalismo racial
-- Walter Rodney e o subdesenvolvimento da África
-- Aníbal Quijano e a colonialidade do poder
+**A escravidão no Brasil** (medio, `escravidao-no-brasil`): 0/8 prontas
+- O tráfico atlântico em números
+- O trabalho escravizado no engenho, na mina e na cidade
+- Quilombos e Palmares
+- Revoltas: Malês, Balaiada e Cabanagem
+- As leis que adiaram a abolição
+- O movimento abolicionista negro: Luiz Gama, André Rebouças e José do Patrocínio
+- 13 de maio de 1888 e o dia seguinte
+- A Lei de Terras e a abolição sem reparação
 
 **Pensamento negro** (superior, `pensamento-negro`): 0/10 prontas
 - Clóvis Moura e as rebeliões da senzala
@@ -2160,6 +2121,17 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Quilombismo
 - Florestan Fernandes: raça e classe no Brasil
 - Epistemologias negras
+
+**Marxismo negro e pensamento decolonial** (superior, `marxismo-negro`): 0/9 prontas
+- C. L. R. James e Os Jacobinos Negros
+- W. E. B. Du Bois e a Reconstrução Negra
+- Frantz Fanon
+- Clóvis Moura e a rebelião da senzala
+- Lélia Gonzalez
+- Angela Davis: mulheres, raça e classe
+- Cedric Robinson e o capitalismo racial
+- Walter Rodney e o subdesenvolvimento da África
+- Aníbal Quijano e a colonialidade do poder
 
 ### feminismo — 1 de 38 prontas (faltam 37)
 
@@ -2186,16 +2158,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Feminicídio
 - Mulheres contra a ditadura
 
-**Feminismo classista e reprodução social** (superior, `feminismo-classista`): 0/8 prontas
-- Alexandra Kollontai
-- Clara Zetkin e o 8 de março
-- Silvia Federici e o Calibã e a Bruxa
-- Teoria da reprodução social: Lise Vogel
-- Heleieth Saffioti: o nó de gênero, raça e classe
-- Trabalho doméstico remunerado no Brasil
-- Feminismo para os 99%
-- A greve internacional de mulheres
-
 **Teoria feminista** (superior, `teoria-feminista`): 0/10 prontas
 - Simone de Beauvoir e O Segundo Sexo
 - Engels e a origem da família
@@ -2207,6 +2169,16 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - bell hooks
 - Judith Butler e o gênero
 - Feminismos latino-americanos
+
+**Feminismo classista e reprodução social** (superior, `feminismo-classista`): 0/8 prontas
+- Alexandra Kollontai
+- Clara Zetkin e o 8 de março
+- Silvia Federici e o Calibã e a Bruxa
+- Teoria da reprodução social: Lise Vogel
+- Heleieth Saffioti: o nó de gênero, raça e classe
+- Trabalho doméstico remunerado no Brasil
+- Feminismo para os 99%
+- A greve internacional de mulheres
 
 ### lgbtqia — 2 de 41 prontas (faltam 39)
 
