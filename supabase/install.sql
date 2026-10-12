@@ -897,6 +897,26 @@ begin
 end $$;
 
 /**
+ * Busca de pessoas por nome ou e-mail, para confiar uma função sem carregar a lista inteira de contas.
+ * Só a coordenação (a resposta traz e-mails). Devolve no máximo vinte, e nada com menos de duas letras.
+ */
+create or replace function public.pessoas_buscar(p_busca text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_busca text := lower(btrim(left(coalesce(p_busca, ''), 120))); v_nome text;
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if char_length(v_busca) < 2 then return '[]'::jsonb; end if;
+  perform interno.limite('pessoas_buscar', 600, 60);
+  v_nome := interno.normal(v_busca);
+  return (
+    select coalesce(jsonb_agg(jsonb_build_object('id', x.id, 'nome', x.nome, 'email', x.email, 'suspenso', x.suspenso) order by x.nome), '[]'::jsonb)
+    from (select f.id, f.nome, u.email, f.suspenso
+          from perfis f join auth.users u on u.id = f.id
+          where position(v_busca in lower(coalesce(u.email, ''))) > 0 or (v_nome <> '' and position(v_nome in interno.normal(f.nome)) > 0)
+          order by f.nome limit 20) x);
+end $$;
+
+/**
  * Confiar um papel. Coordenação e vice-coordenação confiam os papéis de trabalho; só a coordenação nomeia a vice-coordenação.
  * A coordenação em si não se concede por aqui: ela muda de mãos por lideranca_passar ou pela ordem de sucessão.
  */
@@ -3189,7 +3209,7 @@ declare f record;
 begin
   for f in select p.oid::regprocedure as assinatura, n.nspname from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname in ('interno', 'public') and p.prokind = 'f'
            and (n.nspname = 'interno' or p.proname in (
-             'eu', 'perfil_salvar', 'conta_apagar', 'candidatar', 'candidaturas_minhas', 'candidaturas_listar', 'candidatura_decidir', 'voluntarios_listar',
+             'eu', 'perfil_salvar', 'conta_apagar', 'candidatar', 'candidaturas_minhas', 'candidaturas_listar', 'candidatura_decidir', 'voluntarios_listar', 'pessoas_buscar',
              'papel_conceder', 'papel_remover', 'usuario_suspender', 'equipe', 'promover_coordenacao', 'contribuir', 'contribuicoes_minhas', 'fila',
              'contribuicao_ver', 'contribuicao_editar', 'parecer', 'contribuicao_decidir', 'publicacoes_pendentes', 'publicacoes_marcar', 'topicos_listar',
              'topico_ver', 'topico_criar', 'responder', 'votar', 'comunidade_cuidar', 'denunciar', 'denuncias_listar', 'denuncia_resolver', 'anotacoes_listar',

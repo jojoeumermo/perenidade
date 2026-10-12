@@ -91,6 +91,17 @@ await espera("coordenação concede jornalismo", () => rpc(como(ids.coord), "pap
 await espera("coordenação concede revisão", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.revisor, p_papel: "revisao", p_disciplina: null }));
 await recusa("curadoria não lista voluntários (tem e-mails)", () => rpc(como(ids.curadora), "voluntarios_listar"), "sem_permissao");
 await espera("coordenação lista voluntários", () => rpc(como(ids.coord), "voluntarios_listar"), (r) => r.length === 11);
+// ── Busca de pessoas para confiar função ──
+await recusa("anônimo não busca pessoas", () => rpc(anon, "pessoas_buscar", { p_busca: "prof" }), "entre_primeiro");
+await recusa("leitora não busca pessoas (a resposta tem e-mails)", () => rpc(como(ids.leitora), "pessoas_buscar", { p_busca: "prof" }), "sem_permissao");
+await recusa("curadoria não busca pessoas", () => rpc(como(ids.curadora), "pessoas_buscar", { p_busca: "prof" }), "sem_permissao");
+await espera("coordenação busca por parte do e-mail", () => rpc(como(ids.coord), "pessoas_buscar", { p_busca: "PROF@teste" }), (r) => r.length === 1 && r[0].id === ids.prof && r[0].email === "prof@teste.local" && r[0].nome === "Paulo Professor");
+await espera("busca por nome ignora acento e maiúsculas", () => rpc(como(ids.coord), "pessoas_buscar", { p_busca: "paulo PROFESSOR" }), (r) => r.length === 1 && r[0].id === ids.prof);
+await espera("busca devolve só quem corresponde", () => rpc(como(ids.coord), "pessoas_buscar", { p_busca: "teste.local" }), (r) => r.length === 11 && r.every((p) => p.email.endsWith("@teste.local")));
+await espera("menos de duas letras não devolve ninguém", async () => [await rpc(como(ids.coord), "pessoas_buscar", { p_busca: "a" }), await rpc(como(ids.coord), "pessoas_buscar", { p_busca: "  " }), await rpc(como(ids.coord), "pessoas_buscar", { p_busca: null })], (r) => r.every((l) => l.length === 0));
+await espera("pontuação sozinha não vira busca que traz todo mundo", () => rpc(como(ids.coord), "pessoas_buscar", { p_busca: "%%" }), (r) => r.length === 0);
+await espera("quem não existe não aparece", () => rpc(como(ids.coord), "pessoas_buscar", { p_busca: "fulano inexistente" }), (r) => r.length === 0);
+await espera("a busca nunca devolve mais de vinte", async () => { for (let i = 0; i < 25; i++) await dono("insert into auth.users (email) values ($1)", [`lote${i}@busca.local`]); for (const u of (await dono("select id from auth.users where email like 'lote%@busca.local'")).rows) await rpc(como(u.id), "eu"); const r = await rpc(como(ids.coord), "pessoas_buscar", { p_busca: "busca.local" }); await dono("delete from auth.users where email like 'lote%@busca.local'"); return r; }, (r) => r.length === 20);
 await espera("equipe pública não mostra e-mail", () => rpc(anon, "equipe"), (r) => r.length === 5 && !JSON.stringify(r).includes("@"));
 const papelCoord = (await rpc(como(ids.coord), "eu")).papeis[0].id;
 await recusa("a última coordenação não pode ser removida", () => rpc(como(ids.coord), "papel_remover", { p_id: papelCoord }), "ultima_coordenacao");
