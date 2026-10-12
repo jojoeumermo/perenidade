@@ -4,6 +4,7 @@
     "description": "Free, open and preserved knowledge. Lessons, learning tracks and a library of public-domain works, maintained by the community."
   },
   "common": {
+    "back": "Back",
     "skip": "Skip to content",
     "strip": "Living archive · 100% free · versioned and reversible content",
     "language": "Language",

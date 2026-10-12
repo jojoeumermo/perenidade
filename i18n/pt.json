@@ -4,6 +4,7 @@
     "description": "Conhecimento livre, gratuito e preservado. Aulas, trilhas e um acervo de obras de domínio público, mantidos pela comunidade."
   },
   "common": {
+    "back": "Voltar",
     "skip": "Pular para o conteúdo",
     "strip": "Arquivo vivo · 100% gratuito · conteúdo versionado e revertível",
     "language": "Idioma",

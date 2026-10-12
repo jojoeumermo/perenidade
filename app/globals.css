@@ -100,7 +100,39 @@ body {
   -webkit-user-select: none;
   user-select: none;
 }
+/* Troca de tela: o conteúdo novo surge em 160 ms. Só opacidade, que o celular simples anima sem engasgar. */
+@keyframes app-entra {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-app]:not([data-light], [data-eink]) main#conteudo > * {
+    animation: app-entra 0.16s ease-out;
+  }
+}
 @media (max-width: 767.98px) {
+  /* Cantos arredondados em cartões, campos e botões: é o que mais separa a cara de aplicativo da cara de página.
+     As cores e as letras continuam as mesmas. */
+  :root[data-app] main :is(a, article, div, section, li, form, details, aside, figure)[class~="border"][class~="bg-parchment-deep"],
+  :root[data-app] main :is(a, article, div, section, li, form, details, aside)[class~="border"][class~="border-rule"][class*="p-"] {
+    border-radius: 0.875rem;
+  }
+  :root[data-app] main :is(input:not([type="checkbox"], [type="radio"], [type="range"]), select, textarea) {
+    border-radius: 0.75rem;
+  }
+  :root[data-app] main :is(button, a):is([class~="bg-ink"], [class~="bg-oxblood"], [class~="border-2"]) {
+    border-radius: 0.75rem;
+  }
+  /* Títulos e respiros na medida da tela pequena: menos rolagem, mais conteúdo por tela. */
+  :root[data-app] main :is(h2[class~="text-4xl"], h2[class~="text-3xl"]) {
+    font-size: 1.625rem;
+    line-height: 1.2;
+  }
+  :root[data-app] main#conteudo > section[class~="py-10"] {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
   /* Sem rodapé no aplicativo: o conteúdo termina acima das abas. */
   :root[data-app] main#conteudo {
     padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));

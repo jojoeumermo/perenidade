@@ -36,12 +36,13 @@ export function BottomNav() {
           const active = path === "/" ? pathname === href : pathname === href || pathname.startsWith(`${href}/`) || (path === "/trilhas" && pathname.includes("/estantes/"));
           return (
             <li key={path}>
-              <Link href={href} aria-current={active ? "page" : undefined} className={`relative flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 font-sans text-[0.7rem] leading-tight ${active ? "bg-ink text-parchment app:bg-transparent app:font-semibold app:text-oxblood" : "text-ink hover:text-oxblood app:text-ink-soft"}`}>
-                {/* No aplicativo a aba ativa é marcada por um traço vermelho em cima, não pelo bloco escuro. */}
-                {active && <span aria-hidden className="absolute top-0 hidden h-[3px] w-10 bg-oxblood app:block" />}
-                <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  {icons[icon]}
-                </svg>
+              <Link href={href} aria-current={active ? "page" : undefined} className={`flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 font-sans text-[0.7rem] leading-tight ${active ? "bg-ink text-parchment app:bg-transparent app:font-semibold app:text-oxblood" : "text-ink hover:text-oxblood app:text-ink-soft"}`}>
+                {/* No aplicativo a aba ativa é marcada por uma pílula vermelha clara atrás do ícone, não pelo bloco escuro. */}
+                <span className={`flex items-center justify-center app:rounded-full app:px-4 app:py-0.5 ${active ? "app:bg-[color-mix(in_srgb,var(--oxblood)_16%,transparent)]" : ""}`}>
+                  <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    {icons[icon]}
+                  </svg>
+                </span>
                 <span className="max-w-full truncate">{label}</span>
               </Link>
             </li>
