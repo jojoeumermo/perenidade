@@ -36,10 +36,9 @@ jobs:
       - name: Há algo novo?
         id: novo
         run: |
+          # A pasta dos arquivos aprovados pode ainda não existir: sem ela o "git add" pararia a rotina inteira.
           mkdir -p public/arquivos
-          git add -A content public/arquivos
-          if git diff --cached --quiet; then echo "sim=nao" >> "$GITHUB_OUTPUT"; else echo "sim=sim" >> "$GITHUB_OUTPUT"; fi
-          git add -A content public/arquivos
+          git add -A -- content public/arquivos
           if git diff --cached --quiet; then echo "sim=nao" >> "$GITHUB_OUTPUT"; else echo "sim=sim" >> "$GITHUB_OUTPUT"; fi
       # O build confere cada arquivo novo com as mesmas regras do site: conteúdo inválido não entra.
       - if: steps.novo.outputs.sim == 'sim'
