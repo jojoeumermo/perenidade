@@ -849,7 +849,7 @@ begin
   if coalesce(array_length(v_lista, 1), 0) > 10 then perform interno.erro('invalido:usuarios'); end if;
   if (select count(distinct x) from unnest(v_lista) x) <> coalesce(array_length(v_lista, 1), 0) then perform interno.erro('invalido:usuarios'); end if;
   if exists (select 1 from unnest(v_lista) x where x = v or not exists (select 1 from perfis f where f.id = x and not f.suspenso)) then perform interno.erro('invalido:usuarios'); end if;
-  delete from sucessao;
+  delete from sucessao where true;
   insert into sucessao (posicao, usuario) select n::int, x from unnest(v_lista) with ordinality as t(x, n);
   perform interno.registrar('sucessao_definida', '', jsonb_build_object('ordem', to_jsonb(v_lista)));
   return jsonb_build_object('ok', true);
@@ -2360,7 +2360,7 @@ begin
   perform interno.eu();
   if not interno.lider() then perform interno.erro('sem_permissao'); end if;
   if coalesce(p_prova, '') !~ '^c1[.][A-Za-z0-9_-]{16}[.][A-Za-z0-9_-]{20,200}$' then perform interno.erro('invalido:prova'); end if;
-  delete from equipe_mensagens;
+  delete from equipe_mensagens where true;
   insert into configuracoes (chave, valor) values ('equipe', jsonb_build_object('prova', p_prova))
   on conflict (chave) do update set valor = configuracoes.valor || jsonb_build_object('prova', p_prova);
   perform interno.registrar('equipe_chave_definida');
@@ -2373,7 +2373,7 @@ declare v_total integer;
 begin
   perform interno.eu();
   if not interno.lider() then perform interno.erro('sem_permissao'); end if;
-  delete from equipe_mensagens;
+  delete from equipe_mensagens where true;
   get diagnostics v_total = row_count;
   perform interno.registrar('equipe_apagada', '', jsonb_build_object('mensagens', v_total));
   return jsonb_build_object('ok', true, 'apagadas', v_total);
