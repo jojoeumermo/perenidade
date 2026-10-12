@@ -58,6 +58,21 @@ body {
   background: var(--parchment);
   color: var(--ink);
   font-family: var(--font-serif-display), Georgia, serif;
+  /* Aberto como aplicativo, o site vai até a borda da tela: o topo desce o tanto da barra do relógio. */
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Nada passa da largura da tela: um campo de escolha, por natureza, tem a largura da opção mais comprida,
+   e basta um deles para a página inteira ganhar rolagem de lado no celular. */
+@layer base {
+  select,
+  input,
+  textarea,
+  img,
+  video,
+  iframe {
+    max-width: 100%;
+  }
 }
 
 .paper {

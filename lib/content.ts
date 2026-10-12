@@ -1,11 +1,24 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import fs from "node:fs";
 import path from "node:path";
-import { cache } from "react";
+import { cache as perPage } from "react";
 import { defaultLocale, type Locale } from "@/i18n/config";
 import { areaSlugs, licenses, stages, type AreaSlug, type License, type Stage } from "./areas";
 import { parseFrontmatter } from "./frontmatter";
 import { plainText } from "./text";
+
+// O cache do React vale para uma página só. Na montagem do site, cada uma das milhares de páginas relia e conferia
+// o acervo inteiro. Ali o conteúdo não muda no meio do caminho, então o que foi lido fica guardado enquanto o
+// processo vive. No desenvolvimento segue como era, para a aula editada aparecer ao recarregar a página.
+function perProcess<A extends (string | undefined)[], R>(load: (...args: A) => R): (...args: A) => R {
+  const kept = new Map<string, R>();
+  return (...args) => {
+    const key = JSON.stringify(args);
+    if (!kept.has(key)) kept.set(key, load(...args));
+    return kept.get(key) as R;
+  };
+}
+const cache = process.env.NODE_ENV === "production" ? (perProcess as unknown as typeof perPage) : perPage;
 
 // Todo o conteúdo vive em arquivos dentro de content/. Cada mudança fica no histórico de versões,
 // então qualquer alteração indevida se desfaz voltando à versão anterior.
