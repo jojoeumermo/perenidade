@@ -21,7 +21,7 @@ interface TopicRow {
   respostas: number;
   trancado: boolean;
   oculto: boolean;
-  /** Ainda espera a leitura da moderação: só quem escreveu e quem cuida a veem. */
+  /** Ainda espera a leitura da mediação: só quem escreveu e quem cuida a veem. */
   retido?: boolean;
   criado_em: string;
   autor: string;
@@ -121,7 +121,7 @@ function TopicList({ s }: { s: S }) {
   async function create() {
     try {
       const created = await rpc<{ id: string; retido: boolean }>("topico_criar", { p_titulo: draft.title, p_corpo: draft.body, p_disciplina: draft.area || null, p_tipo: draft.kind });
-      // O que o público escreve espera a moderação: quem enviou vê a própria mensagem na lista, marcada como aguardando.
+      // O que o público escreve espera a mediação: quem enviou vê a própria mensagem na lista, marcada como aguardando.
       if (created.retido) {
         setMessage(s.held);
         setDraft({ ...draft, title: "", body: "" });

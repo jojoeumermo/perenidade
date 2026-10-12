@@ -22,7 +22,7 @@ interface Resumo {
   nota: string;
   criado_em: string;
   pareceres: number;
-  /** "aguardando": veio de fora e a moderação ainda não leu. */
+  /** "aguardando": veio de fora e a mediação ainda não leu. */
   triagem?: string;
 }
 
@@ -44,14 +44,14 @@ interface Completa extends Resumo {
 }
 
 const nomeDoTipo = (tipo: string) => (tipos as Record<string, { rotulo: string }>)[tipo]?.rotulo ?? (tipo === "correcao" ? "Correção" : tipo);
-/** Veio de fora e a moderação ainda não leu. */
+/** Veio de fora e a mediação ainda não leu. */
 const naTriagem = (item: Resumo) => item.status === "pendente" && item.triagem === "aguardando";
 const origem: Record<string, string> = { publico: "contribuição pública", educacao: "educador(a) da disciplina", jornalismo: "jornalismo", curadoria: "curadoria", revisao: "revisão", traducao: "tradução" };
 
 /**
  * A mesma lista em quatro usos: a fila de revisão (quem tem função lê e dá parecer; curadoria e coordenação decidem),
  * os envios da própria pessoa, as contribuições de colegas que a chamaram para trabalhar junto, e a triagem
- * (a moderação lê primeiro o que vem de fora e decide se segue para a fila de revisão).
+ * (a mediação lê primeiro o que vem de fora e decide se segue para a fila de revisão).
  */
 export function Fila({ me, minhas = false, juntas = false, triagem = false }: { me: Me; minhas?: boolean; juntas?: boolean; triagem?: boolean }) {
   const { t } = useI18n();

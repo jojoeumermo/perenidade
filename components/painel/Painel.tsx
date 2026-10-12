@@ -32,7 +32,7 @@ interface Resumo {
   anotacoes: number;
   retidos: number;
   mural: number;
-  /** Envios do público que a moderação ainda não leu. */
+  /** Envios do público que a mediação ainda não leu. */
   triagem?: number;
   reforco: number;
   horas: number;
@@ -206,11 +206,11 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: true },
       { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "revisao", "educacao"), conta: r?.fila },
-      { id: "triagem", nome: "Triagem", sobre: "A primeira leitura do que o público envia: o que passa segue para a fila de revisão.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "moderacao"), conta: r?.triagem },
+      { id: "triagem", nome: "Triagem", sobre: "A primeira leitura do que o público envia: o que passa segue para a fila de revisão.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.triagem },
       { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design") },
-      { id: "comunidade", nome: "Comunidade", sobre: "Fila de moderação, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "moderacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
+      { id: "comunidade", nome: "Comunidade", sobre: "Fila de mediação, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
       { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mentoria", "educacao"), conta: r?.reforco },
-      { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da moderação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "moderacao"), conta: r?.mural },
+      { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da mediação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mediacao"), conta: r?.mural },
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: lidera, conta: r?.candidaturas },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar : undefined },
@@ -348,7 +348,7 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           ["Pedidos de voluntariado", r.candidaturas, "pessoas"],
           ["Denúncias abertas", r.denuncias, "comunidade"],
           ["Anotações para olhar", r.anotacoes, "comunidade"],
-          ["Mensagens esperando a moderação", r.retidos, "comunidade"],
+          ["Mensagens esperando a mediação", r.retidos, "comunidade"],
           ["Pedidos de reforço", r.reforco, "reforco"],
           ["Horas para conferir", r.horas, "horas"],
           ["Certificados esperando a sua assinatura", r.testemunhar, "horas"],
@@ -464,7 +464,7 @@ function Candidatura() {
         <label className="block">
           Em que função
           <select value={quero.papel} onChange={(e) => setQuero({ ...quero, papel: e.target.value })} className={campo}>
-            {(["educacao", "mentoria", "moderacao", "revisao", "traducao", "jornalismo", "curadoria", "design", "desenvolvimento"] as const).map((papel) => (
+            {(["educacao", "mentoria", "mediacao", "revisao", "traducao", "jornalismo", "curadoria", "design", "desenvolvimento"] as const).map((papel) => (
               <option key={papel} value={papel}>{papeis[papel]}</option>
             ))}
           </select>

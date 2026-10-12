@@ -1206,7 +1206,7 @@
     "title": "Conversaciones",
     "lead": "Resuelve dudas, propón estudios y ayuda a quien está empezando. El foco del instituto es la enseñanza; este espacio existe para apoyar el estudio.",
     "rules": [
-      "Cualquier persona puede leer. Para preguntar o responder hace falta una cuenta, y todo mensaje pasa por la moderación antes de aparecer.",
+      "Cualquier persona puede leer. Para preguntar o responder hace falta una cuenta, y todo mensaje pasa por la mediación antes de aparecer.",
       "Respeto siempre: discrepa de las ideas, no ataques a las personas.",
       "Nada de racismo, machismo, LGBTfobia, capacitismo ni ningún discurso de odio.",
       "No publiques datos personales, ni tuyos ni de otras personas.",
@@ -1255,8 +1255,8 @@
     "unaccept": "Desmarcar",
     "accepted": "Respuesta elegida por quien preguntó",
     "staff": "equipo",
-    "held": "Mensaje recibido. Aparecerá para todos cuando la moderación lo haya leído.",
-    "pending": "en espera de moderación"
+    "held": "Mensaje recibido. Aparecerá para todos cuando la mediación lo haya leído.",
+    "pending": "en espera de mediación"
   },
   "mural": {
     "eyebrow": "Economía solidaria",

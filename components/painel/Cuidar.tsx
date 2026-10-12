@@ -24,7 +24,7 @@ interface Anotacao {
   criado_em: string;
 }
 
-/** Cuidado da comunidade: a fila de moderação e as anotações (moderação, curadoria e educadores), denúncias e filtro (curadoria). */
+/** Cuidado da comunidade: a fila de mediação e as anotações (mediação, curadoria e educadores), denúncias e filtro (curadoria). */
 export function Comunidade({ me }: { me: Me }) {
   const curador = can(me, "coordenacao", "curadoria");
   const [aba, setAba] = useState<"retidas" | "denuncias" | "anotacoes" | "filtro">("retidas");
@@ -34,7 +34,7 @@ export function Comunidade({ me }: { me: Me }) {
         atual={aba}
         escolher={setAba}
         opcoes={[
-          { id: "retidas" as const, nome: "Fila de moderação" },
+          { id: "retidas" as const, nome: "Fila de mediação" },
           { id: "denuncias" as const, nome: "Denúncias" },
           { id: "anotacoes" as const, nome: "Anotações" },
           { id: "filtro" as const, nome: "Filtro de palavras" },
@@ -68,7 +68,7 @@ interface Retido {
   corpo: string;
   autor: string;
   criado_em: string;
-  /** Além de esperar a moderação, esbarrou na lista de palavras. */
+  /** Além de esperar a mediação, esbarrou na lista de palavras. */
   filtro?: boolean;
 }
 
@@ -78,10 +78,10 @@ function Retidos() {
   const acao = useAcao(lista.recarregar);
   const [edicao, setEdicao] = useState<{ id: string; titulo: string; corpo: string } | null>(null);
   if (!lista.dados) return <Aviso texto={lista.erro || "Carregando…"} />;
-  if (lista.dados.length === 0) return <p className="text-ink-soft">Nenhuma mensagem esperando a moderação.</p>;
+  if (lista.dados.length === 0) return <p className="text-ink-soft">Nenhuma mensagem esperando a mediação.</p>;
   return (
     <section>
-      <h2 className="font-serif text-2xl font-semibold">Fila de moderação</h2>
+      <h2 className="font-serif text-2xl font-semibold">Fila de mediação</h2>
       <p className="mt-1 max-w-3xl text-ink-soft">
         Toda dúvida, conversa e resposta do público passa por aqui antes de aparecer. Aprove o que respeita as regras da página; edite para tirar um dado pessoal ou um palavrão sem perder a
         pergunta; recuse propaganda, ataque e discurso de ódio. O filtro de palavras erra para os dois lados: uma citação em aula de história pode vir marcada. Leia o contexto antes de decidir.
