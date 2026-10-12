@@ -27,7 +27,10 @@ interface Anotacao {
 /** Cuidado da comunidade: a fila de mediação e as anotações (mediação, curadoria e educadores), denúncias e filtro (curadoria). */
 export function Comunidade({ me }: { me: Me }) {
   const curador = can(me, "coordenacao", "curadoria");
-  const [aba, setAba] = useState<"retidas" | "denuncias" | "anotacoes" | "filtro">("retidas");
+  const media = can(me, "coordenacao", "curadoria", "mediacao");
+  const [aba, setAba] = useState<"retidas" | "banimentos" | "denuncias" | "anotacoes" | "filtro">("retidas");
+  /** Cada banimento feito na fila refaz a lista de banimentos, que mora na aba ao lado. */
+  const [banidos, setBanidos] = useState(0);
   return (
     <div>
       <Abas
@@ -35,14 +38,20 @@ export function Comunidade({ me }: { me: Me }) {
         escolher={setAba}
         opcoes={[
           { id: "retidas" as const, nome: "Fila de mediação" },
+          { id: "banimentos" as const, nome: "Banimentos" },
           { id: "denuncias" as const, nome: "Denúncias" },
           { id: "anotacoes" as const, nome: "Anotações" },
           { id: "filtro" as const, nome: "Filtro de palavras" },
-        ].filter((opcao) => curador || opcao.id === "retidas" || opcao.id === "anotacoes")}
+        ].filter((opcao) => curador || opcao.id === "retidas" || opcao.id === "anotacoes" || (media && opcao.id === "banimentos"))}
       />
       <div hidden={aba !== "retidas"}>
-        <Retidos />
+        <Retidos media={media} aoBanir={() => setBanidos((n) => n + 1)} />
       </div>
+      {media && (
+        <div hidden={aba !== "banimentos"}>
+          <Banimentos key={banidos} desfaz={can(me, "coordenacao")} />
+        </div>
+      )}
       {curador && (
         <div hidden={aba !== "denuncias"}>
           <Denuncias />
@@ -70,15 +79,70 @@ interface Retido {
   criado_em: string;
   /** Além de esperar a mediação, esbarrou na lista de palavras. */
   filtro?: boolean;
+  /** Só vem para quem pode banir. */
+  autor_id?: string | null;
+}
+
+interface Banimento {
+  id: string;
+  nome: string;
+  motivo: string;
+  origem: boolean;
+  ativo: boolean;
+  por: string;
+  criado_em: string;
+}
+
+/** Quem a mediação baniu. Desfazer é com a coordenação: é a instância de recurso. */
+function Banimentos({ desfaz }: { desfaz: boolean }) {
+  const lista = useLista<Banimento[]>("banimentos_listar");
+  const acao = useAcao(lista.recarregar);
+  return (
+    <section>
+      <h2 className="font-serif text-2xl font-semibold">Banimentos</h2>
+      <p className="mt-1 max-w-3xl text-ink-soft">
+        Banir é o último recurso, para quem insiste em ataque, ódio ou propaganda depois de ter mensagens recusadas. A conta banida continua lendo o site, mas não envia mais nada. O banimento
+        da origem de rede é para caso extremo (a pessoa volta com contas novas): ele barra todo envio vindo da mesma rede, e uma rede pode ser de uma escola, de um sindicato ou de uma lan
+        house inteira. Todo banimento fica no registro e a coordenação é avisada na hora{desfaz ? "." : "; só ela desfaz."}
+      </p>
+      <Aviso texto={lista.erro || acao.aviso} />
+      {lista.dados?.length === 0 && <p className="mt-2 text-ink-soft">Ninguém foi banido.</p>}
+      <ul className="mt-3 divide-y divide-rule border-y border-rule">
+        {lista.dados?.map((item) => (
+          <li key={item.id} className={`py-3 ${item.ativo ? "" : "opacity-60"}`}>
+            <p>
+              <strong>{item.nome || "conta apagada"}</strong> · {item.ativo ? (item.origem ? "conta e origem de rede barradas" : "conta banida") : "banimento desfeito"}
+            </p>
+            <p className="text-ink-soft">
+              {item.motivo} · por {item.por || "—"} · {data(item.criado_em)}
+            </p>
+            {desfaz && item.ativo && (
+              <button type="button" className={elo} disabled={acao.ocupado} onClick={() => acao.agir("banimento_encerrar", { p_id: item.id }, "Banimento desfeito: a conta voltou a poder enviar.")}>
+                Desfazer o banimento
+              </button>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 }
 
 /** Tudo o que o público escreveu na Comunidade e ainda espera leitura. Ninguém de fora vê nada daqui até alguém aprovar. */
-function Retidos() {
+function Retidos({ media, aoBanir }: { media: boolean; aoBanir: () => void }) {
   const lista = useLista<Retido[]>("comunidade_retidos");
   const acao = useAcao(lista.recarregar);
   const [edicao, setEdicao] = useState<{ id: string; titulo: string; corpo: string } | null>(null);
+  const [banir, setBanir] = useState<{ id: string; motivo: string; origem: boolean } | null>(null);
   if (!lista.dados) return <Aviso texto={lista.erro || "Carregando…"} />;
-  if (lista.dados.length === 0) return <p className="text-ink-soft">Nenhuma mensagem esperando a mediação.</p>;
+  if (lista.dados.length === 0) {
+    return (
+      <div>
+        <Aviso texto={acao.aviso} />
+        <p className="text-ink-soft">Nenhuma mensagem esperando a mediação.</p>
+      </div>
+    );
+  }
   return (
     <section>
       <h2 className="font-serif text-2xl font-semibold">Fila de mediação</h2>
@@ -128,7 +192,38 @@ function Retidos() {
                   <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("comunidade_cuidar", { p_tipo: item.tipo, p_alvo: item.id, p_acao: "mostrar" }, "Mensagem aprovada: já aparece na Comunidade.")}>Aprovar</button>
                   <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => setEdicao({ id: item.id, titulo: item.titulo, corpo: item.corpo })}>Editar</button>
                   <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => acao.agir("comunidade_cuidar", { p_tipo: item.tipo, p_alvo: item.id, p_acao: "ocultar" }, "Mensagem recusada: não vai aparecer.")}>Recusar</button>
+                  {media && item.autor_id && banir?.id !== item.id && (
+                    <button type="button" className={elo} onClick={() => setBanir({ id: item.id, motivo: "", origem: false })}>Banir quem escreveu</button>
+                  )}
                 </div>
+                {banir?.id === item.id && item.autor_id && (
+                  <div className="mt-3 border-l-2 border-oxblood pl-4">
+                    <label className="block">
+                      Motivo do banimento (fica no registro e vai para a coordenação)
+                      <input value={banir.motivo} onChange={(e) => setBanir({ ...banir, motivo: e.target.value })} maxLength={300} className={campo} />
+                    </label>
+                    <label className="mt-2 flex items-start gap-2">
+                      <input type="checkbox" checked={banir.origem} onChange={(e) => setBanir({ ...banir, origem: e.target.checked })} className="mt-1 h-4 w-4" />
+                      <span>Caso extremo: barrar também a origem de rede desta pessoa (vale para qualquer conta e para envios sem conta vindos da mesma rede)</span>
+                    </label>
+                    <div className="mt-3 flex flex-wrap gap-3">
+                      <button
+                        type="button"
+                        className="cursor-pointer bg-oxblood px-5 py-2 font-medium text-parchment disabled:cursor-not-allowed disabled:opacity-50"
+                        disabled={acao.ocupado || banir.motivo.trim().length < 5}
+                        onClick={async () => {
+                          if (await acao.agir("mediacao_banir", { p_usuario: item.autor_id, p_motivo: banir.motivo, p_origem: banir.origem }, "Conta banida. A coordenação foi avisada.")) {
+                            setBanir(null);
+                            aoBanir();
+                          }
+                        }}
+                      >
+                        Confirmar o banimento
+                      </button>
+                      <button type="button" className={elo} onClick={() => setBanir(null)}>Cancelar</button>
+                    </div>
+                  </div>
+                )}
               </>
             )}
           </li>
@@ -320,8 +415,54 @@ interface EstadoRadio {
   canais: Canal[];
 }
 
-/** Rádio: montar canais e faixas com calma e só depois pôr no ar. */
-export function RadioAdmin() {
+/** Quem cuida da rádio indica uma emissora nova para a lista "Rádios do povo": a indicação entra na fila de revisão, como toda contribuição. */
+function SugerirEmissora() {
+  const acao = useAcao();
+  const [nova, setNova] = useState({ nome: "", lugar: "", site: "", porque: "" });
+  const pronta = nova.nome.trim().length >= 3 && nova.lugar.trim().length >= 2 && /^https:\/\/\S+$/.test(nova.site.trim()) && nova.porque.trim().length >= 20;
+  return (
+    <section className="border border-rule bg-parchment-deep p-5">
+      <h2 className="font-serif text-2xl font-semibold">Sugerir uma emissora</h2>
+      <p className="mt-1 text-ink-soft">
+        A lista “Rádios do povo” da página da rádio reúne emissoras populares, comunitárias e de trabalhadores. Ela faz parte do acervo do site, então uma emissora nova entra como toda
+        contribuição: você indica aqui, a curadoria confere e ela vai ao ar na publicação seguinte.
+      </p>
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <label className="block">
+          Nome da emissora
+          <input value={nova.nome} onChange={(e) => setNova({ ...nova, nome: e.target.value })} maxLength={100} className={campo} />
+        </label>
+        <label className="block">
+          Cidade e país
+          <input value={nova.lugar} onChange={(e) => setNova({ ...nova, lugar: e.target.value })} maxLength={100} className={campo} />
+        </label>
+        <label className="block sm:col-span-2">
+          Site da emissora (https)
+          <input value={nova.site} onChange={(e) => setNova({ ...nova, site: e.target.value })} maxLength={300} placeholder="https://…" className={`${campo} font-mono`} />
+        </label>
+        <label className="block sm:col-span-2">
+          Quem mantém a emissora e por que ela cabe na lista
+          <textarea value={nova.porque} onChange={(e) => setNova({ ...nova, porque: e.target.value })} rows={3} maxLength={1500} className={campo} />
+        </label>
+      </div>
+      <button
+        type="button"
+        className={`mt-3 ${botao}`}
+        disabled={acao.ocupado || !pronta}
+        onClick={async () => {
+          const corpo = `Indicação de emissora para a lista "Rádios do povo".\n\nEmissora: ${nova.nome.trim()}\nLugar: ${nova.lugar.trim()}\nSite: ${nova.site.trim()}\n\n${nova.porque.trim()}`;
+          if (await acao.agir("contribuir", { p: { tipo: "sugestao", titulo: `Emissora: ${nova.nome.trim()}`.slice(0, 160), corpo, alvo: "/radio" } }, "Indicação enviada para a fila de revisão.")) setNova({ nome: "", lugar: "", site: "", porque: "" });
+        }}
+      >
+        Enviar a indicação
+      </button>
+      <Aviso texto={acao.aviso} />
+    </section>
+  );
+}
+
+/** Rádio: montar canais e faixas com calma e só depois pôr no ar. Coordenação e jornalismo (que também é a rádio). */
+export function RadioAdmin({ me }: { me: Me }) {
   const estado = useLista<EstadoRadio>("radio_estado");
   const acao = useAcao(estado.recarregar);
   const [canal, setCanal] = useState({ nome: "", descricao: "" });
@@ -355,7 +496,7 @@ export function RadioAdmin() {
       <section className="border-2 border-ink p-5">
         <p className={rotulo}>Situação</p>
         <p className="mt-1 font-serif text-2xl font-semibold">{r.no_ar ? "No ar para todo mundo" : "Fora do ar: o público vê “Em breve”"}</p>
-        <p className="mt-1 text-ink-soft">Enquanto estiver fora do ar, só a coordenação enxerga e escuta a programação.</p>
+        <p className="mt-1 text-ink-soft">Enquanto estiver fora do ar, só a coordenação e o jornalismo enxergam e escutam a programação.</p>
         <label className="mt-4 block">
           Transmissão ao vivo (endereço https de um fluxo de áudio; deixe vazio para tocar a programação gravada)
           <input value={vivo} onChange={(e) => setAoVivo(e.target.value)} placeholder="https://…" className={`${campo} font-mono`} />
@@ -445,6 +586,8 @@ export function RadioAdmin() {
       )}
 
       <Aviso texto={acao.aviso} />
+
+      {can(me, "coordenacao", "jornalismo") && <SugerirEmissora />}
 
       {r.canais.map((item) => (
         <section key={item.id} className="border border-rule bg-parchment-deep p-4">

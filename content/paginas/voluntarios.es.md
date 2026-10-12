@@ -9,7 +9,7 @@ Todo lo que hay aquí fue escrito, revisado y organizado por personas que creen 
 ## Cómo empezar
 
 - **Sin cuenta:** la página [Contribuir](/contribuir) acepta lecciones, propuestas de obras, correcciones e ideas de cualquier persona. La curaduría lo lee todo antes de que entre.
-- **Como voluntario:** [entra](/entrar) con tu correo y, en el panel, pide ser voluntario, diciendo en qué quieres ayudar. La coordinación responde allí e indica la asignatura o la tarea de cada persona.
+- **Como voluntario:** completa la [candidatura](#candidatura) al final de esta página, con tu nombre completo, un correo de contacto, la función que quieres y una presentación. No hace falta tener cuenta. La coordinación lee cada candidatura y responde al correo indicado; quien es aceptado recibe allí el acceso al panel, ya con la función acordada.
 
 En esta fase inicial, toda publicación pasa por la aprobación de la coordinación.
 
@@ -35,6 +35,10 @@ Toda lección y toda ficha tiene al final un enlace **Sugerir corrección**. En 
 
 Cada ruta tiene un plan con las lecciones que todavía faltan. Elegir una de ellas es la mejor manera de continuar el trabajo donde se quedó.
 
+## Como mediador
+
+La [Comunidad](/comunidade) es abierta: cualquier persona lee, y quien crea una cuenta pregunta y responde. El mediador facilita ese debate y cuida la puerta: lee cada mensaje antes de que aparezca, aprueba lo que respeta las reglas, corrige lo que necesita un retoque y rechaza ataques, propaganda y discursos de odio. También cuida los anuncios del [Mural de los Trabajadores](/mural) y hace la primera lectura de las contribuciones que llegan de fuera, antes de que pasen a los educadores. Cuando alguien insiste en pasarse de la raya, el mediador puede expulsar la cuenta; toda decisión queda registrada y la coordinación puede revisarla.
+
 ## Como traductor
 
 El sitio existe en portugués, inglés, español, chino y ruso, pero la mayor parte de las lecciones todavía está solo en portugués. Si dominas otro idioma, traducir una lección abre el instituto a millones de personas. Toda traducción debe ser revisada por alguien que domine el idioma.
@@ -43,9 +47,11 @@ El sitio existe en portugués, inglés, español, chino y ruso, pero la mayor pa
 
 El acervo solo indexa: guarda el título, el autor, una sinopsis y el enlace a la fuente legítima. Quien cura propone obras en dominio público o con licencia abierta, comprueba que los enlaces antiguos sigan funcionando y ayuda a decidir qué entra.
 
-## Como periodista
+## Como periodista y locutor de radio
 
 El [Periódico](/jornal) publica noticias y análisis desde el punto de vista de quien trabaja. Hechos comprobados, fuentes a la vista y cuidado al hablar de personas y organizaciones: el objetivo es informar y educar.
+
+Quien escribe el periódico también hace [Rádio Lúcia](/radio): arma los canales y las pistas, cuida la transmisión en vivo y propone emisoras populares y comunitarias para la lista de la página de la radio.
 
 ## En las clases de refuerzo
 

@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { PageHeading } from "@/components/PageHeading";
 import { SignIn } from "@/components/SignIn";
+import { VolunteerForm } from "@/components/VolunteerForm";
 import { loadLang } from "@/i18n";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/entrar">): Promise<Metadata> {
@@ -17,6 +18,11 @@ export default async function Entrar({ params }: PageProps<"/[lang]/entrar">) {
         {t.auth.lead}
       </PageHeading>
       <SignIn s={t.auth} />
+      {/* Quem quer ser voluntário não precisa de conta para se candidatar: o formulário abre aqui mesmo. */}
+      <details className="mt-12 border-t border-rule pt-6">
+        <summary className="cursor-pointer font-sans text-base font-medium underline hover:text-oxblood">{t.auth.volunteerLink}</summary>
+        <VolunteerForm s={t.volunteer} />
+      </details>
     </div>
   );
 }

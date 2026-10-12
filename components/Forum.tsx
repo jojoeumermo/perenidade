@@ -41,11 +41,15 @@ interface Reply {
   meu_voto: number;
   aceita: boolean;
   da_equipe: boolean;
+  autor_id?: string | null;
 }
 
 interface Topic extends TopicRow {
   corpo: string;
   pode_cuidar: boolean;
+  /** Quem media pode banir a conta de quem escreveu; autor_id só vem para essas pessoas. */
+  pode_banir?: boolean;
+  autor_id?: string | null;
   meu: boolean;
   aceita: string | null;
   respostas_lista?: never;
@@ -168,7 +172,10 @@ function TopicList({ s }: { s: S }) {
             {s.newTopic}
           </button>
         ) : (
-          <L href="/entrar" className="ml-auto underline hover:text-oxblood">{s.signInToPost}</L>
+          <span className="ml-auto flex flex-wrap gap-x-4">
+            <L href="/entrar" className="underline hover:text-oxblood">{s.signInToPost}</L>
+            <L href="/entrar?criar=1" className="font-medium underline hover:text-oxblood">{s.signUp}</L>
+          </span>
         )}
       </div>
 
@@ -237,6 +244,8 @@ function TopicView({ id, s }: { id: string; s: S }) {
   const [reply, setReply] = useState("");
   const [message, setMessage] = useState("");
   const [tick, setTick] = useState(0);
+  /** Banir pede dois cliques: o primeiro arma, o segundo confirma. */
+  const [arming, setArming] = useState("");
   const date = new Intl.DateTimeFormat(htmlLang[lang]);
   const reload = () => setTick((value) => value + 1);
 
@@ -270,6 +279,27 @@ function TopicView({ id, s }: { id: string; s: S }) {
       return false;
     }
   }
+  // Gente da equipe não se bane por aqui (o serviço recusa); o botão nem aparece para as respostas marcadas como da equipe.
+  const ban = (key: string, author: string | null | undefined) =>
+    topic?.pode_banir && author ? (
+      <button
+        type="button"
+        className="cursor-pointer text-oxblood underline"
+        onClick={async () => {
+          if (arming !== key) return setArming(key);
+          setArming("");
+          try {
+            await rpc("mediacao_banir", { p_usuario: author, p_motivo: `Banimento a partir da conversa ${id}`, p_origem: false });
+            setMessage(s.banned);
+            reload();
+          } catch (error) {
+            setMessage(errorText(t, error instanceof BackendError ? error.code : "falha"));
+          }
+        }}
+      >
+        {arming === key ? s.banConfirm : s.ban}
+      </button>
+    ) : null;
   const care = (kind: "topico" | "resposta", target: string, action: string, label: string) => (
     <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => act("comunidade_cuidar", { p_tipo: kind, p_alvo: target, p_acao: action })}>
       {label}
@@ -297,6 +327,7 @@ function TopicView({ id, s }: { id: string; s: S }) {
             <L href={`/denunciar?item=${encodeURIComponent(`/comunidade?t=${topic.id}`)}`} className="underline hover:text-oxblood">{t.common.report}</L>
             {topic.pode_cuidar && care("topico", topic.id, topic.oculto ? "mostrar" : "ocultar", topic.oculto ? s.show : s.hide)}
             {topic.pode_cuidar && care("topico", topic.id, topic.trancado ? "destrancar" : "trancar", topic.trancado ? s.unlock : s.lock)}
+            {!topic.meu && ban(topic.id, topic.autor_id)}
           </p>
         </div>
       </article>
@@ -323,6 +354,7 @@ function TopicView({ id, s }: { id: string; s: S }) {
                   </button>
                 )}
                 {topic.pode_cuidar && care("resposta", item.id, item.oculto ? "mostrar" : "ocultar", item.oculto ? s.show : s.hide)}
+                {!item.da_equipe && ban(item.id, item.autor_id)}
               </p>
             </div>
           </li>
@@ -345,8 +377,9 @@ function TopicView({ id, s }: { id: string; s: S }) {
           <button type="submit" className="mt-2 cursor-pointer bg-ink px-5 py-2 font-medium text-parchment hover:bg-oxblood">{s.reply}</button>
         </form>
       ) : (
-        <p className="mt-6">
+        <p className="mt-6 flex flex-wrap gap-x-4">
           <L href="/entrar" className="underline hover:text-oxblood">{s.signInToPost}</L>
+          <L href="/entrar?criar=1" className="font-medium underline hover:text-oxblood">{s.signUp}</L>
         </p>
       )}
       <p role="alert" className="mt-2 min-h-5 text-oxblood">{message}</p>

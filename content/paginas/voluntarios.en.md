@@ -9,7 +9,7 @@ Everything here was written, reviewed and organised by people who believe knowle
 ## How to start
 
 - **Without an account:** the [Contribute](/contribuir) page accepts lessons, suggested works, corrections and ideas from anyone. The curators read everything before it goes in.
-- **As a volunteer:** [sign in](/entrar) with your email and, in the panel, ask to become a volunteer, saying how you would like to help. The coordination replies there and assigns each person a subject or a task.
+- **As a volunteer:** fill in the [application](#candidatura) at the end of this page with your full name, a contact email, the role you want and a short introduction. You do not need an account. The coordination reads every application and replies to the email you gave; those who are accepted receive access to the panel there, already with the agreed role.
 
 At this early stage, every publication is approved by the coordination.
 
@@ -35,6 +35,10 @@ Can you explain something? Write a lesson. Each educator looks after one or more
 
 Each track has a roadmap listing the lessons still to be written. Picking one of them is the best way to carry on the work from where it stopped.
 
+## As a mediator
+
+The [Community](/comunidade) is open: anyone can read, and anyone who creates an account can ask and answer. The mediator facilitates that debate and guards the door: reads every message before it appears, approves what follows the rules, fixes what needs a touch-up and refuses attacks, advertising and hate speech. The mediator also looks after the notices on the [Workers' Board](/mural) and gives a first reading to contributions coming from outside, before they reach the educators. When someone keeps crossing the line, the mediator can ban the account; every decision is recorded and the coordination can review it.
+
 ## As a translator
 
 The site exists in Portuguese, English, Spanish, Chinese and Russian, but most lessons are still in Portuguese only. If you are fluent in another language, translating a lesson opens the institute to millions of people. Every translation must be reviewed by someone fluent in the language.
@@ -43,9 +47,11 @@ The site exists in Portuguese, English, Spanish, Chinese and Russian, but most l
 
 The library only indexes: it keeps the title, the author, a synopsis and the link to the legitimate source. Curators suggest works in the public domain or under an open licence, check that old links still work and help decide what goes in.
 
-## As a journalist
+## As a journalist and radio host
 
 The [Newspaper](/jornal) publishes news and analysis from the point of view of those who work. Checked facts, sources in plain sight and care when writing about people and organisations: the aim is to inform and to educate.
+
+Those who write the journal also run [Rádio Lúcia](/radio): they set up channels and tracks, look after the live broadcast and suggest popular and community stations for the list on the radio page.
 
 ## In tutoring
 

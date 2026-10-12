@@ -193,7 +193,7 @@ export async function iniciar({ silencioso = false } = {}) {
       const envio = /^\/storage\/v1\/object\/(radio\/.+)$/.exec(url.pathname);
       if (envio && req.method === "POST") {
         const dados = portador(req);
-        const pode = dados?.sub ? await banco.dono("select 1 from interno.papeis where usuario = $1 and papel in ('coordenacao', 'vice')", [dados.sub]) : { rows: [] };
+        const pode = dados?.sub ? await banco.dono("select 1 from interno.papeis where usuario = $1 and papel in ('coordenacao', 'vice', 'jornalismo')", [dados.sub]) : { rows: [] };
         if (pode.rows.length === 0) return json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
         arquivos.set(envio[1], { tipo: req.headers["content-type"] ?? "application/octet-stream", dados: bruto });
         return json(res, 200, { Key: envio[1], Id: crypto.randomUUID() });
