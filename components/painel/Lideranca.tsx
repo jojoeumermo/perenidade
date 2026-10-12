@@ -372,8 +372,80 @@ function detalhesLegiveis(detalhes: Record<string, unknown> | null): string {
     .join(" · ");
 }
 
-/** Quem fez o quê no painel. Guarda por pouco mais de um ano; não registra endereço de rede de ninguém. */
+interface Linha {
+  id: number;
+  criado_em: string;
+  tabela: string;
+  acao: string;
+  titulo: string;
+  campos: string[];
+  via: string;
+  nome: string;
+  alvo_nome: string;
+}
+
+const coisas: Record<string, string> = { contribuicoes: "a contribuição", arquivos: "o arquivo", materiais: "o material", papeis: "a função" };
+const verbos: Record<string, string> = { insercao: "incluiu", edicao: "editou", exclusao: "excluiu", aprovacao: "aprovou", recusa: "recusou", publicacao: "publicou" };
+/** Mudança sem conta por trás: de onde ela veio. */
+const origens: Record<string, string> = { service_role: "A rotina de publicação", banco: "Alguém direto no banco", anon: "Alguém sem conta", authenticated: "Uma conta que já foi apagada" };
+/** Do que a linha fala: o título entre aspas ou, nas funções, o nome da função e de quem a recebeu ou perdeu. */
+const assunto = (linha: Linha) =>
+  linha.tabela === "papeis" ? [(papeis as Record<string, string>)[linha.titulo] ?? linha.titulo, linha.alvo_nome].filter(Boolean).join(" · ") : `“${linha.titulo}”`;
+
+/**
+ * O livro do acervo: cada inclusão, edição, aprovação, recusa, publicação e exclusão no que vai para o site, e cada
+ * função dada ou tirada. Quem escreve é o próprio banco, e nenhuma linha pode ser editada nem apagada antes do prazo.
+ */
+function LivroDoAcervo() {
+  const [pagina, setPagina] = useState(0);
+  const [tabela, setTabela] = useState("");
+  const lista = useLista<Linha[]>("audit_logs_listar", { p_pagina: pagina, p_tabela: tabela || null });
+  return (
+    <div>
+      <label className="block max-w-sm">
+        Mostrar
+        <select value={tabela} onChange={(e) => { setTabela(e.target.value); setPagina(0); }} className={campo}>
+          <option value="">Tudo</option>
+          <option value="contribuicoes">Só contribuições (aulas, obras, matérias)</option>
+          <option value="arquivos">Só arquivos enviados</option>
+          <option value="materiais">Só materiais</option>
+          <option value="papeis">Só funções dadas e tiradas</option>
+        </select>
+      </label>
+      {lista.erro && <p role="status" className="mt-2 text-oxblood">{lista.erro} Se o livro nunca abriu, falta rodar de novo o arquivo supabase/install.sql no banco.</p>}
+      <ul className="mt-2 divide-y divide-rule border-y border-rule">
+        {lista.dados?.map((linha) => (
+          <li key={linha.id} className="py-2">
+            <span className={rotulo}>{dataHora(linha.criado_em)}</span>
+            <p>
+              <strong>{linha.nome || origens[linha.via] || "Alguém"}</strong> {verbos[linha.acao] ?? linha.acao} {coisas[linha.tabela] ?? linha.tabela} {assunto(linha)}
+              {linha.acao === "edicao" && linha.campos.length > 0 && <span className="text-ink-soft"> · mudou: {linha.campos.join(", ")}</span>}
+            </p>
+          </li>
+        ))}
+      </ul>
+      {lista.dados?.length === 0 && <p className="mt-2 text-ink-soft">Nada registrado.</p>}
+      <div className="mt-3 flex gap-4">
+        <button type="button" className={elo} disabled={pagina === 0} onClick={() => setPagina(pagina - 1)}>← Mais recentes</button>
+        <button type="button" className={elo} disabled={(lista.dados?.length ?? 0) < 100} onClick={() => setPagina(pagina + 1)}>Mais antigos →</button>
+      </div>
+    </div>
+  );
+}
+
+/** As duas trilhas do que acontece no instituto: as decisões tomadas pelo painel e o livro que o banco escreve sozinho. */
 export function RegistroDeAtividades() {
+  const [aba, setAba] = useState<"decisoes" | "livro">("decisoes");
+  return (
+    <div>
+      <Abas opcoes={[{ id: "decisoes", nome: "Decisões no painel" }, { id: "livro", nome: "Livro do acervo" }]} atual={aba} escolher={setAba} />
+      {aba === "decisoes" ? <Decisoes /> : <LivroDoAcervo />}
+    </div>
+  );
+}
+
+/** Quem fez o quê no painel. Guarda por pouco mais de um ano; não registra endereço de rede de ninguém. */
+function Decisoes() {
   const [pagina, setPagina] = useState(0);
   const [filtro, setFiltro] = useState("");
   const [estado, setEstado] = useState<{ lista: Registro[] | null; erro: string }>({ lista: null, erro: "" });
