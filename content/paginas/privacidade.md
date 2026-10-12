@@ -38,18 +38,20 @@ Algumas páginas aceitam envios de qualquer pessoa. Nada é publicado sem passar
 | Pedido de aula de reforço | A dúvida e o e-mail para a resposta | A pessoa da equipe que assumir o pedido | O e-mail é apagado quando o pedido é concluído |
 | Contribuição (aula, correção, sugestão) | O texto e o nome que você quiser assinar | A equipe de revisão; depois de aprovada, todo mundo | O que é publicado permanece no acervo |
 | Denúncia ou pedido sobre dados | O que você escrever | A coordenação e a curadoria | Um ano depois de resolvida |
+| Candidatura a voluntário | O nome completo, o e-mail de contato, a função pretendida e a apresentação que você escrever | Só a coordenação | Noventa dias depois de respondida |
 
-Para barrar abuso, o sistema guarda por até dois dias um código embaralhado da origem do envio. Ele serve só para contar quantos envios vieram do mesmo lugar e não permite identificar ninguém.
+Para barrar abuso, o sistema guarda por até dois dias um código embaralhado da origem do envio. Ele serve só para contar quantos envios vieram do mesmo lugar e não permite identificar ninguém. Em caso extremo de abuso, a mediação pode barrar os envios de uma origem: o que fica guardado é esse mesmo código embaralhado, nunca o endereço de rede, até a coordenação desfazer o bloqueio.
 
 ## Se você tem uma conta
 
-As contas são criadas por convite da coordenação: servem para quem participa da comunidade e para quem trabalha como voluntário. Nesse caso o instituto guarda:
+Qualquer pessoa pode criar uma conta, com e-mail e senha, para participar da comunidade; quem trabalha como voluntário recebe a conta por convite da coordenação. Nesse caso o instituto guarda:
 
 | O quê | Para quê | Quem vê | Até quando |
 |---|---|---|---|
 | Seu e-mail | Entrar na conta | Só a coordenação | Até você apagar a conta |
 | Nome público | Assinar o que você publica | Todo mundo | Até você trocar ou apagar a conta |
 | Conversas, respostas e votos na comunidade | Funcionamento da comunidade | Todo mundo (os votos, ninguém) | As mensagens ficam, sem ligação com você, se a conta for apagada |
+| Código embaralhado da origem do último acesso | Permitir que a mediação barre os envios de quem insiste em abuso | Ninguém: ele só é comparado pelo sistema | É trocado a cada acesso e some com a conta |
 
 O nome público nasce como um codinome sorteado ("Estudante 48213"). Nada do seu e-mail aparece no site. Você escolhe se quer trocar o codinome pelo seu nome.
 
@@ -61,7 +63,7 @@ As conversas internas da equipe são cifradas no seu aparelho antes de serem env
 
 ## Com que base a lei permite isso
 
-- **Consentimento**, quando você aceita um convite, publica na comunidade, anuncia no mural ou pede reforço. Você retira o consentimento apagando a conta ou pedindo a retirada do que enviou.
+- **Consentimento**, quando você cria uma conta, aceita um convite, se candidata a voluntário, publica na comunidade, anuncia no mural ou pede reforço. Você retira o consentimento apagando a conta ou pedindo a retirada do que enviou.
 - **Legítimo interesse**, para os registros de segurança do painel e a proteção contra ataques e abuso.
 - **Cumprimento de obrigação legal**, se uma ordem judicial válida exigir a guarda ou a entrega de algum registro.
 

@@ -12,7 +12,7 @@ Este é o documento de referência do projeto: como ele é organizado, como se e
 
 - **Design:** não se mexe em fontes, cores nem no texto central da página inicial. Novas páginas reaproveitam as peças que já existem.
 - **Simplicidade:** o foco é o ensino. Fórum, jornal e rádio são complementos e ficam fora do caminho de quem só quer estudar.
-- **Palavras:** no site se fala em *coordenador, vice-coordenador, curadoria, mediador, educador, revisor, tradutor, jornalista, voluntário*. Não se usam "administrador" nem "líder".
+- **Palavras:** no site se fala em *coordenador, vice-coordenador, curadoria, mediador, educador, revisor, tradutor, jornalista (que também é radialista), voluntário*. Não se usam "administrador", "moderador" nem "líder".
 - **Fontes:** toda aula, matéria, checagem, verbete e homenagem cita pelo menos uma fonte. Nada inventado.
 - **Pessoas e organizações:** ao falar de pessoas vivas, partidos ou empresas, só fatos documentados e linguagem sóbria. O objetivo é educar.
 - **Direitos autorais:** nenhum arquivo de terceiros é hospedado. O acervo guarda a ficha e o link para a fonte legítima; nunca um link direto para PDF, nunca um link de loja ou de editora. Obra protegida vira "ficha de referência" e aponta para um catálogo de bibliotecas. Letras de música e livros protegidos não são reproduzidos.
@@ -205,7 +205,7 @@ O painel (`/painel`) é um ambiente à parte do site: ocupa a tela inteira, sem 
 | Produção | Escrever, Meus envios, Compartilhadas comigo, Fila de revisão, Triagem, Materiais e arquivos | conforme a função; a triagem, mediação, curadoria e coordenação |
 | Atendimento | Comunidade, Aula de reforço, Mural dos Trabalhadores, Boletim do jornal | conforme a função; o mural, coordenação e mediação |
 | Pessoas | Voluntários e convites, Horas e certificados | a primeira, só coordenação |
-| Site | Controles do site, Aviso de abertura, Rádio, Apoiadores | só coordenação |
+| Site | Controles do site, Aviso de abertura, Rádio, Apoiadores | só coordenação; a rádio, também o jornalismo |
 | Segurança | Segurança e sucessão, Registro de atividades | só coordenação |
 | Você | Minha conta (nome, senha, segundo fator, aparelhos) | todos |
 
@@ -224,11 +224,11 @@ Cada pessoa vê no painel só as seções da sua função. O banco confere a fun
 | `coordenacao` | coordenador | tudo: aprova voluntários, distribui funções e disciplinas, decide publicações, cuida do mural e da rádio, define a sucessão, lê o registro de atividades. Só existe um |
 | `vice` | vice-coordenador | o mesmo que a coordenação, menos: nomear ou tirar vice, passar a coordenação, mexer na sucessão, mudar a exigência de segundo fator, definir a sala da equipe e emitir certificados |
 | `curadoria` | curadoria | lê a fila inteira, edita e decide; cuida da comunidade (fila de mediação, palavras vetadas) e pode fazer a triagem |
-| `mediacao` | mediador | a primeira leitura do que o público envia: aprova, edita ou recusa mensagens da Comunidade e anúncios do Mural dos Trabalhadores; faz a triagem das contribuições de fora (libera para a fila de revisão ou barra, com nota); decide anotações de leitura. Não aprova conteúdo de ensino, não vê a fila de revisão, não mexe em pessoas, no filtro de palavras, nas denúncias nem nos controles do site |
+| `mediacao` | mediador | a primeira leitura do que o público envia: aprova, edita ou recusa mensagens da Comunidade e anúncios do Mural dos Trabalhadores; faz a triagem das contribuições de fora (libera para a fila de revisão ou barra, com nota); decide anotações de leitura; bane a conta de quem passa do limite e, em caso extremo, a origem de rede (não bane gente da equipe, e só a coordenação desfaz). Não aprova conteúdo de ensino, não vê a fila de revisão, não mexe em pessoas, no filtro de palavras, nas denúncias nem nos controles do site |
 | `educacao` (por disciplina) | educador | escreve aulas da sua disciplina, vê a fila dela e dá parecer nas matérias do jornal |
 | `revisao` | revisor | lê a fila e dá parecer |
 | `traducao` | tradutor | envia traduções |
-| `jornalismo` | jornalista | escreve matérias para o jornal |
+| `jornalismo` | jornalista e radialista | escreve matérias para o jornal; cuida da Rádio Lúcia (canais, faixas, transmissão ao vivo, pôr e tirar do ar) e indica emissoras para a lista "Rádios do povo", que entram pela fila de revisão |
 | `mentoria` (por disciplina) | mentor | responde pedidos de aula de reforço da sua disciplina |
 | `design` | designer | envia materiais para imprimir (zines, cartazes) e imagens |
 | `desenvolvimento` | desenvolvedor | vê o mural interno da equipe; não tem poder sobre conteúdo nem sobre pessoas |
@@ -240,6 +240,12 @@ Quem contribui sem conta, pela página Contribuir, entra na mesma fila, depois d
 A página **Comunidade** é aberta: qualquer visitante lê dúvidas, conversas e respostas. Escrever exige conta, e **tudo** o que o público escreve entra retido (`retido`), invisível para os outros, até alguém que cuida da comunidade (mediação, curadoria, educadores, coordenação) aprovar, editar ou recusar em *Comunidade → Fila de mediação*. Quem escreveu vê a própria mensagem marcada como "aguardando mediação" e recebe um recado com a decisão. Só quem cuida da comunidade publica direto, e mesmo assim o filtro de palavras retém.
 
 O **Mural dos Trabalhadores** é decidido pela coordenação e pela mediação, que também pode acertar o texto de um anúncio pendente. Retirar do ar um anúncio já aprovado continua só com a coordenação.
+
+**Cadastro aberto.** Qualquer pessoa cria conta com e-mail e senha (página Entrar, ou "Criar conta" na Comunidade). A conta nasce sem função nenhuma: pode perguntar, responder e contribuir, e nada do que escreve aparece antes da mediação. A coordenação fecha essa porta em *Controles do site → Cadastro da comunidade* (volta a valer só o convite), e a pausa geral de envios também a fecha enquanto durar. A regra está no gatilho `lucia_conta_nova`. No serviço de contas, mantenha ligadas a confirmação de e-mail e a verificação contra robôs (seção 6).
+
+**Banimento.** Na *Fila de mediação* e na página da conversa, quem media pode banir a conta de quem escreveu: a conta fica suspensa (lê, mas não envia), o que ela tinha na fila é recusado e a coordenação é avisada na hora. Em caso extremo, o banimento inclui a **origem de rede**: o banco guarda só o código embaralhado da origem (o mesmo usado nos limites de envio, nunca o endereço) e o gatilho `lucia_pausa` recusa, com `acesso_bloqueado`, todo envio de fora vindo dela, com ou sem conta. Uma origem pode ser uma escola ou um sindicato inteiro: use com parcimônia. A lista fica em *Comunidade → Banimentos*; só a coordenação desfaz.
+
+**Candidatura de voluntário.** O formulário público (página Voluntariado e página Entrar) pede nome completo, e-mail, função e apresentação, sem exigir conta, e grava em `interno.inscricoes`. A coordenação decide em *Voluntários e convites → Candidaturas*. Ao aceitar, quem não tem conta ganha um convite pessoal (só para aquele e-mail, já com a função, válido por 14 dias) que a coordenação manda por e-mail; quem já tem conta com o e-mail confirmado recebe a função na hora. O site não envia e-mail sozinho: o painel mostra o endereço do convite e um atalho para o programa de e-mail.
 
 A **Triagem** é a primeira barreira das contribuições: o que vem de quem não é da equipe nasce com `triagem = aguardando` e não aparece para educadores nem revisores. A mediação lê, acerta a forma se for o caso, e **libera** (segue para a fila de revisão) ou **barra** (encerra como não aprovado, com nota obrigatória). Curadoria e coordenação enxergam tudo e também podem triar, então a fila não trava se faltar mediador. O que a equipe escreve pula a triagem.
 

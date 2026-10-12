@@ -97,7 +97,7 @@ function Porta({ children }: { children: React.ReactNode }) {
           <img src="/emblema-96.png" alt="" width={40} height={40} className="h-10 w-10" />
           <span>
             <span className="block font-serif text-2xl font-semibold leading-none">Instituto Lúcia</span>
-            <span className="mt-1 block font-mono text-[0.65rem] uppercase tracking-[0.3em] text-[#c9a84a]">Coordenação</span>
+            <span className="mt-1 block font-mono text-[0.65rem] uppercase tracking-[0.3em] text-[#c9a84a]">Painel</span>
           </span>
         </p>
         <div className="mt-8 border border-[#3a3226] bg-[#1f1a14] p-6">{children}</div>
@@ -208,7 +208,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "revisao", "educacao"), conta: r?.fila },
       { id: "triagem", nome: "Triagem", sobre: "A primeira leitura do que o público envia: o que passa segue para a fila de revisão.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.triagem },
       { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design") },
-      { id: "comunidade", nome: "Comunidade", sobre: "Fila de mediação, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
+      { id: "comunidade", nome: "Comunidade", sobre: "Fila de mediação, banimentos, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
       { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mentoria", "educacao"), conta: r?.reforco },
       { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da mediação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mediacao"), conta: r?.mural },
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
@@ -216,7 +216,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar : undefined },
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
       { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
-      { id: "radio", nome: "Rádio", sobre: "Canais, faixas e o que está no ar.", grupo: "Site", mostra: lidera },
+      { id: "radio", nome: "Rádio", sobre: "Rádio Lúcia: canais, faixas, transmissão ao vivo e sugestão de emissoras.", grupo: "Site", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "apoiadores", nome: "Apoiadores", sobre: "Quem autorizou aparecer no mural de apoio.", grupo: "Site", mostra: lidera },
       { id: "seguranca", nome: "Segurança e sucessão", sobre: "Segundo fator obrigatório, vice e ordem de sucessão.", grupo: "Segurança", mostra: lidera },
       { id: "registro", nome: "Registro de atividades", sobre: "Tudo o que foi decidido, por quem e quando.", grupo: "Segurança", mostra: lidera },
@@ -232,13 +232,15 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   };
   const grupos = [...new Set(secoes.map((secao) => secao.grupo))];
   const funcao = voluntario ? [...new Set(eu.papeis.map((papel) => papeis[papel.papel]))].join(" · ") : "Comunidade";
+  // O nome do ambiente diz de quem ele é: só a coordenação vê "Coordenação".
+  const ambiente = lidera ? "Coordenação" : voluntario ? "Equipe" : "Comunidade";
 
   return (
     <div className="min-h-screen bg-parchment font-sans text-sm text-ink lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
       {/* Barra do alto no celular: nome e botão do menu. */}
       <div className="no-print sticky top-0 z-30 flex items-center justify-between bg-[#17130e] px-4 py-3 text-[#efe4c8] lg:hidden">
         <span className="font-serif text-lg font-semibold">
-          Instituto Lúcia <span className="font-mono text-[0.6rem] uppercase tracking-[0.25em] text-[#c9a84a]">Coordenação</span>
+          Instituto Lúcia <span className="font-mono text-[0.6rem] uppercase tracking-[0.25em] text-[#c9a84a]">{ambiente}</span>
         </span>
         <button type="button" onClick={() => setMenu(!menu)} aria-expanded={menu} aria-controls="menu-do-painel" className="cursor-pointer border border-[#5a4e3a] px-3 py-1.5">
           {menu ? "Fechar" : "Menu"}
@@ -251,7 +253,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           <img src="/emblema-96.png" alt="" width={40} height={40} className="h-10 w-10" />
           <span>
             <span className="block font-serif text-xl font-semibold leading-none">Instituto Lúcia</span>
-            <span className="mt-1 block font-mono text-[0.6rem] uppercase tracking-[0.3em] text-[#c9a84a]">Coordenação</span>
+            <span className="mt-1 block font-mono text-[0.6rem] uppercase tracking-[0.3em] text-[#c9a84a]">{ambiente}</span>
           </span>
         </div>
         <nav aria-label="Seções do painel" className="flex-1 overflow-y-auto px-3 py-5 [scrollbar-color:#4a4032_transparent] [scrollbar-width:thin]">
@@ -299,7 +301,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
 
       <div className={menu ? "hidden lg:block" : ""}>
         <header className="no-print border-b border-rule bg-parchment-deep px-5 py-5 sm:px-8">
-          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-gold">{atual.grupo || "Coordenação"}</p>
+          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-gold">{atual.grupo || ambiente}</p>
           <h1 className="mt-1 font-serif text-3xl font-semibold leading-tight">{atual.nome}</h1>
           <p className="mt-1 text-ink-soft">{atual.sobre}</p>
         </header>
@@ -322,7 +324,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "horas" && <Horas me={eu} />}
           {atual.id === "site" && <Site />}
           {atual.id === "abertura" && <AvisoDeAbertura />}
-          {atual.id === "radio" && <RadioAdmin />}
+          {atual.id === "radio" && <RadioAdmin me={eu} />}
           {atual.id === "apoiadores" && <Apoiadores />}
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
           {atual.id === "registro" && <RegistroDeAtividades />}

@@ -51,7 +51,7 @@ const nomes: Record<string, string> = {
   educacao: "Educadores",
   revisao: "Revisão",
   traducao: "Tradução",
-  jornalismo: "Jornal",
+  jornalismo: "Jornal e rádio",
   mentoria: "Reforço",
   design: "Design",
   desenvolvimento: "Desenvolvimento",

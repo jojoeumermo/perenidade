@@ -3,9 +3,9 @@
 
 import { useState } from "react";
 import { areaSlugs } from "@/lib/areas";
-import { leads, type Me, type Role } from "@/lib/backend";
+import { leads, type Me, type Role, rpc } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Abas, Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, useAcao, useLista } from "./comum";
+import { Abas, Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import { Convites } from "./Convites";
 
 interface Candidatura {
@@ -17,6 +17,19 @@ interface Candidatura {
   criado_em: string;
   nome: string;
   email: string;
+}
+
+/** Candidatura feita pelo formulário público, por quem ainda não tinha conta (ou não estava logado). */
+interface Inscricao {
+  id: string;
+  nome: string;
+  email: string;
+  papel: Role["papel"];
+  disciplina: string | null;
+  mensagem: string;
+  status: string;
+  criado_em: string;
+  tem_conta: boolean;
 }
 
 interface Pessoa {
@@ -36,6 +49,25 @@ export function Pessoas({ me }: { me: Me }) {
   const concediveis = (Object.keys(papeis) as Role["papel"][]).filter((papel) => papel !== "coordenacao" && (papel !== "vice" || lider));
   const pedidos = useLista<Candidatura[]>("candidaturas_listar");
   const pessoas = useLista<Pessoa[]>("voluntarios_listar");
+  const inscricoes = useLista<Inscricao[]>("inscricoes_listar");
+  const { lang } = useI18n();
+  /** O convite recém-gerado para quem foi aceito: aparece uma vez só, para a coordenação mandar por e-mail. */
+  const [aceite, setAceite] = useState<{ nome: string; email: string; link: string } | null>(null);
+  const [avisoInscricao, setAvisoInscricao] = useState("");
+  const novas = inscricoes.dados?.filter((item) => item.status === "pendente") ?? [];
+
+  async function decidirInscricao(item: Inscricao, aceitar: boolean) {
+    setAvisoInscricao("");
+    try {
+      const resposta = await rpc<{ codigo: string | null; email: string; nome: string }>("inscricao_decidir", { p_id: item.id, p_aceitar: aceitar });
+      if (aceitar && resposta.codigo) setAceite({ nome: item.nome, email: item.email, link: `${window.location.origin}/${lang}/entrar?convite=${resposta.codigo}` });
+      setAvisoInscricao(!aceitar ? "Candidatura recusada." : resposta.codigo ? "Candidatura aceita. Mande o convite abaixo para o e-mail da pessoa." : "Candidatura aceita: a pessoa já tinha conta e recebeu a função na hora.");
+      inscricoes.recarregar();
+      pessoas.recarregar();
+    } catch (erro) {
+      setAvisoInscricao(textoDoErro(erro));
+    }
+  }
   const acao = useAcao(() => {
     pedidos.recarregar();
     pessoas.recarregar();
@@ -56,14 +88,59 @@ export function Pessoas({ me }: { me: Me }) {
           { id: "equipe", nome: "Pessoas" },
           { id: "funcao", nome: "Confiar função" },
           { id: "convites", nome: "Convites" },
-          { id: "pedidos", nome: "Pedidos", conta: pendentes.length },
+          { id: "pedidos", nome: "Candidaturas", conta: pendentes.length + novas.length },
         ]}
       />
       <div hidden={aba !== "convites"}>
         <Convites me={me} />
       </div>
+      <section hidden={aba !== "pedidos"} className="mb-10">
+        <h2 className="font-serif text-2xl font-semibold">Candidaturas pelo formulário</h2>
+        <p className="mt-1 max-w-3xl text-ink-soft">
+          Quem preencheu o formulário de voluntariado no site. Ao aceitar, quem ainda não tem conta ganha um convite pessoal, que só serve para aquele e-mail e já traz a função: mande o
+          link para a pessoa por e-mail. Quem já tem conta recebe a função na hora. Ao recusar, avise a pessoa por e-mail também.
+        </p>
+        <Aviso texto={inscricoes.erro || avisoInscricao} />
+        {aceite && (
+          <div role="status" className="mt-3 border-2 border-ink bg-parchment p-4">
+            <p className="font-serif text-xl font-semibold">Convite de {aceite.nome}</p>
+            <p className="mt-1 text-ink-soft">Este endereço aparece uma vez só e vale por 14 dias. Mande para {aceite.email}.</p>
+            <p className="mt-2 select-all break-all font-mono text-xs">{aceite.link}</p>
+            <p className="mt-3 flex flex-wrap gap-4">
+              <button type="button" className={botaoClaro} onClick={() => void navigator.clipboard?.writeText(aceite.link)}>Copiar o endereço</button>
+              <a
+                className={elo}
+                href={`mailto:${aceite.email}?subject=${encodeURIComponent("Sua candidatura ao Instituto Lúcia foi aceita")}&body=${encodeURIComponent(`Olá, ${aceite.nome}.\n\nSua candidatura a voluntário no Instituto Lúcia foi aceita. Para criar a sua conta, já com a função combinada, abra este endereço (ele vale por 14 dias e só serve para este e-mail):\n\n${aceite.link}\n\nAté breve.`)}`}
+              >
+                Abrir no programa de e-mail
+              </a>
+              <button type="button" className={elo} onClick={() => setAceite(null)}>Já mandei</button>
+            </p>
+          </div>
+        )}
+        {novas.length === 0 && <p className="mt-2 text-ink-soft">Nenhuma candidatura aguardando.</p>}
+        <ul className="mt-3 space-y-4">
+          {novas.map((item) => (
+            <li key={item.id} className="border border-rule bg-parchment-deep p-4">
+              <p className={rotulo}>
+                {papeis[item.papel]} · {nomeDaArea(item.disciplina)} · {data(item.criado_em)}
+              </p>
+              <p className="mt-1 font-serif text-xl font-semibold">{item.nome}</p>
+              <p className="font-mono text-xs text-ink-soft">
+                {item.email} · {item.tem_conta ? "já tem conta no site" : "ainda sem conta"}
+              </p>
+              <p className="mt-2 whitespace-pre-line">{item.mensagem}</p>
+              <div className="mt-3 flex gap-3">
+                <button type="button" className={botao} onClick={() => void decidirInscricao(item, true)}>Aceitar</button>
+                <button type="button" className={botaoClaro} onClick={() => void decidirInscricao(item, false)}>Recusar</button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section hidden={aba !== "pedidos"}>
-        <h2 className="font-serif text-2xl font-semibold">Pedidos de voluntariado</h2>
+        <h2 className="font-serif text-2xl font-semibold">Pedidos feitos pelo painel</h2>
         <Aviso texto={pedidos.erro} />
         {pendentes.length === 0 && <p className="mt-2 text-ink-soft">Nenhum pedido aguardando.</p>}
         <ul className="mt-3 space-y-4">

@@ -1130,7 +1130,7 @@
   "auth": {
     "eyebrow": "Voluntários e comunidade",
     "title": "Entrar",
-    "lead": "Para estudar não é preciso conta. A entrada é para quem recebeu um convite da coordenação: voluntários e participantes da comunidade.",
+    "lead": "Para estudar não é preciso conta. A conta serve para participar da Comunidade e para quem trabalha como voluntário.",
     "email": "Seu e-mail",
     "password": "Senha",
     "enter": "Entrar",
@@ -1141,7 +1141,7 @@
     "codeWrong": "Código incorreto. Confira no aplicativo e tente de novo.",
     "codeOther": "Entrar com outra conta",
     "failed": "Não foi possível concluir. Tente de novo em alguns minutos.",
-    "why": "Aqui não há cadastro aberto nem \"esqueci minha senha\": as contas são criadas por convite da coordenação. Perdeu a senha? Fale com quem convidou você.",
+    "why": "Não tem conta? Crie uma, com e-mail e senha, para perguntar e responder na Comunidade. Perdeu a senha? Fale com a coordenação.",
     "offline": "A entrada ainda não está ativa nesta cópia do site.",
     "consent": "Ao entrar, você aceita os termos de uso e confirma que leu como cuidamos dos seus dados:",
     "inviteTitle": "Você recebeu um convite",
@@ -1154,7 +1154,13 @@
     "confirm": "Conta criada. Se chegar um e-mail de confirmação, abra-o; depois entre com o seu e-mail e a sua senha.",
     "newPasswordTitle": "Escolha uma senha nova",
     "save": "Guardar senha",
-    "saved": "Senha guardada."
+    "saved": "Senha guardada.",
+    "toCreate": "Criar conta para participar da Comunidade",
+    "toEnter": "Já tenho conta: entrar",
+    "createTitle": "Criar conta",
+    "createWhy": "A conta serve para perguntar e responder na Comunidade. Tudo o que você escrever é lido pela mediação antes de aparecer. Guardamos só o seu e-mail; o nome que aparece no site nasce como um codinome, que você troca se quiser.",
+    "createFailed": "Não foi possível criar a conta. Este e-mail pode já ter conta, ou o cadastro pode estar fechado no momento.",
+    "volunteerLink": "Quer ser voluntário? Preencha a candidatura"
   },
   "radio": {
     "eyebrow": "No ar",
@@ -1199,7 +1205,9 @@
     "limite_pedidos": "Você já tem três pedidos em aberto. Espere a resposta ou cancele um.",
     "conteudo_recusado": "O texto tem palavras que o site não aceita. Reescreva e envie de novo.",
     "sem_links": "Aqui só entra texto: sem endereços de sites, imagens ou arquivos.",
-    "envios_pausados": "Os envios estão pausados no momento."
+    "envios_pausados": "Os envios estão pausados no momento.",
+    "acesso_bloqueado": "Os envios desta rede foram bloqueados pela mediação.",
+    "ja_pediu": "Você já enviou esse pedido; ele está em análise."
   },
   "community": {
     "eyebrow": "Comunidade",
@@ -1256,7 +1264,11 @@
     "accepted": "Resposta escolhida por quem perguntou",
     "staff": "equipe",
     "held": "Mensagem recebida. Ela aparece para todo mundo depois de lida pela mediação.",
-    "pending": "aguardando mediação"
+    "pending": "aguardando mediação",
+    "signUp": "Criar conta",
+    "ban": "Banir quem escreveu",
+    "banConfirm": "Confirmar o banimento",
+    "banned": "Conta banida. A coordenação foi avisada."
   },
   "mural": {
     "eyebrow": "Economia solidária",
@@ -1418,5 +1430,31 @@
     "description": "Cartazes, gravuras e fotografias históricas da luta dos trabalhadores, em domínio público, com contexto e fonte.",
     "publicDomain": "Imagem em domínio público. Fonte:",
     "note": "Só entram aqui obras em domínio público, guardadas no próprio site e com a fonte indicada. Um cartaz é um documento do seu tempo: mostrá-lo não é assinar embaixo de tudo o que foi feito em nome dele."
+  },
+  "volunteer": {
+    "title": "Candidatura a voluntário",
+    "lead": "Preencha o formulário. A coordenação lê cada candidatura e responde no e-mail informado.",
+    "name": "Nome completo",
+    "email": "E-mail de contato",
+    "role": "Função pretendida",
+    "discipline": "Disciplina",
+    "chooseDiscipline": "Escolha…",
+    "message": "Apresentação: conte a sua experiência e por que quer ajudar",
+    "messageHint": "Pelo menos 30 caracteres.",
+    "send": "Enviar candidatura",
+    "sent": "Candidatura recebida. A coordenação vai ler e responder no e-mail informado.",
+    "privacy": "O seu nome e o seu e-mail são vistos só pela coordenação e servem só para responder à candidatura.",
+    "offline": "As candidaturas ainda não estão ativas nesta cópia do site.",
+    "roles": {
+      "educacao": "Educador(a)",
+      "mediacao": "Mediador(a) da comunidade",
+      "revisao": "Revisor(a)",
+      "traducao": "Tradutor(a)",
+      "jornalismo": "Jornalista e radialista",
+      "mentoria": "Aula de reforço",
+      "design": "Designer",
+      "desenvolvimento": "Infraestrutura e desenvolvimento",
+      "curadoria": "Curador(a)"
+    }
   }
 }

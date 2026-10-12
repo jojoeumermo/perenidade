@@ -9,7 +9,7 @@ Tudo o que está aqui foi escrito, revisado e organizado por pessoas que acredit
 ## Como começar
 
 - **Sem conta:** a página [Contribuir](/contribuir) aceita aulas, indicações de obras, correções e ideias de qualquer pessoa. Tudo é lido pela curadoria antes de entrar.
-- **Como voluntário:** [entre](/entrar) com o seu e-mail e, no painel, peça para ser voluntário, dizendo em que quer ajudar. A coordenação responde por lá e indica a disciplina ou a tarefa de cada um. Cada função enxerga no painel só as ferramentas do próprio trabalho.
+- **Como voluntário:** preencha a [candidatura](#candidatura) no fim desta página, com o seu nome completo, um e-mail de contato, a função que você quer e uma apresentação. Não precisa ter conta. A coordenação lê cada candidatura e responde no e-mail informado; quem é aceito recebe por lá o acesso ao painel, já com a função combinada. Cada função enxerga no painel só as ferramentas do próprio trabalho.
 
 Nesta fase inicial, toda publicação passa pela aprovação da coordenação. Quem dedica horas ao instituto pode registrá-las no painel e, com elas conferidas, receber um certificado de trabalho voluntário (ainda em fase de teste).
 
@@ -35,6 +35,10 @@ Sabe explicar alguma coisa? Escreva uma aula. Cada educador cuida de uma ou mais
 
 Cada trilha tem um roteiro com as aulas que ainda faltam. Escolher uma delas é a melhor forma de continuar o trabalho de onde ele parou.
 
+## Como mediador
+
+A [Comunidade](/comunidade) é aberta: qualquer pessoa lê, e quem cria uma conta pergunta e responde. O mediador é quem facilita esse debate e guarda a porta. Ele lê cada mensagem antes de ela aparecer, aprova o que respeita as regras, acerta o que precisa de um retoque e recusa ataque, propaganda e discurso de ódio. Também cuida dos anúncios do [Mural dos Trabalhadores](/mural) e faz a primeira leitura das contribuições que chegam de fora, antes de elas irem para os educadores. Quando alguém insiste em passar do limite, o mediador pode banir a conta; toda decisão fica registrada e a coordenação pode revê-la.
+
 ## Como tradutor
 
 O site existe em português, inglês, espanhol, chinês e russo, mas a maior parte das aulas ainda está só em português. Se você domina outro idioma, traduzir uma aula abre o instituto para milhões de pessoas. Toda tradução precisa ser revisada por alguém que domine o idioma.
@@ -43,9 +47,11 @@ O site existe em português, inglês, espanhol, chinês e russo, mas a maior par
 
 O acervo só indexa: guarda o título, o autor, uma sinopse e o link para a fonte legítima. O curador indica obras em domínio público ou com licença aberta, confere se os links antigos continuam funcionando e ajuda a decidir o que entra.
 
-## Como jornalista
+## Como jornalista e radialista
 
 O [Jornal](/jornal) publica notícias e análises do ponto de vista de quem trabalha. Fatos conferidos, fontes à vista e cuidado ao falar de pessoas e organizações: o objetivo é informar e educar.
+
+Quem escreve o jornal também faz a [Rádio Lúcia](/radio): monta os canais e as faixas, cuida da transmissão ao vivo e indica emissoras populares e comunitárias para a lista da página da rádio.
 
 ## Na aula de reforço
 
