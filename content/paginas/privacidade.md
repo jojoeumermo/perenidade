@@ -4,7 +4,7 @@ sobretitulo: "Seus dados"
 resumo: "O que o site guarda, por quanto tempo e como você apaga. Escrito para ser lido, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018)."
 ---
 
-Atualizada em 11 de outubro de 2026.
+Atualizada em 12 de outubro de 2026.
 
 ## Em uma frase
 
@@ -79,7 +79,7 @@ Estudar não exige conta em nenhuma idade. O instituto não pede idade, document
 
 ## Segurança
 
-Os dados ficam fechados: toda leitura e toda escrita passam por conferências de quem está pedindo e do que essa pessoa pode fazer. As contas da equipe são protegidas por confirmação em duas etapas. Mesmo assim, nenhum sistema é perfeito: se houver um incidente que possa trazer risco a você, o instituto avisa as pessoas afetadas.
+Os dados ficam fechados: toda leitura e toda escrita passam por conferências de quem está pedindo e do que essa pessoa pode fazer. As contas da equipe são protegidas por confirmação em duas etapas. Toda inclusão, edição, aprovação e exclusão no que vai para o acervo, e toda função dada ou tirada, fica anotada pelo próprio banco em um livro que ninguém edita, com a data e a conta responsável, por pouco mais de um ano. O livro não guarda o texto de nada: só o título e o que mudou. Mesmo assim, nenhum sistema é perfeito: se houver um incidente que possa trazer risco a você, o instituto avisa as pessoas afetadas.
 
 ## Mudanças nesta página
 
