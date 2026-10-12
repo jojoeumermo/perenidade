@@ -278,7 +278,7 @@ export function SegurancaSucessao({ me }: { me: Me }) {
       <section hidden={aba !== "sala"}>
         <h2 className="font-serif text-2xl font-semibold">Sala de voz e vídeo da equipe</h2>
         <p className="mt-1 text-ink-soft">
-          A conversa escrita da equipe acontece na Rede interna. Para voz e vídeo, use uma sala com criptografia de ponta a ponta fora do site (por exemplo, uma sala Matrix aberta no aplicativo Element). Cole aqui o endereço de convite: ele aparece na Rede interna para toda a equipe.
+          A conversa escrita da equipe acontece em Conversas e no Mural da equipe. Para voz e vídeo, use uma sala com criptografia de ponta a ponta fora do site (por exemplo, uma sala Matrix aberta no aplicativo Element). Cole aqui o endereço de convite: ele aparece no Mural da equipe para todos.
         </p>
         <div className="mt-3 flex flex-wrap items-end gap-3">
           <label className="block min-w-60 flex-1">
@@ -356,8 +356,8 @@ const acoes: Record<string, string> = {
   convite_criado: "criou um convite",
   convite_revogado: "cancelou um convite",
   convite_aceito: "entrou com um convite",
-  equipe_apagada: "apagou todas as conversas da rede interna",
-  equipe_chave_definida: "definiu a chave da rede interna",
+  equipe_apagada: "apagou todas as conversas da equipe",
+  equipe_chave_definida: "definiu a chave da equipe",
   equipe_sala: "mudou o endereço da sala de voz e vídeo",
   site_configurado: "mudou os controles do site",
   isca: "endereço-isca pedido por alguém de fora:",

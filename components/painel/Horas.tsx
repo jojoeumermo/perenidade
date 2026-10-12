@@ -73,7 +73,7 @@ export function Horas({ me }: { me: Me }) {
   return (
     <div className="space-y-10">
       <p className="max-w-3xl border-l-2 border-gold pl-4 text-ink-soft">
-        Todo certificado leva três assinaturas eletrônicas (um educador, o vice-líder e o líder comunitário) e um código que qualquer pessoa confere na página Conferir certificado. A aceitação como horas complementares depende de cada faculdade: pergunte na coordenação do seu curso antes de contar com ele.
+        Todo certificado leva três assinaturas eletrônicas (um educador, o vice-coordenador e o coordenador) e um código que qualquer pessoa confere na página Conferir certificado. A aceitação como horas complementares depende de cada faculdade: pergunte na coordenação do seu curso antes de contar com ele.
       </p>
 
       <section>
@@ -250,7 +250,7 @@ function Conferir() {
   );
 }
 
-/** Só o líder: abre o processo de um certificado e indica quem assina com ele. */
+/** Só o coordenador: abre o processo de um certificado e indica quem assina com ele. */
 function Abrir({ depois }: { depois: () => void }) {
   const pessoas = useLista<Pessoa[]>("voluntarios_listar");
   const acao = useAcao(depois);
@@ -264,7 +264,7 @@ function Abrir({ depois }: { depois: () => void }) {
     <section>
       <h2 className="font-serif text-2xl font-semibold">Abrir um certificado</h2>
       <p className="mt-1 max-w-3xl text-ink-soft">
-        Entram no certificado as horas já confirmadas da pessoa dentro do período. Ele é assinado por um educador, pelo vice-líder e por você: cada um assina na própria conta, e a sua assinatura, a última, é a emissão. Ninguém assina o próprio certificado. O CPF não é guardado: quem salva o PDF digita na hora.
+        Entram no certificado as horas já confirmadas da pessoa dentro do período. Ele é assinado por um educador, pelo vice-coordenador e por você: cada um assina na própria conta, e a sua assinatura, a última, é a emissão. Ninguém assina o próprio certificado. O CPF não é guardado: quem salva o PDF digita na hora.
       </p>
       <form
         className="mt-3 max-w-3xl space-y-3"
@@ -312,7 +312,7 @@ function Abrir({ depois }: { depois: () => void }) {
             </select>
           </label>
           <label className="block">
-            Vice-líder que assina
+            Vice-coordenador que assina
             <select value={form.vice} onChange={(e) => setForm({ ...form, vice: e.target.value })} className={campo}>
               <option value="">{vices.length === 1 ? vices[0].nome : vices.length === 0 ? "Ninguém disponível" : "Quem entrou por último"}</option>
               {vices.length > 1 &&
@@ -327,7 +327,7 @@ function Abrir({ depois }: { depois: () => void }) {
         {pessoas.dados && form.usuario && (educadores.length === 0 || vices.length === 0) && (
           <p className="border-l-2 border-oxblood pl-3 text-oxblood">
             {educadores.length === 0 ? "Não há outro educador na equipe para assinar. " : ""}
-            {vices.length === 0 ? "Não há vice-líder disponível para assinar: nomeie um em Voluntários e convites." : ""}
+            {vices.length === 0 ? "Não há vice-coordenador disponível para assinar: nomeie um em Voluntários e convites." : ""}
           </p>
         )}
         <button type="submit" className={botao} disabled={acao.ocupado || !form.usuario || !form.educador || vices.length === 0}>
