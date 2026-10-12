@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import type { Dict } from "@/i18n/types";
 import { getClient, hasBackend, localBackend, rpc, signOut, useMe } from "@/lib/backend";
+import { useCadastro } from "@/lib/cadastro";
 import { useHydrated } from "@/lib/storage";
 import { Captcha, captchaEnabled } from "./Captcha";
 import { L, useI18n } from "./I18n";
@@ -35,6 +36,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   /** Cadastro aberto: a pessoa chegou por "Criar conta" (da Comunidade, por exemplo) ou escolheu aqui. */
   const [signingUp, setSigningUp] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const cadastro = useCadastro();
   const asked = hydrated && new URLSearchParams(window.location.search).has("criar");
   const [recovery, setRecovery] = useState(false);
   const [invite, setInvite] = useState<Invite | null>(null);
@@ -87,7 +89,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   if (!hasBackend) return <p className="mt-8 text-lg text-ink-soft">{s.offline}</p>;
   const waiting = captchaEnabled && !token;
   const creating = Boolean(code);
-  const opening = !creating && (signingUp || (asked && !dismissed));
+  const opening = !creating && cadastro.aberto && (signingUp || (asked && !dismissed));
   const address = invite?.email || email;
   const done = () => {
     // A resposta do desafio vale uma vez só: pede outra para a próxima tentativa.
@@ -298,12 +300,14 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
           {detail && <span className="mt-1 block font-mono text-xs">{detail}</span>}
         </p>
       )}
-      <p className="text-ink-soft">{s.why}</p>
-      <p>
-        <button type="button" className="cursor-pointer font-medium underline hover:text-oxblood" onClick={() => { setSigningUp(true); setState("idle"); }}>
-          {s.toCreate}
-        </button>
-      </p>
+      <p className="text-ink-soft">{cadastro.aberto ? s.why : s.whyClosed}</p>
+      {cadastro.aberto && (
+        <p>
+          <button type="button" className="cursor-pointer font-medium underline hover:text-oxblood" onClick={() => { setSigningUp(true); setState("idle"); }}>
+            {s.toCreate}
+          </button>
+        </p>
+      )}
       {footer}
     </form>
   );

@@ -7,6 +7,7 @@ import { htmlLang, plural } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { areaSlugs } from "@/lib/areas";
 import { BackendError, hasBackend, rpc, useMe } from "@/lib/backend";
+import { useCadastro } from "@/lib/cadastro";
 import { errorText } from "@/i18n/core";
 import { L, useI18n } from "./I18n";
 import { Markdown } from "./Markdown";
@@ -106,6 +107,7 @@ function TopicList({ s }: { s: S }) {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [tick, setTick] = useState(0);
+  const cadastro = useCadastro();
   const date = new Intl.DateTimeFormat(htmlLang[lang]);
 
   useEffect(() => {
@@ -174,7 +176,7 @@ function TopicList({ s }: { s: S }) {
         ) : (
           <span className="ml-auto flex flex-wrap gap-x-4">
             <L href="/entrar" className="underline hover:text-oxblood">{s.signInToPost}</L>
-            <L href="/entrar?criar=1" className="font-medium underline hover:text-oxblood">{s.signUp}</L>
+            {cadastro.aberto && <L href="/entrar?criar=1" className="font-medium underline hover:text-oxblood">{s.signUp}</L>}
           </span>
         )}
       </div>
@@ -246,6 +248,7 @@ function TopicView({ id, s }: { id: string; s: S }) {
   const [tick, setTick] = useState(0);
   /** Banir pede dois cliques: o primeiro arma, o segundo confirma. */
   const [arming, setArming] = useState("");
+  const cadastro = useCadastro();
   const date = new Intl.DateTimeFormat(htmlLang[lang]);
   const reload = () => setTick((value) => value + 1);
 
@@ -379,7 +382,7 @@ function TopicView({ id, s }: { id: string; s: S }) {
       ) : (
         <p className="mt-6 flex flex-wrap gap-x-4">
           <L href="/entrar" className="underline hover:text-oxblood">{s.signInToPost}</L>
-          <L href="/entrar?criar=1" className="font-medium underline hover:text-oxblood">{s.signUp}</L>
+          {cadastro.aberto && <L href="/entrar?criar=1" className="font-medium underline hover:text-oxblood">{s.signUp}</L>}
         </p>
       )}
       <p role="alert" className="mt-2 min-h-5 text-oxblood">{message}</p>

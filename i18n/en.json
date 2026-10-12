@@ -1160,7 +1160,8 @@
     "createTitle": "Create account",
     "createWhy": "The account lets you ask and answer in the Community. Everything you write is read by a mediator before it appears. We keep only your e-mail; the name shown on the site starts as a nickname, which you can change.",
     "createFailed": "The account could not be created. This e-mail may already have an account, or sign-up may be closed at the moment.",
-    "volunteerLink": "Want to volunteer? Fill in the application"
+    "volunteerLink": "Want to volunteer? Fill in the application",
+    "whyClosed": "There is no \"forgot my password\" here and, for now, accounts are created by invitation from the coordination. Lost your password? Talk to whoever invited you."
   },
   "radio": {
     "eyebrow": "On air",
