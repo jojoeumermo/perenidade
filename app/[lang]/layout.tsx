@@ -24,10 +24,12 @@ const serif = EB_Garamond({ variable: "--font-serif-display", subsets: ["latin",
 const ui = Inter({ variable: "--font-ui", subsets: ["latin", "latin-ext", "cyrillic"] });
 const mono = IBM_Plex_Mono({ variable: "--font-archive", subsets: ["latin", "latin-ext", "cyrillic"], weight: ["400", "500"] });
 
-// A cor da barra do navegador acompanha o tema.
+// A cor da barra do navegador acompanha o tema. "cover" deixa o site saber onde ficam as barras do
+// aparelho (relógio em cima, botões embaixo) quando ele é aberto como aplicativo, de borda a borda.
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#f4ecd8" },
     { media: "(prefers-color-scheme: dark)", color: "#17130e" },

@@ -51,7 +51,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
   ];
 
   return (
-    <footer className="no-print no-focus mt-20 border-t border-rule pb-16 md:pb-0">
+    <footer className="no-print no-focus mt-20 border-t border-rule pb-[calc(4rem+env(safe-area-inset-bottom,0px))] md:pb-0">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 font-sans text-sm sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="font-serif text-2xl font-semibold">{site.name}</p>

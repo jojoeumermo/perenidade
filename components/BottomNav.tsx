@@ -29,7 +29,7 @@ export function BottomNav() {
     ["more", t.nav.more, "/explorar"],
   ];
   return (
-    <nav aria-label={t.nav.main} className="no-print no-focus fixed inset-x-0 bottom-0 z-30 border-t-2 border-ink bg-parchment md:hidden">
+    <nav aria-label={t.nav.main} className="no-print no-focus fixed inset-x-0 bottom-0 z-30 border-t-2 border-ink bg-parchment pb-[env(safe-area-inset-bottom,0px)] md:hidden">
       <ul className="grid grid-cols-5">
         {items.map(([icon, label, path]) => {
           const href = localePath(lang, path);
