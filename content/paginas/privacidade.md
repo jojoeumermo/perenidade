@@ -24,7 +24,7 @@ O site não usa cookies de publicidade, não tem pixel de rede social e não car
 
 Nenhum site funciona sem que alguém entregue as páginas. O instituto contrata serviços de hospedagem, de proteção contra ataques e de guarda de dados. Para fazer esse trabalho, eles processam dados técnicos da sua visita, como o endereço de rede (IP), e podem gravar um cookie técnico de segurança. Parte dos servidores fica fora do Brasil.
 
-A contagem de visitas é anônima e não usa cookies: não dá para saber quem é a pessoa nem acompanhá-la de um dia para o outro. Na página de entrada e nos formulários, uma verificação automática confere se quem está do outro lado é uma pessoa e não um robô.
+O site não conta visitas nem usa ferramenta nenhuma de medição de audiência. Na página de entrada e nos formulários, uma verificação automática confere se quem está do outro lado é uma pessoa e não um robô.
 
 Esses serviços processam os dados só para manter o site funcionando. O instituto não entrega dados a anunciantes, corretores de dados nem a nenhuma outra empresa.
 

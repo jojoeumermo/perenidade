@@ -785,7 +785,7 @@
     "dumpLink": "Download the full collection (JSON)",
     "textHint": "Every lesson also exists as plain text: just add /texto to its address. It even works from the terminal, with curl.",
     "trackingTitle": "Zero tracking",
-    "tracking": "No Google Analytics, no social media pixel, no advertising cookies. We only count how many visits each page receives, anonymously and without cookies. We do not sell your data because we do not have it.",
+    "tracking": "No Google Analytics, no social media pixel, no advertising cookies. The site does not count visits or measure audience. We do not sell your data because we do not have it.",
     "exitNow": "Leave now",
     "purgeTitle": "Erase everything automatically",
     "purgeNever": "Never (only when I say so)",
