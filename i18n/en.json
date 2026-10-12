@@ -1193,7 +1193,8 @@
     "limite_anuncios": "Each person can have up to three listings. Remove one to post another.",
     "limite_pedidos": "You already have three open requests. Wait for an answer or cancel one.",
     "conteudo_recusado": "The text has words this site does not accept. Rewrite it and send again.",
-    "sem_links": "Text only here: no website addresses, images or files."
+    "sem_links": "Text only here: no website addresses, images or files.",
+    "envios_pausados": "Submissions are paused at the moment."
   },
   "community": {
     "eyebrow": "Community",

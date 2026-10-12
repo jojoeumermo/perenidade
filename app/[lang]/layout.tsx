@@ -9,6 +9,7 @@ import { Header } from "@/components/Header";
 import { I18nProvider } from "@/components/I18n";
 import { OfflineSupport } from "@/components/Offline";
 import { OpeningNotice } from "@/components/OpeningNotice";
+import { OutsidePanel } from "@/components/OutsidePanel";
 import { RadioPlayer } from "@/components/RadioPlayer";
 import { Shortcuts } from "@/components/Shortcuts";
 import { PrefsScript } from "@/components/ThemeToggle";
@@ -77,15 +78,20 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       </head>
       <body className="paper min-h-full flex flex-col">
         <I18nProvider lang={lang} t={pickCore(t)}>
-          <Header lang={lang} t={t} />
+          {/* O painel da equipe é uma tela à parte: lá dentro o site público não aparece. */}
+          <OutsidePanel>
+            <Header lang={lang} t={t} />
+          </OutsidePanel>
           <main id="conteudo" className="flex-1">
             {children}
           </main>
-          <Footer lang={lang} t={t} />
-          <RadioPlayer />
-          <A11yWidget />
-          <BottomNav />
-          <OpeningNotice initial={abertura} close={t.a11y.close} />
+          <OutsidePanel>
+            <Footer lang={lang} t={t} />
+            <RadioPlayer />
+            <A11yWidget />
+            <BottomNav />
+            <OpeningNotice initial={abertura} close={t.a11y.close} />
+          </OutsidePanel>
           <Shortcuts />
           <OfflineSupport />
           {/* A contagem anônima de visitas só existe no site publicado. */}

@@ -1193,7 +1193,8 @@
     "limite_anuncios": "Cada persona puede tener hasta tres anuncios. Retira uno para publicar otro.",
     "limite_pedidos": "Ya tienes tres pedidos abiertos. Espera la respuesta o cancela uno.",
     "conteudo_recusado": "El texto tiene palabras que el sitio no acepta. Reescríbelo y envíalo de nuevo.",
-    "sem_links": "Aquí solo entra texto: sin direcciones de sitios, imágenes ni archivos."
+    "sem_links": "Aquí solo entra texto: sin direcciones de sitios, imágenes ni archivos.",
+    "envios_pausados": "Los envíos están en pausa por el momento."
   },
   "community": {
     "eyebrow": "Comunidad",

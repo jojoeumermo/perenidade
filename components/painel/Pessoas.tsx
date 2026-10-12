@@ -5,7 +5,7 @@ import { useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { leads, type Me, type Role } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, useAcao, useLista } from "./comum";
+import { Abas, Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, useAcao, useLista } from "./comum";
 import { Convites } from "./Convites";
 
 interface Candidatura {
@@ -42,14 +42,27 @@ export function Pessoas({ me }: { me: Me }) {
   });
   const [novo, setNovo] = useState<{ usuario: string; papel: Role["papel"]; disciplina: string }>({ usuario: "", papel: "educacao", disciplina: "" });
   const [filtro, setFiltro] = useState("");
+  const [aba, setAba] = useState<"equipe" | "funcao" | "convites" | "pedidos">("equipe");
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
   const pendentes = pedidos.dados?.filter((pedido) => pedido.status === "pendente") ?? [];
   const visiveis = pessoas.dados?.filter((pessoa) => `${pessoa.nome} ${pessoa.email}`.toLowerCase().includes(filtro.toLowerCase())) ?? [];
 
   return (
-    <div className="space-y-10">
-      <Convites me={me} />
-      <section>
+    <div>
+      <Abas
+        atual={aba}
+        escolher={setAba}
+        opcoes={[
+          { id: "equipe", nome: "Pessoas" },
+          { id: "funcao", nome: "Confiar função" },
+          { id: "convites", nome: "Convites" },
+          { id: "pedidos", nome: "Pedidos", conta: pendentes.length },
+        ]}
+      />
+      <div hidden={aba !== "convites"}>
+        <Convites me={me} />
+      </div>
+      <section hidden={aba !== "pedidos"}>
         <h2 className="font-serif text-2xl font-semibold">Pedidos de voluntariado</h2>
         <Aviso texto={pedidos.erro} />
         {pendentes.length === 0 && <p className="mt-2 text-ink-soft">Nenhum pedido aguardando.</p>}
@@ -71,8 +84,8 @@ export function Pessoas({ me }: { me: Me }) {
         </ul>
       </section>
 
-      <section>
-        <h2 className="font-serif text-2xl font-semibold">Confiar um papel</h2>
+      <section hidden={aba !== "funcao"}>
+        <h2 className="font-serif text-2xl font-semibold">Confiar uma função</h2>
         <p className="mt-1 text-ink-soft">A pessoa precisa ter entrado no site pelo menos uma vez para aparecer na lista.</p>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
           <label className="block">
@@ -87,7 +100,7 @@ export function Pessoas({ me }: { me: Me }) {
             </select>
           </label>
           <label className="block">
-            Papel
+            Função
             <select value={novo.papel} onChange={(e) => setNovo({ ...novo, papel: e.target.value as Role["papel"] })} className={campo}>
               {concediveis.map((papel) => (
                 <option key={papel} value={papel}>
@@ -112,20 +125,19 @@ export function Pessoas({ me }: { me: Me }) {
           type="button"
           className={`mt-3 ${botao}`}
           disabled={acao.ocupado || !novo.usuario || (novo.papel === "educacao" && !novo.disciplina)}
-          onClick={() => acao.agir("papel_conceder", { p_usuario: novo.usuario, p_papel: novo.papel, p_disciplina: novo.disciplina || null }, "Papel confiado.")}
+          onClick={() => acao.agir("papel_conceder", { p_usuario: novo.usuario, p_papel: novo.papel, p_disciplina: novo.disciplina || null }, "Função confiada.")}
         >
-          Confiar papel
+          Confiar função
         </button>
         <p className="mt-2 text-ink-soft">
           <strong>{papeis[novo.papel]}:</strong> {oQueFaz[novo.papel]}
         </p>
         <p className="mt-2 text-ink-soft">
-          Para criar a conta de alguém da equipe com e-mail e senha definidos por você, use o painel do serviço de contas (o passo a passo está no guia de manutenção). Depois que a pessoa entrar uma vez, ela aparece aqui para receber o papel.
+          Para criar a conta de alguém da equipe com e-mail e senha definidos por você, use o painel do serviço de contas (o passo a passo está no guia de manutenção). Depois que a pessoa entrar uma vez, ela aparece aqui para receber a função.
         </p>
       </section>
 
-      <section>
-        <h2 className="font-serif text-2xl font-semibold">Pessoas</h2>
+      <section hidden={aba !== "equipe"}>
         <Aviso texto={pessoas.erro} />
         <input value={filtro} onChange={(e) => setFiltro(e.target.value)} placeholder="Filtrar por nome ou e-mail" aria-label="Filtrar pessoas" className={campo} />
         <ul className="mt-3 divide-y divide-rule border-y border-rule">
@@ -141,7 +153,7 @@ export function Pessoas({ me }: { me: Me }) {
                 {pessoa.papeis.map((papel) => (
                   <li key={papel.id} className="border border-rule bg-parchment-deep px-2 py-1">
                     {papeis[papel.papel]} · {nomeDaArea(papel.disciplina)}{" "}
-                    <button type="button" title="Retirar papel" aria-label={`Retirar ${papeis[papel.papel]} de ${pessoa.nome}`} className="cursor-pointer px-1 hover:text-oxblood" onClick={() => acao.agir("papel_remover", { p_id: papel.id }, "Papel retirado.")}>
+                    <button type="button" title="Retirar função" aria-label={`Retirar ${papeis[papel.papel]} de ${pessoa.nome}`} className="cursor-pointer px-1 hover:text-oxblood" onClick={() => acao.agir("papel_remover", { p_id: papel.id }, "Função retirada.")}>
                       ✕
                     </button>
                   </li>

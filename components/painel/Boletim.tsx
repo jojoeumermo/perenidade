@@ -14,8 +14,7 @@ export function Boletim() {
 
   return (
     <section>
-      <h2 className="font-serif text-2xl font-semibold">Boletim do jornal</h2>
-      <p className="mt-1 max-w-3xl text-ink-soft">
+      <p className="max-w-3xl text-ink-soft">
         {enderecos.length} endereço(s). Envie o boletim pelo e-mail do jornal ({site.newsletter}), sempre com a lista em <strong>cópia oculta</strong> (Cco), para ninguém ver o endereço de ninguém. Quem pedir para sair deve ser retirado no mesmo dia.
       </p>
       <button type="button" className={`${botao} mt-3`} disabled={enderecos.length === 0} onClick={() => { void navigator.clipboard.writeText(enderecos.join(", ")).then(() => setCopiado(true)); }}>
