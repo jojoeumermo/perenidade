@@ -32,7 +32,7 @@ const anon = { papel: "anon" };
 const servico = { papel: "service_role" };
 const como = (sub) => ({ papel: "authenticated", sub });
 const ids = {};
-const nomes = { coord: "Jonathan", curadora: "Carla Curadora", prof: "Paulo Professor", jornal: "Joana Jornalista", revisor: "Rui Revisor", leitora: "Lia Leitora", troll: "Tito Troll", vice: "Vera Vice", mentora: "Marta Mentora", designer: "Davi Designer" };
+const nomes = { coord: "Jonathan", curadora: "Carla Curadora", prof: "Paulo Professor", jornal: "Joana Jornalista", revisor: "Rui Revisor", leitora: "Lia Leitora", troll: "Tito Troll", vice: "Vera Vice", mentora: "Marta Mentora", designer: "Davi Designer", mod: "Mauro Moderador" };
 for (const chave of Object.keys(nomes)) {
   ids[chave] = await criarUsuario(`${chave}@teste.local`, nomes[chave]);
 }
@@ -76,7 +76,7 @@ await espera("coordenação concede curadoria", () => rpc(como(ids.coord), "pape
 await espera("coordenação concede jornalismo", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.jornal, p_papel: "jornalismo", p_disciplina: null }));
 await espera("coordenação concede revisão", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.revisor, p_papel: "revisao", p_disciplina: null }));
 await recusa("curadoria não lista voluntários (tem e-mails)", () => rpc(como(ids.curadora), "voluntarios_listar"), "sem_permissao");
-await espera("coordenação lista voluntários", () => rpc(como(ids.coord), "voluntarios_listar"), (r) => r.length === 10);
+await espera("coordenação lista voluntários", () => rpc(como(ids.coord), "voluntarios_listar"), (r) => r.length === 11);
 await espera("equipe pública não mostra e-mail", () => rpc(anon, "equipe"), (r) => r.length === 5 && !JSON.stringify(r).includes("@"));
 const papelCoord = (await rpc(como(ids.coord), "eu")).papeis[0].id;
 await recusa("a última coordenação não pode ser removida", () => rpc(como(ids.coord), "papel_remover", { p_id: papelCoord }), "ultima_coordenacao");
@@ -90,6 +90,20 @@ await recusa("título curto", () => rpc(anon, "contribuir", { p: aula({ titulo: 
 await recusa("disciplina com caracteres estranhos", () => rpc(anon, "contribuir", { p: aula({ disciplina: "../../etc" }) }), "invalido:disciplina");
 await recusa("público não escreve no jornal", () => rpc(anon, "contribuir", { p: aula({ tipo: "artigo" }) }), "sem_permissao");
 await recusa("educador não escreve no jornal", () => rpc(como(ids.prof), "contribuir", { p: aula({ tipo: "artigo" }) }), "sem_permissao");
+// ── Moderação: o papel novo ──
+await recusa("curadoria não confia a moderação", () => rpc(como(ids.curadora), "papel_conceder", { p_usuario: ids.mod, p_papel: "moderacao", p_disciplina: null }), "sem_permissao");
+await espera("coordenação confia a moderação", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.mod, p_papel: "moderacao", p_disciplina: null }));
+await espera("moderador aparece em eu() com o papel", () => rpc(como(ids.mod), "eu"), (r) => r.papeis.length === 1 && r.papeis[0].papel === "moderacao");
+await recusa("moderador não confia papéis", () => rpc(como(ids.mod), "papel_conceder", { p_usuario: ids.troll, p_papel: "moderacao", p_disciplina: null }), "sem_permissao");
+await recusa("moderador não lista voluntários (tem e-mails)", () => rpc(como(ids.mod), "voluntarios_listar"), "sem_permissao");
+await recusa("moderador não suspende conta", () => rpc(como(ids.mod), "usuario_suspender", { p_usuario: ids.troll, p_suspenso: true }), "sem_permissao");
+await recusa("moderador não mexe no filtro de palavras", () => rpc(como(ids.mod), "filtro_listar"), "sem_permissao");
+await recusa("moderador não mexe nos controles do site", () => rpc(como(ids.mod), "site_salvar", { p: { faixa: "", pausa: true, motivo: "" } }), "sem_permissao");
+await espera("dá para se candidatar à moderação, e a coordenação decide", async () => {
+  const pedido = await rpc(como(ids.troll), "candidatar", { p_papel: "moderacao", p_disciplina: null, p_mensagem: "Quero ajudar a manter a comunidade em ordem." });
+  await rpc(como(ids.coord), "candidatura_decidir", { p_id: pedido.id, p_aceitar: false });
+  return rpc(como(ids.troll), "eu");
+}, (r) => r.papeis.length === 0);
 let publica, doProf, artigo;
 await espera("qualquer pessoa contribui", async () => (publica = await rpc(anon, "contribuir", { p: aula({ nome: "Visitante" }) })), (r) => Boolean(r.id));
 await espera("campo-isca preenchido não guarda nada", () => rpc(anon, "contribuir", { p: aula({ site: "http://spam" }) }), (r) => Boolean(r.id));
@@ -99,6 +113,33 @@ await espera("educador contribui na própria disciplina", async () => (doProf = 
 await espera("jornalista envia matéria", async () => (artigo = await rpc(como(ids.jornal), "contribuir", { p: aula({ tipo: "artigo", disciplina: null, titulo: "Greve dos metalúrgicos completa uma semana", dados: { subtitulo: "Categoria pede reposição." } }) })), (r) => Boolean(r.id));
 await espera("contribuição do educador é marcada como tal e assinada", () => rpc(como(ids.prof), "contribuicao_ver", { p_id: doProf.id }), (r) => r.como === "educacao" && r.nome_autor === "Paulo Professor" && r.status === "pendente");
 await espera("quem enviou sem conta fica com o nome que deu", () => rpc(como(ids.curadora), "contribuicao_ver", { p_id: publica.id }), (r) => r.nome_autor === "Visitante" && r.como === "publico");
+// ── Triagem: a moderação lê primeiro o que vem de fora ──
+await espera("o que vem de fora espera a triagem; o da equipe, não", () => rpc(como(ids.curadora), "fila"), (r) => r.find((c) => c.id === publica.id).triagem === "aguardando" && r.find((c) => c.id === doProf.id).triagem === "liberada");
+await espera("antes da triagem, o envio de fora não chega ao educador nem ao revisor", async () => [await rpc(como(ids.prof), "fila"), await rpc(como(ids.revisor), "fila")], (r) => r.every((f) => f.length === 2 && !f.some((c) => c.id === publica.id)));
+await recusa("educador não abre o que espera a triagem", () => rpc(como(ids.prof), "contribuicao_ver", { p_id: publica.id }), "sem_permissao");
+await recusa("educador não vê a triagem", () => rpc(como(ids.prof), "triagem_fila"), "sem_permissao");
+await recusa("leitora não faz triagem", () => rpc(como(ids.leitora), "triagem_decidir", { p_id: publica.id, p_liberar: true, p_nota: "" }), "sem_permissao");
+await recusa("anônimo não faz triagem", () => rpc(anon, "triagem_decidir", { p_id: publica.id, p_liberar: true, p_nota: "" }), "entre_primeiro");
+await espera("moderador vê a triagem", () => rpc(como(ids.mod), "triagem_fila"), (r) => r.length === 1 && r[0].id === publica.id);
+await espera("moderador abre o envio que espera a triagem", () => rpc(como(ids.mod), "contribuicao_ver", { p_id: publica.id }), (r) => r.corpo.length > 20 && r.triagem === "aguardando");
+await recusa("moderador não abre o que já está na fila de revisão", () => rpc(como(ids.mod), "contribuicao_ver", { p_id: doProf.id }), "sem_permissao");
+await espera("a fila de revisão não é do moderador", () => rpc(como(ids.mod), "fila"), (r) => r.length === 0);
+await recusa("moderador não aprova conteúdo: isso é da curadoria", () => rpc(como(ids.mod), "contribuicao_decidir", { p_id: publica.id, p_aprovar: true, p_nota: "" }), "sem_permissao");
+await recusa("moderador não dá parecer", () => rpc(como(ids.mod), "parecer", { p_id: publica.id, p_favoravel: true, p_texto: "Parece bom." }), "sem_permissao");
+await espera("resumo do moderador conta a triagem", () => rpc(como(ids.mod), "painel_resumo"), (r) => r.triagem === 1 && r.fila === 0);
+let spam;
+await espera("chega um envio de propaganda", async () => (spam = await rpc({ papel: "anon", ip: "198.51.100.41" }, "contribuir", { p: aula({ titulo: "Renda extra sem sair de casa", nome: "Promo" }) })), (r) => Boolean(r.id));
+await recusa("barrar na triagem exige nota", () => rpc(como(ids.mod), "triagem_decidir", { p_id: spam.id, p_liberar: false, p_nota: "" }), "invalido:nota");
+await espera("moderador barra a propaganda", () => rpc(como(ids.mod), "triagem_decidir", { p_id: spam.id, p_liberar: false, p_nota: "Propaganda, não é material de estudo." }));
+await espera("o que foi barrado não chega à fila de ninguém", async () => [await rpc(como(ids.curadora), "fila"), await rpc(como(ids.curadora), "contribuicao_ver", { p_id: spam.id })], (r) => !r[0].some((c) => c.id === spam.id) && r[1].status === "recusada");
+await recusa("triagem não se repete", () => rpc(como(ids.mod), "triagem_decidir", { p_id: spam.id, p_liberar: true, p_nota: "" }), "ja_decidida");
+await espera("moderador acerta a forma antes de liberar", () => rpc(como(ids.mod), "contribuicao_editar", { p_id: publica.id, p: aula({ corpo: "Texto da aula, agora com os parágrafos no lugar." }) }));
+await espera("moderador libera e o envio chega à fila de revisão", async () => { await rpc(como(ids.mod), "triagem_decidir", { p_id: publica.id, p_liberar: true, p_nota: "" }); return rpc(como(ids.revisor), "fila"); }, (r) => r.some((c) => c.id === publica.id && c.triagem === "liberada"));
+await recusa("quem não tem nada com o envio sem conta não o abre", () => rpc(como(ids.leitora), "contribuicao_ver", { p_id: publica.id }), "sem_permissao");
+await recusa("nem o edita", () => rpc(como(ids.leitora), "contribuicao_editar", { p_id: publica.id, p: aula({ titulo: "Tomado por outra pessoa" }) }), "sem_permissao");
+await recusa("nem anônimo o abre", () => rpc(anon, "contribuicao_ver", { p_id: publica.id }), "sem_permissao");
+await recusa("depois de liberado, o moderador não mexe mais", () => rpc(como(ids.mod), "contribuicao_editar", { p_id: publica.id, p: aula() }), "sem_permissao");
+await espera("triagem vazia depois do trabalho", () => rpc(como(ids.mod), "triagem_fila"), (r) => r.length === 0);
 await recusa("leitora não vê a fila", () => rpc(como(ids.leitora), "fila"), "sem_permissao");
 await recusa("anônimo não vê a fila", () => rpc(anon, "fila"), "entre_primeiro");
 await recusa("leitora não vê contribuição alheia", () => rpc(como(ids.leitora), "contribuicao_ver", { p_id: doProf.id }), "sem_permissao");
@@ -145,7 +186,21 @@ await espera("o endereço não fica guardado", () => dono("select count(*)::int 
 // ── Comunidade ──
 await recusa("anônimo não cria tópico", () => rpc(anon, "topico_criar", { p_titulo: "Dúvida sobre frações", p_corpo: "Como somo frações diferentes?", p_disciplina: "matematica" }), "entre_primeiro");
 let topico, resposta;
-await espera("leitora cria tópico", async () => (topico = await rpc(como(ids.leitora), "topico_criar", { p_titulo: "Dúvida sobre frações", p_corpo: "Como somo frações com denominadores diferentes?", p_disciplina: "matematica" })), (r) => Boolean(r.id));
+await espera("leitora cria tópico", async () => (topico = await rpc(como(ids.leitora), "topico_criar", { p_titulo: "Dúvida sobre frações", p_corpo: "Como somo frações com denominadores diferentes?", p_disciplina: "matematica" })), (r) => Boolean(r.id) && r.retido === true);
+await espera("mensagem nova não aparece para o público antes da moderação", () => rpc(anon, "topicos_listar"), (r) => r.length === 0);
+await recusa("nem abre pelo endereço", () => rpc(anon, "topico_ver", { p_id: topico.id }), "nao_encontrado");
+await recusa("outra pessoa logada também não vê", () => rpc(como(ids.jornal), "topico_ver", { p_id: topico.id }), "nao_encontrado");
+await espera("quem escreveu acompanha a própria mensagem aguardando", async () => [await rpc(como(ids.leitora), "topicos_listar"), await rpc(como(ids.leitora), "topico_ver", { p_id: topico.id })], (r) => r[0].length === 1 && r[0][0].retido === true && r[1].retido === true);
+await recusa("ninguém responde ao que ainda não foi aprovado", () => rpc(como(ids.jornal), "responder", { p_topico: topico.id, p_corpo: "Resposta apressada." }), "nao_encontrado");
+await recusa("ninguém vota no que ainda não foi aprovado", () => rpc(como(ids.leitora), "votar", { p_tipo: "topico", p_alvo: topico.id, p_valor: 1 }), "nao_encontrado");
+await recusa("quem escreveu não aprova a própria mensagem", () => rpc(como(ids.leitora), "comunidade_cuidar", { p_tipo: "topico", p_alvo: topico.id, p_acao: "mostrar" }), "sem_permissao");
+await recusa("jornalista não vê a fila de moderação", () => rpc(como(ids.jornal), "comunidade_retidos"), "sem_permissao");
+await espera("moderador vê a fila de moderação", () => rpc(como(ids.mod), "comunidade_retidos"), (r) => r.length === 1 && r[0].id === topico.id && r[0].filtro === false);
+await recusa("quem escreveu não edita pela porta da moderação", () => rpc(como(ids.leitora), "comunidade_editar", { p_tipo: "topico", p_alvo: topico.id, p_titulo: "Outro título qualquer", p_corpo: "Outro corpo qualquer aqui." }), "sem_permissao");
+await espera("moderador edita antes de aprovar", async () => { await rpc(como(ids.mod), "comunidade_editar", { p_tipo: "topico", p_alvo: topico.id, p_titulo: "Dúvida sobre frações", p_corpo: "Como eu somo frações com denominadores diferentes?" }); return rpc(como(ids.mod), "topico_ver", { p_id: topico.id }); }, (r) => r.corpo.startsWith("Como eu somo") && r.autor === "Lia Leitora");
+await recusa("edição da moderação respeita o tamanho mínimo", () => rpc(como(ids.mod), "comunidade_editar", { p_tipo: "topico", p_alvo: topico.id, p_titulo: "x", p_corpo: "Como eu somo frações?" }), "invalido:titulo");
+await espera("moderador aprova e o público passa a ver", async () => { await rpc(como(ids.mod), "comunidade_cuidar", { p_tipo: "topico", p_alvo: topico.id, p_acao: "mostrar" }); return [await rpc(anon, "topicos_listar"), await rpc(como(ids.mod), "comunidade_retidos")]; }, (r) => r[0].length === 1 && r[0][0].retido === false && r[1].length === 0);
+await espera("quem escreveu é avisado da aprovação", () => rpc(como(ids.leitora), "avisos_meus"), (r) => r.some((a) => a.texto.includes("foi aprovada")));
 await espera("professor responde", async () => (resposta = await rpc(como(ids.prof), "responder", { p_topico: topico.id, p_corpo: "Iguale os denominadores primeiro." })), (r) => Boolean(r.id));
 await recusa("anônimo não vota", () => rpc(anon, "votar", { p_tipo: "topico", p_alvo: topico.id, p_valor: 1 }), "entre_primeiro");
 await espera("voto para cima", () => rpc(como(ids.prof), "votar", { p_tipo: "topico", p_alvo: topico.id, p_valor: 1 }), (r) => r.pontos === 1);
@@ -156,6 +211,15 @@ await recusa("voto com valor inválido", () => rpc(como(ids.prof), "votar", { p_
 await espera("voto em resposta", () => rpc(como(ids.leitora), "votar", { p_tipo: "resposta", p_alvo: resposta.id, p_valor: 1 }), (r) => r.pontos === 1);
 await espera("lista pública mostra o tópico", () => rpc(anon, "topicos_listar"), (r) => r.length === 1 && r[0].respostas === 1 && r[0].autor === "Lia Leitora");
 await espera("tópico com respostas e meu voto", () => rpc(como(ids.leitora), "topico_ver", { p_id: topico.id }), (r) => r.respostas.length === 1 && r.respostas[0].meu_voto === 1 && r.meu === true && r.pode_cuidar === false);
+await espera("resposta do público também espera a moderação, e a recusada some", async () => {
+  const nova = await rpc(como(ids.leitora), "responder", { p_topico: topico.id, p_corpo: "Entendi, muito obrigada!" });
+  const publico = await rpc(anon, "topico_ver", { p_id: topico.id });
+  const minha = await rpc(como(ids.leitora), "topico_ver", { p_id: topico.id });
+  await rpc(como(ids.mod), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: nova.id, p_acao: "ocultar" });
+  const depois = await rpc(como(ids.leitora), "topico_ver", { p_id: topico.id });
+  const avisos = await rpc(como(ids.leitora), "avisos_meus");
+  return [nova.retido, publico.respostas.length, minha.respostas.length, minha.respostas.some((x) => x.retido), depois.respostas.length, (await rpc(anon, "topicos_listar"))[0].respostas, avisos.some((a) => a.texto.includes("não foi aprovada"))];
+}, (r) => r[0] === true && r[1] === 1 && r[2] === 2 && r[3] === true && r[4] === 1 && r[5] === 1 && r[6] === true);
 await recusa("leitora não oculta", () => rpc(como(ids.leitora), "comunidade_cuidar", { p_tipo: "topico", p_alvo: topico.id, p_acao: "ocultar" }), "sem_permissao");
 await espera("educador tranca", () => rpc(como(ids.prof), "comunidade_cuidar", { p_tipo: "topico", p_alvo: topico.id, p_acao: "trancar" }));
 await recusa("tópico trancado não recebe resposta", () => rpc(como(ids.leitora), "responder", { p_topico: topico.id, p_corpo: "Obrigada!" }), "topico_trancado");
@@ -231,6 +295,19 @@ await espera("resumo do painel conta o mural", () => rpc(como(ids.coord), "paine
 await recusa("curadoria não retira anúncio do mural", () => rpc(como(ids.curadora), "mural_remover", { p_id: anuncioId }), "nao_encontrado");
 await espera("coordenação retira anúncio indevido", () => rpc(como(ids.coord), "mural_remover", { p_id: anuncioId }), (r) => r.ok);
 
+// ── Moderação no Mural dos Trabalhadores ──
+let doMural;
+await espera("chega um anúncio para a moderação", async () => (doMural = (await rpc({ papel: "anon", ip: "198.51.100.70" }, "mural_enviar", { p: anuncio({ titulo: "conserto de bicicleta", oficio: "Mecânico de bicicleta", categoria: "servico" }) })).id), (r) => Boolean(r));
+await recusa("curadoria não edita anúncio do mural", () => rpc(como(ids.curadora), "mural_editar", { p_id: doMural, p: anuncio() }), "sem_permissao");
+await espera("moderador vê a fila do mural", () => rpc(como(ids.mod), "mural_fila"), (r) => r.some((a) => a.id === doMural));
+await espera("resumo do moderador conta o mural", () => rpc(como(ids.mod), "painel_resumo"), (r) => r.mural >= 1);
+await recusa("edição do moderador não aceita link estranho", () => rpc(como(ids.mod), "mural_editar", { p_id: doMural, p: anuncio({ link: "javascript:alert(1)" }) }), "invalido:link");
+await espera("moderador acerta o texto do anúncio", () => rpc(como(ids.mod), "mural_editar", { p_id: doMural, p: anuncio({ titulo: "Conserto de bicicleta", oficio: "Mecânico de bicicleta" }) }));
+await espera("moderador aprova e o anúncio vai ao ar corrigido", async () => { await rpc(como(ids.mod), "mural_decidir", { p_id: doMural, p_aprovar: true, p_nota: "" }); return rpc(anon, "mural_listar", { p_categoria: null, p_uf: null, p_cidade: null, p_busca: "bicicleta" }); }, (r) => r.length === 1 && r[0].titulo === "Conserto de bicicleta" && r[0].categoria === "servico");
+await recusa("anúncio já decidido não se edita", () => rpc(como(ids.mod), "mural_editar", { p_id: doMural, p: anuncio() }), "nao_encontrado");
+await recusa("moderador não apaga anúncio: retirar do ar é da coordenação", () => rpc(como(ids.mod), "mural_remover", { p_id: doMural }), "nao_encontrado");
+await recusa("moderador não mexe na rádio", () => rpc(como(ids.mod), "radio_configurar", { p_no_ar: true, p_ao_vivo: "" }), "sem_permissao");
+await espera("coordenação retira o anúncio de teste", () => rpc(como(ids.coord), "mural_remover", { p_id: doMural }), (r) => r.ok);
 // ── Rádio ──
 await espera("rádio fora do ar: público só vê que está fora", () => rpc(anon, "radio_estado"), (r) => r.no_ar === false && r.canais === undefined);
 await recusa("curadoria não configura a rádio", () => rpc(como(ids.curadora), "radio_configurar", { p_no_ar: true, p_ao_vivo: "" }), "sem_permissao");
@@ -260,7 +337,7 @@ await recusa("vice-coordenação não nomeia outra vice", () => rpc(como(ids.vic
 await recusa("vice-coordenação não remove a coordenação", () => rpc(como(ids.vice), "papel_remover", { p_id: papelCoord }), "sem_permissao");
 await recusa("vice-coordenação não suspende a coordenação", () => rpc(como(ids.vice), "usuario_suspender", { p_usuario: ids.coord, p_suspenso: true }), "sem_permissao");
 await recusa("curadoria não suspende a vice-coordenação", () => rpc(como(ids.curadora), "usuario_suspender", { p_usuario: ids.vice, p_suspenso: true }), "sem_permissao");
-await espera("vice-coordenação vê voluntários e registro", async () => [await rpc(como(ids.vice), "voluntarios_listar"), await rpc(como(ids.vice), "auditoria_listar")], (r) => r[0].length === 10 && r[1].some((a) => a.acao === "papel_confiado"));
+await espera("vice-coordenação vê voluntários e registro", async () => [await rpc(como(ids.vice), "voluntarios_listar"), await rpc(como(ids.vice), "auditoria_listar")], (r) => r[0].length === 11 && r[1].some((a) => a.acao === "papel_confiado"));
 await recusa("curadoria não lê o registro de atividades", () => rpc(como(ids.curadora), "auditoria_listar"), "sem_permissao");
 await recusa("vice-coordenação não define a sucessão", () => rpc(como(ids.vice), "sucessao_definir", { p_usuarios: [ids.vice] }), "sem_permissao");
 await recusa("a coordenação não entra na própria sucessão", () => rpc(como(ids.coord), "sucessao_definir", { p_usuarios: [ids.coord] }), "invalido:usuarios");
@@ -384,9 +461,12 @@ await recusa("enxurrada de iscas da mesma origem é barrada", async () => { for 
 
 // ── Comunidade: dúvidas, resposta aceita e filtro ──
 let duvida, r2;
-await espera("abrir uma dúvida", async () => (duvida = await rpc(como(ids.jornal), "topico_criar", { p_titulo: "Como calculo porcentagem?", p_corpo: "Quanto é 15% de 240? Não entendi a regra.", p_disciplina: "matematica", p_tipo: "duvida" })), (r) => Boolean(r.id) && r.retido === false);
+await espera("abrir uma dúvida", async () => (duvida = await rpc(como(ids.jornal), "topico_criar", { p_titulo: "Como calculo porcentagem?", p_corpo: "Quanto é 15% de 240? Não entendi a regra.", p_disciplina: "matematica", p_tipo: "duvida" })), (r) => Boolean(r.id) && r.retido === true);
+await espera("moderador aprova a dúvida", () => rpc(como(ids.mod), "comunidade_cuidar", { p_tipo: "topico", p_alvo: duvida.id, p_acao: "mostrar" }));
 await espera("duas respostas", async () => {
-  await rpc(como(ids.revisor), "responder", { p_topico: duvida.id, p_corpo: "Multiplique 240 por 15 e divida por 100." });
+  // Revisor não cuida da comunidade: a resposta dele espera a moderação. A do educador entra direto.
+  const doRevisor = await rpc(como(ids.revisor), "responder", { p_topico: duvida.id, p_corpo: "Multiplique 240 por 15 e divida por 100." });
+  await rpc(como(ids.mod), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: doRevisor.id, p_acao: "mostrar" });
   r2 = await rpc(como(ids.prof), "responder", { p_topico: duvida.id, p_corpo: "15% é 15/100. 240 × 0,15 = 36." });
   return rpc(anon, "topicos_listar", { p_ordem: "novos", p_disciplina: null, p_pagina: 0, p_tipo: "duvida" });
 }, (r) => r.length === 1 && r[0].resolvida === false && r[0].tipo === "duvida");
@@ -401,8 +481,12 @@ await espera("mensagem com termo do filtro fica retida", async () => {
   const fila = await rpc(como(ids.prof), "comunidade_retidos");
   await rpc(como(ids.prof), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: retida.id, p_acao: "mostrar" });
   const depois = await rpc(anon, "topico_ver", { p_id: duvida.id });
-  return [retida.retido, publico.respostas.length, fila.length, depois.respostas.length, (await rpc(como(ids.prof), "comunidade_retidos")).length];
-}, (r) => r[0] === true && r[1] === 2 && r[2] === 1 && r[3] === 3 && r[4] === 0);
+  return [retida.retido, publico.respostas.length, fila.length, depois.respostas.length, (await rpc(como(ids.prof), "comunidade_retidos")).length, fila[0].filtro];
+}, (r) => r[0] === true && r[1] === 2 && r[2] === 1 && r[3] === 3 && r[4] === 0 && r[5] === true);
+await espera("quem cuida da comunidade publica direto, mas o filtro vale para todo mundo", async () => [
+  await rpc(como(ids.mod), "responder", { p_topico: duvida.id, p_corpo: "Boa pergunta, a conta está certa." }),
+  await rpc(como(ids.mod), "responder", { p_topico: duvida.id, p_corpo: "Só um RETARDADO erraria isso." }),
+], (r) => r[0].retido === false && r[1].retido === true);
 await recusa("leitora comum não lê a lista do filtro", () => rpc(como(ids.jornal), "filtro_listar"), "sem_permissao");
 await espera("curadoria edita a lista do filtro", async () => { await rpc(como(ids.curadora), "filtro_salvar", { p_termo: "Palavrão Novo", p_incluir: true }); return rpc(como(ids.curadora), "filtro_listar"); }, (r) => r.includes("palavrao novo"));
 await recusa("no máximo três conversas novas por hora", async () => { for (let i = 0; i < 4; i++) await rpc(como(ids.mentora), "topico_criar", { p_titulo: `Conversa número ${i}`, p_corpo: "Texto com mais de dez letras.", p_disciplina: null }); }, "muitos_pedidos");
@@ -444,7 +528,8 @@ await espera("quem pediu acompanha", () => rpc(como(ids.jornal), "reforco_meus")
 // ── Conversa da equipe ──
 await recusa("quem não é da equipe não vê os canais", () => rpc(como(ids.troll), "equipe_canais"), "conta_suspensa");
 await espera("designer vê geral, pedidos e design", () => rpc(como(ids.designer), "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "design"]));
-await espera("coordenação vê todos os canais", () => rpc(como(ids.coord), "equipe_canais"), (r) => r.canais.length === 11);
+await espera("coordenação vê todos os canais", () => rpc(como(ids.coord), "equipe_canais"), (r) => r.canais.length === 12);
+await espera("moderador vê o canal da moderação, e não o da curadoria", () => rpc(como(ids.mod), "equipe_canais"), (r) => r.canais.includes("moderacao") && !r.canais.includes("curadoria"));
 await recusa("designer não lê o canal dos educadores", () => rpc(como(ids.designer), "equipe_listar", { p_canal: "educacao" }), "sem_permissao");
 await recusa("designer não escreve no canal da coordenação", () => rpc(como(ids.designer), "equipe_escrever", { p_canal: "coordenacao", p_corpo: "Olá" }), "sem_permissao");
 await recusa("sem chave definida, ninguém escreve", () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: "c1.AAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBB" }), "sem_chave");

@@ -147,7 +147,7 @@ create table if not exists interno.apoiadores (
 );
 
 -- Mural dos Trabalhadores: anúncios de cooperativas, ofícios, arte e iniciativas de quem vive do próprio trabalho.
--- Só texto, sem imagem nem arquivo. Todo anúncio passa pela curadoria e vence sozinho, para o mural não envelhecer.
+-- Só texto, sem imagem nem arquivo. Todo anúncio passa pela coordenação ou pela moderação e vence sozinho, para o mural não envelhecer.
 create table if not exists interno.mural (
   id uuid primary key default gen_random_uuid(),
   autor uuid not null references interno.perfis (id) on delete cascade,
@@ -219,14 +219,18 @@ do $$
 begin
   alter table interno.papeis drop constraint if exists papeis_papel_check;
   alter table interno.papeis add constraint papeis_papel_check
-    check (papel in ('coordenacao', 'vice', 'curadoria', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento'));
+    check (papel in ('coordenacao', 'vice', 'curadoria', 'moderacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento'));
   alter table interno.candidaturas drop constraint if exists candidaturas_papel_check;
   alter table interno.candidaturas add constraint candidaturas_papel_check
-    check (papel in ('curadoria', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento'));
+    check (papel in ('curadoria', 'moderacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento'));
   alter table interno.contribuicoes drop constraint if exists contribuicoes_tipo_check;
   alter table interno.contribuicoes add constraint contribuicoes_tipo_check
     check (tipo in ('aula', 'obra', 'artigo', 'checagem', 'debate', 'verbete', 'memorial', 'video', 'frase', 'traducao', 'correcao', 'sugestao', 'questao'));
 end $$;
+
+-- Triagem: o que vem de fora passa primeiro pela moderação, que corta spam, vandalismo e envio sem forma antes de
+-- chegar à fila de revisão. O que já estava na fila e o que a equipe escreve seguem direto ('liberada').
+alter table interno.contribuicoes add column if not exists triagem text not null default 'liberada' check (triagem in ('aguardando', 'liberada'));
 
 -- Registro de atividades: quem fez o quê no painel. Só a coordenação lê. Não guarda endereço de ninguém.
 create table if not exists interno.auditoria (
@@ -573,8 +577,12 @@ $$;
 create or replace function interno.colabora(p_contribuicao uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select auth.uid() is not null and exists (select 1 from colaboradores k join perfis f on f.id = k.usuario where k.contribuicao = p_contribuicao and k.usuario = auth.uid() and not f.suspenso)
 $$;
-/** Quem pode cuidar da comunidade: coordenação, curadoria e educadores. */
-create or replace function interno.cuida() returns boolean language sql stable as $$ select interno.curador() or interno.tem('educacao') $$;
+/** Quem pode cuidar da comunidade: coordenação, curadoria, moderação e educadores. */
+create or replace function interno.cuida() returns boolean language sql stable as $$ select interno.curador() or interno.tem('educacao') or interno.tem('moderacao') $$;
+/** Moderação: a primeira leitura do que o público envia. Curadoria e coordenação também podem. */
+create or replace function interno.modera() returns boolean language sql stable as $$ select interno.curador() or interno.tem('moderacao') $$;
+/** O Mural dos Trabalhadores é decidido pela coordenação e pela moderação. */
+create or replace function interno.modera_mural() returns boolean language sql stable as $$ select interno.coord() or interno.tem('moderacao') $$;
 /** Quem pode atender um pedido de reforço desta disciplina. */
 create or replace function interno.mentor(p_disciplina text) returns boolean language sql stable as $$
   select interno.curador() or interno.tem('mentoria', p_disciplina) or interno.tem('educacao', p_disciplina)
@@ -759,7 +767,7 @@ language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); v_id uuid;
 begin
   perform interno.limite('candidatar', 5, 1440);
-  if p_papel not in ('curadoria', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:papel'); end if;
+  if p_papel not in ('curadoria', 'moderacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:papel'); end if;
   if p_papel = 'educacao' and coalesce(p_disciplina, '') = '' then perform interno.erro('invalido:disciplina'); end if;
   if exists (select 1 from candidaturas where usuario = v and papel = p_papel and coalesce(disciplina, '') = coalesce(p_disciplina, '') and status = 'pendente') then
     perform interno.erro('ja_pediu');
@@ -823,7 +831,7 @@ language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu();
 begin
   if not interno.coord() then perform interno.erro('sem_permissao'); end if;
-  if p_papel not in ('vice', 'curadoria', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:papel'); end if;
+  if p_papel not in ('vice', 'curadoria', 'moderacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:papel'); end if;
   if p_papel = 'vice' and not interno.lider() then perform interno.erro('sem_permissao'); end if;
   if p_papel = 'educacao' and coalesce(p_disciplina, '') = '' then perform interno.erro('invalido:disciplina'); end if;
   if not exists (select 1 from perfis where id = p_usuario) then perform interno.erro('nao_encontrado'); end if;
@@ -1038,6 +1046,7 @@ end $$;
 /**
  * Porta única de envio, aberta a qualquer pessoa. Tudo entra como "pendente" e só vai ao ar
  * depois de aprovado pela curadoria. Material de ensino sem fonte é recusado na entrada.
+ * O que vem de quem não é da equipe espera primeiro a triagem da moderação.
  */
 create or replace function public.contribuir(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare
@@ -1081,7 +1090,7 @@ begin
     select nome into v_nome from perfis where id = v;
   end if;
 
-  insert into contribuicoes (tipo, disciplina, titulo, corpo, dados, fontes, alvo, autor, nome_autor, como)
+  insert into contribuicoes (tipo, disciplina, titulo, corpo, dados, fontes, alvo, autor, nome_autor, como, triagem)
   values (
     v_tipo, v_disc,
     interno.txt(p ->> 'titulo', 'titulo', 3, 160),
@@ -1092,7 +1101,8 @@ begin
     v,
     -- Quem tem conta assina com o nome do perfil; quem não tem pode dizer como quer ser creditado.
     coalesce(v_nome, interno.txt(p ->> 'nome', 'nome', 0, 80)),
-    v_como)
+    v_como,
+    case when interno.voluntario() then 'liberada' else 'aguardando' end)
   returning id into v_id;
   return jsonb_build_object('id', v_id);
 end $$;
@@ -1102,7 +1112,7 @@ language sql stable security definer set search_path = interno, pg_temp as $$
   select jsonb_build_object(
     'id', c.id, 'tipo', c.tipo, 'disciplina', c.disciplina, 'titulo', c.titulo, 'nome_autor', c.nome_autor, 'como', c.como,
     'status', c.status, 'nota', c.nota, 'criado_em', c.criado_em, 'revisado_em', c.revisado_em, 'publicado_em', c.publicado_em,
-    'pareceres', (select count(*) from pareceres r where r.contribuicao = c.id))
+    'triagem', c.triagem, 'pareceres', (select count(*) from pareceres r where r.contribuicao = c.id))
   || case when p_completa then jsonb_build_object(
     'corpo', c.corpo, 'dados', c.dados, 'fontes', c.fontes, 'alvo', c.alvo,
     'lista_pareceres', coalesce((select jsonb_agg(jsonb_build_object('favoravel', r.favoravel, 'texto', r.texto, 'criado_em', r.criado_em, 'nome', coalesce(f.nome, '')) order by r.criado_em)
@@ -1116,9 +1126,16 @@ create or replace function interno.ve_fila(p_disciplina text) returns boolean la
     or (p_disciplina is not null and exists (select 1 from interno.papeis where usuario = auth.uid() and papel = 'educacao' and disciplina = p_disciplina))
 $$;
 
-/** As matérias do jornal passam pelo crivo de mais gente: além de curadoria e revisão, qualquer educador lê e dá parecer. */
+/**
+ * As matérias do jornal passam pelo crivo de mais gente: além de curadoria e revisão, qualquer educador lê e dá parecer.
+ * O que ainda espera a triagem da moderação não chega a revisores nem a educadores; curadoria e coordenação veem tudo.
+ */
 create or replace function interno.ve_item(c interno.contribuicoes) returns boolean language sql stable as $$
-  select interno.ve_fila(c.disciplina) or (c.tipo = 'artigo' and interno.tem('educacao'))
+  select interno.curador() or (c.triagem = 'liberada' and (interno.ve_fila(c.disciplina) or (c.tipo = 'artigo' and interno.tem('educacao'))))
+$$;
+/** A moderação abre o que espera a triagem dela, e só isso. */
+create or replace function interno.tria(c interno.contribuicoes) returns boolean language sql stable as $$
+  select c.status = 'pendente' and c.triagem = 'aguardando' and interno.modera()
 $$;
 
 create or replace function public.contribuicoes_minhas() returns jsonb language sql security definer set search_path = interno, pg_temp as $$
@@ -1141,7 +1158,7 @@ declare c contribuicoes;
 begin
   select * into c from contribuicoes where id = p_id;
   if not found then perform interno.erro('nao_encontrado'); end if;
-  if not (c.autor = auth.uid() or interno.ve_item(c) or interno.colabora(c.id)) then perform interno.erro('sem_permissao'); end if;
+  if not (coalesce(c.autor = auth.uid(), false) or interno.ve_item(c) or interno.colabora(c.id) or interno.tria(c)) then perform interno.erro('sem_permissao'); end if;
   return interno.contribuicao_json(c, true) || jsonb_build_object(
     'minha', c.autor is not null and c.autor = auth.uid(),
     'colaboro', interno.colabora(c.id),
@@ -1152,7 +1169,8 @@ begin
 end $$;
 
 /**
- * Ajustes antes da decisão: a própria pessoa enquanto está pendente, quem ela chamou para trabalhar junto, ou a curadoria.
+ * Ajustes antes da decisão: a própria pessoa enquanto está pendente, quem ela chamou para trabalhar junto, a curadoria,
+ * ou a moderação enquanto o envio espera a triagem (para acertar a forma, não o conteúdo).
  * Quem edita manda a versão que abriu; se alguém guardou outra nesse meio-tempo, nada é sobrescrito.
  */
 create or replace function public.contribuicao_editar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -1161,7 +1179,7 @@ begin
   select * into c from contribuicoes where id = p_id for update;
   if not found then perform interno.erro('nao_encontrado'); end if;
   if c.status <> 'pendente' then perform interno.erro('ja_decidida'); end if;
-  if not (c.autor = v or interno.curador() or interno.colabora(c.id)) then perform interno.erro('sem_permissao'); end if;
+  if not (coalesce(c.autor = v, false) or interno.curador() or interno.colabora(c.id) or interno.tria(c)) then perform interno.erro('sem_permissao'); end if;
   if coalesce(p ->> 'versao', '') <> '' then
     if (p ->> 'versao') !~ '^[0-9T:.+ Z-]{10,40}$' then perform interno.erro('invalido:versao'); end if;
     if (p ->> 'versao')::timestamptz is distinct from coalesce(c.editado_em, c.criado_em) then perform interno.erro('mudou_enquanto_editava'); end if;
@@ -1208,6 +1226,40 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
+/** Triagem: o que veio de fora e ainda não foi lido pela moderação. */
+create or replace function public.triagem_fila() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.modera() then perform interno.erro('sem_permissao'); end if;
+  return (
+    select coalesce(jsonb_agg(interno.contribuicao_json(c, false) order by c.criado_em), '[]'::jsonb)
+    from (select * from contribuicoes where status = 'pendente' and triagem = 'aguardando' order by criado_em limit 300) c);
+end $$;
+
+/**
+ * A primeira barreira. Liberar manda o envio para a fila de revisão, onde educadores e revisores dão parecer e a
+ * curadoria decide. Barrar encerra o envio como "não aprovado", com uma nota obrigatória para quem enviou.
+ * A moderação não aprova conteúdo: isso continua com a curadoria.
+ */
+create or replace function public.triagem_decidir(p_id uuid, p_liberar boolean, p_nota text) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c contribuicoes; v_nota text := interno.txt(p_nota, 'nota', 0, 2000);
+begin
+  if not interno.modera() then perform interno.erro('sem_permissao'); end if;
+  select * into c from contribuicoes where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if c.status <> 'pendente' or c.triagem <> 'aguardando' then perform interno.erro('ja_decidida'); end if;
+  if coalesce(p_liberar, false) then
+    update contribuicoes set triagem = 'liberada' where id = p_id;
+  else
+    if char_length(v_nota) < 5 then perform interno.erro('invalido:nota'); end if;
+    update contribuicoes set status = 'recusada', nota = v_nota, revisado_por = v, revisado_em = now() where id = p_id;
+    perform interno.avisar(c.autor, 'Sua contribuição "' || left(c.titulo, 80) || '" não passou pela triagem. Abra "Meus envios" para ler a nota de quem leu.');
+  end if;
+  perform interno.registrar(case when coalesce(p_liberar, false) then 'triagem_liberada' else 'triagem_barrada' end, c.titulo, jsonb_build_object('id', c.id, 'tipo', c.tipo));
+  return jsonb_build_object('ok', true);
+end $$;
+
 /** Para a rotina que publica no site: o que foi aprovado e ainda não foi ao ar. Só com a chave de serviço. */
 create or replace function public.publicacoes_pendentes() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
@@ -1231,16 +1283,19 @@ end $$;
 drop function if exists public.topicos_listar(text, text, integer);
 drop function if exists public.topico_criar(text, text, text);
 
-/** Lista de conversas e dúvidas. p_tipo: 'conversa', 'duvida' ou vazio (tudo). p_ordem: 'alta', 'novos', 'melhores', 'sem_resposta'. */
+/**
+ * Lista de conversas e dúvidas, aberta a qualquer visitante. p_tipo: 'conversa', 'duvida' ou vazio (tudo).
+ * p_ordem: 'alta', 'novos', 'melhores', 'sem_resposta'. O que espera a moderação só aparece para quem escreveu e para quem cuida.
+ */
 create or replace function public.topicos_listar(p_ordem text default 'alta', p_disciplina text default null, p_pagina integer default 0, p_tipo text default null, p_busca text default null) returns jsonb
 language sql stable security definer set search_path = interno, pg_temp as $$
   select coalesce(jsonb_agg(x.j order by x.n), '[]'::jsonb) from (
     select row_number() over () as n, jsonb_build_object(
       'id', t.id, 'titulo', t.titulo, 'disciplina', t.disciplina, 'pontos', t.pontos, 'respostas', t.respostas, 'tipo', t.tipo, 'resolvida', t.aceita is not null,
-      'trancado', t.trancado, 'oculto', t.oculto, 'criado_em', t.criado_em, 'autor', coalesce(f.nome, ''),
+      'trancado', t.trancado, 'oculto', t.oculto, 'retido', t.retido, 'criado_em', t.criado_em, 'autor', coalesce(f.nome, ''),
       'meu_voto', coalesce((select v.valor from votos v where v.usuario = auth.uid() and v.tipo = 'topico' and v.alvo = t.id), 0)) as j
     from topicos t left join perfis f on f.id = t.autor
-    where (not t.oculto or interno.cuida()) and (coalesce(p_disciplina, '') = '' or t.disciplina = p_disciplina)
+    where (not t.oculto or interno.cuida() or coalesce(t.retido and t.autor = auth.uid(), false)) and (coalesce(p_disciplina, '') = '' or t.disciplina = p_disciplina)
       and (coalesce(p_tipo, '') = '' or t.tipo = p_tipo)
       and (p_ordem is distinct from 'sem_resposta' or t.respostas = 0)
       and (coalesce(btrim(p_busca), '') = '' or position(interno.normal(left(p_busca, 80)) in interno.normal(t.titulo)) > 0)
@@ -1256,9 +1311,10 @@ create or replace function public.topico_ver(p_id uuid) returns jsonb language p
 declare t topicos;
 begin
   select * into t from topicos where id = p_id;
-  if not found or (t.oculto and not interno.cuida()) then perform interno.erro('nao_encontrado'); end if;
+  -- Quem escreveu acompanha a própria mensagem enquanto ela espera a moderação; mais ninguém de fora a vê.
+  if not found or (t.oculto and not interno.cuida() and not coalesce(t.retido and t.autor = auth.uid(), false)) then perform interno.erro('nao_encontrado'); end if;
   return jsonb_build_object(
-    'id', t.id, 'titulo', t.titulo, 'corpo', t.corpo, 'disciplina', t.disciplina, 'pontos', t.pontos, 'trancado', t.trancado, 'oculto', t.oculto,
+    'id', t.id, 'titulo', t.titulo, 'corpo', t.corpo, 'disciplina', t.disciplina, 'pontos', t.pontos, 'trancado', t.trancado, 'oculto', t.oculto, 'retido', t.retido,
     'tipo', t.tipo, 'aceita', t.aceita,
     'criado_em', t.criado_em, 'autor', coalesce((select nome from perfis where id = t.autor), ''),
     'meu', t.autor is not null and t.autor = auth.uid(),
@@ -1267,15 +1323,18 @@ begin
     -- Numa dúvida, a resposta escolhida vem primeiro e depois as mais bem votadas; numa conversa, a ordem é a do tempo.
     'respostas', coalesce((
       select jsonb_agg(jsonb_build_object(
-        'id', r.id, 'corpo', r.corpo, 'pontos', r.pontos, 'oculto', r.oculto, 'criado_em', r.criado_em, 'autor', coalesce(f.nome, ''),
+        'id', r.id, 'corpo', r.corpo, 'pontos', r.pontos, 'oculto', r.oculto, 'retido', r.retido, 'criado_em', r.criado_em, 'autor', coalesce(f.nome, ''),
         'aceita', r.id = t.aceita, 'da_equipe', exists (select 1 from papeis p where p.usuario = r.autor),
         'meu_voto', coalesce((select valor from votos where usuario = auth.uid() and tipo = 'resposta' and alvo = r.id), 0))
         order by (t.tipo = 'duvida' and r.id = t.aceita) desc, case when t.tipo = 'duvida' then r.pontos end desc nulls last, r.criado_em)
       from respostas r left join perfis f on f.id = r.autor
-      where r.topico = t.id and (not r.oculto or interno.cuida())), '[]'::jsonb));
+      where r.topico = t.id and (not r.oculto or interno.cuida() or coalesce(r.retido and r.autor = auth.uid(), false))), '[]'::jsonb));
 end $$;
 
-/** Abrir conversa ou dúvida. Mensagem com termo do filtro fica retida até a equipe ler. */
+/**
+ * Abrir conversa ou dúvida: só com conta. Nada do público aparece antes de alguém da moderação ler: a mensagem entra
+ * retida e sai da fila aprovada ou recusada. Só quem cuida da comunidade publica direto (e nem isso, se o filtro pegar).
+ */
 create or replace function public.topico_criar(p_titulo text, p_corpo text, p_disciplina text, p_tipo text default 'conversa') returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
 declare
@@ -1286,7 +1345,7 @@ declare
 begin
   perform interno.limite('topico', 3, 60);
   if coalesce(p_tipo, 'conversa') not in ('conversa', 'duvida') then perform interno.erro('invalido:tipo'); end if;
-  v_retido := interno.vetado(v_titulo || ' ' || v_corpo);
+  v_retido := not interno.cuida() or interno.vetado(v_titulo || ' ' || v_corpo);
   insert into topicos (autor, titulo, corpo, disciplina, tipo, oculto, retido)
   values (v, v_titulo, v_corpo, interno.disciplina_ok(p_disciplina), coalesce(p_tipo, 'conversa'), v_retido, v_retido)
   returning id into v_id;
@@ -1300,7 +1359,7 @@ begin
   select * into t from topicos where id = p_topico for update;
   if not found or t.oculto then perform interno.erro('nao_encontrado'); end if;
   if t.trancado then perform interno.erro('topico_trancado'); end if;
-  v_retido := interno.vetado(v_corpo);
+  v_retido := not interno.cuida() or interno.vetado(v_corpo);
   insert into respostas (topico, autor, corpo, oculto, retido) values (p_topico, v, v_corpo, v_retido, v_retido) returning id into v_id;
   if not v_retido then update topicos set respostas = respostas + 1 where id = p_topico; end if;
   return jsonb_build_object('id', v_id, 'retido', v_retido);
@@ -1312,7 +1371,7 @@ declare v uuid := interno.eu(); t topicos;
 begin
   select * into t from topicos where id = p_topico for update;
   if not found or t.oculto then perform interno.erro('nao_encontrado'); end if;
-  if not (t.autor = v or interno.cuida()) then perform interno.erro('sem_permissao'); end if;
+  if not (coalesce(t.autor = v, false) or interno.cuida()) then perform interno.erro('sem_permissao'); end if;
   if p_resposta is not null and not exists (select 1 from respostas where id = p_resposta and topico = p_topico and not oculto) then perform interno.erro('nao_encontrado'); end if;
   update topicos set aceita = p_resposta where id = p_topico;
   return jsonb_build_object('aceita', p_resposta);
@@ -1337,38 +1396,66 @@ begin
   return jsonb_build_object('pontos', v_pontos, 'meu_voto', p_valor);
 end $$;
 
-/** Cuidar da comunidade: ocultar, mostrar, trancar ou destrancar. Nada é apagado. */
+/**
+ * Cuidar da comunidade: ocultar, mostrar, trancar ou destrancar. Nada é apagado. Na fila de moderação, "mostrar" é
+ * aprovar e "ocultar" é recusar; quem escreveu recebe um recado com a decisão.
+ */
 create or replace function public.comunidade_cuidar(p_tipo text, p_alvo uuid, p_acao text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_retido boolean; v_topico uuid;
+declare v_retido boolean; v_topico uuid; v_autor uuid;
 begin
   perform interno.eu();
   if not interno.cuida() then perform interno.erro('sem_permissao'); end if;
   if p_tipo = 'topico' and p_acao in ('ocultar', 'mostrar') then
+    select retido, autor into v_retido, v_autor from topicos where id = p_alvo;
     update topicos set oculto = (p_acao = 'ocultar'), retido = false where id = p_alvo;
   elsif p_tipo = 'topico' and p_acao in ('trancar', 'destrancar') then
     update topicos set trancado = (p_acao = 'trancar') where id = p_alvo;
   elsif p_tipo = 'resposta' and p_acao in ('ocultar', 'mostrar') then
-    select retido, topico into v_retido, v_topico from respostas where id = p_alvo;
+    select retido, topico, autor into v_retido, v_topico, v_autor from respostas where id = p_alvo;
     update respostas set oculto = (p_acao = 'ocultar'), retido = false where id = p_alvo;
     -- Resposta que estava retida só entra na contagem quando a equipe a libera.
     if found and v_retido and p_acao = 'mostrar' then update topicos set respostas = respostas + 1 where id = v_topico; end if;
   else perform interno.erro('invalido:acao'); end if;
   if not found then perform interno.erro('nao_encontrado'); end if;
   perform interno.registrar('comunidade_' || p_acao, p_alvo::text, jsonb_build_object('tipo', p_tipo));
+  if coalesce(v_retido, false) then
+    perform interno.avisar(v_autor, case when p_acao = 'mostrar' then 'Sua mensagem na Comunidade foi aprovada e já aparece para todo mundo.'
+                                         else 'Sua mensagem na Comunidade não foi aprovada pela moderação. Releia as regras da página e escreva de novo.' end);
+  end if;
   return jsonb_build_object('ok', true);
 end $$;
 
-/** Mensagens que o filtro segurou e ainda esperam leitura. */
+/** A moderação acerta o texto de uma mensagem (dado pessoal exposto, palavrão, formatação) sem tirar a autoria. Fica no registro. */
+create or replace function public.comunidade_editar(p_tipo text, p_alvo uuid, p_titulo text, p_corpo text) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.cuida() then perform interno.erro('sem_permissao'); end if;
+  if p_tipo = 'topico' then
+    update topicos set titulo = interno.txt(p_titulo, 'titulo', 5, 140), corpo = interno.txt(p_corpo, 'corpo', 10, 8000) where id = p_alvo;
+  elsif p_tipo = 'resposta' then
+    update respostas set corpo = interno.txt(p_corpo, 'corpo', 2, 8000) where id = p_alvo;
+  else
+    perform interno.erro('invalido:tipo');
+  end if;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.registrar('comunidade_editada', p_alvo::text, jsonb_build_object('tipo', p_tipo));
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** A fila de moderação: tudo o que foi escrito e ainda espera leitura. "filtro" marca o que também esbarrou na lista de palavras. */
 create or replace function public.comunidade_retidos() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   perform interno.eu();
   if not interno.cuida() then perform interno.erro('sem_permissao'); end if;
   return (
     select coalesce(jsonb_agg(x.j order by x.criado_em), '[]'::jsonb) from (
-      select t.criado_em, jsonb_build_object('tipo', 'topico', 'id', t.id, 'titulo', t.titulo, 'corpo', t.corpo, 'autor', coalesce(f.nome, ''), 'criado_em', t.criado_em) as j
+      select t.criado_em, jsonb_build_object('tipo', 'topico', 'id', t.id, 'topico', t.id, 'titulo', t.titulo, 'corpo', t.corpo, 'autor', coalesce(f.nome, ''), 'criado_em', t.criado_em,
+        'filtro', interno.vetado(t.titulo || ' ' || t.corpo)) as j
       from topicos t left join perfis f on f.id = t.autor where t.retido
       union all
-      select r.criado_em, jsonb_build_object('tipo', 'resposta', 'id', r.id, 'titulo', (select titulo from topicos where id = r.topico), 'corpo', r.corpo, 'autor', coalesce(f.nome, ''), 'criado_em', r.criado_em)
+      select r.criado_em, jsonb_build_object('tipo', 'resposta', 'id', r.id, 'topico', r.topico, 'titulo', (select titulo from topicos where id = r.topico), 'corpo', r.corpo, 'autor', coalesce(f.nome, ''), 'criado_em', r.criado_em,
+        'filtro', interno.vetado(r.corpo))
       from respostas r left join perfis f on f.id = r.autor where r.retido
     ) x);
 end $$;
@@ -1519,7 +1606,7 @@ $$;
 
 /**
  * Enviar um anúncio. Não precisa de conta: cidade e estado são obrigatórios, o texto passa pelo filtro e nada vai ao ar
- * sem a coordenação aprovar. Quem envia sem conta recebe um código para retirar o anúncio depois.
+ * sem a coordenação ou a moderação aprovar. Quem envia sem conta recebe um código para retirar o anúncio depois.
  */
 create or replace function public.mural_enviar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare
@@ -1585,16 +1672,31 @@ end $$;
 create or replace function public.mural_fila(p_status text default 'pendente') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   perform interno.eu();
-  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if not interno.modera_mural() then perform interno.erro('sem_permissao'); end if;
   return (select coalesce(jsonb_agg(interno.mural_json(m, true) order by m.criado_em), '[]'::jsonb)
           from (select * from mural where status = coalesce(p_status, 'pendente') order by criado_em limit 300) m);
 end $$;
 
-/** Só a coordenação (coordenador e vice) decide o que vai para o mural. */
+/** A moderação acerta o texto de um anúncio que espera decisão (digitação, formatação), sem mudar de quem ele é nem onde fica. */
+create or replace function public.mural_editar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_link text := btrim(coalesce(p ->> 'link', ''));
+begin
+  perform interno.eu();
+  if not interno.modera_mural() then perform interno.erro('sem_permissao'); end if;
+  if v_link <> '' and (v_link !~ '^https://[^[:space:]]+$' or char_length(v_link) > 300) then perform interno.erro('invalido:link'); end if;
+  update mural set titulo = interno.txt(p ->> 'titulo', 'titulo', 4, 100), oficio = interno.txt(p ->> 'oficio', 'oficio', 0, 60),
+    descricao = interno.txt(p ->> 'descricao', 'descricao', 20, 1200), contato = interno.txt(p ->> 'contato', 'contato', 4, 160), link = v_link
+  where id = p_id and status = 'pendente';
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.registrar('anuncio_editado', p_id::text);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Quem decide o que vai para o mural: a coordenação (coordenador e vice) e a moderação. */
 create or replace function public.mural_decidir(p_id uuid, p_aprovar boolean, p_nota text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   perform interno.eu();
-  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if not interno.modera_mural() then perform interno.erro('sem_permissao'); end if;
   update mural set status = case when p_aprovar then 'aprovado' else 'recusado' end, nota = interno.txt(p_nota, 'nota', 0, 500),
     decidido_em = now(), validade = case when p_aprovar then now() + interval '180 days' end
   where id = p_id;
@@ -1832,7 +1934,7 @@ create or replace function interno.ve_canal(p_canal text) returns boolean langua
   select case
     when p_canal in ('geral', 'pedidos') then interno.voluntario()
     when p_canal = 'coordenacao' then interno.coord()
-    when p_canal in ('curadoria', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then interno.coord() or interno.tem(p_canal)
+    when p_canal in ('curadoria', 'moderacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then interno.coord() or interno.tem(p_canal)
     else false end
 $$;
 
@@ -1854,7 +1956,7 @@ begin
   return jsonb_build_object(
     'sala', coalesce(v_cfg ->> 'sala', ''), 'sal', v_cfg ->> 'sal', 'prova', coalesce(v_cfg ->> 'prova', ''),
     'canais', (select coalesce(jsonb_agg(c order by n), '[]'::jsonb)
-               from unnest(array['geral', 'pedidos', 'coordenacao', 'curadoria', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento']) with ordinality as t(c, n)
+               from unnest(array['geral', 'pedidos', 'coordenacao', 'curadoria', 'moderacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento']) with ordinality as t(c, n)
                where interno.ve_canal(c)));
 end $$;
 
@@ -2263,7 +2365,8 @@ begin
     'denuncias', case when interno.curador() then (select count(*) from denuncias where status = 'aberta') else 0 end,
     'anotacoes', case when interno.cuida() then (select count(*) from anotacoes where status = 'pendente') else 0 end,
     'retidos', case when interno.cuida() then (select count(*) from topicos where retido) + (select count(*) from respostas where retido) else 0 end,
-    'mural', case when interno.curador() then (select count(*) from mural where status = 'pendente') else 0 end,
+    'mural', case when interno.modera_mural() then (select count(*) from mural where status = 'pendente') else 0 end,
+    'triagem', case when interno.modera() then (select count(*) from contribuicoes where status = 'pendente' and triagem = 'aguardando') else 0 end,
     'reforco', case when interno.curador() or interno.tem('mentoria') or interno.tem('educacao')
                     then (select count(*) from reforco r where r.status = 'aberto' and interno.mentor(r.disciplina)) else 0 end,
     'horas', case when interno.coord() then (select count(*) from horas where status = 'pendente' and usuario <> v) else 0 end,
@@ -2298,7 +2401,7 @@ begin
   perform interno.limite('convite_criar', 60, 1440);
   if v_email <> '' and (v_email !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_email) > 200) then perform interno.erro('invalido:email'); end if;
   if v_papel is not null then
-    if v_papel not in ('vice', 'curadoria', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:papel'); end if;
+    if v_papel not in ('vice', 'curadoria', 'moderacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:papel'); end if;
     if v_papel in ('vice', 'curadoria') and not interno.lider() then perform interno.erro('sem_permissao'); end if;
     if v_email = '' then perform interno.erro('invalido:email'); end if;
     if v_papel in ('educacao', 'mentoria') and v_disc is null then perform interno.erro('invalido:disciplina'); end if;
@@ -2400,7 +2503,7 @@ end $$;
 drop trigger if exists lucia_filtro on interno.contribuicoes;
 create trigger lucia_filtro before insert on interno.contribuicoes for each row execute function interno.filtro_contribuicao();
 
--- ───────────────────────────── Mural: pedidos de qualquer pessoa, decisão da coordenação ─────────────────────────────
+-- ───────────────────────────── Mural: pedidos de qualquer pessoa, decisão da coordenação ou da moderação ─────────────────────────────
 
 create or replace function interno.uf_ok(p text) returns boolean language sql immutable as $$
   select upper(coalesce(p, '')) in ('AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO')
@@ -2513,7 +2616,7 @@ declare v uuid := interno.eu(); c contribuicoes;
 begin
   select * into c from contribuicoes where id = p_id;
   if not found then perform interno.erro('nao_encontrado'); end if;
-  if not (c.autor = v or interno.curador()) then perform interno.erro('sem_permissao'); end if;
+  if not (coalesce(c.autor = v, false) or interno.curador()) then perform interno.erro('sem_permissao'); end if;
   if c.status <> 'pendente' then perform interno.erro('ja_decidida'); end if;
   if p_usuario = v or p_usuario is not distinct from c.autor
      or not exists (select 1 from papeis p join perfis f on f.id = p.usuario where p.usuario = p_usuario and not f.suspenso) then perform interno.erro('invalido:usuario'); end if;
@@ -2793,7 +2896,8 @@ begin
              'topico_ver', 'topico_criar', 'responder', 'votar', 'comunidade_cuidar', 'denunciar', 'denuncias_listar', 'denuncia_resolver', 'anotacoes_listar',
              'anotar', 'anotacoes_fila', 'anotacao_decidir', 'apoiadores_listar', 'apoiador_salvar', 'apoiador_remover', 'radio_estado', 'radio_configurar',
              'radio_canal_salvar', 'radio_canal_remover', 'radio_faixa_salvar', 'radio_faixa_remover', 'progresso_salvar', 'progresso_listar', 'painel_resumo',
-             'mural_listar', 'mural_enviar', 'mural_meus', 'mural_remover', 'mural_renovar', 'mural_fila', 'mural_decidir',
+             'mural_listar', 'mural_enviar', 'mural_meus', 'mural_remover', 'mural_renovar', 'mural_fila', 'mural_decidir', 'mural_editar',
+             'triagem_fila', 'triagem_decidir', 'comunidade_editar',
              'lideranca_passar', 'sucessao_definir', 'sucessao_ver', 'seguranca_ver', 'seguranca_configurar', 'acesso_registrar', 'aparelhos_meus',
              'aparelho_esquecer', 'avisos_meus', 'aviso_ler', 'auditoria_listar', 'exportar_usuarios', 'admin_senhas', 'chaves_api', 'resposta_aceitar',
              'comunidade_retidos', 'filtro_listar', 'filtro_salvar', 'abertura', 'abertura_salvar', 'reforco_pedir', 'reforco_meus', 'reforco_cancelar',
