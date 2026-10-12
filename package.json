@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.3",
-    "@vercel/analytics": "^2.0.1",
     "github-slugger": "^2.0.0",
     "js-yaml": "^4.3.2",
     "minisearch": "^7.2.0",

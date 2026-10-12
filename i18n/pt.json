@@ -785,7 +785,7 @@
     "dumpLink": "Baixar o acervo completo (JSON)",
     "textHint": "Cada aula também existe em texto puro: basta acrescentar /texto ao endereço dela. Funciona até pelo terminal, com curl.",
     "trackingTitle": "Zero rastreamento",
-    "tracking": "Sem Google Analytics, sem pixel de rede social, sem cookies de anúncio. Contamos apenas quantas visitas cada página recebe, de forma anônima e sem cookies. Nós não vendemos seus dados porque não os temos.",
+    "tracking": "Sem Google Analytics, sem pixel de rede social, sem cookies de anúncio. O site não conta visitas nem mede audiência. Nós não vendemos seus dados porque não os temos.",
     "exitNow": "Sair agora",
     "purgeTitle": "Apagar tudo sozinho",
     "purgeNever": "Nunca (só quando eu mandar)",
