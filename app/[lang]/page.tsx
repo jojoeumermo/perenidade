@@ -69,7 +69,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <section className="mx-auto max-w-6xl px-4 py-10">
         <h2 className="text-4xl font-semibold">{h.shelves}</h2>
         <p className="mt-2 text-lg text-ink-soft">{h.shelvesHint}</p>
-        <DisciplineBrowser groups={shelves} s={t.tracks} stageNames={t.stages} />
+        <DisciplineBrowser labels groups={shelves} s={t.tracks} stageNames={t.stages} />
       </section>
 
       <DailyQuote quotes={getQuotes()} />
