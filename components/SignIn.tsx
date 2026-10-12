@@ -4,7 +4,7 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import type { Dict } from "@/i18n/types";
-import { getClient, hasBackend, localBackend, rpc, useMe } from "@/lib/backend";
+import { getClient, hasBackend, localBackend, rpc, signOut, useMe } from "@/lib/backend";
 import { useHydrated } from "@/lib/storage";
 import { Captcha, captchaEnabled } from "./Captcha";
 import { L, useI18n } from "./I18n";
@@ -36,16 +36,19 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [again, setAgain] = useState("");
-  const [state, setState] = useState<"idle" | "sending" | "wrong" | "failed" | "invalid" | "confirm" | "saved">("idle");
+  const [state, setState] = useState<"idle" | "sending" | "wrong" | "failed" | "invalid" | "confirm" | "saved" | "code" | "badCode">("idle");
   const [detail, setDetail] = useState("");
+  /** O aplicativo autenticador cadastrado na conta que acabou de acertar a senha. */
+  const [factor, setFactor] = useState("");
+  const [digits, setDigits] = useState("");
   const [token, setToken] = useState("");
   const [round, setRound] = useState(0);
   const receive = useCallback((value: string) => setToken(value), []);
   const changing = recovering || recovery;
 
-  // Quem já entrou segue direto para o painel (menos quem veio escolher uma senha nova).
+  // Quem já entrou segue direto para o painel (menos quem veio escolher uma senha nova ou ainda deve o código do aplicativo).
   useEffect(() => {
-    if (me.status === "in" && !changing && state !== "saved") router.replace(`/${lang}/painel`);
+    if (me.status === "in" && !changing && state === "idle") router.replace(`/${lang}/painel`);
   }, [me.status, router, lang, changing, state]);
 
   useEffect(() => {
@@ -92,7 +95,16 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       const supabase = await getClient();
       const { error } = await supabase.auth.signInWithPassword({ email, password: localBackend ? "local" : password, options: { captchaToken: token || undefined } });
       if (error) throw error;
-      setState("idle");
+      // Senha certa não basta para quem cadastrou o aplicativo autenticador: a entrada só termina com o código.
+      const [{ data: level }, { data: factors }] = await Promise.all([supabase.auth.mfa.getAuthenticatorAssuranceLevel(), supabase.auth.mfa.listFactors()]);
+      const verified = factors?.totp?.find((item) => item.status === "verified");
+      if (verified && level?.currentLevel !== "aal2") {
+        setFactor(verified.id);
+        setDigits("");
+        setState("code");
+      } else {
+        setState("idle");
+      }
     } catch (failure) {
       // O motivo exato ajuda a coordenação a consertar: senha errada é uma coisa, serviço fora do ar é outra.
       const reason = failure as { code?: string; status?: number; message?: string };
@@ -101,6 +113,20 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       setState(code === "invalid_credentials" ? "wrong" : "failed");
     } finally {
       done();
+    }
+  }
+
+  async function confirmCode() {
+    setState("sending");
+    try {
+      const supabase = await getClient();
+      const { error } = await supabase.auth.mfa.challengeAndVerify({ factorId: factor, code: digits.replace(/\D/g, "") });
+      if (error) throw error;
+      me.reload();
+      setState("idle");
+    } catch {
+      setDigits("");
+      setState("badCode");
     }
   }
 
@@ -164,6 +190,25 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     );
   }
   if (state === "confirm") return <p role="status" className="mt-8 border-l-2 border-ok pl-4 text-lg">{s.confirm}</p>;
+
+  if (factor && (state === "code" || state === "badCode" || state === "sending")) {
+    return (
+      <form className="mt-8 max-w-md space-y-5 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void confirmCode(); }}>
+        <h2 className="font-serif text-2xl font-semibold">{s.codeTitle}</h2>
+        <label className="block">
+          {s.codeLabel}
+          <input value={digits} onChange={(e) => setDigits(e.target.value)} required autoFocus inputMode="numeric" autoComplete="one-time-code" maxLength={7} className={`${field} font-mono text-lg tracking-[0.4em]`} />
+        </label>
+        <button type="submit" disabled={state === "sending" || digits.replace(/\D/g, "").length !== 6} className={primary}>{s.codeConfirm}</button>
+        {state === "badCode" && <p role="alert" className="text-oxblood">{s.codeWrong}</p>}
+        <p>
+          <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => void signOut().then(() => { setFactor(""); setPassword(""); setState("idle"); })}>
+            {s.codeOther}
+          </button>
+        </p>
+      </form>
+    );
+  }
 
   if (changing) {
     return (
