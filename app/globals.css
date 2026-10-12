@@ -58,6 +58,8 @@ body {
   background: var(--parchment);
   color: var(--ink);
   font-family: var(--font-serif-display), Georgia, serif;
+  /* Aberto como aplicativo, o site vai até a borda da tela: o topo desce o tanto da barra do relógio. */
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .paper {
