@@ -62,6 +62,19 @@ body {
   padding-top: env(safe-area-inset-top, 0px);
 }
 
+/* Nada passa da largura da tela: um campo de escolha, por natureza, tem a largura da opção mais comprida,
+   e basta um deles para a página inteira ganhar rolagem de lado no celular. */
+@layer base {
+  select,
+  input,
+  textarea,
+  img,
+  video,
+  iframe {
+    max-width: 100%;
+  }
+}
+
 .paper {
   background-image: radial-gradient(color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1px);
   background-size: 22px 22px;
