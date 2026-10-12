@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { getClient, signOut, type Me } from "@/lib/backend";
+import { fingerprintAvailable, listFingerprints, registerFingerprint, removeFingerprint, type Passkey } from "@/lib/passkey";
 import { Aviso, botao, botaoClaro, campo, dataHora, elo, rotulo, useAcao, useLista } from "./comum";
 
 interface Fator {
@@ -171,6 +172,97 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
         <button type="button" className={`mt-2 ${elo}`} disabled={ocupado} onClick={() => remover(confirmado.id)}>
           Remover o aplicativo autenticador desta conta
         </button>
+      )}
+      <Aviso texto={aviso} />
+    </div>
+  );
+}
+
+/**
+ * Entrada pela digital: o aparelho guarda uma chave que só libera com o dedo, e a pessoa entra sem digitar a senha.
+ * A senha continua valendo (é o caminho de volta se o celular for trocado ou perdido), e quem tem aplicativo
+ * autenticador continua devendo o código depois da digital.
+ */
+export function Digital() {
+  const [chaves, setChaves] = useState<Passkey[] | null>(null);
+  const [tem, setTem] = useState<boolean | null>(null);
+  const [aviso, setAviso] = useState("");
+  const [ocupado, setOcupado] = useState(false);
+  const [volta, setVolta] = useState(0);
+
+  useEffect(() => {
+    let cancelado = false;
+    void fingerprintAvailable().then((valor) => {
+      if (!cancelado) setTem(valor);
+    });
+    listFingerprints()
+      .then((lista) => {
+        if (!cancelado) setChaves(lista);
+      })
+      .catch(() => {
+        if (!cancelado) setChaves([]);
+      });
+    return () => {
+      cancelado = true;
+    };
+  }, [volta]);
+
+  async function cadastrar() {
+    setOcupado(true);
+    setAviso("");
+    const { outcome, detail } = await registerFingerprint();
+    setOcupado(false);
+    if (outcome === "ok") setAviso("Digital cadastrada. Na próxima vez, toque em “Entrar com a digital”.");
+    else if (outcome === "cancelled") setAviso("Cadastro cancelado. Nada foi gravado.");
+    else if (outcome === "exists") setAviso("Este aparelho já está cadastrado nesta conta.");
+    else if (outcome === "unsupported") setAviso("Este aparelho não oferece entrada pela digital.");
+    else setAviso(`Não deu certo cadastrar a digital.${detail ? ` (${detail})` : ""}`);
+    setVolta((valor) => valor + 1);
+  }
+
+  async function remover(id: string) {
+    setOcupado(true);
+    setAviso("");
+    try {
+      await removeFingerprint(id);
+      setAviso("Aparelho removido: a digital dele não abre mais esta conta.");
+    } catch {
+      setAviso("Não deu certo remover. Tente de novo.");
+    } finally {
+      setOcupado(false);
+      setVolta((valor) => valor + 1);
+    }
+  }
+
+  if (chaves === null || tem === null) return <p className="font-mono text-xs text-ink-soft">Carregando…</p>;
+
+  return (
+    <div>
+      {chaves.length > 0 && (
+        <ul className="divide-y divide-rule border-y border-rule">
+          {chaves.map((chave) => (
+            <li key={chave.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
+              <span>
+                {chave.nome || "Aparelho"}{" "}
+                <span className="text-ink-soft">
+                  · cadastrado em {dataHora(chave.criada)}
+                  {chave.usada && ` · usado em ${dataHora(chave.usada)}`}
+                </span>
+              </span>
+              <button type="button" className={elo} disabled={ocupado} onClick={() => remover(chave.id)}>
+                Remover
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      {chaves.length === 0 && <p className="text-ink-soft">Nenhum aparelho cadastrado ainda.</p>}
+      {tem ? (
+        <button type="button" className={`mt-3 ${botao}`} disabled={ocupado} onClick={cadastrar}>
+          Cadastrar a digital deste aparelho
+        </button>
+      ) : (
+        <p className="mt-3 text-ink-soft">Este aparelho não tem leitor de digital configurado (ou o navegador não oferece o recurso). Abra o painel no celular para cadastrar.</p>
       )}
       <Aviso texto={aviso} />
     </div>
