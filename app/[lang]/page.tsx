@@ -45,33 +45,33 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   return (
     <>
-      <section className="mx-auto max-w-6xl px-4 pt-16 pb-12 text-center app:max-md:pt-8 app:max-md:pb-6">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-gold">{h.eyebrow}</p>
-        <h1 className="mt-5 text-5xl font-semibold leading-[1.05] app:max-md:mt-3 app:max-md:text-[2.5rem] sm:text-7xl">
+      <section className="mx-auto max-w-6xl px-4 pt-16 pb-12 text-center app:max-md:pt-5 app:max-md:pb-4 app:max-md:text-left">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-gold app:max-md:text-[0.65rem] app:max-md:tracking-[0.2em]">{h.eyebrow}</p>
+        <h1 className="mt-5 text-5xl font-semibold leading-[1.05] app:max-md:mt-2 app:max-md:text-[2rem] app:max-md:leading-[1.1] sm:text-7xl">
           {h.h1a}
           <br />
           <span className="italic text-oxblood">{h.h1b}</span>
           {h.h1c}
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-xl text-ink-soft app:max-md:mt-4 app:max-md:text-lg">{h.lead}</p>
-        <form action={to("/busca")} role="search" className="mx-auto mt-10 flex max-w-xl border-2 border-ink bg-parchment-deep app:max-md:mt-6">
+        <p className="mx-auto mt-6 max-w-2xl text-xl text-ink-soft app:max-md:hidden">{h.lead}</p>
+        <form action={to("/busca")} role="search" className="mx-auto mt-10 flex max-w-xl border-2 border-ink bg-parchment-deep app:max-md:mt-4 app:max-md:overflow-hidden app:max-md:rounded-[0.875rem]">
           <input
             name="q"
             type="search"
             aria-label={h.searchLabel}
             placeholder={h.searchPlaceholder}
-            className="min-w-0 flex-1 bg-transparent px-4 py-3 font-mono text-sm outline-none placeholder:text-ink-soft"
+            className="min-w-0 flex-1 bg-transparent px-4 py-3 font-mono text-sm outline-none placeholder:text-ink-soft app:max-md:rounded-none!"
           />
-          <button className="cursor-pointer bg-ink px-6 font-sans text-sm font-medium text-parchment hover:bg-oxblood">{h.searchButton}</button>
+          <button className="cursor-pointer bg-ink px-6 font-sans text-sm font-medium text-parchment hover:bg-oxblood app:max-md:rounded-none!">{h.searchButton}</button>
         </form>
-        <p className="mt-5 font-mono text-xs text-ink-soft">
+        <p className="mt-5 font-mono text-xs text-ink-soft app:max-md:mt-3 app:max-md:text-[0.7rem]">
           {plural(lang, groups.flatMap((group) => group.areas).length, t.common.disciplines)} · {plural(lang, lessons, t.common.lessons)} ·{" "}
           {plural(lang, works, t.common.works)} {h.indexed}
         </p>
         {/* Só no aplicativo: quatro atalhos ao alcance do polegar para o que mais se abre no dia a dia. */}
-        <nav aria-label={t.nav.more} className="mt-6 hidden grid-cols-4 gap-2 font-sans text-xs app:max-md:grid">
+        <nav aria-label={t.nav.more} className="mt-5 hidden grid-cols-4 gap-2 text-center font-sans text-xs app:max-md:grid">
           {shortcuts.map(([label, path, icon]) => (
-            <Link key={path} href={to(path)} className="flex min-h-[4.5rem] flex-col items-center justify-center gap-1.5 border border-rule bg-parchment-deep px-1 py-2 leading-tight">
+            <Link key={path} href={to(path)} className="flex min-h-[4.5rem] flex-col items-center justify-center gap-1.5 rounded-[0.875rem] border border-rule bg-parchment-deep px-1 py-2 leading-tight">
               <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6 text-oxblood" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d={icon} />
               </svg>
