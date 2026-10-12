@@ -661,6 +661,46 @@ await espera("resumo da coordenação", () => rpc(como(ids.coord), "painel_resum
 await espera("resumo de quem não é voluntário não vaza a fila", () => rpc(como(ids.leitora), "painel_resumo"), (r) => r.fila === 0 && r.denuncias === 0);
 await espera("apagar a conta leva o perfil e mantém o tópico sem dono", async () => { await rpc(como(ids.leitora), "conta_apagar"); return dono("select (select count(*) from interno.perfis where id = $1)::int as perfil, (select count(*) from interno.topicos where autor is null)::int as orfaos", [ids.leitora]); }, (r) => r.rows[0].perfil === 0 && r.rows[0].orfaos === 1);
 await recusa("a última coordenação não apaga a conta", () => rpc(como(ids.coord), "conta_apagar"), "ultima_coordenacao");
+await recusa("nem com a exigência de segundo fator ligada e a sessão só com senha", async () => {
+  await rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: true });
+  try { return await rpc(como(ids.coord), "conta_apagar"); } finally { await rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: false }); }
+}, "ultima_coordenacao");
+
+// ── Livro do acervo ──
+const livro = (onde = "true") => dono(`select acao, via, campos, quem, titulo from interno.audit_logs where ${onde} order by id desc`);
+await espera("o livro anotou envios, aprovações e publicações do acervo", () => dono("select array_agg(distinct acao) as acoes from interno.audit_logs where tabela = 'contribuicoes'"), (r) => ["insercao", "aprovacao", "recusa", "publicacao"].every((acao) => r.rows[0].acoes.includes(acao)));
+await espera("e cada função dada ou tirada", () => dono("select array_agg(distinct acao) as acoes from interno.audit_logs where tabela = 'papeis'"), (r) => r.rows[0].acoes.includes("insercao") && r.rows[0].acoes.includes("exclusao"));
+await espera("a aprovação leva a conta de quem aprovou", () => livro("tabela = 'contribuicoes' and acao = 'aprovacao'"), (r) => r.rows.length > 0 && r.rows.every((linha) => linha.quem && linha.via === "authenticated"));
+await espera("mudança feita direto no banco também fica anotada", async () => {
+  await dono("update interno.contribuicoes set titulo = titulo || ' (ajuste)' where id = (select id from interno.contribuicoes order by criado_em limit 1)");
+  return livro("tabela = 'contribuicoes'");
+}, (r) => r.rows[0].acao === "edicao" && r.rows[0].via === "banco" && r.rows[0].quem === null && r.rows[0].campos.join() === "titulo");
+await espera("gravar a mesma coisa de novo não gera linha", async () => {
+  const antes = (await livro()).rows.length;
+  await dono("update interno.contribuicoes set titulo = titulo");
+  return (await livro()).rows.length - antes;
+}, (r) => r === 0);
+await recusa("ninguém edita o livro, nem o dono do banco", () => dono("update interno.audit_logs set titulo = 'outra coisa'"), "audit_logs_imutavel");
+await recusa("nem apaga uma linha", () => dono("delete from interno.audit_logs"), "audit_logs_imutavel");
+await recusa("nem esvazia a tabela", () => dono("truncate interno.audit_logs"), "audit_logs_imutavel");
+await espera("só o que passou do prazo de guarda sai", async () => {
+  await dono("insert into interno.audit_logs (criado_em, tabela, acao) values (now() - interval '401 days', 'teste', 'edicao')");
+  await dono("select interno.limpeza()");
+  return dono("select count(*)::int as n from interno.audit_logs where tabela = 'teste'");
+}, (r) => r.rows[0].n === 0);
+await recusa("logado não lê o livro direto", () => banco.exclusivo(async () => { await banco.pg.exec("set role authenticated"); try { return await banco.pg.query("select * from interno.audit_logs"); } finally { await banco.pg.exec("reset role"); } }), "permission denied");
+await recusa("anônimo não lista o livro", () => rpc(anon, "audit_logs_listar"), "entre_primeiro");
+await recusa("curadoria não lista o livro", () => rpc(como(ids.curadora), "audit_logs_listar"), "sem_permissao");
+await espera("coordenação lista o livro, com o nome de quem fez", () => rpc(como(ids.coord), "audit_logs_listar", { p_tabela: "contribuicoes" }), (r) => r.length > 0 && r.every((linha) => linha.tabela === "contribuicoes") && r.some((linha) => linha.nome === nomes.curadora || linha.nome === nomes.coord));
+
+// ── Segundo fator: quem cadastrou o aplicativo só usa a função depois do código ──
+await dono("create table auth.mfa_factors (user_id uuid, status text)");
+await dono("insert into auth.mfa_factors values ($1, 'verified')", [ids.revisor]);
+await recusa("com aplicativo cadastrado e só a senha, não entra na equipe", () => rpc(como(ids.revisor), "equipe_membros"), "sem_permissao");
+await recusa("nem apaga a conta", () => rpc(como(ids.revisor), "conta_apagar"), "confirme_segundo_fator");
+await espera("com o código, entra", () => rpc({ ...como(ids.revisor), aal: "aal2" }, "equipe_membros"), (r) => r.length > 0);
+await espera("quem não cadastrou o aplicativo segue como antes", () => rpc(como(ids.designer), "equipe_membros"), (r) => r.length > 0);
+await dono("drop table auth.mfa_factors");
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);

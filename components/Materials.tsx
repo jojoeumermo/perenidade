@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import type { Dict } from "@/i18n/types";
 import { hasBackend, rpc } from "@/lib/backend";
+import { safeLink } from "@/lib/text";
 
 interface Material {
   id: string;
@@ -52,7 +53,7 @@ export function Materials({ s }: { s: Dict["materials"] }) {
                   <p className="mt-2 text-2xl font-semibold">{item.titulo}</p>
                   {item.descricao && <p className="mt-1 flex-1 text-ink-soft">{item.descricao}</p>}
                   <p className="mt-4 font-sans text-sm">
-                    <a href={item.url} target="_blank" rel="noopener noreferrer" className="inline-block bg-ink px-5 py-2 font-medium text-parchment hover:bg-oxblood">
+                    <a href={safeLink(item.url) ? item.url : undefined} target="_blank" rel="noopener noreferrer" className="inline-block bg-ink px-5 py-2 font-medium text-parchment hover:bg-oxblood">
                       {s.open}
                     </a>
                   </p>
