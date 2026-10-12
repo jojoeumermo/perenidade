@@ -534,14 +534,25 @@ create or replace function interno.exige_2fa() returns boolean language sql stab
   select coalesce((select (valor ->> 'exigir_2fa')::boolean from configuracoes where chave = 'seguranca'), false)
 $$;
 
+/** Esta conta cadastrou e confirmou um aplicativo autenticador? (Só onde o serviço de contas guarda essa informação.) */
+create or replace function interno.tem_fator() returns boolean language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v boolean := false;
+begin
+  if auth.uid() is null or to_regclass('auth.mfa_factors') is null then return false; end if;
+  execute 'select exists (select 1 from auth.mfa_factors m where m.user_id = $1 and m.status = ''verified'')' into v using auth.uid();
+  return coalesce(v, false);
+end $$;
+
 /**
  * A pessoa tem este papel? Com a exigência de segundo fator ligada, coordenação, vice-coordenação e curadoria
  * só valem em sessão confirmada pelo aplicativo autenticador: senha ou link roubado, sozinhos, não abrem nada.
+ * E quem cadastrou o aplicativo por conta própria, em qualquer função, só usa a função depois de digitar o código.
  */
 create or replace function interno.tem(p_papel text, p_disciplina text default null) returns boolean
 language sql stable security definer set search_path = interno, pg_temp as $$
   select auth.uid() is not null
     and (p_papel not in ('coordenacao', 'vice', 'curadoria') or not interno.exige_2fa() or interno.aal2())
+    and (interno.aal2() or not interno.tem_fator())
     and exists (
       select 1 from papeis p join perfis f on f.id = p.usuario
       where p.usuario = auth.uid() and not f.suspenso and p.papel = p_papel
@@ -717,7 +728,7 @@ begin
       'papeis', coalesce((select jsonb_agg(jsonb_build_object('id', p.id, 'papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina)
                           from papeis p where p.usuario = f.id), '[]'::jsonb),
       'segundo_fator', interno.aal2(),
-      'exige_segundo_fator', interno.exige_2fa() and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('coordenacao', 'vice', 'curadoria')),
+      'exige_segundo_fator', interno.tem_fator() or (interno.exige_2fa() and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('coordenacao', 'vice', 'curadoria'))),
       'avisos', (select count(*) from avisos a where a.para = f.id and not a.lido))
     from perfis f where f.id = v);
 end $$;
