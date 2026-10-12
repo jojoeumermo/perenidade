@@ -6,6 +6,7 @@ import { areaSlugs } from "@/lib/areas";
 import { leads, type Me, type Role, rpc } from "@/lib/backend";
 import { useI18n } from "../I18n";
 import { Abas, Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Convites } from "./Convites";
 
 interface Candidatura {
@@ -72,7 +73,9 @@ export function Pessoas({ me }: { me: Me }) {
     pedidos.recarregar();
     pessoas.recarregar();
   });
-  const [novo, setNovo] = useState<{ usuario: string; papel: Role["papel"]; disciplina: string }>({ usuario: "", papel: "educacao", disciplina: "" });
+  const [novo, setNovo] = useState<{ papel: Role["papel"]; disciplina: string }>({ papel: "educacao", disciplina: "" });
+  /** Quem vai receber a função: escolhida na busca, não numa lista com todo mundo. */
+  const [quem, setQuem] = useState<PessoaAchada | null>(null);
   const [filtro, setFiltro] = useState("");
   const [aba, setAba] = useState<"equipe" | "funcao" | "convites" | "pedidos">("equipe");
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
@@ -163,19 +166,12 @@ export function Pessoas({ me }: { me: Me }) {
 
       <section hidden={aba !== "funcao"}>
         <h2 className="font-serif text-2xl font-semibold">Confiar uma função</h2>
-        <p className="mt-1 text-ink-soft">A pessoa precisa ter entrado no site pelo menos uma vez para aparecer na lista.</p>
+        <p className="mt-1 text-ink-soft">Procure a pessoa pelo nome ou pelo e-mail. Ela precisa ter entrado no site pelo menos uma vez para aparecer na busca.</p>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
-          <label className="block">
-            Pessoa
-            <select value={novo.usuario} onChange={(e) => setNovo({ ...novo, usuario: e.target.value })} className={campo}>
-              <option value="">Escolha…</option>
-              {pessoas.dados?.map((pessoa) => (
-                <option key={pessoa.id} value={pessoa.id}>
-                  {pessoa.nome} ({pessoa.email})
-                </option>
-              ))}
-            </select>
-          </label>
+          <div>
+            <span className="block">Pessoa</span>
+            <BuscaDePessoa escolhida={quem} escolher={setQuem} reserva={pessoas.dados ?? []} />
+          </div>
           <label className="block">
             Função
             <select value={novo.papel} onChange={(e) => setNovo({ ...novo, papel: e.target.value as Role["papel"] })} className={campo}>
@@ -201,8 +197,10 @@ export function Pessoas({ me }: { me: Me }) {
         <button
           type="button"
           className={`mt-3 ${botao}`}
-          disabled={acao.ocupado || !novo.usuario || (novo.papel === "educacao" && !novo.disciplina)}
-          onClick={() => acao.agir("papel_conceder", { p_usuario: novo.usuario, p_papel: novo.papel, p_disciplina: novo.disciplina || null }, "Função confiada.")}
+          disabled={acao.ocupado || !quem || (novo.papel === "educacao" && !novo.disciplina)}
+          onClick={async () => {
+            if (quem && (await acao.agir("papel_conceder", { p_usuario: quem.id, p_papel: novo.papel, p_disciplina: novo.disciplina || null }, `Função confiada a ${quem.nome}.`))) setQuem(null);
+          }}
         >
           Confiar função
         </button>
