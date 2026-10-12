@@ -20,9 +20,10 @@ interface Invite {
 }
 
 /**
- * A entrada do site. Não existe cadastro aberto nem "esqueci a senha": quem tem conta entra com e-mail e senha;
- * quem recebeu um convite da coordenação cria a conta pelo endereço do convite; e quem recebeu um link de
- * senha nova (enviado pela coordenação) escolhe a senha aqui.
+ * A entrada do site. Quem tem conta entra com e-mail e senha; qualquer pessoa cria uma conta de participante da
+ * comunidade (sem função nenhuma: o que ela escreve espera a mediação); quem recebeu um convite da coordenação cria a
+ * conta pelo endereço do convite, já com a função combinada; e quem recebeu um link de senha nova escolhe a senha aqui.
+ * Não existe "esqueci a senha" automático.
  */
 export function SignIn({ s }: { s: Dict["auth"] }) {
   const { lang, t } = useI18n();
@@ -31,6 +32,10 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   const hydrated = useHydrated();
   const code = hydrated ? (new URLSearchParams(window.location.search).get("convite") ?? "") : "";
   const recovering = hydrated && /type=recovery/.test(window.location.hash + window.location.search);
+  /** Cadastro aberto: a pessoa chegou por "Criar conta" (da Comunidade, por exemplo) ou escolheu aqui. */
+  const [signingUp, setSigningUp] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const asked = hydrated && new URLSearchParams(window.location.search).has("criar");
   const [recovery, setRecovery] = useState(false);
   const [invite, setInvite] = useState<Invite | null>(null);
   const [email, setEmail] = useState("");
@@ -82,6 +87,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   if (!hasBackend) return <p className="mt-8 text-lg text-ink-soft">{s.offline}</p>;
   const waiting = captchaEnabled && !token;
   const creating = Boolean(code);
+  const opening = !creating && (signingUp || (asked && !dismissed));
   const address = invite?.email || email;
   const done = () => {
     // A resposta do desafio vale uma vez só: pede outra para a próxima tentativa.
@@ -134,7 +140,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     setState("sending");
     try {
       const supabase = await getClient();
-      const { data, error } = await supabase.auth.signUp({ email: address, password, options: { data: { convite: code }, captchaToken: token || undefined } });
+      const { data, error } = await supabase.auth.signUp({ email: address, password, options: { data: code ? { convite: code } : {}, captchaToken: token || undefined } });
       if (error) throw error;
       // Tira o código do endereço: ele já foi gasto e não precisa ficar no histórico do navegador.
       window.history.replaceState(null, "", `/${lang}/entrar`);
@@ -241,6 +247,38 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     );
   }
 
+  if (opening) {
+    return (
+      <form className="mt-8 max-w-md space-y-5 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void create(); }}>
+        <h2 className="font-serif text-2xl font-semibold">{s.createTitle}</h2>
+        <label className="block">
+          {s.email}
+          <input type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className={field} />
+        </label>
+        {twice}
+        <Captcha action="cadastro" lang={lang} round={round} onToken={receive} />
+        <button type="submit" disabled={state === "sending" || !email.includes("@") || waiting || weak} className={primary}>{s.create}</button>
+        {state === "invalid" && <p role="alert" className="text-oxblood">{s.createFailed}</p>}
+        <p className="text-ink-soft">{s.createWhy}</p>
+        <p>
+          <button
+            type="button"
+            className="cursor-pointer underline hover:text-oxblood"
+            onClick={() => {
+              window.history.replaceState(null, "", `/${lang}/entrar`);
+              setSigningUp(false);
+              setDismissed(true);
+              setState("idle");
+            }}
+          >
+            {s.toEnter}
+          </button>
+        </p>
+        {footer}
+      </form>
+    );
+  }
+
   return (
     <form className="mt-8 max-w-md space-y-5 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void enter(); }}>
       <label className="block">
@@ -261,6 +299,11 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         </p>
       )}
       <p className="text-ink-soft">{s.why}</p>
+      <p>
+        <button type="button" className="cursor-pointer font-medium underline hover:text-oxblood" onClick={() => { setSigningUp(true); setState("idle"); }}>
+          {s.toCreate}
+        </button>
+      </p>
       {footer}
     </form>
   );

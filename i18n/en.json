@@ -1130,7 +1130,7 @@
   "auth": {
     "eyebrow": "Volunteers and community",
     "title": "Sign in",
-    "lead": "You do not need an account to study. Signing in is for people invited by the coordination: volunteers and community members.",
+    "lead": "You don't need an account to study. An account is for taking part in the Community and for those who work as volunteers.",
     "email": "Your e-mail",
     "password": "Password",
     "enter": "Sign in",
@@ -1141,7 +1141,7 @@
     "codeWrong": "Wrong code. Check the app and try again.",
     "codeOther": "Sign in with another account",
     "failed": "Could not finish. Try again in a few minutes.",
-    "why": "There is no open sign-up and no \"forgot my password\" here: accounts are created by invitation from the coordination. Lost your password? Talk to whoever invited you.",
+    "why": "No account yet? Create one, with e-mail and password, to ask and answer in the Community. Lost your password? Talk to the coordination.",
     "offline": "Sign-in is not active in this copy of the site yet.",
     "consent": "By signing in you accept the terms of use and confirm you have read how we handle your data:",
     "inviteTitle": "You have been invited",
@@ -1154,7 +1154,13 @@
     "confirm": "Account created. If a confirmation e-mail arrives, open it; then sign in with your e-mail and password.",
     "newPasswordTitle": "Choose a new password",
     "save": "Save password",
-    "saved": "Password saved."
+    "saved": "Password saved.",
+    "toCreate": "Create an account to take part in the Community",
+    "toEnter": "I already have an account: sign in",
+    "createTitle": "Create account",
+    "createWhy": "The account lets you ask and answer in the Community. Everything you write is read by a mediator before it appears. We keep only your e-mail; the name shown on the site starts as a nickname, which you can change.",
+    "createFailed": "The account could not be created. This e-mail may already have an account, or sign-up may be closed at the moment.",
+    "volunteerLink": "Want to volunteer? Fill in the application"
   },
   "radio": {
     "eyebrow": "On air",
@@ -1199,7 +1205,9 @@
     "limite_pedidos": "You already have three open requests. Wait for an answer or cancel one.",
     "conteudo_recusado": "The text has words this site does not accept. Rewrite it and send again.",
     "sem_links": "Text only here: no website addresses, images or files.",
-    "envios_pausados": "Submissions are paused at the moment."
+    "envios_pausados": "Submissions are paused at the moment.",
+    "acesso_bloqueado": "Submissions from this network have been blocked by the mediators.",
+    "ja_pediu": "You have already sent this request; it is under review."
   },
   "community": {
     "eyebrow": "Community",
@@ -1256,7 +1264,11 @@
     "accepted": "Answer chosen by the person who asked",
     "staff": "team",
     "held": "Message received. It will appear for everyone once a mediator has read it.",
-    "pending": "awaiting mediation"
+    "pending": "awaiting mediation",
+    "signUp": "Create account",
+    "ban": "Ban the author",
+    "banConfirm": "Confirm the ban",
+    "banned": "Account banned. The coordination has been notified."
   },
   "mural": {
     "eyebrow": "Solidarity economy",
@@ -1418,5 +1430,31 @@
     "description": "Historical posters, prints and photographs of the workers' struggle, in the public domain, with context and source.",
     "publicDomain": "Public domain image. Source:",
     "note": "Only public domain works are shown here, stored on this site with their source. A poster is a document of its time: showing it is not endorsing everything that was done in its name."
+  },
+  "volunteer": {
+    "title": "Volunteer application",
+    "lead": "Fill in the form. The coordination reads every application and replies to the e-mail you give.",
+    "name": "Full name",
+    "email": "Contact e-mail",
+    "role": "Role you want",
+    "discipline": "Subject",
+    "chooseDiscipline": "Choose…",
+    "message": "Introduction: tell us about your experience and why you want to help",
+    "messageHint": "At least 30 characters.",
+    "send": "Send application",
+    "sent": "Application received. The coordination will read it and reply to the e-mail you gave.",
+    "privacy": "Your name and e-mail are seen only by the coordination and are used only to reply to the application.",
+    "offline": "Applications are not active on this copy of the site yet.",
+    "roles": {
+      "educacao": "Educator",
+      "mediacao": "Community mediator",
+      "revisao": "Reviewer",
+      "traducao": "Translator",
+      "jornalismo": "Journalist and radio host",
+      "mentoria": "Tutoring",
+      "design": "Designer",
+      "desenvolvimento": "Infrastructure and development",
+      "curadoria": "Curator"
+    }
   }
 }

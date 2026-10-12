@@ -11,6 +11,8 @@ export interface Controles {
   faixa: string;
   pausa: boolean;
   motivo: string;
+  /** Qualquer pessoa pode criar conta de participante da comunidade. */
+  cadastro?: boolean;
 }
 
 /** O que a coordenação muda no site inteiro, na hora, sem publicar nada. */
@@ -104,10 +106,29 @@ function Formulario({ inicial, recarregar, aviso, setAviso }: { inicial: Control
         </div>
       </section>
 
+      <section className={cartao}>
+        <h2 className="font-serif text-xl font-semibold">Cadastro da comunidade</h2>
+        <p className="mt-1 text-ink-soft">
+          Com o cadastro aberto, qualquer pessoa cria conta com e-mail e senha para perguntar e responder na Comunidade. A conta nasce sem função nenhuma, e tudo o que ela escreve espera a
+          mediação. Fechado, só entra quem recebe convite. A pausa geral de envios também fecha o cadastro enquanto durar.
+        </p>
+        <p className="mt-3 font-semibold">{inicial.cadastro === false ? "O cadastro está fechado: só por convite." : "O cadastro está aberto."}</p>
+        <div className="mt-4">
+          <button
+            type="button"
+            className={inicial.cadastro === false ? botao : botaoClaro}
+            disabled={ocupado}
+            onClick={() => salvar({ faixa: inicial.faixa, pausa: inicial.pausa, motivo: inicial.motivo, cadastro: inicial.cadastro === false }, inicial.cadastro === false ? "Cadastro reaberto." : "Cadastro fechado: só por convite.")}
+          >
+            {inicial.cadastro === false ? "Reabrir o cadastro" : "Fechar o cadastro"}
+          </button>
+        </div>
+      </section>
+
       <div className="lg:col-span-2">
         <Aviso texto={aviso} />
         <p className="max-w-3xl text-ink-soft">
-          As duas mudanças valem na hora no serviço. Quem já está com o site aberto passa a ver a faixa nova em até dez minutos. Tudo o que é mexido aqui fica no registro de atividades.
+          As mudanças valem na hora no serviço. Quem já está com o site aberto passa a ver a faixa nova em até dez minutos. Tudo o que é mexido aqui fica no registro de atividades.
         </p>
       </div>
     </div>
