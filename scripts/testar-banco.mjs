@@ -304,6 +304,45 @@ await espera("convite vencido deixa de valer", async () => { const c = await rpc
 await recusa("logado não gera convite pelo banco", () => rpc(como(ids.coord), "convidar_pelo_banco", { p_email: "x@teste.local" }), "permission denied");
 await espera("dono do banco gera convite de emergência", () => dono("select public.convidar_pelo_banco('socorro@teste.local') as r"), (r) => /^\/pt\/entrar\?convite=[a-f0-9]{64}$/.test(r.rows[0].r));
 
+// ── Trabalho em conjunto ──
+let conjunta;
+await espera("educador envia uma aula que vai precisar de desenho", async () => (conjunta = await rpc(como(ids.prof), "contribuir", { p: aula({ titulo: "Função afim com gráficos" }) })), (r) => Boolean(r.id));
+await recusa("designer não abre a aula de outro sem ser chamado", () => rpc(como(ids.designer), "contribuicao_ver", { p_id: conjunta.id }), "sem_permissao");
+await recusa("designer não edita a aula sem ser chamado", () => rpc(como(ids.designer), "contribuicao_editar", { p_id: conjunta.id, p: aula({ titulo: "Tomada" }) }), "sem_permissao");
+await recusa("ninguém libera a contribuição de outra pessoa", () => rpc(como(ids.jornal), "colaboracao_abrir", { p_id: conjunta.id, p_usuario: ids.designer }), "sem_permissao");
+await recusa("não se chama quem não é da equipe", () => rpc(como(ids.prof), "colaboracao_abrir", { p_id: conjunta.id, p_usuario: ids.leitora }), "invalido:usuario");
+await recusa("não se chama a si mesmo", () => rpc(como(ids.prof), "colaboracao_abrir", { p_id: conjunta.id, p_usuario: ids.prof }), "invalido:usuario");
+await espera("educador chama o designer e ele recebe o recado na hora", async () => { await rpc(como(ids.prof), "colaboracao_abrir", { p_id: conjunta.id, p_usuario: ids.designer }); return rpc(como(ids.designer), "avisos_meus"); }, (r) => r.some((x) => x.texto.includes("Função afim com gráficos")));
+await espera("a aula aparece em compartilhadas comigo", () => rpc(como(ids.designer), "colaboracoes_minhas"), (r) => r.length === 1 && r[0].id === conjunta.id);
+await espera("o resumo do painel conta o que foi compartilhado", () => rpc(como(ids.designer), "painel_resumo"), (r) => r.juntas === 1);
+await espera("o designer abre e vê que é colaborador", () => rpc(como(ids.designer), "contribuicao_ver", { p_id: conjunta.id }), (r) => r.colaboro === true && r.minha === false && r.colaboradores.length === 1 && r.colaboradores[0].nome === "Davi Designer");
+let versaoAntiga;
+await espera("a contribuição tem versão, que quem edita devolve", async () => (versaoAntiga = (await rpc(como(ids.prof), "contribuicao_ver", { p_id: conjunta.id })).versao), (r) => typeof r === "string" && r.length > 10);
+await espera("o designer edita a aula do educador", async () => { await rpc(como(ids.designer), "contribuicao_editar", { p_id: conjunta.id, p: { titulo: "Função afim com gráficos", corpo: "Texto da aula, agora com a figura do gráfico da função.", dados: aula().dados, fontes: fonte } }); return rpc(como(ids.prof), "contribuicao_ver", { p_id: conjunta.id }); }, (r) => r.corpo.includes("figura do gráfico") && r.minha === true);
+await recusa("quem guarda por cima de uma versão antiga é avisado, e nada é sobrescrito", () => rpc(como(ids.prof), "contribuicao_editar", { p_id: conjunta.id, p: { ...aula({ titulo: "Função afim com gráficos" }), versao: versaoAntiga } }), "mudou_enquanto_editava");
+await espera("o texto do designer continua lá, com o nome de quem mexeu por último", () => rpc(como(ids.prof), "contribuicao_ver", { p_id: conjunta.id }), (r) => r.corpo.includes("figura do gráfico") && r.editado_por === "Davi Designer" && r.versao !== versaoAntiga);
+await espera("com a versão atual, o educador guarda normalmente", async () => { const agora = await rpc(como(ids.prof), "contribuicao_ver", { p_id: conjunta.id }); await rpc(como(ids.prof), "contribuicao_editar", { p_id: conjunta.id, p: { titulo: agora.titulo, corpo: agora.corpo + " Revisado pelo educador.", dados: agora.dados, fontes: agora.fontes, versao: agora.versao } }); return rpc(como(ids.prof), "contribuicao_ver", { p_id: conjunta.id }); }, (r) => r.corpo.endsWith("Revisado pelo educador.") && r.editado_por !== "Davi Designer");
+await recusa("versão que não é data é recusada", () => rpc(como(ids.prof), "contribuicao_editar", { p_id: conjunta.id, p: { ...aula({ titulo: "Função afim com gráficos" }), versao: "'; drop table x; --" } }), "invalido:versao");
+await recusa("o acesso vale só para aquela contribuição", () => rpc(como(ids.designer), "contribuicao_ver", { p_id: doProf.id }), "sem_permissao");
+await recusa("colaborador não chama mais gente", () => rpc(como(ids.designer), "colaboracao_abrir", { p_id: conjunta.id, p_usuario: ids.revisor }), "sem_permissao");
+await espera("quem liberou tira o acesso, e ele acaba na hora", async () => { await rpc(como(ids.prof), "colaboracao_fechar", { p_id: conjunta.id, p_usuario: ids.designer }); return rpc(como(ids.designer), "colaboracoes_minhas"); }, (r) => r.length === 0);
+await espera("sem o acesso, o resumo volta a zero", () => rpc(como(ids.designer), "painel_resumo"), (r) => r.juntas === 0);
+await recusa("sem o acesso, o designer não edita mais", () => rpc(como(ids.designer), "contribuicao_editar", { p_id: conjunta.id, p: aula({ titulo: "De novo" }) }), "sem_permissao");
+await espera("a pessoa chamada pode sair sozinha", async () => { await rpc(como(ids.prof), "colaboracao_abrir", { p_id: conjunta.id, p_usuario: ids.designer }); await rpc(como(ids.designer), "colaboracao_fechar", { p_id: conjunta.id, p_usuario: ids.designer }); return rpc(como(ids.prof), "contribuicao_ver", { p_id: conjunta.id }); }, (r) => r.colaboradores.length === 0);
+await recusa("quem não é da equipe não vê a lista de membros", () => rpc(como(ids.leitora), "equipe_membros"), "sem_permissao");
+await espera("a equipe vê quem é quem, sem e-mail de ninguém", () => rpc(como(ids.designer), "equipe_membros"), (r) => r.length >= 6 && r.some((m) => m.eu && m.nome === "Davi Designer") && !JSON.stringify(r).includes("@"));
+
+// ── Controles do site ──
+await espera("o site lê a configuração pública", () => rpc(anon, "site"), (r) => r.pausa === false && r.faixa === "");
+await recusa("curadoria não mexe nos controles do site", () => rpc({ ...como(ids.curadora), aal: "aal2" }, "site_salvar", { p: { faixa: "x", pausa: true } }), "sem_permissao");
+await espera("coordenação troca a faixa do alto e pausa os envios", () => rpc({ ...como(ids.coord), aal: "aal2" }, "site_salvar", { p: { faixa: "Amanhã, ato na praça às 17h", pausa: true, motivo: "Manutenção" } }), (r) => r.pausa === true);
+await recusa("com a pausa, o mural não recebe anúncio de fora", () => rpc({ papel: "anon", ip: "198.51.100.60" }, "mural_enviar", { p: anuncio() }), "envios_pausados");
+await recusa("com a pausa, o boletim não recebe assinatura", () => rpc({ papel: "anon", ip: "198.51.100.61" }, "boletim_assinar", { p_email: "nova@exemplo.com" }), "envios_pausados");
+await recusa("com a pausa, contribuição de fora não entra", () => rpc({ papel: "anon", ip: "198.51.100.62" }, "contribuir", { p: aula() }), "envios_pausados");
+await espera("a equipe continua trabalhando durante a pausa", () => rpc(como(ids.prof), "contribuir", { p: aula({ titulo: "Aula escrita durante a pausa" }) }), (r) => Boolean(r.id));
+await espera("coordenação retoma os envios", async () => { await rpc({ ...como(ids.coord), aal: "aal2" }, "site_salvar", { p: { faixa: "", pausa: false } }); return rpc({ papel: "anon", ip: "198.51.100.63" }, "boletim_assinar", { p_email: "volta@exemplo.com" }); }, (r) => r.ok);
+await dono("delete from interno.boletim");
+
 // ── Boletim do jornal ──
 await recusa("boletim recusa endereço inválido", () => rpc({ papel: "anon", ip: "198.51.100.40" }, "boletim_assinar", { p_email: "sem-arroba" }), "invalido:email");
 await espera("qualquer pessoa assina o boletim, e assinar duas vezes não duplica", async () => { await rpc({ papel: "anon", ip: "198.51.100.40" }, "boletim_assinar", { p_email: " Leitora@Exemplo.com " }); await rpc({ papel: "anon", ip: "198.51.100.41" }, "boletim_assinar", { p_email: "leitora@exemplo.com" }); return dono("select email from interno.boletim"); }, (r) => r.rows.length === 1 && r.rows[0].email === "leitora@exemplo.com");

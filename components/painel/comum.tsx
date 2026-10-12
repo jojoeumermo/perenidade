@@ -69,6 +69,9 @@ const erros: Record<string, string> = {
   sem_chave: "A coordenação ainda não definiu a chave da conversa da equipe.",
   conteudo_recusado: "O texto tem palavras que o filtro não aceita.",
   sem_links: "Só texto: sem endereços, imagens ou arquivos.",
+  envios_pausados: "Os envios do público estão pausados pela coordenação.",
+  limite_colaboradores: "Cada contribuição pode ter até cinco pessoas trabalhando junto.",
+  mudou_enquanto_editava: "Outra pessoa guardou alterações enquanto você editava. Copie o que escreveu, abra a versão nova e aplique de novo.",
   sem_conexao: "Sem conexão com o serviço.",
   falha: "Algo deu errado. Tente de novo.",
 };
@@ -135,5 +138,26 @@ export function Aviso({ texto }: { texto: string }) {
     <p role="status" className="min-h-5 text-oxblood">
       {texto}
     </p>
+  );
+}
+
+/** Divisões dentro de uma seção do painel, para aparecer uma coisa de cada vez. */
+export function Abas<T extends string>({ opcoes, atual, escolher }: { opcoes: { id: T; nome: string; conta?: number }[]; atual: T; escolher: (id: T) => void }) {
+  return (
+    <div role="tablist" className="mb-6 flex flex-wrap gap-x-6 gap-y-1 border-b border-rule">
+      {opcoes.map((opcao) => (
+        <button
+          key={opcao.id}
+          type="button"
+          role="tab"
+          aria-selected={atual === opcao.id}
+          onClick={() => escolher(opcao.id)}
+          className={`-mb-px cursor-pointer border-b-2 pb-2 ${atual === opcao.id ? "border-ink font-semibold" : "border-transparent text-ink-soft hover:text-ink"}`}
+        >
+          {opcao.nome}
+          {Boolean(opcao.conta) && <span className="ml-1.5 bg-oxblood px-1.5 py-0.5 font-mono text-[0.7rem] font-semibold text-parchment">{opcao.conta}</span>}
+        </button>
+      ))}
+    </div>
   );
 }

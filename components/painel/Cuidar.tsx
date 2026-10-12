@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { can, getClient, storageUrl, type Me } from "@/lib/backend";
-import { Aviso, botao, botaoClaro, campo, data, elo, rotulo, useAcao, useLista } from "./comum";
+import { Abas, Aviso, botao, botaoClaro, campo, data, elo, rotulo, useAcao, useLista } from "./comum";
 
 interface Denuncia {
   id: string;
@@ -27,13 +27,36 @@ interface Anotacao {
 /** Cuidado da comunidade: denúncias (curadoria) e anotações de leitura aguardando (curadoria e educadores). */
 export function Comunidade({ me }: { me: Me }) {
   const curador = can(me, "coordenacao", "curadoria");
+  const [aba, setAba] = useState<"retidas" | "denuncias" | "anotacoes" | "filtro">("retidas");
   return (
-    <div className="space-y-10">
-      <Retidos />
-      {curador && <Denuncias />}
-      <Anotacoes />
-      {curador && <Filtro />}
-      <p className="text-ink-soft">Para ocultar ou trancar uma conversa, abra o tópico na página Comunidade: os botões aparecem para quem cuida.</p>
+    <div>
+      <Abas
+        atual={aba}
+        escolher={setAba}
+        opcoes={[
+          { id: "retidas" as const, nome: "Retidas pelo filtro" },
+          { id: "denuncias" as const, nome: "Denúncias" },
+          { id: "anotacoes" as const, nome: "Anotações" },
+          { id: "filtro" as const, nome: "Filtro de palavras" },
+        ].filter((opcao) => curador || opcao.id === "retidas" || opcao.id === "anotacoes")}
+      />
+      <div hidden={aba !== "retidas"}>
+        <Retidos />
+      </div>
+      {curador && (
+        <div hidden={aba !== "denuncias"}>
+          <Denuncias />
+        </div>
+      )}
+      <div hidden={aba !== "anotacoes"}>
+        <Anotacoes />
+      </div>
+      {curador && (
+        <div hidden={aba !== "filtro"}>
+          <Filtro />
+        </div>
+      )}
+      <p className="mt-8 text-ink-soft">Para ocultar ou trancar uma conversa, abra o tópico na página Comunidade: os botões aparecem para quem cuida.</p>
     </div>
   );
 }
@@ -51,7 +74,8 @@ interface Retido {
 function Retidos() {
   const lista = useLista<Retido[]>("comunidade_retidos");
   const acao = useAcao(lista.recarregar);
-  if (!lista.dados || lista.dados.length === 0) return null;
+  if (!lista.dados) return <Aviso texto={lista.erro || "Carregando…"} />;
+  if (lista.dados.length === 0) return <p className="text-ink-soft">Nenhuma mensagem retida pelo filtro.</p>;
   return (
     <section>
       <h2 className="font-serif text-2xl font-semibold">Retidas pelo filtro</h2>

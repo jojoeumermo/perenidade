@@ -1,13 +1,14 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { can, rpc, type Me } from "@/lib/backend";
 import tipos from "@/lib/tipos.json";
 import { cleanSources, MarkdownEditor, SourcesField, type SourceDraft } from "../Editor";
 import { useI18n } from "../I18n";
 import { Markdown } from "../Markdown";
-import { Aviso, botao, botaoClaro, campo, data, elo, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import type { Membro } from "./Equipe";
 import { editorPt, fontesPt } from "./Escrever";
 
 interface Resumo {
@@ -29,23 +30,36 @@ interface Completa extends Resumo {
   fontes: { titulo: string; autor?: string; url?: string }[];
   alvo: string | null;
   lista_pareceres: { favoravel: boolean; texto: string; criado_em: string; nome: string }[];
+  /** Fui eu que enviei. */
+  minha: boolean;
+  /** Quem enviou me chamou para trabalhar junto. */
+  colaboro: boolean;
+  colaboradores: { id: string; nome: string }[];
+  /** Muda a cada alteração guardada: quem edita devolve a que abriu, para ninguém sobrescrever ninguém. */
+  versao: string;
+  editado_em: string | null;
+  editado_por: string;
 }
 
 const nomeDoTipo = (tipo: string) => (tipos as Record<string, { rotulo: string }>)[tipo]?.rotulo ?? (tipo === "correcao" ? "Correção" : tipo);
 const origem: Record<string, string> = { publico: "contribuição pública", educacao: "educador(a) da disciplina", jornalismo: "jornalismo", curadoria: "curadoria", revisao: "revisão", traducao: "tradução" };
 
-/** Fila de revisão: quem tem papel lê e dá parecer; curadoria e coordenação decidem. */
-export function Fila({ me, minhas = false }: { me: Me; minhas?: boolean }) {
+/**
+ * A mesma lista em três usos: a fila de revisão (quem tem função lê e dá parecer; curadoria e coordenação decidem),
+ * os envios da própria pessoa, e as contribuições de colegas que a chamaram para trabalhar junto.
+ */
+export function Fila({ me, minhas = false, juntas = false }: { me: Me; minhas?: boolean; juntas?: boolean }) {
   const { t } = useI18n();
   const [status, setStatus] = useState("pendente");
-  const lista = useLista<Resumo[]>(minhas ? "contribuicoes_minhas" : "fila", minhas ? {} : { p_status: status });
+  const propria = minhas || juntas;
+  const lista = useLista<Resumo[]>(minhas ? "contribuicoes_minhas" : juntas ? "colaboracoes_minhas" : "fila", propria ? {} : { p_status: status });
   const [aberta, setAberta] = useState<string | null>(null);
 
-  if (aberta) return <Detalhe id={aberta} me={me} minhas={minhas} voltar={() => { setAberta(null); lista.recarregar(); }} />;
+  if (aberta) return <Detalhe id={aberta} me={me} semParecer={propria} voltar={() => { setAberta(null); lista.recarregar(); }} />;
 
   return (
     <div>
-      {!minhas && (
+      {!propria && (
         <div className="flex flex-wrap gap-2">
           {["pendente", "aprovada", "publicada", "recusada", "resolvida"].map((opcao) => (
             <button key={opcao} type="button" onClick={() => setStatus(opcao)} aria-pressed={status === opcao} className={`cursor-pointer border-2 px-3 py-1.5 ${status === opcao ? "border-ink bg-ink text-parchment" : "border-rule hover:border-gold"}`}>
@@ -55,7 +69,11 @@ export function Fila({ me, minhas = false }: { me: Me; minhas?: boolean }) {
         </div>
       )}
       <Aviso texto={lista.erro} />
-      {lista.dados?.length === 0 && <p className="mt-4 text-ink-soft">{minhas ? "Você ainda não enviou nada." : "Nada nesta situação."}</p>}
+      {lista.dados?.length === 0 && (
+        <p className="mt-4 border border-rule bg-parchment-deep px-4 py-6 text-center text-ink-soft">
+          {minhas ? "Você ainda não enviou nada." : juntas ? "Ninguém chamou você para trabalhar junto por enquanto. Quando chamar, a contribuição aparece aqui e você recebe um recado na Mesa." : "Nada nesta situação."}
+        </p>
+      )}
       <ul className="mt-4 divide-y divide-rule border-y border-rule">
         {lista.dados?.map((item) => (
           <li key={item.id} className="py-4">
@@ -78,19 +96,31 @@ export function Fila({ me, minhas = false }: { me: Me; minhas?: boolean }) {
   );
 }
 
-function Detalhe({ id, me, minhas, voltar }: { id: string; me: Me; minhas: boolean; voltar: () => void }) {
+function Detalhe({ id, me, semParecer, voltar }: { id: string; me: Me; semParecer: boolean; voltar: () => void }) {
   const { lang, t } = useI18n();
   const item = useLista<Completa>("contribuicao_ver", { p_id: id });
-  const acao = useAcao(item.recarregar);
+  const { recarregar } = item;
+  const acao = useAcao(recarregar);
   const [nota, setNota] = useState("");
   const [parecer, setParecer] = useState("");
-  const [edicao, setEdicao] = useState<{ titulo: string; corpo: string; fontes: SourceDraft[] } | null>(null);
+  const [edicao, setEdicao] = useState<{ titulo: string; corpo: string; fontes: SourceDraft[]; versao: string } | null>(null);
+
+  // Quem trabalha junto vê o que o colega guardou sem precisar recarregar a página.
+  useEffect(() => {
+    const relogio = window.setInterval(() => {
+      if (document.visibilityState === "visible") recarregar();
+    }, 20000);
+    return () => window.clearInterval(relogio);
+  }, [recarregar]);
+
   const c = item.dados;
   if (!c) return <Aviso texto={item.erro || "Carregando…"} />;
 
   const decide = can(me, "coordenacao", "curadoria");
   const pendente = c.status === "pendente";
-  const podeEditar = pendente && (decide || minhas);
+  const podeEditar = pendente && (decide || c.minha || c.colaboro);
+  /** Alguém guardou outra versão enquanto esta pessoa está com o editor aberto. */
+  const mudou = edicao !== null && edicao.versao !== c.versao;
   const exigeFonte = (tipos as Record<string, { fonte: boolean }>)[c.tipo]?.fonte ?? false;
 
   async function decidir(aprovar: boolean) {
@@ -115,6 +145,8 @@ function Detalhe({ id, me, minhas, voltar }: { id: string; me: Me; minhas: boole
           {c.nome_autor || "sem nome"} · {origem[c.como] ?? c.como} · {data(c.criado_em)}
         </p>
         {c.alvo && <p className="mt-1 font-mono text-xs">página: {c.alvo}</p>}
+        {c.editado_em && <p className="mt-1 text-ink-soft">Última alteração: {c.editado_por || "alguém da equipe"}, {dataHora(c.editado_em)}</p>}
+        {c.minha && c.nota && <p className="mt-2 border-l-2 border-gold pl-3">Recado da curadoria: {c.nota}</p>}
       </div>
 
       {Object.keys(c.dados).length > 0 && (
@@ -130,6 +162,12 @@ function Detalhe({ id, me, minhas, voltar }: { id: string; me: Me; minhas: boole
 
       {edicao ? (
         <div className="space-y-4">
+          {mudou && (
+            <p role="alert" className="border-2 border-oxblood bg-parchment-deep p-4">
+              <strong>{c.editado_por || "Outra pessoa"}</strong> guardou alterações enquanto você editava. Copie o que você escreveu, abra a versão nova e aplique de novo: assim ninguém perde trabalho.{" "}
+              <button type="button" className={elo} onClick={() => setEdicao(null)}>Abrir a versão nova</button>
+            </p>
+          )}
           <label className="block">
             Título
             <input value={edicao.titulo} onChange={(e) => setEdicao({ ...edicao, titulo: e.target.value })} maxLength={160} className={campo} />
@@ -140,9 +178,9 @@ function Detalhe({ id, me, minhas, voltar }: { id: string; me: Me; minhas: boole
             <button
               type="button"
               className={botao}
-              disabled={acao.ocupado}
+              disabled={acao.ocupado || mudou}
               onClick={async () => {
-                const ok = await acao.agir("contribuicao_editar", { p_id: id, p: { titulo: edicao.titulo, corpo: edicao.corpo, dados: c.dados, fontes: cleanSources(edicao.fontes) } }, "Alterações guardadas.");
+                const ok = await acao.agir("contribuicao_editar", { p_id: id, p: { titulo: edicao.titulo, corpo: edicao.corpo, dados: c.dados, fontes: cleanSources(edicao.fontes), versao: edicao.versao } }, "Alterações guardadas.");
                 if (ok) setEdicao(null);
               }}
             >
@@ -172,12 +210,14 @@ function Detalhe({ id, me, minhas, voltar }: { id: string; me: Me; minhas: boole
             exigeFonte && <p className="text-oxblood">Sem fontes.</p>
           )}
           {podeEditar && (
-            <button type="button" className={elo} onClick={() => setEdicao({ titulo: c.titulo, corpo: c.corpo, fontes: c.fontes.length > 0 ? c.fontes.map((f) => ({ titulo: f.titulo, autor: f.autor ?? "", url: f.url ?? "" })) : [{ titulo: "", autor: "", url: "" }] })}>
-              Editar antes de decidir
+            <button type="button" className={botaoClaro} onClick={() => setEdicao({ titulo: c.titulo, corpo: c.corpo, versao: c.versao, fontes: c.fontes.length > 0 ? c.fontes.map((f) => ({ titulo: f.titulo, autor: f.autor ?? "", url: f.url ?? "" })) : [{ titulo: "", autor: "", url: "" }] })}>
+              {c.minha || c.colaboro ? "Editar" : "Editar antes de decidir"}
             </button>
           )}
         </>
       )}
+
+      {pendente && me.papeis.length > 0 && (c.minha || c.colaboro || decide) && <Conjunto c={c} me={me} decide={decide} depois={recarregar} sair={voltar} />}
 
       <section>
         <p className={rotulo}>Pareceres</p>
@@ -192,7 +232,7 @@ function Detalhe({ id, me, minhas, voltar }: { id: string; me: Me; minhas: boole
             </li>
           ))}
         </ul>
-        {!minhas && pendente && (
+        {!semParecer && pendente && (
           <div className="mt-3">
             <textarea value={parecer} onChange={(e) => setParecer(e.target.value)} rows={3} maxLength={2000} placeholder="Conferiu datas, contas e fontes? Diga o que viu." aria-label="Seu parecer" className={campo} />
             <div className="mt-2 flex flex-wrap gap-3">
@@ -215,7 +255,7 @@ function Detalhe({ id, me, minhas, voltar }: { id: string; me: Me; minhas: boole
         )}
       </section>
 
-      {decide && pendente && !minhas && (
+      {decide && pendente && !semParecer && (
         <section className="border-2 border-ink p-5">
           <p className={rotulo}>Decisão da curadoria</p>
           <textarea value={nota} onChange={(e) => setNota(e.target.value)} rows={2} maxLength={2000} placeholder="Recado para quem enviou (opcional)" aria-label="Recado para quem enviou" className={campo} />
@@ -228,5 +268,94 @@ function Detalhe({ id, me, minhas, voltar }: { id: string; me: Me; minhas: boole
       )}
       <Aviso texto={acao.aviso} />
     </div>
+  );
+}
+
+/**
+ * Trabalho em conjunto: quem enviou (ou a curadoria) chama um colega específico para mexer nesta contribuição.
+ * O acesso vale só para ela, só enquanto está pendente, e é tirado quando quem liberou quiser.
+ */
+function Conjunto({ c, me, decide, depois, sair }: { c: Completa; me: Me; decide: boolean; depois: () => void; sair: () => void }) {
+  const { t } = useI18n();
+  const manda = c.minha || decide;
+  const membros = useLista<Membro[]>("equipe_membros");
+  const acao = useAcao(depois);
+  const [escolha, setEscolha] = useState("");
+  const dentro = new Set(c.colaboradores.map((pessoa) => pessoa.id));
+  const livres = membros.dados?.filter((membro) => !membro.eu && !dentro.has(membro.id)) ?? [];
+  const funcoes = (membro: Membro) =>
+    [...new Set(membro.papeis.map((papel) => `${papeis[papel.papel]}${papel.disciplina ? ` de ${t.areas[papel.disciplina as keyof typeof t.areas]?.[0] ?? papel.disciplina}` : ""}`))].join(", ");
+
+  return (
+    <section className="border border-rule bg-parchment-deep p-5">
+      <p className={rotulo}>Trabalho em conjunto</p>
+      <p className="mt-1 text-ink-soft">
+        {manda
+          ? "Precisa de um gráfico, de uma imagem, de uma revisão? Chame um colega: ele recebe o recado na hora e passa a poder abrir e editar só esta contribuição, até você tirar o acesso ou ela ser decidida."
+          : "Você foi chamado para trabalhar nesta contribuição. Pode abrir e editar enquanto ela estiver pendente."}
+      </p>
+      {c.colaboradores.length > 0 && (
+        <ul className="mt-3 divide-y divide-rule border-y border-rule">
+          {c.colaboradores.map((pessoa) => (
+            <li key={pessoa.id} className="flex flex-wrap items-baseline justify-between gap-3 py-2">
+              <span>
+                <strong>{pessoa.nome}</strong>
+                {pessoa.id === me.id && " (você)"}
+              </span>
+              {pessoa.id === me.id ? (
+                <button
+                  type="button"
+                  className={elo}
+                  disabled={acao.ocupado}
+                  onClick={async () => {
+                    try {
+                      await rpc("colaboracao_fechar", { p_id: c.id, p_usuario: pessoa.id });
+                      sair();
+                    } catch (erro) {
+                      acao.setAviso(textoDoErro(erro));
+                    }
+                  }}
+                >
+                  Sair desta colaboração
+                </button>
+              ) : (
+                manda && (
+                  <button type="button" className={elo} disabled={acao.ocupado} onClick={() => acao.agir("colaboracao_fechar", { p_id: c.id, p_usuario: pessoa.id }, "Acesso retirado.")}>
+                    Tirar o acesso
+                  </button>
+                )
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+      {manda && (
+        <div className="mt-3 flex flex-wrap items-end gap-3">
+          <label className="block min-w-56 flex-1">
+            Chamar
+            <select value={escolha} onChange={(e) => setEscolha(e.target.value)} className={campo}>
+              <option value="">Escolha alguém da equipe…</option>
+              {livres.map((membro) => (
+                <option key={membro.id} value={membro.id}>
+                  {membro.nome} · {funcoes(membro)}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button
+            type="button"
+            className={botao}
+            disabled={acao.ocupado || !escolha}
+            onClick={async () => {
+              const ok = await acao.agir("colaboracao_abrir", { p_id: c.id, p_usuario: escolha }, "Acesso liberado. A pessoa já recebeu o recado.");
+              if (ok) setEscolha("");
+            }}
+          >
+            Liberar acesso
+          </button>
+        </div>
+      )}
+      <Aviso texto={membros.erro || acao.aviso} />
+    </section>
   );
 }

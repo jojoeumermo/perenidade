@@ -4,6 +4,7 @@ import { localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { site } from "@/lib/site";
 import { AccountLink, LanguageSwitcher, NavLinks, NewsLink, RadioLink } from "./NavLinks";
+import { Strip } from "./Strip";
 import { ThemeToggle } from "./ThemeToggle";
 
 export function Header({ lang, t }: { lang: Locale; t: Dict }) {
@@ -15,8 +16,7 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
       >
         {t.common.skip}
       </a>
-      {/* Cinco toques seguidos nesta faixa acionam a saída rápida (veja Shortcuts). */}
-      <div data-saida className="bg-ink px-4 py-1.5 text-center font-mono text-xs tracking-wide text-parchment">{t.common.strip}</div>
+      <Strip fallback={t.common.strip} />
       {/* Três colunas: o nome à esquerda, o menu no centro da página (alinhado com a faixa de cima) e, à direita, conta, idioma e tema. */}
       <div className="mx-auto flex max-w-7xl items-center gap-x-2 px-3 py-3 sm:gap-x-5 sm:px-4 sm:py-4 lg:grid lg:gap-x-10 lg:grid-cols-[1fr_auto_1fr]">
         <Link href={localePath(lang, "/")} className="flex min-w-0 items-center gap-2 sm:shrink-0 sm:gap-2.5 lg:justify-self-start">

@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { leads, rpc, type Me } from "@/lib/backend";
-import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 
 // ───────────── Aviso de abertura ─────────────
 
@@ -144,6 +144,7 @@ export function SegurancaSucessao({ me }: { me: Me }) {
   const [herdeiro, setHerdeiro] = useState("");
   const [confirma, setConfirma] = useState(false);
   const [sala, setSala] = useState<string | null>(null);
+  const [aba, setAba] = useState<"fator" | "sucessao" | "passar" | "sala">("fator");
 
   const atual = ordem ?? sucessao.dados?.ordem.map((pessoa) => pessoa.id) ?? [];
   const nomeDe = (id: string) => pessoas.dados?.find((pessoa) => pessoa.id === id)?.nome ?? sucessao.dados?.ordem.find((pessoa) => pessoa.id === id)?.nome ?? "…";
@@ -157,8 +158,18 @@ export function SegurancaSucessao({ me }: { me: Me }) {
   };
 
   return (
-    <div className="max-w-3xl space-y-10">
-      <section>
+    <div className="max-w-3xl">
+      <Abas
+        atual={aba}
+        escolher={setAba}
+        opcoes={[
+          { id: "fator" as const, nome: "Segundo fator" },
+          { id: "sucessao" as const, nome: "Sucessão" },
+          { id: "passar" as const, nome: "Passar a coordenação" },
+          { id: "sala" as const, nome: "Sala de voz e vídeo" },
+        ].filter((opcao) => lider || opcao.id !== "passar")}
+      />
+      <section hidden={aba !== "fator"}>
         <h2 className="font-serif text-2xl font-semibold">Segundo fator obrigatório</h2>
         <p className="mt-1 text-ink-soft">
           Com esta exigência ligada, coordenação, vice-coordenação e curadoria só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
@@ -179,10 +190,10 @@ export function SegurancaSucessao({ me }: { me: Me }) {
             {seguranca.dados?.exigir_2fa ? "Desligar a exigência" : "Ligar a exigência"}
           </button>
         )}
-        <p className="mt-2 text-ink-soft">Só é possível ligar depois de cadastrar e confirmar o seu próprio aplicativo (em Início → Segurança da conta). Assim ninguém se tranca do lado de fora.</p>
+        <p className="mt-2 text-ink-soft">Só é possível ligar depois de cadastrar e confirmar o seu próprio aplicativo (em Minha conta, Segundo fator). Assim ninguém se tranca do lado de fora.</p>
       </section>
 
-      <section>
+      <section hidden={aba !== "sucessao"}>
         <h2 className="font-serif text-2xl font-semibold">Ordem de sucessão</h2>
         <p className="mt-1 text-ink-soft">
           Se a coordenação ficar mais de 90 dias sem entrar no painel, ela passa sozinha para a primeira pessoa desta lista que tenha entrado nos últimos 30 dias. Quem saiu continua na equipe, como vice-coordenação.
@@ -236,7 +247,7 @@ export function SegurancaSucessao({ me }: { me: Me }) {
       </section>
 
       {lider && (
-        <section>
+        <section hidden={aba !== "passar"}>
           <h2 className="font-serif text-2xl font-semibold">Passar a coordenação</h2>
           <p className="mt-1 text-ink-soft">Você entrega o posto e passa a ser vice-coordenação. Só a nova coordenação pode devolver.</p>
           <div className="mt-3 flex flex-wrap items-end gap-3">
@@ -264,10 +275,10 @@ export function SegurancaSucessao({ me }: { me: Me }) {
         </section>
       )}
 
-      <section>
-        <h2 className="font-serif text-2xl font-semibold">Sala cifrada da equipe</h2>
+      <section hidden={aba !== "sala"}>
+        <h2 className="font-serif text-2xl font-semibold">Sala de voz e vídeo da equipe</h2>
         <p className="mt-1 text-ink-soft">
-          Para conversa de voz, vídeo e assuntos sensíveis, use uma sala com criptografia de ponta a ponta fora do site (por exemplo, uma sala Matrix aberta no aplicativo Element). Cole aqui o endereço de convite: ele aparece na aba Equipe para todos os voluntários.
+          A conversa escrita da equipe acontece na Rede interna. Para voz e vídeo, use uma sala com criptografia de ponta a ponta fora do site (por exemplo, uma sala Matrix aberta no aplicativo Element). Cole aqui o endereço de convite: ele aparece na Rede interna para toda a equipe.
         </p>
         <div className="mt-3 flex flex-wrap items-end gap-3">
           <label className="block min-w-60 flex-1">
@@ -299,8 +310,8 @@ interface Registro {
 }
 
 const acoes: Record<string, string> = {
-  papel_confiado: "confiou um papel a",
-  papel_retirado: "retirou um papel de",
+  papel_confiado: "confiou uma função a",
+  papel_retirado: "retirou uma função de",
   pedido_aceito: "aceitou o pedido de voluntariado de",
   pedido_recusado: "recusou o pedido de voluntariado de",
   conta_suspensa: "suspendeu a conta de",
@@ -338,7 +349,28 @@ const acoes: Record<string, string> = {
   certificado_emitido: "emitiu um certificado para",
   certificado_cancelado: "cancelou um certificado",
   arquivo_bloqueado: "bloqueou um arquivo",
+  boletim_lido: "abriu a lista do boletim",
+  colaboracao_aberta: "chamou um colega para trabalhar junto em uma contribuição",
+  colaboracao_fechada: "encerrou um trabalho em conjunto",
+  contribuicao_editada: "editou a contribuição de outra pessoa",
+  convite_criado: "criou um convite",
+  convite_revogado: "cancelou um convite",
+  convite_aceito: "entrou com um convite",
+  equipe_apagada: "apagou todas as conversas da rede interna",
+  equipe_chave_definida: "definiu a chave da rede interna",
+  equipe_sala: "mudou o endereço da sala de voz e vídeo",
+  site_configurado: "mudou os controles do site",
+  isca: "endereço-isca pedido por alguém de fora:",
 };
+
+/** Os detalhes guardados viram texto de gente: sem identificadores internos, com sim e não no lugar de true e false. */
+const nomesDosDetalhes: Record<string, string> = { faixa: "faixa", pausa: "pausa", motivo: "recado", papel: "função", disciplina: "disciplina", tipo: "tipo", origem: "origem", agente: "programa", exigir_2fa: "segundo fator obrigatório" };
+function detalhesLegiveis(detalhes: Record<string, unknown> | null): string {
+  return Object.entries(detalhes ?? {})
+    .filter(([, valor]) => valor !== "" && valor !== null && !(typeof valor === "string" && /^[0-9a-f-]{36}$/.test(valor)))
+    .map(([chave, valor]) => `${nomesDosDetalhes[chave] ?? chave}: ${typeof valor === "boolean" ? (valor ? "sim" : "não") : typeof valor === "string" ? ((chave === "papel" && (papeis as Record<string, string>)[valor]) || valor) : JSON.stringify(valor)}`)
+    .join(" · ");
+}
 
 /** Quem fez o quê no painel. Guarda por pouco mais de um ano; não registra endereço de rede de ninguém. */
 export function RegistroDeAtividades() {
@@ -368,9 +400,12 @@ export function RegistroDeAtividades() {
           <option value="">Tudo</option>
           <option value="armadilha">Só alertas de função-isca</option>
           <option value="aparelho_novo">Só acessos de aparelho novo</option>
-          <option value="papel_confiado">Só papéis confiados</option>
-          <option value="papel_retirado">Só papéis retirados</option>
+          <option value="papel_confiado">Só funções confiadas</option>
+          <option value="papel_retirado">Só funções retiradas</option>
           <option value="conta_suspensa">Só contas suspensas</option>
+          <option value="site_configurado">Só mudanças nos controles do site</option>
+          <option value="convite_criado">Só convites criados</option>
+          <option value="isca">Só endereços-isca</option>
         </select>
       </label>
       <Aviso texto={estado.erro} />
@@ -380,7 +415,7 @@ export function RegistroDeAtividades() {
             <span className={rotulo}>{dataHora(item.criado_em)}</span>
             <p>
               <strong>{item.nome || "Alguém sem conta"}</strong> {acoes[item.acao] ?? item.acao} {item.alvo_nome || (/^[0-9a-f-]{36}$/.test(item.alvo) ? "" : item.alvo)}
-              {Object.keys(item.detalhes ?? {}).length > 0 && <span className="text-ink-soft"> · {Object.entries(item.detalhes).map(([chave, valor]) => `${chave}: ${typeof valor === "string" ? valor : JSON.stringify(valor)}`).join(" · ")}</span>}
+              {detalhesLegiveis(item.detalhes) && <span className="text-ink-soft"> · {detalhesLegiveis(item.detalhes)}</span>}
             </p>
           </li>
         ))}
