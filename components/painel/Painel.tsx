@@ -284,7 +284,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       </aside>
 
       <div className={menu ? "hidden lg:block" : ""}>
-        <header className="border-b border-rule bg-parchment-deep px-5 py-5 sm:px-8">
+        <header className="no-print border-b border-rule bg-parchment-deep px-5 py-5 sm:px-8">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-gold">{atual.grupo || "Coordenação"}</p>
           <h1 className="mt-1 font-serif text-3xl font-semibold leading-tight">{atual.nome}</h1>
           <p className="mt-1 text-ink-soft">{atual.sobre}</p>
@@ -334,7 +334,7 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           ["Mensagens retidas pelo filtro", r.retidos, "comunidade"],
           ["Pedidos de reforço", r.reforco, "reforco"],
           ["Horas para conferir", r.horas, "horas"],
-          ["Certificados esperando o seu testemunho", r.testemunhar, "horas"],
+          ["Certificados esperando a sua assinatura", r.testemunhar, "horas"],
           ["Anúncios do mural", r.mural, "mural"],
         ] as [string, number, string][]
       ).filter(([, total]) => total > 0)

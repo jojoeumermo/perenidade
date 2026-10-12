@@ -370,6 +370,180 @@ body {
   margin: 1.2cm;
 }
 
+/* ---- Certificado de trabalho voluntário (components/painel/Certificado.tsx) ----
+   Uma folha A4 deitada. Todas as medidas são frações da largura da folha (cqw), então ela sai igual
+   na tela, no celular e no PDF. As cores são fixas: o certificado não muda com o tema do site. */
+.certificado {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 297 / 210;
+  overflow: hidden;
+  background: #fbf7ec;
+  color: #1c1712;
+  font-family: var(--font-serif-display), Georgia, serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.certificado-folha {
+  position: absolute;
+  inset: 2.2cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 0.35cqw solid #1c1712;
+  outline: 0.1cqw solid #a8862f;
+  outline-offset: -1cqw;
+  padding: 3.2cqw 7cqw 2.4cqw;
+  text-align: center;
+}
+.certificado-fundo {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: 40cqw;
+  height: 40cqw;
+  transform: translate(-50%, -50%);
+  opacity: 0.045;
+}
+.certificado-previa {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%) rotate(-24deg);
+  white-space: nowrap;
+  font-family: var(--font-ui), sans-serif;
+  font-size: 6cqw;
+  font-weight: 700;
+  letter-spacing: 0.3cqw;
+  text-transform: uppercase;
+  color: rgb(140 28 19 / 0.16);
+}
+.certificado-emblema {
+  width: 6.4cqw;
+  height: 6.4cqw;
+  margin: 0 auto;
+}
+.certificado-casa {
+  margin-top: 0.7cqw;
+  font-family: var(--font-archive), monospace;
+  font-size: 1cqw;
+  letter-spacing: 0.42cqw;
+  text-transform: uppercase;
+}
+.certificado-titulo {
+  margin-top: 1cqw;
+  font-size: 4.9cqw;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.06cqw;
+}
+.certificado-subtitulo {
+  margin-top: 0.7cqw;
+  font-family: var(--font-ui), sans-serif;
+  font-size: 1.05cqw;
+  letter-spacing: 0.5cqw;
+  text-transform: uppercase;
+  color: #8a6a1c;
+}
+.certificado-corpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 1.9cqw;
+  font-size: 1.55cqw;
+  line-height: 1.45;
+}
+.certificado-nome {
+  display: inline-block;
+  margin: 0.5cqw 0 0.9cqw;
+  border-bottom: 0.1cqw solid #a8862f;
+  padding: 0 3cqw 0.35cqw;
+  font-size: 3.3cqw;
+  font-weight: 600;
+  line-height: 1.15;
+}
+.certificado-rotulo {
+  margin-top: 1.3cqw;
+  font-family: var(--font-ui), sans-serif;
+  font-size: 0.9cqw;
+  letter-spacing: 0.32cqw;
+  text-transform: uppercase;
+  color: #8a6a1c;
+}
+.certificado-atividades {
+  margin-top: 0.3cqw;
+  white-space: pre-line;
+  font-size: 1.35cqw;
+  line-height: 1.4;
+}
+.certificado-atividades-longas {
+  font-size: 1.2cqw;
+  line-height: 1.35;
+}
+.certificado-lei {
+  margin-top: 1cqw;
+  font-size: 1.05cqw;
+  font-style: italic;
+  color: #5c5245;
+}
+.certificado-assinaturas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3.5cqw;
+  width: 100%;
+  margin-top: 1.2cqw;
+}
+.certificado-assinaturas li {
+  display: flex;
+  flex-direction: column;
+}
+.certificado-selo {
+  min-height: 2.6cqw;
+  padding-bottom: 0.4cqw;
+  font-family: var(--font-archive), monospace;
+  font-size: 0.78cqw;
+  line-height: 1.5;
+  color: #5c5245;
+}
+.certificado-assina {
+  border-top: 0.1cqw solid #1c1712;
+  padding-top: 0.45cqw;
+  font-size: 1.4cqw;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.certificado-cargo {
+  margin-top: 0.15cqw;
+  font-family: var(--font-ui), sans-serif;
+  font-size: 0.95cqw;
+  color: #5c5245;
+}
+.certificado footer {
+  width: 100%;
+  margin-top: 1.5cqw;
+  border-top: 0.06cqw solid #cdbf9f;
+  padding-top: 0.6cqw;
+  font-family: var(--font-archive), monospace;
+  font-size: 0.74cqw;
+  line-height: 1.6;
+  color: #5c5245;
+}
+@media print {
+  .certificado {
+    position: fixed;
+    inset: 0;
+    width: 297mm;
+    height: 210mm;
+  }
+}
+
 /* ---- Acessibilidade: modos ligados pelo botão flutuante (components/A11yWidget.tsx) ---- */
 
 /* Alto contraste: amarelo e branco sobre preto. */
