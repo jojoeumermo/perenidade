@@ -25,6 +25,12 @@ export function plainText(markdown: string): string {
     .trim();
 }
 
+/**
+ * Endereço que pode virar link: https ou um caminho do próprio site. O banco já confere isso na entrada;
+ * o navegador confere de novo, para um endereço adulterado no banco nunca virar "javascript:" em um clique.
+ */
+export const safeLink = (url: string): boolean => /^https:\/\/\S+$/.test(url) || /^\/(?!\/)\S*$/.test(url);
+
 export function formatDate(iso: string): string {
   const [year, month, day] = iso.split("-");
   return `${day}/${month}/${year}`;

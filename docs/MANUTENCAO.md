@@ -254,6 +254,8 @@ A sucessão do banco não resolve a da **infraestrutura**: domínio, hospedagem,
 
 Toda decisão (aprovar, recusar, dar ou tirar função, suspender, mudar configuração, emitir certificado, passar a coordenação) é gravada com autor, data e o que mudou. A coordenação lê na aba **Registro de atividades**. Ninguém apaga nem edita o registro pelo painel; a faxina automática (seção 6, item 12) descarta só o que tem mais de 400 dias.
 
+Ao lado dele, na mesma aba, fica o **Livro do acervo** (tabela `interno.audit_logs`). Esse não depende de nenhuma função lembrar de anotar: um gatilho do banco escreve uma linha a cada inclusão, edição, aprovação, recusa, publicação ou exclusão em `contribuicoes`, `arquivos`, `materiais` e `papeis`, com a data, a conta e por onde a mudança entrou (painel, rotina de publicação ou direto no SQL Editor). Guarda o título e o nome dos campos que mudaram, nunca o texto. Um segundo gatilho recusa editar, apagar ou esvaziar a tabela, até para o dono do banco; só sai o que passou de 400 dias. Quem tem a senha do banco ainda consegue desligar o gatilho: contra isso valem as cópias de segurança do Supabase, não o livro. Para vigiar outra tabela, acrescente o nome dela na lista da seção *Livro do acervo* do `install.sql`.
+
 ## 7. Como uma contribuição vira página
 
 1. Alguém envia (pela página Contribuir ou pelo painel). O banco confere tamanho, campos, fonte obrigatória e limite de envios.

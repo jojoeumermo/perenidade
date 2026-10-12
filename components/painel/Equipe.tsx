@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { rpc, type Role } from "@/lib/backend";
 import { deriveKey, PROOF, recallKey, rememberKey, seal, unseal } from "@/lib/cipher";
+import { safeLink } from "@/lib/text";
 import { previewFile } from "@/lib/upload";
 import { useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, data, elo, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
@@ -296,7 +297,7 @@ export function Equipe({ lider }: { lider: boolean }) {
 
         <section className="border-t border-rule pt-4 text-ink-soft">
           <h2 className={rotulo}>Voz e vídeo</h2>
-          {dados.sala ? (
+          {safeLink(dados.sala) ? (
             <p className="mt-2">
               <a href={dados.sala} target="_blank" rel="noopener noreferrer" className={elo}>Abrir a sala da equipe</a>
             </p>

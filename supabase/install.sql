@@ -491,6 +491,27 @@ create table if not exists interno.conversa_mensagens (
 );
 create index if not exists conversa_mensagens_ordem on interno.conversa_mensagens (conversa, criado_em);
 
+-- Livro do acervo: toda inserção, edição, exclusão, aprovação, recusa e publicação no que vai para o site, e toda
+-- função dada ou tirada. Quem escreve aqui é o próprio banco, por gatilho: vale também para o que for mudado direto
+-- no SQL Editor ou pela rotina de publicação. Não guarda o texto de nada, só o título e o nome dos campos que mudaram.
+-- Ninguém edita nem apaga uma linha; elas saem sozinhas depois de 400 dias, como o registro de atividades.
+create table if not exists interno.audit_logs (
+  id bigint generated always as identity primary key,
+  criado_em timestamptz not null default clock_timestamp(),
+  tabela text not null,
+  registro text not null default '',
+  acao text not null check (acao in ('insercao', 'edicao', 'exclusao', 'aprovacao', 'recusa', 'publicacao')),
+  quem uuid,
+  -- Por onde a mudança entrou: 'anon', 'authenticated', 'service_role' (rotina de publicação) ou 'banco' (SQL Editor e rotinas internas).
+  via text not null default '',
+  titulo text not null default '',
+  de text,
+  para text,
+  campos text[] not null default '{}',
+  detalhes jsonb not null default '{}'::jsonb
+);
+create index if not exists audit_logs_tabela on interno.audit_logs (tabela, id desc);
+
 -- Trancadas duas vezes: sem permissões e com segurança por linha ligada (sem nenhuma regra = ninguém passa).
 do $$
 declare t record;
@@ -566,12 +587,15 @@ create or replace function interno.lider() returns boolean language sql stable a
 create or replace function interno.coord() returns boolean language sql stable as $$ select interno.tem('coordenacao') or interno.tem('vice') $$;
 /** Curadoria: quem aprova e recusa. Coordenação e vice-coordenação também podem. */
 create or replace function interno.curador() returns boolean language sql stable as $$ select interno.coord() or interno.tem('curadoria') $$;
+/** Faz parte da equipe? Como em interno.tem: quem cadastrou o aplicativo autenticador só conta depois de digitar o código. */
 create or replace function interno.voluntario() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
-  select auth.uid() is not null and exists (select 1 from papeis p join perfis f on f.id = p.usuario where p.usuario = auth.uid() and not f.suspenso)
+  select auth.uid() is not null and (interno.aal2() or not interno.tem_fator())
+    and exists (select 1 from papeis p join perfis f on f.id = p.usuario where p.usuario = auth.uid() and not f.suspenso)
 $$;
 /** Esta contribuição foi aberta para mim por quem a escreveu? */
 create or replace function interno.colabora(p_contribuicao uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
-  select auth.uid() is not null and exists (select 1 from colaboradores k join perfis f on f.id = k.usuario where k.contribuicao = p_contribuicao and k.usuario = auth.uid() and not f.suspenso)
+  select auth.uid() is not null and (interno.aal2() or not interno.tem_fator())
+    and exists (select 1 from colaboradores k join perfis f on f.id = k.usuario where k.contribuicao = p_contribuicao and k.usuario = auth.uid() and not f.suspenso)
 $$;
 /** Quem pode cuidar da comunidade: coordenação, curadoria e educadores. */
 create or replace function interno.cuida() returns boolean language sql stable as $$ select interno.curador() or interno.tem('educacao') $$;
@@ -746,7 +770,12 @@ create or replace function public.conta_apagar() returns jsonb language plpgsql 
 declare v uuid := auth.uid();
 begin
   if v is null then perform interno.erro('entre_primeiro'); end if;
-  if interno.coord() and (select count(*) from papeis where papel = 'coordenacao') <= 1 then perform interno.erro('ultima_coordenacao'); end if;
+  -- Senha roubada, sozinha, não apaga a conta de quem cadastrou o aplicativo autenticador.
+  if interno.tem_fator() and not interno.aal2() then perform interno.erro('confirme_segundo_fator'); end if;
+  -- Olha o papel direto na tabela: interno.coord() responde "não" em sessão sem o segundo fator, e a trava deixaria de valer.
+  if exists (select 1 from papeis where usuario = v and papel = 'coordenacao') and (select count(*) from papeis where papel = 'coordenacao') <= 1 then
+    perform interno.erro('ultima_coordenacao');
+  end if;
   delete from perfis where id = v;
   delete from auth.users where id = v;
   return jsonb_build_object('ok', true);
@@ -1513,7 +1542,7 @@ language sql stable security definer set search_path = interno, pg_temp as $$
           and (coalesce(p_categoria, '') = '' or categoria = p_categoria)
           and (coalesce(p_uf, '') = '' or uf = upper(p_uf))
           and (coalesce(p_cidade, '') = '' or interno.normal(cidade) = interno.normal(p_cidade))
-          and (coalesce(p_busca, '') = '' or position(interno.normal(p_busca) in interno.normal(titulo || ' ' || oficio || ' ' || descricao)) > 0)
+          and (coalesce(p_busca, '') = '' or position(interno.normal(left(p_busca, 80)) in interno.normal(titulo || ' ' || oficio || ' ' || descricao)) > 0)
         order by decidido_em desc limit 300) m
 $$;
 
@@ -2236,6 +2265,7 @@ begin
   delete from avisos where (lido and criado_em < now() - interval '30 days') or criado_em < now() - interval '120 days';
   delete from auditoria where criado_em < now() - interval '400 days';
   delete from auditoria where acao = 'isca' and criado_em < now() - interval '30 days';
+  delete from audit_logs where criado_em < now() - interval '400 days';
   delete from aparelhos where ultimo < now() - interval '180 days';
   delete from reforco where status in ('atendido', 'cancelado') and criado_em < now() - interval '180 days';
   delete from denuncias where status = 'resolvida' and criado_em < now() - interval '365 days';
@@ -2779,6 +2809,81 @@ begin
   return '{}'::jsonb;
 end $$;
 
+-- ───────────────────────────── Livro do acervo ─────────────────────────────
+
+/**
+ * Anota no livro cada linha que entra, muda ou sai das tabelas vigiadas. Roda depois da mudança e nunca a impede:
+ * se a anotação falhar, o banco avisa no próprio registro de erros e o trabalho de quem estava mexendo segue.
+ */
+create or replace function interno.audit_logs_anotar() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v_linha jsonb; v_velha jsonb; v_acao text; v_de text; v_para text; v_campos text[] := '{}';
+begin
+  begin
+    if tg_op = 'INSERT' then
+      v_linha := to_jsonb(new); v_acao := 'insercao'; v_para := v_linha ->> 'status';
+    elsif tg_op = 'DELETE' then
+      v_linha := to_jsonb(old); v_acao := 'exclusao'; v_de := v_linha ->> 'status';
+    else
+      v_linha := to_jsonb(new); v_velha := to_jsonb(old);
+      if v_linha = v_velha then return null; end if;
+      select coalesce(array_agg(n.key order by n.key), '{}') into v_campos from jsonb_each(v_linha) n where n.value is distinct from v_velha -> n.key;
+      v_de := v_velha ->> 'status'; v_para := v_linha ->> 'status';
+      v_acao := case
+        when v_para is distinct from v_de and v_para in ('aprovada', 'aprovado', 'resolvida') then 'aprovacao'
+        when v_para is distinct from v_de and v_para in ('recusada', 'recusado') then 'recusa'
+        when v_para is distinct from v_de and v_para in ('publicada', 'publicado') then 'publicacao'
+        when v_linha ->> 'publicado' = 'true' and v_velha ->> 'publicado' = 'false' then 'publicacao'
+        else 'edicao' end;
+    end if;
+    insert into audit_logs (tabela, registro, acao, quem, via, titulo, de, para, campos, detalhes)
+    values (
+      tg_table_name, coalesce(v_linha ->> 'id', ''), v_acao, auth.uid(), coalesce(nullif(interno.claims() ->> 'role', ''), 'banco'),
+      left(coalesce(v_linha ->> 'titulo', v_linha ->> 'nome', v_linha ->> 'papel', ''), 160), v_de, v_para, v_campos,
+      coalesce((select jsonb_object_agg(e.key, e.value) from jsonb_each(v_linha) e
+                where e.key in ('tipo', 'disciplina', 'papel', 'usuario', 'concedido_por', 'destino', 'publicado') and jsonb_typeof(e.value) <> 'null'), '{}'::jsonb));
+    if random() < 0.01 then delete from audit_logs where criado_em < now() - interval '400 days'; end if;
+  exception when others then
+    raise warning 'audit_logs: %', sqlerrm;
+  end;
+  return null;
+end $$;
+
+do $$
+declare tabela text;
+begin
+  foreach tabela in array array['contribuicoes', 'arquivos', 'materiais', 'papeis'] loop
+    execute format('drop trigger if exists lucia_audit on interno.%I', tabela);
+    execute format('create trigger lucia_audit after insert or update or delete on interno.%I for each row execute function interno.audit_logs_anotar()', tabela);
+  end loop;
+end $$;
+
+/** O livro só cresce: nenhuma linha é editada, e só sai a que já passou do prazo de guarda. Vale até para o dono do banco. */
+create or replace function interno.audit_logs_trava() returns trigger language plpgsql as $$
+begin
+  if tg_op = 'DELETE' then
+    if old.criado_em < now() - interval '400 days' then return old; end if;
+  end if;
+  raise exception 'audit_logs_imutavel' using errcode = 'P0001';
+end $$;
+drop trigger if exists lucia_audit_trava on interno.audit_logs;
+create trigger lucia_audit_trava before update or delete on interno.audit_logs for each row execute function interno.audit_logs_trava();
+drop trigger if exists lucia_audit_trava_tudo on interno.audit_logs;
+create trigger lucia_audit_trava_tudo before truncate on interno.audit_logs for each statement execute function interno.audit_logs_trava();
+
+/** O livro, do mais recente para o mais antigo. Só a coordenação e a vice-coordenação leem. */
+create or replace function public.audit_logs_listar(p_pagina integer default 0, p_tabela text default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return (
+    select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'criado_em', a.criado_em, 'tabela', a.tabela, 'acao', a.acao, 'titulo', a.titulo, 'de', a.de, 'para', a.para,
+      'campos', to_jsonb(a.campos), 'via', a.via, 'detalhes', a.detalhes,
+      'nome', coalesce((select f.nome from perfis f where f.id = a.quem), ''),
+      'alvo_nome', coalesce((select f.nome from perfis f where f.id::text = a.detalhes ->> 'usuario'), '')) order by a.id desc), '[]'::jsonb)
+    from (select * from audit_logs where coalesce(p_tabela, '') = '' or tabela = p_tabela order by id desc limit 100 offset greatest(coalesce(p_pagina, 0), 0) * 100) a);
+end $$;
+
 -- ───────────────────────────── Permissões ─────────────────────────────
 
 -- As funções internas não podem ser chamadas de fora; as públicas, sim (cada uma faz a própria conferência).
@@ -2805,7 +2910,8 @@ begin
              'convite_criar', 'convites_listar', 'convite_revogar', 'convite_ver', 'convidar_pelo_banco', 'mural_cidades', 'mural_retirar',
              'equipe_chave_definir', 'equipe_apagar_tudo', 'arquivo_apoiar', 'isca', 'boletim_assinar', 'boletim_listar', 'boletim_remover',
              'colaboracao_abrir', 'colaboracao_fechar', 'colaboracoes_minhas', 'equipe_membros', 'site', 'site_salvar',
-             'presenca', 'chat_conversas', 'chat_direta', 'chat_grupo_criar', 'chat_grupo_mudar', 'chat_sair', 'chat_grupo_apagar', 'chat_ver', 'chat_enviar', 'chat_apagar'))
+             'presenca', 'chat_conversas', 'chat_direta', 'chat_grupo_criar', 'chat_grupo_mudar', 'chat_sair', 'chat_grupo_apagar', 'chat_ver', 'chat_enviar', 'chat_apagar',
+             'audit_logs_listar'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then
