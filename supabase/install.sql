@@ -369,10 +369,15 @@ create table if not exists interno.arquivos (
 );
 
 insert into interno.configuracoes (chave, valor) values
-  ('seguranca', '{"exigir_2fa": false}'::jsonb),
+  ('seguranca', '{"exigir_2fa": true, "padrao_ligado": true}'::jsonb),
   ('abertura', '{"definido": false}'::jsonb),
   ('equipe', '{"sala": ""}'::jsonb)
 on conflict do nothing;
+
+-- A exigência de segundo fator para coordenação, vice-coordenação e curadoria nasce ligada. Banco instalado antes
+-- disso é virado uma única vez; daí em diante vale o que a coordenação decidir no painel.
+update interno.configuracoes set valor = valor || '{"exigir_2fa": true, "padrao_ligado": true}'::jsonb
+where chave = 'seguranca' and not valor ? 'padrao_ligado';
 
 -- Lista inicial do filtro da comunidade, posta uma única vez (depois disso vale o que a curadoria decidir).
 do $$
@@ -959,7 +964,7 @@ begin
   if not interno.lider() then perform interno.erro('sem_permissao'); end if;
   if coalesce(p_exigir_2fa, false) and not interno.aal2() then perform interno.erro('confirme_segundo_fator'); end if;
   insert into configuracoes (chave, valor) values ('seguranca', jsonb_build_object('exigir_2fa', coalesce(p_exigir_2fa, false)))
-  on conflict (chave) do update set valor = excluded.valor;
+  on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
   perform interno.registrar('seguranca_configurada', '', jsonb_build_object('exigir_2fa', coalesce(p_exigir_2fa, false)));
   return jsonb_build_object('exigir_2fa', coalesce(p_exigir_2fa, false));
 end $$;

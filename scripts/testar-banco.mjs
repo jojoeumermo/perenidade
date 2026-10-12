@@ -46,6 +46,20 @@ await recusa("anônimo não lê tabela interna", () => banco.exclusivo(async () 
 await recusa("logado não lê tabela interna", () => banco.exclusivo(async () => { await banco.pg.exec("set role authenticated"); try { return await banco.pg.query("select * from interno.contribuicoes"); } finally { await banco.pg.exec("reset role"); } }), "permission denied");
 await recusa("função interna não é chamável de fora", () => banco.exclusivo(async () => { await banco.pg.exec("set role anon"); try { return await banco.pg.query("select interno.limite('x', 1, 1)"); } finally { await banco.pg.exec("reset role"); } }), "permission denied");
 
+// ── Segundo fator obrigatório: nasce ligado ──
+const exigencia = () => dono("select valor from interno.configuracoes where chave = 'seguranca'");
+await espera("a exigência de segundo fator nasce ligada", exigencia, (r) => r.rows[0].valor.exigir_2fa === true);
+// As conferências de permissão abaixo rodam com a exigência desligada; ela tem a própria seção mais adiante.
+await dono("update interno.configuracoes set valor = valor || '{\"exigir_2fa\": false}'::jsonb where chave = 'seguranca'");
+await espera("instalar de novo não religa o que foi desligado", async () => { await banco.instalarDeNovo(); return exigencia(); }, (r) => r.rows[0].valor.exigir_2fa === false);
+await espera("banco antigo, instalado antes da regra, é virado uma única vez", async () => {
+  await dono("update interno.configuracoes set valor = '{\"exigir_2fa\": false}'::jsonb where chave = 'seguranca'");
+  await banco.instalarDeNovo();
+  const ligado = (await exigencia()).rows[0].valor.exigir_2fa;
+  await dono("update interno.configuracoes set valor = valor || '{\"exigir_2fa\": false}'::jsonb where chave = 'seguranca'");
+  return ligado;
+}, (r) => r === true);
+
 // ── Conta e coordenação ──
 await espera("sem login, eu() é nulo", () => rpc(anon, "eu"), (r) => r === null);
 for (const chave of Object.keys(ids)) await espera(`perfil de ${chave} nasce no primeiro acesso`, () => rpc(como(ids[chave]), "eu"), (r) => r.id === ids[chave] && r.papeis.length === 0);
@@ -616,6 +630,11 @@ await recusa("nem apaga a conta", () => rpc(como(ids.revisor), "conta_apagar"), 
 await espera("com o código, entra", () => rpc({ ...como(ids.revisor), aal: "aal2" }, "equipe_membros"), (r) => r.length > 0);
 await espera("quem não cadastrou o aplicativo segue como antes", () => rpc(como(ids.designer), "equipe_membros"), (r) => r.length > 0);
 await dono("drop table auth.mfa_factors");
+await espera("desligar pelo painel também sobrevive a uma nova instalação", async () => {
+  await rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: false });
+  await banco.instalarDeNovo();
+  return exigencia();
+}, (r) => r.rows[0].valor.exigir_2fa === false && r.rows[0].valor.padrao_ligado === true);
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
