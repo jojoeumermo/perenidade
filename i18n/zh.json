@@ -779,7 +779,7 @@
     "dumpLink": "下载完整馆藏（JSON）",
     "textHint": "每节课也有纯文本版本：只需在其地址后加上 /texto。甚至可以在终端里用 curl 读取。",
     "trackingTitle": "零追踪",
-    "tracking": "没有 Google Analytics，没有社交网络像素，没有广告 cookie。我们只匿名统计每个页面的访问次数，不使用 cookie。我们不出售你的数据，因为我们根本没有这些数据。",
+    "tracking": "没有 Google Analytics，没有社交网络像素，没有广告 cookie。本站不统计访问量，也不做任何受众分析。我们不出售你的数据，因为我们根本没有这些数据。",
     "exitNow": "立即离开",
     "purgeTitle": "自动清除全部",
     "purgeNever": "从不（只在我要求时）",
