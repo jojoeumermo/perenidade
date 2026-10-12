@@ -18,7 +18,6 @@ import { loadLang } from "@/i18n";
 import { pickCore } from "@/i18n/core";
 import { htmlLang, locales } from "@/i18n/config";
 import { site } from "@/lib/site";
-import { Analytics } from "@vercel/analytics/next";
 
 // O chinês usa as fontes do próprio sistema; o russo, o recorte cirílico das mesmas famílias.
 const serif = EB_Garamond({ variable: "--font-serif-display", subsets: ["latin", "latin-ext", "cyrillic"] });
@@ -94,8 +93,6 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           </OutsidePanel>
           <Shortcuts />
           <OfflineSupport />
-          {/* A contagem anônima de visitas só existe no site publicado. */}
-          {process.env.NODE_ENV === "production" && <Analytics />}
         </I18nProvider>
       </body>
     </html>
