@@ -6,6 +6,7 @@ import { errorText } from "@/i18n/core";
 import type { Dict } from "@/i18n/types";
 import { areaSlugs } from "@/lib/areas";
 import { BackendError, hasBackend, rpc } from "@/lib/backend";
+import { useCadastro } from "@/lib/cadastro";
 import { useI18n } from "./I18n";
 
 const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
@@ -23,11 +24,13 @@ export function VolunteerForm({ s, id = "candidatura" }: { s: Dict["volunteer"];
   const [draft, setDraft] = useState(empty);
   const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState("");
+  const servico = useCadastro();
   const roles = s.roles as Record<string, string>;
   const bySubject = draft.papel === "educacao" || draft.papel === "mentoria";
   const ready = draft.nome.trim().length >= 5 && /^\S+@\S+\.\S+$/.test(draft.email.trim()) && draft.mensagem.trim().length >= 30 && (!bySubject || draft.disciplina !== "");
 
-  if (!hasBackend) return <p className="mt-6 font-sans text-sm text-ink-soft">{s.offline}</p>;
+  // Serviço desligado, ou banco que ainda não recebeu a fila de candidaturas: avisa em vez de mostrar um formulário que falharia.
+  if (!hasBackend || (servico.pronto && !servico.novo)) return <p id={id} className="mt-6 scroll-mt-24 font-sans text-sm text-ink-soft">{s.offline}</p>;
 
   async function send() {
     setState("sending");
