@@ -9,7 +9,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 |---|---|---|---|---|
 | Percursos | alfabetizacao | 1 | 27 | 26 |
 | Percursos | enem | 1 | 25 | 24 |
-| Linguagens | portugues | 1 | 43 | 42 |
+| Linguagens | portugues | 18 | 43 | 25 |
 | Linguagens | literatura | 1 | 49 | 48 |
 | Linguagens | ingles | 4 | 46 | 42 |
 | Linguagens | espanhol | 1 | 28 | 27 |
@@ -22,7 +22,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Linguagens | teatro | 0 | 25 | 25 |
 | Linguagens | cinema | 0 | 25 | 25 |
 | Linguagens | educacao-fisica | 0 | 24 | 24 |
-| Ciências e Tecnologia | matematica | 4 | 48 | 44 |
+| Ciências e Tecnologia | matematica | 48 | 48 | 0 |
 | Ciências e Tecnologia | fisica | 1 | 35 | 34 |
 | Ciências e Tecnologia | quimica | 1 | 32 | 31 |
 | Ciências e Tecnologia | biologia | 1 | 33 | 32 |
@@ -68,7 +68,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Lutas do Povo | luta-dos-professores | 1 | 27 | 26 |
 | Lutas do Povo | movimento-estudantil | 2 | 26 | 24 |
 | Lutas do Povo | pessoas-idosas | 1 | 24 | 23 |
-| | **Total** | **272** | **2086** | **1814** |
+| | **Total** | **333** | **2086** | **1753** |
 
 ## Percursos
 
@@ -140,28 +140,12 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 ## Linguagens
 
-### portugues — 1 de 43 prontas (faltam 42)
+### portugues — 18 de 43 prontas (faltam 25)
 
-**Português: ler e escrever bem** (fundamental, `portugues-fundamental`): 1/12 prontas
-- O alfabeto, as sílabas e a sílaba tônica
-- Pontuação: ponto, vírgula e companhia
-- Substantivo, adjetivo e artigo
-- Verbo: tempos e pessoas
-- Pronomes
-- Concordância: o básico
-- Por que, porque, por quê e porquê
-- Mal e mau, mas e mais, a e há
-- Como interpretar um texto
-- Como escrever um parágrafo
-- Bilhete, e-mail e requerimento: como escrever
+**Português: ler e escrever bem** (fundamental, `portugues-fundamental`): 12/12 prontas
+- (completa)
 
-**Português: gramática e redação** (medio, `portugues-medio`): 0/12 prontas
-- Sujeito e predicado
-- Orações coordenadas e subordinadas
-- Regência e crase
-- Concordância verbal e nominal
-- Colocação pronominal
-- Figuras de linguagem
+**Português: gramática e redação** (medio, `portugues-medio`): 6/12 prontas
 - Variação linguística e preconceito linguístico
 - Gêneros textuais
 - O texto dissertativo-argumentativo
@@ -674,59 +658,19 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 ## Ciências e Tecnologia
 
-### matematica — 4 de 48 prontas (faltam 44)
+### matematica — 48 de 48 prontas (faltam 0)
 
-**Matemática fundamental** (fundamental, `matematica-fundamental`): 4/14 prontas
-- As quatro operações
-- Múltiplos, divisores e números primos
-- Razão e proporção
-- Regra de três
-- Potências e raízes
-- Números negativos
-- Expressões e ordem das operações
-- Perímetro e área
-- Medidas: comprimento, massa, tempo e capacidade
-- Leitura de gráficos e tabelas
+**Matemática fundamental** (fundamental, `matematica-fundamental`): 14/14 prontas
+- (completa)
 
-**Matemática do ensino médio** (medio, `matematica-medio`): 0/14 prontas
-- Conjuntos e intervalos
-- Funções: a ideia
-- Função do 1º grau
-- Função do 2º grau
-- Exponencial e logaritmo
-- Progressões aritméticas e geométricas
-- Juros simples e compostos
-- Trigonometria no triângulo retângulo
-- Geometria plana
-- Geometria espacial
-- Análise combinatória
-- Probabilidade
-- Estatística: média, mediana e moda
-- Matrizes e sistemas lineares
+**Matemática do ensino médio** (medio, `matematica-medio`): 14/14 prontas
+- (completa)
 
-**Estatística para ler o Brasil** (medio, `estatistica-para-ler-o-brasil`): 0/10 prontas
-- Porcentagem no noticiário
-- Média, mediana e moda
-- Como ler um gráfico sem ser enganado
-- O que é uma pesquisa por amostragem
-- Margem de erro
-- O Censo
-- Desemprego: como o IBGE mede
-- Inflação: o que é o IPCA
-- Desigualdade: o índice de Gini
-- Correlação não é causa
+**Estatística para ler o Brasil** (medio, `estatistica-para-ler-o-brasil`): 10/10 prontas
+- (completa)
 
-**Cálculo, álgebra e estatística** (superior, `matematica-superior`): 0/10 prontas
-- Limites
-- Derivadas
-- Integrais
-- Álgebra linear: vetores e matrizes
-- Lógica e demonstrações
-- Teoria dos conjuntos
-- Equações diferenciais: uma introdução
-- Probabilidade e distribuições
-- Inferência estatística
-- História da matemática
+**Cálculo, álgebra e estatística** (superior, `matematica-superior`): 10/10 prontas
+- (completa)
 
 ### fisica — 1 de 35 prontas (faltam 34)
 

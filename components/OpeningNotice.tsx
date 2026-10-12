@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useRef } from "react";
 import { hasBackend, rpc } from "@/lib/backend";
 import { getItem, KEYS, parse, setItem, useHydrated, useStored } from "@/lib/storage";
+import { safeLink } from "@/lib/text";
 import { useI18n } from "./I18n";
 
 export interface Notice {
@@ -110,7 +111,7 @@ export function OpeningNotice({ initial, close }: { initial: Notice | null; clos
           </div>
           {notice.assinatura && <p className="mt-4 font-sans text-sm text-ink-soft">{notice.assinatura}</p>}
           <div className="mt-5 flex flex-wrap items-center gap-4 font-sans text-sm">
-            {notice.link &&
+            {safeLink(notice.link) &&
               notice.link_texto &&
               (internal ? (
                 <Link href={notice.link} onClick={() => dialog.current?.close()} className="bg-oxblood px-5 py-2.5 font-medium text-parchment hover:bg-ink">

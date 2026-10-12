@@ -6,6 +6,7 @@ import { fill, htmlLang } from "@/i18n/config";
 import { errorText } from "@/i18n/core";
 import type { Dict } from "@/i18n/types";
 import { BackendError, hasBackend, rpc, useMe } from "@/lib/backend";
+import { safeLink } from "@/lib/text";
 import { L, useI18n } from "./I18n";
 
 type S = Dict["mural"];
@@ -300,7 +301,7 @@ export function Mural({ s }: { s: S }) {
                 <p className="mt-3 text-base">
                   <span className="text-ink-soft">{s.contact}:</span> <strong>{ad.contato}</strong>
                 </p>
-                {ad.link && (
+                {safeLink(ad.link) && (
                   <p className="mt-1 break-all">
                     <a href={ad.link} target="_blank" rel="noopener noreferrer nofollow" className={link}>{ad.link}</a>
                   </p>
