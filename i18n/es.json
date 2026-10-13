@@ -4,6 +4,7 @@
     "description": "Conocimiento libre, gratuito y preservado. Lecciones, rutas de estudio y un acervo de obras de dominio público, mantenidos por la comunidad."
   },
   "common": {
+    "back": "Volver",
     "skip": "Saltar al contenido",
     "strip": "Archivo vivo · 100 % gratuito · contenido versionado y reversible",
     "language": "Idioma",
@@ -1128,6 +1129,11 @@
     "wallEmpty": "El mural todavía está vacío."
   },
   "auth": {
+    "or": "o",
+    "fingerprint": "Entrar con la huella",
+    "fingerprintHint": "Funciona después de registrar la huella de este aparato en el panel, en Mi cuenta. La huella nunca sale del teléfono.",
+    "fingerprintCancelled": "Lectura de la huella cancelada. Toca de nuevo para intentarlo otra vez, o entra con la contraseña.",
+    "fingerprintFailed": "No fue posible entrar con la huella en este aparato. Entra con la contraseña.",
     "eyebrow": "Voluntarios y comunidad",
     "title": "Entrar",
     "lead": "Para estudiar no hace falta cuenta. La cuenta sirve para participar en la Comunidad y para quienes trabajan como voluntarios.",

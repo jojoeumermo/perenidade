@@ -4,6 +4,7 @@
     "description": "Conhecimento livre, gratuito e preservado. Aulas, trilhas e um acervo de obras de domínio público, mantidos pela comunidade."
   },
   "common": {
+    "back": "Voltar",
     "skip": "Pular para o conteúdo",
     "strip": "Arquivo vivo · 100% gratuito · conteúdo versionado e revertível",
     "language": "Idioma",
@@ -1128,6 +1129,11 @@
     "wallEmpty": "O mural ainda está vazio."
   },
   "auth": {
+    "or": "ou",
+    "fingerprint": "Entrar com a digital",
+    "fingerprintHint": "Funciona depois que você cadastra a digital deste aparelho no painel, em Minha conta. A digital nunca sai do celular.",
+    "fingerprintCancelled": "Leitura da digital cancelada. Toque de novo para tentar outra vez, ou entre com a senha.",
+    "fingerprintFailed": "Não foi possível entrar com a digital neste aparelho. Entre com a senha.",
     "eyebrow": "Voluntários e comunidade",
     "title": "Entrar",
     "lead": "Para estudar não é preciso conta. A conta serve para participar da Comunidade e para quem trabalha como voluntário.",

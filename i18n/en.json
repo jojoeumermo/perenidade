@@ -4,6 +4,7 @@
     "description": "Free, open and preserved knowledge. Lessons, learning tracks and a library of public-domain works, maintained by the community."
   },
   "common": {
+    "back": "Back",
     "skip": "Skip to content",
     "strip": "Living archive · 100% free · versioned and reversible content",
     "language": "Language",
@@ -1128,6 +1129,11 @@
     "wallEmpty": "The wall is still empty."
   },
   "auth": {
+    "or": "or",
+    "fingerprint": "Sign in with fingerprint",
+    "fingerprintHint": "Works after you register this device's fingerprint in the panel, under My account. The fingerprint never leaves your phone.",
+    "fingerprintCancelled": "Fingerprint reading cancelled. Tap again to retry, or sign in with your password.",
+    "fingerprintFailed": "Could not sign in with fingerprint on this device. Sign in with your password.",
     "eyebrow": "Volunteers and community",
     "title": "Sign in",
     "lead": "You don't need an account to study. An account is for taking part in the Community and for those who work as volunteers.",
