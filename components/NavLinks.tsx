@@ -55,6 +55,31 @@ export function NavLinks() {
   );
 }
 
+const raizes = ["", "trilhas", "acervo", "comunidade", "explorar"];
+
+/**
+ * Só no aplicativo: voltar à tela anterior. Lá não existe a seta do navegador, e as abas de baixo só levam às
+ * cinco telas principais; em qualquer outra, a seta aparece no canto de cima.
+ */
+export function AppBack() {
+  const pathname = usePathname();
+  const router = useRouter();
+  const { lang, t } = useI18n();
+  if (raizes.includes(pathname.split("/").slice(2).join("/"))) return null;
+  return (
+    <button
+      type="button"
+      aria-label={t.common.back}
+      onClick={() => (window.history.length > 1 ? router.back() : router.push(`/${lang}`))}
+      className="-ml-2 hidden h-10 w-9 shrink-0 cursor-pointer items-center justify-center text-ink app:max-md:flex"
+    >
+      <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M15 5l-7 7 7 7" />
+      </svg>
+    </button>
+  );
+}
+
 /** "Entrar" para quem não tem sessão, "Painel" para quem tem. Só aparece quando as contas estão ligadas. */
 export function AccountLink() {
   const { lang, t } = useI18n();
