@@ -9,7 +9,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 |---|---|---|---|---|
 | Percursos | alfabetizacao | 1 | 27 | 26 |
 | Percursos | enem | 1 | 25 | 24 |
-| Linguagens | portugues | 18 | 43 | 25 |
+| Linguagens | portugues | 29 | 43 | 14 |
 | Linguagens | literatura | 1 | 49 | 48 |
 | Linguagens | ingles | 4 | 46 | 42 |
 | Linguagens | espanhol | 1 | 28 | 27 |
@@ -32,7 +32,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Ciências e Tecnologia | inteligencia-artificial | 1 | 39 | 38 |
 | Ciências e Tecnologia | manutencao | 1 | 36 | 35 |
 | Ciências e Tecnologia | primeiros-socorros | 5 | 42 | 37 |
-| Humanidades | historia | 6 | 62 | 56 |
+| Humanidades | historia | 24 | 62 | 38 |
 | Humanidades | geografia | 1 | 40 | 39 |
 | Humanidades | sociologia | 1 | 32 | 31 |
 | Humanidades | antropologia | 0 | 25 | 25 |
@@ -68,7 +68,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Lutas do Povo | luta-dos-professores | 1 | 27 | 26 |
 | Lutas do Povo | movimento-estudantil | 2 | 26 | 24 |
 | Lutas do Povo | pessoas-idosas | 1 | 24 | 23 |
-| | **Total** | **333** | **2086** | **1753** |
+| | **Total** | **362** | **2086** | **1724** |
 
 ## Percursos
 
@@ -140,25 +140,15 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 ## Linguagens
 
-### portugues — 18 de 43 prontas (faltam 25)
+### portugues — 29 de 43 prontas (faltam 14)
 
 **Português: ler e escrever bem** (fundamental, `portugues-fundamental`): 12/12 prontas
 - (completa)
 
-**Português: gramática e redação** (medio, `portugues-medio`): 6/12 prontas
-- Variação linguística e preconceito linguístico
-- Gêneros textuais
-- O texto dissertativo-argumentativo
-- Coesão e coerência
-- Como fazer um resumo e um fichamento
-- Leitura crítica de notícias
+**Português: gramática e redação** (medio, `portugues-medio`): 12/12 prontas
+- (completa)
 
-**Português: linguística e escrita acadêmica** (superior, `portugues-superior`): 0/10 prontas
-- O que estuda a linguística
-- Fonética e fonologia do português
-- Morfologia
-- Sintaxe
-- Semântica e pragmática
+**Português: linguística e escrita acadêmica** (superior, `portugues-superior`): 5/10 prontas
 - História da língua portuguesa
 - O português no mundo
 - Escrita acadêmica: artigo, resenha e relatório
@@ -1091,17 +1081,10 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 ## Humanidades
 
-### historia — 6 de 62 prontas (faltam 56)
+### historia — 24 de 62 prontas (faltam 38)
 
-**História Antiga** (fundamental, `historia-antiga`): 3/11 prontas
-- Pré-história: os primeiros seres humanos
-- Grécia Antiga
-- Roma: da república ao império
-- África Antiga: Kush, Axum e Mali
-- China e Índia antigas
-- Os povos originários das Américas
-- A Idade Média
-- O Islã medieval
+**História Antiga** (fundamental, `historia-antiga`): 11/11 prontas
+- (completa)
 
 **Lutas do povo** (medio, `lutas-do-povo`): 3/11 prontas
 - Palmares e os quilombos
@@ -1113,17 +1096,8 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - A luta contra o apartheid
 - A luta do povo palestino
 
-**História do Brasil** (medio, `historia-do-brasil`): 0/10 prontas
-- Os povos originários antes de 1500
-- A invasão portuguesa e a colonização
-- A escravidão no Brasil
-- Independência: para quem?
-- Império e abolição
-- A Primeira República
-- A Era Vargas
-- O golpe de 1964 e a ditadura
-- A redemocratização e a Constituição de 1988
-- O Brasil no século XXI
+**História do Brasil** (medio, `historia-do-brasil`): 10/10 prontas
+- (completa)
 
 **A ditadura militar de 1964** (medio, `ditadura-de-1964`): 0/10 prontas
 - O governo João Goulart e as reformas de base

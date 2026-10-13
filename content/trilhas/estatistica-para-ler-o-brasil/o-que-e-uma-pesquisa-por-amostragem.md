@@ -75,7 +75,7 @@ Um portal de notícias publica: 'Enquete com 200 mil votos mostra que 80% dos br
 
 ## Uma pesquisa do IBGE por dentro
 
-A taxa de desocupação que sai no noticiário vem da **PNAD Contínua**, a Pesquisa Nacional por Amostra de Domicílios Contínua, do IBGE. Ela existe em caráter definitivo desde janeiro de 2012 e tem o domicílio como unidade de investigação. A cada trimestre, os entrevistadores visitam cerca de 211 mil domicílios, espalhados por aproximadamente 3.500 municípios, e os moradores respondem sobre trabalho, rendimento e outros temas.
+A taxa de desocupação que sai no noticiário vem da **PNAD Contínua**, a Pesquisa Nacional por Amostra de Domicílios Contínua, do IBGE. Ela existe em caráter definitivo desde janeiro de 2012 e tem o domicílio como unidade de investigação. É uma pesquisa por amostragem probabilística: os domicílios visitados são sorteados, e a amostra foi planejada para produzir resultados para o Brasil, as grandes regiões, os estados, as regiões metropolitanas das capitais e as próprias capitais. Os moradores respondem sobre trabalho, rendimento e outros temas.
 
 Um detalhe útil para ler notícias: os números **mensais** da pesquisa não retratam um mês isolado, e sim o **trimestre móvel** que termina naquele mês. O resultado "de agosto" resume junho, julho e agosto.
 
