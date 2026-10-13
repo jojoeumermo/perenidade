@@ -29,7 +29,7 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
           <span className="whitespace-nowrap text-lg font-semibold leading-none tracking-tight sm:text-2xl lg:text-3xl">{site.name}</span>
         </Link>
         {/* No celular o menu fica embaixo (BottomNav); aqui ele aparece a partir de telas médias, sempre em uma linha. */}
-        <nav aria-label={t.nav.main} className="mr-auto hidden items-center justify-center gap-x-3 font-sans text-sm leading-none text-ink-soft md:flex lg:mr-0 lg:gap-x-5">
+        <nav aria-label={t.nav.main} className="mr-auto hidden translate-y-[3px] items-center justify-center gap-x-3 font-sans text-sm leading-none text-ink-soft md:flex lg:mr-0 lg:gap-x-5">
           <NavLinks />
         </nav>
         <div className="ml-auto flex shrink-0 items-center gap-1 app:gap-3 sm:gap-2 md:ml-0 lg:gap-4 lg:justify-self-end">
