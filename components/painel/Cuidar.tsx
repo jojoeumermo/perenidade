@@ -139,6 +139,7 @@ const motivos: Record<string, string> = {
   historico: "quem escreveu teve mensagens ocultadas há pouco",
   avaliacao_falhou: "a avaliação automática não respondeu",
   disfarce: "parece expressão grave disfarçada",
+  modo_seguranca: "modo de segurança ligado: espera aprovação manual",
   aguardando_avaliacao: "a segunda avaliação ainda não rodou",
   em_avaliacao: "a segunda avaliação começou e não terminou",
   avaliacao_externa: "a segunda avaliação ficou em dúvida",

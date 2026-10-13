@@ -1466,6 +1466,11 @@ begin
   return jsonb_build_object('veredito', v ->> 'veredito', 'motivo', left(coalesce(v ->> 'motivo', ''), 40));
 end $$;
 
+/** Modo de segurança: com ele ligado, nada do público aparece na Comunidade sem aprovação manual, com ou sem segunda avaliação. */
+create or replace function interno.aprovacao_manual() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((select (valor ->> 'aprovacao_manual')::boolean from configuracoes where chave = 'comunidade'), false)
+$$;
+
 /** A segunda avaliação (feita fora do banco, pela função "avaliar-comunidade") está ligada? Nasce desligada. */
 create or replace function interno.avaliacao_externa() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select coalesce((select (valor ->> 'avaliacao_externa')::boolean from configuracoes where chave = 'comunidade'), false)
@@ -1518,6 +1523,7 @@ create or replace function public.comunidade_para_avaliar(p_tipo text, p_id uuid
 declare v_texto text;
 begin
   if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  if interno.aprovacao_manual() or not interno.avaliacao_externa() then return null; end if;
   if p_tipo = 'topico' then
     update topicos set motivo = 'em_avaliacao', avaliacao_em = now(), tentativas = tentativas + 1
     where id = p_id and retido and tentativas < 3
@@ -1543,6 +1549,13 @@ create or replace function public.comunidade_avaliada(p_tipo text, p_id uuid, p_
 declare v jsonb := interno.decidir_externa(p_resultado); v_veredito text := v ->> 'veredito'; v_topico uuid; v_achou boolean := false;
 begin
   if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  -- Modo de segurança ligado (ou segunda avaliação desligada) depois de a mensagem ter saído para avaliar: o resultado não publica.
+  if v_veredito = 'publicar' and (interno.aprovacao_manual() or not interno.avaliacao_externa()) then
+    v_veredito := 'revisar'; v := jsonb_build_object('veredito', 'revisar', 'motivo', 'modo_seguranca');
+  end if;
+  -- Anota quando a segunda avaliação respondeu de verdade pela última vez, e se respondeu com resultado ou com falha.
+  update configuracoes set valor = valor || jsonb_build_object('ultima_avaliacao', jsonb_build_object('em', now(), 'ok', v ->> 'motivo' is distinct from 'avaliacao_externa_falhou',
+    'falha', case when jsonb_typeof(p_resultado) = 'object' then left(coalesce(p_resultado ->> 'erro', ''), 40) else 'resultado_invalido' end)) where chave = 'comunidade';
   if p_tipo = 'topico' then
     update topicos set
       oculto = (v_veredito <> 'publicar'), retido = (v_veredito = 'revisar'), motivo = v ->> 'motivo',
@@ -1574,6 +1587,7 @@ end $$;
 create or replace function public.comunidade_pendentes() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  if interno.aprovacao_manual() or not interno.avaliacao_externa() then return '[]'::jsonb; end if;
   return (
     select coalesce(jsonb_agg(jsonb_build_object('tipo', x.tipo, 'id', x.id) order by x.criado_em), '[]'::jsonb) from (
       select 'topico' as tipo, id, criado_em from topicos
@@ -1582,6 +1596,46 @@ begin
       select 'resposta', id, criado_em from respostas
       where retido and tentativas < 3 and (motivo = 'aguardando_avaliacao' or (motivo in ('em_avaliacao', 'avaliacao_externa_falhou') and avaliacao_em < now() - interval '2 minutes'))
       order by criado_em limit 20) x);
+end $$;
+
+/**
+ * O que a coordenação vê sobre a moderação da Comunidade. Três coisas diferentes, que não se confundem: "habilitada" é a
+ * chave ligada no banco; "verificacao" é o último teste feito de propósito pelo painel (função publicada, chave presente,
+ * serviço respondendo); "ultima_avaliacao" é a última mensagem de verdade que passou pela segunda avaliação.
+ */
+create or replace function public.comunidade_controles() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare c jsonb := coalesce((select valor from configuracoes where chave = 'comunidade'), '{}'::jsonb);
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'aprovacao_manual', coalesce((c ->> 'aprovacao_manual')::boolean, false),
+    'habilitada', coalesce((c ->> 'avaliacao_externa')::boolean, false),
+    'verificacao', c -> 'verificacao',
+    'ultima_avaliacao', c -> 'ultima_avaliacao',
+    'esperando', (select count(*) from topicos where retido) + (select count(*) from respostas where retido));
+end $$;
+
+/** Liga ou desliga o modo de segurança. Coordenação e vice-coordenação, como os outros controles do site. Fica no registro. */
+create or replace function public.comunidade_modo_seguranca(p_ligar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  insert into configuracoes (chave, valor) values ('comunidade', jsonb_build_object('aprovacao_manual', coalesce(p_ligar, false)))
+  on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
+  perform interno.registrar('comunidade_modo_seguranca', '', jsonb_build_object('ligado', coalesce(p_ligar, false)));
+  if coalesce(p_ligar, false) then perform interno.avisar_lideranca('O modo de segurança da Comunidade foi ligado: toda mensagem nova espera aprovação manual.', auth.uid()); end if;
+  return public.comunidade_controles();
+end $$;
+
+/** Para a função "avaliar-comunidade" (só com a chave de serviço): guarda o resultado de um teste de funcionamento pedido pelo painel. */
+create or replace function public.comunidade_verificacao(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  update configuracoes set valor = valor || jsonb_build_object('verificacao', jsonb_build_object(
+    'em', now(), 'chave', coalesce((p ->> 'chave')::boolean, false), 'ok', coalesce((p ->> 'ok')::boolean, false), 'falha', left(coalesce(p ->> 'falha', ''), 40)))
+  where chave = 'comunidade';
+  return jsonb_build_object('ok', true);
 end $$;
 
 /** Só pelo SQL Editor: liga ou desliga a segunda avaliação. Ligue só depois de publicar a função "avaliar-comunidade" com a chave dela. */
@@ -1667,7 +1721,9 @@ begin
   v_av := interno.veredito(v_titulo || ' ' || v_corpo, interno.cuida(), v);
   v_veredito := v_av ->> 'veredito';
   -- Com a segunda avaliação ligada, o que as regras deixam passar fica na fila até ela responder. Sem resposta, fica lá.
-  if v_veredito = 'publicar' and interno.avaliacao_externa() then
+  if v_veredito = 'publicar' and interno.aprovacao_manual() and not interno.cuida() then
+    v_veredito := 'revisar'; v_av := jsonb_build_object('veredito', 'revisar', 'motivo', 'modo_seguranca');
+  elsif v_veredito = 'publicar' and interno.avaliacao_externa() then
     v_veredito := 'revisar'; v_av := jsonb_build_object('veredito', 'revisar', 'motivo', 'aguardando_avaliacao'); v_externa := true;
   end if;
   insert into topicos (autor, titulo, corpo, disciplina, tipo, oculto, retido, avaliacao, motivo)
@@ -1687,7 +1743,9 @@ begin
   if t.trancado then perform interno.erro('topico_trancado'); end if;
   v_av := interno.veredito(v_corpo, interno.cuida(), v);
   v_veredito := v_av ->> 'veredito';
-  if v_veredito = 'publicar' and interno.avaliacao_externa() then
+  if v_veredito = 'publicar' and interno.aprovacao_manual() and not interno.cuida() then
+    v_veredito := 'revisar'; v_av := jsonb_build_object('veredito', 'revisar', 'motivo', 'modo_seguranca');
+  elsif v_veredito = 'publicar' and interno.avaliacao_externa() then
     v_veredito := 'revisar'; v_av := jsonb_build_object('veredito', 'revisar', 'motivo', 'aguardando_avaliacao'); v_externa := true;
   end if;
   insert into respostas (topico, autor, corpo, oculto, retido, avaliacao, motivo)
@@ -3477,7 +3535,7 @@ begin
              'equipe_chave_definir', 'equipe_apagar_tudo', 'arquivo_apoiar', 'isca', 'boletim_assinar', 'boletim_listar', 'boletim_remover',
              'colaboracao_abrir', 'colaboracao_fechar', 'colaboracoes_minhas', 'equipe_membros', 'site', 'site_salvar',
              'presenca', 'chat_conversas', 'chat_direta', 'chat_grupo_criar', 'chat_grupo_mudar', 'chat_sair', 'chat_grupo_apagar', 'chat_ver', 'chat_enviar', 'chat_apagar',
-             'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes'))
+             'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then
