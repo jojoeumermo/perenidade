@@ -625,6 +625,176 @@ await espera("se a avaliação falhar, nada é aprovado sozinho: a mensagem vai 
   await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: volta.id, p_acao: "ocultar" });
   return [comErro.retido, semSentido.retido, motivos.join(), volta.retido];
 }, (r) => r[0] === true && r[1] === true && r[2] === "avaliacao_falhou,avaliacao_falhou" && r[3] === false);
+await espera("disfarce de expressão grave não passa direto: vai para leitura humana", async () => [
+  await avaliar("v0u t3 m4t4r se continuar com isso"),
+  await avaliar("v o u  t e  m a t a r, pode esperar"),
+  await avaliar("vooou te mataaaar, pode esperar"),
+  await avaliar("H0l0c4ust0 é m3nt1r4, pesquisem"),
+  await avaliar("Vou te mostrar como se resolve essa equação."),
+], (r) => r.slice(0, 4).every((x) => x.v === "revisar" && x.m === "disfarce") && r[4].v === "publicar");
+
+// ── Comunidade: segunda avaliação, feita fora do banco (desligada de nascença) ──
+const notasLimpas = { hate: 0.001, "hate/threatening": 0.0001, harassment: 0.002, "harassment/threatening": 0.0001, sexual: 0.0001, "sexual/minors": 0.00001, violence: 0.002, "violence/graphic": 0.0001, "self-harm": 0.0001 };
+const resultado = (sinalizado = false, categorias = {}, notas = {}) => ({ sinalizado, categorias: { ...Object.fromEntries(Object.keys(notasLimpas).map((n) => [n, false])), ...categorias }, notas: { ...notasLimpas, ...notas } });
+const naFila = async (id) => (await rpc(como(ids.med), "comunidade_retidos")).find((x) => x.id === id);
+const contas = () => dono("select (select count(*)::int from interno.perfis where suspenso) as suspensos, (select count(*)::int from interno.banimentos) as banidos");
+const contasAntes = (await contas()).rows[0];
+const visivel = async (id) => (await rpc(anon, "topico_ver", { p_id: duvida.id })).respostas.some((x) => x.id === id);
+const enviar = (texto, quem = ids.med) => rpc(como(quem), "responder", { p_topico: duvida.id, p_corpo: texto });
+await recusa("anônimo não liga a segunda avaliação", () => rpc(anon, "comunidade_avaliacao_externa", { p_ligar: true }), "permission denied");
+await recusa("nem a coordenação pelo painel: é só pelo banco", () => rpc({ ...como(ids.coord), aal: "aal2" }, "comunidade_avaliacao_externa", { p_ligar: true }), "permission denied");
+await recusa("logado não pega mensagem para avaliar", () => rpc(como(ids.troll), "comunidade_para_avaliar", { p_tipo: "resposta", p_id: duvida.id }), "sem_permissao");
+await recusa("logado não entrega resultado de avaliação", () => rpc(como(ids.troll), "comunidade_avaliada", { p_tipo: "resposta", p_id: duvida.id, p_resultado: resultado() }), "sem_permissao");
+await recusa("nem quem cuida da comunidade", () => rpc(como(ids.med), "comunidade_avaliada", { p_tipo: "resposta", p_id: duvida.id, p_resultado: resultado() }), "sem_permissao");
+await espera("desligada, mensagem adequada segue aparecendo na hora", async () => { const r = await enviar("Com a segunda avaliação desligada, isto aparece na hora."); await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: r.id, p_acao: "ocultar" }); return r; }, (r) => r.retido === false && r.avaliando === false);
+await espera("dono do banco liga a segunda avaliação, e fica no registro", async () => [(await dono("select public.comunidade_avaliacao_externa(true) as r")).rows[0].r, (await dono("select count(*)::int as n from interno.auditoria where acao = 'comunidade_avaliacao_externa'")).rows[0].n], (r) => r[0].startsWith("Segunda avaliação ligada") && r[1] === 1);
+
+let adequada, nociva, ambigua, comFalha, semSentido, esquecida, sensivel;
+await espera("ligada, mensagem adequada espera a segunda avaliação: oculta e na fila", async () => {
+  adequada = await enviar("Divida 15 por 100 e multiplique por 240: dá 36.");
+  return [adequada, await visivel(adequada.id), (await naFila(adequada.id))?.motivo];
+}, (r) => r[0].retido === true && r[0].avaliando === true && r[0].bloqueado === false && r[1] === false && r[2] === "aguardando_avaliacao");
+await espera("as regras do banco continuam sendo a primeira camada", async () => [await enviar("Vou te matar se repetir isso.", ids.jornal), await enviar("Seu RETARDADO, estuda mais.", ids.jornal), await enviar("Leiam tudo em meusite.com.br agora mesmo.", ids.jornal)],
+  (r) => r[0].bloqueado === true && r[0].avaliando === false && r[1].retido === true && r[1].avaliando === false && r[2].retido === true && r[2].avaliando === false);
+await espera("resultado entregue sem a mensagem ter sido pega para avaliar é ignorado", () => rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: adequada.id, p_resultado: resultado() }), (r) => r.veredito === "ignorado");
+await espera("a função pega o texto uma vez só", async () => [await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: adequada.id }), await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: adequada.id })], (r) => r[0].texto.startsWith("Divida 15") && r[1] === null);
+await espera("conteúdo adequado: publica, entra na contagem e sai da fila", async () => {
+  const antes = (await rpc(anon, "topicos_listar", { p_ordem: "novos", p_disciplina: null, p_pagina: 0, p_tipo: "duvida" }))[0].respostas;
+  const r = await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: adequada.id, p_resultado: resultado() });
+  const depois = (await rpc(anon, "topicos_listar", { p_ordem: "novos", p_disciplina: null, p_pagina: 0, p_tipo: "duvida" }))[0].respostas;
+  return [r.veredito, await visivel(adequada.id), await naFila(adequada.id), depois - antes];
+}, (r) => r[0] === "publicar" && r[1] === true && r[2] === undefined && r[3] === 1);
+await espera("o mesmo resultado entregue de novo não muda nada", () => rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: adequada.id, p_resultado: resultado(true, { "hate/threatening": true }) }), (r) => r.veredito === "ignorado");
+await espera("conteúdo nocivo: barrado, fora da fila, no registro, e a conta não é banida", async () => {
+  nociva = await enviar("Texto que as regras não pegam, mas que ameaça um grupo.", ids.mentora);
+  await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: nociva.id });
+  const r = await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: nociva.id, p_resultado: resultado(true, { "hate/threatening": true }, { "hate/threatening": 0.96, hate: 0.8 }) });
+  const conta = await dono("select (select suspenso from interno.perfis where id = $1) as suspenso, (select count(*)::int from interno.banimentos where usuario = $1 and ativo) as banimentos, (select count(*)::int from interno.auditoria where acao = 'comunidade_bloqueada' and alvo = $2) as registro, (select avaliacao from interno.respostas where id = $2::uuid) as avaliacao", [ids.mentora, nociva.id]);
+  return [r.veredito, await visivel(nociva.id), await naFila(nociva.id), conta.rows[0]];
+}, (r) => r[0] === "bloquear" && r[1] === false && r[2] === undefined && r[3].suspenso === false && r[3].banimentos === 0 && r[3].registro === 1 && r[3].avaliacao === "bloqueada");
+await espera("nota muito alta de ódio barra mesmo sem a categoria de ameaça", async () => {
+  const m = await enviar("Outro texto que as regras não pegam.", ids.mentora);
+  await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: m.id });
+  return rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: m.id, p_resultado: resultado(true, { hate: true }, { hate: 0.95 }) });
+}, (r) => r.veredito === "bloquear");
+await espera("caso ambíguo (sinalizado, sem gravidade): fica na fila para o mediador", async () => {
+  ambigua = await enviar("Texto ríspido, que pode ser ataque ou só discordância.");
+  await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: ambigua.id });
+  const r = await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: ambigua.id, p_resultado: resultado(true, { harassment: true }, { harassment: 0.71 }) });
+  return [r.veredito, await visivel(ambigua.id), (await naFila(ambigua.id))?.motivo];
+}, (r) => r[0] === "revisar" && r[1] === false && r[2] === "avaliacao_externa");
+await espera("caso ambíguo (não sinalizado, mas com nota alta): também fica na fila", async () => {
+  const m = await enviar("Relato de aula sobre a tortura na ditadura, com detalhes.");
+  await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: m.id });
+  const r = await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: m.id, p_resultado: resultado(false, {}, { violence: 0.58 }) });
+  const fila = (await naFila(m.id))?.motivo;
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: m.id, p_acao: "mostrar" });
+  return [r.veredito, fila, await visivel(m.id)];
+}, (r) => r[0] === "revisar" && r[1] === "avaliacao_externa" && r[2] === true);
+await espera("quem fala de se machucar não é barrado: vai para leitura humana, com cuidado", async () => {
+  sensivel = await enviar("Desabafo de quem está muito mal e pensa em se machucar.", ids.povo);
+  await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: sensivel.id });
+  const r = await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: sensivel.id, p_resultado: resultado(true, { "self-harm": true, "self-harm/intent": true }, { "self-harm": 0.97 }) });
+  return [r.veredito, (await naFila(sensivel.id))?.motivo];
+}, (r) => r[0] === "revisar" && r[1] === "cuidado");
+for (const [nome, falha] of [["tempo esgotado", { erro: "tempo_esgotado" }], ["limite de requisições", { erro: "limite" }], ["serviço fora do ar", { erro: "indisponivel" }], ["sem chave", { erro: "sem_chave" }]]) {
+  await espera(`falha da avaliação (${nome}): fica na fila, nunca publica`, async () => {
+    comFalha = await enviar(`Mensagem comum enviada com a avaliação em falha: ${nome}.`);
+    await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: comFalha.id });
+    const r = await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: comFalha.id, p_resultado: falha });
+    const motivo = (await naFila(comFalha.id))?.motivo;
+    const publica = await visivel(comFalha.id);
+    await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: comFalha.id, p_acao: "ocultar" });
+    return [r.veredito, motivo, publica];
+  }, (r) => r[0] === "revisar" && r[1] === "avaliacao_externa_falhou" && r[2] === false);
+}
+for (const [nome, torto] of [["vazio", {}], ["sem as notas", { sinalizado: false, categorias: {} }], ["notas vazias", { sinalizado: false, categorias: {}, notas: {} }], ["nota que não é número", { sinalizado: false, categorias: {}, notas: { hate: "baixa" } }], ["sinalização que não é sim ou não", { sinalizado: "nao", categorias: {}, notas: { hate: 0.001 } }], ["uma lista no lugar do resultado", [1, 2, 3]], ["só um 'aprovado' inventado", { veredito: "publicar" }]]) {
+  await espera(`resultado que não se entende (${nome}): fica na fila`, async () => {
+    semSentido = await enviar(`Mensagem comum com resultado torto: ${nome}.`);
+    await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: semSentido.id });
+    const r = await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: semSentido.id, p_resultado: torto });
+    const motivo = (await naFila(semSentido.id))?.motivo;
+    await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: semSentido.id, p_acao: "ocultar" });
+    return [r.veredito, motivo];
+  }, (r) => r[0] === "revisar" && r[1] === "avaliacao_externa_falhou");
+}
+await espera("se a função nunca rodar, a mensagem não aparece sozinha: o mediador decide", async () => {
+  esquecida = await enviar("Mensagem comum que ninguém mandou avaliar.");
+  const antes = [await visivel(esquecida.id), (await naFila(esquecida.id))?.motivo];
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: esquecida.id, p_acao: "mostrar" });
+  return [...antes, await visivel(esquecida.id)];
+}, (r) => r[0] === false && r[1] === "aguardando_avaliacao" && r[2] === true);
+await espera("se a função pegar o texto e morrer no caminho, a mensagem continua na fila", async () => {
+  const m = await enviar("Mensagem comum cuja avaliação ficou pela metade.");
+  await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: m.id });
+  const estado = [await visivel(m.id), (await naFila(m.id))?.motivo];
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: m.id, p_acao: "ocultar" });
+  return estado;
+}, (r) => r[0] === false && r[1] === "em_avaliacao");
+await recusa("logado não lista o que espera avaliação", () => rpc(como(ids.med), "comunidade_pendentes"), "sem_permissao");
+await espera("mensagem que ficou para trás é recuperada: reavaliada com segurança, sem decisão duplicada", async () => {
+  const m = await enviar("Mensagem comum cujo autor fechou o navegador antes da avaliação.");
+  const lista1 = (await rpc(servico, "comunidade_pendentes")).some((x) => x.id === m.id && x.tipo === "resposta");
+  // Primeira tentativa: a função pega o texto e some. Dentro de dois minutos ninguém mais pega.
+  await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: m.id });
+  const emAndamento = [await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: m.id }), (await rpc(servico, "comunidade_pendentes")).some((x) => x.id === m.id)];
+  // Passados os dois minutos, volta a poder ser entregue.
+  await dono("update interno.respostas set avaliacao_em = now() - interval '3 minutes' where id = $1", [m.id]);
+  const lista2 = (await rpc(servico, "comunidade_pendentes")).some((x) => x.id === m.id);
+  const segunda = await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: m.id });
+  const antes = await visivel(m.id);
+  // Chegam dois resultados (o atrasado da primeira tentativa e o da segunda): só o primeiro decide.
+  const r1 = await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: m.id, p_resultado: resultado() });
+  const contagem1 = (await rpc(anon, "topicos_listar", { p_ordem: "novos", p_disciplina: null, p_pagina: 0, p_tipo: "duvida" }))[0].respostas;
+  const r2 = await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: m.id, p_resultado: resultado(true, { "hate/threatening": true }) });
+  const contagem2 = (await rpc(anon, "topicos_listar", { p_ordem: "novos", p_disciplina: null, p_pagina: 0, p_tipo: "duvida" }))[0].respostas;
+  const fim = await visivel(m.id);
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: m.id, p_acao: "ocultar" });
+  return [lista1, emAndamento[0], emAndamento[1], lista2, Boolean(segunda?.texto), antes, r1.veredito, r2.veredito, contagem2 - contagem1, fim];
+}, (r) => r[0] === true && r[1] === null && r[2] === false && r[3] === true && r[4] === true && r[5] === false && r[6] === "publicar" && r[7] === "ignorado" && r[8] === 0 && r[9] === true);
+await espera("falha repetida para na terceira tentativa: a mensagem fica com o mediador, sem nunca ter aparecido", async () => {
+  const m = await enviar("Mensagem comum enviada com o serviço fora do ar por muito tempo.");
+  const vistas = [];
+  for (let n = 0; n < 4; n++) {
+    const entregue = await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: m.id });
+    if (entregue) await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: m.id, p_resultado: { erro: "indisponivel" } });
+    vistas.push(Boolean(entregue), await visivel(m.id));
+    await dono("update interno.respostas set avaliacao_em = now() - interval '3 minutes' where id = $1", [m.id]);
+  }
+  const fila = await naFila(m.id);
+  const pendente = (await rpc(servico, "comunidade_pendentes")).some((x) => x.id === m.id);
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: m.id, p_acao: "ocultar" });
+  return [vistas.join(), fila?.motivo, pendente];
+}, (r) => r[0] === "true,false,true,false,true,false,false,false" && r[1] === "avaliacao_externa_falhou" && r[2] === false);
+await espera("decisão do mediador vale mais que resultado atrasado", async () => {
+  const m = await enviar("Mensagem comum que o mediador recusou antes de a avaliação voltar.");
+  await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: m.id });
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: m.id, p_acao: "ocultar" });
+  return [await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: m.id, p_resultado: resultado() }), await visivel(m.id)];
+}, (r) => r[0].veredito === "ignorado" && r[1] === false);
+await espera("tópico novo segue o mesmo caminho", async () => {
+  const novo = await rpc(como(ids.jornal), "topico_criar", { p_titulo: "Como se calcula a taxa de mais-valia?", p_corpo: "Vi a fórmula na aula e queria um exemplo com números.", p_disciplina: null, p_tipo: "duvida" });
+  const antes = (await rpc(anon, "topicos_listar")).some((x) => x.id === novo.id);
+  const texto = await rpc(servico, "comunidade_para_avaliar", { p_tipo: "topico", p_id: novo.id });
+  const r = await rpc(servico, "comunidade_avaliada", { p_tipo: "topico", p_id: novo.id, p_resultado: resultado() });
+  const depois = (await rpc(anon, "topicos_listar")).some((x) => x.id === novo.id);
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "topico", p_alvo: novo.id, p_acao: "ocultar" });
+  return [novo.avaliando, antes, texto.texto.includes("mais-valia") && texto.texto.includes("exemplo com números"), r.veredito, depois];
+}, (r) => r[0] === true && r[1] === false && r[2] === true && r[3] === "publicar" && r[4] === true);
+await espera("nenhuma decisão automática suspendeu ou baniu alguém", contas, (r) => r.rows[0].suspensos === contasAntes.suspensos && r.rows[0].banidos === contasAntes.banidos);
+await espera("mural e triagem não passam pela segunda avaliação", async () => [
+  await rpc({ papel: "anon", ip: "198.51.100.91" }, "mural_enviar", { p: { categoria: "servico", titulo: "Conserto de bicicletas", oficio: "Mecânico", descricao: "Conserto e revisão de bicicletas no bairro, com preço justo.", cidade: "Recife", uf: "PE", contato: "Rua da Aurora, 100" } }),
+  (await dono("select count(*)::int as n from interno.mural where titulo = 'Conserto de bicicletas' and status = 'pendente'")).rows[0].n,
+], (r) => Boolean(r[0].id) && r[0].avaliando === undefined && r[1] === 1);
+await espera("dono do banco desliga, e volta a valer só a primeira camada", async () => {
+  await dono("select public.comunidade_avaliacao_externa(false)");
+  for (const m of [ambigua, sensivel]) await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: m.id, p_acao: "ocultar" });
+  for (const m of [adequada, esquecida]) await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: m.id, p_acao: "ocultar" });
+  const r = await enviar("Desligada de novo, mensagem adequada aparece na hora.");
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: r.id, p_acao: "ocultar" });
+  return [r, (await rpc(como(ids.med), "comunidade_retidos")).filter((x) => String(x.motivo).includes("avaliacao")).length];
+}, (r) => r[0].retido === false && r[0].avaliando === false && r[1] === 0);
+await espera("instalar de novo não religa nem desliga a segunda avaliação", async () => { await banco.instalarDeNovo(); return dono("select interno.avaliacao_externa() as ligada"); }, (r) => r.rows[0].ligada === false);
 await recusa("leitora comum não lê a lista do filtro", () => rpc(como(ids.jornal), "filtro_listar"), "sem_permissao");
 await espera("curadoria edita a lista do filtro", async () => { await rpc(como(ids.curadora), "filtro_salvar", { p_termo: "Palavrão Novo", p_incluir: true }); return rpc(como(ids.curadora), "filtro_listar"); }, (r) => r.includes("palavrao novo"));
 await recusa("no máximo três conversas novas por hora", async () => { for (let i = 0; i < 4; i++) await rpc(como(ids.mentora), "topico_criar", { p_titulo: `Conversa número ${i}`, p_corpo: "Texto com mais de dez letras.", p_disciplina: null }); }, "muitos_pedidos");
