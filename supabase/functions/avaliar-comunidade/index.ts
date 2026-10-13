@@ -39,9 +39,9 @@ Deno.serve(async (pedido) => {
   if (pedido.method !== "POST") return responder({ erro: "metodo" }, 405);
   if (!base || !servico) return responder({ veredito: "revisar" });
 
-  let tipo: unknown, id: unknown, recuperar: unknown;
+  let tipo: unknown, id: unknown, recuperar: unknown, verificar: unknown;
   try {
-    ({ tipo, id, recuperar } = (await pedido.json()) as { tipo?: unknown; id?: unknown; recuperar?: unknown });
+    ({ tipo, id, recuperar, verificar } = (await pedido.json()) as { tipo?: unknown; id?: unknown; recuperar?: unknown; verificar?: unknown });
   } catch {
     return responder({ erro: "pedido" }, 400);
   }
@@ -57,6 +57,18 @@ Deno.serve(async (pedido) => {
   };
 
   try {
+    // Teste de funcionamento, pedido pelo painel: só para a coordenação (o banco confere, com a sessão de quem pediu).
+    // Faz uma chamada de verdade ao serviço com um texto fixo e inofensivo e guarda o resultado; não toca em mensagem nenhuma.
+    if (verificar === true) {
+      const sessao = pedido.headers.get("Authorization") ?? "";
+      const autorizado = await fetch(`${base}/rest/v1/rpc/comunidade_controles`, { method: "POST", headers: { apikey: servico, Authorization: sessao, "Content-Type": "application/json" }, body: "{}", signal: AbortSignal.timeout(8000) });
+      if (!autorizado.ok) return responder({ erro: "sem_permissao" }, 403);
+      const chave = Deno.env.get("OPENAI_API_KEY");
+      const resultado = await moderar("Teste de funcionamento da avaliação da Comunidade.", chave);
+      const falha = "erro" in resultado ? resultado.erro : "";
+      await chamar("comunidade_verificacao", { p: { chave: Boolean(chave), ok: !falha, falha } });
+      return responder({ chave: Boolean(chave), ok: !falha, falha });
+    }
     // Recuperação: passa de novo pelo que ficou esperando (navegador fechado, serviço fora do ar). O banco limita a três tentativas por mensagem.
     if (recuperar === true) {
       const lista = (await chamar("comunidade_pendentes", {})) as { tipo: string; id: string }[] | null;

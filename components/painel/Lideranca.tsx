@@ -370,6 +370,7 @@ const acoes: Record<string, string> = {
   equipe_chave_definida: "definiu a chave da equipe",
   equipe_sala: "mudou o endereço da sala de voz e vídeo",
   site_configurado: "mudou os controles do site",
+  comunidade_modo_seguranca: "ligou ou desligou o modo de segurança da Comunidade",
   isca: "endereço-isca pedido por alguém de fora:",
 };
 
