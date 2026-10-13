@@ -22,10 +22,10 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#6e1f1a",
     categories: ["education", "books"],
     icons: [
-      { src: "/icone-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
-      { src: "/icone-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/marca-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/marca-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
       // Ícone com margem de segurança: o Android recorta em círculo, gota ou quadrado sem comer a estrela e o livro.
-      { src: "/icone-recorte-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
+      { src: "/marca-recorte-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
     shortcuts: [
       { name: pt.nav.disciplines, url: "/pt/trilhas" },
