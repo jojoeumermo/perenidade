@@ -786,6 +786,59 @@ await espera("mural e triagem não passam pela segunda avaliação", async () =>
   await rpc({ papel: "anon", ip: "198.51.100.91" }, "mural_enviar", { p: { categoria: "servico", titulo: "Conserto de bicicletas", oficio: "Mecânico", descricao: "Conserto e revisão de bicicletas no bairro, com preço justo.", cidade: "Recife", uf: "PE", contato: "Rua da Aurora, 100" } }),
   (await dono("select count(*)::int as n from interno.mural where titulo = 'Conserto de bicicletas' and status = 'pendente'")).rows[0].n,
 ], (r) => Boolean(r[0].id) && r[0].avaliando === undefined && r[1] === 1);
+// ── Modo de segurança: somente aprovação manual ──
+ids.calma = await criarUsuario("calma@teste.local", "Clara Calma");
+await rpc(como(ids.calma), "eu");
+const coordenacao = { ...como(ids.coord), aal: "aal2" };
+await recusa("anônimo não liga o modo de segurança", () => rpc(anon, "comunidade_modo_seguranca", { p_ligar: true }), "entre_primeiro");
+await recusa("participante não liga o modo de segurança", () => rpc(como(ids.calma), "comunidade_modo_seguranca", { p_ligar: true }), "sem_permissao");
+await recusa("mediador não liga o modo de segurança", () => rpc(como(ids.med), "comunidade_modo_seguranca", { p_ligar: true }), "sem_permissao");
+await recusa("curadoria não vê os controles da moderação", () => rpc(como(ids.curadora), "comunidade_controles"), "sem_permissao");
+await recusa("logado não grava resultado de teste de funcionamento", () => rpc(como(ids.coord), "comunidade_verificacao", { p: { chave: true, ok: true } }), "sem_permissao");
+await espera("o painel separa habilitada, testada e usada de verdade", () => rpc(coordenacao, "comunidade_controles"), (r) => r.habilitada === true && r.aprovacao_manual === false && r.verificacao === null && Boolean(r.ultima_avaliacao?.em) && typeof r.esperando === "number");
+await espera("teste de funcionamento com falha aparece como falha, mesmo com a avaliação habilitada", async () => { await rpc(servico, "comunidade_verificacao", { p: { chave: false, ok: false, falha: "sem_chave" } }); return rpc(coordenacao, "comunidade_controles"); }, (r) => r.habilitada === true && r.verificacao.ok === false && r.verificacao.chave === false && r.verificacao.falha === "sem_chave");
+await espera("teste de funcionamento que deu certo fica anotado com a hora", async () => { await rpc(servico, "comunidade_verificacao", { p: { chave: true, ok: true, falha: "" } }); return rpc(coordenacao, "comunidade_controles"); }, (r) => r.verificacao.ok === true && r.verificacao.chave === true && Boolean(r.verificacao.em));
+let presa;
+await espera("mensagem que já tinha saído para avaliar quando o modo foi ligado não é publicada pelo resultado", async () => {
+  presa = await enviar("Mensagem comum enviada um instante antes de o modo de segurança ser ligado.", ids.calma);
+  await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: presa.id });
+  const ligado = await rpc(coordenacao, "comunidade_modo_seguranca", { p_ligar: true });
+  const r = await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: presa.id, p_resultado: resultado() });
+  return [ligado.aprovacao_manual, r.veredito, await visivel(presa.id), (await naFila(presa.id))?.motivo];
+}, (r) => r[0] === true && r[1] === "revisar" && r[2] === false && r[3] === "modo_seguranca");
+await espera("ligar o modo fica no registro, com quem ligou", () => dono("select nome, detalhes from interno.auditoria where acao = 'comunidade_modo_seguranca' order by id desc limit 1"), (r) => r.rows[0].nome === nomes.coord && r.rows[0].detalhes.ligado === true);
+let manual;
+await espera("com o modo ligado, mensagem adequada espera aprovação manual e não sai para avaliação nenhuma", async () => {
+  manual = await enviar("Mensagem comum enviada com o modo de segurança ligado.", ids.calma);
+  return [manual, await visivel(manual.id), (await naFila(manual.id))?.motivo, await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: manual.id }), (await rpc(servico, "comunidade_pendentes")).length];
+}, (r) => r[0].retido === true && r[0].avaliando === false && r[0].bloqueado === false && r[1] === false && r[2] === "modo_seguranca" && r[3] === null && r[4] === 0);
+await espera("resultado forjado ou atrasado não publica nada com o modo ligado", async () => [await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: manual.id, p_resultado: resultado() }), await visivel(manual.id)], (r) => r[0].veredito === "ignorado" && r[1] === false);
+await espera("tópico novo também espera", () => rpc(como(ids.calma), "topico_criar", { p_titulo: "O que é capital constante?", p_corpo: "Queria entender a diferença para o capital variável.", p_disciplina: null, p_tipo: "duvida" }), (r) => r.retido === true && r.avaliando === false);
+await espera("as regras continuam barrando violação clara com o modo ligado", () => enviar("Vou te matar se repetir isso.", ids.calma), (r) => r.bloqueado === true);
+await espera("a leitura pública segue aberta e nada do que estava no ar some", async () => [(await rpc(anon, "topicos_listar")).length, (await rpc(anon, "topico_ver", { p_id: duvida.id })).respostas.length], (r) => r[0] > 0 && r[1] > 0);
+await espera("o fluxo manual continua funcionando: o mediador aprova e a mensagem aparece", async () => {
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: manual.id, p_acao: "mostrar" });
+  const apareceu = await visivel(manual.id);
+  const aviso = (await rpc(como(ids.calma), "avisos_meus")).some((x) => x.texto.includes("foi aprovada"));
+  for (const m of [manual, presa]) await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: m.id, p_acao: "ocultar" });
+  return [apareceu, aviso];
+}, (r) => r[0] === true && r[1] === true);
+await espera("o mural e a triagem das contribuições não mudam com o modo ligado", async () => [
+  await rpc({ papel: "anon", ip: "198.51.100.92" }, "mural_enviar", { p: { categoria: "servico", titulo: "Aulas de violão no bairro", oficio: "Músico", descricao: "Aulas de violão para iniciantes, em grupo, aos sábados de manhã.", cidade: "Olinda", uf: "PE", contato: "Rua do Sol, 20" } }),
+  await rpc({ papel: "anon", ip: "198.51.100.93" }, "contribuir", { p: { tipo: "sugestao", titulo: "Sugestão de aula sobre juros", corpo: "Seria bom ter uma aula sobre juros simples e compostos." } }),
+], (r) => Boolean(r[0].id) && Boolean(r[1].id));
+await espera("desligado o modo, volta a valer a avaliação automática", async () => {
+  const desligado = await rpc(coordenacao, "comunidade_modo_seguranca", { p_ligar: false });
+  ids.serena = await criarUsuario("serena@teste.local", "Sara Serena");
+  await rpc(como(ids.serena), "eu");
+  const m = await enviar("Mensagem comum enviada depois de o modo de segurança ser desligado.", ids.serena);
+  const entregue = await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: m.id });
+  const r = await rpc(servico, "comunidade_avaliada", { p_tipo: "resposta", p_id: m.id, p_resultado: resultado() });
+  const apareceu = await visivel(m.id);
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: m.id, p_acao: "ocultar" });
+  return [desligado.aprovacao_manual, m.avaliando, Boolean(entregue?.texto), r.veredito, apareceu, (await rpc(coordenacao, "comunidade_controles")).ultima_avaliacao.ok];
+}, (r) => r[0] === false && r[1] === true && r[2] === true && r[3] === "publicar" && r[4] === true && r[5] === true);
+await espera("instalar de novo não desfaz a escolha do modo de segurança", async () => { await rpc(coordenacao, "comunidade_modo_seguranca", { p_ligar: true }); await banco.instalarDeNovo(); const ligado = (await rpc(coordenacao, "comunidade_controles")).aprovacao_manual; await rpc(coordenacao, "comunidade_modo_seguranca", { p_ligar: false }); return ligado; }, (r) => r === true);
 await espera("dono do banco desliga, e volta a valer só a primeira camada", async () => {
   await dono("select public.comunidade_avaliacao_externa(false)");
   for (const m of [ambigua, sensivel]) await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: m.id, p_acao: "ocultar" });
@@ -794,6 +847,7 @@ await espera("dono do banco desliga, e volta a valer só a primeira camada", asy
   await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: r.id, p_acao: "ocultar" });
   return [r, (await rpc(como(ids.med), "comunidade_retidos")).filter((x) => String(x.motivo).includes("avaliacao")).length];
 }, (r) => r[0].retido === false && r[0].avaliando === false && r[1] === 0);
+await espera("com a segunda avaliação desligada, a função não recebe texto nenhum", async () => [await rpc(servico, "comunidade_pendentes"), await rpc(servico, "comunidade_para_avaliar", { p_tipo: "resposta", p_id: duvida.id })], (r) => r[0].length === 0 && r[1] === null);
 await espera("instalar de novo não religa nem desliga a segunda avaliação", async () => { await banco.instalarDeNovo(); return dono("select interno.avaliacao_externa() as ligada"); }, (r) => r.rows[0].ligada === false);
 await recusa("leitora comum não lê a lista do filtro", () => rpc(como(ids.jornal), "filtro_listar"), "sem_permissao");
 await espera("curadoria edita a lista do filtro", async () => { await rpc(como(ids.curadora), "filtro_salvar", { p_termo: "Palavrão Novo", p_incluir: true }); return rpc(como(ids.curadora), "filtro_listar"); }, (r) => r.includes("palavrao novo"));
