@@ -23,8 +23,8 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Linguagens | cinema | 0 | 25 | 25 |
 | Linguagens | educacao-fisica | 0 | 24 | 24 |
 | Ciências e Tecnologia | matematica | 48 | 48 | 0 |
-| Ciências e Tecnologia | fisica | 1 | 35 | 34 |
-| Ciências e Tecnologia | quimica | 1 | 32 | 31 |
+| Ciências e Tecnologia | fisica | 12 | 35 | 23 |
+| Ciências e Tecnologia | quimica | 10 | 32 | 22 |
 | Ciências e Tecnologia | biologia | 1 | 33 | 32 |
 | Ciências e Tecnologia | astronomia | 2 | 30 | 28 |
 | Ciências e Tecnologia | informatica | 5 | 61 | 56 |
@@ -68,7 +68,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Lutas do Povo | luta-dos-professores | 1 | 27 | 26 |
 | Lutas do Povo | movimento-estudantil | 2 | 26 | 24 |
 | Lutas do Povo | pessoas-idosas | 1 | 24 | 23 |
-| | **Total** | **362** | **2086** | **1724** |
+| | **Total** | **382** | **2086** | **1704** |
 
 ## Percursos
 
@@ -662,20 +662,10 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 **Cálculo, álgebra e estatística** (superior, `matematica-superior`): 10/10 prontas
 - (completa)
 
-### fisica — 1 de 35 prontas (faltam 34)
+### fisica — 12 de 35 prontas (faltam 23)
 
-**Física do dia a dia** (fundamental, `fisica-fundamental`): 1/12 prontas
-- O que a física estuda
-- Medidas e unidades
-- Força e as leis de Newton
-- Peso, massa e gravidade
-- Energia e suas transformações
-- Calor e temperatura
-- Som
-- Luz, sombra e cores
-- Eletricidade em casa
-- Ímãs e magnetismo
-- Máquinas simples
+**Física do dia a dia** (fundamental, `fisica-fundamental`): 12/12 prontas
+- (completa)
 
 **Física do ensino médio** (medio, `fisica-medio`): 0/14 prontas
 - Cinemática: movimento uniforme e variado
@@ -704,18 +694,10 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Energia nuclear e sociedade
 - História e filosofia da física
 
-### quimica — 1 de 32 prontas (faltam 31)
+### quimica — 10 de 32 prontas (faltam 22)
 
-**Química ao redor** (fundamental, `quimica-fundamental`): 1/10 prontas
-- O que a química estuda
-- Matéria, substância e mistura
-- Estados físicos e mudanças de estado
-- Separação de misturas
-- Transformações químicas no dia a dia
-- Ácidos e bases em casa
-- Água: tratamento e qualidade
-- Química dos alimentos
-- Combustíveis e combustão
+**Química ao redor** (fundamental, `quimica-fundamental`): 10/10 prontas
+- (completa)
 
 **Química do ensino médio** (medio, `quimica-medio`): 0/14 prontas
 - Modelos atômicos
