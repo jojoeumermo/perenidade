@@ -23,9 +23,9 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Linguagens | cinema | 0 | 25 | 25 |
 | Linguagens | educacao-fisica | 0 | 24 | 24 |
 | Ciências e Tecnologia | matematica | 48 | 48 | 0 |
-| Ciências e Tecnologia | fisica | 12 | 35 | 23 |
-| Ciências e Tecnologia | quimica | 10 | 32 | 22 |
-| Ciências e Tecnologia | biologia | 1 | 33 | 32 |
+| Ciências e Tecnologia | fisica | 26 | 35 | 9 |
+| Ciências e Tecnologia | quimica | 24 | 32 | 8 |
+| Ciências e Tecnologia | biologia | 23 | 33 | 10 |
 | Ciências e Tecnologia | astronomia | 2 | 30 | 28 |
 | Ciências e Tecnologia | informatica | 5 | 61 | 56 |
 | Ciências e Tecnologia | programacao | 17 | 53 | 36 |
@@ -68,7 +68,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Lutas do Povo | luta-dos-professores | 1 | 27 | 26 |
 | Lutas do Povo | movimento-estudantil | 2 | 26 | 24 |
 | Lutas do Povo | pessoas-idosas | 1 | 24 | 23 |
-| | **Total** | **382** | **2086** | **1704** |
+| | **Total** | **432** | **2086** | **1654** |
 
 ## Percursos
 
@@ -662,26 +662,13 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 **Cálculo, álgebra e estatística** (superior, `matematica-superior`): 10/10 prontas
 - (completa)
 
-### fisica — 12 de 35 prontas (faltam 23)
+### fisica — 26 de 35 prontas (faltam 9)
 
 **Física do dia a dia** (fundamental, `fisica-fundamental`): 12/12 prontas
 - (completa)
 
-**Física do ensino médio** (medio, `fisica-medio`): 0/14 prontas
-- Cinemática: movimento uniforme e variado
-- Vetores
-- Dinâmica: aplicações das leis de Newton
-- Trabalho, energia e potência
-- Quantidade de movimento
-- Gravitação universal
-- Hidrostática
-- Termodinâmica
-- Ondas
-- Óptica geométrica
-- Eletrostática
-- Circuitos elétricos
-- Eletromagnetismo
-- Física moderna: relatividade e quântica
+**Física do ensino médio** (medio, `fisica-medio`): 14/14 prontas
+- (completa)
 
 **Física: fundamentos** (superior, `fisica-superior`): 0/9 prontas
 - Mecânica clássica
@@ -694,26 +681,13 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Energia nuclear e sociedade
 - História e filosofia da física
 
-### quimica — 10 de 32 prontas (faltam 22)
+### quimica — 24 de 32 prontas (faltam 8)
 
 **Química ao redor** (fundamental, `quimica-fundamental`): 10/10 prontas
 - (completa)
 
-**Química do ensino médio** (medio, `quimica-medio`): 0/14 prontas
-- Modelos atômicos
-- Distribuição eletrônica
-- Ligações químicas
-- Funções inorgânicas
-- Reações químicas e balanceamento
-- Mol e estequiometria
-- Soluções e concentração
-- Termoquímica
-- Cinética e equilíbrio químico
-- pH
-- Eletroquímica: pilhas e eletrólise
-- Química orgânica: cadeias e funções
-- Polímeros e plásticos
-- Química ambiental
+**Química do ensino médio** (medio, `quimica-medio`): 14/14 prontas
+- (completa)
 
 **Química: fundamentos** (superior, `quimica-superior`): 0/8 prontas
 - Estrutura atômica e orbitais
@@ -725,33 +699,13 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Química industrial e petróleo
 - História da química
 
-### biologia — 1 de 33 prontas (faltam 32)
+### biologia — 23 de 33 prontas (faltam 10)
 
-**Vida e saúde** (fundamental, `biologia-fundamental`): 1/11 prontas
-- O que é vida
-- Os reinos dos seres vivos e os vírus
-- O corpo humano e seus sistemas
-- Alimentação e nutrição
-- Vacinas: como funcionam
-- Doenças transmissíveis e saneamento
-- Reprodução e sexualidade
-- Plantas e fotossíntese
-- Cadeias alimentares
-- O SUS: saúde como direito
+**Vida e saúde** (fundamental, `biologia-fundamental`): 11/11 prontas
+- (completa)
 
-**Biologia do ensino médio** (medio, `biologia-medio`): 0/12 prontas
-- Citologia
-- Metabolismo: respiração e fotossíntese
-- DNA, RNA e síntese de proteínas
-- Divisão celular
-- Genética: as leis de Mendel
-- Evolução: Darwin e a seleção natural
-- Classificação dos seres vivos
-- Fisiologia humana
-- Ecologia: populações e ecossistemas
-- Biomas brasileiros
-- Biotecnologia
-- Saúde pública e epidemias
+**Biologia do ensino médio** (medio, `biologia-medio`): 12/12 prontas
+- (completa)
 
 **Biologia: fundamentos** (superior, `biologia-superior`): 0/10 prontas
 - Biologia molecular
