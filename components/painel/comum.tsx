@@ -31,7 +31,7 @@ export const oQueFaz: Record<Role["papel"], string> = {
   coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-coordenação, define a sucessão, publica materiais e emite certificados.",
   vice: "Tudo o que a coordenação faz, menos mexer na coordenação, nomear outra vice-coordenação, definir a sucessão e emitir certificados.",
   curadoria: "Aprova ou recusa contribuições, cuida da comunidade, das denúncias e do filtro de palavras.",
-  mediacao: "Lê primeiro o que o público envia: aprova, edita ou recusa mensagens da Comunidade e anúncios do Mural dos Trabalhadores, faz a triagem das contribuições antes de elas chegarem à fila de revisão e, quando alguém passa do limite, bane a conta (e, em caso extremo, a origem de rede). Não aprova conteúdo de ensino nem mexe na equipe.",
+  mediacao: "Acompanha a Comunidade, decide os casos que pedem leitura humana e oculta, edita ou libera mensagens; aprova, edita ou recusa anúncios do Mural dos Trabalhadores, faz a triagem das contribuições antes de elas chegarem à fila de revisão e, quando alguém passa do limite, bane a conta (e, em caso extremo, a origem de rede). Não aprova conteúdo de ensino nem mexe na equipe.",
   educacao: "Escreve e revisa na disciplina confiada, cuida da comunidade e atende pedidos de reforço da disciplina.",
   revisao: "Lê a fila inteira e dá parecer; não aprova.",
   traducao: "Envia traduções; não vê a fila dos outros.",

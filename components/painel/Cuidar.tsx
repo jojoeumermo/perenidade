@@ -24,7 +24,7 @@ interface Anotacao {
   criado_em: string;
 }
 
-/** Cuidado da comunidade: a fila de mediação e as anotações (mediação, curadoria e educadores), denúncias e filtro (curadoria). */
+/** Cuidado da comunidade: a fila de revisão e as anotações (mediação, curadoria e educadores), denúncias e filtro (curadoria). */
 export function Comunidade({ me }: { me: Me }) {
   const curador = can(me, "coordenacao", "curadoria");
   const media = can(me, "coordenacao", "curadoria", "mediacao");
@@ -37,7 +37,7 @@ export function Comunidade({ me }: { me: Me }) {
         atual={aba}
         escolher={setAba}
         opcoes={[
-          { id: "retidas" as const, nome: "Fila de mediação" },
+          { id: "retidas" as const, nome: "Fila de revisão" },
           { id: "banimentos" as const, nome: "Banimentos" },
           { id: "denuncias" as const, nome: "Denúncias" },
           { id: "anotacoes" as const, nome: "Anotações" },
@@ -77,8 +77,10 @@ interface Retido {
   corpo: string;
   autor: string;
   criado_em: string;
-  /** Além de esperar a mediação, esbarrou na lista de palavras. */
+  /** Esbarrou na lista de palavras. */
   filtro?: boolean;
+  /** Por que a avaliação automática não publicou direto. */
+  motivo?: string;
   /** Só vem para quem pode banir. */
   autor_id?: string | null;
 }
@@ -128,7 +130,17 @@ function Banimentos({ desfaz }: { desfaz: boolean }) {
   );
 }
 
-/** Tudo o que o público escreveu na Comunidade e ainda espera leitura. Ninguém de fora vê nada daqui até alguém aprovar. */
+const motivos: Record<string, string> = {
+  filtro: "tem palavra do filtro",
+  endereco: "traz endereço de site",
+  contato: "traz telefone ou e-mail",
+  gritaria: "escrita quase toda em maiúsculas",
+  repeticao: "tem repetição de letras ou sinais",
+  historico: "quem escreveu teve mensagens ocultadas há pouco",
+  avaliacao_falhou: "a avaliação automática não respondeu",
+};
+
+/** O que a avaliação automática deixou em dúvida e ainda espera leitura. Ninguém de fora vê nada daqui até alguém aprovar. */
 function Retidos({ media, aoBanir }: { media: boolean; aoBanir: () => void }) {
   const lista = useLista<Retido[]>("comunidade_retidos");
   const acao = useAcao(lista.recarregar);
@@ -139,15 +151,15 @@ function Retidos({ media, aoBanir }: { media: boolean; aoBanir: () => void }) {
     return (
       <div>
         <Aviso texto={acao.aviso} />
-        <p className="text-ink-soft">Nenhuma mensagem esperando a mediação.</p>
+        <p className="text-ink-soft">Nenhuma mensagem esperando revisão. O que respeita as regras vai ao ar sozinho; aqui só chega o que ficou em dúvida.</p>
       </div>
     );
   }
   return (
     <section>
-      <h2 className="font-serif text-2xl font-semibold">Fila de mediação</h2>
+      <h2 className="font-serif text-2xl font-semibold">Fila de revisão</h2>
       <p className="mt-1 max-w-3xl text-ink-soft">
-        Toda dúvida, conversa e resposta do público passa por aqui antes de aparecer. Aprove o que respeita as regras da página; edite para tirar um dado pessoal ou um palavrão sem perder a
+        As mensagens da Comunidade vão ao ar sozinhas quando respeitam as regras, e as que as violam claramente são barradas. Aqui chegam só os casos de dúvida. Aprove o que respeita as regras da página; edite para tirar um dado pessoal ou um palavrão sem perder a
         pergunta; recuse propaganda, ataque e discurso de ódio. O filtro de palavras erra para os dois lados: uma citação em aula de história pode vir marcada. Leia o contexto antes de decidir.
       </p>
       <Aviso texto={lista.erro || acao.aviso} />
@@ -156,7 +168,7 @@ function Retidos({ media, aoBanir }: { media: boolean; aoBanir: () => void }) {
           <li key={item.id} className="border border-rule bg-parchment-deep p-4">
             <p className={rotulo}>
               {item.tipo === "topico" ? "Conversa nova" : "Resposta"} · {item.autor || "—"} · {data(item.criado_em)}
-              {item.filtro && <span className="text-oxblood"> · marcada pelo filtro de palavras</span>}
+              {(item.motivo || item.filtro) && <span className="text-oxblood"> · {motivos[item.motivo ?? ""] ?? "tem palavra do filtro"}</span>}
             </p>
             {edicao?.id === item.id ? (
               <div className="mt-2 space-y-3">
@@ -243,7 +255,7 @@ function Filtro() {
     <section>
       <h2 className="font-serif text-2xl font-semibold">Filtro de palavras</h2>
       <p className="mt-1 text-ink-soft">
-        Mensagem com uma destas palavras ou expressões não é apagada: fica retida até alguém da equipe ler. Evite palavras com sentido comum (nome de animal, de lugar): elas seguram conversa inocente.
+        Mensagem da Comunidade com uma destas palavras ou expressões não é apagada: fica retida até alguém da equipe ler (as ameaças e a apologia ao ódio da lista inicial são barradas na hora). Evite palavras com sentido comum (nome de animal, de lugar): elas seguram conversa inocente.
       </p>
       <div className="mt-3 flex flex-wrap items-end gap-3">
         <label className="block min-w-60">

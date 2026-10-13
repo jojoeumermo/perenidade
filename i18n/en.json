@@ -1164,7 +1164,7 @@
     "toCreate": "Create an account to take part in the Community",
     "toEnter": "I already have an account: sign in",
     "createTitle": "Create account",
-    "createWhy": "The account lets you ask and answer in the Community. Everything you write is read by a mediator before it appears. We keep only your e-mail; the name shown on the site starts as a nickname, which you can change.",
+    "createWhy": "The account lets you ask and answer in the Community. What follows the rules appears right away; the mediators keep watch and step in when needed. We keep only your e-mail; the name shown on the site starts as a nickname, which you can change.",
     "createFailed": "The account could not be created. This e-mail may already have an account, or sign-up may be closed at the moment.",
     "volunteerLink": "Want to volunteer? Fill in the application",
     "whyClosed": "There is no \"forgot my password\" here and, for now, accounts are created by invitation from the coordination. Lost your password? Talk to whoever invited you."
@@ -1221,7 +1221,7 @@
     "title": "Conversations",
     "lead": "Ask questions, propose study groups and help those who are starting out. The institute's focus is teaching; this space exists to support study.",
     "rules": [
-      "Anyone can read. Asking or answering requires an account, and every message is read by a mediator before it appears.",
+      "Anyone can read. Asking or answering requires an account. What follows the rules appears right away, what breaks them is blocked, and doubtful cases wait for a mediator to read them.",
       "Respect always: disagree with ideas, do not attack people.",
       "No racism, sexism, LGBT-phobia, ableism or any hate speech.",
       "Do not post personal data, yours or anyone else's.",

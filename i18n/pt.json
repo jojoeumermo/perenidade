@@ -1164,7 +1164,7 @@
     "toCreate": "Criar conta para participar da Comunidade",
     "toEnter": "Já tenho conta: entrar",
     "createTitle": "Criar conta",
-    "createWhy": "A conta serve para perguntar e responder na Comunidade. Tudo o que você escrever é lido pela mediação antes de aparecer. Guardamos só o seu e-mail; o nome que aparece no site nasce como um codinome, que você troca se quiser.",
+    "createWhy": "A conta serve para perguntar e responder na Comunidade. O que respeita as regras aparece na hora; a mediação acompanha e intervém quando é preciso. Guardamos só o seu e-mail; o nome que aparece no site nasce como um codinome, que você troca se quiser.",
     "createFailed": "Não foi possível criar a conta. Este e-mail pode já ter conta, ou o cadastro pode estar fechado no momento.",
     "volunteerLink": "Quer ser voluntário? Preencha a candidatura",
     "whyClosed": "Aqui não há \"esqueci minha senha\" e, no momento, as contas são criadas por convite da coordenação. Perdeu a senha? Fale com quem convidou você."
@@ -1221,7 +1221,7 @@
     "title": "Conversas",
     "lead": "Tire dúvidas, proponha estudos e ajude quem está começando. O foco do instituto é o ensino; este espaço existe para apoiar o estudo.",
     "rules": [
-      "Qualquer pessoa lê. Para perguntar ou responder é preciso ter conta, e toda mensagem passa pela mediação antes de aparecer.",
+      "Qualquer pessoa lê. Para perguntar ou responder é preciso ter conta. O que respeita as regras aparece na hora, o que as viola é barrado, e os casos de dúvida esperam a leitura da mediação.",
       "Respeito sempre: discorde das ideias, não ataque as pessoas.",
       "Nada de racismo, machismo, LGBTfobia, capacitismo ou qualquer discurso de ódio.",
       "Não publique dados pessoais, seus ou de outras pessoas.",

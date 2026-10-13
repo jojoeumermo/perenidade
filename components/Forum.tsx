@@ -126,8 +126,13 @@ function TopicList({ s }: { s: S }) {
 
   async function create() {
     try {
-      const created = await rpc<{ id: string; retido: boolean }>("topico_criar", { p_titulo: draft.title, p_corpo: draft.body, p_disciplina: draft.area || null, p_tipo: draft.kind });
-      // O que o público escreve espera a mediação: quem enviou vê a própria mensagem na lista, marcada como aguardando.
+      const created = await rpc<{ id: string; retido: boolean; bloqueado?: boolean }>("topico_criar", { p_titulo: draft.title, p_corpo: draft.body, p_disciplina: draft.area || null, p_tipo: draft.kind });
+      // Violação clara das regras não vai ao ar: o texto fica no formulário para a pessoa reescrever.
+      if (created.bloqueado) {
+        setMessage(errorText(t, "conteudo_recusado"));
+        return;
+      }
+      // Caso de dúvida espera a mediação: quem enviou vê a própria mensagem na lista, marcada como aguardando.
       if (created.retido) {
         setMessage(s.held);
         setDraft({ ...draft, title: "", body: "" });
@@ -273,7 +278,12 @@ function TopicView({ id, s }: { id: string; s: S }) {
 
   async function act(fn: string, args: Record<string, unknown>) {
     try {
-      const result = await rpc<{ retido?: boolean } | null>(fn, args);
+      const result = await rpc<{ retido?: boolean; bloqueado?: boolean } | null>(fn, args);
+      // Resposta bloqueada não foi ao ar: o texto continua no campo para a pessoa reescrever.
+      if (result?.bloqueado) {
+        setMessage(errorText(t, "conteudo_recusado"));
+        return false;
+      }
       setMessage(result?.retido ? s.held : "");
       reload();
       return true;

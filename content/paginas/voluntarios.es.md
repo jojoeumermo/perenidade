@@ -37,7 +37,7 @@ Cada ruta tiene un plan con las lecciones que todavía faltan. Elegir una de ell
 
 ## Como mediador
 
-La [Comunidad](/comunidade) es abierta: cualquier persona lee, y quien crea una cuenta pregunta y responde. El mediador facilita ese debate y cuida la puerta: lee cada mensaje antes de que aparezca, aprueba lo que respeta las reglas, corrige lo que necesita un retoque y rechaza ataques, propaganda y discursos de odio. También cuida los anuncios del [Mural de los Trabajadores](/mural) y hace la primera lectura de las contribuciones que llegan de fuera, antes de que pasen a los educadores. Cuando alguien insiste en pasarse de la raya, el mediador puede expulsar la cuenta; toda decisión queda registrada y la coordinación puede revisarla.
+La [Comunidad](/comunidade) es abierta: cualquier persona puede leer, y quien crea una cuenta puede preguntar y responder. El mediador facilita ese debate, acompaña el cumplimiento de las reglas e interviene cuando hace falta. Actúa en denuncias y situaciones que exigen evaluación humana, orienta a los participantes, pide ajustes cuando corresponde y toma medidas ante ataques, propaganda indebida y discursos de odio. También cuida los anuncios del [Mural de los Trabajadores](/mural) y hace la primera lectura de las contribuciones que llegan de fuera, antes de pasarlas a los educadores. Cuando alguien insiste en pasarse de la raya, el mediador puede expulsar la cuenta. Todas las decisiones quedan registradas y la coordinación puede revisarlas.
 
 ## Como traductor
 

@@ -211,8 +211,8 @@ await espera("o endereço não fica guardado", () => dono("select count(*)::int 
 // ── Comunidade ──
 await recusa("anônimo não cria tópico", () => rpc(anon, "topico_criar", { p_titulo: "Dúvida sobre frações", p_corpo: "Como somo frações diferentes?", p_disciplina: "matematica" }), "entre_primeiro");
 let topico, resposta;
-await espera("leitora cria tópico", async () => (topico = await rpc(como(ids.leitora), "topico_criar", { p_titulo: "Dúvida sobre frações", p_corpo: "Como somo frações com denominadores diferentes?", p_disciplina: "matematica" })), (r) => Boolean(r.id) && r.retido === true);
-await espera("mensagem nova não aparece para o público antes da mediação", () => rpc(anon, "topicos_listar"), (r) => r.length === 0);
+await espera("mensagem com endereço de site é caso de dúvida: espera a revisão", async () => (topico = await rpc(como(ids.leitora), "topico_criar", { p_titulo: "Dúvida sobre frações", p_corpo: "Como somo frações com denominadores diferentes? Vi uma conta em www.exemplo.com e não entendi.", p_disciplina: "matematica" })), (r) => Boolean(r.id) && r.retido === true && r.bloqueado === false);
+await espera("o que espera a revisão não aparece para o público", () => rpc(anon, "topicos_listar"), (r) => r.length === 0);
 await recusa("nem abre pelo endereço", () => rpc(anon, "topico_ver", { p_id: topico.id }), "nao_encontrado");
 await recusa("outra pessoa logada também não vê", () => rpc(como(ids.jornal), "topico_ver", { p_id: topico.id }), "nao_encontrado");
 await espera("quem escreveu acompanha a própria mensagem aguardando", async () => [await rpc(como(ids.leitora), "topicos_listar"), await rpc(como(ids.leitora), "topico_ver", { p_id: topico.id })], (r) => r[0].length === 1 && r[0][0].retido === true && r[1].retido === true);
@@ -220,7 +220,7 @@ await recusa("ninguém responde ao que ainda não foi aprovado", () => rpc(como(
 await recusa("ninguém vota no que ainda não foi aprovado", () => rpc(como(ids.leitora), "votar", { p_tipo: "topico", p_alvo: topico.id, p_valor: 1 }), "nao_encontrado");
 await recusa("quem escreveu não aprova a própria mensagem", () => rpc(como(ids.leitora), "comunidade_cuidar", { p_tipo: "topico", p_alvo: topico.id, p_acao: "mostrar" }), "sem_permissao");
 await recusa("jornalista não vê a fila de mediação", () => rpc(como(ids.jornal), "comunidade_retidos"), "sem_permissao");
-await espera("mediador vê a fila de mediação", () => rpc(como(ids.med), "comunidade_retidos"), (r) => r.length === 1 && r[0].id === topico.id && r[0].filtro === false);
+await espera("mediador vê a fila de mediação", () => rpc(como(ids.med), "comunidade_retidos"), (r) => r.length === 1 && r[0].id === topico.id && r[0].filtro === false && r[0].motivo === "endereco");
 await recusa("quem escreveu não edita pela porta da mediação", () => rpc(como(ids.leitora), "comunidade_editar", { p_tipo: "topico", p_alvo: topico.id, p_titulo: "Outro título qualquer", p_corpo: "Outro corpo qualquer aqui." }), "sem_permissao");
 await espera("mediador edita antes de aprovar", async () => { await rpc(como(ids.med), "comunidade_editar", { p_tipo: "topico", p_alvo: topico.id, p_titulo: "Dúvida sobre frações", p_corpo: "Como eu somo frações com denominadores diferentes?" }); return rpc(como(ids.med), "topico_ver", { p_id: topico.id }); }, (r) => r.corpo.startsWith("Como eu somo") && r.autor === "Lia Leitora");
 await recusa("edição da mediação respeita o tamanho mínimo", () => rpc(como(ids.med), "comunidade_editar", { p_tipo: "topico", p_alvo: topico.id, p_titulo: "x", p_corpo: "Como eu somo frações?" }), "invalido:titulo");
@@ -236,15 +236,17 @@ await recusa("voto com valor inválido", () => rpc(como(ids.prof), "votar", { p_
 await espera("voto em resposta", () => rpc(como(ids.leitora), "votar", { p_tipo: "resposta", p_alvo: resposta.id, p_valor: 1 }), (r) => r.pontos === 1);
 await espera("lista pública mostra o tópico", () => rpc(anon, "topicos_listar"), (r) => r.length === 1 && r[0].respostas === 1 && r[0].autor === "Lia Leitora");
 await espera("tópico com respostas e meu voto", () => rpc(como(ids.leitora), "topico_ver", { p_id: topico.id }), (r) => r.respostas.length === 1 && r.respostas[0].meu_voto === 1 && r.meu === true && r.pode_cuidar === false);
-await espera("resposta do público também espera a mediação, e a recusada some", async () => {
+await espera("resposta adequada do público aparece na hora, e a mediação pode ocultar depois", async () => {
   const nova = await rpc(como(ids.leitora), "responder", { p_topico: topico.id, p_corpo: "Entendi, muito obrigada!" });
   const publico = await rpc(anon, "topico_ver", { p_id: topico.id });
-  const minha = await rpc(como(ids.leitora), "topico_ver", { p_id: topico.id });
+  const contagem = (await rpc(anon, "topicos_listar"))[0].respostas;
+  const fila = await rpc(como(ids.med), "comunidade_retidos");
   await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: nova.id, p_acao: "ocultar" });
-  const depois = await rpc(como(ids.leitora), "topico_ver", { p_id: topico.id });
+  const depois = await rpc(anon, "topico_ver", { p_id: topico.id });
   const avisos = await rpc(como(ids.leitora), "avisos_meus");
-  return [nova.retido, publico.respostas.length, minha.respostas.length, minha.respostas.some((x) => x.retido), depois.respostas.length, (await rpc(anon, "topicos_listar"))[0].respostas, avisos.some((a) => a.texto.includes("não foi aprovada"))];
-}, (r) => r[0] === true && r[1] === 1 && r[2] === 2 && r[3] === true && r[4] === 1 && r[5] === 1 && r[6] === true);
+  return [nova.retido, nova.bloqueado, publico.respostas.length, contagem, fila.length, depois.respostas.length, (await rpc(anon, "topicos_listar"))[0].respostas, avisos.some((x) => x.texto.includes("foi ocultada"))];
+}, (r) => r[0] === false && r[1] === false && r[2] === 2 && r[3] === 2 && r[4] === 0 && r[5] === 1 && r[6] === 1 && r[7] === true);
+await espera("toda mensagem guarda o veredito que recebeu", () => dono("select (select avaliacao from interno.topicos where id = $1) as topico, (select array_agg(distinct avaliacao) from interno.respostas where topico = $1) as respostas", [topico.id]), (r) => r.rows[0].topico === "revisao" && r.rows[0].respostas.join() === "publicada");
 await recusa("leitora não oculta", () => rpc(como(ids.leitora), "comunidade_cuidar", { p_tipo: "topico", p_alvo: topico.id, p_acao: "ocultar" }), "sem_permissao");
 await espera("educador tranca", () => rpc(como(ids.prof), "comunidade_cuidar", { p_tipo: "topico", p_alvo: topico.id, p_acao: "trancar" }));
 await recusa("tópico trancado não recebe resposta", () => rpc(como(ids.leitora), "responder", { p_topico: topico.id, p_corpo: "Obrigada!" }), "topico_trancado");
@@ -336,7 +338,7 @@ await espera("coordenação retira o anúncio de teste", () => rpc(como(ids.coor
 // ── Banimento pela mediação ──
 await espera("o baderneiro cria conta e aparece de uma origem", async () => { ids.bagunca = await criarUsuario("bagunca@teste.local", "Bagunça"); return rpc({ ...como(ids.bagunca), ip: "203.0.113.77" }, "eu"); }, (r) => r.papeis.length === 0);
 let ofensa;
-await espera("ele escreve uma provocação, que fica na fila", async () => (ofensa = await rpc({ ...como(ids.bagunca), ip: "203.0.113.77" }, "topico_criar", { p_titulo: "Vocês são todos uns vendidos", p_corpo: "Texto de provocação repetido em toda conversa.", p_disciplina: null })), (r) => r.retido === true);
+await espera("ele escreve uma provocação com propaganda, que fica na fila", async () => (ofensa = await rpc({ ...como(ids.bagunca), ip: "203.0.113.77" }, "topico_criar", { p_titulo: "Vocês são todos uns vendidos", p_corpo: "Texto de provocação repetido em toda conversa, leiam a verdade em meusite.com.br agora.", p_disciplina: null })), (r) => r.retido === true);
 await espera("a fila mostra ao mediador de quem é a mensagem", () => rpc(como(ids.med), "comunidade_retidos"), (r) => r.some((m) => m.id === ofensa.id && m.autor_id === ids.bagunca));
 await recusa("educador não bane", () => rpc(como(ids.prof), "mediacao_banir", { p_usuario: ids.bagunca, p_motivo: "Provocação repetida.", p_origem: false }), "sem_permissao");
 await recusa("participante não bane participante", () => rpc(como(ids.leitora), "mediacao_banir", { p_usuario: ids.bagunca, p_motivo: "Não gostei dele.", p_origem: false }), "sem_permissao");
@@ -418,7 +420,7 @@ await recusa("quem não lidera não passa a coordenação", () => rpc(como(ids.v
 let convite;
 // ── Cadastro aberto: participante da comunidade, sem função ──
 await espera("qualquer pessoa cria conta sem convite e nasce sem função, com codinome", async () => { ids.povo = await criarUsuario("povo@teste.local", "Maria do Povo"); return rpc(como(ids.povo), "eu"); }, (r) => r.papeis.length === 0 && /^Estudante \d{5}$/.test(r.nome));
-await espera("quem se cadastrou pergunta, e a pergunta espera a mediação", async () => { const t = await rpc(como(ids.povo), "topico_criar", { p_titulo: "O que é mais-valia?", p_corpo: "Li a palavra na aula e não entendi direito.", p_disciplina: null, p_tipo: "duvida" }); await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "topico", p_alvo: t.id, p_acao: "ocultar" }); return t; }, (r) => r.retido === true);
+await espera("quem se cadastrou pergunta, e a pergunta aparece na hora", async () => { const t = await rpc(como(ids.povo), "topico_criar", { p_titulo: "O que é mais-valia?", p_corpo: "Li a palavra na aula e não entendi direito.", p_disciplina: null, p_tipo: "duvida" }); await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "topico", p_alvo: t.id, p_acao: "ocultar" }); return t; }, (r) => r.retido === false && r.bloqueado === false);
 await recusa("quem se cadastrou não entra no painel da equipe", () => rpc(como(ids.povo), "fila"), "sem_permissao");
 await recusa("nem faz triagem", () => rpc(como(ids.povo), "triagem_fila"), "sem_permissao");
 await recusa("código inventado não cria conta", () => criarUsuario("penetra@teste.local", "Penetra", "0".repeat(64)), "convite_invalido");
@@ -560,12 +562,9 @@ await recusa("enxurrada de iscas da mesma origem é barrada", async () => { for 
 
 // ── Comunidade: dúvidas, resposta aceita e filtro ──
 let duvida, r2;
-await espera("abrir uma dúvida", async () => (duvida = await rpc(como(ids.jornal), "topico_criar", { p_titulo: "Como calculo porcentagem?", p_corpo: "Quanto é 15% de 240? Não entendi a regra.", p_disciplina: "matematica", p_tipo: "duvida" })), (r) => Boolean(r.id) && r.retido === true);
-await espera("mediador aprova a dúvida", () => rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "topico", p_alvo: duvida.id, p_acao: "mostrar" }));
+await espera("abrir uma dúvida", async () => (duvida = await rpc(como(ids.jornal), "topico_criar", { p_titulo: "Como calculo porcentagem?", p_corpo: "Quanto é 15% de 240? Não entendi a regra.", p_disciplina: "matematica", p_tipo: "duvida" })), (r) => Boolean(r.id) && r.retido === false);
 await espera("duas respostas", async () => {
-  // Revisor não cuida da comunidade: a resposta dele espera a mediação. A do educador entra direto.
-  const doRevisor = await rpc(como(ids.revisor), "responder", { p_topico: duvida.id, p_corpo: "Multiplique 240 por 15 e divida por 100." });
-  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: doRevisor.id, p_acao: "mostrar" });
+  await rpc(como(ids.revisor), "responder", { p_topico: duvida.id, p_corpo: "Multiplique 240 por 15 e divida por 100." });
   r2 = await rpc(como(ids.prof), "responder", { p_topico: duvida.id, p_corpo: "15% é 15/100. 240 × 0,15 = 36." });
   return rpc(anon, "topicos_listar", { p_ordem: "novos", p_disciplina: null, p_pagina: 0, p_tipo: "duvida" });
 }, (r) => r.length === 1 && r[0].resolvida === false && r[0].tipo === "duvida");
@@ -580,12 +579,52 @@ await espera("mensagem com termo do filtro fica retida", async () => {
   const fila = await rpc(como(ids.prof), "comunidade_retidos");
   await rpc(como(ids.prof), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: retida.id, p_acao: "mostrar" });
   const depois = await rpc(anon, "topico_ver", { p_id: duvida.id });
-  return [retida.retido, publico.respostas.length, fila.length, depois.respostas.length, (await rpc(como(ids.prof), "comunidade_retidos")).length, fila[0].filtro];
-}, (r) => r[0] === true && r[1] === 2 && r[2] === 1 && r[3] === 3 && r[4] === 0 && r[5] === true);
+  return [retida.retido, publico.respostas.length, fila.length, depois.respostas.length, (await rpc(como(ids.prof), "comunidade_retidos")).length, fila[0].filtro, fila[0].motivo];
+}, (r) => r[0] === true && r[1] === 2 && r[2] === 1 && r[3] === 3 && r[4] === 0 && r[5] === true && r[6] === "filtro");
 await espera("quem cuida da comunidade publica direto, mas o filtro vale para todo mundo", async () => [
   await rpc(como(ids.med), "responder", { p_topico: duvida.id, p_corpo: "Boa pergunta, a conta está certa." }),
   await rpc(como(ids.med), "responder", { p_topico: duvida.id, p_corpo: "Só um RETARDADO erraria isso." }),
 ], (r) => r[0].retido === false && r[1].retido === true);
+const avaliar = async (texto, equipe = false) => (await dono("select interno.veredito($1, $2, null) ->> 'veredito' as v, interno.veredito($1, $2, null) ->> 'motivo' as m", [texto, equipe])).rows[0];
+await espera("a avaliação separa o adequado, o duvidoso e a violação clara", async () => [
+  await avaliar("Alguém pode explicar a diferença entre valor de uso e valor de troca?"),
+  await avaliar("Me chama no zap 11 98765-4321 que eu explico"),
+  await avaliar("Escreve para fulano@exemplo.com que ele resolve"),
+  await avaliar("COMPREM O MEU CURSO AGORA, É A ÚLTIMA CHANCE DE MUDAR DE VIDA"),
+  await avaliar("kkkkkkkkkkkkkkkkkkkkkkkk"),
+  await avaliar("O Holocausto é mentira, todo mundo sabe"),
+  await avaliar("A aula está em https://exemplo.org/aula", true),
+], (r) => r[0].v === "publicar" && r[1].m === "contato" && r[2].v === "revisar" && r[3].m === "gritaria" && r[4].m === "repeticao" && r[5].v === "bloquear" && r[6].v === "publicar" && r.slice(1, 5).every((x) => x.v === "revisar"));
+let bloqueada;
+await espera("violação clara é bloqueada: não vai ao ar nem para a fila, e fica no registro", async () => {
+  bloqueada = await rpc(como(ids.designer), "responder", { p_topico: duvida.id, p_corpo: "Vou te matar se você repetir isso." });
+  const publico = await rpc(anon, "topico_ver", { p_id: duvida.id });
+  const fila = await rpc(como(ids.med), "comunidade_retidos");
+  const registro = await dono("select count(*)::int as n from interno.auditoria where acao = 'comunidade_bloqueada' and alvo = $1", [bloqueada.id]);
+  return [bloqueada.bloqueado, bloqueada.retido, publico.respostas.some((x) => x.id === bloqueada.id), fila.some((x) => x.id === bloqueada.id), registro.rows[0].n];
+}, (r) => r[0] === true && r[1] === false && r[2] === false && r[3] === false && r[4] === 1);
+await espera("o bloqueio vale também para a equipe", () => rpc(como(ids.med), "responder", { p_topico: duvida.id, p_corpo: "Heil Hitler, pronto, falei." }), (r) => r.bloqueado === true);
+await espera("a mediação revê um bloqueio: a mensagem aparece, entra na contagem e quem escreveu é avisado", async () => {
+  const antes = (await rpc(anon, "topico_ver", { p_id: duvida.id })).respostas.length;
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: bloqueada.id, p_acao: "mostrar" });
+  const depois = (await rpc(anon, "topico_ver", { p_id: duvida.id })).respostas.length;
+  const marca = (await dono("select avaliacao from interno.respostas where id = $1", [bloqueada.id])).rows[0].avaliacao;
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: bloqueada.id, p_acao: "ocultar" });
+  return [depois - antes, marca, (await rpc(anon, "topico_ver", { p_id: duvida.id })).respostas.length - antes];
+}, (r) => r[0] === 1 && r[1] === "revista" && r[2] === 0);
+await espera("se a avaliação falhar, nada é aprovado sozinho: a mensagem vai para a fila", async () => {
+  await dono("create or replace function interno.avaliar(p_texto text, p_equipe boolean, p_autor uuid) returns jsonb language plpgsql as $f$ begin raise exception 'quebrou'; end $f$");
+  const comErro = await rpc(como(ids.med), "responder", { p_topico: duvida.id, p_corpo: "Resposta comum, escrita com a avaliação fora do ar." });
+  await dono("create or replace function interno.avaliar(p_texto text, p_equipe boolean, p_autor uuid) returns jsonb language sql as $f$ select '{\"veredito\": \"tudo certo\"}'::jsonb $f$");
+  const semSentido = await rpc(como(ids.med), "responder", { p_topico: duvida.id, p_corpo: "Outra resposta comum, com a avaliação devolvendo bobagem." });
+  await banco.instalarDeNovo();
+  const fila = await rpc(como(ids.med), "comunidade_retidos");
+  const motivos = fila.filter((x) => x.id === comErro.id || x.id === semSentido.id).map((x) => x.motivo);
+  for (const x of [comErro, semSentido]) await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: x.id, p_acao: "ocultar" });
+  const volta = await rpc(como(ids.med), "responder", { p_topico: duvida.id, p_corpo: "Com a avaliação de volta, mensagem comum aparece na hora." });
+  await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "resposta", p_alvo: volta.id, p_acao: "ocultar" });
+  return [comErro.retido, semSentido.retido, motivos.join(), volta.retido];
+}, (r) => r[0] === true && r[1] === true && r[2] === "avaliacao_falhou,avaliacao_falhou" && r[3] === false);
 await recusa("leitora comum não lê a lista do filtro", () => rpc(como(ids.jornal), "filtro_listar"), "sem_permissao");
 await espera("curadoria edita a lista do filtro", async () => { await rpc(como(ids.curadora), "filtro_salvar", { p_termo: "Palavrão Novo", p_incluir: true }); return rpc(como(ids.curadora), "filtro_listar"); }, (r) => r.includes("palavrao novo"));
 await recusa("no máximo três conversas novas por hora", async () => { for (let i = 0; i < 4; i++) await rpc(como(ids.mentora), "topico_criar", { p_titulo: `Conversa número ${i}`, p_corpo: "Texto com mais de dez letras.", p_disciplina: null }); }, "muitos_pedidos");

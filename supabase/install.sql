@@ -213,6 +213,11 @@ alter table interno.topicos add column if not exists tipo text not null default 
 alter table interno.topicos add column if not exists aceita uuid;
 alter table interno.topicos add column if not exists retido boolean not null default false;
 alter table interno.respostas add column if not exists retido boolean not null default false;
+-- O veredito da avaliação automática de cada mensagem da Comunidade e o motivo dele. 'revista' é a bloqueada que a equipe liberou depois.
+alter table interno.topicos add column if not exists avaliacao text check (avaliacao is null or avaliacao in ('publicada', 'revisao', 'bloqueada', 'revista'));
+alter table interno.topicos add column if not exists motivo text not null default '';
+alter table interno.respostas add column if not exists avaliacao text check (avaliacao is null or avaliacao in ('publicada', 'revisao', 'bloqueada', 'revista'));
+alter table interno.respostas add column if not exists motivo text not null default '';
 
 -- Papéis e tipos de contribuição acrescentados depois da primeira instalação.
 do $$
@@ -491,6 +496,24 @@ begin
     on conflict do nothing;
     insert into interno.configuracoes (chave, valor) values ('filtro', '{"semeado": true, "segunda_leva": true}'::jsonb)
     on conflict (chave) do update set valor = interno.configuracoes.valor || '{"segunda_leva": true}'::jsonb;
+  end if;
+end $$;
+
+-- Expressão grave bloqueia a mensagem da Comunidade na hora; as outras só a mandam para a fila de revisão. As frases de
+-- ameaça e de apologia ao ódio da lista inicial são marcadas uma única vez; termo novo entra sempre como "segura para leitura".
+alter table interno.termos_vetados add column if not exists grave boolean not null default false;
+do $$
+begin
+  if not exists (select 1 from interno.configuracoes where chave = 'filtro' and valor ? 'graves_marcados') then
+    update interno.termos_vetados set grave = true where termo in (
+      'heil hitler', 'sieg heil', 'poder branco', 'white power', 'morte aos gays', 'morte aos negros', 'morte aos judeus', 'volta pra senzala',
+      'viva hitler', 'hitler tinha razao', 'hitler estava certo', 'viva o nazismo', 'nazismo e bom', 'holocausto e mentira',
+      'holocausto nao existiu', 'holocausto nunca existiu', 'gas neles', 'camara de gas neles', 'viva ustra', 'ustra vive',
+      'morte aos comunistas', 'morte aos petistas', 'morte aos nordestinos', 'morte aos indios', 'morte as mulheres',
+      'comunista bom e comunista morto', 'petista bom e petista morto',
+      'vou te matar', 'vou matar voce', 'vou matar voces', 'sei onde voce mora', 'voce vai morrer', 'voces vao morrer', 'vou te estuprar', 'merece ser estuprada');
+    insert into interno.configuracoes (chave, valor) values ('filtro', '{"graves_marcados": true}'::jsonb)
+    on conflict (chave) do update set valor = interno.configuracoes.valor || '{"graves_marcados": true}'::jsonb;
   end if;
 end $$;
 
@@ -1375,6 +1398,61 @@ end $$;
 
 -- ───────────────────────────── Comunidade ─────────────────────────────
 
+/**
+ * Avaliação automática das mensagens da Comunidade. Três saídas: 'publicar' (vai ao ar na hora), 'bloquear' (violação
+ * clara: ameaça ou apologia ao ódio, pelas expressões marcadas como graves no filtro) e 'revisar' (dúvida: vai para a
+ * fila de quem cuida da comunidade). Dúvida é termo do filtro, endereço de site, contato pessoal, texto gritado ou
+ * repetido e autor com mensagens ocultadas há pouco. Endereço, contato e histórico só pesam para quem não é da equipe.
+ */
+create or replace function interno.avaliar(p_texto text, p_equipe boolean, p_autor uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare
+  v_texto text := coalesce(p_texto, '');
+  v_normal text := ' ' || interno.normal(v_texto) || ' ';
+  v_letras text := regexp_replace(v_texto, '[^[:alpha:]]', '', 'g');
+begin
+  if exists (select 1 from termos_vetados t where t.grave and position(' ' || t.termo || ' ' in v_normal) > 0) then
+    return jsonb_build_object('veredito', 'bloquear', 'motivo', 'expressao_grave');
+  end if;
+  if exists (select 1 from termos_vetados t where not t.grave and position(' ' || t.termo || ' ' in v_normal) > 0) then
+    return jsonb_build_object('veredito', 'revisar', 'motivo', 'filtro');
+  end if;
+  if v_texto ~ '(.)\1{9,}' then return jsonb_build_object('veredito', 'revisar', 'motivo', 'repeticao'); end if;
+  if char_length(v_letras) >= 40 and char_length(regexp_replace(v_letras, '[^[:upper:]]', '', 'g')) > 0.7 * char_length(v_letras) then
+    return jsonb_build_object('veredito', 'revisar', 'motivo', 'gritaria');
+  end if;
+  if not coalesce(p_equipe, false) then
+    if v_texto ~* '(https?://|www[.]|[a-z0-9-]{2,}[.](com|net|org|br|io|xyz|info|biz|ly|me|tv|app|site|online)([^a-z]|$))' then
+      return jsonb_build_object('veredito', 'revisar', 'motivo', 'endereco');
+    end if;
+    if v_texto ~ '[^[:space:]@]+@[^[:space:]@]+[.][A-Za-z]{2,}' or v_texto ~ '([0-9][ ().-]{0,2}){10,}' then
+      return jsonb_build_object('veredito', 'revisar', 'motivo', 'contato');
+    end if;
+    if (select count(*) from topicos where autor = p_autor and oculto and not retido and criado_em > now() - interval '30 days')
+       + (select count(*) from respostas where autor = p_autor and oculto and not retido and criado_em > now() - interval '30 days') >= 2 then
+      return jsonb_build_object('veredito', 'revisar', 'motivo', 'historico');
+    end if;
+  end if;
+  return jsonb_build_object('veredito', 'publicar', 'motivo', '');
+end $$;
+
+/**
+ * A única porta por onde uma mensagem da Comunidade recebe o veredito. Se a avaliação falhar ou devolver algo que não
+ * se entende, a mensagem vai para a fila de revisão: falha nunca vira aprovação.
+ */
+create or replace function interno.veredito(p_texto text, p_equipe boolean, p_autor uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v jsonb;
+begin
+  begin
+    v := interno.avaliar(p_texto, p_equipe, p_autor);
+  exception when others then
+    v := null;
+  end;
+  if v is null or coalesce(v ->> 'veredito', '') not in ('publicar', 'revisar', 'bloquear') then
+    return jsonb_build_object('veredito', 'revisar', 'motivo', 'avaliacao_falhou');
+  end if;
+  return jsonb_build_object('veredito', v ->> 'veredito', 'motivo', left(coalesce(v ->> 'motivo', ''), 40));
+end $$;
+
 drop function if exists public.topicos_listar(text, text, integer);
 drop function if exists public.topico_criar(text, text, text);
 
@@ -1429,8 +1507,8 @@ begin
 end $$;
 
 /**
- * Abrir conversa ou dúvida: só com conta. Nada do público aparece antes de alguém da mediação ler: a mensagem entra
- * retida e sai da fila aprovada ou recusada. Só quem cuida da comunidade publica direto (e nem isso, se o filtro pegar).
+ * Abrir conversa ou dúvida: só com conta. Toda mensagem passa pela avaliação automática (interno.veredito): a adequada
+ * aparece na hora, a que viola claramente as regras é bloqueada e a duvidosa espera a leitura de quem cuida da comunidade.
  */
 create or replace function public.topico_criar(p_titulo text, p_corpo text, p_disciplina text, p_tipo text default 'conversa') returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -1438,28 +1516,36 @@ declare
   v uuid := interno.eu(); v_id uuid;
   v_titulo text := interno.txt(p_titulo, 'titulo', 5, 140);
   v_corpo text := interno.txt(p_corpo, 'corpo', 10, 8000);
-  v_retido boolean;
+  v_av jsonb; v_veredito text;
 begin
   perform interno.limite('topico', 3, 60);
   if coalesce(p_tipo, 'conversa') not in ('conversa', 'duvida') then perform interno.erro('invalido:tipo'); end if;
-  v_retido := not interno.cuida() or interno.vetado(v_titulo || ' ' || v_corpo);
-  insert into topicos (autor, titulo, corpo, disciplina, tipo, oculto, retido)
-  values (v, v_titulo, v_corpo, interno.disciplina_ok(p_disciplina), coalesce(p_tipo, 'conversa'), v_retido, v_retido)
+  v_av := interno.veredito(v_titulo || ' ' || v_corpo, interno.cuida(), v);
+  v_veredito := v_av ->> 'veredito';
+  insert into topicos (autor, titulo, corpo, disciplina, tipo, oculto, retido, avaliacao, motivo)
+  values (v, v_titulo, v_corpo, interno.disciplina_ok(p_disciplina), coalesce(p_tipo, 'conversa'), v_veredito <> 'publicar', v_veredito = 'revisar',
+          case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end, v_av ->> 'motivo')
   returning id into v_id;
-  return jsonb_build_object('id', v_id, 'retido', v_retido);
+  if v_veredito = 'bloquear' then perform interno.registrar('comunidade_bloqueada', v_id::text, jsonb_build_object('tipo', 'topico', 'motivo', v_av ->> 'motivo')); end if;
+  return jsonb_build_object('id', v_id, 'retido', v_veredito = 'revisar', 'bloqueado', v_veredito = 'bloquear');
 end $$;
 
 create or replace function public.responder(p_topico uuid, p_corpo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); t topicos; v_id uuid; v_corpo text := interno.txt(p_corpo, 'corpo', 2, 8000); v_retido boolean;
+declare v uuid := interno.eu(); t topicos; v_id uuid; v_corpo text := interno.txt(p_corpo, 'corpo', 2, 8000); v_av jsonb; v_veredito text;
 begin
   perform interno.limite('responder', 30, 60);
   select * into t from topicos where id = p_topico for update;
   if not found or t.oculto then perform interno.erro('nao_encontrado'); end if;
   if t.trancado then perform interno.erro('topico_trancado'); end if;
-  v_retido := not interno.cuida() or interno.vetado(v_corpo);
-  insert into respostas (topico, autor, corpo, oculto, retido) values (p_topico, v, v_corpo, v_retido, v_retido) returning id into v_id;
-  if not v_retido then update topicos set respostas = respostas + 1 where id = p_topico; end if;
-  return jsonb_build_object('id', v_id, 'retido', v_retido);
+  v_av := interno.veredito(v_corpo, interno.cuida(), v);
+  v_veredito := v_av ->> 'veredito';
+  insert into respostas (topico, autor, corpo, oculto, retido, avaliacao, motivo)
+  values (p_topico, v, v_corpo, v_veredito <> 'publicar', v_veredito = 'revisar',
+          case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end, v_av ->> 'motivo')
+  returning id into v_id;
+  if v_veredito = 'publicar' then update topicos set respostas = respostas + 1 where id = p_topico; end if;
+  if v_veredito = 'bloquear' then perform interno.registrar('comunidade_bloqueada', v_id::text, jsonb_build_object('tipo', 'resposta', 'motivo', v_av ->> 'motivo')); end if;
+  return jsonb_build_object('id', v_id, 'retido', v_veredito = 'revisar', 'bloqueado', v_veredito = 'bloquear');
 end $$;
 
 /** Quem perguntou (ou a equipe) marca a resposta que resolveu a dúvida. Sem p_resposta, desmarca. */
@@ -1494,30 +1580,40 @@ begin
 end $$;
 
 /**
- * Cuidar da comunidade: ocultar, mostrar, trancar ou destrancar. Nada é apagado. Na fila de mediação, "mostrar" é
- * aprovar e "ocultar" é recusar; quem escreveu recebe um recado com a decisão.
+ * Cuidar da comunidade: ocultar, mostrar, trancar ou destrancar. Nada é apagado. Na fila de revisão, "mostrar" é
+ * aprovar e "ocultar" é recusar; quem escreveu recebe um recado com a decisão. "Mostrar" também desfaz um bloqueio
+ * da avaliação automática que a equipe julgue errado.
  */
 create or replace function public.comunidade_cuidar(p_tipo text, p_alvo uuid, p_acao text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_retido boolean; v_topico uuid; v_autor uuid;
+declare v_retido boolean; v_topico uuid; v_autor uuid; v_bloqueada boolean; v_oculto boolean; v_achou boolean;
 begin
   perform interno.eu();
   if not interno.cuida() then perform interno.erro('sem_permissao'); end if;
   if p_tipo = 'topico' and p_acao in ('ocultar', 'mostrar') then
-    select retido, autor into v_retido, v_autor from topicos where id = p_alvo;
-    update topicos set oculto = (p_acao = 'ocultar'), retido = false where id = p_alvo;
+    select retido, autor, avaliacao = 'bloqueada', oculto into v_retido, v_autor, v_bloqueada, v_oculto from topicos where id = p_alvo;
+    update topicos set oculto = (p_acao = 'ocultar'), retido = false,
+      avaliacao = case when p_acao = 'mostrar' and avaliacao = 'bloqueada' then 'revista' else avaliacao end where id = p_alvo;
+    v_achou := found;
   elsif p_tipo = 'topico' and p_acao in ('trancar', 'destrancar') then
     update topicos set trancado = (p_acao = 'trancar') where id = p_alvo;
+    v_achou := found;
   elsif p_tipo = 'resposta' and p_acao in ('ocultar', 'mostrar') then
-    select retido, topico, autor into v_retido, v_topico, v_autor from respostas where id = p_alvo;
-    update respostas set oculto = (p_acao = 'ocultar'), retido = false where id = p_alvo;
-    -- Resposta que estava retida só entra na contagem quando a equipe a libera.
-    if found and v_retido and p_acao = 'mostrar' then update topicos set respostas = respostas + 1 where id = v_topico; end if;
+    select retido, topico, autor, avaliacao = 'bloqueada', oculto into v_retido, v_topico, v_autor, v_bloqueada, v_oculto from respostas where id = p_alvo;
+    update respostas set oculto = (p_acao = 'ocultar'), retido = false,
+      avaliacao = case when p_acao = 'mostrar' and avaliacao = 'bloqueada' then 'revista' else avaliacao end where id = p_alvo;
+    v_achou := found;
+    -- A contagem do tópico acompanha o que está à vista: entra quando a resposta aparece, sai quando é ocultada.
+    if v_achou and p_acao = 'mostrar' and v_oculto then update topicos set respostas = respostas + 1 where id = v_topico; end if;
+    if v_achou and p_acao = 'ocultar' and not v_oculto then update topicos set respostas = greatest(respostas - 1, 0) where id = v_topico; end if;
   else perform interno.erro('invalido:acao'); end if;
-  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not coalesce(v_achou, false) then perform interno.erro('nao_encontrado'); end if;
   perform interno.registrar('comunidade_' || p_acao, p_alvo::text, jsonb_build_object('tipo', p_tipo));
-  if coalesce(v_retido, false) then
+  -- Quem escreveu fica sabendo de toda decisão que muda o que o público vê da mensagem dele.
+  if coalesce(v_retido, false) or (coalesce(v_bloqueada, false) and p_acao = 'mostrar') then
     perform interno.avisar(v_autor, case when p_acao = 'mostrar' then 'Sua mensagem na Comunidade foi aprovada e já aparece para todo mundo.'
                                          else 'Sua mensagem na Comunidade não foi aprovada pela mediação. Releia as regras da página e escreva de novo.' end);
+  elsif p_acao = 'ocultar' and v_oculto = false then
+    perform interno.avisar(v_autor, 'Uma mensagem sua na Comunidade foi ocultada pela mediação. Releia as regras da página; se achar que houve engano, use a página Denunciar.');
   end if;
   return jsonb_build_object('ok', true);
 end $$;
@@ -1540,7 +1636,7 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
-/** A fila de mediação: tudo o que foi escrito e ainda espera leitura. "filtro" marca o que também esbarrou na lista de palavras. */
+/** A fila de revisão: o que a avaliação automática deixou em dúvida e ainda espera leitura. "motivo" diz por que parou aqui. */
 create or replace function public.comunidade_retidos() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   perform interno.eu();
@@ -1548,11 +1644,11 @@ begin
   return (
     select coalesce(jsonb_agg(x.j order by x.criado_em), '[]'::jsonb) from (
       select t.criado_em, jsonb_build_object('tipo', 'topico', 'id', t.id, 'topico', t.id, 'titulo', t.titulo, 'corpo', t.corpo, 'autor', coalesce(f.nome, ''), 'criado_em', t.criado_em,
-        'autor_id', case when interno.media() then t.autor end, 'filtro', interno.vetado(t.titulo || ' ' || t.corpo)) as j
+        'autor_id', case when interno.media() then t.autor end, 'filtro', interno.vetado(t.titulo || ' ' || t.corpo), 'motivo', t.motivo) as j
       from topicos t left join perfis f on f.id = t.autor where t.retido
       union all
       select r.criado_em, jsonb_build_object('tipo', 'resposta', 'id', r.id, 'topico', r.topico, 'titulo', (select titulo from topicos where id = r.topico), 'corpo', r.corpo, 'autor', coalesce(f.nome, ''), 'criado_em', r.criado_em,
-        'autor_id', case when interno.media() then r.autor end, 'filtro', interno.vetado(r.corpo))
+        'autor_id', case when interno.media() then r.autor end, 'filtro', interno.vetado(r.corpo), 'motivo', r.motivo)
       from respostas r left join perfis f on f.id = r.autor where r.retido
     ) x);
 end $$;
