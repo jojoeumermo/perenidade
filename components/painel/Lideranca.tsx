@@ -330,6 +330,7 @@ const acoes: Record<string, string> = {
   radio_configurada: "mudou a rádio",
   comunidade_ocultar: "ocultou uma mensagem da comunidade",
   comunidade_bloqueada: "teve uma mensagem barrada pela avaliação automática da comunidade",
+  comunidade_avaliacao_externa: "segunda avaliação da comunidade ligada ou desligada direto no banco",
   comunidade_editada: "editou uma mensagem da comunidade",
   anuncio_editado: "editou o texto de um anúncio do mural",
   triagem_liberada: "liberou na triagem",

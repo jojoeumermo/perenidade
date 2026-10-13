@@ -16,6 +16,8 @@ const eslintConfig = defineConfig([
     // Interpretadores copiados das dependências (scripts/preparar.mjs).
     "public/pyodide/**",
     "public/php/**",
+    // Função que roda no serviço de contas (Deno), fora do site.
+    "supabase/functions/**",
   ]),
 ]);
 

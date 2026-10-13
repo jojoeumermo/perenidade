@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { can, getClient, storageUrl, type Me } from "@/lib/backend";
+import { can, getClient, storageUrl, type Me, recoverPending } from "@/lib/backend";
 import { Abas, Aviso, botao, botaoClaro, campo, data, elo, rotulo, useAcao, useLista } from "./comum";
 
 interface Denuncia {
@@ -138,6 +138,12 @@ const motivos: Record<string, string> = {
   repeticao: "tem repetição de letras ou sinais",
   historico: "quem escreveu teve mensagens ocultadas há pouco",
   avaliacao_falhou: "a avaliação automática não respondeu",
+  disfarce: "parece expressão grave disfarçada",
+  aguardando_avaliacao: "a segunda avaliação ainda não rodou",
+  em_avaliacao: "a segunda avaliação começou e não terminou",
+  avaliacao_externa: "a segunda avaliação ficou em dúvida",
+  avaliacao_externa_falhou: "a segunda avaliação não respondeu",
+  cuidado: "pode falar de autolesão: leia com cuidado e acolha",
 };
 
 /** O que a avaliação automática deixou em dúvida e ainda espera leitura. Ninguém de fora vê nada daqui até alguém aprovar. */
@@ -162,6 +168,21 @@ function Retidos({ media, aoBanir }: { media: boolean; aoBanir: () => void }) {
         As mensagens da Comunidade vão ao ar sozinhas quando respeitam as regras, e as que as violam claramente são barradas. Aqui chegam só os casos de dúvida. Aprove o que respeita as regras da página; edite para tirar um dado pessoal ou um palavrão sem perder a
         pergunta; recuse propaganda, ataque e discurso de ódio. O filtro de palavras erra para os dois lados: uma citação em aula de história pode vir marcada. Leia o contexto antes de decidir.
       </p>
+      {lista.dados.some((item) => ["aguardando_avaliacao", "em_avaliacao", "avaliacao_externa_falhou"].includes(item.motivo ?? "")) && (
+        <p className="mt-2">
+          <button
+            type="button"
+            className={elo}
+            onClick={async () => {
+              const feito = await recoverPending();
+              acao.setAviso(feito ? "Pedido feito: o que podia ser reavaliado foi. O que continuar aqui espera a sua leitura." : "O serviço não respondeu. As mensagens continuam aqui, esperando leitura.");
+              lista.recarregar();
+            }}
+          >
+            Tentar de novo a segunda avaliação das que ficaram esperando
+          </button>
+        </p>
+      )}
       <Aviso texto={lista.erro || acao.aviso} />
       <ul className="mt-3 space-y-4">
         {lista.dados.map((item) => (
