@@ -94,7 +94,7 @@ function Porta({ children }: { children: React.ReactNode }) {
       <div className="w-full max-w-md">
         <p className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/emblema-96.png" alt="" width={40} height={40} className="h-10 w-10" />
+          <img src="/marca-96.png" alt="" width={40} height={40} className="h-10 w-10" />
           <span>
             <span className="block font-serif text-2xl font-semibold leading-none">Instituto Lúcia</span>
             <span className="mt-1 block font-mono text-[0.65rem] uppercase tracking-[0.3em] text-[#c9a84a]">Painel</span>
@@ -250,7 +250,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       <aside id="menu-do-painel" className={`no-print bg-[#17130e] text-[#efe4c8] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r lg:border-[#3a3226] ${menu ? "block" : "hidden"}`}>
         <div className="hidden items-center gap-3 px-5 pt-6 lg:flex">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/emblema-96.png" alt="" width={40} height={40} className="h-10 w-10" />
+          <img src="/marca-96.png" alt="" width={40} height={40} className="h-10 w-10" />
           <span>
             <span className="block font-serif text-xl font-semibold leading-none">Instituto Lúcia</span>
             <span className="mt-1 block font-mono text-[0.6rem] uppercase tracking-[0.3em] text-[#c9a84a]">{ambiente}</span>

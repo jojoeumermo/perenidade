@@ -89,12 +89,12 @@ export function Folha({ certificado, cpf = "", rascunho = false }: { certificado
   return (
     <article className="certificado" lang="pt-BR">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src="/emblema.png" alt="" className="certificado-fundo" />
+      <img src="/marca.png" alt="" className="certificado-fundo" />
       {!emitido && <p className="certificado-previa">Prévia · sem validade</p>}
       <div className="certificado-folha">
         <header>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/emblema.png" alt="" className="certificado-emblema" />
+          <img src="/marca.png" alt="" className="certificado-emblema" />
           <p className="certificado-casa">{site.name}</p>
           <h2 className="certificado-titulo">Certificado</h2>
           <p className="certificado-subtitulo">de trabalho voluntário</p>
