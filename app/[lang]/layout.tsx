@@ -56,9 +56,9 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
       siteName: site.name,
       title: t.meta.title,
       description: t.meta.description,
-      images: [{ url: "/cartao.png", width: 1200, height: 630, alt: site.name }],
+      images: [{ url: "/cartao-lucia.png", width: 1200, height: 630, alt: site.name }],
     },
-    twitter: { card: "summary_large_image", images: ["/cartao.png"] },
+    twitter: { card: "summary_large_image", images: ["/cartao-lucia.png"] },
     applicationName: site.name,
     // No iPhone, "Adicionar à Tela de Início" abre o site sem as barras do navegador.
     appleWebApp: { capable: true, title: site.name, statusBarStyle: "default" },
