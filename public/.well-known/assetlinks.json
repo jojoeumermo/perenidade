@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls", "delegate_permission/common.get_login_creds"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "org.institutolucia.app",
+      "sha256_cert_fingerprints": ["90:EF:88:01:7C:CB:83:B0:FC:3B:5D:E8:42:3E:A3:FF:08:BE:A0:CF:E4:FF:11:EF:EF:E9:8A:D3:E4:6E:5E:02"]
+    }
+  }
+]
