@@ -67,7 +67,7 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
       {/* No aplicativo o idioma sai da barra de cima e mora aqui. */}
       <label className="mt-6 hidden items-center justify-between gap-4 rounded-[0.875rem] border border-rule bg-parchment-deep px-4 py-2 font-sans app:flex">
         {t.common.language}
-        <LanguageSwitcher />
+        <LanguageSwitcher wide />
       </label>
       {/* No navegador, cartões; no aplicativo, uma lista corrida de linhas largas, como a tela de ajustes do celular. */}
       {sections.map(([title, items]) => (

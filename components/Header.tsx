@@ -10,7 +10,7 @@ import { ThemeToggle } from "./ThemeToggle";
 export function Header({ lang, t }: { lang: Locale; t: Dict }) {
   // No aplicativo a barra é curta e fica presa no topo; a faixa de avisos, o idioma e as notícias saem dela (estão em "Mais").
   return (
-    <header className="no-print no-focus border-b border-rule app:sticky app:top-0 app:z-30 app:bg-parchment app:pt-[env(safe-area-inset-top,0px)]">
+    <header className="app-barra no-print no-focus border-b border-rule app:sticky app:top-0 app:z-30 app:bg-parchment app:pt-[env(safe-area-inset-top,0px)]">
       <a
         href="#conteudo"
         className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-10 focus:bg-ink focus:px-3 focus:py-2 focus:font-sans focus:text-sm focus:text-parchment"

@@ -94,7 +94,7 @@ export function AccountLink() {
 }
 
 /** Troca o idioma mantendo a pessoa na mesma página. */
-export function LanguageSwitcher() {
+export function LanguageSwitcher({ wide = false }: { wide?: boolean }) {
   const pathname = usePathname();
   const router = useRouter();
   const { lang, t } = useI18n();
@@ -104,7 +104,12 @@ export function LanguageSwitcher() {
       aria-label={t.common.language}
       value={lang}
       onChange={(e) => router.push(`/${e.target.value}${rest ? `/${rest}` : ""}`)}
-      className="max-w-[4.75rem] cursor-pointer border border-rule bg-parchment px-1 py-1 font-mono text-xs text-ink-soft hover:border-gold sm:max-w-none sm:px-1.5"
+      // "wide": na página "Mais" do aplicativo o nome do idioma aparece inteiro, em letra de leitura.
+      className={
+        wide
+          ? "min-h-10! cursor-pointer border border-rule bg-parchment px-2 py-1 font-sans text-sm! text-ink hover:border-gold"
+          : "max-w-[4.75rem] cursor-pointer border border-rule bg-parchment px-1 py-1 font-mono text-xs text-ink-soft hover:border-gold sm:max-w-none sm:px-1.5"
+      }
     >
       {locales.map((code) => (
         <option key={code} value={code} lang={code}>

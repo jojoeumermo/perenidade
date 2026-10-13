@@ -6,6 +6,7 @@ import { rpc, type Me } from "@/lib/backend";
 import { seal, unseal } from "@/lib/cipher";
 import { useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, elo, papeis, rotulo, textoDoErro, useLista } from "./comum";
+import { BuscaDePessoa } from "./BuscaDePessoa";
 import { type Canais, Chave, type Membro, useChave } from "./Equipe";
 
 interface Conversa {
@@ -384,7 +385,7 @@ function Grupo({ dados, me, equipe, depois, saiu }: { dados: Aberta; me: Me; equ
   const [novo, setNovo] = useState("");
   const [aviso, setAviso] = useState("");
   const dentro = new Set(dados.membros.map((membro) => membro.id));
-  const livres = equipe.filter((membro) => !dentro.has(membro.id));
+  const livres = equipe.filter((membro) => !dentro.has(membro.id)).map((membro) => ({ id: membro.id, nome: membro.nome, email: membro.papeis.map((papel) => papeis[papel.papel]).join(", ") }));
 
   async function fazer(funcao: string, argumentos: Record<string, unknown>, fim: () => void = depois) {
     setAviso("");
@@ -428,15 +429,10 @@ function Grupo({ dados, me, equipe, depois, saiu }: { dados: Aberta; me: Me; equ
       </div>
       {dados.dona && livres.length > 0 && (
         <div className="flex flex-wrap items-end gap-2">
-          <label className="block min-w-48 flex-1">
+          <div className="min-w-48 flex-1">
             Pôr mais alguém
-            <select value={novo} onChange={(e) => setNovo(e.target.value)} className={campo}>
-              <option value="">Escolha…</option>
-              {livres.map((membro) => (
-                <option key={membro.id} value={membro.id}>{membro.nome}</option>
-              ))}
-            </select>
-          </label>
+            <BuscaDePessoa rotulo="Pôr mais alguém no grupo" entre={livres} escolhida={livres.find((pessoa) => pessoa.id === novo) ?? null} escolher={(pessoa) => setNovo(pessoa?.id ?? "")} />
+          </div>
           <button type="button" className={botaoClaro} disabled={!novo} onClick={() => void fazer("chat_grupo_mudar", { p_id: dados.id, p_incluir: [novo] }, () => { setNovo(""); depois(); })}>Pôr no grupo</button>
         </div>
       )}
@@ -460,6 +456,7 @@ function NovoGrupo({ membros, fechar, criado }: { membros: Membro[]; fechar: () 
   const [marcados, setMarcados] = useState<string[]>([]);
   const [aviso, setAviso] = useState("");
   const [ocupado, setOcupado] = useState(false);
+  const [filtro, setFiltro] = useState("");
   const outros = membros.filter((membro) => !membro.eu);
   const funcoes = [...new Set(outros.flatMap((membro) => membro.papeis.map((papel) => papel.papel)))];
   const descricao = (membro: Membro) => [...new Set(membro.papeis.map((papel) => `${papeis[papel.papel]}${papel.disciplina ? ` de ${t.areas[papel.disciplina as keyof typeof t.areas]?.[0] ?? papel.disciplina}` : ""}`))].join(", ");
@@ -503,8 +500,9 @@ function NovoGrupo({ membros, fechar, criado }: { membros: Membro[]; fechar: () 
       </div>
       <fieldset>
         <legend className={rotulo}>Quem entra ({marcados.length})</legend>
+        {outros.length > 8 && <input type="search" value={filtro} onChange={(e) => setFiltro(e.target.value)} placeholder="Filtrar por nome ou função" aria-label="Filtrar pessoas" className={`${campo} max-w-md`} />}
         <ul className="mt-2 divide-y divide-rule border-y border-rule">
-          {outros.map((membro) => (
+          {outros.filter((membro) => `${membro.nome} ${descricao(membro)}`.toLowerCase().includes(filtro.trim().toLowerCase())).map((membro) => (
             <li key={membro.id}>
               <label className="flex cursor-pointer items-center gap-3 py-2">
                 <input type="checkbox" className="h-4 w-4" checked={marcados.includes(membro.id)} onChange={(e) => setMarcados(e.target.checked ? [...marcados, membro.id] : marcados.filter((item) => item !== membro.id))} />

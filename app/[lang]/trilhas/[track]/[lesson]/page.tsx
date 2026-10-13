@@ -7,6 +7,7 @@ import { SourceList } from "@/components/Cards";
 import { Markdown } from "@/components/Markdown";
 import { CiteButton, CompleteButton, LessonList, RememberLesson } from "@/components/Progress";
 import { Quiz } from "@/components/Quiz";
+import { ReadingChrome } from "@/components/ReadingChrome";
 import { StudyTools } from "@/components/StudyTools";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
@@ -68,13 +69,17 @@ export default async function LessonPage({ params }: Props) {
   const updated = history.updated && new Intl.DateTimeFormat(htmlLang[lang], { timeZone: "UTC" }).format(new Date(history.updated));
   // O glossário só é ligado ao texto quando os dois estão no mesmo idioma.
   const terms = lesson.translated ? getGlossary(lang).filter((term) => term.translated).map(({ slug, term, summary }) => ({ slug, term, summary })) : [];
+  // No aplicativo, "anterior" e "próxima" viram dois botões largos, a próxima em cima: é o que o polegar mais aperta.
+  const vizinha = "app:max-md:rounded-[0.875rem] app:max-md:border app:max-md:border-rule app:max-md:bg-parchment-deep app:max-md:px-4 app:max-md:py-3.5 app:max-md:text-base";
   const fix = `${to("/contribuir")}?corrigir=${encodeURIComponent(path(lesson.slug))}`;
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-[16rem_1fr]">
+    <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! md:grid-cols-[16rem_1fr]">
+      <ReadingChrome />
       <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} />
 
-      <aside className="no-print no-focus font-sans text-sm md:sticky md:top-6 md:self-start">
+      {/* No aplicativo o texto vem primeiro, como em um leitor de livros; a lista das aulas da disciplina fica depois dele. */}
+      <aside className="no-print no-focus font-sans text-sm app:max-md:order-2 app:max-md:border-t app:max-md:border-rule app:max-md:pt-6 md:sticky md:top-6 md:self-start">
         <Link href={to(`/estantes/${track.area}`)} className="text-ink-soft hover:text-oxblood">← {t.areas[track.area][0]}</Link>
         <h2 className="mt-3 font-serif text-xl font-semibold" {...originalLang(track.translated)}>
           <Link href={to(`/trilhas/${track.slug}`)} className="hover:text-oxblood">{track.title}</Link>
@@ -105,8 +110,8 @@ export default async function LessonPage({ params }: Props) {
           {fill(t.tracks.minutes, { n: lesson.minutes })}
         </p>
         <div {...originalLang(lesson.translated)}>
-          <h1 className="mt-2 text-4xl font-semibold sm:text-5xl">{lesson.title}</h1>
-          <p className="mt-3 text-xl italic text-ink-soft">{lesson.summary}</p>
+          <h1 className="mt-2 text-4xl font-semibold app:max-md:text-[2rem] app:max-md:leading-[1.15] sm:text-5xl">{lesson.title}</h1>
+          <p className="mt-3 text-xl italic text-ink-soft app:max-md:text-lg">{lesson.summary}</p>
         </div>
 
         <Untranslated lang={lang} t={t} show={!lesson.translated} />
@@ -126,9 +131,9 @@ export default async function LessonPage({ params }: Props) {
 
         <CompleteButton id={id} next={next && { path: path(next.slug), title: next.title }} />
 
-        <nav aria-label={t.lesson.neighbors} className="no-print mt-12 flex justify-between gap-6 border-t border-rule pt-6 font-sans text-sm">
-          {prev ? <Link href={to(path(prev.slug))} data-prev className="hover:text-oxblood">← {prev.title}</Link> : <span />}
-          {next ? <Link href={to(path(next.slug))} data-next className="text-right hover:text-oxblood">{next.title} →</Link> : <span />}
+        <nav aria-label={t.lesson.neighbors} className="no-print mt-12 flex justify-between gap-6 border-t border-rule pt-6 font-sans text-sm app:max-md:flex-col app:max-md:gap-3">
+          {prev ? <Link href={to(path(prev.slug))} data-prev className={`hover:text-oxblood ${vizinha}`}>← {prev.title}</Link> : <span />}
+          {next ? <Link href={to(path(next.slug))} data-next className={`text-right hover:text-oxblood app:max-md:order-first ${vizinha}`}>{next.title} →</Link> : <span />}
         </nav>
 
         <StudyTools id={id} path={path(lesson.slug)} s={t.study} />

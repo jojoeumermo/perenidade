@@ -133,6 +133,33 @@ body {
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
   }
+  /* Modo leitura (tela de aula): rolando para baixo, as barras saem da frente; rolando para cima, voltam.
+     Quem liga e desliga é components/ReadingChrome.tsx, com <html data-lendo>. */
+  :root[data-app] :is(.app-barra, .app-abas) {
+    transition: transform 0.2s ease-out;
+  }
+  :root[data-app] .app-flutua {
+    transition: opacity 0.2s ease-out;
+  }
+  :root[data-app][data-lendo] .app-barra {
+    transform: translateY(-100%);
+  }
+  :root[data-app][data-lendo] .app-abas {
+    transform: translateY(100%);
+  }
+  :root[data-app][data-lendo] .app-flutua:not(:focus-within) {
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* Texto de leitura na medida do celular: letra de 19px, entrelinha larga e palavras partidas com hífen,
+     para a margem direita não ficar serrilhada. Quem pediu espaçamento maior na acessibilidade continua mandando. */
+  :root[data-app]:not([data-spacing]) main .prose-lesson {
+    font-size: 1.1875rem;
+    line-height: 1.75;
+  }
+  :root[data-app] main .prose-lesson :is(p, li) {
+    hyphens: auto;
+  }
   /* Sem rodapé no aplicativo: o conteúdo termina acima das abas. */
   :root[data-app] main#conteudo {
     padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));

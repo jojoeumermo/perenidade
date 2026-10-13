@@ -31,30 +31,32 @@ export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id
   const label = "font-mono text-xs uppercase tracking-widest text-gold";
   const reserved = book.license === "Direitos reservados";
 
+  // No aplicativo a ficha abre como a folha de rosto de um livro: título e autor no centro, a sinopse como texto de
+  // leitura e o botão de ler preso ao alcance do polegar. A seta de voltar já está na barra de cima.
   return (
-    <article className="mx-auto max-w-3xl px-4 py-12">
-      <Link href={to("/acervo")} className="font-sans text-sm text-ink-soft hover:text-oxblood">← {t.library.back}</Link>
-      <p className="mt-6 font-mono text-xs uppercase tracking-[0.3em] text-gold">
+    <article className="mx-auto max-w-3xl px-4 py-12 app:max-md:px-5">
+      <Link href={to("/acervo")} className="font-sans text-sm text-ink-soft hover:text-oxblood app:max-md:hidden">← {t.library.back}</Link>
+      <p className="mt-6 font-mono text-xs uppercase tracking-[0.3em] text-gold app:max-md:mt-2 app:max-md:text-center">
         <Link href={to(`/estantes/${book.area}`)} className="hover:text-oxblood">{t.areas[book.area][0]}</Link>
       </p>
-      <h1 className="mt-2 text-4xl font-semibold sm:text-5xl">{book.title}</h1>
-      <p className="mt-2 text-2xl italic text-ink-soft">
+      <h1 className="mt-2 text-4xl font-semibold app:max-md:mt-4 app:max-md:text-center app:max-md:text-[2.125rem] app:max-md:leading-[1.12] sm:text-5xl">{book.title}</h1>
+      <p className="mt-2 text-2xl italic text-ink-soft app:max-md:mt-3 app:max-md:text-center app:max-md:text-xl app:max-md:after:mx-auto app:max-md:after:mt-5 app:max-md:after:block app:max-md:after:h-px app:max-md:after:w-16 app:max-md:after:bg-gold">
         {book.author}
         {book.year && `, ${book.year}`}
       </p>
       <Untranslated lang={lang} t={t} show={!book.translated} />
-      <p className="mt-8 text-xl leading-relaxed" {...originalLang(book.translated)}>{book.synopsis}</p>
+      <p className="mt-8 text-xl leading-relaxed app:max-md:mt-6 app:max-md:text-[1.1875rem] app:max-md:leading-[1.75] app:max-md:hyphens-auto" {...originalLang(book.translated)}>{book.synopsis}</p>
 
       <a
         href={book.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-8 inline-block bg-ink px-8 py-3 font-sans text-sm font-medium text-parchment hover:bg-oxblood"
+        className="mt-8 inline-block bg-ink px-8 py-3 font-sans text-sm font-medium text-parchment hover:bg-oxblood app:max-md:sticky app:max-md:bottom-[calc(4.25rem+env(safe-area-inset-bottom,0px))] app:max-md:z-10 app:max-md:block app:max-md:py-4 app:max-md:text-center app:max-md:text-base"
       >
         {fill(reserved ? t.library.seeAt : t.common.readAt, { source: book.source })} ↗
       </a>
 
-      <dl className="mt-10 grid gap-x-8 gap-y-4 border-t border-rule pt-6 font-sans text-sm sm:grid-cols-[8rem_1fr]">
+      <dl className="mt-10 grid gap-x-8 gap-y-4 border-t border-rule pt-6 font-sans text-sm app:max-md:gap-y-1.5 app:max-md:rounded-[0.875rem] app:max-md:border app:max-md:bg-parchment-deep app:max-md:p-4 app:max-md:[&>dd]:mb-3 app:max-md:[&>dd:last-child]:mb-0 sm:grid-cols-[8rem_1fr]">
         {authors.length > 0 && (
           <>
             <dt className={label}>{t.nav.authors}</dt>

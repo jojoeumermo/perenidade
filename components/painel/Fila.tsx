@@ -8,6 +8,7 @@ import { cleanSources, MarkdownEditor, SourcesField, type SourceDraft } from "..
 import { useI18n } from "../I18n";
 import { Markdown } from "../Markdown";
 import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import { BuscaDePessoa } from "./BuscaDePessoa";
 import type { Membro } from "./Equipe";
 import { editorPt, fontesPt } from "./Escrever";
 
@@ -319,6 +320,7 @@ function Conjunto({ c, me, decide, depois, sair }: { c: Completa; me: Me; decide
   const livres = membros.dados?.filter((membro) => !membro.eu && !dentro.has(membro.id)) ?? [];
   const funcoes = (membro: Membro) =>
     [...new Set(membro.papeis.map((papel) => `${papeis[papel.papel]}${papel.disciplina ? ` de ${t.areas[papel.disciplina as keyof typeof t.areas]?.[0] ?? papel.disciplina}` : ""}`))].join(", ");
+  const opcoes = livres.map((membro) => ({ id: membro.id, nome: membro.nome, email: funcoes(membro) }));
 
   return (
     <section className="border border-rule bg-parchment-deep p-5">
@@ -365,17 +367,10 @@ function Conjunto({ c, me, decide, depois, sair }: { c: Completa; me: Me; decide
       )}
       {manda && (
         <div className="mt-3 flex flex-wrap items-end gap-3">
-          <label className="block min-w-56 flex-1">
+          <div className="min-w-56 flex-1">
             Chamar
-            <select value={escolha} onChange={(e) => setEscolha(e.target.value)} className={campo}>
-              <option value="">Escolha alguém da equipe…</option>
-              {livres.map((membro) => (
-                <option key={membro.id} value={membro.id}>
-                  {membro.nome} · {funcoes(membro)}
-                </option>
-              ))}
-            </select>
-          </label>
+            <BuscaDePessoa rotulo="Chamar alguém da equipe" entre={opcoes} escolhida={opcoes.find((pessoa) => pessoa.id === escolha) ?? null} escolher={(pessoa) => setEscolha(pessoa?.id ?? "")} />
+          </div>
           <button
             type="button"
             className={botao}
