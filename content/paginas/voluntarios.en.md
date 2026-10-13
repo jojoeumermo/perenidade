@@ -37,7 +37,7 @@ Each track has a roadmap listing the lessons still to be written. Picking one of
 
 ## As a mediator
 
-The [Community](/comunidade) is open: anyone can read, and anyone who creates an account can ask and answer. The mediator facilitates that debate and guards the door: reads every message before it appears, approves what follows the rules, fixes what needs a touch-up and refuses attacks, advertising and hate speech. The mediator also looks after the notices on the [Workers' Board](/mural) and gives a first reading to contributions coming from outside, before they reach the educators. When someone keeps crossing the line, the mediator can ban the account; every decision is recorded and the coordination can review it.
+The [Community](/comunidade) is open: anyone can read, and anyone who creates an account can ask and answer. The mediator facilitates that debate, follows how the rules are being kept and steps in when needed. The mediator acts on reports and on situations that call for human judgement, guides participants, asks for adjustments when appropriate and takes action against attacks, improper advertising and hate speech. The mediator also looks after the notices on the [Workers' Board](/mural) and gives a first reading to contributions coming from outside, before passing them on to the educators. When someone keeps crossing the line, the mediator can ban the account. Every decision is recorded and can be reviewed by the coordination.
 
 ## As a translator
 
