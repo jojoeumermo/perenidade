@@ -7,6 +7,7 @@ import { areaSlugs } from "@/lib/areas";
 import { can, getClient, hasBackend, leads, type Me, type Role, rpc, signOut, useMe } from "@/lib/backend";
 import { registerDevice } from "@/lib/device";
 import { applyPrefs, readPrefs } from "@/lib/prefs";
+import { senhaVazada } from "@/lib/senha";
 import { getItem, KEYS, setItem } from "@/lib/storage";
 import { L, useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
@@ -15,6 +16,7 @@ import { Boletim } from "./Boletim";
 import { Conversas } from "./Conversas";
 import { Equipe, type Membro } from "./Equipe";
 import { Escrever } from "./Escrever";
+import { FontesAbertas } from "./FontesAbertas";
 import { Fila } from "./Fila";
 import { Horas } from "./Horas";
 import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lideranca";
@@ -207,6 +209,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "revisao", "educacao"), conta: r?.fila },
       { id: "triagem", nome: "Triagem", sobre: "A primeira leitura do que o público envia: o que passa segue para a fila de revisão.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.triagem },
+      { id: "fontes", nome: "Fontes abertas", sobre: "Obras, verbetes e datas em acervos e enciclopédias livres, para escrever com fonte à vista.", grupo: "Produção", mostra: voluntario },
       { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design") },
       { id: "comunidade", nome: "Comunidade", sobre: "Fila de revisão, banimentos, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
       { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mentoria", "educacao"), conta: r?.reforco },
@@ -315,6 +318,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "juntas" && <Fila key="juntas" me={eu} juntas />}
           {atual.id === "fila" && <Fila key="fila" me={eu} />}
           {atual.id === "triagem" && <Fila key="triagem" me={eu} triagem />}
+          {atual.id === "fontes" && <FontesAbertas />}
           {atual.id === "materiais" && <Materiais me={eu} />}
           {atual.id === "comunidade" && <Comunidade me={eu} />}
           {atual.id === "reforco" && <Reforco />}
@@ -525,6 +529,10 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
 
   async function trocarSenha() {
     setAvisoSenha("");
+    if ((await senhaVazada(senha)) === true) {
+      setAvisoSenha("Essa senha já apareceu em vazamentos de outros sites e é das primeiras que um invasor tenta. Escolha outra.");
+      return;
+    }
     try {
       const supabase = await getClient();
       const { error } = await supabase.auth.updateUser({ password: senha });

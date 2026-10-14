@@ -188,7 +188,7 @@ Sem esta etapa o site funciona, só não aparecem o painel, a comunidade e a rá
 8. Para a publicação automática (seção 7), cadastre nos segredos do repositório `SUPABASE_URL` (a mesma *Project URL*) e `SUPABASE_SERVICE_ROLE_KEY` (a chave *service_role*). **Essa chave nunca vai para o site nem para o `.env` de ninguém.** Depois crie, na aba *Variables* da mesma tela, a variável `PUBLICAR` com o valor `sim`: é ela que liga a rotina de hora em hora.
 9. Opcional — entrada com o Google: ligue o provedor em **Authentication → Providers → Google** e crie a variável `NEXT_PUBLIC_AUTH_GOOGLE=1`.
 10. **Proteção contra robôs (Cloudflare Turnstile).** Crie o widget no painel da Cloudflare. A *site key* (pública) vai para a variável `NEXT_PUBLIC_TURNSTILE_SITE_KEY` na hospedagem. A *secret key* vai **somente** em **Authentication → Attack Protection → Enable Captcha protection → Turnstile**, no Supabase. Ela nunca entra no repositório, em `.env` nem em mensagem. Ordem certa: primeiro publique o site com a *site key*; só depois ligue a proteção no Supabase. Na ordem inversa ninguém consegue entrar até o site novo subir.
-11. **Segundo fator.** Em **Authentication → Sign In / Providers → Multi-Factor**, ligue o TOTP (aplicativo autenticador). Cada pessoa da equipe cadastra o seu no painel, em **Minha conta → Segundo fator**. A partir daí, a tela de entrada pede o código logo depois da senha, e o banco só reconhece as funções dessa conta em sessão confirmada pelo código, com a exigência geral ligada ou não. A exigência de segundo fator para as funções com poder de decisão (coordenação, vice-coordenação e curadoria) **nasce ligada**: sem o aplicativo cadastrado, o painel dessas contas abre direto na tela de cadastro e não mostra mais nada. Por isso o TOTP precisa estar ligado no Supabase **antes** de rodar o `install.sql`. A coordenação pode desligar a exigência na aba **Segurança e sucessão**, e a escolha dela não é desfeita quando o arquivo é rodado de novo. Se a coordenação perder o aparelho e ficar trancada do lado de fora, rode no **SQL Editor**:
+11. **Segundo fator.** Em **Authentication → Sign In / Providers → Multi-Factor**, ligue o TOTP (aplicativo autenticador). Cada pessoa da equipe cadastra o seu no painel, em **Minha conta → Segundo fator**. A partir daí, a tela de entrada pede o código logo depois da senha, e o banco só reconhece as funções dessa conta em sessão confirmada pelo código, com a exigência geral ligada ou não. A exigência de segundo fator para as funções com poder de decisão (coordenação, vice-coordenação, curadoria e mediação) **nasce ligada**: sem o aplicativo cadastrado, o painel dessas contas abre direto na tela de cadastro e não mostra mais nada. Por isso o TOTP precisa estar ligado no Supabase **antes** de rodar o `install.sql`. A coordenação pode desligar a exigência na aba **Segurança e sucessão**, e a escolha dela não é desfeita quando o arquivo é rodado de novo. Se a coordenação perder o aparelho e ficar trancada do lado de fora, rode no **SQL Editor**:
 
     ```sql
     update interno.configuracoes set valor = '{"exigir_2fa": false}' where chave = 'seguranca';
@@ -253,6 +253,8 @@ Para ativar, nesta ordem:
 6. Ligue no SQL Editor: `select public.comunidade_avaliacao_externa(true);`. Escreva uma mensagem de teste e confira que ela aparece em instantes. Se ficar na fila com "a segunda avaliação não respondeu", veja o registro da função (ele diz o tipo de falha, nunca a chave nem o texto).
 7. Para desligar a qualquer momento: `select public.comunidade_avaliacao_externa(false);`. Volta a valer só a primeira camada, na hora.
 
+**Conferência de links (opcional).** Com o segredo `GOOGLE_SAFE_BROWSING_KEY` na mesma função (`supabase secrets set GOOGLE_SAFE_BROWSING_KEY=...`), os endereços de site que aparecem numa mensagem são conferidos no Google Safe Browsing (golpe, programa malicioso, página enganosa; uso não comercial). Só os endereços saem, nunca o texto. Link perigoso, ou link que não deu para conferir, manda a mensagem para a fila de revisão; nada é publicado nem barrado só por isso. Sem o segredo, mensagem com link vai para a fila, como já acontecia.
+
 As conferências dessa parte são `npm run testar:moderacao` (a chamada ao serviço, simulada, sem rede e sem chave) e a seção "segunda avaliação" de `npm run testar:banco` (o que o banco faz com cada resultado).
 
 O **Mural dos Trabalhadores** é decidido pela coordenação e pela mediação, que também pode acertar o texto de um anúncio pendente. Retirar do ar um anúncio já aprovado continua só com a coordenação.
@@ -286,6 +288,23 @@ A sucessão do banco não resolve a da **infraestrutura**: domínio, hospedagem,
 Toda decisão (aprovar, recusar, dar ou tirar função, suspender, mudar configuração, emitir certificado, passar a coordenação) é gravada com autor, data e o que mudou. A coordenação lê na aba **Registro de atividades**. Ninguém apaga nem edita o registro pelo painel; a faxina automática (seção 6, item 12) descarta só o que tem mais de 400 dias.
 
 Ao lado dele, na mesma aba, fica o **Livro do acervo** (tabela `interno.audit_logs`). Esse não depende de nenhuma função lembrar de anotar: um gatilho do banco escreve uma linha a cada inclusão, edição, aprovação, recusa, publicação ou exclusão em `contribuicoes`, `arquivos`, `materiais` e `papeis`, com a data, a conta e por onde a mudança entrou (painel, rotina de publicação ou direto no SQL Editor). Guarda o título e o nome dos campos que mudaram, nunca o texto. Um segundo gatilho recusa editar, apagar ou esvaziar a tabela, até para o dono do banco; só sai o que passou de 400 dias. Quem tem a senha do banco ainda consegue desligar o gatilho: contra isso valem as cópias de segurança do Supabase, não o livro. Para vigiar outra tabela, acrescente o nome dela na lista da seção *Livro do acervo* do `install.sql`.
+
+### E-mails automáticos
+
+O site manda sozinho os e-mails de que as pessoas precisam: a confirmação de que a candidatura a voluntário chegou (e um aviso para a coordenação), o convite de quem foi aceito (o link pessoal vai direto para o e-mail da pessoa), o aviso de pedido recusado, a confirmação do pedido de reforço, o link de confirmação do boletim e as edições do boletim, que o jornalismo escreve e envia pelo painel (**Boletim do jornal**), cada uma com o link de saída da lista.
+
+Como funciona: o banco põe cada e-mail numa fila (`interno.emails`, fechada como as outras tabelas). A rotina **Enviar e-mails** (`.github/workflows/emails.yml`) roda de dez em dez minutos, pega a fila com a chave de serviço e envia pelo Resend. Depois que um e-mail sai, o texto dele é apagado do banco. O mesmo endereço recebe no máximo três e-mails do mesmo tipo por dia, para ninguém usar os formulários para encher a caixa de outra pessoa. A situação (quantos esperam, saíram e falharam) aparece em **Controles do site**.
+
+Para ligar, uma vez só:
+
+1. Crie uma conta em resend.com e acrescente o domínio `institutolucia.org` em **Domains**. O Resend mostra três ou quatro registros de DNS (SPF, DKIM e, se quiser, DMARC): copie cada um para **Cloudflare → DNS** do domínio, com a nuvem laranja **desligada** (só DNS). Espere o Resend marcar o domínio como verificado.
+2. Gere uma chave em **API Keys** com permissão só de envio (*Sending access*), restrita ao domínio.
+3. No GitHub, em **Settings → Secrets and variables → Actions**: segredo `RESEND_API_KEY` com a chave; variável `EMAIL_REMETENTE` com `Instituto Lúcia <contato@institutolucia.org>`; variável `EMAILS` com `sim`. Os segredos `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` já existem (são os da publicação).
+4. Para receber as respostas: em **Cloudflare → Email → Email Routing**, ligue o roteamento e crie a regra `contato@institutolucia.org` → o seu e-mail pessoal. Depois crie a variável `EMAIL_RESPOSTA` com `contato@institutolucia.org`. O Email Routing só recebe e encaminha; quem envia é o Resend.
+5. Rode o `supabase/install.sql` no SQL Editor (ele cria a fila e liga os envios no banco).
+6. Em **Actions → Enviar e-mails → Run workflow**, rode uma vez e confira o registro: "N enviado(s)".
+
+Os e-mails da própria entrada (confirmar o cadastro, trocar a senha) não passam por aqui: quem manda é o serviço de contas. O servidor de e-mail padrão do Supabase manda pouquíssimos por hora e só serve para teste. Com o cadastro aberto, use o mesmo Resend em **Supabase → Authentication → SMTP Settings** (servidor `smtp.resend.com`, porta 465, usuário `resend`, senha = uma chave do Resend, remetente `contato@institutolucia.org`).
 
 ## 7. Como uma contribuição vira página
 
@@ -391,3 +410,23 @@ A página **Notícias** lê os endereços de distribuição (RSS) dos veículos 
 ## 18. Histórico público
 
 A página de histórico de mudanças está **desligada**. Para ligá-la, ponha uma data em `historyFrom`, em `lib/site.ts`: ela volta ao ar mostrando só o que mudou daquele dia em diante.
+
+## Serviços abertos de fora
+
+Algumas partes do site usam dados de serviços públicos e abertos. Todos são consultados pelo **servidor do site** (rotas em `app/api/` e `lib/dados.ts`, com a lista de destinos permitidos em `lib/externo.ts`), nunca pelo navegador de quem visita: o visitante só fala com o nosso domínio, a política de segurança das páginas continua igual e nenhum serviço de fora fica sabendo quem leu o quê. Cada resposta fica guardada no servidor por horas ou dias, para não sobrecarregar ninguém. Se um serviço não responde, a parte dele some ou avisa; nada quebra e nenhum número é inventado.
+
+| Onde aparece | Serviço | Chave |
+| --- | --- | --- |
+| Página **Dados do povo** (`/dados`) | Banco Central (SGS: salário mínimo 1619, IPCA 12 meses 13522, meta Selic 432, desocupação 24369), IBGE (estimativa da população, tabela 6579), Câmara dos Deputados (votações do Plenário) | não |
+| Quadro **Neste dia** na página inicial (`/api/neste-dia`) | Wikipédia (feed "On this day"), texto CC BY-SA | não |
+| Ferramenta **Dicionário** (`/api/dicionario`) | Dicionário Aberto (português, verbetes de 1913) e Free Dictionary API (inglês) | não |
+| Ferramenta **Frases traduzidas** (`/api/frases`) | Tatoeba, CC BY 2.0 FR (autor e link de cada frase à vista) | não |
+| Ferramenta **Gráficos e álgebra** | math.js, roda no próprio navegador | não |
+| Fórmulas nas aulas | KaTeX, no próprio site. Escreva entre `$$` e `$$` (no meio da frase ou em bloco); um cifrão sozinho continua sendo dinheiro | não |
+| Painel → **Fontes abertas** (`/api/fontes`) | Internet Archive, Open Library, Project Gutenberg (Gutendex), Wikipédia, Wikidata, Wikisource, Wikimedia Commons | não |
+| Painel → Rádio → **Sugerir uma emissora** (`/api/radios`) | Radio Browser (diretório aberto; só emissoras do Brasil com transmissão https) | não |
+| Criar conta e trocar senha (`/api/senha-vazada`) | Have I Been Pwned, Pwned Passwords: o navegador manda só os 5 primeiros caracteres do SHA-1 da senha | não |
+| Página **Checagens** → "Já foi checado?" (`/api/checagens`) | Google Fact Check Tools | sim: `GOOGLE_FACTCHECK_KEY` nas variáveis do servidor (Vercel), nunca com `NEXT_PUBLIC_`. Sem ela, a busca não aparece |
+| Comunidade, segunda avaliação | OpenAI Moderation e Google Safe Browsing (acima) | segredos da função `avaliar-comunidade` |
+
+Para acrescentar outro serviço: inclua o endereço dele na lista de `lib/externo.ts` e consulte sempre por `buscarJson` ou `buscarTexto`, que já têm prazo, limite de tamanho e guarda.

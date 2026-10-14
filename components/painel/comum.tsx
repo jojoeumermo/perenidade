@@ -75,6 +75,7 @@ const erros: Record<string, string> = {
   email_nao_confirmado: "Já existe uma conta com esse e-mail, mas o e-mail ainda não foi confirmado. Peça para a pessoa confirmar e aceite de novo.",
   sem_links: "Só texto: sem endereços, imagens ou arquivos.",
   envios_pausados: "Os envios do público estão pausados pela coordenação.",
+  boletim_recente: "Já saiu uma edição do boletim nas últimas seis horas. Espere um pouco para mandar outra.",
   limite_colaboradores: "Cada contribuição pode ter até cinco pessoas trabalhando junto.",
   mudou_enquanto_editava: "Outra pessoa guardou alterações enquanto você editava. Copie o que escreveu, abra a versão nova e aplique de novo.",
   sem_conexao: "Sem conexão com o serviço.",

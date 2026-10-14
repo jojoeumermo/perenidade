@@ -1,8 +1,11 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import Link from "next/link";
 import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
+import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import "katex/dist/katex.min.css";
 import { localePath } from "@/i18n/config";
 import { InlineCheck } from "./InlineCheck";
 import { PendingImage, VideoEmbed } from "./LessonMedia";
@@ -96,8 +99,9 @@ export function Markdown({ children, lang, terms, tryCode }: { children: string;
   return (
     <div className="prose-lesson">
       <ReactMarkdown
-        remarkPlugins={terms?.length ? [remarkGfm, linkGlossary(terms)] : [remarkGfm]}
-        rehypePlugins={[rehypeSlug, numberBlocks]}
+        // Fórmulas entre $$ e $$ (no meio da frase ou em bloco). Um cifrão sozinho não é fórmula: "R$ 10" segue sendo dinheiro.
+        remarkPlugins={terms?.length ? [remarkGfm, [remarkMath, { singleDollarTextMath: false }], linkGlossary(terms)] : [remarkGfm, [remarkMath, { singleDollarTextMath: false }]]}
+        rehypePlugins={[rehypeSlug, [rehypeKatex, { throwOnError: false, strict: "ignore", output: "htmlAndMathml" }], numberBlocks]}
         urlTransform={(url) => (pending.test(url) ? url : defaultUrlTransform(url))}
         components={{
           // A legenda vem do título da imagem: ![descrição](/arquivos/x.webp "Autor, licença").
