@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/voluntario
 export default async function Voluntarios({ params }: PageProps<"/[lang]/voluntarios">) {
   const { lang, t } = await loadLang(params);
   return (
-    <ContentPageView slug="voluntarios" lang={lang} t={t}>
+    <ContentPageView slug="voluntarios" lang={lang} t={t} tone="vermelho">
       <VolunteerForm s={t.volunteer} />
     </ContentPageView>
   );

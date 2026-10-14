@@ -37,7 +37,7 @@ Cada trilha tem um roteiro com as aulas que ainda faltam. Escolher uma delas é 
 
 ## Como mediador
 
-A [Comunidade](/comunidade) é aberta: qualquer pessoa lê, e quem cria uma conta pergunta e responde. O mediador é quem facilita esse debate e guarda a porta. Ele lê cada mensagem antes de ela aparecer, aprova o que respeita as regras, acerta o que precisa de um retoque e recusa ataque, propaganda e discurso de ódio. Também cuida dos anúncios do [Mural dos Trabalhadores](/mural) e faz a primeira leitura das contribuições que chegam de fora, antes de elas irem para os educadores. Quando alguém insiste em passar do limite, o mediador pode banir a conta; toda decisão fica registrada e a coordenação pode revê-la.
+A [Comunidade](/comunidade) é aberta: qualquer pessoa pode ler, e quem cria uma conta pode perguntar e responder. O mediador facilita esse debate, acompanha o cumprimento das regras e intervém quando necessário. Atua em denúncias e situações que exigem avaliação humana, orienta participantes, solicita ajustes quando apropriado e toma providências diante de ataques, propaganda indevida e discurso de ódio. Também cuida dos anúncios do [Mural dos Trabalhadores](/mural) e faz a primeira leitura das contribuições que chegam de fora, antes de encaminhá-las aos educadores. Quando alguém insiste em ultrapassar os limites, o mediador pode banir a conta. Todas as decisões ficam registradas e podem ser revistas pela coordenação.
 
 ## Como tradutor
 

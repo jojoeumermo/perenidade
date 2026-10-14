@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { Mural } from "@/components/Mural";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/mural">): Promise<Metadata> {
@@ -15,12 +15,12 @@ export default async function MuralPage({ params }: PageProps<"/[lang]/mural">) 
   const s = t.mural;
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <PageHeading eyebrow={s.eyebrow} title={s.title}>
+      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.footer.slogan} tone="raios">
         {s.lead}
-      </PageHeading>
-      <section className="mt-8 border-l-2 border-gold pl-4 font-sans text-sm">
-        <h2 className="font-semibold">{s.rulesTitle}</h2>
-        <ul className="mt-2 list-disc space-y-1 pl-5 text-ink-soft">
+      </Cartaz>
+      <section className="mt-8 border-2 border-ink font-sans text-sm">
+        <h2 className="jornal-preto px-4 py-2 font-black uppercase italic tracking-tight">{s.rulesTitle}</h2>
+        <ul className="list-disc space-y-1 py-3 pr-4 pl-9 text-ink-soft">
           {s.rules.map((rule) => (
             <li key={rule}>{rule}</li>
           ))}

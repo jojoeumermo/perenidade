@@ -143,6 +143,71 @@ export function useMe(): MeState & { reload: () => void } {
   return { ...state, reload: () => setTick((value) => value + 1) };
 }
 
+/**
+ * Pede ao serviço a segunda avaliação de uma mensagem da Comunidade que ficou esperando por ela. Daqui só sai o pedido:
+ * o texto é lido do banco e a decisão é tomada do lado de lá. Sem resposta, devolve "" e a mensagem segue na fila de revisão.
+ */
+export async function evaluatePost(kind: "topico" | "resposta", id: string): Promise<string> {
+  try {
+    const supabase = await getClient();
+    const { data } = await supabase.auth.getSession();
+    if (!data.session) return "";
+    const response = await fetch(`${url}/functions/v1/avaliar-comunidade`, {
+      method: "POST",
+      headers: { apikey: key, Authorization: `Bearer ${data.session.access_token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ tipo: kind, id }),
+      signal: AbortSignal.timeout(15_000),
+    });
+    if (!response.ok) return "";
+    const body = (await response.json()) as { veredito?: unknown } | null;
+    return typeof body?.veredito === "string" ? body.veredito : "";
+  } catch {
+    return "";
+  }
+}
+
+/**
+ * Pede ao serviço um teste de funcionamento da segunda avaliação (só a coordenação). null quer dizer que a função
+ * não respondeu: não está publicada, ou o serviço está fora do ar.
+ */
+export async function verifyModeration(): Promise<{ chave: boolean; ok: boolean; falha: string } | null> {
+  try {
+    const supabase = await getClient();
+    const { data } = await supabase.auth.getSession();
+    if (!data.session) return null;
+    const response = await fetch(`${url}/functions/v1/avaliar-comunidade`, {
+      method: "POST",
+      headers: { apikey: key, Authorization: `Bearer ${data.session.access_token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ verificar: true }),
+      signal: AbortSignal.timeout(20_000),
+    });
+    if (!response.ok) return null;
+    const body = (await response.json()) as { chave?: unknown; ok?: unknown; falha?: unknown } | null;
+    if (typeof body?.ok !== "boolean") return null;
+    return { chave: body.chave === true, ok: body.ok, falha: typeof body.falha === "string" ? body.falha : "" };
+  } catch {
+    return null;
+  }
+}
+
+/** Pede ao serviço que passe de novo pelas mensagens que ficaram esperando a segunda avaliação. Devolve se o pedido foi aceito. */
+export async function recoverPending(): Promise<boolean> {
+  try {
+    const supabase = await getClient();
+    const { data } = await supabase.auth.getSession();
+    if (!data.session) return false;
+    const response = await fetch(`${url}/functions/v1/avaliar-comunidade`, {
+      method: "POST",
+      headers: { apikey: key, Authorization: `Bearer ${data.session.access_token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ recuperar: true }),
+      signal: AbortSignal.timeout(60_000),
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
 export async function signOut() {
   try {
     const supabase = await getClient();

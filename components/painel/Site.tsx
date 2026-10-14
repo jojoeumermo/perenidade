@@ -2,10 +2,10 @@
 "use client";
 
 import { useState } from "react";
-import { rpc } from "@/lib/backend";
+import { rpc, verifyModeration } from "@/lib/backend";
 import { KEYS, setItem } from "@/lib/storage";
 import { useI18n } from "../I18n";
-import { Aviso, botao, botaoClaro, campo, textoDoErro, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, dataHora, elo, textoDoErro, useLista } from "./comum";
 
 export interface Controles {
   faixa: string;
@@ -22,6 +22,145 @@ export function Site() {
   if (!atual.dados) return <Aviso texto={atual.erro || "Carregando…"} />;
   // A chave refaz os campos com o que acabou de ser guardado; o aviso mora aqui em cima para não sumir junto.
   return <Formulario key={JSON.stringify(atual.dados)} inicial={atual.dados} recarregar={atual.recarregar} aviso={aviso} setAviso={setAviso} />;
+}
+
+interface SituacaoDosEmails {
+  pendentes: number;
+  enviados_7_dias: number;
+  falhos_7_dias: number;
+  ultimo_envio: string | null;
+  mais_antigo_esperando: string | null;
+  ultimo_erro: string | null;
+  /** Há e-mail esperando há mais de meia hora (conta do banco). */
+  parado?: boolean;
+}
+
+const errosDeEnvio: Record<string, string> = {
+  chave_recusada: "o serviço de envio recusou a chave",
+  limite: "o limite de envios do serviço acabou por hoje",
+  recusado: "o serviço recusou um endereço",
+  tempo_esgotado: "o serviço demorou demais",
+  sem_conexao: "a rotina não alcançou o serviço",
+};
+
+/**
+ * E-mails automáticos: confirmação de candidatura e de boletim, convites, avisos de decisão. Quem envia é a rotina
+ * "Enviar e-mails", de dez em dez minutos. Este cartão diz só o que o banco viu acontecer, sem endereço de ninguém.
+ */
+function Emails() {
+  const estado = useLista<SituacaoDosEmails>("emails_situacao");
+  const e = estado.dados;
+  if (!e) return null;
+  const parado = e.parado === true;
+  return (
+    <section className={parado ? "border-2 border-oxblood bg-parchment-deep p-5" : "border border-rule bg-parchment-deep p-5"}>
+      <h2 className="font-serif text-xl font-semibold">E-mails automáticos</h2>
+      <p className="mt-1 text-ink-soft">Confirmação de candidatura e de boletim, convites, avisos de decisão e as edições do boletim. Saem de dez em dez minutos.</p>
+      <ul className="mt-3 space-y-1">
+        <li>Esperando para sair: <strong>{e.pendentes}</strong>{e.mais_antigo_esperando && <span className="text-ink-soft"> · o mais antigo desde {dataHora(e.mais_antigo_esperando)}</span>}.</li>
+        <li>Enviados nos últimos sete dias: <strong>{e.enviados_7_dias}</strong>{e.ultimo_envio && <span className="text-ink-soft"> · o último em {dataHora(e.ultimo_envio)}</span>}.</li>
+        <li>Que não saíram depois de cinco tentativas: <strong>{e.falhos_7_dias}</strong>{e.ultimo_erro && <span className="text-ink-soft"> · último motivo: {errosDeEnvio[e.ultimo_erro] ?? e.ultimo_erro}</span>}.</li>
+      </ul>
+      {parado && <p className="mt-2 font-semibold text-oxblood">Há e-mails esperando há mais de meia hora: o envio não está funcionando. Confira a rotina &ldquo;Enviar e-mails&rdquo; no GitHub e a chave do serviço (guia de manutenção).</p>}
+      {!e.ultimo_envio && !parado && <p className="mt-2 text-ink-soft">Nenhum e-mail saiu até agora.</p>}
+    </section>
+  );
+}
+
+interface Moderacao {
+  aprovacao_manual: boolean;
+  habilitada: boolean;
+  verificacao: { em: string; chave: boolean; ok: boolean; falha: string } | null;
+  ultima_avaliacao: { em: string; ok: boolean; falha: string } | null;
+  esperando: number;
+}
+
+const falhas: Record<string, string> = {
+  sem_chave: "a chave não está cadastrada nos segredos da função",
+  chave_recusada: "o serviço recusou a chave",
+  limite: "limite de requisições do serviço",
+  tempo_esgotado: "o serviço demorou demais",
+  sem_conexao: "a função não alcançou o serviço",
+  indisponivel: "o serviço estava fora do ar",
+  resposta_invalida: "o serviço respondeu algo que não se entende",
+};
+
+/**
+ * Modo de segurança e estado da avaliação automática da Comunidade. São três perguntas separadas, e o painel só responde
+ * "sim" ao que foi visto acontecer: está habilitada no banco? a função respondeu a um teste de verdade? alguma mensagem
+ * real já passou por ela?
+ */
+function Moderacao() {
+  const estado = useLista<Moderacao>("comunidade_controles");
+  const [aviso, setAviso] = useState("");
+  const [ocupado, setOcupado] = useState(false);
+  const m = estado.dados;
+  // Banco ainda sem esta parte: o cartão não aparece, e o resto dos controles segue igual.
+  if (!m) return null;
+
+  async function trocar(ligar: boolean) {
+    setOcupado(true);
+    setAviso("");
+    try {
+      await rpc("comunidade_modo_seguranca", { p_ligar: ligar });
+      setAviso(ligar ? "Modo de segurança ligado: toda mensagem nova espera aprovação manual." : "Modo de segurança desligado.");
+      estado.recarregar();
+    } catch (erro) {
+      setAviso(textoDoErro(erro));
+    } finally {
+      setOcupado(false);
+    }
+  }
+
+  async function testar() {
+    setOcupado(true);
+    setAviso("Testando…");
+    const r = await verifyModeration();
+    setAviso(r === null ? "A função não respondeu: ela não está publicada neste serviço, ou o serviço está fora do ar." : r.ok ? "Teste feito: a função respondeu e o serviço de avaliação devolveu um resultado." : `Teste feito, com falha: ${falhas[r.falha] ?? r.falha}.`);
+    estado.recarregar();
+    setOcupado(false);
+  }
+
+  const v = m.verificacao;
+  const u = m.ultima_avaliacao;
+  return (
+    <section className={m.aprovacao_manual ? "border-2 border-oxblood bg-parchment-deep p-5" : "border border-rule bg-parchment-deep p-5"}>
+      <h2 className="font-serif text-xl font-semibold">Modo de segurança: somente aprovação manual</h2>
+      <p className="mt-1 text-ink-soft">
+        Ligado, toda conversa e resposta nova na Comunidade espera a leitura de quem cuida dela, e nenhuma avaliação automática publica nada. Não apaga o que já está no ar, não fecha a leitura
+        nem o cadastro, e não muda o Mural dos Trabalhadores nem a triagem das contribuições.
+      </p>
+      <p className="mt-3 font-semibold">{m.aprovacao_manual ? "Ligado: só aprovação manual." : "Desligado: vale a avaliação automática."}</p>
+      <div className="mt-3">
+        <button type="button" className={m.aprovacao_manual ? botaoClaro : "cursor-pointer bg-oxblood px-5 py-2.5 font-medium text-parchment disabled:cursor-not-allowed disabled:opacity-50"} disabled={ocupado} onClick={() => trocar(!m.aprovacao_manual)}>
+          {m.aprovacao_manual ? "Desligar o modo de segurança" : "Ligar o modo de segurança"}
+        </button>
+      </div>
+
+      <h3 className="mt-6 font-semibold">Avaliação automática</h3>
+      <ul className="mt-2 space-y-1">
+        <li>Regras do próprio banco (primeira camada): sempre ligadas.</li>
+        <li>Segunda avaliação, habilitada no banco: <strong>{m.habilitada ? "sim" : "não"}</strong>{m.habilitada && m.aprovacao_manual ? " (sem efeito enquanto o modo de segurança estiver ligado)" : ""}.</li>
+        <li>
+          Função publicada e chave cadastrada: <strong>{v ? (v.chave ? "sim, no último teste" : "a função respondeu, mas sem a chave") : "nunca testado por aqui"}</strong>
+          {v && <span className="text-ink-soft"> · {dataHora(v.em)}</span>}.
+        </li>
+        <li>
+          Serviço respondendo de verdade: <strong>{v ? (v.ok ? "sim, no último teste" : `não: ${falhas[v.falha] ?? v.falha}`) : "nunca testado por aqui"}</strong>.
+        </li>
+        <li>
+          Última mensagem real avaliada: <strong>{u ? (u.ok ? "com resultado" : `com falha (${falhas[u.falha] ?? (u.falha || "sem detalhe")})`) : "nenhuma até agora"}</strong>
+          {u && <span className="text-ink-soft"> · {dataHora(u.em)}</span>}.
+        </li>
+        <li>Mensagens esperando leitura na fila: <strong>{m.esperando}</strong>.</li>
+      </ul>
+      <p className="mt-2 text-ink-soft">Habilitada não quer dizer funcionando: só o teste e a última mensagem avaliada mostram isso. A segunda avaliação se liga e desliga pelo banco (guia de manutenção).</p>
+      <p className="mt-2">
+        <button type="button" className={elo} disabled={ocupado} onClick={testar}>Testar agora a segunda avaliação</button>
+      </p>
+      <Aviso texto={aviso} />
+    </section>
+  );
 }
 
 function Formulario({ inicial, recarregar, aviso, setAviso }: { inicial: Controles; recarregar: () => void; aviso: string; setAviso: (texto: string) => void }) {
@@ -109,8 +248,8 @@ function Formulario({ inicial, recarregar, aviso, setAviso }: { inicial: Control
       <section className={cartao}>
         <h2 className="font-serif text-xl font-semibold">Cadastro da comunidade</h2>
         <p className="mt-1 text-ink-soft">
-          Com o cadastro aberto, qualquer pessoa cria conta com e-mail e senha para perguntar e responder na Comunidade. A conta nasce sem função nenhuma, e tudo o que ela escreve espera a
-          mediação. Fechado, só entra quem recebe convite. A pausa geral de envios também fecha o cadastro enquanto durar.
+          Com o cadastro aberto, qualquer pessoa cria conta com e-mail e senha para perguntar e responder na Comunidade. A conta nasce sem função nenhuma, e o que ela escreve passa pela
+          avaliação da Comunidade antes de aparecer. Fechado, só entra quem recebe convite. A pausa geral de envios também fecha o cadastro enquanto durar.
         </p>
         <p className="mt-3 font-semibold">{inicial.cadastro === false ? "O cadastro está fechado: só por convite." : "O cadastro está aberto."}</p>
         <div className="mt-4">
@@ -124,6 +263,9 @@ function Formulario({ inicial, recarregar, aviso, setAviso }: { inicial: Control
           </button>
         </div>
       </section>
+
+      <Moderacao />
+      <Emails />
 
       <div className="lg:col-span-2">
         <Aviso texto={aviso} />

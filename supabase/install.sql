@@ -213,6 +213,16 @@ alter table interno.topicos add column if not exists tipo text not null default 
 alter table interno.topicos add column if not exists aceita uuid;
 alter table interno.topicos add column if not exists retido boolean not null default false;
 alter table interno.respostas add column if not exists retido boolean not null default false;
+-- O veredito da avaliação automática de cada mensagem da Comunidade e o motivo dele. 'revista' é a bloqueada que a equipe liberou depois.
+alter table interno.topicos add column if not exists avaliacao text check (avaliacao is null or avaliacao in ('publicada', 'revisao', 'bloqueada', 'revista'));
+alter table interno.topicos add column if not exists motivo text not null default '';
+alter table interno.respostas add column if not exists avaliacao text check (avaliacao is null or avaliacao in ('publicada', 'revisao', 'bloqueada', 'revista'));
+alter table interno.respostas add column if not exists motivo text not null default '';
+-- Segunda avaliação: quando a mensagem foi entregue para avaliar pela última vez e quantas vezes já foi.
+alter table interno.topicos add column if not exists avaliacao_em timestamptz;
+alter table interno.topicos add column if not exists tentativas smallint not null default 0;
+alter table interno.respostas add column if not exists avaliacao_em timestamptz;
+alter table interno.respostas add column if not exists tentativas smallint not null default 0;
 
 -- Papéis e tipos de contribuição acrescentados depois da primeira instalação.
 do $$
@@ -408,10 +418,11 @@ create table if not exists interno.arquivos (
 insert into interno.configuracoes (chave, valor) values
   ('seguranca', '{"exigir_2fa": true, "padrao_ligado": true}'::jsonb),
   ('abertura', '{"definido": false}'::jsonb),
-  ('equipe', '{"sala": ""}'::jsonb)
+  ('equipe', '{"sala": ""}'::jsonb),
+  ('comunidade', '{"avaliacao_externa": false}'::jsonb)
 on conflict do nothing;
 
--- A exigência de segundo fator para coordenação, vice-coordenação e curadoria nasce ligada. Banco instalado antes
+-- A exigência de segundo fator para coordenação, vice-coordenação, curadoria e mediação nasce ligada. Banco instalado antes
 -- disso é virado uma única vez; daí em diante vale o que a coordenação decidir no painel.
 update interno.configuracoes set valor = valor || '{"exigir_2fa": true, "padrao_ligado": true}'::jsonb
 where chave = 'seguranca' and not valor ? 'padrao_ligado';
@@ -494,11 +505,34 @@ begin
   end if;
 end $$;
 
+-- Expressão grave bloqueia a mensagem da Comunidade na hora; as outras só a mandam para a fila de revisão. As frases de
+-- ameaça e de apologia ao ódio da lista inicial são marcadas uma única vez; termo novo entra sempre como "segura para leitura".
+alter table interno.termos_vetados add column if not exists grave boolean not null default false;
+do $$
+begin
+  if not exists (select 1 from interno.configuracoes where chave = 'filtro' and valor ? 'graves_marcados') then
+    update interno.termos_vetados set grave = true where termo in (
+      'heil hitler', 'sieg heil', 'poder branco', 'white power', 'morte aos gays', 'morte aos negros', 'morte aos judeus', 'volta pra senzala',
+      'viva hitler', 'hitler tinha razao', 'hitler estava certo', 'viva o nazismo', 'nazismo e bom', 'holocausto e mentira',
+      'holocausto nao existiu', 'holocausto nunca existiu', 'gas neles', 'camara de gas neles', 'viva ustra', 'ustra vive',
+      'morte aos comunistas', 'morte aos petistas', 'morte aos nordestinos', 'morte aos indios', 'morte as mulheres',
+      'comunista bom e comunista morto', 'petista bom e petista morto',
+      'vou te matar', 'vou matar voce', 'vou matar voces', 'sei onde voce mora', 'voce vai morrer', 'voces vao morrer', 'vou te estuprar', 'merece ser estuprada');
+    insert into interno.configuracoes (chave, valor) values ('filtro', '{"graves_marcados": true}'::jsonb)
+    on conflict (chave) do update set valor = interno.configuracoes.valor || '{"graves_marcados": true}'::jsonb;
+  end if;
+end $$;
+
 -- Quem pediu para receber o boletim do jornal. Só o endereço, nada mais.
 create table if not exists interno.boletim (
   email text primary key check (email ~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' and char_length(email) <= 200),
   criado_em timestamptz not null default now()
 );
+-- Confirmação em duas etapas: o endereço só entra na lista depois de a pessoa clicar no link que recebeu. O código serve
+-- para confirmar e para sair. Quem já estava na lista antes disso continua valendo.
+alter table interno.boletim add column if not exists confirmado boolean not null default true;
+alter table interno.boletim add column if not exists codigo text check (codigo is null or codigo ~ '^[a-f0-9]{32}$');
+update interno.boletim set codigo = replace(gen_random_uuid()::text, '-', '') where codigo is null;
 
 -- Trabalho em conjunto: quem escreve libera a própria contribuição para colegas específicos, enquanto ela está pendente.
 create table if not exists interno.colaboradores (
@@ -558,6 +592,26 @@ create table if not exists interno.audit_logs (
 );
 create index if not exists audit_logs_tabela on interno.audit_logs (tabela, id desc);
 
+-- Fila de saída dos e-mails automáticos (confirmação de candidatura, convite, boletim). Quem envia é a rotina
+-- "Enviar e-mails" (scripts/enviar-emails.mjs), com a chave de serviço; ninguém de fora lê ou escreve aqui.
+-- Depois de enviado, o texto é apagado (ele pode levar um link de convite) e fica só o registro de que saiu.
+create table if not exists interno.emails (
+  id uuid primary key default gen_random_uuid(),
+  para text not null check (para ~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' and char_length(para) <= 200),
+  tipo text not null check (tipo ~ '^[a-z_]{3,40}$'),
+  assunto text not null check (char_length(assunto) between 1 and 200),
+  texto text not null default '' check (char_length(texto) <= 20000),
+  sair text not null default '' check (sair = '' or sair ~ '^https://[^[:space:]]+$'),
+  status text not null default 'pendente' check (status in ('pendente', 'enviando', 'enviado', 'falhou')),
+  tentativas smallint not null default 0,
+  erro text not null default '',
+  criado_em timestamptz not null default now(),
+  tentado_em timestamptz,
+  enviado_em timestamptz
+);
+create index if not exists emails_fila on interno.emails (status, criado_em);
+create index if not exists emails_para on interno.emails (para, tipo, criado_em);
+
 -- Trancadas duas vezes: sem permissões e com segurança por linha ligada (sem nenhuma regra = ninguém passa).
 do $$
 declare t record;
@@ -611,14 +665,14 @@ begin
 end $$;
 
 /**
- * A pessoa tem este papel? Com a exigência de segundo fator ligada, coordenação, vice-coordenação e curadoria
+ * A pessoa tem este papel? Com a exigência de segundo fator ligada, coordenação, vice-coordenação, curadoria e mediação
  * só valem em sessão confirmada pelo aplicativo autenticador: senha ou link roubado, sozinhos, não abrem nada.
  * E quem cadastrou o aplicativo por conta própria, em qualquer função, só usa a função depois de digitar o código.
  */
 create or replace function interno.tem(p_papel text, p_disciplina text default null) returns boolean
 language sql stable security definer set search_path = interno, pg_temp as $$
   select auth.uid() is not null
-    and (p_papel not in ('coordenacao', 'vice', 'curadoria') or not interno.exige_2fa() or interno.aal2())
+    and (p_papel not in ('coordenacao', 'vice', 'curadoria', 'mediacao') or not interno.exige_2fa() or interno.aal2())
     and (interno.aal2() or not interno.tem_fator())
     and exists (
       select 1 from papeis p join perfis f on f.id = p.usuario
@@ -680,6 +734,54 @@ create or replace function interno.avisar_lideranca(p_texto text, p_menos uuid d
 begin
   insert into avisos (para, texto)
   select distinct p.usuario, left(p_texto, 500) from papeis p where p.papel in ('coordenacao', 'vice') and p.usuario is distinct from p_menos;
+end $$;
+
+-- ───────────────────────────── E-mails automáticos ─────────────────────────────
+
+/** O endereço público do site, para os links dos e-mails. Muda em configuracoes ('email' → 'site'). */
+create or replace function interno.endereco() returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(nullif((select valor ->> 'site' from configuracoes where chave = 'email'), ''), 'https://institutolucia.org')
+$$;
+
+create or replace function interno.nome_papel(p text) returns text language sql immutable as $$
+  select case p when 'coordenacao' then 'coordenação' when 'vice' then 'vice-coordenação' when 'curadoria' then 'curadoria' when 'mediacao' then 'mediação'
+    when 'educacao' then 'educação' when 'revisao' then 'revisão' when 'traducao' then 'tradução' when 'jornalismo' then 'jornalismo'
+    when 'mentoria' then 'aula de reforço' when 'design' then 'design' when 'desenvolvimento' then 'desenvolvimento' else coalesce(p, '') end
+$$;
+
+/**
+ * Põe um e-mail na fila de saída. Endereço inválido não entra, e o mesmo endereço recebe no máximo p_max e-mails do
+ * mesmo tipo por dia: ninguém usa os formulários do site para encher a caixa de outra pessoa. Devolve se entrou.
+ */
+create or replace function interno.email(p_para text, p_tipo text, p_assunto text, p_texto text, p_sair text default '', p_max integer default 3)
+returns boolean language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_para text := lower(btrim(coalesce(p_para, '')));
+begin
+  if v_para !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_para) > 200 then return false; end if;
+  if (select count(*) from emails where para = v_para and tipo = p_tipo and criado_em > now() - interval '1 day') >= coalesce(p_max, 3) then return false; end if;
+  insert into emails (para, tipo, assunto, texto, sair)
+  values (v_para, p_tipo, left(p_assunto, 200), left(coalesce(p_texto, ''), 19000) || E'\n\n— Instituto Lúcia\n' || interno.endereco(), coalesce(p_sair, ''));
+  return true;
+end $$;
+
+/** O envio de e-mails já funcionou de verdade? Fica ligado no primeiro e-mail que a rotina de envio confirma. */
+create or replace function interno.email_ativo() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((select (valor ->> 'ativo')::boolean from configuracoes where chave = 'email'), false)
+$$;
+
+/** O endereço de e-mail de uma conta. */
+create or replace function interno.email_da_conta(p_usuario uuid) returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select email from auth.users where id = p_usuario
+$$;
+
+/** Um e-mail para cada pessoa da coordenação e da vice-coordenação, no endereço da própria conta. */
+create or replace function interno.email_lideranca(p_tipo text, p_assunto text, p_texto text) returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+declare r record;
+begin
+  for r in select distinct u.email from papeis p join auth.users u on u.id = p.usuario join perfis f on f.id = p.usuario
+           where p.papel in ('coordenacao', 'vice') and not f.suspenso and coalesce(u.email, '') <> '' loop
+    perform interno.email(r.email, p_tipo, p_assunto, p_texto, '', 30);
+  end loop;
 end $$;
 
 /** Texto sem acento, sem pontuação e em minúsculas, para comparar com a lista do filtro. */
@@ -805,7 +907,7 @@ begin
       'papeis', coalesce((select jsonb_agg(jsonb_build_object('id', p.id, 'papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina)
                           from papeis p where p.usuario = f.id), '[]'::jsonb),
       'segundo_fator', interno.aal2(),
-      'exige_segundo_fator', interno.tem_fator() or (interno.exige_2fa() and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('coordenacao', 'vice', 'curadoria'))),
+      'exige_segundo_fator', interno.tem_fator() or (interno.exige_2fa() and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('coordenacao', 'vice', 'curadoria', 'mediacao'))),
       'avisos', (select count(*) from avisos a where a.para = f.id and not a.lido))
     from perfis f where f.id = v);
 end $$;
@@ -878,8 +980,14 @@ begin
   if p_aceitar then
     insert into papeis (usuario, papel, disciplina, concedido_por) values (c.usuario, c.papel, c.disciplina, v) on conflict do nothing;
     perform interno.avisar(c.usuario, 'Seu pedido de voluntariado foi aceito. As ferramentas do seu papel já aparecem no painel.');
+    perform interno.email(interno.email_da_conta(c.usuario), 'candidatura_aceita', 'Seu pedido de voluntariado foi aceito',
+      E'Olá.\n\nSeu pedido para a função de ' || interno.nome_papel(c.papel) || E' no Instituto Lúcia foi aceito. Boas-vindas à equipe!\n\n'
+      || 'As ferramentas da função já aparecem no painel: ' || interno.endereco() || '/pt/painel');
   else
     perform interno.avisar(c.usuario, 'Seu pedido de voluntariado não foi aceito desta vez. Você pode continuar contribuindo e pedir de novo mais adiante.');
+    perform interno.email(interno.email_da_conta(c.usuario), 'candidatura_recusada', 'Seu pedido de voluntariado no Instituto Lúcia',
+      E'Olá.\n\nObrigado pelo interesse. Desta vez o seu pedido para a função de ' || interno.nome_papel(c.papel)
+      || E' não foi aceito.\n\nVocê pode continuar contribuindo pelo site e pedir de novo mais adiante.');
   end if;
   perform interno.registrar(case when p_aceitar then 'pedido_aceito' else 'pedido_recusado' end, c.usuario::text, jsonb_build_object('papel', c.papel, 'disciplina', c.disciplina));
   return jsonb_build_object('ok', true);
@@ -1019,7 +1127,7 @@ begin
   if to_regclass('auth.mfa_factors') is not null then
     execute $q$
       select coalesce(jsonb_agg(distinct f.nome), '[]'::jsonb) from interno.papeis p join interno.perfis f on f.id = p.usuario
-      where p.papel in ('coordenacao', 'vice', 'curadoria')
+      where p.papel in ('coordenacao', 'vice', 'curadoria', 'mediacao')
         and not exists (select 1 from auth.mfa_factors m where m.user_id = p.usuario and m.status = 'verified')
     $q$ into v_sem;
   end if;
@@ -1375,6 +1483,253 @@ end $$;
 
 -- ───────────────────────────── Comunidade ─────────────────────────────
 
+/**
+ * Avaliação automática das mensagens da Comunidade. Três saídas: 'publicar' (vai ao ar na hora), 'bloquear' (violação
+ * clara: ameaça ou apologia ao ódio, pelas expressões marcadas como graves no filtro) e 'revisar' (dúvida: vai para a
+ * fila de quem cuida da comunidade). Dúvida é termo do filtro, endereço de site, contato pessoal, texto gritado ou
+ * repetido e autor com mensagens ocultadas há pouco. Endereço, contato e histórico só pesam para quem não é da equipe.
+ */
+create or replace function interno.avaliar(p_texto text, p_equipe boolean, p_autor uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare
+  v_texto text := coalesce(p_texto, '');
+  v_normal text := ' ' || interno.normal(v_texto) || ' ';
+  v_letras text := regexp_replace(v_texto, '[^[:alpha:]]', '', 'g');
+  -- O mesmo texto com os números de volta a letras, tudo junto e sem letra repetida: "v0u t3 m4t4r", "v o u  t e  m a t a r", "vooou te mataaar".
+  v_junto text := regexp_replace(replace(interno.normal(translate(lower(v_texto), '013457@$!', 'oieastasi')), ' ', ''), '(.)\1+', '\1', 'g');
+begin
+  if exists (select 1 from termos_vetados t where t.grave and position(' ' || t.termo || ' ' in v_normal) > 0) then
+    return jsonb_build_object('veredito', 'bloquear', 'motivo', 'expressao_grave');
+  end if;
+  -- Expressão grave disfarçada não é barrada sozinha (o disfarce também pega coincidência): vai para leitura humana.
+  if exists (select 1 from termos_vetados t where t.grave and char_length(replace(t.termo, ' ', '')) >= 8
+             and position(regexp_replace(replace(t.termo, ' ', ''), '(.)\1+', '\1', 'g') in v_junto) > 0) then
+    return jsonb_build_object('veredito', 'revisar', 'motivo', 'disfarce');
+  end if;
+  if exists (select 1 from termos_vetados t where not t.grave and position(' ' || t.termo || ' ' in v_normal) > 0) then
+    return jsonb_build_object('veredito', 'revisar', 'motivo', 'filtro');
+  end if;
+  if v_texto ~ '(.)\1{9,}' then return jsonb_build_object('veredito', 'revisar', 'motivo', 'repeticao'); end if;
+  if char_length(v_letras) >= 40 and char_length(regexp_replace(v_letras, '[^[:upper:]]', '', 'g')) > 0.7 * char_length(v_letras) then
+    return jsonb_build_object('veredito', 'revisar', 'motivo', 'gritaria');
+  end if;
+  if not coalesce(p_equipe, false) then
+    if v_texto ~* '(https?://|www[.]|[a-z0-9-]{2,}[.](com|net|org|br|io|xyz|info|biz|ly|me|tv|app|site|online)([^a-z]|$))' then
+      return jsonb_build_object('veredito', 'revisar', 'motivo', 'endereco');
+    end if;
+    if v_texto ~ '[^[:space:]@]+@[^[:space:]@]+[.][A-Za-z]{2,}' or v_texto ~ '([0-9][ ().-]{0,2}){10,}' then
+      return jsonb_build_object('veredito', 'revisar', 'motivo', 'contato');
+    end if;
+    if (select count(*) from topicos where autor = p_autor and oculto and not retido and criado_em > now() - interval '30 days')
+       + (select count(*) from respostas where autor = p_autor and oculto and not retido and criado_em > now() - interval '30 days') >= 2 then
+      return jsonb_build_object('veredito', 'revisar', 'motivo', 'historico');
+    end if;
+  end if;
+  return jsonb_build_object('veredito', 'publicar', 'motivo', '');
+end $$;
+
+/**
+ * A única porta por onde uma mensagem da Comunidade recebe o veredito. Se a avaliação falhar ou devolver algo que não
+ * se entende, a mensagem vai para a fila de revisão: falha nunca vira aprovação.
+ */
+create or replace function interno.veredito(p_texto text, p_equipe boolean, p_autor uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v jsonb;
+begin
+  begin
+    v := interno.avaliar(p_texto, p_equipe, p_autor);
+  exception when others then
+    v := null;
+  end;
+  if v is null or coalesce(v ->> 'veredito', '') not in ('publicar', 'revisar', 'bloquear') then
+    return jsonb_build_object('veredito', 'revisar', 'motivo', 'avaliacao_falhou');
+  end if;
+  return jsonb_build_object('veredito', v ->> 'veredito', 'motivo', left(coalesce(v ->> 'motivo', ''), 40));
+end $$;
+
+/** Modo de segurança: com ele ligado, nada do público aparece na Comunidade sem aprovação manual, com ou sem segunda avaliação. */
+create or replace function interno.aprovacao_manual() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((select (valor ->> 'aprovacao_manual')::boolean from configuracoes where chave = 'comunidade'), false)
+$$;
+
+/** A segunda avaliação (feita fora do banco, pela função "avaliar-comunidade") está ligada? Nasce desligada. */
+create or replace function interno.avaliacao_externa() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((select (valor ->> 'avaliacao_externa')::boolean from configuracoes where chave = 'comunidade'), false)
+$$;
+
+/**
+ * Lê o resultado da segunda avaliação e decide. Só chega aqui o que as regras do banco já deixaram passar.
+ * Barra: ameaça, ódio e conteúdo sexual com menor apontados com clareza. Manda para leitura humana: qualquer outra
+ * sinalização, nota alta em qualquer categoria e todo resultado com erro, incompleto ou que não se entende.
+ * Nenhuma saída daqui suspende ou bane conta: isso é sempre decisão de gente.
+ */
+create or replace function interno.decidir_externa(p jsonb) returns jsonb language plpgsql immutable as $$
+declare v_categorias jsonb; v_notas jsonb; v_maior numeric;
+begin
+  begin
+    if p is null or jsonb_typeof(p) <> 'object' or p ? 'erro' or jsonb_typeof(p -> 'sinalizado') is distinct from 'boolean'
+       or jsonb_typeof(p -> 'categorias') is distinct from 'object' or jsonb_typeof(p -> 'notas') is distinct from 'object'
+       or not exists (select 1 from jsonb_object_keys(p -> 'notas')) then
+      return jsonb_build_object('veredito', 'revisar', 'motivo', 'avaliacao_externa_falhou');
+    end if;
+    v_categorias := p -> 'categorias'; v_notas := p -> 'notas';
+    select max(e.value::numeric) into v_maior from jsonb_each_text(v_notas) e;
+    if coalesce((v_categorias ->> 'hate/threatening')::boolean, false) or coalesce((v_categorias ->> 'harassment/threatening')::boolean, false)
+       or coalesce((v_categorias ->> 'sexual/minors')::boolean, false)
+       or coalesce((v_notas ->> 'hate')::numeric, 0) >= 0.9 or coalesce((v_notas ->> 'sexual')::numeric, 0) >= 0.9
+       or coalesce((v_notas ->> 'violence/graphic')::numeric, 0) >= 0.9 then
+      return jsonb_build_object('veredito', 'bloquear', 'motivo', 'avaliacao_externa');
+    end if;
+    -- Quem fala de se machucar não cometeu violação: precisa de leitura humana, com cuidado.
+    if coalesce((v_categorias ->> 'self-harm')::boolean, false) or coalesce((v_categorias ->> 'self-harm/intent')::boolean, false)
+       or coalesce((v_categorias ->> 'self-harm/instructions')::boolean, false) then
+      return jsonb_build_object('veredito', 'revisar', 'motivo', 'cuidado');
+    end if;
+    if (p ->> 'sinalizado')::boolean or v_maior is null or v_maior >= 0.5 then
+      return jsonb_build_object('veredito', 'revisar', 'motivo', 'avaliacao_externa');
+    end if;
+    return jsonb_build_object('veredito', 'publicar', 'motivo', '');
+  exception when others then
+    return jsonb_build_object('veredito', 'revisar', 'motivo', 'avaliacao_externa_falhou');
+  end;
+end $$;
+
+/**
+ * Para a função "avaliar-comunidade" (só com a chave de serviço): entrega o texto de uma mensagem que espera a segunda
+ * avaliação e a marca como "em avaliação". Enquanto uma avaliação está em andamento, a mensagem não é entregue de novo.
+ * Se ela não voltar em dois minutos, ou voltar com falha, a mensagem pode ser entregue outra vez, até três no total;
+ * depois disso fica na fila de revisão, onde alguém da equipe decide. Em nenhum momento ela aparece para o público.
+ */
+create or replace function public.comunidade_para_avaliar(p_tipo text, p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_texto text;
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  if interno.aprovacao_manual() or not interno.avaliacao_externa() then return null; end if;
+  if p_tipo = 'topico' then
+    update topicos set motivo = 'em_avaliacao', avaliacao_em = now(), tentativas = tentativas + 1
+    where id = p_id and retido and tentativas < 3
+      and (motivo = 'aguardando_avaliacao' or (motivo in ('em_avaliacao', 'avaliacao_externa_falhou') and avaliacao_em < now() - interval '2 minutes'))
+    returning titulo || E'\n\n' || corpo into v_texto;
+  elsif p_tipo = 'resposta' then
+    update respostas set motivo = 'em_avaliacao', avaliacao_em = now(), tentativas = tentativas + 1
+    where id = p_id and retido and tentativas < 3
+      and (motivo = 'aguardando_avaliacao' or (motivo in ('em_avaliacao', 'avaliacao_externa_falhou') and avaliacao_em < now() - interval '2 minutes'))
+    returning corpo into v_texto;
+  else
+    perform interno.erro('invalido:tipo');
+  end if;
+  if v_texto is null then return null; end if;
+  return jsonb_build_object('texto', v_texto);
+end $$;
+
+/**
+ * Para a função "avaliar-comunidade" (só com a chave de serviço): recebe o resultado da segunda avaliação e aplica a
+ * decisão. Só mexe em mensagem que ela mesma pegou para avaliar e que ninguém da equipe decidiu nesse meio-tempo.
+ */
+create or replace function public.comunidade_avaliada(p_tipo text, p_id uuid, p_resultado jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v jsonb := interno.decidir_externa(p_resultado); v_veredito text := v ->> 'veredito'; v_topico uuid; v_achou boolean := false;
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  -- Modo de segurança ligado (ou segunda avaliação desligada) depois de a mensagem ter saído para avaliar: o resultado não publica.
+  if v_veredito = 'publicar' and (interno.aprovacao_manual() or not interno.avaliacao_externa()) then
+    v_veredito := 'revisar'; v := jsonb_build_object('veredito', 'revisar', 'motivo', 'modo_seguranca');
+  end if;
+  -- Anota quando a segunda avaliação respondeu de verdade pela última vez, e se respondeu com resultado ou com falha.
+  update configuracoes set valor = valor || jsonb_build_object('ultima_avaliacao', jsonb_build_object('em', now(), 'ok', v ->> 'motivo' is distinct from 'avaliacao_externa_falhou',
+    'falha', case when jsonb_typeof(p_resultado) = 'object' then left(coalesce(p_resultado ->> 'erro', ''), 40) else 'resultado_invalido' end)) where chave = 'comunidade';
+  if p_tipo = 'topico' then
+    update topicos set
+      oculto = (v_veredito <> 'publicar'), retido = (v_veredito = 'revisar'), motivo = v ->> 'motivo',
+      avaliacao = case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end
+    where id = p_id and retido and motivo = 'em_avaliacao';
+    v_achou := found;
+  elsif p_tipo = 'resposta' then
+    update respostas set
+      oculto = (v_veredito <> 'publicar'), retido = (v_veredito = 'revisar'), motivo = v ->> 'motivo',
+      avaliacao = case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end
+    where id = p_id and retido and motivo = 'em_avaliacao' returning topico into v_topico;
+    v_achou := found;
+    if v_achou and v_veredito = 'publicar' then update topicos set respostas = respostas + 1 where id = v_topico; end if;
+  else
+    perform interno.erro('invalido:tipo');
+  end if;
+  if not v_achou then return jsonb_build_object('veredito', 'ignorado'); end if;
+  if v_veredito = 'bloquear' then
+    insert into auditoria (quem, nome, acao, alvo, detalhes) values (null, 'avaliação automática', 'comunidade_bloqueada', p_id::text, jsonb_build_object('tipo', p_tipo, 'motivo', v ->> 'motivo'));
+  end if;
+  return jsonb_build_object('veredito', v_veredito);
+end $$;
+
+/**
+ * Para a função "avaliar-comunidade" (só com a chave de serviço): as mensagens que ficaram esperando a segunda avaliação
+ * e ainda podem ser entregues (nunca avaliadas, avaliação que não voltou ou que falhou, com menos de três tentativas).
+ * Serve para recuperar o que ficou para trás quando o navegador de quem escreveu fechou ou o serviço esteve fora do ar.
+ */
+create or replace function public.comunidade_pendentes() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  if interno.aprovacao_manual() or not interno.avaliacao_externa() then return '[]'::jsonb; end if;
+  return (
+    select coalesce(jsonb_agg(jsonb_build_object('tipo', x.tipo, 'id', x.id) order by x.criado_em), '[]'::jsonb) from (
+      select 'topico' as tipo, id, criado_em from topicos
+      where retido and tentativas < 3 and (motivo = 'aguardando_avaliacao' or (motivo in ('em_avaliacao', 'avaliacao_externa_falhou') and avaliacao_em < now() - interval '2 minutes'))
+      union all
+      select 'resposta', id, criado_em from respostas
+      where retido and tentativas < 3 and (motivo = 'aguardando_avaliacao' or (motivo in ('em_avaliacao', 'avaliacao_externa_falhou') and avaliacao_em < now() - interval '2 minutes'))
+      order by criado_em limit 20) x);
+end $$;
+
+/**
+ * O que a coordenação vê sobre a moderação da Comunidade. Três coisas diferentes, que não se confundem: "habilitada" é a
+ * chave ligada no banco; "verificacao" é o último teste feito de propósito pelo painel (função publicada, chave presente,
+ * serviço respondendo); "ultima_avaliacao" é a última mensagem de verdade que passou pela segunda avaliação.
+ */
+create or replace function public.comunidade_controles() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare c jsonb := coalesce((select valor from configuracoes where chave = 'comunidade'), '{}'::jsonb);
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'aprovacao_manual', coalesce((c ->> 'aprovacao_manual')::boolean, false),
+    'habilitada', coalesce((c ->> 'avaliacao_externa')::boolean, false),
+    'verificacao', c -> 'verificacao',
+    'ultima_avaliacao', c -> 'ultima_avaliacao',
+    'esperando', (select count(*) from topicos where retido) + (select count(*) from respostas where retido));
+end $$;
+
+/** Liga ou desliga o modo de segurança. Coordenação e vice-coordenação, como os outros controles do site. Fica no registro. */
+create or replace function public.comunidade_modo_seguranca(p_ligar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  insert into configuracoes (chave, valor) values ('comunidade', jsonb_build_object('aprovacao_manual', coalesce(p_ligar, false)))
+  on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
+  perform interno.registrar('comunidade_modo_seguranca', '', jsonb_build_object('ligado', coalesce(p_ligar, false)));
+  if coalesce(p_ligar, false) then perform interno.avisar_lideranca('O modo de segurança da Comunidade foi ligado: toda mensagem nova espera aprovação manual.', auth.uid()); end if;
+  return public.comunidade_controles();
+end $$;
+
+/** Para a função "avaliar-comunidade" (só com a chave de serviço): guarda o resultado de um teste de funcionamento pedido pelo painel. */
+create or replace function public.comunidade_verificacao(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  update configuracoes set valor = valor || jsonb_build_object('verificacao', jsonb_build_object(
+    'em', now(), 'chave', coalesce((p ->> 'chave')::boolean, false), 'ok', coalesce((p ->> 'ok')::boolean, false), 'falha', left(coalesce(p ->> 'falha', ''), 40)))
+  where chave = 'comunidade';
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Só pelo SQL Editor: liga ou desliga a segunda avaliação. Ligue só depois de publicar a função "avaliar-comunidade" com a chave dela. */
+create or replace function public.comunidade_avaliacao_externa(p_ligar boolean) returns text language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if auth.uid() is not null or (interno.claims() ->> 'role') in ('anon', 'authenticated') then
+    raise exception 'sem_permissao' using errcode = 'P0001';
+  end if;
+  insert into configuracoes (chave, valor) values ('comunidade', jsonb_build_object('avaliacao_externa', coalesce(p_ligar, false)))
+  on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
+  insert into auditoria (quem, nome, acao, alvo, detalhes) values (null, 'banco', 'comunidade_avaliacao_externa', '', jsonb_build_object('ligada', coalesce(p_ligar, false)));
+  return case when coalesce(p_ligar, false) then 'Segunda avaliação ligada: mensagem que as regras deixam passar espera por ela antes de aparecer.'
+              else 'Segunda avaliação desligada: valem só as regras do banco.' end;
+end $$;
+
 drop function if exists public.topicos_listar(text, text, integer);
 drop function if exists public.topico_criar(text, text, text);
 
@@ -1429,8 +1784,8 @@ begin
 end $$;
 
 /**
- * Abrir conversa ou dúvida: só com conta. Nada do público aparece antes de alguém da mediação ler: a mensagem entra
- * retida e sai da fila aprovada ou recusada. Só quem cuida da comunidade publica direto (e nem isso, se o filtro pegar).
+ * Abrir conversa ou dúvida: só com conta. Toda mensagem passa pela avaliação automática (interno.veredito): a adequada
+ * aparece na hora, a que viola claramente as regras é bloqueada e a duvidosa espera a leitura de quem cuida da comunidade.
  */
 create or replace function public.topico_criar(p_titulo text, p_corpo text, p_disciplina text, p_tipo text default 'conversa') returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -1438,28 +1793,47 @@ declare
   v uuid := interno.eu(); v_id uuid;
   v_titulo text := interno.txt(p_titulo, 'titulo', 5, 140);
   v_corpo text := interno.txt(p_corpo, 'corpo', 10, 8000);
-  v_retido boolean;
+  v_av jsonb; v_veredito text; v_externa boolean := false;
 begin
   perform interno.limite('topico', 3, 60);
   if coalesce(p_tipo, 'conversa') not in ('conversa', 'duvida') then perform interno.erro('invalido:tipo'); end if;
-  v_retido := not interno.cuida() or interno.vetado(v_titulo || ' ' || v_corpo);
-  insert into topicos (autor, titulo, corpo, disciplina, tipo, oculto, retido)
-  values (v, v_titulo, v_corpo, interno.disciplina_ok(p_disciplina), coalesce(p_tipo, 'conversa'), v_retido, v_retido)
+  v_av := interno.veredito(v_titulo || ' ' || v_corpo, interno.cuida(), v);
+  v_veredito := v_av ->> 'veredito';
+  -- Com a segunda avaliação ligada, o que as regras deixam passar fica na fila até ela responder. Sem resposta, fica lá.
+  if v_veredito = 'publicar' and interno.aprovacao_manual() and not interno.cuida() then
+    v_veredito := 'revisar'; v_av := jsonb_build_object('veredito', 'revisar', 'motivo', 'modo_seguranca');
+  elsif v_veredito = 'publicar' and interno.avaliacao_externa() then
+    v_veredito := 'revisar'; v_av := jsonb_build_object('veredito', 'revisar', 'motivo', 'aguardando_avaliacao'); v_externa := true;
+  end if;
+  insert into topicos (autor, titulo, corpo, disciplina, tipo, oculto, retido, avaliacao, motivo)
+  values (v, v_titulo, v_corpo, interno.disciplina_ok(p_disciplina), coalesce(p_tipo, 'conversa'), v_veredito <> 'publicar', v_veredito = 'revisar',
+          case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end, v_av ->> 'motivo')
   returning id into v_id;
-  return jsonb_build_object('id', v_id, 'retido', v_retido);
+  if v_veredito = 'bloquear' then perform interno.registrar('comunidade_bloqueada', v_id::text, jsonb_build_object('tipo', 'topico', 'motivo', v_av ->> 'motivo')); end if;
+  return jsonb_build_object('id', v_id, 'retido', v_veredito = 'revisar', 'bloqueado', v_veredito = 'bloquear', 'avaliando', v_externa);
 end $$;
 
 create or replace function public.responder(p_topico uuid, p_corpo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); t topicos; v_id uuid; v_corpo text := interno.txt(p_corpo, 'corpo', 2, 8000); v_retido boolean;
+declare v uuid := interno.eu(); t topicos; v_id uuid; v_corpo text := interno.txt(p_corpo, 'corpo', 2, 8000); v_av jsonb; v_veredito text; v_externa boolean := false;
 begin
   perform interno.limite('responder', 30, 60);
   select * into t from topicos where id = p_topico for update;
   if not found or t.oculto then perform interno.erro('nao_encontrado'); end if;
   if t.trancado then perform interno.erro('topico_trancado'); end if;
-  v_retido := not interno.cuida() or interno.vetado(v_corpo);
-  insert into respostas (topico, autor, corpo, oculto, retido) values (p_topico, v, v_corpo, v_retido, v_retido) returning id into v_id;
-  if not v_retido then update topicos set respostas = respostas + 1 where id = p_topico; end if;
-  return jsonb_build_object('id', v_id, 'retido', v_retido);
+  v_av := interno.veredito(v_corpo, interno.cuida(), v);
+  v_veredito := v_av ->> 'veredito';
+  if v_veredito = 'publicar' and interno.aprovacao_manual() and not interno.cuida() then
+    v_veredito := 'revisar'; v_av := jsonb_build_object('veredito', 'revisar', 'motivo', 'modo_seguranca');
+  elsif v_veredito = 'publicar' and interno.avaliacao_externa() then
+    v_veredito := 'revisar'; v_av := jsonb_build_object('veredito', 'revisar', 'motivo', 'aguardando_avaliacao'); v_externa := true;
+  end if;
+  insert into respostas (topico, autor, corpo, oculto, retido, avaliacao, motivo)
+  values (p_topico, v, v_corpo, v_veredito <> 'publicar', v_veredito = 'revisar',
+          case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end, v_av ->> 'motivo')
+  returning id into v_id;
+  if v_veredito = 'publicar' then update topicos set respostas = respostas + 1 where id = p_topico; end if;
+  if v_veredito = 'bloquear' then perform interno.registrar('comunidade_bloqueada', v_id::text, jsonb_build_object('tipo', 'resposta', 'motivo', v_av ->> 'motivo')); end if;
+  return jsonb_build_object('id', v_id, 'retido', v_veredito = 'revisar', 'bloqueado', v_veredito = 'bloquear', 'avaliando', v_externa);
 end $$;
 
 /** Quem perguntou (ou a equipe) marca a resposta que resolveu a dúvida. Sem p_resposta, desmarca. */
@@ -1494,30 +1868,40 @@ begin
 end $$;
 
 /**
- * Cuidar da comunidade: ocultar, mostrar, trancar ou destrancar. Nada é apagado. Na fila de mediação, "mostrar" é
- * aprovar e "ocultar" é recusar; quem escreveu recebe um recado com a decisão.
+ * Cuidar da comunidade: ocultar, mostrar, trancar ou destrancar. Nada é apagado. Na fila de revisão, "mostrar" é
+ * aprovar e "ocultar" é recusar; quem escreveu recebe um recado com a decisão. "Mostrar" também desfaz um bloqueio
+ * da avaliação automática que a equipe julgue errado.
  */
 create or replace function public.comunidade_cuidar(p_tipo text, p_alvo uuid, p_acao text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_retido boolean; v_topico uuid; v_autor uuid;
+declare v_retido boolean; v_topico uuid; v_autor uuid; v_bloqueada boolean; v_oculto boolean; v_achou boolean;
 begin
   perform interno.eu();
   if not interno.cuida() then perform interno.erro('sem_permissao'); end if;
   if p_tipo = 'topico' and p_acao in ('ocultar', 'mostrar') then
-    select retido, autor into v_retido, v_autor from topicos where id = p_alvo;
-    update topicos set oculto = (p_acao = 'ocultar'), retido = false where id = p_alvo;
+    select retido, autor, avaliacao = 'bloqueada', oculto into v_retido, v_autor, v_bloqueada, v_oculto from topicos where id = p_alvo;
+    update topicos set oculto = (p_acao = 'ocultar'), retido = false,
+      avaliacao = case when p_acao = 'mostrar' and avaliacao = 'bloqueada' then 'revista' else avaliacao end where id = p_alvo;
+    v_achou := found;
   elsif p_tipo = 'topico' and p_acao in ('trancar', 'destrancar') then
     update topicos set trancado = (p_acao = 'trancar') where id = p_alvo;
+    v_achou := found;
   elsif p_tipo = 'resposta' and p_acao in ('ocultar', 'mostrar') then
-    select retido, topico, autor into v_retido, v_topico, v_autor from respostas where id = p_alvo;
-    update respostas set oculto = (p_acao = 'ocultar'), retido = false where id = p_alvo;
-    -- Resposta que estava retida só entra na contagem quando a equipe a libera.
-    if found and v_retido and p_acao = 'mostrar' then update topicos set respostas = respostas + 1 where id = v_topico; end if;
+    select retido, topico, autor, avaliacao = 'bloqueada', oculto into v_retido, v_topico, v_autor, v_bloqueada, v_oculto from respostas where id = p_alvo;
+    update respostas set oculto = (p_acao = 'ocultar'), retido = false,
+      avaliacao = case when p_acao = 'mostrar' and avaliacao = 'bloqueada' then 'revista' else avaliacao end where id = p_alvo;
+    v_achou := found;
+    -- A contagem do tópico acompanha o que está à vista: entra quando a resposta aparece, sai quando é ocultada.
+    if v_achou and p_acao = 'mostrar' and v_oculto then update topicos set respostas = respostas + 1 where id = v_topico; end if;
+    if v_achou and p_acao = 'ocultar' and not v_oculto then update topicos set respostas = greatest(respostas - 1, 0) where id = v_topico; end if;
   else perform interno.erro('invalido:acao'); end if;
-  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not coalesce(v_achou, false) then perform interno.erro('nao_encontrado'); end if;
   perform interno.registrar('comunidade_' || p_acao, p_alvo::text, jsonb_build_object('tipo', p_tipo));
-  if coalesce(v_retido, false) then
+  -- Quem escreveu fica sabendo de toda decisão que muda o que o público vê da mensagem dele.
+  if coalesce(v_retido, false) or (coalesce(v_bloqueada, false) and p_acao = 'mostrar') then
     perform interno.avisar(v_autor, case when p_acao = 'mostrar' then 'Sua mensagem na Comunidade foi aprovada e já aparece para todo mundo.'
                                          else 'Sua mensagem na Comunidade não foi aprovada pela mediação. Releia as regras da página e escreva de novo.' end);
+  elsif p_acao = 'ocultar' and v_oculto = false then
+    perform interno.avisar(v_autor, 'Uma mensagem sua na Comunidade foi ocultada pela mediação. Releia as regras da página; se achar que houve engano, use a página Denunciar.');
   end if;
   return jsonb_build_object('ok', true);
 end $$;
@@ -1540,7 +1924,7 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
-/** A fila de mediação: tudo o que foi escrito e ainda espera leitura. "filtro" marca o que também esbarrou na lista de palavras. */
+/** A fila de revisão: o que a avaliação automática deixou em dúvida e ainda espera leitura. "motivo" diz por que parou aqui. */
 create or replace function public.comunidade_retidos() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   perform interno.eu();
@@ -1548,11 +1932,11 @@ begin
   return (
     select coalesce(jsonb_agg(x.j order by x.criado_em), '[]'::jsonb) from (
       select t.criado_em, jsonb_build_object('tipo', 'topico', 'id', t.id, 'topico', t.id, 'titulo', t.titulo, 'corpo', t.corpo, 'autor', coalesce(f.nome, ''), 'criado_em', t.criado_em,
-        'autor_id', case when interno.media() then t.autor end, 'filtro', interno.vetado(t.titulo || ' ' || t.corpo)) as j
+        'autor_id', case when interno.media() then t.autor end, 'filtro', interno.vetado(t.titulo || ' ' || t.corpo), 'motivo', t.motivo) as j
       from topicos t left join perfis f on f.id = t.autor where t.retido
       union all
       select r.criado_em, jsonb_build_object('tipo', 'resposta', 'id', r.id, 'topico', r.topico, 'titulo', (select titulo from topicos where id = r.topico), 'corpo', r.corpo, 'autor', coalesce(f.nome, ''), 'criado_em', r.criado_em,
-        'autor_id', case when interno.media() then r.autor end, 'filtro', interno.vetado(r.corpo))
+        'autor_id', case when interno.media() then r.autor end, 'filtro', interno.vetado(r.corpo), 'motivo', r.motivo)
       from respostas r left join perfis f on f.id = r.autor where r.retido
     ) x);
 end $$;
@@ -2010,6 +2394,9 @@ begin
   if interno.vetado(v_assunto || ' ' || v_duvida) then perform interno.erro('conteudo_recusado'); end if;
   if v is not null and (select count(*) from reforco where autor = v and status in ('aberto', 'em_atendimento')) >= 3 then perform interno.erro('limite_pedidos'); end if;
   insert into reforco (autor, email, disciplina, assunto, duvida) values (v, v_email, v_disc, v_assunto, v_duvida) returning id into v_id;
+  perform interno.email(v_email, 'reforco_recebido', 'Recebemos seu pedido de aula de reforço',
+    E'Olá.\n\nRecebemos o seu pedido de reforço sobre "' || v_assunto || E'".\n\nAlguém da equipe que ensina essa disciplina vai ler a sua dúvida e responder por este mesmo endereço. '
+    || E'Às vezes leva alguns dias. Confira também a caixa de spam.\n\nSe não foi você quem pediu, é só ignorar esta mensagem.');
   return jsonb_build_object('id', v_id);
 end $$;
 
@@ -2485,6 +2872,9 @@ begin
   delete from auditoria where criado_em < now() - interval '400 days';
   delete from auditoria where acao = 'isca' and criado_em < now() - interval '30 days';
   delete from audit_logs where criado_em < now() - interval '400 days';
+  delete from emails where criado_em < now() - interval '30 days';
+  -- Pedido de boletim que ninguém confirmou em uma semana sai da lista.
+  delete from boletim where not confirmado and criado_em < now() - interval '7 days';
   delete from aparelhos where ultimo < now() - interval '180 days';
   delete from reforco where status in ('atendido', 'cancelado') and criado_em < now() - interval '180 days';
   delete from denuncias where status = 'resolvida' and criado_em < now() - interval '365 days';
@@ -2564,7 +2954,14 @@ begin
   values (interno.selo(v_codigo), v_email, v_papel, v_disc, v_usos, interno.txt(p ->> 'nota', 'nota', 0, 120), v, now() + make_interval(days => v_dias))
   returning id into v_id;
   perform interno.registrar('convite_criado', v_id::text, jsonb_build_object('papel', v_papel, 'usos', v_usos));
-  return jsonb_build_object('id', v_id, 'codigo', v_codigo);
+  -- Convite pessoal vai sozinho para o e-mail da pessoa; o da comunidade (sem e-mail) a coordenação espalha como quiser.
+  if v_email <> '' then
+    perform interno.email(v_email, 'convite', 'Seu convite para o Instituto Lúcia',
+      E'Olá.\n\nA coordenação do Instituto Lúcia convidou você para criar uma conta' || case when v_papel is not null then ' e atuar na função de ' || interno.nome_papel(v_papel) else '' end
+      || E'.\n\nAbra o endereço abaixo. Ele é pessoal, só funciona com este e-mail e vale por ' || v_dias || E' dia(s):\n\n'
+      || interno.endereco() || '/pt/entrar?convite=' || v_codigo || E'\n\nSe você não esperava este convite, é só ignorar esta mensagem.', '', 5);
+  end if;
+  return jsonb_build_object('id', v_id, 'codigo', v_codigo, 'email_enviado', v_email <> '');
 end $$;
 
 create or replace function public.convites_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -2733,23 +3130,76 @@ end $$;
 -- ───────────────────────────── Boletim do jornal ─────────────────────────────
 
 /** Qualquer pessoa entra na lista. A resposta é a mesma para endereço novo ou repetido: ninguém descobre por aqui quem já assina. */
+/**
+ * Qualquer pessoa pede o boletim. Com o envio de e-mails funcionando, o endereço só entra na lista depois de a pessoa clicar
+ * no link que chega por e-mail; antes disso, entra direto, como sempre foi (senão ficaria esperando um link que não vem).
+ * A resposta é a mesma para endereço novo, repetido ou já confirmado: ninguém descobre por aqui quem já assina.
+ */
 create or replace function public.boletim_assinar(p_email text, p_site text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_email text := lower(btrim(coalesce(p_email, '')));
+declare v_email text := lower(btrim(coalesce(p_email, ''))); b boletim;
 begin
   if coalesce(p_site, '') <> '' then return jsonb_build_object('ok', true); end if;
   perform interno.limite('boletim', 5, 60);
   if v_email !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_email) > 200 then perform interno.erro('invalido:email'); end if;
-  insert into boletim (email) values (v_email) on conflict do nothing;
+  insert into boletim (email, confirmado, codigo) values (v_email, not interno.email_ativo(), replace(gen_random_uuid()::text, '-', '')) on conflict (email) do nothing;
+  select * into b from boletim where email = v_email;
+  if not b.confirmado then
+    perform interno.email(v_email, 'boletim_confirmar', 'Confirme que você quer receber o boletim do Instituto Lúcia',
+      E'Olá.\n\nAlguém (provavelmente você) pediu para receber o boletim do jornal do Instituto Lúcia neste endereço.\n\n'
+      || E'Para confirmar, abra:\n' || interno.endereco() || '/pt/jornal?boletim=confirmar&codigo=' || b.codigo
+      || E'\n\nSe não foi você, é só ignorar esta mensagem: sem a confirmação, nada será enviado.', '', 2);
+  end if;
+  return jsonb_build_object('ok', true, 'confirmar', interno.email_ativo());
+end $$;
+
+/** O link do e-mail de confirmação. */
+create or replace function public.boletim_confirmar(p_codigo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.limite('boletim_codigo', 30, 60);
+  if coalesce(p_codigo, '') !~ '^[a-f0-9]{32}$' then perform interno.erro('nao_encontrado'); end if;
+  update boletim set confirmado = true where codigo = p_codigo;
+  if not found then perform interno.erro('nao_encontrado'); end if;
   return jsonb_build_object('ok', true);
 end $$;
 
-/** A lista, para a coordenação e para quem escreve o jornal mandarem o boletim. */
+/** O link "sair da lista", que vai em todo boletim. Sai na hora, sem pedir mais nada. */
+create or replace function public.boletim_sair(p_codigo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.limite('boletim_codigo', 30, 60);
+  if coalesce(p_codigo, '') !~ '^[a-f0-9]{32}$' then perform interno.erro('nao_encontrado'); end if;
+  delete from boletim where codigo = p_codigo;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** A lista, para a coordenação e para quem escreve o jornal. "confirmado" diz quem já clicou no link. */
 create or replace function public.boletim_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   perform interno.eu();
   if not (interno.coord() or interno.tem('jornalismo')) then perform interno.erro('sem_permissao'); end if;
   perform interno.registrar('boletim_lido');
-  return (select coalesce(jsonb_agg(jsonb_build_object('email', email, 'criado_em', criado_em) order by criado_em desc), '[]'::jsonb) from boletim);
+  return (select coalesce(jsonb_agg(jsonb_build_object('email', email, 'criado_em', criado_em, 'confirmado', confirmado) order by criado_em desc), '[]'::jsonb) from boletim);
+end $$;
+
+/**
+ * Manda uma edição do boletim para todos os endereços confirmados, cada um com o próprio link de saída. No máximo uma
+ * edição a cada seis horas, para um engano não virar uma enxurrada. Devolve quantos e-mails entraram na fila.
+ */
+create or replace function public.boletim_enviar(p_assunto text, p_texto text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_assunto text := interno.txt(p_assunto, 'assunto', 5, 150); v_texto text := interno.txt(p_texto, 'texto', 50, 15000); v_total integer := 0; r record;
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('jornalismo')) then perform interno.erro('sem_permissao'); end if;
+  if exists (select 1 from emails where tipo = 'boletim' and criado_em > now() - interval '6 hours') then perform interno.erro('boletim_recente'); end if;
+  for r in select email, codigo from boletim where confirmado loop
+    if interno.email(r.email, 'boletim', v_assunto,
+         v_texto || E'\n\n---\nVocê recebe este boletim porque pediu no site do Instituto Lúcia. Para sair da lista: ' || interno.endereco() || '/pt/jornal?boletim=sair&codigo=' || r.codigo,
+         interno.endereco() || '/pt/jornal?boletim=sair&codigo=' || r.codigo, 2) then
+      v_total := v_total + 1;
+    end if;
+  end loop;
+  perform interno.registrar('boletim_enviado', v_assunto, jsonb_build_object('emails', v_total));
+  return jsonb_build_object('emails', v_total);
 end $$;
 
 create or replace function public.boletim_remover(p_email text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -2895,6 +3345,12 @@ begin
   if interno.vetado(v_nome || ' ' || v_mensagem) then perform interno.erro('conteudo_recusado'); end if;
   if exists (select 1 from inscricoes where email = v_email and papel = v_papel and status = 'pendente') then perform interno.erro('ja_pediu'); end if;
   insert into inscricoes (nome, email, papel, disciplina, mensagem) values (v_nome, v_email, v_papel, v_disc, v_mensagem) returning id into v_id;
+  perform interno.email(v_email, 'inscricao_recebida', 'Recebemos seu pedido de voluntariado',
+    'Olá, ' || v_nome || E'.\n\nRecebemos seu pedido para atuar como voluntário(a) no Instituto Lúcia, na função de ' || interno.nome_papel(v_papel) || E'.\n\n'
+    || E'A coordenação lê cada pedido e responde por este mesmo endereço. Se o pedido for aceito, chega aqui o link para você criar a sua conta e entrar no painel da equipe.\n\n'
+    || 'Se não foi você quem enviou este pedido, é só ignorar esta mensagem.');
+  perform interno.email_lideranca('inscricao_nova', 'Novo pedido de voluntariado: ' || left(v_nome, 60),
+    v_nome || ' (' || v_email || ') quer atuar na função de ' || interno.nome_papel(v_papel) || E'.\n\nLeia o pedido e decida no painel: ' || interno.endereco() || '/pt/painel?aba=pessoas');
   return jsonb_build_object('id', v_id);
 end $$;
 
@@ -2924,6 +3380,9 @@ begin
   if not coalesce(p_aceitar, false) then
     update inscricoes set status = 'recusada', decidido_por = v, decidido_em = now() where id = p_id;
     perform interno.registrar('inscricao_recusada', i.nome, jsonb_build_object('papel', i.papel));
+    perform interno.email(i.email, 'inscricao_recusada', 'Seu pedido de voluntariado no Instituto Lúcia',
+      'Olá, ' || i.nome || E'.\n\nObrigado pelo interesse em atuar no Instituto Lúcia. Desta vez o seu pedido para a função de ' || interno.nome_papel(i.papel)
+      || E' não foi aceito.\n\nVocê pode continuar estudando e contribuindo com o acervo pelo site, e fazer um novo pedido mais adiante.');
     return jsonb_build_object('ok', true);
   end if;
   if i.papel = 'curadoria' and not interno.lider() then perform interno.erro('sem_permissao'); end if;
@@ -2944,6 +3403,16 @@ begin
   end if;
   update inscricoes set status = 'aceita', decidido_por = v, decidido_em = now() where id = p_id;
   perform interno.registrar('inscricao_aceita', i.nome, jsonb_build_object('papel', i.papel, 'disciplina', i.disciplina, 'convite', v_codigo is not null));
+  if v_codigo is not null then
+    perform interno.email(i.email, 'convite', 'Seu convite para a equipe do Instituto Lúcia',
+      'Olá, ' || i.nome || E'.\n\nSeu pedido para a função de ' || interno.nome_papel(i.papel) || E' foi aceito. Boas-vindas à equipe!\n\n'
+      || E'Para criar a sua conta, abra o endereço abaixo. Ele é pessoal, só funciona com este e-mail e vale por 14 dias:\n\n'
+      || interno.endereco() || '/pt/entrar?convite=' || v_codigo || E'\n\nDepois de entrar, a sua função já aparece no painel.', '', 5);
+  else
+    perform interno.email(i.email, 'inscricao_aceita', 'Seu pedido de voluntariado foi aceito',
+      'Olá, ' || i.nome || E'.\n\nSeu pedido para a função de ' || interno.nome_papel(i.papel) || E' foi aceito. Boas-vindas à equipe!\n\n'
+      || 'Você já tinha conta, então a função já está liberada. Entre com o seu e-mail e senha e abra o painel: ' || interno.endereco() || '/pt/painel');
+  end if;
   return jsonb_build_object('ok', true, 'codigo', v_codigo, 'email', i.email, 'nome', i.nome);
 end $$;
 
@@ -3201,6 +3670,56 @@ begin
     from (select * from audit_logs where coalesce(p_tabela, '') = '' or tabela = p_tabela order by id desc limit 100 offset greatest(coalesce(p_pagina, 0), 0) * 100) a);
 end $$;
 
+-- ───────────────────────────── Envio dos e-mails ─────────────────────────────
+
+/**
+ * Para a rotina "Enviar e-mails" (só com a chave de serviço): pega até p_limite e-mails da fila e os marca como "enviando".
+ * Envio que começou e não terminou em quinze minutos volta para a fila; depois de cinco tentativas, o e-mail é dado como falho.
+ */
+create or replace function public.emails_pendentes(p_limite integer default 50) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_ids uuid[];
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  update emails set status = case when tentativas >= 5 then 'falhou' else 'pendente' end, erro = case when tentativas >= 5 then 'sem resposta do envio' else erro end
+  where status = 'enviando' and tentado_em < now() - interval '15 minutes';
+  select array_agg(id) into v_ids from (
+    select id from emails where status = 'pendente' order by criado_em limit greatest(1, least(coalesce(p_limite, 50), 100)) for update skip locked) x;
+  update emails set status = 'enviando', tentado_em = now(), tentativas = tentativas + 1 where id = any (coalesce(v_ids, '{}'));
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', id, 'para', para, 'assunto', assunto, 'texto', texto, 'sair', sair) order by criado_em), '[]'::jsonb)
+          from emails where id = any (coalesce(v_ids, '{}')));
+end $$;
+
+/** Para a rotina de envio: o resultado de cada e-mail. Enviado, o texto sai do banco (ele pode levar um link de convite). */
+create or replace function public.email_resultado(p_id uuid, p_ok boolean, p_erro text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_ok, false) then
+    update emails set status = 'enviado', enviado_em = now(), texto = '', erro = '' where id = p_id and status = 'enviando';
+    if found then
+      insert into configuracoes (chave, valor) values ('email', '{"ativo": true}'::jsonb) on conflict (chave) do update set valor = configuracoes.valor || '{"ativo": true}'::jsonb;
+    end if;
+  else
+    update emails set status = case when tentativas >= 5 then 'falhou' else 'pendente' end, erro = left(coalesce(p_erro, ''), 200) where id = p_id and status = 'enviando';
+  end if;
+  return jsonb_build_object('ok', found);
+end $$;
+
+/** O que a coordenação vê sobre os e-mails: quantos esperam, quantos saíram e o último erro. Sem endereço de ninguém. */
+create or replace function public.emails_situacao() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'pendentes', (select count(*) from emails where status in ('pendente', 'enviando')),
+    'enviados_7_dias', (select count(*) from emails where status = 'enviado' and enviado_em > now() - interval '7 days'),
+    'falhos_7_dias', (select count(*) from emails where status = 'falhou' and criado_em > now() - interval '7 days'),
+    'ultimo_envio', (select max(enviado_em) from emails),
+    'mais_antigo_esperando', (select min(criado_em) from emails where status in ('pendente', 'enviando')),
+    -- Esperando há mais de meia hora: a rotina de envio não está rodando, ou está sem a chave.
+    'parado', exists (select 1 from emails where status in ('pendente', 'enviando') and criado_em < now() - interval '30 minutes'),
+    'ultimo_erro', (select erro from emails where erro <> '' order by coalesce(tentado_em, criado_em) desc limit 1));
+end $$;
+
 -- ───────────────────────────── Permissões ─────────────────────────────
 
 -- As funções internas não podem ser chamadas de fora; as públicas, sim (cada uma faz a própria conferência).
@@ -3230,7 +3749,8 @@ begin
              'equipe_chave_definir', 'equipe_apagar_tudo', 'arquivo_apoiar', 'isca', 'boletim_assinar', 'boletim_listar', 'boletim_remover',
              'colaboracao_abrir', 'colaboracao_fechar', 'colaboracoes_minhas', 'equipe_membros', 'site', 'site_salvar',
              'presenca', 'chat_conversas', 'chat_direta', 'chat_grupo_criar', 'chat_grupo_mudar', 'chat_sair', 'chat_grupo_apagar', 'chat_ver', 'chat_enviar', 'chat_apagar',
-             'audit_logs_listar'))
+             'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao',
+             'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then
@@ -3242,6 +3762,7 @@ begin
 end $$;
 revoke all on function public.promover_coordenacao(text) from anon, authenticated;
 revoke all on function public.convidar_pelo_banco(text) from anon, authenticated;
+revoke all on function public.comunidade_avaliacao_externa(boolean) from anon, authenticated;
 
 -- ───────────────────────────── Arquivos da rádio ─────────────────────────────
 

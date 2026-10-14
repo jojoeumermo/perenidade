@@ -137,7 +137,8 @@
     "ctaText": "Write a lesson, suggest a free work or fix a mistake. Everything is reviewed before it is accepted.",
     "ctaButton": "Send a contribution",
     "questionsTitle": "Start from a question",
-    "shelvesHint": "There are many. Choose the essentials or the stage you want to study."
+    "shelvesHint": "There are many. Choose the essentials or the stage you want to study.",
+    "tryLabel": "Try:"
   },
   "areas": {
     "portugues": [
@@ -421,7 +422,10 @@
     "offlineFailed": "Could not save right now. Check your connection and try again.",
     "offlineUnsupported": "This browser cannot save pages.",
     "epub": "Download the track as an e-book (EPUB)",
-    "epubHint": "opens on Kindle (through Send to Kindle), Kobo and reading apps"
+    "epubHint": "opens on Kindle (through Send to Kindle), Kobo and reading apps",
+    "jump": "Jump to",
+    "showAll": "See all {n}",
+    "showLess": "Show fewer"
   },
   "lesson": {
     "position": "lesson {i} of {n}",
@@ -1027,11 +1031,15 @@
       "lead": "The institute's journalists send a newsletter with the new stories. No ads, and your address is never passed on.",
       "email": "Your e-mail",
       "button": "Subscribe",
-      "done": "Done. You will receive the next newsletter.",
-      "leave": "To leave the list, write to",
+      "done": "Almost there: we sent a link to your e-mail. The newsletter only starts arriving after you click it.",
+      "doneDirect": "Done. You will receive the next newsletter.",
+      "leave": "Every newsletter has a link to leave the list. You can also write to",
       "roundTitle": "News round-up from Brazil",
       "roundLead": "Right-now headlines from the grassroots, independent and public press, seventeen outlets on a single page. Refreshes by itself every fifteen minutes.",
-      "roundButton": "Open the news round-up"
+      "roundButton": "Open the news round-up",
+      "confirmed": "Done: your e-mail is confirmed and you will receive the next newsletter.",
+      "left": "Done: your e-mail has left the newsletter list.",
+      "badLink": "This link is no longer valid. Subscribe again if you want."
     }
   },
   "factCheck": {
@@ -1164,7 +1172,7 @@
     "toCreate": "Create an account to take part in the Community",
     "toEnter": "I already have an account: sign in",
     "createTitle": "Create account",
-    "createWhy": "The account lets you ask and answer in the Community. Everything you write is read by a mediator before it appears. We keep only your e-mail; the name shown on the site starts as a nickname, which you can change.",
+    "createWhy": "The account lets you ask and answer in the Community. What follows the rules appears right away; the mediators keep watch and step in when needed. We keep only your e-mail; the name shown on the site starts as a nickname, which you can change.",
     "createFailed": "The account could not be created. This e-mail may already have an account, or sign-up may be closed at the moment.",
     "volunteerLink": "Want to volunteer? Fill in the application",
     "whyClosed": "There is no \"forgot my password\" here and, for now, accounts are created by invitation from the coordination. Lost your password? Talk to whoever invited you."
@@ -1221,7 +1229,7 @@
     "title": "Conversations",
     "lead": "Ask questions, propose study groups and help those who are starting out. The institute's focus is teaching; this space exists to support study.",
     "rules": [
-      "Anyone can read. Asking or answering requires an account, and every message is read by a mediator before it appears.",
+      "Anyone can read. Asking or answering requires an account. What follows the rules appears right away, what breaks them is blocked, and doubtful cases wait for a mediator to read them.",
       "Respect always: disagree with ideas, do not attack people.",
       "No racism, sexism, LGBT-phobia, ableism or any hate speech.",
       "Do not post personal data, yours or anyone else's.",

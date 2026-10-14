@@ -174,7 +174,7 @@ export function SegurancaSucessao({ me }: { me: Me }) {
       <section hidden={aba !== "fator"}>
         <h2 className="font-serif text-2xl font-semibold">Segundo fator obrigatório</h2>
         <p className="mt-1 text-ink-soft">
-          Com esta exigência ligada, coordenação, vice-coordenação e curadoria só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
+          Com esta exigência ligada, coordenação, vice-coordenação, curadoria e mediação só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
         </p>
         <p className="mt-2">
           Situação: <strong>{seguranca.dados?.exigir_2fa ? "ligada" : "desligada"}</strong>
@@ -325,6 +325,8 @@ const acoes: Record<string, string> = {
   anuncio_recusado: "recusou um anúncio do mural",
   radio_configurada: "mudou a rádio",
   comunidade_ocultar: "ocultou uma mensagem da comunidade",
+  comunidade_bloqueada: "teve uma mensagem barrada pela avaliação automática da comunidade",
+  comunidade_avaliacao_externa: "segunda avaliação da comunidade ligada ou desligada direto no banco",
   comunidade_editada: "editou uma mensagem da comunidade",
   anuncio_editado: "editou o texto de um anúncio do mural",
   triagem_liberada: "liberou na triagem",
@@ -364,6 +366,7 @@ const acoes: Record<string, string> = {
   equipe_chave_definida: "definiu a chave da equipe",
   equipe_sala: "mudou o endereço da sala de voz e vídeo",
   site_configurado: "mudou os controles do site",
+  comunidade_modo_seguranca: "ligou ou desligou o modo de segurança da Comunidade",
   isca: "endereço-isca pedido por alguém de fora:",
 };
 

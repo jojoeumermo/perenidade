@@ -1,0 +1,38 @@
+name: Enviar e-mails
+
+# De dez em dez minutos, manda os e-mails automáticos que o banco deixou na fila: confirmação de candidatura e de
+# boletim, convites, avisos de decisão e as edições do boletim. Só roda depois de criada a variável EMAILS com o valor
+# "sim" (Settings → Secrets and variables → Actions → Variables); para pausar os envios, apague a variável.
+# Precisa dos segredos SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY (os mesmos da publicação) e RESEND_API_KEY, e da
+# variável EMAIL_REMETENTE (ex.: Instituto Lúcia <contato@institutolucia.org>). EMAIL_RESPOSTA é opcional.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: enviar-emails
+  cancel-in-progress: false
+
+jobs:
+  enviar:
+    if: ${{ vars.EMAILS == 'sim' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          sparse-checkout: scripts
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: node scripts/enviar-emails.mjs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMAIL_REMETENTE: ${{ vars.EMAIL_REMETENTE }}
+          EMAIL_RESPOSTA: ${{ vars.EMAIL_RESPOSTA }}

@@ -31,6 +31,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
+    // No celular a barra do navegador continua a faixa bordô do topo do site.
+    { media: "(max-width: 767.98px)", color: "#6e1f1a" },
     { media: "(prefers-color-scheme: light)", color: "#f4ecd8" },
     { media: "(prefers-color-scheme: dark)", color: "#17130e" },
   ],

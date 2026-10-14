@@ -137,7 +137,8 @@
     "ctaText": "Escribe una lección, propón una obra libre o corrige un error. Todo pasa por revisión antes de entrar.",
     "ctaButton": "Enviar una contribución",
     "questionsTitle": "Empieza por una pregunta",
-    "shelvesHint": "Son muchas. Elige lo esencial o la etapa que quieres estudiar."
+    "shelvesHint": "Son muchas. Elige lo esencial o la etapa que quieres estudiar.",
+    "tryLabel": "Prueba:"
   },
   "areas": {
     "portugues": [
@@ -421,7 +422,10 @@
     "offlineFailed": "No se pudo guardar ahora. Revisa la conexión e inténtalo de nuevo.",
     "offlineUnsupported": "Este navegador no permite guardar páginas.",
     "epub": "Descargar el itinerario como libro digital (EPUB)",
-    "epubHint": "se abre en Kindle (con Enviar a Kindle), Kobo y aplicaciones de lectura"
+    "epubHint": "se abre en Kindle (con Enviar a Kindle), Kobo y aplicaciones de lectura",
+    "jump": "Ir a",
+    "showAll": "Ver las {n}",
+    "showLess": "Mostrar menos"
   },
   "lesson": {
     "position": "lección {i} de {n}",
@@ -1027,11 +1031,15 @@
       "lead": "Los periodistas del instituto envían un boletín con las notas nuevas. Sin anuncios y sin pasar tu dirección a nadie.",
       "email": "Tu correo",
       "button": "Quiero recibirlo",
-      "done": "Listo. Recibirás el próximo boletín.",
-      "leave": "Para salir de la lista, escribe a",
+      "done": "Casi listo: enviamos un enlace a tu correo. El boletín solo empieza a llegar después de que hagas clic en él.",
+      "doneDirect": "Listo. Recibirás el próximo boletín.",
+      "leave": "Cada boletín trae un enlace para salir de la lista. Si prefieres, escribe a",
       "roundTitle": "Ronda de noticias de Brasil",
       "roundLead": "Los titulares de ahora de la prensa popular, independiente y pública, de diecisiete medios, en una sola página. Se actualiza sola cada quince minutos.",
-      "roundButton": "Abrir la ronda de noticias"
+      "roundButton": "Abrir la ronda de noticias",
+      "confirmed": "Listo: tu correo está confirmado y recibirás el próximo boletín.",
+      "left": "Listo: tu correo salió de la lista del boletín.",
+      "badLink": "Este enlace ya no vale. Pide el boletín de nuevo, si quieres."
     }
   },
   "factCheck": {
@@ -1164,7 +1172,7 @@
     "toCreate": "Crear una cuenta para participar en la Comunidad",
     "toEnter": "Ya tengo cuenta: entrar",
     "createTitle": "Crear cuenta",
-    "createWhy": "La cuenta sirve para preguntar y responder en la Comunidad. Todo lo que escribas es leído por la mediación antes de aparecer. Guardamos solo tu correo; el nombre que aparece en el sitio nace como un seudónimo, que puedes cambiar.",
+    "createWhy": "La cuenta sirve para preguntar y responder en la Comunidad. Lo que respeta las reglas aparece al instante; la mediación acompaña e interviene cuando hace falta. Guardamos solo tu correo; el nombre que aparece en el sitio nace como un seudónimo, que puedes cambiar.",
     "createFailed": "No fue posible crear la cuenta. Este correo quizá ya tiene cuenta, o el registro puede estar cerrado en este momento.",
     "volunteerLink": "¿Quieres ser voluntario? Completa la candidatura",
     "whyClosed": "Aquí no hay \"olvidé mi contraseña\" y, por ahora, las cuentas se crean por invitación de la coordinación. ¿Perdiste la contraseña? Habla con quien te invitó."
@@ -1221,7 +1229,7 @@
     "title": "Conversaciones",
     "lead": "Resuelve dudas, propón estudios y ayuda a quien está empezando. El foco del instituto es la enseñanza; este espacio existe para apoyar el estudio.",
     "rules": [
-      "Cualquier persona puede leer. Para preguntar o responder hace falta una cuenta, y todo mensaje pasa por la mediación antes de aparecer.",
+      "Cualquier persona puede leer. Para preguntar o responder hace falta una cuenta. Lo que respeta las reglas aparece al instante, lo que las viola se bloquea, y los casos dudosos esperan la lectura de la mediación.",
       "Respeto siempre: discrepa de las ideas, no ataques a las personas.",
       "Nada de racismo, machismo, LGBTfobia, capacitismo ni ningún discurso de odio.",
       "No publiques datos personales, ni tuyos ni de otras personas.",

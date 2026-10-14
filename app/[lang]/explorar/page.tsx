@@ -64,27 +64,27 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
       <PageHeading eyebrow={t.more.eyebrow} title={t.more.title}>
         {t.more.lead}
       </PageHeading>
-      {/* No aplicativo o idioma sai da barra de cima e mora aqui. */}
-      <label className="mt-6 hidden items-center justify-between gap-4 rounded-[0.875rem] border border-rule bg-parchment-deep px-4 py-2 font-sans app:flex">
+      {/* No celular e no tablet o idioma sai da barra de cima e mora aqui. */}
+      <label className="mt-6 hidden items-center justify-between gap-4 border-2 border-ink bg-parchment-deep px-4 py-2 font-sans max-lg:flex app:flex [&_select]:max-w-none">
         {t.common.language}
         <LanguageSwitcher wide />
       </label>
-      {/* No navegador, cartões; no aplicativo, uma lista corrida de linhas largas, como a tela de ajustes do celular. */}
+      {/* Na tela grande, cartões; no celular, uma lista corrida de linhas largas, como a tela de ajustes do aparelho. */}
       {sections.map(([title, items]) => (
         <section key={title}>
-          <h2 className="mt-12 border-b border-rule pb-3 text-3xl font-semibold app:max-md:mt-7 app:max-md:border-0 app:max-md:px-1 app:max-md:pb-0 app:max-md:font-mono app:max-md:text-xs! app:max-md:font-normal app:max-md:uppercase app:max-md:tracking-[0.2em] app:max-md:text-gold">{title}</h2>
-          <div className="mt-6 grid gap-4 app:max-md:mt-2 app:max-md:gap-0 app:max-md:overflow-hidden app:max-md:rounded-[0.875rem] app:max-md:border app:max-md:border-rule app:max-md:bg-parchment-deep sm:grid-cols-2">
+          <h2 className="mt-12 border-b border-rule pb-3 text-3xl font-semibold max-md:mt-7 max-md:border-0 max-md:px-1 max-md:pb-0 max-md:font-mono max-md:text-xs! max-md:font-normal max-md:uppercase max-md:tracking-[0.2em] max-md:text-gold">{title}</h2>
+          <div className="mt-6 grid gap-4 max-md:mt-2 max-md:gap-0 max-md:overflow-hidden max-md:border-2 max-md:border-ink max-md:bg-parchment-deep sm:grid-cols-2">
             {items.map(([label, path, description]) => (
               <Link
                 key={path}
                 href={localePath(lang, path)}
-                className="group flex items-center justify-between gap-3 border border-rule bg-parchment-deep p-5 hover:border-gold app:max-md:rounded-none! app:max-md:border-0 app:max-md:border-b app:max-md:bg-transparent app:max-md:px-4 app:max-md:py-3 app:max-md:last:border-b-0"
+                className="group flex items-center justify-between gap-3 border border-rule bg-parchment-deep p-5 hover:border-gold max-md:border-0 max-md:border-b max-md:bg-transparent max-md:px-4 max-md:py-3 max-md:last:border-b-0"
               >
                 <span className="block min-w-0">
-                  <span className="block text-2xl font-semibold group-hover:text-oxblood app:max-md:text-lg app:max-md:leading-snug">{label}</span>
-                  <span className="mt-1 block text-ink-soft app:max-md:mt-0.5 app:max-md:line-clamp-2 app:max-md:font-sans app:max-md:text-[0.8rem] app:max-md:leading-snug">{description}</span>
+                  <span className="block text-2xl font-semibold group-hover:text-oxblood max-md:text-lg max-md:leading-snug">{label}</span>
+                  <span className="mt-1 block text-ink-soft max-md:mt-0.5 max-md:line-clamp-2 max-md:font-sans max-md:text-[0.8rem] max-md:leading-snug">{description}</span>
                 </span>
-                <span aria-hidden className="hidden shrink-0 font-sans text-2xl leading-none text-ink-soft app:max-md:block">›</span>
+                <span aria-hidden className="hidden shrink-0 font-sans text-2xl leading-none text-ink-soft max-md:block">›</span>
               </Link>
             ))}
           </div>
