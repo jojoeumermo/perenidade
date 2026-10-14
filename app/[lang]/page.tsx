@@ -36,6 +36,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   }));
   const started = tracks.filter((track) => track.lessons.length > 0).sort((a, b) => b.lessons.length - a.lessons.length);
   const questions = getQuestions().slice(0, 4);
+  const suggestions = started.slice(0, 3);
   const shortcuts: [string, string, string][] = [
     [t.nav.start, "/comecar", "M12 3v18M5 10l7-7 7 7"],
     [t.nav.journal, "/jornal", "M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M7.5 9h6M7.5 12.5h6M7.5 16h3.5"],
@@ -54,16 +55,30 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           {h.h1c}
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-xl text-ink-soft app:max-md:hidden">{h.lead}</p>
-        <form action={to("/busca")} role="search" className="mx-auto mt-10 flex max-w-xl border-2 border-ink bg-parchment-deep app:max-md:mt-4 app:max-md:overflow-hidden app:max-md:rounded-[0.875rem]">
+        <form action={to("/busca")} role="search" className="mx-auto mt-10 flex max-w-2xl border-2 border-ink bg-parchment-deep app:max-md:mt-4 app:max-md:overflow-hidden app:max-md:rounded-[0.875rem]">
           <input
             name="q"
             type="search"
             aria-label={h.searchLabel}
             placeholder={h.searchPlaceholder}
-            className="min-w-0 flex-1 bg-transparent px-4 py-3 font-mono text-sm outline-none placeholder:text-ink-soft app:max-md:rounded-none!"
+            className="min-w-0 flex-1 bg-transparent px-4 py-3 font-mono text-sm outline-none placeholder:text-ink-soft app:max-md:rounded-none! sm:px-5 sm:py-4 sm:text-base"
           />
-          <button className="cursor-pointer bg-ink px-6 font-sans text-sm font-medium text-parchment hover:bg-oxblood app:max-md:rounded-none!">{h.searchButton}</button>
+          <button className="cursor-pointer bg-ink px-6 font-sans text-sm font-medium text-parchment hover:bg-oxblood app:max-md:rounded-none! sm:px-8 sm:text-base">{h.searchButton}</button>
         </form>
+        {/* Por onde ir, para quem chega sem saber o que procurar: as trilhas com mais aulas prontas e o guia de começo. */}
+        {suggestions.length > 0 && (
+          <p className="mx-auto mt-3 flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-1 font-sans text-sm app:max-md:hidden">
+            <span className="text-ink-soft">{h.tryLabel}</span>
+            {suggestions.map((track) => (
+              <Link key={track.slug} href={to(`/trilhas/${track.slug}`)} className="underline decoration-rule underline-offset-4 hover:text-oxblood hover:decoration-gold">
+                {track.title}
+              </Link>
+            ))}
+            <Link href={to("/comecar")} className="font-medium text-oxblood underline underline-offset-4 hover:text-ink">
+              {t.nav.start}
+            </Link>
+          </p>
+        )}
         <p className="mt-5 font-mono text-xs text-ink-soft app:max-md:mt-3 app:max-md:text-[0.7rem]">
           {plural(lang, groups.flatMap((group) => group.areas).length, t.common.disciplines)} · {plural(lang, lessons, t.common.lessons)} ·{" "}
           {plural(lang, works, t.common.works)} {h.indexed}

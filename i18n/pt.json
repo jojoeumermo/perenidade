@@ -137,7 +137,8 @@
     "ctaText": "Escreva uma aula, indique uma obra livre ou corrija um erro. Tudo passa por revisão antes de entrar.",
     "ctaButton": "Enviar uma contribuição",
     "questionsTitle": "Comece por uma pergunta",
-    "shelvesHint": "São muitas. Escolha o essencial ou a etapa que você quer estudar."
+    "shelvesHint": "São muitas. Escolha o essencial ou a etapa que você quer estudar.",
+    "tryLabel": "Experimente:"
   },
   "areas": {
     "portugues": [
@@ -421,7 +422,10 @@
     "offlineFailed": "Não deu para guardar agora. Confira a conexão e tente de novo.",
     "offlineUnsupported": "Este navegador não permite guardar páginas.",
     "epub": "Baixar a trilha como livro digital (EPUB)",
-    "epubHint": "abre no Kindle (pelo Enviar para o Kindle), no Kobo e em aplicativos de leitura"
+    "epubHint": "abre no Kindle (pelo Enviar para o Kindle), no Kobo e em aplicativos de leitura",
+    "jump": "Ir para",
+    "showAll": "Ver todas as {n}",
+    "showLess": "Mostrar menos"
   },
   "lesson": {
     "position": "aula {i} de {n}",
