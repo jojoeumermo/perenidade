@@ -202,23 +202,120 @@ body {
   background: var(--prelo);
   color: #fff;
 }
-/* O nome do jornal cabe sempre em uma linha: a letra é medida pela largura da própria faixa. */
+/* A letra do nome é medida pela largura da própria faixa (cqw). */
 .jornal-faixa {
   container-type: inline-size;
 }
-.jornal-nome {
-  white-space: nowrap;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  font-size: 4.4vw;
-  font-size: min(5.9cqw, 4.6rem);
-}
-.jornal-nome-menor {
-  font-size: 3.6vw;
-  font-size: min(5.9cqw, 2.4rem);
-}
 .jornal-faixa:hover {
   background: #a51810;
+}
+
+/* O nome em cartaz: faixa vermelha, o nome em duas linhas de letra pesada e a cunha preta com a estrela,
+   no desenho dos cartazes de 1918 a 1921. */
+.jornal-cartaz {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+}
+.jornal-cartaz-nome {
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding: 3cqw 24cqw 3.4cqw 3.6cqw;
+  line-height: 0.86;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.jornal-cartaz-alto {
+  display: block;
+  font-size: min(4.7cqw, 3rem);
+}
+.jornal-cartaz-baixo {
+  display: block;
+  margin-top: 0.1em;
+  line-height: 1.06;
+  font-size: min(15cqw, 9.5rem);
+}
+.jornal-cartaz-titulo {
+  font-size: min(11cqw, 7rem);
+}
+.jornal-cunha {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30cqw;
+  background: #1f1a14;
+  clip-path: polygon(35% 0, 100% 0, 100% 100%, 0 100%);
+}
+.jornal-cunha-estrela {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  width: 13cqw;
+  height: 13cqw;
+  color: #e0372b;
+  transform: translate(-50%, -50%) rotate(-8deg);
+}
+.jornal-cunha-vermelha {
+  background: var(--prelo);
+}
+.jornal-cunha-vermelha .jornal-cunha-estrela {
+  color: #f4ecd8;
+}
+.jornal-cartaz-menor .jornal-cartaz-nome {
+  padding: 1.8cqw 18cqw 1.8cqw 2.4cqw;
+}
+.jornal-cartaz-menor .jornal-cartaz-alto,
+.jornal-cartaz-menor .jornal-cartaz-baixo {
+  display: inline;
+  font-size: min(4.2cqw, 2.2rem);
+}
+.jornal-cartaz-menor .jornal-cartaz-alto {
+  margin-right: 0.28em;
+}
+.jornal-cartaz-menor .jornal-cunha {
+  width: 16cqw;
+}
+.jornal-cartaz-menor .jornal-cunha-estrela {
+  width: 6.5cqw;
+  height: 6.5cqw;
+}
+/* Fundo preto dos cartazes e o sol de raios vermelhos: cores fixas, iguais nos dois temas. */
+.jornal-preto {
+  background: #1f1a14;
+  color: #f4ecd8;
+  container-type: inline-size;
+}
+.jornal-raios {
+  background: repeating-conic-gradient(from 0deg at 0% 100%, #c21f16 0deg 5deg, #a51810 5deg 10deg);
+  color: #fff;
+}
+/* Fio duplo do expediente, embaixo do nome. */
+.jornal-fio {
+  border-bottom: 7px double var(--ink);
+}
+/* Título de seção: a etiqueta vermelha e um fio grosso até o fim da linha. */
+.jornal-secao {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.jornal-secao::after {
+  content: "";
+  flex: 1;
+  height: 4px;
+  background: var(--ink);
+}
+/* Capitular na chamada da manchete. */
+.jornal-capitular::first-letter {
+  float: left;
+  font-size: 3.4em;
+  line-height: 0.85;
+  font-weight: 800;
+  padding: 0.06em 0.1em 0 0;
+  color: var(--prelo);
 }
 .jornal-editoria {
   display: inline-block;
@@ -261,13 +358,23 @@ body {
 }
 :root[data-contrast] .jornal-faixa,
 :root[data-contrast] .jornal-editoria,
+:root[data-contrast] .jornal-preto,
+:root[data-contrast] .jornal-raios,
 :root[data-eink] .jornal-faixa,
-:root[data-eink] .jornal-editoria {
+:root[data-eink] .jornal-editoria,
+:root[data-eink] .jornal-preto,
+:root[data-eink] .jornal-raios {
   background: var(--ink);
   color: var(--parchment);
 }
+:root[data-contrast] .jornal-cunha,
+:root[data-eink] .jornal-cunha {
+  display: none;
+}
 :root[data-contrast] .jornal-materia .prose-lesson > p:first-of-type::first-letter,
-:root[data-eink] .jornal-materia .prose-lesson > p:first-of-type::first-letter {
+:root[data-eink] .jornal-materia .prose-lesson > p:first-of-type::first-letter,
+:root[data-contrast] .jornal-capitular::first-letter,
+:root[data-eink] .jornal-capitular::first-letter {
   color: var(--ink);
 }
 
@@ -949,9 +1056,21 @@ body {
   background: #000 !important;
   color: #fff !important;
 }
-:root[data-leitor] .jornal-nome {
+:root[data-leitor] .jornal-cartaz-nome {
+  padding: 0.6em 0.8em !important;
+}
+:root[data-leitor] .jornal-cartaz-alto,
+:root[data-leitor] .jornal-cartaz-baixo {
+  display: inline !important;
   font-size: 1.5em !important;
-  white-space: normal;
+}
+:root[data-leitor] .jornal-cunha {
+  display: none !important;
+}
+:root[data-leitor] .jornal-preto,
+:root[data-leitor] .jornal-raios {
+  background: #000 !important;
+  color: #fff !important;
 }
 @media (monochrome), (update: slow) {
   :root {
@@ -1144,8 +1263,20 @@ body {
     background: #000 !important;
     color: #fff !important;
   }
-  :root .jornal-nome {
+  :root .jornal-cartaz-nome {
+    padding: 0.6em 0.8em !important;
+  }
+  :root .jornal-cartaz-alto,
+  :root .jornal-cartaz-baixo {
+    display: inline !important;
     font-size: 1.5em !important;
-    white-space: normal;
+  }
+  :root .jornal-cunha {
+    display: none !important;
+  }
+  :root .jornal-preto,
+  :root .jornal-raios {
+    background: #000 !important;
+    color: #fff !important;
   }
 }
