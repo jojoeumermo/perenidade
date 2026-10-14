@@ -72,7 +72,8 @@
     "terms": "Terms of use",
     "start": "Where to start",
     "news": "News",
-    "gallery": "Poster gallery"
+    "gallery": "Poster gallery",
+    "data": "People's data"
   },
   "footer": {
     "tagline": "Free knowledge, for everyone, forever.",
@@ -138,7 +139,9 @@
     "ctaButton": "Send a contribution",
     "questionsTitle": "Start from a question",
     "shelvesHint": "There are many. Choose the essentials or the stage you want to study.",
-    "tryLabel": "Try:"
+    "tryLabel": "Try:",
+    "onThisDay": "On this day",
+    "onThisDaySource": "Events selected by Wikipedia for today's date. Text from Wikipedia, CC BY-SA license."
   },
   "areas": {
     "portugues": [
@@ -876,6 +879,18 @@
     "pronuncia": [
       "Pronunciation",
       "Hear any sentence in English, Spanish, Chinese or Russian, at the speed you want."
+    ],
+    "dicionario": [
+      "Dictionary",
+      "Meanings of words in Portuguese and English, with the source of each definition."
+    ],
+    "frases": [
+      "Translated sentences",
+      "Real sentences in English, French and Spanish, with the translation alongside."
+    ],
+    "graficos": [
+      "Graphs and algebra",
+      "Plot functions, simplify expressions and compute derivatives."
     ]
   },
   "tools": {
@@ -1011,6 +1026,36 @@
       "noVoice": "Your device has no voice installed for this language. Install the voice pack in your system settings or try another browser.",
       "unsupported": "This browser cannot read aloud.",
       "note": "The voice is your own device's: quality varies from one device to another, and nothing you write is sent anywhere. Listen, repeat aloud and compare."
+    },
+    "dictionary": {
+      "word": "Word",
+      "language": "Dictionary",
+      "search": "Search",
+      "none": "We couldn't find that word. Check the spelling.",
+      "fail": "The dictionary did not respond right now. Try again shortly.",
+      "source": "Source:",
+      "oldSpelling": "definitions from 1913, with the spelling of the time"
+    },
+    "sentences": {
+      "word": "Word or phrase",
+      "from": "Sentence in",
+      "to": "Translation in",
+      "search": "Search",
+      "none": "No sentence found. Try a more common word.",
+      "fail": "Tatoeba did not respond right now. Try again shortly.",
+      "same": "Choose two different languages."
+    },
+    "graphs": {
+      "loading": "Loading the calculator…",
+      "invalid": "We couldn't understand this expression. Use x, +, -, *, /, ^ and functions such as sin(x) or sqrt(x).",
+      "from": "x from",
+      "to": "to",
+      "badRange": "The start must be smaller than the end.",
+      "algebra": "Simplify and differentiate",
+      "expression": "Expression in x",
+      "simplified": "Simplified",
+      "derivative": "Derivative",
+      "hint": "Type as on a calculator: 3x^2 + 2x - 1, sqrt(x), sin(x), log(x), e. Use a dot or comma for decimals."
     }
   },
   "journal": {
@@ -1043,7 +1088,14 @@
     "title": "Fact-checking",
     "lead": "Rumours and half-truths that go around, checked against public sources.",
     "empty": "No fact check published yet.",
-    "claim": "What is being said"
+    "claim": "What is being said",
+    "searchTitle": "Has it been checked?",
+    "searchLead": "Look up the rumor in fact checks published by agencies such as Lupa and Aos Fatos.",
+    "searchPlaceholder": "E.g.: vaccine, voting machine, minimum wage",
+    "searchButton": "Search",
+    "searchNone": "No fact check found with those words. Try others.",
+    "searchFail": "The search did not respond right now. Try again shortly.",
+    "searchSource": "Results from Google Fact Check Tools. Each check belongs to the agency that published it: open the link to read it."
   },
   "debates": {
     "eyebrow": "Arguments at hand",
@@ -1108,7 +1160,8 @@
       "support": "Help pay for the server and the domain.",
       "start": "Short books and lessons for the first steps.",
       "news": "Headlines from grassroots, independent and public outlets, updated automatically.",
-      "gallery": "Posters and images of the workers' struggle, with the story behind each one."
+      "gallery": "Posters and images of the workers' struggle, with the story behind each one.",
+      "data": "Minimum wage, inflation, interest, unemployment and what Congress voted, from official sources."
     }
   },
   "support": {
@@ -1171,7 +1224,8 @@
     "createWhy": "The account lets you ask and answer in the Community. What follows the rules appears right away; the mediators keep watch and step in when needed. We keep only your e-mail; the name shown on the site starts as a nickname, which you can change.",
     "createFailed": "The account could not be created. This e-mail may already have an account, or sign-up may be closed at the moment.",
     "volunteerLink": "Want to volunteer? Fill in the application",
-    "whyClosed": "There is no \"forgot my password\" here and, for now, accounts are created by invitation from the coordination. Lost your password? Talk to whoever invited you."
+    "whyClosed": "There is no \"forgot my password\" here and, for now, accounts are created by invitation from the coordination. Lost your password? Talk to whoever invited you.",
+    "leaked": "This password has already appeared in leaks from other sites and is one of the first an attacker tries. Choose another. (The check does not send your password to anyone.)"
   },
   "radio": {
     "eyebrow": "On air",
@@ -1467,5 +1521,42 @@
       "desenvolvimento": "Infrastructure and development",
       "curadoria": "Curator"
     }
+  },
+  "povo": {
+    "eyebrow": "Political awareness",
+    "title": "People's data",
+    "lead": "The numbers that weigh most on working people's lives, and what the Chamber of Deputies is voting, straight from official Brazilian sources. Updated every few hours.",
+    "economy": "Wages, prices and jobs",
+    "indicators": {
+      "salario": [
+        "Minimum wage",
+        "Monthly value of the national minimum wage (Brazil)."
+      ],
+      "ipca": [
+        "Inflation over 12 months",
+        "IPCA accumulated over twelve months: how much prices rose in a year."
+      ],
+      "selic": [
+        "Base interest rate (Selic)",
+        "Annual Selic target set by the Central Bank. It makes credit dearer or cheaper."
+      ],
+      "desocupacao": [
+        "Unemployment",
+        "Unemployment rate from the PNAD Contínua survey, rolling quarter."
+      ],
+      "populacao": [
+        "Population of Brazil",
+        "Official IBGE estimate."
+      ]
+    },
+    "reference": "Reference",
+    "votes": "What the Chamber voted",
+    "votesLead": "The latest votes in the plenary of the Brazilian Chamber of Deputies, as described by the Chamber itself (in Portuguese).",
+    "approved": "approved",
+    "rejected": "rejected",
+    "seeSession": "See the session on the Chamber's website",
+    "votesSource": "Source: Chamber of Deputies open data.",
+    "unavailable": "The source did not respond right now. Come back in a few hours.",
+    "note": "All numbers come from the sources shown in each box, unadjusted. If a source does not respond, the box disappears instead of showing an old number."
   }
 }

@@ -450,9 +450,35 @@ interface EstadoRadio {
 }
 
 /** Quem cuida da rádio indica uma emissora nova para a lista "Rádios do povo": a indicação entra na fila de revisão, como toda contribuição. */
+interface Emissora {
+  id: string;
+  nome: string;
+  lugar: string;
+  site: string;
+  transmissao: string;
+  etiquetas: string[];
+  formato: string;
+}
+
 function SugerirEmissora() {
   const acao = useAcao();
   const [nova, setNova] = useState({ nome: "", lugar: "", site: "", porque: "" });
+  const [procura, setProcura] = useState({ texto: "", por: "name" });
+  const [achadas, setAchadas] = useState<Emissora[] | null>(null);
+  const [buscando, setBuscando] = useState(false);
+  async function procurar() {
+    if (procura.texto.trim().length < 2) return;
+    setBuscando(true);
+    try {
+      const dados = await (await fetch(`/api/radios?por=${procura.por}&q=${encodeURIComponent(procura.texto.trim())}`)).json();
+      setAchadas(dados.emissoras ?? []);
+      if (dados.erro) acao.setAviso("O diretório de rádios não respondeu agora. Tente de novo em instantes.");
+    } catch {
+      acao.setAviso("O diretório de rádios não respondeu agora. Tente de novo em instantes.");
+    } finally {
+      setBuscando(false);
+    }
+  }
   const pronta = nova.nome.trim().length >= 3 && nova.lugar.trim().length >= 2 && /^https:\/\/\S+$/.test(nova.site.trim()) && nova.porque.trim().length >= 20;
   return (
     <section className="border border-rule bg-parchment-deep p-5">
@@ -461,6 +487,40 @@ function SugerirEmissora() {
         A lista “Rádios do povo” da página da rádio reúne emissoras populares, comunitárias e de trabalhadores. Ela faz parte do acervo do site, então uma emissora nova entra como toda
         contribuição: você indica aqui, a curadoria confere e ela vai ao ar na publicação seguinte.
       </p>
+      <div className="mt-4 border-l-2 border-gold pl-4">
+        <p className={rotulo}>Procurar no diretório aberto (Radio Browser), só emissoras do Brasil</p>
+        <form className="mt-2 flex flex-wrap items-end gap-3" onSubmit={(e) => { e.preventDefault(); void procurar(); }}>
+          <label className="block min-w-48 flex-1">
+            Nome ou etiqueta
+            <input value={procura.texto} onChange={(e) => setProcura({ ...procura, texto: e.target.value })} maxLength={60} placeholder="Ex.: comunitária, educativa, sindical" className={campo} />
+          </label>
+          <label className="block">
+            Procurar por
+            <select value={procura.por} onChange={(e) => setProcura({ ...procura, por: e.target.value })} className={campo}>
+              <option value="name">nome</option>
+              <option value="tag">etiqueta</option>
+            </select>
+          </label>
+          <button type="submit" className={botaoClaro} disabled={buscando || procura.texto.trim().length < 2}>{buscando ? "Procurando…" : "Procurar"}</button>
+        </form>
+        <p className="mt-1 text-sm text-ink-soft">O diretório não diz a linha de ninguém: ouça a emissora antes de indicar. Só aparecem as que transmitem por endereço seguro (https).</p>
+        {achadas && achadas.length === 0 && <p className="mt-2 text-ink-soft">Nenhuma emissora encontrada.</p>}
+        {achadas && achadas.length > 0 && (
+          <ul className="mt-2 max-h-72 divide-y divide-rule overflow-y-auto border-y border-rule">
+            {achadas.map((emissora) => (
+              <li key={emissora.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
+                <span className="min-w-0">
+                  <strong>{emissora.nome}</strong>
+                  <span className="block text-sm text-ink-soft">{[emissora.lugar, emissora.formato, emissora.etiquetas.join(", ")].filter(Boolean).join(" · ")}</span>
+                </span>
+                <button type="button" className={elo} onClick={() => setNova({ ...nova, nome: emissora.nome, lugar: [emissora.lugar, "Brasil"].filter(Boolean).join(", "), site: emissora.site || emissora.transmissao })}>
+                  Usar na indicação
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         <label className="block">
           Nome da emissora
