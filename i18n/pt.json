@@ -137,7 +137,8 @@
     "ctaText": "Escreva uma aula, indique uma obra livre ou corrija um erro. Tudo passa por revisão antes de entrar.",
     "ctaButton": "Enviar uma contribuição",
     "questionsTitle": "Comece por uma pergunta",
-    "shelvesHint": "São muitas. Escolha o essencial ou a etapa que você quer estudar."
+    "shelvesHint": "São muitas. Escolha o essencial ou a etapa que você quer estudar.",
+    "tryLabel": "Experimente:"
   },
   "areas": {
     "portugues": [
@@ -421,7 +422,10 @@
     "offlineFailed": "Não deu para guardar agora. Confira a conexão e tente de novo.",
     "offlineUnsupported": "Este navegador não permite guardar páginas.",
     "epub": "Baixar a trilha como livro digital (EPUB)",
-    "epubHint": "abre no Kindle (pelo Enviar para o Kindle), no Kobo e em aplicativos de leitura"
+    "epubHint": "abre no Kindle (pelo Enviar para o Kindle), no Kobo e em aplicativos de leitura",
+    "jump": "Ir para",
+    "showAll": "Ver todas as {n}",
+    "showLess": "Mostrar menos"
   },
   "lesson": {
     "position": "aula {i} de {n}",
@@ -1027,11 +1031,15 @@
       "lead": "Os jornalistas do instituto mandam um boletim com as matérias novas. Sem anúncio, sem repassar o seu endereço a ninguém.",
       "email": "Seu e-mail",
       "button": "Quero receber",
-      "done": "Pronto. Você vai receber o próximo boletim.",
-      "leave": "Para sair da lista, escreva para",
+      "done": "Quase lá: mandamos um link para o seu e-mail. O boletim só começa a chegar depois que você clicar nele.",
+      "doneDirect": "Pronto. Você vai receber o próximo boletim.",
+      "leave": "Todo boletim traz um link para sair da lista. Se preferir, escreva para",
       "roundTitle": "Giro de notícias do país",
       "roundLead": "As manchetes de agora da imprensa popular, independente e pública, de dezessete veículos, em uma página só. Atualiza sozinha a cada quinze minutos.",
-      "roundButton": "Abrir o giro de notícias"
+      "roundButton": "Abrir o giro de notícias",
+      "confirmed": "Pronto: o seu e-mail está confirmado e você vai receber o próximo boletim.",
+      "left": "Pronto: o seu e-mail saiu da lista do boletim.",
+      "badLink": "Este link não vale mais. Peça o boletim de novo, se quiser."
     }
   },
   "factCheck": {
@@ -1164,7 +1172,7 @@
     "toCreate": "Criar conta para participar da Comunidade",
     "toEnter": "Já tenho conta: entrar",
     "createTitle": "Criar conta",
-    "createWhy": "A conta serve para perguntar e responder na Comunidade. Tudo o que você escrever é lido pela mediação antes de aparecer. Guardamos só o seu e-mail; o nome que aparece no site nasce como um codinome, que você troca se quiser.",
+    "createWhy": "A conta serve para perguntar e responder na Comunidade. O que respeita as regras aparece na hora; a mediação acompanha e intervém quando é preciso. Guardamos só o seu e-mail; o nome que aparece no site nasce como um codinome, que você troca se quiser.",
     "createFailed": "Não foi possível criar a conta. Este e-mail pode já ter conta, ou o cadastro pode estar fechado no momento.",
     "volunteerLink": "Quer ser voluntário? Preencha a candidatura",
     "whyClosed": "Aqui não há \"esqueci minha senha\" e, no momento, as contas são criadas por convite da coordenação. Perdeu a senha? Fale com quem convidou você."
@@ -1221,7 +1229,7 @@
     "title": "Conversas",
     "lead": "Tire dúvidas, proponha estudos e ajude quem está começando. O foco do instituto é o ensino; este espaço existe para apoiar o estudo.",
     "rules": [
-      "Qualquer pessoa lê. Para perguntar ou responder é preciso ter conta, e toda mensagem passa pela mediação antes de aparecer.",
+      "Qualquer pessoa lê. Para perguntar ou responder é preciso ter conta. O que respeita as regras aparece na hora, o que as viola é barrado, e os casos de dúvida esperam a leitura da mediação.",
       "Respeito sempre: discorde das ideias, não ataque as pessoas.",
       "Nada de racismo, machismo, LGBTfobia, capacitismo ou qualquer discurso de ódio.",
       "Não publique dados pessoais, seus ou de outras pessoas.",

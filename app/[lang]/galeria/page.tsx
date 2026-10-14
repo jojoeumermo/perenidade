@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { defaultLocale } from "@/i18n/config";
@@ -18,9 +18,9 @@ export default async function Galeria({ params }: PageProps<"/[lang]/galeria">) 
   const pieces = getGallery();
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <PageHeading eyebrow={s.eyebrow} title={s.title}>
+      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.footer.slogan} tone="vermelho">
         {s.lead}
-      </PageHeading>
+      </Cartaz>
       <Untranslated lang={lang} t={t} show={lang !== defaultLocale} />
       <div className="mt-10 space-y-12" lang="pt-BR">
         {pieces.map((piece) => (
@@ -30,10 +30,10 @@ export default async function Galeria({ params }: PageProps<"/[lang]/galeria">) 
               <img src={piece.imagem} alt={`${piece.titulo}, ${piece.autor}, ${piece.ano}`} width={piece.largura} height={piece.altura} loading="lazy" decoding="async" className="h-auto w-full border border-rule" />
             </figure>
             <div>
-              <p className="font-mono text-xs uppercase tracking-widest text-gold">
+              <p className="jornal-editoria">
                 {piece.ano} · {piece.lugar}
               </p>
-              <h2 className="mt-2 text-3xl font-semibold leading-tight">{piece.titulo}</h2>
+              <h2 className="jornal-manchete mt-3 text-2xl sm:text-3xl">{piece.titulo}</h2>
               <p className="mt-1 font-sans text-sm text-ink-soft">{piece.autor}</p>
               <p className="mt-4 text-lg leading-relaxed">{piece.texto}</p>
               <p className="mt-4 font-mono text-[0.7rem] text-ink-soft">

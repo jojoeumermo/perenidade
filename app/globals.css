@@ -111,27 +111,58 @@ body {
     animation: app-entra 0.16s ease-out;
   }
 }
+/* ---- Edição de bolso: o site no celular, no navegador e no aplicativo ----
+   A barra de cima vira a faixa bordô do instituto com fio dourado, os títulos de seção ganham a tarja vermelha
+   do jornal e os cantos ficam retos, como papel impresso. */
 @media (max-width: 767.98px) {
-  /* Cantos arredondados em cartões, campos e botões: é o que mais separa a cara de aplicativo da cara de página.
-     As cores e as letras continuam as mesmas. */
-  :root[data-app] main :is(a, article, div, section, li, form, details, aside, figure)[class~="border"][class~="bg-parchment-deep"],
-  :root[data-app] main :is(a, article, div, section, li, form, details, aside)[class~="border"][class~="border-rule"][class*="p-"] {
-    border-radius: 0.875rem;
+  .barra-celular {
+    background: #6e1f1a;
+    color: #f4ecd8;
+    border-bottom: 3px solid #d4a24c;
   }
-  :root[data-app] main :is(input:not([type="checkbox"], [type="radio"], [type="range"]), select, textarea) {
-    border-radius: 0.75rem;
+  .barra-celular :is(a, button, select) {
+    color: #f4ecd8;
   }
-  :root[data-app] main :is(button, a):is([class~="bg-ink"], [class~="bg-oxblood"], [class~="border-2"]) {
-    border-radius: 0.75rem;
+  .barra-celular a[aria-current="page"] {
+    color: #f0cf8e;
   }
-  /* Títulos e respiros na medida da tela pequena: menos rolagem, mais conteúdo por tela. */
-  :root[data-app] main :is(h2[class~="text-4xl"], h2[class~="text-3xl"]) {
-    font-size: 1.625rem;
-    line-height: 1.2;
+  .barra-celular select {
+    background: transparent;
+    border-color: rgb(244 236 216 / 0.45);
   }
-  :root[data-app] main#conteudo > section[class~="py-10"] {
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
+  .barra-celular option {
+    color: #1f1a14;
+  }
+  /* Títulos de seção: a tarja vermelha em cima, letra na medida da tela. */
+  main#conteudo :is(h2[class~="text-4xl"], h2[class~="text-3xl"]) {
+    font-size: 1.75rem;
+    line-height: 1.15;
+  }
+  main#conteudo :is(h2[class~="text-4xl"], h2[class~="text-3xl"])::before {
+    content: "";
+    display: block;
+    width: 2.5rem;
+    height: 4px;
+    margin-bottom: 0.6rem;
+    background: var(--prelo);
+  }
+  /* Respiros na medida da tela pequena: menos rolagem, mais conteúdo por tela. */
+  main#conteudo > section[class~="py-10"] {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  main#conteudo > .py-12 {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+  /* Campos com letra de 16px (abaixo disso o celular aproxima a tela ao focar) e altura boa para o polegar. */
+  :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"]), select, textarea) {
+    min-height: 3rem;
+    font-size: 1rem;
+  }
+  .barra-celular select {
+    min-height: 2rem;
+    font-size: 0.75rem;
   }
   /* Modo leitura (tela de aula): rolando para baixo, as barras saem da frente; rolando para cima, voltam.
      Quem liga e desliga é components/ReadingChrome.tsx, com <html data-lendo>. */
@@ -164,16 +195,17 @@ body {
   :root[data-app] main#conteudo {
     padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
   }
-  /* Páginas começam mais perto do topo: a tela é pequena e a barra já diz onde a pessoa está. */
-  :root[data-app] main#conteudo > .py-12 {
-    padding-top: 1.5rem;
-    padding-bottom: 2rem;
-  }
-  /* Campos com letra de 16px (abaixo disso o Android aproxima a tela ao focar) e altura boa para o polegar. */
-  :root[data-app] :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"]), select, textarea) {
-    min-height: 3rem;
-    font-size: 1rem;
-  }
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .barra-celular {
+  background: var(--parchment) !important;
+  color: var(--ink) !important;
+  border-color: var(--ink) !important;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .barra-celular :is(a, button, select) {
+  color: var(--ink) !important;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .aba-ativa {
+  background: var(--ink) !important;
 }
 
 .paper {
@@ -229,23 +261,158 @@ body {
   background: var(--prelo);
   color: #fff;
 }
-/* O nome do jornal cabe sempre em uma linha: a letra é medida pela largura da própria faixa. */
+/* A letra do nome é medida pela largura da própria faixa (cqw). */
 .jornal-faixa {
   container-type: inline-size;
 }
-.jornal-nome {
-  white-space: nowrap;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  font-size: 4.4vw;
-  font-size: min(5.9cqw, 4.6rem);
-}
-.jornal-nome-menor {
-  font-size: 3.6vw;
-  font-size: min(5.9cqw, 2.4rem);
-}
 .jornal-faixa:hover {
   background: #a51810;
+}
+
+/* O nome em cartaz: faixa vermelha, o nome em duas linhas de letra pesada e a cunha preta com a estrela,
+   no desenho dos cartazes de 1918 a 1921. */
+.jornal-cartaz {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 3px solid var(--ink);
+}
+.jornal-cartaz-nome {
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding: 3cqw 24cqw 3.4cqw 3.6cqw;
+  line-height: 0.86;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.jornal-cartaz-alto {
+  display: block;
+  font-size: min(4.7cqw, 3rem);
+}
+.jornal-cartaz-baixo {
+  display: block;
+  margin-top: 0.1em;
+  line-height: 1.06;
+  font-size: min(15cqw, 9.5rem);
+}
+.jornal-cartaz-titulo {
+  font-size: min(11cqw, 7rem);
+}
+.jornal-cunha {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30cqw;
+  background: #1f1a14;
+  clip-path: polygon(35% 0, 100% 0, 100% 100%, 0 100%);
+}
+.jornal-cunha-estrela {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  width: 13cqw;
+  height: 13cqw;
+  color: #e0372b;
+  transform: translate(-50%, -50%) rotate(-8deg);
+}
+.jornal-cunha-vermelha {
+  background: var(--prelo);
+}
+.jornal-cunha-vermelha .jornal-cunha-estrela {
+  color: #f4ecd8;
+}
+/* Memorial: cunha bordô e estrela clara, sem o vermelho vivo. */
+.jornal-cunha-luto {
+  background: #6e1f1a;
+}
+.jornal-cunha-luto .jornal-cunha-estrela {
+  color: #f4ecd8;
+}
+/* A faixa de raios precisa medir a própria largura, como as outras. */
+.jornal-faixa-raios {
+  container-type: inline-size;
+}
+/* Carimbo de veredito da checagem de fatos. */
+.jornal-carimbo {
+  display: inline-block;
+  border: 3px solid var(--prelo);
+  padding: 0.15rem 0.7rem;
+  color: var(--prelo);
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transform: rotate(-2.5deg);
+}
+:root[data-theme="dark"] .jornal-carimbo {
+  border-color: #e0837a;
+  color: #e0837a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .jornal-carimbo {
+    border-color: #e0837a;
+    color: #e0837a;
+  }
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .jornal-carimbo {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.jornal-cartaz-menor .jornal-cartaz-nome {
+  padding: 1.8cqw 18cqw 1.8cqw 2.4cqw;
+}
+.jornal-cartaz-menor .jornal-cartaz-alto,
+.jornal-cartaz-menor .jornal-cartaz-baixo {
+  display: inline;
+  font-size: min(4.2cqw, 2.2rem);
+}
+.jornal-cartaz-menor .jornal-cartaz-alto {
+  margin-right: 0.28em;
+}
+.jornal-cartaz-menor .jornal-cunha {
+  width: 16cqw;
+}
+.jornal-cartaz-menor .jornal-cunha-estrela {
+  width: 6.5cqw;
+  height: 6.5cqw;
+}
+/* Fundo preto dos cartazes e o sol de raios vermelhos: cores fixas, iguais nos dois temas. */
+.jornal-preto {
+  background: #1f1a14;
+  color: #f4ecd8;
+  container-type: inline-size;
+}
+.jornal-raios {
+  background: repeating-conic-gradient(from 0deg at 0% 100%, #c21f16 0deg 5deg, #a51810 5deg 10deg);
+  color: #fff;
+}
+/* Fio duplo do expediente, embaixo do nome. */
+.jornal-fio {
+  border-bottom: 7px double var(--ink);
+}
+/* Título de seção: a etiqueta vermelha e um fio grosso até o fim da linha. */
+.jornal-secao {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.jornal-secao::after {
+  content: "";
+  flex: 1;
+  height: 4px;
+  background: var(--ink);
+}
+/* Capitular na chamada da manchete. */
+.jornal-capitular::first-letter {
+  float: left;
+  font-size: 3.4em;
+  line-height: 0.85;
+  font-weight: 800;
+  padding: 0.06em 0.1em 0 0;
+  color: var(--prelo);
 }
 .jornal-editoria {
   display: inline-block;
@@ -288,13 +455,23 @@ body {
 }
 :root[data-contrast] .jornal-faixa,
 :root[data-contrast] .jornal-editoria,
+:root[data-contrast] .jornal-preto,
+:root[data-contrast] .jornal-raios,
 :root[data-eink] .jornal-faixa,
-:root[data-eink] .jornal-editoria {
+:root[data-eink] .jornal-editoria,
+:root[data-eink] .jornal-preto,
+:root[data-eink] .jornal-raios {
   background: var(--ink);
   color: var(--parchment);
 }
+:root[data-contrast] .jornal-cunha,
+:root[data-eink] .jornal-cunha {
+  display: none;
+}
 :root[data-contrast] .jornal-materia .prose-lesson > p:first-of-type::first-letter,
-:root[data-eink] .jornal-materia .prose-lesson > p:first-of-type::first-letter {
+:root[data-eink] .jornal-materia .prose-lesson > p:first-of-type::first-letter,
+:root[data-contrast] .jornal-capitular::first-letter,
+:root[data-eink] .jornal-capitular::first-letter {
   color: var(--ink);
 }
 
@@ -976,9 +1153,21 @@ body {
   background: #000 !important;
   color: #fff !important;
 }
-:root[data-leitor] .jornal-nome {
+:root[data-leitor] .jornal-cartaz-nome {
+  padding: 0.6em 0.8em !important;
+}
+:root[data-leitor] .jornal-cartaz-alto,
+:root[data-leitor] .jornal-cartaz-baixo {
+  display: inline !important;
   font-size: 1.5em !important;
-  white-space: normal;
+}
+:root[data-leitor] .jornal-cunha {
+  display: none !important;
+}
+:root[data-leitor] .jornal-preto,
+:root[data-leitor] .jornal-raios {
+  background: #000 !important;
+  color: #fff !important;
 }
 @media (monochrome), (update: slow) {
   :root {
@@ -1171,8 +1360,20 @@ body {
     background: #000 !important;
     color: #fff !important;
   }
-  :root .jornal-nome {
+  :root .jornal-cartaz-nome {
+    padding: 0.6em 0.8em !important;
+  }
+  :root .jornal-cartaz-alto,
+  :root .jornal-cartaz-baixo {
+    display: inline !important;
     font-size: 1.5em !important;
-    white-space: normal;
+  }
+  :root .jornal-cunha {
+    display: none !important;
+  }
+  :root .jornal-preto,
+  :root .jornal-raios {
+    background: #000 !important;
+    color: #fff !important;
   }
 }
