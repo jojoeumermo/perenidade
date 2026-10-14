@@ -1031,11 +1031,15 @@
       "lead": "Los periodistas del instituto envían un boletín con las notas nuevas. Sin anuncios y sin pasar tu dirección a nadie.",
       "email": "Tu correo",
       "button": "Quiero recibirlo",
-      "done": "Listo. Recibirás el próximo boletín.",
-      "leave": "Para salir de la lista, escribe a",
+      "done": "Casi listo: enviamos un enlace a tu correo. El boletín solo empieza a llegar después de que hagas clic en él.",
+      "doneDirect": "Listo. Recibirás el próximo boletín.",
+      "leave": "Cada boletín trae un enlace para salir de la lista. Si prefieres, escribe a",
       "roundTitle": "Ronda de noticias de Brasil",
       "roundLead": "Los titulares de ahora de la prensa popular, independiente y pública, de diecisiete medios, en una sola página. Se actualiza sola cada quince minutos.",
-      "roundButton": "Abrir la ronda de noticias"
+      "roundButton": "Abrir la ronda de noticias",
+      "confirmed": "Listo: tu correo está confirmado y recibirás el próximo boletín.",
+      "left": "Listo: tu correo salió de la lista del boletín.",
+      "badLink": "Este enlace ya no vale. Pide el boletín de nuevo, si quieres."
     }
   },
   "factCheck": {
