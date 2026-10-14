@@ -36,6 +36,7 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         [n.timeline, "/linha-do-tempo", d.timeline],
         [n.gallery, "/galeria", d.gallery],
         [n.factCheck, "/checagens", d.factCheck],
+        [n.data, "/dados", d.data],
         [n.debates, "/debates", d.debates],
         [n.news, "/noticias", d.news],
         [n.journal, "/jornal", d.journal],

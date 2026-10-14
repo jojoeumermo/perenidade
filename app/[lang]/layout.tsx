@@ -24,12 +24,12 @@ const serif = EB_Garamond({ variable: "--font-serif-display", subsets: ["latin",
 const ui = Inter({ variable: "--font-ui", subsets: ["latin", "latin-ext", "cyrillic"] });
 const mono = IBM_Plex_Mono({ variable: "--font-archive", subsets: ["latin", "latin-ext", "cyrillic"], weight: ["400", "500"] });
 
-// A cor da barra do navegador acompanha o tema. "cover" deixa o site saber onde ficam as barras do
-// aparelho (relógio em cima, botões embaixo) quando ele é aberto como aplicativo, de borda a borda.
+// A cor da barra do navegador acompanha o tema. O "viewport-fit=cover" (de borda a borda, sabendo onde ficam
+// o relógio e os botões do aparelho) só é ligado no aplicativo, pelo prefsScript: no navegador ele fazia o
+// Firefox do Android reservar o espaço da barra do sistema e a barra de abas do site ficava alta, com um vão embaixo.
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  viewportFit: "cover",
   themeColor: [
     // No celular a barra do navegador continua a faixa bordô do topo do site.
     { media: "(max-width: 767.98px)", color: "#6e1f1a" },

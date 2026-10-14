@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { Dict } from "@/i18n/types";
 import { getClient, hasBackend, localBackend, rpc, signOut, useMe } from "@/lib/backend";
 import { useCadastro } from "@/lib/cadastro";
+import { senhaVazada } from "@/lib/senha";
 import { fingerprintAvailable, signInWithFingerprint } from "@/lib/passkey";
 import { KEYS, useHydrated, useStored } from "@/lib/storage";
 import { Captcha, captchaEnabled } from "./Captcha";
@@ -46,7 +47,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [again, setAgain] = useState("");
-  const [state, setState] = useState<"idle" | "sending" | "wrong" | "failed" | "invalid" | "confirm" | "saved" | "code" | "badCode">("idle");
+  const [state, setState] = useState<"idle" | "sending" | "wrong" | "failed" | "invalid" | "confirm" | "saved" | "code" | "badCode" | "leaked">("idle");
   const [detail, setDetail] = useState("");
   /** O aplicativo autenticador cadastrado na conta que acabou de acertar a senha. */
   const [factor, setFactor] = useState("");
@@ -182,6 +183,12 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
 
   async function create() {
     setState("sending");
+    // Senha que já apareceu em vazamento é a primeira que um invasor tenta: não serve.
+    if ((await senhaVazada(password)) === true) {
+      setState("leaked");
+      done();
+      return;
+    }
     try {
       const supabase = await getClient();
       const { data, error } = await supabase.auth.signUp({ email: address, password, options: { data: code ? { convite: code } : {}, captchaToken: token || undefined } });
@@ -198,6 +205,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
 
   async function change() {
     setState("sending");
+    if ((await senhaVazada(password)) === true) return setState("leaked");
     try {
       const supabase = await getClient();
       const { error } = await supabase.auth.updateUser({ password });
@@ -286,6 +294,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         {twice}
         <button type="submit" disabled={state === "sending" || weak || !recovery} className={primary}>{s.save}</button>
         {state === "invalid" && <p role="alert" className="text-oxblood">{s.failed}</p>}
+        {state === "leaked" && <p role="alert" className="text-oxblood">{s.leaked}</p>}
       </form>
     );
   }
@@ -304,6 +313,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         <Captcha action="convite" lang={lang} round={round} onToken={receive} />
         <button type="submit" disabled={state === "sending" || !address.includes("@") || waiting || weak} className={primary}>{s.create}</button>
         {state === "invalid" && <p role="alert" className="text-oxblood">{s.inviteInvalid}</p>}
+        {state === "leaked" && <p role="alert" className="text-oxblood">{s.leaked}</p>}
         <p className="text-ink-soft">{s.inviteWhy}</p>
         {footer}
       </form>
@@ -322,6 +332,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         <Captcha action="cadastro" lang={lang} round={round} onToken={receive} />
         <button type="submit" disabled={state === "sending" || !email.includes("@") || waiting || weak} className={primary}>{s.create}</button>
         {state === "invalid" && <p role="alert" className="text-oxblood">{s.createFailed}</p>}
+        {state === "leaked" && <p role="alert" className="text-oxblood">{s.leaked}</p>}
         <p className="text-ink-soft">{s.createWhy}</p>
         <p>
           <button

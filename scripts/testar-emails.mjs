@@ -39,7 +39,7 @@ const servico = (...codigos) => {
   };
   return { buscar, pedidos };
 };
-const base = { chave: CHAVE, remetente: "Instituto Lúcia <contato@institutolucia.org>", pausa: 0 };
+const base = { chave: CHAVE, remetente: "Instituto Lúcia <noreply@institutolucia.org>", pausa: 0 };
 
 // ── Envio normal ──
 await espera("envia a fila e devolve cada resultado ao banco", async () => {
@@ -53,8 +53,8 @@ await espera("o pedido vai ao endereço do serviço, com a chave só no cabeçal
 await espera("cada e-mail leva uma chave de idempotência própria (nada sai duas vezes)", async () => {
   const s = servico(200); await rodada({ ...base, chamar: banco(fila(2)).chamar, buscar: s.buscar }); return s.pedidos.map((p) => p.opcoes.headers["Idempotency-Key"]);
 }, (k) => k[0] === "lucia-00000000-0000-0000-0000-000000000000" && k[1] !== k[0]);
-await espera("remetente, destinatário, assunto, texto e HTML", async () => JSON.parse(JSON.stringify(pedido(fila(1)[0], { remetente: base.remetente, resposta: "respostas@institutolucia.org" }))),
-  (p) => p.from === base.remetente && p.to[0] === "pessoa0@exemplo.org" && p.subject === "Assunto 0" && p.text.includes("Linha 0") && p.html.includes("<p>") && p.reply_to === "respostas@institutolucia.org" && !p.headers);
+await espera("remetente, destinatário, assunto, texto e HTML", async () => JSON.parse(JSON.stringify(pedido(fila(1)[0], { remetente: base.remetente, resposta: "institutolucia@tutamail.com" }))),
+  (p) => p.from === base.remetente && p.to[0] === "pessoa0@exemplo.org" && p.subject === "Assunto 0" && p.text.includes("Linha 0") && p.html.includes("<p>") && p.reply_to === "institutolucia@tutamail.com" && !p.headers);
 await espera("boletim leva o cabeçalho de saída da lista", async () => pedido({ ...fila(1)[0], sair: "https://institutolucia.org/pt/jornal?boletim=sair&codigo=" + "a".repeat(32) }, base),
   (p) => p.headers["List-Unsubscribe"] === `<https://institutolucia.org/pt/jornal?boletim=sair&codigo=${"a".repeat(32)}>`);
 await espera("o HTML escapa o texto e só transforma em link o que é https", async () => html('Oi <script>alert(1)</script> & "x"\n\nveja https://institutolucia.org/a?b=1 e javascript:alert(1)'),
