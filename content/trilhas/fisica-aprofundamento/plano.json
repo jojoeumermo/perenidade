@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "mecanica-lagrangiana-e-hamiltoniana",
+    "titulo": "Mecânica lagrangiana e hamiltoniana"
+  },
+  {
+    "slug": "fluidos-em-movimento-a-equacao-de-bernoulli",
+    "titulo": "Fluidos em movimento: a equação de Bernoulli"
+  },
+  {
+    "slug": "viscosidade-e-turbulencia",
+    "titulo": "Viscosidade e turbulência"
+  },
+  {
+    "slug": "elasticidade-e-resistencia-dos-materiais",
+    "titulo": "Elasticidade e resistência dos materiais"
+  },
+  {
+    "slug": "acustica",
+    "titulo": "Acústica"
+  },
+  {
+    "slug": "optica-fisica-interferencia-e-difracao",
+    "titulo": "Óptica física: interferência e difração"
+  },
+  {
+    "slug": "polarizacao-da-luz",
+    "titulo": "Polarização da luz"
+  },
+  {
+    "slug": "lasers",
+    "titulo": "Lasers"
+  },
+  {
+    "slug": "circuitos-de-corrente-alternada",
+    "titulo": "Circuitos de corrente alternada"
+  },
+  {
+    "slug": "fisica-dos-semicondutores",
+    "titulo": "Física dos semicondutores"
+  },
+  {
+    "slug": "supercondutividade",
+    "titulo": "Supercondutividade"
+  },
+  {
+    "slug": "fisica-do-estado-solido",
+    "titulo": "Física do estado sólido"
+  },
+  {
+    "slug": "fisica-atomica-e-molecular",
+    "titulo": "Física atômica e molecular"
+  },
+  {
+    "slug": "relatividade-geral",
+    "titulo": "Relatividade geral"
+  },
+  {
+    "slug": "cosmologia-o-big-bang",
+    "titulo": "Cosmologia: o Big Bang"
+  },
+  {
+    "slug": "astrofisica-a-vida-das-estrelas",
+    "titulo": "Astrofísica: a vida das estrelas"
+  },
+  {
+    "slug": "fisica-de-plasmas",
+    "titulo": "Física de plasmas"
+  },
+  {
+    "slug": "fisica-medica-radiologia-e-radioterapia",
+    "titulo": "Física médica: radiologia e radioterapia"
+  },
+  {
+    "slug": "fisica-do-clima-o-balanco-de-energia-da-terra",
+    "titulo": "Física do clima: o balanço de energia da Terra"
+  },
+  {
+    "slug": "energia-matriz-energetica-e-eficiencia",
+    "titulo": "Energia: matriz energética e eficiência"
+  },
+  {
+    "slug": "fisica-computacional-simulacoes",
+    "titulo": "Física computacional: simulações"
+  },
+  {
+    "slug": "instrumentacao-e-medidas-no-laboratorio",
+    "titulo": "Instrumentação e medidas no laboratório"
+  },
+  {
+    "slug": "caos-e-sistemas-dinamicos",
+    "titulo": "Caos e sistemas dinâmicos"
+  },
+  {
+    "slug": "informacao-e-computacao-quantica",
+    "titulo": "Informação e computação quântica"
+  }
+]

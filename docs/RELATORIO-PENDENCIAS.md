@@ -25,9 +25,9 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Linguagens e artes | cinema | 0 | 25 | 25 |
 | Linguagens e artes | educacao-fisica | 0 | 24 | 24 |
 | Ciências e tecnologia | matematica | 48 | 73 | 25 |
-| Ciências e tecnologia | fisica | 26 | 35 | 9 |
-| Ciências e tecnologia | quimica | 24 | 32 | 8 |
-| Ciências e tecnologia | biologia | 23 | 33 | 10 |
+| Ciências e tecnologia | fisica | 35 | 59 | 24 |
+| Ciências e tecnologia | quimica | 32 | 56 | 24 |
+| Ciências e tecnologia | biologia | 33 | 58 | 25 |
 | Ciências e tecnologia | astronomia | 2 | 30 | 28 |
 | Ciências e tecnologia | informatica | 5 | 61 | 56 |
 | Ciências e tecnologia | programacao | 17 | 53 | 36 |
@@ -75,7 +75,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Hobbies: aprenda uma habilidade nova e monetize com ela | costureira | 0 | 16 | 16 |
 | Hobbies: aprenda uma habilidade nova e monetize com ela | barbeiro | 0 | 14 | 14 |
 | Hobbies: aprenda uma habilidade nova e monetize com ela | oratoria-e-lideranca | 0 | 15 | 15 |
-| | **Total** | **432** | **2247** | **1815** |
+| | **Total** | **459** | **2320** | **1861** |
 
 ## Alfabetização e ENEM
 
@@ -726,7 +726,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Modelagem matemática de problemas sociais
 - Etnomatemática
 
-### fisica — 26 de 35 prontas (faltam 9)
+### fisica — 35 de 59 prontas (faltam 24)
 
 **Física do dia a dia** (fundamental, `fisica-fundamental`): 12/12 prontas
 - (completa)
@@ -734,18 +734,36 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 **Física do ensino médio** (medio, `fisica-medio`): 14/14 prontas
 - (completa)
 
-**Física: fundamentos** (superior, `fisica-superior`): 0/9 prontas
-- Mecânica clássica
-- Oscilações e ondas
-- Termodinâmica e física estatística
-- Eletromagnetismo e as equações de Maxwell
-- Relatividade restrita
-- Mecânica quântica: os fundamentos
-- Física nuclear e de partículas
-- Energia nuclear e sociedade
-- História e filosofia da física
+**Física: fundamentos** (superior, `fisica-superior`): 9/9 prontas
+- (completa)
 
-### quimica — 24 de 32 prontas (faltam 8)
+**Física: aprofundamento** (superior, `fisica-aprofundamento`): 0/24 prontas
+- Mecânica lagrangiana e hamiltoniana
+- Fluidos em movimento: a equação de Bernoulli
+- Viscosidade e turbulência
+- Elasticidade e resistência dos materiais
+- Acústica
+- Óptica física: interferência e difração
+- Polarização da luz
+- Lasers
+- Circuitos de corrente alternada
+- Física dos semicondutores
+- Supercondutividade
+- Física do estado sólido
+- Física atômica e molecular
+- Relatividade geral
+- Cosmologia: o Big Bang
+- Astrofísica: a vida das estrelas
+- Física de plasmas
+- Física médica: radiologia e radioterapia
+- Física do clima: o balanço de energia da Terra
+- Energia: matriz energética e eficiência
+- Física computacional: simulações
+- Instrumentação e medidas no laboratório
+- Caos e sistemas dinâmicos
+- Informação e computação quântica
+
+### quimica — 32 de 56 prontas (faltam 24)
 
 **Química ao redor** (fundamental, `quimica-fundamental`): 10/10 prontas
 - (completa)
@@ -753,17 +771,36 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 **Química do ensino médio** (medio, `quimica-medio`): 14/14 prontas
 - (completa)
 
-**Química: fundamentos** (superior, `quimica-superior`): 0/8 prontas
-- Estrutura atômica e orbitais
-- Termodinâmica química
-- Química orgânica: mecanismos de reação
-- Química analítica
-- Bioquímica: proteínas, carboidratos e lipídios
-- Química verde
-- Química industrial e petróleo
-- História da química
+**Química: fundamentos** (superior, `quimica-superior`): 8/8 prontas
+- (completa)
 
-### biologia — 23 de 33 prontas (faltam 10)
+**Química: aprofundamento** (superior, `quimica-aprofundamento`): 0/24 prontas
+- Teoria dos orbitais moleculares
+- Cinética química: leis de velocidade
+- Eletroquímica: potenciais e a equação de Nernst
+- Química de coordenação
+- Química dos metais de transição
+- Química nuclear e radioquímica
+- Espectroscopia: infravermelho e ressonância magnética
+- Espectrometria de massas
+- Estereoquímica e quiralidade
+- Compostos aromáticos e as suas reações
+- Aldeídos, cetonas e ácidos carboxílicos: reações
+- Síntese orgânica
+- Química de polímeros
+- Química de materiais e nanotecnologia
+- Química de alimentos
+- Química farmacêutica: como se desenvolve um remédio
+- Toxicologia: dose e efeito
+- Química da atmosfera
+- Química da água e tratamento de efluentes
+- Química do solo e fertilizantes
+- Agrotóxicos: química, toxicidade e regulação
+- Química forense
+- Bioquímica do metabolismo
+- Segurança em laboratório e na indústria química
+
+### biologia — 33 de 58 prontas (faltam 25)
 
 **Vida e saúde** (fundamental, `biologia-fundamental`): 11/11 prontas
 - (completa)
@@ -771,17 +808,35 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 **Biologia do ensino médio** (medio, `biologia-medio`): 12/12 prontas
 - (completa)
 
-**Biologia: fundamentos** (superior, `biologia-superior`): 0/10 prontas
-- Biologia molecular
-- Genética de populações
-- Evolução: a síntese moderna
-- Microbiologia
-- Imunologia
-- Neurociência: uma introdução
-- Ecologia e conservação
-- Epidemiologia
-- Determinantes sociais da saúde
-- Bioética
+**Biologia: fundamentos** (superior, `biologia-superior`): 10/10 prontas
+- (completa)
+
+**Biologia: aprofundamento** (superior, `biologia-aprofundamento`): 0/25 prontas
+- Botânica: anatomia e fisiologia vegetal
+- Zoologia dos invertebrados
+- Zoologia dos vertebrados
+- Micologia: o reino dos fungos
+- Parasitologia
+- Virologia
+- Embriologia e desenvolvimento
+- Histologia: os tecidos do corpo
+- Fisiologia comparada
+- Endocrinologia
+- Genômica e bioinformática
+- Sinalização celular
+- Comportamento animal
+- Paleontologia e a história da vida
+- Origem da vida
+- Ecologia de populações: modelos matemáticos
+- Ecologia da Amazônia
+- Ecologia do Cerrado e da Caatinga
+- Biologia marinha e manguezais
+- Agroecologia
+- Etnobiologia e conhecimentos tradicionais
+- Saúde do trabalhador
+- Farmacologia: como os remédios agem
+- Nutrição e segurança alimentar
+- História da biologia
 
 ### astronomia — 2 de 30 prontas (faltam 28)
 
