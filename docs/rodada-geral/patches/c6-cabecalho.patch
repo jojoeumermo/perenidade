@@ -1,0 +1,2262 @@
+diff --git a/app/[lang]/historico/page.tsx b/app/[lang]/historico/page.tsx
+index f2dcdd8..761b89c 100644
+--- a/app/[lang]/historico/page.tsx
++++ b/app/[lang]/historico/page.tsx
+@@ -1,10 +1,11 @@
+ // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ import type { Metadata } from "next";
++import Link from "next/link";
+ import { PageHeading } from "@/components/PageHeading";
+ import { loadLang } from "@/i18n";
+-import { fill, htmlLang } from "@/i18n/config";
++import { fill, htmlLang, localePath } from "@/i18n/config";
+ import { notFound } from "next/navigation";
+-import { publicHistory } from "@/lib/history";
++import { describePart, publicHistory, TITLES } from "@/lib/history";
+ import { site } from "@/lib/site";
+ 
+ export async function generateMetadata({ params }: PageProps<"/[lang]/historico">): Promise<Metadata> {
+@@ -12,13 +13,10 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/historico"
+   return { title: t.history.title, description: t.history.description };
+ }
+ 
+-/** "content/trilhas/x/01-aula.md" vira "trilhas/x/aula": curto e igual em todos os idiomas. */
+-const describe = (file: string) => file.replace(/^content\//, "").replace(/\/\d+-/, "/").replace(/\.(md|json)$/, "");
+-
+ export default async function Historico({ params }: PageProps<"/[lang]/historico">) {
+   const { lang, t } = await loadLang(params);
+   if (!site.historyFrom) notFound();
+-  const changes = publicHistory(site.historyFrom);
++  const changes = publicHistory(site.historyFrom, lang);
+   const date = new Intl.DateTimeFormat(htmlLang[lang], { timeZone: "UTC" });
+   return (
+     <div className="mx-auto max-w-4xl px-4 py-12">
+@@ -31,14 +29,36 @@ export default async function Historico({ params }: PageProps<"/[lang]/historico
+       ) : (
+         <ol className="mt-10 border-l-2 border-gold">
+           {changes.map((change) => (
+-            <li key={change.hash} className="relative pb-8 pl-6">
++            <li key={change.date} className="relative pb-8 pl-6">
+               <span aria-hidden className="absolute -left-[7px] top-1.5 h-3 w-3 rounded-full bg-gold" />
+-              <p className="font-mono text-xs text-gold">{date.format(new Date(change.date))}</p>
+-              <p className="mt-1 text-xl" lang="pt-BR">{change.subject}</p>
+-              <p className="mt-1 font-mono text-xs text-ink-soft">
+-                {change.files.slice(0, 4).map(describe).join(" · ")}
+-                {change.files.length > 4 && ` · ${fill(t.history.more, { n: change.files.length - 4 })}`}
++              <p className="font-mono text-xs text-gold">
++                <time dateTime={change.date}>{date.format(new Date(change.date))}</time>
+               </p>
++              {/* O resumo é montado a partir dos arquivos; as aulas novas aparecem pelo título. */}
++              <ul className="mt-1 space-y-2">
++                {change.parts.map((part) => {
++                  const links = part.links?.slice(0, TITLES) ?? [];
++                  const rest = part.count - links.length;
++                  return (
++                    <li key={`${part.kind}-${part.action}-${part.area ?? ""}`}>
++                      <p className="text-xl">{describePart(part, lang, t)}</p>
++                      {links.length > 0 && (
++                        <p className="mt-0.5 font-sans text-sm text-ink-soft">
++                          {links.map((link, i) => (
++                            <span key={link.href}>
++                              {i > 0 && " · "}
++                              <Link href={localePath(lang, link.href)} lang={link.translated ? undefined : "pt-BR"} className="underline decoration-rule underline-offset-2 hover:text-oxblood">
++                                {link.title}
++                              </Link>
++                            </span>
++                          ))}
++                          {rest > 0 && ` · ${fill(t.history.more, { n: rest })}`}
++                        </p>
++                      )}
++                    </li>
++                  );
++                })}
++              </ul>
+             </li>
+           ))}
+         </ol>
+diff --git a/app/[lang]/page.tsx b/app/[lang]/page.tsx
+index 8280e0a..e1e59ba 100644
+--- a/app/[lang]/page.tsx
++++ b/app/[lang]/page.tsx
+@@ -4,10 +4,10 @@ import { TrackCard } from "@/components/Cards";
+ import { DailyQuote } from "@/components/DailyQuote";
+ import { ContinueCard } from "@/components/Progress";
+ import { loadLang } from "@/i18n";
+-import { htmlLang, localePath, plural } from "@/i18n/config";
++import { fill, htmlLang, localePath, plural } from "@/i18n/config";
+ import { essential, groups, type Stage, stages } from "@/lib/areas";
+ import { getBooks, getCatalog, getQuestions, getQuotes, getTracks } from "@/lib/content";
+-import { publicHistory } from "@/lib/history";
++import { describePart, overview, publicHistory } from "@/lib/history";
+ import { site } from "@/lib/site";
+ import { DisciplineBrowser, type DisciplineGroup } from "@/components/DisciplineBrowser";
+ 
+@@ -19,7 +19,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
+   const books = getBooks(lang);
+   const lessons = tracks.reduce((sum, track) => sum + track.lessons.length, 0);
+   const works = books.length + groups.flatMap((group) => group.areas).reduce((sum, area) => sum + getCatalog(area).length, 0);
+-  const recent = publicHistory(site.historyFrom).slice(0, 3);
++  const recent = publicHistory(site.historyFrom, lang)
++    .slice(0, 3)
++    .map((change) => ({ date: change.date, parts: overview(change.parts) }));
+   const date = new Intl.DateTimeFormat(htmlLang[lang], { timeZone: "UTC" });
+   const shelves: DisciplineGroup[] = groups.map((group) => ({
+     id: group.id,
+@@ -160,9 +162,15 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
+             <p className="mt-1 font-mono text-xs text-ink-soft">{h.timelineSub}</p>
+             <ol className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start">
+               {recent.map((change) => (
+-                <li key={change.hash} className="flex-1 border-t-2 border-gold pt-3">
+-                  <p className="font-mono text-sm text-gold">{date.format(new Date(change.date))}</p>
+-                  <p className="text-lg" lang="pt-BR">{change.subject}</p>
++                <li key={change.date} className="flex-1 border-t-2 border-gold pt-3">
++                  <p className="font-mono text-sm text-gold">
++                    <time dateTime={change.date}>{date.format(new Date(change.date))}</time>
++                  </p>
++                  {/* Só as três primeiras linhas do resumo do dia; o resto está no histórico completo. */}
++                  <p className="text-lg">
++                    {change.parts.slice(0, 3).map((part) => describePart(part, lang, t)).join(" · ")}
++                    {change.parts.length > 3 && ` · ${fill(t.history.more, { n: change.parts.length - 3 })}`}
++                  </p>
+                 </li>
+               ))}
+               <li className="flex-1 border-t-2 border-dashed border-gold pt-3">
+diff --git a/app/globals.css b/app/globals.css
+index e6bdc3b..28a49b2 100644
+--- a/app/globals.css
++++ b/app/globals.css
+@@ -100,6 +100,13 @@ body {
+   -webkit-user-select: none;
+   user-select: none;
+ }
++/* Barra estreita do aplicativo: com a seta de voltar ou o "Olá, Fulano", o nome do instituto dá lugar ao emblema,
++   e tudo (conta, notícias, rádio e tema) cabe em uma linha sem cortar nada. */
++@media (max-width: 419.98px) {
++  :root[data-app] header:has(.app-voltar, .conta-saudacao) .marca-nome {
++    display: none;
++  }
++}
+ /* Troca de tela: o conteúdo novo surge em 160 ms. Só opacidade, que o celular simples anima sem engasgar. */
+ @keyframes app-entra {
+   from {
+diff --git a/components/DataPanel.tsx b/components/DataPanel.tsx
+index bd8d783..ce6bbaa 100644
+--- a/components/DataPanel.tsx
++++ b/components/DataPanel.tsx
+@@ -10,8 +10,8 @@ import { getItem, KEYS, setItem, useStored } from "@/lib/storage";
+ import { quickExit } from "./Shortcuts";
+ 
+ const action = "cursor-pointer border-2 border-ink px-5 py-2.5 font-medium hover:border-oxblood hover:text-oxblood";
+-// A sessão de quem tem conta não entra na cópia: é uma credencial, não um dado de estudo.
+-const portable = Object.values(KEYS).filter((key) => key !== KEYS.session && key !== KEYS.seen && key !== KEYS.site);
++// A sessão de quem tem conta (e o nome que vem com ela) não entra na cópia: é credencial, não dado de estudo.
++const portable = Object.values(KEYS).filter((key) => key !== KEYS.session && key !== KEYS.name && key !== KEYS.seen && key !== KEYS.site);
+ 
+ /** Baixar, restaurar e apagar o que o site guarda neste navegador. */
+ export function DataPanel({ s }: { s: Dict["data"] }) {
+diff --git a/components/Header.tsx b/components/Header.tsx
+index aa14100..a5fc578 100644
+--- a/components/Header.tsx
++++ b/components/Header.tsx
+@@ -8,8 +8,8 @@ import { Strip } from "./Strip";
+ import { ThemeToggle } from "./ThemeToggle";
+ 
+ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
+-  // No celular a barra é a faixa bordô do instituto; o idioma e as notícias saem dela (estão em "Mais").
+-  // No aplicativo ela é curta e fica presa no topo, e a faixa de avisos também sai.
++  // No celular a barra é a faixa bordô do instituto; só o idioma sai dela (está em "Mais"). Notícias e rádio
++  // ficam sempre à mão, também no aplicativo, onde a barra é curta, fica presa no topo e perde a faixa de avisos.
+   return (
+     <header className="barra-celular no-print no-focus border-b border-rule app:sticky app:top-0 app:z-30 app:bg-parchment app:pt-[env(safe-area-inset-top,0px)]">
+       <a
+@@ -24,21 +24,22 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
+       {/* Três colunas: o nome à esquerda, o menu no centro da página (alinhado com a faixa de cima) e, à direita, conta, idioma e tema. */}
+       <div className="mx-auto flex max-w-7xl items-center gap-x-2 px-3 py-3 app:px-4 app:py-2 sm:gap-x-5 sm:px-4 sm:py-4 lg:grid lg:gap-x-6 lg:grid-cols-[auto_1fr_auto]">
+         <AppBack />
+-        <Link href={localePath(lang, "/")} className="flex min-w-0 items-center gap-2 sm:shrink-0 sm:gap-3 lg:justify-self-start">
++        <Link href={localePath(lang, "/")} aria-label={site.name} className="flex shrink-0 items-center gap-2 sm:gap-3 lg:justify-self-start">
+           {/* eslint-disable-next-line @next/next/no-img-element */}
+           <img src="/marca-96.png" alt="" width={44} height={44} className="h-9 w-9 shrink-0 sm:h-11 sm:w-11 lg:h-12 lg:w-12" />
+-          <span className="whitespace-nowrap text-lg font-semibold leading-none tracking-tight sm:text-2xl lg:text-3xl">{site.name}</span>
++          <span className="marca-nome whitespace-nowrap text-lg font-semibold leading-none tracking-tight sm:text-2xl lg:text-3xl">{site.name}</span>
+         </Link>
+         {/* No celular o menu fica embaixo (BottomNav); aqui ele aparece a partir de telas médias, sempre em uma linha. */}
+         <nav aria-label={t.nav.main} className="mr-auto hidden translate-y-[3px] items-center justify-center gap-x-3 font-sans text-sm leading-none text-ink-soft md:flex lg:mr-0 lg:justify-self-center lg:gap-x-4 xl:gap-x-5">
+           <NavLinks />
+         </nav>
+-        <div className="ml-auto flex shrink-0 items-center gap-1 app:gap-3 sm:gap-2 md:ml-0 lg:gap-4 lg:justify-self-end">
++        {/* Se faltar espaço, quem encolhe é o nome do "Olá, Fulano" (com reticências), nunca o nome do instituto nem os ícones. */}
++        <div className="ml-auto flex min-w-0 items-center gap-1 app:gap-3 sm:gap-2 md:ml-0 lg:gap-4 lg:justify-self-end">
+           <AccountLink />
+           <span className="contents max-lg:hidden">
+             <LanguageSwitcher />
+-            <NewsLink />
+           </span>
++          <NewsLink />
+           <RadioLink />
+           <ThemeToggle />
+         </div>
+diff --git a/components/NavLinks.tsx b/components/NavLinks.tsx
+index b1c346f..c2a038d 100644
+--- a/components/NavLinks.tsx
++++ b/components/NavLinks.tsx
+@@ -3,8 +3,10 @@
+ 
+ import Link from "next/link";
+ import { usePathname, useRouter } from "next/navigation";
+-import { localeNames, localePath, locales } from "@/i18n/config";
+-import { KEYS, useHydrated, useStored } from "@/lib/storage";
++import { useEffect } from "react";
++import { fill, localeNames, localePath, locales } from "@/i18n/config";
++import { useMe } from "@/lib/backend";
++import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
+ import { useI18n } from "./I18n";
+ 
+ export function NavLinks() {
+@@ -70,7 +72,7 @@ export function AppBack() {
+       type="button"
+       aria-label={t.common.back}
+       onClick={() => (window.history.length > 1 ? router.back() : router.push(`/${lang}`))}
+-      className="-ml-2 hidden h-10 w-9 shrink-0 cursor-pointer items-center justify-center text-ink app:max-md:flex"
++      className="app-voltar -ml-2 hidden h-10 w-9 shrink-0 cursor-pointer items-center justify-center text-ink app:max-md:flex"
+     >
+       <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+         <path d="M15 5l-7 7 7 7" />
+@@ -79,15 +81,43 @@ export function AppBack() {
+   );
+ }
+ 
+-/** "Entrar" para quem não tem sessão, "Painel" para quem tem. Só aparece quando as contas estão ligadas. */
++/** Só o primeiro nome, e curto: o cabeçalho tem de caber em uma linha no celular. */
++const firstName = (name: string) => name.trim().split(/\s+/)[0].slice(0, 24);
++
++/**
++ * "Entrar" para quem não tem sessão; para quem tem, "Olá, Fulano" com a palavra "Painel" embaixo (ou só "Painel",
++ * enquanto o nome não chega). O nome fica guardado no navegador para aparecer de imediato na próxima página.
++ */
+ export function AccountLink() {
+   const { lang, t } = useI18n();
+   const hydrated = useHydrated();
+   const session = useStored(KEYS.session);
++  const saved = useStored(KEYS.name);
++  const me = useMe();
++  const loaded = me.status === "in" ? firstName(me.me.nome) : "";
++  useEffect(() => {
++    if (loaded && loaded !== saved) setItem(KEYS.name, loaded);
++  }, [loaded, saved]);
+   if (!hydrated) return null;
++  const name = session ? loaded || saved : "";
++  if (!name) {
++    return (
++      <Link href={localePath(lang, session ? "/painel" : "/entrar")} className="whitespace-nowrap font-sans text-xs text-ink-soft hover:text-oxblood sm:text-sm">
++        {session ? t.nav.panel : t.nav.signIn}
++      </Link>
++    );
++  }
+   return (
+-    <Link href={localePath(lang, session ? "/painel" : "/entrar")} className="whitespace-nowrap font-sans text-xs text-ink-soft hover:text-oxblood sm:text-sm">
+-      {session ? t.nav.panel : t.nav.signIn}
++    <Link
++      href={localePath(lang, "/painel")}
++      aria-label={fill(t.nav.helloLabel, { name })}
++      title={t.nav.openPanel}
++      className="conta-saudacao flex min-w-0 max-w-[10rem] flex-col items-end font-sans leading-none text-ink-soft hover:text-oxblood"
++    >
++      <span className="max-w-full truncate py-px text-xs sm:text-sm">{fill(t.nav.hello, { name })}</span>
++      <span aria-hidden className="mt-0.5 font-mono text-[0.625rem] uppercase tracking-wider">
++        {t.nav.panel} →
++      </span>
+     </Link>
+   );
+ }
+diff --git a/i18n/en.json b/i18n/en.json
+index 91eba18..0e7a7a5 100644
+--- a/i18n/en.json
++++ b/i18n/en.json
+@@ -48,6 +48,9 @@
+     "search": "Search",
+     "support": "Support",
+     "panel": "Panel",
++    "hello": "Hi, {name}",
++    "helloLabel": "Hi, {name}: open the panel",
++    "openPanel": "Open the panel",
+     "signIn": "Sign in",
+     "tools": "Practice tools",
+     "glossary": "Glossary",
+@@ -707,7 +710,303 @@
+     "lead": "Every change to the content is recorded with its date, and any earlier version can be recovered.",
+     "description": "Every change made to the collection, from the most recent to the oldest.",
+     "unavailable": "The history is not available in this copy of the site.",
+-    "more": "and {n} more"
++    "more": "and {n} more",
++    "kinds": {
++      "lessonsIn": {
++        "added": {
++          "one": "new lesson in {area}",
++          "other": "new lessons in {area}"
++        },
++        "updated": {
++          "one": "lesson updated in {area}",
++          "other": "lessons updated in {area}"
++        },
++        "removed": {
++          "one": "lesson removed from {area}",
++          "other": "lessons removed from {area}"
++        }
++      },
++      "lessons": {
++        "added": {
++          "one": "new lesson",
++          "other": "new lessons"
++        },
++        "updated": {
++          "one": "lesson updated",
++          "other": "lessons updated"
++        },
++        "removed": {
++          "one": "lesson removed",
++          "other": "lessons removed"
++        }
++      },
++      "tracks": {
++        "added": {
++          "one": "new track",
++          "other": "new tracks"
++        },
++        "updated": {
++          "one": "track updated",
++          "other": "tracks updated"
++        },
++        "removed": {
++          "one": "track removed",
++          "other": "tracks removed"
++        }
++      },
++      "translations": {
++        "added": {
++          "one": "new translation",
++          "other": "new translations"
++        },
++        "updated": {
++          "one": "translation updated",
++          "other": "translations updated"
++        },
++        "removed": {
++          "one": "translation removed",
++          "other": "translations removed"
++        }
++      },
++      "library": {
++        "added": {
++          "one": "new work in the library",
++          "other": "new works in the library"
++        },
++        "updated": {
++          "one": "library record updated",
++          "other": "library records updated"
++        },
++        "removed": {
++          "one": "work removed from the library",
++          "other": "works removed from the library"
++        }
++      },
++      "catalog": {
++        "added": {
++          "one": "new work in the extended catalogue",
++          "other": "new works in the extended catalogue"
++        },
++        "updated": {
++          "one": "extended catalogue record updated",
++          "other": "extended catalogue records updated"
++        },
++        "removed": {
++          "one": "work removed from the extended catalogue",
++          "other": "works removed from the extended catalogue"
++        }
++      },
++      "authors": {
++        "added": {
++          "one": "new author biography",
++          "other": "new author biographies"
++        },
++        "updated": {
++          "one": "author biography updated",
++          "other": "author biographies updated"
++        },
++        "removed": {
++          "one": "author biography removed",
++          "other": "author biographies removed"
++        }
++      },
++      "memorial": {
++        "added": {
++          "one": "new tribute in the memorial",
++          "other": "new tributes in the memorial"
++        },
++        "updated": {
++          "one": "memorial tribute updated",
++          "other": "memorial tributes updated"
++        },
++        "removed": {
++          "one": "tribute removed from the memorial",
++          "other": "tributes removed from the memorial"
++        }
++      },
++      "glossary": {
++        "added": {
++          "one": "new glossary entry",
++          "other": "new glossary entries"
++        },
++        "updated": {
++          "one": "glossary entry updated",
++          "other": "glossary entries updated"
++        },
++        "removed": {
++          "one": "glossary entry removed",
++          "other": "glossary entries removed"
++        }
++      },
++      "journal": {
++        "added": {
++          "one": "new article in the newspaper",
++          "other": "new articles in the newspaper"
++        },
++        "updated": {
++          "one": "newspaper article updated",
++          "other": "newspaper articles updated"
++        },
++        "removed": {
++          "one": "article removed from the newspaper",
++          "other": "articles removed from the newspaper"
++        }
++      },
++      "factChecks": {
++        "added": {
++          "one": "new fact-check",
++          "other": "new fact-checks"
++        },
++        "updated": {
++          "one": "fact-check updated",
++          "other": "fact-checks updated"
++        },
++        "removed": {
++          "one": "fact-check removed",
++          "other": "fact-checks removed"
++        }
++      },
++      "debates": {
++        "added": {
++          "one": "new debate card",
++          "other": "new debate cards"
++        },
++        "updated": {
++          "one": "debate card updated",
++          "other": "debate cards updated"
++        },
++        "removed": {
++          "one": "debate card removed",
++          "other": "debate cards removed"
++        }
++      },
++      "fallacies": {
++        "added": {
++          "one": "new entry in the guide to fallacies",
++          "other": "new entries in the guide to fallacies"
++        },
++        "updated": {
++          "one": "entry updated in the guide to fallacies",
++          "other": "entries updated in the guide to fallacies"
++        },
++        "removed": {
++          "one": "entry removed from the guide to fallacies",
++          "other": "entries removed from the guide to fallacies"
++        }
++      },
++      "videos": {
++        "added": {
++          "one": "new recommended video",
++          "other": "new recommended videos"
++        },
++        "updated": {
++          "one": "video recommendation updated",
++          "other": "video recommendations updated"
++        },
++        "removed": {
++          "one": "video recommendation removed",
++          "other": "video recommendations removed"
++        }
++      },
++      "gallery": {
++        "added": {
++          "one": "new poster in the gallery",
++          "other": "new posters in the gallery"
++        },
++        "updated": {
++          "one": "gallery poster updated",
++          "other": "gallery posters updated"
++        },
++        "removed": {
++          "one": "poster removed from the gallery",
++          "other": "posters removed from the gallery"
++        }
++      },
++      "pages": {
++        "added": {
++          "one": "new study page",
++          "other": "new study pages"
++        },
++        "updated": {
++          "one": "study page updated",
++          "other": "study pages updated"
++        },
++        "removed": {
++          "one": "study page removed",
++          "other": "study pages removed"
++        }
++      },
++      "start": {
++        "added": {
++          "one": "new step in Where to start",
++          "other": "new steps in Where to start"
++        },
++        "updated": {
++          "one": "step updated in Where to start",
++          "other": "steps updated in Where to start"
++        },
++        "removed": {
++          "one": "step removed from Where to start",
++          "other": "steps removed from Where to start"
++        }
++      },
++      "questions": {
++        "added": {
++          "one": "new starting question",
++          "other": "new starting questions"
++        },
++        "updated": {
++          "one": "starting question updated",
++          "other": "starting questions updated"
++        },
++        "removed": {
++          "one": "starting question removed",
++          "other": "starting questions removed"
++        }
++      },
++      "quotes": {
++        "added": {
++          "one": "new quote of the day",
++          "other": "new quotes of the day"
++        },
++        "updated": {
++          "one": "quote of the day updated",
++          "other": "quotes of the day updated"
++        },
++        "removed": {
++          "one": "quote of the day removed",
++          "other": "quotes of the day removed"
++        }
++      },
++      "radios": {
++        "added": {
++          "one": "new station in People's radio",
++          "other": "new stations in People's radio"
++        },
++        "updated": {
++          "one": "station updated in People's radio",
++          "other": "stations updated in People's radio"
++        },
++        "removed": {
++          "one": "station removed from People's radio",
++          "other": "stations removed from People's radio"
++        }
++      },
++      "news": {
++        "added": {
++          "one": "new outlet in the news round-up",
++          "other": "new outlets in the news round-up"
++        },
++        "updated": {
++          "one": "outlet updated in the news round-up",
++          "other": "outlets updated in the news round-up"
++        },
++        "removed": {
++          "one": "outlet removed from the news round-up",
++          "other": "outlets removed from the news round-up"
++        }
++      }
++    }
+   },
+   "dedication": {
+     "eyebrow": "Dedication",
+diff --git a/i18n/es.json b/i18n/es.json
+index f2395d7..b9afe6e 100644
+--- a/i18n/es.json
++++ b/i18n/es.json
+@@ -48,6 +48,9 @@
+     "search": "Buscar",
+     "support": "Apoya",
+     "panel": "Panel",
++    "hello": "Hola, {name}",
++    "helloLabel": "Hola, {name}: abrir el panel",
++    "openPanel": "Abrir el panel",
+     "signIn": "Entrar",
+     "tools": "Herramientas de práctica",
+     "glossary": "Glosario",
+@@ -707,7 +710,303 @@
+     "lead": "Cada cambio en el contenido queda registrado con fecha, y cualquier versión anterior puede recuperarse.",
+     "description": "Todos los cambios hechos en el acervo, del más reciente al más antiguo.",
+     "unavailable": "El historial no está disponible en esta copia del sitio.",
+-    "more": "y {n} más"
++    "more": "y {n} más",
++    "kinds": {
++      "lessonsIn": {
++        "added": {
++          "one": "lección nueva en {area}",
++          "other": "lecciones nuevas en {area}"
++        },
++        "updated": {
++          "one": "lección actualizada en {area}",
++          "other": "lecciones actualizadas en {area}"
++        },
++        "removed": {
++          "one": "lección retirada de {area}",
++          "other": "lecciones retiradas de {area}"
++        }
++      },
++      "lessons": {
++        "added": {
++          "one": "lección nueva",
++          "other": "lecciones nuevas"
++        },
++        "updated": {
++          "one": "lección actualizada",
++          "other": "lecciones actualizadas"
++        },
++        "removed": {
++          "one": "lección retirada",
++          "other": "lecciones retiradas"
++        }
++      },
++      "tracks": {
++        "added": {
++          "one": "ruta nueva",
++          "other": "rutas nuevas"
++        },
++        "updated": {
++          "one": "ruta actualizada",
++          "other": "rutas actualizadas"
++        },
++        "removed": {
++          "one": "ruta retirada",
++          "other": "rutas retiradas"
++        }
++      },
++      "translations": {
++        "added": {
++          "one": "traducción nueva",
++          "other": "traducciones nuevas"
++        },
++        "updated": {
++          "one": "traducción actualizada",
++          "other": "traducciones actualizadas"
++        },
++        "removed": {
++          "one": "traducción retirada",
++          "other": "traducciones retiradas"
++        }
++      },
++      "library": {
++        "added": {
++          "one": "obra nueva en el acervo",
++          "other": "obras nuevas en el acervo"
++        },
++        "updated": {
++          "one": "ficha actualizada en el acervo",
++          "other": "fichas actualizadas en el acervo"
++        },
++        "removed": {
++          "one": "obra retirada del acervo",
++          "other": "obras retiradas del acervo"
++        }
++      },
++      "catalog": {
++        "added": {
++          "one": "obra nueva en el catálogo ampliado",
++          "other": "obras nuevas en el catálogo ampliado"
++        },
++        "updated": {
++          "one": "ficha actualizada en el catálogo ampliado",
++          "other": "fichas actualizadas en el catálogo ampliado"
++        },
++        "removed": {
++          "one": "obra retirada del catálogo ampliado",
++          "other": "obras retiradas del catálogo ampliado"
++        }
++      },
++      "authors": {
++        "added": {
++          "one": "biografía nueva de autor",
++          "other": "biografías nuevas de autores"
++        },
++        "updated": {
++          "one": "biografía de autor actualizada",
++          "other": "biografías de autores actualizadas"
++        },
++        "removed": {
++          "one": "biografía de autor retirada",
++          "other": "biografías de autores retiradas"
++        }
++      },
++      "memorial": {
++        "added": {
++          "one": "homenaje nuevo en el memorial",
++          "other": "homenajes nuevos en el memorial"
++        },
++        "updated": {
++          "one": "homenaje actualizado en el memorial",
++          "other": "homenajes actualizados en el memorial"
++        },
++        "removed": {
++          "one": "homenaje retirado del memorial",
++          "other": "homenajes retirados del memorial"
++        }
++      },
++      "glossary": {
++        "added": {
++          "one": "entrada nueva en el glosario",
++          "other": "entradas nuevas en el glosario"
++        },
++        "updated": {
++          "one": "entrada actualizada en el glosario",
++          "other": "entradas actualizadas en el glosario"
++        },
++        "removed": {
++          "one": "entrada retirada del glosario",
++          "other": "entradas retiradas del glosario"
++        }
++      },
++      "journal": {
++        "added": {
++          "one": "artículo nuevo en el periódico",
++          "other": "artículos nuevos en el periódico"
++        },
++        "updated": {
++          "one": "artículo actualizado en el periódico",
++          "other": "artículos actualizados en el periódico"
++        },
++        "removed": {
++          "one": "artículo retirado del periódico",
++          "other": "artículos retirados del periódico"
++        }
++      },
++      "factChecks": {
++        "added": {
++          "one": "verificación nueva",
++          "other": "verificaciones nuevas"
++        },
++        "updated": {
++          "one": "verificación actualizada",
++          "other": "verificaciones actualizadas"
++        },
++        "removed": {
++          "one": "verificación retirada",
++          "other": "verificaciones retiradas"
++        }
++      },
++      "debates": {
++        "added": {
++          "one": "tarjeta de debate nueva",
++          "other": "tarjetas de debate nuevas"
++        },
++        "updated": {
++          "one": "tarjeta de debate actualizada",
++          "other": "tarjetas de debate actualizadas"
++        },
++        "removed": {
++          "one": "tarjeta de debate retirada",
++          "other": "tarjetas de debate retiradas"
++        }
++      },
++      "fallacies": {
++        "added": {
++          "one": "entrada nueva en la guía de falacias",
++          "other": "entradas nuevas en la guía de falacias"
++        },
++        "updated": {
++          "one": "entrada actualizada en la guía de falacias",
++          "other": "entradas actualizadas en la guía de falacias"
++        },
++        "removed": {
++          "one": "entrada retirada de la guía de falacias",
++          "other": "entradas retiradas de la guía de falacias"
++        }
++      },
++      "videos": {
++        "added": {
++          "one": "video nuevo recomendado",
++          "other": "videos nuevos recomendados"
++        },
++        "updated": {
++          "one": "recomendación de video actualizada",
++          "other": "recomendaciones de video actualizadas"
++        },
++        "removed": {
++          "one": "recomendación de video retirada",
++          "other": "recomendaciones de video retiradas"
++        }
++      },
++      "gallery": {
++        "added": {
++          "one": "cartel nuevo en la galería",
++          "other": "carteles nuevos en la galería"
++        },
++        "updated": {
++          "one": "cartel actualizado en la galería",
++          "other": "carteles actualizados en la galería"
++        },
++        "removed": {
++          "one": "cartel retirado de la galería",
++          "other": "carteles retirados de la galería"
++        }
++      },
++      "pages": {
++        "added": {
++          "one": "página de estudio nueva",
++          "other": "páginas de estudio nuevas"
++        },
++        "updated": {
++          "one": "página de estudio actualizada",
++          "other": "páginas de estudio actualizadas"
++        },
++        "removed": {
++          "one": "página de estudio retirada",
++          "other": "páginas de estudio retiradas"
++        }
++      },
++      "start": {
++        "added": {
++          "one": "paso nuevo en Por dónde empezar",
++          "other": "pasos nuevos en Por dónde empezar"
++        },
++        "updated": {
++          "one": "paso actualizado en Por dónde empezar",
++          "other": "pasos actualizados en Por dónde empezar"
++        },
++        "removed": {
++          "one": "paso retirado de Por dónde empezar",
++          "other": "pasos retirados de Por dónde empezar"
++        }
++      },
++      "questions": {
++        "added": {
++          "one": "pregunta de partida nueva",
++          "other": "preguntas de partida nuevas"
++        },
++        "updated": {
++          "one": "pregunta de partida actualizada",
++          "other": "preguntas de partida actualizadas"
++        },
++        "removed": {
++          "one": "pregunta de partida retirada",
++          "other": "preguntas de partida retiradas"
++        }
++      },
++      "quotes": {
++        "added": {
++          "one": "cita nueva en la frase del día",
++          "other": "citas nuevas en la frase del día"
++        },
++        "updated": {
++          "one": "cita actualizada en la frase del día",
++          "other": "citas actualizadas en la frase del día"
++        },
++        "removed": {
++          "one": "cita retirada de la frase del día",
++          "other": "citas retiradas de la frase del día"
++        }
++      },
++      "radios": {
++        "added": {
++          "one": "radio nueva en Radios del pueblo",
++          "other": "radios nuevas en Radios del pueblo"
++        },
++        "updated": {
++          "one": "radio actualizada en Radios del pueblo",
++          "other": "radios actualizadas en Radios del pueblo"
++        },
++        "removed": {
++          "one": "radio retirada de Radios del pueblo",
++          "other": "radios retiradas de Radios del pueblo"
++        }
++      },
++      "news": {
++        "added": {
++          "one": "medio nuevo en la ronda de noticias",
++          "other": "medios nuevos en la ronda de noticias"
++        },
++        "updated": {
++          "one": "medio actualizado en la ronda de noticias",
++          "other": "medios actualizados en la ronda de noticias"
++        },
++        "removed": {
++          "one": "medio retirado de la ronda de noticias",
++          "other": "medios retirados de la ronda de noticias"
++        }
++      }
++    }
+   },
+   "dedication": {
+     "eyebrow": "Dedicatoria",
+diff --git a/i18n/pt.json b/i18n/pt.json
+index c55d5b7..8074a07 100644
+--- a/i18n/pt.json
++++ b/i18n/pt.json
+@@ -48,6 +48,9 @@
+     "search": "Buscar",
+     "support": "Apoie",
+     "panel": "Painel",
++    "hello": "Olá, {name}",
++    "helloLabel": "Olá, {name}: abrir o painel",
++    "openPanel": "Abrir o painel",
+     "signIn": "Entrar",
+     "tools": "Ferramentas de prática",
+     "glossary": "Glossário",
+@@ -707,7 +710,303 @@
+     "lead": "Cada mudança no conteúdo fica registrada com data, e qualquer versão anterior pode ser recuperada.",
+     "description": "Todas as mudanças feitas no acervo, da mais recente à mais antiga.",
+     "unavailable": "O histórico não está disponível nesta cópia do site.",
+-    "more": "e mais {n}"
++    "more": "e mais {n}",
++    "kinds": {
++      "lessonsIn": {
++        "added": {
++          "one": "aula nova em {area}",
++          "other": "aulas novas em {area}"
++        },
++        "updated": {
++          "one": "aula atualizada em {area}",
++          "other": "aulas atualizadas em {area}"
++        },
++        "removed": {
++          "one": "aula retirada de {area}",
++          "other": "aulas retiradas de {area}"
++        }
++      },
++      "lessons": {
++        "added": {
++          "one": "aula nova",
++          "other": "aulas novas"
++        },
++        "updated": {
++          "one": "aula atualizada",
++          "other": "aulas atualizadas"
++        },
++        "removed": {
++          "one": "aula retirada",
++          "other": "aulas retiradas"
++        }
++      },
++      "tracks": {
++        "added": {
++          "one": "trilha nova",
++          "other": "trilhas novas"
++        },
++        "updated": {
++          "one": "trilha atualizada",
++          "other": "trilhas atualizadas"
++        },
++        "removed": {
++          "one": "trilha retirada",
++          "other": "trilhas retiradas"
++        }
++      },
++      "translations": {
++        "added": {
++          "one": "tradução nova",
++          "other": "traduções novas"
++        },
++        "updated": {
++          "one": "tradução atualizada",
++          "other": "traduções atualizadas"
++        },
++        "removed": {
++          "one": "tradução retirada",
++          "other": "traduções retiradas"
++        }
++      },
++      "library": {
++        "added": {
++          "one": "obra nova no acervo",
++          "other": "obras novas no acervo"
++        },
++        "updated": {
++          "one": "ficha atualizada no acervo",
++          "other": "fichas atualizadas no acervo"
++        },
++        "removed": {
++          "one": "obra retirada do acervo",
++          "other": "obras retiradas do acervo"
++        }
++      },
++      "catalog": {
++        "added": {
++          "one": "obra nova no catálogo ampliado",
++          "other": "obras novas no catálogo ampliado"
++        },
++        "updated": {
++          "one": "ficha atualizada no catálogo ampliado",
++          "other": "fichas atualizadas no catálogo ampliado"
++        },
++        "removed": {
++          "one": "obra retirada do catálogo ampliado",
++          "other": "obras retiradas do catálogo ampliado"
++        }
++      },
++      "authors": {
++        "added": {
++          "one": "biografia nova de autor",
++          "other": "biografias novas de autores"
++        },
++        "updated": {
++          "one": "biografia de autor atualizada",
++          "other": "biografias de autores atualizadas"
++        },
++        "removed": {
++          "one": "biografia de autor retirada",
++          "other": "biografias de autores retiradas"
++        }
++      },
++      "memorial": {
++        "added": {
++          "one": "homenagem nova no memorial",
++          "other": "homenagens novas no memorial"
++        },
++        "updated": {
++          "one": "homenagem atualizada no memorial",
++          "other": "homenagens atualizadas no memorial"
++        },
++        "removed": {
++          "one": "homenagem retirada do memorial",
++          "other": "homenagens retiradas do memorial"
++        }
++      },
++      "glossary": {
++        "added": {
++          "one": "verbete novo no glossário",
++          "other": "verbetes novos no glossário"
++        },
++        "updated": {
++          "one": "verbete atualizado no glossário",
++          "other": "verbetes atualizados no glossário"
++        },
++        "removed": {
++          "one": "verbete retirado do glossário",
++          "other": "verbetes retirados do glossário"
++        }
++      },
++      "journal": {
++        "added": {
++          "one": "matéria nova no jornal",
++          "other": "matérias novas no jornal"
++        },
++        "updated": {
++          "one": "matéria atualizada no jornal",
++          "other": "matérias atualizadas no jornal"
++        },
++        "removed": {
++          "one": "matéria retirada do jornal",
++          "other": "matérias retiradas do jornal"
++        }
++      },
++      "factChecks": {
++        "added": {
++          "one": "checagem nova",
++          "other": "checagens novas"
++        },
++        "updated": {
++          "one": "checagem atualizada",
++          "other": "checagens atualizadas"
++        },
++        "removed": {
++          "one": "checagem retirada",
++          "other": "checagens retiradas"
++        }
++      },
++      "debates": {
++        "added": {
++          "one": "cartão de debate novo",
++          "other": "cartões de debate novos"
++        },
++        "updated": {
++          "one": "cartão de debate atualizado",
++          "other": "cartões de debate atualizados"
++        },
++        "removed": {
++          "one": "cartão de debate retirado",
++          "other": "cartões de debate retirados"
++        }
++      },
++      "fallacies": {
++        "added": {
++          "one": "verbete novo no guia das falácias",
++          "other": "verbetes novos no guia das falácias"
++        },
++        "updated": {
++          "one": "verbete atualizado no guia das falácias",
++          "other": "verbetes atualizados no guia das falácias"
++        },
++        "removed": {
++          "one": "verbete retirado do guia das falácias",
++          "other": "verbetes retirados do guia das falácias"
++        }
++      },
++      "videos": {
++        "added": {
++          "one": "vídeo novo indicado",
++          "other": "vídeos novos indicados"
++        },
++        "updated": {
++          "one": "indicação de vídeo atualizada",
++          "other": "indicações de vídeo atualizadas"
++        },
++        "removed": {
++          "one": "indicação de vídeo retirada",
++          "other": "indicações de vídeo retiradas"
++        }
++      },
++      "gallery": {
++        "added": {
++          "one": "cartaz novo na galeria",
++          "other": "cartazes novos na galeria"
++        },
++        "updated": {
++          "one": "cartaz atualizado na galeria",
++          "other": "cartazes atualizados na galeria"
++        },
++        "removed": {
++          "one": "cartaz retirado da galeria",
++          "other": "cartazes retirados da galeria"
++        }
++      },
++      "pages": {
++        "added": {
++          "one": "página de estudo nova",
++          "other": "páginas de estudo novas"
++        },
++        "updated": {
++          "one": "página de estudo atualizada",
++          "other": "páginas de estudo atualizadas"
++        },
++        "removed": {
++          "one": "página de estudo retirada",
++          "other": "páginas de estudo retiradas"
++        }
++      },
++      "start": {
++        "added": {
++          "one": "passo novo em Por onde começar",
++          "other": "passos novos em Por onde começar"
++        },
++        "updated": {
++          "one": "passo atualizado em Por onde começar",
++          "other": "passos atualizados em Por onde começar"
++        },
++        "removed": {
++          "one": "passo retirado de Por onde começar",
++          "other": "passos retirados de Por onde começar"
++        }
++      },
++      "questions": {
++        "added": {
++          "one": "pergunta de partida nova",
++          "other": "perguntas de partida novas"
++        },
++        "updated": {
++          "one": "pergunta de partida atualizada",
++          "other": "perguntas de partida atualizadas"
++        },
++        "removed": {
++          "one": "pergunta de partida retirada",
++          "other": "perguntas de partida retiradas"
++        }
++      },
++      "quotes": {
++        "added": {
++          "one": "citação nova na frase do dia",
++          "other": "citações novas na frase do dia"
++        },
++        "updated": {
++          "one": "citação atualizada na frase do dia",
++          "other": "citações atualizadas na frase do dia"
++        },
++        "removed": {
++          "one": "citação retirada da frase do dia",
++          "other": "citações retiradas da frase do dia"
++        }
++      },
++      "radios": {
++        "added": {
++          "one": "rádio nova em Rádios do povo",
++          "other": "rádios novas em Rádios do povo"
++        },
++        "updated": {
++          "one": "rádio atualizada em Rádios do povo",
++          "other": "rádios atualizadas em Rádios do povo"
++        },
++        "removed": {
++          "one": "rádio retirada de Rádios do povo",
++          "other": "rádios retiradas de Rádios do povo"
++        }
++      },
++      "news": {
++        "added": {
++          "one": "veículo novo no giro de notícias",
++          "other": "veículos novos no giro de notícias"
++        },
++        "updated": {
++          "one": "veículo atualizado no giro de notícias",
++          "other": "veículos atualizados no giro de notícias"
++        },
++        "removed": {
++          "one": "veículo retirado do giro de notícias",
++          "other": "veículos retirados do giro de notícias"
++        }
++      }
++    }
+   },
+   "dedication": {
+     "eyebrow": "Dedicatória",
+diff --git a/i18n/ru.json b/i18n/ru.json
+index 42cec50..eb46cb2 100644
+--- a/i18n/ru.json
++++ b/i18n/ru.json
+@@ -56,6 +56,9 @@
+     "search": "Поиск",
+     "support": "Поддержать",
+     "panel": "Панель",
++    "hello": "Привет, {name}",
++    "helloLabel": "Привет, {name}: открыть панель",
++    "openPanel": "Открыть панель",
+     "signIn": "Войти",
+     "tools": "Инструменты для практики",
+     "glossary": "Глоссарий",
+@@ -719,7 +722,429 @@
+     "lead": "Каждое изменение записывается с датой, и любую прежнюю версию можно восстановить.",
+     "description": "Все изменения в фонде, от самых новых к самым старым.",
+     "unavailable": "В этой копии сайта история недоступна.",
+-    "more": "и ещё {n}"
++    "more": "и ещё {n}",
++    "kinds": {
++      "lessonsIn": {
++        "added": {
++          "one": "новый урок в разделе «{area}»",
++          "few": "новых урока в разделе «{area}»",
++          "many": "новых уроков в разделе «{area}»",
++          "other": "новых урока в разделе «{area}»"
++        },
++        "updated": {
++          "one": "урок обновлён в разделе «{area}»",
++          "few": "урока обновлены в разделе «{area}»",
++          "many": "уроков обновлено в разделе «{area}»",
++          "other": "урока обновлены в разделе «{area}»"
++        },
++        "removed": {
++          "one": "урок убран из раздела «{area}»",
++          "few": "урока убраны из раздела «{area}»",
++          "many": "уроков убрано из раздела «{area}»",
++          "other": "урока убраны из раздела «{area}»"
++        }
++      },
++      "lessons": {
++        "added": {
++          "one": "новый урок",
++          "few": "новых урока",
++          "many": "новых уроков",
++          "other": "новых урока"
++        },
++        "updated": {
++          "one": "урок обновлён",
++          "few": "урока обновлены",
++          "many": "уроков обновлено",
++          "other": "урока обновлены"
++        },
++        "removed": {
++          "one": "урок убран",
++          "few": "урока убраны",
++          "many": "уроков убрано",
++          "other": "урока убраны"
++        }
++      },
++      "tracks": {
++        "added": {
++          "one": "новый курс",
++          "few": "новых курса",
++          "many": "новых курсов",
++          "other": "новых курса"
++        },
++        "updated": {
++          "one": "курс обновлён",
++          "few": "курса обновлены",
++          "many": "курсов обновлено",
++          "other": "курса обновлены"
++        },
++        "removed": {
++          "one": "курс убран",
++          "few": "курса убраны",
++          "many": "курсов убрано",
++          "other": "курса убраны"
++        }
++      },
++      "translations": {
++        "added": {
++          "one": "новый перевод",
++          "few": "новых перевода",
++          "many": "новых переводов",
++          "other": "новых перевода"
++        },
++        "updated": {
++          "one": "перевод обновлён",
++          "few": "перевода обновлены",
++          "many": "переводов обновлено",
++          "other": "перевода обновлены"
++        },
++        "removed": {
++          "one": "перевод убран",
++          "few": "перевода убраны",
++          "many": "переводов убрано",
++          "other": "перевода убраны"
++        }
++      },
++      "library": {
++        "added": {
++          "one": "новое произведение в фонде",
++          "few": "новых произведения в фонде",
++          "many": "новых произведений в фонде",
++          "other": "новых произведения в фонде"
++        },
++        "updated": {
++          "one": "карточка в фонде обновлена",
++          "few": "карточки в фонде обновлены",
++          "many": "карточек в фонде обновлено",
++          "other": "карточки в фонде обновлены"
++        },
++        "removed": {
++          "one": "произведение убрано из фонда",
++          "few": "произведения убраны из фонда",
++          "many": "произведений убрано из фонда",
++          "other": "произведения убраны из фонда"
++        }
++      },
++      "catalog": {
++        "added": {
++          "one": "новое произведение в расширенном каталоге",
++          "few": "новых произведения в расширенном каталоге",
++          "many": "новых произведений в расширенном каталоге",
++          "other": "новых произведения в расширенном каталоге"
++        },
++        "updated": {
++          "one": "запись в расширенном каталоге обновлена",
++          "few": "записи в расширенном каталоге обновлены",
++          "many": "записей в расширенном каталоге обновлено",
++          "other": "записи в расширенном каталоге обновлены"
++        },
++        "removed": {
++          "one": "произведение убрано из расширенного каталога",
++          "few": "произведения убраны из расширенного каталога",
++          "many": "произведений убрано из расширенного каталога",
++          "other": "произведения убраны из расширенного каталога"
++        }
++      },
++      "authors": {
++        "added": {
++          "one": "новая биография автора",
++          "few": "новых биографии авторов",
++          "many": "новых биографий авторов",
++          "other": "новых биографии авторов"
++        },
++        "updated": {
++          "one": "биография автора обновлена",
++          "few": "биографии авторов обновлены",
++          "many": "биографий авторов обновлено",
++          "other": "биографии авторов обновлены"
++        },
++        "removed": {
++          "one": "биография автора убрана",
++          "few": "биографии авторов убраны",
++          "many": "биографий авторов убрано",
++          "other": "биографии авторов убраны"
++        }
++      },
++      "memorial": {
++        "added": {
++          "one": "новый памятный текст в мемориале",
++          "few": "новых памятных текста в мемориале",
++          "many": "новых памятных текстов в мемориале",
++          "other": "новых памятных текста в мемориале"
++        },
++        "updated": {
++          "one": "памятный текст в мемориале обновлён",
++          "few": "памятных текста в мемориале обновлены",
++          "many": "памятных текстов в мемориале обновлено",
++          "other": "памятных текста в мемориале обновлены"
++        },
++        "removed": {
++          "one": "памятный текст убран из мемориала",
++          "few": "памятных текста убраны из мемориала",
++          "many": "памятных текстов убрано из мемориала",
++          "other": "памятных текста убраны из мемориала"
++        }
++      },
++      "glossary": {
++        "added": {
++          "one": "новый термин в глоссарии",
++          "few": "новых термина в глоссарии",
++          "many": "новых терминов в глоссарии",
++          "other": "новых термина в глоссарии"
++        },
++        "updated": {
++          "one": "термин в глоссарии обновлён",
++          "few": "термина в глоссарии обновлены",
++          "many": "терминов в глоссарии обновлено",
++          "other": "термина в глоссарии обновлены"
++        },
++        "removed": {
++          "one": "термин убран из глоссария",
++          "few": "термина убраны из глоссария",
++          "many": "терминов убрано из глоссария",
++          "other": "термина убраны из глоссария"
++        }
++      },
++      "journal": {
++        "added": {
++          "one": "новая статья в газете",
++          "few": "новых статьи в газете",
++          "many": "новых статей в газете",
++          "other": "новых статьи в газете"
++        },
++        "updated": {
++          "one": "статья в газете обновлена",
++          "few": "статьи в газете обновлены",
++          "many": "статей в газете обновлено",
++          "other": "статьи в газете обновлены"
++        },
++        "removed": {
++          "one": "статья убрана из газеты",
++          "few": "статьи убраны из газеты",
++          "many": "статей убрано из газеты",
++          "other": "статьи убраны из газеты"
++        }
++      },
++      "factChecks": {
++        "added": {
++          "one": "новая проверка фактов",
++          "few": "новых проверки фактов",
++          "many": "новых проверок фактов",
++          "other": "новых проверки фактов"
++        },
++        "updated": {
++          "one": "проверка фактов обновлена",
++          "few": "проверки фактов обновлены",
++          "many": "проверок фактов обновлено",
++          "other": "проверки фактов обновлены"
++        },
++        "removed": {
++          "one": "проверка фактов убрана",
++          "few": "проверки фактов убраны",
++          "many": "проверок фактов убрано",
++          "other": "проверки фактов убраны"
++        }
++      },
++      "debates": {
++        "added": {
++          "one": "новая карточка для спора",
++          "few": "новых карточки для спора",
++          "many": "новых карточек для спора",
++          "other": "новых карточки для спора"
++        },
++        "updated": {
++          "one": "карточка для спора обновлена",
++          "few": "карточки для спора обновлены",
++          "many": "карточек для спора обновлено",
++          "other": "карточки для спора обновлены"
++        },
++        "removed": {
++          "one": "карточка для спора убрана",
++          "few": "карточки для спора убраны",
++          "many": "карточек для спора убрано",
++          "other": "карточки для спора убраны"
++        }
++      },
++      "fallacies": {
++        "added": {
++          "one": "новая статья в путеводителе по логическим ошибкам",
++          "few": "новых статьи в путеводителе по логическим ошибкам",
++          "many": "новых статей в путеводителе по логическим ошибкам",
++          "other": "новых статьи в путеводителе по логическим ошибкам"
++        },
++        "updated": {
++          "one": "статья в путеводителе по логическим ошибкам обновлена",
++          "few": "статьи в путеводителе по логическим ошибкам обновлены",
++          "many": "статей в путеводителе по логическим ошибкам обновлено",
++          "other": "статьи в путеводителе по логическим ошибкам обновлены"
++        },
++        "removed": {
++          "one": "статья убрана из путеводителя по логическим ошибкам",
++          "few": "статьи убраны из путеводителя по логическим ошибкам",
++          "many": "статей убрано из путеводителя по логическим ошибкам",
++          "other": "статьи убраны из путеводителя по логическим ошибкам"
++        }
++      },
++      "videos": {
++        "added": {
++          "one": "новое рекомендованное видео",
++          "few": "новых рекомендованных видео",
++          "many": "новых рекомендованных видео",
++          "other": "новых рекомендованных видео"
++        },
++        "updated": {
++          "one": "рекомендация видео обновлена",
++          "few": "рекомендации видео обновлены",
++          "many": "рекомендаций видео обновлено",
++          "other": "рекомендации видео обновлены"
++        },
++        "removed": {
++          "one": "рекомендация видео убрана",
++          "few": "рекомендации видео убраны",
++          "many": "рекомендаций видео убрано",
++          "other": "рекомендации видео убраны"
++        }
++      },
++      "gallery": {
++        "added": {
++          "one": "новый плакат в галерее",
++          "few": "новых плаката в галерее",
++          "many": "новых плакатов в галерее",
++          "other": "новых плаката в галерее"
++        },
++        "updated": {
++          "one": "плакат в галерее обновлён",
++          "few": "плаката в галерее обновлены",
++          "many": "плакатов в галерее обновлено",
++          "other": "плаката в галерее обновлены"
++        },
++        "removed": {
++          "one": "плакат убран из галереи",
++          "few": "плаката убраны из галереи",
++          "many": "плакатов убрано из галереи",
++          "other": "плаката убраны из галереи"
++        }
++      },
++      "pages": {
++        "added": {
++          "one": "новая учебная страница",
++          "few": "новых учебных страницы",
++          "many": "новых учебных страниц",
++          "other": "новых учебных страницы"
++        },
++        "updated": {
++          "one": "учебная страница обновлена",
++          "few": "учебные страницы обновлены",
++          "many": "учебных страниц обновлено",
++          "other": "учебные страницы обновлены"
++        },
++        "removed": {
++          "one": "учебная страница убрана",
++          "few": "учебные страницы убраны",
++          "many": "учебных страниц убрано",
++          "other": "учебные страницы убраны"
++        }
++      },
++      "start": {
++        "added": {
++          "one": "новый шаг в разделе «С чего начать»",
++          "few": "новых шага в разделе «С чего начать»",
++          "many": "новых шагов в разделе «С чего начать»",
++          "other": "новых шага в разделе «С чего начать»"
++        },
++        "updated": {
++          "one": "шаг в разделе «С чего начать» обновлён",
++          "few": "шага в разделе «С чего начать» обновлены",
++          "many": "шагов в разделе «С чего начать» обновлено",
++          "other": "шага в разделе «С чего начать» обновлены"
++        },
++        "removed": {
++          "one": "шаг убран из раздела «С чего начать»",
++          "few": "шага убраны из раздела «С чего начать»",
++          "many": "шагов убрано из раздела «С чего начать»",
++          "other": "шага убраны из раздела «С чего начать»"
++        }
++      },
++      "questions": {
++        "added": {
++          "one": "новый вопрос для начала",
++          "few": "новых вопроса для начала",
++          "many": "новых вопросов для начала",
++          "other": "новых вопроса для начала"
++        },
++        "updated": {
++          "one": "вопрос для начала обновлён",
++          "few": "вопроса для начала обновлены",
++          "many": "вопросов для начала обновлено",
++          "other": "вопроса для начала обновлены"
++        },
++        "removed": {
++          "one": "вопрос для начала убран",
++          "few": "вопроса для начала убраны",
++          "many": "вопросов для начала убрано",
++          "other": "вопроса для начала убраны"
++        }
++      },
++      "quotes": {
++        "added": {
++          "one": "новая цитата дня",
++          "few": "новых цитаты дня",
++          "many": "новых цитат дня",
++          "other": "новых цитаты дня"
++        },
++        "updated": {
++          "one": "цитата дня обновлена",
++          "few": "цитаты дня обновлены",
++          "many": "цитат дня обновлено",
++          "other": "цитаты дня обновлены"
++        },
++        "removed": {
++          "one": "цитата дня убрана",
++          "few": "цитаты дня убраны",
++          "many": "цитат дня убрано",
++          "other": "цитаты дня убраны"
++        }
++      },
++      "radios": {
++        "added": {
++          "one": "новая радиостанция в разделе «Народное радио»",
++          "few": "новых радиостанции в разделе «Народное радио»",
++          "many": "новых радиостанций в разделе «Народное радио»",
++          "other": "новых радиостанции в разделе «Народное радио»"
++        },
++        "updated": {
++          "one": "радиостанция в разделе «Народное радио» обновлена",
++          "few": "радиостанции в разделе «Народное радио» обновлены",
++          "many": "радиостанций в разделе «Народное радио» обновлено",
++          "other": "радиостанции в разделе «Народное радио» обновлены"
++        },
++        "removed": {
++          "one": "радиостанция убрана из раздела «Народное радио»",
++          "few": "радиостанции убраны из раздела «Народное радио»",
++          "many": "радиостанций убрано из раздела «Народное радио»",
++          "other": "радиостанции убраны из раздела «Народное радио»"
++        }
++      },
++      "news": {
++        "added": {
++          "one": "новое издание в обзоре новостей",
++          "few": "новых издания в обзоре новостей",
++          "many": "новых изданий в обзоре новостей",
++          "other": "новых издания в обзоре новостей"
++        },
++        "updated": {
++          "one": "издание в обзоре новостей обновлено",
++          "few": "издания в обзоре новостей обновлены",
++          "many": "изданий в обзоре новостей обновлено",
++          "other": "издания в обзоре новостей обновлены"
++        },
++        "removed": {
++          "one": "издание убрано из обзора новостей",
++          "few": "издания убраны из обзора новостей",
++          "many": "изданий убрано из обзора новостей",
++          "other": "издания убраны из обзора новостей"
++        }
++      }
++    }
+   },
+   "dedication": {
+     "eyebrow": "Посвящение",
+diff --git a/i18n/zh.json b/i18n/zh.json
+index 87befa2..f452bd1 100644
+--- a/i18n/zh.json
++++ b/i18n/zh.json
+@@ -44,6 +44,9 @@
+     "search": "搜索",
+     "support": "支持",
+     "panel": "工作台",
++    "hello": "你好，{name}",
++    "helloLabel": "你好，{name}：打开工作台",
++    "openPanel": "打开工作台",
+     "signIn": "登录",
+     "tools": "练习工具",
+     "glossary": "词汇表",
+@@ -701,7 +704,240 @@
+     "lead": "内容的每一次修改都记录了日期，任何早期版本都可以恢复。",
+     "description": "馆藏的所有修改，从最新到最早。",
+     "unavailable": "本站的这份副本中没有历史记录。",
+-    "more": "以及另外 {n} 项"
++    "more": "以及另外 {n} 项",
++    "kinds": {
++      "lessonsIn": {
++        "added": {
++          "other": "节{area}新课"
++        },
++        "updated": {
++          "other": "节{area}课程已更新"
++        },
++        "removed": {
++          "other": "节{area}课程已撤下"
++        }
++      },
++      "lessons": {
++        "added": {
++          "other": "节新课"
++        },
++        "updated": {
++          "other": "节课程已更新"
++        },
++        "removed": {
++          "other": "节课程已撤下"
++        }
++      },
++      "tracks": {
++        "added": {
++          "other": "条新学习路径"
++        },
++        "updated": {
++          "other": "条学习路径已更新"
++        },
++        "removed": {
++          "other": "条学习路径已撤下"
++        }
++      },
++      "translations": {
++        "added": {
++          "other": "篇新译文"
++        },
++        "updated": {
++          "other": "篇译文已更新"
++        },
++        "removed": {
++          "other": "篇译文已撤下"
++        }
++      },
++      "library": {
++        "added": {
++          "other": "部新作品加入馆藏"
++        },
++        "updated": {
++          "other": "条馆藏条目已更新"
++        },
++        "removed": {
++          "other": "部作品撤出馆藏"
++        }
++      },
++      "catalog": {
++        "added": {
++          "other": "部新作品加入扩展目录"
++        },
++        "updated": {
++          "other": "条扩展目录条目已更新"
++        },
++        "removed": {
++          "other": "部作品撤出扩展目录"
++        }
++      },
++      "authors": {
++        "added": {
++          "other": "篇新的作者传记"
++        },
++        "updated": {
++          "other": "篇作者传记已更新"
++        },
++        "removed": {
++          "other": "篇作者传记已撤下"
++        }
++      },
++      "memorial": {
++        "added": {
++          "other": "篇纪念馆新悼文"
++        },
++        "updated": {
++          "other": "篇纪念馆悼文已更新"
++        },
++        "removed": {
++          "other": "篇悼文撤出纪念馆"
++        }
++      },
++      "glossary": {
++        "added": {
++          "other": "个词汇表新词条"
++        },
++        "updated": {
++          "other": "个词汇表词条已更新"
++        },
++        "removed": {
++          "other": "个词条撤出词汇表"
++        }
++      },
++      "journal": {
++        "added": {
++          "other": "篇报纸新文章"
++        },
++        "updated": {
++          "other": "篇报纸文章已更新"
++        },
++        "removed": {
++          "other": "篇文章撤出报纸"
++        }
++      },
++      "factChecks": {
++        "added": {
++          "other": "篇新的事实核查"
++        },
++        "updated": {
++          "other": "篇事实核查已更新"
++        },
++        "removed": {
++          "other": "篇事实核查已撤下"
++        }
++      },
++      "debates": {
++        "added": {
++          "other": "张新辩论卡片"
++        },
++        "updated": {
++          "other": "张辩论卡片已更新"
++        },
++        "removed": {
++          "other": "张辩论卡片已撤下"
++        }
++      },
++      "fallacies": {
++        "added": {
++          "other": "个谬误指南新词条"
++        },
++        "updated": {
++          "other": "个谬误指南词条已更新"
++        },
++        "removed": {
++          "other": "个词条撤出谬误指南"
++        }
++      },
++      "videos": {
++        "added": {
++          "other": "个新推荐视频"
++        },
++        "updated": {
++          "other": "个视频推荐已更新"
++        },
++        "removed": {
++          "other": "个视频推荐已撤下"
++        }
++      },
++      "gallery": {
++        "added": {
++          "other": "幅新宣传画加入画廊"
++        },
++        "updated": {
++          "other": "幅宣传画已更新"
++        },
++        "removed": {
++          "other": "幅宣传画撤出画廊"
++        }
++      },
++      "pages": {
++        "added": {
++          "other": "个新学习页面"
++        },
++        "updated": {
++          "other": "个学习页面已更新"
++        },
++        "removed": {
++          "other": "个学习页面已撤下"
++        }
++      },
++      "start": {
++        "added": {
++          "other": "个“从哪里开始”新步骤"
++        },
++        "updated": {
++          "other": "个“从哪里开始”步骤已更新"
++        },
++        "removed": {
++          "other": "个步骤撤出“从哪里开始”"
++        }
++      },
++      "questions": {
++        "added": {
++          "other": "个新的起点问题"
++        },
++        "updated": {
++          "other": "个起点问题已更新"
++        },
++        "removed": {
++          "other": "个起点问题已撤下"
++        }
++      },
++      "quotes": {
++        "added": {
++          "other": "条新的每日一句"
++        },
++        "updated": {
++          "other": "条每日一句已更新"
++        },
++        "removed": {
++          "other": "条每日一句已撤下"
++        }
++      },
++      "radios": {
++        "added": {
++          "other": "家新电台加入“人民的电台”"
++        },
++        "updated": {
++          "other": "家“人民的电台”信息已更新"
++        },
++        "removed": {
++          "other": "家电台撤出“人民的电台”"
++        }
++      },
++      "news": {
++        "added": {
++          "other": "家新媒体加入新闻速览"
++        },
++        "updated": {
++          "other": "家新闻速览媒体信息已更新"
++        },
++        "removed": {
++          "other": "家媒体撤出新闻速览"
++        }
++      }
++    }
+   },
+   "dedication": {
+     "eyebrow": "献词",
+diff --git a/lib/backend.ts b/lib/backend.ts
+index fa999e8..2273e38 100644
+--- a/lib/backend.ts
++++ b/lib/backend.ts
+@@ -215,6 +215,7 @@ export async function signOut() {
+   } finally {
+     try {
+       localStorage.removeItem(KEYS.session);
++      localStorage.removeItem(KEYS.name);
+     } catch {
+       // sem armazenamento, não há sessão para apagar
+     }
+diff --git a/lib/history.ts b/lib/history.ts
+index 7ecdfbd..3704dda 100644
+--- a/lib/history.ts
++++ b/lib/history.ts
+@@ -1,58 +1,272 @@
+ // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+ import { execFileSync } from "node:child_process";
+ import { cache } from "react";
++import { fill, htmlLang, type Locale, plural } from "@/i18n/config";
++import type { Dict } from "@/i18n/types";
++import type { AreaSlug } from "./areas";
++import { getPage, getTracks } from "./content";
+ 
+-export interface Change {
++type Status = "A" | "M" | "D";
++
++interface Commit {
+   hash: string;
+   date: string;
+-  author: string;
+-  subject: string;
+-  files: string[];
++  /** Arquivos tocados; numa renomeação, só o caminho novo. */
++  files: { status: Status; path: string }[];
++}
++
++export type Kind = keyof Dict["history"]["kinds"];
++export type Action = "added" | "updated" | "removed";
++
++type Link = { title: string; href: string; translated: boolean };
++
++/** Uma linha do resumo: "12 obras novas no acervo". As aulas novas e as páginas trazem os títulos. */
++export interface HistoryPart {
++  kind: Kind;
++  action: Action;
++  count: number;
++  area?: AreaSlug;
++  links?: Link[];
+ }
+ 
++/** O que mudou em um dia, já resumido. Sem assunto de commit, autor, e-mail nem identificador. */
++export interface PublicChange {
++  date: string;
++  parts: HistoryPart[];
++}
++
++const git = (args: string[]) =>
++  execFileSync("git", ["-c", "core.quotepath=off", ...args], {
++    encoding: "utf8",
++    cwd: process.cwd(),
++    stdio: ["ignore", "pipe", "ignore"],
++    maxBuffer: 64 * 1024 * 1024,
++  });
++
+ // O histórico do acervo é o próprio histórico do Git, lido na hora do build.
+ // Em clones rasos (ex.: Vercel sem VERCEL_DEEP_CLONE=true) só aparecem os commits mais recentes.
+-export const getHistory = cache((): Change[] => {
++// Junções de ramos (merge) ficam de fora: o que elas trazem já aparece nos commits de origem.
++const getHistory = cache((): Commit[] => {
+   try {
+-    const out = execFileSync(
+-      "git",
+-      [
+-        "-c",
+-        "core.quotepath=off",
+-        "log",
+-        "-n",
+-        "300",
+-        "--date=short",
+-        "--name-only",
+-        "--pretty=format:%x1e%h%x1f%ad%x1f%an%x1f%s",
+-        "--",
+-        "content",
+-      ],
+-      { encoding: "utf8", cwd: process.cwd(), stdio: ["ignore", "pipe", "ignore"] },
+-    );
++    const out = git(["log", "-n", "300", "--no-merges", "--date=short", "--name-status", "--pretty=format:%x1e%h%x1f%ad", "--", "content"]);
+     return out
+       .split("\x1e")
+       .filter(Boolean)
+       .map((entry) => {
+-        const [head, ...files] = entry.split("\n");
+-        const [hash, date, author, subject] = head.split("\x1f");
+-        return { hash, date, author, subject, files: files.map((f) => f.trim()).filter(Boolean) };
++        const [head, ...lines] = entry.split("\n");
++        const [hash, date] = head.split("\x1f");
++        const files = lines
++          .map((line) => line.split("\t"))
++          .filter((cols) => cols.length >= 2)
++          .map(([code, ...paths]) => {
++            // "R100 velho novo" (renomeado) conta como mudança no arquivo novo; "C" (copiado), como arquivo novo.
++            const status: Status = code[0] === "A" || code[0] === "C" ? "A" : code[0] === "D" ? "D" : "M";
++            return { status, path: paths[paths.length - 1] };
++          });
++        return { hash, date, files };
+       });
+   } catch {
+     return [];
+   }
+ });
+ 
+-// O histórico público fala de aulas, obras e páginas. Mudanças de funcionamento interno do site
+-// (entrada, painel, proteção, regras) não são assunto dele e ficam de fora.
+-const internal = /privacidade|seguran|senha|convite|isca|filtro|cifra|entrada|painel|banco|manuten|prote[cç]|regra|termos|aviso|coordena|den[uú]ncia|dados/i;
++// O histórico público fala só de ensino e acervo. O que é funcionamento do site (páginas institucionais e
++// legais, aviso de abertura, dicionário da busca) fica de fora, e também qualquer arquivo que não esteja nesta lista.
++const folders: Record<string, Kind> = {
++  acervo: "library",
++  autores: "authors",
++  memorial: "memorial",
++  glossario: "glossary",
++  jornal: "journal",
++  checagens: "factChecks",
++  debates: "debates",
++  videos: "videos",
++  falacias: "fallacies",
++};
++const lists: Record<string, Kind> = {
++  "galeria.json": "gallery",
++  "frases.json": "quotes",
++  "perguntas.json": "questions",
++  "comecar.json": "start",
++  "radios.json": "radios",
++  "noticias.json": "news",
++  "falacias.json": "fallacies",
++};
++const studyPages = ["guia", "linha-do-tempo"];
++
++type Unit =
++  | { type: "lesson"; track: string }
++  | { type: "track"; track: string; head: boolean }
++  | { type: "page"; slug: string }
++  | { type: "file" | "list"; kind: Kind };
++
++function classify(file: string): Unit | null {
++  if (!file.startsWith("content/")) return null;
++  // Tradução de algo público ("aula.en.md") conta como tradução; de página institucional, fica de fora.
++  const original = file.replace(/\.(en|es|zh|ru)\.md$/, ".md");
++  if (original !== file) return classify(original) ? { type: "file", kind: "translations" } : null;
++  const parts = file.slice("content/".length).split("/");
++  const [dir, name] = parts;
++  if (dir === "trilhas" && parts.length === 3) {
++    const leaf = parts[2];
++    if (leaf === "_trilha.md" || leaf === "plano.json") return { type: "track", track: name, head: leaf === "_trilha.md" };
++    return leaf.endsWith(".md") ? { type: "lesson", track: name } : null;
++  }
++  if (parts.length === 2 && dir === "catalogo" && name.endsWith(".json")) return { type: "list", kind: "catalog" };
++  if (parts.length === 2 && dir === "paginas") {
++    const slug = name.replace(/\.md$/, "");
++    return studyPages.includes(slug) && name.endsWith(".md") ? { type: "page", slug } : null;
++  }
++  if (parts.length === 2 && folders[dir] && name.endsWith(".md")) return { type: "file", kind: folders[dir] };
++  if (parts.length === 1 && lists[dir]) return { type: "list", kind: lists[dir] };
++  return null;
++}
++
++// Listas em JSON (galeria, rádios, catálogo…) mudam num arquivo só: conta-se item por item, comparando o antes e o depois.
++// O conteúdo de uma versão nunca muda, então o que já foi lido fica guardado enquanto o processo dura.
++const shown = new Map<string, unknown[]>();
++function listAt(rev: string, file: string): unknown[] {
++  const key = `${rev}:${file}`;
++  let items = shown.get(key);
++  if (!items) {
++    try {
++      const data: unknown = JSON.parse(git(["show", key]));
++      items = Array.isArray(data) ? data : [data];
++    } catch {
++      items = [];
++    }
++    shown.set(key, items);
++  }
++  return items;
++}
++
++const identity = (item: unknown) => {
++  if (item && typeof item === "object") {
++    for (const key of ["slug", "id", "u", "url", "feed", "pergunta", "titulo", "t", "texto", "nome"]) {
++      const value = (item as Record<string, unknown>)[key];
++      if (typeof value === "string" && value) return `${key}:${value}`;
++    }
++  }
++  return JSON.stringify(item);
++};
++
++function compare(before: unknown[], after: unknown[]): Record<Action, number> {
++  const old = new Map(before.map((item) => [identity(item), JSON.stringify(item)]));
++  const now = new Map(after.map((item) => [identity(item), JSON.stringify(item)]));
++  const count = { added: 0, updated: 0, removed: 0 };
++  for (const [id, json] of now) {
++    if (!old.has(id)) count.added++;
++    else if (old.get(id) !== json) count.updated++;
++  }
++  for (const id of old.keys()) if (!now.has(id)) count.removed++;
++  return count;
++}
++
++const order: Kind[] = ["lessonsIn", "lessons", "tracks", "translations", "library", "catalog", "authors", "memorial", "glossary", "journal", "factChecks", "debates", "fallacies", "videos", "gallery", "pages", "start", "questions", "quotes", "radios", "news"];
++const actions: Action[] = ["added", "updated", "removed"];
++/** Quantas aulas novas aparecem pelo título em cada linha; o resto vira "e mais N". */
++export const TITLES = 4;
++
++/** As mudanças que a página de histórico e a página inicial mostram, dia a dia, a partir da data dada. */
++export function publicHistory(from: string, lang: Locale): PublicChange[] {
++  if (!from) return [];
++  const days = new Map<string, Commit[]>();
++  for (const commit of getHistory()) {
++    if (commit.date < from) continue;
++    days.set(commit.date, [...(days.get(commit.date) ?? []), commit]);
++  }
++
++  const tracks = getTracks(lang);
++  const areaOf = new Map(tracks.map((track) => [track.slug, track.area]));
++  const lessonAt = new Map(tracks.flatMap((track) => track.lessons.map((lesson) => [lesson.file, { title: lesson.title, href: `/trilhas/${track.slug}/${lesson.slug}`, translated: lesson.translated }])));
++  const pageAt = (slug: string) => {
++    try {
++      const page = getPage(slug, lang);
++      return { title: page.title, href: `/${slug}`, translated: page.translated };
++    } catch {
++      return null;
++    }
++  };
++
++  const changes: PublicChange[] = [];
++  for (const [date, commits] of days) {
++    // O saldo do dia por arquivo: criado e apagado no mesmo dia não conta; apagado e recriado é mudança.
++    const touched = new Map<string, { first: Status; last: Status; oldest: string; newest: string }>();
++    for (const commit of [...commits].reverse()) {
++      for (const { status, path } of commit.files) {
++        const seen = touched.get(path);
++        if (seen) Object.assign(seen, { last: status, newest: commit.hash });
++        else touched.set(path, { first: status, last: status, oldest: commit.hash, newest: commit.hash });
++      }
++    }
++
++    const tally = new Map<string, HistoryPart>();
++    const add = (kind: Kind, action: Action, count: number, area?: AreaSlug, link?: Link | null) => {
++      if (count <= 0) return;
++      const key = `${kind}:${action}:${area ?? ""}`;
++      const part = tally.get(key) ?? { kind, action, count: 0, ...(area ? { area } : {}) };
++      part.count += count;
++      if (link) part.links = [...(part.links ?? []), link];
++      tally.set(key, part);
++    };
++    const tracksTouched = new Map<string, Action>();
++    const lessonsTouched = new Set<string>();
++
++    for (const [path, { first, last, oldest, newest }] of touched) {
++      const unit = classify(path);
++      if (!unit) continue;
++      const before = first !== "A";
++      const after = last !== "D";
++      if (!before && !after) continue;
++      const action: Action = !before ? "added" : !after ? "removed" : "updated";
++      if (unit.type === "lesson") {
++        lessonsTouched.add(unit.track);
++        const area = areaOf.get(unit.track);
++        add(area ? "lessonsIn" : "lessons", action, 1, area, action === "added" ? lessonAt.get(path) : null);
++      } else if (unit.type === "track") {
++        // Trilha nova ou retirada vem do _trilha.md; mexer no roteiro (plano.json) é atualizar a trilha.
++        const now = unit.head ? action : "updated";
++        if (tracksTouched.get(unit.track) !== "added" && tracksTouched.get(unit.track) !== "removed") tracksTouched.set(unit.track, now);
++      } else if (unit.type === "page") {
++        add("pages", action, 1, undefined, action === "removed" ? null : pageAt(unit.slug));
++      } else if (unit.type === "list") {
++        const count = compare(before ? listAt(`${oldest}^`, path) : [], after ? listAt(newest, path) : []);
++        for (const each of actions) add(unit.kind, each, count[each]);
++      } else {
++        add(unit.kind, action, 1);
++      }
++    }
++    // Roteiro mexido junto com aulas da mesma trilha já está dito nas aulas: não vira "trilha atualizada".
++    for (const [track, action] of tracksTouched) {
++      if (action === "updated" && lessonsTouched.has(track)) continue;
++      add("tracks", action, 1);
++    }
++
++    const parts = [...tally.values()].sort(
++      (a, b) => order.indexOf(a.kind) - order.indexOf(b.kind) || actions.indexOf(a.action) - actions.indexOf(b.action) || b.count - a.count,
++    );
++    if (parts.length > 0) changes.push({ date, parts });
++  }
++  return changes.sort((a, b) => b.date.localeCompare(a.date));
++}
++
++/** O resumo curto da página inicial: as aulas de todas as disciplinas viram uma linha só ("59 aulas novas"). */
++export function overview(parts: HistoryPart[]): HistoryPart[] {
++  const lessons = actions
++    .map((action): HistoryPart => ({ kind: "lessons", action, count: parts.filter((p) => p.action === action && (p.kind === "lessons" || p.kind === "lessonsIn")).reduce((sum, p) => sum + p.count, 0) }))
++    .filter((part) => part.count > 0);
++  return [...lessons, ...parts.filter((p) => p.kind !== "lessons" && p.kind !== "lessonsIn")];
++}
+ 
+-/** As mudanças que a página de histórico e a página inicial mostram, a partir da data dada. */
+-export function publicHistory(from: string): Change[] {
+-  return from ? getHistory().filter((change) => change.date >= from && !internal.test(change.subject)) : [];
++/** O texto de uma linha do resumo, no idioma da página: "2 aulas novas em Geografia". */
++export function describePart(part: HistoryPart, lang: Locale, t: Dict): string {
++  // plural() devolve "3145 obras…": o número ganha o separador de milhar do idioma ("3.145").
++  const text = plural(lang, part.count, t.history.kinds[part.kind][part.action]).slice(String(part.count).length);
++  const count = new Intl.NumberFormat(htmlLang[lang]).format(part.count);
++  return count + (part.area ? fill(text, { area: t.areas[part.area][0] }) : text);
+ }
+ 
+ export function fileHistory(file: string): { updated?: string; revisions: number } {
+-  const changes = getHistory().filter((c) => c.files.includes(file));
++  const changes = getHistory().filter((c) => c.files.some((f) => f.path === file));
+   return { updated: changes[0]?.date, revisions: changes.length };
+ }
+diff --git a/lib/storage.ts b/lib/storage.ts
+index 6c1eeb7..b0e93e5 100644
+--- a/lib/storage.ts
++++ b/lib/storage.ts
+@@ -11,6 +11,8 @@ export const KEYS = {
+   theme: "lucia:tema",
+   a11y: "lucia:acessibilidade",
+   session: "lucia:sessao",
++  // Primeiro nome da conta, para o cabeçalho dizer "Olá" sem esperar o serviço; sai junto com a sessão.
++  name: "lucia:nome",
+   notes: "lucia:fichamento",
+   radio: "lucia:radio",
+   device: "lucia:aparelho",
