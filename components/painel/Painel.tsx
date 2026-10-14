@@ -20,6 +20,7 @@ import { Horas } from "./Horas";
 import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lideranca";
 import { Materiais } from "./Materiais";
 import { Pessoas } from "./Pessoas";
+import { Podcast } from "./podcast/Podcast";
 import { Reforco } from "./Reforco";
 import { Aparelhos, Digital, Recados, SegundoFator } from "./Seguranca";
 import { type Controles, Site } from "./Site";
@@ -184,6 +185,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const router = useRouter();
   const { lang } = useI18n();
   const resumo = useLista<Resumo>("painel_resumo");
+  // O que espera por esta pessoa no podcast (aprovação, comentários, perguntas, pedidos de arte).
+  const podcast = useLista<number>("podcast_contagem");
   const r = resumo.dados;
   // De minuto em minuto o painel diz que a pessoa está por aqui e pergunta se chegou mensagem nova.
   const presenca = useLista<{ conversas: number }>("presenca");
@@ -216,6 +219,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar : undefined },
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
       { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
+      { id: "podcast", nome: "Podcast", sobre: "Episódios da pauta à publicação: roteiro, gravação, versões, revisão, capas, cortes, agenda e entregas.", grupo: "Produção", mostra: can(eu, "coordenacao", "jornalismo", "design", "mediacao", "curadoria"), conta: podcast.dados ?? undefined },
       { id: "radio", nome: "Rádio", sobre: "Rádio Lúcia: canais, faixas, transmissão ao vivo e sugestão de emissoras.", grupo: "Site", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "apoiadores", nome: "Apoiadores", sobre: "Quem autorizou aparecer no mural de apoio.", grupo: "Site", mostra: lidera },
       { id: "seguranca", nome: "Segurança e sucessão", sobre: "Segundo fator obrigatório, vice e ordem de sucessão.", grupo: "Segurança", mostra: lidera },
@@ -325,6 +329,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "site" && <Site />}
           {atual.id === "abertura" && <AvisoDeAbertura />}
           {atual.id === "radio" && <RadioAdmin me={eu} />}
+          {atual.id === "podcast" && <Podcast />}
           {atual.id === "apoiadores" && <Apoiadores />}
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
           {atual.id === "registro" && <RegistroDeAtividades />}

@@ -38,8 +38,9 @@ const policy = (script: string) =>
     `img-src 'self' data: blob: ${service}`.trim(),
     "font-src 'self'",
     `connect-src 'self' ${spelling} ${service}${dev ? " ws:" : ""}`.trim(),
-    // A rádio toca arquivos do próprio acervo ou a transmissão ao vivo indicada pela coordenação.
-    "media-src 'self' https:",
+    // A rádio e o podcast tocam arquivos do próprio acervo ou a transmissão ao vivo indicada pela coordenação;
+    // blob: é o áudio gravado ou escolhido no próprio aparelho (pergunta gravada, teste de microfone, corte de vídeo).
+    `media-src 'self' https: blob: ${service}`.trim(),
     "worker-src 'self'",
     "manifest-src 'self'",
     `frame-src ${captcha} ${videos}`,
