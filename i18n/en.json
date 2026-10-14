@@ -1076,11 +1076,15 @@
       "lead": "The institute's journalists send a newsletter with the new stories. No ads, and your address is never passed on.",
       "email": "Your e-mail",
       "button": "Subscribe",
-      "done": "Done. You will receive the next newsletter.",
-      "leave": "To leave the list, write to",
+      "done": "Almost there: we sent a link to your e-mail. The newsletter only starts arriving after you click it.",
+      "doneDirect": "Done. You will receive the next newsletter.",
+      "leave": "Every newsletter has a link to leave the list. You can also write to",
       "roundTitle": "News round-up from Brazil",
       "roundLead": "Right-now headlines from the grassroots, independent and public press, seventeen outlets on a single page. Refreshes by itself every fifteen minutes.",
-      "roundButton": "Open the news round-up"
+      "roundButton": "Open the news round-up",
+      "confirmed": "Done: your e-mail is confirmed and you will receive the next newsletter.",
+      "left": "Done: your e-mail has left the newsletter list.",
+      "badLink": "This link is no longer valid. Subscribe again if you want."
     }
   },
   "factCheck": {

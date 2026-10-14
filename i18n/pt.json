@@ -1076,11 +1076,15 @@
       "lead": "Os jornalistas do instituto mandam um boletim com as matérias novas. Sem anúncio, sem repassar o seu endereço a ninguém.",
       "email": "Seu e-mail",
       "button": "Quero receber",
-      "done": "Pronto. Você vai receber o próximo boletim.",
-      "leave": "Para sair da lista, escreva para",
+      "done": "Quase lá: mandamos um link para o seu e-mail. O boletim só começa a chegar depois que você clicar nele.",
+      "doneDirect": "Pronto. Você vai receber o próximo boletim.",
+      "leave": "Todo boletim traz um link para sair da lista. Se preferir, escreva para",
       "roundTitle": "Giro de notícias do país",
       "roundLead": "As manchetes de agora da imprensa popular, independente e pública, de dezessete veículos, em uma página só. Atualiza sozinha a cada quinze minutos.",
-      "roundButton": "Abrir o giro de notícias"
+      "roundButton": "Abrir o giro de notícias",
+      "confirmed": "Pronto: o seu e-mail está confirmado e você vai receber o próximo boletim.",
+      "left": "Pronto: o seu e-mail saiu da lista do boletim.",
+      "badLink": "Este link não vale mais. Peça o boletim de novo, se quiser."
     }
   },
   "factCheck": {
