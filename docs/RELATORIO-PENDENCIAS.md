@@ -11,11 +11,11 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Alfabetização e ENEM | enem | 1 | 25 | 24 |
 | Linguagens e artes | portugues | 29 | 43 | 14 |
 | Linguagens e artes | literatura | 1 | 49 | 48 |
-| Linguagens e artes | ingles | 4 | 36 | 32 |
+| Linguagens e artes | ingles | 36 | 60 | 24 |
 | Linguagens e artes | ingles-infantil | 0 | 18 | 18 |
-| Linguagens e artes | espanhol | 1 | 28 | 27 |
+| Linguagens e artes | espanhol | 6 | 28 | 22 |
 | Linguagens e artes | frances | 0 | 16 | 16 |
-| Linguagens e artes | chines | 1 | 35 | 34 |
+| Linguagens e artes | chines | 35 | 59 | 24 |
 | Linguagens e artes | artes | 1 | 38 | 37 |
 | Linguagens e artes | desenho | 0 | 24 | 24 |
 | Linguagens e artes | design | 0 | 24 | 24 |
@@ -75,7 +75,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Hobbies: aprenda uma habilidade nova e monetize com ela | costureira | 0 | 16 | 16 |
 | Hobbies: aprenda uma habilidade nova e monetize com ela | barbeiro | 0 | 14 | 14 |
 | Hobbies: aprenda uma habilidade nova e monetize com ela | oratoria-e-lideranca | 0 | 15 | 15 |
-| | **Total** | **459** | **2320** | **1861** |
+| | **Total** | **530** | **2368** | **1838** |
 
 ## Alfabetização e ENEM
 
@@ -233,45 +233,42 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - A literatura marginal e periférica
 - Conceição Evaristo e a escrevivência
 
-### ingles — 4 de 36 prontas (faltam 32)
+### ingles — 36 de 60 prontas (faltam 24)
 
-**Inglês do zero** (fundamental, `ingles-do-zero`): 4/14 prontas
-- Artigos: a, an e the
-- Plural dos substantivos
-- Pronomes pessoais e possessivos
-- Presente simples
-- Perguntas com do e does
-- Família, casa e rotina
-- Horas, dias e meses
-- There is e there are
-- Can: habilidade e pedido
-- Presente contínuo
+**Inglês do zero** (fundamental, `ingles-do-zero`): 14/14 prontas
+- (completa)
 
-**Inglês: conversação e leitura** (medio, `ingles-medio`): 0/12 prontas
-- Passado simples: verbos regulares
-- Passado simples: verbos irregulares
-- Futuro com will e going to
-- Comparativos e superlativos
-- Preposições de tempo e lugar
-- Present perfect
-- Should, must e have to
-- Como ler um texto em inglês
-- Falsos cognatos
-- Phrasal verbs mais usados
-- Como escrever um e-mail em inglês
-- Inglês no trabalho
+**Inglês: conversação e leitura** (medio, `ingles-medio`): 12/12 prontas
+- (completa)
 
-**Inglês: leitura acadêmica** (superior, `ingles-superior`): 0/10 prontas
-- Leitura instrumental: skimming e scanning
-- Voz passiva
-- Condicionais
-- Discurso indireto
-- Conectivos e estrutura do parágrafo
-- Como ler um artigo científico em inglês
-- Vocabulário acadêmico
-- Como escrever um abstract
-- Provas de proficiência: como se preparar
-- A história da língua inglesa
+**Inglês: leitura acadêmica** (superior, `ingles-superior`): 10/10 prontas
+- (completa)
+
+**Inglês: aprofundamento** (superior, `ingles-aprofundamento`): 0/24 prontas
+- Os sons do inglês que não existem em português
+- Entonação e ritmo
+- Ouvir: estratégias de compreensão oral
+- Past continuous
+- Past perfect
+- Used to e would para hábitos do passado
+- Gerúndio ou infinitivo depois de verbos
+- Orações relativas: who, which e that
+- Question tags
+- Modais de dedução: must, might e can't
+- Present perfect continuous
+- Quantificadores: much, many, few e little
+- Adjetivos terminados em -ed e -ing
+- Inglês britânico e estadunidense
+- Canções de protesto em inglês
+- Ler notícias internacionais em inglês
+- Debater e argumentar em inglês
+- Escrever um currículo em inglês
+- Entrevista de emprego em inglês
+- Inglês para o turismo e a hotelaria
+- Inglês para a área da saúde
+- Inglês para tecnologia da informação
+- Literatura afro-americana: uma introdução
+- Literaturas africanas em língua inglesa
 
 ### ingles-infantil — 0 de 18 prontas (faltam 18)
 
@@ -295,14 +292,9 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Músicas e rimas em inglês
 - Contar uma história curta
 
-### espanhol — 1 de 28 prontas (faltam 27)
+### espanhol — 6 de 28 prontas (faltam 22)
 
-**Espanhol do zero** (fundamental, `espanhol-do-zero`): 1/10 prontas
-- O alfabeto e os sons do espanhol
-- Ser e estar
-- Artigos e gênero das palavras
-- Números, horas e datas
-- Presente do indicativo
+**Espanhol do zero** (fundamental, `espanhol-do-zero`): 6/10 prontas
 - Família, casa e comida
 - Falsos amigos entre português e espanhol
 - Gustar e verbos parecidos
@@ -350,49 +342,45 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - A francofonia: o francês no mundo
 - Ler textos simples em francês
 
-### chines — 1 de 35 prontas (faltam 34)
+### chines — 35 de 59 prontas (faltam 24)
 
-**Chinês do zero** (fundamental, `chines-do-zero`): 1/10 prontas
-- Saudações em chinês
-- Os traços e a ordem da escrita
-- Números de 1 a 100 em chinês
-- Pronomes e o verbo 是 (ser)
-- Família em chinês
-- Perguntas com 吗 e 什么
-- Datas, dias e horas em chinês
-- Comida e compras em chinês
-- Radicais: as peças dos caracteres
+**Chinês do zero** (fundamental, `chines-do-zero`): 10/10 prontas
+- (completa)
 
-**Chinês: frases e leitura** (medio, `chines-medio`): 0/10 prontas
-- Classificadores
-- A partícula 了
-- Lugar e posição: 在, 上, 下 e 里
-- Comparações com 比
-- Complementos de resultado
-- HSK 1 e 2: o que estudar
-- Como usar um dicionário de chinês
-- Caracteres simplificados e tradicionais
-- Como ler um texto curto em chinês
-- Como digitar em chinês
+**Chinês: frases e leitura** (medio, `chines-medio`): 10/10 prontas
+- (completa)
 
-**Chinês para o dia a dia** (medio, `chines-para-viajar-e-trabalhar`): 0/8 prontas
-- Apresentar-se
-- Números, preços e dinheiro
-- Pedir comida
-- Perguntar o caminho
-- Horas e datas
-- No trabalho
-- Ao telefone e nos aplicativos
-- Família e amigos
+**Chinês para o dia a dia** (medio, `chines-para-viajar-e-trabalhar`): 8/8 prontas
+- (completa)
 
-**Chinês: leitura e cultura escrita** (superior, `chines-superior`): 0/7 prontas
-- HSK 3 e 4: gramática essencial
-- Chengyu: expressões de quatro caracteres
-- Como ler notícias em chinês
-- Chinês clássico: uma primeira leitura
-- A história da escrita chinesa
-- A reforma da escrita e a criação do pinyin
-- Traduzir do chinês: desafios
+**Chinês: leitura e cultura escrita** (superior, `chines-superior`): 7/7 prontas
+- (completa)
+
+**Chinês: aprofundamento** (superior, `chines-aprofundamento`): 0/24 prontas
+- Os tons em sequência: treino de pronúncia
+- Complementos direcionais
+- Partículas de fim de frase: 吧, 呢, 啊 e 嘛
+- O aspecto contínuo com 在 e 着
+- Frases com 是…的
+- Verbos modais: 会, 能, 可以 e 应该
+- Reduplicação de verbos e adjetivos
+- Orações relativas com 的
+- Números e estatísticas em textos econômicos
+- Escrever um e-mail formal em chinês
+- Chinês para negócios e comércio exterior
+- HSK 5 e 6: o que estudar
+- Poesia da dinastia Tang
+- Lu Xun e a literatura moderna chinesa
+- Cinema chinês: uma introdução
+- As línguas da China: cantonês, wu, min e outras
+- As minorias nacionais e as suas línguas
+- Caligrafia: uma introdução
+- Ler um conto curto em chinês
+- Vocabulário de política e sociedade
+- Vocabulário de ciência e tecnologia
+- Música popular em chinês
+- China e Brasil: a história das relações
+- Os Analectos e o pensamento confuciano
 
 ### artes — 1 de 38 prontas (faltam 37)
 
