@@ -11,7 +11,7 @@ import { useI18n } from "./I18n";
 
 const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
 /** A ordem em que as funções aparecem: primeiro as que mais precisam de gente. */
-export const volunteerRoles = ["educacao", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "design", "desenvolvimento", "curadoria"] as const;
+export const volunteerRoles = ["educacao", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "marketing", "desenvolvimento", "curadoria"] as const;
 // "site" é um campo-isca: gente não vê, robô preenche, e o envio é descartado sem aviso.
 const empty = { nome: "", email: "", papel: "educacao", disciplina: "", mensagem: "", site: "" };
 
