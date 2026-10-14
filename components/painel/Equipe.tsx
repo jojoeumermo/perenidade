@@ -46,6 +46,7 @@ const nomes: Record<string, string> = {
   geral: "Todos",
   pedidos: "Pedidos de ajuda",
   coordenacao: "Coordenação",
+  supervisao: "Supervisão",
   curadoria: "Curadoria",
   mediacao: "Mediação",
   educacao: "Educadores",
@@ -54,10 +55,11 @@ const nomes: Record<string, string> = {
   jornalismo: "Jornal e rádio",
   mentoria: "Reforço",
   design: "Design",
+  marketing: "Marketing e divulgação",
   desenvolvimento: "Desenvolvimento",
 };
 
-const funcoes: Role["papel"][] = ["design", "desenvolvimento", "educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "coordenacao"];
+const funcoes: Role["papel"][] = ["marketing", "design", "desenvolvimento", "educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "supervisao", "coordenacao"];
 /** O texto cifrado ocupa mais espaço do que o aberto: este limite garante que ele cabe no banco. */
 const MAXIMO = 2000;
 const ILEGIVEL = "[não foi possível abrir esta mensagem com a chave atual]";
@@ -113,7 +115,7 @@ export function useChave(prova: string | undefined) {
  * de ajuda entre funções). Tudo é cifrado neste aparelho com a chave da equipe antes de ser enviado, e some
  * depois de trinta dias.
  */
-export function Equipe({ lider }: { lider: boolean }) {
+export function Equipe({ lider, modera = lider }: { lider: boolean; /** Coordenação, vice-coordenação e supervisão apagam o que for de outra pessoa. */ modera?: boolean }) {
   const { t } = useI18n();
   const canais = useLista<Canais>("equipe_canais");
   const membros = useLista<Membro[]>("equipe_membros");
@@ -260,7 +262,7 @@ export function Equipe({ lider }: { lider: boolean }) {
                 <button type="button" className={elo} onClick={() => acao.agir("equipe_marcar", { p_id: recado.id, p_resolvido: !recado.resolvido }, "")}>
                   {recado.resolvido ? "Reabrir" : "Marcar como resolvido"}
                 </button>
-                {(recado.meu || lider) && (
+                {(recado.meu || modera) && (
                   <button type="button" className={elo} onClick={() => acao.agir("equipe_apagar", { p_id: recado.id }, "Publicação apagada.")}>
                     Apagar
                   </button>

@@ -48,6 +48,9 @@
     "search": "Search",
     "support": "Support",
     "panel": "Panel",
+    "hello": "Hi, {name}",
+    "helloLabel": "Hi, {name}: open the panel",
+    "openPanel": "Open the panel",
     "signIn": "Sign in",
     "tools": "Practice tools",
     "glossary": "Glossary",
@@ -710,7 +713,303 @@
     "lead": "Every change to the content is recorded with its date, and any earlier version can be recovered.",
     "description": "Every change made to the collection, from the most recent to the oldest.",
     "unavailable": "The history is not available in this copy of the site.",
-    "more": "and {n} more"
+    "more": "and {n} more",
+    "kinds": {
+      "lessonsIn": {
+        "added": {
+          "one": "new lesson in {area}",
+          "other": "new lessons in {area}"
+        },
+        "updated": {
+          "one": "lesson updated in {area}",
+          "other": "lessons updated in {area}"
+        },
+        "removed": {
+          "one": "lesson removed from {area}",
+          "other": "lessons removed from {area}"
+        }
+      },
+      "lessons": {
+        "added": {
+          "one": "new lesson",
+          "other": "new lessons"
+        },
+        "updated": {
+          "one": "lesson updated",
+          "other": "lessons updated"
+        },
+        "removed": {
+          "one": "lesson removed",
+          "other": "lessons removed"
+        }
+      },
+      "tracks": {
+        "added": {
+          "one": "new track",
+          "other": "new tracks"
+        },
+        "updated": {
+          "one": "track updated",
+          "other": "tracks updated"
+        },
+        "removed": {
+          "one": "track removed",
+          "other": "tracks removed"
+        }
+      },
+      "translations": {
+        "added": {
+          "one": "new translation",
+          "other": "new translations"
+        },
+        "updated": {
+          "one": "translation updated",
+          "other": "translations updated"
+        },
+        "removed": {
+          "one": "translation removed",
+          "other": "translations removed"
+        }
+      },
+      "library": {
+        "added": {
+          "one": "new work in the library",
+          "other": "new works in the library"
+        },
+        "updated": {
+          "one": "library record updated",
+          "other": "library records updated"
+        },
+        "removed": {
+          "one": "work removed from the library",
+          "other": "works removed from the library"
+        }
+      },
+      "catalog": {
+        "added": {
+          "one": "new work in the extended catalogue",
+          "other": "new works in the extended catalogue"
+        },
+        "updated": {
+          "one": "extended catalogue record updated",
+          "other": "extended catalogue records updated"
+        },
+        "removed": {
+          "one": "work removed from the extended catalogue",
+          "other": "works removed from the extended catalogue"
+        }
+      },
+      "authors": {
+        "added": {
+          "one": "new author biography",
+          "other": "new author biographies"
+        },
+        "updated": {
+          "one": "author biography updated",
+          "other": "author biographies updated"
+        },
+        "removed": {
+          "one": "author biography removed",
+          "other": "author biographies removed"
+        }
+      },
+      "memorial": {
+        "added": {
+          "one": "new tribute in the memorial",
+          "other": "new tributes in the memorial"
+        },
+        "updated": {
+          "one": "memorial tribute updated",
+          "other": "memorial tributes updated"
+        },
+        "removed": {
+          "one": "tribute removed from the memorial",
+          "other": "tributes removed from the memorial"
+        }
+      },
+      "glossary": {
+        "added": {
+          "one": "new glossary entry",
+          "other": "new glossary entries"
+        },
+        "updated": {
+          "one": "glossary entry updated",
+          "other": "glossary entries updated"
+        },
+        "removed": {
+          "one": "glossary entry removed",
+          "other": "glossary entries removed"
+        }
+      },
+      "journal": {
+        "added": {
+          "one": "new article in the newspaper",
+          "other": "new articles in the newspaper"
+        },
+        "updated": {
+          "one": "newspaper article updated",
+          "other": "newspaper articles updated"
+        },
+        "removed": {
+          "one": "article removed from the newspaper",
+          "other": "articles removed from the newspaper"
+        }
+      },
+      "factChecks": {
+        "added": {
+          "one": "new fact-check",
+          "other": "new fact-checks"
+        },
+        "updated": {
+          "one": "fact-check updated",
+          "other": "fact-checks updated"
+        },
+        "removed": {
+          "one": "fact-check removed",
+          "other": "fact-checks removed"
+        }
+      },
+      "debates": {
+        "added": {
+          "one": "new debate card",
+          "other": "new debate cards"
+        },
+        "updated": {
+          "one": "debate card updated",
+          "other": "debate cards updated"
+        },
+        "removed": {
+          "one": "debate card removed",
+          "other": "debate cards removed"
+        }
+      },
+      "fallacies": {
+        "added": {
+          "one": "new entry in the guide to fallacies",
+          "other": "new entries in the guide to fallacies"
+        },
+        "updated": {
+          "one": "entry updated in the guide to fallacies",
+          "other": "entries updated in the guide to fallacies"
+        },
+        "removed": {
+          "one": "entry removed from the guide to fallacies",
+          "other": "entries removed from the guide to fallacies"
+        }
+      },
+      "videos": {
+        "added": {
+          "one": "new recommended video",
+          "other": "new recommended videos"
+        },
+        "updated": {
+          "one": "video recommendation updated",
+          "other": "video recommendations updated"
+        },
+        "removed": {
+          "one": "video recommendation removed",
+          "other": "video recommendations removed"
+        }
+      },
+      "gallery": {
+        "added": {
+          "one": "new poster in the gallery",
+          "other": "new posters in the gallery"
+        },
+        "updated": {
+          "one": "gallery poster updated",
+          "other": "gallery posters updated"
+        },
+        "removed": {
+          "one": "poster removed from the gallery",
+          "other": "posters removed from the gallery"
+        }
+      },
+      "pages": {
+        "added": {
+          "one": "new study page",
+          "other": "new study pages"
+        },
+        "updated": {
+          "one": "study page updated",
+          "other": "study pages updated"
+        },
+        "removed": {
+          "one": "study page removed",
+          "other": "study pages removed"
+        }
+      },
+      "start": {
+        "added": {
+          "one": "new step in Where to start",
+          "other": "new steps in Where to start"
+        },
+        "updated": {
+          "one": "step updated in Where to start",
+          "other": "steps updated in Where to start"
+        },
+        "removed": {
+          "one": "step removed from Where to start",
+          "other": "steps removed from Where to start"
+        }
+      },
+      "questions": {
+        "added": {
+          "one": "new starting question",
+          "other": "new starting questions"
+        },
+        "updated": {
+          "one": "starting question updated",
+          "other": "starting questions updated"
+        },
+        "removed": {
+          "one": "starting question removed",
+          "other": "starting questions removed"
+        }
+      },
+      "quotes": {
+        "added": {
+          "one": "new quote of the day",
+          "other": "new quotes of the day"
+        },
+        "updated": {
+          "one": "quote of the day updated",
+          "other": "quotes of the day updated"
+        },
+        "removed": {
+          "one": "quote of the day removed",
+          "other": "quotes of the day removed"
+        }
+      },
+      "radios": {
+        "added": {
+          "one": "new station in People's radio",
+          "other": "new stations in People's radio"
+        },
+        "updated": {
+          "one": "station updated in People's radio",
+          "other": "stations updated in People's radio"
+        },
+        "removed": {
+          "one": "station removed from People's radio",
+          "other": "stations removed from People's radio"
+        }
+      },
+      "news": {
+        "added": {
+          "one": "new outlet in the news round-up",
+          "other": "new outlets in the news round-up"
+        },
+        "updated": {
+          "one": "outlet updated in the news round-up",
+          "other": "outlets updated in the news round-up"
+        },
+        "removed": {
+          "one": "outlet removed from the news round-up",
+          "other": "outlets removed from the news round-up"
+        }
+      }
+    }
   },
   "dedication": {
     "eyebrow": "Dedication",
@@ -1521,7 +1820,7 @@
       "traducao": "Translator",
       "jornalismo": "Journalist and radio host",
       "mentoria": "Tutoring",
-      "design": "Designer",
+      "marketing": "Marketing and outreach (design and social media)",
       "desenvolvimento": "Infrastructure and development",
       "curadoria": "Curator"
     }

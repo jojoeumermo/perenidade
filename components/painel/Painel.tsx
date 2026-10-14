@@ -14,6 +14,7 @@ import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, si
 import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
 import { Boletim } from "./Boletim";
 import { Conversas } from "./Conversas";
+import { Divulgacao } from "./Divulgacao";
 import { Equipe, type Membro } from "./Equipe";
 import { Escrever } from "./Escrever";
 import { FontesAbertas } from "./FontesAbertas";
@@ -23,6 +24,9 @@ import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lide
 import { Materiais } from "./Materiais";
 import { Pessoas } from "./Pessoas";
 import { Reforco } from "./Reforco";
+import { Supervisao } from "./Supervisao";
+import { Tecnico } from "./Tecnico";
+import { Traducoes } from "./Traducoes";
 import { Aparelhos, Digital, Recados, SegundoFator } from "./Seguranca";
 import { type Controles, Site } from "./Site";
 
@@ -42,6 +46,14 @@ interface Resumo {
   minhas: number;
   /** Contribuições pendentes de colegas que me chamaram para trabalhar junto. */
   juntas: number;
+  /** Pedidos de ajuda do mural da equipe endereçados a uma função minha. */
+  pedidos?: number;
+  /** Contas suspensas pela supervisão (a supervisão e a coordenação acompanham). */
+  suspensas?: number;
+  /** Posts prontos com a data chegando e itens devolvidos pela coordenação. */
+  divulgacao?: number;
+  /** Aprovado há mais de três horas e ainda fora do ar: a rotina de publicação parou. */
+  publicacao_atrasada?: number;
 }
 
 interface Secao {
@@ -179,7 +191,66 @@ export function Painel() {
     );
   }
 
+  // A coordenação redefiniu a senha: antes de qualquer coisa, a pessoa escolhe uma que só ela conhece.
+  if (eu.trocar_senha) {
+    return (
+      <Porta>
+        <SenhaNova recarregar={me.reload} sair={sair} />
+      </Porta>
+    );
+  }
+
   return <Dentro eu={eu} recarregar={me.reload} sair={sair} aba={params.get("aba") ?? "mesa"} menu={menu} setMenu={setMenu} />;
+}
+
+/** A porta de quem teve a senha redefinida pela coordenação: a senha recebida serviu para entrar, não para ficar. */
+function SenhaNova({ recarregar, sair }: { recarregar: () => void; sair: () => void }) {
+  const [senha, setSenha] = useState("");
+  const [repete, setRepete] = useState("");
+  const [aviso, setAviso] = useState("");
+  const [ocupado, setOcupado] = useState(false);
+
+  async function trocar() {
+    setOcupado(true);
+    setAviso("");
+    try {
+      if ((await senhaVazada(senha)) === true) {
+        setAviso("Essa senha já apareceu em vazamentos de outros sites. Escolha outra.");
+        return;
+      }
+      const supabase = await getClient();
+      const { error } = await supabase.auth.updateUser({ password: senha });
+      if (error) throw error;
+      await rpc("senha_trocada");
+      recarregar();
+    } catch {
+      setAviso("Não foi possível trocar a senha agora. Saia, entre de novo e tente outra vez.");
+    } finally {
+      setOcupado(false);
+    }
+  }
+
+  return (
+    <>
+      <h1 className="font-serif text-2xl font-semibold">Escolha uma senha nova</h1>
+      <p className="mt-2 text-[#b9ad90]">A coordenação redefiniu a sua senha. Escolha agora uma que só você conheça: pelo menos 12 caracteres (uma frase de quatro ou cinco palavras funciona bem).</p>
+      <form className="mt-5 space-y-3" onSubmit={(e) => { e.preventDefault(); void trocar(); }}>
+        <label className="block">
+          Senha nova
+          <input type="password" autoComplete="new-password" minLength={12} maxLength={72} value={senha} onChange={(e) => setSenha(e.target.value)} className="mt-1 w-full border border-[#5a4e3a] bg-[#17130e] px-3 py-2 text-[#efe4c8]" />
+        </label>
+        <label className="block">
+          Repita a senha
+          <input type="password" autoComplete="new-password" maxLength={72} value={repete} onChange={(e) => setRepete(e.target.value)} className="mt-1 w-full border border-[#5a4e3a] bg-[#17130e] px-3 py-2 text-[#efe4c8]" />
+        </label>
+        <button type="submit" disabled={ocupado || senha.length < 12 || senha !== repete} className="cursor-pointer bg-[#efe4c8] px-5 py-2.5 font-medium text-[#17130e] hover:bg-white disabled:cursor-not-allowed disabled:opacity-50">
+          Guardar e abrir o painel
+        </button>
+      </form>
+      <p role="status" className="mt-3 min-h-5 text-[#e0837a]">{aviso}</p>
+      <button type="button" className="mt-4 cursor-pointer underline hover:text-white" onClick={sair}>Sair</button>
+    </>
+  );
 }
 
 function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarregar: () => void; sair: () => void; aba: string; menu: boolean; setMenu: (aberto: boolean) => void }) {
@@ -198,6 +269,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   }, [avisarPresenca]);
   const voluntario = eu.papeis.length > 0;
   const lidera = can(eu, "coordenacao");
+  // A supervisão é um papel próprio: can() só estende a vice-coordenação à coordenação, não à supervisão.
+  const supervisiona = can(eu, "supervisao");
   // Cada função enxerga só as ferramentas dela. A coordenação e a vice-coordenação enxergam todas.
   const secoes: Secao[] = (
     [
@@ -208,21 +281,25 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: true },
       { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "revisao", "educacao"), conta: r?.fila },
+      { id: "traducoes", nome: "Traduções", sobre: "As aulas que ainda não têm tradução e as traduções a caminho.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "traducao", "revisao") },
       { id: "triagem", nome: "Triagem", sobre: "A primeira leitura do que o público envia: o que passa segue para a fila de revisão.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.triagem },
       { id: "fontes", nome: "Fontes abertas", sobre: "Obras, verbetes e datas em acervos e enciclopédias livres, para escrever com fonte à vista.", grupo: "Produção", mostra: voluntario },
-      { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design") },
+      { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design", "marketing") },
+      { id: "divulgacao", nome: "Divulgação", sobre: "Calendário de posts e stories, kit da marca e acesso ao Instagram.", grupo: "Produção", mostra: can(eu, "coordenacao", "marketing"), conta: r?.divulgacao },
       { id: "comunidade", nome: "Comunidade", sobre: "Fila de revisão, banimentos, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
-      { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mentoria", "educacao"), conta: r?.reforco },
+      { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mentoria", "educacao"), conta: r?.reforco },
       { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da mediação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mediacao"), conta: r?.mural },
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: lidera, conta: r?.candidaturas },
+      { id: "supervisao", nome: "Supervisão", sobre: "Proteções reversíveis, a equipe sem e-mails e os pedidos de voluntariado.", grupo: "Pessoas", mostra: supervisiona, conta: r?.candidaturas },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar : undefined },
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
       { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
       { id: "radio", nome: "Rádio", sobre: "Rádio Lúcia: canais, faixas, transmissão ao vivo e sugestão de emissoras.", grupo: "Site", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "apoiadores", nome: "Apoiadores", sobre: "Quem autorizou aparecer no mural de apoio.", grupo: "Site", mostra: lidera },
+      { id: "tecnico", nome: "Estado técnico", sobre: "Publicação, avaliação automática, faxina e sinais de varredura.", grupo: "Site", mostra: can(eu, "coordenacao", "desenvolvimento"), conta: r?.publicacao_atrasada },
       { id: "seguranca", nome: "Segurança e sucessão", sobre: "Segundo fator obrigatório, vice e ordem de sucessão.", grupo: "Segurança", mostra: lidera },
-      { id: "registro", nome: "Registro de atividades", sobre: "Tudo o que foi decidido, por quem e quando.", grupo: "Segurança", mostra: lidera },
+      { id: "registro", nome: "Registro de atividades", sobre: "Tudo o que foi decidido, por quem e quando.", grupo: "Segurança", mostra: lidera || supervisiona },
       { id: "conta", nome: "Minha conta", sobre: "Seu nome, sua senha e a proteção da sua conta.", grupo: "Você", mostra: true },
     ] satisfies Secao[]
   ).filter((secao) => secao.mostra);
@@ -236,7 +313,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const grupos = [...new Set(secoes.map((secao) => secao.grupo))];
   const funcao = voluntario ? [...new Set(eu.papeis.map((papel) => papeis[papel.papel]))].join(" · ") : "Comunidade";
   // O nome do ambiente diz de quem ele é: só a coordenação vê "Coordenação".
-  const ambiente = lidera ? "Coordenação" : voluntario ? "Equipe" : "Comunidade";
+  const ambiente = lidera ? "Coordenação" : supervisiona ? "Supervisão" : voluntario ? "Equipe" : "Comunidade";
 
   return (
     <div className="min-h-screen bg-parchment font-sans text-sm text-ink lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
@@ -312,24 +389,28 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {eu.suspenso && <p className="mb-6 border-l-2 border-oxblood pl-4 text-oxblood">Esta conta está suspensa: você pode ler, mas não enviar.</p>}
           {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} />}
           {atual.id === "conversas" && <Conversas me={eu} lider={leads(eu)} />}
-          {atual.id === "rede" && <Equipe lider={leads(eu)} />}
+          {atual.id === "rede" && <Equipe lider={leads(eu)} modera={lidera || supervisiona} />}
           {atual.id === "escrever" && <Escrever me={eu} />}
           {atual.id === "minhas" && <Fila key="minhas" me={eu} minhas />}
           {atual.id === "juntas" && <Fila key="juntas" me={eu} juntas />}
           {atual.id === "fila" && <Fila key="fila" me={eu} />}
+          {atual.id === "traducoes" && <Traducoes irEscrever={() => ir("escrever")} />}
           {atual.id === "triagem" && <Fila key="triagem" me={eu} triagem />}
           {atual.id === "fontes" && <FontesAbertas />}
           {atual.id === "materiais" && <Materiais me={eu} />}
+          {atual.id === "divulgacao" && <Divulgacao me={eu} />}
           {atual.id === "comunidade" && <Comunidade me={eu} />}
           {atual.id === "reforco" && <Reforco />}
           {atual.id === "mural" && <MuralFila />}
           {atual.id === "boletim" && <Boletim />}
           {atual.id === "pessoas" && <Pessoas me={eu} />}
+          {atual.id === "supervisao" && <Supervisao />}
           {atual.id === "horas" && <Horas me={eu} />}
           {atual.id === "site" && <Site />}
           {atual.id === "abertura" && <AvisoDeAbertura />}
           {atual.id === "radio" && <RadioAdmin me={eu} />}
           {atual.id === "apoiadores" && <Apoiadores />}
+          {atual.id === "tecnico" && <Tecnico />}
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
           {atual.id === "registro" && <RegistroDeAtividades />}
           {atual.id === "conta" && <Conta me={eu} recarregar={recarregar} sair={sair} />}
@@ -351,7 +432,11 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           ["Envios do público para a triagem", r.triagem ?? 0, "triagem"],
           ["Na fila de revisão", r.fila, "fila"],
           ["Aprovadas, esperando a publicação", r.aguardando_publicacao, "fila"],
-          ["Pedidos de voluntariado", r.candidaturas, "pessoas"],
+          ["Pedidos de voluntariado", r.candidaturas, can(me, "coordenacao") ? "pessoas" : "supervisao"],
+          ["Pedidos de ajuda para a sua função", r.pedidos ?? 0, "rede"],
+          ["Contas suspensas pela supervisão", r.suspensas ?? 0, can(me, "coordenacao") ? "pessoas" : "supervisao"],
+          ["Posts para sair ou devolvidos", r.divulgacao ?? 0, "divulgacao"],
+          ["Aprovadas há mais de três horas sem ir ao ar", r.publicacao_atrasada ?? 0, "tecnico"],
           ["Denúncias abertas", r.denuncias, "comunidade"],
           ["Anotações para olhar", r.anotacoes, "comunidade"],
           ["Mensagens esperando a mediação", r.retidos, "comunidade"],
@@ -402,7 +487,7 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
         </p>
       </section>
 
-      {me.papeis.length > 0 && <Situacao lidera={can(me, "coordenacao")} ir={ir} />}
+      {me.papeis.length > 0 && <Situacao lidera={can(me, "coordenacao")} supervisiona={can(me, "supervisao")} ir={ir} />}
 
       <Recados recarregar={recarregar} />
 
@@ -412,7 +497,7 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
 }
 
 /** Como o instituto está agora, em três quadros: quem é a equipe e, para a coordenação, o estado do site. */
-function Situacao({ lidera, ir }: { lidera: boolean; ir: (aba: string) => void }) {
+function Situacao({ lidera, supervisiona, ir }: { lidera: boolean; supervisiona: boolean; ir: (aba: string) => void }) {
   const membros = useLista<Membro[]>("equipe_membros");
   const site = useLista<Controles>("site");
   const online = membros.dados?.filter((membro) => membro.online && !membro.eu).length ?? 0;
@@ -441,6 +526,12 @@ function Situacao({ lidera, ir }: { lidera: boolean; ir: (aba: string) => void }
                 <span className="mt-1 block truncate text-ink-soft">{site.dados.faixa || "Nenhum chamado no ar"}</span>
               </button>
             </>
+          ) : supervisiona ? (
+            <button type="button" onClick={() => ir("supervisao")} className={`${site.dados.pausa ? alerta : `${quadro} hover:border-ink`} cursor-pointer`}>
+              <span className="block text-ink-soft">Envios do público</span>
+              <span className={`mt-1 block font-serif text-2xl font-semibold leading-tight ${site.dados.pausa ? "text-oxblood" : ""}`}>{site.dados.pausa ? "Pausados" : "Abertos"}</span>
+              <span className="mt-1 block text-ink-soft">{site.dados.pausa ? "Ninguém de fora envia nada até a pausa sair" : "A pausa e o modo de segurança estão em Supervisão"}</span>
+            </button>
           ) : (
             site.dados.pausa && (
               <div className={alerta}>
@@ -470,15 +561,15 @@ function Candidatura() {
         <label className="block">
           Em que função
           <select value={quero.papel} onChange={(e) => setQuero({ ...quero, papel: e.target.value })} className={campo}>
-            {(["educacao", "mentoria", "mediacao", "revisao", "traducao", "jornalismo", "curadoria", "design", "desenvolvimento"] as const).map((papel) => (
+            {(["educacao", "mentoria", "mediacao", "revisao", "traducao", "jornalismo", "curadoria", "marketing", "desenvolvimento"] as const).map((papel) => (
               <option key={papel} value={papel}>{papeis[papel]}</option>
             ))}
           </select>
         </label>
         <label className="block">
-          Disciplina{quero.papel === "educacao" ? "" : " (opcional)"}
+          Disciplina{quero.papel === "educacao" || quero.papel === "mentoria" ? "" : " (opcional)"}
           <select value={quero.disciplina} onChange={(e) => setQuero({ ...quero, disciplina: e.target.value })} className={campo}>
-            <option value="">{quero.papel === "educacao" ? "Escolha…" : "Todo o site"}</option>
+            <option value="">{quero.papel === "educacao" || quero.papel === "mentoria" ? "Escolha…" : "Todo o site"}</option>
             {areaSlugs.map((area) => (
               <option key={area} value={area}>{t.areas[area][0]}</option>
             ))}
@@ -493,7 +584,7 @@ function Candidatura() {
       <button
         type="button"
         className={`mt-3 ${botao}`}
-        disabled={pedido.ocupado || quero.mensagem.trim().length < 20 || (quero.papel === "educacao" && !quero.disciplina)}
+        disabled={pedido.ocupado || quero.mensagem.trim().length < 20 || ((quero.papel === "educacao" || quero.papel === "mentoria") && !quero.disciplina)}
         onClick={async () => {
           const ok = await pedido.agir("candidatar", { p_papel: quero.papel, p_disciplina: quero.disciplina || null, p_mensagem: quero.mensagem }, "Pedido enviado à coordenação.");
           if (ok) setQuero({ ...quero, mensagem: "" });
@@ -608,7 +699,7 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
       <section className="lg:col-span-2">
         <div className="flex flex-wrap items-center gap-4 border-t border-rule pt-5">
           <button type="button" className={botaoClaro} onClick={sair}>Sair do painel</button>
-          {confirma ? (
+          {leads(me) ? null : confirma ? (
             <button
               type="button"
               className="cursor-pointer bg-oxblood px-5 py-2 font-medium text-parchment"
@@ -627,7 +718,11 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
             <button type="button" className={elo} onClick={() => setConfirma(true)}>Apagar minha conta</button>
           )}
         </div>
-        <p className="mt-2 text-ink-soft">Apagar a conta remove o perfil, as funções e os votos. O que já foi publicado continua no acervo.</p>
+        <p className="mt-2 text-ink-soft">
+          {leads(me)
+            ? "A conta da coordenação não se apaga pelo painel: passe a coordenação adiante em Segurança e sucessão antes, se for o caso."
+            : "Apagar a conta remove o perfil, as funções e os votos. O que já foi publicado continua no acervo."}
+        </p>
         <Aviso texto={aviso} />
       </section>
     </div>

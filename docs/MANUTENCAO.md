@@ -182,7 +182,7 @@ Sem esta etapa o site funciona, só não aparecem o painel, a comunidade e a rá
 
    **Convites.** No painel, aba **Voluntários → Convites**: o convite pessoal leva o e-mail da pessoa e, se quiser, a função; o convite da comunidade vale para várias pessoas, sem função. O endereço aparece uma única vez. Quem recebe abre o endereço, cria a própria senha e entra.
 
-   **Senha perdida.** O site não tem "esqueci minha senha". A coordenação resolve em **Authentication → Users**: nos três pontinhos da pessoa, "Send password recovery" (precisa de SMTP configurado; o link abre a tela de senha nova do site) ou apaga a conta e manda um convite novo.
+   **Senha perdida.** O site não tem "esqueci minha senha". A coordenação (ou a vice-coordenação) resolve pelo painel: **Voluntários e convites → Pessoas → abrir a ficha → Redefinir a senha**. O painel gera uma senha forte no navegador (ou aceita uma digitada), mostra uma única vez para ser entregue por um canal seguro, grava como o serviço de contas grava (bcrypt, extensão `pgcrypto`, que o `install.sql` liga), encerra as sessões abertas da pessoa e, no próximo acesso, pede que ela escolha outra antes de abrir o painel. A senha nunca vai para o registro. A vice-coordenação não redefine a da coordenação, e ninguém usa isso na própria conta (para si existe *Minha conta*). O e-mail de ninguém muda pelo painel. Continua valendo o caminho do serviço de contas: **Authentication → Users → Send password recovery** (precisa de SMTP).
 
    **Ninguém consegue entrar no painel?** No SQL Editor: `select public.convidar_pelo_banco('email@exemplo.com');` devolve o final do endereço de um convite pessoal, válido por dois dias.
 8. Para a publicação automática (seção 7), cadastre nos segredos do repositório `SUPABASE_URL` (a mesma *Project URL*) e `SUPABASE_SERVICE_ROLE_KEY` (a chave *service_role*). **Essa chave nunca vai para o site nem para o `.env` de ninguém.** Depois crie, na aba *Variables* da mesma tela, a variável `PUBLICAR` com o valor `sim`: é ela que liga a rotina de hora em hora.
@@ -204,9 +204,10 @@ O painel (`/painel`) é um ambiente à parte do site: ocupa a tela inteira, sem 
 | (início) | Mesa, Conversas, Mural da equipe | todos; conversas e mural, só quem tem função |
 | Produção | Escrever, Meus envios, Compartilhadas comigo, Fila de revisão, Triagem, Materiais e arquivos | conforme a função; a triagem, mediação, curadoria e coordenação |
 | Atendimento | Comunidade, Aula de reforço, Mural dos Trabalhadores, Boletim do jornal | conforme a função; o mural, coordenação e mediação |
-| Pessoas | Voluntários e convites, Horas e certificados | a primeira, só coordenação |
-| Site | Controles do site, Aviso de abertura, Rádio, Apoiadores | só coordenação; a rádio, também o jornalismo |
-| Segurança | Segurança e sucessão, Registro de atividades | só coordenação |
+| Produção | Traduções, Divulgação | traduções: tradução, revisão, curadoria e coordenação; divulgação: marketing e coordenação |
+| Pessoas | Voluntários e convites, Supervisão, Horas e certificados | a primeira, coordenação e vice; Supervisão, só a supervisão |
+| Site | Controles do site, Aviso de abertura, Rádio, Apoiadores, Estado técnico | coordenação; a rádio, também o jornalismo; o estado técnico, também o desenvolvimento |
+| Segurança | Segurança e sucessão, Registro de atividades | coordenação; o registro, também a supervisão (só leitura) |
 | Você | Minha conta (nome, senha, segundo fator, aparelhos) | todos |
 
 A lista de seções e a regra de quem vê cada uma estão em um só lugar, no começo de `Dentro`, em `components/painel/Painel.tsx`. Para criar uma seção nova: escreva o componente em `components/painel/`, acrescente uma linha a essa lista e a linha que o mostra logo abaixo. Sem ninguém mexer por meia hora, o painel fecha a sessão sozinho.
@@ -221,17 +222,43 @@ Cada pessoa vê no painel só as seções da sua função. O banco confere a fun
 
 | Papel (nome no banco) | Nome no site | O que pode |
 | --- | --- | --- |
-| `coordenacao` | coordenador | tudo: aprova voluntários, distribui funções e disciplinas, decide publicações, cuida do mural e da rádio, define a sucessão, lê o registro de atividades. Só existe um |
-| `vice` | vice-coordenador | o mesmo que a coordenação, menos: nomear ou tirar vice, passar a coordenação, mexer na sucessão, mudar a exigência de segundo fator, definir a sala da equipe e emitir certificados |
-| `curadoria` | curadoria | lê a fila inteira, edita e decide; cuida da comunidade (fila de revisão, palavras vetadas) e pode fazer a triagem |
+| `coordenacao` | coordenador | tudo: aprova voluntários, distribui funções e disciplinas, nomeia vice e supervisão, edita nome e apresentação de outras contas e redefine senhas (nunca o e-mail), decide publicações, cuida do mural e da rádio, define a sucessão, lê o registro de atividades. Só existe um |
+| `vice` | vice-coordenador | o mesmo que a coordenação, menos: nomear ou tirar vice, passar a coordenação, mexer na sucessão, mudar a exigência de segundo fator, definir a sala da equipe, emitir certificados e mexer na conta da coordenação |
+| `supervisao` | supervisor | logo abaixo da coordenação e da vice: faz o painel andar quando as duas estão ausentes. Vê a equipe (nome, funções, último acesso, **sem e-mail**) e os pedidos de voluntariado (só leitura); suspende em emergência, com motivo obrigatório, quem não é coordenação, vice nem supervisão (a coordenação é avisada na hora) e reativa só o que ela mesma suspendeu; apaga publicações do Mural da equipe; lê o registro de atividades e o livro do acervo; liga e desliga a pausa geral de envios e o modo de segurança da Comunidade. Não confia funções, não convida, não edita contas, não mexe na faixa do alto, no cadastro aberto, na segurança nem na sucessão. Exige segundo fator como a coordenação. Cargo de confiança: entra por nomeação ou convite, nunca por candidatura |
+| `curadoria` | curadoria | lê a fila inteira, edita e decide; cuida da comunidade (fila de revisão, palavras vetadas, denúncias) e pode fazer a triagem. Não vê a fila de reforço (lá há e-mail de estudante) |
 | `mediacao` | mediador | acompanha a Comunidade e decide os casos de dúvida (aprova, edita, oculta ou libera mensagens); aprova, edita ou recusa anúncios do Mural dos Trabalhadores; faz a triagem das contribuições de fora (libera para a fila de revisão ou barra, com nota); decide anotações de leitura; bane a conta de quem passa do limite e, em caso extremo, a origem de rede (não bane gente da equipe, e só a coordenação desfaz). Não aprova conteúdo de ensino, não vê a fila de revisão, não mexe em pessoas, no filtro de palavras, nas denúncias nem nos controles do site |
-| `educacao` (por disciplina) | educador | escreve aulas da sua disciplina, vê a fila dela e dá parecer nas matérias do jornal |
-| `revisao` | revisor | lê a fila e dá parecer |
-| `traducao` | tradutor | envia traduções |
-| `jornalismo` | jornalista e radialista | escreve matérias para o jornal; cuida da Rádio Lúcia (canais, faixas, transmissão ao vivo, pôr e tirar do ar) e indica emissoras para a lista "Rádios do povo", que entram pela fila de revisão |
-| `mentoria` (por disciplina) | mentor | responde pedidos de aula de reforço da sua disciplina |
-| `design` | designer | envia materiais para imprimir (zines, cartazes) e imagens |
-| `desenvolvimento` | desenvolvedor | vê o mural interno da equipe; não tem poder sobre conteúdo nem sobre pessoas |
+| `educacao` (por disciplina) | educador | escreve aulas da sua disciplina, vê e dá parecer na fila dela, dá parecer nas matérias do jornal, cuida da comunidade e atende o reforço da disciplina |
+| `revisao` | revisor | lê a fila e dá parecer; vê as traduções a caminho |
+| `traducao` | tradutor | vê em *Traduções* as aulas que ainda não têm tradução em cada idioma e as traduções já enviadas por outras pessoas (para não repetir), e envia traduções; não vê a fila dos outros |
+| `jornalismo` | jornalista e radialista | escreve matérias para o jornal; manda o boletim; cuida da Rádio Lúcia (canais, faixas, transmissão ao vivo, pôr e tirar do ar) e indica emissoras para a lista "Rádios do povo", que entram pela fila de revisão |
+| `mentoria` (por disciplina) | mentor | responde pedidos de aula de reforço da sua disciplina (a disciplina é obrigatória) |
+| `marketing` | marketing e divulgação | o design e a divulgação juntos: prepara materiais e imagens (como o design), monta em *Divulgação* o calendário de posts e stories (ideia → rascunho → pronto → publicado), usa o kit da marca e o link do perfil do Instagram. O acesso ao Instagram é dado pela coordenação na própria Central de Contas da Meta, como colaborador: **o site nunca guarda senha de rede social** |
+| `design` | designer | o papel antigo: continua valendo para quem já tem (materiais e imagens), mas pedidos, convites e candidaturas novos oferecem *Marketing e divulgação* no lugar dele |
+| `desenvolvimento` | desenvolvedor | vê o *Estado técnico* (rotina de publicação, segunda avaliação, faxina, pgcrypto, sinais de varredura: só contagens e datas, nenhum dado de pessoa) e atende pedidos de ajuda pelo mural da equipe; não tem poder sobre conteúdo nem sobre pessoas |
+
+**Matriz de seções do painel.** Todos veem Mesa, Escrever, Meus envios e Minha conta; quem tem qualquer função vê também Conversas, Mural da equipe, Compartilhadas comigo, Fontes abertas e Horas e certificados. Além disso:
+
+| Seção | Quem vê |
+| --- | --- |
+| Fila de revisão | coordenação, vice, curadoria, revisão, educação (só a própria disciplina) |
+| Triagem | coordenação, vice, curadoria, mediação |
+| Traduções | coordenação, vice, curadoria, revisão, tradução |
+| Materiais e arquivos | coordenação, vice, curadoria, design, marketing |
+| Divulgação | coordenação, vice, marketing |
+| Comunidade | coordenação, vice, curadoria, mediação, educação |
+| Aula de reforço | coordenação, vice, mentoria e educação (só a própria disciplina) |
+| Mural dos Trabalhadores | coordenação, vice, mediação |
+| Boletim do jornal | coordenação, vice, jornalismo |
+| Voluntários e convites | coordenação, vice |
+| Supervisão | supervisão |
+| Controles do site, Aviso de abertura, Apoiadores, Segurança e sucessão | coordenação, vice |
+| Rádio | coordenação, vice, jornalismo |
+| Estado técnico | coordenação, vice, desenvolvimento |
+| Registro de atividades | coordenação, vice, supervisão |
+
+A Mesa de cada pessoa conta só o que ela pode resolver: quem dá parecer não conta o que já leu nem o que ainda espera a triagem; a curadoria não conta o reforço; a supervisão conta os pedidos de voluntariado e as suspensões que fez; o marketing conta os posts prontos com a data chegando e os devolvidos pela coordenação; o desenvolvimento conta o que foi aprovado há mais de três horas e não foi ao ar; e toda função conta os pedidos de ajuda do mural da equipe endereçados a ela. Cada regra desta tabela é conferida de novo no banco (`npm run testar:banco`).
+
+**Ninguém suspende a própria conta.** O banco recusa, e o painel nem mostra o botão na própria ficha. A coordenação também não apaga a própria conta pelo painel (passa o cargo antes, em Segurança e sucessão); as outras contas continuam podendo apagar os próprios dados em *Minha conta*, que é um direito de quem usa o site.
 
 Quem contribui sem conta, pela página Contribuir, entra na mesma fila, depois de passar pela triagem.
 
@@ -409,7 +436,7 @@ A página **Notícias** lê os endereços de distribuição (RSS) dos veículos 
 
 ## 18. Histórico público
 
-A página de histórico de mudanças está **desligada**. Para ligá-la, ponha uma data em `historyFrom`, em `lib/site.ts`: ela volta ao ar mostrando só o que mudou daquele dia em diante.
+A página de histórico (`/historico`) e o quadro de novidades da página inicial mostram o que mudou no conteúdo desde a data de `historyFrom`, em `lib/site.ts` (deixe vazio para desligar). Nada de processo interno aparece: commits de junção (merge) são ignorados, o assunto dos commits nunca é mostrado, e só contam os arquivos das coleções de estudo e leitura (aulas, acervo, catálogo, autores, memorial, glossário, jornal, checagens, debates, vídeos, galeria, rádios e afins). Páginas legais (privacidade, termos), o aviso de abertura e arquivos de funcionamento ficam de fora. Cada dia vira um resumo gerado a partir dos arquivos ("9 aulas novas em Geografia · 191 obras novas no acervo"), com os títulos de algumas aulas. A lista de pastas e os textos ficam em `lib/history.ts` e no objeto `history` dos dicionários.
 
 ## Serviços abertos de fora
 

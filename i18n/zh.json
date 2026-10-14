@@ -44,6 +44,9 @@
     "search": "搜索",
     "support": "支持",
     "panel": "工作台",
+    "hello": "你好，{name}",
+    "helloLabel": "你好，{name}：打开工作台",
+    "openPanel": "打开工作台",
     "signIn": "登录",
     "tools": "练习工具",
     "glossary": "词汇表",
@@ -704,7 +707,240 @@
     "lead": "内容的每一次修改都记录了日期，任何早期版本都可以恢复。",
     "description": "馆藏的所有修改，从最新到最早。",
     "unavailable": "本站的这份副本中没有历史记录。",
-    "more": "以及另外 {n} 项"
+    "more": "以及另外 {n} 项",
+    "kinds": {
+      "lessonsIn": {
+        "added": {
+          "other": "节{area}新课"
+        },
+        "updated": {
+          "other": "节{area}课程已更新"
+        },
+        "removed": {
+          "other": "节{area}课程已撤下"
+        }
+      },
+      "lessons": {
+        "added": {
+          "other": "节新课"
+        },
+        "updated": {
+          "other": "节课程已更新"
+        },
+        "removed": {
+          "other": "节课程已撤下"
+        }
+      },
+      "tracks": {
+        "added": {
+          "other": "条新学习路径"
+        },
+        "updated": {
+          "other": "条学习路径已更新"
+        },
+        "removed": {
+          "other": "条学习路径已撤下"
+        }
+      },
+      "translations": {
+        "added": {
+          "other": "篇新译文"
+        },
+        "updated": {
+          "other": "篇译文已更新"
+        },
+        "removed": {
+          "other": "篇译文已撤下"
+        }
+      },
+      "library": {
+        "added": {
+          "other": "部新作品加入馆藏"
+        },
+        "updated": {
+          "other": "条馆藏条目已更新"
+        },
+        "removed": {
+          "other": "部作品撤出馆藏"
+        }
+      },
+      "catalog": {
+        "added": {
+          "other": "部新作品加入扩展目录"
+        },
+        "updated": {
+          "other": "条扩展目录条目已更新"
+        },
+        "removed": {
+          "other": "部作品撤出扩展目录"
+        }
+      },
+      "authors": {
+        "added": {
+          "other": "篇新的作者传记"
+        },
+        "updated": {
+          "other": "篇作者传记已更新"
+        },
+        "removed": {
+          "other": "篇作者传记已撤下"
+        }
+      },
+      "memorial": {
+        "added": {
+          "other": "篇纪念馆新悼文"
+        },
+        "updated": {
+          "other": "篇纪念馆悼文已更新"
+        },
+        "removed": {
+          "other": "篇悼文撤出纪念馆"
+        }
+      },
+      "glossary": {
+        "added": {
+          "other": "个词汇表新词条"
+        },
+        "updated": {
+          "other": "个词汇表词条已更新"
+        },
+        "removed": {
+          "other": "个词条撤出词汇表"
+        }
+      },
+      "journal": {
+        "added": {
+          "other": "篇报纸新文章"
+        },
+        "updated": {
+          "other": "篇报纸文章已更新"
+        },
+        "removed": {
+          "other": "篇文章撤出报纸"
+        }
+      },
+      "factChecks": {
+        "added": {
+          "other": "篇新的事实核查"
+        },
+        "updated": {
+          "other": "篇事实核查已更新"
+        },
+        "removed": {
+          "other": "篇事实核查已撤下"
+        }
+      },
+      "debates": {
+        "added": {
+          "other": "张新辩论卡片"
+        },
+        "updated": {
+          "other": "张辩论卡片已更新"
+        },
+        "removed": {
+          "other": "张辩论卡片已撤下"
+        }
+      },
+      "fallacies": {
+        "added": {
+          "other": "个谬误指南新词条"
+        },
+        "updated": {
+          "other": "个谬误指南词条已更新"
+        },
+        "removed": {
+          "other": "个词条撤出谬误指南"
+        }
+      },
+      "videos": {
+        "added": {
+          "other": "个新推荐视频"
+        },
+        "updated": {
+          "other": "个视频推荐已更新"
+        },
+        "removed": {
+          "other": "个视频推荐已撤下"
+        }
+      },
+      "gallery": {
+        "added": {
+          "other": "幅新宣传画加入画廊"
+        },
+        "updated": {
+          "other": "幅宣传画已更新"
+        },
+        "removed": {
+          "other": "幅宣传画撤出画廊"
+        }
+      },
+      "pages": {
+        "added": {
+          "other": "个新学习页面"
+        },
+        "updated": {
+          "other": "个学习页面已更新"
+        },
+        "removed": {
+          "other": "个学习页面已撤下"
+        }
+      },
+      "start": {
+        "added": {
+          "other": "个“从哪里开始”新步骤"
+        },
+        "updated": {
+          "other": "个“从哪里开始”步骤已更新"
+        },
+        "removed": {
+          "other": "个步骤撤出“从哪里开始”"
+        }
+      },
+      "questions": {
+        "added": {
+          "other": "个新的起点问题"
+        },
+        "updated": {
+          "other": "个起点问题已更新"
+        },
+        "removed": {
+          "other": "个起点问题已撤下"
+        }
+      },
+      "quotes": {
+        "added": {
+          "other": "条新的每日一句"
+        },
+        "updated": {
+          "other": "条每日一句已更新"
+        },
+        "removed": {
+          "other": "条每日一句已撤下"
+        }
+      },
+      "radios": {
+        "added": {
+          "other": "家新电台加入“人民的电台”"
+        },
+        "updated": {
+          "other": "家“人民的电台”信息已更新"
+        },
+        "removed": {
+          "other": "家电台撤出“人民的电台”"
+        }
+      },
+      "news": {
+        "added": {
+          "other": "家新媒体加入新闻速览"
+        },
+        "updated": {
+          "other": "家新闻速览媒体信息已更新"
+        },
+        "removed": {
+          "other": "家媒体撤出新闻速览"
+        }
+      }
+    }
   },
   "dedication": {
     "eyebrow": "献词",
@@ -1514,7 +1750,7 @@
       "traducao": "翻译",
       "jornalismo": "记者兼电台主持",
       "mentoria": "辅导课",
-      "design": "设计师",
+      "marketing": "宣传推广（设计与社交媒体）",
       "desenvolvimento": "基础设施与开发",
       "curadoria": "策展人"
     }
