@@ -1069,6 +1069,126 @@ await espera("desligar pelo painel também sobrevive a uma nova instalação", a
   return exigencia();
 }, (r) => r.rows[0].valor.exigir_2fa === false && r.rows[0].valor.padrao_ligado === true);
 
+// ── Segundo fator também para a mediação ──
+await espera("com a exigência ligada, a mediação só age depois do código", async () => {
+  await rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: true });
+  try {
+    const semCodigo = await rpc(como(ids.med), "comunidade_retidos").then(() => "passou", (e) => e.message);
+    const comCodigo = await rpc({ ...como(ids.med), aal: "aal2" }, "comunidade_retidos").then(() => "passou", (e) => e.message);
+    const eu = await rpc(como(ids.med), "eu");
+    return [semCodigo, comCodigo, eu.exige_segundo_fator];
+  } finally {
+    await rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: false });
+  }
+}, (r) => r[0].includes("sem_permissao") && r[1] === "passou" && r[2] === true);
+
+// ── E-mails automáticos ──
+const caixa = (para, tipo) => dono("select tipo, assunto, texto, sair, status from interno.emails where para = $1 and ($2::text is null or tipo = $2) order by criado_em", [para, tipo ?? null]);
+const anonDe = (ip) => ({ papel: "anon", ip });
+await recusa("logado não lê a fila de e-mails direto", () => banco.exclusivo(async () => { await banco.pg.exec("set role authenticated"); try { return await banco.pg.query("select * from interno.emails"); } finally { await banco.pg.exec("reset role"); } }), "permission denied");
+await recusa("logado não pega e-mails para enviar", () => rpc(como(ids.coord), "emails_pendentes", { p_limite: 10 }), "sem_permissao");
+await recusa("logado não marca e-mail como enviado", () => rpc(como(ids.coord), "email_resultado", { p_id: ids.coord, p_ok: true }), "sem_permissao");
+await recusa("participante não vê a situação dos e-mails", () => rpc(como(ids.calma), "emails_situacao"), "sem_permissao");
+
+let inscricaoMail;
+await espera("candidatura pelo formulário: quem se candidatou e a coordenação recebem e-mail", async () => {
+  inscricaoMail = await rpc(anonDe("198.51.100.120"), "voluntariar", { p: { nome: "Rosa Ribeiro", email: "Rosa.Ribeiro@Exemplo.org", papel: "revisao", mensagem: "Sou revisora de textos há dez anos e quero ajudar o instituto." } });
+  return [await caixa("rosa.ribeiro@exemplo.org"), await caixa("coord@teste.local", "inscricao_nova")];
+}, ([pessoa, coordenacao]) => pessoa.rows.length === 1 && pessoa.rows[0].tipo === "inscricao_recebida" && pessoa.rows[0].texto.includes("Rosa Ribeiro") && pessoa.rows[0].texto.includes("revisão")
+  && coordenacao.rows.some((m) => m.texto.includes("Rosa Ribeiro") && m.texto.includes("rosa.ribeiro@exemplo.org") && m.texto.includes("/pt/painel")));
+await espera("aceita a candidatura, o convite vai sozinho para o e-mail da pessoa", async () => {
+  const r = await rpc(coordenacao, "inscricao_decidir", { p_id: inscricaoMail.id, p_aceitar: true });
+  return [r.codigo, (await caixa("rosa.ribeiro@exemplo.org", "convite")).rows];
+}, ([codigo, emails]) => Boolean(codigo) && emails.length === 1 && emails[0].texto.includes(`/pt/entrar?convite=${codigo}`) && emails[0].texto.includes("14 dias"));
+await espera("recusada a candidatura, a pessoa também é avisada por e-mail", async () => {
+  const outra = await rpc(anonDe("198.51.100.121"), "voluntariar", { p: { nome: "Paulo Pires", email: "paulo.pires@exemplo.org", papel: "design", mensagem: "Trabalho com diagramação e queria ajudar com os materiais." } });
+  await rpc(coordenacao, "inscricao_decidir", { p_id: outra.id, p_aceitar: false });
+  return (await caixa("paulo.pires@exemplo.org")).rows.map((m) => m.tipo);
+}, (tipos) => tipos.join() === "inscricao_recebida,inscricao_recusada");
+await espera("convite pessoal criado pela coordenação vai por e-mail; o da comunidade, não", async () => {
+  const pessoal = await rpc(coordenacao, "convite_criar", { p: { email: "nova.pessoa@exemplo.org", papel: "traducao", dias: 5 } });
+  const aberto = await rpc(coordenacao, "convite_criar", { p: { usos: 3, dias: 2 } });
+  const emails = (await caixa("nova.pessoa@exemplo.org", "convite")).rows;
+  return [pessoal.email_enviado, aberto.email_enviado, emails.length, emails[0]?.texto.includes(`convite=${pessoal.codigo}`), emails[0]?.texto.includes("5 dia(s)"), emails[0]?.texto.includes("tradução")];
+}, (r) => r[0] === true && r[1] === false && r[2] === 1 && r[3] === true && r[4] === true && r[5] === true);
+await espera("o mesmo endereço recebe no máximo três e-mails do mesmo tipo por dia", async () => {
+  for (let n = 0; n < 5; n++) await dono("select interno.email('alvo@exemplo.org', 'teste_limite', 'Assunto', 'Texto')");
+  return (await caixa("alvo@exemplo.org", "teste_limite")).rows.length;
+}, (n) => n === 3);
+await espera("endereço inválido não entra na fila", () => dono("select interno.email('isto não é e-mail', 'teste_invalido', 'Assunto', 'Texto') as r"), (r) => r.rows[0].r === false);
+await espera("pedido de reforço: quem pediu recebe a confirmação", async () => {
+  await rpc(anonDe("198.51.100.122"), "reforco_pedir", { p: { email: "estudante.reforco@exemplo.org", disciplina: "matematica", assunto: "Regra de três", duvida: "Não entendi quando a regra de três é inversa e quando é direta." } });
+  return (await caixa("estudante.reforco@exemplo.org")).rows;
+}, (r) => r.length === 1 && r[0].tipo === "reforco_recebido" && r[0].texto.includes("Regra de três"));
+
+const codigoDe = async (email) => (await dono("select codigo, confirmado from interno.boletim where email = $1", [email])).rows[0];
+// Boletim: sem nenhum e-mail enviado ainda, o pedido entra direto, como antes.
+await espera("antes de o envio funcionar, pedir o boletim entra direto na lista", async () => {
+  const r = await rpc(anonDe("198.51.100.140"), "boletim_assinar", { p_email: "antes.do.envio@exemplo.org" });
+  return [r.confirmar, (await codigoDe("antes.do.envio@exemplo.org")).confirmado, (await caixa("antes.do.envio@exemplo.org")).rows.length];
+}, (r) => r[0] === false && r[1] === true && r[2] === 0);
+await dono(`insert into interno.configuracoes (chave, valor) values ('email', '{"ativo": true}') on conflict (chave) do update set valor = interno.configuracoes.valor || '{"ativo": true}'`);
+
+// Boletim: confirmação em duas etapas, envio pelo painel e saída por link.
+await espera("pedir o boletim manda um link de confirmação, e o endereço ainda não está na lista", async () => {
+  await rpc(anonDe("198.51.100.123"), "boletim_assinar", { p_email: "Leitora.Boletim@Exemplo.org" });
+  const linha = await codigoDe("leitora.boletim@exemplo.org");
+  const emails = (await caixa("leitora.boletim@exemplo.org", "boletim_confirmar")).rows;
+  return [linha.confirmado, emails.length, emails[0]?.texto.includes(`boletim=confirmar&codigo=${linha.codigo}`)];
+}, (r) => r[0] === false && r[1] === 1 && r[2] === true);
+await espera("pedir de novo reenvia o link, mas no máximo duas vezes por dia", async () => {
+  for (let n = 0; n < 4; n++) await rpc(anonDe(`198.51.100.${130 + n}`), "boletim_assinar", { p_email: "leitora.boletim@exemplo.org" });
+  return (await caixa("leitora.boletim@exemplo.org", "boletim_confirmar")).rows.length;
+}, (n) => n === 2);
+await recusa("código errado não confirma", () => rpc(anonDe("198.51.100.124"), "boletim_confirmar", { p_codigo: "0".repeat(32) }), "nao_encontrado");
+await recusa("código fora do formato não confirma", () => rpc(anonDe("198.51.100.124"), "boletim_confirmar", { p_codigo: "' or 1=1 --" }), "nao_encontrado");
+await espera("o link confirma", async () => { await rpc(anonDe("198.51.100.125"), "boletim_confirmar", { p_codigo: (await codigoDe("leitora.boletim@exemplo.org")).codigo }); return codigoDe("leitora.boletim@exemplo.org"); }, (r) => r.confirmado === true);
+await espera("endereço já confirmado não recebe outro link", async () => { await rpc(anonDe("198.51.100.126"), "boletim_assinar", { p_email: "leitora.boletim@exemplo.org" }); return (await caixa("leitora.boletim@exemplo.org", "boletim_confirmar")).rows.length; }, (n) => n === 2);
+await espera("pedido sem confirmação não recebe edição", async () => { await rpc(anonDe("198.51.100.127"), "boletim_assinar", { p_email: "sem.confirmar@exemplo.org" }); return true; }, (r) => r);
+await recusa("participante não envia edição do boletim", () => rpc(como(ids.calma), "boletim_enviar", { p_assunto: "Edição falsa", p_texto: "Texto de edição falsa com mais de cinquenta caracteres para passar." }), "sem_permissao");
+await recusa("edição precisa de texto de verdade", () => rpc(como(ids.jornal), "boletim_enviar", { p_assunto: "Edição", p_texto: "curto" }), "invalido:texto");
+let edicao;
+await espera("o jornalismo envia a edição: só para quem confirmou, cada um com o próprio link de saída", async () => {
+  edicao = await rpc(como(ids.jornal), "boletim_enviar", { p_assunto: "Boletim do jornal, número 1", p_texto: "As matérias desta semana: a reforma da previdência, a greve dos professores e a nova aula de matemática." });
+  const da = (await caixa("leitora.boletim@exemplo.org", "boletim")).rows;
+  const naoConfirmada = (await caixa("sem.confirmar@exemplo.org", "boletim")).rows;
+  const codigo = (await codigoDe("leitora.boletim@exemplo.org")).codigo;
+  return [edicao.emails >= 1, da.length, da[0]?.sair.endsWith(`codigo=${codigo}`), da[0]?.texto.includes("Para sair da lista"), naoConfirmada.length];
+}, (r) => r[0] === true && r[1] === 1 && r[2] === true && r[3] === true && r[4] === 0);
+await recusa("segunda edição em menos de seis horas é recusada", () => rpc(como(ids.jornal), "boletim_enviar", { p_assunto: "Boletim número 2", p_texto: "Outra edição enviada logo em seguida, por engano, com mais de cinquenta caracteres." }), "boletim_recente");
+await espera("a lista mostra quem confirmou", () => rpc(como(ids.jornal), "boletim_listar"), (r) => r.some((x) => x.email === "leitora.boletim@exemplo.org" && x.confirmado === true) && r.some((x) => x.email === "sem.confirmar@exemplo.org" && x.confirmado === false));
+await espera("o link de saída tira da lista na hora", async () => { await rpc(anonDe("198.51.100.128"), "boletim_sair", { p_codigo: (await codigoDe("leitora.boletim@exemplo.org")).codigo }); return dono("select count(*)::int as n from interno.boletim where email = 'leitora.boletim@exemplo.org'"); }, (r) => r.rows[0].n === 0);
+
+// A rotina de envio.
+let lote;
+await espera("a rotina pega a fila e marca como enviando", async () => { lote = await rpc(servico, "emails_pendentes", { p_limite: 100 }); return [lote, await rpc(servico, "emails_pendentes", { p_limite: 100 })]; },
+  ([primeiro, segundo]) => primeiro.length > 5 && primeiro.every((m) => m.id && m.para && m.assunto && m.texto) && segundo.length === 0);
+await espera("enviado: o texto sai do banco e fica só o registro", async () => {
+  const convite = lote.find((m) => m.para === "rosa.ribeiro@exemplo.org" && m.texto.includes("convite="));
+  await rpc(servico, "email_resultado", { p_id: convite.id, p_ok: true });
+  return (await dono("select status, texto, enviado_em is not null as saiu from interno.emails where id = $1", [convite.id])).rows[0];
+}, (r) => r.status === "enviado" && r.texto === "" && r.saiu === true);
+await espera("falha: volta para a fila, com o motivo", async () => {
+  const m = lote.find((x) => x.para === "paulo.pires@exemplo.org");
+  await rpc(servico, "email_resultado", { p_id: m.id, p_ok: false, p_erro: "limite" });
+  return (await dono("select status, erro, tentativas from interno.emails where id = $1", [m.id])).rows[0];
+}, (r) => r.status === "pendente" && r.erro === "limite" && r.tentativas === 1);
+await espera("envio que travou volta para a fila; depois de cinco tentativas, vira falho", async () => {
+  const m = lote.find((x) => x.para === "estudante.reforco@exemplo.org");
+  await dono("update interno.emails set tentado_em = now() - interval '20 minutes' where id = $1", [m.id]);
+  const devolvido = (await rpc(servico, "emails_pendentes", { p_limite: 100 })).some((x) => x.id === m.id);
+  await dono("update interno.emails set tentativas = 5, tentado_em = now() - interval '20 minutes' where id = $1", [m.id]);
+  await rpc(servico, "emails_pendentes", { p_limite: 100 });
+  return [devolvido, (await dono("select status from interno.emails where id = $1", [m.id])).rows[0].status];
+}, (r) => r[0] === true && r[1] === "falhou");
+await espera("a coordenação vê quantos esperam, saíram e falharam, sem endereço de ninguém", () => rpc(coordenacao, "emails_situacao"), (r) => r.enviados_7_dias >= 1 && r.falhos_7_dias >= 1 && typeof r.pendentes === "number" && !JSON.stringify(r).includes("@"));
+await espera("a faxina apaga e-mails antigos e pedidos de boletim nunca confirmados", async () => {
+  await dono("update interno.emails set criado_em = now() - interval '31 days' where para = 'alvo@exemplo.org'");
+  await dono("update interno.boletim set criado_em = now() - interval '8 days' where email = 'sem.confirmar@exemplo.org'");
+  await dono("select interno.limpeza()");
+  return dono("select (select count(*)::int from interno.emails where para = 'alvo@exemplo.org') as emails, (select count(*)::int from interno.boletim where email = 'sem.confirmar@exemplo.org') as boletim");
+}, (r) => r.rows[0].emails === 0 && r.rows[0].boletim === 0);
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);

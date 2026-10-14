@@ -422,7 +422,7 @@ insert into interno.configuracoes (chave, valor) values
   ('comunidade', '{"avaliacao_externa": false}'::jsonb)
 on conflict do nothing;
 
--- A exigência de segundo fator para coordenação, vice-coordenação e curadoria nasce ligada. Banco instalado antes
+-- A exigência de segundo fator para coordenação, vice-coordenação, curadoria e mediação nasce ligada. Banco instalado antes
 -- disso é virado uma única vez; daí em diante vale o que a coordenação decidir no painel.
 update interno.configuracoes set valor = valor || '{"exigir_2fa": true, "padrao_ligado": true}'::jsonb
 where chave = 'seguranca' and not valor ? 'padrao_ligado';
@@ -528,6 +528,11 @@ create table if not exists interno.boletim (
   email text primary key check (email ~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' and char_length(email) <= 200),
   criado_em timestamptz not null default now()
 );
+-- Confirmação em duas etapas: o endereço só entra na lista depois de a pessoa clicar no link que recebeu. O código serve
+-- para confirmar e para sair. Quem já estava na lista antes disso continua valendo.
+alter table interno.boletim add column if not exists confirmado boolean not null default true;
+alter table interno.boletim add column if not exists codigo text check (codigo is null or codigo ~ '^[a-f0-9]{32}$');
+update interno.boletim set codigo = replace(gen_random_uuid()::text, '-', '') where codigo is null;
 
 -- Trabalho em conjunto: quem escreve libera a própria contribuição para colegas específicos, enquanto ela está pendente.
 create table if not exists interno.colaboradores (
@@ -587,6 +592,26 @@ create table if not exists interno.audit_logs (
 );
 create index if not exists audit_logs_tabela on interno.audit_logs (tabela, id desc);
 
+-- Fila de saída dos e-mails automáticos (confirmação de candidatura, convite, boletim). Quem envia é a rotina
+-- "Enviar e-mails" (scripts/enviar-emails.mjs), com a chave de serviço; ninguém de fora lê ou escreve aqui.
+-- Depois de enviado, o texto é apagado (ele pode levar um link de convite) e fica só o registro de que saiu.
+create table if not exists interno.emails (
+  id uuid primary key default gen_random_uuid(),
+  para text not null check (para ~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' and char_length(para) <= 200),
+  tipo text not null check (tipo ~ '^[a-z_]{3,40}$'),
+  assunto text not null check (char_length(assunto) between 1 and 200),
+  texto text not null default '' check (char_length(texto) <= 20000),
+  sair text not null default '' check (sair = '' or sair ~ '^https://[^[:space:]]+$'),
+  status text not null default 'pendente' check (status in ('pendente', 'enviando', 'enviado', 'falhou')),
+  tentativas smallint not null default 0,
+  erro text not null default '',
+  criado_em timestamptz not null default now(),
+  tentado_em timestamptz,
+  enviado_em timestamptz
+);
+create index if not exists emails_fila on interno.emails (status, criado_em);
+create index if not exists emails_para on interno.emails (para, tipo, criado_em);
+
 -- Trancadas duas vezes: sem permissões e com segurança por linha ligada (sem nenhuma regra = ninguém passa).
 do $$
 declare t record;
@@ -640,14 +665,14 @@ begin
 end $$;
 
 /**
- * A pessoa tem este papel? Com a exigência de segundo fator ligada, coordenação, vice-coordenação e curadoria
+ * A pessoa tem este papel? Com a exigência de segundo fator ligada, coordenação, vice-coordenação, curadoria e mediação
  * só valem em sessão confirmada pelo aplicativo autenticador: senha ou link roubado, sozinhos, não abrem nada.
  * E quem cadastrou o aplicativo por conta própria, em qualquer função, só usa a função depois de digitar o código.
  */
 create or replace function interno.tem(p_papel text, p_disciplina text default null) returns boolean
 language sql stable security definer set search_path = interno, pg_temp as $$
   select auth.uid() is not null
-    and (p_papel not in ('coordenacao', 'vice', 'curadoria') or not interno.exige_2fa() or interno.aal2())
+    and (p_papel not in ('coordenacao', 'vice', 'curadoria', 'mediacao') or not interno.exige_2fa() or interno.aal2())
     and (interno.aal2() or not interno.tem_fator())
     and exists (
       select 1 from papeis p join perfis f on f.id = p.usuario
@@ -709,6 +734,54 @@ create or replace function interno.avisar_lideranca(p_texto text, p_menos uuid d
 begin
   insert into avisos (para, texto)
   select distinct p.usuario, left(p_texto, 500) from papeis p where p.papel in ('coordenacao', 'vice') and p.usuario is distinct from p_menos;
+end $$;
+
+-- ───────────────────────────── E-mails automáticos ─────────────────────────────
+
+/** O endereço público do site, para os links dos e-mails. Muda em configuracoes ('email' → 'site'). */
+create or replace function interno.endereco() returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(nullif((select valor ->> 'site' from configuracoes where chave = 'email'), ''), 'https://institutolucia.org')
+$$;
+
+create or replace function interno.nome_papel(p text) returns text language sql immutable as $$
+  select case p when 'coordenacao' then 'coordenação' when 'vice' then 'vice-coordenação' when 'curadoria' then 'curadoria' when 'mediacao' then 'mediação'
+    when 'educacao' then 'educação' when 'revisao' then 'revisão' when 'traducao' then 'tradução' when 'jornalismo' then 'jornalismo'
+    when 'mentoria' then 'aula de reforço' when 'design' then 'design' when 'desenvolvimento' then 'desenvolvimento' else coalesce(p, '') end
+$$;
+
+/**
+ * Põe um e-mail na fila de saída. Endereço inválido não entra, e o mesmo endereço recebe no máximo p_max e-mails do
+ * mesmo tipo por dia: ninguém usa os formulários do site para encher a caixa de outra pessoa. Devolve se entrou.
+ */
+create or replace function interno.email(p_para text, p_tipo text, p_assunto text, p_texto text, p_sair text default '', p_max integer default 3)
+returns boolean language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_para text := lower(btrim(coalesce(p_para, '')));
+begin
+  if v_para !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_para) > 200 then return false; end if;
+  if (select count(*) from emails where para = v_para and tipo = p_tipo and criado_em > now() - interval '1 day') >= coalesce(p_max, 3) then return false; end if;
+  insert into emails (para, tipo, assunto, texto, sair)
+  values (v_para, p_tipo, left(p_assunto, 200), left(coalesce(p_texto, ''), 19000) || E'\n\n— Instituto Lúcia\n' || interno.endereco(), coalesce(p_sair, ''));
+  return true;
+end $$;
+
+/** O envio de e-mails já funcionou de verdade? Fica ligado no primeiro e-mail que a rotina de envio confirma. */
+create or replace function interno.email_ativo() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((select (valor ->> 'ativo')::boolean from configuracoes where chave = 'email'), false)
+$$;
+
+/** O endereço de e-mail de uma conta. */
+create or replace function interno.email_da_conta(p_usuario uuid) returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select email from auth.users where id = p_usuario
+$$;
+
+/** Um e-mail para cada pessoa da coordenação e da vice-coordenação, no endereço da própria conta. */
+create or replace function interno.email_lideranca(p_tipo text, p_assunto text, p_texto text) returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+declare r record;
+begin
+  for r in select distinct u.email from papeis p join auth.users u on u.id = p.usuario join perfis f on f.id = p.usuario
+           where p.papel in ('coordenacao', 'vice') and not f.suspenso and coalesce(u.email, '') <> '' loop
+    perform interno.email(r.email, p_tipo, p_assunto, p_texto, '', 30);
+  end loop;
 end $$;
 
 /** Texto sem acento, sem pontuação e em minúsculas, para comparar com a lista do filtro. */
@@ -834,7 +907,7 @@ begin
       'papeis', coalesce((select jsonb_agg(jsonb_build_object('id', p.id, 'papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina)
                           from papeis p where p.usuario = f.id), '[]'::jsonb),
       'segundo_fator', interno.aal2(),
-      'exige_segundo_fator', interno.tem_fator() or (interno.exige_2fa() and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('coordenacao', 'vice', 'curadoria'))),
+      'exige_segundo_fator', interno.tem_fator() or (interno.exige_2fa() and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('coordenacao', 'vice', 'curadoria', 'mediacao'))),
       'avisos', (select count(*) from avisos a where a.para = f.id and not a.lido))
     from perfis f where f.id = v);
 end $$;
@@ -907,8 +980,14 @@ begin
   if p_aceitar then
     insert into papeis (usuario, papel, disciplina, concedido_por) values (c.usuario, c.papel, c.disciplina, v) on conflict do nothing;
     perform interno.avisar(c.usuario, 'Seu pedido de voluntariado foi aceito. As ferramentas do seu papel já aparecem no painel.');
+    perform interno.email(interno.email_da_conta(c.usuario), 'candidatura_aceita', 'Seu pedido de voluntariado foi aceito',
+      E'Olá.\n\nSeu pedido para a função de ' || interno.nome_papel(c.papel) || E' no Instituto Lúcia foi aceito. Boas-vindas à equipe!\n\n'
+      || 'As ferramentas da função já aparecem no painel: ' || interno.endereco() || '/pt/painel');
   else
     perform interno.avisar(c.usuario, 'Seu pedido de voluntariado não foi aceito desta vez. Você pode continuar contribuindo e pedir de novo mais adiante.');
+    perform interno.email(interno.email_da_conta(c.usuario), 'candidatura_recusada', 'Seu pedido de voluntariado no Instituto Lúcia',
+      E'Olá.\n\nObrigado pelo interesse. Desta vez o seu pedido para a função de ' || interno.nome_papel(c.papel)
+      || E' não foi aceito.\n\nVocê pode continuar contribuindo pelo site e pedir de novo mais adiante.');
   end if;
   perform interno.registrar(case when p_aceitar then 'pedido_aceito' else 'pedido_recusado' end, c.usuario::text, jsonb_build_object('papel', c.papel, 'disciplina', c.disciplina));
   return jsonb_build_object('ok', true);
@@ -1048,7 +1127,7 @@ begin
   if to_regclass('auth.mfa_factors') is not null then
     execute $q$
       select coalesce(jsonb_agg(distinct f.nome), '[]'::jsonb) from interno.papeis p join interno.perfis f on f.id = p.usuario
-      where p.papel in ('coordenacao', 'vice', 'curadoria')
+      where p.papel in ('coordenacao', 'vice', 'curadoria', 'mediacao')
         and not exists (select 1 from auth.mfa_factors m where m.user_id = p.usuario and m.status = 'verified')
     $q$ into v_sem;
   end if;
@@ -2315,6 +2394,9 @@ begin
   if interno.vetado(v_assunto || ' ' || v_duvida) then perform interno.erro('conteudo_recusado'); end if;
   if v is not null and (select count(*) from reforco where autor = v and status in ('aberto', 'em_atendimento')) >= 3 then perform interno.erro('limite_pedidos'); end if;
   insert into reforco (autor, email, disciplina, assunto, duvida) values (v, v_email, v_disc, v_assunto, v_duvida) returning id into v_id;
+  perform interno.email(v_email, 'reforco_recebido', 'Recebemos seu pedido de aula de reforço',
+    E'Olá.\n\nRecebemos o seu pedido de reforço sobre "' || v_assunto || E'".\n\nAlguém da equipe que ensina essa disciplina vai ler a sua dúvida e responder por este mesmo endereço. '
+    || E'Às vezes leva alguns dias. Confira também a caixa de spam.\n\nSe não foi você quem pediu, é só ignorar esta mensagem.');
   return jsonb_build_object('id', v_id);
 end $$;
 
@@ -2790,6 +2872,9 @@ begin
   delete from auditoria where criado_em < now() - interval '400 days';
   delete from auditoria where acao = 'isca' and criado_em < now() - interval '30 days';
   delete from audit_logs where criado_em < now() - interval '400 days';
+  delete from emails where criado_em < now() - interval '30 days';
+  -- Pedido de boletim que ninguém confirmou em uma semana sai da lista.
+  delete from boletim where not confirmado and criado_em < now() - interval '7 days';
   delete from aparelhos where ultimo < now() - interval '180 days';
   delete from reforco where status in ('atendido', 'cancelado') and criado_em < now() - interval '180 days';
   delete from denuncias where status = 'resolvida' and criado_em < now() - interval '365 days';
@@ -2869,7 +2954,14 @@ begin
   values (interno.selo(v_codigo), v_email, v_papel, v_disc, v_usos, interno.txt(p ->> 'nota', 'nota', 0, 120), v, now() + make_interval(days => v_dias))
   returning id into v_id;
   perform interno.registrar('convite_criado', v_id::text, jsonb_build_object('papel', v_papel, 'usos', v_usos));
-  return jsonb_build_object('id', v_id, 'codigo', v_codigo);
+  -- Convite pessoal vai sozinho para o e-mail da pessoa; o da comunidade (sem e-mail) a coordenação espalha como quiser.
+  if v_email <> '' then
+    perform interno.email(v_email, 'convite', 'Seu convite para o Instituto Lúcia',
+      E'Olá.\n\nA coordenação do Instituto Lúcia convidou você para criar uma conta' || case when v_papel is not null then ' e atuar na função de ' || interno.nome_papel(v_papel) else '' end
+      || E'.\n\nAbra o endereço abaixo. Ele é pessoal, só funciona com este e-mail e vale por ' || v_dias || E' dia(s):\n\n'
+      || interno.endereco() || '/pt/entrar?convite=' || v_codigo || E'\n\nSe você não esperava este convite, é só ignorar esta mensagem.', '', 5);
+  end if;
+  return jsonb_build_object('id', v_id, 'codigo', v_codigo, 'email_enviado', v_email <> '');
 end $$;
 
 create or replace function public.convites_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -3038,23 +3130,76 @@ end $$;
 -- ───────────────────────────── Boletim do jornal ─────────────────────────────
 
 /** Qualquer pessoa entra na lista. A resposta é a mesma para endereço novo ou repetido: ninguém descobre por aqui quem já assina. */
+/**
+ * Qualquer pessoa pede o boletim. Com o envio de e-mails funcionando, o endereço só entra na lista depois de a pessoa clicar
+ * no link que chega por e-mail; antes disso, entra direto, como sempre foi (senão ficaria esperando um link que não vem).
+ * A resposta é a mesma para endereço novo, repetido ou já confirmado: ninguém descobre por aqui quem já assina.
+ */
 create or replace function public.boletim_assinar(p_email text, p_site text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_email text := lower(btrim(coalesce(p_email, '')));
+declare v_email text := lower(btrim(coalesce(p_email, ''))); b boletim;
 begin
   if coalesce(p_site, '') <> '' then return jsonb_build_object('ok', true); end if;
   perform interno.limite('boletim', 5, 60);
   if v_email !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_email) > 200 then perform interno.erro('invalido:email'); end if;
-  insert into boletim (email) values (v_email) on conflict do nothing;
+  insert into boletim (email, confirmado, codigo) values (v_email, not interno.email_ativo(), replace(gen_random_uuid()::text, '-', '')) on conflict (email) do nothing;
+  select * into b from boletim where email = v_email;
+  if not b.confirmado then
+    perform interno.email(v_email, 'boletim_confirmar', 'Confirme que você quer receber o boletim do Instituto Lúcia',
+      E'Olá.\n\nAlguém (provavelmente você) pediu para receber o boletim do jornal do Instituto Lúcia neste endereço.\n\n'
+      || E'Para confirmar, abra:\n' || interno.endereco() || '/pt/jornal?boletim=confirmar&codigo=' || b.codigo
+      || E'\n\nSe não foi você, é só ignorar esta mensagem: sem a confirmação, nada será enviado.', '', 2);
+  end if;
+  return jsonb_build_object('ok', true, 'confirmar', interno.email_ativo());
+end $$;
+
+/** O link do e-mail de confirmação. */
+create or replace function public.boletim_confirmar(p_codigo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.limite('boletim_codigo', 30, 60);
+  if coalesce(p_codigo, '') !~ '^[a-f0-9]{32}$' then perform interno.erro('nao_encontrado'); end if;
+  update boletim set confirmado = true where codigo = p_codigo;
+  if not found then perform interno.erro('nao_encontrado'); end if;
   return jsonb_build_object('ok', true);
 end $$;
 
-/** A lista, para a coordenação e para quem escreve o jornal mandarem o boletim. */
+/** O link "sair da lista", que vai em todo boletim. Sai na hora, sem pedir mais nada. */
+create or replace function public.boletim_sair(p_codigo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.limite('boletim_codigo', 30, 60);
+  if coalesce(p_codigo, '') !~ '^[a-f0-9]{32}$' then perform interno.erro('nao_encontrado'); end if;
+  delete from boletim where codigo = p_codigo;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** A lista, para a coordenação e para quem escreve o jornal. "confirmado" diz quem já clicou no link. */
 create or replace function public.boletim_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   perform interno.eu();
   if not (interno.coord() or interno.tem('jornalismo')) then perform interno.erro('sem_permissao'); end if;
   perform interno.registrar('boletim_lido');
-  return (select coalesce(jsonb_agg(jsonb_build_object('email', email, 'criado_em', criado_em) order by criado_em desc), '[]'::jsonb) from boletim);
+  return (select coalesce(jsonb_agg(jsonb_build_object('email', email, 'criado_em', criado_em, 'confirmado', confirmado) order by criado_em desc), '[]'::jsonb) from boletim);
+end $$;
+
+/**
+ * Manda uma edição do boletim para todos os endereços confirmados, cada um com o próprio link de saída. No máximo uma
+ * edição a cada seis horas, para um engano não virar uma enxurrada. Devolve quantos e-mails entraram na fila.
+ */
+create or replace function public.boletim_enviar(p_assunto text, p_texto text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_assunto text := interno.txt(p_assunto, 'assunto', 5, 150); v_texto text := interno.txt(p_texto, 'texto', 50, 15000); v_total integer := 0; r record;
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('jornalismo')) then perform interno.erro('sem_permissao'); end if;
+  if exists (select 1 from emails where tipo = 'boletim' and criado_em > now() - interval '6 hours') then perform interno.erro('boletim_recente'); end if;
+  for r in select email, codigo from boletim where confirmado loop
+    if interno.email(r.email, 'boletim', v_assunto,
+         v_texto || E'\n\n---\nVocê recebe este boletim porque pediu no site do Instituto Lúcia. Para sair da lista: ' || interno.endereco() || '/pt/jornal?boletim=sair&codigo=' || r.codigo,
+         interno.endereco() || '/pt/jornal?boletim=sair&codigo=' || r.codigo, 2) then
+      v_total := v_total + 1;
+    end if;
+  end loop;
+  perform interno.registrar('boletim_enviado', v_assunto, jsonb_build_object('emails', v_total));
+  return jsonb_build_object('emails', v_total);
 end $$;
 
 create or replace function public.boletim_remover(p_email text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -3200,6 +3345,12 @@ begin
   if interno.vetado(v_nome || ' ' || v_mensagem) then perform interno.erro('conteudo_recusado'); end if;
   if exists (select 1 from inscricoes where email = v_email and papel = v_papel and status = 'pendente') then perform interno.erro('ja_pediu'); end if;
   insert into inscricoes (nome, email, papel, disciplina, mensagem) values (v_nome, v_email, v_papel, v_disc, v_mensagem) returning id into v_id;
+  perform interno.email(v_email, 'inscricao_recebida', 'Recebemos seu pedido de voluntariado',
+    'Olá, ' || v_nome || E'.\n\nRecebemos seu pedido para atuar como voluntário(a) no Instituto Lúcia, na função de ' || interno.nome_papel(v_papel) || E'.\n\n'
+    || E'A coordenação lê cada pedido e responde por este mesmo endereço. Se o pedido for aceito, chega aqui o link para você criar a sua conta e entrar no painel da equipe.\n\n'
+    || 'Se não foi você quem enviou este pedido, é só ignorar esta mensagem.');
+  perform interno.email_lideranca('inscricao_nova', 'Novo pedido de voluntariado: ' || left(v_nome, 60),
+    v_nome || ' (' || v_email || ') quer atuar na função de ' || interno.nome_papel(v_papel) || E'.\n\nLeia o pedido e decida no painel: ' || interno.endereco() || '/pt/painel?aba=pessoas');
   return jsonb_build_object('id', v_id);
 end $$;
 
@@ -3229,6 +3380,9 @@ begin
   if not coalesce(p_aceitar, false) then
     update inscricoes set status = 'recusada', decidido_por = v, decidido_em = now() where id = p_id;
     perform interno.registrar('inscricao_recusada', i.nome, jsonb_build_object('papel', i.papel));
+    perform interno.email(i.email, 'inscricao_recusada', 'Seu pedido de voluntariado no Instituto Lúcia',
+      'Olá, ' || i.nome || E'.\n\nObrigado pelo interesse em atuar no Instituto Lúcia. Desta vez o seu pedido para a função de ' || interno.nome_papel(i.papel)
+      || E' não foi aceito.\n\nVocê pode continuar estudando e contribuindo com o acervo pelo site, e fazer um novo pedido mais adiante.');
     return jsonb_build_object('ok', true);
   end if;
   if i.papel = 'curadoria' and not interno.lider() then perform interno.erro('sem_permissao'); end if;
@@ -3249,6 +3403,16 @@ begin
   end if;
   update inscricoes set status = 'aceita', decidido_por = v, decidido_em = now() where id = p_id;
   perform interno.registrar('inscricao_aceita', i.nome, jsonb_build_object('papel', i.papel, 'disciplina', i.disciplina, 'convite', v_codigo is not null));
+  if v_codigo is not null then
+    perform interno.email(i.email, 'convite', 'Seu convite para a equipe do Instituto Lúcia',
+      'Olá, ' || i.nome || E'.\n\nSeu pedido para a função de ' || interno.nome_papel(i.papel) || E' foi aceito. Boas-vindas à equipe!\n\n'
+      || E'Para criar a sua conta, abra o endereço abaixo. Ele é pessoal, só funciona com este e-mail e vale por 14 dias:\n\n'
+      || interno.endereco() || '/pt/entrar?convite=' || v_codigo || E'\n\nDepois de entrar, a sua função já aparece no painel.', '', 5);
+  else
+    perform interno.email(i.email, 'inscricao_aceita', 'Seu pedido de voluntariado foi aceito',
+      'Olá, ' || i.nome || E'.\n\nSeu pedido para a função de ' || interno.nome_papel(i.papel) || E' foi aceito. Boas-vindas à equipe!\n\n'
+      || 'Você já tinha conta, então a função já está liberada. Entre com o seu e-mail e senha e abra o painel: ' || interno.endereco() || '/pt/painel');
+  end if;
   return jsonb_build_object('ok', true, 'codigo', v_codigo, 'email', i.email, 'nome', i.nome);
 end $$;
 
@@ -3506,6 +3670,56 @@ begin
     from (select * from audit_logs where coalesce(p_tabela, '') = '' or tabela = p_tabela order by id desc limit 100 offset greatest(coalesce(p_pagina, 0), 0) * 100) a);
 end $$;
 
+-- ───────────────────────────── Envio dos e-mails ─────────────────────────────
+
+/**
+ * Para a rotina "Enviar e-mails" (só com a chave de serviço): pega até p_limite e-mails da fila e os marca como "enviando".
+ * Envio que começou e não terminou em quinze minutos volta para a fila; depois de cinco tentativas, o e-mail é dado como falho.
+ */
+create or replace function public.emails_pendentes(p_limite integer default 50) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_ids uuid[];
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  update emails set status = case when tentativas >= 5 then 'falhou' else 'pendente' end, erro = case when tentativas >= 5 then 'sem resposta do envio' else erro end
+  where status = 'enviando' and tentado_em < now() - interval '15 minutes';
+  select array_agg(id) into v_ids from (
+    select id from emails where status = 'pendente' order by criado_em limit greatest(1, least(coalesce(p_limite, 50), 100)) for update skip locked) x;
+  update emails set status = 'enviando', tentado_em = now(), tentativas = tentativas + 1 where id = any (coalesce(v_ids, '{}'));
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', id, 'para', para, 'assunto', assunto, 'texto', texto, 'sair', sair) order by criado_em), '[]'::jsonb)
+          from emails where id = any (coalesce(v_ids, '{}')));
+end $$;
+
+/** Para a rotina de envio: o resultado de cada e-mail. Enviado, o texto sai do banco (ele pode levar um link de convite). */
+create or replace function public.email_resultado(p_id uuid, p_ok boolean, p_erro text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_ok, false) then
+    update emails set status = 'enviado', enviado_em = now(), texto = '', erro = '' where id = p_id and status = 'enviando';
+    if found then
+      insert into configuracoes (chave, valor) values ('email', '{"ativo": true}'::jsonb) on conflict (chave) do update set valor = configuracoes.valor || '{"ativo": true}'::jsonb;
+    end if;
+  else
+    update emails set status = case when tentativas >= 5 then 'falhou' else 'pendente' end, erro = left(coalesce(p_erro, ''), 200) where id = p_id and status = 'enviando';
+  end if;
+  return jsonb_build_object('ok', found);
+end $$;
+
+/** O que a coordenação vê sobre os e-mails: quantos esperam, quantos saíram e o último erro. Sem endereço de ninguém. */
+create or replace function public.emails_situacao() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'pendentes', (select count(*) from emails where status in ('pendente', 'enviando')),
+    'enviados_7_dias', (select count(*) from emails where status = 'enviado' and enviado_em > now() - interval '7 days'),
+    'falhos_7_dias', (select count(*) from emails where status = 'falhou' and criado_em > now() - interval '7 days'),
+    'ultimo_envio', (select max(enviado_em) from emails),
+    'mais_antigo_esperando', (select min(criado_em) from emails where status in ('pendente', 'enviando')),
+    -- Esperando há mais de meia hora: a rotina de envio não está rodando, ou está sem a chave.
+    'parado', exists (select 1 from emails where status in ('pendente', 'enviando') and criado_em < now() - interval '30 minutes'),
+    'ultimo_erro', (select erro from emails where erro <> '' order by coalesce(tentado_em, criado_em) desc limit 1));
+end $$;
+
 -- ───────────────────────────── Permissões ─────────────────────────────
 
 -- As funções internas não podem ser chamadas de fora; as públicas, sim (cada uma faz a própria conferência).
@@ -3535,7 +3749,8 @@ begin
              'equipe_chave_definir', 'equipe_apagar_tudo', 'arquivo_apoiar', 'isca', 'boletim_assinar', 'boletim_listar', 'boletim_remover',
              'colaboracao_abrir', 'colaboracao_fechar', 'colaboracoes_minhas', 'equipe_membros', 'site', 'site_salvar',
              'presenca', 'chat_conversas', 'chat_direta', 'chat_grupo_criar', 'chat_grupo_mudar', 'chat_sair', 'chat_grupo_apagar', 'chat_ver', 'chat_enviar', 'chat_apagar',
-             'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao'))
+             'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao',
+             'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then
