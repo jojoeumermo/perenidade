@@ -296,6 +296,44 @@ body {
 .jornal-cunha-vermelha .jornal-cunha-estrela {
   color: #f4ecd8;
 }
+/* Memorial: cunha bordô e estrela clara, sem o vermelho vivo. */
+.jornal-cunha-luto {
+  background: #6e1f1a;
+}
+.jornal-cunha-luto .jornal-cunha-estrela {
+  color: #f4ecd8;
+}
+/* A faixa de raios precisa medir a própria largura, como as outras. */
+.jornal-faixa-raios {
+  container-type: inline-size;
+}
+/* Carimbo de veredito da checagem de fatos. */
+.jornal-carimbo {
+  display: inline-block;
+  border: 3px solid var(--prelo);
+  padding: 0.15rem 0.7rem;
+  color: var(--prelo);
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transform: rotate(-2.5deg);
+}
+:root[data-theme="dark"] .jornal-carimbo {
+  border-color: #e0837a;
+  color: #e0837a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .jornal-carimbo {
+    border-color: #e0837a;
+    color: #e0837a;
+  }
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .jornal-carimbo {
+  border-color: var(--ink);
+  color: var(--ink);
+}
 .jornal-cartaz-menor .jornal-cartaz-nome {
   padding: 1.8cqw 18cqw 1.8cqw 2.4cqw;
 }
