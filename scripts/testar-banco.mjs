@@ -1189,6 +1189,26 @@ await espera("a faxina apaga e-mails antigos e pedidos de boletim nunca confirma
   return dono("select (select count(*)::int from interno.emails where para = 'alvo@exemplo.org') as emails, (select count(*)::int from interno.boletim where email = 'sem.confirmar@exemplo.org') as boletim");
 }, (r) => r.rows[0].emails === 0 && r.rows[0].boletim === 0);
 
+// ── Banimento não desfaz suspensão da coordenação ──
+await espera("encerrar um banimento não tira a suspensão que a coordenação deu", async () => {
+  ids.duplo = await criarUsuario("duplo@teste.local", "Dora Dupla");
+  await rpc(como(ids.duplo), "eu");
+  await rpc({ ...como(ids.coord), aal: "aal2" }, "usuario_suspender", { p_usuario: ids.duplo, p_suspenso: true });
+  await rpc({ ...como(ids.med), aal: "aal2" }, "mediacao_banir", { p_usuario: ids.duplo, p_motivo: "Provocação repetida na comunidade.", p_origem: false });
+  const b = (await dono("select id from interno.banimentos where usuario = $1 and ativo", [ids.duplo])).rows[0];
+  await rpc({ ...como(ids.coord), aal: "aal2" }, "banimento_encerrar", { p_id: b.id });
+  return (await dono("select suspenso from interno.perfis where id = $1", [ids.duplo])).rows[0].suspenso;
+}, (r) => r === true);
+await espera("e banimento sozinho, ao ser encerrado, reativa a conta", async () => {
+  ids.solo = await criarUsuario("solo@teste.local", "Sol Solo");
+  await rpc(como(ids.solo), "eu");
+  await rpc({ ...como(ids.med), aal: "aal2" }, "mediacao_banir", { p_usuario: ids.solo, p_motivo: "Provocação repetida na comunidade.", p_origem: false });
+  const b = (await dono("select id from interno.banimentos where usuario = $1 and ativo", [ids.solo])).rows[0];
+  await rpc({ ...como(ids.coord), aal: "aal2" }, "banimento_encerrar", { p_id: b.id });
+  return (await dono("select suspenso from interno.perfis where id = $1", [ids.solo])).rows[0].suspenso;
+}, (r) => r === false);
+await espera("e a ficha continua dizendo que quem suspendeu foi a coordenação", () => dono("select suspensao from interno.perfis where id = $1", [ids.duplo]), (r) => r.rows[0].suspensao === "coordenacao");
+
 // ── Supervisão, marketing, edição de contas e as ferramentas de cada função ──
 await dono("update interno.configuracoes set valor = valor || '{\"exigir_2fa\": false}'::jsonb where chave = 'seguranca'");
 const novos = { sup: "Sara Supervisora", mkt: "Mila Marketing", dev: "Duda Dev", trad: "Tito Tradutor", alvo: "Ana Alvo", outra: "Olga Outra" };
@@ -1435,7 +1455,7 @@ await espera("expurgo pedido pela supervisão, com pausa: aprovado, apaga e paus
   await rpc(COORD, "site_salvar", { p: { faixa: "", pausa: false } });
   return [r.resultado.topicos >= 1, site.pausa, sobrou];
 }, (r) => r[0] === true && r[1] === true && r[2] === false);
-await recusa("pedido de expurgo com área que não se expurga é recusado já no pedido", () => rpc(SUP, "pedido_criar", { p_tipo: "expurgo", p_dados: { areas: ["acervo"], periodo: "1h" }, p_justificativa: "Pedido com área que não existeLinha para expurgo." }), "invalido:areas");
+await recusa("pedido de expurgo com área que não se expurga é recusado já no pedido", () => rpc(SUP, "pedido_criar", { p_tipo: "expurgo", p_dados: { areas: ["acervo"], periodo: "1h" }, p_justificativa: "Pedido com área que não existe para expurgo." }), "invalido:areas");
 await espera("o estado da interdição mostra o histórico recente", () => rpc(COORD, "interdicao_ver"), (r) => r.historico.some((h) => h.acao === "expurgo") && r.historico.some((h) => h.acao === "pedido_supervisao_aprovado"));
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);

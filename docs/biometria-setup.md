@@ -32,7 +32,11 @@ nome exato do menu pode ser diferente do que está aqui.
    pare aqui e me avise, porque nada do resto funciona sem ele.
 3. Ligue a opção e preencha:
    - **Relying Party ID** (RP ID): `institutolucia.org` (só o domínio, sem `https://` e sem barra).
-   - **Origens permitidas** (RP origins): `https://institutolucia.org`.
+   - **Origens permitidas** (RP origins): `https://institutolucia.org,android:apk-key-hash:kO-IAXzLg7D8O13oQj6j_wi-oM_k_xHv7-mK0-RuXgI`.
+     A segunda origem é o próprio aplicativo: dentro do APK, o Android assina o pedido com a impressão do certificado
+     (convertida em base64url), não com o endereço do site. Sem ela, a digital funciona no Chrome e falha no aplicativo.
+     O valor acima é o do certificado de teste (debug); quando houver versão da loja, acrescente a dela, separada por vírgula.
+     Para calcular a partir da impressão SHA-256 (`AA:BB:…`): `node -e "console.log('android:apk-key-hash:'+Buffer.from('AABB…'.replace(/:/g,''),'hex').toString('base64url'))"`.
      Se o site também responde em `www`, acrescente `https://www.institutolucia.org`.
    - **Nome exibido** (display name): `Instituto Lúcia` (é o que o Android mostra na janela da digital).
 4. Salve.
