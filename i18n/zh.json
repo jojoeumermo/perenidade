@@ -133,7 +133,8 @@
     "ctaText": "写一节课，推荐一部自由作品，或改正一个错误。所有内容在收入之前都会经过审阅。",
     "ctaButton": "提交投稿",
     "questionsTitle": "从一个问题开始",
-    "shelvesHint": "学科很多。可以只看基础内容，或选择你想学习的阶段。"
+    "shelvesHint": "学科很多。可以只看基础内容，或选择你想学习的阶段。",
+    "tryLabel": "试试："
   },
   "areas": {
     "portugues": [
@@ -417,7 +418,10 @@
     "offlineFailed": "暂时无法保存。请检查网络后再试。",
     "offlineUnsupported": "此浏览器不支持保存页面。",
     "epub": "把本课程下载为电子书（EPUB）",
-    "epubHint": "可在 Kindle（通过 Send to Kindle）、Kobo 和阅读应用中打开"
+    "epubHint": "可在 Kindle（通过 Send to Kindle）、Kobo 和阅读应用中打开",
+    "jump": "跳转到",
+    "showAll": "查看全部 {n} 门",
+    "showLess": "收起"
   },
   "lesson": {
     "position": "第 {i} 课，共 {n} 课",

@@ -137,7 +137,8 @@
     "ctaText": "Write a lesson, suggest a free work or fix a mistake. Everything is reviewed before it is accepted.",
     "ctaButton": "Send a contribution",
     "questionsTitle": "Start from a question",
-    "shelvesHint": "There are many. Choose the essentials or the stage you want to study."
+    "shelvesHint": "There are many. Choose the essentials or the stage you want to study.",
+    "tryLabel": "Try:"
   },
   "areas": {
     "portugues": [
@@ -421,7 +422,10 @@
     "offlineFailed": "Could not save right now. Check your connection and try again.",
     "offlineUnsupported": "This browser cannot save pages.",
     "epub": "Download the track as an e-book (EPUB)",
-    "epubHint": "opens on Kindle (through Send to Kindle), Kobo and reading apps"
+    "epubHint": "opens on Kindle (through Send to Kindle), Kobo and reading apps",
+    "jump": "Jump to",
+    "showAll": "See all {n}",
+    "showLess": "Show fewer"
   },
   "lesson": {
     "position": "lesson {i} of {n}",

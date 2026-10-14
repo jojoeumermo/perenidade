@@ -137,7 +137,8 @@
     "ctaText": "Escribe una lección, propón una obra libre o corrige un error. Todo pasa por revisión antes de entrar.",
     "ctaButton": "Enviar una contribución",
     "questionsTitle": "Empieza por una pregunta",
-    "shelvesHint": "Son muchas. Elige lo esencial o la etapa que quieres estudiar."
+    "shelvesHint": "Son muchas. Elige lo esencial o la etapa que quieres estudiar.",
+    "tryLabel": "Prueba:"
   },
   "areas": {
     "portugues": [
@@ -421,7 +422,10 @@
     "offlineFailed": "No se pudo guardar ahora. Revisa la conexión e inténtalo de nuevo.",
     "offlineUnsupported": "Este navegador no permite guardar páginas.",
     "epub": "Descargar el itinerario como libro digital (EPUB)",
-    "epubHint": "se abre en Kindle (con Enviar a Kindle), Kobo y aplicaciones de lectura"
+    "epubHint": "se abre en Kindle (con Enviar a Kindle), Kobo y aplicaciones de lectura",
+    "jump": "Ir a",
+    "showAll": "Ver las {n}",
+    "showLess": "Mostrar menos"
   },
   "lesson": {
     "position": "lección {i} de {n}",
