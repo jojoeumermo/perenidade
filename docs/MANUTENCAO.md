@@ -253,6 +253,8 @@ Para ativar, nesta ordem:
 6. Ligue no SQL Editor: `select public.comunidade_avaliacao_externa(true);`. Escreva uma mensagem de teste e confira que ela aparece em instantes. Se ficar na fila com "a segunda avaliação não respondeu", veja o registro da função (ele diz o tipo de falha, nunca a chave nem o texto).
 7. Para desligar a qualquer momento: `select public.comunidade_avaliacao_externa(false);`. Volta a valer só a primeira camada, na hora.
 
+**Conferência de links (opcional).** Com o segredo `GOOGLE_SAFE_BROWSING_KEY` na mesma função (`supabase secrets set GOOGLE_SAFE_BROWSING_KEY=...`), os endereços de site que aparecem numa mensagem são conferidos no Google Safe Browsing (golpe, programa malicioso, página enganosa; uso não comercial). Só os endereços saem, nunca o texto. Link perigoso, ou link que não deu para conferir, manda a mensagem para a fila de revisão; nada é publicado nem barrado só por isso. Sem o segredo, mensagem com link vai para a fila, como já acontecia.
+
 As conferências dessa parte são `npm run testar:moderacao` (a chamada ao serviço, simulada, sem rede e sem chave) e a seção "segunda avaliação" de `npm run testar:banco` (o que o banco faz com cada resultado).
 
 O **Mural dos Trabalhadores** é decidido pela coordenação e pela mediação, que também pode acertar o texto de um anúncio pendente. Retirar do ar um anúncio já aprovado continua só com a coordenação.
@@ -391,3 +393,23 @@ A página **Notícias** lê os endereços de distribuição (RSS) dos veículos 
 ## 18. Histórico público
 
 A página de histórico de mudanças está **desligada**. Para ligá-la, ponha uma data em `historyFrom`, em `lib/site.ts`: ela volta ao ar mostrando só o que mudou daquele dia em diante.
+
+## Serviços abertos de fora
+
+Algumas partes do site usam dados de serviços públicos e abertos. Todos são consultados pelo **servidor do site** (rotas em `app/api/` e `lib/dados.ts`, com a lista de destinos permitidos em `lib/externo.ts`), nunca pelo navegador de quem visita: o visitante só fala com o nosso domínio, a política de segurança das páginas continua igual e nenhum serviço de fora fica sabendo quem leu o quê. Cada resposta fica guardada no servidor por horas ou dias, para não sobrecarregar ninguém. Se um serviço não responde, a parte dele some ou avisa; nada quebra e nenhum número é inventado.
+
+| Onde aparece | Serviço | Chave |
+| --- | --- | --- |
+| Página **Dados do povo** (`/dados`) | Banco Central (SGS: salário mínimo 1619, IPCA 12 meses 13522, meta Selic 432, desocupação 24369), IBGE (estimativa da população, tabela 6579), Câmara dos Deputados (votações do Plenário) | não |
+| Quadro **Neste dia** na página inicial (`/api/neste-dia`) | Wikipédia (feed "On this day"), texto CC BY-SA | não |
+| Ferramenta **Dicionário** (`/api/dicionario`) | Dicionário Aberto (português, verbetes de 1913) e Free Dictionary API (inglês) | não |
+| Ferramenta **Frases traduzidas** (`/api/frases`) | Tatoeba, CC BY 2.0 FR (autor e link de cada frase à vista) | não |
+| Ferramenta **Gráficos e álgebra** | math.js, roda no próprio navegador | não |
+| Fórmulas nas aulas | KaTeX, no próprio site. Escreva entre `$$` e `$$` (no meio da frase ou em bloco); um cifrão sozinho continua sendo dinheiro | não |
+| Painel → **Fontes abertas** (`/api/fontes`) | Internet Archive, Open Library, Project Gutenberg (Gutendex), Wikipédia, Wikidata, Wikisource, Wikimedia Commons | não |
+| Painel → Rádio → **Sugerir uma emissora** (`/api/radios`) | Radio Browser (diretório aberto; só emissoras do Brasil com transmissão https) | não |
+| Criar conta e trocar senha (`/api/senha-vazada`) | Have I Been Pwned, Pwned Passwords: o navegador manda só os 5 primeiros caracteres do SHA-1 da senha | não |
+| Página **Checagens** → "Já foi checado?" (`/api/checagens`) | Google Fact Check Tools | sim: `GOOGLE_FACTCHECK_KEY` nas variáveis do servidor (Vercel), nunca com `NEXT_PUBLIC_`. Sem ela, a busca não aparece |
+| Comunidade, segunda avaliação | OpenAI Moderation e Google Safe Browsing (acima) | segredos da função `avaliar-comunidade` |
+
+Para acrescentar outro serviço: inclua o endereço dele na lista de `lib/externo.ts` e consulte sempre por `buscarJson` ou `buscarTexto`, que já têm prazo, limite de tamanho e guarda.

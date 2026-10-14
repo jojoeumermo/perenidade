@@ -63,3 +63,5 @@ Acrescentar um item:
 | Ninguém é banido automaticamente | `comunidade_avaliada` e `interno.decidir_externa` não tocam em `perfis` nem em `banimentos` (conferido em `npm run testar:banco`) |
 | A classificação detalhada não é guardada | `comunidade_avaliada` grava só `avaliacao` e `motivo` |
 | Mural e contribuições não passam por ela | Só `topico_criar` e `responder` chamam a avaliação |
+
+Se a conferência de links também estiver ligada (segredo GOOGLE_SAFE_BROWSING_KEY), acrescente: "Quando uma mensagem traz endereço de site, só esse endereço é enviado ao serviço Google Safe Browsing, para conferir se ele leva a golpe ou programa malicioso."
