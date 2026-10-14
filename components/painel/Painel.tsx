@@ -4,6 +4,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
+import { areasPublicas } from "@/lib/interdicao";
 import { can, getClient, hasBackend, leads, type Me, type Role, rpc, signOut, useMe } from "@/lib/backend";
 import { registerDevice } from "@/lib/device";
 import { applyPrefs, readPrefs } from "@/lib/prefs";
@@ -20,6 +21,7 @@ import { Escrever } from "./Escrever";
 import { FontesAbertas } from "./FontesAbertas";
 import { Fila } from "./Fila";
 import { Horas } from "./Horas";
+import { Interdicao } from "./Interdicao";
 import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lideranca";
 import { Materiais } from "./Materiais";
 import { Pessoas } from "./Pessoas";
@@ -54,6 +56,8 @@ interface Resumo {
   divulgacao?: number;
   /** Aprovado há mais de três horas e ainda fora do ar: a rotina de publicação parou. */
   publicacao_atrasada?: number;
+  /** Pedidos da supervisão (interdição, liberação, expurgo) esperando a coordenação. */
+  pedidos_supervisao?: number;
 }
 
 interface Secao {
@@ -261,12 +265,17 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   // De minuto em minuto o painel diz que a pessoa está por aqui e pergunta se chegou mensagem nova.
   const presenca = useLista<{ conversas: number }>("presenca");
   const avisarPresenca = presenca.recarregar;
+  const estadoDoSite = useLista<{ interdicao?: { geral: boolean; areas: string[] } }>("site");
+  const lerSite = estadoDoSite.recarregar;
   useEffect(() => {
     const relogio = window.setInterval(() => {
-      if (document.visibilityState === "visible") avisarPresenca();
+      if (document.visibilityState === "visible") {
+        avisarPresenca();
+        lerSite();
+      }
     }, 60_000);
     return () => window.clearInterval(relogio);
-  }, [avisarPresenca]);
+  }, [avisarPresenca, lerSite]);
   const voluntario = eu.papeis.length > 0;
   const lidera = can(eu, "coordenacao");
   // A supervisão é um papel próprio: can() só estende a vice-coordenação à coordenação, não à supervisão.
@@ -299,12 +308,14 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "apoiadores", nome: "Apoiadores", sobre: "Quem autorizou aparecer no mural de apoio.", grupo: "Site", mostra: lidera },
       { id: "tecnico", nome: "Estado técnico", sobre: "Publicação, avaliação automática, faxina e sinais de varredura.", grupo: "Site", mostra: can(eu, "coordenacao", "desenvolvimento"), conta: r?.publicacao_atrasada },
       { id: "seguranca", nome: "Segurança e sucessão", sobre: "Segundo fator obrigatório, vice e ordem de sucessão.", grupo: "Segurança", mostra: lidera },
+      { id: "interdicao", nome: "Interdição e expurgo", sobre: "Tirar o site ou uma área do ar por um tempo, e apagar de uma vez uma chuva de spam.", grupo: "Segurança", mostra: lidera || supervisiona, conta: r?.pedidos_supervisao },
       { id: "registro", nome: "Registro de atividades", sobre: "Tudo o que foi decidido, por quem e quando.", grupo: "Segurança", mostra: lidera || supervisiona },
       { id: "conta", nome: "Minha conta", sobre: "Seu nome, sua senha e a proteção da sua conta.", grupo: "Você", mostra: true },
     ] satisfies Secao[]
   ).filter((secao) => secao.mostra);
 
   const atual = secoes.find((secao) => secao.id === aba) ?? secoes[0];
+  const interditado = estadoDoSite.dados?.interdicao && (estadoDoSite.dados.interdicao.geral || estadoDoSite.dados.interdicao.areas.length > 0) ? estadoDoSite.dados.interdicao : null;
   const ir = (id: string) => {
     setMenu(false);
     router.replace(`/${lang}/painel?aba=${id}`);
@@ -387,6 +398,18 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
         </header>
         <div className="mx-auto max-w-5xl px-5 py-7 sm:px-8">
           {eu.suspenso && <p className="mb-6 border-l-2 border-oxblood pl-4 text-oxblood">Esta conta está suspensa: você pode ler, mas não enviar.</p>}
+          {interditado && (
+            <p role="status" className="mb-6 border-2 border-oxblood bg-parchment-deep px-4 py-3 font-semibold text-oxblood">
+              {interditado.geral
+                ? "O site está fora do ar: o público vê só um aviso. A entrada e o painel continuam funcionando."
+                : `Áreas fechadas ao público agora: ${interditado.areas.map((id) => areasPublicas.find((area) => area.id === id)?.nome ?? id).join(", ")}.`}{" "}
+              {(lidera || supervisiona) && (
+                <button type="button" className="cursor-pointer font-normal underline" onClick={() => ir("interdicao")}>
+                  Ver em Interdição e expurgo
+                </button>
+              )}
+            </p>
+          )}
           {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} />}
           {atual.id === "conversas" && <Conversas me={eu} lider={leads(eu)} />}
           {atual.id === "rede" && <Equipe lider={leads(eu)} modera={lidera || supervisiona} />}
@@ -412,6 +435,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "apoiadores" && <Apoiadores />}
           {atual.id === "tecnico" && <Tecnico />}
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
+          {atual.id === "interdicao" && <Interdicao me={eu} aoMudar={estadoDoSite.recarregar} />}
           {atual.id === "registro" && <RegistroDeAtividades />}
           {atual.id === "conta" && <Conta me={eu} recarregar={recarregar} sair={sair} />}
         </div>
@@ -437,6 +461,7 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           ["Contas suspensas pela supervisão", r.suspensas ?? 0, can(me, "coordenacao") ? "pessoas" : "supervisao"],
           ["Posts para sair ou devolvidos", r.divulgacao ?? 0, "divulgacao"],
           ["Aprovadas há mais de três horas sem ir ao ar", r.publicacao_atrasada ?? 0, "tecnico"],
+          ["Pedidos da supervisão esperando decisão", r.pedidos_supervisao ?? 0, "interdicao"],
           ["Denúncias abertas", r.denuncias, "comunidade"],
           ["Anotações para olhar", r.anotacoes, "comunidade"],
           ["Mensagens esperando a mediação", r.retidos, "comunidade"],

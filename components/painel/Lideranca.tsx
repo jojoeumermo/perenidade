@@ -383,6 +383,11 @@ const acoes: Record<string, string> = {
   divulgacao_devolvida: "devolveu para rascunho o item de divulgação",
   divulgacao_apagada: "apagou do calendário de divulgação:",
   divulgacao_instagram: "mudou o endereço do Instagram do instituto",
+  interdicao: "mudou a interdição do site",
+  expurgo: "fez um expurgo das áreas abertas",
+  pedido_supervisao_criado: "pediu à coordenação (supervisão):",
+  pedido_supervisao_aprovado: "aprovou um pedido da supervisão",
+  pedido_supervisao_recusado: "recusou um pedido da supervisão",
   isca: "endereço-isca pedido por alguém de fora:",
 };
 
@@ -501,6 +506,8 @@ function Decisoes() {
           <option value="papel_confiado">Só funções confiadas</option>
           <option value="papel_retirado">Só funções retiradas</option>
           <option value="conta_suspensa">Só contas suspensas</option>
+          <option value="interdicao">Só interdições</option>
+          <option value="expurgo">Só expurgos</option>
           <option value="senha_redefinida">Só senhas redefinidas</option>
           <option value="usuario_editado">Só contas editadas pela coordenação</option>
           <option value="site_configurado">Só mudanças nos controles do site</option>
