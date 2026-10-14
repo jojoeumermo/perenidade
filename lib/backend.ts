@@ -80,7 +80,7 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
 
 export interface Role {
   id: string;
-  papel: "coordenacao" | "vice" | "curadoria" | "mediacao" | "educacao" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "desenvolvimento";
+  papel: "coordenacao" | "vice" | "supervisao" | "curadoria" | "mediacao" | "educacao" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "marketing" | "desenvolvimento";
   disciplina: string | null;
 }
 
@@ -96,6 +96,8 @@ export interface Me {
   exige_segundo_fator: boolean;
   /** Recados não lidos. */
   avisos: number;
+  /** A coordenação redefiniu a senha: a pessoa escolhe uma nova antes de o painel abrir. */
+  trocar_senha?: boolean;
 }
 
 /** A vice-coordenação pode tudo o que a coordenação pode, menos mexer na própria coordenação (isso é conferido por leads). */
@@ -215,6 +217,7 @@ export async function signOut() {
   } finally {
     try {
       localStorage.removeItem(KEYS.session);
+      localStorage.removeItem(KEYS.name);
     } catch {
       // sem armazenamento, não há sessão para apagar
     }

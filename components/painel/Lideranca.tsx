@@ -172,7 +172,7 @@ export function SegurancaSucessao({ me }: { me: Me }) {
       <section hidden={aba !== "fator"}>
         <h2 className="font-serif text-2xl font-semibold">Segundo fator obrigatório</h2>
         <p className="mt-1 text-ink-soft">
-          Com esta exigência ligada, coordenação, vice-coordenação, curadoria e mediação só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
+          Com esta exigência ligada, coordenação, vice-coordenação, supervisão, curadoria e mediação só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
         </p>
         <p className="mt-2">
           Situação: <strong>{seguranca.dados?.exigir_2fa ? "ligada" : "desligada"}</strong>
@@ -371,11 +371,26 @@ const acoes: Record<string, string> = {
   equipe_sala: "mudou o endereço da sala de voz e vídeo",
   site_configurado: "mudou os controles do site",
   comunidade_modo_seguranca: "ligou ou desligou o modo de segurança da Comunidade",
+  site_pausa: "pausou ou retomou os envios do público",
+  usuario_editado: "acertou o nome ou a apresentação de",
+  senha_redefinida: "redefiniu a senha de",
+  senha_trocada: "escolheu uma senha nova depois da redefinição",
+  equipe_mensagem_apagada: "apagou uma publicação do mural da equipe escrita por",
+  divulgacao_criada: "pôs no calendário de divulgação:",
+  divulgacao_editada: "mexeu no item de divulgação",
+  divulgacao_situacao: "mudou a situação do item de divulgação",
+  divulgacao_comentada: "comentou o item de divulgação",
+  divulgacao_devolvida: "devolveu para rascunho o item de divulgação",
+  divulgacao_apagada: "apagou do calendário de divulgação:",
+  divulgacao_instagram: "mudou o endereço do Instagram do instituto",
   isca: "endereço-isca pedido por alguém de fora:",
 };
 
 /** Os detalhes guardados viram texto de gente: sem identificadores internos, com sim e não no lugar de true e false. */
-const nomesDosDetalhes: Record<string, string> = { faixa: "faixa", pausa: "pausa", motivo: "recado", papel: "função", disciplina: "disciplina", tipo: "tipo", origem: "origem", agente: "programa", exigir_2fa: "segundo fator obrigatório" };
+const nomesDosDetalhes: Record<string, string> = {
+  faixa: "faixa", pausa: "pausa", motivo: "recado", papel: "função", disciplina: "disciplina", tipo: "tipo", origem: "origem", agente: "programa", exigir_2fa: "segundo fator obrigatório",
+  justificativa: "motivo", campos: "o que mudou", sessoes_encerradas: "saiu dos aparelhos", situacao: "situação", formato: "formato", canal: "canal", ligado: "ligado", definido: "definido",
+};
 function detalhesLegiveis(detalhes: Record<string, unknown> | null): string {
   return Object.entries(detalhes ?? {})
     .filter(([, valor]) => valor !== "" && valor !== null && !(typeof valor === "string" && /^[0-9a-f-]{36}$/.test(valor)))
@@ -486,6 +501,8 @@ function Decisoes() {
           <option value="papel_confiado">Só funções confiadas</option>
           <option value="papel_retirado">Só funções retiradas</option>
           <option value="conta_suspensa">Só contas suspensas</option>
+          <option value="senha_redefinida">Só senhas redefinidas</option>
+          <option value="usuario_editado">Só contas editadas pela coordenação</option>
           <option value="site_configurado">Só mudanças nos controles do site</option>
           <option value="convite_criado">Só convites criados</option>
           <option value="isca">Só endereços-isca</option>

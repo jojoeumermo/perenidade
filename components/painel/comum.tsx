@@ -15,6 +15,7 @@ export const rotulo = "font-mono text-xs uppercase tracking-widest text-gold";
 export const papeis: Record<Role["papel"], string> = {
   coordenacao: "Coordenação comunitária",
   vice: "Vice-coordenação",
+  supervisao: "Supervisão",
   curadoria: "Curadoria",
   mediacao: "Mediação",
   educacao: "Educação",
@@ -23,22 +24,26 @@ export const papeis: Record<Role["papel"], string> = {
   jornalismo: "Jornalismo e rádio",
   mentoria: "Aula de reforço",
   design: "Design",
+  marketing: "Marketing e divulgação",
   desenvolvimento: "Desenvolvimento",
 };
 
 /** O que cada papel enxerga e faz no painel. É a regra do banco, escrita para gente. */
 export const oQueFaz: Record<Role["papel"], string> = {
-  coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-coordenação, define a sucessão, publica materiais e emite certificados.",
+  coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-coordenação, define a sucessão, edita contas e redefine senhas, publica materiais e emite certificados.",
   vice: "Tudo o que a coordenação faz, menos mexer na coordenação, nomear outra vice-coordenação, definir a sucessão e emitir certificados.",
+  supervisao:
+    "Faz o painel andar quando a coordenação e a vice-coordenação estão ausentes: acompanha a equipe (sem ver e-mails), suspende contas em emergência com motivo, cuida do mural da equipe, lê o registro, pausa os envios do público e liga o modo de segurança da Comunidade. Interdição e expurgo, só como pedido que a coordenação aprova.",
   curadoria: "Aprova ou recusa contribuições, cuida da comunidade, das denúncias e do filtro de palavras.",
   mediacao: "Acompanha a Comunidade, decide os casos que pedem leitura humana e oculta, edita ou libera mensagens; aprova, edita ou recusa anúncios do Mural dos Trabalhadores, faz a triagem das contribuições antes de elas chegarem à fila de revisão e, quando alguém passa do limite, bane a conta (e, em caso extremo, a origem de rede). Não aprova conteúdo de ensino nem mexe na equipe.",
-  educacao: "Escreve e revisa na disciplina confiada, cuida da comunidade e atende pedidos de reforço da disciplina.",
+  educacao: "Escreve e dá parecer na disciplina confiada, cuida da comunidade e atende pedidos de reforço da disciplina.",
   revisao: "Lê a fila inteira e dá parecer; não aprova.",
-  traducao: "Envia traduções; não vê a fila dos outros.",
-  jornalismo: "Escreve para o jornal (toda matéria passa pela revisão antes de sair) e cuida da Rádio Lúcia: canais, faixas, transmissão ao vivo e sugestão de novas emissoras.",
+  traducao: "Vê as aulas que ainda não têm tradução e o que outros tradutores já enviaram, e envia traduções; não vê a fila dos outros.",
+  jornalismo: "Escreve para o jornal (toda matéria passa pela revisão antes de sair), manda o boletim e cuida da Rádio Lúcia: canais, faixas, transmissão ao vivo e sugestão de novas emissoras.",
   mentoria: "Atende pedidos de reforço da disciplina confiada e responde por e-mail.",
-  design: "Prepara materiais gráficos e atende pedidos de ajuda das outras funções.",
-  desenvolvimento: "Cuida do código e atende pedidos de ajuda das outras funções.",
+  design: "Prepara materiais gráficos e imagens. Quem pede a função hoje recebe Marketing e divulgação, que inclui o design.",
+  marketing: "Design e divulgação juntos: prepara cartazes, imagens e materiais, monta o calendário de posts e stories do Instagram e usa o kit da marca. O acesso ao Instagram é dado pela coordenação pela própria Meta; o site nunca guarda senha de rede social.",
+  desenvolvimento: "Cuida do código: vê o estado técnico do site (publicação, avaliação automática, faxina, sinais de varredura) e atende pedidos de ajuda das outras funções.",
 };
 
 export const situacoes: Record<string, string> = {
@@ -78,6 +83,7 @@ const erros: Record<string, string> = {
   boletim_recente: "Já saiu uma edição do boletim nas últimas seis horas. Espere um pouco para mandar outra.",
   limite_colaboradores: "Cada contribuição pode ter até cinco pessoas trabalhando junto.",
   mudou_enquanto_editava: "Outra pessoa guardou alterações enquanto você editava. Copie o que escreveu, abra a versão nova e aplique de novo.",
+  sem_pgcrypto: "O banco ainda não tem a extensão de senhas (pgcrypto). Rode o supabase/install.sql de novo no SQL Editor.",
   sem_conexao: "Sem conexão com o serviço.",
   falha: "Algo deu errado. Tente de novo.",
 };

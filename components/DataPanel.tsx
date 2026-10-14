@@ -10,8 +10,8 @@ import { getItem, KEYS, setItem, useStored } from "@/lib/storage";
 import { quickExit } from "./Shortcuts";
 
 const action = "cursor-pointer border-2 border-ink px-5 py-2.5 font-medium hover:border-oxblood hover:text-oxblood";
-// A sessão de quem tem conta não entra na cópia: é uma credencial, não um dado de estudo.
-const portable = Object.values(KEYS).filter((key) => key !== KEYS.session && key !== KEYS.seen && key !== KEYS.site);
+// A sessão de quem tem conta (e o nome que vem com ela) não entra na cópia: é credencial, não dado de estudo.
+const portable = Object.values(KEYS).filter((key) => key !== KEYS.session && key !== KEYS.name && key !== KEYS.seen && key !== KEYS.site);
 
 /** Baixar, restaurar e apagar o que o site guarda neste navegador. */
 export function DataPanel({ s }: { s: Dict["data"] }) {

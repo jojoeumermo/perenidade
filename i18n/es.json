@@ -48,6 +48,9 @@
     "search": "Buscar",
     "support": "Apoya",
     "panel": "Panel",
+    "hello": "Hola, {name}",
+    "helloLabel": "Hola, {name}: abrir el panel",
+    "openPanel": "Abrir el panel",
     "signIn": "Entrar",
     "tools": "Herramientas de práctica",
     "glossary": "Glosario",
@@ -710,7 +713,303 @@
     "lead": "Cada cambio en el contenido queda registrado con fecha, y cualquier versión anterior puede recuperarse.",
     "description": "Todos los cambios hechos en el acervo, del más reciente al más antiguo.",
     "unavailable": "El historial no está disponible en esta copia del sitio.",
-    "more": "y {n} más"
+    "more": "y {n} más",
+    "kinds": {
+      "lessonsIn": {
+        "added": {
+          "one": "lección nueva en {area}",
+          "other": "lecciones nuevas en {area}"
+        },
+        "updated": {
+          "one": "lección actualizada en {area}",
+          "other": "lecciones actualizadas en {area}"
+        },
+        "removed": {
+          "one": "lección retirada de {area}",
+          "other": "lecciones retiradas de {area}"
+        }
+      },
+      "lessons": {
+        "added": {
+          "one": "lección nueva",
+          "other": "lecciones nuevas"
+        },
+        "updated": {
+          "one": "lección actualizada",
+          "other": "lecciones actualizadas"
+        },
+        "removed": {
+          "one": "lección retirada",
+          "other": "lecciones retiradas"
+        }
+      },
+      "tracks": {
+        "added": {
+          "one": "ruta nueva",
+          "other": "rutas nuevas"
+        },
+        "updated": {
+          "one": "ruta actualizada",
+          "other": "rutas actualizadas"
+        },
+        "removed": {
+          "one": "ruta retirada",
+          "other": "rutas retiradas"
+        }
+      },
+      "translations": {
+        "added": {
+          "one": "traducción nueva",
+          "other": "traducciones nuevas"
+        },
+        "updated": {
+          "one": "traducción actualizada",
+          "other": "traducciones actualizadas"
+        },
+        "removed": {
+          "one": "traducción retirada",
+          "other": "traducciones retiradas"
+        }
+      },
+      "library": {
+        "added": {
+          "one": "obra nueva en el acervo",
+          "other": "obras nuevas en el acervo"
+        },
+        "updated": {
+          "one": "ficha actualizada en el acervo",
+          "other": "fichas actualizadas en el acervo"
+        },
+        "removed": {
+          "one": "obra retirada del acervo",
+          "other": "obras retiradas del acervo"
+        }
+      },
+      "catalog": {
+        "added": {
+          "one": "obra nueva en el catálogo ampliado",
+          "other": "obras nuevas en el catálogo ampliado"
+        },
+        "updated": {
+          "one": "ficha actualizada en el catálogo ampliado",
+          "other": "fichas actualizadas en el catálogo ampliado"
+        },
+        "removed": {
+          "one": "obra retirada del catálogo ampliado",
+          "other": "obras retiradas del catálogo ampliado"
+        }
+      },
+      "authors": {
+        "added": {
+          "one": "biografía nueva de autor",
+          "other": "biografías nuevas de autores"
+        },
+        "updated": {
+          "one": "biografía de autor actualizada",
+          "other": "biografías de autores actualizadas"
+        },
+        "removed": {
+          "one": "biografía de autor retirada",
+          "other": "biografías de autores retiradas"
+        }
+      },
+      "memorial": {
+        "added": {
+          "one": "homenaje nuevo en el memorial",
+          "other": "homenajes nuevos en el memorial"
+        },
+        "updated": {
+          "one": "homenaje actualizado en el memorial",
+          "other": "homenajes actualizados en el memorial"
+        },
+        "removed": {
+          "one": "homenaje retirado del memorial",
+          "other": "homenajes retirados del memorial"
+        }
+      },
+      "glossary": {
+        "added": {
+          "one": "entrada nueva en el glosario",
+          "other": "entradas nuevas en el glosario"
+        },
+        "updated": {
+          "one": "entrada actualizada en el glosario",
+          "other": "entradas actualizadas en el glosario"
+        },
+        "removed": {
+          "one": "entrada retirada del glosario",
+          "other": "entradas retiradas del glosario"
+        }
+      },
+      "journal": {
+        "added": {
+          "one": "artículo nuevo en el periódico",
+          "other": "artículos nuevos en el periódico"
+        },
+        "updated": {
+          "one": "artículo actualizado en el periódico",
+          "other": "artículos actualizados en el periódico"
+        },
+        "removed": {
+          "one": "artículo retirado del periódico",
+          "other": "artículos retirados del periódico"
+        }
+      },
+      "factChecks": {
+        "added": {
+          "one": "verificación nueva",
+          "other": "verificaciones nuevas"
+        },
+        "updated": {
+          "one": "verificación actualizada",
+          "other": "verificaciones actualizadas"
+        },
+        "removed": {
+          "one": "verificación retirada",
+          "other": "verificaciones retiradas"
+        }
+      },
+      "debates": {
+        "added": {
+          "one": "tarjeta de debate nueva",
+          "other": "tarjetas de debate nuevas"
+        },
+        "updated": {
+          "one": "tarjeta de debate actualizada",
+          "other": "tarjetas de debate actualizadas"
+        },
+        "removed": {
+          "one": "tarjeta de debate retirada",
+          "other": "tarjetas de debate retiradas"
+        }
+      },
+      "fallacies": {
+        "added": {
+          "one": "entrada nueva en la guía de falacias",
+          "other": "entradas nuevas en la guía de falacias"
+        },
+        "updated": {
+          "one": "entrada actualizada en la guía de falacias",
+          "other": "entradas actualizadas en la guía de falacias"
+        },
+        "removed": {
+          "one": "entrada retirada de la guía de falacias",
+          "other": "entradas retiradas de la guía de falacias"
+        }
+      },
+      "videos": {
+        "added": {
+          "one": "video nuevo recomendado",
+          "other": "videos nuevos recomendados"
+        },
+        "updated": {
+          "one": "recomendación de video actualizada",
+          "other": "recomendaciones de video actualizadas"
+        },
+        "removed": {
+          "one": "recomendación de video retirada",
+          "other": "recomendaciones de video retiradas"
+        }
+      },
+      "gallery": {
+        "added": {
+          "one": "cartel nuevo en la galería",
+          "other": "carteles nuevos en la galería"
+        },
+        "updated": {
+          "one": "cartel actualizado en la galería",
+          "other": "carteles actualizados en la galería"
+        },
+        "removed": {
+          "one": "cartel retirado de la galería",
+          "other": "carteles retirados de la galería"
+        }
+      },
+      "pages": {
+        "added": {
+          "one": "página de estudio nueva",
+          "other": "páginas de estudio nuevas"
+        },
+        "updated": {
+          "one": "página de estudio actualizada",
+          "other": "páginas de estudio actualizadas"
+        },
+        "removed": {
+          "one": "página de estudio retirada",
+          "other": "páginas de estudio retiradas"
+        }
+      },
+      "start": {
+        "added": {
+          "one": "paso nuevo en Por dónde empezar",
+          "other": "pasos nuevos en Por dónde empezar"
+        },
+        "updated": {
+          "one": "paso actualizado en Por dónde empezar",
+          "other": "pasos actualizados en Por dónde empezar"
+        },
+        "removed": {
+          "one": "paso retirado de Por dónde empezar",
+          "other": "pasos retirados de Por dónde empezar"
+        }
+      },
+      "questions": {
+        "added": {
+          "one": "pregunta de partida nueva",
+          "other": "preguntas de partida nuevas"
+        },
+        "updated": {
+          "one": "pregunta de partida actualizada",
+          "other": "preguntas de partida actualizadas"
+        },
+        "removed": {
+          "one": "pregunta de partida retirada",
+          "other": "preguntas de partida retiradas"
+        }
+      },
+      "quotes": {
+        "added": {
+          "one": "cita nueva en la frase del día",
+          "other": "citas nuevas en la frase del día"
+        },
+        "updated": {
+          "one": "cita actualizada en la frase del día",
+          "other": "citas actualizadas en la frase del día"
+        },
+        "removed": {
+          "one": "cita retirada de la frase del día",
+          "other": "citas retiradas de la frase del día"
+        }
+      },
+      "radios": {
+        "added": {
+          "one": "radio nueva en Radios del pueblo",
+          "other": "radios nuevas en Radios del pueblo"
+        },
+        "updated": {
+          "one": "radio actualizada en Radios del pueblo",
+          "other": "radios actualizadas en Radios del pueblo"
+        },
+        "removed": {
+          "one": "radio retirada de Radios del pueblo",
+          "other": "radios retiradas de Radios del pueblo"
+        }
+      },
+      "news": {
+        "added": {
+          "one": "medio nuevo en la ronda de noticias",
+          "other": "medios nuevos en la ronda de noticias"
+        },
+        "updated": {
+          "one": "medio actualizado en la ronda de noticias",
+          "other": "medios actualizados en la ronda de noticias"
+        },
+        "removed": {
+          "one": "medio retirado de la ronda de noticias",
+          "other": "medios retirados de la ronda de noticias"
+        }
+      }
+    }
   },
   "dedication": {
     "eyebrow": "Dedicatoria",
@@ -1521,7 +1820,7 @@
       "traducao": "Traductor(a)",
       "jornalismo": "Periodista y locutor(a) de radio",
       "mentoria": "Clase de refuerzo",
-      "design": "Diseñador(a)",
+      "marketing": "Marketing y divulgación (diseño y redes sociales)",
       "desenvolvimento": "Infraestructura y desarrollo",
       "curadoria": "Curador(a)"
     }

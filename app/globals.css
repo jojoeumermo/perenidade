@@ -100,6 +100,13 @@ body {
   -webkit-user-select: none;
   user-select: none;
 }
+/* Barra estreita do aplicativo: com a seta de voltar ou o "Olá, Fulano", o nome do instituto dá lugar ao emblema,
+   e tudo (conta, notícias, rádio e tema) cabe em uma linha sem cortar nada. */
+@media (max-width: 419.98px) {
+  :root[data-app] header:has(.app-voltar, .conta-saudacao) .marca-nome {
+    display: none;
+  }
+}
 /* Troca de tela: o conteúdo novo surge em 160 ms. Só opacidade, que o celular simples anima sem engasgar. */
 @keyframes app-entra {
   from {
