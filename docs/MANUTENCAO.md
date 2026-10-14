@@ -382,7 +382,7 @@ Qualquer pessoa anuncia, sem conta: escolhe o tipo, escreve o ofício, o título
 
 - **Kindle e outros leitores de tinta eletrônica.** O site reconhece o aparelho (pelo nome do navegador e pelo tipo de tela) e entra em um visual de livro: uma coluna, preto no branco, nada flutuando. As regras ficam no fim de `app/globals.css`, em CSS simples de propósito. Mudou o desenho de uma página importante? Confira em um leitor de verdade.
 - **EPUB.** Cada trilha com aula escrita tem um livro para baixar na própria página da trilha. Os arquivos são refeitos a cada montagem do site.
-- **Aplicativo.** O site é instalável ("Adicionar à tela inicial") no Android e no iPhone e abre sem internet o que já foi visitado. Para publicar como aplicativo de Android, o site precisa declarar que confia no aplicativo: preencha `ANDROID_PACKAGE` e `ANDROID_SHA256` na hospedagem e confira `https://SEU-DOMINIO/.well-known/assetlinks.json`.
+- **Aplicativo.** O site é instalável ("Adicionar à tela inicial") no Android e no iPhone e abre sem internet o que já foi visitado. Para o aplicativo de Android abrir o site como dele e usar a entrada pela digital, o site declara que confia nele no arquivo `public/.well-known/assetlinks.json` (nome do pacote e impressão SHA-256 de cada certificado que assina o aplicativo: o de teste e o da loja). Mudou a assinatura? Acrescente a impressão nova ao arquivo, publique e confira `https://SEU-DOMINIO/.well-known/assetlinks.json`. Detalhes em `docs/biometria-setup.md`.
 
 ## 17. Giro de notícias
 
