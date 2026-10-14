@@ -802,11 +802,13 @@ function AbaPublicacao({ e, valor, mudar, capitulosTexto, setCapitulosTexto, tem
       setAviso("Transcrição pronta. Revise os nomes próprios e guarde.");
     } catch (erro) {
       const motivo = String((erro as Error).message ?? "");
-      setAviso(
-        motivo === "grande"
-          ? "O áudio passa de 25 MB, o limite do serviço gratuito. Exporte uma cópia em MP3 64 kbps mono só para transcrever, ou use o Buzz no computador e importe o .srt."
-          : "A transcrição automática não está ligada no servidor (ou falhou). Use o Buzz no computador e importe o arquivo .srt ou .vtt. Veja o Guia.",
-      );
+      const motivos: Record<string, string> = {
+        grande: "O áudio passa de 25 MB, o limite do serviço gratuito de transcrição. Use o Buzz no computador (de graça, sem internet) e importe o arquivo .srt ou .vtt.",
+        cota: "A cota gratuita do serviço de transcrição acabou por hoje. Tente amanhã, ou use o Buzz no computador e importe o .srt.",
+        sem_audio: "O episódio ainda não tem áudio final no depósito.",
+        desligada: "A transcrição automática ainda não foi ligada no servidor (veja docs/podcast-setup.md). Enquanto isso, use o Buzz no computador e importe o arquivo .srt ou .vtt.",
+      };
+      setAviso(motivos[motivo] ?? "A transcrição automática falhou ou não está ligada no servidor. Use o Buzz no computador e importe o arquivo .srt ou .vtt. Veja o Guia.");
     } finally {
       setTranscrevendo(false);
     }

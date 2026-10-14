@@ -140,13 +140,13 @@ export function Podcast() {
             </label>
           </div>
           <Aviso texto={aviso} />
-          {/* O quadro: uma coluna por etapa, que rola de lado em tela pequena. */}
+          {/* O quadro: uma coluna por etapa de trabalho (rola de lado em tela pequena). O que já está no ar vem embaixo, em lista. */}
           <div className="-mx-5 overflow-x-auto px-5 pb-3 sm:-mx-8 sm:px-8">
-            <div className="grid min-w-[70rem] grid-cols-7 gap-3">
-              {ETAPAS.map((etapa) => {
+            <div className="grid min-w-[54rem] grid-cols-6 gap-2">
+              {ETAPAS.filter((etapa) => etapa !== "publicado").map((etapa) => {
                 const coluna = visiveis.filter((e) => e.status === etapa);
                 return (
-                  <section key={etapa} aria-label={NOME_DA_ETAPA[etapa]} className={`min-h-40 p-2 ${etapa === "revisao" && coluna.length ? "bg-[#c21f16]/10" : "bg-parchment-deep"}`}>
+                  <section key={etapa} aria-label={NOME_DA_ETAPA[etapa]} className={`min-h-40 p-2 ${(etapa === "revisao" || etapa === "aprovado") && coluna.length ? "bg-[#c21f16]/10" : "bg-parchment-deep"}`}>
                     <h3 className="flex items-baseline justify-between border-b-2 border-ink pb-1 font-sans text-xs font-black uppercase italic">
                       {NOME_DA_ETAPA[etapa]}
                       <span className="font-mono not-italic">{coluna.length}</span>
@@ -164,6 +164,24 @@ export function Podcast() {
               })}
             </div>
           </div>
+          {visiveis.some((e) => e.status === "publicado") && (
+            <section aria-labelledby="no-ar">
+              <h3 id="no-ar" className="flex items-baseline gap-3 border-b-2 border-ink pb-1 font-sans text-xs font-black uppercase italic">
+                {NOME_DA_ETAPA.publicado}
+                <span className="font-mono not-italic">{visiveis.filter((e) => e.status === "publicado").length}</span>
+              </h3>
+              <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {visiveis
+                  .filter((e) => e.status === "publicado")
+                  .sort((x, y) => (y.publicado_em ?? "").localeCompare(x.publicado_em ?? ""))
+                  .map((e) => (
+                    <li key={e.id}>
+                      <Cartao e={e} abrir={() => abrir(e.id)} series={p.series} />
+                    </li>
+                  ))}
+              </ul>
+            </section>
+          )}
           {p.episodios.length === 0 && <p className="text-ink-soft">Nenhum episódio ainda. Crie o primeiro acima, ou escolha uma pauta na aba Pautas.</p>}
           <details className="text-ink-soft">
             <summary className="cursor-pointer">O que precisa para publicar</summary>

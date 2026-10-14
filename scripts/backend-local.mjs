@@ -86,6 +86,53 @@ export async function iniciar({ silencioso = false } = {}) {
     res.end(corpo === undefined ? "" : JSON.stringify(corpo));
   };
 
+  // Com SEMEAR_PODCAST=1, o podcast já nasce com um episódio no ar (capítulos, legendas e áudio de silêncio) e com
+  // revisor@local na supervisão: dá para ver o site e treinar a aprovação sem montar tudo à mão.
+  if (process.env.SEMEAR_PODCAST) {
+    const jornal = { papel: "authenticated", sub: ids.jornal };
+    await banco.rpc(coord, "podcast_funcoes_definir", { p_usuario: ids.revisor, p_funcoes: ["supervisao"] });
+    const serie = await banco.rpc(jornal, "podcast_serie_salvar", { p_id: null, p: { titulo: "Revoluções", descricao: "As grandes revoluções contadas de baixo, por quem fez." } });
+    const { id } = await banco.rpc(jornal, "podcast_salvar", { p_id: null, p: { titulo: "A Comuna de Paris em 72 dias" } });
+    const fala = [
+      [0, 6, "Abertura. Neste episódio, a Comuna de Paris."],
+      [6, 15, "Em março de 1871, os trabalhadores de Paris tomaram o governo da cidade."],
+      [15, 26, "O cerco: a cidade sitiada, o povo armado na Guarda Nacional."],
+      [26, 38, "Os decretos: separação entre Igreja e Estado, fim do trabalho noturno nas padarias."],
+      [38, 50, "A Semana Sangrenta, em maio, e o que a Comuna ensina para quem luta hoje."],
+    ];
+    const vtt = ["WEBVTT", "", ...fala.map(([de, ate, texto]) => `00:00:${String(de).padStart(2, "0")}.000 --> 00:00:${String(ate).padStart(2, "0")}.000\n${texto}\n`)].join("\n");
+    await banco.rpc(jornal, "podcast_salvar", {
+      p_id: id,
+      p: {
+        resumo: "Os 72 dias em que o povo de Paris governou a cidade, e o que a Comuna ensina para quem luta hoje.",
+        serie: serie.id, temporada: 1, numero: 1, temas: ["historia", "luta-social"], disciplina: "historia",
+        notas: "## Capítulos\n- 0:00 Abertura\n- 0:15 O cerco\n- 0:38 A Semana Sangrenta\n\n## Fontes\n- Karl Marx, *A guerra civil na França* (1871).",
+        capitulos: [{ t: 0, titulo: "Abertura" }, { t: 15, titulo: "O cerco" }, { t: 38, titulo: "A Semana Sangrenta" }],
+        transcricao: fala.map((f) => f[2]).join("\n\n").repeat(3), legendas: vtt,
+        obras: [{ id: "a-guerra-civil-na-franca", titulo: "A guerra civil na França", autor: "Karl Marx", licenca: "Domínio público", fonte: "marxists.org" }],
+        checklist: { volume: true, ruido: true, fontes: true, trilhas: true },
+      },
+    });
+    // 50 segundos de silêncio em MP3 (quadros MPEG-1 Layer III, 128 kbps, mono): toca de verdade no navegador.
+    const quadros = Math.round((50 * 44100) / 1152);
+    const mp3 = Buffer.alloc(quadros * 417);
+    for (let q = 0; q < quadros; q++) mp3.set([0xff, 0xfb, 0x90, 0xc4], q * 417);
+    const caminho = `ep/${id}/final-semeado01.mp3`;
+    arquivos.set(`podcast/${caminho}`, { tipo: "audio/mpeg", dados: mp3 });
+    const arquivo = await banco.rpc(jornal, "podcast_arquivo_registrar", { p_episodio: id, p: { tipo: "final", deposito: "podcast", caminho, nome: "comuna-final.mp3", bytes: mp3.length, mime: "audio/mpeg" } });
+    const picos = Array.from({ length: 200 }, (_, i) => Math.round(35 + 30 * Math.abs(Math.sin(i / 3)) * (i % 17 > 2 ? 1 : 0.2)));
+    await banco.rpc(jornal, "podcast_audio_definir", { p_episodio: id, p_arquivo: arquivo.id, p_duracao: 50, p_picos: picos });
+    await banco.rpc(jornal, "podcast_etapa", { p_id: id, p_status: "revisao" });
+    await banco.rpc({ papel: "authenticated", sub: ids.revisor }, "podcast_aprovar", { p_id: id, p_aprovar: true, p_nota: "" });
+    // A capa é o cartaz que o site desenha sozinho quando não há imagem; a lista de conferência pede uma, então vai uma de mentira.
+    arquivos.set(`podcast/capas/${id}/capa-semeada01.jpg`, { tipo: "image/jpeg", dados: Buffer.alloc(0) });
+    await banco.dono("update interno.podcast_episodios set capa = $1 where id = $2", [`capas/${id}/capa-semeada01.jpg`, id]);
+    await banco.rpc(jornal, "podcast_publicar", { p_id: id });
+    await banco.dono("update interno.podcast_episodios set capa = '' where id = $1", [id]);
+    await banco.rpc(jornal, "podcast_pauta_salvar", { p_id: null, p: { titulo: "A greve geral de 1917", descricao: "Como foi organizada em São Paulo." } });
+    if (!silencioso) console.log("[local] podcast semeado: um episódio no ar; revisor@local é da supervisão");
+  }
+
   const servidor = http.createServer(async (req, res) => {
     res.setHeader("access-control-allow-origin", "*");
     res.setHeader("access-control-allow-headers", "authorization, apikey, content-type, prefer, accept, accept-profile, content-profile, x-client-info, x-supabase-api-version, x-upsert, cache-control, range");

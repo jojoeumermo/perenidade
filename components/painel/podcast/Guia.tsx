@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { PENDENCIAS_DO_EPISODIO } from "@/lib/podcast";
 import { termo, TERMO_TITULO } from "@/lib/podcast-termo";
 import { botaoClaro, rotulo } from "../comum";
 
@@ -32,21 +33,8 @@ export const GABARITO = `## Abertura (até 1 min)
 - Vinheta de encerramento.
 `;
 
-/** O que cada item da lista de conferência quer dizer. */
-export const PENDENCIAS: Record<string, string> = {
-  aprovacao: "aprovação da supervisão",
-  audio: "áudio final (no depósito ou a cópia de fora)",
-  duracao: "duração do áudio",
-  capa: "capa do episódio",
-  resumo: "resumo de pelo menos 20 letras",
-  notas: "notas do episódio (fontes, obras, capítulos)",
-  transcricao: "transcrição",
-  convidados: "autorização de voz de todos os convidados",
-  volume: "volume conferido (perto de -16 LUFS)",
-  ruido: "ruído conferido",
-  fontes: "fontes conferidas",
-  trilhas: "licença das trilhas e vinhetas",
-};
+/** O que cada item da lista de conferência quer dizer (o texto mora em lib/podcast, para o link de revisão também usar). */
+export const PENDENCIAS = PENDENCIAS_DO_EPISODIO;
 
 function Bloco({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
