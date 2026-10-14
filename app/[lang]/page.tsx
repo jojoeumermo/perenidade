@@ -46,28 +46,28 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
   return (
     <>
-      <section className="mx-auto max-w-6xl px-4 pt-16 pb-12 text-center app:max-md:pt-5 app:max-md:pb-4 app:max-md:text-left">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-gold app:max-md:text-[0.65rem] app:max-md:tracking-[0.2em]">{h.eyebrow}</p>
-        <h1 className="mt-5 text-5xl font-semibold leading-[1.05] app:max-md:mt-2 app:max-md:text-[2rem] app:max-md:leading-[1.1] sm:text-7xl">
+      <section className="mx-auto max-w-6xl px-4 pt-16 pb-12 text-center max-md:pt-5 max-md:pb-4 max-md:text-left">
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-gold max-md:text-[0.65rem] max-md:tracking-[0.2em]">{h.eyebrow}</p>
+        <h1 className="mt-5 text-5xl font-semibold leading-[1.05] max-md:mt-2 max-md:text-[2.5rem] max-md:leading-[1.02] max-md:tracking-tight sm:text-7xl">
           {h.h1a}
           <br />
           <span className="italic text-oxblood">{h.h1b}</span>
           {h.h1c}
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-xl text-ink-soft app:max-md:hidden">{h.lead}</p>
-        <form action={to("/busca")} role="search" className="mx-auto mt-10 flex max-w-2xl border-2 border-ink bg-parchment-deep app:max-md:mt-4 app:max-md:overflow-hidden app:max-md:rounded-[0.875rem]">
+        <p className="mx-auto mt-6 max-w-2xl text-xl text-ink-soft max-md:hidden">{h.lead}</p>
+        <form action={to("/busca")} role="search" className="mx-auto mt-10 flex max-w-2xl border-2 border-ink bg-parchment-deep max-md:mt-4">
           <input
             name="q"
             type="search"
             aria-label={h.searchLabel}
             placeholder={h.searchPlaceholder}
-            className="min-w-0 flex-1 bg-transparent px-4 py-3 font-mono text-sm outline-none placeholder:text-ink-soft app:max-md:rounded-none! sm:px-5 sm:py-4 sm:text-base"
+            className="min-w-0 flex-1 bg-transparent px-4 py-3 font-mono text-sm outline-none placeholder:text-ink-soft sm:px-5 sm:py-4 sm:text-base"
           />
-          <button className="cursor-pointer bg-ink px-6 font-sans text-sm font-medium text-parchment hover:bg-oxblood app:max-md:rounded-none! sm:px-8 sm:text-base">{h.searchButton}</button>
+          <button className="cursor-pointer bg-ink px-6 font-sans text-sm font-medium text-parchment hover:bg-oxblood sm:px-8 sm:text-base">{h.searchButton}</button>
         </form>
         {/* Por onde ir, para quem chega sem saber o que procurar: as trilhas com mais aulas prontas e o guia de começo. */}
         {suggestions.length > 0 && (
-          <p className="mx-auto mt-3 flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-1 font-sans text-sm app:max-md:hidden">
+          <p className="mx-auto mt-3 flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-1 font-sans text-sm max-md:hidden">
             <span className="text-ink-soft">{h.tryLabel}</span>
             {suggestions.map((track) => (
               <Link key={track.slug} href={to(`/trilhas/${track.slug}`)} className="underline decoration-rule underline-offset-4 hover:text-oxblood hover:decoration-gold">
@@ -79,14 +79,14 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             </Link>
           </p>
         )}
-        <p className="mt-5 font-mono text-xs text-ink-soft app:max-md:mt-3 app:max-md:text-[0.7rem]">
+        <p className="mt-5 font-mono text-xs text-ink-soft max-md:mt-3 max-md:text-[0.7rem]">
           {plural(lang, groups.flatMap((group) => group.areas).length, t.common.disciplines)} · {plural(lang, lessons, t.common.lessons)} ·{" "}
           {plural(lang, works, t.common.works)} {h.indexed}
         </p>
-        {/* Só no aplicativo: quatro atalhos ao alcance do polegar para o que mais se abre no dia a dia. */}
-        <nav aria-label={t.nav.more} className="mt-5 hidden grid-cols-4 gap-2 text-center font-sans text-xs app:max-md:grid">
+        {/* Só no celular: quatro atalhos ao alcance do polegar para o que mais se abre no dia a dia. */}
+        <nav aria-label={t.nav.more} className="mt-5 hidden grid-cols-4 gap-2 text-center font-sans text-xs max-md:grid">
           {shortcuts.map(([label, path, icon]) => (
-            <Link key={path} href={to(path)} className="flex min-h-[4.5rem] flex-col items-center justify-center gap-1.5 rounded-[0.875rem] border border-rule bg-parchment-deep px-1 py-2 leading-tight">
+            <Link key={path} href={to(path)} className="flex min-h-[4.5rem] flex-col items-center justify-center gap-1.5 border-[1.5px] border-t-4 border-ink border-t-[#c21f16] bg-parchment-deep px-1 py-2 font-semibold leading-tight">
               <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6 text-oxblood" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d={icon} />
               </svg>

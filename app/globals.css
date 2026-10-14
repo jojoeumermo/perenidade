@@ -111,42 +111,74 @@ body {
     animation: app-entra 0.16s ease-out;
   }
 }
+/* ---- Edição de bolso: o site no celular, no navegador e no aplicativo ----
+   A barra de cima vira a faixa bordô do instituto com fio dourado, os títulos de seção ganham a tarja vermelha
+   do jornal e os cantos ficam retos, como papel impresso. */
 @media (max-width: 767.98px) {
-  /* Cantos arredondados em cartões, campos e botões: é o que mais separa a cara de aplicativo da cara de página.
-     As cores e as letras continuam as mesmas. */
-  :root[data-app] main :is(a, article, div, section, li, form, details, aside, figure)[class~="border"][class~="bg-parchment-deep"],
-  :root[data-app] main :is(a, article, div, section, li, form, details, aside)[class~="border"][class~="border-rule"][class*="p-"] {
-    border-radius: 0.875rem;
+  .barra-celular {
+    background: #6e1f1a;
+    color: #f4ecd8;
+    border-bottom: 3px solid #d4a24c;
   }
-  :root[data-app] main :is(input:not([type="checkbox"], [type="radio"], [type="range"]), select, textarea) {
-    border-radius: 0.75rem;
+  .barra-celular :is(a, button, select) {
+    color: #f4ecd8;
   }
-  :root[data-app] main :is(button, a):is([class~="bg-ink"], [class~="bg-oxblood"], [class~="border-2"]) {
-    border-radius: 0.75rem;
+  .barra-celular a[aria-current="page"] {
+    color: #f0cf8e;
   }
-  /* Títulos e respiros na medida da tela pequena: menos rolagem, mais conteúdo por tela. */
-  :root[data-app] main :is(h2[class~="text-4xl"], h2[class~="text-3xl"]) {
-    font-size: 1.625rem;
-    line-height: 1.2;
+  .barra-celular select {
+    background: transparent;
+    border-color: rgb(244 236 216 / 0.45);
   }
-  :root[data-app] main#conteudo > section[class~="py-10"] {
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
+  .barra-celular option {
+    color: #1f1a14;
+  }
+  /* Títulos de seção: a tarja vermelha em cima, letra na medida da tela. */
+  main#conteudo :is(h2[class~="text-4xl"], h2[class~="text-3xl"]) {
+    font-size: 1.75rem;
+    line-height: 1.15;
+  }
+  main#conteudo :is(h2[class~="text-4xl"], h2[class~="text-3xl"])::before {
+    content: "";
+    display: block;
+    width: 2.5rem;
+    height: 4px;
+    margin-bottom: 0.6rem;
+    background: var(--prelo);
+  }
+  /* Respiros na medida da tela pequena: menos rolagem, mais conteúdo por tela. */
+  main#conteudo > section[class~="py-10"] {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  main#conteudo > .py-12 {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+  /* Campos com letra de 16px (abaixo disso o celular aproxima a tela ao focar) e altura boa para o polegar. */
+  :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"]), select, textarea) {
+    min-height: 3rem;
+    font-size: 1rem;
+  }
+  .barra-celular select {
+    min-height: 2rem;
+    font-size: 0.75rem;
   }
   /* Sem rodapé no aplicativo: o conteúdo termina acima das abas. */
   :root[data-app] main#conteudo {
     padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
   }
-  /* Páginas começam mais perto do topo: a tela é pequena e a barra já diz onde a pessoa está. */
-  :root[data-app] main#conteudo > .py-12 {
-    padding-top: 1.5rem;
-    padding-bottom: 2rem;
-  }
-  /* Campos com letra de 16px (abaixo disso o Android aproxima a tela ao focar) e altura boa para o polegar. */
-  :root[data-app] :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"]), select, textarea) {
-    min-height: 3rem;
-    font-size: 1rem;
-  }
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .barra-celular {
+  background: var(--parchment) !important;
+  color: var(--ink) !important;
+  border-color: var(--ink) !important;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .barra-celular :is(a, button, select) {
+  color: var(--ink) !important;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .aba-ativa {
+  background: var(--ink) !important;
 }
 
 .paper {
