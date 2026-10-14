@@ -4,7 +4,7 @@ name: Enviar e-mails
 # boletim, convites, avisos de decisão e as edições do boletim. Só roda depois de criada a variável EMAILS com o valor
 # "sim" (Settings → Secrets and variables → Actions → Variables); para pausar os envios, apague a variável.
 # Precisa dos segredos SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY (os mesmos da publicação) e RESEND_API_KEY, e da
-# variável EMAIL_REMETENTE (ex.: Instituto Lúcia <contato@institutolucia.org>). EMAIL_RESPOSTA é opcional.
+# variável EMAIL_REMETENTE (Instituto Lúcia <noreply@institutolucia.org>). EMAIL_RESPOSTA (institutolucia@tutamail.com) recebe as respostas.
 on:
   schedule:
     - cron: "*/10 * * * *"

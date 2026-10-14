@@ -299,12 +299,12 @@ Para ligar, uma vez só:
 
 1. Crie uma conta em resend.com e acrescente o domínio `institutolucia.org` em **Domains**. O Resend mostra três ou quatro registros de DNS (SPF, DKIM e, se quiser, DMARC): copie cada um para **Cloudflare → DNS** do domínio, com a nuvem laranja **desligada** (só DNS). Espere o Resend marcar o domínio como verificado.
 2. Gere uma chave em **API Keys** com permissão só de envio (*Sending access*), restrita ao domínio.
-3. No GitHub, em **Settings → Secrets and variables → Actions**: segredo `RESEND_API_KEY` com a chave; variável `EMAIL_REMETENTE` com `Instituto Lúcia <contato@institutolucia.org>`; variável `EMAILS` com `sim`. Os segredos `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` já existem (são os da publicação).
-4. Para receber as respostas: em **Cloudflare → Email → Email Routing**, ligue o roteamento e crie a regra `contato@institutolucia.org` → o seu e-mail pessoal. Depois crie a variável `EMAIL_RESPOSTA` com `contato@institutolucia.org`. O Email Routing só recebe e encaminha; quem envia é o Resend.
+3. No GitHub, em **Settings → Secrets and variables → Actions**: segredo `RESEND_API_KEY` com a chave; variável `EMAIL_REMETENTE` com `Instituto Lúcia <noreply@institutolucia.org>`; variável `EMAIL_RESPOSTA` com `institutolucia@tutamail.com`; variável `EMAILS` com `sim`. Os segredos `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` já existem (são os da publicação).
+4. Respostas: os e-mails saem de `noreply@institutolucia.org`, endereço que não recebe nada, e levam `institutolucia@tutamail.com` como "responder para". Quem clica em responder escreve direto para a caixa do instituto. O Email Routing do Cloudflare não é necessário para isso; ele só serviria para criar caixas de entrada com o domínio do site.
 5. Rode o `supabase/install.sql` no SQL Editor (ele cria a fila e liga os envios no banco).
 6. Em **Actions → Enviar e-mails → Run workflow**, rode uma vez e confira o registro: "N enviado(s)".
 
-Os e-mails da própria entrada (confirmar o cadastro, trocar a senha) não passam por aqui: quem manda é o serviço de contas. O servidor de e-mail padrão do Supabase manda pouquíssimos por hora e só serve para teste. Com o cadastro aberto, use o mesmo Resend em **Supabase → Authentication → SMTP Settings** (servidor `smtp.resend.com`, porta 465, usuário `resend`, senha = uma chave do Resend, remetente `contato@institutolucia.org`).
+Os e-mails da própria entrada (confirmar o cadastro, trocar a senha) não passam por aqui: quem manda é o serviço de contas. O servidor de e-mail padrão do Supabase manda pouquíssimos por hora e só serve para teste. Com o cadastro aberto, use o mesmo Resend em **Supabase → Authentication → SMTP Settings** (servidor `smtp.resend.com`, porta 465, usuário `resend`, senha = uma chave do Resend, remetente `noreply@institutolucia.org`).
 
 ## 7. Como uma contribuição vira página
 
