@@ -4,27 +4,51 @@ import { localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { site } from "@/lib/site";
 
-/** Cabeçalho do jornal, no desenho da imprensa operária: faixa vermelha, título pesado, linha de expediente. */
-export function Masthead({ lang, s, updated, small = false }: { lang: Locale; s: Dict["journal"]; updated?: string; small?: boolean }) {
+/** A estrela do símbolo do instituto, recortada para caber sozinha num quadrado. */
+export function Star({ className }: { className?: string }) {
+  return (
+    <svg viewBox="33 9 54 53" aria-hidden className={className}>
+      <polygon
+        points="60,10 66.29,29.35 86.63,29.35 70.17,41.31 76.46,60.65 60,48.7 43.54,60.65 49.83,41.31 33.37,29.35 53.71,29.35"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+/**
+ * Cabeçalho do jornal, no desenho dos cartazes da imprensa operária: a palavra de ordem no alto,
+ * a faixa vermelha com o nome em letra pesada, a cunha preta com a estrela e o fio duplo do expediente.
+ */
+export function Masthead({ lang, s, slogan, updated, small = false }: { lang: Locale; s: Dict["journal"]; slogan?: string; updated?: string; small?: boolean }) {
   const host = site.url.replace(/^https?:\/\//, "");
   return (
     <header className="jornal-topo">
-      <Link href={localePath(lang, "/jornal")} className={`jornal-faixa block ${small ? "px-4 py-3" : "px-4 py-5 sm:px-6 sm:py-7"}`}>
-        <span className={`jornal-nome block font-sans font-black uppercase italic ${small ? "jornal-nome-menor" : ""}`}>
-          {s.nameTop} {s.nameBottom}
+      {slogan && !small && (
+        <p className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 pb-1.5 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-ink-soft">
+          <span>{slogan}</span>
+          {updated && <span>{updated}</span>}
+        </p>
+      )}
+      <Link href={localePath(lang, "/jornal")} className={`jornal-faixa jornal-cartaz ${small ? "jornal-cartaz-menor" : ""}`}>
+        <span className="jornal-cartaz-nome font-sans font-black uppercase italic">
+          <span className="jornal-cartaz-alto">{s.nameTop}</span> <span className="jornal-cartaz-baixo">{s.nameBottom}</span>
+        </span>
+        <span className="jornal-cunha" aria-hidden>
+          <Star className="jornal-cunha-estrela" />
         </span>
       </Link>
-      <p className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b-4 border-ink px-1 py-1.5 font-sans text-[0.7rem] font-semibold uppercase tracking-wide">
+      <p className="jornal-fio flex flex-wrap items-center gap-x-3 gap-y-1 px-1 py-1.5 font-sans text-[0.7rem] font-semibold uppercase tracking-wide">
         <span>{s.tagline}</span>
-        <span aria-hidden>·</span>
+        <span aria-hidden className="text-oxblood">★</span>
         <span className="normal-case">{host}</span>
-        {updated && (
+        {updated && (small || !slogan) && (
           <>
-            <span aria-hidden>·</span>
+            <span aria-hidden className="text-oxblood">★</span>
             <span>{updated}</span>
           </>
         )}
-        <span aria-hidden>·</span>
+        <span aria-hidden className="text-oxblood">★</span>
         <span>{s.free}</span>
       </p>
     </header>
