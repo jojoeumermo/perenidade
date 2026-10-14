@@ -745,7 +745,7 @@ $$;
 
 create or replace function interno.nome_papel(p text) returns text language sql immutable as $$
   select case p when 'coordenacao' then 'coordenação' when 'vice' then 'vice-coordenação' when 'curadoria' then 'curadoria' when 'mediacao' then 'mediação'
-    when 'educacao' then 'educação' when 'revisao' then 'revisão' when 'traducao' then 'tradução' when 'jornalismo' then 'jornalismo'
+    when 'educacao' then 'educação' when 'revisao' then 'revisão' when 'traducao' then 'tradução' when 'jornalismo' then 'jornalismo, rádio e podcast'
     when 'mentoria' then 'aula de reforço' when 'design' then 'design' when 'desenvolvimento' then 'desenvolvimento' else coalesce(p, '') end
 $$;
 
