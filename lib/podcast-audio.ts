@@ -252,6 +252,7 @@ export async function analisarAudio(arquivo: Blob, aoAndar?: (fracao: number) =>
 /** O que a medição quer dizer, em português de quem edita. */
 export function conselhoDeVolume(a: Analise): string[] {
   const dicas: string[] = [];
+  if (a.lufs === null && a.completa) return ["Não há som suficiente para medir: o arquivo parece estar em silêncio. Confira se exportou a faixa certa."];
   if (a.lufs === null) return ["Não deu para medir o volume deste formato aqui. Confira no Audacity (Analisar → Medir volume) ou exporte em MP3."];
   if (a.lufs < -19) dicas.push(`Volume baixo (${a.lufs} LUFS). O padrão é perto de -16: no Audacity, Efeitos → Volume e compressão → Normalização de volume (loudness), alvo -16 LUFS.`);
   else if (a.lufs > -14) dicas.push(`Volume alto (${a.lufs} LUFS). Normalize para perto de -16 LUFS: acima disso as plataformas abaixam e pode distorcer.`);

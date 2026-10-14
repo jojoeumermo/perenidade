@@ -193,7 +193,7 @@ export function Conversa({ topico, s }: { topico: string; s: Dict["podcast"] }) 
     }
   }
 
-  const data = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day: "numeric", month: "short" });
+  const data = (iso: string) => new Date(iso).toLocaleDateString(document.documentElement.lang || "pt-BR", { day: "numeric", month: "short" });
   return (
     <div className="mt-4 font-sans">
       {respostas.length === 0 && <p className="text-ink-soft">{s.commentsEmpty}</p>}

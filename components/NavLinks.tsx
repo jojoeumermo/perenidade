@@ -12,6 +12,7 @@ import { useI18n } from "./I18n";
 export function NavLinks() {
   const pathname = usePathname();
   const { lang, t } = useI18n();
+  const novo = useEpisodioNovo();
   // Na linha só o que se usa todo dia. Memorial, Dedicatória e o resto continuam em "Mais".
   const links: [string, string, string][] = [
     [t.nav.disciplines, "/trilhas", ""],
@@ -33,6 +34,12 @@ export function NavLinks() {
         className={`whitespace-nowrap py-2 hover:text-oxblood ${show} ${active ? "text-oxblood underline decoration-gold underline-offset-8" : ""}`}
       >
         {label}
+        {path === "/podcasts" && novo && (
+          <>
+            <span aria-hidden className="ml-1 inline-block h-2 w-2 -translate-y-1.5 rounded-full bg-[#c21f16]" />
+            <span className="sr-only"> · {t.radio.newEpisode}</span>
+          </>
+        )}
       </Link>
     );
   };
@@ -197,7 +204,10 @@ function useEpisodioNovo(): boolean {
   return novo;
 }
 
-/** Atalho para o podcast, com um ponto vermelho quando saiu episódio novo desde a última visita. */
+/**
+ * Atalho para o podcast, com um ponto vermelho quando saiu episódio novo desde a última visita. Só no celular:
+ * no computador o menu do topo já tem "Podcasts", com o mesmo aviso.
+ */
 export function PodcastLink() {
   const pathname = usePathname();
   const { lang, t } = useI18n();
@@ -210,7 +220,7 @@ export function PodcastLink() {
       aria-label={novo ? `${t.nav.podcasts} · ${t.radio.newEpisode}` : t.nav.podcasts}
       title={novo ? t.radio.newEpisode : t.nav.podcasts}
       aria-current={active ? "page" : undefined}
-      className={`relative flex h-8 w-7 shrink-0 items-center justify-center hover:text-oxblood sm:w-8 ${active ? "text-oxblood" : "text-ink-soft"}`}
+      className={`relative flex h-8 w-7 shrink-0 items-center justify-center hover:text-oxblood sm:w-8 md:hidden ${active ? "text-oxblood" : "text-ink-soft"}`}
     >
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M4 15v-3a8 8 0 0 1 16 0v3" />
