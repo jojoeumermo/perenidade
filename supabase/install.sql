@@ -669,6 +669,26 @@ create table if not exists interno.divulgacao (
 );
 create index if not exists divulgacao_data on interno.divulgacao (data_prevista);
 
+-- Os votos ganham data, para o expurgo saber o que entrou num período. Os antigos ficam com a data da instalação.
+alter table interno.votos add column if not exists criado_em timestamptz not null default now();
+
+-- Pedidos da supervisão (interditar, liberar, expurgar): só valem depois da aprovação da coordenação ou da vice,
+-- com os dados que estão no pedido. Pedido parado vence em 72 horas.
+create table if not exists interno.pedidos (
+  id uuid primary key default gen_random_uuid(),
+  tipo text not null check (tipo in ('interdicao', 'liberacao', 'expurgo')),
+  dados jsonb not null default '{}'::jsonb,
+  justificativa text not null check (char_length(justificativa) between 30 and 1000),
+  autor uuid references interno.perfis (id) on delete set null,
+  situacao text not null default 'pendente' check (situacao in ('pendente', 'aprovado', 'recusado', 'vencido')),
+  nota text not null default '' check (char_length(nota) <= 500),
+  decidido_por uuid references interno.perfis (id) on delete set null,
+  decidido_em timestamptz,
+  resultado jsonb,
+  criado_em timestamptz not null default now()
+);
+create index if not exists pedidos_situacao on interno.pedidos (situacao, criado_em);
+
 -- Trancadas duas vezes: sem permissões e com segurança por linha ligada (sem nenhuma regra = ninguém passa).
 do $$
 declare t record;
@@ -781,6 +801,48 @@ $$;
 create or replace function interno.envia() returns boolean language sql stable as $$
   select interno.curador() or interno.tem('educacao') or interno.tem('jornalismo') or interno.tem('design') or interno.tem('marketing')
 $$;
+
+/**
+ * As áreas públicas que podem ser interditadas, uma por pedaço do site. A mesma lista, com os caminhos de cada uma,
+ * mora em lib/interdicao.ts; `npm run testar:interdicao` falha se as duas divergirem. Área nova: acrescente nos dois.
+ */
+create or replace function interno.areas_publicas() returns text[] language sql immutable as $$
+  select array['comunidade', 'mural', 'reforco', 'contribuir', 'jornal', 'radio', 'acervo', 'estudo', 'ferramentas', 'memoria', 'debate', 'materiais', 'dados', 'videos', 'voluntariado', 'busca', 'gaveta']
+$$;
+
+/** O que o expurgo limpa: só o que o público escreve. O mural de apoiadores fica de fora: só a coordenação escreve ali. */
+create or replace function interno.areas_expurgo() returns text[] language sql immutable as $$
+  select array['comunidade', 'mural', 'anotacoes', 'reforco', 'contribuicoes', 'gaveta']
+$$;
+
+create or replace function interno.interdicao() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((select valor from configuracoes where chave = 'interdicao'), '{}'::jsonb)
+$$;
+
+/** A área está fechada para o público, sozinha ou porque o site inteiro está fora do ar? */
+create or replace function interno.interditada(p_area text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((interno.interdicao() ->> 'geral')::boolean, false) or coalesce(interno.interdicao() -> 'areas' ? p_area, false)
+$$;
+
+/** Quem cuida de cada área continua lendo e limpando com ela interditada; é para isso que a interdição serve. */
+create or replace function interno.cuida_area(p_area text) returns boolean language sql stable as $$
+  select case p_area
+    when 'comunidade' then interno.cuida()
+    when 'estudo' then interno.cuida()
+    when 'mural' then interno.media_mural()
+    when 'reforco' then interno.coord() or interno.tem('mentoria') or interno.tem('educacao')
+    when 'contribuir' then interno.voluntario()
+    when 'radio' then interno.radialista()
+    when 'materiais' then interno.curador() or interno.tem('design') or interno.tem('marketing')
+    when 'gaveta' then interno.media()
+    else interno.coord() end
+$$;
+
+/** A porta de cada função pública: área interditada recusa o público com "area_interditada". */
+create or replace function interno.aberta(p_area text) returns void language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  if interno.interditada(p_area) and not interno.cuida_area(p_area) then perform interno.erro('area_interditada'); end if;
+end $$;
 
 /** Anota no registro de atividades. Só vale para o que deu certo: se a função falhar depois, a anotação some junto. */
 create or replace function interno.registrar(p_acao text, p_alvo text default '', p_detalhes jsonb default '{}'::jsonb) returns void
@@ -1464,6 +1526,7 @@ declare
   v_nome text;
   v_id uuid;
 begin
+  perform interno.aberta('contribuir');
   -- Campo-isca: gente não vê, robô preenche. Finge que deu certo e não guarda nada.
   if coalesce(p ->> 'site', '') <> '' then return jsonb_build_object('id', gen_random_uuid()); end if;
   if v is not null then perform interno.eu(); end if;
@@ -1947,6 +2010,7 @@ drop function if exists public.topico_criar(text, text, text);
  */
 create or replace function public.topicos_listar(p_ordem text default 'alta', p_disciplina text default null, p_pagina integer default 0, p_tipo text default null, p_busca text default null) returns jsonb
 language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.aberta('comunidade');
   select coalesce(jsonb_agg(x.j order by x.n), '[]'::jsonb) from (
     select row_number() over () as n, jsonb_build_object(
       'id', t.id, 'titulo', t.titulo, 'disciplina', t.disciplina, 'pontos', t.pontos, 'respostas', t.respostas, 'tipo', t.tipo, 'resolvida', t.aceita is not null,
@@ -1968,6 +2032,7 @@ $$;
 create or replace function public.topico_ver(p_id uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
 declare t topicos;
 begin
+  perform interno.aberta('comunidade');
   select * into t from topicos where id = p_id;
   -- Quem escreveu acompanha a própria mensagem enquanto ela espera a mediação; mais ninguém de fora a vê.
   if not found or (t.oculto and not interno.cuida() and not coalesce(t.retido and t.autor = auth.uid(), false)) then perform interno.erro('nao_encontrado'); end if;
@@ -2003,6 +2068,7 @@ declare
   v_corpo text := interno.txt(p_corpo, 'corpo', 10, 8000);
   v_av jsonb; v_veredito text; v_externa boolean := false;
 begin
+  perform interno.aberta('comunidade');
   perform interno.limite('topico', 3, 60);
   if coalesce(p_tipo, 'conversa') not in ('conversa', 'duvida') then perform interno.erro('invalido:tipo'); end if;
   v_av := interno.veredito(v_titulo || ' ' || v_corpo, interno.cuida(), v);
@@ -2024,6 +2090,7 @@ end $$;
 create or replace function public.responder(p_topico uuid, p_corpo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); t topicos; v_id uuid; v_corpo text := interno.txt(p_corpo, 'corpo', 2, 8000); v_av jsonb; v_veredito text; v_externa boolean := false;
 begin
+  perform interno.aberta('comunidade');
   perform interno.limite('responder', 30, 60);
   select * into t from topicos where id = p_topico for update;
   if not found or t.oculto then perform interno.erro('nao_encontrado'); end if;
@@ -2048,6 +2115,7 @@ end $$;
 create or replace function public.resposta_aceitar(p_topico uuid, p_resposta uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); t topicos;
 begin
+  perform interno.aberta('comunidade');
   select * into t from topicos where id = p_topico for update;
   if not found or t.oculto then perform interno.erro('nao_encontrado'); end if;
   if not (coalesce(t.autor = v, false) or interno.cuida()) then perform interno.erro('sem_permissao'); end if;
@@ -2061,6 +2129,7 @@ end $$;
 create or replace function public.votar(p_tipo text, p_alvo uuid, p_valor integer) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); v_antes integer; v_pontos integer;
 begin
+  perform interno.aberta('comunidade');
   perform interno.limite('votar', 300, 60);
   if p_tipo not in ('topico', 'resposta') or p_valor not in (-1, 0, 1) then perform interno.erro('invalido:voto'); end if;
   if p_tipo = 'topico' then perform 1 from topicos where id = p_alvo and not oculto for update;
@@ -2220,6 +2289,7 @@ end $$;
 create or replace function public.denunciar(p_alvo text, p_motivo text, p_detalhes text, p_site text default '') returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
+  perform interno.aberta('contribuir');
   if coalesce(p_site, '') <> '' then return jsonb_build_object('ok', true); end if;
   perform interno.limite('denunciar', 6, 60);
   insert into denuncias (alvo, motivo, detalhes, autor)
@@ -2248,6 +2318,7 @@ end $$;
 -- ───────────────────────────── Anotações de leitura ─────────────────────────────
 
 create or replace function public.anotacoes_listar(p_caminho text) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.aberta('estudo');
   select coalesce(jsonb_agg(jsonb_build_object(
     'id', a.id, 'paragrafo', a.paragrafo, 'trecho', a.trecho, 'corpo', a.corpo, 'status', a.status, 'autor', coalesce(f.nome, ''), 'criado_em', a.criado_em)
     order by a.paragrafo, a.criado_em), '[]'::jsonb)
@@ -2260,6 +2331,7 @@ create or replace function public.anotar(p_caminho text, p_paragrafo integer, p_
 language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); v_id uuid;
 begin
+  perform interno.aberta('estudo');
   if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
   perform interno.limite('anotar', 40, 60);
   if coalesce(p_caminho, '') !~ '^/[a-z0-9/_-]{1,200}$' then perform interno.erro('invalido:caminho'); end if;
@@ -2292,6 +2364,7 @@ end $$;
 -- ───────────────────────────── Apoiadores ─────────────────────────────
 
 create or replace function public.apoiadores_listar() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.aberta('voluntariado');
   select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'nome', a.nome, 'mensagem', a.mensagem) order by a.criado_em), '[]'::jsonb) from apoiadores a
 $$;
 
@@ -2332,6 +2405,7 @@ drop function if exists public.mural_listar(text, text);
 /** O que o público vê: só anúncios aprovados e dentro da validade, com filtro de tipo, estado, cidade e palavra. */
 create or replace function public.mural_listar(p_categoria text default null, p_uf text default null, p_cidade text default null, p_busca text default null) returns jsonb
 language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.aberta('mural');
   select coalesce(jsonb_agg(interno.mural_json(m, false) order by m.decidido_em desc), '[]'::jsonb)
   from (select * from mural
         where status = 'aprovado' and validade > now()
@@ -2355,6 +2429,7 @@ declare
   v_link text := btrim(coalesce(p ->> 'link', ''));
   v_titulo text; v_descricao text; v_cidade text; v_contato text; v_oficio text; v_codigo text;
 begin
+  perform interno.aberta('mural');
   -- Campo-isca: gente não vê, robô preenche. Finge que deu certo e não guarda nada.
   if coalesce(p ->> 'site', '') <> '' then return jsonb_build_object('id', gen_random_uuid()); end if;
   if v is not null then perform interno.eu(); end if;
@@ -2402,6 +2477,7 @@ end $$;
 create or replace function public.mural_renovar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu();
 begin
+  perform interno.aberta('mural');
   update mural set validade = now() + interval '180 days' where id = p_id and autor = v and status = 'aprovado';
   if not found then perform interno.erro('nao_encontrado'); end if;
   return jsonb_build_object('ok', true);
@@ -2451,6 +2527,7 @@ end $$;
 create or replace function public.radio_estado() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
 declare c jsonb := (select valor from configuracoes where chave = 'radio');
 begin
+  perform interno.aberta('radio');
   if not coalesce((c ->> 'no_ar')::boolean, false) and not interno.radialista() then
     return jsonb_build_object('no_ar', false);
   end if;
@@ -2589,6 +2666,7 @@ declare
   v_disc text := interno.disciplina_ok(p ->> 'disciplina');
   v_assunto text; v_duvida text; v_id uuid;
 begin
+  perform interno.aberta('reforco');
   if coalesce(p ->> 'site', '') <> '' then return jsonb_build_object('id', gen_random_uuid()); end if;
   if v is not null then perform interno.eu(); end if;
   perform interno.limite('reforco', case when v is null then 2 else 3 end, 60);
@@ -2780,6 +2858,7 @@ end $$;
 -- ───────────────────────────── Materiais de campanha ─────────────────────────────
 
 create or replace function public.materiais_listar() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.aberta('materiais');
   select coalesce(jsonb_agg(jsonb_build_object('id', m.id, 'tipo', m.tipo, 'titulo', m.titulo, 'descricao', m.descricao, 'campanha', m.campanha, 'url', m.url,
     'publicado', m.publicado, 'ordem', m.ordem, 'criado_em', m.criado_em) order by m.ordem, m.criado_em desc), '[]'::jsonb)
   from materiais m where m.publicado or interno.curador() or interno.tem('design') or interno.tem('marketing')
@@ -3102,6 +3181,8 @@ begin
   delete from mural where status = 'recusado' and decidido_em < now() - interval '30 days';
   delete from mural where status = 'aprovado' and validade < now() - interval '60 days';
   delete from divulgacao where situacao = 'publicado' and mexido_em < now() - interval '400 days';
+  perform interno.pedidos_vencer();
+  delete from pedidos where situacao <> 'pendente' and criado_em < now() - interval '400 days';
   -- O serviço de contas guarda endereço de rede nos próprios registros; apagamos os antigos onde isso é permitido.
   begin
     execute $q$delete from auth.audit_log_entries where created_at < now() - interval '30 days'$q$;
@@ -3145,6 +3226,7 @@ begin
     'divulgacao', case when interno.divulga() then (select count(*) from divulgacao d
                     where (d.situacao = 'pronto' and d.data_prevista is not null and d.data_prevista <= current_date) or (d.devolvido and interno.tem('marketing'))) else 0 end,
     -- Aprovado há mais de três horas e ainda fora do ar: a rotina de publicação (de hora em hora) parou.
+    'pedidos_supervisao', case when interno.coord() then (select count(*) from pedidos where situacao = 'pendente' and criado_em > now() - interval '72 hours') else 0 end,
     'publicacao_atrasada', case when interno.coord() or interno.tem('desenvolvimento')
                     then (select count(*) from contribuicoes where status = 'aprovada' and revisado_em < now() - interval '3 hours') else 0 end);
 end $$;
@@ -3301,6 +3383,7 @@ $$;
 
 /** As cidades que têm anúncio no ar (em um estado ou em todos), para montar o filtro. */
 create or replace function public.mural_cidades(p_uf text default null) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.aberta('mural');
   select coalesce(jsonb_agg(jsonb_build_object('cidade', x.cidade, 'uf', x.uf, 'total', x.total) order by x.uf, x.cidade), '[]'::jsonb)
   from (select min(cidade) as cidade, uf, count(*) as total from mural
         where status = 'aprovado' and validade > now() and (coalesce(p_uf, '') = '' or uf = upper(p_uf))
@@ -3374,6 +3457,7 @@ end $$;
 create or replace function public.boletim_assinar(p_email text, p_site text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v_email text := lower(btrim(coalesce(p_email, ''))); b boletim;
 begin
+  perform interno.aberta('jornal');
   if coalesce(p_site, '') <> '' then return jsonb_build_object('ok', true); end if;
   perform interno.limite('boletim', 5, 60);
   if v_email !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_email) > 200 then perform interno.erro('invalido:email'); end if;
@@ -3391,6 +3475,7 @@ end $$;
 /** O link do e-mail de confirmação. */
 create or replace function public.boletim_confirmar(p_codigo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
+  perform interno.aberta('jornal');
   perform interno.limite('boletim_codigo', 30, 60);
   if coalesce(p_codigo, '') !~ '^[a-f0-9]{32}$' then perform interno.erro('nao_encontrado'); end if;
   update boletim set confirmado = true where codigo = p_codigo;
@@ -3511,7 +3596,12 @@ create or replace function public.site() returns jsonb language sql stable secur
     'faixa', coalesce((select valor ->> 'faixa' from configuracoes where chave = 'site'), ''),
     'pausa', coalesce((select (valor ->> 'pausa')::boolean from configuracoes where chave = 'site'), false),
     'cadastro', coalesce((select (valor ->> 'cadastro')::boolean from configuracoes where chave = 'site'), true),
-    'motivo', coalesce((select valor ->> 'motivo' from configuracoes where chave = 'site'), ''))
+    'motivo', coalesce((select valor ->> 'motivo' from configuracoes where chave = 'site'), ''),
+    -- O que o site fecha agora (lido pelo proxy.ts). O motivo interno e quem ligou ficam só no painel.
+    'interdicao', jsonb_build_object(
+      'geral', coalesce((interno.interdicao() ->> 'geral')::boolean, false),
+      'areas', coalesce(interno.interdicao() -> 'areas', '[]'::jsonb),
+      'mensagem', coalesce(interno.interdicao() ->> 'mensagem', '')))
 $$;
 
 /** Só a coordenação. A pausa fecha, na hora, tudo o que o público pode enviar; a equipe continua trabalhando. */
@@ -3570,6 +3660,7 @@ declare
   v_disc text := interno.disciplina_ok(p ->> 'disciplina');
   v_nome text; v_mensagem text; v_id uuid;
 begin
+  perform interno.aberta('voluntariado');
   -- Campo-isca: gente não vê, robô preenche. Finge que deu certo e não guarda nada.
   if coalesce(p ->> 'site', '') <> '' then return jsonb_build_object('id', gen_random_uuid()); end if;
   perform interno.limite('voluntariar', 3, 1440);
@@ -4164,6 +4255,268 @@ begin
     'armadilhas_7d', (select count(*) from auditoria where acao = 'armadilha' and criado_em > now() - interval '7 days'));
 end $$;
 
+-- ───────────────────────────── Interdição, expurgo e pedidos da supervisão ─────────────────────────────
+
+/** Grava o estado novo da interdição, inteiro. Só é chamada depois de conferida a permissão (direto ou por pedido aprovado). */
+create or replace function interno.interdicao_gravar(p jsonb, p_por uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_areas text[]; v jsonb;
+begin
+  select coalesce(array_agg(distinct a order by a), '{}') into v_areas from jsonb_array_elements_text(coalesce(p -> 'areas', '[]'::jsonb)) a;
+  if exists (select 1 from unnest(v_areas) a where a <> all (interno.areas_publicas())) then perform interno.erro('invalido:areas'); end if;
+  v := jsonb_build_object(
+    'geral', coalesce((p ->> 'geral')::boolean, false),
+    'areas', to_jsonb(v_areas),
+    'motivo', interno.txt(p ->> 'motivo', 'motivo', 0, 300),
+    'mensagem', interno.txt(p ->> 'mensagem', 'mensagem', 0, 300),
+    'desde', now(),
+    'por', p_por);
+  insert into configuracoes (chave, valor) values ('interdicao', v) on conflict (chave) do update set valor = excluded.valor;
+  return v;
+end $$;
+
+create or replace function interno.interdicao_texto(v jsonb) returns text language sql immutable as $$
+  select case
+    when coalesce((v ->> 'geral')::boolean, false) then 'o site inteiro está fora do ar (só a entrada e o painel funcionam)'
+    when jsonb_array_length(coalesce(v -> 'areas', '[]'::jsonb)) > 0 then 'áreas interditadas: ' || (select string_agg(a, ', ') from jsonb_array_elements_text(v -> 'areas') a)
+    else 'o site está aberto, sem interdição' end
+$$;
+
+/** O que a equipe que cuida disso vê: o estado, desde quando, quem ligou e por quê. Coordenação, vice-coordenação e supervisão. */
+create or replace function public.interdicao_ver() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v jsonb := interno.interdicao();
+begin
+  perform interno.eu();
+  if not interno.supervisor() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'geral', coalesce((v ->> 'geral')::boolean, false),
+    'areas', coalesce(v -> 'areas', '[]'::jsonb),
+    'motivo', coalesce(v ->> 'motivo', ''),
+    'mensagem', coalesce(v ->> 'mensagem', ''),
+    'desde', v ->> 'desde',
+    'por', coalesce((select nome from perfis where id::text = v ->> 'por'), ''),
+    'pode_aplicar', interno.coord(),
+    'historico', coalesce((select jsonb_agg(jsonb_build_object('acao', a.acao, 'nome', a.nome, 'detalhes', a.detalhes, 'criado_em', a.criado_em) order by a.id desc)
+                           from (select * from auditoria where acao in ('interdicao', 'expurgo', 'pedido_supervisao_criado', 'pedido_supervisao_aprovado', 'pedido_supervisao_recusado') order by id desc limit 30) a), '[]'::jsonb));
+end $$;
+
+/**
+ * Liga, muda ou desliga a interdição. Só coordenação e vice-coordenação, com motivo (que fica no registro e vai no aviso
+ * à liderança). p = { geral, areas: [...], motivo, mensagem }. A supervisão faz o mesmo por pedido (pedido_criar).
+ */
+create or replace function public.interdicao_definir(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_novo jsonb;
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('interdicao', 30, 60);
+  if char_length(btrim(coalesce(p ->> 'motivo', ''))) < 5 then perform interno.erro('invalido:motivo'); end if;
+  v_novo := interno.interdicao_gravar(p, v);
+  perform interno.registrar('interdicao', '', jsonb_build_object('geral', v_novo -> 'geral', 'areas', v_novo -> 'areas', 'justificativa', v_novo ->> 'motivo'));
+  perform interno.avisar_lideranca('Interdição: ' || interno.interdicao_texto(v_novo) || '. Motivo: ' || left(v_novo ->> 'motivo', 200), v);
+  return public.interdicao_ver();
+end $$;
+
+create or replace function interno.da_equipe(p_usuario uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_usuario is not null and exists (select 1 from papeis where usuario = p_usuario)
+$$;
+
+create or replace function interno.desde_periodo(p_periodo text) returns timestamptz language plpgsql stable as $$
+begin
+  return case p_periodo
+    when '1h' then now() - interval '1 hour'
+    when '6h' then now() - interval '6 hours'
+    when '24h' then now() - interval '24 hours'
+    when '7d' then now() - interval '7 days'
+    when 'tudo' then '-infinity'::timestamptz
+    else null end;
+end $$;
+
+/**
+ * Conta (e, com p_aplicar, apaga) o que o público escreveu nas áreas escolhidas, no período escolhido. p = { areas: [...],
+ * periodo: 1h | 6h | 24h | 7d | tudo, poupar_equipe }. Tudo numa transação só: ou apaga tudo o que contou, ou nada.
+ */
+create or replace function interno.expurgar(p jsonb, p_aplicar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v_areas text[]; v_desde timestamptz := interno.desde_periodo(p ->> 'periodo'); v_poupar boolean := coalesce((p ->> 'poupar_equipe')::boolean, true);
+  v_top uuid[]; v_resp uuid[]; v_votos integer; v_n integer; v_r jsonb := '{}'::jsonb; v_afetados uuid[];
+begin
+  select coalesce(array_agg(distinct a), '{}') into v_areas from jsonb_array_elements_text(coalesce(p -> 'areas', '[]'::jsonb)) a;
+  if cardinality(v_areas) = 0 or exists (select 1 from unnest(v_areas) a where a <> all (interno.areas_expurgo())) then perform interno.erro('invalido:areas'); end if;
+  if v_desde is null then perform interno.erro('invalido:periodo'); end if;
+
+  if 'comunidade' = any (v_areas) then
+    select coalesce(array_agg(id), '{}') into v_top from topicos where criado_em >= v_desde and not (v_poupar and interno.da_equipe(autor));
+    select coalesce(array_agg(id), '{}') into v_resp from respostas where topico = any (v_top) or (criado_em >= v_desde and not (v_poupar and interno.da_equipe(autor)));
+    select count(*) into v_votos from votos where alvo = any (v_top || v_resp) or (criado_em >= v_desde and not (v_poupar and interno.da_equipe(usuario)));
+    v_r := v_r || jsonb_build_object('topicos', cardinality(v_top), 'respostas', cardinality(v_resp), 'votos', v_votos);
+    if p_aplicar then
+      -- Os tópicos que ficam e perderam respostas ou votos têm as contas refeitas no fim.
+      select coalesce(array_agg(distinct x), '{}') into v_afetados from (
+        select topico as x from respostas where id = any (v_resp)
+        union select alvo from votos where tipo = 'topico' and criado_em >= v_desde and not (v_poupar and interno.da_equipe(usuario))) y;
+      delete from votos where alvo = any (v_top || v_resp) or (criado_em >= v_desde and not (v_poupar and interno.da_equipe(usuario)));
+      delete from respostas where id = any (v_resp);
+      delete from topicos where id = any (v_top);
+      update topicos t set aceita = null where t.aceita is not null and not exists (select 1 from respostas r where r.id = t.aceita);
+      update respostas r set pontos = coalesce((select sum(valor) from votos x where x.tipo = 'resposta' and x.alvo = r.id), 0) where r.topico = any (v_afetados);
+      update topicos t set pontos = coalesce((select sum(valor) from votos x where x.tipo = 'topico' and x.alvo = t.id), 0),
+        respostas = (select count(*) from respostas r where r.topico = t.id and not r.oculto and not r.retido)
+      where t.id = any (v_afetados);
+    end if;
+  end if;
+
+  if 'mural' = any (v_areas) then
+    select count(*) into v_n from mural where criado_em >= v_desde and not (v_poupar and interno.da_equipe(autor));
+    v_r := v_r || jsonb_build_object('mural', v_n);
+    if p_aplicar then delete from mural where criado_em >= v_desde and not (v_poupar and interno.da_equipe(autor)); end if;
+  end if;
+
+  if 'anotacoes' = any (v_areas) then
+    select count(*) into v_n from anotacoes where criado_em >= v_desde and not (v_poupar and interno.da_equipe(autor));
+    v_r := v_r || jsonb_build_object('anotacoes', v_n);
+    if p_aplicar then delete from anotacoes where criado_em >= v_desde and not (v_poupar and interno.da_equipe(autor)); end if;
+  end if;
+
+  if 'reforco' = any (v_areas) then
+    select count(*) into v_n from reforco where status in ('aberto', 'em_atendimento') and criado_em >= v_desde and not (v_poupar and interno.da_equipe(autor));
+    v_r := v_r || jsonb_build_object('reforco', v_n);
+    if p_aplicar then delete from reforco where status in ('aberto', 'em_atendimento') and criado_em >= v_desde and not (v_poupar and interno.da_equipe(autor)); end if;
+  end if;
+
+  if 'contribuicoes' = any (v_areas) then
+    select count(*) into v_n from contribuicoes where status = 'pendente' and triagem = 'aguardando' and criado_em >= v_desde and not (v_poupar and interno.da_equipe(autor));
+    v_r := v_r || jsonb_build_object('contribuicoes', v_n);
+    if p_aplicar then delete from contribuicoes where status = 'pendente' and triagem = 'aguardando' and criado_em >= v_desde and not (v_poupar and interno.da_equipe(autor)); end if;
+  end if;
+
+  -- A Gaveta Aberta entra aqui quando a tabela dela existir (tarefa seguinte); sem ela, conta zero.
+  if 'gaveta' = any (v_areas) then
+    if to_regclass('interno.gaveta') is not null then
+      execute 'select count(*) from interno.gaveta where criado_em >= $1 and not ($2 and interno.da_equipe(autor))' into v_n using v_desde, v_poupar;
+      if p_aplicar then execute 'delete from interno.gaveta where criado_em >= $1 and not ($2 and interno.da_equipe(autor))' using v_desde, v_poupar; end if;
+    else
+      v_n := 0;
+    end if;
+    v_r := v_r || jsonb_build_object('gaveta', v_n);
+  end if;
+  return v_r;
+end $$;
+
+/** Quanto o expurgo apagaria, área por área, antes de alguém confirmar. Coordenação, vice-coordenação e supervisão. */
+create or replace function public.expurgo_previa(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.supervisor() then perform interno.erro('sem_permissao'); end if;
+  return interno.expurgar(p, false);
+end $$;
+
+/** Aplica o expurgo (uso interno: coordenação direto, ou pedido aprovado). Fica no registro, avisa a liderança e pode pausar os envios junto. */
+create or replace function interno.expurgo_aplicar(p jsonb, p_por uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_r jsonb := interno.expurgar(p, true); v_pausar boolean := coalesce((p ->> 'pausar')::boolean, false);
+begin
+  if v_pausar then
+    insert into configuracoes (chave, valor) values ('site', jsonb_build_object('pausa', true, 'motivo', 'Os envios estão pausados por um tempo.'))
+    on conflict (chave) do update set valor = configuracoes.valor || jsonb_build_object('pausa', true, 'motivo', coalesce(nullif(configuracoes.valor ->> 'motivo', ''), 'Os envios estão pausados por um tempo.'));
+  end if;
+  perform interno.registrar('expurgo', '', jsonb_build_object('areas', p -> 'areas', 'periodo', p ->> 'periodo', 'poupar_equipe', coalesce((p ->> 'poupar_equipe')::boolean, true), 'pausa', v_pausar, 'apagados', v_r));
+  perform interno.avisar_lideranca('Expurgo feito (' || coalesce(p ->> 'periodo', '') || '): ' || (select string_agg(k || ' ' || v, ', ') from jsonb_each_text(v_r) e(k, v))
+    || case when v_pausar then '. Os envios do público ficaram pausados.' else '.' end, p_por);
+  return v_r;
+end $$;
+
+/**
+ * O botão de expurgo: apaga de uma vez o que o público escreveu nas áreas escolhidas (chuva de spam). Só coordenação e
+ * vice-coordenação, e só com a palavra EXPURGAR digitada. p = { areas, periodo, poupar_equipe, pausar, confirmacao }.
+ */
+create or replace function public.expurgo_aplicar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p ->> 'confirmacao', '') <> 'EXPURGAR' then perform interno.erro('invalido:confirmacao'); end if;
+  perform interno.limite('expurgo', 10, 60);
+  return interno.expurgo_aplicar(p, v);
+end $$;
+
+/** Pedido parado há 72 horas vence sozinho, sem aplicar nada. */
+create or replace function interno.pedidos_vencer() returns void language sql security definer set search_path = interno, pg_temp as $$
+  update pedidos set situacao = 'vencido', decidido_em = now() where situacao = 'pendente' and criado_em < now() - interval '72 hours'
+$$;
+
+/**
+ * A supervisão pede uma interdição, a liberação ou um expurgo, com justificativa de pelo menos 30 letras. O pedido só vale
+ * depois que a coordenação ou a vice-coordenação aprovar, com os dados que estão nele. Coordenação e vice são avisadas.
+ */
+create or replace function public.pedido_criar(p_tipo text, p_dados jsonb, p_justificativa text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid; v_dados jsonb := coalesce(p_dados, '{}'::jsonb); v_just text := interno.txt(p_justificativa, 'justificativa', 30, 1000);
+begin
+  if not interno.tem('supervisao') then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('pedido_criar', 10, 60);
+  if coalesce(p_tipo, '') not in ('interdicao', 'liberacao', 'expurgo') then perform interno.erro('invalido:tipo'); end if;
+  -- Confere os dados agora, para a coordenação não aprovar um pedido que falharia.
+  if p_tipo = 'interdicao' then
+    if not coalesce((v_dados ->> 'geral')::boolean, false) and jsonb_array_length(coalesce(v_dados -> 'areas', '[]'::jsonb)) = 0 then perform interno.erro('invalido:areas'); end if;
+    if exists (select 1 from jsonb_array_elements_text(coalesce(v_dados -> 'areas', '[]'::jsonb)) a where a <> all (interno.areas_publicas())) then perform interno.erro('invalido:areas'); end if;
+    v_dados := jsonb_build_object('geral', coalesce((v_dados ->> 'geral')::boolean, false), 'areas', coalesce(v_dados -> 'areas', '[]'::jsonb), 'mensagem', interno.txt(v_dados ->> 'mensagem', 'mensagem', 0, 300));
+  elsif p_tipo = 'liberacao' then
+    v_dados := '{}'::jsonb;
+  else
+    perform interno.expurgar(v_dados, false);
+    v_dados := jsonb_build_object('areas', v_dados -> 'areas', 'periodo', v_dados ->> 'periodo', 'poupar_equipe', coalesce((v_dados ->> 'poupar_equipe')::boolean, true), 'pausar', coalesce((v_dados ->> 'pausar')::boolean, false));
+  end if;
+  insert into pedidos (tipo, dados, justificativa, autor) values (p_tipo, v_dados, v_just, v) returning id into v_id;
+  perform interno.registrar('pedido_supervisao_criado', v_id::text, jsonb_build_object('tipo', p_tipo, 'justificativa', v_just));
+  perform interno.avisar_lideranca('A supervisão pediu ' || case p_tipo when 'interdicao' then 'uma interdição' when 'liberacao' then 'a liberação do site' else 'um expurgo' end
+    || ': ' || left(v_just, 200) || ' Aprove ou recuse em Interdição e expurgo (vence em 72 horas).', v);
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** A fila de pedidos. A coordenação e a vice-coordenação veem todos; a supervisão vê os próprios e os já decididos. */
+create or replace function public.pedidos_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_coord boolean := interno.coord();
+begin
+  if not interno.supervisor() then perform interno.erro('sem_permissao'); end if;
+  perform interno.pedidos_vencer();
+  return (select coalesce(jsonb_agg(jsonb_build_object(
+      'id', p.id, 'tipo', p.tipo, 'dados', p.dados, 'justificativa', p.justificativa, 'situacao', p.situacao, 'nota', p.nota, 'resultado', p.resultado,
+      'autor', coalesce((select nome from perfis where id = p.autor), ''), 'meu', p.autor = v,
+      'decidido_por', coalesce((select nome from perfis where id = p.decidido_por), ''), 'decidido_em', p.decidido_em, 'criado_em', p.criado_em,
+      'vence_em', p.criado_em + interval '72 hours') order by p.criado_em desc), '[]'::jsonb)
+    from (select * from pedidos where v_coord or autor = v or situacao <> 'pendente' order by criado_em desc limit 50) p);
+end $$;
+
+/**
+ * Coordenação ou vice-coordenação decide um pedido. Aprovar aplica a ação na mesma transação, com os dados que estavam no
+ * pedido; recusar (com nota opcional) não aplica nada. Pedido vencido não se aprova. Quem pediu é avisado.
+ */
+create or replace function public.pedido_decidir(p_id uuid, p_aprovar boolean, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r pedidos; v_resultado jsonb := null; v_nota text := interno.txt(p_nota, 'nota', 0, 500);
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  perform interno.pedidos_vencer();
+  select * into r from pedidos where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if r.situacao = 'vencido' then perform interno.erro('pedido_vencido'); end if;
+  if r.situacao <> 'pendente' then perform interno.erro('ja_decidida'); end if;
+  if coalesce(p_aprovar, false) then
+    if r.tipo = 'interdicao' then
+      v_resultado := interno.interdicao_gravar(r.dados || jsonb_build_object('motivo', left('Pedido da supervisão: ' || r.justificativa, 300)), v);
+      perform interno.registrar('interdicao', '', jsonb_build_object('geral', v_resultado -> 'geral', 'areas', v_resultado -> 'areas', 'justificativa', v_resultado ->> 'motivo'));
+    elsif r.tipo = 'liberacao' then
+      v_resultado := interno.interdicao_gravar(jsonb_build_object('geral', false, 'areas', '[]'::jsonb, 'motivo', left('Pedido da supervisão: ' || r.justificativa, 300)), v);
+      perform interno.registrar('interdicao', '', jsonb_build_object('geral', false, 'areas', '[]'::jsonb, 'justificativa', v_resultado ->> 'motivo'));
+    else
+      v_resultado := interno.expurgo_aplicar(r.dados, v);
+    end if;
+  end if;
+  update pedidos set situacao = case when coalesce(p_aprovar, false) then 'aprovado' else 'recusado' end, nota = v_nota, decidido_por = v, decidido_em = now(), resultado = v_resultado
+  where id = p_id;
+  perform interno.registrar(case when coalesce(p_aprovar, false) then 'pedido_supervisao_aprovado' else 'pedido_supervisao_recusado' end, p_id::text, jsonb_build_object('tipo', r.tipo, 'nota', v_nota));
+  if r.autor is not null then
+    perform interno.avisar(r.autor, 'Seu pedido de ' || case r.tipo when 'interdicao' then 'interdição' when 'liberacao' then 'liberação' else 'expurgo' end || ' foi '
+      || case when coalesce(p_aprovar, false) then 'aprovado e já está valendo.' else 'recusado.' end || case when v_nota <> '' then ' Nota: ' || v_nota else '' end);
+  end if;
+  return jsonb_build_object('ok', true, 'resultado', v_resultado);
+end $$;
+
 -- ───────────────────────────── Permissões ─────────────────────────────
 
 -- As funções internas não podem ser chamadas de fora; as públicas, sim (cada uma faz a própria conferência).
@@ -4197,7 +4550,8 @@ begin
              'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao',
              'equipe_supervisao', 'pedidos_supervisao', 'protecoes', 'site_pausa', 'usuario_editar', 'usuario_senha_redefinir', 'senha_trocada',
              'divulgacao_listar', 'divulgacao_salvar', 'divulgacao_situacao', 'divulgacao_comentar', 'divulgacao_apagar', 'divulgacao_instagram_salvar',
-             'traducoes_andamento', 'diagnostico'))
+             'traducoes_andamento', 'diagnostico',
+             'interdicao_ver', 'interdicao_definir', 'expurgo_previa', 'expurgo_aplicar', 'pedido_criar', 'pedidos_listar', 'pedido_decidir'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then

@@ -1574,6 +1574,7 @@
     "conteudo_recusado": "The text has words this site does not accept. Rewrite it and send again.",
     "sem_links": "Text only here: no website addresses, images or files.",
     "envios_pausados": "Submissions are paused at the moment.",
+    "area_interditada": "This part of the site is closed for a while. Please try again later.",
     "acesso_bloqueado": "Submissions from this network have been blocked by the mediators.",
     "ja_pediu": "You have already sent this request; it is under review."
   },
@@ -1861,5 +1862,13 @@
     "votesSource": "Source: Chamber of Deputies open data.",
     "unavailable": "The source did not respond right now. Come back in a few hours.",
     "note": "All numbers come from the sources shown in each box, unadjusted. If a source does not respond, the box disappears instead of showing an old number."
+  },
+  "closed": {
+    "siteTitle": "Offline for a while",
+    "siteLead": "Instituto Lúcia is temporarily offline. Please come back a little later.",
+    "areaTitle": "This part of the site is closed for a while",
+    "areaLead": "The rest of the site is working normally.",
+    "home": "Go to the home page",
+    "team": "Team: sign in"
   }
 }

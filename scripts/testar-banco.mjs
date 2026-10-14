@@ -1319,6 +1319,125 @@ await recusa("curadoria não vê a fila de reforço (tem e-mail de estudante)", 
 await espera("a Mesa do revisor não conta o que espera a triagem", () => rpc(como(ids.alvo), "painel_resumo"), (r) => typeof r.fila === "number" && r.candidaturas === 0 && r.denuncias === 0 && r.mural === 0);
 await espera("a Mesa do marketing não conta a fila de revisão nem a triagem", () => rpc(mkt, "painel_resumo"), (r) => r.fila === 0 && r.triagem === 0 && r.candidaturas === 0);
 
+// ── Interdição do site, pedidos da supervisão e expurgo ──
+const COORD = { ...como(ids.coord), aal: "aal2" };
+const VICE = { ...como(ids.vice), aal: "aal2" };
+const SUP = como(ids.sup);
+const avisosDe = async (quem) => (await rpc(quem, "eu")).avisos;
+await espera("site aberto: site() diz que não há interdição, sem motivo nem autor", () => rpc(anon, "site"), (r) => r.interdicao.geral === false && r.interdicao.areas.length === 0 && r.interdicao.motivo === undefined && r.interdicao.por === undefined);
+await recusa("leitora não vê a interdição", () => rpc(como(ids.leitora), "interdicao_ver"), "sem_permissao");
+await recusa("supervisão não aplica a interdição sozinha", () => rpc(SUP, "interdicao_definir", { p: { geral: true, motivo: "Teste da supervisão" } }), "sem_permissao");
+await recusa("interdição exige motivo", () => rpc(COORD, "interdicao_definir", { p: { geral: false, areas: ["comunidade"], motivo: "" } }), "invalido:motivo");
+await recusa("área desconhecida é recusada", () => rpc(COORD, "interdicao_definir", { p: { areas: ["cozinha"], motivo: "Teste de área" } }), "invalido:areas");
+await espera("vice-coordenação interdita só a Comunidade, e a coordenação é avisada", async () => {
+  const a0 = await avisosDe(como(ids.coord));
+  const r = await rpc(VICE, "interdicao_definir", { p: { geral: false, areas: ["comunidade"], motivo: "Ataque de robôs na Comunidade", mensagem: "Voltamos logo." } });
+  return [r.areas, r.motivo, (await avisosDe(como(ids.coord))) > a0, (await rpc(anon, "site")).interdicao];
+}, (r) => JSON.stringify(r[0]) === '["comunidade"]' && r[1] === "Ataque de robôs na Comunidade" && r[2] && r[3].mensagem === "Voltamos logo." && r[3].motivo === undefined);
+await recusa("área interditada recusa o público na leitura", () => rpc(anon, "topicos_listar", {}), "area_interditada");
+await recusa("e na abertura de uma conversa", () => rpc(anon, "topico_ver", { p_id: "00000000-0000-0000-0000-000000000000" }), "area_interditada");
+await recusa("e no envio de quem tem conta", () => rpc(como(ids.leitora), "topico_criar", { p_titulo: "Pergunta de teste", p_corpo: "Um corpo de pergunta qualquer.", p_disciplina: null }), "area_interditada");
+await espera("quem cuida da Comunidade continua lendo", () => rpc(como(ids.med), "topicos_listar", {}), (r) => Array.isArray(r));
+await espera("o resto do site segue aberto", () => rpc(anon, "mural_listar", {}), (r) => Array.isArray(r));
+await espera("a supervisão vê o estado, com motivo e autor", () => rpc(SUP, "interdicao_ver"), (r) => r.areas.includes("comunidade") && r.motivo === "Ataque de robôs na Comunidade" && r.por === "Vera Vice" && r.pode_aplicar === false);
+await espera("coordenação tira o site inteiro do ar", () => rpc(COORD, "interdicao_definir", { p: { geral: true, areas: [], motivo: "Manutenção geral" } }), (r) => r.geral === true);
+await recusa("com o site fora do ar, o mural recusa o público", () => rpc(anon, "mural_listar", {}), "area_interditada");
+await recusa("e a candidatura de voluntário", () => rpc({ papel: "anon", ip: "198.51.100.210" }, "voluntariar", { p: { nome: "Fulana de Tal", email: "fulana.fora@exemplo.org", papel: "revisao", mensagem: "Quero revisar textos do instituto, tenho experiência." } }), "area_interditada");
+await recusa("e a denúncia", () => rpc(anon, "denunciar", { p_alvo: "/pt/comunidade", p_motivo: "spam", p_detalhes: "Detalhes da denúncia com mais de vinte letras." }), "area_interditada");
+await recusa("e a rádio", () => rpc(anon, "radio_estado"), "area_interditada");
+await espera("a equipe continua escrevendo pelo painel", () => rpc(como(ids.prof), "contribuir", { p: aula({ titulo: "Aula escrita com o site fora do ar" }) }), (r) => Boolean(r.id));
+await espera("o jornalismo continua cuidando da rádio", () => rpc(como(ids.jornal), "radio_estado"), (r) => Array.isArray(r.canais));
+await espera("coordenação reabre tudo", () => rpc(COORD, "interdicao_definir", { p: { geral: false, areas: [], motivo: "Manutenção concluída" } }), (r) => r.geral === false && r.areas.length === 0);
+await espera("reaberto, o público lê de topicoNovo", () => rpc(anon, "topicos_listar", {}), (r) => Array.isArray(r));
+
+// Os pedidos da supervisão.
+await recusa("pedido precisa de justificativa de pelo menos 30 letras", () => rpc(SUP, "pedido_criar", { p_tipo: "interdicao", p_dados: { areas: ["mural"] }, p_justificativa: "Spam" }), "invalido:justificativa");
+await recusa("coordenação não faz pedido: aplica direto", () => rpc(COORD, "pedido_criar", { p_tipo: "liberacao", p_dados: {}, p_justificativa: "A coordenação não precisa pedir nada a ninguém." }), "sem_permissao");
+await recusa("revisor não faz pedido", () => rpc(como(ids.alvo), "pedido_criar", { p_tipo: "liberacao", p_dados: {}, p_justificativa: "Um revisor tentando pedir algo que não pode." }), "sem_permissao");
+await recusa("pedido de interdição sem área nem site inteiro", () => rpc(SUP, "pedido_criar", { p_tipo: "interdicao", p_dados: { areas: [] }, p_justificativa: "Pedido sem dizer o que fechar, não deve passar." }), "invalido:areas");
+let pedidoSup;
+await espera("supervisão pede a interdição do mural; nada muda ainda, e a coordenação é avisada", async () => {
+  const a0 = await avisosDe(como(ids.coord));
+  pedidoSup = await rpc(SUP, "pedido_criar", { p_tipo: "interdicao", p_dados: { areas: ["mural"], mensagem: "Mural em revisão." }, p_justificativa: "O mural está recebendo dezenas de anúncios falsos por minuto." });
+  return [Boolean(pedidoSup.id), (await avisosDe(como(ids.coord))) > a0, (await rpc(anon, "site")).interdicao.areas];
+}, (r) => r[0] && r[1] && r[2].length === 0);
+await espera("a Mesa da coordenação conta o pedido", () => rpc(COORD, "painel_resumo"), (r) => r.pedidos_supervisao === 1);
+await espera("a supervisão acompanha o próprio pedido", () => rpc(SUP, "pedidos_listar"), (r) => r.some((p) => p.id === pedidoSup.id && p.meu && p.situacao === "pendente"));
+await recusa("supervisão não decide o próprio pedido", () => rpc(SUP, "pedido_decidir", { p_id: pedidoSup.id, p_aprovar: true }), "sem_permissao");
+await espera("coordenação aprova: a interdição vale com os dados do pedido, e a supervisão é avisada", async () => {
+  const a0 = await avisosDe(SUP);
+  await rpc(COORD, "pedido_decidir", { p_id: pedidoSup.id, p_aprovar: true, p_nota: "Pode fechar." });
+  return [(await rpc(anon, "site")).interdicao, (await avisosDe(SUP)) > a0, (await rpc(SUP, "pedidos_listar")).find((p) => p.id === pedidoSup.id)];
+}, (r) => JSON.stringify(r[0].areas) === '["mural"]' && r[0].mensagem === "Mural em revisão." && r[1] && r[2].situacao === "aprovado" && r[2].nota === "Pode fechar." && r[2].decidido_por === "Jonathan");
+await recusa("pedido decidido não se decide de topicoNovo", () => rpc(COORD, "pedido_decidir", { p_id: pedidoSup.id, p_aprovar: false }), "ja_decidida");
+await espera("liberação recusada: nada muda", async () => {
+  const p2 = await rpc(SUP, "pedido_criar", { p_tipo: "liberacao", p_dados: {}, p_justificativa: "O spam parou há uma hora, dá para reabrir o mural." });
+  await rpc(VICE, "pedido_decidir", { p_id: p2.id, p_aprovar: false, p_nota: "Espere até amanhã." });
+  return (await rpc(anon, "site")).interdicao.areas;
+}, (r) => JSON.stringify(r) === '["mural"]');
+await espera("pedido parado há mais de 72 horas vence e não se aprova", async () => {
+  const p3 = await rpc(SUP, "pedido_criar", { p_tipo: "liberacao", p_dados: {}, p_justificativa: "Pedido de reabertura que ninguém viu a tempo." });
+  await dono("update interno.pedidos set criado_em = now() - interval '73 hours' where id = $1", [p3.id]);
+  let erro = "";
+  try {
+    await rpc(COORD, "pedido_decidir", { p_id: p3.id, p_aprovar: true });
+  } catch (e) {
+    erro = e.message;
+  }
+  return [erro, (await rpc(anon, "site")).interdicao.areas, (await rpc(COORD, "pedidos_listar")).find((p) => p.id === p3.id).situacao];
+}, (r) => r[0].includes("pedido_vencido") && JSON.stringify(r[1]) === '["mural"]' && r[2] === "vencido");
+await espera("liberação aprovada reabre", async () => {
+  const p4 = await rpc(SUP, "pedido_criar", { p_tipo: "liberacao", p_dados: {}, p_justificativa: "O mural já foi limpo pela mediação, pode reabrir." });
+  await rpc(COORD, "pedido_decidir", { p_id: p4.id, p_aprovar: true });
+  return (await rpc(anon, "site")).interdicao;
+}, (r) => r.geral === false && r.areas.length === 0);
+
+// Expurgo.
+ids.robo = await criarUsuario("robo@teste.local", "Robô de Spam");
+await rpc(como(ids.robo), "eu");
+const inserir = async (sql, valores) => (await dono(sql, valores)).rows[0].id;
+const topicoTeste = (autor, horas) => inserir("insert into interno.topicos (autor, titulo, corpo, criado_em) values ($1, 'Tópico de teste do expurgo', 'Corpo de teste do expurgo.', now() - make_interval(hours => $2::int)) returning id", [autor, horas]);
+const respostaTeste = (topico, autor) => inserir("insert into interno.respostas (topico, autor, corpo) values ($1, $2, 'Resposta de teste do expurgo.') returning id", [topico, autor]);
+const existeLinha = async (tabela, id) => (await dono(`select count(*)::int as n from interno.${tabela} where id = $1`, [id])).rows[0].n === 1;
+const pExp = { areas: ["comunidade", "mural", "anotacoes", "reforco"], periodo: "24h", poupar_equipe: true };
+const antesExp = await rpc(SUP, "expurgo_previa", { p: pExp });
+const topicoSpam = await topicoTeste(ids.robo, 0);
+const topicoVelho = await topicoTeste(ids.robo, 48);
+const topicoDaEquipe = await topicoTeste(ids.prof, 0);
+const respostaSpam = await respostaTeste(topicoVelho, ids.robo);
+const respostaEquipe = await respostaTeste(topicoVelho, ids.prof);
+await dono("insert into interno.votos (usuario, tipo, alvo, valor) values ($1, 'topico', $2, 1)", [ids.robo, topicoVelho]);
+await dono("update interno.topicos set respostas = 2, pontos = 1 where id = $1", [topicoVelho]);
+const anuncioSpam = await inserir("insert into interno.mural (autor, categoria, titulo, descricao, cidade, contato) values ($1, 'servico', 'Anúncio de spam', 'Descrição de spam com mais de vinte letras.', 'Recife', 'contato de spam') returning id", [ids.robo]);
+const anotacaoSpam = await inserir("insert into interno.anotacoes (caminho, paragrafo, corpo, autor) values ('/trilhas/x/y', 1, 'Anotação de spam aqui.', $1) returning id", [ids.robo]);
+const reforcoSpam = await inserir("insert into interno.reforco (autor, disciplina, assunto, duvida) values ($1, 'matematica', 'Spam de reforço', 'Uma dúvida de spam com mais de vinte letras.') returning id", [ids.robo]);
+await espera("a prévia conta o que entrou no período e não é da equipe", () => rpc(SUP, "expurgo_previa", { p: pExp }),
+  (r) => r.topicos - antesExp.topicos === 1 && r.respostas - antesExp.respostas === 1 && r.votos - antesExp.votos === 1 && r.mural - antesExp.mural === 1 && r.anotacoes - antesExp.anotacoes === 1 && r.reforco - antesExp.reforco === 1);
+await espera("sem poupar a equipe, a prévia conta também o que a equipe escreveu", async () => [await rpc(SUP, "expurgo_previa", { p: { ...pExp, poupar_equipe: false } }), await rpc(SUP, "expurgo_previa", { p: pExp })], (r) => r[0].topicos > r[1].topicos);
+await espera("a prévia não apaga nada", async () => [await existeLinha("topicos", topicoSpam), await existeLinha("mural", anuncioSpam)], (r) => r[0] && r[1]);
+await recusa("leitora não vê a prévia", () => rpc(como(ids.robo), "expurgo_previa", { p: pExp }), "sem_permissao");
+await recusa("supervisão não aplica o expurgo", () => rpc(SUP, "expurgo_aplicar", { p: { ...pExp, confirmacao: "EXPURGAR" } }), "sem_permissao");
+await recusa("sem digitar EXPURGAR, nada acontece", () => rpc(COORD, "expurgo_aplicar", { p: { ...pExp, confirmacao: "expurgar" } }), "invalido:confirmacao");
+await recusa("período desconhecido", () => rpc(COORD, "expurgo_previa", { p: { ...pExp, periodo: "ontem" } }), "invalido:periodo");
+await recusa("área que não se expurga", () => rpc(COORD, "expurgo_previa", { p: { ...pExp, areas: ["acervo"] } }), "invalido:areas");
+await espera("coordenação expurga: some o do período e de fora da equipe; o resto fica, com as contas refeitas", async () => {
+  const r = await rpc(COORD, "expurgo_aplicar", { p: { ...pExp, confirmacao: "EXPURGAR" } });
+  const v = (await dono("select respostas, pontos from interno.topicos where id = $1", [topicoVelho])).rows[0];
+  return [r.topicos >= 1, await existeLinha("topicos", topicoSpam), await existeLinha("topicos", topicoVelho), await existeLinha("topicos", topicoDaEquipe), await existeLinha("respostas", respostaSpam), await existeLinha("respostas", respostaEquipe), v.respostas, v.pontos, await existeLinha("mural", anuncioSpam), await existeLinha("anotacoes", anotacaoSpam), await existeLinha("reforco", reforcoSpam)];
+}, (r) => JSON.stringify(r) === JSON.stringify([true, false, true, true, false, true, 1, 0, false, false, false]));
+await espera("o expurgo fica no registro, com as contas", () => rpc(COORD, "auditoria_listar", { p_pagina: 0, p_acao: "expurgo" }), (r) => r.length === 1 && r[0].detalhes.apagados.topicos >= 1 && r[0].detalhes.periodo === "24h");
+await espera("expurgo pedido pela supervisão, com pausa: aprovado, apaga e pausa os envios", async () => {
+  const topicoNovo = await topicoTeste(ids.robo, 0);
+  const pe = await rpc(SUP, "pedido_criar", { p_tipo: "expurgo", p_dados: { areas: ["comunidade"], periodo: "1h", poupar_equipe: true, pausar: true }, p_justificativa: "Nova leva de spam na Comunidade, mais de cem tópicos." });
+  const r = await rpc(COORD, "pedido_decidir", { p_id: pe.id, p_aprovar: true });
+  const site = await rpc(anon, "site");
+  const sobrou = await existeLinha("topicos", topicoNovo);
+  await rpc(COORD, "site_salvar", { p: { faixa: "", pausa: false } });
+  return [r.resultado.topicos >= 1, site.pausa, sobrou];
+}, (r) => r[0] === true && r[1] === true && r[2] === false);
+await recusa("pedido de expurgo com área que não se expurga é recusado já no pedido", () => rpc(SUP, "pedido_criar", { p_tipo: "expurgo", p_dados: { areas: ["acervo"], periodo: "1h" }, p_justificativa: "Pedido com área que não existeLinha para expurgo." }), "invalido:areas");
+await espera("o estado da interdição mostra o histórico recente", () => rpc(COORD, "interdicao_ver"), (r) => r.historico.some((h) => h.acao === "expurgo") && r.historico.some((h) => h.acao === "pedido_supervisao_aprovado"));
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);
