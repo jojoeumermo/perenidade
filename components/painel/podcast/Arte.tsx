@@ -96,7 +96,7 @@ function caber(pena: CanvasRenderingContext2D, texto: string, fonte: (tamanho: n
   return { linhas: [texto.slice(0, 80)], tamanho: minimo };
 }
 
-function estrela(pena: CanvasRenderingContext2D, cx: number, cy: number, raio: number, cor: string) {
+export function estrela(pena: CanvasRenderingContext2D, cx: number, cy: number, raio: number, cor: string) {
   pena.beginPath();
   for (let i = 0; i < 10; i++) {
     const r = i % 2 === 0 ? raio : raio * 0.382;
@@ -261,14 +261,16 @@ export async function desenharArte(tela: HTMLCanvasElement, modelo: Modelo, form
     grad.addColorStop(1, COR.tinta);
     pena.fillStyle = grad;
     pena.fillRect(0, 0, w, h);
+    // Montado de baixo para cima: o rodapé, o nome do convidado e o título, que sobe conforme o número de linhas.
+    const { linhas, tamanho } = caber(pena, d.titulo.toUpperCase(), pesada, larg, h > w ? 5 : 3, 9 * u, 4.5 * u);
+    const base = h - m - 13 * u - (d.convidado ? 7 * u : 0);
+    let y = base - (linhas.length - 1) * tamanho * 0.98;
     pena.fillStyle = COR.vermelho;
-    pena.fillRect(m, h * 0.56, 22 * u, 1.2 * u);
+    pena.fillRect(m, y - tamanho - 3 * u, 22 * u, 1.2 * u);
     pena.fillStyle = COR.pergaminho;
     pena.font = fina(2.8 * u);
-    pena.fillText(etiqueta(d) || "PODCAST", m, h * 0.56 - 2.5 * u);
-    const { linhas, tamanho } = caber(pena, d.titulo.toUpperCase(), pesada, larg, h > w ? 5 : 3, 10 * u, 4.5 * u);
+    pena.fillText(etiqueta(d) || "PODCAST", m, y - tamanho - 5.5 * u);
     pena.font = pesada(tamanho);
-    let y = h * 0.6 + tamanho;
     for (const linha of linhas) {
       pena.fillText(linha, m, y);
       y += tamanho * 0.98;
@@ -276,14 +278,17 @@ export async function desenharArte(tela: HTMLCanvasElement, modelo: Modelo, form
     if (d.convidado) {
       pena.font = editorial(5 * u);
       pena.fillStyle = COR.ouro;
-      pena.fillText(d.convidado, m, y + 3 * u);
+      pena.fillText(d.convidado, m, y + 2 * u);
     }
     rodape(COR.pergaminho);
   } else if (modelo === "raios") {
     pena.fillStyle = COR.vermelho;
     pena.fillRect(0, 0, w, h);
+    // A faixa preta de baixo cresce com o título; os raios ocupam o resto.
+    const titulo = caber(pena, d.titulo.toUpperCase(), pesada, larg, h > w ? 6 : 3, 8.5 * u, 4 * u);
+    const caixa = Math.min(h * 0.6, h - m - 13 * u - titulo.linhas.length * titulo.tamanho * 0.98 - 9 * u);
     const cx = w / 2;
-    const cy = h * 0.36;
+    const cy = caixa * 0.55;
     pena.fillStyle = COR.bordo;
     for (let i = 0; i < 24; i += 2) {
       const a0 = (i * Math.PI * 2) / 24;
@@ -300,16 +305,15 @@ export async function desenharArte(tela: HTMLCanvasElement, modelo: Modelo, form
     pena.fillStyle = COR.pergaminho;
     pena.fill();
     estrela(pena, cx, cy + u, 11 * u, COR.vermelho);
-    const caixa = h * 0.6;
     pena.fillStyle = COR.tinta;
     pena.fillRect(0, caixa, w, h - caixa);
     pena.fillStyle = COR.ouro;
     pena.font = fina(2.8 * u);
     pena.fillText(etiqueta(d) || "PODCAST", m, caixa + 6 * u);
-    const { linhas, tamanho } = caber(pena, d.titulo.toUpperCase(), pesada, larg, h > w ? 6 : 3, 9.5 * u, 4 * u);
+    const { linhas, tamanho } = titulo;
     pena.fillStyle = COR.pergaminho;
     pena.font = pesada(tamanho);
-    let y = caixa + 8 * u + tamanho;
+    let y = caixa + 8 * u + tamanho * 0.85;
     for (const linha of linhas) {
       pena.fillText(linha, m, y);
       y += tamanho * 0.98;

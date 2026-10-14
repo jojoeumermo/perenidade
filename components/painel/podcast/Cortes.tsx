@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { lerLegendas, lerRelogio, relogio } from "@/lib/podcast";
 import { urlPublica } from "@/lib/podcast-audio";
 import { botao, botaoClaro, campo, rotulo } from "../comum";
-import { fontes, imagemDaMarca } from "./Arte";
+import { estrela, fontes, imagemDaMarca } from "./Arte";
 
 const FORMATOS = [
   { id: "vertical", nome: "Vertical 9:16 (Reels, TikTok, Shorts)", w: 1080, h: 1920 },
@@ -133,8 +133,18 @@ export function GeradorDeCortes({ episodio }: { episodio: EpisodioDoCorte }) {
       const topo = 20 * u;
       if (capa) pena.drawImage(capa, (w - lado) / 2, topo, lado, lado);
       else {
+        // Sem capa, o cartaz do site: vermelho, a quina preta e a estrela.
+        const x = (w - lado) / 2;
         pena.fillStyle = "#c21f16";
-        pena.fillRect((w - lado) / 2, topo, lado, lado);
+        pena.fillRect(x, topo, lado, lado);
+        pena.fillStyle = "#1f1a14";
+        pena.beginPath();
+        pena.moveTo(x + lado, topo + lado * 0.64);
+        pena.lineTo(x + lado, topo + lado);
+        pena.lineTo(x + lado * 0.6, topo + lado);
+        pena.closePath();
+        pena.fill();
+        estrela(pena, x + lado / 2, topo + lado / 2, lado * 0.28, "#f4ecd8");
       }
       let y = topo + lado + 9 * u;
       pena.fillStyle = "#f4ecd8";

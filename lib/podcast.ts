@@ -6,6 +6,22 @@
 export const TEMAS = ["historia", "economia", "luta-social", "enem", "filosofia", "cultura", "ciencia", "trabalho", "educacao", "internacional", "memoria", "atualidade"] as const;
 export type Tema = (typeof TEMAS)[number];
 
+/** O que cada item da lista de conferência quer dizer. */
+export const PENDENCIAS_DO_EPISODIO: Record<string, string> = {
+  aprovacao: "aprovação da supervisão",
+  audio: "áudio final (no depósito ou a cópia de fora)",
+  duracao: "duração do áudio",
+  capa: "capa do episódio",
+  resumo: "resumo de pelo menos 20 letras",
+  notas: "notas do episódio (fontes, obras, capítulos)",
+  transcricao: "transcrição",
+  convidados: "autorização de voz de todos os convidados",
+  volume: "volume conferido (perto de -16 LUFS)",
+  ruido: "ruído conferido",
+  fontes: "fontes conferidas",
+  trilhas: "licença das trilhas e vinhetas",
+};
+
 export interface Capitulo {
   t: number;
   titulo: string;

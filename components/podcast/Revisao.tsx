@@ -3,7 +3,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { BackendError, hasBackend, rpc } from "@/lib/backend";
-import { arquivoPublico, type Capitulo, relogio } from "@/lib/podcast";
+import { arquivoPublico, type Capitulo, PENDENCIAS_DO_EPISODIO, relogio } from "@/lib/podcast";
 import { useHydrated } from "@/lib/storage";
 import { L } from "../I18n";
 import { Markdown } from "../Markdown";
@@ -145,7 +145,7 @@ export function RevisaoPrivada() {
         {r.pendencias.length > 0 && (
           <div className="border-l-4 border-gold pl-3">
             <p className="font-semibold">Ainda falta para publicar</p>
-            <p className="text-ink-soft">{r.pendencias.join(", ")}</p>
+            <ul className="list-disc pl-5 text-ink-soft">{r.pendencias.map((p) => <li key={p}>{PENDENCIAS_DO_EPISODIO[p] ?? p}</li>)}</ul>
           </div>
         )}
         <section>

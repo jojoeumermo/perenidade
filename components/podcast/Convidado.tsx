@@ -77,7 +77,7 @@ export function PaginaDoConvidado({ s }: { s: Dict["podcast"] }) {
           </div>
           {ficha.aceito ? (
             <p className="mt-5 border-l-4 border-ok pl-4 font-sans">
-              {s.guestAccepted} {ficha.aceite_em && new Date(ficha.aceite_em).toLocaleString()}. {ficha.autoriza_imagem ? s.guestWithImage : s.guestVoiceOnly}
+              {s.guestAccepted} {ficha.aceite_em && new Date(ficha.aceite_em).toLocaleString(document.documentElement.lang || "pt-BR", { dateStyle: "short", timeStyle: "short" })}. {ficha.autoriza_imagem ? s.guestWithImage : s.guestVoiceOnly}
             </p>
           ) : (
             <form className="mt-5 space-y-3 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void aceitar(); }}>
