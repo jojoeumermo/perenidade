@@ -74,7 +74,7 @@ export default async function LessonPage({ params }: Props) {
     <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-[16rem_1fr]">
       <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} />
 
-      <aside className="no-print no-focus font-sans text-sm md:sticky md:top-6 md:self-start">
+      <aside className="indice-da-trilha no-print no-focus font-sans text-sm md:sticky md:top-6 md:self-start">
         <Link href={to(`/estantes/${track.area}`)} className="text-ink-soft hover:text-oxblood">← {t.areas[track.area][0]}</Link>
         <h2 className="mt-3 font-serif text-xl font-semibold" {...originalLang(track.translated)}>
           <Link href={to(`/trilhas/${track.slug}`)} className="hover:text-oxblood">{track.title}</Link>

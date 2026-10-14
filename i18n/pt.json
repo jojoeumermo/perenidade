@@ -72,7 +72,8 @@
     "terms": "Termos de uso",
     "start": "Por onde começar",
     "news": "Notícias",
-    "gallery": "Galeria de cartazes"
+    "gallery": "Galeria de cartazes",
+    "data": "Dados do povo"
   },
   "footer": {
     "tagline": "Conhecimento livre, para todos, para sempre.",
@@ -138,7 +139,9 @@
     "ctaButton": "Enviar uma contribuição",
     "questionsTitle": "Comece por uma pergunta",
     "shelvesHint": "São muitas. Escolha o essencial ou a etapa que você quer estudar.",
-    "tryLabel": "Experimente:"
+    "tryLabel": "Experimente:",
+    "onThisDay": "Neste dia",
+    "onThisDaySource": "Fatos selecionados pela Wikipédia para a data de hoje. Texto da Wikipédia, licença CC BY-SA."
   },
   "areas": {
     "portugues": [
@@ -876,6 +879,18 @@
     "pronuncia": [
       "Pronúncia",
       "Ouça qualquer frase em inglês, espanhol, chinês ou russo, na velocidade que quiser."
+    ],
+    "dicionario": [
+      "Dicionário",
+      "Significado das palavras em português e em inglês, com a fonte de cada definição."
+    ],
+    "frases": [
+      "Frases traduzidas",
+      "Frases de verdade, em inglês, francês e espanhol, com a tradução ao lado."
+    ],
+    "graficos": [
+      "Gráficos e álgebra",
+      "Desenhe o gráfico de funções, simplifique expressões e calcule derivadas."
     ]
   },
   "tools": {
@@ -1011,6 +1026,36 @@
       "noVoice": "Seu aparelho não tem uma voz instalada para este idioma. Instale o pacote de voz nas configurações do sistema ou tente outro navegador.",
       "unsupported": "Este navegador não tem leitura em voz alta.",
       "note": "A voz é a do seu próprio aparelho: a qualidade muda de um aparelho para outro, e nada do que você escreve é enviado para fora. Ouça, repita em voz alta e compare."
+    },
+    "dictionary": {
+      "word": "Palavra",
+      "language": "Dicionário",
+      "search": "Procurar",
+      "none": "Não encontramos essa palavra. Confira a grafia ou tente sem acento.",
+      "fail": "O dicionário não respondeu agora. Tente de novo em instantes.",
+      "source": "Fonte:",
+      "oldSpelling": "definições de 1913, com a grafia da época"
+    },
+    "sentences": {
+      "word": "Palavra ou trecho",
+      "from": "Frase em",
+      "to": "Tradução em",
+      "search": "Procurar",
+      "none": "Nenhuma frase encontrada. Tente uma palavra mais comum.",
+      "fail": "O Tatoeba não respondeu agora. Tente de novo em instantes.",
+      "same": "Escolha duas línguas diferentes."
+    },
+    "graphs": {
+      "loading": "Carregando a calculadora…",
+      "invalid": "Expressão que não deu para entender. Use x, +, -, *, /, ^ e funções como sin(x) ou sqrt(x).",
+      "from": "x de",
+      "to": "até",
+      "badRange": "O começo precisa ser menor que o fim.",
+      "algebra": "Simplificar e derivar",
+      "expression": "Expressão em x",
+      "simplified": "Simplificada",
+      "derivative": "Derivada",
+      "hint": "Escreva como na calculadora: 3x^2 + 2x - 1, sqrt(x), sin(x), log(x), e. Vírgula ou ponto servem para decimais."
     }
   },
   "journal": {
@@ -1031,11 +1076,15 @@
       "lead": "Os jornalistas do instituto mandam um boletim com as matérias novas. Sem anúncio, sem repassar o seu endereço a ninguém.",
       "email": "Seu e-mail",
       "button": "Quero receber",
-      "done": "Pronto. Você vai receber o próximo boletim.",
-      "leave": "Para sair da lista, escreva para",
+      "done": "Quase lá: mandamos um link para o seu e-mail. O boletim só começa a chegar depois que você clicar nele.",
+      "doneDirect": "Pronto. Você vai receber o próximo boletim.",
+      "leave": "Todo boletim traz um link para sair da lista. Se preferir, escreva para",
       "roundTitle": "Giro de notícias do país",
       "roundLead": "As manchetes de agora da imprensa popular, independente e pública, de dezessete veículos, em uma página só. Atualiza sozinha a cada quinze minutos.",
-      "roundButton": "Abrir o giro de notícias"
+      "roundButton": "Abrir o giro de notícias",
+      "confirmed": "Pronto: o seu e-mail está confirmado e você vai receber o próximo boletim.",
+      "left": "Pronto: o seu e-mail saiu da lista do boletim.",
+      "badLink": "Este link não vale mais. Peça o boletim de novo, se quiser."
     }
   },
   "factCheck": {
@@ -1043,7 +1092,14 @@
     "title": "Checagem de fatos",
     "lead": "Boatos e meias-verdades que circulam por aí, conferidos com fontes públicas.",
     "empty": "Nenhuma checagem publicada ainda.",
-    "claim": "O que dizem"
+    "claim": "O que dizem",
+    "searchTitle": "Já foi checado?",
+    "searchLead": "Procure o boato nas checagens publicadas por agências como Lupa e Aos Fatos.",
+    "searchPlaceholder": "Ex.: vacina, urna eletrônica, salário mínimo",
+    "searchButton": "Procurar",
+    "searchNone": "Nenhuma checagem encontrada com essas palavras. Tente outras.",
+    "searchFail": "A busca não respondeu agora. Tente de novo em instantes.",
+    "searchSource": "Resultados do Google Fact Check Tools. Cada checagem é da agência que a publicou: abra o link para ler."
   },
   "debates": {
     "eyebrow": "Argumentos à mão",
@@ -1108,7 +1164,8 @@
       "support": "Ajude a pagar o servidor e o domínio.",
       "start": "Livros curtos e aulas para dar os primeiros passos.",
       "news": "Manchetes de veículos populares, independentes e públicos, atualizadas sozinhas.",
-      "gallery": "Cartazes e imagens da luta dos trabalhadores, com a história de cada um."
+      "gallery": "Cartazes e imagens da luta dos trabalhadores, com a história de cada um.",
+      "data": "Salário mínimo, inflação, juros, desemprego e o que a Câmara votou, das fontes oficiais."
     }
   },
   "support": {
@@ -1171,7 +1228,8 @@
     "createWhy": "A conta serve para perguntar e responder na Comunidade. O que respeita as regras aparece na hora; a mediação acompanha e intervém quando é preciso. Guardamos só o seu e-mail; o nome que aparece no site nasce como um codinome, que você troca se quiser.",
     "createFailed": "Não foi possível criar a conta. Este e-mail pode já ter conta, ou o cadastro pode estar fechado no momento.",
     "volunteerLink": "Quer ser voluntário? Preencha a candidatura",
-    "whyClosed": "Aqui não há \"esqueci minha senha\" e, no momento, as contas são criadas por convite da coordenação. Perdeu a senha? Fale com quem convidou você."
+    "whyClosed": "Aqui não há \"esqueci minha senha\" e, no momento, as contas são criadas por convite da coordenação. Perdeu a senha? Fale com quem convidou você.",
+    "leaked": "Essa senha já apareceu em vazamentos de outros sites e é das primeiras que um invasor tenta. Escolha outra. (A conferência não envia a sua senha a ninguém.)"
   },
   "radio": {
     "eyebrow": "No ar",
@@ -1467,5 +1525,42 @@
       "desenvolvimento": "Infraestrutura e desenvolvimento",
       "curadoria": "Curador(a)"
     }
+  },
+  "povo": {
+    "eyebrow": "Consciência política",
+    "title": "Dados do povo",
+    "lead": "Os números que mais pesam na vida de quem trabalha e o que a Câmara anda votando, direto das fontes oficiais. Atualizados de tantas em tantas horas.",
+    "economy": "Salário, preços e emprego",
+    "indicators": {
+      "salario": [
+        "Salário mínimo",
+        "Valor mensal do salário mínimo nacional."
+      ],
+      "ipca": [
+        "Inflação em 12 meses",
+        "IPCA acumulado em doze meses: quanto os preços subiram em um ano."
+      ],
+      "selic": [
+        "Juros básicos (Selic)",
+        "Meta da taxa Selic ao ano, definida pelo Banco Central. Ela encarece ou barateia o crédito."
+      ],
+      "desocupacao": [
+        "Desemprego",
+        "Taxa de desocupação da PNAD Contínua, em trimestre móvel."
+      ],
+      "populacao": [
+        "População do Brasil",
+        "Estimativa oficial do IBGE."
+      ]
+    },
+    "reference": "Referência",
+    "votes": "O que a Câmara votou",
+    "votesLead": "As últimas votações no Plenário da Câmara dos Deputados, como a própria Câmara as descreve.",
+    "approved": "aprovado",
+    "rejected": "rejeitado",
+    "seeSession": "Ver a sessão no site da Câmara",
+    "votesSource": "Fonte: Dados Abertos da Câmara dos Deputados.",
+    "unavailable": "A fonte não respondeu agora. Volte em algumas horas.",
+    "note": "Todos os números vêm das fontes indicadas em cada quadro, sem ajuste nosso. Se uma fonte não responde, o quadro some em vez de mostrar número velho."
   }
 }

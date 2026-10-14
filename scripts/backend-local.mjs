@@ -13,8 +13,8 @@ import crypto from "node:crypto";
 import http from "node:http";
 import { criarBanco } from "./banco-local.mjs";
 
-// Outra porta pela variável LUCIA_BACKEND_PORTA, para rodar mais de uma cópia ao mesmo tempo.
-export const PORTA = Number(process.env.LUCIA_BACKEND_PORTA) || 54399;
+// Outra porta com PORTA_BANCO=54400, para duas cópias do projeto rodarem ao mesmo tempo.
+export const PORTA = Number(process.env.PORTA_BANCO) || 54399;
 export const URL_LOCAL = `http://127.0.0.1:${PORTA}`;
 // Segredo fixo de desenvolvimento: não abre nada fora desta máquina.
 const SEGREDO = "instituto-lucia-desenvolvimento-local";

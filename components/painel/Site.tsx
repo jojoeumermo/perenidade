@@ -24,6 +24,49 @@ export function Site() {
   return <Formulario key={JSON.stringify(atual.dados)} inicial={atual.dados} recarregar={atual.recarregar} aviso={aviso} setAviso={setAviso} />;
 }
 
+interface SituacaoDosEmails {
+  pendentes: number;
+  enviados_7_dias: number;
+  falhos_7_dias: number;
+  ultimo_envio: string | null;
+  mais_antigo_esperando: string | null;
+  ultimo_erro: string | null;
+  /** Há e-mail esperando há mais de meia hora (conta do banco). */
+  parado?: boolean;
+}
+
+const errosDeEnvio: Record<string, string> = {
+  chave_recusada: "o serviço de envio recusou a chave",
+  limite: "o limite de envios do serviço acabou por hoje",
+  recusado: "o serviço recusou um endereço",
+  tempo_esgotado: "o serviço demorou demais",
+  sem_conexao: "a rotina não alcançou o serviço",
+};
+
+/**
+ * E-mails automáticos: confirmação de candidatura e de boletim, convites, avisos de decisão. Quem envia é a rotina
+ * "Enviar e-mails", de dez em dez minutos. Este cartão diz só o que o banco viu acontecer, sem endereço de ninguém.
+ */
+function Emails() {
+  const estado = useLista<SituacaoDosEmails>("emails_situacao");
+  const e = estado.dados;
+  if (!e) return null;
+  const parado = e.parado === true;
+  return (
+    <section className={parado ? "border-2 border-oxblood bg-parchment-deep p-5" : "border border-rule bg-parchment-deep p-5"}>
+      <h2 className="font-serif text-xl font-semibold">E-mails automáticos</h2>
+      <p className="mt-1 text-ink-soft">Confirmação de candidatura e de boletim, convites, avisos de decisão e as edições do boletim. Saem de dez em dez minutos.</p>
+      <ul className="mt-3 space-y-1">
+        <li>Esperando para sair: <strong>{e.pendentes}</strong>{e.mais_antigo_esperando && <span className="text-ink-soft"> · o mais antigo desde {dataHora(e.mais_antigo_esperando)}</span>}.</li>
+        <li>Enviados nos últimos sete dias: <strong>{e.enviados_7_dias}</strong>{e.ultimo_envio && <span className="text-ink-soft"> · o último em {dataHora(e.ultimo_envio)}</span>}.</li>
+        <li>Que não saíram depois de cinco tentativas: <strong>{e.falhos_7_dias}</strong>{e.ultimo_erro && <span className="text-ink-soft"> · último motivo: {errosDeEnvio[e.ultimo_erro] ?? e.ultimo_erro}</span>}.</li>
+      </ul>
+      {parado && <p className="mt-2 font-semibold text-oxblood">Há e-mails esperando há mais de meia hora: o envio não está funcionando. Confira a rotina &ldquo;Enviar e-mails&rdquo; no GitHub e a chave do serviço (guia de manutenção).</p>}
+      {!e.ultimo_envio && !parado && <p className="mt-2 text-ink-soft">Nenhum e-mail saiu até agora.</p>}
+    </section>
+  );
+}
+
 interface Moderacao {
   aprovacao_manual: boolean;
   habilitada: boolean;
@@ -222,6 +265,7 @@ function Formulario({ inicial, recarregar, aviso, setAviso }: { inicial: Control
       </section>
 
       <Moderacao />
+      <Emails />
 
       <div className="lg:col-span-2">
         <Aviso texto={aviso} />

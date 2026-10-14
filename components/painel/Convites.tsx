@@ -38,6 +38,8 @@ export function Convites({ me }: { me: Me }) {
   const [dias, setDias] = useState(7);
   const [nota, setNota] = useState("");
   const [link, setLink] = useState("");
+  /** O convite pessoal saiu sozinho por e-mail. */
+  const [enviado, setEnviado] = useState(false);
   const [copiado, setCopiado] = useState(false);
   const [erro, setErro] = useState("");
   const [ocupado, setOcupado] = useState(false);
@@ -53,8 +55,9 @@ export function Convites({ me }: { me: Me }) {
     setCopiado(false);
     try {
       const p = tipo === "pessoal" ? { email, papel, disciplina: porDisciplina ? disciplina : "", dias, nota } : { usos, dias, nota };
-      const resposta = await rpc<{ codigo: string }>("convite_criar", { p });
+      const resposta = await rpc<{ codigo: string; email_enviado?: boolean }>("convite_criar", { p });
       setLink(`${window.location.origin}/${lang}/entrar?convite=${resposta.codigo}`);
+      setEnviado(Boolean(resposta.email_enviado));
       setEmail("");
       setNota("");
       lista.recarregar();
@@ -131,6 +134,7 @@ export function Convites({ me }: { me: Me }) {
       </form>
       {link && (
         <div role="status" className="mt-4 max-w-2xl border-2 border-ink bg-parchment p-4">
+          {enviado && <p className="mb-2">O convite entrou na fila de e-mails e sai sozinho para a pessoa (veja em Controles do site se o envio está funcionando). O endereço abaixo é para o caso de você querer mandar também por outro caminho.</p>}
           <p className="font-semibold">Copie agora: este endereço não será mostrado de novo.</p>
           <p className="mt-2 break-all font-mono text-sm">{link}</p>
           <button type="button" className={`${botaoClaro} mt-3`} onClick={() => { void navigator.clipboard.writeText(link).then(() => setCopiado(true)); }}>

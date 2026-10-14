@@ -4,7 +4,7 @@ sobretitulo: "Seus dados"
 resumo: "O que o site guarda, por quanto tempo e como você apaga. Escrito para ser lido, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018)."
 ---
 
-Atualizada em 12 de outubro de 2026.
+Atualizada em 14 de outubro de 2026.
 
 ## Em uma frase
 
@@ -24,7 +24,11 @@ O site não usa cookies de publicidade, não tem pixel de rede social e não car
 
 Nenhum site funciona sem que alguém entregue as páginas. O instituto contrata serviços de hospedagem, de proteção contra ataques e de guarda de dados. Para fazer esse trabalho, eles processam dados técnicos da sua visita, como o endereço de rede (IP), e podem gravar um cookie técnico de segurança. Parte dos servidores fica fora do Brasil.
 
+Algumas partes do site mostram dados de serviços públicos e abertos: os números da página Dados do povo (Banco Central, IBGE e Câmara dos Deputados), o quadro "Neste dia" (Wikipédia), o dicionário, as frases traduzidas e a pesquisa de fontes do painel. Quem consulta esses serviços é o servidor do instituto, nunca o seu navegador: eles não ficam sabendo quem você é nem o que você leu. Quando você procura uma checagem de fatos, só as palavras da busca seguem, a partir do nosso servidor, para o serviço de checagens do Google. E, ao criar ou trocar uma senha, o site confere se ela já apareceu em vazamentos conhecidos (serviço Have I Been Pwned) sem enviar a senha: o seu aparelho calcula um resumo dela e só os cinco primeiros caracteres desse resumo saem, também pelo nosso servidor.
+
 O site não conta visitas nem usa ferramenta nenhuma de medição de audiência. Na página de entrada e nos formulários, uma verificação automática confere se quem está do outro lado é uma pessoa e não um robô.
+
+Para mandar os e-mails automáticos (a confirmação de que um pedido chegou, o convite de quem entra na equipe, a confirmação e as edições do boletim), o instituto usa um serviço de envio de e-mails, com servidores fora do Brasil. Ele recebe o endereço e o texto de cada mensagem só para entregá-la. Depois que um e-mail sai, o instituto apaga o texto dele e guarda por trinta dias só o registro de que foi enviado.
 
 Esses serviços processam os dados só para manter o site funcionando. O instituto não entrega dados a anunciantes, corretores de dados nem a nenhuma outra empresa.
 
@@ -39,6 +43,7 @@ Algumas páginas aceitam envios de qualquer pessoa. Nada é publicado sem passar
 | Contribuição (aula, correção, sugestão) | O texto e o nome que você quiser assinar | A equipe de revisão; depois de aprovada, todo mundo | O que é publicado permanece no acervo |
 | Denúncia ou pedido sobre dados | O que você escrever | A coordenação e a curadoria | Um ano depois de resolvida |
 | Candidatura a voluntário | O nome completo, o e-mail de contato, a função pretendida e a apresentação que você escrever | Só a coordenação | Noventa dias depois de respondida |
+| Boletim do jornal | Só o e-mail. Ele entra na lista depois que você clica no link de confirmação que recebe | A coordenação e quem escreve o jornal | Até você clicar em "sair da lista", que vem em todo boletim. Pedido nunca confirmado sai em uma semana |
 
 Para barrar abuso, o sistema guarda por até dois dias um código embaralhado da origem do envio. Ele serve só para contar quantos envios vieram do mesmo lugar e não permite identificar ninguém. Em caso extremo de abuso, a mediação pode barrar os envios de uma origem: o que fica guardado é esse mesmo código embaralhado, nunca o endereço de rede, até a coordenação desfazer o bloqueio.
 

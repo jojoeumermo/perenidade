@@ -25,5 +25,7 @@ jobs:
       - run: npm run testar:banco
       # A chamada ao serviço de moderação da comunidade, com o serviço simulado (sem rede e sem chave).
       - run: npm run testar:moderacao
+      # A rotina de envio de e-mails, com o banco e o serviço simulados (sem rede e sem chave).
+      - run: npm run testar:emails
       # O build lê e valida todo o conteúdo de content/: arquivo inválido falha aqui.
       - run: npm run build

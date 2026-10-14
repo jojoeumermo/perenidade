@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { SourceList } from "@/components/Cards";
 import { Markdown } from "@/components/Markdown";
 import { Cartaz } from "@/components/Cartaz";
+import { FactCheckSearch } from "@/components/FactCheckSearch";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { getFactChecks } from "@/lib/content";
@@ -20,6 +21,7 @@ export default async function Checagens({ params }: PageProps<"/[lang]/checagens
       <Cartaz eyebrow={t.factCheck.eyebrow} title={t.factCheck.title} slogan={t.footer.slogan} tone="preto">
         {t.factCheck.lead}
       </Cartaz>
+      <FactCheckSearch s={t.factCheck} />
       <Untranslated lang={lang} t={t} show={checks.some((check) => !check.translated)} />
       {checks.length === 0 && <p className="mt-10 text-xl text-ink-soft">{t.factCheck.empty}</p>}
       <div className="mt-10 space-y-8">
