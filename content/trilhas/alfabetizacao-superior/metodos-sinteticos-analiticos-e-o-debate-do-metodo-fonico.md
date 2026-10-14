@@ -1,0 +1,97 @@
+---
+titulo: "Métodos sintéticos, analíticos e o debate do método fônico"
+resumo: "Objetivo: conhecer os principais métodos de alfabetização, sintéticos e analíticos, e os termos do debate recente sobre o método fônico no Brasil, incluindo as políticas nacionais de 2019 e de 2023."
+autores: ["Instituto Lúcia"]
+fontes:
+  - titulo: "Alfabetização: a questão dos métodos"
+    autor: "Magda Soares"
+    ano: "2016"
+  - titulo: "Decreto nº 9.765, de 11 de abril de 2019 (Política Nacional de Alfabetização)"
+    autor: "Brasil"
+    ano: "2019"
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/decreto/d9765.htm"
+  - titulo: "Decreto nº 11.556, de 12 de junho de 2023 (Compromisso Nacional Criança Alfabetizada)"
+    autor: "Brasil"
+    ano: "2023"
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/decreto/d11556.htm"
+quiz:
+  - pergunta: "Os métodos sintéticos partem:"
+    opcoes: ["Das unidades menores (letras, sons, sílabas) para as maiores", "Do texto inteiro para as partes", "Só de imagens"]
+    resposta: 0
+    explicacao: "Soletração, fônico e silábico são sintéticos."
+  - pergunta: "Os métodos analíticos partem:"
+    opcoes: ["Das unidades maiores (palavras, frases, textos) para as menores", "Das letras isoladas", "Dos números"]
+    resposta: 0
+    explicacao: "Palavração, sentenciação e o método global são analíticos."
+  - pergunta: "O que é consciência fonológica?"
+    opcoes: ["A capacidade de perceber e manipular os sons da fala: rimas, sílabas, fonemas", "Saber muitas palavras", "Ter boa letra"]
+    resposta: 0
+    explicacao: "É um dos componentes da aprendizagem da leitura."
+  - pergunta: "O que o Decreto nº 11.556, de 2023, fez com o Decreto nº 9.765, de 2019?"
+    opcoes: ["Revogou-o", "Ampliou-o", "Não teve relação"]
+    resposta: 0
+    explicacao: "O artigo 37 do decreto de 2023 revoga o de 2019."
+---
+
+## A velha pergunta
+
+"Qual é o melhor método para alfabetizar?" A pergunta atravessa mais de um século de história da educação no Brasil, com movimentos de pêndulo entre propostas.
+
+## Os métodos sintéticos
+
+Partem das **unidades menores** para as maiores:
+
+| Método | Ponto de partida | Como funciona |
+| --- | --- | --- |
+| **Alfabético** (soletração) | nomes das letras | B, A: "bê, a, ba" |
+| **Fônico** | sons das letras (fonemas) | ensina-se a correspondência entre cada letra e o seu som, e a junção dos sons |
+| **Silábico** | sílabas | famílias silábicas (BA, BE, BI, BO, BU) e sua combinação |
+
+## Os métodos analíticos
+
+Partem das **unidades maiores** para as menores:
+
+| Método | Ponto de partida |
+| --- | --- |
+| **Palavração** | palavras inteiras, depois decompostas |
+| **Sentenciação** | frases |
+| **Global** (de contos, de textos) | textos completos, memorizados e analisados |
+
+O método de Paulo Freire combina elementos: parte de uma **palavra** com sentido (analítico) e chega às **famílias silábicas** (sintético), com o debate da realidade no centro. Veja [Paulo Freire e as palavras geradoras](/trilhas/alfabetizacao-superior/paulo-freire-e-as-palavras-geradoras).
+
+```verificar
+Um professor começa apresentando uma história curta, que os alunos leem juntos, e só depois destaca palavras e sílabas. Que tipo de método é?
+- Sintético
++ Analítico
+- Nenhum
+> Parte-se do todo (o texto) para as partes.
+```
+
+## O debate recente
+
+Nos anos 1980 e 1990, com a difusão da [psicogênese da língua escrita](/trilhas/alfabetizacao-superior/emilia-ferreiro-e-a-psicogenese-da-lingua-escrita) e do construtivismo, muitas redes abandonaram os métodos tradicionais e as cartilhas. Pesquisadores passaram a apontar que, em muitos casos, o **ensino sistemático das relações entre letras e sons** também foi abandonado, com prejuízo para os alunos.
+
+Por outro lado, pesquisas em psicologia cognitiva, em vários países, destacaram a importância da **consciência fonológica** (perceber e manipular os sons da fala) e do **ensino explícito** das correspondências entre letras e fonemas.
+
+### As políticas nacionais
+
+- Em **2019**, o **Decreto nº 9.765** instituiu a **Política Nacional de Alfabetização**, que deu ênfase à consciência fonêmica e à instrução fônica sistemática, com base no que chamou de evidências científicas. A política foi criticada por associações de pesquisadores, que a acusaram de ignorar a produção acadêmica brasileira e de impor um único método.
+- Em **2023**, o **Decreto nº 11.556** instituiu o **Compromisso Nacional Criança Alfabetizada**, em regime de colaboração com estados e municípios, e **revogou** o decreto de 2019.
+
+## Um ponto de convergência
+
+Por trás da polêmica, há pontos em que muitos pesquisadores de diferentes correntes concordam:
+
+- aprender a ler exige compreender o **princípio alfabético**, e isso precisa ser **ensinado de forma explícita e sistemática**;
+- a aprendizagem do código deve acontecer junto com **textos reais** e com o desenvolvimento da **compreensão**;
+- é preciso **diagnosticar** o que cada aluno já sabe;
+- nenhum método funciona sem **formação de professores**, **tempo** e **condições de trabalho**.
+
+Magda Soares, em *Alfabetização: a questão dos métodos* (2016), propôs superar a guerra dos métodos com uma compreensão integrada das facetas da aprendizagem da língua escrita.
+
+## Para pesquisar e debater
+
+1. Monte um quadro comparando um método sintético e um analítico: vantagens e limites.
+2. Pesquise os argumentos a favor e contra a Política Nacional de Alfabetização de 2019.
+3. Por que a discussão sobre métodos não pode ignorar as condições de trabalho dos professores?
+4. Proponha uma atividade que combine consciência fonológica e texto real.
