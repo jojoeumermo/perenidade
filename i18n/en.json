@@ -384,6 +384,34 @@
     "ecossocialismo": [
       "Ecosocialism",
       "The climate crisis as a crisis of capitalism: nature, labour and the way out that does not fit into profit."
+    ],
+    "frances": [
+      "French",
+      "French from scratch: everyday communication, reading and the French-speaking world."
+    ],
+    "ingles-infantil": [
+      "English for children",
+      "First steps in English for children: everyday words, songs and games."
+    ],
+    "redes-e-seguranca": [
+      "Networks and information security",
+      "How networks work from the inside and how to protect systems and people, with an emphasis on ethical hacking: always authorized and within the law."
+    ],
+    "trancista": [
+      "Braiding",
+      "Afro braids: hair care, techniques, history and how to turn the craft into income."
+    ],
+    "costureira": [
+      "Sewing",
+      "Sewing from the basics to mending and making garments, with safety at work and ways to earn an income."
+    ],
+    "barbeiro": [
+      "Barbering",
+      "Men's haircuts and beards: tools, hygiene and biosafety, techniques and how to set up your own work."
+    ],
+    "oratoria-e-lideranca": [
+      "Public speaking and leadership",
+      "Speaking in public with clarity, preparing a talk, running meetings and assemblies and leading collectively."
     ]
   },
   "tracks": {
@@ -803,7 +831,8 @@
     "humanidades": "Humanities",
     "teoria": "Revolutionary theory",
     "lutas": "People's struggles",
-    "percursos": "Literacy and ENEM"
+    "percursos": "Literacy and ENEM",
+    "hobbies": "Hobbies: learn a new skill and earn from it"
   },
   "stages": {
     "fundamental": "Primary and lower secondary",

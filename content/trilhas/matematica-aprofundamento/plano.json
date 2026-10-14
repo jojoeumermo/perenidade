@@ -1,0 +1,102 @@
+[
+  {
+    "slug": "sequencias-e-series",
+    "titulo": "Sequências e séries"
+  },
+  {
+    "slug": "calculo-de-varias-variaveis",
+    "titulo": "Cálculo de várias variáveis"
+  },
+  {
+    "slug": "integrais-multiplas",
+    "titulo": "Integrais múltiplas"
+  },
+  {
+    "slug": "calculo-vetorial",
+    "titulo": "Cálculo vetorial"
+  },
+  {
+    "slug": "equacoes-diferenciais-ordinarias",
+    "titulo": "Equações diferenciais ordinárias"
+  },
+  {
+    "slug": "equacoes-diferenciais-parciais-uma-introducao",
+    "titulo": "Equações diferenciais parciais: uma introdução"
+  },
+  {
+    "slug": "espacos-vetoriais",
+    "titulo": "Espaços vetoriais"
+  },
+  {
+    "slug": "autovalores-e-autovetores",
+    "titulo": "Autovalores e autovetores"
+  },
+  {
+    "slug": "numeros-complexos",
+    "titulo": "Números complexos"
+  },
+  {
+    "slug": "funcoes-de-variavel-complexa-uma-introducao",
+    "titulo": "Funções de variável complexa: uma introdução"
+  },
+  {
+    "slug": "teoria-dos-numeros",
+    "titulo": "Teoria dos números"
+  },
+  {
+    "slug": "aritmetica-modular-e-criptografia",
+    "titulo": "Aritmética modular e criptografia"
+  },
+  {
+    "slug": "grupos-aneis-e-corpos",
+    "titulo": "Grupos, anéis e corpos"
+  },
+  {
+    "slug": "analise-real-os-numeros-reais-com-rigor",
+    "titulo": "Análise real: os números reais com rigor"
+  },
+  {
+    "slug": "topologia-uma-introducao",
+    "titulo": "Topologia: uma introdução"
+  },
+  {
+    "slug": "geometria-analitica-no-espaco",
+    "titulo": "Geometria analítica no espaço"
+  },
+  {
+    "slug": "geometrias-nao-euclidianas",
+    "titulo": "Geometrias não euclidianas"
+  },
+  {
+    "slug": "teoria-dos-grafos",
+    "titulo": "Teoria dos grafos"
+  },
+  {
+    "slug": "combinatoria-avancada",
+    "titulo": "Combinatória avançada"
+  },
+  {
+    "slug": "metodos-numericos",
+    "titulo": "Métodos numéricos"
+  },
+  {
+    "slug": "programacao-linear-e-otimizacao",
+    "titulo": "Programação linear e otimização"
+  },
+  {
+    "slug": "regressao-linear",
+    "titulo": "Regressão linear"
+  },
+  {
+    "slug": "series-de-fourier",
+    "titulo": "Séries de Fourier"
+  },
+  {
+    "slug": "modelagem-matematica-de-problemas-sociais",
+    "titulo": "Modelagem matemática de problemas sociais"
+  },
+  {
+    "slug": "etnomatematica",
+    "titulo": "Etnomatemática"
+  }
+]
