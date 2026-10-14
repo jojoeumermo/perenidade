@@ -37,7 +37,7 @@ export function NavLinks() {
     <>
       {links.map(([label, path, show]) => link(label, path, undefined, show))}
       {/* Contribuir é a porta de entrada de quem quer ajudar: um contorno discreto a separa do resto. */}
-      {link(<span className="border border-oxblood px-2.5 py-1 text-oxblood">{t.nav.contribute}</span>, "/contribuir", undefined, "hidden lg:inline")}
+      {link(<span className="border border-oxblood px-2.5 py-1 text-oxblood">{t.nav.contribute}</span>, "/contribuir", undefined, "hidden xl:inline")}
       {/* O único destaque do menu: as letras de "Apoie" mudam de cor, uma depois da outra. */}
       {link(
         <span className="apoie font-semibold">
