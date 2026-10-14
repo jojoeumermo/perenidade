@@ -6,9 +6,9 @@ import { BackendError, rpc, type Role } from "@/lib/backend";
 
 // O painel é a mesa de trabalho da equipe e existe só em português.
 
-export const campo = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
-export const botao = "cursor-pointer bg-ink px-5 py-2.5 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
-export const botaoClaro = "cursor-pointer border-2 border-ink px-5 py-2 font-medium hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50";
+export const campo = "painel-campo mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
+export const botao = "painel-botao cursor-pointer bg-ink px-5 py-2.5 font-semibold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
+export const botaoClaro = "painel-botao cursor-pointer border-2 border-ink px-5 py-2 font-semibold hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50";
 export const elo = "cursor-pointer underline hover:text-oxblood";
 export const rotulo = "font-mono text-xs uppercase tracking-widest text-gold";
 
@@ -117,6 +117,9 @@ export function useLista<T>(funcao: string, argumentos: Record<string, unknown> 
   return { ...estado, recarregar: useCallback(() => setVolta((v) => v + 1), []) };
 }
 
+/** Evento disparado depois de toda ação que deu certo no painel. */
+export const PAINEL_MUDOU = "painel-mudou";
+
 /** Executa uma ação e mostra o resultado em uma linha de aviso. */
 export function useAcao(depois?: () => void) {
   const [aviso, setAviso] = useState("");
@@ -128,6 +131,8 @@ export function useAcao(depois?: () => void) {
       const resposta = await rpc<unknown>(funcao, argumentos);
       setAviso(sucesso);
       depois?.();
+      // Avisa o menu do painel para refazer as contagens (a fila diminui assim que alguém decide).
+      window.dispatchEvent(new Event(PAINEL_MUDOU));
       return resposta;
     } catch (erro) {
       setAviso(textoDoErro(erro));
@@ -141,7 +146,7 @@ export function useAcao(depois?: () => void) {
 
 export function Aviso({ texto }: { texto: string }) {
   return (
-    <p role="status" className="min-h-5 text-oxblood">
+    <p role="status" className={`min-h-5 text-oxblood ${texto ? "painel-aviso" : ""}`}>
       {texto}
     </p>
   );
@@ -150,7 +155,7 @@ export function Aviso({ texto }: { texto: string }) {
 /** Divisões dentro de uma seção do painel, para aparecer uma coisa de cada vez. */
 export function Abas<T extends string>({ opcoes, atual, escolher }: { opcoes: { id: T; nome: string; conta?: number }[]; atual: T; escolher: (id: T) => void }) {
   return (
-    <div role="tablist" className="mb-6 flex flex-wrap gap-x-6 gap-y-1 border-b border-rule">
+    <div role="tablist" className="mb-6 flex flex-wrap gap-x-6 gap-y-1 border-b-2 border-ink">
       {opcoes.map((opcao) => (
         <button
           key={opcao.id}
@@ -158,7 +163,7 @@ export function Abas<T extends string>({ opcoes, atual, escolher }: { opcoes: { 
           role="tab"
           aria-selected={atual === opcao.id}
           onClick={() => escolher(opcao.id)}
-          className={`-mb-px cursor-pointer border-b-2 pb-2 ${atual === opcao.id ? "border-ink font-semibold" : "border-transparent text-ink-soft hover:text-ink"}`}
+          className={`painel-aba -mb-0.5 cursor-pointer border-b-4 pb-2 ${atual === opcao.id ? "border-[#c21f16] font-semibold text-ink" : "border-transparent text-ink-soft hover:border-rule hover:text-ink"}`}
         >
           {opcao.nome}
           {Boolean(opcao.conta) && <span className="ml-1.5 bg-oxblood px-1.5 py-0.5 font-mono text-[0.7rem] font-semibold text-parchment">{opcao.conta}</span>}
