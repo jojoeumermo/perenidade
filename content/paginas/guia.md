@@ -1,7 +1,7 @@
 ---
 titulo: "Guia de fontes"
 sobretitulo: "Onde encontrar"
-resumo: "Livros livres, dados públicos, leis, checagem de fatos, imprensa popular e movimentos: lugares de confiança para estudar e conferir."
+resumo: "Livros livres, acervos digitais, pesquisa científica, dados públicos, leis, checagem de fatos, imprensa popular e movimentos: lugares de confiança para estudar e conferir."
 ---
 
 Este guia reúne lugares onde dá para ler, pesquisar e conferir informação sem pagar. Nenhum deles é dono da verdade: leia sempre com atenção, compare e vá atrás da fonte original.
@@ -28,12 +28,36 @@ Este guia reúne lugares onde dá para ler, pesquisar e conferir informação se
 - [eduCAPES](https://educapes.capes.gov.br/): materiais de ensino abertos reunidos pela Capes.
 - [SciELO](https://www.scielo.br/): artigos científicos de revistas brasileiras e latino-americanas em acesso aberto.
 
+## Bibliotecas e acervos digitais
+
+- [Hemeroteca Digital Brasileira](https://memoria.bn.gov.br/hdb/periodico.aspx): milhões de páginas de jornais e revistas brasileiros, do século 19 em diante, com busca por palavra, período e estado.
+- [Brasiliana Fotográfica](https://brasilianafotografica.bn.gov.br/brasiliana/): fotografias históricas do Brasil do século 19 e do começo do século 20, reunidas pela Biblioteca Nacional, pelo Instituto Moreira Salles e por instituições parceiras.
+- [Brasiliana Iconográfica](https://www.brasilianaiconografica.art.br/): desenhos, aquarelas, pinturas e gravuras sobre o Brasil, do século 16 até 1922, vindos de acervos públicos e privados.
+- [Biblioteca Digital do Senado Federal](https://www2.senado.leg.br/bdsf/community-list): obras raras digitalizadas, publicações do Senado, legislação e recortes de jornais; alguns itens são restritos por direitos autorais.
+- [Biblioteca Virtual do CLACSO](https://biblioteca-repositorio.clacso.edu.ar/): livros, artigos, teses e documentos de ciências sociais da América Latina e do Caribe, em acesso aberto.
+- [Biblioteca Virtual Miguel de Cervantes](https://www.cervantesvirtual.com/): literatura, história e língua do mundo de fala espanhola, com obras clássicas e manuscritos digitalizados (em espanhol).
+
+## Revistas científicas e teses
+
+- [Portal de Periódicos da Capes](https://www.periodicos.capes.gov.br/): artigos de milhares de revistas científicas; a parte em acesso aberto pode ser lida por qualquer pessoa, e o restante só pelas instituições participantes.
+- [DOAJ](https://doaj.org/): índice internacional de revistas científicas de acesso aberto, com busca por assunto, idioma e país (em inglês).
+- [Redalyc](https://www.redalyc.org/): revistas científicas da América Latina, da Espanha e de Portugal, em acesso aberto e sem cobrança de quem publica.
+- [Oasisbr](https://www.oasisbr.ibict.br/vufind/): uma só busca em artigos, livros, teses, dissertações e dados de pesquisa em acesso aberto de instituições brasileiras e portuguesas.
+- [Biblioteca Digital Brasileira de Teses e Dissertações (BDTD)](https://bdtd.ibict.br/vufind/about/home): teses e dissertações defendidas no Brasil, reunidas pelo Ibict; o texto completo fica no site de cada universidade.
+- [Catálogo de Teses e Dissertações da Capes](https://catalogodeteses.capes.gov.br/catalogo-teses/): registro das teses e dissertações da pós-graduação brasileira.
+
 ## Dados públicos
 
 - [IBGE](https://www.ibge.gov.br/): população, renda, emprego, inflação e os dados do Censo.
 - [DIEESE](https://www.dieese.org.br/): custo da cesta básica, salário mínimo necessário, greves e negociações salariais, do ponto de vista dos sindicatos.
 - [Ipea](https://www.ipea.gov.br/): estudos sobre economia, desigualdade, violência e políticas públicas.
 - [Portal da Transparência](https://portaldatransparencia.gov.br/): gastos do governo federal.
+- [Portal Brasileiro de Dados Abertos](https://dados.gov.br/): catálogo nacional com milhares de conjuntos de dados publicados por órgãos públicos.
+- [DATASUS (TabNet)](https://datasus.saude.gov.br/informacoes-de-saude-tabnet/): tabelas, gráficos e mapas com dados do SUS, como nascimentos, mortes, internações e vacinação, por lugar e período.
+- [Ideb, do Inep](https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb): o índice da educação básica, calculado a partir do Censo Escolar e das provas do Saeb, com resultados por escola.
+- [Atlas da Violência](https://www.ipea.gov.br/portal/categoria-projetos-e-estatisticas/9936-atlas-da-violencia): relatórios do Ipea e do Fórum Brasileiro de Segurança Pública sobre homicídios e violência contra mulheres, pessoas negras e outros grupos.
+- [Anuário Brasileiro de Segurança Pública](https://forumseguranca.org.br/publicacoes/anuario-brasileiro-de-seguranca-publica/): dados anuais de secretarias de segurança e polícias de todo o país, reunidos pelo Fórum Brasileiro de Segurança Pública, em relatórios e planilhas.
+- [MapBiomas](https://brasil.mapbiomas.org/conheca-o-mapbiomas/): mapas anuais de florestas, agropecuária, cidades e outros usos da terra no Brasil desde 1985, com dados abertos por bioma, estado e município.
 - [Our World in Data](https://ourworldindata.org/): séries históricas mundiais sobre saúde, pobreza, energia e clima (em inglês).
 
 ## Leis e direitos
