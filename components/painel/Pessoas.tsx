@@ -62,7 +62,7 @@ export function Pessoas({ me }: { me: Me }) {
     try {
       const resposta = await rpc<{ codigo: string | null; email: string; nome: string }>("inscricao_decidir", { p_id: item.id, p_aceitar: aceitar });
       if (aceitar && resposta.codigo) setAceite({ nome: item.nome, email: item.email, link: `${window.location.origin}/${lang}/entrar?convite=${resposta.codigo}` });
-      setAvisoInscricao(!aceitar ? "Candidatura recusada." : resposta.codigo ? "Candidatura aceita. Mande o convite abaixo para o e-mail da pessoa." : "Candidatura aceita: a pessoa já tinha conta e recebeu a função na hora.");
+      setAvisoInscricao(!aceitar ? "Candidatura recusada. O aviso por e-mail entrou na fila de envio." : resposta.codigo ? "Candidatura aceita. O convite entrou na fila de e-mails e sai sozinho para a pessoa; o link também está abaixo, se precisar mandar por outro caminho (veja em Controles do site se o envio está funcionando)." : "Candidatura aceita: a pessoa já tinha conta e recebeu a função na hora. O aviso por e-mail entrou na fila de envio.");
       inscricoes.recarregar();
       pessoas.recarregar();
     } catch (erro) {
@@ -100,8 +100,8 @@ export function Pessoas({ me }: { me: Me }) {
       <section hidden={aba !== "pedidos"} className="mb-10">
         <h2 className="font-serif text-2xl font-semibold">Candidaturas pelo formulário</h2>
         <p className="mt-1 max-w-3xl text-ink-soft">
-          Quem preencheu o formulário de voluntariado no site. Ao aceitar, quem ainda não tem conta ganha um convite pessoal, que só serve para aquele e-mail e já traz a função: mande o
-          link para a pessoa por e-mail. Quem já tem conta recebe a função na hora. Ao recusar, avise a pessoa por e-mail também.
+          Quem preencheu o formulário de voluntariado no site, com nome e e-mail. Com o envio de e-mails ligado (Controles do site), a pessoa recebe um e-mail dizendo que o pedido chegou, e a coordenação recebe outro avisando do pedido. Ao aceitar, quem ainda não tem conta
+          ganha um convite pessoal, que só serve para aquele e-mail e já traz a função, e ele vai sozinho por e-mail. Quem já tem conta recebe a função na hora. Ao recusar, a pessoa também é avisada por e-mail.
         </p>
         <Aviso texto={inscricoes.erro || avisoInscricao} />
         {aceite && (

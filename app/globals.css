@@ -180,6 +180,15 @@ body {
 :root:is([data-contrast], [data-eink], [data-leitor]) .aba-ativa {
   background: var(--ink) !important;
 }
+/* No leitor de tinta as abas viram uma linha de botões; a aba aberta já vem marcada em preto. */
+:root[data-leitor] .aba-ativa {
+  display: none !important;
+}
+@media (monochrome), (update: slow) {
+  .aba-ativa {
+    display: none !important;
+  }
+}
 
 .paper {
   background-image: radial-gradient(color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1px);
@@ -1015,8 +1024,20 @@ body {
   text-decoration: none !important;
 }
 /* Tema e rádio não fazem sentido em tela de tinta. */
-:root[data-leitor] header.no-print button,
-:root[data-leitor] header.no-print a[href$="/radio"] {
+:root[data-leitor] body header.no-print button,
+:root[data-leitor] body header.no-print a[href$="/radio"] {
+  display: none !important;
+}
+/* Itens que ficavam lado a lado (flex) viram texto corrido: um respiro entre eles para não grudarem. */
+:root[data-leitor] :is(.flex, .grid) > :is(a, span, button) {
+  margin-right: 0.6em;
+}
+/* O botão de acessibilidade é só um ícone, e os ícones somem no leitor: ele passa a dizer o próprio nome. */
+:root[data-leitor] .fixed > button[title]::after {
+  content: attr(title);
+}
+/* Na aula, o texto vem primeiro: a lista de aulas da trilha sai (a anterior e a próxima seguem no fim da página). */
+:root[data-leitor] .indice-da-trilha {
   display: none !important;
 }
 :root[data-leitor] h1 {
@@ -1137,10 +1158,21 @@ body {
 :root[data-leitor] .jornal-cunha {
   display: none !important;
 }
+/* Em tela de tinta, nada de grandes áreas pretas: os quadros do jornal ficam brancos, com contorno, e sem estrelas. */
+:root[data-leitor] {
+  --prelo: #000;
+}
 :root[data-leitor] .jornal-preto,
 :root[data-leitor] .jornal-raios {
-  background: #000 !important;
-  color: #fff !important;
+  background: #fff !important;
+  color: #000 !important;
+  border: 3px solid #000 !important;
+}
+:root[data-leitor] :is(.jornal-preto, .jornal-raios) :is(p, span, h1, h2, a) {
+  color: #000 !important;
+}
+:root[data-leitor] :is(.jornal-preto, .jornal-raios) svg {
+  display: none !important;
 }
 @media (monochrome), (update: slow) {
   :root {
@@ -1222,8 +1254,17 @@ body {
     text-decoration: none !important;
   }
   /* Tema e rádio não fazem sentido em tela de tinta. */
-  :root header.no-print button,
-  :root header.no-print a[href$="/radio"] {
+  :root body header.no-print button,
+  :root body header.no-print a[href$="/radio"] {
+    display: none !important;
+  }
+  :root :is(.flex, .grid) > :is(a, span, button) {
+    margin-right: 0.6em;
+  }
+  :root .fixed > button[title]::after {
+    content: attr(title);
+  }
+  :root .indice-da-trilha {
     display: none !important;
   }
   :root h1 {
@@ -1344,9 +1385,19 @@ body {
   :root .jornal-cunha {
     display: none !important;
   }
+  :root {
+    --prelo: #000;
+  }
   :root .jornal-preto,
   :root .jornal-raios {
-    background: #000 !important;
-    color: #fff !important;
+    background: #fff !important;
+    color: #000 !important;
+    border: 3px solid #000 !important;
+  }
+  :root :is(.jornal-preto, .jornal-raios) :is(p, span, h1, h2, a) {
+    color: #000 !important;
+  }
+  :root :is(.jornal-preto, .jornal-raios) svg {
+    display: none !important;
   }
 }
