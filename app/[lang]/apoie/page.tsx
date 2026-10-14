@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { SupportersWall } from "@/components/SupportersWall";
 import { loadLang } from "@/i18n";
 import { site } from "@/lib/site";
@@ -15,9 +15,9 @@ export default async function Apoie({ params }: PageProps<"/[lang]/apoie">) {
   const s = t.support;
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <PageHeading eyebrow={s.eyebrow} title={s.title}>
+      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.footer.slogan} tone="raios">
         {s.lead}
-      </PageHeading>
+      </Cartaz>
 
       <div className="prose-lesson mt-8">
         {s.paragraphs.map((paragraph) => (

@@ -4,7 +4,7 @@ sobretitulo: "Seus dados"
 resumo: "O que o site guarda, por quanto tempo e como você apaga. Escrito para ser lido, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018)."
 ---
 
-Atualizada em 12 de outubro de 2026.
+Atualizada em 14 de outubro de 2026.
 
 ## Em uma frase
 
@@ -26,6 +26,8 @@ Nenhum site funciona sem que alguém entregue as páginas. O instituto contrata 
 
 O site não conta visitas nem usa ferramenta nenhuma de medição de audiência. Na página de entrada e nos formulários, uma verificação automática confere se quem está do outro lado é uma pessoa e não um robô.
 
+Para mandar os e-mails automáticos (a confirmação de que um pedido chegou, o convite de quem entra na equipe, a confirmação e as edições do boletim), o instituto usa um serviço de envio de e-mails, com servidores fora do Brasil. Ele recebe o endereço e o texto de cada mensagem só para entregá-la. Depois que um e-mail sai, o instituto apaga o texto dele e guarda por trinta dias só o registro de que foi enviado.
+
 Esses serviços processam os dados só para manter o site funcionando. O instituto não entrega dados a anunciantes, corretores de dados nem a nenhuma outra empresa.
 
 ## Se você envia algo sem ter conta
@@ -39,6 +41,7 @@ Algumas páginas aceitam envios de qualquer pessoa. Nada é publicado sem passar
 | Contribuição (aula, correção, sugestão) | O texto e o nome que você quiser assinar | A equipe de revisão; depois de aprovada, todo mundo | O que é publicado permanece no acervo |
 | Denúncia ou pedido sobre dados | O que você escrever | A coordenação e a curadoria | Um ano depois de resolvida |
 | Candidatura a voluntário | O nome completo, o e-mail de contato, a função pretendida e a apresentação que você escrever | Só a coordenação | Noventa dias depois de respondida |
+| Boletim do jornal | Só o e-mail. Ele entra na lista depois que você clica no link de confirmação que recebe | A coordenação e quem escreve o jornal | Até você clicar em "sair da lista", que vem em todo boletim. Pedido nunca confirmado sai em uma semana |
 
 Para barrar abuso, o sistema guarda por até dois dias um código embaralhado da origem do envio. Ele serve só para contar quantos envios vieram do mesmo lugar e não permite identificar ninguém. Em caso extremo de abuso, a mediação pode barrar os envios de uma origem: o que fica guardado é esse mesmo código embaralhado, nunca o endereço de rede, até a coordenação desfazer o bloqueio.
 

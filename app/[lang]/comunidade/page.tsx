@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { Forum } from "@/components/Forum";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/comunidade">): Promise<Metadata> {
@@ -14,9 +14,9 @@ export default async function Comunidade({ params }: PageProps<"/[lang]/comunida
   const { t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
-      <PageHeading eyebrow={t.community.eyebrow} title={t.community.title}>
+      <Cartaz eyebrow={t.community.eyebrow} title={t.community.title} slogan={t.footer.slogan} tone="vermelho">
         {t.community.lead}
-      </PageHeading>
+      </Cartaz>
       <ul className="mt-6 list-disc space-y-1 pl-5 font-sans text-sm text-ink-soft">
         {t.community.rules.map((rule) => (
           <li key={rule}>{rule}</li>
