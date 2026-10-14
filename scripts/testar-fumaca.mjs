@@ -6,7 +6,17 @@
 //   npm run testar:fumaca -- http://localhost:3000      também as páginas do site que estiver rodando nesse endereço
 //
 // Nada aqui toca o banco de verdade: as contas e os dados são os de scripts/backend-local.mjs.
-process.env.PORTA_BANCO ??= "54410";
+import net from "node:net";
+
+// Uma porta livre, para não esbarrar num npm run dev:local que esteja rodando na mesma máquina.
+process.env.PORTA_BANCO ??= String(
+  await new Promise((resolve) => {
+    const sonda = net.createServer().listen(0, "127.0.0.1", () => {
+      const { port } = sonda.address();
+      sonda.close(() => resolve(port));
+    });
+  }),
+);
 const { CHAVE_ANON, URL_LOCAL, iniciar } = await import("./backend-local.mjs");
 
 const site = (process.argv[2] ?? "").replace(/\/$/, "");
