@@ -1401,3 +1401,176 @@ body {
     display: none !important;
   }
 }
+
+/* ---- Painel interno: a mesa de trabalho da equipe ----
+   Mesmo desenho do site (cartaz, fio duplo, tarja vermelha), com movimento curto nas trocas de seção,
+   nos cartões e nos botões. Tudo some com prefers-reduced-motion. */
+.painel-item {
+  color: #d9cdb0;
+  border-left: 3px solid transparent;
+  transition: background-color 0.15s, color 0.15s, padding-left 0.15s, border-color 0.15s;
+}
+.painel-item svg {
+  color: #8f8468;
+  transition: color 0.15s;
+}
+.painel-item:hover {
+  background: #221c15;
+  color: #fff;
+  padding-left: 1rem;
+}
+.painel-item:hover svg {
+  color: #d4a24c;
+}
+.painel-item-ativo {
+  background: #2a231a;
+  color: #fff;
+  font-weight: 600;
+  border-left-color: #c21f16;
+}
+.painel-item-ativo svg {
+  color: #e0372b;
+}
+.painel-grupo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.painel-grupo::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #3a3226;
+}
+.painel-cabeca {
+  border: 0;
+}
+.painel-cunha {
+  width: 18cqw;
+}
+.painel-cunha .jornal-cunha-estrela {
+  width: 7cqw;
+  height: 7cqw;
+}
+.painel-quadro {
+  background: var(--parchment-deep);
+  border: 2px solid var(--ink);
+  border-top: 5px solid var(--prelo);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.painel-quadro:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.painel-quadro:active {
+  transform: none;
+  box-shadow: none;
+}
+.painel-quadro-alerta {
+  border-color: var(--oxblood);
+  border-top-color: var(--oxblood);
+}
+.painel-seta {
+  transition: transform 0.15s, color 0.15s;
+}
+.painel-quadro:hover .painel-seta {
+  transform: translateX(3px);
+  color: var(--oxblood);
+}
+.painel-cartao {
+  background: var(--parchment-deep);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--ink);
+}
+.painel-campo {
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.painel-campo:focus {
+  border-color: var(--oxblood);
+  box-shadow: 3px 3px 0 var(--ink);
+  outline: none;
+}
+.painel-botao {
+  transition: transform 0.12s, box-shadow 0.12s, background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.painel-botao:not(:disabled):hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--prelo);
+}
+.painel-botao:not(:disabled):active {
+  transform: none;
+  box-shadow: none;
+}
+.painel-aba {
+  transition: border-color 0.15s, color 0.15s;
+}
+.painel-aviso {
+  margin-top: 0.45rem;
+  border-left: 3px solid currentColor;
+  padding-left: 0.6rem;
+}
+.painel-ir {
+  box-shadow: 6px 6px 0 var(--prelo);
+}
+/* Dentro das seções: o título principal ganha a tarja vermelha, os cartões o fio grosso do jornal
+   e as linhas de lista respondem ao mouse. */
+.painel-conteudo h2[class~="font-serif"][class~="text-2xl"]::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 4px;
+  margin-bottom: 0.5rem;
+  background: var(--prelo);
+}
+.painel-conteudo :is(section, div, article, li, form, details)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
+  border-top: 3px solid var(--ink);
+}
+.painel-conteudo [class~="divide-y"] > * {
+  transition: background-color 0.12s;
+}
+.painel-conteudo [class~="divide-y"] > *:hover {
+  background: color-mix(in srgb, var(--parchment-deep) 75%, transparent);
+}
+@keyframes painel-surge {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes painel-veu {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes painel-pulso {
+  50% {
+    opacity: 0.3;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .painel-surge {
+    animation: painel-surge 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .painel-conteudo {
+    animation: painel-surge 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .painel-cabeca h1,
+  .painel-cabeca p {
+    animation: painel-surge 0.3s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .painel-veu {
+    animation: painel-veu 0.15s ease-out;
+  }
+  .painel-ir {
+    animation: painel-surge 0.18s ease-out;
+  }
+  .painel-aviso {
+    animation: painel-surge 0.25s ease-out both;
+  }
+  .painel-pulso {
+    animation: painel-pulso 2s ease-in-out infinite;
+  }
+  .painel-carregando {
+    animation: painel-pulso 1.2s ease-in-out infinite;
+  }
+}
