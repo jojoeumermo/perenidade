@@ -17,6 +17,7 @@
     "conferir:links": "node scripts/conferir-links.mjs",
     "testar:banco": "node scripts/testar-banco.mjs",
     "testar:moderacao": "node scripts/testar-moderacao.mjs",
+    "testar:podcast": "node scripts/testar-podcast.mjs",
     "testar:emails": "node scripts/testar-emails.mjs",
     "enviar:emails": "node scripts/enviar-emails.mjs",
     "sincronizar": "node scripts/sincronizar.mjs",
