@@ -274,6 +274,9 @@ create table if not exists interno.banimentos (
   criado_em timestamptz not null default now()
 );
 create index if not exists banimentos_origem on interno.banimentos (origem) where ativo and origem is not null;
+-- A conta já estava suspensa pela coordenação quando foi banida (ou foi suspensa durante o banimento)? Então encerrar o
+-- banimento não tira essa suspensão: ela é outra decisão, que só a coordenação desfaz.
+alter table interno.banimentos add column if not exists ja_suspensa boolean not null default false;
 
 -- Registro de atividades: quem fez o quê no painel. Só a coordenação lê. Não guarda endereço de ninguém.
 create table if not exists interno.auditoria (
@@ -1070,6 +1073,8 @@ begin
   if exists (select 1 from papeis where usuario = p_usuario and papel = 'vice') and not interno.lider() then perform interno.erro('sem_permissao'); end if;
   update perfis set suspenso = p_suspenso where id = p_usuario;
   if not found then perform interno.erro('nao_encontrado'); end if;
+  -- Suspensão decidida pela coordenação vale por si: não cai quando um banimento da mesma conta for encerrado.
+  if coalesce(p_suspenso, false) then update banimentos set ja_suspensa = true where usuario = p_usuario and ativo; end if;
   if not p_suspenso then update banimentos set ativo = false, encerrado_por = v, encerrado_em = now() where usuario = p_usuario and ativo; end if;
   perform interno.registrar(case when p_suspenso then 'conta_suspensa' else 'conta_reativada' end, p_usuario::text);
   return jsonb_build_object('ok', true);
@@ -1948,7 +1953,7 @@ end $$;
  */
 create or replace function public.mediacao_banir(p_usuario uuid, p_motivo text, p_origem boolean default false) returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); f perfis; v_motivo text := interno.txt(p_motivo, 'motivo', 5, 300); v_origem text;
+declare v uuid := interno.eu(); f perfis; v_motivo text := interno.txt(p_motivo, 'motivo', 5, 300); v_origem text; v_ja boolean;
 begin
   if not interno.media() then perform interno.erro('sem_permissao'); end if;
   perform interno.limite('banir', 30, 1440);
@@ -1956,11 +1961,15 @@ begin
   if not found then perform interno.erro('nao_encontrado'); end if;
   if p_usuario = v or exists (select 1 from papeis where usuario = p_usuario) then perform interno.erro('sem_permissao'); end if;
   if coalesce(p_origem, false) then v_origem := f.origem; end if;
+  -- Suspensa por outro banimento ainda ativo, a conta herda dele a marcação; suspensa sem banimento, foi a coordenação.
+  v_ja := case when exists (select 1 from banimentos where usuario = p_usuario and ativo)
+               then coalesce((select bool_or(ja_suspensa) from banimentos where usuario = p_usuario and ativo), false)
+               else f.suspenso end;
   update perfis set suspenso = true where id = p_usuario;
   update topicos set retido = false where autor = p_usuario and retido;
   update respostas set retido = false where autor = p_usuario and retido;
   update banimentos set ativo = false, encerrado_por = v, encerrado_em = now() where usuario = p_usuario and ativo;
-  insert into banimentos (usuario, nome, origem, motivo, por) values (p_usuario, f.nome, v_origem, v_motivo, v);
+  insert into banimentos (usuario, nome, origem, motivo, por, ja_suspensa) values (p_usuario, f.nome, v_origem, v_motivo, v, v_ja);
   perform interno.registrar('conta_banida', p_usuario::text, jsonb_build_object('motivo', v_motivo, 'origem', v_origem is not null));
   perform interno.avisar_lideranca('A mediação baniu a conta "' || left(f.nome, 60) || '"' || case when v_origem is not null then ' e barrou a origem de rede dela' else '' end || '. Motivo: ' || left(v_motivo, 200), v);
   return jsonb_build_object('ok', true, 'origem', v_origem is not null);
@@ -1983,7 +1992,7 @@ begin
   select * into b from banimentos where id = p_id and ativo for update;
   if not found then perform interno.erro('nao_encontrado'); end if;
   update banimentos set ativo = false, encerrado_por = v, encerrado_em = now() where id = p_id;
-  if b.usuario is not null and not exists (select 1 from banimentos where usuario = b.usuario and ativo) then
+  if b.usuario is not null and not b.ja_suspensa and not exists (select 1 from banimentos where usuario = b.usuario and ativo) then
     update perfis set suspenso = false where id = b.usuario;
   end if;
   perform interno.registrar('banimento_encerrado', coalesce(b.usuario::text, ''), jsonb_build_object('nome', b.nome));
