@@ -1,13 +1,13 @@
 name: Enviar e-mails
 
-# De dez em dez minutos, manda os e-mails automáticos que o banco deixou na fila: confirmação de candidatura e de
+# De cinco em cinco minutos (o GitHub às vezes atrasa rotinas agendadas), manda os e-mails automáticos que o banco deixou na fila: confirmação de candidatura e de
 # boletim, convites, avisos de decisão e as edições do boletim. Só roda depois de criada a variável EMAILS com o valor
 # "sim" (Settings → Secrets and variables → Actions → Variables); para pausar os envios, apague a variável.
 # Precisa dos segredos SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY (os mesmos da publicação) e RESEND_API_KEY, e da
 # variável EMAIL_REMETENTE (Instituto Lúcia <noreply@institutolucia.org>). EMAIL_RESPOSTA (institutolucia@tutamail.com) recebe as respostas.
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
