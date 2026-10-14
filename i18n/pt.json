@@ -384,6 +384,34 @@
     "ecossocialismo": [
       "Ecossocialismo",
       "A crise do clima como crise do capitalismo: natureza, trabalho e a saída que não cabe no lucro."
+    ],
+    "frances": [
+      "Francês",
+      "Língua francesa do zero: comunicação do dia a dia, leitura e a francofonia."
+    ],
+    "ingles-infantil": [
+      "Inglês infantil",
+      "Primeiros passos em inglês para crianças: palavras do dia a dia, músicas e brincadeiras."
+    ],
+    "redes-e-seguranca": [
+      "Redes e segurança da informação",
+      "Como as redes funcionam por dentro e como proteger sistemas e pessoas, com ênfase em hacking ético: sempre com autorização e dentro da lei."
+    ],
+    "trancista": [
+      "Trancista",
+      "Tranças afro: cuidados com o cabelo, técnicas, história e como transformar o ofício em renda."
+    ],
+    "costureira": [
+      "Costureira",
+      "Costura do básico ao conserto e à confecção de peças, com segurança no trabalho e caminhos para gerar renda."
+    ],
+    "barbeiro": [
+      "Barbeiro",
+      "Corte masculino e barba: ferramentas, higiene e biossegurança, técnicas e como montar o próprio trabalho."
+    ],
+    "oratoria-e-lideranca": [
+      "Oratória e liderança",
+      "Falar em público com clareza, preparar uma fala, conduzir reuniões e assembleias e liderar coletivamente."
     ]
   },
   "tracks": {
@@ -803,7 +831,8 @@
     "humanidades": "Humanidades",
     "teoria": "Teoria revolucionária",
     "lutas": "Lutas do povo",
-    "percursos": "Alfabetização e ENEM"
+    "percursos": "Alfabetização e ENEM",
+    "hobbies": "Hobbies: aprenda uma habilidade nova e monetize com ela"
   },
   "stages": {
     "fundamental": "Ensino fundamental",

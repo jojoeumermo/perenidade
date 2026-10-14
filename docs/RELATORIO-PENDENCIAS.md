@@ -7,31 +7,34 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 | Grupo | Disciplina | Prontas | Previstas | Faltam |
 |---|---|---|---|---|
-| Percursos | alfabetizacao | 1 | 27 | 26 |
-| Percursos | enem | 1 | 25 | 24 |
-| Linguagens | portugues | 29 | 43 | 14 |
-| Linguagens | literatura | 1 | 49 | 48 |
-| Linguagens | ingles | 4 | 46 | 42 |
-| Linguagens | espanhol | 1 | 28 | 27 |
-| Linguagens | chines | 1 | 35 | 34 |
-| Linguagens | artes | 1 | 38 | 37 |
-| Linguagens | desenho | 0 | 24 | 24 |
-| Linguagens | design | 0 | 24 | 24 |
-| Linguagens | musica | 7 | 44 | 37 |
-| Linguagens | danca | 0 | 25 | 25 |
-| Linguagens | teatro | 0 | 25 | 25 |
-| Linguagens | cinema | 0 | 25 | 25 |
-| Linguagens | educacao-fisica | 0 | 24 | 24 |
-| Ciências e Tecnologia | matematica | 48 | 48 | 0 |
-| Ciências e Tecnologia | fisica | 26 | 35 | 9 |
-| Ciências e Tecnologia | quimica | 24 | 32 | 8 |
-| Ciências e Tecnologia | biologia | 23 | 33 | 10 |
-| Ciências e Tecnologia | astronomia | 2 | 30 | 28 |
-| Ciências e Tecnologia | informatica | 5 | 61 | 56 |
-| Ciências e Tecnologia | programacao | 17 | 53 | 36 |
-| Ciências e Tecnologia | inteligencia-artificial | 1 | 39 | 38 |
-| Ciências e Tecnologia | manutencao | 1 | 36 | 35 |
-| Ciências e Tecnologia | primeiros-socorros | 5 | 42 | 37 |
+| Alfabetização e ENEM | alfabetizacao | 1 | 27 | 26 |
+| Alfabetização e ENEM | enem | 1 | 25 | 24 |
+| Linguagens e artes | portugues | 29 | 43 | 14 |
+| Linguagens e artes | literatura | 1 | 49 | 48 |
+| Linguagens e artes | ingles | 4 | 36 | 32 |
+| Linguagens e artes | ingles-infantil | 0 | 18 | 18 |
+| Linguagens e artes | espanhol | 1 | 28 | 27 |
+| Linguagens e artes | frances | 0 | 16 | 16 |
+| Linguagens e artes | chines | 1 | 35 | 34 |
+| Linguagens e artes | artes | 1 | 38 | 37 |
+| Linguagens e artes | desenho | 0 | 24 | 24 |
+| Linguagens e artes | design | 0 | 24 | 24 |
+| Linguagens e artes | musica | 7 | 44 | 37 |
+| Linguagens e artes | danca | 0 | 25 | 25 |
+| Linguagens e artes | teatro | 0 | 25 | 25 |
+| Linguagens e artes | cinema | 0 | 25 | 25 |
+| Linguagens e artes | educacao-fisica | 0 | 24 | 24 |
+| Ciências e tecnologia | matematica | 48 | 73 | 25 |
+| Ciências e tecnologia | fisica | 26 | 35 | 9 |
+| Ciências e tecnologia | quimica | 24 | 32 | 8 |
+| Ciências e tecnologia | biologia | 23 | 33 | 10 |
+| Ciências e tecnologia | astronomia | 2 | 30 | 28 |
+| Ciências e tecnologia | informatica | 5 | 61 | 56 |
+| Ciências e tecnologia | programacao | 17 | 53 | 36 |
+| Ciências e tecnologia | redes-e-seguranca | 0 | 30 | 30 |
+| Ciências e tecnologia | inteligencia-artificial | 1 | 39 | 38 |
+| Ciências e tecnologia | manutencao | 1 | 36 | 35 |
+| Ciências e tecnologia | primeiros-socorros | 5 | 42 | 37 |
 | Humanidades | historia | 24 | 62 | 38 |
 | Humanidades | geografia | 1 | 40 | 39 |
 | Humanidades | sociologia | 1 | 32 | 31 |
@@ -48,29 +51,33 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Humanidades | meio-ambiente | 2 | 46 | 44 |
 | Humanidades | arquitetura | 0 | 24 | 24 |
 | Humanidades | arquivologia | 0 | 25 | 25 |
-| Teoria | capitalismo | 26 | 32 | 6 |
-| Teoria | marxismo | 35 | 42 | 7 |
-| Teoria | socialismo | 29 | 35 | 6 |
-| Teoria | comunismo | 25 | 30 | 5 |
-| Teoria | ideologia-e-politica | 23 | 34 | 11 |
-| Teoria | dependencia | 21 | 21 | 0 |
-| Teoria | imperialismo | 10 | 21 | 11 |
-| Teoria | ecossocialismo | 11 | 22 | 11 |
-| Lutas do Povo | trabalho | 1 | 36 | 35 |
-| Lutas do Povo | sindicalismo | 1 | 38 | 37 |
-| Lutas do Povo | luta-negra | 2 | 57 | 55 |
-| Lutas do Povo | feminismo | 1 | 38 | 37 |
-| Lutas do Povo | lgbtqia | 2 | 41 | 39 |
-| Lutas do Povo | deficiencia | 1 | 28 | 27 |
-| Lutas do Povo | povos-indigenas | 1 | 28 | 27 |
-| Lutas do Povo | luta-pela-terra | 0 | 26 | 26 |
-| Lutas do Povo | favelas | 1 | 27 | 26 |
-| Lutas do Povo | luta-dos-professores | 1 | 27 | 26 |
-| Lutas do Povo | movimento-estudantil | 2 | 26 | 24 |
-| Lutas do Povo | pessoas-idosas | 1 | 24 | 23 |
-| | **Total** | **432** | **2086** | **1654** |
+| Teoria revolucionária | capitalismo | 26 | 32 | 6 |
+| Teoria revolucionária | marxismo | 35 | 42 | 7 |
+| Teoria revolucionária | socialismo | 29 | 35 | 6 |
+| Teoria revolucionária | comunismo | 25 | 30 | 5 |
+| Teoria revolucionária | ideologia-e-politica | 23 | 34 | 11 |
+| Teoria revolucionária | dependencia | 21 | 43 | 22 |
+| Teoria revolucionária | imperialismo | 10 | 21 | 11 |
+| Teoria revolucionária | ecossocialismo | 11 | 22 | 11 |
+| Lutas do povo | trabalho | 1 | 36 | 35 |
+| Lutas do povo | sindicalismo | 1 | 38 | 37 |
+| Lutas do povo | luta-negra | 2 | 57 | 55 |
+| Lutas do povo | feminismo | 1 | 38 | 37 |
+| Lutas do povo | lgbtqia | 2 | 41 | 39 |
+| Lutas do povo | deficiencia | 1 | 28 | 27 |
+| Lutas do povo | povos-indigenas | 1 | 28 | 27 |
+| Lutas do povo | luta-pela-terra | 0 | 26 | 26 |
+| Lutas do povo | favelas | 1 | 27 | 26 |
+| Lutas do povo | luta-dos-professores | 1 | 27 | 26 |
+| Lutas do povo | movimento-estudantil | 2 | 26 | 24 |
+| Lutas do povo | pessoas-idosas | 1 | 24 | 23 |
+| Hobbies: aprenda uma habilidade nova e monetize com ela | trancista | 0 | 15 | 15 |
+| Hobbies: aprenda uma habilidade nova e monetize com ela | costureira | 0 | 16 | 16 |
+| Hobbies: aprenda uma habilidade nova e monetize com ela | barbeiro | 0 | 14 | 14 |
+| Hobbies: aprenda uma habilidade nova e monetize com ela | oratoria-e-lideranca | 0 | 15 | 15 |
+| | **Total** | **432** | **2247** | **1815** |
 
-## Percursos
+## Alfabetização e ENEM
 
 ### alfabetizacao — 1 de 27 prontas (faltam 26)
 
@@ -138,7 +145,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Matemática: o que mais cai
 - Matemática: ler gráficos e tabelas
 
-## Linguagens
+## Linguagens e artes
 
 ### portugues — 29 de 43 prontas (faltam 14)
 
@@ -226,7 +233,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - A literatura marginal e periférica
 - Conceição Evaristo e a escrevivência
 
-### ingles — 4 de 46 prontas (faltam 42)
+### ingles — 4 de 36 prontas (faltam 32)
 
 **Inglês do zero** (fundamental, `ingles-do-zero`): 4/14 prontas
 - Artigos: a, an e the
@@ -239,18 +246,6 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - There is e there are
 - Can: habilidade e pedido
 - Presente contínuo
-
-**Inglês para crianças** (fundamental, `ingles-para-criancas`): 0/10 prontas
-- Cores e números
-- Olá e tchau
-- A família
-- Os animais
-- A casa
-- A comida
-- O corpo
-- As roupas
-- Os dias da semana
-- Brincadeiras para repetir
 
 **Inglês: conversação e leitura** (medio, `ingles-medio`): 0/12 prontas
 - Passado simples: verbos regulares
@@ -277,6 +272,28 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Como escrever um abstract
 - Provas de proficiência: como se preparar
 - A história da língua inglesa
+
+### ingles-infantil — 0 de 18 prontas (faltam 18)
+
+**Inglês para crianças** (fundamental, `ingles-para-criancas`): 0/18 prontas
+- Cores e números
+- Olá e tchau
+- A família
+- Os animais
+- A casa
+- A comida
+- O corpo
+- As roupas
+- Os dias da semana
+- Brincadeiras para repetir
+- A sala de aula e os brinquedos
+- As frutas
+- O tempo e as estações do ano
+- Os meses do ano
+- Sentimentos
+- Ações do dia a dia
+- Músicas e rimas em inglês
+- Contar uma história curta
 
 ### espanhol — 1 de 28 prontas (faltam 27)
 
@@ -312,6 +329,26 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Traduzir do espanhol: as armadilhas
 - Espanhol para o trabalho e a pesquisa
 - A história da língua espanhola
+
+### frances — 0 de 16 prontas (faltam 16)
+
+**Francês do zero** (medio, `frances-do-zero`): 0/16 prontas
+- O alfabeto e os sons do francês
+- Cumprimentar e se apresentar
+- Números, datas e horas
+- Artigos, gênero e plural
+- Os verbos être e avoir
+- Verbos terminados em -er no presente
+- Família e descrição de pessoas
+- Casa, cidade e direções
+- Comida, mercado e restaurante
+- Trabalho e profissões
+- Como fazer perguntas
+- A negação
+- O passado composto
+- O futuro próximo
+- A francofonia: o francês no mundo
+- Ler textos simples em francês
 
 ### chines — 1 de 35 prontas (faltam 34)
 
@@ -646,9 +683,9 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Esporte de alto rendimento e dopagem
 - Políticas públicas de esporte e lazer
 
-## Ciências e Tecnologia
+## Ciências e tecnologia
 
-### matematica — 48 de 48 prontas (faltam 0)
+### matematica — 48 de 73 prontas (faltam 25)
 
 **Matemática fundamental** (fundamental, `matematica-fundamental`): 14/14 prontas
 - (completa)
@@ -661,6 +698,33 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 **Cálculo, álgebra e estatística** (superior, `matematica-superior`): 10/10 prontas
 - (completa)
+
+**Matemática: aprofundamento** (superior, `matematica-aprofundamento`): 0/25 prontas
+- Sequências e séries
+- Cálculo de várias variáveis
+- Integrais múltiplas
+- Cálculo vetorial
+- Equações diferenciais ordinárias
+- Equações diferenciais parciais: uma introdução
+- Espaços vetoriais
+- Autovalores e autovetores
+- Números complexos
+- Funções de variável complexa: uma introdução
+- Teoria dos números
+- Aritmética modular e criptografia
+- Grupos, anéis e corpos
+- Análise real: os números reais com rigor
+- Topologia: uma introdução
+- Geometria analítica no espaço
+- Geometrias não euclidianas
+- Teoria dos grafos
+- Combinatória avançada
+- Métodos numéricos
+- Programação linear e otimização
+- Regressão linear
+- Séries de Fourier
+- Modelagem matemática de problemas sociais
+- Etnomatemática
 
 ### fisica — 26 de 35 prontas (faltam 9)
 
@@ -872,6 +936,42 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - APIs e o protocolo HTTP
 - Segurança de aplicações: as falhas mais comuns
 - Padrões de projeto
+
+### redes-e-seguranca — 0 de 30 prontas (faltam 30)
+
+**Redes de computadores** (medio, `redes-de-computadores`): 0/13 prontas
+- O que é uma rede de computadores
+- O caminho de um pacote pela internet
+- Os modelos em camadas: TCP/IP e OSI
+- Endereços IP e máscaras de rede
+- IPv6
+- Cabos, wi-fi e equipamentos: switch, roteador e ponto de acesso
+- DNS: os nomes da internet
+- DHCP: como o aparelho recebe um endereço
+- TCP, UDP e portas
+- HTTP e HTTPS
+- Montar e proteger a rede de casa
+- Ferramentas de diagnóstico: ping e traceroute
+- Redes comunitárias e inclusão digital
+
+**Segurança da informação e hacking ético** (superior, `seguranca-da-informacao-e-hacking-etico`): 0/17 prontas
+- Confidencialidade, integridade e disponibilidade
+- Ética e lei: o que diz a legislação brasileira sobre invasão de dispositivos
+- Senhas, autenticação em dois fatores e gerenciadores de senha
+- Criptografia: conceitos básicos
+- Engenharia social e golpes
+- Programas maliciosos: tipos e prevenção
+- Vulnerabilidades e a importância das atualizações
+- Firewalls e segmentação de rede
+- Linux para segurança
+- O que é um teste de invasão autorizado
+- As etapas de um teste de invasão
+- As falhas mais comuns em aplicações web
+- Competições de captura da bandeira (CTF)
+- Laboratórios legais para praticar
+- Resposta a incidentes
+- Divulgação responsável de vulnerabilidades
+- Proteção digital de movimentos sociais e jornalistas
 
 ### inteligencia-artificial — 1 de 39 prontas (faltam 38)
 
@@ -1691,7 +1791,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Arquivos de movimentos sociais
 - Decolonizar o museu: a devolução de acervos
 
-## Teoria
+## Teoria revolucionária
 
 ### capitalismo — 26 de 32 prontas (faltam 6)
 
@@ -1780,13 +1880,37 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Moral e fundamentos do direito
 - Situação e políticas
 
-### dependencia — 21 de 21 prontas (faltam 0)
+### dependencia — 21 de 43 prontas (faltam 22)
 
 **Por que a América Latina é dependente** (medio, `dependencia-e-america-latina`): 10/10 prontas
 - (completa)
 
 **A teoria marxista da dependência** (superior, `teoria-marxista-da-dependencia`): 11/11 prontas
 - (completa)
+
+**Dependência: aprofundamento** (superior, `dependencia-aprofundamento`): 0/22 prontas
+- Raúl Prebisch e o pensamento da CEPAL
+- Celso Furtado e a Formação econômica do Brasil
+- Caio Prado Júnior e o sentido da colonização
+- Clóvis Moura e a escravidão na formação do Brasil
+- Immanuel Wallerstein e o sistema-mundo
+- Samir Amin e a acumulação em escala mundial
+- O desenvolvimento desigual e combinado
+- O imperialismo segundo Lênin e a teoria da dependência
+- Dependência tecnológica e patentes
+- Dependência financeira: fuga de capitais e juros
+- O papel do dólar no sistema internacional
+- A desindustrialização brasileira
+- Commodities na pauta de exportação
+- Mineração e neoextrativismo
+- Dependência e questão agrária
+- A dependência na África e na Ásia
+- China e América Latina
+- Os BRICS e o Sul global
+- Os governos progressistas latino-americanos e os limites da dependência
+- Planejamento e soberania: caminhos para superar a dependência
+- Cuba e o bloqueio econômico
+- Che Guevara e o grande debate econômico cubano
 
 ### imperialismo — 10 de 21 prontas (faltam 11)
 
@@ -1824,7 +1948,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - O Antropoceno ou o Capitaloceno
 - Lutas ecossocialistas hoje: movimentos, sindicatos e territórios
 
-## Lutas do Povo
+## Lutas do povo
 
 ### trabalho — 1 de 36 prontas (faltam 35)
 
@@ -2319,3 +2443,81 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Solidão, moradia e cidade
 - Financeirização da aposentadoria: fundos de pensão e capitalização
 - Políticas de cuidado na América Latina
+
+## Hobbies: aprenda uma habilidade nova e monetize com ela
+
+### trancista — 0 de 15 prontas (faltam 15)
+
+**Trancista** (fundamental, `trancista`): 0/15 prontas
+- A história das tranças na diáspora africana
+- O cabelo crespo e cacheado: estrutura e cuidados
+- Saúde do couro cabeludo: quando não trançar
+- Ferramentas e materiais
+- Preparar e dividir o cabelo
+- A trança de três mechas
+- Tranças nagô (rasteiras)
+- Box braids
+- Twists
+- Tranças com fibra
+- Manutenção e retirada das tranças
+- Postura e saúde de quem trança
+- Atendimento, tempo de trabalho e preço do serviço
+- Formalização: o que é o MEI
+- Divulgar o próprio trabalho
+
+### costureira — 0 de 16 prontas (faltam 16)
+
+**Costureira** (fundamental, `costureira`): 0/16 prontas
+- Ferramentas e segurança na costura
+- Os tipos de tecido
+- Pontos à mão
+- Conhecer a máquina de costura
+- Costuras retas e acabamentos
+- Barras e bainhas
+- Botões, casas e zíperes
+- Consertos e ajustes de roupas
+- Como tirar medidas
+- Ler e usar moldes
+- Costurar uma peça simples
+- Reaproveitar tecidos
+- Postura e saúde de quem costura
+- Calcular o preço e vender
+- A história das costureiras e das trabalhadoras da confecção
+- Cooperativas de costura
+
+### barbeiro — 0 de 14 prontas (faltam 14)
+
+**Barbeiro** (fundamental, `barbeiro`): 0/14 prontas
+- As ferramentas: tesoura, máquina, navalha e pentes
+- Higiene, limpeza e esterilização
+- O couro cabeludo e os tipos de cabelo
+- Atender e entender o que o cliente quer
+- Corte na máquina: pentes e alturas
+- O degradê
+- Corte na tesoura
+- Acabamento e contorno
+- Barba: desenho e aparo
+- Barba na navalha e cuidados com a pele
+- Cabelo crespo na barbearia
+- Postura e saúde do barbeiro
+- Preço, agenda e clientela
+- Formalização e direitos de quem trabalha por conta própria
+
+### oratoria-e-lideranca — 0 de 15 prontas (faltam 15)
+
+**Oratória e liderança** (fundamental, `oratoria-e-lideranca`): 0/15 prontas
+- Por que falar em público dá medo
+- Respiração, voz e postura
+- Preparar uma fala: objetivo, público e roteiro
+- Começo, meio e fim
+- Falar com clareza e simplicidade
+- Usar exemplos e histórias
+- Ouvir antes de falar
+- Falar em uma assembleia
+- Conduzir uma reunião
+- Pauta, ata e encaminhamentos
+- Mediar conflitos
+- Liderança coletiva e democracia interna
+- Falar em entrevistas e vídeos
+- Analisar discursos que marcaram a história
+- Formar novas lideranças
