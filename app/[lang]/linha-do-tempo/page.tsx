@@ -12,5 +12,5 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/linha-do-t
 
 export default async function Page({ params }: PageProps<"/[lang]/linha-do-tempo">) {
   const { lang, t } = await loadLang(params);
-  return <ContentPageView slug="linha-do-tempo" lang={lang} t={t} />;
+  return <ContentPageView slug="linha-do-tempo" lang={lang} t={t} tone="preto" />;
 }

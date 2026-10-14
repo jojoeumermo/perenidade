@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { AcervoBrowser } from "@/components/AcervoBrowser";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
 import { getBooks } from "@/lib/content";
 
@@ -15,9 +15,9 @@ export default async function Acervo({ params }: PageProps<"/[lang]/acervo">) {
   const { lang, t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
-      <PageHeading eyebrow={t.library.eyebrow} title={t.library.title}>
+      <Cartaz eyebrow={t.library.eyebrow} title={t.library.title} slogan={t.footer.slogan} tone="preto">
         {t.library.lead}
-      </PageHeading>
+      </Cartaz>
       <Suspense>
         <AcervoBrowser books={getBooks(lang)} />
       </Suspense>

@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { Materials } from "@/components/Materials";
-import { PageHeading } from "@/components/PageHeading";
+import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/materiais">): Promise<Metadata> {
@@ -15,9 +15,9 @@ export default async function Materiais({ params }: PageProps<"/[lang]/materiais
   const s = t.materials;
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <PageHeading eyebrow={s.eyebrow} title={s.title}>
+      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.footer.slogan} tone="vermelho">
         {s.lead}
-      </PageHeading>
+      </Cartaz>
       <Materials s={s} />
     </div>
   );
