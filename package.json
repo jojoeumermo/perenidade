@@ -17,6 +17,8 @@
     "conferir:links": "node scripts/conferir-links.mjs",
     "testar:banco": "node scripts/testar-banco.mjs",
     "testar:moderacao": "node scripts/testar-moderacao.mjs",
+    "testar:emails": "node scripts/testar-emails.mjs",
+    "enviar:emails": "node scripts/enviar-emails.mjs",
     "sincronizar": "node scripts/sincronizar.mjs",
     "proximo": "node scripts/proximo.mjs",
     "importar:catalogo": "node scripts/importar-catalogo.mjs"
@@ -25,6 +27,8 @@
     "@supabase/supabase-js": "^2.117.3",
     "github-slugger": "^2.0.0",
     "js-yaml": "^4.3.2",
+    "katex": "^0.16.47",
+    "mathjs": "^15.2.0",
     "minisearch": "^7.2.0",
     "next": "16.3.8",
     "php-wasm": "^0.2.0",
@@ -32,8 +36,10 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-markdown": "^10.1.0",
+    "rehype-katex": "^7.0.1",
     "rehype-slug": "^6.0.0",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.5.8",
