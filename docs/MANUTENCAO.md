@@ -368,6 +368,24 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 | Suspeita de invasão do banco | Desative a rotina de publicação. No Supabase, gere chaves novas (**API → Roll keys**), atualize as variáveis e os segredos. O acervo não é afetado. |
 | Banco perdido | Crie outro projeto e rode `supabase/install.sql`. Perdem-se contas, fila e conversas; o conteúdo publicado continua intacto. |
 | Enxurrada de contribuições falsas | Recuse em lote no painel; a rotina publica no máximo 25 itens por rodada, e só os aprovados. |
+| Chuva de spam que a mediação não dá conta | Painel → **Interdição e expurgo**: interdite a área e use o expurgo (seção abaixo). |
+| O site está fora do ar e o painel não abre | Rode no SQL Editor: `update interno.configuracoes set valor = valor \|\| '{"geral": false, "areas": []}'::jsonb where chave = 'interdicao';`. Em até meio minuto o site volta. |
+
+### Interdição e expurgo
+
+**Quando usar.** A interdição tira do ar, por um tempo, o site inteiro ou só algumas áreas (Comunidade, Mural, Reforço, Contribuir, Rádio, Acervo, Disciplinas, Ferramentas e as outras da lista em `lib/interdicao.ts`): para manutenção, ou quando uma área virou caos e nem a avaliação automática nem a mediação dão conta. Nada é apagado. O expurgo é o contrário: apaga de uma vez o que o público escreveu (conversas, respostas e votos da Comunidade, anúncios do Mural, anotações das aulas, pedidos de reforço não concluídos, contribuições esperando a triagem, trabalhos da Gaveta Aberta) num período escolhido (última hora, 6 h, 24 h, 7 dias ou tudo). Não tem volta.
+
+**Quem faz.** Coordenação e vice-coordenação aplicam direto, com motivo (vai para o registro e para o aviso à liderança). A supervisão não aplica: faz um **pedido** com justificativa, que só vale quando a coordenação ou a vice aprovar, com os dados que estavam no pedido; pedido parado vence em 72 horas. Tudo fica em *Interdição e expurgo*, com a fila de pedidos e o histórico.
+
+**O que o público vê.** Caminho fechado mostra uma página mínima, sem cabeçalho nem menu, dizendo que aquela parte (ou o site) está fora do ar por um tempo, com o recado escrito pela coordenação e um link discreto "Equipe: entrar". A resposta é 503, com `Retry-After` e sem cache; o endereço não muda. Quem decide isso é o `proxy.ts`, que lê o estado na função pública `site()` e guarda por meio minuto: a mudança chega a todos em até 30 segundos. Se o banco não responder, o site abre normalmente (o banco nunca derruba o acervo). Ficam sempre abertos `/entrar`, `/painel` e os arquivos (ícones, `manifest`, `sw.js`, `.well-known/assetlinks.json`). Com o site inteiro fora do ar, os serviços em `/api/` também param.
+
+**No banco.** Cada função pública da área fechada recusa o público com `area_interditada` (o site mostra a mensagem nos cinco idiomas); quem cuida da área (mediação na Comunidade, jornalismo na rádio, a equipe nas contribuições) continua lendo e limpando pelo painel. O estado mora em `interno.configuracoes` (chave `interdicao`).
+
+**No aplicativo e sem internet.** O app Android é o próprio site: vale o mesmo. O modo sem internet (`public/sw.js`) busca a rede primeiro; com a interdição ligada e a pessoa online, aparece a página fechada (o 503 nunca é guardado). Sem internet, o aparelho continua mostrando as páginas que já tinha guardado.
+
+**Como desfazer.** Em *Interdição e expurgo*, "Reabrir tudo agora" (ou desmarcar as áreas e aplicar). Se o painel não abrir, o comando SQL da tabela acima reabre tudo.
+
+**Área nova.** Acrescente em `lib/interdicao.ts` (nome e caminhos) e em `interno.areas_publicas()` no `install.sql`, e ponha `perform interno.aberta('<área>')` no começo das funções públicas dela. `npm run testar:interdicao` falha se as duas listas divergirem ou se uma rota de `app/[lang]` não pertencer a nenhuma área.
 
 ## 9. Roteiros de apoio
 
@@ -383,6 +401,7 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 | `cabecalho.mjs` | leitura e escrita do cabeçalho dos arquivos de conteúdo, usada pelos outros roteiros |
 | `conferir-i18n.mjs` | compara os cinco dicionários |
 | `conferir-links.mjs` | testa os endereços citados no conteúdo |
+| `testar-interdicao.mjs` | confere a lógica de caminhos da interdição e que a lista de áreas do site é a mesma do banco |
 
 ## 10. Antes de publicar uma mudança
 
@@ -391,6 +410,7 @@ npm run lint
 npm run typecheck
 npm run conferir:i18n
 npm run testar:banco
+npm run testar:interdicao
 npm run build
 ```
 
