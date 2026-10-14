@@ -30,7 +30,7 @@ O site não conta visitas nem usa ferramenta nenhuma de medição de audiência.
 
 Para mandar os e-mails automáticos (a confirmação de que um pedido chegou, o convite de quem entra na equipe, a confirmação e as edições do boletim), o instituto usa um serviço de envio de e-mails, com servidores fora do Brasil. Ele recebe o endereço e o texto de cada mensagem só para entregá-la. Depois que um e-mail sai, o instituto apaga o texto dele e guarda por trinta dias só o registro de que foi enviado.
 
-Esses serviços processam os dados só para manter o site funcionando. O instituto não entrega dados a anunciantes, corretores de dados nem a nenhuma outra empresa.
+Esses serviços processam os dados só para manter o site funcionando. O instituto não entrega dados a anunciantes nem a corretores de dados. A única situação em que um texto escrito por você é enviado a outra empresa está explicada abaixo, em "Avaliação automática na Comunidade".
 
 ## Se você envia algo sem ter conta
 
@@ -60,6 +60,22 @@ Qualquer pessoa pode criar uma conta, com e-mail e senha, para participar da com
 
 O nome público nasce como um codinome sorteado ("Estudante 48213"). Nada do seu e-mail aparece no site. Você escolhe se quer trocar o codinome pelo seu nome.
 
+## Avaliação automática na Comunidade
+
+Tudo o que é escrito na [Comunidade](/comunidade) passa por uma avaliação automática antes de aparecer. Ela existe para manter a convivência respeitosa, segura e voltada ao estudo: ajuda a barrar spam, assédio, ameaças, discurso de ódio e outras violações das regras da página.
+
+Essa avaliação tem duas partes. A primeira roda dentro do próprio sistema do instituto e olha sinais simples, como palavras de uma lista, endereços de sites e texto repetido. A segunda usa uma ferramenta de inteligência artificial de uma empresa de fora, com servidores fora do Brasil: o texto da sua mensagem (o título e o corpo, e nada além disso) é enviado a esse serviço, que devolve uma classificação.
+
+O pedido leva só o texto. O instituto não acrescenta o seu nome, o seu e-mail, o identificador da sua conta nem o seu endereço de rede. Se você mesmo escrever um dado pessoal dentro da mensagem, ele vai junto, porque faz parte do texto. O serviço externo trata o que recebe de acordo com as regras dele, e pode guardar o conteúdo por um período para o próprio funcionamento e para a prevenção de abuso; o instituto não controla esse prazo.
+
+Com o resultado, três coisas podem acontecer: a mensagem aparece na hora, é barrada, ou fica esperando a leitura de uma pessoa da mediação. Nenhuma conta é suspensa ou banida por decisão automática: isso é sempre decisão de gente.
+
+Avaliação automática erra, para os dois lados. Por isso os casos de dúvida vão para uma pessoa, a mediação pode liberar o que foi barrado por engano, e toda decisão pode ser revista pela coordenação. Se uma mensagem sua foi barrada e você acha que não devia, escreva pela página [Denunciar](/denunciar).
+
+O instituto guarda, junto de cada mensagem, o resultado da avaliação (publicada, barrada ou enviada para revisão) e o motivo, pelo tempo em que a mensagem existir. A classificação detalhada devolvida pelo serviço não é guardada.
+
+A avaliação automática vale só para a Comunidade. Anúncios do Mural dos Trabalhadores e contribuições para o acervo continuam sendo lidos por pessoas da equipe antes de irem ao ar, e não são enviados a esse serviço.
+
 ## Se você é da equipe de voluntários
 
 Além do que está acima, o painel guarda: as funções que você recebeu; o registro do que foi feito com essas funções, por pouco mais de um ano; um identificador sorteado de cada navegador em que a conta foi aberta, para avisar você e a coordenação quando a conta aparecer em um aparelho novo, por até 180 dias sem uso; o nome completo informado no termo de adesão ao trabalho voluntário; e as horas que você registrar. O CPF não é guardado: quem imprime um certificado digita na hora.
@@ -69,7 +85,7 @@ As conversas internas da equipe são cifradas no seu aparelho antes de serem env
 ## Com que base a lei permite isso
 
 - **Consentimento**, quando você cria uma conta, aceita um convite, se candidata a voluntário, publica na comunidade, anuncia no mural ou pede reforço. Você retira o consentimento apagando a conta ou pedindo a retirada do que enviou.
-- **Legítimo interesse**, para os registros de segurança do painel e a proteção contra ataques e abuso.
+- **Legítimo interesse**, para os registros de segurança do painel, a proteção contra ataques e abuso e a avaliação automática das mensagens da Comunidade.
 - **Cumprimento de obrigação legal**, se uma ordem judicial válida exigir a guarda ou a entrega de algum registro.
 
 ## Seus direitos
@@ -79,6 +95,7 @@ A lei garante a você confirmar se o instituto trata dados seus, acessar, corrig
 - **Apagar a conta**: no painel, em Início, há o botão "Apagar minha conta". Ele remove o perfil, as funções e os votos.
 - **Apagar o que está no navegador**: página [Meus dados](/meus-dados).
 - **Retirar um anúncio, um pedido ou qualquer outra coisa**: página [Denunciar](/denunciar). Respondemos em até quinze dias.
+- **Pedir que uma pessoa reveja uma decisão automática** sobre uma mensagem sua na Comunidade: página [Denunciar](/denunciar).
 
 ## Crianças e adolescentes
 
