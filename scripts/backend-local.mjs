@@ -13,7 +13,8 @@ import crypto from "node:crypto";
 import http from "node:http";
 import { criarBanco } from "./banco-local.mjs";
 
-export const PORTA = 54399;
+// Outra cópia do projeto rodando ao mesmo tempo escolhe outra porta com PORTA_BANCO.
+export const PORTA = Number(process.env.PORTA_BANCO ?? 54399);
 export const URL_LOCAL = `http://127.0.0.1:${PORTA}`;
 // Segredo fixo de desenvolvimento: não abre nada fora desta máquina.
 const SEGREDO = "instituto-lucia-desenvolvimento-local";
@@ -244,6 +245,86 @@ export async function iniciar({ silencioso = false } = {}) {
           return res.end(arquivo.dados);
         }
       }
+      // ── Arquivos do podcast: "podcast" (público) e "podcast-producao" (fechado), com as regras de install.sql ──
+      const podcast = /^\/storage\/v1\/object\/(?:authenticated\/)?(podcast(?:-producao)?)(?:\/(.+))?$/.exec(url.pathname);
+      if (podcast && !url.pathname.startsWith("/storage/v1/object/public/")) {
+        const dados = portador(req);
+        const deposito = podcast[1];
+        const caminho = podcast[2] ? decodeURIComponent(podcast[2]) : "";
+        const pasta = caminho.split("/");
+        const quem = dados?.sub ? { papel: "authenticated", sub: dados.sub, aal: dados.aal } : null;
+        // Confere a regra do depósito com as credenciais de quem pede, como o serviço de verdade faz.
+        const pode = async (funcao) => {
+          if (!quem) return false;
+          const linha = await banco.exclusivo(async () => {
+            await banco.pg.query("select set_config('request.jwt.claims', $1, false)", [JSON.stringify({ role: "authenticated", sub: quem.sub, ...(quem.aal ? { aal: quem.aal } : {}) })]);
+            try {
+              return await banco.pg.query(`select ${funcao} as ok`);
+            } finally {
+              await banco.pg.query("select set_config('request.jwt.claims', '', false)");
+            }
+          });
+          return Boolean(linha.rows[0]?.ok);
+        };
+        const negar = () => json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
+        if (req.method === "POST") {
+          const permitido =
+            deposito === "podcast"
+              ? (pasta[0] === "ep" && (await pode("interno.podcaster()"))) || (pasta[0] === "capas" && (await pode("(interno.podcaster() or interno.tem('design'))")))
+              : (["ep", "trilhas", "termos"].includes(pasta[0]) && (await pode("interno.podcaster()"))) ||
+                (pasta[0] === "recibos" && (await pode("interno.coord()"))) ||
+                (pasta[0] === "perguntas" && pasta[1] === dados?.sub);
+          if (!permitido) return negar();
+          const tipo = req.headers["content-type"] ?? "application/octet-stream";
+          if (bruto.length > 52428800) return json(res, 413, { statusCode: "413", error: "Payload too large", message: "The object exceeded the maximum allowed size" });
+          if (arquivos.has(`${deposito}/${caminho}`)) return json(res, 409, { statusCode: "409", error: "Duplicate", message: "The resource already exists" });
+          arquivos.set(`${deposito}/${caminho}`, { tipo, dados: bruto });
+          return json(res, 200, { Key: `${deposito}/${caminho}`, Id: crypto.randomUUID() });
+        }
+        if (req.method === "DELETE") {
+          if (!(await pode("interno.podcaster()")) && !(await pode("interno.coord()"))) return negar();
+          const lista = Array.isArray(corpo?.prefixes) ? corpo.prefixes : caminho ? [caminho] : [];
+          for (const item of lista) arquivos.delete(`${deposito}/${item}`);
+          return json(res, 200, lista.map((name) => ({ name })));
+        }
+        if (req.method === "GET") {
+          const le =
+            deposito === "podcast" ||
+            (["ep", "trilhas"].includes(pasta[0]) && (await pode("interno.podcast_revisor()"))) ||
+            (pasta[0] === "termos" && (await pode("(interno.podcast_pode('producao') or interno.podcast_pode('supervisao'))"))) ||
+            (pasta[0] === "recibos" && ((await pode("interno.coord()")) || pasta[1] === dados?.sub)) ||
+            (pasta[0] === "perguntas" && ((await pode("interno.podcaster()")) || pasta[1] === dados?.sub));
+          const arquivo = le ? arquivos.get(`${deposito}/${caminho}`) : null;
+          if (!arquivo) return json(res, 404, { message: "not found" });
+          res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes" });
+          return res.end(arquivo.dados);
+        }
+      }
+      // Endereço assinado de um arquivo fechado (para ouvir sem baixar inteiro): aqui vale por uma hora.
+      const assinar = /^\/storage\/v1\/object\/sign\/(podcast-producao)\/(.+)$/.exec(url.pathname);
+      if (assinar && req.method === "POST") {
+        const dados = portador(req);
+        const caminho = decodeURIComponent(assinar[2]);
+        if (!dados?.sub || !arquivos.has(`podcast-producao/${caminho}`)) return json(res, 400, { statusCode: "404", error: "not_found", message: "Object not found" });
+        const ficha = crypto.randomBytes(12).toString("hex");
+        links.set(`assinado:${ficha}`, { caminho: `podcast-producao/${caminho}`, ate: Date.now() + 3600_000 });
+        return json(res, 200, { signedURL: `/object/sign/podcast-producao/${encodeURIComponent(caminho)}?token=${ficha}` });
+      }
+      if (assinar && req.method === "GET") {
+        const ficha = links.get(`assinado:${url.searchParams.get("token") ?? ""}`);
+        const arquivo = ficha && ficha.ate > Date.now() ? arquivos.get(ficha.caminho) : null;
+        if (!arquivo) return json(res, 404, { message: "not found" });
+        res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes" });
+        return res.end(arquivo.dados);
+      }
+      const publico = /^\/storage\/v1\/object\/public\/(podcast\/.+)$/.exec(url.pathname);
+      if (publico && req.method === "GET") {
+        const arquivo = arquivos.get(decodeURIComponent(publico[1]));
+        if (!arquivo) return json(res, 404, { message: "not found" });
+        res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes", "access-control-allow-origin": "*" });
+        return res.end(arquivo.dados);
+      }
+
       const leitura = /^\/storage\/v1\/object\/public\/(radio\/.+)$/.exec(url.pathname);
       if (leitura && req.method === "GET") {
         const arquivo = arquivos.get(decodeURIComponent(leitura[1]));

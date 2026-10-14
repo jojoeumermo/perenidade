@@ -380,6 +380,14 @@ body {
   height: 6.5cqw;
 }
 /* Fundo preto dos cartazes e o sol de raios vermelhos: cores fixas, iguais nos dois temas. */
+/* Capa de episódio de podcast sem imagem: o cartaz vermelho com a estrela e a quina preta. */
+.podcast-capa-cartaz {
+  background: linear-gradient(135deg, var(--prelo) 0 64%, #1f1a14 64% 100%);
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .podcast-capa-cartaz {
+  background: #000;
+}
+
 .jornal-preto {
   background: #1f1a14;
   color: #f4ecd8;

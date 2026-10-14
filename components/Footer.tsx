@@ -26,6 +26,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
         [t.nav.contribute, "/contribuir"],
         [t.nav.community, "/comunidade"],
         [t.nav.journal, "/jornal"],
+        [t.nav.podcasts, "/podcasts"],
         [t.nav.news, "/noticias"],
         [t.nav.mural, "/mural"],
         [t.nav.materials, "/materiais"],

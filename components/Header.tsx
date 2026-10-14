@@ -3,7 +3,7 @@ import Link from "next/link";
 import { localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { site } from "@/lib/site";
-import { AccountLink, AppBack, LanguageSwitcher, NavLinks, NewsLink, RadioLink } from "./NavLinks";
+import { AccountLink, AppBack, LanguageSwitcher, NavLinks, NewsLink, PodcastLink, RadioLink } from "./NavLinks";
 import { Strip } from "./Strip";
 import { ThemeToggle } from "./ThemeToggle";
 
@@ -39,6 +39,7 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
             <LanguageSwitcher />
             <NewsLink />
           </span>
+          <PodcastLink />
           <RadioLink />
           <ThemeToggle />
         </div>
