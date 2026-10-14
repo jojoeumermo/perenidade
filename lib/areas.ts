@@ -118,5 +118,8 @@ export const tools = [
   "juros-compostos",
   "bases-numericas",
   "pronuncia",
+  "dicionario",
+  "frases",
+  "graficos",
 ] as const;
 export type ToolId = (typeof tools)[number];

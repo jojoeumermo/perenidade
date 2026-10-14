@@ -79,7 +79,7 @@ export default async function LessonPage({ params }: Props) {
       <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} />
 
       {/* No aplicativo o texto vem primeiro, como em um leitor de livros; a lista das aulas da disciplina fica depois dele. */}
-      <aside className="no-print no-focus font-sans text-sm app:max-md:order-2 app:max-md:border-t app:max-md:border-rule app:max-md:pt-6 md:sticky md:top-6 md:self-start">
+      <aside className="indice-da-trilha no-print no-focus font-sans text-sm app:max-md:order-2 app:max-md:border-t app:max-md:border-rule app:max-md:pt-6 md:sticky md:top-6 md:self-start">
         <Link href={to(`/estantes/${track.area}`)} className="text-ink-soft hover:text-oxblood">← {t.areas[track.area][0]}</Link>
         <h2 className="mt-3 font-serif text-xl font-semibold" {...originalLang(track.translated)}>
           <Link href={to(`/trilhas/${track.slug}`)} className="hover:text-oxblood">{track.title}</Link>
