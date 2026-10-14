@@ -84,6 +84,8 @@ const erros: Record<string, string> = {
   limite_colaboradores: "Cada contribuição pode ter até cinco pessoas trabalhando junto.",
   mudou_enquanto_editava: "Outra pessoa guardou alterações enquanto você editava. Copie o que escreveu, abra a versão nova e aplique de novo.",
   sem_pgcrypto: "O banco ainda não tem a extensão de senhas (pgcrypto). Rode o supabase/install.sql de novo no SQL Editor.",
+  area_interditada: "Esta parte do site está interditada agora.",
+  pedido_vencido: "Este pedido venceu (passou de 72 horas sem decisão). A supervisão pode fazer outro.",
   sem_conexao: "Sem conexão com o serviço.",
   falha: "Algo deu errado. Tente de novo.",
 };

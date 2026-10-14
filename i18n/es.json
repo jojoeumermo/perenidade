@@ -1574,6 +1574,7 @@
     "conteudo_recusado": "El texto tiene palabras que el sitio no acepta. Reescríbelo y envíalo de nuevo.",
     "sem_links": "Aquí solo entra texto: sin direcciones de sitios, imágenes ni archivos.",
     "envios_pausados": "Los envíos están en pausa por el momento.",
+    "area_interditada": "Esta parte del sitio está cerrada por un tiempo. Inténtalo de nuevo más tarde.",
     "acesso_bloqueado": "Los envíos desde esta red fueron bloqueados por la mediación.",
     "ja_pediu": "Ya enviaste esta solicitud; está en análisis."
   },
@@ -1861,5 +1862,13 @@
     "votesSource": "Fuente: Datos Abiertos de la Cámara de Diputados.",
     "unavailable": "La fuente no respondió ahora. Vuelve en algunas horas.",
     "note": "Todos los números vienen de las fuentes indicadas en cada recuadro, sin ajustes nuestros. Si una fuente no responde, el recuadro desaparece en vez de mostrar un número viejo."
+  },
+  "closed": {
+    "siteTitle": "Fuera de línea por un tiempo",
+    "siteLead": "El Instituto Lúcia está temporalmente fuera de línea. Vuelve dentro de un rato.",
+    "areaTitle": "Esta parte del sitio está cerrada por un tiempo",
+    "areaLead": "El resto del sitio sigue funcionando con normalidad.",
+    "home": "Ir al inicio",
+    "team": "Equipo: entrar"
   }
 }
