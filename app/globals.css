@@ -1581,3 +1581,10 @@ body {
     animation: painel-pulso 1.2s ease-in-out infinite;
   }
 }
+
+/* Caixa de ferramentas aberta no computador: a página abre espaço à direita e a aula continua inteira à vista. */
+@media (min-width: 1024px) {
+  html.caixa-aberta body {
+    padding-right: 28rem;
+  }
+}
