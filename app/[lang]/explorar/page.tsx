@@ -1,10 +1,12 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "next/link";
+import { InstagramIcon } from "@/components/Footer";
 import { LanguageSwitcher } from "@/components/NavLinks";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
+import { site } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/explorar">): Promise<Metadata> {
   const { t } = await loadLang(params);
@@ -92,6 +94,21 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
           </div>
         </section>
       ))}
+      {/* O perfil do instituto fora do site: no aplicativo o rodapé some, então ele também mora aqui. */}
+      <a
+        href={site.instagram}
+        target="_blank"
+        rel="noopener noreferrer me"
+        className="group mt-12 flex items-center gap-4 border-2 border-ink bg-parchment-deep p-5 hover:border-oxblood max-md:mt-7 max-md:px-4 max-md:py-3"
+      >
+        <InstagramIcon className="h-8 w-8 shrink-0 text-oxblood" />
+        <span className="block min-w-0">
+          <span className="block text-2xl font-semibold group-hover:text-oxblood max-md:text-lg">
+            {t.footer.instagram} <span className="font-mono text-sm font-normal text-ink-soft">@institutoluciaorg ↗</span>
+          </span>
+          <span className="mt-1 block text-ink-soft max-md:mt-0.5 max-md:font-sans max-md:text-[0.8rem] max-md:leading-snug">{d.instagram}</span>
+        </span>
+      </a>
     </div>
   );
 }
