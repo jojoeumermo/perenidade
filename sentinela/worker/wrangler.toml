@@ -1,0 +1,28 @@
+# Sentinela Lúcia — o coletor. Roda na Cloudflare (plano gratuito: 100 mil pedidos/dia; o cron conta como pedido).
+# Publicar: npm run worker:deploy (depois de `npx wrangler login`). Segredos: `npx wrangler secret put NOME --config worker/wrangler.toml`.
+name = "sentinela-lucia"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[observability]
+enabled = true
+
+[triggers]
+# A cada 5 minutos: site, serviço de contas, tráfego e bloqueios da Cloudflare, deploys, ações confirmadas, e-mails.
+# A cada 6 horas (minuto 17): DNS, certificados (CT logs), domínios parecidos, alertas do GitHub, reputação, limpeza.
+crons = ["*/5 * * * *", "17 */6 * * *"]
+
+# Variáveis que NÃO são segredo (podem ficar aqui). Os segredos ficam só em `wrangler secret put`:
+#   SENTINELA_SERVICE_KEY   chave service_role do projeto Supabase DO SENTINELA (não do site)
+#   CLOUDFLARE_API_TOKEN    token com Zone.Analytics:Read, Zone.Firewall Services:Edit (só a zona do site)
+#   VERCEL_TOKEN            token de leitura da Vercel (escopo só do projeto do site)
+#   GITHUB_TOKEN            token fino: Dependabot alerts, Secret scanning, Code scanning, Actions (leitura)
+#   SUPABASE_SITE_PAT       opcional: token pessoal da Management API para ler os logs de entrada do Supabase do site
+#   RESEND_API_KEY          chave do Resend, só envio, restrita ao domínio
+#   ABUSEIPDB_KEY           opcional: reputação de IP (plano gratuito, 1.000 consultas/dia)
+[vars]
+SENTINELA_SUPABASE_URL = "https://SEU-PROJETO-SENTINELA.supabase.co"
+EMAIL_REMETENTE = "Sentinela Lúcia <sentinela@institutolucia.org>"
+# Endereço do app publicado (PWA), para os links dos e-mails. Vazio: os e-mails não levam link.
+APP_URL = ""
