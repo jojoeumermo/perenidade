@@ -42,6 +42,18 @@ export async function cleanImage(file: File): Promise<{ blob: Blob; extension: "
   return { blob: jpeg, extension: "jpg" };
 }
 
+/** A foto para o assistente de reforço: redesenhada como as outras (sem os dados embutidos) e escrita em base64. */
+export async function imageForAssistant(file: File): Promise<{ tipo: string; dados: string }> {
+  const { blob } = await cleanImage(file);
+  const dataUrl = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = () => reject(new UploadError("formato"));
+    reader.readAsDataURL(blob);
+  });
+  return { tipo: blob.type, dados: dataUrl.slice(dataUrl.indexOf(",") + 1) };
+}
+
 /** Nome sorteado: o nome original do arquivo (que costuma dizer de quem é) não sai do aparelho. */
 const randomName = () => `a-${crypto.randomUUID().replace(/-/g, "").slice(0, 24)}`;
 

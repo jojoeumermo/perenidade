@@ -1467,7 +1467,19 @@
       "steps": "Passo a passo",
       "copy": "Copiar o passo a passo",
       "copied": "Copiado.",
-      "photo": "Foto do exercício",
+      "photo": {
+        "button": "Foto do exercício",
+        "label": "Tirar ou escolher uma foto do exercício",
+        "warning": "A foto vai para um serviço de inteligência artificial de outra empresa (Anthropic), que lê o exercício e explica a resolução. Fotografe só o exercício, sem nomes nem rostos. O Instituto Lúcia não guarda a foto.",
+        "reading": "Lendo a foto… pode levar até um minuto.",
+        "read": "O que o assistente leu na foto",
+        "solveHere": "Resolver aqui, passo a passo",
+        "explanation": "Explicação do assistente",
+        "mayErr": "Leitura e explicação automáticas, que podem conter erros. Confira a transcrição antes de confiar na conta.",
+        "refused": "O assistente não pôde ajudar com essa foto.",
+        "cut": "A explicação ficou longa demais e foi cortada no fim.",
+        "left": "Perguntas ao assistente que ainda restam hoje: {n}."
+      },
       "pct": {
         "de": "Quanto é p% de um valor",
         "quanto": "Uma parte é quantos % do todo",
@@ -2223,7 +2235,15 @@
     "area_interditada": "Esta parte do site está fechada por um tempo. Tente de novo mais tarde.",
     "falta_termo": "Para publicar, aceite o termo e escreva o seu nome completo.",
     "acesso_bloqueado": "Os envios desta rede foram bloqueados pela mediação.",
-    "ja_pediu": "Você já enviou esse pedido; ele está em análise."
+    "ja_pediu": "Você já enviou esse pedido; ele está em análise.",
+    "assistente_desligado": "O assistente está desligado agora. Peça reforço a um voluntário.",
+    "assistente_limite": "Você já usou todas as perguntas ao assistente de hoje. Amanhã tem mais; enquanto isso, peça reforço a um voluntário.",
+    "assistente_lotado": "O assistente chegou ao limite de perguntas do dia para todo o site. Peça reforço a um voluntário ou tente amanhã.",
+    "assistente_indisponivel": "O assistente não está disponível agora. Tente mais tarde ou peça reforço a um voluntário.",
+    "assistente_falhou": "O assistente não conseguiu responder agora, e a pergunta não foi descontada. Tente de novo daqui a pouco.",
+    "imagem": "Não deu para ler a imagem. Use uma foto em JPG, PNG ou WebP.",
+    "pergunta_curta": "Escreva a dúvida com um pouco mais de detalhe.",
+    "pergunta_longa": "A dúvida passou do tamanho máximo (3.000 caracteres)."
   },
   "community": {
     "eyebrow": "Comunidade",
@@ -2381,7 +2401,26 @@
     "cancel": "Cancelar pedido",
     "cancelled": "Pedido cancelado.",
     "offline": "O reforço ainda não está ativo nesta cópia do site.",
-    "textOnly": "Só texto: endereços de sites, imagens e arquivos não são aceitos."
+    "textOnly": "Só texto: endereços de sites, imagens e arquivos não são aceitos.",
+    "suggestTitle": "Aulas e verbetes que podem ajudar",
+    "assistant": {
+      "title": "Sem voluntário agora? Pergunte ao assistente",
+      "lead": "Um assistente automático explica a sua dúvida na hora, passo a passo, usando o que você escreveu acima. Ele pode errar: confira com as aulas e, se continuar com dúvida, peça reforço a um voluntário logo abaixo.",
+      "warning": "Antes de perguntar: a sua dúvida (e a foto, se você mandar uma) vai para um serviço de inteligência artificial de outra empresa, a Anthropic, com servidores fora do Brasil. Não escreva nome, endereço, telefone nem outro dado pessoal. O Instituto Lúcia não guarda a pergunta nem a resposta.",
+      "login": "O assistente é para quem tem conta.",
+      "loginLink": "Entrar ou criar conta",
+      "photo": "Juntar uma foto do exercício (opcional)",
+      "removePhoto": "Tirar a foto",
+      "ask": "Perguntar ao assistente",
+      "need": "Escreva a dúvida acima (ou junte uma foto) para perguntar.",
+      "asking": "O assistente está pensando… pode levar até um minuto.",
+      "answer": "Resposta do assistente",
+      "mayErr": "Resposta automática, que pode conter erros. Confira com as aulas do site ou peça a um voluntário.",
+      "cut": "A resposta ficou longa demais e foi cortada no fim.",
+      "refused": "O assistente não pode ajudar com essa pergunta. Mande-a para um voluntário pelo formulário abaixo.",
+      "left": "Perguntas que ainda restam hoje: {n}.",
+      "toVolunteer": "Ainda com dúvida? Peça reforço a um voluntário logo abaixo: a sua pergunta já está escrita."
+    }
   },
   "materials": {
     "eyebrow": "Para imprimir e distribuir",

@@ -1553,6 +1553,80 @@ await espera("banir a conta recusa o que ela tinha esperando na Gaveta", async (
 }, (r) => r === "recusado");
 await recusa("conta banida não publica", () => rpc(EST, "gaveta_enviar", { p: trabalho({ titulo: "Mais um trabalho" }) }), "conta_suspensa");
 
+// ── Assistente de reforço: o banco decide quem pergunta e conta os usos; pergunta e resposta nunca passam por aqui ──
+ids.aluna = await criarUsuario("aluna@teste.local", "Ana Aluna");
+ids.aluno = await criarUsuario("aluno@teste.local", "Beto Aluno");
+ids.aluno3 = await criarUsuario("aluno3@teste.local", "Caio Aluno");
+const ALUNA = como(ids.aluna);
+await espera("assistente nasce desligado", () => rpc(anon, "assistente_estado"), (r) => r.ligado === false);
+await recusa("visitante sem conta não pergunta", () => rpc(anon, "assistente_usar"), "entre_primeiro");
+await recusa("desligado, ninguém pergunta", () => rpc(ALUNA, "assistente_usar"), "assistente_desligado");
+await recusa("estudante não vê os controles do assistente", () => rpc(ALUNA, "assistente_controles"), "sem_permissao");
+await recusa("supervisão não liga o assistente (é serviço pago)", () => rpc(SUP, "assistente_configurar", { p: { ligado: true } }), "sem_permissao");
+await recusa("limite por pessoa fora da faixa", () => rpc(VICE, "assistente_configurar", { p: { por_pessoa: 0 } }), "invalido:por_pessoa");
+await recusa("teto do dia fora da faixa", () => rpc(VICE, "assistente_configurar", { p: { por_dia: 99999 } }), "invalido:por_dia");
+await recusa("limite que não é número", () => rpc(VICE, "assistente_configurar", { p: { por_dia: "muitos" } }), "invalido:limite");
+await espera("vice-coordenação liga com limites", () => rpc(VICE, "assistente_configurar", { p: { ligado: true, por_pessoa: 2, por_dia: 3 } }), (r) => r.ligado === true && r.por_pessoa === 2 && r.por_dia === 3 && r.hoje === 0);
+await espera("ligar fica no registro e avisa a coordenação", async () => [
+  (await dono("select count(*)::int as n from interno.auditoria where acao = 'assistente_configurado'")).rows[0].n,
+  (await dono("select count(*)::int as n from interno.avisos where texto like 'O assistente de reforço%'")).rows[0].n,
+], (r) => r[0] >= 1 && r[1] >= 1);
+await espera("ligado, o site mostra o quadro", () => rpc(anon, "assistente_estado"), (r) => r.ligado === true);
+await espera("primeira pergunta conta um uso", () => rpc(ALUNA, "assistente_usar"), (r) => r.ok === true && r.restantes === 1 && r.usuario === ids.aluna);
+await espera("segunda pergunta usa a última vaga da pessoa", () => rpc(ALUNA, "assistente_usar"), (r) => r.restantes === 0);
+await recusa("passou do limite por pessoa", () => rpc(ALUNA, "assistente_usar"), "assistente_limite");
+await recusa("estudante não devolve a própria vez", () => rpc(ALUNA, "assistente_resultado", { p: { ok: false, falha: "x", usuario: ids.aluna } }), "sem_permissao");
+await recusa("estudante não grava teste de funcionamento", () => rpc(ALUNA, "assistente_verificacao", { p: { ok: true, chave: true } }), "sem_permissao");
+await espera("falha do serviço devolve a vez da pessoa", async () => {
+  await rpc(servico, "assistente_resultado", { p: { ok: false, falha: "indisponivel", usuario: ids.aluna } });
+  return rpc(ALUNA, "assistente_usar");
+}, (r) => r.ok === true && r.restantes === 0);
+await espera("outra pessoa pergunta enquanto há vaga no dia", () => rpc(como(ids.aluno), "assistente_usar"), (r) => r.ok === true && r.restantes === 1);
+await recusa("passou do teto do dia, para o site inteiro", () => rpc(como(ids.aluno3), "assistente_usar"), "assistente_lotado");
+await espera("o painel mostra usos, pessoas e a última pergunta de verdade", () => rpc(COORD, "assistente_controles"), (r) => r.hoje === 3 && r.pessoas_hoje === 2 && r.semana === 3 && r.ultimo?.ok === false && r.ultimo?.falha === "indisponivel");
+await espera("resultado que deu certo não mexe no contador", async () => {
+  await rpc(servico, "assistente_resultado", { p: { ok: true, falha: "", usuario: ids.aluno } });
+  return rpc(COORD, "assistente_controles");
+}, (r) => r.hoje === 3 && r.ultimo.ok === true);
+await espera("teste de funcionamento fica anotado com o modelo", async () => {
+  await rpc(servico, "assistente_verificacao", { p: { chave: true, ok: true, falha: "", modelo: "claude-opus-5-5" } });
+  return rpc(COORD, "assistente_controles");
+}, (r) => r.verificacao.ok === true && r.verificacao.chave === true && r.verificacao.modelo === "claude-opus-5-5" && Boolean(r.verificacao.em));
+await espera("o banco não guarda pergunta nem resposta, só contadores", async () => (await dono("select column_name from information_schema.columns where table_schema = 'interno' and table_name = 'assistente_uso' order by 1")).rows.map((c) => c.column_name), (r) => JSON.stringify(r) === JSON.stringify(["dia", "usos", "usuario"]));
+await rpc(COORD, "assistente_configurar", { p: { por_dia: 100 } });
+await recusa("com a pausa de envios, o assistente não responde", async () => {
+  await rpc(SUP, "site_pausa", { p_pausa: true });
+  try {
+    return await rpc(como(ids.aluno3), "assistente_usar");
+  } finally {
+    await rpc(SUP, "site_pausa", { p_pausa: false });
+  }
+}, "envios_pausados");
+await espera("com a aula de reforço interditada, o quadro some e ninguém pergunta", async () => {
+  await rpc(COORD, "interdicao_definir", { p: { geral: false, areas: ["reforco"], motivo: "Teste do assistente" } });
+  try {
+    const estado = await rpc(anon, "assistente_estado");
+    const erro = await rpc(como(ids.aluno3), "assistente_usar").then(() => "", (e) => String(e?.message ?? e));
+    return [estado.ligado, erro, (await rpc(COORD, "assistente_controles")).interditado];
+  } finally {
+    await rpc(COORD, "interdicao_definir", { p: { geral: false, areas: [], motivo: "Fim do teste" } });
+  }
+}, (r) => r[0] === false && r[1].includes("area_interditada") && r[2] === true);
+await recusa("conta banida não pergunta", () => rpc(EST, "assistente_usar"), "conta_suspensa");
+await espera("desligado de novo, ninguém pergunta", async () => {
+  await rpc(COORD, "assistente_configurar", { p: { ligado: false } });
+  return rpc(como(ids.aluno3), "assistente_usar").then(() => "", (e) => String(e?.message ?? e));
+}, (r) => r.includes("assistente_desligado"));
+await espera("a limpeza apaga contadores com mais de 90 dias", async () => {
+  await dono("insert into interno.assistente_uso (dia, usuario, usos) values (interno.assistente_dia() - 120, $1, 4)", [ids.aluna]);
+  await dono("select interno.limpeza()");
+  return (await dono("select count(*)::int as n from interno.assistente_uso where dia < interno.assistente_dia() - 90")).rows[0].n;
+}, (r) => r === 0);
+await espera("instalar de novo mantém a configuração do assistente", async () => {
+  await banco.instalarDeNovo();
+  return rpc(COORD, "assistente_controles");
+}, (r) => r.ligado === false && r.por_pessoa === 2 && r.por_dia === 100);
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);

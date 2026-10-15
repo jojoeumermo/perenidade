@@ -347,6 +347,7 @@ const acoes: Record<string, string> = {
   abertura_salva: "mudou o aviso de abertura",
   reforco_assumido: "assumiu um pedido de reforço",
   reforco_concluido: "concluiu um pedido de reforço",
+  assistente_configurado: "mudou o assistente de reforço (ligado e limites)",
   sala_da_equipe: "mudou o endereço da sala da equipe",
   material_publicado: "publicou um material",
   material_guardado: "guardou um material",

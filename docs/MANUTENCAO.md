@@ -403,6 +403,8 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 | `conferir-i18n.mjs` | compara os cinco dicionários |
 | `conferir-links.mjs` | testa os endereços citados no conteúdo |
 | `testar-interdicao.mjs` | confere a lógica de caminhos da interdição e que a lista de áreas do site é a mesma do banco |
+| `testar-ferramentas.mjs` | confere as contas das ferramentas práticas (resolvedor, unidades, química, genética, estatística, lógica e as demais) |
+| `testar-assistente.mjs` | confere, sem rede e sem chave, o pedido e a leitura da resposta do assistente de reforço |
 
 ## 10. Antes de publicar uma mudança
 
@@ -412,6 +414,8 @@ npm run typecheck
 npm run conferir:i18n
 npm run testar:banco
 npm run testar:interdicao
+npm run testar:ferramentas
+npm run testar:assistente
 npm run build
 ```
 
@@ -457,6 +461,33 @@ A **Gaveta Aberta** (`/gaveta`, "trabalhos de estudantes, livres para todos") é
 - **Mudou o termo?** Escreva a versão nova em `gaveta-termo.md`, troque a versão em `lib/gaveta.ts` (`TERMO_VERSAO`) e em `interno.gaveta_termo_versao()` no `install.sql`, e rode o `install.sql` de novo. `npm run testar:interdicao` confere que as duas versões batem. Envios feitos com a versão antiga continuam com ela registrada.
 - **O nome "Gaveta Aberta"** mora só nos textos (`drawer` nos dicionários e os rótulos do painel): trocar o nome não mexe no banco.
 
+## 15b. Assistente de reforço
+
+Quando não há voluntário, quem tem conta pode tirar a dúvida com um **assistente automático**: um quadro "Sem voluntário agora? Pergunte ao assistente" na página de reforço e o botão **Foto do exercício** no resolvedor passo a passo (a foto é lida, o enunciado transcrito e, se for uma conta que o resolvedor entende, dá para refazê-la ali mesmo, passo a passo, sem IA). Ele usa o **Claude, da Anthropic**, um serviço **pago por pergunta**, e por isso **nasce desligado**.
+
+Sempre ligadas, sem custo e sem mandar nada para fora: as **sugestões de aulas e verbetes** que aparecem na página de reforço enquanto a pessoa escreve (é o índice da busca do próprio site, filtrado pela disciplina).
+
+- **Como funciona.** O navegador chama a função `assistente` (em `supabase/functions/assistente/`). Antes de gastar qualquer centavo, ela pergunta ao banco (`assistente_usar`, com a sessão de quem pergunta): conta ativa, assistente ligado, aula de reforço não interditada, envios não pausados e vaga no limite da pessoa e no teto do site. Só com o "sim" ela chama o serviço. Se o serviço falhar, a pergunta não é descontada da pessoa.
+- **O que fica guardado.** Só quantas perguntas cada conta fez em cada dia (`interno.assistente_uso`, apagado depois de 90 dias). Pergunta, foto e resposta não passam pelo banco nem pelo registro da função; o registro diz só o tipo de falha.
+- **O que vai para fora.** A dúvida, o assunto, a disciplina, o idioma, os títulos e endereços das aulas sugeridas e, se houver, a foto (redesenhada e reduzida no aparelho, sem os dados embutidos). Nome, e-mail, conta e endereço de rede não vão. O texto para a página de privacidade está em `docs/privacidade-assistente.md` e entra **no mesmo dia em que o assistente for ligado**, nem antes nem depois.
+- **O comportamento.** O roteiro fixo do assistente (o "prompt de sistema") fica em `supabase/functions/assistente/assistente.ts`, constante `SISTEMA`: explica passo a passo, no espírito da educação popular, sem esconder a resposta; recomenda só aulas do próprio site; não inventa fonte; em saúde, direito e segurança orienta e manda procurar o serviço (192/SAMU em emergência, CVV 188). Mudou o texto? Rode `npm run testar:assistente` e publique a função de novo.
+- **O painel.** *Controles do site → Assistente de reforço* (só coordenação e vice): ligar e desligar, perguntas por pessoa por dia (padrão 10), teto do site inteiro por dia (padrão 200; é o freio de gasto), botão **Testar agora** (uma chamada de verdade, curtinha), e a situação: função e chave, serviço respondendo, última pergunta de verdade, perguntas de hoje e da semana. Ligar avisa a liderança e fica no registro de atividades. A supervisão não liga nem desliga (é dinheiro), mas a interdição da aula de reforço e a pausa de envios também param o assistente.
+
+**Quanto custa.** O serviço cobra por pedaço de texto ("token") que entra e que sai. Com o modelo padrão, `claude-opus-5-5` (US$ 4 por milhão de tokens de entrada e US$ 20 por milhão de saída), uma dúvida típica gasta cerca de 1.500 tokens de entrada e de 1.000 a 3.000 de saída (contando o raciocínio do modelo): **algo entre US$ 0,03 e US$ 0,07 por pergunta**; a foto acrescenta perto de US$ 0,01. Com o teto padrão de 200 perguntas por dia, o pior dia fica perto de US$ 15. São estimativas: o gasto de verdade aparece no Console da Anthropic. Para gastar menos, troque o modelo pelo segredo `ASSISTENTE_MODELO`: `claude-sonnet-5-5` custa metade do padrão; `claude-haiku-5-5` (US$ 0,10 e US$ 0,50 por milhão) sai por cerca de um décimo de centavo de dólar por pergunta, com explicações mais simples. Outro nome no segredo é ignorado e volta o padrão. Além do teto do painel, ponha um **limite de gasto mensal** na própria conta da Anthropic.
+
+Para ligar, nesta ordem:
+
+1. Crie uma conta de API no Console da Anthropic (platform.claude.com), cadastre a forma de pagamento, ponha o limite de gasto mensal e gere uma chave.
+2. Rode o `supabase/install.sql` no SQL Editor (cria a tabela de contadores e as funções).
+3. Guarde a chave como segredo da função, nunca em arquivo do projeto: `supabase secrets set ANTHROPIC_API_KEY=...` (ou **Edge Functions → Secrets** no painel). Opcional: `supabase secrets set ASSISTENTE_MODELO=claude-haiku-5-5`.
+4. Publique a função: `supabase functions deploy assistente`. Ela baixa sozinha o SDK oficial da Anthropic (versão fixa, `@anthropic-ai/sdk@0.133.0`).
+5. No painel, ainda desligado, aperte **Testar agora o assistente**: tem de aparecer "a função respondeu e o modelo … devolveu uma resposta". Se não: "a função não respondeu" é a função não publicada; "sem a chave" é o segredo faltando; "o serviço recusou a chave" é chave errada ou conta sem crédito.
+6. Ponha o texto de `docs/privacidade-assistente.md` na página de privacidade e publique.
+7. Ligue no painel e faça uma pergunta de teste com uma conta comum.
+8. Para desligar a qualquer momento: o mesmo botão. O quadro some na hora (no máximo até a pessoa recarregar a página).
+
+**Testes.** `npm run testar:assistente` confere, sem rede e sem chave, o que se aceita do navegador (tamanho, foto, só endereços do próprio site), o pedido montado para o serviço e a leitura da resposta (recusa, resposta cortada, foto). A seção do assistente em `npm run testar:banco` confere os limites e as permissões. No ambiente local (`npm run dev:local`), a função é imitada pelo banco de teste: o banco conta como em produção e a resposta é um texto fixo, sem chamar serviço nenhum.
+
 ## 16. Leitor digital, livro em EPUB e aplicativo
 
 - **Kindle e outros leitores de tinta eletrônica.** O site reconhece o aparelho (pelo nome do navegador e pelo tipo de tela) e entra em um visual de livro: uma coluna, preto no branco, nada flutuando. As regras ficam no fim de `app/globals.css`, em CSS simples de propósito. Mudou o desenho de uma página importante? Confira em um leitor de verdade.
@@ -488,5 +519,6 @@ Algumas partes do site usam dados de serviços públicos e abertos. Todos são c
 | Criar conta e trocar senha (`/api/senha-vazada`) | Have I Been Pwned, Pwned Passwords: o navegador manda só os 5 primeiros caracteres do SHA-1 da senha | não |
 | Página **Checagens** → "Já foi checado?" (`/api/checagens`) | Google Fact Check Tools | sim: `GOOGLE_FACTCHECK_KEY` nas variáveis do servidor (Vercel), nunca com `NEXT_PUBLIC_`. Sem ela, a busca não aparece |
 | Comunidade, segunda avaliação | OpenAI Moderation e Google Safe Browsing (acima) | segredos da função `avaliar-comunidade` |
+| Assistente de reforço (seção 15b) | Claude, da Anthropic (pago por pergunta; nasce desligado) | segredos da função `assistente`: `ANTHROPIC_API_KEY` e, opcional, `ASSISTENTE_MODELO` |
 
 Para acrescentar outro serviço: inclua o endereço dele na lista de `lib/externo.ts` e consulte sempre por `buscarJson` ou `buscarTexto`, que já têm prazo, limite de tamanho e guarda.

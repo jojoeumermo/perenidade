@@ -1467,7 +1467,19 @@
       "steps": "Step by step",
       "copy": "Copy the steps",
       "copied": "Copied.",
-      "photo": "Photo of the exercise",
+      "photo": {
+        "button": "Photo of the exercise",
+        "label": "Take or choose a photo of the exercise",
+        "warning": "The photo goes to an artificial intelligence service run by another company (Anthropic), which reads the exercise and explains how to solve it. Photograph only the exercise, with no names or faces. The Lúcia Institute does not keep the photo.",
+        "reading": "Reading the photo… this can take up to a minute.",
+        "read": "What the assistant read in the photo",
+        "solveHere": "Solve it here, step by step",
+        "explanation": "The assistant's explanation",
+        "mayErr": "Automatic reading and explanation, which may contain mistakes. Check the transcription before trusting the calculation.",
+        "refused": "The assistant could not help with this photo.",
+        "cut": "The explanation was too long and was cut off at the end.",
+        "left": "Questions to the assistant left for today: {n}."
+      },
       "pct": {
         "de": "What is p% of a value",
         "quanto": "A part is what % of the whole",
@@ -2223,7 +2235,15 @@
     "area_interditada": "This part of the site is closed for a while. Please try again later.",
     "falta_termo": "To publish, accept the terms and type your full name.",
     "acesso_bloqueado": "Submissions from this network have been blocked by the mediators.",
-    "ja_pediu": "You have already sent this request; it is under review."
+    "ja_pediu": "You have already sent this request; it is under review.",
+    "assistente_desligado": "The assistant is switched off right now. Ask a volunteer for tutoring.",
+    "assistente_limite": "You have used all of today's questions to the assistant. There will be more tomorrow; meanwhile, ask a volunteer for tutoring.",
+    "assistente_lotado": "The assistant has reached today's question limit for the whole site. Ask a volunteer for tutoring or try again tomorrow.",
+    "assistente_indisponivel": "The assistant is not available right now. Try later or ask a volunteer for tutoring.",
+    "assistente_falhou": "The assistant could not answer right now, and the question was not counted. Try again in a little while.",
+    "imagem": "The image could not be read. Use a JPG, PNG or WebP photo.",
+    "pergunta_curta": "Describe your question in a little more detail.",
+    "pergunta_longa": "The question is longer than the maximum (3,000 characters)."
   },
   "community": {
     "eyebrow": "Community",
@@ -2381,7 +2401,26 @@
     "cancel": "Cancel request",
     "cancelled": "Request cancelled.",
     "offline": "Tutoring is not active on this copy of the site yet.",
-    "textOnly": "Text only: website addresses, images and files are not accepted."
+    "textOnly": "Text only: website addresses, images and files are not accepted.",
+    "suggestTitle": "Lessons and entries that may help",
+    "assistant": {
+      "title": "No volunteer right now? Ask the assistant",
+      "lead": "An automatic assistant explains your question right away, step by step, using what you wrote above. It can make mistakes: check against the lessons and, if you are still stuck, ask a volunteer for tutoring just below.",
+      "warning": "Before you ask: your question (and the photo, if you send one) goes to an artificial intelligence service run by another company, Anthropic, with servers outside Brazil. Do not write your name, address, phone number or other personal data. The Lúcia Institute does not keep the question or the answer.",
+      "login": "The assistant is for people with an account.",
+      "loginLink": "Sign in or create an account",
+      "photo": "Attach a photo of the exercise (optional)",
+      "removePhoto": "Remove the photo",
+      "ask": "Ask the assistant",
+      "need": "Write your question above (or attach a photo) to ask.",
+      "asking": "The assistant is thinking… this can take up to a minute.",
+      "answer": "The assistant's answer",
+      "mayErr": "Automatic answer, which may contain mistakes. Check it against the site's lessons or ask a volunteer.",
+      "cut": "The answer was too long and was cut off at the end.",
+      "refused": "The assistant cannot help with this question. Send it to a volunteer with the form below.",
+      "left": "Questions left for today: {n}.",
+      "toVolunteer": "Still stuck? Ask a volunteer for tutoring just below: your question is already written."
+    }
   },
   "materials": {
     "eyebrow": "To print and hand out",

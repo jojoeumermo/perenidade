@@ -1,11 +1,15 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import type { Dict } from "@/i18n/types";
 import { porcentagemDe, quantoPorcento, regraDeTres, resolver, ResolverError, variacao, type Passo, type Resolucao } from "@/lib/ferramentas/resolvedor";
 
 type S = Dict["tools"]["solver"];
+
+// A foto só é carregada para quem tem conta e com o assistente ligado; para os outros, o resolvedor segue igual.
+const FotoDoExercicio = dynamic(() => import("./FotoDoExercicio").then((m) => m.FotoDoExercicio), { ssr: false });
 
 const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
 const button = "cursor-pointer bg-ink px-5 py-2.5 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
@@ -64,9 +68,9 @@ function Passos({ resolucao, s, decimal }: { resolucao: Resolucao; s: S; decimal
 
 /**
  * O resolvedor passo a passo: a alternativa livre aos aplicativos fechados. A conta é lida e resolvida aqui mesmo, no
- * navegador, sem mandar nada para fora. `foto` liga o botão "Foto do exercício" (quando o assistente estiver ligado).
+ * navegador, sem mandar nada para fora. Só a "Foto do exercício" sai daqui, e só quando a pessoa escolhe uma foto.
  */
-export function Resolvedor({ s, lang, foto }: { s: S; lang: string; foto?: React.ReactNode }) {
+export function Resolvedor({ s, lang }: { s: S; lang: string }) {
   const decimal = lang === "en" || lang === "zh" ? "." : ",";
   const [modo, setModo] = useState<"conta" | "porcentagem" | "regra">("conta");
   const [texto, setTexto] = useState("");
@@ -130,7 +134,6 @@ export function Resolvedor({ s, lang, foto }: { s: S; lang: string; foto?: React
           </div>
           <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
             <button type="button" className={button} onClick={() => resolverConta()} disabled={!texto.trim()}>{s.solve}</button>
-            {foto}
             <label className="flex items-center gap-2">
               <input type="checkbox" checked={complexas} onChange={(e) => setComplexas(e.target.checked)} />
               {s.complex}
@@ -152,6 +155,7 @@ export function Resolvedor({ s, lang, foto }: { s: S; lang: string; foto?: React
               </button>
             ))}
           </p>
+          <FotoDoExercicio s={s.photo} aoUsar={(conta) => { setTexto(conta); resolverConta(conta); }} />
         </div>
       )}
 
