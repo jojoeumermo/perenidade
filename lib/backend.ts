@@ -85,7 +85,7 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
 
 export interface Role {
   id: string;
-  papel: "coordenacao" | "vice" | "curadoria" | "mediacao" | "educacao" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "desenvolvimento";
+  papel: "coordenacao" | "vice" | "curadoria" | "mediacao" | "educacao" | "educacao_secundaria" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "marketing" | "desenvolvimento";
   disciplina: string | null;
 }
 
@@ -103,9 +103,11 @@ export interface Me {
   avisos: number;
 }
 
+/** Funções que valem por outra: a educação secundária tem os poderes da educação; o marketing, os do design. */
+const equivale: Partial<Record<Role["papel"], Role["papel"]>> = { educacao_secundaria: "educacao", marketing: "design" };
 /** A vice-coordenação pode tudo o que a coordenação pode, menos mexer na própria coordenação (isso é conferido por leads). */
 export const can = (me: Me | null, ...roles: Role["papel"][]) =>
-  Boolean(me?.papeis.some((role) => roles.includes(role.papel) || (role.papel === "vice" && roles.includes("coordenacao"))));
+  Boolean(me?.papeis.some((role) => roles.includes(role.papel) || (role.papel === "vice" && roles.includes("coordenacao")) || (equivale[role.papel] !== undefined && roles.includes(equivale[role.papel] as Role["papel"]))));
 /** Só a coordenação comunitária. */
 export const leads = (me: Me | null) => Boolean(me?.papeis.some((role) => role.papel === "coordenacao"));
 

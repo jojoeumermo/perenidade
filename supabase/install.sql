@@ -229,13 +229,13 @@ do $$
 begin
   alter table interno.papeis drop constraint if exists papeis_papel_check;
   alter table interno.papeis add constraint papeis_papel_check
-    check (papel in ('coordenacao', 'vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento'));
+    check (papel in ('coordenacao', 'vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing'));
   alter table interno.candidaturas drop constraint if exists candidaturas_papel_check;
   alter table interno.candidaturas add constraint candidaturas_papel_check
-    check (papel in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento'));
+    check (papel in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing'));
   alter table interno.contribuicoes drop constraint if exists contribuicoes_tipo_check;
   alter table interno.contribuicoes add constraint contribuicoes_tipo_check
-    check (tipo in ('aula', 'obra', 'artigo', 'checagem', 'debate', 'verbete', 'memorial', 'video', 'frase', 'traducao', 'correcao', 'sugestao', 'questao'));
+    check (tipo in ('aula', 'obra', 'artigo', 'checagem', 'debate', 'verbete', 'memorial', 'video', 'frase', 'traducao', 'correcao', 'sugestao', 'questao', 'avulso', 'temas'));
 end $$;
 
 -- Triagem: o que vem de fora passa primeiro pela mediação, que corta spam, vandalismo e envio sem forma antes de
@@ -248,7 +248,7 @@ create table if not exists interno.inscricoes (
   id uuid primary key default gen_random_uuid(),
   nome text not null check (char_length(nome) between 5 and 120),
   email text not null check (char_length(email) between 5 and 200),
-  papel text not null check (papel in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento')),
+  papel text not null check (papel in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing')),
   disciplina text check (disciplina is null or disciplina ~ '^[a-z0-9-]{2,40}$'),
   mensagem text not null check (char_length(mensagem) between 30 and 2000),
   status text not null default 'pendente' check (status in ('pendente', 'aceita', 'recusada')),
@@ -476,7 +476,7 @@ create table if not exists interno.convites (
   id uuid primary key default gen_random_uuid(),
   selo text not null unique check (selo ~ '^[a-f0-9]{64}$'),
   email text not null default '' check (char_length(email) <= 200),
-  papel text check (papel is null or papel in ('vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento')),
+  papel text check (papel is null or papel in ('vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing')),
   disciplina text check (disciplina is null or disciplina ~ '^[a-z0-9-]{2,40}$'),
   usos_max integer not null default 1 check (usos_max between 1 and 200),
   usos integer not null default 0,
@@ -489,7 +489,7 @@ create table if not exists interno.convites (
 -- Função acrescentada depois da primeira instalação: o convite também pode trazer a mediação.
 alter table interno.convites drop constraint if exists convites_papel_check;
 alter table interno.convites add constraint convites_papel_check
-  check (papel is null or papel in ('vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento'));
+  check (papel is null or papel in ('vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing'));
 create table if not exists interno.convites_usos (
   usuario uuid primary key,
   convite uuid references interno.convites (id) on delete set null,
@@ -703,7 +703,9 @@ language sql stable security definer set search_path = interno, pg_temp as $$
     and (interno.aal2() or not interno.tem_fator())
     and exists (
       select 1 from papeis p join perfis f on f.id = p.usuario
-      where p.usuario = auth.uid() and not f.suspenso and p.papel = p_papel
+      where p.usuario = auth.uid() and not f.suspenso
+        -- A educação secundária tem os mesmos poderes da educação; o marketing, os do design (materiais, imagens, artes).
+        and (p.papel = p_papel or (p_papel = 'educacao' and p.papel = 'educacao_secundaria') or (p_papel = 'design' and p.papel = 'marketing'))
         and (p_disciplina is null or p.disciplina is null or p.disciplina = p_disciplina)
     )
 $$;
@@ -773,7 +775,8 @@ $$;
 create or replace function interno.nome_papel(p text) returns text language sql immutable as $$
   select case p when 'coordenacao' then 'coordenação' when 'vice' then 'vice-coordenação' when 'curadoria' then 'curadoria' when 'mediacao' then 'mediação'
     when 'educacao' then 'educação' when 'revisao' then 'revisão' when 'traducao' then 'tradução' when 'jornalismo' then 'jornalismo, rádio e podcast'
-    when 'mentoria' then 'aula de reforço' when 'design' then 'design' when 'desenvolvimento' then 'desenvolvimento' else coalesce(p, '') end
+    when 'mentoria' then 'aula de reforço' when 'design' then 'design' when 'desenvolvimento' then 'desenvolvimento'
+    when 'educacao_secundaria' then 'educação secundária' when 'marketing' then 'marketing e divulgação' else coalesce(p, '') end
 $$;
 
 /**
@@ -970,8 +973,8 @@ language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); v_id uuid;
 begin
   perform interno.limite('candidatar', 5, 1440);
-  if p_papel not in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:papel'); end if;
-  if p_papel = 'educacao' and coalesce(p_disciplina, '') = '' then perform interno.erro('invalido:disciplina'); end if;
+  if p_papel not in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing') then perform interno.erro('invalido:papel'); end if;
+  if p_papel in ('educacao', 'educacao_secundaria') and coalesce(p_disciplina, '') = '' then perform interno.erro('invalido:disciplina'); end if;
   if exists (select 1 from candidaturas where usuario = v and papel = p_papel and coalesce(disciplina, '') = coalesce(p_disciplina, '') and status = 'pendente') then
     perform interno.erro('ja_pediu');
   end if;
@@ -1060,9 +1063,9 @@ language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu();
 begin
   if not interno.coord() then perform interno.erro('sem_permissao'); end if;
-  if p_papel not in ('vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:papel'); end if;
+  if p_papel not in ('vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing') then perform interno.erro('invalido:papel'); end if;
   if p_papel = 'vice' and not interno.lider() then perform interno.erro('sem_permissao'); end if;
-  if p_papel = 'educacao' and coalesce(p_disciplina, '') = '' then perform interno.erro('invalido:disciplina'); end if;
+  if p_papel in ('educacao', 'educacao_secundaria') and coalesce(p_disciplina, '') = '' then perform interno.erro('invalido:disciplina'); end if;
   if not exists (select 1 from perfis where id = p_usuario) then perform interno.erro('nao_encontrado'); end if;
   insert into papeis (usuario, papel, disciplina, concedido_por)
   values (p_usuario, p_papel, case when p_papel = 'vice' then null else interno.disciplina_ok(p_disciplina) end, v) on conflict do nothing;
@@ -1295,7 +1298,7 @@ begin
   if v is not null then perform interno.eu(); end if;
   perform interno.limite('contribuir', case when v is null then 6 else 40 end, 60);
 
-  if v_tipo not in ('aula', 'obra', 'artigo', 'checagem', 'debate', 'verbete', 'memorial', 'video', 'frase', 'traducao', 'correcao', 'sugestao', 'questao') then
+  if v_tipo not in ('aula', 'obra', 'artigo', 'checagem', 'debate', 'verbete', 'memorial', 'video', 'frase', 'traducao', 'correcao', 'sugestao', 'questao', 'avulso', 'temas') then
     perform interno.erro('invalido:tipo');
   end if;
   if jsonb_typeof(v_dados) <> 'object' or pg_column_size(v_dados) > 20000 then perform interno.erro('invalido:dados'); end if;
@@ -1308,6 +1311,15 @@ begin
     if coalesce(v_dados ->> 'correta', '') !~ '^[0-5]$' or (v_dados ->> 'correta')::int >= jsonb_array_length(v_dados -> 'opcoes') then perform interno.erro('invalido:correta'); end if;
     if coalesce(p ->> 'alvo', '') !~ '^[a-z0-9-]{2,80}/[a-z0-9-]{2,80}$' then perform interno.erro('invalido:alvo'); end if;
   end if;
+  -- Temas para as próximas aulas de uma trilha: de um a vinte títulos, um por linha, e a trilha a que pertencem.
+  if v_tipo = 'temas' then
+    if coalesce(v_dados ->> 'trilha', '') !~ '^[a-z0-9-]{2,80}$' then perform interno.erro('invalido:trilha'); end if;
+    if char_length(coalesce(v_dados ->> 'temas', '')) not between 3 and 4000
+       or (select count(*) from regexp_split_to_table(v_dados ->> 'temas', E'\n') l where btrim(l) <> '') not between 1 and 20
+       or exists (select 1 from regexp_split_to_table(v_dados ->> 'temas', E'\n') l where btrim(l) <> '' and char_length(btrim(l)) not between 3 and 160) then
+      perform interno.erro('invalido:temas');
+    end if;
+  end if;
   -- O jornal é escrito por quem tem esse papel.
   if v_tipo = 'artigo' and not (interno.tem('jornalismo') or interno.coord()) then perform interno.erro('sem_permissao'); end if;
   if v_tipo = 'traducao' and v is null then perform interno.erro('entre_primeiro'); end if;
@@ -1315,7 +1327,7 @@ begin
   if v is not null then
     if v_tipo = 'artigo' then v_como := 'jornalismo';
     elsif v_tipo = 'traducao' and interno.tem('traducao') then v_como := 'traducao';
-    elsif v_disc is not null and exists (select 1 from papeis where usuario = v and papel = 'educacao' and disciplina = v_disc) then v_como := 'educacao';
+    elsif v_disc is not null and exists (select 1 from papeis where usuario = v and papel in ('educacao', 'educacao_secundaria') and disciplina = v_disc) then v_como := 'educacao';
     elsif interno.curador() then v_como := 'curadoria';
     elsif interno.tem('revisao') then v_como := 'revisao';
     end if;
@@ -1328,7 +1340,7 @@ begin
     interno.txt(p ->> 'titulo', 'titulo', 3, 160),
     interno.txt(p ->> 'corpo', 'corpo', case when v_tipo in ('obra', 'video', 'frase', 'debate', 'verbete') then 0 else 20 end, 60000),
     v_dados,
-    interno.fontes_ok(p -> 'fontes', v_tipo in ('aula', 'artigo', 'checagem', 'debate', 'verbete', 'memorial', 'frase')),
+    interno.fontes_ok(p -> 'fontes', v_tipo in ('aula', 'artigo', 'checagem', 'debate', 'verbete', 'memorial', 'frase', 'avulso')),
     nullif(interno.txt(p ->> 'alvo', 'alvo', 0, 300), ''),
     v,
     -- Quem tem conta assina com o nome do perfil; quem não tem pode dizer como quer ser creditado.
@@ -1355,7 +1367,7 @@ $$;
 /** Quem pode ver uma contribuição na fila: curadoria e coordenação, revisores, e educadores da disciplina. */
 create or replace function interno.ve_fila(p_disciplina text) returns boolean language sql stable as $$
   select interno.curador() or interno.tem('revisao')
-    or (p_disciplina is not null and exists (select 1 from interno.papeis where usuario = auth.uid() and papel = 'educacao' and disciplina = p_disciplina))
+    or (p_disciplina is not null and exists (select 1 from interno.papeis where usuario = auth.uid() and papel in ('educacao', 'educacao_secundaria') and disciplina = p_disciplina))
 $$;
 
 /**
@@ -2500,7 +2512,7 @@ create or replace function interno.ve_canal(p_canal text) returns boolean langua
   select case
     when p_canal in ('geral', 'pedidos') then interno.voluntario()
     when p_canal = 'coordenacao' then interno.coord()
-    when p_canal in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then interno.coord() or interno.tem(p_canal)
+    when p_canal in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'marketing') then interno.coord() or interno.tem(p_canal)
     else false end
 $$;
 
@@ -2522,7 +2534,7 @@ begin
   return jsonb_build_object(
     'sala', coalesce(v_cfg ->> 'sala', ''), 'sal', v_cfg ->> 'sal', 'prova', coalesce(v_cfg ->> 'prova', ''),
     'canais', (select coalesce(jsonb_agg(c order by n), '[]'::jsonb)
-               from unnest(array['geral', 'pedidos', 'coordenacao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento']) with ordinality as t(c, n)
+               from unnest(array['geral', 'pedidos', 'coordenacao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'marketing']) with ordinality as t(c, n)
                where interno.ve_canal(c)));
 end $$;
 
@@ -2557,7 +2569,7 @@ begin
     if not exists (select 1 from equipe_mensagens where id = p_resposta_a and canal = p_canal and resposta_a is null) then perform interno.erro('nao_encontrado'); end if;
     v_para := null;
   elsif p_canal = 'pedidos' then
-    if v_para is null or v_para not in ('coordenacao', 'curadoria', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:para'); end if;
+    if v_para is null or v_para not in ('coordenacao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'marketing') then perform interno.erro('invalido:para'); end if;
   else
     v_para := null;
   end if;
@@ -2745,7 +2757,7 @@ begin
   select nome_completo into v_nome from termos_adesao where usuario = v_usuario;
   if v_nome is null then perform interno.erro('falta_termo'); end if;
   if v_educador is null or v_educador in (v_usuario, v)
-     or not exists (select 1 from papeis r join perfis f on f.id = r.usuario where r.usuario = v_educador and r.papel = 'educacao' and not f.suspenso) then perform interno.erro('invalido:educador'); end if;
+     or not exists (select 1 from papeis r join perfis f on f.id = r.usuario where r.usuario = v_educador and r.papel in ('educacao', 'educacao_secundaria') and not f.suspenso) then perform interno.erro('invalido:educador'); end if;
   if v_vice is null then
     select r.usuario into v_vice from papeis r join perfis f on f.id = r.usuario
     where r.papel = 'vice' and not f.suspenso and r.usuario not in (v_usuario, v_educador, v) order by f.visto_em desc limit 1;
@@ -2757,7 +2769,7 @@ begin
   if v_horas <= 0 then perform interno.erro('sem_horas'); end if;
   v_assinaturas := jsonb_build_array(
     jsonb_build_object('id', v_educador, 'nome', interno.nome_de_assinar(v_educador), 'papel', 'educacao',
-                       'disciplina', (select min(disciplina) from papeis where usuario = v_educador and papel = 'educacao'), 'confirmou_em', null),
+                       'disciplina', (select min(disciplina) from papeis where usuario = v_educador and papel in ('educacao', 'educacao_secundaria')), 'confirmou_em', null),
     jsonb_build_object('id', v_vice, 'nome', interno.nome_de_assinar(v_vice), 'papel', 'vice', 'disciplina', null, 'confirmou_em', null),
     jsonb_build_object('id', v, 'nome', interno.nome_de_assinar(v), 'papel', 'coordenacao', 'disciplina', null, 'confirmou_em', null));
   insert into certificados (id, codigo, usuario, nome, horas, inicio, fim, atividades, testemunhas)
@@ -2876,7 +2888,9 @@ create or replace function interno.horas_tabela() returns jsonb language sql imm
     {"chave": "podcast_edicao", "nome": "Episódio de podcast editado", "grupo": "episódios de podcast editados", "padrao": 3},
     {"chave": "podcast_supervisao", "nome": "Episódio de podcast supervisionado", "grupo": "episódios de podcast supervisionados", "padrao": 1},
     {"chave": "arte", "nome": "Arte entregue a pedido da equipe", "grupo": "artes entregues", "padrao": 1.5},
-    {"chave": "boletim", "nome": "Edição do boletim enviada", "grupo": "edições do boletim", "padrao": 2}
+    {"chave": "boletim", "nome": "Edição do boletim enviada", "grupo": "edições do boletim", "padrao": 2},
+    {"chave": "avulso", "nome": "Material avulso aprovado", "grupo": "materiais avulsos", "padrao": 2},
+    {"chave": "temas", "nome": "Temas de aulas futuras aceitos", "grupo": "temas de aulas futuras", "padrao": 0.3}
   ]'::jsonb
 $$;
 
@@ -3253,11 +3267,11 @@ begin
   perform interno.limite('convite_criar', 60, 1440);
   if v_email <> '' and (v_email !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_email) > 200) then perform interno.erro('invalido:email'); end if;
   if v_papel is not null then
-    if v_papel not in ('vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:papel'); end if;
+    if v_papel not in ('vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing') then perform interno.erro('invalido:papel'); end if;
     if v_papel in ('vice', 'curadoria') and not interno.lider() then perform interno.erro('sem_permissao'); end if;
     if v_email = '' then perform interno.erro('invalido:email'); end if;
-    if v_papel in ('educacao', 'mentoria') and v_disc is null then perform interno.erro('invalido:disciplina'); end if;
-    if v_papel not in ('educacao', 'mentoria') then v_disc := null; end if;
+    if v_papel in ('educacao', 'educacao_secundaria', 'mentoria') and v_disc is null then perform interno.erro('invalido:disciplina'); end if;
+    if v_papel not in ('educacao', 'educacao_secundaria', 'mentoria') then v_disc := null; end if;
   else
     v_disc := null;
   end if;
@@ -3651,9 +3665,9 @@ begin
   if coalesce(p ->> 'site', '') <> '' then return jsonb_build_object('id', gen_random_uuid()); end if;
   perform interno.limite('voluntariar', 3, 1440);
   if v_email !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_email) > 200 then perform interno.erro('invalido:email'); end if;
-  if v_papel not in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:papel'); end if;
-  if v_papel in ('educacao', 'mentoria') and v_disc is null then perform interno.erro('invalido:disciplina'); end if;
-  if v_papel not in ('educacao', 'mentoria') then v_disc := null; end if;
+  if v_papel not in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing') then perform interno.erro('invalido:papel'); end if;
+  if v_papel in ('educacao', 'educacao_secundaria', 'mentoria') and v_disc is null then perform interno.erro('invalido:disciplina'); end if;
+  if v_papel not in ('educacao', 'educacao_secundaria', 'mentoria') then v_disc := null; end if;
   v_nome := interno.txt(p ->> 'nome', 'nome', 5, 120);
   v_mensagem := interno.txt(p ->> 'mensagem', 'mensagem', 30, 2000);
   if interno.vetado(v_nome || ' ' || v_mensagem) then perform interno.erro('conteudo_recusado'); end if;
@@ -5744,4 +5758,19 @@ begin
     perform cron.schedule('lucia-podcast', '41 6 * * *', 'select interno.podcast_limpeza()');
   end if;
 exception when others then null;
+end $$;
+
+-- ───────────── Educação secundária, marketing, material avulso e temas propostos ─────────────
+-- Só alarga as regras: nenhuma linha guardada muda. Fica no fim do arquivo para valer por cima das versões anteriores.
+do $$
+begin
+  alter table interno.inscricoes drop constraint if exists inscricoes_papel_check;
+  alter table interno.inscricoes add constraint inscricoes_papel_check
+    check (papel in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing'));
+  alter table interno.equipe_mensagens drop constraint if exists equipe_mensagens_canal_check;
+  alter table interno.equipe_mensagens add constraint equipe_mensagens_canal_check
+    check (canal in ('geral', 'pedidos', 'coordenacao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'marketing'));
+  alter table interno.equipe_mensagens drop constraint if exists equipe_mensagens_para_check;
+  alter table interno.equipe_mensagens add constraint equipe_mensagens_para_check
+    check (para is null or para in ('coordenacao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'marketing'));
 end $$;

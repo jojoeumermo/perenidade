@@ -543,7 +543,12 @@
     "noWorks": "Aún no hay obras indexadas.",
     "suggestWork": "Propón una obra libre.",
     "tools": "Para practicar",
-    "videos": "Videos"
+    "videos": "Videos",
+    "sections": "En esta disciplina",
+    "loose": "Materiales sueltos",
+    "looseLead": "Clases sueltas, listas de ejercicios, resúmenes y guías de estudio hechos por los educadores secundarios, fuera de los itinerarios.",
+    "looseEmpty": "Todavía no hay materiales sueltos en esta disciplina.",
+    "looseJoin": "¿Quieres aportar uno? Hazte voluntario."
   },
   "search": {
     "eyebrow": "Todo el acervo",
@@ -1561,12 +1566,14 @@
     "offline": "Las candidaturas aún no están activas en esta copia del sitio.",
     "roles": {
       "educacao": "Educador(a)",
+      "educacao_secundaria": "Educador(a) secundario(a): materiales y clases sueltas",
       "mediacao": "Mediador(a) de la comunidad",
       "revisao": "Revisor(a)",
       "traducao": "Traductor(a)",
       "jornalismo": "Periodista, locutor(a) de radio o podcaster",
       "mentoria": "Clase de refuerzo",
       "design": "Diseñador(a)",
+      "marketing": "Marketing y difusión",
       "desenvolvimento": "Infraestructura y desarrollo",
       "curadoria": "Curador(a)"
     }
@@ -1753,5 +1760,16 @@
     "votesSource": "Fuente: Datos Abiertos de la Cámara de Diputados.",
     "unavailable": "La fuente no respondió ahora. Vuelve en algunas horas.",
     "note": "Todos los números vienen de las fuentes indicadas en cada recuadro, sin ajustes nuestros. Si una fuente no responde, el recuadro desaparece en vez de mostrar un número viejo."
+  },
+  "loose": {
+    "eyebrow": "Material suelto",
+    "formats": [
+      "Clase suelta",
+      "Lista de ejercicios",
+      "Resumen",
+      "Guía de estudio",
+      "Material para imprimir",
+      "Recomendación comentada"
+    ]
   }
 }

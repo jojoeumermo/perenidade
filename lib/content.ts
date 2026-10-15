@@ -189,6 +189,23 @@ export interface Video extends Localized {
   description: string;
 }
 
+/** Formatos de material avulso, como o painel oferece. O texto guardado é o português; cada idioma traduz na tela. */
+export const looseFormats = ["Aula avulsa", "Lista de exercícios", "Resumo", "Roteiro de estudo", "Material para imprimir", "Indicação comentada"] as const;
+export type LooseFormat = (typeof looseFormats)[number];
+
+/** Material avulso de uma disciplina: feito pelos educadores secundários, fora das trilhas. */
+export interface LooseMaterial extends Localized {
+  slug: string;
+  title: string;
+  summary: string;
+  format: LooseFormat;
+  area: AreaSlug;
+  authors: string[];
+  sources: Source[];
+  body: string;
+  minutes: number;
+}
+
 export interface Quote {
   texto: string;
   autor: string;
@@ -583,6 +600,26 @@ export const getVideos = cache((lang: Locale): Video[] =>
     translated,
     file,
   })).sort((a, b) => a.title.localeCompare(b.title, lang)),
+);
+
+export const getLooseMaterials = cache((lang: Locale): LooseMaterial[] =>
+  collection("avulsos", lang, ({ slug, file, data, body, translated }) => {
+    const authors = Array.isArray(data.autores) ? data.autores.map((nome) => String(nome).trim()).filter(Boolean) : [];
+    if (authors.length === 0) fail(file, `"autores" precisa de ao menos um nome`);
+    return {
+      slug,
+      title: text(data, "titulo", file),
+      summary: text(data, "resumo", file),
+      format: oneOf(data, "formato", looseFormats, file),
+      area: oneOf(data, "area", areaSlugs, file),
+      authors,
+      sources: parseSources(data.fontes, file, true),
+      body,
+      minutes: minutesOf(body),
+      translated,
+      file,
+    };
+  }).sort((a, b) => a.title.localeCompare(b.title, lang)),
 );
 
 /** Frases com fonte conferida; a página inicial mostra uma por dia. */

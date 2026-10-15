@@ -45,7 +45,7 @@ export function Convites({ me }: { me: Me }) {
   const [ocupado, setOcupado] = useState(false);
   // A coordenação não se convida (muda de mãos em Segurança e sucessão); vice e curadoria, só o coordenador convida.
   const funcoes = (Object.keys(papeis) as Role["papel"][]).filter((p) => p !== "coordenacao" && (lider || (p !== "vice" && p !== "curadoria")));
-  const porDisciplina = papel === "educacao" || papel === "mentoria";
+  const porDisciplina = papel === "educacao" || papel === "educacao_secundaria" || papel === "mentoria";
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
 
   async function criar() {

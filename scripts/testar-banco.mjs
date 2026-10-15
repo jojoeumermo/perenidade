@@ -890,7 +890,7 @@ await espera("quem pediu acompanha", () => rpc(como(ids.jornal), "reforco_meus")
 // ── Conversa da equipe ──
 await recusa("quem não é da equipe não vê os canais", () => rpc(como(ids.troll), "equipe_canais"), "conta_suspensa");
 await espera("designer vê geral, pedidos e design", () => rpc(como(ids.designer), "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "design"]));
-await espera("coordenação vê todos os canais", () => rpc(como(ids.coord), "equipe_canais"), (r) => r.canais.length === 12);
+await espera("coordenação vê todos os canais", () => rpc(como(ids.coord), "equipe_canais"), (r) => r.canais.length === 13);
 await espera("mediador vê o canal da mediação, e não o da curadoria", () => rpc(como(ids.med), "equipe_canais"), (r) => r.canais.includes("mediacao") && !r.canais.includes("curadoria"));
 await recusa("designer não lê o canal dos educadores", () => rpc(como(ids.designer), "equipe_listar", { p_canal: "educacao" }), "sem_permissao");
 await recusa("designer não escreve no canal da coordenação", () => rpc(como(ids.designer), "equipe_escrever", { p_canal: "coordenacao", p_corpo: "Olá" }), "sem_permissao");
@@ -1015,7 +1015,7 @@ await recusa("vice-coordenação não mexe na tabela de horas", () => rpc(como(i
 await recusa("tipo de trabalho inventado não entra na tabela", () => rpc(como(ids.coord), "horas_pesos_salvar", { p: { churrasco: 2 } }), "invalido:tabela");
 await recusa("nenhum trabalho vale mais de doze horas", () => rpc(como(ids.coord), "horas_pesos_salvar", { p: { aula: 13 } }), "invalido:aula");
 await espera("o coordenador ajusta quanto vale uma aula", () => rpc(como(ids.coord), "horas_pesos_salvar", { p: { aula: 6 } }), (r) => Number(r.find((x) => x.chave === "aula").horas) === 6 && Number(r.find((x) => x.chave === "aula").padrao) === 4);
-await espera("toda a equipe vê a tabela", () => rpc(como(ids.vol), "horas_pesos"), (r) => r.length === 22 && Number(r.find((x) => x.chave === "parecer").horas) === 0.5);
+await espera("toda a equipe vê a tabela", () => rpc(como(ids.vol), "horas_pesos"), (r) => r.length === 24 && Number(r.find((x) => x.chave === "parecer").horas) === 0.5);
 await recusa("quem não é da equipe não vê a tabela", () => rpc(como(ids.leitora), "horas_pesos"), "sem_permissao");
 await espera("o ajuste não muda o que já foi contado", () => rpc(como(ids.vol), "horas_minhas"), (r) => Number(r.plataforma) === 4.5);
 await espera("ela registra à mão sete horas do mesmo dia", () => rpc(como(ids.vol), "horas_registrar", { p_dia: hojeBr, p_horas: 7, p_atividade: "Preparei e gravei a videoaula de frações." }), (r) => Boolean(r.id));
@@ -1287,6 +1287,27 @@ await espera("e banimento sozinho, ao ser encerrado, reativa a conta", async () 
   await rpc({ ...como(ids.coord), aal: "aal2" }, "banimento_encerrar", { p_id: b.id });
   return (await dono("select suspenso from interno.perfis where id = $1", [ids.solo])).rows[0].suspenso;
 }, (r) => r === false);
+
+// ── Educação secundária, marketing, material avulso e temas para as próximas aulas ──
+ids.segunda = await criarUsuario("segunda@teste.local", "Sebastiana Segunda");
+ids.divulga = await criarUsuario("divulga@teste.local", "Diva Divulga");
+await rpc(como(ids.segunda), "eu");
+await rpc(como(ids.divulga), "eu");
+await recusa("educação secundária precisa de disciplina", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.segunda, p_papel: "educacao_secundaria", p_disciplina: null }), "invalido:disciplina");
+await espera("coordenação confia a educação secundária de física", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.segunda, p_papel: "educacao_secundaria", p_disciplina: "fisica" }));
+await espera("coordenação confia o marketing", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.divulga, p_papel: "marketing", p_disciplina: null }));
+const materialAvulso = (extra = {}) => ({ tipo: "avulso", disciplina: "fisica", titulo: "Lista de exercícios de cinemática", corpo: "Vinte exercícios de movimento uniforme, com respostas no fim.", dados: { formato: "Lista de exercícios", resumo: "Exercícios de velocidade média." }, fontes: fonte, ...extra });
+let doAvulso;
+await recusa("material avulso sem fonte é recusado", () => rpc(como(ids.segunda), "contribuir", { p: materialAvulso({ fontes: [] }) }), "falta_fonte");
+await espera("educadora secundária envia um material avulso", async () => (doAvulso = await rpc(como(ids.segunda), "contribuir", { p: materialAvulso() })), (r) => Boolean(r.id));
+await espera("o envio dela conta como da educação e pula a triagem", () => rpc(como(ids.segunda), "contribuicao_ver", { p_id: doAvulso.id }), (r) => r.como === "educacao" && r.triagem === "liberada");
+await espera("ela vê a fila da física, como um educador", () => rpc(como(ids.segunda), "fila"), (r) => r.some((c) => c.id === doAvulso.id));
+await recusa("tema sem trilha é recusado", () => rpc(como(ids.segunda), "contribuir", { p: { tipo: "temas", disciplina: "fisica", titulo: "Óptica do cotidiano", corpo: "Faltam aulas de óptica aplicada.", dados: { temas: "Lentes e óculos" }, fontes: [] } }), "invalido:trilha");
+await recusa("mais de vinte temas de uma vez são recusados", () => rpc(como(ids.segunda), "contribuir", { p: { tipo: "temas", disciplina: "fisica", titulo: "Muitos temas", corpo: "Faltam muitas aulas aqui.", dados: { trilha: "fisica-medio", temas: Array.from({ length: 21 }, (_, i) => `Tema número ${i + 1}`).join("\n") }, fontes: [] } }), "invalido:temas");
+await espera("temas para as próximas aulas de uma trilha entram na fila", () => rpc(como(ids.segunda), "contribuir", { p: { tipo: "temas", disciplina: "fisica", titulo: "Óptica do cotidiano", corpo: "Faltam aulas de óptica aplicada ao dia a dia.", dados: { trilha: "fisica-medio", temas: "Lentes e óculos\nA câmera do celular" }, fontes: [] } }), (r) => Boolean(r.id));
+await espera("marketing cadastra material de divulgação, como o design", () => rpc(como(ids.divulga), "material_salvar", { p: material({ titulo: "Cartaz da campanha de voluntariado", publicado: false }) }), (r) => Boolean(r.id));
+await espera("marketing vê o próprio canal no mural da equipe", () => rpc(como(ids.divulga), "equipe_canais"), (r) => r.canais.includes("marketing") && !r.canais.includes("educacao"));
+await recusa("marketing não lê a fila de revisão de aulas", () => rpc(como(ids.divulga), "triagem_fila"), "sem_permissao");
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);

@@ -18,11 +18,13 @@ export const papeis: Record<Role["papel"], string> = {
   curadoria: "Curadoria",
   mediacao: "Mediação",
   educacao: "Educação",
+  educacao_secundaria: "Educação secundária",
   revisao: "Revisão",
   traducao: "Tradução",
   jornalismo: "Jornalismo, rádio e podcast",
   mentoria: "Aula de reforço",
   design: "Design",
+  marketing: "Marketing e divulgação",
   desenvolvimento: "Desenvolvimento",
 };
 
@@ -33,11 +35,13 @@ export const oQueFaz: Record<Role["papel"], string> = {
   curadoria: "Aprova ou recusa contribuições, cuida da comunidade, das denúncias e do filtro de palavras.",
   mediacao: "Acompanha a Comunidade, decide os casos que pedem leitura humana e oculta, edita ou libera mensagens; aprova, edita ou recusa anúncios do Mural dos Trabalhadores, faz a triagem das contribuições antes de elas chegarem à fila de revisão e, quando alguém passa do limite, bane a conta (e, em caso extremo, a origem de rede). Não aprova conteúdo de ensino nem mexe na equipe.",
   educacao: "Escreve e revisa na disciplina confiada, cuida da comunidade e atende pedidos de reforço da disciplina.",
+  educacao_secundaria: "Contribui com a disciplina confiada em paralelo às trilhas: aulas avulsas, listas de exercícios, resumos e materiais de apoio, que aparecem numa aba própria da disciplina. Tem os mesmos poderes do educador: também pode escrever aulas das trilhas, revisar a fila da disciplina e atender reforço.",
   revisao: "Lê a fila inteira e dá parecer; não aprova.",
   traducao: "Envia traduções; não vê a fila dos outros.",
   jornalismo: "Escreve para o jornal (toda matéria passa pela revisão antes de sair), cuida da Rádio Lúcia (canais, faixas, transmissão ao vivo, emissoras) e faz o podcast: pauta, roteiro, gravação, edição e publicação, com aprovação da supervisão. Pode cuidar dos três ou só de um.",
   mentoria: "Atende pedidos de reforço da disciplina confiada e responde por e-mail.",
   design: "Prepara materiais gráficos e atende pedidos de ajuda das outras funções.",
+  marketing: "Divulga o instituto: posts e artes para as redes sociais, cartazes de chamada, campanhas de voluntariado e de apoio, cortes do podcast. Usa os materiais e arquivos do painel, como o design.",
   desenvolvimento: "Cuida do código e atende pedidos de ajuda das outras funções.",
 };
 
