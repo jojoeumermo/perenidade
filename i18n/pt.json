@@ -543,7 +543,12 @@
     "noWorks": "Nenhuma obra indexada ainda.",
     "suggestWork": "Indique uma obra livre.",
     "tools": "Para praticar",
-    "videos": "Vídeos"
+    "videos": "Vídeos",
+    "sections": "Nesta disciplina",
+    "loose": "Materiais avulsos",
+    "looseLead": "Aulas avulsas, listas de exercícios, resumos e roteiros de estudo feitos pelos educadores secundários, fora das trilhas.",
+    "looseEmpty": "Ainda não há materiais avulsos nesta disciplina.",
+    "looseJoin": "Quer contribuir com um? Seja voluntário."
   },
   "search": {
     "eyebrow": "Todo o acervo",
@@ -1561,12 +1566,14 @@
     "offline": "As candidaturas ainda não estão ativas nesta cópia do site.",
     "roles": {
       "educacao": "Educador(a)",
+      "educacao_secundaria": "Educador(a) secundário(a): materiais e aulas avulsas",
       "mediacao": "Mediador(a) da comunidade",
       "revisao": "Revisor(a)",
       "traducao": "Tradutor(a)",
       "jornalismo": "Jornalista, radialista ou podcaster",
       "mentoria": "Aula de reforço",
       "design": "Designer",
+      "marketing": "Marketing e divulgação",
       "desenvolvimento": "Infraestrutura e desenvolvimento",
       "curadoria": "Curador(a)"
     }
@@ -1753,5 +1760,16 @@
     "votesSource": "Fonte: Dados Abertos da Câmara dos Deputados.",
     "unavailable": "A fonte não respondeu agora. Volte em algumas horas.",
     "note": "Todos os números vêm das fontes indicadas em cada quadro, sem ajuste nosso. Se uma fonte não responde, o quadro some em vez de mostrar número velho."
+  },
+  "loose": {
+    "eyebrow": "Material avulso",
+    "formats": [
+      "Aula avulsa",
+      "Lista de exercícios",
+      "Resumo",
+      "Roteiro de estudo",
+      "Material para imprimir",
+      "Indicação comentada"
+    ]
   }
 }

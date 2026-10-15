@@ -54,10 +54,11 @@ const nomes: Record<string, string> = {
   jornalismo: "Jornal e rádio",
   mentoria: "Reforço",
   design: "Design",
+  marketing: "Marketing",
   desenvolvimento: "Desenvolvimento",
 };
 
-const funcoes: Role["papel"][] = ["design", "desenvolvimento", "educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "coordenacao"];
+const funcoes: Role["papel"][] = ["design", "marketing", "desenvolvimento", "educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "coordenacao"];
 /** O texto cifrado ocupa mais espaço do que o aberto: este limite garante que ele cabe no banco. */
 const MAXIMO = 2000;
 const ILEGIVEL = "[não foi possível abrir esta mensagem com a chave atual]";

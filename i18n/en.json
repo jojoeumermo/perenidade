@@ -543,7 +543,12 @@
     "noWorks": "No works indexed yet.",
     "suggestWork": "Suggest a free work.",
     "tools": "To practise",
-    "videos": "Videos"
+    "videos": "Videos",
+    "sections": "In this subject",
+    "loose": "Stand-alone materials",
+    "looseLead": "Stand-alone lessons, exercise sheets, summaries and study guides made by secondary educators, outside the learning paths.",
+    "looseEmpty": "There are no stand-alone materials in this subject yet.",
+    "looseJoin": "Want to contribute one? Volunteer."
   },
   "search": {
     "eyebrow": "The whole collection",
@@ -1561,12 +1566,14 @@
     "offline": "Applications are not active on this copy of the site yet.",
     "roles": {
       "educacao": "Educator",
+      "educacao_secundaria": "Secondary educator: materials and stand-alone lessons",
       "mediacao": "Community mediator",
       "revisao": "Reviewer",
       "traducao": "Translator",
       "jornalismo": "Journalist, radio host or podcaster",
       "mentoria": "Tutoring",
       "design": "Designer",
+      "marketing": "Marketing and outreach",
       "desenvolvimento": "Infrastructure and development",
       "curadoria": "Curator"
     }
@@ -1753,5 +1760,16 @@
     "votesSource": "Source: Chamber of Deputies open data.",
     "unavailable": "The source did not respond right now. Come back in a few hours.",
     "note": "All numbers come from the sources shown in each box, unadjusted. If a source does not respond, the box disappears instead of showing an old number."
+  },
+  "loose": {
+    "eyebrow": "Stand-alone material",
+    "formats": [
+      "Stand-alone lesson",
+      "Exercise sheet",
+      "Summary",
+      "Study guide",
+      "Printable material",
+      "Annotated recommendation"
+    ]
   }
 }

@@ -9,6 +9,8 @@ export interface TrackOption {
   area: string;
   /** Aulas do roteiro que ainda não foram escritas. */
   planned: { slug: string; title: string }[];
+  /** Aulas do roteiro já escritas. */
+  ready: number;
 }
 
 const cache = new Map<string, Promise<TrackOption[]>>();

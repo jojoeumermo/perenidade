@@ -538,7 +538,12 @@
     "noWorks": "尚未收录任何作品。",
     "suggestWork": "推荐一部自由作品。",
     "tools": "动手练习",
-    "videos": "视频"
+    "videos": "视频",
+    "sections": "本学科内容",
+    "loose": "单篇资料",
+    "looseLead": "辅助教育者在课程路线之外制作的单节课、练习题、摘要和学习指南。",
+    "looseEmpty": "本学科还没有单篇资料。",
+    "looseJoin": "想贡献一份吗？成为志愿者。"
   },
   "search": {
     "eyebrow": "全部馆藏",
@@ -1554,12 +1559,14 @@
     "offline": "此网站副本尚未开放申请。",
     "roles": {
       "educacao": "教师",
+      "educacao_secundaria": "辅助教育者：资料和单独的课",
       "mediacao": "社区调解员",
       "revisao": "审校",
       "traducao": "翻译",
       "jornalismo": "记者、电台主持或播客主播",
       "mentoria": "辅导课",
       "design": "设计师",
+      "marketing": "宣传与推广",
       "desenvolvimento": "基础设施与开发",
       "curadoria": "策展人"
     }
@@ -1746,5 +1753,16 @@
     "votesSource": "来源：巴西众议院开放数据。",
     "unavailable": "来源暂时没有响应，请几小时后再来。",
     "note": "所有数字都来自每个方框中注明的来源，未经我们调整。如果来源没有响应，方框会消失，而不是显示旧数字。"
+  },
+  "loose": {
+    "eyebrow": "单篇资料",
+    "formats": [
+      "单节课",
+      "练习题",
+      "摘要",
+      "学习指南",
+      "可打印资料",
+      "附评注的推荐"
+    ]
   }
 }

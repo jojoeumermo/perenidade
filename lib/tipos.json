@@ -130,5 +130,29 @@
     "fonte": false,
     "corpo": { "rotulo": "Sua sugestão", "min": 20, "editor": false },
     "campos": []
+  },
+  "avulso": {
+    "rotulo": "Material avulso de uma disciplina",
+    "ajuda": "Uma aula avulsa, uma lista de exercícios, um resumo, um roteiro de estudo ou outro material de apoio, fora das trilhas. Aparece na aba Materiais avulsos da disciplina, com o seu nome. Como toda aula, precisa de pelo menos uma fonte.",
+    "titulo": "Título do material",
+    "disciplina": "obrigatoria",
+    "fonte": true,
+    "corpo": { "rotulo": "Texto do material", "min": 200, "editor": true },
+    "campos": [
+      { "nome": "formato", "rotulo": "Formato", "tipo": "select", "opcoes": ["Aula avulsa", "Lista de exercícios", "Resumo", "Roteiro de estudo", "Material para imprimir", "Indicação comentada"], "obrigatorio": true },
+      { "nome": "resumo", "rotulo": "Resumo (uma linha)", "tipo": "texto", "obrigatorio": true, "max": 200 }
+    ]
+  },
+  "temas": {
+    "rotulo": "Próximas aulas de uma trilha",
+    "ajuda": "Proponha aulas que ainda não existem numa trilha, um tema por linha. Aprovados, os temas entram no roteiro como “em preparação” e aumentam a meta da trilha: você ou qualquer educador escreve depois. Vale também para trilhas já completas.",
+    "titulo": "Assunto da proposta (ex.: frações no dia a dia)",
+    "disciplina": "trilha",
+    "fonte": false,
+    "corpo": { "rotulo": "Por que esses temas fazem falta (para quem revisa)", "min": 20, "editor": false },
+    "campos": [
+      { "nome": "trilha", "rotulo": "Trilha", "tipo": "trilha", "obrigatorio": true },
+      { "nome": "temas", "rotulo": "Temas, um por linha (até 20)", "tipo": "longo", "obrigatorio": true, "max": 4000 }
+    ]
   }
 }

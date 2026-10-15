@@ -664,6 +664,7 @@ function Candidatura() {
   const pedido = useAcao(pedidos.recarregar);
   const [quero, setQuero] = useState<{ papel: string; disciplina: string; mensagem: string }>({ papel: "educacao", disciplina: "", mensagem: "" });
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
+  const porDisciplina = quero.papel === "educacao" || quero.papel === "educacao_secundaria";
   return (
     <section className="painel-cartao p-5">
       <h2 className="font-serif text-2xl font-semibold">Quero ser voluntário</h2>
@@ -672,15 +673,15 @@ function Candidatura() {
         <label className="block">
           Em que função
           <select value={quero.papel} onChange={(e) => setQuero({ ...quero, papel: e.target.value })} className={campo}>
-            {(["educacao", "mentoria", "mediacao", "revisao", "traducao", "jornalismo", "curadoria", "design", "desenvolvimento"] as const).map((papel) => (
+            {(["educacao", "educacao_secundaria", "mentoria", "mediacao", "revisao", "traducao", "jornalismo", "curadoria", "design", "marketing", "desenvolvimento"] as const).map((papel) => (
               <option key={papel} value={papel}>{papeis[papel]}</option>
             ))}
           </select>
         </label>
         <label className="block">
-          Disciplina{quero.papel === "educacao" ? "" : " (opcional)"}
+          Disciplina{porDisciplina ? "" : " (opcional)"}
           <select value={quero.disciplina} onChange={(e) => setQuero({ ...quero, disciplina: e.target.value })} className={campo}>
-            <option value="">{quero.papel === "educacao" ? "Escolha…" : "Todo o site"}</option>
+            <option value="">{porDisciplina ? "Escolha…" : "Todo o site"}</option>
             {areaSlugs.map((area) => (
               <option key={area} value={area}>{t.areas[area][0]}</option>
             ))}
@@ -695,7 +696,7 @@ function Candidatura() {
       <button
         type="button"
         className={`mt-3 ${botao}`}
-        disabled={pedido.ocupado || quero.mensagem.trim().length < 20 || (quero.papel === "educacao" && !quero.disciplina)}
+        disabled={pedido.ocupado || quero.mensagem.trim().length < 20 || (porDisciplina && !quero.disciplina)}
         onClick={async () => {
           const ok = await pedido.agir("candidatar", { p_papel: quero.papel, p_disciplina: quero.disciplina || null, p_mensagem: quero.mensagem }, "Pedido enviado à coordenação.");
           if (ok) setQuero({ ...quero, mensagem: "" });

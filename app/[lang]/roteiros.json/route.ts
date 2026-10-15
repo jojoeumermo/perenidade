@@ -19,6 +19,7 @@ export async function GET(_request: Request, { params }: RouteContext<"/[lang]/r
       title: track.title,
       area: track.area,
       planned: track.plan.filter((item) => !item.ready).map((item) => ({ slug: item.slug, title: item.title })),
+      ready: track.plan.filter((item) => item.ready).length,
     })),
   );
 }
