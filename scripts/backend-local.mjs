@@ -86,6 +86,53 @@ export async function iniciar({ silencioso = false } = {}) {
     res.end(corpo === undefined ? "" : JSON.stringify(corpo));
   };
 
+  // Com SEMEAR_PODCAST=1, o podcast já nasce com um episódio no ar (capítulos, legendas e áudio de silêncio) e com
+  // revisor@local na supervisão: dá para ver o site e treinar a aprovação sem montar tudo à mão.
+  if (process.env.SEMEAR_PODCAST) {
+    const jornal = { papel: "authenticated", sub: ids.jornal };
+    await banco.rpc(coord, "podcast_funcoes_definir", { p_usuario: ids.revisor, p_funcoes: ["supervisao"] });
+    const serie = await banco.rpc(jornal, "podcast_serie_salvar", { p_id: null, p: { titulo: "Revoluções", descricao: "As grandes revoluções contadas de baixo, por quem fez." } });
+    const { id } = await banco.rpc(jornal, "podcast_salvar", { p_id: null, p: { titulo: "A Comuna de Paris em 72 dias" } });
+    const fala = [
+      [0, 6, "Abertura. Neste episódio, a Comuna de Paris."],
+      [6, 15, "Em março de 1871, os trabalhadores de Paris tomaram o governo da cidade."],
+      [15, 26, "O cerco: a cidade sitiada, o povo armado na Guarda Nacional."],
+      [26, 38, "Os decretos: separação entre Igreja e Estado, fim do trabalho noturno nas padarias."],
+      [38, 50, "A Semana Sangrenta, em maio, e o que a Comuna ensina para quem luta hoje."],
+    ];
+    const vtt = ["WEBVTT", "", ...fala.map(([de, ate, texto]) => `00:00:${String(de).padStart(2, "0")}.000 --> 00:00:${String(ate).padStart(2, "0")}.000\n${texto}\n`)].join("\n");
+    await banco.rpc(jornal, "podcast_salvar", {
+      p_id: id,
+      p: {
+        resumo: "Os 72 dias em que o povo de Paris governou a cidade, e o que a Comuna ensina para quem luta hoje.",
+        serie: serie.id, temporada: 1, numero: 1, temas: ["historia", "luta-social"], disciplina: "historia",
+        notas: "## Capítulos\n- 0:00 Abertura\n- 0:15 O cerco\n- 0:38 A Semana Sangrenta\n\n## Fontes\n- Karl Marx, *A guerra civil na França* (1871).",
+        capitulos: [{ t: 0, titulo: "Abertura" }, { t: 15, titulo: "O cerco" }, { t: 38, titulo: "A Semana Sangrenta" }],
+        transcricao: fala.map((f) => f[2]).join("\n\n").repeat(3), legendas: vtt,
+        obras: [{ id: "a-guerra-civil-na-franca", titulo: "A guerra civil na França", autor: "Karl Marx", licenca: "Domínio público", fonte: "marxists.org" }],
+        checklist: { volume: true, ruido: true, fontes: true, trilhas: true },
+      },
+    });
+    // 50 segundos de silêncio em MP3 (quadros MPEG-1 Layer III, 128 kbps, mono): toca de verdade no navegador.
+    const quadros = Math.round((50 * 44100) / 1152);
+    const mp3 = Buffer.alloc(quadros * 417);
+    for (let q = 0; q < quadros; q++) mp3.set([0xff, 0xfb, 0x90, 0xc4], q * 417);
+    const caminho = `ep/${id}/final-semeado01.mp3`;
+    arquivos.set(`podcast/${caminho}`, { tipo: "audio/mpeg", dados: mp3 });
+    const arquivo = await banco.rpc(jornal, "podcast_arquivo_registrar", { p_episodio: id, p: { tipo: "final", deposito: "podcast", caminho, nome: "comuna-final.mp3", bytes: mp3.length, mime: "audio/mpeg" } });
+    const picos = Array.from({ length: 200 }, (_, i) => Math.round(35 + 30 * Math.abs(Math.sin(i / 3)) * (i % 17 > 2 ? 1 : 0.2)));
+    await banco.rpc(jornal, "podcast_audio_definir", { p_episodio: id, p_arquivo: arquivo.id, p_duracao: 50, p_picos: picos });
+    await banco.rpc(jornal, "podcast_etapa", { p_id: id, p_status: "revisao" });
+    await banco.rpc({ papel: "authenticated", sub: ids.revisor }, "podcast_aprovar", { p_id: id, p_aprovar: true, p_nota: "" });
+    // A capa é o cartaz que o site desenha sozinho quando não há imagem; a lista de conferência pede uma, então vai uma de mentira.
+    arquivos.set(`podcast/capas/${id}/capa-semeada01.jpg`, { tipo: "image/jpeg", dados: Buffer.alloc(0) });
+    await banco.dono("update interno.podcast_episodios set capa = $1 where id = $2", [`capas/${id}/capa-semeada01.jpg`, id]);
+    await banco.rpc(jornal, "podcast_publicar", { p_id: id });
+    await banco.dono("update interno.podcast_episodios set capa = '' where id = $1", [id]);
+    await banco.rpc(jornal, "podcast_pauta_salvar", { p_id: null, p: { titulo: "A greve geral de 1917", descricao: "Como foi organizada em São Paulo." } });
+    if (!silencioso) console.log("[local] podcast semeado: um episódio no ar; revisor@local é da supervisão");
+  }
+
   const servidor = http.createServer(async (req, res) => {
     res.setHeader("access-control-allow-origin", "*");
     res.setHeader("access-control-allow-headers", "authorization, apikey, content-type, prefer, accept, accept-profile, content-profile, x-client-info, x-supabase-api-version, x-upsert, cache-control, range");
@@ -245,6 +292,86 @@ export async function iniciar({ silencioso = false } = {}) {
           return res.end(arquivo.dados);
         }
       }
+      // ── Arquivos do podcast: "podcast" (público) e "podcast-producao" (fechado), com as regras de install.sql ──
+      const podcast = /^\/storage\/v1\/object\/(?:authenticated\/)?(podcast(?:-producao)?)(?:\/(.+))?$/.exec(url.pathname);
+      if (podcast && !url.pathname.startsWith("/storage/v1/object/public/")) {
+        const dados = portador(req);
+        const deposito = podcast[1];
+        const caminho = podcast[2] ? decodeURIComponent(podcast[2]) : "";
+        const pasta = caminho.split("/");
+        const quem = dados?.sub ? { papel: "authenticated", sub: dados.sub, aal: dados.aal } : null;
+        // Confere a regra do depósito com as credenciais de quem pede, como o serviço de verdade faz.
+        const pode = async (funcao) => {
+          if (!quem) return false;
+          const linha = await banco.exclusivo(async () => {
+            await banco.pg.query("select set_config('request.jwt.claims', $1, false)", [JSON.stringify({ role: "authenticated", sub: quem.sub, ...(quem.aal ? { aal: quem.aal } : {}) })]);
+            try {
+              return await banco.pg.query(`select ${funcao} as ok`);
+            } finally {
+              await banco.pg.query("select set_config('request.jwt.claims', '', false)");
+            }
+          });
+          return Boolean(linha.rows[0]?.ok);
+        };
+        const negar = () => json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
+        if (req.method === "POST") {
+          const permitido =
+            deposito === "podcast"
+              ? (pasta[0] === "ep" && (await pode("interno.podcaster()"))) || (pasta[0] === "capas" && (await pode("(interno.podcaster() or interno.tem('design'))")))
+              : (["ep", "trilhas", "termos"].includes(pasta[0]) && (await pode("interno.podcaster()"))) ||
+                (pasta[0] === "recibos" && (await pode("interno.coord()"))) ||
+                (pasta[0] === "perguntas" && pasta[1] === dados?.sub);
+          if (!permitido) return negar();
+          const tipo = req.headers["content-type"] ?? "application/octet-stream";
+          if (bruto.length > 52428800) return json(res, 413, { statusCode: "413", error: "Payload too large", message: "The object exceeded the maximum allowed size" });
+          if (arquivos.has(`${deposito}/${caminho}`)) return json(res, 409, { statusCode: "409", error: "Duplicate", message: "The resource already exists" });
+          arquivos.set(`${deposito}/${caminho}`, { tipo, dados: bruto });
+          return json(res, 200, { Key: `${deposito}/${caminho}`, Id: crypto.randomUUID() });
+        }
+        if (req.method === "DELETE") {
+          if (!(await pode("interno.podcaster()")) && !(await pode("interno.coord()"))) return negar();
+          const lista = Array.isArray(corpo?.prefixes) ? corpo.prefixes : caminho ? [caminho] : [];
+          for (const item of lista) arquivos.delete(`${deposito}/${item}`);
+          return json(res, 200, lista.map((name) => ({ name })));
+        }
+        if (req.method === "GET") {
+          const le =
+            deposito === "podcast" ||
+            (["ep", "trilhas"].includes(pasta[0]) && (await pode("interno.podcast_revisor()"))) ||
+            (pasta[0] === "termos" && (await pode("(interno.podcast_pode('producao') or interno.podcast_pode('supervisao'))"))) ||
+            (pasta[0] === "recibos" && ((await pode("interno.coord()")) || pasta[1] === dados?.sub)) ||
+            (pasta[0] === "perguntas" && ((await pode("interno.podcaster()")) || pasta[1] === dados?.sub));
+          const arquivo = le ? arquivos.get(`${deposito}/${caminho}`) : null;
+          if (!arquivo) return json(res, 404, { message: "not found" });
+          res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes" });
+          return res.end(arquivo.dados);
+        }
+      }
+      // Endereço assinado de um arquivo fechado (para ouvir sem baixar inteiro): aqui vale por uma hora.
+      const assinar = /^\/storage\/v1\/object\/sign\/(podcast-producao)\/(.+)$/.exec(url.pathname);
+      if (assinar && req.method === "POST") {
+        const dados = portador(req);
+        const caminho = decodeURIComponent(assinar[2]);
+        if (!dados?.sub || !arquivos.has(`podcast-producao/${caminho}`)) return json(res, 400, { statusCode: "404", error: "not_found", message: "Object not found" });
+        const ficha = crypto.randomBytes(12).toString("hex");
+        links.set(`assinado:${ficha}`, { caminho: `podcast-producao/${caminho}`, ate: Date.now() + 3600_000 });
+        return json(res, 200, { signedURL: `/object/sign/podcast-producao/${encodeURIComponent(caminho)}?token=${ficha}` });
+      }
+      if (assinar && req.method === "GET") {
+        const ficha = links.get(`assinado:${url.searchParams.get("token") ?? ""}`);
+        const arquivo = ficha && ficha.ate > Date.now() ? arquivos.get(ficha.caminho) : null;
+        if (!arquivo) return json(res, 404, { message: "not found" });
+        res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes" });
+        return res.end(arquivo.dados);
+      }
+      const publico = /^\/storage\/v1\/object\/public\/(podcast\/.+)$/.exec(url.pathname);
+      if (publico && req.method === "GET") {
+        const arquivo = arquivos.get(decodeURIComponent(publico[1]));
+        if (!arquivo) return json(res, 404, { message: "not found" });
+        res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes", "access-control-allow-origin": "*" });
+        return res.end(arquivo.dados);
+      }
+
       const leitura = /^\/storage\/v1\/object\/public\/(radio\/.+)$/.exec(url.pathname);
       if (leitura && req.method === "GET") {
         const arquivo = arquivos.get(decodeURIComponent(leitura[1]));

@@ -124,6 +124,7 @@ export function Equipe({ lider }: { lider: boolean }) {
   const acao = useAcao(recarregar);
   const [texto, setTexto] = useState("");
   const [para, setPara] = useState<Role["papel"]>("design");
+  const [quem, setQuem] = useState("");
   const [respostas, setRespostas] = useState<Record<string, string>>({});
   const [abertos, setAbertos] = useState<Record<string, string>>({});
   const [aviso, setAviso] = useState("");
@@ -278,8 +279,9 @@ export function Equipe({ lider }: { lider: boolean }) {
         <section>
           <h2 className={rotulo}>Quem está na equipe</h2>
           <Aviso texto={membros.erro} />
+          {(membros.dados?.length ?? 0) > 8 && <input type="search" value={quem} onChange={(e) => setQuem(e.target.value)} placeholder="Filtrar por nome" aria-label="Filtrar a equipe por nome" className={campo} />}
           <ul className="mt-2 space-y-2.5">
-            {membros.dados?.map((membro) => (
+            {membros.dados?.filter((membro) => membro.nome.toLowerCase().includes(quem.trim().toLowerCase())).map((membro) => (
               <li key={membro.id} className="flex items-start gap-2.5" title={membro.bio || undefined}>
                 <span className="relative">
                   <Rosto nome={membro.nome} menor />

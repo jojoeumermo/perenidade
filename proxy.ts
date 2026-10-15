@@ -42,7 +42,7 @@ export function proxy(request: NextRequest, event: NextFetchEvent) {
 export const config = {
   matcher: [
     // As páginas: ignora os arquivos internos e qualquer caminho com extensão (ícone, sitemap, robots, .well-known).
-    "/((?!_next|\\.well-known|.*\\..*).*)",
+    "/((?!_next|api/|\\.well-known|.*\\..*).*)",
     // As iscas com cara de arquivo, fora das pastas onde o site guarda arquivos de verdade.
     "/((?!_next|pyodide|php|workers|arquivos|imagens)(?:.*\\.(?:php\\d?|phtml|asp|aspx|jsp|jspx|cgi|pl|env|sql|sqlite|db|bak|old|orig|swp|ini|conf|cfg|yml|yaml|log|pem|key|p12|pfx|tar|tgz|gz|rar|7z)|\\.(?:env|git|svn|hg|aws|ssh|docker|vscode|idea|ds_store|htaccess|htpasswd).*))",
   ],

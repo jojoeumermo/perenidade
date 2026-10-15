@@ -1207,6 +1207,25 @@ await espera("a faxina apaga e-mails antigos e pedidos de boletim nunca confirma
   return dono("select (select count(*)::int from interno.emails where para = 'alvo@exemplo.org') as emails, (select count(*)::int from interno.boletim where email = 'sem.confirmar@exemplo.org') as boletim");
 }, (r) => r.rows[0].emails === 0 && r.rows[0].boletim === 0);
 
+// ── Banimento não desfaz suspensão da coordenação ──
+await espera("encerrar um banimento não tira a suspensão que a coordenação deu", async () => {
+  ids.duplo = await criarUsuario("duplo@teste.local", "Dora Dupla");
+  await rpc(como(ids.duplo), "eu");
+  await rpc({ ...como(ids.coord), aal: "aal2" }, "usuario_suspender", { p_usuario: ids.duplo, p_suspenso: true });
+  await rpc({ ...como(ids.med), aal: "aal2" }, "mediacao_banir", { p_usuario: ids.duplo, p_motivo: "Provocação repetida na comunidade.", p_origem: false });
+  const b = (await dono("select id from interno.banimentos where usuario = $1 and ativo", [ids.duplo])).rows[0];
+  await rpc({ ...como(ids.coord), aal: "aal2" }, "banimento_encerrar", { p_id: b.id });
+  return (await dono("select suspenso from interno.perfis where id = $1", [ids.duplo])).rows[0].suspenso;
+}, (r) => r === true);
+await espera("e banimento sozinho, ao ser encerrado, reativa a conta", async () => {
+  ids.solo = await criarUsuario("solo@teste.local", "Sol Solo");
+  await rpc(como(ids.solo), "eu");
+  await rpc({ ...como(ids.med), aal: "aal2" }, "mediacao_banir", { p_usuario: ids.solo, p_motivo: "Provocação repetida na comunidade.", p_origem: false });
+  const b = (await dono("select id from interno.banimentos where usuario = $1 and ativo", [ids.solo])).rows[0];
+  await rpc({ ...como(ids.coord), aal: "aal2" }, "banimento_encerrar", { p_id: b.id });
+  return (await dono("select suspenso from interno.perfis where id = $1", [ids.solo])).rows[0].suspenso;
+}, (r) => r === false);
+
 // ── Registro de atividades: ações que mudam o que o público vê também deixam rastro ──
 await espera("apoiadores, rádio, denúncia, anotação e retirada de anúncio entram no registro", async () => {
   const coordenacao2 = { ...como(ids.coord), aal: "aal2" };

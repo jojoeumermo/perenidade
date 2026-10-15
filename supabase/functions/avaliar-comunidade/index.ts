@@ -6,9 +6,10 @@
 // moderação e o resultado volta ao banco, que decide (publicar, barrar ou deixar na fila de revisão). Se qualquer passo
 // falhar, a mensagem continua na fila, onde alguém da equipe decide: falha nunca publica.
 //
-// Segredos (Edge Functions → Secrets): OPENAI_API_KEY. SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY já vêm prontos.
+// Segredos (Edge Functions → Secrets): OPENAI_API_KEY e, opcional, GOOGLE_SAFE_BROWSING_KEY (confere os links das
+// mensagens; sem ela, mensagem com link vai para a fila). SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY já vêm prontos.
 // Nenhum deles aparece em resposta nem em registro; o texto das mensagens também não é registrado.
-import { moderar } from "./moderacao.mjs";
+import { comLinks, linksPerigosos, moderar } from "./moderacao.mjs";
 
 declare const Deno: { env: { get(nome: string): string | undefined }; serve(tratar: (pedido: Request) => Response | Promise<Response>): void };
 
@@ -50,7 +51,9 @@ Deno.serve(async (pedido) => {
   const avaliar = async (qual: unknown, alvo: unknown): Promise<string> => {
     const pendente = (await chamar("comunidade_para_avaliar", { p_tipo: qual, p_id: alvo })) as { texto?: string } | null;
     if (!pendente?.texto) return "ignorado";
-    const resultado = await moderar(pendente.texto, Deno.env.get("OPENAI_API_KEY"));
+    let resultado = await moderar(pendente.texto, Deno.env.get("OPENAI_API_KEY"));
+    // Links: conferidos no Safe Browsing quando há chave; sem chave ou sem resposta, a mensagem com link vai para a fila.
+    if (!("erro" in resultado)) resultado = comLinks(resultado, await linksPerigosos(pendente.texto, Deno.env.get("GOOGLE_SAFE_BROWSING_KEY")));
     if ("erro" in resultado) console.error(`avaliar-comunidade: avaliação sem resultado (${resultado.erro})`);
     const decisao = (await chamar("comunidade_avaliada", { p_tipo: qual, p_id: alvo, p_resultado: resultado })) as { veredito?: string } | null;
     return decisao?.veredito ?? "revisar";

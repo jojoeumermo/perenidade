@@ -2,7 +2,7 @@
 //
 // Prova a chamada ao serviço de moderação sem tocar na rede: o serviço é trocado por respostas montadas aqui.
 // O que o banco faz com cada resultado é provado em testar-banco.mjs. Uso: npm run testar:moderacao
-import { ENDERECO, MODELO, moderar } from "../supabase/functions/avaliar-comunidade/moderacao.mjs";
+import { comLinks, ENDERECO, ENDERECO_LINKS, enderecos, linksPerigosos, MODELO, moderar } from "../supabase/functions/avaliar-comunidade/moderacao.mjs";
 
 let certos = 0;
 const falhas = [];
@@ -61,6 +61,20 @@ await espera("nenhuma falha devolve a chave", async () => JSON.stringify([
   await moderar("texto", CHAVE, { buscar: servico({}, 500).buscar }),
   await moderar("texto", CHAVE, { buscar: async () => { throw new Error(`falha com ${CHAVE}`); } }),
 ]), (r) => !r.includes(CHAVE));
+
+// ── Links (Google Safe Browsing) ──
+const CHAVE_LINKS = "chave-safe-browsing-de-teste";
+await espera("acha endereços com e sem http, sem repetir", async () => enderecos("veja https://golpe.example.com/x, www.outro.net e golpe.example.com/x."), (l) => l.length === 3 && l.includes("https://golpe.example.com/x") && l.includes("http://www.outro.net"));
+await espera("texto sem link nem chega a consultar", async () => { const s = servico({}); const r = await linksPerigosos("Alguém explica a mais-valia?", CHAVE_LINKS, { buscar: s.buscar }); return [r, s.pedidos.length]; }, (r) => r[0] === false && r[1] === 0);
+await espera("sem chave, link fica sem conferir", () => linksPerigosos("olha www.site.com", undefined), (r) => r === null);
+await espera("link na lista de perigo é apontado; só os endereços saem, nunca o texto", async () => { const s = servico({ matches: [{ threatType: "SOCIAL_ENGINEERING" }] }); const r = await linksPerigosos("Ganhe dinheiro fácil em www.golpe.com agora", CHAVE_LINKS, { buscar: s.buscar }); const corpo = JSON.parse(s.pedidos[0].opcoes.body); return [r, s.pedidos[0].endereco, corpo, s.pedidos[0].opcoes.body.includes("Ganhe")]; }, (r) => r[0] === true && r[1] === `${ENDERECO_LINKS}?key=${CHAVE_LINKS}` && r[2].threatInfo.threatEntries[0].url === "http://www.golpe.com" && r[3] === false);
+await espera("link limpo passa", async () => linksPerigosos("leia https://www.marxists.org", CHAVE_LINKS, { buscar: servico({}).buscar }), (r) => r === false);
+await espera("serviço fora do ar vira 'não conferido'", async () => linksPerigosos("leia https://www.marxists.org", CHAVE_LINKS, { buscar: servico({}, 503).buscar }), (r) => r === null);
+const base = { sinalizado: false, categorias: categorias(), notas: notas() };
+await espera("link perigoso vira sinalização (fila de revisão), não bloqueio", async () => comLinks(base, true), (r) => r.sinalizado === true && r.categorias["link/perigoso"] === true && r.notas["link/perigoso"] === 1);
+await espera("link sem conferir também vai para a fila", async () => comLinks(base, null), (r) => r.sinalizado === true && r.notas["link/nao_conferido"] === 0.6);
+await espera("sem link, o resultado segue intacto", async () => comLinks(base, false), (r) => r === base);
+await espera("falha da moderação não é escondida pelos links", async () => comLinks({ erro: "limite" }, true), (r) => r.erro === "limite");
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);

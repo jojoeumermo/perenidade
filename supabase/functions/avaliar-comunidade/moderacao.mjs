@@ -45,3 +45,57 @@ export async function moderar(texto, chave, { buscar = fetch, prazo = 8000 } = {
   if (Object.keys(resultado.category_scores).length === 0 || Object.values(resultado.category_scores).some((nota) => typeof nota !== "number" || !Number.isFinite(nota))) return { erro: "resposta_invalida" };
   return { sinalizado: resultado.flagged, categorias: resultado.categories, notas: resultado.category_scores };
 }
+
+export const ENDERECO_LINKS = "https://safebrowsing.googleapis.com/v4/threatMatches:find";
+
+/** Endereços de site num texto (com ou sem "http"), sem repetir, no máximo 20. */
+export function enderecos(texto) {
+  const achados = String(texto ?? "").match(/\b(?:https?:\/\/|www\.)[^\s<>"')\]]+|\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|net|org|br|info|io|xyz|top|site|online|ru|cn|me|tk|ml|ga|cf|gq|app|link|club|live|shop)(?:\/[^\s<>"')\]]*)?/gi) ?? [];
+  return [...new Set(achados.map((item) => (/^https?:\/\//i.test(item) ? item : `http://${item}`).replace(/[.,;:!?]+$/, "")))].slice(0, 20);
+}
+
+/**
+ * Links perigosos (Google Safe Browsing, uso não comercial): golpe, programa malicioso, página enganosa.
+ * Devolve true se algum endereço do texto está na lista, false se nenhum está, e null se não deu para conferir.
+ * Só os endereços saem daqui, nunca o texto da mensagem.
+ * @param {string} texto
+ * @param {string | undefined} chave
+ * @param {{ buscar?: typeof fetch, prazo?: number }} [opcoes]
+ * @returns {Promise<boolean | null>}
+ */
+export async function linksPerigosos(texto, chave, { buscar = fetch, prazo = 6000 } = {}) {
+  const lista = enderecos(texto);
+  if (lista.length === 0) return false;
+  if (!chave) return null;
+  try {
+    const resposta = await buscar(`${ENDERECO_LINKS}?key=${encodeURIComponent(chave)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        client: { clientId: "instituto-lucia", clientVersion: "1.0" },
+        threatInfo: {
+          threatTypes: ["MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE", "POTENTIALLY_HARMFUL_APPLICATION"],
+          platformTypes: ["ANY_PLATFORM"],
+          threatEntryTypes: ["URL"],
+          threatEntries: lista.map((url) => ({ url })),
+        },
+      }),
+      signal: AbortSignal.timeout(prazo),
+    });
+    if (!resposta.ok) return null;
+    const corpo = await resposta.json();
+    return Array.isArray(corpo?.matches) && corpo.matches.length > 0;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Junta ao resultado da moderação o que se sabe dos links. Link perigoso, ou link que não deu para conferir,
+ * vira sinalização: a mensagem vai para a fila de revisão (o banco nunca publica nem barra só por isso).
+ */
+export function comLinks(resultado, perigoso) {
+  if ("erro" in resultado || perigoso === false) return resultado;
+  const nome = perigoso === true ? "link/perigoso" : "link/nao_conferido";
+  return { sinalizado: true, categorias: { ...resultado.categorias, [nome]: true }, notas: { ...resultado.notas, [nome]: perigoso === true ? 1 : 0.6 } };
+}
