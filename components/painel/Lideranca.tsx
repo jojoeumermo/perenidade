@@ -368,6 +368,16 @@ const acoes: Record<string, string> = {
   site_configurado: "mudou os controles do site",
   comunidade_modo_seguranca: "ligou ou desligou o modo de segurança da Comunidade",
   isca: "endereço-isca pedido por alguém de fora:",
+  apoiador_salvo: "incluiu ou editou um nome no mural de apoiadores",
+  apoiador_removido: "retirou um nome do mural de apoiadores",
+  radio_canal_salvo: "criou ou editou um canal da rádio",
+  radio_canal_removido: "removeu um canal da rádio",
+  radio_faixa_salva: "incluiu ou editou uma faixa da rádio",
+  radio_faixa_removida: "removeu uma faixa da rádio",
+  denuncia_resolvida: "resolveu uma denúncia",
+  anotacao_aprovada: "aprovou uma anotação de leitura",
+  anotacao_oculta: "ocultou uma anotação de leitura",
+  anuncio_removido: "apagou um anúncio do mural",
 };
 
 /** Os detalhes guardados viram texto de gente: sem identificadores internos, com sim e não no lugar de true e false. */
