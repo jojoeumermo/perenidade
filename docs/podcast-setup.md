@@ -9,7 +9,7 @@ fazer (porque dependem das contas do instituto). Em ordem:
 2. Cole o arquivo `supabase/install.sql` inteiro e clique em **Run**. Pode rodar de novo sem medo: ele não apaga nada.
 3. Confira em **Storage** que apareceram dois depósitos:
    - `podcast` (público): o áudio final que toca no site e as capas;
-   - `podcast-producao` (fechado): versões de trabalho, trilhas, termos dos convidados, recibos e perguntas gravadas.
+   - `podcast-producao` (fechado): versões de trabalho, trilhas, termos dos convidados e perguntas gravadas.
 
 Antes deste passo, a página `/podcasts` mostra "Em breve" e a área Podcast do painel dá erro. Nada mais do site é afetado.
 
@@ -97,7 +97,7 @@ estão no ar há mais de 30 dias e o áudio das perguntas antigas, e vence os li
 ## Conferir
 
 - `npm run testar:podcast` prova as regras do banco (quem pode o quê, aprovação, lista de conferência, rodízio, votação,
-  perguntas, entregas) num banco de teste local.
+  perguntas) num banco de teste local.
 - `npm run dev:local` sobe o site com contas de teste: entre como `jornal@local` (jornalismo) e `coord@local`
   (coordenação, código do segundo fator 123456) para fazer o caminho todo, da pauta à publicação.
 - Com `SEMEAR_PODCAST=1 npm run dev:local`, o teste já nasce com um episódio no ar (capítulos, legendas e áudio de
