@@ -358,6 +358,14 @@ create table if not exists interno.reforco (
 );
 create index if not exists reforco_abertos on interno.reforco (status, criado_em);
 
+-- Assistente de reforço: só os contadores de uso por pessoa e por dia. Pergunta e resposta nunca passam pelo banco.
+create table if not exists interno.assistente_uso (
+  dia date not null,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  usos integer not null default 0 check (usos >= 0),
+  primary key (dia, usuario)
+);
+
 -- Conversa interna da equipe, por canal. "pedidos" é onde uma função pede ajuda a outra.
 create table if not exists interno.equipe_mensagens (
   id uuid primary key default gen_random_uuid(),
@@ -2790,6 +2798,114 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
+-- ───────────────────────────── Assistente de reforço ─────────────────────────────
+-- Quem pergunta é a função "assistente" (fora do banco), que chama um serviço pago de inteligência artificial. O banco
+-- só decide se a pessoa pode perguntar agora e conta os usos. Nasce desligado; a coordenação liga pelo painel.
+
+/** O dia do contador, no horário de Brasília (o limite diário vira à meia-noite daqui, não à de Londres). */
+create or replace function interno.assistente_dia() returns date language sql stable as $$
+  select (now() at time zone 'America/Sao_Paulo')::date
+$$;
+
+create or replace function interno.assistente_config() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select '{"ligado": false, "por_pessoa": 10, "por_dia": 200}'::jsonb || coalesce((select valor from configuracoes where chave = 'assistente'), '{}'::jsonb)
+$$;
+
+/** Para o site: o quadro do assistente aparece? Desligado, ou com a aula de reforço interditada, não. */
+create or replace function public.assistente_estado() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('ligado', coalesce((interno.assistente_config() ->> 'ligado')::boolean, false) and not interno.interditada('reforco'))
+$$;
+
+/**
+ * Chamada pela função "assistente" com a sessão de quem pergunta, ANTES de chamar o serviço pago: exige conta ativa,
+ * respeita a interdição e a pausa de envios, e conta um uso se ainda houver vaga hoje (por pessoa e no total do site).
+ */
+create or replace function public.assistente_usar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c jsonb := interno.assistente_config(); v_dia date := interno.assistente_dia(); v_total integer; v_meus integer;
+begin
+  perform interno.aberta('reforco');
+  if not coalesce((c ->> 'ligado')::boolean, false) then perform interno.erro('assistente_desligado'); end if;
+  if coalesce((select (valor ->> 'pausa')::boolean from configuracoes where chave = 'site'), false) and not interno.voluntario() then
+    perform interno.erro('envios_pausados');
+  end if;
+  -- Uma pergunta de cada vez no site inteiro passa por aqui, para o teto do dia não estourar com pedidos simultâneos.
+  perform pg_advisory_xact_lock(hashtext('assistente_uso'));
+  select coalesce(sum(usos), 0) into v_total from assistente_uso where dia = v_dia;
+  if v_total >= (c ->> 'por_dia')::integer then perform interno.erro('assistente_lotado'); end if;
+  select coalesce((select usos from assistente_uso where dia = v_dia and usuario = v), 0) into v_meus;
+  if v_meus >= (c ->> 'por_pessoa')::integer then perform interno.erro('assistente_limite'); end if;
+  insert into assistente_uso (dia, usuario, usos) values (v_dia, v, 1)
+  on conflict (dia, usuario) do update set usos = assistente_uso.usos + 1;
+  return jsonb_build_object('ok', true, 'usuario', v, 'restantes', (c ->> 'por_pessoa')::integer - v_meus - 1);
+end $$;
+
+/**
+ * Para a função "assistente" (só com a chave de serviço): anota se a última pergunta de verdade deu certo e, quando o
+ * serviço falhou, devolve o uso à pessoa (ela não perde a vez por um defeito que não é dela).
+ */
+create or replace function public.assistente_resultado(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  insert into configuracoes (chave, valor) values ('assistente', jsonb_build_object('ultimo', jsonb_build_object(
+    'em', now(), 'ok', coalesce((p ->> 'ok')::boolean, false), 'falha', left(coalesce(p ->> 'falha', ''), 40))))
+  on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
+  if not coalesce((p ->> 'ok')::boolean, false) and coalesce(p ->> 'usuario', '') ~ '^[0-9a-f-]{36}$' then
+    update assistente_uso set usos = greatest(usos - 1, 0) where dia = interno.assistente_dia() and usuario = (p ->> 'usuario')::uuid;
+  end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Para a função "assistente" (só com a chave de serviço): guarda o resultado do teste de funcionamento pedido pelo painel. */
+create or replace function public.assistente_verificacao(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  insert into configuracoes (chave, valor) values ('assistente', jsonb_build_object('verificacao', jsonb_build_object(
+    'em', now(), 'chave', coalesce((p ->> 'chave')::boolean, false), 'ok', coalesce((p ->> 'ok')::boolean, false),
+    'falha', left(coalesce(p ->> 'falha', ''), 40), 'modelo', left(coalesce(p ->> 'modelo', ''), 60))))
+  on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** O quadro do painel: ligado, limites, últimos testes e quanto se usou. Só coordenação e vice (quem responde pela conta paga). */
+create or replace function public.assistente_controles() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare c jsonb := interno.assistente_config(); v_dia date := interno.assistente_dia();
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'ligado', coalesce((c ->> 'ligado')::boolean, false),
+    'por_pessoa', (c ->> 'por_pessoa')::integer,
+    'por_dia', (c ->> 'por_dia')::integer,
+    'verificacao', c -> 'verificacao',
+    'ultimo', c -> 'ultimo',
+    'hoje', (select coalesce(sum(usos), 0) from assistente_uso where dia = v_dia),
+    'pessoas_hoje', (select count(*) from assistente_uso where dia = v_dia and usos > 0),
+    'semana', (select coalesce(sum(usos), 0) from assistente_uso where dia > v_dia - 7),
+    'interditado', interno.interditada('reforco'));
+end $$;
+
+/** Liga, desliga e muda os limites. Fica no registro; ligar avisa a liderança (é um serviço pago). */
+create or replace function public.assistente_configurar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare c jsonb := interno.assistente_config(); v_ligado boolean; v_pessoa integer; v_dia integer;
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  v_ligado := coalesce((p ->> 'ligado')::boolean, (c ->> 'ligado')::boolean);
+  v_pessoa := coalesce(nullif(p ->> 'por_pessoa', '')::integer, (c ->> 'por_pessoa')::integer);
+  v_dia := coalesce(nullif(p ->> 'por_dia', '')::integer, (c ->> 'por_dia')::integer);
+  if v_pessoa not between 1 and 100 then perform interno.erro('invalido:por_pessoa'); end if;
+  if v_dia not between 1 and 5000 then perform interno.erro('invalido:por_dia'); end if;
+  insert into configuracoes (chave, valor) values ('assistente', jsonb_build_object('ligado', v_ligado, 'por_pessoa', v_pessoa, 'por_dia', v_dia))
+  on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
+  perform interno.registrar('assistente_configurado', '', jsonb_build_object('ligado', v_ligado, 'por_pessoa', v_pessoa, 'por_dia', v_dia));
+  if v_ligado and not coalesce((c ->> 'ligado')::boolean, false) then
+    perform interno.avisar_lideranca('O assistente de reforço (serviço pago de inteligência artificial) foi ligado.', auth.uid());
+  end if;
+  return public.assistente_controles();
+exception when invalid_text_representation then
+  perform interno.erro('invalido:limite');
+end $$;
+
 -- ───────────────────────────── Conversa da equipe ─────────────────────────────
 
 /** Cada função tem o seu canal. A supervisão acompanha os canais das funções para manter o mural em ordem; o da coordenação, não. */
@@ -3228,6 +3344,7 @@ begin
   delete from pedidos where situacao <> 'pendente' and criado_em < now() - interval '400 days';
   -- Da Gaveta, só some sozinho o que foi recusado ou retirado há muito tempo; o publicado fica.
   delete from gaveta where status in ('recusado', 'retirado') and coalesce(decidido_em, criado_em) < now() - interval '400 days';
+  delete from assistente_uso where dia < interno.assistente_dia() - 90;
   -- O serviço de contas guarda endereço de rede nos próprios registros; apagamos os antigos onde isso é permitido.
   begin
     execute $q$delete from auth.audit_log_entries where created_at < now() - interval '30 days'$q$;
@@ -4737,7 +4854,8 @@ begin
              'divulgacao_listar', 'divulgacao_salvar', 'divulgacao_situacao', 'divulgacao_comentar', 'divulgacao_apagar', 'divulgacao_instagram_salvar',
              'traducoes_andamento', 'diagnostico',
              'interdicao_ver', 'interdicao_definir', 'expurgo_previa', 'expurgo_aplicar', 'pedido_criar', 'pedidos_listar', 'pedido_decidir',
-             'gaveta_enviar', 'gaveta_minhas', 'gaveta_retirar', 'gaveta_listar', 'gaveta_fila', 'gaveta_decidir'))
+             'gaveta_enviar', 'gaveta_minhas', 'gaveta_retirar', 'gaveta_listar', 'gaveta_fila', 'gaveta_decidir',
+             'assistente_estado', 'assistente_usar', 'assistente_resultado', 'assistente_verificacao', 'assistente_controles', 'assistente_configurar'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then

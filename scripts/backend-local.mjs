@@ -11,6 +11,7 @@
 // Segundo fator: no cadastro e na confirmação, o código é sempre 123456.
 import crypto from "node:crypto";
 import http from "node:http";
+import { validarEntrada } from "../supabase/functions/assistente/assistente.ts";
 import { criarBanco } from "./banco-local.mjs";
 
 // Outra porta com PORTA_BANCO=54400, para duas cópias do projeto rodarem ao mesmo tempo.
@@ -295,6 +296,42 @@ export async function iniciar({ silencioso = false } = {}) {
         res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes" });
         return res.end(arquivo.dados);
       }
+      // ── Assistente de reforço ──
+      // Aqui nada vai para o serviço de inteligência artificial: o banco confere e conta como em produção, e a resposta é
+      // um texto fixo de teste. Serve para ver a tela, os avisos e os limites sem chave e sem custo.
+      if (url.pathname === "/functions/v1/assistente" && req.method === "POST") {
+        const dados = portador(req);
+        if (dados?.role !== "authenticated" || !dados.sub) return json(res, 401, { erro: "entre_primeiro" });
+        const quem = { papel: "authenticated", sub: dados.sub, aal: dados.aal, ip: req.socket.remoteAddress };
+        const servico = { papel: "service_role" };
+        if (corpo?.verificar === true) {
+          try {
+            await banco.rpc(quem, "assistente_controles", {});
+          } catch {
+            return json(res, 403, { erro: "sem_permissao" });
+          }
+          const teste = { chave: false, ok: false, falha: "sem_chave", modelo: "local" };
+          await banco.rpc(servico, "assistente_verificacao", { p: teste });
+          return json(res, 200, teste);
+        }
+        const conferido = validarEntrada(corpo);
+        if ("erro" in conferido) return json(res, 400, { erro: conferido.erro });
+        let uso;
+        try {
+          uso = await banco.rpc(quem, "assistente_usar", {});
+        } catch (erro) {
+          return json(res, 403, { erro: String(erro?.message ?? erro) });
+        }
+        await banco.rpc(servico, "assistente_resultado", { p: { ok: true, falha: "" } });
+        await new Promise((pronto) => setTimeout(pronto, 600));
+        const aulas = conferido.entrada.aulas.map((aula) => `- [${aula.titulo}](${aula.caminho})`).join("\n");
+        if (conferido.entrada.modo === "foto") {
+          return json(res, 200, { transcricao: "Resolva a equação 2x + 3 = 11.", conta: "2x + 3 = 11", texto: "**Resposta de teste do ambiente local.** Tire 3 dos dois lados: 2x = 8. Divida por 2: $$x = 4$$.", cortada: false, restantes: uso.restantes });
+        }
+        const texto = `**Resposta de teste do ambiente local.** Aqui o assistente não é chamado de verdade.\n\nVamos por partes:\n\n1. Leia de novo o enunciado.\n2. Anote o que já sabe.\n3. Tente o primeiro passo e confira: $$2 + 2 = 4$$.${aulas ? `\n\nAulas que podem ajudar:\n\n${aulas}` : ""}`;
+        return json(res, 200, { texto, cortada: false, restantes: uso.restantes });
+      }
+
       return json(res, 404, { message: `sem substituto local para ${req.method} ${url.pathname}` });
     } catch (erro) {
       console.error("[local]", req.method, url.pathname, erro);
