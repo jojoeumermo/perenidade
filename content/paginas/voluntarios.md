@@ -11,7 +11,7 @@ Tudo o que está aqui foi escrito, revisado e organizado por pessoas que acredit
 - **Sem conta:** a página [Contribuir](/contribuir) aceita aulas, indicações de obras, correções e ideias de qualquer pessoa. Tudo é lido pela curadoria antes de entrar.
 - **Como voluntário:** preencha a [candidatura](#candidatura) no fim desta página, com o seu nome completo, um e-mail de contato, a função que você quer e uma apresentação. Não precisa ter conta. A coordenação lê cada candidatura e responde no e-mail informado; quem é aceito recebe por lá o acesso ao painel, já com a função combinada. Cada função enxerga no painel só as ferramentas do próprio trabalho.
 
-Nesta fase inicial, toda publicação passa pela aprovação da coordenação. Quem dedica horas ao instituto pode registrá-las no painel e, com elas conferidas, receber um certificado de trabalho voluntário (ainda em fase de teste).
+Nesta fase inicial, toda publicação passa pela aprovação da coordenação. O trabalho feito no painel vira horas sozinho (aula aprovada, parecer, tradução, reforço, episódio publicado) e o que você fizer fora dele pode ser registrado à mão. Quando quiser, peça o certificado de trabalho voluntário pelo próprio painel.
 
 ## Como revisor
 
@@ -35,6 +35,10 @@ Sabe explicar alguma coisa? Escreva uma aula. Cada educador cuida de uma ou mais
 
 Cada trilha tem um roteiro com as aulas que ainda faltam. Escolher uma delas é a melhor forma de continuar o trabalho de onde ele parou.
 
+## Como educador secundário
+
+Nem todo mundo consegue dar uma disciplina inteira, e tudo bem. O educador secundário contribui ao lado dos educadores: publica materiais úteis, uma aula avulsa, um exercício, um texto que ajuda a entender o assunto. Tem as mesmas ferramentas do educador no painel, e o que ele publica aparece na disciplina, em separado das aulas da trilha.
+
 ## Como mediador
 
 A [Comunidade](/comunidade) é aberta: qualquer pessoa pode ler, e quem cria uma conta pode perguntar e responder. O mediador facilita esse debate, acompanha o cumprimento das regras e intervém quando necessário. Atua em denúncias e situações que exigem avaliação humana, orienta participantes, solicita ajustes quando apropriado e toma providências diante de ataques, propaganda indevida e discurso de ódio. Também cuida dos anúncios do [Mural dos Trabalhadores](/mural) e faz a primeira leitura das contribuições que chegam de fora, antes de encaminhá-las aos educadores. Quando alguém insiste em ultrapassar os limites, o mediador pode banir a conta. Todas as decisões ficam registradas e podem ser revistas pela coordenação.
@@ -47,11 +51,11 @@ O site existe em português, inglês, espanhol, chinês e russo, mas a maior par
 
 O acervo só indexa: guarda o título, o autor, uma sinopse e o link para a fonte legítima. O curador indica obras em domínio público ou com licença aberta, confere se os links antigos continuam funcionando e ajuda a decidir o que entra.
 
-## Como jornalista e radialista
+## Como jornalista, radialista e podcaster
 
 O [Jornal](/jornal) publica notícias e análises do ponto de vista de quem trabalha. Fatos conferidos, fontes à vista e cuidado ao falar de pessoas e organizações: o objetivo é informar e educar.
 
-Quem escreve o jornal também faz a [Rádio Lúcia](/radio): monta os canais e as faixas, cuida da transmissão ao vivo e indica emissoras populares e comunitárias para a lista da página da rádio.
+Quem escreve o jornal também faz a [Rádio Lúcia](/radio): monta os canais e as faixas, cuida da transmissão ao vivo e indica emissoras populares e comunitárias para a lista da página da rádio. E produz os [podcasts](/podcasts): pauta, roteiro, gravação, edição e publicação, com a supervisão de outra pessoa antes de ir ao ar.
 
 ## Na aula de reforço
 
@@ -61,9 +65,17 @@ Quem trava em uma matéria pode [pedir reforço](/reforco). O pedido chega para 
 
 Aulas ficam melhores com um bom desenho: um esquema, um gráfico, um mapa, um cartaz para imprimir. O designer atende os pedidos dos educadores e do jornal e prepara zines, panfletos e cartazes para a página de [materiais](/materiais). Toda imagem enviada precisa ser sua ou ter licença livre, com o crédito à vista.
 
+## No marketing
+
+Junta o trabalho de design com a divulgação do instituto. Quem está no marketing cuida do Instagram do Instituto Lúcia: posts, stories, artes e legendas, sempre com fontes conferidas e com a identidade visual do instituto.
+
 ## Como desenvolvedor
 
 O site é software livre e tem muito por fazer: novas ferramentas de prática, acessibilidade, desempenho em celular simples e internet lenta, traduções da interface. Quem programa combina o trabalho com a coordenação pelo painel.
+
+## Na supervisão
+
+O supervisor fica logo abaixo da coordenação e da vice-coordenação. Não tem os poderes delas: é um monitor dos bastidores do painel, de olho para que as coisas sigam andando e não virem bagunça quando a coordenação não está. A supervisão é confiada pela coordenação a quem já faz parte da equipe.
 
 ## Divulgando
 
