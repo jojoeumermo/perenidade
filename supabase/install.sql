@@ -2849,7 +2849,7 @@ end $$;
 -- concluído, o episódio que foi ao ar. A plataforma transforma esse rastro em horas, por uma tabela que a coordenação
 -- ajusta (configuracoes, chave 'horas_pesos'). Cada trabalho conta uma vez, no dia em que terminou, até 12 horas por dia
 -- somando tudo, e entra já confirmado: o registro é a prova. A coordenação pode desconsiderar uma linha enquanto ela não
--- estiver em certificado. Trabalho pago (as entregas contratadas do podcast) não conta: voluntariado é sem salário.
+-- estiver em certificado.
 -- O que a pessoa faz fora do painel continua sendo registrado à mão e conferido pela coordenação.
 
 /** A tabela padrão: quanto vale, em horas, cada tipo de trabalho. "grupo" é como ele aparece no resumo do certificado. */
@@ -2952,7 +2952,6 @@ begin
     ) t
     where t.quando > now() - interval '400 days'
       and not exists (select 1 from horas h where h.usuario = p_usuario and h.fonte = t.fonte)
-      and not (t.chave like 'podcast%' and exists (select 1 from podcast_entregas g where g.profissional = p_usuario and g.episodio::text = split_part(t.fonte, ':', 2)))
     order by t.quando
   loop
     v_peso := round(interno.horas_peso(r.chave), 1);

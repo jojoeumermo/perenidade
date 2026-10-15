@@ -1024,11 +1024,10 @@ await espera("uma segunda aula aprovada no mesmo dia só completa as doze horas"
   await rpc(como(ids.curadora), "contribuicao_decidir", { p_id: outra.id, p_aprovar: true, p_nota: "" });
   return rpc(como(ids.vol), "horas_minhas");
 }, (r) => Number(r.lista.find((h) => h.atividade.includes("Frações equivalentes"))?.horas) === 0.5 && Number(r.pendentes) === 7);
-await espera("episódio publicado conta para quem produziu; produção paga não conta", async () => {
-  await dono(`insert into interno.podcast_episodios (titulo, status, responsavel, publicado_em) values ('Episódio voluntário', 'publicado', '${ids.vol}', now() - interval '2 days'), ('Episódio pago', 'publicado', '${ids.vol}', now() - interval '2 days')`);
-  await dono(`insert into interno.podcast_entregas (profissional, episodio, descricao, valor) select '${ids.vol}', id, 'Produção contratada', 300 from interno.podcast_episodios where titulo = 'Episódio pago'`);
+await espera("episódio publicado conta para quem produziu", async () => {
+  await dono(`insert into interno.podcast_episodios (titulo, status, responsavel, publicado_em) values ('Episódio voluntário', 'publicado', '${ids.vol}', now() - interval '2 days')`);
   return rpc(como(ids.vol), "horas_minhas");
-}, (r) => r.lista.some((h) => h.atividade === 'Episódio de podcast produzido: "Episódio voluntário"' && Number(h.horas) === 4) && !r.lista.some((h) => h.atividade.includes("Episódio pago")));
+}, (r) => r.lista.some((h) => h.atividade === 'Episódio de podcast produzido: "Episódio voluntário"' && Number(h.horas) === 4));
 await recusa("sem o termo, não há pedido de certificado", () => rpc(como(ids.revisor), "certificado_pedir", { p_inicio: hojeBr, p_fim: hojeBr, p_mensagem: "" }), "falta_termo");
 await recusa("período ao contrário não vale", () => rpc(como(ids.vol), "certificado_pedir", { p_inicio: hojeBr, p_fim: "2020-01-01", p_mensagem: "" }), "invalido:periodo");
 await espera("ela pede o certificado, e a coordenação e a vice são avisadas", async () => {
