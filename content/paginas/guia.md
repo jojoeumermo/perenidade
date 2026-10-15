@@ -26,6 +26,7 @@ Este guia reúne lugares onde dá para ler, pesquisar e conferir informação se
 - [Internet Archive](https://archive.org/) e [Wayback Machine](https://web.archive.org/): livros digitalizados e cópias antigas de páginas da internet.
 - [OpenStax](https://openstax.org/): livros didáticos de nível médio e superior, gratuitos e com licença aberta (em inglês).
 - [eduCAPES](https://educapes.capes.gov.br/): materiais de ensino abertos reunidos pela Capes.
+- [MEC RED](https://mecred.mec.gov.br/): recursos educacionais digitais do Ministério da Educação, com licença aberta, para usar em aula.
 - [SciELO](https://www.scielo.br/): artigos científicos de revistas brasileiras e latino-americanas em acesso aberto.
 
 ## Bibliotecas e acervos digitais
@@ -36,6 +37,8 @@ Este guia reúne lugares onde dá para ler, pesquisar e conferir informação se
 - [Biblioteca Digital do Senado Federal](https://www2.senado.leg.br/bdsf/community-list): obras raras digitalizadas, publicações do Senado, legislação e recortes de jornais; alguns itens são restritos por direitos autorais.
 - [Biblioteca Virtual do CLACSO](https://biblioteca-repositorio.clacso.edu.ar/): livros, artigos, teses e documentos de ciências sociais da América Latina e do Caribe, em acesso aberto.
 - [Biblioteca Virtual Miguel de Cervantes](https://www.cervantesvirtual.com/): literatura, história e língua do mundo de fala espanhola, com obras clássicas e manuscritos digitalizados (em espanhol).
+- [Instituto Moreira Salles](https://ims.com.br/): acervos de fotografia, música, literatura e iconografia brasileiras, com muita coisa aberta para consulta.
+- [Museu da Pessoa](https://museudapessoa.org/): milhares de histórias de vida contadas por pessoas comuns, em texto, áudio e vídeo.
 
 ## Revistas científicas e teses
 
@@ -45,6 +48,8 @@ Este guia reúne lugares onde dá para ler, pesquisar e conferir informação se
 - [Oasisbr](https://www.oasisbr.ibict.br/vufind/): uma só busca em artigos, livros, teses, dissertações e dados de pesquisa em acesso aberto de instituições brasileiras e portuguesas.
 - [Biblioteca Digital Brasileira de Teses e Dissertações (BDTD)](https://bdtd.ibict.br/vufind/about/home): teses e dissertações defendidas no Brasil, reunidas pelo Ibict; o texto completo fica no site de cada universidade.
 - [Catálogo de Teses e Dissertações da Capes](https://catalogodeteses.capes.gov.br/catalogo-teses/): registro das teses e dissertações da pós-graduação brasileira.
+- [Agência Fapesp](https://agencia.fapesp.br/): notícias sobre pesquisas científicas feitas no Brasil, escritas para o público em geral.
+- [Ciência Hoje](https://cienciahoje.org.br/): revista de divulgação científica criada pela SBPC em 1982.
 
 ## Dados públicos
 
@@ -59,20 +64,36 @@ Este guia reúne lugares onde dá para ler, pesquisar e conferir informação se
 - [Anuário Brasileiro de Segurança Pública](https://forumseguranca.org.br/publicacoes/anuario-brasileiro-de-seguranca-publica/): dados anuais de secretarias de segurança e polícias de todo o país, reunidos pelo Fórum Brasileiro de Segurança Pública, em relatórios e planilhas.
 - [MapBiomas](https://brasil.mapbiomas.org/conheca-o-mapbiomas/): mapas anuais de florestas, agropecuária, cidades e outros usos da terra no Brasil desde 1985, com dados abertos por bioma, estado e município.
 - [Our World in Data](https://ourworldindata.org/): séries históricas mundiais sobre saúde, pobreza, energia e clima (em inglês).
+- [Ipeadata](http://www.ipeadata.gov.br/): base do Ipea com séries históricas de economia, população e indicadores sociais do Brasil.
+- [Atlas do Desenvolvimento Humano no Brasil](https://www.atlasbrasil.org.br/): o IDH e mais de 300 indicadores por município, estado e região metropolitana.
+- [Dados abertos do Inep](https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos): microdados do Censo Escolar, do Enem, do Saeb e do Censo da Educação Superior.
+- [Dados abertos do TSE](https://dadosabertos.tse.jus.br/): candidaturas, resultados eleitorais, eleitorado e prestação de contas de campanha.
+- [TerraBrasilis, do Inpe](https://terrabrasilis.dpi.inpe.br/): dados oficiais de desmatamento da Amazônia e do Cerrado (Prodes e Deter).
+- [SEEG](https://seeg.eco.br/): estimativas anuais das emissões de gases de efeito estufa do Brasil, por setor e por estado, do Observatório do Clima.
+- [Mapa de Conflitos, da Fiocruz](https://mapadeconflitos.ensp.fiocruz.br/): casos de injustiça ambiental e saúde no Brasil, com a história de cada comunidade atingida.
 
 ## Leis e direitos
 
 - [Constituição Federal](https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm): o texto atualizado, no portal do Planalto.
 - [Consolidação das Leis do Trabalho (CLT)](https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm): os direitos de quem trabalha com carteira assinada.
 - [LexML](https://www.lexml.gov.br/): busca unificada de leis, decretos e decisões de todo o país.
+- [Legislação do Planalto](https://www4.planalto.gov.br/legislacao/): portal com as leis, os decretos e os códigos federais em vigor.
+- [Estatuto da Criança e do Adolescente (ECA)](https://www.planalto.gov.br/ccivil_03/leis/l8069.htm): os direitos de crianças e adolescentes.
+- [Lei Brasileira de Inclusão](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm): o Estatuto da Pessoa com Deficiência.
+- [Supremo Tribunal Federal](https://portal.stf.jus.br/): decisões, julgamentos e a jurisprudência do STF.
+- [Diário Oficial da União](https://www.gov.br/imprensanacional/pt-br): onde são publicados oficialmente leis, decretos, nomeações e contratos do governo federal.
 - [Câmara dos Deputados](https://www.camara.leg.br/) e [Senado Federal](https://www12.senado.leg.br/): para acompanhar projetos de lei e saber como cada parlamentar votou.
 - [Defensoria Pública da União](https://www.dpu.def.br/): atendimento jurídico gratuito para quem não pode pagar advogado.
 
 ## Checagem de fatos
 
-- [Agência Lupa](https://lupa.uol.com.br/)
+- [Agência Lupa](https://www.agencialupa.org/)
 - [Aos Fatos](https://www.aosfatos.org/)
 - [Projeto Comprova](https://projetocomprova.com.br/): checagem feita em conjunto por vários veículos de imprensa.
+- [Fato ou Fake](https://g1.globo.com/fato-ou-fake/): checagens do g1.
+- [Boatos.org](https://www.boatos.org/) e [E-farsas](https://www.e-farsas.com/): boatos e correntes da internet desmentidos.
+- [Google Fact Check Explorer](https://toolbox.google.com/factcheck/explorer): procura checagens de agências do mundo todo.
+- Busca reversa de imagem, arquivos de páginas antigas e dados oficiais para conferir por conta própria: veja a caixa de ferramentas na página [Checagens](/checagens).
 
 ## Imprensa popular e de análise
 
@@ -86,6 +107,10 @@ Veículos independentes ou ligados a movimentos populares. A leitura crítica va
 - [Jacobin Brasil](https://jacobin.com.br/)
 - [Blog da Boitempo](https://blogdaboitempo.com.br/)
 - [Instituto Tricontinental de Pesquisa Social](https://thetricontinental.org/pt-pt/)
+- [Agência Brasil](https://agenciabrasil.ebc.com.br/): agência pública de notícias da EBC, com textos e fotos de uso livre com crédito.
+- [Repórter Brasil](https://reporterbrasil.org.br/): jornalismo sobre trabalho escravo, direitos trabalhistas e impactos socioambientais.
+- [Alma Preta](https://almapreta.com.br/): jornalismo especializado em questões raciais.
+- [The Intercept Brasil](https://www.intercept.com.br/): jornalismo investigativo.
 
 ## Movimentos e organizações populares
 
@@ -96,6 +121,38 @@ Veículos independentes ou ligados a movimentos populares. A leitura crítica va
 - [Coalizão Negra por Direitos](https://coalizaonegrapordireitos.org.br/)
 - [Marcha Mundial das Mulheres](https://www.marchamundialdasmulheres.org.br/)
 - [ANTRA](https://antrabrasil.org/): Associação Nacional de Travestis e Transexuais.
+- [CUT](https://www.cut.org.br/): Central Única dos Trabalhadores.
+- [CNTE](https://cnte.org.br/): Confederação Nacional dos Trabalhadores em Educação.
+- [Contag](https://www.contag.org.br/): Confederação Nacional dos Trabalhadores na Agricultura.
+- [MAB](https://mab.org.br/): Movimento dos Atingidos por Barragens.
+- [UNE](https://www.une.org.br/): União Nacional dos Estudantes.
+- [Geledés](https://www.geledes.org.br/): Instituto da Mulher Negra.
+- [CUFA](https://cufa.org.br/): Central Única das Favelas.
+
+## Memória, arquivos e museus
+
+- [Arquivo Nacional](https://www.gov.br/arquivonacional/pt-br): documentos do governo brasileiro desde a Colônia, com acervo digital para consulta.
+- [Memórias Reveladas](https://www.gov.br/memoriasreveladas/pt-br): documentos sobre a repressão política entre 1964 e 1985.
+- [Brasil: Nunca Mais Digital](https://bnmdigital.mpf.mp.br/): os processos da Justiça Militar usados no projeto Brasil: Nunca Mais, que denunciou a tortura na ditadura.
+- [Memorial da Democracia](https://memorialdademocracia.com.br/): linha do tempo das lutas democráticas no Brasil, com textos, fotos e vídeos.
+- [CPDOC/FGV](https://cpdoc.fgv.br/): arquivos pessoais de políticos e o Dicionário Histórico-Biográfico Brasileiro.
+- [Arquivo Edgard Leuenroth](https://ael.ifch.unicamp.br/): acervo da Unicamp sobre a história dos movimentos operários e sociais no Brasil.
+- [Centro Sérgio Buarque de Holanda](https://fpabramo.org.br/csbh/): documentos e memória da esquerda e dos movimentos sociais brasileiros.
+- [Museu Afro Brasil](https://museuafrobrasil.org.br/): arte, história e memória afro-brasileira.
+- [Museu Nacional](https://www.museunacional.ufrj.br/): o museu de ciências naturais e antropologia mais antigo do país, da UFRJ.
+
+## Ciência, saúde e meio ambiente
+
+- [Fiocruz](https://fiocruz.br/): pesquisa e informação em saúde pública.
+- [Instituto Butantan](https://butantan.gov.br/): vacinas, soros e divulgação científica.
+- [Biblioteca Virtual em Saúde do Ministério da Saúde](https://bvsms.saude.gov.br/): cartilhas, manuais e publicações oficiais de saúde.
+- [OPAS/OMS no Brasil](https://www.paho.org/pt/brasil): informações da Organização Pan-Americana da Saúde.
+- [Inpe](https://www.gov.br/inpe/pt-br): pesquisas espaciais, clima e monitoramento das florestas.
+
+## Mapas
+
+- [Atlas Escolar do IBGE](https://atlasescolar.ibge.gov.br/): mapas do Brasil e do mundo para estudar geografia.
+- [OpenStreetMap](https://www.openstreetmap.org/): mapa-múndi livre, feito por voluntários.
 
 ## Cursos gratuitos
 
@@ -106,5 +163,6 @@ Veículos independentes ou ligados a movimentos populares. A leitura crítica va
 - [Escola Virtual.Gov](https://www.escolavirtual.gov.br/): cursos gratuitos com certificado, do governo federal.
 - [freeCodeCamp](https://www.freecodecamp.org/portuguese/): programação, do zero, em português.
 - [MIT OpenCourseWare](https://ocw.mit.edu/): materiais de cursos do MIT (em inglês).
+- [Portal da OBMEP](https://portaldaobmep.impa.br/): videoaulas e materiais de matemática do 6º ano do fundamental ao ensino médio, do Impa.
 
 Conhece uma fonte confiável que deveria estar aqui? [Indique para a curadoria](/contribuir).
