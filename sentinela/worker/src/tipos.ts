@@ -72,6 +72,9 @@ export interface Configuracao {
   deploys_conhecidos: string[];
   github_conhecidos: Record<string, string>;
   alertas_recentes: { regra: string; impressao: string | null; em: string }[];
+  ultimos_cabecalhos: Record<string, string> | null;
+  segundo_fator_todos: boolean | null;
+  ips_insistentes: { ip: string; bloqueios: number }[];
 }
 
 export interface Verificacao {

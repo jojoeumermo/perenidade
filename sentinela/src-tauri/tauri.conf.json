@@ -1,0 +1,49 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Sentinela Lúcia",
+  "version": "0.1.0",
+  "identifier": "org.institutolucia.sentinela",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Sentinela Lúcia",
+        "width": 1280,
+        "height": 820,
+        "minWidth": 360,
+        "minHeight": 600,
+        "resizable": true,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.workers.dev ipc: http://ipc.localhost; worker-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'",
+      "dangerousDisableAssetCspModification": false
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis", "msi"],
+    "publisher": "Instituto Lúcia",
+    "category": "Utility",
+    "shortDescription": "Painel de monitoramento de segurança do site do Instituto Lúcia",
+    "longDescription": "Sentinela Lúcia: disponibilidade, tempo de resposta, bloqueios do WAF, integridade (DNS, certificados, páginas), plataforma (Vercel, GitHub, Supabase), incidentes e alertas, para uma equipe de até cinco pessoas com segundo fator.",
+    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
+    "windows": {
+      "nsis": {
+        "languages": ["PortugueseBR", "English"],
+        "displayLanguageSelector": false,
+        "installMode": "currentUser"
+      },
+      "wix": {
+        "language": "pt-BR"
+      }
+    }
+  },
+  "plugins": {}
+}

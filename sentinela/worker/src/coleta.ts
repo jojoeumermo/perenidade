@@ -62,8 +62,6 @@ export async function coletaRapida(env: Env, regiao = ""): Promise<Resumo> {
     const hostDoSite = new URL(base).hostname;
     const paginas = ["/", ...(site.paginas ?? []).filter((p) => p !== "/")];
     const permitidos = (site.terceiros_permitidos ?? []).map((h) => h.toLowerCase());
-    let anterior: Record<string, string> | undefined;
-    const recente = config.verificacoes_recentes.find((v) => v.alvo === "site" && v.no_ar);
     const terceirosNovos: Coletado["terceirosNovos"] = [];
     for (const caminho of paginas.slice(0, 12)) {
       const alvo = caminho === "/" ? "site" : `pagina:${caminho}`;
@@ -73,11 +71,7 @@ export async function coletaRapida(env: Env, regiao = ""): Promise<Resumo> {
       if (r.verificacao.no_ar) {
         const mudanca = await eventoDeMudanca(alvo, caminho, config.ultimo_hash[alvo], r.verificacao.hash, deployAgora);
         if (mudanca) c.eventos.push(mudanca);
-        if (alvo === "site" && recente) {
-          anterior = undefined; // os cabeçalhos antigos não vêm no resumo; comparados pela falta das chaves principais
-          const ultimoHashBom = config.ultimo_hash.site;
-          if (ultimoHashBom) c.eventos.push(...(await eventosDeCabecalho(anterior, r.verificacao.cabecalhos ?? {})));
-        }
+        if (alvo === "site") c.eventos.push(...(await eventosDeCabecalho(config.ultimos_cabecalhos ?? undefined, r.verificacao.cabecalhos ?? {})));
         if (r.terceiros.length) {
           const novos = await banco.rpc<{ novos: Coletado["terceirosNovos"] }>("coleta_terceiros", { p: r.terceiros.map((t) => ({ ...t, permitido: permitidos.includes(t.host) })) });
           terceirosNovos.push(...novos.novos);
@@ -144,7 +138,7 @@ export async function coletaRapida(env: Env, regiao = ""): Promise<Resumo> {
       githubAbertos: [],
       alertasCriticos: config.alertas_recentes.filter((a) => /site_fora|dns_mudou|supabase_fora/.test(a.regra)).length,
       ultimoDeployOk: c.deploysMudaram.length ? !/ERROR|CANCELED/.test(c.deploysMudaram[0].estado) : config.ultimo_deploy_em ? true : null,
-      segundoFatorTodos: null,
+      segundoFatorTodos: config.segundo_fator_todos,
     });
     await banco.rpc("coleta_postura", { p });
     return `nota ${p.nota}`;
@@ -166,8 +160,24 @@ export async function coletaRapida(env: Env, regiao = ""): Promise<Resumo> {
     return `${n} enviados`;
   });
 
+  // 11. Avisa os apps abertos de que há dados novos (canal público "sentinela"; a mensagem só diz "coletei").
+  await parte(resumo, "aviso", () => avisarApps(env, resumo.alertas));
+
   resumo.duracao_ms = Date.now() - inicio;
   return resumo;
+}
+
+async function avisarApps(env: Env, alertas: number): Promise<string> {
+  const url = (env.SENTINELA_SUPABASE_URL ?? "").replace(/\/$/, "");
+  const chave = env.SENTINELA_SERVICE_KEY ?? "";
+  if (!url || !chave) return "sem banco";
+  const resposta = await fetch(`${url}/realtime/v1/api/broadcast`, {
+    method: "POST",
+    headers: { apikey: chave, Authorization: `Bearer ${chave}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ messages: [{ topic: "sentinela", event: "coleta", payload: { alertas } }] }),
+    signal: AbortSignal.timeout(8_000),
+  }).catch(() => null);
+  return resposta?.ok ? "enviado" : `não enviado (${resposta?.status ?? "sem resposta"})`;
 }
 
 export async function coletaLenta(env: Env): Promise<Resumo> {
@@ -224,9 +234,8 @@ export async function coletaLenta(env: Env): Promise<Resumo> {
 
   await parte(resumo, "reputacao", async () => {
     if (!env.ABUSEIPDB_KEY) return "sem chave (opcional)";
-    // Só origens que o WAF já bloqueou repetidas vezes nas últimas horas.
-    const recentes = await banco.rpc<{ ips: { ip: string; total: number; bloqueios: number; abuso: number }[] }>("ameacas_resumo_servico", { p_horas: 6 }).catch(() => null);
-    const alvos = (recentes?.ips ?? []).filter((x) => x.ip && x.bloqueios >= 5 && x.abuso < 0).slice(0, 10);
+    // Só origens que o WAF já bloqueou repetidas vezes nas últimas horas e ainda não foram consultadas nesta semana.
+    const alvos = config.ips_insistentes.slice(0, 10);
     for (const alvo of alvos) {
       const r = await reputacao(env.ABUSEIPDB_KEY, alvo.ip);
       if (r) eventos.push({ fonte: "reputacao", tipo: "consulta", gravidade: r.abuso >= 80 ? "media" : "info", ip: alvo.ip, detalhes: r, impressao: await impressao("rep", alvo.ip, new Date().toISOString().slice(0, 10)) });
@@ -265,8 +274,8 @@ export async function executarAcoes(env: Env, banco: Banco, zona: string): Promi
   let feitas = 0;
   for (const a of pendentes.executar) {
     if (a.tipo === "desbloquear") {
-      const original = await banco.rpc<{ referencia?: string }[]>("acoes_listar_servico", { p_id: a.alvo }).catch(() => null);
-      const referencia = original?.[0]?.referencia ?? "";
+      const original = await banco.rpc<{ referencia?: string } | null>("coleta_acao_referencia", { p_id: a.alvo }).catch(() => null);
+      const referencia = original?.referencia ?? "";
       const r = await desfazerAcao(token, zona, referencia);
       await banco.rpc("acao_resultado", { p_id: a.id, p_estado: r.ok ? "executada" : "falhou", p_resultado: r, p_referencia: referencia });
       if (r.ok) await banco.rpc("acao_resultado", { p_id: a.alvo, p_estado: "desfeita", p_resultado: { por: a.id } });
