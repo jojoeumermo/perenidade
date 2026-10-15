@@ -79,6 +79,7 @@ const erros: Record<string, string> = {
   limite_colaboradores: "Cada contribuição pode ter até cinco pessoas trabalhando junto.",
   mudou_enquanto_editava: "Outra pessoa guardou alterações enquanto você editava. Copie o que escreveu, abra a versão nova e aplique de novo.",
   sem_conexao: "Sem conexão com o serviço.",
+  banco_desatualizado: "Esta parte do painel ainda não está disponível. Tente mais tarde ou avise a coordenação.",
   falha: "Algo deu errado. Tente de novo.",
 };
 

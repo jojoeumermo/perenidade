@@ -49,7 +49,9 @@ export function hasSession(): boolean {
   }
 }
 
-const codeOf = (message: unknown) => {
+const codeOf = (message: unknown, code?: unknown) => {
+  // A tela chama uma função que o serviço ainda não tem (atualização pendente do lado do serviço).
+  if (code === "PGRST202" || code === "42883") return "banco_desatualizado";
   const text = String(message ?? "");
   return /^[a-z_]+(:[a-z_]+)?$/.test(text) ? text : "falha";
 };
@@ -60,7 +62,7 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
   if (hasSession()) {
     const supabase = await getClient();
     const { data, error } = await supabase.rpc(fn, args);
-    if (error) throw new BackendError(codeOf(error.message));
+    if (error) throw new BackendError(codeOf(error.message, error.code));
     return data as T;
   }
   let response: Response;
@@ -74,7 +76,10 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
     throw new BackendError("sem_conexao");
   }
   const body: unknown = await response.json().catch(() => null);
-  if (!response.ok) throw new BackendError(codeOf((body as { message?: string } | null)?.message));
+  if (!response.ok) {
+    const falha = body as { message?: string; code?: string } | null;
+    throw new BackendError(codeOf(falha?.message, falha?.code));
+  }
   return body as T;
 }
 
