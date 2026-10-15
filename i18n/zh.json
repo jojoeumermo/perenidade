@@ -32,6 +32,7 @@
     "loading": "加载中……"
   },
   "nav": {
+    "podcasts": "播客",
     "main": "主导航",
     "disciplines": "学科",
     "library": "馆藏",
@@ -68,7 +69,8 @@
     "terms": "使用条款",
     "start": "从哪里开始",
     "news": "新闻",
-    "gallery": "宣传画廊"
+    "gallery": "宣传画廊",
+    "data": "人民数据"
   },
   "footer": {
     "tagline": "自由的知识，属于所有人，直到永远。",
@@ -134,7 +136,9 @@
     "ctaButton": "提交投稿",
     "questionsTitle": "从一个问题开始",
     "shelvesHint": "学科很多。可以只看基础内容，或选择你想学习的阶段。",
-    "tryLabel": "试试："
+    "tryLabel": "试试：",
+    "onThisDay": "历史上的今天",
+    "onThisDaySource": "维基百科为今天的日期选出的事件。文字来自维基百科，CC BY-SA 许可。"
   },
   "areas": {
     "portugues": [
@@ -886,6 +890,18 @@
     "pronuncia": [
       "发音",
       "按你想要的语速，听任何一句英语、西班牙语、汉语或俄语。"
+    ],
+    "dicionario": [
+      "词典",
+      "葡萄牙语和英语的词义，并注明每条释义的来源。"
+    ],
+    "frases": [
+      "双语例句",
+      "真实的英语、法语和西班牙语句子，附有译文。"
+    ],
+    "graficos": [
+      "函数图像与代数",
+      "画函数图像、化简表达式、求导数。"
     ]
   },
   "tools": {
@@ -1021,6 +1037,36 @@
       "noVoice": "你的设备没有安装这种语言的语音。请在系统设置中安装语音包，或换一个浏览器试试。",
       "unsupported": "这个浏览器不支持朗读。",
       "note": "使用的是你设备自带的语音：不同设备的音质不同，你输入的内容不会被发送出去。先听，再大声跟读，然后比较。"
+    },
+    "dictionary": {
+      "word": "单词",
+      "language": "词典",
+      "search": "查询",
+      "none": "没有找到这个词，请检查拼写。",
+      "fail": "词典暂时没有响应，请稍后再试。",
+      "source": "来源：",
+      "oldSpelling": "1913 年的释义，采用当时的拼写"
+    },
+    "sentences": {
+      "word": "单词或短语",
+      "from": "句子语言",
+      "to": "译文语言",
+      "search": "搜索",
+      "none": "没有找到例句，请换一个更常用的词。",
+      "fail": "Tatoeba 暂时没有响应，请稍后再试。",
+      "same": "请选择两种不同的语言。"
+    },
+    "graphs": {
+      "loading": "正在加载计算器…",
+      "invalid": "无法理解这个表达式。请使用 x、+、-、*、/、^ 以及 sin(x)、sqrt(x) 等函数。",
+      "from": "x 从",
+      "to": "到",
+      "badRange": "起点必须小于终点。",
+      "algebra": "化简与求导",
+      "expression": "关于 x 的表达式",
+      "simplified": "化简结果",
+      "derivative": "导数",
+      "hint": "像计算器一样输入：3x^2 + 2x - 1、sqrt(x)、sin(x)、log(x)、e。小数可用点或逗号。"
     }
   },
   "journal": {
@@ -1057,7 +1103,14 @@
     "title": "事实核查",
     "lead": "流传的谣言和半真半假的说法，用公开资料逐一核对。",
     "empty": "尚未发布任何核查。",
-    "claim": "流传的说法"
+    "claim": "流传的说法",
+    "searchTitle": "已经核查过了吗？",
+    "searchLead": "在 Lupa、Aos Fatos 等机构发布的事实核查中查找这条传言。",
+    "searchPlaceholder": "例如：疫苗、电子投票机、最低工资",
+    "searchButton": "搜索",
+    "searchNone": "没有找到与这些词相关的核查。请换个说法。",
+    "searchFail": "搜索暂时没有响应，请稍后再试。",
+    "searchSource": "结果来自 Google Fact Check Tools。每条核查属于发布它的机构：请打开链接阅读。"
   },
   "debates": {
     "eyebrow": "随手可用的论据",
@@ -1096,6 +1149,7 @@
     "lead": "菜单里放不下的内容，都集中在这里。",
     "critical": "批判性阅读",
     "items": {
+      "podcasts": "政治与大众教育节目，可以在公交车上、厨房里或工作间隙收听。",
       "tools": "调音器、代码编辑器、元素周期表等。",
       "questions": "从日常生活中的疑问通向合适的课程。",
       "glossary": "用通俗语言解释难懂的术语。",
@@ -1122,7 +1176,8 @@
       "support": "帮助支付服务器和域名的费用。",
       "start": "帮你迈出第一步的短篇读物和课程。",
       "news": "来自民间、独立和公共媒体的头条，自动更新。",
-      "gallery": "劳动者斗争的宣传画和图像，以及每一幅背后的故事。"
+      "gallery": "劳动者斗争的宣传画和图像，以及每一幅背后的故事。",
+      "data": "最低工资、通胀、利率、失业率以及众议院的表决，均来自官方来源。"
     }
   },
   "support": {
@@ -1185,9 +1240,18 @@
     "createWhy": "账号用于在社区提问和回答。符合规则的内容会立即显示；调解员持续关注，并在必要时介入。我们只保存你的邮箱；网站上显示的名字起初是一个代号，你可以更改。",
     "createFailed": "无法创建账号。该邮箱可能已有账号，或目前暂停注册。",
     "volunteerLink": "想当志愿者？请填写申请",
-    "whyClosed": "这里没有“忘记密码”功能，目前账号由协调组邀请创建。忘记密码？请联系邀请你的人。"
+    "whyClosed": "这里没有“忘记密码”功能，目前账号由协调组邀请创建。忘记密码？请联系邀请你的人。",
+    "leaked": "这个密码已经在其他网站的泄露中出现过，是攻击者最先尝试的密码之一。请换一个。（检查不会把你的密码发送给任何人。）"
   },
   "radio": {
+    "back15": "后退 15 秒",
+    "forward30": "前进 30 秒",
+    "speed": "速度",
+    "position": "节目进度",
+    "openEpisode": "打开这一期",
+    "related": "收听",
+    "relatedLead": "与本学科配套的播客节目。",
+    "newEpisode": "新一期",
     "eyebrow": "正在播出",
     "title": "Rádio Lúcia",
     "lead": "伴你学习的音乐与话语。",
@@ -1474,11 +1538,194 @@
       "mediacao": "社区调解员",
       "revisao": "审校",
       "traducao": "翻译",
-      "jornalismo": "记者兼电台主持",
+      "jornalismo": "记者、电台主持或播客主播",
       "mentoria": "辅导课",
       "design": "设计师",
       "desenvolvimento": "基础设施与开发",
       "curadoria": "策展人"
     }
+  },
+  "podcast": {
+    "title": "播客",
+    "eyebrow": "边听边学",
+    "lead": "大众与政治教育的对话：历史、经济、社会斗争和巴西高考（ENEM）。免费，附文字稿和资料来源。",
+    "newest": "最新",
+    "season": "第几季",
+    "episode": "第几期",
+    "openEpisode": "查看这一期",
+    "soon": "即将上线",
+    "soonText": "第一期正在制作中。在此期间，请为选题投票并提出你的问题。",
+    "subscribe": "订阅",
+    "subscribeLead": "在你常用的应用里收听，或把订阅地址（RSS）复制到任何播客播放器。",
+    "copyFeed": "复制",
+    "copied": "已复制",
+    "guestNote": "要参加一期节目吗？",
+    "micTitle": "测试你的麦克风",
+    "micShort": "麦克风",
+    "listen": "收听",
+    "pause": "暂停",
+    "all": "全部",
+    "filters": "筛选节目",
+    "recent": "最近的节目",
+    "series": "系列",
+    "episodes": "期",
+    "allEpisodes": "全部节目",
+    "openDiscipline": "打开书架：",
+    "themes": {
+      "historia": "历史",
+      "economia": "经济",
+      "luta-social": "社会斗争",
+      "enem": "ENEM 高考",
+      "filosofia": "哲学",
+      "cultura": "文化",
+      "ciencia": "科学",
+      "trabalho": "劳动",
+      "educacao": "教育",
+      "internacional": "国际",
+      "memoria": "记忆",
+      "atualidade": "时事"
+    },
+    "position": "节目进度",
+    "chapters": "章节",
+    "searchTranscript": "在文字稿中搜索",
+    "playFrom": "从这里收听",
+    "noMatch": "没有找到。",
+    "commentBlocked": "这条留言没有通过社区规则。",
+    "commentHeld": "已收到：留言经过审核后会显示。",
+    "tooMany": "短时间内提交太多次。请稍后再试。",
+    "commentsClosed": "这一期的评论已关闭。",
+    "failed": "没有成功。请再试一次。",
+    "commentsEmpty": "还没有人评论。来开始讨论吧。",
+    "team": "团队",
+    "waitingModeration": "等待审核",
+    "commentLabel": "你觉得怎么样？有什么疑问吗？",
+    "comment": "评论",
+    "commentRules": "与社区相同的规则：相互尊重，不公开个人信息，陈述事实时注明来源。",
+    "signIn": "登录",
+    "signInToComment": "后即可评论。",
+    "copyLink": "复制地址：",
+    "share": "分享",
+    "refused": "文本中有社区过滤器不接受的词语。",
+    "paused": "提交功能暂时停止。",
+    "signInWhy": "后即可参与。完全免费。",
+    "voteTitle": "为下一期选题投票",
+    "voteLead": "团队根据社区最想听的内容选择下一批主题。",
+    "voteEmpty": "目前没有正在投票的选题。",
+    "signInToVote": "请登录后投票。",
+    "unvote": "撤回投票",
+    "vote": "投票",
+    "chosen": "已选定",
+    "recorded": "已上线",
+    "inProduction": "制作中",
+    "suggestTitle": "推荐一个选题",
+    "suggestLabel": "主题",
+    "suggestWhy": "为什么推荐这个主题？（可选）",
+    "suggest": "推荐",
+    "suggested": "推荐已发送。团队会阅读并决定是否进入投票。",
+    "stop": "停止",
+    "discard": "放弃",
+    "record": "录制问题",
+    "micDenied": "浏览器不允许使用麦克风。请在网站设置中开启权限。",
+    "askTitle": "向播客提问",
+    "askLead": "用文字或你自己的声音发送问题。被选中的问题会在节目中回答。",
+    "askText": "你的问题",
+    "askSign": "节目中怎么称呼你？（可选）",
+    "askSignExample": "安娜，来自累西腓",
+    "askSend": "发送问题",
+    "askPrivacy": "只有播客团队会听和读。如果问题被播出，只会用你选择的署名。",
+    "askSent": "问题已发送。谢谢！",
+    "micTooHot": "声音爆音了：离麦克风远一个手掌，或调低输入音量。",
+    "micTooLow": "声音太小：靠近一点（一个手掌的距离）或调高输入音量。",
+    "micVoiceOk": "人声音量合适。",
+    "micNoisy": "背景噪音很大：关掉附近的风扇和冰箱，关上窗户，在有布料（窗帘、沙发、衣服）的房间里录。",
+    "micQuiet": "环境很安静。",
+    "micCloser": "人声只比噪音高一点：靠近麦克风一些。",
+    "micLead": "录音前检查你的音量和环境噪音。所有声音都只在你的设备上处理。",
+    "micStart": "打开麦克风",
+    "micDevice": "麦克风",
+    "micLevel": "当前音量",
+    "micTarget": "正常说话时，音量应大部分保持在绿色区域，不要碰到红色。",
+    "micSilence": "保持安静 5 秒……",
+    "micSpeak": "现在大声朗读这句话……",
+    "micGuided": "进行引导测试（11 秒）",
+    "micSentence": "“知识属于所有人，一起学习的人学得更快。”",
+    "micNoise": "噪音",
+    "micVoice": "人声",
+    "micPeak": "峰值",
+    "micListen": "听听效果：",
+    "micStop": "关闭麦克风",
+    "micTipsTitle": "在家录好音的小建议",
+    "micTips": [
+      "录音时戴耳机：对话的声音不会回到麦克风里。",
+      "离麦克风一个手掌的距离，稍微偏一点，避免“p”“b”的喷麦声。",
+      "在小而东西多的房间录（衣服、书、窗帘）：空墙会有回声。",
+      "手机开启飞行模式，关闭电脑通知。",
+      "带麦克风的手机耳机就够用了。笔记本自带麦克风会录进键盘和风扇的声音。"
+    ],
+    "guestInvalid": "此链接不存在或已过期。请向邀请你的人索取新链接。",
+    "guestHello": "你好，",
+    "guestAccepted": "已于此时接受协议：",
+    "guestWithImage": "你已授权使用你的声音和形象。",
+    "guestVoiceOnly": "你已授权使用你的声音。",
+    "guestName": "你的全名",
+    "guestVoice": "我已阅读并按照上述协议授权使用我的声音。",
+    "guestImage": "我也授权使用我的形象（录制时的照片或视频）。",
+    "guestAccept": "接受协议",
+    "guestRecordTitle": "如果是远程录制",
+    "guestRecordSteps": [
+      "戴上耳机，通过制作方发来的链接进入房间。",
+      "如果制作方要求，请同时在你的设备上录下自己的声音（手机录音机、Audacity 或通话应用本身），从对话开始录到结束。",
+      "结束后，按约定的方式把文件发给制作方。你本地录的音轨比通话的声音好得多。",
+      "如果网络断了，继续在设备上录音，并尽快回到房间。"
+    ],
+    "guestTitle": "播客嘉宾",
+    "guestLead": "感谢参与。你可以在这里阅读并接受声音使用协议，并测试麦克风。",
+    "plays": "次收听",
+    "guests": "嘉宾",
+    "download": "下载音频",
+    "notes": "节目说明",
+    "citedWorks": "引用的著作",
+    "sources": "资料来源",
+    "transcript": "文字稿",
+    "downloadCaptions": "下载字幕（.vtt）",
+    "conversation": "讨论",
+    "more": "接下来收听"
+  },
+  "povo": {
+    "eyebrow": "政治意识",
+    "title": "人民数据",
+    "lead": "对劳动者生活影响最大的数字，以及巴西众议院正在表决的内容，直接来自官方来源，每隔几小时更新一次。",
+    "economy": "工资、物价与就业",
+    "indicators": {
+      "salario": [
+        "最低工资",
+        "巴西全国最低工资的月度数额。"
+      ],
+      "ipca": [
+        "12 个月通胀",
+        "十二个月累计 IPCA：一年里物价涨了多少。"
+      ],
+      "selic": [
+        "基准利率（Selic）",
+        "巴西央行设定的 Selic 年度目标利率，决定信贷的贵贱。"
+      ],
+      "desocupacao": [
+        "失业率",
+        "PNAD Contínua 调查的失业率，滚动季度。"
+      ],
+      "populacao": [
+        "巴西人口",
+        "巴西地理统计局（IBGE）的官方估计。"
+      ]
+    },
+    "reference": "参考日期",
+    "votes": "众议院表决了什么",
+    "votesLead": "巴西众议院全体会议最近的表决，采用众议院自己的描述（葡萄牙语）。",
+    "approved": "通过",
+    "rejected": "否决",
+    "seeSession": "在众议院网站查看会议",
+    "votesSource": "来源：巴西众议院开放数据。",
+    "unavailable": "来源暂时没有响应，请几小时后再来。",
+    "note": "所有数字都来自每个方框中注明的来源，未经我们调整。如果来源没有响应，方框会消失，而不是显示旧数字。"
   }
 }

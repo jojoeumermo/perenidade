@@ -274,6 +274,9 @@ create table if not exists interno.banimentos (
   criado_em timestamptz not null default now()
 );
 create index if not exists banimentos_origem on interno.banimentos (origem) where ativo and origem is not null;
+-- A conta já estava suspensa pela coordenação quando foi banida (ou foi suspensa durante o banimento)? Então encerrar o
+-- banimento não tira essa suspensão: ela é outra decisão, que só a coordenação desfaz.
+alter table interno.banimentos add column if not exists ja_suspensa boolean not null default false;
 
 -- Registro de atividades: quem fez o quê no painel. Só a coordenação lê. Não guarda endereço de ninguém.
 create table if not exists interno.auditoria (
@@ -753,7 +756,7 @@ $$;
 
 create or replace function interno.nome_papel(p text) returns text language sql immutable as $$
   select case p when 'coordenacao' then 'coordenação' when 'vice' then 'vice-coordenação' when 'curadoria' then 'curadoria' when 'mediacao' then 'mediação'
-    when 'educacao' then 'educação' when 'revisao' then 'revisão' when 'traducao' then 'tradução' when 'jornalismo' then 'jornalismo'
+    when 'educacao' then 'educação' when 'revisao' then 'revisão' when 'traducao' then 'tradução' when 'jornalismo' then 'jornalismo, rádio e podcast'
     when 'mentoria' then 'aula de reforço' when 'design' then 'design' when 'desenvolvimento' then 'desenvolvimento' else coalesce(p, '') end
 $$;
 
@@ -1078,6 +1081,8 @@ begin
   if exists (select 1 from papeis where usuario = p_usuario and papel = 'vice') and not interno.lider() then perform interno.erro('sem_permissao'); end if;
   update perfis set suspenso = p_suspenso where id = p_usuario;
   if not found then perform interno.erro('nao_encontrado'); end if;
+  -- Suspensão decidida pela coordenação vale por si: não cai quando um banimento da mesma conta for encerrado.
+  if coalesce(p_suspenso, false) then update banimentos set ja_suspensa = true where usuario = p_usuario and ativo; end if;
   if not p_suspenso then update banimentos set ativo = false, encerrado_por = v, encerrado_em = now() where usuario = p_usuario and ativo; end if;
   perform interno.registrar(case when p_suspenso then 'conta_suspensa' else 'conta_reativada' end, p_usuario::text);
   return jsonb_build_object('ok', true);
@@ -1956,7 +1961,7 @@ end $$;
  */
 create or replace function public.mediacao_banir(p_usuario uuid, p_motivo text, p_origem boolean default false) returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); f perfis; v_motivo text := interno.txt(p_motivo, 'motivo', 5, 300); v_origem text;
+declare v uuid := interno.eu(); f perfis; v_motivo text := interno.txt(p_motivo, 'motivo', 5, 300); v_origem text; v_ja boolean;
 begin
   if not interno.media() then perform interno.erro('sem_permissao'); end if;
   perform interno.limite('banir', 30, 1440);
@@ -1964,11 +1969,15 @@ begin
   if not found then perform interno.erro('nao_encontrado'); end if;
   if p_usuario = v or exists (select 1 from papeis where usuario = p_usuario) then perform interno.erro('sem_permissao'); end if;
   if coalesce(p_origem, false) then v_origem := f.origem; end if;
+  -- Suspensa por outro banimento ainda ativo, a conta herda dele a marcação; suspensa sem banimento, foi a coordenação.
+  v_ja := case when exists (select 1 from banimentos where usuario = p_usuario and ativo)
+               then coalesce((select bool_or(ja_suspensa) from banimentos where usuario = p_usuario and ativo), false)
+               else f.suspenso end;
   update perfis set suspenso = true where id = p_usuario;
   update topicos set retido = false where autor = p_usuario and retido;
   update respostas set retido = false where autor = p_usuario and retido;
   update banimentos set ativo = false, encerrado_por = v, encerrado_em = now() where usuario = p_usuario and ativo;
-  insert into banimentos (usuario, nome, origem, motivo, por) values (p_usuario, f.nome, v_origem, v_motivo, v);
+  insert into banimentos (usuario, nome, origem, motivo, por, ja_suspensa) values (p_usuario, f.nome, v_origem, v_motivo, v, v_ja);
   perform interno.registrar('conta_banida', p_usuario::text, jsonb_build_object('motivo', v_motivo, 'origem', v_origem is not null));
   perform interno.avisar_lideranca('A mediação baniu a conta "' || left(f.nome, 60) || '"' || case when v_origem is not null then ' e barrou a origem de rede dela' else '' end || '. Motivo: ' || left(v_motivo, 200), v);
   return jsonb_build_object('ok', true, 'origem', v_origem is not null);
@@ -1991,7 +2000,7 @@ begin
   select * into b from banimentos where id = p_id and ativo for update;
   if not found then perform interno.erro('nao_encontrado'); end if;
   update banimentos set ativo = false, encerrado_por = v, encerrado_em = now() where id = p_id;
-  if b.usuario is not null and not exists (select 1 from banimentos where usuario = b.usuario and ativo) then
+  if b.usuario is not null and not b.ja_suspensa and not exists (select 1 from banimentos where usuario = b.usuario and ativo) then
     update perfis set suspenso = false where id = b.usuario;
   end if;
   perform interno.registrar('banimento_encerrado', coalesce(b.usuario::text, ''), jsonb_build_object('nome', b.nome));
@@ -3839,6 +3848,1694 @@ do $$
 begin
   if exists (select 1 from pg_extension where extname = 'pg_cron') then
     perform cron.schedule('lucia-faxina', '17 6 * * *', 'select interno.limpeza()');
+  end if;
+exception when others then null;
+end $$;
+
+-- ───────────────────────────── Podcasts ─────────────────────────────
+--
+-- O departamento de jornalismo é também a rádio e o podcast: quem tem a função "jornalismo" pode cuidar dos três, ou só
+-- de um. Dentro do podcast há três tarefas, que a coordenação pode separar por pessoa (interno.podcast_funcoes):
+--   produção    pauta, roteiro, convidados, envio do episódio para aprovação e publicação depois de aprovado;
+--   edição      versões do áudio, transcrição, capítulos e conferência técnica (volume, ruído, trilhas);
+--   supervisão  aprova ou devolve com pedido de ajuste. Ninguém aprova o que ele mesmo enviou (menos a coordenação).
+-- Quem tem "jornalismo" e não recebeu nenhuma tarefa separada faz produção e edição. Coordenação e vice veem e fazem tudo.
+-- Convidado não tem conta: recebe um link para ler e aceitar o termo de cessão de voz e testar o microfone.
+--
+-- O áudio pesa. O depósito público "podcast" guarda o áudio final e as capas; o fechado "podcast-producao", as versões de
+-- trabalho, os termos assinados, os recibos e as perguntas gravadas pelos ouvintes. Para não pesar, o depósito guarda o
+-- áudio dos episódios mais recentes (10, ou o que a coordenação definir); quando sai um novo, o mais antigo libera o
+-- espaço e passa a tocar pela cópia de fora (Internet Archive ou o serviço de hospedagem), se ela estiver cadastrada.
+-- Quem apaga de fato o arquivo é o painel, logo depois de publicar: o banco só diz o que pode sair.
+
+create table if not exists interno.podcast_series (
+  id uuid primary key default gen_random_uuid(),
+  slug text not null unique check (slug ~ '^[a-z0-9][a-z0-9-]{0,58}[a-z0-9]$'),
+  titulo text not null check (char_length(titulo) between 2 and 80),
+  descricao text not null default '' check (char_length(descricao) <= 600),
+  capa text not null default '' check (capa = '' or capa ~ '^capas/[a-z0-9/_-]{8,120}[.](jpg|png|webp)$'),
+  capa_mini text not null default '' check (capa_mini = '' or capa_mini ~ '^capas/[a-z0-9/_-]{8,120}[.](jpg|png|webp)$'),
+  ordem integer not null default 0,
+  ativa boolean not null default true,
+  criado_em timestamptz not null default now()
+);
+
+create table if not exists interno.podcast_convidados (
+  id uuid primary key default gen_random_uuid(),
+  nome text not null check (char_length(nome) between 2 and 120),
+  -- Telefone, e-mail ou rede: só a produção e a supervisão enxergam.
+  contato text not null default '' check (char_length(contato) <= 300),
+  minibio text not null default '' check (char_length(minibio) <= 600),
+  autoriza_voz boolean not null default false,
+  autoriza_imagem boolean not null default false,
+  -- Termo assinado em papel ou PDF, guardado no depósito fechado.
+  termo text not null default '' check (termo = '' or termo ~ '^termos/[a-z0-9/_-]{8,120}[.](pdf|jpg|png|webp)$'),
+  -- Aceite pelo link: nome digitado pela pessoa, quando, e de onde (sem guardar o endereço).
+  aceite_nome text not null default '' check (char_length(aceite_nome) <= 120),
+  aceite_em timestamptz,
+  aceite_origem text not null default '',
+  token text unique,
+  token_validade timestamptz,
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+
+create table if not exists interno.podcast_trilhas (
+  id uuid primary key default gen_random_uuid(),
+  titulo text not null check (char_length(titulo) between 1 and 160),
+  autor text not null default '' check (char_length(autor) <= 120),
+  tipo text not null default 'trilha' check (tipo in ('vinheta', 'trilha', 'efeito')),
+  -- Sem licença registrada, a faixa não entra em episódio: é isso que evita derrubada por direito autoral.
+  licenca text not null check (char_length(licenca) between 2 and 120),
+  fonte text not null default '' check (fonte = '' or (fonte ~ '^https://[^[:space:]]+$' and char_length(fonte) <= 300)),
+  caminho text not null default '' check (caminho = '' or caminho ~ '^trilhas/[a-z0-9/_-]{8,120}[.](mp3|m4a|ogg|opus|wav|flac)$'),
+  duracao integer not null default 0 check (duracao between 0 and 7200),
+  nota text not null default '' check (char_length(nota) <= 500),
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+
+create table if not exists interno.podcast_episodios (
+  id uuid primary key default gen_random_uuid(),
+  slug text unique check (slug is null or slug ~ '^[a-z0-9][a-z0-9-]{0,78}[a-z0-9]$'),
+  titulo text not null check (char_length(titulo) between 3 and 140),
+  resumo text not null default '' check (char_length(resumo) <= 400),
+  tema text not null default '' check (char_length(tema) <= 300),
+  pauta text not null default '' check (char_length(pauta) <= 6000),
+  roteiro text not null default '' check (char_length(roteiro) <= 60000),
+  notas text not null default '' check (char_length(notas) <= 20000),
+  fontes jsonb not null default '[]'::jsonb,
+  -- Obras do acervo citadas no roteiro: [{id, titulo, autor, licenca, fonte}]. Saem nas notas com link para o acervo.
+  obras jsonb not null default '[]'::jsonb,
+  duracao_prevista integer not null default 0 check (duracao_prevista between 0 and 600),
+  convidados uuid[] not null default '{}',
+  trilhas uuid[] not null default '{}',
+  serie uuid references interno.podcast_series (id) on delete set null,
+  temporada smallint check (temporada is null or temporada between 1 and 99),
+  numero smallint check (numero is null or numero between 0 and 9999),
+  temas text[] not null default '{}',
+  disciplina text check (disciplina is null or disciplina ~ '^[a-z0-9-]{2,40}$'),
+  trilha text check (trilha is null or trilha ~ '^[a-z0-9-]{2,80}$'),
+  status text not null default 'ideia' check (status in ('ideia', 'roteiro', 'gravacao', 'edicao', 'revisao', 'aprovado', 'publicado')),
+  responsavel uuid references interno.perfis (id) on delete set null,
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  atualizado_em timestamptz not null default now(),
+  versao integer not null default 1,
+  gravacao_em date,
+  publicar_em date,
+  -- Sala da gravação a distância (Jitsi, Meet, Zoom…): o painel só guarda o link.
+  sala text not null default '' check (sala = '' or (sala ~ '^https://[^[:space:]]+$' and char_length(sala) <= 300)),
+  capa text not null default '' check (capa = '' or capa ~ '^capas/[a-z0-9/_-]{8,120}[.](jpg|png|webp)$'),
+  capa_mini text not null default '' check (capa_mini = '' or capa_mini ~ '^capas/[a-z0-9/_-]{8,120}[.](jpg|png|webp)$'),
+  -- O áudio que vai ao ar: caminho no depósito público "podcast".
+  audio text not null default '' check (audio = '' or audio ~ '^ep/[0-9a-f-]{36}/[a-z0-9_-]{8,80}[.](mp3|m4a|ogg|opus)$'),
+  audio_bytes bigint not null default 0 check (audio_bytes >= 0),
+  audio_tipo text not null default '' check (audio_tipo in ('', 'audio/mpeg', 'audio/mp4', 'audio/ogg', 'audio/opus')),
+  duracao integer not null default 0 check (duracao between 0 and 36000),
+  audio_guardado boolean not null default false,
+  -- Cópia de fora (Internet Archive, Spotify for Creators…): continua tocando depois que o depósito libera o espaço.
+  audio_externo text not null default '' check (audio_externo = '' or (audio_externo ~ '^https://[^[:space:]]+$' and char_length(audio_externo) <= 500)),
+  -- A forma da onda, já calculada no envio: o tocador desenha a barra sem baixar nada a mais.
+  picos jsonb not null default '[]'::jsonb,
+  transcricao text not null default '' check (char_length(transcricao) <= 300000),
+  -- Legendas com tempo (WebVTT): transcrição clicável no site e legenda dos cortes.
+  legendas text not null default '' check (char_length(legendas) <= 400000),
+  capitulos jsonb not null default '[]'::jsonb,
+  checklist jsonb not null default '{}'::jsonb,
+  explicito boolean not null default false,
+  nota_supervisao text not null default '' check (char_length(nota_supervisao) <= 2000),
+  enviado_por uuid references interno.perfis (id) on delete set null,
+  enviado_em timestamptz,
+  aprovado_por uuid references interno.perfis (id) on delete set null,
+  aprovado_em timestamptz,
+  publicado_por uuid references interno.perfis (id) on delete set null,
+  publicado_em timestamptz,
+  topico uuid references interno.topicos (id) on delete set null,
+  token_revisao text unique,
+  token_validade timestamptz
+);
+create index if not exists podcast_episodios_publicados on interno.podcast_episodios (publicado_em desc) where status = 'publicado';
+create index if not exists podcast_episodios_status on interno.podcast_episodios (status, atualizado_em desc);
+
+-- Versões dos arquivos de cada episódio: bruto, editado, final, vídeo, faixa do convidado. A linha fica mesmo depois de o
+-- arquivo sair do depósito: é o histórico de versões (com o link da cópia de segurança, quando houver).
+create table if not exists interno.podcast_arquivos (
+  id uuid primary key default gen_random_uuid(),
+  episodio uuid not null references interno.podcast_episodios (id) on delete cascade,
+  tipo text not null check (tipo in ('bruto', 'editado', 'final', 'video', 'convidado', 'outro')),
+  deposito text not null default '' check (deposito in ('', 'podcast', 'podcast-producao')),
+  caminho text not null default '' check (caminho = '' or caminho ~ '^ep/[0-9a-f-]{36}/[a-z0-9_-]{8,80}[.](mp3|m4a|ogg|opus|wav|flac|aac|mp4|webm|mov|zip)$'),
+  link text not null default '' check (link = '' or (link ~ '^https://[^[:space:]]+$' and char_length(link) <= 500)),
+  nome text not null check (char_length(nome) between 1 and 200),
+  bytes bigint not null default 0 check (bytes >= 0),
+  mime text not null default '' check (char_length(mime) <= 80),
+  nota text not null default '' check (char_length(nota) <= 500),
+  guardado boolean not null default true,
+  enviado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  check (caminho <> '' or link <> '')
+);
+create index if not exists podcast_arquivos_episodio on interno.podcast_arquivos (episodio, criado_em desc);
+
+-- Pedidos de ajuste com marcação de tempo ("aos 12:40, cortar a respiração").
+create table if not exists interno.podcast_comentarios (
+  id uuid primary key default gen_random_uuid(),
+  episodio uuid not null references interno.podcast_episodios (id) on delete cascade,
+  autor uuid references interno.perfis (id) on delete set null,
+  texto text not null check (char_length(texto) between 1 and 2000),
+  tempo integer check (tempo is null or tempo between 0 and 36000),
+  arquivo uuid references interno.podcast_arquivos (id) on delete set null,
+  resolvido boolean not null default false,
+  criado_em timestamptz not null default now()
+);
+create index if not exists podcast_comentarios_episodio on interno.podcast_comentarios (episodio, criado_em);
+
+create table if not exists interno.podcast_historico (
+  id bigint generated always as identity primary key,
+  episodio uuid not null references interno.podcast_episodios (id) on delete cascade,
+  quem uuid references interno.perfis (id) on delete set null,
+  nome text not null default '',
+  acao text not null check (char_length(acao) between 2 and 60),
+  nota text not null default '' check (char_length(nota) <= 2000),
+  criado_em timestamptz not null default now()
+);
+create index if not exists podcast_historico_episodio on interno.podcast_historico (episodio, id desc);
+
+-- Banco de pautas: as da equipe e as sugeridas pela comunidade. As que a equipe põe em votação aparecem no site.
+create table if not exists interno.podcast_pautas (
+  id uuid primary key default gen_random_uuid(),
+  titulo text not null check (char_length(titulo) between 5 and 140),
+  descricao text not null default '' check (char_length(descricao) <= 1000),
+  origem text not null default 'equipe' check (origem in ('equipe', 'comunidade')),
+  autor uuid references interno.perfis (id) on delete set null,
+  status text not null default 'sugerida' check (status in ('sugerida', 'votacao', 'escolhida', 'gravada', 'descartada')),
+  episodio uuid references interno.podcast_episodios (id) on delete set null,
+  votos integer not null default 0,
+  criado_em timestamptz not null default now(),
+  decidido_em timestamptz
+);
+create index if not exists podcast_pautas_status on interno.podcast_pautas (status, votos desc);
+
+create table if not exists interno.podcast_votos (
+  pauta uuid not null references interno.podcast_pautas (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  criado_em timestamptz not null default now(),
+  primary key (pauta, usuario)
+);
+
+-- "Pergunte ao podcast": por texto ou por áudio gravado no próprio site. Só a equipe do podcast lê.
+create table if not exists interno.podcast_perguntas (
+  id uuid primary key default gen_random_uuid(),
+  autor uuid references interno.perfis (id) on delete set null,
+  -- Como a pessoa quer ser chamada no ar ("Ana, de Recife"). Vazio: a pergunta é lida sem nome.
+  assinatura text not null default '' check (char_length(assinatura) <= 60),
+  texto text not null default '' check (char_length(texto) <= 1500),
+  audio text not null default '' check (audio = '' or audio ~ '^perguntas/[0-9a-f-]{36}/[a-z0-9_-]{8,80}[.](webm|ogg|mp4|m4a|mp3|wav)$'),
+  status text not null default 'nova' check (status in ('nova', 'escolhida', 'respondida', 'descartada')),
+  episodio uuid references interno.podcast_episodios (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  check (texto <> '' or audio <> '')
+);
+create index if not exists podcast_perguntas_status on interno.podcast_perguntas (status, criado_em desc);
+
+-- Agenda de postagens nas redes (cortes, artes, chamadas), ao lado das datas de gravação e de publicação.
+create table if not exists interno.podcast_postagens (
+  id uuid primary key default gen_random_uuid(),
+  episodio uuid references interno.podcast_episodios (id) on delete set null,
+  rede text not null check (rede in ('instagram', 'tiktok', 'youtube', 'facebook', 'x', 'outra')),
+  formato text not null default 'corte' check (formato in ('corte', 'arte', 'carrossel', 'story', 'video', 'texto')),
+  quando timestamptz not null,
+  legenda text not null default '' check (char_length(legenda) <= 2200),
+  status text not null default 'planejada' check (status in ('planejada', 'pronta', 'publicada')),
+  link text not null default '' check (link = '' or (link ~ '^https://[^[:space:]]+$' and char_length(link) <= 300)),
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+create index if not exists podcast_postagens_quando on interno.podcast_postagens (quando);
+
+-- Entregas e pagamentos de quem é contratado: o que foi combinado, o prazo, o valor, quando entregou e quando recebeu.
+create table if not exists interno.podcast_entregas (
+  id uuid primary key default gen_random_uuid(),
+  profissional uuid not null references interno.perfis (id) on delete cascade,
+  episodio uuid references interno.podcast_episodios (id) on delete set null,
+  descricao text not null check (char_length(descricao) between 2 and 300),
+  prazo date,
+  valor numeric(10, 2) not null default 0 check (valor >= 0 and valor <= 1000000),
+  entregue_em timestamptz,
+  pago_em timestamptz,
+  recibo text not null default '' check (recibo = '' or recibo ~ '^recibos/[a-z0-9/_-]{8,120}[.](pdf|jpg|png|webp)$'),
+  nota text not null default '' check (char_length(nota) <= 500),
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+create index if not exists podcast_entregas_profissional on interno.podcast_entregas (profissional, criado_em desc);
+
+create table if not exists interno.podcast_funcoes (
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  funcao text not null check (funcao in ('producao', 'edicao', 'supervisao')),
+  primary key (usuario, funcao)
+);
+
+-- Pedidos de arte ao design: capa, card de divulgação, ajuste de modelo.
+create table if not exists interno.podcast_pedidos (
+  id uuid primary key default gen_random_uuid(),
+  episodio uuid references interno.podcast_episodios (id) on delete cascade,
+  texto text not null check (char_length(texto) between 5 and 1000),
+  pedido_por uuid references interno.perfis (id) on delete set null,
+  status text not null default 'aberto' check (status in ('aberto', 'feito')),
+  atendido_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  feito_em timestamptz
+);
+
+-- Quantas vezes cada episódio foi tocado no site, por dia. Não guarda quem ouviu nem de onde.
+create table if not exists interno.podcast_audicoes (
+  episodio uuid not null references interno.podcast_episodios (id) on delete cascade,
+  dia date not null default current_date,
+  total integer not null default 0,
+  primary key (episodio, dia)
+);
+
+-- Arquivos que podem sair dos depósitos: o banco anota, o painel apaga pelo serviço de arquivos e confirma.
+create table if not exists interno.podcast_liberar (
+  deposito text not null check (deposito in ('podcast', 'podcast-producao')),
+  caminho text not null check (char_length(caminho) between 5 and 300),
+  motivo text not null default '',
+  criado_em timestamptz not null default now(),
+  primary key (deposito, caminho)
+);
+
+insert into interno.configuracoes (chave, valor) values ('podcast', jsonb_build_object(
+  'nome', 'Podcast do Instituto Lúcia',
+  'descricao', 'Conversas de formação política e popular do Instituto Lúcia: história, economia, luta social e o que cai no ENEM, de graça e para todo mundo.',
+  'autor', 'Instituto Lúcia',
+  'email', '',
+  'categoria', 'Education',
+  'subcategoria', 'Courses',
+  'explicito', false,
+  'capa', '',
+  'capa_mini', '',
+  'guardados', 10,
+  'links', '{}'::jsonb
+)) on conflict do nothing;
+
+do $$
+declare t record;
+begin
+  for t in select tablename from pg_tables where schemaname = 'interno' and tablename like 'podcast%' loop
+    execute format('alter table interno.%I enable row level security', t.tablename);
+    execute format('revoke all on interno.%I from public', t.tablename);
+  end loop;
+end $$;
+
+do $$
+declare tabela text;
+begin
+  foreach tabela in array array['podcast_pautas', 'podcast_perguntas', 'podcast_votos'] loop
+    execute format('drop trigger if exists lucia_pausa on interno.%I', tabela);
+    execute format('create trigger lucia_pausa before insert on interno.%I for each row execute function interno.pausa()', tabela);
+  end loop;
+end $$;
+
+-- Quem faz parte do podcast: coordenação, vice, jornalismo, ou quem recebeu uma tarefa do podcast.
+create or replace function interno.podcaster() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or interno.tem('jornalismo')
+    or (auth.uid() is not null and (interno.aal2() or not interno.tem_fator())
+        and exists (select 1 from podcast_funcoes p join perfis f on f.id = p.usuario where p.usuario = auth.uid() and not f.suspenso))
+$$;
+
+/**
+ * A pessoa pode fazer esta tarefa do podcast? ('producao', 'edicao' ou 'supervisao'.) Coordenação e vice, sempre.
+ * Quem tem jornalismo e nenhuma tarefa separada faz produção e edição; quem recebeu tarefas faz só as que recebeu.
+ */
+create or replace function interno.podcast_pode(p_funcao text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or (
+    auth.uid() is not null and (interno.aal2() or not interno.tem_fator())
+    and not exists (select 1 from perfis where id = auth.uid() and suspenso)
+    and case
+      when exists (select 1 from podcast_funcoes where usuario = auth.uid())
+        then exists (select 1 from podcast_funcoes where usuario = auth.uid() and funcao = p_funcao)
+      else p_funcao in ('producao', 'edicao') and interno.tem('jornalismo')
+    end)
+$$;
+
+/** Quem lê os episódios em andamento e pede ajustes: o podcast, a mediação e a curadoria. */
+create or replace function interno.podcast_revisor() returns boolean language sql stable as $$
+  select interno.podcaster() or interno.tem('mediacao') or interno.tem('curadoria')
+$$;
+
+create or replace function interno.podcast_temas() returns text[] language sql immutable as $$
+  select array['historia', 'economia', 'luta-social', 'enem', 'filosofia', 'cultura', 'ciencia', 'trabalho', 'educacao', 'internacional', 'memoria', 'atualidade']
+$$;
+
+create or replace function interno.podcast_link(p text, p_campo text, p_max integer default 500) returns text language plpgsql immutable as $$
+declare v text := btrim(coalesce(p, ''));
+begin
+  if v = '' then return ''; end if;
+  if v !~ '^https://[^[:space:]<>"]+$' or char_length(v) > p_max then raise exception 'invalido:%', p_campo using errcode = 'P0001'; end if;
+  return v;
+end $$;
+
+create or replace function interno.podcast_int(p jsonb, p_campo text, p_min integer, p_max integer) returns integer language plpgsql immutable as $$
+declare v text;
+begin
+  if p is null or jsonb_typeof(p) = 'null' or p = '""'::jsonb then return null; end if;
+  if jsonb_typeof(p) not in ('number', 'string') then raise exception 'invalido:%', p_campo using errcode = 'P0001'; end if;
+  v := p #>> '{}';
+  if v !~ '^-?[0-9]{1,9}$' then raise exception 'invalido:%', p_campo using errcode = 'P0001'; end if;
+  if v::integer < p_min or v::integer > p_max then raise exception 'invalido:%', p_campo using errcode = 'P0001'; end if;
+  return v::integer;
+end $$;
+
+create or replace function interno.podcast_data(p text, p_campo text) returns date language plpgsql immutable as $$
+begin
+  if coalesce(btrim(p), '') = '' then return null; end if;
+  if p !~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}$' then raise exception 'invalido:%', p_campo using errcode = 'P0001'; end if;
+  return p::date;
+exception when others then
+  raise exception 'invalido:%', p_campo using errcode = 'P0001';
+end $$;
+
+create or replace function interno.podcast_uuids(p jsonb, p_campo text, p_max integer) returns uuid[] language plpgsql immutable as $$
+declare v uuid[] := '{}'; x text;
+begin
+  if p is null or jsonb_typeof(p) = 'null' then return '{}'; end if;
+  if jsonb_typeof(p) <> 'array' or jsonb_array_length(p) > p_max then raise exception 'invalido:%', p_campo using errcode = 'P0001'; end if;
+  for x in select jsonb_array_elements_text(p) loop
+    if x !~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$' then raise exception 'invalido:%', p_campo using errcode = 'P0001'; end if;
+    if not (x::uuid = any(v)) then v := v || x::uuid; end if;
+  end loop;
+  return v;
+end $$;
+
+/** Capítulos: [{t: segundos, titulo}], em ordem de tempo. */
+create or replace function interno.podcast_capitulos(p jsonb) returns jsonb language plpgsql immutable as $$
+declare v jsonb := coalesce(p, '[]'::jsonb); c jsonb; saida jsonb := '[]'::jsonb;
+begin
+  if jsonb_typeof(v) <> 'array' or jsonb_array_length(v) > 80 then raise exception 'invalido:capitulos' using errcode = 'P0001'; end if;
+  for c in select x from jsonb_array_elements(v) x
+           order by case when jsonb_typeof(x) = 'object' and coalesce(x ->> 't', '') ~ '^[0-9]{1,5}([.][0-9]+)?$' then (x ->> 't')::numeric end nulls first loop
+    if jsonb_typeof(c) <> 'object' or coalesce(c ->> 't', '') !~ '^[0-9]{1,5}([.][0-9]+)?$' then raise exception 'invalido:capitulos' using errcode = 'P0001'; end if;
+    if (c ->> 't')::numeric > 36000 then raise exception 'invalido:capitulos' using errcode = 'P0001'; end if;
+    saida := saida || jsonb_build_object('t', floor((c ->> 't')::numeric)::integer, 'titulo', interno.txt(c ->> 'titulo', 'capitulos', 1, 120));
+  end loop;
+  return saida;
+end $$;
+
+/** Obras do acervo citadas: [{id, titulo, autor, licenca, fonte}]. */
+create or replace function interno.podcast_obras(p jsonb) returns jsonb language plpgsql immutable as $$
+declare v jsonb := coalesce(p, '[]'::jsonb); o jsonb; saida jsonb := '[]'::jsonb;
+begin
+  if jsonb_typeof(v) <> 'array' or jsonb_array_length(v) > 40 then raise exception 'invalido:obras' using errcode = 'P0001'; end if;
+  for o in select * from jsonb_array_elements(v) loop
+    if jsonb_typeof(o) <> 'object' or coalesce(o ->> 'id', '') !~ '^[a-z0-9][a-z0-9-]{0,118}[a-z0-9]$' then raise exception 'invalido:obras' using errcode = 'P0001'; end if;
+    saida := saida || jsonb_build_object('id', o ->> 'id', 'titulo', interno.txt(o ->> 'titulo', 'obras', 1, 300), 'autor', interno.txt(o ->> 'autor', 'obras', 0, 200),
+      'licenca', interno.txt(o ->> 'licenca', 'obras', 0, 60), 'fonte', interno.txt(o ->> 'fonte', 'obras', 0, 200));
+  end loop;
+  return saida;
+end $$;
+
+/** A forma da onda: até 600 números de 0 a 100. */
+create or replace function interno.podcast_picos(p jsonb) returns jsonb language plpgsql immutable as $$
+declare v jsonb := coalesce(p, '[]'::jsonb);
+begin
+  if jsonb_typeof(v) <> 'array' or jsonb_array_length(v) > 600 then raise exception 'invalido:picos' using errcode = 'P0001'; end if;
+  if exists (select 1 from jsonb_array_elements(v) x where case when jsonb_typeof(x) <> 'number' then true else (x #>> '{}')::numeric not between 0 and 100 end) then
+    raise exception 'invalido:picos' using errcode = 'P0001';
+  end if;
+  return (select coalesce(jsonb_agg(round((x #>> '{}')::numeric)::integer), '[]'::jsonb) from jsonb_array_elements(v) x);
+end $$;
+
+/** A conferência técnica que a edição marca à mão. Só estas chaves, só verdadeiro ou falso. */
+create or replace function interno.podcast_checklist(p jsonb) returns jsonb language sql immutable as $$
+  select jsonb_build_object(
+    'volume', coalesce(p ->> 'volume', '') = 'true', 'ruido', coalesce(p ->> 'ruido', '') = 'true',
+    'fontes', coalesce(p ->> 'fontes', '') = 'true', 'trilhas', coalesce(p ->> 'trilhas', '') = 'true')
+$$;
+
+create or replace function interno.podcast_slug(p_titulo text, p_id uuid) returns text language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v_base text := btrim(left(replace(interno.normal(p_titulo), ' ', '-'), 70), '-'); v text; n integer := 1;
+begin
+  if char_length(v_base) < 2 then v_base := 'episodio'; end if;
+  -- Endereços que já são páginas do site (/podcasts/revisao, /podcasts/convidado, /podcasts/microfone).
+  if v_base in ('revisao', 'convidado', 'microfone') then v_base := v_base || '-episodio'; end if;
+  v := v_base;
+  while exists (select 1 from podcast_episodios where slug = v and id is distinct from p_id) loop
+    n := n + 1;
+    v := v_base || '-' || n;
+  end loop;
+  return v;
+end $$;
+
+create or replace function interno.podcast_token() returns text language sql volatile as $$
+  select replace(gen_random_uuid()::text, '-', '') || replace(gen_random_uuid()::text, '-', '')
+$$;
+
+create or replace function interno.podcast_anotar(p_episodio uuid, p_acao text, p_nota text default '') returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  insert into podcast_historico (episodio, quem, nome, acao, nota)
+  values (p_episodio, auth.uid(), coalesce((select nome from perfis where id = auth.uid()), 'sistema'), left(p_acao, 60), left(coalesce(p_nota, ''), 2000));
+end $$;
+
+/** O que falta para publicar. Vazio: pode ir ao ar. */
+create or replace function interno.podcast_pendencias(e interno.podcast_episodios) returns text[] language sql stable security definer set search_path = interno, pg_temp as $$
+  select array_remove(array[
+    case when e.status not in ('aprovado', 'publicado') then 'aprovacao' end,
+    case when not ((e.audio <> '' and e.audio_guardado) or e.audio_externo <> '') then 'audio' end,
+    case when e.duracao <= 0 then 'duracao' end,
+    case when e.capa = '' then 'capa' end,
+    case when char_length(e.resumo) < 20 then 'resumo' end,
+    case when char_length(e.notas) < 50 then 'notas' end,
+    case when char_length(e.transcricao) < 200 then 'transcricao' end,
+    case when exists (select 1 from podcast_convidados c where c.id = any(e.convidados) and not c.autoriza_voz) then 'convidados' end,
+    case when coalesce((e.checklist ->> 'volume')::boolean, false) is not true then 'volume' end,
+    case when coalesce((e.checklist ->> 'ruido')::boolean, false) is not true then 'ruido' end,
+    case when coalesce((e.checklist ->> 'fontes')::boolean, false) is not true then 'fontes' end,
+    case when coalesce((e.checklist ->> 'trilhas')::boolean, false) is not true then 'trilhas' end
+  ], null)
+$$;
+
+/** O episódio como o site mostra. Completo: com notas, capítulos, transcrição e convidados. */
+create or replace function interno.podcast_publico_json(e interno.podcast_episodios, p_completo boolean) returns jsonb
+language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'id', e.id, 'slug', e.slug, 'titulo', e.titulo, 'resumo', e.resumo, 'capa', e.capa, 'capa_mini', e.capa_mini,
+    'duracao', e.duracao, 'publicado_em', e.publicado_em, 'temporada', e.temporada, 'numero', e.numero, 'temas', to_jsonb(e.temas),
+    'disciplina', e.disciplina, 'trilha', e.trilha, 'explicito', e.explicito,
+    'audio', case when e.audio_guardado then e.audio else '' end, 'audio_bytes', e.audio_bytes, 'audio_tipo', e.audio_tipo, 'externo', e.audio_externo,
+    'serie', (select jsonb_build_object('slug', s.slug, 'titulo', s.titulo) from podcast_series s where s.id = e.serie),
+    'plays', (select coalesce(sum(a.total), 0) from podcast_audicoes a where a.episodio = e.id))
+  || case when p_completo then jsonb_build_object(
+    'notas', e.notas, 'fontes', e.fontes, 'obras', e.obras, 'capitulos', e.capitulos, 'transcricao', e.transcricao, 'legendas', e.legendas,
+    'picos', e.picos, 'topico', e.topico,
+    'convidados', (select coalesce(jsonb_agg(jsonb_build_object('nome', c.nome, 'minibio', c.minibio) order by array_position(e.convidados, c.id)), '[]'::jsonb)
+                   from podcast_convidados c where c.id = any(e.convidados) and c.autoriza_voz))
+  else '{}'::jsonb end
+$$;
+
+/** Uma linha do quadro de episódios no painel. */
+create or replace function interno.podcast_resumo_json(e interno.podcast_episodios) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'id', e.id, 'slug', e.slug, 'titulo', e.titulo, 'status', e.status, 'serie', e.serie, 'temporada', e.temporada, 'numero', e.numero,
+    'capa', e.capa, 'capa_mini', e.capa_mini, 'disciplina', e.disciplina, 'temas', to_jsonb(e.temas),
+    'responsavel', (select jsonb_build_object('id', f.id, 'nome', f.nome) from perfis f where f.id = e.responsavel),
+    'gravacao_em', e.gravacao_em, 'publicar_em', e.publicar_em, 'publicado_em', e.publicado_em, 'atualizado_em', e.atualizado_em,
+    'duracao', e.duracao, 'duracao_prevista', e.duracao_prevista, 'audio_guardado', e.audio_guardado, 'externo', e.audio_externo <> '',
+    'audio_bytes', e.audio_bytes, 'enviado_por', (select nome from perfis where id = e.enviado_por),
+    'comentarios', (select count(*) from podcast_comentarios k where k.episodio = e.id and not k.resolvido),
+    'pendencias', to_jsonb(interno.podcast_pendencias(e)), 'nota_supervisao', e.nota_supervisao)
+$$;
+
+/**
+ * Rodízio do depósito: guarda o áudio dos episódios mais recentes (10, ou o número definido nas configurações).
+ * O áudio dos outros é anotado para sair; o episódio continua no site e passa a tocar pela cópia de fora.
+ */
+create or replace function interno.podcast_rodizio() returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_limite integer := greatest(1, least(50, coalesce((select (valor ->> 'guardados')::integer from configuracoes where chave = 'podcast'), 10))); r record;
+begin
+  for r in select id, audio from podcast_episodios where status = 'publicado' and audio_guardado and audio <> '' order by publicado_em desc nulls last offset v_limite loop
+    update podcast_episodios set audio_guardado = false where id = r.id;
+    update podcast_arquivos set guardado = false where episodio = r.id and deposito = 'podcast' and caminho = r.audio;
+    insert into podcast_liberar (deposito, caminho, motivo) values ('podcast', r.audio, 'rodizio') on conflict do nothing;
+    insert into podcast_historico (episodio, nome, acao, nota) values (r.id, 'sistema', 'audio_liberado', 'O áudio saiu do depósito para dar lugar aos episódios mais novos.');
+  end loop;
+end $$;
+
+/** Faxina diária: versões de trabalho de episódio no ar há mais de 30 dias, links vencidos e contagens muito antigas. */
+create or replace function interno.podcast_limpeza() returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  insert into podcast_liberar (deposito, caminho, motivo)
+  select a.deposito, a.caminho, 'versao_de_trabalho' from podcast_arquivos a join podcast_episodios e on e.id = a.episodio
+  where e.status = 'publicado' and e.publicado_em < now() - interval '30 days' and a.guardado and a.deposito = 'podcast-producao' and a.caminho <> ''
+  on conflict do nothing;
+  insert into podcast_liberar (deposito, caminho, motivo)
+  select 'podcast-producao', p.audio, 'pergunta_antiga' from podcast_perguntas p
+  where p.audio <> '' and p.status in ('respondida', 'descartada') and p.criado_em < now() - interval '90 days'
+  on conflict do nothing;
+  update podcast_episodios set token_revisao = null, token_validade = null where token_validade < now();
+  update podcast_convidados set token = null, token_validade = null where token_validade < now();
+  delete from podcast_audicoes where dia < current_date - 400;
+end $$;
+
+-- ── Leitura pública ──
+
+/** Tudo o que a página de podcasts mostra: configuração, séries e episódios no ar. */
+create or replace function public.podcast_catalogo() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'config', (select jsonb_build_object('nome', valor ->> 'nome', 'descricao', valor ->> 'descricao', 'autor', valor ->> 'autor', 'capa', valor ->> 'capa',
+                                         'capa_mini', valor ->> 'capa_mini', 'links', coalesce(valor -> 'links', '{}'::jsonb))
+               from configuracoes where chave = 'podcast'),
+    'series', coalesce((select jsonb_agg(jsonb_build_object('id', s.id, 'slug', s.slug, 'titulo', s.titulo, 'descricao', s.descricao, 'capa', s.capa, 'capa_mini', s.capa_mini) order by s.ordem, s.titulo)
+                        from podcast_series s where s.ativa and exists (select 1 from podcast_episodios e where e.serie = s.id and e.status = 'publicado')), '[]'::jsonb),
+    'episodios', coalesce((select jsonb_agg(interno.podcast_publico_json(e, false) order by e.publicado_em desc)
+                           from podcast_episodios e where e.status = 'publicado' and (e.audio_guardado or e.audio_externo <> '')), '[]'::jsonb))
+$$;
+
+create or replace function public.podcast_episodio(p_slug text) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.podcast_publico_json(e, true) from podcast_episodios e where e.slug = p_slug and e.status = 'publicado'
+$$;
+
+/** Os episódios ligados a uma disciplina (ou a um curso), para aparecer como material complementar. */
+create or replace function public.podcast_por_disciplina(p_disciplina text, p_trilha text default null) returns jsonb
+language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(interno.podcast_publico_json(e, false) order by (e.trilha is not distinct from p_trilha) desc, e.publicado_em desc), '[]'::jsonb)
+  from podcast_episodios e
+  where e.id in (select x.id from podcast_episodios x
+                 where x.status = 'publicado' and (x.audio_guardado or x.audio_externo <> '')
+                   and ((p_disciplina is not null and x.disciplina = p_disciplina) or (p_trilha is not null and x.trilha = p_trilha))
+                 order by (x.trilha is not distinct from p_trilha) desc, x.publicado_em desc limit 8)
+$$;
+
+/** Para o aviso de episódio novo no menu: só a data do mais recente. */
+create or replace function public.podcast_novidade() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('ultimo', max(publicado_em), 'total', count(*)) from podcast_episodios where status = 'publicado'
+$$;
+
+/** O que o feed RSS precisa. Com p_serie, só os episódios daquela série. */
+create or replace function public.podcast_feed(p_serie text default null) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'config', (select valor - 'guardados' from configuracoes where chave = 'podcast'),
+    'serie', (select jsonb_build_object('slug', s.slug, 'titulo', s.titulo, 'descricao', s.descricao, 'capa', s.capa) from podcast_series s where s.slug = p_serie),
+    'episodios', coalesce((select jsonb_agg(interno.podcast_publico_json(e, false) || jsonb_build_object('notas', e.notas, 'capitulos', e.capitulos, 'tem_legendas', e.legendas <> '',
+                                    'convidados', (select coalesce(jsonb_agg(c.nome), '[]'::jsonb) from podcast_convidados c where c.id = any(e.convidados) and c.autoriza_voz))
+                                  order by e.publicado_em desc)
+                           from podcast_episodios e
+                           where e.status = 'publicado' and (e.audio_guardado or e.audio_externo <> '')
+                             and (p_serie is null or e.serie = (select id from podcast_series where slug = p_serie))), '[]'::jsonb))
+$$;
+
+/** Conta uma audição. Não guarda quem ouviu; só freia quem tenta inflar o número. */
+create or replace function public.podcast_ouvir(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.limite('podcast_ouvir', 60, 60);
+  if not exists (select 1 from podcast_episodios where id = p_id and status = 'publicado') then return jsonb_build_object('ok', false); end if;
+  insert into podcast_audicoes (episodio, dia, total) values (p_id, current_date, 1)
+  on conflict (episodio, dia) do update set total = podcast_audicoes.total + 1;
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- ── Comunidade: pautas em votação e perguntas ──
+
+create or replace function public.podcast_pautas_publicas() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'votacao', coalesce((select jsonb_agg(jsonb_build_object('id', p.id, 'titulo', p.titulo, 'descricao', p.descricao, 'votos', p.votos, 'origem', p.origem,
+                                                             'meu_voto', exists (select 1 from podcast_votos v where v.pauta = p.id and v.usuario = auth.uid())) order by p.votos desc, p.criado_em)
+                         from podcast_pautas p where p.status = 'votacao'), '[]'::jsonb),
+    'escolhidas', coalesce((select jsonb_agg(jsonb_build_object('id', p.id, 'titulo', p.titulo, 'status', p.status,
+                                                                'episodio', (select e.slug from podcast_episodios e where e.id = p.episodio and e.status = 'publicado')) order by p.decidido_em desc)
+                            from (select * from podcast_pautas where status in ('escolhida', 'gravada') order by decidido_em desc nulls last limit 8) p), '[]'::jsonb))
+$$;
+
+/** Sugerir pauta: com conta, três por dia, e o texto passa pelo mesmo filtro da comunidade. A equipe decide se vai a votação. */
+create or replace function public.podcast_pauta_sugerir(p_titulo text, p_descricao text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_titulo text := interno.txt(p_titulo, 'titulo', 5, 140); v_descricao text := interno.txt(p_descricao, 'descricao', 0, 1000); v_id uuid;
+begin
+  perform interno.limite('podcast_pauta', 3, 1440);
+  if interno.vetado(v_titulo || ' ' || v_descricao) then perform interno.erro('conteudo_recusado'); end if;
+  insert into podcast_pautas (titulo, descricao, origem, autor, status) values (v_titulo, v_descricao, 'comunidade', v, 'sugerida') returning id into v_id;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.podcast_pauta_votar(p_id uuid, p_votar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_total integer;
+begin
+  perform interno.limite('podcast_votar', 120, 60);
+  perform 1 from podcast_pautas where id = p_id and status = 'votacao' for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if coalesce(p_votar, true) then insert into podcast_votos (pauta, usuario) values (p_id, v) on conflict do nothing;
+  else delete from podcast_votos where pauta = p_id and usuario = v; end if;
+  update podcast_pautas set votos = (select count(*) from podcast_votos where pauta = p_id) where id = p_id returning votos into v_total;
+  return jsonb_build_object('votos', v_total, 'meu_voto', coalesce(p_votar, true));
+end $$;
+
+/** "Pergunte ao podcast": texto, áudio gravado no site (já enviado para a pasta da própria pessoa) ou os dois. */
+create or replace function public.podcast_perguntar(p_texto text, p_audio text, p_assinatura text, p_episodio uuid default null) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_texto text := interno.txt(p_texto, 'texto', 0, 1500); v_audio text := btrim(coalesce(p_audio, '')); v_id uuid;
+begin
+  perform interno.limite('podcast_pergunta', 5, 1440);
+  if v_texto = '' and v_audio = '' then perform interno.erro('invalido:texto'); end if;
+  if v_audio <> '' and (v_audio !~ '^perguntas/[0-9a-f-]{36}/[a-z0-9_-]{8,80}[.](webm|ogg|mp4|m4a|mp3|wav)$' or split_part(v_audio, '/', 2) <> v::text) then
+    perform interno.erro('invalido:audio');
+  end if;
+  if interno.vetado(v_texto || ' ' || coalesce(p_assinatura, '')) then perform interno.erro('conteudo_recusado'); end if;
+  insert into podcast_perguntas (autor, assinatura, texto, audio, episodio)
+  values (v, interno.txt(p_assinatura, 'assinatura', 0, 60), v_texto, v_audio,
+          (select id from podcast_episodios where id = p_episodio and status = 'publicado'))
+  returning id into v_id;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+-- ── Link de revisão e convidados (sem conta) ──
+
+/** Rascunho para quem aprova, pelo link privado: não aparece no site e o link vence em 30 dias. */
+create or replace function public.podcast_revisao(p_token text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare e podcast_episodios;
+begin
+  if coalesce(p_token, '') !~ '^[0-9a-f]{64}$' then perform interno.erro('nao_encontrado'); end if;
+  select * into e from podcast_episodios where token_revisao = p_token and token_validade > now();
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object(
+    'id', e.id, 'titulo', e.titulo, 'resumo', e.resumo, 'roteiro', e.roteiro, 'notas', e.notas, 'capa', e.capa, 'status', e.status,
+    'audio', e.audio, 'externo', e.audio_externo, 'duracao', e.duracao, 'picos', e.picos, 'capitulos', e.capitulos, 'transcricao', e.transcricao,
+    'fontes', e.fontes, 'obras', e.obras,
+    'pendencias', to_jsonb(interno.podcast_pendencias(e)),
+    'pode_comentar', interno.podcast_revisor(), 'pode_aprovar', interno.podcast_pode('supervisao') and e.status = 'revisao',
+    'comentarios', coalesce((select jsonb_agg(jsonb_build_object('id', k.id, 'texto', k.texto, 'tempo', k.tempo, 'resolvido', k.resolvido, 'criado_em', k.criado_em,
+                                                                 'autor', coalesce(f.nome, '')) order by k.criado_em)
+                             from podcast_comentarios k left join perfis f on f.id = k.autor where k.episodio = e.id), '[]'::jsonb));
+end $$;
+
+create or replace function public.podcast_convidado_ver(p_token text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare c podcast_convidados;
+begin
+  if coalesce(p_token, '') !~ '^[0-9a-f]{64}$' then perform interno.erro('nao_encontrado'); end if;
+  select * into c from podcast_convidados where token = p_token and token_validade > now();
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('nome', c.nome, 'aceito', c.aceite_em is not null, 'aceite_em', c.aceite_em, 'autoriza_voz', c.autoriza_voz, 'autoriza_imagem', c.autoriza_imagem,
+    'episodios', coalesce((select jsonb_agg(e.titulo order by e.criado_em) from podcast_episodios e where c.id = any(e.convidados)), '[]'::jsonb));
+end $$;
+
+/** O convidado lê o termo de cessão, digita o nome completo e aceita. Fica anotado quando e de que origem (sem o endereço). */
+create or replace function public.podcast_convidado_aceitar(p_token text, p_nome text, p_voz boolean, p_imagem boolean) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare c podcast_convidados; v_nome text := interno.txt(p_nome, 'nome', 5, 120);
+begin
+  perform interno.limite('podcast_aceite', 10, 60);
+  if coalesce(p_token, '') !~ '^[0-9a-f]{64}$' then perform interno.erro('nao_encontrado'); end if;
+  select * into c from podcast_convidados where token = p_token and token_validade > now() for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not coalesce(p_voz, false) then perform interno.erro('invalido:voz'); end if;
+  update podcast_convidados set aceite_nome = v_nome, aceite_em = now(), aceite_origem = interno.origem(), autoriza_voz = true,
+         autoriza_imagem = coalesce(p_imagem, false) where id = c.id;
+  perform interno.avisar(c.criado_por, format('%s aceitou o termo de cessão de voz%s do podcast.', c.nome, case when coalesce(p_imagem, false) then ' e imagem' else '' end));
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- ── Painel ──
+
+/** A mesa do podcast: tarefas de quem pede, episódios, séries, configuração, contagens e o estado do depósito. */
+create or replace function public.podcast_painel() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu(); v_design boolean := interno.tem('design'); v_time boolean := interno.podcaster(); v_rev boolean := interno.podcast_revisor();
+  v_sup boolean := interno.podcast_pode('supervisao'); v_prod boolean := interno.podcast_pode('producao');
+  c jsonb := coalesce((select valor from configuracoes where chave = 'podcast'), '{}'::jsonb);
+  v_limite integer := coalesce((c ->> 'guardados')::integer, 10);
+begin
+  if not (v_rev or v_design) then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'eu', jsonb_build_object('id', v, 'producao', v_prod, 'edicao', interno.podcast_pode('edicao'), 'supervisao', v_sup,
+                             'coordenacao', interno.coord(), 'design', v_design, 'time', v_time, 'revisor', v_rev),
+    'config', c,
+    'series', coalesce((select jsonb_agg(to_jsonb(s) order by s.ordem, s.titulo) from podcast_series s), '[]'::jsonb),
+    'episodios', coalesce((select jsonb_agg(interno.podcast_resumo_json(e)
+                             order by array_position(array['revisao', 'aprovado', 'edicao', 'gravacao', 'roteiro', 'ideia', 'publicado'], e.status), e.atualizado_em desc)
+                           from podcast_episodios e
+                           where v_rev or exists (select 1 from podcast_pedidos p where p.episodio = e.id and p.status = 'aberto')), '[]'::jsonb),
+    'contagens', jsonb_build_object(
+      'revisao', case when v_sup then (select count(*) from podcast_episodios where status = 'revisao' and (enviado_por is distinct from v or interno.coord())) else 0 end,
+      'perguntas', case when v_time then (select count(*) from podcast_perguntas where status = 'nova') else 0 end,
+      'sugestoes', case when v_time then (select count(*) from podcast_pautas where status = 'sugerida') else 0 end,
+      'pedidos', (select count(*) from podcast_pedidos where status = 'aberto'),
+      'comentarios', case when v_time then (select count(*) from podcast_comentarios k join podcast_episodios e on e.id = k.episodio
+                                            where not k.resolvido and k.autor is distinct from v and v in (e.responsavel, e.criado_por, e.enviado_por)) else 0 end),
+    'armazenamento', case when v_time then jsonb_build_object(
+      'limite', v_limite,
+      'guardados', (select count(*) from podcast_episodios where status = 'publicado' and audio_guardado),
+      'bytes_publicos', (select coalesce(sum(audio_bytes), 0) from podcast_episodios where audio_guardado)
+                        + (select coalesce(sum(bytes), 0) from podcast_arquivos where guardado and deposito = 'podcast' and caminho not in (select audio from podcast_episodios where audio_guardado)),
+      'bytes_producao', (select coalesce(sum(bytes), 0) from podcast_arquivos where guardado and deposito = 'podcast-producao'),
+      'liberar', (select count(*) from podcast_liberar),
+      -- Os próximos a perder o áudio guardado quando sair um episódio novo, e se têm cópia de fora.
+      'proximos', coalesce((select jsonb_agg(jsonb_build_object('id', x.id, 'titulo', x.titulo, 'externo', x.audio_externo <> '') order by x.publicado_em)
+                            from (select * from podcast_episodios where status = 'publicado' and audio_guardado order by publicado_em desc offset greatest(v_limite - 1, 0)) x), '[]'::jsonb))
+    else '{}'::jsonb end);
+end $$;
+
+/** Quantas coisas esperam por esta pessoa no podcast (para o número no menu do painel). */
+create or replace function public.podcast_contagem() returns integer language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); n integer := 0;
+begin
+  if interno.podcast_pode('supervisao') then
+    n := n + (select count(*) from podcast_episodios where status = 'revisao' and (enviado_por is distinct from v or interno.coord()));
+  end if;
+  if interno.podcaster() then
+    n := n + (select count(*) from podcast_perguntas where status = 'nova') + (select count(*) from podcast_pautas where status = 'sugerida')
+           + (select count(*) from podcast_comentarios k join podcast_episodios e on e.id = k.episodio
+              where not k.resolvido and k.autor is distinct from v and v in (e.responsavel, e.criado_por, e.enviado_por));
+  end if;
+  if interno.tem('design') then n := n + (select count(*) from podcast_pedidos where status = 'aberto'); end if;
+  return n;
+end $$;
+
+/** Um episódio inteiro, para a mesa de trabalho: com versões, comentários, histórico, convidados e o que falta. */
+create or replace function public.podcast_ver(p_id uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare e podcast_episodios; v_contato boolean := interno.podcast_pode('producao') or interno.podcast_pode('supervisao');
+begin
+  perform interno.eu();
+  if not (interno.podcast_revisor() or interno.tem('design')) then perform interno.erro('sem_permissao'); end if;
+  select * into e from podcast_episodios where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return (to_jsonb(e) - 'token_revisao' - 'token_validade') || jsonb_build_object(
+    'token_revisao', case when interno.podcaster() and e.token_validade > now() then e.token_revisao end,
+    'token_validade', case when interno.podcaster() then e.token_validade end,
+    'pendencias', to_jsonb(interno.podcast_pendencias(e)),
+    'responsavel_nome', (select nome from perfis where id = e.responsavel),
+    'enviado_por_nome', (select nome from perfis where id = e.enviado_por),
+    'aprovado_por_nome', (select nome from perfis where id = e.aprovado_por),
+    'arquivos', coalesce((select jsonb_agg(to_jsonb(a) || jsonb_build_object('enviado_por_nome', (select nome from perfis where id = a.enviado_por)) order by a.criado_em desc)
+                          from podcast_arquivos a where a.episodio = e.id), '[]'::jsonb),
+    'comentarios', coalesce((select jsonb_agg(jsonb_build_object('id', k.id, 'texto', k.texto, 'tempo', k.tempo, 'arquivo', k.arquivo, 'resolvido', k.resolvido,
+                                                                  'criado_em', k.criado_em, 'autor', coalesce(f.nome, ''), 'meu', k.autor = auth.uid()) order by k.criado_em)
+                             from podcast_comentarios k left join perfis f on f.id = k.autor where k.episodio = e.id), '[]'::jsonb),
+    'historico', coalesce((select jsonb_agg(jsonb_build_object('acao', h.acao, 'nota', h.nota, 'nome', h.nome, 'criado_em', h.criado_em) order by h.id desc)
+                           from (select * from podcast_historico where episodio = e.id order by id desc limit 60) h), '[]'::jsonb),
+    'convidados_dados', coalesce((select jsonb_agg(jsonb_build_object('id', c.id, 'nome', c.nome, 'minibio', c.minibio, 'autoriza_voz', c.autoriza_voz,
+                                                                       'autoriza_imagem', c.autoriza_imagem, 'contato', case when v_contato then c.contato else '' end)
+                                                    order by array_position(e.convidados, c.id))
+                                  from podcast_convidados c where c.id = any(e.convidados)), '[]'::jsonb),
+    'trilhas_dados', coalesce((select jsonb_agg(jsonb_build_object('id', t.id, 'titulo', t.titulo, 'autor', t.autor, 'licenca', t.licenca, 'fonte', t.fonte))
+                               from podcast_trilhas t where t.id = any(e.trilhas)), '[]'::jsonb),
+    'pedidos', coalesce((select jsonb_agg(jsonb_build_object('id', p.id, 'texto', p.texto, 'status', p.status, 'criado_em', p.criado_em,
+                                                             'pedido_por', (select nome from perfis where id = p.pedido_por)) order by p.criado_em desc)
+                         from podcast_pedidos p where p.episodio = e.id), '[]'::jsonb),
+    'perguntas', coalesce((select jsonb_agg(jsonb_build_object('id', q.id, 'texto', q.texto, 'assinatura', q.assinatura, 'audio', q.audio, 'status', q.status))
+                           from podcast_perguntas q where q.episodio = e.id), '[]'::jsonb),
+    'plays', (select coalesce(sum(total), 0) from podcast_audicoes where episodio = e.id));
+end $$;
+
+/**
+ * Cria (p_id nulo) ou altera um episódio. Só mexe nos campos que vierem. Quem só tem a edição altera notas, transcrição,
+ * legendas, capítulos, conferência técnica, trilhas e a cópia de fora. Com p_versao, recusa se alguém salvou no meio.
+ */
+create or replace function public.podcast_salvar(p_id uuid, p jsonb, p_versao integer default null) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu(); e podcast_episodios;
+  v_prod boolean := interno.podcast_pode('producao') or interno.podcast_pode('supervisao');
+  v_ed boolean := interno.podcast_pode('edicao');
+  v_edicao text[] := array['notas', 'transcricao', 'legendas', 'capitulos', 'checklist', 'audio_externo', 'trilhas'];
+  k text; v_temas text[];
+begin
+  p := coalesce(p, '{}'::jsonb);
+  if jsonb_typeof(p) <> 'object' then perform interno.erro('invalido:dados'); end if;
+  if p_id is null then
+    if not v_prod then perform interno.erro('sem_permissao'); end if;
+    perform interno.limite('podcast_criar', 30, 60);
+    insert into podcast_episodios (titulo, criado_por, responsavel) values (interno.txt(p ->> 'titulo', 'titulo', 3, 140), v, v) returning * into e;
+    perform interno.podcast_anotar(e.id, 'criou');
+  else
+    select * into e from podcast_episodios where id = p_id for update;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+    if not (v_prod or v_ed) then perform interno.erro('sem_permissao'); end if;
+    if p_versao is not null and p_versao <> e.versao then perform interno.erro('mudou_enquanto_editava'); end if;
+    if not v_prod then
+      for k in select jsonb_object_keys(p) loop
+        if not (k = any(v_edicao)) then perform interno.erro('sem_permissao'); end if;
+      end loop;
+    end if;
+  end if;
+
+  if p ? 'titulo' then e.titulo := interno.txt(p ->> 'titulo', 'titulo', 3, 140); end if;
+  if p ? 'resumo' then e.resumo := interno.txt(p ->> 'resumo', 'resumo', 0, 400); end if;
+  if p ? 'tema' then e.tema := interno.txt(p ->> 'tema', 'tema', 0, 300); end if;
+  if p ? 'pauta' then e.pauta := interno.txt(p ->> 'pauta', 'pauta', 0, 6000); end if;
+  if p ? 'roteiro' then e.roteiro := interno.txt(p ->> 'roteiro', 'roteiro', 0, 60000); end if;
+  if p ? 'notas' then e.notas := interno.txt(p ->> 'notas', 'notas', 0, 20000); end if;
+  if p ? 'fontes' then e.fontes := interno.fontes_ok(p -> 'fontes', false); end if;
+  if p ? 'obras' then e.obras := interno.podcast_obras(p -> 'obras'); end if;
+  if p ? 'duracao_prevista' then e.duracao_prevista := coalesce(interno.podcast_int(p -> 'duracao_prevista', 'duracao_prevista', 0, 600), 0); end if;
+  if p ? 'convidados' then
+    e.convidados := interno.podcast_uuids(p -> 'convidados', 'convidados', 12);
+    if exists (select 1 from unnest(e.convidados) x where not exists (select 1 from podcast_convidados c where c.id = x)) then perform interno.erro('invalido:convidados'); end if;
+  end if;
+  if p ? 'trilhas' then
+    e.trilhas := interno.podcast_uuids(p -> 'trilhas', 'trilhas', 30);
+    if exists (select 1 from unnest(e.trilhas) x where not exists (select 1 from podcast_trilhas t where t.id = x)) then perform interno.erro('invalido:trilhas'); end if;
+  end if;
+  if p ? 'serie' then
+    e.serie := (interno.podcast_uuids(case when coalesce(p ->> 'serie', '') = '' then '[]'::jsonb else jsonb_build_array(p ->> 'serie') end, 'serie', 1))[1];
+    if e.serie is not null and not exists (select 1 from podcast_series where id = e.serie) then perform interno.erro('invalido:serie'); end if;
+  end if;
+  if p ? 'temporada' then e.temporada := interno.podcast_int(p -> 'temporada', 'temporada', 1, 99); end if;
+  if p ? 'numero' then e.numero := interno.podcast_int(p -> 'numero', 'numero', 0, 9999); end if;
+  if p ? 'temas' then
+    if jsonb_typeof(p -> 'temas') <> 'array' or jsonb_array_length(p -> 'temas') > 5 then perform interno.erro('invalido:temas'); end if;
+    v_temas := array(select distinct x from jsonb_array_elements_text(p -> 'temas') x);
+    if not (v_temas <@ interno.podcast_temas()) then perform interno.erro('invalido:temas'); end if;
+    e.temas := v_temas;
+  end if;
+  if p ? 'disciplina' then e.disciplina := interno.disciplina_ok(p ->> 'disciplina'); end if;
+  if p ? 'trilha' then
+    e.trilha := nullif(btrim(coalesce(p ->> 'trilha', '')), '');
+    if e.trilha is not null and e.trilha !~ '^[a-z0-9-]{2,80}$' then perform interno.erro('invalido:trilha'); end if;
+  end if;
+  if p ? 'responsavel' then
+    e.responsavel := (interno.podcast_uuids(case when coalesce(p ->> 'responsavel', '') = '' then '[]'::jsonb else jsonb_build_array(p ->> 'responsavel') end, 'responsavel', 1))[1];
+    if e.responsavel is not null and not exists (select 1 from perfis where id = e.responsavel and not suspenso) then perform interno.erro('invalido:responsavel'); end if;
+  end if;
+  if p ? 'gravacao_em' then e.gravacao_em := interno.podcast_data(p ->> 'gravacao_em', 'gravacao_em'); end if;
+  if p ? 'publicar_em' then e.publicar_em := interno.podcast_data(p ->> 'publicar_em', 'publicar_em'); end if;
+  if p ? 'sala' then e.sala := interno.podcast_link(p ->> 'sala', 'sala', 300); end if;
+  if p ? 'explicito' then e.explicito := coalesce(p ->> 'explicito', '') = 'true'; end if;
+  if p ? 'audio_externo' then e.audio_externo := interno.podcast_link(p ->> 'audio_externo', 'audio_externo', 500); end if;
+  if p ? 'transcricao' then e.transcricao := interno.txt(p ->> 'transcricao', 'transcricao', 0, 300000); end if;
+  if p ? 'legendas' then
+    e.legendas := interno.txt(p ->> 'legendas', 'legendas', 0, 400000);
+    if e.legendas <> '' and e.legendas !~ '^WEBVTT' then perform interno.erro('invalido:legendas'); end if;
+  end if;
+  if p ? 'capitulos' then e.capitulos := interno.podcast_capitulos(p -> 'capitulos'); end if;
+  if p ? 'checklist' then e.checklist := interno.podcast_checklist(p -> 'checklist'); end if;
+
+  update podcast_episodios set
+    titulo = e.titulo, resumo = e.resumo, tema = e.tema, pauta = e.pauta, roteiro = e.roteiro, notas = e.notas, fontes = e.fontes, obras = e.obras,
+    duracao_prevista = e.duracao_prevista, convidados = e.convidados, trilhas = e.trilhas, serie = e.serie, temporada = e.temporada, numero = e.numero,
+    temas = e.temas, disciplina = e.disciplina, trilha = e.trilha, responsavel = e.responsavel, gravacao_em = e.gravacao_em, publicar_em = e.publicar_em,
+    sala = e.sala, explicito = e.explicito, audio_externo = e.audio_externo, transcricao = e.transcricao, legendas = e.legendas,
+    capitulos = e.capitulos, checklist = e.checklist, versao = versao + 1, atualizado_em = now()
+  where id = e.id returning * into e;
+  return jsonb_build_object('id', e.id, 'versao', e.versao, 'pendencias', to_jsonb(interno.podcast_pendencias(e)));
+end $$;
+
+/** Muda a etapa (ideia → roteiro → gravação → edição → revisão). "Revisão" é o envio para a supervisão aprovar. */
+create or replace function public.podcast_etapa(p_id uuid, p_status text, p_nota text default '') returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); e podcast_episodios; r record;
+begin
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('edicao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_status, '') not in ('ideia', 'roteiro', 'gravacao', 'edicao', 'revisao') then perform interno.erro('invalido:status'); end if;
+  select * into e from podcast_episodios where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if e.status = 'publicado' then perform interno.erro('ja_publicado'); end if;
+  if e.status = p_status then return interno.podcast_resumo_json(e); end if;
+  if p_status = 'revisao' then
+    update podcast_episodios set status = 'revisao', enviado_por = v, enviado_em = now(), aprovado_por = null, aprovado_em = null, atualizado_em = now(), versao = versao + 1
+    where id = p_id returning * into e;
+    for r in select distinct usuario from (
+               select usuario from podcast_funcoes where funcao = 'supervisao'
+               union select usuario from papeis where papel in ('coordenacao', 'vice')) x where usuario <> v loop
+      perform interno.avisar(r.usuario, format('Podcast: o episódio "%s" foi enviado para aprovação.', e.titulo));
+    end loop;
+  else
+    update podcast_episodios set status = p_status, aprovado_por = null, aprovado_em = null, atualizado_em = now(), versao = versao + 1
+    where id = p_id returning * into e;
+  end if;
+  perform interno.podcast_anotar(e.id, 'etapa:' || p_status, interno.txt(p_nota, 'nota', 0, 2000));
+  return interno.podcast_resumo_json(e);
+end $$;
+
+/** A supervisão aprova ou devolve para a edição com o pedido de ajuste. Ninguém aprova o que ele mesmo enviou. */
+create or replace function public.podcast_aprovar(p_id uuid, p_aprovar boolean, p_nota text default '') returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); e podcast_episodios; v_nota text := interno.txt(p_nota, 'nota', 0, 2000);
+begin
+  if not interno.podcast_pode('supervisao') then perform interno.erro('sem_permissao'); end if;
+  select * into e from podcast_episodios where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if e.status <> 'revisao' then perform interno.erro('fora_de_revisao'); end if;
+  if coalesce(p_aprovar, false) then
+    if e.enviado_por = v and not interno.coord() then perform interno.erro('aprovar_o_proprio'); end if;
+    update podcast_episodios set status = 'aprovado', aprovado_por = v, aprovado_em = now(), nota_supervisao = v_nota, atualizado_em = now(), versao = versao + 1
+    where id = p_id returning * into e;
+    perform interno.podcast_anotar(e.id, 'aprovou', v_nota);
+    perform interno.avisar(e.enviado_por, format('Podcast: o episódio "%s" foi aprovado. Confira a lista antes de publicar.', e.titulo));
+  else
+    if char_length(v_nota) < 3 then perform interno.erro('invalido:nota'); end if;
+    update podcast_episodios set status = 'edicao', nota_supervisao = v_nota, atualizado_em = now(), versao = versao + 1 where id = p_id returning * into e;
+    insert into podcast_comentarios (episodio, autor, texto) values (e.id, v, 'Pedido de ajuste da supervisão: ' || v_nota);
+    perform interno.podcast_anotar(e.id, 'pediu_ajuste', v_nota);
+    perform interno.avisar(e.enviado_por, format('Podcast: a supervisão pediu ajustes no episódio "%s".', e.titulo));
+  end if;
+  return interno.podcast_resumo_json(e);
+end $$;
+
+/**
+ * Publica um episódio aprovado, se a lista de conferência estiver completa. Abre a conversa do episódio na Comunidade
+ * (com a mesma moderação de lá) e faz o rodízio do depósito. Devolve o que pode sair dos depósitos.
+ */
+create or replace function public.podcast_publicar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); e podcast_episodios; v_slug text; v_topico uuid;
+begin
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  select * into e from podcast_episodios where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if e.status = 'publicado' then perform interno.erro('ja_publicado'); end if;
+  if cardinality(interno.podcast_pendencias(e)) > 0 then perform interno.erro('lista_incompleta'); end if;
+  v_slug := coalesce(e.slug, interno.podcast_slug(e.titulo, e.id));
+  v_topico := e.topico;
+  if v_topico is null or not exists (select 1 from topicos where id = v_topico) then
+    insert into topicos (autor, titulo, corpo, disciplina, tipo, avaliacao)
+    values (v, left('Podcast: ' || e.titulo, 140),
+            left(e.resumo || E'\n\nOuça o episódio: ' || interno.endereco() || '/pt/podcasts/' || v_slug || E'\n\nComente aqui o que achou, o que ficou de dúvida e o que quer ouvir nos próximos.', 8000),
+            e.disciplina, 'conversa', 'publicada')
+    returning id into v_topico;
+  end if;
+  update podcast_episodios set status = 'publicado', slug = v_slug, publicado_por = v, publicado_em = coalesce(publicado_em, now()), topico = v_topico,
+         atualizado_em = now(), versao = versao + 1
+  where id = p_id returning * into e;
+  update podcast_pautas set status = 'gravada', decidido_em = now() where episodio = e.id and status in ('escolhida', 'votacao');
+  update podcast_perguntas set status = 'respondida' where episodio = e.id and status = 'escolhida';
+  -- Versões finais antigas (que não são o áudio no ar) já podem sair do depósito público.
+  insert into podcast_liberar (deposito, caminho, motivo)
+  select 'podcast', a.caminho, 'versao_antiga' from podcast_arquivos a where a.episodio = e.id and a.deposito = 'podcast' and a.guardado and a.caminho <> e.audio
+  on conflict do nothing;
+  perform interno.podcast_rodizio();
+  perform interno.podcast_anotar(e.id, 'publicou');
+  perform interno.registrar('podcast_publicado', v_slug);
+  return jsonb_build_object('slug', v_slug, 'topico', v_topico,
+    'liberar', coalesce((select jsonb_agg(jsonb_build_object('deposito', deposito, 'caminho', caminho)) from podcast_liberar), '[]'::jsonb));
+end $$;
+
+/** Tira do ar (volta a "aprovado"). A data de publicação fica: se voltar, volta no mesmo lugar da lista. */
+create or replace function public.podcast_despublicar(p_id uuid, p_nota text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare e podcast_episodios; v_nota text := interno.txt(p_nota, 'nota', 3, 2000);
+begin
+  perform interno.eu();
+  if not interno.podcast_pode('supervisao') then perform interno.erro('sem_permissao'); end if;
+  update podcast_episodios set status = 'aprovado', atualizado_em = now(), versao = versao + 1 where id = p_id and status = 'publicado' returning * into e;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.podcast_anotar(e.id, 'despublicou', v_nota);
+  perform interno.registrar('podcast_despublicado', coalesce(e.slug, ''), jsonb_build_object('nota', v_nota));
+  return interno.podcast_resumo_json(e);
+end $$;
+
+/** Apaga um episódio que nunca foi ao ar (a coordenação apaga qualquer um). Os arquivos vão para a lista de liberar. */
+create or replace function public.podcast_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare e podcast_episodios;
+begin
+  perform interno.eu();
+  select * into e from podcast_episodios where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (interno.coord() or ((interno.podcast_pode('producao') or interno.podcast_pode('supervisao')) and e.publicado_em is null)) then perform interno.erro('sem_permissao'); end if;
+  insert into podcast_liberar (deposito, caminho, motivo)
+  select a.deposito, a.caminho, 'episodio_apagado' from podcast_arquivos a where a.episodio = e.id and a.guardado and a.caminho <> '' and a.deposito <> ''
+  union select 'podcast', x, 'episodio_apagado' from unnest(array[e.capa, e.capa_mini]) x
+        where x <> '' and not exists (select 1 from podcast_episodios o where o.id <> e.id and x in (o.capa, o.capa_mini))
+  on conflict do nothing;
+  delete from podcast_episodios where id = e.id;
+  perform interno.registrar('podcast_apagado', e.titulo);
+  return jsonb_build_object('liberar', coalesce((select jsonb_agg(jsonb_build_object('deposito', deposito, 'caminho', caminho)) from podcast_liberar), '[]'::jsonb));
+end $$;
+
+/** Link privado de revisão (vale 30 dias). p_renovar troca o link: o antigo deixa de abrir. */
+create or replace function public.podcast_revisao_link(p_id uuid, p_renovar boolean default false) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare e podcast_episodios;
+begin
+  perform interno.eu();
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  select * into e from podcast_episodios where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if coalesce(p_renovar, false) or e.token_revisao is null or e.token_validade < now() then
+    update podcast_episodios set token_revisao = interno.podcast_token(), token_validade = now() + interval '30 days' where id = p_id returning * into e;
+  end if;
+  return jsonb_build_object('token', e.token_revisao, 'validade', e.token_validade);
+end $$;
+
+-- ── Arquivos ──
+
+/**
+ * Anota uma versão: o painel envia o arquivo para o depósito e depois chama esta função. Áudio final vai para o depósito
+ * público (é o que toca no site); bruto, editado, vídeo e faixas de convidado, para o fechado. Também aceita só um link
+ * (cópia de segurança no Internet Archive, Drive…), para arquivo grande demais para o depósito.
+ */
+create or replace function public.podcast_arquivo_registrar(p_episodio uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu(); v_tipo text := coalesce(p ->> 'tipo', ''); v_deposito text := coalesce(p ->> 'deposito', ''); v_caminho text := btrim(coalesce(p ->> 'caminho', ''));
+  v_id uuid;
+begin
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('edicao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  if not exists (select 1 from podcast_episodios where id = p_episodio) then perform interno.erro('nao_encontrado'); end if;
+  if v_tipo not in ('bruto', 'editado', 'final', 'video', 'convidado', 'outro') then perform interno.erro('invalido:tipo'); end if;
+  if v_caminho <> '' then
+    if v_deposito not in ('podcast', 'podcast-producao') or (v_deposito = 'podcast') <> (v_tipo = 'final') then perform interno.erro('invalido:deposito'); end if;
+    if v_caminho not like 'ep/' || p_episodio::text || '/%' then perform interno.erro('invalido:caminho'); end if;
+  else
+    v_deposito := '';
+  end if;
+  insert into podcast_arquivos (episodio, tipo, deposito, caminho, link, nome, bytes, mime, nota, guardado, enviado_por)
+  values (p_episodio, v_tipo, v_deposito, v_caminho, interno.podcast_link(p ->> 'link', 'link', 500), interno.txt(p ->> 'nome', 'nome', 1, 200),
+          greatest(coalesce(interno.podcast_int(p -> 'bytes', 'bytes', 0, 2000000000), 0), 0), interno.txt(p ->> 'mime', 'mime', 0, 80),
+          interno.txt(p ->> 'nota', 'nota', 0, 500), v_caminho <> '', v)
+  returning id into v_id;
+  perform interno.podcast_anotar(p_episodio, 'arquivo:' || v_tipo, p ->> 'nome');
+  update podcast_episodios set atualizado_em = now() where id = p_episodio;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** Escolhe a versão final que vai ao ar, com a duração e a forma da onda calculadas no navegador. */
+create or replace function public.podcast_audio_definir(p_episodio uuid, p_arquivo uuid, p_duracao integer, p_picos jsonb) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare e podcast_episodios; a podcast_arquivos;
+begin
+  perform interno.eu();
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('edicao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  select * into e from podcast_episodios where id = p_episodio for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  select * into a from podcast_arquivos where id = p_arquivo and episodio = p_episodio;
+  if not found or a.tipo <> 'final' or a.deposito <> 'podcast' or not a.guardado then perform interno.erro('invalido:arquivo'); end if;
+  if a.mime not in ('audio/mpeg', 'audio/mp4', 'audio/ogg', 'audio/opus') then perform interno.erro('invalido:formato'); end if;
+  if coalesce(p_duracao, 0) not between 1 and 36000 then perform interno.erro('invalido:duracao'); end if;
+  if e.status = 'publicado' and e.audio <> '' and e.audio <> a.caminho and e.audio_guardado then
+    insert into podcast_liberar (deposito, caminho, motivo) values ('podcast', e.audio, 'versao_antiga') on conflict do nothing;
+  end if;
+  update podcast_episodios set audio = a.caminho, audio_bytes = a.bytes, audio_tipo = a.mime, duracao = p_duracao, picos = interno.podcast_picos(p_picos),
+         audio_guardado = true, atualizado_em = now(), versao = versao + 1
+  where id = p_episodio returning * into e;
+  perform interno.podcast_anotar(e.id, 'audio_definido', a.nome);
+  return interno.podcast_resumo_json(e);
+end $$;
+
+/** Tira uma versão do depósito (o registro fica no histórico). O áudio que está no ar não sai por aqui. */
+create or replace function public.podcast_arquivo_remover(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare a podcast_arquivos; e podcast_episodios;
+begin
+  perform interno.eu();
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('edicao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  select * into a from podcast_arquivos where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  select * into e from podcast_episodios where id = a.episodio for update;
+  if a.caminho <> '' and a.caminho = e.audio and e.audio_guardado then
+    if e.status = 'publicado' then perform interno.erro('em_uso'); end if;
+    update podcast_episodios set audio = '', audio_bytes = 0, audio_tipo = '', duracao = 0, picos = '[]'::jsonb, audio_guardado = false where id = e.id;
+  end if;
+  if a.guardado and a.caminho <> '' then
+    insert into podcast_liberar (deposito, caminho, motivo) values (a.deposito, a.caminho, 'removido') on conflict do nothing;
+  end if;
+  update podcast_arquivos set guardado = false where id = a.id;
+  perform interno.podcast_anotar(a.episodio, 'arquivo_removido', a.nome);
+  return jsonb_build_object('liberar', coalesce((select jsonb_agg(jsonb_build_object('deposito', deposito, 'caminho', caminho)) from podcast_liberar), '[]'::jsonb));
+end $$;
+
+/** O que pode sair dos depósitos agora (e a faxina, que roda antes de responder). */
+create or replace function public.podcast_liberar_pendentes() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  perform interno.podcast_limpeza();
+  return coalesce((select jsonb_agg(jsonb_build_object('deposito', deposito, 'caminho', caminho, 'motivo', motivo)) from podcast_liberar), '[]'::jsonb);
+end $$;
+
+/** O painel confirma o que apagou de fato dos depósitos. */
+create or replace function public.podcast_liberados(p_itens jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare i jsonb; n integer := 0;
+begin
+  perform interno.eu();
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  if jsonb_typeof(coalesce(p_itens, '[]'::jsonb)) <> 'array' or jsonb_array_length(p_itens) > 500 then perform interno.erro('invalido:itens'); end if;
+  for i in select * from jsonb_array_elements(p_itens) loop
+    delete from podcast_liberar where deposito = i ->> 'deposito' and caminho = i ->> 'caminho';
+    if found then
+      n := n + 1;
+      update podcast_arquivos set guardado = false where deposito = i ->> 'deposito' and caminho = i ->> 'caminho';
+    end if;
+  end loop;
+  return jsonb_build_object('liberados', n);
+end $$;
+
+/** Capa do episódio (3000×3000 e a miniatura). O design também pode pôr a capa que fez. */
+create or replace function public.podcast_capa_definir(p_episodio uuid, p_capa text, p_capa_mini text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare e podcast_episodios; v_padrao text := '^capas/[a-z0-9/_-]{8,120}[.](jpg|png|webp)$';
+begin
+  perform interno.eu();
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('edicao') or interno.podcast_pode('supervisao') or interno.tem('design')) then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_capa, '') !~ v_padrao or coalesce(p_capa_mini, '') !~ v_padrao then perform interno.erro('invalido:capa'); end if;
+  select * into e from podcast_episodios where id = p_episodio for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  insert into podcast_liberar (deposito, caminho, motivo)
+  select 'podcast', x, 'capa_trocada' from unnest(array[e.capa, e.capa_mini]) x where x <> '' and x not in (p_capa, p_capa_mini)
+  on conflict do nothing;
+  update podcast_episodios set capa = p_capa, capa_mini = p_capa_mini, atualizado_em = now(), versao = versao + 1 where id = e.id returning * into e;
+  perform interno.podcast_anotar(e.id, 'capa_definida');
+  return interno.podcast_resumo_json(e);
+end $$;
+
+-- ── Comentários com tempo ──
+
+create or replace function public.podcast_comentar(p_episodio uuid, p_texto text, p_tempo integer default null, p_arquivo uuid default null) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); e podcast_episodios; v_id uuid; r uuid;
+begin
+  if not interno.podcast_revisor() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('podcast_comentar', 120, 60);
+  select * into e from podcast_episodios where id = p_episodio;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if p_tempo is not null and p_tempo not between 0 and 36000 then perform interno.erro('invalido:tempo'); end if;
+  insert into podcast_comentarios (episodio, autor, texto, tempo, arquivo)
+  values (e.id, v, interno.txt(p_texto, 'texto', 1, 2000), p_tempo, (select id from podcast_arquivos where id = p_arquivo and episodio = e.id))
+  returning id into v_id;
+  for r in select distinct x from unnest(array[e.responsavel, e.criado_por, e.enviado_por]) x where x is not null and x <> v loop
+    perform interno.avisar(r, format('Podcast: novo comentário no episódio "%s".', e.titulo));
+  end loop;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.podcast_comentario_resolver(p_id uuid, p_resolvido boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.podcast_revisor() then perform interno.erro('sem_permissao'); end if;
+  update podcast_comentarios set resolvido = coalesce(p_resolvido, true) where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- ── Convidados ──
+
+create or replace function public.podcast_convidados_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v_contato boolean := interno.podcast_pode('producao') or interno.podcast_pode('supervisao');
+begin
+  perform interno.eu();
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(jsonb_build_object(
+      'id', c.id, 'nome', c.nome, 'minibio', c.minibio, 'contato', case when v_contato then c.contato else '' end,
+      'autoriza_voz', c.autoriza_voz, 'autoriza_imagem', c.autoriza_imagem, 'termo', case when v_contato then c.termo else '' end,
+      'aceite_nome', c.aceite_nome, 'aceite_em', c.aceite_em,
+      'link', case when v_contato and c.token_validade > now() then c.token end, 'link_validade', c.token_validade,
+      'episodios', (select coalesce(jsonb_agg(jsonb_build_object('id', e.id, 'titulo', e.titulo, 'status', e.status)), '[]'::jsonb) from podcast_episodios e where c.id = any(e.convidados)))
+    order by c.nome) from podcast_convidados c), '[]'::jsonb);
+end $$;
+
+/** Ficha do convidado. A autorização marcada à mão só vale com o termo assinado anexado; sem ele, só pelo aceite no link. */
+create or replace function public.podcast_convidado_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c podcast_convidados; v_termo text := btrim(coalesce(p ->> 'termo', ''));
+begin
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  if v_termo <> '' and v_termo !~ '^termos/[a-z0-9/_-]{8,120}[.](pdf|jpg|png|webp)$' then perform interno.erro('invalido:termo'); end if;
+  if p_id is null then
+    insert into podcast_convidados (nome, criado_por) values (interno.txt(p ->> 'nome', 'nome', 2, 120), v) returning * into c;
+  else
+    select * into c from podcast_convidados where id = p_id for update;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  if p ? 'termo' and c.termo <> '' and c.termo <> v_termo then
+    insert into podcast_liberar (deposito, caminho, motivo) values ('podcast-producao', c.termo, 'termo_trocado') on conflict do nothing;
+  end if;
+  update podcast_convidados set
+    nome = case when p ? 'nome' then interno.txt(p ->> 'nome', 'nome', 2, 120) else nome end,
+    contato = case when p ? 'contato' then interno.txt(p ->> 'contato', 'contato', 0, 300) else contato end,
+    minibio = case when p ? 'minibio' then interno.txt(p ->> 'minibio', 'minibio', 0, 600) else minibio end,
+    termo = case when p ? 'termo' then v_termo else termo end
+  where id = c.id returning * into c;
+  if p ? 'autoriza_voz' or p ? 'autoriza_imagem' then
+    if (coalesce(p ->> 'autoriza_voz', '') = 'true' or coalesce(p ->> 'autoriza_imagem', '') = 'true') and c.termo = '' and c.aceite_em is null then
+      perform interno.erro('falta_termo_convidado');
+    end if;
+    update podcast_convidados set
+      autoriza_voz = case when p ? 'autoriza_voz' then coalesce(p ->> 'autoriza_voz', '') = 'true' else autoriza_voz end,
+      autoriza_imagem = case when p ? 'autoriza_imagem' then coalesce(p ->> 'autoriza_imagem', '') = 'true' else autoriza_imagem end
+    where id = c.id returning * into c;
+  end if;
+  return jsonb_build_object('id', c.id);
+end $$;
+
+create or replace function public.podcast_convidado_remover(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare c podcast_convidados;
+begin
+  perform interno.eu();
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  select * into c from podcast_convidados where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if exists (select 1 from podcast_episodios where p_id = any(convidados) and publicado_em is not null) then perform interno.erro('em_uso'); end if;
+  update podcast_episodios set convidados = array_remove(convidados, p_id) where p_id = any(convidados);
+  if c.termo <> '' then insert into podcast_liberar (deposito, caminho, motivo) values ('podcast-producao', c.termo, 'convidado_removido') on conflict do nothing; end if;
+  delete from podcast_convidados where id = p_id;
+  return jsonb_build_object('liberar', coalesce((select jsonb_agg(jsonb_build_object('deposito', deposito, 'caminho', caminho)) from podcast_liberar), '[]'::jsonb));
+end $$;
+
+/** Link pessoal do convidado (30 dias): termo de cessão e teste de microfone, sem precisar de conta. */
+create or replace function public.podcast_convidado_link(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare c podcast_convidados;
+begin
+  perform interno.eu();
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  update podcast_convidados set token = interno.podcast_token(), token_validade = now() + interval '30 days' where id = p_id returning * into c;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('token', c.token, 'validade', c.token_validade);
+end $$;
+
+-- ── Biblioteca de áudios (vinhetas, trilhas e efeitos com licença registrada) ──
+
+create or replace function public.podcast_trilhas_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(to_jsonb(t) || jsonb_build_object('usos', (select count(*) from podcast_episodios e where t.id = any(e.trilhas))) order by t.tipo, t.titulo)
+                   from podcast_trilhas t), '[]'::jsonb);
+end $$;
+
+create or replace function public.podcast_trilha_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_caminho text := btrim(coalesce(p ->> 'caminho', '')); v_id uuid; v_antigo text;
+begin
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('edicao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  if v_caminho <> '' and v_caminho !~ '^trilhas/[a-z0-9/_-]{8,120}[.](mp3|m4a|ogg|opus|wav|flac)$' then perform interno.erro('invalido:caminho'); end if;
+  if coalesce(p ->> 'tipo', 'trilha') not in ('vinheta', 'trilha', 'efeito') then perform interno.erro('invalido:tipo'); end if;
+  if p_id is null then
+    insert into podcast_trilhas (titulo, autor, tipo, licenca, fonte, caminho, duracao, nota, criado_por)
+    values (interno.txt(p ->> 'titulo', 'titulo', 1, 160), interno.txt(p ->> 'autor', 'autor', 0, 120), coalesce(p ->> 'tipo', 'trilha'),
+            interno.txt(p ->> 'licenca', 'licenca', 2, 120), interno.podcast_link(p ->> 'fonte', 'fonte', 300), v_caminho,
+            coalesce(interno.podcast_int(p -> 'duracao', 'duracao', 0, 7200), 0), interno.txt(p ->> 'nota', 'nota', 0, 500), v)
+    returning id into v_id;
+  else
+    select caminho into v_antigo from podcast_trilhas where id = p_id for update;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+    if v_antigo <> '' and v_antigo <> v_caminho then
+      insert into podcast_liberar (deposito, caminho, motivo) values ('podcast-producao', v_antigo, 'trilha_trocada') on conflict do nothing;
+    end if;
+    update podcast_trilhas set titulo = interno.txt(p ->> 'titulo', 'titulo', 1, 160), autor = interno.txt(p ->> 'autor', 'autor', 0, 120), tipo = coalesce(p ->> 'tipo', 'trilha'),
+           licenca = interno.txt(p ->> 'licenca', 'licenca', 2, 120), fonte = interno.podcast_link(p ->> 'fonte', 'fonte', 300), caminho = v_caminho,
+           duracao = coalesce(interno.podcast_int(p -> 'duracao', 'duracao', 0, 7200), 0), nota = interno.txt(p ->> 'nota', 'nota', 0, 500)
+    where id = p_id returning id into v_id;
+  end if;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.podcast_trilha_remover(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare t podcast_trilhas;
+begin
+  perform interno.eu();
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('edicao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  select * into t from podcast_trilhas where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if exists (select 1 from podcast_episodios where p_id = any(trilhas) and publicado_em is not null) then perform interno.erro('em_uso'); end if;
+  update podcast_episodios set trilhas = array_remove(trilhas, p_id) where p_id = any(trilhas);
+  if t.caminho <> '' then insert into podcast_liberar (deposito, caminho, motivo) values ('podcast-producao', t.caminho, 'trilha_removida') on conflict do nothing; end if;
+  delete from podcast_trilhas where id = p_id;
+  return jsonb_build_object('liberar', coalesce((select jsonb_agg(jsonb_build_object('deposito', deposito, 'caminho', caminho)) from podcast_liberar), '[]'::jsonb));
+end $$;
+
+-- ── Pautas e perguntas, do lado da equipe ──
+
+create or replace function public.podcast_pautas_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('id', p.id, 'titulo', p.titulo, 'descricao', p.descricao, 'origem', p.origem, 'status', p.status, 'votos', p.votos,
+                                                       'episodio', p.episodio, 'criado_em', p.criado_em, 'autor', coalesce(f.nome, ''))
+                                    order by array_position(array['sugerida', 'votacao', 'escolhida', 'gravada', 'descartada'], p.status), p.votos desc, p.criado_em desc)
+                   from podcast_pautas p left join perfis f on f.id = p.autor), '[]'::jsonb);
+end $$;
+
+create or replace function public.podcast_pauta_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid;
+begin
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  if p_id is null then
+    insert into podcast_pautas (titulo, descricao, origem, autor, status)
+    values (interno.txt(p ->> 'titulo', 'titulo', 5, 140), interno.txt(p ->> 'descricao', 'descricao', 0, 1000), 'equipe', v, 'sugerida') returning id into v_id;
+  else
+    update podcast_pautas set titulo = interno.txt(p ->> 'titulo', 'titulo', 5, 140), descricao = interno.txt(p ->> 'descricao', 'descricao', 0, 1000)
+    where id = p_id returning id into v_id;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** Pôr em votação, escolher (ligando a um episódio), descartar. Escolher sem episódio cria a ideia de episódio. */
+create or replace function public.podcast_pauta_decidir(p_id uuid, p_status text, p_episodio uuid default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); p podcast_pautas; v_episodio uuid := p_episodio;
+begin
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_status, '') not in ('sugerida', 'votacao', 'escolhida', 'descartada') then perform interno.erro('invalido:status'); end if;
+  select * into p from podcast_pautas where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if p_status = 'escolhida' then
+    if v_episodio is null then
+      insert into podcast_episodios (titulo, tema, pauta, criado_por, responsavel) values (p.titulo, left(p.descricao, 300), p.descricao, v, v) returning id into v_episodio;
+      perform interno.podcast_anotar(v_episodio, 'criou', 'A partir da pauta "' || p.titulo || '".');
+    elsif not exists (select 1 from podcast_episodios where id = v_episodio) then
+      perform interno.erro('invalido:episodio');
+    end if;
+    if p.autor is not null and p.autor <> v then perform interno.avisar(p.autor, format('A pauta que você sugeriu ao podcast ("%s") foi escolhida para um episódio.', p.titulo)); end if;
+  end if;
+  update podcast_pautas set status = p_status, episodio = case when p_status = 'escolhida' then v_episodio else episodio end, decidido_em = now() where id = p_id;
+  return jsonb_build_object('episodio', v_episodio);
+end $$;
+
+create or replace function public.podcast_perguntas_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('id', q.id, 'texto', q.texto, 'assinatura', q.assinatura, 'audio', q.audio, 'status', q.status,
+                                                       'episodio', q.episodio, 'episodio_titulo', (select titulo from podcast_episodios where id = q.episodio),
+                                                       'criado_em', q.criado_em, 'autor', coalesce(f.nome, ''))
+                                    order by array_position(array['nova', 'escolhida', 'respondida', 'descartada'], q.status), q.criado_em desc)
+                   from (select * from podcast_perguntas order by criado_em desc limit 300) q left join perfis f on f.id = q.autor), '[]'::jsonb);
+end $$;
+
+create or replace function public.podcast_pergunta_decidir(p_id uuid, p_status text, p_episodio uuid default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare q podcast_perguntas;
+begin
+  perform interno.eu();
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_status, '') not in ('nova', 'escolhida', 'respondida', 'descartada') then perform interno.erro('invalido:status'); end if;
+  if p_episodio is not null and not exists (select 1 from podcast_episodios where id = p_episodio) then perform interno.erro('invalido:episodio'); end if;
+  update podcast_perguntas set status = p_status, episodio = coalesce(p_episodio, episodio) where id = p_id returning * into q;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if p_status = 'descartada' and q.audio <> '' then
+    insert into podcast_liberar (deposito, caminho, motivo) values ('podcast-producao', q.audio, 'pergunta_descartada') on conflict do nothing;
+  end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- ── Agenda das redes ──
+
+create or replace function public.podcast_postagens_listar(p_de date, p_ate date) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  if p_de is null or p_ate is null or p_ate < p_de or p_ate - p_de > 120 then perform interno.erro('invalido:periodo'); end if;
+  return coalesce((select jsonb_agg(to_jsonb(k) || jsonb_build_object('episodio_titulo', (select titulo from podcast_episodios where id = k.episodio)) order by k.quando)
+                   from podcast_postagens k where k.quando >= p_de and k.quando < p_ate + 1), '[]'::jsonb);
+end $$;
+
+create or replace function public.podcast_postagem_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid; v_quando timestamptz; v_episodio uuid;
+begin
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p ->> 'rede', '') not in ('instagram', 'tiktok', 'youtube', 'facebook', 'x', 'outra') then perform interno.erro('invalido:rede'); end if;
+  if coalesce(p ->> 'formato', 'corte') not in ('corte', 'arte', 'carrossel', 'story', 'video', 'texto') then perform interno.erro('invalido:formato'); end if;
+  if coalesce(p ->> 'status', 'planejada') not in ('planejada', 'pronta', 'publicada') then perform interno.erro('invalido:status'); end if;
+  begin
+    v_quando := (p ->> 'quando')::timestamptz;
+  exception when others then
+    perform interno.erro('invalido:quando');
+  end;
+  if v_quando is null then perform interno.erro('invalido:quando'); end if;
+  v_episodio := (interno.podcast_uuids(case when coalesce(p ->> 'episodio', '') = '' then '[]'::jsonb else jsonb_build_array(p ->> 'episodio') end, 'episodio', 1))[1];
+  if v_episodio is not null and not exists (select 1 from podcast_episodios where id = v_episodio) then perform interno.erro('invalido:episodio'); end if;
+  if p_id is null then
+    insert into podcast_postagens (episodio, rede, formato, quando, legenda, status, link, criado_por)
+    values (v_episodio, p ->> 'rede', coalesce(p ->> 'formato', 'corte'), v_quando, interno.txt(p ->> 'legenda', 'legenda', 0, 2200), coalesce(p ->> 'status', 'planejada'),
+            interno.podcast_link(p ->> 'link', 'link', 300), v)
+    returning id into v_id;
+  else
+    update podcast_postagens set episodio = v_episodio, rede = p ->> 'rede', formato = coalesce(p ->> 'formato', 'corte'), quando = v_quando,
+           legenda = interno.txt(p ->> 'legenda', 'legenda', 0, 2200), status = coalesce(p ->> 'status', 'planejada'), link = interno.podcast_link(p ->> 'link', 'link', 300)
+    where id = p_id returning id into v_id;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.podcast_postagem_remover(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  delete from podcast_postagens where id = p_id;
+  return jsonb_build_object('ok', found);
+end $$;
+
+-- ── Entregas e pagamentos ──
+
+/** A coordenação vê todas; cada profissional vê só as próprias. */
+create or replace function public.podcast_entregas_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(to_jsonb(d) || jsonb_build_object('profissional_nome', (select nome from perfis where id = d.profissional),
+                                                                       'episodio_titulo', (select titulo from podcast_episodios where id = d.episodio))
+                                    order by (d.pago_em is null) desc, d.prazo nulls last, d.criado_em desc)
+                   from podcast_entregas d where interno.coord() or d.profissional = v), '[]'::jsonb);
+end $$;
+
+create or replace function public.podcast_entrega_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid; v_prof uuid; v_ep uuid; v_valor numeric;
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  v_prof := (interno.podcast_uuids(case when coalesce(p ->> 'profissional', '') = '' then '[]'::jsonb else jsonb_build_array(p ->> 'profissional') end, 'profissional', 1))[1];
+  if v_prof is null or not exists (select 1 from perfis where id = v_prof) then perform interno.erro('invalido:profissional'); end if;
+  v_ep := (interno.podcast_uuids(case when coalesce(p ->> 'episodio', '') = '' then '[]'::jsonb else jsonb_build_array(p ->> 'episodio') end, 'episodio', 1))[1];
+  if coalesce(p ->> 'valor', '0') !~ '^[0-9]{1,7}([.,][0-9]{1,2})?$' then perform interno.erro('invalido:valor'); end if;
+  v_valor := replace(coalesce(p ->> 'valor', '0'), ',', '.')::numeric;
+  if p_id is null then
+    insert into podcast_entregas (profissional, episodio, descricao, prazo, valor, nota, criado_por)
+    values (v_prof, v_ep, interno.txt(p ->> 'descricao', 'descricao', 2, 300), interno.podcast_data(p ->> 'prazo', 'prazo'), v_valor, interno.txt(p ->> 'nota', 'nota', 0, 500), v)
+    returning id into v_id;
+    perform interno.avisar(v_prof, 'Podcast: uma entrega nova foi combinada com você. Veja em Podcast → Entregas.');
+  else
+    update podcast_entregas set profissional = v_prof, episodio = v_ep, descricao = interno.txt(p ->> 'descricao', 'descricao', 2, 300),
+           prazo = interno.podcast_data(p ->> 'prazo', 'prazo'), valor = v_valor, nota = interno.txt(p ->> 'nota', 'nota', 0, 500)
+    where id = p_id returning id into v_id;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** Quem entregou marca a entrega (ou desmarca); a coordenação marca o pagamento, com o recibo. */
+create or replace function public.podcast_entrega_marcar(p_id uuid, p_campo text, p_valor boolean, p_recibo text default '') returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); d podcast_entregas; v_recibo text := btrim(coalesce(p_recibo, ''));
+begin
+  select * into d from podcast_entregas where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if p_campo = 'entregue' then
+    if not (interno.coord() or (d.profissional = v and interno.podcaster())) then perform interno.erro('sem_permissao'); end if;
+    update podcast_entregas set entregue_em = case when coalesce(p_valor, true) then now() end where id = p_id;
+    if coalesce(p_valor, true) then perform interno.avisar_lideranca(format('Podcast: entrega marcada como feita ("%s").', d.descricao), v); end if;
+  elsif p_campo = 'pago' then
+    if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+    if v_recibo <> '' and (v_recibo !~ '^recibos/[a-z0-9/_-]{8,120}[.](pdf|jpg|png|webp)$' or split_part(v_recibo, '/', 2) <> d.profissional::text) then
+      perform interno.erro('invalido:recibo');
+    end if;
+    update podcast_entregas set pago_em = case when coalesce(p_valor, true) then now() end, recibo = case when v_recibo <> '' then v_recibo else recibo end where id = p_id;
+    if coalesce(p_valor, true) then perform interno.avisar(d.profissional, format('Podcast: o pagamento de "%s" foi registrado.', d.descricao)); end if;
+  else
+    perform interno.erro('invalido:campo');
+  end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.podcast_entrega_remover(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare d podcast_entregas;
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  delete from podcast_entregas where id = p_id returning * into d;
+  if found and d.recibo <> '' then insert into podcast_liberar (deposito, caminho, motivo) values ('podcast-producao', d.recibo, 'entrega_removida') on conflict do nothing; end if;
+  return jsonb_build_object('ok', found);
+end $$;
+
+-- ── Equipe do podcast, séries e configuração ──
+
+/** Quem está no departamento e o que faz no podcast. */
+create or replace function public.podcast_equipe() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(jsonb_build_object(
+      'id', f.id, 'nome', f.nome, 'jornalismo', exists (select 1 from papeis p where p.usuario = f.id and p.papel = 'jornalismo'),
+      'separadas', exists (select 1 from podcast_funcoes x where x.usuario = f.id),
+      'funcoes', coalesce((select jsonb_agg(x.funcao order by x.funcao) from podcast_funcoes x where x.usuario = f.id), '[]'::jsonb)) order by f.nome)
+    from perfis f where not f.suspenso and (exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('jornalismo', 'coordenacao', 'vice'))
+                                            or exists (select 1 from podcast_funcoes x where x.usuario = f.id))), '[]'::jsonb);
+end $$;
+
+/** A coordenação separa as tarefas de uma pessoa. Lista vazia: volta ao padrão (produção e edição, se for do jornalismo). */
+create or replace function public.podcast_funcoes_definir(p_usuario uuid, p_funcoes jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_lista text[];
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if not exists (select 1 from perfis where id = p_usuario) then perform interno.erro('nao_encontrado'); end if;
+  if jsonb_typeof(coalesce(p_funcoes, '[]'::jsonb)) <> 'array' then perform interno.erro('invalido:funcoes'); end if;
+  v_lista := array(select distinct x from jsonb_array_elements_text(coalesce(p_funcoes, '[]'::jsonb)) x);
+  if not (v_lista <@ array['producao', 'edicao', 'supervisao']) then perform interno.erro('invalido:funcoes'); end if;
+  delete from podcast_funcoes where usuario = p_usuario;
+  insert into podcast_funcoes (usuario, funcao) select p_usuario, x from unnest(v_lista) x;
+  perform interno.registrar('podcast_funcoes', p_usuario::text, jsonb_build_object('funcoes', to_jsonb(v_lista)));
+  perform interno.avisar(p_usuario, 'Suas tarefas no podcast mudaram. Veja em Podcast.');
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.podcast_serie_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_id uuid; v_titulo text := interno.txt(p ->> 'titulo', 'titulo', 2, 80); v_slug text; n integer := 1; v_capa text := btrim(coalesce(p ->> 'capa', '')); v_mini text := btrim(coalesce(p ->> 'capa_mini', ''));
+begin
+  perform interno.eu();
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  if (v_capa <> '' and v_capa !~ '^capas/[a-z0-9/_-]{8,120}[.](jpg|png|webp)$') or (v_mini <> '' and v_mini !~ '^capas/[a-z0-9/_-]{8,120}[.](jpg|png|webp)$') then
+    perform interno.erro('invalido:capa');
+  end if;
+  if p_id is null then
+    v_slug := btrim(left(replace(interno.normal(v_titulo), ' ', '-'), 58), '-');
+    if char_length(v_slug) < 2 then v_slug := 'serie'; end if;
+    while exists (select 1 from podcast_series where slug = v_slug || case when n > 1 then '-' || n else '' end) loop n := n + 1; end loop;
+    v_slug := v_slug || case when n > 1 then '-' || n else '' end;
+    insert into podcast_series (slug, titulo, descricao, capa, capa_mini, ordem, ativa)
+    values (v_slug, v_titulo, interno.txt(p ->> 'descricao', 'descricao', 0, 600), v_capa, v_mini, coalesce(interno.podcast_int(p -> 'ordem', 'ordem', 0, 999), 0),
+            coalesce(p ->> 'ativa', 'true') = 'true')
+    returning id into v_id;
+  else
+    update podcast_series set titulo = v_titulo, descricao = interno.txt(p ->> 'descricao', 'descricao', 0, 600), capa = v_capa, capa_mini = v_mini,
+           ordem = coalesce(interno.podcast_int(p -> 'ordem', 'ordem', 0, 999), 0), ativa = coalesce(p ->> 'ativa', 'true') = 'true'
+    where id = p_id returning id into v_id;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.podcast_serie_remover(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.podcast_pode('supervisao') then perform interno.erro('sem_permissao'); end if;
+  delete from podcast_series where id = p_id;
+  return jsonb_build_object('ok', found);
+end $$;
+
+/** Nome, descrição, dono do feed, categoria, links das plataformas e quantos episódios o depósito guarda. */
+create or replace function public.podcast_config_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_valor jsonb; v_email text := lower(btrim(coalesce(p ->> 'email', ''))); v_links jsonb := '{}'::jsonb; k text;
+  v_capa text := btrim(coalesce(p ->> 'capa', '')); v_mini text := btrim(coalesce(p ->> 'capa_mini', ''));
+begin
+  perform interno.eu();
+  if not interno.podcast_pode('supervisao') then perform interno.erro('sem_permissao'); end if;
+  if v_email <> '' and (v_email !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_email) > 200) then perform interno.erro('invalido:email'); end if;
+  if (v_capa <> '' and v_capa !~ '^capas/[a-z0-9/_-]{8,120}[.](jpg|png|webp)$') or (v_mini <> '' and v_mini !~ '^capas/[a-z0-9/_-]{8,120}[.](jpg|png|webp)$') then
+    perform interno.erro('invalido:capa');
+  end if;
+  foreach k in array array['spotify', 'apple', 'youtube', 'deezer', 'amazon', 'archive', 'instagram', 'tiktok'] loop
+    if coalesce(p -> 'links' ->> k, '') <> '' then v_links := v_links || jsonb_build_object(k, interno.podcast_link(p -> 'links' ->> k, 'links', 300)); end if;
+  end loop;
+  if coalesce(p ->> 'categoria', 'Education') not in ('Education', 'Society & Culture', 'History', 'News', 'Government') then perform interno.erro('invalido:categoria'); end if;
+  v_valor := jsonb_build_object(
+    'nome', interno.txt(p ->> 'nome', 'nome', 2, 120), 'descricao', interno.txt(p ->> 'descricao', 'descricao', 10, 4000), 'autor', interno.txt(p ->> 'autor', 'autor', 2, 120),
+    'email', v_email, 'categoria', coalesce(p ->> 'categoria', 'Education'), 'subcategoria', interno.txt(p ->> 'subcategoria', 'subcategoria', 0, 60),
+    'explicito', coalesce(p ->> 'explicito', '') = 'true', 'capa', v_capa, 'capa_mini', v_mini,
+    'guardados', coalesce(interno.podcast_int(p -> 'guardados', 'guardados', 1, 50), 10), 'links', v_links);
+  insert into configuracoes (chave, valor) values ('podcast', v_valor) on conflict (chave) do update set valor = excluded.valor;
+  perform interno.podcast_rodizio();
+  perform interno.registrar('podcast_configurado');
+  return v_valor;
+end $$;
+
+create or replace function public.podcast_estatisticas() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'episodios', coalesce((select jsonb_agg(jsonb_build_object('id', e.id, 'titulo', e.titulo, 'publicado_em', e.publicado_em,
+                                                               'total', (select coalesce(sum(total), 0) from podcast_audicoes where episodio = e.id),
+                                                               'mes', (select coalesce(sum(total), 0) from podcast_audicoes where episodio = e.id and dia > current_date - 30))
+                                            order by e.publicado_em desc)
+                           from podcast_episodios e where e.publicado_em is not null), '[]'::jsonb),
+    'dias', coalesce((select jsonb_agg(jsonb_build_object('dia', d.dia, 'total', coalesce((select sum(total) from podcast_audicoes a where a.dia = d.dia), 0)) order by d.dia)
+                      from (select generate_series(current_date - 29, current_date, interval '1 day')::date as dia) d), '[]'::jsonb));
+end $$;
+
+-- ── Pedidos de arte ao design ──
+
+create or replace function public.podcast_design_pedir(p_episodio uuid, p_texto text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid; v_titulo text; r record;
+begin
+  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('podcast_design', 20, 1440);
+  select titulo into v_titulo from podcast_episodios where id = p_episodio;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  insert into podcast_pedidos (episodio, texto, pedido_por) values (p_episodio, interno.txt(p_texto, 'texto', 5, 1000), v) returning id into v_id;
+  for r in select distinct usuario from papeis where papel = 'design' and usuario <> v loop
+    perform interno.avisar(r.usuario, format('Pedido de arte para o podcast: episódio "%s". Veja em Podcast → Pedidos de arte.', v_titulo));
+  end loop;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.podcast_pedidos_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.podcaster() or interno.tem('design')) then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('id', p.id, 'texto', p.texto, 'status', p.status, 'criado_em', p.criado_em, 'feito_em', p.feito_em,
+                                                       'episodio', p.episodio, 'episodio_titulo', e.titulo, 'capa_mini', e.capa_mini, 'numero', e.numero,
+                                                       'serie', (select titulo from podcast_series where id = e.serie),
+                                                       'pedido_por', (select nome from perfis where id = p.pedido_por), 'atendido_por', (select nome from perfis where id = p.atendido_por))
+                                    order by (p.status = 'aberto') desc, p.criado_em desc)
+                   from podcast_pedidos p left join podcast_episodios e on e.id = p.episodio), '[]'::jsonb);
+end $$;
+
+create or replace function public.podcast_pedido_concluir(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); p podcast_pedidos;
+begin
+  if not (interno.podcaster() or interno.tem('design')) then perform interno.erro('sem_permissao'); end if;
+  update podcast_pedidos set status = 'feito', atendido_por = v, feito_em = now() where id = p_id and status = 'aberto' returning * into p;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if p.pedido_por is distinct from v then perform interno.avisar(p.pedido_por, 'O design atendeu o seu pedido de arte para o podcast.'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Para a transcrição automática (função do serviço): onde está o áudio. Quem pede precisa poder editar o episódio. */
+create or replace function public.podcast_para_transcrever(p_id uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare e podcast_episodios;
+begin
+  perform interno.eu();
+  if not (interno.podcast_pode('producao') or interno.podcast_pode('edicao') or interno.podcast_pode('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  select * into e from podcast_episodios where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('audio', case when e.audio_guardado then e.audio else '' end, 'bytes', e.audio_bytes, 'tipo', e.audio_tipo, 'externo', e.audio_externo, 'versao', e.versao);
+end $$;
+
+-- ── Permissões das funções do podcast ──
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura, n.nspname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where p.prokind = 'f' and ((n.nspname = 'interno' and p.proname like 'podcast%') or (n.nspname = 'public' and p.proname like 'podcast\_%')) loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    if f.nspname = 'public' then
+      execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+    else
+      execute format('revoke all on function %s from anon, authenticated', f.assinatura);
+    end if;
+  end loop;
+end $$;
+
+-- ── Depósitos do podcast ──
+
+-- "podcast" é público para leitura (o áudio no ar e as capas); só o departamento envia e apaga, e o design envia capas.
+-- "podcast-producao" é fechado: versões de trabalho, trilhas, termos dos convidados, recibos e perguntas gravadas.
+-- O limite de 50 MB por arquivo é o do plano gratuito do serviço; arquivo maior entra como link (Internet Archive, Drive).
+do $$
+begin
+  if exists (select 1 from pg_namespace where nspname = 'storage') then
+    insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+    values ('podcast', 'podcast', true, 52428800, array['audio/mpeg', 'audio/mp4', 'audio/x-m4a', 'audio/ogg', 'audio/opus', 'image/jpeg', 'image/png', 'image/webp'])
+    on conflict (id) do update set public = true, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+    insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+    values ('podcast-producao', 'podcast-producao', false, 52428800, array['audio/mpeg', 'audio/mp4', 'audio/x-m4a', 'audio/ogg', 'audio/opus', 'audio/wav', 'audio/x-wav',
+            'audio/wave', 'audio/flac', 'audio/x-flac', 'audio/aac', 'audio/webm', 'video/mp4', 'video/webm', 'video/quicktime', 'application/pdf', 'image/jpeg',
+            'image/png', 'image/webp', 'application/zip'])
+    on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+
+    execute 'drop policy if exists "podcast_envio" on storage.objects';
+    execute 'create policy "podcast_envio" on storage.objects for insert to authenticated with check (bucket_id = ''podcast'' and ('
+         || '((storage.foldername(name))[1] = ''ep'' and interno.podcaster()) or ((storage.foldername(name))[1] = ''capas'' and (interno.podcaster() or interno.tem(''design'')))))';
+    execute 'drop policy if exists "podcast_remocao" on storage.objects';
+    execute 'create policy "podcast_remocao" on storage.objects for delete to authenticated using (bucket_id = ''podcast'' and interno.podcaster())';
+
+    execute 'drop policy if exists "podcast_producao_leitura" on storage.objects';
+    execute 'create policy "podcast_producao_leitura" on storage.objects for select to authenticated using (bucket_id = ''podcast-producao'' and ('
+         || '((storage.foldername(name))[1] in (''ep'', ''trilhas'') and interno.podcast_revisor())'
+         || ' or ((storage.foldername(name))[1] = ''termos'' and (interno.podcast_pode(''producao'') or interno.podcast_pode(''supervisao'')))'
+         || ' or ((storage.foldername(name))[1] = ''recibos'' and (interno.coord() or (storage.foldername(name))[2] = auth.uid()::text))'
+         || ' or ((storage.foldername(name))[1] = ''perguntas'' and (interno.podcaster() or (storage.foldername(name))[2] = auth.uid()::text))))';
+    execute 'drop policy if exists "podcast_producao_envio" on storage.objects';
+    execute 'create policy "podcast_producao_envio" on storage.objects for insert to authenticated with check (bucket_id = ''podcast-producao'' and ('
+         || '((storage.foldername(name))[1] in (''ep'', ''trilhas'', ''termos'') and interno.podcaster())'
+         || ' or ((storage.foldername(name))[1] = ''recibos'' and interno.coord())'
+         || ' or ((storage.foldername(name))[1] = ''perguntas'' and (storage.foldername(name))[2] = auth.uid()::text)))';
+    execute 'drop policy if exists "podcast_producao_remocao" on storage.objects';
+    execute 'create policy "podcast_producao_remocao" on storage.objects for delete to authenticated using (bucket_id = ''podcast-producao'' and interno.podcaster())';
+
+    execute 'grant usage on schema interno to authenticated';
+    execute 'grant execute on function interno.podcaster() to authenticated';
+    execute 'grant execute on function interno.podcast_pode(text) to authenticated';
+    execute 'grant execute on function interno.podcast_revisor() to authenticated';
+    execute 'grant execute on function interno.tem(text, text) to authenticated';
+    execute 'grant execute on function interno.coord() to authenticated';
+  end if;
+end $$;
+
+do $$
+begin
+  if exists (select 1 from pg_extension where extname = 'pg_cron') then
+    perform cron.schedule('lucia-podcast', '41 6 * * *', 'select interno.podcast_limpeza()');
   end if;
 exception when others then null;
 end $$;

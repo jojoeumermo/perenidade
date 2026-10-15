@@ -7,6 +7,8 @@ import { PageHeading } from "@/components/PageHeading";
 import { CodeRunner } from "@/components/tools/CodeRunner";
 import { Keyboard, Metronome, NoteReading, Tuner } from "@/components/tools/Music";
 import { Pronounce } from "@/components/tools/Pronounce";
+import { Graphs } from "@/components/tools/Graficos";
+import { Dictionary, Sentences } from "@/components/tools/Idiomas";
 import { Calculator, CompoundInterest, NumberBases, PeriodicTable } from "@/components/tools/Science";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
@@ -49,6 +51,9 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
     "juros-compostos": <CompoundInterest s={s.interest} lang={lang} />,
     "bases-numericas": <NumberBases s={s.bases} />,
     pronuncia: <Pronounce s={s.speak} initial={lang === "en" ? "es" : "en"} />,
+    dicionario: <Dictionary s={s.dictionary} initial={lang === "en" ? "en" : "pt"} />,
+    frases: <Sentences s={s.sentences} initial={lang === "en" ? "fra" : "eng"} />,
+    graficos: <Graphs s={s.graphs} lang={lang} />,
   };
 
   return (

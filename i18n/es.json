@@ -36,6 +36,7 @@
     "loading": "Cargando…"
   },
   "nav": {
+    "podcasts": "Pódcasts",
     "main": "Principal",
     "disciplines": "Asignaturas",
     "library": "Acervo",
@@ -72,7 +73,8 @@
     "terms": "Términos de uso",
     "start": "Por dónde empezar",
     "news": "Noticias",
-    "gallery": "Galería de carteles"
+    "gallery": "Galería de carteles",
+    "data": "Datos del pueblo"
   },
   "footer": {
     "tagline": "Conocimiento libre, para todos, para siempre.",
@@ -138,7 +140,9 @@
     "ctaButton": "Enviar una contribución",
     "questionsTitle": "Empieza por una pregunta",
     "shelvesHint": "Son muchas. Elige lo esencial o la etapa que quieres estudiar.",
-    "tryLabel": "Prueba:"
+    "tryLabel": "Prueba:",
+    "onThisDay": "Un día como hoy",
+    "onThisDaySource": "Hechos seleccionados por Wikipedia para la fecha de hoy. Texto de Wikipedia, licencia CC BY-SA."
   },
   "areas": {
     "portugues": [
@@ -892,6 +896,18 @@
     "pronuncia": [
       "Pronunciación",
       "Escucha cualquier frase en inglés, español, chino o ruso, a la velocidad que quieras."
+    ],
+    "dicionario": [
+      "Diccionario",
+      "Significado de las palabras en portugués y en inglés, con la fuente de cada definición."
+    ],
+    "frases": [
+      "Frases traducidas",
+      "Frases reales en inglés, francés y español, con la traducción al lado."
+    ],
+    "graficos": [
+      "Gráficos y álgebra",
+      "Dibuja gráficos de funciones, simplifica expresiones y calcula derivadas."
     ]
   },
   "tools": {
@@ -1027,6 +1043,36 @@
       "noVoice": "Tu dispositivo no tiene una voz instalada para este idioma. Instala el paquete de voz en la configuración del sistema o prueba con otro navegador.",
       "unsupported": "Este navegador no tiene lectura en voz alta.",
       "note": "La voz es la de tu propio dispositivo: la calidad cambia de un dispositivo a otro, y nada de lo que escribes se envía fuera. Escucha, repite en voz alta y compara."
+    },
+    "dictionary": {
+      "word": "Palabra",
+      "language": "Diccionario",
+      "search": "Buscar",
+      "none": "No encontramos esa palabra. Revisa la ortografía.",
+      "fail": "El diccionario no respondió ahora. Inténtalo de nuevo en un momento.",
+      "source": "Fuente:",
+      "oldSpelling": "definiciones de 1913, con la ortografía de la época"
+    },
+    "sentences": {
+      "word": "Palabra o fragmento",
+      "from": "Frase en",
+      "to": "Traducción en",
+      "search": "Buscar",
+      "none": "No se encontró ninguna frase. Prueba una palabra más común.",
+      "fail": "Tatoeba no respondió ahora. Inténtalo de nuevo en un momento.",
+      "same": "Elige dos idiomas distintos."
+    },
+    "graphs": {
+      "loading": "Cargando la calculadora…",
+      "invalid": "No pudimos entender esta expresión. Usa x, +, -, *, /, ^ y funciones como sin(x) o sqrt(x).",
+      "from": "x de",
+      "to": "a",
+      "badRange": "El inicio debe ser menor que el final.",
+      "algebra": "Simplificar y derivar",
+      "expression": "Expresión en x",
+      "simplified": "Simplificada",
+      "derivative": "Derivada",
+      "hint": "Escribe como en la calculadora: 3x^2 + 2x - 1, sqrt(x), sin(x), log(x), e. Sirven punto o coma para decimales."
     }
   },
   "journal": {
@@ -1063,7 +1109,14 @@
     "title": "Verificación de hechos",
     "lead": "Rumores y medias verdades que circulan por ahí, contrastados con fuentes públicas.",
     "empty": "Todavía no hay verificaciones publicadas.",
-    "claim": "Lo que se dice"
+    "claim": "Lo que se dice",
+    "searchTitle": "¿Ya fue verificado?",
+    "searchLead": "Busca el rumor en las verificaciones publicadas por agencias como Lupa y Aos Fatos.",
+    "searchPlaceholder": "Ej.: vacuna, urna electrónica, salario mínimo",
+    "searchButton": "Buscar",
+    "searchNone": "No se encontró ninguna verificación con esas palabras. Prueba otras.",
+    "searchFail": "La búsqueda no respondió ahora. Inténtalo de nuevo en un momento.",
+    "searchSource": "Resultados de Google Fact Check Tools. Cada verificación es de la agencia que la publicó: abre el enlace para leerla."
   },
   "debates": {
     "eyebrow": "Argumentos a mano",
@@ -1102,6 +1155,7 @@
     "lead": "Lo que no cupo en el menú, reunido en un solo lugar.",
     "critical": "Lectura crítica",
     "items": {
+      "podcasts": "Episodios de formación para escuchar en el autobús, en la cocina o en la pausa del trabajo.",
       "tools": "Afinador, editor de código, tabla periódica y otras.",
       "questions": "Dudas de la vida diaria que llevan a las lecciones adecuadas.",
       "glossary": "Los términos difíciles en lenguaje sencillo.",
@@ -1128,7 +1182,8 @@
       "support": "Ayuda a pagar el servidor y el dominio.",
       "start": "Libros cortos y clases para dar los primeros pasos.",
       "news": "Titulares de medios populares, independientes y públicos, actualizados solos.",
-      "gallery": "Carteles e imágenes de la lucha de los trabajadores, con la historia de cada uno."
+      "gallery": "Carteles e imágenes de la lucha de los trabajadores, con la historia de cada uno.",
+      "data": "Salario mínimo, inflación, intereses, desempleo y lo que votó la Cámara, de fuentes oficiales."
     }
   },
   "support": {
@@ -1191,9 +1246,18 @@
     "createWhy": "La cuenta sirve para preguntar y responder en la Comunidad. Lo que respeta las reglas aparece al instante; la mediación acompaña e interviene cuando hace falta. Guardamos solo tu correo; el nombre que aparece en el sitio nace como un seudónimo, que puedes cambiar.",
     "createFailed": "No fue posible crear la cuenta. Este correo quizá ya tiene cuenta, o el registro puede estar cerrado en este momento.",
     "volunteerLink": "¿Quieres ser voluntario? Completa la candidatura",
-    "whyClosed": "Aquí no hay \"olvidé mi contraseña\" y, por ahora, las cuentas se crean por invitación de la coordinación. ¿Perdiste la contraseña? Habla con quien te invitó."
+    "whyClosed": "Aquí no hay \"olvidé mi contraseña\" y, por ahora, las cuentas se crean por invitación de la coordinación. ¿Perdiste la contraseña? Habla con quien te invitó.",
+    "leaked": "Esta contraseña ya apareció en filtraciones de otros sitios y es de las primeras que prueba un atacante. Elige otra. (La verificación no envía tu contraseña a nadie.)"
   },
   "radio": {
+    "back15": "Retroceder 15 segundos",
+    "forward30": "Avanzar 30 segundos",
+    "speed": "Velocidad",
+    "position": "Posición en el episodio",
+    "openEpisode": "Abrir el episodio",
+    "related": "Para escuchar",
+    "relatedLead": "Episodios del pódcast que acompañan esta asignatura.",
+    "newEpisode": "Episodio nuevo",
     "eyebrow": "Al aire",
     "title": "Rádio Lúcia",
     "lead": "Música y palabra para acompañar el estudio.",
@@ -1481,11 +1545,194 @@
       "mediacao": "Mediador(a) de la comunidad",
       "revisao": "Revisor(a)",
       "traducao": "Traductor(a)",
-      "jornalismo": "Periodista y locutor(a) de radio",
+      "jornalismo": "Periodista, locutor(a) de radio o podcaster",
       "mentoria": "Clase de refuerzo",
       "design": "Diseñador(a)",
       "desenvolvimento": "Infraestructura y desarrollo",
       "curadoria": "Curador(a)"
     }
+  },
+  "podcast": {
+    "title": "Pódcasts",
+    "eyebrow": "Escucha y estudia",
+    "lead": "Conversaciones de formación política y popular: historia, economía, lucha social y el ENEM de Brasil. Gratis, con transcripción y fuentes.",
+    "newest": "Nuevo",
+    "season": "Temporada",
+    "episode": "Episodio",
+    "openEpisode": "Ver el episodio",
+    "soon": "Próximamente",
+    "soonText": "El primer episodio está en producción. Mientras tanto, vota los temas y envía tu pregunta.",
+    "subscribe": "Suscríbete",
+    "subscribeLead": "Escucha en la aplicación que ya usas, o copia la dirección del feed (RSS) en cualquier reproductor de pódcasts.",
+    "copyFeed": "Copiar",
+    "copied": "Copiado",
+    "guestNote": "¿Vas a participar en un episodio?",
+    "micTitle": "Prueba tu micrófono",
+    "micShort": "Micrófono",
+    "listen": "Escuchar",
+    "pause": "Pausar",
+    "all": "Todo",
+    "filters": "Filtrar episodios",
+    "recent": "Episodios recientes",
+    "series": "Series",
+    "episodes": "episodios",
+    "allEpisodes": "Todos los episodios",
+    "openDiscipline": "Abrir el estante de",
+    "themes": {
+      "historia": "Historia",
+      "economia": "Economía",
+      "luta-social": "Lucha social",
+      "enem": "ENEM",
+      "filosofia": "Filosofía",
+      "cultura": "Cultura",
+      "ciencia": "Ciencia",
+      "trabalho": "Trabajo",
+      "educacao": "Educación",
+      "internacional": "Internacional",
+      "memoria": "Memoria",
+      "atualidade": "Actualidad"
+    },
+    "position": "Posición en el episodio",
+    "chapters": "Capítulos",
+    "searchTranscript": "Buscar en la transcripción",
+    "playFrom": "Escuchar desde",
+    "noMatch": "No se encontró nada.",
+    "commentBlocked": "El mensaje no pasó las reglas de la comunidad.",
+    "commentHeld": "Recibido: el mensaje aparecerá después de la lectura de la mediación.",
+    "tooMany": "Demasiados envíos en poco tiempo. Inténtalo más tarde.",
+    "commentsClosed": "Los comentarios de este episodio están cerrados.",
+    "failed": "No funcionó. Inténtalo de nuevo.",
+    "commentsEmpty": "Nadie ha comentado todavía. Empieza la conversación.",
+    "team": "equipo",
+    "waitingModeration": "esperando la mediación",
+    "commentLabel": "¿Qué te pareció? ¿Te quedó alguna duda?",
+    "comment": "Comentar",
+    "commentRules": "Las mismas reglas de la comunidad: respeto, sin datos personales, con fuente cuando afirmes un hecho.",
+    "signIn": "Entra",
+    "signInToComment": "para comentar.",
+    "copyLink": "Copia la dirección:",
+    "share": "Compartir",
+    "refused": "El texto tiene palabras que el filtro de la comunidad no acepta.",
+    "paused": "Los envíos están pausados por ahora.",
+    "signInWhy": "para participar. Es gratis.",
+    "voteTitle": "Vota los próximos temas",
+    "voteLead": "El equipo elige los próximos temas según lo que la comunidad más quiere escuchar.",
+    "voteEmpty": "No hay temas en votación ahora.",
+    "signInToVote": "Entra en tu cuenta para votar.",
+    "unvote": "Quitar el voto",
+    "vote": "Votar",
+    "chosen": "Elegidos",
+    "recorded": "ya publicado",
+    "inProduction": "en producción",
+    "suggestTitle": "Sugerir un tema",
+    "suggestLabel": "Tema",
+    "suggestWhy": "¿Por qué este tema? (opcional)",
+    "suggest": "Sugerir",
+    "suggested": "Sugerencia enviada. El equipo la lee y decide si va a votación.",
+    "stop": "Detener",
+    "discard": "Descartar",
+    "record": "Grabar la pregunta",
+    "micDenied": "El navegador no permitió usar el micrófono. Habilita el acceso en la configuración del sitio.",
+    "askTitle": "Pregúntale al pódcast",
+    "askLead": "Envía tu pregunta por escrito o con tu voz. Las elegidas se responden en los episodios.",
+    "askText": "Tu pregunta",
+    "askSign": "¿Cómo quieres que te llamemos al aire? (opcional)",
+    "askSignExample": "Ana, de Recife",
+    "askSend": "Enviar pregunta",
+    "askPrivacy": "Solo el equipo del pódcast la escucha y la lee. Si la pregunta sale al aire, solo aparece la firma que elijas.",
+    "askSent": "Pregunta enviada. ¡Gracias!",
+    "micTooHot": "Está saturando: aléjate un palmo del micrófono o baja el volumen de entrada.",
+    "micTooLow": "La voz está baja: acércate (un palmo) o sube el volumen de entrada.",
+    "micVoiceOk": "El volumen de la voz está bien.",
+    "micNoisy": "Hay mucho ruido de fondo: apaga ventiladores y neveras cercanos, cierra la ventana, graba en una habitación con telas (cortinas, sofá, ropa).",
+    "micQuiet": "El ambiente está silencioso.",
+    "micCloser": "La voz está poco por encima del ruido: acércate al micrófono.",
+    "micLead": "Comprueba el nivel de tu voz y el ruido del ambiente antes de grabar. Nada sale de tu dispositivo.",
+    "micStart": "Encender el micrófono",
+    "micDevice": "Micrófono",
+    "micLevel": "Nivel ahora",
+    "micTarget": "Hablando normalmente, el nivel debe quedarse casi todo en verde, sin llegar al rojo.",
+    "micSilence": "Silencio durante 5 segundos…",
+    "micSpeak": "Ahora lee la frase en voz alta…",
+    "micGuided": "Hacer la prueba guiada (11 segundos)",
+    "micSentence": "“El conocimiento es de todos, y quien estudia en grupo aprende más rápido.”",
+    "micNoise": "Ruido",
+    "micVoice": "Voz",
+    "micPeak": "Pico",
+    "micListen": "Escucha cómo quedó:",
+    "micStop": "Apagar el micrófono",
+    "micTipsTitle": "Consejos para grabar bien en casa",
+    "micTips": [
+      "Usa auriculares durante la grabación: el sonido de la conversación no vuelve al micrófono.",
+      "Quédate a un palmo del micrófono, un poco de lado, para que las “p” y “b” no revienten.",
+      "Graba en una habitación pequeña y llena de cosas (ropa, libros, cortinas): la pared vacía hace eco.",
+      "Celular en modo avión y notificaciones del ordenador apagadas.",
+      "Unos auriculares con micrófono de celular ya sirven. El micrófono del portátil capta el teclado y el ventilador."
+    ],
+    "guestInvalid": "Este enlace no existe o ya venció. Pide uno nuevo a quien te invitó.",
+    "guestHello": "Hola,",
+    "guestAccepted": "Término aceptado el",
+    "guestWithImage": "Autorizaste el uso de tu voz y de tu imagen.",
+    "guestVoiceOnly": "Autorizaste el uso de tu voz.",
+    "guestName": "Tu nombre completo",
+    "guestVoice": "Leí y autorizo el uso de mi voz, según el término de arriba.",
+    "guestImage": "También autorizo el uso de mi imagen (foto o video de la grabación).",
+    "guestAccept": "Aceptar el término",
+    "guestRecordTitle": "Si la grabación es a distancia",
+    "guestRecordSteps": [
+      "Entra en la sala por el enlace que te envió la producción, con auriculares.",
+      "Si la producción lo pide, graba también tu voz en tu dispositivo (grabadora del celular, Audacity o la propia aplicación de la llamada), de principio a fin.",
+      "Al final, envía el archivo a la producción por el medio acordado. Tu pista local suena mucho mejor que la llamada.",
+      "Si se cae internet, sigue grabando en tu dispositivo y vuelve a la sala en cuanto puedas."
+    ],
+    "guestTitle": "Invitado del pódcast",
+    "guestLead": "Gracias por participar. Aquí lees y aceptas el término de uso de voz y pruebas tu micrófono.",
+    "plays": "reproducciones",
+    "guests": "Invitados",
+    "download": "Descargar el audio",
+    "notes": "Notas del episodio",
+    "citedWorks": "Obras citadas",
+    "sources": "Fuentes",
+    "transcript": "Transcripción",
+    "downloadCaptions": "Descargar los subtítulos (.vtt)",
+    "conversation": "Conversación",
+    "more": "Para escuchar después"
+  },
+  "povo": {
+    "eyebrow": "Conciencia política",
+    "title": "Datos del pueblo",
+    "lead": "Los números que más pesan en la vida de quien trabaja y lo que vota la Cámara de Diputados de Brasil, directo de las fuentes oficiales. Actualizados cada pocas horas.",
+    "economy": "Salario, precios y empleo",
+    "indicators": {
+      "salario": [
+        "Salario mínimo",
+        "Valor mensual del salario mínimo nacional (Brasil)."
+      ],
+      "ipca": [
+        "Inflación en 12 meses",
+        "IPCA acumulado en doce meses: cuánto subieron los precios en un año."
+      ],
+      "selic": [
+        "Interés básico (Selic)",
+        "Meta anual de la tasa Selic, definida por el Banco Central. Encarece o abarata el crédito."
+      ],
+      "desocupacao": [
+        "Desempleo",
+        "Tasa de desocupación de la PNAD Contínua, en trimestre móvil."
+      ],
+      "populacao": [
+        "Población de Brasil",
+        "Estimación oficial del IBGE."
+      ]
+    },
+    "reference": "Referencia",
+    "votes": "Lo que votó la Cámara",
+    "votesLead": "Las últimas votaciones en el Pleno de la Cámara de Diputados, tal como las describe la propia Cámara (en portugués).",
+    "approved": "aprobado",
+    "rejected": "rechazado",
+    "seeSession": "Ver la sesión en el sitio de la Cámara",
+    "votesSource": "Fuente: Datos Abiertos de la Cámara de Diputados.",
+    "unavailable": "La fuente no respondió ahora. Vuelve en algunas horas.",
+    "note": "Todos los números vienen de las fuentes indicadas en cada recuadro, sin ajustes nuestros. Si una fuente no responde, el recuadro desaparece en vez de mostrar un número viejo."
   }
 }

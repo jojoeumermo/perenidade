@@ -36,9 +36,11 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         [n.timeline, "/linha-do-tempo", d.timeline],
         [n.gallery, "/galeria", d.gallery],
         [n.factCheck, "/checagens", d.factCheck],
+        [n.data, "/dados", d.data],
         [n.debates, "/debates", d.debates],
         [n.news, "/noticias", d.news],
         [n.journal, "/jornal", d.journal],
+        [n.podcasts, "/podcasts", d.podcasts],
         [n.radio, "/radio", d.radio],
         [n.mural, "/mural", d.mural],
         [n.materials, "/materiais", d.materials],
@@ -67,7 +69,7 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
       {/* No celular e no tablet o idioma sai da barra de cima e mora aqui. */}
       <label className="mt-6 hidden items-center justify-between gap-4 border-2 border-ink bg-parchment-deep px-4 py-2 font-sans max-lg:flex app:flex [&_select]:max-w-none">
         {t.common.language}
-        <LanguageSwitcher />
+        <LanguageSwitcher wide />
       </label>
       {/* Na tela grande, cartões; no celular, uma lista corrida de linhas largas, como a tela de ajustes do aparelho. */}
       {sections.map(([title, items]) => (

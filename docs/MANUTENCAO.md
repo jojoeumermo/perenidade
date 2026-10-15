@@ -253,6 +253,8 @@ Para ativar, nesta ordem:
 6. Ligue no SQL Editor: `select public.comunidade_avaliacao_externa(true);`. Escreva uma mensagem de teste e confira que ela aparece em instantes. Se ficar na fila com "a segunda avaliação não respondeu", veja o registro da função (ele diz o tipo de falha, nunca a chave nem o texto).
 7. Para desligar a qualquer momento: `select public.comunidade_avaliacao_externa(false);`. Volta a valer só a primeira camada, na hora.
 
+**Conferência de links (opcional).** Com o segredo `GOOGLE_SAFE_BROWSING_KEY` na mesma função (`supabase secrets set GOOGLE_SAFE_BROWSING_KEY=...`), os endereços de site que aparecem numa mensagem são conferidos no Google Safe Browsing (golpe, programa malicioso, página enganosa; uso não comercial). Só os endereços saem, nunca o texto. Link perigoso, ou link que não deu para conferir, manda a mensagem para a fila de revisão; nada é publicado nem barrado só por isso. Sem o segredo, mensagem com link vai para a fila, como já acontecia.
+
 As conferências dessa parte são `npm run testar:moderacao` (a chamada ao serviço, simulada, sem rede e sem chave) e a seção "segunda avaliação" de `npm run testar:banco` (o que o banco faz com cada resultado).
 
 O **Mural dos Trabalhadores** é decidido pela coordenação e pela mediação, que também pode acertar o texto de um anúncio pendente. Retirar do ar um anúncio já aprovado continua só com a coordenação, na aba **No ar** da seção: o anúncio passa a "não aprovado", com o motivo que quem anunciou lê em "Meus anúncios", e nada é apagado na hora.
@@ -297,12 +299,12 @@ Para ligar, uma vez só:
 
 1. Crie uma conta em resend.com e acrescente o domínio `institutolucia.org` em **Domains**. O Resend mostra três ou quatro registros de DNS (SPF, DKIM e, se quiser, DMARC): copie cada um para **Cloudflare → DNS** do domínio, com a nuvem laranja **desligada** (só DNS). Espere o Resend marcar o domínio como verificado.
 2. Gere uma chave em **API Keys** com permissão só de envio (*Sending access*), restrita ao domínio.
-3. No GitHub, em **Settings → Secrets and variables → Actions**: segredo `RESEND_API_KEY` com a chave; variável `EMAIL_REMETENTE` com `Instituto Lúcia <contato@institutolucia.org>`; variável `EMAILS` com `sim`. Os segredos `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` já existem (são os da publicação).
-4. Para receber as respostas: em **Cloudflare → Email → Email Routing**, ligue o roteamento e crie a regra `contato@institutolucia.org` → o seu e-mail pessoal. Depois crie a variável `EMAIL_RESPOSTA` com `contato@institutolucia.org`. O Email Routing só recebe e encaminha; quem envia é o Resend.
+3. No GitHub, em **Settings → Secrets and variables → Actions**: segredo `RESEND_API_KEY` com a chave; variável `EMAIL_REMETENTE` com `Instituto Lúcia <noreply@institutolucia.org>`; variável `EMAIL_RESPOSTA` com `institutolucia@tutamail.com`; variável `EMAILS` com `sim`. Os segredos `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` já existem (são os da publicação).
+4. Respostas: os e-mails saem de `noreply@institutolucia.org`, endereço que não recebe nada, e levam `institutolucia@tutamail.com` como "responder para". Quem clica em responder escreve direto para a caixa do instituto. O Email Routing do Cloudflare não é necessário para isso; ele só serviria para criar caixas de entrada com o domínio do site.
 5. Rode o `supabase/install.sql` no SQL Editor (ele cria a fila e liga os envios no banco).
 6. Em **Actions → Enviar e-mails → Run workflow**, rode uma vez e confira o registro: "N enviado(s)".
 
-Os e-mails da própria entrada (confirmar o cadastro, trocar a senha) não passam por aqui: quem manda é o serviço de contas. O servidor de e-mail padrão do Supabase manda pouquíssimos por hora e só serve para teste. Com o cadastro aberto, use o mesmo Resend em **Supabase → Authentication → SMTP Settings** (servidor `smtp.resend.com`, porta 465, usuário `resend`, senha = uma chave do Resend, remetente `contato@institutolucia.org`).
+Os e-mails da própria entrada (confirmar o cadastro, trocar a senha) não passam por aqui: quem manda é o serviço de contas. O servidor de e-mail padrão do Supabase manda pouquíssimos por hora e só serve para teste. Com o cadastro aberto, use o mesmo Resend em **Supabase → Authentication → SMTP Settings** (servidor `smtp.resend.com`, porta 465, usuário `resend`, senha = uma chave do Resend, remetente `noreply@institutolucia.org`).
 
 ## 7. Como uma contribuição vira página
 
@@ -408,3 +410,23 @@ A página **Notícias** lê os endereços de distribuição (RSS) dos veículos 
 ## 18. Histórico público
 
 A página de histórico de mudanças mostra, para cada dia a partir da data em `historyFrom` (em `lib/site.ts`), o tipo de conteúdo que mudou e quantos itens ("Aulas: 12 · Obras do acervo: 73"). Ela lê do git só a data e os arquivos de `content/`: a mensagem, o autor e o código de cada registro são da equipe e não aparecem no site. Com `historyFrom` vazio, a página sai do ar e o quadro da página inicial some.
+
+## Serviços abertos de fora
+
+Algumas partes do site usam dados de serviços públicos e abertos. Todos são consultados pelo **servidor do site** (rotas em `app/api/` e `lib/dados.ts`, com a lista de destinos permitidos em `lib/externo.ts`), nunca pelo navegador de quem visita: o visitante só fala com o nosso domínio, a política de segurança das páginas continua igual e nenhum serviço de fora fica sabendo quem leu o quê. Cada resposta fica guardada no servidor por horas ou dias, para não sobrecarregar ninguém. Se um serviço não responde, a parte dele some ou avisa; nada quebra e nenhum número é inventado.
+
+| Onde aparece | Serviço | Chave |
+| --- | --- | --- |
+| Página **Dados do povo** (`/dados`) | Banco Central (SGS: salário mínimo 1619, IPCA 12 meses 13522, meta Selic 432, desocupação 24369), IBGE (estimativa da população, tabela 6579), Câmara dos Deputados (votações do Plenário) | não |
+| Quadro **Neste dia** na página inicial (`/api/neste-dia`) | Wikipédia (feed "On this day"), texto CC BY-SA | não |
+| Ferramenta **Dicionário** (`/api/dicionario`) | Dicionário Aberto (português, verbetes de 1913) e Free Dictionary API (inglês) | não |
+| Ferramenta **Frases traduzidas** (`/api/frases`) | Tatoeba, CC BY 2.0 FR (autor e link de cada frase à vista) | não |
+| Ferramenta **Gráficos e álgebra** | math.js, roda no próprio navegador | não |
+| Fórmulas nas aulas | KaTeX, no próprio site. Escreva entre `$$` e `$$` (no meio da frase ou em bloco); um cifrão sozinho continua sendo dinheiro | não |
+| Painel → **Fontes abertas** (`/api/fontes`) | Internet Archive, Open Library, Project Gutenberg (Gutendex), Wikipédia, Wikidata, Wikisource, Wikimedia Commons | não |
+| Painel → Rádio → **Sugerir uma emissora** (`/api/radios`) | Radio Browser (diretório aberto; só emissoras do Brasil com transmissão https) | não |
+| Criar conta e trocar senha (`/api/senha-vazada`) | Have I Been Pwned, Pwned Passwords: o navegador manda só os 5 primeiros caracteres do SHA-1 da senha | não |
+| Página **Checagens** → "Já foi checado?" (`/api/checagens`) | Google Fact Check Tools | sim: `GOOGLE_FACTCHECK_KEY` nas variáveis do servidor (Vercel), nunca com `NEXT_PUBLIC_`. Sem ela, a busca não aparece |
+| Comunidade, segunda avaliação | OpenAI Moderation e Google Safe Browsing (acima) | segredos da função `avaliar-comunidade` |
+
+Para acrescentar outro serviço: inclua o endereço dele na lista de `lib/externo.ts` e consulte sempre por `buscarJson` ou `buscarTexto`, que já têm prazo, limite de tamanho e guarda.

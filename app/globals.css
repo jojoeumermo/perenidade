@@ -11,6 +11,13 @@
   --rule: #cdbb91;
   --ok: #2f5d34;
   --apoie-luz: 38%;
+  /* Altura da barra de botões do aparelho que as abas de baixo precisam pular. No navegador é sempre zero:
+     o DuckDuckGo do Android informa a altura das barras do sistema mesmo sem "viewport-fit=cover", e o
+     env() deixava um vão embaixo das abas (e outro no topo). Só o aplicativo, que vai de borda a borda, usa o valor real. */
+  --recuo-baixo: 0px;
+}
+:root[data-app] {
+  --recuo-baixo: env(safe-area-inset-bottom, 0px);
 }
 
 /* Tema escuro: segue o sistema, a menos que a pessoa escolha um tema no botão do cabeçalho. */
@@ -61,8 +68,6 @@ body {
   background: var(--parchment);
   color: var(--ink);
   font-family: var(--font-serif-display), Georgia, serif;
-  /* Aberto como aplicativo, o site vai até a borda da tela: o topo desce o tanto da barra do relógio. */
-  padding-top: env(safe-area-inset-top, 0px);
 }
 
 /* Nada passa da largura da tela: um campo de escolha, por natureza, tem a largura da opção mais comprida,
@@ -85,8 +90,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 :root[data-app] body {
-  /* A barra de cima fica presa e ocupa, ela mesma, o espaço do relógio. */
-  padding-top: 0;
+  /* A barra de cima fica presa e ocupa, ela mesma, o espaço do relógio (veja o Header). */
   overscroll-behavior-x: none;
 }
 :root[data-app] :is(a, button, summary, label, select) {
@@ -164,9 +168,36 @@ body {
     min-height: 2rem;
     font-size: 0.75rem;
   }
+  /* Modo leitura (tela de aula): rolando para baixo, as barras saem da frente; rolando para cima, voltam.
+     Quem liga e desliga é components/ReadingChrome.tsx, com <html data-lendo>. */
+  :root[data-app] :is(.app-barra, .app-abas) {
+    transition: transform 0.2s ease-out;
+  }
+  :root[data-app] .app-flutua {
+    transition: opacity 0.2s ease-out;
+  }
+  :root[data-app][data-lendo] .app-barra {
+    transform: translateY(-100%);
+  }
+  :root[data-app][data-lendo] .app-abas {
+    transform: translateY(100%);
+  }
+  :root[data-app][data-lendo] .app-flutua:not(:focus-within) {
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* Texto de leitura na medida do celular: letra de 19px, entrelinha larga e palavras partidas com hífen,
+     para a margem direita não ficar serrilhada. Quem pediu espaçamento maior na acessibilidade continua mandando. */
+  :root[data-app]:not([data-spacing]) main .prose-lesson {
+    font-size: 1.1875rem;
+    line-height: 1.75;
+  }
+  :root[data-app] main .prose-lesson :is(p, li) {
+    hyphens: auto;
+  }
   /* Sem rodapé no aplicativo: o conteúdo termina acima das abas. */
   :root[data-app] main#conteudo {
-    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(4.5rem + var(--recuo-baixo));
   }
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .barra-celular {
@@ -362,6 +393,14 @@ body {
   height: 6.5cqw;
 }
 /* Fundo preto dos cartazes e o sol de raios vermelhos: cores fixas, iguais nos dois temas. */
+/* Capa de episódio de podcast sem imagem: o cartaz vermelho com a estrela e a quina preta. */
+.podcast-capa-cartaz {
+  background: linear-gradient(135deg, var(--prelo) 0 64%, #1f1a14 64% 100%);
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .podcast-capa-cartaz {
+  background: #000;
+}
+
 .jornal-preto {
   background: #1f1a14;
   color: #f4ecd8;
@@ -1399,5 +1438,178 @@ body {
   }
   :root :is(.jornal-preto, .jornal-raios) svg {
     display: none !important;
+  }
+}
+
+/* ---- Painel interno: a mesa de trabalho da equipe ----
+   Mesmo desenho do site (cartaz, fio duplo, tarja vermelha), com movimento curto nas trocas de seção,
+   nos cartões e nos botões. Tudo some com prefers-reduced-motion. */
+.painel-item {
+  color: #d9cdb0;
+  border-left: 3px solid transparent;
+  transition: background-color 0.15s, color 0.15s, padding-left 0.15s, border-color 0.15s;
+}
+.painel-item svg {
+  color: #8f8468;
+  transition: color 0.15s;
+}
+.painel-item:hover {
+  background: #221c15;
+  color: #fff;
+  padding-left: 1rem;
+}
+.painel-item:hover svg {
+  color: #d4a24c;
+}
+.painel-item-ativo {
+  background: #2a231a;
+  color: #fff;
+  font-weight: 600;
+  border-left-color: #c21f16;
+}
+.painel-item-ativo svg {
+  color: #e0372b;
+}
+.painel-grupo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.painel-grupo::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #3a3226;
+}
+.painel-cabeca {
+  border: 0;
+}
+.painel-cunha {
+  width: 18cqw;
+}
+.painel-cunha .jornal-cunha-estrela {
+  width: 7cqw;
+  height: 7cqw;
+}
+.painel-quadro {
+  background: var(--parchment-deep);
+  border: 2px solid var(--ink);
+  border-top: 5px solid var(--prelo);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.painel-quadro:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.painel-quadro:active {
+  transform: none;
+  box-shadow: none;
+}
+.painel-quadro-alerta {
+  border-color: var(--oxblood);
+  border-top-color: var(--oxblood);
+}
+.painel-seta {
+  transition: transform 0.15s, color 0.15s;
+}
+.painel-quadro:hover .painel-seta {
+  transform: translateX(3px);
+  color: var(--oxblood);
+}
+.painel-cartao {
+  background: var(--parchment-deep);
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--ink);
+}
+.painel-campo {
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.painel-campo:focus {
+  border-color: var(--oxblood);
+  box-shadow: 3px 3px 0 var(--ink);
+  outline: none;
+}
+.painel-botao {
+  transition: transform 0.12s, box-shadow 0.12s, background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.painel-botao:not(:disabled):hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--prelo);
+}
+.painel-botao:not(:disabled):active {
+  transform: none;
+  box-shadow: none;
+}
+.painel-aba {
+  transition: border-color 0.15s, color 0.15s;
+}
+.painel-aviso {
+  margin-top: 0.45rem;
+  border-left: 3px solid currentColor;
+  padding-left: 0.6rem;
+}
+.painel-ir {
+  box-shadow: 6px 6px 0 var(--prelo);
+}
+/* Dentro das seções: o título principal ganha a tarja vermelha, os cartões o fio grosso do jornal
+   e as linhas de lista respondem ao mouse. */
+.painel-conteudo h2[class~="font-serif"][class~="text-2xl"]::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 4px;
+  margin-bottom: 0.5rem;
+  background: var(--prelo);
+}
+.painel-conteudo :is(section, div, article, li, form, details)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
+  border-top: 3px solid var(--ink);
+}
+.painel-conteudo [class~="divide-y"] > * {
+  transition: background-color 0.12s;
+}
+.painel-conteudo [class~="divide-y"] > *:hover {
+  background: color-mix(in srgb, var(--parchment-deep) 75%, transparent);
+}
+@keyframes painel-surge {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+@keyframes painel-veu {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes painel-pulso {
+  50% {
+    opacity: 0.3;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .painel-surge {
+    animation: painel-surge 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .painel-conteudo {
+    animation: painel-surge 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .painel-cabeca h1,
+  .painel-cabeca p {
+    animation: painel-surge 0.3s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .painel-veu {
+    animation: painel-veu 0.15s ease-out;
+  }
+  .painel-ir {
+    animation: painel-surge 0.18s ease-out;
+  }
+  .painel-aviso {
+    animation: painel-surge 0.25s ease-out both;
+  }
+  .painel-pulso {
+    animation: painel-pulso 2s ease-in-out infinite;
+  }
+  .painel-carregando {
+    animation: painel-pulso 1.2s ease-in-out infinite;
   }
 }
