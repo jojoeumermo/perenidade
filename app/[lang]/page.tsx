@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { TrackCard } from "@/components/Cards";
 import { DailyQuote } from "@/components/DailyQuote";
+import { NesteDia } from "@/components/NesteDia";
 import { ContinueCard } from "@/components/Progress";
 import { loadLang } from "@/i18n";
 import { htmlLang, localePath, plural } from "@/i18n/config";
@@ -105,6 +106,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       </section>
 
       <DailyQuote quotes={getQuotes()} />
+
+      <NesteDia s={h} lang={lang} />
 
       {questions.length > 0 && (
         <section className="mx-auto max-w-6xl px-4 py-10">

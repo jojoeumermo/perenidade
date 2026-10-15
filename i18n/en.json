@@ -36,6 +36,7 @@
     "loading": "Loading…"
   },
   "nav": {
+    "podcasts": "Podcasts",
     "main": "Main",
     "disciplines": "Subjects",
     "library": "Library",
@@ -72,7 +73,8 @@
     "terms": "Terms of use",
     "start": "Where to start",
     "news": "News",
-    "gallery": "Poster gallery"
+    "gallery": "Poster gallery",
+    "data": "People's data"
   },
   "footer": {
     "tagline": "Free knowledge, for everyone, forever.",
@@ -138,7 +140,9 @@
     "ctaButton": "Send a contribution",
     "questionsTitle": "Start from a question",
     "shelvesHint": "There are many. Choose the essentials or the stage you want to study.",
-    "tryLabel": "Try:"
+    "tryLabel": "Try:",
+    "onThisDay": "On this day",
+    "onThisDaySource": "Events selected by Wikipedia for today's date. Text from Wikipedia, CC BY-SA license."
   },
   "areas": {
     "portugues": [
@@ -892,6 +896,18 @@
     "pronuncia": [
       "Pronunciation",
       "Hear any sentence in English, Spanish, Chinese or Russian, at the speed you want."
+    ],
+    "dicionario": [
+      "Dictionary",
+      "Meanings of words in Portuguese and English, with the source of each definition."
+    ],
+    "frases": [
+      "Translated sentences",
+      "Real sentences in English, French and Spanish, with the translation alongside."
+    ],
+    "graficos": [
+      "Graphs and algebra",
+      "Plot functions, simplify expressions and compute derivatives."
     ]
   },
   "tools": {
@@ -1027,6 +1043,36 @@
       "noVoice": "Your device has no voice installed for this language. Install the voice pack in your system settings or try another browser.",
       "unsupported": "This browser cannot read aloud.",
       "note": "The voice is your own device's: quality varies from one device to another, and nothing you write is sent anywhere. Listen, repeat aloud and compare."
+    },
+    "dictionary": {
+      "word": "Word",
+      "language": "Dictionary",
+      "search": "Search",
+      "none": "We couldn't find that word. Check the spelling.",
+      "fail": "The dictionary did not respond right now. Try again shortly.",
+      "source": "Source:",
+      "oldSpelling": "definitions from 1913, with the spelling of the time"
+    },
+    "sentences": {
+      "word": "Word or phrase",
+      "from": "Sentence in",
+      "to": "Translation in",
+      "search": "Search",
+      "none": "No sentence found. Try a more common word.",
+      "fail": "Tatoeba did not respond right now. Try again shortly.",
+      "same": "Choose two different languages."
+    },
+    "graphs": {
+      "loading": "Loading the calculator…",
+      "invalid": "We couldn't understand this expression. Use x, +, -, *, /, ^ and functions such as sin(x) or sqrt(x).",
+      "from": "x from",
+      "to": "to",
+      "badRange": "The start must be smaller than the end.",
+      "algebra": "Simplify and differentiate",
+      "expression": "Expression in x",
+      "simplified": "Simplified",
+      "derivative": "Derivative",
+      "hint": "Type as on a calculator: 3x^2 + 2x - 1, sqrt(x), sin(x), log(x), e. Use a dot or comma for decimals."
     }
   },
   "journal": {
@@ -1063,7 +1109,14 @@
     "title": "Fact-checking",
     "lead": "Rumours and half-truths that go around, checked against public sources.",
     "empty": "No fact check published yet.",
-    "claim": "What is being said"
+    "claim": "What is being said",
+    "searchTitle": "Has it been checked?",
+    "searchLead": "Look up the rumor in fact checks published by agencies such as Lupa and Aos Fatos.",
+    "searchPlaceholder": "E.g.: vaccine, voting machine, minimum wage",
+    "searchButton": "Search",
+    "searchNone": "No fact check found with those words. Try others.",
+    "searchFail": "The search did not respond right now. Try again shortly.",
+    "searchSource": "Results from Google Fact Check Tools. Each check belongs to the agency that published it: open the link to read it."
   },
   "debates": {
     "eyebrow": "Arguments at hand",
@@ -1102,6 +1155,7 @@
     "lead": "What did not fit in the menu, gathered in one place.",
     "critical": "Critical reading",
     "items": {
+      "podcasts": "Political education episodes to listen to on the bus, in the kitchen or on your work break.",
       "tools": "Tuner, code editor, periodic table and others.",
       "questions": "Everyday questions that lead to the right lessons.",
       "glossary": "Difficult terms in plain language.",
@@ -1128,7 +1182,8 @@
       "support": "Help pay for the server and the domain.",
       "start": "Short books and lessons for the first steps.",
       "news": "Headlines from grassroots, independent and public outlets, updated automatically.",
-      "gallery": "Posters and images of the workers' struggle, with the story behind each one."
+      "gallery": "Posters and images of the workers' struggle, with the story behind each one.",
+      "data": "Minimum wage, inflation, interest, unemployment and what Congress voted, from official sources."
     }
   },
   "support": {
@@ -1191,9 +1246,18 @@
     "createWhy": "The account lets you ask and answer in the Community. What follows the rules appears right away; the mediators keep watch and step in when needed. We keep only your e-mail; the name shown on the site starts as a nickname, which you can change.",
     "createFailed": "The account could not be created. This e-mail may already have an account, or sign-up may be closed at the moment.",
     "volunteerLink": "Want to volunteer? Fill in the application",
-    "whyClosed": "There is no \"forgot my password\" here and, for now, accounts are created by invitation from the coordination. Lost your password? Talk to whoever invited you."
+    "whyClosed": "There is no \"forgot my password\" here and, for now, accounts are created by invitation from the coordination. Lost your password? Talk to whoever invited you.",
+    "leaked": "This password has already appeared in leaks from other sites and is one of the first an attacker tries. Choose another. (The check does not send your password to anyone.)"
   },
   "radio": {
+    "back15": "Back 15 seconds",
+    "forward30": "Forward 30 seconds",
+    "speed": "Speed",
+    "position": "Position in the episode",
+    "openEpisode": "Open the episode",
+    "related": "Listen",
+    "relatedLead": "Podcast episodes that go with this subject.",
+    "newEpisode": "New episode",
     "eyebrow": "On air",
     "title": "Rádio Lúcia",
     "lead": "Music and spoken word to study by.",
@@ -1481,11 +1545,194 @@
       "mediacao": "Community mediator",
       "revisao": "Reviewer",
       "traducao": "Translator",
-      "jornalismo": "Journalist and radio host",
+      "jornalismo": "Journalist, radio host or podcaster",
       "mentoria": "Tutoring",
       "design": "Designer",
       "desenvolvimento": "Infrastructure and development",
       "curadoria": "Curator"
     }
+  },
+  "podcast": {
+    "title": "Podcasts",
+    "eyebrow": "Listen and learn",
+    "lead": "Popular and political education conversations: history, economics, social struggle and Brazil's ENEM exam. Free, with transcripts and sources.",
+    "newest": "New",
+    "season": "Season",
+    "episode": "Episode",
+    "openEpisode": "See the episode",
+    "soon": "Coming soon",
+    "soonText": "The first episode is in production. Meanwhile, vote on the topics and send your question.",
+    "subscribe": "Subscribe",
+    "subscribeLead": "Listen in the app you already use, or copy the feed address (RSS) into any podcast player.",
+    "copyFeed": "Copy",
+    "copied": "Copied",
+    "guestNote": "Taking part in an episode?",
+    "micTitle": "Test your microphone",
+    "micShort": "Microphone",
+    "listen": "Listen",
+    "pause": "Pause",
+    "all": "All",
+    "filters": "Filter episodes",
+    "recent": "Recent episodes",
+    "series": "Series",
+    "episodes": "episodes",
+    "allEpisodes": "All episodes",
+    "openDiscipline": "Open the shelf for",
+    "themes": {
+      "historia": "History",
+      "economia": "Economics",
+      "luta-social": "Social struggle",
+      "enem": "ENEM",
+      "filosofia": "Philosophy",
+      "cultura": "Culture",
+      "ciencia": "Science",
+      "trabalho": "Work",
+      "educacao": "Education",
+      "internacional": "International",
+      "memoria": "Memory",
+      "atualidade": "Current affairs"
+    },
+    "position": "Position in the episode",
+    "chapters": "Chapters",
+    "searchTranscript": "Search the transcript",
+    "playFrom": "Listen from",
+    "noMatch": "Nothing found.",
+    "commentBlocked": "The message did not pass the community rules.",
+    "commentHeld": "Received: the message will appear after moderation reads it.",
+    "tooMany": "Too many submissions in a short time. Try again later.",
+    "commentsClosed": "Comments on this episode are closed.",
+    "failed": "That did not work. Please try again.",
+    "commentsEmpty": "No comments yet. Start the conversation.",
+    "team": "team",
+    "waitingModeration": "awaiting moderation",
+    "commentLabel": "What did you think? Any questions?",
+    "comment": "Comment",
+    "commentRules": "Same rules as the community: respect, no personal data, a source when you state a fact.",
+    "signIn": "Sign in",
+    "signInToComment": "to comment.",
+    "copyLink": "Copy the address:",
+    "share": "Share",
+    "refused": "The text has words the community filter does not accept.",
+    "paused": "Submissions are paused for now.",
+    "signInWhy": "to take part. It's free.",
+    "voteTitle": "Vote on the next topics",
+    "voteLead": "The team picks the next themes from what the community most wants to hear.",
+    "voteEmpty": "No topics up for a vote right now.",
+    "signInToVote": "Sign in to vote.",
+    "unvote": "Remove vote",
+    "vote": "Vote",
+    "chosen": "Chosen",
+    "recorded": "already out",
+    "inProduction": "in production",
+    "suggestTitle": "Suggest a topic",
+    "suggestLabel": "Topic",
+    "suggestWhy": "Why this topic? (optional)",
+    "suggest": "Suggest",
+    "suggested": "Suggestion sent. The team reads it and decides whether it goes to a vote.",
+    "stop": "Stop",
+    "discard": "Discard",
+    "record": "Record the question",
+    "micDenied": "The browser did not allow the microphone. Allow access in the site settings.",
+    "askTitle": "Ask the podcast",
+    "askLead": "Send your question in writing or in your own voice. The chosen ones are answered in the episodes.",
+    "askText": "Your question",
+    "askSign": "How should we call you on air? (optional)",
+    "askSignExample": "Ana, from Recife",
+    "askSend": "Send question",
+    "askPrivacy": "Only the podcast team hears and reads it. If the question goes on air, only the signature you chose is used.",
+    "askSent": "Question sent. Thank you!",
+    "micTooHot": "It is clipping: move a hand's width away from the microphone or lower the input volume.",
+    "micTooLow": "Your voice is quiet: move closer (a hand's width) or raise the input volume.",
+    "micVoiceOk": "The voice level is good.",
+    "micNoisy": "There is a lot of background noise: turn off nearby fans and fridges, close the window, record in a room with fabrics (curtains, sofa, clothes).",
+    "micQuiet": "The room is quiet.",
+    "micCloser": "Your voice is barely above the noise: move closer to the microphone.",
+    "micLead": "Check your voice level and the room noise before recording. Nothing leaves your device.",
+    "micStart": "Turn on the microphone",
+    "micDevice": "Microphone",
+    "micLevel": "Level now",
+    "micTarget": "Speaking normally, the level should stay mostly in the green, never reaching the red.",
+    "micSilence": "Silence for 5 seconds…",
+    "micSpeak": "Now read the sentence aloud…",
+    "micGuided": "Take the guided test (11 seconds)",
+    "micSentence": "“Knowledge belongs to everyone, and those who study together learn faster.”",
+    "micNoise": "Noise",
+    "micVoice": "Voice",
+    "micPeak": "Peak",
+    "micListen": "Hear how it sounds:",
+    "micStop": "Turn off the microphone",
+    "micTipsTitle": "Tips for recording well at home",
+    "micTips": [
+      "Wear headphones while recording: the conversation won't leak back into the microphone.",
+      "Stay a hand's width from the microphone, slightly to the side, so “p” and “b” sounds don't pop.",
+      "Record in a small room full of things (clothes, books, curtains): bare walls echo.",
+      "Put your phone in airplane mode and turn off computer notifications.",
+      "A phone headset with a microphone is enough. Laptop microphones pick up keyboard and fan noise."
+    ],
+    "guestInvalid": "This link does not exist or has expired. Ask whoever invited you for a new one.",
+    "guestHello": "Hello,",
+    "guestAccepted": "Agreement accepted on",
+    "guestWithImage": "You authorized the use of your voice and image.",
+    "guestVoiceOnly": "You authorized the use of your voice.",
+    "guestName": "Your full name",
+    "guestVoice": "I have read and authorize the use of my voice, as in the agreement above.",
+    "guestImage": "I also authorize the use of my image (photo or video of the recording).",
+    "guestAccept": "Accept the agreement",
+    "guestRecordTitle": "If the recording is remote",
+    "guestRecordSteps": [
+      "Join the room through the link the producers sent, wearing headphones.",
+      "If the producers ask, also record your own voice on your device (phone recorder, Audacity or the call app itself) from the beginning to the end of the conversation.",
+      "At the end, send the file to the producers as agreed. Your local track sounds much better than the call.",
+      "If the internet drops, keep recording on your device and rejoin the room as soon as you can."
+    ],
+    "guestTitle": "Podcast guest",
+    "guestLead": "Thank you for taking part. Here you can read and accept the voice use agreement and test your microphone.",
+    "plays": "plays",
+    "guests": "Guests",
+    "download": "Download the audio",
+    "notes": "Episode notes",
+    "citedWorks": "Works cited",
+    "sources": "Sources",
+    "transcript": "Transcript",
+    "downloadCaptions": "Download the captions (.vtt)",
+    "conversation": "Conversation",
+    "more": "Up next"
+  },
+  "povo": {
+    "eyebrow": "Political awareness",
+    "title": "People's data",
+    "lead": "The numbers that weigh most on working people's lives, and what the Chamber of Deputies is voting, straight from official Brazilian sources. Updated every few hours.",
+    "economy": "Wages, prices and jobs",
+    "indicators": {
+      "salario": [
+        "Minimum wage",
+        "Monthly value of the national minimum wage (Brazil)."
+      ],
+      "ipca": [
+        "Inflation over 12 months",
+        "IPCA accumulated over twelve months: how much prices rose in a year."
+      ],
+      "selic": [
+        "Base interest rate (Selic)",
+        "Annual Selic target set by the Central Bank. It makes credit dearer or cheaper."
+      ],
+      "desocupacao": [
+        "Unemployment",
+        "Unemployment rate from the PNAD Contínua survey, rolling quarter."
+      ],
+      "populacao": [
+        "Population of Brazil",
+        "Official IBGE estimate."
+      ]
+    },
+    "reference": "Reference",
+    "votes": "What the Chamber voted",
+    "votesLead": "The latest votes in the plenary of the Brazilian Chamber of Deputies, as described by the Chamber itself (in Portuguese).",
+    "approved": "approved",
+    "rejected": "rejected",
+    "seeSession": "See the session on the Chamber's website",
+    "votesSource": "Source: Chamber of Deputies open data.",
+    "unavailable": "The source did not respond right now. Come back in a few hours.",
+    "note": "All numbers come from the sources shown in each box, unadjusted. If a source does not respond, the box disappears instead of showing an old number."
   }
 }

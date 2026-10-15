@@ -2,7 +2,7 @@
 //
 // Prova a rotina de envio de e-mails sem rede: o banco e o serviço de envio são trocados por respostas montadas aqui.
 // O que entra na fila, e quando, é provado em testar-banco.mjs. Uso: npm run testar:emails
-import { html, pedido, RESEND, rodada } from "./enviar-emails.mjs";
+import { boletim, html, pedido, RESEND, rodada } from "./enviar-emails.mjs";
 
 let certos = 0;
 const falhas = [];
@@ -39,7 +39,7 @@ const servico = (...codigos) => {
   };
   return { buscar, pedidos };
 };
-const base = { chave: CHAVE, remetente: "Instituto Lúcia <contato@institutolucia.org>", pausa: 0 };
+const base = { chave: CHAVE, remetente: "Instituto Lúcia <noreply@institutolucia.org>", pausa: 0 };
 
 // ── Envio normal ──
 await espera("envia a fila e devolve cada resultado ao banco", async () => {
@@ -53,12 +53,27 @@ await espera("o pedido vai ao endereço do serviço, com a chave só no cabeçal
 await espera("cada e-mail leva uma chave de idempotência própria (nada sai duas vezes)", async () => {
   const s = servico(200); await rodada({ ...base, chamar: banco(fila(2)).chamar, buscar: s.buscar }); return s.pedidos.map((p) => p.opcoes.headers["Idempotency-Key"]);
 }, (k) => k[0] === "lucia-00000000-0000-0000-0000-000000000000" && k[1] !== k[0]);
-await espera("remetente, destinatário, assunto, texto e HTML", async () => JSON.parse(JSON.stringify(pedido(fila(1)[0], { remetente: base.remetente, resposta: "respostas@institutolucia.org" }))),
-  (p) => p.from === base.remetente && p.to[0] === "pessoa0@exemplo.org" && p.subject === "Assunto 0" && p.text.includes("Linha 0") && p.html.includes("<p>") && p.reply_to === "respostas@institutolucia.org" && !p.headers);
+await espera("remetente, destinatário, assunto, texto e HTML", async () => JSON.parse(JSON.stringify(pedido(fila(1)[0], { remetente: base.remetente, resposta: "institutolucia@tutamail.com" }))),
+  (p) => p.from === base.remetente && p.to[0] === "pessoa0@exemplo.org" && p.subject === "Assunto 0" && p.text.includes("Linha 0") && p.html.includes("<p>") && p.reply_to === "institutolucia@tutamail.com" && !p.headers);
 await espera("boletim leva o cabeçalho de saída da lista", async () => pedido({ ...fila(1)[0], sair: "https://institutolucia.org/pt/jornal?boletim=sair&codigo=" + "a".repeat(32) }, base),
   (p) => p.headers["List-Unsubscribe"] === `<https://institutolucia.org/pt/jornal?boletim=sair&codigo=${"a".repeat(32)}>`);
 await espera("o HTML escapa o texto e só transforma em link o que é https", async () => html('Oi <script>alert(1)</script> & "x"\n\nveja https://institutolucia.org/a?b=1 e javascript:alert(1)'),
   (h) => !h.includes("<script>") && h.includes("&lt;script&gt;") && h.includes('<a href="https://institutolucia.org/a?b=1">') && !h.includes('href="javascript'));
+
+// ── O boletim com o desenho do Jornal ──
+const SAIR = "https://institutolucia.org/pt/jornal?boletim=sair&codigo=" + "b".repeat(32);
+const edicao = { ...fila(1)[0], assunto: 'Greve <b>geral</b> & "já"', texto: `Primeiro parágrafo.\n\nLeia https://institutolucia.org/pt/jornal/x <script>alert(1)</script>\n\n---\nVocê recebe este boletim porque pediu no site do Instituto Lúcia. Para sair da lista: ${SAIR}`, sair: SAIR };
+await espera("boletim vai com o desenho do Jornal; os outros e-mails, não", async () => [pedido(edicao, base).html, pedido(fila(1)[0], base).html],
+  ([b, outro]) => b.includes("/imagens/email/jornal.png") && b.includes("Proletários de todos os países") && b.includes("#c21f16") && !outro.includes("jornal.png"));
+await espera("boletim: assunto e texto escapados, só https vira link", async () => boletim(edicao),
+  (h) => !h.includes("<script>") && !h.includes("<b>geral") && h.includes("Greve &lt;b&gt;geral&lt;/b&gt; &amp; &quot;já&quot;") && h.includes('<a href="https://institutolucia.org/pt/jornal/x"'));
+await espera("boletim: o rodapé do texto vira o rodapé do desenho, com o link de saída", async () => boletim(edicao),
+  (h) => !h.includes("Para sair da lista:") && h.split(SAIR.replace(/&/g, "&amp;")).length === 2 && h.includes(">Sair da lista</a>"));
+await espera("boletim: imagem e links saem do endereço do próprio link de saída", async () => boletim({ ...edicao, sair: "https://exemplo.org/pt/jornal?boletim=sair&codigo=c" }),
+  (h) => h.includes('src="https://exemplo.org/imagens/email/jornal.png"') && h.includes('href="https://exemplo.org/pt/jornal"'));
+await espera("boletim: link de saída estranho cai no e-mail simples", async () => boletim({ ...edicao, sair: "javascript:alert(1)" }),
+  (h) => !h.includes("jornal.png") && !h.includes("javascript:"));
+await espera("boletim: a data da edição no horário de Brasília", async () => boletim(edicao, new Date("2026-10-15T01:00:00Z")), (h) => h.includes("14 de outubro de 2026"));
 
 // ── Falhas: o e-mail volta para a fila (o banco decide quantas tentativas) ──
 await espera("serviço fora do ar: falha anotada, nada dado como enviado", async () => { const b = banco(fila(2)); const r = await rodada({ ...base, chamar: b.chamar, buscar: servico(500).buscar }); return [r, b.resultados]; },
