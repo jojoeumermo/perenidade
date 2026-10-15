@@ -532,7 +532,8 @@
     },
     "catalogTitle": "Extended catalogue",
     "catalogLead": "Works gathered from open catalogues, with a direct link to the source. These entries are simpler than those selected by the curators. A work being listed here does not mean agreement with what it says.",
-    "seeAt": "See at {source}"
+    "seeAt": "See at {source}",
+    "mecNote": "Free digital loan from MEC Livros, the digital library of Brazil's Ministry of Education: just sign in with a gov.br account."
   },
   "shelf": {
     "eyebrow": "Subject",
@@ -546,7 +547,7 @@
     "videos": "Videos",
     "sections": "In this subject",
     "loose": "Stand-alone materials",
-    "looseLead": "Stand-alone lessons, exercise sheets, summaries and study guides made by secondary educators, outside the learning paths.",
+    "looseLead": "Stand-alone lessons, exercise sheets, summaries and study guides made by secondary educators, outside the tracks.",
     "looseEmpty": "There are no stand-alone materials in this subject yet.",
     "looseJoin": "Want to contribute one? Volunteer."
   },

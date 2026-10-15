@@ -14,6 +14,7 @@ import { Star } from "../Masthead";
 import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
 import { Boletim } from "./Boletim";
+import { PorOndeComecar } from "./Comecar";
 import { Conversas } from "./Conversas";
 import { Equipe, type Membro } from "./Equipe";
 import { Repasse } from "./Sigilo";
@@ -600,6 +601,8 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           {(r?.minhas ?? 0) > 0 && <button type="button" className={botaoClaro} onClick={() => ir("minhas")}>Meus envios ({r?.minhas})</button>}
         </p>
       </section>
+
+      {me.papeis.length > 0 && <PorOndeComecar me={me} ir={ir} />}
 
       {me.papeis.length > 0 && <Situacao lidera={can(me, "coordenacao")} ir={ir} />}
 

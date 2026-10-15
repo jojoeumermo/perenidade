@@ -532,7 +532,8 @@
     },
     "catalogTitle": "Catálogo ampliado",
     "catalogLead": "Obras reunidas a partir de catálogos abertos, com link direto para a fonte. A ficha é mais simples que a das obras selecionadas pela curadoria. A presença de uma obra aqui não significa concordância com o que ela diz.",
-    "seeAt": "Ver em {source}"
+    "seeAt": "Ver em {source}",
+    "mecNote": "Empréstimo digital gratuito pela biblioteca MEC Livros, do Ministério da Educação: basta entrar com a conta gov.br."
   },
   "shelf": {
     "eyebrow": "Disciplina",
