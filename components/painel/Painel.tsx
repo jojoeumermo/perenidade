@@ -390,7 +390,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
     <div className="painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid lg:grid-cols-[17.5rem_minmax(0,1fr)]">
       {irPara && <IrPara secoes={secoes} fechar={() => setIrPara(false)} ir={ir} />}
       {/* Barra do alto no celular: a faixa bordô do site, o nome e o menu. */}
-      <div className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b-[3px] border-[#d4a24c] bg-[#6e1f1a] px-4 py-2.5 text-[#f4ecd8] lg:hidden">
+      <div className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b-[3px] border-[#d4a24c] bg-[#6e1f1a] px-4 pt-[calc(0.625rem+env(safe-area-inset-top,0px))] pb-2.5 text-[#f4ecd8] lg:hidden">
         <span className="flex min-w-0 items-center gap-2.5">
           <Star className="h-5 w-5 shrink-0 text-[#f4ecd8]" />
           <span className="truncate font-serif text-lg font-semibold">Instituto Lúcia</span>
@@ -406,7 +406,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
         </span>
       </div>
 
-      <aside id="menu-do-painel" className={`painel-lado no-print bg-[#17130e] text-[#efe4c8] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r-4 lg:border-[#c21f16] ${menu ? "block" : "hidden"}`}>
+      {/* No celular, o menu aberto ocupa a tela toda (sem sobra clara embaixo) e o rodapé dele fica no fim. */}
+      <aside id="menu-do-painel" className={`painel-lado no-print bg-[#17130e] text-[#efe4c8] max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r-4 lg:border-[#c21f16] ${menu ? "flex flex-col" : "hidden"}`}>
         <div className="hidden px-5 pt-6 lg:block">
           <L href="/" className="flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -450,7 +451,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
             </div>
           ))}
         </nav>
-        <div className="border-t border-[#3a3226] px-4 py-4">
+        <div className="border-t border-[#3a3226] px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
           <p className="flex items-center gap-3">
             <span aria-hidden className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#c21f16] font-sans font-black italic text-white">{iniciais(eu.nome)}</span>
             <span className="min-w-0">

@@ -166,6 +166,10 @@
       "Chinês (mandarim)",
       "Tons, pinyin e os primeiros caracteres."
     ],
+    "russo": [
+      "Russo",
+      "Língua russa do zero: o alfabeto cirílico, a comunicação do dia a dia, o sistema de casos e a leitura de textos."
+    ],
     "artes": [
       "Artes",
       "História da arte, artes visuais, teatro, cinema e cultura popular."
@@ -837,7 +841,7 @@
     "teoria": "Teoria revolucionária",
     "lutas": "Lutas do povo",
     "percursos": "Alfabetização e ENEM",
-    "hobbies": "Hobbies: aprenda uma habilidade nova e monetize com ela"
+    "oficios": "Ofícios e renda: aprenda uma habilidade e ganhe dinheiro com ela"
   },
   "stages": {
     "fundamental": "Ensino fundamental",
