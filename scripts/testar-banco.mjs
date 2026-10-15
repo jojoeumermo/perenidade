@@ -1312,6 +1312,87 @@ await espera("quem perdeu tudo recomeça: aparelhos antigos saem, a identidade m
 }, (r) => r[0] === 0 && r[1] === null && r[2] === 2 && r[3] === "aprovado" && r[4] === true);
 await dono("delete from interno.chat_aparelhos where id in ($1, $2)", [prof3.id, prof4.id]);
 
+// ── Mensagens: entrega, "digitando…", reações, edições, fixadas, favoritas e as preferências de privacidade ──
+// Reação, edição, citação e encaminhada vão dentro do cifrado. O banco só sabe o tipo ("reacao"/"edicao") e qual mensagem é o alvo.
+const jm = (await rpc(como(ids.jornal), "chat_direta", { p_usuario: ids.med })).id;
+const enviaJornal = async (texto, extra = {}) => rpc(como(ids.jornal), "chat_enviar", { p_id: jm, p_corpo: await selar(aparelhos.jornal, jm, texto, contextoDaConversa(jm, ids.jornal)), ...extra });
+const enviaMed = async (texto, extra = {}) => rpc(como(ids.med), "chat_enviar", { p_id: jm, p_corpo: await selar(aparelhos.med, jm, texto, contextoDaConversa(jm, ids.med)), ...extra });
+const membroVisto = async (quem, outro) => (await rpc(como(ids[quem]), "chat_ver", { p_id: jm })).membros.find((m) => m.id === ids[outro]);
+let pauta;
+await espera("mensagem enviada: o outro ainda não recebeu nem leu (um tique)", async () => { pauta = (await enviaJornal("Pauta de amanhã: *greve* dos metroviários.")).id; const m = await membroVisto("jornal", "med"); const g = (await rpc(como(ids.jornal), "chat_ver", { p_id: jm })).mensagens[0]; return [m.recebido_em < g.criado_em, m.lido_em === null || m.lido_em < g.criado_em]; }, (r) => r[0] && r[1]);
+await espera("o aparelho do outro avisa que recebeu (dois tiques), sem marcar como lida", async () => { await rpc(como(ids.med), "chat_recebidas", { p_id: jm }); const m = await membroVisto("jornal", "med"); const g = (await rpc(como(ids.jornal), "chat_ver", { p_id: jm })).mensagens[0]; return [m.recebido_em >= g.criado_em, m.lido_em === null || m.lido_em < g.criado_em]; }, (r) => r[0] && r[1]);
+await recusa("ninguém marca recebimento em conversa em que não está", () => rpc(como(ids.revisor), "chat_recebidas", { p_id: jm }), "nao_encontrado");
+await espera("abrir a conversa marca como lida (tiques de leitura)", async () => { await rpc(como(ids.med), "chat_ver", { p_id: jm }); const m = await membroVisto("jornal", "med"); const g = (await rpc(como(ids.jornal), "chat_ver", { p_id: jm })).mensagens[0]; return m.lido_em >= g.criado_em; }, (r) => r === true);
+await espera("\"digitando…\" aparece para o outro e some ao parar", async () => {
+  await rpc(como(ids.med), "chat_digitando", { p_id: jm, p_tipo: "texto" });
+  const durante = (await membroVisto("jornal", "med")).digitando;
+  const proprio = (await membroVisto("med", "med")).digitando;
+  await rpc(como(ids.med), "chat_digitando", { p_id: jm, p_tipo: "" });
+  return [durante, proprio, (await membroVisto("jornal", "med")).digitando];
+}, (r) => r[0] === "texto" && r[1] === "" && r[2] === "");
+await espera("\"gravando áudio…\" vence sozinho depois de oito segundos", async () => {
+  await rpc(como(ids.med), "chat_digitando", { p_id: jm, p_tipo: "audio" });
+  const durante = (await membroVisto("jornal", "med")).digitando;
+  await dono("update interno.conversa_membros set digitando_em = now() - interval '20 seconds' where conversa = $1 and usuario = $2", [jm, ids.med]);
+  return [durante, (await membroVisto("jornal", "med")).digitando];
+}, (r) => r[0] === "audio" && r[1] === "");
+await recusa("\"digitando\" só com os tipos da lista", () => rpc(como(ids.med), "chat_digitando", { p_id: jm, p_tipo: "video" }), "invalido:tipo");
+await recusa("quem está de fora não avisa que digita", () => rpc(como(ids.revisor), "chat_digitando", { p_id: jm, p_tipo: "texto" }), "nao_encontrado");
+await recusa("tipo de mensagem fora da lista é recusado", () => enviaMed("x", { p_tipo: "figurinha" }), "invalido:tipo");
+await recusa("texto comum não aponta para outra mensagem", () => enviaMed("x", { p_alvo: pauta }), "invalido:alvo");
+await recusa("reação precisa de uma mensagem de texto da mesma conversa", () => enviaMed("", { p_tipo: "reacao", p_alvo: crypto.randomUUID() }), "nao_encontrado");
+await recusa("nem de outra conversa", async () => { const outra = (await rpc(como(ids.med), "chat_direta", { p_usuario: ids.revisor })).id; const m = await rpc(como(ids.med), "chat_enviar", { p_id: outra, p_corpo: await selar(aparelhos.med, outra, "oi", contextoDaConversa(outra, ids.med)) }); return enviaMed("", { p_tipo: "reacao", p_alvo: m.id }); }, "nao_encontrado");
+let reacao;
+await espera("reagir cria uma mensagem do tipo reação, apontando para o alvo, sem contar como não lida", async () => {
+  await rpc(como(ids.jornal), "chat_ver", { p_id: jm });
+  reacao = (await enviaMed("", { p_tipo: "reacao", p_alvo: pauta })).id;
+  const r = await rpc(como(ids.jornal), "chat_ver", { p_id: jm });
+  const lista = (await rpc(como(ids.jornal), "chat_conversas")).find((c) => c.id === jm);
+  return [r.mensagens.find((m) => m.id === reacao), lista.nao_lidas, lista.ultima.corpo === r.mensagens.find((m) => m.id === pauta).corpo];
+}, ([m, naoLidas, ultimaEhTexto]) => m?.tipo === "reacao" && m.alvo === pauta && m.nome === "Mauro Mediador" && naoLidas === 0 && ultimaEhTexto);
+await espera("reagir de novo troca a reação: fica só uma por pessoa", async () => { await enviaMed("", { p_tipo: "reacao", p_alvo: pauta }); return dono("select count(*)::int as n from interno.conversa_mensagens where tipo = 'reacao' and alvo = $1 and autor = $2", [pauta, ids.med]); }, (r) => r.rows[0].n === 1);
+await recusa("não se reage a uma reação", async () => { const atual = (await dono("select id from interno.conversa_mensagens where tipo = 'reacao' and alvo = $1", [pauta])).rows[0].id; return enviaJornal("", { p_tipo: "reacao", p_alvo: atual }); }, "nao_encontrado");
+await recusa("ninguém edita mensagem de outra pessoa", () => enviaMed("Pauta trocada.", { p_tipo: "edicao", p_alvo: pauta }), "sem_permissao");
+await espera("a autora edita a própria mensagem: a edição aponta para a original e não vira mensagem nova na lista", async () => {
+  const antes = (await dono("select movida_em from interno.conversas where id = $1", [jm])).rows[0].movida_em;
+  const edicao = (await enviaJornal("Pauta de amanhã: *greve* dos metroviários, às 6h.", { p_tipo: "edicao", p_alvo: pauta })).id;
+  const r = await rpc(como(ids.med), "chat_ver", { p_id: jm });
+  const m = r.mensagens.find((x) => x.id === edicao);
+  const texto = await ler(aparelhos.med, jm, m.corpo, contextoDaConversa(jm, ids.jornal));
+  return [m.tipo, m.alvo, texto, String((await dono("select movida_em from interno.conversas where id = $1", [jm])).rows[0].movida_em) === String(antes)];
+}, (r) => r[0] === "edicao" && r[1] === pauta && r[2] === "Pauta de amanhã: *greve* dos metroviários, às 6h." && r[3] === true);
+await recusa("depois de quinze minutos não dá mais para editar", async () => { await dono("update interno.conversa_mensagens set criado_em = criado_em - interval '16 minutes' where id = $1", [pauta]); return enviaJornal("Tarde demais.", { p_tipo: "edicao", p_alvo: pauta }); }, "fora_do_prazo");
+await recusa("quem está de fora não fixa", () => rpc(como(ids.revisor), "chat_fixar", { p_mensagem: pauta }), "nao_encontrado");
+await recusa("não se fixa uma reação", () => rpc(como(ids.med), "chat_fixar", { p_mensagem: reacao }), "nao_encontrado");
+await espera("qualquer um da conversa fixa uma mensagem, e todos veem", async () => { await rpc(como(ids.med), "chat_fixar", { p_mensagem: pauta }); return rpc(como(ids.jornal), "chat_ver", { p_id: jm }); }, (r) => r.fixadas.length === 1 && r.fixadas[0] === pauta);
+await recusa("no máximo cinco fixadas por conversa", async () => { for (let i = 0; i < 4; i++) await rpc(como(ids.med), "chat_fixar", { p_mensagem: (await enviaMed(`Recado ${i}`)).id }); return rpc(como(ids.med), "chat_fixar", { p_mensagem: (await enviaMed("A sexta")).id }); }, "limite_fixadas");
+await espera("desafixar", async () => { await rpc(como(ids.jornal), "chat_fixar", { p_mensagem: pauta, p_fixar: false }); return rpc(como(ids.jornal), "chat_ver", { p_id: jm }); }, (r) => r.fixadas.length === 4 && !r.fixadas.includes(pauta));
+await recusa("quem está de fora não favorita", () => rpc(como(ids.revisor), "chat_favoritar", { p_mensagem: pauta }), "nao_encontrado");
+await espera("favoritar é de cada pessoa: aparece na conversa e na lista de favoritas, com o nome da conversa; o outro não vê", async () => {
+  await rpc(como(ids.med), "chat_favoritar", { p_mensagem: pauta });
+  return [(await rpc(como(ids.med), "chat_ver", { p_id: jm })).favoritas, (await rpc(como(ids.jornal), "chat_ver", { p_id: jm })).favoritas, await rpc(como(ids.med), "chat_favoritas"), await rpc(como(ids.jornal), "chat_favoritas")];
+}, ([minhas, dele, lista, listaDele]) => minhas.length === 1 && minhas[0] === pauta && dele.length === 0 && lista.length === 1 && lista[0].conversa_nome === "Joana Jornalista" && lista[0].nome === "Joana Jornalista" && lista[0].corpo.startsWith("c2.") && listaDele.length === 0);
+await espera("tirar das favoritas", async () => { await rpc(como(ids.med), "chat_favoritar", { p_mensagem: pauta, p_favoritar: false }); return rpc(como(ids.med), "chat_favoritas"); }, (r) => r.length === 0);
+await espera("apagar o texto leva as reações, edições e fixadas junto", async () => { const fixada = (await rpc(como(ids.med), "chat_ver", { p_id: jm })).fixadas[0]; await rpc(como(ids.jornal), "chat_apagar", { p_id: pauta }); await rpc(como(ids.med), "chat_apagar", { p_id: fixada }); return [(await dono("select count(*)::int as n from interno.conversa_mensagens where alvo = $1 or id = $1", [pauta])).rows[0].n, (await rpc(como(ids.med), "chat_ver", { p_id: jm })).fixadas.length]; }, (r) => r[0] === 0 && r[1] === 3);
+await espera("por padrão, cada um vê o 'visto por último' e a leitura do outro", async () => [await membroVisto("jornal", "med"), await membroVisto("med", "jornal")], ([a, b]) => typeof a.online === "boolean" && typeof a.visto_em === "string" && typeof a.lido_em === "string" && typeof b.online === "boolean");
+await espera("quem esconde o 'visto por último' some para os outros e deixa de ver o dos outros (na conversa, na lista e na equipe)", async () => {
+  await rpc(como(ids.med), "perfil_preferencias", { p_chat_visto: false, p_chat_leitura: null });
+  const eu = await rpc(como(ids.med), "eu");
+  const lista = (await rpc(como(ids.jornal), "chat_conversas")).find((c) => c.id === jm);
+  const equipe = (await rpc(como(ids.jornal), "equipe_membros")).find((m) => m.id === ids.med);
+  return [eu.chat_visto, await membroVisto("jornal", "med"), await membroVisto("med", "jornal"), lista.online, lista.visto_em, equipe.online, equipe.visto_em];
+}, ([visto, a, b, online, vistoEm, eqOnline, eqVisto]) => visto === false && a.online === null && a.visto_em === null && typeof a.lido_em === "string" && b.online === null && b.visto_em === null && online === null && vistoEm === null && eqOnline === null && eqVisto === null);
+await espera("quem desliga a confirmação de leitura não mostra nem vê a dos outros; o 'visto' volta ao ligar de novo", async () => {
+  await rpc(como(ids.med), "perfil_preferencias", { p_chat_visto: true, p_chat_leitura: false });
+  await rpc(como(ids.med), "chat_ver", { p_id: jm });
+  return [await membroVisto("jornal", "med"), await membroVisto("med", "jornal"), (await rpc(como(ids.med), "eu")).chat_leitura];
+}, ([a, b, leitura]) => a.lido_em === null && typeof a.online === "boolean" && b.lido_em === null && leitura === false);
+await espera("a pessoa vê a própria leitura e presença mesmo com tudo desligado; e tudo volta ao ligar", async () => {
+  const propria = await membroVisto("med", "med");
+  await rpc(como(ids.med), "perfil_preferencias", { p_chat_visto: null, p_chat_leitura: true });
+  return [propria, await membroVisto("jornal", "med")];
+}, ([propria, a]) => typeof propria.lido_em === "string" && typeof propria.online === "boolean" && typeof a.lido_em === "string");
+
 // ── Materiais de campanha ──
 const material = (extra = {}) => ({ tipo: "panfleto", titulo: "Panfleto da jornada de lutas", descricao: "Frente e verso, A5.", campanha: "Jornada de lutas", url: "/arquivos/abc123.pdf", publicado: true, ...extra });
 let materialId;

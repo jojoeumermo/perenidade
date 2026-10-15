@@ -82,6 +82,8 @@ const erros: Record<string, string> = {
   identidade_existe: "A sua conta já tem uma identidade: este aparelho precisa ser aprovado por um aparelho que já funciona.",
   identidade_diferente: "Esta cópia de recuperação é de outra identidade, não da atual da sua conta.",
   sem_copia: "Não existe cópia de recuperação guardada para a sua conta.",
+  limite_fixadas: "Uma conversa só pode ter cinco mensagens fixadas. Desafixe uma antes.",
+  fora_do_prazo: "Uma mensagem só pode ser editada até 15 minutos depois de enviada.",
   departamento_fixo: "Do grupo do seu departamento não dá para sair: ele acompanha a sua função.",
   mensagem_longa: "Mensagem longa demais. Divida em duas.",
   sem_cifra: "Este navegador não tem a cifra que as conversas usam. Atualize o navegador ou use outro.",
