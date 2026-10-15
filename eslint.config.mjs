@@ -18,6 +18,8 @@ const eslintConfig = defineConfig([
     "public/php/**",
     // Função que roda no serviço de contas (Deno), fora do site.
     "supabase/functions/**",
+    // O painel de monitoramento Sentinela Lúcia tem o próprio projeto, com a própria configuração (sentinela/).
+    "sentinela/**",
   ]),
 ]);
 
