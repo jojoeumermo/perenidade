@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "identifier": "default",
+  "description": "O mínimo que a janela principal precisa: notificar, escolher onde salvar o relatório, escrever esse arquivo e abrir links https no navegador.",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "notification:default",
+    "dialog:allow-save",
+    "fs:allow-write-text-file",
+    {
+      "identifier": "fs:scope",
+      "allow": [{ "path": "$DOCUMENT/**" }, { "path": "$DOWNLOAD/**" }, { "path": "$DESKTOP/**" }, { "path": "$HOME/**" }]
+    },
+    "opener:allow-open-url"
+  ]
+}

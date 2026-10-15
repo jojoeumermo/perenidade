@@ -1022,7 +1022,20 @@ begin
     'ultimo_evento_auth', (select max(em) from eventos where fonte = 'auth'),
     'deploys_conhecidos', (select coalesce(jsonb_agg(id), '[]'::jsonb) from (select id from deploys order by criado_em desc limit 100) x),
     'github_conhecidos', (select coalesce(jsonb_object_agg(id, estado), '{}'::jsonb) from github_alertas),
-    'alertas_recentes', (select coalesce(jsonb_agg(jsonb_build_object('regra', regra, 'impressao', impressao, 'em', em)), '[]'::jsonb) from alertas where em > now() - interval '24 hours'));
+    'alertas_recentes', (select coalesce(jsonb_agg(jsonb_build_object('regra', regra, 'impressao', impressao, 'em', em)), '[]'::jsonb) from alertas where em > now() - interval '24 hours'),
+    'ultimos_cabecalhos', (select cabecalhos from verificacoes where alvo = 'site' and no_ar order by em desc limit 1),
+    'segundo_fator_todos', case when to_regclass('auth.mfa_factors') is null then null else (select bool_and(vigia.fator_de(id)) from perfis where ativo) end,
+    'ips_insistentes', (select coalesce(jsonb_agg(x), '[]'::jsonb) from (
+      select e.ip, count(*) as bloqueios from eventos e where e.em > now() - interval '6 hours' and e.ip <> '' and e.acao in ('block', 'drop')
+        and not exists (select 1 from eventos r where r.fonte = 'reputacao' and r.ip = e.ip and r.em > now() - interval '7 days')
+      group by e.ip having count(*) >= 5 order by count(*) desc limit 10) x));
+end $$;
+
+/** Para o coletor desfazer um bloqueio: a referência que a Cloudflare devolveu quando a ação foi executada. */
+create or replace function public.coleta_acao_referencia(p_id uuid) returns jsonb language plpgsql security definer set search_path = vigia, pg_temp as $$
+begin
+  perform vigia.so_servico();
+  return (select jsonb_build_object('referencia', referencia, 'estado', estado) from acoes where id = p_id);
 end $$;
 
 /** Uma verificação de alvo (site, página, supabase…). */
