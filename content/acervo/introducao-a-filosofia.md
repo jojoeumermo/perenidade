@@ -2,7 +2,7 @@
 titulo: "Introduction to Philosophy"
 autor: "Nathan Smith e outros"
 area: filosofia
-licenca: "CC BY"
+licenca: "CC BY-NC-SA"
 fonte: "OpenStax"
 url: "https://openstax.org/details/books/introduction-philosophy"
 idioma: "Inglês"

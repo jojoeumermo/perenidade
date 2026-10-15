@@ -429,7 +429,7 @@ function LivroDoAcervo() {
           <option value="papeis">Só funções dadas e tiradas</option>
         </select>
       </label>
-      {lista.erro && <p role="status" className="mt-2 text-oxblood">{lista.erro} Se o livro nunca abriu, falta rodar de novo o arquivo supabase/install.sql no banco.</p>}
+      {lista.erro && <p role="status" className="mt-2 text-oxblood">{lista.erro}</p>}
       <ul className="mt-2 divide-y divide-rule border-y border-rule">
         {lista.dados?.map((linha) => (
           <li key={linha.id} className="py-2">
