@@ -8,7 +8,7 @@ import { contextoDaConversa } from "@/lib/sigilo";
 import { useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, elo, papeis, rotulo, textoDoErro, useLista } from "./comum";
 import type { Membro } from "./Equipe";
-import { Aparelhos, ComoFunciona, enviarCifrado, SEM_CHAVE, useAbertos, useChaveiro } from "./Sigilo";
+import { Alertas, AparelhoPendente, Aparelhos, ComoFunciona, enviarCifrado, Seguranca, TextoAberto, useAbertos, useChaveiro } from "./Sigilo";
 
 type Tipo = "direta" | "grupo" | "departamento";
 
@@ -135,12 +135,14 @@ export function Conversas({ me }: { me: Me }) {
   const previas = useAbertos(
     chaveiro,
     (lista.dados ?? []).flatMap((conversa) =>
-      conversa.ultima ? [{ id: `${conversa.id}:${conversa.ultima.criado_em}`, conversa: conversa.id, corpo: conversa.ultima.corpo, contexto: contextoDaConversa(conversa.id, conversa.ultima.autor_id ?? "") }] : [],
+      conversa.ultima ? [{ id: `${conversa.id}:${conversa.ultima.criado_em}`, conversa: conversa.id, corpo: conversa.ultima.corpo, contexto: contextoDaConversa(conversa.id, conversa.ultima.autor_id ?? ""), autor: conversa.ultima.autor_id }] : [],
     ),
   );
 
   if (erro) return <Aviso texto={erro} />;
   if (!chaveiro) return <Aviso texto="Preparando a chave deste aparelho…" />;
+  // Aparelho ainda não aprovado: nada abre aqui até um aparelho já aprovado da pessoa conferir o código.
+  if (chaveiro.estado !== "aprovado") return <div className="border border-rule bg-parchment"><AparelhoPendente chaveiro={chaveiro} /></div>;
 
   const termo = busca.trim().toLowerCase();
   const conversas = (lista.dados ?? []).filter((conversa) => !termo || conversa.nome.toLowerCase().includes(termo));
@@ -163,7 +165,8 @@ export function Conversas({ me }: { me: Me }) {
   function previa(conversa: Conversa) {
     if (!conversa.ultima) return conversa.tipo === "direta" ? "Nenhuma mensagem ainda" : `${conversa.membros} pessoas`;
     const quem = conversa.ultima.minha ? "Você: " : conversa.tipo !== "direta" ? `${conversa.ultima.autor.split(" ")[0]}: ` : "";
-    return `${quem}${previas[`${conversa.id}:${conversa.ultima.criado_em}`] ?? (conversa.ultima.corpo.startsWith("c1.") ? "mensagem antiga" : "…")}`;
+    const aberta = previas[`${conversa.id}:${conversa.ultima.criado_em}`];
+    return `${quem}${aberta?.texto ?? (conversa.ultima.corpo.startsWith("c1.") ? "mensagem antiga" : "…")}`;
   }
 
   return (
@@ -224,9 +227,10 @@ export function Conversas({ me }: { me: Me }) {
           )}
           {termo && conversas.length === 0 && pessoas.length === 0 && <p className="px-3 py-4 text-ink-soft">Ninguém com esse nome na equipe.</p>}
         </div>
-        <div className="space-y-2 border-t border-rule p-3">
+        {/* A lista de aparelhos cresce (aprovação, cópia de recuperação): rola dentro do próprio pé, sem empurrar a tela. */}
+        <div className="max-h-[60%] space-y-2 overflow-y-auto border-t border-rule p-3 [scrollbar-width:thin]">
           <ComoFunciona />
-          <Aparelhos atual={chaveiro.aparelho} />
+          <Aparelhos chaveiro={chaveiro} />
         </div>
       </aside>
 
@@ -274,8 +278,11 @@ function Janela({ id, chaveiro, me, equipe, resumo, voltar, mudou }: { id: strin
     return () => window.clearInterval(relogio);
   }, []);
   const mensagens = (dados?.mensagens ?? []).filter((mensagem) => !mensagem.expira_em || new Date(mensagem.expira_em).getTime() > agora);
-  const abertos = useAbertos(chaveiro, mensagens.map((mensagem) => ({ id: mensagem.id, conversa: id, corpo: mensagem.corpo, contexto: contextoDaConversa(id, mensagem.autor ?? "") })));
+  const abertos = useAbertos(chaveiro, mensagens.map((mensagem) => ({ id: mensagem.id, conversa: id, corpo: mensagem.corpo, contexto: contextoDaConversa(id, mensagem.autor ?? ""), autor: mensagem.autor })));
   const ultima = mensagens.at(-1)?.id;
+  const alertas = chaveiro.alertasDe(id);
+  const pessoas = chaveiro.pessoasDe(id);
+  const [seguranca, setSeguranca] = useState<{ usuario: string; nome: string } | null>(null);
 
   // Mensagem nova: a conversa rola sozinha até o fim.
   useEffect(() => {
@@ -295,6 +302,7 @@ function Janela({ id, chaveiro, me, equipe, resumo, voltar, mudou }: { id: strin
   const nome = dados.tipo === "direta" ? (outro?.nome ?? resumo?.nome ?? "Conversa") : dados.nome;
   const minhas = mensagens.filter((mensagem) => mensagem.minha);
   const vistaPeloOutro = outro && minhas.length > 0 && outro.lido_em >= minhas[minhas.length - 1].criado_em;
+  const verificado = (usuario: string) => pessoas.find((pessoa) => pessoa.usuario === usuario)?.verificado ?? false;
 
   async function enviar() {
     const limpo = texto.trim();
@@ -340,11 +348,20 @@ function Janela({ id, chaveiro, me, equipe, resumo, voltar, mudou }: { id: strin
         <button type="button" aria-label="Voltar às conversas" className="cursor-pointer px-1 text-xl lg:hidden" onClick={voltar}>←</button>
         <Rosto nome={nome} online={Boolean(outro?.online)} tipo={dados.tipo} />
         <div className="min-w-0 flex-1">
-          <p className="truncate font-semibold">{nome}</p>
+          <p className="truncate font-semibold">
+            {nome}
+            {outro && verificado(outro.id) && <span title="Identidade verificada pessoalmente" className="ml-1.5 font-normal text-ok">✓ verificado</span>}
+          </p>
           <p className="truncate text-xs text-ink-soft">
             {outro
               ? presenca(outro.online, outro.visto_em)
               : `${dados.tipo === "departamento" ? "Grupo do departamento · " : ""}${dados.membros.length} pessoas · ${dados.membros.filter((membro) => membro.online).length} online`}
+            {outro && (
+              <>
+                {" · "}
+                <button type="button" className={elo} onClick={() => setSeguranca(seguranca ? null : { usuario: outro.id, nome: outro.nome })}>código de segurança</button>
+              </>
+            )}
           </p>
         </div>
         <label className="flex items-center gap-1.5 text-xs text-ink-soft">
@@ -364,10 +381,16 @@ function Janela({ id, chaveiro, me, equipe, resumo, voltar, mudou }: { id: strin
       </header>
 
       {gerir && dados.tipo !== "direta" ? (
-        <Grupo dados={dados} me={me} equipe={equipe} depois={() => { recarregar(); mudou(); }} saiu={voltar} />
+        <Grupo dados={dados} me={me} equipe={equipe} chaveiro={chaveiro} conversa={id} depois={() => { recarregar(); mudou(); }} saiu={voltar} />
       ) : (
         <>
           <div className="min-h-0 flex-1 space-y-1.5 overflow-y-auto px-3 py-4 [scrollbar-width:thin]" aria-live="polite">
+            {seguranca && (
+              <div className="mb-3">
+                <Seguranca chaveiro={chaveiro} conversa={id} usuario={seguranca.usuario} nome={seguranca.nome} fechar={() => setSeguranca(null)} />
+              </div>
+            )}
+            <Alertas chaveiro={chaveiro} conversa={id} alertas={alertas} />
             {dados.apagar_apos && (
               <p className="mx-auto mb-3 max-w-md border border-rule bg-parchment-deep px-3 py-2 text-center text-xs text-ink-soft">
                 Autodestruição ligada{dados.apagar_por ? ` por ${dados.apagar_por}` : ""}: as mensagens enviadas desde então somem {nomeDoPrazo(dados.apagar_apos)} depois de enviadas.
@@ -388,9 +411,14 @@ function Janela({ id, chaveiro, me, equipe, resumo, voltar, mudou }: { id: strin
                       </button>
                     )}
                     <div className={`max-w-[80%] px-3 py-1.5 sm:max-w-[70%] ${mensagem.minha ? "bg-ink text-parchment" : "border border-rule bg-parchment-deep"}`}>
-                      {mostraNome && <p className="text-xs font-semibold text-gold">{mensagem.nome}</p>}
-                      <p className={`whitespace-pre-line break-words ${typeof abertos[mensagem.id] !== "string" || mensagem.corpo.startsWith("c1.") ? "italic opacity-80" : ""}`}>
-                        {abertos[mensagem.id] === null ? SEM_CHAVE : (abertos[mensagem.id] ?? "…")}
+                      {mostraNome && (
+                        <p className="text-xs font-semibold text-gold">
+                          {mensagem.nome}
+                          {mensagem.autor && verificado(mensagem.autor) && <span title="Identidade verificada pessoalmente" className="ml-1 font-normal text-ok">✓</span>}
+                        </p>
+                      )}
+                      <p className={`whitespace-pre-line break-words ${abertos[mensagem.id]?.autoria === "invalida" ? "border border-oxblood p-1" : ""}`}>
+                        <TextoAberto aberto={abertos[mensagem.id]} antiga={mensagem.corpo.startsWith("c1.")} />
                       </p>
                       <p className={`text-right text-[0.65rem] leading-tight ${mensagem.minha ? "text-parchment/70" : "text-ink-soft"}`}>
                         {mensagem.expira_em && <span title={`Autodestruição: ${new Date(mensagem.expira_em).toLocaleString("pt-BR")}`}>⏱ {restante(mensagem.expira_em)} · </span>}
@@ -435,14 +463,17 @@ function Janela({ id, chaveiro, me, equipe, resumo, voltar, mudou }: { id: strin
  * Quem está no grupo. Num grupo comum, quem criou (ou a coordenação) põe e tira gente, troca o nome e apaga; qualquer um sai.
  * O grupo de um departamento acompanha as funções: entra quem recebe a função, sai quem deixa de tê-la.
  */
-function Grupo({ dados, me, equipe, depois, saiu }: { dados: Aberta; me: Me; equipe: Membro[]; depois: () => void; saiu: () => void }) {
+function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu }: { dados: Aberta; me: Me; equipe: Membro[]; chaveiro: Chaveiro; conversa: string; depois: () => void; saiu: () => void }) {
   const [nome, setNome] = useState(dados.nome);
   const [novo, setNovo] = useState("");
   const [aviso, setAviso] = useState("");
+  const [seguranca, setSeguranca] = useState<{ usuario: string; nome: string } | null>(null);
   const dentro = new Set(dados.membros.map((membro) => membro.id));
   const livres = equipe.filter((membro) => !dentro.has(membro.id));
   const fixo = dados.tipo === "departamento";
   const pode = dados.dona && !fixo;
+  const pessoas = chaveiro.pessoasDe(conversa);
+  const verificado = (usuario: string) => pessoas.find((pessoa) => pessoa.usuario === usuario)?.verificado ?? false;
 
   async function fazer(funcao: string, argumentos: Record<string, unknown>, fim: () => void = depois) {
     setAviso("");
@@ -480,8 +511,19 @@ function Grupo({ dados, me, equipe, depois, saiu }: { dados: Aberta; me: Me; equ
               <span className="flex min-w-0 items-center gap-3">
                 <Rosto nome={membro.nome} online={membro.online} />
                 <span className="min-w-0">
-                  <span className="block truncate font-semibold">{membro.nome}{membro.eu && " (você)"}</span>
-                  <span className="block truncate text-xs text-ink-soft">{presenca(membro.online, membro.visto_em)}</span>
+                  <span className="block truncate font-semibold">
+                    {membro.nome}{membro.eu && " (você)"}
+                    {!membro.eu && verificado(membro.id) && <span title="Identidade verificada pessoalmente" className="ml-1.5 font-normal text-ok">✓</span>}
+                  </span>
+                  <span className="block truncate text-xs text-ink-soft">
+                    {presenca(membro.online, membro.visto_em)}
+                    {!membro.eu && (
+                      <>
+                        {" · "}
+                        <button type="button" className={elo} onClick={() => setSeguranca(seguranca?.usuario === membro.id ? null : { usuario: membro.id, nome: membro.nome })}>código de segurança</button>
+                      </>
+                    )}
+                  </span>
                 </span>
               </span>
               {pode && membro.id !== me.id && (
@@ -490,6 +532,11 @@ function Grupo({ dados, me, equipe, depois, saiu }: { dados: Aberta; me: Me; equ
             </li>
           ))}
         </ul>
+        {seguranca && (
+          <div className="mt-3">
+            <Seguranca chaveiro={chaveiro} conversa={conversa} usuario={seguranca.usuario} nome={seguranca.nome} fechar={() => setSeguranca(null)} />
+          </div>
+        )}
       </div>
       {pode && livres.length > 0 && (
         <div className="flex flex-wrap items-end gap-2">

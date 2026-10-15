@@ -8,7 +8,7 @@ import { safeLink } from "@/lib/text";
 import { previewFile } from "@/lib/upload";
 import { useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, data, elo, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
-import { ComoFunciona, enviarCifrado, SEM_CHAVE, useAbertos, useChaveiro } from "./Sigilo";
+import { AparelhoPendente, ComoFunciona, enviarCifrado, TextoAberto, useAbertos, useChaveiro } from "./Sigilo";
 
 interface Resposta {
   id: string;
@@ -115,9 +115,9 @@ export function Equipe({ usuario, lider }: { usuario: string; lider: boolean }) 
   // Abre no aparelho o que veio cifrado do banco.
   const abertos = useAbertos(
     chaveiro,
-    conversa ? (lista.dados ?? []).flatMap((recado) => [recado, ...recado.respostas]).map((item) => ({ id: item.id, conversa, corpo: item.corpo, contexto: contextoDoMural(canal, item.autor_id ?? "") })) : [],
+    conversa ? (lista.dados ?? []).flatMap((recado) => [recado, ...recado.respostas]).map((item) => ({ id: item.id, conversa, corpo: item.corpo, contexto: contextoDoMural(canal, item.autor_id ?? ""), autor: item.autor_id })) : [],
   );
-  const lido = (item: Resposta) => (abertos[item.id] === null ? <span className="italic opacity-80">{SEM_CHAVE}</span> : <span className={item.corpo.startsWith("c1.") ? "italic opacity-80" : ""}>{abertos[item.id] ?? "…"}</span>);
+  const lido = (item: Resposta) => <TextoAberto aberto={abertos[item.id]} antiga={item.corpo.startsWith("c1.")} />;
 
   // Publicações novas aparecem sozinhas, sem a pessoa precisar recarregar.
   useEffect(() => {
@@ -155,6 +155,7 @@ export function Equipe({ usuario, lider }: { usuario: string; lider: boolean }) 
 
   if (erro) return <Aviso texto={erro} />;
   if (!dados || !chaveiro) return <Aviso texto={canais.erro || "Preparando a chave deste aparelho…"} />;
+  if (chaveiro.estado !== "aprovado") return <AparelhoPendente chaveiro={chaveiro} />;
 
   return (
     <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_15rem]">
