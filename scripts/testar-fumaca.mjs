@@ -330,6 +330,26 @@ if (site) {
     return resposta.status === 404 ? "" : `status ${resposta.status}`;
   });
 
+  // O histórico público diz só que tipo de conteúdo mudou e quando: nada da mensagem interna, do autor ou do código do registro.
+  for (const caminho of ["/pt/historico", "/pt"]) {
+    await confere(`histórico público sem dados internos em ${caminho}`, async () => {
+      const resposta = await abrir(caminho);
+      const html = await resposta.text();
+      const registros = (await import("node:child_process"))
+        .execFileSync("git", ["log", "-n", "40", "--format=%h%x1f%an%x1f%s", "--", "content"], { encoding: "utf8" })
+        .split("\n")
+        .filter(Boolean)
+        .map((linha) => linha.split("\x1f"));
+      // O código do registro só conta entre aspas (é assim que ele entrava na página, como chave de lista).
+      const vazou = [
+        ...registros.map(([codigo]) => codigo).filter((codigo) => html.includes(`"${codigo}"`) || html.includes(`\\"${codigo}\\"`)),
+        ...registros.flatMap(([, autor, assunto]) => [autor, assunto]).filter((texto) => texto.length >= 7 && (html.includes(texto) || html.includes(texto.replace(/'/g, "&#x27;")))),
+      ];
+      if (/Merge branch/.test(html)) vazou.push("Merge branch");
+      return vazou.length ? `aparece: ${[...new Set(vazou)].slice(0, 3).join(" | ")}` : "";
+    });
+  }
+
   // Cabeçalhos de segurança
   await confere("cabeçalhos de segurança na página inicial", async () => {
     const resposta = await abrir("/pt");
