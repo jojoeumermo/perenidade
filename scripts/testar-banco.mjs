@@ -1541,6 +1541,8 @@ await espera("aprovada, entra na lista pública da disciplina e o visitante lê 
 await espera("o visitante abre a aula com a transcrição", () => rpc(anon, "videoaula_ver", { p_id: video.id }), (r) => r.id === video.id && "transcricao" in r);
 await recusa("quem enviou não apaga a aula que está no ar", () => rpc(como(ids.prof), "videoaula_apagar", { p_id: video.id }), "sem_permissao");
 await espera("a coordenação apaga e recebe o caminho do arquivo", () => rpc({ ...como(ids.coord), aal: "aal2" }, "videoaula_apagar", { p_id: video.id }), (r) => r.caminho === video.caminho);
+await espera("apagado o registro, quem enviou e a coordenação ainda leem o arquivo (para tirá-lo do depósito)", async () => [await rpc(como(ids.prof), "videoaula_pode_ler", { p_nome: video.caminho }), await rpc({ ...como(ids.coord), aal: "aal2" }, "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0] === true && r[1] === true);
+await espera("o arquivo sem registro não fica aberto ao visitante nem a outra conta", async () => [await rpc(anon, "videoaula_pode_ler", { p_nome: video.caminho }), await rpc(como(ids.leitora), "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0] === false && r[1] === false);
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);

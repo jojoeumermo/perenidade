@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PodcastsRelacionados } from "@/components/podcast/Relacionados";
+import { VideoaulasDaDisciplina } from "@/components/VideoaulasPublicas";
 import { notFound } from "next/navigation";
 import { BookCard, TrackCard } from "@/components/Cards";
 import { PageHeading } from "@/components/PageHeading";
@@ -52,6 +53,7 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
         <a href="#materiais-avulsos" className="border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">
           {t.shelf.loose} <span className="font-mono text-xs">({loose.length})</span>
         </a>
+        <a href="#aulas-em-video" className="border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{t.videoLessons.title}</a>
         <a href="#obras" className="border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{t.shelf.works}</a>
       </nav>
 
@@ -111,6 +113,9 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
           </p>
         )}
       </section>
+
+      {/* Aulas em vídeo gravadas pelos educadores da disciplina, lidas do serviço na hora. */}
+      <VideoaulasDaDisciplina disciplina={area} s={t.videoLessons} />
 
       {/* Episódios do podcast ligados a esta disciplina: aparecem só se houver. */}
       <PodcastsRelacionados disciplina={area} />

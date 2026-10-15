@@ -34,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/comecar",
     "/guia",
     "/videos",
+    "/videoaulas",
     "/mural",
     "/reforco",
     "/materiais",
