@@ -171,7 +171,7 @@ Sem esta etapa o site funciona, só não aparecem o painel, a comunidade e a rá
 3. Em **Project Settings → API**, confira que em *Exposed schemas* **não** aparece `interno` (o padrão já é só `public`).
 4. Ainda em **API**, copie a *Project URL* e a chave *anon public*. No serviço de hospedagem do site, crie as variáveis `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` com esses valores e publique o site de novo.
 5. Em **Authentication → URL Configuration**, ponha o endereço do site em *Site URL* e acrescente `https://SEU-DOMINIO/**` em *Redirect URLs*.
-6. Em **Authentication → Sign In / Providers → Email**: deixe o e-mail ligado, **desligue "Confirm email"** (o convite já prova quem é a pessoa) e deixe ligado "Allow new users to sign up" (quem barra o cadastro é o banco: sem convite válido, a conta não é criada). Ponha o tamanho mínimo da senha em 12.
+6. Em **Authentication → Sign In / Providers → Email**: deixe o e-mail ligado, **ligue "Confirm email"** e deixe ligado "Allow new users to sign up" (quem barra o cadastro é o banco: com o cadastro da comunidade fechado, sem convite válido a conta não é criada). Ponha o tamanho mínimo da senha em 12 e ligue "Secure password change" (trocar a senha passa a pedir uma confirmação recente). A confirmação de e-mail é o que prova que a conta pertence a quem tem a caixa de entrada: sem ela, qualquer pessoa cria uma conta com o e-mail de outra e, se essa outra pessoa se candidatar a voluntária, recebe a função quando a candidatura for aceita. Ela depende do envio de e-mails: configure antes o SMTP do Resend (seção "E-mails automáticos").
 7. **A primeira conta (a sua).** Em **Authentication → Users → Add user → Create new user**, digite o seu e-mail e a sua senha e marque "Auto Confirm User". Enquanto não existe coordenação, essa criação é livre. Depois, no **SQL Editor**, rode:
 
    ```sql
@@ -257,7 +257,7 @@ Para ativar, nesta ordem:
 
 As conferências dessa parte são `npm run testar:moderacao` (a chamada ao serviço, simulada, sem rede e sem chave) e a seção "segunda avaliação" de `npm run testar:banco` (o que o banco faz com cada resultado).
 
-O **Mural dos Trabalhadores** é decidido pela coordenação e pela mediação, que também pode acertar o texto de um anúncio pendente. Retirar do ar um anúncio já aprovado continua só com a coordenação.
+O **Mural dos Trabalhadores** é decidido pela coordenação e pela mediação, que também pode acertar o texto de um anúncio pendente. Retirar do ar um anúncio já aprovado continua só com a coordenação, na aba **No ar** da seção: o anúncio passa a "não aprovado", com o motivo que quem anunciou lê em "Meus anúncios", e nada é apagado na hora.
 
 **Cadastro aberto.** Qualquer pessoa cria conta com e-mail e senha (página Entrar, ou "Criar conta" na Comunidade). A conta nasce sem função nenhuma: pode perguntar, responder e contribuir, e nada do que escreve aparece antes da mediação. A coordenação fecha essa porta em *Controles do site → Cadastro da comunidade* (volta a valer só o convite), e a pausa geral de envios também a fecha enquanto durar. A regra está no gatilho `lucia_conta_nova`. No serviço de contas, mantenha ligadas a confirmação de e-mail e a verificação contra robôs (seção 6).
 
@@ -329,7 +329,7 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 ## 8. Segurança: o que protege o quê
 
 - **Tabelas fechadas.** Ficam no esquema `interno`, sem nenhuma permissão direta. A única entrada são as funções do esquema `public`, e cada uma confere quem está chamando.
-- **Chaves.** A chave *anon* é pública por natureza e não abre nada sozinha. A *service_role* existe só nos segredos da publicação automática.
+- **Chaves.** A chave *anon* é pública por natureza e não abre nada sozinha. A *service_role* existe só nos segredos das rotinas automáticas (publicação e e-mails) e, dentro delas, só nos passos que falam com o banco: a instalação dos pacotes e o build rodam código de terceiros e não a enxergam. Pelo mesmo motivo, o token de escrita do GitHub só existe no passo que faz o push da publicação.
 - **Texto, não código.** O conteúdo é Markdown sem HTML; links só http(s); imagens só as que estão em `public/arquivos/` e `public/imagens/`. Os cabeçalhos de segurança (`next.config.ts`) impedem scripts de fora.
 - **Limites.** Envios anônimos têm limite por origem, campo-isca contra robôs e tamanho máximo. A entrada (pedido de link, senha da equipe e cadastro) passa pela verificação do Turnstile, conferida pelo próprio serviço de contas. Os formulários abertos (contribuir, mural, denúncia, reforço) são protegidos pelo limite de envios e pelo campo-isca, dentro do banco.
 - **Segundo fator** para as funções com poder de decisão (seção 6) e **aviso de aparelho novo**: quando uma conta da equipe entra de um aparelho que nunca usou, a pessoa e a coordenação são avisadas no painel.
@@ -383,7 +383,7 @@ O modo sem internet (`public/sw.js`) só funciona no site montado (`npm run buil
 
 O tocador tem duas partes. As **rádios populares** vêm de `content/radios.json`: só entram emissoras com transmissão aberta em https, conferida na hora de cadastrar; as que não deixam tocar de fora aparecem como link para o site delas. Rode `npm run conferir:links` de tempos em tempos, porque endereço de transmissão muda sem aviso.
 
-A **rádio própria** fica "Em breve" para o público até a coordenação clicar em **Pôr no ar** na aba Rádio do painel. Os áudios são enviados pelo próprio painel ou indicados por endereço. Só publique gravações próprias, em domínio público ou com licença que permita a transmissão: música comercial exige licenciamento.
+A **rádio própria** fica "Em breve" para o público até a coordenação clicar em **Pôr no ar** na aba Rádio do painel. Os áudios são enviados pelo próprio painel ou indicados por endereço https (o site é servido em https e o navegador não toca áudio http dentro dele; o banco recusa). Só publique gravações próprias, em domínio público ou com licença que permita a transmissão: música comercial exige licenciamento.
 
 ## 12. Apoio financeiro
 
@@ -403,7 +403,7 @@ Manifestação de apoio a candidatura na internet é livre para pessoa física, 
 
 ## 15. Mural dos Trabalhadores
 
-Qualquer pessoa anuncia, sem conta: escolhe o tipo, escreve o ofício, o título, a descrição, a **cidade**, o **estado** e o contato. O anúncio passa pelo filtro de palavras e fica esperando: **só a coordenação (coordenador e vice) aprova**, na aba **Mural** do painel. Aprovado, fica no ar por 180 dias. Quem anunciou sem conta recebe um código para retirar o anúncio quando quiser. Quem procura filtra por estado, cidade, tipo e palavra.
+Qualquer pessoa anuncia, sem conta: escolhe o tipo, escreve o ofício, o título, a descrição, a **cidade**, o **estado** e o contato. O anúncio passa pelo filtro de palavras e fica esperando: **a coordenação (coordenador e vice) e a mediação aprovam**, na seção **Mural dos Trabalhadores** do painel. Aprovado, fica no ar por 180 dias; tirar do ar antes disso é com a coordenação, na aba **No ar**. Quem anunciou sem conta recebe um código para retirar o anúncio quando quiser. Quem procura filtra por estado, cidade, tipo e palavra.
 
 ## 16. Leitor digital, livro em EPUB e aplicativo
 
@@ -417,7 +417,7 @@ A página **Notícias** lê os endereços de distribuição (RSS) dos veículos 
 
 ## 18. Histórico público
 
-A página de histórico de mudanças está **desligada**. Para ligá-la, ponha uma data em `historyFrom`, em `lib/site.ts`: ela volta ao ar mostrando só o que mudou daquele dia em diante.
+A página de histórico de mudanças mostra, para cada dia a partir da data em `historyFrom` (em `lib/site.ts`), o tipo de conteúdo que mudou e quantos itens ("Aulas: 12 · Obras do acervo: 73"). Ela lê do git só a data e os arquivos de `content/`: a mensagem, o autor e o código de cada registro são da equipe e não aparecem no site. Com `historyFrom` vazio, a página sai do ar e o quadro da página inicial some.
 
 ## Serviços abertos de fora
 
