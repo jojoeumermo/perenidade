@@ -80,7 +80,7 @@ A avaliação automática vale só para a Comunidade. Anúncios do Mural dos Tra
 
 Além do que está acima, o painel guarda: as funções que você recebeu; o registro do que foi feito com essas funções, por pouco mais de um ano; um identificador sorteado de cada navegador em que a conta foi aberta, para avisar você e a coordenação quando a conta aparecer em um aparelho novo, por até 180 dias sem uso; o nome completo informado no termo de adesão ao trabalho voluntário; e as horas que você registrar. O CPF não é guardado: quem imprime um certificado digita na hora.
 
-As conversas internas da equipe são cifradas no seu aparelho antes de serem enviadas: o que fica guardado é ilegível sem a chave da equipe. Elas são apagadas depois de trinta dias.
+As conversas internas da equipe são cifradas de ponta a ponta: cada aparelho tem a própria chave, criada no navegador, e o que fica guardado no banco é ilegível para quem não participa da conversa, inclusive para a coordenação. O banco guarda a parte pública da chave de cada aparelho, com um nome genérico como "Chrome no Android", e ela sai depois de seis meses sem uso. As conversas são apagadas depois de trinta dias, ou antes, se quem participa ligar a autodestruição.
 
 ## Com que base a lei permite isso
 
