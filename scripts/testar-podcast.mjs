@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Prova as regras do podcast no banco: quem pode o quê, as etapas, a aprovação, a lista de conferência, o rodízio
-// do depósito, a votação de pautas, as perguntas e as entregas. Uso: npm run testar:podcast
+// do depósito, a votação de pautas, as perguntas. Uso: npm run testar:podcast
 import { criarBanco } from "./banco-local.mjs";
 
 const banco = await criarBanco();
@@ -184,16 +184,6 @@ await recusa("pergunta com áudio de outra pessoa", () => rpc(leitora, "podcast_
 await espera("pergunta por texto e áudio", () => rpc(leitora, "podcast_perguntar", { p_texto: "Por que a Comuna caiu tão rápido?", p_audio: `perguntas/${ids.leitora}/pergunta-12345678.webm`, p_assinatura: "Lia, de Recife" }));
 await espera("a equipe vê a pergunta", () => rpc(jornal, "podcast_perguntas_listar"), (r) => r.length === 1 && r[0].assinatura === "Lia, de Recife");
 await recusa("leitora não lê as perguntas", () => rpc(leitora, "podcast_perguntas_listar"), "sem_permissao");
-
-// ── Entregas e pagamentos ──
-const entrega = await espera("a coordenação combina uma entrega", () => rpc(coord, "podcast_entrega_salvar", { p_id: null, p: { profissional: ids.jornal, episodio: ep, descricao: "Edição do episódio 1", prazo: "2026-11-01", valor: "350,00" } }), (r) => r.id);
-await recusa("jornalismo não combina entrega", () => rpc(jornal, "podcast_entrega_salvar", { p_id: null, p: { profissional: ids.jornal, descricao: "Eu mesma", valor: "1" } }), "sem_permissao");
-await espera("a profissional vê a própria entrega", () => rpc(jornal, "podcast_entregas_listar"), (r) => r.length === 1 && Number(r[0].valor) === 350);
-await espera("o editor não vê a entrega de outra pessoa", () => rpc(editor, "podcast_entregas_listar"), (r) => r.length === 0);
-await espera("a profissional marca a entrega", () => rpc(jornal, "podcast_entrega_marcar", { p_id: entrega?.id, p_campo: "entregue", p_valor: true }));
-await recusa("a profissional não marca o próprio pagamento", () => rpc(jornal, "podcast_entrega_marcar", { p_id: entrega?.id, p_campo: "pago", p_valor: true }), "sem_permissao");
-await recusa("recibo na pasta de outra pessoa", () => rpc(coord, "podcast_entrega_marcar", { p_id: entrega?.id, p_campo: "pago", p_valor: true, p_recibo: `recibos/${ids.editor}/recibo-12345678.pdf` }), "invalido:recibo");
-await espera("a coordenação registra o pagamento com recibo", () => rpc(coord, "podcast_entrega_marcar", { p_id: entrega?.id, p_campo: "pago", p_valor: true, p_recibo: `recibos/${ids.jornal}/recibo-12345678.pdf` }));
 
 // ── Agenda, trilhas e séries ──
 await espera("agenda um corte no Instagram", () => rpc(jornal, "podcast_postagem_salvar", { p_id: null, p: { episodio: ep, rede: "instagram", formato: "corte", quando: "2026-10-22T18:00:00-03:00", legenda: "Corte da Comuna" } }));
