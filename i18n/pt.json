@@ -707,7 +707,23 @@
     "lead": "Cada mudança no conteúdo fica registrada com data, e qualquer versão anterior pode ser recuperada.",
     "description": "Todas as mudanças feitas no acervo, da mais recente à mais antiga.",
     "unavailable": "O histórico não está disponível nesta cópia do site.",
-    "more": "e mais {n}"
+    "more": "e mais {n}",
+    "kinds": {
+      "lessons": "Aulas",
+      "tracks": "Roteiros das trilhas",
+      "translations": "Traduções",
+      "books": "Obras do acervo",
+      "catalog": "Catálogo ampliado",
+      "journal": "Jornal",
+      "glossary": "Glossário",
+      "memorial": "Memorial",
+      "authors": "Autores",
+      "checks": "Checagem de fatos",
+      "debates": "Cartões de debate",
+      "videos": "Vídeos",
+      "pages": "Páginas do site",
+      "other": "Outros conteúdos"
+    }
   },
   "dedication": {
     "eyebrow": "Dedicatória",
