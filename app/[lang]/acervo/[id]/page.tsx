@@ -55,6 +55,8 @@ export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id
       >
         {fill(reserved ? t.library.seeAt : t.common.readAt, { source: book.source })} ↗
       </a>
+      {/* Livros da biblioteca digital do MEC: quem lê precisa da conta gov.br, e é bom saber disso antes de clicar. */}
+      {book.source === "MEC Livros" && <p className="mt-3 max-w-xl font-sans text-sm text-ink-soft">{t.library.mecNote}</p>}
 
       <dl className="mt-10 grid gap-x-8 gap-y-4 border-t border-rule pt-6 font-sans text-sm app:max-md:gap-y-1.5 app:max-md:rounded-[0.875rem] app:max-md:border app:max-md:bg-parchment-deep app:max-md:p-4 app:max-md:[&>dd]:mb-3 app:max-md:[&>dd:last-child]:mb-0 sm:grid-cols-[8rem_1fr]">
         {authors.length > 0 && (

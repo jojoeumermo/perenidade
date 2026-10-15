@@ -532,7 +532,8 @@
     },
     "catalogTitle": "Catálogo ampliado",
     "catalogLead": "Obras reunidas a partir de catálogos abiertos, con enlace directo a la fuente. La ficha es más sencilla que la de las obras seleccionadas por la curaduría. Que una obra figure aquí no significa que se comparta lo que dice.",
-    "seeAt": "Ver en {source}"
+    "seeAt": "Ver en {source}",
+    "mecNote": "Préstamo digital gratuito en MEC Livros, la biblioteca digital del Ministerio de Educación de Brasil: basta con entrar con una cuenta gov.br."
   },
   "shelf": {
     "eyebrow": "Asignatura",
@@ -544,10 +545,10 @@
     "suggestWork": "Propón una obra libre.",
     "tools": "Para practicar",
     "videos": "Videos",
-    "sections": "En esta disciplina",
+    "sections": "En esta asignatura",
     "loose": "Materiales sueltos",
-    "looseLead": "Clases sueltas, listas de ejercicios, resúmenes y guías de estudio hechos por los educadores secundarios, fuera de los itinerarios.",
-    "looseEmpty": "Todavía no hay materiales sueltos en esta disciplina.",
+    "looseLead": "Lecciones sueltas, listas de ejercicios, resúmenes y guías de estudio hechos por los educadores secundarios, fuera de las rutas.",
+    "looseEmpty": "Todavía no hay materiales sueltos en esta asignatura.",
     "looseJoin": "¿Quieres aportar uno? Hazte voluntario."
   },
   "search": {
@@ -1764,7 +1765,7 @@
   "loose": {
     "eyebrow": "Material suelto",
     "formats": [
-      "Clase suelta",
+      "Lección suelta",
       "Lista de ejercicios",
       "Resumen",
       "Guía de estudio",
