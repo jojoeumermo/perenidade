@@ -222,7 +222,7 @@ export async function iniciar({ silencioso = false } = {}) {
           }
         }
         const papeisDe = dados?.sub ? (await banco.dono("select papel from interno.papeis where usuario = $1", [dados.sub])).rows.map((linha) => linha.papel) : [];
-        const escreve = papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "educacao", "jornalismo", "design"].includes(papel));
+        const escreve = papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "educacao", "jornalismo", "design", "marketing"].includes(papel));
         const le = pasta === dados?.sub || papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "revisao"].includes(papel));
         if (req.method === "POST") {
           if (!escreve || pasta !== dados?.sub) return json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
@@ -247,6 +247,45 @@ export async function iniciar({ silencioso = false } = {}) {
           if (!arquivo) return json(res, 404, { message: "not found" });
           res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length });
           return res.end(arquivo.dados);
+        }
+      }
+      // ── Arquivos da Gaveta Aberta: PDF na própria pasta; lê quem enviou, quem media e todo mundo depois da aprovação ──
+      const gaveta = /^\/storage\/v1\/object\/(?:authenticated\/|public\/)?(gaveta\/.+)$/.exec(url.pathname);
+      if (gaveta) {
+        const dados = portador(req);
+        const caminho = decodeURIComponent(gaveta[1]);
+        const nome = caminho.slice("gaveta/".length);
+        const pasta = nome.split("/")[0];
+        const papeisDe = dados?.sub ? (await banco.dono("select papel from interno.papeis where usuario = $1", [dados.sub])).rows.map((linha) => linha.papel) : [];
+        const media = papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "mediacao"].includes(papel));
+        if (req.method === "POST") {
+          if (!dados?.sub || pasta !== dados.sub) return json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
+          let tipo = req.headers["content-type"] ?? "";
+          let conteudo = bruto;
+          const limite = /^multipart\/form-data;\s*boundary=(.+)$/i.exec(tipo)?.[1];
+          if (limite) {
+            const texto = bruto.toString("latin1");
+            const parte = texto.split(`--${limite}`).find((pedaco) => /filename=/i.test(pedaco));
+            const corte = parte ? parte.indexOf("\r\n\r\n") : -1;
+            if (corte < 0) return json(res, 400, { statusCode: "400", error: "invalid_request", message: "no file" });
+            tipo = /content-type:\s*([^\r\n]+)/i.exec(parte.slice(0, corte))?.[1]?.trim() ?? "";
+            conteudo = Buffer.from(parte.slice(corte + 4).replace(/\r\n$/, ""), "latin1");
+          }
+          if (tipo !== "application/pdf" || conteudo.length > 10485760) return json(res, 415, { statusCode: "415", error: "invalid_mime_type", message: "mime type not supported" });
+          arquivos.set(caminho, { tipo, dados: conteudo });
+          return json(res, 200, { Key: caminho, Id: crypto.randomUUID() });
+        }
+        if (req.method === "GET") {
+          const publico = (await banco.dono("select interno.gaveta_publico($1) as p", [nome])).rows[0]?.p === true;
+          const arquivo = pasta === dados?.sub || media || publico ? arquivos.get(caminho) : null;
+          if (!arquivo) return json(res, 404, { message: "not found" });
+          res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length });
+          return res.end(arquivo.dados);
+        }
+        if (req.method === "DELETE") {
+          if (pasta !== dados?.sub && !media) return json(res, 403, { message: "forbidden" });
+          arquivos.delete(caminho);
+          return json(res, 200, { message: "ok" });
         }
       }
       const leitura = /^\/storage\/v1\/object\/public\/(radio\/.+)$/.exec(url.pathname);

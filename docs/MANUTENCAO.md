@@ -248,6 +248,7 @@ Cada pessoa vê no painel só as seções da sua função. O banco confere a fun
 | Comunidade | coordenação, vice, curadoria, mediação, educação |
 | Aula de reforço | coordenação, vice, mentoria e educação (só a própria disciplina) |
 | Mural dos Trabalhadores | coordenação, vice, mediação |
+| Gaveta Aberta | coordenação, vice, curadoria, mediação |
 | Boletim do jornal | coordenação, vice, jornalismo |
 | Voluntários e convites | coordenação, vice |
 | Supervisão | supervisão |
@@ -443,6 +444,18 @@ Manifestação de apoio a candidatura na internet é livre para pessoa física, 
 ## 15. Mural dos Trabalhadores
 
 Qualquer pessoa anuncia, sem conta: escolhe o tipo, escreve o ofício, o título, a descrição, a **cidade**, o **estado** e o contato. O anúncio passa pelo filtro de palavras e fica esperando: **só a coordenação (coordenador e vice) aprova**, na aba **Mural** do painel. Aprovado, fica no ar por 180 dias. Quem anunciou sem conta recebe um código para retirar o anúncio quando quiser. Quem procura filtra por estado, cidade, tipo e palavra.
+
+## 15a. Gaveta Aberta
+
+A **Gaveta Aberta** (`/gaveta`, "trabalhos de estudantes, livres para todos") é onde estudantes publicam trabalhos próprios que ficaram parados: TCC, monografia, artigo, projeto, relatório, apostila, código. Quem publica precisa de conta (participante da comunidade já serve), escreve um comentário sobre o trabalho, escolhe a licença (CC BY 4.0, CC BY-SA 4.0 ou CC0 1.0) e o nome do crédito, e aceita o **termo de cessão** (`content/paginas/gaveta-termo.md`, também em `/gaveta/termo`) digitando o nome completo. O trabalho chega por um link https (repositório da universidade, Zenodo, GitHub…) ou por um PDF de até 10 MB.
+
+- **Nada aparece antes da mediação.** A fila fica em *Gaveta Aberta*, no painel (mediação, curadoria, coordenação e vice). Quem decide confere o link ou abre o PDF, olha se não há dados de outras pessoas (nem nas propriedades do arquivo) e publica ou recusa com nota; quem publicou recebe um recado. Uma ficha já publicada também pode ser tirada do ar por quem decide.
+- **O PDF** vai para o depósito fechado `gaveta` do Supabase, na pasta da própria pessoa, com nome sorteado. Só a própria pessoa e a equipe que decide o leem; depois da aprovação, qualquer pessoa baixa (a regra do depósito consulta a tabela por `interno.gaveta_le`). O site entrega o arquivo com o título como nome.
+- **O nome completo do termo** fica só com a equipe que decide e a coordenação; nunca aparece no site.
+- **Quem publicou tira a ficha do ar** em "Minhas publicações": a ficha some e o PDF é apagado do depósito. Quem já copiou continua podendo usar, pela licença.
+- Valem a pausa geral de envios, os banimentos (banir recusa o que a conta tinha esperando na Gaveta), o filtro de palavras e o limite de cinco envios por dia. A Gaveta é uma área da interdição (`gaveta`) e do expurgo.
+- **Mudou o termo?** Escreva a versão nova em `gaveta-termo.md`, troque a versão em `lib/gaveta.ts` (`TERMO_VERSAO`) e em `interno.gaveta_termo_versao()` no `install.sql`, e rode o `install.sql` de novo. `npm run testar:interdicao` confere que as duas versões batem. Envios feitos com a versão antiga continuam com ela registrada.
+- **O nome "Gaveta Aberta"** mora só nos textos (`drawer` nos dicionários e os rótulos do painel): trocar o nome não mexe no banco.
 
 ## 16. Leitor digital, livro em EPUB e aplicativo
 

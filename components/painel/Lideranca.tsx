@@ -384,6 +384,8 @@ const acoes: Record<string, string> = {
   divulgacao_apagada: "apagou do calendário de divulgação:",
   divulgacao_instagram: "mudou o endereço do Instagram do instituto",
   interdicao: "mudou a interdição do site",
+  gaveta_aprovada: "publicou na Gaveta Aberta:",
+  gaveta_recusada: "recusou na Gaveta Aberta:",
   expurgo: "fez um expurgo das áreas abertas",
   pedido_supervisao_criado: "pediu à coordenação (supervisão):",
   pedido_supervisao_aprovado: "aprovou um pedido da supervisão",
