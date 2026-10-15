@@ -396,6 +396,30 @@ create table if not exists interno.certificados (
   criado_em timestamptz not null default now()
 );
 
+-- O que a plataforma conta sozinha entra em "horas" com a origem 'plataforma' e a "fonte" (o trabalho que gerou a linha,
+-- como "aula:<id>"): a mesma coisa nunca conta duas vezes.
+alter table interno.horas add column if not exists origem text not null default 'manual' check (origem in ('manual', 'plataforma'));
+alter table interno.horas add column if not exists fonte text check (fonte is null or char_length(fonte) <= 120);
+create unique index if not exists horas_fonte on interno.horas (usuario, fonte) where fonte is not null;
+create index if not exists auditoria_quem on interno.auditoria (quem, acao);
+
+-- Pedidos de certificado: o voluntário pede, a coordenação abre o processo (ou responde com uma nota).
+create table if not exists interno.certificado_pedidos (
+  id uuid primary key default gen_random_uuid(),
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  inicio date not null,
+  fim date not null,
+  mensagem text not null default '' check (char_length(mensagem) <= 1000),
+  status text not null default 'pendente' check (status in ('pendente', 'atendido', 'recusado', 'cancelado')),
+  nota text not null default '' check (char_length(nota) <= 1000),
+  certificado uuid references interno.certificados (id) on delete set null,
+  decidido_por uuid references interno.perfis (id) on delete set null,
+  decidido_em timestamptz,
+  criado_em timestamptz not null default now(),
+  check (fim >= inicio)
+);
+create unique index if not exists certificado_pedidos_aberto on interno.certificado_pedidos (usuario) where status = 'pendente';
+
 -- Palavras que seguram uma mensagem da comunidade para leitura antes de ela aparecer. A curadoria edita a lista no painel.
 create table if not exists interno.termos_vetados (termo text primary key check (termo ~ '^[a-z0-9 ]{3,40}$'));
 
@@ -2641,12 +2665,23 @@ begin
   return jsonb_build_object('id', v_id);
 end $$;
 
-create or replace function public.horas_minhas() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
-  select jsonb_build_object(
-    'confirmadas', coalesce((select sum(h.horas) from horas h where h.usuario = auth.uid() and h.status = 'confirmada'), 0),
-    'lista', coalesce((select jsonb_agg(jsonb_build_object('id', h.id, 'dia', h.dia, 'horas', h.horas, 'atividade', h.atividade, 'status', h.status, 'certificado', h.certificado is not null) order by h.dia desc, h.criado_em desc)
-                       from (select * from horas where usuario = auth.uid() order by dia desc limit 400) h), '[]'::jsonb))
-$$;
+/** As horas da pessoa, já com o que a plataforma contou desde a última vez, e o pedido de certificado mais recente. */
+create or replace function public.horas_minhas() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  perform interno.horas_apurar(v);
+  return jsonb_build_object(
+    'confirmadas', coalesce((select sum(h.horas) from horas h where h.usuario = v and h.status = 'confirmada'), 0),
+    'livres', coalesce((select sum(h.horas) from horas h where h.usuario = v and h.status = 'confirmada' and h.certificado is null), 0),
+    'plataforma', coalesce((select sum(h.horas) from horas h where h.usuario = v and h.status = 'confirmada' and h.certificado is null and h.origem = 'plataforma'), 0),
+    'pendentes', coalesce((select sum(h.horas) from horas h where h.usuario = v and h.status = 'pendente'), 0),
+    'primeiro_livre', (select min(h.dia) from horas h where h.usuario = v and h.status in ('confirmada', 'pendente') and h.certificado is null),
+    'lista', coalesce((select jsonb_agg(jsonb_build_object('id', h.id, 'dia', h.dia, 'horas', h.horas, 'atividade', h.atividade, 'status', h.status, 'origem', h.origem, 'certificado', h.certificado is not null) order by h.dia desc, h.criado_em desc)
+                       from (select * from horas where usuario = v order by dia desc, criado_em desc limit 400) h), '[]'::jsonb),
+    'pedido', (select interno.pedido_json(p) from certificado_pedidos p
+               where p.usuario = v and (p.status = 'pendente' or (p.status in ('atendido', 'recusado') and p.decidido_em > now() - interval '60 days'))
+               order by p.criado_em desc limit 1));
+end $$;
 
 create or replace function public.horas_remover(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu();
@@ -2717,6 +2752,7 @@ begin
   end if;
   if v_vice is null or v_vice in (v_usuario, v_educador, v)
      or not exists (select 1 from papeis r join perfis f on f.id = r.usuario where r.usuario = v_vice and r.papel = 'vice' and not f.suspenso) then perform interno.erro('falta_vice'); end if;
+  perform interno.horas_apurar(v_usuario);
   select coalesce(sum(horas), 0) into v_horas from horas where usuario = v_usuario and status = 'confirmada' and certificado is null and dia between v_inicio and v_fim;
   if v_horas <= 0 then perform interno.erro('sem_horas'); end if;
   v_assinaturas := jsonb_build_array(
@@ -2729,6 +2765,11 @@ begin
   update horas set certificado = v_id where usuario = v_usuario and status = 'confirmada' and certificado is null and dia between v_inicio and v_fim;
   perform interno.avisar(v_educador, 'Há um certificado de horas de voluntariado esperando a sua assinatura. Abra "Horas e certificados" no painel.');
   perform interno.avisar(v_vice, 'Há um certificado de horas de voluntariado esperando a sua assinatura. Abra "Horas e certificados" no painel.');
+  -- Se a pessoa tinha pedido o certificado, o pedido está atendido: ela fica sabendo que o processo começou.
+  update certificado_pedidos set status = 'atendido', certificado = v_id, decidido_por = v, decidido_em = now() where usuario = v_usuario and status = 'pendente';
+  if found then
+    perform interno.avisar(v_usuario, 'Seu pedido de certificado foi atendido: o processo está aberto, com ' || interno.horas_texto(v_horas) || ', e espera as assinaturas. Você é avisado quando ele for emitido.');
+  end if;
   perform interno.registrar('certificado_aberto', v_usuario::text, jsonb_build_object('horas', v_horas));
   return jsonb_build_object('id', v_id, 'horas', v_horas);
 end $$;
@@ -2800,6 +2841,270 @@ begin
   return jsonb_build_object('encontrado', true, 'valido', true, 'nome', c.nome, 'horas', c.horas, 'inicio', c.inicio, 'fim', c.fim,
     'atividades', c.atividades, 'emitido_em', c.emitido_em, 'impressao', interno.certificado_json(c) ->> 'impressao',
     'testemunhas', (select coalesce(jsonb_agg(x ->> 'nome' order by n), '[]'::jsonb) from jsonb_array_elements(c.testemunhas) with ordinality as e(x, n) where x ->> 'confirmou_em' is not null));
+end $$;
+
+-- ───────────────────────────── Horas que a plataforma conta sozinha ─────────────────────────────
+--
+-- O trabalho feito dentro do painel deixa rastro: a aula que a curadoria aprovou, o parecer dado, o pedido de reforço
+-- concluído, o episódio que foi ao ar. A plataforma transforma esse rastro em horas, por uma tabela que a coordenação
+-- ajusta (configuracoes, chave 'horas_pesos'). Cada trabalho conta uma vez, no dia em que terminou, até 12 horas por dia
+-- somando tudo, e entra já confirmado: o registro é a prova. A coordenação pode desconsiderar uma linha enquanto ela não
+-- estiver em certificado. Trabalho pago (as entregas contratadas do podcast) não conta: voluntariado é sem salário.
+-- O que a pessoa faz fora do painel continua sendo registrado à mão e conferido pela coordenação.
+
+/** A tabela padrão: quanto vale, em horas, cada tipo de trabalho. "grupo" é como ele aparece no resumo do certificado. */
+create or replace function interno.horas_tabela() returns jsonb language sql immutable as $$
+  select '[
+    {"chave": "aula", "nome": "Aula escrita e aprovada", "grupo": "aulas escritas e aprovadas", "padrao": 4},
+    {"chave": "artigo", "nome": "Artigo do jornal aprovado", "grupo": "artigos do jornal", "padrao": 3},
+    {"chave": "checagem", "nome": "Checagem aprovada", "grupo": "checagens de fatos", "padrao": 3},
+    {"chave": "traducao", "nome": "Tradução aprovada", "grupo": "traduções", "padrao": 3},
+    {"chave": "memorial", "nome": "Entrada do memorial aprovada", "grupo": "entradas do memorial", "padrao": 2},
+    {"chave": "debate", "nome": "Debate aprovado", "grupo": "debates", "padrao": 2},
+    {"chave": "video", "nome": "Vídeo aprovado", "grupo": "vídeos", "padrao": 2},
+    {"chave": "verbete", "nome": "Verbete aprovado", "grupo": "verbetes", "padrao": 1.5},
+    {"chave": "obra", "nome": "Obra incluída no acervo", "grupo": "obras incluídas no acervo", "padrao": 1},
+    {"chave": "frase", "nome": "Frase aprovada", "grupo": "frases", "padrao": 0.2},
+    {"chave": "correcao", "nome": "Correção aceita", "grupo": "correções aceitas", "padrao": 0.5},
+    {"chave": "sugestao", "nome": "Sugestão aceita", "grupo": "sugestões aceitas", "padrao": 0.3},
+    {"chave": "parecer", "nome": "Parecer de revisão", "grupo": "pareceres de revisão", "padrao": 0.5},
+    {"chave": "curadoria", "nome": "Decisão de curadoria", "grupo": "decisões de curadoria", "padrao": 0.3},
+    {"chave": "triagem", "nome": "Envio lido na triagem", "grupo": "envios lidos na triagem", "padrao": 0.1},
+    {"chave": "moderacao", "nome": "Decisão de moderação", "grupo": "decisões de moderação", "padrao": 0.1},
+    {"chave": "reforco", "nome": "Aula de reforço concluída", "grupo": "aulas de reforço", "padrao": 1.5},
+    {"chave": "podcast_producao", "nome": "Episódio de podcast produzido", "grupo": "episódios de podcast produzidos", "padrao": 4},
+    {"chave": "podcast_edicao", "nome": "Episódio de podcast editado", "grupo": "episódios de podcast editados", "padrao": 3},
+    {"chave": "podcast_supervisao", "nome": "Episódio de podcast supervisionado", "grupo": "episódios de podcast supervisionados", "padrao": 1},
+    {"chave": "arte", "nome": "Arte entregue a pedido da equipe", "grupo": "artes entregues", "padrao": 1.5},
+    {"chave": "boletim", "nome": "Edição do boletim enviada", "grupo": "edições do boletim", "padrao": 2}
+  ]'::jsonb
+$$;
+
+/** Quanto vale um tipo de trabalho agora: o que a coordenação ajustou ou, sem ajuste, o padrão. */
+create or replace function interno.horas_peso(p_chave text) returns numeric language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((select (valor ->> p_chave)::numeric from configuracoes where chave = 'horas_pesos' and valor ? p_chave),
+                  (select (x ->> 'padrao')::numeric from jsonb_array_elements(interno.horas_tabela()) x where x ->> 'chave' = p_chave), 0)
+$$;
+
+/** "3,5 h", como sai no painel e no certificado. */
+create or replace function interno.horas_texto(p numeric) returns text language sql immutable as $$
+  select replace(trim_scale(round(coalesce(p, 0), 1))::text, '.', ',') || ' h'
+$$;
+
+/** O dia de um trabalho, pelo relógio de Brasília. */
+create or replace function interno.dia_de(p timestamptz) returns date language sql immutable as $$
+  select (p at time zone 'America/Sao_Paulo')::date
+$$;
+
+/**
+ * Põe em "horas" o trabalho da pessoa que a plataforma ainda não contou. Roda sempre que alguém olha as horas dela
+ * (ela mesma, a coordenação ao ver o pedido, o coordenador ao abrir o certificado): não depende de agendador.
+ * Conta o que terminou nos últimos 400 dias, a janela das horas registradas à mão.
+ */
+create or replace function interno.horas_apurar(p_usuario uuid) returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+declare r record; v_peso numeric; v_livre numeric; v_dia date;
+begin
+  if p_usuario is null or not exists (select 1 from termos_adesao where usuario = p_usuario) then return; end if;
+  for r in
+    select t.fonte, t.chave, t.quando, t.titulo from (
+      -- O que a pessoa escreveu, sozinha ou junto, e outra pessoa aprovou: aulas, artigos, traduções, verbetes…
+      select c.tipo || ':' || c.id as fonte, c.tipo as chave, c.revisado_em as quando, c.titulo
+      from contribuicoes c
+      where c.status in ('aprovada', 'publicada', 'resolvida') and c.revisado_em is not null and c.revisado_por is distinct from p_usuario
+        and (c.autor = p_usuario or exists (select 1 from colaboradores k where k.contribuicao = c.id and k.usuario = p_usuario))
+      union all
+      -- Pareceres: um por contribuição, por mais que a pessoa volte a ela.
+      select 'parecer:' || p.contribuicao, 'parecer', min(p.criado_em), min(c.titulo)
+      from pareceres p join contribuicoes c on c.id = p.contribuicao
+      where p.autor = p_usuario and c.autor is distinct from p_usuario
+      group by p.contribuicao
+      union all
+      -- Decisões da curadoria e leituras da triagem: o registro de atividades guarda quem decidiu. A própria contribuição não conta.
+      select case when a.acao like 'triagem%' then 'triagem:' else 'curadoria:' end || (a.detalhes ->> 'id'),
+             case when a.acao like 'triagem%' then 'triagem' else 'curadoria' end, min(a.criado_em), min(a.alvo)
+      from auditoria a
+      where a.quem = p_usuario and a.acao in ('contribuicao_aprovada', 'contribuicao_recusada', 'triagem_liberada', 'triagem_barrada') and a.detalhes ? 'id'
+        and not exists (select 1 from contribuicoes c where c.id::text = a.detalhes ->> 'id' and c.autor = p_usuario)
+      group by 1, 2
+      union all
+      select 'moderacao:' || a.id, 'moderacao', a.criado_em, ''
+      from auditoria a
+      where a.quem = p_usuario and a.acao in ('comunidade_ocultar', 'comunidade_mostrar', 'comunidade_trancar', 'comunidade_destrancar', 'anuncio_aprovado', 'anuncio_recusado')
+      union all
+      select 'boletim:' || a.id, 'boletim', a.criado_em, a.alvo from auditoria a where a.quem = p_usuario and a.acao = 'boletim_enviado'
+      union all
+      select 'reforco:' || f.id, 'reforco', f.atendido_em, f.assunto from reforco f
+      where f.mentor = p_usuario and f.status = 'atendido' and f.atendido_em is not null and f.autor <> p_usuario
+      union all
+      -- Podcast: quem produziu, quem editou o áudio e quem aprovou um episódio que foi ao ar.
+      select 'podcast_producao:' || e.id, 'podcast_producao', e.publicado_em, e.titulo from podcast_episodios e
+      where e.status = 'publicado' and e.publicado_em is not null and coalesce(e.responsavel, e.enviado_por) = p_usuario
+      union all
+      select 'podcast_edicao:' || e.id, 'podcast_edicao', e.publicado_em, e.titulo from podcast_episodios e
+      where e.status = 'publicado' and e.publicado_em is not null and coalesce(e.responsavel, e.enviado_por) is distinct from p_usuario
+        and exists (select 1 from podcast_arquivos f where f.episodio = e.id and f.enviado_por = p_usuario and f.tipo in ('editado', 'final'))
+      union all
+      select 'podcast_supervisao:' || e.id, 'podcast_supervisao', e.aprovado_em, e.titulo from podcast_episodios e
+      where e.status = 'publicado' and e.aprovado_em is not null and e.aprovado_por = p_usuario and coalesce(e.responsavel, e.enviado_por) is distinct from p_usuario
+      union all
+      select 'arte:' || d.id, 'arte', d.feito_em, d.texto from podcast_pedidos d
+      where d.atendido_por = p_usuario and d.status = 'feito' and d.feito_em is not null and d.pedido_por is distinct from p_usuario
+    ) t
+    where t.quando > now() - interval '400 days'
+      and not exists (select 1 from horas h where h.usuario = p_usuario and h.fonte = t.fonte)
+      and not (t.chave like 'podcast%' and exists (select 1 from podcast_entregas g where g.profissional = p_usuario and g.episodio::text = split_part(t.fonte, ':', 2)))
+    order by t.quando
+  loop
+    v_peso := round(interno.horas_peso(r.chave), 1);
+    if v_peso <= 0 then continue; end if;
+    v_dia := interno.dia_de(r.quando);
+    v_livre := 12 - coalesce((select sum(horas) from horas where usuario = p_usuario and dia = v_dia and status <> 'recusada'), 0);
+    v_peso := least(v_peso, v_livre);
+    if v_peso < 0.1 then continue; end if;
+    insert into horas (usuario, dia, horas, atividade, status, origem, fonte)
+    values (p_usuario, v_dia, v_peso,
+            left((select x ->> 'nome' from jsonb_array_elements(interno.horas_tabela()) x where x ->> 'chave' = r.chave)
+                 || case when btrim(coalesce(r.titulo, '')) <> '' then ': "' || left(regexp_replace(btrim(r.titulo), '\s+', ' ', 'g'), 200) || '"' else '' end, 300),
+            'confirmada', 'plataforma', r.fonte)
+    on conflict do nothing;
+  end loop;
+end $$;
+
+/** O texto sugerido para o campo "atividades" do certificado: o que a pessoa fez no período, agrupado por tipo. */
+create or replace function interno.horas_resumo(p_usuario uuid, p_inicio date, p_fim date) returns text language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v text;
+begin
+  select string_agg(case when g.chave is null then 'outras atividades, registradas e conferidas pela coordenação (' || interno.horas_texto(g.horas) || ')'
+                         else g.grupo || ': ' || g.n || ' (' || interno.horas_texto(g.horas) || ')' end, '; ' order by g.ordem)
+  into v
+  from (select t.x ->> 'chave' as chave, t.x ->> 'grupo' as grupo, coalesce(t.n, 999) as ordem, count(*) as n, sum(h.horas) as horas
+        from horas h
+        left join lateral (select x, n from jsonb_array_elements(interno.horas_tabela()) with ordinality as e(x, n)
+                           where h.origem = 'plataforma' and x ->> 'chave' = split_part(h.fonte, ':', 1)) t on true
+        where h.usuario = p_usuario and h.status = 'confirmada' and h.certificado is null and h.dia between p_inicio and p_fim
+        group by 1, 2, 3) g;
+  if v is null then return ''; end if;
+  return left(upper(left(v, 1)) || substr(v, 2) || '.', 700);
+end $$;
+
+create or replace function interno.pedido_json(p interno.certificado_pedidos) returns jsonb language sql stable as $$
+  select jsonb_build_object('id', p.id, 'usuario', p.usuario, 'inicio', p.inicio, 'fim', p.fim, 'mensagem', p.mensagem, 'status', p.status,
+    'nota', p.nota, 'criado_em', p.criado_em, 'decidido_em', p.decidido_em)
+$$;
+
+/** A tabela de horas, para todo mundo da equipe ver quanto vale cada trabalho. */
+create or replace function public.horas_pesos() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (select jsonb_agg(jsonb_build_object('chave', x ->> 'chave', 'nome', x ->> 'nome', 'padrao', (x ->> 'padrao')::numeric, 'horas', interno.horas_peso(x ->> 'chave')) order by n)
+          from jsonb_array_elements(interno.horas_tabela()) with ordinality as e(x, n));
+end $$;
+
+/** Só o coordenador ajusta a tabela. Vale para o trabalho contado daqui em diante; o que já foi contado fica como está. */
+create or replace function public.horas_pesos_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_novo jsonb := '{}'::jsonb; r record; v_valor numeric;
+begin
+  perform interno.eu();
+  if not interno.lider() then perform interno.erro('sem_permissao'); end if;
+  if jsonb_typeof(p) is distinct from 'object' then perform interno.erro('invalido:tabela'); end if;
+  for r in select key, value from jsonb_each(p) loop
+    if not exists (select 1 from jsonb_array_elements(interno.horas_tabela()) x where x ->> 'chave' = r.key) then perform interno.erro('invalido:tabela'); end if;
+    begin
+      v_valor := round((r.value #>> '{}')::numeric, 1);
+    exception when others then perform interno.erro('invalido:' || r.key);
+    end;
+    if v_valor is null or v_valor < 0 or v_valor > 12 then perform interno.erro('invalido:' || r.key); end if;
+    v_novo := v_novo || jsonb_build_object(r.key, v_valor);
+  end loop;
+  insert into configuracoes (chave, valor) values ('horas_pesos', v_novo) on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
+  perform interno.registrar('horas_pesos_salvos', '', v_novo);
+  return public.horas_pesos();
+end $$;
+
+/** Coordenação e vice desconsideram (ou voltam a considerar) uma linha contada pela plataforma, se ela não estiver em certificado. */
+create or replace function public.horas_considerar(p_id uuid, p_considerar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); h horas;
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  select * into h from horas where id = p_id and origem = 'plataforma' and certificado is null and usuario <> v for update;
+  if not found or h.status = (case when coalesce(p_considerar, false) then 'confirmada' else 'recusada' end) then perform interno.erro('nao_encontrado'); end if;
+  if coalesce(p_considerar, false)
+     and coalesce((select sum(horas) from horas where usuario = h.usuario and dia = h.dia and status <> 'recusada'), 0) + h.horas > 12 then perform interno.erro('invalido:horas'); end if;
+  update horas set status = case when coalesce(p_considerar, false) then 'confirmada' else 'recusada' end, conferido_por = v where id = p_id;
+  perform interno.registrar(case when coalesce(p_considerar, false) then 'horas_consideradas' else 'horas_desconsideradas' end, p_id::text);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** O voluntário pede o certificado de um período. A coordenação e a vice são avisadas no painel e por e-mail. */
+create or replace function public.certificado_pedir(p_inicio date, p_fim date, p_mensagem text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_livres numeric; v_pendentes numeric; v_id uuid; v_nome text; v_mensagem text := interno.txt(p_mensagem, 'mensagem', 0, 1000);
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  if not exists (select 1 from termos_adesao where usuario = v) then perform interno.erro('falta_termo'); end if;
+  if p_inicio is null or p_fim is null or p_fim < p_inicio or p_fim > current_date + 1 or p_inicio < current_date - 800 then perform interno.erro('invalido:periodo'); end if;
+  if exists (select 1 from certificado_pedidos where usuario = v and status = 'pendente') then perform interno.erro('ja_pediu'); end if;
+  perform interno.limite('certificado_pedido', 5, 1440);
+  perform interno.horas_apurar(v);
+  select coalesce(sum(horas) filter (where status = 'confirmada'), 0), coalesce(sum(horas) filter (where status = 'pendente'), 0) into v_livres, v_pendentes
+  from horas where usuario = v and certificado is null and dia between p_inicio and p_fim;
+  if v_livres + v_pendentes <= 0 then perform interno.erro('sem_horas'); end if;
+  insert into certificado_pedidos (usuario, inicio, fim, mensagem) values (v, p_inicio, p_fim, v_mensagem) returning id into v_id;
+  v_nome := (select nome from perfis where id = v);
+  perform interno.avisar_lideranca(left(v_nome, 60) || ' pediu um certificado de horas: ' || interno.horas_texto(v_livres + v_pendentes) || ', de '
+    || to_char(p_inicio, 'DD/MM/YYYY') || ' a ' || to_char(p_fim, 'DD/MM/YYYY') || '. Abra "Horas e certificados" no painel.', v);
+  perform interno.email_lideranca('certificado_pedido', 'Pedido de certificado de horas: ' || left(v_nome, 60),
+    v_nome || ' pediu um certificado de horas de voluntariado, de ' || to_char(p_inicio, 'DD/MM/YYYY') || ' a ' || to_char(p_fim, 'DD/MM/YYYY') || E'.\n\n'
+    || interno.horas_texto(v_livres) || ' já confirmadas' || case when v_pendentes > 0 then ' e ' || interno.horas_texto(v_pendentes) || ' esperando conferência' else '' end || E'.\n\n'
+    || 'Veja o pedido e abra o processo no painel: ' || interno.endereco() || '/pt/painel?aba=horas');
+  perform interno.registrar('certificado_pedido', v::text, jsonb_build_object('horas', v_livres + v_pendentes));
+  return jsonb_build_object('id', v_id, 'livres', v_livres, 'pendentes', v_pendentes);
+end $$;
+
+create or replace function public.certificado_pedido_cancelar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  update certificado_pedidos set status = 'cancelado', decidido_em = now() where id = p_id and usuario = v and status = 'pendente';
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/**
+ * Os pedidos em aberto, para a coordenação e a vice: o que a pessoa pediu, as horas do período (as que a plataforma contou,
+ * as registradas à mão, as que ainda esperam conferência) e o resumo sugerido para o certificado.
+ */
+create or replace function public.certificado_pedidos() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r record;
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  for r in select distinct usuario from certificado_pedidos where status = 'pendente' and usuario <> v loop
+    perform interno.horas_apurar(r.usuario);
+  end loop;
+  return (
+    select coalesce(jsonb_agg(interno.pedido_json(p) || jsonb_build_object(
+      'nome', f.nome,
+      'nome_completo', (select nome_completo from termos_adesao where usuario = p.usuario),
+      'livres', coalesce((select sum(h.horas) from horas h where h.usuario = p.usuario and h.status = 'confirmada' and h.certificado is null and h.dia between p.inicio and p.fim), 0),
+      'pendentes', coalesce((select sum(h.horas) from horas h where h.usuario = p.usuario and h.status = 'pendente' and h.dia between p.inicio and p.fim), 0),
+      'resumo', interno.horas_resumo(p.usuario, p.inicio, p.fim),
+      'horas', coalesce((select jsonb_agg(jsonb_build_object('id', h.id, 'dia', h.dia, 'horas', h.horas, 'atividade', h.atividade, 'status', h.status, 'origem', h.origem) order by h.dia, h.criado_em)
+                         from horas h where h.usuario = p.usuario and h.certificado is null and h.dia between p.inicio and p.fim), '[]'::jsonb)
+    ) order by p.criado_em), '[]'::jsonb)
+    from certificado_pedidos p join perfis f on f.id = p.usuario
+    where p.status = 'pendente' and p.usuario <> v);
+end $$;
+
+/** O coordenador responde sem abrir o processo, com uma nota que a pessoa lê no painel. */
+create or replace function public.certificado_pedido_recusar(p_id uuid, p_nota text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_nota text := interno.txt(p_nota, 'nota', 5, 1000); v_usuario uuid;
+begin
+  if not interno.lider() then perform interno.erro('sem_permissao'); end if;
+  update certificado_pedidos set status = 'recusado', nota = v_nota, decidido_por = v, decidido_em = now()
+  where id = p_id and status = 'pendente' and usuario <> v returning usuario into v_usuario;
+  if v_usuario is null then perform interno.erro('nao_encontrado'); end if;
+  perform interno.avisar(v_usuario, 'Seu pedido de certificado não foi atendido agora. A coordenação deixou uma nota em "Horas e certificados".');
+  perform interno.registrar('certificado_pedido_recusado', v_usuario::text);
+  return jsonb_build_object('ok', true);
 end $$;
 
 -- ───────────────────────────── Arquivos enviados pela equipe ─────────────────────────────
@@ -2917,6 +3222,7 @@ begin
     'reforco', case when interno.curador() or interno.tem('mentoria') or interno.tem('educacao')
                     then (select count(*) from reforco r where r.status = 'aberto' and interno.mentor(r.disciplina)) else 0 end,
     'horas', case when interno.coord() then (select count(*) from horas where status = 'pendente' and usuario <> v) else 0 end,
+    'pedidos', case when interno.lider() then (select count(*) from certificado_pedidos where status = 'pendente' and usuario <> v) else 0 end,
     'testemunhar', (select count(*) from certificados c where c.status = 'aberto'
                     and exists (select 1 from jsonb_array_elements(c.testemunhas) x where x ->> 'id' = v::text and x ->> 'confirmou_em' is null)),
     'minhas', (select count(*) from contribuicoes where autor = v),
@@ -3753,6 +4059,7 @@ begin
              'equipe_apagar', 'equipe_sala_salvar', 'materiais_listar', 'material_salvar', 'material_remover', 'termo_meu', 'termo_aceitar',
              'horas_registrar', 'horas_minhas', 'horas_remover', 'horas_fila', 'horas_conferir', 'certificado_abrir', 'certificado_testemunhar',
              'certificado_emitir', 'certificado_cancelar', 'certificados_listar', 'certificado_conferir', 'arquivo_bloquear', 'arquivos_bloqueados',
+             'horas_pesos', 'horas_pesos_salvar', 'horas_considerar', 'certificado_pedir', 'certificado_pedido_cancelar', 'certificado_pedidos', 'certificado_pedido_recusar',
              'arquivo_registrar', 'arquivos_listar', 'arquivo_decidir', 'arquivos_aprovados', 'arquivo_publicado',
              'convite_criar', 'convites_listar', 'convite_revogar', 'convite_ver', 'convidar_pelo_banco', 'mural_cidades', 'mural_retirar',
              'equipe_chave_definir', 'equipe_apagar_tudo', 'arquivo_apoiar', 'isca', 'boletim_assinar', 'boletim_listar', 'boletim_remover',
