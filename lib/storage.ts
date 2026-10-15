@@ -23,6 +23,9 @@ export const KEYS = {
   seen: "lucia:visto",
   site: "lucia:site",
   passkey: "lucia:digital",
+  // O rascunho da folha de redação e a última ferramenta aberta em cada disciplina (caixa de ferramentas das aulas).
+  essay: "lucia:redacao",
+  tools: "lucia:ferramentas",
 } as const;
 
 const listeners = new Set<() => void>();
