@@ -14,7 +14,9 @@ interface Trilha {
   titulo: string;
   etapa: (typeof stages)[number];
   prontas: number;
+  /** As próximas aulas do roteiro (no máximo três). */
   faltam: { slug: string; titulo: string }[];
+  quantasFaltam: number;
   traduzidas: Record<"en" | "es" | "zh" | "ru", number>;
 }
 type Retrato = Record<string, { obras: number; avulsos: number; videos: number; trilhas: Trilha[] }>;
@@ -82,7 +84,7 @@ export function PorOndeComecar({ me, ir }: { me: Me; ir: (aba: string) => void }
         sugestoes.push({
           funcao: papeis[papel],
           titulo: `Escreva “${trilha.faltam[0].titulo}”`,
-          detalhe: `Próxima aula em preparação na trilha ${trilha.titulo} (${trilha.prontas} prontas, ${trilha.faltam.length} faltando). Em Escrever, escolha Aula e depois a aula do roteiro.`,
+          detalhe: `Próxima aula em preparação na trilha ${trilha.titulo} (${trilha.prontas} prontas, ${trilha.quantasFaltam} faltando). Em Escrever, escolha Aula e depois a aula do roteiro.`,
           aba: "escrever",
         });
       }

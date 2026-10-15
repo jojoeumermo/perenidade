@@ -453,7 +453,7 @@ function TabelaDeHoras({ edita }: { edita: boolean }) {
     <section className="max-w-3xl">
       <h2 className="font-serif text-2xl font-semibold">Quanto vale cada trabalho</h2>
       <p className="mt-2 text-ink-soft">
-        Quando alguém termina um trabalho no painel, a plataforma soma na conta da pessoa as horas que esse tipo de trabalho vale. Exemplo: se “aula aprovada” vale 3 h, cada aula aprovada rende 3 horas de voluntariado. Cada trabalho conta uma vez, no dia em que terminou.
+        Quando alguém termina um trabalho no painel, a plataforma soma na conta da pessoa as horas que esse tipo de trabalho vale. Exemplo: se “Aula escrita e aprovada” vale 4 h, cada aula aprovada rende 4 horas de voluntariado. Cada trabalho conta uma vez, no dia em que terminou.
       </p>
       <p className="mt-2 text-ink-soft">
         {edita
