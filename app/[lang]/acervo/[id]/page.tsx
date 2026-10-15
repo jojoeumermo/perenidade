@@ -51,7 +51,7 @@ export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id
         href={book.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-8 inline-block bg-ink px-8 py-3 font-sans text-sm font-medium text-parchment hover:bg-oxblood app:max-md:sticky app:max-md:bottom-[calc(4.25rem+env(safe-area-inset-bottom,0px))] app:max-md:z-10 app:max-md:block app:max-md:py-4 app:max-md:text-center app:max-md:text-base"
+        className="mt-8 inline-block bg-ink px-8 py-3 font-sans text-sm font-medium text-parchment hover:bg-oxblood app:max-md:sticky app:max-md:bottom-[calc(4.25rem+var(--recuo-baixo))] app:max-md:z-10 app:max-md:block app:max-md:py-4 app:max-md:text-center app:max-md:text-base"
       >
         {fill(reserved ? t.library.seeAt : t.common.readAt, { source: book.source })} ↗
       </a>
