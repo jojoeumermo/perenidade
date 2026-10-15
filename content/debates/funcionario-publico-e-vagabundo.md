@@ -1,6 +1,7 @@
 ---
 afirmacao: "Funcionário público é tudo vagabundo."
 resposta: "A maior parte dos servidores do Brasil trabalha nas prefeituras, e os grupos mais numerosos são de professores e de profissionais de saúde: quem dá aula para os seus filhos e atende no posto. Eles entram por concurso público (artigo 37 da Constituição). Existem distorções reais, como salários acima do teto em algumas carreiras, mas elas atingem uma minoria e se corrigem com regras, não com desprezo por quem trabalha."
+falacias: [generalizacao-apressada, evidencia-anedotica]
 fontes:
   - titulo: "Constituição da República Federativa do Brasil de 1988, artigo 37"
     autor: "Presidência da República"

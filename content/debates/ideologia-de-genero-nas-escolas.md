@@ -1,6 +1,7 @@
 ---
 afirmacao: "As escolas ensinam ideologia de gênero às crianças."
 resposta: "Nenhum currículo oficial brasileiro tem uma matéria chamada “ideologia de gênero”. O que a lei pede é respeito, igualdade entre meninas e meninos e prevenção da violência: desde 2021, a Lei de Diretrizes e Bases manda tratar nas escolas a prevenção da violência contra a mulher. E ensinar a criança a conhecer o próprio corpo e a pedir ajuda protege: a maioria das vítimas de estupro registradas no país tem até 13 anos."
+falacias: [espantalho, apelo-a-emocao]
 fontes:
   - titulo: "Lei nº 9.394, de 20 de dezembro de 1996 (Lei de Diretrizes e Bases da Educação Nacional), artigo 26"
     autor: "Presidência da República"

@@ -1,6 +1,7 @@
 ---
 afirmacao: "O MST é terrorista."
 resposta: "Pela lei, não é. A Lei Antiterrorismo (Lei 13.260, de 2016) diz com todas as letras que suas regras não se aplicam a movimentos sociais que se manifestam para defender direitos. O MST luta pela reforma agrária, que está na Constituição: a terra que não cumpre sua função social pode ser desapropriada (artigos 184 a 186). Quem discorda das ocupações pode criticá-las, mas chamar isso de terrorismo é usar errado uma palavra que a lei define."
+falacias: [equivoco]
 fontes:
   - titulo: "Lei nº 13.260, de 16 de março de 2016 (Lei Antiterrorismo), artigo 2º, parágrafo 2º"
     autor: "Presidência da República"

@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/checagens",
     "/dados",
     "/debates",
+    "/falacias",
     "/perguntas",
     "/comecar",
     "/guia",

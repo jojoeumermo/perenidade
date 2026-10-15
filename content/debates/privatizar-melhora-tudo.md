@@ -1,6 +1,7 @@
 ---
 afirmacao: "Privatizar melhora tudo."
 resposta: "Não há prova de que isso valha para tudo. Em água, esgoto, energia e trens, a empresa costuma ser a única da região: não há concorrente que force o preço para baixo ou a qualidade para cima. Por isso muitas cidades do mundo desfizeram privatizações; Paris, por exemplo, retomou o serviço de água em 2010. Cada caso precisa ser julgado com dados: preço, qualidade, investimento e quem ficou sem atendimento."
+falacias: [generalizacao-apressada]
 fontes:
   - titulo: "Constituição da República Federativa do Brasil de 1988, artigo 175 (serviços públicos)"
     autor: "Presidência da República"
