@@ -75,7 +75,7 @@ export function Podcast() {
 
   const soDesign = eu.design && !eu.revisor;
   // Curadoria e mediação leem os episódios em andamento e pedem ajustes, sem fazer parte da equipe do podcast: as outras
-  // abas (agenda, pautas, convidados, entregas…) são da produção e o banco não as abre para quem só revisa.
+  // abas (agenda, pautas, convidados, números…) são da produção e o banco não as abre para quem só revisa.
   const soRevisao = !soDesign && eu.revisor && !eu.time;
   const opcoes: { id: Aba; nome: string; conta?: number }[] = soDesign
     ? [
