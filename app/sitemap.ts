@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/galeria",
     "/ferramentas",
     "/checagens",
+    "/dados",
     "/debates",
     "/perguntas",
     "/comecar",

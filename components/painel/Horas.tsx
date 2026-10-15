@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { can, leads, type Me } from "@/lib/backend";
+import { BuscaDePessoa } from "./BuscaDePessoa";
 import { type Certificado, Folha, Impresso } from "./Certificado";
 import { Aviso, botao, botaoClaro, campo, dia, elo, rotulo, useAcao, useLista } from "./comum";
 
@@ -297,17 +298,10 @@ function Abrir({ me, depois }: { me: Me; depois: () => void }) {
         }}
       >
         <div className="grid gap-3 sm:grid-cols-3">
-          <label className="block">
+          <div>
             Quem recebe
-            <select value={form.usuario} onChange={(e) => setForm({ ...form, usuario: e.target.value, educador: "", vice: "" })} required className={campo}>
-              <option value="">Escolha…</option>
-              {equipe.map((pessoa) => (
-                <option key={pessoa.id} value={pessoa.id}>
-                  {pessoa.nome}
-                </option>
-              ))}
-            </select>
-          </label>
+            <BuscaDePessoa rotulo="Quem recebe o certificado" entre={equipe} escolhida={equipe.find((pessoa) => pessoa.id === form.usuario) ?? null} escolher={(pessoa) => setForm({ ...form, usuario: pessoa?.id ?? "", educador: "", vice: "" })} />
+          </div>
           <label className="block">
             De
             <input type="date" value={form.inicio} onChange={(e) => setForm({ ...form, inicio: e.target.value })} required className={campo} />
@@ -323,17 +317,10 @@ function Abrir({ me, depois }: { me: Me; depois: () => void }) {
           <span className="block text-right font-mono text-xs text-ink-soft">{form.atividades.length}/700</span>
         </label>
         <div className="grid gap-3 sm:grid-cols-2">
-          <label className="block">
+          <div>
             Educador(a) que assina
-            <select value={form.educador} onChange={(e) => setForm({ ...form, educador: e.target.value, vice: "" })} required className={campo}>
-              <option value="">Escolha…</option>
-              {educadores.map((pessoa) => (
-                <option key={pessoa.id} value={pessoa.id}>
-                  {pessoa.nome}
-                </option>
-              ))}
-            </select>
-          </label>
+            <BuscaDePessoa rotulo="Educador ou educadora que assina" entre={educadores} escolhida={educadores.find((pessoa) => pessoa.id === form.educador) ?? null} escolher={(pessoa) => setForm({ ...form, educador: pessoa?.id ?? "", vice: "" })} />
+          </div>
           <label className="block">
             Vice-coordenador que assina
             <select value={form.vice} onChange={(e) => setForm({ ...form, vice: e.target.value })} className={campo}>

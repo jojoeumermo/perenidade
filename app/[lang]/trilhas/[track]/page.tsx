@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PodcastsRelacionados } from "@/components/podcast/Relacionados";
 import { notFound } from "next/navigation";
 import { Markdown } from "@/components/Markdown";
 import { SaveOffline } from "@/components/Offline";
@@ -95,6 +96,7 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
           </p>
         )}
       </div>
+      <PodcastsRelacionados disciplina={track.area} trilha={track.slug} />
     </div>
   );
 }

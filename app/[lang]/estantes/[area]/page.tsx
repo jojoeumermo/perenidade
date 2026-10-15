@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PodcastsRelacionados } from "@/components/podcast/Relacionados";
 import { notFound } from "next/navigation";
 import { BookCard, TrackCard } from "@/components/Cards";
 import { PageHeading } from "@/components/PageHeading";
@@ -75,6 +76,9 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
           </section>
         );
       })}
+
+      {/* Episódios do podcast ligados a esta disciplina: aparecem só se houver. */}
+      <PodcastsRelacionados disciplina={area} />
 
       {videos.length > 0 && (
         <section>
