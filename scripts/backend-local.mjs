@@ -319,7 +319,6 @@ export async function iniciar({ silencioso = false } = {}) {
             deposito === "podcast"
               ? (pasta[0] === "ep" && (await pode("interno.podcaster()"))) || (pasta[0] === "capas" && (await pode("(interno.podcaster() or interno.tem('design'))")))
               : (["ep", "trilhas", "termos"].includes(pasta[0]) && (await pode("interno.podcaster()"))) ||
-                (pasta[0] === "recibos" && (await pode("interno.coord()"))) ||
                 (pasta[0] === "perguntas" && pasta[1] === dados?.sub);
           if (!permitido) return negar();
           const tipo = req.headers["content-type"] ?? "application/octet-stream";
@@ -339,7 +338,6 @@ export async function iniciar({ silencioso = false } = {}) {
             deposito === "podcast" ||
             (["ep", "trilhas"].includes(pasta[0]) && (await pode("interno.podcast_revisor()"))) ||
             (pasta[0] === "termos" && (await pode("(interno.podcast_pode('producao') or interno.podcast_pode('supervisao'))"))) ||
-            (pasta[0] === "recibos" && ((await pode("interno.coord()")) || pasta[1] === dados?.sub)) ||
             (pasta[0] === "perguntas" && ((await pode("interno.podcaster()")) || pasta[1] === dados?.sub));
           const arquivo = le ? arquivos.get(`${deposito}/${caminho}`) : null;
           if (!arquivo) return json(res, 404, { message: "not found" });

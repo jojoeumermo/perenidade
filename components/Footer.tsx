@@ -4,6 +4,17 @@ import { localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { site } from "@/lib/site";
 
+/** O desenho da câmera do Instagram, em traço, na cor do texto ao redor. */
+export function InstagramIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className={className}>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+    </svg>
+  );
+}
+
 export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
   const columns = [
     {
@@ -59,6 +70,12 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
           <p className="font-serif text-2xl font-semibold">{site.name}</p>
           <p className="mt-2 text-ink-soft">{t.footer.tagline}</p>
           <p className="mt-4 font-serif text-lg italic text-oxblood">{t.footer.slogan}</p>
+          <a href={site.instagram} target="_blank" rel="noopener noreferrer me" className="mt-4 inline-flex items-center gap-2 text-ink-soft hover:text-oxblood">
+            <InstagramIcon />
+            <span>
+              {t.footer.instagram} <span className="font-mono text-xs">@institutoluciaorg</span>
+            </span>
+          </a>
         </div>
         {columns.map((column) => (
           <nav key={column.title} aria-label={column.title}>
