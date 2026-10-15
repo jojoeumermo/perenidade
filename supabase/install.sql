@@ -662,6 +662,35 @@ create table if not exists interno.chat_chaves (
 );
 create index if not exists chat_chaves_para on interno.chat_chaves (para);
 
+-- Confiança entre aparelhos. Cada conta tem uma chave de identidade (ECDSA P-256), criada no primeiro aparelho; o banco guarda
+-- só a parte pública. Todo aparelho leva um certificado: a assinatura da chave pública dele pela identidade. Aparelho novo
+-- entra "pendente" (sem certificado) e só recebe chaves dos colegas depois que um aparelho já aprovado da mesma pessoa o
+-- certifica, conferindo um código mostrado na tela do aparelho novo. O banco não confere assinatura nenhuma: quem confere é
+-- o aparelho de cada colega, com a identidade que ele conhece da pessoa. É isso que impede o banco de inserir um aparelho falso.
+create table if not exists interno.chat_identidades (
+  usuario uuid primary key references interno.perfis (id) on delete cascade,
+  assina text check (assina is null or assina ~ '^B[A-Za-z0-9_-]{86}$'),
+  -- Sobe cada vez que a identidade é recomeçada (todos os aparelhos perdidos, sem cópia de recuperação).
+  versao integer not null default 1,
+  criado_em timestamptz not null default now(),
+  atualizado_em timestamptz not null default now()
+);
+alter table interno.chat_aparelhos add column if not exists certificado text check (certificado is null or certificado ~ '^[A-Za-z0-9_-]{86}$');
+alter table interno.chat_aparelhos add column if not exists aprovado_por uuid references interno.chat_aparelhos (id) on delete set null;
+alter table interno.chat_aparelhos add column if not exists aprovado_em timestamptz;
+-- A identidade da conta, embrulhada por quem aprovou para este aparelho (só ele abre). "aprovado_publica" é a chave de quem embrulhou.
+alter table interno.chat_aparelhos add column if not exists identidade_embrulho text check (identidade_embrulho is null or identidade_embrulho ~ '^w1[.][A-Za-z0-9_-]{16}[.][A-Za-z0-9_-]{64}$');
+alter table interno.chat_aparelhos add column if not exists aprovado_publica text check (aprovado_publica is null or aprovado_publica ~ '^B[A-Za-z0-9_-]{86}$');
+-- O pedido de aprovação: a chave pública do aparelho novo, cifrada com o código que ele mostra na tela.
+alter table interno.chat_aparelhos add column if not exists pedido jsonb;
+alter table interno.chat_aparelhos add column if not exists pedido_em timestamptz;
+-- Cópia de recuperação: a identidade e as chaves de conversa, cifradas no aparelho com a chave de recuperação da pessoa.
+create table if not exists interno.chat_recuperacoes (
+  usuario uuid primary key references interno.perfis (id) on delete cascade,
+  copia jsonb not null,
+  atualizado_em timestamptz not null default now()
+);
+
 -- Livro do acervo: toda inserção, edição, exclusão, aprovação, recusa e publicação no que vai para o site, e toda
 -- função dada ou tirada. Quem escreve aqui é o próprio banco, por gatilho: vale também para o que for mudado direto
 -- no SQL Editor ou pela rotina de publicação. Não guarda o texto de nada, só o título e o nome dos campos que mudaram.
@@ -3334,6 +3363,8 @@ begin
   -- Versões de chave trocadas há mais de 31 dias já não têm mensagem nenhuma; aparelhos sem uso há seis meses saem da conta.
   delete from chat_versoes x where exists (select 1 from chat_versoes y where y.conversa = x.conversa and y.versao > x.versao and y.criado_em < now() - interval '31 days');
   perform interno.chat_aparelho_tirar(a.id) from chat_aparelhos a where a.visto_em < now() - interval '180 days';
+  -- Pedido de aprovação que ninguém atendeu em um dia é descartado: o aparelho novo pede de novo quando a pessoa voltar.
+  delete from chat_aparelhos where certificado is null and pedido_em < now() - interval '1 day';
   delete from convites where expira_em < now() - interval '30 days';
   delete from inscricoes where status <> 'pendente' and decidido_em < now() - interval '90 days';
   delete from mural where status = 'recusado' and decidido_em < now() - interval '30 days';
@@ -3987,40 +4018,194 @@ begin
   return v_versao;
 end $$;
 
+/** O que um aparelho precisa saber de si mesmo: aprovado ou pendente, o certificado e a identidade embrulhada para ele. */
+create or replace function interno.chat_aparelho_json(a interno.chat_aparelhos) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'id', a.id, 'rotulo', a.rotulo, 'criado_em', a.criado_em, 'visto_em', a.visto_em, 'aprovado_em', a.aprovado_em,
+    'estado', case when a.certificado is not null then 'aprovado' else 'pendente' end,
+    'certificado', a.certificado, 'identidade_embrulho', a.identidade_embrulho, 'aprovado_publica', a.aprovado_publica,
+    'identidade', (select jsonb_build_object('assina', i.assina, 'versao', i.versao) from chat_identidades i where i.usuario = a.usuario))
+$$;
+
 /**
  * Cada navegador cria o próprio par de chaves e registra aqui só a parte pública. A pessoa é avisada quando aparece
  * um aparelho novo na conta; cada conta tem no máximo dez (o mais antigo sem uso sai).
+ *
+ * O primeiro aparelho da conta (ou o primeiro depois de a identidade ser recomeçada) traz a identidade nova (p_assina) e o
+ * próprio certificado, e já entra aprovado. Quem tem a identidade de uma cópia de recuperação traz p_assina igual à que o
+ * banco já conhece e o certificado feito com ela: também entra aprovado, e os colegas não veem mudança nenhuma. Qualquer
+ * outro aparelho entra pendente, com o pedido (a chave pública cifrada pelo código que ele mostra), até um aparelho
+ * aprovado da mesma pessoa certificá-lo. O banco não confere assinatura: isso é dos aparelhos dos colegas.
  */
-create or replace function public.chat_aparelho_registrar(p_publica text, p_rotulo text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); v_rotulo text := interno.txt(p_rotulo, 'rotulo', 0, 80); v_id uuid; v_dono uuid; v_outros integer;
+create or replace function public.chat_aparelho_registrar(p_publica text, p_rotulo text default '', p_pedido jsonb default null, p_assina text default null, p_certificado text default null) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_rotulo text := interno.txt(p_rotulo, 'rotulo', 0, 80); v_id uuid; v_dono uuid; v_outros integer; v_assina text; a chat_aparelhos;
 begin
   if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
   if coalesce(p_publica, '') !~ '^B[A-Za-z0-9_-]{86}$' then perform interno.erro('invalido:publica'); end if;
   select id, usuario into v_id, v_dono from chat_aparelhos where publica = p_publica;
   if v_id is not null then
     if v_dono is distinct from v then perform interno.erro('invalido:publica'); end if;
-    update chat_aparelhos set visto_em = now() where id = v_id;
-    return jsonb_build_object('id', v_id);
+    update chat_aparelhos set visto_em = now(), rotulo = case when v_rotulo <> '' then v_rotulo else rotulo end where id = v_id returning * into a;
+    return interno.chat_aparelho_json(a);
   end if;
   perform interno.limite('chat_aparelho', 10, 1440);
+  if p_assina is not null and p_assina !~ '^B[A-Za-z0-9_-]{86}$' then perform interno.erro('invalido:assina'); end if;
+  if p_certificado is not null and p_certificado !~ '^[A-Za-z0-9_-]{86}$' then perform interno.erro('invalido:certificado'); end if;
+  if p_pedido is not null and (jsonb_typeof(p_pedido) <> 'object' or coalesce(p_pedido ->> 'sal', '') !~ '^[A-Za-z0-9_-]{22}$' or coalesce(p_pedido ->> 'iv', '') !~ '^[A-Za-z0-9_-]{16}$' or coalesce(p_pedido ->> 'cifrado', '') !~ '^[A-Za-z0-9_-]{100,160}$') then
+    perform interno.erro('invalido:pedido');
+  end if;
   select count(*) into v_outros from chat_aparelhos where usuario = v;
   if v_outros >= 10 then
     perform interno.chat_aparelho_tirar((select id from chat_aparelhos where usuario = v order by visto_em limit 1));
   end if;
-  insert into chat_aparelhos (usuario, publica, rotulo) values (v, p_publica, v_rotulo) returning id into v_id;
+  select assina into v_assina from chat_identidades where usuario = v;
+  if p_assina is not null then
+    -- Com identidade: ou é a primeira da conta (ou a primeira depois de recomeçar), ou é a mesma que já existe, vinda da cópia de recuperação.
+    if p_certificado is null then perform interno.erro('invalido:certificado'); end if;
+    if v_assina is not null and v_assina <> p_assina then perform interno.erro('identidade_existe'); end if;
+    if v_assina is null then
+      insert into chat_identidades (usuario, assina) values (v, p_assina)
+      on conflict (usuario) do update set assina = excluded.assina, atualizado_em = now();
+    end if;
+    insert into chat_aparelhos (usuario, publica, rotulo, certificado, aprovado_em) values (v, p_publica, v_rotulo, p_certificado, now()) returning * into a;
+    perform interno.registrar(case when v_assina is null then 'chat_identidade_criada' else 'chat_aparelho_recuperado' end, v::text, jsonb_build_object('rotulo', v_rotulo));
+  else
+    if p_pedido is null then perform interno.erro('invalido:pedido'); end if;
+    insert into chat_aparelhos (usuario, publica, rotulo, pedido, pedido_em) values (v, p_publica, v_rotulo, p_pedido, now()) returning * into a;
+  end if;
   if v_outros > 0 then
     perform interno.avisar(v, 'As suas conversas da equipe foram abertas em um aparelho novo (' || coalesce(nullif(v_rotulo, ''), 'navegador desconhecido')
-      || '). Se não foi você, remova esse aparelho em Conversas → Aparelhos e avise a coordenação.');
+      || case when a.certificado is null then '). Ele só passa a ler as conversas depois que você o aprovar, em Conversas → Aparelhos. Se não foi você, remova-o lá e avise a coordenação.'
+              else '). Se não foi você, remova esse aparelho em Conversas → Aparelhos e avise a coordenação.' end);
   end if;
-  perform interno.registrar('chat_aparelho_novo', v::text, jsonb_build_object('rotulo', v_rotulo));
-  return jsonb_build_object('id', v_id);
+  perform interno.registrar('chat_aparelho_novo', v::text, jsonb_build_object('rotulo', v_rotulo, 'pendente', a.certificado is null));
+  return interno.chat_aparelho_json(a);
+end $$;
+
+/** Um aparelho pendente sem pedido (ficou de fora da migração) ou com o pedido descartado deixa um pedido novo, com código novo. */
+create or replace function public.chat_aparelho_pedir(p_id uuid, p_pedido jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); a chat_aparelhos;
+begin
+  perform interno.limite('chat_pedido', 20, 60);
+  if p_pedido is null or jsonb_typeof(p_pedido) <> 'object' or coalesce(p_pedido ->> 'sal', '') !~ '^[A-Za-z0-9_-]{22}$' or coalesce(p_pedido ->> 'iv', '') !~ '^[A-Za-z0-9_-]{16}$' or coalesce(p_pedido ->> 'cifrado', '') !~ '^[A-Za-z0-9_-]{100,160}$' then
+    perform interno.erro('invalido:pedido');
+  end if;
+  update chat_aparelhos set pedido = p_pedido, pedido_em = now(), visto_em = now() where id = p_id and usuario = v and certificado is null returning * into a;
+  if not found then perform interno.erro('aparelho_desconhecido'); end if;
+  return interno.chat_aparelho_json(a);
+end $$;
+
+/**
+ * Um aparelho pendente que recebeu a identidade pela cópia de recuperação se certifica sozinho: a parte pública precisa ser
+ * a que a conta já tem. Os colegas não veem mudança nenhuma.
+ */
+create or replace function public.chat_aparelho_recuperar(p_id uuid, p_assina text, p_certificado text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); a chat_aparelhos;
+begin
+  perform interno.limite('chat_recuperar', 10, 60);
+  if coalesce(p_assina, '') !~ '^B[A-Za-z0-9_-]{86}$' then perform interno.erro('invalido:assina'); end if;
+  if coalesce(p_certificado, '') !~ '^[A-Za-z0-9_-]{86}$' then perform interno.erro('invalido:certificado'); end if;
+  if not exists (select 1 from chat_identidades where usuario = v and assina = p_assina) then perform interno.erro('identidade_diferente'); end if;
+  update chat_aparelhos set certificado = p_certificado, aprovado_em = now(), pedido = null where id = p_id and usuario = v and certificado is null returning * into a;
+  if not found then perform interno.erro('aparelho_desconhecido'); end if;
+  perform interno.registrar('chat_aparelho_recuperado', v::text, jsonb_build_object('rotulo', a.rotulo));
+  return interno.chat_aparelho_json(a);
+end $$;
+
+/** O aparelho pendente pergunta, de tempos em tempos, se já foi aprovado. */
+create or replace function public.chat_aparelho_estado(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); a chat_aparelhos;
+begin
+  select * into a from chat_aparelhos where id = p_id and usuario = v;
+  if not found then perform interno.erro('aparelho_desconhecido'); end if;
+  update chat_aparelhos set visto_em = now() where id = p_id and visto_em < now() - interval '1 hour';
+  return interno.chat_aparelho_json(a);
+end $$;
+
+/**
+ * Um aparelho aprovado certifica um aparelho pendente da mesma conta (depois de conferir o código no próprio aparelho) e
+ * deixa para ele a identidade embrulhada. A partir daí os colegas passam a entregar chaves ao aparelho novo.
+ */
+create or replace function public.chat_aparelho_aprovar(p_id uuid, p_por uuid, p_certificado text, p_identidade_embrulho text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_publica text; a chat_aparelhos;
+begin
+  select publica into v_publica from chat_aparelhos where id = p_por and usuario = v and certificado is not null;
+  if v_publica is null then perform interno.erro('aparelho_desconhecido'); end if;
+  if coalesce(p_certificado, '') !~ '^[A-Za-z0-9_-]{86}$' then perform interno.erro('invalido:certificado'); end if;
+  if coalesce(p_identidade_embrulho, '') !~ '^w1[.][A-Za-z0-9_-]{16}[.][A-Za-z0-9_-]{64}$' then perform interno.erro('invalido:embrulho'); end if;
+  update chat_aparelhos set certificado = p_certificado, aprovado_por = p_por, aprovado_publica = v_publica, aprovado_em = now(), identidade_embrulho = p_identidade_embrulho, pedido = null
+  where id = p_id and usuario = v and certificado is null and id <> p_por returning * into a;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.registrar('chat_aparelho_aprovado', v::text, jsonb_build_object('rotulo', a.rotulo));
+  return interno.chat_aparelho_json(a);
+end $$;
+
+/**
+ * Migração dos aparelhos de antes da identidade: o aparelho que abre o painel primeiro (quando a conta ainda não tem
+ * identidade) cria a identidade e se certifica. Os outros aparelhos da conta continuam na lista e são aprovados por ele
+ * em seguida (chat_aparelho_aprovar), com aviso à pessoa. Só vale enquanto a conta não tem identidade.
+ */
+create or replace function public.chat_identidade_definir(p_aparelho uuid, p_assina text, p_certificado text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); a chat_aparelhos;
+begin
+  if coalesce(p_assina, '') !~ '^B[A-Za-z0-9_-]{86}$' then perform interno.erro('invalido:assina'); end if;
+  if coalesce(p_certificado, '') !~ '^[A-Za-z0-9_-]{86}$' then perform interno.erro('invalido:certificado'); end if;
+  if exists (select 1 from chat_identidades where usuario = v and assina is not null) then perform interno.erro('identidade_existe'); end if;
+  update chat_aparelhos set certificado = p_certificado, aprovado_em = now(), pedido = null where id = p_aparelho and usuario = v returning * into a;
+  if not found then perform interno.erro('aparelho_desconhecido'); end if;
+  insert into chat_identidades (usuario, assina) values (v, p_assina) on conflict (usuario) do update set assina = excluded.assina, atualizado_em = now();
+  perform interno.registrar('chat_identidade_criada', v::text, jsonb_build_object('rotulo', a.rotulo, 'migracao', true));
+  return jsonb_build_object('ok', true,
+    'outros', coalesce((select jsonb_agg(jsonb_build_object('id', x.id, 'publica', x.publica, 'rotulo', x.rotulo, 'visto_em', x.visto_em) order by x.visto_em desc)
+                        from chat_aparelhos x where x.usuario = v and x.id <> p_aparelho and x.certificado is null and x.pedido is null), '[]'::jsonb));
+end $$;
+
+/**
+ * Quem perdeu todos os aparelhos e não tem a cópia de recuperação recomeça: os aparelhos antigos saem (as conversas trocam de
+ * chave), a identidade some e o próximo aparelho cria outra. Os colegas veem "a chave de segurança mudou" e, se tinham
+ * verificado a pessoa, só voltam a entregar chaves depois de confirmar. A cópia de recuperação antiga deixa de servir.
+ */
+create or replace function public.chat_identidade_redefinir() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r record;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('chat_identidade', 3, 1440);
+  for r in select id from chat_aparelhos where usuario = v loop perform interno.chat_aparelho_tirar(r.id); end loop;
+  update chat_identidades set assina = null, versao = versao + 1, atualizado_em = now() where usuario = v;
+  delete from chat_recuperacoes where usuario = v;
+  perform interno.registrar('chat_identidade_recomecada', v::text);
+  perform interno.avisar(v, 'A identidade das suas conversas foi recomeçada. Os colegas que tinham verificado você vão ver que a sua chave de segurança mudou.');
+  return jsonb_build_object('ok', true);
 end $$;
 
 create or replace function public.chat_aparelhos_meus() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu();
 begin
-  return (select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'rotulo', a.rotulo, 'criado_em', a.criado_em, 'visto_em', a.visto_em) order by a.visto_em desc), '[]'::jsonb)
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'rotulo', a.rotulo, 'criado_em', a.criado_em, 'visto_em', a.visto_em, 'aprovado_em', a.aprovado_em, 'publica', a.publica,
+            'estado', case when a.certificado is not null then 'aprovado' else 'pendente' end, 'pedido', a.pedido) order by (a.certificado is null) desc, a.visto_em desc), '[]'::jsonb)
           from chat_aparelhos a where a.usuario = v);
+end $$;
+
+/** A cópia de recuperação da própria pessoa: o banco só guarda o cifrado e só devolve ao dono. */
+create or replace function public.chat_recuperacao_guardar(p_copia jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('chat_recuperacao', 60, 60);
+  if jsonb_typeof(p_copia) <> 'object' or coalesce(p_copia ->> 'sal', '') !~ '^[A-Za-z0-9_-]{22}$' or coalesce(p_copia ->> 'iv', '') !~ '^[A-Za-z0-9_-]{16}$'
+     or coalesce(p_copia ->> 'cifrado', '') !~ '^[A-Za-z0-9_-]{40,}$' or pg_column_size(p_copia) > 400000 then
+    perform interno.erro('invalido:copia');
+  end if;
+  insert into chat_recuperacoes (usuario, copia) values (v, p_copia) on conflict (usuario) do update set copia = excluded.copia, atualizado_em = now();
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.chat_recuperacao_ler() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  perform interno.limite('chat_recuperacao_ler', 20, 60);
+  return (select jsonb_build_object('copia', r.copia, 'atualizado_em', r.atualizado_em) from chat_recuperacoes r where r.usuario = v);
 end $$;
 
 /** Aparelho perdido ou que não é mais usado: sai da conta, e todas as conversas da pessoa trocam de chave. */
@@ -4045,12 +4230,19 @@ begin
   update chat_aparelhos set visto_em = now() where id = p_aparelho and visto_em < now() - interval '1 hour';
   return jsonb_build_object(
     'atual', (select max(versao) from chat_versoes where conversa = p_conversa),
+    'atual_em', (select criado_em from chat_versoes where conversa = p_conversa order by versao desc limit 1),
+    'atual_mensagens', (select count(*) from conversa_mensagens g where g.conversa = p_conversa and g.versao = (select max(versao) from chat_versoes where conversa = p_conversa)),
     'minima', (select versao_minima from conversas where id = p_conversa),
     'minhas', coalesce((select jsonb_agg(jsonb_build_object('versao', k.versao, 'embrulho', k.embrulho, 'de_publica', k.de_publica) order by k.versao)
                         from chat_chaves k where k.conversa = p_conversa and k.para = p_aparelho), '[]'::jsonb),
-    'aparelhos', coalesce((select jsonb_agg(jsonb_build_object('id', a.id, 'publica', a.publica) order by a.criado_em)
+    -- Só aparelhos aprovados, com o certificado: cada colega confere a assinatura no próprio aparelho antes de embrulhar.
+    'aparelhos', coalesce((select jsonb_agg(jsonb_build_object('id', a.id, 'usuario', a.usuario, 'publica', a.publica, 'certificado', a.certificado) order by a.criado_em)
                            from chat_aparelhos a join conversa_membros m on m.usuario = a.usuario and m.conversa = p_conversa
-                           join perfis f on f.id = a.usuario where not f.suspenso), '[]'::jsonb));
+                           join perfis f on f.id = a.usuario where not f.suspenso and a.certificado is not null), '[]'::jsonb),
+    -- A identidade de cada pessoa da conversa, como o banco a conhece. Quem compara com a que já conhecia é o aparelho.
+    'identidades', coalesce((select jsonb_agg(jsonb_build_object('usuario', m.usuario, 'nome', f.nome, 'assina', i.assina, 'versao', i.versao) order by f.nome)
+                             from conversa_membros m join perfis f on f.id = m.usuario left join chat_identidades i on i.usuario = m.usuario
+                             where m.conversa = p_conversa), '[]'::jsonb));
 end $$;
 
 /**
@@ -4062,7 +4254,8 @@ language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); v_publica text; v_minima integer; v_maxima integer; e jsonb;
 begin
   if not interno.na_conversa(p_conversa) then perform interno.erro('nao_encontrado'); end if;
-  select publica into v_publica from chat_aparelhos where id = p_aparelho and usuario = v;
+  -- Só aparelho aprovado cria versão de chave.
+  select publica into v_publica from chat_aparelhos where id = p_aparelho and usuario = v and certificado is not null;
   if v_publica is null then perform interno.erro('aparelho_desconhecido'); end if;
   perform interno.limite('chat_chave', 120, 60);
   if jsonb_typeof(p_embrulhos) is distinct from 'array' or jsonb_array_length(p_embrulhos) not between 1 and 700 then perform interno.erro('invalido:embrulhos'); end if;
@@ -4078,12 +4271,12 @@ begin
   select coalesce(max(versao), 0) into v_maxima from chat_versoes where conversa = p_conversa;
   if p_versao is distinct from greatest(v_maxima + 1, v_minima) then perform interno.erro('versao_ocupada'); end if;
   insert into chat_versoes (conversa, versao, criada_por) values (p_conversa, p_versao, p_aparelho);
-  -- Só para aparelhos de quem está na conversa agora; quem saiu nesse meio-tempo fica de fora sem atrapalhar.
+  -- Só para aparelhos aprovados de quem está na conversa agora; quem saiu nesse meio-tempo fica de fora sem atrapalhar.
   insert into chat_chaves (conversa, versao, para, de, de_publica, embrulho)
   select p_conversa, p_versao, (x ->> 'para')::uuid, p_aparelho, v_publica, x ->> 'embrulho'
   from jsonb_array_elements(p_embrulhos) x
   where exists (select 1 from chat_aparelhos a join conversa_membros m on m.usuario = a.usuario and m.conversa = p_conversa join perfis f on f.id = a.usuario
-                where a.id = (x ->> 'para')::uuid and not f.suspenso)
+                where a.id = (x ->> 'para')::uuid and not f.suspenso and a.certificado is not null)
   on conflict do nothing;
   -- Versão trocada há mais de 31 dias não tem mais mensagem nenhuma (tudo some em 30): sai, com os embrulhos.
   delete from chat_versoes x where x.conversa = p_conversa
@@ -4101,14 +4294,14 @@ begin
   if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
   if not exists (select 1 from chat_aparelhos where id = p_aparelho and usuario = v) then perform interno.erro('aparelho_desconhecido'); end if;
   update chat_aparelhos set visto_em = now() where id = p_aparelho and visto_em < now() - interval '1 hour';
-  return (select coalesce(jsonb_agg(jsonb_build_object('conversa', y.conversa, 'versao', y.versao, 'para', y.para, 'publica', y.publica)), '[]'::jsonb) from (
-    select k.conversa, k.versao, a.id as para, a.publica
+  return (select coalesce(jsonb_agg(jsonb_build_object('conversa', y.conversa, 'versao', y.versao, 'para', y.para, 'usuario', y.usuario, 'publica', y.publica, 'certificado', y.certificado)), '[]'::jsonb) from (
+    select k.conversa, k.versao, a.id as para, a.usuario, a.publica, a.certificado
     from chat_chaves k
     join conversa_membros minha on minha.conversa = k.conversa and minha.usuario = v
     join conversa_membros m on m.conversa = k.conversa
     join chat_aparelhos a on a.usuario = m.usuario
     join perfis f on f.id = a.usuario and not f.suspenso
-    where k.para = p_aparelho
+    where k.para = p_aparelho and a.certificado is not null
       and not exists (select 1 from chat_chaves x where x.conversa = k.conversa and x.versao = k.versao and x.para = a.id)
     order by k.conversa, k.versao desc
     limit 200) y);
@@ -4119,7 +4312,8 @@ create or replace function public.chat_chaves_dar(p_aparelho uuid, p_embrulhos j
 declare v uuid := interno.eu(); v_publica text; e jsonb; v_conversa uuid; v_versao integer; v_para uuid; v_total integer := 0;
 begin
   if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
-  select publica into v_publica from chat_aparelhos where id = p_aparelho and usuario = v;
+  -- Só aparelho aprovado repassa chaves.
+  select publica into v_publica from chat_aparelhos where id = p_aparelho and usuario = v and certificado is not null;
   if v_publica is null then perform interno.erro('aparelho_desconhecido'); end if;
   perform interno.limite('chat_dar', 600, 60);
   if jsonb_typeof(p_embrulhos) is distinct from 'array' or jsonb_array_length(p_embrulhos) > 200 then perform interno.erro('invalido:embrulhos'); end if;
@@ -4134,7 +4328,7 @@ begin
     if exists (select 1 from chat_chaves k join conversa_membros minha on minha.conversa = k.conversa and minha.usuario = v
                where k.conversa = v_conversa and k.versao = v_versao and k.para = p_aparelho)
        and exists (select 1 from chat_aparelhos a join conversa_membros m on m.usuario = a.usuario and m.conversa = v_conversa join perfis f on f.id = a.usuario
-                   where a.id = v_para and not f.suspenso) then
+                   where a.id = v_para and not f.suspenso and a.certificado is not null) then
       insert into chat_chaves (conversa, versao, para, de, de_publica, embrulho) values (v_conversa, v_versao, v_para, p_aparelho, v_publica, e ->> 'embrulho')
       on conflict do nothing;
       if found then v_total := v_total + 1; end if;
@@ -4498,7 +4692,8 @@ begin
              'colaboracao_abrir', 'colaboracao_fechar', 'colaboracoes_minhas', 'equipe_membros', 'site', 'site_salvar',
              'presenca', 'chat_conversas', 'chat_direta', 'chat_grupo_criar', 'chat_grupo_mudar', 'chat_sair', 'chat_grupo_apagar', 'chat_ver', 'chat_enviar', 'chat_apagar',
              'chat_aparelho_registrar', 'chat_aparelhos_meus', 'chat_aparelho_remover', 'chat_chaves', 'chat_chave_nova', 'chat_chaves_pendentes',
-             'chat_chaves_dar', 'chat_chaves_recusar', 'chat_autodestruir',
+             'chat_chaves_dar', 'chat_chaves_recusar', 'chat_autodestruir', 'chat_aparelho_estado', 'chat_aparelho_aprovar', 'chat_identidade_definir',
+             'chat_identidade_redefinir', 'chat_recuperacao_guardar', 'chat_recuperacao_ler', 'chat_aparelho_pedir', 'chat_aparelho_recuperar',
              'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao',
              'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao', 'papeis_historico_listar'))
   loop
