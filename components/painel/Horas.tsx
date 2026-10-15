@@ -402,8 +402,8 @@ function TabelaDeHoras({ edita }: { edita: boolean }) {
       <summary className="cursor-pointer font-serif text-xl font-semibold">Tabela de horas: quanto vale cada trabalho</summary>
       <p className="mt-2 text-ink-soft">
         {edita
-          ? "Ajuste e salve. Vale para o trabalho contado daqui em diante: o que já foi contado fica como está. Zero desliga o tipo. Trabalho pago (as entregas contratadas do podcast) nunca conta."
-          : "Quem define a tabela é o coordenador. Cada trabalho conta uma vez, no dia em que terminou. Trabalho pago (as entregas contratadas do podcast) não conta."}
+          ? "Ajuste e salve. Vale para o trabalho contado daqui em diante: o que já foi contado fica como está. Zero desliga o tipo."
+          : "Quem define a tabela é o coordenador. Cada trabalho conta uma vez, no dia em que terminou."}
       </p>
       <table className="mt-2 w-full">
         <tbody className="divide-y divide-rule">
