@@ -35,6 +35,10 @@ Toda lección y toda ficha tiene al final un enlace **Sugerir corrección**. En 
 
 Cada ruta tiene un plan con las lecciones que todavía faltan. Elegir una de ellas es la mejor manera de continuar el trabajo donde se quedó.
 
+## Como educador secundario
+
+No todo el mundo puede dar una asignatura entera, y está bien. El educador secundario contribuye junto a los educadores: publica materiales útiles, una clase suelta, un ejercicio, un texto que ayuda a entender el tema. Tiene las mismas herramientas del educador en el panel, y lo que publica aparece en la asignatura, aparte de las clases del curso.
+
 ## Como mediador
 
 La [Comunidad](/comunidade) es abierta: cualquier persona puede leer, y quien crea una cuenta puede preguntar y responder. El mediador facilita ese debate, acompaña el cumplimiento de las reglas e interviene cuando hace falta. Actúa en denuncias y situaciones que exigen evaluación humana, orienta a los participantes, pide ajustes cuando corresponde y toma medidas ante ataques, propaganda indebida y discursos de odio. También cuida los anuncios del [Mural de los Trabajadores](/mural) y hace la primera lectura de las contribuciones que llegan de fuera, antes de pasarlas a los educadores. Cuando alguien insiste en pasarse de la raya, el mediador puede expulsar la cuenta. Todas las decisiones quedan registradas y la coordinación puede revisarlas.
@@ -47,11 +51,11 @@ El sitio existe en portugués, inglés, español, chino y ruso, pero la mayor pa
 
 El acervo solo indexa: guarda el título, el autor, una sinopsis y el enlace a la fuente legítima. Quien cura propone obras en dominio público o con licencia abierta, comprueba que los enlaces antiguos sigan funcionando y ayuda a decidir qué entra.
 
-## Como periodista y locutor de radio
+## Como periodista, locutor de radio y podcaster
 
 El [Periódico](/jornal) publica noticias y análisis desde el punto de vista de quien trabaja. Hechos comprobados, fuentes a la vista y cuidado al hablar de personas y organizaciones: el objetivo es informar y educar.
 
-Quien escribe el periódico también hace [Rádio Lúcia](/radio): arma los canales y las pistas, cuida la transmisión en vivo y propone emisoras populares y comunitarias para la lista de la página de la radio.
+Quien escribe el periódico también hace [Rádio Lúcia](/radio): arma los canales y las pistas, cuida la transmisión en vivo y propone emisoras populares y comunitarias para la lista de la página de la radio. Y produce los [pódcasts](/podcasts): pauta, guion, grabación, edición y publicación, con la supervisión de otra persona antes de salir al aire.
 
 ## En las clases de refuerzo
 
@@ -61,9 +65,17 @@ Quien se traba en una materia puede [pedir refuerzo](/reforco). El pedido llega 
 
 Las clases mejoran con un buen dibujo: un esquema, un gráfico, un mapa, un cartel para imprimir. Quien diseña atiende los pedidos de los educadores y del periódico y prepara fanzines, volantes y carteles para la página de [materiales](/materiais). Toda imagen debe ser propia o tener licencia libre, con el crédito a la vista.
 
+## En marketing
+
+Une el trabajo de diseño con la difusión del instituto. Quien está en marketing cuida el Instagram del Instituto Lúcia: publicaciones, historias, artes y textos, siempre con fuentes comprobadas y con la identidad visual del instituto.
+
 ## Como desarrollador
 
 El sitio es software libre y hay mucho por hacer: nuevas herramientas de práctica, accesibilidad, rendimiento en celulares sencillos y conexiones lentas, traducciones de la interfaz. Quien programa acuerda el trabajo con la dirección comunitaria desde el panel.
+
+## En la supervisión
+
+El supervisor está justo debajo de la coordinación y de la vicecoordinación, sin sus poderes: es un monitor de los bastidores del panel, atento para que las cosas sigan avanzando y no se vuelvan un caos cuando la coordinación no está. La coordinación confía la supervisión a quien ya forma parte del equipo.
 
 ## Difundiendo
 
