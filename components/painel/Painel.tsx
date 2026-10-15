@@ -36,6 +36,7 @@ import { Tecnico } from "./Tecnico";
 import { Traducoes } from "./Traducoes";
 import { Aparelhos, Digital, Recados, SegundoFator } from "./Seguranca";
 import { type Controles, Site } from "./Site";
+import { Videoaulas } from "./Videoaulas";
 
 interface Resumo {
   fila: number;
@@ -86,6 +87,7 @@ const icones: Record<string, string> = {
   conversas: "M4 5h16v11H10l-4.5 4v-4H4z",
   rede: "M4 4h16v16H4zM8 9h8M8 13h5",
   escrever: "M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4",
+  videoaulas: "M3 6h12v12H3zM15 10l6-3v10l-6-3",
   minhas: "M4 6h16M4 12h16M4 18h10",
   juntas: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.7-5 6-5s6 2 6 5M16 11a3 3 0 1 0 0-6M18 20c0-2.2-1-3.9-2.6-4.6",
   fila: "M4 7l2 2 4-4M4 17l2 2 4-4M13 7h7M13 17h7",
@@ -388,6 +390,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const resumo = useLista<Resumo>("painel_resumo");
   // O que espera por esta pessoa no podcast (aprovação, comentários, perguntas, pedidos de arte).
   const podcast = useLista<number>("podcast_contagem");
+  // Aulas em vídeo esperando a curadoria.
+  const videos = useLista<number>("videoaulas_contagem");
   const r = resumo.dados;
   const atualizarResumo = resumo.recarregar;
   // De minuto em minuto o painel diz que a pessoa está por aqui, pergunta se chegou mensagem nova e refaz as
@@ -425,6 +429,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "conversas", nome: "Conversas", sobre: "Mensagens privadas, grupos e o grupo de cada departamento, cifrados de ponta a ponta.", grupo: "", mostra: voluntario, conta: aba === "conversas" ? 0 : presenca.dados?.conversas },
       { id: "rede", nome: "Mural da equipe", sobre: "Publicações e pedidos de ajuda para todos ou por função, cifrados neste aparelho.", grupo: "", mostra: voluntario },
       { id: "escrever", nome: "Escrever", sobre: "Aulas, matérias, verbetes e tudo o que vai para o site.", grupo: "Produção", mostra: true },
+      { id: "videoaulas", nome: "Aulas em vídeo", sobre: "Gravar ou enviar aulas curtas em vídeo, de até 10 minutos, e revisar as da sua disciplina.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "educacao"), conta: videos.dados ?? undefined },
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: true },
       { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "revisao", "educacao"), conta: r?.fila },
@@ -600,6 +605,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "conversas" && <Conversas me={eu} />}
           {atual.id === "rede" && <Equipe usuario={eu.id} lider={leads(eu)} modera={lidera || supervisiona} />}
           {atual.id === "escrever" && <Escrever me={eu} />}
+          {atual.id === "videoaulas" && <Videoaulas me={eu} />}
           {atual.id === "minhas" && <Fila key="minhas" me={eu} minhas />}
           {atual.id === "juntas" && <Fila key="juntas" me={eu} juntas />}
           {atual.id === "fila" && <Fila key="fila" me={eu} />}
