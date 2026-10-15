@@ -27,6 +27,10 @@ const videos = [
 ].join(" ");
 // Conferência de ortografia e gramática do editor: só é chamada quando quem escreve aperta o botão.
 const spelling = "https://api.languagetool.org";
+// Para onde o navegador avisa o que a política de segurança bloqueou (o coletor do painel Sentinela Lúcia).
+// Sem a variável, nada muda: a política continua a mesma, só deixa de relatar. O endereço é público por natureza.
+const reportUrl = (process.env.CSP_REPORT_URL ?? "").trim();
+const reporting = /^https:\/\/[a-z0-9.-]+(:\d+)?(\/[^\s"';]*)?$/i.test(reportUrl) ? reportUrl : "";
 
 // Fora o desafio da entrada, o site não carrega nada de terceiros: scripts, estilos e fontes vêm do próprio domínio.
 const policy = (script: string) =>
@@ -48,6 +52,8 @@ const policy = (script: string) =>
     "base-uri 'self'",
     "form-action 'self'",
     "object-src 'none'",
+    // Relato das violações, nos dois formatos que os navegadores entendem (o antigo e o novo).
+    ...(reporting ? [`report-uri ${reporting}`, "report-to sentinela"] : []),
   ].join("; ");
 
 // 'unsafe-inline' é exigido pelos scripts de hidratação das páginas estáticas do Next.
@@ -67,6 +73,8 @@ const common = [
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
   { key: "X-Permitted-Cross-Domain-Policies", value: "none" },
   { key: "X-DNS-Prefetch-Control", value: "off" },
+  // O destino do "report-to" da política acima.
+  ...(reporting ? [{ key: "Reporting-Endpoints", value: `sentinela="${reporting}"` }] : []),
 ];
 
 const nextConfig: NextConfig = {
