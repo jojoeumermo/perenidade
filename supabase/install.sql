@@ -691,6 +691,34 @@ create table if not exists interno.chat_recuperacoes (
   atualizado_em timestamptz not null default now()
 );
 
+-- Mensagens: além do texto, reações e edições são mensagens cifradas que apontam para outra ("alvo"). O banco sabe que
+-- alguém reagiu ou editou (e a quê), nunca com que emoji nem com que texto. Citação, encaminhamento, menção e prévia de
+-- link vão dentro do cifrado, invisíveis ao banco.
+alter table interno.conversa_mensagens add column if not exists tipo text not null default 'texto' check (tipo in ('texto', 'reacao', 'edicao'));
+alter table interno.conversa_mensagens add column if not exists alvo uuid references interno.conversa_mensagens (id) on delete cascade;
+create index if not exists conversa_mensagens_alvo on interno.conversa_mensagens (alvo) where alvo is not null;
+-- Entrega e "digitando…": quando cada pessoa recebeu (abriu no aparelho) as mensagens da conversa, e se está escrevendo agora.
+alter table interno.conversa_membros add column if not exists recebido_em timestamptz not null default now();
+alter table interno.conversa_membros add column if not exists digitando_em timestamptz;
+alter table interno.conversa_membros add column if not exists digitando text not null default '' check (digitando in ('', 'texto', 'audio'));
+-- Cada pessoa escolhe se mostra o "visto por último" e a confirmação de leitura. Quem esconde também não vê o dos outros.
+alter table interno.perfis add column if not exists chat_visto boolean not null default true;
+alter table interno.perfis add column if not exists chat_leitura boolean not null default true;
+-- Mensagens fixadas (por conversa, para todos) e favoritas (de cada pessoa, em todos os aparelhos dela).
+create table if not exists interno.conversa_fixadas (
+  mensagem uuid primary key references interno.conversa_mensagens (id) on delete cascade,
+  conversa uuid not null references interno.conversas (id) on delete cascade,
+  por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+create index if not exists conversa_fixadas_conversa on interno.conversa_fixadas (conversa);
+create table if not exists interno.conversa_favoritas (
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  mensagem uuid not null references interno.conversa_mensagens (id) on delete cascade,
+  criado_em timestamptz not null default now(),
+  primary key (usuario, mensagem)
+);
+
 -- Livro do acervo: toda inserção, edição, exclusão, aprovação, recusa e publicação no que vai para o site, e toda
 -- função dada ou tirada. Quem escreve aqui é o próprio banco, por gatilho: vale também para o que for mudado direto
 -- no SQL Editor ou pela rotina de publicação. Não guarda o texto de nada, só o título e o nome dos campos que mudaram.
@@ -1074,6 +1102,7 @@ begin
       'papeis', coalesce((select jsonb_agg(jsonb_build_object('id', p.id, 'papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina)
                           from papeis p where p.usuario = f.id), '[]'::jsonb),
       'nivel', interno.nivel_de(f.id),
+      'chat_visto', f.chat_visto, 'chat_leitura', f.chat_leitura,
       'segundo_fator', interno.aal2(),
       'exige_segundo_fator', interno.tem_fator() or (interno.exige_2fa() and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('coordenacao', 'vice', 'supervisao', 'curadoria', 'mediacao'))),
       'avisos', (select count(*) from avisos a where a.para = f.id and not a.lido))
@@ -1085,6 +1114,14 @@ declare v uuid := interno.eu();
 begin
   perform interno.limite('perfil', 20, 60);
   update perfis set nome = interno.txt(p_nome, 'nome', 2, 60), bio = interno.txt(p_bio, 'bio', 0, 500) where id = v;
+  return public.eu();
+end $$;
+
+/** As escolhas de privacidade das conversas: mostrar o "visto por último" e confirmar leitura. Quem esconde também não vê o dos outros. */
+create or replace function public.perfil_preferencias(p_chat_visto boolean, p_chat_leitura boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  update perfis set chat_visto = coalesce(p_chat_visto, chat_visto), chat_leitura = coalesce(p_chat_leitura, chat_leitura) where id = v;
   return public.eu();
 end $$;
 
@@ -3739,7 +3776,9 @@ begin
   return (
     select coalesce(jsonb_agg(jsonb_build_object(
       'id', f.id, 'nome', f.nome, 'bio', f.bio, 'eu', f.id = auth.uid(), 'por_aqui', f.visto_em > now() - interval '90 minutes',
-      'online', f.visto_em > now() - interval '2 minutes', 'visto_em', f.visto_em,
+      -- Quem esconde o "visto por último" não o mostra e não vê o dos outros.
+      'online', case when f.id = auth.uid() or (f.chat_visto and coalesce((select p.chat_visto from perfis p where p.id = auth.uid()), true)) then f.visto_em > now() - interval '2 minutes' end,
+      'visto_em', case when f.id = auth.uid() or (f.chat_visto and coalesce((select p.chat_visto from perfis p where p.id = auth.uid()), true)) then f.visto_em end,
       'papeis', (select jsonb_agg(jsonb_build_object('papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina) from papeis p where p.usuario = f.id))
       order by f.nome), '[]'::jsonb)
     from perfis f where not f.suspenso and exists (select 1 from papeis p where p.usuario = f.id));
@@ -4374,7 +4413,7 @@ end $$;
 
 /** As minhas conversas, da mais recente para a mais antiga. Ninguém vê conversa de que não participa, nem a coordenação. */
 create or replace function public.chat_conversas() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu();
+declare v uuid := interno.eu(); v_mostro boolean := coalesce((select chat_visto from perfis where id = v), true);
 begin
   if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
   update perfis set visto_em = now() where id = v and visto_em < now() - interval '30 seconds';
@@ -4385,17 +4424,18 @@ begin
       'id', c.id, 'tipo', c.tipo, 'departamento', c.departamento, 'dona', coalesce(c.criada_por = v, false),
       'nome', case when c.tipo = 'direta' then coalesce(o.nome, 'Alguém que saiu da equipe') else c.nome end,
       'outro', case when c.tipo = 'direta' then o.id end,
-      'online', case when c.tipo = 'direta' then coalesce(o.visto_em > now() - interval '2 minutes', false) end,
-      'visto_em', case when c.tipo = 'direta' then o.visto_em end,
+      -- O "visto por último" só aparece se os dois mostram o próprio.
+      'online', case when c.tipo = 'direta' and o.mostra and v_mostro then coalesce(o.visto_em > now() - interval '2 minutes', false) end,
+      'visto_em', case when c.tipo = 'direta' and o.mostra and v_mostro then o.visto_em end,
       'membros', (select count(*) from conversa_membros x where x.conversa = c.id),
       'apagar_apos', c.apagar_apos,
-      'ultima', (select jsonb_build_object('corpo', g.corpo, 'minha', g.autor = v, 'autor', coalesce((select nome from perfis where id = g.autor), ''), 'autor_id', g.autor, 'criado_em', g.criado_em)
-                 from conversa_mensagens g where g.conversa = c.id order by g.criado_em desc limit 1),
-      'nao_lidas', (select count(*) from conversa_mensagens g where g.conversa = c.id and g.criado_em > m.lido_em and g.autor is distinct from v),
+      'ultima', (select jsonb_build_object('corpo', g.corpo, 'minha', g.autor = v, 'autor', coalesce((select nome from perfis where id = g.autor), ''), 'autor_id', g.autor, 'criado_em', g.criado_em, 'versao', g.versao)
+                 from conversa_mensagens g where g.conversa = c.id and g.tipo = 'texto' order by g.criado_em desc limit 1),
+      'nao_lidas', (select count(*) from conversa_mensagens g where g.conversa = c.id and g.tipo = 'texto' and g.criado_em > m.lido_em and g.autor is distinct from v),
       'movida_em', c.movida_em) order by c.movida_em desc), '[]'::jsonb)
     from conversa_membros m
     join conversas c on c.id = m.conversa
-    left join lateral (select f.id, f.nome, f.visto_em from conversa_membros x join perfis f on f.id = x.usuario
+    left join lateral (select f.id, f.nome, f.visto_em, f.chat_visto as mostra from conversa_membros x join perfis f on f.id = x.usuario
                        where x.conversa = c.id and x.usuario <> v and c.tipo = 'direta' limit 1) o on true
     where m.usuario = v);
 end $$;
@@ -4476,10 +4516,11 @@ end $$;
 
 /** Abre uma conversa: quem participa, quem está por aqui, as últimas mensagens. Abrir marca como lida. */
 create or replace function public.chat_ver(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); c conversas;
+declare v uuid := interno.eu(); c conversas; v_mostro boolean := true; v_confirmo boolean := true;
 begin
   if not interno.na_conversa(p_id) then perform interno.erro('nao_encontrado'); end if;
   select * into c from conversas where id = p_id;
+  select chat_visto, chat_leitura into v_mostro, v_confirmo from perfis where id = v;
   delete from conversa_mensagens where conversa = p_id and expira_em < now();
   update conversa_membros set lido_em = clock_timestamp() where conversa = p_id and usuario = v;
   update perfis set visto_em = now() where id = v and visto_em < now() - interval '30 seconds';
@@ -4487,37 +4528,118 @@ begin
     'id', c.id, 'tipo', c.tipo, 'departamento', c.departamento, 'nome', c.nome,
     'dona', coalesce(c.criada_por = v, false) or (c.tipo = 'grupo' and interno.coord()),
     'apagar_apos', c.apagar_apos, 'apagar_desde', c.apagar_desde, 'apagar_por', coalesce((select nome from perfis where id = c.apagar_por), ''),
-    'membros', (select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', f.nome, 'eu', f.id = v, 'online', f.visto_em > now() - interval '2 minutes',
-                                                              'visto_em', f.visto_em, 'lido_em', m.lido_em) order by f.nome), '[]'::jsonb)
+    -- Visto por último e leitura só aparecem entre quem mostra os próprios (os meus e os da outra pessoa).
+    'membros', (select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', f.nome, 'eu', f.id = v,
+                  'online', case when f.id = v or (f.chat_visto and v_mostro) then f.visto_em > now() - interval '2 minutes' end,
+                  'visto_em', case when f.id = v or (f.chat_visto and v_mostro) then f.visto_em end,
+                  'lido_em', case when f.id = v or (f.chat_leitura and v_confirmo) then m.lido_em end,
+                  'recebido_em', m.recebido_em,
+                  'digitando', case when f.id <> v and m.digitando_em > now() - interval '8 seconds' then m.digitando else '' end) order by f.nome), '[]'::jsonb)
                 from conversa_membros m join perfis f on f.id = m.usuario where m.conversa = p_id),
+    'fixadas', coalesce((select jsonb_agg(x.mensagem order by x.criado_em) from conversa_fixadas x where x.conversa = p_id), '[]'::jsonb),
+    'favoritas', coalesce((select jsonb_agg(x.mensagem) from conversa_favoritas x join conversa_mensagens g on g.id = x.mensagem where x.usuario = v and g.conversa = p_id), '[]'::jsonb),
     'mensagens', (select coalesce(jsonb_agg(x.j order by x.criado_em), '[]'::jsonb) from (
                     select g.criado_em, jsonb_build_object('id', g.id, 'autor', g.autor, 'nome', coalesce(f.nome, 'Alguém que saiu da equipe'), 'minha', g.autor = v,
-                                                           'corpo', g.corpo, 'criado_em', g.criado_em, 'expira_em', g.expira_em) as j
-                    from conversa_mensagens g left join perfis f on f.id = g.autor where g.conversa = p_id order by g.criado_em desc limit 300) x));
+                                                           'corpo', g.corpo, 'criado_em', g.criado_em, 'expira_em', g.expira_em, 'tipo', g.tipo, 'alvo', g.alvo) as j
+                    from conversa_mensagens g left join perfis f on f.id = g.autor where g.conversa = p_id order by g.criado_em desc limit 400) x));
 end $$;
 
-create or replace function public.chat_enviar(p_id uuid, p_corpo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); v_id uuid; v_versao integer; v_prazo integer;
+/**
+ * Enviar: texto, ou uma reação ou edição de outra mensagem desta conversa ("alvo"). Reação: uma por pessoa por mensagem (a
+ * nova substitui a antiga). Edição: só o autor, só mensagem de texto, só até quinze minutos depois de enviada. O conteúdo
+ * (texto, emoji, texto novo) chega cifrado; o banco só sabe o tipo e o alvo.
+ */
+create or replace function public.chat_enviar(p_id uuid, p_corpo text, p_tipo text default 'texto', p_alvo uuid default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid; v_versao integer; v_prazo integer; a conversa_mensagens;
 begin
   if not interno.na_conversa(p_id) then perform interno.erro('nao_encontrado'); end if;
   perform interno.limite('conversa', 600, 60);
+  if coalesce(p_tipo, 'texto') not in ('texto', 'reacao', 'edicao') then perform interno.erro('invalido:tipo'); end if;
   -- O banco recusa texto aberto: só entra o que já chega cifrado com a chave atual da conversa.
   v_versao := interno.chat_versao_valida(p_id, p_corpo);
+  if p_tipo in ('reacao', 'edicao') then
+    select * into a from conversa_mensagens where id = p_alvo and conversa = p_id and tipo = 'texto';
+    if not found then perform interno.erro('nao_encontrado'); end if;
+    if p_tipo = 'edicao' and a.autor is distinct from v then perform interno.erro('sem_permissao'); end if;
+    if p_tipo = 'edicao' and a.criado_em < now() - interval '15 minutes' then perform interno.erro('fora_do_prazo'); end if;
+    if p_tipo = 'reacao' then delete from conversa_mensagens where tipo = 'reacao' and alvo = p_alvo and autor = v; end if;
+  elsif p_alvo is not null then
+    perform interno.erro('invalido:alvo');
+  end if;
   select apagar_apos into v_prazo from conversas where id = p_id;
-  insert into conversa_mensagens (conversa, autor, corpo, versao, expira_em)
-  values (p_id, v, p_corpo, v_versao, case when v_prazo is not null then now() + make_interval(secs => v_prazo) end) returning id into v_id;
-  update conversas set movida_em = now() where id = p_id;
-  update conversa_membros set lido_em = clock_timestamp() where conversa = p_id and usuario = v;
+  insert into conversa_mensagens (conversa, autor, corpo, versao, expira_em, tipo, alvo)
+  values (p_id, v, p_corpo, v_versao, case when p_tipo in ('reacao', 'edicao') then a.expira_em when v_prazo is not null then now() + make_interval(secs => v_prazo) end, coalesce(p_tipo, 'texto'), p_alvo)
+  returning id into v_id;
+  if coalesce(p_tipo, 'texto') = 'texto' then
+    update conversas set movida_em = now() where id = p_id;
+    update conversa_membros set lido_em = clock_timestamp(), digitando_em = null, digitando = '' where conversa = p_id and usuario = v;
+  end if;
   return jsonb_build_object('id', v_id);
 end $$;
 
-/** Cada pessoa apaga as próprias mensagens. */
+/** Cada pessoa apaga as próprias mensagens (e as próprias reações e edições). Apagar o texto leva as reações e edições junto. */
 create or replace function public.chat_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu();
 begin
   delete from conversa_mensagens where id = p_id and autor = v and interno.na_conversa(conversa);
   if not found then perform interno.erro('nao_encontrado'); end if;
   return jsonb_build_object('ok', true);
+end $$;
+
+/** O aparelho avisa que recebeu (abriu) as mensagens da conversa até agora: é o segundo tique de quem enviou. */
+create or replace function public.chat_recebidas(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  update conversa_membros set recebido_em = clock_timestamp() where conversa = p_id and usuario = v;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** "Fulano está digitando…" (ou gravando um áudio): vale por oito segundos; o painel renova enquanto a pessoa escreve. */
+create or replace function public.chat_digitando(p_id uuid, p_tipo text default 'texto') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if coalesce(p_tipo, '') not in ('', 'texto', 'audio') then perform interno.erro('invalido:tipo'); end if;
+  perform interno.limite('digitando', 600, 60);
+  update conversa_membros set digitando_em = case when p_tipo = '' then null else now() end, digitando = coalesce(p_tipo, '') where conversa = p_id and usuario = v;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Fixar (ou desafixar) uma mensagem para todos da conversa. Qualquer participante; no máximo cinco por conversa. */
+create or replace function public.chat_fixar(p_mensagem uuid, p_fixar boolean default true) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_conversa uuid;
+begin
+  select conversa into v_conversa from conversa_mensagens where id = p_mensagem and tipo = 'texto';
+  if v_conversa is null or not interno.na_conversa(v_conversa) then perform interno.erro('nao_encontrado'); end if;
+  if coalesce(p_fixar, true) then
+    if (select count(*) from conversa_fixadas where conversa = v_conversa and mensagem <> p_mensagem) >= 5 then perform interno.erro('limite_fixadas'); end if;
+    insert into conversa_fixadas (mensagem, conversa, por) values (p_mensagem, v_conversa, v) on conflict do nothing;
+  else
+    delete from conversa_fixadas where mensagem = p_mensagem;
+  end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Favoritar (ou desfavoritar) uma mensagem, só para mim, em todos os meus aparelhos. */
+create or replace function public.chat_favoritar(p_mensagem uuid, p_favoritar boolean default true) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_conversa uuid;
+begin
+  select conversa into v_conversa from conversa_mensagens where id = p_mensagem and tipo = 'texto';
+  if v_conversa is null or not interno.na_conversa(v_conversa) then perform interno.erro('nao_encontrado'); end if;
+  if coalesce(p_favoritar, true) then insert into conversa_favoritas (usuario, mensagem) values (v, p_mensagem) on conflict do nothing;
+  else delete from conversa_favoritas where usuario = v and mensagem = p_mensagem; end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** As minhas mensagens favoritas, de todas as conversas, para a lista "Favoritas". */
+create or replace function public.chat_favoritas() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', g.id, 'conversa', g.conversa, 'conversa_nome', case when c.tipo = 'direta' then coalesce((select p.nome from conversa_membros x join perfis p on p.id = x.usuario where x.conversa = c.id and x.usuario <> v limit 1), '') else c.nome end,
+            'autor', g.autor, 'nome', coalesce(f.nome, ''), 'corpo', g.corpo, 'criado_em', g.criado_em, 'versao', g.versao) order by x.criado_em desc), '[]'::jsonb)
+          from conversa_favoritas x join conversa_mensagens g on g.id = x.mensagem join conversas c on c.id = g.conversa left join perfis f on f.id = g.autor
+          where x.usuario = v and interno.na_conversa(g.conversa));
 end $$;
 
 -- ───────────────────────────── Iscas do site ─────────────────────────────
@@ -4694,6 +4816,7 @@ begin
              'chat_aparelho_registrar', 'chat_aparelhos_meus', 'chat_aparelho_remover', 'chat_chaves', 'chat_chave_nova', 'chat_chaves_pendentes',
              'chat_chaves_dar', 'chat_chaves_recusar', 'chat_autodestruir', 'chat_aparelho_estado', 'chat_aparelho_aprovar', 'chat_identidade_definir',
              'chat_identidade_redefinir', 'chat_recuperacao_guardar', 'chat_recuperacao_ler', 'chat_aparelho_pedir', 'chat_aparelho_recuperar',
+             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias',
              'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao',
              'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao', 'papeis_historico_listar'))
   loop

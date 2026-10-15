@@ -745,6 +745,7 @@ function Candidatura({ me }: { me: Me }) {
 /** Tudo o que é da própria pessoa: como aparece, como entra e como se protege. */
 function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair: () => void }) {
   const perfil = useAcao(recarregar);
+  const preferencias = useAcao(recarregar);
   const [nome, setNome] = useState(me.nome);
   const [bio, setBio] = useState(me.bio);
   const [senha, setSenha] = useState("");
@@ -789,6 +790,20 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
           Guardar
         </button>
         <Aviso texto={perfil.aviso} />
+      </section>
+
+      <section className={cartao}>
+        <h2 className="font-serif text-xl font-semibold">Privacidade nas conversas</h2>
+        <p className="mt-1 text-ink-soft">O que os colegas veem de você nas conversas da equipe. Quem esconde algo também deixa de ver o mesmo dos outros.</p>
+        <label className="mt-3 flex cursor-pointer items-start gap-2">
+          <input type="checkbox" className="mt-1 h-4 w-4" checked={me.chat_visto} disabled={preferencias.ocupado} onChange={(e) => preferencias.agir("perfil_preferencias", { p_chat_visto: e.target.checked, p_chat_leitura: null }, "Preferência guardada.")} />
+          <span>Mostrar quando estou online e o “visto por último”</span>
+        </label>
+        <label className="mt-2 flex cursor-pointer items-start gap-2">
+          <input type="checkbox" className="mt-1 h-4 w-4" checked={me.chat_leitura} disabled={preferencias.ocupado} onChange={(e) => preferencias.agir("perfil_preferencias", { p_chat_visto: null, p_chat_leitura: e.target.checked }, "Preferência guardada.")} />
+          <span>Confirmar aos outros que li as mensagens (os tiques azuis e o “Lida por”)</span>
+        </label>
+        <Aviso texto={preferencias.aviso} />
       </section>
 
       <section className={cartao}>
