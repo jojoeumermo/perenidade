@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { BookCard, TrackCard } from "@/components/Cards";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
@@ -123,6 +124,7 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
           </details>
         )}
       </section>
+      <CaixaDaAula t={t} lang={lang} area={area} />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { cache as perPage } from "react";
 import { defaultLocale, type Locale } from "@/i18n/config";
-import { areaSlugs, licenses, stages, type AreaSlug, type License, type Stage } from "./areas";
+import { areaSlugs, licenses, stages, tools, type AreaSlug, type License, type Stage, type ToolId } from "./areas";
 import { parseFrontmatter } from "./frontmatter";
 import { plainText } from "./text";
 
@@ -62,6 +62,8 @@ export interface Lesson extends Localized {
   minutes: number;
   /** Termos que a própria aula define (campo "glossario" do cabeçalho): entram sozinhos no glossário do site. */
   terms: { term: string; summary: string }[];
+  /** Ferramentas que a aula sugere (campo "ferramentas"): vêm primeiro na caixa de ferramentas da aula. */
+  tools: ToolId[];
 }
 
 /** Item do roteiro de uma trilha: aula já escrita ou ainda em preparação. */
@@ -333,6 +335,16 @@ function collection<T>(dir: string, lang: Locale, build: (entry: { slug: string;
   return items;
 }
 
+/** "ferramentas: [resolvedor, graficos]": cada nome precisa existir em lib/areas.ts, senão a montagem do site para. */
+function parseTools(value: unknown, file: string): ToolId[] {
+  if (value === undefined || value === null) return [];
+  if (!Array.isArray(value)) fail(file, `"ferramentas" precisa ser uma lista, por exemplo [resolvedor, graficos]`);
+  return value.map((id) => {
+    if (typeof id !== "string" || !(tools as readonly string[]).includes(id)) fail(file, `ferramenta desconhecida em "ferramentas": ${String(id)} (a lista está em lib/areas.ts)`);
+    return id as ToolId;
+  });
+}
+
 function loadLesson(file: string, name: string, lang: Locale): (Lesson & { number: number }) | null {
   // "03-fracoes.md" (aulas iniciais, numeradas) ou "fracoes.md" (aulas vindas do painel).
   const match = /^(?:(\d+)-)?([a-z0-9-]+)\.md$/.exec(name);
@@ -353,6 +365,7 @@ function loadLesson(file: string, name: string, lang: Locale): (Lesson & { numbe
       return { term, summary };
     }),
     reviewed: data.revisada === true,
+    tools: parseTools(data.ferramentas, file),
     body,
     quiz: parseQuiz(data.quiz, file),
     sources: parseSources(data.fontes, file, true),
