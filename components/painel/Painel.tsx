@@ -21,6 +21,7 @@ import { Equipe, type Membro } from "./Equipe";
 import { Escrever } from "./Escrever";
 import { FontesAbertas } from "./FontesAbertas";
 import { Fila } from "./Fila";
+import { GavetaFila } from "./GavetaFila";
 import { Horas } from "./Horas";
 import { Interdicao } from "./Interdicao";
 import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lideranca";
@@ -57,6 +58,8 @@ interface Resumo {
   divulgacao?: number;
   /** Aprovado há mais de três horas e ainda fora do ar: a rotina de publicação parou. */
   publicacao_atrasada?: number;
+  /** Trabalhos da Gaveta Aberta esperando a decisão de quem media. */
+  gaveta?: number;
   /** Pedidos da supervisão (interdição, liberação, expurgo) esperando a coordenação. */
   pedidos_supervisao?: number;
 }
@@ -425,6 +428,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "comunidade", nome: "Comunidade", sobre: "Fila de revisão, banimentos, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
       { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mentoria", "educacao"), conta: r?.reforco },
       { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da mediação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mediacao"), conta: r?.mural },
+      { id: "gaveta", nome: "Gaveta Aberta", sobre: "Trabalhos de estudantes esperando a decisão: conferir, publicar ou recusar.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.gaveta },
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: lidera, conta: r?.candidaturas },
       { id: "supervisao", nome: "Supervisão", sobre: "Proteções reversíveis, a equipe sem e-mails e os pedidos de voluntariado.", grupo: "Pessoas", mostra: supervisiona, conta: r?.candidaturas },
@@ -596,6 +600,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "comunidade" && <Comunidade me={eu} />}
           {atual.id === "reforco" && <Reforco />}
           {atual.id === "mural" && <MuralFila />}
+          {atual.id === "gaveta" && <GavetaFila />}
           {atual.id === "boletim" && <Boletim />}
           {atual.id === "pessoas" && <Pessoas me={eu} />}
           {atual.id === "supervisao" && <Supervisao />}
@@ -640,6 +645,7 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           ["Horas para conferir", r.horas, "horas"],
           ["Certificados esperando a sua assinatura", r.testemunhar, "horas"],
           ["Anúncios do mural", r.mural, "mural"],
+          ["Trabalhos na Gaveta Aberta", r.gaveta ?? 0, "gaveta"],
         ] as [string, number, string][]
       ).filter(([, total]) => total > 0)
     : [];

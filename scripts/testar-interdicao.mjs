@@ -24,6 +24,11 @@ const lista = (funcao) => {
 igual("áreas do banco = áreas do site", lista("areas_publicas"), areasPublicas.map((area) => area.id));
 igual("áreas de expurgo do banco = do site", lista("areas_expurgo"), areasDeExpurgo.map((area) => area.id));
 
+// A versão do termo de cessão da Gaveta Aberta é a mesma no site e no banco.
+const versaoNoSite = fs.readFileSync(path.join(raiz, "lib/gaveta.ts"), "utf8").match(/TERMO_VERSAO = "([^"]+)"/)?.[1];
+const versaoNoBanco = sql.match(/function interno\.gaveta_termo_versao\(\)[^$]*\$\$ select '([^']+)' \$\$/)?.[1];
+igual("versão do termo da Gaveta: site = banco", versaoNoSite, versaoNoBanco);
+
 // Toda rota pública de app/[lang] pertence a uma área, ou é uma página geral (fecha só com o site inteiro).
 const gerais = ["sobre", "guia", "privacidade", "termos", "certificado", "meus-dados", "historico", "explorar", "painel", "entrar", "fora-do-ar"];
 for (const pasta of fs.readdirSync(path.join(raiz, "app/[lang]"), { withFileTypes: true })) {

@@ -1458,6 +1458,101 @@ await espera("expurgo pedido pela supervisão, com pausa: aprovado, apaga e paus
 await recusa("pedido de expurgo com área que não se expurga é recusado já no pedido", () => rpc(SUP, "pedido_criar", { p_tipo: "expurgo", p_dados: { areas: ["acervo"], periodo: "1h" }, p_justificativa: "Pedido com área que não existe para expurgo." }), "invalido:areas");
 await espera("o estado da interdição mostra o histórico recente", () => rpc(COORD, "interdicao_ver"), (r) => r.historico.some((h) => h.acao === "expurgo") && r.historico.some((h) => h.acao === "pedido_supervisao_aprovado"));
 
+// ── Gaveta Aberta ──
+ids.estudante = await criarUsuario("estudante@teste.local", "Edu Estudante");
+await rpc(como(ids.estudante), "eu");
+await rpc(como(ids.estudante), "perfil_salvar", { p_nome: "Edu Estudante", p_bio: "" });
+const EST = como(ids.estudante);
+const MED = como(ids.med);
+const trabalho = (extra = {}) => ({
+  titulo: "Hortas comunitárias na periferia de Recife", tipo: "tcc", disciplina: "geografia", curso: "Geografia", instituicao: "Universidade Federal de Pernambuco", ano: "2019",
+  comentario: "Mapeei doze hortas comunitárias e entrevistei quem cuida delas; serve para quem quer começar uma no próprio bairro.",
+  link: "https://repositorio.exemplo.br/handle/123", licenca: "CC BY 4.0", credito: "Edu Estudante", termo: true, termo_versao: "1", termo_nome: "Eduardo Estudante da Silva", ...extra,
+});
+const pdfDe = (dono) => `${dono}/0f8fad5b-d9cb-469f-a165-70867728950e.pdf`;
+await recusa("anônimo não publica na Gaveta", () => rpc(anon, "gaveta_enviar", { p: trabalho() }), "entre_primeiro");
+await recusa("sem aceitar o termo, não publica", () => rpc(EST, "gaveta_enviar", { p: trabalho({ termo: false }) }), "falta_termo");
+await recusa("termo de outra versão não vale", () => rpc(EST, "gaveta_enviar", { p: trabalho({ termo_versao: "0" }) }), "falta_termo");
+await recusa("o termo pede o nome completo", () => rpc(EST, "gaveta_enviar", { p: trabalho({ termo_nome: "Edu" }) }), "invalido:termo_nome");
+await recusa("link e PDF juntos não", () => rpc(EST, "gaveta_enviar", { p: trabalho({ arquivo: pdfDe(ids.estudante) }) }), "invalido:arquivo");
+await recusa("nem link nem PDF também não", () => rpc(EST, "gaveta_enviar", { p: trabalho({ link: "" }) }), "invalido:arquivo");
+await recusa("link sem https", () => rpc(EST, "gaveta_enviar", { p: trabalho({ link: "http://repositorio.exemplo.br/123" }) }), "invalido:link");
+await recusa("PDF na pasta de outra pessoa", () => rpc(EST, "gaveta_enviar", { p: trabalho({ link: "", arquivo: pdfDe(ids.prof) }) }), "invalido:arquivo");
+await recusa("comentário curto demais", () => rpc(EST, "gaveta_enviar", { p: trabalho({ comentario: "Bom trabalho." }) }), "invalido:comentario");
+await recusa("ano no futuro", () => rpc(EST, "gaveta_enviar", { p: trabalho({ ano: "2999" }) }), "invalido:ano");
+await recusa("licença fora da lista", () => rpc(EST, "gaveta_enviar", { p: trabalho({ licenca: "Todos os direitos reservados" }) }), "invalido:licenca");
+await recusa("tipo fora da lista", () => rpc(EST, "gaveta_enviar", { p: trabalho({ tipo: "livro" }) }), "invalido:tipo");
+await recusa("o filtro de palavras vale aqui", () => rpc(EST, "gaveta_enviar", { p: trabalho({ comentario: "Trabalho dizendo que o holocausto é mentira, com muitas páginas de argumentos." }) }), "conteudo_recusado");
+let gav;
+await espera("estudante publica com link; fica esperando a mediação", async () => {
+  gav = await rpc(EST, "gaveta_enviar", { p: trabalho() });
+  return [await rpc(anon, "gaveta_listar", { p: {} }), await rpc(EST, "gaveta_minhas")];
+}, (r) => !r[0].some((g) => g.id === gav.id) && r[1][0].id === gav.id && r[1][0].status === "pendente" && r[1][0].termo_nome === undefined);
+await espera("PDF da própria pasta é aceito (o banco de teste não tem depósito)", () => rpc(EST, "gaveta_enviar", { p: trabalho({ titulo: "Apostila de cartografia social", tipo: "apostila", link: "", arquivo: pdfDe(ids.estudante) }) }), (r) => Boolean(r.id));
+await espera("a Mesa da mediação conta a Gaveta", () => rpc(MED, "painel_resumo"), (r) => r.gaveta === 2);
+await recusa("revisor não vê a fila da Gaveta", () => rpc(como(ids.alvo), "gaveta_fila"), "sem_permissao");
+await recusa("supervisão não decide a Gaveta (é cargo interno)", () => rpc(SUP, "gaveta_fila"), "sem_permissao");
+await espera("quem decide vê o nome do termo e a versão aceita", () => rpc(MED, "gaveta_fila"), (r) => r.find((g) => g.id === gav.id)?.termo_nome === "Eduardo Estudante da Silva" && r.find((g) => g.id === gav.id)?.termo_versao === "1");
+await recusa("recusar exige um motivo", () => rpc(MED, "gaveta_decidir", { p_id: gav.id, p_aprovar: false, p_nota: "" }), "invalido:nota");
+await recusa("revisor não decide", () => rpc(como(ids.alvo), "gaveta_decidir", { p_id: gav.id, p_aprovar: true }), "sem_permissao");
+await espera("mediação aprova: aparece no público, sem o nome do termo, e quem publicou é avisado", async () => {
+  const a0 = await avisosDe(EST);
+  await rpc(MED, "gaveta_decidir", { p_id: gav.id, p_aprovar: true });
+  return [await rpc(anon, "gaveta_listar", { p: {} }), (await avisosDe(EST)) > a0];
+}, (r) => r[0].some((g) => g.id === gav.id && g.licenca === "CC BY 4.0" && g.credito === "Edu Estudante") && !JSON.stringify(r[0]).includes("Eduardo Estudante da Silva") && r[1]);
+await espera("filtros por disciplina, tipo e texto", async () => [
+  (await rpc(anon, "gaveta_listar", { p: { disciplina: "geografia" } })).length,
+  (await rpc(anon, "gaveta_listar", { p: { disciplina: "fisica" } })).length,
+  (await rpc(anon, "gaveta_listar", { p: { tipo: "artigo" } })).length,
+  (await rpc(anon, "gaveta_listar", { p: { busca: "HORTAS comunitarias" } })).length,
+], (r) => r[0] === 1 && r[1] === 0 && r[2] === 0 && r[3] === 1);
+await espera("o PDF só fica público depois da aprovação", async () => {
+  const pendente = (await rpc(MED, "gaveta_fila")).find((g) => g.arquivo === pdfDe(ids.estudante));
+  const antes = (await dono("select interno.gaveta_publico($1) as p", [pdfDe(ids.estudante)])).rows[0].p;
+  await rpc(MED, "gaveta_decidir", { p_id: pendente.id, p_aprovar: true });
+  return [antes, (await dono("select interno.gaveta_publico($1) as p", [pdfDe(ids.estudante)])).rows[0].p];
+}, (r) => r[0] === false && r[1] === true);
+await espera("interditada, a Gaveta recusa o público e deixa a mediação trabalhar", async () => {
+  await rpc(COORD, "interdicao_definir", { p: { areas: ["gaveta"], motivo: "Teste da Gaveta" } });
+  const erros = [];
+  for (const chamada of [() => rpc(anon, "gaveta_listar", { p: {} }), () => rpc(EST, "gaveta_enviar", { p: trabalho({ titulo: "Trabalho durante a interdição" }) })]) {
+    try {
+      await chamada();
+      erros.push("passou");
+    } catch (e) {
+      erros.push(e.message);
+    }
+  }
+  const fila = await rpc(MED, "gaveta_fila");
+  await rpc(COORD, "interdicao_definir", { p: { areas: [], motivo: "Fim do teste da Gaveta" } });
+  return [...erros, fila.length > 0];
+}, (r) => r[0].includes("area_interditada") && r[1].includes("area_interditada") && r[2] === true);
+await recusa("com a pausa geral, a Gaveta não recebe", async () => {
+  await rpc(SUP, "site_pausa", { p_pausa: true });
+  try {
+    return await rpc(EST, "gaveta_enviar", { p: trabalho({ titulo: "Trabalho durante a pausa" }) });
+  } finally {
+    await rpc(SUP, "site_pausa", { p_pausa: false });
+  }
+}, "envios_pausados");
+await recusa("outra pessoa não retira a ficha", () => rpc(como(ids.alvo), "gaveta_retirar", { p_id: gav.id }), "nao_encontrado");
+await espera("quem publicou retira a ficha do ar", async () => {
+  const r = await rpc(EST, "gaveta_retirar", { p_id: gav.id });
+  return [r.ok, await rpc(anon, "gaveta_listar", { p: {} }), await rpc(EST, "gaveta_minhas")];
+}, (r) => r[0] && !r[1].some((g) => g.id === gav.id) && !r[2].some((g) => g.id === gav.id));
+await espera("o expurgo da Gaveta apaga o que entrou no período", async () => {
+  const novo = await rpc(EST, "gaveta_enviar", { p: trabalho({ titulo: "Trabalho de spam na Gaveta" }) });
+  const previa = await rpc(COORD, "expurgo_previa", { p: { areas: ["gaveta"], periodo: "1h", poupar_equipe: true } });
+  await rpc(COORD, "expurgo_aplicar", { p: { areas: ["gaveta"], periodo: "1h", poupar_equipe: true, confirmacao: "EXPURGAR" } });
+  return [previa.gaveta >= 1, (await dono("select count(*)::int as n from interno.gaveta where id = $1", [novo.id])).rows[0].n];
+}, (r) => r[0] === true && r[1] === 0);
+await espera("banir a conta recusa o que ela tinha esperando na Gaveta", async () => {
+  const novo = await rpc(EST, "gaveta_enviar", { p: trabalho({ titulo: "Trabalho de quem vai ser banido" }) });
+  await rpc({ ...MED, aal: "aal2" }, "mediacao_banir", { p_usuario: ids.estudante, p_motivo: "Envios repetidos de spam.", p_origem: false });
+  return (await dono("select status from interno.gaveta where id = $1", [novo.id])).rows[0].status;
+}, (r) => r === "recusado");
+await recusa("conta banida não publica", () => rpc(EST, "gaveta_enviar", { p: trabalho({ titulo: "Mais um trabalho" }) }), "conta_suspensa");
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);

@@ -27,6 +27,7 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         [n.glossary, "/glossario", d.glossary],
         [n.authors, "/autores", d.authors],
         [n.videos, "/videos", d.videos],
+        [n.drawer, "/gaveta", d.drawer],
         [n.sources, "/guia", d.sources],
       ],
     ],
