@@ -1207,6 +1207,25 @@ await espera("a faxina apaga e-mails antigos e pedidos de boletim nunca confirma
   return dono("select (select count(*)::int from interno.emails where para = 'alvo@exemplo.org') as emails, (select count(*)::int from interno.boletim where email = 'sem.confirmar@exemplo.org') as boletim");
 }, (r) => r.rows[0].emails === 0 && r.rows[0].boletim === 0);
 
+// ── Registro de atividades: ações que mudam o que o público vê também deixam rastro ──
+await espera("apoiadores, rádio, denúncia, anotação e retirada de anúncio entram no registro", async () => {
+  const coordenacao2 = { ...como(ids.coord), aal: "aal2" };
+  const apoio = await rpc(coordenacao2, "apoiador_salvar", { p_id: null, p_nome: "Apoio de teste", p_mensagem: "" });
+  await rpc(coordenacao2, "apoiador_remover", { p_id: apoio.id });
+  const canalNovo = await rpc(coordenacao2, "radio_canal_salvar", { p_id: null, p_nome: "Canal do registro", p_descricao: "", p_ordem: 5 });
+  const faixaNova = await rpc(coordenacao2, "radio_faixa_salvar", { p_id: null, p_canal: canalNovo.id, p_titulo: "Faixa do registro", p_artista: "", p_url: "https://exemplo.test/r.opus", p_duracao: 10, p_ordem: 0 });
+  await rpc(coordenacao2, "radio_faixa_remover", { p_id: faixaNova.id });
+  await rpc(coordenacao2, "radio_canal_remover", { p_id: canalNovo.id });
+  await rpc({ papel: "anon", ip: "198.51.100.90" }, "denunciar", { p_alvo: "/pt/acervo/x", p_motivo: "Outro motivo", p_detalhes: "Denúncia para conferir o registro de atividades." });
+  const denuncia = (await rpc(coordenacao2, "denuncias_listar")).find((d) => d.status === "aberta");
+  await rpc(coordenacao2, "denuncia_resolver", { p_id: denuncia.id, p_nota: "Conferido." });
+  const nota = await rpc(como(ids.revisor), "anotar", { p_caminho: "/trilhas/x/y", p_paragrafo: 0, p_trecho: "", p_corpo: "Anotação para o registro." });
+  await rpc(coordenacao2, "anotacao_decidir", { p_id: nota.id, p_status: "oculta" });
+  const anuncioRemovido = await rpc({ papel: "anon", ip: "198.51.100.91" }, "mural_enviar", { p: anuncio({ titulo: "Anúncio para remover" }) });
+  await rpc(coordenacao2, "mural_remover", { p_id: anuncioRemovido.id });
+  return dono("select array_agg(distinct acao) as acoes from interno.auditoria");
+}, (r) => ["apoiador_salvo", "apoiador_removido", "radio_canal_salvo", "radio_canal_removido", "radio_faixa_salva", "radio_faixa_removida", "denuncia_resolvida", "anotacao_oculta", "anuncio_removido"].every((acao) => r.rows[0].acoes.includes(acao)));
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);
