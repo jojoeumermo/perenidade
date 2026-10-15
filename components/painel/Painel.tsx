@@ -368,7 +368,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   // Trocar de seção também refaz as contagens: o número da fila cai assim que a decisão é tomada.
   const ir = (id: string) => {
     setMenu(false);
-    router.replace(`/${lang}/painel?aba=${id}`);
+    // Cada seção entra no histórico: o voltar do celular (e do navegador) volta para a seção anterior.
+    router.push(`/${lang}/painel?aba=${id}`, { scroll: false });
     window.scrollTo(0, 0);
     atualizarResumo();
   };
