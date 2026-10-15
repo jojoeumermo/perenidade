@@ -341,6 +341,14 @@ create table if not exists interno.equipe_mensagens (
   criado_em timestamptz not null default now()
 );
 create index if not exists equipe_canal on interno.equipe_mensagens (canal, criado_em desc);
+-- A mediação chegou depois da primeira instalação: o canal dela e os pedidos de ajuda endereçados a ela.
+-- Só alarga a regra; nenhuma mensagem guardada muda.
+alter table interno.equipe_mensagens drop constraint if exists equipe_mensagens_canal_check;
+alter table interno.equipe_mensagens add constraint equipe_mensagens_canal_check
+  check (canal in ('geral', 'pedidos', 'coordenacao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento'));
+alter table interno.equipe_mensagens drop constraint if exists equipe_mensagens_para_check;
+alter table interno.equipe_mensagens add constraint equipe_mensagens_para_check
+  check (para is null or para in ('coordenacao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento'));
 
 -- Materiais de campanha e de agitação (zines, panfletos, cartazes). Só a coordenação publica.
 create table if not exists interno.materiais (
@@ -2524,7 +2532,7 @@ begin
     if not exists (select 1 from equipe_mensagens where id = p_resposta_a and canal = p_canal and resposta_a is null) then perform interno.erro('nao_encontrado'); end if;
     v_para := null;
   elsif p_canal = 'pedidos' then
-    if v_para is null or v_para not in ('coordenacao', 'curadoria', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:para'); end if;
+    if v_para is null or v_para not in ('coordenacao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:para'); end if;
   else
     v_para := null;
   end if;
