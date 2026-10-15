@@ -750,7 +750,23 @@
     "lead": "Every change to the content is recorded with its date, and any earlier version can be recovered.",
     "description": "Every change made to the collection, from the most recent to the oldest.",
     "unavailable": "The history is not available in this copy of the site.",
-    "more": "and {n} more"
+    "more": "and {n} more",
+    "kinds": {
+      "lessons": "Lessons",
+      "tracks": "Course plans",
+      "translations": "Translations",
+      "books": "Library works",
+      "catalog": "Extended catalog",
+      "journal": "Newspaper",
+      "glossary": "Glossary",
+      "memorial": "Memorial",
+      "authors": "Authors",
+      "checks": "Fact-checking",
+      "debates": "Debate cards",
+      "videos": "Videos",
+      "pages": "Site pages",
+      "other": "Other content"
+    }
   },
   "dedication": {
     "eyebrow": "Dedication",

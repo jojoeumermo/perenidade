@@ -500,7 +500,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "materiais" && <Materiais me={eu} />}
           {atual.id === "comunidade" && <Comunidade me={eu} />}
           {atual.id === "reforco" && <Reforco />}
-          {atual.id === "mural" && <MuralFila />}
+          {atual.id === "mural" && <MuralFila me={eu} />}
           {atual.id === "boletim" && <Boletim />}
           {atual.id === "pessoas" && <Pessoas me={eu} />}
           {atual.id === "horas" && <Horas me={eu} />}

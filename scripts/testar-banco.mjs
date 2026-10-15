@@ -322,6 +322,17 @@ await recusa("no máximo três anúncios por pessoa", async () => { for (let i =
 await espera("resumo do painel conta o mural", () => rpc(como(ids.coord), "painel_resumo"), (r) => r.mural === 2);
 await recusa("curadoria não retira anúncio do mural", () => rpc(como(ids.curadora), "mural_remover", { p_id: anuncioId }), "nao_encontrado");
 await espera("coordenação retira anúncio indevido", () => rpc(como(ids.coord), "mural_remover", { p_id: anuncioId }), (r) => r.ok);
+// O painel retira do ar sem apagar: o anúncio aprovado vira "não aprovado", com a nota que quem anunciou lê.
+let noAr;
+await espera("coordenação vê no painel os anúncios que estão no ar", async () => {
+  noAr = (await rpc({ papel: "anon", ip: "198.51.100.71" }, "mural_enviar", { p: anuncio({ titulo: "Aulas de violão", categoria: "servico" }) })).id;
+  await rpc(como(ids.coord), "mural_decidir", { p_id: noAr, p_aprovar: true, p_nota: "" });
+  return rpc(como(ids.coord), "mural_fila", { p_status: "aprovado" });
+}, (r) => r.some((a) => a.id === noAr && a.validade));
+await espera("coordenação retira do ar com nota, sem apagar", async () => {
+  await rpc(como(ids.coord), "mural_decidir", { p_id: noAr, p_aprovar: false, p_nota: "Anúncio fora das regras do mural." });
+  return [await rpc(anon, "mural_listar"), (await dono("select status, nota from interno.mural where id = $1", [noAr])).rows[0]];
+}, ([lista, linha]) => !lista.some((a) => a.id === noAr) && linha.status === "recusado" && linha.nota.startsWith("Anúncio fora"));
 
 // ── Mediação no Mural dos Trabalhadores ──
 let doMural;
@@ -372,6 +383,8 @@ await recusa("curadoria não configura a rádio", () => rpc(como(ids.curadora), 
 let canal, faixa;
 await espera("coordenação cria canal", async () => (canal = await rpc(como(ids.coord), "radio_canal_salvar", { p_id: null, p_nome: "Formação", p_descricao: "Aulas em áudio.", p_ordem: 1 })), (r) => Boolean(r.id));
 await recusa("endereço de faixa inválido", () => rpc(como(ids.coord), "radio_faixa_salvar", { p_id: null, p_canal: canal.id, p_titulo: "x", p_artista: "", p_url: "javascript:alert(1)", p_duracao: 10, p_ordem: 0 }), "invalido:url");
+// O site é servido em https e a regra de conteúdo só deixa tocar áudio https: faixa em http aceita não tocaria nunca.
+await recusa("faixa em http é recusada (não tocaria no site)", () => rpc(como(ids.coord), "radio_faixa_salvar", { p_id: null, p_canal: canal.id, p_titulo: "x", p_artista: "", p_url: "http://exemplo.test/a.mp3", p_duracao: 10, p_ordem: 0 }), "invalido:url");
 await espera("coordenação adiciona faixa", async () => (faixa = await rpc(como(ids.coord), "radio_faixa_salvar", { p_id: null, p_canal: canal.id, p_titulo: "O que é mais-valia", p_artista: "Instituto Lúcia", p_url: "https://exemplo.test/a.opus", p_duracao: 240, p_ordem: 0 })), (r) => Boolean(r.id));
 await espera("coordenação pré-escuta com a rádio fora do ar", () => rpc(como(ids.coord), "radio_estado"), (r) => r.no_ar === false && r.canais.length === 1 && r.canais[0].faixas.length === 1);
 await espera("público continua sem ver", () => rpc(como(ids.leitora), "radio_estado"), (r) => r.canais === undefined);
@@ -994,6 +1007,10 @@ await espera("autor marca o pedido como resolvido", () => rpc(como(ids.prof), "e
 await recusa("vice-coordenação não define a sala da equipe", () => rpc(como(ids.vice), "equipe_sala_salvar", { p_url: "https://matrix.to/#/!sala:exemplo.org" }), "sem_permissao");
 await espera("coordenação indica a sala cifrada", async () => { await rpc(como(ids.coord), "equipe_sala_salvar", { p_url: "https://matrix.to/#/!sala:exemplo.org" }); return rpc(como(ids.designer), "equipe_canais"); }, (r) => r.sala.startsWith("https://matrix.to/"));
 await espera("instalar de novo não apaga o mural cifrado", async () => { await banco.instalarDeNovo(); return dono("select count(*)::int as n from interno.equipe_mensagens"); }, (r) => r.rows[0].n === 2);
+// O canal da mediação aparece para quem media; escrever nele (e pedir ajuda à mediação) precisa funcionar.
+await espera("mediação vê o próprio canal", () => rpc({ ...como(ids.med), aal: "aal2" }, "equipe_canais"), (r) => r.canais.includes("mediacao"));
+await espera("educador pede ajuda à mediação", async () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "pedidos", p_corpo: await selar(aparelhos.prof, geral, "Preciso de ajuda com uma conversa difícil.", contextoDoMural("pedidos", ids.prof)), p_resposta_a: null, p_para: "mediacao" }), (r) => Boolean(r.id));
+await recusa("quem não é da mediação não lê o canal dela", () => rpc(como(ids.designer), "equipe_listar", { p_canal: "mediacao" }), "sem_permissao");
 await espera("mensagem com mais de trinta dias some sozinha", async () => { await dono("update interno.equipe_mensagens set criado_em = now() - interval '31 days' where resposta_a is null"); return rpc(como(ids.coord), "equipe_listar", { p_canal: "pedidos" }); }, (r) => r.length === 0);
 await recusa("vice não apaga tudo", () => rpc(como(ids.vice), "equipe_apagar_tudo"), "sem_permissao");
 await espera("o coordenador apaga todas as conversas de uma vez", async () => { await rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: await selar(aparelhos.prof, geral, "Bom dia.", contextoDoMural("geral", ids.prof)) }); const r = await rpc(como(ids.coord), "equipe_apagar_tudo"); return [r.apagadas, (await dono("select count(*)::int as n from interno.equipe_mensagens")).rows[0].n]; }, (r) => r[0] >= 1 && r[1] === 0);
@@ -1449,6 +1466,43 @@ await espera("temas para as próximas aulas de uma trilha entram na fila", () =>
 await espera("marketing cadastra material de divulgação, como o design", () => rpc(como(ids.divulga), "material_salvar", { p: material({ titulo: "Cartaz da campanha de voluntariado", publicado: false }) }), (r) => Boolean(r.id));
 await espera("marketing vê o próprio canal no mural da equipe", () => rpc(como(ids.divulga), "equipe_canais"), (r) => r.canais.includes("marketing") && !r.canais.includes("educacao"));
 await recusa("marketing não lê a fila de revisão de aulas", () => rpc(como(ids.divulga), "triagem_fila"), "sem_permissao");
+
+// ── Registro de atividades: ações que mudam o que o público vê também deixam rastro ──
+await espera("apoiadores, rádio, denúncia, anotação e retirada de anúncio entram no registro", async () => {
+  const coordenacao2 = { ...como(ids.coord), aal: "aal2" };
+  const apoio = await rpc(coordenacao2, "apoiador_salvar", { p_id: null, p_nome: "Apoio de teste", p_mensagem: "" });
+  await rpc(coordenacao2, "apoiador_remover", { p_id: apoio.id });
+  const canalNovo = await rpc(coordenacao2, "radio_canal_salvar", { p_id: null, p_nome: "Canal do registro", p_descricao: "", p_ordem: 5 });
+  const faixaNova = await rpc(coordenacao2, "radio_faixa_salvar", { p_id: null, p_canal: canalNovo.id, p_titulo: "Faixa do registro", p_artista: "", p_url: "https://exemplo.test/r.opus", p_duracao: 10, p_ordem: 0 });
+  await rpc(coordenacao2, "radio_faixa_remover", { p_id: faixaNova.id });
+  await rpc(coordenacao2, "radio_canal_remover", { p_id: canalNovo.id });
+  await rpc({ papel: "anon", ip: "198.51.100.90" }, "denunciar", { p_alvo: "/pt/acervo/x", p_motivo: "Outro motivo", p_detalhes: "Denúncia para conferir o registro de atividades." });
+  const denuncia = (await rpc(coordenacao2, "denuncias_listar")).find((d) => d.status === "aberta");
+  await rpc(coordenacao2, "denuncia_resolver", { p_id: denuncia.id, p_nota: "Conferido." });
+  const nota = await rpc(como(ids.revisor), "anotar", { p_caminho: "/trilhas/x/y", p_paragrafo: 0, p_trecho: "", p_corpo: "Anotação para o registro." });
+  await rpc(coordenacao2, "anotacao_decidir", { p_id: nota.id, p_status: "oculta" });
+  const anuncioRemovido = await rpc({ papel: "anon", ip: "198.51.100.91" }, "mural_enviar", { p: anuncio({ titulo: "Anúncio para remover" }) });
+  await rpc(coordenacao2, "mural_remover", { p_id: anuncioRemovido.id });
+  return dono("select array_agg(distinct acao) as acoes from interno.auditoria");
+}, (r) => ["apoiador_salvo", "apoiador_removido", "radio_canal_salvo", "radio_canal_removido", "radio_faixa_salva", "radio_faixa_removida", "denuncia_resolvida", "anotacao_oculta", "anuncio_removido"].every((acao) => r.rows[0].acoes.includes(acao)));
+
+// ── Candidatura aceita e conta criada com o e-mail de outra pessoa ──
+// Com "Confirm email" ligado no serviço de contas, conta nova nasce sem email_confirmed_at. Quem cria uma conta com o
+// e-mail de alguém que se candidatou não pode receber a função dessa pessoa quando a candidatura for aceita.
+await espera("candidatura aceita não entrega a função a conta com e-mail não confirmado", async () => {
+  await dono("alter table auth.users add column if not exists email_confirmed_at timestamptz");
+  await dono("update auth.users set email_confirmed_at = coalesce(email_confirmed_at, now())");
+  await rpc({ papel: "anon", ip: "198.51.100.95" }, "voluntariar", { p: { nome: "Pessoa Candidata", email: "candidata@exemplo.org", papel: "revisao", mensagem: "Quero revisar as aulas do instituto com cuidado." } });
+  const invasor = await criarUsuario("candidata@exemplo.org", "Invasor");
+  const inscricao = (await rpc({ ...como(ids.coord), aal: "aal2" }, "inscricoes_listar")).find((i) => i.email === "candidata@exemplo.org");
+  let erro = "";
+  try {
+    await rpc({ ...como(ids.coord), aal: "aal2" }, "inscricao_decidir", { p_id: inscricao.id, p_aceitar: true });
+  } catch (falha) {
+    erro = falha.message;
+  }
+  return [erro, (await dono("select count(*)::int as n from interno.papeis where usuario = $1", [invasor])).rows[0].n];
+}, ([erro, papeis]) => erro.includes("email_nao_confirmado") && papeis === 0);
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
