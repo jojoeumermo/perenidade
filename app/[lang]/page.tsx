@@ -163,9 +163,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <p className="mt-1 font-mono text-xs text-ink-soft">{h.timelineSub}</p>
             <ol className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start">
               {recent.map((change) => (
-                <li key={change.hash} className="flex-1 border-t-2 border-gold pt-3">
+                <li key={change.date} className="flex-1 border-t-2 border-gold pt-3">
                   <p className="font-mono text-sm text-gold">{date.format(new Date(change.date))}</p>
-                  <p className="text-lg" lang="pt-BR">{change.subject}</p>
+                  <p className="text-lg">{change.counts.map(([kind, n]) => `${t.history.kinds[kind]}: ${n}`).join(" · ")}</p>
                 </li>
               ))}
               <li className="flex-1 border-t-2 border-dashed border-gold pt-3">
