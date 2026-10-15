@@ -11,6 +11,13 @@
   --rule: #cdbb91;
   --ok: #2f5d34;
   --apoie-luz: 38%;
+  /* Altura da barra de botões do aparelho que as abas de baixo precisam pular. No navegador é sempre zero:
+     o DuckDuckGo do Android informa a altura das barras do sistema mesmo sem "viewport-fit=cover", e o
+     env() deixava um vão embaixo das abas (e outro no topo). Só o aplicativo, que vai de borda a borda, usa o valor real. */
+  --recuo-baixo: 0px;
+}
+:root[data-app] {
+  --recuo-baixo: env(safe-area-inset-bottom, 0px);
 }
 
 /* Tema escuro: segue o sistema, a menos que a pessoa escolha um tema no botão do cabeçalho. */
@@ -61,8 +68,6 @@ body {
   background: var(--parchment);
   color: var(--ink);
   font-family: var(--font-serif-display), Georgia, serif;
-  /* Aberto como aplicativo, o site vai até a borda da tela: o topo desce o tanto da barra do relógio. */
-  padding-top: env(safe-area-inset-top, 0px);
 }
 
 /* Nada passa da largura da tela: um campo de escolha, por natureza, tem a largura da opção mais comprida,
@@ -85,8 +90,7 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 :root[data-app] body {
-  /* A barra de cima fica presa e ocupa, ela mesma, o espaço do relógio. */
-  padding-top: 0;
+  /* A barra de cima fica presa e ocupa, ela mesma, o espaço do relógio (veja o Header). */
   overscroll-behavior-x: none;
 }
 :root[data-app] :is(a, button, summary, label, select) {
@@ -171,9 +175,40 @@ body {
     min-height: 2rem;
     font-size: 0.75rem;
   }
+  /* Modo leitura (tela de aula): rolando para baixo, as barras saem da frente; rolando para cima, voltam.
+     Quem liga e desliga é components/ReadingChrome.tsx, com <html data-lendo>. */
+  :root[data-app] :is(.app-barra, .app-abas) {
+    transition: transform 0.2s ease-out;
+  }
+  :root[data-app] .app-flutua {
+    transition: opacity 0.2s ease-out;
+  }
+  :root[data-app][data-lendo] .app-barra {
+    transform: translateY(-100%);
+  }
+  :root[data-app][data-lendo] .app-abas {
+    transform: translateY(100%);
+  }
+  :root[data-app][data-lendo] .app-flutua:not(:focus-within) {
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* Texto de leitura na medida do celular: letra de 19px, entrelinha larga e palavras partidas com hífen,
+     para a margem direita não ficar serrilhada. Quem pediu espaçamento maior na acessibilidade continua mandando. */
+  :root[data-app]:not([data-spacing]) main .prose-lesson {
+    font-size: 1.1875rem;
+    line-height: 1.75;
+  }
+  :root[data-app] main .prose-lesson :is(p, li) {
+    hyphens: auto;
+  }
   /* Sem rodapé no aplicativo: o conteúdo termina acima das abas. */
   :root[data-app] main#conteudo {
-    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(4.5rem + var(--recuo-baixo));
+  }
+  /* O painel não tem as abas do site: lá dentro, nada de sobra clara embaixo do menu. */
+  :root[data-app] main#conteudo:has(.painel) {
+    padding-bottom: 0;
   }
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .barra-celular {
@@ -369,6 +404,14 @@ body {
   height: 6.5cqw;
 }
 /* Fundo preto dos cartazes e o sol de raios vermelhos: cores fixas, iguais nos dois temas. */
+/* Capa de episódio de podcast sem imagem: o cartaz vermelho com a estrela e a quina preta. */
+.podcast-capa-cartaz {
+  background: linear-gradient(135deg, var(--prelo) 0 64%, #1f1a14 64% 100%);
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .podcast-capa-cartaz {
+  background: #000;
+}
+
 .jornal-preto {
   background: #1f1a14;
   color: #f4ecd8;

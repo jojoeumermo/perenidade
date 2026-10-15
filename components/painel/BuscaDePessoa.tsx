@@ -8,6 +8,7 @@ import { campo } from "./comum";
 export interface PessoaAchada {
   id: string;
   nome: string;
+  /** A segunda linha de cada resultado. Onde a lista não tem e-mail (colegas da equipe), vai a função da pessoa. */
   email: string;
   suspenso?: boolean;
 }
@@ -16,8 +17,22 @@ export interface PessoaAchada {
  * Campo de busca de pessoa: digita-se o nome ou o e-mail e o banco devolve só quem corresponde (no máximo vinte).
  * Substitui a lista com todo mundo, que não aguenta milhares de contas. Setas escolhem, Enter confirma, Esc fecha.
  * "reserva" é a lista já carregada na tela: serve de busca local se o serviço ainda não tiver a função de busca.
+ * "entre" troca a busca no banco por uma busca só dentro da lista dada (os colegas da equipe, quem pode assinar…):
+ * aí o campo já abre mostrando os primeiros nomes e afina conforme a pessoa digita.
  */
-export function BuscaDePessoa({ escolhida, escolher, reserva = [] }: { escolhida: PessoaAchada | null; escolher: (pessoa: PessoaAchada | null) => void; reserva?: PessoaAchada[] }) {
+export function BuscaDePessoa({
+  escolhida,
+  escolher,
+  reserva = [],
+  entre,
+  rotulo,
+}: {
+  escolhida: PessoaAchada | null;
+  escolher: (pessoa: PessoaAchada | null) => void;
+  reserva?: PessoaAchada[];
+  entre?: PessoaAchada[];
+  rotulo?: string;
+}) {
   const id = useId();
   const [texto, setTexto] = useState("");
   const [achadas, setAchadas] = useState<PessoaAchada[] | null>(null);
@@ -30,8 +45,9 @@ export function BuscaDePessoa({ escolhida, escolher, reserva = [] }: { escolhida
   }, [reserva]);
 
   const termo = texto.trim();
+  const local = entre !== undefined;
   useEffect(() => {
-    if (termo.length < 2) return;
+    if (local || termo.length < 2) return;
     let cancelada = false;
     // Espera a pessoa parar de digitar: uma consulta por pausa, não uma por letra.
     const relogio = window.setTimeout(() => {
@@ -52,10 +68,11 @@ export function BuscaDePessoa({ escolhida, escolher, reserva = [] }: { escolhida
       cancelada = true;
       window.clearTimeout(relogio);
     };
-  }, [termo]);
+  }, [termo, local]);
 
-  const lista = termo.length < 2 ? [] : (achadas ?? []);
-  const mostra = aberta && termo.length >= 2;
+  const alvo = termo.toLowerCase();
+  const lista = local ? entre.filter((pessoa) => `${pessoa.nome} ${pessoa.email}`.toLowerCase().includes(alvo)).slice(0, 20) : termo.length < 2 ? [] : (achadas ?? []);
+  const mostra = aberta && (local || termo.length >= 2);
 
   function confirmar(pessoa: PessoaAchada) {
     escolher(pessoa);
@@ -90,7 +107,8 @@ export function BuscaDePessoa({ escolhida, escolher, reserva = [] }: { escolhida
         autoComplete="off"
         value={texto}
         maxLength={120}
-        placeholder="Digite o nome ou o e-mail"
+        aria-label={rotulo}
+        placeholder={local ? "Digite o nome para procurar" : "Digite o nome ou o e-mail"}
         className={campo}
         onChange={(e) => {
           setTexto(e.target.value);
@@ -136,7 +154,7 @@ export function BuscaDePessoa({ escolhida, escolher, reserva = [] }: { escolhida
               <span className="block truncate font-mono text-xs text-ink-soft">{pessoa.email}</span>
             </li>
           ))}
-          {lista.length === 0 && <li className="px-3 py-2 text-ink-soft">{buscando || achadas === null ? "Procurando…" : "Ninguém com esse nome ou e-mail. A pessoa precisa ter entrado no site pelo menos uma vez."}</li>}
+          {lista.length === 0 && <li className="px-3 py-2 text-ink-soft">{local ? "Ninguém com esse nome nesta lista." : buscando || achadas === null ? "Procurando…" : "Ninguém com esse nome ou e-mail. A pessoa precisa ter entrado no site pelo menos uma vez."}</li>}
           {lista.length === 20 && <li className="border-t border-rule px-3 py-2 text-xs text-ink-soft">Mostrando os vinte primeiros. Digite mais para afinar a busca.</li>}
         </ul>
       )}

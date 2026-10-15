@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { leads, rpc, type Me } from "@/lib/backend";
+import { BuscaDePessoa } from "./BuscaDePessoa";
 import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 
 // ───────────── Aviso de abertura ─────────────
@@ -149,6 +150,7 @@ export function SegurancaSucessao({ me }: { me: Me }) {
   const atual = ordem ?? sucessao.dados?.ordem.map((pessoa) => pessoa.id) ?? [];
   const nomeDe = (id: string) => pessoas.dados?.find((pessoa) => pessoa.id === id)?.nome ?? sucessao.dados?.ordem.find((pessoa) => pessoa.id === id)?.nome ?? "…";
   const candidatos = pessoas.dados?.filter((pessoa) => !pessoa.suspenso && pessoa.id !== me.id && !atual.includes(pessoa.id)) ?? [];
+  const ativas = pessoas.dados?.filter((pessoa) => !pessoa.suspenso && pessoa.id !== me.id) ?? [];
   const mover = (indice: number, passo: number) => {
     const lista = [...atual];
     const destino = indice + passo;
@@ -222,17 +224,10 @@ export function SegurancaSucessao({ me }: { me: Me }) {
         {atual.length === 0 && <p className="mt-2 text-ink-soft">Ninguém na lista: hoje, se a coordenação sumir, o posto fica vago.</p>}
         {lider && (
           <div className="mt-3 flex flex-wrap items-end gap-3">
-            <label className="block min-w-60 flex-1">
+            <div className="min-w-60 flex-1">
               Acrescentar à lista
-              <select value={nova} onChange={(e) => setNova(e.target.value)} className={campo}>
-                <option value="">Escolha…</option>
-                {candidatos.map((pessoa) => (
-                  <option key={pessoa.id} value={pessoa.id}>
-                    {pessoa.nome} ({pessoa.email})
-                  </option>
-                ))}
-              </select>
-            </label>
+              <BuscaDePessoa rotulo="Acrescentar à lista" entre={candidatos} escolhida={candidatos.find((pessoa) => pessoa.id === nova) ?? null} escolher={(pessoa) => setNova(pessoa?.id ?? "")} />
+            </div>
             <button type="button" className={botaoClaro} disabled={!nova || atual.length >= 10} onClick={() => { setOrdem([...atual, nova]); setNova(""); }}>
               Acrescentar
             </button>
@@ -251,17 +246,18 @@ export function SegurancaSucessao({ me }: { me: Me }) {
           <h2 className="font-serif text-2xl font-semibold">Passar a coordenação</h2>
           <p className="mt-1 text-ink-soft">Você entrega o posto e passa a ser vice-coordenação. Só a nova coordenação pode devolver.</p>
           <div className="mt-3 flex flex-wrap items-end gap-3">
-            <label className="block min-w-60 flex-1">
+            <div className="min-w-60 flex-1">
               Para quem
-              <select value={herdeiro} onChange={(e) => { setHerdeiro(e.target.value); setConfirma(false); }} className={campo}>
-                <option value="">Escolha…</option>
-                {pessoas.dados?.filter((pessoa) => !pessoa.suspenso && pessoa.id !== me.id).map((pessoa) => (
-                  <option key={pessoa.id} value={pessoa.id}>
-                    {pessoa.nome} ({pessoa.email})
-                  </option>
-                ))}
-              </select>
-            </label>
+              <BuscaDePessoa
+                rotulo="Para quem passar a coordenação"
+                entre={ativas}
+                escolhida={ativas.find((pessoa) => pessoa.id === herdeiro) ?? null}
+                escolher={(pessoa) => {
+                  setHerdeiro(pessoa?.id ?? "");
+                  setConfirma(false);
+                }}
+              />
+            </div>
             {confirma ? (
               <button type="button" className="cursor-pointer bg-oxblood px-5 py-2.5 font-medium text-parchment" disabled={acao.ocupado} onClick={async () => { if (await acao.agir("lideranca_passar", { p_usuario: herdeiro }, "Coordenação passada.")) window.location.reload(); }}>
                 Confirmar: passar a coordenação
@@ -392,6 +388,16 @@ const acoes: Record<string, string> = {
   pedido_supervisao_aprovado: "aprovou um pedido da supervisão",
   pedido_supervisao_recusado: "recusou um pedido da supervisão",
   isca: "endereço-isca pedido por alguém de fora:",
+  apoiador_salvo: "incluiu ou editou um nome no mural de apoiadores",
+  apoiador_removido: "retirou um nome do mural de apoiadores",
+  radio_canal_salvo: "criou ou editou um canal da rádio",
+  radio_canal_removido: "removeu um canal da rádio",
+  radio_faixa_salva: "incluiu ou editou uma faixa da rádio",
+  radio_faixa_removida: "removeu uma faixa da rádio",
+  denuncia_resolvida: "resolveu uma denúncia",
+  anotacao_aprovada: "aprovou uma anotação de leitura",
+  anotacao_oculta: "ocultou uma anotação de leitura",
+  anuncio_removido: "apagou um anúncio do mural",
 };
 
 /** Os detalhes guardados viram texto de gente: sem identificadores internos, com sim e não no lugar de true e false. */
