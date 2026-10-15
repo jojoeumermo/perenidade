@@ -40,7 +40,9 @@ export async function GET(_request: Request, { params }: RouteContext<"/[lang]/t
               titulo: track.title,
               etapa: track.stage,
               prontas: track.lessons.length,
-              faltam: track.plan.filter((item) => !item.ready).map((item) => ({ slug: item.slug, titulo: item.title })),
+              // Só as próximas três aulas do roteiro e o total: é o que a Mesa precisa, e o arquivo fica leve.
+              faltam: track.plan.filter((item) => !item.ready).slice(0, 3).map((item) => ({ slug: item.slug, titulo: item.title })),
+              quantasFaltam: track.plan.filter((item) => !item.ready).length,
               traduzidas: Object.fromEntries(outras.map((idioma) => [idioma, traduzidas[idioma].get(track.slug) ?? 0])),
             })),
         },
