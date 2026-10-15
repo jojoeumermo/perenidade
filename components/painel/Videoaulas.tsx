@@ -82,6 +82,9 @@ export function Videoaulas({ me }: { me: Me }) {
       <p className="mb-6 max-w-3xl border-l-2 border-gold pl-4 text-ink-soft">
         Aulas curtas em vídeo, de até 10 minutos e até 720p, para complementar as trilhas. Grave aqui mesmo (câmera ou tela, com o seu microfone) ou envie um vídeo pronto. Como toda aula, ela passa pela curadoria antes de ir ao ar e precisa de pelo menos uma fonte. Escrever a transcrição deixa a aula acessível para quem não ouve.
       </p>
+      <p className="-mt-3 mb-6 max-w-3xl text-ink-soft">
+        Ao enviar, você autoriza a publicação da sua imagem e da sua voz nesta aula, com o seu nome público, sob a mesma licença das aulas escritas (CC BY-SA 4.0). Não grave outras pessoas sem a autorização delas.
+      </p>
       <Abas opcoes={opcoes} atual={aba} escolher={setAba} />
       {aba === "gravar" && <Gravar me={me} enviado={() => setAba("minhas")} />}
       {aba === "minhas" && <Minhas />}
