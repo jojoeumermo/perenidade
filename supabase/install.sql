@@ -2960,7 +2960,8 @@ create or replace function interno.horas_tabela() returns jsonb language sql imm
     {"chave": "arte", "nome": "Arte entregue a pedido da equipe", "grupo": "artes entregues", "padrao": 1.5},
     {"chave": "boletim", "nome": "Edição do boletim enviada", "grupo": "edições do boletim", "padrao": 2},
     {"chave": "avulso", "nome": "Material avulso aprovado", "grupo": "materiais avulsos", "padrao": 2},
-    {"chave": "temas", "nome": "Temas de aulas futuras aceitos", "grupo": "temas de aulas futuras", "padrao": 0.3}
+    {"chave": "temas", "nome": "Temas de aulas futuras aceitos", "grupo": "temas de aulas futuras", "padrao": 0.3},
+    {"chave": "videoaula", "nome": "Aula em vídeo aprovada", "grupo": "aulas em vídeo", "padrao": 3}
   ]'::jsonb
 $$;
 
@@ -3033,6 +3034,10 @@ begin
       union all
       select 'arte:' || d.id, 'arte', d.feito_em, d.texto from podcast_pedidos d
       where d.atendido_por = p_usuario and d.status = 'feito' and d.feito_em is not null and d.pedido_por is distinct from p_usuario
+      union all
+      -- Aula em vídeo aprovada por outra pessoa.
+      select 'videoaula:' || a.id, 'videoaula', a.revisado_em, a.titulo from videoaulas a
+      where a.autor = p_usuario and a.status = 'aprovada' and a.revisado_em is not null and a.revisado_por is distinct from p_usuario
     ) t
     where t.quando > now() - interval '400 days'
       and not exists (select 1 from horas h where h.usuario = p_usuario and h.fonte = t.fonte)
@@ -6135,4 +6140,214 @@ begin
   alter table interno.equipe_mensagens drop constraint if exists equipe_mensagens_para_check;
   alter table interno.equipe_mensagens add constraint equipe_mensagens_para_check
     check (para is null or para in ('coordenacao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'marketing'));
+end $$;
+
+-- ───────────────────────────── Aulas em vídeo ─────────────────────────────
+-- Quem ensina grava ou envia, pelo painel, aulas de até 10 minutos e até 720p. O arquivo vai para o depósito fechado
+-- "videoaulas" (até 50 MB, o limite por arquivo do plano gratuito do serviço). Enquanto a curadoria não aprova, só quem
+-- enviou e quem revisa assiste; aprovada, qualquer visitante assiste por um endereço assinado que vale algumas horas.
+create table if not exists interno.videoaulas (
+  id uuid primary key default gen_random_uuid(),
+  autor uuid references interno.perfis (id) on delete set null,
+  nome_autor text not null default '' check (char_length(nome_autor) <= 80),
+  disciplina text not null check (disciplina ~ '^[a-z0-9-]{2,40}$'),
+  trilha text check (trilha is null or trilha ~ '^[a-z0-9-]{2,80}$'),
+  titulo text not null check (char_length(titulo) between 3 and 160),
+  descricao text not null default '' check (char_length(descricao) <= 2000),
+  transcricao text not null default '' check (char_length(transcricao) <= 60000),
+  legenda text not null default '' check (char_length(legenda) <= 200000),
+  fontes jsonb not null default '[]'::jsonb,
+  caminho text not null unique check (caminho ~ '^[0-9a-f-]{36}/[0-9a-f-]{36}\.(webm|mp4)$'),
+  tipo text not null check (tipo in ('video/webm', 'video/mp4')),
+  duracao integer not null check (duracao between 1 and 600),
+  largura integer not null check (largura between 16 and 1280),
+  altura integer not null check (altura between 16 and 1280),
+  tamanho bigint not null check (tamanho between 1 and 52428800),
+  status text not null default 'pendente' check (status in ('pendente', 'aprovada', 'recusada')),
+  nota text not null default '' check (char_length(nota) <= 1000),
+  revisado_por uuid references interno.perfis (id) on delete set null,
+  revisado_em timestamptz,
+  criado_em timestamptz not null default now(),
+  -- 720p: o lado menor do vídeo não passa de 720 pixels (vale para vídeo deitado e em pé).
+  constraint videoaulas_720p check (least(largura, altura) <= 720)
+);
+create index if not exists videoaulas_disciplina on interno.videoaulas (disciplina, status, revisado_em desc);
+revoke all on interno.videoaulas from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then execute 'revoke all on interno.videoaulas from anon, authenticated'; end if;
+end $$;
+
+/** Quem revisa as aulas em vídeo de uma disciplina: curadoria e coordenação, e quem ensina aquela disciplina. Decidir, só a curadoria. */
+create or replace function interno.videoaula_revisa(p_disciplina text) returns boolean language sql stable as $$
+  select interno.curador() or interno.tem('educacao', p_disciplina)
+$$;
+
+create or replace function interno.videoaula_json(v interno.videoaulas, p_completa boolean) returns jsonb language sql stable as $$
+  select jsonb_build_object('id', v.id, 'disciplina', v.disciplina, 'trilha', v.trilha, 'titulo', v.titulo, 'descricao', v.descricao,
+    'nome_autor', v.nome_autor, 'caminho', v.caminho, 'tipo', v.tipo, 'duracao', v.duracao, 'largura', v.largura, 'altura', v.altura,
+    'tamanho', v.tamanho, 'status', v.status, 'nota', v.nota, 'criado_em', v.criado_em, 'revisado_em', v.revisado_em,
+    'tem_legenda', v.legenda <> '', 'tem_transcricao', v.transcricao <> '', 'minha', v.autor = auth.uid())
+  || case when p_completa then jsonb_build_object('transcricao', v.transcricao, 'legenda', v.legenda, 'fontes', v.fontes) else '{}'::jsonb end
+$$;
+
+/**
+ * A regra de leitura do arquivo no depósito (usada pela política do serviço de arquivos, para visitante e para conta):
+ * aula aprovada é de todos; a pendente ou recusada, de quem enviou e de quem revisa a disciplina.
+ */
+create or replace function public.videoaula_pode_ler(p_nome text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select exists (select 1 from videoaulas v where v.caminho = p_nome and (
+    v.status = 'aprovada' or (auth.uid() is not null and (v.autor = auth.uid() or interno.videoaula_revisa(v.disciplina)))))
+$$;
+
+/** Quem pode pôr arquivo no depósito: quem ensina (educação e educação secundária) e a curadoria. */
+create or replace function public.videoaula_pode_enviar() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select auth.uid() is not null and (interno.curador() or interno.tem('educacao'))
+$$;
+
+/** Registra a aula depois que o arquivo subiu. Os números (duração, tamanho, resolução) foram medidos no navegador e o banco confere os limites. */
+create or replace function public.videoaula_enviar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu();
+  v_disc text := interno.disciplina_ok(p ->> 'disciplina');
+  v_caminho text := coalesce(p ->> 'caminho', '');
+  v_tipo text := coalesce(p ->> 'tipo', '');
+  v_legenda text;
+  v_id uuid;
+begin
+  perform interno.limite('videoaula', 12, 1440);
+  if v_disc is null then perform interno.erro('invalido:disciplina'); end if;
+  if not (interno.curador() or interno.tem('educacao', v_disc)) then perform interno.erro('sem_permissao'); end if;
+  if v_caminho !~ ('^' || v::text || '/[0-9a-f-]{36}\.(webm|mp4)$') then perform interno.erro('invalido:caminho'); end if;
+  -- O tipo declarado e a extensão do arquivo precisam bater (.webm ou .mp4).
+  if v_tipo not in ('video/webm', 'video/mp4') or (v_tipo = 'video/mp4') <> (v_caminho like '%.mp4') then
+    perform interno.erro('invalido:tipo');
+  end if;
+  if coalesce(p ->> 'duracao', '') !~ '^[0-9]{1,4}$' or (p ->> 'duracao')::int not between 1 and 600 then perform interno.erro('invalido:duracao'); end if;
+  if coalesce(p ->> 'largura', '') !~ '^[0-9]{2,4}$' or coalesce(p ->> 'altura', '') !~ '^[0-9]{2,4}$'
+     or greatest((p ->> 'largura')::int, (p ->> 'altura')::int) > 1280 or least((p ->> 'largura')::int, (p ->> 'altura')::int) > 720 then
+    perform interno.erro('invalido:resolucao');
+  end if;
+  if coalesce(p ->> 'tamanho', '') !~ '^[0-9]{1,9}$' or (p ->> 'tamanho')::bigint not between 1 and 52428800 then perform interno.erro('invalido:tamanho'); end if;
+  if coalesce(p ->> 'trilha', '') <> '' and (p ->> 'trilha') !~ '^[a-z0-9-]{2,80}$' then perform interno.erro('invalido:trilha'); end if;
+  v_legenda := interno.txt(p ->> 'legenda', 'legenda', 0, 200000);
+  if v_legenda <> '' and v_legenda !~ '^WEBVTT' then perform interno.erro('invalido:legenda'); end if;
+  -- No serviço de verdade, o arquivo precisa estar mesmo no depósito (o banco de teste não tem o serviço de arquivos).
+  if to_regclass('storage.objects') is not null then
+    if not exists (select 1 from storage.objects o where o.bucket_id = 'videoaulas' and o.name = v_caminho) then perform interno.erro('invalido:arquivo'); end if;
+  end if;
+  insert into videoaulas (autor, nome_autor, disciplina, trilha, titulo, descricao, transcricao, legenda, fontes, caminho, tipo, duracao, largura, altura, tamanho)
+  values (v, coalesce((select nome from perfis where id = v), ''), v_disc, nullif(p ->> 'trilha', ''),
+    interno.txt(p ->> 'titulo', 'titulo', 3, 160), interno.txt(p ->> 'descricao', 'descricao', 0, 2000),
+    interno.txt(p ->> 'transcricao', 'transcricao', 0, 60000), v_legenda, interno.fontes_ok(p -> 'fontes', true),
+    v_caminho, v_tipo, (p ->> 'duracao')::int, (p ->> 'largura')::int, (p ->> 'altura')::int, (p ->> 'tamanho')::bigint)
+  returning id into v_id;
+  perform interno.avisar_lideranca('Aula em vídeo nova para revisar: ' || left(p ->> 'titulo', 120), v);
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.videoaulas_minhas() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  return coalesce((select jsonb_agg(interno.videoaula_json(x, false) order by x.criado_em desc) from videoaulas x where x.autor = v), '[]'::jsonb);
+end $$;
+
+/** As aulas que esperam revisão e que esta pessoa pode ver. */
+create or replace function public.videoaulas_fila() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  return coalesce((select jsonb_agg(interno.videoaula_json(x, true) order by x.criado_em) from videoaulas x
+                   where x.status = 'pendente' and interno.videoaula_revisa(x.disciplina)), '[]'::jsonb);
+end $$;
+
+create or replace function public.videoaulas_contagem() returns integer language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  return (select count(*)::int from videoaulas x where x.status = 'pendente' and interno.curador() and x.autor is distinct from auth.uid());
+end $$;
+
+/** A curadoria aprova ou recusa. Ninguém aprova a própria aula, salvo a coordenação. */
+create or replace function public.videoaula_decidir(p_id uuid, p_aprovar boolean, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x videoaulas; v_nota text := interno.txt(p_nota, 'nota', 0, 1000);
+begin
+  if not interno.curador() then perform interno.erro('sem_permissao'); end if;
+  select * into x from videoaulas where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if x.status <> 'pendente' then perform interno.erro('ja_decidida'); end if;
+  if x.autor = v and not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if not p_aprovar and char_length(v_nota) < 5 then perform interno.erro('invalido:nota'); end if;
+  update videoaulas set status = case when p_aprovar then 'aprovada' else 'recusada' end, nota = v_nota, revisado_por = v, revisado_em = now() where id = p_id;
+  perform interno.registrar(case when p_aprovar then 'videoaula_aprovada' else 'videoaula_recusada' end, x.titulo, jsonb_build_object('id', p_id));
+  perform interno.avisar(x.autor, case when p_aprovar then 'Sua aula em vídeo "' || left(x.titulo, 100) || '" foi aprovada e já está no ar.'
+                                       else 'Sua aula em vídeo "' || left(x.titulo, 100) || '" não foi aprovada. Nota: ' || left(v_nota, 300) end);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Tira uma aula aprovada do ar (coordenação). O arquivo continua no depósito até alguém apagar. */
+create or replace function public.videoaula_retirar(p_id uuid, p_nota text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x videoaulas; v_nota text := interno.txt(p_nota, 'nota', 5, 1000);
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  select * into x from videoaulas where id = p_id and status = 'aprovada' for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  update videoaulas set status = 'recusada', nota = v_nota, revisado_por = v, revisado_em = now() where id = p_id;
+  perform interno.registrar('videoaula_retirada', x.titulo, jsonb_build_object('id', p_id));
+  perform interno.avisar(x.autor, 'Sua aula em vídeo "' || left(x.titulo, 100) || '" foi retirada do ar. Nota: ' || left(v_nota, 300));
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Apaga o registro e devolve o caminho do arquivo, que o painel apaga do depósito em seguida. Quem enviou apaga o que não está no ar; a coordenação apaga qualquer uma. */
+create or replace function public.videoaula_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x videoaulas;
+begin
+  select * into x from videoaulas where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (interno.coord() or (x.autor = v and x.status <> 'aprovada')) then perform interno.erro('sem_permissao'); end if;
+  delete from videoaulas where id = p_id;
+  if x.autor is distinct from v then perform interno.registrar('videoaula_apagada', x.titulo, jsonb_build_object('id', p_id)); end if;
+  return jsonb_build_object('caminho', x.caminho);
+end $$;
+
+/** Para o site: as aulas no ar (sem transcrição nem legenda, que vêm com videoaula_ver). Qualquer visitante lê. */
+create or replace function public.videoaulas_publicas(p_disciplina text default null) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(interno.videoaula_json(x, false) - 'minha' - 'nota' - 'status' order by x.revisado_em desc), '[]'::jsonb)
+  from videoaulas x where x.status = 'aprovada' and (p_disciplina is null or x.disciplina = p_disciplina)
+$$;
+
+create or replace function public.videoaula_ver(p_id uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.videoaula_json(x, true) - 'minha' - 'nota' from videoaulas x
+  where x.id = p_id and (x.status = 'aprovada' or (auth.uid() is not null and (x.autor = auth.uid() or interno.videoaula_revisa(x.disciplina))))
+$$;
+
+-- As funções das aulas em vídeo: as de "public" abertas pela API (cada uma confere quem chama), as de "interno" fechadas.
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura, n.nspname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where p.prokind = 'f' and p.proname like 'videoaula%' and n.nspname in ('public', 'interno') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    if f.nspname = 'public' then
+      execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+    elsif exists (select 1 from pg_roles where rolname = 'anon') then
+      execute format('revoke all on function %s from anon, authenticated', f.assinatura);
+    end if;
+  end loop;
+end $$;
+
+-- O depósito: fechado; quem ensina envia na própria pasta; a leitura segue videoaula_pode_ler; apaga quem enviou ou a coordenação.
+do $$
+begin
+  if exists (select 1 from pg_namespace where nspname = 'storage') then
+    insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+    values ('videoaulas', 'videoaulas', false, 52428800, array['video/webm', 'video/mp4'])
+    on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+    execute 'drop policy if exists "videoaulas_envio" on storage.objects';
+    execute 'create policy "videoaulas_envio" on storage.objects for insert to authenticated with check (bucket_id = ''videoaulas'''
+         || ' and (storage.foldername(name))[1] = auth.uid()::text and public.videoaula_pode_enviar())';
+    execute 'drop policy if exists "videoaulas_leitura" on storage.objects';
+    execute 'create policy "videoaulas_leitura" on storage.objects for select to anon, authenticated using (bucket_id = ''videoaulas'' and public.videoaula_pode_ler(name))';
+    execute 'drop policy if exists "videoaulas_remocao" on storage.objects';
+    execute 'create policy "videoaulas_remocao" on storage.objects for delete to authenticated using (bucket_id = ''videoaulas'''
+         || ' and ((storage.foldername(name))[1] = auth.uid()::text or interno.coord()))';
+  end if;
 end $$;
