@@ -18,6 +18,7 @@
     "testar:banco": "node scripts/testar-banco.mjs",
     "testar:moderacao": "node scripts/testar-moderacao.mjs",
     "testar:sigilo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-sigilo.mjs",
+    "testar:mensagens": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-mensagens.mjs",
     "testar:podcast": "node scripts/testar-podcast.mjs",
     "testar:emails": "node scripts/testar-emails.mjs",
     "testar:fumaca": "node scripts/testar-fumaca.mjs",

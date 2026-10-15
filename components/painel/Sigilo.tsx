@@ -4,8 +4,10 @@
 import { useEffect, useRef, useState } from "react";
 import { BackendError, rpc } from "@/lib/backend";
 import { type Aberto, type Alerta, type Chaveiro, chaveiroDe, aparelhosMigrados, recomecar } from "@/lib/chaveiro";
+import { desempacotar } from "@/lib/mensagem";
 import { chaveDeRecuperacaoValida, codigoDeSeguranca, codigoEmGrupos, lerQrDaSeguranca, lerQrDoPedido, novaChaveDeRecuperacao, qrDaSeguranca, qrDoPedido } from "@/lib/sigilo";
 import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, rotulo, textoDoErro, useLista } from "./comum";
+import { Formatado } from "./Formatado";
 
 /** O texto cifrado precisa caber no banco (4000 caracteres); acento e emoji ocupam mais do que uma letra simples. */
 export const LIMITE_CIFRADO = 4000;
@@ -93,7 +95,7 @@ export function TextoAberto({ aberto, antiga = false }: { aberto: Aberto | null 
   if (antiga) return <span className="italic opacity-80">{aberto.texto}</span>;
   return (
     <>
-      <span>{aberto.texto}</span>
+      <Formatado texto={desempacotar(aberto.texto).texto} />
       {aberto.autoria === "invalida" && (
         <span className="mt-1 block border-l-2 border-oxblood pl-2 text-xs font-semibold not-italic text-oxblood">Não foi possível verificar o autor desta mensagem: a assinatura não confere com a identidade de quem aparece como autor.</span>
       )}
