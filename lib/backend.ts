@@ -104,6 +104,10 @@ export interface Me {
   exige_segundo_fator: boolean;
   /** Recados não lidos. */
   avisos: number;
+  /** Nas conversas: mostrar aos outros quando estive online por último (quem esconde também não vê o dos outros). */
+  chat_visto: boolean;
+  /** Nas conversas: confirmar aos outros que li (quem desliga também não vê a confirmação dos outros). */
+  chat_leitura: boolean;
 }
 
 /** Funções que valem por outra: a educação secundária tem os poderes da educação; o marketing, os do design. */
