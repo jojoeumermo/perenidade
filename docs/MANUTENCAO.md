@@ -132,8 +132,11 @@ Na pauta, cada nota é `LetraOitava/Duração` (C4 é o dó central; `#` e `b` d
 | `glossario` | `termo, resumo`; texto opcional |
 | `jornal` | `titulo, autor, data (AAAA-MM-DD), fontes`, opcionais `subtitulo`, `editoria` |
 | `checagens` | `alegacao, veredito (Falso, Enganoso, Falta contexto ou Verdadeiro), data, fontes` |
-| `debates` | `afirmacao, resposta, fontes`; texto opcional |
+| `debates` | `afirmacao, resposta, fontes`, opcional `falacias: [slug]` (as falácias que a frase usa; slug que não existe quebra a montagem); texto opcional |
+| `falacias` | `nome, resumo` (uma linha), `familia` (`relevancia`, `provas`, `premissas`, `desvio` ou `sentido`), `o_que_e, dia_a_dia, debate_publico, como_responder, fontes`, opcionais `original` (nome em latim ou inglês) e `parecidas: [slug]`; texto opcional. O exemplo do debate público é sóbrio e não cita pessoa viva nem partido pelo nome |
 | `videos` | `titulo, canal, url, area, idioma`; o texto diz por que vale assistir |
+
+A **caixa de ferramentas de checagem** (página Checagens) vem de `content/ferramentas-de-checagem.json`: grupos (`imagem`, `video`, `arquivo`, `agencias`, `buscador`, `dados`, `dominio`, `guias`) com `id`, `nome` e `url` (https, nunca PDF) de cada ferramenta. A frase que explica cada uma fica nos dicionários (`factCheck.toolbox.tools.<id>`), nos cinco idiomas. Confira se o endereço abre antes de pôr.
 
 `ativo: false` no cabeçalho tira qualquer item do ar sem apagá-lo (é a "quarentena" das denúncias).
 

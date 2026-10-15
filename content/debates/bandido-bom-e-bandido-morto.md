@@ -1,6 +1,7 @@
 ---
 afirmacao: "Bandido bom é bandido morto."
 resposta: "Quem decide quem é bandido? No Brasil, é a Justiça, depois de um processo com direito a defesa, e a Constituição proíbe a pena de morte (artigo 5º). Matar sem julgamento não deixa corrigir o erro, e erros acontecem. Nos últimos anos, a polícia brasileira matou mais de 6 mil pessoas por ano, em sua maioria homens negros e jovens, e o país continua entre os mais violentos do mundo: as mortes não trouxeram segurança."
+falacias: [falso-dilema, apelo-a-emocao]
 fontes:
   - titulo: "Constituição da República Federativa do Brasil de 1988, artigo 5º, incisos XLVII, LIV, LV e LVII"
     autor: "Presidência da República"

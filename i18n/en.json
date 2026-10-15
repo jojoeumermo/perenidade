@@ -59,6 +59,7 @@
     "volunteers": "Volunteers",
     "factCheck": "Fact-checking",
     "debates": "Debate cards",
+    "fallacies": "Fallacy guide",
     "about": "About and licences",
     "timeline": "Timeline of struggles",
     "myData": "My data",
@@ -540,7 +541,8 @@
       "materia": "Newspaper",
       "checagem": "Fact check",
       "debate": "Debate",
-      "pergunta": "Question"
+      "pergunta": "Question",
+      "falacia": "Fallacy"
     }
   },
   "authors": {
@@ -2055,7 +2057,158 @@
     "searchButton": "Search",
     "searchNone": "No fact check found with those words. Try others.",
     "searchFail": "The search did not respond right now. Try again shortly.",
-    "searchSource": "Results from Google Fact Check Tools. Each check belongs to the agency that published it: open the link to read it."
+    "searchSource": "Results from Google Fact Check Tools. Each check belongs to the agency that published it: open the link to read it.",
+    "fallaciesLink": "See also the fallacy guide.",
+    "steps": {
+      "title": "How to check in 6 steps",
+      "lead": "Paste the message you received and answer the questions. Nothing leaves your device.",
+      "claim": "What they say",
+      "claimPlaceholder": "Paste the message, the sentence or the headline you want to check.",
+      "items": [
+        {
+          "q": "Can you tell who said this first?",
+          "help": "A named person or organization, not “a friend of a friend” or “a doctor” with no name.",
+          "options": [
+            "Yes, the source is identifiable",
+            "No way to know",
+            "Not sure"
+          ]
+        },
+        {
+          "q": "Did you find the original source?",
+          "help": "The document, the study, the law or the full speech, not just a clip or a screenshot.",
+          "options": [
+            "Yes, I read the original",
+            "It does not exist or I could not find it",
+            "Not sure"
+          ]
+        },
+        {
+          "q": "Does the date match?",
+          "help": "Many hoaxes are old news circulating as if they were new.",
+          "options": [
+            "Yes, it is current",
+            "No, it is old or from another time",
+            "Not sure"
+          ]
+        },
+        {
+          "q": "Do other reliable sources confirm it?",
+          "help": "Different outlets and agencies, not just copying each other.",
+          "options": [
+            "Yes, several confirm it",
+            "No, none confirms it",
+            "Not sure"
+          ]
+        },
+        {
+          "q": "Is the photo or video really from that place and date?",
+          "help": "Do a reverse image search (see the toolbox below).",
+          "options": [
+            "Yes, it matches",
+            "No, it is from another place or time",
+            "Not sure",
+            "There is no photo or video"
+          ]
+        },
+        {
+          "q": "Have fact-checking agencies covered it?",
+          "help": "Search in “Already checked?” above or on the agencies' websites.",
+          "options": [
+            "They said it is true",
+            "They said it is false or misleading",
+            "I found no fact check"
+          ]
+        }
+      ],
+      "result": "Suggested result",
+      "results": {
+        "checadores": "Fact-checking agencies have already said it is false or misleading. Do not pass it on; if you want, reply with the link to the fact check.",
+        "falso": "No author, no original source and no confirmation: probably false or baseless. Do not pass it on.",
+        "contexto": "There may be something real in it, but it is out of context (date, place or an image from another situation). As it stands, it misleads.",
+        "confiavel": "It passed the steps: it looks reliable. When you share it, include the original source.",
+        "duvida": "It is still impossible to tell. When in doubt, do not share: wait for a reliable source."
+      },
+      "pending": "Answer the six steps to see the suggested result.",
+      "copy": "Copy the summary",
+      "copied": "Summary copied.",
+      "reset": "Start over",
+      "note": "The result is a suggestion based on your answers, not a verdict."
+    },
+    "verdicts": {
+      "title": "What each label means",
+      "items": {
+        "Falso": "False: the claim contradicts the facts and reliable sources.",
+        "Enganoso": "Misleading: it mixes truth with distortion, or uses a real figure to lead to a wrong conclusion.",
+        "Falta contexto": "Lacks context: the figure, photo or quote is real, but without the right date, place or comparison it gives the wrong idea.",
+        "Verdadeiro": "True: it matches reliable sources."
+      }
+    },
+    "toolbox": {
+      "title": "Fact-checking toolbox",
+      "lead": "Free services to check things yourself. The links open each service's website.",
+      "groups": {
+        "imagem": [
+          "Reverse image search",
+          "Upload the photo or paste the link: the search engine shows where and when it appeared before."
+        ],
+        "video": [
+          "Video",
+          "To split a video into frames and find where it came from."
+        ],
+        "arquivo": [
+          "Old pages",
+          "To see what a page looked like before it was changed or deleted."
+        ],
+        "agencias": [
+          "Brazilian fact-checking agencies",
+          "See whether journalists have already checked the hoax."
+        ],
+        "buscador": [
+          "Fact-check search engine",
+          "Searches fact checks from agencies around the world."
+        ],
+        "dados": [
+          "Official data",
+          "To check the figures at the source."
+        ],
+        "dominio": [
+          "Who owns the website",
+          "To find out who registered an internet address."
+        ],
+        "guias": [
+          "To learn more",
+          "Guides by people who investigate with open sources."
+        ]
+      },
+      "tools": {
+        "google-lens": "Image search on Google.",
+        "tineye": "Shows when the image first appeared and its altered versions.",
+        "bing": "Microsoft's visual search.",
+        "yandex": "Often finds faces and places other search engines miss.",
+        "invid": "A free browser extension used by journalists: it splits the video into frames and runs a reverse search on each one.",
+        "wayback": "The internet archive, with copies of pages since 1996.",
+        "archive-today": "Saves an exact copy of a page right now.",
+        "lupa": "The first Brazilian agency specialized in fact-checking.",
+        "aos-fatos": "Fact-checking and investigation of disinformation.",
+        "fato-ou-fake": "Fact checks by g1, from Grupo Globo.",
+        "estadao-verifica": "The fact-checking desk of the newspaper O Estado de S. Paulo.",
+        "uol-confere": "Fact checks by the UOL portal.",
+        "comprova": "News outlets that check hoaxes about public policy and elections together.",
+        "boatos": "Debunks internet hoaxes and chain messages since 2013.",
+        "e-farsas": "One of Brazil's oldest fact-checking sites, online since 2002.",
+        "fact-check-explorer": "Searches fact checks from agencies in many countries and languages.",
+        "ibge": "Population, employment, income and prices.",
+        "transparencia": "Federal government spending and transfers.",
+        "tse": "Candidacies, declared assets and campaign accounts.",
+        "datasus": "Health data: diseases, hospital admissions and deaths.",
+        "dou": "Laws, decrees and appointments, officially published.",
+        "camara": "Bills, votes and speeches by federal deputies.",
+        "senado": "Bills, votes and legislation in the Senate.",
+        "registro-br": "Shows who registered an address ending in .br.",
+        "bellingcat": "Guides to open-source investigation."
+      }
+    }
   },
   "debates": {
     "eyebrow": "Arguments at hand",
@@ -2064,7 +2217,37 @@
     "claim": "They say",
     "answer": "Answer",
     "more": "To go deeper",
-    "download": "Download as an image"
+    "download": "Download as an image",
+    "beforeTitle": "Before you debate: know the fallacies",
+    "beforeText": "Straw man, false dilemma, personal attack: the most common tricks and how to answer each one.",
+    "beforeLink": "Open the fallacy guide",
+    "fallacies": "Fallacies in this phrase"
+  },
+  "fallacies": {
+    "eyebrow": "Thinking for yourself",
+    "title": "Fallacy guide",
+    "lead": "A fallacy is reasoning that looks right but does not hold up. Knowing the most common ones helps you avoid them and answer calmly when they show up in a conversation, a video or a debate.",
+    "families": {
+      "relevancia": "Reasons beside the point",
+      "provas": "Weak evidence",
+      "premissas": "Hidden premises",
+      "desvio": "Derailing the discussion",
+      "sentido": "Confusions of meaning"
+    },
+    "filter": "Type",
+    "all": "All",
+    "find": "Search",
+    "count": "{n} fallacies",
+    "none": "No fallacy matches this search.",
+    "what": "What it is",
+    "everyday": "In everyday life",
+    "publicDebate": "In public debate",
+    "reply": "How to answer",
+    "related": "Similar",
+    "inDebates": "Appears in the debate cards",
+    "remember": "Pointing out a fallacy does not prove the conclusion is false: it only shows that this argument does not support it. And the best answer is almost never the Latin name, but the right question.",
+    "toDebates": "See the debate cards",
+    "toChecks": "See the fact checks"
   },
   "questions": {
     "eyebrow": "Where to begin",
@@ -2103,6 +2286,7 @@
       "timeline": "From the revolts of the past to today's struggles.",
       "factCheck": "Rumours checked against public sources.",
       "debates": "Short answers to stock phrases.",
+      "fallacies": "The most common tricks of argument, and how to answer each one.",
       "radio": "Music and spoken word to study by.",
       "volunteers": "Review, translate, teach or write.",
       "about": "What the institute is and how the content is licensed.",

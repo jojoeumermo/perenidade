@@ -1,6 +1,7 @@
 ---
 afirmacao: "Não existe racismo no Brasil, existe mimimi."
 resposta: "Os números do próprio Estado dizem outra coisa. Pretos e pardos são a maioria da população, mas são a grande maioria entre os mais pobres e cerca de três em cada quatro vítimas de homicídio, segundo o IBGE e o Atlas da Violência. O Brasil foi o último país das Américas a abolir a escravidão, em 1888, sem dar terra, escola nem reparação a quem foi libertado. Desigualdade desse tamanho não é sensação: é medida."
+falacias: [ataque-a-pessoa]
 fontes:
   - titulo: "Panorama do Censo Demográfico 2022"
     autor: "Instituto Brasileiro de Geografia e Estatística (IBGE)"

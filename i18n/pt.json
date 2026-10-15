@@ -59,6 +59,7 @@
     "volunteers": "Voluntários",
     "factCheck": "Checagem de fatos",
     "debates": "Cartões de debate",
+    "fallacies": "Guia das falácias",
     "about": "Sobre e licenças",
     "timeline": "Linha do tempo das lutas",
     "myData": "Meus dados",
@@ -540,7 +541,8 @@
       "materia": "Jornal",
       "checagem": "Checagem",
       "debate": "Debate",
-      "pergunta": "Pergunta"
+      "pergunta": "Pergunta",
+      "falacia": "Falácia"
     }
   },
   "authors": {
@@ -2055,7 +2057,158 @@
     "searchButton": "Procurar",
     "searchNone": "Nenhuma checagem encontrada com essas palavras. Tente outras.",
     "searchFail": "A busca não respondeu agora. Tente de novo em instantes.",
-    "searchSource": "Resultados do Google Fact Check Tools. Cada checagem é da agência que a publicou: abra o link para ler."
+    "searchSource": "Resultados do Google Fact Check Tools. Cada checagem é da agência que a publicou: abra o link para ler.",
+    "fallaciesLink": "Conheça também o guia das falácias.",
+    "steps": {
+      "title": "Como checar em 6 passos",
+      "lead": "Cole a mensagem que chegou e responda às perguntas. Nada sai do seu aparelho.",
+      "claim": "O que dizem",
+      "claimPlaceholder": "Cole aqui a mensagem, a frase ou o título que você quer conferir.",
+      "items": [
+        {
+          "q": "Dá para saber quem disse isso primeiro?",
+          "help": "Uma pessoa ou organização com nome, e não “um amigo de um amigo” ou “um médico” sem nome.",
+          "options": [
+            "Sim, quem disse é identificável",
+            "Não dá para saber",
+            "Não tenho certeza"
+          ]
+        },
+        {
+          "q": "Você achou a fonte original?",
+          "help": "O documento, o estudo, a lei ou a fala inteira, e não só um recorte ou um print.",
+          "options": [
+            "Sim, li a fonte original",
+            "Não existe ou não encontrei",
+            "Não tenho certeza"
+          ]
+        },
+        {
+          "q": "A data confere?",
+          "help": "Muito boato é notícia velha circulando como se fosse de hoje.",
+          "options": [
+            "Sim, é atual",
+            "Não, é antigo ou de outra época",
+            "Não tenho certeza"
+          ]
+        },
+        {
+          "q": "Outras fontes confiáveis confirmam?",
+          "help": "Veículos e órgãos diferentes, que não estejam só copiando um ao outro.",
+          "options": [
+            "Sim, várias confirmam",
+            "Não, nenhuma confirma",
+            "Não tenho certeza"
+          ]
+        },
+        {
+          "q": "A foto ou o vídeo é mesmo daquele lugar e daquela data?",
+          "help": "Faça uma busca reversa da imagem (veja a caixa de ferramentas abaixo).",
+          "options": [
+            "Sim, confere",
+            "Não, é de outro lugar ou de outra época",
+            "Não tenho certeza",
+            "Não tem foto nem vídeo"
+          ]
+        },
+        {
+          "q": "As agências de checagem já falaram disso?",
+          "help": "Procure no “Já foi checado?” acima ou no site das agências.",
+          "options": [
+            "Disseram que é verdade",
+            "Disseram que é falso ou enganoso",
+            "Não encontrei checagem"
+          ]
+        }
+      ],
+      "result": "Resultado sugerido",
+      "results": {
+        "checadores": "As agências de checagem já disseram que é falso ou enganoso. Não passe adiante; se quiser, responda com o link da checagem.",
+        "falso": "Sem autor, sem fonte original e sem confirmação: provavelmente falso ou sem base. Não passe adiante.",
+        "contexto": "Pode até ter algo de real, mas está fora de contexto (data, lugar ou imagem de outra situação). Do jeito que está, engana.",
+        "confiavel": "Passou nos passos: parece confiável. Ao compartilhar, mande junto a fonte original.",
+        "duvida": "Ainda não dá para saber. Na dúvida, não compartilhe: espere uma fonte confiável."
+      },
+      "pending": "Responda aos seis passos para ver o resultado sugerido.",
+      "copy": "Copiar o resumo",
+      "copied": "Resumo copiado.",
+      "reset": "Começar de novo",
+      "note": "O resultado é uma sugestão a partir das suas respostas, não um veredito."
+    },
+    "verdicts": {
+      "title": "O que quer dizer cada selo",
+      "items": {
+        "Falso": "A afirmação contradiz os fatos e as fontes confiáveis.",
+        "Enganoso": "Mistura verdade com distorção, ou usa um dado real para levar a uma conclusão errada.",
+        "Falta contexto": "O dado, a foto ou a frase é real, mas sem a data, o lugar ou a comparação certa passa uma ideia errada.",
+        "Verdadeiro": "Confere com as fontes confiáveis."
+      }
+    },
+    "toolbox": {
+      "title": "Caixa de ferramentas de checagem",
+      "lead": "Serviços gratuitos para conferir por conta própria. Os links abrem o site de cada serviço.",
+      "groups": {
+        "imagem": [
+          "Busca reversa de imagem",
+          "Mande a foto ou cole o link: o buscador mostra onde e quando ela já apareceu."
+        ],
+        "video": [
+          "Vídeo",
+          "Para separar um vídeo em quadros e procurar de onde ele veio."
+        ],
+        "arquivo": [
+          "Páginas antigas",
+          "Para ver como uma página era antes de ser mudada ou apagada."
+        ],
+        "agencias": [
+          "Agências brasileiras de checagem",
+          "Veja se o boato já foi checado por jornalistas."
+        ],
+        "buscador": [
+          "Buscador de checagens",
+          "Procura checagens de agências do mundo todo."
+        ],
+        "dados": [
+          "Dados oficiais",
+          "Para conferir os números na fonte."
+        ],
+        "dominio": [
+          "Quem é dono do site",
+          "Para saber quem registrou um endereço da internet."
+        ],
+        "guias": [
+          "Para aprender mais",
+          "Guias de quem investiga com fontes abertas."
+        ]
+      },
+      "tools": {
+        "google-lens": "Busca pela imagem no Google.",
+        "tineye": "Mostra quando a imagem apareceu pela primeira vez e as versões alteradas.",
+        "bing": "Busca visual da Microsoft.",
+        "yandex": "Costuma achar rostos e lugares que os outros buscadores não acham.",
+        "invid": "Extensão gratuita para o navegador, usada por jornalistas: separa o vídeo em quadros e faz a busca reversa de cada um.",
+        "wayback": "O arquivo da internet, com cópias de páginas desde 1996.",
+        "archive-today": "Guarda agora mesmo uma cópia fiel de uma página.",
+        "lupa": "A primeira agência brasileira especializada em checagem.",
+        "aos-fatos": "Checagem e investigação sobre desinformação.",
+        "fato-ou-fake": "Checagens do g1, do Grupo Globo.",
+        "estadao-verifica": "Núcleo de checagem do jornal O Estado de S. Paulo.",
+        "uol-confere": "Checagens do portal UOL.",
+        "comprova": "Veículos de imprensa que checam juntos boatos sobre políticas públicas e eleições.",
+        "boatos": "Desmente boatos e correntes da internet desde 2013.",
+        "e-farsas": "Um dos sites de checagem mais antigos do Brasil, no ar desde 2002.",
+        "fact-check-explorer": "Procura checagens de agências de vários países, em vários idiomas.",
+        "ibge": "População, emprego, renda e preços.",
+        "transparencia": "Gastos e repasses do governo federal.",
+        "tse": "Candidaturas, bens declarados e contas de campanha.",
+        "datasus": "Dados de saúde: doenças, internações e mortes.",
+        "dou": "Leis, decretos e nomeações publicados oficialmente.",
+        "camara": "Projetos de lei, votações e discursos dos deputados.",
+        "senado": "Projetos, votações e legislação no Senado.",
+        "registro-br": "Mostra quem registrou um endereço terminado em .br.",
+        "bellingcat": "Guias de investigação com fontes abertas (em inglês)."
+      }
+    }
   },
   "debates": {
     "eyebrow": "Argumentos à mão",
@@ -2064,7 +2217,37 @@
     "claim": "Dizem que",
     "answer": "Resposta",
     "more": "Para se aprofundar",
-    "download": "Baixar como imagem"
+    "download": "Baixar como imagem",
+    "beforeTitle": "Antes de debater: conheça as falácias",
+    "beforeText": "Espantalho, falso dilema, ataque à pessoa: os truques mais comuns e como responder a cada um.",
+    "beforeLink": "Abrir o guia das falácias",
+    "fallacies": "Falácias nesta frase"
+  },
+  "fallacies": {
+    "eyebrow": "Pensar com a própria cabeça",
+    "title": "Guia das falácias",
+    "lead": "Falácia é um raciocínio que parece certo, mas não se sustenta. Conhecer as mais comuns ajuda a não cair nelas e a responder com calma quando aparecem numa conversa, num vídeo ou num debate.",
+    "families": {
+      "relevancia": "Razões que não vêm ao caso",
+      "provas": "Provas fracas",
+      "premissas": "Premissas escondidas",
+      "desvio": "Desvios da discussão",
+      "sentido": "Confusões de sentido"
+    },
+    "filter": "Tipo",
+    "all": "Todas",
+    "find": "Procurar",
+    "count": "{n} falácias",
+    "none": "Nenhuma falácia encontrada com essa busca.",
+    "what": "O que é",
+    "everyday": "No dia a dia",
+    "publicDebate": "No debate público",
+    "reply": "Como responder",
+    "related": "Parecidas",
+    "inDebates": "Aparece nos cartões de debate",
+    "remember": "Apontar uma falácia não prova que a conclusão é falsa: só mostra que aquele argumento não a sustenta. E a melhor resposta quase nunca é o nome em latim, e sim a pergunta certa.",
+    "toDebates": "Ver os cartões de debate",
+    "toChecks": "Ver as checagens de fatos"
   },
   "questions": {
     "eyebrow": "Por onde começar",
@@ -2103,6 +2286,7 @@
       "timeline": "Das revoltas do passado às lutas de hoje.",
       "factCheck": "Boatos conferidos com fontes públicas.",
       "debates": "Respostas curtas para frases feitas.",
+      "fallacies": "Os truques de argumento mais comuns, e como responder a cada um.",
       "radio": "Música e palavra para acompanhar o estudo.",
       "volunteers": "Revise, traduza, ensine ou escreva.",
       "about": "O que é o instituto e como o conteúdo é licenciado.",
