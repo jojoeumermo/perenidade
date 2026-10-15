@@ -57,6 +57,8 @@ export default async function Jornal({ params }: PageProps<"/[lang]/jornal">) {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
+      {/* O nome do jornal já aparece no cartaz do alto; o título da página fica para quem usa leitor de tela. */}
+      <h1 className="sr-only">{t.journal.title}</h1>
       <Masthead lang={lang} s={s} slogan={t.footer.slogan} updated={lead ? fill(s.updated, { date: date.format(new Date(lead.date)) }) : undefined} />
       <Untranslated lang={lang} t={t} show={articles.some((article) => !article.translated)} />
 
