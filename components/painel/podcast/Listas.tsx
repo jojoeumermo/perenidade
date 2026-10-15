@@ -4,7 +4,7 @@
 import { useMemo, useState } from "react";
 import { rpc } from "@/lib/backend";
 import { EnvioError, enviarCapa, enviarComProgresso, extensaoDe, liberarEspaco, mensagensDeEnvio, nomeSorteado, prepararCapa, urlAssinada } from "@/lib/podcast-audio";
-import { Aviso, botao, botaoClaro, campo, data, dataHora, dia, elo, rotulo, textoDoErro, useAcao, useLista } from "../comum";
+import { Aviso, botao, botaoClaro, campo, data, dataHora, dia, elo, localDoPainel, rotulo, textoDoErro, useAcao, useLista } from "../comum";
 import { EstudioDeArte } from "./Arte";
 import { bytes, type Config, NOME_DA_ETAPA, type PainelDoPodcast, type Serie } from "./tipos";
 
@@ -137,7 +137,7 @@ export function Agenda({ painel }: { painel: PainelDoPodcast }) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="flex items-center gap-3">
           <button type="button" className={botaoClaro} onClick={() => setMes(new Date(mes.getFullYear(), mes.getMonth() - 1, 1))} aria-label="Mês anterior">←</button>
-          <strong className="font-serif text-2xl capitalize">{mes.toLocaleDateString("pt-BR", { month: "long", year: "numeric" })}</strong>
+          <strong className="font-serif text-2xl capitalize">{mes.toLocaleDateString(localDoPainel(), { month: "long", year: "numeric" })}</strong>
           <button type="button" className={botaoClaro} onClick={() => setMes(new Date(mes.getFullYear(), mes.getMonth() + 1, 1))} aria-label="Próximo mês">→</button>
         </p>
         <button type="button" className={botaoClaro} onClick={exportar}>Exportar para o calendário (.ics)</button>
