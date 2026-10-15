@@ -3844,7 +3844,7 @@ end $$;
 -- Convidado não tem conta: recebe um link para ler e aceitar o termo de cessão de voz e testar o microfone.
 --
 -- O áudio pesa. O depósito público "podcast" guarda o áudio final e as capas; o fechado "podcast-producao", as versões de
--- trabalho, os termos assinados, os recibos e as perguntas gravadas pelos ouvintes. Para não pesar, o depósito guarda o
+-- trabalho, os termos assinados e as perguntas gravadas pelos ouvintes. Para não pesar, o depósito guarda o
 -- áudio dos episódios mais recentes (10, ou o que a coordenação definir); quando sai um novo, o mais antigo libera o
 -- espaço e passa a tocar pela cópia de fora (Internet Archive ou o serviço de hospedagem), se ela estiver cadastrada.
 -- Quem apaga de fato o arquivo é o painel, logo depois de publicar: o banco só diz o que pode sair.
@@ -4055,22 +4055,13 @@ create table if not exists interno.podcast_postagens (
 );
 create index if not exists podcast_postagens_quando on interno.podcast_postagens (quando);
 
--- Entregas e pagamentos de quem é contratado: o que foi combinado, o prazo, o valor, quando entregou e quando recebeu.
-create table if not exists interno.podcast_entregas (
-  id uuid primary key default gen_random_uuid(),
-  profissional uuid not null references interno.perfis (id) on delete cascade,
-  episodio uuid references interno.podcast_episodios (id) on delete set null,
-  descricao text not null check (char_length(descricao) between 2 and 300),
-  prazo date,
-  valor numeric(10, 2) not null default 0 check (valor >= 0 and valor <= 1000000),
-  entregue_em timestamptz,
-  pago_em timestamptz,
-  recibo text not null default '' check (recibo = '' or recibo ~ '^recibos/[a-z0-9/_-]{8,120}[.](pdf|jpg|png|webp)$'),
-  nota text not null default '' check (char_length(nota) <= 500),
-  criado_por uuid references interno.perfis (id) on delete set null,
-  criado_em timestamptz not null default now()
-);
-create index if not exists podcast_entregas_profissional on interno.podcast_entregas (profissional, criado_em desc);
+-- Entregas e pagamentos já existiram aqui e saíram: o painel não guarda valores. Banco instalado antes perde a tabela
+-- e as funções.
+drop function if exists public.podcast_entregas_listar();
+drop function if exists public.podcast_entrega_salvar(uuid, jsonb);
+drop function if exists public.podcast_entrega_marcar(uuid, text, boolean, text);
+drop function if exists public.podcast_entrega_remover(uuid);
+drop table if exists interno.podcast_entregas;
 
 create table if not exists interno.podcast_funcoes (
   usuario uuid not null references interno.perfis (id) on delete cascade,
@@ -5226,76 +5217,6 @@ begin
   return jsonb_build_object('ok', found);
 end $$;
 
--- ── Entregas e pagamentos ──
-
-/** A coordenação vê todas; cada profissional vê só as próprias. */
-create or replace function public.podcast_entregas_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu();
-begin
-  if not interno.podcaster() then perform interno.erro('sem_permissao'); end if;
-  return coalesce((select jsonb_agg(to_jsonb(d) || jsonb_build_object('profissional_nome', (select nome from perfis where id = d.profissional),
-                                                                       'episodio_titulo', (select titulo from podcast_episodios where id = d.episodio))
-                                    order by (d.pago_em is null) desc, d.prazo nulls last, d.criado_em desc)
-                   from podcast_entregas d where interno.coord() or d.profissional = v), '[]'::jsonb);
-end $$;
-
-create or replace function public.podcast_entrega_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); v_id uuid; v_prof uuid; v_ep uuid; v_valor numeric;
-begin
-  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
-  v_prof := (interno.podcast_uuids(case when coalesce(p ->> 'profissional', '') = '' then '[]'::jsonb else jsonb_build_array(p ->> 'profissional') end, 'profissional', 1))[1];
-  if v_prof is null or not exists (select 1 from perfis where id = v_prof) then perform interno.erro('invalido:profissional'); end if;
-  v_ep := (interno.podcast_uuids(case when coalesce(p ->> 'episodio', '') = '' then '[]'::jsonb else jsonb_build_array(p ->> 'episodio') end, 'episodio', 1))[1];
-  if coalesce(p ->> 'valor', '0') !~ '^[0-9]{1,7}([.,][0-9]{1,2})?$' then perform interno.erro('invalido:valor'); end if;
-  v_valor := replace(coalesce(p ->> 'valor', '0'), ',', '.')::numeric;
-  if p_id is null then
-    insert into podcast_entregas (profissional, episodio, descricao, prazo, valor, nota, criado_por)
-    values (v_prof, v_ep, interno.txt(p ->> 'descricao', 'descricao', 2, 300), interno.podcast_data(p ->> 'prazo', 'prazo'), v_valor, interno.txt(p ->> 'nota', 'nota', 0, 500), v)
-    returning id into v_id;
-    perform interno.avisar(v_prof, 'Podcast: uma entrega nova foi combinada com você. Veja em Podcast → Entregas.');
-  else
-    update podcast_entregas set profissional = v_prof, episodio = v_ep, descricao = interno.txt(p ->> 'descricao', 'descricao', 2, 300),
-           prazo = interno.podcast_data(p ->> 'prazo', 'prazo'), valor = v_valor, nota = interno.txt(p ->> 'nota', 'nota', 0, 500)
-    where id = p_id returning id into v_id;
-    if not found then perform interno.erro('nao_encontrado'); end if;
-  end if;
-  return jsonb_build_object('id', v_id);
-end $$;
-
-/** Quem entregou marca a entrega (ou desmarca); a coordenação marca o pagamento, com o recibo. */
-create or replace function public.podcast_entrega_marcar(p_id uuid, p_campo text, p_valor boolean, p_recibo text default '') returns jsonb
-language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); d podcast_entregas; v_recibo text := btrim(coalesce(p_recibo, ''));
-begin
-  select * into d from podcast_entregas where id = p_id for update;
-  if not found then perform interno.erro('nao_encontrado'); end if;
-  if p_campo = 'entregue' then
-    if not (interno.coord() or (d.profissional = v and interno.podcaster())) then perform interno.erro('sem_permissao'); end if;
-    update podcast_entregas set entregue_em = case when coalesce(p_valor, true) then now() end where id = p_id;
-    if coalesce(p_valor, true) then perform interno.avisar_lideranca(format('Podcast: entrega marcada como feita ("%s").', d.descricao), v); end if;
-  elsif p_campo = 'pago' then
-    if not interno.coord() then perform interno.erro('sem_permissao'); end if;
-    if v_recibo <> '' and (v_recibo !~ '^recibos/[a-z0-9/_-]{8,120}[.](pdf|jpg|png|webp)$' or split_part(v_recibo, '/', 2) <> d.profissional::text) then
-      perform interno.erro('invalido:recibo');
-    end if;
-    update podcast_entregas set pago_em = case when coalesce(p_valor, true) then now() end, recibo = case when v_recibo <> '' then v_recibo else recibo end where id = p_id;
-    if coalesce(p_valor, true) then perform interno.avisar(d.profissional, format('Podcast: o pagamento de "%s" foi registrado.', d.descricao)); end if;
-  else
-    perform interno.erro('invalido:campo');
-  end if;
-  return jsonb_build_object('ok', true);
-end $$;
-
-create or replace function public.podcast_entrega_remover(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare d podcast_entregas;
-begin
-  perform interno.eu();
-  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
-  delete from podcast_entregas where id = p_id returning * into d;
-  if found and d.recibo <> '' then insert into podcast_liberar (deposito, caminho, motivo) values ('podcast-producao', d.recibo, 'entrega_removida') on conflict do nothing; end if;
-  return jsonb_build_object('ok', found);
-end $$;
-
 -- ── Equipe do podcast, séries e configuração ──
 
 /** Quem está no departamento e o que faz no podcast. */
@@ -5470,7 +5391,7 @@ end $$;
 -- ── Depósitos do podcast ──
 
 -- "podcast" é público para leitura (o áudio no ar e as capas); só o departamento envia e apaga, e o design envia capas.
--- "podcast-producao" é fechado: versões de trabalho, trilhas, termos dos convidados, recibos e perguntas gravadas.
+-- "podcast-producao" é fechado: versões de trabalho, trilhas, termos dos convidados e perguntas gravadas.
 -- O limite de 50 MB por arquivo é o do plano gratuito do serviço; arquivo maior entra como link (Internet Archive, Drive).
 do $$
 begin
@@ -5494,12 +5415,10 @@ begin
     execute 'create policy "podcast_producao_leitura" on storage.objects for select to authenticated using (bucket_id = ''podcast-producao'' and ('
          || '((storage.foldername(name))[1] in (''ep'', ''trilhas'') and interno.podcast_revisor())'
          || ' or ((storage.foldername(name))[1] = ''termos'' and (interno.podcast_pode(''producao'') or interno.podcast_pode(''supervisao'')))'
-         || ' or ((storage.foldername(name))[1] = ''recibos'' and (interno.coord() or (storage.foldername(name))[2] = auth.uid()::text))'
          || ' or ((storage.foldername(name))[1] = ''perguntas'' and (interno.podcaster() or (storage.foldername(name))[2] = auth.uid()::text))))';
     execute 'drop policy if exists "podcast_producao_envio" on storage.objects';
     execute 'create policy "podcast_producao_envio" on storage.objects for insert to authenticated with check (bucket_id = ''podcast-producao'' and ('
          || '((storage.foldername(name))[1] in (''ep'', ''trilhas'', ''termos'') and interno.podcaster())'
-         || ' or ((storage.foldername(name))[1] = ''recibos'' and interno.coord())'
          || ' or ((storage.foldername(name))[1] = ''perguntas'' and (storage.foldername(name))[2] = auth.uid()::text)))';
     execute 'drop policy if exists "podcast_producao_remocao" on storage.objects';
     execute 'create policy "podcast_producao_remocao" on storage.objects for delete to authenticated using (bucket_id = ''podcast-producao'' and interno.podcaster())';

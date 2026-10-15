@@ -12,10 +12,10 @@ import { EstudioDeArte } from "./Arte";
 import { GeradorDeCortes } from "./Cortes";
 import { EditorDeEpisodio } from "./Episodio";
 import { Guia, PENDENCIAS } from "./Guia";
-import { Agenda, Ajustes, Convidados, Entregas, Numeros, Pautas, Pedidos, Perguntas, Trilhas } from "./Listas";
+import { Agenda, Ajustes, Convidados, Numeros, Pautas, Pedidos, Perguntas, Trilhas } from "./Listas";
 import { ETAPAS, NOME_DA_ETAPA, type PainelDoPodcast, type ResumoDoEpisodio, SOBRE_A_ETAPA } from "./tipos";
 
-type Aba = "episodios" | "agenda" | "pautas" | "perguntas" | "convidados" | "trilhas" | "artes" | "cortes" | "pedidos" | "entregas" | "numeros" | "guia" | "ajustes";
+type Aba = "episodios" | "agenda" | "pautas" | "perguntas" | "convidados" | "trilhas" | "artes" | "cortes" | "pedidos" | "numeros" | "guia" | "ajustes";
 
 function Cartao({ e, abrir, series }: { e: ResumoDoEpisodio; abrir: () => void; series: PainelDoPodcast["series"] }) {
   const serie = series.find((s) => s.id === e.serie);
@@ -90,7 +90,6 @@ export function Podcast() {
         { id: "artes", nome: "Modelos de arte" },
         { id: "cortes", nome: "Cortes" },
         { id: "pedidos", nome: "Pedidos de arte", conta: eu.design ? p.contagens.pedidos : undefined },
-        { id: "entregas", nome: "Entregas" },
         { id: "numeros", nome: "Números" },
         { id: "guia", nome: "Guia" },
         ...(eu.supervisao || eu.coordenacao ? [{ id: "ajustes" as const, nome: "Ajustes" }] : []),
@@ -219,7 +218,6 @@ export function Podcast() {
         </div>
       )}
       {atual === "pedidos" && <Pedidos abrir={(id) => abrir(id)} />}
-      {atual === "entregas" && <Entregas coordenacao={eu.coordenacao} painel={p} />}
       {atual === "numeros" && <Numeros />}
       {atual === "guia" && <Guia />}
       {atual === "ajustes" && <Ajustes painel={p} recarregar={painel.recarregar} />}
