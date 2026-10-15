@@ -2304,7 +2304,8 @@ declare v_id uuid; v_url text := btrim(coalesce(p_url, ''));
 begin
   perform interno.eu();
   if not interno.radialista() then perform interno.erro('sem_permissao'); end if;
-  if v_url !~ '^https?://[^[:space:]]+$' or char_length(v_url) > 500 then perform interno.erro('invalido:url'); end if;
+  -- Só https: o site é servido em https e o navegador não toca áudio http dentro dele.
+  if v_url !~ '^https://[^[:space:]]+$' or char_length(v_url) > 500 then perform interno.erro('invalido:url'); end if;
   if not exists (select 1 from radio_canais where id = p_canal) then perform interno.erro('nao_encontrado'); end if;
   if p_id is null then
     insert into radio_faixas (canal, titulo, artista, url, duracao, ordem)
