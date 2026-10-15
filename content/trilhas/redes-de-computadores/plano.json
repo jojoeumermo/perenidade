@@ -1,0 +1,54 @@
+[
+  {
+    "slug": "o-que-e-uma-rede-de-computadores",
+    "titulo": "O que é uma rede de computadores"
+  },
+  {
+    "slug": "o-caminho-de-um-pacote-pela-internet",
+    "titulo": "O caminho de um pacote pela internet"
+  },
+  {
+    "slug": "os-modelos-em-camadas-tcp-ip-e-osi",
+    "titulo": "Os modelos em camadas: TCP/IP e OSI"
+  },
+  {
+    "slug": "enderecos-ip-e-mascaras-de-rede",
+    "titulo": "Endereços IP e máscaras de rede"
+  },
+  {
+    "slug": "ipv6",
+    "titulo": "IPv6"
+  },
+  {
+    "slug": "cabos-wi-fi-e-equipamentos-switch-roteador-e-ponto-de-acesso",
+    "titulo": "Cabos, wi-fi e equipamentos: switch, roteador e ponto de acesso"
+  },
+  {
+    "slug": "dns-os-nomes-da-internet",
+    "titulo": "DNS: os nomes da internet"
+  },
+  {
+    "slug": "dhcp-como-o-aparelho-recebe-um-endereco",
+    "titulo": "DHCP: como o aparelho recebe um endereço"
+  },
+  {
+    "slug": "tcp-udp-e-portas",
+    "titulo": "TCP, UDP e portas"
+  },
+  {
+    "slug": "http-e-https",
+    "titulo": "HTTP e HTTPS"
+  },
+  {
+    "slug": "montar-e-proteger-a-rede-de-casa",
+    "titulo": "Montar e proteger a rede de casa"
+  },
+  {
+    "slug": "ferramentas-de-diagnostico-ping-e-traceroute",
+    "titulo": "Ferramentas de diagnóstico: ping e traceroute"
+  },
+  {
+    "slug": "redes-comunitarias-e-inclusao-digital",
+    "titulo": "Redes comunitárias e inclusão digital"
+  }
+]

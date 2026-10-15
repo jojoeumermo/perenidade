@@ -1,7 +1,7 @@
 ---
 titulo: "Inglês para crianças"
-area: ingles
+area: ingles-infantil
 etapa: fundamental
-ordem: 2
+ordem: 1
 resumo: "As primeiras palavras em inglês, para aprender brincando com um adulto."
 ---

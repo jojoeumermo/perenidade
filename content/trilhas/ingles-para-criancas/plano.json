@@ -38,5 +38,37 @@
   {
     "slug": "brincadeiras-para-repetir",
     "titulo": "Brincadeiras para repetir"
+  },
+  {
+    "slug": "a-sala-de-aula-e-os-brinquedos",
+    "titulo": "A sala de aula e os brinquedos"
+  },
+  {
+    "slug": "as-frutas",
+    "titulo": "As frutas"
+  },
+  {
+    "slug": "o-tempo-e-as-estacoes-do-ano",
+    "titulo": "O tempo e as estações do ano"
+  },
+  {
+    "slug": "os-meses-do-ano",
+    "titulo": "Os meses do ano"
+  },
+  {
+    "slug": "sentimentos",
+    "titulo": "Sentimentos"
+  },
+  {
+    "slug": "acoes-do-dia-a-dia",
+    "titulo": "Ações do dia a dia"
+  },
+  {
+    "slug": "musicas-e-rimas-em-ingles",
+    "titulo": "Músicas e rimas em inglês"
+  },
+  {
+    "slug": "contar-uma-historia-curta",
+    "titulo": "Contar uma história curta"
   }
 ]
