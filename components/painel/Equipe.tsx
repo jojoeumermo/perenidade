@@ -7,7 +7,7 @@ import { contextoDoMural } from "@/lib/sigilo";
 import { safeLink } from "@/lib/text";
 import { previewFile } from "@/lib/upload";
 import { useI18n } from "../I18n";
-import { Aviso, botao, botaoClaro, campo, data, elo, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, data, elo, localDoPainel, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import { ComoFunciona, enviarCifrado, SEM_CHAVE, useAbertos, useChaveiro } from "./Sigilo";
 
 interface Resposta {
@@ -78,7 +78,7 @@ function quando(iso: string) {
   if (minutos < 1) return "agora";
   if (minutos < 60) return `há ${minutos} min`;
   if (minutos < 60 * 24) return `há ${Math.round(minutos / 60)} h`;
-  return new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+  return new Date(iso).toLocaleDateString(localDoPainel(), { day: "2-digit", month: "2-digit" });
 }
 
 function Rosto({ nome, menor = false }: { nome: string; menor?: boolean }) {
