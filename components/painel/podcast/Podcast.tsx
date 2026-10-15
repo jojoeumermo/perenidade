@@ -74,10 +74,18 @@ export function Podcast() {
   if (ep) return <EditorDeEpisodio key={ep} id={ep} painel={p} voltar={() => abrir(null)} recarregarPainel={painel.recarregar} />;
 
   const soDesign = eu.design && !eu.revisor;
+  // Curadoria e mediação leem os episódios em andamento e pedem ajustes, sem fazer parte da equipe do podcast: as outras
+  // abas (agenda, pautas, convidados, números…) são da produção e o banco não as abre para quem só revisa.
+  const soRevisao = !soDesign && eu.revisor && !eu.time;
   const opcoes: { id: Aba; nome: string; conta?: number }[] = soDesign
     ? [
         { id: "pedidos", nome: "Pedidos de arte", conta: p.contagens.pedidos },
         { id: "artes", nome: "Modelos de arte" },
+        { id: "guia", nome: "Guia" },
+      ]
+    : soRevisao
+    ? [
+        { id: "episodios", nome: "Episódios", conta: p.contagens.revisao },
         { id: "guia", nome: "Guia" },
       ]
     : [

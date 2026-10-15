@@ -20,6 +20,7 @@
     "testar:sigilo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-sigilo.mjs",
     "testar:podcast": "node scripts/testar-podcast.mjs",
     "testar:emails": "node scripts/testar-emails.mjs",
+    "testar:fumaca": "node scripts/testar-fumaca.mjs",
     "enviar:emails": "node scripts/enviar-emails.mjs",
     "sincronizar": "node scripts/sincronizar.mjs",
     "proximo": "node scripts/proximo.mjs",
