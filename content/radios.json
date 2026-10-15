@@ -42,6 +42,87 @@
     "site": "https://radiocampeche.com.br/"
   },
   {
+    "frente": "brasil",
+    "id": "radio-usp",
+    "nome": "Rádio USP",
+    "lugar": "São Paulo, Brasil",
+    "descricao": "Emissora da Universidade de São Paulo, com jornalismo, entrevistas com pesquisadores e música brasileira.",
+    "site": "https://jornal.usp.br/radio-usp/",
+    "transmissao": "https://flow.emm.usp.br:8008/radiousp-128.mp3"
+  },
+  {
+    "frente": "brasil",
+    "id": "ufmg-educativa",
+    "nome": "Rádio UFMG Educativa",
+    "lugar": "Belo Horizonte, Brasil",
+    "descricao": "Emissora educativa da Universidade Federal de Minas Gerais, com música, ciência e cultura.",
+    "site": "https://www.ufmg.br/comunicacao/radio-ufmg-educativa/",
+    "transmissao": "https://www3.ufmg.br/streamingradioaovivo/aovivo.mp3"
+  },
+  {
+    "frente": "brasil",
+    "id": "unesp-fm",
+    "nome": "Rádio Unesp FM",
+    "lugar": "Bauru, Brasil",
+    "descricao": "Emissora educativa da Universidade Estadual Paulista.",
+    "site": "https://www.radio.unesp.br/",
+    "transmissao": "https://audio.tv.unesp.br/unespfm"
+  },
+  {
+    "frente": "brasil",
+    "id": "radio-ufg",
+    "nome": "Rádio UFG",
+    "lugar": "Goiânia, Brasil",
+    "descricao": "Rádio universitária da Universidade Federal de Goiás.",
+    "site": "https://radio.ufg.br/",
+    "transmissao": "https://streaming.ufg.br:8443/radiouniversitaria"
+  },
+  {
+    "frente": "brasil",
+    "id": "roquette-pinto",
+    "nome": "Rádio Roquette Pinto",
+    "lugar": "Rio de Janeiro, Brasil",
+    "descricao": "Rádio pública do estado do Rio de Janeiro. Leva o nome de Edgard Roquette-Pinto, pioneiro do rádio educativo no Brasil.",
+    "site": "https://www.rj.gov.br/radioroquettepinto/",
+    "transmissao": "https://radio.saopaulo01.com.br/8300/stream/"
+  },
+  {
+    "frente": "brasil",
+    "id": "inconfidencia",
+    "nome": "Rádio Inconfidência",
+    "lugar": "Belo Horizonte, Brasil",
+    "descricao": "Rádio pública de Minas Gerais, dedicada à música brasileira.",
+    "site": "https://www.inconfidencia.com.br/",
+    "transmissao": "https://ssl.zoeweb.net/proxy/inconfidencia?mp=/stream"
+  },
+  {
+    "frente": "brasil",
+    "id": "educadora-bahia",
+    "nome": "Educadora FM",
+    "lugar": "Salvador, Brasil",
+    "descricao": "Rádio pública da Bahia, do Instituto de Radiodifusão Educativa da Bahia (Irdeb).",
+    "site": "https://www.ba.gov.br/irdeb/",
+    "transmissao": "https://streaming.educadorafm.ba.gov.br/stream-01"
+  },
+  {
+    "frente": "brasil",
+    "id": "educativa-campinas",
+    "nome": "Rádio Educativa de Campinas",
+    "lugar": "Campinas, Brasil",
+    "descricao": "Rádio pública da cidade de Campinas.",
+    "site": "https://www.campinas.sp.gov.br/sites/radioeducativa",
+    "transmissao": "https://streaming.ima.sp.gov.br/educativa.mp3"
+  },
+  {
+    "frente": "brasil",
+    "id": "educativa-alagoas",
+    "nome": "Educativa FM",
+    "lugar": "Maceió, Brasil",
+    "descricao": "Rádio pública de Alagoas, do Instituto Zumbi dos Palmares.",
+    "site": "https://www.izp.al.gov.br/",
+    "transmissao": "https://radio.saopaulo01.com.br/9370/stream"
+  },
+  {
     "frente": "latina",
     "id": "am530",
     "nome": "AM 530 Somos Radio",
@@ -99,6 +180,51 @@
     "lugar": "Honduras",
     "descricao": "No próprio dizer dela: a voz que está com você.",
     "site": "https://www.radioprogresohn.net/"
+  },
+  {
+    "frente": "latina",
+    "id": "la-tribu",
+    "nome": "FM La Tribu",
+    "lugar": "Buenos Aires, Argentina",
+    "descricao": "Rádio comunitária e alternativa de Buenos Aires.",
+    "site": "https://fmlatribu.com/",
+    "transmissao": "https://icecast.zeclogiccloud.com.de/fmlatribu"
+  },
+  {
+    "frente": "latina",
+    "id": "nacional-argentina",
+    "nome": "Radio Nacional Argentina",
+    "lugar": "Buenos Aires, Argentina",
+    "descricao": "Rádio pública da Argentina.",
+    "site": "https://www.radionacional.com.ar/",
+    "transmissao": "https://sa.mp3.icecast.magma.edge-access.net/sc_rad1"
+  },
+  {
+    "frente": "latina",
+    "id": "radio-uruguay",
+    "nome": "Radio Uruguay",
+    "lugar": "Montevidéu, Uruguai",
+    "descricao": "Rádio pública uruguaia, a 1050 AM, dos Medios Públicos.",
+    "site": "https://mediospublicos.uy/",
+    "transmissao": "https://radios.iwstreaming.uy/8036/stream"
+  },
+  {
+    "frente": "latina",
+    "id": "universidad-de-chile",
+    "nome": "Radio Universidad de Chile",
+    "lugar": "Santiago, Chile",
+    "descricao": "Rádio da Universidade do Chile, com jornalismo e análise.",
+    "site": "https://radio.uchile.cl/",
+    "transmissao": "https://sonic-us.arkeo.cl/8186/stream"
+  },
+  {
+    "frente": "latina",
+    "id": "radio-unam",
+    "nome": "Radio UNAM",
+    "lugar": "Cidade do México, México",
+    "descricao": "Rádio da Universidade Nacional Autônoma do México.",
+    "site": "https://www.radio.unam.mx/",
+    "transmissao": "https://tv.radiohosting.online:9484/stream"
   },
   {
     "frente": "mundo",
@@ -161,5 +287,14 @@
     "descricao": "No próprio dizer dela: a rádio livre de Nuremberg.",
     "site": "https://www.radio-z.net/",
     "transmissao": "https://snd.radio-z.net/Radio-Z"
+  },
+  {
+    "frente": "mundo",
+    "id": "kfcf",
+    "nome": "KFCF 88.1 FM",
+    "lugar": "Fresno, Estados Unidos",
+    "descricao": "Emissora da rede Pacifica, a mesma da KPFA e da WBAI, mantida pelos ouvintes.",
+    "site": "https://www.kfcf.org/",
+    "transmissao": "https://stream.kfcf.org:8443/128"
   }
 ]
