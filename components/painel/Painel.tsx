@@ -16,6 +16,7 @@ import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
 import { Boletim } from "./Boletim";
 import { Conversas } from "./Conversas";
 import { Equipe, type Membro } from "./Equipe";
+import { Repasse } from "./Sigilo";
 import { Escrever } from "./Escrever";
 import { FontesAbertas } from "./FontesAbertas";
 import { Fila } from "./Fila";
@@ -331,7 +332,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const secoes: Secao[] = (
     [
       { id: "mesa", nome: "Mesa", sobre: "O que espera por você hoje.", grupo: "", mostra: true, conta: eu.avisos },
-      { id: "conversas", nome: "Conversas", sobre: "Mensagens privadas e grupos da equipe, cifradas neste aparelho.", grupo: "", mostra: voluntario, conta: aba === "conversas" ? 0 : presenca.dados?.conversas },
+      { id: "conversas", nome: "Conversas", sobre: "Mensagens privadas, grupos e o grupo de cada departamento, cifrados de ponta a ponta.", grupo: "", mostra: voluntario, conta: aba === "conversas" ? 0 : presenca.dados?.conversas },
       { id: "rede", nome: "Mural da equipe", sobre: "Publicações e pedidos de ajuda para todos ou por função, cifrados neste aparelho.", grupo: "", mostra: voluntario },
       { id: "escrever", nome: "Escrever", sobre: "Aulas, matérias, verbetes e tudo o que vai para o site.", grupo: "Produção", mostra: true },
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: true },
@@ -485,8 +486,9 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
         <div key={atual.id} className="painel-conteudo mx-auto max-w-5xl px-5 py-7 sm:px-8">
           {eu.suspenso && <p className="mb-6 border-l-4 border-oxblood bg-parchment-deep px-4 py-3 text-oxblood">Esta conta está suspensa: você pode ler, mas não enviar.</p>}
           {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} />}
-          {atual.id === "conversas" && <Conversas me={eu} lider={leads(eu)} />}
-          {atual.id === "rede" && <Equipe lider={leads(eu)} />}
+          {voluntario && <Repasse usuario={eu.id} />}
+          {atual.id === "conversas" && <Conversas me={eu} />}
+          {atual.id === "rede" && <Equipe usuario={eu.id} lider={leads(eu)} />}
           {atual.id === "escrever" && <Escrever me={eu} />}
           {atual.id === "minhas" && <Fila key="minhas" me={eu} minhas />}
           {atual.id === "juntas" && <Fila key="juntas" me={eu} juntas />}
