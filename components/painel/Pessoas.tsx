@@ -184,7 +184,7 @@ export function Pessoas({ me }: { me: Me }) {
             </select>
           </label>
           <label className="block">
-            Disciplina{novo.papel === "educacao" ? "" : " (opcional)"}
+            Disciplina{novo.papel === "educacao" || novo.papel === "educacao_secundaria" ? "" : " (opcional)"}
             <select value={novo.disciplina} onChange={(e) => setNovo({ ...novo, disciplina: e.target.value })} className={campo}>
               <option value="">Todo o site</option>
               {areaSlugs.map((area) => (
@@ -198,7 +198,7 @@ export function Pessoas({ me }: { me: Me }) {
         <button
           type="button"
           className={`mt-3 ${botao}`}
-          disabled={acao.ocupado || !quem || (novo.papel === "educacao" && !novo.disciplina)}
+          disabled={acao.ocupado || !quem || ((novo.papel === "educacao" || novo.papel === "educacao_secundaria") && !novo.disciplina)}
           onClick={async () => {
             if (quem && (await acao.agir("papel_conceder", { p_usuario: quem.id, p_papel: novo.papel, p_disciplina: novo.disciplina || null }, `Função confiada a ${quem.nome}.`))) setQuem(null);
           }}
