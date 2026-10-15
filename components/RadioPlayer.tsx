@@ -209,7 +209,7 @@ export function RadioPlayer() {
         onDurationChange={(e) => radio.tick(e.currentTarget.currentTime, e.currentTarget.duration)}
       />
       {track && episode && (
-        <div role="region" aria-label={t.nav.podcasts} className="radio-player no-print sticky bottom-[calc(3.5rem+env(safe-area-inset-bottom,0px))] z-30 border-t-2 border-gold bg-ink font-sans text-sm text-parchment md:bottom-0">
+        <div role="region" aria-label={t.nav.podcasts} className="radio-player no-print sticky bottom-[calc(3.5rem+var(--recuo-baixo))] z-30 border-t-2 border-gold bg-ink font-sans text-sm text-parchment md:bottom-0">
           <div className="mx-auto flex max-w-6xl items-center gap-3 px-3 pb-1 pt-2 sm:px-4">
             <Link href={localePath(lang, episode.href)} className="shrink-0" aria-label={t.radio.openEpisode}>
               {episode.capa ? (
@@ -251,7 +251,7 @@ export function RadioPlayer() {
         </div>
       )}
       {track && !episode && (
-        <div role="region" aria-label={t.radio.title} className="radio-player no-print sticky bottom-[calc(3.5rem+env(safe-area-inset-bottom,0px))] z-30 border-t-2 border-gold bg-ink font-sans text-sm text-parchment md:bottom-0">
+        <div role="region" aria-label={t.radio.title} className="radio-player no-print sticky bottom-[calc(3.5rem+var(--recuo-baixo))] z-30 border-t-2 border-gold bg-ink font-sans text-sm text-parchment md:bottom-0">
           <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2">
             <button type="button" className={button} onClick={radio.previous} disabled={index === 0} aria-label={t.radio.previous} title={t.radio.previous}>⏮</button>
             <button type="button" className={`${button} text-lg`} onClick={radio.toggle} aria-label={playing ? t.radio.pause : t.radio.play} title={playing ? t.radio.pause : t.radio.play}>
