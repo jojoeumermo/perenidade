@@ -2042,6 +2042,7 @@ begin
   if not interno.curador() then perform interno.erro('sem_permissao'); end if;
   update denuncias set status = 'resolvida', nota = interno.txt(p_nota, 'nota', 0, 2000) where id = p_id;
   if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.registrar('denuncia_resolvida', p_id::text);
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -2086,6 +2087,7 @@ begin
   if p_status not in ('aprovada', 'oculta') then perform interno.erro('invalido:status'); end if;
   update anotacoes set status = p_status where id = p_id;
   if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.registrar('anotacao_' || p_status, p_id::text);
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -2106,6 +2108,7 @@ begin
     update apoiadores set nome = interno.txt(p_nome, 'nome', 2, 80), mensagem = interno.txt(p_mensagem, 'mensagem', 0, 200) where id = p_id returning id into v_id;
     if v_id is null then perform interno.erro('nao_encontrado'); end if;
   end if;
+  perform interno.registrar('apoiador_salvo', v_id::text);
   return jsonb_build_object('id', v_id);
 end $$;
 
@@ -2114,6 +2117,7 @@ begin
   perform interno.eu();
   if not interno.coord() then perform interno.erro('sem_permissao'); end if;
   delete from apoiadores where id = p_id;
+  if found then perform interno.registrar('apoiador_removido', p_id::text); end if;
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -2191,10 +2195,12 @@ $$;
 
 /** Quem publicou pode retirar o próprio anúncio; a coordenação pode retirar qualquer um. */
 create or replace function public.mural_remover(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu();
+declare v uuid := interno.eu(); v_autor uuid;
 begin
-  delete from mural where id = p_id and (autor = v or interno.coord());
+  delete from mural where id = p_id and (autor = v or interno.coord()) returning autor into v_autor;
   if not found then perform interno.erro('nao_encontrado'); end if;
+  -- Quem retira o próprio anúncio não precisa de rastro; a coordenação apagando o anúncio de outra pessoa, sim.
+  if v_autor is distinct from v then perform interno.registrar('anuncio_removido', p_id::text); end if;
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -2287,6 +2293,7 @@ begin
     update radio_canais set nome = interno.txt(p_nome, 'nome', 2, 60), descricao = interno.txt(p_descricao, 'descricao', 0, 300), ordem = coalesce(p_ordem, 0) where id = p_id returning id into v_id;
     if v_id is null then perform interno.erro('nao_encontrado'); end if;
   end if;
+  perform interno.registrar('radio_canal_salvo', v_id::text);
   return jsonb_build_object('id', v_id);
 end $$;
 
@@ -2295,6 +2302,7 @@ begin
   perform interno.eu();
   if not interno.radialista() then perform interno.erro('sem_permissao'); end if;
   delete from radio_canais where id = p_id;
+  if found then perform interno.registrar('radio_canal_removido', p_id::text); end if;
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -2317,6 +2325,7 @@ begin
     where id = p_id returning id into v_id;
     if v_id is null then perform interno.erro('nao_encontrado'); end if;
   end if;
+  perform interno.registrar('radio_faixa_salva', v_id::text);
   return jsonb_build_object('id', v_id);
 end $$;
 
@@ -2325,6 +2334,7 @@ begin
   perform interno.eu();
   if not interno.radialista() then perform interno.erro('sem_permissao'); end if;
   delete from radio_faixas where id = p_id;
+  if found then perform interno.registrar('radio_faixa_removida', p_id::text); end if;
   return jsonb_build_object('ok', true);
 end $$;
 
