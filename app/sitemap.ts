@@ -35,6 +35,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/guia",
     "/videos",
     "/mural",
+    "/gaveta",
+    "/gaveta/termo",
     "/reforco",
     "/materiais",
     "/sobre",

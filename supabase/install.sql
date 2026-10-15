@@ -692,6 +692,38 @@ create table if not exists interno.pedidos (
 );
 create index if not exists pedidos_situacao on interno.pedidos (situacao, criado_em);
 
+-- Gaveta Aberta: trabalhos de estudantes (TCC, artigo, projeto, apostila…) que a própria pessoa publica para livre uso de
+-- todos, sob uma licença livre que ela escolhe, depois de aceitar o termo de cessão. Nada aparece antes da mediação.
+-- O arquivo, quando há, é um PDF num depósito fechado ("gaveta"); só sai para o público depois da aprovação.
+create table if not exists interno.gaveta (
+  id uuid primary key default gen_random_uuid(),
+  autor uuid not null references interno.perfis (id) on delete cascade,
+  titulo text not null check (char_length(titulo) between 5 and 160),
+  tipo text not null check (tipo in ('tcc', 'monografia', 'dissertacao', 'artigo', 'projeto', 'relatorio', 'apostila', 'codigo', 'apresentacao', 'outro')),
+  disciplina text not null check (disciplina ~ '^[a-z0-9-]{2,40}$'),
+  curso text not null default '' check (char_length(curso) <= 120),
+  instituicao text not null default '' check (char_length(instituicao) <= 160),
+  ano smallint check (ano is null or ano between 1950 and 2100),
+  comentario text not null check (char_length(comentario) between 40 and 2000),
+  -- Um dos dois: o endereço do trabalho em outro lugar (repositório da universidade, Zenodo, GitHub…) ou o PDF enviado.
+  link text not null default '' check (link = '' or (link ~ '^https://[^[:space:]]+$' and char_length(link) <= 500)),
+  arquivo text not null default '' check (arquivo = '' or arquivo ~ '^[0-9a-f-]{36}/[0-9a-f-]{36}[.]pdf$'),
+  licenca text not null default 'CC BY 4.0' check (licenca in ('CC BY 4.0', 'CC BY-SA 4.0', 'CC0 1.0')),
+  credito text not null check (char_length(credito) between 2 and 120),
+  -- O aceite do termo de cessão: nome completo de quem aceitou, a versão do termo e quando. Só a equipe que decide vê.
+  termo_nome text not null check (char_length(termo_nome) between 5 and 160),
+  termo_versao text not null,
+  termo_em timestamptz not null default now(),
+  status text not null default 'pendente' check (status in ('pendente', 'aprovado', 'recusado', 'retirado')),
+  nota text not null default '' check (char_length(nota) <= 1000),
+  decidido_por uuid references interno.perfis (id) on delete set null,
+  decidido_em timestamptz,
+  criado_em timestamptz not null default now(),
+  check ((link = '') <> (arquivo = ''))
+);
+create index if not exists gaveta_status on interno.gaveta (status, decidido_em desc);
+create index if not exists gaveta_autor on interno.gaveta (autor);
+
 -- Trancadas duas vezes: sem permissões e com segurança por linha ligada (sem nenhuma regra = ninguém passa).
 do $$
 declare t record;
@@ -2246,6 +2278,7 @@ begin
   update perfis set suspenso = true, suspensao = case when v_ja and suspensao <> '' then suspensao else 'mediacao' end where id = p_usuario;
   update topicos set retido = false where autor = p_usuario and retido;
   update respostas set retido = false where autor = p_usuario and retido;
+  update gaveta set status = 'recusado', nota = 'Conta banida pela mediação.', decidido_por = v, decidido_em = now() where autor = p_usuario and status = 'pendente';
   update banimentos set ativo = false, encerrado_por = v, encerrado_em = now() where usuario = p_usuario and ativo;
   insert into banimentos (usuario, nome, origem, motivo, por, ja_suspensa) values (p_usuario, f.nome, v_origem, v_motivo, v, v_ja);
   perform interno.registrar('conta_banida', p_usuario::text, jsonb_build_object('motivo', v_motivo, 'origem', v_origem is not null));
@@ -3193,6 +3226,8 @@ begin
   delete from divulgacao where situacao = 'publicado' and mexido_em < now() - interval '400 days';
   perform interno.pedidos_vencer();
   delete from pedidos where situacao <> 'pendente' and criado_em < now() - interval '400 days';
+  -- Da Gaveta, só some sozinho o que foi recusado ou retirado há muito tempo; o publicado fica.
+  delete from gaveta where status in ('recusado', 'retirado') and coalesce(decidido_em, criado_em) < now() - interval '400 days';
   -- O serviço de contas guarda endereço de rede nos próprios registros; apagamos os antigos onde isso é permitido.
   begin
     execute $q$delete from auth.audit_log_entries where created_at < now() - interval '30 days'$q$;
@@ -3236,6 +3271,7 @@ begin
     'divulgacao', case when interno.divulga() then (select count(*) from divulgacao d
                     where (d.situacao = 'pronto' and d.data_prevista is not null and d.data_prevista <= current_date) or (d.devolvido and interno.tem('marketing'))) else 0 end,
     -- Aprovado há mais de três horas e ainda fora do ar: a rotina de publicação (de hora em hora) parou.
+    'gaveta', case when interno.media() then (select count(*) from gaveta where status = 'pendente') else 0 end,
     'pedidos_supervisao', case when interno.coord() then (select count(*) from pedidos where situacao = 'pendente' and criado_em > now() - interval '72 hours') else 0 end,
     'publicacao_atrasada', case when interno.coord() or interno.tem('desenvolvimento')
                     then (select count(*) from contribuicoes where status = 'aprovada' and revisado_em < now() - interval '3 hours') else 0 end);
@@ -3650,7 +3686,7 @@ end $$;
 do $$
 declare tabela text;
 begin
-  foreach tabela in array array['mural', 'reforco', 'boletim', 'contribuicoes', 'topicos', 'respostas', 'inscricoes'] loop
+  foreach tabela in array array['mural', 'reforco', 'boletim', 'contribuicoes', 'topicos', 'respostas', 'inscricoes', 'gaveta'] loop
     execute format('drop trigger if exists lucia_pausa on interno.%I', tabela);
     execute format('create trigger lucia_pausa before insert on interno.%I for each row execute function interno.pausa()', tabela);
   end loop;
@@ -4527,6 +4563,145 @@ begin
   return jsonb_build_object('ok', true, 'resultado', v_resultado);
 end $$;
 
+-- ───────────────────────────── Gaveta Aberta ─────────────────────────────
+
+/** A versão do termo de cessão em vigor. Mudou o texto (content/paginas/gaveta-termo.md)? Mude aqui e em lib/gaveta.ts. */
+create or replace function interno.gaveta_termo_versao() returns text language sql immutable as $$ select '1' $$;
+
+create or replace function interno.gaveta_json(g interno.gaveta, p_equipe boolean) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'id', g.id, 'titulo', g.titulo, 'tipo', g.tipo, 'disciplina', g.disciplina, 'curso', g.curso, 'instituicao', g.instituicao, 'ano', g.ano,
+    'comentario', g.comentario, 'link', g.link, 'arquivo', g.arquivo, 'licenca', g.licenca, 'credito', g.credito, 'publicado_em', g.decidido_em)
+  || case when p_equipe then jsonb_build_object(
+    'status', g.status, 'nota', g.nota, 'criado_em', g.criado_em, 'autor', coalesce((select nome from perfis where id = g.autor), ''),
+    'termo_nome', g.termo_nome, 'termo_versao', g.termo_versao, 'termo_em', g.termo_em,
+    'decidido_por', coalesce((select nome from perfis where id = g.decidido_por), '')) else '{}'::jsonb end
+$$;
+
+/**
+ * Publicar um trabalho na Gaveta. Precisa de conta (participante da comunidade já serve), do aceite do termo com o nome
+ * completo e de um link https ou de um PDF já enviado para a própria pasta do depósito. Passa pelo filtro de palavras,
+ * pelo limite de envios, pela pausa e pelos banimentos; fica esperando a mediação.
+ */
+create or replace function public.gaveta_enviar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid; v_id uuid; v_tipo text := coalesce(p ->> 'tipo', ''); v_licenca text := coalesce(nullif(p ->> 'licenca', ''), 'CC BY 4.0');
+  v_link text := btrim(coalesce(p ->> 'link', '')); v_arquivo text := btrim(coalesce(p ->> 'arquivo', '')); v_ano smallint;
+  v_titulo text; v_comentario text; v_curso text; v_instituicao text; v_credito text; v_termo_nome text; v_disciplina text;
+begin
+  perform interno.aberta('gaveta');
+  v := interno.eu();
+  perform interno.limite('gaveta', 5, 1440);
+  if not coalesce((p ->> 'termo')::boolean, false) or coalesce(p ->> 'termo_versao', '') <> interno.gaveta_termo_versao() then perform interno.erro('falta_termo'); end if;
+  if v_tipo not in ('tcc', 'monografia', 'dissertacao', 'artigo', 'projeto', 'relatorio', 'apostila', 'codigo', 'apresentacao', 'outro') then perform interno.erro('invalido:tipo'); end if;
+  if v_licenca not in ('CC BY 4.0', 'CC BY-SA 4.0', 'CC0 1.0') then perform interno.erro('invalido:licenca'); end if;
+  v_disciplina := interno.disciplina_ok(p ->> 'disciplina');
+  if v_disciplina is null then perform interno.erro('invalido:disciplina'); end if;
+  v_titulo := interno.txt(p ->> 'titulo', 'titulo', 5, 160);
+  v_comentario := interno.txt(p ->> 'comentario', 'comentario', 40, 2000);
+  v_curso := interno.txt(p ->> 'curso', 'curso', 0, 120);
+  v_instituicao := interno.txt(p ->> 'instituicao', 'instituicao', 0, 160);
+  v_credito := interno.txt(p ->> 'credito', 'credito', 2, 120);
+  v_termo_nome := interno.txt(p ->> 'termo_nome', 'termo_nome', 5, 160);
+  if coalesce(p ->> 'ano', '') <> '' then
+    if (p ->> 'ano') !~ '^[0-9]{4}$' or (p ->> 'ano')::int < 1950 or (p ->> 'ano')::int > extract(year from now())::int then perform interno.erro('invalido:ano'); end if;
+    v_ano := (p ->> 'ano')::smallint;
+  end if;
+  if (v_link = '') = (v_arquivo = '') then perform interno.erro('invalido:arquivo'); end if;
+  if v_link <> '' and (v_link !~ '^https://[^[:space:]]+$' or char_length(v_link) > 500) then perform interno.erro('invalido:link'); end if;
+  -- O PDF tem de estar na pasta da própria pessoa; onde o depósito existe, confere que o arquivo chegou mesmo.
+  if v_arquivo <> '' then
+    if v_arquivo !~ ('^' || v::text || '/[0-9a-f-]{36}[.]pdf$') then perform interno.erro('invalido:arquivo'); end if;
+    if to_regclass('storage.objects') is not null then
+      if not exists (select 1 from storage.objects where bucket_id = 'gaveta' and name = v_arquivo) then perform interno.erro('invalido:arquivo'); end if;
+    end if;
+  end if;
+  if interno.vetado(v_titulo || ' ' || v_comentario || ' ' || v_curso || ' ' || v_instituicao || ' ' || v_credito) then perform interno.erro('conteudo_recusado'); end if;
+  insert into gaveta (autor, titulo, tipo, disciplina, curso, instituicao, ano, comentario, link, arquivo, licenca, credito, termo_nome, termo_versao)
+  values (v, v_titulo, v_tipo, v_disciplina, v_curso, v_instituicao, v_ano, v_comentario, v_link, v_arquivo, v_licenca, v_credito, v_termo_nome, interno.gaveta_termo_versao())
+  returning id into v_id;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** As publicações da própria pessoa, em qualquer situação, com a nota da mediação. */
+create or replace function public.gaveta_minhas() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid();
+begin
+  if v is null then perform interno.erro('entre_primeiro'); end if;
+  return (select coalesce(jsonb_agg(interno.gaveta_json(g, false) || jsonb_build_object('status', g.status, 'nota', g.nota, 'criado_em', g.criado_em) order by g.criado_em desc), '[]'::jsonb)
+          from gaveta g where g.autor = v and g.status <> 'retirado');
+end $$;
+
+/**
+ * Quem publicou tira a ficha do ar quando quiser (o termo explica que a licença já concedida continua valendo para quem
+ * já copiou). Devolve o caminho do PDF, para o navegador apagá-lo do depósito.
+ */
+create or replace function public.gaveta_retirar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_arquivo text;
+begin
+  if v is null then perform interno.erro('entre_primeiro'); end if;
+  update gaveta set status = 'retirado' where id = p_id and autor = v and status <> 'retirado' returning arquivo into v_arquivo;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true, 'arquivo', v_arquivo);
+end $$;
+
+/** O que está na Gaveta para todo mundo: só o aprovado, com filtros por disciplina, tipo e texto. Nunca o nome do termo. */
+create or replace function public.gaveta_listar(p jsonb default '{}'::jsonb) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v_busca text := interno.normal(coalesce(p ->> 'busca', ''));
+begin
+  perform interno.aberta('gaveta');
+  return (select coalesce(jsonb_agg(interno.gaveta_json(g, false) order by g.decidido_em desc), '[]'::jsonb) from (
+    select * from gaveta g
+    where g.status = 'aprovado'
+      and (coalesce(p ->> 'disciplina', '') = '' or g.disciplina = p ->> 'disciplina')
+      and (coalesce(p ->> 'tipo', '') = '' or g.tipo = p ->> 'tipo')
+      and (v_busca = '' or position(v_busca in interno.normal(g.titulo || ' ' || g.comentario || ' ' || g.curso || ' ' || g.instituicao || ' ' || g.credito)) > 0)
+    order by g.decidido_em desc limit 300) g);
+end $$;
+
+/** A fila da equipe que decide (mediação, curadoria, coordenação e vice): os pendentes e os decididos há pouco. */
+create or replace function public.gaveta_fila() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.media() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(interno.gaveta_json(g, true) order by (g.status = 'pendente') desc, g.criado_em desc), '[]'::jsonb) from (
+    select * from gaveta where status = 'pendente' or criado_em > now() - interval '60 days' order by criado_em desc limit 200) g);
+end $$;
+
+/** Aprovar ou recusar (com nota opcional; recusar pede um motivo de pelo menos 5 letras). Quem publicou é avisado. */
+create or replace function public.gaveta_decidir(p_id uuid, p_aprovar boolean, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); g gaveta; v_nota text := interno.txt(p_nota, 'nota', 0, 1000); v_aprovar boolean := coalesce(p_aprovar, false);
+begin
+  if not interno.media() then perform interno.erro('sem_permissao'); end if;
+  select * into g from gaveta where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if g.status not in ('pendente', 'aprovado', 'recusado') then perform interno.erro('ja_decidida'); end if;
+  if not v_aprovar and char_length(v_nota) < 5 then perform interno.erro('invalido:nota'); end if;
+  update gaveta set status = case when v_aprovar then 'aprovado' else 'recusado' end, nota = v_nota, decidido_por = v, decidido_em = now() where id = p_id;
+  perform interno.registrar(case when v_aprovar then 'gaveta_aprovada' else 'gaveta_recusada' end, g.titulo);
+  perform interno.avisar(g.autor, case when v_aprovar then 'Seu trabalho "' || left(g.titulo, 80) || '" foi publicado na Gaveta Aberta.'
+    else 'Seu trabalho "' || left(g.titulo, 80) || '" não foi publicado na Gaveta Aberta: ' || left(v_nota, 300) end);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** A regra do depósito: o PDF de um trabalho aprovado é público. Usada pelas regras de storage.objects, que não leem as tabelas. */
+create or replace function interno.gaveta_publico(p_nome text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select exists (select 1 from gaveta where arquivo = p_nome and status = 'aprovado')
+$$;
+
+/** Quem lê um PDF da Gaveta: a própria pessoa, a equipe que decide, e todo mundo depois da aprovação. */
+create or replace function interno.gaveta_le(p_nome text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select (auth.uid() is not null and split_part(p_nome, '/', 1) = auth.uid()::text) or interno.media() or interno.gaveta_publico(p_nome)
+$$;
+
+/** Quem pode pôr um PDF na própria pasta da Gaveta agora: conta não suspensa, com a Gaveta aberta e os envios do público abertos. */
+create or replace function interno.gaveta_pode_enviar() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select auth.uid() is not null
+    and not exists (select 1 from perfis where id = auth.uid() and suspenso)
+    and not interno.interditada('gaveta')
+    and (interno.voluntario() or not coalesce((select (valor ->> 'pausa')::boolean from configuracoes where chave = 'site'), false))
+$$;
+
 -- ───────────────────────────── Permissões ─────────────────────────────
 
 -- As funções internas não podem ser chamadas de fora; as públicas, sim (cada uma faz a própria conferência).
@@ -4561,7 +4736,8 @@ begin
              'equipe_supervisao', 'pedidos_supervisao', 'protecoes', 'site_pausa', 'usuario_editar', 'usuario_senha_redefinir', 'senha_trocada',
              'divulgacao_listar', 'divulgacao_salvar', 'divulgacao_situacao', 'divulgacao_comentar', 'divulgacao_apagar', 'divulgacao_instagram_salvar',
              'traducoes_andamento', 'diagnostico',
-             'interdicao_ver', 'interdicao_definir', 'expurgo_previa', 'expurgo_aplicar', 'pedido_criar', 'pedidos_listar', 'pedido_decidir'))
+             'interdicao_ver', 'interdicao_definir', 'expurgo_previa', 'expurgo_aplicar', 'pedido_criar', 'pedidos_listar', 'pedido_decidir',
+             'gaveta_enviar', 'gaveta_minhas', 'gaveta_retirar', 'gaveta_listar', 'gaveta_fila', 'gaveta_decidir'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then
@@ -4633,4 +4809,29 @@ begin
     perform cron.schedule('lucia-faxina', '17 6 * * *', 'select interno.limpeza()');
   end if;
 exception when others then null;
+end $$;
+
+-- ───────────────────────────── Arquivos da Gaveta Aberta ─────────────────────────────
+
+-- Depósito fechado, só PDF e até 10 MB. Cada pessoa envia só para a própria pasta; o arquivo fica visível para ela e para a
+-- equipe que decide, e só passa a ser público quando a ficha é aprovada (a regra consulta a tabela por uma função).
+do $$
+begin
+  if exists (select 1 from pg_namespace where nspname = 'storage') then
+    insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+    values ('gaveta', 'gaveta', false, 10485760, array['application/pdf'])
+    on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+
+    execute 'drop policy if exists "gaveta_envio" on storage.objects';
+    execute 'create policy "gaveta_envio" on storage.objects for insert to authenticated with check (bucket_id = ''gaveta'' and (storage.foldername(name))[1] = auth.uid()::text and interno.gaveta_pode_enviar())';
+    execute 'drop policy if exists "gaveta_leitura" on storage.objects';
+    execute 'create policy "gaveta_leitura" on storage.objects for select to anon, authenticated using (bucket_id = ''gaveta'' and interno.gaveta_le(name))';
+    execute 'drop policy if exists "gaveta_remocao" on storage.objects';
+    execute 'create policy "gaveta_remocao" on storage.objects for delete to authenticated using (bucket_id = ''gaveta'' and ((storage.foldername(name))[1] = auth.uid()::text or interno.media()))';
+    -- As regras chamam funções do esquema interno: quem chama precisa poder usá-las (as tabelas continuam fechadas).
+    execute 'grant usage on schema interno to anon, authenticated';
+    execute 'grant execute on function interno.gaveta_le(text) to anon, authenticated';
+    execute 'grant execute on function interno.gaveta_pode_enviar() to authenticated';
+    execute 'grant execute on function interno.media() to authenticated';
+  end if;
 end $$;

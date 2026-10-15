@@ -60,6 +60,18 @@ Qualquer pessoa pode criar uma conta, com e-mail e senha, para participar da com
 
 O nome público nasce como um codinome sorteado ("Estudante 48213"). Nada do seu e-mail aparece no site. Você escolhe se quer trocar o codinome pelo seu nome.
 
+## Se você publica na Gaveta Aberta
+
+Para publicar um trabalho na [Gaveta Aberta](/gaveta) é preciso ter conta e aceitar o [termo de cessão](/gaveta/termo). Além do que vale para a conta, o instituto guarda:
+
+| O quê | Para quê | Quem vê | Até quando |
+|---|---|---|---|
+| A ficha do trabalho (título, tipo, disciplina, curso, instituição, ano, o seu comentário, a licença e o crédito que você escolheu) | Publicar o trabalho | Todo mundo, depois que a mediação aprova | Até você tirar a ficha do ar; ficha recusada ou retirada é apagada depois de 400 dias |
+| O arquivo PDF, se você enviar um | Entregar o trabalho a quem lê | Você e a equipe que decide; todo mundo, depois da aprovação | Até você tirar a ficha do ar (o arquivo é apagado na hora) |
+| O nome completo que você digita ao aceitar o termo, a versão do termo e a data | Registro de que você aceitou o termo | Só a equipe que decide as publicações (mediação, curadoria) e a coordenação; nunca aparece no site | Enquanto a ficha existir |
+
+PDFs costumam guardar o nome de quem escreveu e outros dados nos metadados. Confira antes de enviar: o arquivo é publicado como chegou, depois que a mediação confere.
+
 ## Avaliação automática na Comunidade
 
 Tudo o que é escrito na [Comunidade](/comunidade) passa por uma avaliação automática antes de aparecer. Ela existe para manter a convivência respeitosa, segura e voltada ao estudo: ajuda a barrar spam, assédio, ameaças, discurso de ódio e outras violações das regras da página.
