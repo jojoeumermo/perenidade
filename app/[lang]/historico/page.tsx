@@ -31,10 +31,10 @@ export default async function Historico({ params }: PageProps<"/[lang]/historico
       ) : (
         <ol className="mt-10 border-l-2 border-gold">
           {changes.map((change) => (
-            <li key={change.hash} className="relative pb-8 pl-6">
+            <li key={change.date} className="relative pb-8 pl-6">
               <span aria-hidden className="absolute -left-[7px] top-1.5 h-3 w-3 rounded-full bg-gold" />
               <p className="font-mono text-xs text-gold">{date.format(new Date(change.date))}</p>
-              <p className="mt-1 text-xl" lang="pt-BR">{change.subject}</p>
+              <p className="mt-1 text-xl">{change.counts.map(([kind, n]) => `${t.history.kinds[kind]}: ${n}`).join(" · ")}</p>
               <p className="mt-1 font-mono text-xs text-ink-soft">
                 {change.files.slice(0, 4).map(describe).join(" · ")}
                 {change.files.length > 4 && ` · ${fill(t.history.more, { n: change.files.length - 4 })}`}
