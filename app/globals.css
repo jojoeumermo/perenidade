@@ -199,6 +199,10 @@ body {
   :root[data-app] main#conteudo {
     padding-bottom: calc(4.5rem + var(--recuo-baixo));
   }
+  /* O painel não tem as abas do site: lá dentro, nada de sobra clara embaixo do menu. */
+  :root[data-app] main#conteudo:has(.painel) {
+    padding-bottom: 0;
+  }
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .barra-celular {
   background: var(--parchment) !important;
