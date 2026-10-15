@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "teoria-dos-orbitais-moleculares",
+    "titulo": "Teoria dos orbitais moleculares"
+  },
+  {
+    "slug": "cinetica-quimica-leis-de-velocidade",
+    "titulo": "Cinética química: leis de velocidade"
+  },
+  {
+    "slug": "eletroquimica-potenciais-e-a-equacao-de-nernst",
+    "titulo": "Eletroquímica: potenciais e a equação de Nernst"
+  },
+  {
+    "slug": "quimica-de-coordenacao",
+    "titulo": "Química de coordenação"
+  },
+  {
+    "slug": "quimica-dos-metais-de-transicao",
+    "titulo": "Química dos metais de transição"
+  },
+  {
+    "slug": "quimica-nuclear-e-radioquimica",
+    "titulo": "Química nuclear e radioquímica"
+  },
+  {
+    "slug": "espectroscopia-infravermelho-e-ressonancia-magnetica",
+    "titulo": "Espectroscopia: infravermelho e ressonância magnética"
+  },
+  {
+    "slug": "espectrometria-de-massas",
+    "titulo": "Espectrometria de massas"
+  },
+  {
+    "slug": "estereoquimica-e-quiralidade",
+    "titulo": "Estereoquímica e quiralidade"
+  },
+  {
+    "slug": "compostos-aromaticos-e-as-suas-reacoes",
+    "titulo": "Compostos aromáticos e as suas reações"
+  },
+  {
+    "slug": "aldeidos-cetonas-e-acidos-carboxilicos-reacoes",
+    "titulo": "Aldeídos, cetonas e ácidos carboxílicos: reações"
+  },
+  {
+    "slug": "sintese-organica",
+    "titulo": "Síntese orgânica"
+  },
+  {
+    "slug": "quimica-de-polimeros",
+    "titulo": "Química de polímeros"
+  },
+  {
+    "slug": "quimica-de-materiais-e-nanotecnologia",
+    "titulo": "Química de materiais e nanotecnologia"
+  },
+  {
+    "slug": "quimica-de-alimentos",
+    "titulo": "Química de alimentos"
+  },
+  {
+    "slug": "quimica-farmaceutica-como-se-desenvolve-um-remedio",
+    "titulo": "Química farmacêutica: como se desenvolve um remédio"
+  },
+  {
+    "slug": "toxicologia-dose-e-efeito",
+    "titulo": "Toxicologia: dose e efeito"
+  },
+  {
+    "slug": "quimica-da-atmosfera",
+    "titulo": "Química da atmosfera"
+  },
+  {
+    "slug": "quimica-da-agua-e-tratamento-de-efluentes",
+    "titulo": "Química da água e tratamento de efluentes"
+  },
+  {
+    "slug": "quimica-do-solo-e-fertilizantes",
+    "titulo": "Química do solo e fertilizantes"
+  },
+  {
+    "slug": "agrotoxicos-quimica-toxicidade-e-regulacao",
+    "titulo": "Agrotóxicos: química, toxicidade e regulação"
+  },
+  {
+    "slug": "quimica-forense",
+    "titulo": "Química forense"
+  },
+  {
+    "slug": "bioquimica-do-metabolismo",
+    "titulo": "Bioquímica do metabolismo"
+  },
+  {
+    "slug": "seguranca-em-laboratorio-e-na-industria-quimica",
+    "titulo": "Segurança em laboratório e na indústria química"
+  }
+]

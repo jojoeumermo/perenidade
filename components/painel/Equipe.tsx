@@ -3,15 +3,17 @@
 
 import { useEffect, useState } from "react";
 import { rpc, type Role } from "@/lib/backend";
-import { deriveKey, PROOF, recallKey, rememberKey, seal, unseal } from "@/lib/cipher";
+import { contextoDoMural } from "@/lib/sigilo";
 import { safeLink } from "@/lib/text";
 import { previewFile } from "@/lib/upload";
 import { useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, data, elo, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { ComoFunciona, enviarCifrado, SEM_CHAVE, useAbertos, useChaveiro } from "./Sigilo";
 
 interface Resposta {
   id: string;
   autor: string;
+  autor_id: string | null;
   meu: boolean;
   corpo: string;
   criado_em: string;
@@ -25,9 +27,9 @@ interface Recado extends Resposta {
 
 export interface Canais {
   sala: string;
-  sal: string;
-  prova: string;
   canais: string[];
+  /** Canal → grupo do departamento cuja chave cifra o canal ("geral" e "pedidos" usam o da equipe toda). */
+  conversas: Record<string, string>;
 }
 
 export interface Membro {
@@ -59,10 +61,9 @@ const nomes: Record<string, string> = {
   desenvolvimento: "Desenvolvimento",
 };
 
-const funcoes: Role["papel"][] = ["marketing", "design", "desenvolvimento", "educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "supervisao", "coordenacao"];
+const funcoes: Role["papel"][] = ["design", "marketing", "desenvolvimento", "educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "supervisao", "coordenacao"];
 /** O texto cifrado ocupa mais espaço do que o aberto: este limite garante que ele cabe no banco. */
 const MAXIMO = 2000;
-const ILEGIVEL = "[não foi possível abrir esta mensagem com a chave atual]";
 
 const iniciais = (nome: string) =>
   nome
@@ -89,61 +90,35 @@ function Rosto({ nome, menor = false }: { nome: string; menor?: boolean }) {
   );
 }
 
-/** A chave guardada nesta aba só vale se ainda abrir a prova que está no banco. */
-export function useChave(prova: string | undefined) {
-  const [chave, setChave] = useState<CryptoKey | null>(null);
-  useEffect(() => {
-    if (!prova) return;
-    let cancelado = false;
-    void recallKey().then(async (guardada) => {
-      if (!guardada || cancelado) return;
-      if ((await unseal(guardada, prova)) === PROOF) {
-        if (!cancelado) setChave(guardada);
-      } else {
-        void rememberKey(null);
-      }
-    });
-    return () => {
-      cancelado = true;
-    };
-  }, [prova]);
-  return [chave, setChave] as const;
-}
-
 /**
  * A rede interna da equipe: publicações e comentários por canal (um para todos, um por função e um de pedidos
- * de ajuda entre funções). Tudo é cifrado neste aparelho com a chave da equipe antes de ser enviado, e some
- * depois de trinta dias.
+ * de ajuda entre funções). Tudo é cifrado de ponta a ponta neste aparelho, com a chave do grupo do departamento
+ * de cada canal (a mesma das Conversas), antes de ser enviado, e some depois de trinta dias.
  */
-export function Equipe({ lider, modera = lider }: { lider: boolean; /** Coordenação, vice-coordenação e supervisão apagam o que for de outra pessoa. */ modera?: boolean }) {
+export function Equipe({ usuario, lider, modera = lider }: { usuario: string; lider: boolean; /** Coordenação, vice-coordenação e supervisão apagam o que for de outra pessoa. */ modera?: boolean }) {
   const { t } = useI18n();
   const canais = useLista<Canais>("equipe_canais");
   const membros = useLista<Membro[]>("equipe_membros");
-  const [chave, setChave] = useChave(canais.dados?.prova);
+  const { chaveiro, erro } = useChaveiro(usuario);
   const [canal, setCanal] = useState("geral");
   const lista = useLista<Recado[]>("equipe_listar", { p_canal: canal });
   const { recarregar } = lista;
   const acao = useAcao(recarregar);
   const [texto, setTexto] = useState("");
   const [para, setPara] = useState<Role["papel"]>("design");
+  const [quem, setQuem] = useState("");
   const [respostas, setRespostas] = useState<Record<string, string>>({});
-  const [abertos, setAbertos] = useState<Record<string, string>>({});
   const [aviso, setAviso] = useState("");
   const dados = canais.dados;
+  const conversa = dados?.conversas[canal] ?? "";
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
 
   // Abre no aparelho o que veio cifrado do banco.
-  useEffect(() => {
-    if (!chave || !lista.dados) return;
-    let cancelado = false;
-    const todos = lista.dados.flatMap((recado) => [recado, ...recado.respostas]);
-    void Promise.all(todos.map(async (item) => [item.id, (await unseal(chave, item.corpo)) ?? ILEGIVEL] as const)).then((pares) => {
-      if (!cancelado) setAbertos(Object.fromEntries(pares));
-    });
-    return () => {
-      cancelado = true;
-    };
-  }, [chave, lista.dados]);
+  const abertos = useAbertos(
+    chaveiro,
+    conversa ? (lista.dados ?? []).flatMap((recado) => [recado, ...recado.respostas]).map((item) => ({ id: item.id, conversa, corpo: item.corpo, contexto: contextoDoMural(canal, item.autor_id ?? "") })) : [],
+  );
+  const lido = (item: Resposta) => (abertos[item.id] === null ? <span className="italic opacity-80">{SEM_CHAVE}</span> : <span className={item.corpo.startsWith("c1.") ? "italic opacity-80" : ""}>{abertos[item.id] ?? "…"}</span>);
 
   // Publicações novas aparecem sozinhas, sem a pessoa precisar recarregar.
   useEffect(() => {
@@ -154,8 +129,18 @@ export function Equipe({ lider, modera = lider }: { lider: boolean; /** Coordena
   }, [recarregar]);
 
   async function escrever(corpo: string, respostaA: string | null) {
-    if (!chave) return false;
-    return Boolean(await acao.agir("equipe_escrever", { p_canal: canal, p_corpo: await seal(chave, corpo.trim()), p_resposta_a: respostaA, p_para: !respostaA && canal === "pedidos" ? para : null }, ""));
+    if (!chaveiro || !conversa) return false;
+    acao.setAviso("");
+    try {
+      await enviarCifrado(chaveiro, conversa, corpo.trim(), contextoDoMural(canal, usuario), (cifrado) =>
+        rpc("equipe_escrever", { p_canal: canal, p_corpo: cifrado, p_resposta_a: respostaA, p_para: !respostaA && canal === "pedidos" ? para : null }),
+      );
+      recarregar();
+      return true;
+    } catch (erro) {
+      acao.setAviso(textoDoErro(erro));
+      return false;
+    }
   }
 
   async function apagarTudo() {
@@ -163,25 +148,14 @@ export function Equipe({ lider, modera = lider }: { lider: boolean; /** Coordena
     try {
       const resposta = await rpc<{ apagadas: number }>("equipe_apagar_tudo");
       setAviso(`Tudo apagado (${resposta.apagadas} mensagens).`);
-      setAbertos({});
       recarregar();
     } catch (erro) {
       setAviso(textoDoErro(erro));
     }
   }
 
-  if (!dados) return <Aviso texto={canais.erro || "Carregando…"} />;
-
-  if (!chave) {
-    return (
-      <div>
-        <p className="max-w-2xl text-ink-soft">
-          Aqui a equipe conversa, pede ajuda e combina o trabalho. O que cada pessoa escreve é cifrado no próprio aparelho antes de sair: o que fica guardado é ilegível sem a chave da equipe.
-        </p>
-        <Chave dados={dados} lider={lider} aoAbrir={(nova) => { setChave(nova); canais.recarregar(); recarregar(); }} />
-      </div>
-    );
-  }
+  if (erro) return <Aviso texto={erro} />;
+  if (!dados || !chaveiro) return <Aviso texto={canais.erro || "Preparando a chave deste aparelho…"} />;
 
   return (
     <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_15rem]">
@@ -207,7 +181,7 @@ export function Equipe({ lider, modera = lider }: { lider: boolean; /** Coordena
           )}
           <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={3} maxLength={MAXIMO} aria-label={`Publicar em ${nomes[canal] ?? canal}`} placeholder={canal === "pedidos" ? "Do que você precisa, para quando e para qual aula ou matéria." : `Escreva para ${canal === "geral" ? "toda a equipe" : (nomes[canal] ?? canal).toLowerCase()}…`} className={`${campo} mt-0 bg-parchment`} />
           <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
-            <span className="text-xs text-ink-soft">Cifrado neste aparelho · some em 30 dias</span>
+            <span className="text-xs text-ink-soft">Cifrado de ponta a ponta neste aparelho · some em 30 dias</span>
             <button type="submit" className={botao} disabled={acao.ocupado || texto.trim().length === 0}>
               {canal === "pedidos" ? "Pedir ajuda" : "Publicar"}
             </button>
@@ -230,7 +204,7 @@ export function Equipe({ lider, modera = lider }: { lider: boolean; /** Coordena
                   </p>
                 </div>
               </div>
-              <p className="whitespace-pre-line px-4 py-3 font-serif text-lg leading-snug">{abertos[recado.id] ?? "…"}</p>
+              <p className="whitespace-pre-line px-4 py-3 font-serif text-lg leading-snug">{lido(recado)}</p>
               {recado.respostas.length > 0 && (
                 <ul className="space-y-3 border-t border-rule bg-parchment px-4 py-3">
                   {recado.respostas.map((resposta) => (
@@ -240,7 +214,7 @@ export function Equipe({ lider, modera = lider }: { lider: boolean; /** Coordena
                         <p className="text-xs">
                           <strong>{resposta.autor || "—"}</strong> <span className="text-ink-soft">· {quando(resposta.criado_em)}</span>
                         </p>
-                        <p className="whitespace-pre-line">{abertos[resposta.id] ?? "…"}</p>
+                        <p className="whitespace-pre-line">{lido(resposta)}</p>
                       </div>
                     </li>
                   ))}
@@ -280,8 +254,9 @@ export function Equipe({ lider, modera = lider }: { lider: boolean; /** Coordena
         <section>
           <h2 className={rotulo}>Quem está na equipe</h2>
           <Aviso texto={membros.erro} />
+          {(membros.dados?.length ?? 0) > 8 && <input type="search" value={quem} onChange={(e) => setQuem(e.target.value)} placeholder="Filtrar por nome" aria-label="Filtrar a equipe por nome" className={campo} />}
           <ul className="mt-2 space-y-2.5">
-            {membros.dados?.map((membro) => (
+            {membros.dados?.filter((membro) => membro.nome.toLowerCase().includes(quem.trim().toLowerCase())).map((membro) => (
               <li key={membro.id} className="flex items-start gap-2.5" title={membro.bio || undefined}>
                 <span className="relative">
                   <Rosto nome={membro.nome} menor />
@@ -310,84 +285,15 @@ export function Equipe({ lider, modera = lider }: { lider: boolean; /** Coordena
         </section>
 
         <section className="space-y-2 border-t border-rule pt-4 text-xs text-ink-soft">
-          <h2 className={rotulo}>Sigilo</h2>
-          <p>Não escreva endereço, telefone nem documento de ninguém, mesmo aqui.</p>
-          <button type="button" className={elo} onClick={() => { void rememberKey(null); setChave(null); setAbertos({}); }}>
-            Fechar a rede neste aparelho
-          </button>
+          <ComoFunciona />
           {lider && (
-            <>
-              <button type="button" className={`${elo} block text-oxblood`} onClick={() => void apagarTudo()}>
-                Apagar todas as conversas agora
-              </button>
-              <details>
-                <summary className="cursor-pointer hover:text-oxblood">Trocar a chave da equipe</summary>
-                <p className="mt-2">Troque quando alguém sair da equipe. As conversas guardadas são apagadas na troca.</p>
-                <Chave dados={{ ...dados, prova: "" }} lider aoAbrir={(nova) => { setChave(nova); setAbertos({}); canais.recarregar(); recarregar(); }} />
-              </details>
-            </>
+            <button type="button" className={`${elo} block text-oxblood`} onClick={() => void apagarTudo()}>
+              Apagar todas as conversas agora
+            </button>
           )}
         </section>
       </aside>
     </div>
-  );
-}
-
-/** Pede a frase da equipe. A coordenação define a frase na primeira vez; os demais digitam a que receberam. */
-export function Chave({ dados, lider, aoAbrir }: { dados: Canais; lider: boolean; aoAbrir: (chave: CryptoKey) => void }) {
-  const [frase, setFrase] = useState("");
-  const [repete, setRepete] = useState("");
-  const [aviso, setAviso] = useState("");
-  const [ocupado, setOcupado] = useState(false);
-  const definir = dados.prova === "";
-
-  if (definir && !lider) return <p className="mt-5 max-w-xl border-l-2 border-rule pl-4">A coordenação ainda não definiu a chave da rede. Assim que definir, ela passa a frase para a equipe por fora do site.</p>;
-
-  async function abrir() {
-    setOcupado(true);
-    setAviso("");
-    try {
-      const chave = await deriveKey(frase, dados.sal);
-      if (definir) {
-        await rpc("equipe_chave_definir", { p_prova: await seal(chave, PROOF) });
-      } else if ((await unseal(chave, dados.prova)) !== PROOF) {
-        setAviso("Essa não é a chave da equipe. Confira com a coordenação.");
-        return;
-      }
-      await rememberKey(chave);
-      setFrase("");
-      setRepete("");
-      aoAbrir(chave);
-    } catch (erro) {
-      setAviso(textoDoErro(erro));
-    } finally {
-      setOcupado(false);
-    }
-  }
-
-  return (
-    <form className="mt-5 max-w-xl space-y-3 border border-rule bg-parchment-deep p-5 text-sm text-ink" onSubmit={(e) => { e.preventDefault(); void abrir(); }}>
-      <h3 className="font-serif text-xl font-semibold">{definir ? "Definir a chave da equipe" : "Chave da equipe"}</h3>
-      <p className="text-ink-soft">
-        {definir
-          ? "Escolha uma frase longa (quatro ou cinco palavras ao acaso) e passe para a equipe por fora do site, de preferência em pessoa. O site não guarda a frase: se ela se perder, as conversas guardadas não abrem mais."
-          : "Digite a frase que a coordenação passou para você. Ela não é enviada a lugar nenhum: serve só para abrir as mensagens neste aparelho, e é pedida de novo quando você fechar a aba."}
-      </p>
-      <label className="block">
-        Frase
-        <input type="password" required minLength={definir ? 16 : 1} maxLength={200} autoComplete="off" value={frase} onChange={(e) => setFrase(e.target.value)} className={campo} />
-      </label>
-      {definir && (
-        <label className="block">
-          Repita a frase
-          <input type="password" required maxLength={200} autoComplete="off" value={repete} onChange={(e) => setRepete(e.target.value)} className={campo} />
-        </label>
-      )}
-      <button type="submit" className={botao} disabled={ocupado || (definir ? frase.length < 16 || frase !== repete : frase.length === 0)}>
-        {definir ? "Definir a chave" : "Abrir a rede"}
-      </button>
-      <Aviso texto={aviso} />
-    </form>
   );
 }
 

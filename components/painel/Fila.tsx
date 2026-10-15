@@ -7,7 +7,8 @@ import tipos from "@/lib/tipos.json";
 import { cleanSources, MarkdownEditor, SourcesField, type SourceDraft } from "../Editor";
 import { useI18n } from "../I18n";
 import { Markdown } from "../Markdown";
-import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import { BuscaDePessoa } from "./BuscaDePessoa";
 import type { Membro } from "./Equipe";
 import { editorPt, fontesPt } from "./Escrever";
 
@@ -139,6 +140,7 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
   async function triar(liberar: boolean) {
     try {
       await rpc("triagem_decidir", { p_id: id, p_liberar: liberar, p_nota: nota });
+      window.dispatchEvent(new Event(PAINEL_MUDOU));
       voltar();
     } catch (erro) {
       acao.setAviso(textoDoErro(erro));
@@ -148,6 +150,7 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
   async function decidir(aprovar: boolean) {
     try {
       await rpc("contribuicao_decidir", { p_id: id, p_aprovar: aprovar, p_nota: nota });
+      window.dispatchEvent(new Event(PAINEL_MUDOU));
       voltar();
     } catch (erro) {
       acao.setAviso(textoDoErro(erro));
@@ -176,7 +179,7 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
           {Object.entries(c.dados).map(([chave, valor]) => (
             <div key={chave} className="contents">
               <dt className="font-mono text-xs text-gold">{chave}</dt>
-              <dd className="break-words">{String(valor)}</dd>
+              <dd className="break-words whitespace-pre-line">{String(valor)}</dd>
             </div>
           ))}
         </dl>
@@ -319,6 +322,7 @@ function Conjunto({ c, me, decide, depois, sair }: { c: Completa; me: Me; decide
   const livres = membros.dados?.filter((membro) => !membro.eu && !dentro.has(membro.id)) ?? [];
   const funcoes = (membro: Membro) =>
     [...new Set(membro.papeis.map((papel) => `${papeis[papel.papel]}${papel.disciplina ? ` de ${t.areas[papel.disciplina as keyof typeof t.areas]?.[0] ?? papel.disciplina}` : ""}`))].join(", ");
+  const opcoes = livres.map((membro) => ({ id: membro.id, nome: membro.nome, email: funcoes(membro) }));
 
   return (
     <section className="border border-rule bg-parchment-deep p-5">
@@ -365,17 +369,10 @@ function Conjunto({ c, me, decide, depois, sair }: { c: Completa; me: Me; decide
       )}
       {manda && (
         <div className="mt-3 flex flex-wrap items-end gap-3">
-          <label className="block min-w-56 flex-1">
+          <div className="min-w-56 flex-1">
             Chamar
-            <select value={escolha} onChange={(e) => setEscolha(e.target.value)} className={campo}>
-              <option value="">Escolha alguém da equipe…</option>
-              {livres.map((membro) => (
-                <option key={membro.id} value={membro.id}>
-                  {membro.nome} · {funcoes(membro)}
-                </option>
-              ))}
-            </select>
-          </label>
+            <BuscaDePessoa rotulo="Chamar alguém da equipe" entre={opcoes} escolhida={opcoes.find((pessoa) => pessoa.id === escolha) ?? null} escolher={(pessoa) => setEscolha(pessoa?.id ?? "")} />
+          </div>
           <button
             type="button"
             className={botao}

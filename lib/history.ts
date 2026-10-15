@@ -1,5 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { execFileSync } from "node:child_process";
+import { existsSync, readFileSync } from "node:fs";
 import { cache } from "react";
 import { fill, htmlLang, type Locale, plural } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
@@ -44,11 +45,20 @@ const git = (args: string[]) =>
   });
 
 // O histórico do acervo é o próprio histórico do Git, lido na hora do build.
-// Em clones rasos (ex.: Vercel sem VERCEL_DEEP_CLONE=true) só aparecem os commits mais recentes.
+// Em clones rasos (ex.: Vercel sem VERCEL_DEEP_CLONE=true) só aparecem os commits mais recentes, e o mais antigo deles,
+// a "fronteira", aparece como se tivesse criado todos os arquivos de uma vez. Ele fica de fora, para o histórico não
+// dizer que o acervo inteiro nasceu naquele dia. O código de cada registro só serve para isso e para ler listas antigas.
 // Junções de ramos (merge) ficam de fora: o que elas trazem já aparece nos commits de origem.
 const getHistory = cache((): Commit[] => {
   try {
-    const out = git(["log", "-n", "300", "--no-merges", "--date=short", "--name-status", "--pretty=format:%x1e%h%x1f%ad", "--", "content"]);
+    let fronteira = new Set<string>();
+    try {
+      const arquivo = git(["rev-parse", "--git-path", "shallow"]).trim();
+      if (existsSync(arquivo)) fronteira = new Set(readFileSync(arquivo, "utf8").split(/\s+/).filter(Boolean));
+    } catch {
+      // sem essa informação, nada é descartado
+    }
+    const out = git(["log", "-n", "300", "--no-merges", "--date=short", "--name-status", "--pretty=format:%x1e%H%x1f%ad", "--", "content"]);
     return out
       .split("\x1e")
       .filter(Boolean)
@@ -64,7 +74,8 @@ const getHistory = cache((): Commit[] => {
             return { status, path: paths[paths.length - 1] };
           });
         return { hash, date, files };
-      });
+      })
+      .filter((commit) => !fronteira.has(commit.hash));
   } catch {
     return [];
   }

@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PodcastsRelacionados } from "@/components/podcast/Relacionados";
 import { notFound } from "next/navigation";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { BookCard, TrackCard } from "@/components/Cards";
@@ -8,7 +9,7 @@ import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { localePath, plural } from "@/i18n/config";
 import { areaSlugs, areaTools, isArea, stages } from "@/lib/areas";
-import { getBooks, getCatalog, getTracks, getVideos } from "@/lib/content";
+import { getBooks, getCatalog, getLooseMaterials, getTracks, getVideos, looseFormats } from "@/lib/content";
 import { withLangs } from "@/lib/params";
 
 export const dynamicParams = false;
@@ -33,6 +34,7 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
   const books = getBooks(lang).filter((book) => book.area === area);
   const catalog = getCatalog(area);
   const videos = getVideos(lang).filter((video) => video.area === area);
+  const loose = getLooseMaterials(lang).filter((material) => material.area === area);
   const toolIds = areaTools[area] ?? [];
   const heading = "mt-12 border-b border-rule pb-3 text-3xl font-semibold";
 
@@ -44,6 +46,15 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
           {t.areas[area][1]}
         </PageHeading>
       </div>
+
+      {/* As partes da disciplina: as trilhas (o caminho principal) e, ao lado, o que os educadores secundários publicam fora delas. */}
+      <nav aria-label={t.shelf.sections} className="mt-8 flex flex-wrap gap-2 font-sans text-sm">
+        <a href="#trilhas" className="border-2 border-ink bg-ink px-3 py-1.5 font-semibold text-parchment hover:bg-oxblood">{t.shelf.tracks}</a>
+        <a href="#materiais-avulsos" className="border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">
+          {t.shelf.loose} <span className="font-mono text-xs">({loose.length})</span>
+        </a>
+        <a href="#obras" className="border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{t.shelf.works}</a>
+      </nav>
 
       {toolIds.length > 0 && (
         <p className="mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-1 font-sans text-sm">
@@ -57,6 +68,7 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
       )}
 
       {/* As trilhas seguem a ordem do currículo comum: fundamental, médio e superior. */}
+      <span id="trilhas" className="block scroll-mt-6" />
       {stages.map((stage) => {
         const inStage = tracks.filter((track) => track.stage === stage);
         return (
@@ -77,6 +89,33 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
         );
       })}
 
+      <section id="materiais-avulsos" className="scroll-mt-6">
+        <h2 className={heading}>{t.shelf.loose}</h2>
+        <p className="mt-3 max-w-3xl text-ink-soft">{t.shelf.looseLead}</p>
+        {loose.length > 0 ? (
+          <ul className="mt-6 grid gap-4 font-sans text-sm md:grid-cols-2">
+            {loose.map((material) => (
+              <li key={material.slug} className="border border-rule bg-parchment-deep p-5">
+                <p className="font-mono text-xs text-gold">
+                  {t.loose.formats[looseFormats.indexOf(material.format)] ?? material.format} · {material.authors.join(", ")}
+                </p>
+                <Link href={to(`/avulsos/${material.slug}`)} className="mt-1 block font-serif text-xl font-semibold hover:text-oxblood">
+                  {material.title}
+                </Link>
+                <p className="mt-1 text-ink-soft">{material.summary}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-4 text-lg text-ink-soft">
+            {t.shelf.looseEmpty} <Link href={to("/voluntarios")} className="underline hover:text-oxblood">{t.shelf.looseJoin}</Link>
+          </p>
+        )}
+      </section>
+
+      {/* Episódios do podcast ligados a esta disciplina: aparecem só se houver. */}
+      <PodcastsRelacionados disciplina={area} />
+
       {videos.length > 0 && (
         <section>
           <h2 className={heading}>{t.shelf.videos}</h2>
@@ -92,7 +131,7 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
         </section>
       )}
 
-      <section>
+      <section id="obras" className="scroll-mt-6">
         <h2 className={heading}>{t.shelf.works}</h2>
         {books.length > 0 ? (
           <div className="mt-6 grid gap-5 md:grid-cols-2">

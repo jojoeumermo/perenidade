@@ -49,7 +49,9 @@ export function hasSession(): boolean {
   }
 }
 
-const codeOf = (message: unknown) => {
+const codeOf = (message: unknown, code?: unknown) => {
+  // A tela chama uma função que o serviço ainda não tem (atualização pendente do lado do serviço).
+  if (code === "PGRST202" || code === "42883") return "banco_desatualizado";
   const text = String(message ?? "");
   return /^[a-z_]+(:[a-z_]+)?$/.test(text) ? text : "falha";
 };
@@ -60,7 +62,7 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
   if (hasSession()) {
     const supabase = await getClient();
     const { data, error } = await supabase.rpc(fn, args);
-    if (error) throw new BackendError(codeOf(error.message));
+    if (error) throw new BackendError(codeOf(error.message, error.code));
     return data as T;
   }
   let response: Response;
@@ -74,13 +76,16 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
     throw new BackendError("sem_conexao");
   }
   const body: unknown = await response.json().catch(() => null);
-  if (!response.ok) throw new BackendError(codeOf((body as { message?: string } | null)?.message));
+  if (!response.ok) {
+    const falha = body as { message?: string; code?: string } | null;
+    throw new BackendError(codeOf(falha?.message, falha?.code));
+  }
   return body as T;
 }
 
 export interface Role {
   id: string;
-  papel: "coordenacao" | "vice" | "supervisao" | "curadoria" | "mediacao" | "educacao" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "marketing" | "desenvolvimento";
+  papel: "coordenacao" | "vice" | "supervisao" | "curadoria" | "mediacao" | "educacao" | "educacao_secundaria" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "marketing" | "desenvolvimento";
   disciplina: string | null;
 }
 
@@ -100,9 +105,11 @@ export interface Me {
   trocar_senha?: boolean;
 }
 
+/** Funções que valem por outra: a educação secundária tem os poderes da educação; o marketing, os do design. */
+const equivale: Partial<Record<Role["papel"], Role["papel"]>> = { educacao_secundaria: "educacao", marketing: "design" };
 /** A vice-coordenação pode tudo o que a coordenação pode, menos mexer na própria coordenação (isso é conferido por leads). */
 export const can = (me: Me | null, ...roles: Role["papel"][]) =>
-  Boolean(me?.papeis.some((role) => roles.includes(role.papel) || (role.papel === "vice" && roles.includes("coordenacao"))));
+  Boolean(me?.papeis.some((role) => roles.includes(role.papel) || (role.papel === "vice" && roles.includes("coordenacao")) || (equivale[role.papel] !== undefined && roles.includes(equivale[role.papel] as Role["papel"]))));
 /** Só a coordenação comunitária. */
 export const leads = (me: Me | null) => Boolean(me?.papeis.some((role) => role.papel === "coordenacao"));
 
