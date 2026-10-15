@@ -1504,6 +1504,109 @@ await espera("candidatura aceita não entrega a função a conta com e-mail não
   return [erro, (await dono("select count(*)::int as n from interno.papeis where usuario = $1", [invasor])).rows[0].n];
 }, ([erro, papeis]) => erro.includes("email_nao_confirmado") && papeis === 0);
 
+// ── Cargos múltiplos: uma pessoa com vários papéis, a hierarquia de quem dá e tira, a supervisão e o histórico ──
+nomes.super = "Sueli Supervisora";
+nomes.poli = "Pedro Polivalente";
+ids.super = await criarUsuario("super@teste.local", nomes.super);
+ids.poli = await criarUsuario("poli@teste.local", nomes.poli);
+for (const chave of ["super", "poli"]) {
+  await rpc(como(ids[chave]), "eu");
+  await rpc(como(ids[chave]), "perfil_salvar", { p_nome: nomes[chave], p_bio: "" });
+}
+const departamentosDe = async (quem) => (await rpc(como(ids[quem]), "chat_conversas")).filter((c) => c.tipo === "departamento").map((c) => c.departamento).sort();
+await espera("pessoa sem papel nenhum: nível zero e nada do painel da equipe", async () => [await rpc(como(ids.poli), "eu"), await rpc(como(ids.poli), "fila").catch((e) => e.message)], ([eu, fila]) => eu.papeis.length === 0 && eu.nivel === 0 && fila.includes("sem_permissao"));
+await recusa("vice-coordenação não nomeia a supervisão", () => rpc(como(ids.vice), "papel_conceder", { p_usuario: ids.super, p_papel: "supervisao", p_disciplina: null }), "sem_permissao");
+await espera("coordenação nomeia a supervisão, que fica no nível 2", async () => { await rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.super, p_papel: "supervisao", p_disciplina: null }); return rpc(como(ids.super), "eu"); }, (r) => r.papeis.length === 1 && r.papeis[0].papel === "supervisao" && r.nivel === 2);
+await espera("a supervisão está no grupo da equipe toda e em nenhum departamento", () => departamentosDe("super"), (r) => JSON.stringify(r) === JSON.stringify(["geral"]));
+await espera("supervisão confia o primeiro papel a quem não tinha nenhum", async () => { await rpc(como(ids.super), "papel_conceder", { p_usuario: ids.poli, p_papel: "revisao", p_disciplina: null }); return rpc(como(ids.poli), "eu"); }, (r) => r.papeis.length === 1 && r.papeis[0].papel === "revisao" && r.nivel === 1 && r.avisos === 1);
+await espera("com um papel, a pessoa abre a fila, mas não o que é de outras funções", async () => [await rpc(como(ids.poli), "fila"), await rpc(como(ids.poli), "boletim_listar").catch((e) => e.message), await rpc(como(ids.poli), "reforco_fila").catch((e) => e.message)], (r) => Array.isArray(r[0]) && r[1].includes("sem_permissao") && r[2].includes("sem_permissao"));
+await espera("a mesma pessoa acumula jornalismo e tradução: três papéis", async () => {
+  await rpc(como(ids.super), "papel_conceder", { p_usuario: ids.poli, p_papel: "jornalismo", p_disciplina: null });
+  await rpc(como(ids.super), "papel_conceder", { p_usuario: ids.poli, p_papel: "traducao", p_disciplina: null });
+  return rpc(como(ids.poli), "eu");
+}, (r) => r.papeis.map((p) => p.papel).sort().join() === "jornalismo,revisao,traducao" && r.nivel === 1);
+await espera("o mesmo papel confiado duas vezes não duplica", async () => { await rpc(como(ids.super), "papel_conceder", { p_usuario: ids.poli, p_papel: "revisao", p_disciplina: null }); return rpc(como(ids.poli), "eu"); }, (r) => r.papeis.length === 3);
+await espera("as permissões são a soma dos papéis: fila (revisão), boletim e rádio (jornalismo), tradução no envio", async () => [
+  await rpc(como(ids.poli), "fila"),
+  await rpc(como(ids.poli), "boletim_listar"),
+  await rpc(como(ids.poli), "radio_canal_salvar", { p_id: null, p_nome: "Canal da polivalente", p_descricao: "", p_ordem: 9 }),
+  await rpc(como(ids.poli), "contribuir", { p: { tipo: "traducao", titulo: "Tradução de teste", corpo: "Texto traduzido com mais de vinte letras.", alvo: "/trilhas/x/y" } }),
+  await rpc(como(ids.poli), "equipe_canais"),
+], ([fila, boletim, canal, traducao, canais]) => Array.isArray(fila) && Array.isArray(boletim) && Boolean(canal.id) && Boolean(traducao.id) && ["revisao", "jornalismo", "traducao"].every((c) => canais.canais.includes(c)) && !canais.canais.includes("design"));
+await espera("o envio da tradução é marcado como da tradução", async () => (await rpc(como(ids.poli), "contribuicoes_minhas"))[0], (r) => r.como === "traducao");
+await espera("com vários papéis, a pessoa está em todos os grupos de departamento correspondentes", () => departamentosDe("poli"), (r) => JSON.stringify(r) === JSON.stringify(["geral", "jornalismo", "revisao", "traducao"]));
+await espera("quem cria um grupo marcando uma função pega quem tem a função entre outras", () => rpc(como(ids.prof), "equipe_membros"), (r) => r.find((m) => m.id === ids.poli)?.papeis.length === 3);
+await recusa("supervisão não confia curadoria", () => rpc(como(ids.super), "papel_conceder", { p_usuario: ids.poli, p_papel: "curadoria", p_disciplina: null }), "sem_permissao");
+await recusa("supervisão não confia mediação", () => rpc(como(ids.super), "papel_conceder", { p_usuario: ids.poli, p_papel: "mediacao", p_disciplina: null }), "sem_permissao");
+await recusa("supervisão não nomeia outra supervisão", () => rpc(como(ids.super), "papel_conceder", { p_usuario: ids.poli, p_papel: "supervisao", p_disciplina: null }), "sem_permissao");
+await recusa("supervisão não nomeia vice-coordenação", () => rpc(como(ids.super), "papel_conceder", { p_usuario: ids.poli, p_papel: "vice", p_disciplina: null }), "sem_permissao");
+await recusa("ninguém dá a coordenação por esse caminho", () => rpc(como(ids.super), "papel_conceder", { p_usuario: ids.poli, p_papel: "coordenacao", p_disciplina: null }), "invalido:papel");
+await recusa("supervisão não mexe nos cargos da vice-coordenação", () => rpc(como(ids.super), "papel_conceder", { p_usuario: ids.vice, p_papel: "revisao", p_disciplina: null }), "sem_permissao");
+await recusa("supervisão não mexe nos cargos da coordenação", () => rpc(como(ids.super), "papel_conceder", { p_usuario: ids.coord, p_papel: "revisao", p_disciplina: null }), "sem_permissao");
+await recusa("supervisão não tira papel de quem está acima", async () => rpc(como(ids.super), "papel_remover", { p_id: (await rpc(como(ids.vice), "eu")).papeis.find((p) => p.papel === "vice").id }), "sem_permissao");
+await recusa("ninguém mexe nos próprios cargos: a supervisão", () => rpc(como(ids.super), "papel_conceder", { p_usuario: ids.super, p_papel: "revisao", p_disciplina: null }), "sem_permissao");
+await recusa("ninguém mexe nos próprios cargos: a vice-coordenação", () => rpc(como(ids.vice), "papel_conceder", { p_usuario: ids.vice, p_papel: "design", p_disciplina: null }), "sem_permissao");
+await recusa("ninguém mexe nos próprios cargos: a coordenação", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.coord, p_papel: "design", p_disciplina: null }), "sem_permissao");
+await espera("vice-coordenação confia papel de trabalho à supervisão, que está abaixo dela", async () => { await rpc(como(ids.vice), "papel_conceder", { p_usuario: ids.super, p_papel: "revisao", p_disciplina: null }); return rpc(como(ids.super), "eu"); }, (r) => r.papeis.length === 2 && r.nivel === 2);
+await recusa("vice-coordenação não tira a supervisão de ninguém", async () => rpc(como(ids.vice), "papel_remover", { p_id: (await rpc(como(ids.super), "eu")).papeis.find((p) => p.papel === "supervisao").id }), "sem_permissao");
+await recusa("vice-coordenação não mexe nos cargos de outra vice", async () => { const outra = await criarUsuario("vice2@teste.local", "Vilma Vice"); await rpc(como(outra), "eu"); await rpc(como(ids.coord), "papel_conceder", { p_usuario: outra, p_papel: "vice", p_disciplina: null }); ids.vice2 = outra; return rpc(como(ids.vice), "papel_conceder", { p_usuario: outra, p_papel: "revisao", p_disciplina: null }); }, "sem_permissao");
+await espera("a coordenação mexe em todos: dá e tira papel de trabalho da vice", async () => { await rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.vice2, p_papel: "revisao", p_disciplina: null }); const papel = (await rpc(como(ids.vice2), "eu")).papeis.find((p) => p.papel === "revisao"); await rpc(como(ids.coord), "papel_remover", { p_id: papel.id }); return rpc(como(ids.vice2), "eu"); }, (r) => r.papeis.length === 1 && r.papeis[0].papel === "vice");
+await espera("supervisão busca pessoas e lista voluntários, sem ver e-mail de ninguém", async () => [await rpc(como(ids.super), "pessoas_buscar", { p_busca: "polivalente" }), await rpc(como(ids.super), "pessoas_buscar", { p_busca: "poli@teste" }), await rpc(como(ids.super), "voluntarios_listar")],
+  ([porNome, porEmail, todos]) => porNome.length === 1 && porNome[0].id === ids.poli && porNome[0].email === "" && porNome[0].nivel === 1 && porEmail.length === 0 && todos.length > 10 && todos.every((p) => p.email === "" && typeof p.nivel === "number") && !JSON.stringify(todos).includes("@"));
+await espera("coordenação continua vendo o e-mail e o nível de cada pessoa", () => rpc(como(ids.coord), "voluntarios_listar"), (r) => r.find((p) => p.id === ids.poli).email === "poli@teste.local" && r.find((p) => p.id === ids.super).nivel === 2 && r.find((p) => p.id === ids.coord).nivel === 4);
+await recusa("supervisão não decide candidaturas (têm e-mail)", () => rpc(como(ids.super), "candidaturas_listar"), "sem_permissao");
+await recusa("supervisão não cria convite", () => rpc(como(ids.super), "convite_criar", { p: { email: "x@teste.local", papel: "revisao" } }), "sem_permissao");
+await recusa("quem não gere cargos não vê o histórico", () => rpc(como(ids.curadora), "papeis_historico_listar", { p_usuario: ids.poli }), "sem_permissao");
+await recusa("nem a supervisão (o histórico é da coordenação)", () => rpc(como(ids.super), "papeis_historico_listar", { p_usuario: ids.poli }), "sem_permissao");
+await espera("supervisão retira um papel, e o histórico guarda quem confiou e quem tirou", async () => {
+  const traducao = (await rpc(como(ids.poli), "eu")).papeis.find((p) => p.papel === "traducao");
+  await rpc(como(ids.super), "papel_remover", { p_id: traducao.id });
+  return [await rpc(como(ids.poli), "eu"), await rpc(como(ids.coord), "papeis_historico_listar", { p_usuario: ids.poli })];
+}, ([eu, historico]) => eu.papeis.length === 2 && historico.length === 3
+  && historico.find((h) => h.papel === "traducao").removido_por === nomes.super && typeof historico.find((h) => h.papel === "traducao").removido_em === "string"
+  && historico.filter((h) => h.papel !== "traducao").every((h) => h.removido_em === null && h.concedido_por === nomes.super && h.via === "authenticated"));
+await espera("perder o papel tira a pessoa do grupo daquele departamento e troca a chave dele", async () => {
+  const minima = (await dono("select versao_minima from interno.conversas where tipo = 'departamento' and departamento = 'traducao'")).rows[0].versao_minima;
+  return [await departamentosDe("poli"), minima];
+}, ([deps, minima]) => JSON.stringify(deps) === JSON.stringify(["geral", "jornalismo", "revisao"]) && minima >= 1);
+await espera("a sucessão automática entra no histórico como obra do sistema, não de quem abriu o painel", async () => {
+  const antes = (await dono("select count(*)::int as n from interno.papeis_historico where via = 'sistema'")).rows[0].n;
+  await rpc(como(ids.coord), "sucessao_definir", { p_usuarios: [ids.vice] });
+  await dono("update interno.perfis set visto_em = now() - interval '91 days' where id = $1", [ids.coord]);
+  await rpc(como(ids.prof), "eu");
+  const total = (await dono("select count(*)::int as n from interno.papeis_historico where via = 'sistema'")).rows[0].n;
+  const depois = (await dono("select via, removido_por, concedido_por from interno.papeis_historico order by id desc limit 2")).rows;
+  await rpc(como(ids.vice), "lideranca_passar", { p_usuario: ids.coord });
+  await dono("update interno.perfis set visto_em = now() where id = $1", [ids.coord]);
+  return [total - antes, depois];
+}, ([novas, depois]) => novas === 2 && depois.length === 2 && depois.every((h) => h.via === "sistema" && h.removido_por === null && h.concedido_por === null));
+await espera("papéis dados antes do histórico existir entram nele na instalação, uma vez só", async () => {
+  await dono("alter table interno.papeis disable trigger lucia_papeis_historico");
+  await dono("insert into interno.papeis (usuario, papel) values ($1, 'desenvolvimento')", [ids.poli]);
+  await dono("alter table interno.papeis enable trigger lucia_papeis_historico");
+  const semHistorico = (await dono("select count(*)::int as n from interno.papeis p where not exists (select 1 from interno.papeis_historico h where h.papel_id = p.id)")).rows[0].n;
+  await banco.instalarDeNovo();
+  await banco.instalarDeNovo();
+  const migrados = (await dono("select count(*)::int as n from interno.papeis_historico where via = 'migracao' and usuario = $1", [ids.poli])).rows[0].n;
+  const abertos = (await dono("select count(*)::int as n from interno.papeis_historico where usuario = $1 and removido_em is null", [ids.poli])).rows[0].n;
+  return [semHistorico, migrados, abertos, (await rpc(como(ids.poli), "eu")).papeis.length];
+}, (r) => r[0] === 1 && r[1] === 1 && r[2] === 3 && r[3] === 3);
+await espera("instalar de novo não perde nenhum papel de ninguém", async () => {
+  const antes = (await dono("select count(*)::int as n from interno.papeis")).rows[0].n;
+  await banco.instalarDeNovo();
+  return [antes, (await dono("select count(*)::int as n from interno.papeis")).rows[0].n];
+}, (r) => r[0] === r[1] && r[0] > 10);
+await recusa("ninguém edita o histórico pela API", () => banco.exclusivo(async () => { await banco.pg.exec("set role authenticated"); try { return await banco.pg.query("select * from interno.papeis_historico"); } finally { await banco.pg.exec("reset role"); } }), "permission denied");
+await espera("com a exigência de segundo fator ligada, a supervisão só gere cargos depois do código", async () => {
+  await rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: true });
+  try {
+    return [await rpc(como(ids.super), "voluntarios_listar").then(() => "passou", (e) => e.message), await rpc({ ...como(ids.super), aal: "aal2" }, "voluntarios_listar").then(() => "passou", (e) => e.message), (await rpc(como(ids.super), "eu")).exige_segundo_fator];
+  } finally {
+    await rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: false });
+  }
+}, (r) => r[0].includes("sem_permissao") && r[1] === "passou" && r[2] === true);
+await espera("a equipe pública mostra todos os papéis de quem tem vários, sem e-mail", () => rpc(anon, "equipe"), (r) => r.filter((m) => m.nome === nomes.poli).length === 3 && !JSON.stringify(r).includes("@"));
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);

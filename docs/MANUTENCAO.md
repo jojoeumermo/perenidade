@@ -204,7 +204,7 @@ O painel (`/painel`) é um ambiente à parte do site: ocupa a tela inteira, sem 
 | (início) | Mesa, Conversas, Mural da equipe | todos; conversas e mural, só quem tem função |
 | Produção | Escrever, Meus envios, Compartilhadas comigo, Fila de revisão, Triagem, Materiais e arquivos | conforme a função; a triagem, mediação, curadoria e coordenação |
 | Atendimento | Comunidade, Aula de reforço, Mural dos Trabalhadores, Boletim do jornal | conforme a função; o mural, coordenação e mediação |
-| Pessoas | Voluntários e convites, Horas e certificados | a primeira, só coordenação |
+| Pessoas | Voluntários e convites, Horas e certificados | a primeira, coordenação, vice e supervisão (a supervisão vê só Pessoas e Confiar função) |
 | Site | Controles do site, Aviso de abertura, Rádio, Apoiadores | só coordenação; a rádio, também o jornalismo |
 | Segurança | Segurança e sucessão, Registro de atividades | só coordenação |
 | Você | Minha conta (nome, senha, segundo fator, aparelhos) | todos |
@@ -217,12 +217,19 @@ A lista de seções e a regra de quem vê cada uma estão em um só lugar, no co
 
 ### Papéis
 
-Cada pessoa vê no painel só as seções da sua função. O banco confere a função de novo em cada pedido: esconder a seção é conforto, não é a proteção.
+Cada pessoa vê no painel só as seções das suas funções. O banco confere a função de novo em cada pedido: esconder a seção é conforto, não é a proteção.
+
+**Uma pessoa pode ter quantos papéis quiser** (jornalista e tradutora, educadora e curadora…): cada papel é uma linha em `interno.papeis`, e as permissões são a soma de todos (`interno.tem` responde "sim" se qualquer linha bater). Quem tem vários papéis entra no grupo de departamento de cada um; ao perder um papel, sai do grupo e a chave da conversa é trocada. No painel, os papéis aparecem como etiquetas em *Voluntários e convites → Pessoas* (com ✕ para retirar e "Confiar mais uma função"), na Mesa e na lista da equipe; no menu lateral, o principal e "+N". Quem já tem função pede outra pela Mesa ("Pedir outra função").
+
+**Hierarquia de cargos.** Coordenação (nível 4), vice-coordenação (3), supervisão (2) e os papéis de trabalho (1). O nível de uma pessoa é o maior entre os papéis dela. Quem gere cargos (coordenação, vice e supervisão) só confia papel de nível **menor** que o próprio e só mexe nos cargos de quem está **abaixo**; ninguém mexe nos próprios; a coordenação mexe em todos (menos nos próprios, e nunca tira a última coordenação). Por cima disso: vice e supervisão só a coordenação nomeia; curadoria e mediação (que exigem segundo fator) ficam com coordenação e vice. As regras estão em `interno.nivel`, `interno.nivel_de`, `interno.pode_conceder` e `interno.pode_mexer`, e valem em `papel_conceder`, `papel_remover`, `candidatura_decidir`, `inscricao_decidir` e `convite_criar`.
+
+**Histórico de cargos.** A tabela `interno.papeis_historico` guarda, para cada papel, quem confiou e quando e quem retirou e quando (gatilho `lucia_papeis_historico`; a sucessão automática entra como "sistema"). Os papéis que existiam antes do histórico entraram uma vez na instalação, como "migracao". A coordenação lê em *Pessoas → Histórico de funções* (`papeis_historico_listar`).
 
 | Papel (nome no banco) | Nome no site | O que pode |
 | --- | --- | --- |
 | `coordenacao` | coordenador | tudo: aprova voluntários, distribui funções e disciplinas, decide publicações, cuida do mural e da rádio, define a sucessão, lê o registro de atividades. Só existe um |
-| `vice` | vice-coordenador | o mesmo que a coordenação, menos: nomear ou tirar vice, passar a coordenação, mexer na sucessão, mudar a exigência de segundo fator, definir a sala da equipe e emitir certificados |
+| `vice` | vice-coordenador | o mesmo que a coordenação, menos: nomear ou tirar vice ou supervisão, passar a coordenação, mexer na sucessão, mudar a exigência de segundo fator, definir a sala da equipe e emitir certificados |
+| `supervisao` | supervisor | confia e retira os papéis de trabalho de quem está abaixo na hierarquia; vê a equipe sem e-mails. Não decide candidaturas, não convida, não suspende, não mexe em curadoria, mediação, vice nem coordenação. Exige segundo fator como as outras funções sensíveis |
 | `curadoria` | curadoria | lê a fila inteira, edita e decide; cuida da comunidade (fila de revisão, palavras vetadas) e pode fazer a triagem |
 | `mediacao` | mediador | acompanha a Comunidade e decide os casos de dúvida (aprova, edita, oculta ou libera mensagens); aprova, edita ou recusa anúncios do Mural dos Trabalhadores; faz a triagem das contribuições de fora (libera para a fila de revisão ou barra, com nota); decide anotações de leitura; bane a conta de quem passa do limite e, em caso extremo, a origem de rede (não bane gente da equipe, e só a coordenação desfaz). Não aprova conteúdo de ensino, não vê a fila de revisão, não mexe em pessoas, no filtro de palavras, nas denúncias nem nos controles do site |
 | `educacao` (por disciplina) | educador | escreve aulas da sua disciplina, vê a fila dela e dá parecer nas matérias do jornal |
