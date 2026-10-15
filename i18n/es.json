@@ -1467,7 +1467,19 @@
       "steps": "Paso a paso",
       "copy": "Copiar el paso a paso",
       "copied": "Copiado.",
-      "photo": "Foto del ejercicio",
+      "photo": {
+        "button": "Foto del ejercicio",
+        "label": "Tomar o elegir una foto del ejercicio",
+        "warning": "La foto va a un servicio de inteligencia artificial de otra empresa (Anthropic), que lee el ejercicio y explica la resolución. Fotografía solo el ejercicio, sin nombres ni rostros. El Instituto Lúcia no guarda la foto.",
+        "reading": "Leyendo la foto… puede tardar hasta un minuto.",
+        "read": "Lo que el asistente leyó en la foto",
+        "solveHere": "Resolver aquí, paso a paso",
+        "explanation": "Explicación del asistente",
+        "mayErr": "Lectura y explicación automáticas, que pueden contener errores. Revisa la transcripción antes de confiar en la cuenta.",
+        "refused": "El asistente no pudo ayudar con esta foto.",
+        "cut": "La explicación era demasiado larga y se cortó al final.",
+        "left": "Preguntas al asistente que te quedan hoy: {n}."
+      },
       "pct": {
         "de": "Cuánto es p% de un valor",
         "quanto": "Una parte es qué % del todo",
@@ -2223,7 +2235,15 @@
     "area_interditada": "Esta parte del sitio está cerrada por un tiempo. Inténtalo de nuevo más tarde.",
     "falta_termo": "Para publicar, acepta el término y escribe tu nombre completo.",
     "acesso_bloqueado": "Los envíos desde esta red fueron bloqueados por la mediación.",
-    "ja_pediu": "Ya enviaste esta solicitud; está en análisis."
+    "ja_pediu": "Ya enviaste esta solicitud; está en análisis.",
+    "assistente_desligado": "El asistente está apagado ahora. Pide refuerzo a un voluntario.",
+    "assistente_limite": "Ya usaste todas las preguntas al asistente de hoy. Mañana habrá más; mientras tanto, pide refuerzo a un voluntario.",
+    "assistente_lotado": "El asistente llegó al límite de preguntas del día para todo el sitio. Pide refuerzo a un voluntario o inténtalo mañana.",
+    "assistente_indisponivel": "El asistente no está disponible ahora. Inténtalo más tarde o pide refuerzo a un voluntario.",
+    "assistente_falhou": "El asistente no pudo responder ahora, y la pregunta no se descontó. Inténtalo de nuevo en un rato.",
+    "imagem": "No se pudo leer la imagen. Usa una foto en JPG, PNG o WebP.",
+    "pergunta_curta": "Escribe la duda con un poco más de detalle.",
+    "pergunta_longa": "La duda supera el tamaño máximo (3000 caracteres)."
   },
   "community": {
     "eyebrow": "Comunidad",
@@ -2381,7 +2401,26 @@
     "cancel": "Cancelar pedido",
     "cancelled": "Pedido cancelado.",
     "offline": "El refuerzo todavía no está activo en esta copia del sitio.",
-    "textOnly": "Solo texto: no se aceptan direcciones de sitios, imágenes ni archivos."
+    "textOnly": "Solo texto: no se aceptan direcciones de sitios, imágenes ni archivos.",
+    "suggestTitle": "Clases y entradas que pueden ayudar",
+    "assistant": {
+      "title": "¿No hay voluntario ahora? Pregúntale al asistente",
+      "lead": "Un asistente automático explica tu duda al momento, paso a paso, con lo que escribiste arriba. Puede equivocarse: compáralo con las clases y, si sigues con dudas, pide refuerzo a un voluntario justo abajo.",
+      "warning": "Antes de preguntar: tu duda (y la foto, si mandas una) va a un servicio de inteligencia artificial de otra empresa, Anthropic, con servidores fuera de Brasil. No escribas tu nombre, dirección, teléfono ni otros datos personales. El Instituto Lúcia no guarda la pregunta ni la respuesta.",
+      "login": "El asistente es para quien tiene cuenta.",
+      "loginLink": "Entrar o crear una cuenta",
+      "photo": "Adjuntar una foto del ejercicio (opcional)",
+      "removePhoto": "Quitar la foto",
+      "ask": "Preguntar al asistente",
+      "need": "Escribe tu duda arriba (o adjunta una foto) para preguntar.",
+      "asking": "El asistente está pensando… puede tardar hasta un minuto.",
+      "answer": "Respuesta del asistente",
+      "mayErr": "Respuesta automática, que puede contener errores. Compárala con las clases del sitio o pregúntale a un voluntario.",
+      "cut": "La respuesta era demasiado larga y se cortó al final.",
+      "refused": "El asistente no puede ayudar con esta pregunta. Envíala a un voluntario con el formulario de abajo.",
+      "left": "Preguntas que te quedan hoy: {n}.",
+      "toVolunteer": "¿Sigues con dudas? Pide refuerzo a un voluntario justo abajo: tu pregunta ya está escrita."
+    }
   },
   "materials": {
     "eyebrow": "Para imprimir y repartir",
