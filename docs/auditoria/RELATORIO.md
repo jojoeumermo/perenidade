@@ -1,162 +1,208 @@
-# Auditoria de segurança e de bugs — relatório parcial (14/10/2026)
+# Auditoria de segurança e de bugs — relatório final (15/10/2026)
 
-Trabalho feito pelas Fases 0, 1 e 2 completas e parte da Fase 3. **Nenhuma correção foi aplicada ao site**: o único
-código novo é o teste de fumaça (`scripts/testar-fumaca.mjs`). Nada foi publicado, nenhum push foi feito e o banco de
-produção não foi tocado (só leituras anônimas de configuração pública).
-
-- Pasta de trabalho: `C:\Users\0177\perenidade-auditoria` (git worktree), branch `auditoria-seguranca`.
-- Base: `81252f3` (o que estava em produção em `origin/master`).
-- Commits da auditoria: `db9a9c6` (testes de fumaça) e o commit deste relatório.
+- Pasta de trabalho: `C:\Users\0177\perenidade-auditoria` (git worktree), branch `auditoria-seguranca`, **sem push**.
+- A branch parte de `81252f3` (produção no início) e já tem o `master` atual juntado (merge `992c49c`). Por isso a
+  auditoria cobre também o que chegou depois: podcasts, rotas `/api`, painel novo.
+- Nada foi publicado, nenhum segredo foi trocado e o banco de produção não foi tocado. Em produção só foram feitas
+  leituras anônimas de configuração pública.
 
 ## 1. Resumo executivo
 
-| Gravidade | Encontrados | Corrigidos |
-| --- | --- | --- |
-| Crítico | 0 | 0 |
-| Alto | 2 | 0 |
-| Médio | 5 de segurança + 1 bug que impede uso | 0 |
-| Baixo | 7 de segurança + 6 bugs e ajustes | 0 |
+| Gravidade | Segurança: achados | corrigidos no código | Bugs: achados | corrigidos |
+| --- | --- | --- | --- | --- |
+| Crítico | 0 | 0 | 0 | 0 |
+| Alto | 2 | 1 | 0 | 0 |
+| Médio | 7 | 1 | 2 | 2 |
+| Baixo | 10 | 2 | 4 | 4 |
 
-O sistema está bem construído: todas as cerca de 200 funções do banco conferem o cargo de quem chama, as tabelas ficam
-fora do alcance da API, o conteúdo de usuário é escapado, os envios de arquivos são conferidos pelos bytes e limpos, e
-não há segredo real no código nem no histórico do git (nada a rotacionar por vazamento). Os dois problemas altos são:
-uma conta pode receber a função de outra pessoa porque o cadastro não confirma e-mail (S1), e o histórico público
-mostra dados internos (S2).
+**Corrigido na branch:**
+- histórico público vazando dados internos;
+- chave do banco e token do GitHub expostos à instalação de pacotes;
+- canal da mediação quebrado;
+- coordenação sem como tirar do ar um anúncio aprovado;
+- rádio aceitando endereço que não toca;
+- ações sem registro de atividades;
+- título e texto da tela Entrar;
+- guia de manutenção contraditório;
+- teste do podcast fora da verificação do GitHub.
+
+**Fica com você:**
+- configurações no Supabase e na Cloudflare (seção 3);
+- decisões que mudam o que as pessoas veem (seção 4).
+
+**O ponto mais urgente é o S1:** com o cadastro sem confirmação de e-mail, alguém pode receber a função de outra pessoa
+quando a coordenação aceita uma candidatura. A correção é uma chave no Supabase. O código já recusa o caso quando a
+chave está ligada, e isso está provado por um teste novo.
 
 ## 2. Tabela de achados
 
-Status: **pendente** = ainda não corrigido; **decisão** = precisa da sua escolha antes; **manual** = só você pode fazer.
+Status:
+- **corrigido** = na branch, com teste;
+- **manual** = configuração que só você faz;
+- **decisão** = precisa da sua escolha;
+- **pendente** = não feito;
+- **recomendação** = melhoria sem urgência.
 
 ### Segurança
 
-| ID | Gravidade | Onde | O problema | Como poderia ser explorado | Status |
+| ID | Grav. | Onde | O problema | Como seria explorado | Status |
 | --- | --- | --- | --- | --- | --- |
-| S1 | ALTO | `supabase/install.sql`, função `inscricao_decidir` (por volta da linha 3389) + configuração do Supabase | Em produção o cadastro não confirma o e-mail (`mailer_autoconfirm: true`, conferido em `/auth/v1/settings`). Quando a coordenação aceita uma candidatura do formulário público, a função vai direto para a conta que já existe com aquele e-mail. | Alguém cria conta com o e-mail de outra pessoa e manda uma candidatura em nome dela (ou espera a candidatura verdadeira). Ao aceitar, a coordenação dá curadoria, mediação etc. ao invasor. | decisão + manual |
-| S2 | ALTO | `lib/history.ts`, `app/[lang]/historico/page.tsx`, `app/[lang]/page.tsx` (três últimas mudanças) | A página pública de histórico mostra a mensagem de cada commit que tocou `content/`: nomes de branches internas ("Merge branch 'master' into moderacao"), descrições internas ("segunda avaliação por serviço de moderação, desligada de nascença", no ar agora) e o hash do commit no código da página. | Quem estuda o site para atacar aprende como ele funciona por dentro. | pendente (correção já autorizada por você) |
-| S3 | MÉDIO | `voluntariar` e `reforco_pedir` em `install.sql` | O site manda e-mail, sem conta e sem verificação, para qualquer endereço digitado, repetindo um texto do visitante (o nome, até 120 letras; o assunto do reforço, até 140; `https://` é barrado, mas `site.com/x` passa). Não há teto diário geral. | Phishing com o nome e o domínio do instituto; prejudicar a reputação do domínio; gastar a cota do Resend e travar os convites. | decisão |
-| S4 | MÉDIO | `.github/workflows/publicar.yml` | A chave `service_role` (acesso total ao banco) está no `env` do job inteiro, inclusive em `npm ci` (scripts de instalação de 475 pacotes) e `npm run build`. | Um pacote comprometido, atualizado pelo Dependabot, leria a chave. | pendente (correção simples: pôr o `env` só nos dois passos `npm run sincronizar`) |
-| S5 | MÉDIO | `components/painel/Painel.tsx:530`, `components/SignIn.tsx:203` | Trocar a senha não pede a senha atual. | Quem pega um aparelho com o painel aberto troca a senha e fica com a conta. | manual (ligar "Secure password change" no Supabase) |
-| S7 | MÉDIO | `interno.origem()` em `install.sql` (linha 824) | A "origem de rede" guardada é `md5('lucia:' + IP)`, que se reverte em minutos (espaço do IPv4). A página de privacidade diz que o endereço de rede não é guardado. | Quem tiver acesso ao banco descobre o IP de cada conta (LGPD). | decisão |
-| S8 | MÉDIO (a confirmar) | `interno.origem()` | Os limites para visitante sem conta e o banimento por origem usam `cf-connecting-ip`; se esse cabeçalho não chegar ao banco, vale o primeiro `X-Forwarded-For`, que o visitante pode forjar. | Contornar limites de envio e banimento por origem. | pendente (confirmar exige um teste que grava contadores em produção; não foi feito) |
-| S6 | BAIXO | dependências | `npm audit`: 5 alertas "high", todos na cadeia do ESLint (`braces`, `micromatch`, `fast-glob` via `eslint-config-next`). Só desenvolvimento, não vai para o site. O npm só sugere rebaixar para o Next 14. | Nenhum efeito no site. | pendente (só acompanhar) |
-| S9 | BAIXO | `next.config.ts` | A CSP aceita script embutido (`'unsafe-inline'`), exigido pelas páginas estáticas do Next. | Só teria efeito junto com uma falha de XSS (nenhuma encontrada). | recomendação |
-| S10 | BAIXO | `supabase/functions/avaliar-comunidade` | A ação "recuperar" pode ser disparada por qualquer pessoa (limitada a 3 tentativas por mensagem). A função nem está publicada. | Chamadas extras ao serviço de moderação. | pendente |
-| S11 | BAIXO | várias funções | Não entram no registro de atividades: `apoiador_salvar/remover`, `radio_canal_*`, `radio_faixa_*`, `denuncia_resolver`, `anotacao_decidir`, `mural_remover` feito pela coordenação. | Falta rastro de quem fez. | pendente |
-| S12 | BAIXO | `papel_conceder` | A vice dá "curadoria" diretamente, mas não pode fazer isso por convite nem por candidatura. | Regra inconsistente. | decisão |
-| S13 | BAIXO | `perfil_salvar` | Qualquer conta pode se chamar "Coordenação" ou usar o nome de alguém da equipe. | Imitação na Comunidade (as respostas da equipe têm selo, o que ajuda). | decisão |
-| S14 | BAIXO | respostas do banco | O texto cru de alguns erros do banco (nome de tabela e de restrição) volta na resposta HTTP. A tela mostra "Algo deu errado". | Ajuda quem estuda o sistema por fora. | pendente |
-| S15 | BAIXO | `.github/workflows/*.yml` | Ações fixadas por versão (`@v5`), não por hash do commit. | Ataque à cadeia de fornecimento. | recomendação |
+| S1 | ALTO | Supabase (`mailer_autoconfirm: true`, conferido) + `inscricao_decidir` | O cadastro não confirma e-mail. Aceitar a candidatura de quem "já tem conta" dá a função a essa conta. | Criar conta com o e-mail de alguém que se candidatou (ou candidatar-se em nome de uma pessoa conhecida) e receber curadoria ou mediação. | manual (seção 3) + teste novo provando que o banco recusa com a confirmação ligada |
+| S2 | ALTO | `lib/history.ts`, `/historico`, página inicial | O histórico mostrava mensagens de commit (nomes de branches, descrições internas de moderação e segundo fator) e o código do commit. | Mapa do funcionamento interno para quem prepara um ataque. | **corrigido** (`fe13e63`): só "Aulas: 12 · Obras: 73" por dia; o site nem lê mais mensagem, autor ou código |
+| S3 | MÉDIO | `voluntariar`, `reforco_pedir` | O site manda e-mail para qualquer endereço com o texto do visitante (nome; assunto do reforço). Não há teto diário geral. | Phishing com o domínio do instituto; gastar a cota do Resend e travar os convites. | decisão |
+| S4 | MÉDIO | `.github/workflows/publicar.yml` | A chave `service_role` e o token de escrita do GitHub ficavam ao alcance do `npm ci` e do build. | Um pacote comprometido leria a chave do banco ou faria push no `master` (que publica). | **corrigido** (`f9646e8`); conferir na primeira rodada (seção 5) |
+| S5 | MÉDIO | troca de senha no painel | Não pede a senha atual. | Um aparelho com o painel aberto vira conta tomada. | manual ("Secure password change") |
+| S7 | MÉDIO | `interno.origem()` | A origem de rede é guardada como `md5('lucia:'+IP)`, reversível em minutos. A página de privacidade diz que o IP não é guardado. | Quem acessar o banco descobre o IP de cada conta (LGPD). | decisão |
+| S8 | MÉDIO (a confirmar) | `interno.origem()` | Sem o cabeçalho `cf-connecting-ip`, o banco usa o 1º `X-Forwarded-For`, que o visitante forja. | Contornar o limite de envios e o banimento por origem. | manual (teste na seção 3) |
+| N1 | MÉDIO | `app/api/*` (do master) | As rotas de servidor que consultam serviços de fora não têm limite de pedidos. Basta variar a busca para furar o cache. | Gastar a cota do Google Fact Check e as execuções da Vercel. | manual (regra de limite na Cloudflare) |
+| N2 | MÉDIO | depósito `podcast-producao`, pasta `perguntas/` (do master) | Qualquer conta (o cadastro é aberto) envia arquivos de até 50 MB na própria pasta, sem limite de quantidade, inclusive zip, PDF e vídeo. | Encher o armazenamento do Supabase e parar os envios da equipe. | decisão |
+| S6 | BAIXO | dependências | `npm audit`: 5 alertas "high", todos na cadeia do ESLint (só desenvolvimento). Não há correção compatível. | Nenhum efeito no site. | PGlite atualizado (`5d7c4b7`); o resto só acompanhar |
+| S9 | BAIXO | `next.config.ts` | A CSP aceita script embutido (`unsafe-inline`), exigido pelas páginas estáticas do Next. | Só pesaria junto com um XSS (nenhum encontrado). | recomendação |
+| S10 | BAIXO | `avaliar-comunidade` (**agora publicada em produção**) | Qualquer um, até sem conta, dispara a reavaliação das mensagens pendentes. | Chamadas extras à OpenAI e ao Safe Browsing (no máximo 3 por mensagem). | recomendação |
+| S11 | BAIXO | várias funções | Apoiadores, rádio, denúncias, anotações e o apagamento de anúncio alheio não deixavam rastro. | Sem rastro de quem mudou o que o público vê. | **corrigido** (`d45b903`) |
+| S12 | BAIXO | `papel_conceder` | A vice dá curadoria diretamente, mas não por convite nem por candidatura. | Regras divergentes. | decisão |
+| S13 | BAIXO | `perfil_salvar` | Qualquer conta pode usar o nome "Coordenação" ou o de alguém da equipe. | Imitar a equipe na Comunidade. | decisão |
+| S14 | BAIXO | erros do banco | Texto cru de erro (nome de restrição e de tabela) volta na resposta HTTP. | Ajuda quem estuda o sistema. | recomendação |
+| S15 | BAIXO | workflows | Ações fixadas por versão, não por hash. | Ataque à cadeia de fornecimento. | recomendação |
+| N3 | BAIXO | `lib/externo.ts` (do master) | A lista de destinos permitidos vale para o 1º endereço, mas os redirecionamentos são seguidos. | SSRF por redirecionamento (pouco provável com os serviços da lista). | recomendação |
+| N4 | BAIXO | `ci.yml` | `testar:podcast` não rodava na verificação do GitHub. | Erro no podcast passaria sem aviso. | **corrigido** (`4eab3ec`) |
 
 ### Bugs funcionais
 
-| ID | Gravidade | Onde | O problema | Status |
+| ID | Grav. | Onde | O problema | Status |
 | --- | --- | --- | --- | --- |
-| F1 | MÉDIO | `install.sql`, tabela `interno.equipe_mensagens` e função `equipe_escrever` | O canal "mediação" do Mural da equipe aparece para quem pode vê-lo, mas toda mensagem nele dá erro (a restrição `equipe_mensagens_canal_check` não inclui `mediacao`). No canal "pedidos" não dá para pedir ajuda à mediação. Reproduzido no banco de teste. | pendente |
-| F2 | BAIXO | `radio_faixa_salvar` | Aceita faixa com endereço `http://`, mas o navegador bloqueia (página em https e CSP `media-src https:`). A faixa não toca. | pendente |
-| F3 | BAIXO | `/pt/jornal` | Única página do site sem título principal (`<h1>`). | pendente |
-| F4 | BAIXO | `components/SignIn.tsx` | Os campos de e-mail e senha não estão ligados ao rótulo: o leitor de tela não diz o que é cada campo. | pendente |
-| F5 | BAIXO | tela Entrar | Enquanto carrega, aparece por um instante "as contas são criadas por convite", embora o cadastro esteja aberto. | pendente |
-| F6 | decisão | navegação pública | O Mural dos Trabalhadores só tem link no rodapé e na página "Mais" (`/explorar`), nada no cabeçalho nem na barra do celular. É a causa do "escondido demais". Mudar a navegação é mudança visível. | decisão |
-| F7 | BAIXO | `docs/MANUTENCAO.md` | O guia se contradiz: a seção 6, item 6, manda **desligar** "Confirm email", e a seção "Cadastro aberto" manda **manter ligada**. A seção 15 diz que só a coordenação aprova o mural, mas a mediação também aprova. | pendente |
-| F8 | informação | Supabase de produção | A função `avaliar-comunidade` não está publicada (responde 404). Como a segunda avaliação nasce desligada, nada quebra, mas o botão "Testar agora" do painel vai falhar. | informação |
-| F9 | pendente | aplicativo | "Giro de notícias ausente no app": o código do aplicativo Android não está neste repositório, então não foi investigado. | pendente |
+| F1 | MÉDIO | Mural da equipe | O canal "mediação" aparecia, mas toda mensagem dava erro. Pedir ajuda à mediação também falhava. | **corrigido** (`a98aabd`) |
+| F10 | MÉDIO | Painel → Mural dos Trabalhadores | O guia diz que a coordenação retira do ar um anúncio aprovado, mas o painel só listava pendentes. Só saía pelo SQL. | **corrigido** (`552734e`): aba "No ar" e botão "Retirar do ar" com motivo, sem apagar nada |
+| F2 | BAIXO | Rádio | Faixa `http://` era aceita e nunca tocava (a página é https). | **corrigido** (`8b0b33e`) |
+| F3 | BAIXO | `/pt/jornal` | Única página sem título principal. | **corrigido** (`af5a136`), escondido na tela |
+| F5 | BAIXO | Entrar | Por um instante dizia "contas só por convite", embora o cadastro esteja aberto. | **corrigido** (`4e5d423`) |
+| F7 | BAIXO | `docs/MANUTENCAO.md` | Contradições (desligar ou ligar "Confirm email"; quem aprova o mural). | **corrigido** (`c714f2b`) |
+| F6 | decisão | navegação | O Mural dos Trabalhadores só tem link no rodapé e em "Mais". É o "escondido demais". | decisão |
+| F9 | pendente | aplicativo | "Giro de notícias ausente no app": o código do app Android não está neste repositório. | pendente |
+| F4 | — | Entrar | Rótulos dos campos: falso alarme da ferramenta de leitura; os campos têm rótulo. | descartado |
+| F8 | — | produção | A segunda avaliação da Comunidade não estava publicada; foi publicada pelo master. | resolvido |
 
 ## 3. O que você precisa fazer à mão (em ordem de urgência)
 
-1. **Até S1 ser corrigido no código**, ao aceitar uma candidatura em *Voluntários e convites → Candidaturas*: se a
-   linha mostrar que a pessoa "já tem conta", confirme com ela pelo e-mail informado, antes de aceitar, que foi ela
-   quem criou a conta.
-2. **Ligar a confirmação de e-mail** (S1): Supabase → Authentication → Sign In / Providers → Email → ligar
-   "Confirm email". Antes, configure o SMTP do Resend (Authentication → SMTP Settings, como em `docs/MANUTENCAO.md`,
-   "E-mails automáticos"), senão as confirmações não chegam. Contas antigas continuam valendo.
-3. **Pedir a senha atual na troca de senha** (S5): Supabase → Authentication → Sign In / Providers → Email → ligar
-   "Secure password change" (o nome do menu pode variar).
-4. **Conferir o captcha** (proteção contra força bruta): Supabase → Authentication → Attack Protection → captcha com
-   Turnstile ligado. Só dá para ver no painel; de fora não consegui confirmar.
-5. **Nenhuma chave precisa ser rotacionada**: não houve vazamento de segredo. A chave `anon` e a site key do Turnstile
-   que aparecem no navegador são públicas por natureza.
+1. **Até ligar a confirmação de e-mail:** antes de aceitar uma candidatura em *Voluntários e convites → Candidaturas*
+   que mostre "já tem conta", confirme com a pessoa, pelo e-mail informado, que a conta é dela. Para conferir as que já
+   foram aceitas por esse caminho, rode no SQL Editor (só leitura):
+   `select criado_em, alvo, detalhes from interno.auditoria where acao = 'inscricao_aceita' and detalhes ->> 'convite' = 'false' order by criado_em desc;`
+2. **Supabase → Authentication → Sign In / Providers → Email:**
+   - ligue **"Confirm email"** (antes, configure o SMTP do Resend, como no guia, seção "E-mails automáticos");
+   - ligue **"Secure password change"**.
+
+   Isso fecha S1 para contas novas e S5.
+3. **Supabase → Authentication → Attack Protection:** confira que o captcha (Turnstile) está ligado. De fora não dá
+   para ver.
+4. **Cloudflare → Security → WAF → Rate limiting rules:** crie uma regra para o caminho `/api/` (por exemplo, 60
+   pedidos por minuto por IP, ação "Block" por 10 minutos). Fecha N1.
+5. **Depois de juntar a branch ao `master`:**
+   - rode `supabase/install.sql` inteiro no SQL Editor. Vale para F1, F2 e S11; não apaga nada e pode ser rodado de novo;
+   - em *Actions → Publicar contribuições aprovadas → Run workflow*, rode uma vez para confirmar que o push continua
+     funcionando com a mudança do S4.
+6. **S8 (opcional), conferir se a origem pode ser forjada:** em um terminal, rode 25 vezes a conferência pública de
+   certificado com um `X-Forwarded-For` diferente a cada vez:
+   `for i in $(seq 1 25); do curl -s -X POST https://yuciphgaejrkamvwllcb.supabase.co/rest/v1/rpc/certificado_conferir -H "apikey: <chave anon>" -H "Content-Type: application/json" -H "X-Forwarded-For: 10.0.0.$i" -d '{"p_codigo":"X"}'; echo; done`
+   - se a 21ª resposta for `muitos_pedidos`, a origem não é forjável e o S8 está fechado;
+   - se nunca for, me avise: a correção é trocar a origem para só `cf-connecting-ip`.
+7. **Nenhuma chave precisa ser trocada:** não houve vazamento de segredo no código nem no histórico.
 
 ## 4. Decisões pendentes
 
 | Decisão | Opções | Prós e contras |
 | --- | --- | --- |
-| S1: aceitar candidatura de quem já tem conta | (a) Não dar a função direto: mandar ao e-mail um link de confirmação que a pessoa abre já logada. (b) Recusar o aceite automático e pedir que a coordenação dê a função à mão em *Confiar função*, depois de confirmar. (c) Só a configuração do item 2 da seção 3. | (a) fecha de vez, mas é um fluxo novo de tela e de e-mail. (b) é uma mudança pequena no banco e na mensagem, com um passo a mais para a coordenação. (c) não protege contas criadas antes da mudança. Recomendação: (c) agora e (b) no código. |
-| S3: e-mails para endereço não verificado | Tirar dos e-mails de confirmação o texto escrito pelo visitante ("Olá." no lugar de "Olá, <nome>"; "seu pedido de reforço de Matemática" no lugar do assunto) e criar um teto diário por tipo de e-mail. | Muda um pouco o texto dos e-mails. Corta o uso do site como disparador de phishing. |
-| S7: origem de rede | Trocar o `md5` por um resumo com uma chave secreta sorteada na instalação. | Os banimentos por origem que já existem deixam de valer (seria preciso banir de novo) e os contadores recomeçam. Em troca, o banco deixa de guardar algo equivalente ao IP. |
-| F6: Mural dos Trabalhadores | Pôr o link no cabeçalho ou na barra do celular, ou dar destaque na página inicial. | É mudança de navegação e de layout. A regra da casa evita mexer no cabeçalho. |
-| S12 e S13 | Alinhar a regra da vice. Proibir nomes como "Coordenação" e o nome de alguém da equipe. | Pequenas; mudam o que uma pessoa pode fazer. |
+| S1, além da configuração | (a) Aceitar candidatura de quem já tem conta passa a pedir que a pessoa confirme, logada, por um link enviado ao e-mail. (b) Recusar o aceite automático e a coordenação dá a função à mão, depois de confirmar. | (a) fecha de vez, mas é fluxo novo de tela e de e-mail. (b) é pequena e acrescenta um passo à coordenação. Com a confirmação ligada (seção 3), o risco cai bastante; (b) protege as contas antigas. |
+| S3, e-mails para endereço não verificado | Tirar o texto do visitante desses e-mails ("Olá." no lugar de "Olá, <nome>"; "seu pedido de reforço de Matemática" no lugar do assunto) e criar um teto diário por tipo. | O texto dos e-mails muda um pouco, e o site deixa de servir como disparador de phishing. O teto precisa caber no seu plano do Resend. |
+| S7, origem de rede | Trocar `md5` por resumo com chave secreta sorteada. | Os banimentos por origem já existentes deixam de valer e os contadores zeram. Em troca, o banco deixa de guardar algo equivalente ao IP (LGPD). |
+| N2, perguntas gravadas do podcast | Só áudio e no máximo N arquivos por conta na pasta `perguntas/`, ou só para quem tem pergunta aberta. | Fecha o abuso de armazenamento. É preciso testar no Supabase de verdade (o banco local não simula esse depósito). |
+| F6, Mural dos Trabalhadores | Link no cabeçalho ou na barra do celular, ou destaque na página inicial. | Mudança de navegação e de layout (a regra da casa protege o cabeçalho). |
+| S10 | A reavaliação passa a exigir conta logada. | Quem tem direito de pedir já está logado. Exige publicar a função de novo. |
+| S12, S13 | Alinhar a regra da vice. Reservar nomes da equipe e "Coordenação". | Pequenas; mudam o que uma pessoa pode fazer. |
 
 ## 5. Como publicar com segurança
 
-1. Cada correção vai num commit separado na branch `auditoria-seguranca`, com `npm run testar:banco`,
-   `npm run testar:fumaca`, `npm run lint` e `npm run typecheck` passando. Antes de juntar, rode `npm run build`
-   (cerca de 15 a 30 minutos) e `npm run testar:fumaca -- http://localhost:<porta>` com `npm start`.
-2. **Push no `master` publica em produção na hora (Vercel).** Abra um pull request da branch: a verificação do
-   GitHub (`ci.yml`) roda tudo, inclusive a fumaça. A rotina "Publicar contribuições aprovadas" também faz push no
-   `master` de hora em hora, então traga o `master` atualizado para a branch antes de juntar.
-3. **Mudanças no banco** (`supabase/install.sql`): o arquivo pode ser rodado de novo sem apagar dados. Ordem segura:
-   se a função nova continua compatível com o site atual, rode o SQL no SQL Editor primeiro e publique o site depois.
-   Se o site novo depende do SQL novo, publique os dois juntos: o SQL logo antes do merge.
-4. **Depois de publicar**, confira: página inicial, acervo, uma aula, `/pt/historico`, entrar e sair, a Comunidade
-   (ler e escrever) e o painel com a sua conta (Mesa, Fila, Voluntários).
-5. **Para voltar atrás**: o site volta na Vercel, em Deployments → versão anterior → "Promote to Production", ou com
-   `git revert` do merge. O SQL não se desfaz sozinho: rode no SQL Editor a versão anterior das funções alteradas,
-   tirada do histórico do git (`git show <commit>~1:supabase/install.sql`).
+1. **Antes:** traga o `master` mais novo para a branch (ele anda rápido) e rode `npm run lint`, `typecheck`,
+   `conferir:i18n`, `testar:banco`, `testar:moderacao`, `testar:emails`, `testar:podcast` e `testar:fumaca`.
+2. **Enviar:** `git push -u origin auditoria-seguranca` e abra um pull request. A verificação do GitHub roda tudo,
+   inclusive o build. A Vercel pode criar uma prévia da branch.
+3. **Juntar:** juntar no `master` publica o site na hora (Vercel).
+4. **Banco:** logo depois, rode `supabase/install.sql` no SQL Editor. As mudanças funcionam com o site novo e com o
+   antigo (alargam uma regra, acrescentam registros, recusam rádio http), então a ordem não quebra nada.
+5. **Conferir em produção:**
+   - página inicial;
+   - `/pt/historico` ("Aulas: … · Obras do acervo: …", sem nomes de branch);
+   - uma aula, o acervo e a busca;
+   - entrar e sair;
+   - Comunidade (ler e escrever);
+   - Painel → Mural dos Trabalhadores (abas "Esperando decisão" e "No ar");
+   - Mural da equipe → canal "mediação" (com uma conta de mediação);
+   - *Actions → Publicar contribuições aprovadas → Run workflow* (deve terminar verde).
+6. **Desfazer:**
+   - site: Vercel → Deployments → versão anterior → "Promote to Production", ou `git revert` do merge;
+   - rotina de publicação: se falhar, reverta só o commit `f9646e8`;
+   - banco: rode no SQL Editor a versão anterior das funções alteradas (`git show 81252f3:supabase/install.sql`).
+     Nada foi apagado.
 
 ## 6. Recomendações para depois
 
-- Teste automatizado da navegação do painel por cargo (hoje feito à mão, com `docs/auditoria/percorrer-painel.js`).
-- CSP sem `'unsafe-inline'` (hashes ou nonces), primeiro em modo `Report-Only`.
-- Fixar as ações do GitHub por hash e rodar `npm ci --ignore-scripts` onde a instalação não precisa de scripts.
-- Teto diário geral para cada tipo de e-mail automático e alerta para a coordenação quando ele for atingido.
-- Repositório privado com código sob AGPL: a licença pede que quem usa o site possa obter o código. Vale publicar o
-  repositório (depois de corrigir S1 a S4) ou indicar no site onde o código pode ser pedido.
-- `/pt/acervo` entrega 552 KB de HTML de uma vez (as 881 obras). Ainda é aceitável, mas paginar ou carregar por
-  partes ajuda em celular fraco.
+- CSP sem `unsafe-inline` (hashes), primeiro como `Report-Only`.
+- `redirect: "manual"` em `lib/externo.ts`, tratando o redirecionamento como falha (N3).
+- Ações do GitHub fixadas por hash. `npm ci --ignore-scripts` onde a instalação não precisa de scripts.
+- Teto diário geral por tipo de e-mail e aviso à coordenação quando ele for atingido (S3).
+- Teste automático de navegador do painel por cargo (hoje feito com `docs/auditoria/percorrer-painel.js`).
+- Monitoramento:
+  - alerta para `armadilha` e `isca` no registro de atividades;
+  - alerta para e-mails falhando;
+  - alerta para cota da transcrição.
+- O código é AGPL e o repositório é privado: a licença pede que quem usa o site possa obter o código.
+- Auditar o aplicativo Android quando o código estiver acessível (F9).
+- `/pt/acervo` entrega 552 KB de HTML de uma vez; paginar ajuda em celular fraco.
 
-## 7. Onde continuar (para a próxima sessão)
+## 7. Linha de base e verificação final
 
-**Já feito**
+| Conferência | Antes (81252f3) | Depois (branch com master juntado) |
+| --- | --- | --- |
+| `lint`, `typecheck`, `conferir:i18n` | passam | passam |
+| `testar:banco` | 665 | 676 |
+| `testar:moderacao` | 20 | 30 |
+| `testar:emails` | 13 | 19 |
+| `testar:podcast` | não existia | 106 |
+| `testar:fumaca` (só banco) | 68 | 68 |
+| `testar:fumaca` com as páginas do site montado | 106 | ver seção 8 |
+| `build` | passa | ver seção 8 |
 
-- Fase 0: mapa do projeto.
-- Fase 1: linha de base, tudo passando:
+Em cada lado, todas as conferências passam (0 falhas). O "depois" tem mais conferências porque inclui testes novos do
+master e da auditoria.
 
-  | Conferência | Resultado |
-  | --- | --- |
-  | `testar:banco` | 665 |
-  | `testar:moderacao` | 20 |
-  | `testar:emails` | 13 |
-  | `testar:fumaca` | 106, com páginas |
-  | `lint` e `typecheck` | passam |
-  | `build` | passa |
+**O que foi percorrido no navegador** (banco de teste local, contas falsas):
 
-- Fase 2 completa.
-- Fase 3, parte já feita:
-  - Rastreio das 2.193 páginas em português do site montado: nenhum link quebrado; todas as imagens com `alt`; só
-    `/pt/jornal` sem `<h1>`; nenhuma página acima de 600 KB.
-  - Percurso do painel com a **coordenação**: as 22 seções e todas as abas abrem sem erro na tela e sem nenhuma
-    chamada falhando.
-  - Os únicos erros de console vêm de `/auth/v1/passkeys`, que o banco de teste local não simula.
+- **Painel, com os 10 cargos:** coordenação, vice, curadoria, educador, mentoria, design, jornalismo, revisão, mediação
+  e comunidade. Cada seção e cada aba abriu sem erro na tela e sem chamada recusada. As ações que o banco nega a um
+  cargo também não aparecem na tela desse cargo.
+- **Formulários públicos, todos salvando:** anúncio no mural (e retirada pelo código), reforço, denúncia, contribuição,
+  candidatura, boletim, criar conta e publicar na Comunidade.
+- **Celular (375 px):** 15 páginas e o painel sem rolagem lateral.
+- **Teclado:** existe o link "pular para o conteúdo" e a marcação de foco.
+- **Links:** nenhum quebrado nas 2.193 páginas em português.
 
-**Falta da Fase 3**
+## 8. Fase 6: build final e páginas
 
-1. Percorrer o painel com os outros 9 cargos: vice, curadora, prof, mentora, designer, jornal, revisor, mediador e
-   leitora. Como fazer:
-   - `npm run dev:local 3201` (ou a configuração `auditoria-painel` em `.claude/launch.json` da pasta principal);
-   - `node docs/auditoria/semear.mjs` para criar dados de teste;
-   - no navegador, colar `docs/auditoria/percorrer-painel.js` e seguir as instruções do topo do arquivo.
-2. Testar no navegador os formulários públicos: contribuir, mural, reforço, denunciar, boletim, voluntariado, criar
-   conta.
-3. Conferir celular (rolagem lateral em 375 px) e navegação por teclado.
-4. Itens já conhecidos: as "funções do painel que não funcionam" e os "cargos que não funcionam como deveriam" precisam
-   do percurso do item 1. O giro de notícias no app precisa do código do aplicativo.
+- `npm run build` com o master juntado: **passou** (31 min, 10.940 páginas, nenhum erro).
+- `testar:fumaca` contra o site montado: **108 conferências, 0 falhas**. Isso inclui o teste novo do histórico, que
+  falhava antes da correção do S2.
+- **Ficou por terminar** (limite de uso atingido):
+  - o rastreio de links no build final, que estava rodando;
+  - o percurso do painel *redesenhado* do master com cada cargo. O percurso antes da junção passou com os 10 cargos, e a
+    seção do Mural dos Trabalhadores foi conferida na tela.
 
-**Depois**: Fase 4 (prioridade, já adiantada nas tabelas acima), Fase 5 (corrigir na ordem S2, S4, F1, S1-código, S3,
-S11, F2-F5; sempre teste primeiro, correção mínima e um commit por item) e Fase 6 (verificação final).
+  Para concluir, rode `docs/auditoria/rastrear.mjs` e `docs/auditoria/percorrer-painel.js` (instruções no topo de cada
+  arquivo). No painel novo, o script pode precisar de ajuste no seletor do título.
 
-**Cuidados**
+## 9. Ferramentas da auditoria (`docs/auditoria/`)
 
-- Há outras sessões do Claude editando `C:\Users\0177\perenidade` ao mesmo tempo. Trabalhe só no worktree.
-- O build local leva de 15 a 30 minutos: rode em segundo plano.
-- Mudanças no Supabase de produção ficam com você. As sessões só entregam o passo a passo.
-- `docs/auditoria/` é material da auditoria: pode ser apagado antes de juntar a branch ao `master`.
+- `semear.mjs`: dados de teste no banco local.
+- `rastrear.mjs`: links quebrados, páginas sem `<h1>`, imagens sem `alt`.
+- `percorrer-painel.js`: percorre o painel por cargo no navegador.
+
+Podem sair antes de juntar ao `master`.
