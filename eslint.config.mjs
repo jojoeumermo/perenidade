@@ -18,6 +18,10 @@ const eslintConfig = defineConfig([
     "public/php/**",
     // Função que roda no serviço de contas (Deno), fora do site.
     "supabase/functions/**",
+    // Pastas de trabalho das ferramentas de desenvolvimento (podem conter cópias do projeto já montadas).
+    ".claude/**",
+    // O painel de monitoramento tem o próprio projeto, com a própria configuração.
+    "sentinela/**",
   ]),
 ]);
 
