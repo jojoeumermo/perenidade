@@ -134,7 +134,7 @@ A inscrição é paga, mas muita gente tem direito a **não pagar**. Nas regras 
 - quem está inscrito no **CadÚnico**;
 - participantes do programa Pé-de-Meia.
 
-**A isenção não é automática.** É preciso pedir, em um prazo que abre e fecha **antes** das inscrições, e depois fazer a inscrição normalmente. Muita gente perde a prova gratuita porque só descobre isso tarde demais. A próxima aula trata do passo a passo.
+**A isenção não é automática.** É preciso pedir, em um prazo que abre e fecha **antes** das inscrições, e depois fazer a inscrição normalmente. Muita gente perde a prova gratuita porque só descobre isso tarde demais. (Em 2026, o edital previu uma exceção: o concluinte de escola pública que não se inscrevesse no prazo seria inscrito automaticamente.) A próxima aula trata do passo a passo.
 
 ```verificar
 Uma estudante do 3º ano de escola pública tem direito à isenção. O que ela precisa fazer?
