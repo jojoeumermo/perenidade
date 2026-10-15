@@ -1173,7 +1173,7 @@ await recusa("vice-coordenação não mexe na tabela de horas", () => rpc(como(i
 await recusa("tipo de trabalho inventado não entra na tabela", () => rpc(como(ids.coord), "horas_pesos_salvar", { p: { churrasco: 2 } }), "invalido:tabela");
 await recusa("nenhum trabalho vale mais de doze horas", () => rpc(como(ids.coord), "horas_pesos_salvar", { p: { aula: 13 } }), "invalido:aula");
 await espera("o coordenador ajusta quanto vale uma aula", () => rpc(como(ids.coord), "horas_pesos_salvar", { p: { aula: 6 } }), (r) => Number(r.find((x) => x.chave === "aula").horas) === 6 && Number(r.find((x) => x.chave === "aula").padrao) === 4);
-await espera("toda a equipe vê a tabela", () => rpc(como(ids.vol), "horas_pesos"), (r) => r.length === 24 && Number(r.find((x) => x.chave === "parecer").horas) === 0.5);
+await espera("toda a equipe vê a tabela", () => rpc(como(ids.vol), "horas_pesos"), (r) => r.length === 25 && Number(r.find((x) => x.chave === "parecer").horas) === 0.5);
 await recusa("quem não é da equipe não vê a tabela", () => rpc(como(ids.leitora), "horas_pesos"), "sem_permissao");
 await espera("o ajuste não muda o que já foi contado", () => rpc(como(ids.vol), "horas_minhas"), (r) => Number(r.plataforma) === 4.5);
 await espera("ela registra à mão sete horas do mesmo dia", () => rpc(como(ids.vol), "horas_registrar", { p_dia: hojeBr, p_horas: 7, p_atividade: "Preparei e gravei a videoaula de frações." }), (r) => Boolean(r.id));
@@ -1923,6 +1923,46 @@ await espera("candidatura aceita não entrega a função a conta com e-mail não
   }
   return [erro, (await dono("select count(*)::int as n from interno.papeis where usuario = $1", [invasor])).rows[0].n];
 }, ([erro, papeis]) => erro.includes("email_nao_confirmado") && papeis === 0);
+
+// ── Aulas em vídeo ──
+const videoaula = (extra = {}) => ({
+  disciplina: "matematica",
+  titulo: "Frações em dez minutos",
+  descricao: "Uma explicação curta, com exemplos do dia a dia.",
+  caminho: `${ids.prof}/${crypto.randomUUID()}.webm`,
+  tipo: "video/webm",
+  duracao: "540",
+  largura: "1280",
+  altura: "720",
+  tamanho: "41000000",
+  fontes: fonte,
+  ...extra,
+});
+const curadoria2 = { ...como(ids.curadora), aal: "aal2" };
+let video;
+await recusa("quem não ensina não envia aula em vídeo", () => rpc(como(ids.leitora), "videoaula_enviar", { p: videoaula({ caminho: `${ids.leitora}/${crypto.randomUUID()}.webm` }) }), "sem_permissao");
+await recusa("educador não envia para a pasta de outra pessoa", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ caminho: `${ids.leitora}/${crypto.randomUUID()}.webm` }) }), "invalido:caminho");
+await recusa("mais de dez minutos é recusado", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ duracao: "601" }) }), "invalido:duracao");
+await recusa("1080p é recusado", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ largura: "1920", altura: "1080" }) }), "invalido:resolucao");
+await espera("vídeo em pé de 720 por 1280 é aceito como 720p", async () => (await rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ largura: "720", altura: "1280" }) })).id, (r) => Boolean(r));
+await recusa("arquivo acima de 50 MB é recusado", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ tamanho: "60000000" }) }), "invalido:tamanho");
+await recusa("aula em vídeo sem fonte é recusada", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ fontes: [] }) }), "falta_fonte");
+await recusa("legenda que não é WebVTT é recusada", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ legenda: "1\n00:00:01,000 --> 00:00:02,000\nOi" }) }), "invalido:legenda");
+await recusa("educador de matemática não envia aula de física", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ disciplina: "fisica" }) }), "sem_permissao");
+await espera("educador envia a aula em vídeo da própria disciplina", async () => (video = videoaula()) && rpc(como(ids.prof), "videoaula_enviar", { p: video }), (r) => Boolean(r.id) && (video.id = r.id));
+await espera("ela fica fora da lista pública enquanto espera", () => rpc(anon, "videoaulas_publicas"), (r) => !r.some((x) => x.id === video.id));
+await espera("o visitante ainda não lê o arquivo", () => rpc(anon, "videoaula_pode_ler", { p_nome: video.caminho }), (r) => r === false);
+await espera("quem enviou e a curadoria leem o arquivo pendente", async () => [await rpc(como(ids.prof), "videoaula_pode_ler", { p_nome: video.caminho }), await rpc(curadoria2, "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0] === true && r[1] === true);
+await espera("a curadoria vê a aula na fila, com a transcrição", () => rpc(curadoria2, "videoaulas_fila"), (r) => r.some((x) => x.id === video.id && "transcricao" in x));
+await recusa("educador não decide a própria aula", () => rpc(como(ids.prof), "videoaula_decidir", { p_id: video.id, p_aprovar: true }), "sem_permissao");
+await recusa("recusar exige nota", () => rpc(curadoria2, "videoaula_decidir", { p_id: video.id, p_aprovar: false, p_nota: "" }), "invalido:nota");
+await espera("a curadoria aprova", () => rpc(curadoria2, "videoaula_decidir", { p_id: video.id, p_aprovar: true }), (r) => r.ok === true);
+await espera("aprovada, entra na lista pública da disciplina e o visitante lê o arquivo", async () => [await rpc(anon, "videoaulas_publicas", { p_disciplina: "matematica" }), await rpc(anon, "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0].some((x) => x.id === video.id && !("nota" in x)) && r[1] === true);
+await espera("o visitante abre a aula com a transcrição", () => rpc(anon, "videoaula_ver", { p_id: video.id }), (r) => r.id === video.id && "transcricao" in r);
+await recusa("quem enviou não apaga a aula que está no ar", () => rpc(como(ids.prof), "videoaula_apagar", { p_id: video.id }), "sem_permissao");
+await espera("a coordenação apaga e recebe o caminho do arquivo", () => rpc({ ...como(ids.coord), aal: "aal2" }, "videoaula_apagar", { p_id: video.id }), (r) => r.caminho === video.caminho);
+await espera("apagado o registro, quem enviou e a coordenação ainda leem o arquivo (para tirá-lo do depósito)", async () => [await rpc(como(ids.prof), "videoaula_pode_ler", { p_nome: video.caminho }), await rpc({ ...como(ids.coord), aal: "aal2" }, "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0] === true && r[1] === true);
+await espera("o arquivo sem registro não fica aberto ao visitante nem a outra conta", async () => [await rpc(anon, "videoaula_pode_ler", { p_nome: video.caminho }), await rpc(como(ids.leitora), "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0] === false && r[1] === false);
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
