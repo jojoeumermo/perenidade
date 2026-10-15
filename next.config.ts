@@ -61,8 +61,9 @@ const common = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
-  // O microfone só é pedido pelo afinador, e só depois de a pessoa clicar em "Começar".
-  { key: "Permissions-Policy", value: "camera=(), microphone=(self), geolocation=(), payment=(), usb=(), interest-cohort=()" },
+  // O microfone é pedido pelo afinador e pelo gravador do painel; a câmera e a tela, só pelo gravador de aulas em vídeo.
+  // Nada é pedido antes de a pessoa clicar.
+  { key: "Permissions-Policy", value: "camera=(self), microphone=(self), display-capture=(self), geolocation=(), payment=(), usb=(), interest-cohort=()" },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
   { key: "X-Permitted-Cross-Domain-Policies", value: "none" },

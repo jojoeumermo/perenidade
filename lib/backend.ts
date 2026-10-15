@@ -41,6 +41,33 @@ export function getClient(): Promise<SupabaseClient> {
   return client;
 }
 
+/**
+ * Endereço assinado (temporário) de um arquivo de depósito fechado, para tocar vídeo sem baixá-lo inteiro.
+ * Com conta, pede com a sessão; sem conta, com a chave pública. Em ambos os casos, quem decide é a regra do depósito.
+ */
+export async function signedStorageUrl(bucket: string, path: string, seconds: number): Promise<string> {
+  if (!hasBackend) throw new BackendError("sem_servico");
+  if (hasSession()) {
+    const supabase = await getClient();
+    const { data, error } = await supabase.storage.from(bucket).createSignedUrl(path, seconds);
+    if (error || !data) throw new BackendError("nao_encontrado");
+    return data.signedUrl;
+  }
+  let response: Response;
+  try {
+    response = await fetch(`${url}/storage/v1/object/sign/${bucket}/${path.split("/").map(encodeURIComponent).join("/")}`, {
+      method: "POST",
+      headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ expiresIn: seconds }),
+    });
+  } catch {
+    throw new BackendError("sem_conexao");
+  }
+  const body = (await response.json().catch(() => null)) as { signedURL?: string } | null;
+  if (!response.ok || !body?.signedURL) throw new BackendError("nao_encontrado");
+  return `${url}/storage/v1${body.signedURL}`;
+}
+
 export function hasSession(): boolean {
   try {
     return localStorage.getItem(KEYS.session) !== null;
