@@ -68,6 +68,7 @@ const icones: Record<string, string> = {
   fila: "M4 7l2 2 4-4M4 17l2 2 4-4M13 7h7M13 17h7",
   triagem: "M3 5h18l-7 8v6l-4 2v-8z",
   materiais: "M3 6h6l2 2h10v11H3z",
+  fontes: "M4 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4zM20 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z",
   comunidade: "M4 5h12v8H9l-4 3v-3H4zM18 9h2v8h-1v3l-4-3h-4",
   reforco: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6",
   mural: "M3 4h18v12H3zM8 20h8M12 16v4",

@@ -7,7 +7,7 @@ import tipos from "@/lib/tipos.json";
 import { cleanSources, MarkdownEditor, SourcesField, type SourceDraft } from "../Editor";
 import { useI18n } from "../I18n";
 import { Markdown } from "../Markdown";
-import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { BuscaDePessoa } from "./BuscaDePessoa";
 import type { Membro } from "./Equipe";
 import { editorPt, fontesPt } from "./Escrever";
@@ -140,6 +140,7 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
   async function triar(liberar: boolean) {
     try {
       await rpc("triagem_decidir", { p_id: id, p_liberar: liberar, p_nota: nota });
+      window.dispatchEvent(new Event(PAINEL_MUDOU));
       voltar();
     } catch (erro) {
       acao.setAviso(textoDoErro(erro));
@@ -149,6 +150,7 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
   async function decidir(aprovar: boolean) {
     try {
       await rpc("contribuicao_decidir", { p_id: id, p_aprovar: aprovar, p_nota: nota });
+      window.dispatchEvent(new Event(PAINEL_MUDOU));
       voltar();
     } catch (erro) {
       acao.setAviso(textoDoErro(erro));

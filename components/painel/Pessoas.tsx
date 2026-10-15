@@ -5,7 +5,7 @@ import { useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { leads, type Me, type Role, rpc } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Abas, Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Abas, Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, PAINEL_MUDOU, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Convites } from "./Convites";
 
@@ -65,6 +65,7 @@ export function Pessoas({ me }: { me: Me }) {
       setAvisoInscricao(!aceitar ? "Candidatura recusada. O aviso por e-mail entrou na fila de envio." : resposta.codigo ? "Candidatura aceita. O convite entrou na fila de e-mails e sai sozinho para a pessoa; o link também está abaixo, se precisar mandar por outro caminho (veja em Controles do site se o envio está funcionando)." : "Candidatura aceita: a pessoa já tinha conta e recebeu a função na hora. O aviso por e-mail entrou na fila de envio.");
       inscricoes.recarregar();
       pessoas.recarregar();
+      window.dispatchEvent(new Event(PAINEL_MUDOU));
     } catch (erro) {
       setAvisoInscricao(textoDoErro(erro));
     }
