@@ -1,0 +1,102 @@
+[
+  {
+    "slug": "botanica-anatomia-e-fisiologia-vegetal",
+    "titulo": "Botânica: anatomia e fisiologia vegetal"
+  },
+  {
+    "slug": "zoologia-dos-invertebrados",
+    "titulo": "Zoologia dos invertebrados"
+  },
+  {
+    "slug": "zoologia-dos-vertebrados",
+    "titulo": "Zoologia dos vertebrados"
+  },
+  {
+    "slug": "micologia-o-reino-dos-fungos",
+    "titulo": "Micologia: o reino dos fungos"
+  },
+  {
+    "slug": "parasitologia",
+    "titulo": "Parasitologia"
+  },
+  {
+    "slug": "virologia",
+    "titulo": "Virologia"
+  },
+  {
+    "slug": "embriologia-e-desenvolvimento",
+    "titulo": "Embriologia e desenvolvimento"
+  },
+  {
+    "slug": "histologia-os-tecidos-do-corpo",
+    "titulo": "Histologia: os tecidos do corpo"
+  },
+  {
+    "slug": "fisiologia-comparada",
+    "titulo": "Fisiologia comparada"
+  },
+  {
+    "slug": "endocrinologia",
+    "titulo": "Endocrinologia"
+  },
+  {
+    "slug": "genomica-e-bioinformatica",
+    "titulo": "Genômica e bioinformática"
+  },
+  {
+    "slug": "sinalizacao-celular",
+    "titulo": "Sinalização celular"
+  },
+  {
+    "slug": "comportamento-animal",
+    "titulo": "Comportamento animal"
+  },
+  {
+    "slug": "paleontologia-e-a-historia-da-vida",
+    "titulo": "Paleontologia e a história da vida"
+  },
+  {
+    "slug": "origem-da-vida",
+    "titulo": "Origem da vida"
+  },
+  {
+    "slug": "ecologia-de-populacoes-modelos-matematicos",
+    "titulo": "Ecologia de populações: modelos matemáticos"
+  },
+  {
+    "slug": "ecologia-da-amazonia",
+    "titulo": "Ecologia da Amazônia"
+  },
+  {
+    "slug": "ecologia-do-cerrado-e-da-caatinga",
+    "titulo": "Ecologia do Cerrado e da Caatinga"
+  },
+  {
+    "slug": "biologia-marinha-e-manguezais",
+    "titulo": "Biologia marinha e manguezais"
+  },
+  {
+    "slug": "agroecologia",
+    "titulo": "Agroecologia"
+  },
+  {
+    "slug": "etnobiologia-e-conhecimentos-tradicionais",
+    "titulo": "Etnobiologia e conhecimentos tradicionais"
+  },
+  {
+    "slug": "saude-do-trabalhador",
+    "titulo": "Saúde do trabalhador"
+  },
+  {
+    "slug": "farmacologia-como-os-remedios-agem",
+    "titulo": "Farmacologia: como os remédios agem"
+  },
+  {
+    "slug": "nutricao-e-seguranca-alimentar",
+    "titulo": "Nutrição e segurança alimentar"
+  },
+  {
+    "slug": "historia-da-biologia",
+    "titulo": "História da biologia"
+  }
+]

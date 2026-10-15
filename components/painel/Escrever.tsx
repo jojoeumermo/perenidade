@@ -89,7 +89,7 @@ export function Escrever({ me }: { me: Me }) {
   const mudar = (nome: string, valor: string) => setValores((antes) => ({ ...antes, [nome]: valor }));
 
   // Educadores só publicam nas disciplinas que lhes foram confiadas; o aviso evita trabalho perdido.
-  const minhas = me.papeis.filter((p) => p.papel === "educacao").map((p) => p.disciplina);
+  const minhas = me.papeis.filter((p) => p.papel === "educacao" || p.papel === "educacao_secundaria").map((p) => p.disciplina);
   const alvo = tipo.disciplina === "trilha" ? trilha?.area : disciplina;
 
   async function enviar() {
@@ -202,6 +202,21 @@ export function Escrever({ me }: { me: Me }) {
             {campoDe(c)}
           </label>
         ))}
+      {id === "temas" && trilha && (
+        <div className="border-l-2 border-rule pl-4">
+          <p>
+            Roteiro atual: <strong>{trilha.ready}</strong> {trilha.ready === 1 ? "aula pronta" : "aulas prontas"} de <strong>{trilha.ready + trilha.planned.length}</strong>.
+            {trilha.planned.length === 0 ? " A trilha está completa: os temas aprovados abrem a próxima etapa." : " Ainda em preparação:"}
+          </p>
+          {trilha.planned.length > 0 && (
+            <ul className="mt-1 list-disc pl-5 text-ink-soft">
+              {trilha.planned.map((item) => (
+                <li key={item.slug}>{item.title}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
       {minhas.length > 0 && tipo.disciplina !== "nao" && alvo && !minhas.includes(alvo) && !can(me, "coordenacao", "curadoria") && (
         <p className="text-ink-soft">
           Esta disciplina não está entre as suas ({minhas.map((slug) => t.areas[slug as keyof typeof t.areas]?.[0] ?? slug).join(", ")}). O envio entra na fila como contribuição pública.

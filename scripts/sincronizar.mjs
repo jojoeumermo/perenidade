@@ -33,6 +33,7 @@ const DISCIPLINAS = new Set(
 );
 const LICENCAS = ["Domínio público", "CC BY", "CC BY-SA", "CC BY-NC", "CC BY-NC-SA", "CC BY-NC-ND", "Conforme a fonte", "Direitos reservados"];
 const IDIOMAS = ["en", "es", "zh", "ru"];
+const FORMATOS = tipos.avulso.campos.find((campo) => campo.nome === "formato").opcoes;
 
 async function chamar(funcao, argumentos = {}) {
   const resposta = await fetch(`${base}/rest/v1/rpc/${funcao}`, {
@@ -293,6 +294,17 @@ const montar = {
       texto: corpo(item.corpo, tipos.video.corpo.min),
     };
   },
+  avulso(item) {
+    if (!DISCIPLINAS.has(item.disciplina)) recusar("disciplina desconhecida");
+    const titulo = linha(item.titulo, "título", { max: 160 });
+    const formato = linha(item.dados?.formato, "formato", { max: 40 });
+    if (!FORMATOS.includes(formato)) recusar("formato desconhecido");
+    return {
+      arquivo: livre("avulsos", slug(titulo) || recusar("título sem letras")),
+      dados: { titulo, area: item.disciplina, formato, resumo: linha(item.dados?.resumo, "resumo", { max: 220 }), autores: [assinatura(item)], fontes: fontes(item.fontes, true) },
+      texto: corpo(item.corpo, tipos.avulso.corpo.min),
+    };
+  },
   traducao(item) {
     const idioma = String(item.dados?.idioma ?? "");
     if (!IDIOMAS.includes(idioma)) recusar("idioma desconhecido");
@@ -327,6 +339,30 @@ function acrescentarFrase(item) {
   if (frases.some((frase) => frase.origem === item.id || frase.texto === nova.texto)) return null;
   fs.writeFileSync(arquivo, JSON.stringify([...frases, nova], null, 2) + "\n");
   return arquivo;
+}
+
+/**
+ * Temas aprovados entram no fim do roteiro da trilha, "em preparação": a meta da trilha cresce e qualquer educador
+ * escreve as aulas depois. Tema que já está no roteiro (mesmo endereço) não entra de novo.
+ */
+function acrescentarTemas(item) {
+  const trilha = linha(item.dados?.trilha, "trilha", { max: 80 });
+  if (!/^[a-z0-9-]{2,80}$/.test(trilha) || !fs.existsSync(path.join(conteudo, "trilhas", trilha, "_trilha.md"))) recusar("trilha desconhecida");
+  const arquivo = path.join(conteudo, "trilhas", trilha, "plano.json");
+  const plano = fs.existsSync(arquivo) ? JSON.parse(fs.readFileSync(arquivo, "utf8")) : [];
+  const usados = new Set(plano.map((aula) => aula.slug));
+  const novos = [];
+  for (const bruto of String(item.dados?.temas ?? "").split("\n").slice(0, 20)) {
+    const titulo = linha(bruto, "tema", { max: 160, obrigatorio: false });
+    if (titulo.length < 3) continue;
+    const endereco = slug(titulo);
+    if (!endereco || usados.has(endereco)) continue;
+    usados.add(endereco);
+    novos.push({ slug: endereco, titulo, origem: item.id });
+  }
+  if (novos.length === 0) recusar("nenhum tema novo (todos já estão no roteiro)");
+  fs.writeFileSync(arquivo, JSON.stringify([...plano, ...novos], null, 2) + "\n");
+  return { arquivo, quantos: novos.length };
 }
 
 /** Itens que já viraram arquivo em uma rodada anterior (o aviso ao banco pode ter falhado). */
@@ -386,6 +422,9 @@ for (const item of pendentes.slice(0, LIMITE)) {
     }
     if (item.tipo === "frase") {
       if (acrescentarFrase(item)) resumo.push(rotulo);
+    } else if (item.tipo === "temas") {
+      const { arquivo, quantos } = acrescentarTemas(item);
+      resumo.push(`${rotulo} → ${quantos} tema(s) em ${path.relative(raiz, arquivo).replaceAll("\\", "/")}`);
     } else if (montar[item.tipo]) {
       const { arquivo, dados, texto } = montar[item.tipo](item);
       const usados = [];

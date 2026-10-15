@@ -15,9 +15,11 @@ import { Star } from "../Masthead";
 import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
 import { Boletim } from "./Boletim";
+import { PorOndeComecar } from "./Comecar";
 import { Conversas } from "./Conversas";
 import { Divulgacao } from "./Divulgacao";
 import { Equipe, type Membro } from "./Equipe";
+import { Repasse } from "./Sigilo";
 import { Escrever } from "./Escrever";
 import { FontesAbertas } from "./FontesAbertas";
 import { Fila } from "./Fila";
@@ -27,6 +29,7 @@ import { Interdicao } from "./Interdicao";
 import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lideranca";
 import { Materiais } from "./Materiais";
 import { Pessoas } from "./Pessoas";
+import { Podcast } from "./podcast/Podcast";
 import { Reforco } from "./Reforco";
 import { Supervisao } from "./Supervisao";
 import { Tecnico } from "./Tecnico";
@@ -46,12 +49,14 @@ interface Resumo {
   triagem?: number;
   reforco: number;
   horas: number;
+  /** Pedidos de certificado esperando o coordenador. */
+  pedidos?: number;
   testemunhar: number;
   minhas: number;
   /** Contribuições pendentes de colegas que me chamaram para trabalhar junto. */
   juntas: number;
   /** Pedidos de ajuda do mural da equipe endereçados a uma função minha. */
-  pedidos?: number;
+  pedidos_ajuda?: number;
   /** Contas suspensas pela supervisão (a supervisão e a coordenação acompanham). */
   suspensas?: number;
   /** Posts prontos com a data chegando e itens devolvidos pela coordenação. */
@@ -86,6 +91,7 @@ const icones: Record<string, string> = {
   fila: "M4 7l2 2 4-4M4 17l2 2 4-4M13 7h7M13 17h7",
   triagem: "M3 5h18l-7 8v6l-4 2v-8z",
   materiais: "M3 6h6l2 2h10v11H3z",
+  fontes: "M4 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4zM20 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z",
   comunidade: "M4 5h12v8H9l-4 3v-3H4zM18 9h2v8h-1v3l-4-3h-4",
   reforco: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6",
   mural: "M3 4h18v12H3zM8 20h8M12 16v4",
@@ -380,6 +386,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const router = useRouter();
   const { lang } = useI18n();
   const resumo = useLista<Resumo>("painel_resumo");
+  // O que espera por esta pessoa no podcast (aprovação, comentários, perguntas, pedidos de arte).
+  const podcast = useLista<number>("podcast_contagem");
   const r = resumo.dados;
   const atualizarResumo = resumo.recarregar;
   // De minuto em minuto o painel diz que a pessoa está por aqui, pergunta se chegou mensagem nova e refaz as
@@ -414,7 +422,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const secoes: Secao[] = (
     [
       { id: "mesa", nome: "Mesa", sobre: "O que espera por você hoje.", grupo: "", mostra: true, conta: eu.avisos },
-      { id: "conversas", nome: "Conversas", sobre: "Mensagens privadas e grupos da equipe, cifradas neste aparelho.", grupo: "", mostra: voluntario, conta: aba === "conversas" ? 0 : presenca.dados?.conversas },
+      { id: "conversas", nome: "Conversas", sobre: "Mensagens privadas, grupos e o grupo de cada departamento, cifrados de ponta a ponta.", grupo: "", mostra: voluntario, conta: aba === "conversas" ? 0 : presenca.dados?.conversas },
       { id: "rede", nome: "Mural da equipe", sobre: "Publicações e pedidos de ajuda para todos ou por função, cifrados neste aparelho.", grupo: "", mostra: voluntario },
       { id: "escrever", nome: "Escrever", sobre: "Aulas, matérias, verbetes e tudo o que vai para o site.", grupo: "Produção", mostra: true },
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: true },
@@ -432,9 +440,10 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: lidera, conta: r?.candidaturas },
       { id: "supervisao", nome: "Supervisão", sobre: "Proteções reversíveis, a equipe sem e-mails e os pedidos de voluntariado.", grupo: "Pessoas", mostra: supervisiona, conta: r?.candidaturas },
-      { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar : undefined },
+      { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar + (r.pedidos ?? 0) : undefined },
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
       { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
+      { id: "podcast", nome: "Podcast", sobre: "Episódios da pauta à publicação: roteiro, gravação, versões, revisão, capas, cortes e agenda.", grupo: "Produção", mostra: can(eu, "coordenacao", "jornalismo", "design", "mediacao", "curadoria"), conta: podcast.dados ?? undefined },
       { id: "radio", nome: "Rádio", sobre: "Rádio Lúcia: canais, faixas, transmissão ao vivo e sugestão de emissoras.", grupo: "Site", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "apoiadores", nome: "Apoiadores", sobre: "Quem autorizou aparecer no mural de apoio.", grupo: "Site", mostra: lidera },
       { id: "tecnico", nome: "Estado técnico", sobre: "Publicação, avaliação automática, faxina e sinais de varredura.", grupo: "Site", mostra: can(eu, "coordenacao", "desenvolvimento"), conta: r?.publicacao_atrasada },
@@ -479,7 +488,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
     <div className="painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid lg:grid-cols-[17.5rem_minmax(0,1fr)]">
       {irPara && <IrPara secoes={secoes} fechar={() => setIrPara(false)} ir={ir} />}
       {/* Barra do alto no celular: a faixa bordô do site, o nome e o menu. */}
-      <div className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b-[3px] border-[#d4a24c] bg-[#6e1f1a] px-4 py-2.5 text-[#f4ecd8] lg:hidden">
+      <div className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b-[3px] border-[#d4a24c] bg-[#6e1f1a] px-4 pt-[calc(0.625rem+env(safe-area-inset-top,0px))] pb-2.5 text-[#f4ecd8] lg:hidden">
         <span className="flex min-w-0 items-center gap-2.5">
           <Star className="h-5 w-5 shrink-0 text-[#f4ecd8]" />
           <span className="truncate font-serif text-lg font-semibold">Instituto Lúcia</span>
@@ -495,7 +504,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
         </span>
       </div>
 
-      <aside id="menu-do-painel" className={`painel-lado no-print bg-[#17130e] text-[#efe4c8] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r-4 lg:border-[#c21f16] ${menu ? "block" : "hidden"}`}>
+      {/* No celular, o menu aberto ocupa a tela toda (sem sobra clara embaixo) e o rodapé dele fica no fim. */}
+      <aside id="menu-do-painel" className={`painel-lado no-print bg-[#17130e] text-[#efe4c8] max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r-4 lg:border-[#c21f16] ${menu ? "flex flex-col" : "hidden"}`}>
         <div className="hidden px-5 pt-6 lg:block">
           <L href="/" className="flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -539,7 +549,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
             </div>
           ))}
         </nav>
-        <div className="border-t border-[#3a3226] px-4 py-4">
+        <div className="border-t border-[#3a3226] px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
           <p className="flex items-center gap-3">
             <span aria-hidden className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#c21f16] font-sans font-black italic text-white">{iniciais(eu.nome)}</span>
             <span className="min-w-0">
@@ -586,8 +596,9 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
             </p>
           )}
           {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} />}
-          {atual.id === "conversas" && <Conversas me={eu} lider={leads(eu)} />}
-          {atual.id === "rede" && <Equipe lider={leads(eu)} modera={lidera || supervisiona} />}
+          {voluntario && <Repasse usuario={eu.id} />}
+          {atual.id === "conversas" && <Conversas me={eu} />}
+          {atual.id === "rede" && <Equipe usuario={eu.id} lider={leads(eu)} modera={lidera || supervisiona} />}
           {atual.id === "escrever" && <Escrever me={eu} />}
           {atual.id === "minhas" && <Fila key="minhas" me={eu} minhas />}
           {atual.id === "juntas" && <Fila key="juntas" me={eu} juntas />}
@@ -599,7 +610,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "divulgacao" && <Divulgacao me={eu} />}
           {atual.id === "comunidade" && <Comunidade me={eu} />}
           {atual.id === "reforco" && <Reforco />}
-          {atual.id === "mural" && <MuralFila />}
+          {atual.id === "mural" && <MuralFila me={eu} />}
           {atual.id === "gaveta" && <GavetaFila />}
           {atual.id === "boletim" && <Boletim />}
           {atual.id === "pessoas" && <Pessoas me={eu} />}
@@ -608,6 +619,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "site" && <Site />}
           {atual.id === "abertura" && <AvisoDeAbertura />}
           {atual.id === "radio" && <RadioAdmin me={eu} />}
+          {atual.id === "podcast" && <Podcast />}
           {atual.id === "apoiadores" && <Apoiadores />}
           {atual.id === "tecnico" && <Tecnico />}
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
@@ -633,7 +645,7 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           ["Na fila de revisão", r.fila, "fila"],
           ["Aprovadas, esperando a publicação", r.aguardando_publicacao, "fila"],
           ["Pedidos de voluntariado", r.candidaturas, can(me, "coordenacao") ? "pessoas" : "supervisao"],
-          ["Pedidos de ajuda para a sua função", r.pedidos ?? 0, "rede"],
+          ["Pedidos de ajuda para a sua função", r.pedidos_ajuda ?? 0, "rede"],
           ["Contas suspensas pela supervisão", r.suspensas ?? 0, can(me, "coordenacao") ? "pessoas" : "supervisao"],
           ["Posts para sair ou devolvidos", r.divulgacao ?? 0, "divulgacao"],
           ["Aprovadas há mais de três horas sem ir ao ar", r.publicacao_atrasada ?? 0, "tecnico"],
@@ -642,6 +654,7 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           ["Anotações para olhar", r.anotacoes, "comunidade"],
           ["Mensagens esperando a mediação", r.retidos, "comunidade"],
           ["Pedidos de reforço", r.reforco, "reforco"],
+          ["Pedidos de certificado", r.pedidos ?? 0, "horas"],
           ["Horas para conferir", r.horas, "horas"],
           ["Certificados esperando a sua assinatura", r.testemunhar, "horas"],
           ["Anúncios do mural", r.mural, "mural"],
@@ -708,6 +721,8 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           {(r?.minhas ?? 0) > 0 && <button type="button" className={botaoClaro} onClick={() => ir("minhas")}>Meus envios ({r?.minhas})</button>}
         </p>
       </section>
+
+      {me.papeis.length > 0 && <PorOndeComecar me={me} ir={ir} />}
 
       {me.papeis.length > 0 && <Situacao lidera={can(me, "coordenacao")} supervisiona={can(me, "supervisao")} ir={ir} />}
 
@@ -780,6 +795,7 @@ function Candidatura() {
   const pedido = useAcao(pedidos.recarregar);
   const [quero, setQuero] = useState<{ papel: string; disciplina: string; mensagem: string }>({ papel: "educacao", disciplina: "", mensagem: "" });
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
+  const porDisciplina = quero.papel === "educacao" || quero.papel === "educacao_secundaria" || quero.papel === "mentoria";
   return (
     <section className="painel-cartao p-5">
       <h2 className="font-serif text-2xl font-semibold">Quero ser voluntário</h2>
@@ -788,15 +804,15 @@ function Candidatura() {
         <label className="block">
           Em que função
           <select value={quero.papel} onChange={(e) => setQuero({ ...quero, papel: e.target.value })} className={campo}>
-            {(["educacao", "mentoria", "mediacao", "revisao", "traducao", "jornalismo", "curadoria", "marketing", "desenvolvimento"] as const).map((papel) => (
+            {(["educacao", "educacao_secundaria", "mentoria", "mediacao", "revisao", "traducao", "jornalismo", "curadoria", "design", "marketing", "desenvolvimento"] as const).map((papel) => (
               <option key={papel} value={papel}>{papeis[papel]}</option>
             ))}
           </select>
         </label>
         <label className="block">
-          Disciplina{quero.papel === "educacao" || quero.papel === "mentoria" ? "" : " (opcional)"}
+          Disciplina{porDisciplina ? "" : " (opcional)"}
           <select value={quero.disciplina} onChange={(e) => setQuero({ ...quero, disciplina: e.target.value })} className={campo}>
-            <option value="">{quero.papel === "educacao" || quero.papel === "mentoria" ? "Escolha…" : "Todo o site"}</option>
+            <option value="">{porDisciplina ? "Escolha…" : "Todo o site"}</option>
             {areaSlugs.map((area) => (
               <option key={area} value={area}>{t.areas[area][0]}</option>
             ))}
@@ -811,7 +827,7 @@ function Candidatura() {
       <button
         type="button"
         className={`mt-3 ${botao}`}
-        disabled={pedido.ocupado || quero.mensagem.trim().length < 20 || ((quero.papel === "educacao" || quero.papel === "mentoria") && !quero.disciplina)}
+        disabled={pedido.ocupado || quero.mensagem.trim().length < 20 || (porDisciplina && !quero.disciplina)}
         onClick={async () => {
           const ok = await pedido.agir("candidatar", { p_papel: quero.papel, p_disciplina: quero.disciplina || null, p_mensagem: quero.mensagem }, "Pedido enviado à coordenação.");
           if (ok) setQuero({ ...quero, mensagem: "" });

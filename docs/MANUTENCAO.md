@@ -81,6 +81,7 @@ titulo: "A pauta e as claves"
 resumo: "Onde as notas moram."
 autores: ["Nome de quem escreveu"]
 revisada: true          # opcional; sem isso aparece o aviso "aguarda revisão"
+ferramentas: [resolvedor, graficos]   # opcional; vêm primeiro na caixa de ferramentas da aula
 fontes:
   - titulo: "Nome da obra ou da página"
     autor: "Autor ou instituição"
@@ -121,6 +122,28 @@ Quanto vale o 7 em 3,75?
 ````
 
 Na pauta, cada nota é `LetraOitava/Duração` (C4 é o dó central; `#` e `b` depois da letra; durações 1, 2, 4, 8; `r/4` é pausa; `|` é barra de compasso). No bloco `verificar`, `+` marca a resposta certa e `>` é a dica. Blocos de código `python` e `php` ganham o link "Testar este código".
+
+### Caixa de ferramentas
+
+As ferramentas práticas (calculadora, resolvedor, gráficos, tabela periódica, pronúncia, folha de redação e as outras) têm cada uma a sua página em `/ferramentas/<nome>` e também abrem **dentro das aulas**, das trilhas e das estantes, sem sair da página: no computador a caixa abre ao lado e a aula se afasta; no celular ela sobe de baixo, acima da barra de navegação. Só a ferramenta aberta é baixada, e o que se digitou nela continua lá ao fechar e abrir de novo.
+
+A caixa de uma aula junta, nesta ordem e sem repetir:
+
+1. as ferramentas que a própria aula sugere no campo `ferramentas` do cabeçalho;
+2. as da disciplina, em `areaTools` (`lib/areas.ts`): por exemplo, inglês e espanhol têm pronúncia e frases; ENEM tem redação, cronômetro, resolvedor, estatística e tabela periódica;
+3. as universais, em `universalTools`: calculadora, cronômetro e dicionário.
+
+Um nome que não exista na lista `tools` de `lib/areas.ts` faz a montagem do site parar, com o nome do arquivo e da ferramenta no erro.
+
+**Para acrescentar uma ferramenta nova:**
+
+1. ponha o nome (em português, com hífens) em `tools`, em `lib/areas.ts`, e, se for o caso, nas disciplinas de `areaTools`;
+2. escreva o componente em `components/tools/` e acrescente um `case` em `components/tools/ToolView.tsx` (a caixa das aulas) e na página `app/[lang]/ferramentas/[tool]/page.tsx`;
+3. diga em `lib/ferramentas/secoes.ts` que pedaço dos textos ela usa (o objeto `tools` dos dicionários): a aula só manda para o navegador os textos das ferramentas daquela disciplina;
+4. ponha o nome em `toolNames` e os textos em `tools.<seção>` nos cinco dicionários (`i18n/*.json`) e rode `npm run conferir:i18n`;
+5. se ela faz contas, deixe a conta num arquivo puro em `lib/ferramentas/` e acrescente conferências em `scripts/testar-ferramentas.mjs` (`npm run testar:ferramentas`).
+
+O resolvedor também aceita **foto do exercício**: a foto vai para o assistente de reforço só para ser transcrita, e a conta continua sendo feita no próprio navegador (ver a seção 15b).
 
 ### Demais fichas
 
@@ -174,7 +197,7 @@ Sem esta etapa o site funciona, só não aparecem o painel, a comunidade e a rá
 3. Em **Project Settings → API**, confira que em *Exposed schemas* **não** aparece `interno` (o padrão já é só `public`).
 4. Ainda em **API**, copie a *Project URL* e a chave *anon public*. No serviço de hospedagem do site, crie as variáveis `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` com esses valores e publique o site de novo.
 5. Em **Authentication → URL Configuration**, ponha o endereço do site em *Site URL* e acrescente `https://SEU-DOMINIO/**` em *Redirect URLs*.
-6. Em **Authentication → Sign In / Providers → Email**: deixe o e-mail ligado, **desligue "Confirm email"** (o convite já prova quem é a pessoa) e deixe ligado "Allow new users to sign up" (quem barra o cadastro é o banco: sem convite válido, a conta não é criada). Ponha o tamanho mínimo da senha em 12.
+6. Em **Authentication → Sign In / Providers → Email**: deixe o e-mail ligado, **ligue "Confirm email"** e deixe ligado "Allow new users to sign up" (quem barra o cadastro é o banco: com o cadastro da comunidade fechado, sem convite válido a conta não é criada). Ponha o tamanho mínimo da senha em 12 e ligue "Secure password change" (trocar a senha passa a pedir uma confirmação recente). A confirmação de e-mail é o que prova que a conta pertence a quem tem a caixa de entrada: sem ela, qualquer pessoa cria uma conta com o e-mail de outra e, se essa outra pessoa se candidatar a voluntária, recebe a função quando a candidatura for aceita. Ela depende do envio de e-mails: configure antes o SMTP do Resend (seção "E-mails automáticos").
 7. **A primeira conta (a sua).** Em **Authentication → Users → Add user → Create new user**, digite o seu e-mail e a sua senha e marque "Auto Confirm User". Enquanto não existe coordenação, essa criação é livre. Depois, no **SQL Editor**, rode:
 
    ```sql
@@ -231,12 +254,13 @@ Cada pessoa vê no painel só as seções da sua função. O banco confere a fun
 | `curadoria` | curadoria | lê a fila inteira, edita e decide; cuida da comunidade (fila de revisão, palavras vetadas, denúncias) e pode fazer a triagem. Não vê a fila de reforço (lá há e-mail de estudante) |
 | `mediacao` | mediador | acompanha a Comunidade e decide os casos de dúvida (aprova, edita, oculta ou libera mensagens); aprova, edita ou recusa anúncios do Mural dos Trabalhadores; faz a triagem das contribuições de fora (libera para a fila de revisão ou barra, com nota); decide anotações de leitura; bane a conta de quem passa do limite e, em caso extremo, a origem de rede (não bane gente da equipe, e só a coordenação desfaz). Não aprova conteúdo de ensino, não vê a fila de revisão, não mexe em pessoas, no filtro de palavras, nas denúncias nem nos controles do site |
 | `educacao` (por disciplina) | educador | escreve aulas da sua disciplina, vê e dá parecer na fila dela, dá parecer nas matérias do jornal, cuida da comunidade e atende o reforço da disciplina |
+| `educacao_secundaria` (por disciplina) | educador secundário | os mesmos poderes do educador na disciplina, e também materiais avulsos (aulas avulsas, listas, resumos) que aparecem numa aba própria da disciplina; conversa no grupo da educação |
 | `revisao` | revisor | lê a fila e dá parecer; vê as traduções a caminho |
 | `traducao` | tradutor | vê em *Traduções* as aulas que ainda não têm tradução em cada idioma e as traduções já enviadas por outras pessoas (para não repetir), e envia traduções; não vê a fila dos outros |
-| `jornalismo` | jornalista e radialista | escreve matérias para o jornal; manda o boletim; cuida da Rádio Lúcia (canais, faixas, transmissão ao vivo, pôr e tirar do ar) e indica emissoras para a lista "Rádios do povo", que entram pela fila de revisão |
+| `jornalismo` | jornalista, radialista e podcaster | escreve matérias para o jornal; faz o podcast (ver a seção do podcast); manda o boletim; cuida da Rádio Lúcia (canais, faixas, transmissão ao vivo, pôr e tirar do ar) e indica emissoras para a lista "Rádios do povo", que entram pela fila de revisão |
 | `mentoria` (por disciplina) | mentor | responde pedidos de aula de reforço da sua disciplina (a disciplina é obrigatória) |
 | `marketing` | marketing e divulgação | o design e a divulgação juntos: prepara materiais e imagens (como o design), monta em *Divulgação* o calendário de posts e stories (ideia → rascunho → pronto → publicado), usa o kit da marca e o link do perfil do Instagram. O acesso ao Instagram é dado pela coordenação na própria Central de Contas da Meta, como colaborador: **o site nunca guarda senha de rede social** |
-| `design` | designer | o papel antigo: continua valendo para quem já tem (materiais e imagens), mas pedidos, convites e candidaturas novos oferecem *Marketing e divulgação* no lugar dele |
+| `design` | designer | prepara materiais gráficos e imagens e atende pedidos de ajuda das outras funções; conversa no mesmo grupo do marketing |
 | `desenvolvimento` | desenvolvedor | vê o *Estado técnico* (rotina de publicação, segunda avaliação, faxina, pgcrypto, sinais de varredura: só contagens e datas, nenhum dado de pessoa) e atende pedidos de ajuda pelo mural da equipe; não tem poder sobre conteúdo nem sobre pessoas |
 
 **Matriz de seções do painel.** Todos veem Mesa, Escrever, Meus envios e Minha conta; quem tem qualquer função vê também Conversas, Mural da equipe, Compartilhadas comigo, Fontes abertas e Horas e certificados. Além disso:
@@ -288,7 +312,7 @@ Para ativar, nesta ordem:
 
 As conferências dessa parte são `npm run testar:moderacao` (a chamada ao serviço, simulada, sem rede e sem chave) e a seção "segunda avaliação" de `npm run testar:banco` (o que o banco faz com cada resultado).
 
-O **Mural dos Trabalhadores** é decidido pela coordenação e pela mediação, que também pode acertar o texto de um anúncio pendente. Retirar do ar um anúncio já aprovado continua só com a coordenação.
+O **Mural dos Trabalhadores** é decidido pela coordenação e pela mediação, que também pode acertar o texto de um anúncio pendente. Retirar do ar um anúncio já aprovado continua só com a coordenação, na aba **No ar** da seção: o anúncio passa a "não aprovado", com o motivo que quem anunciou lê em "Meus anúncios", e nada é apagado na hora.
 
 **Cadastro aberto.** Qualquer pessoa cria conta com e-mail e senha (página Entrar, ou "Criar conta" na Comunidade). A conta nasce sem função nenhuma: pode perguntar, responder e contribuir, e nada do que escreve aparece antes da mediação. A coordenação fecha essa porta em *Controles do site → Cadastro da comunidade* (volta a valer só o convite), e a pausa geral de envios também a fecha enquanto durar. A regra está no gatilho `lucia_conta_nova`. No serviço de contas, mantenha ligadas a confirmação de e-mail e a verificação contra robôs (seção 6).
 
@@ -300,9 +324,17 @@ A **Triagem** é a primeira barreira das contribuições: o que vem de quem não
 
 ### Conversas e Mural da equipe
 
-**Conversas** é o bate-papo: privado (duas pessoas) ou em grupo. Qualquer pessoa da equipe procura outra pelo nome e começa uma conversa, ou cria um grupo e escolhe quem entra (dá para marcar de uma vez todos de uma função). Só quem participa de uma conversa a lê: nem a coordenação abre conversa alheia. Aparece quem está online (painel aberto nos últimos dois minutos) e o "visto por último" de cada um. Não há canal aberto permanente com o banco: a conversa aberta se atualiza a cada três segundos e a lista a cada oito, o que na prática é tempo real. As mensagens usam a mesma chave da equipe do mural, somem em trinta dias, e o botão "Apagar todas as conversas agora" do coordenador leva tudo junto. Como a chave é uma só para a equipe, quem tem a frase **e** acesso direto ao banco conseguiria abrir mensagens alheias; pelo painel, não.
+**Conversas** é o bate-papo: privado (duas pessoas), em grupo, e os **grupos de departamento**. Qualquer pessoa da equipe procura outra pelo nome e começa uma conversa, ou cria um grupo e escolhe quem entra (dá para marcar de uma vez todos de uma função). Só quem participa de uma conversa a lê: nem a coordenação abre conversa alheia. Aparece quem está online (painel aberto nos últimos dois minutos) e o "visto por último" de cada um. Não há canal aberto permanente com o banco: a conversa aberta se atualiza a cada três segundos e a lista a cada oito, o que na prática é tempo real. Tudo some em trinta dias, e o botão "Apagar todas as conversas agora" do coordenador (no Mural da equipe) leva tudo junto.
 
-O **Mural da equipe** é um mural de publicações e comentários, com um canal para todos, um por função e um de pedidos de ajuda entre funções, e a lista de quem está na equipe ao lado. As mensagens são cifradas no navegador de quem escreve, com uma chave derivada de uma **frase da equipe**. O banco recusa texto aberto e guarda só o resultado cifrado. O coordenador define a frase no **Mural da equipe** ou em **Conversas** e a passa aos demais por fora do site. A frase não fica guardada em lugar nenhum: se for perdida, define-se outra (e as conversas guardadas são apagadas). Tudo some sozinho depois de trinta dias, e o coordenador tem o botão "Apagar todas as conversas agora". Troque a frase sempre que alguém sair da equipe.
+Os **grupos de departamento** são onze e já existem sozinhos: a equipe toda, coordenação, curadoria, mediação, educação, revisão, tradução, jornalismo (que é também rádio e podcast), aula de reforço, design e desenvolvimento. Quem recebe uma função entra na hora no grupo dela e no da equipe toda; quem deixa de tê-la (ou tem a conta suspensa) sai na hora. A coordenação e a vice-coordenação estão em todos. Ninguém sai, põe ou tira gente, nem apaga um grupo de departamento: ele acompanha as funções (gatilho `lucia_departamentos`, em `interno.papeis` e `interno.perfis`).
+
+**Autodestruição.** Em cada conversa, qualquer participante escolhe, no alto, "Some em 1 hora", "1 dia" ou "7 dias" (ou desliga). Vale para as mensagens enviadas dali em diante: cada uma guarda o próprio prazo (`expira_em`) e é apagada do banco quando ele passa; a tela já esconde antes. Quem ligou e quando aparece na própria conversa.
+
+**A cifra, sem frase.** Não existe mais a frase da equipe. Cada aparelho (cada navegador em que a pessoa abre o painel) cria um par de chaves ECDH P-256; a parte privada é criada como não exportável e fica só no navegador (IndexedDB), e o banco guarda só a parte pública (`interno.chat_aparelhos`). Cada conversa tem uma chave AES-GCM de 256 bits, criada num navegador e embrulhada para cada aparelho de quem participa (`interno.chat_chaves`). O banco recusa texto aberto e guarda só `c2.<versão>.<vetor>.<cifrado>`; cada mensagem vai amarrada à conversa, à versão da chave e ao autor, então nem mesmo trocar o autor de uma mensagem direto no banco passa despercebido (ela para de abrir). Quando alguém sai de uma conversa (ou de um departamento, ou remove um aparelho), a conversa passa a exigir uma versão nova da chave, que quem saiu nunca recebe. Quem chega depois (pessoa nova num grupo, celular novo) recebe as chaves dos colegas: qualquer aparelho com o painel aberto repassa sozinho, a cada meio minuto, o que falta para os outros. A lista "Aparelhos com acesso às suas conversas", no pé de Conversas, mostra os aparelhos da conta e deixa remover um perdido; a pessoa é avisada sempre que as conversas dela abrem num aparelho novo. Testes: `npm run testar:sigilo` (a cifra, sem banco) e a seção de conversas de `npm run testar:banco`.
+
+O limite, dito com franqueza: o banco é quem diz quais aparelhos pertencem a cada pessoa. Quem tiver a chave de serviço do banco (não só leitura, mas escrita) pode cadastrar um aparelho falso para alguém e passar a receber as chaves **das mensagens seguintes**. Isso não vale para o que já foi escrito, não acontece por quem só lê o banco ou um vazamento dele, e não acontece pelo painel. Proteja a chave de serviço como a senha mais importante do instituto.
+
+O **Mural da equipe** é um mural de publicações e comentários, com um canal para todos, um por função e um de pedidos de ajuda entre funções, e a lista de quem está na equipe ao lado. Ele usa a mesma cifra: cada canal é cifrado com a chave do grupo do departamento correspondente ("Todos" e "Pedidos de ajuda" usam a do grupo da equipe toda). Tudo some sozinho depois de trinta dias, e o coordenador tem o botão "Apagar todas as conversas agora".
 
 ### Imagens e arquivos
 
@@ -352,7 +384,7 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 ## 8. Segurança: o que protege o quê
 
 - **Tabelas fechadas.** Ficam no esquema `interno`, sem nenhuma permissão direta. A única entrada são as funções do esquema `public`, e cada uma confere quem está chamando.
-- **Chaves.** A chave *anon* é pública por natureza e não abre nada sozinha. A *service_role* existe só nos segredos da publicação automática.
+- **Chaves.** A chave *anon* é pública por natureza e não abre nada sozinha. A *service_role* existe só nos segredos das rotinas automáticas (publicação e e-mails) e, dentro delas, só nos passos que falam com o banco: a instalação dos pacotes e o build rodam código de terceiros e não a enxergam. Pelo mesmo motivo, o token de escrita do GitHub só existe no passo que faz o push da publicação.
 - **Texto, não código.** O conteúdo é Markdown sem HTML; links só http(s); imagens só as que estão em `public/arquivos/` e `public/imagens/`. Os cabeçalhos de segurança (`next.config.ts`) impedem scripts de fora.
 - **Limites.** Envios anônimos têm limite por origem, campo-isca contra robôs e tamanho máximo. A entrada (pedido de link, senha da equipe e cadastro) passa pela verificação do Turnstile, conferida pelo próprio serviço de contas. Os formulários abertos (contribuir, mural, denúncia, reforço) são protegidos pelo limite de envios e pelo campo-isca, dentro do banco.
 - **Segundo fator** para as funções com poder de decisão (seção 6) e **aviso de aparelho novo**: quando uma conta da equipe entra de um aparelho que nunca usou, a pessoa e a coordenação são avisadas no painel.
@@ -430,7 +462,7 @@ O modo sem internet (`public/sw.js`) só funciona no site montado (`npm run buil
 
 O tocador tem duas partes. As **rádios populares** vêm de `content/radios.json`: só entram emissoras com transmissão aberta em https, conferida na hora de cadastrar; as que não deixam tocar de fora aparecem como link para o site delas. Rode `npm run conferir:links` de tempos em tempos, porque endereço de transmissão muda sem aviso.
 
-A **rádio própria** fica "Em breve" para o público até a coordenação clicar em **Pôr no ar** na aba Rádio do painel. Os áudios são enviados pelo próprio painel ou indicados por endereço. Só publique gravações próprias, em domínio público ou com licença que permita a transmissão: música comercial exige licenciamento.
+A **rádio própria** fica "Em breve" para o público até a coordenação clicar em **Pôr no ar** na aba Rádio do painel. Os áudios são enviados pelo próprio painel ou indicados por endereço https (o site é servido em https e o navegador não toca áudio http dentro dele; o banco recusa). Só publique gravações próprias, em domínio público ou com licença que permita a transmissão: música comercial exige licenciamento.
 
 ## 12. Apoio financeiro
 
@@ -438,7 +470,7 @@ O endereço da campanha fica em `lib/site.ts`. O mural de apoiadores é preenchi
 
 ## 13. Voluntariado, horas e certificados
 
-O voluntário aceita no painel um termo de adesão baseado na Lei nº 9.608/1998 (serviço voluntário: sem salário e sem vínculo de emprego). Depois registra as horas, que a coordenação confere. O certificado de horas é aberto pelo coordenador (nunca para si mesmo) e leva sempre **três assinaturas eletrônicas**: a de um educador, a do vice-coordenador e, por último, a do coordenador, que é a emissão. Cada um assina na própria conta, em *Horas e certificados*; fica guardado quem assinou, em nome de que função, o dia e a hora. Ninguém assina o próprio certificado, e sem vice-coordenador nomeado não se emite. A folha é única (`components/painel/Certificado.tsx`, estilo em `app/globals.css`): A4 deitada, salva em PDF pelo navegador, com o número do certificado e uma impressão digital (SHA-256) do que ele afirma. É assinatura eletrônica simples, feita dentro do site; quem precisar de mais força pode, além disso, assinar o PDF em um serviço de assinatura como o do gov.br. Qualquer pessoa confere a autenticidade em `/certificado`, com o código impresso.
+O voluntário aceita no painel um termo de adesão baseado na Lei nº 9.608/1998 (serviço voluntário: sem salário e sem vínculo de emprego). A partir daí a plataforma conta sozinha as horas do trabalho feito no painel (`interno.horas_apurar`, em `supabase/install.sql`): aula aprovada, parecer, tradução, decisão de curadoria, triagem, reforço concluído, episódio publicado e os demais tipos de `interno.horas_tabela()`. Cada trabalho conta uma vez (a coluna `fonte` impede repetição), no dia em que terminou, até 12 h por dia somando tudo, e entra já confirmado. O coordenador ajusta quanto vale cada tipo na *Tabela de horas* do painel (vale dali em diante); coordenação e vice podem desconsiderar uma linha que ainda não esteja em certificado. O que a pessoa faz fora do painel ela registra à mão, e a coordenação confere. Quando quer o certificado, o voluntário escolhe o período e clica em *Pedir certificado*: coordenação e vice são avisadas no painel e por e-mail, e o pedido chega com as horas do período e um resumo das atividades pronto. O coordenador usa *Preparar o certificado* (o formulário de abertura vem preenchido) ou responde sem abrir, com uma nota que a pessoa lê no painel. O certificado de horas é aberto pelo coordenador (nunca para si mesmo) e leva sempre **três assinaturas eletrônicas**: a de um educador, a do vice-coordenador e, por último, a do coordenador, que é a emissão. Cada um assina na própria conta, em *Horas e certificados*; fica guardado quem assinou, em nome de que função, o dia e a hora. Ninguém assina o próprio certificado, e sem vice-coordenador nomeado não se emite. A folha é única (`components/painel/Certificado.tsx`, estilo em `app/globals.css`): A4 deitada, salva em PDF pelo navegador, com o número do certificado e uma impressão digital (SHA-256) do que ele afirma. É assinatura eletrônica simples, feita dentro do site; quem precisar de mais força pode, além disso, assinar o PDF em um serviço de assinatura como o do gov.br. Qualquer pessoa confere a autenticidade em `/certificado`, com o código impresso.
 
 Enquanto o instituto não tiver CNPJ, o certificado é uma **declaração de um projeto comunitário**, assinada por pessoa física. Vale como comprovação de atividade; cada escola ou empresa decide se aceita como hora complementar. Não prometa mais do que isso.
 
@@ -450,7 +482,7 @@ Manifestação de apoio a candidatura na internet é livre para pessoa física, 
 
 ## 15. Mural dos Trabalhadores
 
-Qualquer pessoa anuncia, sem conta: escolhe o tipo, escreve o ofício, o título, a descrição, a **cidade**, o **estado** e o contato. O anúncio passa pelo filtro de palavras e fica esperando: **só a coordenação (coordenador e vice) aprova**, na aba **Mural** do painel. Aprovado, fica no ar por 180 dias. Quem anunciou sem conta recebe um código para retirar o anúncio quando quiser. Quem procura filtra por estado, cidade, tipo e palavra.
+Qualquer pessoa anuncia, sem conta: escolhe o tipo, escreve o ofício, o título, a descrição, a **cidade**, o **estado** e o contato. O anúncio passa pelo filtro de palavras e fica esperando: **a coordenação (coordenador e vice) e a mediação aprovam**, na seção **Mural dos Trabalhadores** do painel. Aprovado, fica no ar por 180 dias; tirar do ar antes disso é com a coordenação, na aba **No ar**. Quem anunciou sem conta recebe um código para retirar o anúncio quando quiser. Quem procura filtra por estado, cidade, tipo e palavra.
 
 ## 15a. Gaveta Aberta
 
@@ -503,7 +535,7 @@ A página **Notícias** lê os endereços de distribuição (RSS) dos veículos 
 
 ## 18. Histórico público
 
-A página de histórico (`/historico`) e o quadro de novidades da página inicial mostram o que mudou no conteúdo desde a data de `historyFrom`, em `lib/site.ts` (deixe vazio para desligar). Nada de processo interno aparece: commits de junção (merge) são ignorados, o assunto dos commits nunca é mostrado, e só contam os arquivos das coleções de estudo e leitura (aulas, acervo, catálogo, autores, memorial, glossário, jornal, checagens, debates, vídeos, galeria, rádios e afins). Páginas legais (privacidade, termos), o aviso de abertura e arquivos de funcionamento ficam de fora. Cada dia vira um resumo gerado a partir dos arquivos ("9 aulas novas em Geografia · 191 obras novas no acervo"), com os títulos de algumas aulas. A lista de pastas e os textos ficam em `lib/history.ts` e no objeto `history` dos dicionários.
+A página de histórico (`/historico`) e o quadro de novidades da página inicial mostram o que mudou no conteúdo desde a data de `historyFrom`, em `lib/site.ts` (deixe vazio para desligar). Nada de processo interno aparece: commits de junção (merge) são ignorados, o assunto dos commits nunca é mostrado, e só contam os arquivos das coleções de estudo e leitura (aulas, acervo, catálogo, autores, memorial, glossário, jornal, checagens, debates, vídeos, galeria, rádios e afins). Páginas legais (privacidade, termos), o aviso de abertura e arquivos de funcionamento ficam de fora. Cada dia vira um resumo gerado a partir dos arquivos ("9 aulas novas em Geografia · 191 obras novas no acervo"), com os títulos de algumas aulas. A lista de pastas e os textos ficam em `lib/history.ts` e no objeto `history` dos dicionários. Em clones rasos (como o da Vercel), o registro mais antigo que veio no clone, a "fronteira", fica de fora: senão ele apareceria como se tivesse criado o acervo inteiro naquele dia.
 
 ## Serviços abertos de fora
 

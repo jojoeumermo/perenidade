@@ -78,7 +78,8 @@
     "start": "Where to start",
     "news": "News",
     "gallery": "Poster gallery",
-    "data": "People's data"
+    "data": "People's data",
+    "podcasts": "Podcasts"
   },
   "footer": {
     "tagline": "Free knowledge, for everyone, forever.",
@@ -87,6 +88,7 @@
     "project": "Project",
     "legal": "Lessons under CC BY-SA 4.0 · No ads, no advertising trackers · Every work and image shows its source and licence",
     "slogan": "Workers of all countries, unite!",
+    "instagram": "Follow us on Instagram",
     "team": "Volunteer sign-in"
   },
   "home": {
@@ -168,6 +170,10 @@
     "chines": [
       "Chinese (Mandarin)",
       "Tones, pinyin and the first characters."
+    ],
+    "russo": [
+      "Russian",
+      "Russian from scratch: the Cyrillic alphabet, everyday communication, the case system and reading texts."
     ],
     "artes": [
       "Arts",
@@ -392,6 +398,34 @@
     "ecossocialismo": [
       "Ecosocialism",
       "The climate crisis as a crisis of capitalism: nature, labour and the way out that does not fit into profit."
+    ],
+    "frances": [
+      "French",
+      "French from scratch: everyday communication, reading and the French-speaking world."
+    ],
+    "ingles-infantil": [
+      "English for children",
+      "First steps in English for children: everyday words, songs and games."
+    ],
+    "redes-e-seguranca": [
+      "Networks and information security",
+      "How networks work from the inside and how to protect systems and people, with an emphasis on ethical hacking: always authorized and within the law."
+    ],
+    "trancista": [
+      "Braiding",
+      "Afro braids: hair care, techniques, history and how to turn the craft into income."
+    ],
+    "costureira": [
+      "Sewing",
+      "Sewing from the basics to mending and making garments, with safety at work and ways to earn an income."
+    ],
+    "barbeiro": [
+      "Barbering",
+      "Men's haircuts and beards: tools, hygiene and biosafety, techniques and how to set up your own work."
+    ],
+    "oratoria-e-lideranca": [
+      "Public speaking and leadership",
+      "Speaking in public with clarity, preparing a talk, running meetings and assemblies and leading collectively."
     ]
   },
   "tracks": {
@@ -503,7 +537,8 @@
     },
     "catalogTitle": "Extended catalogue",
     "catalogLead": "Works gathered from open catalogues, with a direct link to the source. These entries are simpler than those selected by the curators. A work being listed here does not mean agreement with what it says.",
-    "seeAt": "See at {source}"
+    "seeAt": "See at {source}",
+    "mecNote": "Free digital loan from MEC Livros, the digital library of Brazil's Ministry of Education: just sign in with a gov.br account."
   },
   "shelf": {
     "eyebrow": "Subject",
@@ -514,7 +549,12 @@
     "noWorks": "No works indexed yet.",
     "suggestWork": "Suggest a free work.",
     "tools": "To practise",
-    "videos": "Videos"
+    "videos": "Videos",
+    "sections": "In this subject",
+    "loose": "Stand-alone materials",
+    "looseLead": "Stand-alone lessons, exercise sheets, summaries and study guides made by secondary educators, outside the tracks.",
+    "looseEmpty": "There are no stand-alone materials in this subject yet.",
+    "looseJoin": "Want to contribute one? Volunteer."
   },
   "search": {
     "eyebrow": "The whole collection",
@@ -1108,7 +1148,8 @@
     "humanidades": "Humanities",
     "teoria": "Revolutionary theory",
     "lutas": "People's struggles",
-    "percursos": "Literacy and ENEM"
+    "percursos": "Literacy and ENEM",
+    "oficios": "Trades and income: learn a skill and earn a living from it"
   },
   "stages": {
     "fundamental": "Primary and lower secondary",
@@ -2306,7 +2347,9 @@
       "start": "Short books and lessons for the first steps.",
       "news": "Headlines from grassroots, independent and public outlets, updated automatically.",
       "gallery": "Posters and images of the workers' struggle, with the story behind each one.",
-      "data": "Minimum wage, inflation, interest, unemployment and what Congress voted, from official sources."
+      "data": "Minimum wage, inflation, interest, unemployment and what Congress voted, from official sources.",
+      "podcasts": "Political education episodes to listen to on the bus, in the kitchen or on your work break.",
+      "instagram": "Institute news, lessons and calls for volunteers."
     }
   },
   "support": {
@@ -2373,6 +2416,14 @@
     "leaked": "This password has already appeared in leaks from other sites and is one of the first an attacker tries. Choose another. (The check does not send your password to anyone.)"
   },
   "radio": {
+    "back15": "Back 15 seconds",
+    "forward30": "Forward 30 seconds",
+    "speed": "Speed",
+    "position": "Position in the episode",
+    "openEpisode": "Open the episode",
+    "related": "Listen",
+    "relatedLead": "Podcast episodes that go with this subject.",
+    "newEpisode": "New episode",
     "eyebrow": "On air",
     "title": "Rádio Lúcia",
     "lead": "Music and spoken word to study by.",
@@ -2689,11 +2740,13 @@
       "mediacao": "Community mediator",
       "revisao": "Reviewer",
       "traducao": "Translator",
-      "jornalismo": "Journalist and radio host",
+      "jornalismo": "Journalist, radio host or podcaster",
       "mentoria": "Tutoring",
-      "marketing": "Marketing and outreach (design and social media)",
+      "design": "Designer",
+      "marketing": "Marketing and outreach",
       "desenvolvimento": "Infrastructure and development",
-      "curadoria": "Curator"
+      "curadoria": "Curator",
+      "educacao_secundaria": "Secondary educator: materials and stand-alone lessons"
     }
   },
   "povo": {
@@ -2822,5 +2875,162 @@
     "withdraw": "Take down",
     "withdrawConfirm": "Take this entry down? People who already copied the work can keep using it under the license.",
     "withdrawn": "Entry taken down."
+  },
+  "podcast": {
+    "title": "Podcasts",
+    "eyebrow": "Listen and learn",
+    "lead": "Popular and political education conversations: history, economics, social struggle and Brazil's ENEM exam. Free, with transcripts and sources.",
+    "newest": "New",
+    "season": "Season",
+    "episode": "Episode",
+    "openEpisode": "See the episode",
+    "soon": "Coming soon",
+    "soonText": "The first episode is in production. Meanwhile, vote on the topics and send your question.",
+    "subscribe": "Subscribe",
+    "subscribeLead": "Listen in the app you already use, or copy the feed address (RSS) into any podcast player.",
+    "copyFeed": "Copy",
+    "copied": "Copied",
+    "guestNote": "Taking part in an episode?",
+    "micTitle": "Test your microphone",
+    "micShort": "Microphone",
+    "listen": "Listen",
+    "pause": "Pause",
+    "all": "All",
+    "filters": "Filter episodes",
+    "recent": "Recent episodes",
+    "series": "Series",
+    "episodes": "episodes",
+    "allEpisodes": "All episodes",
+    "openDiscipline": "Open the shelf for",
+    "themes": {
+      "historia": "History",
+      "economia": "Economics",
+      "luta-social": "Social struggle",
+      "enem": "ENEM",
+      "filosofia": "Philosophy",
+      "cultura": "Culture",
+      "ciencia": "Science",
+      "trabalho": "Work",
+      "educacao": "Education",
+      "internacional": "International",
+      "memoria": "Memory",
+      "atualidade": "Current affairs"
+    },
+    "position": "Position in the episode",
+    "chapters": "Chapters",
+    "searchTranscript": "Search the transcript",
+    "playFrom": "Listen from",
+    "noMatch": "Nothing found.",
+    "commentBlocked": "The message did not pass the community rules.",
+    "commentHeld": "Received: the message will appear after moderation reads it.",
+    "tooMany": "Too many submissions in a short time. Try again later.",
+    "commentsClosed": "Comments on this episode are closed.",
+    "failed": "That did not work. Please try again.",
+    "commentsEmpty": "No comments yet. Start the conversation.",
+    "team": "team",
+    "waitingModeration": "awaiting moderation",
+    "commentLabel": "What did you think? Any questions?",
+    "comment": "Comment",
+    "commentRules": "Same rules as the community: respect, no personal data, a source when you state a fact.",
+    "signIn": "Sign in",
+    "signInToComment": "to comment.",
+    "copyLink": "Copy the address:",
+    "share": "Share",
+    "refused": "The text has words the community filter does not accept.",
+    "paused": "Submissions are paused for now.",
+    "signInWhy": "to take part. It's free.",
+    "voteTitle": "Vote on the next topics",
+    "voteLead": "The team picks the next themes from what the community most wants to hear.",
+    "voteEmpty": "No topics up for a vote right now.",
+    "signInToVote": "Sign in to vote.",
+    "unvote": "Remove vote",
+    "vote": "Vote",
+    "chosen": "Chosen",
+    "recorded": "already out",
+    "inProduction": "in production",
+    "suggestTitle": "Suggest a topic",
+    "suggestLabel": "Topic",
+    "suggestWhy": "Why this topic? (optional)",
+    "suggest": "Suggest",
+    "suggested": "Suggestion sent. The team reads it and decides whether it goes to a vote.",
+    "stop": "Stop",
+    "discard": "Discard",
+    "record": "Record the question",
+    "micDenied": "The browser did not allow the microphone. Allow access in the site settings.",
+    "askTitle": "Ask the podcast",
+    "askLead": "Send your question in writing or in your own voice. The chosen ones are answered in the episodes.",
+    "askText": "Your question",
+    "askSign": "How should we call you on air? (optional)",
+    "askSignExample": "Ana, from Recife",
+    "askSend": "Send question",
+    "askPrivacy": "Only the podcast team hears and reads it. If the question goes on air, only the signature you chose is used.",
+    "askSent": "Question sent. Thank you!",
+    "micTooHot": "It is clipping: move a hand's width away from the microphone or lower the input volume.",
+    "micTooLow": "Your voice is quiet: move closer (a hand's width) or raise the input volume.",
+    "micVoiceOk": "The voice level is good.",
+    "micNoisy": "There is a lot of background noise: turn off nearby fans and fridges, close the window, record in a room with fabrics (curtains, sofa, clothes).",
+    "micQuiet": "The room is quiet.",
+    "micCloser": "Your voice is barely above the noise: move closer to the microphone.",
+    "micLead": "Check your voice level and the room noise before recording. Nothing leaves your device.",
+    "micStart": "Turn on the microphone",
+    "micDevice": "Microphone",
+    "micLevel": "Level now",
+    "micTarget": "Speaking normally, the level should stay mostly in the green, never reaching the red.",
+    "micSilence": "Silence for 5 seconds…",
+    "micSpeak": "Now read the sentence aloud…",
+    "micGuided": "Take the guided test (11 seconds)",
+    "micSentence": "“Knowledge belongs to everyone, and those who study together learn faster.”",
+    "micNoise": "Noise",
+    "micVoice": "Voice",
+    "micPeak": "Peak",
+    "micListen": "Hear how it sounds:",
+    "micStop": "Turn off the microphone",
+    "micTipsTitle": "Tips for recording well at home",
+    "micTips": [
+      "Wear headphones while recording: the conversation won't leak back into the microphone.",
+      "Stay a hand's width from the microphone, slightly to the side, so “p” and “b” sounds don't pop.",
+      "Record in a small room full of things (clothes, books, curtains): bare walls echo.",
+      "Put your phone in airplane mode and turn off computer notifications.",
+      "A phone headset with a microphone is enough. Laptop microphones pick up keyboard and fan noise."
+    ],
+    "guestInvalid": "This link does not exist or has expired. Ask whoever invited you for a new one.",
+    "guestHello": "Hello,",
+    "guestAccepted": "Agreement accepted on",
+    "guestWithImage": "You authorized the use of your voice and image.",
+    "guestVoiceOnly": "You authorized the use of your voice.",
+    "guestName": "Your full name",
+    "guestVoice": "I have read and authorize the use of my voice, as in the agreement above.",
+    "guestImage": "I also authorize the use of my image (photo or video of the recording).",
+    "guestAccept": "Accept the agreement",
+    "guestRecordTitle": "If the recording is remote",
+    "guestRecordSteps": [
+      "Join the room through the link the producers sent, wearing headphones.",
+      "If the producers ask, also record your own voice on your device (phone recorder, Audacity or the call app itself) from the beginning to the end of the conversation.",
+      "At the end, send the file to the producers as agreed. Your local track sounds much better than the call.",
+      "If the internet drops, keep recording on your device and rejoin the room as soon as you can."
+    ],
+    "guestTitle": "Podcast guest",
+    "guestLead": "Thank you for taking part. Here you can read and accept the voice use agreement and test your microphone.",
+    "plays": "plays",
+    "guests": "Guests",
+    "download": "Download the audio",
+    "notes": "Episode notes",
+    "citedWorks": "Works cited",
+    "sources": "Sources",
+    "transcript": "Transcript",
+    "downloadCaptions": "Download the captions (.vtt)",
+    "conversation": "Conversation",
+    "more": "Up next"
+  },
+  "loose": {
+    "eyebrow": "Stand-alone material",
+    "formats": [
+      "Stand-alone lesson",
+      "Exercise sheet",
+      "Summary",
+      "Study guide",
+      "Printable material",
+      "Annotated recommendation"
+    ]
   }
 }

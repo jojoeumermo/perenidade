@@ -157,8 +157,8 @@ function TopicList({ s }: { s: S }) {
             {label}
           </button>
         ))}
-        <form role="search" className="ml-auto flex gap-2" onSubmit={(e) => { e.preventDefault(); setQuery(typed.trim()); }}>
-          <input type="search" value={typed} onChange={(e) => { setTyped(e.target.value); if (!e.target.value) setQuery(""); }} maxLength={80} aria-label={s.search} placeholder={s.search} className="w-44 border-2 border-ink bg-parchment-deep px-3 py-1.5 sm:w-60" />
+        <form role="search" className="ml-auto flex gap-2 app:max-md:ml-0 app:max-md:w-full" onSubmit={(e) => { e.preventDefault(); setQuery(typed.trim()); }}>
+          <input type="search" value={typed} onChange={(e) => { setTyped(e.target.value); if (!e.target.value) setQuery(""); }} maxLength={80} aria-label={s.search} placeholder={s.search} className="w-44 border-2 border-ink bg-parchment-deep px-3 py-1.5 app:max-md:w-auto app:max-md:min-w-0 app:max-md:flex-1 sm:w-60" />
           <button type="submit" className="cursor-pointer border-2 border-ink px-3 py-1.5 hover:border-oxblood hover:text-oxblood">{t.nav.search}</button>
         </form>
       </div>
