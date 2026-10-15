@@ -658,14 +658,20 @@ interface Anuncio {
   link: string;
   nome: string;
   criado_em: string;
+  validade?: string | null;
 }
 
 const tiposDeAnuncio: Record<string, string> = { cooperativa: "Cooperativa ou associação", servico: "Serviço", produto: "Produto", arte: "Arte e cultura", iniciativa: "Iniciativa comunitária" };
 
-/** Anúncios do Mural dos Trabalhadores à espera de leitura. */
-export function MuralFila() {
-  const lista = useLista<Anuncio[]>("mural_fila", { p_status: "pendente" });
+/**
+ * Anúncios do Mural dos Trabalhadores à espera de leitura e, na outra aba, os que estão no ar. Retirar do ar um anúncio
+ * aprovado é com a coordenação: ele passa a "não aprovado", com a nota que quem anunciou lê em "Meus anúncios".
+ */
+export function MuralFila({ me }: { me: Me }) {
+  const [ver, setVer] = useState<"pendente" | "aprovado">("pendente");
+  const lista = useLista<Anuncio[]>("mural_fila", { p_status: ver });
   const acao = useAcao(lista.recarregar);
+  const retira = can(me, "coordenacao");
   const [notas, setNotas] = useState<Record<string, string>>({});
   const [edicao, setEdicao] = useState<{ id: string; titulo: string; oficio: string; descricao: string; contato: string; link: string } | null>(null);
   return (
@@ -674,8 +680,16 @@ export function MuralFila() {
         O mural é para quem vive do próprio trabalho: cooperativas, associações, autônomos, artesãos, artistas e iniciativas comunitárias. Não aprove empresas à procura de mão de obra, revenda por
         catálogo, pirâmides, empréstimos, apostas, promessas de ganho fácil nem propaganda eleitoral. Na dúvida, recuse com uma nota explicando o motivo: a pessoa pode corrigir e reenviar.
       </p>
+      <Abas
+        opcoes={[
+          { id: "pendente", nome: "Esperando decisão" },
+          { id: "aprovado", nome: "No ar" },
+        ]}
+        atual={ver}
+        escolher={setVer}
+      />
       <Aviso texto={lista.erro || acao.aviso} />
-      {lista.dados?.length === 0 && <p className="text-ink-soft">Nenhum anúncio aguardando.</p>}
+      {lista.dados?.length === 0 && <p className="text-ink-soft">{ver === "pendente" ? "Nenhum anúncio aguardando." : "Nenhum anúncio no ar."}</p>}
       <ul className="mt-2 space-y-5">
         {lista.dados?.map((item) => (
           <li key={item.id} className="border border-rule bg-parchment-deep p-5">
@@ -727,29 +741,57 @@ export function MuralFila() {
                 <p className="mt-2 whitespace-pre-line font-serif text-lg">{item.descricao}</p>
                 <p className="mt-2">Contato: {item.contato}</p>
                 {item.link && <p className="break-all">Link: {item.link}</p>}
-                <button type="button" className={`mt-1 ${elo}`} onClick={() => setEdicao({ id: item.id, titulo: item.titulo, oficio: item.oficio ?? "", descricao: item.descricao, contato: item.contato, link: item.link })}>
-                  Editar o texto
-                </button>
+                {ver === "pendente" && (
+                  <button type="button" className={`mt-1 ${elo}`} onClick={() => setEdicao({ id: item.id, titulo: item.titulo, oficio: item.oficio ?? "", descricao: item.descricao, contato: item.contato, link: item.link })}>
+                    Editar o texto
+                  </button>
+                )}
               </>
             )}
-            <p className="text-ink-soft">Enviado por {item.nome || "pessoa sem nome no perfil"}</p>
-            <label className="mt-3 block">
-              Nota para quem enviou (obrigatória ao recusar)
-              <input value={notas[item.id] ?? ""} onChange={(e) => setNotas({ ...notas, [item.id]: e.target.value })} maxLength={500} className={campo} />
-            </label>
-            <div className="mt-3 flex flex-wrap gap-3">
-              <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("mural_decidir", { p_id: item.id, p_aprovar: true, p_nota: notas[item.id] ?? "" }, "Anúncio no ar por 180 dias.")}>
-                Aprovar
-              </button>
-              <button
-                type="button"
-                className={botaoClaro}
-                disabled={acao.ocupado || (notas[item.id] ?? "").trim().length < 5}
-                onClick={() => acao.agir("mural_decidir", { p_id: item.id, p_aprovar: false, p_nota: notas[item.id] ?? "" }, "Anúncio recusado.")}
-              >
-                Não aprovar
-              </button>
-            </div>
+            <p className="text-ink-soft">
+              Enviado por {item.nome || "pessoa sem nome no perfil"}
+              {ver === "aprovado" && item.validade && ` · no ar até ${data(item.validade)}`}
+            </p>
+            {ver === "aprovado" ? (
+              retira ? (
+                <>
+                  <label className="mt-3 block">
+                    Motivo da retirada, para quem anunciou (obrigatório)
+                    <input value={notas[item.id] ?? ""} onChange={(e) => setNotas({ ...notas, [item.id]: e.target.value })} maxLength={500} className={campo} />
+                  </label>
+                  <button
+                    type="button"
+                    className={`mt-3 ${botaoClaro}`}
+                    disabled={acao.ocupado || (notas[item.id] ?? "").trim().length < 5}
+                    onClick={() => acao.agir("mural_decidir", { p_id: item.id, p_aprovar: false, p_nota: notas[item.id] ?? "" }, "Anúncio retirado do ar.")}
+                  >
+                    Retirar do ar
+                  </button>
+                </>
+              ) : (
+                <p className="mt-3 text-ink-soft">Retirar do ar um anúncio aprovado é com a coordenação.</p>
+              )
+            ) : (
+              <>
+                <label className="mt-3 block">
+                  Nota para quem enviou (obrigatória ao recusar)
+                  <input value={notas[item.id] ?? ""} onChange={(e) => setNotas({ ...notas, [item.id]: e.target.value })} maxLength={500} className={campo} />
+                </label>
+                <div className="mt-3 flex flex-wrap gap-3">
+                  <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("mural_decidir", { p_id: item.id, p_aprovar: true, p_nota: notas[item.id] ?? "" }, "Anúncio no ar por 180 dias.")}>
+                    Aprovar
+                  </button>
+                  <button
+                    type="button"
+                    className={botaoClaro}
+                    disabled={acao.ocupado || (notas[item.id] ?? "").trim().length < 5}
+                    onClick={() => acao.agir("mural_decidir", { p_id: item.id, p_aprovar: false, p_nota: notas[item.id] ?? "" }, "Anúncio recusado.")}
+                  >
+                    Não aprovar
+                  </button>
+                </div>
+              </>
+            )}
           </li>
         ))}
       </ul>

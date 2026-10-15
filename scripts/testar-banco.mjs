@@ -321,6 +321,17 @@ await recusa("no máximo três anúncios por pessoa", async () => { for (let i =
 await espera("resumo do painel conta o mural", () => rpc(como(ids.coord), "painel_resumo"), (r) => r.mural === 2);
 await recusa("curadoria não retira anúncio do mural", () => rpc(como(ids.curadora), "mural_remover", { p_id: anuncioId }), "nao_encontrado");
 await espera("coordenação retira anúncio indevido", () => rpc(como(ids.coord), "mural_remover", { p_id: anuncioId }), (r) => r.ok);
+// O painel retira do ar sem apagar: o anúncio aprovado vira "não aprovado", com a nota que quem anunciou lê.
+let noAr;
+await espera("coordenação vê no painel os anúncios que estão no ar", async () => {
+  noAr = (await rpc({ papel: "anon", ip: "198.51.100.71" }, "mural_enviar", { p: anuncio({ titulo: "Aulas de violão", categoria: "servico" }) })).id;
+  await rpc(como(ids.coord), "mural_decidir", { p_id: noAr, p_aprovar: true, p_nota: "" });
+  return rpc(como(ids.coord), "mural_fila", { p_status: "aprovado" });
+}, (r) => r.some((a) => a.id === noAr && a.validade));
+await espera("coordenação retira do ar com nota, sem apagar", async () => {
+  await rpc(como(ids.coord), "mural_decidir", { p_id: noAr, p_aprovar: false, p_nota: "Anúncio fora das regras do mural." });
+  return [await rpc(anon, "mural_listar"), (await dono("select status, nota from interno.mural where id = $1", [noAr])).rows[0]];
+}, ([lista, linha]) => !lista.some((a) => a.id === noAr) && linha.status === "recusado" && linha.nota.startsWith("Anúncio fora"));
 
 // ── Mediação no Mural dos Trabalhadores ──
 let doMural;
