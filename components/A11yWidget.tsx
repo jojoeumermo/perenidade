@@ -55,7 +55,7 @@ export function A11yWidget() {
   }, [open]);
 
   return (
-    <div className="no-print fixed bottom-[calc(4.75rem+env(safe-area-inset-bottom,0px))] right-3 z-40 font-sans text-sm md:bottom-4 md:right-4">
+    <div className="app-flutua no-print fixed bottom-[calc(4.75rem+var(--recuo-baixo))] right-3 z-40 font-sans text-sm md:bottom-4 md:right-4">
       {open && (
         <div
           ref={panelRef}

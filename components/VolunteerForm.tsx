@@ -11,7 +11,7 @@ import { useI18n } from "./I18n";
 
 const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
 /** A ordem em que as funções aparecem: primeiro as que mais precisam de gente. */
-export const volunteerRoles = ["educacao", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "marketing", "desenvolvimento", "curadoria"] as const;
+export const volunteerRoles = ["educacao", "educacao_secundaria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "design", "marketing", "desenvolvimento", "curadoria"] as const;
 // "site" é um campo-isca: gente não vê, robô preenche, e o envio é descartado sem aviso.
 const empty = { nome: "", email: "", papel: "educacao", disciplina: "", mensagem: "", site: "" };
 
@@ -26,7 +26,7 @@ export function VolunteerForm({ s, id = "candidatura" }: { s: Dict["volunteer"];
   const [error, setError] = useState("");
   const servico = useCadastro();
   const roles = s.roles as Record<string, string>;
-  const bySubject = draft.papel === "educacao" || draft.papel === "mentoria";
+  const bySubject = draft.papel === "educacao" || draft.papel === "educacao_secundaria" || draft.papel === "mentoria";
   const ready = draft.nome.trim().length >= 5 && /^\S+@\S+\.\S+$/.test(draft.email.trim()) && draft.mensagem.trim().length >= 30 && (!bySubject || draft.disciplina !== "");
 
   // Serviço desligado, ou banco que ainda não recebeu a fila de candidaturas: avisa em vez de mostrar um formulário que falharia.

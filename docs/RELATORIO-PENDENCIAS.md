@@ -7,31 +7,34 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 | Grupo | Disciplina | Prontas | Previstas | Faltam |
 |---|---|---|---|---|
-| Percursos | alfabetizacao | 1 | 27 | 26 |
-| Percursos | enem | 1 | 25 | 24 |
-| Linguagens | portugues | 29 | 43 | 14 |
-| Linguagens | literatura | 1 | 49 | 48 |
-| Linguagens | ingles | 4 | 46 | 42 |
-| Linguagens | espanhol | 1 | 28 | 27 |
-| Linguagens | chines | 1 | 35 | 34 |
-| Linguagens | artes | 1 | 38 | 37 |
-| Linguagens | desenho | 0 | 24 | 24 |
-| Linguagens | design | 0 | 24 | 24 |
-| Linguagens | musica | 7 | 44 | 37 |
-| Linguagens | danca | 0 | 25 | 25 |
-| Linguagens | teatro | 0 | 25 | 25 |
-| Linguagens | cinema | 0 | 25 | 25 |
-| Linguagens | educacao-fisica | 0 | 24 | 24 |
-| Ciências e Tecnologia | matematica | 48 | 48 | 0 |
-| Ciências e Tecnologia | fisica | 26 | 35 | 9 |
-| Ciências e Tecnologia | quimica | 24 | 32 | 8 |
-| Ciências e Tecnologia | biologia | 23 | 33 | 10 |
-| Ciências e Tecnologia | astronomia | 2 | 30 | 28 |
-| Ciências e Tecnologia | informatica | 5 | 61 | 56 |
-| Ciências e Tecnologia | programacao | 17 | 53 | 36 |
-| Ciências e Tecnologia | inteligencia-artificial | 1 | 39 | 38 |
-| Ciências e Tecnologia | manutencao | 1 | 36 | 35 |
-| Ciências e Tecnologia | primeiros-socorros | 5 | 42 | 37 |
+| Alfabetização e ENEM | alfabetizacao | 27 | 50 | 23 |
+| Alfabetização e ENEM | enem | 25 | 50 | 25 |
+| Linguagens e artes | portugues | 29 | 43 | 14 |
+| Linguagens e artes | literatura | 11 | 49 | 38 |
+| Linguagens e artes | ingles | 36 | 60 | 24 |
+| Linguagens e artes | ingles-infantil | 0 | 18 | 18 |
+| Linguagens e artes | espanhol | 28 | 52 | 24 |
+| Linguagens e artes | frances | 0 | 16 | 16 |
+| Linguagens e artes | chines | 35 | 59 | 24 |
+| Linguagens e artes | artes | 1 | 38 | 37 |
+| Linguagens e artes | desenho | 0 | 24 | 24 |
+| Linguagens e artes | design | 0 | 24 | 24 |
+| Linguagens e artes | musica | 7 | 44 | 37 |
+| Linguagens e artes | danca | 0 | 25 | 25 |
+| Linguagens e artes | teatro | 0 | 25 | 25 |
+| Linguagens e artes | cinema | 0 | 25 | 25 |
+| Linguagens e artes | educacao-fisica | 0 | 24 | 24 |
+| Ciências e tecnologia | matematica | 48 | 73 | 25 |
+| Ciências e tecnologia | fisica | 35 | 59 | 24 |
+| Ciências e tecnologia | quimica | 32 | 56 | 24 |
+| Ciências e tecnologia | biologia | 33 | 58 | 25 |
+| Ciências e tecnologia | astronomia | 2 | 30 | 28 |
+| Ciências e tecnologia | informatica | 5 | 61 | 56 |
+| Ciências e tecnologia | programacao | 17 | 53 | 36 |
+| Ciências e tecnologia | redes-e-seguranca | 0 | 30 | 30 |
+| Ciências e tecnologia | inteligencia-artificial | 1 | 39 | 38 |
+| Ciências e tecnologia | manutencao | 1 | 36 | 35 |
+| Ciências e tecnologia | primeiros-socorros | 5 | 42 | 37 |
 | Humanidades | historia | 24 | 62 | 38 |
 | Humanidades | geografia | 1 | 40 | 39 |
 | Humanidades | sociologia | 1 | 32 | 31 |
@@ -48,97 +51,109 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Humanidades | meio-ambiente | 2 | 46 | 44 |
 | Humanidades | arquitetura | 0 | 24 | 24 |
 | Humanidades | arquivologia | 0 | 25 | 25 |
-| Teoria | capitalismo | 26 | 32 | 6 |
-| Teoria | marxismo | 35 | 42 | 7 |
-| Teoria | socialismo | 29 | 35 | 6 |
-| Teoria | comunismo | 25 | 30 | 5 |
-| Teoria | ideologia-e-politica | 23 | 34 | 11 |
-| Teoria | dependencia | 21 | 21 | 0 |
-| Teoria | imperialismo | 10 | 21 | 11 |
-| Teoria | ecossocialismo | 11 | 22 | 11 |
-| Lutas do Povo | trabalho | 1 | 36 | 35 |
-| Lutas do Povo | sindicalismo | 1 | 38 | 37 |
-| Lutas do Povo | luta-negra | 2 | 57 | 55 |
-| Lutas do Povo | feminismo | 1 | 38 | 37 |
-| Lutas do Povo | lgbtqia | 2 | 41 | 39 |
-| Lutas do Povo | deficiencia | 1 | 28 | 27 |
-| Lutas do Povo | povos-indigenas | 1 | 28 | 27 |
-| Lutas do Povo | luta-pela-terra | 0 | 26 | 26 |
-| Lutas do Povo | favelas | 1 | 27 | 26 |
-| Lutas do Povo | luta-dos-professores | 1 | 27 | 26 |
-| Lutas do Povo | movimento-estudantil | 2 | 26 | 24 |
-| Lutas do Povo | pessoas-idosas | 1 | 24 | 23 |
-| | **Total** | **432** | **2086** | **1654** |
+| Teoria revolucionária | capitalismo | 26 | 32 | 6 |
+| Teoria revolucionária | marxismo | 35 | 42 | 7 |
+| Teoria revolucionária | socialismo | 29 | 35 | 6 |
+| Teoria revolucionária | comunismo | 25 | 30 | 5 |
+| Teoria revolucionária | ideologia-e-politica | 23 | 34 | 11 |
+| Teoria revolucionária | dependencia | 21 | 43 | 22 |
+| Teoria revolucionária | imperialismo | 10 | 21 | 11 |
+| Teoria revolucionária | ecossocialismo | 11 | 22 | 11 |
+| Lutas do povo | trabalho | 1 | 36 | 35 |
+| Lutas do povo | sindicalismo | 1 | 38 | 37 |
+| Lutas do povo | luta-negra | 2 | 57 | 55 |
+| Lutas do povo | feminismo | 1 | 38 | 37 |
+| Lutas do povo | lgbtqia | 2 | 41 | 39 |
+| Lutas do povo | deficiencia | 1 | 28 | 27 |
+| Lutas do povo | povos-indigenas | 1 | 28 | 27 |
+| Lutas do povo | luta-pela-terra | 0 | 26 | 26 |
+| Lutas do povo | favelas | 1 | 27 | 26 |
+| Lutas do povo | luta-dos-professores | 1 | 27 | 26 |
+| Lutas do povo | movimento-estudantil | 2 | 26 | 24 |
+| Lutas do povo | pessoas-idosas | 1 | 24 | 23 |
+| Hobbies: aprenda uma habilidade nova e monetize com ela | trancista | 0 | 15 | 15 |
+| Hobbies: aprenda uma habilidade nova e monetize com ela | costureira | 0 | 16 | 16 |
+| Hobbies: aprenda uma habilidade nova e monetize com ela | barbeiro | 0 | 14 | 14 |
+| Hobbies: aprenda uma habilidade nova e monetize com ela | oratoria-e-lideranca | 0 | 15 | 15 |
+| | **Total** | **612** | **2440** | **1828** |
 
-## Percursos
+## Alfabetização e ENEM
 
-### alfabetizacao — 1 de 27 prontas (faltam 26)
+### alfabetizacao — 27 de 50 prontas (faltam 23)
 
-**Ler e escrever** (fundamental, `ler-e-escrever`): 1/11 prontas
-- As vogais
-- O seu nome
-- Palavras da casa
-- Palavras do trabalho
-- Sílabas: pedaços que se repetem
-- Ler placas, ônibus e contas
-- Escrever um bilhete
-- Os números e o dinheiro
-- Preencher um formulário
-- Ler uma notícia curta
+**Ler e escrever** (fundamental, `ler-e-escrever`): 11/11 prontas
+- (completa)
 
-**Depois das primeiras letras** (medio, `alfabetizacao-de-jovens-e-adultos`): 0/8 prontas
-- Ler em voz alta
-- Pontuação: onde a voz para
-- Escrever uma carta e uma mensagem
-- Ler um contrato antes de assinar
-- Ler rótulo e bula
-- Fazer contas do dia a dia
-- O que é a EJA e como se matricular
-- Encceja: o certificado do ensino fundamental e do médio
+**Depois das primeiras letras** (medio, `alfabetizacao-de-jovens-e-adultos`): 8/8 prontas
+- (completa)
 
-**Alfabetização: teoria e método** (superior, `alfabetizacao-superior`): 0/8 prontas
-- Paulo Freire e as palavras geradoras
-- A experiência de Angicos
-- Emilia Ferreiro e a psicogênese da língua escrita
-- Magda Soares: alfabetização e letramento
-- Métodos sintéticos, analíticos e o debate do método fônico
-- Analfabetismo no Brasil: os números e as causas
-- O Mobral, o MOVA e o Brasil Alfabetizado
-- A campanha de alfabetização de Cuba de 1961
+**Alfabetização: teoria e método** (superior, `alfabetizacao-superior`): 8/8 prontas
+- (completa)
 
-### enem — 1 de 25 prontas (faltam 24)
+**Alfabetização: aprofundamento** (superior, `alfabetizacao-aprofundamento`): 0/23 prontas
+- Planejar um círculo de cultura
+- Fazer o levantamento do universo vocabular
+- Diagnóstico inicial: como saber o que cada um já sabe
+- Consciência fonológica na alfabetização de adultos
+- Produzir materiais a partir de textos reais
+- Avaliar a aprendizagem sem humilhar
+- Alfabetização e matemática: o letramento matemático
+- Alfabetização de pessoas idosas
+- Alfabetização de pessoas surdas e o bilinguismo com Libras
+- Alfabetização de pessoas com deficiência intelectual
+- Alfabetização em contextos indígenas
+- Alfabetização no campo: a educação do campo
+- Alfabetização nas prisões
+- Alfabetização digital
+- Bibliotecas comunitárias e formação de leitores
+- Leitura em voz alta e rodas de leitura
+- A campanha de alfabetização da Nicarágua de 1980
+- Paulo Freire na África: a experiência da Guiné-Bissau
+- Os Centros Populares de Cultura e o Movimento de Cultura Popular
+- De Pé no Chão Também se Aprende a Ler
+- A formação de alfabetizadores populares
+- Alfabetização e trabalho: o letramento no emprego
+- O que dizem as avaliações nacionais de alfabetização
 
-**ENEM: como a prova funciona** (medio, `enem-como-funciona`): 1/8 prontas
-- Inscrição e isenção da taxa
-- A nota: o que é a TRI
-- Sisu, Prouni e Fies
-- Cotas: como funciona a Lei de Cotas
-- Como montar um plano de estudos realista
-- O dia da prova: o que levar e como administrar o tempo
-- Cursinhos populares: estudar junto e de graça
+### enem — 25 de 50 prontas (faltam 25)
 
-**ENEM: redação** (medio, `enem-redacao`): 0/8 prontas
-- A estrutura da redação do ENEM
-- Competência 1: a norma-padrão
-- Competência 2: entender o tema e usar repertório
-- Competência 3: organizar os argumentos
-- Competência 4: coesão
-- Competência 5: a proposta de intervenção
-- O que zera a redação
-- Como treinar: escrever, reler e reescrever
+**ENEM: como a prova funciona** (medio, `enem-como-funciona`): 8/8 prontas
+- (completa)
 
-**ENEM: as quatro áreas** (medio, `enem-por-area`): 0/9 prontas
-- Linguagens: interpretação de texto acima de tudo
-- Linguagens: literatura, artes e língua estrangeira
-- Ciências humanas: história e geografia
-- Ciências humanas: filosofia e sociologia
-- Ciências da natureza: física
-- Ciências da natureza: química
-- Ciências da natureza: biologia
-- Matemática: o que mais cai
-- Matemática: ler gráficos e tabelas
+**ENEM: redação** (medio, `enem-redacao`): 8/8 prontas
+- (completa)
 
-## Linguagens
+**ENEM: as quatro áreas** (medio, `enem-por-area`): 9/9 prontas
+- (completa)
+
+**ENEM: aprofundamento** (medio, `enem-aprofundamento`): 0/25 prontas
+- Como usar as provas anteriores do Inep para treinar
+- Interpretar enunciados longos sem se perder
+- Linguagens: variação linguística
+- Linguagens: funções da linguagem
+- Linguagens: gêneros digitais e textos multimodais
+- Linguagens: escolas literárias em revisão
+- Linguagens: arte brasileira em revisão
+- Inglês e espanhol: estratégias de leitura
+- Matemática: escala, razão e proporção no cotidiano
+- Matemática: funções e gráficos em revisão
+- Matemática: geometria plana e espacial em revisão
+- Matemática: estatística e probabilidade em revisão
+- Natureza: ecologia e meio ambiente
+- Natureza: energia e suas transformações
+- Natureza: química do cotidiano
+- Natureza: genética e evolução
+- Humanas: Colônia, Império e República em revisão
+- Humanas: cidadania, direitos e movimentos sociais
+- Humanas: espaço agrário e espaço urbano
+- Humanas: globalização e geopolítica
+- Redação: construir repertório lendo jornais e livros
+- Redação: analisar as redações comentadas da cartilha
+- Atendimento especializado, recursos de acessibilidade e nome social no ENEM
+- Ansiedade e saúde mental na preparação
+- Encceja: certificação do ensino fundamental e do ensino médio
+
+## Linguagens e artes
 
 ### portugues — 29 de 43 prontas (faltam 14)
 
@@ -166,7 +181,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Análise do discurso
 - Língua de sinais é língua
 
-### literatura — 1 de 49 prontas (faltam 48)
+### literatura — 11 de 49 prontas (faltam 38)
 
 **Histórias que o povo conta** (fundamental, `literatura-fundamental`): 0/10 prontas
 - O que é literatura
@@ -180,19 +195,10 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Histórias em quadrinhos
 - Como montar um clube de leitura
 
-**Lendo Machado de Assis** (medio, `lendo-machado-de-assis`): 1/7 prontas
-- Memórias Póstumas de Brás Cubas
-- Dom Casmurro: o narrador é confiável?
-- Quincas Borba e o humanitismo
-- Os contos: A cartomante, Missa do galo e O alienista
-- Machado e a escravidão
-- A ironia machadiana
+**Lendo Machado de Assis** (medio, `lendo-machado-de-assis`): 7/7 prontas
+- (completa)
 
-**Literatura brasileira** (medio, `literatura-brasileira`): 0/12 prontas
-- Quinhentismo e Barroco
-- Arcadismo e a Inconfidência
-- Romantismo
-- Castro Alves e a poesia abolicionista
+**Literatura brasileira** (medio, `literatura-brasileira`): 4/12 prontas
 - Realismo e Naturalismo
 - Lima Barreto
 - Euclides da Cunha e Os Sertões
@@ -226,21 +232,46 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - A literatura marginal e periférica
 - Conceição Evaristo e a escrevivência
 
-### ingles — 4 de 46 prontas (faltam 42)
+### ingles — 36 de 60 prontas (faltam 24)
 
-**Inglês do zero** (fundamental, `ingles-do-zero`): 4/14 prontas
-- Artigos: a, an e the
-- Plural dos substantivos
-- Pronomes pessoais e possessivos
-- Presente simples
-- Perguntas com do e does
-- Família, casa e rotina
-- Horas, dias e meses
-- There is e there are
-- Can: habilidade e pedido
-- Presente contínuo
+**Inglês do zero** (fundamental, `ingles-do-zero`): 14/14 prontas
+- (completa)
 
-**Inglês para crianças** (fundamental, `ingles-para-criancas`): 0/10 prontas
+**Inglês: conversação e leitura** (medio, `ingles-medio`): 12/12 prontas
+- (completa)
+
+**Inglês: leitura acadêmica** (superior, `ingles-superior`): 10/10 prontas
+- (completa)
+
+**Inglês: aprofundamento** (superior, `ingles-aprofundamento`): 0/24 prontas
+- Os sons do inglês que não existem em português
+- Entonação e ritmo
+- Ouvir: estratégias de compreensão oral
+- Past continuous
+- Past perfect
+- Used to e would para hábitos do passado
+- Gerúndio ou infinitivo depois de verbos
+- Orações relativas: who, which e that
+- Question tags
+- Modais de dedução: must, might e can't
+- Present perfect continuous
+- Quantificadores: much, many, few e little
+- Adjetivos terminados em -ed e -ing
+- Inglês britânico e estadunidense
+- Canções de protesto em inglês
+- Ler notícias internacionais em inglês
+- Debater e argumentar em inglês
+- Escrever um currículo em inglês
+- Entrevista de emprego em inglês
+- Inglês para o turismo e a hotelaria
+- Inglês para a área da saúde
+- Inglês para tecnologia da informação
+- Literatura afro-americana: uma introdução
+- Literaturas africanas em língua inglesa
+
+### ingles-infantil — 0 de 18 prontas (faltam 18)
+
+**Inglês para crianças** (fundamental, `ingles-para-criancas`): 0/18 prontas
 - Cores e números
 - Olá e tchau
 - A família
@@ -251,111 +282,111 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - As roupas
 - Os dias da semana
 - Brincadeiras para repetir
+- A sala de aula e os brinquedos
+- As frutas
+- O tempo e as estações do ano
+- Os meses do ano
+- Sentimentos
+- Ações do dia a dia
+- Músicas e rimas em inglês
+- Contar uma história curta
 
-**Inglês: conversação e leitura** (medio, `ingles-medio`): 0/12 prontas
-- Passado simples: verbos regulares
-- Passado simples: verbos irregulares
-- Futuro com will e going to
-- Comparativos e superlativos
-- Preposições de tempo e lugar
-- Present perfect
-- Should, must e have to
-- Como ler um texto em inglês
-- Falsos cognatos
-- Phrasal verbs mais usados
-- Como escrever um e-mail em inglês
-- Inglês no trabalho
+### espanhol — 28 de 52 prontas (faltam 24)
 
-**Inglês: leitura acadêmica** (superior, `ingles-superior`): 0/10 prontas
-- Leitura instrumental: skimming e scanning
-- Voz passiva
-- Condicionais
+**Espanhol do zero** (fundamental, `espanhol-do-zero`): 10/10 prontas
+- (completa)
+
+**Espanhol: conversar e ler** (medio, `espanhol-medio`): 10/10 prontas
+- (completa)
+
+**Espanhol: leitura acadêmica e literatura** (superior, `espanhol-superior`): 8/8 prontas
+- (completa)
+
+**Espanhol: aprofundamento** (superior, `espanhol-aprofundamento`): 0/24 prontas
+- Ouvir: estratégias de compreensão oral
+- Pretérito mais-que-perfeito do indicativo
+- Orações relativas: que, quien, el cual, cuyo
+- Por e para
+- Verbos pronominais e o se
+- Voz passiva e o se impessoal
 - Discurso indireto
-- Conectivos e estrutura do parágrafo
-- Como ler um artigo científico em inglês
-- Vocabulário acadêmico
-- Como escrever um abstract
-- Provas de proficiência: como se preparar
-- A história da língua inglesa
+- Marcadores do discurso na fala
+- Gírias e expressões de cada país
+- Espanhol do Caribe
+- Espanhol andino
+- Espanhol rio-platense
+- O espanhol nos Estados Unidos
+- Escrever um ensaio em espanhol
+- Apresentar um trabalho oral em espanhol
+- Pablo Neruda: Canto general
+- César Vallejo
+- Gabriela Mistral, poeta e educadora
+- Juan Rulfo: Pedro Páramo
+- Cien años de soledad: uma leitura
+- Literatura de testemunho na América Latina
+- Cinema latino-americano
+- O guarani no Paraguai
+- Línguas indígenas e direitos linguísticos na América Latina
 
-### espanhol — 1 de 28 prontas (faltam 27)
+### frances — 0 de 16 prontas (faltam 16)
 
-**Espanhol do zero** (fundamental, `espanhol-do-zero`): 1/10 prontas
-- O alfabeto e os sons do espanhol
-- Ser e estar
-- Artigos e gênero das palavras
-- Números, horas e datas
-- Presente do indicativo
-- Família, casa e comida
-- Falsos amigos entre português e espanhol
-- Gustar e verbos parecidos
-- Perguntar e dar direções
+**Francês do zero** (medio, `frances-do-zero`): 0/16 prontas
+- O alfabeto e os sons do francês
+- Cumprimentar e se apresentar
+- Números, datas e horas
+- Artigos, gênero e plural
+- Os verbos être e avoir
+- Verbos terminados em -er no presente
+- Família e descrição de pessoas
+- Casa, cidade e direções
+- Comida, mercado e restaurante
+- Trabalho e profissões
+- Como fazer perguntas
+- A negação
+- O passado composto
+- O futuro próximo
+- A francofonia: o francês no mundo
+- Ler textos simples em francês
 
-**Espanhol: conversar e ler** (medio, `espanhol-medio`): 0/10 prontas
-- Pretérito perfeito e pretérito indefinido
-- Pretérito imperfeito
-- Futuro e condicional
-- Pronomes de objeto direto e indireto
-- Imperativo
-- Subjuntivo: primeiros usos
-- As variedades do espanhol na América Latina
-- Como ler notícias em espanhol
-- Como escrever uma carta e um e-mail em espanhol
-- Canção e poesia: Violeta Parra, Víctor Jara e Mercedes Sosa
+### chines — 35 de 59 prontas (faltam 24)
 
-**Espanhol: leitura acadêmica e literatura** (superior, `espanhol-superior`): 0/8 prontas
-- Subjuntivo: usos avançados
-- Perífrases verbais
-- Leitura de textos acadêmicos em espanhol
-- Literatura hispano-americana: de Sor Juana a García Márquez
-- José Martí e Nuestra América
-- Traduzir do espanhol: as armadilhas
-- Espanhol para o trabalho e a pesquisa
-- A história da língua espanhola
+**Chinês do zero** (fundamental, `chines-do-zero`): 10/10 prontas
+- (completa)
 
-### chines — 1 de 35 prontas (faltam 34)
+**Chinês: frases e leitura** (medio, `chines-medio`): 10/10 prontas
+- (completa)
 
-**Chinês do zero** (fundamental, `chines-do-zero`): 1/10 prontas
-- Saudações em chinês
-- Os traços e a ordem da escrita
-- Números de 1 a 100 em chinês
-- Pronomes e o verbo 是 (ser)
-- Família em chinês
-- Perguntas com 吗 e 什么
-- Datas, dias e horas em chinês
-- Comida e compras em chinês
-- Radicais: as peças dos caracteres
+**Chinês para o dia a dia** (medio, `chines-para-viajar-e-trabalhar`): 8/8 prontas
+- (completa)
 
-**Chinês: frases e leitura** (medio, `chines-medio`): 0/10 prontas
-- Classificadores
-- A partícula 了
-- Lugar e posição: 在, 上, 下 e 里
-- Comparações com 比
-- Complementos de resultado
-- HSK 1 e 2: o que estudar
-- Como usar um dicionário de chinês
-- Caracteres simplificados e tradicionais
-- Como ler um texto curto em chinês
-- Como digitar em chinês
+**Chinês: leitura e cultura escrita** (superior, `chines-superior`): 7/7 prontas
+- (completa)
 
-**Chinês para o dia a dia** (medio, `chines-para-viajar-e-trabalhar`): 0/8 prontas
-- Apresentar-se
-- Números, preços e dinheiro
-- Pedir comida
-- Perguntar o caminho
-- Horas e datas
-- No trabalho
-- Ao telefone e nos aplicativos
-- Família e amigos
-
-**Chinês: leitura e cultura escrita** (superior, `chines-superior`): 0/7 prontas
-- HSK 3 e 4: gramática essencial
-- Chengyu: expressões de quatro caracteres
-- Como ler notícias em chinês
-- Chinês clássico: uma primeira leitura
-- A história da escrita chinesa
-- A reforma da escrita e a criação do pinyin
-- Traduzir do chinês: desafios
+**Chinês: aprofundamento** (superior, `chines-aprofundamento`): 0/24 prontas
+- Os tons em sequência: treino de pronúncia
+- Complementos direcionais
+- Partículas de fim de frase: 吧, 呢, 啊 e 嘛
+- O aspecto contínuo com 在 e 着
+- Frases com 是…的
+- Verbos modais: 会, 能, 可以 e 应该
+- Reduplicação de verbos e adjetivos
+- Orações relativas com 的
+- Números e estatísticas em textos econômicos
+- Escrever um e-mail formal em chinês
+- Chinês para negócios e comércio exterior
+- HSK 5 e 6: o que estudar
+- Poesia da dinastia Tang
+- Lu Xun e a literatura moderna chinesa
+- Cinema chinês: uma introdução
+- As línguas da China: cantonês, wu, min e outras
+- As minorias nacionais e as suas línguas
+- Caligrafia: uma introdução
+- Ler um conto curto em chinês
+- Vocabulário de política e sociedade
+- Vocabulário de ciência e tecnologia
+- Música popular em chinês
+- China e Brasil: a história das relações
+- Os Analectos e o pensamento confuciano
 
 ### artes — 1 de 38 prontas (faltam 37)
 
@@ -646,9 +677,9 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Esporte de alto rendimento e dopagem
 - Políticas públicas de esporte e lazer
 
-## Ciências e Tecnologia
+## Ciências e tecnologia
 
-### matematica — 48 de 48 prontas (faltam 0)
+### matematica — 48 de 73 prontas (faltam 25)
 
 **Matemática fundamental** (fundamental, `matematica-fundamental`): 14/14 prontas
 - (completa)
@@ -662,7 +693,34 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 **Cálculo, álgebra e estatística** (superior, `matematica-superior`): 10/10 prontas
 - (completa)
 
-### fisica — 26 de 35 prontas (faltam 9)
+**Matemática: aprofundamento** (superior, `matematica-aprofundamento`): 0/25 prontas
+- Sequências e séries
+- Cálculo de várias variáveis
+- Integrais múltiplas
+- Cálculo vetorial
+- Equações diferenciais ordinárias
+- Equações diferenciais parciais: uma introdução
+- Espaços vetoriais
+- Autovalores e autovetores
+- Números complexos
+- Funções de variável complexa: uma introdução
+- Teoria dos números
+- Aritmética modular e criptografia
+- Grupos, anéis e corpos
+- Análise real: os números reais com rigor
+- Topologia: uma introdução
+- Geometria analítica no espaço
+- Geometrias não euclidianas
+- Teoria dos grafos
+- Combinatória avançada
+- Métodos numéricos
+- Programação linear e otimização
+- Regressão linear
+- Séries de Fourier
+- Modelagem matemática de problemas sociais
+- Etnomatemática
+
+### fisica — 35 de 59 prontas (faltam 24)
 
 **Física do dia a dia** (fundamental, `fisica-fundamental`): 12/12 prontas
 - (completa)
@@ -670,18 +728,36 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 **Física do ensino médio** (medio, `fisica-medio`): 14/14 prontas
 - (completa)
 
-**Física: fundamentos** (superior, `fisica-superior`): 0/9 prontas
-- Mecânica clássica
-- Oscilações e ondas
-- Termodinâmica e física estatística
-- Eletromagnetismo e as equações de Maxwell
-- Relatividade restrita
-- Mecânica quântica: os fundamentos
-- Física nuclear e de partículas
-- Energia nuclear e sociedade
-- História e filosofia da física
+**Física: fundamentos** (superior, `fisica-superior`): 9/9 prontas
+- (completa)
 
-### quimica — 24 de 32 prontas (faltam 8)
+**Física: aprofundamento** (superior, `fisica-aprofundamento`): 0/24 prontas
+- Mecânica lagrangiana e hamiltoniana
+- Fluidos em movimento: a equação de Bernoulli
+- Viscosidade e turbulência
+- Elasticidade e resistência dos materiais
+- Acústica
+- Óptica física: interferência e difração
+- Polarização da luz
+- Lasers
+- Circuitos de corrente alternada
+- Física dos semicondutores
+- Supercondutividade
+- Física do estado sólido
+- Física atômica e molecular
+- Relatividade geral
+- Cosmologia: o Big Bang
+- Astrofísica: a vida das estrelas
+- Física de plasmas
+- Física médica: radiologia e radioterapia
+- Física do clima: o balanço de energia da Terra
+- Energia: matriz energética e eficiência
+- Física computacional: simulações
+- Instrumentação e medidas no laboratório
+- Caos e sistemas dinâmicos
+- Informação e computação quântica
+
+### quimica — 32 de 56 prontas (faltam 24)
 
 **Química ao redor** (fundamental, `quimica-fundamental`): 10/10 prontas
 - (completa)
@@ -689,17 +765,36 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 **Química do ensino médio** (medio, `quimica-medio`): 14/14 prontas
 - (completa)
 
-**Química: fundamentos** (superior, `quimica-superior`): 0/8 prontas
-- Estrutura atômica e orbitais
-- Termodinâmica química
-- Química orgânica: mecanismos de reação
-- Química analítica
-- Bioquímica: proteínas, carboidratos e lipídios
-- Química verde
-- Química industrial e petróleo
-- História da química
+**Química: fundamentos** (superior, `quimica-superior`): 8/8 prontas
+- (completa)
 
-### biologia — 23 de 33 prontas (faltam 10)
+**Química: aprofundamento** (superior, `quimica-aprofundamento`): 0/24 prontas
+- Teoria dos orbitais moleculares
+- Cinética química: leis de velocidade
+- Eletroquímica: potenciais e a equação de Nernst
+- Química de coordenação
+- Química dos metais de transição
+- Química nuclear e radioquímica
+- Espectroscopia: infravermelho e ressonância magnética
+- Espectrometria de massas
+- Estereoquímica e quiralidade
+- Compostos aromáticos e as suas reações
+- Aldeídos, cetonas e ácidos carboxílicos: reações
+- Síntese orgânica
+- Química de polímeros
+- Química de materiais e nanotecnologia
+- Química de alimentos
+- Química farmacêutica: como se desenvolve um remédio
+- Toxicologia: dose e efeito
+- Química da atmosfera
+- Química da água e tratamento de efluentes
+- Química do solo e fertilizantes
+- Agrotóxicos: química, toxicidade e regulação
+- Química forense
+- Bioquímica do metabolismo
+- Segurança em laboratório e na indústria química
+
+### biologia — 33 de 58 prontas (faltam 25)
 
 **Vida e saúde** (fundamental, `biologia-fundamental`): 11/11 prontas
 - (completa)
@@ -707,17 +802,35 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 **Biologia do ensino médio** (medio, `biologia-medio`): 12/12 prontas
 - (completa)
 
-**Biologia: fundamentos** (superior, `biologia-superior`): 0/10 prontas
-- Biologia molecular
-- Genética de populações
-- Evolução: a síntese moderna
-- Microbiologia
-- Imunologia
-- Neurociência: uma introdução
-- Ecologia e conservação
-- Epidemiologia
-- Determinantes sociais da saúde
-- Bioética
+**Biologia: fundamentos** (superior, `biologia-superior`): 10/10 prontas
+- (completa)
+
+**Biologia: aprofundamento** (superior, `biologia-aprofundamento`): 0/25 prontas
+- Botânica: anatomia e fisiologia vegetal
+- Zoologia dos invertebrados
+- Zoologia dos vertebrados
+- Micologia: o reino dos fungos
+- Parasitologia
+- Virologia
+- Embriologia e desenvolvimento
+- Histologia: os tecidos do corpo
+- Fisiologia comparada
+- Endocrinologia
+- Genômica e bioinformática
+- Sinalização celular
+- Comportamento animal
+- Paleontologia e a história da vida
+- Origem da vida
+- Ecologia de populações: modelos matemáticos
+- Ecologia da Amazônia
+- Ecologia do Cerrado e da Caatinga
+- Biologia marinha e manguezais
+- Agroecologia
+- Etnobiologia e conhecimentos tradicionais
+- Saúde do trabalhador
+- Farmacologia: como os remédios agem
+- Nutrição e segurança alimentar
+- História da biologia
 
 ### astronomia — 2 de 30 prontas (faltam 28)
 
@@ -872,6 +985,42 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - APIs e o protocolo HTTP
 - Segurança de aplicações: as falhas mais comuns
 - Padrões de projeto
+
+### redes-e-seguranca — 0 de 30 prontas (faltam 30)
+
+**Redes de computadores** (medio, `redes-de-computadores`): 0/13 prontas
+- O que é uma rede de computadores
+- O caminho de um pacote pela internet
+- Os modelos em camadas: TCP/IP e OSI
+- Endereços IP e máscaras de rede
+- IPv6
+- Cabos, wi-fi e equipamentos: switch, roteador e ponto de acesso
+- DNS: os nomes da internet
+- DHCP: como o aparelho recebe um endereço
+- TCP, UDP e portas
+- HTTP e HTTPS
+- Montar e proteger a rede de casa
+- Ferramentas de diagnóstico: ping e traceroute
+- Redes comunitárias e inclusão digital
+
+**Segurança da informação e hacking ético** (superior, `seguranca-da-informacao-e-hacking-etico`): 0/17 prontas
+- Confidencialidade, integridade e disponibilidade
+- Ética e lei: o que diz a legislação brasileira sobre invasão de dispositivos
+- Senhas, autenticação em dois fatores e gerenciadores de senha
+- Criptografia: conceitos básicos
+- Engenharia social e golpes
+- Programas maliciosos: tipos e prevenção
+- Vulnerabilidades e a importância das atualizações
+- Firewalls e segmentação de rede
+- Linux para segurança
+- O que é um teste de invasão autorizado
+- As etapas de um teste de invasão
+- As falhas mais comuns em aplicações web
+- Competições de captura da bandeira (CTF)
+- Laboratórios legais para praticar
+- Resposta a incidentes
+- Divulgação responsável de vulnerabilidades
+- Proteção digital de movimentos sociais e jornalistas
 
 ### inteligencia-artificial — 1 de 39 prontas (faltam 38)
 
@@ -1691,7 +1840,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Arquivos de movimentos sociais
 - Decolonizar o museu: a devolução de acervos
 
-## Teoria
+## Teoria revolucionária
 
 ### capitalismo — 26 de 32 prontas (faltam 6)
 
@@ -1780,13 +1929,37 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Moral e fundamentos do direito
 - Situação e políticas
 
-### dependencia — 21 de 21 prontas (faltam 0)
+### dependencia — 21 de 43 prontas (faltam 22)
 
 **Por que a América Latina é dependente** (medio, `dependencia-e-america-latina`): 10/10 prontas
 - (completa)
 
 **A teoria marxista da dependência** (superior, `teoria-marxista-da-dependencia`): 11/11 prontas
 - (completa)
+
+**Dependência: aprofundamento** (superior, `dependencia-aprofundamento`): 0/22 prontas
+- Raúl Prebisch e o pensamento da CEPAL
+- Celso Furtado e a Formação econômica do Brasil
+- Caio Prado Júnior e o sentido da colonização
+- Clóvis Moura e a escravidão na formação do Brasil
+- Immanuel Wallerstein e o sistema-mundo
+- Samir Amin e a acumulação em escala mundial
+- O desenvolvimento desigual e combinado
+- O imperialismo segundo Lênin e a teoria da dependência
+- Dependência tecnológica e patentes
+- Dependência financeira: fuga de capitais e juros
+- O papel do dólar no sistema internacional
+- A desindustrialização brasileira
+- Commodities na pauta de exportação
+- Mineração e neoextrativismo
+- Dependência e questão agrária
+- A dependência na África e na Ásia
+- China e América Latina
+- Os BRICS e o Sul global
+- Os governos progressistas latino-americanos e os limites da dependência
+- Planejamento e soberania: caminhos para superar a dependência
+- Cuba e o bloqueio econômico
+- Che Guevara e o grande debate econômico cubano
 
 ### imperialismo — 10 de 21 prontas (faltam 11)
 
@@ -1824,7 +1997,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - O Antropoceno ou o Capitaloceno
 - Lutas ecossocialistas hoje: movimentos, sindicatos e territórios
 
-## Lutas do Povo
+## Lutas do povo
 
 ### trabalho — 1 de 36 prontas (faltam 35)
 
@@ -2319,3 +2492,81 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Solidão, moradia e cidade
 - Financeirização da aposentadoria: fundos de pensão e capitalização
 - Políticas de cuidado na América Latina
+
+## Hobbies: aprenda uma habilidade nova e monetize com ela
+
+### trancista — 0 de 15 prontas (faltam 15)
+
+**Trancista** (fundamental, `trancista`): 0/15 prontas
+- A história das tranças na diáspora africana
+- O cabelo crespo e cacheado: estrutura e cuidados
+- Saúde do couro cabeludo: quando não trançar
+- Ferramentas e materiais
+- Preparar e dividir o cabelo
+- A trança de três mechas
+- Tranças nagô (rasteiras)
+- Box braids
+- Twists
+- Tranças com fibra
+- Manutenção e retirada das tranças
+- Postura e saúde de quem trança
+- Atendimento, tempo de trabalho e preço do serviço
+- Formalização: o que é o MEI
+- Divulgar o próprio trabalho
+
+### costureira — 0 de 16 prontas (faltam 16)
+
+**Costureira** (fundamental, `costureira`): 0/16 prontas
+- Ferramentas e segurança na costura
+- Os tipos de tecido
+- Pontos à mão
+- Conhecer a máquina de costura
+- Costuras retas e acabamentos
+- Barras e bainhas
+- Botões, casas e zíperes
+- Consertos e ajustes de roupas
+- Como tirar medidas
+- Ler e usar moldes
+- Costurar uma peça simples
+- Reaproveitar tecidos
+- Postura e saúde de quem costura
+- Calcular o preço e vender
+- A história das costureiras e das trabalhadoras da confecção
+- Cooperativas de costura
+
+### barbeiro — 0 de 14 prontas (faltam 14)
+
+**Barbeiro** (fundamental, `barbeiro`): 0/14 prontas
+- As ferramentas: tesoura, máquina, navalha e pentes
+- Higiene, limpeza e esterilização
+- O couro cabeludo e os tipos de cabelo
+- Atender e entender o que o cliente quer
+- Corte na máquina: pentes e alturas
+- O degradê
+- Corte na tesoura
+- Acabamento e contorno
+- Barba: desenho e aparo
+- Barba na navalha e cuidados com a pele
+- Cabelo crespo na barbearia
+- Postura e saúde do barbeiro
+- Preço, agenda e clientela
+- Formalização e direitos de quem trabalha por conta própria
+
+### oratoria-e-lideranca — 0 de 15 prontas (faltam 15)
+
+**Oratória e liderança** (fundamental, `oratoria-e-lideranca`): 0/15 prontas
+- Por que falar em público dá medo
+- Respiração, voz e postura
+- Preparar uma fala: objetivo, público e roteiro
+- Começo, meio e fim
+- Falar com clareza e simplicidade
+- Usar exemplos e histórias
+- Ouvir antes de falar
+- Falar em uma assembleia
+- Conduzir uma reunião
+- Pauta, ata e encaminhamentos
+- Mediar conflitos
+- Liderança coletiva e democracia interna
+- Falar em entrevistas e vídeos
+- Analisar discursos que marcaram a história
+- Formar novas lideranças

@@ -13,6 +13,7 @@ const LANGUAGES = [
   ["es-ES", "Español (España)", "Buenos días. ¿Cómo estás?"],
   ["es-MX", "Español (México)", "Buenos días. ¿Cómo estás?"],
   ["zh-CN", "中文（普通话）", "你好，很高兴认识你。"],
+  ["fr-FR", "Français", "Bonjour. Comment allez-vous ?"],
   ["ru-RU", "Русский", "Здравствуйте. Как у вас дела?"],
   ["pt-BR", "Português (Brasil)", "Bom dia. Como vai você?"],
 ] as const;

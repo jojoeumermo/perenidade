@@ -5,7 +5,7 @@ import { useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { leads, type Me, type Role, rpc } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Abas, Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Abas, Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, PAINEL_MUDOU, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Convites } from "./Convites";
 
@@ -166,8 +166,7 @@ export function Pessoas({ me }: { me: Me }) {
   const { t } = useI18n();
   const lider = leads(me);
   // A coordenação não se concede por aqui (muda de mãos em Segurança e sucessão); a vice-coordenação, só a coordenação nomeia.
-  // O design deu lugar ao marketing e divulgação: quem já tem design continua com ele, mas ninguém o recebe de novo.
-  const concediveis = (Object.keys(papeis) as Role["papel"][]).filter((papel) => papel !== "coordenacao" && papel !== "design" && (papel !== "vice" || lider));
+  const concediveis = (Object.keys(papeis) as Role["papel"][]).filter((papel) => papel !== "coordenacao" && (papel !== "vice" || lider));
   const pedidos = useLista<Candidatura[]>("candidaturas_listar");
   const pessoas = useLista<Pessoa[]>("voluntarios_listar");
   const inscricoes = useLista<Inscricao[]>("inscricoes_listar");
@@ -185,6 +184,7 @@ export function Pessoas({ me }: { me: Me }) {
       setAvisoInscricao(!aceitar ? "Candidatura recusada. O aviso por e-mail entrou na fila de envio." : resposta.codigo ? "Candidatura aceita. O convite entrou na fila de e-mails e sai sozinho para a pessoa; o link também está abaixo, se precisar mandar por outro caminho (veja em Controles do site se o envio está funcionando)." : "Candidatura aceita: a pessoa já tinha conta e recebeu a função na hora. O aviso por e-mail entrou na fila de envio.");
       inscricoes.recarregar();
       pessoas.recarregar();
+      window.dispatchEvent(new Event(PAINEL_MUDOU));
     } catch (erro) {
       setAvisoInscricao(textoDoErro(erro));
     }
@@ -194,6 +194,8 @@ export function Pessoas({ me }: { me: Me }) {
     pessoas.recarregar();
   });
   const [novo, setNovo] = useState<{ papel: Role["papel"]; disciplina: string }>({ papel: "educacao", disciplina: "" });
+  // Educação, educação secundária e reforço são por disciplina: o banco recusa sem ela.
+  const porDisciplina = novo.papel === "educacao" || novo.papel === "educacao_secundaria" || novo.papel === "mentoria";
   /** Quem vai receber a função: escolhida na busca, não numa lista com todo mundo. */
   const [quem, setQuem] = useState<PessoaAchada | null>(null);
   const [filtro, setFiltro] = useState("");
@@ -305,7 +307,7 @@ export function Pessoas({ me }: { me: Me }) {
             </select>
           </label>
           <label className="block">
-            Disciplina{novo.papel === "educacao" ? "" : " (opcional)"}
+            Disciplina{porDisciplina ? "" : " (opcional)"}
             <select value={novo.disciplina} onChange={(e) => setNovo({ ...novo, disciplina: e.target.value })} className={campo}>
               <option value="">Todo o site</option>
               {areaSlugs.map((area) => (
@@ -319,7 +321,7 @@ export function Pessoas({ me }: { me: Me }) {
         <button
           type="button"
           className={`mt-3 ${botao}`}
-          disabled={acao.ocupado || !quem || (novo.papel === "educacao" && !novo.disciplina)}
+          disabled={acao.ocupado || !quem || (porDisciplina && !novo.disciplina)}
           onClick={async () => {
             if (quem && (await acao.agir("papel_conceder", { p_usuario: quem.id, p_papel: novo.papel, p_disciplina: novo.disciplina || null }, `Função confiada a ${quem.nome}.`))) setQuem(null);
           }}

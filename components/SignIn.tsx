@@ -384,7 +384,8 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
           {fingerprint}
         </>
       )}
-      <p className="text-ink-soft">{cadastro.aberto ? s.why : s.whyClosed}</p>
+      {/* Até o serviço responder não se sabe se o cadastro está aberto: melhor não dizer nada do que dizer o contrário. */}
+      {cadastro.pronto && <p className="text-ink-soft">{cadastro.aberto ? s.why : s.whyClosed}</p>}
       {cadastro.aberto && (
         <p>
           <button type="button" className="cursor-pointer font-medium underline hover:text-oxblood" onClick={() => { setSigningUp(true); setState("idle"); }}>
