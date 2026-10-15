@@ -701,7 +701,23 @@
     "lead": "内容的每一次修改都记录了日期，任何早期版本都可以恢复。",
     "description": "馆藏的所有修改，从最新到最早。",
     "unavailable": "本站的这份副本中没有历史记录。",
-    "more": "以及另外 {n} 项"
+    "more": "以及另外 {n} 项",
+    "kinds": {
+      "lessons": "课程",
+      "tracks": "课程大纲",
+      "translations": "翻译",
+      "books": "馆藏作品",
+      "catalog": "扩展目录",
+      "journal": "报纸",
+      "glossary": "词汇表",
+      "memorial": "纪念馆",
+      "authors": "作者",
+      "checks": "事实核查",
+      "debates": "辩论卡片",
+      "videos": "视频",
+      "pages": "网站页面",
+      "other": "其他内容"
+    }
   },
   "dedication": {
     "eyebrow": "献词",
