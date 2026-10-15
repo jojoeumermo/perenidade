@@ -20,11 +20,12 @@ jobs:
   publicar:
     if: ${{ vars.PUBLICAR == 'sim' }}
     runs-on: ubuntu-latest
-    env:
-      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    # A chave de serviço do banco e o token de escrita no repositório só existem nos passos que precisam deles.
+    # A instalação dos pacotes (npm ci) e o build rodam código de terceiros e não podem enxergar nenhum dos dois.
     steps:
       - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v5
         with:
           node-version: 22
@@ -33,6 +34,9 @@ jobs:
       # Ferramentas que apagam de um PDF o autor, o programa e o histórico de edição antes de ele entrar no site.
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends libimage-exiftool-perl qpdf
       - run: npm run sincronizar
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       - name: Há algo novo?
         id: novo
         run: |
@@ -44,10 +48,15 @@ jobs:
       - if: steps.novo.outputs.sim == 'sim'
         run: npm run build
       - if: steps.novo.outputs.sim == 'sim'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           git config user.name "Publicação do Instituto Lúcia"
           git config user.email "publicacao@users.noreply.github.com"
           git commit -m "Publica contribuições aprovadas no painel"
-          git push
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${GITHUB_REF_NAME}"
       # Só depois de o arquivo estar no acervo o painel passa a mostrar o item como publicado.
       - run: npm run sincronizar -- --marcar
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
