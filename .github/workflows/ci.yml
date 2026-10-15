@@ -27,5 +27,9 @@ jobs:
       - run: npm run testar:moderacao
       # A rotina de envio de e-mails, com o banco e o serviço simulados (sem rede e sem chave).
       - run: npm run testar:emails
+      # As permissões e os fluxos do podcast (episódios, convidados, revisão, transcrição), no banco em memória.
+      - run: npm run testar:podcast
+      # Os fluxos críticos (entrar, segundo fator, o que cada função abre no painel, comunidade), pelo mesmo caminho do navegador.
+      - run: npm run testar:fumaca
       # O build lê e valida todo o conteúdo de content/: arquivo inválido falha aqui.
       - run: npm run build
