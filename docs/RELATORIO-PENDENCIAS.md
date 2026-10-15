@@ -7,13 +7,13 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 
 | Grupo | Disciplina | Prontas | Previstas | Faltam |
 |---|---|---|---|---|
-| Alfabetização e ENEM | alfabetizacao | 1 | 27 | 26 |
-| Alfabetização e ENEM | enem | 1 | 25 | 24 |
+| Alfabetização e ENEM | alfabetizacao | 27 | 50 | 23 |
+| Alfabetização e ENEM | enem | 25 | 50 | 25 |
 | Linguagens e artes | portugues | 29 | 43 | 14 |
-| Linguagens e artes | literatura | 1 | 49 | 48 |
+| Linguagens e artes | literatura | 11 | 49 | 38 |
 | Linguagens e artes | ingles | 36 | 60 | 24 |
 | Linguagens e artes | ingles-infantil | 0 | 18 | 18 |
-| Linguagens e artes | espanhol | 6 | 28 | 22 |
+| Linguagens e artes | espanhol | 28 | 52 | 24 |
 | Linguagens e artes | frances | 0 | 16 | 16 |
 | Linguagens e artes | chines | 35 | 59 | 24 |
 | Linguagens e artes | artes | 1 | 38 | 37 |
@@ -75,75 +75,83 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 | Hobbies: aprenda uma habilidade nova e monetize com ela | costureira | 0 | 16 | 16 |
 | Hobbies: aprenda uma habilidade nova e monetize com ela | barbeiro | 0 | 14 | 14 |
 | Hobbies: aprenda uma habilidade nova e monetize com ela | oratoria-e-lideranca | 0 | 15 | 15 |
-| | **Total** | **530** | **2368** | **1838** |
+| | **Total** | **612** | **2440** | **1828** |
 
 ## Alfabetização e ENEM
 
-### alfabetizacao — 1 de 27 prontas (faltam 26)
+### alfabetizacao — 27 de 50 prontas (faltam 23)
 
-**Ler e escrever** (fundamental, `ler-e-escrever`): 1/11 prontas
-- As vogais
-- O seu nome
-- Palavras da casa
-- Palavras do trabalho
-- Sílabas: pedaços que se repetem
-- Ler placas, ônibus e contas
-- Escrever um bilhete
-- Os números e o dinheiro
-- Preencher um formulário
-- Ler uma notícia curta
+**Ler e escrever** (fundamental, `ler-e-escrever`): 11/11 prontas
+- (completa)
 
-**Depois das primeiras letras** (medio, `alfabetizacao-de-jovens-e-adultos`): 0/8 prontas
-- Ler em voz alta
-- Pontuação: onde a voz para
-- Escrever uma carta e uma mensagem
-- Ler um contrato antes de assinar
-- Ler rótulo e bula
-- Fazer contas do dia a dia
-- O que é a EJA e como se matricular
-- Encceja: o certificado do ensino fundamental e do médio
+**Depois das primeiras letras** (medio, `alfabetizacao-de-jovens-e-adultos`): 8/8 prontas
+- (completa)
 
-**Alfabetização: teoria e método** (superior, `alfabetizacao-superior`): 0/8 prontas
-- Paulo Freire e as palavras geradoras
-- A experiência de Angicos
-- Emilia Ferreiro e a psicogênese da língua escrita
-- Magda Soares: alfabetização e letramento
-- Métodos sintéticos, analíticos e o debate do método fônico
-- Analfabetismo no Brasil: os números e as causas
-- O Mobral, o MOVA e o Brasil Alfabetizado
-- A campanha de alfabetização de Cuba de 1961
+**Alfabetização: teoria e método** (superior, `alfabetizacao-superior`): 8/8 prontas
+- (completa)
 
-### enem — 1 de 25 prontas (faltam 24)
+**Alfabetização: aprofundamento** (superior, `alfabetizacao-aprofundamento`): 0/23 prontas
+- Planejar um círculo de cultura
+- Fazer o levantamento do universo vocabular
+- Diagnóstico inicial: como saber o que cada um já sabe
+- Consciência fonológica na alfabetização de adultos
+- Produzir materiais a partir de textos reais
+- Avaliar a aprendizagem sem humilhar
+- Alfabetização e matemática: o letramento matemático
+- Alfabetização de pessoas idosas
+- Alfabetização de pessoas surdas e o bilinguismo com Libras
+- Alfabetização de pessoas com deficiência intelectual
+- Alfabetização em contextos indígenas
+- Alfabetização no campo: a educação do campo
+- Alfabetização nas prisões
+- Alfabetização digital
+- Bibliotecas comunitárias e formação de leitores
+- Leitura em voz alta e rodas de leitura
+- A campanha de alfabetização da Nicarágua de 1980
+- Paulo Freire na África: a experiência da Guiné-Bissau
+- Os Centros Populares de Cultura e o Movimento de Cultura Popular
+- De Pé no Chão Também se Aprende a Ler
+- A formação de alfabetizadores populares
+- Alfabetização e trabalho: o letramento no emprego
+- O que dizem as avaliações nacionais de alfabetização
 
-**ENEM: como a prova funciona** (medio, `enem-como-funciona`): 1/8 prontas
-- Inscrição e isenção da taxa
-- A nota: o que é a TRI
-- Sisu, Prouni e Fies
-- Cotas: como funciona a Lei de Cotas
-- Como montar um plano de estudos realista
-- O dia da prova: o que levar e como administrar o tempo
-- Cursinhos populares: estudar junto e de graça
+### enem — 25 de 50 prontas (faltam 25)
 
-**ENEM: redação** (medio, `enem-redacao`): 0/8 prontas
-- A estrutura da redação do ENEM
-- Competência 1: a norma-padrão
-- Competência 2: entender o tema e usar repertório
-- Competência 3: organizar os argumentos
-- Competência 4: coesão
-- Competência 5: a proposta de intervenção
-- O que zera a redação
-- Como treinar: escrever, reler e reescrever
+**ENEM: como a prova funciona** (medio, `enem-como-funciona`): 8/8 prontas
+- (completa)
 
-**ENEM: as quatro áreas** (medio, `enem-por-area`): 0/9 prontas
-- Linguagens: interpretação de texto acima de tudo
-- Linguagens: literatura, artes e língua estrangeira
-- Ciências humanas: história e geografia
-- Ciências humanas: filosofia e sociologia
-- Ciências da natureza: física
-- Ciências da natureza: química
-- Ciências da natureza: biologia
-- Matemática: o que mais cai
-- Matemática: ler gráficos e tabelas
+**ENEM: redação** (medio, `enem-redacao`): 8/8 prontas
+- (completa)
+
+**ENEM: as quatro áreas** (medio, `enem-por-area`): 9/9 prontas
+- (completa)
+
+**ENEM: aprofundamento** (medio, `enem-aprofundamento`): 0/25 prontas
+- Como usar as provas anteriores do Inep para treinar
+- Interpretar enunciados longos sem se perder
+- Linguagens: variação linguística
+- Linguagens: funções da linguagem
+- Linguagens: gêneros digitais e textos multimodais
+- Linguagens: escolas literárias em revisão
+- Linguagens: arte brasileira em revisão
+- Inglês e espanhol: estratégias de leitura
+- Matemática: escala, razão e proporção no cotidiano
+- Matemática: funções e gráficos em revisão
+- Matemática: geometria plana e espacial em revisão
+- Matemática: estatística e probabilidade em revisão
+- Natureza: ecologia e meio ambiente
+- Natureza: energia e suas transformações
+- Natureza: química do cotidiano
+- Natureza: genética e evolução
+- Humanas: Colônia, Império e República em revisão
+- Humanas: cidadania, direitos e movimentos sociais
+- Humanas: espaço agrário e espaço urbano
+- Humanas: globalização e geopolítica
+- Redação: construir repertório lendo jornais e livros
+- Redação: analisar as redações comentadas da cartilha
+- Atendimento especializado, recursos de acessibilidade e nome social no ENEM
+- Ansiedade e saúde mental na preparação
+- Encceja: certificação do ensino fundamental e do ensino médio
 
 ## Linguagens e artes
 
@@ -173,7 +181,7 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Análise do discurso
 - Língua de sinais é língua
 
-### literatura — 1 de 49 prontas (faltam 48)
+### literatura — 11 de 49 prontas (faltam 38)
 
 **Histórias que o povo conta** (fundamental, `literatura-fundamental`): 0/10 prontas
 - O que é literatura
@@ -187,19 +195,10 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Histórias em quadrinhos
 - Como montar um clube de leitura
 
-**Lendo Machado de Assis** (medio, `lendo-machado-de-assis`): 1/7 prontas
-- Memórias Póstumas de Brás Cubas
-- Dom Casmurro: o narrador é confiável?
-- Quincas Borba e o humanitismo
-- Os contos: A cartomante, Missa do galo e O alienista
-- Machado e a escravidão
-- A ironia machadiana
+**Lendo Machado de Assis** (medio, `lendo-machado-de-assis`): 7/7 prontas
+- (completa)
 
-**Literatura brasileira** (medio, `literatura-brasileira`): 0/12 prontas
-- Quinhentismo e Barroco
-- Arcadismo e a Inconfidência
-- Romantismo
-- Castro Alves e a poesia abolicionista
+**Literatura brasileira** (medio, `literatura-brasileira`): 4/12 prontas
 - Realismo e Naturalismo
 - Lima Barreto
 - Euclides da Cunha e Os Sertões
@@ -292,35 +291,42 @@ Gerado a partir de `content/trilhas/*/plano.json` em comparação com os arquivo
 - Músicas e rimas em inglês
 - Contar uma história curta
 
-### espanhol — 6 de 28 prontas (faltam 22)
+### espanhol — 28 de 52 prontas (faltam 24)
 
-**Espanhol do zero** (fundamental, `espanhol-do-zero`): 6/10 prontas
-- Família, casa e comida
-- Falsos amigos entre português e espanhol
-- Gustar e verbos parecidos
-- Perguntar e dar direções
+**Espanhol do zero** (fundamental, `espanhol-do-zero`): 10/10 prontas
+- (completa)
 
-**Espanhol: conversar e ler** (medio, `espanhol-medio`): 0/10 prontas
-- Pretérito perfeito e pretérito indefinido
-- Pretérito imperfeito
-- Futuro e condicional
-- Pronomes de objeto direto e indireto
-- Imperativo
-- Subjuntivo: primeiros usos
-- As variedades do espanhol na América Latina
-- Como ler notícias em espanhol
-- Como escrever uma carta e um e-mail em espanhol
-- Canção e poesia: Violeta Parra, Víctor Jara e Mercedes Sosa
+**Espanhol: conversar e ler** (medio, `espanhol-medio`): 10/10 prontas
+- (completa)
 
-**Espanhol: leitura acadêmica e literatura** (superior, `espanhol-superior`): 0/8 prontas
-- Subjuntivo: usos avançados
-- Perífrases verbais
-- Leitura de textos acadêmicos em espanhol
-- Literatura hispano-americana: de Sor Juana a García Márquez
-- José Martí e Nuestra América
-- Traduzir do espanhol: as armadilhas
-- Espanhol para o trabalho e a pesquisa
-- A história da língua espanhola
+**Espanhol: leitura acadêmica e literatura** (superior, `espanhol-superior`): 8/8 prontas
+- (completa)
+
+**Espanhol: aprofundamento** (superior, `espanhol-aprofundamento`): 0/24 prontas
+- Ouvir: estratégias de compreensão oral
+- Pretérito mais-que-perfeito do indicativo
+- Orações relativas: que, quien, el cual, cuyo
+- Por e para
+- Verbos pronominais e o se
+- Voz passiva e o se impessoal
+- Discurso indireto
+- Marcadores do discurso na fala
+- Gírias e expressões de cada país
+- Espanhol do Caribe
+- Espanhol andino
+- Espanhol rio-platense
+- O espanhol nos Estados Unidos
+- Escrever um ensaio em espanhol
+- Apresentar um trabalho oral em espanhol
+- Pablo Neruda: Canto general
+- César Vallejo
+- Gabriela Mistral, poeta e educadora
+- Juan Rulfo: Pedro Páramo
+- Cien años de soledad: uma leitura
+- Literatura de testemunho na América Latina
+- Cinema latino-americano
+- O guarani no Paraguai
+- Línguas indígenas e direitos linguísticos na América Latina
 
 ### frances — 0 de 16 prontas (faltam 16)
 
