@@ -6193,11 +6193,14 @@ $$;
 
 /**
  * A regra de leitura do arquivo no depósito (usada pela política do serviço de arquivos, para visitante e para conta):
- * aula aprovada é de todos; a pendente ou recusada, de quem enviou e de quem revisa a disciplina.
+ * aula aprovada é de todos; a pendente ou recusada, de quem enviou e de quem revisa a disciplina. Quem enviou lê a
+ * própria pasta e a coordenação lê o depósito inteiro mesmo sem registro: o serviço só apaga o que a pessoa pode ler,
+ * e um arquivo sem registro (envio interrompido, aula apagada) precisa poder sair de lá.
  */
 create or replace function public.videoaula_pode_ler(p_nome text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select exists (select 1 from videoaulas v where v.caminho = p_nome and (
     v.status = 'aprovada' or (auth.uid() is not null and (v.autor = auth.uid() or interno.videoaula_revisa(v.disciplina)))))
+    or (auth.uid() is not null and (split_part(p_nome, '/', 1) = auth.uid()::text or interno.coord()))
 $$;
 
 /** Quem pode pôr arquivo no depósito: quem ensina (educação e educação secundária) e a curadoria. */

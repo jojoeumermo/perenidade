@@ -1,7 +1,9 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { localePath } from "@/i18n/config";
 import { areaSlugs } from "@/lib/areas";
 import { getVideos } from "@/lib/content";
 
@@ -19,6 +21,9 @@ export default async function Videos({ params }: PageProps<"/[lang]/videos">) {
       <PageHeading eyebrow={t.videos.eyebrow} title={t.videos.title}>
         {t.videos.lead}
       </PageHeading>
+      <p className="mt-6 border-l-2 border-gold pl-4 font-sans">
+        <Link href={localePath(lang, "/videoaulas")} className="underline hover:text-oxblood">{t.videos.own}</Link>
+      </p>
       {areaSlugs.map((area) => {
         const inArea = videos.filter((video) => video.area === area);
         if (inArea.length === 0) return null;

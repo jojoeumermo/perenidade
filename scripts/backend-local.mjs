@@ -345,9 +345,76 @@ export async function iniciar({ silencioso = false } = {}) {
           return res.end(arquivo.dados);
         }
       }
+      // ── Aulas em vídeo: depósito fechado, com as mesmas regras de install.sql (envio na própria pasta, leitura por videoaula_pode_ler) ──
+      const videoaula = /^\/storage\/v1\/object\/(?:authenticated\/)?videoaulas(?:\/(.+))?$/.exec(url.pathname);
+      const assinarVideo = /^\/storage\/v1\/object\/sign\/videoaulas\/(.+)$/.exec(url.pathname);
+      if (videoaula || (assinarVideo && req.method === "POST")) {
+        const dados = portador(req);
+        // Confere a regra com as credenciais de quem pede (visitante ou conta), como o serviço de verdade faz.
+        const regra = async (sql, valores) => {
+          const linha = await banco.exclusivo(async () => {
+            const claims = dados?.sub ? { role: "authenticated", sub: dados.sub, ...(dados.aal ? { aal: dados.aal } : {}) } : { role: "anon" };
+            await banco.pg.query("select set_config('request.jwt.claims', $1, false)", [JSON.stringify(claims)]);
+            try {
+              return await banco.pg.query(`select ${sql} as ok`, valores);
+            } finally {
+              await banco.pg.query("select set_config('request.jwt.claims', '', false)");
+            }
+          });
+          return Boolean(linha.rows[0]?.ok);
+        };
+        const negar = () => json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
+        const caminho = decodeURIComponent((videoaula ?? assinarVideo)[1] ?? "");
+        const pasta = caminho.split("/")[0];
+        if (assinarVideo) {
+          if (!arquivos.has(`videoaulas/${caminho}`) || !(await regra("public.videoaula_pode_ler($1)", [caminho]))) return json(res, 400, { statusCode: "404", error: "not_found", message: "Object not found" });
+          const ficha = crypto.randomBytes(12).toString("hex");
+          const segundos = Math.min(Number(corpo?.expiresIn) || 3600, 7 * 86400);
+          links.set(`assinado:${ficha}`, { caminho: `videoaulas/${caminho}`, ate: Date.now() + segundos * 1000 });
+          return json(res, 200, { signedURL: `/object/sign/videoaulas/${caminho.split("/").map(encodeURIComponent).join("/")}?token=${ficha}` });
+        }
+        if (req.method === "POST") {
+          if (!dados?.sub || pasta !== dados.sub || !(await regra("public.videoaula_pode_enviar()"))) return negar();
+          // O cliente manda o arquivo dentro de um formulário de várias partes: tira de lá o tipo e os bytes.
+          let tipo = req.headers["content-type"] ?? "";
+          let conteudo = bruto;
+          const limite = /^multipart\/form-data;\s*boundary=(.+)$/i.exec(tipo)?.[1];
+          if (limite) {
+            const texto = bruto.toString("latin1");
+            const parte = texto.split(`--${limite}`).find((pedaco) => /filename=/i.test(pedaco));
+            const corte = parte ? parte.indexOf("\r\n\r\n") : -1;
+            if (corte < 0) return json(res, 400, { statusCode: "400", error: "invalid_request", message: "no file" });
+            tipo = /content-type:\s*([^\r\n]+)/i.exec(parte.slice(0, corte))?.[1]?.trim() ?? "";
+            conteudo = Buffer.from(parte.slice(corte + 4).replace(/\r\n$/, ""), "latin1");
+          }
+          tipo = tipo.split(";")[0].trim();
+          if (!["video/webm", "video/mp4"].includes(tipo)) return json(res, 415, { statusCode: "415", error: "invalid_mime_type", message: "mime type not supported" });
+          if (conteudo.length > 52428800) return json(res, 413, { statusCode: "413", error: "Payload too large", message: "The object exceeded the maximum allowed size" });
+          if (arquivos.has(`videoaulas/${caminho}`)) return json(res, 409, { statusCode: "409", error: "Duplicate", message: "The resource already exists" });
+          arquivos.set(`videoaulas/${caminho}`, { tipo, dados: conteudo });
+          return json(res, 200, { Key: `videoaulas/${caminho}`, Id: crypto.randomUUID() });
+        }
+        if (req.method === "DELETE") {
+          // O serviço só apaga o que a pessoa pode ler e apagar; o que não pode some da resposta, sem erro.
+          const lista = Array.isArray(corpo?.prefixes) ? corpo.prefixes : caminho ? [caminho] : [];
+          const apagados = [];
+          for (const item of lista) {
+            const dono = String(item).split("/")[0] === dados?.sub;
+            if (!dados?.sub || !(dono || (await regra("interno.coord()"))) || !(await regra("public.videoaula_pode_ler($1)", [item]))) continue;
+            if (arquivos.delete(`videoaulas/${item}`)) apagados.push({ name: item });
+          }
+          return json(res, 200, apagados);
+        }
+        if (req.method === "GET") {
+          const arquivo = (await regra("public.videoaula_pode_ler($1)", [caminho])) ? arquivos.get(`videoaulas/${caminho}`) : null;
+          if (!arquivo) return json(res, 404, { message: "not found" });
+          res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes" });
+          return res.end(arquivo.dados);
+        }
+      }
       // Endereço assinado de um arquivo fechado (para ouvir sem baixar inteiro): aqui vale por uma hora.
-      const assinar = /^\/storage\/v1\/object\/sign\/(podcast-producao)\/(.+)$/.exec(url.pathname);
-      if (assinar && req.method === "POST") {
+      const assinar = /^\/storage\/v1\/object\/sign\/(podcast-producao|videoaulas)\/(.+)$/.exec(url.pathname);
+      if (assinar && req.method === "POST" && assinar[1] === "podcast-producao") {
         const dados = portador(req);
         const caminho = decodeURIComponent(assinar[2]);
         if (!dados?.sub || !arquivos.has(`podcast-producao/${caminho}`)) return json(res, 400, { statusCode: "404", error: "not_found", message: "Object not found" });
@@ -357,8 +424,21 @@ export async function iniciar({ silencioso = false } = {}) {
       }
       if (assinar && req.method === "GET") {
         const ficha = links.get(`assinado:${url.searchParams.get("token") ?? ""}`);
-        const arquivo = ficha && ficha.ate > Date.now() ? arquivos.get(ficha.caminho) : null;
+        const arquivo = ficha && ficha.ate > Date.now() && ficha.caminho === `${assinar[1]}/${decodeURIComponent(assinar[2])}` ? arquivos.get(ficha.caminho) : null;
         if (!arquivo) return json(res, 404, { message: "not found" });
+        // Pedaços do arquivo (Range): o tocador de vídeo pede assim para poder pular para qualquer ponto.
+        const faixa = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range ?? "");
+        if (faixa && (faixa[1] || faixa[2])) {
+          const total = arquivo.dados.length;
+          const inicio = faixa[1] ? Number(faixa[1]) : Math.max(0, total - Number(faixa[2]));
+          const fim = faixa[1] && faixa[2] ? Math.min(Number(faixa[2]), total - 1) : total - 1;
+          if (inicio >= total || inicio > fim) {
+            res.writeHead(416, { "content-range": `bytes */${total}` });
+            return res.end();
+          }
+          res.writeHead(206, { "content-type": arquivo.tipo, "content-length": fim - inicio + 1, "content-range": `bytes ${inicio}-${fim}/${total}`, "accept-ranges": "bytes" });
+          return res.end(arquivo.dados.subarray(inicio, fim + 1));
+        }
         res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes" });
         return res.end(arquivo.dados);
       }
