@@ -1,6 +1,7 @@
 ---
 afirmacao: "Armar a população diminui a violência."
 resposta: "A maior parte das pesquisas aponta o contrário. Um estudo do IPEA estimou que, no Brasil, cada aumento de 1% nas armas em circulação eleva a taxa de homicídios em até 2%. Arma em casa também aumenta o risco de suicídio e de acidentes, e numa briga de bar ou de trânsito transforma uma agressão em morte. Há pesquisadores que defendem o contrário, mas os estudos que diziam “mais armas, menos crimes” não se confirmaram nas revisões mais amplas."
+falacias: [causa-unica, evidencia-anedotica]
 fontes:
   - titulo: "Menos armas, menos crimes (Texto para Discussão nº 1721)"
     autor: "Daniel Cerqueira e João Manoel Pinho de Mello, Instituto de Pesquisa Econômica Aplicada (IPEA)"

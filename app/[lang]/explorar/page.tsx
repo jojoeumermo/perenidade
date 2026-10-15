@@ -39,6 +39,7 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         [n.factCheck, "/checagens", d.factCheck],
         [n.data, "/dados", d.data],
         [n.debates, "/debates", d.debates],
+        [n.fallacies, "/falacias", d.fallacies],
         [n.news, "/noticias", d.news],
         [n.journal, "/jornal", d.journal],
         [n.radio, "/radio", d.radio],

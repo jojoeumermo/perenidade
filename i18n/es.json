@@ -59,6 +59,7 @@
     "volunteers": "Voluntarios",
     "factCheck": "Verificación de hechos",
     "debates": "Tarjetas de debate",
+    "fallacies": "Guía de falacias",
     "about": "Acerca de y licencias",
     "timeline": "Línea de tiempo de las luchas",
     "myData": "Mis datos",
@@ -540,7 +541,8 @@
       "materia": "Periódico",
       "checagem": "Verificación",
       "debate": "Debate",
-      "pergunta": "Pregunta"
+      "pergunta": "Pregunta",
+      "falacia": "Falacia"
     }
   },
   "authors": {
@@ -2055,7 +2057,158 @@
     "searchButton": "Buscar",
     "searchNone": "No se encontró ninguna verificación con esas palabras. Prueba otras.",
     "searchFail": "La búsqueda no respondió ahora. Inténtalo de nuevo en un momento.",
-    "searchSource": "Resultados de Google Fact Check Tools. Cada verificación es de la agencia que la publicó: abre el enlace para leerla."
+    "searchSource": "Resultados de Google Fact Check Tools. Cada verificación es de la agencia que la publicó: abre el enlace para leerla.",
+    "fallaciesLink": "Conoce también la guía de falacias.",
+    "steps": {
+      "title": "Cómo verificar en 6 pasos",
+      "lead": "Pega el mensaje que te llegó y responde las preguntas. Nada sale de tu dispositivo.",
+      "claim": "Lo que dicen",
+      "claimPlaceholder": "Pega aquí el mensaje, la frase o el titular que quieres verificar.",
+      "items": [
+        {
+          "q": "¿Se puede saber quién lo dijo primero?",
+          "help": "Una persona u organización con nombre, no “un amigo de un amigo” ni “un médico” sin nombre.",
+          "options": [
+            "Sí, se sabe quién lo dijo",
+            "No hay forma de saberlo",
+            "No estoy seguro"
+          ]
+        },
+        {
+          "q": "¿Encontraste la fuente original?",
+          "help": "El documento, el estudio, la ley o el discurso completo, no solo un recorte o una captura.",
+          "options": [
+            "Sí, leí la fuente original",
+            "No existe o no la encontré",
+            "No estoy seguro"
+          ]
+        },
+        {
+          "q": "¿La fecha coincide?",
+          "help": "Muchos bulos son noticias viejas que circulan como si fueran de hoy.",
+          "options": [
+            "Sí, es actual",
+            "No, es antiguo o de otra época",
+            "No estoy seguro"
+          ]
+        },
+        {
+          "q": "¿Otras fuentes confiables lo confirman?",
+          "help": "Medios y organismos distintos, que no se estén copiando entre sí.",
+          "options": [
+            "Sí, varias lo confirman",
+            "No, ninguna lo confirma",
+            "No estoy seguro"
+          ]
+        },
+        {
+          "q": "¿La foto o el video es realmente de ese lugar y esa fecha?",
+          "help": "Haz una búsqueda inversa de la imagen (mira la caja de herramientas abajo).",
+          "options": [
+            "Sí, coincide",
+            "No, es de otro lugar o de otra época",
+            "No estoy seguro",
+            "No hay foto ni video"
+          ]
+        },
+        {
+          "q": "¿Las agencias de verificación ya hablaron de esto?",
+          "help": "Busca en “¿Ya fue verificado?” arriba o en los sitios de las agencias.",
+          "options": [
+            "Dijeron que es verdad",
+            "Dijeron que es falso o engañoso",
+            "No encontré verificación"
+          ]
+        }
+      ],
+      "result": "Resultado sugerido",
+      "results": {
+        "checadores": "Las agencias de verificación ya dijeron que es falso o engañoso. No lo reenvíes; si quieres, responde con el enlace de la verificación.",
+        "falso": "Sin autor, sin fuente original y sin confirmación: probablemente falso o sin fundamento. No lo reenvíes.",
+        "contexto": "Puede tener algo de real, pero está fuera de contexto (fecha, lugar o imagen de otra situación). Tal como está, engaña.",
+        "confiavel": "Pasó los pasos: parece confiable. Al compartirlo, incluye la fuente original.",
+        "duvida": "Todavía no se puede saber. Ante la duda, no lo compartas: espera una fuente confiable."
+      },
+      "pending": "Responde los seis pasos para ver el resultado sugerido.",
+      "copy": "Copiar el resumen",
+      "copied": "Resumen copiado.",
+      "reset": "Empezar de nuevo",
+      "note": "El resultado es una sugerencia a partir de tus respuestas, no un veredicto."
+    },
+    "verdicts": {
+      "title": "Qué significa cada sello",
+      "items": {
+        "Falso": "Falso: la afirmación contradice los hechos y las fuentes confiables.",
+        "Enganoso": "Engañoso: mezcla verdad con distorsión, o usa un dato real para llevar a una conclusión equivocada.",
+        "Falta contexto": "Falta contexto: el dato, la foto o la frase es real, pero sin la fecha, el lugar o la comparación correcta da una idea equivocada.",
+        "Verdadeiro": "Verdadero: coincide con las fuentes confiables."
+      }
+    },
+    "toolbox": {
+      "title": "Caja de herramientas de verificación",
+      "lead": "Servicios gratuitos para verificar por tu cuenta. Los enlaces abren el sitio de cada servicio.",
+      "groups": {
+        "imagem": [
+          "Búsqueda inversa de imágenes",
+          "Sube la foto o pega el enlace: el buscador muestra dónde y cuándo apareció antes."
+        ],
+        "video": [
+          "Video",
+          "Para separar un video en cuadros y buscar de dónde salió."
+        ],
+        "arquivo": [
+          "Páginas antiguas",
+          "Para ver cómo era una página antes de ser cambiada o borrada."
+        ],
+        "agencias": [
+          "Agencias brasileñas de verificación",
+          "Mira si periodistas ya verificaron el bulo."
+        ],
+        "buscador": [
+          "Buscador de verificaciones",
+          "Busca verificaciones de agencias de todo el mundo."
+        ],
+        "dados": [
+          "Datos oficiales",
+          "Para comprobar las cifras en la fuente."
+        ],
+        "dominio": [
+          "Quién es dueño del sitio",
+          "Para saber quién registró una dirección de internet."
+        ],
+        "guias": [
+          "Para aprender más",
+          "Guías de quienes investigan con fuentes abiertas."
+        ]
+      },
+      "tools": {
+        "google-lens": "Búsqueda por imagen en Google.",
+        "tineye": "Muestra cuándo apareció la imagen por primera vez y sus versiones alteradas.",
+        "bing": "Búsqueda visual de Microsoft.",
+        "yandex": "Suele encontrar rostros y lugares que otros buscadores no encuentran.",
+        "invid": "Extensión gratuita para el navegador, usada por periodistas: separa el video en cuadros y hace la búsqueda inversa de cada uno.",
+        "wayback": "El archivo de internet, con copias de páginas desde 1996.",
+        "archive-today": "Guarda ahora mismo una copia fiel de una página.",
+        "lupa": "La primera agencia brasileña especializada en verificación.",
+        "aos-fatos": "Verificación e investigación sobre desinformación.",
+        "fato-ou-fake": "Verificaciones de g1, del Grupo Globo.",
+        "estadao-verifica": "Núcleo de verificación del diario O Estado de S. Paulo.",
+        "uol-confere": "Verificaciones del portal UOL.",
+        "comprova": "Medios de prensa que verifican juntos bulos sobre políticas públicas y elecciones.",
+        "boatos": "Desmiente bulos y cadenas de internet desde 2013.",
+        "e-farsas": "Uno de los sitios de verificación más antiguos de Brasil, en línea desde 2002.",
+        "fact-check-explorer": "Busca verificaciones de agencias de muchos países, en varios idiomas.",
+        "ibge": "Población, empleo, ingresos y precios.",
+        "transparencia": "Gastos y transferencias del gobierno federal.",
+        "tse": "Candidaturas, bienes declarados y cuentas de campaña.",
+        "datasus": "Datos de salud: enfermedades, internaciones y muertes.",
+        "dou": "Leyes, decretos y nombramientos publicados oficialmente.",
+        "camara": "Proyectos de ley, votaciones y discursos de los diputados.",
+        "senado": "Proyectos, votaciones y legislación en el Senado.",
+        "registro-br": "Muestra quién registró una dirección terminada en .br.",
+        "bellingcat": "Guías de investigación con fuentes abiertas (en inglés)."
+      }
+    }
   },
   "debates": {
     "eyebrow": "Argumentos a mano",
@@ -2064,7 +2217,37 @@
     "claim": "Dicen que",
     "answer": "Respuesta",
     "more": "Para profundizar",
-    "download": "Descargar como imagen"
+    "download": "Descargar como imagen",
+    "beforeTitle": "Antes de debatir: conoce las falacias",
+    "beforeText": "Hombre de paja, falso dilema, ataque a la persona: los trucos más comunes y cómo responder a cada uno.",
+    "beforeLink": "Abrir la guía de falacias",
+    "fallacies": "Falacias en esta frase"
+  },
+  "fallacies": {
+    "eyebrow": "Pensar con cabeza propia",
+    "title": "Guía de falacias",
+    "lead": "Una falacia es un razonamiento que parece correcto pero no se sostiene. Conocer las más comunes ayuda a no caer en ellas y a responder con calma cuando aparecen en una conversación, un video o un debate.",
+    "families": {
+      "relevancia": "Razones que no vienen al caso",
+      "provas": "Pruebas débiles",
+      "premissas": "Premisas ocultas",
+      "desvio": "Desvíos de la discusión",
+      "sentido": "Confusiones de sentido"
+    },
+    "filter": "Tipo",
+    "all": "Todas",
+    "find": "Buscar",
+    "count": "{n} falacias",
+    "none": "Ninguna falacia coincide con esta búsqueda.",
+    "what": "Qué es",
+    "everyday": "En la vida diaria",
+    "publicDebate": "En el debate público",
+    "reply": "Cómo responder",
+    "related": "Parecidas",
+    "inDebates": "Aparece en las tarjetas de debate",
+    "remember": "Señalar una falacia no prueba que la conclusión sea falsa: solo muestra que ese argumento no la sostiene. Y la mejor respuesta casi nunca es el nombre en latín, sino la pregunta correcta.",
+    "toDebates": "Ver las tarjetas de debate",
+    "toChecks": "Ver las verificaciones"
   },
   "questions": {
     "eyebrow": "Por dónde empezar",
@@ -2103,6 +2286,7 @@
       "timeline": "De las revueltas del pasado a las luchas de hoy.",
       "factCheck": "Rumores contrastados con fuentes públicas.",
       "debates": "Respuestas cortas para frases hechas.",
+      "fallacies": "Los trucos de argumentación más comunes, y cómo responder a cada uno.",
       "radio": "Música y palabra para acompañar el estudio.",
       "volunteers": "Revisa, traduce, enseña o escribe.",
       "about": "Qué es el instituto y bajo qué licencias está el contenido.",

@@ -1,6 +1,7 @@
 ---
 afirmacao: "A Previdência é deficitária, então é preciso cortar aposentadorias."
 resposta: "A conta depende do que entra nela, e especialistas divergem. A Constituição criou a Seguridade Social (saúde, previdência e assistência) com várias fontes de dinheiro: contribuições de quem trabalha e das empresas sobre a folha, o faturamento e o lucro, e parte das loterias (artigo 195). Quem soma só parte dessas fontes vê déficit; quem soma todas encontrou sobra em vários anos. Antes de cortar aposentadoria de um salário mínimo, vale perguntar para onde foi esse dinheiro."
+falacias: [escolha-a-dedo, falso-dilema]
 fontes:
   - titulo: "Constituição da República Federativa do Brasil de 1988, artigos 194 e 195 (Seguridade Social)"
     autor: "Presidência da República"

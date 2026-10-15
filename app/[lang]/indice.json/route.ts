@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { loadLang } from "@/i18n";
 import { locales } from "@/i18n/config";
-import { getArticles, getAuthors, getBooks, getDebates, getFactChecks, getGlossaryIndex, getQuestions, getTracks, getTributes } from "@/lib/content";
+import { getArticles, getAuthors, getBooks, getDebates, getFactChecks, getFallacies, getGlossaryIndex, getQuestions, getTracks, getTributes } from "@/lib/content";
 import type { SearchEntry } from "@/lib/search";
 import { plainText } from "@/lib/text";
 import en from "@/i18n/en.json";
@@ -55,6 +55,9 @@ export async function GET(_request: Request, { params }: RouteContext<"/[lang]/i
   }
   for (const card of getDebates(lang)) {
     entries.push({ kind: "debate", title: card.claim, href: `/debates#${card.slug}`, area: "", context: "", text: `${card.answer} ${plainText(card.body)}` });
+  }
+  for (const item of getFallacies(lang)) {
+    entries.push({ kind: "falacia", title: item.name, href: `/falacias#${item.slug}`, area: "", context: item.original ?? "", text: `${item.summary} ${item.what} ${item.everyday} ${item.reply}` });
   }
   getQuestions().forEach((question, i) => {
     entries.push({ kind: "pergunta", title: question.pergunta, href: `/perguntas#p${i + 1}`, area: "", context: "", text: question.resposta });

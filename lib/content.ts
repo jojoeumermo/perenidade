@@ -177,9 +177,44 @@ export interface DebateCard extends Localized {
   slug: string;
   claim: string;
   answer: string;
+  /** Falácias que a frase do cartão usa (slugs de content/falacias). */
+  fallacies: string[];
   sources: Source[];
   body: string;
 }
+
+/** Os quatro selos da checagem de fatos, na ordem em que a página os explica. */
+export const verdicts = ["Falso", "Enganoso", "Falta contexto", "Verdadeiro"] as const;
+
+/** Famílias do guia das falácias: razões que não vêm ao caso, provas fracas, premissas escondidas, desvios e confusões de sentido. */
+export const fallacyFamilies = ["relevancia", "provas", "premissas", "desvio", "sentido"] as const;
+export type FallacyFamily = (typeof fallacyFamilies)[number];
+
+export interface Fallacy extends Localized {
+  slug: string;
+  name: string;
+  /** Nome em latim ou em inglês, quando há um consagrado. */
+  original?: string;
+  summary: string;
+  family: FallacyFamily;
+  what: string;
+  everyday: string;
+  publicDebate: string;
+  reply: string;
+  related: string[];
+  sources: Source[];
+  body: string;
+}
+
+/** Ferramenta da caixa de checagem: só o nome e o link; a explicação fica nos dicionários (factCheck.toolbox). */
+export interface CheckTool {
+  id: string;
+  name: string;
+  url: string;
+}
+
+export const checkToolGroups = ["imagem", "video", "arquivo", "agencias", "buscador", "dados", "dominio", "guias"] as const;
+export type CheckToolGroup = (typeof checkToolGroups)[number];
 
 export interface Video extends Localized {
   slug: string;
@@ -563,7 +598,7 @@ export const getFactChecks = cache((lang: Locale): FactCheck[] =>
   collection("checagens", lang, ({ slug, file, data, body, translated }) => ({
     slug,
     claim: text(data, "alegacao", file),
-    verdict: oneOf(data, "veredito", ["Falso", "Enganoso", "Falta contexto", "Verdadeiro"], file),
+    verdict: oneOf(data, "veredito", verdicts, file),
     date: dateOf(data, "data", file),
     sources: parseSources(data.fontes, file, true),
     body,
@@ -572,17 +607,89 @@ export const getFactChecks = cache((lang: Locale): FactCheck[] =>
   })).sort((a, b) => b.date.localeCompare(a.date)),
 );
 
-export const getDebates = cache((lang: Locale): DebateCard[] =>
-  collection("debates", lang, ({ slug, file, data, body, translated }) => ({
+/**
+ * Lista de slugs de outra coleção ("falacias: [espantalho]"). Slug sem arquivo quebra a montagem;
+ * o de um item em quarentena (ativo: false) só some da lista, para a quarentena não derrubar o site.
+ */
+function slugList(raw: unknown, key: string, dir: string, active: Set<string>, file: string): string[] {
+  if (raw === undefined || raw === null) return [];
+  if (!Array.isArray(raw)) fail(file, `"${key}" deve ser uma lista`);
+  const files = new Set(originals(dir).map((name) => name.replace(/\.md$/, "")));
+  return raw
+    .map((item) => {
+      const slug = String(item).trim();
+      if (!files.has(slug)) fail(file, `"${key}": "${slug}" não existe em content/${dir}`);
+      return slug;
+    })
+    .filter((slug) => active.has(slug));
+}
+
+/** Guia das falácias: uma ficha por arquivo, com definição, exemplo do dia a dia, exemplo do debate público e resposta. */
+export const getFallacies = cache((lang: Locale): Fallacy[] => {
+  const items = collection("falacias", lang, ({ slug, file, data, body, translated }) => {
+    const summary = text(data, "resumo", file);
+    if (/\n/.test(summary) || summary.length > 200) fail(file, `"resumo" deve ter uma linha só, de até 200 caracteres`);
+    return {
+      slug,
+      name: text(data, "nome", file),
+      original: optional(data, "original"),
+      summary,
+      family: oneOf(data, "familia", fallacyFamilies, file),
+      what: text(data, "o_que_e", file),
+      everyday: text(data, "dia_a_dia", file),
+      publicDebate: text(data, "debate_publico", file),
+      reply: text(data, "como_responder", file),
+      related: data.parecidas,
+      sources: parseSources(data.fontes, file, true),
+      body,
+      translated,
+      file,
+    };
+  });
+  const active = new Set(items.map((item) => item.slug));
+  return items
+    .map((item) => {
+      const related = slugList(item.related, "parecidas", "falacias", active, item.file);
+      if (related.includes(item.slug)) fail(item.file, `"parecidas" não pode citar a própria falácia`);
+      return { ...item, related };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name, lang));
+});
+
+export const getDebates = cache((lang: Locale): DebateCard[] => {
+  const fallacies = new Set(getFallacies(lang).map((item) => item.slug));
+  return collection("debates", lang, ({ slug, file, data, body, translated }) => ({
     slug,
     claim: text(data, "afirmacao", file),
     answer: text(data, "resposta", file),
+    fallacies: slugList(data.falacias, "falacias", "falacias", fallacies, file),
     sources: parseSources(data.fontes, file, true),
     body,
     translated,
     file,
-  })).sort((a, b) => a.claim.localeCompare(b.claim, lang)),
-);
+  })).sort((a, b) => a.claim.localeCompare(b.claim, lang));
+});
+
+/** Caixa de ferramentas da checagem de fatos (content/ferramentas-de-checagem.json): só links simples, que "npm run conferir:links" também testa. */
+export const getCheckTools = cache((): { group: CheckToolGroup; tools: CheckTool[] }[] => {
+  const file = "content/ferramentas-de-checagem.json";
+  const groups = readJson<{ grupo: string; ferramentas: { id: string; nome: string; url: string }[] }[]>(file, []);
+  const seen = new Set<string>();
+  return groups.map((entry) => {
+    if (!(checkToolGroups as readonly string[]).includes(entry.grupo)) fail(file, `grupo "${entry.grupo}" desconhecido; use um de: ${checkToolGroups.join(", ")}`);
+    if (!Array.isArray(entry.ferramentas) || entry.ferramentas.length === 0) fail(file, `o grupo "${entry.grupo}" precisa de "ferramentas"`);
+    return {
+      group: entry.grupo as CheckToolGroup,
+      tools: entry.ferramentas.map((tool) => {
+        if (!/^[a-z0-9-]+$/.test(tool.id ?? "") || seen.has(tool.id)) fail(file, `"${tool.id}": o id precisa ser único, com letras minúsculas, números e hífens`);
+        seen.add(tool.id);
+        if (!tool.nome?.trim()) fail(file, `"${tool.id}" precisa de "nome"`);
+        if (!/^https:\/\/\S+$/.test(tool.url ?? "") || /\.pdf($|\?)/i.test(tool.url)) fail(file, `"${tool.id}": o endereço deve começar com https:// e não pode ser um PDF`);
+        return { id: tool.id, name: tool.nome.trim(), url: tool.url };
+      }),
+    };
+  });
+});
 
 export const getVideos = cache((lang: Locale): Video[] =>
   collection("videos", lang, ({ slug, file, data, body, translated }) => ({
