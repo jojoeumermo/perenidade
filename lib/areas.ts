@@ -5,11 +5,11 @@ export const groups = [
   { id: "percursos", areas: ["alfabetizacao", "enem"] },
   {
     id: "linguagens",
-    areas: ["portugues", "literatura", "ingles", "espanhol", "chines", "artes", "desenho", "design", "musica", "danca", "teatro", "cinema", "educacao-fisica"],
+    areas: ["portugues", "literatura", "ingles", "ingles-infantil", "espanhol", "frances", "chines", "artes", "desenho", "design", "musica", "danca", "teatro", "cinema", "educacao-fisica"],
   },
   {
     id: "ciencias",
-    areas: ["matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "inteligencia-artificial", "manutencao", "primeiros-socorros"],
+    areas: ["matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "redes-e-seguranca", "inteligencia-artificial", "manutencao", "primeiros-socorros"],
   },
   {
     id: "humanidades",
@@ -50,6 +50,7 @@ export const groups = [
       "pessoas-idosas",
     ],
   },
+  { id: "hobbies", areas: ["trancista", "costureira", "barbeiro", "oratoria-e-lideranca"] },
 ] as const;
 
 export type GroupId = (typeof groups)[number]["id"];
@@ -67,9 +68,9 @@ export const essential: readonly AreaSlug[] = ["alfabetizacao", "portugues", "ma
  * Uma disciplina pode estar em mais de uma etapa (português e matemática acompanham a vida escolar inteira).
  */
 export const stageAreas: Record<"fundamental" | "medio" | "superior", readonly AreaSlug[]> = {
-  fundamental: ["alfabetizacao", "portugues", "matematica", "ingles", "espanhol", "artes", "desenho", "musica", "danca", "educacao-fisica", "historia", "geografia", "biologia", "informatica", "primeiros-socorros", "meio-ambiente"],
-  medio: ["enem", "portugues", "literatura", "ingles", "espanhol", "chines", "artes", "teatro", "cinema", "educacao-fisica", "matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "historia", "geografia", "sociologia", "filosofia", "economia", "politica", "midia", "meio-ambiente", "trabalho", "primeiros-socorros"],
-  superior: ["literatura", "design", "cinema", "matematica", "fisica", "quimica", "biologia", "astronomia", "programacao", "inteligencia-artificial", "manutencao", "historia", "geografia", "sociologia", "antropologia", "filosofia", "economia", "politica", "direito", "psicologia", "servico-social", "teologia", "educacao-popular", "midia", "arquitetura", "arquivologia", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo", "sindicalismo", "luta-negra", "feminismo", "lgbtqia", "deficiencia", "povos-indigenas", "luta-pela-terra", "favelas", "luta-dos-professores", "movimento-estudantil", "pessoas-idosas"],
+  fundamental: ["alfabetizacao", "portugues", "matematica", "ingles", "ingles-infantil", "espanhol", "artes", "desenho", "musica", "danca", "educacao-fisica", "historia", "geografia", "biologia", "informatica", "primeiros-socorros", "meio-ambiente"],
+  medio: ["enem", "portugues", "literatura", "ingles", "espanhol", "frances", "chines", "artes", "teatro", "cinema", "educacao-fisica", "matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "historia", "geografia", "sociologia", "filosofia", "economia", "politica", "midia", "meio-ambiente", "trabalho", "primeiros-socorros"],
+  superior: ["literatura", "design", "cinema", "matematica", "fisica", "quimica", "biologia", "astronomia", "programacao", "redes-e-seguranca", "inteligencia-artificial", "manutencao", "historia", "geografia", "sociologia", "antropologia", "filosofia", "economia", "politica", "direito", "psicologia", "servico-social", "teologia", "educacao-popular", "midia", "arquitetura", "arquivologia", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo", "sindicalismo", "luta-negra", "feminismo", "lgbtqia", "deficiencia", "povos-indigenas", "luta-pela-terra", "favelas", "luta-dos-professores", "movimento-estudantil", "pessoas-idosas"],
 };
 
 /** Etapas do currículo comum, usadas para organizar as trilhas dentro de cada disciplina. */
