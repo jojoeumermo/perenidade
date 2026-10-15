@@ -1,8 +1,9 @@
 # Auditoria de segurança e de bugs — relatório final (15/10/2026)
 
 - Pasta de trabalho: `C:\Users\0177\perenidade-auditoria` (git worktree), branch `auditoria-seguranca`, **sem push**.
-- A branch parte de `81252f3` (produção no início) e já tem o `master` atual juntado (merge `992c49c`). Por isso a
-  auditoria cobre também o que chegou depois: podcasts, rotas `/api`, painel novo.
+- A branch parte de `81252f3` (produção no início) e já tem o `master` de 15/10 juntado (merges `992c49c` e
+  `3cc7935`, até `df7926c`). Por isso a auditoria cobre também o que chegou depois: podcasts, rotas `/api`, painel
+  novo, horas contadas pela plataforma.
 - Nada foi publicado, nenhum segredo foi trocado e o banco de produção não foi tocado. Em produção só foram feitas
   leituras anônimas de configuração pública.
 
@@ -12,7 +13,7 @@
 | --- | --- | --- | --- | --- |
 | Crítico | 0 | 0 | 0 | 0 |
 | Alto | 2 | 1 | 0 | 0 |
-| Médio | 7 | 1 | 2 | 2 |
+| Médio | 7 | 1 | 3 | 3 |
 | Baixo | 10 | 2 | 4 | 4 |
 
 **Corrigido na branch:**
@@ -20,6 +21,7 @@
 - chave do banco e token do GitHub expostos à instalação de pacotes;
 - canal da mediação quebrado;
 - coordenação sem como tirar do ar um anúncio aprovado;
+- curadoria e mediação vendo abas do Podcast que só davam "sem permissão";
 - rádio aceitando endereço que não toca;
 - ações sem registro de atividades;
 - título e texto da tela Entrar;
@@ -72,6 +74,7 @@ Status:
 | ID | Grav. | Onde | O problema | Status |
 | --- | --- | --- | --- | --- |
 | F1 | MÉDIO | Mural da equipe | O canal "mediação" aparecia, mas toda mensagem dava erro. Pedir ajuda à mediação também falhava. | **corrigido** (`a98aabd`) |
+| F11 | MÉDIO | Painel → Podcast (do master) | Curadoria e mediação, que só revisam episódios, viam as 12 abas da produção; 8 davam "Você não tem permissão para isso". | **corrigido** (`278812d`): para quem só revisa, a seção mostra Episódios e Guia |
 | F10 | MÉDIO | Painel → Mural dos Trabalhadores | O guia diz que a coordenação retira do ar um anúncio aprovado, mas o painel só listava pendentes. Só saía pelo SQL. | **corrigido** (`552734e`): aba "No ar" e botão "Retirar do ar" com motivo, sem apagar nada |
 | F2 | BAIXO | Rádio | Faixa `http://` era aceita e nunca tocava (a página é https). | **corrigido** (`8b0b33e`) |
 | F3 | BAIXO | `/pt/jornal` | Única página sem título principal. | **corrigido** (`af5a136`), escondido na tela |
@@ -164,13 +167,13 @@ Status:
 | Conferência | Antes (81252f3) | Depois (branch com master juntado) |
 | --- | --- | --- |
 | `lint`, `typecheck`, `conferir:i18n` | passam | passam |
-| `testar:banco` | 665 | 676 |
+| `testar:banco` | 665 | 712 |
 | `testar:moderacao` | 20 | 30 |
 | `testar:emails` | 13 | 19 |
-| `testar:podcast` | não existia | 106 |
+| `testar:podcast` | não existia | 98 |
 | `testar:fumaca` (só banco) | 68 | 68 |
-| `testar:fumaca` com as páginas do site montado | 106 | ver seção 8 |
-| `build` | passa | ver seção 8 |
+| `testar:fumaca` com as páginas do site montado | 106 | 108 |
+| `build` | passa | passa |
 
 Em cada lado, todas as conferências passam (0 falhas). O "depois" tem mais conferências porque inclui testes novos do
 master e da auditoria.
@@ -178,26 +181,28 @@ master e da auditoria.
 **O que foi percorrido no navegador** (banco de teste local, contas falsas):
 
 - **Painel, com os 10 cargos:** coordenação, vice, curadoria, educador, mentoria, design, jornalismo, revisão, mediação
-  e comunidade. Cada seção e cada aba abriu sem erro na tela e sem chamada recusada. As ações que o banco nega a um
-  cargo também não aparecem na tela desse cargo.
+  e comunidade, duas vezes: antes da junção e no painel redesenhado do master. No painel novo apareceu um defeito, o
+  F11 (abas do Podcast para quem só revisa), que foi corrigido. Depois disso, cada seção e cada aba abriu sem erro na
+  tela e sem chamada recusada, com os 10 cargos. As ações que o banco nega a um cargo também não aparecem na tela
+  desse cargo.
 - **Formulários públicos, todos salvando:** anúncio no mural (e retirada pelo código), reforço, denúncia, contribuição,
   candidatura, boletim, criar conta e publicar na Comunidade.
 - **Celular (375 px):** 15 páginas e o painel sem rolagem lateral.
 - **Teclado:** existe o link "pular para o conteúdo" e a marcação de foco.
-- **Links:** nenhum quebrado nas 2.193 páginas em português.
+- **Links:** nenhum quebrado nas 2.199 páginas em português do build final. Nenhuma página ficou sem título principal
+  e nenhuma imagem sem texto alternativo.
 
 ## 8. Fase 6: build final e páginas
 
 - `npm run build` com o master juntado: **passou** (31 min, 10.940 páginas, nenhum erro).
 - `testar:fumaca` contra o site montado: **108 conferências, 0 falhas**. Isso inclui o teste novo do histórico, que
   falhava antes da correção do S2.
-- **Ficou por terminar** (limite de uso atingido):
-  - o rastreio de links no build final, que estava rodando;
-  - o percurso do painel *redesenhado* do master com cada cargo. O percurso antes da junção passou com os 10 cargos, e a
-    seção do Mural dos Trabalhadores foi conferida na tela.
-
-  Para concluir, rode `docs/auditoria/rastrear.mjs` e `docs/auditoria/percorrer-painel.js` (instruções no topo de cada
-  arquivo). No painel novo, o script pode precisar de ajuste no seletor do título.
+- Rastreio de links no build final: 2.199 páginas, 0 links quebrados.
+- **Depois do build** entrou mais uma junção do master (`3cc7935`: horas contadas pela plataforma, podcast sem
+  entregas, Instagram no rodapé), sem conflito. Com ela, lint, tipos, idiomas e todos os testes passam (tabela da
+  seção 7). O build dessa última versão fica a cargo da verificação do GitHub, que monta o site em todo pull request.
+- As 8 funções de banco novas de horas e certificados (`horas_*`, `certificado_pedi*`) também foram revisadas: todas
+  conferem a função de quem chama ou só mexem nos registros da própria pessoa.
 
 ## 9. Ferramentas da auditoria (`docs/auditoria/`)
 
