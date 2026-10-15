@@ -1,5 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { execFileSync } from "node:child_process";
+import { existsSync, readFileSync } from "node:fs";
 import { cache } from "react";
 
 export interface Change {
@@ -8,22 +9,31 @@ export interface Change {
 }
 
 // O histórico do acervo é o próprio histórico do Git, lido na hora do build. Só a data e os arquivos de content/:
-// a mensagem, o autor e o código de cada registro são da equipe e nem chegam a ser lidos.
-// Em clones rasos (ex.: Vercel sem VERCEL_DEEP_CLONE=true) só aparecem os commits mais recentes.
+// a mensagem e o autor de cada registro são da equipe e nem chegam a ser lidos.
+// Em clones rasos (como o da Vercel) só aparecem os commits mais recentes, e o mais antigo deles, a "fronteira", aparece
+// como se tivesse criado todos os arquivos de uma vez. Ele fica de fora, para o histórico não dizer que o acervo inteiro
+// nasceu naquele dia. O código de cada registro só é lido para achar a fronteira e não sai daqui.
 export const getHistory = cache((): Change[] => {
   try {
-    const out = execFileSync(
-      "git",
-      ["-c", "core.quotepath=off", "log", "-n", "300", "--no-merges", "--date=short", "--name-only", "--pretty=format:%x1e%ad", "--", "content"],
-      { encoding: "utf8", cwd: process.cwd(), stdio: ["ignore", "pipe", "ignore"] },
-    );
+    const git = (args: string[]) => execFileSync("git", args, { encoding: "utf8", cwd: process.cwd(), stdio: ["ignore", "pipe", "ignore"] });
+    let fronteira = new Set<string>();
+    try {
+      const arquivo = git(["rev-parse", "--git-path", "shallow"]).trim();
+      if (existsSync(arquivo)) fronteira = new Set(readFileSync(arquivo, "utf8").split(/\s+/).filter(Boolean));
+    } catch {
+      // sem essa informação, nada é descartado
+    }
+    const out = git(["-c", "core.quotepath=off", "log", "-n", "300", "--no-merges", "--date=short", "--name-only", "--pretty=format:%x1e%H %ad", "--", "content"]);
     return out
       .split("\x1e")
       .filter(Boolean)
       .map((entry) => {
-        const [date, ...files] = entry.split("\n");
-        return { date: date.trim(), files: files.map((f) => f.trim()).filter(Boolean) };
-      });
+        const [cabeca, ...files] = entry.split("\n");
+        const [codigo, date] = cabeca.trim().split(" ");
+        return { codigo, date, files: files.map((f) => f.trim()).filter(Boolean) };
+      })
+      .filter((change) => !fronteira.has(change.codigo))
+      .map(({ date, files }) => ({ date, files }));
   } catch {
     return [];
   }
