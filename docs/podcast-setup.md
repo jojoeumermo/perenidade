@@ -100,6 +100,8 @@ estão no ar há mais de 30 dias e o áudio das perguntas antigas, e vence os li
   perguntas, entregas) num banco de teste local.
 - `npm run dev:local` sobe o site com contas de teste: entre como `jornal@local` (jornalismo) e `coord@local`
   (coordenação, código do segundo fator 123456) para fazer o caminho todo, da pauta à publicação.
+- Com `SEMEAR_PODCAST=1 npm run dev:local`, o teste já nasce com um episódio no ar (capítulos, legendas e áudio de
+  silêncio), uma pauta anotada e `revisor@local` na supervisão.
 
 ## Privacidade
 
