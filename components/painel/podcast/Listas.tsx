@@ -612,127 +612,12 @@ export function Pedidos({ abrir }: { abrir: (episodio: string) => void }) {
   );
 }
 
-// ── Entregas e pagamentos ──
-
-interface Entrega {
-  id: string;
-  profissional: string;
-  profissional_nome: string;
-  episodio: string | null;
-  episodio_titulo: string | null;
-  descricao: string;
-  prazo: string | null;
-  valor: number;
-  entregue_em: string | null;
-  pago_em: string | null;
-  recibo: string;
-  nota: string;
-}
-
 interface Pessoa {
   id: string;
   nome: string;
   jornalismo: boolean;
   separadas: boolean;
   funcoes: string[];
-}
-
-const real = (n: number) => Number(n).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
-/** Entregas combinadas com quem é contratado: prazo, valor, entrega e pagamento com recibo. Cada pessoa vê só as suas. */
-export function Entregas({ coordenacao, painel }: { coordenacao: boolean; painel: PainelDoPodcast }) {
-  const lista = useLista<Entrega[]>("podcast_entregas_listar");
-  const equipe = useLista<Pessoa[]>("podcast_equipe");
-  const acao = useAcao(lista.recarregar);
-  const vazio = { id: "", profissional: "", episodio: "", descricao: "", prazo: "", valor: "", nota: "" };
-  const [form, setForm] = useState(vazio);
-  const pendente = (lista.dados ?? []).filter((d) => !d.pago_em).reduce((s, d) => s + Number(d.valor), 0);
-  return (
-    <div className="space-y-6">
-      {coordenacao && (
-        <form className="max-w-2xl space-y-3 border border-rule bg-parchment-deep p-5" onSubmit={async (e) => { e.preventDefault(); if (await acao.agir("podcast_entrega_salvar", { p_id: form.id || null, p: form }, form.id ? "Entrega atualizada." : "Entrega combinada.")) setForm(vazio); }}>
-          <h3 className="font-serif text-xl font-semibold">{form.id ? "Editar entrega" : "Combinar uma entrega"}</h3>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <select value={form.profissional} onChange={(e) => setForm({ ...form, profissional: e.target.value })} required className={campo}>
-              <option value="">Profissional…</option>
-              {equipe.dados?.map((p) => <option key={p.id} value={p.id}>{p.nome}</option>)}
-            </select>
-            <select value={form.episodio} onChange={(e) => setForm({ ...form, episodio: e.target.value })} className={campo}>
-              <option value="">Episódio (opcional)</option>
-              {painel.episodios.map((e) => <option key={e.id} value={e.id}>{e.titulo}</option>)}
-            </select>
-          </div>
-          <input value={form.descricao} onChange={(e) => setForm({ ...form, descricao: e.target.value })} placeholder="O que será entregue (ex.: edição e mixagem do episódio 4)" required minLength={2} maxLength={300} className={campo} />
-          <div className="grid gap-3 sm:grid-cols-2">
-            <label className="block">
-              Prazo
-              <input type="date" value={form.prazo} onChange={(e) => setForm({ ...form, prazo: e.target.value })} className={campo} />
-            </label>
-            <label className="block">
-              Valor combinado (R$)
-              <input inputMode="decimal" value={form.valor} onChange={(e) => setForm({ ...form, valor: e.target.value })} placeholder="350,00" className={campo} />
-            </label>
-          </div>
-          <input value={form.nota} onChange={(e) => setForm({ ...form, nota: e.target.value })} placeholder="Nota (forma de pagamento, combinados)" maxLength={500} className={campo} />
-          <p className="flex gap-3">
-            <button type="submit" className={botao} disabled={acao.ocupado}>{form.id ? "Guardar" : "Combinar"}</button>
-            {form.id && <button type="button" className={botaoClaro} onClick={() => setForm(vazio)}>Cancelar</button>}
-          </p>
-        </form>
-      )}
-      <p className="font-mono text-xs">A pagar: {real(pendente)}</p>
-      <Aviso texto={acao.aviso || lista.erro} />
-      {lista.dados?.length === 0 && <p className="text-ink-soft">Nenhuma entrega combinada.</p>}
-      <ul className="divide-y divide-rule border-y border-rule">
-        {lista.dados?.map((d) => {
-          const atrasada = !d.entregue_em && d.prazo && d.prazo < new Date().toISOString().slice(0, 10);
-          return (
-            <li key={d.id} className="space-y-1 py-3">
-              <p className="flex flex-wrap items-baseline justify-between gap-2">
-                <strong>{d.descricao}</strong>
-                <span className="font-mono">{real(d.valor)}</span>
-              </p>
-              <p className="text-xs text-ink-soft">
-                {d.profissional_nome}
-                {d.episodio_titulo && ` · ${d.episodio_titulo}`}
-                {d.prazo && <span className={atrasada ? "text-oxblood" : ""}> · prazo {dia(d.prazo)}{atrasada ? " (atrasada)" : ""}</span>}
-                {d.entregue_em ? ` · entregue em ${data(d.entregue_em)}` : " · a entregar"}
-                {d.pago_em ? ` · paga em ${data(d.pago_em)}` : " · a pagar"}
-                {d.nota && ` · ${d.nota}`}
-              </p>
-              <p className="flex flex-wrap items-center gap-3">
-                {(coordenacao || d.profissional === painel.eu.id) && (
-                  <button type="button" className={elo} onClick={() => acao.agir("podcast_entrega_marcar", { p_id: d.id, p_campo: "entregue", p_valor: !d.entregue_em }, d.entregue_em ? "Entrega desmarcada." : "Entrega marcada.")}>
-                    {d.entregue_em ? "Desmarcar entrega" : "Marcar como entregue"}
-                  </button>
-                )}
-                {coordenacao && !d.pago_em && (
-                  <>
-                    <button type="button" className={elo} onClick={() => acao.agir("podcast_entrega_marcar", { p_id: d.id, p_campo: "pago", p_valor: true }, "Pagamento registrado.")}>Registrar pagamento</button>
-                    <EnviarArquivo
-                      rotuloBotao="Pagamento com recibo"
-                      aceitar="application/pdf,image/*"
-                      deposito="podcast-producao"
-                      pasta={`recibos/${d.profissional}`}
-                      prefixo="recibo"
-                      aoEnviar={async (caminho) => {
-                        await rpc("podcast_entrega_marcar", { p_id: d.id, p_campo: "pago", p_valor: true, p_recibo: caminho });
-                        lista.recarregar();
-                      }}
-                    />
-                  </>
-                )}
-                {coordenacao && d.pago_em && <button type="button" className={elo} onClick={() => acao.agir("podcast_entrega_marcar", { p_id: d.id, p_campo: "pago", p_valor: false }, "Pagamento desmarcado.")}>Desmarcar pagamento</button>}
-                {d.recibo && <OuvirFechadoDocumento caminho={d.recibo} />}
-                {coordenacao && <button type="button" className={elo} onClick={() => setForm({ id: d.id, profissional: d.profissional, episodio: d.episodio ?? "", descricao: d.descricao, prazo: d.prazo ?? "", valor: String(d.valor).replace(".", ","), nota: d.nota })}>Editar</button>}
-                {coordenacao && <button type="button" className={`${elo} text-oxblood`} onClick={() => { if (window.confirm("Remover esta entrega?")) void acao.agir("podcast_entrega_remover", { p_id: d.id }, "Entrega removida."); }}>Remover</button>}
-              </p>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
 }
 
 // ── Números ──
