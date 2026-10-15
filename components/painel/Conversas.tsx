@@ -167,7 +167,7 @@ export function Conversas({ me }: { me: Me }) {
   }
 
   return (
-    <div className="grid h-[calc(100dvh-16.5rem)] min-h-[24rem] border border-rule lg:h-[calc(100dvh-12.5rem)] lg:grid-cols-[19rem_minmax(0,1fr)]">
+    <div className="grid h-[calc(100dvh-16.5rem)] min-h-[18rem] lg:min-h-[24rem] border border-rule lg:h-[calc(100dvh-12.5rem)] lg:grid-cols-[19rem_minmax(0,1fr)]">
       <aside className={`flex min-h-0 flex-col border-rule bg-parchment-deep lg:border-r ${aberta || novoGrupo ? "hidden lg:flex" : "flex"}`}>
         <div className="space-y-2 border-b border-rule p-3">
           <input value={busca} onChange={(e) => setBusca(e.target.value)} type="search" placeholder="Procurar pessoa ou conversa" aria-label="Procurar pessoa ou conversa" className={`${campo} mt-0 bg-parchment`} />
@@ -417,6 +417,14 @@ function Janela({ id, chaveiro, me, equipe, resumo, voltar, mudou }: { id: strin
                   e.preventDefault();
                   void enviar();
                 }
+              }}
+              // Com o teclado do celular aberto, a caixa de escrever e a última mensagem ficam à vista.
+              onFocus={(e) => {
+                const formulario = e.currentTarget.form;
+                setTimeout(() => {
+                  fim.current?.scrollIntoView({ block: "end" });
+                  formulario?.scrollIntoView({ block: "end" });
+                }, 300);
               }}
               rows={1}
               maxLength={MAXIMO}
