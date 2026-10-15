@@ -4,7 +4,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
-import { can, getClient, hasBackend, leads, type Me, type Role, rpc, signOut, useMe } from "@/lib/backend";
+import { can, getClient, hasBackend, leads, manages, type Me, porNivel, type Role, rpc, signOut, useMe } from "@/lib/backend";
 import { registerDevice } from "@/lib/device";
 import { applyPrefs, readPrefs } from "@/lib/prefs";
 import { senhaVazada } from "@/lib/senha";
@@ -346,7 +346,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mentoria", "educacao"), conta: r?.reforco },
       { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da mediação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mediacao"), conta: r?.mural },
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
-      { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: lidera, conta: r?.candidaturas },
+      { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: manages(eu), conta: r?.candidaturas },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar + (r.pedidos ?? 0) : undefined },
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
       { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
@@ -384,7 +384,9 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
     return () => window.removeEventListener("keydown", tecla);
   }, []);
   const grupos = [...new Set(secoes.map((secao) => secao.grupo))];
-  const funcao = voluntario ? [...new Set(eu.papeis.map((papel) => papeis[papel.papel]))].join(" · ") : "Comunidade";
+  // O principal primeiro (o de maior nível) e, quando há mais de dois, "+N": a linha do menu é curta. A lista inteira vai no título.
+  const todasAsFuncoes = [...new Set(porNivel(eu.papeis).map((papel) => papeis[papel.papel]))];
+  const funcao = !voluntario ? "Comunidade" : todasAsFuncoes.length <= 2 ? todasAsFuncoes.join(" · ") : `${todasAsFuncoes[0]} +${todasAsFuncoes.length - 1}`;
   // O nome do ambiente diz de quem ele é: só a coordenação vê "Coordenação".
   const ambiente = lidera ? "Coordenação" : voluntario ? "Equipe" : "Comunidade";
 
@@ -458,7 +460,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
             <span aria-hidden className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#c21f16] font-sans font-black italic text-white">{iniciais(eu.nome)}</span>
             <span className="min-w-0">
               <span className="block truncate font-semibold">{eu.nome}</span>
-              <span className="block truncate text-xs text-[#b9ad90]">{funcao}</span>
+              <span className="block truncate text-xs text-[#b9ad90]" title={todasAsFuncoes.join(" · ") || undefined}>{funcao}</span>
             </span>
           </p>
           <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
@@ -555,8 +557,8 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           {saudacao}, <span className="italic text-oxblood">{me.nome.split(" ")[0]}</span>.
         </h2>
         {me.papeis.length > 0 ? (
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {me.papeis.map((papel) => (
+          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Suas funções">
+            {porNivel(me.papeis).map((papel) => (
               <li key={papel.id} title={oQueFaz[papel.papel]} className="flex items-center gap-1.5 border-2 border-ink bg-parchment-deep px-3 py-1.5">
                 <Star className="h-3.5 w-3.5 text-[#c21f16]" />
                 <strong>{papeis[papel.papel]}</strong>
@@ -608,7 +610,8 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
 
       <Recados recarregar={recarregar} />
 
-      {me.papeis.length === 0 && <Candidatura />}
+      {/* Quem não tem função pede a primeira; quem já tem pode pedir outra: uma pessoa acumula quantas a coordenação confiar. */}
+      {!can(me, "coordenacao") && <Candidatura me={me} />}
     </div>
   );
 }
@@ -662,23 +665,39 @@ function Situacao({ lidera, ir }: { lidera: boolean; ir: (aba: string) => void }
   );
 }
 
-/** Quem ainda não tem função pede uma aqui; a coordenação responde pelo próprio painel. */
-function Candidatura() {
+/** Quem ainda não tem função pede uma aqui; quem já tem pede mais uma. A coordenação responde pelo próprio painel. */
+function Candidatura({ me }: { me: Me }) {
   const { t } = useI18n();
   const pedidos = useLista<{ id: string; papel: Role["papel"]; disciplina: string | null; status: string; criado_em: string }[]>("candidaturas_minhas");
   const pedido = useAcao(pedidos.recarregar);
-  const [quero, setQuero] = useState<{ papel: string; disciplina: string; mensagem: string }>({ papel: "educacao", disciplina: "", mensagem: "" });
+  const [aberto, setAberto] = useState(me.papeis.length === 0);
+  // As funções que a pessoa ainda não tem (as por disciplina podem repetir em outra disciplina).
+  const pediveis = (["educacao", "educacao_secundaria", "mentoria", "mediacao", "revisao", "traducao", "jornalismo", "curadoria", "design", "marketing", "desenvolvimento"] as const).filter(
+    (papel) => ["educacao", "educacao_secundaria", "mentoria"].includes(papel) || !me.papeis.some((item) => item.papel === papel),
+  );
+  const [quero, setQuero] = useState<{ papel: string; disciplina: string; mensagem: string }>({ papel: pediveis[0] ?? "educacao", disciplina: "", mensagem: "" });
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
   const porDisciplina = quero.papel === "educacao" || quero.papel === "educacao_secundaria";
+  if (pediveis.length === 0) return null;
+  if (!aberto) {
+    return (
+      <p>
+        <button type="button" className={elo} onClick={() => setAberto(true)}>
+          Pedir outra função
+        </button>
+        <span className="text-ink-soft"> · Uma pessoa pode acumular funções: jornalista e tradutora, educadora e curadora…</span>
+      </p>
+    );
+  }
   return (
     <section className="painel-cartao p-5">
-      <h2 className="font-serif text-2xl font-semibold">Quero ser voluntário</h2>
-      <p className="mt-1 text-ink-soft">Diga em que quer ajudar e conte um pouco da sua experiência.</p>
+      <h2 className="font-serif text-2xl font-semibold">{me.papeis.length === 0 ? "Quero ser voluntário" : "Pedir outra função"}</h2>
+      <p className="mt-1 text-ink-soft">{me.papeis.length === 0 ? "Diga em que quer ajudar e conte um pouco da sua experiência." : "As funções se somam: você continua com as que já tem e ganha as ferramentas da nova."}</p>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         <label className="block">
           Em que função
           <select value={quero.papel} onChange={(e) => setQuero({ ...quero, papel: e.target.value })} className={campo}>
-            {(["educacao", "educacao_secundaria", "mentoria", "mediacao", "revisao", "traducao", "jornalismo", "curadoria", "design", "marketing", "desenvolvimento"] as const).map((papel) => (
+            {pediveis.map((papel) => (
               <option key={papel} value={papel}>{papeis[papel]}</option>
             ))}
           </select>

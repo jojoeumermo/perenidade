@@ -6,8 +6,8 @@
 //   npm run dev:local      sobe este servidor e o site apontando para ele
 //
 // Contas de teste (qualquer senha serve aqui, e só aqui):
-//   coord@local  vice@local  curadora@local  prof@local (educador de matemática)  mentora@local  designer@local
-//   jornal@local  revisor@local  mediador@local  leitora@local
+//   coord@local  vice@local  super@local (supervisão)  curadora@local  prof@local (educador de matemática)  mentora@local
+//   designer@local  jornal@local (jornalismo e tradução)  revisor@local  mediador@local  leitora@local
 // Segundo fator: no cadastro e na confirmação, o código é sempre 123456.
 import crypto from "node:crypto";
 import http from "node:http";
@@ -43,7 +43,7 @@ export const CHAVE_SERVICO = assinar({ role: "service_role", iss: "local", exp: 
 
 export async function iniciar({ silencioso = false } = {}) {
   const banco = await criarBanco();
-  const contas = { coord: "Jonathan Santos", vice: "Vera Vice", curadora: "Carla Curadora", prof: "Paulo Professor", mentora: "Marta Mentora", designer: "Davi Designer", jornal: "Joana Jornalista", revisor: "Rui Revisor", mediador: "Mauro Mediador", leitora: "Lia Leitora" };
+  const contas = { coord: "Jonathan Santos", vice: "Vera Vice", super: "Sueli Supervisora", curadora: "Carla Curadora", prof: "Paulo Professor", mentora: "Marta Mentora", designer: "Davi Designer", jornal: "Joana Jornalista", revisor: "Rui Revisor", mediador: "Mauro Mediador", leitora: "Lia Leitora" };
   const ids = {};
   for (const [chave, nome] of Object.entries(contas)) {
     ids[chave] = await banco.criarUsuario(`${chave}@local`, nome);
@@ -61,6 +61,9 @@ export async function iniciar({ silencioso = false } = {}) {
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.jornal, p_papel: "jornalismo", p_disciplina: null });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.revisor, p_papel: "revisao", p_disciplina: null });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.mediador, p_papel: "mediacao", p_disciplina: null });
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.super, p_papel: "supervisao", p_disciplina: null });
+  // Uma pessoa com duas funções: a jornalista também traduz.
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.jornal, p_papel: "traducao", p_disciplina: null });
 
   const renovacoes = new Map();
   const links = new Map();

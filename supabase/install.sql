@@ -229,7 +229,7 @@ do $$
 begin
   alter table interno.papeis drop constraint if exists papeis_papel_check;
   alter table interno.papeis add constraint papeis_papel_check
-    check (papel in ('coordenacao', 'vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing'));
+    check (papel in ('coordenacao', 'vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing'));
   alter table interno.candidaturas drop constraint if exists candidaturas_papel_check;
   alter table interno.candidaturas add constraint candidaturas_papel_check
     check (papel in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing'));
@@ -497,7 +497,7 @@ create table if not exists interno.convites (
 -- Função acrescentada depois da primeira instalação: o convite também pode trazer a mediação.
 alter table interno.convites drop constraint if exists convites_papel_check;
 alter table interno.convites add constraint convites_papel_check
-  check (papel is null or papel in ('vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing'));
+  check (papel is null or papel in ('vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing'));
 create table if not exists interno.convites_usos (
   usuario uuid primary key,
   convite uuid references interno.convites (id) on delete set null,
@@ -756,14 +756,15 @@ begin
 end $$;
 
 /**
- * A pessoa tem este papel? Com a exigência de segundo fator ligada, coordenação, vice-coordenação, curadoria e mediação
- * só valem em sessão confirmada pelo aplicativo autenticador: senha ou link roubado, sozinhos, não abrem nada.
+ * A pessoa tem este papel? Com a exigência de segundo fator ligada, coordenação, vice-coordenação, supervisão, curadoria e
+ * mediação só valem em sessão confirmada pelo aplicativo autenticador: senha ou link roubado, sozinhos, não abrem nada.
  * E quem cadastrou o aplicativo por conta própria, em qualquer função, só usa a função depois de digitar o código.
+ * Uma pessoa pode ter quantos papéis quiser: basta uma linha bater. As permissões são a soma dos papéis.
  */
 create or replace function interno.tem(p_papel text, p_disciplina text default null) returns boolean
 language sql stable security definer set search_path = interno, pg_temp as $$
   select auth.uid() is not null
-    and (p_papel not in ('coordenacao', 'vice', 'curadoria', 'mediacao') or not interno.exige_2fa() or interno.aal2())
+    and (p_papel not in ('coordenacao', 'vice', 'supervisao', 'curadoria', 'mediacao') or not interno.exige_2fa() or interno.aal2())
     and (interno.aal2() or not interno.tem_fator())
     and exists (
       select 1 from papeis p join perfis f on f.id = p.usuario
@@ -807,6 +808,46 @@ create or replace function interno.envia() returns boolean language sql stable a
   select interno.curador() or interno.tem('educacao') or interno.tem('jornalismo') or interno.tem('design')
 $$;
 
+-- ───────────────────────────── Cargos: hierarquia ─────────────────────────────
+--
+-- Cada pessoa pode ter vários papéis (jornalista e tradutora, educadora e curadora…). As permissões são a soma deles.
+-- Para dar e tirar papéis vale uma hierarquia: coordenação (4), vice-coordenação (3), supervisão (2), papéis de
+-- trabalho (1). O nível de uma pessoa é o maior entre os papéis dela. Ninguém confia papel de nível igual ou maior que o
+-- próprio, ninguém mexe nos cargos de quem está no mesmo nível ou acima, e ninguém mexe nos próprios. A coordenação, por
+-- estar no topo, mexe em todos (menos nos próprios, e nunca tira a última coordenação).
+
+/** O nível de cada papel na hierarquia. */
+create or replace function interno.nivel(p_papel text) returns integer language sql immutable as $$
+  select case p_papel when 'coordenacao' then 4 when 'vice' then 3 when 'supervisao' then 2 else 1 end
+$$;
+
+/** O nível de uma pessoa: o maior entre os papéis dela; 0 para quem não tem nenhum. Serve para comparar, não para autorizar. */
+create or replace function interno.nivel_de(p_usuario uuid) returns integer language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((select max(interno.nivel(p.papel)) from papeis p where p.usuario = p_usuario), 0)
+$$;
+
+/** Quem gere cargos: coordenação, vice-coordenação e supervisão (todas em sessão com o segundo fator, como as funções sensíveis). */
+create or replace function interno.gere_cargos() returns boolean language sql stable as $$
+  select interno.coord() or interno.tem('supervisao')
+$$;
+
+/**
+ * Posso confiar este papel? Só papel de nível menor que o meu. Por cima disso valem as regras antigas: vice-coordenação e
+ * supervisão só a coordenação nomeia; curadoria e mediação (que exigem segundo fator) ficam com coordenação e vice.
+ */
+create or replace function interno.pode_conceder(p_papel text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.gere_cargos()
+    and interno.nivel(p_papel) < interno.nivel_de(auth.uid())
+    and (p_papel not in ('vice', 'supervisao') or interno.lider())
+    and (p_papel not in ('curadoria', 'mediacao') or interno.coord())
+$$;
+
+/** Posso mexer nos cargos desta pessoa? Nunca nos meus. A coordenação mexe em todos; os outros, só em quem está abaixo. */
+create or replace function interno.pode_mexer(p_usuario uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.gere_cargos() and p_usuario is not null and p_usuario is distinct from auth.uid()
+    and (interno.lider() or interno.nivel_de(p_usuario) < interno.nivel_de(auth.uid()))
+$$;
+
 /** Anota no registro de atividades. Só vale para o que deu certo: se a função falhar depois, a anotação some junto. */
 create or replace function interno.registrar(p_acao text, p_alvo text default '', p_detalhes jsonb default '{}'::jsonb) returns void
 language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -837,7 +878,7 @@ create or replace function interno.endereco() returns text language sql stable s
 $$;
 
 create or replace function interno.nome_papel(p text) returns text language sql immutable as $$
-  select case p when 'coordenacao' then 'coordenação' when 'vice' then 'vice-coordenação' when 'curadoria' then 'curadoria' when 'mediacao' then 'mediação'
+  select case p when 'coordenacao' then 'coordenação' when 'vice' then 'vice-coordenação' when 'supervisao' then 'supervisão' when 'curadoria' then 'curadoria' when 'mediacao' then 'mediação'
     when 'educacao' then 'educação' when 'revisao' then 'revisão' when 'traducao' then 'tradução' when 'jornalismo' then 'jornalismo, rádio e podcast'
     when 'mentoria' then 'aula de reforço' when 'design' then 'design' when 'desenvolvimento' then 'desenvolvimento'
     when 'educacao_secundaria' then 'educação secundária' when 'marketing' then 'marketing e divulgação' else coalesce(p, '') end
@@ -902,12 +943,15 @@ begin
     and not exists (select 1 from papeis p where p.usuario = s.usuario and p.papel = 'coordenacao')
   order by s.posicao limit 1;
   if v_novo is null then return; end if;
+  -- A troca é do sistema, não de quem por acaso abriu o painel: o histórico de cargos anota "sistema".
+  perform set_config('lucia.sistema', '1', true);
   for r in select id, usuario from papeis where papel = 'coordenacao' loop
     delete from papeis where id = r.id;
     insert into papeis (usuario, papel) values (r.usuario, 'vice') on conflict do nothing;
   end loop;
   delete from papeis where usuario = v_novo and papel = 'vice';
   insert into papeis (usuario, papel) values (v_novo, 'coordenacao') on conflict do nothing;
+  perform set_config('lucia.sistema', '', true);
   delete from sucessao where usuario = v_novo;
   insert into auditoria (quem, nome, acao, alvo, detalhes)
   values (null, 'sistema', 'sucessao_automatica', v_novo::text, jsonb_build_object('motivo', 'coordenação sem acesso há mais de 90 dias'));
@@ -1000,8 +1044,9 @@ begin
       'id', f.id, 'nome', f.nome, 'bio', f.bio, 'suspenso', f.suspenso,
       'papeis', coalesce((select jsonb_agg(jsonb_build_object('id', p.id, 'papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina)
                           from papeis p where p.usuario = f.id), '[]'::jsonb),
+      'nivel', interno.nivel_de(f.id),
       'segundo_fator', interno.aal2(),
-      'exige_segundo_fator', interno.tem_fator() or (interno.exige_2fa() and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('coordenacao', 'vice', 'curadoria', 'mediacao'))),
+      'exige_segundo_fator', interno.tem_fator() or (interno.exige_2fa() and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('coordenacao', 'vice', 'supervisao', 'curadoria', 'mediacao'))),
       'avisos', (select count(*) from avisos a where a.para = f.id and not a.lido))
     from perfis f where f.id = v);
 end $$;
@@ -1070,6 +1115,8 @@ begin
   if not interno.coord() then perform interno.erro('sem_permissao'); end if;
   select * into c from candidaturas where id = p_id and status = 'pendente' for update;
   if not found then perform interno.erro('nao_encontrado'); end if;
+  -- Aceitar é confiar o papel: valem as mesmas regras de nível de papel_conceder.
+  if p_aceitar and not (interno.pode_conceder(c.papel) and interno.pode_mexer(c.usuario)) then perform interno.erro('sem_permissao'); end if;
   update candidaturas set status = case when p_aceitar then 'aceita' else 'recusada' end, decidido_por = v, decidido_em = now() where id = p_id;
   if p_aceitar then
     insert into papeis (usuario, papel, disciplina, concedido_por) values (c.usuario, c.papel, c.disciplina, v) on conflict do nothing;
@@ -1087,67 +1134,74 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
+/** A equipe inteira, com todos os papéis de cada pessoa e o nível dela. O e-mail só vai para coordenação e vice; a supervisão vê sem e-mail. */
 create or replace function public.voluntarios_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
-  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if not interno.gere_cargos() then perform interno.erro('sem_permissao'); end if;
   return (
     select coalesce(jsonb_agg(jsonb_build_object(
-      'id', f.id, 'nome', f.nome, 'email', u.email, 'suspenso', f.suspenso, 'criado_em', f.criado_em, 'visto_em', f.visto_em,
-      'papeis', coalesce((select jsonb_agg(jsonb_build_object('id', p.id, 'papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina) from papeis p where p.usuario = f.id), '[]'::jsonb))
+      'id', f.id, 'nome', f.nome, 'email', case when interno.coord() then u.email else '' end, 'suspenso', f.suspenso, 'criado_em', f.criado_em, 'visto_em', f.visto_em,
+      'nivel', interno.nivel_de(f.id),
+      'papeis', coalesce((select jsonb_agg(jsonb_build_object('id', p.id, 'papel', p.papel, 'disciplina', p.disciplina) order by interno.nivel(p.papel) desc, p.papel, p.disciplina) from papeis p where p.usuario = f.id), '[]'::jsonb))
       order by f.nome), '[]'::jsonb)
     from perfis f join auth.users u on u.id = f.id);
 end $$;
 
 /**
  * Busca de pessoas por nome ou e-mail, para confiar uma função sem carregar a lista inteira de contas.
- * Só a coordenação (a resposta traz e-mails). Devolve no máximo vinte, e nada com menos de duas letras.
+ * Quem gere cargos busca; a resposta só traz e-mails para coordenação e vice (a supervisão busca só por nome).
+ * Devolve no máximo vinte, e nada com menos de duas letras.
  */
 create or replace function public.pessoas_buscar(p_busca text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_busca text := lower(btrim(left(coalesce(p_busca, ''), 120))); v_nome text;
+declare v_busca text := lower(btrim(left(coalesce(p_busca, ''), 120))); v_nome text; v_email boolean := interno.coord();
 begin
   perform interno.eu();
-  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if not interno.gere_cargos() then perform interno.erro('sem_permissao'); end if;
   if char_length(v_busca) < 2 then return '[]'::jsonb; end if;
   perform interno.limite('pessoas_buscar', 600, 60);
   v_nome := interno.normal(v_busca);
   return (
-    select coalesce(jsonb_agg(jsonb_build_object('id', x.id, 'nome', x.nome, 'email', x.email, 'suspenso', x.suspenso) order by x.nome), '[]'::jsonb)
+    select coalesce(jsonb_agg(jsonb_build_object('id', x.id, 'nome', x.nome, 'email', case when v_email then x.email else '' end, 'suspenso', x.suspenso, 'nivel', interno.nivel_de(x.id)) order by x.nome), '[]'::jsonb)
     from (select f.id, f.nome, u.email, f.suspenso
           from perfis f join auth.users u on u.id = f.id
-          where position(v_busca in lower(coalesce(u.email, ''))) > 0 or (v_nome <> '' and position(v_nome in interno.normal(f.nome)) > 0)
+          where (v_email and position(v_busca in lower(coalesce(u.email, ''))) > 0) or (v_nome <> '' and position(v_nome in interno.normal(f.nome)) > 0)
           order by f.nome limit 20) x);
 end $$;
 
 /**
- * Confiar um papel. Coordenação e vice-coordenação confiam os papéis de trabalho; só a coordenação nomeia a vice-coordenação.
+ * Confiar um papel. Coordenação, vice-coordenação e supervisão confiam papéis de nível menor que o próprio (interno.pode_conceder),
+ * só a quem está abaixo de si na hierarquia (interno.pode_mexer). Uma pessoa pode acumular quantos papéis forem confiados.
  * A coordenação em si não se concede por aqui: ela muda de mãos por lideranca_passar ou pela ordem de sucessão.
  */
 create or replace function public.papel_conceder(p_usuario uuid, p_papel text, p_disciplina text) returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu();
 begin
-  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
-  if p_papel not in ('vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing') then perform interno.erro('invalido:papel'); end if;
-  if p_papel = 'vice' and not interno.lider() then perform interno.erro('sem_permissao'); end if;
+  if not interno.gere_cargos() then perform interno.erro('sem_permissao'); end if;
+  if p_papel not in ('vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing') then perform interno.erro('invalido:papel'); end if;
+  if not interno.pode_conceder(p_papel) then perform interno.erro('sem_permissao'); end if;
   if p_papel in ('educacao', 'educacao_secundaria') and coalesce(p_disciplina, '') = '' then perform interno.erro('invalido:disciplina'); end if;
   if not exists (select 1 from perfis where id = p_usuario) then perform interno.erro('nao_encontrado'); end if;
+  if not interno.pode_mexer(p_usuario) then perform interno.erro('sem_permissao'); end if;
   insert into papeis (usuario, papel, disciplina, concedido_por)
-  values (p_usuario, p_papel, case when p_papel = 'vice' then null else interno.disciplina_ok(p_disciplina) end, v) on conflict do nothing;
+  values (p_usuario, p_papel, case when p_papel in ('vice', 'supervisao') then null else interno.disciplina_ok(p_disciplina) end, v) on conflict do nothing;
   perform interno.registrar('papel_confiado', p_usuario::text, jsonb_build_object('papel', p_papel, 'disciplina', p_disciplina));
   perform interno.avisar(p_usuario, 'Você recebeu um novo papel no instituto. Abra o painel para ver as ferramentas dele.');
   return jsonb_build_object('ok', true);
 end $$;
 
+/** Retirar um papel: as mesmas regras de nível. Quem tira fica anotado no histórico de cargos e no registro de atividades. */
 create or replace function public.papel_remover(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare r papeis;
 begin
   perform interno.eu();
-  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if not interno.gere_cargos() then perform interno.erro('sem_permissao'); end if;
   select * into r from papeis where id = p_id;
   if not found then perform interno.erro('nao_encontrado'); end if;
   -- A vice-coordenação não mexe na coordenação nem em outra vice-coordenação.
-  if r.papel in ('coordenacao', 'vice') and not interno.lider() then perform interno.erro('sem_permissao'); end if;
+  if r.papel in ('coordenacao', 'vice', 'supervisao') and not interno.lider() then perform interno.erro('sem_permissao'); end if;
   if r.papel = 'coordenacao' and (select count(*) from papeis where papel = 'coordenacao') <= 1 then perform interno.erro('ultima_coordenacao'); end if;
+  if not interno.pode_mexer(r.usuario) then perform interno.erro('sem_permissao'); end if;
   delete from papeis where id = p_id;
   perform interno.registrar('papel_retirado', r.usuario::text, jsonb_build_object('papel', r.papel, 'disciplina', r.disciplina));
   return jsonb_build_object('ok', true);
@@ -1223,7 +1277,7 @@ begin
   if to_regclass('auth.mfa_factors') is not null then
     execute $q$
       select coalesce(jsonb_agg(distinct f.nome), '[]'::jsonb) from interno.papeis p join interno.perfis f on f.id = p.usuario
-      where p.papel in ('coordenacao', 'vice', 'curadoria', 'mediacao')
+      where p.papel in ('coordenacao', 'vice', 'supervisao', 'curadoria', 'mediacao')
         and not exists (select 1 from auth.mfa_factors m where m.user_id = p.usuario and m.status = 'verified')
     $q$ into v_sem;
   end if;
@@ -3340,8 +3394,10 @@ begin
   perform interno.limite('convite_criar', 60, 1440);
   if v_email <> '' and (v_email !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_email) > 200) then perform interno.erro('invalido:email'); end if;
   if v_papel is not null then
-    if v_papel not in ('vice', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing') then perform interno.erro('invalido:papel'); end if;
-    if v_papel in ('vice', 'curadoria') and not interno.lider() then perform interno.erro('sem_permissao'); end if;
+    if v_papel not in ('vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing') then perform interno.erro('invalido:papel'); end if;
+    if v_papel in ('vice', 'supervisao', 'curadoria') and not interno.lider() then perform interno.erro('sem_permissao'); end if;
+    -- O convite confia o papel na entrada: valem as regras de nível de papel_conceder.
+    if not interno.pode_conceder(v_papel) then perform interno.erro('sem_permissao'); end if;
     if v_email = '' then perform interno.erro('invalido:email'); end if;
     if v_papel in ('educacao', 'educacao_secundaria', 'mentoria') and v_disc is null then perform interno.erro('invalido:disciplina'); end if;
     if v_papel not in ('educacao', 'educacao_secundaria', 'mentoria') then v_disc := null; end if;
@@ -3777,8 +3833,11 @@ begin
     return jsonb_build_object('ok', true);
   end if;
   if i.papel = 'curadoria' and not interno.lider() then perform interno.erro('sem_permissao'); end if;
+  -- Aceitar é confiar o papel: valem as regras de nível de papel_conceder.
+  if not interno.pode_conceder(i.papel) then perform interno.erro('sem_permissao'); end if;
   select u.id into v_conta from auth.users u where lower(u.email) = i.email;
   if v_conta is not null then
+    if not interno.pode_mexer(v_conta) then perform interno.erro('sem_permissao'); end if;
     -- Sem a confirmação do e-mail, outra pessoa poderia ter criado a conta com o endereço de quem se candidatou.
     if exists (select 1 from information_schema.columns where table_schema = 'auth' and table_name = 'users' and column_name = 'email_confirmed_at') then
       execute 'select email_confirmed_at is not null from auth.users where id = $1' into v_confirmado using v_conta;
@@ -4441,7 +4500,7 @@ begin
              'chat_aparelho_registrar', 'chat_aparelhos_meus', 'chat_aparelho_remover', 'chat_chaves', 'chat_chave_nova', 'chat_chaves_pendentes',
              'chat_chaves_dar', 'chat_chaves_recusar', 'chat_autodestruir',
              'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao',
-             'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao'))
+             'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao', 'papeis_historico_listar'))
   loop
     execute format('revoke all on function %s from public', f.assinatura);
     if f.nspname = 'public' then
@@ -6136,3 +6195,72 @@ begin
   alter table interno.equipe_mensagens add constraint equipe_mensagens_para_check
     check (para is null or para in ('coordenacao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'marketing'));
 end $$;
+
+-- ───────────────────────────── Cargos: histórico de quem confiou e quem tirou ─────────────────────────────
+--
+-- Cada papel confiado vira uma linha aqui, com quem confiou e quando; quando o papel é retirado, a mesma linha ganha quem
+-- tirou e quando. Nada é apagado nem editado pelo painel. Os papéis que já existiam entram uma vez, na instalação, como
+-- "migração" (foram confiados antes de o histórico existir); rodar o arquivo de novo não duplica nada.
+create table if not exists interno.papeis_historico (
+  id bigint generated always as identity primary key,
+  papel_id uuid,
+  usuario uuid not null,
+  papel text not null,
+  disciplina text,
+  concedido_por uuid,
+  concedido_em timestamptz not null default now(),
+  removido_por uuid,
+  removido_em timestamptz,
+  -- Por onde entrou: 'authenticated' (painel), 'service_role', 'banco' (SQL Editor), 'sistema' (sucessão automática) ou 'migracao'.
+  via text not null default ''
+);
+create index if not exists papeis_historico_usuario on interno.papeis_historico (usuario, concedido_em desc);
+create unique index if not exists papeis_historico_aberto on interno.papeis_historico (papel_id) where removido_em is null and papel_id is not null;
+alter table interno.papeis_historico enable row level security;
+revoke all on interno.papeis_historico from public;
+
+create or replace function interno.papeis_historico_gatilho() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v_sistema boolean := coalesce(current_setting('lucia.sistema', true), '') = '1';
+  v_quem uuid := case when v_sistema then null else auth.uid() end;
+  v_via text := case when v_sistema then 'sistema' else coalesce(nullif(interno.claims() ->> 'role', ''), 'banco') end;
+begin
+  if tg_op = 'INSERT' then
+    insert into papeis_historico (papel_id, usuario, papel, disciplina, concedido_por, concedido_em, via)
+    values (new.id, new.usuario, new.papel, new.disciplina, coalesce(new.concedido_por, v_quem), new.criado_em, v_via)
+    on conflict do nothing;
+  else
+    update papeis_historico set removido_por = v_quem, removido_em = now() where papel_id = old.id and removido_em is null;
+    if not found then
+      insert into papeis_historico (papel_id, usuario, papel, disciplina, concedido_por, concedido_em, removido_por, removido_em, via)
+      values (old.id, old.usuario, old.papel, old.disciplina, old.concedido_por, old.criado_em, v_quem, now(), v_via);
+    end if;
+  end if;
+  return null;
+end $$;
+drop trigger if exists lucia_papeis_historico on interno.papeis;
+create trigger lucia_papeis_historico after insert or delete on interno.papeis for each row execute function interno.papeis_historico_gatilho();
+
+-- Migração dos papéis já existentes: cada um entra no histórico uma vez, sem perder ninguém.
+insert into interno.papeis_historico (papel_id, usuario, papel, disciplina, concedido_por, concedido_em, via)
+select p.id, p.usuario, p.papel, p.disciplina, p.concedido_por, p.criado_em, 'migracao' from interno.papeis p
+where not exists (select 1 from interno.papeis_historico h where h.papel_id = p.id);
+
+/** O histórico de cargos de uma pessoa (ou de todos, sem p_usuario): quem confiou, quando, quem tirou, quando. Coordenação e vice. */
+create or replace function public.papeis_historico_listar(p_usuario uuid default null, p_pagina integer default 0) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return (
+    select coalesce(jsonb_agg(jsonb_build_object(
+      'id', h.id, 'usuario', h.usuario, 'nome', coalesce(f.nome, ''), 'papel', h.papel, 'disciplina', h.disciplina,
+      'concedido_por', coalesce(c.nome, case when h.via in ('banco', 'sistema', 'migracao') then h.via else '' end), 'concedido_em', h.concedido_em,
+      'removido_por', case when h.removido_em is null then null else coalesce(r.nome, 'banco') end, 'removido_em', h.removido_em, 'via', h.via) order by h.id desc), '[]'::jsonb)
+    from (select * from papeis_historico where p_usuario is null or usuario = p_usuario order by id desc limit 100 offset greatest(coalesce(p_pagina, 0), 0) * 100) h
+    left join perfis f on f.id = h.usuario left join perfis c on c.id = h.concedido_por left join perfis r on r.id = h.removido_por);
+end $$;
+
+revoke all on function interno.papeis_historico_gatilho() from public, anon, authenticated;
+revoke all on function public.papeis_historico_listar(uuid, integer) from public;
+grant execute on function public.papeis_historico_listar(uuid, integer) to anon, authenticated, service_role;

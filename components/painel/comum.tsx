@@ -15,6 +15,7 @@ export const rotulo = "font-mono text-xs uppercase tracking-widest text-gold";
 export const papeis: Record<Role["papel"], string> = {
   coordenacao: "Coordenação comunitária",
   vice: "Vice-coordenação",
+  supervisao: "Supervisão",
   curadoria: "Curadoria",
   mediacao: "Mediação",
   educacao: "Educação",
@@ -31,7 +32,8 @@ export const papeis: Record<Role["papel"], string> = {
 /** O que cada papel enxerga e faz no painel. É a regra do banco, escrita para gente. */
 export const oQueFaz: Record<Role["papel"], string> = {
   coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-coordenação, define a sucessão, publica materiais e emite certificados.",
-  vice: "Tudo o que a coordenação faz, menos mexer na coordenação, nomear outra vice-coordenação, definir a sucessão e emitir certificados.",
+  vice: "Tudo o que a coordenação faz, menos mexer na coordenação, nomear outra vice-coordenação ou supervisão, definir a sucessão e emitir certificados.",
+  supervisao: "Confia e retira os papéis de trabalho (educação, revisão, tradução, jornalismo, reforço, design, marketing, desenvolvimento) de quem está abaixo na hierarquia. Não vê e-mails, não decide candidaturas, não convida e não mexe em curadoria, mediação, vice-coordenação nem coordenação.",
   curadoria: "Aprova ou recusa contribuições, cuida da comunidade, das denúncias e do filtro de palavras.",
   mediacao: "Acompanha a Comunidade, decide os casos que pedem leitura humana e oculta, edita ou libera mensagens; aprova, edita ou recusa anúncios do Mural dos Trabalhadores, faz a triagem das contribuições antes de elas chegarem à fila de revisão e, quando alguém passa do limite, bane a conta (e, em caso extremo, a origem de rede). Não aprova conteúdo de ensino nem mexe na equipe.",
   educacao: "Escreve e revisa na disciplina confiada, cuida da comunidade e atende pedidos de reforço da disciplina.",
