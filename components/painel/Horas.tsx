@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { can, leads, type Me } from "@/lib/backend";
 import { BuscaDePessoa } from "./BuscaDePessoa";
 import { type Certificado, Folha, Impresso } from "./Certificado";
-import { Aviso, botao, botaoClaro, campo, data, dataHora, dia, elo, PAINEL_MUDOU, rotulo, useAcao, useLista } from "./comum";
+import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, dia, elo, PAINEL_MUDOU, rotulo, useAcao, useLista } from "./comum";
 
 export const VERSAO_DO_TERMO = "2026-10-14";
 
@@ -110,6 +110,8 @@ const DECLARACAO = "Ao assinar, você declara que acompanhou este trabalho e con
 const horasPt = (valor: number) => `${String(valor).replace(".", ",")} h`;
 const hojeAqui = () => new Date().toLocaleDateString("sv-SE");
 
+type AbaDeHoras = "minhas" | "certificado" | "certificados" | "pedidos" | "conferir" | "abrir" | "valores" | "termo";
+
 export function Horas({ me }: { me: Me }) {
   const termo = useLista<Termo | null>("termo_meu");
   const minhas = useLista<Minhas>("horas_minhas");
@@ -123,41 +125,43 @@ export function Horas({ me }: { me: Me }) {
   const [nova, setNova] = useState({ dia: hojeAqui(), horas: "1", atividade: "" });
   const [ver, setVer] = useState<Certificado | null>(null);
   const [preenchido, setPreenchido] = useState<Preenchido | null>(null);
+  const coordena = can(me, "coordenacao");
+  const [aba, setAba] = useState<AbaDeHoras>(coordena ? "pedidos" : "minhas");
 
   if (ver) return <Impresso certificado={ver} fechar={() => setVer(null)} />;
 
   const aceito = termo.dados?.versao === VERSAO_DO_TERMO;
   const antigo = Boolean(termo.dados) && !aceito;
   const m = minhas.dados;
+  const assinar = (certificados.dados ?? []).filter((c) => c.status === "aberto" && c.testemunhas.some((a) => a.id === me.id && !a.confirmou_em && a.papel !== "coordenacao")).length;
   const prepararCertificado = (pedido: PedidoDaFila) => {
     setPreenchido({ usuario: pedido.usuario, nome: pedido.nome_completo || pedido.nome, inicio: pedido.inicio, fim: pedido.fim, atividades: pedido.resumo, vez: Date.now() });
-    requestAnimationFrame(() => document.getElementById("abrir-certificado")?.scrollIntoView({ behavior: "smooth", block: "start" }));
+    setAba("abrir");
   };
 
-  return (
-    <div className="space-y-10">
-      <p className="max-w-3xl border-l-2 border-gold pl-4 text-ink-soft">
-        A plataforma conta sozinha as horas do trabalho feito no painel. Quando quiser o certificado, peça aqui mesmo: a coordenação é avisada. Todo certificado leva três assinaturas eletrônicas (um educador, o vice-coordenador e o coordenador) e um código que qualquer pessoa confere na página Conferir certificado. A aceitação como horas complementares depende de cada faculdade: pergunte na coordenação do seu curso antes de contar com ele.
-      </p>
+  const opcoes: { id: AbaDeHoras; nome: string; conta?: number }[] = [
+    ...(aceito ? [{ id: "minhas" as const, nome: "Minhas horas" }, { id: "certificado" as const, nome: "Pedir certificado" }] : []),
+    { id: "certificados", nome: "Certificados", conta: assinar },
+    ...(coordena ? [{ id: "pedidos" as const, nome: "Pedidos" }, { id: "conferir" as const, nome: "Horas para conferir" }] : []),
+    ...(leads(me) ? [{ id: "abrir" as const, nome: "Abrir certificado" }] : []),
+    ...(aceito || leads(me) ? [{ id: "valores" as const, nome: "Quanto vale cada trabalho" }] : []),
+    { id: "termo", nome: "Termo de adesão" },
+  ];
+  const atual: AbaDeHoras = opcoes.some((opcao) => opcao.id === aba) ? aba : aceito ? "minhas" : "termo";
 
-      <section>
-        <h2 className="font-serif text-2xl font-semibold">Termo de adesão ao trabalho voluntário</h2>
-        {antigo && (
-          <p className="mt-3 max-w-3xl border-l-2 border-oxblood pl-4">
-            O termo mudou: agora a plataforma conta sozinha as horas do trabalho feito no painel (cláusula 4). Leia e aceite de novo para continuar registrando horas e pedir certificado. As horas que você já tem continuam valendo.
+  return (
+    <div className="space-y-8">
+      {!aceito && (
+        <section className="painel-cartao max-w-3xl p-5">
+          <p className={rotulo}>Primeiro passo</p>
+          <h2 className="mt-1 font-serif text-2xl font-semibold">{antigo ? "O termo mudou: aceite de novo" : "Aceite o termo de adesão"}</h2>
+          <p className="mt-2 text-ink-soft">
+            {antigo
+              ? "Agora a plataforma conta sozinha as horas do trabalho feito no painel (cláusula 4). As horas que você já tem continuam valendo."
+              : "As horas só começam a contar depois do aceite. É ele que transforma o seu trabalho em horas de voluntariado (Lei nº 9.608/1998)."}{" "}
+            Leia o termo na aba <strong>Termo de adesão</strong> e confirme aqui.
           </p>
-        )}
-        <ol className="mt-3 max-w-3xl list-decimal space-y-2 pl-5 font-serif text-lg">
-          {TERMO.map((clausula) => (
-            <li key={clausula}>{clausula}</li>
-          ))}
-        </ol>
-        {aceito ? (
-          <p className="mt-3 border-l-2 border-ok pl-4">
-            Aceito por {termo.dados?.nome_completo} em {dia(termo.dados?.aceito_em ?? "")}.
-          </p>
-        ) : (
-          <div className="mt-3 flex max-w-3xl flex-wrap items-end gap-3">
+          <div className="mt-3 flex flex-wrap items-end gap-3">
             <label className="block min-w-60 flex-1">
               Seu nome completo, como deve sair no certificado
               <input value={nome || (antigo ? (termo.dados?.nome_completo ?? "") : "")} onChange={(e) => setNome(e.target.value)} maxLength={120} autoComplete="name" className={campo} />
@@ -171,18 +175,19 @@ export function Horas({ me }: { me: Me }) {
               Li e aceito o termo
             </button>
           </div>
-        )}
-      </section>
+        </section>
+      )}
 
-      {aceito && m && (
-        <section>
-          <h2 className="font-serif text-2xl font-semibold">Minhas horas</h2>
-          <div className="mt-3 grid max-w-3xl gap-3 sm:grid-cols-3">
+      <Abas opcoes={opcoes} atual={atual} escolher={setAba} />
+
+      {atual === "minhas" && m && (
+        <section className="space-y-8">
+          <div className="grid max-w-3xl gap-3 sm:grid-cols-3">
             {(
               [
-                ["Livres para certificado", m.livres, "confirmadas e fora de certificado"],
-                ["Contadas pela plataforma", m.plataforma, "entre as livres"],
-                ["Esperando conferência", m.pendentes, "registradas à mão"],
+                ["Prontas para certificado", m.livres, "já confirmadas e ainda fora de certificado"],
+                ["Contadas pela plataforma", m.plataforma, "das prontas, as que o painel contou sozinho"],
+                ["Esperando conferência", m.pendentes, "registradas à mão; a coordenação confere"],
               ] as const
             ).map(([titulo, valor, nota]) => (
               <div key={titulo} className="painel-cartao p-4">
@@ -192,126 +197,173 @@ export function Horas({ me }: { me: Me }) {
               </div>
             ))}
           </div>
-          <p className="mt-3 max-w-3xl text-ink-soft">
-            Confirmadas desde o começo: <strong className="text-ink">{horasPt(Number(m.confirmadas))}</strong>. A plataforma conta sozinha o que você faz aqui no painel, pela tabela de horas logo abaixo: cada trabalho conta uma vez, no dia em que terminou, e nenhum dia passa de 12 horas somando tudo. O que você fizer fora do painel, registre à mão.
-          </p>
 
-          <PedirCertificado minhas={m} depois={minhas.recarregar} />
-
-          <h3 className="mt-8 font-serif text-xl font-semibold">Registrar horas feitas fora do painel</h3>
-          <form
-            className="mt-3 grid max-w-3xl gap-3 sm:grid-cols-[auto_auto_1fr_auto] sm:items-end"
-            onSubmit={async (e) => {
-              e.preventDefault();
-              if (await acao.agir("horas_registrar", { p_dia: nova.dia, p_horas: Number(nova.horas.replace(",", ".")), p_atividade: nova.atividade }, "Horas registradas. Elas contam depois de conferidas.")) setNova({ ...nova, atividade: "" });
-            }}
-          >
-            <label className="block">
-              Dia
-              <input type="date" value={nova.dia} max={hojeAqui()} onChange={(e) => setNova({ ...nova, dia: e.target.value })} required className={campo} />
-            </label>
-            <label className="block">
-              Horas
-              <input value={nova.horas} onChange={(e) => setNova({ ...nova, horas: e.target.value })} inputMode="decimal" required maxLength={4} className={`${campo} w-24`} />
-            </label>
-            <label className="block">
-              O que você fez
-              <input value={nova.atividade} onChange={(e) => setNova({ ...nova, atividade: e.target.value })} required minLength={5} maxLength={300} className={campo} />
-            </label>
-            <button type="submit" className={botao} disabled={acao.ocupado}>
-              Registrar
-            </button>
-          </form>
-          <ul className="mt-4 divide-y divide-rule border-y border-rule">
-            {m.lista.length === 0 && <li className="py-2 text-ink-soft">Nenhuma hora ainda. Assim que um trabalho seu for aprovado ou concluído no painel, ele aparece aqui.</li>}
-            {m.lista.map((hora) => (
-              <li key={hora.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
-                <span>
-                  {dia(hora.dia)} · {horasPt(Number(hora.horas))} · {hora.atividade}
-                </span>
-                <span className={hora.origem === "plataforma" && hora.status !== "recusada" ? "text-ok" : "text-ink-soft"}>
-                  {estadoDa(hora)}
-                  {hora.certificado && " · em certificado"}{" "}
-                  {hora.status === "pendente" && (
-                    <button type="button" className={elo} onClick={() => acao.agir("horas_remover", { p_id: hora.id }, "Registro apagado.")}>
-                      apagar
-                    </button>
-                  )}
-                </span>
+          <div className="max-w-3xl border-l-2 border-gold pl-4">
+            <h3 className="font-serif text-xl font-semibold">Como as horas são contadas</h3>
+            <ol className="mt-2 list-decimal space-y-1 pl-5">
+              <li>Você termina um trabalho no painel (uma aula aprovada, um parecer, um reforço respondido…).</li>
+              <li>
+                A plataforma soma sozinha as horas que esse tipo de trabalho vale, no dia em que ele terminou. Veja os valores em{" "}
+                <button type="button" className={elo} onClick={() => setAba("valores")}>
+                  Quanto vale cada trabalho
+                </button>
+                .
               </li>
-            ))}
+              <li>O que você faz fora do painel (uma reunião, uma gravação feita em casa), registre logo abaixo: conta depois que a coordenação conferir.</li>
+              <li>
+                Quando quiser, peça o certificado de um período em{" "}
+                <button type="button" className={elo} onClick={() => setAba("certificado")}>
+                  Pedir certificado
+                </button>
+                .
+              </li>
+            </ol>
+            <p className="mt-2 text-ink-soft">
+              Cada trabalho conta uma vez e nenhum dia passa de 12 horas somando tudo. Confirmadas desde o começo: <strong className="text-ink">{horasPt(Number(m.confirmadas))}</strong>.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-serif text-xl font-semibold">Registrar horas feitas fora do painel</h3>
+            <form
+              className="mt-3 grid max-w-3xl gap-3 sm:grid-cols-[auto_auto_1fr_auto] sm:items-end"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                if (await acao.agir("horas_registrar", { p_dia: nova.dia, p_horas: Number(nova.horas.replace(",", ".")), p_atividade: nova.atividade }, "Horas registradas. Elas contam depois de conferidas.")) setNova({ ...nova, atividade: "" });
+              }}
+            >
+              <label className="block">
+                Dia
+                <input type="date" value={nova.dia} max={hojeAqui()} onChange={(e) => setNova({ ...nova, dia: e.target.value })} required className={campo} />
+              </label>
+              <label className="block">
+                Horas
+                <input value={nova.horas} onChange={(e) => setNova({ ...nova, horas: e.target.value })} inputMode="decimal" required maxLength={4} className={`${campo} w-24`} />
+              </label>
+              <label className="block">
+                O que você fez
+                <input value={nova.atividade} onChange={(e) => setNova({ ...nova, atividade: e.target.value })} required minLength={5} maxLength={300} className={campo} />
+              </label>
+              <button type="submit" className={botao} disabled={acao.ocupado}>
+                Registrar
+              </button>
+            </form>
+          </div>
+
+          <div>
+            <h3 className="font-serif text-xl font-semibold">Histórico</h3>
+            <ul className="mt-3 divide-y divide-rule border-y border-rule">
+              {m.lista.length === 0 && <li className="py-2 text-ink-soft">Nenhuma hora ainda. Assim que um trabalho seu for aprovado ou concluído no painel, ele aparece aqui.</li>}
+              {m.lista.map((hora) => (
+                <li key={hora.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
+                  <span>
+                    {dia(hora.dia)} · {horasPt(Number(hora.horas))} · {hora.atividade}
+                  </span>
+                  <span className={hora.origem === "plataforma" && hora.status !== "recusada" ? "text-ok" : "text-ink-soft"}>
+                    {estadoDa(hora)}
+                    {hora.certificado && " · em certificado"}{" "}
+                    {hora.status === "pendente" && (
+                      <button type="button" className={elo} onClick={() => acao.agir("horas_remover", { p_id: hora.id }, "Registro apagado.")}>
+                        apagar
+                      </button>
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {atual === "certificado" && m && <PedirCertificado minhas={m} depois={minhas.recarregar} />}
+
+      {atual === "certificados" && (
+        <section>
+          <p className="max-w-3xl text-ink-soft">
+            Todo certificado leva três assinaturas eletrônicas (um educador, o vice-coordenador e, por último, o coordenador) e um código que qualquer pessoa confere na página Conferir certificado. A aceitação como horas complementares depende de cada faculdade: pergunte na coordenação do seu curso antes de contar com ele.
+          </p>
+          {certificados.dados?.length === 0 && <p className="mt-3 text-ink-soft">Nenhum certificado ainda.</p>}
+          <ul className="mt-4 space-y-4">
+            {certificados.dados?.map((certificado) => {
+              const minha = certificado.testemunhas.find((assinatura) => assinatura.id === me.id && !assinatura.confirmou_em && assinatura.papel !== "coordenacao");
+              const faltam = certificado.testemunhas.filter((assinatura) => assinatura.papel !== "coordenacao" && !assinatura.confirmou_em).length;
+              return (
+                <li key={certificado.id} className="border border-rule bg-parchment-deep p-4">
+                  <p className={rotulo}>
+                    {situacao[certificado.status]} · {dia(certificado.inicio)} a {dia(certificado.fim)} · {horasPt(Number(certificado.horas))}
+                  </p>
+                  <p className="mt-1 font-serif text-xl font-semibold">{certificado.nome}</p>
+                  <p className="mt-1 whitespace-pre-line">{certificado.atividades}</p>
+                  {certificado.testemunhas.length > 0 && (
+                    <p className="mt-1 text-ink-soft">
+                      Assinaturas: {certificado.testemunhas.map((assinatura) => `${assinatura.nome} (${assinatura.confirmou_em ? "assinou" : "falta assinar"})`).join(", ")}
+                    </p>
+                  )}
+                  <p className="mt-3 flex flex-wrap gap-3">
+                    {minha && certificado.status === "aberto" && (
+                      <button
+                        type="button"
+                        className={botao}
+                        disabled={acao.ocupado}
+                        onClick={() => {
+                          if (window.confirm(DECLARACAO)) void acao.agir("certificado_testemunhar", { p_id: certificado.id }, "Assinatura registrada.");
+                        }}
+                      >
+                        Assinar eletronicamente
+                      </button>
+                    )}
+                    {leads(me) && certificado.status === "aberto" && (
+                      <button
+                        type="button"
+                        className={botao}
+                        disabled={acao.ocupado || faltam > 0}
+                        title={faltam > 0 ? "A sua assinatura é a última: faltam as outras duas." : undefined}
+                        onClick={() => {
+                          if (window.confirm(DECLARACAO)) void acao.agir("certificado_emitir", { p_id: certificado.id }, "Certificado assinado e emitido.");
+                        }}
+                      >
+                        Assinar e emitir
+                      </button>
+                    )}
+                    {certificado.status !== "cancelado" && (
+                      <button type="button" className={botaoClaro} onClick={() => setVer(certificado)}>
+                        {certificado.status === "emitido" ? "Ver e salvar em PDF" : "Ver a prévia"}
+                      </button>
+                    )}
+                    {leads(me) && certificado.status !== "cancelado" && (
+                      <button type="button" className={elo} onClick={() => acao.agir("certificado_cancelar", { p_id: certificado.id }, "Certificado cancelado. As horas voltaram a ficar livres.")}>
+                        Cancelar
+                      </button>
+                    )}
+                  </p>
+                </li>
+              );
+            })}
           </ul>
         </section>
       )}
 
-      {(aceito || leads(me)) && <TabelaDeHoras edita={leads(me)} />}
+      {atual === "pedidos" && coordena && <Pedidos me={me} preparar={prepararCertificado} />}
+      {atual === "conferir" && coordena && <Conferir />}
+      {atual === "abrir" && leads(me) && <Abrir key={`abrir-${preenchido?.vez ?? 0}`} me={me} inicial={preenchido} depois={certificados.recarregar} />}
+      {atual === "valores" && <TabelaDeHoras edita={leads(me)} />}
 
-      {can(me, "coordenacao") && <Pedidos me={me} preparar={prepararCertificado} />}
-      {can(me, "coordenacao") && <Conferir />}
+      {atual === "termo" && (
+        <section>
+          <h2 className="font-serif text-2xl font-semibold">Termo de adesão ao trabalho voluntário</h2>
+          <ol className="mt-3 max-w-3xl list-decimal space-y-2 pl-5 font-serif text-lg">
+            {TERMO.map((clausula) => (
+              <li key={clausula}>{clausula}</li>
+            ))}
+          </ol>
+          {aceito && (
+            <p className="mt-3 border-l-2 border-ok pl-4">
+              Aceito por {termo.dados?.nome_completo} em {dia(termo.dados?.aceito_em ?? "")}.
+            </p>
+          )}
+        </section>
+      )}
 
-      <section>
-        <h2 className="font-serif text-2xl font-semibold">Certificados</h2>
-        {certificados.dados?.length === 0 && <p className="mt-2 text-ink-soft">Nenhum certificado ainda.</p>}
-        <ul className="mt-3 space-y-4">
-          {certificados.dados?.map((certificado) => {
-            const minha = certificado.testemunhas.find((assinatura) => assinatura.id === me.id && !assinatura.confirmou_em && assinatura.papel !== "coordenacao");
-            const faltam = certificado.testemunhas.filter((assinatura) => assinatura.papel !== "coordenacao" && !assinatura.confirmou_em).length;
-            return (
-              <li key={certificado.id} className="border border-rule bg-parchment-deep p-4">
-                <p className={rotulo}>
-                  {situacao[certificado.status]} · {dia(certificado.inicio)} a {dia(certificado.fim)} · {horasPt(Number(certificado.horas))}
-                </p>
-                <p className="mt-1 font-serif text-xl font-semibold">{certificado.nome}</p>
-                <p className="mt-1 whitespace-pre-line">{certificado.atividades}</p>
-                {certificado.testemunhas.length > 0 && (
-                  <p className="mt-1 text-ink-soft">
-                    Assinaturas: {certificado.testemunhas.map((assinatura) => `${assinatura.nome} (${assinatura.confirmou_em ? "assinou" : "falta assinar"})`).join(", ")}
-                  </p>
-                )}
-                <p className="mt-3 flex flex-wrap gap-3">
-                  {minha && certificado.status === "aberto" && (
-                    <button
-                      type="button"
-                      className={botao}
-                      disabled={acao.ocupado}
-                      onClick={() => {
-                        if (window.confirm(DECLARACAO)) void acao.agir("certificado_testemunhar", { p_id: certificado.id }, "Assinatura registrada.");
-                      }}
-                    >
-                      Assinar eletronicamente
-                    </button>
-                  )}
-                  {leads(me) && certificado.status === "aberto" && (
-                    <button
-                      type="button"
-                      className={botao}
-                      disabled={acao.ocupado || faltam > 0}
-                      title={faltam > 0 ? "A sua assinatura é a última: faltam as outras duas." : undefined}
-                      onClick={() => {
-                        if (window.confirm(DECLARACAO)) void acao.agir("certificado_emitir", { p_id: certificado.id }, "Certificado assinado e emitido.");
-                      }}
-                    >
-                      Assinar e emitir
-                    </button>
-                  )}
-                  {certificado.status !== "cancelado" && (
-                    <button type="button" className={botaoClaro} onClick={() => setVer(certificado)}>
-                      {certificado.status === "emitido" ? "Ver e salvar em PDF" : "Ver a prévia"}
-                    </button>
-                  )}
-                  {leads(me) && certificado.status !== "cancelado" && (
-                    <button type="button" className={elo} onClick={() => acao.agir("certificado_cancelar", { p_id: certificado.id }, "Certificado cancelado. As horas voltaram a ficar livres.")}>
-                      Cancelar
-                    </button>
-                  )}
-                </p>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-
-      {leads(me) && <Abrir key={`abrir-${preenchido?.vez ?? 0}`} me={me} inicial={preenchido} depois={certificados.recarregar} />}
       <Aviso texto={termo.erro || minhas.erro || certificados.erro || acao.aviso} />
     </div>
   );
@@ -326,7 +378,7 @@ function PedirCertificado({ minhas, depois }: { minhas: Minhas; depois: () => vo
 
   if (pedido?.status === "pendente")
     return (
-      <div className="painel-cartao mt-6 max-w-3xl p-5">
+      <div className="painel-cartao max-w-3xl p-5">
         <p className={rotulo}>Pedido de certificado · enviado em {data(pedido.criado_em)}</p>
         <p className="mt-1 font-serif text-xl font-semibold">
           De {dia(pedido.inicio)} a {dia(pedido.fim)}
@@ -345,7 +397,7 @@ function PedirCertificado({ minhas, depois }: { minhas: Minhas; depois: () => vo
     );
 
   return (
-    <div className="painel-cartao mt-6 max-w-3xl p-5">
+    <div className="painel-cartao max-w-3xl p-5">
       <h3 className="font-serif text-xl font-semibold">Pedir certificado</h3>
       {pedido?.status === "recusado" && (
         <p className="mt-2 border-l-2 border-oxblood pl-3">
@@ -398,12 +450,15 @@ function TabelaDeHoras({ edita }: { edita: boolean }) {
   const [mudancas, setMudancas] = useState<Record<string, string>>({});
   const prontas = Object.entries(mudancas).filter(([, valor]) => valor.trim() !== "");
   return (
-    <details className="max-w-3xl border-y-2 border-ink py-3">
-      <summary className="cursor-pointer font-serif text-xl font-semibold">Tabela de horas: quanto vale cada trabalho</summary>
+    <section className="max-w-3xl">
+      <h2 className="font-serif text-2xl font-semibold">Quanto vale cada trabalho</h2>
+      <p className="mt-2 text-ink-soft">
+        Quando alguém termina um trabalho no painel, a plataforma soma na conta da pessoa as horas que esse tipo de trabalho vale. Exemplo: se “aula aprovada” vale 3 h, cada aula aprovada rende 3 horas de voluntariado. Cada trabalho conta uma vez, no dia em que terminou.
+      </p>
       <p className="mt-2 text-ink-soft">
         {edita
-          ? "Ajuste e salve. Vale para o trabalho contado daqui em diante: o que já foi contado fica como está. Zero desliga o tipo."
-          : "Quem define a tabela é o coordenador. Cada trabalho conta uma vez, no dia em que terminou."}
+          ? "Para mudar, digite o novo valor e clique em Salvar. A mudança vale só para o que for contado daqui em diante: o que já foi contado fica como está. Zero desliga a contagem daquele tipo."
+          : "Quem define os valores é o coordenador."}
       </p>
       <table className="mt-2 w-full">
         <tbody className="divide-y divide-rule">
@@ -439,11 +494,11 @@ function TabelaDeHoras({ edita }: { edita: boolean }) {
             if (await acao.agir("horas_pesos_salvar", { p }, "Tabela salva.")) setMudancas({});
           }}
         >
-          Salvar a tabela
+          Salvar
         </button>
       )}
       <Aviso texto={pesos.erro || acao.aviso} />
-    </details>
+    </section>
   );
 }
 
@@ -627,7 +682,7 @@ function Abrir({ me, inicial, depois }: { me: Me; inicial: Preenchido | null; de
   };
 
   return (
-    <section id="abrir-certificado" className="scroll-mt-24">
+    <section id="abrir-certificado">
       <h2 className="font-serif text-2xl font-semibold">Abrir um certificado</h2>
       {inicial && form.usuario === inicial.usuario && (
         <p className="mt-2 max-w-3xl border-l-2 border-ok pl-4">

@@ -166,6 +166,10 @@
       "Chinese (Mandarin)",
       "Tones, pinyin and the first characters."
     ],
+    "russo": [
+      "Russian",
+      "Russian from scratch: the Cyrillic alphabet, everyday communication, the case system and reading texts."
+    ],
     "artes": [
       "Arts",
       "Art history, visual arts, theatre, cinema and popular culture."
@@ -837,7 +841,7 @@
     "teoria": "Revolutionary theory",
     "lutas": "People's struggles",
     "percursos": "Literacy and ENEM",
-    "hobbies": "Hobbies: learn a new skill and earn from it"
+    "oficios": "Trades and income: learn a skill and earn a living from it"
   },
   "stages": {
     "fundamental": "Primary and lower secondary",
