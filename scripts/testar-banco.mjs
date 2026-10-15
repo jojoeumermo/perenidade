@@ -1226,6 +1226,24 @@ await espera("apoiadores, rádio, denúncia, anotação e retirada de anúncio e
   return dono("select array_agg(distinct acao) as acoes from interno.auditoria");
 }, (r) => ["apoiador_salvo", "apoiador_removido", "radio_canal_salvo", "radio_canal_removido", "radio_faixa_salva", "radio_faixa_removida", "denuncia_resolvida", "anotacao_oculta", "anuncio_removido"].every((acao) => r.rows[0].acoes.includes(acao)));
 
+// ── Candidatura aceita e conta criada com o e-mail de outra pessoa ──
+// Com "Confirm email" ligado no serviço de contas, conta nova nasce sem email_confirmed_at. Quem cria uma conta com o
+// e-mail de alguém que se candidatou não pode receber a função dessa pessoa quando a candidatura for aceita.
+await espera("candidatura aceita não entrega a função a conta com e-mail não confirmado", async () => {
+  await dono("alter table auth.users add column if not exists email_confirmed_at timestamptz");
+  await dono("update auth.users set email_confirmed_at = coalesce(email_confirmed_at, now())");
+  await rpc({ papel: "anon", ip: "198.51.100.95" }, "voluntariar", { p: { nome: "Pessoa Candidata", email: "candidata@exemplo.org", papel: "revisao", mensagem: "Quero revisar as aulas do instituto com cuidado." } });
+  const invasor = await criarUsuario("candidata@exemplo.org", "Invasor");
+  const inscricao = (await rpc({ ...como(ids.coord), aal: "aal2" }, "inscricoes_listar")).find((i) => i.email === "candidata@exemplo.org");
+  let erro = "";
+  try {
+    await rpc({ ...como(ids.coord), aal: "aal2" }, "inscricao_decidir", { p_id: inscricao.id, p_aceitar: true });
+  } catch (falha) {
+    erro = falha.message;
+  }
+  return [erro, (await dono("select count(*)::int as n from interno.papeis where usuario = $1", [invasor])).rows[0].n];
+}, ([erro, papeis]) => erro.includes("email_nao_confirmado") && papeis === 0);
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);
