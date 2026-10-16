@@ -57,6 +57,8 @@ Qualquer pessoa pode criar uma conta, com e-mail e senha, para participar da com
 | Nome público | Assinar o que você publica | Todo mundo | Até você trocar ou apagar a conta |
 | Conversas, respostas e votos na comunidade | Funcionamento da comunidade | Todo mundo (os votos, ninguém) | As mensagens ficam, sem ligação com você, se a conta for apagada |
 | Código embaralhado da origem do último acesso | Permitir que a mediação barre os envios de quem insiste em abuso | Ninguém: ele só é comparado pelo sistema | É trocado a cada acesso e some com a conta |
+| Rascunhos do que você escreve no painel | Continuar de onde parou, de qualquer aparelho | Só você | Até você enviar ou apagar; parados há um ano, somem |
+| Presença marcada e o que você escreve no bate-papo de uma aula ao vivo | Avisar quando a aula começa; o bate-papo é o registro da aula | O bate-papo, quem assiste à aula (com o seu nome público) | O bate-papo some 180 dias depois da aula |
 
 O nome público nasce como um codinome sorteado ("Estudante 48213"). Nada do seu e-mail aparece no site. Você escolhe se quer trocar o codinome pelo seu nome.
 
@@ -78,7 +80,9 @@ A avaliação automática vale só para a Comunidade. Anúncios do Mural dos Tra
 
 ## Se você é da equipe de voluntários
 
-Além do que está acima, o painel guarda: as funções que você recebeu; o registro do que foi feito com essas funções, por pouco mais de um ano; um identificador sorteado de cada navegador em que a conta foi aberta, para avisar você e a coordenação quando a conta aparecer em um aparelho novo, por até 180 dias sem uso; o nome completo informado no termo de adesão ao trabalho voluntário; e as horas que você registrar. O CPF não é guardado: quem imprime um certificado digita na hora.
+Além do que está acima, o painel guarda: as funções que você recebeu; o registro do que foi feito com essas funções, por pouco mais de um ano; um identificador sorteado de cada navegador em que a conta foi aberta, para avisar você e a coordenação quando a conta aparecer em um aparelho novo, por até 180 dias sem uso; o nome completo informado no termo de adesão ao trabalho voluntário; e as horas que você registrar. O CPF não é guardado: quem imprime um certificado digita na hora. Quem faz design e marketing tem também os trabalhos do estúdio de design, guardados na conta e, por padrão, visíveis para a equipe de design e marketing. Nas aulas ao vivo, o vídeo de quem ensina vai direto do navegador dele para o de quem assiste e não é guardado pelo instituto; quem está na sala vê o nome público de quem ensina e de quem assiste enquanto a aula dura.
+
+Quando a coordenação, a vice-coordenação ou a supervisão mandam um aviso à equipe, o painel registra quem já o fechou, para o aviso não voltar. Os avisos somem até 30 dias depois do prazo.
 
 As conversas internas da equipe são cifradas de ponta a ponta: cada aparelho tem a própria chave, criada no navegador, e o que fica guardado no banco é ilegível para quem não participa da conversa, inclusive para a coordenação. O banco guarda a parte pública da chave de cada aparelho, com um nome genérico como "Chrome no Android", e ela sai depois de seis meses sem uso. As conversas são apagadas depois de trinta dias, ou antes, se quem participa ligar a autodestruição.
 
