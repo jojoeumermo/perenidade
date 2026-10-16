@@ -105,7 +105,7 @@ export function Pessoas({ me }: { me: Me }) {
   const [quem, setQuem] = useState<PessoaAchada | null>(null);
   const [filtro, setFiltro] = useState("");
   const [aba, setAba] = useState<"equipe" | "funcao" | "convites" | "pedidos">("equipe");
-  const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
+  const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? papeis[slug as Role["papel"]] ?? slug) : "todo o site");
   const pendentes = coordena ? (pedidos.dados?.filter((pedido) => pedido.status === "pendente") ?? []) : [];
   const visiveis = pessoas.dados?.filter((pessoa) => `${pessoa.nome} ${pessoa.email}`.toLowerCase().includes(filtro.toLowerCase())) ?? [];
   // Quem foi escolhido na busca já vem com o nível: a tela avisa antes de o banco recusar.
@@ -215,14 +215,25 @@ export function Pessoas({ me }: { me: Me }) {
             </select>
           </label>
           <label className="block">
-            Disciplina{novo.papel === "educacao" || novo.papel === "educacao_secundaria" ? "" : " (opcional)"}
+            {novo.papel === "representante" ? "Departamento" : `Disciplina${novo.papel === "educacao" || novo.papel === "educacao_secundaria" ? "" : " (opcional)"}`}
             <select value={novo.disciplina} onChange={(e) => setNovo({ ...novo, disciplina: e.target.value })} className={campo}>
-              <option value="">Todo o site</option>
-              {areaSlugs.map((area) => (
-                <option key={area} value={area}>
-                  {t.areas[area][0]}
-                </option>
-              ))}
+              {novo.papel === "representante" ? (
+                <>
+                  <option value="">Escolha o departamento…</option>
+                  {(["educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "design", "desenvolvimento"] as const).map((dep) => (
+                    <option key={dep} value={dep}>{papeis[dep]}</option>
+                  ))}
+                </>
+              ) : (
+                <>
+                  <option value="">Todo o site</option>
+                  {areaSlugs.map((area) => (
+                    <option key={area} value={area}>
+                      {t.areas[area][0]}
+                    </option>
+                  ))}
+                </>
+              )}
             </select>
           </label>
         </div>
@@ -230,7 +241,7 @@ export function Pessoas({ me }: { me: Me }) {
         <button
           type="button"
           className={`mt-3 ${botao}`}
-          disabled={acao.ocupado || !quem || alvoForaDoAlcance || ((novo.papel === "educacao" || novo.papel === "educacao_secundaria") && !novo.disciplina)}
+          disabled={acao.ocupado || !quem || alvoForaDoAlcance || ((novo.papel === "educacao" || novo.papel === "educacao_secundaria" || novo.papel === "representante") && !novo.disciplina)}
           onClick={async () => {
             if (quem && (await acao.agir("papel_conceder", { p_usuario: quem.id, p_papel: novo.papel, p_disciplina: novo.disciplina || null }, `Função confiada a ${quem.nome}.`))) setQuem(null);
           }}

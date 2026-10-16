@@ -27,6 +27,7 @@ export const papeis: Record<Role["papel"], string> = {
   design: "Design",
   marketing: "Marketing e divulgação",
   desenvolvimento: "Desenvolvimento",
+  representante: "Representante do departamento",
 };
 
 /** O que cada papel enxerga e faz no painel. É a regra do banco, escrita para gente. */
@@ -45,6 +46,7 @@ export const oQueFaz: Record<Role["papel"], string> = {
   design: "Prepara materiais gráficos e atende pedidos de ajuda das outras funções.",
   marketing: "Divulga o instituto: posts e artes para as redes sociais, cartazes de chamada, campanhas de voluntariado e de apoio, cortes do podcast. Usa os materiais e arquivos do painel, como o design.",
   desenvolvimento: "Cuida do código e atende pedidos de ajuda das outras funções.",
+  representante: "Porta-voz e primeira entrada de um departamento, nomeado pela coordenação, vice ou supervisão: organiza o grupo do departamento (administra a conversa, combina e delega tarefas) sem ser chefe. Não dá nem tira funções.",
 };
 
 export const situacoes: Record<string, string> = {
@@ -63,6 +65,8 @@ const erros: Record<string, string> = {
   falta_fonte: "Cite pelo menos uma fonte.",
   conta_suspensa: "Esta conta está suspensa.",
   nao_encontrado: "Não encontrado.",
+  privado_fechado: "As conversas privadas são só para trabalho: com a coordenação, vice e supervisão, ou com quem está colaborando com você numa contribuição em andamento. O resto é nos grupos de departamento.",
+  sem_consenso: "Uma aula só vai ao ar com consenso: precisa de um parecer favorável de outro educador da mesma disciplina (ou, se não houver outro, da supervisão, vice ou coordenação), e quem aprova por fim precisa ser uma terceira pessoa.",
   ja_decidida: "Esta contribuição já foi decidida.",
   ja_pediu: "Você já fez esse pedido e ele está em análise.",
   limite_anuncios: "Cada pessoa pode ter até três anúncios no mural.",
