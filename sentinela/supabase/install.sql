@@ -67,7 +67,7 @@ create table if not exists vigia.configuracoes (
 );
 insert into vigia.configuracoes (chave, valor) values
   ('site', '{"url": "https://institutolucia.org", "dominio": "institutolucia.org", "paginas": ["/", "/pt", "/pt/entrar", "/pt/trilhas", "/pt/acervo", "/.well-known/assetlinks.json"], "terceiros_permitidos": ["challenges.cloudflare.com", "www.youtube-nocookie.com", "player.vimeo.com", "api.languagetool.org"]}'::jsonb),
-  ('plataformas', '{"cloudflare_zona": "", "vercel_projeto": "", "vercel_equipe": "", "github_repositorio": "", "supabase_site_url": "", "supabase_site_ref": ""}'::jsonb),
+  ('plataformas', '{"cloudflare_zona": "1029b6706fbed33260ae52e3d89cc9cd", "vercel_projeto": "prj_Nfyp5hkQ70rxm7JkPGJqf6vjKCZb", "vercel_equipe": "", "github_repositorio": "jojoeumermo/perenidade", "supabase_site_url": "https://yuciphgaejrkamvwllcb.supabase.co", "supabase_site_ref": "yuciphgaejrkamvwllcb", "supabase_site_anon": ""}'::jsonb),
   ('retencao', '{"eventos_dias": 90, "verificacoes_dias": 90, "agregados_dias": 400}'::jsonb)
 on conflict do nothing;
 
