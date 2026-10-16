@@ -5,10 +5,10 @@ import { DailyQuote } from "@/components/DailyQuote";
 import { NesteDia } from "@/components/NesteDia";
 import { ContinueCard } from "@/components/Progress";
 import { loadLang } from "@/i18n";
-import { htmlLang, localePath, plural } from "@/i18n/config";
+import { fill, htmlLang, localePath, plural } from "@/i18n/config";
 import { essential, groups, type Stage, stages } from "@/lib/areas";
 import { getBooks, getCatalog, getQuestions, getQuotes, getTracks } from "@/lib/content";
-import { publicHistory } from "@/lib/history";
+import { describePart, overview, publicHistory } from "@/lib/history";
 import { site } from "@/lib/site";
 import { DisciplineBrowser, type DisciplineGroup } from "@/components/DisciplineBrowser";
 
@@ -20,7 +20,9 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   const books = getBooks(lang);
   const lessons = tracks.reduce((sum, track) => sum + track.lessons.length, 0);
   const works = books.length + groups.flatMap((group) => group.areas).reduce((sum, area) => sum + getCatalog(area).length, 0);
-  const recent = publicHistory(site.historyFrom).slice(0, 3);
+  const recent = publicHistory(site.historyFrom, lang)
+    .slice(0, 3)
+    .map((change) => ({ date: change.date, parts: overview(change.parts) }));
   const date = new Intl.DateTimeFormat(htmlLang[lang], { timeZone: "UTC" });
   const shelves: DisciplineGroup[] = groups.map((group) => ({
     id: group.id,
@@ -164,8 +166,14 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <ol className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start">
               {recent.map((change) => (
                 <li key={change.date} className="flex-1 border-t-2 border-gold pt-3">
-                  <p className="font-mono text-sm text-gold">{date.format(new Date(change.date))}</p>
-                  <p className="text-lg">{change.counts.map(([kind, n]) => `${t.history.kinds[kind]}: ${n}`).join(" · ")}</p>
+                  <p className="font-mono text-sm text-gold">
+                    <time dateTime={change.date}>{date.format(new Date(change.date))}</time>
+                  </p>
+                  {/* Só as três primeiras linhas do resumo do dia; o resto está no histórico completo. */}
+                  <p className="text-lg">
+                    {change.parts.slice(0, 3).map((part) => describePart(part, lang, t)).join(" · ")}
+                    {change.parts.length > 3 && ` · ${fill(t.history.more, { n: change.parts.length - 3 })}`}
+                  </p>
                 </li>
               ))}
               <li className="flex-1 border-t-2 border-dashed border-gold pt-3">

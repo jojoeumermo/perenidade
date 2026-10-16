@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { BackendError, getClient, rpc } from "@/lib/backend";
@@ -57,7 +58,9 @@ export function EditorDeEpisodio({ id, painel, voltar, recarregarPainel }: { id:
   const ver = useLista<EpisodioCompleto>("podcast_ver", { p_id: id });
   const e = ver.dados;
   const soDesign = eu.design && !eu.revisor;
-  const [aba, setAba] = useState<Aba>(soDesign ? "publicacao" : "pauta");
+  // "passo" no endereço abre direto a aba pedida pelo passo a passo de publicação.
+  const passo = useSearchParams().get("passo");
+  const [aba, setAba] = useState<Aba>(soDesign ? "publicacao" : passo && ["pauta", "roteiro", "convidados", "arquivos", "revisao", "publicacao", "divulgacao", "historico"].includes(passo) ? (passo as Aba) : "pauta");
   const [rascunho, setRascunho] = useState<Partial<EpisodioCompleto>>({});
   const [capitulosTexto, setCapitulosTexto] = useState<string | null>(null);
   const [aviso, setAviso] = useState("");

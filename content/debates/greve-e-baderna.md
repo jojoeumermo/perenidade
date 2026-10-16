@@ -1,6 +1,7 @@
 ---
 afirmacao: "Greve é baderna."
 resposta: "Greve é um direito escrito na Constituição: o artigo 9º diz que cabe aos trabalhadores decidir quando e por que exercê-lo. A lei regula como se faz (aviso prévio, serviços essenciais), mas não permite que o patrão demita quem participa de uma greve legal."
+falacias: [espantalho]
 fontes:
   - titulo: "Constituição da República Federativa do Brasil de 1988"
     autor: "Presidência da República"

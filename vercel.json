@@ -4,5 +4,13 @@
     "deploymentEnabled": {
       "dependabot/**": false
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/:caminho(.*)",
+      "has": [{ "type": "host", "value": "www.institutolucia.org" }],
+      "destination": "https://institutolucia.org/:caminho",
+      "permanent": true
+    }
+  ]
 }
