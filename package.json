@@ -15,6 +15,7 @@
     "postinstall": "node scripts/preparar.mjs",
     "conferir:i18n": "node scripts/conferir-i18n.mjs",
     "conferir:links": "node scripts/conferir-links.mjs",
+    "conferir:painel": "node scripts/textos-do-painel.mjs --conferir",
     "testar:banco": "node scripts/testar-banco.mjs",
     "testar:moderacao": "node scripts/testar-moderacao.mjs",
     "testar:assistente": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-assistente.mjs",

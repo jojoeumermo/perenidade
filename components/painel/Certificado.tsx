@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 import { useI18n } from "../I18n";
 import { botao, botaoClaro, campo, dia } from "./comum";
@@ -73,7 +73,13 @@ export function Impresso({ certificado, fechar }: { certificado: Certificado; fe
  * ainda não existem, e a folha diz isso no lugar deles.
  */
 export function Folha({ certificado, cpf = "", rascunho = false }: { certificado: Certificado; cpf?: string; rascunho?: boolean }) {
-  const { t } = useI18n();
+  const { lang, t } = useI18n();
+  // O certificado é sempre em português: com o painel em outro idioma, o nome da disciplina vem do dicionário em português.
+  const [areasPt, setAreasPt] = useState<Record<string, string[]> | null>(null);
+  useEffect(() => {
+    if (lang !== "pt") void import("@/i18n/pt.json").then((dicionario) => setAreasPt(dicionario.default.areas));
+  }, [lang]);
+  const areas: Record<string, string[]> = lang === "pt" ? t.areas : (areasPt ?? t.areas);
   const emitido = certificado.status === "emitido";
   const data = (iso: string) => (iso ? dia(iso) : "__/__/____");
   const endereco = `${site.url.replace(/^https?:\/\//, "")}/pt/certificado`;
@@ -83,11 +89,12 @@ export function Folha({ certificado, cpf = "", rascunho = false }: { certificado
       : assinatura.papel === "vice"
         ? "Vice-coordenador"
         : assinatura.papel === "educacao"
-          ? `Educador(a)${assinatura.disciplina ? ` de ${t.areas[assinatura.disciplina as keyof typeof t.areas]?.[0] ?? assinatura.disciplina}` : ""}`
+          ? `Educador(a)${assinatura.disciplina ? ` de ${areas[assinatura.disciplina]?.[0] ?? assinatura.disciplina}` : ""}`
           : "Testemunha";
 
   return (
-    <article className="certificado" lang="pt-BR">
+    // translate="no": o certificado é um documento em português e não muda com o idioma do painel.
+    <article className="certificado" lang="pt-BR" translate="no">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/marca.png" alt="" className="certificado-fundo" />
       {!emitido && <p className="certificado-previa">Prévia · sem validade</p>}
