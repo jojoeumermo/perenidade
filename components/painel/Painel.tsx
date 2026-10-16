@@ -12,7 +12,7 @@ import { senhaVazada } from "@/lib/senha";
 import { getItem, KEYS, setItem } from "@/lib/storage";
 import { L, useI18n } from "../I18n";
 import { Star } from "../Masthead";
-import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, data, elo, localDoPainel, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
 import { Boletim } from "./Boletim";
 import { PorOndeComecar } from "./Comecar";
@@ -25,6 +25,7 @@ import { FontesAbertas } from "./FontesAbertas";
 import { Fila } from "./Fila";
 import { GavetaFila } from "./GavetaFila";
 import { Horas } from "./Horas";
+import { IdiomaDoPainel, TraduzirPainel } from "./Idioma";
 import { Interdicao } from "./Interdicao";
 import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lideranca";
 import { Materiais } from "./Materiais";
@@ -236,6 +237,7 @@ function Porta({ children }: { children: React.ReactNode }) {
   return (
     <div className="painel relative flex min-h-screen items-center justify-center overflow-hidden bg-[#17130e] px-4 py-10 font-sans text-sm text-[#efe4c8]">
       <Star className="pointer-events-none absolute -right-24 -bottom-28 h-[28rem] w-[28rem] rotate-12 text-[#6e1f1a]" />
+      <TraduzirPainel />
       <div className="painel-surge relative w-full max-w-md">
         <p className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -246,8 +248,9 @@ function Porta({ children }: { children: React.ReactNode }) {
           </span>
         </p>
         <div className="mt-8 border-2 border-[#efe4c8] border-t-[6px] border-t-[#c21f16] bg-[#1f1a14] p-6 shadow-[6px_6px_0_#6e1f1a]">{children}</div>
-        <p className="mt-6">
+        <p className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
           <L href="/" className="underline hover:text-white">← Voltar ao site</L>
+          <IdiomaDoPainel />
         </p>
       </div>
     </div>
@@ -492,6 +495,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
 
   return (
     <div className="painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid lg:grid-cols-[17.5rem_minmax(0,1fr)]">
+      <TraduzirPainel />
       {irPara && <IrPara secoes={secoes} fechar={() => setIrPara(false)} ir={ir} />}
       {/* Barra do alto no celular: a faixa bordô do site, o nome e o menu. */}
       <div className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b-[3px] border-[#d4a24c] bg-[#6e1f1a] px-4 pt-[calc(0.625rem+env(safe-area-inset-top,0px))] pb-2.5 text-[#f4ecd8] lg:hidden">
@@ -563,10 +567,11 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
               <span className="block truncate text-xs text-[#b9ad90]">{funcao}</span>
             </span>
           </p>
-          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+          <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
             <L href="/" className="underline hover:text-white">← Voltar ao site</L>
             <Tema />
             <button type="button" onClick={sair} className="cursor-pointer underline hover:text-white">Sair</button>
+            <IdiomaDoPainel />
           </p>
         </div>
       </aside>
@@ -672,7 +677,7 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
 
   const hora = new Date().getHours();
   const saudacao = hora < 5 ? "Boa noite" : hora < 12 ? "Bom dia" : hora < 18 ? "Boa tarde" : "Boa noite";
-  const hoje = new Date().toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" });
+  const hoje = new Date().toLocaleDateString(localDoPainel(), { weekday: "long", day: "numeric", month: "long" });
 
   return (
     <div className="space-y-10">
@@ -755,7 +760,7 @@ function Situacao({ lidera, supervisiona, ir }: { lidera: boolean; supervisiona:
       <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <button type="button" onClick={() => ir("conversas")} className={`${quadro} cursor-pointer`}>
           <span className="block text-ink-soft">Equipe</span>
-          <span className="mt-1 block font-serif text-2xl font-semibold leading-tight">{membros.dados ? `${membros.dados.length} ${membros.dados.length === 1 ? "pessoa" : "pessoas"}` : "…"}</span>
+          <span className="mt-1 block font-serif text-2xl font-semibold leading-tight">{membros.dados ? <>{membros.dados.length} {membros.dados.length === 1 ? "pessoa" : "pessoas"}</> : "…"}</span>
           <span className="mt-1 flex items-center gap-1.5 text-ink-soft">
             {online > 0 && <span aria-hidden className="painel-pulso inline-block h-2 w-2 rounded-full bg-ok" />}
             {online > 0 ? `${online} online agora` : "Ninguém mais online agora"}
