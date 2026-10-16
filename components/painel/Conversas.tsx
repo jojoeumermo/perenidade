@@ -2,13 +2,15 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { rpc, type Me } from "@/lib/backend";
+import { manages, rpc, type Me } from "@/lib/backend";
+import { buscar, desindexar, indexar, type Indexada } from "@/lib/busca-local";
 import type { Chaveiro } from "@/lib/chaveiro";
-import { type Citacao, type Conteudo, desempacotar, empacotar, extrairMencoes, linksDe, previaDoLink, reacoes, semFormatacao, trechoDe } from "@/lib/mensagem";
+import { type Citacao, type Conteudo, desempacotar, empacotar, type Enquete, type Evento, extrairMencoes, linksDe, previaDoLink, reacoes, type Rsvp, semFormatacao, trechoDe } from "@/lib/mensagem";
+import { conversaDestravada, destravar, estaDestravado, travaDisponivel, travaLigada } from "@/lib/trava";
 import { contextoDaConversa } from "@/lib/sigilo";
 import { getItem, setItem } from "@/lib/storage";
 import { useI18n } from "../I18n";
-import { Aviso, botao, botaoClaro, campo, elo, papeis, rotulo, textoDoErro, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, dataHora, elo, papeis, rotulo, textoDoErro, useLista } from "./comum";
 import type { Membro } from "./Equipe";
 import { Formatado } from "./Formatado";
 import { AnexoVisto, type EstadoDoAnexo, Galeria, Gravador, type ItemDaGaleria, Preparados, type Preparado, preparar, soltar, subir } from "./Anexos";
@@ -32,6 +34,15 @@ interface Conversa {
   apagar_apos: number | null;
   ultima: { corpo: string; minha: boolean; autor: string; autor_id: string | null; criado_em: string } | null;
   nao_lidas: number;
+  /** O que eu fiz com a conversa (vale em todos os meus aparelhos; os outros não veem). */
+  fixada: boolean;
+  arquivada: boolean;
+  silenciada: boolean;
+  marcada_nao_lida: boolean;
+  trancada: boolean;
+  descricao: string;
+  /** A mensagem com a foto do grupo, cifrada como as outras. */
+  foto: { id: string; corpo: string; autor: string | null; criado_em: string } | null;
 }
 
 interface Mensagem {
@@ -44,10 +55,12 @@ interface Mensagem {
   /** Com a autodestruição ligada, quando a mensagem some. */
   expira_em: string | null;
   /** Texto, ou uma reação ou edição de outra mensagem ("alvo"). */
-  tipo: "texto" | "reacao" | "edicao";
+  tipo: "texto" | "reacao" | "edicao" | "sistema" | "voto" | "rsvp";
   alvo: string | null;
   /** O que o banco sabe dos arquivos: ver uma vez já aberto, bytes ainda disponíveis. O resto vai dentro do cifrado. */
   anexos: EstadoDoAnexo[];
+  /** Aviso do sistema: quem fez o quê (o banco escreve; não é cifrado). */
+  detalhe: { evento: string; por: string; alvo: string | null; alvo_nome: string; texto: string } | null;
 }
 
 interface MembroDaConversa {
@@ -61,6 +74,7 @@ interface MembroDaConversa {
   lido_em: string | null;
   recebido_em: string;
   digitando: "" | "texto" | "audio";
+  admin: boolean;
 }
 
 interface Aberta {
@@ -73,6 +87,13 @@ interface Aberta {
   apagar_apos: number | null;
   apagar_desde: string | null;
   apagar_por: string;
+  descricao: string;
+  foto: string | null;
+  so_admins_enviam: boolean;
+  so_admins_mudam: boolean;
+  /** Administro este grupo (ou sou da coordenação). */
+  admin: boolean;
+  posso_enviar: boolean;
   membros: MembroDaConversa[];
   fixadas: string[];
   favoritas: string[];
@@ -157,10 +178,23 @@ export function Conversas({ me }: { me: Me }) {
   const membros = useLista<Membro[]>("equipe_membros");
   const [aberta, setAberta] = useState<string | null>(null);
   const [busca, setBusca] = useState("");
-  const [tela, setTela] = useState<"conversa" | "grupo" | "favoritas">("conversa");
+  const [tela, setTela] = useState<"conversa" | "grupo" | "favoritas" | "relatos">("conversa");
+  const [filtro, setFiltro] = useState<"todas" | "nao_lidas" | "grupos" | "fixadas">("todas");
+  const [arquivadas, setArquivadas] = useState(false);
+  const [menu, setMenu] = useState<string | null>(null);
+  const [achadas, setAchadas] = useState<Indexada[]>([]);
   const [aviso, setAviso] = useState("");
+  const [trava, setTrava] = useState<"conferindo" | "travada" | "aberta">(() => (travaLigada() && !estaDestravado() ? "travada" : "aberta"));
+  const [pedindoTrava, setPedindoTrava] = useState<string | null>(null);
   useRelogio(lista.recarregar, 8000);
   useRelogio(membros.recarregar, 30000);
+  // Busca no índice deste aparelho: só o que ele já abriu.
+  useEffect(() => {
+    const termoDeBusca = busca.trim();
+    let cancelado = false;
+    const marca = window.setTimeout(() => { if (termoDeBusca.length < 2) { setAchadas([]); return; } void buscar(termoDeBusca).then((itens) => { if (!cancelado) setAchadas(itens); }); }, 200);
+    return () => { cancelado = true; window.clearTimeout(marca); };
+  }, [busca]);
   const previas = useAbertos(
     chaveiro,
     (lista.dados ?? []).flatMap((conversa) =>
@@ -172,9 +206,52 @@ export function Conversas({ me }: { me: Me }) {
   if (!chaveiro) return <Aviso texto="Preparando a chave deste aparelho…" />;
   // Aparelho ainda não aprovado: nada abre aqui até um aparelho já aprovado da pessoa conferir o código.
   if (chaveiro.estado !== "aprovado") return <div className="border border-rule bg-parchment"><AparelhoPendente chaveiro={chaveiro} /></div>;
+  if (trava !== "aberta") {
+    return (
+      <div className="border border-rule bg-parchment p-8 text-center">
+        <p className="font-serif text-2xl font-semibold">Conversas trancadas</p>
+        <p className="mx-auto mt-2 max-w-md text-ink-soft">Você pediu a digital para abrir as conversas neste aparelho. Confirme no leitor do aparelho para continuar.</p>
+        <button type="button" className={`mt-4 ${botao}`} disabled={trava === "conferindo"} onClick={() => { setTrava("conferindo"); void destravar().then((ok) => setTrava(ok ? "aberta" : "travada")); }}>
+          {trava === "conferindo" ? "Conferindo…" : "Destravar com a digital"}
+        </button>
+      </div>
+    );
+  }
 
   const termo = busca.trim().toLowerCase();
-  const conversas = (lista.dados ?? []).filter((conversa) => !termo || conversa.nome.toLowerCase().includes(termo));
+  const conversas = (lista.dados ?? []).filter((conversa) => {
+    if (termo) return conversa.nome.toLowerCase().includes(termo);
+    if (conversa.arquivada !== arquivadas) return false;
+    if (filtro === "nao_lidas") return conversa.nao_lidas > 0 || conversa.marcada_nao_lida;
+    if (filtro === "grupos") return conversa.tipo !== "direta";
+    if (filtro === "fixadas") return conversa.fixada;
+    return true;
+  });
+  const quantasArquivadas = (lista.dados ?? []).filter((conversa) => conversa.arquivada).length;
+
+  /** Abrir uma conversa trancada pede a digital (uma vez por alguns minutos). */
+  async function abrirConversa(conversa: Conversa) {
+    setTela("conversa");
+    if (conversa.trancada && !conversaDestravada(conversa.id)) {
+      setPedindoTrava(conversa.id);
+      const ok = await destravar(conversa.id);
+      setPedindoTrava(null);
+      if (!ok) { setAviso("A digital não foi confirmada: a conversa continua trancada."); return; }
+    }
+    setAberta(conversa.id);
+  }
+
+  async function marcar(conversa: Conversa, campos: Record<string, unknown>) {
+    setMenu(null);
+    setAviso("");
+    try {
+      if (campos.p_trancar === true && !(await travaDisponivel())) { setAviso("Este aparelho não tem digital cadastrada: cadastre em Minha conta → Entrar com a digital."); return; }
+      await rpc("chat_conversa_marcar", { p_id: conversa.id, ...campos });
+      lista.recarregar();
+    } catch (erro) {
+      setAviso(textoDoErro(erro));
+    }
+  }
   const comConversa = new Set((lista.dados ?? []).flatMap((conversa) => (conversa.outro ? [conversa.outro] : [])));
   const pessoas = (membros.dados ?? []).filter((membro) => !membro.eu && (termo ? membro.nome.toLowerCase().includes(termo) : !comConversa.has(membro.id)));
   const aberto = tela !== "conversa" || aberta !== null;
@@ -200,7 +277,8 @@ export function Conversas({ me }: { me: Me }) {
     if (!aberta) return { texto: `${quem}${conversa.ultima.corpo.startsWith("c1.") ? "mensagem antiga" : "…"}`, mencao: false };
     const conteudo = desempacotar(aberta.texto);
     const arquivo = conteudo.anexos?.length ? `${{ imagem: "🖼 Foto", video: "🎞 Vídeo", audio: "🎙 Áudio", pdf: "📄 PDF", docx: "📝 Documento" }[conteudo.anexos[0].tipo]}${conteudo.anexos.length > 1 ? ` +${conteudo.anexos.length - 1}` : ""}${conteudo.texto ? " · " : ""}` : "";
-    return { texto: `${quem}${conteudo.encaminhada ? "↪ " : ""}${arquivo}${semFormatacao(conteudo.texto)}`, mencao: Boolean(conteudo.mencoes?.includes(me.id)) && !conversa.ultima.minha };
+    const especial = conteudo.enquete ? `📊 Enquete: ${conteudo.enquete.pergunta}` : conteudo.evento ? `📅 Evento: ${conteudo.evento.titulo}` : conteudo.grupo_foto ? "🖼 Foto do grupo" : "";
+    return { texto: `${quem}${conteudo.encaminhada ? "↪ " : ""}${arquivo}${especial || semFormatacao(conteudo.texto)}`, mencao: Boolean(conteudo.mencoes?.includes(me.id)) && !conversa.ultima.minha };
   }
 
   return (
@@ -215,6 +293,23 @@ export function Conversas({ me }: { me: Me }) {
             <button type="button" className={`${botaoClaro} py-1.5`} aria-pressed={tela === "favoritas"} onClick={() => { setTela("favoritas"); setAberta(null); }} title="Mensagens favoritas">
               ★
             </button>
+            {manages(me) && (
+              <button type="button" className={`${botaoClaro} py-1.5`} aria-pressed={tela === "relatos"} onClick={() => { setTela("relatos"); setAberta(null); }} title="Relatos à coordenação">
+                ⚑
+              </button>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-1 text-xs" role="group" aria-label="Filtrar conversas">
+            {([["todas", "Todas"], ["nao_lidas", "Não lidas"], ["grupos", "Grupos"], ["fixadas", "Fixadas"]] as const).map(([valor, nome]) => (
+              <button key={valor} type="button" aria-pressed={filtro === valor} onClick={() => { setFiltro(valor); setArquivadas(false); }} className={`cursor-pointer border px-2 py-0.5 ${filtro === valor && !arquivadas ? "border-ink bg-ink text-parchment" : "border-rule hover:border-ink"}`}>
+                {nome}
+              </button>
+            ))}
+            {quantasArquivadas > 0 && (
+              <button type="button" aria-pressed={arquivadas} onClick={() => setArquivadas(!arquivadas)} className={`cursor-pointer border px-2 py-0.5 ${arquivadas ? "border-ink bg-ink text-parchment" : "border-rule hover:border-ink"}`}>
+                Arquivadas ({quantasArquivadas})
+              </button>
+            )}
           </div>
         </div>
         <div className="min-h-0 flex-1 overflow-y-auto [scrollbar-width:thin]">
@@ -222,36 +317,78 @@ export function Conversas({ me }: { me: Me }) {
           <ul>
             {conversas.map((conversa) => {
               const ultima = previa(conversa);
+              const pendentes = conversa.nao_lidas > 0 || conversa.marcada_nao_lida;
               return (
-                <li key={conversa.id}>
+                <li key={conversa.id} className="relative">
                   <button
                     type="button"
-                    onClick={() => { setAberta(conversa.id); setTela("conversa"); }}
+                    onClick={() => void abrirConversa(conversa)}
+                    onContextMenu={(e) => { e.preventDefault(); setMenu(menu === conversa.id ? null : conversa.id); }}
                     aria-current={aberta === conversa.id ? "true" : undefined}
-                    className={`flex w-full cursor-pointer items-center gap-3 border-b border-rule px-3 py-2.5 text-left ${aberta === conversa.id ? "bg-parchment" : "hover:bg-parchment"}`}
+                    className={`flex w-full cursor-pointer items-center gap-3 border-b border-rule px-3 py-2.5 pr-9 text-left ${aberta === conversa.id ? "bg-parchment" : "hover:bg-parchment"}`}
                   >
-                    <Rosto nome={conversa.nome} online={Boolean(conversa.online)} tipo={conversa.tipo} />
+                    {conversa.foto ? <FotoDoGrupo chaveiro={chaveiro} conversa={conversa.id} foto={conversa.foto} nome={conversa.nome} /> : <Rosto nome={conversa.nome} online={Boolean(conversa.online)} tipo={conversa.tipo} />}
                     <span className="min-w-0 flex-1">
                       <span className="flex items-baseline justify-between gap-2">
                         <span className="truncate font-semibold">
+                          {conversa.trancada && <span title="Trancada com a digital" className="mr-1 font-normal text-ink-soft">🔒</span>}
                           {conversa.nome}
                           {conversa.apagar_apos && <span title={`Autodestruição: ${nomeDoPrazo(conversa.apagar_apos)}`} className="ml-1 font-normal text-ink-soft">⏱</span>}
+                          {conversa.silenciada && <span title="Silenciada" className="ml-1 font-normal text-ink-soft">🔕</span>}
                         </span>
-                        {conversa.ultima && <span className="shrink-0 text-xs text-ink-soft">{hora(conversa.ultima.criado_em)}</span>}
+                        <span className="flex shrink-0 items-center gap-1 text-xs text-ink-soft">
+                          {conversa.fixada && <span title="Fixada no alto" aria-label="Fixada">📌</span>}
+                          {conversa.ultima && <span>{hora(conversa.ultima.criado_em)}</span>}
+                        </span>
                       </span>
                       <span className="flex items-center justify-between gap-2">
-                        <span className={`truncate ${ultima.mencao ? "font-semibold text-ink" : "text-ink-soft"}`}>{ultima.texto}</span>
+                        <span className={`truncate ${ultima.mencao ? "font-semibold text-ink" : "text-ink-soft"}`}>{pedindoTrava === conversa.id ? "Confirme a digital…" : ultima.texto}</span>
                         <span className="flex shrink-0 gap-1">
                           {ultima.mencao && <span title="Você foi mencionado" className="bg-gold px-1.5 py-0.5 font-mono text-[0.7rem] font-semibold leading-none text-ink">@</span>}
-                          {conversa.nao_lidas > 0 && <span className="bg-oxblood px-1.5 py-0.5 font-mono text-[0.7rem] font-semibold leading-none text-parchment">{conversa.nao_lidas}</span>}
+                          {pendentes && <span className={`px-1.5 py-0.5 font-mono text-[0.7rem] font-semibold leading-none ${conversa.silenciada ? "bg-rule text-ink" : "bg-oxblood text-parchment"}`}>{conversa.nao_lidas || "•"}</span>}
                         </span>
                       </span>
                     </span>
                   </button>
+                  <button type="button" aria-label={`Opções da conversa ${conversa.nome}`} aria-expanded={menu === conversa.id} className="absolute right-1 top-2 cursor-pointer px-2 py-1 text-ink-soft hover:text-ink" onClick={() => setMenu(menu === conversa.id ? null : conversa.id)}>⋯</button>
+                  {menu === conversa.id && (
+                    <ul role="menu" className="absolute right-2 top-9 z-20 w-56 border-2 border-ink bg-parchment text-sm shadow">
+                      {([
+                        [conversa.fixada ? "Desafixar" : "Fixar no alto", { p_fixar: !conversa.fixada }],
+                        [conversa.arquivada ? "Desarquivar" : "Arquivar", { p_arquivar: !conversa.arquivada }],
+                        [conversa.marcada_nao_lida || conversa.nao_lidas > 0 ? "Marcar como lida" : "Marcar como não lida", conversa.marcada_nao_lida || conversa.nao_lidas > 0 ? { p_nao_lida: false, __ler: true } : { p_nao_lida: true }],
+                        [conversa.silenciada ? "Tirar o silêncio" : "Silenciar por 8 horas", { p_silenciar_horas: conversa.silenciada ? 0 : 8 }],
+                        ...(conversa.silenciada ? [] : [["Silenciar por 7 dias", { p_silenciar_horas: 168 }] as const, ["Silenciar para sempre", { p_silenciar_horas: 876000 }] as const]),
+                        [conversa.trancada ? "Destrancar" : "Trancar com a digital", { p_trancar: !conversa.trancada }],
+                      ] as [string, Record<string, unknown>][]).map(([nome, campos]) => (
+                        <li key={nome}>
+                          <button type="button" role="menuitem" className="block w-full cursor-pointer px-3 py-1.5 text-left hover:bg-parchment-deep" onClick={() => {
+                            if (campos.__ler) { setMenu(null); void rpc("chat_ver", { p_id: conversa.id }).then(() => lista.recarregar()).catch(() => undefined); return; }
+                            void marcar(conversa, campos);
+                          }}>{nome}</button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
               );
             })}
           </ul>
+          {achadas.length > 0 && (
+            <>
+              <p className={`${rotulo} px-3 pb-1 pt-4`}>Mensagens (só o que este aparelho já abriu)</p>
+              <ul>
+                {achadas.map((item) => (
+                  <li key={item.id}>
+                    <button type="button" className="block w-full cursor-pointer border-b border-rule px-3 py-2 text-left hover:bg-parchment" onClick={() => { const conversa = lista.dados?.find((c) => c.id === item.conversa); if (conversa) void abrirConversa(conversa).then(() => window.setTimeout(() => document.getElementById(`m-${item.id}`)?.scrollIntoView({ block: "center" }), 600)); }}>
+                      <span className="block truncate text-xs text-ink-soft">{item.conversa_nome} · {item.autor} · {new Date(item.criado_em).toLocaleDateString("pt-BR")}</span>
+                      <span className="block truncate">{item.texto}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
           {pessoas.length > 0 && (
             <>
               <p className={`${rotulo} px-3 pb-1 pt-4`}>{termo ? "Pessoas" : "Começar uma conversa"}</p>
@@ -270,7 +407,8 @@ export function Conversas({ me }: { me: Me }) {
               </ul>
             </>
           )}
-          {termo && conversas.length === 0 && pessoas.length === 0 && <p className="px-3 py-4 text-ink-soft">Ninguém com esse nome na equipe.</p>}
+          {termo && conversas.length === 0 && pessoas.length === 0 && achadas.length === 0 && <p className="px-3 py-4 text-ink-soft">Nada com esse nome: nem pessoa, nem conversa, nem mensagem já aberta aqui.</p>}
+          {!termo && conversas.length === 0 && filtro !== "todas" && <p className="px-3 py-4 text-ink-soft">Nenhuma conversa neste filtro.</p>}
         </div>
         {/* A lista de aparelhos cresce (aprovação, cópia de recuperação): rola dentro do próprio pé, sem empurrar a tela. */}
         <div className="max-h-[60%] space-y-2 overflow-y-auto border-t border-rule p-3 [scrollbar-width:thin]">
@@ -284,6 +422,8 @@ export function Conversas({ me }: { me: Me }) {
           <NovoGrupo membros={membros.dados ?? []} fechar={() => setTela("conversa")} criado={(id) => { setTela("conversa"); setAberta(id); lista.recarregar(); }} />
         ) : tela === "favoritas" ? (
           <Favoritas chaveiro={chaveiro} fechar={() => setTela("conversa")} abrir={(id) => { setTela("conversa"); setAberta(id); }} />
+        ) : tela === "relatos" ? (
+          <Relatos fechar={() => setTela("conversa")} />
         ) : aberta ? (
           <Janela
             key={aberta}
@@ -316,6 +456,9 @@ interface Vista {
   editada: boolean;
   /** emoji → quem reagiu (com o id da reação, para a própria pessoa desfazer). */
   reacoes: { emoji: string; quem: { id: string; autor: string | null; nome: string; minha: boolean }[] }[];
+  /** Enquete: quem votou em quê. Evento: quem respondeu o quê. */
+  votos: { autor: string | null; nome: string; minha: boolean; opcoes: number[] }[];
+  rsvps: { autor: string | null; nome: string; minha: boolean; resposta: Rsvp }[];
 }
 
 /** Uma conversa aberta: as mensagens, quem está por aqui, a autodestruição e a caixa de escrever. */
@@ -341,6 +484,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
   const [galeria, setGaleria] = useState(false);
   const [andamento, setAndamento] = useState("");
   const [arrastando, setArrastando] = useState(false);
+  const [compondo, setCompondo] = useState<"enquete" | "evento" | "relato" | null>(null);
   const caixa = useRef<HTMLTextAreaElement>(null);
   const escolha = useRef<HTMLInputElement>(null);
   const fim = useRef<HTMLDivElement>(null);
@@ -369,13 +513,14 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
       if (mensagem.tipo === "edicao" && mensagem.alvo) {
         const atual = edicoes.get(mensagem.alvo);
         if (!atual || atual.criado_em < mensagem.criado_em) edicoes.set(mensagem.alvo, mensagem);
-      } else if (mensagem.tipo === "reacao" && mensagem.alvo) {
+      } else if ((mensagem.tipo === "reacao" || mensagem.tipo === "voto" || mensagem.tipo === "rsvp") && mensagem.alvo) {
         reacoesPor.set(mensagem.alvo, [...(reacoesPor.get(mensagem.alvo) ?? []), mensagem]);
       }
     }
     return todas
-      .filter((mensagem) => mensagem.tipo === "texto")
+      .filter((mensagem) => mensagem.tipo === "texto" || mensagem.tipo === "sistema")
       .map((mensagem) => {
+        if (mensagem.tipo === "sistema") return { mensagem, conteudo: null, autoria: "ok" as const, editada: false, reacoes: [], votos: [], rsvps: [] };
         const edicao = edicoes.get(mensagem.id);
         const original = abertos[mensagem.id];
         const fonte = edicao && abertos[edicao.id] ? abertos[edicao.id] : original;
@@ -383,10 +528,14 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
         // A edição troca o texto, mas a citação, a encaminhada e a prévia são as da mensagem original.
         const base = original ? desempacotar(original.texto) : null;
         const grupos = new Map<string, Vista["reacoes"][number]["quem"]>();
-        for (const reacao of reacoesPor.get(mensagem.id) ?? []) {
-          const emoji = abertos[reacao.id] ? desempacotar(abertos[reacao.id]!.texto).emoji : undefined;
-          if (!emoji) continue;
-          grupos.set(emoji, [...(grupos.get(emoji) ?? []), { id: reacao.id, autor: reacao.autor, nome: reacao.nome, minha: reacao.minha }]);
+        const votos: Vista["votos"] = [];
+        const rsvps: Vista["rsvps"] = [];
+        for (const resposta of reacoesPor.get(mensagem.id) ?? []) {
+          const dentro = abertos[resposta.id] ? desempacotar(abertos[resposta.id]!.texto) : null;
+          if (!dentro) continue;
+          if (resposta.tipo === "voto" && dentro.voto) votos.push({ autor: resposta.autor, nome: resposta.nome, minha: resposta.minha, opcoes: dentro.voto });
+          else if (resposta.tipo === "rsvp" && dentro.rsvp) rsvps.push({ autor: resposta.autor, nome: resposta.nome, minha: resposta.minha, resposta: dentro.rsvp });
+          else if (resposta.tipo === "reacao" && dentro.emoji) grupos.set(dentro.emoji, [...(grupos.get(dentro.emoji) ?? []), { id: resposta.id, autor: resposta.autor, nome: resposta.nome, minha: resposta.minha }]);
         }
         return {
           mensagem,
@@ -394,10 +543,19 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
           autoria: original === undefined ? "esperando" : original === null ? "esperando" : original.autoria,
           editada: Boolean(edicao),
           reacoes: [...grupos.entries()].map(([emoji, quem]) => ({ emoji, quem })),
+          votos,
+          rsvps,
         };
       });
   }, [todas, abertos]);
   const ultima = vistas.at(-1)?.mensagem.id;
+  const nomeDaConversa = dados ? (dados.tipo === "direta" ? (dados.membros.find((membro) => !membro.eu)?.nome ?? "Conversa") : dados.nome) : "";
+
+  // Busca: o que este aparelho abriu entra no índice local (só texto; nada sai do aparelho).
+  useEffect(() => {
+    const itens = vistas.filter((vista) => vista.mensagem.tipo === "texto" && vista.conteudo?.texto).map((vista) => ({ id: vista.mensagem.id, conversa: id, conversa_nome: nomeDaConversa, autor: vista.mensagem.minha ? "Você" : vista.mensagem.nome, texto: semFormatacao(vista.conteudo!.texto), criado_em: vista.mensagem.criado_em }));
+    if (itens.length) void indexar(itens);
+  }, [vistas, id, nomeDaConversa]);
 
   // Mensagem nova: a conversa rola sozinha até o fim.
   useEffect(() => {
@@ -533,7 +691,11 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
     }
   }
 
-  const apagar = (mensagem: string) => agir(() => rpc("chat_apagar", { p_id: mensagem }));
+  const apagar = (mensagem: string) => agir(async () => { await rpc("chat_apagar", { p_id: mensagem }); await desindexar([mensagem]); });
+  /** Enquete, evento, voto e resposta a evento: um conteúdo cifrado como qualquer outro. */
+  const enviarConteudo = (conteudo: Conteudo, tipo: "texto" | "voto" | "rsvp" = "texto", alvo?: string) =>
+    agir(() => enviarCifrado(chaveiro, id, empacotar(conteudo), contextoDaConversa(id, me.id), (corpo) => rpc("chat_enviar", { p_id: id, p_corpo: corpo, p_tipo: tipo, p_alvo: alvo ?? null })));
+
   const autodestruir = (segundos: number) => agir(() => rpc("chat_autodestruir", { p_id: id, p_segundos: segundos }));
   const fixar = (mensagem: string, fixar: boolean) => agir(() => rpc("chat_fixar", { p_mensagem: mensagem, p_fixar: fixar }));
   const favoritar = (mensagem: string, favoritar: boolean) => agir(() => rpc("chat_favoritar", { p_mensagem: mensagem, p_favoritar: favoritar }));
@@ -661,13 +823,22 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
         <button type="button" className={elo} onClick={() => setGaleria(true)}>Arquivos</button>
         {dados.tipo !== "direta" && (
           <button type="button" className={elo} aria-expanded={gerir} onClick={() => setGerir(!gerir)}>
-            {gerir ? "Fechar" : "Pessoas"}
+            {gerir ? "Fechar" : "Grupo"}
           </button>
         )}
       </header>
 
       {gerir && dados.tipo !== "direta" ? (
-        <Grupo dados={dados} me={me} equipe={equipe} chaveiro={chaveiro} conversa={id} depois={() => { recarregar(); mudou(); }} saiu={voltar} />
+        <Grupo dados={dados} me={me} equipe={equipe} chaveiro={chaveiro} conversa={id} depois={() => { recarregar(); mudou(); }} saiu={voltar} enviarFoto={async (arquivo) => {
+          // A foto do grupo é uma mensagem com a imagem, cifrada como qualquer outra; o grupo passa a apontar para ela.
+          const [foto] = await preparar([arquivo], 0);
+          const anexos = await subir([foto], id);
+          soltar([foto]);
+          const { id: mensagem } = await enviarCifrado(chaveiro, id, empacotar({ texto: "", anexos, grupo_foto: true }), contextoDaConversa(id, me.id), (corpo) => rpc<{ id: string }>("chat_enviar", { p_id: id, p_corpo: corpo, p_anexos: anexos.map((anexo) => anexo.id) }));
+          await rpc("chat_grupo_mudar", { p_id: id, p_foto: mensagem });
+          recarregar();
+          mudou();
+        }} />
       ) : (
         <>
           {fixadas.length > 0 && (
@@ -686,7 +857,16 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
               <span>{selecionadas.size} selecionada{selecionadas.size === 1 ? "" : "s"}</span>
               <button type="button" className="cursor-pointer underline disabled:opacity-50" disabled={selecionadas.size === 0} onClick={() => setEncaminhando([...selecionadas])}>Encaminhar</button>
               <button type="button" className="cursor-pointer underline disabled:opacity-50" disabled={![...selecionadas].some((alvo) => vistas.find((vista) => vista.mensagem.id === alvo)?.mensagem.minha)} onClick={() => void apagarSelecionadas()}>Apagar as minhas</button>
+              <button type="button" className="cursor-pointer underline disabled:opacity-50" disabled={selecionadas.size === 0} onClick={() => setCompondo("relato")}>Relatar à coordenação</button>
             </div>
+          )}
+          {compondo === "relato" && selecionadas && (
+            <Relatar
+              membros={outros}
+              escolhidas={vistas.filter((vista) => selecionadas.has(vista.mensagem.id) && vista.conteudo).map((vista) => ({ id: vista.mensagem.id, autor: vista.mensagem.minha ? "Você" : vista.mensagem.nome, quando: vista.mensagem.criado_em, texto: semFormatacao(vista.conteudo!.texto) || (vista.conteudo!.anexos?.length ? "[arquivo]" : "") }))}
+              fechar={() => setCompondo(null)}
+              enviar={(contra, motivo, mensagens) => { setCompondo(null); setSelecionadas(null); void agir(async () => { await rpc("chat_relatar", { p_conversa: id, p_contra: contra, p_motivo: motivo, p_mensagens: mensagens }); setAviso("Relato enviado à coordenação."); }); }}
+            />
           )}
           <div className="min-h-0 flex-1 space-y-1.5 overflow-y-auto px-3 py-4 [scrollbar-width:thin]" aria-live="polite">
             {seguranca && (
@@ -705,6 +885,14 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
               const { mensagem, conteudo } = vista;
               const anterior = vistas[indice - 1]?.mensagem;
               const outroDia = !anterior || new Date(anterior.criado_em).toDateString() !== new Date(mensagem.criado_em).toDateString();
+              if (mensagem.tipo === "sistema") {
+                return (
+                  <div key={mensagem.id} id={`m-${mensagem.id}`}>
+                    {outroDia && <p className="py-2 text-center text-xs uppercase tracking-widest text-ink-soft">{diaDe(mensagem.criado_em)}</p>}
+                    <p className="mx-auto my-1 max-w-md border border-rule bg-parchment-deep px-3 py-1 text-center text-xs text-ink-soft">{textoDoAviso(mensagem, me)} · {hora(mensagem.criado_em)}</p>
+                  </div>
+                );
+              }
               const mostraNome = dados.tipo !== "direta" && !mensagem.minha && (outroDia || anterior?.autor !== mensagem.autor);
               const meMenciona = Boolean(conteudo?.mencoes?.includes(me.id)) && !mensagem.minha;
               const marcada = selecionadas?.has(mensagem.id) ?? false;
@@ -750,6 +938,8 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                           <TextoAberto aberto={abertos[mensagem.id]} antiga={mensagem.corpo.startsWith("c1.")} />
                         )}
                       </div>
+                      {conteudo?.enquete && <EnqueteVista enquete={conteudo.enquete} votos={vista.votos} minha={mensagem.minha} votar={(opcoes) => void enviarConteudo({ texto: "", voto: opcoes }, "voto", mensagem.id)} />}
+                      {conteudo?.evento && <EventoVista evento={conteudo.evento} rsvps={vista.rsvps} minha={mensagem.minha} responder={(resposta) => void enviarConteudo({ texto: "", rsvp: resposta }, "rsvp", mensagem.id)} />}
                       {conteudo?.previa && (
                         <a href={conteudo.previa.url} target="_blank" rel="noopener noreferrer nofollow" className={`mt-1 block border px-2 py-1 text-xs no-underline ${mensagem.minha ? "border-parchment/40" : "border-rule bg-parchment"}`}>
                           <span className="block truncate font-semibold">{conteudo.previa.titulo}</span>
@@ -821,8 +1011,11 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
             />
           )}
           {gravando && <Gravador aoGravar={(audio) => void enviar([audio])} aoAvisar={avisarDigitando} fechar={() => setGravando(false)} />}
+          {compondo === "enquete" && <NovaEnquete fechar={() => setCompondo(null)} criar={(enquete) => { setCompondo(null); void enviarConteudo({ texto: "", enquete }); }} />}
+          {compondo === "evento" && <NovoEvento fechar={() => setCompondo(null)} criar={(evento) => { setCompondo(null); void enviarConteudo({ texto: "", evento }); }} />}
+          {!dados.posso_enviar && <p className="border-t border-rule bg-parchment-deep px-3 py-2 text-center text-xs text-ink-soft">Neste grupo, só os administradores mandam mensagem. Você ainda pode reagir e votar.</p>}
           <form
-            className={`relative border-t border-rule bg-parchment-deep p-3 ${arrastando ? "outline outline-2 -outline-offset-4 outline-dashed outline-oxblood" : ""}`}
+            className={`relative border-t border-rule bg-parchment-deep p-3 ${arrastando ? "outline outline-2 -outline-offset-4 outline-dashed outline-oxblood" : ""} ${dados.posso_enviar ? "" : "hidden"}`}
             onSubmit={(e) => { e.preventDefault(); void enviar(); }}
             onDragOver={(e) => { if (e.dataTransfer.types.includes("Files")) { e.preventDefault(); setArrastando(true); } }}
             onDragLeave={() => setArrastando(false)}
@@ -878,13 +1071,19 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                 maxLength={MAXIMO}
                 aria-label={`Mensagem para ${nome}`}
                 placeholder={preparados.length ? "Legenda (opcional)" : "Escreva uma mensagem (*negrito*, _itálico_, ~tachado~, `mono`, @nome)"}
-                className={`${campo} mt-0 max-h-32 min-h-[2.6rem] flex-1 resize-y bg-parchment`}
+                className={`${campo} mt-0 max-h-32 min-h-[2.6rem] min-w-0 flex-1 resize-y bg-parchment`}
               />
               {!editando && (
                 <>
                   <input ref={escolha} type="file" multiple accept="image/*,video/*,audio/*,.pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" className="hidden" onChange={(e) => { void anexar([...(e.target.files ?? [])]); e.target.value = ""; }} />
-                  <button type="button" className={`${botaoClaro} px-2.5`} title="Anexar foto, vídeo, áudio, PDF ou DOCX (ou cole, ou arraste aqui)" aria-label="Anexar arquivo" disabled={ocupado} onClick={() => escolha.current?.click()}>📎</button>
-                  <button type="button" className={`${botaoClaro} px-2.5`} title="Gravar áudio" aria-label="Gravar áudio" aria-pressed={gravando} disabled={ocupado} onClick={() => setGravando(!gravando)}>🎙</button>
+                  <button type="button" className={`${botaoClaro} px-1.5 py-1.5 text-sm`} title="Anexar foto, vídeo, áudio, PDF ou DOCX (ou cole, ou arraste aqui)" aria-label="Anexar arquivo" disabled={ocupado} onClick={() => escolha.current?.click()}>📎</button>
+                  <button type="button" className={`${botaoClaro} px-1.5 py-1.5 text-sm`} title="Gravar áudio" aria-label="Gravar áudio" aria-pressed={gravando} disabled={ocupado} onClick={() => setGravando(!gravando)}>🎙</button>
+                  {dados.tipo !== "direta" && (
+                    <>
+                      <button type="button" className={`${botaoClaro} px-1.5 py-1.5 text-sm`} title="Enquete" aria-label="Criar enquete" disabled={ocupado} onClick={() => setCompondo("enquete")}>📊</button>
+                      <button type="button" className={`${botaoClaro} px-1.5 py-1.5 text-sm`} title="Evento" aria-label="Criar evento" disabled={ocupado} onClick={() => setCompondo("evento")}>📅</button>
+                    </>
+                  )}
                 </>
               )}
               <button type="submit" className={botao} disabled={ocupado || (!texto.trim() && preparados.length === 0)}>
@@ -988,15 +1187,20 @@ function Favoritas({ chaveiro, fechar, abrir }: { chaveiro: Chaveiro; fechar: ()
  * Quem está no grupo. Num grupo comum, quem criou (ou a coordenação) põe e tira gente, troca o nome e apaga; qualquer um sai.
  * O grupo de um departamento acompanha as funções: entra quem recebe a função, sai quem deixa de tê-la.
  */
-function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu }: { dados: Aberta; me: Me; equipe: Membro[]; chaveiro: Chaveiro; conversa: string; depois: () => void; saiu: () => void }) {
+function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu, enviarFoto }: { dados: Aberta; me: Me; equipe: Membro[]; chaveiro: Chaveiro; conversa: string; depois: () => void; saiu: () => void; enviarFoto: (arquivo: File) => Promise<void> }) {
   const [nome, setNome] = useState(dados.nome);
+  const [descricao, setDescricao] = useState(dados.descricao);
   const [novo, setNovo] = useState("");
   const [aviso, setAviso] = useState("");
   const [seguranca, setSeguranca] = useState<{ usuario: string; nome: string } | null>(null);
+  const fotoNova = useRef<HTMLInputElement>(null);
   const dentro = new Set(dados.membros.map((membro) => membro.id));
   const livres = equipe.filter((membro) => !dentro.has(membro.id));
   const fixo = dados.tipo === "departamento";
-  const pode = dados.dona && !fixo;
+  /** Administro: gente, permissões e administradores. */
+  const pode = dados.admin && !fixo;
+  /** Nome, descrição e foto: administradores, ou todo mundo se o grupo deixar. */
+  const edita = !fixo && (dados.admin || !dados.so_admins_mudam);
   const pessoas = chaveiro.pessoasDe(conversa);
   const verificado = (usuario: string) => pessoas.find((pessoa) => pessoa.usuario === usuario)?.verificado ?? false;
 
@@ -1019,14 +1223,33 @@ function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu }: { dados:
             : `O grupo de ${papeis[dados.departamento as keyof typeof papeis] ?? dados.nome}. Quem recebe essa função entra sozinho, quem deixa de tê-la sai, e a coordenação participa de todos os grupos. Não dá para sair nem tirar ninguém.`}
         </p>
       )}
-      {pode && (
-        <form className="flex flex-wrap items-end gap-2" onSubmit={(e) => { e.preventDefault(); void fazer("chat_grupo_mudar", { p_id: dados.id, p_nome: nome }); }}>
-          <label className="block min-w-48 flex-1">
-            Nome do grupo
-            <input value={nome} onChange={(e) => setNome(e.target.value)} minLength={2} maxLength={60} className={campo} />
+      {!fixo && !edita && dados.descricao && <p className="max-w-xl whitespace-pre-line text-ink-soft">{dados.descricao}</p>}
+      {edita && (
+        <form className="space-y-2" onSubmit={(e) => { e.preventDefault(); void fazer("chat_grupo_mudar", { p_id: dados.id, p_nome: nome, p_descricao: descricao }); }}>
+          <div className="flex flex-wrap items-end gap-2">
+            <label className="block min-w-48 flex-1">
+              Nome do grupo
+              <input value={nome} onChange={(e) => setNome(e.target.value)} minLength={2} maxLength={60} className={campo} />
+            </label>
+            <button type="submit" className={botaoClaro} disabled={nome.trim().length < 2 || (nome.trim() === dados.nome && descricao.trim() === dados.descricao)}>Guardar</button>
+          </div>
+          <label className="block max-w-xl">
+            Descrição (opcional)
+            <textarea value={descricao} onChange={(e) => setDescricao(e.target.value)} maxLength={500} rows={2} className={campo} placeholder="Para que serve o grupo, combinados…" />
           </label>
-          <button type="submit" className={botaoClaro} disabled={nome.trim().length < 2 || nome.trim() === dados.nome}>Guardar</button>
+          <p className="flex flex-wrap items-center gap-2 text-sm">
+            <input ref={fotoNova} type="file" accept="image/*" className="hidden" onChange={(e) => { const arquivo = e.target.files?.[0]; e.target.value = ""; if (arquivo) void enviarFoto(arquivo).catch((erro) => setAviso(textoDoErro(erro))); }} />
+            <button type="button" className={botaoClaro} onClick={() => fotoNova.current?.click()}>{dados.foto ? "Trocar a foto do grupo" : "Pôr uma foto no grupo"}</button>
+            <span className="text-xs text-ink-soft">A foto é mandada como mensagem cifrada: só quem está no grupo a vê.</span>
+          </p>
         </form>
+      )}
+      {pode && (
+        <fieldset className="max-w-xl space-y-1 text-sm">
+          <legend className={rotulo}>Permissões</legend>
+          <label className="flex cursor-pointer items-center gap-2"><input type="checkbox" checked={dados.so_admins_mudam} onChange={(e) => void fazer("chat_grupo_mudar", { p_id: dados.id, p_so_admins_mudam: e.target.checked })} /> Só administradores mudam nome, descrição e foto</label>
+          <label className="flex cursor-pointer items-center gap-2"><input type="checkbox" checked={dados.so_admins_enviam} onChange={(e) => void fazer("chat_grupo_mudar", { p_id: dados.id, p_so_admins_enviam: e.target.checked })} /> Só administradores mandam mensagem (os outros reagem e votam)</label>
+        </fieldset>
       )}
       <div>
         <p className={rotulo}>{dados.membros.length} pessoas</p>
@@ -1039,6 +1262,7 @@ function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu }: { dados:
                   <span className="block truncate font-semibold">
                     {membro.nome}{membro.eu && " (você)"}
                     {!membro.eu && verificado(membro.id) && <span title="Identidade verificada pessoalmente" className="ml-1.5 font-normal text-ok">✓</span>}
+                    {!fixo && membro.admin && <span className="ml-1.5 border border-rule px-1 text-[0.65rem] font-normal uppercase tracking-wide text-ink-soft">admin</span>}
                   </span>
                   <span className="block truncate text-xs text-ink-soft">
                     {presenca(membro.online, membro.visto_em)}
@@ -1051,8 +1275,15 @@ function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu }: { dados:
                   </span>
                 </span>
               </span>
-              {pode && membro.id !== me.id && (
-                <button type="button" className={elo} onClick={() => void fazer("chat_grupo_mudar", { p_id: dados.id, p_tirar: [membro.id] })}>Tirar</button>
+              {pode && (
+                <span className="flex shrink-0 gap-3 text-xs">
+                  {membro.admin ? (
+                    <button type="button" className={elo} onClick={() => void fazer("chat_grupo_mudar", { p_id: dados.id, p_tirar_admin: [membro.id] })}>{membro.eu ? "Deixar de administrar" : "Tirar de admin"}</button>
+                  ) : (
+                    <button type="button" className={elo} onClick={() => void fazer("chat_grupo_mudar", { p_id: dados.id, p_admins: [membro.id] })}>Tornar admin</button>
+                  )}
+                  {membro.id !== me.id && <button type="button" className={`${elo} text-oxblood`} onClick={() => void fazer("chat_grupo_mudar", { p_id: dados.id, p_tirar: [membro.id] })}>Tirar</button>}
+                </span>
               )}
             </li>
           ))}
@@ -1088,6 +1319,220 @@ function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu }: { dados:
         </p>
       )}
       <Aviso texto={aviso} />
+    </div>
+  );
+}
+
+/** O texto de um aviso do sistema, em português. */
+function textoDoAviso(mensagem: Mensagem, me: Me): string {
+  const d = mensagem.detalhe;
+  if (!d) return "";
+  const por = mensagem.autor === me.id ? "Você" : d.por || "Alguém";
+  const alvo = d.alvo === me.id ? "você" : d.alvo_nome || "alguém";
+  switch (d.evento) {
+    case "criou": return `${por} criou o grupo`;
+    case "nome": return `${por} mudou o nome do grupo para "${d.texto}"`;
+    case "descricao": return `${por} mudou a descrição do grupo`;
+    case "foto": return `${por} trocou a foto do grupo`;
+    case "entrou": return `${por} pôs ${alvo} no grupo`;
+    case "tirado": return `${por} tirou ${alvo} do grupo`;
+    case "saiu": return `${por} saiu do grupo`;
+    case "admin": return `${por} tornou ${alvo} administrador`;
+    case "admin_tirado": return `${por} tirou ${alvo} de administrador`;
+    case "so_admins_enviam": return `${por} definiu que só administradores mandam mensagem`;
+    case "todos_enviam": return `${por} liberou as mensagens para todo mundo`;
+    case "so_admins_mudam": return `${por} definiu que só administradores mudam o grupo`;
+    case "todos_mudam": return `${por} liberou nome, descrição e foto para todo mundo`;
+    case "autodestruicao": return d.texto === "0" || !d.texto ? `${por} desligou a autodestruição` : `${por} ligou a autodestruição: as mensagens somem em ${nomeDoPrazo(Number(d.texto)).toLowerCase()}`;
+    default: return `${por}: ${d.evento}`;
+  }
+}
+
+/** A foto de um grupo na lista: a mensagem com a imagem, aberta neste aparelho. */
+function FotoDoGrupo({ chaveiro, conversa, foto, nome }: { chaveiro: Chaveiro; conversa: string; foto: NonNullable<Conversa["foto"]>; nome: string }) {
+  const abertos = useAbertos(chaveiro, [{ id: foto.id, conversa, corpo: foto.corpo, contexto: contextoDaConversa(conversa, foto.autor ?? ""), autor: foto.autor }]);
+  const conteudo = abertos[foto.id] ? desempacotar(abertos[foto.id]!.texto) : null;
+  const anexo = conteudo?.anexos?.[0];
+  if (!anexo || anexo.tipo !== "imagem") return <Rosto nome={nome} tipo="grupo" />;
+  return (
+    <span className="h-10 w-10 shrink-0 overflow-hidden [&_img]:h-10 [&_img]:w-10 [&_img]:object-cover [&_button]:block [&_span]:hidden">
+      <AnexoVisto anexo={anexo} conversa={conversa} minha={false} />
+    </span>
+  );
+}
+
+/** Uma enquete: as opções, quantos votaram em cada e quem; a pessoa vota tocando (e troca o voto quando quiser). */
+function EnqueteVista({ enquete, votos, minha, votar }: { enquete: Enquete; votos: Vista["votos"]; minha: boolean; votar: (opcoes: number[]) => void }) {
+  const [quem, setQuem] = useState<number | null>(null);
+  const meu = votos.find((voto) => voto.minha)?.opcoes ?? [];
+  const total = votos.length;
+  return (
+    <div className={`my-1 border px-2 py-1.5 text-sm ${minha ? "border-parchment/40" : "border-rule bg-parchment"}`}>
+      <p className="font-semibold">📊 {enquete.pergunta}</p>
+      <p className="text-[0.7rem] opacity-70">{enquete.varias ? "Pode marcar mais de uma" : "Marque uma"} · {total} {total === 1 ? "voto" : "votos"}</p>
+      <ul className="mt-1 space-y-1">
+        {enquete.opcoes.map((opcao, i) => {
+          const votaram = votos.filter((voto) => voto.opcoes.includes(i));
+          const marcada = meu.includes(i);
+          return (
+            <li key={i}>
+              <button type="button" className="relative block w-full cursor-pointer overflow-hidden border border-current/30 px-2 py-1 text-left" aria-pressed={marcada} onClick={() => votar(enquete.varias ? (marcada ? meu.filter((j) => j !== i) : [...meu, i]) : [i])}>
+                <span className="absolute inset-y-0 left-0 bg-gold/30" style={{ width: `${total ? (votaram.length / total) * 100 : 0}%` }} />
+                <span className="relative flex justify-between gap-2"><span>{marcada ? "◉ " : "○ "}{opcao}</span><span className="font-mono text-xs">{votaram.length}</span></span>
+              </button>
+              {votaram.length > 0 && (
+                <button type="button" className="cursor-pointer text-[0.7rem] underline opacity-70" onClick={() => setQuem(quem === i ? null : i)}>{quem === i ? votaram.map((voto) => (voto.minha ? "você" : voto.nome)).join(", ") : "quem votou"}</button>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
+/** Um evento com data, local e as respostas (vou, talvez, não) de cada pessoa. */
+function EventoVista({ evento, rsvps, minha, responder }: { evento: Evento; rsvps: Vista["rsvps"]; minha: boolean; responder: (resposta: Rsvp) => void }) {
+  const minhaResposta = rsvps.find((rsvp) => rsvp.minha)?.resposta;
+  const quando = new Date(evento.quando);
+  const grupos: [Rsvp, string][] = [["vou", "Vou"], ["talvez", "Talvez"], ["nao", "Não vou"]];
+  return (
+    <div className={`my-1 border px-2 py-1.5 text-sm ${minha ? "border-parchment/40" : "border-rule bg-parchment"}`}>
+      <p className="font-semibold">📅 {evento.titulo}</p>
+      <p className="text-xs">{quando.toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "long" })} às {quando.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}{evento.local ? ` · ${evento.local}` : ""}</p>
+      <p className="mt-1 flex flex-wrap gap-1">
+        {grupos.map(([valor, nome]) => (
+          <button key={valor} type="button" aria-pressed={minhaResposta === valor} className={`cursor-pointer border px-2 py-0.5 text-xs ${minhaResposta === valor ? "border-gold bg-gold/30 text-ink" : "border-current/30"}`} onClick={() => responder(valor)}>
+            {nome} ({rsvps.filter((rsvp) => rsvp.resposta === valor).length})
+          </button>
+        ))}
+      </p>
+      {rsvps.length > 0 && (
+        <ul className="mt-1 text-[0.7rem] opacity-80">
+          {grupos.map(([valor, nome]) => { const lista = rsvps.filter((rsvp) => rsvp.resposta === valor); return lista.length ? <li key={valor}>{nome}: {lista.map((rsvp) => (rsvp.minha ? "você" : rsvp.nome)).join(", ")}</li> : null; })}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function NovaEnquete({ fechar, criar }: { fechar: () => void; criar: (enquete: Enquete) => void }) {
+  const [pergunta, setPergunta] = useState("");
+  const [opcoes, setOpcoes] = useState(["", ""]);
+  const [varias, setVarias] = useState(false);
+  const validas = opcoes.map((opcao) => opcao.trim()).filter(Boolean);
+  return (
+    <form className="space-y-2 border-t border-rule bg-parchment p-3 text-sm" onSubmit={(e) => { e.preventDefault(); if (pergunta.trim() && validas.length >= 2) criar({ pergunta: pergunta.trim(), opcoes: validas, varias: varias || undefined }); }}>
+      <p className="font-semibold">Nova enquete</p>
+      <input value={pergunta} onChange={(e) => setPergunta(e.target.value)} maxLength={300} placeholder="Pergunta" aria-label="Pergunta" className={`${campo} mt-0`} required />
+      {opcoes.map((opcao, i) => (
+        <input key={i} value={opcao} onChange={(e) => setOpcoes(opcoes.map((atual, j) => (j === i ? e.target.value : atual)))} maxLength={100} placeholder={`Opção ${i + 1}`} aria-label={`Opção ${i + 1}`} className={`${campo} mt-0`} />
+      ))}
+      <p className="flex flex-wrap items-center gap-3">
+        {opcoes.length < 12 && <button type="button" className={elo} onClick={() => setOpcoes([...opcoes, ""])}>+ opção</button>}
+        <label className="flex cursor-pointer items-center gap-1"><input type="checkbox" checked={varias} onChange={(e) => setVarias(e.target.checked)} /> pode marcar mais de uma</label>
+        <span className="flex-1" />
+        <button type="submit" className={botao} disabled={!pergunta.trim() || validas.length < 2}>Enviar enquete</button>
+        <button type="button" className={elo} onClick={fechar}>Cancelar</button>
+      </p>
+    </form>
+  );
+}
+
+function NovoEvento({ fechar, criar }: { fechar: () => void; criar: (evento: Evento) => void }) {
+  const [titulo, setTitulo] = useState("");
+  const [quando, setQuando] = useState("");
+  const [local, setLocal] = useState("");
+  const valido = titulo.trim() && quando && !Number.isNaN(Date.parse(quando));
+  return (
+    <form className="space-y-2 border-t border-rule bg-parchment p-3 text-sm" onSubmit={(e) => { e.preventDefault(); if (valido) criar({ titulo: titulo.trim(), quando: new Date(quando).toISOString(), local: local.trim() || undefined }); }}>
+      <p className="font-semibold">Novo evento</p>
+      <input value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={200} placeholder="O que é (reunião, aula, ato…)" aria-label="Título do evento" className={`${campo} mt-0`} required />
+      <div className="flex flex-wrap gap-2">
+        <input type="datetime-local" value={quando} onChange={(e) => setQuando(e.target.value)} aria-label="Data e hora" className={`${campo} mt-0 flex-1`} required />
+        <input value={local} onChange={(e) => setLocal(e.target.value)} maxLength={200} placeholder="Local (opcional)" aria-label="Local" className={`${campo} mt-0 flex-1`} />
+      </div>
+      <p className="flex gap-3">
+        <button type="submit" className={botao} disabled={!valido}>Enviar evento</button>
+        <button type="button" className={elo} onClick={fechar}>Cancelar</button>
+      </p>
+    </form>
+  );
+}
+
+/** Relatar à coordenação: a pessoa escolhe contra quem, diz o motivo e vê exatamente o que será aberto. */
+function Relatar({ membros, escolhidas, fechar, enviar }: { membros: MembroDaConversa[]; escolhidas: { id: string; autor: string; quando: string; texto: string }[]; fechar: () => void; enviar: (contra: string | null, motivo: string, mensagens: typeof escolhidas) => void }) {
+  const [contra, setContra] = useState("");
+  const [motivo, setMotivo] = useState("");
+  return (
+    <form role="dialog" aria-label="Relatar à coordenação" className="space-y-2 border-t-2 border-ink bg-parchment p-3 text-sm" onSubmit={(e) => { e.preventDefault(); if (motivo.trim().length >= 2) enviar(contra || null, motivo.trim(), escolhidas); }}>
+      <p className="font-semibold">Relatar à coordenação</p>
+      <p className="text-xs text-ink-soft">As {escolhidas.length} mensagens escolhidas serão abertas por este aparelho e enviadas, em texto legível, só para quem gere a equipe (coordenação, vice e supervisão). É a única maneira de alguém de fora ler uma conversa: por sua decisão.</p>
+      <label className="block">
+        Sobre quem
+        <select value={contra} onChange={(e) => setContra(e.target.value)} className={campo}>
+          <option value="">Não é sobre uma pessoa específica</option>
+          {membros.map((membro) => <option key={membro.id} value={membro.id}>{membro.nome}</option>)}
+        </select>
+      </label>
+      <label className="block">
+        O que aconteceu
+        <textarea value={motivo} onChange={(e) => setMotivo(e.target.value)} minLength={2} maxLength={500} rows={2} className={campo} required />
+      </label>
+      <ul className="max-h-32 overflow-y-auto border border-rule bg-parchment-deep p-2 text-xs">
+        {escolhidas.map((item) => <li key={item.id} className="truncate"><strong>{item.autor}</strong> ({hora(item.quando)}): {item.texto}</li>)}
+      </ul>
+      <p className="flex gap-3">
+        <button type="submit" className={botao} disabled={motivo.trim().length < 2}>Enviar o relato</button>
+        <button type="button" className={elo} onClick={fechar}>Cancelar</button>
+      </p>
+    </form>
+  );
+}
+
+interface Relato {
+  id: string;
+  conversa_nome: string;
+  autor: string;
+  contra: string;
+  motivo: string;
+  mensagens: { id: string; autor: string; quando: string; texto: string }[];
+  status: "aberto" | "resolvido";
+  nota: string;
+  criado_em: string;
+}
+
+/** Os relatos recebidos, para quem gere a equipe. */
+function Relatos({ fechar }: { fechar: () => void }) {
+  const lista = useLista<Relato[]>("chat_relatos");
+  const [aviso, setAviso] = useState("");
+  async function resolver(id: string) {
+    const nota = window.prompt("O que foi feito? (fica registrado no relato)") ?? "";
+    setAviso("");
+    try { await rpc("chat_relato_resolver", { p_id: id, p_nota: nota }); lista.recarregar(); } catch (erro) { setAviso(textoDoErro(erro)); }
+  }
+  return (
+    <div className="min-h-0 flex-1 overflow-y-auto p-4">
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="font-serif text-2xl font-semibold">Relatos à coordenação</h2>
+        <button type="button" className={elo} onClick={fechar}>Fechar</button>
+      </div>
+      <p className="mt-1 max-w-xl text-ink-soft">Mensagens que alguém da equipe decidiu abrir e mostrar à coordenação. Fora daqui, ninguém lê conversa dos outros, nem a coordenação.</p>
+      <Aviso texto={lista.erro || aviso} />
+      {lista.dados?.length === 0 && <p className="mt-3 text-ink-soft">Nenhum relato.</p>}
+      <ul className="mt-3 space-y-3">
+        {lista.dados?.map((relato) => (
+          <li key={relato.id} className={`border p-3 ${relato.status === "aberto" ? "border-oxblood" : "border-rule opacity-80"}`}>
+            <p className="text-xs text-ink-soft">{dataHora(relato.criado_em)} · {relato.conversa_nome} · relatado por {relato.autor || "alguém"}{relato.contra ? ` · sobre ${relato.contra}` : ""} · {relato.status === "aberto" ? "em aberto" : "resolvido"}</p>
+            <p className="mt-1 font-semibold">{relato.motivo}</p>
+            <ul className="mt-2 space-y-1 border-l-2 border-rule pl-2 text-sm">
+              {relato.mensagens.map((item) => <li key={item.id}><strong>{item.autor}</strong> <span className="text-xs text-ink-soft">{item.quando ? dataHora(item.quando) : ""}</span>: <span className="whitespace-pre-line">{item.texto}</span></li>)}
+            </ul>
+            {relato.nota && <p className="mt-2 text-sm"><strong>Encaminhamento:</strong> {relato.nota}</p>}
+            {relato.status === "aberto" && <button type="button" className={`mt-2 ${botaoClaro}`} onClick={() => void resolver(relato.id)}>Marcar como resolvido</button>}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

@@ -23,6 +23,22 @@ export interface Previa {
   titulo: string;
 }
 
+export interface Enquete {
+  pergunta: string;
+  opcoes: string[];
+  /** Pode marcar mais de uma. */
+  varias?: boolean;
+}
+
+export interface Evento {
+  titulo: string;
+  /** Data e hora, ISO. */
+  quando: string;
+  local?: string;
+}
+
+export type Rsvp = "vou" | "talvez" | "nao";
+
 export interface Conteudo {
   texto: string;
   citando?: Citacao;
@@ -34,6 +50,14 @@ export interface Conteudo {
   emoji?: string;
   /** Arquivos (foto, vídeo, áudio, PDF, DOCX): o texto vira a legenda. A chave de cada arquivo vai aqui dentro. */
   anexos?: Anexo[];
+  /** Enquete e evento: a pergunta e as opções, ou o título e a data, só aparecem para quem tem a chave. */
+  enquete?: Enquete;
+  evento?: Evento;
+  /** Num voto: as opções marcadas. Numa resposta a evento: vou, talvez ou não. */
+  voto?: number[];
+  rsvp?: Rsvp;
+  /** A foto do grupo: a mensagem com a imagem que o grupo usa de retrato. */
+  grupo_foto?: boolean;
 }
 
 const PREFIXO = "j1.";
@@ -72,6 +96,18 @@ export function desempacotar(aberto: string): Conteudo {
       const anexos = dados.anexos.slice(0, LIMITE_POR_MENSAGEM).map(anexoValido).filter((anexo): anexo is Anexo => anexo !== null);
       if (anexos.length) conteudo.anexos = anexos;
     }
+    const enquete = dados.enquete as Record<string, unknown> | undefined;
+    if (enquete && typeof enquete === "object" && typeof enquete.pergunta === "string" && Array.isArray(enquete.opcoes)) {
+      const opcoes = enquete.opcoes.filter((opcao): opcao is string => typeof opcao === "string" && opcao.trim() !== "").slice(0, 12).map((opcao) => opcao.slice(0, 100));
+      if (opcoes.length >= 2) conteudo.enquete = { pergunta: texto(enquete.pergunta, 300), opcoes, ...(enquete.varias === true ? { varias: true } : {}) };
+    }
+    const evento = dados.evento as Record<string, unknown> | undefined;
+    if (evento && typeof evento === "object" && typeof evento.titulo === "string" && typeof evento.quando === "string" && !Number.isNaN(Date.parse(evento.quando))) {
+      conteudo.evento = { titulo: texto(evento.titulo, 200), quando: new Date(evento.quando).toISOString(), ...(typeof evento.local === "string" && evento.local ? { local: texto(evento.local, 200) } : {}) };
+    }
+    if (Array.isArray(dados.voto)) conteudo.voto = [...new Set(dados.voto.filter((i): i is number => Number.isInteger(i) && (i as number) >= 0 && (i as number) < 12))].slice(0, 12);
+    if (dados.rsvp === "vou" || dados.rsvp === "talvez" || dados.rsvp === "nao") conteudo.rsvp = dados.rsvp;
+    if (dados.grupo_foto === true) conteudo.grupo_foto = true;
     return conteudo;
   } catch {
     return { texto: aberto };
