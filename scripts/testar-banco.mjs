@@ -1544,6 +1544,91 @@ await espera("a coordenação apaga e recebe o caminho do arquivo", () => rpc({ 
 await espera("apagado o registro, quem enviou e a coordenação ainda leem o arquivo (para tirá-lo do depósito)", async () => [await rpc(como(ids.prof), "videoaula_pode_ler", { p_nome: video.caminho }), await rpc({ ...como(ids.coord), aal: "aal2" }, "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0] === true && r[1] === true);
 await espera("o arquivo sem registro não fica aberto ao visitante nem a outra conta", async () => [await rpc(anon, "videoaula_pode_ler", { p_nome: video.caminho }), await rpc(como(ids.leitora), "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0] === false && r[1] === false);
 
+// ── Avisos à equipe (o quadro por cima do painel) ──
+const coord2 = { ...como(ids.coord), aal: "aal2" };
+// Uma estudante nova, sem função: a conta da aluna foi apagada mais acima.
+ids.aluna = await criarUsuario("aluna@teste.local", "Ana Aluna");
+await rpc(como(ids.aluna), "eu");
+let avisoGeral;
+let avisoDesign;
+await recusa("quem não lidera não manda aviso à equipe", () => rpc(como(ids.prof), "aviso_geral_enviar", { p: { titulo: "Reunião", texto: "Sábado às 10h." } }), "sem_permissao");
+await recusa("destino desconhecido é recusado", () => rpc(coord2, "aviso_geral_enviar", { p: { titulo: "Reunião", texto: "Sábado às 10h.", para: ["chefia"] } }), "invalido:para");
+await espera("coordenação manda aviso para a equipe toda", () => rpc(coord2, "aviso_geral_enviar", { p: { titulo: "Reunião geral", texto: "Sábado às 10h, na sala da equipe." } }), (r) => Boolean(r.id) && (avisoGeral = r.id));
+await espera("educador vê o aviso pendente", () => rpc(como(ids.prof), "avisos_gerais_pendentes"), (r) => r.some((a) => a.id === avisoGeral));
+await espera("quem não tem função não recebe aviso da equipe", () => rpc(como(ids.aluna), "avisos_gerais_pendentes"), (r) => r.length === 0);
+await espera("fechar o aviso tira-o da lista", async () => { await rpc(como(ids.prof), "aviso_geral_fechar", { p_id: avisoGeral }); return rpc(como(ids.prof), "avisos_gerais_pendentes"); }, (r) => !r.some((a) => a.id === avisoGeral));
+await espera("aviso só para o design", () => rpc(coord2, "aviso_geral_enviar", { p: { titulo: "Capas", texto: "Precisamos de três capas até sexta.", para: ["design"], importante: true } }), (r) => Boolean(r.id) && (avisoDesign = r.id));
+await espera("educador não vê o aviso do design", () => rpc(como(ids.prof), "avisos_gerais_pendentes"), (r) => !r.some((a) => a.id === avisoDesign));
+await espera("designer vê o aviso do design, marcado como importante", () => rpc(como(ids.designer), "avisos_gerais_pendentes"), (r) => r.some((a) => a.id === avisoDesign && a.importante));
+await espera("a lista de quem manda mostra quantos já fecharam", () => rpc(coord2, "avisos_gerais_listar"), (r) => r.some((a) => a.id === avisoGeral && a.vistos === 1));
+await recusa("educador não lista os avisos enviados", () => rpc(como(ids.prof), "avisos_gerais_listar"), "sem_permissao");
+await recusa("designer não apaga aviso", () => rpc(como(ids.designer), "aviso_geral_apagar", { p_id: avisoDesign }), "sem_permissao");
+await espera("a supervisão do podcast também manda aviso", async () => { await rpc(coord2, "podcast_funcoes_definir", { p_usuario: ids.revisor, p_funcoes: ["supervisao"] }); return rpc(como(ids.revisor), "aviso_geral_enviar", { p: { titulo: "Podcast", texto: "Gravação na quinta.", para: ["podcast"] } }); }, (r) => Boolean(r.id));
+await espera("quem faz o podcast recebe o aviso do podcast", () => rpc(como(ids.revisor), "avisos_gerais_pendentes"), (r) => r.some((a) => a.titulo === "Podcast"));
+await espera("a coordenação apaga o aviso", () => rpc(coord2, "aviso_geral_apagar", { p_id: avisoDesign }), (r) => r.ok === true);
+await espera("o painel diz quem pode mandar avisos", async () => [await rpc(coord2, "eu"), await rpc(como(ids.prof), "eu")], (r) => r[0].supervisao === true && r[1].supervisao === false);
+
+// ── Rascunhos que não se perdem ──
+await recusa("chave de rascunho inválida", () => rpc(como(ids.prof), "rascunho_salvar", { p_chave: "Escrever Aula", p_dados: { titulo: "x" } }), "invalido:chave");
+await espera("educador guarda um rascunho", () => rpc(como(ids.prof), "rascunho_salvar", { p_chave: "escrever:aula", p_dados: { titulo: "Frações", corpo: "Começo da aula…" } }), (r) => Boolean(r.atualizado_em));
+await espera("e lê de volta", () => rpc(como(ids.prof), "rascunho_ver", { p_chave: "escrever:aula" }), (r) => r.dados.titulo === "Frações");
+await espera("quem só participa da comunidade também guarda rascunho", () => rpc(como(ids.aluna), "rascunho_salvar", { p_chave: "escrever:sugestao", p_dados: { titulo: "Ideia" } }), (r) => Boolean(r.atualizado_em));
+await espera("o rascunho de um não aparece para outro", () => rpc(como(ids.aluna), "rascunho_ver", { p_chave: "escrever:aula" }), (r) => r === null);
+await espera("a lista traz só o título e a data", () => rpc(como(ids.prof), "rascunhos_listar"), (r) => r.some((x) => x.chave === "escrever:aula" && x.titulo === "Frações" && !("dados" in x)));
+await espera("apagar o rascunho", async () => { await rpc(como(ids.prof), "rascunho_apagar", { p_chave: "escrever:aula" }); return rpc(como(ids.prof), "rascunho_ver", { p_chave: "escrever:aula" }); }, (r) => r === null);
+
+// ── Aulas ao vivo: agenda, inscrição, sala e bate-papo ──
+const emUmaHora = new Date(Date.now() + 3600_000).toISOString();
+const aulaNova = (extra = {}) => ({ titulo: "Frações ao vivo", descricao: "Tira-dúvidas sobre frações.", disciplina: "matematica", trilha: "matematica-fundamental", inicio: emUmaHora, duracao: 60, co_educadores: [ids.mentora], ...extra });
+let aulaViva;
+let fala;
+await recusa("quem não ensina não marca aula ao vivo", () => rpc(como(ids.aluna), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova() }), "sem_permissao");
+await recusa("co-educador precisa ensinar", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova({ co_educadores: [ids.aluna] }) }), "invalido:co_educadores");
+await recusa("data inválida é recusada", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova({ inicio: "amanhã" }) }), "invalido:inicio");
+await espera("educador marca a aula e chama a mentora", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova() }), (r) => r.id && r.status === "agendada" && r.co_educadores.some((c) => c.id === ids.mentora) && (aulaViva = r.id));
+await espera("a mentora recebe o recado do chamado", () => rpc(como(ids.mentora), "avisos_meus"), (r) => r.some((a) => a.texto.includes("Frações ao vivo")));
+await espera("a agenda pública mostra a aula, com quem dá", () => rpc(anon, "aulas_ao_vivo_listar"), (r) => r.some((a) => a.id === aulaViva && a.educador.nome));
+await espera("a mentora conduz a aula junto", () => rpc(como(ids.mentora), "aula_ao_vivo_ver", { p_id: aulaViva }), (r) => r.conduzo === true);
+await espera("a aluna se inscreve", () => rpc(como(ids.aluna), "aula_ao_vivo_inscrever", { p_id: aulaViva }), (r) => r.inscritos === 1);
+await recusa("o bate-papo só abre perto da hora", () => rpc(como(ids.aluna), "aula_chat_enviar", { p_aula: aulaViva, p_corpo: "Oi!" }), "topico_trancado");
+await recusa("quem não conduz não começa a aula", () => rpc(como(ids.aluna), "aula_ao_vivo_estado", { p_id: aulaViva, p_status: "ao_vivo" }), "sem_permissao");
+await espera("o educador começa a aula", () => rpc(como(ids.prof), "aula_ao_vivo_estado", { p_id: aulaViva, p_status: "ao_vivo" }), (r) => r.status === "ao_vivo");
+await espera("quem se inscreveu é avisado", () => rpc(como(ids.aluna), "avisos_meus"), (r) => r.some((a) => a.texto.includes("começou agora")));
+await espera("a aluna pergunta no bate-papo", () => rpc(como(ids.aluna), "aula_chat_enviar", { p_aula: aulaViva, p_corpo: "Não entendi a divisão de frações.", p_tipo: "pergunta" }), (r) => r.id && r.tipo === "pergunta" && (fala = r.id));
+await recusa("palavra vetada não entra no bate-papo", () => rpc(como(ids.aluna), "aula_chat_enviar", { p_aula: aulaViva, p_corpo: "palavrão novo aqui" }), "conteudo_recusado");
+await recusa("sem conta não se fala", () => rpc(anon, "aula_chat_enviar", { p_aula: aulaViva, p_corpo: "Oi" }), "entre_primeiro");
+await espera("qualquer visitante lê o bate-papo, com a fala do sistema", () => rpc(anon, "aula_chat_listar", { p_aula: aulaViva }), (r) => r.some((m) => m.id === fala) && r.some((m) => m.tipo === "sistema"));
+await recusa("quem não conduz nem media não esconde a fala dos outros", () => rpc(como(ids.jornal), "aula_chat_moderar", { p_id: fala, p_ocultar: true }), "sem_permissao");
+await espera("o educador esconde a fala e o visitante deixa de ver", async () => { await rpc(como(ids.prof), "aula_chat_moderar", { p_id: fala, p_ocultar: true }); return rpc(anon, "aula_chat_listar", { p_aula: aulaViva }); }, (r) => !r.some((m) => m.id === fala));
+await espera("quem conduz ainda vê a fala escondida", () => rpc(como(ids.mentora), "aula_chat_listar", { p_aula: aulaViva }), (r) => r.some((m) => m.id === fala && m.oculta));
+await recusa("a aluna não apaga a aula", () => rpc(como(ids.aluna), "aula_ao_vivo_apagar", { p_id: aulaViva }), "sem_permissao");
+await espera("o educador encerra a aula", () => rpc(como(ids.prof), "aula_ao_vivo_estado", { p_id: aulaViva, p_status: "encerrada" }), (r) => r.status === "encerrada");
+await recusa("encerrada, o bate-papo fecha", () => rpc(como(ids.aluna), "aula_chat_enviar", { p_aula: aulaViva, p_corpo: "Ainda dá?" }), "topico_trancado");
+await recusa("aula encerrada não se edita", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: aulaViva, p: aulaNova() }), "ja_decidida");
+await espera("sem gravação, a aula encerrada sai da agenda pública", () => rpc(anon, "aulas_ao_vivo_listar"), (r) => !r.some((a) => a.id === aulaViva));
+await espera("o educador vê a aula entre as dele", () => rpc(como(ids.prof), "aulas_ao_vivo_minhas"), (r) => r.some((a) => a.id === aulaViva));
+await espera("a coordenação apaga a aula", () => rpc(coord2, "aula_ao_vivo_apagar", { p_id: aulaViva }), (r) => r.ok === true);
+
+// ── Estúdio de design ──
+const design = { titulo: "Post de lançamento", formato: "post", largura: 1080, altura: 1350, dados: { camadas: [{ tipo: "texto", texto: "Estamos no ar" }] } };
+let desenho;
+await recusa("quem não é do design nem do marketing não usa o estúdio", () => rpc(como(ids.prof), "design_salvar", { p_id: null, p: design }), "sem_permissao");
+await espera("a designer guarda um trabalho", () => rpc(como(ids.designer), "design_salvar", { p_id: null, p: design }), (r) => r.id && r.meu === true && (desenho = r.id));
+await recusa("prévia que não é imagem é recusada", () => rpc(como(ids.designer), "design_salvar", { p_id: desenho, p: { ...design, miniatura: "javascript:alert(1)" } }), "invalido:miniatura");
+await espera("o marketing vê o trabalho compartilhado, sem o desenho", () => rpc(como(ids.divulga), "designs_listar"), (r) => r.some((d) => d.id === desenho && d.dados === null));
+await espera("e abre o desenho inteiro", () => rpc(como(ids.divulga), "design_ver", { p_id: desenho }), (r) => r.dados.camadas.length === 1);
+await espera("o marketing edita o trabalho compartilhado", () => rpc(como(ids.divulga), "design_salvar", { p_id: desenho, p: { ...design, titulo: "Post de lançamento (v2)" } }), (r) => r.titulo === "Post de lançamento (v2)");
+await recusa("quem não fez não apaga", () => rpc(como(ids.divulga), "design_apagar", { p_id: desenho }), "sem_permissao");
+await recusa("educador não lista os trabalhos", () => rpc(como(ids.prof), "designs_listar"), "sem_permissao");
+await espera("a designer apaga o trabalho", () => rpc(como(ids.designer), "design_apagar", { p_id: desenho }), (r) => r.ok === true);
+
+// ── Prática lúdica de idioma (vai pela fila, como toda contribuição) ──
+const pratica = { tipo: "pratica", titulo: "Prática: alfabeto e sons", corpo: "Exercícios da aula de alfabeto.", disciplina: "ingles", alvo: "ingles-do-zero/alfabeto-e-sons", dados: { exercicios: [{ tipo: "escolha", pergunta: "Como se diz A?", opcoes: ["ei", "a"], resposta: 0 }] } };
+await recusa("prática de idioma sem conta é recusada", () => rpc(anon, "contribuir", { p: pratica }), "entre_primeiro");
+await recusa("exercício de tipo desconhecido é recusado", () => rpc(como(ids.prof), "contribuir", { p: { ...pratica, dados: { exercicios: [{ tipo: "palavras-cruzadas" }] } } }), "invalido:exercicios");
+await recusa("prática precisa apontar a aula", () => rpc(como(ids.prof), "contribuir", { p: { ...pratica, alvo: "/trilhas/x" } }), "invalido:alvo");
+await espera("educador envia a prática da aula", () => rpc(como(ids.prof), "contribuir", { p: pratica }), (r) => Boolean(r.id));
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);

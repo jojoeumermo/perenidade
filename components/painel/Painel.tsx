@@ -11,9 +11,14 @@ import { senhaVazada } from "@/lib/senha";
 import { getItem, KEYS, setItem } from "@/lib/storage";
 import { L, useI18n } from "../I18n";
 import { Star } from "../Masthead";
+import { SenhaCampo, senhaForte } from "../SenhaCampo";
 import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import { AulasAoVivo } from "./AoVivo";
+import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
 import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
 import { Boletim } from "./Boletim";
+import { CadernoNoPainel } from "./Caderno";
+import { Estudio } from "./design/Estudio";
 import { PorOndeComecar } from "./Comecar";
 import { Conversas } from "./Conversas";
 import { Equipe, type Membro } from "./Equipe";
@@ -88,6 +93,10 @@ const icones: Record<string, string> = {
   seguranca: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
   registro: "M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5",
   conta: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-8 8-8s8 3.6 8 8",
+  aovivo: "M3 7h13v10H3zM16 10l5-3v10l-5-3M6 4h7",
+  estudio: "M4 20l4-1 11-11-3-3L5 16zM13 8l3 3M4 20v-4",
+  caderno: "M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11M9 8h6M9 11h4",
+  avisos: "M4 11h3l7-5v12l-7-5H4zM17 9a4 4 0 0 1 0 6M19.5 6.5a8 8 0 0 1 0 11",
 };
 
 function Icone({ id, className = "h-[18px] w-[18px]" }: { id: string; className?: string }) {
@@ -341,6 +350,9 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "rede", nome: "Mural da equipe", sobre: "Publicações e pedidos de ajuda para todos ou por função, cifrados neste aparelho.", grupo: "", mostra: voluntario },
       { id: "escrever", nome: "Escrever", sobre: "Aulas, matérias, verbetes e tudo o que vai para o site.", grupo: "Produção", mostra: true },
       { id: "videoaulas", nome: "Aulas em vídeo", sobre: "Gravar ou enviar aulas curtas em vídeo, de até 10 minutos, e revisar as da sua disciplina.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "educacao"), conta: videos.dados ?? undefined },
+      { id: "aovivo", nome: "Aulas ao vivo", sobre: "Marcar aulas na agenda pública, chamar colegas para dar junto e abrir a sala, com vídeo e bate-papo.", grupo: "Produção", mostra: can(eu, "coordenacao", "educacao", "mentoria") },
+      { id: "estudio", nome: "Estúdio de design", sobre: "Posts, stories, cartazes e capas com a identidade do instituto, montados aqui mesmo.", grupo: "Produção", mostra: eu.desenha === true || can(eu, "coordenacao", "design", "jornalismo") },
+      { id: "caderno", nome: "Caderno de estudos", sobre: "Fontes, resumo, cartões, questionário, mapa e leitura em voz alta: a sala de estudo para preparar aulas e episódios.", grupo: "Produção", mostra: true },
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: true },
       { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "revisao", "educacao"), conta: r?.fila },
@@ -353,6 +365,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: lidera, conta: r?.candidaturas },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar + (r.pedidos ?? 0) : undefined },
+      { id: "avisos", nome: "Avisos à equipe", sobre: "Um quadro que aparece por cima do painel de toda a equipe, ou só de algumas funções, até cada pessoa fechar.", grupo: "Pessoas", mostra: eu.supervisao === true || lidera },
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
       { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
       { id: "podcast", nome: "Podcast", sobre: "Episódios da pauta à publicação: roteiro, gravação, versões, revisão, capas, cortes e agenda.", grupo: "Produção", mostra: can(eu, "coordenacao", "jornalismo", "design", "mediacao", "curadoria"), conta: podcast.dados ?? undefined },
@@ -396,6 +409,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   return (
     <div className="painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid lg:grid-cols-[17.5rem_minmax(0,1fr)]">
       {irPara && <IrPara secoes={secoes} fechar={() => setIrPara(false)} ir={ir} />}
+      {/* Aviso da coordenação, da vice ou da supervisão: aparece por cima de tudo até a pessoa apertar "Entendi". */}
+      {(voluntario || eu.supervisao) && <QuadroDeAvisos />}
       {/* Barra do alto no celular: a faixa bordô do site, o nome e o menu. */}
       <div className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b-[3px] border-[#d4a24c] bg-[#6e1f1a] px-4 pt-[calc(0.625rem+env(safe-area-inset-top,0px))] pb-2.5 text-[#f4ecd8] lg:hidden">
         <span className="flex min-w-0 items-center gap-2.5">
@@ -498,6 +513,10 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "rede" && <Equipe usuario={eu.id} lider={leads(eu)} />}
           {atual.id === "escrever" && <Escrever me={eu} />}
           {atual.id === "videoaulas" && <Videoaulas me={eu} />}
+          {atual.id === "aovivo" && <AulasAoVivo me={eu} />}
+          {atual.id === "estudio" && <Estudio me={eu} />}
+          {atual.id === "caderno" && <CadernoNoPainel />}
+          {atual.id === "avisos" && <AvisosEquipe />}
           {atual.id === "minhas" && <Fila key="minhas" me={eu} minhas />}
           {atual.id === "juntas" && <Fila key="juntas" me={eu} juntas />}
           {atual.id === "fila" && <Fila key="fila" me={eu} />}
@@ -780,17 +799,18 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
 
       <section className={cartao}>
         <h2 className="font-serif text-xl font-semibold">Senha</h2>
-        <p className="mt-1 text-ink-soft">Pelo menos 12 caracteres. Uma frase de quatro ou cinco palavras funciona bem.</p>
+        <p className="mt-1 text-ink-soft">Pelo menos 12 caracteres, com maiúscula, minúscula, número e um caractere especial. Uma frase com um número e um sinal funciona bem.</p>
         <form onSubmit={(e) => { e.preventDefault(); void trocarSenha(); }}>
           <label className="mt-3 block">
             Senha nova
-            <input type="password" autoComplete="new-password" minLength={12} maxLength={200} value={senha} onChange={(e) => setSenha(e.target.value)} className={campo} />
+            <SenhaCampo value={senha} onChange={setSenha} regras className={campo} />
           </label>
           <label className="mt-3 block">
             Repita a senha
-            <input type="password" autoComplete="new-password" maxLength={200} value={repete} onChange={(e) => setRepete(e.target.value)} className={campo} />
+            <SenhaCampo value={repete} onChange={setRepete} className={campo} />
           </label>
-          <button type="submit" className={`mt-3 ${botao}`} disabled={senha.length < 12 || senha !== repete}>Trocar a senha</button>
+          {repete !== "" && repete !== senha && <p role="alert" className="mt-2 text-oxblood">As duas senhas não são iguais.</p>}
+          <button type="submit" className={`mt-3 ${botao}`} disabled={!senhaForte(senha) || senha !== repete}>Trocar a senha</button>
         </form>
         <Aviso texto={avisoSenha} />
       </section>

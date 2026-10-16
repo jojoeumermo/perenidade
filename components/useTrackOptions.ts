@@ -7,10 +7,16 @@ export interface TrackOption {
   slug: string;
   title: string;
   area: string;
+  stage?: "fundamental" | "medio" | "superior";
+  summary?: string;
   /** Aulas do roteiro que ainda não foram escritas. */
   planned: { slug: string; title: string }[];
   /** Aulas do roteiro já escritas. */
   ready: number;
+  /** O roteiro inteiro, na ordem de estudo. */
+  plan?: { slug: string; title: string; ready: boolean }[];
+  /** As aulas já escritas, com o resumo de cada uma. */
+  lessons?: { slug: string; title: string; summary: string; quiz: number }[];
 }
 
 const cache = new Map<string, Promise<TrackOption[]>>();

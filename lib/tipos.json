@@ -143,6 +143,15 @@
       { "nome": "resumo", "rotulo": "Resumo (uma linha)", "tipo": "texto", "obrigatorio": true, "max": 200 }
     ]
   },
+  "pratica": {
+    "rotulo": "Prática de idioma (exercícios lúdicos)",
+    "ajuda": "Os exercícios que aparecem como jogo no fim de uma aula de idioma: escolha múltipla, traduzir, ligar pares, completar lacuna, ordenar palavras, ouvir e escrever, falar e cartões de memória. Aprovada, a prática entra na própria aula.",
+    "titulo": "Aula",
+    "disciplina": "nao",
+    "fonte": false,
+    "corpo": { "rotulo": "Descrição", "min": 0, "editor": false },
+    "campos": []
+  },
   "temas": {
     "rotulo": "Próximas aulas de uma trilha",
     "ajuda": "Proponha aulas que ainda não existem numa trilha, um tema por linha. Aprovados, os temas entram no roteiro como “em preparação” e aumentam a meta da trilha: você ou qualquer educador escreve depois. Vale também para trilhas já completas.",
