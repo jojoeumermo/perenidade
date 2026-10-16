@@ -80,8 +80,9 @@ const lista = (valor: unknown, onde: string, file: string, min: number, max: num
 export function validarPratica(raw: unknown, file: string): Exercicio[] {
   if (raw === undefined || raw === null) return [];
   if (!Array.isArray(raw)) erro(file, "deve ser uma lista");
-  if (raw.length > 60) erro(file, "no máximo 60 exercícios");
-  return (raw as Record<string, unknown>[]).map((item, i) => {
+  const itens = raw as Record<string, unknown>[];
+  if (itens.length > 60) erro(file, "no máximo 60 exercícios");
+  return itens.map((item, i) => {
     const onde = `[${i}]`;
     const tipo = item?.tipo as TipoDeExercicio;
     if (!TIPOS.includes(tipo)) erro(file, `${onde}: tipo desconhecido (${String(item?.tipo)})`);
