@@ -109,6 +109,7 @@ const icones: Record<string, string> = {
   site: "M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M14 4v4M8 10v4M16 16v4",
   abertura: "M3 4h18v16H3zM3 9h18M7 13h10M7 16h6",
   radio: "M3 9h18v11H3zM7 9l10-5M8.5 12a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M14 13h4M14 16h4",
+  podcast: "M9 3h6v11H9zM5 11a7 7 0 0 0 14 0M12 18v3M8 21h8",
   apoiadores: "M20.8 8.6a5 5 0 0 0-8.8-3.2A5 5 0 0 0 3.2 8.6c0 5.4 8.8 10.9 8.8 10.9s8.8-5.5 8.8-10.9z",
   seguranca: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
   registro: "M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5",
