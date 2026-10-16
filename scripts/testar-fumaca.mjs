@@ -141,7 +141,7 @@ const secoes = [
   ["banimentos_listar", ["coord", "vice", "curadora", "mediador"]],
   ["denuncias_listar", ["coord", "vice", "curadora"]],
   ["filtro_listar", ["coord", "vice", "curadora"]],
-  ["reforco_fila", ["coord", "vice", "curadora", "prof", "mentora"]],
+  ["reforco_fila", ["coord", "vice", "prof", "mentora"]],
   ["mural_fila", ["coord", "vice", "mediador"]],
   ["boletim_listar", ["coord", "vice", "jornal"]],
   ["voluntarios_listar", ["coord", "vice"]],
