@@ -26,9 +26,6 @@ export function Publicar({ painel, abrir, recarregarPainel }: { painel: PainelDo
   const [escolhido, setEscolhido] = useState<string>(painel.episodios.find((e) => e.status !== "publicado")?.id ?? "");
   const [titulo, setTitulo] = useState("");
   const [aviso, setAviso] = useState("");
-  const [andamento, setAndamento] = useState<{ fase: string; fracao: number } | null>(null);
-  const ver = useLista<EpisodioCompleto>("podcast_ver", escolhido ? { p_id: escolhido } : {});
-  const e = escolhido ? ver.dados : null;
   const { eu } = painel;
   const podeProduzir = eu.producao || eu.supervisao || eu.coordenacao;
 
@@ -43,6 +40,46 @@ export function Publicar({ painel, abrir, recarregarPainel }: { painel: PainelDo
       setAviso(textoDoErro(erro));
     }
   }
+
+  return (
+    <div className="max-w-4xl space-y-6">
+      <p className="text-ink-soft">
+        Do título ao site, em seis passos. Escolha um episódio (ou crie um) e veja o que já está feito e o que falta. Cada passo tem um botão que abre a aba certa do episódio.
+      </p>
+      <div className="grid gap-3 sm:grid-cols-2">
+        <label className="block">
+          Episódio
+          <select value={escolhido} onChange={(ev) => setEscolhido(ev.target.value)} className={campo}>
+            <option value="">Escolha…</option>
+            {painel.episodios.map((x) => (
+              <option key={x.id} value={x.id}>{x.titulo} · {NOME_DA_ETAPA[x.status]}</option>
+            ))}
+          </select>
+        </label>
+        {podeProduzir && (
+          <form className="flex items-end gap-2" onSubmit={(ev) => { ev.preventDefault(); void criar(); }}>
+            <label className="block flex-1">
+              Ou crie um novo
+              <input value={titulo} onChange={(ev) => setTitulo(ev.target.value)} placeholder="Título provisório" minLength={3} maxLength={140} className={campo} />
+            </label>
+            <button type="submit" className={botaoClaro} disabled={titulo.trim().length < 3}>Criar</button>
+          </form>
+        )}
+      </div>
+      <Aviso texto={aviso} />
+      {escolhido ? <Passos key={escolhido} id={escolhido} painel={painel} abrir={abrir} recarregarPainel={recarregarPainel} /> : painel.episodios.length === 0 && <p className="text-ink-soft">Nenhum episódio ainda. Crie o primeiro acima.</p>}
+    </div>
+  );
+}
+
+/** Os seis passos de um episódio escolhido, com o que já está feito e os botões de cada etapa. */
+function Passos({ id, painel, abrir, recarregarPainel }: { id: string; painel: PainelDoPodcast; abrir: (id: string, passo?: string) => void; recarregarPainel: () => void }) {
+  const [aviso, setAviso] = useState("");
+  const [andamento, setAndamento] = useState<{ fase: string; fracao: number } | null>(null);
+  const ver = useLista<EpisodioCompleto>("podcast_ver", { p_id: id });
+  const e = ver.dados;
+  const { eu } = painel;
+  const podeProduzir = eu.producao || eu.supervisao || eu.coordenacao;
 
   async function agir(funcao: string, argumentos: Record<string, unknown>, sucesso: string) {
     setAviso("");
@@ -94,33 +131,10 @@ export function Publicar({ painel, abrir, recarregarPainel }: { painel: PainelDo
   };
   const etapaDoPasso = (passo: (typeof PASSOS)[number]) => (e && passo.id === "aprovacao" && e.status === "revisao" ? "Enviado: esperando a supervisão" : "");
 
+  if (!e) return <Aviso texto={ver.erro || "Carregando…"} />;
   return (
-    <div className="max-w-4xl space-y-6">
-      <p className="text-ink-soft">
-        Do título ao site, em seis passos. Escolha um episódio (ou crie um) e veja o que já está feito e o que falta. Cada passo tem um botão que abre a aba certa do episódio.
-      </p>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <label className="block">
-          Episódio
-          <select value={escolhido} onChange={(ev) => setEscolhido(ev.target.value)} className={campo}>
-            <option value="">Escolha…</option>
-            {painel.episodios.map((x) => (
-              <option key={x.id} value={x.id}>{x.titulo} · {NOME_DA_ETAPA[x.status]}</option>
-            ))}
-          </select>
-        </label>
-        {podeProduzir && (
-          <form className="flex items-end gap-2" onSubmit={(ev) => { ev.preventDefault(); void criar(); }}>
-            <label className="block flex-1">
-              Ou crie um novo
-              <input value={titulo} onChange={(ev) => setTitulo(ev.target.value)} placeholder="Título provisório" minLength={3} maxLength={140} className={campo} />
-            </label>
-            <button type="submit" className={botaoClaro} disabled={titulo.trim().length < 3}>Criar</button>
-          </form>
-        )}
-      </div>
-      <Aviso texto={aviso || ver.erro} />
-
+    <div className="space-y-6">
+      <Aviso texto={aviso} />
       {e && (
         <>
           <p className={rotulo}>
@@ -181,7 +195,6 @@ export function Publicar({ painel, abrir, recarregarPainel }: { painel: PainelDo
           </details>
         </>
       )}
-      {!e && !escolhido && painel.episodios.length === 0 && <p className="text-ink-soft">Nenhum episódio ainda. Crie o primeiro acima.</p>}
     </div>
   );
 }

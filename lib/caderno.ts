@@ -73,10 +73,12 @@ export function frases(texto: string): string[] {
     .filter((f) => f.length >= 25 && f.length <= 400);
 }
 
-const PARADAS = new Set(
-  "a o e é de da do das dos em um uma uns umas para por com sem que se não mais como ou os as no na nos nas ao à às aos pelo pela pelos pelas ele ela eles elas eu tu nós vós você vocês seu sua seus suas este esta isto esse essa isso aquele aquela aquilo também já só mas porque quando onde quem qual quais muito muita muitos muitas pouco pouca todo toda todos todas outro outra outros outras mesmo mesma ser estar ter há foi era são está estão tem têm pode podem entre sobre até depois antes então assim ainda aqui ali lá the of and to in is are was were be a an that this it for on with as by at from or not".split(" "),
-);
 const normal = (p: string) => p.toLowerCase().normalize("NFD").replace(/\p{M}/gu, "");
+const PARADAS = new Set(
+  "a o e é de da do das dos em um uma uns umas para por com sem que se não mais como ou os as no na nos nas ao à às aos pelo pela pelos pelas ele ela eles elas eu tu nós vós você vocês seu sua seus suas este esta isto esse essa isso aquele aquela aquilo também já só mas porque quando onde quem qual quais muito muita muitos muitas pouco pouca todo toda todos todas outro outra outros outras mesmo mesma ser estar ter há foi era são está estão tem têm pode podem entre sobre até depois antes então assim ainda aqui ali lá the of and to in is are was were be a an that this it for on with as by at from or not"
+    .split(" ")
+    .map(normal),
+);
 const palavras = (texto: string) => normal(texto).match(/[\p{L}\p{N}][\p{L}\p{N}-]{2,}/gu) ?? [];
 
 /** As palavras que mais pesam no texto (frequência), fora as palavras de ligação. */
