@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import pt from "@/i18n/pt.json";
 import type { Me } from "@/lib/backend";
 import { type Exercicio, linguaDe, TIPOS, type TipoDeExercicio, validarPratica } from "@/lib/pratica";
 import { horaDoRascunho, useRascunho } from "@/lib/rascunho";
@@ -298,7 +299,7 @@ export function EditorDePratica({ me }: { me: Me }) {
         Você assina como <strong>{me.nome}</strong>. {rascunho.salvoEm ? `Rascunho guardado às ${horaDoRascunho(rascunho.salvoEm)}.` : "O rascunho é guardado sozinho enquanto você monta."}
       </p>
       <Aviso texto={acao.aviso} />
-      {testando && !problema && <Pratica id={`teste:${trilha?.slug}/${escolhida?.slug}`} exercicios={prontos} lingua={lingua} s={t.practice} previa />}
+      {testando && !problema && <Pratica id={`teste:${trilha?.slug}/${escolhida?.slug}`} exercicios={prontos} lingua={lingua} s={pt.practice} previa />}
     </div>
   );
 }

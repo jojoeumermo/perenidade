@@ -6797,7 +6797,8 @@ create or replace function public.design_salvar(p_id uuid, p jsonb) returns json
 declare v uuid := interno.eu(); d designs; v_nome text; v_mini text := coalesce(p ->> 'miniatura', '');
 begin
   if not interno.desenha() then perform interno.erro('sem_permissao'); end if;
-  if p -> 'dados' is null or jsonb_typeof(p -> 'dados') <> 'object' or pg_column_size(p -> 'dados') > 409600 then perform interno.erro('invalido:dados'); end if;
+  -- Até 3 MB: as imagens do aparelho entram no desenho já reduzidas, em data:.
+  if p -> 'dados' is null or jsonb_typeof(p -> 'dados') <> 'object' or pg_column_size(p -> 'dados') > 3145728 then perform interno.erro('invalido:dados'); end if;
   if v_mini <> '' and (v_mini !~ '^data:image/(jpeg|webp|png);base64,[A-Za-z0-9+/=]+$' or char_length(v_mini) > 60000) then perform interno.erro('invalido:miniatura'); end if;
   select nome into v_nome from perfis where id = v;
   if p_id is null then
