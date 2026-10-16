@@ -2415,6 +2415,10 @@
     "wallEmpty": "O mural ainda está vazio."
   },
   "auth": {
+    "unconfirmed": "Seu e-mail ainda não foi confirmado. Abra o e-mail que mandamos e toque em «Confirmar e-mail». Não achou ou o link venceu? Peça outro aqui.",
+    "resend": "Reenviar e-mail de confirmação",
+    "resent": "Pronto: mandamos um e-mail novo. Abra e toque no botão em até 24 horas (confira também o spam). Depois, entre aqui.",
+    "expired": "O link de confirmação venceu ou já foi usado. Digite o seu e-mail e a senha, toque em Entrar e peça um e-mail novo.",
     "or": "ou",
     "fingerprint": "Entrar com a digital",
     "fingerprintHint": "Funciona depois que você cadastra a digital deste aparelho no painel, em Minha conta. A digital nunca sai do celular.",
