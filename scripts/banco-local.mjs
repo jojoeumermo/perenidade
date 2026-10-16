@@ -7,20 +7,25 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { PGlite } from "@electric-sql/pglite";
+import { pgcrypto } from "@electric-sql/pglite/contrib/pgcrypto";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 export async function criarBanco() {
-  const pg = new PGlite();
-  // O mínimo que o serviço real já traz pronto: papéis e o esquema de autenticação.
+  // O pgcrypto vem ligado no serviço real (no esquema "extensions"); é com ele que a coordenação grava uma senha redefinida.
+  const pg = new PGlite({ extensions: { pgcrypto } });
+  // O mínimo que o serviço real já traz pronto: papéis, a extensão de criptografia e o esquema de autenticação.
   await pg.exec(`
     create role anon nologin;
     create role authenticated nologin;
     create role service_role nologin bypassrls;
+    create schema extensions;
+    create extension pgcrypto with schema extensions;
     create schema auth;
     create table auth.users (
       id uuid primary key default gen_random_uuid(),
       email text unique,
+      encrypted_password text,
       raw_user_meta_data jsonb default '{}'::jsonb,
       created_at timestamptz not null default now()
     );

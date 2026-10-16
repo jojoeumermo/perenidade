@@ -16,11 +16,12 @@ Este es un proyecto de izquierda, y no lo oculta. Estamos del lado de quien trab
 
 Por eso nuestra Historia se cuenta desde el punto de vista de quienes la hicieron con sus propias manos. Por eso hay aquí un [Memorial](/memorial) para quienes cayeron en la lucha, una sección de [Autores](/autores) que reúne el pensamiento revolucionario, un [Glosario](/glossario) de conceptos y una [Línea de tiempo de las luchas](/linha-do-tempo).
 
-Pero el instituto no es solo de teoría política. Quien quiere aprender inglés, matemáticas, música, informática o programación encuentra aquí el mismo cuidado. La educación es una herramienta de emancipación en cualquier área.
+Pero el instituto no es solo de teoría política. Quien quiere aprender inglés, matemáticas, música, informática, programación o un oficio para ganarse la vida encuentra aquí el mismo cuidado. La educación es una herramienta de emancipación en cualquier área.
 
 ## Cómo funciona
 
 - **Las asignaturas** se dividen en rutas, de la educación primaria a la superior. Cada lección es corta, termina con una prueba y muestra las fuentes en que se apoya.
+- **Las clases en video** son cortas, de hasta 10 minutos, grabadas por los propios educadores y revisadas como las escritas, con transcripción y velocidad ajustable.
 - **El acervo** es un índice: título, autor, sinopsis y un enlace a la fuente legítima de la obra. Aquí no se aloja ningún archivo de terceros.
 - **Las herramientas de práctica** (afinador, editor de código, tabla periódica y otras) funcionan en tu propio dispositivo.
 - **La curaduría** lo lee todo antes de publicarlo. Cualquier persona puede [contribuir](/contribuir), con o sin cuenta, y toda lección debe citar al menos una fuente.
@@ -36,7 +37,7 @@ Pero el instituto no es solo de teoría política. Quien quiere aprender inglés
 
 ## Quién lo mantiene
 
-El instituto lo mantienen personas voluntarias: educadores, revisores, traductores, curadores y periodistas. Mira cómo participar en [Voluntariado](/voluntarios). Los costos de mantener el sitio en línea los paga quien puede y quiere ayudar: mira [Apoya](/apoie). Donar es opcional, y el acceso es igual para todos.
+El instituto lo mantienen personas voluntarias: educadores y educadores secundarios, curaduría, revisión, traducción, mediación, mentoría, periodismo, diseño, marketing y desarrollo, junto con la coordinación y la vicecoordinación. Mira cómo participar en [Voluntariado](/voluntarios). Los costos de mantener el sitio en línea los paga quien puede y quiere ayudar: mira [Apoya](/apoie). Donar es opcional, y el acceso es igual para todos.
 
 ## Licencias
 
@@ -48,7 +49,7 @@ Las obras del acervo pertenecen a sus autores y siguen la licencia indicada en c
 
 Para estudiar no hay registro. Las lecciones que completas, el tema elegido, tus fichas de lectura y los borradores se guardan solo en tu navegador. En [Mis datos](/meus-dados) puedes descargarlo o borrarlo todo.
 
-La cuenta es opcional y solo sirve para quien quiere participar en las conversaciones o trabajar como voluntario. En ese caso guardamos tu correo y el nombre que elijas mostrar, y nada más. Puedes borrar la cuenta cuando quieras, desde el propio panel. El sitio no usa cookies de rastreo ni anuncios.
+La cuenta es opcional y solo sirve para quien quiere participar en las conversaciones o trabajar como voluntario. En ese caso guardamos tu correo y el nombre que elijas mostrar; quien es del equipo tiene algunos datos más, todos listados en la [política de privacidad](/privacidade). Puedes borrar la cuenta cuando quieras, desde el propio panel. El sitio no usa cookies de rastreo ni anuncios.
 
 ## Derechos de autor
 

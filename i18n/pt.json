@@ -36,7 +36,6 @@
     "loading": "Carregando…"
   },
   "nav": {
-    "podcasts": "Podcasts",
     "main": "Principal",
     "disciplines": "Disciplinas",
     "library": "Acervo",
@@ -49,6 +48,9 @@
     "search": "Buscar",
     "support": "Apoie",
     "panel": "Painel",
+    "hello": "Olá, {name}",
+    "helloLabel": "Olá, {name}: abrir o painel",
+    "openPanel": "Abrir o painel",
     "signIn": "Entrar",
     "tools": "Ferramentas de prática",
     "glossary": "Glossário",
@@ -57,15 +59,18 @@
     "volunteers": "Voluntários",
     "factCheck": "Checagem de fatos",
     "debates": "Cartões de debate",
+    "fallacies": "Guia das falácias",
     "about": "Sobre e licenças",
     "timeline": "Linha do tempo das lutas",
     "myData": "Meus dados",
     "reportContent": "Denunciar conteúdo",
     "videos": "Vídeos",
+    "videoLessons": "Aulas em vídeo",
     "sources": "Guia de fontes",
     "radio": "Rádio",
     "history": "Histórico do acervo",
     "mural": "Mural dos Trabalhadores",
+    "drawer": "Gaveta Aberta",
     "home": "Início",
     "tutoring": "Aula de reforço",
     "materials": "Materiais para imprimir",
@@ -74,7 +79,10 @@
     "start": "Por onde começar",
     "news": "Notícias",
     "gallery": "Galeria de cartazes",
-    "data": "Dados do povo"
+    "data": "Dados do povo",
+    "podcasts": "Podcasts",
+    "live": "Aulas ao vivo",
+    "notebook": "Caderno de estudos"
   },
   "footer": {
     "tagline": "Conhecimento livre, para todos, para sempre.",
@@ -580,7 +588,8 @@
       "materia": "Jornal",
       "checagem": "Checagem",
       "debate": "Debate",
-      "pergunta": "Pergunta"
+      "pergunta": "Pergunta",
+      "falacia": "Falácia"
     }
   },
   "authors": {
@@ -756,20 +765,300 @@
     "unavailable": "O histórico não está disponível nesta cópia do site.",
     "more": "e mais {n}",
     "kinds": {
-      "lessons": "Aulas",
-      "tracks": "Roteiros das trilhas",
-      "translations": "Traduções",
-      "books": "Obras do acervo",
-      "catalog": "Catálogo ampliado",
-      "journal": "Jornal",
-      "glossary": "Glossário",
-      "memorial": "Memorial",
-      "authors": "Autores",
-      "checks": "Checagem de fatos",
-      "debates": "Cartões de debate",
-      "videos": "Vídeos",
-      "pages": "Páginas do site",
-      "other": "Outros conteúdos"
+      "lessonsIn": {
+        "added": {
+          "one": "aula nova em {area}",
+          "other": "aulas novas em {area}"
+        },
+        "updated": {
+          "one": "aula atualizada em {area}",
+          "other": "aulas atualizadas em {area}"
+        },
+        "removed": {
+          "one": "aula retirada de {area}",
+          "other": "aulas retiradas de {area}"
+        }
+      },
+      "lessons": {
+        "added": {
+          "one": "aula nova",
+          "other": "aulas novas"
+        },
+        "updated": {
+          "one": "aula atualizada",
+          "other": "aulas atualizadas"
+        },
+        "removed": {
+          "one": "aula retirada",
+          "other": "aulas retiradas"
+        }
+      },
+      "tracks": {
+        "added": {
+          "one": "trilha nova",
+          "other": "trilhas novas"
+        },
+        "updated": {
+          "one": "trilha atualizada",
+          "other": "trilhas atualizadas"
+        },
+        "removed": {
+          "one": "trilha retirada",
+          "other": "trilhas retiradas"
+        }
+      },
+      "translations": {
+        "added": {
+          "one": "tradução nova",
+          "other": "traduções novas"
+        },
+        "updated": {
+          "one": "tradução atualizada",
+          "other": "traduções atualizadas"
+        },
+        "removed": {
+          "one": "tradução retirada",
+          "other": "traduções retiradas"
+        }
+      },
+      "library": {
+        "added": {
+          "one": "obra nova no acervo",
+          "other": "obras novas no acervo"
+        },
+        "updated": {
+          "one": "ficha atualizada no acervo",
+          "other": "fichas atualizadas no acervo"
+        },
+        "removed": {
+          "one": "obra retirada do acervo",
+          "other": "obras retiradas do acervo"
+        }
+      },
+      "catalog": {
+        "added": {
+          "one": "obra nova no catálogo ampliado",
+          "other": "obras novas no catálogo ampliado"
+        },
+        "updated": {
+          "one": "ficha atualizada no catálogo ampliado",
+          "other": "fichas atualizadas no catálogo ampliado"
+        },
+        "removed": {
+          "one": "obra retirada do catálogo ampliado",
+          "other": "obras retiradas do catálogo ampliado"
+        }
+      },
+      "authors": {
+        "added": {
+          "one": "biografia nova de autor",
+          "other": "biografias novas de autores"
+        },
+        "updated": {
+          "one": "biografia de autor atualizada",
+          "other": "biografias de autores atualizadas"
+        },
+        "removed": {
+          "one": "biografia de autor retirada",
+          "other": "biografias de autores retiradas"
+        }
+      },
+      "memorial": {
+        "added": {
+          "one": "homenagem nova no memorial",
+          "other": "homenagens novas no memorial"
+        },
+        "updated": {
+          "one": "homenagem atualizada no memorial",
+          "other": "homenagens atualizadas no memorial"
+        },
+        "removed": {
+          "one": "homenagem retirada do memorial",
+          "other": "homenagens retiradas do memorial"
+        }
+      },
+      "glossary": {
+        "added": {
+          "one": "verbete novo no glossário",
+          "other": "verbetes novos no glossário"
+        },
+        "updated": {
+          "one": "verbete atualizado no glossário",
+          "other": "verbetes atualizados no glossário"
+        },
+        "removed": {
+          "one": "verbete retirado do glossário",
+          "other": "verbetes retirados do glossário"
+        }
+      },
+      "journal": {
+        "added": {
+          "one": "matéria nova no jornal",
+          "other": "matérias novas no jornal"
+        },
+        "updated": {
+          "one": "matéria atualizada no jornal",
+          "other": "matérias atualizadas no jornal"
+        },
+        "removed": {
+          "one": "matéria retirada do jornal",
+          "other": "matérias retiradas do jornal"
+        }
+      },
+      "factChecks": {
+        "added": {
+          "one": "checagem nova",
+          "other": "checagens novas"
+        },
+        "updated": {
+          "one": "checagem atualizada",
+          "other": "checagens atualizadas"
+        },
+        "removed": {
+          "one": "checagem retirada",
+          "other": "checagens retiradas"
+        }
+      },
+      "debates": {
+        "added": {
+          "one": "cartão de debate novo",
+          "other": "cartões de debate novos"
+        },
+        "updated": {
+          "one": "cartão de debate atualizado",
+          "other": "cartões de debate atualizados"
+        },
+        "removed": {
+          "one": "cartão de debate retirado",
+          "other": "cartões de debate retirados"
+        }
+      },
+      "fallacies": {
+        "added": {
+          "one": "verbete novo no guia das falácias",
+          "other": "verbetes novos no guia das falácias"
+        },
+        "updated": {
+          "one": "verbete atualizado no guia das falácias",
+          "other": "verbetes atualizados no guia das falácias"
+        },
+        "removed": {
+          "one": "verbete retirado do guia das falácias",
+          "other": "verbetes retirados do guia das falácias"
+        }
+      },
+      "videos": {
+        "added": {
+          "one": "vídeo novo indicado",
+          "other": "vídeos novos indicados"
+        },
+        "updated": {
+          "one": "indicação de vídeo atualizada",
+          "other": "indicações de vídeo atualizadas"
+        },
+        "removed": {
+          "one": "indicação de vídeo retirada",
+          "other": "indicações de vídeo retiradas"
+        }
+      },
+      "gallery": {
+        "added": {
+          "one": "cartaz novo na galeria",
+          "other": "cartazes novos na galeria"
+        },
+        "updated": {
+          "one": "cartaz atualizado na galeria",
+          "other": "cartazes atualizados na galeria"
+        },
+        "removed": {
+          "one": "cartaz retirado da galeria",
+          "other": "cartazes retirados da galeria"
+        }
+      },
+      "pages": {
+        "added": {
+          "one": "página de estudo nova",
+          "other": "páginas de estudo novas"
+        },
+        "updated": {
+          "one": "página de estudo atualizada",
+          "other": "páginas de estudo atualizadas"
+        },
+        "removed": {
+          "one": "página de estudo retirada",
+          "other": "páginas de estudo retiradas"
+        }
+      },
+      "start": {
+        "added": {
+          "one": "passo novo em Por onde começar",
+          "other": "passos novos em Por onde começar"
+        },
+        "updated": {
+          "one": "passo atualizado em Por onde começar",
+          "other": "passos atualizados em Por onde começar"
+        },
+        "removed": {
+          "one": "passo retirado de Por onde começar",
+          "other": "passos retirados de Por onde começar"
+        }
+      },
+      "questions": {
+        "added": {
+          "one": "pergunta de partida nova",
+          "other": "perguntas de partida novas"
+        },
+        "updated": {
+          "one": "pergunta de partida atualizada",
+          "other": "perguntas de partida atualizadas"
+        },
+        "removed": {
+          "one": "pergunta de partida retirada",
+          "other": "perguntas de partida retiradas"
+        }
+      },
+      "quotes": {
+        "added": {
+          "one": "citação nova na frase do dia",
+          "other": "citações novas na frase do dia"
+        },
+        "updated": {
+          "one": "citação atualizada na frase do dia",
+          "other": "citações atualizadas na frase do dia"
+        },
+        "removed": {
+          "one": "citação retirada da frase do dia",
+          "other": "citações retiradas da frase do dia"
+        }
+      },
+      "radios": {
+        "added": {
+          "one": "rádio nova em Rádios do povo",
+          "other": "rádios novas em Rádios do povo"
+        },
+        "updated": {
+          "one": "rádio atualizada em Rádios do povo",
+          "other": "rádios atualizadas em Rádios do povo"
+        },
+        "removed": {
+          "one": "rádio retirada de Rádios do povo",
+          "other": "rádios retiradas de Rádios do povo"
+        }
+      },
+      "news": {
+        "added": {
+          "one": "veículo novo no giro de notícias",
+          "other": "veículos novos no giro de notícias"
+        },
+        "updated": {
+          "one": "veículo atualizado no giro de notícias",
+          "other": "veículos atualizados no giro de notícias"
+        },
+        "removed": {
+          "one": "veículo retirado do giro de notícias",
+          "other": "veículos retirados do giro de notícias"
+        }
+      }
     }
   },
   "dedication": {
@@ -952,6 +1241,78 @@
     "graficos": [
       "Gráficos e álgebra",
       "Desenhe o gráfico de funções, simplifique expressões e calcule derivadas."
+    ],
+    "resolvedor": [
+      "Resolvedor passo a passo",
+      "Frações, porcentagem, regra de três, equações do 1º e do 2º grau e sistemas, explicados passo a passo."
+    ],
+    "estatistica": [
+      "Estatística",
+      "Média, mediana, moda, desvio-padrão, quartis e histograma de uma lista de números."
+    ],
+    "conversor-de-unidades": [
+      "Conversor de unidades",
+      "Comprimento, área, massa, tempo, temperatura, energia e mais, com a conta feita."
+    ],
+    "tabela-verdade": [
+      "Tabela-verdade",
+      "Monte a tabela de qualquer proposição e veja se é tautologia, contradição ou contingência."
+    ],
+    "massa-molar": [
+      "Massa molar",
+      "A massa molar de qualquer fórmula e a porcentagem de cada elemento."
+    ],
+    "balanceamento": [
+      "Balanceamento de equações",
+      "Os menores coeficientes inteiros, conferidos átomo por átomo."
+    ],
+    "punnett": [
+      "Quadro de Punnett",
+      "Cruzamentos de um ou dois genes e herança ligada ao X, com as proporções."
+    ],
+    "sistema-solar": [
+      "Sistema solar",
+      "Tamanhos e distâncias, quanto você pesaria em cada planeta e quanto a luz demora para chegar."
+    ],
+    "html": [
+      "Ateliê de HTML",
+      "Escreva HTML, CSS e JavaScript e veja o resultado ao lado."
+    ],
+    "cronometro": [
+      "Cronômetro de estudo",
+      "Pomodoro, o tempo da prova do Enem e um cronômetro simples."
+    ],
+    "redacao": [
+      "Folha de redação",
+      "Escreva no formato do Enem, conte palavras e linhas e revise pelas cinco competências."
+    ],
+    "silabario": [
+      "Silabário",
+      "Letras e sílabas que falam ao tocar, para aprender a ler."
+    ],
+    "cores": [
+      "Cores e contraste",
+      "Harmonias, conversão HEX, RGB e HSL e o contraste para leitura."
+    ],
+    "escala-cartografica": [
+      "Escala cartográfica",
+      "Do mapa para o terreno e de volta, com a conta."
+    ],
+    "fusos-horarios": [
+      "Fusos horários",
+      "Que horas são agora nas cidades do Brasil e do mundo."
+    ],
+    "mais-valia": [
+      "Mais-valia",
+      "Quanto do dia de trabalho paga o salário e quanto fica com o patrão, na conta de Marx."
+    ],
+    "rcp": [
+      "Ritmo da RCP",
+      "O compasso das compressões no peito e o passo a passo para leigos. Não substitui um curso."
+    ],
+    "frequencia-cardiaca": [
+      "Frequência cardíaca",
+      "A frequência máxima estimada e as faixas de esforço para treinar."
     ]
   },
   "tools": {
@@ -1035,7 +1396,7 @@
       "placeholder": "ex.: (2 + 3) × 4 ^ 2",
       "result": "Calcular",
       "invalid": "Não deu para entender esta conta. Confira os parênteses e os sinais.",
-      "help": "Aceita + − × ÷, potência (^), porcentagem (%), fatorial (!), parênteses, π, e, e as funções raiz( ), sen( ), cos( ), tan( ), log( ) na base 10, ln( ) e abs( ). A vírgula separa as casas decimais.",
+      "help": "Aceita + − × ÷, potência (^), porcentagem (%), fatorial (!), parênteses, π, e, ans (o último resultado) e as funções raiz( ), sen( ), cos( ), tan( ), as inversas sen⁻¹, cos⁻¹ e tan⁻¹, log( ) na base 10 e ln( ). A vírgula separa as casas decimais.",
       "history": "Contas anteriores",
       "clear": "Limpar",
       "erase": "Apagar o último caractere",
@@ -1046,7 +1407,12 @@
       "decimal": ",",
       "steps": "Passo a passo",
       "stepsCopy": "Copiar a conta para colar em uma aula",
-      "stepsCopied": "Copiado. Cole no texto da aula: ela aparece formatada."
+      "stepsCopied": "Copiado. Cole no texto da aula: ela aparece formatada.",
+      "memory": "Memória",
+      "memoryClear": "Limpar a memória",
+      "memoryRecall": "Usar o número da memória",
+      "memoryAdd": "Somar o último resultado à memória",
+      "memorySubtract": "Tirar o último resultado da memória"
     },
     "interest": {
       "initial": "Valor inicial",
@@ -1117,6 +1483,585 @@
       "simplified": "Simplificada",
       "derivative": "Derivada",
       "hint": "Escreva como na calculadora: 3x^2 + 2x - 1, sqrt(x), sin(x), log(x), e. Vírgula ou ponto servem para decimais."
+    },
+    "universal": "Ferramenta para qualquer aula: está sempre na caixa de ferramentas das aulas.",
+    "box": {
+      "open": "Ferramentas",
+      "openLabel": "Abrir a caixa de ferramentas desta aula",
+      "title": "Caixa de ferramentas",
+      "close": "Fechar",
+      "choose": "Escolha uma ferramenta",
+      "bigger": "Aumentar",
+      "smaller": "Diminuir",
+      "suggested": "sugerida para esta aula"
+    },
+    "solver": {
+      "modes": {
+        "conta": "Conta ou equação",
+        "porcentagem": "Porcentagem",
+        "regra": "Regra de três"
+      },
+      "input": "Conta, equação ou sistema",
+      "placeholder": "Ex.: 1/2 + 3/4   ·   2x + 3 = 11   ·   x² − 5x + 6 = 0",
+      "keys": "Teclas de matemática",
+      "erase": "Apagar o último caractere",
+      "solve": "Resolver",
+      "complex": "Mostrar raízes complexas quando Δ for negativo",
+      "method": "Sistema por",
+      "addition": "adição",
+      "substitution": "substituição",
+      "help": "Fração com barra (3/4); para dividir, use ÷. Potência com ^ ou ² (x^2, x²). Duas equações com x e y, separadas por ponto e vírgula ou em linhas diferentes, formam um sistema.",
+      "examples": "Exemplos",
+      "answer": "Resposta",
+      "approx": "Em decimal",
+      "steps": "Passo a passo",
+      "copy": "Copiar o passo a passo",
+      "copied": "Copiado.",
+      "photo": {
+        "button": "Foto do exercício",
+        "label": "Tirar ou escolher uma foto do exercício",
+        "warning": "A foto vai para um serviço de inteligência artificial de outra empresa (Anthropic), que lê o exercício e explica a resolução. Fotografe só o exercício, sem nomes nem rostos. O Instituto Lúcia não guarda a foto.",
+        "reading": "Lendo a foto… pode levar até um minuto.",
+        "read": "O que o assistente leu na foto",
+        "solveHere": "Resolver aqui, passo a passo",
+        "explanation": "Explicação do assistente",
+        "mayErr": "Leitura e explicação automáticas, que podem conter erros. Confira a transcrição antes de confiar na conta.",
+        "refused": "O assistente não pôde ajudar com essa foto.",
+        "cut": "A explicação ficou longa demais e foi cortada no fim.",
+        "left": "Perguntas ao assistente que ainda restam hoje: {n}."
+      },
+      "pct": {
+        "de": "Quanto é p% de um valor",
+        "quanto": "Uma parte é quantos % do todo",
+        "variacao": "Aumento ou desconto",
+        "percent": "Porcentagem (%)",
+        "part": "Parte",
+        "whole": "Todo",
+        "value": "Valor",
+        "increase": "Aumento",
+        "discount": "Desconto"
+      },
+      "rule": {
+        "a": "Se este valor…",
+        "b": "…corresponde a este,",
+        "c": "então este valor…",
+        "direct": "Diretamente proporcionais: uma cresce, a outra cresce junto (mais pão, mais farinha).",
+        "inverse": "Inversamente proporcionais: uma cresce, a outra diminui (mais pedreiros, menos dias de obra).",
+        "help": "Confira antes se as grandezas são proporcionais: idade e altura, por exemplo, não são."
+      },
+      "errors": {
+        "vazio": "Escreva a conta primeiro.",
+        "leitura": "Não deu para entender. Confira os parênteses, os sinais e se há um só sinal de igual.",
+        "divisao": "Divisão por zero: não existe.",
+        "nao_suportado": "Isto o resolvedor ainda não faz (raízes, funções, x no denominador). Para contas com decimais, use a calculadora.",
+        "grau": "Equações acima do 2º grau ainda não são resolvidas aqui.",
+        "variavel": "Use só a letra x numa equação (x e y só em sistemas de duas equações).",
+        "sistema": "Um sistema aqui tem exatamente duas equações, com x e y.",
+        "numero": "Digite números (com vírgula ou ponto para os decimais)."
+      },
+      "stepTexts": {
+        "expressao": "A conta:",
+        "mmc": "Para somar ou subtrair frações, elas precisam do mesmo denominador. O MMC de {a} e {b} é {m}:",
+        "somar": "Some:",
+        "subtrair": "Subtraia:",
+        "somar_fracoes": "Com o mesmo denominador ({d}), some os numeradores:",
+        "subtrair_fracoes": "Com o mesmo denominador ({d}), subtraia os numeradores:",
+        "multiplicar": "Multiplique:",
+        "multiplicar_fracoes": "Multiplique numerador com numerador e denominador com denominador:",
+        "dividir": "Divida:",
+        "inversa": "Dividir por {f} é o mesmo que multiplicar pela inversa, {i}:",
+        "potencia": "Calcule a potência (expoente {e}):",
+        "potencia_negativa": "Expoente negativo: inverta a base e use o expoente positivo:",
+        "simplificar": "Simplifique {de}, dividindo em cima e embaixo por {g}: {para}",
+        "em_decimal": "Em número decimal: {valor}",
+        "misto": "Como número misto: {inteiro} inteiro(s) e {fracao}",
+        "equacao": "A equação:",
+        "organizar": "Organize cada lado (resolva os parênteses e junte os termos parecidos):",
+        "transpor": "Passe os termos com x para a esquerda e os números para a direita, trocando o sinal ao mudar de lado:",
+        "identidade": "Os dois lados ficam iguais para qualquer x: a equação tem infinitas soluções.",
+        "impossivel": "Os x se cancelam e sobra uma igualdade falsa: a equação não tem solução.",
+        "juntar": "Junte os termos de cada lado:",
+        "dividir_lados": "Divida os dois lados por {a}:",
+        "resultado": "Resultado:",
+        "conferir": "Confira: troque x por {x} na equação original e veja se os dois lados dão o mesmo número.",
+        "igualar_zero": "É uma equação do 2º grau. Passe tudo para um lado, deixando zero do outro:",
+        "tirar_fracoes": "Multiplique tudo por {m} para tirar as frações:",
+        "coeficientes": "Os coeficientes: a = {a}, b = {b}, c = {c}.",
+        "delta": "Calcule o discriminante, Δ = b² − 4ac:",
+        "delta_negativo": "Δ é negativo: não existe raiz real (nenhum número real ao quadrado dá negativo).",
+        "complexas": "Nos números complexos, com i = √−1:",
+        "raiz_dupla": "Δ = 0: as duas raízes são iguais (raiz dupla), x = −b ÷ 2a:",
+        "bhaskara": "Δ é positivo: há duas raízes reais. Pela fórmula de Bhaskara, x = (−b ± √Δ) ÷ 2a:",
+        "raiz_exata": "√{delta} = {raiz}. As duas raízes:",
+        "simplificar_raiz": "Simplifique a raiz: {delta} tem um fator que é quadrado perfeito, então √{delta} = {fora}√{dentro}:",
+        "simplificar_fracao_raiz": "Divida tudo por {g}:",
+        "aproximar": "Em decimal: x₁ ≈ {x1} e x₂ ≈ {x2}.",
+        "sistema": "O sistema:",
+        "sistema_impossivel": "As duas equações são retas paralelas: o sistema não tem solução (impossível).",
+        "sistema_indeterminado": "As duas equações são a mesma reta: o sistema tem infinitas soluções (indeterminado).",
+        "isolar_direto": "Uma das equações só tem x: resolva por ela.",
+        "multiplicar_equacoes": "Multiplique a primeira equação por {f1} e a segunda por {f2}, para os y ficarem opostos:",
+        "somar_equacoes": "Some as duas equações: os y se cancelam.",
+        "achar_x": "Ache x:",
+        "isolar": "Isole {letra} na primeira equação:",
+        "substituir": "Substitua na segunda equação e resolva:",
+        "voltar": "Volte a uma das equações para achar a outra letra:",
+        "conferir_sistema": "Confira: com x = {x} e y = {y}, as duas equações ficam verdadeiras.",
+        "pct_ideia": "{p}% quer dizer {p} de cada 100: multiplique pelo valor e divida por 100.",
+        "pct_conta": "A conta:",
+        "pct_parte": "Divida a parte pelo todo:",
+        "pct_vezes_cem": "Multiplique por 100 para ter a porcentagem:",
+        "pct_somar": "Some ao valor:",
+        "pct_tirar": "Tire do valor:",
+        "pct_fator": "Ou direto, multiplicando pelo fator {fator}:",
+        "regra_direta": "Grandezas diretamente proporcionais (uma cresce, a outra cresce junto):",
+        "regra_inversa": "Grandezas inversamente proporcionais (uma cresce, a outra diminui):",
+        "regra_produto_cruzado": "Multiplique em cruz:",
+        "regra_produto_inverso": "Nas inversas, o produto se mantém: multiplique em linha:",
+        "regra_isolar": "Isole o x:"
+      }
+    },
+    "units": {
+      "quantity": "Grandeza",
+      "value": "Valor",
+      "from": "De",
+      "to": "Para",
+      "swap": "Trocar as unidades",
+      "factor": "1 {de} = {f} {para}",
+      "formula": "Fórmula",
+      "invalid": "Digite um número.",
+      "below": "Abaixo do zero absoluto (−273,15 °C) não existe temperatura.",
+      "regional": "Alqueire é medida regional e muda de lugar para lugar: confirme qual vale na sua região. Documentos oficiais usam o hectare.",
+      "quantities": {
+        "comprimento": "Comprimento",
+        "area": "Área",
+        "volume": "Volume",
+        "massa": "Massa",
+        "tempo": "Tempo",
+        "temperatura": "Temperatura",
+        "velocidade": "Velocidade",
+        "energia": "Energia",
+        "pressao": "Pressão",
+        "potencia": "Potência",
+        "dados": "Dados digitais"
+      },
+      "unitNames": {
+        "mm": "milímetro (mm)",
+        "cm": "centímetro (cm)",
+        "m": "metro (m)",
+        "km": "quilômetro (km)",
+        "pol": "polegada (pol)",
+        "pe": "pé",
+        "jarda": "jarda",
+        "milha": "milha",
+        "milha_nautica": "milha náutica",
+        "mm2": "milímetro quadrado (mm²)",
+        "cm2": "centímetro quadrado (cm²)",
+        "m2": "metro quadrado (m²)",
+        "ha": "hectare (ha)",
+        "km2": "quilômetro quadrado (km²)",
+        "alqueire_sp": "alqueire paulista",
+        "alqueire_mg": "alqueire mineiro",
+        "pe2": "pé quadrado",
+        "acre": "acre",
+        "ml": "mililitro (mL)",
+        "cm3": "centímetro cúbico (cm³)",
+        "l": "litro (L)",
+        "dm3": "decímetro cúbico (dm³)",
+        "m3": "metro cúbico (m³)",
+        "galao_us": "galão americano",
+        "mg": "miligrama (mg)",
+        "g": "grama (g)",
+        "kg": "quilograma (kg)",
+        "t": "tonelada (t)",
+        "arroba": "arroba (15 kg)",
+        "lb": "libra (lb)",
+        "oz": "onça (oz)",
+        "s": "segundo (s)",
+        "min": "minuto (min)",
+        "h": "hora (h)",
+        "dia": "dia",
+        "semana": "semana",
+        "ano": "ano (365,25 dias)",
+        "c": "grau Celsius (°C)",
+        "f": "grau Fahrenheit (°F)",
+        "k": "kelvin (K)",
+        "m_s": "metro por segundo (m/s)",
+        "km_h": "quilômetro por hora (km/h)",
+        "mph": "milha por hora (mph)",
+        "no": "nó",
+        "j": "joule (J)",
+        "kj": "quilojoule (kJ)",
+        "cal": "caloria (cal)",
+        "kcal": "quilocaloria (kcal)",
+        "wh": "watt-hora (Wh)",
+        "kwh": "quilowatt-hora (kWh)",
+        "ev": "elétron-volt (eV)",
+        "pa": "pascal (Pa)",
+        "kpa": "quilopascal (kPa)",
+        "bar": "bar",
+        "atm": "atmosfera (atm)",
+        "mmhg": "milímetro de mercúrio (mmHg)",
+        "psi": "libra por polegada quadrada (psi)",
+        "w": "watt (W)",
+        "kw": "quilowatt (kW)",
+        "cv": "cavalo-vapor (cv)",
+        "hp": "horsepower (hp)",
+        "bit": "bit",
+        "byte": "byte (B)",
+        "kb": "quilobyte (kB, mil bytes)",
+        "mb": "megabyte (MB)",
+        "gb": "gigabyte (GB)",
+        "tb": "terabyte (TB)",
+        "kib": "kibibyte (KiB, 1.024 bytes)",
+        "mib": "mebibyte (MiB)",
+        "gib": "gibibyte (GiB)"
+      },
+      "formulas": {
+        "c_f": "°F = °C × 9/5 + 32",
+        "f_c": "°C = (°F − 32) × 5/9",
+        "c_k": "K = °C + 273,15",
+        "k_c": "°C = K − 273,15",
+        "f_k": "K = (°F − 32) × 5/9 + 273,15",
+        "k_f": "°F = (K − 273,15) × 9/5 + 32",
+        "igual": "mesma unidade"
+      }
+    },
+    "molar": {
+      "formula": "Fórmula",
+      "placeholder": "Ex.: H2SO4, Ca(OH)2, CuSO4·5H2O",
+      "help": "Letra maiúscula começa cada elemento (Co é cobalto; CO é carbono e oxigênio). Use parênteses e colchetes para grupos e o ponto (·) para a água de hidratação.",
+      "result": "Massa molar",
+      "element": "Elemento",
+      "count": "Átomos",
+      "mass": "Massa atômica",
+      "subtotal": "Conta",
+      "percent": "% em massa",
+      "source": "Massas atômicas: as mesmas da tabela periódica do site (IUPAC).",
+      "errors": {
+        "vazio": "Escreva uma fórmula.",
+        "simbolo": "Há um símbolo que não faz parte de fórmula química.",
+        "elemento": "Não existe o elemento {x}.",
+        "parentese": "Confira os parênteses e os colchetes.",
+        "carga": "Íons com carga ainda não são aceitos aqui."
+      }
+    },
+    "balance": {
+      "equation": "Equação",
+      "placeholder": "Ex.: CH4 + O2 -> CO2 + H2O",
+      "balance": "Balancear",
+      "help": "Separe as substâncias com + e os dois lados com -> (ou →). Como nenhum átomo some nem aparece do nada (lei de Lavoisier), cada elemento dá uma equação; a resposta são os menores coeficientes inteiros que fecham todas.",
+      "balanced": "Balanceada",
+      "check": "Conferência: átomos de cada lado",
+      "element": "Elemento",
+      "left": "Reagentes",
+      "right": "Produtos",
+      "errors": {
+        "vazio": "Escreva a equação.",
+        "simbolo": "Há um símbolo que não faz parte de fórmula química.",
+        "elemento": "Não existe o elemento {x}.",
+        "parentese": "Confira os parênteses e os colchetes.",
+        "carga": "Íons com carga ainda não são aceitos aqui.",
+        "seta": "Use uma seta (-> ou →) entre os reagentes e os produtos.",
+        "lado": "Falta um dos lados da equação.",
+        "sem_solucao": "Do jeito que foi escrita, essa reação não fecha: confira as fórmulas.",
+        "varias_solucoes": "Essa equação tem mais de um jeito independente de balancear (parecem duas reações juntas). Separe as reações."
+      }
+    },
+    "punnett": {
+      "title": "Quadro de Punnett",
+      "mother": "Primeiro genitor (na ligada ao X, a mãe)",
+      "father": "Segundo genitor (na ligada ao X, o pai)",
+      "cross": "Cruzar",
+      "help": "Letra maiúscula é o alelo dominante; minúscula, o recessivo. Um gene: Aa. Dois genes: AaBb. Ligada ao X: XAXa (mulher) e XAY (homem).",
+      "examples": "Exemplos",
+      "genotypes": "Genótipos",
+      "phenotypes": "Fenótipos",
+      "ratio": "Proporção",
+      "dominant": "traço dominante ({g})",
+      "recessive": "traço recessivo ({g})",
+      "sex": {
+        "homem": "Homem",
+        "mulher": "Mulher"
+      },
+      "status": {
+        "normal": "sem o traço",
+        "portadora": "portadora (não tem o traço, mas passa adiante)",
+        "afetado": "com o traço"
+      },
+      "explainMono": "Cada genitor passa um alelo de cada gene, ao acaso (1ª lei de Mendel). Cada casa do quadro tem a mesma chance: a proporção dos fenótipos é a chance de cada filho nascer com aquele traço.",
+      "explainDi": "Com dois genes em cromossomos diferentes, os alelos se separam de forma independente (2ª lei de Mendel): por isso o di-híbrido dá 16 casas e, entre dois heterozigotos, a proporção 9 : 3 : 3 : 1.",
+      "explainX": "Na herança ligada ao X, o homem tem um X só: um alelo recessivo nele já basta para o traço aparecer. É por isso que o daltonismo e a hemofilia são mais comuns em homens.",
+      "errors": {
+        "vazio": "Escreva os dois genótipos.",
+        "genotipo": "Não entendi o genótipo. Escreva os alelos aos pares: Aa, AaBb, XAXa, XAY.",
+        "genes_diferentes": "Os dois genitores precisam ter os mesmos genes (as mesmas letras).",
+        "muitos_genes": "Aqui cabem até dois genes (AaBb).",
+        "sexo": "Na ligada ao X, o primeiro genótipo é da mãe (XX) e o segundo do pai (XY)."
+      }
+    },
+    "stats": {
+      "numbers": "Números",
+      "placeholder": "Ex.: 7,5; 8; 6; 9,5; 7",
+      "help": "Separe com ponto e vírgula, espaço ou uma linha para cada número; aí a vírgula é a casa decimal. Só com vírgulas entre os números, use ponto para os decimais.",
+      "n": "Quantidade (n)",
+      "sum": "Soma",
+      "mean": "Média",
+      "median": "Mediana",
+      "mode": "Moda",
+      "noMode": "não há (amodal)",
+      "min": "Menor valor",
+      "max": "Maior valor",
+      "range": "Amplitude",
+      "q1": "1º quartil (Q1)",
+      "q3": "3º quartil (Q3)",
+      "varPop": "Variância populacional",
+      "sdPop": "Desvio-padrão populacional",
+      "varSample": "Variância amostral",
+      "sdSample": "Desvio-padrão amostral",
+      "whichSd": "Use o populacional quando os números são o grupo inteiro (todas as notas da turma) e o amostral, com n − 1, quando são uma amostra de um grupo maior.",
+      "quartiles": "Quartis pelo método das medianas das metades, o dos livros escolares. Planilhas usam outros métodos e podem dar valores um pouco diferentes.",
+      "histogram": "Histograma",
+      "classes": "classes pela regra de Sturges",
+      "classesNote": "Cada classe inclui o começo e não o fim (⊢); a última inclui também o maior valor.",
+      "errors": {
+        "vazio": "Escreva pelo menos um número.",
+        "numero": "Não entendi “{x}” como número."
+      }
+    },
+    "truth": {
+      "formula": "Proposição",
+      "placeholder": "Ex.: (p → q) ∧ p → q",
+      "clear": "Limpar",
+      "help": "¬ não (~ ou !), ∧ e (&), ∨ ou (|), ⊕ ou exclusivo (xor), → se… então (->), ↔ se e somente se (<->). As proposições são letras minúsculas (menos e, v e f). V = verdadeiro, F = falso.",
+      "true": "V",
+      "false": "F",
+      "result": {
+        "tautologia": "Tautologia: verdadeira em todas as linhas.",
+        "contradicao": "Contradição: falsa em todas as linhas.",
+        "contingencia": "Contingência: verdadeira em algumas linhas e falsa em outras."
+      },
+      "errors": {
+        "vazio": "Escreva uma proposição.",
+        "simbolo": "Há um símbolo que não é conectivo nem proposição.",
+        "parentese": "Confira os parênteses.",
+        "falta": "Falta alguma coisa: um conectivo sem as duas pontas, por exemplo.",
+        "muitas": "Aqui cabem até seis proposições (64 linhas)."
+      }
+    },
+    "solar": {
+      "weight": "Seu peso na Terra (kg)",
+      "scale": "Tamanhos em escala",
+      "body": "Corpo",
+      "diameter": "Diâmetro",
+      "gravity": "Gravidade",
+      "distance": "Distância média ao Sol",
+      "light": "A luz do Sol leva",
+      "yourWeight": "Na balança, lá",
+      "names": {
+        "mercurio": "Mercúrio",
+        "venus": "Vênus",
+        "terra": "Terra",
+        "lua": "Lua",
+        "marte": "Marte",
+        "jupiter": "Júpiter",
+        "saturno": "Saturno",
+        "urano": "Urano",
+        "netuno": "Netuno",
+        "plutao": "Plutão"
+      },
+      "notes": "A Lua está a 384 mil km da Terra. Plutão é classificado como planeta-anão desde 2006. Júpiter, Saturno, Urano e Netuno não têm chão: a gravidade é a do topo das nuvens. Na balança muda o número, não a massa: o que muda é a força com que cada corpo puxa você.",
+      "source": "Dados: NASA, Planetary Fact Sheet.",
+      "seconds": "{s} s",
+      "minutes": "{m} min {s} s",
+      "hours": "{h} h {m} min"
+    },
+    "timer": {
+      "modes": {
+        "pomodoro": "Pomodoro",
+        "enem": "Prova do Enem",
+        "livre": "Cronômetro"
+      },
+      "focus": "Foco",
+      "break": "Pausa",
+      "minutes": "minutos",
+      "round": "rodada {n}",
+      "start": "Começar",
+      "pause": "Pausar",
+      "resume": "Continuar",
+      "reset": "Zerar",
+      "done": "Tempo esgotado.",
+      "sound": "Aviso sonoro ao terminar",
+      "dia1": "1º dia: Linguagens, Ciências Humanas e Redação (5 h 30 min)",
+      "dia2": "2º dia: Ciências da Natureza e Matemática (5 h)",
+      "enemNote": "Tempos do edital do Enem 2026, do Inep. Na prova, o tempo conta a partir de quando o chefe de sala autoriza o início; quem tem direito a tempo adicional tem mais. Treinar com o tempo de verdade ajuda a dividir a prova.",
+      "help": "Pomodoro: blocos de foco (25 minutos é o tradicional) com pausas curtas entre eles. Ajuste os tempos ao que funcionar para você.",
+      "freeHelp": "Marca quanto tempo passou. Bom para cronometrar uma questão ou uma leitura."
+    },
+    "essay": {
+      "sheet": "Sua redação",
+      "placeholder": "Escreva aqui. Deixe uma linha em branco entre os parágrafos.",
+      "saved": "O texto fica guardado só neste aparelho.",
+      "lines": "Linhas (estimativa)",
+      "words": "Palavras",
+      "paragraphs": "Parágrafos",
+      "chars": "Caracteres",
+      "over": "Passou de 30 linhas: o que passar não é corrigido.",
+      "under": "Com até 7 linhas, a redação recebe nota zero (texto insuficiente).",
+      "perLine": "Caracteres por linha da sua letra",
+      "perLineHelp": "Não existe número oficial: depende do tamanho da letra. Para acertar, escreva uma linha com a sua letra numa folha pautada, conte os caracteres (com os espaços) e ponha aqui.",
+      "limit": "A folha do Enem tem 30 linhas. Com até 7 linhas, a redação é zerada, segundo a Cartilha do Participante do Inep.",
+      "competencies": "As cinco competências (Inep)",
+      "list": [
+        "Demonstrar domínio da modalidade escrita formal da língua portuguesa.",
+        "Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa.",
+        "Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista.",
+        "Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação.",
+        "Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos."
+      ],
+      "lessons": "Aulas de redação para o Enem"
+    },
+    "syllables": {
+      "help": "Toque numa sílaba para ouvir. Toque em várias, uma depois da outra, para montar uma palavra, e ouça a palavra inteira.",
+      "noVoice": "Este navegador não tem voz em português instalada: as sílabas aparecem, mas não falam.",
+      "word": "Sua palavra",
+      "listen": "Ouvir a palavra",
+      "clear": "Começar de novo",
+      "vowels": "Vogais",
+      "families": "Famílias de sílabas",
+      "examples": "Palavras para ouvir"
+    },
+    "cpr": {
+      "call": "Pessoa desmaiada que não responde e não respira normalmente: ligue 192 (SAMU) agora e ponha no viva-voz.",
+      "count": "compressões",
+      "perMinute": "por minuto",
+      "start": "Começar o compasso",
+      "stop": "Parar",
+      "rate": "Ritmo",
+      "sound": "Com som (dá para usar só o círculo)",
+      "steps": [
+        "Veja se o local é seguro para você. Chame a pessoa em voz alta e toque nos ombros dela.",
+        "Se ela não responde e não respira normalmente (ou só dá suspiros), ligue 192 e ponha no viva-voz. Peça a alguém que procure um desfibrilador (DEA), se houver por perto.",
+        "Ajoelhe-se ao lado. Ponha a base de uma mão no centro do peito, a outra por cima, com os braços esticados.",
+        "Empurre forte e rápido: de 5 a 6 cm de profundidade num adulto, de 100 a 120 vezes por minuto, no ritmo deste compasso.",
+        "Deixe o peito voltar todo entre uma compressão e outra. Não pare: se houver outra pessoa, troquem a cada 2 minutos, sem demora.",
+        "Continue até a equipe do SAMU chegar ou a pessoa voltar a respirar. Se o DEA chegar, ligue o aparelho e siga o que ele falar."
+      ],
+      "warning": "Isto não substitui um curso de primeiros socorros. Em crianças e bebês a técnica é outra.",
+      "sources": "Fontes:"
+    },
+    "heart": {
+      "age": "Sua idade",
+      "invalid": "Digite uma idade entre 10 e 100 anos.",
+      "max": "Frequência cardíaca máxima estimada",
+      "bpm": "batimentos por minuto",
+      "tanaka": "Pela fórmula de Tanaka (208 − 0,7 × idade), a mais precisa em adultos mais velhos.",
+      "fox": "Pela fórmula antiga e mais conhecida (220 − idade).",
+      "zones": "Faixas de esforço",
+      "moderado": "Moderado (50% a 70% da máxima)",
+      "vigoroso": "Vigoroso (70% a 85% da máxima)",
+      "howTo": "Para medir: dois dedos no pulso ou no pescoço, conte os batimentos em 15 segundos e multiplique por 4.",
+      "warning": "É uma estimativa para grupos de pessoas: a de cada um pode variar uns 10 batimentos para cima ou para baixo. Quem tem problema de coração ou pressão alta, toma remédio que mexe no ritmo do coração (como betabloqueador) ou está começando a se exercitar deve conversar antes com um profissional de saúde (no SUS, na Unidade Básica de Saúde).",
+      "sources": "Fontes:"
+    },
+    "mapScale": {
+      "modes": {
+        "real": "Do mapa para o terreno",
+        "mapa": "Do terreno para o mapa",
+        "escala": "Descobrir a escala"
+      },
+      "scale": "Escala",
+      "onMap": "Medida no mapa",
+      "real": "Medida no terreno",
+      "resultIn": "Resultado em",
+      "howReal": "{a} {u} × {n} = {r} {v} no terreno (na escala 1:{n}, cada unidade no mapa vale {n} no terreno).",
+      "howMap": "{a} {u} ÷ {n} = {r} {v} no mapa.",
+      "howFind": "Terreno ÷ mapa, nas mesmas unidades: {b} {v} ÷ {a} {u} = {r}. A escala é 1:{r}.",
+      "invalid": "Confira os números (só números maiores que zero).",
+      "graphic": "Escala gráfica",
+      "graphicNote": "Cada trecho de 1 cm no mapa = {km} km no terreno."
+    },
+    "timezones": {
+      "cities": {
+        "brasilia": "Brasília",
+        "manaus": "Manaus",
+        "rio_branco": "Rio Branco",
+        "noronha": "Fernando de Noronha",
+        "buenos_aires": "Buenos Aires",
+        "santiago": "Santiago do Chile",
+        "bogota": "Bogotá",
+        "cidade_mexico": "Cidade do México",
+        "havana": "Havana",
+        "caracas": "Caracas",
+        "la_paz": "La Paz",
+        "nova_york": "Nova York",
+        "lisboa": "Lisboa",
+        "londres": "Londres",
+        "paris": "Paris",
+        "moscou": "Moscou",
+        "luanda": "Luanda",
+        "maputo": "Maputo",
+        "joanesburgo": "Joanesburgo",
+        "nova_delhi": "Nova Délhi",
+        "pequim": "Pequim",
+        "toquio": "Tóquio",
+        "sydney": "Sydney"
+      },
+      "offset": "diferença para Brasília",
+      "remove": "Tirar",
+      "add": "Acrescentar",
+      "compare": "Comparar um horário",
+      "when": "Quando for",
+      "in": "em",
+      "now": "Voltar para agora",
+      "help": "As diferenças vêm do próprio navegador, com o horário de verão de cada lugar quando há. O Brasil não tem horário de verão desde 2019."
+    },
+    "colors": {
+      "color": "Cor",
+      "harmonies": "Harmonias (roda de cores)",
+      "kinds": {
+        "complementar": "Complementar",
+        "analogas": "Análogas",
+        "triade": "Tríade"
+      },
+      "use": "Usar esta cor",
+      "invalid": "Escreva a cor em HEX, como #c21f16.",
+      "contrast": "Contraste para leitura",
+      "text": "Texto",
+      "background": "Fundo",
+      "sample": "Exemplo de texto com estas cores.",
+      "ratio": "Contraste: {r} : 1",
+      "aaNormal": "Texto comum, nível AA (mínimo 4,5 : 1)",
+      "aaLarge": "Texto grande, nível AA (mínimo 3 : 1)",
+      "aaa": "Texto comum, nível AAA (mínimo 7 : 1)",
+      "pass": "passa",
+      "fail": "não passa",
+      "source": "Regra de contraste:"
+    },
+    "surplus": {
+      "day": "Jornada (horas por dia)",
+      "needed": "Trabalho necessário (horas que pagam o salário)",
+      "wage": "Salário por dia (R$)",
+      "invalid": "Confira os números: o trabalho necessário não pode passar da jornada.",
+      "bar": "A jornada",
+      "neededShort": "Trabalho necessário",
+      "surplusHours": "Trabalho excedente",
+      "perHour": "Valor que cada hora de trabalho cria",
+      "newValue": "Valor novo criado na jornada",
+      "surplus": "Mais-valia (fica com o patrão)",
+      "rate": "Taxa de mais-valia (m/v)",
+      "explain": "Na conta de Marx, a jornada tem duas partes. No trabalho necessário, quem trabalha produz o equivalente ao próprio salário (o capital variável, v). No trabalho excedente, continua produzindo, mas esse valor, a mais-valia (m), fica com quem é dono dos meios de produção. A taxa m/v, igual a trabalho excedente ÷ trabalho necessário, mede o grau de exploração.",
+      "assume": "A conta supõe, como o exemplo do livro, que cada hora de trabalho cria o mesmo valor.",
+      "source": "Fonte: Karl Marx, O Capital, Livro I, capítulo 7, “A taxa da mais-valia”, no Arquivo Marxista na Internet."
+    },
+    "html": {
+      "sampleHtml": "<h1>Olá!</h1>\n<p>Mude este texto e veja o resultado ao lado.</p>\n<button>Clique aqui</button>",
+      "sampleClicked": "Você clicou! Isso foi o JavaScript.",
+      "run": "Atualizar o resultado",
+      "auto": "Atualizar enquanto digito",
+      "reset": "Voltar ao exemplo",
+      "preview": "Resultado",
+      "sandbox": "O resultado roda numa caixa fechada, separada do site: o código não lê esta página, a sua conta nem nada guardado no navegador."
     }
   },
   "journal": {
@@ -1160,7 +2105,158 @@
     "searchButton": "Procurar",
     "searchNone": "Nenhuma checagem encontrada com essas palavras. Tente outras.",
     "searchFail": "A busca não respondeu agora. Tente de novo em instantes.",
-    "searchSource": "Resultados do Google Fact Check Tools. Cada checagem é da agência que a publicou: abra o link para ler."
+    "searchSource": "Resultados do Google Fact Check Tools. Cada checagem é da agência que a publicou: abra o link para ler.",
+    "fallaciesLink": "Conheça também o guia das falácias.",
+    "steps": {
+      "title": "Como checar em 6 passos",
+      "lead": "Cole a mensagem que chegou e responda às perguntas. Nada sai do seu aparelho.",
+      "claim": "O que dizem",
+      "claimPlaceholder": "Cole aqui a mensagem, a frase ou o título que você quer conferir.",
+      "items": [
+        {
+          "q": "Dá para saber quem disse isso primeiro?",
+          "help": "Uma pessoa ou organização com nome, e não “um amigo de um amigo” ou “um médico” sem nome.",
+          "options": [
+            "Sim, quem disse é identificável",
+            "Não dá para saber",
+            "Não tenho certeza"
+          ]
+        },
+        {
+          "q": "Você achou a fonte original?",
+          "help": "O documento, o estudo, a lei ou a fala inteira, e não só um recorte ou um print.",
+          "options": [
+            "Sim, li a fonte original",
+            "Não existe ou não encontrei",
+            "Não tenho certeza"
+          ]
+        },
+        {
+          "q": "A data confere?",
+          "help": "Muito boato é notícia velha circulando como se fosse de hoje.",
+          "options": [
+            "Sim, é atual",
+            "Não, é antigo ou de outra época",
+            "Não tenho certeza"
+          ]
+        },
+        {
+          "q": "Outras fontes confiáveis confirmam?",
+          "help": "Veículos e órgãos diferentes, que não estejam só copiando um ao outro.",
+          "options": [
+            "Sim, várias confirmam",
+            "Não, nenhuma confirma",
+            "Não tenho certeza"
+          ]
+        },
+        {
+          "q": "A foto ou o vídeo é mesmo daquele lugar e daquela data?",
+          "help": "Faça uma busca reversa da imagem (veja a caixa de ferramentas abaixo).",
+          "options": [
+            "Sim, confere",
+            "Não, é de outro lugar ou de outra época",
+            "Não tenho certeza",
+            "Não tem foto nem vídeo"
+          ]
+        },
+        {
+          "q": "As agências de checagem já falaram disso?",
+          "help": "Procure no “Já foi checado?” acima ou no site das agências.",
+          "options": [
+            "Disseram que é verdade",
+            "Disseram que é falso ou enganoso",
+            "Não encontrei checagem"
+          ]
+        }
+      ],
+      "result": "Resultado sugerido",
+      "results": {
+        "checadores": "As agências de checagem já disseram que é falso ou enganoso. Não passe adiante; se quiser, responda com o link da checagem.",
+        "falso": "Sem autor, sem fonte original e sem confirmação: provavelmente falso ou sem base. Não passe adiante.",
+        "contexto": "Pode até ter algo de real, mas está fora de contexto (data, lugar ou imagem de outra situação). Do jeito que está, engana.",
+        "confiavel": "Passou nos passos: parece confiável. Ao compartilhar, mande junto a fonte original.",
+        "duvida": "Ainda não dá para saber. Na dúvida, não compartilhe: espere uma fonte confiável."
+      },
+      "pending": "Responda aos seis passos para ver o resultado sugerido.",
+      "copy": "Copiar o resumo",
+      "copied": "Resumo copiado.",
+      "reset": "Começar de novo",
+      "note": "O resultado é uma sugestão a partir das suas respostas, não um veredito."
+    },
+    "verdicts": {
+      "title": "O que quer dizer cada selo",
+      "items": {
+        "Falso": "A afirmação contradiz os fatos e as fontes confiáveis.",
+        "Enganoso": "Mistura verdade com distorção, ou usa um dado real para levar a uma conclusão errada.",
+        "Falta contexto": "O dado, a foto ou a frase é real, mas sem a data, o lugar ou a comparação certa passa uma ideia errada.",
+        "Verdadeiro": "Confere com as fontes confiáveis."
+      }
+    },
+    "toolbox": {
+      "title": "Caixa de ferramentas de checagem",
+      "lead": "Serviços gratuitos para conferir por conta própria. Os links abrem o site de cada serviço.",
+      "groups": {
+        "imagem": [
+          "Busca reversa de imagem",
+          "Mande a foto ou cole o link: o buscador mostra onde e quando ela já apareceu."
+        ],
+        "video": [
+          "Vídeo",
+          "Para separar um vídeo em quadros e procurar de onde ele veio."
+        ],
+        "arquivo": [
+          "Páginas antigas",
+          "Para ver como uma página era antes de ser mudada ou apagada."
+        ],
+        "agencias": [
+          "Agências brasileiras de checagem",
+          "Veja se o boato já foi checado por jornalistas."
+        ],
+        "buscador": [
+          "Buscador de checagens",
+          "Procura checagens de agências do mundo todo."
+        ],
+        "dados": [
+          "Dados oficiais",
+          "Para conferir os números na fonte."
+        ],
+        "dominio": [
+          "Quem é dono do site",
+          "Para saber quem registrou um endereço da internet."
+        ],
+        "guias": [
+          "Para aprender mais",
+          "Guias de quem investiga com fontes abertas."
+        ]
+      },
+      "tools": {
+        "google-lens": "Busca pela imagem no Google.",
+        "tineye": "Mostra quando a imagem apareceu pela primeira vez e as versões alteradas.",
+        "bing": "Busca visual da Microsoft.",
+        "yandex": "Costuma achar rostos e lugares que os outros buscadores não acham.",
+        "invid": "Extensão gratuita para o navegador, usada por jornalistas: separa o vídeo em quadros e faz a busca reversa de cada um.",
+        "wayback": "O arquivo da internet, com cópias de páginas desde 1996.",
+        "archive-today": "Guarda agora mesmo uma cópia fiel de uma página.",
+        "lupa": "A primeira agência brasileira especializada em checagem.",
+        "aos-fatos": "Checagem e investigação sobre desinformação.",
+        "fato-ou-fake": "Checagens do g1, do Grupo Globo.",
+        "estadao-verifica": "Núcleo de checagem do jornal O Estado de S. Paulo.",
+        "uol-confere": "Checagens do portal UOL.",
+        "comprova": "Veículos de imprensa que checam juntos boatos sobre políticas públicas e eleições.",
+        "boatos": "Desmente boatos e correntes da internet desde 2013.",
+        "e-farsas": "Um dos sites de checagem mais antigos do Brasil, no ar desde 2002.",
+        "fact-check-explorer": "Procura checagens de agências de vários países, em vários idiomas.",
+        "ibge": "População, emprego, renda e preços.",
+        "transparencia": "Gastos e repasses do governo federal.",
+        "tse": "Candidaturas, bens declarados e contas de campanha.",
+        "datasus": "Dados de saúde: doenças, internações e mortes.",
+        "dou": "Leis, decretos e nomeações publicados oficialmente.",
+        "camara": "Projetos de lei, votações e discursos dos deputados.",
+        "senado": "Projetos, votações e legislação no Senado.",
+        "registro-br": "Mostra quem registrou um endereço terminado em .br.",
+        "bellingcat": "Guias de investigação com fontes abertas (em inglês)."
+      }
+    }
   },
   "debates": {
     "eyebrow": "Argumentos à mão",
@@ -1169,7 +2265,37 @@
     "claim": "Dizem que",
     "answer": "Resposta",
     "more": "Para se aprofundar",
-    "download": "Baixar como imagem"
+    "download": "Baixar como imagem",
+    "beforeTitle": "Antes de debater: conheça as falácias",
+    "beforeText": "Espantalho, falso dilema, ataque à pessoa: os truques mais comuns e como responder a cada um.",
+    "beforeLink": "Abrir o guia das falácias",
+    "fallacies": "Falácias nesta frase"
+  },
+  "fallacies": {
+    "eyebrow": "Pensar com a própria cabeça",
+    "title": "Guia das falácias",
+    "lead": "Falácia é um raciocínio que parece certo, mas não se sustenta. Conhecer as mais comuns ajuda a não cair nelas e a responder com calma quando aparecem numa conversa, num vídeo ou num debate.",
+    "families": {
+      "relevancia": "Razões que não vêm ao caso",
+      "provas": "Provas fracas",
+      "premissas": "Premissas escondidas",
+      "desvio": "Desvios da discussão",
+      "sentido": "Confusões de sentido"
+    },
+    "filter": "Tipo",
+    "all": "Todas",
+    "find": "Procurar",
+    "count": "{n} falácias",
+    "none": "Nenhuma falácia encontrada com essa busca.",
+    "what": "O que é",
+    "everyday": "No dia a dia",
+    "publicDebate": "No debate público",
+    "reply": "Como responder",
+    "related": "Parecidas",
+    "inDebates": "Aparece nos cartões de debate",
+    "remember": "Apontar uma falácia não prova que a conclusão é falsa: só mostra que aquele argumento não a sustenta. E a melhor resposta quase nunca é o nome em latim, e sim a pergunta certa.",
+    "toDebates": "Ver os cartões de debate",
+    "toChecks": "Ver as checagens de fatos"
   },
   "questions": {
     "eyebrow": "Por onde começar",
@@ -1191,7 +2317,46 @@
   "videos": {
     "eyebrow": "Para assistir",
     "title": "Vídeos",
-    "lead": "Aulas e canais gratuitos, escolhidos pela curadoria. Os vídeos abrem no site de origem."
+    "lead": "Aulas e canais gratuitos, escolhidos pela curadoria. Os vídeos abrem no site de origem.",
+    "own": "Procura aulas gravadas pelo próprio instituto? Veja as aulas em vídeo."
+  },
+  "videoLessons": {
+    "eyebrow": "Gravadas pelo instituto",
+    "title": "Aulas em vídeo",
+    "lead": "Aulas curtas, de até 10 minutos, gravadas pelos educadores do instituto e revisadas pela curadoria antes de ir ao ar. No tocador dá para mudar a velocidade (de 0,5x a 3x), ligar as legendas quando houver e ler a transcrição.",
+    "filter": "Disciplina",
+    "all": "Todas as disciplinas",
+    "loading": "Carregando as aulas…",
+    "failed": "Não foi possível carregar as aulas em vídeo agora. Tente de novo mais tarde.",
+    "empty": "Ainda não há aulas em vídeo aqui.",
+    "join": "Você ensina? Seja voluntário e grave a primeira.",
+    "by": "Por {name}",
+    "back": "Todas as aulas em vídeo",
+    "sources": "Fontes",
+    "track": "Trilha",
+    "inPortuguese": "As aulas são gravadas em português.",
+    "shelfLead": "Aulas curtas gravadas pelos educadores desta disciplina.",
+    "watch": "Assistir",
+    "player": {
+      "play": "Tocar",
+      "pause": "Pausar",
+      "back": "Voltar 10 segundos",
+      "forward": "Avançar 10 segundos",
+      "speed": "Velocidade",
+      "captions": "Legendas",
+      "noCaptions": "Esta aula ainda não tem legendas.",
+      "mute": "Tirar o som",
+      "unmute": "Ligar o som",
+      "volume": "Volume",
+      "fullscreen": "Tela cheia",
+      "pip": "Imagem sobre imagem",
+      "progress": "Posição no vídeo",
+      "of": "de",
+      "transcript": "Ler a transcrição",
+      "hideTranscript": "Esconder a transcrição",
+      "keys": "Atalhos: espaço toca e pausa, setas andam 5 segundos, < e > mudam a velocidade, M tira o som, C liga as legendas, F tela cheia.",
+      "error": "Não foi possível tocar este vídeo agora."
+    }
   },
   "more": {
     "eyebrow": "Tudo o que há aqui",
@@ -1199,22 +2364,24 @@
     "lead": "O que não coube no menu, reunido em um só lugar.",
     "critical": "Leitura crítica",
     "items": {
-      "podcasts": "Episódios de formação para ouvir no ônibus, na cozinha ou no intervalo do trabalho.",
       "tools": "Afinador, editor de código, tabela periódica e outras.",
       "questions": "Dúvidas do dia a dia que levam às aulas certas.",
       "glossary": "Os termos difíceis em linguagem simples.",
       "authors": "Quem escreveu as obras do acervo.",
       "videos": "Aulas e canais gratuitos.",
+      "videoLessons": "Aulas curtas gravadas pelos educadores do instituto, com transcrição e velocidade ajustável.",
       "sources": "Onde encontrar livros, dados e notícias confiáveis.",
       "timeline": "Das revoltas do passado às lutas de hoje.",
       "factCheck": "Boatos conferidos com fontes públicas.",
       "debates": "Respostas curtas para frases feitas.",
+      "fallacies": "Os truques de argumento mais comuns, e como responder a cada um.",
       "radio": "Música e palavra para acompanhar o estudo.",
       "volunteers": "Revise, traduza, ensine ou escreva.",
       "about": "O que é o instituto e como o conteúdo é licenciado.",
       "history": "Tudo o que mudou no acervo, com data.",
       "myData": "Baixe ou apague o que está guardado neste navegador.",
       "mural": "Cooperativas, ofícios, arte e iniciativas de quem trabalha.",
+      "drawer": "Trabalhos de estudantes, livres para todos: TCCs, artigos, projetos e apostilas.",
       "tutoring": "Travou em uma matéria? Um voluntário responde a sua dúvida por e-mail.",
       "materials": "Zines, panfletos, cartazes e banners para baixar e distribuir.",
       "privacy": "O que o site guarda, onde e por quanto tempo, e como apagar.",
@@ -1224,11 +2391,14 @@
       "dedication": "De onde vem o nome do instituto.",
       "contribute": "Envie uma aula, uma obra, uma correção ou uma ideia.",
       "support": "Ajude a pagar o servidor e o domínio.",
-      "instagram": "Novidades do instituto, aulas e chamadas para voluntários.",
       "start": "Livros curtos e aulas para dar os primeiros passos.",
       "news": "Manchetes de veículos populares, independentes e públicos, atualizadas sozinhas.",
       "gallery": "Cartazes e imagens da luta dos trabalhadores, com a história de cada um.",
-      "data": "Salário mínimo, inflação, juros, desemprego e o que a Câmara votou, das fontes oficiais."
+      "data": "Salário mínimo, inflação, juros, desemprego e o que a Câmara votou, das fontes oficiais.",
+      "podcasts": "Episódios de formação para ouvir no ônibus, na cozinha ou no intervalo do trabalho.",
+      "instagram": "Novidades do instituto, aulas e chamadas para voluntários.",
+      "live": "Agenda de aulas ao vivo, com vídeo e bate-papo no próprio site.",
+      "notebook": "Junte aulas e textos e tire deles resumo, cartões, questionário, mapa, linha do tempo e áudio. Tudo no seu navegador."
     }
   },
   "support": {
@@ -1253,6 +2423,10 @@
     "wallEmpty": "O mural ainda está vazio."
   },
   "auth": {
+    "unconfirmed": "Seu e-mail ainda não foi confirmado. Abra o e-mail que mandamos e toque em «Confirmar e-mail». Não achou ou o link venceu? Peça outro aqui.",
+    "resend": "Reenviar e-mail de confirmação",
+    "resent": "Pronto: mandamos um e-mail novo. Abra e toque no botão em até 24 horas (confira também o spam). Depois, entre aqui.",
+    "expired": "O link de confirmação venceu ou já foi usado. Digite o seu e-mail e a senha, toque em Entrar e peça um e-mail novo.",
     "or": "ou",
     "fingerprint": "Entrar com a digital",
     "fingerprintHint": "Funciona depois que você cadastra a digital deste aparelho no painel, em Minha conta. A digital nunca sai do celular.",
@@ -1277,7 +2451,7 @@
     "inviteTitle": "Você recebeu um convite",
     "inviteWhy": "Guardamos só o seu e-mail. O nome que aparece no site nasce como um codinome, que você troca se quiser.",
     "inviteInvalid": "Este convite não vale mais, ou não é para este e-mail. Peça outro a quem enviou.",
-    "passwordNew": "Crie uma senha (pelo menos 12 caracteres; uma frase funciona bem)",
+    "passwordNew": "Crie uma senha",
     "passwordAgain": "Repita a senha",
     "mismatch": "As duas senhas não são iguais.",
     "create": "Criar conta",
@@ -1292,7 +2466,18 @@
     "createFailed": "Não foi possível criar a conta. Este e-mail pode já ter conta, ou o cadastro pode estar fechado no momento.",
     "volunteerLink": "Quer ser voluntário? Preencha a candidatura",
     "whyClosed": "Aqui não há \"esqueci minha senha\" e, no momento, as contas são criadas por convite da coordenação. Perdeu a senha? Fale com quem convidou você.",
-    "leaked": "Essa senha já apareceu em vazamentos de outros sites e é das primeiras que um invasor tenta. Escolha outra. (A conferência não envia a sua senha a ninguém.)"
+    "leaked": "Essa senha já apareceu em vazamentos de outros sites e é das primeiras que um invasor tenta. Escolha outra. (A conferência não envia a sua senha a ninguém.)",
+    "show": "Mostrar a senha",
+    "hide": "Esconder a senha",
+    "rulesTitle": "A senha precisa ter",
+    "rules": {
+      "length": "pelo menos 12 caracteres",
+      "upper": "uma letra maiúscula",
+      "lower": "uma letra minúscula",
+      "number": "um número",
+      "special": "um caractere especial (!, @, #, ., ?…)"
+    },
+    "strong": "Senha forte."
   },
   "radio": {
     "back15": "Voltar 15 segundos",
@@ -1346,8 +2531,18 @@
     "conteudo_recusado": "O texto tem palavras que o site não aceita. Reescreva e envie de novo.",
     "sem_links": "Aqui só entra texto: sem endereços de sites, imagens ou arquivos.",
     "envios_pausados": "Os envios estão pausados no momento.",
+    "area_interditada": "Esta parte do site está fechada por um tempo. Tente de novo mais tarde.",
+    "falta_termo": "Para publicar, aceite o termo e escreva o seu nome completo.",
     "acesso_bloqueado": "Os envios desta rede foram bloqueados pela mediação.",
-    "ja_pediu": "Você já enviou esse pedido; ele está em análise."
+    "ja_pediu": "Você já enviou esse pedido; ele está em análise.",
+    "assistente_desligado": "O assistente está desligado agora. Peça reforço a um voluntário.",
+    "assistente_limite": "Você já usou todas as perguntas ao assistente de hoje. Amanhã tem mais; enquanto isso, peça reforço a um voluntário.",
+    "assistente_lotado": "O assistente chegou ao limite de perguntas do dia para todo o site. Peça reforço a um voluntário ou tente amanhã.",
+    "assistente_indisponivel": "O assistente não está disponível agora. Tente mais tarde ou peça reforço a um voluntário.",
+    "assistente_falhou": "O assistente não conseguiu responder agora, e a pergunta não foi descontada. Tente de novo daqui a pouco.",
+    "imagem": "Não deu para ler a imagem. Use uma foto em JPG, PNG ou WebP.",
+    "pergunta_curta": "Escreva a dúvida com um pouco mais de detalhe.",
+    "pergunta_longa": "A dúvida passou do tamanho máximo (3.000 caracteres)."
   },
   "community": {
     "eyebrow": "Comunidade",
@@ -1505,7 +2700,26 @@
     "cancel": "Cancelar pedido",
     "cancelled": "Pedido cancelado.",
     "offline": "O reforço ainda não está ativo nesta cópia do site.",
-    "textOnly": "Só texto: endereços de sites, imagens e arquivos não são aceitos."
+    "textOnly": "Só texto: endereços de sites, imagens e arquivos não são aceitos.",
+    "suggestTitle": "Aulas e verbetes que podem ajudar",
+    "assistant": {
+      "title": "Sem voluntário agora? Pergunte ao assistente",
+      "lead": "Um assistente automático explica a sua dúvida na hora, passo a passo, usando o que você escreveu acima. Ele pode errar: confira com as aulas e, se continuar com dúvida, peça reforço a um voluntário logo abaixo.",
+      "warning": "Antes de perguntar: a sua dúvida (e a foto, se você mandar uma) vai para um serviço de inteligência artificial de outra empresa, a Anthropic, com servidores fora do Brasil. Não escreva nome, endereço, telefone nem outro dado pessoal. O Instituto Lúcia não guarda a pergunta nem a resposta.",
+      "login": "O assistente é para quem tem conta.",
+      "loginLink": "Entrar ou criar conta",
+      "photo": "Juntar uma foto do exercício (opcional)",
+      "removePhoto": "Tirar a foto",
+      "ask": "Perguntar ao assistente",
+      "need": "Escreva a dúvida acima (ou junte uma foto) para perguntar.",
+      "asking": "O assistente está pensando… pode levar até um minuto.",
+      "answer": "Resposta do assistente",
+      "mayErr": "Resposta automática, que pode conter erros. Confira com as aulas do site ou peça a um voluntário.",
+      "cut": "A resposta ficou longa demais e foi cortada no fim.",
+      "refused": "O assistente não pode ajudar com essa pergunta. Mande-a para um voluntário pelo formulário abaixo.",
+      "left": "Perguntas que ainda restam hoje: {n}.",
+      "toVolunteer": "Ainda com dúvida? Peça reforço a um voluntário logo abaixo: a sua pergunta já está escrita."
+    }
   },
   "materials": {
     "eyebrow": "Para imprimir e distribuir",
@@ -1587,7 +2801,6 @@
     "offline": "As candidaturas ainda não estão ativas nesta cópia do site.",
     "roles": {
       "educacao": "Educador(a)",
-      "educacao_secundaria": "Educador(a) secundário(a): materiais e aulas avulsas",
       "mediacao": "Mediador(a) da comunidade",
       "revisao": "Revisor(a)",
       "traducao": "Tradutor(a)",
@@ -1596,8 +2809,136 @@
       "design": "Designer",
       "marketing": "Marketing e divulgação",
       "desenvolvimento": "Infraestrutura e desenvolvimento",
-      "curadoria": "Curador(a)"
+      "curadoria": "Curador(a)",
+      "educacao_secundaria": "Educador(a) secundário(a): materiais e aulas avulsas"
     }
+  },
+  "povo": {
+    "eyebrow": "Consciência política",
+    "title": "Dados do povo",
+    "lead": "Os números que mais pesam na vida de quem trabalha e o que a Câmara anda votando, direto das fontes oficiais. Atualizados de tantas em tantas horas.",
+    "economy": "Salário, preços e emprego",
+    "indicators": {
+      "salario": [
+        "Salário mínimo",
+        "Valor mensal do salário mínimo nacional."
+      ],
+      "ipca": [
+        "Inflação em 12 meses",
+        "IPCA acumulado em doze meses: quanto os preços subiram em um ano."
+      ],
+      "selic": [
+        "Juros básicos (Selic)",
+        "Meta da taxa Selic ao ano, definida pelo Banco Central. Ela encarece ou barateia o crédito."
+      ],
+      "desocupacao": [
+        "Desemprego",
+        "Taxa de desocupação da PNAD Contínua, em trimestre móvel."
+      ],
+      "populacao": [
+        "População do Brasil",
+        "Estimativa oficial do IBGE."
+      ]
+    },
+    "reference": "Referência",
+    "votes": "O que a Câmara votou",
+    "votesLead": "As últimas votações no Plenário da Câmara dos Deputados, como a própria Câmara as descreve.",
+    "approved": "aprovado",
+    "rejected": "rejeitado",
+    "seeSession": "Ver a sessão no site da Câmara",
+    "votesSource": "Fonte: Dados Abertos da Câmara dos Deputados.",
+    "unavailable": "A fonte não respondeu agora. Volte em algumas horas.",
+    "note": "Todos os números vêm das fontes indicadas em cada quadro, sem ajuste nosso. Se uma fonte não responde, o quadro some em vez de mostrar número velho."
+  },
+  "closed": {
+    "siteTitle": "Fora do ar por um tempo",
+    "siteLead": "O Instituto Lúcia está temporariamente fora do ar. Volte daqui a pouco.",
+    "areaTitle": "Esta parte do site está fechada por um tempo",
+    "areaLead": "O resto do site continua funcionando normalmente.",
+    "home": "Ir para o início",
+    "team": "Equipe: entrar"
+  },
+  "drawer": {
+    "eyebrow": "Trabalhos de estudantes",
+    "title": "Gaveta Aberta",
+    "tagline": "trabalhos de estudantes, livres para todos",
+    "lead": "TCCs, artigos, projetos, relatórios e apostilas que estavam parados na gaveta. Quem fez publica com um comentário e uma licença livre; quem se interessa usa à vontade.",
+    "description": "Trabalhos de estudantes publicados por quem os fez, sob licença livre: TCCs, artigos, projetos, relatórios e apostilas.",
+    "offline": "A Gaveta ainda não está ativa nesta cópia do site.",
+    "filters": "Filtrar a Gaveta",
+    "allSubjects": "Todas as disciplinas",
+    "allTypes": "Todos os tipos",
+    "search": "Buscar por título, curso, instituição…",
+    "empty": "Nenhum trabalho com esses filtros ainda.",
+    "loading": "Carregando…",
+    "count": {
+      "one": "trabalho",
+      "other": "trabalhos"
+    },
+    "types": {
+      "tcc": "TCC",
+      "monografia": "Monografia",
+      "dissertacao": "Dissertação ou tese",
+      "artigo": "Artigo",
+      "projeto": "Projeto",
+      "relatorio": "Relatório",
+      "apostila": "Apostila ou resumo",
+      "codigo": "Código",
+      "apresentacao": "Apresentação",
+      "outro": "Outro"
+    },
+    "credit": "Crédito: {name}",
+    "why": "Por que vale a pena",
+    "open": "Abrir o trabalho",
+    "download": "Baixar o PDF",
+    "downloading": "Baixando…",
+    "downloadFailed": "Não foi possível baixar agora. Tente de novo em instantes.",
+    "report": "Denunciar",
+    "license": "Licença",
+    "licenses": {
+      "CC BY 4.0": "CC BY 4.0: livre uso, com crédito",
+      "CC BY-SA 4.0": "CC BY-SA 4.0: livre uso, com crédito e a mesma licença nas adaptações",
+      "CC0 1.0": "CC0 1.0: domínio público, sem precisar de crédito"
+    },
+    "publishTitle": "Publicar um trabalho",
+    "publishLead": "Fez um trabalho que ficou na gaveta? Publique com um comentário seu. A mediação confere antes de aparecer.",
+    "signInFirst": "Para publicar, entre na sua conta ou crie uma. É gratuito.",
+    "signIn": "Entrar ou criar conta",
+    "fieldTitle": "Título do trabalho",
+    "fieldType": "Tipo",
+    "fieldSubject": "Disciplina",
+    "chooseSubject": "Escolha…",
+    "fieldCourse": "Curso (opcional)",
+    "fieldInstitution": "Instituição (opcional)",
+    "fieldYear": "Ano (opcional)",
+    "fieldComment": "Seu comentário: do que trata e por que pode servir a alguém (de 40 a 2.000 caracteres)",
+    "fieldCredit": "Nome para o crédito público",
+    "how": "Como o trabalho chega a quem lê",
+    "howLink": "Um link para onde ele já está",
+    "howFile": "Enviar o PDF",
+    "fieldLink": "Endereço (https://…): repositório da universidade, Zenodo, OSF, GitHub, Google Drive…",
+    "fieldFile": "Arquivo PDF (até 10 MB)",
+    "fileWarning": "PDFs costumam guardar o nome de quem escreveu e outros dados nos metadados (em Arquivo → Propriedades). Confira antes de enviar. A mediação também confere o arquivo antes de publicar.",
+    "notPdf": "Escolha um arquivo PDF de até 10 MB.",
+    "uploadFailed": "O PDF não subiu. Confira se é PDF, tem até 10 MB e tente de novo.",
+    "fieldLicense": "Licença",
+    "term": "Termo de cessão",
+    "termAgree": "Li e aceito o termo de cessão (versão {v})",
+    "termName": "Seu nome completo (fica só com a equipe que decide, como registro do aceite; não aparece no site)",
+    "termPage": "Abrir o termo numa página própria",
+    "send": "Publicar",
+    "sending": "Enviando…",
+    "sent": "Recebido. A mediação confere e publica em breve; você recebe um recado no painel.",
+    "mine": "Minhas publicações",
+    "statuses": {
+      "pendente": "esperando a mediação",
+      "aprovado": "publicado",
+      "recusado": "não publicado"
+    },
+    "note": "Nota da mediação",
+    "withdraw": "Tirar do ar",
+    "withdrawConfirm": "Tirar esta ficha do ar? Quem já copiou o trabalho continua podendo usá-lo, pela licença.",
+    "withdrawn": "Ficha retirada."
   },
   "podcast": {
     "title": "Podcasts",
@@ -1745,43 +3086,6 @@
     "conversation": "Conversa",
     "more": "Para ouvir em seguida"
   },
-  "povo": {
-    "eyebrow": "Consciência política",
-    "title": "Dados do povo",
-    "lead": "Os números que mais pesam na vida de quem trabalha e o que a Câmara anda votando, direto das fontes oficiais. Atualizados de tantas em tantas horas.",
-    "economy": "Salário, preços e emprego",
-    "indicators": {
-      "salario": [
-        "Salário mínimo",
-        "Valor mensal do salário mínimo nacional."
-      ],
-      "ipca": [
-        "Inflação em 12 meses",
-        "IPCA acumulado em doze meses: quanto os preços subiram em um ano."
-      ],
-      "selic": [
-        "Juros básicos (Selic)",
-        "Meta da taxa Selic ao ano, definida pelo Banco Central. Ela encarece ou barateia o crédito."
-      ],
-      "desocupacao": [
-        "Desemprego",
-        "Taxa de desocupação da PNAD Contínua, em trimestre móvel."
-      ],
-      "populacao": [
-        "População do Brasil",
-        "Estimativa oficial do IBGE."
-      ]
-    },
-    "reference": "Referência",
-    "votes": "O que a Câmara votou",
-    "votesLead": "As últimas votações no Plenário da Câmara dos Deputados, como a própria Câmara as descreve.",
-    "approved": "aprovado",
-    "rejected": "rejeitado",
-    "seeSession": "Ver a sessão no site da Câmara",
-    "votesSource": "Fonte: Dados Abertos da Câmara dos Deputados.",
-    "unavailable": "A fonte não respondeu agora. Volte em algumas horas.",
-    "note": "Todos os números vêm das fontes indicadas em cada quadro, sem ajuste nosso. Se uma fonte não responde, o quadro some em vez de mostrar número velho."
-  },
   "loose": {
     "eyebrow": "Material avulso",
     "formats": [
@@ -1792,5 +3096,225 @@
       "Material para imprimir",
       "Indicação comentada"
     ]
+  },
+  "practice": {
+    "title": "Prática lúdica",
+    "lead": "Jogue com o que acabou de aprender: um exercício de cada vez, resposta na hora, pontos e uma sequência de dias para manter. A voz é a do seu aparelho; nada sai dele.",
+    "best": "Seu melhor resultado nesta aula: {n}% · {k} sessão(ões).",
+    "start": "Começar",
+    "again": "Jogar de novo",
+    "exercises": "{n} exercícios",
+    "reviewCards": "Revisar os cartões do dia",
+    "progress": "Progresso da sessão",
+    "exerciseOf": "{i} de {n}",
+    "correct": "Certo!",
+    "wrong": "Ainda não.",
+    "skipped": "Pulado.",
+    "answerWas": "A resposta era:",
+    "continue": "Continuar",
+    "finish": "Ver o resultado",
+    "quit": "Sair da sessão",
+    "score": "Você acertou {a} de {b}.",
+    "earned": "+{n} pontos",
+    "previewNote": "Teste: os pontos não contam.",
+    "streakDays": "{n} dia(s) seguidos",
+    "xp": "pontos",
+    "streak": "Sequência de dias",
+    "soundOn": "som ligado",
+    "soundOff": "som desligado",
+    "redoWrong": "Refazer só os errados",
+    "check": "Conferir",
+    "listen": "Ouvir",
+    "slow": "Ouvir devagar",
+    "orderWords": "Ponha as palavras na ordem",
+    "translate": "Traduza",
+    "yourAnswer": "Sua resposta",
+    "tapWords": "Toque nas palavras para montar a frase.",
+    "typeAnswer": "Escreva a resposta",
+    "fillBlank": "Complete a lacuna",
+    "matchPairs": "Ligue os pares",
+    "typeHeard": "Escreva o que você ouviu",
+    "noSpeech": "Seu aparelho não tem voz para este idioma. Leia e escreva:",
+    "sayIt": "Fale em voz alta",
+    "speak": "Falar",
+    "speaking": "Ouvindo… toque para parar",
+    "heard": "Entendemos:",
+    "noMic": "Não deu para ouvir. Confira o microfone e tente de novo, ou pule.",
+    "skip": "Pular",
+    "couldSay": "Este navegador não reconhece fala. Ouça, repita em voz alta e diga como foi:",
+    "iDid": "Consegui",
+    "notYet": "Ainda não",
+    "flashcards": "Cartões de memória",
+    "front": "toque para voltar",
+    "flip": "toque para virar",
+    "hard": "Difícil",
+    "easy": "Fácil"
+  },
+  "live": {
+    "eyebrow": "Ensino a distância",
+    "title": "Aulas ao vivo",
+    "lead": "Educadores marcam aulas aqui; na hora, você entra, assiste e pergunta. De graça, sem instalar nada.",
+    "description": "Agenda pública de aulas ao vivo do Instituto Lúcia, com vídeo e bate-papo no próprio site.",
+    "room": "Sala de aula",
+    "offline": "As aulas ao vivo ainda não estão ativas nesta cópia do site.",
+    "filter": "Disciplina",
+    "all": "Todas as disciplinas",
+    "empty": "Nenhuma aula marcada por enquanto. Volte em breve.",
+    "liveNow": "Ao vivo agora",
+    "recorded": "Gravação",
+    "recordings": "Aulas gravadas",
+    "minutes": "{n} min",
+    "with": "com {names}",
+    "registered": "{n} com presença marcada",
+    "enter": "Entrar na aula",
+    "openRoom": "Abrir a sala",
+    "register": "Marcar presença",
+    "unregister": "Desmarcar presença",
+    "addToCalendar": "Pôr no calendário",
+    "watchRecording": "Assistir à gravação",
+    "howItWorks": "Como funciona: o vídeo vai direto do navegador de quem ensina para o seu, sem servidor no meio. O bate-papo fica guardado como registro da aula. Para falar é preciso ter conta; para assistir, não.",
+    "chat": "Bate-papo",
+    "chatEmpty": "Ninguém falou ainda.",
+    "chatPlaceholder": "Escreva para a turma",
+    "send": "Enviar",
+    "markQuestion": "É uma pergunta para quem ensina",
+    "question": "pergunta",
+    "show": "mostrar",
+    "hide": "esconder",
+    "chatClosed": "A aula terminou: o bate-papo está fechado.",
+    "signInToChat": "Entre na sua conta para falar no bate-papo.",
+    "someone": "Alguém",
+    "you": "você",
+    "cancelled": "Esta aula foi cancelada.",
+    "ended": "Esta aula já terminou.",
+    "noChannel": "O vídeo não está disponível nesta cópia do site. Use a sala de fora, se houver; o bate-papo funciona.",
+    "noChannelShort": "sem canal",
+    "hostHint": "Ligue a câmera ou a tela abaixo. Quem está na sala passa a ver você.",
+    "waitingVideo": "A aula começou. Esperando o vídeo de quem ensina…",
+    "notStarted": "A aula ainda não começou. Fique por aqui: o vídeo aparece sozinho.",
+    "externalRoom": "Entrar na sala de fora",
+    "hostControls": "Você conduz esta aula",
+    "camera": "Câmera",
+    "screen": "Tela",
+    "audioOnly": "Só voz",
+    "mute": "Silenciar",
+    "unmute": "Ligar o microfone",
+    "record": "Gravar",
+    "stopRecording": "Parar e baixar",
+    "turnOff": "Desligar",
+    "startClass": "Começar a aula",
+    "endClass": "Encerrar a aula",
+    "confirmEnd": "Encerrar a aula para todo mundo?",
+    "recordHint": "A gravação fica no seu aparelho (arquivo .webm). Depois, envie como aula em vídeo pelo painel ou cole o endereço em “Pôr a gravação”.",
+    "handsRaised": "Mão levantada: {names}",
+    "raiseHand": "Levantar a mão",
+    "lowerHand": "Abaixar a mão",
+    "inRoom": "{n} na sala",
+    "teacher": "ensina",
+    "mediaFailed": "Não deu para ligar a câmera, a tela ou o microfone. Confira a permissão do navegador.",
+    "recordFailed": "Este navegador não grava vídeo."
+  },
+  "notebook": {
+    "eyebrow": "Sala de estudo",
+    "title": "Caderno de estudos",
+    "lead": "Junte o que você vai estudar (aulas e obras do site, textos seus, arquivos) e tenha tudo à mão: resumo, perguntas às fontes, cartões, questionário, mapa, linha do tempo, resumo em áudio, notas e plano. De graça, sem conta: fica guardado só neste navegador.",
+    "description": "Caderno de estudos do Instituto Lúcia: resumo, cartões de memória, questionário, mapa mental, linha do tempo e áudio a partir das aulas e dos seus textos, no próprio navegador.",
+    "notebooks": "Cadernos",
+    "newNotebook": "Novo caderno",
+    "untitled": "Meu caderno",
+    "rename": "Nome do caderno",
+    "delete": "Apagar este caderno",
+    "confirmDelete": "Apagar o caderno, com as fontes e as notas? Não tem volta.",
+    "sources": "Fontes",
+    "fromSite": "Do site",
+    "searchSite": "Procurar aulas e obras do site",
+    "searchPlaceholder": "Procure uma aula, obra, verbete…",
+    "noResults": "Nada com esse nome.",
+    "paste": "Colar texto",
+    "pasteTitle": "Título da fonte",
+    "pasteText": "Cole aqui o texto (anotações, um capítulo, um artigo…)",
+    "pasteAdd": "Acrescentar",
+    "file": "Arquivo",
+    "fileHint": "Arquivos .txt ou .md do seu aparelho. Nada é enviado a lugar nenhum.",
+    "active": "Usar esta fonte",
+    "remove": "tirar",
+    "empty": "Nenhuma fonte ainda. Comece pelo site, cole um texto ou abra um arquivo.",
+    "needSources": "Marque pelo menos uma fonte para esta ferramenta trabalhar.",
+    "minutes": "{n} min de leitura",
+    "tools": {
+      "summary": "Resumo",
+      "ask": "Perguntar",
+      "cards": "Cartões",
+      "quiz": "Questionário",
+      "map": "Mapa",
+      "timeline": "Linha do tempo",
+      "audio": "Áudio",
+      "notes": "Notas",
+      "plan": "Plano",
+      "script": "Roteiro"
+    },
+    "summaryLead": "As frases que mais concentram as ideias das fontes, na ordem em que aparecem. Não é texto novo: é o próprio texto, condensado.",
+    "summaryLength": "Frases",
+    "keywords": "Palavras que mais pesam",
+    "copyToNotes": "Copiar para as notas",
+    "askLead": "Pergunte com as suas palavras: o caderno traz as passagens das fontes que mais falam disso. Quem responde é o texto, não uma máquina.",
+    "askPlaceholder": "O que é mais-valia? Quando foi a greve de 1917?",
+    "askButton": "Procurar",
+    "askNone": "Nenhuma passagem fala disso. Tente outras palavras ou acrescente fontes.",
+    "cardsLead": "Cartões feitos dos títulos e dos termos destacados nas fontes. Vire, diga se sabia, e repita os que faltam.",
+    "cardsEmpty": "Não deu para montar cartões destas fontes: elas não têm títulos nem termos destacados. Tente uma aula do site.",
+    "flip": "toque para virar",
+    "front": "toque para voltar",
+    "know": "Eu sabia",
+    "dontKnow": "Ainda não",
+    "again": "Embaralhar e refazer",
+    "redoUnknown": "Repetir os que faltaram",
+    "cardsDone": "Você sabia {a} de {b}.",
+    "quizLead": "As perguntas rápidas escritas nas aulas e lacunas sorteadas sobre as palavras-chave. Não vale nota.",
+    "quizEmpty": "Não deu para montar perguntas destas fontes. Tente uma aula do site, que já traz perguntas.",
+    "check": "Conferir",
+    "correct": "Certo.",
+    "wrong": "Ainda não.",
+    "next": "Próxima",
+    "quizScore": "Você acertou {a} de {b}.",
+    "restart": "Sortear outras",
+    "mapLead": "Os títulos de cada fonte, em árvore: a estrutura do assunto num olhar.",
+    "timelineLead": "Os anos citados nas fontes, com a frase em que aparecem, em ordem.",
+    "timelineEmpty": "Nenhuma data nas fontes marcadas.",
+    "audioLead": "Duas vozes do seu aparelho conversam sobre o resumo, como num programa curto. Nada sai do navegador.",
+    "audioPlay": "Ouvir",
+    "audioStop": "Parar",
+    "audioSpeed": "Velocidade",
+    "audioNoVoice": "Este navegador não lê em voz alta.",
+    "audioIntro": [
+      "Hoje a conversa é sobre",
+      "Estamos com estas fontes na mesa:",
+      "As palavras que mais aparecem são"
+    ],
+    "audioQuestions": [
+      "E por que isso importa para quem estuda e trabalha?",
+      "O que fica para pensar: o que muda, na prática, quando a gente entende isso?"
+    ],
+    "audioClose": "Fica o convite para ler as fontes inteiras. Bom estudo.",
+    "voiceA": "Voz A",
+    "voiceB": "Voz B",
+    "notesLead": "Suas notas, em texto simples. São guardadas sozinhas neste navegador.",
+    "notesPlaceholder": "Escreva aqui…",
+    "exportNotes": "Baixar as notas (.md)",
+    "print": "Imprimir",
+    "planLead": "Uma tarefa por seção das fontes. Marque conforme avança; o relógio ao lado marca blocos de estudo.",
+    "pomodoro": "25 minutos de foco, 5 de pausa.",
+    "focus": "Foco",
+    "rest": "Pausa",
+    "start": "Começar",
+    "pause": "Pausar",
+    "reset": "Zerar",
+    "scriptLead": "Um esboço de roteiro no gabarito do podcast, com os pontos tirados das fontes. É ponto de partida: reescreva na sua voz.",
+    "scriptCopy": "Copiar o roteiro",
+    "copied": "Copiado.",
+    "honest": "O caderno não usa inteligência artificial: resume, procura e pergunta por estatística de texto, aqui no seu aparelho. O que ele mostra sempre vem das fontes que você escolheu.",
+    "allFree": "Tudo de graça e sem conta. Precisa de uma palavra?",
+    "dictionary": "Dicionário",
+    "moreTools": "Outras ferramentas"
   }
 }

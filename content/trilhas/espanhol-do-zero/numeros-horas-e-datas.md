@@ -1,105 +1,148 @@
 ---
 titulo: "Números, horas e datas"
-resumo: "Objetivo: contar em espanhol, dizer as horas, os dias da semana, os meses e as datas, e lidar com preços e números de telefone."
+resumo: "Contar, dizer a idade e o preço, perguntar as horas e falar dos dias e dos meses em espanhol."
 autores: ["Instituto Lúcia"]
 fontes:
-  - titulo: "Espanhol/Vocabulário/Números"
-    autor: "Wikilivros"
-    url: "https://pt.wikibooks.org/wiki/Espanhol/Vocabul%C3%A1rio/N%C3%BAmeros"
-  - titulo: "Espanhol/Vocabulário/Hora"
-    autor: "Wikilivros"
-    url: "https://pt.wikibooks.org/wiki/Espanhol/Vocabul%C3%A1rio/Hora"
+  - titulo: "Diccionario panhispánico de dudas"
+    autor: "Real Academia Española e Asociación de Academias de la Lengua Española"
+    url: "https://www.rae.es/dpd/"
+  - titulo: "Plan curricular del Instituto Cervantes"
+    autor: "Instituto Cervantes (Centro Virtual Cervantes)"
+    url: "https://cvc.cervantes.es/ensenanza/biblioteca_ele/plan_curricular/"
   - titulo: "Gramática básica del estudiante de español"
-    autor: "Rosario Alonso Raya e outros (Difusión)"
+    autor: "Rosario Alonso Raya e outros"
     ano: "2005"
 quiz:
-  - pergunta: "Como se escreve 31 em espanhol?"
-    opcoes: ["treinta y uno", "treintiuno", "trinta e um"]
-    resposta: 0
-    explicacao: "De 16 a 29 escreve-se junto (dieciséis, veintiuno); de 31 em diante, separado com y."
+  - pergunta: "Como se escreve 16 em espanhol?"
+    opcoes: ["diez y seis", "dieciséis", "decisseis"]
+    resposta: 1
+    explicacao: "De 16 a 29, os números se escrevem numa palavra só: dieciséis, veintiuno, veintitrés."
+  - pergunta: "Como se diz 105?"
+    opcoes: ["ciento y cinco", "ciento cinco", "cien cinco"]
+    resposta: 1
+    explicacao: "O y só aparece entre dezena e unidade (treinta y cinco). Depois da centena, não se usa: ciento cinco."
   - pergunta: "Como se diz \"É uma hora\"?"
     opcoes: ["Son la una.", "Es la una.", "Es una hora."]
     resposta: 1
-    explicacao: "Só com a uma se usa es; das duas em diante, son: son las dos."
-  - pergunta: "Como se diz 500?"
-    opcoes: ["cincocientos", "quinientos", "cinco cien"]
+    explicacao: "Uma hora vai no singular: es la una. As outras, no plural: son las dos, son las tres."
+  - pergunta: "Como se escrevem os meses e os dias da semana em espanhol?"
+    opcoes: ["Com letra maiúscula", "Com letra minúscula, como em português", "Com maiúscula só nos meses"]
     resposta: 1
-    explicacao: "Quinientos, setecientos e novecientos são irregulares."
-  - pergunta: "Os dias da semana e os meses se escrevem com letra maiúscula em espanhol?"
-    opcoes: ["Sim", "Não: com minúscula, como em português", "Só os meses"]
-    resposta: 1
-    explicacao: "lunes, martes, enero, febrero."
+    explicacao: "Lunes, martes, enero, febrero: todos com minúscula."
 ---
 
-## De 0 a 30
+Os números do espanhol são primos dos nossos, e por isso parecem fáceis. Mas alguns detalhes de escrita e de pronúncia mudam, e as horas seguem um modelo um pouco diferente do que usamos no Brasil.
+
+## De 0 a 15
 
 | | | | |
 | --- | --- | --- | --- |
-| 0 cero | 1 uno | 2 dos | 3 tres |
-| 4 cuatro | 5 cinco | 6 seis | 7 siete |
-| 8 ocho | 9 nueve | 10 diez | 11 once |
-| 12 doce | 13 trece | 14 catorce | 15 quince |
-| 16 dieciséis | 17 diecisiete | 18 dieciocho | 19 diecinueve |
-| 20 veinte | 21 veintiuno | 22 veintidós | 30 treinta |
+| 0 cero | 4 cuatro | 8 ocho | 12 doce |
+| 1 uno | 5 cinco | 9 nueve | 13 trece |
+| 2 dos | 6 seis | 10 diez | 14 catorce |
+| 3 tres | 7 siete | 11 once | 15 quince |
 
-De **16 a 29**, escreve-se tudo junto: *dieciséis*, *veinticinco*.
+Atenção à pronúncia: *doce* (doze) soa "dó-sse", com som de s; *siete* termina com um e claro, e não vira "siétchi"; em *cuatro*, o u se pronuncia: "cuá-tro".
 
-## De 31 em diante
+## De 16 a 29: uma palavra só
 
-Dezena **y** unidade, separado: *treinta y uno*, *cuarenta y cinco*, *noventa y nueve*.
+Do 16 ao 29, os números se escrevem **juntos**:
 
-| Dezenas | Centenas |
+- *dieciséis* (16), *diecisiete* (17), *dieciocho* (18), *diecinueve* (19);
+- *veinte* (20), *veintiuno* (21), *veintidós* (22), *veintitrés* (23), *veinticuatro* (24)… *veintinueve* (29).
+
+Repare nos acentos de *dieciséis*, *veintidós*, *veintitrés* e *veintiséis*.
+
+## As dezenas e o y
+
+| | | | |
+| --- | --- | --- | --- |
+| 30 treinta | 50 cincuenta | 70 setenta | 90 noventa |
+| 40 cuarenta | 60 sesenta | 80 ochenta | |
+
+Do 31 em diante, a dezena e a unidade se ligam com **y** (e), em palavras separadas: *treinta y uno* (31), *cuarenta y cinco* (45), *noventa y nueve* (99).
+
+## Centenas e milhares
+
+| | |
 | --- | --- |
-| 40 cuarenta | 100 cien |
-| 50 cincuenta | 200 doscientos |
-| 60 sesenta | 300 trescientos |
-| 70 setenta | 500 **quinientos** |
-| 80 ochenta | 700 **setecientos** |
-| 90 noventa | 900 **novecientos** |
+| 100 cien | 600 seiscientos |
+| 101 ciento uno | 700 setecientos |
+| 200 doscientos | 800 ochocientos |
+| 300 trescientos | 900 novecientos |
+| 400 cuatrocientos | 1.000 mil |
+| 500 quinientos | 1.000.000 un millón |
 
-- **cien** é 100 exato; de 101 a 199, **ciento**: *ciento veinte*.
-- **mil** é 1 000; *dos mil*, *diez mil*.
-- **un millón de** pessoas (com *de*, como em português).
+Três diferenças importantes em relação ao português:
+
+1. **Cien** é o 100 redondo e vem antes de substantivos: *cien personas*, *cien mil*. Do 101 ao 199, usa-se **ciento**: *ciento veinte*.
+2. **Não há "e" depois da centena nem do milhar.** Em português, dizemos "cento **e** cinco" e "mil **e** duzentos". Em espanhol: *ciento cinco*, *mil doscientos*. O *y* só aparece entre dezena e unidade: *trescientos cuarenta **y** dos* (342).
+3. As formas irregulares: ***quinientos*** (500), ***setecientos*** (700) e ***novecientos*** (900).
+
+E o **uno** vira **un** antes de substantivo masculino: *un libro*, *veintiún años*, *treinta y un días*. Antes de feminino, *una*: *veintiuna personas*.
+
+## Idade e preço
+
+A idade se diz com **tener**, como em português:
+
+- *¿Cuántos años tienes?* — Quantos anos você tem?
+- *Tengo treinta y dos años.* — Tenho trinta e dois anos.
+
+E para comprar:
+
+- *¿Cuánto cuesta?* — Quanto custa?
+- *¿Cuánto es?* — Quanto é? (o total)
+- *Son quince pesos.* — São quinze pesos.
 
 ## As horas
 
-- *¿Qué hora es?* Que horas são?
-- *Es la una.* É uma hora. (só com a uma usa-se **es**)
-- *Son las dos.* São duas.
-- *Son las tres y cuarto.* 3h15.
-- *Son las tres y media.* 3h30.
-- *Son las cuatro menos cuarto.* 3h45 (quatro menos um quarto).
-- *¿A qué hora empieza?* A que horas começa? — *A las ocho.*
+Pergunta-se: ***¿Qué hora es?*** (Que horas são?)
 
-Partes do dia: *de la mañana*, *de la tarde*, *de la noche*. *Al mediodía*, *a medianoche*.
+A uma hora vai no singular; as outras, no plural, sempre com artigo:
+
+- *Es la una.* — É uma hora.
+- *Son las dos.* — São duas horas.
+- *Son las diez.* — São dez horas.
+
+Para os minutos:
+
+| Hora | Em espanhol |
+| --- | --- |
+| 3:05 | son las tres y cinco |
+| 3:15 | son las tres y cuarto |
+| 3:30 | son las tres y media |
+| 3:45 | son las cuatro menos cuarto |
+| 3:50 | son las cuatro menos diez |
+
+O *menos* é o nosso "para": *las cuatro menos diez* é "dez para as quatro". Em muitos países da América Latina, especialmente no México e na América Central, também se diz *un cuarto para las cuatro* ou *diez para las cuatro*, bem parecido com o português.
+
+No dia a dia, usa-se o relógio de 12 horas, com:
+
+- *de la mañana* — da manhã: *las siete de la mañana*;
+- *de la tarde* — da tarde: *las tres de la tarde*;
+- *de la noche* — da noite: *las diez de la noche*;
+- *mediodía* (meio-dia) e *medianoche* (meia-noite).
+
+Para dizer **a que horas** algo acontece, usa-se **a las**: *La clase empieza **a las** siete.* (A aula começa às sete.) *¿**A qué hora** abre el banco?*
 
 ## Dias e meses
 
-Com **minúscula**:
+Os dias: *lunes, martes, miércoles, jueves, viernes, sábado, domingo*. Os meses: *enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre* (ou *setiembre*), *octubre, noviembre, diciembre*.
 
-- **lunes, martes, miércoles, jueves, viernes, sábado, domingo**;
-- **enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre, noviembre, diciembre**.
+Como em português, escrevem-se com **letra minúscula**.
 
-Repare: "segunda-feira" é *lunes*. Os dias não são numerados como em português.
+Para as datas, a ordem é a mesma nossa: dia, mês e ano.
 
-## As datas
+- *Hoy es quince de octubre.* — Hoje é quinze de outubro.
+- *Nací el 3 de mayo de 1990.* — Nasci em 3 de maio de 1990.
+- *El primero de mayo* (ou *el uno de mayo*) *es el Día del Trabajador.*
 
-*Hoy es miércoles, 14 de octubre de 2026.* (com **de** entre dia, mês e ano)
-
-- *¿Qué día es hoy?* Que dia é hoje?
-- *Mi cumpleaños es el 3 de mayo.* Meu aniversário é em 3 de maio.
-
-```verificar
-Como se diz "São quinze para as nove" (8h45)?
-- Son las ocho y cuarenta y cinco menos.
-+ Son las nueve menos cuarto.
-- Es las nueve menos cuarto.
-> Em espanhol: a próxima hora, menos um quarto. E com nove, usa-se son.
-```
+Os anos se leem como número inteiro: *1990* é *mil novecientos noventa*; *2026* é *dos mil veintiséis*.
 
 ## Para praticar
 
-1. Escreva por extenso: 16, 27, 38, 115, 500, 750, 2026.
-2. Diga as horas: 1h00, 7h30, 10h15, 12h45.
-3. Escreva a data do seu aniversário e a de hoje.
-4. Escreva a sua rotina com horas: *Me levanto a las...*
+1. Escreva por extenso: 17, 26, 48, 115, 500, 1.250.
+2. Responda: *¿Cuántos años tienes? ¿Qué hora es ahora? ¿Cuándo es tu cumpleaños?*
+3. Diga em voz alta a que horas você acorda, sai de casa, almoça e vai dormir: *Me levanto a las…*
+
+Respostas do 1: *diecisiete, veintiséis, cuarenta y ocho, ciento quince, quinientos, mil doscientos cincuenta.*

@@ -77,8 +77,8 @@ async function segundoFator(token) {
   return confirmado.dados.access_token;
 }
 
-const contas = ["coord", "vice", "super", "curadora", "prof", "mentora", "designer", "jornal", "revisor", "mediador", "leitora"];
-const comFator = new Set(["coord", "vice", "super", "curadora", "mediador"]);
+const contas = ["coord", "vice", "supervisor", "curadora", "prof", "mentora", "designer", "jornal", "revisor", "mediador", "leitora"];
+const comFator = new Set(["coord", "vice", "supervisor", "curadora", "mediador"]);
 const sessao = {};
 
 // Entrada e saída
@@ -145,17 +145,17 @@ const secoes = [
   ["banimentos_listar", ["coord", "vice", "curadora", "mediador"]],
   ["denuncias_listar", ["coord", "vice", "curadora"]],
   ["filtro_listar", ["coord", "vice", "curadora"]],
-  ["reforco_fila", ["coord", "vice", "curadora", "prof", "mentora"]],
+  ["reforco_fila", ["coord", "vice", "prof", "mentora"]],
   ["mural_fila", ["coord", "vice", "mediador"]],
   ["boletim_listar", ["coord", "vice", "jornal"]],
-  ["voluntarios_listar", ["coord", "vice", "super"]],
+  ["voluntarios_listar", ["coord", "vice", "supervisor"]],
   ["papeis_historico_listar", ["coord", "vice"]],
   ["convites_listar", ["coord", "vice"]],
   ["inscricoes_listar", ["coord", "vice"]],
   ["seguranca_ver", ["coord", "vice"]],
   ["sucessao_ver", ["coord", "vice"]],
-  ["auditoria_listar", ["coord", "vice"]],
-  ["audit_logs_listar", ["coord", "vice"]],
+  ["auditoria_listar", ["coord", "vice", "supervisor"]],
+  ["audit_logs_listar", ["coord", "vice", "supervisor"]],
   ["horas_fila", ["coord", "vice"]],
   ["emails_situacao", ["coord", "vice"]],
   ["comunidade_controles", ["coord", "vice"]],
@@ -187,17 +187,17 @@ await barrado("leitora não se torna coordenação", "leitora", "papel_conceder"
 await barrado("educador não dá função a ninguém", "prof", "papel_conceder", { p_usuario: ids.leitora, p_papel: "curadoria", p_disciplina: null });
 await barrado("mediação não dá função a ninguém", "mediador", "papel_conceder", { p_usuario: ids.mediador, p_papel: "vice", p_disciplina: null });
 await barrado("vice não passa a coordenação", "vice", "lideranca_passar", { p_usuario: ids.vice });
-await barrado("supervisão não dá função a quem está acima dela", "super", "papel_conceder", { p_usuario: ids.vice, p_papel: "revisao", p_disciplina: null });
-await barrado("supervisão não confia curadoria", "super", "papel_conceder", { p_usuario: ids.leitora, p_papel: "curadoria", p_disciplina: null });
+await barrado("supervisão não dá função a quem está acima dela", "supervisor", "papel_conceder", { p_usuario: ids.vice, p_papel: "revisao", p_disciplina: null });
+await barrado("supervisão não confia curadoria", "supervisor", "papel_conceder", { p_usuario: ids.leitora, p_papel: "curadoria", p_disciplina: null });
 await confere("supervisão confia um papel de trabalho, que se soma aos que a pessoa já tem", async () => {
-  const r = await chamar(sessao.super, "papel_conceder", { p_usuario: ids.jornal, p_papel: "revisao", p_disciplina: null });
+  const r = await chamar(sessao.supervisor, "papel_conceder", { p_usuario: ids.jornal, p_papel: "revisao", p_disciplina: null });
   if (!r.ok) return r.codigo;
   const eu = await chamar(sessao.jornal, "eu");
   const fila = await chamar(sessao.jornal, "fila");
   return eu.ok && eu.dados.papeis.length === 3 && fila.ok ? "" : JSON.stringify({ eu: eu.dados?.papeis, fila: fila.ok }).slice(0, 200);
 });
 await confere("supervisão lista a equipe sem e-mail de ninguém", async () => {
-  const r = await chamar(sessao.super, "voluntarios_listar");
+  const r = await chamar(sessao.supervisor, "voluntarios_listar");
   return r.ok && !JSON.stringify(r.dados).includes("@") ? "" : JSON.stringify(r).slice(0, 200);
 });
 await barrado("leitora não mexe nos controles do site", "leitora", "site_salvar", { p: { pausa: true } });
