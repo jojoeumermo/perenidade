@@ -105,8 +105,10 @@ export function textoDoErro(erro: unknown): string {
   return erros[tipo] ?? erros.falha;
 }
 
-export const data = (iso: string) => new Date(iso).toLocaleDateString("pt-BR");
-export const dataHora = (iso: string) => new Date(iso).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+/** O idioma da página (o painel pode estar em inglês, espanhol, russo ou chinês): datas e horas seguem ele. */
+export const localDoPainel = () => (typeof document !== "undefined" && document.documentElement.lang) || "pt-BR";
+export const data = (iso: string) => new Date(iso).toLocaleDateString(localDoPainel());
+export const dataHora = (iso: string) => new Date(iso).toLocaleString(localDoPainel(), { dateStyle: "short", timeStyle: "short" });
 /** Datas sem hora (AAAA-MM-DD) não podem passar pelo fuso: viram o dia anterior no Brasil. */
 export const dia = (iso: string) => iso.slice(0, 10).split("-").reverse().join("/");
 
