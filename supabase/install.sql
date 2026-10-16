@@ -4524,15 +4524,18 @@ end $$;
 
 -- O GitHub atrasa rotinas agendadas por horas, e os e-mails ficavam parados na fila. Agora o próprio banco chama a função
 -- "enviar-emails" a cada minuto, só quando há e-mail esperando. O endereço da função fica nas configurações
--- (chave 'email', campo 'funcao'), definido uma vez pelo SQL Editor:
---   update interno.configuracoes set valor = valor || '{"funcao": "https://SEU-PROJETO.supabase.co/functions/v1/enviar-emails"}'::jsonb where chave = 'email';
+-- (chave 'email', campo 'funcao'), com a chave pública do projeto (a "anon", a mesma que o site usa), definidos uma vez:
+--   update interno.configuracoes set valor = valor || '{"funcao": "https://SEU-PROJETO.supabase.co/functions/v1/enviar-emails", "chave_publica": "eyJ..."}'::jsonb where chave = 'email';
 -- Sem o endereço, ou sem as extensões pg_cron e pg_net, nada muda: a rotina do GitHub segue como antes.
 create or replace function interno.emails_disparar() returns void language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_url text := (select valor ->> 'funcao' from configuracoes where chave = 'email');
+declare
+  v_url text := (select valor ->> 'funcao' from configuracoes where chave = 'email');
+  v_chave text := coalesce((select valor ->> 'chave_publica' from configuracoes where chave = 'email'), '');
 begin
   if coalesce(v_url, '') !~ '^https://[a-z0-9.-]+/functions/v1/enviar-emails$' then return; end if;
   if not exists (select 1 from emails where status = 'pendente' or (status = 'enviando' and tentado_em < now() - interval '15 minutes')) then return; end if;
-  execute 'select net.http_post(url := $1, body := ''{}''::jsonb, headers := ''{"Content-Type": "application/json"}''::jsonb, timeout_milliseconds := 60000)' using v_url;
+  execute 'select net.http_post(url := $1, body := ''{}''::jsonb, headers := $2, timeout_milliseconds := 60000)'
+    using v_url, jsonb_build_object('Content-Type', 'application/json', 'Authorization', 'Bearer ' || v_chave, 'apikey', v_chave);
 end $$;
 revoke all on function interno.emails_disparar() from public, anon, authenticated;
 

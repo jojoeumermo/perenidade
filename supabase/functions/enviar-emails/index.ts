@@ -4,9 +4,9 @@
 // (agendamento "lucia-emails" no install.sql), então um convite ou uma confirmação sai em até um minuto. A rotina do
 // GitHub continua como reserva, mas o GitHub atrasa rotinas agendadas por horas.
 //
-// Publicar sem a conferência de login (o banco chama sem conta):
-//   supabase functions deploy enviar-emails --no-verify-jwt
-// Segredos (Edge Functions → Secrets): RESEND_API_KEY, EMAIL_REMETENTE e EMAIL_RESPOSTA, os mesmos da rotina do GitHub.
+// Publicar: supabase functions deploy enviar-emails (o banco chama com a chave pública do projeto).
+// Segredo (Edge Functions → Secrets): RESEND_API_KEY, o mesmo da rotina do GitHub. EMAIL_REMETENTE e EMAIL_RESPOSTA são
+// opcionais: sem eles, valem o remetente e a caixa de respostas do instituto.
 // SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY o Supabase já entrega a toda função.
 //
 // Qualquer um pode chamar o endereço, e não adianta: a função só esvazia a fila que já existe, um e-mail por vez, e o
@@ -16,8 +16,8 @@ import { rodada } from "../_shared/emails.mjs";
 const base = (Deno.env.get("SUPABASE_URL") ?? "").replace(/\/$/, "");
 const servico = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 const chave = Deno.env.get("RESEND_API_KEY") ?? "";
-const remetente = Deno.env.get("EMAIL_REMETENTE") ?? "";
-const resposta = Deno.env.get("EMAIL_RESPOSTA") ?? "";
+const remetente = Deno.env.get("EMAIL_REMETENTE") || "Instituto Lúcia <noreply@institutolucia.org>";
+const resposta = Deno.env.get("EMAIL_RESPOSTA") || "institutolucia@tutamail.com";
 
 const responder = (corpo: unknown, status = 200) => new Response(JSON.stringify(corpo), { status, headers: { "Content-Type": "application/json" } });
 
