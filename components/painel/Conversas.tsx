@@ -2,7 +2,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { manages, rpc, type Me } from "@/lib/backend";
+import { leads, manages, rpc, type Me } from "@/lib/backend";
 import { buscar, desindexar, indexar, type Indexada } from "@/lib/busca-local";
 import type { Chaveiro } from "@/lib/chaveiro";
 import { type Citacao, type Conteudo, desempacotar, empacotar, type Enquete, type Evento, extrairMencoes, linksDe, previaDoLink, reacoes, type Rsvp, semFormatacao, trechoDe } from "@/lib/mensagem";
@@ -178,7 +178,7 @@ export function Conversas({ me }: { me: Me }) {
   const membros = useLista<Membro[]>("equipe_membros");
   const [aberta, setAberta] = useState<string | null>(null);
   const [busca, setBusca] = useState("");
-  const [tela, setTela] = useState<"conversa" | "grupo" | "favoritas" | "relatos">("conversa");
+  const [tela, setTela] = useState<"conversa" | "grupo" | "favoritas" | "relatos" | "privadas">("conversa");
   const [filtro, setFiltro] = useState<"todas" | "nao_lidas" | "grupos" | "fixadas">("todas");
   const [arquivadas, setArquivadas] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
@@ -253,7 +253,8 @@ export function Conversas({ me }: { me: Me }) {
     }
   }
   const comConversa = new Set((lista.dados ?? []).flatMap((conversa) => (conversa.outro ? [conversa.outro] : [])));
-  const pessoas = (membros.dados ?? []).filter((membro) => !membro.eu && (termo ? membro.nome.toLowerCase().includes(termo) : !comConversa.has(membro.id)));
+  // Privado só para trabalho: a lista traz só com quem o servidor deixa abrir (liderança ou colaboração em andamento).
+  const pessoas = (membros.dados ?? []).filter((membro) => !membro.eu && membro.privado && (termo ? membro.nome.toLowerCase().includes(termo) : !comConversa.has(membro.id)));
   const aberto = tela !== "conversa" || aberta !== null;
 
   async function conversarCom(usuario: string) {
@@ -296,6 +297,11 @@ export function Conversas({ me }: { me: Me }) {
             {manages(me) && (
               <button type="button" className={`${botaoClaro} py-1.5`} aria-pressed={tela === "relatos"} onClick={() => { setTela("relatos"); setAberta(null); }} title="Relatos à coordenação">
                 ⚑
+              </button>
+            )}
+            {leads(me) && (
+              <button type="button" className={`${botaoClaro} py-1.5`} aria-pressed={tela === "privadas"} onClick={() => { setTela("privadas"); setAberta(null); }} title="Quem está em conversa privada">
+                👥
               </button>
             )}
           </div>
@@ -391,7 +397,8 @@ export function Conversas({ me }: { me: Me }) {
           )}
           {pessoas.length > 0 && (
             <>
-              <p className={`${rotulo} px-3 pb-1 pt-4`}>{termo ? "Pessoas" : "Começar uma conversa"}</p>
+              <p className={`${rotulo} px-3 pb-1 pt-4`}>{termo ? "Pessoas" : "Conversa de trabalho"}</p>
+              <p className="px-3 pb-1 text-xs text-ink-soft">Privado só com a liderança ou com quem colabora com você numa contribuição. O resto é nos grupos.</p>
               <ul>
                 {pessoas.map((membro) => (
                   <li key={membro.id}>
@@ -424,6 +431,8 @@ export function Conversas({ me }: { me: Me }) {
           <Favoritas chaveiro={chaveiro} fechar={() => setTela("conversa")} abrir={(id) => { setTela("conversa"); setAberta(id); }} />
         ) : tela === "relatos" ? (
           <Relatos fechar={() => setTela("conversa")} />
+        ) : tela === "privadas" ? (
+          <Privadas fechar={() => setTela("conversa")} />
         ) : aberta ? (
           <Janela
             key={aberta}
@@ -1199,8 +1208,8 @@ function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu, enviarFoto
   const fixo = dados.tipo === "departamento";
   /** Administro: gente, permissões e administradores. */
   const pode = dados.admin && !fixo;
-  /** Nome, descrição e foto: administradores, ou todo mundo se o grupo deixar. */
-  const edita = !fixo && (dados.admin || !dados.so_admins_mudam);
+  /** Descrição e foto (e o nome, fora dos departamentos): administradores e o representante, ou todo mundo se o grupo deixar. */
+  const edita = dados.admin || (!fixo && !dados.so_admins_mudam);
   const pessoas = chaveiro.pessoasDe(conversa);
   const verificado = (usuario: string) => pessoas.find((pessoa) => pessoa.usuario === usuario)?.verificado ?? false;
 
@@ -1225,9 +1234,9 @@ function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu, enviarFoto
       )}
       {!fixo && !edita && dados.descricao && <p className="max-w-xl whitespace-pre-line text-ink-soft">{dados.descricao}</p>}
       {edita && (
-        <form className="space-y-2" onSubmit={(e) => { e.preventDefault(); void fazer("chat_grupo_mudar", { p_id: dados.id, p_nome: nome, p_descricao: descricao }); }}>
+        <form className="space-y-2" onSubmit={(e) => { e.preventDefault(); void fazer("chat_grupo_mudar", { p_id: dados.id, p_nome: fixo ? null : nome, p_descricao: descricao }); }}>
           <div className="flex flex-wrap items-end gap-2">
-            <label className="block min-w-48 flex-1">
+            <label className={`block min-w-48 flex-1 ${fixo ? "hidden" : ""}`}>
               Nome do grupo
               <input value={nome} onChange={(e) => setNome(e.target.value)} minLength={2} maxLength={60} className={campo} />
             </label>
@@ -1244,7 +1253,7 @@ function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu, enviarFoto
           </p>
         </form>
       )}
-      {pode && (
+      {dados.admin && (
         <fieldset className="max-w-xl space-y-1 text-sm">
           <legend className={rotulo}>Permissões</legend>
           <label className="flex cursor-pointer items-center gap-2"><input type="checkbox" checked={dados.so_admins_mudam} onChange={(e) => void fazer("chat_grupo_mudar", { p_id: dados.id, p_so_admins_mudam: e.target.checked })} /> Só administradores mudam nome, descrição e foto</label>
@@ -1531,6 +1540,27 @@ function Relatos({ fechar }: { fechar: () => void }) {
             {relato.nota && <p className="mt-2 text-sm"><strong>Encaminhamento:</strong> {relato.nota}</p>}
             {relato.status === "aberto" && <button type="button" className={`mt-2 ${botaoClaro}`} onClick={() => void resolver(relato.id)}>Marcar como resolvido</button>}
           </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/** Para a coordenação: quem está em conversa privada com quem (nunca o conteúdo). */
+function Privadas({ fechar }: { fechar: () => void }) {
+  const lista = useLista<{ id: string; pessoas: string[]; movida_em: string; mensagens: number }[]>("chat_privadas");
+  return (
+    <div className="min-h-0 flex-1 overflow-y-auto p-4">
+      <div className="flex items-center justify-between gap-3">
+        <h2 className="font-serif text-2xl font-semibold">Conversas privadas em andamento</h2>
+        <button type="button" className={elo} onClick={fechar}>Fechar</button>
+      </div>
+      <p className="mt-1 max-w-xl text-ink-soft">Quem está conversando em privado e quando foi a última mensagem. O conteúdo é cifrado: nem a coordenação lê.</p>
+      <Aviso texto={lista.erro} />
+      {lista.dados?.length === 0 && <p className="mt-3 text-ink-soft">Nenhuma conversa privada.</p>}
+      <ul className="mt-3 divide-y divide-rule border-y border-rule">
+        {lista.dados?.map((item) => (
+          <li key={item.id} className="flex flex-wrap justify-between gap-2 py-2"><span>{item.pessoas.join(" e ")}</span><span className="text-xs text-ink-soft">{item.mensagens} mensagens · última {dataHora(item.movida_em)}</span></li>
         ))}
       </ul>
     </div>

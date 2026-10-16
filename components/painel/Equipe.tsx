@@ -42,6 +42,8 @@ export interface Membro {
   online: boolean;
   visto_em: string;
   papeis: { papel: Role["papel"]; disciplina: string | null }[];
+  /** Posso abrir conversa privada com esta pessoa (liderança ou colaboração em andamento). */
+  privado: boolean;
 }
 
 const nomes: Record<string, string> = {
