@@ -174,7 +174,7 @@ export function SegurancaSucessao({ me }: { me: Me }) {
       <section hidden={aba !== "fator"}>
         <h2 className="font-serif text-2xl font-semibold">Segundo fator obrigatório</h2>
         <p className="mt-1 text-ink-soft">
-          Com esta exigência ligada, coordenação, vice-coordenação, curadoria e mediação só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
+          Com esta exigência ligada, coordenação, vice-coordenação, supervisão, curadoria e mediação só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
         </p>
         <p className="mt-2">
           Situação: <strong>{seguranca.dados?.exigir_2fa ? "ligada" : "desligada"}</strong>
@@ -343,6 +343,7 @@ const acoes: Record<string, string> = {
   abertura_salva: "mudou o aviso de abertura",
   reforco_assumido: "assumiu um pedido de reforço",
   reforco_concluido: "concluiu um pedido de reforço",
+  assistente_configurado: "mudou o assistente de reforço (ligado e limites)",
   sala_da_equipe: "mudou o endereço da sala da equipe",
   material_publicado: "publicou um material",
   material_guardado: "guardou um material",
@@ -367,6 +368,25 @@ const acoes: Record<string, string> = {
   equipe_sala: "mudou o endereço da sala de voz e vídeo",
   site_configurado: "mudou os controles do site",
   comunidade_modo_seguranca: "ligou ou desligou o modo de segurança da Comunidade",
+  site_pausa: "pausou ou retomou os envios do público",
+  usuario_editado: "acertou o nome ou a apresentação de",
+  senha_redefinida: "redefiniu a senha de",
+  senha_trocada: "escolheu uma senha nova depois da redefinição",
+  equipe_mensagem_apagada: "apagou uma publicação do mural da equipe escrita por",
+  divulgacao_criada: "pôs no calendário de divulgação:",
+  divulgacao_editada: "mexeu no item de divulgação",
+  divulgacao_situacao: "mudou a situação do item de divulgação",
+  divulgacao_comentada: "comentou o item de divulgação",
+  divulgacao_devolvida: "devolveu para rascunho o item de divulgação",
+  divulgacao_apagada: "apagou do calendário de divulgação:",
+  divulgacao_instagram: "mudou o endereço do Instagram do instituto",
+  interdicao: "mudou a interdição do site",
+  gaveta_aprovada: "publicou na Gaveta Aberta:",
+  gaveta_recusada: "recusou na Gaveta Aberta:",
+  expurgo: "fez um expurgo das áreas abertas",
+  pedido_supervisao_criado: "pediu à coordenação (supervisão):",
+  pedido_supervisao_aprovado: "aprovou um pedido da supervisão",
+  pedido_supervisao_recusado: "recusou um pedido da supervisão",
   isca: "endereço-isca pedido por alguém de fora:",
   apoiador_salvo: "incluiu ou editou um nome no mural de apoiadores",
   apoiador_removido: "retirou um nome do mural de apoiadores",
@@ -381,7 +401,10 @@ const acoes: Record<string, string> = {
 };
 
 /** Os detalhes guardados viram texto de gente: sem identificadores internos, com sim e não no lugar de true e false. */
-const nomesDosDetalhes: Record<string, string> = { faixa: "faixa", pausa: "pausa", motivo: "recado", papel: "função", disciplina: "disciplina", tipo: "tipo", origem: "origem", agente: "programa", exigir_2fa: "segundo fator obrigatório" };
+const nomesDosDetalhes: Record<string, string> = {
+  faixa: "faixa", pausa: "pausa", motivo: "recado", papel: "função", disciplina: "disciplina", tipo: "tipo", origem: "origem", agente: "programa", exigir_2fa: "segundo fator obrigatório",
+  justificativa: "motivo", campos: "o que mudou", sessoes_encerradas: "saiu dos aparelhos", situacao: "situação", formato: "formato", canal: "canal", ligado: "ligado", definido: "definido",
+};
 function detalhesLegiveis(detalhes: Record<string, unknown> | null): string {
   return Object.entries(detalhes ?? {})
     .filter(([, valor]) => valor !== "" && valor !== null && !(typeof valor === "string" && /^[0-9a-f-]{36}$/.test(valor)))
@@ -429,7 +452,7 @@ function LivroDoAcervo() {
           <option value="papeis">Só funções dadas e tiradas</option>
         </select>
       </label>
-      {lista.erro && <p role="status" className="mt-2 text-oxblood">{lista.erro} Se o livro nunca abriu, falta rodar de novo o arquivo supabase/install.sql no banco.</p>}
+      {lista.erro && <p role="status" className="mt-2 text-oxblood">{lista.erro}</p>}
       <ul className="mt-2 divide-y divide-rule border-y border-rule">
         {lista.dados?.map((linha) => (
           <li key={linha.id} className="py-2">
@@ -492,6 +515,10 @@ function Decisoes() {
           <option value="papel_confiado">Só funções confiadas</option>
           <option value="papel_retirado">Só funções retiradas</option>
           <option value="conta_suspensa">Só contas suspensas</option>
+          <option value="interdicao">Só interdições</option>
+          <option value="expurgo">Só expurgos</option>
+          <option value="senha_redefinida">Só senhas redefinidas</option>
+          <option value="usuario_editado">Só contas editadas pela coordenação</option>
           <option value="site_configurado">Só mudanças nos controles do site</option>
           <option value="convite_criado">Só convites criados</option>
           <option value="isca">Só endereços-isca</option>

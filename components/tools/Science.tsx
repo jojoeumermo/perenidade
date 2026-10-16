@@ -4,6 +4,7 @@
 import { useMemo, useState } from "react";
 import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
+import { calculate } from "@/lib/expressao";
 import { explain } from "@/lib/steps";
 import elements from "@/lib/elementos.json";
 
@@ -131,92 +132,8 @@ export function PeriodicTable({ s, lang }: { s: Tools["table"]; lang: string }) 
 
 // ───────────── Calculadora ─────────────
 
-const factorial = (n: number) => {
-  if (!Number.isInteger(n) || n < 0 || n > 170) throw new Error("fatorial");
-  let result = 1;
-  for (let i = 2; i <= n; i++) result *= i;
-  return result;
-};
-
-/**
- * Calcula uma expressão escrita pela pessoa. O texto nunca é executado como código:
- * ele é lido caractere a caractere, e só números, operadores e as funções da lista são aceitos.
- */
-export function evaluate(source: string, degrees: boolean): number {
-  const text = source.toLowerCase().replace(/\s+/g, "").replace(/,/g, ".").replace(/×/g, "*").replace(/[÷:]/g, "/").replace(/−/g, "-").replace(/π/g, "pi").replace(/√/g, "sqrt");
-  const angle = (value: number) => (degrees ? (value * Math.PI) / 180 : value);
-  const functions: Record<string, (value: number) => number> = {
-    sqrt: Math.sqrt,
-    raiz: Math.sqrt,
-    sin: (value) => Math.sin(angle(value)),
-    sen: (value) => Math.sin(angle(value)),
-    cos: (value) => Math.cos(angle(value)),
-    tan: (value) => Math.tan(angle(value)),
-    tg: (value) => Math.tan(angle(value)),
-    log: Math.log10,
-    ln: Math.log,
-    abs: Math.abs,
-    exp: Math.exp,
-  };
-  const constants: Record<string, number> = { pi: Math.PI, e: Math.E };
-  let at = 0;
-
-  function expression(): number {
-    let value = term();
-    while (text[at] === "+" || text[at] === "-") value = text[at++] === "+" ? value + term() : value - term();
-    return value;
-  }
-  function term(): number {
-    let value = unary();
-    while (text[at] === "*" || text[at] === "/") value = text[at++] === "*" ? value * unary() : value / unary();
-    return value;
-  }
-  // O sinal de menos vale menos que a potência: -2^2 é -4, como no caderno.
-  function unary(): number {
-    if (text[at] === "-") return at++, -unary();
-    if (text[at] === "+") return at++, unary();
-    return power();
-  }
-  function power(): number {
-    const base = postfix();
-    if (text[at] !== "^") return base;
-    at++;
-    return base ** unary();
-  }
-  function postfix(): number {
-    let value = atom();
-    while (text[at] === "!" || text[at] === "%") value = text[at++] === "!" ? factorial(value) : value / 100;
-    return value;
-  }
-  function atom(): number {
-    if (text[at] === "(") {
-      at++;
-      const value = expression();
-      if (text[at++] !== ")") throw new Error("parêntese");
-      return value;
-    }
-    const digits = /^\d+(\.\d+)?|^\.\d+/.exec(text.slice(at));
-    if (digits) {
-      at += digits[0].length;
-      return Number(digits[0]);
-    }
-    const word = /^[a-z]+/.exec(text.slice(at))?.[0];
-    if (!word) throw new Error("símbolo");
-    at += word.length;
-    if (Object.hasOwn(functions, word)) {
-      if (text[at] !== "(") throw new Error("função");
-      return functions[word](atom());
-    }
-    if (Object.hasOwn(constants, word)) return constants[word];
-    throw new Error("nome");
-  }
-
-  const result = expression();
-  if (at < text.length || !Number.isFinite(result)) throw new Error("expressão");
-  return result;
-}
-
-const PAD = ["7", "8", "9", "÷", "(", "4", "5", "6", "×", ")", "1", "2", "3", "−", "^", "0", ",", "π", "+", "√(", "sin(", "cos(", "tan(", "log(", "ln("];
+// A conta é lida pelo analisador único do site (lib/expressao): nada do que se digita é executado como código.
+const PAD = ["7", "8", "9", "÷", "(", "4", "5", "6", "×", ")", "1", "2", "3", "−", "^", "0", ",", "π", "+", "√(", "sin(", "cos(", "tan(", "log(", "ln(", "asin(", "acos(", "atan(", "!", "ans"];
 
 export function Calculator({ s, lang }: { s: Tools["calc"]; lang: string }) {
   const [text, setText] = useState("");
@@ -225,12 +142,17 @@ export function Calculator({ s, lang }: { s: Tools["calc"]; lang: string }) {
   const [invalid, setInvalid] = useState(false);
   const [steps, setSteps] = useState<string[]>([]);
   const [copied, setCopied] = useState(false);
+  // O último resultado (ans) e a memória (M+, M−, MR, MC), como nas calculadoras de mão.
+  const [ans, setAns] = useState(0);
+  const [memory, setMemory] = useState(0);
   const format = (value: number) => new Intl.NumberFormat(lang, { maximumSignificantDigits: 12, useGrouping: false }).format(Number(value.toPrecision(12)));
 
   function solve() {
     if (!text.trim()) return;
     try {
-      const result = format(evaluate(text, degrees));
+      const value = calculate(text.replace(/²/g, "^2").replace(/³/g, "^3"), { degrees, scope: { ans } });
+      const result = format(value);
+      setAns(value);
       setHistory((lines) => [[text, result] as [string, string], ...lines].slice(0, 12));
       setInvalid(false);
       setCopied(false);
@@ -277,10 +199,12 @@ export function Calculator({ s, lang }: { s: Tools["calc"]; lang: string }) {
       <div className="grid grid-cols-5 gap-1.5">
         {PAD.map((key) => {
           // O seno é "sen" em português e espanhol; a vírgula decimal vira ponto em inglês e chinês.
-          const typed = key === "sin(" ? `${s.sin}(` : key === "," ? s.decimal : key;
+          const typed = key === "sin(" ? `${s.sin}(` : key === "asin(" ? `a${s.sin}(` : key === "," ? s.decimal : key;
+          // As inversas aparecem como no caderno (sen⁻¹), mas entram no texto como asen( ), que o analisador entende.
+          const label = key === "asin(" ? `${s.sin}⁻¹` : key === "acos(" ? "cos⁻¹" : key === "atan(" ? "tan⁻¹" : typed.replace("(", "");
           return (
             <button key={key} type="button" onClick={() => { setText((value) => value + typed); setInvalid(false); }} className="cursor-pointer border border-rule bg-parchment-deep py-2.5 font-mono hover:border-gold">
-              {typed.replace("(", "")}
+              {label}
             </button>
           );
         })}
@@ -290,6 +214,21 @@ export function Calculator({ s, lang }: { s: Tools["calc"]; lang: string }) {
         <button type="button" onClick={() => setText((value) => value.slice(0, -1))} aria-label={s.erase} className="cursor-pointer border-2 border-ink py-2.5 font-medium">⌫</button>
         <button type="button" onClick={solve} aria-label={s.result} className={`${button} px-0`}>=</button>
       </div>
+      <div className="mt-2 grid grid-cols-4 gap-1.5" role="group" aria-label={s.memory}>
+        {(
+          [
+            ["MC", s.memoryClear, () => setMemory(0)],
+            ["MR", s.memoryRecall, () => setText((value) => value + String(memory).replace(".", s.decimal))],
+            ["M+", s.memoryAdd, () => setMemory((m) => m + ans)],
+            ["M−", s.memorySubtract, () => setMemory((m) => m - ans)],
+          ] as [string, string, () => void][]
+        ).map(([key, label, action]) => (
+          <button key={key} type="button" onClick={action} aria-label={label} title={label} className="cursor-pointer border border-rule py-2 font-mono hover:border-gold">
+            {key}
+          </button>
+        ))}
+      </div>
+      {memory !== 0 && <p className="mt-1 text-right font-mono text-xs text-ink-soft">M = {format(memory)}</p>}
       <fieldset className="mt-4 flex gap-5">
         <legend className="sr-only">{s.angle}</legend>
         {[true, false].map((value) => (
