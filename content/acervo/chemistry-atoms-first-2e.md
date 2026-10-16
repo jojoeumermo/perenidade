@@ -1,6 +1,6 @@
 ---
 titulo: "Chemistry: Atoms First 2e"
-autor: "Paul Flowers, Edward J. Neth, William R. Robinson, Klaus Theopold e Richard Langley"
+autor: "Paul Flowers, Edward J. Neth, William R. Robinson e outros"
 area: quimica
 licenca: "CC BY-NC-SA"
 fonte: "OpenStax"
@@ -9,4 +9,4 @@ idioma: "Inglês"
 ano: "2019"
 ---
 
-Química geral que começa pela estrutura do átomo e das moléculas e só depois passa às reações. É uma versão reorganizada do Chemistry 2e.
+O conteúdo do Chemistry 2e (também no acervo) em outra ordem: começa pela estrutura do átomo e das moléculas e só depois passa às reações e à estequiometria.
