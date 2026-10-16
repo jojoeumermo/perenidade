@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SourceList } from "@/components/Cards";
 import { Markdown } from "@/components/Markdown";
+import { Pratica } from "@/components/Pratica";
 import { CiteButton, CompleteButton, LessonList, RememberLesson } from "@/components/Progress";
 import { Quiz } from "@/components/Quiz";
 import { ReadingChrome } from "@/components/ReadingChrome";
@@ -16,6 +17,7 @@ import { getGlossary, getTrack, getTracks } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
 import { lessonId } from "@/lib/ids";
 import { withLangs } from "@/lib/params";
+import { linguaDe } from "@/lib/pratica";
 import { site } from "@/lib/site";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
@@ -126,6 +128,7 @@ export default async function LessonPage({ params }: Props) {
             <Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode}>{lesson.body}</Markdown>
           </div>
           {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} />}
+          {lesson.practice.length > 0 && <Pratica key={`pratica-${id}`} id={id} exercicios={lesson.practice} lingua={linguaDe(track.area)} s={t.practice} />}
           <SourceList sources={lesson.sources} title={t.lesson.sources} />
         </div>
 

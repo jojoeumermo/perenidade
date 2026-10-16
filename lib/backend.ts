@@ -128,6 +128,10 @@ export interface Me {
   exige_segundo_fator: boolean;
   /** Recados não lidos. */
   avisos: number;
+  /** Pode mandar avisos à equipe (coordenação, vice-coordenação e supervisão). Banco antigo não manda o campo. */
+  supervisao?: boolean;
+  /** Pode usar o estúdio de design (marketing, design, jornalismo e coordenação). */
+  desenha?: boolean;
 }
 
 /** Funções que valem por outra: a educação secundária tem os poderes da educação; o marketing, os do design. */

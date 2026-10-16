@@ -3,6 +3,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { BackendError, rpc, type Role } from "@/lib/backend";
+import { PAINEL_REMOTO, transmitir } from "@/lib/tempo-real";
 
 // O painel é a mesa de trabalho da equipe e existe só em português.
 
@@ -104,8 +105,12 @@ export const dataHora = (iso: string) => new Date(iso).toLocaleString("pt-BR", {
 /** Datas sem hora (AAAA-MM-DD) não podem passar pelo fuso: viram o dia anterior no Brasil. */
 export const dia = (iso: string) => iso.slice(0, 10).split("-").reverse().join("/");
 
-/** Carrega uma lista do serviço e devolve um jeito de recarregar. */
-export function useLista<T>(funcao: string, argumentos: Record<string, unknown> = {}) {
+/**
+ * Carrega uma lista do serviço e devolve um jeito de recarregar. A lista também se refaz sozinha quando outro painel
+ * avisa, pelo canal de tempo real, que alguma ação deu certo (mensagem nova, decisão tomada, aula marcada…).
+ * Com "quieta", a lista não reage aos avisos: é para o que não muda por ação dos outros (preferências, a própria conta).
+ */
+export function useLista<T>(funcao: string, argumentos: Record<string, unknown> = {}, { quieta = false }: { quieta?: boolean } = {}) {
   const [estado, setEstado] = useState<{ dados: T | null; erro: string }>({ dados: null, erro: "" });
   const [volta, setVolta] = useState(0);
   const chave = JSON.stringify(argumentos);
@@ -124,6 +129,22 @@ export function useLista<T>(funcao: string, argumentos: Record<string, unknown> 
     };
   }, [funcao, chave, volta]);
 
+  // Aviso de outro painel: refaz a lista, com uma pequena espera para juntar avisos que chegam em rajada.
+  useEffect(() => {
+    if (quieta) return;
+    let relogio = 0;
+    const refazer = () => {
+      if (document.visibilityState !== "visible") return;
+      window.clearTimeout(relogio);
+      relogio = window.setTimeout(() => setVolta((v) => v + 1), 400 + Math.random() * 600);
+    };
+    window.addEventListener(PAINEL_REMOTO, refazer);
+    return () => {
+      window.removeEventListener(PAINEL_REMOTO, refazer);
+      window.clearTimeout(relogio);
+    };
+  }, [quieta]);
+
   return { ...estado, recarregar: useCallback(() => setVolta((v) => v + 1), []) };
 }
 
@@ -141,8 +162,10 @@ export function useAcao(depois?: () => void) {
       const resposta = await rpc<unknown>(funcao, argumentos);
       setAviso(sucesso);
       depois?.();
-      // Avisa o menu do painel para refazer as contagens (a fila diminui assim que alguém decide).
+      // Avisa o menu do painel para refazer as contagens (a fila diminui assim que alguém decide)…
       window.dispatchEvent(new Event(PAINEL_MUDOU));
+      // …e os outros painéis abertos, pelo canal de tempo real (só o nome da ação, nunca o conteúdo).
+      transmitir(funcao);
       return resposta;
     } catch (erro) {
       setAviso(textoDoErro(erro));
