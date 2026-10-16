@@ -65,6 +65,8 @@ export async function iniciar({ silencioso = false } = {}) {
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.supervisor, p_papel: "supervisao", p_disciplina: null });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.marketing, p_papel: "marketing", p_disciplina: null });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.tradutor, p_papel: "traducao", p_disciplina: null });
+  // Uma pessoa com duas funções: a jornalista também traduz.
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.jornal, p_papel: "traducao", p_disciplina: null });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.dev, p_papel: "desenvolvimento", p_disciplina: null });
 
   const renovacoes = new Map();

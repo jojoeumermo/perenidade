@@ -112,7 +112,7 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
 
 export interface Role {
   id: string;
-  papel: "coordenacao" | "vice" | "supervisao" | "curadoria" | "mediacao" | "educacao" | "educacao_secundaria" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "marketing" | "desenvolvimento";
+  papel: "coordenacao" | "vice" | "supervisao" | "curadoria" | "mediacao" | "educacao" | "educacao_secundaria" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "marketing" | "desenvolvimento" | "representante";
   disciplina: string | null;
 }
 
@@ -121,13 +121,20 @@ export interface Me {
   nome: string;
   bio: string;
   suspenso: boolean;
+  /** Todos os papéis da pessoa: ela pode ter quantos quiser, e as permissões são a soma deles. */
   papeis: Role[];
+  /** O nível na hierarquia de cargos (0 sem papel, 1 papéis de trabalho, 2 supervisão, 3 vice, 4 coordenação). */
+  nivel: number;
   /** A sessão foi confirmada com o código do aplicativo autenticador. */
   segundo_fator: boolean;
   /** O papel da pessoa exige essa confirmação antes de abrir o painel. */
   exige_segundo_fator: boolean;
   /** Recados não lidos. */
   avisos: number;
+  /** Nas conversas: mostrar aos outros quando estive online por último (quem esconde também não vê o dos outros). */
+  chat_visto: boolean;
+  /** Nas conversas: confirmar aos outros que li (quem desliga também não vê a confirmação dos outros). */
+  chat_leitura: boolean;
   /** Pode mandar avisos à equipe (coordenação, vice-coordenação e supervisão). Banco antigo não manda o campo. */
   supervisao?: boolean;
   /** Pode usar o estúdio de design (marketing, design, jornalismo e coordenação). */
@@ -143,6 +150,15 @@ export const can = (me: Me | null, ...roles: Role["papel"][]) =>
   Boolean(me?.papeis.some((role) => roles.includes(role.papel) || (role.papel === "vice" && roles.includes("coordenacao")) || (equivale[role.papel] !== undefined && roles.includes(equivale[role.papel] as Role["papel"]))));
 /** Só a coordenação comunitária. */
 export const leads = (me: Me | null) => Boolean(me?.papeis.some((role) => role.papel === "coordenacao"));
+
+/** O nível de cada papel na hierarquia de cargos, igual ao do banco (interno.nivel). */
+export const nivelDoPapel = (papel: Role["papel"]) => (papel === "coordenacao" ? 4 : papel === "vice" ? 3 : papel === "supervisao" ? 2 : 1);
+/** O nível de uma lista de papéis: o maior deles; 0 sem papel. */
+export const nivelDe = (papeis: { papel: Role["papel"] }[]) => papeis.reduce((maior, role) => Math.max(maior, nivelDoPapel(role.papel)), 0);
+/** Quem gere cargos: coordenação, vice-coordenação e supervisão. O banco confere de novo em cada pedido. */
+export const manages = (me: Me | null) => can(me, "coordenacao", "supervisao");
+/** Os papéis ordenados do maior nível para o menor, para mostrar o principal primeiro. */
+export const porNivel = <T extends { papel: Role["papel"] }>(papeis: T[]) => [...papeis].sort((a, b) => nivelDoPapel(b.papel) - nivelDoPapel(a.papel));
 
 type MeState = { status: "loading" } | { status: "out" } | { status: "in"; me: Me };
 

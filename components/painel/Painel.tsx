@@ -5,8 +5,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { areasPublicas } from "@/lib/interdicao";
-import { can, getClient, hasBackend, leads, type Me, type Role, rpc, signOut, useMe } from "@/lib/backend";
+import { can, getClient, hasBackend, leads, manages, type Me, porNivel, type Role, rpc, signOut, useMe } from "@/lib/backend";
+import { limparIndice } from "@/lib/busca-local";
 import { registerDevice } from "@/lib/device";
+import { avisar, avisosDisponiveis, escolherModo, type ModoDeAviso, modoDeAviso, permissaoDeAviso } from "@/lib/notificacoes";
+import { ligarTrava, travaDisponivel, travaLigada, travarAgora } from "@/lib/trava";
 import { applyPrefs, readPrefs } from "@/lib/prefs";
 import { senhaVazada } from "@/lib/senha";
 import { getItem, KEYS, setItem } from "@/lib/storage";
@@ -317,6 +320,9 @@ export function Painel() {
 
   const eu = me.me;
   const sair = async () => {
+    // O índice de busca das conversas é deste aparelho; sai com a conta.
+    await limparIndice().catch(() => undefined);
+    travarAgora();
     await signOut();
     router.replace(`/${lang}`);
   };
@@ -411,6 +417,20 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   // contagens do menu. Ao voltar para a aba do navegador, as contagens também se refazem na hora.
   const presenca = useLista<{ conversas: number }>("presenca");
   const avisarPresenca = presenca.recarregar;
+  // Aviso do navegador quando a contagem de conversas pendentes sobe com a aba escondida. Sem prévia: o aviso diz só
+  // que chegou mensagem (e, se a pessoa quis, de quem). O nome vem da lista de conversas, nunca do conteúdo.
+  const pendentes = presenca.dados?.conversas;
+  const [vistasAntes, setVistasAntes] = useState<number | null>(null);
+  useEffect(() => {
+    if (pendentes === undefined) return;
+    if (vistasAntes !== null && pendentes > vistasAntes && document.visibilityState !== "visible" && modoDeAviso() !== "nenhum") {
+      void rpc<{ nao_lidas: number; silenciada: boolean; arquivada: boolean; ultima: { autor: string; minha: boolean } | null }[]>("chat_conversas")
+        .then((lista) => avisar(lista.filter((c) => c.nao_lidas > 0 && !c.silenciada && !c.arquivada && c.ultima && !c.ultima.minha).map((c) => c.ultima!.autor)))
+        .catch(() => avisar([]));
+    }
+    const marca = window.setTimeout(() => setVistasAntes(pendentes), 0);
+    return () => window.clearTimeout(marca);
+  }, [pendentes, vistasAntes]);
   const estadoDoSite = useLista<{ interdicao?: { geral: boolean; areas: string[] } }>("site");
   const lerSite = estadoDoSite.recarregar;
   useEffect(() => {
@@ -459,7 +479,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da mediação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mediacao"), conta: r?.mural },
       { id: "gaveta", nome: "Gaveta Aberta", sobre: "Trabalhos de estudantes esperando a decisão: conferir, publicar ou recusar.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.gaveta },
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
-      { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: lidera, conta: r?.candidaturas },
+      { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: manages(eu), conta: r?.candidaturas },
       { id: "supervisao", nome: "Supervisão", sobre: "Proteções reversíveis, a equipe sem e-mails e os pedidos de voluntariado.", grupo: "Pessoas", mostra: supervisiona, conta: r?.candidaturas },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar + (r.pedidos ?? 0) : undefined },
       { id: "avisos", nome: "Avisos à equipe", sobre: "Um quadro que aparece por cima do painel de toda a equipe, ou só de algumas funções, até cada pessoa fechar.", grupo: "Pessoas", mostra: eu.supervisao === true || lidera || supervisiona },
@@ -503,7 +523,9 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
     return () => window.removeEventListener("keydown", tecla);
   }, []);
   const grupos = [...new Set(secoes.map((secao) => secao.grupo))];
-  const funcao = voluntario ? [...new Set(eu.papeis.map((papel) => papeis[papel.papel]))].join(" · ") : "Comunidade";
+  // O principal primeiro (o de maior nível) e, quando há mais de dois, "+N": a linha do menu é curta. A lista inteira vai no título.
+  const todasAsFuncoes = [...new Set(porNivel(eu.papeis).map((papel) => papeis[papel.papel]))];
+  const funcao = !voluntario ? "Comunidade" : todasAsFuncoes.length <= 2 ? todasAsFuncoes.join(" · ") : `${todasAsFuncoes[0]} +${todasAsFuncoes.length - 1}`;
   // O nome do ambiente diz de quem ele é: só a coordenação vê "Coordenação".
   const ambiente = lidera ? "Coordenação" : supervisiona ? "Supervisão" : voluntario ? "Equipe" : "Comunidade";
 
@@ -580,7 +602,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
             <span aria-hidden className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#c21f16] font-sans font-black italic text-white">{iniciais(eu.nome)}</span>
             <span className="min-w-0">
               <span className="block truncate font-semibold">{eu.nome}</span>
-              <span className="block truncate text-xs text-[#b9ad90]">{funcao}</span>
+              <span className="block truncate text-xs text-[#b9ad90]" title={todasAsFuncoes.join(" · ") || undefined}>{funcao}</span>
             </span>
           </p>
           <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
@@ -707,8 +729,8 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           {saudacao}, <span className="italic text-oxblood">{me.nome.split(" ")[0]}</span>.
         </h2>
         {me.papeis.length > 0 ? (
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {me.papeis.map((papel) => (
+          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Suas funções">
+            {porNivel(me.papeis).map((papel) => (
               <li key={papel.id} title={oQueFaz[papel.papel]} className="flex items-center gap-1.5 border-2 border-ink bg-parchment-deep px-3 py-1.5">
                 <Star className="h-3.5 w-3.5 text-[#c21f16]" />
                 <strong>{papeis[papel.papel]}</strong>
@@ -760,7 +782,8 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
 
       <Recados recarregar={recarregar} />
 
-      {me.papeis.length === 0 && <Candidatura />}
+      {/* Quem não tem função pede a primeira; quem já tem pode pedir outra: uma pessoa acumula quantas a coordenação confiar. */}
+      {!can(me, "coordenacao") && <Candidatura me={me} />}
     </div>
   );
 }
@@ -820,23 +843,39 @@ function Situacao({ lidera, supervisiona, ir }: { lidera: boolean; supervisiona:
   );
 }
 
-/** Quem ainda não tem função pede uma aqui; a coordenação responde pelo próprio painel. */
-function Candidatura() {
+/** Quem ainda não tem função pede uma aqui; quem já tem pede mais uma. A coordenação responde pelo próprio painel. */
+function Candidatura({ me }: { me: Me }) {
   const { t } = useI18n();
   const pedidos = useLista<{ id: string; papel: Role["papel"]; disciplina: string | null; status: string; criado_em: string }[]>("candidaturas_minhas");
   const pedido = useAcao(pedidos.recarregar);
-  const [quero, setQuero] = useState<{ papel: string; disciplina: string; mensagem: string }>({ papel: "educacao", disciplina: "", mensagem: "" });
+  const [aberto, setAberto] = useState(me.papeis.length === 0);
+  // As funções que a pessoa ainda não tem (as por disciplina podem repetir em outra disciplina).
+  const pediveis = (["educacao", "educacao_secundaria", "mentoria", "mediacao", "revisao", "traducao", "jornalismo", "curadoria", "design", "marketing", "desenvolvimento"] as const).filter(
+    (papel) => ["educacao", "educacao_secundaria", "mentoria"].includes(papel) || !me.papeis.some((item) => item.papel === papel),
+  );
+  const [quero, setQuero] = useState<{ papel: string; disciplina: string; mensagem: string }>({ papel: pediveis[0] ?? "educacao", disciplina: "", mensagem: "" });
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
   const porDisciplina = quero.papel === "educacao" || quero.papel === "educacao_secundaria" || quero.papel === "mentoria";
+  if (pediveis.length === 0) return null;
+  if (!aberto) {
+    return (
+      <p>
+        <button type="button" className={elo} onClick={() => setAberto(true)}>
+          Pedir outra função
+        </button>
+        <span className="text-ink-soft"> · Uma pessoa pode acumular funções: jornalista e tradutora, educadora e curadora…</span>
+      </p>
+    );
+  }
   return (
     <section className="painel-cartao p-5">
-      <h2 className="font-serif text-2xl font-semibold">Quero ser voluntário</h2>
-      <p className="mt-1 text-ink-soft">Diga em que quer ajudar e conte um pouco da sua experiência.</p>
+      <h2 className="font-serif text-2xl font-semibold">{me.papeis.length === 0 ? "Quero ser voluntário" : "Pedir outra função"}</h2>
+      <p className="mt-1 text-ink-soft">{me.papeis.length === 0 ? "Diga em que quer ajudar e conte um pouco da sua experiência." : "As funções se somam: você continua com as que já tem e ganha as ferramentas da nova."}</p>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         <label className="block">
           Em que função
           <select value={quero.papel} onChange={(e) => setQuero({ ...quero, papel: e.target.value })} className={campo}>
-            {(["educacao", "educacao_secundaria", "mentoria", "mediacao", "revisao", "traducao", "jornalismo", "curadoria", "design", "marketing", "desenvolvimento"] as const).map((papel) => (
+            {pediveis.map((papel) => (
               <option key={papel} value={papel}>{papeis[papel]}</option>
             ))}
           </select>
@@ -882,8 +921,53 @@ function Candidatura() {
 }
 
 /** Tudo o que é da própria pessoa: como aparece, como entra e como se protege. */
+/** Avisos do navegador (sem prévia) e a trava das conversas com a digital. Os dois ficam só neste aparelho. */
+function AvisosETrava() {
+  const [modo, setModo] = useState<ModoDeAviso>(() => modoDeAviso());
+  const [trava, setTrava] = useState(() => travaLigada());
+  const [temDigital, setTemDigital] = useState<boolean | null>(null);
+  const [aviso, setAviso] = useState("");
+  useEffect(() => { void travaDisponivel().then(setTemDigital); }, []);
+  async function trocarModo(novo: ModoDeAviso) {
+    setAviso("");
+    const ok = await escolherModo(novo);
+    setModo(ok ? novo : modoDeAviso());
+    if (!ok && novo !== "nenhum") setAviso(permissaoDeAviso() === "denied" ? "O navegador está bloqueando avisos deste site. Libere nas configurações do site e tente de novo." : "Não foi possível ligar os avisos neste navegador.");
+  }
+  return (
+    <div className="mt-4 space-y-3 border-t border-rule pt-3">
+      <div>
+        <p className="font-semibold">Avisos de mensagem neste aparelho</p>
+        <p className="text-xs text-ink-soft">O aviso nunca mostra o texto: diz só que chegou mensagem (e, se você quiser, de quem). Só funciona com o painel aberto em alguma aba.</p>
+        {avisosDisponiveis() ? (
+          <select value={modo} onChange={(e) => void trocarModo(e.target.value as ModoDeAviso)} className={`${campo} max-w-sm`} aria-label="Avisos de mensagem">
+            <option value="nenhum">Sem avisos</option>
+            <option value="generico">Avisar que chegou mensagem (sem dizer de quem)</option>
+            <option value="nome">Avisar com o nome de quem mandou</option>
+          </select>
+        ) : (
+          <p className="mt-1 text-sm text-ink-soft">Este navegador não mostra avisos.</p>
+        )}
+      </div>
+      <div>
+        <p className="font-semibold">Trancar as conversas com a digital</p>
+        <p className="text-xs text-ink-soft">Usa a mesma digital cadastrada para entrar. Pede a digital ao abrir as conversas (e, nas conversas que você trancar uma a uma, a cada vez). Vale só neste aparelho.</p>
+        {temDigital === false && <p className="mt-1 text-sm text-ink-soft">Cadastre a digital deste aparelho (ao lado) para poder trancar.</p>}
+        {temDigital && (
+          <label className="mt-1 flex cursor-pointer items-center gap-2">
+            <input type="checkbox" className="h-4 w-4" checked={trava} onChange={(e) => { ligarTrava(e.target.checked); setTrava(e.target.checked); if (e.target.checked) travarAgora(); }} />
+            <span>Pedir a digital ao abrir as conversas</span>
+          </label>
+        )}
+      </div>
+      <Aviso texto={aviso} />
+    </div>
+  );
+}
+
 function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair: () => void }) {
   const perfil = useAcao(recarregar);
+  const preferencias = useAcao(recarregar);
   const [nome, setNome] = useState(me.nome);
   const [bio, setBio] = useState(me.bio);
   const [senha, setSenha] = useState("");
@@ -928,6 +1012,21 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
           Guardar
         </button>
         <Aviso texto={perfil.aviso} />
+      </section>
+
+      <section className={cartao}>
+        <h2 className="font-serif text-xl font-semibold">Privacidade nas conversas</h2>
+        <p className="mt-1 text-ink-soft">O que os colegas veem de você nas conversas da equipe. Quem esconde algo também deixa de ver o mesmo dos outros.</p>
+        <label className="mt-3 flex cursor-pointer items-start gap-2">
+          <input type="checkbox" className="mt-1 h-4 w-4" checked={me.chat_visto} disabled={preferencias.ocupado} onChange={(e) => preferencias.agir("perfil_preferencias", { p_chat_visto: e.target.checked, p_chat_leitura: null }, "Preferência guardada.")} />
+          <span>Mostrar quando estou online e o “visto por último”</span>
+        </label>
+        <label className="mt-2 flex cursor-pointer items-start gap-2">
+          <input type="checkbox" className="mt-1 h-4 w-4" checked={me.chat_leitura} disabled={preferencias.ocupado} onChange={(e) => preferencias.agir("perfil_preferencias", { p_chat_visto: null, p_chat_leitura: e.target.checked }, "Preferência guardada.")} />
+          <span>Confirmar aos outros que li as mensagens (os tiques azuis e o “Lida por”)</span>
+        </label>
+        <Aviso texto={preferencias.aviso} />
+        <AvisosETrava />
       </section>
 
       <section className={cartao}>

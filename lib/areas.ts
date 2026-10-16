@@ -5,7 +5,7 @@ export const groups = [
   { id: "percursos", areas: ["alfabetizacao", "enem"] },
   {
     id: "linguagens",
-    areas: ["portugues", "literatura", "ingles", "ingles-infantil", "espanhol", "frances", "chines", "russo", "artes", "desenho", "design", "musica", "danca", "teatro", "cinema", "educacao-fisica"],
+    areas: ["portugues", "literatura", "ingles", "ingles-infantil", "espanhol", "frances", "chines", "russo", "artes", "desenho", "design", "musica", "danca", "teatro", "cinema", "edicao-de-video", "educacao-fisica"],
   },
   {
     id: "ciencias",

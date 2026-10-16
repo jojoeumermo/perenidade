@@ -45,7 +45,8 @@ const policy = (script: string) =>
     `media-src 'self' https: blob: ${service}`.trim(),
     "worker-src 'self'",
     "manifest-src 'self'",
-    `frame-src ${captcha} ${videos}`,
+    // blob: é a prévia, no próprio aparelho, de um PDF ou DOCX recebido nas conversas (nunca um endereço de fora).
+    `frame-src blob: ${captcha} ${videos}`,
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
@@ -74,6 +75,9 @@ const common = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Só em desenvolvimento: abrir o painel também em 127.0.0.1 faz de conta que é um segundo aparelho (outro navegador, outras
+  // chaves), o que serve para testar a aprovação de aparelhos das conversas sem dois computadores.
+  allowedDevOrigins: ["127.0.0.1"],
   async headers() {
     return [
       { source: "/((?!workers/).*)", headers: [{ key: "Content-Security-Policy", value: pages }, ...common] },

@@ -3,9 +3,9 @@
 
 import { useState } from "react";
 import { areaSlugs } from "@/lib/areas";
-import { leads, type Me, type Role, rpc } from "@/lib/backend";
+import { can, leads, type Me, nivelDe, nivelDoPapel, porNivel, type Role, rpc } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Abas, Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, PAINEL_MUDOU, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, oQueFaz, PAINEL_MUDOU, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Convites } from "./Convites";
 
@@ -37,6 +37,7 @@ interface Pessoa {
   id: string;
   nome: string;
   bio?: string;
+  /** Vazio para quem não é da coordenação (a supervisão não vê e-mails). */
   email: string;
   suspenso: boolean;
   /** Quem suspendeu: coordenação, supervisão, mediação (banimento) ou o próprio banco (isca). */
@@ -44,6 +45,8 @@ interface Pessoa {
   /** A coordenação redefiniu a senha e a pessoa ainda não escolheu outra. */
   trocar_senha?: boolean;
   visto_em: string;
+  /** O nível da pessoa na hierarquia de cargos (o maior entre os papéis dela). */
+  nivel: number;
   papeis: Role[];
 }
 
@@ -161,15 +164,39 @@ function Ficha({ pessoa, me, depois }: { pessoa: Pessoa; me: Me; depois: () => v
   );
 }
 
-/** Coordenação e vice-coordenação: aceitar pedidos de voluntariado, confiar papéis e disciplinas, suspender contas. */
+
+interface Lance {
+  id: number;
+  papel: Role["papel"];
+  disciplina: string | null;
+  concedido_por: string;
+  concedido_em: string;
+  removido_por: string | null;
+  removido_em: string | null;
+}
+
+/**
+ * Coordenação, vice-coordenação e supervisão: confiar e retirar papéis (uma pessoa acumula quantos forem confiados).
+ * Coordenação e vice também aceitam pedidos de voluntariado, convidam e suspendem contas.
+ * A hierarquia é a do banco: ninguém confia papel de nível igual ou maior que o próprio, nem mexe em quem está no mesmo
+ * nível ou acima. A tela só esconde o que o banco recusaria; a regra de verdade é conferida lá.
+ */
 export function Pessoas({ me }: { me: Me }) {
   const { t } = useI18n();
   const lider = leads(me);
-  // A coordenação não se concede por aqui (muda de mãos em Segurança e sucessão); a vice-coordenação, só a coordenação nomeia.
-  const concediveis = (Object.keys(papeis) as Role["papel"][]).filter((papel) => papel !== "coordenacao" && (papel !== "vice" || lider));
-  const pedidos = useLista<Candidatura[]>("candidaturas_listar");
+  const coordena = can(me, "coordenacao");
+  const meuNivel = me.nivel ?? nivelDe(me.papeis);
+  // A coordenação não se concede por aqui (muda de mãos em Segurança e sucessão); vice e supervisão, só a coordenação nomeia;
+  // curadoria e mediação ficam com coordenação e vice.
+  const concediveis = (Object.keys(papeis) as Role["papel"][]).filter(
+    (papel) => papel !== "coordenacao" && nivelDoPapel(papel) < meuNivel && (!["vice", "supervisao"].includes(papel) || lider) && (!["curadoria", "mediacao"].includes(papel) || coordena),
+  );
+  /** Posso mexer nos cargos desta pessoa? Nunca nos meus; a coordenação em todos; os outros, só em quem está abaixo. */
+  const podeMexer = (pessoa: { id: string; nivel: number }) => pessoa.id !== me.id && (lider || pessoa.nivel < meuNivel);
+  const podeTirar = (pessoa: Pessoa, papel: Role) => podeMexer(pessoa) && (!["coordenacao", "vice", "supervisao"].includes(papel.papel) || lider);
+  const pedidos = useLista<Candidatura[]>(coordena ? "candidaturas_listar" : "candidaturas_minhas");
   const pessoas = useLista<Pessoa[]>("voluntarios_listar");
-  const inscricoes = useLista<Inscricao[]>("inscricoes_listar");
+  const inscricoes = useLista<Inscricao[]>(coordena ? "inscricoes_listar" : "candidaturas_minhas");
   const { lang } = useI18n();
   /** O convite recém-gerado para quem foi aceito: aparece uma vez só, para a coordenação mandar por e-mail. */
   const [aceite, setAceite] = useState<{ nome: string; email: string; link: string } | null>(null);
@@ -193,18 +220,20 @@ export function Pessoas({ me }: { me: Me }) {
     pedidos.recarregar();
     pessoas.recarregar();
   });
-  const [novo, setNovo] = useState<{ papel: Role["papel"]; disciplina: string }>({ papel: "educacao", disciplina: "" });
-  // Educação, educação secundária e reforço são por disciplina: o banco recusa sem ela.
-  const porDisciplina = novo.papel === "educacao" || novo.papel === "educacao_secundaria" || novo.papel === "mentoria";
+  const [novo, setNovo] = useState<{ papel: Role["papel"]; disciplina: string }>({ papel: concediveis.includes("educacao") ? "educacao" : (concediveis[0] ?? "educacao"), disciplina: "" });
+  // Educação, educação secundária e reforço são por disciplina; o representante, pelo departamento: o banco recusa sem eles.
+  const porDisciplina = novo.papel === "educacao" || novo.papel === "educacao_secundaria" || novo.papel === "mentoria" || novo.papel === "representante";
   /** Quem vai receber a função: escolhida na busca, não numa lista com todo mundo. */
   const [quem, setQuem] = useState<PessoaAchada | null>(null);
   const [filtro, setFiltro] = useState("");
   const [aba, setAba] = useState<"equipe" | "funcao" | "convites" | "pedidos">("equipe");
   /** A ficha aberta: uma de cada vez, para a lista continuar curta. */
   const [aberta, setAberta] = useState<string | null>(null);
-  const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
-  const pendentes = pedidos.dados?.filter((pedido) => pedido.status === "pendente") ?? [];
+  const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? papeis[slug as Role["papel"]] ?? slug) : "todo o site");
+  const pendentes = coordena ? (pedidos.dados?.filter((pedido) => pedido.status === "pendente") ?? []) : [];
   const visiveis = pessoas.dados?.filter((pessoa) => `${pessoa.nome} ${pessoa.email}`.toLowerCase().includes(filtro.toLowerCase())) ?? [];
+  // Quem foi escolhido na busca já vem com o nível: a tela avisa antes de o banco recusar.
+  const alvoForaDoAlcance = quem !== null && quem.nivel !== undefined && !podeMexer({ id: quem.id, nivel: quem.nivel });
 
   return (
     <div>
@@ -214,13 +243,14 @@ export function Pessoas({ me }: { me: Me }) {
         opcoes={[
           { id: "equipe", nome: "Pessoas" },
           { id: "funcao", nome: "Confiar função" },
-          { id: "convites", nome: "Convites" },
-          { id: "pedidos", nome: "Candidaturas", conta: pendentes.length + novas.length },
+          ...(coordena ? [{ id: "convites" as const, nome: "Convites" }, { id: "pedidos" as const, nome: "Candidaturas", conta: pendentes.length + novas.length }] : []),
         ]}
       />
-      <div hidden={aba !== "convites"}>
-        <Convites me={me} />
-      </div>
+      {coordena && (
+        <div hidden={aba !== "convites"}>
+          <Convites me={me} />
+        </div>
+      )}
       <section hidden={aba !== "pedidos"} className="mb-10">
         <h2 className="font-serif text-2xl font-semibold">Candidaturas pelo formulário</h2>
         <p className="mt-1 max-w-3xl text-ink-soft">
@@ -290,7 +320,9 @@ export function Pessoas({ me }: { me: Me }) {
 
       <section hidden={aba !== "funcao"}>
         <h2 className="font-serif text-2xl font-semibold">Confiar uma função</h2>
-        <p className="mt-1 text-ink-soft">Procure a pessoa pelo nome ou pelo e-mail. Ela precisa ter entrado no site pelo menos uma vez para aparecer na busca.</p>
+        <p className="mt-1 text-ink-soft">
+          Procure a pessoa pelo nome{coordena ? " ou pelo e-mail" : ""}. Ela precisa ter entrado no site pelo menos uma vez para aparecer na busca. Uma pessoa pode acumular funções: a nova se soma às que ela já tem.
+        </p>
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
           <div>
             <span className="block">Pessoa</span>
@@ -307,21 +339,33 @@ export function Pessoas({ me }: { me: Me }) {
             </select>
           </label>
           <label className="block">
-            Disciplina{porDisciplina ? "" : " (opcional)"}
+            {novo.papel === "representante" ? "Departamento" : `Disciplina${porDisciplina ? "" : " (opcional)"}`}
             <select value={novo.disciplina} onChange={(e) => setNovo({ ...novo, disciplina: e.target.value })} className={campo}>
-              <option value="">Todo o site</option>
-              {areaSlugs.map((area) => (
-                <option key={area} value={area}>
-                  {t.areas[area][0]}
-                </option>
-              ))}
+              {novo.papel === "representante" ? (
+                <>
+                  <option value="">Escolha o departamento…</option>
+                  {(["educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "design", "desenvolvimento"] as const).map((dep) => (
+                    <option key={dep} value={dep}>{papeis[dep]}</option>
+                  ))}
+                </>
+              ) : (
+                <>
+                  <option value="">Todo o site</option>
+                  {areaSlugs.map((area) => (
+                    <option key={area} value={area}>
+                      {t.areas[area][0]}
+                    </option>
+                  ))}
+                </>
+              )}
             </select>
           </label>
         </div>
+        {alvoForaDoAlcance && <Aviso texto={`${quem?.nome} está no seu nível ou acima na hierarquia: só quem está acima confia ou retira funções dessa pessoa.`} />}
         <button
           type="button"
           className={`mt-3 ${botao}`}
-          disabled={acao.ocupado || !quem || (porDisciplina && !novo.disciplina)}
+          disabled={acao.ocupado || !quem || alvoForaDoAlcance || (porDisciplina && !novo.disciplina)}
           onClick={async () => {
             if (quem && (await acao.agir("papel_conceder", { p_usuario: quem.id, p_papel: novo.papel, p_disciplina: novo.disciplina || null }, `Função confiada a ${quem.nome}.`))) setQuem(null);
           }}
@@ -332,13 +376,14 @@ export function Pessoas({ me }: { me: Me }) {
           <strong>{papeis[novo.papel]}:</strong> {oQueFaz[novo.papel]}
         </p>
         <p className="mt-2 text-ink-soft">
-          Para criar a conta de alguém da equipe com e-mail e senha definidos por você, use o painel do serviço de contas (o passo a passo está no guia de manutenção). Depois que a pessoa entrar uma vez, ela aparece aqui para receber a função.
+          Hierarquia dos cargos: coordenação, vice-coordenação, supervisão e, abaixo, os papéis de trabalho. Cada pessoa só confia papéis de nível menor que o próprio, e só a quem está abaixo dela.
+          {coordena && " Para criar a conta de alguém da equipe com e-mail e senha definidos por você, use o painel do serviço de contas (o passo a passo está no guia de manutenção). Depois que a pessoa entrar uma vez, ela aparece aqui para receber a função."}
         </p>
       </section>
 
       <section hidden={aba !== "equipe"}>
         <Aviso texto={pessoas.erro} />
-        <input value={filtro} onChange={(e) => setFiltro(e.target.value)} placeholder="Filtrar por nome ou e-mail" aria-label="Filtrar pessoas" className={campo} />
+        <input value={filtro} onChange={(e) => setFiltro(e.target.value)} placeholder={coordena ? "Filtrar por nome ou e-mail" : "Filtrar por nome"} aria-label="Filtrar pessoas" className={campo} />
         <ul className="mt-3 divide-y divide-rule border-y border-rule">
           {visiveis.map((pessoa) => (
             <li key={pessoa.id} className="py-3">
@@ -346,27 +391,70 @@ export function Pessoas({ me }: { me: Me }) {
                 {pessoa.nome} {pessoa.id === me.id && <span className="font-sans text-sm text-ink-soft">(você)</span>} {pessoa.suspenso && <span className="font-sans text-sm text-oxblood">(suspensa)</span>}
               </p>
               <p className="font-mono text-xs text-ink-soft">
-                {pessoa.email} · último acesso em {data(pessoa.visto_em)}
+                {pessoa.email ? `${pessoa.email} · ` : ""}último acesso em {data(pessoa.visto_em)}
               </p>
-              <ul className="mt-1 flex flex-wrap gap-2">
-                {pessoa.papeis.map((papel) => (
+              {/* Todos os papéis, como etiquetas, o de maior nível primeiro. O ✕ só aparece onde o banco deixaria retirar. */}
+              <ul className="mt-1 flex flex-wrap gap-2" aria-label={`Funções de ${pessoa.nome}`}>
+                {pessoa.papeis.length === 0 && <li className="text-ink-soft">Sem função: participa da comunidade.</li>}
+                {porNivel(pessoa.papeis).map((papel) => (
                   <li key={papel.id} className="border border-rule bg-parchment-deep px-2 py-1">
-                    {papeis[papel.papel]} · {nomeDaArea(papel.disciplina)}{" "}
-                    <button type="button" title="Retirar função" aria-label={`Retirar ${papeis[papel.papel]} de ${pessoa.nome}`} className="cursor-pointer px-1 hover:text-oxblood" onClick={() => acao.agir("papel_remover", { p_id: papel.id }, "Função retirada.")}>
-                      ✕
-                    </button>
+                    {papeis[papel.papel]} · {nomeDaArea(papel.disciplina)}
+                    {podeTirar(pessoa, papel) && (
+                      <button type="button" title="Retirar função" aria-label={`Retirar ${papeis[papel.papel]} de ${pessoa.nome}`} className="ml-1 cursor-pointer px-1 hover:text-oxblood" onClick={() => acao.agir("papel_remover", { p_id: papel.id }, "Função retirada.")}>
+                        ✕
+                      </button>
+                    )}
                   </li>
                 ))}
               </ul>
-              <button type="button" className={`mt-1 ${elo}`} aria-expanded={aberta === pessoa.id} onClick={() => setAberta(aberta === pessoa.id ? null : pessoa.id)}>
-                {aberta === pessoa.id ? "Fechar a ficha" : pessoa.id === me.id ? "Sua conta" : "Abrir a ficha: nome, senha, suspensão"}
-              </button>
-              {aberta === pessoa.id && <Ficha pessoa={pessoa} me={me} depois={pessoas.recarregar} />}
+              <p className="mt-1 flex flex-wrap gap-4">
+                {podeMexer(pessoa) && (
+                  <button type="button" className={elo} onClick={() => { setQuem({ id: pessoa.id, nome: pessoa.nome, email: pessoa.email || papeis[porNivel(pessoa.papeis)[0]?.papel] || "", nivel: pessoa.nivel }); setAba("funcao"); }}>
+                    Confiar mais uma função
+                  </button>
+                )}
+                {coordena && (
+                  <button type="button" className={elo} aria-expanded={aberta === pessoa.id} onClick={() => setAberta(aberta === pessoa.id ? null : pessoa.id)}>
+                    {aberta === pessoa.id ? "Fechar a ficha" : pessoa.id === me.id ? "Sua conta" : "Abrir a ficha: nome, senha, suspensão"}
+                  </button>
+                )}
+              </p>
+              {coordena && aberta === pessoa.id && <Ficha pessoa={pessoa} me={me} depois={pessoas.recarregar} />}
+              {coordena && <HistoricoDeCargos usuario={pessoa.id} nomeDaArea={nomeDaArea} />}
             </li>
           ))}
         </ul>
       </section>
       <Aviso texto={acao.aviso} />
     </div>
+  );
+}
+
+/** Quem confiou e quem retirou cada função desta pessoa, com data. Só carrega quando a coordenação abre. */
+function HistoricoDeCargos({ usuario, nomeDaArea }: { usuario: string; nomeDaArea: (slug: string | null) => string }) {
+  const [aberto, setAberto] = useState(false);
+  return (
+    <details className="mt-1 text-xs text-ink-soft" onToggle={(e) => setAberto(e.currentTarget.open)}>
+      <summary className="cursor-pointer hover:text-ink">Histórico de funções</summary>
+      {aberto && <Lances usuario={usuario} nomeDaArea={nomeDaArea} />}
+    </details>
+  );
+}
+
+function Lances({ usuario, nomeDaArea }: { usuario: string; nomeDaArea: (slug: string | null) => string }) {
+  const lista = useLista<Lance[]>("papeis_historico_listar", { p_usuario: usuario });
+  if (lista.erro) return <Aviso texto={lista.erro} />;
+  if (!lista.dados) return <p className="mt-1 font-mono">Carregando…</p>;
+  if (lista.dados.length === 0) return <p className="mt-1">Nenhuma função confiada até hoje.</p>;
+  return (
+    <ul className="mt-1 space-y-0.5">
+      {lista.dados.map((lance) => (
+        <li key={lance.id}>
+          <strong className="text-ink">{papeis[lance.papel] ?? lance.papel}</strong>
+          {lance.disciplina && ` de ${nomeDaArea(lance.disciplina)}`} · confiada por {lance.concedido_por || "—"} em {dataHora(lance.concedido_em)}
+          {lance.removido_em && ` · retirada por ${lance.removido_por || "—"} em ${dataHora(lance.removido_em)}`}
+        </li>
+      ))}
+    </ul>
   );
 }
