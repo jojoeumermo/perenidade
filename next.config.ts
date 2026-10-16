@@ -12,6 +12,8 @@ function serviceOrigin(): string {
   }
 }
 const service = serviceOrigin();
+// O canal de tempo real do serviço (avisos entre painéis, sala das aulas ao vivo) é o mesmo endereço, por WebSocket.
+const realtime = service.replace(/^https:/, "wss:");
 
 // Desafio contra robôs da página de entrada: o único programa que o site carrega de fora.
 const captcha = "https://challenges.cloudflare.com";
@@ -37,7 +39,7 @@ const policy = (script: string) =>
     // blob: é a prévia de uma imagem antes do envio; o serviço de contas mostra à equipe as imagens ainda em revisão.
     `img-src 'self' data: blob: ${service}`.trim(),
     "font-src 'self'",
-    `connect-src 'self' ${spelling} ${service}${dev ? " ws:" : ""}`.trim(),
+    `connect-src 'self' ${spelling} ${service} ${realtime}${dev ? " ws:" : ""}`.replace(/\s+/g, " ").trim(),
     // A rádio e o podcast tocam arquivos do próprio acervo ou a transmissão ao vivo indicada pela coordenação;
     // blob: é o áudio gravado ou escolhido no próprio aparelho (pergunta gravada, teste de microfone, corte de vídeo).
     `media-src 'self' https: blob: ${service}`.trim(),

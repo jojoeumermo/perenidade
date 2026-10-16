@@ -5,6 +5,7 @@ import { cache as perPage } from "react";
 import { defaultLocale, type Locale } from "@/i18n/config";
 import { areaSlugs, licenses, stages, type AreaSlug, type License, type Stage } from "./areas";
 import { parseFrontmatter } from "./frontmatter";
+import { type Exercicio, validarPratica } from "./pratica";
 import { plainText } from "./text";
 
 // O cache do React vale para uma página só. Na montagem do site, cada uma das milhares de páginas relia e conferia
@@ -62,6 +63,8 @@ export interface Lesson extends Localized {
   minutes: number;
   /** Termos que a própria aula define (campo "glossario" do cabeçalho): entram sozinhos no glossário do site. */
   terms: { term: string; summary: string }[];
+  /** A prática lúdica das aulas de idioma (campo "pratica" do cabeçalho): os exercícios que o site joga no fim da aula. */
+  practice: Exercicio[];
 }
 
 /** Item do roteiro de uma trilha: aula já escrita ou ainda em preparação. */
@@ -372,6 +375,7 @@ function loadLesson(file: string, name: string, lang: Locale): (Lesson & { numbe
     reviewed: data.revisada === true,
     body,
     quiz: parseQuiz(data.quiz, file),
+    practice: validarPratica(data.pratica, file),
     sources: parseSources(data.fontes, file, true),
     minutes: minutesOf(body),
     translated,
