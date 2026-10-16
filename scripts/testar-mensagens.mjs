@@ -35,6 +35,14 @@ confere("campos estranhos no pacote são ignorados e os longos cortados", () => 
 confere("reação só com emoji da lista", () => desempacotar(empacotar({ texto: "", emoji: reacoes[0] })).emoji === reacoes[0] && desempacotar(empacotar({ texto: "", emoji: "🍕" })).emoji === undefined);
 confere("trecho corta com reticências e junta espaços", () => trechoDe("Linha um\n\n   linha dois", 12) === "Linha um li…" && trechoDe("curto") === "curto");
 
+confere("enquete, evento, voto e resposta vão dentro do pacote e são conferidos", () => {
+  const lido = desempacotar(empacotar({ texto: "", enquete: { pergunta: "Que dia?", opcoes: ["Sábado", "Domingo", "", 7], varias: true }, evento: { titulo: "Reunião", quando: "2026-11-01T18:00:00.000Z", local: "Sede" } }));
+  const voto = desempacotar(empacotar({ texto: "", voto: [1, 1, 99, -1, "x"] }));
+  const rsvp = desempacotar(empacotar({ texto: "", rsvp: "talvez" }));
+  const ruim = desempacotar(`j1.${JSON.stringify({ texto: "", enquete: { pergunta: "Só uma opção", opcoes: ["a"] }, evento: { titulo: "Sem data", quando: "ontem" }, rsvp: "sim" })}`);
+  return igual(lido.enquete, { pergunta: "Que dia?", opcoes: ["Sábado", "Domingo"], varias: true }) && igual(lido.evento, { titulo: "Reunião", quando: "2026-11-01T18:00:00.000Z", local: "Sede" }) && igual(voto.voto, [1]) && rsvp.rsvp === "talvez" && ruim.enquete === undefined && ruim.evento === undefined && ruim.rsvp === undefined;
+});
+
 // ── Menções ──
 const membros = [{ id: "u1", nome: "Ana Clara" }, { id: "u2", nome: "José da Silva" }, { id: "u3", nome: "Lúcia" }];
 confere("@primeiro-nome e @nome-inteiro, sem acento e sem maiúsculas", () => igual(extrairMencoes("Oi @ana e @jose da silva, vejam com a @LUCIA", membros).sort(), ["u1", "u2", "u3"]));

@@ -86,6 +86,8 @@ const erros: Record<string, string> = {
   arquivo_recusado: "Este tipo de arquivo não entra nas conversas. Vale foto (JPG, PNG, WebP, GIF), vídeo (MP4, WebM, MOV), áudio, PDF e DOCX.",
   arquivo_grande: "O arquivo passa de 12 MB.",
   anexos_demais: "No máximo seis arquivos por mensagem.",
+  so_admins: "Neste grupo, só os administradores mandam mensagem.",
+  ultimo_admin: "O grupo precisa de pelo menos um administrador. Promova alguém antes.",
   arquivo_nao_abre: "Não foi possível abrir este arquivo: a chave não bate ou o conteúdo foi alterado.",
   limite_fixadas: "Uma conversa só pode ter cinco mensagens fixadas. Desafixe uma antes.",
   fora_do_prazo: "Uma mensagem só pode ser editada até 15 minutos depois de enviada.",

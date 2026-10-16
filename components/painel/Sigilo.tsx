@@ -126,7 +126,7 @@ export function Repasse({ usuario }: { usuario: string }) {
 }
 
 /** Cifra e envia; se a chave foi trocada nesse meio-tempo (alguém saiu), cifra de novo com a nova e tenta mais uma vez. */
-export async function enviarCifrado(chaveiro: Chaveiro, conversa: string, texto: string, contexto: string, enviar: (corpo: string) => Promise<unknown>) {
+export async function enviarCifrado<T = unknown>(chaveiro: Chaveiro, conversa: string, texto: string, contexto: string, enviar: (corpo: string) => Promise<T>): Promise<T> {
   for (let tentativa = 0; ; tentativa++) {
     const corpo = await chaveiro.cifrar(conversa, texto, contexto);
     if (corpo.length > LIMITE_CIFRADO) throw new BackendError("mensagem_longa");
