@@ -12,10 +12,12 @@ import { EstudioDeArte } from "./Arte";
 import { GeradorDeCortes } from "./Cortes";
 import { EditorDeEpisodio } from "./Episodio";
 import { Guia, PENDENCIAS } from "./Guia";
+import { Publicar } from "./Publicar";
+import { CadernoNoPainel } from "../Caderno";
 import { Agenda, Ajustes, Convidados, Numeros, Pautas, Pedidos, Perguntas, Trilhas } from "./Listas";
 import { ETAPAS, NOME_DA_ETAPA, type PainelDoPodcast, type ResumoDoEpisodio, SOBRE_A_ETAPA } from "./tipos";
 
-type Aba = "episodios" | "agenda" | "pautas" | "perguntas" | "convidados" | "trilhas" | "artes" | "cortes" | "pedidos" | "numeros" | "guia" | "ajustes";
+type Aba = "episodios" | "publicar" | "caderno" | "agenda" | "pautas" | "perguntas" | "convidados" | "trilhas" | "artes" | "cortes" | "pedidos" | "numeros" | "guia" | "ajustes";
 
 function Cartao({ e, abrir, series }: { e: ResumoDoEpisodio; abrir: () => void; series: PainelDoPodcast["series"] }) {
   const serie = series.find((s) => s.id === e.serie);
@@ -64,7 +66,7 @@ export function Podcast() {
   const [busca, setBusca] = useState("");
   const [cortarDe, setCortarDe] = useState("");
 
-  const abrir = (id: string | null) => router.replace(`/${lang}/painel?aba=podcast${id ? `&ep=${id}` : ""}`);
+  const abrir = (id: string | null, passo?: string) => router.replace(`/${lang}/painel?aba=podcast${id ? `&ep=${id}` : ""}${id && passo ? `&passo=${passo}` : ""}`);
 
   if (painel.erro) return <Aviso texto={painel.erro} />;
   const p = painel.dados;
@@ -90,6 +92,8 @@ export function Podcast() {
       ]
     : [
         { id: "episodios", nome: "Episódios", conta: p.contagens.revisao },
+        { id: "publicar", nome: "Publicar: passo a passo" },
+        { id: "caderno", nome: "Caderno" },
         { id: "agenda", nome: "Agenda" },
         { id: "pautas", nome: "Pautas", conta: p.contagens.sugestoes },
         { id: "perguntas", nome: "Perguntas", conta: p.contagens.perguntas },
@@ -190,6 +194,9 @@ export function Podcast() {
             </section>
           )}
           {p.episodios.length === 0 && <p className="text-ink-soft">Nenhum episódio ainda. Crie o primeiro acima, ou escolha uma pauta na aba Pautas.</p>}
+          <p className="border-l-4 border-gold pl-3 text-ink-soft">
+            Não sabe como o episódio chega ao site? A aba <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => setAba("publicar")}>Publicar: passo a passo</button> mostra os seis passos, com o que já está feito e um botão para cada um.
+          </p>
           <details className="text-ink-soft">
             <summary className="cursor-pointer">O que precisa para publicar</summary>
             <ul className="mt-2 list-disc pl-5">
@@ -198,6 +205,8 @@ export function Podcast() {
           </details>
         </div>
       )}
+      {atual === "publicar" && <Publicar painel={p} abrir={(id, passo) => abrir(id, passo)} recarregarPainel={painel.recarregar} />}
+      {atual === "caderno" && <CadernoNoPainel modo="podcast" />}
       {atual === "agenda" && <Agenda painel={p} />}
       {atual === "pautas" && <Pautas podeDecidir={eu.producao || eu.supervisao} abrir={(id) => abrir(id)} />}
       {atual === "perguntas" && <Perguntas painel={p} podeDecidir={eu.producao || eu.supervisao} />}
