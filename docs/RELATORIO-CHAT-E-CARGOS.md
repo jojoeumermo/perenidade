@@ -1,94 +1,140 @@
-# Cargos múltiplos e evolução do chat — relatório de trabalho
+# Cargos múltiplos e evolução do chat — relatório final
 
-Branch: `worktree-chat-e-cargos` (worktree em `.claude/worktrees/chat-e-cargos`, a partir de `origin/master` em `938aac6`). Nada foi publicado, nada tocou o banco de produção.
+Branch: `worktree-chat-e-cargos` (worktree em `.claude/worktrees/chat-e-cargos`, a partir de `origin/master` em `938aac6`). **Nada foi publicado, nada tocou o banco de produção.** Todo o trabalho rodou contra o banco em memória (`scripts/banco-local.mjs`) e o servidor local de teste (`scripts/backend-local.mjs`), com contas falsas.
 
-**Situação em 15/10/2026:** o Passo Zero (leitura do projeto inteiro) foi concluído. Nenhuma linha de código ou de SQL foi alterada ainda. Este arquivo é o ponto de retomada: quem continuar começa pela seção 4 (plano da Parte A).
+Commits, na ordem: `14b691a` (Passo Zero), `fb4eeb0` (Parte A: cargos), `1f41971` (Etapa 1: confiança), `6fa01df` (Etapa 2: mensagens), `653fbaa` (Etapa 3: mídia), `5db97c2` (Etapa 4: organização e grupos).
 
-## 1. Resumo do projeto (Passo Zero)
+Testes no fim: `testar:banco` 906 conferências, `testar:sigilo` 60, `testar:mensagens` 24, `testar:anexos` 24, `testar:fumaca` 76, `lint` e `typecheck` limpos. Tudo isso roda no CI (`.github/workflows/ci.yml`).
 
-**O que é.** Site Next.js 16 (App Router, React 19, Tailwind 4) do Instituto Lúcia: biblioteca digital e escola popular gratuita, em cinco idiomas. O conteúdo publicado (aulas, acervo com mais de mil obras, memorial, glossário, jornal, checagens, debates, vídeos) mora em `content/` como Markdown e JSON, versionado no git; o site é estático e funciona sem banco. O banco (Supabase) é só apoio: contas, equipe, fila de contribuições, comunidade, mural, reforço, rádio, podcast, horas e certificados, e as conversas cifradas da equipe.
+## 1. Resumo do projeto
 
-**Organização.**
-- `app/[lang]/` páginas públicas (acervo, trilhas, comunidade, jornal, rádio, podcasts, mural, ferramentas, voluntários, painel…); `app/api/` consultas a serviços abertos feitas no servidor.
-- `components/` peças do site; `components/painel/` o painel da equipe (só em português): Mesa, Conversas, Mural da equipe, Escrever, filas, Comunidade, Reforço, Pessoas, Horas, Podcast, Segurança, Registro, Minha conta.
-- `lib/` utilidades. Para esta tarefa: `backend.ts` (cliente Supabase, `rpc`, `Me`, `can`, `leads`), `sigilo.ts` (cifra: ECDH P-256 + HKDF + AES-GCM, formatos `c2.`/`w1.`), `chaveiro.ts` (par do aparelho em IndexedDB não exportável, chaves de conversa em memória, repasse), `device.ts` (marca do aparelho para o aviso de acesso), `passkey.ts` (digital via WebAuthn do Supabase), `upload.ts` (imagens limpas no navegador → bucket `envios`).
-- `supabase/install.sql` (6.138 linhas) é o banco inteiro, idempotente: tabelas no esquema fechado `interno`, RLS ligado sem regra alguma, toda entrada por funções `security definer` em `public` que conferem permissão. `supabase/functions/` tem duas Edge Functions (moderação da comunidade, transcrição do podcast).
-- `scripts/`: `banco-local.mjs` (Postgres em memória via PGlite com o install.sql aplicado), `backend-local.mjs` (substituto local do Supabase, contas `coord@local`, `vice@local`, `prof@local`…), `testar-banco.mjs` (1.509 linhas de testes de permissão e fluxo, roda no CI), `testar-sigilo.mjs` (cifra sem banco), `testar-fumaca.mjs`, `testar-podcast.mjs`, `testar-emails.mjs`, `testar-moderacao.mjs`.
-- CI (`.github/workflows/ci.yml`): lint, typecheck, i18n, todos os `testar:*`, build. Deploy pela Vercel a partir do `master`; publicação de conteúdo aprovado por rotina de hora em hora com a chave `service_role` só em segredos do GitHub.
-- Variáveis de ambiente (só nomes): `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `NEXT_PUBLIC_VIDEO_HOSTS`, `NEXT_PUBLIC_AUTH_GOOGLE`, `GOOGLE_FACTCHECK_KEY`; nos segredos das rotinas: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`; na função de moderação: `OPENAI_API_KEY`, `GOOGLE_SAFE_BROWSING_KEY`.
+**O que é.** Site Next.js 16 (App Router, React 19, Tailwind 4) do Instituto Lúcia: biblioteca digital e escola popular gratuita, em cinco idiomas. O conteúdo publicado (aulas, acervo, memorial, glossário, jornal, checagens, debates, vídeos) mora em `content/` como Markdown e JSON, versionado no git; o site é estático e funciona sem banco. O banco (Supabase) é só apoio: contas, equipe, fila de contribuições, comunidade, mural, reforço, rádio, podcast, horas e certificados, e as conversas cifradas da equipe.
 
-**Como os cargos funcionam hoje (achado central).** A premissa "cada pessoa tem um cargo só" **não se confirma no banco**: a tabela `interno.papeis` já é muitos-para-muitos (uma linha por papel, com `disciplina`, `concedido_por`, `criado_em`, índice único por pessoa + papel + disciplina). `interno.tem(papel)` já responde "sim" se **qualquer** linha da pessoa bate, ou seja, as permissões já são a união dos papéis. `eu()`, `voluntarios_listar`, `equipe_membros` devolvem `papeis` como lista; a tela Pessoas mostra os papéis como etiquetas com adicionar (busca de pessoa) e remover; a Mesa e a lista da equipe mostram todos. Os grupos de departamento já acompanham os papéis por gatilho (`lucia_departamentos` → `departamentos_sincronizar`), e sair de um grupo já troca a chave (`chat_retirar` → `chat_trocar_chave`). O registro de atividades (`auditoria`) e o livro do acervo (`audit_logs`, gatilho em `papeis`) já anotam cada papel dado ou tirado.
+**Como o banco é protegido.** `supabase/install.sql` é o banco inteiro, idempotente (roda quantas vezes for preciso): todas as tabelas no esquema fechado `interno`, RLS ligado sem política nenhuma (ninguém lê tabela direto), e toda entrada por funções `security definer` em `public` que conferem permissão. O site chama só essas funções (`lib/backend.ts`, `rpc`).
 
-Papéis existentes: `coordenacao`, `vice`, `curadoria`, `mediacao`, `educacao`, `educacao_secundaria` (vale como educação), `revisao`, `traducao`, `jornalismo`, `mentoria`, `design`, `marketing` (vale como design), `desenvolvimento`. **Não existe cargo "supervisor"**: "supervisão" é só uma tarefa do podcast (`interno.podcast_funcoes`, valores `producao`/`edicao`/`supervisao`), dada pela coordenação.
+**Como o chat era antes deste trabalho.** Cada aparelho tem um par ECDH P-256 (chave privada não exportável, guardada no IndexedDB do navegador). Cada conversa tem uma chave AES-GCM-256, embrulhada para cada aparelho de cada membro. As mensagens vão cifradas (`c2.<versão>.<iv>.<cifrado>`) e o banco só vê o cifrado. Quando alguém sai, a chave troca. **Buraco que existia:** o banco (ou quem tiver a chave `service_role`) podia registrar um "aparelho fantasma" em nome de uma pessoa e os colegas entregariam as chaves a ele, porque ninguém conferia de quem era o aparelho.
 
-**O que de fato falta para a Parte A (lista levantada na leitura):**
-1. Histórico de remoção: hoje remover é `delete`; só os registros de auditoria guardam quem tirou. Falta uma tabela de histórico com quem atribuiu, quando, quem removeu e quando.
-2. Hierarquia: `papel_conceder`/`papel_remover` só impedem a vice de nomear ou tirar vice/coordenação. A vice pode tirar um papel de trabalho do próprio coordenador. Não há "nível" formal.
-3. "Supervisor" não existe (ver Decisões pendentes).
-4. `candidatura_decidir`, `inscricao_decidir`, `convite_criar` e `lucia_conta_nova` também concedem papéis e precisam das mesmas regras de nível.
-5. Interface: quem já tem um papel **não consegue pedir outro** pelo painel (o cartão "Quero ser voluntário" só aparece com zero papéis, `Painel.tsx` Mesa). O menu lateral mostra os papéis juntos (`funcao`); crachá por papel não existe no site público.
-6. Testes: `testar-banco.mjs` tem casos com um papel só (`papeis[0]`), e nenhum caso de pessoa com vários papéis, nem de tentativa de dar cargo acima do próprio.
-7. `pessoas_buscar` e `voluntarios_listar` devolvem e-mail: se um novo papel passar a gerir cargos, o e-mail precisa continuar só com a coordenação.
+**Como os cargos eram.** A premissa "um cargo por pessoa" não se confirmava: `interno.papeis` já era muitos-para-muitos e as permissões já eram a soma dos papéis. O que faltava: hierarquia formal de quem pode dar e tirar o quê, um cargo de supervisão, histórico com quem tirou e quando, pedir outra função pela tela, e testes com vários papéis.
 
-**Lugares que leem papel (para a revisão pedida):** `interno.tem`, `coord`, `lider`, `curador`, `cuida`, `media`, `radialista`, `media_mural`, `mentor`, `envia`, `voluntario`, `da_equipe`, `no_departamento`, `ve_canal`, `ve_fila`, `contribuir` (campo `como`, pega o primeiro que bate: por desenho), `certificado_abrir` (`min(disciplina)` do educador), `podcaster`/`podcast_pode`/`podcast_equipe`, `avisar_lideranca`, `email_lideranca`, `seguranca_ver`, `sucessao_conferir`, `lideranca_passar`, `promover_coordenacao`, `public.equipe()`; políticas de storage (`radio`, `envios`, `podcast`, `podcast-producao`) chamam essas funções. No site: `lib/backend.ts` (`can`, `leads`, `equivale`), `Painel.tsx` (seções), `Pessoas.tsx`, `Convites.tsx`, `Comecar.tsx`, `Horas.tsx` (educador que assina: `papeis.find`), `Equipe.tsx`, `Conversas.tsx` (NovoGrupo por função), `podcast/*`. Todos já tratam `papeis` como lista; nenhum depende de haver um só.
+## 2. O que foi feito
 
-**Chat (o que existe, confirmado no código):** aparelhos ECDH em `chat_aparelhos` (só a pública), versões por conversa em `chat_versoes`, embrulhos por aparelho em `chat_chaves` (contexto amarra conversa + versão + aparelho), mensagens `c2.<versão>.<iv>.<cifrado>` amarradas a conversa + versão + autor via AAD, troca de versão ao sair alguém ou remover aparelho, repasse de chaves por quem está com o painel aberto (`chat_chaves_pendentes`/`chat_chaves_dar`), autodestruição, lido na privada, online/visto por último, grupos por departamento, mural da equipe cifrado com a chave do grupo do departamento. Limite já documentado no guia: quem tem `service_role` pode registrar um aparelho falso e receber as chaves das mensagens seguintes. É exatamente o buraco que a Etapa 1 da Parte B fecha (assinatura da chave pública do aparelho novo por um aparelho aprovado).
+### Parte A: cargos múltiplos (commit `fb4eeb0`)
 
-**Riscos e coisas estranhas notadas.**
-- `chat_aparelho_registrar` aceita qualquer pública nova sem prova de posse (não há desafio assinado): além do servidor, um cliente malicioso com a sessão da pessoa cadastra aparelhos à vontade. A Etapa 1 resolve com cadeia de assinaturas.
-- `chat_chaves_dar` aceita embrulho de qualquer aparelho que tenha a versão para qualquer aparelho de membro: sem assinatura de identidade, um aparelho "fantasma" registrado pelo servidor recebe tudo.
-- Mensagens não têm assinatura do autor: o AAD impede troca de autor no banco, mas não prova quem escreveu (quem tem a chave do grupo pode forjar uma mensagem em nome de outro membro do grupo).
-- A chave de uma conversa só muda quando alguém sai: sem rotação periódica, um aparelho comprometido lê 30 dias de histórico.
-- `papeis_unico` usa `coalesce(disciplina, '')`: dar o mesmo papel duas vezes é silencioso (`on conflict do nothing`), bom para idempotência.
-- A troca de senha no painel não pede a senha atual (já apontado na auditoria anterior, S5).
-- O teste de fumaça e `backend-local.mjs` semeiam contas com um papel cada; servem de base para os casos de vários papéis.
-- A memória do projeto diz que outras sessões podem estar editando o mesmo checkout: por isso o trabalho está num worktree.
+- **Hierarquia no banco** (`interno.nivel`, `nivel_de`, `gere_cargos`, `pode_conceder`, `pode_mexer`): coordenação 4, vice 3, supervisão 2, papéis de trabalho 1. Quem gere cargos só dá papel de nível **menor** que o próprio e só mexe em pessoa de nível **menor** que o próprio; ninguém mexe nos próprios cargos; a coordenação mexe em todos (respeitando a regra da última coordenação). Vale em `papel_conceder`, `papel_remover`, `candidatura_decidir`, `inscricao_decidir` e `convite_criar`, ou seja, no servidor.
+- **Cargo novo `supervisao`** (nível 2): confia e retira papéis de trabalho, vê a lista de pessoas sem e-mail, e nada mais.
+- **Histórico** `interno.papeis_historico` (quem deu, quando, quem tirou, quando, por qual caminho), preenchido por gatilho e semeado com os papéis atuais; `papeis_historico_listar` para a coordenação; a tela Pessoas mostra o histórico de cada pessoa.
+- **Tela:** etiquetas de função com adicionar e tirar, só o que o meu nível permite; "+N" onde cabe um nome só; "Pedir outra função" na Mesa para quem já tem papel; os grupos de departamento seguem todos os papéis (já era assim; conferido por teste).
+- **Testes:** pessoa com 0, 1 e 3 papéis; vice tentando tirar papel do coordenador (falha no servidor); supervisão dando vice (falha) e revisão (passa); histórico com quem tirou.
 
-## 2. Mapa curto do que existe
+### Etapa 1: confiança entre aparelhos (commit `1f41971`)
 
-| Área | Tabelas (`interno.`) | Funções principais (`public.`) | Onde a tela chama |
-| --- | --- | --- | --- |
-| Pessoas e papéis | `perfis`, `papeis`, `candidaturas`, `inscricoes`, `convites`, `convites_usos`, `sucessao`, `auditoria`, `audit_logs` | `eu`, `papel_conceder`, `papel_remover`, `usuario_suspender`, `voluntarios_listar`, `pessoas_buscar`, `candidatura_decidir`, `inscricao_decidir`, `convite_criar`, `lideranca_passar`, `promover_coordenacao`, `equipe_membros`, `equipe` | `Pessoas.tsx`, `Convites.tsx`, `Lideranca.tsx`, `Painel.tsx` |
-| Conversas | `conversas`, `conversa_membros`, `conversa_mensagens`, `chat_aparelhos`, `chat_versoes`, `chat_chaves`, `equipe_mensagens` | `chat_*` (conversas, direta, grupo_*, ver, enviar, apagar, aparelho_*, chaves, chave_nova, chaves_pendentes, chaves_dar, chaves_recusar, autodestruir), `presenca`, `equipe_*` | `Conversas.tsx`, `Equipe.tsx`, `Sigilo.tsx`, `lib/chaveiro.ts`, `lib/sigilo.ts` |
-| RLS | todas as tabelas de `interno` com RLS ligado e sem política (ninguém lê direto); storage com políticas que chamam `interno.*` | — | — |
+- **Identidade por conta** (par ECDSA P-256), criada no primeiro aparelho que abrir o painel. Cada aparelho tem um **certificado**: a chave pública ECDH dele assinada pela identidade. Os colegas guardam a identidade de cada pessoa na primeira vez que a veem (como o Signal) e **só embrulham chaves para aparelho com certificado válido, conferido no próprio aparelho**, não no servidor. O servidor também recusa aparelhos sem certificado (defesa em profundidade), mas a garantia real é a conferência no cliente: mesmo que o banco minta, os colegas não entregam chave a um aparelho que a identidade da pessoa não assinou.
+- **Aprovação de aparelho novo:** o novo mostra um código de 8 dígitos e um QR; um aparelho já aprovado da mesma pessoa lê o QR (ou digita o código) e assina. O pedido fica selado com o código (PBKDF2 300 mil iterações + AES-GCM) e expira em um dia. A identidade vai para o aparelho novo embrulhada por ECDH (nunca em claro).
+- **Código de segurança** de 60 dígitos (derivado das duas identidades), com QR, e o botão "verificado"; **aviso "o código de segurança mudou"**, e, se a pessoa tinha verificado, as chaves ficam retidas até ela confirmar.
+- **Assinatura por mensagem** (ECDSA sobre conversa + versão + texto, dentro do cifrado): mensagem forjada em nome de outra pessoa aparece como "não foi possível verificar o autor".
+- **Rotação periódica** da chave da conversa (7 dias ou mil mensagens). Recomendação, sem implementar: Double Ratchet nas privadas e MLS nos grupos, só com biblioteca auditada (nenhuma primitiva foi inventada: tudo é WebCrypto).
+- **Cópia de recuperação** cifrada no aparelho com uma chave de 32 letras mostrada uma única vez; "Recomeçar a identidade" para quem perdeu tudo (os colegas veem o aviso).
+- **Migração:** conta sem identidade: o primeiro aparelho que abrir as conversas cria a identidade e aprova sozinho os outros aparelhos antigos da conta (que já estavam registrados), avisando a pessoa para conferir a lista e remover o que não reconhecer. Daí em diante, todo aparelho novo passa pela aprovação com código ou QR. Guia: `docs/MANUTENCAO.md`, seção "Conversas e Mural da equipe".
 
-Fluxo de chave hoje: aparelho A cria versão N → embrulha para cada aparelho dos membros (ECDH A↔X, HKDF com contexto `embrulho:<conversa>:<versão>:<aparelho X>`) → `chat_chave_nova`. Aparelho novo Y de um membro → qualquer aparelho com o painel aberto vê em `chat_chaves_pendentes` que Y não tem a versão → embrulha e entrega (`chat_chaves_dar`). Saída de membro ou remoção de aparelho → `versao_minima` sobe → próxima mensagem cria versão nova.
+### Etapa 2: mensagens (commit `6fa01df`)
 
-## 3. Hierarquia adotada (interpretação mais restritiva)
+Responder citando (tocar na citação leva até ela), reações com quem reagiu, editar até 15 minutos ("Editada"), encaminhar ("Encaminhada"), tiques enviada/entregue/lida e "Lida por" nos grupos, "digitando…"/"gravando áudio…", esconder "visto por último" e confirmação de leitura (recíproco, cortado no servidor), @menções com destaque e marca "@" na lista, formatação `*negrito*` `_itálico_` `~tachado~` `` `mono` `` e listas (vira elementos do React, nunca HTML), rascunho por conversa no aparelho, fixar (até cinco por conversa) e favoritar, seleção múltipla para apagar ou encaminhar, **prévia de link feita só do endereço, no aparelho de quem envia** (a política de segurança do site não deixa o navegador buscar outros sites e o servidor nunca busca o link). Citação, encaminhada, menções, prévia e emoji viajam **dentro do cifrado**; o banco só vê o tipo (`texto`, `reacao`, `edicao`) e o alvo, e garante no servidor a janela de edição, uma reação por pessoa e o limite de fixadas.
 
-| Nível | Papéis |
-| --- | --- |
-| 4 | `coordenacao` |
-| 3 | `vice` |
-| 2 | `supervisao` (novo; ver Decisões pendentes) |
-| 1 | todos os papéis de trabalho (`curadoria`, `mediacao`, `educacao`, `educacao_secundaria`, `revisao`, `traducao`, `jornalismo`, `mentoria`, `design`, `marketing`, `desenvolvimento`) |
+### Etapa 3: mídia (commit `653fbaa`)
 
-Regras: o nível de uma pessoa é o maior nível entre os papéis dela. Quem gere cargos (`coordenacao`, `vice`, `supervisao`) só concede papel de nível **menor** que o próprio e só mexe nos cargos de pessoa de nível **menor** que o próprio; a coordenação, por ser o topo, mexe em todos (respeitando `ultima_coordenacao`). Ninguém mexe nos próprios cargos por esse caminho. As restrições já existentes continuam valendo por cima (só a coordenação nomeia vice; só o coordenador confia curadoria por convite e candidatura).
+Foto, vídeo, áudio, PDF e DOCX, **cada arquivo cifrado no aparelho com uma chave só dele** (AES-GCM, presa à conversa); a chave, o vetor e o SHA-256 do conteúdo vão dentro da mensagem assinada. O banco guarda só bytes cifrados, tamanho e dono (nem tipo, nem nome). O tipo é descoberto pelos primeiros bytes, nunca pela extensão; HTML, executável e o resto são recusados. Fotos são redesenhadas (somem os dados da câmera) e têm cortar, desenhar e borrar (o borrão reduz a blocos; não volta). Áudio: segurar para gravar, travar, ouvir antes de enviar, forma de onda calculada no aparelho, 1,5× e 2×. PDF abre no leitor do navegador; DOCX é convertido no aparelho (`mammoth`) e mostrado num quadro isolado sem permissão nenhuma. Ctrl+V e arrastar. "Ver uma vez": quem enviou não relê, cada pessoa abre uma vez, o banco apaga os bytes quando todos abriram. Galeria por conversa. Limites de 12 MB por arquivo e seis por mensagem, no aparelho e no banco. **Sem transcrição** (ver decisões).
 
-## 4. Plano da Parte A (a executar, nesta ordem, cada passo com commit)
+### Etapa 4: organização e grupos (commit `5db97c2`)
 
-1. **SQL aditivo** em `install.sql`: `interno.nivel(papel)`, `interno.nivel_de(usuario)`, `interno.gere_cargos()`; papel `supervisao` nos `check` de `papeis`, `candidaturas`, `inscricoes`, `convites`, em `nome_papel` e no grupo de departamento; tabela `interno.papeis_historico` (pessoa, papel, disciplina, concedido_por, concedido_em, removido_por, removido_em) preenchida por gatilho em `papeis` e **semeada uma vez** com as linhas atuais de `papeis` (migração sem perder ninguém, idempotente); regra de nível em `papel_conceder`, `papel_remover`, `candidatura_decidir`, `inscricao_decidir`, `convite_criar`; e-mail em `voluntarios_listar`/`pessoas_buscar` só para `coord()`; função `papeis_historico_listar` para a coordenação.
-2. **Site**: `Role["papel"]` e `papeis`/`oQueFaz` ganham `supervisao`; `can` reconhece `supervisao` para a seção Pessoas (só as abas Pessoas e Confiar função); Mesa passa a oferecer "Pedir outra função" a quem já tem papel; nomes das funções com "+N" onde só cabe uma (menu lateral do celular).
-3. **Testes** em `testar-banco.mjs`: pessoa com 0, 1 e 3 papéis (soma de permissões conferida em `fila`, `reforco_fila`, `equipe_canais`, grupos de departamento); vice tentando tirar papel do coordenador (falha); supervisão tentando dar vice/supervisão (falha) e dando revisão (passa); histórico com quem tirou; `testar-fumaca.mjs` ganha uma conta com dois papéis.
-4. Guia de manutenção (`docs/MANUTENCAO.md`): seção Papéis atualizada com a hierarquia e o histórico.
+Fixar no alto, arquivar, silenciar (8 h, 7 dias, sempre), marcar como não lida, trancar com a digital; filtros Todas/Não lidas/Grupos/Fixadas e a aba Arquivadas; **busca com índice só no aparelho** (IndexedDB + MiniSearch, apagado ao sair da conta); **avisos do navegador sem prévia** (nenhum, "chegou mensagem" ou "chegou mensagem de Fulana"), sem serviço de push; **trava com a digital** reaproveitando a chave de acesso já cadastrada, ao abrir as conversas e nas conversas trancadas uma a uma; grupos com **administradores e permissões** ("só administradores mudam nome, descrição e foto", "só administradores mandam mensagem"), conferidas no servidor; descrição e **foto do grupo** (uma mensagem cifrada); **avisos do sistema** ("Fulana entrou", "mudou o nome"…); **enquetes** e **eventos com vou/talvez/não**, tudo dentro do cifrado, um voto e uma resposta por pessoa; **relato à coordenação** com as mensagens que a própria pessoa escolhe e abre no aparelho dela.
 
-## 5. Plano da Parte B (resumo; detalhar na retomada)
+## 3. Mudanças no banco e como desfazer cada uma
 
-- **Etapa 1 (confiança):** por aparelho, além do par ECDH, um par ECDSA P-256 de assinatura; o primeiro aparelho da conta é a identidade; aparelho novo exibe código de 6 dígitos (ou QR) que um aparelho aprovado digita e, com isso, assina a pública do novo; `chat_aparelhos` ganha `assinatura`, `assinado_por`, `identidade`; `chat_chaves_dar`, `chat_chave_nova` e o cliente só embrulham para aparelho com assinatura válida verificada **no cliente** (o servidor não é confiado); código de segurança de 60 dígitos derivado das duas identidades; aviso de mudança de identidade; assinatura por mensagem (`s1.` dentro do corpo cifrado); rotação por tempo/quantidade; cópia cifrada das chaves com chave de recuperação mostrada uma vez. Migração: o aparelho ativo mais antigo vira identidade e assina os outros na primeira abertura, com aviso. Recomendação prevista: Double Ratchet nas privadas e MLS nos grupos só com biblioteca auditada, fora do escopo.
-- **Etapas 2 a 4:** mensagens (citar, reagir, editar 15 min, encaminhar, tiques, lida por, digitando, menções, formatação, rascunho, fixar, favoritar, seleção múltipla, prévia de link no aparelho), mídia cifrada por arquivo (bucket só com bytes ilegíveis), organização e grupos (busca local, arquivar, silenciar, filtros, administradores, enquetes, eventos, notificações sem prévia, bloqueio por digital, denúncia com reenvio decifrado pela própria pessoa).
+Tudo está em `supabase/install.sql`, **aditivo e idempotente**: rodar o arquivo inteiro de novo cria o que falta e troca as funções, sem apagar dado nenhum. Nenhuma migração apaga ou altera dados existentes; as únicas escritas em dados existentes são (a) semear `papeis_historico` com os papéis atuais (só insere) e (b) marcar como administrador quem criou cada grupo existente (`update conversa_membros set admin = true` onde `criada_por` bate).
 
-## 6. Decisões pendentes (dependem de você)
+| O quê | Objetos | Como desfazer |
+| --- | --- | --- |
+| Cargo `supervisao` | valor novo nos `check` de `papeis` e `convites`; funções `interno.nivel*`, `gere_cargos`, `pode_conceder`, `pode_mexer` | `delete from interno.papeis where papel = 'supervisao';` e voltar `install.sql` do master (as funções são `create or replace`) |
+| Histórico de cargos | tabela `interno.papeis_historico`, gatilho `lucia_papeis_historico`, função `papeis_historico_listar` | `drop trigger lucia_papeis_historico on interno.papeis; drop table interno.papeis_historico; drop function public.papeis_historico_listar;` |
+| Confiança (Etapa 1) | tabela `interno.chat_identidades`; colunas em `chat_aparelhos` (`certificado`, `aprovado_por`, `aprovado_em`, `identidade_embrulho`, `aprovado_publica`, `pedido`, `pedido_em`); tabela `interno.chat_recuperacoes`; funções `chat_aparelho_pedir/estado/aprovar/recuperar`, `chat_identidade_definir/redefinir`, `chat_recuperacao_guardar/ler` | `drop table interno.chat_identidades, interno.chat_recuperacoes;` e `alter table interno.chat_aparelhos drop column …` para cada coluna. **Atenção:** voltar as funções antigas faz o chat voltar ao modelo sem certificado (os aparelhos continuam funcionando) |
+| Mensagens (Etapa 2) | colunas `tipo`, `alvo`, `detalhe` em `conversa_mensagens`; `recebido_em`, `digitando_em`, `digitando`, `admin` em `conversa_membros`; `chat_visto`, `chat_leitura` em `perfis`; tabelas `conversa_fixadas`, `conversa_favoritas`; funções `chat_recebidas`, `chat_digitando`, `chat_fixar`, `chat_favoritar`, `chat_favoritas`, `perfil_preferencias` | `drop table` das duas tabelas e `drop column` de cada coluna (as linhas de reação/edição somem junto com `tipo`: apague antes `delete from interno.conversa_mensagens where tipo <> 'texto'`) |
+| Mídia (Etapa 3) | tabela `interno.conversa_anexos`; funções `chat_anexo_enviar`, `chat_anexo_ler`; `chat_enviar` ganhou `p_anexos`; limite do corpo cifrado subiu de 4.000 para 12.000 caracteres | `drop table interno.conversa_anexos;` e as duas funções |
+| Organização (Etapa 4) | tabela `interno.conversa_prefs`; colunas `descricao`, `foto`, `so_admins_enviam`, `so_admins_mudam` em `conversas`; tipos `sistema`, `voto`, `rsvp` em `conversa_mensagens`; tabela `interno.conversa_relatos`; funções `chat_conversa_marcar`, `chat_relatar`, `chat_relatos`, `chat_relato_resolver`, `interno.chat_admin`, `interno.chat_aviso` | `drop table interno.conversa_prefs, interno.conversa_relatos;` `drop column` das quatro colunas; `delete from interno.conversa_mensagens where tipo in ('sistema','voto','rsvp')` antes de voltar o `check` |
+| Faxina (`interno.limpeza`) | passou a apagar pedidos de aparelho com mais de um dia, arquivos soltos com mais de uma hora, bytes de "ver uma vez" com 14 dias e relatos resolvidos com um ano | voltar a função do master |
 
-1. **"Supervisor" não existe como cargo.** Plano: criar o papel `supervisao` (nível 2) só com o poder de confiar e retirar papéis de trabalho, sem ver e-mails, sem outras ferramentas. Alternativa: não criar e deixar só coordenação e vice gerindo cargos. Escolhido o caminho reversível (apagar as linhas e o valor do `check` desfaz).
-2. **Autogestão de cargos:** pelo plano, ninguém tira o próprio papel (nem a vice o próprio). Se quiser permitir sair de um papel, é uma função nova e explícita.
-3. **E-mails na gestão de pessoas:** se a supervisão puder confiar papéis, a busca de pessoas devolve só nome para ela. Confirmar se está bom.
+**Migrações que alteram ou apagam dados, deixadas para você decidir:** nenhuma foi necessária. Se um dia quiser desfazer alguma etapa, os comandos acima apagam dados (por isso ficam aqui, e não no `install.sql`).
 
-## 7. Como retomar
+**Storage:** nada mudou nos buckets. Os arquivos das conversas ficam na tabela `conversa_anexos` (bytea), por decisão explicada na seção 6.
+
+## 4. Modelo de ameaças atualizado
+
+**O que o servidor (e quem tiver `service_role`) consegue ver:** quem fala com quem, quando, quanto, o tamanho de cada mensagem e arquivo, o tipo de cada linha (texto, reação, edição, voto…), nomes e descrições dos grupos, os avisos do sistema (quem entrou, quem saiu), as preferências (fixada, arquivada, silenciada, trancada), e os relatos à coordenação (por decisão de quem relata). Isso são **metadados**, e continuam visíveis.
+
+**O que o servidor não consegue:**
+- Ler mensagens, legendas, arquivos, enquetes, eventos, votos, citações, prévias de link: tudo cifrado no aparelho com chaves que nunca saem dele em claro. Conferido por teste: fora os avisos do sistema, nenhuma linha das tabelas das conversas tem texto aberto.
+- **Fazer os aparelhos entregarem chaves a um aparelho falso:** cada aparelho só embrulha chave para aparelho cujo certificado é assinado pela identidade da pessoa, e a identidade é guardada no aparelho de cada colega na primeira vez que é vista. Um aparelho inventado pelo servidor não tem certificado válido; um certificado copiado de outro aparelho não bate com a chave pública. Testes: "aparelho falso registrado pelo banco não recebe chave", "certificado copiado não vale", "identidade trocada no banco gera aviso e retém chaves de quem verificou".
+- Forjar mensagem em nome de alguém: a assinatura por mensagem não confere, e a tela avisa.
+- Buscar links ou transcrever áudio: nada disso existe no servidor.
+
+**O que a nova superfície adiciona e como foi tratado:** arquivos (tipo conferido pelos bytes, fotos redesenhadas, DOCX em quadro isolado, PDF no leitor do navegador, limites nos dois lados); menções e formatação (tudo vira texto/elementos, nunca HTML); relato à coordenação (texto aberto no servidor, mas só o que a pessoa escolheu, com aviso claro antes; limite de dez relatos por dia por pessoa; somem em um ano).
+
+**Limites, ditos com franqueza:**
+1. **JavaScript adulterado.** Quem controla o código que o site serve (hospedagem Vercel, repositório, DNS) pode servir um painel que rouba chaves. A cifra de ponta a ponta na web depende da integridade do site. Mitigações já existentes: CSP estrita, nada de terceiros, deploy só do `master`. Não há como resolver isso por completo sem aplicativo instalado com atualizações assinadas.
+2. **Aparelho destravado.** Quem pega o aparelho aberto lê o que a pessoa lê (e o índice de busca local). A trava com a digital cobre a tela, não o disco. Não existe (nem poderia existir, sem senha a mais) cifra do IndexedDB.
+3. **Metadados** continuam visíveis ao servidor, como acima.
+4. **Primeiro contato (TOFU).** A identidade de um colega é aceita na primeira vez que é vista. Se o servidor trocar a identidade *antes* do primeiro contato, a pessoa precisa conferir o código de segurança pessoalmente para perceber. É o mesmo modelo do Signal e do WhatsApp; a conferência do código é o remédio.
+5. **Código de aprovação de 8 dígitos.** Quem está no meio (servidor) tem um dia e PBKDF2 de 300 mil iterações contra 10⁸ possibilidades: caro, não impossível. Mitigação: o pedido expira em um dia, e a pessoa vê todos os aparelhos aprovados na conta. Se quiser mais, o QR (que carrega a chave inteira) é o caminho que dispensa o código.
+6. **Sem sigilo perfeito por mensagem.** A rotação é por tempo e quantidade, não por mensagem (Double Ratchet/MLS). Um aparelho tomado lê o que a chave atual cobre (até 7 dias ou mil mensagens), não os 30 dias inteiros.
+7. **Avisos do navegador** só com o painel aberto em alguma aba (sem push, por desenho).
+
+## 5. O que você precisa fazer, na ordem
+
+1. **Revisar a branch** `worktree-chat-e-cargos` (seis commits). Rodar na sua máquina, se quiser conferir: `npm ci && npm run lint && npm run typecheck && npm run testar:banco && npm run testar:sigilo && npm run testar:mensagens && npm run testar:anexos && npm run testar:fumaca`.
+2. **Testar na tela, em ambiente local** (`npm run dev:local` sobe o site com o banco em memória e as contas de teste): abra `http://localhost:3100` e `http://127.0.0.1:3100` como duas pessoas (contas `*@local`, qualquer senha, segundo fator `123456`) ou como dois aparelhos da mesma pessoa, e passe pela aprovação de aparelho, mensagens, arquivos e grupos.
+3. **Decidir as pendências da seção 6.**
+4. **Aplicar o banco:** no SQL Editor do Supabase, rodar `supabase/install.sql` inteiro (é idempotente). Ele cria o que falta e troca as funções. Faça um backup antes (Database → Backups). Nenhuma linha é apagada.
+5. **Juntar ao `master`** (abrir PR da branch) e deixar a Vercel publicar.
+6. **Primeira abertura depois de publicar:** o primeiro aparelho que cada pessoa abrir cria a identidade dela e aprova os aparelhos antigos já registrados; ela verá na lista de aparelhos o aviso para conferir e remover o que não reconhecer. Aparelhos novos, daí em diante, pedem aprovação por código ou QR. Vale avisar a equipe antes (ver `docs/MANUTENCAO.md`, "Migração dos aparelhos de antes").
+7. **Cadastrar a digital** (quem quiser a trava) em Minha conta → Entrar com a digital; só depois a opção de trancar aparece.
+
+## 6. Decisões pendentes
+
+1. **Cargo `supervisao`.** Criado como nível 2, só com o poder de confiar e retirar papéis de trabalho, sem e-mails. Se preferir não ter, basta não confiar o papel a ninguém (ou apagar o valor; ver seção 3).
+2. **Ninguém mexe nos próprios cargos**, nem a vice no próprio. Se quiser "sair de uma função" pela tela, é uma função nova e explícita.
+3. **Quem gere cargos sem ser coordenação não vê e-mails** na busca de pessoas (só nomes).
+4. **Identidade = primeiro aparelho a abrir** depois da publicação. Alternativa seria exigir um ritual (todos reaprovam tudo); escolhido o caminho mais simples, com aviso.
+5. **Prévia de link só do endereço.** A CSP do site proíbe buscar outros sites; fazer a prévia "de verdade" no aparelho exigiria abrir a CSP para qualquer domínio, o que enfraquece a proteção contra vazamento. Ficou: domínio e título tirados do próprio endereço.
+6. **Arquivos no banco (bytea), não no Storage.** Motivo: com os arquivos presos às mensagens por chave estrangeira, apagar mensagem, autodestruição, trinta dias, "ver uma vez" e "apagar tudo" apagam os bytes com uma regra só, no servidor, sem rotina de limpeza no Storage (que exigiria a chave `service_role` ou um cliente apagando por fora). Custo: 12 MB por arquivo, seis por mensagem, trinta dias de vida; cabe no plano do Supabase para uma equipe pequena. Se o volume crescer, migrar para um bucket fechado é trocar duas funções (`chat_anexo_enviar`/`chat_anexo_ler`) por upload/download com política de storage.
+7. **Sem transcrição de áudio.** A única API de reconhecimento de voz dos navegadores (Web Speech) manda o áudio ao servidor do fabricante; um modelo local (Whisper em WebAssembly) pesa dezenas de MB e não roda bem em celular fraco. Pela regra "no aparelho ou nada", ficou nada. Reavaliar se um dia houver modelo local leve.
+8. **DOCX com `mammoth`.** Dependência nova (BSD, muito usada); converte no aparelho e o resultado vai para um quadro `sandbox` sem permissão. Alternativa seria mostrar só o texto. PDF usa o leitor do navegador num quadro `blob:` (foi preciso liberar `blob:` em `frame-src` na CSP).
+9. **Nome e descrição dos grupos em claro** no banco (o nome já era). Cifrar exigiria chave de grupo para metadados, mudando o modelo; deixado como está, documentado como metadado.
+10. **Relato à coordenação guarda texto aberto** no servidor, por decisão de quem relata, com aviso antes. Somem em um ano. Se quiser menos, mude o prazo em `interno.limpeza`.
+11. **`allowedDevOrigins: ["127.0.0.1"]`** em `next.config.ts` (só desenvolvimento) para testar dois aparelhos numa máquina só.
+12. **Trava com a digital** só confere a presença da pessoa (assinatura local com verificação do usuário); não há verificação no servidor, por desenho (é trava de tela).
+
+## 7. Publicação segura
+
+**Ordem:** (1) backup do banco; (2) rodar `install.sql` no SQL Editor; (3) juntar a branch ao `master` e esperar a Vercel; (4) abrir o painel você mesmo, ir em Conversas, criar a sua identidade e aprovar os seus outros aparelhos; (5) avisar a equipe.
+
+Por que o banco primeiro: o site novo chama funções novas (`chat_aparelho_pedir`, `chat_anexo_enviar`…); se o site subir antes, as Conversas mostram erro até o banco ser atualizado. O contrário (banco novo, site velho) funciona: as funções antigas continuam existindo com os mesmos nomes, e o site velho ignora as colunas novas. Por isso o passo 2 vem antes do 3.
+
+**O que testar logo depois (dez minutos):**
+- Entrar com duas contas em dois aparelhos (ou duas origens). A primeira abertura cria a identidade sem erro; o segundo aparelho da mesma pessoa mostra o código e é aprovado pelo primeiro.
+- Mandar uma mensagem privada, uma com foto, uma com áudio; ver chegar do outro lado com os tiques.
+- Num grupo de departamento, mandar uma enquete e votar.
+- Em Pessoas, confiar e tirar uma função de trabalho e ver o histórico.
+- Em Minha conta, as duas caixas de privacidade e os avisos.
+
+**Voltar atrás, se algo der errado:**
+- **Site:** na Vercel, "Promote to production" o deploy anterior (ou `git revert` dos seis commits no `master`). Funciona com o banco novo, porque as funções antigas foram mantidas com os mesmos nomes e assinaturas compatíveis (`chat_enviar` e `chat_grupo_mudar` ganharam só parâmetros com valor padrão).
+- **Banco:** rodar o `install.sql` do `master` anterior troca as funções de volta; as tabelas e colunas novas ficam (sem atrapalhar) até você rodar os `drop` da seção 3, se quiser.
+- **Chat em especial:** se a aprovação de aparelhos travar alguém (perdeu todos os aparelhos aprovados e não tem a chave de recuperação), "Recomeçar a identidade" (na tela do aparelho pendente) tira os aparelhos antigos da conta e cria identidade nova; os colegas veem o aviso de mudança e seguem.
+
+## Como retomar o trabalho (para quem continuar)
 
 ```bash
 git -C .claude/worktrees/chat-e-cargos status
 npm run testar:banco
-npm run testar:sigilo
 ```
 
-Depois, seguir a seção 4, passo 1 (SQL), rodando `npm run testar:banco` a cada mudança.
+Tudo está commitado; não há trabalho pela metade. O guia de manutenção (`docs/MANUTENCAO.md`, seção "Conversas e Mural da equipe" e "Papéis") descreve cada mecanismo com os nomes das funções e arquivos.
