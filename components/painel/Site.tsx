@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { rpc, verifyModeration } from "@/lib/backend";
+import { rpc, verifyAssistant, verifyModeration } from "@/lib/backend";
 import { KEYS, setItem } from "@/lib/storage";
 import { useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, dataHora, elo, textoDoErro, useLista } from "./comum";
@@ -163,6 +163,130 @@ function Moderacao() {
   );
 }
 
+interface ControlesDoAssistente {
+  ligado: boolean;
+  por_pessoa: number;
+  por_dia: number;
+  verificacao: { em: string; chave: boolean; ok: boolean; falha: string; modelo?: string } | null;
+  ultimo: { em: string; ok: boolean; falha: string } | null;
+  hoje: number;
+  pessoas_hoje: number;
+  semana: number;
+  interditado: boolean;
+}
+
+const falhasDoAssistente: Record<string, string> = {
+  ...falhas,
+  pedido_recusado: "o serviço recusou o pedido (confira o modelo escolhido no segredo ASSISTENTE_MODELO)",
+  recusa: "o modelo recusou o teste",
+  vazia: "o serviço respondeu sem texto",
+  cortada: "a resposta passou do tamanho e veio cortada",
+  desconhecida: "falha desconhecida",
+};
+
+/**
+ * Assistente de reforço: responde dúvidas quando não há voluntário, usando um serviço pago de inteligência artificial.
+ * Como na moderação, o painel separa ligado no banco, testado de verdade e usado de verdade. Só coordenação e vice.
+ */
+function AssistenteDeReforco() {
+  const estado = useLista<ControlesDoAssistente>("assistente_controles");
+  const [aviso, setAviso] = useState("");
+  const [ocupado, setOcupado] = useState(false);
+  const [limites, setLimites] = useState<{ por_pessoa: string; por_dia: string } | null>(null);
+  const a = estado.dados;
+  // Banco ainda sem esta parte, ou quem olha não é da coordenação: o cartão não aparece.
+  if (!a) return null;
+  const campos = limites ?? { por_pessoa: String(a.por_pessoa), por_dia: String(a.por_dia) };
+
+  async function salvar(mudanca: Record<string, unknown>, sucesso: string) {
+    setOcupado(true);
+    setAviso("");
+    try {
+      await rpc("assistente_configurar", { p: mudanca });
+      setAviso(sucesso);
+      setLimites(null);
+      estado.recarregar();
+    } catch (erro) {
+      setAviso(textoDoErro(erro));
+    } finally {
+      setOcupado(false);
+    }
+  }
+
+  async function testar() {
+    setOcupado(true);
+    setAviso("Testando…");
+    const r = await verifyAssistant();
+    setAviso(
+      r === null
+        ? "A função não respondeu: ela não está publicada neste serviço, ou o serviço está fora do ar."
+        : r.ok
+          ? `Teste feito: a função respondeu e o modelo ${r.modelo} devolveu uma resposta.`
+          : `Teste feito, com falha: ${falhasDoAssistente[r.falha] ?? r.falha}.`,
+    );
+    estado.recarregar();
+    setOcupado(false);
+  }
+
+  const v = a.verificacao;
+  const u = a.ultimo;
+  return (
+    <section className="border border-rule bg-parchment-deep p-5">
+      <h2 className="font-serif text-xl font-semibold">Assistente de reforço (inteligência artificial)</h2>
+      <p className="mt-1 text-ink-soft">
+        Ligado, a página de reforço e o resolvedor ganham um quadro &ldquo;Pergunte ao assistente&rdquo; para quem tem conta: ele explica a dúvida na hora, quando não há voluntário. Usa o Claude, da
+        Anthropic, que é um serviço pago por pergunta. A pergunta e a foto vão para esse serviço; o site guarda só quantas perguntas cada pessoa fez em cada dia.
+      </p>
+      <p className="mt-3 font-semibold">{a.ligado ? "Ligado." : "Desligado."}{a.ligado && a.interditado ? " (Sem efeito agora: a aula de reforço está interditada.)" : ""}</p>
+      <div className="mt-3">
+        <button type="button" className={a.ligado ? botaoClaro : botao} disabled={ocupado} onClick={() => salvar({ ligado: !a.ligado }, a.ligado ? "Assistente desligado." : "Assistente ligado. Faça um teste abaixo para conferir a chave.")}>
+          {a.ligado ? "Desligar o assistente" : "Ligar o assistente"}
+        </button>
+      </div>
+
+      <form
+        className="mt-5 grid gap-3 sm:grid-cols-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          void salvar({ por_pessoa: Number(campos.por_pessoa), por_dia: Number(campos.por_dia) }, "Limites guardados.");
+        }}
+      >
+        <label className="block">
+          Perguntas por pessoa, por dia (1 a 100)
+          <input type="number" min={1} max={100} required value={campos.por_pessoa} onChange={(e) => setLimites({ ...campos, por_pessoa: e.target.value })} className={campo} />
+        </label>
+        <label className="block">
+          Teto do site inteiro, por dia (1 a 5.000)
+          <input type="number" min={1} max={5000} required value={campos.por_dia} onChange={(e) => setLimites({ ...campos, por_dia: e.target.value })} className={campo} />
+        </label>
+        <p className="sm:col-span-2">
+          <button type="submit" className={botaoClaro} disabled={ocupado || limites === null}>Guardar os limites</button>
+        </p>
+      </form>
+      <p className="mt-2 text-ink-soft">O teto do dia é o freio de gasto: quando ele acaba, o quadro avisa que o assistente lotou e manda a pessoa ao voluntário. O dia vira à meia-noite de Brasília.</p>
+
+      <h3 className="mt-6 font-semibold">Situação</h3>
+      <ul className="mt-2 space-y-1">
+        <li>
+          Função publicada e chave cadastrada: <strong>{v ? (v.chave ? "sim, no último teste" : "a função respondeu, mas sem a chave") : "nunca testado por aqui"}</strong>
+          {v && <span className="text-ink-soft"> · {dataHora(v.em)}{v.modelo ? ` · modelo ${v.modelo}` : ""}</span>}.
+        </li>
+        <li>Serviço respondendo de verdade: <strong>{v ? (v.ok ? "sim, no último teste" : `não: ${falhasDoAssistente[v.falha] ?? v.falha}`) : "nunca testado por aqui"}</strong>.</li>
+        <li>
+          Última pergunta de verdade: <strong>{u ? (u.ok ? "respondida" : `com falha (${falhasDoAssistente[u.falha] ?? (u.falha || "sem detalhe")})`) : "nenhuma até agora"}</strong>
+          {u && <span className="text-ink-soft"> · {dataHora(u.em)}</span>}.
+        </li>
+        <li>Perguntas hoje: <strong>{a.hoje}</strong> de {a.por_dia}, de <strong>{a.pessoas_hoje}</strong> {a.pessoas_hoje === 1 ? "pessoa" : "pessoas"}. Nos últimos sete dias: <strong>{a.semana}</strong>.</li>
+      </ul>
+      <p className="mt-2 text-ink-soft">Quando o serviço falha, a pergunta não é descontada da pessoa. Como publicar a função, cadastrar a chave e quanto custa: guia de manutenção, &ldquo;Assistente de reforço&rdquo;.</p>
+      <p className="mt-2">
+        <button type="button" className={elo} disabled={ocupado} onClick={testar}>Testar agora o assistente</button>
+      </p>
+      <Aviso texto={aviso} />
+    </section>
+  );
+}
+
 function Formulario({ inicial, recarregar, aviso, setAviso }: { inicial: Controles; recarregar: () => void; aviso: string; setAviso: (texto: string) => void }) {
   const { t } = useI18n();
   const [faixa, setFaixa] = useState(inicial.faixa);
@@ -265,6 +389,7 @@ function Formulario({ inicial, recarregar, aviso, setAviso }: { inicial: Control
       </section>
 
       <Moderacao />
+      <AssistenteDeReforco />
       <Emails />
 
       <div className="lg:col-span-2">

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PodcastsRelacionados } from "@/components/podcast/Relacionados";
 import { notFound } from "next/navigation";
+import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { Markdown } from "@/components/Markdown";
 import { SaveOffline } from "@/components/Offline";
 import { LessonList, TrackProgress } from "@/components/Progress";
@@ -96,6 +97,7 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
           </p>
         )}
       </div>
+      <CaixaDaAula t={t} lang={lang} area={track.area} />
       <PodcastsRelacionados disciplina={track.area} trilha={track.slug} />
     </div>
   );

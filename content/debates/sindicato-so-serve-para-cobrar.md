@@ -1,6 +1,7 @@
 ---
 afirmacao: "Sindicato só serve para tirar dinheiro do trabalhador."
 resposta: "Desde 2017 nenhum trabalhador é obrigado a pagar a contribuição sindical: o desconto só acontece com autorização. E o acordo que o sindicato negocia (reajuste, piso, vale, plano de saúde) vale para a categoria inteira, pague ou não."
+falacias: [escolha-a-dedo]
 fontes:
   - titulo: "Lei nº 13.467, de 13 de julho de 2017 (reforma trabalhista)"
     autor: "Presidência da República"

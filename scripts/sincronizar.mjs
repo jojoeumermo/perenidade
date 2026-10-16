@@ -17,7 +17,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { montarArquivo } from "./cabecalho.mjs";
+import { lerCabecalho, montarArquivo } from "./cabecalho.mjs";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const conteudo = path.join(raiz, "content");
@@ -112,6 +112,19 @@ function livre(pasta, nome) {
   let tentativa = nome;
   for (let n = 2; fs.existsSync(destino(pasta, tentativa)); n++) tentativa = `${nome}-${n}`;
   return destino(pasta, tentativa);
+}
+
+/** As questões de fim de aula que o painel manda em dados.quiz: pergunta, de duas a seis alternativas, a certa e a explicação. */
+function questoes(lista) {
+  if (!Array.isArray(lista)) return [];
+  return lista.slice(0, 10).flatMap((q) => {
+    const pergunta = linha(q?.pergunta, "pergunta", { max: 300, obrigatorio: false });
+    const opcoes = (Array.isArray(q?.opcoes) ? q.opcoes : []).map((o) => linha(o, "alternativa", { max: 300, obrigatorio: false })).filter(Boolean);
+    const resposta = Number(q?.resposta);
+    if (!pergunta || opcoes.length < 2 || opcoes.length > 6 || !Number.isInteger(resposta) || resposta < 0 || resposta >= opcoes.length) return [];
+    const explicacao = linha(q?.explicacao, "explicação", { max: 500, obrigatorio: false });
+    return [{ pergunta, opcoes, resposta, ...(explicacao ? { explicacao } : {}) }];
+  });
 }
 
 const data = (texto) => (/^\d{4}-\d{2}-\d{2}/.test(String(texto)) ? String(texto).slice(0, 10) : new Date().toISOString().slice(0, 10));
@@ -219,7 +232,7 @@ const montar = {
     const arquivo = existente ? livre(`trilhas/${trilha}`, `${nome}-nova-versao`) : destino(`trilhas/${trilha}`, nome);
     return {
       arquivo,
-      dados: { titulo, resumo: linha(item.dados?.resumo, "resumo", { max: 220 }), autores: [assinatura(item)], revisada: true, fontes: fontes(item.fontes, true) },
+      dados: { titulo, resumo: linha(item.dados?.resumo, "resumo", { max: 220 }), autores: [assinatura(item)], revisada: true, fontes: fontes(item.fontes, true), ...(questoes(item.dados?.quiz).length ? { quiz: questoes(item.dados?.quiz) } : {}) },
       texto: corpo(item.corpo, tipos.aula.corpo.min),
     };
   },
@@ -301,7 +314,7 @@ const montar = {
     if (!FORMATOS.includes(formato)) recusar("formato desconhecido");
     return {
       arquivo: livre("avulsos", slug(titulo) || recusar("título sem letras")),
-      dados: { titulo, area: item.disciplina, formato, resumo: linha(item.dados?.resumo, "resumo", { max: 220 }), autores: [assinatura(item)], fontes: fontes(item.fontes, true) },
+      dados: { titulo, area: item.disciplina, formato, resumo: linha(item.dados?.resumo, "resumo", { max: 220 }), autores: [assinatura(item)], fontes: fontes(item.fontes, true), ...(questoes(item.dados?.quiz).length ? { quiz: questoes(item.dados?.quiz) } : {}) },
       texto: corpo(item.corpo, tipos.avulso.corpo.min),
     };
   },
@@ -329,6 +342,27 @@ const montar = {
     return { arquivo: original.replace(/\.md$/, `.${idioma}.md`), dados, texto: corpo(item.corpo, tipos.traducao.corpo.min) };
   },
 };
+
+/**
+ * Prática lúdica de idioma aprovada: os exercícios entram no cabeçalho da aula (campo "pratica"), que já existe.
+ * A conferência fina é do site (lib/pratica.ts), na montagem; aqui só a forma: tipos conhecidos e tamanhos.
+ */
+function acrescentarPratica(item) {
+  const alvo = /^([a-z0-9-]{2,80})\/([a-z0-9-]{2,80})$/.exec(String(item.alvo ?? ""));
+  if (!alvo) recusar("a prática precisa apontar a aula (trilha/aula)");
+  const pasta = path.join(conteudo, "trilhas", alvo[1]);
+  const nome = fs.existsSync(pasta) && fs.readdirSync(pasta).find((arquivo) => /^[a-z0-9-]+\.md$/.test(arquivo) && arquivo.replace(/^\d+-/, "") === `${alvo[2]}.md`);
+  if (!nome) recusar("a aula da prática não existe");
+  const arquivo = destino(`trilhas/${alvo[1]}`, nome.replace(/\.md$/, ""));
+  const tiposConhecidos = ["escolha", "traduzir", "pares", "lacuna", "ordenar", "ouvir", "falar", "cartoes"];
+  const exercicios = Array.isArray(item.dados?.exercicios) ? item.dados.exercicios : [];
+  if (exercicios.length < 1 || exercicios.length > 60) recusar("a prática precisa de 1 a 60 exercícios");
+  for (const ex of exercicios) if (!ex || typeof ex !== "object" || !tiposConhecidos.includes(ex.tipo)) recusar("exercício de tipo desconhecido");
+  if (JSON.stringify(exercicios).length > 60_000) recusar("prática grande demais");
+  const { dados, corpo: textoDaAula } = lerCabecalho(fs.readFileSync(arquivo, "utf8"));
+  fs.writeFileSync(arquivo, montarArquivo({ ...dados, pratica: exercicios, pratica_origem: item.id }, textoDaAula.trim()));
+  return arquivo;
+}
 
 /** Frases vão todas para um arquivo só. */
 function acrescentarFrase(item) {
@@ -372,7 +406,7 @@ function jaPublicados() {
     for (const entrada of fs.readdirSync(pasta, { withFileTypes: true })) {
       const caminho = path.join(pasta, entrada.name);
       if (entrada.isDirectory()) visitar(caminho);
-      else if (/\.(md|json)$/.test(entrada.name)) for (const achado of fs.readFileSync(caminho, "utf8").matchAll(/"?origem"?: "?([0-9a-f-]{36})"?/g)) ids.add(achado[1]);
+      else if (/\.(md|json)$/.test(entrada.name)) for (const achado of fs.readFileSync(caminho, "utf8").matchAll(/"?(?:pratica_)?origem"?: "?([0-9a-f-]{36})"?/g)) ids.add(achado[1]);
     }
   };
   visitar(conteudo);
@@ -422,6 +456,9 @@ for (const item of pendentes.slice(0, LIMITE)) {
     }
     if (item.tipo === "frase") {
       if (acrescentarFrase(item)) resumo.push(rotulo);
+    } else if (item.tipo === "pratica") {
+      const arquivo = acrescentarPratica(item);
+      resumo.push(`${rotulo} → prática em ${path.relative(raiz, arquivo).replaceAll("\\", "/")}`);
     } else if (item.tipo === "temas") {
       const { arquivo, quantos } = acrescentarTemas(item);
       resumo.push(`${rotulo} → ${quantos} tema(s) em ${path.relative(raiz, arquivo).replaceAll("\\", "/")}`);

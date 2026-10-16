@@ -4,9 +4,9 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { localeNames, localePath, locales } from "@/i18n/config";
-import { hasBackend, rpc } from "@/lib/backend";
-import { KEYS, useHydrated, useStored } from "@/lib/storage";
+import { fill, localeNames, localePath, locales } from "@/i18n/config";
+import { hasBackend, rpc, useMe } from "@/lib/backend";
+import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
 import { useI18n } from "./I18n";
 
 export function NavLinks() {
@@ -80,7 +80,7 @@ export function AppBack() {
       type="button"
       aria-label={t.common.back}
       onClick={() => (window.history.length > 1 ? router.back() : router.push(`/${lang}`))}
-      className="-ml-2 hidden h-10 w-9 shrink-0 cursor-pointer items-center justify-center text-ink app:max-md:flex"
+      className="app-voltar -ml-2 hidden h-10 w-9 shrink-0 cursor-pointer items-center justify-center text-ink app:max-md:flex"
     >
       <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M15 5l-7 7 7 7" />
@@ -89,15 +89,43 @@ export function AppBack() {
   );
 }
 
-/** "Entrar" para quem não tem sessão, "Painel" para quem tem. Só aparece quando as contas estão ligadas. */
+/** Só o primeiro nome, e curto: o cabeçalho tem de caber em uma linha no celular. */
+const firstName = (name: string) => name.trim().split(/\s+/)[0].slice(0, 24);
+
+/**
+ * "Entrar" para quem não tem sessão; para quem tem, "Olá, Fulano" com a palavra "Painel" embaixo (ou só "Painel",
+ * enquanto o nome não chega). O nome fica guardado no navegador para aparecer de imediato na próxima página.
+ */
 export function AccountLink() {
   const { lang, t } = useI18n();
   const hydrated = useHydrated();
   const session = useStored(KEYS.session);
+  const saved = useStored(KEYS.name);
+  const me = useMe();
+  const loaded = me.status === "in" ? firstName(me.me.nome) : "";
+  useEffect(() => {
+    if (loaded && loaded !== saved) setItem(KEYS.name, loaded);
+  }, [loaded, saved]);
   if (!hydrated) return null;
+  const name = session ? loaded || saved : "";
+  if (!name) {
+    return (
+      <Link href={localePath(lang, session ? "/painel" : "/entrar")} className="whitespace-nowrap font-sans text-xs text-ink-soft hover:text-oxblood sm:text-sm">
+        {session ? t.nav.panel : t.nav.signIn}
+      </Link>
+    );
+  }
   return (
-    <Link href={localePath(lang, session ? "/painel" : "/entrar")} className="whitespace-nowrap font-sans text-xs text-ink-soft hover:text-oxblood sm:text-sm">
-      {session ? t.nav.panel : t.nav.signIn}
+    <Link
+      href={localePath(lang, "/painel")}
+      aria-label={fill(t.nav.helloLabel, { name })}
+      title={t.nav.openPanel}
+      className="conta-saudacao flex min-w-[3.75rem] max-w-[10rem] flex-col items-end overflow-hidden font-sans leading-none text-ink-soft hover:text-oxblood"
+    >
+      <span className="max-w-full truncate py-px text-xs sm:text-sm">{fill(t.nav.hello, { name })}</span>
+      <span aria-hidden className="mt-0.5 font-mono text-[0.625rem] uppercase tracking-wider">
+        {t.nav.panel} →
+      </span>
     </Link>
   );
 }

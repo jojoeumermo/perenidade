@@ -7,7 +7,7 @@ import { contextoDoMural } from "@/lib/sigilo";
 import { safeLink } from "@/lib/text";
 import { previewFile } from "@/lib/upload";
 import { useI18n } from "../I18n";
-import { Aviso, botao, botaoClaro, campo, data, elo, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, data, elo, localDoPainel, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import { AparelhoPendente, ComoFunciona, enviarCifrado, TextoAberto, useAbertos, useChaveiro } from "./Sigilo";
 
 interface Resposta {
@@ -50,6 +50,7 @@ const nomes: Record<string, string> = {
   geral: "Todos",
   pedidos: "Pedidos de ajuda",
   coordenacao: "Coordenação",
+  supervisao: "Supervisão",
   curadoria: "Curadoria",
   mediacao: "Mediação",
   educacao: "Educadores",
@@ -58,11 +59,11 @@ const nomes: Record<string, string> = {
   jornalismo: "Jornal e rádio",
   mentoria: "Reforço",
   design: "Design",
-  marketing: "Marketing",
+  marketing: "Marketing e divulgação",
   desenvolvimento: "Desenvolvimento",
 };
 
-const funcoes: Role["papel"][] = ["design", "marketing", "desenvolvimento", "educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "coordenacao"];
+const funcoes: Role["papel"][] = ["design", "marketing", "desenvolvimento", "educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "supervisao", "coordenacao"];
 /** O texto cifrado ocupa mais espaço do que o aberto: este limite garante que ele cabe no banco. */
 const MAXIMO = 2000;
 
@@ -80,7 +81,7 @@ function quando(iso: string) {
   if (minutos < 1) return "agora";
   if (minutos < 60) return `há ${minutos} min`;
   if (minutos < 60 * 24) return `há ${Math.round(minutos / 60)} h`;
-  return new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
+  return new Date(iso).toLocaleDateString(localDoPainel(), { day: "2-digit", month: "2-digit" });
 }
 
 function Rosto({ nome, menor = false }: { nome: string; menor?: boolean }) {
@@ -96,7 +97,7 @@ function Rosto({ nome, menor = false }: { nome: string; menor?: boolean }) {
  * de ajuda entre funções). Tudo é cifrado de ponta a ponta neste aparelho, com a chave do grupo do departamento
  * de cada canal (a mesma das Conversas), antes de ser enviado, e some depois de trinta dias.
  */
-export function Equipe({ usuario, lider }: { usuario: string; lider: boolean }) {
+export function Equipe({ usuario, lider, modera = lider }: { usuario: string; lider: boolean; /** Coordenação, vice-coordenação e supervisão apagam o que for de outra pessoa. */ modera?: boolean }) {
   const { t } = useI18n();
   const canais = useLista<Canais>("equipe_canais");
   const membros = useLista<Membro[]>("equipe_membros");
@@ -238,7 +239,7 @@ export function Equipe({ usuario, lider }: { usuario: string; lider: boolean }) 
                 <button type="button" className={elo} onClick={() => acao.agir("equipe_marcar", { p_id: recado.id, p_resolvido: !recado.resolvido }, "")}>
                   {recado.resolvido ? "Reabrir" : "Marcar como resolvido"}
                 </button>
-                {(recado.meu || lider) && (
+                {(recado.meu || modera) && (
                   <button type="button" className={elo} onClick={() => acao.agir("equipe_apagar", { p_id: recado.id }, "Publicação apagada.")}>
                     Apagar
                   </button>

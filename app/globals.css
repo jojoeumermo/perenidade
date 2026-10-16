@@ -104,6 +104,13 @@ body {
   -webkit-user-select: none;
   user-select: none;
 }
+/* Barra estreita do aplicativo: com a seta de voltar ou o "Olá, Fulano", o nome do instituto dá lugar ao emblema,
+   e tudo (conta, notícias, rádio e tema) cabe em uma linha sem cortar nada. */
+@media (max-width: 419.98px) {
+  :root[data-app] header:has(.app-voltar, .conta-saudacao) .marca-nome {
+    display: none;
+  }
+}
 /* Troca de tela: o conteúdo novo surge em 160 ms. Só opacidade, que o celular simples anima sem engasgar. */
 @keyframes app-entra {
   from {
@@ -199,9 +206,9 @@ body {
   :root[data-app] main#conteudo {
     padding-bottom: calc(4.5rem + var(--recuo-baixo));
   }
-  /* O painel não tem as abas do site: lá dentro, nada de sobra clara embaixo do menu. */
+  /* O painel não tem as abas do site: lá dentro sobra só o recuo da barra de botões do aparelho, para nada ficar por baixo dela. */
   :root[data-app] main#conteudo:has(.painel) {
-    padding-bottom: 0;
+    padding-bottom: var(--recuo-baixo);
   }
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .barra-celular {
@@ -1615,5 +1622,12 @@ body {
   }
   .painel-carregando {
     animation: painel-pulso 1.2s ease-in-out infinite;
+  }
+}
+
+/* Caixa de ferramentas aberta no computador: a página abre espaço à direita e a aula continua inteira à vista. */
+@media (min-width: 1024px) {
+  html.caixa-aberta body {
+    padding-right: 28rem;
   }
 }

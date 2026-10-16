@@ -11,13 +11,12 @@ import { fingerprintAvailable, signInWithFingerprint } from "@/lib/passkey";
 import { KEYS, useHydrated, useStored } from "@/lib/storage";
 import { Captcha, captchaEnabled } from "./Captcha";
 import { L, useI18n } from "./I18n";
+import { SenhaCampo, senhaForte, type SenhaLabels } from "./SenhaCampo";
 
 const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
 // No aplicativo os botões ocupam a largura toda e ficam mais altos: é o polegar que aperta.
 const primary = "cursor-pointer bg-ink px-6 py-2.5 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50 app:max-md:w-full app:max-md:py-3.5 app:max-md:text-base";
 const secondary = "flex cursor-pointer items-center justify-center gap-2.5 border-2 border-ink px-6 py-2.5 font-medium hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50 app:max-md:w-full app:max-md:py-3.5 app:max-md:text-base";
-/** Senha criada aqui tem pelo menos doze caracteres. */
-const MINIMO = 12;
 
 interface Invite {
   valido: boolean;
@@ -47,7 +46,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [again, setAgain] = useState("");
-  const [state, setState] = useState<"idle" | "sending" | "wrong" | "failed" | "invalid" | "confirm" | "saved" | "code" | "badCode" | "leaked">("idle");
+  const [state, setState] = useState<"idle" | "sending" | "wrong" | "failed" | "unconfirmed" | "resent" | "invalid" | "confirm" | "saved" | "code" | "badCode" | "leaked">("idle");
   const [detail, setDetail] = useState("");
   /** O aplicativo autenticador cadastrado na conta que acabou de acertar a senha. */
   const [factor, setFactor] = useState("");
@@ -61,6 +60,10 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   /** Este aparelho já cadastrou (ou já usou) a digital: o botão sobe para o começo da tela. */
   const known = useStored(KEYS.passkey) === "1";
   const changing = recovering || recovery;
+  /** O link de confirmação do e-mail venceu (ou já foi usado): o serviço volta para cá com o erro no endereço. */
+  const expired = hydrated && /error_code=otp_expired|error=access_denied/.test(window.location.hash + window.location.search);
+  /** Para onde o link do e-mail de confirmação leva: a própria tela de entrar, no idioma da pessoa. */
+  const back = hydrated ? `${window.location.origin}/${lang}/entrar` : undefined;
 
   // Quem já entrou segue direto para o painel (menos quem veio escolher uma senha nova ou ainda deve o código do aplicativo).
   useEffect(() => {
@@ -160,8 +163,30 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       // O motivo exato ajuda a coordenação a consertar: senha errada é uma coisa, serviço fora do ar é outra.
       const reason = failure as { code?: string; status?: number; message?: string };
       const code = reason.code ?? "";
+      if (code === "email_not_confirmed") {
+        setDetail("");
+        setState("unconfirmed");
+        return;
+      }
       setDetail(code === "invalid_credentials" ? "" : [reason.status, code, reason.message].filter(Boolean).join(" · ").slice(0, 200));
       setState(code === "invalid_credentials" ? "wrong" : "failed");
+    } finally {
+      done();
+    }
+  }
+
+  /** Manda de novo o e-mail de confirmação (o link vale por pouco tempo). */
+  async function resend() {
+    setState("sending");
+    try {
+      const supabase = await getClient();
+      const { error } = await supabase.auth.resend({ type: "signup", email, options: { emailRedirectTo: back, captchaToken: token || undefined } });
+      if (error) throw error;
+      setState("resent");
+    } catch (failure) {
+      const reason = failure as { code?: string; status?: number; message?: string };
+      setDetail([reason.status, reason.code, reason.message].filter(Boolean).join(" · ").slice(0, 200));
+      setState("failed");
     } finally {
       done();
     }
@@ -191,7 +216,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     }
     try {
       const supabase = await getClient();
-      const { data, error } = await supabase.auth.signUp({ email: address, password, options: { data: code ? { convite: code } : {}, captchaToken: token || undefined } });
+      const { data, error } = await supabase.auth.signUp({ email: address, password, options: { data: code ? { convite: code } : {}, captchaToken: token || undefined, emailRedirectTo: back } });
       if (error) throw error;
       // Tira o código do endereço: ele já foi gasto e não precisa ficar no histórico do navegador.
       window.history.replaceState(null, "", `/${lang}/entrar`);
@@ -225,20 +250,22 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       <L href="/privacidade" className="underline hover:text-oxblood">{t.nav.privacy}</L>
     </p>
   );
+  // Senha nova: as regras (tamanho, maiúscula, minúscula, número, caractere especial) vão sendo marcadas enquanto a pessoa escreve.
+  const senhaLabels: SenhaLabels = { show: s.show, hide: s.hide, rulesTitle: s.rulesTitle, rules: s.rules, strong: s.strong };
   const twice = (
     <>
       <label className="block">
         {s.passwordNew}
-        <input type="password" required autoComplete="new-password" minLength={MINIMO} maxLength={200} value={password} onChange={(e) => setPassword(e.target.value)} className={field} />
+        <SenhaCampo value={password} onChange={setPassword} labels={senhaLabels} regras required className={field} />
       </label>
       <label className="block">
         {s.passwordAgain}
-        <input type="password" required autoComplete="new-password" minLength={MINIMO} maxLength={200} value={again} onChange={(e) => setAgain(e.target.value)} className={field} />
+        <SenhaCampo value={again} onChange={setAgain} labels={senhaLabels} required className={field} />
       </label>
       {again !== "" && again !== password && <p role="alert" className="text-oxblood">{s.mismatch}</p>}
     </>
   );
-  const weak = password.length < MINIMO || password !== again;
+  const weak = !senhaForte(password) || password !== again;
   const fingerprint = finger && (
     <div className="space-y-2">
       <button type="button" disabled={state === "sending" || waiting} onClick={() => void enterWithFingerprint()} className={known ? `${primary} flex items-center justify-center gap-2.5` : secondary}>
@@ -367,11 +394,19 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       </label>
       <label className="block">
         {s.password}
-        <input type="password" required autoComplete="current-password" maxLength={200} value={password} onChange={(e) => setPassword(e.target.value)} className={field} />
+        <SenhaCampo value={password} onChange={setPassword} labels={senhaLabels} autoComplete="current-password" required className={field} />
       </label>
       <Captcha action="entrar" lang={lang} round={round} onToken={receive} />
       <button type="submit" disabled={state === "sending" || !email.includes("@") || waiting || password.length < 1} className={primary}>{s.enter}</button>
       {state === "wrong" && <p role="alert" className="text-oxblood">{s.wrong}</p>}
+      {expired && state === "idle" && <p role="alert" className="border-l-2 border-oxblood pl-3 text-oxblood">{s.expired}</p>}
+      {state === "unconfirmed" && (
+        <div role="alert" className="space-y-3 border-l-2 border-oxblood pl-3">
+          <p className="text-oxblood">{s.unconfirmed}</p>
+          <button type="button" disabled={waiting} onClick={() => void resend()} className={secondary}>{s.resend}</button>
+        </div>
+      )}
+      {state === "resent" && <p role="status" className="border-l-2 border-ok pl-3">{s.resent}</p>}
       {state === "failed" && (
         <p role="alert" className="text-oxblood">
           {s.failed}

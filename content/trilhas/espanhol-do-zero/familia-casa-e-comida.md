@@ -1,110 +1,145 @@
 ---
 titulo: "Família, casa e comida"
-resumo: "Objetivo: aprender o vocabulário da família, da casa e da alimentação em espanhol, com atenção às palavras que mudam entre a Espanha e a América Latina, e usá-lo para falar do dia a dia."
+resumo: "O vocabulário da família, da casa e da mesa, com as diferenças entre a Espanha e a América Latina."
 autores: ["Instituto Lúcia"]
 fontes:
-  - titulo: "Espanhol/Vocabulário/Hogar"
+  - titulo: "Diccionario de la lengua española"
+    autor: "Real Academia Española"
+    url: "https://dle.rae.es/"
+  - titulo: "Plan curricular del Instituto Cervantes"
+    autor: "Instituto Cervantes (Centro Virtual Cervantes)"
+    url: "https://cvc.cervantes.es/ensenanza/biblioteca_ele/plan_curricular/"
+  - titulo: "Espanhol"
     autor: "Wikilivros"
-    url: "https://pt.wikibooks.org/wiki/Espanhol/Vocabul%C3%A1rio/Hogar"
-  - titulo: "Espanhol/Vocabulário/Alimentos"
-    autor: "Wikilivros"
-    url: "https://pt.wikibooks.org/wiki/Espanhol/Vocabul%C3%A1rio/Alimentos"
-  - titulo: "Gramática básica del estudiante de español"
-    autor: "Rosario Alonso Raya e outros (Difusión)"
-    ano: "2005"
+    url: "https://pt.wikibooks.org/wiki/Espanhol"
 quiz:
-  - pergunta: "O que significa \"los padres\" em espanhol?"
-    opcoes: ["Os padres da igreja, apenas", "Os pais (pai e mãe)", "Os parentes"]
+  - pergunta: "O que quer dizer \"mi novio\"?"
+    opcoes: ["Meu noivo, sempre", "Meu namorado (ou noivo, conforme o contexto)", "Meu sobrinho"]
     resposta: 1
-    explicacao: "Padres = pai e mãe. Parentes = parientes."
-  - pergunta: "Como se diz \"sobrenome\" em espanhol?"
-    opcoes: ["sobrenombre", "apellido", "nombre"]
+    explicacao: "Novio é, antes de tudo, namorado. Para deixar claro que é noivo, há prometido."
+  - pergunta: "Como se diz \"a minha mãe\" em espanhol?"
+    opcoes: ["la mi madre", "mi madre", "la madre mía"]
     resposta: 1
-    explicacao: "Sobrenombre é apelido. É um falso amigo clássico."
-  - pergunta: "Qual destas palavras significa \"batata\" na América Latina?"
-    opcoes: ["papa", "batata", "patata"]
+    explicacao: "Em espanhol, o possessivo antes do substantivo não leva artigo."
+  - pergunta: "Qual palavra quer dizer \"jantar\"?"
+    opcoes: ["cena", "almuerzo", "merienda"]
     resposta: 0
-    explicacao: "Na Espanha, diz-se patata; na América Latina, papa, palavra de origem quéchua."
-  - pergunta: "Como se diz \"Eu moro em um apartamento\" em boa parte da América Latina?"
-    opcoes: ["Vivo en un departamento.", "Vivo en un apartamiento.", "Moro en un piso."]
-    resposta: 0
-    explicacao: "Departamento (em vários países) ou apartamento; na Espanha, piso."
+    explicacao: "La cena é o jantar. El almuerzo é o almoço e la merienda, o lanche da tarde."
+  - pergunta: "Qual é a diferença entre \"pez\" e \"pescado\"?"
+    opcoes: ["Nenhuma", "Pez é o peixe vivo; pescado é o peixe como comida", "Pez é de rio e pescado é de mar"]
+    resposta: 1
+    explicacao: "Pez é o animal na água. Pescado é o peixe pescado, que vai para a mesa."
 ---
+
+Esta aula reúne as palavras de três assuntos de toda conversa: a família, a casa e a comida. O espanhol é falado em mais de vinte países, e algumas coisas do dia a dia têm nomes diferentes em cada lugar. Quando a diferença for grande, a tabela mostra as formas mais comuns.
 
 ## A família
 
-| Espanhol | Português |
-| --- | --- |
-| el padre / el papá | o pai |
-| la madre / la mamá | a mãe |
-| los padres | os pais (pai e mãe) |
-| el hermano / la hermana | o irmão / a irmã |
-| el hijo / la hija | o filho / a filha |
-| el abuelo / la abuela | o avô / a avó |
-| el tío / la tía | o tio / a tia |
-| el primo / la prima | o primo / a prima |
-| el sobrino / la sobrina | o sobrinho / a sobrinha |
-| el esposo / la esposa | o marido / a esposa |
-| los parientes | os parentes |
-| el nieto / la nieta | o neto / a neta |
+| Espanhol | Português | Espanhol | Português |
+| --- | --- | --- | --- |
+| padre | pai | madre | mãe |
+| hijo | filho | hija | filha |
+| hermano | irmão | hermana | irmã |
+| abuelo | avô | abuela | avó |
+| nieto | neto | nieta | neta |
+| tío | tio | tía | tia |
+| primo | primo | prima | prima |
+| sobrino | sobrinho | sobrina | sobrinha |
+| esposo, marido | marido | esposa, mujer | esposa |
+| suegro | sogro | suegra | sogra |
+| cuñado | cunhado | cuñada | cunhada |
 
-Em espanhol, as pessoas costumam ter **dois sobrenomes** (*apellidos*): o primeiro do pai e o primeiro da mãe. *Gabriel García Márquez*: García do pai, Márquez da mãe.
+Como em português, o masculino plural junta os dois gêneros: ***padres*** são o pai e a mãe (e também "padres", da igreja, pelo contexto); ***hijos*** são os filhos e as filhas; ***hermanos*** são os irmãos e as irmãs.
 
-- *¿Cómo se llama tu madre?* Como se chama a sua mãe?
-- *Tengo dos hermanos y una hermana.*
+Atenção a **novio** e **novia**: querem dizer, antes de tudo, **namorado** e **namorada**. Também servem para noivos e, no casamento, para os noivos no altar. Quando é preciso deixar claro o noivado, usa-se *prometido* ou *comprometido*.
+
+E **mujer** quer dizer "mulher" e também "esposa": *Te presento a mi mujer.*
+
+## Os possessivos
+
+| Antes do substantivo | Singular | Plural |
+| --- | --- | --- |
+| meu, minha | mi | mis |
+| seu, sua (de tú) | tu | tus |
+| dele, dela, seu (de usted) | su | sus |
+| nosso, nossa | nuestro, nuestra | nuestros, nuestras |
+| de vocês (Espanha) | vuestro, vuestra | vuestros, vuestras |
+| deles, delas, de vocês | su | sus |
+
+Duas regras importantes:
+
+- **Sem artigo.** Em português, dizemos "a minha casa"; em espanhol, só ***mi** casa*. "La mi casa" está errado.
+- ***Su*** pode ser dele, dela, deles, delas, do senhor ou de vocês. O contexto esclarece; se não esclarecer, diz-se *la casa de él*, *la casa de ella*.
+
+*Tu* (seu, sem acento) não é o mesmo que *tú* (você, com acento): *Tú tienes tu libro.*
+
+- *Mis padres viven en el campo.* — Meus pais moram no interior.
+- *Nuestra hija tiene doce años.* — Nossa filha tem doze anos.
 
 ## A casa
 
 | Espanhol | Português |
 | --- | --- |
 | la casa | a casa |
-| el departamento / el apartamento / el piso (Espanha) | o apartamento |
-| la cocina | a cozinha |
-| la sala / el salón | a sala |
-| el dormitorio / la habitación / el cuarto | o quarto |
+| el piso (Espanha), el departamento (Argentina, Chile, México), el apartamento | o apartamento |
+| la sala, el salón | a sala |
+| el dormitorio, la habitación, el cuarto, la recámara (México) | o quarto |
+| la cocina | a cozinha (e também o fogão, em vários países) |
 | el baño | o banheiro |
-| la ventana / la puerta | a janela / a porta |
-| la cama / la mesa / la silla | a cama / a mesa / a cadeira |
-| la heladera (Rio da Prata) / la nevera / el refrigerador | a geladeira |
-| la estufa / la cocina | o fogão |
+| el patio | o quintal |
+| la ventana | a janela |
+| la puerta | a porta |
+| la cama | a cama |
+| la mesa / la silla | a mesa / a cadeira |
+| la nevera (Espanha, Colômbia, Venezuela), la heladera (Argentina, Uruguai), el refrigerador (México e outros) | a geladeira |
 
-Atenção: em espanhol, **oficina** é **escritório**. Oficina mecânica é *taller*.
+Repare em **el piso**: na Espanha, quer dizer apartamento e também andar (*vivo en el tercer piso*). Em vários países da América, quer dizer o chão.
 
-## A comida
+## As refeições
 
 | Espanhol | Português |
 | --- | --- |
-| el desayuno | o café da manhã |
-| el almuerzo | o almoço |
-| la cena | o jantar (não é "cena"!) |
-| el arroz / los frijoles (América) / las judías (Espanha) | o arroz / o feijão |
-| la carne / el pollo / el pescado | a carne / o frango / o peixe |
-| el huevo | o ovo |
-| la papa (América) / la patata (Espanha) | a batata |
+| el desayuno / desayunar | o café da manhã / tomar café |
+| el almuerzo / almorzar | o almoço / almoçar |
+| la merienda | o lanche da tarde |
+| la cena / cenar | o jantar / jantar |
+
+**Cena** é o jantar, e não uma cena de filme (que é *escena*). Na Espanha, *la comida* também é usada para o almoço, a refeição principal do dia.
+
+## Na mesa
+
+| Espanhol | Português |
+| --- | --- |
 | el pan | o pão |
+| el arroz | o arroz |
+| los frijoles (México, América Central), los porotos (Argentina, Chile), las judías (Espanha), las caraotas (Venezuela) | o feijão |
+| el huevo | o ovo |
+| la carne | a carne |
+| el pollo | o frango |
+| el pescado | o peixe (como comida) |
+| la papa (América), la patata (Espanha) | a batata |
+| la cebolla / el ajo | a cebola / o alho |
+| el aceite | o óleo (*aceite de oliva* é azeite) |
 | la leche | o leite |
-| el jugo (América) / el zumo (Espanha) | o suco |
-| la fruta / la verdura | a fruta / a verdura |
+| el jugo (América), el zumo (Espanha) | o suco |
+| la manzana / la naranja | a maçã / a laranja |
 
-Repare em **cena**: em espanhol, é o **jantar**. Uma "cena de filme" é *escena*.
+Uma distinção que não existe em português: ***el pez*** é o peixe vivo, na água; ***el pescado*** é o peixe que vai para a mesa.
 
-O vocabulário da comida varia muito entre os países: o feijão é *frijol* no México e em vários países, *poroto* na Argentina e no Chile, *caraota* na Venezuela. O abacate é *aguacate* no México e na Espanha e *palta* na Argentina, no Chile e no Peru.
+## No restaurante ou na lanchonete
 
-```verificar
-Na Argentina, alguém convida: "¿Venís a cenar?" O que está sendo proposto?
-- Ir ao cinema
-+ Jantar
-- Ver uma cena
-> Cena = jantar; cenar = jantar (verbo).
-```
+- *Una mesa para dos, por favor.* — Uma mesa para dois, por favor.
+- *¿Qué me recomienda?* — O que o senhor recomenda?
+- *Quisiera un plato del día.* — Eu queria um prato do dia.
+- *¿Me trae un vaso de agua?* — Pode me trazer um copo de água?
+- *La cuenta, por favor.* — A conta, por favor.
 
-## Falando do dia a dia
-
-> *Vivo con mi madre y mis dos hijos en un departamento pequeño. Por la mañana desayuno café con leche y pan. Almuerzo en el trabajo: arroz, frijoles y pollo. Por la noche cenamos juntos en la cocina.*
+Atenção: ***vaso*** é o copo; a taça de vinho é ***copa***.
 
 ## Para praticar
 
-1. Desenhe a sua árvore genealógica com os nomes dos parentes em espanhol.
-2. Descreva a sua casa em quatro frases.
-3. Escreva o que você come em um dia comum: *desayuno, almuerzo, cena*.
-4. Pesquise como se diz "ônibus" em três países de língua espanhola.
+1. Apresente a sua família em cinco frases: *Tengo dos hermanos. Mi madre se llama…*
+2. Descreva a sua casa: quantos quartos tem, como é a cozinha, o que tem na sala.
+3. Conte o que você come num dia comum, no café da manhã, no almoço e no jantar.
+
+Se quiser, leia em voz alta com a ferramenta de [pronúncia](/ferramentas/pronuncia), escolhendo "Español".
