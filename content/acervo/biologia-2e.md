@@ -2,7 +2,7 @@
 titulo: "Biology 2e"
 autor: "Mary Ann Clark, Matthew Douglas e Jung Choi"
 area: biologia
-licenca: "CC BY"
+licenca: "CC BY-NC-SA"
 fonte: "OpenStax"
 url: "https://openstax.org/details/books/biology-2e"
 idioma: "Inglês"

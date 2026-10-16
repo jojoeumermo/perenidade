@@ -3,6 +3,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { BackendError, rpc, type Role } from "@/lib/backend";
+import { PAINEL_REMOTO, transmitir } from "@/lib/tempo-real";
 
 // O painel é a mesa de trabalho da equipe e existe só em português.
 
@@ -32,20 +33,21 @@ export const papeis: Record<Role["papel"], string> = {
 
 /** O que cada papel enxerga e faz no painel. É a regra do banco, escrita para gente. */
 export const oQueFaz: Record<Role["papel"], string> = {
-  coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-coordenação, define a sucessão, publica materiais e emite certificados.",
-  vice: "Tudo o que a coordenação faz, menos mexer na coordenação, nomear outra vice-coordenação ou supervisão, definir a sucessão e emitir certificados.",
-  supervisao: "Confia e retira os papéis de trabalho (educação, revisão, tradução, jornalismo, reforço, design, marketing, desenvolvimento) de quem está abaixo na hierarquia. Não vê e-mails, não decide candidaturas, não convida e não mexe em curadoria, mediação, vice-coordenação nem coordenação.",
+  coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-coordenação, define a sucessão, edita contas e redefine senhas, publica materiais e emite certificados.",
+  vice: "Tudo o que a coordenação faz, menos mexer na coordenação, nomear outra vice-coordenação, definir a sucessão e emitir certificados.",
+  supervisao:
+    "Faz o painel andar quando a coordenação e a vice-coordenação estão ausentes: acompanha a equipe (sem ver e-mails), suspende contas em emergência com motivo, cuida do mural da equipe, lê o registro, pausa os envios do público e liga o modo de segurança da Comunidade. Interdição e expurgo, só como pedido que a coordenação aprova. Também confia e retira os papéis de trabalho de quem está abaixo na hierarquia e nomeia representantes de departamento.",
   curadoria: "Aprova ou recusa contribuições, cuida da comunidade, das denúncias e do filtro de palavras.",
   mediacao: "Acompanha a Comunidade, decide os casos que pedem leitura humana e oculta, edita ou libera mensagens; aprova, edita ou recusa anúncios do Mural dos Trabalhadores, faz a triagem das contribuições antes de elas chegarem à fila de revisão e, quando alguém passa do limite, bane a conta (e, em caso extremo, a origem de rede). Não aprova conteúdo de ensino nem mexe na equipe.",
-  educacao: "Escreve e revisa na disciplina confiada, cuida da comunidade e atende pedidos de reforço da disciplina.",
-  educacao_secundaria: "Contribui com a disciplina confiada em paralelo às trilhas: aulas avulsas, listas de exercícios, resumos e materiais de apoio, que aparecem numa aba própria da disciplina. Tem os mesmos poderes do educador: também pode escrever aulas das trilhas, revisar a fila da disciplina e atender reforço.",
+  educacao: "Escreve e dá parecer na disciplina confiada, cuida da comunidade e atende pedidos de reforço da disciplina.",
+  educacao_secundaria: "Contribui com a disciplina confiada em paralelo às trilhas: aulas avulsas, listas de exercícios, resumos e materiais de apoio, que aparecem numa aba própria da disciplina. Tem os mesmos poderes do educador: também pode escrever aulas das trilhas, dar parecer na fila da disciplina e atender reforço.",
   revisao: "Lê a fila inteira e dá parecer; não aprova.",
-  traducao: "Envia traduções; não vê a fila dos outros.",
-  jornalismo: "Escreve para o jornal (toda matéria passa pela revisão antes de sair), cuida da Rádio Lúcia (canais, faixas, transmissão ao vivo, emissoras) e faz o podcast: pauta, roteiro, gravação, edição e publicação, com aprovação da supervisão. Pode cuidar dos três ou só de um.",
+  traducao: "Vê as aulas que ainda não têm tradução e o que outros tradutores já enviaram, e envia traduções; não vê a fila dos outros.",
+  jornalismo: "Escreve para o jornal (toda matéria passa pela revisão antes de sair), cuida da Rádio Lúcia (canais, faixas, transmissão ao vivo e sugestão de novas emissoras) e faz o podcast: pauta, roteiro, gravação, edição e publicação, com aprovação da supervisão do podcast. Pode cuidar dos três ou só de um.",
   mentoria: "Atende pedidos de reforço da disciplina confiada e responde por e-mail.",
   design: "Prepara materiais gráficos e atende pedidos de ajuda das outras funções.",
-  marketing: "Divulga o instituto: posts e artes para as redes sociais, cartazes de chamada, campanhas de voluntariado e de apoio, cortes do podcast. Usa os materiais e arquivos do painel, como o design.",
-  desenvolvimento: "Cuida do código e atende pedidos de ajuda das outras funções.",
+  marketing: "Divulga o instituto: posts e artes para as redes sociais, cartazes de chamada, campanhas de voluntariado e de apoio, cortes do podcast. Monta o calendário de posts e stories do Instagram e usa o kit da marca e os materiais do painel, como o design. O acesso ao Instagram é dado pela coordenação pela própria Meta; o site nunca guarda senha de rede social.",
+  desenvolvimento: "Cuida do código: vê o estado técnico do site (publicação, avaliação automática, faxina, sinais de varredura) e atende pedidos de ajuda das outras funções.",
   representante: "Porta-voz e primeira entrada de um departamento, nomeado pela coordenação, vice ou supervisão: organiza o grupo do departamento (administra a conversa, combina e delega tarefas) sem ser chefe. Não dá nem tira funções.",
 };
 
@@ -106,6 +108,9 @@ const erros: Record<string, string> = {
   boletim_recente: "Já saiu uma edição do boletim nas últimas seis horas. Espere um pouco para mandar outra.",
   limite_colaboradores: "Cada contribuição pode ter até cinco pessoas trabalhando junto.",
   mudou_enquanto_editava: "Outra pessoa guardou alterações enquanto você editava. Copie o que escreveu, abra a versão nova e aplique de novo.",
+  sem_pgcrypto: "O banco ainda não tem a extensão de senhas (pgcrypto). Rode o supabase/install.sql de novo no SQL Editor.",
+  area_interditada: "Esta parte do site está interditada agora.",
+  pedido_vencido: "Este pedido venceu (passou de 72 horas sem decisão). A supervisão pode fazer outro.",
   sem_conexao: "Sem conexão com o serviço.",
   banco_desatualizado: "Esta parte do painel ainda não está disponível. Tente mais tarde ou avise a coordenação.",
   falha: "Algo deu errado. Tente de novo.",
@@ -118,13 +123,19 @@ export function textoDoErro(erro: unknown): string {
   return erros[tipo] ?? erros.falha;
 }
 
-export const data = (iso: string) => new Date(iso).toLocaleDateString("pt-BR");
-export const dataHora = (iso: string) => new Date(iso).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+/** O idioma da página (o painel pode estar em inglês, espanhol, russo ou chinês): datas e horas seguem ele. */
+export const localDoPainel = () => (typeof document !== "undefined" && document.documentElement.lang) || "pt-BR";
+export const data = (iso: string) => new Date(iso).toLocaleDateString(localDoPainel());
+export const dataHora = (iso: string) => new Date(iso).toLocaleString(localDoPainel(), { dateStyle: "short", timeStyle: "short" });
 /** Datas sem hora (AAAA-MM-DD) não podem passar pelo fuso: viram o dia anterior no Brasil. */
 export const dia = (iso: string) => iso.slice(0, 10).split("-").reverse().join("/");
 
-/** Carrega uma lista do serviço e devolve um jeito de recarregar. */
-export function useLista<T>(funcao: string, argumentos: Record<string, unknown> = {}) {
+/**
+ * Carrega uma lista do serviço e devolve um jeito de recarregar. A lista também se refaz sozinha quando outro painel
+ * avisa, pelo canal de tempo real, que alguma ação deu certo (mensagem nova, decisão tomada, aula marcada…).
+ * Com "quieta", a lista não reage aos avisos: é para o que não muda por ação dos outros (preferências, a própria conta).
+ */
+export function useLista<T>(funcao: string, argumentos: Record<string, unknown> = {}, { quieta = false }: { quieta?: boolean } = {}) {
   const [estado, setEstado] = useState<{ dados: T | null; erro: string }>({ dados: null, erro: "" });
   const [volta, setVolta] = useState(0);
   const chave = JSON.stringify(argumentos);
@@ -143,6 +154,22 @@ export function useLista<T>(funcao: string, argumentos: Record<string, unknown> 
     };
   }, [funcao, chave, volta]);
 
+  // Aviso de outro painel: refaz a lista, com uma pequena espera para juntar avisos que chegam em rajada.
+  useEffect(() => {
+    if (quieta) return;
+    let relogio = 0;
+    const refazer = () => {
+      if (document.visibilityState !== "visible") return;
+      window.clearTimeout(relogio);
+      relogio = window.setTimeout(() => setVolta((v) => v + 1), 400 + Math.random() * 600);
+    };
+    window.addEventListener(PAINEL_REMOTO, refazer);
+    return () => {
+      window.removeEventListener(PAINEL_REMOTO, refazer);
+      window.clearTimeout(relogio);
+    };
+  }, [quieta]);
+
   return { ...estado, recarregar: useCallback(() => setVolta((v) => v + 1), []) };
 }
 
@@ -160,8 +187,10 @@ export function useAcao(depois?: () => void) {
       const resposta = await rpc<unknown>(funcao, argumentos);
       setAviso(sucesso);
       depois?.();
-      // Avisa o menu do painel para refazer as contagens (a fila diminui assim que alguém decide).
+      // Avisa o menu do painel para refazer as contagens (a fila diminui assim que alguém decide)…
       window.dispatchEvent(new Event(PAINEL_MUDOU));
+      // …e os outros painéis abertos, pelo canal de tempo real (só o nome da ação, nunca o conteúdo).
+      transmitir(funcao);
       return resposta;
     } catch (erro) {
       setAviso(textoDoErro(erro));

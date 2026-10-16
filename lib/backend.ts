@@ -41,6 +41,33 @@ export function getClient(): Promise<SupabaseClient> {
   return client;
 }
 
+/**
+ * Endereço assinado (temporário) de um arquivo de depósito fechado, para tocar vídeo sem baixá-lo inteiro.
+ * Com conta, pede com a sessão; sem conta, com a chave pública. Em ambos os casos, quem decide é a regra do depósito.
+ */
+export async function signedStorageUrl(bucket: string, path: string, seconds: number): Promise<string> {
+  if (!hasBackend) throw new BackendError("sem_servico");
+  if (hasSession()) {
+    const supabase = await getClient();
+    const { data, error } = await supabase.storage.from(bucket).createSignedUrl(path, seconds);
+    if (error || !data) throw new BackendError("nao_encontrado");
+    return data.signedUrl;
+  }
+  let response: Response;
+  try {
+    response = await fetch(`${url}/storage/v1/object/sign/${bucket}/${path.split("/").map(encodeURIComponent).join("/")}`, {
+      method: "POST",
+      headers: { apikey: key, Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ expiresIn: seconds }),
+    });
+  } catch {
+    throw new BackendError("sem_conexao");
+  }
+  const body = (await response.json().catch(() => null)) as { signedURL?: string } | null;
+  if (!response.ok || !body?.signedURL) throw new BackendError("nao_encontrado");
+  return `${url}/storage/v1${body.signedURL}`;
+}
+
 export function hasSession(): boolean {
   try {
     return localStorage.getItem(KEYS.session) !== null;
@@ -108,6 +135,12 @@ export interface Me {
   chat_visto: boolean;
   /** Nas conversas: confirmar aos outros que li (quem desliga também não vê a confirmação dos outros). */
   chat_leitura: boolean;
+  /** Pode mandar avisos à equipe (coordenação, vice-coordenação e supervisão). Banco antigo não manda o campo. */
+  supervisao?: boolean;
+  /** Pode usar o estúdio de design (marketing, design, jornalismo e coordenação). */
+  desenha?: boolean;
+  /** A coordenação redefiniu a senha: a pessoa escolhe uma nova antes de o painel abrir. */
+  trocar_senha?: boolean;
 }
 
 /** Funções que valem por outra: a educação secundária tem os poderes da educação; o marketing, os do design. */
@@ -231,6 +264,97 @@ export async function recoverPending(): Promise<boolean> {
   }
 }
 
+/**
+ * O assistente de reforço está ligado? Fica falso sem serviço, desligado, ou com a aula de reforço interditada.
+ * `active` evita a consulta quando ela não serve para nada (por exemplo, para quem nem entrou na conta).
+ */
+export function useAssistantOn(active = true): boolean {
+  const [on, setOn] = useState(false);
+  useEffect(() => {
+    if (!hasBackend || !active) return;
+    let cancelled = false;
+    rpc<{ ligado?: boolean } | null>("assistente_estado")
+      .then((state) => {
+        if (!cancelled) setOn(state?.ligado === true);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [active]);
+  return on;
+}
+
+export interface AssistantRequest {
+  modo: "pergunta" | "foto";
+  pergunta: string;
+  disciplina: string;
+  idioma: string;
+  /** Aulas do próprio site que podem ajudar: o assistente só recomenda estas. */
+  aulas: { titulo: string; caminho: string }[];
+  imagem?: { tipo: string; dados: string };
+}
+
+export type AssistantResult =
+  | { ok: true; texto: string; cortada: boolean; transcricao: string; conta: string; restantes: number | null }
+  | { ok: false; recusa: boolean; erro: string };
+
+/**
+ * Pergunta ao assistente de reforço (a função "assistente"). A pergunta, e a foto se houver, vão para um serviço de
+ * inteligência artificial de outra empresa; o site não guarda nada disso. O banco só conta quantas perguntas a pessoa fez.
+ */
+export async function askAssistant(request: AssistantRequest): Promise<AssistantResult> {
+  try {
+    const supabase = await getClient();
+    const { data } = await supabase.auth.getSession();
+    if (!data.session) return { ok: false, recusa: false, erro: "entre_primeiro" };
+    const response = await fetch(`${url}/functions/v1/assistente`, {
+      method: "POST",
+      headers: { apikey: key, Authorization: `Bearer ${data.session.access_token}`, "Content-Type": "application/json" },
+      body: JSON.stringify(request),
+      // Uma explicação passo a passo pode levar mais de um minuto.
+      signal: AbortSignal.timeout(150_000),
+    });
+    const body = (await response.json().catch(() => null)) as Record<string, unknown> | null;
+    if (body?.recusa === true) return { ok: false, recusa: true, erro: "" };
+    if (!response.ok || typeof body?.texto !== "string") {
+      const erro = typeof body?.erro === "string" && /^[a-z_]+(:[a-z_]+)?$/.test(body.erro) ? body.erro : "assistente_falhou";
+      return { ok: false, recusa: false, erro };
+    }
+    return {
+      ok: true,
+      texto: body.texto,
+      cortada: body.cortada === true,
+      transcricao: typeof body.transcricao === "string" ? body.transcricao : "",
+      conta: typeof body.conta === "string" ? body.conta : "",
+      restantes: typeof body.restantes === "number" ? body.restantes : null,
+    };
+  } catch {
+    return { ok: false, recusa: false, erro: "assistente_falhou" };
+  }
+}
+
+/** Teste de funcionamento do assistente (coordenação e vice). null quer dizer que a função não respondeu. */
+export async function verifyAssistant(): Promise<{ chave: boolean; ok: boolean; falha: string; modelo: string } | null> {
+  try {
+    const supabase = await getClient();
+    const { data } = await supabase.auth.getSession();
+    if (!data.session) return null;
+    const response = await fetch(`${url}/functions/v1/assistente`, {
+      method: "POST",
+      headers: { apikey: key, Authorization: `Bearer ${data.session.access_token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ verificar: true }),
+      signal: AbortSignal.timeout(60_000),
+    });
+    if (!response.ok) return null;
+    const body = (await response.json()) as { chave?: unknown; ok?: unknown; falha?: unknown; modelo?: unknown } | null;
+    if (typeof body?.ok !== "boolean") return null;
+    return { chave: body.chave === true, ok: body.ok, falha: typeof body.falha === "string" ? body.falha : "", modelo: typeof body.modelo === "string" ? body.modelo : "" };
+  } catch {
+    return null;
+  }
+}
+
 export async function signOut() {
   try {
     const supabase = await getClient();
@@ -238,6 +362,7 @@ export async function signOut() {
   } finally {
     try {
       localStorage.removeItem(KEYS.session);
+      localStorage.removeItem(KEYS.name);
     } catch {
       // sem armazenamento, não há sessão para apagar
     }

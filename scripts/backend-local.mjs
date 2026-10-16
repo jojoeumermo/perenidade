@@ -6,11 +6,12 @@
 //   npm run dev:local      sobe este servidor e o site apontando para ele
 //
 // Contas de teste (qualquer senha serve aqui, e só aqui):
-//   coord@local  vice@local  super@local (supervisão)  curadora@local  prof@local (educador de matemática)  mentora@local
-//   designer@local  jornal@local (jornalismo e tradução)  revisor@local  mediador@local  leitora@local
+//   coord@local  vice@local  supervisor@local  curadora@local  prof@local (educador de matemática)  mentora@local
+//   designer@local  marketing@local  jornal@local  revisor@local  tradutor@local  dev@local  mediador@local  leitora@local
 // Segundo fator: no cadastro e na confirmação, o código é sempre 123456.
 import crypto from "node:crypto";
 import http from "node:http";
+import { validarEntrada } from "../supabase/functions/assistente/assistente.ts";
 import { criarBanco } from "./banco-local.mjs";
 
 // Outra porta com PORTA_BANCO=54400, para duas cópias do projeto rodarem ao mesmo tempo.
@@ -43,7 +44,7 @@ export const CHAVE_SERVICO = assinar({ role: "service_role", iss: "local", exp: 
 
 export async function iniciar({ silencioso = false } = {}) {
   const banco = await criarBanco();
-  const contas = { coord: "Jonathan Santos", vice: "Vera Vice", super: "Sueli Supervisora", curadora: "Carla Curadora", prof: "Paulo Professor", mentora: "Marta Mentora", designer: "Davi Designer", jornal: "Joana Jornalista", revisor: "Rui Revisor", mediador: "Mauro Mediador", leitora: "Lia Leitora" };
+  const contas = { coord: "Jonathan Santos", vice: "Vera Vice", curadora: "Carla Curadora", prof: "Paulo Professor", mentora: "Marta Mentora", designer: "Davi Designer", jornal: "Joana Jornalista", revisor: "Rui Revisor", mediador: "Mauro Mediador", leitora: "Lia Leitora", supervisor: "Sara Supervisora", marketing: "Mila Marketing", tradutor: "Tito Tradutor", dev: "Duda Dev" };
   const ids = {};
   for (const [chave, nome] of Object.entries(contas)) {
     ids[chave] = await banco.criarUsuario(`${chave}@local`, nome);
@@ -61,9 +62,12 @@ export async function iniciar({ silencioso = false } = {}) {
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.jornal, p_papel: "jornalismo", p_disciplina: null });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.revisor, p_papel: "revisao", p_disciplina: null });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.mediador, p_papel: "mediacao", p_disciplina: null });
-  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.super, p_papel: "supervisao", p_disciplina: null });
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.supervisor, p_papel: "supervisao", p_disciplina: null });
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.marketing, p_papel: "marketing", p_disciplina: null });
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.tradutor, p_papel: "traducao", p_disciplina: null });
   // Uma pessoa com duas funções: a jornalista também traduz.
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.jornal, p_papel: "traducao", p_disciplina: null });
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.dev, p_papel: "desenvolvimento", p_disciplina: null });
 
   const renovacoes = new Map();
   const links = new Map();
@@ -268,7 +272,7 @@ export async function iniciar({ silencioso = false } = {}) {
           }
         }
         const papeisDe = dados?.sub ? (await banco.dono("select papel from interno.papeis where usuario = $1", [dados.sub])).rows.map((linha) => linha.papel) : [];
-        const escreve = papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "educacao", "jornalismo", "design"].includes(papel));
+        const escreve = papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "educacao", "jornalismo", "design", "marketing"].includes(papel));
         const le = pasta === dados?.sub || papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "revisao"].includes(papel));
         if (req.method === "POST") {
           if (!escreve || pasta !== dados?.sub) return json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
@@ -293,6 +297,45 @@ export async function iniciar({ silencioso = false } = {}) {
           if (!arquivo) return json(res, 404, { message: "not found" });
           res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length });
           return res.end(arquivo.dados);
+        }
+      }
+      // ── Arquivos da Gaveta Aberta: PDF na própria pasta; lê quem enviou, quem media e todo mundo depois da aprovação ──
+      const gaveta = /^\/storage\/v1\/object\/(?:authenticated\/|public\/)?(gaveta\/.+)$/.exec(url.pathname);
+      if (gaveta) {
+        const dados = portador(req);
+        const caminho = decodeURIComponent(gaveta[1]);
+        const nome = caminho.slice("gaveta/".length);
+        const pasta = nome.split("/")[0];
+        const papeisDe = dados?.sub ? (await banco.dono("select papel from interno.papeis where usuario = $1", [dados.sub])).rows.map((linha) => linha.papel) : [];
+        const media = papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "mediacao"].includes(papel));
+        if (req.method === "POST") {
+          if (!dados?.sub || pasta !== dados.sub) return json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
+          let tipo = req.headers["content-type"] ?? "";
+          let conteudo = bruto;
+          const limite = /^multipart\/form-data;\s*boundary=(.+)$/i.exec(tipo)?.[1];
+          if (limite) {
+            const texto = bruto.toString("latin1");
+            const parte = texto.split(`--${limite}`).find((pedaco) => /filename=/i.test(pedaco));
+            const corte = parte ? parte.indexOf("\r\n\r\n") : -1;
+            if (corte < 0) return json(res, 400, { statusCode: "400", error: "invalid_request", message: "no file" });
+            tipo = /content-type:\s*([^\r\n]+)/i.exec(parte.slice(0, corte))?.[1]?.trim() ?? "";
+            conteudo = Buffer.from(parte.slice(corte + 4).replace(/\r\n$/, ""), "latin1");
+          }
+          if (tipo !== "application/pdf" || conteudo.length > 10485760) return json(res, 415, { statusCode: "415", error: "invalid_mime_type", message: "mime type not supported" });
+          arquivos.set(caminho, { tipo, dados: conteudo });
+          return json(res, 200, { Key: caminho, Id: crypto.randomUUID() });
+        }
+        if (req.method === "GET") {
+          const publico = (await banco.dono("select interno.gaveta_publico($1) as p", [nome])).rows[0]?.p === true;
+          const arquivo = pasta === dados?.sub || media || publico ? arquivos.get(caminho) : null;
+          if (!arquivo) return json(res, 404, { message: "not found" });
+          res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length });
+          return res.end(arquivo.dados);
+        }
+        if (req.method === "DELETE") {
+          if (pasta !== dados?.sub && !media) return json(res, 403, { message: "forbidden" });
+          arquivos.delete(caminho);
+          return json(res, 200, { message: "ok" });
         }
       }
       // ── Arquivos do podcast: "podcast" (público) e "podcast-producao" (fechado), com as regras de install.sql ──
@@ -348,9 +391,76 @@ export async function iniciar({ silencioso = false } = {}) {
           return res.end(arquivo.dados);
         }
       }
+      // ── Aulas em vídeo: depósito fechado, com as mesmas regras de install.sql (envio na própria pasta, leitura por videoaula_pode_ler) ──
+      const videoaula = /^\/storage\/v1\/object\/(?:authenticated\/)?videoaulas(?:\/(.+))?$/.exec(url.pathname);
+      const assinarVideo = /^\/storage\/v1\/object\/sign\/videoaulas\/(.+)$/.exec(url.pathname);
+      if (videoaula || (assinarVideo && req.method === "POST")) {
+        const dados = portador(req);
+        // Confere a regra com as credenciais de quem pede (visitante ou conta), como o serviço de verdade faz.
+        const regra = async (sql, valores) => {
+          const linha = await banco.exclusivo(async () => {
+            const claims = dados?.sub ? { role: "authenticated", sub: dados.sub, ...(dados.aal ? { aal: dados.aal } : {}) } : { role: "anon" };
+            await banco.pg.query("select set_config('request.jwt.claims', $1, false)", [JSON.stringify(claims)]);
+            try {
+              return await banco.pg.query(`select ${sql} as ok`, valores);
+            } finally {
+              await banco.pg.query("select set_config('request.jwt.claims', '', false)");
+            }
+          });
+          return Boolean(linha.rows[0]?.ok);
+        };
+        const negar = () => json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
+        const caminho = decodeURIComponent((videoaula ?? assinarVideo)[1] ?? "");
+        const pasta = caminho.split("/")[0];
+        if (assinarVideo) {
+          if (!arquivos.has(`videoaulas/${caminho}`) || !(await regra("public.videoaula_pode_ler($1)", [caminho]))) return json(res, 400, { statusCode: "404", error: "not_found", message: "Object not found" });
+          const ficha = crypto.randomBytes(12).toString("hex");
+          const segundos = Math.min(Number(corpo?.expiresIn) || 3600, 7 * 86400);
+          links.set(`assinado:${ficha}`, { caminho: `videoaulas/${caminho}`, ate: Date.now() + segundos * 1000 });
+          return json(res, 200, { signedURL: `/object/sign/videoaulas/${caminho.split("/").map(encodeURIComponent).join("/")}?token=${ficha}` });
+        }
+        if (req.method === "POST") {
+          if (!dados?.sub || pasta !== dados.sub || !(await regra("public.videoaula_pode_enviar()"))) return negar();
+          // O cliente manda o arquivo dentro de um formulário de várias partes: tira de lá o tipo e os bytes.
+          let tipo = req.headers["content-type"] ?? "";
+          let conteudo = bruto;
+          const limite = /^multipart\/form-data;\s*boundary=(.+)$/i.exec(tipo)?.[1];
+          if (limite) {
+            const texto = bruto.toString("latin1");
+            const parte = texto.split(`--${limite}`).find((pedaco) => /filename=/i.test(pedaco));
+            const corte = parte ? parte.indexOf("\r\n\r\n") : -1;
+            if (corte < 0) return json(res, 400, { statusCode: "400", error: "invalid_request", message: "no file" });
+            tipo = /content-type:\s*([^\r\n]+)/i.exec(parte.slice(0, corte))?.[1]?.trim() ?? "";
+            conteudo = Buffer.from(parte.slice(corte + 4).replace(/\r\n$/, ""), "latin1");
+          }
+          tipo = tipo.split(";")[0].trim();
+          if (!["video/webm", "video/mp4"].includes(tipo)) return json(res, 415, { statusCode: "415", error: "invalid_mime_type", message: "mime type not supported" });
+          if (conteudo.length > 52428800) return json(res, 413, { statusCode: "413", error: "Payload too large", message: "The object exceeded the maximum allowed size" });
+          if (arquivos.has(`videoaulas/${caminho}`)) return json(res, 409, { statusCode: "409", error: "Duplicate", message: "The resource already exists" });
+          arquivos.set(`videoaulas/${caminho}`, { tipo, dados: conteudo });
+          return json(res, 200, { Key: `videoaulas/${caminho}`, Id: crypto.randomUUID() });
+        }
+        if (req.method === "DELETE") {
+          // O serviço só apaga o que a pessoa pode ler e apagar; o que não pode some da resposta, sem erro.
+          const lista = Array.isArray(corpo?.prefixes) ? corpo.prefixes : caminho ? [caminho] : [];
+          const apagados = [];
+          for (const item of lista) {
+            const dono = String(item).split("/")[0] === dados?.sub;
+            if (!dados?.sub || !(dono || (await regra("interno.coord()"))) || !(await regra("public.videoaula_pode_ler($1)", [item]))) continue;
+            if (arquivos.delete(`videoaulas/${item}`)) apagados.push({ name: item });
+          }
+          return json(res, 200, apagados);
+        }
+        if (req.method === "GET") {
+          const arquivo = (await regra("public.videoaula_pode_ler($1)", [caminho])) ? arquivos.get(`videoaulas/${caminho}`) : null;
+          if (!arquivo) return json(res, 404, { message: "not found" });
+          res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes" });
+          return res.end(arquivo.dados);
+        }
+      }
       // Endereço assinado de um arquivo fechado (para ouvir sem baixar inteiro): aqui vale por uma hora.
-      const assinar = /^\/storage\/v1\/object\/sign\/(podcast-producao)\/(.+)$/.exec(url.pathname);
-      if (assinar && req.method === "POST") {
+      const assinar = /^\/storage\/v1\/object\/sign\/(podcast-producao|videoaulas)\/(.+)$/.exec(url.pathname);
+      if (assinar && req.method === "POST" && assinar[1] === "podcast-producao") {
         const dados = portador(req);
         const caminho = decodeURIComponent(assinar[2]);
         if (!dados?.sub || !arquivos.has(`podcast-producao/${caminho}`)) return json(res, 400, { statusCode: "404", error: "not_found", message: "Object not found" });
@@ -360,8 +470,21 @@ export async function iniciar({ silencioso = false } = {}) {
       }
       if (assinar && req.method === "GET") {
         const ficha = links.get(`assinado:${url.searchParams.get("token") ?? ""}`);
-        const arquivo = ficha && ficha.ate > Date.now() ? arquivos.get(ficha.caminho) : null;
+        const arquivo = ficha && ficha.ate > Date.now() && ficha.caminho === `${assinar[1]}/${decodeURIComponent(assinar[2])}` ? arquivos.get(ficha.caminho) : null;
         if (!arquivo) return json(res, 404, { message: "not found" });
+        // Pedaços do arquivo (Range): o tocador de vídeo pede assim para poder pular para qualquer ponto.
+        const faixa = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range ?? "");
+        if (faixa && (faixa[1] || faixa[2])) {
+          const total = arquivo.dados.length;
+          const inicio = faixa[1] ? Number(faixa[1]) : Math.max(0, total - Number(faixa[2]));
+          const fim = faixa[1] && faixa[2] ? Math.min(Number(faixa[2]), total - 1) : total - 1;
+          if (inicio >= total || inicio > fim) {
+            res.writeHead(416, { "content-range": `bytes */${total}` });
+            return res.end();
+          }
+          res.writeHead(206, { "content-type": arquivo.tipo, "content-length": fim - inicio + 1, "content-range": `bytes ${inicio}-${fim}/${total}`, "accept-ranges": "bytes" });
+          return res.end(arquivo.dados.subarray(inicio, fim + 1));
+        }
         res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes" });
         return res.end(arquivo.dados);
       }
@@ -380,6 +503,42 @@ export async function iniciar({ silencioso = false } = {}) {
         res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes" });
         return res.end(arquivo.dados);
       }
+      // ── Assistente de reforço ──
+      // Aqui nada vai para o serviço de inteligência artificial: o banco confere e conta como em produção, e a resposta é
+      // um texto fixo de teste. Serve para ver a tela, os avisos e os limites sem chave e sem custo.
+      if (url.pathname === "/functions/v1/assistente" && req.method === "POST") {
+        const dados = portador(req);
+        if (dados?.role !== "authenticated" || !dados.sub) return json(res, 401, { erro: "entre_primeiro" });
+        const quem = { papel: "authenticated", sub: dados.sub, aal: dados.aal, ip: req.socket.remoteAddress };
+        const servico = { papel: "service_role" };
+        if (corpo?.verificar === true) {
+          try {
+            await banco.rpc(quem, "assistente_controles", {});
+          } catch {
+            return json(res, 403, { erro: "sem_permissao" });
+          }
+          const teste = { chave: false, ok: false, falha: "sem_chave", modelo: "local" };
+          await banco.rpc(servico, "assistente_verificacao", { p: teste });
+          return json(res, 200, teste);
+        }
+        const conferido = validarEntrada(corpo);
+        if ("erro" in conferido) return json(res, 400, { erro: conferido.erro });
+        let uso;
+        try {
+          uso = await banco.rpc(quem, "assistente_usar", {});
+        } catch (erro) {
+          return json(res, 403, { erro: String(erro?.message ?? erro) });
+        }
+        await banco.rpc(servico, "assistente_resultado", { p: { ok: true, falha: "" } });
+        await new Promise((pronto) => setTimeout(pronto, 600));
+        const aulas = conferido.entrada.aulas.map((aula) => `- [${aula.titulo}](${aula.caminho})`).join("\n");
+        if (conferido.entrada.modo === "foto") {
+          return json(res, 200, { transcricao: "Resolva a equação 2x + 3 = 11.", conta: "2x + 3 = 11", texto: "**Resposta de teste do ambiente local.** Tire 3 dos dois lados: 2x = 8. Divida por 2: $$x = 4$$.", cortada: false, restantes: uso.restantes });
+        }
+        const texto = `**Resposta de teste do ambiente local.** Aqui o assistente não é chamado de verdade.\n\nVamos por partes:\n\n1. Leia de novo o enunciado.\n2. Anote o que já sabe.\n3. Tente o primeiro passo e confira: $$2 + 2 = 4$$.${aulas ? `\n\nAulas que podem ajudar:\n\n${aulas}` : ""}`;
+        return json(res, 200, { texto, cortada: false, restantes: uso.restantes });
+      }
+
       return json(res, 404, { message: `sem substituto local para ${req.method} ${url.pathname}` });
     } catch (erro) {
       console.error("[local]", req.method, url.pathname, erro);

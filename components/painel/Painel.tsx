@@ -4,6 +4,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
+import { areasPublicas } from "@/lib/interdicao";
 import { can, getClient, hasBackend, leads, manages, type Me, porNivel, type Role, rpc, signOut, useMe } from "@/lib/backend";
 import { limparIndice } from "@/lib/busca-local";
 import { registerDevice } from "@/lib/device";
@@ -14,24 +15,37 @@ import { senhaVazada } from "@/lib/senha";
 import { getItem, KEYS, setItem } from "@/lib/storage";
 import { L, useI18n } from "../I18n";
 import { Star } from "../Masthead";
-import { Aviso, botao, botaoClaro, campo, data, elo, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import { SenhaCampo, senhaForte } from "../SenhaCampo";
+import { AulasAoVivo } from "./AoVivo";
+import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
+import { Aviso, botao, botaoClaro, campo, data, elo, localDoPainel, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
 import { Boletim } from "./Boletim";
+import { CadernoNoPainel } from "./Caderno";
+import { Estudio } from "./design/Estudio";
 import { PorOndeComecar } from "./Comecar";
 import { Conversas } from "./Conversas";
+import { Divulgacao } from "./Divulgacao";
 import { Equipe, type Membro } from "./Equipe";
 import { Repasse } from "./Sigilo";
 import { Escrever } from "./Escrever";
 import { FontesAbertas } from "./FontesAbertas";
 import { Fila } from "./Fila";
+import { GavetaFila } from "./GavetaFila";
 import { Horas } from "./Horas";
+import { IdiomaDoPainel, TraduzirPainel } from "./Idioma";
+import { Interdicao } from "./Interdicao";
 import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lideranca";
 import { Materiais } from "./Materiais";
 import { Pessoas } from "./Pessoas";
 import { Podcast } from "./podcast/Podcast";
 import { Reforco } from "./Reforco";
+import { Supervisao } from "./Supervisao";
+import { Tecnico } from "./Tecnico";
+import { Traducoes } from "./Traducoes";
 import { Aparelhos, Digital, Recados, SegundoFator } from "./Seguranca";
 import { type Controles, Site } from "./Site";
+import { Videoaulas } from "./Videoaulas";
 
 interface Resumo {
   fila: number;
@@ -51,6 +65,18 @@ interface Resumo {
   minhas: number;
   /** Contribuições pendentes de colegas que me chamaram para trabalhar junto. */
   juntas: number;
+  /** Pedidos de ajuda do mural da equipe endereçados a uma função minha. */
+  pedidos_ajuda?: number;
+  /** Contas suspensas pela supervisão (a supervisão e a coordenação acompanham). */
+  suspensas?: number;
+  /** Posts prontos com a data chegando e itens devolvidos pela coordenação. */
+  divulgacao?: number;
+  /** Aprovado há mais de três horas e ainda fora do ar: a rotina de publicação parou. */
+  publicacao_atrasada?: number;
+  /** Trabalhos da Gaveta Aberta esperando a decisão de quem media. */
+  gaveta?: number;
+  /** Pedidos da supervisão (interdição, liberação, expurgo) esperando a coordenação. */
+  pedidos_supervisao?: number;
 }
 
 interface Secao {
@@ -70,6 +96,7 @@ const icones: Record<string, string> = {
   conversas: "M4 5h16v11H10l-4.5 4v-4H4z",
   rede: "M4 4h16v16H4zM8 9h8M8 13h5",
   escrever: "M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4",
+  videoaulas: "M3 6h12v12H3zM15 10l6-3v10l-6-3",
   minhas: "M4 6h16M4 12h16M4 18h10",
   juntas: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.7-5 6-5s6 2 6 5M16 11a3 3 0 1 0 0-6M18 20c0-2.2-1-3.9-2.6-4.6",
   fila: "M4 7l2 2 4-4M4 17l2 2 4-4M13 7h7M13 17h7",
@@ -85,10 +112,21 @@ const icones: Record<string, string> = {
   site: "M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M14 4v4M8 10v4M16 16v4",
   abertura: "M3 4h18v16H3zM3 9h18M7 13h10M7 16h6",
   radio: "M3 9h18v11H3zM7 9l10-5M8.5 12a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M14 13h4M14 16h4",
+  podcast: "M9 3h6v11H9zM5 11a7 7 0 0 0 14 0M12 18v3M8 21h8",
   apoiadores: "M20.8 8.6a5 5 0 0 0-8.8-3.2A5 5 0 0 0 3.2 8.6c0 5.4 8.8 10.9 8.8 10.9s8.8-5.5 8.8-10.9z",
   seguranca: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
   registro: "M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5",
   conta: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-8 8-8s8 3.6 8 8",
+  aovivo: "M3 7h13v10H3zM16 10l5-3v10l-5-3M6 4h7",
+  estudio: "M4 20l4-1 11-11-3-3L5 16zM13 8l3 3M4 20v-4",
+  caderno: "M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11M9 8h6M9 11h4",
+  avisos: "M4 11h3l7-5v12l-7-5H4zM17 9a4 4 0 0 1 0 6M19.5 6.5a8 8 0 0 1 0 11",
+  traducoes: "M4 5h8M8 3v2M5 5c0 4 3 7 6 8M11 5c-1 3-3 6-6 8M13 21l4-9 4 9M14.5 18h5",
+  divulgacao: "M3 10v4h3l7 5V5l-7 5zM17 9a4 4 0 0 1 0 6M19.5 6.5a8 8 0 0 1 0 11",
+  supervisao: "M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z",
+  tecnico: "M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12",
+  interdicao: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM5.6 5.6l12.8 12.8",
+  gaveta: "M3 4h18v6H3zM3 10v10h18V10M10 7h4M10 15h4",
 };
 
 function Icone({ id, className = "h-[18px] w-[18px]" }: { id: string; className?: string }) {
@@ -212,6 +250,7 @@ function Porta({ children }: { children: React.ReactNode }) {
   return (
     <div className="painel relative flex min-h-screen items-center justify-center overflow-hidden bg-[#17130e] px-4 py-10 font-sans text-sm text-[#efe4c8]">
       <Star className="pointer-events-none absolute -right-24 -bottom-28 h-[28rem] w-[28rem] rotate-12 text-[#6e1f1a]" />
+      <TraduzirPainel />
       <div className="painel-surge relative w-full max-w-md">
         <p className="flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -222,8 +261,9 @@ function Porta({ children }: { children: React.ReactNode }) {
           </span>
         </p>
         <div className="mt-8 border-2 border-[#efe4c8] border-t-[6px] border-t-[#c21f16] bg-[#1f1a14] p-6 shadow-[6px_6px_0_#6e1f1a]">{children}</div>
-        <p className="mt-6">
+        <p className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
           <L href="/" className="underline hover:text-white">← Voltar ao site</L>
+          <IdiomaDoPainel />
         </p>
       </div>
     </div>
@@ -301,7 +341,66 @@ export function Painel() {
     );
   }
 
+  // A coordenação redefiniu a senha: antes de qualquer coisa, a pessoa escolhe uma que só ela conhece.
+  if (eu.trocar_senha) {
+    return (
+      <Porta>
+        <SenhaNova recarregar={me.reload} sair={sair} />
+      </Porta>
+    );
+  }
+
   return <Dentro eu={eu} recarregar={me.reload} sair={sair} aba={params.get("aba") ?? "mesa"} menu={menu} setMenu={setMenu} />;
+}
+
+/** A porta de quem teve a senha redefinida pela coordenação: a senha recebida serviu para entrar, não para ficar. */
+function SenhaNova({ recarregar, sair }: { recarregar: () => void; sair: () => void }) {
+  const [senha, setSenha] = useState("");
+  const [repete, setRepete] = useState("");
+  const [aviso, setAviso] = useState("");
+  const [ocupado, setOcupado] = useState(false);
+
+  async function trocar() {
+    setOcupado(true);
+    setAviso("");
+    try {
+      if ((await senhaVazada(senha)) === true) {
+        setAviso("Essa senha já apareceu em vazamentos de outros sites. Escolha outra.");
+        return;
+      }
+      const supabase = await getClient();
+      const { error } = await supabase.auth.updateUser({ password: senha });
+      if (error) throw error;
+      await rpc("senha_trocada");
+      recarregar();
+    } catch {
+      setAviso("Não foi possível trocar a senha agora. Saia, entre de novo e tente outra vez.");
+    } finally {
+      setOcupado(false);
+    }
+  }
+
+  return (
+    <>
+      <h1 className="font-serif text-2xl font-semibold">Escolha uma senha nova</h1>
+      <p className="mt-2 text-[#b9ad90]">A coordenação redefiniu a sua senha. Escolha agora uma que só você conheça: pelo menos 12 caracteres (uma frase de quatro ou cinco palavras funciona bem).</p>
+      <form className="mt-5 space-y-3" onSubmit={(e) => { e.preventDefault(); void trocar(); }}>
+        <label className="block">
+          Senha nova
+          <input type="password" autoComplete="new-password" minLength={12} maxLength={72} value={senha} onChange={(e) => setSenha(e.target.value)} className="mt-1 w-full border border-[#5a4e3a] bg-[#17130e] px-3 py-2 text-[#efe4c8]" />
+        </label>
+        <label className="block">
+          Repita a senha
+          <input type="password" autoComplete="new-password" maxLength={72} value={repete} onChange={(e) => setRepete(e.target.value)} className="mt-1 w-full border border-[#5a4e3a] bg-[#17130e] px-3 py-2 text-[#efe4c8]" />
+        </label>
+        <button type="submit" disabled={ocupado || senha.length < 12 || senha !== repete} className="cursor-pointer bg-[#efe4c8] px-5 py-2.5 font-medium text-[#17130e] hover:bg-white disabled:cursor-not-allowed disabled:opacity-50">
+          Guardar e abrir o painel
+        </button>
+      </form>
+      <p role="status" className="mt-3 min-h-5 text-[#e0837a]">{aviso}</p>
+      <button type="button" className="mt-4 cursor-pointer underline hover:text-white" onClick={sair}>Sair</button>
+    </>
+  );
 }
 
 function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarregar: () => void; sair: () => void; aba: string; menu: boolean; setMenu: (aberto: boolean) => void }) {
@@ -310,6 +409,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const resumo = useLista<Resumo>("painel_resumo");
   // O que espera por esta pessoa no podcast (aprovação, comentários, perguntas, pedidos de arte).
   const podcast = useLista<number>("podcast_contagem");
+  // Aulas em vídeo esperando a curadoria.
+  const videos = useLista<number>("videoaulas_contagem");
   const r = resumo.dados;
   const atualizarResumo = resumo.recarregar;
   // De minuto em minuto o painel diz que a pessoa está por aqui, pergunta se chegou mensagem nova e refaz as
@@ -330,11 +431,14 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
     const marca = window.setTimeout(() => setVistasAntes(pendentes), 0);
     return () => window.clearTimeout(marca);
   }, [pendentes, vistasAntes]);
+  const estadoDoSite = useLista<{ interdicao?: { geral: boolean; areas: string[] } }>("site");
+  const lerSite = estadoDoSite.recarregar;
   useEffect(() => {
     const relogio = window.setInterval(() => {
       if (document.visibilityState !== "visible") return;
       avisarPresenca();
       atualizarResumo();
+      lerSite();
     }, 60_000);
     const voltou = () => {
       if (document.visibilityState === "visible") atualizarResumo();
@@ -346,9 +450,11 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       document.removeEventListener("visibilitychange", voltou);
       window.removeEventListener(PAINEL_MUDOU, atualizarResumo);
     };
-  }, [avisarPresenca, atualizarResumo]);
+  }, [avisarPresenca, atualizarResumo, lerSite]);
   const voluntario = eu.papeis.length > 0;
   const lidera = can(eu, "coordenacao");
+  // A supervisão é um papel próprio: can() só estende a vice-coordenação à coordenação, não à supervisão.
+  const supervisiona = can(eu, "supervisao");
   // Cada função enxerga só as ferramentas dela. A coordenação e a vice-coordenação enxergam todas.
   const secoes: Secao[] = (
     [
@@ -356,34 +462,47 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "conversas", nome: "Conversas", sobre: "Mensagens privadas, grupos e o grupo de cada departamento, cifrados de ponta a ponta.", grupo: "", mostra: voluntario, conta: aba === "conversas" ? 0 : presenca.dados?.conversas },
       { id: "rede", nome: "Mural da equipe", sobre: "Publicações e pedidos de ajuda para todos ou por função, cifrados neste aparelho.", grupo: "", mostra: voluntario },
       { id: "escrever", nome: "Escrever", sobre: "Aulas, matérias, verbetes e tudo o que vai para o site.", grupo: "Produção", mostra: true },
+      { id: "videoaulas", nome: "Aulas em vídeo", sobre: "Gravar ou enviar aulas curtas em vídeo, de até 10 minutos, e revisar as da sua disciplina.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "educacao"), conta: videos.dados ?? undefined },
+      { id: "aovivo", nome: "Aulas ao vivo", sobre: "Marcar aulas na agenda pública, chamar colegas para dar junto e abrir a sala, com vídeo e bate-papo.", grupo: "Produção", mostra: can(eu, "coordenacao", "educacao", "mentoria") },
+      { id: "estudio", nome: "Estúdio de design", sobre: "Posts, stories, cartazes e capas com a identidade do instituto, montados aqui mesmo.", grupo: "Produção", mostra: eu.desenha === true || can(eu, "coordenacao", "design", "jornalismo") },
+      { id: "caderno", nome: "Caderno de estudos", sobre: "Fontes, resumo, cartões, questionário, mapa e leitura em voz alta: a sala de estudo para preparar aulas e episódios.", grupo: "Produção", mostra: true },
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: true },
       { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "revisao", "educacao"), conta: r?.fila },
+      { id: "traducoes", nome: "Traduções", sobre: "As aulas que ainda não têm tradução e as traduções a caminho.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "traducao", "revisao") },
       { id: "triagem", nome: "Triagem", sobre: "A primeira leitura do que o público envia: o que passa segue para a fila de revisão.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.triagem },
       { id: "fontes", nome: "Fontes abertas", sobre: "Obras, verbetes e datas em acervos e enciclopédias livres, para escrever com fonte à vista.", grupo: "Produção", mostra: voluntario },
-      { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design") },
+      { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design", "marketing") },
+      { id: "divulgacao", nome: "Divulgação", sobre: "Calendário de posts e stories, kit da marca e acesso ao Instagram.", grupo: "Produção", mostra: can(eu, "coordenacao", "marketing"), conta: r?.divulgacao },
       { id: "comunidade", nome: "Comunidade", sobre: "Fila de revisão, banimentos, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
-      { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mentoria", "educacao"), conta: r?.reforco },
+      { id: "reforco", nome: "Aula de reforço", sobre: "Dúvidas de estudantes esperando resposta.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mentoria", "educacao"), conta: r?.reforco },
       { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da mediação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mediacao"), conta: r?.mural },
+      { id: "gaveta", nome: "Gaveta Aberta", sobre: "Trabalhos de estudantes esperando a decisão: conferir, publicar ou recusar.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.gaveta },
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: manages(eu), conta: r?.candidaturas },
+      { id: "supervisao", nome: "Supervisão", sobre: "Proteções reversíveis, a equipe sem e-mails e os pedidos de voluntariado.", grupo: "Pessoas", mostra: supervisiona, conta: r?.candidaturas },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar + (r.pedidos ?? 0) : undefined },
+      { id: "avisos", nome: "Avisos à equipe", sobre: "Um quadro que aparece por cima do painel de toda a equipe, ou só de algumas funções, até cada pessoa fechar.", grupo: "Pessoas", mostra: eu.supervisao === true || lidera || supervisiona },
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
       { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
       { id: "podcast", nome: "Podcast", sobre: "Episódios da pauta à publicação: roteiro, gravação, versões, revisão, capas, cortes e agenda.", grupo: "Produção", mostra: can(eu, "coordenacao", "jornalismo", "design", "mediacao", "curadoria"), conta: podcast.dados ?? undefined },
       { id: "radio", nome: "Rádio", sobre: "Rádio Lúcia: canais, faixas, transmissão ao vivo e sugestão de emissoras.", grupo: "Site", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "apoiadores", nome: "Apoiadores", sobre: "Quem autorizou aparecer no mural de apoio.", grupo: "Site", mostra: lidera },
+      { id: "tecnico", nome: "Estado técnico", sobre: "Publicação, avaliação automática, faxina e sinais de varredura.", grupo: "Site", mostra: can(eu, "coordenacao", "desenvolvimento"), conta: r?.publicacao_atrasada },
       { id: "seguranca", nome: "Segurança e sucessão", sobre: "Segundo fator obrigatório, vice e ordem de sucessão.", grupo: "Segurança", mostra: lidera },
-      { id: "registro", nome: "Registro de atividades", sobre: "Tudo o que foi decidido, por quem e quando.", grupo: "Segurança", mostra: lidera },
+      { id: "interdicao", nome: "Interdição e expurgo", sobre: "Tirar o site ou uma área do ar por um tempo, e apagar de uma vez uma chuva de spam.", grupo: "Segurança", mostra: lidera || supervisiona, conta: r?.pedidos_supervisao },
+      { id: "registro", nome: "Registro de atividades", sobre: "Tudo o que foi decidido, por quem e quando.", grupo: "Segurança", mostra: lidera || supervisiona },
       { id: "conta", nome: "Minha conta", sobre: "Seu nome, sua senha e a proteção da sua conta.", grupo: "Você", mostra: true },
     ] satisfies Secao[]
   ).filter((secao) => secao.mostra);
 
   const atual = secoes.find((secao) => secao.id === aba) ?? secoes[0];
+  const interditado = estadoDoSite.dados?.interdicao && (estadoDoSite.dados.interdicao.geral || estadoDoSite.dados.interdicao.areas.length > 0) ? estadoDoSite.dados.interdicao : null;
   // Trocar de seção também refaz as contagens: o número da fila cai assim que a decisão é tomada.
   const ir = (id: string) => {
     setMenu(false);
-    router.replace(`/${lang}/painel?aba=${id}`);
+    // Cada seção entra no histórico: o voltar do celular (e do navegador) volta para a seção anterior.
+    router.push(`/${lang}/painel?aba=${id}`, { scroll: false });
     window.scrollTo(0, 0);
     atualizarResumo();
   };
@@ -408,11 +527,14 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const todasAsFuncoes = [...new Set(porNivel(eu.papeis).map((papel) => papeis[papel.papel]))];
   const funcao = !voluntario ? "Comunidade" : todasAsFuncoes.length <= 2 ? todasAsFuncoes.join(" · ") : `${todasAsFuncoes[0]} +${todasAsFuncoes.length - 1}`;
   // O nome do ambiente diz de quem ele é: só a coordenação vê "Coordenação".
-  const ambiente = lidera ? "Coordenação" : voluntario ? "Equipe" : "Comunidade";
+  const ambiente = lidera ? "Coordenação" : supervisiona ? "Supervisão" : voluntario ? "Equipe" : "Comunidade";
 
   return (
     <div className="painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid lg:grid-cols-[17.5rem_minmax(0,1fr)]">
+      <TraduzirPainel />
       {irPara && <IrPara secoes={secoes} fechar={() => setIrPara(false)} ir={ir} />}
+      {/* Aviso da coordenação, da vice ou da supervisão: aparece por cima de tudo até a pessoa apertar "Entendi". */}
+      {(voluntario || eu.supervisao) && <QuadroDeAvisos />}
       {/* Barra do alto no celular: a faixa bordô do site, o nome e o menu. */}
       <div className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b-[3px] border-[#d4a24c] bg-[#6e1f1a] px-4 pt-[calc(0.625rem+env(safe-area-inset-top,0px))] pb-2.5 text-[#f4ecd8] lg:hidden">
         <span className="flex min-w-0 items-center gap-2.5">
@@ -483,10 +605,11 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
               <span className="block truncate text-xs text-[#b9ad90]" title={todasAsFuncoes.join(" · ") || undefined}>{funcao}</span>
             </span>
           </p>
-          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+          <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
             <L href="/" className="underline hover:text-white">← Voltar ao site</L>
             <Tema />
             <button type="button" onClick={sair} className="cursor-pointer underline hover:text-white">Sair</button>
+            <IdiomaDoPainel />
           </p>
         </div>
       </aside>
@@ -509,29 +632,52 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
         <div className="jornal-fio" />
         <div key={atual.id} className="painel-conteudo mx-auto max-w-5xl px-5 py-7 sm:px-8">
           {eu.suspenso && <p className="mb-6 border-l-4 border-oxblood bg-parchment-deep px-4 py-3 text-oxblood">Esta conta está suspensa: você pode ler, mas não enviar.</p>}
+          {interditado && (
+            <p role="status" className="mb-6 border-2 border-oxblood bg-parchment-deep px-4 py-3 font-semibold text-oxblood">
+              {interditado.geral
+                ? "O site está fora do ar: o público vê só um aviso. A entrada e o painel continuam funcionando."
+                : `Áreas fechadas ao público agora: ${interditado.areas.map((id) => areasPublicas.find((area) => area.id === id)?.nome ?? id).join(", ")}.`}{" "}
+              {(lidera || supervisiona) && (
+                <button type="button" className="cursor-pointer font-normal underline" onClick={() => ir("interdicao")}>
+                  Ver em Interdição e expurgo
+                </button>
+              )}
+            </p>
+          )}
           {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} />}
           {voluntario && <Repasse usuario={eu.id} />}
           {atual.id === "conversas" && <Conversas me={eu} />}
-          {atual.id === "rede" && <Equipe usuario={eu.id} lider={leads(eu)} />}
+          {atual.id === "rede" && <Equipe usuario={eu.id} lider={leads(eu)} modera={lidera || supervisiona} />}
           {atual.id === "escrever" && <Escrever me={eu} />}
+          {atual.id === "videoaulas" && <Videoaulas me={eu} />}
+          {atual.id === "aovivo" && <AulasAoVivo me={eu} />}
+          {atual.id === "estudio" && <Estudio me={eu} />}
+          {atual.id === "caderno" && <CadernoNoPainel />}
+          {atual.id === "avisos" && <AvisosEquipe />}
           {atual.id === "minhas" && <Fila key="minhas" me={eu} minhas />}
           {atual.id === "juntas" && <Fila key="juntas" me={eu} juntas />}
           {atual.id === "fila" && <Fila key="fila" me={eu} />}
+          {atual.id === "traducoes" && <Traducoes irEscrever={() => ir("escrever")} />}
           {atual.id === "triagem" && <Fila key="triagem" me={eu} triagem />}
           {atual.id === "fontes" && <FontesAbertas />}
           {atual.id === "materiais" && <Materiais me={eu} />}
+          {atual.id === "divulgacao" && <Divulgacao me={eu} />}
           {atual.id === "comunidade" && <Comunidade me={eu} />}
           {atual.id === "reforco" && <Reforco />}
           {atual.id === "mural" && <MuralFila me={eu} />}
+          {atual.id === "gaveta" && <GavetaFila />}
           {atual.id === "boletim" && <Boletim />}
           {atual.id === "pessoas" && <Pessoas me={eu} />}
+          {atual.id === "supervisao" && <Supervisao />}
           {atual.id === "horas" && <Horas me={eu} />}
           {atual.id === "site" && <Site />}
           {atual.id === "abertura" && <AvisoDeAbertura />}
           {atual.id === "radio" && <RadioAdmin me={eu} />}
           {atual.id === "podcast" && <Podcast />}
           {atual.id === "apoiadores" && <Apoiadores />}
+          {atual.id === "tecnico" && <Tecnico />}
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
+          {atual.id === "interdicao" && <Interdicao me={eu} aoMudar={estadoDoSite.recarregar} />}
           {atual.id === "registro" && <RegistroDeAtividades />}
           {atual.id === "conta" && <Conta me={eu} recarregar={recarregar} sair={sair} />}
         </div>
@@ -552,7 +698,12 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           ["Envios do público para a triagem", r.triagem ?? 0, "triagem"],
           ["Na fila de revisão", r.fila, "fila"],
           ["Aprovadas, esperando a publicação", r.aguardando_publicacao, "fila"],
-          ["Pedidos de voluntariado", r.candidaturas, "pessoas"],
+          ["Pedidos de voluntariado", r.candidaturas, can(me, "coordenacao") ? "pessoas" : "supervisao"],
+          ["Pedidos de ajuda para a sua função", r.pedidos_ajuda ?? 0, "rede"],
+          ["Contas suspensas pela supervisão", r.suspensas ?? 0, can(me, "coordenacao") ? "pessoas" : "supervisao"],
+          ["Posts para sair ou devolvidos", r.divulgacao ?? 0, "divulgacao"],
+          ["Aprovadas há mais de três horas sem ir ao ar", r.publicacao_atrasada ?? 0, "tecnico"],
+          ["Pedidos da supervisão esperando decisão", r.pedidos_supervisao ?? 0, "interdicao"],
           ["Denúncias abertas", r.denuncias, "comunidade"],
           ["Anotações para olhar", r.anotacoes, "comunidade"],
           ["Mensagens esperando a mediação", r.retidos, "comunidade"],
@@ -561,13 +712,14 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           ["Horas para conferir", r.horas, "horas"],
           ["Certificados esperando a sua assinatura", r.testemunhar, "horas"],
           ["Anúncios do mural", r.mural, "mural"],
+          ["Trabalhos na Gaveta Aberta", r.gaveta ?? 0, "gaveta"],
         ] as [string, number, string][]
       ).filter(([, total]) => total > 0)
     : [];
 
   const hora = new Date().getHours();
   const saudacao = hora < 5 ? "Boa noite" : hora < 12 ? "Bom dia" : hora < 18 ? "Boa tarde" : "Boa noite";
-  const hoje = new Date().toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" });
+  const hoje = new Date().toLocaleDateString(localDoPainel(), { weekday: "long", day: "numeric", month: "long" });
 
   return (
     <div className="space-y-10">
@@ -626,7 +778,7 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
 
       {me.papeis.length > 0 && <PorOndeComecar me={me} ir={ir} />}
 
-      {me.papeis.length > 0 && <Situacao lidera={can(me, "coordenacao")} ir={ir} />}
+      {me.papeis.length > 0 && <Situacao lidera={can(me, "coordenacao")} supervisiona={can(me, "supervisao")} ir={ir} />}
 
       <Recados recarregar={recarregar} />
 
@@ -637,7 +789,7 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
 }
 
 /** Como o instituto está agora, em três quadros: quem é a equipe e, para a coordenação, o estado do site. */
-function Situacao({ lidera, ir }: { lidera: boolean; ir: (aba: string) => void }) {
+function Situacao({ lidera, supervisiona, ir }: { lidera: boolean; supervisiona: boolean; ir: (aba: string) => void }) {
   const membros = useLista<Membro[]>("equipe_membros");
   const site = useLista<Controles>("site");
   const online = membros.dados?.filter((membro) => membro.online && !membro.eu).length ?? 0;
@@ -651,7 +803,7 @@ function Situacao({ lidera, ir }: { lidera: boolean; ir: (aba: string) => void }
       <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <button type="button" onClick={() => ir("conversas")} className={`${quadro} cursor-pointer`}>
           <span className="block text-ink-soft">Equipe</span>
-          <span className="mt-1 block font-serif text-2xl font-semibold leading-tight">{membros.dados ? `${membros.dados.length} ${membros.dados.length === 1 ? "pessoa" : "pessoas"}` : "…"}</span>
+          <span className="mt-1 block font-serif text-2xl font-semibold leading-tight">{membros.dados ? <>{membros.dados.length} {membros.dados.length === 1 ? "pessoa" : "pessoas"}</> : "…"}</span>
           <span className="mt-1 flex items-center gap-1.5 text-ink-soft">
             {online > 0 && <span aria-hidden className="painel-pulso inline-block h-2 w-2 rounded-full bg-ok" />}
             {online > 0 ? `${online} online agora` : "Ninguém mais online agora"}
@@ -671,6 +823,12 @@ function Situacao({ lidera, ir }: { lidera: boolean; ir: (aba: string) => void }
                 <span className="mt-1 block truncate text-ink-soft">{site.dados.faixa || "Nenhum chamado no ar"}</span>
               </button>
             </>
+          ) : supervisiona ? (
+            <button type="button" onClick={() => ir("supervisao")} className={`${site.dados.pausa ? alerta : `${quadro} hover:border-ink`} cursor-pointer`}>
+              <span className="block text-ink-soft">Envios do público</span>
+              <span className={`mt-1 block font-serif text-2xl font-semibold leading-tight ${site.dados.pausa ? "text-oxblood" : ""}`}>{site.dados.pausa ? "Pausados" : "Abertos"}</span>
+              <span className="mt-1 block text-ink-soft">{site.dados.pausa ? "Ninguém de fora envia nada até a pausa sair" : "A pausa e o modo de segurança estão em Supervisão"}</span>
+            </button>
           ) : (
             site.dados.pausa && (
               <div className={alerta}>
@@ -697,7 +855,7 @@ function Candidatura({ me }: { me: Me }) {
   );
   const [quero, setQuero] = useState<{ papel: string; disciplina: string; mensagem: string }>({ papel: pediveis[0] ?? "educacao", disciplina: "", mensagem: "" });
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
-  const porDisciplina = quero.papel === "educacao" || quero.papel === "educacao_secundaria";
+  const porDisciplina = quero.papel === "educacao" || quero.papel === "educacao_secundaria" || quero.papel === "mentoria";
   if (pediveis.length === 0) return null;
   if (!aberto) {
     return (
@@ -873,17 +1031,18 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
 
       <section className={cartao}>
         <h2 className="font-serif text-xl font-semibold">Senha</h2>
-        <p className="mt-1 text-ink-soft">Pelo menos 12 caracteres. Uma frase de quatro ou cinco palavras funciona bem.</p>
+        <p className="mt-1 text-ink-soft">Pelo menos 12 caracteres, com maiúscula, minúscula, número e um caractere especial. Uma frase com um número e um sinal funciona bem.</p>
         <form onSubmit={(e) => { e.preventDefault(); void trocarSenha(); }}>
           <label className="mt-3 block">
             Senha nova
-            <input type="password" autoComplete="new-password" minLength={12} maxLength={200} value={senha} onChange={(e) => setSenha(e.target.value)} className={campo} />
+            <SenhaCampo value={senha} onChange={setSenha} regras className={campo} />
           </label>
           <label className="mt-3 block">
             Repita a senha
-            <input type="password" autoComplete="new-password" maxLength={200} value={repete} onChange={(e) => setRepete(e.target.value)} className={campo} />
+            <SenhaCampo value={repete} onChange={setRepete} className={campo} />
           </label>
-          <button type="submit" className={`mt-3 ${botao}`} disabled={senha.length < 12 || senha !== repete}>Trocar a senha</button>
+          {repete !== "" && repete !== senha && <p role="alert" className="mt-2 text-oxblood">As duas senhas não são iguais.</p>}
+          <button type="submit" className={`mt-3 ${botao}`} disabled={!senhaForte(senha) || senha !== repete}>Trocar a senha</button>
         </form>
         <Aviso texto={avisoSenha} />
       </section>
@@ -915,7 +1074,7 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
       <section className="lg:col-span-2">
         <div className="flex flex-wrap items-center gap-4 border-t border-rule pt-5">
           <button type="button" className={botaoClaro} onClick={sair}>Sair do painel</button>
-          {confirma ? (
+          {leads(me) ? null : confirma ? (
             <button
               type="button"
               className="cursor-pointer bg-oxblood px-5 py-2 font-medium text-parchment"
@@ -934,7 +1093,11 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
             <button type="button" className={elo} onClick={() => setConfirma(true)}>Apagar minha conta</button>
           )}
         </div>
-        <p className="mt-2 text-ink-soft">Apagar a conta remove o perfil, as funções e os votos. O que já foi publicado continua no acervo.</p>
+        <p className="mt-2 text-ink-soft">
+          {leads(me)
+            ? "A conta da coordenação não se apaga pelo painel: passe a coordenação adiante em Segurança e sucessão antes, se for o caso."
+            : "Apagar a conta remove o perfil, as funções e os votos. O que já foi publicado continua no acervo."}
+        </p>
         <Aviso texto={aviso} />
       </section>
     </div>
