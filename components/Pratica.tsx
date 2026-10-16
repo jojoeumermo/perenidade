@@ -10,6 +10,19 @@ export type PraticaStrings = Dict["practice"];
 
 type Resultado = "certo" | "errado" | "pulado";
 
+/** O reconhecimento de fala do navegador (Web Speech API), onde existe. Os tipos não vêm na biblioteca padrão. */
+interface Reconhecimento {
+  lang: string;
+  interimResults: boolean;
+  maxAlternatives: number;
+  onresult: ((evento: { results: ArrayLike<ArrayLike<{ transcript: string }>> }) => void) | null;
+  onend: (() => void) | null;
+  onerror: (() => void) | null;
+  start(): void;
+  stop(): void;
+}
+type ReconhecimentoCtor = new () => Reconhecimento;
+
 const botao = "cursor-pointer bg-ink px-6 py-2.5 font-sans text-sm font-semibold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
 const claro = "cursor-pointer border-2 border-ink px-5 py-2 font-sans text-sm font-semibold hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50";
 const ficha = "cursor-pointer border-2 border-rule bg-parchment px-3 py-2 font-serif text-lg hover:border-gold disabled:cursor-default";
@@ -68,8 +81,11 @@ function Ouvir({ frase, lingua, s, devagar = true, autoFalar = false }: { frase:
     setFalando(true);
     void falar(frase, lingua, rate).then(() => setFalando(false));
   };
+  // Ao aparecer, o exercício de ouvir fala a frase uma vez sozinho (depois de a tela assentar).
   useEffect(() => {
-    if (autoFalar) toca(1);
+    if (!autoFalar) return;
+    const relogio = window.setTimeout(() => toca(1), 250);
+    return () => window.clearTimeout(relogio);
     // só na primeira vez que o exercício aparece
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frase]);
@@ -111,7 +127,8 @@ function Exercicio({ ex, lingua, s, responder, chaveDoCartao }: { ex: Exercicio;
   const reconhecimento = useRef<{ stop: () => void } | null>(null);
   const [grau, setGrau] = useState<number | null>(null);
 
-  const Reconhecedor = typeof window === "undefined" ? undefined : ((window as unknown as { SpeechRecognition?: new () => SpeechRecognition; webkitSpeechRecognition?: new () => SpeechRecognition }).SpeechRecognition ?? (window as unknown as { webkitSpeechRecognition?: new () => SpeechRecognition }).webkitSpeechRecognition);
+  const janela = typeof window === "undefined" ? null : (window as unknown as { SpeechRecognition?: ReconhecimentoCtor; webkitSpeechRecognition?: ReconhecimentoCtor });
+  const Reconhecedor = janela?.SpeechRecognition ?? janela?.webkitSpeechRecognition;
 
   if (ex.tipo === "escolha") {
     return (
@@ -138,7 +155,8 @@ function Exercicio({ ex, lingua, s, responder, chaveDoCartao }: { ex: Exercicio;
     const comBanco = banco.length > 0;
     const resposta = comBanco ? juntar(montado, lingua) : texto;
     const certas = ex.tipo === "traduzir" ? ex.resposta : [ex.frase];
-    const fala = ex.tipo === "ordenar" ? ex.frase : ex.na_lingua ? ex.frase : certas[0];
+    const naLingua = ex.tipo === "traduzir" && ex.na_lingua === true;
+    const fala = ex.tipo === "ordenar" || naLingua ? ex.frase : certas[0];
     return (
       <div>
         <p className="font-sans text-xs uppercase tracking-widest text-gold">{ex.tipo === "ordenar" ? s.orderWords : s.translate}</p>
@@ -163,7 +181,7 @@ function Exercicio({ ex, lingua, s, responder, chaveDoCartao }: { ex: Exercicio;
             </div>
           </>
         ) : (
-          <input value={texto} onChange={(e) => setTexto(e.target.value)} lang={ex.na_lingua ? undefined : lingua} className={`${campo} mt-4`} placeholder={s.typeAnswer} onKeyDown={(e) => { if (e.key === "Enter" && texto.trim()) responder(confere(texto, certas) ? "certo" : "errado", certas[0]); }} />
+          <input value={texto} onChange={(e) => setTexto(e.target.value)} lang={naLingua ? undefined : lingua} className={`${campo} mt-4`} placeholder={s.typeAnswer} onKeyDown={(e) => { if (e.key === "Enter" && texto.trim()) responder(confere(texto, certas) ? "certo" : "errado", certas[0]); }} />
         )}
         <p className="mt-4">
           <button type="button" className={botao} disabled={!resposta.trim()} onClick={() => responder(confere(resposta, certas) ? "certo" : "errado", certas[0])}>{s.check}</button>
@@ -266,8 +284,8 @@ function Exercicio({ ex, lingua, s, responder, chaveDoCartao }: { ex: Exercicio;
         r.lang = lingua;
         r.interimResults = false;
         r.maxAlternatives = 3;
-        r.onresult = (evento: SpeechRecognitionEvent) => {
-          const alternativas = Array.from(evento.results[0]).map((a) => a.transcript);
+        r.onresult = (evento) => {
+          const alternativas = Array.from(evento.results[0] ?? []).map((a) => a.transcript);
           const melhor = alternativas.reduce((m, a) => Math.max(m, parecido(a, ex.frase)), 0);
           setOuvido(alternativas[0] ?? "");
           setGrau(melhor);

@@ -24,6 +24,8 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
       [
         [n.start, "/comecar", d.start],
         [n.questions, "/perguntas", d.questions],
+        [n.live, "/ao-vivo", d.live],
+        [n.notebook, "/caderno", d.notebook],
         [n.tutoring, "/reforco", d.tutoring],
         [n.tools, "/ferramentas", d.tools],
         [n.glossary, "/glossario", d.glossary],
