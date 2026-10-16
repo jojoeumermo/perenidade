@@ -28,6 +28,7 @@ export const papeis: Record<Role["papel"], string> = {
   design: "Design",
   marketing: "Marketing e divulgação",
   desenvolvimento: "Desenvolvimento",
+  representante: "Representante do departamento",
 };
 
 /** O que cada papel enxerga e faz no painel. É a regra do banco, escrita para gente. */
@@ -35,7 +36,7 @@ export const oQueFaz: Record<Role["papel"], string> = {
   coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-coordenação, define a sucessão, edita contas e redefine senhas, publica materiais e emite certificados.",
   vice: "Tudo o que a coordenação faz, menos mexer na coordenação, nomear outra vice-coordenação, definir a sucessão e emitir certificados.",
   supervisao:
-    "Faz o painel andar quando a coordenação e a vice-coordenação estão ausentes: acompanha a equipe (sem ver e-mails), suspende contas em emergência com motivo, cuida do mural da equipe, lê o registro, pausa os envios do público e liga o modo de segurança da Comunidade. Interdição e expurgo, só como pedido que a coordenação aprova.",
+    "Faz o painel andar quando a coordenação e a vice-coordenação estão ausentes: acompanha a equipe (sem ver e-mails), suspende contas em emergência com motivo, cuida do mural da equipe, lê o registro, pausa os envios do público e liga o modo de segurança da Comunidade. Interdição e expurgo, só como pedido que a coordenação aprova. Também confia e retira os papéis de trabalho de quem está abaixo na hierarquia e nomeia representantes de departamento.",
   curadoria: "Aprova ou recusa contribuições, cuida da comunidade, das denúncias e do filtro de palavras.",
   mediacao: "Acompanha a Comunidade, decide os casos que pedem leitura humana e oculta, edita ou libera mensagens; aprova, edita ou recusa anúncios do Mural dos Trabalhadores, faz a triagem das contribuições antes de elas chegarem à fila de revisão e, quando alguém passa do limite, bane a conta (e, em caso extremo, a origem de rede). Não aprova conteúdo de ensino nem mexe na equipe.",
   educacao: "Escreve e dá parecer na disciplina confiada, cuida da comunidade e atende pedidos de reforço da disciplina.",
@@ -47,6 +48,7 @@ export const oQueFaz: Record<Role["papel"], string> = {
   design: "Prepara materiais gráficos e atende pedidos de ajuda das outras funções.",
   marketing: "Divulga o instituto: posts e artes para as redes sociais, cartazes de chamada, campanhas de voluntariado e de apoio, cortes do podcast. Monta o calendário de posts e stories do Instagram e usa o kit da marca e os materiais do painel, como o design. O acesso ao Instagram é dado pela coordenação pela própria Meta; o site nunca guarda senha de rede social.",
   desenvolvimento: "Cuida do código: vê o estado técnico do site (publicação, avaliação automática, faxina, sinais de varredura) e atende pedidos de ajuda das outras funções.",
+  representante: "Porta-voz e primeira entrada de um departamento, nomeado pela coordenação, vice ou supervisão: organiza o grupo do departamento (administra a conversa, combina e delega tarefas) sem ser chefe. Não dá nem tira funções.",
 };
 
 export const situacoes: Record<string, string> = {
@@ -65,6 +67,8 @@ const erros: Record<string, string> = {
   falta_fonte: "Cite pelo menos uma fonte.",
   conta_suspensa: "Esta conta está suspensa.",
   nao_encontrado: "Não encontrado.",
+  privado_fechado: "As conversas privadas são só para trabalho: com a coordenação, vice e supervisão, ou com quem está colaborando com você numa contribuição em andamento. O resto é nos grupos de departamento.",
+  sem_consenso: "Uma aula só vai ao ar com consenso: precisa de um parecer favorável de outro educador da mesma disciplina (ou, se não houver outro, da supervisão, vice ou coordenação), e quem aprova por fim precisa ser uma terceira pessoa.",
   ja_decidida: "Esta contribuição já foi decidida.",
   ja_pediu: "Você já fez esse pedido e ele está em análise.",
   limite_anuncios: "Cada pessoa pode ter até três anúncios no mural.",
@@ -80,6 +84,19 @@ const erros: Record<string, string> = {
   chave_desatualizada: "A chave desta conversa acabou de ser trocada. Envie de novo.",
   versao_ocupada: "A chave desta conversa acabou de ser trocada. Envie de novo.",
   aparelho_desconhecido: "Este aparelho foi removido das suas conversas. Recarregue a página para criar uma chave nova.",
+  aparelho_pendente: "Este aparelho ainda não foi aprovado: aprove-o de um aparelho seu que já funciona.",
+  identidade_existe: "A sua conta já tem uma identidade: este aparelho precisa ser aprovado por um aparelho que já funciona.",
+  identidade_diferente: "Esta cópia de recuperação é de outra identidade, não da atual da sua conta.",
+  sem_copia: "Não existe cópia de recuperação guardada para a sua conta.",
+  ja_visto: "Este arquivo era para ver uma vez só, e já foi aberto.",
+  arquivo_recusado: "Este tipo de arquivo não entra nas conversas. Vale foto (JPG, PNG, WebP, GIF), vídeo (MP4, WebM, MOV), áudio, PDF e DOCX.",
+  arquivo_grande: "O arquivo passa de 12 MB.",
+  anexos_demais: "No máximo seis arquivos por mensagem.",
+  so_admins: "Neste grupo, só os administradores mandam mensagem.",
+  ultimo_admin: "O grupo precisa de pelo menos um administrador. Promova alguém antes.",
+  arquivo_nao_abre: "Não foi possível abrir este arquivo: a chave não bate ou o conteúdo foi alterado.",
+  limite_fixadas: "Uma conversa só pode ter cinco mensagens fixadas. Desafixe uma antes.",
+  fora_do_prazo: "Uma mensagem só pode ser editada até 15 minutos depois de enviada.",
   departamento_fixo: "Do grupo do seu departamento não dá para sair: ele acompanha a sua função.",
   mensagem_longa: "Mensagem longa demais. Divida em duas.",
   sem_cifra: "Este navegador não tem a cifra que as conversas usam. Atualize o navegador ou use outro.",
