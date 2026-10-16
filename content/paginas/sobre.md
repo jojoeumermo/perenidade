@@ -16,11 +16,12 @@ Este é um projeto de esquerda, e não esconde isso. Estamos do lado de quem tra
 
 Por isso a nossa História é contada do ponto de vista de quem a fez com as próprias mãos. Por isso há aqui um [Memorial](/memorial) para quem tombou na luta, uma seção de [Autores](/autores) que reúne o pensamento revolucionário, um [Glossário](/glossario) de conceitos e uma [Linha do tempo das lutas](/linha-do-tempo).
 
-Mas o instituto não é só de teoria política. Quem quer aprender inglês, matemática, música, informática ou programação encontra aqui o mesmo cuidado. Educação é ferramenta de emancipação em qualquer área.
+Mas o instituto não é só de teoria política. Quem quer aprender inglês, matemática, música, informática, programação ou um ofício para ganhar a vida encontra aqui o mesmo cuidado. Educação é ferramenta de emancipação em qualquer área.
 
 ## Como funciona
 
 - **As disciplinas** se dividem em trilhas, do ensino fundamental ao superior. Cada aula é curta, termina com um teste e mostra as fontes em que se apoia.
+- **As aulas em vídeo** são curtas, de até 10 minutos, gravadas pelos próprios educadores e revisadas como as escritas, com transcrição e velocidade ajustável.
 - **O acervo** é um índice: título, autor, sinopse e um link para a fonte legítima da obra. Nenhum arquivo de terceiros é hospedado aqui.
 - **As ferramentas de prática** (afinador, editor de código, tabela periódica e outras) funcionam no seu próprio aparelho.
 - **A curadoria** lê tudo antes de publicar. Qualquer pessoa pode [contribuir](/contribuir), com ou sem conta, e toda aula precisa citar pelo menos uma fonte.
@@ -36,7 +37,7 @@ Mas o instituto não é só de teoria política. Quem quer aprender inglês, mat
 
 ## Quem mantém
 
-O instituto é mantido por voluntários: educadores, revisores, tradutores, curadores e jornalistas. Veja como participar em [Voluntariado](/voluntarios). Os custos de manter o site no ar são pagos por quem pode e quer ajudar: veja [Apoie](/apoie). Doar é opcional, e o acesso é igual para todos.
+O instituto é mantido por voluntários: educadores e educadores secundários, curadoria, revisão, tradução, mediação, mentoria, jornalismo, design, marketing e desenvolvimento, com a coordenação e a vice-coordenação. Veja como participar em [Voluntariado](/voluntarios). Os custos de manter o site no ar são pagos por quem pode e quer ajudar: veja [Apoie](/apoie). Doar é opcional, e o acesso é igual para todos.
 
 ## Licenças
 
@@ -48,7 +49,7 @@ As obras do acervo pertencem aos seus autores e seguem a licença indicada em ca
 
 Para estudar não há cadastro. As aulas que você conclui, o tema escolhido, o seu fichamento e os rascunhos ficam guardados apenas no seu navegador. Em [Meus dados](/meus-dados) você pode baixar ou apagar tudo.
 
-A conta é opcional e só serve para quem quer participar das conversas ou trabalhar como voluntário. Nesse caso guardamos o seu e-mail e o nome que você escolher mostrar, e nada mais. Você pode apagar a conta quando quiser, pelo próprio painel. O site não usa cookies de rastreamento nem anúncios.
+A conta é opcional e só serve para quem quer participar das conversas ou trabalhar como voluntário. Nesse caso guardamos o seu e-mail e o nome que você escolher mostrar; quem é da equipe tem alguns dados a mais, todos listados na [política de privacidade](/privacidade). Você pode apagar a conta quando quiser, pelo próprio painel. O site não usa cookies de rastreamento nem anúncios.
 
 ## Direitos autorais
 

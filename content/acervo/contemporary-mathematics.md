@@ -1,6 +1,6 @@
 ---
 titulo: "Contemporary Mathematics"
-autor: "Donna Kirk"
+autor: "Donna Kirk e outros"
 area: matematica
 licenca: "CC BY-NC-SA"
 fonte: "OpenStax"
@@ -9,4 +9,4 @@ idioma: "Inglês"
 ano: "2023"
 ---
 
-Matemática para a vida e para cursos de raciocínio quantitativo: conjuntos, lógica, probabilidade, estatística, finanças pessoais e geometria.
+Matemática para a vida e para cursos fora das exatas: conjuntos, lógica, sistemas de numeração, dinheiro e finanças pessoais, probabilidade, estatística, geometria, grafos e sistemas de votação.
