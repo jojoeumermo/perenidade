@@ -1,0 +1,211 @@
+<title>Manual do Painel Lúcia</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans+Condensed:wght@500;600&display=swap">
+<style>
+/* Layout: uma coluna de leitura com índice lateral fixo no computador; no celular o índice vira lista no topo. */
+:root {
+  --papel: #f3efe6;
+  --papel-fundo: #e9e3d6;
+  --tinta: #1c1a17;
+  --tinta-suave: #5d5649;
+  --sangue: #8b1a1a;
+  --ouro: #b8862b;
+  --regra: #cfc6b3;
+  --ok: #2f6b3a;
+  --serifa: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --rotulo: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --papel: #191714; --papel-fundo: #221f1b; --tinta: #ece5d6; --tinta-suave: #ada491; --sangue: #e0766b; --ouro: #e0b45e; --regra: #3a352e; --ok: #7fbf8b; color-scheme: dark } }
+:root[data-theme="dark"] { --papel: #191714; --papel-fundo: #221f1b; --tinta: #ece5d6; --tinta-suave: #ada491; --sangue: #e0766b; --ouro: #e0b45e; --regra: #3a352e; --ok: #7fbf8b; color-scheme: dark }
+
+* { box-sizing: border-box; }
+body { background: var(--papel); color: var(--tinta); font: 17px/1.6 var(--serifa); padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 64px; }
+a { color: var(--sangue); }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--ouro); outline-offset: 2px; }
+.capa { max-width: 1100px; margin: 0 auto; padding-block: 40px 28px; border-bottom: 3px double var(--regra); }
+.selo { font: 600 12px/1 var(--rotulo); letter-spacing: .14em; text-transform: uppercase; color: var(--sangue); }
+h1 { font-size: clamp(2rem, 5vw, 3.1rem); line-height: 1.08; margin: 10px 0 12px; font-weight: 700; text-wrap: balance; }
+.capa p { max-width: 62ch; margin: 0; color: var(--tinta-suave); }
+.grade { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; padding-top: 32px; }
+nav { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); align-self: start; font: 500 15px/1.4 var(--rotulo); }
+nav p { font-weight: 600; letter-spacing: .12em; text-transform: uppercase; font-size: 12px; color: var(--tinta-suave); margin: 0 0 10px; }
+nav ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+nav a { color: var(--tinta); text-decoration: none; border-left: 2px solid var(--regra); padding-left: 10px; display: block; }
+nav a:hover { border-left-color: var(--sangue); color: var(--sangue); }
+main { min-width: 0; max-width: 68ch; }
+section { padding-block: 8px 28px; border-bottom: 1px solid var(--regra); }
+section:last-child { border-bottom: 0; }
+h2 { font-size: 1.6rem; line-height: 1.2; margin: 18px 0 10px; text-wrap: balance; }
+h3 { font: 600 13px/1.3 var(--rotulo); letter-spacing: .1em; text-transform: uppercase; color: var(--sangue); margin: 22px 0 6px; }
+p, li { margin: 0 0 10px; }
+ul, ol.passos { padding-left: 1.25rem; }
+.caminho { list-style: none; padding: 0; margin: 14px 0; display: grid; gap: 0; counter-reset: etapa; }
+.caminho li { counter-increment: etapa; display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-top: 1px dashed var(--regra); margin: 0; }
+.caminho li::before { content: counter(etapa); font: 600 15px/36px var(--rotulo); text-align: center; width: 36px; height: 36px; border: 1.5px solid var(--sangue); color: var(--sangue); border-radius: 50%; }
+.caminho strong { display: block; }
+.tabela { overflow-x: auto; margin: 12px 0 16px; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--regra); }
+th { font: 600 12px/1.3 var(--rotulo); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta-suave); }
+td:first-child { font-weight: 600; white-space: nowrap; }
+.nivel { font: 600 12px/1 var(--rotulo); font-variant-numeric: tabular-nums; border: 1px solid var(--regra); padding: 3px 6px; border-radius: 3px; }
+.aviso { background: var(--papel-fundo); border-left: 3px solid var(--ouro); padding: 12px 14px; margin: 14px 0; font-size: 16px; }
+.aviso.forte { border-left-color: var(--sangue); }
+kbd { font: 600 13px var(--rotulo); border: 1px solid var(--regra); border-bottom-width: 2px; padding: 1px 5px; border-radius: 3px; background: var(--papel-fundo); }
+.marca { font: 600 13px var(--rotulo); background: var(--papel-fundo); padding: 1px 6px; border-radius: 3px; white-space: nowrap; }
+@media (max-width: 820px) {
+  .grade { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  nav { position: static; border-bottom: 1px solid var(--regra); padding-bottom: 16px; }
+  nav ol { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+html { scroll-behavior: smooth; }
+</style>
+
+<header class="capa">
+  <div class="selo">Instituto Lúcia · Painel da equipe</div>
+  <h1>Manual do painel interno</h1>
+  <p>Como cada pessoa da equipe usa o painel: entrar, escrever, revisar, aprovar, conversar com segurança e cuidar da organização. Cada pessoa vê só as seções da própria função; o que está aqui vale para quem tem a função descrita.</p>
+</header>
+
+<div class="grade">
+  <nav aria-label="Índice">
+    <p>Neste manual</p>
+    <ol>
+      <li><a href="#entrar">Entrar e proteger a conta</a></li>
+      <li><a href="#organizacao">Como a equipe se organiza</a></li>
+      <li><a href="#mesa">Mesa</a></li>
+      <li><a href="#publicar">Do texto ao ar</a></li>
+      <li><a href="#conversas">Conversas</a></li>
+      <li><a href="#mural">Mural da equipe</a></li>
+      <li><a href="#pessoas">Pessoas e funções</a></li>
+      <li><a href="#atendimento">Comunidade e reforço</a></li>
+      <li><a href="#horas">Horas e certificados</a></li>
+      <li><a href="#privacidade">Privacidade</a></li>
+      <li><a href="#problemas">Quando algo dá errado</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section id="entrar">
+      <h2>Entrar e proteger a conta</h2>
+      <ol class="passos">
+        <li>Entre em <span class="marca">institutolucia.org/pt/entrar</span> com o e-mail e a senha da sua conta de voluntário.</li>
+        <li>Coordenação, vice, supervisão, curadoria e mediação precisam do <strong>segundo fator</strong>: um código de seis dígitos do aplicativo autenticador. Sem ele, o painel não abre.</li>
+        <li>No celular, cadastre a <strong>digital</strong> em <em>Minha conta → Entrar com a digital</em>. Ela também serve para trancar as conversas.</li>
+        <li>A sessão fecha sozinha depois de meia hora parada. Use <em>Sair</em> ao terminar, principalmente em computador emprestado.</li>
+      </ol>
+      <div class="aviso">Senha boa é uma frase de quatro ou cinco palavras. O painel recusa senhas que já apareceram em vazamentos.</div>
+    </section>
+
+    <section id="organizacao">
+      <h2>Como a equipe se organiza</h2>
+      <p>A organização começa centralizada: a coordenação, a vice e a supervisão organizam o trabalho e confiam as funções. Os departamentos ganham autonomia aos poucos, por meio dos representantes, até poderem se dirigir sozinhos.</p>
+      <div class="tabela">
+        <table>
+          <thead><tr><th>Cargo</th><th>Nível</th><th>O que faz</th></tr></thead>
+          <tbody>
+            <tr><td>Coordenação</td><td><span class="nivel">4</span></td><td>Palavra final. Confia e retira qualquer função, nomeia vice e supervisão, define a sucessão, emite certificados. É a única que vê nome completo e e-mail das pessoas.</td></tr>
+            <tr><td>Vice-coordenação</td><td><span class="nivel">3</span></td><td>Tudo o que a coordenação faz, menos mexer na coordenação, nomear outra vice ou supervisão e emitir certificados.</td></tr>
+            <tr><td>Supervisão</td><td><span class="nivel">2</span></td><td>Confia e retira as funções de trabalho de quem está abaixo. Pode nomear representantes.</td></tr>
+            <tr><td>Representante</td><td><span class="nivel">1</span></td><td>Porta-voz e primeira entrada de um departamento. Administra o grupo do departamento (descrição, foto, quem pode escrever), combina e delega tarefas. Não é chefe e não dá nem tira funções.</td></tr>
+            <tr><td>Funções de trabalho</td><td><span class="nivel">1</span></td><td>Educação (por disciplina), revisão, tradução, jornalismo, reforço, design, marketing, desenvolvimento, curadoria e mediação.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Uma pessoa pode ter várias funções ao mesmo tempo, e as permissões somam. Ninguém confia função acima do próprio nível, ninguém mexe em quem está no mesmo nível ou acima, e ninguém muda as próprias funções.</p>
+    </section>
+
+    <section id="mesa">
+      <h2>Mesa</h2>
+      <p>É a primeira tela. Mostra o que espera por você hoje (pareceres pedidos, fila da sua disciplina, pedidos de reforço), os recados e o atalho para as conversas. Quem quer assumir mais uma função usa <em>Pedir outra função</em> no fim da Mesa.</p>
+    </section>
+
+    <section id="publicar">
+      <h2>Do texto ao ar</h2>
+      <p>Nada vai ao ar pela mão de uma pessoa só. Uma aula percorre este caminho:</p>
+      <ol class="caminho">
+        <li><div><strong>Escrever</strong>Em <em>Escrever</em>, o educador monta a aula com fontes. Dá para chamar colegas para escrever junto em <em>Compartilhadas comigo</em>.</div></li>
+        <li><div><strong>Triagem</strong>A mediação lê primeiro o que vem de fora e barra o que não cabe, com uma nota para quem enviou.</div></li>
+        <li><div><strong>Consenso dos educadores</strong>Outro educador da mesma disciplina dá parecer favorável na <em>Fila de revisão</em>. Se não houver outro educador na disciplina, o parecer vem da supervisão, da vice ou da coordenação.</div></li>
+        <li><div><strong>Aprovação por mais uma pessoa</strong>Quem aprova por fim (curadoria ou coordenação) precisa ser uma terceira pessoa: nem quem escreveu, nem quem deu o parecer. O painel recusa a aprovação sem esse consenso.</div></li>
+        <li><div><strong>Publicação</strong>O que foi aprovado entra no site na próxima publicação automática, de hora em hora.</div></li>
+      </ol>
+      <p>Recusar não precisa de consenso: a curadoria recusa com uma nota, e quem escreveu lê a nota em <em>Meus envios</em>.</p>
+      <div class="aviso forte">Antes de aprovar, confira: fontes abertas e verificáveis, nenhum dado pessoal de terceiros, nenhuma imagem com rosto ou documento sem autorização, linguagem adequada ao público. Imagens enviadas já saem limpas de dados da câmera.</div>
+    </section>
+
+    <section id="conversas">
+      <h2>Conversas</h2>
+      <p>As conversas são para o trabalho. Tudo é cifrado no seu aparelho antes de sair: nem o servidor nem a coordenação leem o que está escrito.</p>
+      <h3>Onde conversar</h3>
+      <ul>
+        <li><strong>Grupos de departamento:</strong> cada função tem o seu, e quem recebe a função entra sozinho. Há também o grupo da equipe toda.</li>
+        <li><strong>Grupos de projeto:</strong> qualquer pessoa cria um para um trabalho específico.</li>
+        <li><strong>Privado:</strong> só com a coordenação, a vice ou a supervisão, ou com quem está colaborando com você numa contribuição em andamento. Coordenação, vice e supervisão conversam com todos. A coordenação vê quem está em conversa privada, mas não o conteúdo.</li>
+      </ul>
+      <h3>Primeiro acesso em cada aparelho</h3>
+      <p>O primeiro aparelho que você usa cria a sua identidade. Num aparelho novo, aparece um código de oito dígitos e um QR: abra as conversas num aparelho que já funciona, vá em <em>Aparelhos</em> e aprove com o código ou lendo o QR. Guarde também a <strong>chave de recuperação</strong>, mostrada uma única vez: ela devolve o acesso se você perder todos os aparelhos.</p>
+      <h3>No dia a dia</h3>
+      <ul>
+        <li>Responda citando, reaja, edite até 15 minutos depois, encaminhe, fixe e favorite pelas ações que aparecem ao passar o mouse ou tocar na mensagem.</li>
+        <li>Formate com <span class="marca">*negrito*</span> <span class="marca">_itálico_</span> <span class="marca">~tachado~</span> e mencione com <span class="marca">@nome</span>.</li>
+        <li>Anexe foto, vídeo, áudio, PDF ou DOCX pelo clipe, colando com <kbd>Ctrl</kbd>+<kbd>V</kbd> ou arrastando. Até 12 MB por arquivo e seis por mensagem. Fotos podem ser cortadas e borradas antes do envio.</li>
+        <li>Nos grupos, crie enquetes e eventos com confirmação de presença.</li>
+        <li>Fixe, arquive, silencie ou tranque cada conversa pelo menu <span class="marca">⋯</span> da lista.</li>
+      </ul>
+      <h3>Código de segurança</h3>
+      <p>Para ter certeza de que fala com a pessoa certa, abra <em>código de segurança</em> na conversa e compare os 60 dígitos pessoalmente ou leia o QR do outro. Se o código mudar, o painel avisa.</p>
+      <h3>Relatar à coordenação</h3>
+      <p>Se algo grave acontecer numa conversa, use <em>Selecionar</em>, marque as mensagens e escolha <em>Relatar à coordenação</em>. Só essas mensagens são abertas e enviadas, e só porque você decidiu.</p>
+      <h3>Representantes</h3>
+      <p>No grupo do próprio departamento, o representante abre <em>Grupo</em> para escrever a descrição, trocar a foto e definir se só administradores mandam mensagem (útil para avisos). Quem entra e sai do grupo continua sendo decidido pelas funções.</p>
+    </section>
+
+    <section id="mural">
+      <h2>Mural da equipe</h2>
+      <p>Publicações e comentários por canal: um para todos, um por função e um de pedidos de ajuda entre funções. Também é cifrado e some em trinta dias. Imagens e PDFs enviados para o site aparecem aqui para os colegas apoiarem antes da aprovação.</p>
+    </section>
+
+    <section id="pessoas">
+      <h2>Pessoas e funções</h2>
+      <p>Para coordenação, vice e supervisão. Busque a pessoa pelo nome, escolha a função e, quando for educação, a disciplina; quando for representante, o departamento. A lista mostra só as funções que o seu nível permite confiar. O histórico de cada pessoa guarda quem deu e quem tirou cada função.</p>
+      <p>Disciplinas incluem agora <strong>Edição de vídeo</strong>, para quem corta, monta, legenda e finaliza os vídeos do instituto.</p>
+    </section>
+
+    <section id="atendimento">
+      <h2>Comunidade e reforço</h2>
+      <ul>
+        <li><strong>Mediação:</strong> acompanha a Comunidade, decide os casos retidos, oculta ou libera mensagens, cuida do Mural dos Trabalhadores e bane quem passa do limite.</li>
+        <li><strong>Reforço:</strong> educadores e quem tem a função de reforço atendem os pedidos da disciplina e respondem por e-mail.</li>
+      </ul>
+    </section>
+
+    <section id="horas">
+      <h2>Horas e certificados</h2>
+      <p>O painel conta sozinho as horas de aulas aprovadas e pareceres. Cada pessoa pode lançar horas de outras tarefas e pedir o certificado; a coordenação confere e emite.</p>
+    </section>
+
+    <section id="privacidade">
+      <h2>Privacidade</h2>
+      <ul>
+        <li>No painel, cada pessoa aparece para as outras só pelo <strong>primeiro nome</strong>. Nome completo e e-mail, só a coordenação vê.</li>
+        <li>Em <em>Minha conta</em> você esconde o "visto por último" e a confirmação de leitura. Quem esconde também deixa de ver o dos outros.</li>
+        <li>Os avisos do navegador nunca mostram o texto da mensagem.</li>
+        <li>Mensagens somem em trinta dias, ou antes com a autodestruição ligada.</li>
+      </ul>
+    </section>
+
+    <section id="problemas">
+      <h2>Quando algo dá errado</h2>
+      <ul>
+        <li><strong>"Este aparelho ainda não foi aprovado":</strong> aprove-o de outro aparelho seu, ou use a chave de recuperação.</li>
+        <li><strong>Perdeu todos os aparelhos e a chave:</strong> use <em>Recomeçar a identidade</em>. Os colegas verão o aviso de mudança.</li>
+        <li><strong>"Uma aula só vai ao ar com consenso":</strong> falta o parecer favorável de outro educador da disciplina, ou quem está aprovando é quem escreveu ou deu o parecer.</li>
+        <li><strong>"As conversas privadas são só para trabalho":</strong> converse no grupo do departamento, ou chame a pessoa para colaborar na contribuição.</li>
+        <li>Qualquer outro problema: escreva no grupo da equipe toda ou para a coordenação.</li>
+      </ul>
+    </section>
+  </main>
+</div>
