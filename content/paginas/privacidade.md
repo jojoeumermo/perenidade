@@ -4,7 +4,7 @@ sobretitulo: "Seus dados"
 resumo: "O que o site guarda, por quanto tempo e como você apaga. Escrito para ser lido, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018)."
 ---
 
-Atualizada em 14 de outubro de 2026.
+Atualizada em 15 de outubro de 2026.
 
 ## Em uma frase
 
@@ -92,11 +92,13 @@ A avaliação automática vale só para a Comunidade. Anúncios do Mural dos Tra
 
 Além do que está acima, o painel guarda: as funções que você recebeu; o registro do que foi feito com essas funções, por pouco mais de um ano; um identificador sorteado de cada navegador em que a conta foi aberta, para avisar você e a coordenação quando a conta aparecer em um aparelho novo, por até 180 dias sem uso; o nome completo informado no termo de adesão ao trabalho voluntário; e as horas que você registrar. O CPF não é guardado: quem imprime um certificado digita na hora.
 
+Quem grava uma aula em vídeo envia a gravação, com a imagem e a voz de quem aparece nela, junto com o título, a descrição, a transcrição e as legendas. A câmera, o microfone e a tela só são usados depois que você clica para gravar, e nada sai do aparelho antes de você clicar em enviar. O vídeo fica guardado fechado: enquanto espera a revisão, só quem enviou e quem revisa a disciplina conseguem assistir; aprovado, qualquer pessoa assiste no site, com o seu nome público. Enquanto a aula não está no ar, você mesmo pode apagá-la, e o arquivo sai junto; depois de publicada, peça a retirada à coordenação.
+
 As conversas internas da equipe são cifradas de ponta a ponta: cada aparelho tem a própria chave, criada no navegador, e o que fica guardado no banco é ilegível para quem não participa da conversa, inclusive para a coordenação. O banco guarda a parte pública da chave de cada aparelho, com um nome genérico como "Chrome no Android", e ela sai depois de seis meses sem uso. As conversas são apagadas depois de trinta dias, ou antes, se quem participa ligar a autodestruição.
 
 ## Com que base a lei permite isso
 
-- **Consentimento**, quando você cria uma conta, aceita um convite, se candidata a voluntário, publica na comunidade, anuncia no mural ou pede reforço. Você retira o consentimento apagando a conta ou pedindo a retirada do que enviou.
+- **Consentimento**, quando você cria uma conta, aceita um convite, se candidata a voluntário, publica na comunidade, grava uma aula em vídeo, anuncia no mural ou pede reforço. Você retira o consentimento apagando a conta ou pedindo a retirada do que enviou.
 - **Legítimo interesse**, para os registros de segurança do painel, a proteção contra ataques e abuso e a avaliação automática das mensagens da Comunidade.
 - **Cumprimento de obrigação legal**, se uma ordem judicial válida exigir a guarda ou a entrega de algum registro.
 

@@ -2,7 +2,7 @@
 titulo: "Introduction to Anthropology"
 autor: "Jennifer Hasty, David G. Lewis e Marjorie M. Snipes"
 area: sociologia
-licenca: "CC BY"
+licenca: "CC BY-NC-SA"
 fonte: "OpenStax"
 url: "https://openstax.org/details/books/introduction-anthropology"
 idioma: "Inglês"

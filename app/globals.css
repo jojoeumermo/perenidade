@@ -206,9 +206,9 @@ body {
   :root[data-app] main#conteudo {
     padding-bottom: calc(4.5rem + var(--recuo-baixo));
   }
-  /* O painel não tem as abas do site: lá dentro, nada de sobra clara embaixo do menu. */
+  /* O painel não tem as abas do site: lá dentro sobra só o recuo da barra de botões do aparelho, para nada ficar por baixo dela. */
   :root[data-app] main#conteudo:has(.painel) {
-    padding-bottom: 0;
+    padding-bottom: var(--recuo-baixo);
   }
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .barra-celular {
