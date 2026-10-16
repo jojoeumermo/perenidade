@@ -11,6 +11,8 @@ export interface PessoaAchada {
   /** A segunda linha de cada resultado. Onde a lista não tem e-mail (colegas da equipe), vai a função da pessoa. */
   email: string;
   suspenso?: boolean;
+  /** O nível na hierarquia de cargos, quando a busca é para confiar função. */
+  nivel?: number;
 }
 
 /**
