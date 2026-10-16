@@ -11,13 +11,12 @@ import { fingerprintAvailable, signInWithFingerprint } from "@/lib/passkey";
 import { KEYS, useHydrated, useStored } from "@/lib/storage";
 import { Captcha, captchaEnabled } from "./Captcha";
 import { L, useI18n } from "./I18n";
+import { SenhaCampo, senhaForte, type SenhaLabels } from "./SenhaCampo";
 
 const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
 // No aplicativo os botões ocupam a largura toda e ficam mais altos: é o polegar que aperta.
 const primary = "cursor-pointer bg-ink px-6 py-2.5 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50 app:max-md:w-full app:max-md:py-3.5 app:max-md:text-base";
 const secondary = "flex cursor-pointer items-center justify-center gap-2.5 border-2 border-ink px-6 py-2.5 font-medium hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50 app:max-md:w-full app:max-md:py-3.5 app:max-md:text-base";
-/** Senha criada aqui tem pelo menos doze caracteres. */
-const MINIMO = 12;
 
 interface Invite {
   valido: boolean;
@@ -225,20 +224,22 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       <L href="/privacidade" className="underline hover:text-oxblood">{t.nav.privacy}</L>
     </p>
   );
+  // Senha nova: as regras (tamanho, maiúscula, minúscula, número, caractere especial) vão sendo marcadas enquanto a pessoa escreve.
+  const senhaLabels: SenhaLabels = { show: s.show, hide: s.hide, rulesTitle: s.rulesTitle, rules: s.rules, strong: s.strong };
   const twice = (
     <>
       <label className="block">
         {s.passwordNew}
-        <input type="password" required autoComplete="new-password" minLength={MINIMO} maxLength={200} value={password} onChange={(e) => setPassword(e.target.value)} className={field} />
+        <SenhaCampo value={password} onChange={setPassword} labels={senhaLabels} regras required className={field} />
       </label>
       <label className="block">
         {s.passwordAgain}
-        <input type="password" required autoComplete="new-password" minLength={MINIMO} maxLength={200} value={again} onChange={(e) => setAgain(e.target.value)} className={field} />
+        <SenhaCampo value={again} onChange={setAgain} labels={senhaLabels} required className={field} />
       </label>
       {again !== "" && again !== password && <p role="alert" className="text-oxblood">{s.mismatch}</p>}
     </>
   );
-  const weak = password.length < MINIMO || password !== again;
+  const weak = !senhaForte(password) || password !== again;
   const fingerprint = finger && (
     <div className="space-y-2">
       <button type="button" disabled={state === "sending" || waiting} onClick={() => void enterWithFingerprint()} className={known ? `${primary} flex items-center justify-center gap-2.5` : secondary}>
@@ -367,7 +368,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       </label>
       <label className="block">
         {s.password}
-        <input type="password" required autoComplete="current-password" maxLength={200} value={password} onChange={(e) => setPassword(e.target.value)} className={field} />
+        <SenhaCampo value={password} onChange={setPassword} labels={senhaLabels} autoComplete="current-password" required className={field} />
       </label>
       <Captcha action="entrar" lang={lang} round={round} onToken={receive} />
       <button type="submit" disabled={state === "sending" || !email.includes("@") || waiting || password.length < 1} className={primary}>{s.enter}</button>

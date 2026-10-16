@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { can, rpc, type Me } from "@/lib/backend";
+import { horaDoRascunho, useRascunho } from "@/lib/rascunho";
 import tipos from "@/lib/tipos.json";
 import { cleanSources, MarkdownEditor, SourcesField, type SourceDraft } from "../Editor";
 import { useI18n } from "../I18n";
@@ -186,34 +187,20 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
       )}
 
       {edicao ? (
-        <div className="space-y-4">
-          {mudou && (
-            <p role="alert" className="border-2 border-oxblood bg-parchment-deep p-4">
-              <strong>{c.editado_por || "Outra pessoa"}</strong> guardou alterações enquanto você editava. Copie o que você escreveu, abra a versão nova e aplique de novo: assim ninguém perde trabalho.{" "}
-              <button type="button" className={elo} onClick={() => setEdicao(null)}>Abrir a versão nova</button>
-            </p>
-          )}
-          <label className="block">
-            Título
-            <input value={edicao.titulo} onChange={(e) => setEdicao({ ...edicao, titulo: e.target.value })} maxLength={160} className={campo} />
-          </label>
-          <MarkdownEditor id="edicao-corpo" value={edicao.corpo} onChange={(corpo) => setEdicao({ ...edicao, corpo })} labels={editorPt} upload={can(me, "coordenacao", "curadoria", "educacao", "jornalismo", "design")} />
-          {exigeFonte && <SourcesField value={edicao.fontes} onChange={(fontes) => setEdicao({ ...edicao, fontes })} labels={fontesPt} />}
-          <div className="flex gap-4">
-            <button
-              type="button"
-              className={botao}
-              disabled={acao.ocupado || mudou}
-              onClick={async () => {
-                const ok = await acao.agir("contribuicao_editar", { p_id: id, p: { titulo: edicao.titulo, corpo: edicao.corpo, dados: c.dados, fontes: cleanSources(edicao.fontes), versao: edicao.versao } }, "Alterações guardadas.");
-                if (ok) setEdicao(null);
-              }}
-            >
-              Guardar alterações
-            </button>
-            <button type="button" className={elo} onClick={() => setEdicao(null)}>Cancelar</button>
-          </div>
-        </div>
+        <Edicao
+          id={id}
+          c={c}
+          edicao={edicao}
+          setEdicao={setEdicao}
+          mudou={mudou}
+          exigeFonte={exigeFonte}
+          podeImagem={can(me, "coordenacao", "curadoria", "educacao", "jornalismo", "design")}
+          ocupado={acao.ocupado}
+          guardar={async () => {
+            const ok = await acao.agir("contribuicao_editar", { p_id: id, p: { titulo: edicao.titulo, corpo: edicao.corpo, dados: c.dados, fontes: cleanSources(edicao.fontes), versao: edicao.versao } }, "Alterações guardadas.");
+            return Boolean(ok);
+          }}
+        />
       ) : (
         <>
           <div className="border border-rule bg-parchment p-5 font-serif" lang="pt-BR">
@@ -304,6 +291,62 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
         </section>
       )}
       <Aviso texto={acao.aviso} />
+    </div>
+  );
+}
+
+type EdicaoAberta = { titulo: string; corpo: string; fontes: SourceDraft[]; versao: string };
+
+/**
+ * O editor de uma contribuição pendente. O que está sendo escrito fica guardado como rascunho (neste navegador e na conta):
+ * fechou a página no meio, volta de onde parou. Guardar de verdade continua sendo o botão.
+ */
+function Edicao({ id, c, edicao, setEdicao, mudou, exigeFonte, podeImagem, ocupado, guardar }: { id: string; c: Completa; edicao: EdicaoAberta; setEdicao: (e: EdicaoAberta | null) => void; mudou: boolean; exigeFonte: boolean; podeImagem: boolean; ocupado: boolean; guardar: () => Promise<boolean> }) {
+  const rascunho = useRascunho<{ titulo: string; corpo: string; fontes: SourceDraft[] }>(
+    `edicao:${id}`,
+    { titulo: edicao.titulo, corpo: edicao.corpo, fontes: edicao.fontes },
+    (dados) => setEdicao({ ...edicao, titulo: dados.titulo ?? edicao.titulo, corpo: dados.corpo ?? edicao.corpo, fontes: dados.fontes?.length ? dados.fontes : edicao.fontes }),
+    { vazio: (d) => d.titulo === c.titulo && d.corpo === c.corpo },
+  );
+  return (
+    <div className="space-y-4">
+      {mudou && (
+        <p role="alert" className="border-2 border-oxblood bg-parchment-deep p-4">
+          <strong>{c.editado_por || "Outra pessoa"}</strong> guardou alterações enquanto você editava. Copie o que você escreveu, abra a versão nova e aplique de novo: assim ninguém perde trabalho.{" "}
+          <button type="button" className={elo} onClick={() => setEdicao(null)}>Abrir a versão nova</button>
+        </p>
+      )}
+      {rascunho.restaurado && rascunho.salvoEm && (
+        <p className="flex flex-wrap items-center gap-x-4 gap-y-1 border border-rule bg-parchment-deep px-4 py-2 text-ink-soft">
+          <span>Recuperamos a edição que você estava fazendo (guardada às {horaDoRascunho(rascunho.salvoEm)}).</span>
+          <button type="button" className={elo} onClick={() => { rascunho.limpar(); setEdicao({ ...edicao, titulo: c.titulo, corpo: c.corpo, fontes: c.fontes.length > 0 ? c.fontes.map((f) => ({ titulo: f.titulo, autor: f.autor ?? "", url: f.url ?? "" })) : [{ titulo: "", autor: "", url: "" }] }); }}>
+            Descartar e voltar à versão guardada
+          </button>
+        </p>
+      )}
+      <label className="block">
+        Título
+        <input value={edicao.titulo} onChange={(e) => setEdicao({ ...edicao, titulo: e.target.value })} maxLength={160} className={campo} />
+      </label>
+      <MarkdownEditor id="edicao-corpo" value={edicao.corpo} onChange={(corpo) => setEdicao({ ...edicao, corpo })} labels={editorPt} upload={podeImagem} />
+      {exigeFonte && <SourcesField value={edicao.fontes} onChange={(fontes) => setEdicao({ ...edicao, fontes })} labels={fontesPt} />}
+      <p className="font-mono text-xs text-ink-soft">{rascunho.salvoEm ? `Rascunho guardado às ${horaDoRascunho(rascunho.salvoEm)}.` : "O rascunho desta edição é guardado sozinho enquanto você escreve."}</p>
+      <div className="flex gap-4">
+        <button
+          type="button"
+          className={botao}
+          disabled={ocupado || mudou}
+          onClick={async () => {
+            if (await guardar()) {
+              rascunho.limpar();
+              setEdicao(null);
+            }
+          }}
+        >
+          Guardar alterações
+        </button>
+        <button type="button" className={elo} onClick={() => { rascunho.limpar(); setEdicao(null); }}>Cancelar</button>
+      </div>
     </div>
   );
 }
