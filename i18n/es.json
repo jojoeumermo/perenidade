@@ -2415,6 +2415,10 @@
     "wallEmpty": "El mural todavía está vacío."
   },
   "auth": {
+    "unconfirmed": "Tu correo todavía no está confirmado. Abre el correo que te enviamos y toca «Confirmar correo». ¿No lo encuentras o el enlace venció? Pide otro aquí.",
+    "resend": "Reenviar correo de confirmación",
+    "resent": "Listo: enviamos un correo nuevo. Ábrelo y toca el botón en menos de 24 horas (revisa también el spam). Después, entra aquí.",
+    "expired": "El enlace de confirmación venció o ya se usó. Escribe tu correo y contraseña, toca Entrar y pide un correo nuevo.",
     "or": "o",
     "fingerprint": "Entrar con la huella",
     "fingerprintHint": "Funciona después de registrar la huella de este aparato en el panel, en Mi cuenta. La huella nunca sale del teléfono.",
