@@ -5,7 +5,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { can, getClient, hasBackend, leads, manages, type Me, porNivel, type Role, rpc, signOut, useMe } from "@/lib/backend";
+import { limparIndice } from "@/lib/busca-local";
 import { registerDevice } from "@/lib/device";
+import { avisar, avisosDisponiveis, escolherModo, type ModoDeAviso, modoDeAviso, permissaoDeAviso } from "@/lib/notificacoes";
+import { ligarTrava, travaDisponivel, travaLigada, travarAgora } from "@/lib/trava";
 import { applyPrefs, readPrefs } from "@/lib/prefs";
 import { senhaVazada } from "@/lib/senha";
 import { getItem, KEYS, setItem } from "@/lib/storage";
@@ -277,6 +280,9 @@ export function Painel() {
 
   const eu = me.me;
   const sair = async () => {
+    // O índice de busca das conversas é deste aparelho; sai com a conta.
+    await limparIndice().catch(() => undefined);
+    travarAgora();
     await signOut();
     router.replace(`/${lang}`);
   };
@@ -310,6 +316,20 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   // contagens do menu. Ao voltar para a aba do navegador, as contagens também se refazem na hora.
   const presenca = useLista<{ conversas: number }>("presenca");
   const avisarPresenca = presenca.recarregar;
+  // Aviso do navegador quando a contagem de conversas pendentes sobe com a aba escondida. Sem prévia: o aviso diz só
+  // que chegou mensagem (e, se a pessoa quis, de quem). O nome vem da lista de conversas, nunca do conteúdo.
+  const pendentes = presenca.dados?.conversas;
+  const [vistasAntes, setVistasAntes] = useState<number | null>(null);
+  useEffect(() => {
+    if (pendentes === undefined) return;
+    if (vistasAntes !== null && pendentes > vistasAntes && document.visibilityState !== "visible" && modoDeAviso() !== "nenhum") {
+      void rpc<{ nao_lidas: number; silenciada: boolean; arquivada: boolean; ultima: { autor: string; minha: boolean } | null }[]>("chat_conversas")
+        .then((lista) => avisar(lista.filter((c) => c.nao_lidas > 0 && !c.silenciada && !c.arquivada && c.ultima && !c.ultima.minha).map((c) => c.ultima!.autor)))
+        .catch(() => avisar([]));
+    }
+    const marca = window.setTimeout(() => setVistasAntes(pendentes), 0);
+    return () => window.clearTimeout(marca);
+  }, [pendentes, vistasAntes]);
   useEffect(() => {
     const relogio = window.setInterval(() => {
       if (document.visibilityState !== "visible") return;
@@ -743,6 +763,50 @@ function Candidatura({ me }: { me: Me }) {
 }
 
 /** Tudo o que é da própria pessoa: como aparece, como entra e como se protege. */
+/** Avisos do navegador (sem prévia) e a trava das conversas com a digital. Os dois ficam só neste aparelho. */
+function AvisosETrava() {
+  const [modo, setModo] = useState<ModoDeAviso>(() => modoDeAviso());
+  const [trava, setTrava] = useState(() => travaLigada());
+  const [temDigital, setTemDigital] = useState<boolean | null>(null);
+  const [aviso, setAviso] = useState("");
+  useEffect(() => { void travaDisponivel().then(setTemDigital); }, []);
+  async function trocarModo(novo: ModoDeAviso) {
+    setAviso("");
+    const ok = await escolherModo(novo);
+    setModo(ok ? novo : modoDeAviso());
+    if (!ok && novo !== "nenhum") setAviso(permissaoDeAviso() === "denied" ? "O navegador está bloqueando avisos deste site. Libere nas configurações do site e tente de novo." : "Não foi possível ligar os avisos neste navegador.");
+  }
+  return (
+    <div className="mt-4 space-y-3 border-t border-rule pt-3">
+      <div>
+        <p className="font-semibold">Avisos de mensagem neste aparelho</p>
+        <p className="text-xs text-ink-soft">O aviso nunca mostra o texto: diz só que chegou mensagem (e, se você quiser, de quem). Só funciona com o painel aberto em alguma aba.</p>
+        {avisosDisponiveis() ? (
+          <select value={modo} onChange={(e) => void trocarModo(e.target.value as ModoDeAviso)} className={`${campo} max-w-sm`} aria-label="Avisos de mensagem">
+            <option value="nenhum">Sem avisos</option>
+            <option value="generico">Avisar que chegou mensagem (sem dizer de quem)</option>
+            <option value="nome">Avisar com o nome de quem mandou</option>
+          </select>
+        ) : (
+          <p className="mt-1 text-sm text-ink-soft">Este navegador não mostra avisos.</p>
+        )}
+      </div>
+      <div>
+        <p className="font-semibold">Trancar as conversas com a digital</p>
+        <p className="text-xs text-ink-soft">Usa a mesma digital cadastrada para entrar. Pede a digital ao abrir as conversas (e, nas conversas que você trancar uma a uma, a cada vez). Vale só neste aparelho.</p>
+        {temDigital === false && <p className="mt-1 text-sm text-ink-soft">Cadastre a digital deste aparelho (ao lado) para poder trancar.</p>}
+        {temDigital && (
+          <label className="mt-1 flex cursor-pointer items-center gap-2">
+            <input type="checkbox" className="h-4 w-4" checked={trava} onChange={(e) => { ligarTrava(e.target.checked); setTrava(e.target.checked); if (e.target.checked) travarAgora(); }} />
+            <span>Pedir a digital ao abrir as conversas</span>
+          </label>
+        )}
+      </div>
+      <Aviso texto={aviso} />
+    </div>
+  );
+}
+
 function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair: () => void }) {
   const perfil = useAcao(recarregar);
   const preferencias = useAcao(recarregar);
@@ -804,6 +868,7 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
           <span>Confirmar aos outros que li as mensagens (os tiques azuis e o “Lida por”)</span>
         </label>
         <Aviso texto={preferencias.aviso} />
+        <AvisosETrava />
       </section>
 
       <section className={cartao}>
