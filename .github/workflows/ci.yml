@@ -33,5 +33,7 @@ jobs:
       - run: npm run testar:fumaca
       # O conteúdo das mensagens das conversas (citação, menções, prévia só do endereço, formatação), sem banco.
       - run: npm run testar:mensagens
+      # Os arquivos das conversas: tipo pelos bytes, cifra por arquivo presa à conversa, limites (sem banco).
+      - run: npm run testar:anexos
       # O build lê e valida todo o conteúdo de content/: arquivo inválido falha aqui.
       - run: npm run build

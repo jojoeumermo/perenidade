@@ -1393,6 +1393,49 @@ await espera("a pessoa vê a própria leitura e presença mesmo com tudo desliga
   return [propria, await membroVisto("jornal", "med")];
 }, ([propria, a]) => typeof propria.lido_em === "string" && typeof propria.online === "boolean" && typeof a.lido_em === "string");
 
+// ── Arquivos nas conversas: sobem cifrados, presos à mensagem; ver uma vez; somem com a mensagem ──
+const cifradoFalso = (bytes = 64) => Buffer.from(Array.from({ length: bytes }, (_, i) => (i * 13) % 256)).toString("base64");
+const jmGrupo = (await rpc(como(ids.jornal), "chat_grupo_criar", { p_nome: "Fotos da feira", p_membros: [ids.med, ids.revisor] })).id;
+let anexo;
+await recusa("quem está de fora não sobe arquivo", () => rpc(como(ids.designer), "chat_anexo_enviar", { p_conversa: jm, p_cifrado: cifradoFalso() }), "nao_encontrado");
+await recusa("o que não é base64 é recusado", () => rpc(como(ids.jornal), "chat_anexo_enviar", { p_conversa: jm, p_cifrado: "isto não é base64!!" }), "invalido:arquivo");
+await espera("o arquivo cifrado sobe solto, sem mensagem", async () => { anexo = (await rpc(como(ids.jornal), "chat_anexo_enviar", { p_conversa: jm, p_cifrado: cifradoFalso() })).id; return dono("select mensagem, tamanho, uma_vez from interno.conversa_anexos where id = $1", [anexo]); }, (r) => r.rows[0].mensagem === null && r.rows[0].tamanho === 64 && r.rows[0].uma_vez === false);
+await recusa("solto, ninguém baixa (nem quem subiu)", () => rpc(como(ids.jornal), "chat_anexo_ler", { p_id: anexo }), "nao_encontrado");
+await recusa("outra pessoa não prende o arquivo dos outros à própria mensagem", () => enviaMed("Foto", { p_anexos: [anexo] }), "invalido:anexos");
+await recusa("reação não leva arquivo", async () => { const m = (await enviaJornal("Com texto")).id; return enviaMed("", { p_tipo: "reacao", p_alvo: m, p_anexos: [anexo] }); }, "invalido:anexos");
+await recusa("arquivo de outra conversa não entra", async () => rpc(como(ids.jornal), "chat_enviar", { p_id: jmGrupo, p_corpo: await selar(aparelhos.jornal, jmGrupo, "Foto errada", contextoDaConversa(jmGrupo, ids.jornal)), p_anexos: [anexo] }), "invalido:anexos");
+let comAnexo;
+await espera("a mensagem prende o arquivo e todos da conversa veem o estado dele", async () => { comAnexo = (await enviaJornal("Foto da feira", { p_anexos: [anexo] })).id; const r = await rpc(como(ids.med), "chat_ver", { p_id: jm }); return r.mensagens.find((m) => m.id === comAnexo).anexos; }, (r) => r.length === 1 && r[0].id === anexo && r[0].uma_vez === false && r[0].disponivel === true && r[0].aberto === false);
+await recusa("o mesmo arquivo não entra numa segunda mensagem", () => enviaJornal("De novo", { p_anexos: [anexo] }), "invalido:anexos");
+await espera("quem está na conversa baixa o cifrado, quantas vezes quiser; quem subiu também", async () => [(await rpc(como(ids.med), "chat_anexo_ler", { p_id: anexo })).cifrado, (await rpc(como(ids.med), "chat_anexo_ler", { p_id: anexo })).cifrado, (await rpc(como(ids.jornal), "chat_anexo_ler", { p_id: anexo })).cifrado], (r) => r.every((c) => c.replace(/\s/g, "") === cifradoFalso()));
+await recusa("quem está de fora não baixa", () => rpc(como(ids.designer), "chat_anexo_ler", { p_id: anexo }), "nao_encontrado");
+await espera("no banco há só bytes cifrados, sem tipo, nome ou chave", () => dono("select column_name from information_schema.columns where table_schema = 'interno' and table_name = 'conversa_anexos'"), (r) => { const colunas = r.rows.map((x) => x.column_name); return !colunas.some((c) => /nome|tipo|mime|chave|legenda/.test(c)); });
+await espera("apagar a mensagem leva o arquivo junto", async () => { await rpc(como(ids.jornal), "chat_apagar", { p_id: comAnexo }); return dono("select count(*)::int as n from interno.conversa_anexos where id = $1", [anexo]); }, (r) => r.rows[0].n === 0);
+let umaVez;
+await espera("ver uma vez: num grupo, quem enviou não relê; cada um dos outros lê uma só vez; os bytes somem quando todos leram", async () => {
+  umaVez = (await rpc(como(ids.jornal), "chat_anexo_enviar", { p_conversa: jmGrupo, p_cifrado: cifradoFalso(96), p_uma_vez: true })).id;
+  const m = (await rpc(como(ids.jornal), "chat_enviar", { p_id: jmGrupo, p_corpo: await selar(aparelhos.jornal, jmGrupo, "Só uma vez", contextoDaConversa(jmGrupo, ids.jornal)), p_anexos: [umaVez] })).id;
+  const autora = await rpc(como(ids.jornal), "chat_anexo_ler", { p_id: umaVez }).then(() => "leu", (e) => e.message);
+  const primeira = (await rpc(como(ids.med), "chat_anexo_ler", { p_id: umaVez })).cifrado.replace(/\s/g, "") === cifradoFalso(96);
+  const segunda = await rpc(como(ids.med), "chat_anexo_ler", { p_id: umaVez }).then(() => "leu", (e) => e.message);
+  const estadoMed = (await rpc(como(ids.med), "chat_ver", { p_id: jmGrupo })).mensagens.find((x) => x.id === m).anexos[0];
+  const aindaTem = (await dono("select cifrado is not null as tem from interno.conversa_anexos where id = $1", [umaVez])).rows[0].tem;
+  const ultima = (await rpc(como(ids.revisor), "chat_anexo_ler", { p_id: umaVez })).cifrado.replace(/\s/g, "") === cifradoFalso(96);
+  const depois = (await dono("select cifrado is null as sumiu, cardinality(visto_por)::int as n from interno.conversa_anexos where id = $1", [umaVez])).rows[0];
+  const estadoRevisor = (await rpc(como(ids.revisor), "chat_ver", { p_id: jmGrupo })).mensagens.find((x) => x.id === m).anexos[0];
+  return [autora, primeira, segunda, estadoMed, aindaTem, ultima, depois, estadoRevisor];
+}, ([autora, primeira, segunda, estadoMed, aindaTem, ultima, depois, estadoRevisor]) => autora.includes("ja_visto") && primeira && segunda.includes("ja_visto") && estadoMed.aberto === true && estadoMed.disponivel === true && aindaTem === true && ultima && depois.sumiu === true && depois.n === 2 && estadoRevisor.aberto === true && estadoRevisor.disponivel === false);
+await espera("a faxina apaga arquivo solto há mais de uma hora e some com os bytes do 'ver uma vez' de catorze dias", async () => {
+  const solto = (await rpc(como(ids.jornal), "chat_anexo_enviar", { p_conversa: jm, p_cifrado: cifradoFalso() })).id;
+  const velho = (await rpc(como(ids.jornal), "chat_anexo_enviar", { p_conversa: jm, p_cifrado: cifradoFalso(), p_uma_vez: true })).id;
+  await rpc(como(ids.jornal), "chat_enviar", { p_id: jm, p_corpo: await selar(aparelhos.jornal, jm, "Velha", contextoDaConversa(jm, ids.jornal)), p_anexos: [velho] });
+  await dono("update interno.conversa_anexos set criado_em = now() - interval '15 days' where id in ($1, $2)", [solto, velho]);
+  await dono("select interno.limpeza()");
+  return [(await dono("select count(*)::int as n from interno.conversa_anexos where id = $1", [solto])).rows[0].n, (await dono("select cifrado is null as sumiu from interno.conversa_anexos where id = $1", [velho])).rows[0].sumiu];
+}, (r) => r[0] === 0 && r[1] === true);
+await recusa("arquivo acima do limite é recusado pelo banco", () => rpc(como(ids.jornal), "chat_anexo_enviar", { p_conversa: jm, p_cifrado: "A".repeat(16800001) }), "invalido:arquivo");
+await espera("o botão de apagar tudo leva os arquivos junto", async () => { await rpc(como(ids.coord), "equipe_apagar_tudo"); return dono("select count(*)::int as n from interno.conversa_anexos where mensagem is not null"); }, (r) => r.rows[0].n === 0);
+
 // ── Materiais de campanha ──
 const material = (extra = {}) => ({ tipo: "panfleto", titulo: "Panfleto da jornada de lutas", descricao: "Frente e verso, A5.", campanha: "Jornada de lutas", url: "/arquivos/abc123.pdf", publicado: true, ...extra });
 let materialId;

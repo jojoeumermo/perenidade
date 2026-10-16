@@ -6,6 +6,8 @@
 //
 // Este arquivo não depende do navegador, para poder ser testado no Node (scripts/testar-mensagens.mjs).
 
+import { type Anexo, anexoValido, LIMITE_POR_MENSAGEM } from "./anexos.ts";
+
 export interface Citacao {
   /** A mensagem citada, para a tela rolar até ela. */
   id: string;
@@ -30,6 +32,8 @@ export interface Conteudo {
   previa?: Previa;
   /** Numa reação: o emoji. */
   emoji?: string;
+  /** Arquivos (foto, vídeo, áudio, PDF, DOCX): o texto vira a legenda. A chave de cada arquivo vai aqui dentro. */
+  anexos?: Anexo[];
 }
 
 const PREFIXO = "j1.";
@@ -64,6 +68,10 @@ export function desempacotar(aberto: string): Conteudo {
       conteudo.previa = { url: texto(previa.url, 500), dominio: texto(previa.dominio, 100), titulo: texto(previa.titulo, 160) };
     }
     if (typeof dados.emoji === "string" && EMOJIS_DE_REACAO.includes(dados.emoji)) conteudo.emoji = dados.emoji;
+    if (Array.isArray(dados.anexos)) {
+      const anexos = dados.anexos.slice(0, LIMITE_POR_MENSAGEM).map(anexoValido).filter((anexo): anexo is Anexo => anexo !== null);
+      if (anexos.length) conteudo.anexos = anexos;
+    }
     return conteudo;
   } catch {
     return { texto: aberto };
