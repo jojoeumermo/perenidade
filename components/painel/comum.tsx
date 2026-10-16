@@ -16,6 +16,7 @@ export const rotulo = "font-mono text-xs uppercase tracking-widest text-gold";
 export const papeis: Record<Role["papel"], string> = {
   coordenacao: "Coordenação comunitária",
   vice: "Vice-coordenação",
+  supervisao: "Supervisão",
   curadoria: "Curadoria",
   mediacao: "Mediação",
   educacao: "Educação",
@@ -31,19 +32,21 @@ export const papeis: Record<Role["papel"], string> = {
 
 /** O que cada papel enxerga e faz no painel. É a regra do banco, escrita para gente. */
 export const oQueFaz: Record<Role["papel"], string> = {
-  coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-coordenação, define a sucessão, publica materiais e emite certificados.",
+  coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-coordenação, define a sucessão, edita contas e redefine senhas, publica materiais e emite certificados.",
   vice: "Tudo o que a coordenação faz, menos mexer na coordenação, nomear outra vice-coordenação, definir a sucessão e emitir certificados.",
+  supervisao:
+    "Faz o painel andar quando a coordenação e a vice-coordenação estão ausentes: acompanha a equipe (sem ver e-mails), suspende contas em emergência com motivo, cuida do mural da equipe, lê o registro, pausa os envios do público e liga o modo de segurança da Comunidade. Interdição e expurgo, só como pedido que a coordenação aprova.",
   curadoria: "Aprova ou recusa contribuições, cuida da comunidade, das denúncias e do filtro de palavras.",
   mediacao: "Acompanha a Comunidade, decide os casos que pedem leitura humana e oculta, edita ou libera mensagens; aprova, edita ou recusa anúncios do Mural dos Trabalhadores, faz a triagem das contribuições antes de elas chegarem à fila de revisão e, quando alguém passa do limite, bane a conta (e, em caso extremo, a origem de rede). Não aprova conteúdo de ensino nem mexe na equipe.",
-  educacao: "Escreve e revisa na disciplina confiada, cuida da comunidade e atende pedidos de reforço da disciplina.",
-  educacao_secundaria: "Contribui com a disciplina confiada em paralelo às trilhas: aulas avulsas, listas de exercícios, resumos e materiais de apoio, que aparecem numa aba própria da disciplina. Tem os mesmos poderes do educador: também pode escrever aulas das trilhas, revisar a fila da disciplina e atender reforço.",
+  educacao: "Escreve e dá parecer na disciplina confiada, cuida da comunidade e atende pedidos de reforço da disciplina.",
+  educacao_secundaria: "Contribui com a disciplina confiada em paralelo às trilhas: aulas avulsas, listas de exercícios, resumos e materiais de apoio, que aparecem numa aba própria da disciplina. Tem os mesmos poderes do educador: também pode escrever aulas das trilhas, dar parecer na fila da disciplina e atender reforço.",
   revisao: "Lê a fila inteira e dá parecer; não aprova.",
-  traducao: "Envia traduções; não vê a fila dos outros.",
-  jornalismo: "Escreve para o jornal (toda matéria passa pela revisão antes de sair), cuida da Rádio Lúcia (canais, faixas, transmissão ao vivo, emissoras) e faz o podcast: pauta, roteiro, gravação, edição e publicação, com aprovação da supervisão. Pode cuidar dos três ou só de um.",
+  traducao: "Vê as aulas que ainda não têm tradução e o que outros tradutores já enviaram, e envia traduções; não vê a fila dos outros.",
+  jornalismo: "Escreve para o jornal (toda matéria passa pela revisão antes de sair), cuida da Rádio Lúcia (canais, faixas, transmissão ao vivo e sugestão de novas emissoras) e faz o podcast: pauta, roteiro, gravação, edição e publicação, com aprovação da supervisão do podcast. Pode cuidar dos três ou só de um.",
   mentoria: "Atende pedidos de reforço da disciplina confiada e responde por e-mail.",
   design: "Prepara materiais gráficos e atende pedidos de ajuda das outras funções.",
-  marketing: "Divulga o instituto: posts e artes para as redes sociais, cartazes de chamada, campanhas de voluntariado e de apoio, cortes do podcast. Usa os materiais e arquivos do painel, como o design.",
-  desenvolvimento: "Cuida do código e atende pedidos de ajuda das outras funções.",
+  marketing: "Divulga o instituto: posts e artes para as redes sociais, cartazes de chamada, campanhas de voluntariado e de apoio, cortes do podcast. Monta o calendário de posts e stories do Instagram e usa o kit da marca e os materiais do painel, como o design. O acesso ao Instagram é dado pela coordenação pela própria Meta; o site nunca guarda senha de rede social.",
+  desenvolvimento: "Cuida do código: vê o estado técnico do site (publicação, avaliação automática, faxina, sinais de varredura) e atende pedidos de ajuda das outras funções.",
 };
 
 export const situacoes: Record<string, string> = {
@@ -88,6 +91,9 @@ const erros: Record<string, string> = {
   boletim_recente: "Já saiu uma edição do boletim nas últimas seis horas. Espere um pouco para mandar outra.",
   limite_colaboradores: "Cada contribuição pode ter até cinco pessoas trabalhando junto.",
   mudou_enquanto_editava: "Outra pessoa guardou alterações enquanto você editava. Copie o que escreveu, abra a versão nova e aplique de novo.",
+  sem_pgcrypto: "O banco ainda não tem a extensão de senhas (pgcrypto). Rode o supabase/install.sql de novo no SQL Editor.",
+  area_interditada: "Esta parte do site está interditada agora.",
+  pedido_vencido: "Este pedido venceu (passou de 72 horas sem decisão). A supervisão pode fazer outro.",
   sem_conexao: "Sem conexão com o serviço.",
   banco_desatualizado: "Esta parte do painel ainda não está disponível. Tente mais tarde ou avise a coordenação.",
   falha: "Algo deu errado. Tente de novo.",
@@ -100,8 +106,10 @@ export function textoDoErro(erro: unknown): string {
   return erros[tipo] ?? erros.falha;
 }
 
-export const data = (iso: string) => new Date(iso).toLocaleDateString("pt-BR");
-export const dataHora = (iso: string) => new Date(iso).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" });
+/** O idioma da página (o painel pode estar em inglês, espanhol, russo ou chinês): datas e horas seguem ele. */
+export const localDoPainel = () => (typeof document !== "undefined" && document.documentElement.lang) || "pt-BR";
+export const data = (iso: string) => new Date(iso).toLocaleDateString(localDoPainel());
+export const dataHora = (iso: string) => new Date(iso).toLocaleString(localDoPainel(), { dateStyle: "short", timeStyle: "short" });
 /** Datas sem hora (AAAA-MM-DD) não podem passar pelo fuso: viram o dia anterior no Brasil. */
 export const dia = (iso: string) => iso.slice(0, 10).split("-").reverse().join("/");
 

@@ -2,20 +2,55 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { cache } from "react";
+import { fill, htmlLang, type Locale, plural } from "@/i18n/config";
+import type { Dict } from "@/i18n/types";
+import type { AreaSlug } from "./areas";
+import { getPage, getTracks } from "./content";
 
-export interface Change {
+type Status = "A" | "M" | "D";
+
+interface Commit {
+  hash: string;
   date: string;
-  files: string[];
+  /** Arquivos tocados; numa renomeação, só o caminho novo. */
+  files: { status: Status; path: string }[];
 }
 
-// O histórico do acervo é o próprio histórico do Git, lido na hora do build. Só a data e os arquivos de content/:
-// a mensagem e o autor de cada registro são da equipe e nem chegam a ser lidos.
-// Em clones rasos (como o da Vercel) só aparecem os commits mais recentes, e o mais antigo deles, a "fronteira", aparece
-// como se tivesse criado todos os arquivos de uma vez. Ele fica de fora, para o histórico não dizer que o acervo inteiro
-// nasceu naquele dia. O código de cada registro só é lido para achar a fronteira e não sai daqui.
-export const getHistory = cache((): Change[] => {
+export type Kind = keyof Dict["history"]["kinds"];
+export type Action = "added" | "updated" | "removed";
+
+type Link = { title: string; href: string; translated: boolean };
+
+/** Uma linha do resumo: "12 obras novas no acervo". As aulas novas e as páginas trazem os títulos. */
+export interface HistoryPart {
+  kind: Kind;
+  action: Action;
+  count: number;
+  area?: AreaSlug;
+  links?: Link[];
+}
+
+/** O que mudou em um dia, já resumido. Sem assunto de commit, autor, e-mail nem identificador. */
+export interface PublicChange {
+  date: string;
+  parts: HistoryPart[];
+}
+
+const git = (args: string[]) =>
+  execFileSync("git", ["-c", "core.quotepath=off", ...args], {
+    encoding: "utf8",
+    cwd: process.cwd(),
+    stdio: ["ignore", "pipe", "ignore"],
+    maxBuffer: 64 * 1024 * 1024,
+  });
+
+// O histórico do acervo é o próprio histórico do Git, lido na hora do build.
+// Em clones rasos (ex.: Vercel sem VERCEL_DEEP_CLONE=true) só aparecem os commits mais recentes, e o mais antigo deles,
+// a "fronteira", aparece como se tivesse criado todos os arquivos de uma vez. Ele fica de fora, para o histórico não
+// dizer que o acervo inteiro nasceu naquele dia. O código de cada registro só serve para isso e para ler listas antigas.
+// Junções de ramos (merge) ficam de fora: o que elas trazem já aparece nos commits de origem.
+const getHistory = cache((): Commit[] => {
   try {
-    const git = (args: string[]) => execFileSync("git", args, { encoding: "utf8", cwd: process.cwd(), stdio: ["ignore", "pipe", "ignore"] });
     let fronteira = new Set<string>();
     try {
       const arquivo = git(["rev-parse", "--git-path", "shallow"]).trim();
@@ -23,78 +58,226 @@ export const getHistory = cache((): Change[] => {
     } catch {
       // sem essa informação, nada é descartado
     }
-    const out = git(["-c", "core.quotepath=off", "log", "-n", "300", "--no-merges", "--date=short", "--name-only", "--pretty=format:%x1e%H %ad", "--", "content"]);
+    const out = git(["log", "-n", "300", "--no-merges", "--date=short", "--name-status", "--pretty=format:%x1e%H%x1f%ad", "--", "content"]);
     return out
       .split("\x1e")
       .filter(Boolean)
       .map((entry) => {
-        const [cabeca, ...files] = entry.split("\n");
-        const [codigo, date] = cabeca.trim().split(" ");
-        return { codigo, date, files: files.map((f) => f.trim()).filter(Boolean) };
+        const [head, ...lines] = entry.split("\n");
+        const [hash, date] = head.split("\x1f");
+        const files = lines
+          .map((line) => line.split("\t"))
+          .filter((cols) => cols.length >= 2)
+          .map(([code, ...paths]) => {
+            // "R100 velho novo" (renomeado) conta como mudança no arquivo novo; "C" (copiado), como arquivo novo.
+            const status: Status = code[0] === "A" || code[0] === "C" ? "A" : code[0] === "D" ? "D" : "M";
+            return { status, path: paths[paths.length - 1] };
+          });
+        return { hash, date, files };
       })
-      .filter((change) => !fronteira.has(change.codigo))
-      .map(({ date, files }) => ({ date, files }));
+      .filter((commit) => !fronteira.has(commit.hash));
   } catch {
     return [];
   }
 });
 
-/** Os tipos de conteúdo que o histórico público conta, na ordem em que aparecem. */
-export const kinds = ["lessons", "tracks", "translations", "books", "catalog", "journal", "glossary", "memorial", "authors", "checks", "debates", "videos", "pages", "other"] as const;
-export type Kind = (typeof kinds)[number];
-
+// O histórico público fala só de ensino e acervo. O que é funcionamento do site (páginas institucionais e
+// legais, aviso de abertura, dicionário da busca) fica de fora, e também qualquer arquivo que não esteja nesta lista.
 const folders: Record<string, Kind> = {
-  acervo: "books",
-  catalogo: "catalog",
-  jornal: "journal",
-  glossario: "glossary",
-  memorial: "memorial",
+  acervo: "library",
   autores: "authors",
-  checagens: "checks",
+  memorial: "memorial",
+  glossario: "glossary",
+  jornal: "journal",
+  checagens: "factChecks",
   debates: "debates",
   videos: "videos",
-  paginas: "pages",
+  falacias: "fallacies",
+};
+const lists: Record<string, Kind> = {
+  "galeria.json": "gallery",
+  "frases.json": "quotes",
+  "perguntas.json": "questions",
+  "comecar.json": "start",
+  "radios.json": "radios",
+  "noticias.json": "news",
+  "falacias.json": "fallacies",
+};
+const studyPages = ["guia", "linha-do-tempo"];
+
+type Unit =
+  | { type: "lesson"; track: string }
+  | { type: "track"; track: string; head: boolean }
+  | { type: "page"; slug: string }
+  | { type: "file" | "list"; kind: Kind };
+
+function classify(file: string): Unit | null {
+  if (!file.startsWith("content/")) return null;
+  // Tradução de algo público ("aula.en.md") conta como tradução; de página institucional, fica de fora.
+  const original = file.replace(/\.(en|es|zh|ru)\.md$/, ".md");
+  if (original !== file) return classify(original) ? { type: "file", kind: "translations" } : null;
+  const parts = file.slice("content/".length).split("/");
+  const [dir, name] = parts;
+  if (dir === "trilhas" && parts.length === 3) {
+    const leaf = parts[2];
+    if (leaf === "_trilha.md" || leaf === "plano.json") return { type: "track", track: name, head: leaf === "_trilha.md" };
+    return leaf.endsWith(".md") ? { type: "lesson", track: name } : null;
+  }
+  if (parts.length === 2 && dir === "catalogo" && name.endsWith(".json")) return { type: "list", kind: "catalog" };
+  if (parts.length === 2 && dir === "paginas") {
+    const slug = name.replace(/\.md$/, "");
+    return studyPages.includes(slug) && name.endsWith(".md") ? { type: "page", slug } : null;
+  }
+  if (parts.length === 2 && folders[dir] && name.endsWith(".md")) return { type: "file", kind: folders[dir] };
+  if (parts.length === 1 && lists[dir]) return { type: "list", kind: lists[dir] };
+  return null;
+}
+
+// Listas em JSON (galeria, rádios, catálogo…) mudam num arquivo só: conta-se item por item, comparando o antes e o depois.
+// O conteúdo de uma versão nunca muda, então o que já foi lido fica guardado enquanto o processo dura.
+const shown = new Map<string, unknown[]>();
+function listAt(rev: string, file: string): unknown[] {
+  const key = `${rev}:${file}`;
+  let items = shown.get(key);
+  if (!items) {
+    try {
+      const data: unknown = JSON.parse(git(["show", key]));
+      items = Array.isArray(data) ? data : [data];
+    } catch {
+      items = [];
+    }
+    shown.set(key, items);
+  }
+  return items;
+}
+
+const identity = (item: unknown) => {
+  if (item && typeof item === "object") {
+    for (const key of ["slug", "id", "u", "url", "feed", "pergunta", "titulo", "t", "texto", "nome"]) {
+      const value = (item as Record<string, unknown>)[key];
+      if (typeof value === "string" && value) return `${key}:${value}`;
+    }
+  }
+  return JSON.stringify(item);
 };
 
-/** "content/trilhas/x/01-aula.md" é uma aula; "content/acervo/obra.en.md", uma tradução. */
-function kindOf(file: string): Kind {
-  const folder = file.split("/")[1] ?? "";
-  if (/\.(en|es|zh|ru)\.md$/.test(file)) return "translations";
-  if (folder === "trilhas") return /\/(_trilha\.md|plano\.json)$/.test(file) ? "tracks" : "lessons";
-  return folders[folder] ?? "other";
-}
-
-export interface PublicChange {
-  date: string;
-  /** Quantos itens de cada tipo mudaram nesse dia. */
-  counts: [Kind, number][];
-  files: string[];
-}
-
-/**
- * O que a página de histórico e a página inicial mostram, a partir da data dada: um dia por linha, com o tipo de
- * conteúdo que mudou e quantos itens. Nada do funcionamento interno do site entra aqui.
- */
-export function publicHistory(from: string): PublicChange[] {
-  if (!from) return [];
-  const days = new Map<string, Set<string>>();
-  for (const change of getHistory()) {
-    if (change.date < from || change.files.length === 0) continue;
-    const day = days.get(change.date) ?? new Set<string>();
-    for (const file of change.files) day.add(file);
-    days.set(change.date, day);
+function compare(before: unknown[], after: unknown[]): Record<Action, number> {
+  const old = new Map(before.map((item) => [identity(item), JSON.stringify(item)]));
+  const now = new Map(after.map((item) => [identity(item), JSON.stringify(item)]));
+  const count = { added: 0, updated: 0, removed: 0 };
+  for (const [id, json] of now) {
+    if (!old.has(id)) count.added++;
+    else if (old.get(id) !== json) count.updated++;
   }
-  return [...days]
-    .sort(([a], [b]) => b.localeCompare(a))
-    .map(([date, set]) => {
-      const files = [...set].sort();
-      const counts = new Map<Kind, number>();
-      for (const file of files) counts.set(kindOf(file), (counts.get(kindOf(file)) ?? 0) + 1);
-      return { date, files, counts: kinds.filter((kind) => counts.has(kind)).map((kind): [Kind, number] => [kind, counts.get(kind) ?? 0]) };
-    });
+  for (const id of old.keys()) if (!now.has(id)) count.removed++;
+  return count;
+}
+
+const order: Kind[] = ["lessonsIn", "lessons", "tracks", "translations", "library", "catalog", "authors", "memorial", "glossary", "journal", "factChecks", "debates", "fallacies", "videos", "gallery", "pages", "start", "questions", "quotes", "radios", "news"];
+const actions: Action[] = ["added", "updated", "removed"];
+/** Quantas aulas novas aparecem pelo título em cada linha; o resto vira "e mais N". */
+export const TITLES = 4;
+
+/** As mudanças que a página de histórico e a página inicial mostram, dia a dia, a partir da data dada. */
+export function publicHistory(from: string, lang: Locale): PublicChange[] {
+  if (!from) return [];
+  const days = new Map<string, Commit[]>();
+  for (const commit of getHistory()) {
+    if (commit.date < from) continue;
+    days.set(commit.date, [...(days.get(commit.date) ?? []), commit]);
+  }
+
+  const tracks = getTracks(lang);
+  const areaOf = new Map(tracks.map((track) => [track.slug, track.area]));
+  const lessonAt = new Map(tracks.flatMap((track) => track.lessons.map((lesson) => [lesson.file, { title: lesson.title, href: `/trilhas/${track.slug}/${lesson.slug}`, translated: lesson.translated }])));
+  const pageAt = (slug: string) => {
+    try {
+      const page = getPage(slug, lang);
+      return { title: page.title, href: `/${slug}`, translated: page.translated };
+    } catch {
+      return null;
+    }
+  };
+
+  const changes: PublicChange[] = [];
+  for (const [date, commits] of days) {
+    // O saldo do dia por arquivo: criado e apagado no mesmo dia não conta; apagado e recriado é mudança.
+    const touched = new Map<string, { first: Status; last: Status; oldest: string; newest: string }>();
+    for (const commit of [...commits].reverse()) {
+      for (const { status, path } of commit.files) {
+        const seen = touched.get(path);
+        if (seen) Object.assign(seen, { last: status, newest: commit.hash });
+        else touched.set(path, { first: status, last: status, oldest: commit.hash, newest: commit.hash });
+      }
+    }
+
+    const tally = new Map<string, HistoryPart>();
+    const add = (kind: Kind, action: Action, count: number, area?: AreaSlug, link?: Link | null) => {
+      if (count <= 0) return;
+      const key = `${kind}:${action}:${area ?? ""}`;
+      const part = tally.get(key) ?? { kind, action, count: 0, ...(area ? { area } : {}) };
+      part.count += count;
+      if (link) part.links = [...(part.links ?? []), link];
+      tally.set(key, part);
+    };
+    const tracksTouched = new Map<string, Action>();
+    const lessonsTouched = new Set<string>();
+
+    for (const [path, { first, last, oldest, newest }] of touched) {
+      const unit = classify(path);
+      if (!unit) continue;
+      const before = first !== "A";
+      const after = last !== "D";
+      if (!before && !after) continue;
+      const action: Action = !before ? "added" : !after ? "removed" : "updated";
+      if (unit.type === "lesson") {
+        lessonsTouched.add(unit.track);
+        const area = areaOf.get(unit.track);
+        add(area ? "lessonsIn" : "lessons", action, 1, area, action === "added" ? lessonAt.get(path) : null);
+      } else if (unit.type === "track") {
+        // Trilha nova ou retirada vem do _trilha.md; mexer no roteiro (plano.json) é atualizar a trilha.
+        const now = unit.head ? action : "updated";
+        if (tracksTouched.get(unit.track) !== "added" && tracksTouched.get(unit.track) !== "removed") tracksTouched.set(unit.track, now);
+      } else if (unit.type === "page") {
+        add("pages", action, 1, undefined, action === "removed" ? null : pageAt(unit.slug));
+      } else if (unit.type === "list") {
+        const count = compare(before ? listAt(`${oldest}^`, path) : [], after ? listAt(newest, path) : []);
+        for (const each of actions) add(unit.kind, each, count[each]);
+      } else {
+        add(unit.kind, action, 1);
+      }
+    }
+    // Roteiro mexido junto com aulas da mesma trilha já está dito nas aulas: não vira "trilha atualizada".
+    for (const [track, action] of tracksTouched) {
+      if (action === "updated" && lessonsTouched.has(track)) continue;
+      add("tracks", action, 1);
+    }
+
+    const parts = [...tally.values()].sort(
+      (a, b) => order.indexOf(a.kind) - order.indexOf(b.kind) || actions.indexOf(a.action) - actions.indexOf(b.action) || b.count - a.count,
+    );
+    if (parts.length > 0) changes.push({ date, parts });
+  }
+  return changes.sort((a, b) => b.date.localeCompare(a.date));
+}
+
+/** O resumo curto da página inicial: as aulas de todas as disciplinas viram uma linha só ("59 aulas novas"). */
+export function overview(parts: HistoryPart[]): HistoryPart[] {
+  const lessons = actions
+    .map((action): HistoryPart => ({ kind: "lessons", action, count: parts.filter((p) => p.action === action && (p.kind === "lessons" || p.kind === "lessonsIn")).reduce((sum, p) => sum + p.count, 0) }))
+    .filter((part) => part.count > 0);
+  return [...lessons, ...parts.filter((p) => p.kind !== "lessons" && p.kind !== "lessonsIn")];
+}
+
+/** O texto de uma linha do resumo, no idioma da página: "2 aulas novas em Geografia". */
+export function describePart(part: HistoryPart, lang: Locale, t: Dict): string {
+  // plural() devolve "3145 obras…": o número ganha o separador de milhar do idioma ("3.145").
+  const text = plural(lang, part.count, t.history.kinds[part.kind][part.action]).slice(String(part.count).length);
+  const count = new Intl.NumberFormat(htmlLang[lang]).format(part.count);
+  return count + (part.area ? fill(text, { area: t.areas[part.area][0] }) : text);
 }
 
 export function fileHistory(file: string): { updated?: string; revisions: number } {
-  const changes = getHistory().filter((c) => c.files.includes(file));
+  const changes = getHistory().filter((c) => c.files.some((f) => f.path === file));
   return { updated: changes[0]?.date, revisions: changes.length };
 }

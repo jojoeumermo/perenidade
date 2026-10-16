@@ -36,7 +36,6 @@
     "loading": "Loading…"
   },
   "nav": {
-    "podcasts": "Podcasts",
     "main": "Main",
     "disciplines": "Subjects",
     "library": "Library",
@@ -49,6 +48,9 @@
     "search": "Search",
     "support": "Support",
     "panel": "Panel",
+    "hello": "Hi, {name}",
+    "helloLabel": "Hi, {name}: open the panel",
+    "openPanel": "Open the panel",
     "signIn": "Sign in",
     "tools": "Practice tools",
     "glossary": "Glossary",
@@ -57,6 +59,7 @@
     "volunteers": "Volunteers",
     "factCheck": "Fact-checking",
     "debates": "Debate cards",
+    "fallacies": "Fallacy guide",
     "about": "About and licences",
     "timeline": "Timeline of struggles",
     "myData": "My data",
@@ -67,6 +70,7 @@
     "radio": "Radio",
     "history": "History of the collection",
     "mural": "Workers' Wall",
+    "drawer": "Open Drawer",
     "home": "Home",
     "tutoring": "Tutoring",
     "materials": "Printable materials",
@@ -76,6 +80,7 @@
     "news": "News",
     "gallery": "Poster gallery",
     "data": "People's data",
+    "podcasts": "Podcasts",
     "live": "Live classes",
     "notebook": "Study notebook"
   },
@@ -579,7 +584,8 @@
       "materia": "Newspaper",
       "checagem": "Fact check",
       "debate": "Debate",
-      "pergunta": "Question"
+      "pergunta": "Question",
+      "falacia": "Fallacy"
     }
   },
   "authors": {
@@ -755,20 +761,300 @@
     "unavailable": "The history is not available in this copy of the site.",
     "more": "and {n} more",
     "kinds": {
-      "lessons": "Lessons",
-      "tracks": "Course plans",
-      "translations": "Translations",
-      "books": "Library works",
-      "catalog": "Extended catalog",
-      "journal": "Newspaper",
-      "glossary": "Glossary",
-      "memorial": "Memorial",
-      "authors": "Authors",
-      "checks": "Fact-checking",
-      "debates": "Debate cards",
-      "videos": "Videos",
-      "pages": "Site pages",
-      "other": "Other content"
+      "lessonsIn": {
+        "added": {
+          "one": "new lesson in {area}",
+          "other": "new lessons in {area}"
+        },
+        "updated": {
+          "one": "lesson updated in {area}",
+          "other": "lessons updated in {area}"
+        },
+        "removed": {
+          "one": "lesson removed from {area}",
+          "other": "lessons removed from {area}"
+        }
+      },
+      "lessons": {
+        "added": {
+          "one": "new lesson",
+          "other": "new lessons"
+        },
+        "updated": {
+          "one": "lesson updated",
+          "other": "lessons updated"
+        },
+        "removed": {
+          "one": "lesson removed",
+          "other": "lessons removed"
+        }
+      },
+      "tracks": {
+        "added": {
+          "one": "new track",
+          "other": "new tracks"
+        },
+        "updated": {
+          "one": "track updated",
+          "other": "tracks updated"
+        },
+        "removed": {
+          "one": "track removed",
+          "other": "tracks removed"
+        }
+      },
+      "translations": {
+        "added": {
+          "one": "new translation",
+          "other": "new translations"
+        },
+        "updated": {
+          "one": "translation updated",
+          "other": "translations updated"
+        },
+        "removed": {
+          "one": "translation removed",
+          "other": "translations removed"
+        }
+      },
+      "library": {
+        "added": {
+          "one": "new work in the library",
+          "other": "new works in the library"
+        },
+        "updated": {
+          "one": "library record updated",
+          "other": "library records updated"
+        },
+        "removed": {
+          "one": "work removed from the library",
+          "other": "works removed from the library"
+        }
+      },
+      "catalog": {
+        "added": {
+          "one": "new work in the extended catalogue",
+          "other": "new works in the extended catalogue"
+        },
+        "updated": {
+          "one": "extended catalogue record updated",
+          "other": "extended catalogue records updated"
+        },
+        "removed": {
+          "one": "work removed from the extended catalogue",
+          "other": "works removed from the extended catalogue"
+        }
+      },
+      "authors": {
+        "added": {
+          "one": "new author biography",
+          "other": "new author biographies"
+        },
+        "updated": {
+          "one": "author biography updated",
+          "other": "author biographies updated"
+        },
+        "removed": {
+          "one": "author biography removed",
+          "other": "author biographies removed"
+        }
+      },
+      "memorial": {
+        "added": {
+          "one": "new tribute in the memorial",
+          "other": "new tributes in the memorial"
+        },
+        "updated": {
+          "one": "memorial tribute updated",
+          "other": "memorial tributes updated"
+        },
+        "removed": {
+          "one": "tribute removed from the memorial",
+          "other": "tributes removed from the memorial"
+        }
+      },
+      "glossary": {
+        "added": {
+          "one": "new glossary entry",
+          "other": "new glossary entries"
+        },
+        "updated": {
+          "one": "glossary entry updated",
+          "other": "glossary entries updated"
+        },
+        "removed": {
+          "one": "glossary entry removed",
+          "other": "glossary entries removed"
+        }
+      },
+      "journal": {
+        "added": {
+          "one": "new article in the newspaper",
+          "other": "new articles in the newspaper"
+        },
+        "updated": {
+          "one": "newspaper article updated",
+          "other": "newspaper articles updated"
+        },
+        "removed": {
+          "one": "article removed from the newspaper",
+          "other": "articles removed from the newspaper"
+        }
+      },
+      "factChecks": {
+        "added": {
+          "one": "new fact-check",
+          "other": "new fact-checks"
+        },
+        "updated": {
+          "one": "fact-check updated",
+          "other": "fact-checks updated"
+        },
+        "removed": {
+          "one": "fact-check removed",
+          "other": "fact-checks removed"
+        }
+      },
+      "debates": {
+        "added": {
+          "one": "new debate card",
+          "other": "new debate cards"
+        },
+        "updated": {
+          "one": "debate card updated",
+          "other": "debate cards updated"
+        },
+        "removed": {
+          "one": "debate card removed",
+          "other": "debate cards removed"
+        }
+      },
+      "fallacies": {
+        "added": {
+          "one": "new entry in the guide to fallacies",
+          "other": "new entries in the guide to fallacies"
+        },
+        "updated": {
+          "one": "entry updated in the guide to fallacies",
+          "other": "entries updated in the guide to fallacies"
+        },
+        "removed": {
+          "one": "entry removed from the guide to fallacies",
+          "other": "entries removed from the guide to fallacies"
+        }
+      },
+      "videos": {
+        "added": {
+          "one": "new recommended video",
+          "other": "new recommended videos"
+        },
+        "updated": {
+          "one": "video recommendation updated",
+          "other": "video recommendations updated"
+        },
+        "removed": {
+          "one": "video recommendation removed",
+          "other": "video recommendations removed"
+        }
+      },
+      "gallery": {
+        "added": {
+          "one": "new poster in the gallery",
+          "other": "new posters in the gallery"
+        },
+        "updated": {
+          "one": "gallery poster updated",
+          "other": "gallery posters updated"
+        },
+        "removed": {
+          "one": "poster removed from the gallery",
+          "other": "posters removed from the gallery"
+        }
+      },
+      "pages": {
+        "added": {
+          "one": "new study page",
+          "other": "new study pages"
+        },
+        "updated": {
+          "one": "study page updated",
+          "other": "study pages updated"
+        },
+        "removed": {
+          "one": "study page removed",
+          "other": "study pages removed"
+        }
+      },
+      "start": {
+        "added": {
+          "one": "new step in Where to start",
+          "other": "new steps in Where to start"
+        },
+        "updated": {
+          "one": "step updated in Where to start",
+          "other": "steps updated in Where to start"
+        },
+        "removed": {
+          "one": "step removed from Where to start",
+          "other": "steps removed from Where to start"
+        }
+      },
+      "questions": {
+        "added": {
+          "one": "new starting question",
+          "other": "new starting questions"
+        },
+        "updated": {
+          "one": "starting question updated",
+          "other": "starting questions updated"
+        },
+        "removed": {
+          "one": "starting question removed",
+          "other": "starting questions removed"
+        }
+      },
+      "quotes": {
+        "added": {
+          "one": "new quote of the day",
+          "other": "new quotes of the day"
+        },
+        "updated": {
+          "one": "quote of the day updated",
+          "other": "quotes of the day updated"
+        },
+        "removed": {
+          "one": "quote of the day removed",
+          "other": "quotes of the day removed"
+        }
+      },
+      "radios": {
+        "added": {
+          "one": "new station in People's radio",
+          "other": "new stations in People's radio"
+        },
+        "updated": {
+          "one": "station updated in People's radio",
+          "other": "stations updated in People's radio"
+        },
+        "removed": {
+          "one": "station removed from People's radio",
+          "other": "stations removed from People's radio"
+        }
+      },
+      "news": {
+        "added": {
+          "one": "new outlet in the news round-up",
+          "other": "new outlets in the news round-up"
+        },
+        "updated": {
+          "one": "outlet updated in the news round-up",
+          "other": "outlets updated in the news round-up"
+        },
+        "removed": {
+          "one": "outlet removed from the news round-up",
+          "other": "outlets removed from the news round-up"
+        }
+      }
     }
   },
   "dedication": {
@@ -951,6 +1237,78 @@
     "graficos": [
       "Graphs and algebra",
       "Plot functions, simplify expressions and compute derivatives."
+    ],
+    "resolvedor": [
+      "Step-by-step solver",
+      "Fractions, percentages, the rule of three, linear and quadratic equations and systems, explained step by step."
+    ],
+    "estatistica": [
+      "Statistics",
+      "Mean, median, mode, standard deviation, quartiles and a histogram for a list of numbers."
+    ],
+    "conversor-de-unidades": [
+      "Unit converter",
+      "Length, area, mass, time, temperature, energy and more, with the calculation shown."
+    ],
+    "tabela-verdade": [
+      "Truth table",
+      "Build the table for any proposition and see whether it is a tautology, a contradiction or a contingency."
+    ],
+    "massa-molar": [
+      "Molar mass",
+      "The molar mass of any formula and the percentage of each element."
+    ],
+    "balanceamento": [
+      "Equation balancer",
+      "The smallest whole-number coefficients, checked atom by atom."
+    ],
+    "punnett": [
+      "Punnett square",
+      "Crosses with one or two genes and X-linked inheritance, with the ratios."
+    ],
+    "sistema-solar": [
+      "Solar system",
+      "Sizes and distances, how much you would weigh on each planet and how long sunlight takes to arrive."
+    ],
+    "html": [
+      "HTML workshop",
+      "Write HTML, CSS and JavaScript and see the result alongside."
+    ],
+    "cronometro": [
+      "Study timer",
+      "Pomodoro, the Enem exam times and a simple stopwatch."
+    ],
+    "redacao": [
+      "Essay sheet",
+      "Write in the Enem format, count words and lines and review against the five competencies."
+    ],
+    "silabario": [
+      "Syllable chart",
+      "Letters and syllables that speak when you tap them, for learning to read (in Portuguese)."
+    ],
+    "cores": [
+      "Colors and contrast",
+      "Harmonies, HEX, RGB and HSL conversion and contrast for readability."
+    ],
+    "escala-cartografica": [
+      "Map scale",
+      "From the map to the ground and back, with the calculation."
+    ],
+    "fusos-horarios": [
+      "Time zones",
+      "What time it is now in cities in Brazil and around the world."
+    ],
+    "mais-valia": [
+      "Surplus value",
+      "How much of the working day pays the wage and how much goes to the boss, following Marx."
+    ],
+    "rcp": [
+      "CPR rhythm",
+      "The beat for chest compressions and the steps for bystanders. It does not replace a course."
+    ],
+    "frequencia-cardiaca": [
+      "Heart rate",
+      "Estimated maximum heart rate and the effort zones for training."
     ]
   },
   "tools": {
@@ -1034,7 +1392,7 @@
       "placeholder": "e.g. (2 + 3) × 4 ^ 2",
       "result": "Calculate",
       "invalid": "This calculation could not be understood. Check the brackets and the signs.",
-      "help": "Accepts + − × ÷, powers (^), percentages (%), factorials (!), brackets, π, e, and the functions sqrt( ), sin( ), cos( ), tan( ), log( ) in base 10, ln( ) and abs( ). A comma or a point separates the decimals.",
+      "help": "Accepts + − × ÷, powers (^), percent (%), factorial (!), parentheses, π, e, ans (the last result) and the functions sqrt( ), sin( ), cos( ), tan( ), the inverses sin⁻¹, cos⁻¹ and tan⁻¹, log( ) in base 10 and ln( ). The point separates decimals.",
       "history": "Previous calculations",
       "clear": "Clear",
       "erase": "Delete the last character",
@@ -1045,7 +1403,12 @@
       "decimal": ".",
       "steps": "Step by step",
       "stepsCopy": "Copy the working to paste into a lesson",
-      "stepsCopied": "Copied. Paste it into the lesson text: it shows up formatted."
+      "stepsCopied": "Copied. Paste it into the lesson text: it shows up formatted.",
+      "memory": "Memory",
+      "memoryClear": "Clear the memory",
+      "memoryRecall": "Use the number in memory",
+      "memoryAdd": "Add the last result to memory",
+      "memorySubtract": "Subtract the last result from memory"
     },
     "interest": {
       "initial": "Starting amount",
@@ -1116,6 +1479,585 @@
       "simplified": "Simplified",
       "derivative": "Derivative",
       "hint": "Type as on a calculator: 3x^2 + 2x - 1, sqrt(x), sin(x), log(x), e. Use a dot or comma for decimals."
+    },
+    "universal": "A tool for any lesson: it is always in the lessons' toolbox.",
+    "box": {
+      "open": "Tools",
+      "openLabel": "Open the toolbox for this lesson",
+      "title": "Toolbox",
+      "close": "Close",
+      "choose": "Choose a tool",
+      "bigger": "Taller",
+      "smaller": "Shorter",
+      "suggested": "suggested for this lesson"
+    },
+    "solver": {
+      "modes": {
+        "conta": "Expression or equation",
+        "porcentagem": "Percentage",
+        "regra": "Rule of three"
+      },
+      "input": "Expression, equation or system",
+      "placeholder": "E.g. 1/2 + 3/4   ·   2x + 3 = 11   ·   x² − 5x + 6 = 0",
+      "keys": "Math keys",
+      "erase": "Delete the last character",
+      "solve": "Solve",
+      "complex": "Show complex roots when Δ is negative",
+      "method": "Solve systems by",
+      "addition": "elimination",
+      "substitution": "substitution",
+      "help": "Fractions with a slash (3/4); to divide, use ÷. Powers with ^ or ² (x^2, x²). Two equations in x and y, separated by a semicolon or on separate lines, make a system.",
+      "examples": "Examples",
+      "answer": "Answer",
+      "approx": "As a decimal",
+      "steps": "Step by step",
+      "copy": "Copy the steps",
+      "copied": "Copied.",
+      "photo": {
+        "button": "Photo of the exercise",
+        "label": "Take or choose a photo of the exercise",
+        "warning": "The photo goes to an artificial intelligence service run by another company (Anthropic), which reads the exercise and explains how to solve it. Photograph only the exercise, with no names or faces. The Lúcia Institute does not keep the photo.",
+        "reading": "Reading the photo… this can take up to a minute.",
+        "read": "What the assistant read in the photo",
+        "solveHere": "Solve it here, step by step",
+        "explanation": "The assistant's explanation",
+        "mayErr": "Automatic reading and explanation, which may contain mistakes. Check the transcription before trusting the calculation.",
+        "refused": "The assistant could not help with this photo.",
+        "cut": "The explanation was too long and was cut off at the end.",
+        "left": "Questions to the assistant left for today: {n}."
+      },
+      "pct": {
+        "de": "What is p% of a value",
+        "quanto": "A part is what % of the whole",
+        "variacao": "Increase or discount",
+        "percent": "Percentage (%)",
+        "part": "Part",
+        "whole": "Whole",
+        "value": "Value",
+        "increase": "Increase",
+        "discount": "Discount"
+      },
+      "rule": {
+        "a": "If this value…",
+        "b": "…corresponds to this one,",
+        "c": "then this value…",
+        "direct": "Directly proportional: one grows and the other grows with it (more bread, more flour).",
+        "inverse": "Inversely proportional: one grows and the other shrinks (more builders, fewer days of work).",
+        "help": "First check that the quantities really are proportional: age and height, for example, are not."
+      },
+      "errors": {
+        "vazio": "Type the calculation first.",
+        "leitura": "That could not be understood. Check the parentheses, the signs and that there is only one equals sign.",
+        "divisao": "Division by zero: it does not exist.",
+        "nao_suportado": "The solver cannot do this yet (roots, functions, x in a denominator). For calculations with decimals, use the calculator.",
+        "grau": "Equations above degree 2 are not solved here yet.",
+        "variavel": "Use only the letter x in an equation (x and y only in systems of two equations).",
+        "sistema": "A system here has exactly two equations, in x and y.",
+        "numero": "Type numbers (with a point or comma for decimals)."
+      },
+      "stepTexts": {
+        "expressao": "The calculation:",
+        "mmc": "To add or subtract fractions, they need the same denominator. The LCM of {a} and {b} is {m}:",
+        "somar": "Add:",
+        "subtrair": "Subtract:",
+        "somar_fracoes": "With the same denominator ({d}), add the numerators:",
+        "subtrair_fracoes": "With the same denominator ({d}), subtract the numerators:",
+        "multiplicar": "Multiply:",
+        "multiplicar_fracoes": "Multiply numerator by numerator and denominator by denominator:",
+        "dividir": "Divide:",
+        "inversa": "Dividing by {f} is the same as multiplying by its reciprocal, {i}:",
+        "potencia": "Work out the power (exponent {e}):",
+        "potencia_negativa": "Negative exponent: flip the base and use the positive exponent:",
+        "simplificar": "Simplify {de} by dividing top and bottom by {g}: {para}",
+        "em_decimal": "As a decimal: {valor}",
+        "misto": "As a mixed number: {inteiro} and {fracao}",
+        "equacao": "The equation:",
+        "organizar": "Tidy up each side (expand the parentheses and combine like terms):",
+        "transpor": "Move the x terms to the left and the numbers to the right, changing the sign when they cross:",
+        "identidade": "Both sides are equal for any x: the equation has infinitely many solutions.",
+        "impossivel": "The x terms cancel and a false equality is left: the equation has no solution.",
+        "juntar": "Combine the terms on each side:",
+        "dividir_lados": "Divide both sides by {a}:",
+        "resultado": "Result:",
+        "conferir": "Check: replace x with {x} in the original equation and see that both sides give the same number.",
+        "igualar_zero": "This is a quadratic equation. Move everything to one side, leaving zero on the other:",
+        "tirar_fracoes": "Multiply everything by {m} to clear the fractions:",
+        "coeficientes": "The coefficients: a = {a}, b = {b}, c = {c}.",
+        "delta": "Work out the discriminant, Δ = b² − 4ac:",
+        "delta_negativo": "Δ is negative: there is no real root (no real number squared is negative).",
+        "complexas": "In the complex numbers, with i = √−1:",
+        "raiz_dupla": "Δ = 0: the two roots are equal (a double root), x = −b ÷ 2a:",
+        "bhaskara": "Δ is positive: there are two real roots. By the quadratic formula, x = (−b ± √Δ) ÷ 2a:",
+        "raiz_exata": "√{delta} = {raiz}. The two roots:",
+        "simplificar_raiz": "Simplify the root: {delta} has a perfect-square factor, so √{delta} = {fora}√{dentro}:",
+        "simplificar_fracao_raiz": "Divide everything by {g}:",
+        "aproximar": "As decimals: x₁ ≈ {x1} and x₂ ≈ {x2}.",
+        "sistema": "The system:",
+        "sistema_impossivel": "The two equations are parallel lines: the system has no solution (inconsistent).",
+        "sistema_indeterminado": "The two equations are the same line: the system has infinitely many solutions (dependent).",
+        "isolar_direto": "One of the equations has only x: solve it first.",
+        "multiplicar_equacoes": "Multiply the first equation by {f1} and the second by {f2}, so the y terms become opposites:",
+        "somar_equacoes": "Add the two equations: the y terms cancel.",
+        "achar_x": "Find x:",
+        "isolar": "Isolate {letra} in the first equation:",
+        "substituir": "Substitute into the second equation and solve:",
+        "voltar": "Go back to one of the equations to find the other letter:",
+        "conferir_sistema": "Check: with x = {x} and y = {y}, both equations are true.",
+        "pct_ideia": "{p}% means {p} out of every 100: multiply by the value and divide by 100.",
+        "pct_conta": "The calculation:",
+        "pct_parte": "Divide the part by the whole:",
+        "pct_vezes_cem": "Multiply by 100 to get the percentage:",
+        "pct_somar": "Add it to the value:",
+        "pct_tirar": "Take it off the value:",
+        "pct_fator": "Or directly, multiplying by the factor {fator}:",
+        "regra_direta": "Directly proportional quantities (one grows, the other grows with it):",
+        "regra_inversa": "Inversely proportional quantities (one grows, the other shrinks):",
+        "regra_produto_cruzado": "Cross-multiply:",
+        "regra_produto_inverso": "For inverse proportion the product stays the same: multiply along the rows:",
+        "regra_isolar": "Isolate x:"
+      }
+    },
+    "units": {
+      "quantity": "Quantity",
+      "value": "Value",
+      "from": "From",
+      "to": "To",
+      "swap": "Swap the units",
+      "factor": "1 {de} = {f} {para}",
+      "formula": "Formula",
+      "invalid": "Type a number.",
+      "below": "There is no temperature below absolute zero (−273.15 °C).",
+      "regional": "The alqueire is a regional unit in Brazil and varies from place to place: check which one applies in your region. Official documents use the hectare.",
+      "quantities": {
+        "comprimento": "Length",
+        "area": "Area",
+        "volume": "Volume",
+        "massa": "Mass",
+        "tempo": "Time",
+        "temperatura": "Temperature",
+        "velocidade": "Speed",
+        "energia": "Energy",
+        "pressao": "Pressure",
+        "potencia": "Power",
+        "dados": "Digital data"
+      },
+      "unitNames": {
+        "mm": "millimetre (mm)",
+        "cm": "centimetre (cm)",
+        "m": "metre (m)",
+        "km": "kilometre (km)",
+        "pol": "inch (in)",
+        "pe": "foot (ft)",
+        "jarda": "yard",
+        "milha": "mile",
+        "milha_nautica": "nautical mile",
+        "mm2": "square millimetre (mm²)",
+        "cm2": "square centimetre (cm²)",
+        "m2": "square metre (m²)",
+        "ha": "hectare (ha)",
+        "km2": "square kilometre (km²)",
+        "alqueire_sp": "alqueire (São Paulo)",
+        "alqueire_mg": "alqueire (Minas Gerais)",
+        "pe2": "square foot",
+        "acre": "acre",
+        "ml": "millilitre (mL)",
+        "cm3": "cubic centimetre (cm³)",
+        "l": "litre (L)",
+        "dm3": "cubic decimetre (dm³)",
+        "m3": "cubic metre (m³)",
+        "galao_us": "US gallon",
+        "mg": "milligram (mg)",
+        "g": "gram (g)",
+        "kg": "kilogram (kg)",
+        "t": "tonne (t)",
+        "arroba": "arroba (15 kg)",
+        "lb": "pound (lb)",
+        "oz": "ounce (oz)",
+        "s": "second (s)",
+        "min": "minute (min)",
+        "h": "hour (h)",
+        "dia": "day",
+        "semana": "week",
+        "ano": "year (365.25 days)",
+        "c": "degree Celsius (°C)",
+        "f": "degree Fahrenheit (°F)",
+        "k": "kelvin (K)",
+        "m_s": "metre per second (m/s)",
+        "km_h": "kilometre per hour (km/h)",
+        "mph": "mile per hour (mph)",
+        "no": "knot",
+        "j": "joule (J)",
+        "kj": "kilojoule (kJ)",
+        "cal": "calorie (cal)",
+        "kcal": "kilocalorie (kcal)",
+        "wh": "watt-hour (Wh)",
+        "kwh": "kilowatt-hour (kWh)",
+        "ev": "electronvolt (eV)",
+        "pa": "pascal (Pa)",
+        "kpa": "kilopascal (kPa)",
+        "bar": "bar",
+        "atm": "atmosphere (atm)",
+        "mmhg": "millimetre of mercury (mmHg)",
+        "psi": "pound per square inch (psi)",
+        "w": "watt (W)",
+        "kw": "kilowatt (kW)",
+        "cv": "metric horsepower (cv)",
+        "hp": "mechanical horsepower (hp)",
+        "bit": "bit",
+        "byte": "byte (B)",
+        "kb": "kilobyte (kB, a thousand bytes)",
+        "mb": "megabyte (MB)",
+        "gb": "gigabyte (GB)",
+        "tb": "terabyte (TB)",
+        "kib": "kibibyte (KiB, 1,024 bytes)",
+        "mib": "mebibyte (MiB)",
+        "gib": "gibibyte (GiB)"
+      },
+      "formulas": {
+        "c_f": "°F = °C × 9/5 + 32",
+        "f_c": "°C = (°F − 32) × 5/9",
+        "c_k": "K = °C + 273.15",
+        "k_c": "°C = K − 273.15",
+        "f_k": "K = (°F − 32) × 5/9 + 273.15",
+        "k_f": "°F = (K − 273.15) × 9/5 + 32",
+        "igual": "same unit"
+      }
+    },
+    "molar": {
+      "formula": "Formula",
+      "placeholder": "E.g. H2SO4, Ca(OH)2, CuSO4·5H2O",
+      "help": "A capital letter starts each element (Co is cobalt; CO is carbon and oxygen). Use parentheses and brackets for groups and the dot (·) for water of hydration.",
+      "result": "Molar mass",
+      "element": "Element",
+      "count": "Atoms",
+      "mass": "Atomic mass",
+      "subtotal": "Calculation",
+      "percent": "% by mass",
+      "source": "Atomic masses: the same as in the site's periodic table (IUPAC).",
+      "errors": {
+        "vazio": "Type a formula.",
+        "simbolo": "There is a symbol that is not part of a chemical formula.",
+        "elemento": "There is no element {x}.",
+        "parentese": "Check the parentheses and brackets.",
+        "carga": "Charged ions are not accepted here yet."
+      }
+    },
+    "balance": {
+      "equation": "Equation",
+      "placeholder": "E.g. CH4 + O2 -> CO2 + H2O",
+      "balance": "Balance",
+      "help": "Separate the substances with + and the two sides with -> (or →). Since no atom disappears or appears out of nowhere (Lavoisier's law), each element gives one equation; the answer is the smallest whole-number coefficients that satisfy them all.",
+      "balanced": "Balanced",
+      "check": "Check: atoms on each side",
+      "element": "Element",
+      "left": "Reactants",
+      "right": "Products",
+      "errors": {
+        "vazio": "Type the equation.",
+        "simbolo": "There is a symbol that is not part of a chemical formula.",
+        "elemento": "There is no element {x}.",
+        "parentese": "Check the parentheses and brackets.",
+        "carga": "Charged ions are not accepted here yet.",
+        "seta": "Use an arrow (-> or →) between the reactants and the products.",
+        "lado": "One side of the equation is missing.",
+        "sem_solucao": "As written, this reaction does not balance: check the formulas.",
+        "varias_solucoes": "This equation can be balanced in more than one independent way (it looks like two reactions together). Separate the reactions."
+      }
+    },
+    "punnett": {
+      "title": "Punnett square",
+      "mother": "First parent (the mother, for X-linked traits)",
+      "father": "Second parent (the father, for X-linked traits)",
+      "cross": "Cross",
+      "help": "A capital letter is the dominant allele; lower case, the recessive one. One gene: Aa. Two genes: AaBb. X-linked: XAXa (female) and XAY (male).",
+      "examples": "Examples",
+      "genotypes": "Genotypes",
+      "phenotypes": "Phenotypes",
+      "ratio": "Ratio",
+      "dominant": "dominant trait ({g})",
+      "recessive": "recessive trait ({g})",
+      "sex": {
+        "homem": "Male",
+        "mulher": "Female"
+      },
+      "status": {
+        "normal": "without the trait",
+        "portadora": "carrier (does not show the trait but passes it on)",
+        "afetado": "with the trait"
+      },
+      "explainMono": "Each parent passes on one allele of each gene, at random (Mendel's first law). Every box in the square has the same chance: the phenotype ratio is the chance of each child being born with that trait.",
+      "explainDi": "With two genes on different chromosomes, the alleles separate independently (Mendel's second law): that is why a dihybrid cross has 16 boxes and, between two heterozygotes, the ratio 9 : 3 : 3 : 1.",
+      "explainX": "In X-linked inheritance, males have only one X: a single recessive allele is enough for the trait to show. That is why colour blindness and haemophilia are more common in men.",
+      "errors": {
+        "vazio": "Type both genotypes.",
+        "genotipo": "That genotype could not be understood. Write the alleles in pairs: Aa, AaBb, XAXa, XAY.",
+        "genes_diferentes": "Both parents need to have the same genes (the same letters).",
+        "muitos_genes": "Up to two genes fit here (AaBb).",
+        "sexo": "For X-linked traits, the first genotype is the mother's (XX) and the second is the father's (XY)."
+      }
+    },
+    "stats": {
+      "numbers": "Numbers",
+      "placeholder": "E.g. 7.5, 8, 6, 9.5, 7",
+      "help": "Separate with commas, semicolons, spaces or one number per line. With semicolons, spaces or new lines, a comma is read as the decimal mark (as in Portuguese); with commas only, use a point for decimals.",
+      "n": "Count (n)",
+      "sum": "Sum",
+      "mean": "Mean",
+      "median": "Median",
+      "mode": "Mode",
+      "noMode": "none (no mode)",
+      "min": "Smallest value",
+      "max": "Largest value",
+      "range": "Range",
+      "q1": "First quartile (Q1)",
+      "q3": "Third quartile (Q3)",
+      "varPop": "Population variance",
+      "sdPop": "Population standard deviation",
+      "varSample": "Sample variance",
+      "sdSample": "Sample standard deviation",
+      "whichSd": "Use the population version when the numbers are the whole group (all the marks in a class) and the sample version, with n − 1, when they are a sample of a larger group.",
+      "quartiles": "Quartiles by the median-of-halves method used in school textbooks. Spreadsheets use other methods and may give slightly different values.",
+      "histogram": "Histogram",
+      "classes": "classes by Sturges' rule",
+      "classesNote": "Each class includes its start but not its end (⊢); the last one also includes the largest value.",
+      "errors": {
+        "vazio": "Type at least one number.",
+        "numero": "“{x}” could not be read as a number."
+      }
+    },
+    "truth": {
+      "formula": "Proposition",
+      "placeholder": "E.g. (p → q) ∧ p → q",
+      "clear": "Clear",
+      "help": "¬ not (~ or !), ∧ and (&), ∨ or (|), ⊕ exclusive or (xor), → if… then (->), ↔ if and only if (<->). Propositions are lower-case letters (except e, v and f). V = true, F = false (from the Portuguese verdadeiro and falso).",
+      "true": "V",
+      "false": "F",
+      "result": {
+        "tautologia": "Tautology: true in every row.",
+        "contradicao": "Contradiction: false in every row.",
+        "contingencia": "Contingency: true in some rows and false in others."
+      },
+      "errors": {
+        "vazio": "Type a proposition.",
+        "simbolo": "There is a symbol that is neither a connective nor a proposition.",
+        "parentese": "Check the parentheses.",
+        "falta": "Something is missing: a connective without both sides, for example.",
+        "muitas": "Up to six propositions fit here (64 rows)."
+      }
+    },
+    "solar": {
+      "weight": "Your weight on Earth (kg)",
+      "scale": "Sizes to scale",
+      "body": "Body",
+      "diameter": "Diameter",
+      "gravity": "Gravity",
+      "distance": "Mean distance from the Sun",
+      "light": "Sunlight takes",
+      "yourWeight": "On a scale there",
+      "names": {
+        "mercurio": "Mercury",
+        "venus": "Venus",
+        "terra": "Earth",
+        "lua": "Moon",
+        "marte": "Mars",
+        "jupiter": "Jupiter",
+        "saturno": "Saturn",
+        "urano": "Uranus",
+        "netuno": "Neptune",
+        "plutao": "Pluto"
+      },
+      "notes": "The Moon is 384,000 km from Earth. Pluto has been classified as a dwarf planet since 2006. Jupiter, Saturn, Uranus and Neptune have no solid ground: their gravity is given at the cloud tops. The number on the scale changes, not your mass: what changes is how strongly each body pulls on you.",
+      "source": "Data: NASA, Planetary Fact Sheet.",
+      "seconds": "{s} s",
+      "minutes": "{m} min {s} s",
+      "hours": "{h} h {m} min"
+    },
+    "timer": {
+      "modes": {
+        "pomodoro": "Pomodoro",
+        "enem": "Enem exam",
+        "livre": "Stopwatch"
+      },
+      "focus": "Focus",
+      "break": "Break",
+      "minutes": "minutes",
+      "round": "round {n}",
+      "start": "Start",
+      "pause": "Pause",
+      "resume": "Resume",
+      "reset": "Reset",
+      "done": "Time's up.",
+      "sound": "Beep when it ends",
+      "dia1": "Day 1: Languages, Human Sciences and Essay (5 h 30 min)",
+      "dia2": "Day 2: Natural Sciences and Mathematics (5 h)",
+      "enemNote": "Times from the official 2026 Enem notice published by Inep, Brazil's national exam body. In the exam, the clock starts when the room supervisor authorizes it; candidates entitled to extra time get more. Practising with the real time helps you pace the exam.",
+      "help": "Pomodoro: blocks of focus (25 minutes is the classic length) with short breaks in between. Adjust the times to whatever works for you.",
+      "freeHelp": "Shows how much time has passed. Good for timing a question or a reading."
+    },
+    "essay": {
+      "sheet": "Your essay",
+      "placeholder": "Write here. Leave a blank line between paragraphs.",
+      "saved": "The text is saved on this device only.",
+      "lines": "Lines (estimate)",
+      "words": "Words",
+      "paragraphs": "Paragraphs",
+      "chars": "Characters",
+      "over": "More than 30 lines: anything past that is not marked.",
+      "under": "With 7 lines or fewer, the essay gets a zero (insufficient text).",
+      "perLine": "Characters per line in your handwriting",
+      "perLineHelp": "There is no official number: it depends on the size of your handwriting. To get it right, write one line in your handwriting on lined paper, count the characters (including spaces) and enter it here.",
+      "limit": "The Enem answer sheet has 30 lines. With 7 lines or fewer the essay gets a zero, according to Inep's Participant's Guide.",
+      "competencies": "The five competencies (Inep)",
+      "list": [
+        "Show command of the formal written variety of Portuguese.",
+        "Understand the essay prompt and apply concepts from different areas of knowledge to develop the topic, within the structure of an argumentative prose essay.",
+        "Select, relate, organize and interpret information, facts, opinions and arguments in defence of a point of view.",
+        "Show knowledge of the linguistic devices needed to build an argument.",
+        "Propose an intervention for the problem discussed, respecting human rights."
+      ],
+      "lessons": "Essay lessons for the Enem"
+    },
+    "syllables": {
+      "help": "Tap a syllable to hear it. Tap several, one after the other, to build a word, and hear the whole word. The syllables are in Portuguese.",
+      "noVoice": "This browser has no Portuguese voice installed: the syllables appear, but they do not speak.",
+      "word": "Your word",
+      "listen": "Hear the word",
+      "clear": "Start again",
+      "vowels": "Vowels",
+      "families": "Syllable families",
+      "examples": "Words to hear"
+    },
+    "cpr": {
+      "call": "Someone who has collapsed, does not respond and is not breathing normally: call 192 (SAMU, Brazil's emergency medical service) now and put it on speaker. Outside Brazil, call your local emergency number.",
+      "count": "compressions",
+      "perMinute": "per minute",
+      "start": "Start the beat",
+      "stop": "Stop",
+      "rate": "Rate",
+      "sound": "With sound (you can use the circle alone)",
+      "steps": [
+        "Make sure the place is safe for you. Call the person loudly and tap their shoulders.",
+        "If they do not respond and are not breathing normally (or are only gasping), call the emergency number and put it on speaker. Ask someone to look for a defibrillator (AED) nearby.",
+        "Kneel beside them. Put the heel of one hand in the centre of the chest and the other hand on top, arms straight.",
+        "Push hard and fast: 5 to 6 cm deep in an adult, 100 to 120 times a minute, to the rhythm of this beat.",
+        "Let the chest come all the way back up between compressions. Do not stop: if someone else is there, swap every 2 minutes, quickly.",
+        "Keep going until the ambulance team arrives or the person starts breathing again. If an AED arrives, switch it on and follow its instructions."
+      ],
+      "warning": "This does not replace a first aid course. The technique is different for children and babies.",
+      "sources": "Sources:"
+    },
+    "heart": {
+      "age": "Your age",
+      "invalid": "Type an age between 10 and 100.",
+      "max": "Estimated maximum heart rate",
+      "bpm": "beats per minute",
+      "tanaka": "By the Tanaka formula (208 − 0.7 × age), the more accurate one in older adults.",
+      "fox": "By the older, better-known formula (220 − age).",
+      "zones": "Effort zones",
+      "moderado": "Moderate (50% to 70% of maximum)",
+      "vigoroso": "Vigorous (70% to 85% of maximum)",
+      "howTo": "To measure: two fingers on your wrist or neck, count the beats for 15 seconds and multiply by 4.",
+      "warning": "This is an estimate for groups of people: an individual's maximum can be about 10 beats higher or lower. Anyone with a heart condition or high blood pressure, taking medicine that changes the heart rate (such as a beta-blocker) or just starting to exercise should talk to a health professional first.",
+      "sources": "Sources:"
+    },
+    "mapScale": {
+      "modes": {
+        "real": "From the map to the ground",
+        "mapa": "From the ground to the map",
+        "escala": "Find the scale"
+      },
+      "scale": "Scale",
+      "onMap": "Measurement on the map",
+      "real": "Measurement on the ground",
+      "resultIn": "Result in",
+      "howReal": "{a} {u} × {n} = {r} {v} on the ground (at a scale of 1:{n}, each unit on the map is {n} on the ground).",
+      "howMap": "{a} {u} ÷ {n} = {r} {v} on the map.",
+      "howFind": "Ground ÷ map, in the same units: {b} {v} ÷ {a} {u} = {r}. The scale is 1:{r}.",
+      "invalid": "Check the numbers (only numbers greater than zero).",
+      "graphic": "Graphic scale",
+      "graphicNote": "Each 1 cm stretch on the map = {km} km on the ground."
+    },
+    "timezones": {
+      "cities": {
+        "brasilia": "Brasília",
+        "manaus": "Manaus",
+        "rio_branco": "Rio Branco",
+        "noronha": "Fernando de Noronha",
+        "buenos_aires": "Buenos Aires",
+        "santiago": "Santiago, Chile",
+        "bogota": "Bogotá",
+        "cidade_mexico": "Mexico City",
+        "havana": "Havana",
+        "caracas": "Caracas",
+        "la_paz": "La Paz",
+        "nova_york": "New York",
+        "lisboa": "Lisbon",
+        "londres": "London",
+        "paris": "Paris",
+        "moscou": "Moscow",
+        "luanda": "Luanda",
+        "maputo": "Maputo",
+        "joanesburgo": "Johannesburg",
+        "nova_delhi": "New Delhi",
+        "pequim": "Beijing",
+        "toquio": "Tokyo",
+        "sydney": "Sydney"
+      },
+      "offset": "difference from Brasília",
+      "remove": "Remove",
+      "add": "Add",
+      "compare": "Compare a time",
+      "when": "When it is",
+      "in": "in",
+      "now": "Back to now",
+      "help": "The differences come from the browser itself, including daylight saving time where it applies. Brazil has not had daylight saving time since 2019."
+    },
+    "colors": {
+      "color": "Color",
+      "harmonies": "Harmonies (color wheel)",
+      "kinds": {
+        "complementar": "Complementary",
+        "analogas": "Analogous",
+        "triade": "Triad"
+      },
+      "use": "Use this color",
+      "invalid": "Write the color in HEX, like #c21f16.",
+      "contrast": "Contrast for reading",
+      "text": "Text",
+      "background": "Background",
+      "sample": "Sample text in these colors.",
+      "ratio": "Contrast: {r} : 1",
+      "aaNormal": "Normal text, level AA (at least 4.5 : 1)",
+      "aaLarge": "Large text, level AA (at least 3 : 1)",
+      "aaa": "Normal text, level AAA (at least 7 : 1)",
+      "pass": "passes",
+      "fail": "fails",
+      "source": "Contrast rule:"
+    },
+    "surplus": {
+      "day": "Working day (hours per day)",
+      "needed": "Necessary labour (hours that pay the wage)",
+      "wage": "Daily wage (R$)",
+      "invalid": "Check the numbers: the necessary labour cannot be longer than the working day.",
+      "bar": "The working day",
+      "neededShort": "Necessary labour",
+      "surplusHours": "Surplus labour",
+      "perHour": "Value each hour of work creates",
+      "newValue": "New value created in the working day",
+      "surplus": "Surplus value (goes to the boss)",
+      "rate": "Rate of surplus value (s/v)",
+      "explain": "In Marx's account, the working day has two parts. During necessary labour, the worker produces the equivalent of their own wage (variable capital, v). During surplus labour, they keep producing, but that value, the surplus value (s), goes to whoever owns the means of production. The rate s/v, equal to surplus labour ÷ necessary labour, measures the degree of exploitation.",
+      "assume": "The calculation assumes, as in the book's example, that every hour of work creates the same value.",
+      "source": "Source: Karl Marx, Capital, Volume I, chapter 9, “The Rate of Surplus Value” (chapter 7 in the Portuguese edition linked), on the Marxists Internet Archive."
+    },
+    "html": {
+      "sampleHtml": "<h1>Hello!</h1>\n<p>Change this text and see the result alongside.</p>\n<button>Click here</button>",
+      "sampleClicked": "You clicked! That was JavaScript.",
+      "run": "Update the result",
+      "auto": "Update as I type",
+      "reset": "Back to the example",
+      "preview": "Result",
+      "sandbox": "The result runs in a closed box, separate from the site: the code cannot read this page, your account or anything stored in the browser."
     }
   },
   "journal": {
@@ -1159,7 +2101,158 @@
     "searchButton": "Search",
     "searchNone": "No fact check found with those words. Try others.",
     "searchFail": "The search did not respond right now. Try again shortly.",
-    "searchSource": "Results from Google Fact Check Tools. Each check belongs to the agency that published it: open the link to read it."
+    "searchSource": "Results from Google Fact Check Tools. Each check belongs to the agency that published it: open the link to read it.",
+    "fallaciesLink": "See also the fallacy guide.",
+    "steps": {
+      "title": "How to check in 6 steps",
+      "lead": "Paste the message you received and answer the questions. Nothing leaves your device.",
+      "claim": "What they say",
+      "claimPlaceholder": "Paste the message, the sentence or the headline you want to check.",
+      "items": [
+        {
+          "q": "Can you tell who said this first?",
+          "help": "A named person or organization, not “a friend of a friend” or “a doctor” with no name.",
+          "options": [
+            "Yes, the source is identifiable",
+            "No way to know",
+            "Not sure"
+          ]
+        },
+        {
+          "q": "Did you find the original source?",
+          "help": "The document, the study, the law or the full speech, not just a clip or a screenshot.",
+          "options": [
+            "Yes, I read the original",
+            "It does not exist or I could not find it",
+            "Not sure"
+          ]
+        },
+        {
+          "q": "Does the date match?",
+          "help": "Many hoaxes are old news circulating as if they were new.",
+          "options": [
+            "Yes, it is current",
+            "No, it is old or from another time",
+            "Not sure"
+          ]
+        },
+        {
+          "q": "Do other reliable sources confirm it?",
+          "help": "Different outlets and agencies, not just copying each other.",
+          "options": [
+            "Yes, several confirm it",
+            "No, none confirms it",
+            "Not sure"
+          ]
+        },
+        {
+          "q": "Is the photo or video really from that place and date?",
+          "help": "Do a reverse image search (see the toolbox below).",
+          "options": [
+            "Yes, it matches",
+            "No, it is from another place or time",
+            "Not sure",
+            "There is no photo or video"
+          ]
+        },
+        {
+          "q": "Have fact-checking agencies covered it?",
+          "help": "Search in “Already checked?” above or on the agencies' websites.",
+          "options": [
+            "They said it is true",
+            "They said it is false or misleading",
+            "I found no fact check"
+          ]
+        }
+      ],
+      "result": "Suggested result",
+      "results": {
+        "checadores": "Fact-checking agencies have already said it is false or misleading. Do not pass it on; if you want, reply with the link to the fact check.",
+        "falso": "No author, no original source and no confirmation: probably false or baseless. Do not pass it on.",
+        "contexto": "There may be something real in it, but it is out of context (date, place or an image from another situation). As it stands, it misleads.",
+        "confiavel": "It passed the steps: it looks reliable. When you share it, include the original source.",
+        "duvida": "It is still impossible to tell. When in doubt, do not share: wait for a reliable source."
+      },
+      "pending": "Answer the six steps to see the suggested result.",
+      "copy": "Copy the summary",
+      "copied": "Summary copied.",
+      "reset": "Start over",
+      "note": "The result is a suggestion based on your answers, not a verdict."
+    },
+    "verdicts": {
+      "title": "What each label means",
+      "items": {
+        "Falso": "False: the claim contradicts the facts and reliable sources.",
+        "Enganoso": "Misleading: it mixes truth with distortion, or uses a real figure to lead to a wrong conclusion.",
+        "Falta contexto": "Lacks context: the figure, photo or quote is real, but without the right date, place or comparison it gives the wrong idea.",
+        "Verdadeiro": "True: it matches reliable sources."
+      }
+    },
+    "toolbox": {
+      "title": "Fact-checking toolbox",
+      "lead": "Free services to check things yourself. The links open each service's website.",
+      "groups": {
+        "imagem": [
+          "Reverse image search",
+          "Upload the photo or paste the link: the search engine shows where and when it appeared before."
+        ],
+        "video": [
+          "Video",
+          "To split a video into frames and find where it came from."
+        ],
+        "arquivo": [
+          "Old pages",
+          "To see what a page looked like before it was changed or deleted."
+        ],
+        "agencias": [
+          "Brazilian fact-checking agencies",
+          "See whether journalists have already checked the hoax."
+        ],
+        "buscador": [
+          "Fact-check search engine",
+          "Searches fact checks from agencies around the world."
+        ],
+        "dados": [
+          "Official data",
+          "To check the figures at the source."
+        ],
+        "dominio": [
+          "Who owns the website",
+          "To find out who registered an internet address."
+        ],
+        "guias": [
+          "To learn more",
+          "Guides by people who investigate with open sources."
+        ]
+      },
+      "tools": {
+        "google-lens": "Image search on Google.",
+        "tineye": "Shows when the image first appeared and its altered versions.",
+        "bing": "Microsoft's visual search.",
+        "yandex": "Often finds faces and places other search engines miss.",
+        "invid": "A free browser extension used by journalists: it splits the video into frames and runs a reverse search on each one.",
+        "wayback": "The internet archive, with copies of pages since 1996.",
+        "archive-today": "Saves an exact copy of a page right now.",
+        "lupa": "The first Brazilian agency specialized in fact-checking.",
+        "aos-fatos": "Fact-checking and investigation of disinformation.",
+        "fato-ou-fake": "Fact checks by g1, from Grupo Globo.",
+        "estadao-verifica": "The fact-checking desk of the newspaper O Estado de S. Paulo.",
+        "uol-confere": "Fact checks by the UOL portal.",
+        "comprova": "News outlets that check hoaxes about public policy and elections together.",
+        "boatos": "Debunks internet hoaxes and chain messages since 2013.",
+        "e-farsas": "One of Brazil's oldest fact-checking sites, online since 2002.",
+        "fact-check-explorer": "Searches fact checks from agencies in many countries and languages.",
+        "ibge": "Population, employment, income and prices.",
+        "transparencia": "Federal government spending and transfers.",
+        "tse": "Candidacies, declared assets and campaign accounts.",
+        "datasus": "Health data: diseases, hospital admissions and deaths.",
+        "dou": "Laws, decrees and appointments, officially published.",
+        "camara": "Bills, votes and speeches by federal deputies.",
+        "senado": "Bills, votes and legislation in the Senate.",
+        "registro-br": "Shows who registered an address ending in .br.",
+        "bellingcat": "Guides to open-source investigation."
+      }
+    }
   },
   "debates": {
     "eyebrow": "Arguments at hand",
@@ -1168,7 +2261,37 @@
     "claim": "They say",
     "answer": "Answer",
     "more": "To go deeper",
-    "download": "Download as an image"
+    "download": "Download as an image",
+    "beforeTitle": "Before you debate: know the fallacies",
+    "beforeText": "Straw man, false dilemma, personal attack: the most common tricks and how to answer each one.",
+    "beforeLink": "Open the fallacy guide",
+    "fallacies": "Fallacies in this phrase"
+  },
+  "fallacies": {
+    "eyebrow": "Thinking for yourself",
+    "title": "Fallacy guide",
+    "lead": "A fallacy is reasoning that looks right but does not hold up. Knowing the most common ones helps you avoid them and answer calmly when they show up in a conversation, a video or a debate.",
+    "families": {
+      "relevancia": "Reasons beside the point",
+      "provas": "Weak evidence",
+      "premissas": "Hidden premises",
+      "desvio": "Derailing the discussion",
+      "sentido": "Confusions of meaning"
+    },
+    "filter": "Type",
+    "all": "All",
+    "find": "Search",
+    "count": "{n} fallacies",
+    "none": "No fallacy matches this search.",
+    "what": "What it is",
+    "everyday": "In everyday life",
+    "publicDebate": "In public debate",
+    "reply": "How to answer",
+    "related": "Similar",
+    "inDebates": "Appears in the debate cards",
+    "remember": "Pointing out a fallacy does not prove the conclusion is false: it only shows that this argument does not support it. And the best answer is almost never the Latin name, but the right question.",
+    "toDebates": "See the debate cards",
+    "toChecks": "See the fact checks"
   },
   "questions": {
     "eyebrow": "Where to begin",
@@ -1237,7 +2360,6 @@
     "lead": "What did not fit in the menu, gathered in one place.",
     "critical": "Critical reading",
     "items": {
-      "podcasts": "Political education episodes to listen to on the bus, in the kitchen or on your work break.",
       "tools": "Tuner, code editor, periodic table and others.",
       "questions": "Everyday questions that lead to the right lessons.",
       "glossary": "Difficult terms in plain language.",
@@ -1248,12 +2370,14 @@
       "timeline": "From the revolts of the past to today's struggles.",
       "factCheck": "Rumours checked against public sources.",
       "debates": "Short answers to stock phrases.",
+      "fallacies": "The most common tricks of argument, and how to answer each one.",
       "radio": "Music and spoken word to study by.",
       "volunteers": "Review, translate, teach or write.",
       "about": "What the institute is and how the content is licensed.",
       "history": "Everything that has changed in the collection, with dates.",
       "myData": "Download or erase what is stored in this browser.",
       "mural": "Cooperatives, trades, art and initiatives by working people.",
+      "drawer": "Student work, free for everyone: theses, papers, projects and study notes.",
       "tutoring": "Stuck on a subject? A volunteer answers your question by e-mail.",
       "materials": "Zines, leaflets, posters and banners to download and hand out.",
       "privacy": "What the site stores, where and for how long, and how to erase it.",
@@ -1263,11 +2387,12 @@
       "dedication": "Where the institute's name comes from.",
       "contribute": "Send a lesson, a work, a correction or an idea.",
       "support": "Help pay for the server and the domain.",
-      "instagram": "Institute news, lessons and calls for volunteers.",
       "start": "Short books and lessons for the first steps.",
       "news": "Headlines from grassroots, independent and public outlets, updated automatically.",
       "gallery": "Posters and images of the workers' struggle, with the story behind each one.",
       "data": "Minimum wage, inflation, interest, unemployment and what Congress voted, from official sources.",
+      "podcasts": "Political education episodes to listen to on the bus, in the kitchen or on your work break.",
+      "instagram": "Institute news, lessons and calls for volunteers.",
       "live": "Schedule of live classes, with video and chat on the site itself.",
       "notebook": "Gather lessons and texts and get summary, flashcards, quiz, map, timeline and audio from them. All in your browser."
     }
@@ -1294,6 +2419,10 @@
     "wallEmpty": "The wall is still empty."
   },
   "auth": {
+    "unconfirmed": "Your email is not confirmed yet. Open the email we sent and tap “Confirm email”. Can't find it, or the link expired? Ask for another one here.",
+    "resend": "Resend confirmation email",
+    "resent": "Done: we sent a new email. Open it and tap the button within 24 hours (check spam too). Then sign in here.",
+    "expired": "The confirmation link expired or was already used. Type your email and password, tap Sign in and ask for a new email.",
     "or": "or",
     "fingerprint": "Sign in with fingerprint",
     "fingerprintHint": "Works after you register this device's fingerprint in the panel, under My account. The fingerprint never leaves your phone.",
@@ -1398,8 +2527,18 @@
     "conteudo_recusado": "The text has words this site does not accept. Rewrite it and send again.",
     "sem_links": "Text only here: no website addresses, images or files.",
     "envios_pausados": "Submissions are paused at the moment.",
+    "area_interditada": "This part of the site is closed for a while. Please try again later.",
+    "falta_termo": "To publish, accept the terms and type your full name.",
     "acesso_bloqueado": "Submissions from this network have been blocked by the mediators.",
-    "ja_pediu": "You have already sent this request; it is under review."
+    "ja_pediu": "You have already sent this request; it is under review.",
+    "assistente_desligado": "The assistant is switched off right now. Ask a volunteer for tutoring.",
+    "assistente_limite": "You have used all of today's questions to the assistant. There will be more tomorrow; meanwhile, ask a volunteer for tutoring.",
+    "assistente_lotado": "The assistant has reached today's question limit for the whole site. Ask a volunteer for tutoring or try again tomorrow.",
+    "assistente_indisponivel": "The assistant is not available right now. Try later or ask a volunteer for tutoring.",
+    "assistente_falhou": "The assistant could not answer right now, and the question was not counted. Try again in a little while.",
+    "imagem": "The image could not be read. Use a JPG, PNG or WebP photo.",
+    "pergunta_curta": "Describe your question in a little more detail.",
+    "pergunta_longa": "The question is longer than the maximum (3,000 characters)."
   },
   "community": {
     "eyebrow": "Community",
@@ -1557,7 +2696,26 @@
     "cancel": "Cancel request",
     "cancelled": "Request cancelled.",
     "offline": "Tutoring is not active on this copy of the site yet.",
-    "textOnly": "Text only: website addresses, images and files are not accepted."
+    "textOnly": "Text only: website addresses, images and files are not accepted.",
+    "suggestTitle": "Lessons and entries that may help",
+    "assistant": {
+      "title": "No volunteer right now? Ask the assistant",
+      "lead": "An automatic assistant explains your question right away, step by step, using what you wrote above. It can make mistakes: check against the lessons and, if you are still stuck, ask a volunteer for tutoring just below.",
+      "warning": "Before you ask: your question (and the photo, if you send one) goes to an artificial intelligence service run by another company, Anthropic, with servers outside Brazil. Do not write your name, address, phone number or other personal data. The Lúcia Institute does not keep the question or the answer.",
+      "login": "The assistant is for people with an account.",
+      "loginLink": "Sign in or create an account",
+      "photo": "Attach a photo of the exercise (optional)",
+      "removePhoto": "Remove the photo",
+      "ask": "Ask the assistant",
+      "need": "Write your question above (or attach a photo) to ask.",
+      "asking": "The assistant is thinking… this can take up to a minute.",
+      "answer": "The assistant's answer",
+      "mayErr": "Automatic answer, which may contain mistakes. Check it against the site's lessons or ask a volunteer.",
+      "cut": "The answer was too long and was cut off at the end.",
+      "refused": "The assistant cannot help with this question. Send it to a volunteer with the form below.",
+      "left": "Questions left for today: {n}.",
+      "toVolunteer": "Still stuck? Ask a volunteer for tutoring just below: your question is already written."
+    }
   },
   "materials": {
     "eyebrow": "To print and hand out",
@@ -1639,7 +2797,6 @@
     "offline": "Applications are not active on this copy of the site yet.",
     "roles": {
       "educacao": "Educator",
-      "educacao_secundaria": "Secondary educator: materials and stand-alone lessons",
       "mediacao": "Community mediator",
       "revisao": "Reviewer",
       "traducao": "Translator",
@@ -1648,8 +2805,136 @@
       "design": "Designer",
       "marketing": "Marketing and outreach",
       "desenvolvimento": "Infrastructure and development",
-      "curadoria": "Curator"
+      "curadoria": "Curator",
+      "educacao_secundaria": "Secondary educator: materials and stand-alone lessons"
     }
+  },
+  "povo": {
+    "eyebrow": "Political awareness",
+    "title": "People's data",
+    "lead": "The numbers that weigh most on working people's lives, and what the Chamber of Deputies is voting, straight from official Brazilian sources. Updated every few hours.",
+    "economy": "Wages, prices and jobs",
+    "indicators": {
+      "salario": [
+        "Minimum wage",
+        "Monthly value of the national minimum wage (Brazil)."
+      ],
+      "ipca": [
+        "Inflation over 12 months",
+        "IPCA accumulated over twelve months: how much prices rose in a year."
+      ],
+      "selic": [
+        "Base interest rate (Selic)",
+        "Annual Selic target set by the Central Bank. It makes credit dearer or cheaper."
+      ],
+      "desocupacao": [
+        "Unemployment",
+        "Unemployment rate from the PNAD Contínua survey, rolling quarter."
+      ],
+      "populacao": [
+        "Population of Brazil",
+        "Official IBGE estimate."
+      ]
+    },
+    "reference": "Reference",
+    "votes": "What the Chamber voted",
+    "votesLead": "The latest votes in the plenary of the Brazilian Chamber of Deputies, as described by the Chamber itself (in Portuguese).",
+    "approved": "approved",
+    "rejected": "rejected",
+    "seeSession": "See the session on the Chamber's website",
+    "votesSource": "Source: Chamber of Deputies open data.",
+    "unavailable": "The source did not respond right now. Come back in a few hours.",
+    "note": "All numbers come from the sources shown in each box, unadjusted. If a source does not respond, the box disappears instead of showing an old number."
+  },
+  "closed": {
+    "siteTitle": "Offline for a while",
+    "siteLead": "Instituto Lúcia is temporarily offline. Please come back a little later.",
+    "areaTitle": "This part of the site is closed for a while",
+    "areaLead": "The rest of the site is working normally.",
+    "home": "Go to the home page",
+    "team": "Team: sign in"
+  },
+  "drawer": {
+    "eyebrow": "Student work",
+    "title": "Open Drawer",
+    "tagline": "student work, free for everyone",
+    "lead": "Theses, papers, projects, reports and study notes that were sitting in a drawer. Whoever made them publishes them with a comment and a free license; anyone interested can use them freely.",
+    "description": "Student work published by its authors under a free license: theses, papers, projects, reports and study notes.",
+    "offline": "The Open Drawer is not active on this copy of the site yet.",
+    "filters": "Filter the Open Drawer",
+    "allSubjects": "All subjects",
+    "allTypes": "All types",
+    "search": "Search by title, course, institution…",
+    "empty": "No work matches these filters yet.",
+    "loading": "Loading…",
+    "count": {
+      "one": "work",
+      "other": "works"
+    },
+    "types": {
+      "tcc": "Undergraduate thesis",
+      "monografia": "Monograph",
+      "dissertacao": "Dissertation or thesis",
+      "artigo": "Paper",
+      "projeto": "Project",
+      "relatorio": "Report",
+      "apostila": "Study notes or summary",
+      "codigo": "Code",
+      "apresentacao": "Presentation",
+      "outro": "Other"
+    },
+    "credit": "Credit: {name}",
+    "why": "Why it is worth it",
+    "open": "Open the work",
+    "download": "Download the PDF",
+    "downloading": "Downloading…",
+    "downloadFailed": "The download did not work right now. Please try again in a moment.",
+    "report": "Report",
+    "license": "License",
+    "licenses": {
+      "CC BY 4.0": "CC BY 4.0: free use, with credit",
+      "CC BY-SA 4.0": "CC BY-SA 4.0: free use, with credit and the same license on adaptations",
+      "CC0 1.0": "CC0 1.0: public domain, no credit needed"
+    },
+    "publishTitle": "Publish a work",
+    "publishLead": "Did you make something that ended up in a drawer? Publish it with your own comment. Moderators check it before it appears.",
+    "signInFirst": "To publish, sign in or create an account. It is free.",
+    "signIn": "Sign in or create an account",
+    "fieldTitle": "Title of the work",
+    "fieldType": "Type",
+    "fieldSubject": "Subject",
+    "chooseSubject": "Choose…",
+    "fieldCourse": "Course (optional)",
+    "fieldInstitution": "Institution (optional)",
+    "fieldYear": "Year (optional)",
+    "fieldComment": "Your comment: what it is about and why it may help someone (40 to 2,000 characters)",
+    "fieldCredit": "Name for the public credit",
+    "how": "How readers get the work",
+    "howLink": "A link to where it already is",
+    "howFile": "Upload the PDF",
+    "fieldLink": "Address (https://…): university repository, Zenodo, OSF, GitHub, Google Drive…",
+    "fieldFile": "PDF file (up to 10 MB)",
+    "fileWarning": "PDFs often store the author's name and other data in their metadata (File → Properties). Check before uploading. Moderators also check the file before publishing.",
+    "notPdf": "Choose a PDF file of up to 10 MB.",
+    "uploadFailed": "The PDF did not upload. Check that it is a PDF of up to 10 MB and try again.",
+    "fieldLicense": "License",
+    "term": "Assignment terms",
+    "termAgree": "I have read and accept the assignment terms (version {v})",
+    "termName": "Your full name (kept only by the team that decides, as a record of acceptance; it never appears on the site)",
+    "termPage": "Open the terms on their own page",
+    "send": "Publish",
+    "sending": "Sending…",
+    "sent": "Received. Moderators will check it and publish it soon; you will get a note in your panel.",
+    "mine": "My publications",
+    "statuses": {
+      "pendente": "waiting for moderation",
+      "aprovado": "published",
+      "recusado": "not published"
+    },
+    "note": "Moderator's note",
+    "withdraw": "Take down",
+    "withdrawConfirm": "Take this entry down? People who already copied the work can keep using it under the license.",
+    "withdrawn": "Entry taken down."
   },
   "podcast": {
     "title": "Podcasts",
@@ -1796,43 +3081,6 @@
     "downloadCaptions": "Download the captions (.vtt)",
     "conversation": "Conversation",
     "more": "Up next"
-  },
-  "povo": {
-    "eyebrow": "Political awareness",
-    "title": "People's data",
-    "lead": "The numbers that weigh most on working people's lives, and what the Chamber of Deputies is voting, straight from official Brazilian sources. Updated every few hours.",
-    "economy": "Wages, prices and jobs",
-    "indicators": {
-      "salario": [
-        "Minimum wage",
-        "Monthly value of the national minimum wage (Brazil)."
-      ],
-      "ipca": [
-        "Inflation over 12 months",
-        "IPCA accumulated over twelve months: how much prices rose in a year."
-      ],
-      "selic": [
-        "Base interest rate (Selic)",
-        "Annual Selic target set by the Central Bank. It makes credit dearer or cheaper."
-      ],
-      "desocupacao": [
-        "Unemployment",
-        "Unemployment rate from the PNAD Contínua survey, rolling quarter."
-      ],
-      "populacao": [
-        "Population of Brazil",
-        "Official IBGE estimate."
-      ]
-    },
-    "reference": "Reference",
-    "votes": "What the Chamber voted",
-    "votesLead": "The latest votes in the plenary of the Brazilian Chamber of Deputies, as described by the Chamber itself (in Portuguese).",
-    "approved": "approved",
-    "rejected": "rejected",
-    "seeSession": "See the session on the Chamber's website",
-    "votesSource": "Source: Chamber of Deputies open data.",
-    "unavailable": "The source did not respond right now. Come back in a few hours.",
-    "note": "All numbers come from the sources shown in each box, unadjusted. If a source does not respond, the box disappears instead of showing an old number."
   },
   "loose": {
     "eyebrow": "Stand-alone material",

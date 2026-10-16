@@ -36,10 +36,129 @@ interface Inscricao {
 interface Pessoa {
   id: string;
   nome: string;
+  bio?: string;
   email: string;
   suspenso: boolean;
+  /** Quem suspendeu: coordenação, supervisão, mediação (banimento) ou o próprio banco (isca). */
+  suspensao?: string;
+  /** A coordenação redefiniu a senha e a pessoa ainda não escolheu outra. */
+  trocar_senha?: boolean;
   visto_em: string;
   papeis: Role[];
+}
+
+/** Sem letras que se confundem (l, 1, O, 0): a senha vai ser lida em voz alta ou copiada à mão. */
+const LETRAS = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+/** Uma senha forte gerada neste navegador: 20 caracteres em quatro blocos, fácil de ditar. Nada sai daqui antes de guardar. */
+function senhaForte(): string {
+  const numeros = crypto.getRandomValues(new Uint32Array(20));
+  const letras = Array.from(numeros, (n) => LETRAS[n % LETRAS.length]).join("");
+  return letras.match(/.{5}/g)?.join("-") ?? letras;
+}
+
+const suspensoPor: Record<string, string> = { coordenacao: "pela coordenação", supervisao: "pela supervisão", mediacao: "por banimento da mediação", sistema: "pelo banco, depois de uma função-isca" };
+
+/**
+ * A ficha de uma pessoa da equipe, aberta pela coordenação: acertar nome e apresentação, redefinir a senha de quem
+ * esqueceu e suspender ou reativar. O e-mail não muda por aqui, e nada disso aparece na própria ficha de quem está vendo.
+ */
+function Ficha({ pessoa, me, depois }: { pessoa: Pessoa; me: Me; depois: () => void }) {
+  const lider = leads(me);
+  const [nome, setNome] = useState(pessoa.nome);
+  const [bio, setBio] = useState(pessoa.bio ?? "");
+  const [motivo, setMotivo] = useState("");
+  const [senha, setSenha] = useState("");
+  /** A senha que acabou de ser guardada: aparece uma vez só, para ser entregue por um canal seguro. */
+  const [entregar, setEntregar] = useState("");
+  const acao = useAcao(depois);
+  const eu = pessoa.id === me.id;
+  const coordenacao = pessoa.papeis.some((papel) => papel.papel === "coordenacao");
+  const vice = pessoa.papeis.some((papel) => papel.papel === "vice");
+  // O banco recusa o mesmo: ninguém mexe na coordenação por aqui, e a vice-coordenação não mexe em outra vice.
+  const alcanca = !eu && !coordenacao && (lider || !vice);
+  if (eu) return <p className="mt-2 text-ink-soft">Esta é a sua conta: nome, senha e proteção ficam em Minha conta.</p>;
+  if (!alcanca) return <p className="mt-2 text-ink-soft">{coordenacao ? "A conta da coordenação não se edita nem se suspende por aqui." : "Só a coordenação mexe na conta de outra vice-coordenação."}</p>;
+
+  async function redefinir() {
+    const nova = senha.trim();
+    if (await acao.agir("usuario_senha_redefinir", { p_usuario: pessoa.id, p_senha: nova }, "Senha redefinida. A pessoa saiu de todos os aparelhos e vai escolher outra no próximo acesso.")) {
+      setEntregar(nova);
+      setSenha("");
+    }
+  }
+
+  return (
+    <div className="mt-3 grid gap-5 border-t border-rule pt-4 lg:grid-cols-3">
+      <section>
+        <h3 className="font-semibold">Nome e apresentação</h3>
+        <p className="text-xs text-ink-soft">Para acertar um nome ofensivo, um dado pessoal exposto ou o pedido de quem não consegue entrar. O e-mail não muda por aqui.</p>
+        <label className="mt-2 block">
+          Nome
+          <input value={nome} onChange={(e) => setNome(e.target.value)} maxLength={60} className={campo} />
+        </label>
+        <label className="mt-2 block">
+          Apresentação
+          <textarea value={bio} onChange={(e) => setBio(e.target.value)} maxLength={500} rows={3} className={campo} />
+        </label>
+        <button type="button" className={`mt-2 ${botaoClaro}`} disabled={acao.ocupado || nome.trim().length < 2 || (nome === pessoa.nome && bio === (pessoa.bio ?? ""))} onClick={() => acao.agir("usuario_editar", { p_usuario: pessoa.id, p_nome: nome.trim(), p_bio: bio.trim() }, "Guardado. A pessoa recebeu um recado.")}>
+          Guardar
+        </button>
+      </section>
+
+      <section>
+        <h3 className="font-semibold">Redefinir a senha</h3>
+        <p className="text-xs text-ink-soft">Para quem esqueceu a própria. A pessoa sai de todos os aparelhos e, ao entrar com a senha nova, escolhe outra antes de o painel abrir.</p>
+        {entregar ? (
+          <div role="status" className="mt-2 border-2 border-ink bg-parchment p-3">
+            <p>Senha nova de {pessoa.nome} (aparece só agora):</p>
+            <p className="mt-1 select-all break-all font-mono text-base">{entregar}</p>
+            <p className="mt-1 text-xs text-ink-soft">Entregue por um canal seguro (pessoalmente, ligação ou mensagem que some), nunca por e-mail nem no mural.</p>
+            <p className="mt-2 flex gap-4">
+              <button type="button" className={elo} onClick={() => void navigator.clipboard?.writeText(entregar)}>Copiar</button>
+              <button type="button" className={elo} onClick={() => setEntregar("")}>Já entreguei</button>
+            </p>
+          </div>
+        ) : (
+          <>
+            <label className="mt-2 block">
+              Senha nova (pelo menos 12 caracteres)
+              <input value={senha} onChange={(e) => setSenha(e.target.value)} autoComplete="off" spellCheck={false} maxLength={72} className={`${campo} font-mono`} />
+            </label>
+            <p className="mt-2 flex flex-wrap gap-3">
+              <button type="button" className={botaoClaro} onClick={() => setSenha(senhaForte())}>Gerar uma senha forte</button>
+              <button type="button" className={botao} disabled={acao.ocupado || senha.trim().length < 12} onClick={() => void redefinir()}>Redefinir</button>
+            </p>
+          </>
+        )}
+        {pessoa.trocar_senha && !entregar && <p className="mt-2 text-xs text-ink-soft">A pessoa ainda não escolheu a própria senha depois da última redefinição.</p>}
+      </section>
+
+      <section>
+        <h3 className="font-semibold">{pessoa.suspenso ? "Conta suspensa" : "Suspender a conta"}</h3>
+        <p className="text-xs text-ink-soft">
+          {pessoa.suspenso ? `Suspensa ${suspensoPor[pessoa.suspensao ?? ""] ?? ""}: lê, mas não envia. Reativar também desfaz um banimento.` : "A conta continua existindo e lendo, mas não envia nada, nem pelo painel."}
+        </p>
+        {!pessoa.suspenso && (
+          <label className="mt-2 block">
+            Motivo (vai para o registro)
+            <input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={300} className={campo} />
+          </label>
+        )}
+        <button
+          type="button"
+          className={`mt-2 ${pessoa.suspenso ? botaoClaro : "cursor-pointer bg-oxblood px-5 py-2 font-medium text-parchment disabled:cursor-not-allowed disabled:opacity-50"}`}
+          disabled={acao.ocupado}
+          onClick={() => acao.agir("usuario_suspender", { p_usuario: pessoa.id, p_suspenso: !pessoa.suspenso, p_motivo: motivo.trim() }, pessoa.suspenso ? "Conta reativada." : "Conta suspensa.")}
+        >
+          {pessoa.suspenso ? "Reativar a conta" : "Suspender a conta"}
+        </button>
+      </section>
+      <div className="lg:col-span-3">
+        <Aviso texto={acao.aviso} />
+      </div>
+    </div>
+  );
 }
 
 /** Coordenação e vice-coordenação: aceitar pedidos de voluntariado, confiar papéis e disciplinas, suspender contas. */
@@ -75,10 +194,14 @@ export function Pessoas({ me }: { me: Me }) {
     pessoas.recarregar();
   });
   const [novo, setNovo] = useState<{ papel: Role["papel"]; disciplina: string }>({ papel: "educacao", disciplina: "" });
+  // Educação, educação secundária e reforço são por disciplina: o banco recusa sem ela.
+  const porDisciplina = novo.papel === "educacao" || novo.papel === "educacao_secundaria" || novo.papel === "mentoria";
   /** Quem vai receber a função: escolhida na busca, não numa lista com todo mundo. */
   const [quem, setQuem] = useState<PessoaAchada | null>(null);
   const [filtro, setFiltro] = useState("");
   const [aba, setAba] = useState<"equipe" | "funcao" | "convites" | "pedidos">("equipe");
+  /** A ficha aberta: uma de cada vez, para a lista continuar curta. */
+  const [aberta, setAberta] = useState<string | null>(null);
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "todo o site");
   const pendentes = pedidos.dados?.filter((pedido) => pedido.status === "pendente") ?? [];
   const visiveis = pessoas.dados?.filter((pessoa) => `${pessoa.nome} ${pessoa.email}`.toLowerCase().includes(filtro.toLowerCase())) ?? [];
@@ -184,7 +307,7 @@ export function Pessoas({ me }: { me: Me }) {
             </select>
           </label>
           <label className="block">
-            Disciplina{novo.papel === "educacao" || novo.papel === "educacao_secundaria" ? "" : " (opcional)"}
+            Disciplina{porDisciplina ? "" : " (opcional)"}
             <select value={novo.disciplina} onChange={(e) => setNovo({ ...novo, disciplina: e.target.value })} className={campo}>
               <option value="">Todo o site</option>
               {areaSlugs.map((area) => (
@@ -198,7 +321,7 @@ export function Pessoas({ me }: { me: Me }) {
         <button
           type="button"
           className={`mt-3 ${botao}`}
-          disabled={acao.ocupado || !quem || ((novo.papel === "educacao" || novo.papel === "educacao_secundaria") && !novo.disciplina)}
+          disabled={acao.ocupado || !quem || (porDisciplina && !novo.disciplina)}
           onClick={async () => {
             if (quem && (await acao.agir("papel_conceder", { p_usuario: quem.id, p_papel: novo.papel, p_disciplina: novo.disciplina || null }, `Função confiada a ${quem.nome}.`))) setQuem(null);
           }}
@@ -220,7 +343,7 @@ export function Pessoas({ me }: { me: Me }) {
           {visiveis.map((pessoa) => (
             <li key={pessoa.id} className="py-3">
               <p className="font-serif text-xl font-semibold">
-                {pessoa.nome} {pessoa.suspenso && <span className="font-sans text-sm text-oxblood">(suspensa)</span>}
+                {pessoa.nome} {pessoa.id === me.id && <span className="font-sans text-sm text-ink-soft">(você)</span>} {pessoa.suspenso && <span className="font-sans text-sm text-oxblood">(suspensa)</span>}
               </p>
               <p className="font-mono text-xs text-ink-soft">
                 {pessoa.email} · último acesso em {data(pessoa.visto_em)}
@@ -235,9 +358,10 @@ export function Pessoas({ me }: { me: Me }) {
                   </li>
                 ))}
               </ul>
-              <button type="button" className={`mt-1 ${elo}`} onClick={() => acao.agir("usuario_suspender", { p_usuario: pessoa.id, p_suspenso: !pessoa.suspenso }, pessoa.suspenso ? "Conta reativada." : "Conta suspensa.")}>
-                {pessoa.suspenso ? "Reativar conta" : "Suspender conta"}
+              <button type="button" className={`mt-1 ${elo}`} aria-expanded={aberta === pessoa.id} onClick={() => setAberta(aberta === pessoa.id ? null : pessoa.id)}>
+                {aberta === pessoa.id ? "Fechar a ficha" : pessoa.id === me.id ? "Sua conta" : "Abrir a ficha: nome, senha, suspensão"}
               </button>
+              {aberta === pessoa.id && <Ficha pessoa={pessoa} me={me} depois={pessoas.recarregar} />}
             </li>
           ))}
         </ul>

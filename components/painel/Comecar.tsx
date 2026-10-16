@@ -108,6 +108,17 @@ export function PorOndeComecar({ me, ir }: { me: Me; ir: (aba: string) => void }
     }
   }
 
+  // Quem ensina também pode gravar: uma aula curta em vídeo para uma trilha que já tem aulas escritas.
+  const ensina = [...disciplinasDe(me, "educacao"), ...disciplinasDe(me, "educacao_secundaria")].filter((area) => area && retrato[area]);
+  const paraVideo = doDia(ensina.flatMap((area) => trilhasDe(area).filter((trilha) => trilha.prontas > 0)));
+  if (paraVideo)
+    sugestoes.push({
+      funcao: tem("educacao") ? papeis.educacao : papeis.educacao_secundaria,
+      titulo: `Grave uma aula em vídeo para a trilha ${paraVideo.titulo}`,
+      detalhe: "Até 10 minutos, com a câmera ou a tela: um resumo, um exercício resolvido ou algo que fica melhor explicado falando. Em Aulas em vídeo, grave ou envie e escreva a transcrição.",
+      aba: "videoaulas",
+    });
+
   if (tem("traducao")) {
     // As trilhas com mais aulas prontas e menos traduzidas, em cada idioma.
     for (const [idioma, nomeDoIdioma] of Object.entries(idiomas) as [keyof typeof idiomas, string][]) {

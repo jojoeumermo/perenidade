@@ -4,7 +4,7 @@ sobretitulo: "Seus dados"
 resumo: "O que o site guarda, por quanto tempo e como você apaga. Escrito para ser lido, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018)."
 ---
 
-Atualizada em 14 de outubro de 2026.
+Atualizada em 15 de outubro de 2026.
 
 ## Em uma frase
 
@@ -62,6 +62,18 @@ Qualquer pessoa pode criar uma conta, com e-mail e senha, para participar da com
 
 O nome público nasce como um codinome sorteado ("Estudante 48213"). Nada do seu e-mail aparece no site. Você escolhe se quer trocar o codinome pelo seu nome.
 
+## Se você publica na Gaveta Aberta
+
+Para publicar um trabalho na [Gaveta Aberta](/gaveta) é preciso ter conta e aceitar o [termo de cessão](/gaveta/termo). Além do que vale para a conta, o instituto guarda:
+
+| O quê | Para quê | Quem vê | Até quando |
+|---|---|---|---|
+| A ficha do trabalho (título, tipo, disciplina, curso, instituição, ano, o seu comentário, a licença e o crédito que você escolheu) | Publicar o trabalho | Todo mundo, depois que a mediação aprova | Até você tirar a ficha do ar; ficha recusada ou retirada é apagada depois de 400 dias |
+| O arquivo PDF, se você enviar um | Entregar o trabalho a quem lê | Você e a equipe que decide; todo mundo, depois da aprovação | Até você tirar a ficha do ar (o arquivo é apagado na hora) |
+| O nome completo que você digita ao aceitar o termo, a versão do termo e a data | Registro de que você aceitou o termo | Só a equipe que decide as publicações (mediação, curadoria) e a coordenação; nunca aparece no site | Enquanto a ficha existir |
+
+PDFs costumam guardar o nome de quem escreveu e outros dados nos metadados. Confira antes de enviar: o arquivo é publicado como chegou, depois que a mediação confere.
+
 ## Avaliação automática na Comunidade
 
 Tudo o que é escrito na [Comunidade](/comunidade) passa por uma avaliação automática antes de aparecer. Ela existe para manter a convivência respeitosa, segura e voltada ao estudo: ajuda a barrar spam, assédio, ameaças, discurso de ódio e outras violações das regras da página.
@@ -84,11 +96,13 @@ Além do que está acima, o painel guarda: as funções que você recebeu; o reg
 
 Quando a coordenação, a vice-coordenação ou a supervisão mandam um aviso à equipe, o painel registra quem já o fechou, para o aviso não voltar. Os avisos somem até 30 dias depois do prazo.
 
+Quem grava uma aula em vídeo envia a gravação, com a imagem e a voz de quem aparece nela, junto com o título, a descrição, a transcrição e as legendas. A câmera, o microfone e a tela só são usados depois que você clica para gravar, e nada sai do aparelho antes de você clicar em enviar. O vídeo fica guardado fechado: enquanto espera a revisão, só quem enviou e quem revisa a disciplina conseguem assistir; aprovado, qualquer pessoa assiste no site, com o seu nome público. Enquanto a aula não está no ar, você mesmo pode apagá-la, e o arquivo sai junto; depois de publicada, peça a retirada à coordenação.
+
 As conversas internas da equipe são cifradas de ponta a ponta: cada aparelho tem a própria chave, criada no navegador, e o que fica guardado no banco é ilegível para quem não participa da conversa, inclusive para a coordenação. O banco guarda a parte pública da chave de cada aparelho, com um nome genérico como "Chrome no Android", e ela sai depois de seis meses sem uso. As conversas são apagadas depois de trinta dias, ou antes, se quem participa ligar a autodestruição.
 
 ## Com que base a lei permite isso
 
-- **Consentimento**, quando você cria uma conta, aceita um convite, se candidata a voluntário, publica na comunidade, anuncia no mural ou pede reforço. Você retira o consentimento apagando a conta ou pedindo a retirada do que enviou.
+- **Consentimento**, quando você cria uma conta, aceita um convite, se candidata a voluntário, publica na comunidade, grava uma aula em vídeo, anuncia no mural ou pede reforço. Você retira o consentimento apagando a conta ou pedindo a retirada do que enviou.
 - **Legítimo interesse**, para os registros de segurança do painel, a proteção contra ataques e abuso e a avaliação automática das mensagens da Comunidade.
 - **Cumprimento de obrigação legal**, se uma ordem judicial válida exigir a guarda ou a entrega de algum registro.
 

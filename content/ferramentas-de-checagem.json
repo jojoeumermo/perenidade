@@ -1,0 +1,67 @@
+[
+  {
+    "grupo": "imagem",
+    "ferramentas": [
+      { "id": "google-lens", "nome": "Google Lens", "url": "https://lens.google/" },
+      { "id": "tineye", "nome": "TinEye", "url": "https://tineye.com/" },
+      { "id": "bing", "nome": "Bing Visual Search", "url": "https://www.bing.com/visualsearch" },
+      { "id": "yandex", "nome": "Yandex Imagens", "url": "https://yandex.com/images/" }
+    ]
+  },
+  {
+    "grupo": "video",
+    "ferramentas": [
+      { "id": "invid", "nome": "InVID-WeVerify", "url": "https://www.invid-project.eu/tools-and-services/invid-verification-plugin/" }
+    ]
+  },
+  {
+    "grupo": "arquivo",
+    "ferramentas": [
+      { "id": "wayback", "nome": "Wayback Machine", "url": "https://web.archive.org/" },
+      { "id": "archive-today", "nome": "archive.today", "url": "https://archive.ph/" }
+    ]
+  },
+  {
+    "grupo": "agencias",
+    "ferramentas": [
+      { "id": "lupa", "nome": "Agência Lupa", "url": "https://www.agencialupa.org/" },
+      { "id": "aos-fatos", "nome": "Aos Fatos", "url": "https://www.aosfatos.org/" },
+      { "id": "fato-ou-fake", "nome": "Fato ou Fake", "url": "https://g1.globo.com/fato-ou-fake/" },
+      { "id": "estadao-verifica", "nome": "Estadão Verifica", "url": "https://www.estadao.com.br/estadao-verifica/" },
+      { "id": "uol-confere", "nome": "UOL Confere", "url": "https://noticias.uol.com.br/confere/" },
+      { "id": "comprova", "nome": "Projeto Comprova", "url": "https://projetocomprova.com.br/" },
+      { "id": "boatos", "nome": "Boatos.org", "url": "https://www.boatos.org/" },
+      { "id": "e-farsas", "nome": "E-farsas", "url": "https://www.e-farsas.com/" }
+    ]
+  },
+  {
+    "grupo": "buscador",
+    "ferramentas": [
+      { "id": "fact-check-explorer", "nome": "Google Fact Check Explorer", "url": "https://toolbox.google.com/factcheck/explorer" }
+    ]
+  },
+  {
+    "grupo": "dados",
+    "ferramentas": [
+      { "id": "ibge", "nome": "IBGE", "url": "https://www.ibge.gov.br/" },
+      { "id": "transparencia", "nome": "Portal da Transparência", "url": "https://portaldatransparencia.gov.br/" },
+      { "id": "tse", "nome": "TSE — Divulgação de Candidaturas e Contas Eleitorais", "url": "https://divulgacandcontas.tse.jus.br/" },
+      { "id": "datasus", "nome": "DATASUS — TabNet", "url": "https://datasus.saude.gov.br/informacoes-de-saude-tabnet/" },
+      { "id": "dou", "nome": "Diário Oficial da União", "url": "https://www.in.gov.br/" },
+      { "id": "camara", "nome": "Câmara dos Deputados", "url": "https://www.camara.leg.br/" },
+      { "id": "senado", "nome": "Senado Federal", "url": "https://www12.senado.leg.br/" }
+    ]
+  },
+  {
+    "grupo": "dominio",
+    "ferramentas": [
+      { "id": "registro-br", "nome": "Registro.br — consulta de domínios", "url": "https://registro.br/tecnologia/ferramentas/whois/" }
+    ]
+  },
+  {
+    "grupo": "guias",
+    "ferramentas": [
+      { "id": "bellingcat", "nome": "Bellingcat — guias de investigação", "url": "https://www.bellingcat.com/category/resources/how-tos/" }
+    ]
+  }
+]

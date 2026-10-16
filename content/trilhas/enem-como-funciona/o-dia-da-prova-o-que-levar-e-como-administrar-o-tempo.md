@@ -1,89 +1,128 @@
 ---
 titulo: "O dia da prova: o que levar e como administrar o tempo"
-resumo: "Objetivo: preparar-se para os dois dias de ENEM, sabendo o que levar, o que é proibido, como conferir o local e como distribuir o tempo entre as questões e a redação."
+resumo: "Documentos, horários, o que é proibido na sala e uma estratégia para usar bem as cinco horas de cada dia de prova."
 autores: ["Instituto Lúcia"]
 fontes:
-  - titulo: "Exame Nacional do Ensino Médio (Enem)"
-    autor: "Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira (Inep)"
-    url: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem"
+  - titulo: "Enem: orientações (no dia do exame)"
+    autor: "Inep"
+    url: "https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/orientacoes"
+  - titulo: "Edital nº 64, de 21 de maio de 2026 (Enem 2026)"
+    autor: "Inep"
+    ano: "2026"
+    url: "https://mecnormas.mec.gov.br/pesquisa/detalhar/11900"
 quiz:
-  - pergunta: "Como são distribuídas as provas nos dois dias do ENEM, nas edições recentes?"
-    opcoes: ["1º dia: Linguagens, Ciências Humanas e Redação; 2º dia: Ciências da Natureza e Matemática", "Tudo em um dia só", "1º dia: Matemática; 2º dia: Redação"]
-    resposta: 0
-    explicacao: "São 45 questões por área, 180 no total, mais a redação."
-  - pergunta: "Que tipo de caneta se costuma exigir?"
-    opcoes: ["Esferográfica de tinta preta, de material transparente", "Qualquer caneta colorida", "Lápis"]
-    resposta: 0
-    explicacao: "Confira sempre o edital do ano."
-  - pergunta: "O que acontece com quem chega depois do fechamento dos portões?"
-    opcoes: ["Não pode fazer a prova", "Ganha mais tempo", "Faz a prova em outra sala"]
-    resposta: 0
-    explicacao: "Chegue com antecedência e confira o local antes."
-  - pergunta: "Quanto tempo, em média, há por questão no segundo dia?"
-    opcoes: ["Cerca de 3 minutos", "Cerca de 10 minutos", "30 segundos"]
-    resposta: 0
-    explicacao: "90 questões em 5 horas: um pouco mais de 3 minutos cada, sem contar o tempo de marcar o gabarito."
+  - pergunta: "A que horas os portões fecham no ENEM (horário de Brasília)?"
+    opcoes: ["12h", "13h", "13h30"]
+    resposta: 1
+    explicacao: "Os portões abrem às 12h e fecham às 13h. A prova começa às 13h30."
+  - pergunta: "Qual caneta é permitida?"
+    opcoes: ["Qualquer caneta azul ou preta", "Caneta esferográfica de tinta preta, de material transparente", "Lápis e borracha"]
+    resposta: 1
+    explicacao: "Só é permitida caneta esferográfica preta de corpo transparente. Lápis, borracha e corretivo são proibidos."
+  - pergunta: "O celular pode ficar no bolso, desligado?"
+    opcoes: ["Sim, desde que desligado", "Não: tem de ir desligado para o envelope porta-objetos, embaixo da carteira", "Sim, no modo avião"]
+    resposta: 1
+    explicacao: "Celular e qualquer aparelho eletrônico vão desligados para o envelope lacrado. Estar com eles fora do envelope elimina o participante."
+  - pergunta: "Quando se pode sair levando o caderno de questões?"
+    opcoes: ["A qualquer momento", "Só nos últimos 30 minutos de prova", "Nunca"]
+    resposta: 1
+    explicacao: "Pode-se sair depois de 2 horas de prova, mas o caderno só pode ser levado por quem sai nos últimos 30 minutos."
 ---
 
-## A estrutura da prova
+Depois de meses de estudo, ninguém quer perder a prova por um documento esquecido ou um minuto de atraso. Esta aula reúne as regras do dia do ENEM, com base nas orientações do Inep e no edital de 2026, e uma estratégia para usar bem o tempo. Confira sempre o edital do seu ano: as regras costumam se repetir, mas podem mudar.
 
-Nas edições recentes, o ENEM tem sido aplicado em **dois domingos**:
+## Na véspera
 
-| Dia | Provas | Questões |
-| --- | --- | --- |
-| **1º dia** | Linguagens, Códigos e suas Tecnologias; Ciências Humanas e suas Tecnologias; **Redação** | 90 + redação |
-| **2º dia** | Ciências da Natureza e suas Tecnologias; Matemática e suas Tecnologias | 90 |
-
-Cada área tem **45 questões**. As datas, os horários e as regras exatas estão no **edital** de cada ano: confira.
-
-## Antes do dia
-
-- **Confira o local** no Cartão de Confirmação da Inscrição, na página do participante. Se puder, vá até lá antes, para saber o caminho e o tempo de viagem.
-- **Separe o documento** oficial com foto, original e válido (os aceitos estão no edital).
-- **Separe a caneta**: esferográfica de tinta preta, fabricada em material transparente.
-- **Durma bem** na véspera. Não é hora de estudar a madrugada inteira.
+- **Confira o local de prova** no Cartão de Confirmação, na Página do Participante. Veja o endereço no mapa, o ônibus que passa lá e quanto tempo leva. Se puder, faça o caminho antes.
+- **Separe o que levar** (a lista está logo abaixo) e deixe tudo pronto na porta.
+- **Durma.** Revisar a madrugada inteira rende menos do que uma boa noite de sono.
+- **Não estude matéria nova.** No máximo, uma revisão leve do caderno de erros.
 
 ## O que levar
 
-- documento oficial com foto;
-- caneta esferográfica preta, de corpo transparente (leve mais de uma);
-- água e lanche em embalagem transparente, conforme as regras;
-- o Cartão de Confirmação (recomendado).
+**Obrigatório:**
 
-## O que é proibido
+- **documento oficial de identificação com foto, original**: carteira de identidade (RG ou a nova carteira de identidade, a CIN), carteira de motorista no modelo com foto, passaporte, carteira de trabalho impressa emitida depois de 1997, ou carteiras de conselhos profissionais. Documentos digitais (CNH digital, RG digital, CIN digital, e-Título) valem quando mostrados no **aplicativo oficial** ou no aplicativo gov.br. Não valem cópias, nem autenticadas, boletim de ocorrência, certidão de nascimento, carteira de estudante nem título de eleitor de papel;
+- **caneta esferográfica de tinta preta, de corpo transparente**. Leve duas.
 
-Celular, relógio, calculadora, fones e outros eletrônicos devem ser **desligados** e guardados no **envelope porta-objetos** entregue na sala. O descumprimento pode **eliminar** o participante. As regras completas estão no edital.
+**Aconselhável:**
 
-## Os portões
+- o **Cartão de Confirmação da Inscrição**, impresso;
+- a **Declaração de Comparecimento** impressa, se você precisar comprovar presença no trabalho;
+- **lanche e água** (o lanche pode ser vistoriado pelo chefe de sala);
+- um **casaco**, porque a sala pode ser fria;
+- **remédios** de uso contínuo, se precisar.
 
-Os portões **abrem e fecham em horários definidos** (pelo horário de Brasília). Quem chega depois do fechamento **não entra**. Calcule a viagem com folga: trânsito e ônibus atrasado não são aceitos como justificativa.
+## Os horários (horário de Brasília)
 
-```verificar
-O que fazer com o celular ao entrar na sala?
-- Deixar ligado no bolso
-+ Desligá-lo e guardá-lo no envelope porta-objetos, conforme as regras
-- Usar como calculadora
-> Eletrônicos podem levar à eliminação.
-```
+| | 1º domingo | 2º domingo |
+| --- | --- | --- |
+| Abertura dos portões | 12h | 12h |
+| Fechamento dos portões | 13h | 13h |
+| Início da prova | 13h30 | 13h30 |
+| Fim da prova | 19h | 18h30 |
 
-## Administrar o tempo
+O ENEM segue o **horário de Brasília** em todo o país. Se você mora num estado com fuso diferente, como o Amazonas ou o Acre, faça a conta: no Acre, por exemplo, os portões fecham às 11h no horário local.
 
-```conta
-2º dia: 90 questões em 5 horas = 300 minutos
-300 ÷ 90 ≈ 3,3 minutos por questão (sem contar o tempo de preencher o cartão-resposta)
-```
+Às 13h começa a identificação na porta da sala. **Chegue cedo**: quem chega com o portão fechado não entra, sem exceção.
 
-Estratégias:
+## O que é proibido na sala
 
-1. **Primeira rodada**: resolva as questões que você sabe, marcando as difíceis para depois.
-2. **Segunda rodada**: volte às difíceis.
-3. **Reserve tempo** para passar as respostas para o **cartão-resposta**: sem isso, nada vale.
-4. No **1º dia**, reserve cerca de **1 hora a 1 hora e meia** para a redação: rascunho e versão final.
-5. **Não deixe questões em branco**: não há desconto por erro. Veja [A nota: o que é a TRI](/trilhas/enem-como-funciona/a-nota-o-que-e-a-tri).
+Antes de entrar, você recebe um **envelope porta-objetos**. Nele vão, **desligados**, o celular e qualquer aparelho eletrônico, e também os outros objetos proibidos. O envelope fica lacrado embaixo da carteira até você sair do local de prova.
+
+É **eliminado** quem estiver, fora do envelope, com:
+
+- celular, relógio de **qualquer** tipo (até o de ponteiro), fone de ouvido, calculadora ou qualquer aparelho eletrônico;
+- lápis, lapiseira, borracha, régua, corretivo ou caneta que não seja transparente;
+- boné, chapéu, gorro ou óculos escuros;
+- livros, apostilas, anotações ou papéis impressos (inclusive o Cartão de Confirmação e a Declaração de Comparecimento).
+
+Como não pode haver relógio, são os fiscais que informam o tempo durante a prova. Fique atento aos avisos.
+
+## Durante a prova
+
+Regras importantes:
+
+- só é possível **sair em definitivo** depois de **2 horas** do início;
+- o **caderno de questões** só pode ser levado por quem sai nos **últimos 30 minutos** de prova;
+- os **três últimos** participantes de cada sala saem juntos;
+- marque a **cor da capa** do caderno no cartão-resposta e preencha tudo com a caneta preta. Rasuras podem anular a resposta.
+
+## Como administrar o tempo
+
+**No primeiro dia** (5 horas e 30 minutos), você tem 90 questões e a redação. Uma divisão que funciona para muita gente:
+
+1. **Leia a proposta de redação logo no começo** (5 minutos). Assim a sua cabeça vai pensando no tema enquanto você faz as questões.
+2. Faça as **questões de Linguagens e de Humanas**, começando pelas que você acha mais fáceis (cerca de 2 horas e 45 minutos).
+3. Escreva a **redação**: planejamento e rascunho (cerca de 1 hora) e passagem a limpo (cerca de 30 minutos).
+4. Use o resto do tempo para **revisar** e **passar as respostas** para o cartão.
+
+Há quem prefira fazer a redação primeiro, com a cabeça descansada. Teste as duas ordens nos simulados e escolha a sua.
+
+**No segundo dia** (5 horas), são 90 questões de Ciências da Natureza e Matemática: pouco mais de 3 minutos por questão.
+
+Dicas para os dois dias:
+
+- **Faça duas voltas.** Na primeira, resolva tudo o que você sabe e marque as que vai deixar para depois. Na segunda, volte às difíceis.
+- **Não fique preso.** Se uma questão passou de 5 minutos e não andou, siga em frente.
+- **Passe as respostas para o cartão aos poucos**, por exemplo a cada bloco de 15 questões. Deixar tudo para o fim é arriscado: muita gente perde respostas por falta de tempo.
+- **Reserve os últimos 15 minutos** para conferir o cartão e chutar, com critério, o que ficou em branco. Erro não desconta ponto.
+- **Coma e beba água.** Cinco horas é muito tempo; o cérebro precisa de energia.
+
+## Se algo der errado
+
+- **Ficou doente** com uma das doenças infectocontagiosas listadas no edital, como covid-19, sarampo, catapora ou gripe causada por Influenza, na semana da prova? Você pode pedir a **reaplicação** pela Página do Participante, com atestado.
+- **Houve problema no local**, como falta de luz ou erro de aplicação que prejudicou você? Avise o fiscal na hora e peça que seja registrado. Depois, peça a reaplicação.
+- **Perdeu o primeiro dia?** Vá ao segundo mesmo assim. Você não vai ter nota completa para o Sisu, mas treina a prova e mantém o ritmo.
+
+## Depois da prova
+
+- O **gabarito oficial** sai no site do Inep até o 10º dia útil depois do segundo dia de prova.
+- O **resultado** sai na Página do Participante, normalmente em janeiro do ano seguinte, a tempo do Sisu.
+- O **espelho da redação**, com a correção, fica disponível para fins pedagógicos depois do resultado.
 
 ## Para praticar
 
-1. Simule o 2º dia: resolva 45 questões de uma prova anterior em 2 horas e meia.
-2. Anote quanto tempo você leva, em média, por questão.
-3. Faça uma lista do que levar e deixe pronta na véspera.
-4. Pesquise o edital mais recente e anote os horários dos portões.
+1. Monte agora a sua lista do que levar e prenda num lugar visível.
+2. Faça um simulado de um dia inteiro, começando às 13h30, sem relógio de pulso e sem celular, e teste uma divisão do tempo.
+3. Descubra quanto tempo você leva de casa até um local de prova provável, no domingo, de transporte público.

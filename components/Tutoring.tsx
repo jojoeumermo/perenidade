@@ -1,13 +1,16 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useState } from "react";
-import { htmlLang } from "@/i18n/config";
+import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import synonyms from "@/content/busca.json";
+import { htmlLang, localePath } from "@/i18n/config";
 import { errorText } from "@/i18n/core";
 import type { Dict } from "@/i18n/types";
 import { areaSlugs } from "@/lib/areas";
-import { BackendError, hasBackend, rpc, useMe } from "@/lib/backend";
-import { useI18n } from "./I18n";
+import { BackendError, hasBackend, rpc, useAssistantOn, useMe } from "@/lib/backend";
+import { buildSearch, type SearchEntry } from "@/lib/search";
+import { Assistente } from "./Assistente";
+import { L, useI18n } from "./I18n";
 
 interface Request {
   id: string;
@@ -21,6 +24,8 @@ interface Request {
 const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
 // "site" é um campo-isca: gente não vê, robô preenche, e o pedido é descartado sem aviso.
 const empty = { disciplina: "", assunto: "", duvida: "", email: "", site: "" };
+/** O que vale sugerir para quem está com dúvida: aulas, trilhas, verbetes do glossário e obras do acervo. */
+const SUGERIVEIS = new Set(["aula", "trilha", "verbete", "obra"]);
 
 /** Pedido de aula de reforço: a pessoa escreve a dúvida e alguém da equipe responde por e-mail. */
 export function Tutoring({ s }: { s: Dict["tutoring"] }) {
@@ -33,6 +38,33 @@ export function Tutoring({ s }: { s: Dict["tutoring"] }) {
   const [tick, setTick] = useState(0);
   const logged = me.status === "in";
   const date = new Intl.DateTimeFormat(htmlLang[lang]);
+  const assistente = useAssistantOn();
+  const [indice, setIndice] = useState<SearchEntry[] | null>(null);
+  const [escrevendo, setEscrevendo] = useState(false);
+
+  // Enquanto a pessoa escreve, o próprio site sugere aulas e verbetes, sem mandar nada para fora (é o índice da busca,
+  // baixado só quando ela começa a escrever).
+  useEffect(() => {
+    if (!escrevendo) return;
+    let cancelled = false;
+    fetch(localePath(lang, "/indice.json"))
+      .then((response) => (response.ok ? (response.json() as Promise<SearchEntry[]>) : null))
+      .then((data) => {
+        if (!cancelled) setIndice(data);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [escrevendo, lang]);
+  const buscar = useMemo(() => (indice ? buildSearch(indice, synonyms) : null), [indice]);
+  const consulta = useDeferredValue((form.assunto.trim() || form.duvida.trim().split(/\s+/).slice(0, 12).join(" ")).trim());
+  const area = form.disciplina ? (t.areas[form.disciplina as keyof typeof t.areas]?.[0] ?? "") : "";
+  const sugestoes = useMemo(
+    () => (buscar && consulta.length >= 4 ? buscar(consulta, 60).filter((hit) => SUGERIVEIS.has(hit.entry.kind) && (!area || !hit.entry.area || hit.entry.area === area)).slice(0, 5) : []),
+    [buscar, consulta, area],
+  );
+  const kinds = t.search.kinds as Record<string, string>;
 
   useEffect(() => {
     if (!logged) return;
@@ -65,7 +97,10 @@ export function Tutoring({ s }: { s: Dict["tutoring"] }) {
     }
   }
 
-  const set = (key: keyof typeof empty) => (e: { target: { value: string } }) => setForm({ ...form, [key]: e.target.value });
+  const set = (key: keyof typeof empty) => (e: { target: { value: string } }) => {
+    if (key === "assunto" || key === "duvida") setEscrevendo(true);
+    setForm({ ...form, [key]: e.target.value });
+  };
 
   return (
     <div className="mt-8 font-sans text-sm">
@@ -95,6 +130,28 @@ export function Tutoring({ s }: { s: Dict["tutoring"] }) {
             {s.question}
             <textarea value={form.duvida} onChange={set("duvida")} required minLength={20} maxLength={3000} rows={6} className={field} />
           </label>
+          {sugestoes.length > 0 && (
+            <section aria-labelledby="sugestoes-titulo" className="border-l-4 border-gold pl-4">
+              <h2 id="sugestoes-titulo" className="font-semibold">{s.suggestTitle}</h2>
+              <ul className="mt-2 space-y-1.5">
+                {sugestoes.map((hit) => (
+                  <li key={hit.entry.href}>
+                    <span className="font-mono text-xs uppercase tracking-wider text-ink-soft">{kinds[hit.entry.kind] ?? hit.entry.kind}</span>{" "}
+                    <L href={hit.entry.href} className="underline hover:text-oxblood">{hit.entry.title}</L>
+                    {hit.entry.context && <span className="text-ink-soft"> · {hit.entry.context}</span>}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+          {assistente && (
+            <Assistente
+              s={s.assistant}
+              disciplina={form.disciplina}
+              pergunta={[form.assunto, form.duvida].map((parte) => parte.trim()).filter(Boolean).join("\n\n")}
+              aulas={sugestoes.filter((hit) => hit.entry.kind !== "obra").map((hit) => ({ titulo: hit.entry.title, caminho: hit.entry.href }))}
+            />
+          )}
           <label className="block">
             {s.email}
             <input type="email" value={form.email} onChange={set("email")} required autoComplete="email" maxLength={200} className={field} />
