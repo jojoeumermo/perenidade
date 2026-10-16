@@ -16,14 +16,37 @@ function paragrafos(texto, estiloLink = "") {
     .map((bloco) => bloco.replace(/(https:\/\/[^\s<]+)/g, `<a href="$1"${estilo}>$1</a>`).replace(/\n/g, "<br>"));
 }
 
-/** O e-mail em HTML simples, a partir do texto: parágrafos, links clicáveis e nada vindo de fora. */
-export function html(texto) {
-  return `<!doctype html><html lang="pt-BR"><body style="margin:0;padding:24px;background:#f4ecd8;color:#1f1a14;font-family:Georgia,serif;font-size:17px;line-height:1.5"><div style="max-width:600px;margin:0 auto">${paragrafos(texto).map((p) => `<p>${p}</p>`).join("")}</div></body></html>`;
-}
-
 const SERIFA = "'EB Garamond',Georgia,'Times New Roman',serif";
 const CARTAZ = "Inter,'Helvetica Neue',Arial,sans-serif";
 const ARQUIVO = "'IBM Plex Mono',Consolas,'Courier New',monospace";
+
+/**
+ * Todo e-mail do instituto com a mesma cara: faixa vinho com o nome, o assunto como título, o texto em serifa, endereço
+ * sozinho num parágrafo vira botão vermelho e a assinatura que o banco põe no fim vira o rodapé. Tabelas e estilo na
+ * linha, que é o que os leitores de e-mail respeitam. Tudo o que vem do texto é escapado.
+ */
+export function html(texto, assunto = "Instituto Lúcia") {
+  const corte = texto.lastIndexOf("\n\n— Instituto Lúcia");
+  const corpo = (corte >= 0 ? texto.slice(0, corte) : texto).trim();
+  const blocos = paragrafos(corpo, "color:#6e1f1a;text-decoration:underline").map((p) => {
+    const sozinho = /^<a href="(https:[^"]+)"[^>]*>[^<]+<\/a>$/.exec(p);
+    if (sozinho) {
+      return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:6px 0 22px"><tr><td bgcolor="#c21f16" style="background:#c21f16;border:3px solid #1f1a14"><a href="${sozinho[1]}" style="display:inline-block;padding:14px 22px;font-family:${CARTAZ};font-size:14px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#ffffff;text-decoration:none">Abrir o link &rarr;</a></td></tr></table><p style="margin:0 0 18px;font-family:${ARQUIVO};font-size:12px;line-height:1.5;color:#5a4e3c;word-break:break-all">${p}</p>`;
+    }
+    return `<p style="margin:0 0 18px;font-family:${SERIFA};font-size:18px;line-height:1.55;color:#1f1a14">${p}</p>`;
+  }).join("");
+  const titulo = escapar(assunto);
+  return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><title>${titulo}</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&amp;family=IBM+Plex+Mono&amp;family=Inter:wght@800&amp;display=swap" rel="stylesheet"></head>
+<body style="margin:0;padding:0;background:#f4ecd8">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f4ecd8" style="background:#f4ecd8"><tr><td align="center" style="padding:24px 12px">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#fbf7ee;border:1px solid #c9bb9b">
+<tr><td bgcolor="#6e1f1a" style="background:#6e1f1a;padding:24px 30px"><div style="font-family:${SERIFA};font-size:24px;font-weight:600;color:#f4ecd8">&#9733; Instituto Lúcia</div><div style="font-family:${ARQUIVO};font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#f0cf8e;padding-top:6px">Conhecimento é do povo</div></td></tr>
+<tr><td style="padding:30px 30px 6px"><div style="font-family:${SERIFA};font-size:28px;font-weight:600;line-height:1.15;color:#1f1a14;padding-bottom:20px">${titulo}</div>${blocos}</td></tr>
+<tr><td style="padding:0 30px 28px"><div style="border-top:2px solid #1f1a14;padding-top:12px;font-family:${ARQUIVO};font-size:12px;line-height:1.5;color:#5a4e3c">Instituto Lúcia &middot; escola livre e gratuita &middot; <a href="https://institutolucia.org" style="color:#6e1f1a;text-decoration:none">institutolucia.org</a></div></td></tr>
+</table></td></tr></table></body></html>`;
+}
+
 
 /**
  * A edição do boletim com a cara do Jornal: a palavra de ordem, o cabeçalho em cartaz (uma imagem, porque os leitores
@@ -38,7 +61,7 @@ export function boletim(email, quando = new Date()) {
     if (sair.protocol !== "https:") throw new Error();
     origem = sair.origin;
   } catch {
-    return html(email.texto);
+    return html(email.texto, email.assunto);
   }
   const corte = email.texto.lastIndexOf("\n\n---\n");
   const corpo = (corte >= 0 ? email.texto.slice(0, corte) : email.texto).trim();
@@ -76,7 +99,7 @@ export function boletim(email, quando = new Date()) {
 /** Monta o pedido de um e-mail para o serviço de envio. */
 export function pedido(email, { remetente, resposta }) {
   // Só o boletim tem link de saída, e só ele vai com o desenho do Jornal.
-  const corpo = { from: remetente, to: [email.para], subject: email.assunto, text: email.texto, html: email.sair ? boletim(email) : html(email.texto) };
+  const corpo = { from: remetente, to: [email.para], subject: email.assunto, text: email.texto, html: email.sair ? boletim(email) : html(email.texto, email.assunto) };
   if (resposta) corpo.reply_to = resposta;
   // Boletim: o leitor de e-mail mostra o botão "cancelar inscrição", que leva ao mesmo link de saída do texto.
   if (email.sair) corpo.headers = { "List-Unsubscribe": `<${email.sair}>` };
