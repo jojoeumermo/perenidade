@@ -10,7 +10,7 @@ import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, rotulo, textoDoEr
 import { Formatado } from "./Formatado";
 
 /** O texto cifrado precisa caber no banco (4000 caracteres); acento e emoji ocupam mais do que uma letra simples. */
-export const LIMITE_CIFRADO = 4000;
+export const LIMITE_CIFRADO = 12000;
 export const ANTIGA = "Mensagem antiga, da época da frase da equipe. Ela não abre mais e some sozinha em até 30 dias.";
 export const SEM_CHAVE = "Esta mensagem ainda não abre neste aparelho. A chave chega assim que alguém da conversa estiver com o painel aberto.";
 

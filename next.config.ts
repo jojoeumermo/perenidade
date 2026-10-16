@@ -43,7 +43,8 @@ const policy = (script: string) =>
     `media-src 'self' https: blob: ${service}`.trim(),
     "worker-src 'self'",
     "manifest-src 'self'",
-    `frame-src ${captcha} ${videos}`,
+    // blob: é a prévia, no próprio aparelho, de um PDF ou DOCX recebido nas conversas (nunca um endereço de fora).
+    `frame-src blob: ${captcha} ${videos}`,
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",

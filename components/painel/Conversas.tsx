@@ -11,6 +11,7 @@ import { useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, elo, papeis, rotulo, textoDoErro, useLista } from "./comum";
 import type { Membro } from "./Equipe";
 import { Formatado } from "./Formatado";
+import { AnexoVisto, type EstadoDoAnexo, Galeria, Gravador, type ItemDaGaleria, Preparados, type Preparado, preparar, soltar, subir } from "./Anexos";
 import { Alertas, AparelhoPendente, Aparelhos, ComoFunciona, enviarCifrado, Seguranca, TextoAberto, useAbertos, useChaveiro } from "./Sigilo";
 
 type Tipo = "direta" | "grupo" | "departamento";
@@ -45,6 +46,8 @@ interface Mensagem {
   /** Texto, ou uma reação ou edição de outra mensagem ("alvo"). */
   tipo: "texto" | "reacao" | "edicao";
   alvo: string | null;
+  /** O que o banco sabe dos arquivos: ver uma vez já aberto, bytes ainda disponíveis. O resto vai dentro do cifrado. */
+  anexos: EstadoDoAnexo[];
 }
 
 interface MembroDaConversa {
@@ -196,7 +199,8 @@ export function Conversas({ me }: { me: Me }) {
     const aberta = previas[`${conversa.id}:${conversa.ultima.criado_em}`];
     if (!aberta) return { texto: `${quem}${conversa.ultima.corpo.startsWith("c1.") ? "mensagem antiga" : "…"}`, mencao: false };
     const conteudo = desempacotar(aberta.texto);
-    return { texto: `${quem}${conteudo.encaminhada ? "↪ " : ""}${semFormatacao(conteudo.texto)}`, mencao: Boolean(conteudo.mencoes?.includes(me.id)) && !conversa.ultima.minha };
+    const arquivo = conteudo.anexos?.length ? `${{ imagem: "🖼 Foto", video: "🎞 Vídeo", audio: "🎙 Áudio", pdf: "📄 PDF", docx: "📝 Documento" }[conteudo.anexos[0].tipo]}${conteudo.anexos.length > 1 ? ` +${conteudo.anexos.length - 1}` : ""}${conteudo.texto ? " · " : ""}` : "";
+    return { texto: `${quem}${conteudo.encaminhada ? "↪ " : ""}${arquivo}${semFormatacao(conteudo.texto)}`, mencao: Boolean(conteudo.mencoes?.includes(me.id)) && !conversa.ultima.minha };
   }
 
   return (
@@ -332,11 +336,18 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
   const [destacada, setDestacada] = useState<string | null>(null);
   const [seguranca, setSeguranca] = useState<{ usuario: string; nome: string } | null>(null);
   const [sugestao, setSugestao] = useState<{ inicio: number; termo: string } | null>(null);
+  const [preparados, setPreparados] = useState<Preparado[]>([]);
+  const [gravando, setGravando] = useState(false);
+  const [galeria, setGaleria] = useState(false);
+  const [andamento, setAndamento] = useState("");
+  const [arrastando, setArrastando] = useState(false);
   const caixa = useRef<HTMLTextAreaElement>(null);
+  const escolha = useRef<HTMLInputElement>(null);
   const fim = useRef<HTMLDivElement>(null);
   const ultimoAvisoDeDigitando = useRef(0);
   const ultimoRecebido = useRef("");
   useRelogio(recarregar, 3000);
+  useEffect(() => () => soltar(preparados), [preparados]);
   const dados = conversa.dados;
   // Mensagem com autodestruição some da tela no prazo, mesmo antes de o banco apagá-la.
   const [agora, setAgora] = useState(() => Date.now());
@@ -410,7 +421,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
   }, [texto, id, editando]);
 
   /** "Fulano está digitando…": avisa no máximo a cada quatro segundos enquanto a pessoa escreve. */
-  function avisarDigitando(tipo: "texto" | "") {
+  function avisarDigitando(tipo: "texto" | "audio" | "") {
     const agora = Date.now();
     if (tipo && agora - ultimoAvisoDeDigitando.current < 4000) return;
     ultimoAvisoDeDigitando.current = tipo ? agora : 0;
@@ -463,9 +474,9 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
     window.setTimeout(() => setDestacada((atual) => (atual === mensagem ? null : atual)), 1600);
   }
 
-  async function enviar() {
+  async function enviar(arquivos: Preparado[] = preparados) {
     const limpo = texto.trim();
-    if (!limpo || ocupado) return;
+    if ((!limpo && arquivos.length === 0) || ocupado) return;
     setOcupado(true);
     setAviso("");
     try {
@@ -475,8 +486,15 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
       } else {
         const link = linksDe(limpo)[0];
         const conteudo: Conteudo = { texto: limpo, citando: citando ?? undefined, mencoes: extrairMencoes(limpo, membrosDaConversa), previa: link ? (previaDoLink(link) ?? undefined) : undefined };
-        await enviarCifrado(chaveiro, id, empacotar(conteudo), contextoDaConversa(id, me.id), (corpo) => rpc("chat_enviar", { p_id: id, p_corpo: corpo }));
+        if (arquivos.length) {
+          // Cada arquivo é cifrado com uma chave só dele e sobe antes; a mensagem leva as chaves e prende os arquivos.
+          conteudo.anexos = await subir(arquivos, id, (feitos) => setAndamento(`Cifrando e enviando ${feitos} de ${arquivos.length}…`));
+          setAndamento("");
+        }
+        const ids = conteudo.anexos?.map((anexo) => anexo.id);
+        await enviarCifrado(chaveiro, id, empacotar(conteudo), contextoDaConversa(id, me.id), (corpo) => rpc("chat_enviar", { p_id: id, p_corpo: corpo, p_anexos: ids ?? null }));
         setCitando(null);
+        if (arquivos.length) { soltar(arquivos); setPreparados([]); }
       }
       setTexto("");
       setItem(chaveDoRascunho(id), null);
@@ -484,9 +502,23 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
       recarregar();
       mudou();
     } catch (erro) {
+      setAndamento("");
       setAviso(textoDoErro(erro));
     } finally {
       setOcupado(false);
+    }
+  }
+
+  /** Arquivos escolhidos, colados ou arrastados: conferidos e preparados aqui, antes de qualquer envio. */
+  async function anexar(arquivos: File[]) {
+    if (arquivos.length === 0 || editando) return;
+    setAviso("");
+    try {
+      const novos = await preparar(arquivos, preparados.length);
+      setPreparados((atual) => [...atual, ...novos]);
+      caixa.current?.focus();
+    } catch (erro) {
+      setAviso(textoDoErro(erro));
     }
   }
 
@@ -544,7 +576,13 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
           const vista = vistas.find((item) => item.mensagem.id === alvo);
           if (!vista?.conteudo) continue;
           const conteudo: Conteudo = { texto: vista.conteudo.texto, encaminhada: true, previa: vista.conteudo.previa };
-          await enviarCifrado(chaveiro, destino, empacotar(conteudo), contextoDaConversa(destino, me.id), (corpo) => rpc("chat_enviar", { p_id: destino, p_corpo: corpo }));
+          const anexos = (vista.conteudo.anexos ?? []).filter((anexo) => !anexo.uma_vez);
+          if (anexos.length) {
+            // Baixa, abre e cifra de novo com chave nova para a conversa de destino: a chave de uma conversa nunca vale em outra.
+            const { reenviar } = await import("./Anexos");
+            conteudo.anexos = await reenviar(anexos, id, destino);
+          }
+          await enviarCifrado(chaveiro, destino, empacotar(conteudo), contextoDaConversa(destino, me.id), (corpo) => rpc("chat_enviar", { p_id: destino, p_corpo: corpo, p_anexos: conteudo.anexos?.map((anexo) => anexo.id) ?? null }));
         }
       }
       setAviso(`Encaminhada${ids.length > 1 ? "s" : ""} para ${destinos.length} conversa${destinos.length > 1 ? "s" : ""}.`);
@@ -620,6 +658,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
         <button type="button" className={elo} aria-pressed={selecionadas !== null} onClick={() => setSelecionadas(selecionadas ? null : new Set())}>
           {selecionadas ? "Cancelar seleção" : "Selecionar"}
         </button>
+        <button type="button" className={elo} onClick={() => setGaleria(true)}>Arquivos</button>
         {dados.tipo !== "direta" && (
           <button type="button" className={elo} aria-expanded={gerir} onClick={() => setGerir(!gerir)}>
             {gerir ? "Fechar" : "Pessoas"}
@@ -684,7 +723,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                       />
                     )}
                     {mensagem.minha && !selecionadas && <Acoes vista={vista} eu me={me} favorita={favoritas.has(mensagem.id)} fixada={dados.fixadas.includes(mensagem.id)} editavel={editavel(mensagem)} citar={() => citar(vista)} reagir={() => setReagindo(reagindo === mensagem.id ? null : mensagem.id)} encaminhar={() => setEncaminhando([mensagem.id])} fixar={(sim) => void fixar(mensagem.id, sim)} favoritar={(sim) => void favoritar(mensagem.id, sim)} editar={() => editar(vista)} apagar={() => void apagar(mensagem.id)} />}
-                    <div className={`relative max-w-[80%] px-3 py-1.5 sm:max-w-[70%] ${mensagem.minha ? "bg-ink text-parchment" : `border bg-parchment-deep ${meMenciona ? "border-gold border-l-4" : "border-rule"}`} ${destacada === mensagem.id ? "outline outline-2 outline-gold" : ""} ${marcada ? "outline outline-2 outline-oxblood" : ""}`}>
+                    <div className={`relative max-w-[80%] px-3 py-1.5 sm:max-w-[70%] ${conteudo?.anexos?.length ? "w-[80%] sm:w-[70%] md:max-w-md" : ""} ${mensagem.minha ? "bg-ink text-parchment" : `border bg-parchment-deep ${meMenciona ? "border-gold border-l-4" : "border-rule"}`} ${destacada === mensagem.id ? "outline outline-2 outline-gold" : ""} ${marcada ? "outline outline-2 outline-oxblood" : ""}`}>
                       {mostraNome && (
                         <p className="text-xs font-semibold text-gold">
                           {mensagem.nome}
@@ -698,10 +737,13 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                           <span className="block truncate opacity-80">{conteudo.citando.trecho}</span>
                         </button>
                       )}
+                      {conteudo?.anexos?.map((anexo) => (
+                        <AnexoVisto key={anexo.id} anexo={anexo} estado={mensagem.anexos.find((estado) => estado.id === anexo.id)} conversa={id} minha={mensagem.minha} />
+                      ))}
                       <div className={`whitespace-pre-line break-words ${vista.autoria === "invalida" ? "border border-oxblood p-1" : ""}`}>
                         {conteudo ? (
                           <>
-                            <Formatado texto={conteudo.texto} membros={membrosDaConversa} eu={me.id} />
+                            {conteudo.texto && <Formatado texto={conteudo.texto} membros={membrosDaConversa} eu={me.id} />}
                             {vista.autoria === "invalida" && <span className="mt-1 block border-l-2 border-oxblood pl-2 text-xs font-semibold text-oxblood">Não foi possível verificar o autor desta mensagem: a assinatura não confere com a identidade de quem aparece como autor.</span>}
                           </>
                         ) : (
@@ -770,7 +812,24 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
             <div ref={fim} />
           </div>
           {encaminhando && <Encaminhar conversas={conversas.filter((item) => item.id !== id)} quantas={encaminhando.length} fechar={() => setEncaminhando(null)} enviar={(destinos) => void encaminhar(destinos)} />}
-          <form className="relative border-t border-rule bg-parchment-deep p-3" onSubmit={(e) => { e.preventDefault(); void enviar(); }}>
+          {galeria && (
+            <Galeria
+              conversa={id}
+              fechar={() => setGaleria(false)}
+              irPara={irPara}
+              itens={vistas.flatMap((vista): ItemDaGaleria[] => (vista.conteudo?.anexos ?? []).map((anexo) => ({ mensagem: vista.mensagem.id, anexo, estado: vista.mensagem.anexos.find((estado) => estado.id === anexo.id), autor: vista.mensagem.nome, minha: vista.mensagem.minha, quando: `${new Date(vista.mensagem.criado_em).toLocaleDateString("pt-BR")} ${hora(vista.mensagem.criado_em)}` })))}
+            />
+          )}
+          {gravando && <Gravador aoGravar={(audio) => void enviar([audio])} aoAvisar={avisarDigitando} fechar={() => setGravando(false)} />}
+          <form
+            className={`relative border-t border-rule bg-parchment-deep p-3 ${arrastando ? "outline outline-2 -outline-offset-4 outline-dashed outline-oxblood" : ""}`}
+            onSubmit={(e) => { e.preventDefault(); void enviar(); }}
+            onDragOver={(e) => { if (e.dataTransfer.types.includes("Files")) { e.preventDefault(); setArrastando(true); } }}
+            onDragLeave={() => setArrastando(false)}
+            onDrop={(e) => { e.preventDefault(); setArrastando(false); void anexar([...e.dataTransfer.files]); }}
+          >
+            <Preparados itens={preparados} mudar={setPreparados} />
+            {andamento && <p className="mb-2 text-xs text-ink-soft" aria-live="polite">{andamento}</p>}
             {citando && (
               <div className="mb-2 flex items-start gap-2 border-l-2 border-oxblood bg-parchment px-2 py-1 text-xs">
                 <span className="min-w-0 flex-1">
@@ -803,6 +862,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                 value={texto}
                 onChange={(e) => aoDigitar(e.target.value, e.target.selectionStart ?? e.target.value.length)}
                 onBlur={() => { window.setTimeout(() => setSugestao(null), 150); avisarDigitando(""); }}
+                onPaste={(e) => { const arquivos = [...e.clipboardData.files]; if (arquivos.length) { e.preventDefault(); void anexar(arquivos); } }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" && !e.shiftKey) {
                     e.preventDefault();
@@ -817,11 +877,18 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                 rows={1}
                 maxLength={MAXIMO}
                 aria-label={`Mensagem para ${nome}`}
-                placeholder="Escreva uma mensagem (*negrito*, _itálico_, ~tachado~, `mono`, @nome)"
+                placeholder={preparados.length ? "Legenda (opcional)" : "Escreva uma mensagem (*negrito*, _itálico_, ~tachado~, `mono`, @nome)"}
                 className={`${campo} mt-0 max-h-32 min-h-[2.6rem] flex-1 resize-y bg-parchment`}
               />
-              <button type="submit" className={botao} disabled={ocupado || !texto.trim()}>
-                {editando ? "Guardar" : "Enviar"}
+              {!editando && (
+                <>
+                  <input ref={escolha} type="file" multiple accept="image/*,video/*,audio/*,.pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" className="hidden" onChange={(e) => { void anexar([...(e.target.files ?? [])]); e.target.value = ""; }} />
+                  <button type="button" className={`${botaoClaro} px-2.5`} title="Anexar foto, vídeo, áudio, PDF ou DOCX (ou cole, ou arraste aqui)" aria-label="Anexar arquivo" disabled={ocupado} onClick={() => escolha.current?.click()}>📎</button>
+                  <button type="button" className={`${botaoClaro} px-2.5`} title="Gravar áudio" aria-label="Gravar áudio" aria-pressed={gravando} disabled={ocupado} onClick={() => setGravando(!gravando)}>🎙</button>
+                </>
+              )}
+              <button type="submit" className={botao} disabled={ocupado || (!texto.trim() && preparados.length === 0)}>
+                {editando ? "Guardar" : ocupado && andamento ? "Enviando…" : "Enviar"}
               </button>
             </div>
           </form>

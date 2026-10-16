@@ -718,6 +718,24 @@ create table if not exists interno.conversa_favoritas (
   criado_em timestamptz not null default now(),
   primary key (usuario, mensagem)
 );
+-- Arquivos das conversas (foto, vídeo, áudio, PDF, DOCX). O aparelho cifra cada arquivo com uma chave só dele e sobe o
+-- cifrado aqui (base64 → bytea); a chave vai dentro da mensagem, que é cifrada com a chave da conversa. O arquivo sobe
+-- antes da mensagem (mensagem nula) e é preso a ela em chat_enviar; o que ficar solto por uma hora some na faxina.
+-- Somem junto com a mensagem (apagar, autodestruição, trinta dias). "Ver uma vez": cada pessoa lê uma única vez, quem
+-- enviou não relê, e os bytes somem quando todos leram (ou em catorze dias).
+create table if not exists interno.conversa_anexos (
+  id uuid primary key default gen_random_uuid(),
+  conversa uuid not null references interno.conversas (id) on delete cascade,
+  mensagem uuid references interno.conversa_mensagens (id) on delete cascade,
+  autor uuid not null references interno.perfis (id) on delete cascade,
+  cifrado bytea,
+  tamanho integer not null,
+  uma_vez boolean not null default false,
+  visto_por uuid[] not null default '{}',
+  criado_em timestamptz not null default now()
+);
+create index if not exists conversa_anexos_mensagem on interno.conversa_anexos (mensagem);
+create index if not exists conversa_anexos_soltos on interno.conversa_anexos (criado_em) where mensagem is null;
 
 -- Livro do acervo: toda inserção, edição, exclusão, aprovação, recusa e publicação no que vai para o site, e toda
 -- função dada ou tirada. Quem escreve aqui é o próprio banco, por gatilho: vale também para o que for mudado direto
@@ -3402,6 +3420,9 @@ begin
   perform interno.chat_aparelho_tirar(a.id) from chat_aparelhos a where a.visto_em < now() - interval '180 days';
   -- Pedido de aprovação que ninguém atendeu em um dia é descartado: o aparelho novo pede de novo quando a pessoa voltar.
   delete from chat_aparelhos where certificado is null and pedido_em < now() - interval '1 day';
+  -- Arquivo que subiu e nunca foi preso a uma mensagem; e o "ver uma vez" que ninguém abriu em catorze dias.
+  delete from conversa_anexos where mensagem is null and criado_em < now() - interval '1 hour';
+  update conversa_anexos set cifrado = null where uma_vez and cifrado is not null and criado_em < now() - interval '14 days';
   delete from convites where expira_em < now() - interval '30 days';
   delete from inscricoes where status <> 'pendente' and decidido_em < now() - interval '90 days';
   delete from mural where status = 'recusado' and decidido_em < now() - interval '30 days';
@@ -4045,7 +4066,7 @@ $$;
 create or replace function interno.chat_versao_valida(p_conversa uuid, p_corpo text) returns integer language plpgsql stable security definer set search_path = interno, pg_temp as $$
 declare v_versao integer;
 begin
-  if coalesce(p_corpo, '') !~ '^c2[.][1-9][0-9]{0,6}[.][A-Za-z0-9_-]{16}[.][A-Za-z0-9_-]{23,}$' or char_length(p_corpo) > 4000 then
+  if coalesce(p_corpo, '') !~ '^c2[.][1-9][0-9]{0,6}[.][A-Za-z0-9_-]{16}[.][A-Za-z0-9_-]{23,}$' or char_length(p_corpo) > 12000 then
     perform interno.erro('invalido:corpo');
   end if;
   v_versao := split_part(p_corpo, '.', 2)::integer;
@@ -4540,7 +4561,9 @@ begin
     'favoritas', coalesce((select jsonb_agg(x.mensagem) from conversa_favoritas x join conversa_mensagens g on g.id = x.mensagem where x.usuario = v and g.conversa = p_id), '[]'::jsonb),
     'mensagens', (select coalesce(jsonb_agg(x.j order by x.criado_em), '[]'::jsonb) from (
                     select g.criado_em, jsonb_build_object('id', g.id, 'autor', g.autor, 'nome', coalesce(f.nome, 'Alguém que saiu da equipe'), 'minha', g.autor = v,
-                                                           'corpo', g.corpo, 'criado_em', g.criado_em, 'expira_em', g.expira_em, 'tipo', g.tipo, 'alvo', g.alvo) as j
+                                                           'corpo', g.corpo, 'criado_em', g.criado_em, 'expira_em', g.expira_em, 'tipo', g.tipo, 'alvo', g.alvo,
+                                                           'anexos', (select coalesce(jsonb_agg(jsonb_build_object('id', n.id, 'uma_vez', n.uma_vez, 'aberto', v = any (n.visto_por), 'disponivel', n.cifrado is not null)), '[]'::jsonb)
+                                                                      from conversa_anexos n where n.mensagem = g.id)) as j
                     from conversa_mensagens g left join perfis f on f.id = g.autor where g.conversa = p_id order by g.criado_em desc limit 400) x));
 end $$;
 
@@ -4549,8 +4572,8 @@ end $$;
  * nova substitui a antiga). Edição: só o autor, só mensagem de texto, só até quinze minutos depois de enviada. O conteúdo
  * (texto, emoji, texto novo) chega cifrado; o banco só sabe o tipo e o alvo.
  */
-create or replace function public.chat_enviar(p_id uuid, p_corpo text, p_tipo text default 'texto', p_alvo uuid default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); v_id uuid; v_versao integer; v_prazo integer; a conversa_mensagens;
+create or replace function public.chat_enviar(p_id uuid, p_corpo text, p_tipo text default 'texto', p_alvo uuid default null, p_anexos uuid[] default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid; v_versao integer; v_prazo integer; a conversa_mensagens; v_presos integer;
 begin
   if not interno.na_conversa(p_id) then perform interno.erro('nao_encontrado'); end if;
   perform interno.limite('conversa', 600, 60);
@@ -4574,7 +4597,50 @@ begin
     update conversas set movida_em = now() where id = p_id;
     update conversa_membros set lido_em = clock_timestamp(), digitando_em = null, digitando = '' where conversa = p_id and usuario = v;
   end if;
+  -- Os arquivos que subiram antes ficam presos à mensagem: só os meus, só desta conversa, só os ainda soltos, e todos ou nada.
+  if p_anexos is not null and cardinality(p_anexos) > 0 then
+    if coalesce(p_tipo, 'texto') <> 'texto' or cardinality(p_anexos) > 6 then perform interno.erro('invalido:anexos'); end if;
+    update conversa_anexos set mensagem = v_id where id = any (p_anexos) and conversa = p_id and autor = v and mensagem is null;
+    get diagnostics v_presos = row_count;
+    if v_presos <> cardinality(p_anexos) then perform interno.erro('invalido:anexos'); end if;
+  end if;
   return jsonb_build_object('id', v_id);
+end $$;
+
+/**
+ * Subir um arquivo já cifrado no aparelho (base64 do cifrado). Fica solto até chat_enviar prendê-lo à mensagem. O banco
+ * confere só o tamanho e a quantidade; o tipo e o conteúdo ele não vê.
+ */
+create or replace function public.chat_anexo_enviar(p_conversa uuid, p_cifrado text, p_uma_vez boolean default false) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_bytes bytea; v_id uuid;
+begin
+  if not interno.na_conversa(p_conversa) then perform interno.erro('nao_encontrado'); end if;
+  perform interno.limite('anexo', 120, 60);
+  if coalesce(p_cifrado, '') !~ '^[A-Za-z0-9+/=\s]{24,}$' or char_length(p_cifrado) > 16800000 then perform interno.erro('invalido:arquivo'); end if;
+  v_bytes := decode(regexp_replace(p_cifrado, '\s', '', 'g'), 'base64');
+  if length(v_bytes) > 12582912 + 16 then perform interno.erro('invalido:tamanho'); end if;
+  if (select count(*) from conversa_anexos where autor = v and mensagem is null) >= 12 then perform interno.erro('invalido:anexos'); end if;
+  insert into conversa_anexos (conversa, autor, cifrado, tamanho, uma_vez) values (p_conversa, v, v_bytes, length(v_bytes), coalesce(p_uma_vez, false)) returning id into v_id;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/**
+ * Baixar o cifrado de um arquivo de uma conversa em que estou. "Ver uma vez": quem enviou não relê; cada um dos outros lê
+ * uma só vez, e quando todos leram (ou a mensagem some) os bytes vão embora.
+ */
+create or replace function public.chat_anexo_ler(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); a conversa_anexos; v_faltam integer;
+begin
+  select * into a from conversa_anexos where id = p_id;
+  if not found or a.mensagem is null or not interno.na_conversa(a.conversa) then perform interno.erro('nao_encontrado'); end if;
+  perform interno.limite('anexo_ler', 600, 60);
+  if a.uma_vez then
+    if a.autor = v or v = any (a.visto_por) or a.cifrado is null then perform interno.erro('ja_visto'); end if;
+    update conversa_anexos set visto_por = array_append(visto_por, v) where id = p_id;
+    select count(*) into v_faltam from conversa_membros m where m.conversa = a.conversa and m.usuario <> a.autor and m.usuario <> v and not (m.usuario = any (a.visto_por));
+    if v_faltam = 0 then update conversa_anexos set cifrado = null where id = p_id; end if;
+  end if;
+  return jsonb_build_object('cifrado', encode(a.cifrado, 'base64'), 'uma_vez', a.uma_vez);
 end $$;
 
 /** Cada pessoa apaga as próprias mensagens (e as próprias reações e edições). Apagar o texto leva as reações e edições junto. */
@@ -4816,7 +4882,7 @@ begin
              'chat_aparelho_registrar', 'chat_aparelhos_meus', 'chat_aparelho_remover', 'chat_chaves', 'chat_chave_nova', 'chat_chaves_pendentes',
              'chat_chaves_dar', 'chat_chaves_recusar', 'chat_autodestruir', 'chat_aparelho_estado', 'chat_aparelho_aprovar', 'chat_identidade_definir',
              'chat_identidade_redefinir', 'chat_recuperacao_guardar', 'chat_recuperacao_ler', 'chat_aparelho_pedir', 'chat_aparelho_recuperar',
-             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias',
+             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias', 'chat_anexo_enviar', 'chat_anexo_ler',
              'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao',
              'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao', 'papeis_historico_listar'))
   loop
