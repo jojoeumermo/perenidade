@@ -21,6 +21,51 @@ quiz:
     opcoes: ["hour", "house", "honest"]
     resposta: 1
     explicacao: "Em \"house\" o H é soprado. Em \"hour\" e \"honest\" ele é mudo, uma das poucas exceções."
+pratica:
+  - tipo: escolha
+    pergunta: "Qual é o nome da letra E em inglês?"
+    opcoes: ["i", "é", "ei"]
+    resposta: 0
+    audio: "E"
+    dica: "A, E e I trocam de lugar: o E se chama \"i\"."
+  - tipo: escolha
+    pergunta: "Ouça e escolha a letra que foi dita."
+    opcoes: ["G", "J", "Z"]
+    resposta: 1
+    audio: "J"
+  - tipo: pares
+    pares:
+      - ["A", "ei"]
+      - ["I", "ai"]
+      - ["H", "eitch"]
+      - ["W", "dâbliu"]
+      - ["Y", "uai"]
+  - tipo: ouvir
+    frase: "M-A-R-I-A"
+    traducao: "Alguém soletrando o nome Maria."
+  - tipo: ordenar
+    frase: "How do you spell your name?"
+    traducao: "Como se escreve o seu nome?"
+  - tipo: lacuna
+    frase: "In the word ___, the H is silent."
+    resposta: "hour"
+    opcoes: ["house", "hour", "hat"]
+    dica: "Uma das poucas exceções: \"hour\" e \"honest\"."
+  - tipo: traduzir
+    frase: "Como se soletra o seu nome?"
+    resposta: ["How do you spell your name?", "How do you spell your name"]
+    palavras: ["How", "do", "you", "spell", "your", "name?", "write", "say"]
+  - tipo: falar
+    frase: "J-O-A-N"
+    traducao: "Soletre o nome Joan: djei, ou, ei, én."
+  - tipo: cartoes
+    cartoes:
+      - { frente: "A", verso: "ei" }
+      - { frente: "E", verso: "i" }
+      - { frente: "I", verso: "ai" }
+      - { frente: "G", verso: "dji" }
+      - { frente: "J", verso: "djei" }
+      - { frente: "R", verso: "ar" }
 ---
 
 O inglês usa as mesmas 26 letras do português. O que muda é o **nome** de cada letra e, principalmente, o som que elas fazem dentro das palavras.
