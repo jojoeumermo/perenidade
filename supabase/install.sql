@@ -4673,6 +4673,8 @@ $$;
  * outro aparelho entra pendente, com o pedido (a chave pública cifrada pelo código que ele mostra), até um aparelho
  * aprovado da mesma pessoa certificá-lo. O banco não confere assinatura: isso é dos aparelhos dos colegas.
  */
+-- Assinatura nova: a antiga sai antes, senão as duas convivem e a API não sabe qual chamar (erro 300).
+drop function if exists public.chat_aparelho_registrar(text, text);
 create or replace function public.chat_aparelho_registrar(p_publica text, p_rotulo text default '', p_pedido jsonb default null, p_assina text default null, p_certificado text default null) returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); v_rotulo text := interno.txt(p_rotulo, 'rotulo', 0, 80); v_id uuid; v_dono uuid; v_outros integer; v_assina text; a chat_aparelhos;
@@ -5118,6 +5120,8 @@ begin
 end $$;
 
 /** Trocar o nome, pôr e tirar gente: quem criou o grupo ou a coordenação. */
+-- Assinatura nova: a antiga sai antes, senão as duas convivem e a API não sabe qual chamar (erro 300).
+drop function if exists public.chat_grupo_mudar(uuid, text, uuid[], uuid[]);
 create or replace function public.chat_grupo_mudar(p_id uuid, p_nome text default null, p_incluir uuid[] default '{}', p_tirar uuid[] default '{}',
                                                      p_descricao text default null, p_foto uuid default null, p_so_admins_enviam boolean default null, p_so_admins_mudam boolean default null,
                                                      p_admins uuid[] default '{}', p_tirar_admin uuid[] default '{}') returns jsonb
@@ -5253,6 +5257,9 @@ end $$;
  * nova substitui a antiga). Edição: só o autor, só mensagem de texto, só até quinze minutos depois de enviada. O conteúdo
  * (texto, emoji, texto novo) chega cifrado; o banco só sabe o tipo e o alvo.
  */
+-- Assinatura nova: a antiga sai antes, senão as duas convivem e a API não sabe qual chamar (erro 300).
+drop function if exists public.chat_enviar(uuid, text);
+drop function if exists public.chat_enviar(uuid, text, text, uuid);
 create or replace function public.chat_enviar(p_id uuid, p_corpo text, p_tipo text default 'texto', p_alvo uuid default null, p_anexos uuid[] default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); v_id uuid; v_versao integer; v_prazo integer; a conversa_mensagens; v_presos integer;
 begin
