@@ -13,11 +13,11 @@ Sentinela Lúcia. Tudo em branches novas, nada publicado em produção, nenhum c
 ## 1. Preciso de você (em ordem; o resto já está pronto)
 
 > **Atualização (15/10, à noite), depois de eu tentar fazer pelo seu Chrome:**
-> - **Feito:** o instalador Windows foi gerado pelo GitHub Actions (etiqueta , rodada 38811385776): baixe o artefato  em *Actions → Sentinela — instalador Windows*. Os identificadores públicos (Zone ID da Cloudflare, ID do projeto na Vercel, repositório, URL e ref do Supabase do site) já vêm preenchidos no .
-> - **Bloqueado pela sua conta Supabase:** o plano gratuito permite 2 projetos ativos e você já tem 2 (o do site e ). Para criar o projeto do Sentinela, pause o Bandmatch (Project Settings → General → Pause project) ou pague o Pro. Depois, os passos 5 a 11 abaixo.
-> - **Bloqueado pela Cloudflare:** o plano gratuito já usou todas as regras de segurança ("Você usou todas as regras disponíveis para seu plano free"). A regra de limite em  (N1) exige apagar uma regra existente ou subir de plano.
-> - **Não pude fazer por política de segurança:** mexer nas configurações de produção do Supabase do site e da Cloudflare, o  (consentimento OAuth) e qualquer token/chave/senha. Esses passos continuam com você; estão prontos abaixo.
-> - **Vercel (PWA):** a pasta  ainda não existe no , então o importador não deixa escolher o *Root Directory*. Junte a branch  ao  (ou crie o projeto depois) e aí o passo 21 leva um minuto.
+> - **Feito:** o instalador Windows foi gerado pelo GitHub Actions (etiqueta `sentinela-v0.1.2`, rodada 38811385776, 7 MB): baixe o artefato `sentinela-lucia-windows` em *Actions → Sentinela — instalador Windows* (https://github.com/jojoeumermo/perenidade/actions/runs/38811385776). Dentro do zip vêm o `.exe` (NSIS) e o `.msi`. Os identificadores públicos (Zone ID da Cloudflare, ID do projeto na Vercel, repositório, URL e ref do Supabase do site) já vêm preenchidos no `install.sql`.
+> - **Bloqueado pela sua conta Supabase:** o plano gratuito permite 2 projetos ativos e você já tem 2 (o do site e `Bandmatch EARJ`). Para criar o projeto do Sentinela, pause o Bandmatch (Project Settings → General → Pause project) ou pague o Pro. Depois, os passos 5 a 11 abaixo.
+> - **Bloqueado pela Cloudflare:** o plano gratuito já usou todas as regras de segurança ("Você usou todas as regras disponíveis para seu plano free"). A regra de limite em `/api/*` (N1) exige apagar uma regra existente ou subir de plano.
+> - **Não pude fazer por política de segurança:** mexer nas configurações de produção do Supabase do site e da Cloudflare, o `wrangler login` (consentimento OAuth) e qualquer token, chave ou senha. Esses passos continuam com você; estão prontos abaixo.
+> - **Vercel (PWA):** a pasta `sentinela/` ainda não existe no `master`, então o importador não deixa escolher o *Root Directory*. Junte a branch `sentinela` ao `master` (ou crie o projeto depois) e aí o passo 21 leva um minuto.
 
 
 ### A. Supabase e Cloudflare do site (da auditoria anterior, ainda abertos)
