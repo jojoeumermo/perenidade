@@ -1,0 +1,28 @@
+<!-- Instituto Lúcia — modelo do e-mail "Magic Link" (Authentication → Email Templates).
+     Assunto sugerido: Seu link para entrar no Instituto Lúcia -->
+<!doctype html>
+<html lang="pt-BR">
+<body style="margin:0;padding:0;background:#f4ecd8;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4ecd8;padding:32px 12px;">
+<tr><td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#fbf7ee;border:1px solid #c9bb9b;">
+<tr><td style="background:#6e1f1a;padding:28px 36px;">
+<div style="font-family:Georgia,'Times New Roman',serif;font-size:24px;font-weight:bold;color:#f4ecd8;">&#9733; Instituto Lúcia</div>
+<div style="font-family:'Courier New',monospace;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:#f0cf8e;margin-top:6px;">Conhecimento é do povo</div>
+</td></tr>
+<tr><td style="padding:36px 36px 12px;font-family:Georgia,'Times New Roman',serif;color:#1f1a14;">
+<h1 style="margin:0 0 16px;font-size:30px;line-height:1.15;font-weight:normal;">Seu link de entrada.</h1>
+<p style="margin:0 0 24px;font-size:18px;line-height:1.5;">Toque no botão para entrar na sua conta. Não precisa de senha:</p>
+<table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="background:#c21f16;">
+<a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:16px 28px;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:#ffffff;text-decoration:none;">Entrar agora</a>
+</td></tr></table>
+<p style="margin:24px 0 0;font-size:15px;line-height:1.5;color:#3d342a;">Não pediu para entrar? Pode ignorar esta mensagem; ninguém entra sem este link.</p>
+</td></tr>
+<tr><td style="padding:24px 36px 32px;">
+<div style="border-top:2px solid #1f1a14;padding-top:14px;font-family:'Courier New',monospace;font-size:12px;line-height:1.5;color:#3d342a;">Instituto Lúcia · escola livre e gratuita · institutolucia.org</div>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>
