@@ -1,6 +1,7 @@
 ---
 afirmacao: "No socialismo, vão tomar a minha casa e as minhas coisas."
 resposta: "A proposta socialista trata dos meios de produção (grandes fábricas, terras, bancos), e não dos bens de uso pessoal. O próprio Manifesto Comunista responde a essa acusação: o que se quer abolir não é a propriedade em geral, mas a propriedade que permite viver do trabalho dos outros."
+falacias: [espantalho, apelo-a-emocao]
 fontes:
   - titulo: "Manifesto do Partido Comunista, capítulo II"
     autor: "Karl Marx e Friedrich Engels"

@@ -1,104 +1,117 @@
 ---
 titulo: "Sisu, Prouni e Fies"
-resumo: "Objetivo: conhecer os três principais programas que usam a nota do ENEM para o acesso à educação superior (Sisu, Prouni e Fies), quem pode participar, como funcionam e os cuidados com o financiamento."
+resumo: "Os três programas que transformam a nota do ENEM em vaga na faculdade: como funciona cada um, quem pode participar e como escolher."
 autores: ["Instituto Lúcia"]
 fontes:
-  - titulo: "Sisu"
-    autor: "Ministério da Educação, Acesso Único"
+  - titulo: "Sisu — Portal Único de Acesso ao Ensino Superior"
+    autor: "Ministério da Educação"
     url: "https://acessounico.mec.gov.br/sisu"
-  - titulo: "Prouni"
-    autor: "Ministério da Educação, Acesso Único"
+  - titulo: "Prouni — Portal Único de Acesso ao Ensino Superior"
+    autor: "Ministério da Educação"
     url: "https://acessounico.mec.gov.br/prouni"
-  - titulo: "Fies"
-    autor: "Ministério da Educação, Acesso Único"
+  - titulo: "Fies — Portal Único de Acesso ao Ensino Superior"
+    autor: "Ministério da Educação"
     url: "https://acessounico.mec.gov.br/fies"
-  - titulo: "Lei nº 11.096, de 13 de janeiro de 2005 (institui o Prouni)"
-    autor: "Brasil"
-    ano: "2005"
-    url: "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11096.htm"
-  - titulo: "Lei nº 10.260, de 12 de julho de 2001 (Fundo de Financiamento Estudantil)"
-    autor: "Brasil"
-    ano: "2001"
-    url: "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10260.htm"
+  - titulo: "Edital nº 3, de 21 de janeiro de 2026 (Fies, 1º semestre de 2026)"
+    autor: "Ministério da Educação"
+    ano: "2026"
+    url: "https://www.gov.br/mec/pt-br/fies/arquivos/2026/edital_n_3_21012026.pdf"
 quiz:
-  - pergunta: "Para que serve o Sisu?"
-    opcoes: ["Para concorrer a vagas em instituições públicas de educação superior com a nota do ENEM", "Para pedir empréstimo", "Para conseguir bolsa em escola particular de ensino médio"]
+  - pergunta: "Qual programa oferece vagas em universidades e institutos públicos?"
+    opcoes: ["Sisu", "Prouni", "Fies"]
     resposta: 0
-    explicacao: "Sistema de Seleção Unificada."
-  - pergunta: "O que oferece o Prouni?"
-    opcoes: ["Bolsas de estudo, integrais ou parciais, em instituições privadas", "Vagas em universidades públicas", "Empréstimo bancário"]
-    resposta: 0
-    explicacao: "Programa Universidade para Todos, criado pela Lei nº 11.096, de 2005."
+    explicacao: "O Sisu distribui vagas em instituições públicas. Prouni e Fies são para faculdades particulares."
   - pergunta: "Qual é a diferença entre Prouni e Fies?"
-    opcoes: ["O Prouni dá bolsa, que não se paga; o Fies é um financiamento, que precisa ser pago depois", "São iguais", "O Fies é só para universidades públicas"]
-    resposta: 0
-    explicacao: "Antes de assinar o Fies, é preciso entender as condições de pagamento."
-  - pergunta: "O que é a nota de corte do Sisu?"
-    opcoes: ["A menor nota entre os candidatos que estariam selecionados naquele momento, que muda ao longo do período de inscrição", "Uma nota fixa definida por lei", "A nota da redação"]
-    resposta: 0
-    explicacao: "Ela serve de referência para o candidato decidir se mantém ou muda a opção."
+    opcoes: ["Nenhuma", "O Prouni dá bolsa, que não se paga de volta; o Fies é um financiamento, uma dívida a pagar depois", "O Fies é só para escola pública"]
+    resposta: 1
+    explicacao: "Bolsa do Prouni não se devolve. O Fies empresta o dinheiro do curso, e a pessoa paga depois de formada."
+  - pergunta: "No Sisu 2026, quais notas do ENEM podiam ser usadas?"
+    opcoes: ["Só a do ano anterior", "As das três últimas edições (2023, 2024 e 2025), e o sistema escolhia a melhor para cada curso", "Qualquer edição desde 2009"]
+    resposta: 1
+    explicacao: "O sistema calculava a média ponderada de cada edição para o curso escolhido e ficava com a maior."
+  - pergunta: "O que acontece com quem tirou zero na redação?"
+    opcoes: ["Pode usar a nota normalmente", "Não pode usar aquela edição do ENEM no Sisu, no Prouni nem no Fies", "Perde só no Fies"]
+    resposta: 1
+    explicacao: "Os três programas exigem nota acima de zero na redação."
 ---
 
-## Três portas
+A nota do ENEM sozinha não dá vaga em lugar nenhum. Ela vira oportunidade por meio de programas do Ministério da Educação, e os três principais são o **Sisu**, o **Prouni** e o **Fies**. Todos funcionam pelo **Portal Único de Acesso ao Ensino Superior** (*acessounico.mec.gov.br*), com a conta gov.br.
 
-A nota do ENEM abre três portas principais para a educação superior:
+Esta aula usa as regras de **2026** como exemplo. Datas, limites de renda e detalhes mudam: confira sempre o edital do seu ano no portal.
 
-| Programa | O que é | Onde |
-| --- | --- | --- |
-| **Sisu** | seleção para **vagas gratuitas** | instituições **públicas** |
-| **Prouni** | **bolsas** de estudo, integrais ou parciais | instituições **privadas** |
-| **Fies** | **financiamento** da mensalidade, a ser pago depois | instituições **privadas** |
+## O resumo
 
-## Sisu
+| | Sisu | Prouni | Fies |
+| --- | --- | --- | --- |
+| O que oferece | vaga em instituição **pública** | **bolsa** em faculdade particular | **financiamento** em faculdade particular |
+| Paga alguma coisa? | não (instituição pública é gratuita) | não, na bolsa integral; metade, na parcial | sim, depois: é um empréstimo |
+| Renda | só para as vagas de cota com recorte de renda | até 1,5 salário mínimo por pessoa (integral) ou 3 (parcial) | até 3 salários mínimos por pessoa |
+| Nota mínima | depende do curso; redação acima de zero | média de 450 e redação acima de zero | média de 450 e redação acima de zero |
 
-O **Sistema de Seleção Unificada** reúne vagas de muitas universidades e institutos federais e estaduais. Funciona assim:
+E uma regra comum aos três: quem fez a prova como **treineiro** não pode usar a nota.
 
-1. o candidato escolhe até **duas opções** de curso;
-2. durante o período de inscrição, o sistema mostra a **nota de corte** parcial de cada curso (a menor nota entre os que estariam selecionados naquele momento);
-3. o candidato pode **mudar** as opções até o fim do prazo;
-4. ao fim, saem os resultados; quem não for chamado pode entrar na **lista de espera**.
+## Sisu: vaga na universidade pública
 
-Uma parte das vagas é reservada pela [Lei de Cotas](/trilhas/enem-como-funciona/cotas-como-funciona-a-lei-de-cotas).
+O **Sistema de Seleção Unificada** reúne vagas de universidades federais, institutos federais e algumas instituições estaduais. Não há vestibular próprio: a seleção é feita só com a nota do ENEM.
 
-## Prouni
+Como funcionou em 2026:
 
-O **Programa Universidade para Todos** (Lei nº 11.096, de 2005) concede **bolsas** em instituições privadas, que em troca recebem isenção de tributos. As regras de renda e de trajetória escolar estão na lei e nos editais. Em linhas gerais:
+- **Uma edição por ano**, em janeiro, com vagas para os dois semestres. Em 2026, as inscrições foram de 19 a 23 de janeiro.
+- O candidato escolhe **até duas opções** de curso, por ordem de preferência, e a modalidade em que concorre: ampla concorrência ou uma das cotas.
+- Foram aceitas as notas das **três últimas edições** do ENEM (2023, 2024 e 2025). O sistema calculava, para cada curso, a média com os pesos definidos pela instituição e escolhia a edição em que o candidato se saía melhor.
+- Durante a inscrição, o sistema mostra uma **nota de corte parcial**, atualizada a cada dia. Dá para trocar de curso até o fim do prazo, olhando essa nota.
+- Depois do resultado, há a **lista de espera**, para as vagas que não forem ocupadas na chamada regular. Quem não passou deve confirmar o interesse na lista: muita gente entra assim.
 
-- **bolsa integral**: renda familiar por pessoa de até um salário mínimo e meio;
-- **bolsa parcial (50%)**: renda familiar por pessoa de até três salários mínimos;
-- a prioridade é de quem fez o ensino médio em escola pública ou como bolsista em escola privada; a lei prevê outras situações, como pessoas com deficiência e professores da rede pública, e as regras foram ampliadas nos últimos anos, por isso vale ler o edital;
-- os editais exigem desempenho mínimo no ENEM, incluindo nota da redação diferente de zero.
-
-A bolsa **não precisa ser devolvida**.
-
-## Fies
-
-O **Fundo de Financiamento Estudantil** (Lei nº 10.260, de 2001) **financia** a mensalidade em instituições privadas. É um **empréstimo**: o estudante paga depois de formado, com regras de juros e prazos definidas em contrato.
-
-Antes de contratar:
-
-- calcule quanto vai pagar no **total**;
-- entenda quando começa a pagar e o valor das parcelas;
-- considere o risco de não conseguir emprego logo depois de formado;
-- compare com as alternativas: vaga pública pelo Sisu e bolsa pelo Prouni.
-
-Veja também [Ler um contrato antes de assinar](/trilhas/alfabetizacao-de-jovens-e-adultos/ler-um-contrato-antes-de-assinar).
+**Os pesos importam.** Cada curso dá pesos diferentes às áreas. Medicina costuma pesar mais Ciências da Natureza; Direito, Ciências Humanas e Linguagens. Uma pessoa com nota média mais baixa pode ficar à frente em um curso cujos pesos favorecem a sua área mais forte.
 
 ```verificar
-Ana tem nota boa no ENEM, renda familiar baixa e quer estudar sem pagar mensalidade nem contrair dívida. Por quais programas deve começar?
-+ Sisu (vaga pública) e Prouni (bolsa em instituição privada)
-- Só o Fies
-- Nenhum
-> O Fies é um financiamento: precisa ser pago depois.
+Rafael quer Pedagogia e vê que a nota de corte parcial do curso na universidade A está acima da nota dele. O que ele pode fazer?
+- Nada: a escolha é definitiva
++ Trocar de opção enquanto as inscrições estiverem abertas, ou manter e acompanhar a lista de espera
+- Pedir para recorrigir a prova
+> A nota de corte parcial muda todo dia, e as opções podem ser trocadas até o fim do prazo.
 ```
 
-## O calendário
+## Prouni: bolsa em faculdade particular
 
-Os três programas têm **inscrições em datas próprias**, em geral no começo do ano (e, no caso do Sisu e do Prouni, também no meio do ano em algumas edições). As inscrições são feitas pela internet, com a conta gov.br. Perder o prazo é perder a chance daquele semestre.
+O **Programa Universidade para Todos** dá **bolsas de estudo** em faculdades particulares, que em troca recebem isenção de impostos. A bolsa não é empréstimo: **não se devolve**.
+
+- **Bolsa integral (100%)**: para quem tem renda familiar de até **1,5 salário mínimo por pessoa**.
+- **Bolsa parcial (50%)**: para quem tem renda de até **3 salários mínimos por pessoa**.
+
+Em 2026, os principais requisitos eram:
+
+- ter feito uma das **duas últimas edições** do ENEM, com **média de pelo menos 450 pontos** e **redação acima de zero**;
+- ter cursado o ensino médio em **escola pública** ou como **bolsista integral** em escola particular. Pessoas com deficiência e professores da rede pública que concorrem a cursos de licenciatura ou pedagogia têm regras próprias, e, desde a Lei nº 14.350, de 2022, também podem participar estudantes que fizeram o ensino médio em escola particular sem bolsa integral, conforme as condições do edital.
+
+O Prouni tem duas edições por ano, uma para cada semestre. Também há reserva de bolsas para cotas, como no Sisu.
+
+## Fies: financiamento
+
+O **Fundo de Financiamento Estudantil** **empresta** o dinheiro da mensalidade de um curso particular. O estudante começa a pagar a dívida depois de formado, conforme as regras do contrato.
+
+Nas regras de 2026:
+
+- renda familiar de até **3 salários mínimos por pessoa**;
+- ter feito o ENEM a partir de 2010, com **média de pelo menos 450 pontos** e **redação acima de zero**;
+- metade das vagas foi reservada ao **Fies Social**, para quem tem renda de até **meio salário mínimo por pessoa** e está no **CadÚnico**. Nesse caso, é possível financiar **100%** do curso.
+
+Antes de assinar, faça as contas com calma: o Fies é uma dívida longa. Pergunte qual será o valor das parcelas, quando começam e o que acontece em caso de atraso. Se tiver nota para o Sisu ou para uma bolsa do Prouni, essas opções costumam ser melhores.
+
+## Como escolher
+
+Um caminho que funciona para muita gente:
+
+1. **Comece pelo Sisu**, em janeiro. Uma vaga numa instituição pública é gratuita e, em geral, tem mais estrutura de pesquisa e de assistência estudantil, como moradia, restaurante universitário e bolsas.
+2. **Tente o Prouni** em seguida, para garantir uma bolsa se o Sisu não der certo.
+3. **Considere o Fies** por último, sabendo que é uma dívida.
+4. **Fique de olho nas listas de espera** dos três programas.
+5. **Não esqueça da permanência.** Pergunte à instituição sobre auxílio estudantil, transporte e alimentação. Passar é o começo; conseguir ficar até o fim é o que conta.
+
+Além desses programas, muitas faculdades usam a nota do ENEM no lugar do vestibular, e algumas universidades de Portugal também aceitam a nota.
 
 ## Para praticar
 
-1. Procure, no site do Ministério da Educação, as datas da próxima edição do Sisu, do Prouni e do Fies.
-2. Escolha dois cursos que interessem a você e pesquise as notas de corte da edição anterior do Sisu.
-3. Verifique se a sua renda familiar se enquadra nas regras do Prouni.
-4. Faça uma tabela comparando os três programas: vantagens e riscos.
+1. Entre no portal *acessounico.mec.gov.br* e encontre a página de cada programa.
+2. Calcule a renda por pessoa da sua família: some a renda bruta de todos que moram na casa e divida pelo número de pessoas. Compare com os limites desta aula.
+3. Escolha dois cursos que você gostaria de fazer e pesquise, na página do Sisu, quais instituições os oferecem e quais pesos dão a cada área.

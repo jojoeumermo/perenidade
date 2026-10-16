@@ -6,7 +6,7 @@ import { rpc, type Me } from "@/lib/backend";
 import type { Chaveiro } from "@/lib/chaveiro";
 import { contextoDaConversa } from "@/lib/sigilo";
 import { useI18n } from "../I18n";
-import { Aviso, botao, botaoClaro, campo, elo, papeis, rotulo, textoDoErro, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, elo, localDoPainel, papeis, rotulo, textoDoErro, useLista } from "./comum";
 import type { Membro } from "./Equipe";
 import { Aparelhos, ComoFunciona, enviarCifrado, SEM_CHAVE, useAbertos, useChaveiro } from "./Sigilo";
 
@@ -72,8 +72,8 @@ const iniciais = (nome: string) =>
     .map((parte) => parte[0]?.toUpperCase() ?? "")
     .join("") || "?";
 
-const hora = (iso: string) => new Date(iso).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-const diaDe = (iso: string) => new Date(iso).toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "long" });
+const hora = (iso: string) => new Date(iso).toLocaleTimeString(localDoPainel(), { hour: "2-digit", minute: "2-digit" });
+const diaDe = (iso: string) => new Date(iso).toLocaleDateString(localDoPainel(), { weekday: "long", day: "2-digit", month: "long" });
 
 /** "some em 40 min", "some em 5 h", "some em 3 dias". */
 function restante(iso: string) {
@@ -94,7 +94,7 @@ function presenca(online: boolean | null, visto: string | null) {
   const ontem = new Date(Date.now() - 86400000);
   if (quando.toDateString() === hoje.toDateString()) return `visto por último hoje às ${hora(visto)}`;
   if (quando.toDateString() === ontem.toDateString()) return `visto por último ontem às ${hora(visto)}`;
-  return `visto por último em ${quando.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" })}`;
+  return `visto por último em ${quando.toLocaleDateString(localDoPainel(), { day: "2-digit", month: "2-digit" })}`;
 }
 
 function Rosto({ nome, online = false, tipo = "direta" }: { nome: string; online?: boolean; tipo?: Tipo }) {
@@ -167,7 +167,7 @@ export function Conversas({ me }: { me: Me }) {
   }
 
   return (
-    <div className="grid h-[calc(100dvh-16.5rem)] min-h-[24rem] border border-rule lg:h-[calc(100dvh-12.5rem)] lg:grid-cols-[19rem_minmax(0,1fr)]">
+    <div className="grid h-[calc(100dvh-16.5rem)] min-h-[18rem] lg:min-h-[24rem] border border-rule lg:h-[calc(100dvh-12.5rem)] lg:grid-cols-[19rem_minmax(0,1fr)]">
       <aside className={`flex min-h-0 flex-col border-rule bg-parchment-deep lg:border-r ${aberta || novoGrupo ? "hidden lg:flex" : "flex"}`}>
         <div className="space-y-2 border-b border-rule p-3">
           <input value={busca} onChange={(e) => setBusca(e.target.value)} type="search" placeholder="Procurar pessoa ou conversa" aria-label="Procurar pessoa ou conversa" className={`${campo} mt-0 bg-parchment`} />
@@ -389,11 +389,15 @@ function Janela({ id, chaveiro, me, equipe, resumo, voltar, mudou }: { id: strin
                     )}
                     <div className={`max-w-[80%] px-3 py-1.5 sm:max-w-[70%] ${mensagem.minha ? "bg-ink text-parchment" : "border border-rule bg-parchment-deep"}`}>
                       {mostraNome && <p className="text-xs font-semibold text-gold">{mensagem.nome}</p>}
-                      <p className={`whitespace-pre-line break-words ${typeof abertos[mensagem.id] !== "string" || mensagem.corpo.startsWith("c1.") ? "italic opacity-80" : ""}`}>
+                      <p
+                        // O que a pessoa escreveu fica como escrito, em qualquer idioma do painel; os avisos do sistema se traduzem.
+                        translate={typeof abertos[mensagem.id] === "string" ? "no" : undefined}
+                        className={`whitespace-pre-line break-words ${typeof abertos[mensagem.id] !== "string" || mensagem.corpo.startsWith("c1.") ? "italic opacity-80" : ""}`}
+                      >
                         {abertos[mensagem.id] === null ? SEM_CHAVE : (abertos[mensagem.id] ?? "…")}
                       </p>
                       <p className={`text-right text-[0.65rem] leading-tight ${mensagem.minha ? "text-parchment/70" : "text-ink-soft"}`}>
-                        {mensagem.expira_em && <span title={`Autodestruição: ${new Date(mensagem.expira_em).toLocaleString("pt-BR")}`}>⏱ {restante(mensagem.expira_em)} · </span>}
+                        {mensagem.expira_em && <span title={`Autodestruição: ${new Date(mensagem.expira_em).toLocaleString(localDoPainel())}`}>⏱ {restante(mensagem.expira_em)} · </span>}
                         {hora(mensagem.criado_em)}
                       </p>
                     </div>
@@ -413,6 +417,14 @@ function Janela({ id, chaveiro, me, equipe, resumo, voltar, mudou }: { id: strin
                   e.preventDefault();
                   void enviar();
                 }
+              }}
+              // Com o teclado do celular aberto, a caixa de escrever e a última mensagem ficam à vista.
+              onFocus={(e) => {
+                const formulario = e.currentTarget.form;
+                setTimeout(() => {
+                  fim.current?.scrollIntoView({ block: "end" });
+                  formulario?.scrollIntoView({ block: "end" });
+                }, 300);
               }}
               rows={1}
               maxLength={MAXIMO}

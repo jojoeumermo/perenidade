@@ -203,7 +203,7 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
         />
       ) : (
         <>
-          <div className="border border-rule bg-parchment p-5 font-serif" lang="pt-BR">
+          <div className="border border-rule bg-parchment p-5 font-serif" lang="pt-BR" translate="no">
             <Markdown lang={lang}>{c.corpo || "*Sem texto.*"}</Markdown>
           </div>
           {c.fontes.length > 0 ? (

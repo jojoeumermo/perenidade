@@ -112,7 +112,7 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
 
 export interface Role {
   id: string;
-  papel: "coordenacao" | "vice" | "curadoria" | "mediacao" | "educacao" | "educacao_secundaria" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "marketing" | "desenvolvimento";
+  papel: "coordenacao" | "vice" | "supervisao" | "curadoria" | "mediacao" | "educacao" | "educacao_secundaria" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "marketing" | "desenvolvimento";
   disciplina: string | null;
 }
 
@@ -132,6 +132,8 @@ export interface Me {
   supervisao?: boolean;
   /** Pode usar o estúdio de design (marketing, design, jornalismo e coordenação). */
   desenha?: boolean;
+  /** A coordenação redefiniu a senha: a pessoa escolhe uma nova antes de o painel abrir. */
+  trocar_senha?: boolean;
 }
 
 /** Funções que valem por outra: a educação secundária tem os poderes da educação; o marketing, os do design. */
@@ -246,6 +248,97 @@ export async function recoverPending(): Promise<boolean> {
   }
 }
 
+/**
+ * O assistente de reforço está ligado? Fica falso sem serviço, desligado, ou com a aula de reforço interditada.
+ * `active` evita a consulta quando ela não serve para nada (por exemplo, para quem nem entrou na conta).
+ */
+export function useAssistantOn(active = true): boolean {
+  const [on, setOn] = useState(false);
+  useEffect(() => {
+    if (!hasBackend || !active) return;
+    let cancelled = false;
+    rpc<{ ligado?: boolean } | null>("assistente_estado")
+      .then((state) => {
+        if (!cancelled) setOn(state?.ligado === true);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [active]);
+  return on;
+}
+
+export interface AssistantRequest {
+  modo: "pergunta" | "foto";
+  pergunta: string;
+  disciplina: string;
+  idioma: string;
+  /** Aulas do próprio site que podem ajudar: o assistente só recomenda estas. */
+  aulas: { titulo: string; caminho: string }[];
+  imagem?: { tipo: string; dados: string };
+}
+
+export type AssistantResult =
+  | { ok: true; texto: string; cortada: boolean; transcricao: string; conta: string; restantes: number | null }
+  | { ok: false; recusa: boolean; erro: string };
+
+/**
+ * Pergunta ao assistente de reforço (a função "assistente"). A pergunta, e a foto se houver, vão para um serviço de
+ * inteligência artificial de outra empresa; o site não guarda nada disso. O banco só conta quantas perguntas a pessoa fez.
+ */
+export async function askAssistant(request: AssistantRequest): Promise<AssistantResult> {
+  try {
+    const supabase = await getClient();
+    const { data } = await supabase.auth.getSession();
+    if (!data.session) return { ok: false, recusa: false, erro: "entre_primeiro" };
+    const response = await fetch(`${url}/functions/v1/assistente`, {
+      method: "POST",
+      headers: { apikey: key, Authorization: `Bearer ${data.session.access_token}`, "Content-Type": "application/json" },
+      body: JSON.stringify(request),
+      // Uma explicação passo a passo pode levar mais de um minuto.
+      signal: AbortSignal.timeout(150_000),
+    });
+    const body = (await response.json().catch(() => null)) as Record<string, unknown> | null;
+    if (body?.recusa === true) return { ok: false, recusa: true, erro: "" };
+    if (!response.ok || typeof body?.texto !== "string") {
+      const erro = typeof body?.erro === "string" && /^[a-z_]+(:[a-z_]+)?$/.test(body.erro) ? body.erro : "assistente_falhou";
+      return { ok: false, recusa: false, erro };
+    }
+    return {
+      ok: true,
+      texto: body.texto,
+      cortada: body.cortada === true,
+      transcricao: typeof body.transcricao === "string" ? body.transcricao : "",
+      conta: typeof body.conta === "string" ? body.conta : "",
+      restantes: typeof body.restantes === "number" ? body.restantes : null,
+    };
+  } catch {
+    return { ok: false, recusa: false, erro: "assistente_falhou" };
+  }
+}
+
+/** Teste de funcionamento do assistente (coordenação e vice). null quer dizer que a função não respondeu. */
+export async function verifyAssistant(): Promise<{ chave: boolean; ok: boolean; falha: string; modelo: string } | null> {
+  try {
+    const supabase = await getClient();
+    const { data } = await supabase.auth.getSession();
+    if (!data.session) return null;
+    const response = await fetch(`${url}/functions/v1/assistente`, {
+      method: "POST",
+      headers: { apikey: key, Authorization: `Bearer ${data.session.access_token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ verificar: true }),
+      signal: AbortSignal.timeout(60_000),
+    });
+    if (!response.ok) return null;
+    const body = (await response.json()) as { chave?: unknown; ok?: unknown; falha?: unknown; modelo?: unknown } | null;
+    if (typeof body?.ok !== "boolean") return null;
+    return { chave: body.chave === true, ok: body.ok, falha: typeof body.falha === "string" ? body.falha : "", modelo: typeof body.modelo === "string" ? body.modelo : "" };
+  } catch {
+    return null;
+  }
+}
+
 export async function signOut() {
   try {
     const supabase = await getClient();
@@ -253,6 +346,7 @@ export async function signOut() {
   } finally {
     try {
       localStorage.removeItem(KEYS.session);
+      localStorage.removeItem(KEYS.name);
     } catch {
       // sem armazenamento, não há sessão para apagar
     }

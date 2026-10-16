@@ -4,7 +4,7 @@ sobretitulo: "Regras do site"
 resumo: "O que o Instituto Lúcia é, o que você pode fazer com o conteúdo, as regras de convivência e os limites da nossa responsabilidade."
 ---
 
-Atualizados em 11 de outubro de 2026.
+Atualizados em 14 de outubro de 2026.
 
 ## O que é este site
 
@@ -49,6 +49,10 @@ Você continua dono do que escreve. Ao publicar na comunidade ou enviar uma cont
 ## Mural dos Trabalhadores
 
 O mural divulga o trabalho de quem vive do próprio trabalho. O instituto não vende, não cobra, não intermedeia negócio e não garante os serviços e produtos anunciados. Combine tudo diretamente com quem anunciou e tome os cuidados de qualquer negócio entre pessoas.
+
+## Gaveta Aberta
+
+Na [Gaveta Aberta](/gaveta), estudantes publicam trabalhos próprios (TCC, artigo, projeto, apostila) para livre uso de todos, sob a licença livre que escolhem. Publicar exige aceitar o [termo de cessão](/gaveta/termo), que diz o que você declara e autoriza. A mediação confere cada envio antes de publicar. Quem publicou pode tirar a ficha do ar a qualquer momento; quem já tinha copiado o trabalho continua podendo usá-lo nos termos da licença.
 
 ## Aula de reforço e certificados
 

@@ -2,7 +2,7 @@
 titulo: "Introductory Statistics 2e"
 autor: "Barbara Illowsky e Susan Dean"
 area: matematica
-licenca: "CC BY"
+licenca: "CC BY-NC-SA"
 fonte: "OpenStax"
 url: "https://openstax.org/details/books/introductory-statistics-2e"
 idioma: "Inglês"

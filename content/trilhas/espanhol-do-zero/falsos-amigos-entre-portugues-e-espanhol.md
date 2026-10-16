@@ -1,86 +1,126 @@
 ---
-titulo: "Falsos amigos entre português e espanhol"
-resumo: "Objetivo: reconhecer os falsos amigos mais comuns entre o português e o espanhol, palavras iguais ou parecidas com sentidos diferentes, para evitar mal-entendidos na leitura e na conversa."
+titulo: "Falsos amigos entre o português e o espanhol"
+resumo: "Palavras que parecem iguais nas duas línguas, mas querem dizer outra coisa, e os mal-entendidos que elas causam."
 autores: ["Instituto Lúcia"]
 fontes:
-  - titulo: "Espanhol/Dúvidas frequentes no uso do espanhol"
-    autor: "Wikilivros"
-    url: "https://pt.wikibooks.org/wiki/Espanhol/D%C3%BAvidas_frequentes_no_uso_do_espanhol"
-  - titulo: "Gramática básica del estudiante de español"
-    autor: "Rosario Alonso Raya e outros (Difusión)"
-    ano: "2005"
+  - titulo: "Diccionario de la lengua española"
+    autor: "Real Academia Española"
+    url: "https://dle.rae.es/"
+  - titulo: "Falso amigo"
+    autor: "Wikipedia en español"
+    url: "https://es.wikipedia.org/wiki/Falso_amigo"
+  - titulo: "Cognato"
+    autor: "Wikipédia"
+    url: "https://pt.wikipedia.org/wiki/Falso_cognato"
 quiz:
-  - pergunta: "O que significa \"embarazada\"?"
-    opcoes: ["Envergonhada", "Grávida", "Embaraçada"]
+  - pergunta: "Uma colega diz: \"Estoy embarazada\". O que ela quer dizer?"
+    opcoes: ["Que está envergonhada", "Que está grávida", "Que está confusa"]
     resposta: 1
-    explicacao: "Envergonhada é avergonzada."
-  - pergunta: "O que significa \"exquisito\"?"
-    opcoes: ["Esquisito", "Delicioso, refinado", "Feio"]
+    explicacao: "Embarazada é grávida. Envergonhada, em espanhol, é avergonzada."
+  - pergunta: "O que é \"la oficina\"?"
+    opcoes: ["A oficina mecânica", "O escritório", "A loja"]
     resposta: 1
-    explicacao: "Esquisito, estranho, é raro ou extraño."
-  - pergunta: "O que significa \"rato\" em espanhol?"
-    opcoes: ["O animal rato", "Um momento, um pouco de tempo", "Uma rua"]
+    explicacao: "Oficina é o escritório. A oficina mecânica é el taller."
+  - pergunta: "Se alguém diz que a comida está \"exquisita\", ela está:"
+    opcoes: ["estranha", "deliciosa", "fria"]
     resposta: 1
-    explicacao: "O animal é ratón ou rata."
-  - pergunta: "O que significa \"polvo\"?"
-    opcoes: ["Polvo, o animal", "Pó, poeira", "Povo"]
+    explicacao: "Exquisito é delicioso, refinado. Estranho é raro ou extraño."
+  - pergunta: "O que quer dizer \"Espérame un rato\"?"
+    opcoes: ["Espere-me um pouco", "Espere-me com o rato", "Espere-me lá fora"]
+    resposta: 0
+    explicacao: "Un rato é um momento, um tempinho. O rato (animal) é el ratón."
+  - pergunta: "O que é o \"apellido\" de uma pessoa?"
+    opcoes: ["O apelido", "O sobrenome", "O nome do meio"]
     resposta: 1
-    explicacao: "O animal é pulpo."
+    explicacao: "Apellido é o sobrenome. O apelido é el apodo (ou sobrenombre)."
 ---
 
-## Parecidas, mas diferentes
+O português e o espanhol vêm do latim e têm milhares de palavras em comum. Isso é uma vantagem enorme para quem estuda. Mas algumas palavras têm a mesma forma, ou quase, e sentidos diferentes. São os **falsos amigos** (ou falsos cognatos), e eles estão por trás das confusões mais engraçadas do "portunhol", e de algumas bem constrangedoras.
 
-O português e o espanhol são línguas irmãs: muitas palavras são **iguais ou muito parecidas** e têm o mesmo sentido. Isso facilita muito. Mas algumas palavras parecidas têm **sentidos diferentes**: são os **falsos amigos** (em espanhol, *falsos amigos* ou *heterosemánticos*). Eles causam mal-entendidos, às vezes engraçados, às vezes sérios.
+## Por que eles existem
 
-## Os mais comuns
+As palavras mudam de sentido com o tempo, e cada língua seguiu o seu caminho. Às vezes as duas guardaram sentidos diferentes de uma mesma palavra latina; às vezes uma delas criou um sentido novo. Não há regra que os denuncie: é preciso conhecê-los um a um. Esta aula reúne os mais comuns.
 
-| Espanhol | Significa | Não é | Que em espanhol se diz |
+## Os clássicos
+
+| Espanhol | Quer dizer | Não quer dizer | Como se diz isso em espanhol |
 | --- | --- | --- | --- |
 | **embarazada** | grávida | embaraçada | avergonzada |
 | **exquisito** | delicioso, refinado | esquisito | raro, extraño |
-| **rato** | momento, pouco tempo | rato | ratón, rata |
-| **polvo** | pó | polvo | pulpo |
-| **oficina** | escritório | oficina (mecânica) | taller |
-| **apellido** | sobrenome | apelido | apodo, sobrenombre |
-| **largo** | comprido | largo | ancho |
+| **oficina** | escritório | oficina mecânica | taller |
+| **polvo** | pó, poeira | polvo (animal) | pulpo |
+| **borracha** | bêbada | borracha (de apagar) | goma de borrar |
+| **rato** | momento, tempinho | rato | ratón |
 | **cena** | jantar | cena | escena |
-| **borracha** | bêbada | borracha | goma (de borrar) |
-| **salada** | salgada | salada | ensalada |
-| **pelado** | careca | pelado (sem roupa) | desnudo |
+| **largo** | comprido | largo | ancho |
+| **apellido** | sobrenome | apelido | apodo |
+| **salsa** | molho | salsa (tempero) | perejil |
 | **cachorro** | filhote | cachorro | perro |
-| **vaso** | copo | vaso (de flores) | florero, maceta |
-| **presunto** | suposto | presunto | jamón |
-| **sitio** | lugar | sítio (chácara) | finca, granja |
-| **todavía** | ainda | todavia (no entanto) | sin embargo |
-| **acordarse** | lembrar-se | acordar (despertar) | despertarse |
-| **contestar** | responder | contestar (discordar) | refutar, impugnar |
-| **zurdo** | canhoto | surdo | sordo |
-| **escoba** | vassoura | escova | cepillo |
+| **taza** | xícara | taça | copa |
+| **vaso** | copo | vaso de planta | maceta, florero |
+| **sitio** | lugar | sítio (chácara) | finca, chacra, quinta |
 
-## Os que causam mais confusão
+Algumas frases para fixar:
 
-- **Todavía no.** "Ainda não". Em português, "todavia" quer dizer "no entanto".
-- **Un rato.** "Um momento": *Espera un rato*, espere um pouco.
-- **Contestar el teléfono.** Atender o telefone. *Contestar una pregunta*: responder.
-- **Me acuerdo.** "Eu me lembro". Acordar é *despertarse*.
+- *La reunión es en mi **oficina**.* — A reunião é no meu escritório.
+- *Esta calle es muy **larga**.* — Esta rua é muito comprida.
+- *Hay mucho **polvo** en la casa.* — Tem muita poeira na casa.
+- *Vuelvo en un **rato**.* — Volto daqui a pouco.
+- *Nuestra perra tuvo **cachorros**.* — A nossa cachorra teve filhotes.
 
-```verificar
-Uma colega diz: "Estoy embarazada de tres meses." O que ela está contando?
-- Que está envergonhada há três meses
-+ Que está grávida de três meses
-- Que está desempregada há três meses
-> Embarazada é um dos falsos amigos mais famosos.
-```
+## Os falsos amigos do dia a dia
 
-## Uma estratégia
+| Espanhol | Quer dizer | Não quer dizer |
+| --- | --- | --- |
+| **pronto** | logo, em breve | pronto (que é *listo*) |
+| **todavía** | ainda | todavia (que é *sin embargo*) |
+| **acordarse** | lembrar-se | acordar (que é *despertarse*) |
+| **brincar** | pular, saltar | brincar (que é *jugar*) |
+| **contestar** | responder | contestar (que é *cuestionar, discutir*) |
+| **tirar** | jogar, jogar fora | tirar (que é *sacar, quitar*) |
+| **fechar** | pôr a data em | fechar (que é *cerrar*) |
+| **escoba** | vassoura | escova (que é *cepillo*) |
+| **rubio** | loiro | ruivo (que é *pelirrojo*) |
+| **zurdo** | canhoto | surdo (que é *sordo*) |
+| **propina** | gorjeta | propina, suborno (que é *soborno, coima*) |
+| **sobremesa** | a conversa à mesa depois da refeição | sobremesa (que é *postre*) |
+| **cola** | fila; rabo | cola de colar (que é *pegamento*) |
+| **novela** | romance (livro) | novela de TV (que é *telenovela*) |
+| **escritorio** | escrivaninha | escritório (que é *oficina*) |
+| **balcón** | sacada, varanda | balcão de loja (que é *mostrador*) |
+| **presunto** | suposto | presunto (que é *jamón*) |
 
-- Quando uma frase ficar **sem sentido** com a tradução "óbvia", desconfie de um falso amigo.
-- Não exagere na desconfiança: a grande maioria das palavras parecidas tem o **mesmo** sentido.
-- Faça uma lista própria dos falsos amigos que você encontrar.
+Veja como eles podem confundir uma conversa:
+
+- *¡**Pronto** llegamos!* — Logo a gente chega! (E não "pronto, chegamos".)
+- *¿Todavía trabajas allí?* — Você ainda trabalha lá?
+- *No me **acuerdo** de su nombre.* — Não me lembro do nome dele.
+- *Hay que hacer **cola** para votar.* — Tem que fazer fila para votar.
+- *Dejamos una buena **propina** al camarero.* — Deixamos uma boa gorjeta para o garçom.
+
+## Um diálogo cheio de armadilhas
+
+> — ¡Qué cena tan exquisita! ¿Quién la hizo?
+>
+> — Mi suegra. Pero espera un rato, que todavía falta el postre.
+>
+> — ¿Y tu cuñada? Me dijeron que está embarazada.
+>
+> — Sí, pero hoy no vino. Está en la oficina hasta tarde.
+
+Tradução: — Que jantar delicioso! Quem fez? — Minha sogra. Mas espere um pouco, que ainda falta a sobremesa. — E a sua cunhada? Me disseram que ela está grávida. — Sim, mas hoje ela não veio. Está no escritório até tarde.
+
+## Como se proteger
+
+1. **Desconfie das palavras fáceis demais.** Se uma palavra parece igual ao português, mas a frase fica estranha, consulte o dicionário.
+2. **Use um dicionário monolíngue.** O *Diccionario de la lengua española*, da Real Academia Española, é gratuito na internet e explica cada sentido em espanhol.
+3. **Aprenda a palavra com a frase.** Decorar "oficina = escritório" ajuda, mas lembrar *trabajo en una oficina* ajuda mais.
+4. **Crie uma lista própria.** Cada vez que um falso amigo o enganar, anote. É assim que eles deixam de enganar.
 
 ## Para praticar
 
-1. Traduza: "Espérame un rato." / "Todavía no he cenado." / "La oficina está en el tercer piso."
-2. Escreva em espanhol: "Ela é canhota." / "Eu me lembro de você." / "A camisa é comprida."
-3. Escolha cinco falsos amigos da tabela e escreva uma frase com cada um.
-4. Pergunte a alguém que fala espanhol qual falso amigo já lhe causou confusão.
+1. Traduza para o português: *Mi hermana está embarazada. El pulpo estaba exquisito. Trabajo en una oficina en el centro. No me acuerdo de tu apellido.*
+2. Traduza para o espanhol: "O meu cachorro teve filhotes." / "Ainda não estou pronto." / "Tem muita poeira no escritório."
+3. Escolha cinco palavras das tabelas e escreva uma frase com cada uma.
+
+Respostas do 1: *Minha irmã está grávida. O polvo estava delicioso. Trabalho num escritório no centro. Não me lembro do seu sobrenome.* Uma resposta possível do 2: *Mi perro tuvo cachorros. / Todavía no estoy listo. / Hay mucho polvo en la oficina.*

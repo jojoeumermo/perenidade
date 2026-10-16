@@ -1,107 +1,153 @@
 ---
 titulo: "Pronomes e o verbo 是 (ser)"
-resumo: "Objetivo: usar os pronomes pessoais do mandarim, ligar dois substantivos com 是, negar com 不 e entender por que 是 não se usa antes de adjetivos."
+resumo: "Eu, você, ele e ela em chinês, o verbo 是 que nunca muda e quando não usá-lo."
 autores: ["Instituto Lúcia"]
 fontes:
-  - titulo: "Chinese Grammar Wiki: Connecting nouns with \"shi\""
+  - titulo: "Personal pronouns (Chinese Grammar Wiki)"
+    autor: "AllSet Learning"
+    url: "https://resources.allsetlearning.com/chinese/grammar/Personal_pronouns"
+  - titulo: "Connecting nouns with \"shi\" (Chinese Grammar Wiki)"
     autor: "AllSet Learning"
     url: "https://resources.allsetlearning.com/chinese/grammar/ASGUN7RX"
-  - titulo: "Chinese Grammar Wiki: Simple \"noun + adjective\" sentences"
+  - titulo: "Simple \"noun + adjective\" sentences (Chinese Grammar Wiki)"
     autor: "AllSet Learning"
-    url: "https://resources.allsetlearning.com/chinese/grammar/ASG17BLH"
-  - titulo: "Chinese Grammar Wiki: Standard negation with \"bu\""
+    url: "https://resources.allsetlearning.com/chinese/grammar/Simple_%22noun_%2B_adjective%22_sentences"
+  - titulo: "Expressing possession with \"de\" (Chinese Grammar Wiki)"
     autor: "AllSet Learning"
-    url: "https://resources.allsetlearning.com/chinese/grammar/ASGIPYFV"
+    url: "https://resources.allsetlearning.com/chinese/grammar/Expressing_possession_with_%22de%22"
+  - titulo: "是 (Wiktionary)"
+    autor: "Wiktionary"
+    url: "https://en.wiktionary.org/wiki/%E6%98%AF"
 quiz:
-  - pergunta: "Como se forma o plural dos pronomes pessoais?"
-    opcoes: ["Acrescentando 们 (men)", "Repetindo o pronome", "Não existe plural"]
+  - pergunta: "Como se diz \"Eles são estudantes\"?"
+    opcoes: ["他们是学生 (tāmen shì xuésheng)", "他们是们学生 (tāmen shì men xuésheng)", "他是学生们 (tā shì xuéshengmen)"]
     resposta: 0
-    explicacao: "我 → 我们 (nós); 你 → 你们 (vocês); 他 → 他们 (eles)."
-  - pergunta: "Qual frase está correta para dizer \"Eu sou professor\"?"
-    opcoes: ["我是老师。 (wǒ shì lǎoshī.)", "我老师是。", "我是很老师。"]
-    resposta: 0
-    explicacao: "Sujeito + 是 + substantivo."
+    explicacao: "O plural fica no pronome (他们), e o verbo 是 nunca muda."
   - pergunta: "Como se diz \"Eu estou ocupado\"?"
-    opcoes: ["我是忙。", "我很忙。 (wǒ hěn máng.)", "我忙是。"]
+    opcoes: ["我是忙 (wǒ shì máng)", "我很忙 (wǒ hěn máng)", "我忙是 (wǒ máng shì)"]
     resposta: 1
-    explicacao: "Antes de adjetivos não se usa 是; usa-se, em geral, 很."
-  - pergunta: "Como se nega 他是学生 (ele é estudante)?"
-    opcoes: ["他没是学生。", "他不是学生。 (tā bú shì xuésheng.)", "他是不学生。"]
+    explicacao: "Com adjetivos, o chinês não usa 是. No lugar dele entra, em geral, 很 (hěn)."
+  - pergunta: "Qual é a negativa de 我是老师 (wǒ shì lǎoshī)?"
+    opcoes: ["我没是老师", "我不是老师 (wǒ bú shì lǎoshī)", "我是不老师"]
     resposta: 1
-    explicacao: "不 vem antes de 是. E se pronuncia bú, porque 是 é de quarto tom."
+    explicacao: "O 是 se nega com 不, que vira segundo tom (bú) antes do quarto tom de shì."
+  - pergunta: "Na fala, como se distingue 他 (ele) de 她 (ela)?"
+    opcoes: ["Pelo tom", "Não se distingue: os dois são tā", "她 se pronuncia nǚ"]
+    resposta: 1
+    explicacao: "Os dois soam igual. A diferença só aparece na escrita."
 ---
 
-## Os pronomes pessoais
+Nesta aula você monta as primeiras frases completas em chinês. A boa notícia é que o verbo chinês **não se conjuga**: ele não muda com a pessoa (eu, você, ele) nem com o tempo (presente, passado). Uma vez aprendido, serve para tudo.
+
+## Os pronomes
 
 | Caractere | Pinyin | Sentido |
 | --- | --- | --- |
-| 我 | wǒ | eu |
+| 我 | wǒ | eu, me, mim |
 | 你 | nǐ | você |
 | 您 | nín | o senhor, a senhora (respeitoso) |
 | 他 | tā | ele |
 | 她 | tā | ela |
-| 它 | tā | ele, ela (coisa ou animal) |
+| 它 | tā | ele, ela (coisas e animais) |
 | 我们 | wǒmen | nós |
 | 你们 | nǐmen | vocês |
-| 他们 | tāmen | eles |
+| 他们 | tāmen | eles (ou um grupo misto) |
 | 她们 | tāmen | elas |
 
-Duas observações:
+Algumas observações:
 
-- 他, 她 e 它 têm **a mesma pronúncia**: *tā*. Só a escrita distingue. Na fala, o contexto resolve.
-- O plural se faz com **们** (*men*). O verbo **não muda** com a pessoa: em chinês, os verbos não se conjugam.
+- O pronome **não muda** de forma: 我 é "eu", "me" e "mim". *Ele me ama*: 他爱我 (tā ài wǒ). *Eu o amo*: 我爱他 (wǒ ài tā).
+- Para o plural, basta acrescentar **们** (men).
+- **他**, **她** e **它** são pronunciados do mesmo jeito: **tā**. Na fala, não há diferença entre "ele" e "ela"; ela só aparece na escrita. O caractere 她, para "ela", foi criado no começo do século 20, quando escritores chineses quiseram uma forma escrita feminina.
+- No norte da China também se usa **咱们** (zánmen), um "nós" que inclui a pessoa com quem se fala: "nós, eu e você".
 
-## O verbo 是 (shì)
+## O verbo 是
 
-**是** liga dois **substantivos**, como "ser" em "eu sou professor":
+**是** (shì) é o "ser" que liga duas coisas: "A **é** B".
 
-**sujeito + 是 + substantivo**
+> sujeito + 是 + substantivo
 
-- 我是老师。*Wǒ shì lǎoshī.* Eu sou professor(a).
-- 她是医生。*Tā shì yīshēng.* Ela é médica.
-- 他们是工人。*Tāmen shì gōngrén.* Eles são operários.
+- 我是学生。 (Wǒ shì xuésheng.) — Eu sou estudante.
+- 她是老师。 (Tā shì lǎoshī.) — Ela é professora.
+- 我们是工人。 (Wǒmen shì gōngrén.) — Nós somos operários.
+- 他是巴西人。 (Tā shì Bāxī rén.) — Ele é brasileiro.
 
-### A negativa
+O verbo é o mesmo em todas as frases: não existe "sou", "é", "somos". E também não muda no passado: 我是学生 pode ser "eu sou estudante" ou, com o contexto, "eu era estudante".
 
-**不** (*bù*) antes de 是. Como 是 é de quarto tom, 不 se pronuncia **bú**:
+Também não há artigo: 我是学生 é "eu sou **um** estudante" ou "eu sou **o** estudante", conforme o contexto.
 
-- 我不是学生。*Wǒ bú shì xuésheng.* Eu não sou estudante.
+## Nacionalidade e profissão
 
-### A pergunta
+Para a nacionalidade, junta-se o nome do país a **人** (rén, pessoa):
 
-Basta acrescentar **吗** (*ma*) no fim:
-
-- 你是老师吗？*Nǐ shì lǎoshī ma?* Você é professor?
-- Respostas: 是。(sim) / 不是。(não)
-
-## Adjetivos: sem 是
-
-Aqui está a diferença mais importante em relação ao português. Para dizer que alguém **está** ou **é** de certo jeito (com um adjetivo), **não** se usa 是. Usa-se, em geral, **很** (*hěn*, "muito"), que aqui funciona quase como uma ligação, sem dar muita ênfase.
-
-| Errado | Certo | Sentido |
+| País | Pinyin | Nacionalidade |
 | --- | --- | --- |
-| 我是忙。 | 我**很**忙。*Wǒ hěn máng.* | Estou ocupado. |
-| 她是高。 | 她**很**高。*Tā hěn gāo.* | Ela é alta. |
-| 今天是热。 | 今天**很**热。*Jīntiān hěn rè.* | Hoje está quente. |
+| 巴西 | Bāxī | 巴西人 — brasileiro(a) |
+| 中国 | Zhōngguó | 中国人 — chinês, chinesa |
+| 葡萄牙 | Pútáoyá | 葡萄牙人 — português, portuguesa |
+| 安哥拉 | Āngēlā | 安哥拉人 — angolano(a) |
 
-Na negativa, só **不**: 我不忙。*Wǒ bù máng.* Não estou ocupado.
+Algumas profissões:
 
-```verificar
-Como se diz "Ele é muito simpático" (simpático = 好, hǎo, aqui no sentido de bom, gentil)?
-- 他是好。
-+ 他很好。
-- 他好是。
-> Antes de adjetivo, não se usa 是.
-```
+| Caracteres | Pinyin | Sentido |
+| --- | --- | --- |
+| 学生 | xuésheng | estudante |
+| 老师 | lǎoshī | professor(a) |
+| 工人 | gōngrén | operário(a) |
+| 医生 | yīshēng | médico(a) |
+| 护士 | hùshi | enfermeiro(a) |
+| 司机 | sījī | motorista |
+| 农民 | nóngmín | camponês, camponesa, agricultor(a) |
 
-## Também e todos
+## A negativa: 不是
 
-- **也** (*yě*, também) vem **antes** do verbo: 我也是老师。Eu também sou professor.
-- **都** (*dōu*, todos) também vem **antes** do verbo: 我们都是工人。Nós todos somos operários.
+Para negar, coloca-se **不** antes do 是. Como *shì* é de quarto tom, o 不 vira segundo: **bú shì**.
+
+- 我不是老师。 (Wǒ bú shì lǎoshī.) — Eu não sou professor.
+- 他们不是中国人。 (Tāmen bú shì Zhōngguó rén.) — Eles não são chineses.
+
+## Também: 也
+
+**也** (yě) quer dizer "também" e vem **antes do verbo**, nunca no fim da frase como em português:
+
+- 我也是学生。 (Wǒ yě shì xuésheng.) — Eu também sou estudante.
+- 她也不是老师。 (Tā yě bú shì lǎoshī.) — Ela também não é professora.
+
+## Quando NÃO usar 是
+
+Aqui está o erro mais comum de quem fala português: usar 是 para tudo que em português leva "ser" ou "estar".
+
+**1. Com adjetivos, não se usa 是.** No lugar dele entra, quase sempre, **很** (hěn), que literalmente é "muito", mas aqui funciona só como ligação:
+
+- 我很忙。 (Wǒ hěn máng.) — Estou ocupado.
+- 她很高。 (Tā hěn gāo.) — Ela é alta.
+- 中国很大。 (Zhōngguó hěn dà.) — A China é grande.
+
+Dizer "我是忙" está errado. Para negar o adjetivo, usa-se só 不: 我不忙 (wǒ bù máng), "não estou ocupado".
+
+**2. Para lugar, usa-se 在** (zài, estar em):
+
+- 我在家。 (Wǒ zài jiā.) — Estou em casa.
+- 老师在学校。 (Lǎoshī zài xuéxiào.) — A professora está na escola.
+
+**3. Para a idade, não se usa verbo nenhum**, como você viu na aula de números: 我二十岁 (wǒ èrshí suì).
+
+## De quem é: 的
+
+Para dizer de quem é alguma coisa, usa-se **的** (de) entre o dono e a coisa, como um "de" invertido:
+
+- 我的书 (wǒ de shū) — o meu livro (literalmente, "eu de livro")
+- 老师的名字 (lǎoshī de míngzi) — o nome da professora
+- 这是我的。 (Zhè shì wǒ de.) — Isto é meu.
+
+Com pessoas próximas, como a família, o 的 costuma sumir: 我妈妈 (wǒ māma, minha mãe), 我朋友 (wǒ péngyou, meu amigo).
+
+**这** (zhè) quer dizer "isto, este" e **那** (nà), "aquilo, aquele": 这是我朋友 (zhè shì wǒ péngyou), "este é o meu amigo".
 
 ## Para praticar
 
-1. Diga a profissão de três pessoas que você conhece usando 是 (procure as palavras no dicionário).
-2. Passe para a negativa: 他是医生。/ 我们很忙。
-3. Transforme em pergunta com 吗: 她是巴西人。
-4. Escreva duas frases com 也 e duas com 都.
+1. Traduza para o chinês, em caracteres ou em pinyin: "Eu sou brasileiro. Ela é médica. Nós não somos professores. Ele também é estudante."
+2. Corrija: 我是很忙. / 她是在家. / 他是三十岁.
+3. Apresente três pessoas da sua vida com 这是…: quem é, o que faz e de onde é.
+
+Respostas do 1: 我是巴西人。她是医生。我们不是老师。他也是学生。 Respostas do 2: 我很忙。/ 她在家。/ 他三十岁。

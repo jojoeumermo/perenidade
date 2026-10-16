@@ -3,6 +3,7 @@ import GithubSlugger from "github-slugger";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { SourceList } from "@/components/Cards";
 import { Markdown } from "@/components/Markdown";
 import { Pratica } from "@/components/Pratica";
@@ -160,6 +161,7 @@ export default async function LessonPage({ params }: Props) {
           <p className="no-print hidden md:block">{t.lesson.keys}</p>
         </footer>
       </article>
+      <CaixaDaAula t={t} lang={lang} area={track.area} sugeridas={lesson.tools} />
     </div>
   );
 }
