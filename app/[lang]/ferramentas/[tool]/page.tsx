@@ -10,9 +10,14 @@ import { Pronounce } from "@/components/tools/Pronounce";
 import { Graphs } from "@/components/tools/Graficos";
 import { Dictionary, Sentences } from "@/components/tools/Idiomas";
 import { Calculator, CompoundInterest, NumberBases, PeriodicTable } from "@/components/tools/Science";
+import { Balanceador, Conversor, MassaMolarTool, Punnett, SistemaSolar } from "@/components/tools/Ciencias";
+import { Estatistica, TabelaVerdade } from "@/components/tools/Dados";
+import { Cronometro, Redacao, Silabario } from "@/components/tools/Estudo";
+import { Resolvedor } from "@/components/tools/Resolvedor";
+import { AtelieHtml, Cores, Escala, FrequenciaCardiaca, Fusos, MaisValia, Rcp } from "@/components/tools/Varias";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
-import { areaTools, tools, type AreaSlug, type ToolId } from "@/lib/areas";
+import { areaTools, tools, universalTools, type AreaSlug, type ToolId } from "@/lib/areas";
 import { withLangs } from "@/lib/params";
 
 export const dynamicParams = false;
@@ -54,6 +59,24 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
     dicionario: <Dictionary s={s.dictionary} initial={lang === "en" ? "en" : "pt"} />,
     frases: <Sentences s={s.sentences} initial={lang === "en" ? "fra" : "eng"} />,
     graficos: <Graphs s={s.graphs} lang={lang} />,
+    resolvedor: <Resolvedor s={s.solver} lang={lang} />,
+    estatistica: <Estatistica s={s.stats} lang={lang} />,
+    "conversor-de-unidades": <Conversor s={s.units} lang={lang} />,
+    "tabela-verdade": <TabelaVerdade s={s.truth} />,
+    "massa-molar": <MassaMolarTool s={s.molar} lang={lang} />,
+    balanceamento: <Balanceador s={s.balance} />,
+    punnett: <Punnett s={s.punnett} />,
+    "sistema-solar": <SistemaSolar s={s.solar} lang={lang} />,
+    html: <AtelieHtml s={s.html} />,
+    cronometro: <Cronometro s={s.timer} />,
+    redacao: <Redacao s={s.essay} lang={lang} />,
+    silabario: <Silabario s={s.syllables} />,
+    cores: <Cores s={s.colors} />,
+    "escala-cartografica": <Escala s={s.mapScale} lang={lang} />,
+    "fusos-horarios": <Fusos s={s.timezones} lang={lang} />,
+    "mais-valia": <MaisValia s={s.surplus} lang={lang} />,
+    rcp: <Rcp s={s.cpr} />,
+    "frequencia-cardiaca": <FrequenciaCardiaca s={s.heart} />,
   };
 
   return (
@@ -67,6 +90,7 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
         </PageHeading>
       </div>
       {body[tool]}
+      {(universalTools as readonly string[]).includes(tool) && <p className="mt-10 border-t border-rule pt-5 font-sans text-sm text-ink-soft">{s.universal}</p>}
       {areas.length > 0 && (
         <p className="mt-10 border-t border-rule pt-5 font-sans text-sm text-ink-soft">
           {s.usedIn}{" "}

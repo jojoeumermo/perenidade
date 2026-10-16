@@ -11,6 +11,8 @@ export const KEYS = {
   theme: "lucia:tema",
   a11y: "lucia:acessibilidade",
   session: "lucia:sessao",
+  // Primeiro nome da conta, para o cabeçalho dizer "Olá" sem esperar o serviço; sai junto com a sessão.
+  name: "lucia:nome",
   notes: "lucia:fichamento",
   radio: "lucia:radio",
   device: "lucia:aparelho",
@@ -21,6 +23,9 @@ export const KEYS = {
   seen: "lucia:visto",
   site: "lucia:site",
   passkey: "lucia:digital",
+  // O rascunho da folha de redação e a última ferramenta aberta em cada disciplina (caixa de ferramentas das aulas).
+  essay: "lucia:redacao",
+  tools: "lucia:ferramentas",
 } as const;
 
 const listeners = new Set<() => void>();

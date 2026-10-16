@@ -1,6 +1,6 @@
 name: Enviar e-mails
 
-# De cinco em cinco minutos (o GitHub às vezes atrasa rotinas agendadas), manda os e-mails automáticos que o banco deixou na fila: confirmação de candidatura e de
+# Reserva da função "enviar-emails" do Supabase, que o banco chama de minuto em minuto. De cinco em cinco minutos (o GitHub atrasa rotinas agendadas por horas), manda os e-mails automáticos que o banco deixou na fila: confirmação de candidatura e de
 # boletim, convites, avisos de decisão e as edições do boletim. Só roda depois de criada a variável EMAILS com o valor
 # "sim" (Settings → Secrets and variables → Actions → Variables); para pausar os envios, apague a variável.
 # Precisa dos segredos SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY (os mesmos da publicação) e RESEND_API_KEY, e da
@@ -25,7 +25,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          sparse-checkout: scripts
+          sparse-checkout: |
+            scripts
+            supabase/functions/_shared
       - uses: actions/setup-node@v5
         with:
           node-version: 22

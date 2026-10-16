@@ -3,7 +3,7 @@ import MiniSearch from "minisearch";
 import { normalize } from "./text";
 
 export interface SearchEntry {
-  kind: "aula" | "obra" | "trilha" | "autor" | "memorial" | "verbete" | "materia" | "checagem" | "debate" | "pergunta";
+  kind: "aula" | "obra" | "trilha" | "autor" | "memorial" | "verbete" | "materia" | "checagem" | "debate" | "falacia" | "pergunta";
   title: string;
   href: string;
   area: string;

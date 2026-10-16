@@ -1,97 +1,126 @@
 ---
 titulo: "Ser e estar"
-resumo: "Objetivo: conjugar ser e estar no presente e usá-los corretamente, conhecendo os casos em que o espanhol difere do português, como estar casado e ser para eventos."
+resumo: "Os dois verbos que o espanhol divide quase como o português, e os poucos casos em que ele se separa de nós."
 autores: ["Instituto Lúcia"]
 fontes:
+  - titulo: "Diccionario de la lengua española"
+    autor: "Real Academia Española"
+    url: "https://dle.rae.es/"
+  - titulo: "Diccionario panhispánico de dudas"
+    autor: "Real Academia Española e Asociación de Academias de la Lengua Española"
+    url: "https://www.rae.es/dpd/"
   - titulo: "Gramática básica del estudiante de español"
-    autor: "Rosario Alonso Raya e outros (Difusión)"
+    autor: "Rosario Alonso Raya e outros"
     ano: "2005"
-  - titulo: "Espanhol/Dúvidas frequentes no uso do espanhol"
-    autor: "Wikilivros"
-    url: "https://pt.wikibooks.org/wiki/Espanhol/D%C3%BAvidas_frequentes_no_uso_do_espanhol"
 quiz:
-  - pergunta: "Como se conjuga ser com yo?"
-    opcoes: ["soy", "estoy", "es"]
-    resposta: 0
-    explicacao: "yo soy, tú eres, él es, nosotros somos, vosotros sois, ellos son."
-  - pergunta: "Complete: \"La reunión ___ en el sindicato.\""
-    opcoes: ["está", "es", "son"]
+  - pergunta: "Complete: \"Nosotros ___ de Brasil.\""
+    opcoes: ["estamos", "somos", "son"]
     resposta: 1
-    explicacao: "Para dizer onde um evento acontece, o espanhol usa ser."
-  - pergunta: "Complete: \"Mi hermano ___ en Buenos Aires.\""
-    opcoes: ["es", "está", "ser"]
+    explicacao: "Origem usa ser. A forma de nosotros é somos."
+  - pergunta: "Complete: \"La fiesta ___ en mi casa.\""
+    opcoes: ["está", "es", "hay"]
     resposta: 1
-    explicacao: "Para a localização de pessoas e coisas, usa-se estar."
-  - pergunta: "Como se diz \"Eu sou casada\" de forma mais comum em espanhol?"
-    opcoes: ["Soy casada.", "Estoy casada.", "Tengo casada."]
+    explicacao: "Para dizer onde acontece um evento, o espanhol usa ser: la fiesta es en mi casa."
+  - pergunta: "O que quer dizer \"Estoy listo\"?"
+    opcoes: ["Sou inteligente", "Estou pronto", "Estou cansado"]
     resposta: 1
-    explicacao: "O espanhol usa preferencialmente estar casado, estar soltero."
+    explicacao: "Ser listo é ser esperto; estar listo é estar pronto."
+  - pergunta: "Como se diz \"Tem um banco na esquina\"?"
+    opcoes: ["Está un banco en la esquina.", "Es un banco en la esquina.", "Hay un banco en la esquina."]
+    resposta: 2
+    explicacao: "Para dizer que algo existe, usa-se hay. Para dizer onde fica algo já conhecido, usa-se estar: el banco está en la esquina."
 ---
 
-## Dois verbos, como em português
+Para quem fala inglês, *ser* e *estar* são um pesadelo: no inglês há um verbo só, *to be*. Para quem fala português, é quase um presente: nós também temos os dois, e na maior parte das vezes os usamos do mesmo jeito. Esta aula mostra as formas e se concentra nos poucos casos em que as duas línguas se separam.
 
-O espanhol tem, como o português, dois verbos para "ser" e "estar". Na maior parte dos casos, eles se usam do mesmo jeito. Por isso, o foco aqui são as **diferenças**.
+## As formas no presente
 
-## A conjugação no presente
-
-| Pessoa | Ser | Estar |
+| Pronome | Ser | Estar |
 | --- | --- | --- |
-| yo | soy | estoy |
-| tú | eres | estás |
-| él, ella, usted | es | está |
-| nosotros, nosotras | somos | estamos |
-| vosotros, vosotras | sois | estáis |
-| ellos, ellas, ustedes | son | están |
+| yo (eu) | soy | estoy |
+| tú (você, informal) | eres | estás |
+| vos (você, na Argentina, no Uruguai e em outros países) | sos | estás |
+| él, ella, usted (ele, ela, o senhor) | es | está |
+| nosotros, nosotras (nós) | somos | estamos |
+| vosotros, vosotras (vocês, na Espanha) | sois | estáis |
+| ellos, ellas, ustedes (eles, elas, vocês) | son | están |
 
-**Usted** (o senhor, a senhora) e **ustedes** (vocês) usam a forma da terceira pessoa. **Vosotros** (vocês, informal) se usa sobretudo na Espanha; na América Latina, usa-se *ustedes* para todos os casos.
+Duas observações sobre os pronomes:
 
-## Ser
+- **vosotros** só se usa na Espanha. Na América hispânica, para falar com várias pessoas, usa-se sempre **ustedes**, em qualquer situação.
+- **vos** substitui o *tú* na Argentina, no Uruguai, no Paraguai e em boa parte da América Central. Tem formas próprias: *vos sos*, *vos tenés*, *vos hablás*.
 
-Para características, identidade, origem, profissão, material, hora e data:
+Como em português, o pronome pode sumir, porque a forma do verbo já diz quem é: *Soy brasileña* (Sou brasileira). *Estamos cansados* (Estamos cansados).
 
-- *Soy brasileña.* Sou brasileira.
-- *Ella es enfermera.* Ela é enfermeira.
-- *La mesa es de madera.* A mesa é de madeira.
-- *Son las tres.* São três horas.
-- *Hoy es lunes.* Hoje é segunda.
+## Ser: o que a coisa é
 
-## Estar
+Usa-se **ser**, como em português, para:
 
-Para estados, situações passageiras e **localização**:
+- **identidade e nome**: *Soy Marta. Esta es mi hermana.*
+- **origem e nacionalidade**: *Somos de Bahía. Ella es peruana.*
+- **profissão**: *Mi padre es albañil.* (Meu pai é pedreiro.) Repare: sem artigo, como em português.
+- **características**: *La casa es grande. Mi abuela es muy simpática.*
+- **material**: *La mesa es de madera.*
+- **horas e datas**: *Son las tres. Hoy es lunes.*
+- **preço total**: *¿Cuánto es?* (Quanto é?) — *Son diez pesos.*
 
-- *Estoy cansado.* Estou cansado.
-- *Madrid está en España.* Madri fica na Espanha.
-- *¿Dónde está la estación?* Onde fica a estação?
+## Estar: como a coisa está e onde fica
 
-## As diferenças em relação ao português
+Usa-se **estar**, também como em português, para:
 
-| Em português | Em espanhol | Observação |
-| --- | --- | --- |
-| A reunião **é** no sindicato. | La reunión **es** en el sindicato. | evento: ser (igual) |
-| O sindicato **fica** no centro. | El sindicato **está** en el centro. | lugar de coisas e pessoas: estar |
-| Sou casado. | **Estoy** casado. | estado civil: estar é o mais comum |
-| Ele **é** morto? / Ele **está** morto. | Está muerto. | morto: estar |
-| A comida **está** pronta. | La comida **está** lista. | atenção: *ser listo* é ser esperto |
+- **estados e situações passageiras**: *Estoy cansado. La sopa está fría. ¿Estás bien?*
+- **localização de pessoas e coisas**: *Estoy en el trabajo. ¿Dónde está el baño?*
+- **ações em andamento**, com o gerúndio: *Estoy trabajando.* (Estou trabalhando.) *Ella está comiendo.*
 
-Alguns adjetivos mudam de sentido conforme o verbo:
+Até aqui, nenhuma novidade para quem fala português. Agora vêm as diferenças.
+
+## Onde o espanhol se separa do português
+
+**1. O lugar de um evento usa ser.** Para coisas e pessoas, o lugar usa *estar*. Mas para **eventos** (festa, reunião, aula, show, assembleia), usa-se *ser*, no sentido de "acontecer":
+
+- *El libro está en la mesa.* — O livro está na mesa.
+- *La reunión **es** en el sindicato.* — A reunião é no sindicato.
+- *¿Dónde **es** la fiesta?* — Onde é a festa?
+
+**2. Algumas palavras mudam de sentido.** Com certos adjetivos, trocar *ser* por *estar* muda o significado da frase:
 
 | Com ser | Com estar |
 | --- | --- |
-| *ser listo*: ser esperto | *estar listo*: estar pronto |
-| *ser malo*: ser mau | *estar malo*: estar doente |
-| *ser aburrido*: ser chato | *estar aburrido*: estar entediado |
+| *ser listo* — ser esperto | *estar listo* — estar pronto |
+| *ser aburrido* — ser chato | *estar aburrido* — estar entediado |
+| *ser rico* — ser rico | *estar rico* — estar gostoso (comida) |
+| *ser malo* — ser mau, ser ruim | *estar malo* — estar doente (em vários países) |
+| *ser verde* — ser verde | *estar verde* — estar verde, não maduro |
+
+*¡La comida está muy rica!* é um elogio à cozinheira, não um comentário sobre o preço.
+
+**3. Estado civil aceita os dois.** *Soy casado* e *estoy casado* são corretos e se ouvem em todos os países.
+
+## Hay, o "tem" do espanhol
+
+Em português falado, usamos **ter** para dizer que alguma coisa existe: "tem um mercado aqui perto". Em espanhol, nem *tener* nem *estar* servem: usa-se **hay**, do verbo *haber*. *Hay* não muda no plural.
+
+- ***Hay** un mercado cerca.* — Tem um mercado perto.
+- ***Hay** muchas personas en la fila.* — Tem muita gente na fila.
+- *No **hay** agua.* — Não tem água.
+
+A diferença entre *hay* e *estar* é a mesma do português entre "tem" e "fica":
+
+- ***Hay** una farmacia en la esquina.* — Tem uma farmácia na esquina. (Apresenta algo novo.)
+- *La farmacia **está** en la esquina.* — A farmácia fica na esquina. (Fala de uma farmácia já conhecida.)
 
 ```verificar
-Complete: "El concierto ___ en el teatro y el teatro ___ cerca de mi casa."
-- está / es
-+ es / está
-- es / es
-> Evento: ser. Localização de um lugar: estar.
+Você quer perguntar se existe um banheiro no restaurante. Qual frase está certa?
+- ¿Está un baño aquí?
++ ¿Hay un baño aquí?
+- ¿Es un baño aquí?
+> Para perguntar se algo existe, usa-se hay. Para perguntar onde fica, depois de saber que existe: ¿Dónde está el baño?
 ```
 
 ## Para praticar
 
-1. Conjugue ser e estar com nosotros e con ellas.
-2. Apresente-se em cinco frases: nome, origem, profissão, como está hoje e onde está agora.
-3. Complete com ser ou estar: "La fiesta ___ el sábado." / "Mi madre ___ en el hospital." / "Yo ___ listo, ¡vamos!"
-4. Explique a diferença entre *es malo* e *está malo*.
+1. Complete com a forma certa de *ser* ou *estar*: *Mi hermana ___ enfermera. Hoy ___ muy cansada porque ___ trabajando de noche. El hospital ___ lejos de su casa.*
+2. Escreva cinco frases sobre você: nome, origem, profissão, como você está hoje e onde você está agora.
+3. Descreva o seu bairro com *hay* e *no hay*.
+
+Respostas do 1: *es, está, está, está.*

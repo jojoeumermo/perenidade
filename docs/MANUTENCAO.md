@@ -81,6 +81,7 @@ titulo: "A pauta e as claves"
 resumo: "Onde as notas moram."
 autores: ["Nome de quem escreveu"]
 revisada: true          # opcional; sem isso aparece o aviso "aguarda revisão"
+ferramentas: [resolvedor, graficos]   # opcional; vêm primeiro na caixa de ferramentas da aula
 fontes:
   - titulo: "Nome da obra ou da página"
     autor: "Autor ou instituição"
@@ -154,6 +155,27 @@ pratica:
 ```
 
 O educador de idiomas monta a prática no painel, em *Escrever → Prática de idioma* (escolhe a trilha e a aula já escrita, acrescenta os exercícios, testa como estudante e envia); ela segue pela fila de revisão como toda contribuição e, aprovada, a publicação grava os exercícios no cabeçalho da aula (`pratica` e `pratica_origem`).
+### Caixa de ferramentas
+
+As ferramentas práticas (calculadora, resolvedor, gráficos, tabela periódica, pronúncia, folha de redação e as outras) têm cada uma a sua página em `/ferramentas/<nome>` e também abrem **dentro das aulas**, das trilhas e das estantes, sem sair da página: no computador a caixa abre ao lado e a aula se afasta; no celular ela sobe de baixo, acima da barra de navegação. Só a ferramenta aberta é baixada, e o que se digitou nela continua lá ao fechar e abrir de novo.
+
+A caixa de uma aula junta, nesta ordem e sem repetir:
+
+1. as ferramentas que a própria aula sugere no campo `ferramentas` do cabeçalho;
+2. as da disciplina, em `areaTools` (`lib/areas.ts`): por exemplo, inglês e espanhol têm pronúncia e frases; ENEM tem redação, cronômetro, resolvedor, estatística e tabela periódica;
+3. as universais, em `universalTools`: calculadora, cronômetro e dicionário.
+
+Um nome que não exista na lista `tools` de `lib/areas.ts` faz a montagem do site parar, com o nome do arquivo e da ferramenta no erro.
+
+**Para acrescentar uma ferramenta nova:**
+
+1. ponha o nome (em português, com hífens) em `tools`, em `lib/areas.ts`, e, se for o caso, nas disciplinas de `areaTools`;
+2. escreva o componente em `components/tools/` e acrescente um `case` em `components/tools/ToolView.tsx` (a caixa das aulas) e na página `app/[lang]/ferramentas/[tool]/page.tsx`;
+3. diga em `lib/ferramentas/secoes.ts` que pedaço dos textos ela usa (o objeto `tools` dos dicionários): a aula só manda para o navegador os textos das ferramentas daquela disciplina;
+4. ponha o nome em `toolNames` e os textos em `tools.<seção>` nos cinco dicionários (`i18n/*.json`) e rode `npm run conferir:i18n`;
+5. se ela faz contas, deixe a conta num arquivo puro em `lib/ferramentas/` e acrescente conferências em `scripts/testar-ferramentas.mjs` (`npm run testar:ferramentas`).
+
+O resolvedor também aceita **foto do exercício**: a foto vai para o assistente de reforço só para ser transcrita, e a conta continua sendo feita no próprio navegador (ver a seção 15b).
 
 ### Demais fichas
 
@@ -165,8 +187,11 @@ O educador de idiomas monta a prática no painel, em *Escrever → Prática de i
 | `glossario` | `termo, resumo`; texto opcional |
 | `jornal` | `titulo, autor, data (AAAA-MM-DD), fontes`, opcionais `subtitulo`, `editoria` |
 | `checagens` | `alegacao, veredito (Falso, Enganoso, Falta contexto ou Verdadeiro), data, fontes` |
-| `debates` | `afirmacao, resposta, fontes`; texto opcional |
+| `debates` | `afirmacao, resposta, fontes`, opcional `falacias: [slug]` (as falácias que a frase usa; slug que não existe quebra a montagem); texto opcional |
+| `falacias` | `nome, resumo` (uma linha), `familia` (`relevancia`, `provas`, `premissas`, `desvio` ou `sentido`), `o_que_e, dia_a_dia, debate_publico, como_responder, fontes`, opcionais `original` (nome em latim ou inglês) e `parecidas: [slug]`; texto opcional. O exemplo do debate público é sóbrio e não cita pessoa viva nem partido pelo nome |
 | `videos` | `titulo, canal, url, area, idioma`; o texto diz por que vale assistir |
+
+A **caixa de ferramentas de checagem** (página Checagens) vem de `content/ferramentas-de-checagem.json`: grupos (`imagem`, `video`, `arquivo`, `agencias`, `buscador`, `dados`, `dominio`, `guias`) com `id`, `nome` e `url` (https, nunca PDF) de cada ferramenta. A frase que explica cada uma fica nos dicionários (`factCheck.toolbox.tools.<id>`), nos cinco idiomas. Confira se o endereço abre antes de pôr.
 
 `ativo: false` no cabeçalho tira qualquer item do ar sem apagá-lo (é a "quarentena" das denúncias).
 
@@ -215,7 +240,7 @@ Sem esta etapa o site funciona, só não aparecem o painel, a comunidade e a rá
 
    **Convites.** No painel, aba **Voluntários → Convites**: o convite pessoal leva o e-mail da pessoa e, se quiser, a função; o convite da comunidade vale para várias pessoas, sem função. O endereço aparece uma única vez. Quem recebe abre o endereço, cria a própria senha e entra.
 
-   **Senha perdida.** O site não tem "esqueci minha senha". A coordenação resolve em **Authentication → Users**: nos três pontinhos da pessoa, "Send password recovery" (precisa de SMTP configurado; o link abre a tela de senha nova do site) ou apaga a conta e manda um convite novo.
+   **Senha perdida.** O site não tem "esqueci minha senha". A coordenação (ou a vice-coordenação) resolve pelo painel: **Voluntários e convites → Pessoas → abrir a ficha → Redefinir a senha**. O painel gera uma senha forte no navegador (ou aceita uma digitada), mostra uma única vez para ser entregue por um canal seguro, grava como o serviço de contas grava (bcrypt, extensão `pgcrypto`, que o `install.sql` liga), encerra as sessões abertas da pessoa e, no próximo acesso, pede que ela escolha outra antes de abrir o painel. A senha nunca vai para o registro. A vice-coordenação não redefine a da coordenação, e ninguém usa isso na própria conta (para si existe *Minha conta*). O e-mail de ninguém muda pelo painel. Continua valendo o caminho do serviço de contas: **Authentication → Users → Send password recovery** (precisa de SMTP).
 
    **Ninguém consegue entrar no painel?** No SQL Editor: `select public.convidar_pelo_banco('email@exemplo.com');` devolve o final do endereço de um convite pessoal, válido por dois dias.
 8. Para a publicação automática (seção 7), cadastre nos segredos do repositório `SUPABASE_URL` (a mesma *Project URL*) e `SUPABASE_SERVICE_ROLE_KEY` (a chave *service_role*). **Essa chave nunca vai para o site nem para o `.env` de ninguém.** Depois crie, na aba *Variables* da mesma tela, a variável `PUBLICAR` com o valor `sim`: é ela que liga a rotina de hora em hora.
@@ -237,9 +262,10 @@ O painel (`/painel`) é um ambiente à parte do site: ocupa a tela inteira, sem 
 | (início) | Mesa, Conversas, Mural da equipe | todos; conversas e mural, só quem tem função |
 | Produção | Escrever, Aulas em vídeo, Aulas ao vivo, Estúdio de design, Caderno de estudos, Meus envios, Compartilhadas comigo, Fila de revisão, Triagem, Fontes abertas, Materiais e arquivos, Podcast | conforme a função; a triagem, mediação, curadoria e coordenação; o estúdio, marketing, design, jornalismo e coordenação; o caderno, todos |
 | Atendimento | Comunidade, Aula de reforço, Mural dos Trabalhadores, Boletim do jornal | conforme a função; o mural, coordenação e mediação |
-| Pessoas | Voluntários e convites, Horas e certificados, Avisos à equipe | a primeira, só coordenação; os avisos, coordenação, vice e supervisão |
-| Site | Controles do site, Aviso de abertura, Rádio, Apoiadores | só coordenação; a rádio, também o jornalismo |
-| Segurança | Segurança e sucessão, Registro de atividades | só coordenação |
+| Produção | Traduções, Divulgação | traduções: tradução, revisão, curadoria e coordenação; divulgação: marketing e coordenação |
+| Pessoas | Voluntários e convites, Supervisão, Horas e certificados, Avisos à equipe | a primeira, coordenação e vice; Supervisão, só a supervisão; os avisos, coordenação, vice e supervisão |
+| Site | Controles do site, Aviso de abertura, Rádio, Apoiadores, Estado técnico | coordenação; a rádio, também o jornalismo; o estado técnico, também o desenvolvimento |
+| Segurança | Segurança e sucessão, Registro de atividades | coordenação; o registro, também a supervisão (só leitura) |
 | Você | Minha conta (nome, senha, segundo fator, aparelhos) | todos |
 
 A lista de seções e a regra de quem vê cada uma estão em um só lugar, no começo de `Dentro`, em `components/painel/Painel.tsx`. Para criar uma seção nova: escreva o componente em `components/painel/`, acrescente uma linha a essa lista e a linha que o mostra logo abaixo. Sem ninguém mexer por meia hora, o painel fecha a sessão sozinho.
@@ -270,17 +296,45 @@ Cada pessoa vê no painel só as seções da sua função. O banco confere a fun
 
 | Papel (nome no banco) | Nome no site | O que pode |
 | --- | --- | --- |
-| `coordenacao` | coordenador | tudo: aprova voluntários, distribui funções e disciplinas, decide publicações, cuida do mural e da rádio, define a sucessão, lê o registro de atividades. Só existe um |
-| `vice` | vice-coordenador | o mesmo que a coordenação, menos: nomear ou tirar vice, passar a coordenação, mexer na sucessão, mudar a exigência de segundo fator, definir a sala da equipe e emitir certificados |
-| `curadoria` | curadoria | lê a fila inteira, edita e decide; cuida da comunidade (fila de revisão, palavras vetadas) e pode fazer a triagem |
+| `coordenacao` | coordenador | tudo: aprova voluntários, distribui funções e disciplinas, nomeia vice e supervisão, edita nome e apresentação de outras contas e redefine senhas (nunca o e-mail), decide publicações, cuida do mural e da rádio, define a sucessão, lê o registro de atividades. Só existe um |
+| `vice` | vice-coordenador | o mesmo que a coordenação, menos: nomear ou tirar vice, passar a coordenação, mexer na sucessão, mudar a exigência de segundo fator, definir a sala da equipe, emitir certificados e mexer na conta da coordenação |
+| `supervisao` | supervisor | logo abaixo da coordenação e da vice: faz o painel andar quando as duas estão ausentes. Vê a equipe (nome, funções, último acesso, **sem e-mail**) e os pedidos de voluntariado (só leitura); suspende em emergência, com motivo obrigatório, quem não é coordenação, vice nem supervisão (a coordenação é avisada na hora) e reativa só o que ela mesma suspendeu; apaga publicações do Mural da equipe; lê o registro de atividades e o livro do acervo; liga e desliga a pausa geral de envios e o modo de segurança da Comunidade. Não confia funções, não convida, não edita contas, não mexe na faixa do alto, no cadastro aberto, na segurança nem na sucessão. Exige segundo fator como a coordenação. Cargo de confiança: entra por nomeação ou convite, nunca por candidatura |
+| `curadoria` | curadoria | lê a fila inteira, edita e decide; cuida da comunidade (fila de revisão, palavras vetadas, denúncias) e pode fazer a triagem. Não vê a fila de reforço (lá há e-mail de estudante) |
 | `mediacao` | mediador | acompanha a Comunidade e decide os casos de dúvida (aprova, edita, oculta ou libera mensagens); aprova, edita ou recusa anúncios do Mural dos Trabalhadores; faz a triagem das contribuições de fora (libera para a fila de revisão ou barra, com nota); decide anotações de leitura; bane a conta de quem passa do limite e, em caso extremo, a origem de rede (não bane gente da equipe, e só a coordenação desfaz). Não aprova conteúdo de ensino, não vê a fila de revisão, não mexe em pessoas, no filtro de palavras, nas denúncias nem nos controles do site |
-| `educacao` (por disciplina) | educador | escreve aulas da sua disciplina, vê a fila dela e dá parecer nas matérias do jornal |
-| `revisao` | revisor | lê a fila e dá parecer |
-| `traducao` | tradutor | envia traduções |
-| `jornalismo` | jornalista e radialista | escreve matérias para o jornal; cuida da Rádio Lúcia (canais, faixas, transmissão ao vivo, pôr e tirar do ar) e indica emissoras para a lista "Rádios do povo", que entram pela fila de revisão |
-| `mentoria` (por disciplina) | mentor | responde pedidos de aula de reforço da sua disciplina |
-| `design` | designer | envia materiais para imprimir (zines, cartazes) e imagens |
-| `desenvolvimento` | desenvolvedor | vê o mural interno da equipe; não tem poder sobre conteúdo nem sobre pessoas |
+| `educacao` (por disciplina) | educador | escreve aulas da sua disciplina, vê e dá parecer na fila dela, dá parecer nas matérias do jornal, cuida da comunidade e atende o reforço da disciplina |
+| `educacao_secundaria` (por disciplina) | educador secundário | os mesmos poderes do educador na disciplina, e também materiais avulsos (aulas avulsas, listas, resumos) que aparecem numa aba própria da disciplina; conversa no grupo da educação |
+| `revisao` | revisor | lê a fila e dá parecer; vê as traduções a caminho |
+| `traducao` | tradutor | vê em *Traduções* as aulas que ainda não têm tradução em cada idioma e as traduções já enviadas por outras pessoas (para não repetir), e envia traduções; não vê a fila dos outros |
+| `jornalismo` | jornalista, radialista e podcaster | escreve matérias para o jornal; faz o podcast (ver a seção do podcast); manda o boletim; cuida da Rádio Lúcia (canais, faixas, transmissão ao vivo, pôr e tirar do ar) e indica emissoras para a lista "Rádios do povo", que entram pela fila de revisão |
+| `mentoria` (por disciplina) | mentor | responde pedidos de aula de reforço da sua disciplina (a disciplina é obrigatória) |
+| `marketing` | marketing e divulgação | o design e a divulgação juntos: prepara materiais e imagens (como o design), monta em *Divulgação* o calendário de posts e stories (ideia → rascunho → pronto → publicado), usa o kit da marca e o link do perfil do Instagram. O acesso ao Instagram é dado pela coordenação na própria Central de Contas da Meta, como colaborador: **o site nunca guarda senha de rede social** |
+| `design` | designer | prepara materiais gráficos e imagens e atende pedidos de ajuda das outras funções; conversa no mesmo grupo do marketing |
+| `desenvolvimento` | desenvolvedor | vê o *Estado técnico* (rotina de publicação, segunda avaliação, faxina, pgcrypto, sinais de varredura: só contagens e datas, nenhum dado de pessoa) e atende pedidos de ajuda pelo mural da equipe; não tem poder sobre conteúdo nem sobre pessoas |
+
+**Matriz de seções do painel.** Todos veem Mesa, Escrever, Meus envios e Minha conta; quem tem qualquer função vê também Conversas, Mural da equipe, Compartilhadas comigo, Fontes abertas e Horas e certificados. Além disso:
+
+| Seção | Quem vê |
+| --- | --- |
+| Fila de revisão | coordenação, vice, curadoria, revisão, educação (só a própria disciplina) |
+| Triagem | coordenação, vice, curadoria, mediação |
+| Traduções | coordenação, vice, curadoria, revisão, tradução |
+| Materiais e arquivos | coordenação, vice, curadoria, design, marketing |
+| Divulgação | coordenação, vice, marketing |
+| Comunidade | coordenação, vice, curadoria, mediação, educação |
+| Aula de reforço | coordenação, vice, mentoria e educação (só a própria disciplina) |
+| Mural dos Trabalhadores | coordenação, vice, mediação |
+| Gaveta Aberta | coordenação, vice, curadoria, mediação |
+| Boletim do jornal | coordenação, vice, jornalismo |
+| Voluntários e convites | coordenação, vice |
+| Supervisão | supervisão |
+| Controles do site, Aviso de abertura, Apoiadores, Segurança e sucessão | coordenação, vice |
+| Rádio | coordenação, vice, jornalismo |
+| Estado técnico | coordenação, vice, desenvolvimento |
+| Registro de atividades | coordenação, vice, supervisão |
+
+A Mesa de cada pessoa conta só o que ela pode resolver: quem dá parecer não conta o que já leu nem o que ainda espera a triagem; a curadoria não conta o reforço; a supervisão conta os pedidos de voluntariado e as suspensões que fez; o marketing conta os posts prontos com a data chegando e os devolvidos pela coordenação; o desenvolvimento conta o que foi aprovado há mais de três horas e não foi ao ar; e toda função conta os pedidos de ajuda do mural da equipe endereçados a ela. Cada regra desta tabela é conferida de novo no banco (`npm run testar:banco`).
+
+**Ninguém suspende a própria conta.** O banco recusa, e o painel nem mostra o botão na própria ficha. A coordenação também não apaga a própria conta pelo painel (passa o cargo antes, em Segurança e sucessão); as outras contas continuam podendo apagar os próprios dados em *Minha conta*, que é um direito de quem usa o site.
 
 Quem contribui sem conta, pela página Contribuir, entra na mesma fila, depois de passar pela triagem.
 
@@ -398,6 +452,24 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 | Suspeita de invasão do banco | Desative a rotina de publicação. No Supabase, gere chaves novas (**API → Roll keys**), atualize as variáveis e os segredos. O acervo não é afetado. |
 | Banco perdido | Crie outro projeto e rode `supabase/install.sql`. Perdem-se contas, fila e conversas; o conteúdo publicado continua intacto. |
 | Enxurrada de contribuições falsas | Recuse em lote no painel; a rotina publica no máximo 25 itens por rodada, e só os aprovados. |
+| Chuva de spam que a mediação não dá conta | Painel → **Interdição e expurgo**: interdite a área e use o expurgo (seção abaixo). |
+| O site está fora do ar e o painel não abre | Rode no SQL Editor: `update interno.configuracoes set valor = valor \|\| '{"geral": false, "areas": []}'::jsonb where chave = 'interdicao';`. Em até meio minuto o site volta. |
+
+### Interdição e expurgo
+
+**Quando usar.** A interdição tira do ar, por um tempo, o site inteiro ou só algumas áreas (Comunidade, Mural, Reforço, Contribuir, Rádio, Acervo, Disciplinas, Ferramentas e as outras da lista em `lib/interdicao.ts`): para manutenção, ou quando uma área virou caos e nem a avaliação automática nem a mediação dão conta. Nada é apagado. O expurgo é o contrário: apaga de uma vez o que o público escreveu (conversas, respostas e votos da Comunidade, anúncios do Mural, anotações das aulas, pedidos de reforço não concluídos, contribuições esperando a triagem, trabalhos da Gaveta Aberta) num período escolhido (última hora, 6 h, 24 h, 7 dias ou tudo). Não tem volta.
+
+**Quem faz.** Coordenação e vice-coordenação aplicam direto, com motivo (vai para o registro e para o aviso à liderança). A supervisão não aplica: faz um **pedido** com justificativa, que só vale quando a coordenação ou a vice aprovar, com os dados que estavam no pedido; pedido parado vence em 72 horas. Tudo fica em *Interdição e expurgo*, com a fila de pedidos e o histórico.
+
+**O que o público vê.** Caminho fechado mostra uma página mínima, sem cabeçalho nem menu, dizendo que aquela parte (ou o site) está fora do ar por um tempo, com o recado escrito pela coordenação e um link discreto "Equipe: entrar". A resposta é 503, com `Retry-After` e sem cache; o endereço não muda. Quem decide isso é o `proxy.ts`, que lê o estado na função pública `site()` e guarda por meio minuto: a mudança chega a todos em até 30 segundos. Se o banco não responder, o site abre normalmente (o banco nunca derruba o acervo). Ficam sempre abertos `/entrar`, `/painel` e os arquivos (ícones, `manifest`, `sw.js`, `.well-known/assetlinks.json`). Com o site inteiro fora do ar, os serviços em `/api/` também param.
+
+**No banco.** Cada função pública da área fechada recusa o público com `area_interditada` (o site mostra a mensagem nos cinco idiomas); quem cuida da área (mediação na Comunidade, jornalismo na rádio, a equipe nas contribuições) continua lendo e limpando pelo painel. O estado mora em `interno.configuracoes` (chave `interdicao`).
+
+**No aplicativo e sem internet.** O app Android é o próprio site: vale o mesmo. O modo sem internet (`public/sw.js`) busca a rede primeiro; com a interdição ligada e a pessoa online, aparece a página fechada (o 503 nunca é guardado). Sem internet, o aparelho continua mostrando as páginas que já tinha guardado.
+
+**Como desfazer.** Em *Interdição e expurgo*, "Reabrir tudo agora" (ou desmarcar as áreas e aplicar). Se o painel não abrir, o comando SQL da tabela acima reabre tudo.
+
+**Área nova.** Acrescente em `lib/interdicao.ts` (nome e caminhos) e em `interno.areas_publicas()` no `install.sql`, e ponha `perform interno.aberta('<área>')` no começo das funções públicas dela. `npm run testar:interdicao` falha se as duas listas divergirem ou se uma rota de `app/[lang]` não pertencer a nenhuma área.
 
 ## 9. Roteiros de apoio
 
@@ -413,6 +485,9 @@ Para publicar na hora, rode a rotina manualmente. Para pausar as publicações, 
 | `cabecalho.mjs` | leitura e escrita do cabeçalho dos arquivos de conteúdo, usada pelos outros roteiros |
 | `conferir-i18n.mjs` | compara os cinco dicionários |
 | `conferir-links.mjs` | testa os endereços citados no conteúdo |
+| `testar-interdicao.mjs` | confere a lógica de caminhos da interdição e que a lista de áreas do site é a mesma do banco |
+| `testar-ferramentas.mjs` | confere as contas das ferramentas práticas (resolvedor, unidades, química, genética, estatística, lógica e as demais) |
+| `testar-assistente.mjs` | confere, sem rede e sem chave, o pedido e a leitura da resposta do assistente de reforço |
 
 ## 10. Antes de publicar uma mudança
 
@@ -421,6 +496,9 @@ npm run lint
 npm run typecheck
 npm run conferir:i18n
 npm run testar:banco
+npm run testar:interdicao
+npm run testar:ferramentas
+npm run testar:assistente
 npm run build
 ```
 
@@ -454,6 +532,45 @@ Manifestação de apoio a candidatura na internet é livre para pessoa física, 
 
 Qualquer pessoa anuncia, sem conta: escolhe o tipo, escreve o ofício, o título, a descrição, a **cidade**, o **estado** e o contato. O anúncio passa pelo filtro de palavras e fica esperando: **a coordenação (coordenador e vice) e a mediação aprovam**, na seção **Mural dos Trabalhadores** do painel. Aprovado, fica no ar por 180 dias; tirar do ar antes disso é com a coordenação, na aba **No ar**. Quem anunciou sem conta recebe um código para retirar o anúncio quando quiser. Quem procura filtra por estado, cidade, tipo e palavra.
 
+## 15a. Gaveta Aberta
+
+A **Gaveta Aberta** (`/gaveta`, "trabalhos de estudantes, livres para todos") é onde estudantes publicam trabalhos próprios que ficaram parados: TCC, monografia, artigo, projeto, relatório, apostila, código. Quem publica precisa de conta (participante da comunidade já serve), escreve um comentário sobre o trabalho, escolhe a licença (CC BY 4.0, CC BY-SA 4.0 ou CC0 1.0) e o nome do crédito, e aceita o **termo de cessão** (`content/paginas/gaveta-termo.md`, também em `/gaveta/termo`) digitando o nome completo. O trabalho chega por um link https (repositório da universidade, Zenodo, GitHub…) ou por um PDF de até 10 MB.
+
+- **Nada aparece antes da mediação.** A fila fica em *Gaveta Aberta*, no painel (mediação, curadoria, coordenação e vice). Quem decide confere o link ou abre o PDF, olha se não há dados de outras pessoas (nem nas propriedades do arquivo) e publica ou recusa com nota; quem publicou recebe um recado. Uma ficha já publicada também pode ser tirada do ar por quem decide.
+- **O PDF** vai para o depósito fechado `gaveta` do Supabase, na pasta da própria pessoa, com nome sorteado. Só a própria pessoa e a equipe que decide o leem; depois da aprovação, qualquer pessoa baixa (a regra do depósito consulta a tabela por `interno.gaveta_le`). O site entrega o arquivo com o título como nome.
+- **O nome completo do termo** fica só com a equipe que decide e a coordenação; nunca aparece no site.
+- **Quem publicou tira a ficha do ar** em "Minhas publicações": a ficha some e o PDF é apagado do depósito. Quem já copiou continua podendo usar, pela licença.
+- Valem a pausa geral de envios, os banimentos (banir recusa o que a conta tinha esperando na Gaveta), o filtro de palavras e o limite de cinco envios por dia. A Gaveta é uma área da interdição (`gaveta`) e do expurgo.
+- **Mudou o termo?** Escreva a versão nova em `gaveta-termo.md`, troque a versão em `lib/gaveta.ts` (`TERMO_VERSAO`) e em `interno.gaveta_termo_versao()` no `install.sql`, e rode o `install.sql` de novo. `npm run testar:interdicao` confere que as duas versões batem. Envios feitos com a versão antiga continuam com ela registrada.
+- **O nome "Gaveta Aberta"** mora só nos textos (`drawer` nos dicionários e os rótulos do painel): trocar o nome não mexe no banco.
+
+## 15b. Assistente de reforço
+
+Quando não há voluntário, quem tem conta pode tirar a dúvida com um **assistente automático**: um quadro "Sem voluntário agora? Pergunte ao assistente" na página de reforço e o botão **Foto do exercício** no resolvedor passo a passo (a foto é lida, o enunciado transcrito e, se for uma conta que o resolvedor entende, dá para refazê-la ali mesmo, passo a passo, sem IA). Ele usa o **Claude, da Anthropic**, um serviço **pago por pergunta**, e por isso **nasce desligado**.
+
+Sempre ligadas, sem custo e sem mandar nada para fora: as **sugestões de aulas e verbetes** que aparecem na página de reforço enquanto a pessoa escreve (é o índice da busca do próprio site, filtrado pela disciplina).
+
+- **Como funciona.** O navegador chama a função `assistente` (em `supabase/functions/assistente/`). Antes de gastar qualquer centavo, ela pergunta ao banco (`assistente_usar`, com a sessão de quem pergunta): conta ativa, assistente ligado, aula de reforço não interditada, envios não pausados e vaga no limite da pessoa e no teto do site. Só com o "sim" ela chama o serviço. Se o serviço falhar, a pergunta não é descontada da pessoa.
+- **O que fica guardado.** Só quantas perguntas cada conta fez em cada dia (`interno.assistente_uso`, apagado depois de 90 dias). Pergunta, foto e resposta não passam pelo banco nem pelo registro da função; o registro diz só o tipo de falha.
+- **O que vai para fora.** A dúvida, o assunto, a disciplina, o idioma, os títulos e endereços das aulas sugeridas e, se houver, a foto (redesenhada e reduzida no aparelho, sem os dados embutidos). Nome, e-mail, conta e endereço de rede não vão. O texto para a página de privacidade está em `docs/privacidade-assistente.md` e entra **no mesmo dia em que o assistente for ligado**, nem antes nem depois.
+- **O comportamento.** O roteiro fixo do assistente (o "prompt de sistema") fica em `supabase/functions/assistente/assistente.ts`, constante `SISTEMA`: explica passo a passo, no espírito da educação popular, sem esconder a resposta; recomenda só aulas do próprio site; não inventa fonte; em saúde, direito e segurança orienta e manda procurar o serviço (192/SAMU em emergência, CVV 188). Mudou o texto? Rode `npm run testar:assistente` e publique a função de novo.
+- **O painel.** *Controles do site → Assistente de reforço* (só coordenação e vice): ligar e desligar, perguntas por pessoa por dia (padrão 10), teto do site inteiro por dia (padrão 200; é o freio de gasto), botão **Testar agora** (uma chamada de verdade, curtinha), e a situação: função e chave, serviço respondendo, última pergunta de verdade, perguntas de hoje e da semana. Ligar avisa a liderança e fica no registro de atividades. A supervisão não liga nem desliga (é dinheiro), mas a interdição da aula de reforço e a pausa de envios também param o assistente.
+
+**Quanto custa.** O serviço cobra por pedaço de texto ("token") que entra e que sai. Com o modelo padrão, `claude-opus-5-5` (US$ 4 por milhão de tokens de entrada e US$ 20 por milhão de saída), uma dúvida típica gasta cerca de 1.500 tokens de entrada e de 1.000 a 3.000 de saída (contando o raciocínio do modelo): **algo entre US$ 0,03 e US$ 0,07 por pergunta**; a foto acrescenta perto de US$ 0,01. Com o teto padrão de 200 perguntas por dia, o pior dia fica perto de US$ 15. São estimativas: o gasto de verdade aparece no Console da Anthropic. Para gastar menos, troque o modelo pelo segredo `ASSISTENTE_MODELO`: `claude-sonnet-5-5` custa metade do padrão; `claude-haiku-5-5` (US$ 0,10 e US$ 0,50 por milhão) sai por cerca de um décimo de centavo de dólar por pergunta, com explicações mais simples. Outro nome no segredo é ignorado e volta o padrão. Além do teto do painel, ponha um **limite de gasto mensal** na própria conta da Anthropic.
+
+Para ligar, nesta ordem:
+
+1. Crie uma conta de API no Console da Anthropic (platform.claude.com), cadastre a forma de pagamento, ponha o limite de gasto mensal e gere uma chave.
+2. Rode o `supabase/install.sql` no SQL Editor (cria a tabela de contadores e as funções).
+3. Guarde a chave como segredo da função, nunca em arquivo do projeto: `supabase secrets set ANTHROPIC_API_KEY=...` (ou **Edge Functions → Secrets** no painel). Opcional: `supabase secrets set ASSISTENTE_MODELO=claude-haiku-5-5`.
+4. Publique a função: `supabase functions deploy assistente`. Ela baixa sozinha o SDK oficial da Anthropic (versão fixa, `@anthropic-ai/sdk@0.133.0`).
+5. No painel, ainda desligado, aperte **Testar agora o assistente**: tem de aparecer "a função respondeu e o modelo … devolveu uma resposta". Se não: "a função não respondeu" é a função não publicada; "sem a chave" é o segredo faltando; "o serviço recusou a chave" é chave errada ou conta sem crédito.
+6. Ponha o texto de `docs/privacidade-assistente.md` na página de privacidade e publique.
+7. Ligue no painel e faça uma pergunta de teste com uma conta comum.
+8. Para desligar a qualquer momento: o mesmo botão. O quadro some na hora (no máximo até a pessoa recarregar a página).
+
+**Testes.** `npm run testar:assistente` confere, sem rede e sem chave, o que se aceita do navegador (tamanho, foto, só endereços do próprio site), o pedido montado para o serviço e a leitura da resposta (recusa, resposta cortada, foto). A seção do assistente em `npm run testar:banco` confere os limites e as permissões. No ambiente local (`npm run dev:local`), a função é imitada pelo banco de teste: o banco conta como em produção e a resposta é um texto fixo, sem chamar serviço nenhum.
+
 ## 16. Leitor digital, livro em EPUB e aplicativo
 
 - **Kindle e outros leitores de tinta eletrônica.** O site reconhece o aparelho (pelo nome do navegador e pelo tipo de tela) e entra em um visual de livro: uma coluna, preto no branco, nada flutuando. As regras ficam no fim de `app/globals.css`, em CSS simples de propósito. Mudou o desenho de uma página importante? Confira em um leitor de verdade.
@@ -466,7 +583,7 @@ A página **Notícias** lê os endereços de distribuição (RSS) dos veículos 
 
 ## 18. Histórico público
 
-A página de histórico de mudanças mostra, para cada dia a partir da data em `historyFrom` (em `lib/site.ts`), o tipo de conteúdo que mudou e quantos itens ("Aulas: 12 · Obras do acervo: 73"). Ela lê do git só a data e os arquivos de `content/`: a mensagem, o autor e o código de cada registro são da equipe e não aparecem no site. Com `historyFrom` vazio, a página sai do ar e o quadro da página inicial some.
+A página de histórico (`/historico`) e o quadro de novidades da página inicial mostram o que mudou no conteúdo desde a data de `historyFrom`, em `lib/site.ts` (deixe vazio para desligar). Nada de processo interno aparece: commits de junção (merge) são ignorados, o assunto dos commits nunca é mostrado, e só contam os arquivos das coleções de estudo e leitura (aulas, acervo, catálogo, autores, memorial, glossário, jornal, checagens, debates, vídeos, galeria, rádios e afins). Páginas legais (privacidade, termos), o aviso de abertura e arquivos de funcionamento ficam de fora. Cada dia vira um resumo gerado a partir dos arquivos ("9 aulas novas em Geografia · 191 obras novas no acervo"), com os títulos de algumas aulas. A lista de pastas e os textos ficam em `lib/history.ts` e no objeto `history` dos dicionários. Em clones rasos (como o da Vercel), o registro mais antigo que veio no clone, a "fronteira", fica de fora: senão ele apareceria como se tivesse criado o acervo inteiro naquele dia.
 
 ## Serviços abertos de fora
 
@@ -485,5 +602,6 @@ Algumas partes do site usam dados de serviços públicos e abertos. Todos são c
 | Criar conta e trocar senha (`/api/senha-vazada`) | Have I Been Pwned, Pwned Passwords: o navegador manda só os 5 primeiros caracteres do SHA-1 da senha | não |
 | Página **Checagens** → "Já foi checado?" (`/api/checagens`) | Google Fact Check Tools | sim: `GOOGLE_FACTCHECK_KEY` nas variáveis do servidor (Vercel), nunca com `NEXT_PUBLIC_`. Sem ela, a busca não aparece |
 | Comunidade, segunda avaliação | OpenAI Moderation e Google Safe Browsing (acima) | segredos da função `avaliar-comunidade` |
+| Assistente de reforço (seção 15b) | Claude, da Anthropic (pago por pergunta; nasce desligado) | segredos da função `assistente`: `ANTHROPIC_API_KEY` e, opcional, `ASSISTENTE_MODELO` |
 
 Para acrescentar outro serviço: inclua o endereço dele na lista de `lib/externo.ts` e consulte sempre por `buscarJson` ou `buscarTexto`, que já têm prazo, limite de tamanho e guarda.

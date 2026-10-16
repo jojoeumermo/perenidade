@@ -6,11 +6,12 @@
 //   npm run dev:local      sobe este servidor e o site apontando para ele
 //
 // Contas de teste (qualquer senha serve aqui, e só aqui):
-//   coord@local  vice@local  curadora@local  prof@local (educador de matemática)  mentora@local  designer@local
-//   jornal@local  revisor@local  mediador@local  leitora@local
+//   coord@local  vice@local  supervisor@local  curadora@local  prof@local (educador de matemática)  mentora@local
+//   designer@local  marketing@local  jornal@local  revisor@local  tradutor@local  dev@local  mediador@local  leitora@local
 // Segundo fator: no cadastro e na confirmação, o código é sempre 123456.
 import crypto from "node:crypto";
 import http from "node:http";
+import { validarEntrada } from "../supabase/functions/assistente/assistente.ts";
 import { criarBanco } from "./banco-local.mjs";
 
 // Outra porta com PORTA_BANCO=54400, para duas cópias do projeto rodarem ao mesmo tempo.
@@ -43,7 +44,7 @@ export const CHAVE_SERVICO = assinar({ role: "service_role", iss: "local", exp: 
 
 export async function iniciar({ silencioso = false } = {}) {
   const banco = await criarBanco();
-  const contas = { coord: "Jonathan Santos", vice: "Vera Vice", curadora: "Carla Curadora", prof: "Paulo Professor", mentora: "Marta Mentora", designer: "Davi Designer", jornal: "Joana Jornalista", revisor: "Rui Revisor", mediador: "Mauro Mediador", leitora: "Lia Leitora" };
+  const contas = { coord: "Jonathan Santos", vice: "Vera Vice", curadora: "Carla Curadora", prof: "Paulo Professor", mentora: "Marta Mentora", designer: "Davi Designer", jornal: "Joana Jornalista", revisor: "Rui Revisor", mediador: "Mauro Mediador", leitora: "Lia Leitora", supervisor: "Sara Supervisora", marketing: "Mila Marketing", tradutor: "Tito Tradutor", dev: "Duda Dev" };
   const ids = {};
   for (const [chave, nome] of Object.entries(contas)) {
     ids[chave] = await banco.criarUsuario(`${chave}@local`, nome);
@@ -61,6 +62,10 @@ export async function iniciar({ silencioso = false } = {}) {
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.jornal, p_papel: "jornalismo", p_disciplina: null });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.revisor, p_papel: "revisao", p_disciplina: null });
   await banco.rpc(coord, "papel_conceder", { p_usuario: ids.mediador, p_papel: "mediacao", p_disciplina: null });
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.supervisor, p_papel: "supervisao", p_disciplina: null });
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.marketing, p_papel: "marketing", p_disciplina: null });
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.tradutor, p_papel: "traducao", p_disciplina: null });
+  await banco.rpc(coord, "papel_conceder", { p_usuario: ids.dev, p_papel: "desenvolvimento", p_disciplina: null });
 
   const renovacoes = new Map();
   const links = new Map();
@@ -265,7 +270,7 @@ export async function iniciar({ silencioso = false } = {}) {
           }
         }
         const papeisDe = dados?.sub ? (await banco.dono("select papel from interno.papeis where usuario = $1", [dados.sub])).rows.map((linha) => linha.papel) : [];
-        const escreve = papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "educacao", "jornalismo", "design"].includes(papel));
+        const escreve = papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "educacao", "jornalismo", "design", "marketing"].includes(papel));
         const le = pasta === dados?.sub || papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "revisao"].includes(papel));
         if (req.method === "POST") {
           if (!escreve || pasta !== dados?.sub) return json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
@@ -290,6 +295,45 @@ export async function iniciar({ silencioso = false } = {}) {
           if (!arquivo) return json(res, 404, { message: "not found" });
           res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length });
           return res.end(arquivo.dados);
+        }
+      }
+      // ── Arquivos da Gaveta Aberta: PDF na própria pasta; lê quem enviou, quem media e todo mundo depois da aprovação ──
+      const gaveta = /^\/storage\/v1\/object\/(?:authenticated\/|public\/)?(gaveta\/.+)$/.exec(url.pathname);
+      if (gaveta) {
+        const dados = portador(req);
+        const caminho = decodeURIComponent(gaveta[1]);
+        const nome = caminho.slice("gaveta/".length);
+        const pasta = nome.split("/")[0];
+        const papeisDe = dados?.sub ? (await banco.dono("select papel from interno.papeis where usuario = $1", [dados.sub])).rows.map((linha) => linha.papel) : [];
+        const media = papeisDe.some((papel) => ["coordenacao", "vice", "curadoria", "mediacao"].includes(papel));
+        if (req.method === "POST") {
+          if (!dados?.sub || pasta !== dados.sub) return json(res, 403, { statusCode: "403", error: "Unauthorized", message: "new row violates row-level security policy" });
+          let tipo = req.headers["content-type"] ?? "";
+          let conteudo = bruto;
+          const limite = /^multipart\/form-data;\s*boundary=(.+)$/i.exec(tipo)?.[1];
+          if (limite) {
+            const texto = bruto.toString("latin1");
+            const parte = texto.split(`--${limite}`).find((pedaco) => /filename=/i.test(pedaco));
+            const corte = parte ? parte.indexOf("\r\n\r\n") : -1;
+            if (corte < 0) return json(res, 400, { statusCode: "400", error: "invalid_request", message: "no file" });
+            tipo = /content-type:\s*([^\r\n]+)/i.exec(parte.slice(0, corte))?.[1]?.trim() ?? "";
+            conteudo = Buffer.from(parte.slice(corte + 4).replace(/\r\n$/, ""), "latin1");
+          }
+          if (tipo !== "application/pdf" || conteudo.length > 10485760) return json(res, 415, { statusCode: "415", error: "invalid_mime_type", message: "mime type not supported" });
+          arquivos.set(caminho, { tipo, dados: conteudo });
+          return json(res, 200, { Key: caminho, Id: crypto.randomUUID() });
+        }
+        if (req.method === "GET") {
+          const publico = (await banco.dono("select interno.gaveta_publico($1) as p", [nome])).rows[0]?.p === true;
+          const arquivo = pasta === dados?.sub || media || publico ? arquivos.get(caminho) : null;
+          if (!arquivo) return json(res, 404, { message: "not found" });
+          res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length });
+          return res.end(arquivo.dados);
+        }
+        if (req.method === "DELETE") {
+          if (pasta !== dados?.sub && !media) return json(res, 403, { message: "forbidden" });
+          arquivos.delete(caminho);
+          return json(res, 200, { message: "ok" });
         }
       }
       // ── Arquivos do podcast: "podcast" (público) e "podcast-producao" (fechado), com as regras de install.sql ──
@@ -457,6 +501,42 @@ export async function iniciar({ silencioso = false } = {}) {
         res.writeHead(200, { "content-type": arquivo.tipo, "content-length": arquivo.dados.length, "accept-ranges": "bytes" });
         return res.end(arquivo.dados);
       }
+      // ── Assistente de reforço ──
+      // Aqui nada vai para o serviço de inteligência artificial: o banco confere e conta como em produção, e a resposta é
+      // um texto fixo de teste. Serve para ver a tela, os avisos e os limites sem chave e sem custo.
+      if (url.pathname === "/functions/v1/assistente" && req.method === "POST") {
+        const dados = portador(req);
+        if (dados?.role !== "authenticated" || !dados.sub) return json(res, 401, { erro: "entre_primeiro" });
+        const quem = { papel: "authenticated", sub: dados.sub, aal: dados.aal, ip: req.socket.remoteAddress };
+        const servico = { papel: "service_role" };
+        if (corpo?.verificar === true) {
+          try {
+            await banco.rpc(quem, "assistente_controles", {});
+          } catch {
+            return json(res, 403, { erro: "sem_permissao" });
+          }
+          const teste = { chave: false, ok: false, falha: "sem_chave", modelo: "local" };
+          await banco.rpc(servico, "assistente_verificacao", { p: teste });
+          return json(res, 200, teste);
+        }
+        const conferido = validarEntrada(corpo);
+        if ("erro" in conferido) return json(res, 400, { erro: conferido.erro });
+        let uso;
+        try {
+          uso = await banco.rpc(quem, "assistente_usar", {});
+        } catch (erro) {
+          return json(res, 403, { erro: String(erro?.message ?? erro) });
+        }
+        await banco.rpc(servico, "assistente_resultado", { p: { ok: true, falha: "" } });
+        await new Promise((pronto) => setTimeout(pronto, 600));
+        const aulas = conferido.entrada.aulas.map((aula) => `- [${aula.titulo}](${aula.caminho})`).join("\n");
+        if (conferido.entrada.modo === "foto") {
+          return json(res, 200, { transcricao: "Resolva a equação 2x + 3 = 11.", conta: "2x + 3 = 11", texto: "**Resposta de teste do ambiente local.** Tire 3 dos dois lados: 2x = 8. Divida por 2: $$x = 4$$.", cortada: false, restantes: uso.restantes });
+        }
+        const texto = `**Resposta de teste do ambiente local.** Aqui o assistente não é chamado de verdade.\n\nVamos por partes:\n\n1. Leia de novo o enunciado.\n2. Anote o que já sabe.\n3. Tente o primeiro passo e confira: $$2 + 2 = 4$$.${aulas ? `\n\nAulas que podem ajudar:\n\n${aulas}` : ""}`;
+        return json(res, 200, { texto, cortada: false, restantes: uso.restantes });
+      }
+
       return json(res, 404, { message: `sem substituto local para ${req.method} ${url.pathname}` });
     } catch (erro) {
       console.error("[local]", req.method, url.pathname, erro);
