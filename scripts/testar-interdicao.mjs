@@ -30,7 +30,7 @@ const versaoNoBanco = sql.match(/function interno\.gaveta_termo_versao\(\)[^$]*\
 igual("versão do termo da Gaveta: site = banco", versaoNoSite, versaoNoBanco);
 
 // Toda rota pública de app/[lang] pertence a uma área, ou é uma página geral (fecha só com o site inteiro).
-const gerais = ["sobre", "guia", "privacidade", "termos", "certificado", "meus-dados", "historico", "explorar", "painel", "entrar", "fora-do-ar"];
+const gerais = ["sobre", "guia", "privacidade", "termos", "certificado", "meus-dados", "historico", "explorar", "painel", "entrar", "fora-do-ar", "quem-somos", "creditos"];
 for (const pasta of fs.readdirSync(path.join(raiz, "app/[lang]"), { withFileTypes: true })) {
   if (!pasta.isDirectory() || pasta.name.includes(".")) continue;
   if (gerais.includes(pasta.name)) continue;
