@@ -2658,15 +2658,25 @@
     "leaked": "Essa senha já apareceu em vazamentos de outros sites e é das primeiras que um invasor tenta. Escolha outra. (A conferência não envia a sua senha a ninguém.)",
     "show": "Mostrar a senha",
     "hide": "Esconder a senha",
-    "rulesTitle": "A senha precisa ter",
+    "rulesTitle": "A senha precisa",
     "rules": {
-      "length": "pelo menos 12 caracteres",
-      "upper": "uma letra maiúscula",
-      "lower": "uma letra minúscula",
-      "number": "um número",
-      "special": "um caractere especial (!, @, #, ., ?…)"
+      "length": "ter pelo menos 12 caracteres (uma frase longa funciona muito bem)",
+      "common": "não ser uma senha comum nem o seu nome com números",
+      "variety": "não ser só repetição (aaaa…, 1212…)"
     },
-    "strong": "Senha forte."
+    "strong": "Senha aceita.",
+    "meterTitle": "Força",
+    "meter": [
+      "Fraca",
+      "Razoável",
+      "Boa",
+      "Forte"
+    ],
+    "recoveryLink": "Perdi o celular: usar um código de recuperação",
+    "recoveryLabel": "Código de recuperação (XXXXX-XXXXX)",
+    "recoveryButton": "Usar o código",
+    "recoveryBad": "Esse código não vale (errado ou já usado). São cinco tentativas por hora.",
+    "recoveryDone": "Pronto: o aplicativo autenticador saiu da conta. Cadastre o do celular novo em Minha conta."
   },
   "radio": {
     "back15": "Voltar 15 segundos",

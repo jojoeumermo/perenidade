@@ -12,6 +12,18 @@ export function deviceLabel(): string {
   return `${browser} em ${system}`;
 }
 
+/** A marca deste navegador, como o serviço a conhece (para a lista de aparelhos dizer "este aparelho"). */
+export async function marcaDesteAparelho(): Promise<string> {
+  try {
+    const id = getItem(KEYS.device);
+    if (!id) return "";
+    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`lucia:${id}`));
+    return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+  } catch {
+    return "";
+  }
+}
+
 /**
  * Avisa o serviço de que a conta foi aberta neste navegador. A marca é um número sorteado aqui e
  * embaralhado antes de sair: serve só para reconhecer "é o mesmo navegador de antes ou é outro".

@@ -15,13 +15,12 @@ import { senhaVazada } from "@/lib/senha";
 import { getItem, KEYS, setItem } from "@/lib/storage";
 import { L, useI18n } from "../I18n";
 import { Star } from "../Masthead";
-import { SenhaCampo, senhaForte } from "../SenhaCampo";
 import { AulasAoVivo } from "./AoVivo";
-import { Avatar, AVATARES, imagemParaAvatar } from "./Avatar";
+import { Avatar } from "./Avatar";
 import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
 import { Estatisticas } from "./Estatisticas";
 import { TermoDeVoluntario } from "./Termo";
-import { Aviso, botao, botaoClaro, campo, data, elo, localDoPainel, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, data, elo, localDoPainel, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, useAcao, useLista } from "./comum";
 import { Apoiadores, Comunidade, MuralFila, SugerirEmissora } from "./Cuidar";
 import { Boletim } from "./Boletim";
 import { CadernoNoPainel } from "./Caderno";
@@ -41,6 +40,7 @@ import { IdiomaDoPainel, TraduzirPainel } from "./Idioma";
 import { Interdicao } from "./Interdicao";
 import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lideranca";
 import { Materiais } from "./Materiais";
+import { MinhaConta } from "./MinhaConta";
 import { Pessoas } from "./Pessoas";
 import { Reunioes } from "./Reunioes";
 import { Podcast } from "./podcast/Podcast";
@@ -48,7 +48,7 @@ import { Reforco } from "./Reforco";
 import { Supervisao } from "./Supervisao";
 import { Tecnico } from "./Tecnico";
 import { Traducoes } from "./Traducoes";
-import { Aparelhos, Digital, Recados, SegundoFator } from "./Seguranca";
+import { Recados, SegundoFator } from "./Seguranca";
 import { type Controles, Site } from "./Site";
 import { Videoaulas } from "./Videoaulas";
 
@@ -726,7 +726,15 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "interdicao" && <Interdicao me={eu} aoMudar={estadoDoSite.recarregar} />}
           {atual.id === "registro" && <RegistroDeAtividades />}
           {atual.id === "estatisticas" && <Estatisticas />}
-          {atual.id === "conta" && <Conta me={eu} recarregar={recarregar} sair={sair} />}
+          {atual.id === "conta" && (
+            <MinhaConta
+              me={eu}
+              recarregar={recarregar}
+              sair={sair}
+              curriculo={eu.papeis.some((p) => p.papel === "educacao" || p.papel === "educacao_secundaria") ? <Curriculo me={eu} recarregar={recarregar} /> : null}
+              avisosETrava={<AvisosETrava />}
+            />
+          )}
         </div>
       </div>
     </div>
@@ -1080,184 +1088,3 @@ function Curriculo({ me, recarregar }: { me: Me; recarregar: () => void }) {
   );
 }
 
-/** O ícone do perfil: um dos desenhos predefinidos para todo mundo; a liderança pode subir uma imagem pequena. */
-function EscolherAvatar({ me, recarregar }: { me: Me; recarregar: () => void }) {
-  const acao = useAcao(recarregar);
-  const [aviso, setAviso] = useState("");
-  const atual = me.avatar ?? "";
-  async function subir(arquivo: File | undefined) {
-    if (!arquivo) return;
-    setAviso("");
-    try {
-      const dado = await imagemParaAvatar(arquivo);
-      await acao.agir("perfil_avatar", { p_avatar: dado }, "Imagem guardada.");
-    } catch {
-      setAviso("Não deu para usar essa imagem: escolha uma foto comum (jpg, png ou webp).");
-    }
-  }
-  return (
-    <section className="painel-cartao p-5">
-      <h2 className="font-serif text-xl font-semibold">Ícone do perfil</h2>
-      <p className="mt-1 text-ink-soft">Aparece ao lado do seu nome nas conversas e na equipe. Escolha um dos desenhos{manages(me) ? " ou suba uma imagem pequena" : ""}.</p>
-      <div className="mt-3 flex flex-wrap items-center gap-2">
-        <button type="button" aria-pressed={atual === ""} title="Só as iniciais" onClick={() => acao.agir("perfil_avatar", { p_avatar: "" }, "Ícone guardado.")} className={`cursor-pointer border-2 p-0.5 ${atual === "" ? "border-oxblood" : "border-transparent hover:border-rule"}`}>
-          <Avatar nome={me.nome} className="h-10 w-10" />
-        </button>
-        {AVATARES.map((a) => (
-          <button key={a.id} type="button" aria-pressed={atual === `p:${a.id}`} title={a.nome} disabled={acao.ocupado} onClick={() => acao.agir("perfil_avatar", { p_avatar: `p:${a.id}` }, "Ícone guardado.")} className={`cursor-pointer border-2 p-0.5 ${atual === `p:${a.id}` ? "border-oxblood" : "border-transparent hover:border-rule"}`}>
-            <Avatar nome={me.nome} avatar={`p:${a.id}`} className="h-10 w-10" />
-          </button>
-        ))}
-      </div>
-      {manages(me) && (
-        <label className={`mt-4 inline-block ${botaoClaro} cursor-pointer`}>
-          Subir uma imagem
-          <input type="file" accept="image/*" className="sr-only" onChange={(e) => void subir(e.target.files?.[0])} />
-        </label>
-      )}
-      <Aviso texto={aviso || acao.aviso} />
-    </section>
-  );
-}
-
-function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair: () => void }) {
-  const perfil = useAcao(recarregar);
-  const preferencias = useAcao(recarregar);
-  const [nome, setNome] = useState(me.nome);
-  const [bio, setBio] = useState(me.bio);
-  const [senha, setSenha] = useState("");
-  const [repete, setRepete] = useState("");
-  const [avisoSenha, setAvisoSenha] = useState("");
-  const [confirma, setConfirma] = useState(false);
-  const [aviso, setAviso] = useState("");
-  const cartao = "painel-cartao p-5";
-
-  async function trocarSenha() {
-    setAvisoSenha("");
-    if ((await senhaVazada(senha)) === true) {
-      setAvisoSenha("Essa senha já apareceu em vazamentos de outros sites e é das primeiras que um invasor tenta. Escolha outra.");
-      return;
-    }
-    try {
-      const supabase = await getClient();
-      const { error } = await supabase.auth.updateUser({ password: senha });
-      if (error) throw error;
-      setSenha("");
-      setRepete("");
-      setAvisoSenha("Senha trocada.");
-    } catch {
-      setAvisoSenha("Não foi possível trocar a senha agora. Saia, entre de novo e tente outra vez.");
-    }
-  }
-
-  return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      <section className={cartao}>
-        <h2 className="font-serif text-xl font-semibold">Como você aparece</h2>
-        <p className="mt-1 text-ink-soft">O nome assina o que você publica. O seu e-mail nunca aparece.</p>
-        <label className="mt-3 block">
-          Nome
-          <input value={nome} onChange={(e) => setNome(e.target.value)} maxLength={60} className={campo} />
-        </label>
-        <label className="mt-3 block">
-          Sobre você (opcional)
-          <input value={bio} onChange={(e) => setBio(e.target.value)} maxLength={500} className={campo} />
-        </label>
-        <button type="button" className={`mt-3 ${botao}`} disabled={perfil.ocupado} onClick={() => perfil.agir("perfil_salvar", { p_nome: nome, p_bio: bio }, "Perfil guardado.")}>
-          Guardar
-        </button>
-        <Aviso texto={perfil.aviso} />
-      </section>
-
-      <EscolherAvatar me={me} recarregar={recarregar} />
-      {me.papeis.some((p) => p.papel === "educacao" || p.papel === "educacao_secundaria") && <Curriculo me={me} recarregar={recarregar} />}
-
-      <section className={cartao}>
-        <h2 className="font-serif text-xl font-semibold">Privacidade nas conversas</h2>
-        <p className="mt-1 text-ink-soft">O que os colegas veem de você nas conversas da equipe. Quem esconde algo também deixa de ver o mesmo dos outros.</p>
-        <label className="mt-3 flex cursor-pointer items-start gap-2">
-          <input type="checkbox" className="mt-1 h-4 w-4" checked={me.chat_visto} disabled={preferencias.ocupado} onChange={(e) => preferencias.agir("perfil_preferencias", { p_chat_visto: e.target.checked, p_chat_leitura: null }, "Preferência guardada.")} />
-          <span>Mostrar quando estou online e o “visto por último”</span>
-        </label>
-        <label className="mt-2 flex cursor-pointer items-start gap-2">
-          <input type="checkbox" className="mt-1 h-4 w-4" checked={me.chat_leitura} disabled={preferencias.ocupado} onChange={(e) => preferencias.agir("perfil_preferencias", { p_chat_visto: null, p_chat_leitura: e.target.checked }, "Preferência guardada.")} />
-          <span>Confirmar aos outros que li as mensagens (os tiques azuis e o “Lida por”)</span>
-        </label>
-        <Aviso texto={preferencias.aviso} />
-        <AvisosETrava />
-      </section>
-
-      <section className={cartao}>
-        <h2 className="font-serif text-xl font-semibold">Senha</h2>
-        <p className="mt-1 text-ink-soft">Pelo menos 12 caracteres, com maiúscula, minúscula, número e um caractere especial. Uma frase com um número e um sinal funciona bem.</p>
-        <form onSubmit={(e) => { e.preventDefault(); void trocarSenha(); }}>
-          <label className="mt-3 block">
-            Senha nova
-            <SenhaCampo value={senha} onChange={setSenha} regras className={campo} />
-          </label>
-          <label className="mt-3 block">
-            Repita a senha
-            <SenhaCampo value={repete} onChange={setRepete} className={campo} />
-          </label>
-          {repete !== "" && repete !== senha && <p role="alert" className="mt-2 text-oxblood">As duas senhas não são iguais.</p>}
-          <button type="submit" className={`mt-3 ${botao}`} disabled={!senhaForte(senha) || senha !== repete}>Trocar a senha</button>
-        </form>
-        <Aviso texto={avisoSenha} />
-      </section>
-
-      <section className={cartao}>
-        <h2 className="font-serif text-xl font-semibold">Entrar com a digital</h2>
-        <p className="mt-1 text-ink-soft">Cadastre a impressão digital deste celular e entre sem digitar a senha. A digital fica só no aparelho; a senha continua valendo como reserva.</p>
-        <div className="mt-3">
-          <Digital />
-        </div>
-      </section>
-
-      <section className={cartao}>
-        <h2 className="font-serif text-xl font-semibold">Segundo fator</h2>
-        <p className="mt-1 text-ink-soft">Um código do aplicativo autenticador, além da senha. Quem descobre a sua senha continua do lado de fora.</p>
-        <div className="mt-3">
-          <SegundoFator me={me} recarregar={recarregar} />
-        </div>
-      </section>
-
-      <section className={cartao}>
-        <h2 className="font-serif text-xl font-semibold">Aparelhos</h2>
-        <p className="mt-1 text-ink-soft">Onde esta conta já foi aberta. Não reconhece algum? Troque a senha e avise a coordenação.</p>
-        <div className="mt-3">
-          <Aparelhos />
-        </div>
-      </section>
-
-      <section className="lg:col-span-2">
-        <div className="flex flex-wrap items-center gap-4 border-t border-rule pt-5">
-          <button type="button" className={botaoClaro} onClick={sair}>Sair do painel</button>
-          {leads(me) ? null : confirma ? (
-            <button
-              type="button"
-              className="cursor-pointer bg-oxblood px-5 py-2 font-medium text-parchment"
-              onClick={async () => {
-                try {
-                  await rpc("conta_apagar");
-                  sair();
-                } catch (erro) {
-                  setAviso(textoDoErro(erro));
-                }
-              }}
-            >
-              Confirmar: apagar minha conta
-            </button>
-          ) : (
-            <button type="button" className={elo} onClick={() => setConfirma(true)}>Apagar minha conta</button>
-          )}
-        </div>
-        <p className="mt-2 text-ink-soft">
-          {leads(me)
-            ? "A conta da coordenação não se apaga pelo painel: passe a coordenação adiante em Segurança e sucessão antes, se for o caso."
-            : "Apagar a conta remove o perfil, as funções e os votos. O que já foi publicado continua no acervo."}
-        </p>
-        <Aviso texto={aviso} />
-      </section>
-    </div>
-  );
-}

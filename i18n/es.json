@@ -2658,15 +2658,25 @@
     "leaked": "Esta contraseña ya apareció en filtraciones de otros sitios y es de las primeras que prueba un atacante. Elige otra. (La verificación no envía tu contraseña a nadie.)",
     "show": "Mostrar la contraseña",
     "hide": "Ocultar la contraseña",
-    "rulesTitle": "La contraseña necesita",
+    "rulesTitle": "La contraseña debe",
     "rules": {
-      "length": "al menos 12 caracteres",
-      "upper": "una letra mayúscula",
-      "lower": "una letra minúscula",
-      "number": "un número",
-      "special": "un carácter especial (!, @, #, ., ?…)"
+      "length": "tener al menos 12 caracteres (una frase larga funciona muy bien)",
+      "common": "no ser una contraseña común ni tu nombre con números",
+      "variety": "no ser solo repetición (aaaa…, 1212…)"
     },
-    "strong": "Contraseña fuerte."
+    "strong": "Contraseña aceptada.",
+    "meterTitle": "Seguridad",
+    "meter": [
+      "Débil",
+      "Aceptable",
+      "Buena",
+      "Fuerte"
+    ],
+    "recoveryLink": "Perdí el celular: usar un código de recuperación",
+    "recoveryLabel": "Código de recuperación (XXXXX-XXXXX)",
+    "recoveryButton": "Usar el código",
+    "recoveryBad": "Ese código no vale (incorrecto o ya usado). Son cinco intentos por hora.",
+    "recoveryDone": "Listo: la aplicación de autenticación salió de la cuenta. Registra la del celular nuevo en Mi cuenta."
   },
   "radio": {
     "back15": "Retroceder 15 segundos",

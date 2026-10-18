@@ -251,7 +251,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     </p>
   );
   // Senha nova: as regras (tamanho, maiúscula, minúscula, número, caractere especial) vão sendo marcadas enquanto a pessoa escreve.
-  const senhaLabels: SenhaLabels = { show: s.show, hide: s.hide, rulesTitle: s.rulesTitle, rules: s.rules, strong: s.strong };
+  const senhaLabels: SenhaLabels = { show: s.show, hide: s.hide, rulesTitle: s.rulesTitle, rules: s.rules, strong: s.strong, meterTitle: s.meterTitle, meter: s.meter };
   const twice = (
     <>
       <label className="block">
@@ -305,6 +305,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         </label>
         <button type="submit" disabled={state === "sending" || digits.replace(/\D/g, "").length !== 6} className={primary}>{s.codeConfirm}</button>
         {state === "badCode" && <p role="alert" className="text-oxblood">{s.codeWrong}</p>}
+        <CodigoDeRecuperacao s={s} pronto={() => { me.reload(); setState("idle"); }} />
         <p>
           <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => void signOut().then(() => { setFactor(""); setPassword(""); setState("idle"); })}>
             {s.codeOther}
@@ -430,5 +431,54 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       )}
       {footer}
     </form>
+  );
+}
+
+/**
+ * Perdeu o celular do aplicativo autenticador: com a senha já conferida, um dos códigos de recuperação tira o
+ * aplicativo da conta (a pessoa e a coordenação são avisadas) e a entrada termina; o aplicativo novo é cadastrado depois.
+ */
+function CodigoDeRecuperacao({ s, pronto }: { s: Dict["auth"]; pronto: () => void }) {
+  const [aberto, setAberto] = useState(false);
+  const [codigo, setCodigo] = useState("");
+  const [nota, setNota] = useState("");
+  const [ocupado, setOcupado] = useState(false);
+  if (!aberto) {
+    return (
+      <p>
+        <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => setAberto(true)}>{s.recoveryLink}</button>
+      </p>
+    );
+  }
+  async function usar() {
+    setOcupado(true);
+    setNota("");
+    try {
+      const r = await rpc<{ ok: boolean }>("conta_codigo_usar", { p_codigo: codigo });
+      if (!r.ok) {
+        setNota(s.recoveryBad);
+        return;
+      }
+      setNota(s.recoveryDone);
+      const supabase = await getClient();
+      await supabase.auth.refreshSession().catch(() => null);
+      pronto();
+    } catch {
+      setNota(s.recoveryBad);
+    } finally {
+      setOcupado(false);
+    }
+  }
+  return (
+    <div className="border-t border-rule pt-4">
+      <label className="block">
+        {s.recoveryLabel}
+        <input value={codigo} onChange={(e) => setCodigo(e.target.value)} autoComplete="off" spellCheck={false} maxLength={14} className="mt-1 w-full max-w-56 border-2 border-ink bg-parchment-deep px-3 py-2 font-mono uppercase tracking-widest" />
+      </label>
+      <button type="button" disabled={ocupado || codigo.replace(/[^0-9a-f]/gi, "").length !== 10} onClick={() => void usar()} className="mt-2 cursor-pointer border-2 border-ink px-4 py-2 font-semibold hover:border-oxblood hover:text-oxblood disabled:opacity-50">
+        {s.recoveryButton}
+      </button>
+      {nota && <p role="status" className="mt-2">{nota}</p>}
+    </div>
   );
 }
