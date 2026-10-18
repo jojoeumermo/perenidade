@@ -6490,7 +6490,7 @@ begin
              'chat_aparelho_registrar', 'chat_aparelhos_meus', 'chat_aparelho_remover', 'chat_chaves', 'chat_chave_nova', 'chat_chaves_pendentes',
              'chat_chaves_dar', 'chat_chaves_recusar', 'chat_autodestruir', 'chat_aparelho_estado', 'chat_aparelho_aprovar', 'chat_identidade_definir',
              'chat_identidade_redefinir', 'chat_recuperacao_guardar', 'chat_recuperacao_ler', 'chat_aparelho_pedir', 'chat_aparelho_recuperar',
-             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias', 'chat_anexo_enviar', 'chat_anexo_ler', 'chat_privadas', 'chat_conversa_marcar', 'chat_controles', 'chat_controlar', 'perfil_avatar', 'perfil_curriculo', 'reuniao_salvar', 'reunioes_listar', 'reuniao_estado', 'reuniao_ata', 'reuniao_presenca', 'reuniao_propor', 'reunioes_propostas', 'reuniao_proposta_decidir', 'dicionario_termos', 'dicionario_salvar', 'termo_voluntario_aceitar', 'aprendizado_aceitar', 'marketing_sugerir', 'marketing_caixa', 'marketing_caixa_decidir', 'painel_estatisticas', 'educadores', 'chat_relatar', 'chat_relatos', 'chat_relato_resolver',
+             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias', 'chat_anexo_enviar', 'chat_anexo_ler', 'chat_privadas', 'chat_conversa_marcar', 'chat_controles', 'chat_controlar', 'perfil_avatar', 'perfil_curriculo', 'curriculo_propor', 'curriculo_listar', 'curriculo_decidir', 'curriculo_aprovadas', 'curriculo_marcar', 'reuniao_salvar', 'reunioes_listar', 'reuniao_estado', 'reuniao_ata', 'reuniao_presenca', 'reuniao_propor', 'reunioes_propostas', 'reuniao_proposta_decidir', 'dicionario_termos', 'dicionario_salvar', 'termo_voluntario_aceitar', 'aprendizado_aceitar', 'marketing_sugerir', 'marketing_caixa', 'marketing_caixa_decidir', 'painel_estatisticas', 'educadores', 'chat_relatar', 'chat_relatos', 'chat_relato_resolver',
              'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao',
              'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao', 'papeis_historico_listar',
              'equipe_supervisao', 'pedidos_supervisao', 'protecoes', 'site_pausa', 'usuario_editar', 'usuario_senha_redefinir', 'senha_trocada',
@@ -8689,6 +8689,96 @@ create or replace function public.rascunhos_listar() returns jsonb language sql 
   select coalesce(jsonb_agg(jsonb_build_object('chave', r.chave, 'titulo', coalesce(r.dados ->> 'titulo', ''), 'atualizado_em', r.atualizado_em) order by r.atualizado_em desc), '[]'::jsonb)
   from rascunhos r where r.usuario = interno.eu()
 $$;
+
+-- ───────────────────────────── Currículo: disciplinas e trilhas pelo painel ─────────────────────────────
+-- As disciplinas e trilhas vivem no código do site (lib/areas.ts, dicionários e content/trilhas). Para a coordenação não
+-- depender de ninguém, a mudança é proposta aqui, aprovada pela coordenação ou pela coordenação pedagógica e aplicada
+-- pela rotina de publicação (scripts/curriculo.mjs), que escreve os arquivos e deixa o build conferir. Voluntários propõem.
+create table if not exists interno.curriculo_propostas (
+  id uuid primary key default gen_random_uuid(),
+  tipo text not null check (tipo in ('disciplina', 'trilha', 'editar_disciplina', 'editar_trilha', 'remover_disciplina', 'remover_trilha')),
+  dados jsonb not null default '{}'::jsonb,
+  autor uuid references interno.perfis (id) on delete set null,
+  status text not null default 'pendente' check (status in ('pendente', 'aprovada', 'recusada', 'aplicada', 'falhou')),
+  nota text not null default '' check (char_length(nota) <= 1000),
+  decidido_por uuid references interno.perfis (id) on delete set null,
+  decidido_em timestamptz,
+  aplicada_em timestamptz,
+  criado_em timestamptz not null default now()
+);
+alter table interno.curriculo_propostas enable row level security;
+
+/** Quem decide o currículo: coordenação e coordenação pedagógica. */
+create or replace function interno.curriculo_decide() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or interno.tem('vice')
+$$;
+
+create or replace function interno.curriculo_json(p interno.curriculo_propostas) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('id', p.id, 'tipo', p.tipo, 'dados', p.dados, 'status', p.status, 'nota', p.nota, 'criado_em', p.criado_em, 'decidido_em', p.decidido_em, 'aplicada_em', p.aplicada_em,
+    'autor', coalesce((select interno.nome_visto(f.nome) from perfis f where f.id = p.autor), ''), 'minha', p.autor = auth.uid())
+$$;
+
+/**
+ * Propõe (voluntário) ou cria direto (coordenação e coordenação pedagógica: nasce aprovada). Os dados são conferidos
+ * na aplicação; aqui só o essencial: tamanho e campos obrigatórios por tipo.
+ */
+create or replace function public.curriculo_propor(p_tipo text, p_dados jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); p curriculo_propostas; v_slug text;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('curriculo', 30, 1440);
+  if coalesce(p_tipo, '') not in ('disciplina', 'trilha', 'editar_disciplina', 'editar_trilha', 'remover_disciplina', 'remover_trilha') then perform interno.erro('invalido:tipo'); end if;
+  if jsonb_typeof(coalesce(p_dados, '{}'::jsonb)) <> 'object' or pg_column_size(p_dados) > 40000 then perform interno.erro('invalido:dados'); end if;
+  v_slug := coalesce(p_dados ->> 'slug', '');
+  if v_slug !~ '^[a-z0-9][a-z0-9-]{1,59}$' then perform interno.erro('invalido:slug'); end if;
+  if p_tipo in ('disciplina', 'editar_disciplina') and char_length(coalesce(p_dados -> 'nomes' ->> 'pt', '')) not between 2 and 60 then perform interno.erro('invalido:nome'); end if;
+  if p_tipo in ('trilha') and char_length(coalesce(p_dados ->> 'titulo', '')) not between 3 and 120 then perform interno.erro('invalido:titulo'); end if;
+  if p_tipo in ('trilha', 'editar_trilha') and coalesce(p_dados ->> 'etapa', 'medio') not in ('fundamental', 'medio', 'superior') then perform interno.erro('invalido:etapa'); end if;
+  insert into curriculo_propostas (tipo, dados, autor, status, decidido_por, decidido_em)
+  values (p_tipo, p_dados, v, case when interno.curriculo_decide() then 'aprovada' else 'pendente' end, case when interno.curriculo_decide() then v end, case when interno.curriculo_decide() then now() end)
+  returning * into p;
+  if p.status = 'pendente' then perform interno.avisar_lideranca('Proposta de currículo (' || p_tipo || ': ' || v_slug || '). Decida em Disciplinas e trilhas.', v); end if;
+  perform interno.registrar('curriculo_' || p.status, p.id::text, jsonb_build_object('tipo', p_tipo, 'slug', v_slug));
+  return interno.curriculo_json(p);
+end $$;
+
+create or replace function public.curriculo_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(interno.curriculo_json(p) order by case p.status when 'pendente' then 0 when 'aprovada' then 1 else 2 end, p.criado_em desc), '[]'::jsonb)
+          from curriculo_propostas p where p.criado_em > now() - interval '365 days' and (p.autor = v or interno.curriculo_decide()));
+end $$;
+
+create or replace function public.curriculo_decidir(p_id uuid, p_aprovar boolean, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); p curriculo_propostas;
+begin
+  if not interno.curriculo_decide() then perform interno.erro('sem_permissao'); end if;
+  update curriculo_propostas set status = case when p_aprovar then 'aprovada' else 'recusada' end, nota = left(coalesce(p_nota, ''), 1000), decidido_por = v, decidido_em = now()
+  where id = p_id and status = 'pendente' returning * into p;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.avisar(p.autor, 'Sua proposta de currículo (' || p.tipo || ': ' || coalesce(p.dados ->> 'slug', '') || ') foi ' || case when p_aprovar then 'aprovada e entra no site na próxima publicação.' else 'recusada. ' || coalesce(p_nota, '') end);
+  perform interno.registrar('curriculo_' || p.status, p.id::text, '{}'::jsonb);
+  return interno.curriculo_json(p);
+end $$;
+
+/** A rotina de publicação (serviço) lê as aprovadas e depois marca o que aplicou (ou o que falhou, com o motivo). */
+create or replace function public.curriculo_aprovadas() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', p.id, 'tipo', p.tipo, 'dados', p.dados) order by p.decidido_em), '[]'::jsonb) from curriculo_propostas p where p.status = 'aprovada');
+end $$;
+
+create or replace function public.curriculo_marcar(p_ids uuid[], p_falhas jsonb default '{}'::jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare k text;
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  update curriculo_propostas set status = 'aplicada', aplicada_em = now() where id = any (coalesce(p_ids, '{}')) and status = 'aprovada';
+  for k in select jsonb_object_keys(coalesce(p_falhas, '{}'::jsonb)) loop
+    update curriculo_propostas set status = 'falhou', nota = left(coalesce(p_falhas ->> k, ''), 1000) where id = k::uuid and status = 'aprovada';
+  end loop;
+  return jsonb_build_object('ok', true);
+end $$;
 
 -- ───────────────────────────── Reuniões da equipe ─────────────────────────────
 -- Reuniões por vídeo (Jitsi, servidor configurável) dentro do painel. A coordenação, a coordenação pedagógica e a

@@ -33,6 +33,7 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         [n.tutoring, "/reforco", d.tutoring],
         [n.tools, "/ferramentas", d.tools],
         [n.labs, "/laboratorios", t.labs.lead],
+        [n.questionBank, "/questoes", t.lists.bankLead],
         [n.glossary, "/glossario", d.glossary],
         [n.authors, "/autores", d.authors],
         [n.sources, "/guia", d.sources],

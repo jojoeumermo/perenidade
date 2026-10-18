@@ -41,6 +41,7 @@
     "dedication": "献词",
     "team": "我们是谁",
     "labs": "实验室",
+    "questionBank": "题库",
     "contribute": "投稿",
     "more": "更多",
     "search": "搜索",
@@ -110,6 +111,15 @@
     "ptOnly": "练习为葡萄牙语。"
   },
   "lists": {
+    "bankEyebrow": "练习",
+    "bankTitle": "题库",
+    "bankLead": "学院所有课程的题目汇集于此，附答案和讲解。它会自动增长：每节带测验的新课都会进来，教师提交的每道题也会进来。",
+    "bankReveal": "查看答案",
+    "bankHide": "隐藏",
+    "bankLesson": "来自课程",
+    "bankSend": "提交题目",
+    "bankCount": "{n} 道题",
+    "bankRandom": "随机抽 10 题",
     "find": "在本页搜索",
     "count": "{n} 项",
     "none": "没有找到相关内容。",

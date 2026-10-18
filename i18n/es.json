@@ -45,6 +45,7 @@
     "dedication": "Dedicatoria",
     "team": "Quiénes somos",
     "labs": "Laboratorios",
+    "questionBank": "Banco de preguntas",
     "contribute": "Contribuir",
     "more": "Más",
     "search": "Buscar",
@@ -114,6 +115,15 @@
     "ptOnly": "Los ejercicios están en portugués."
   },
   "lists": {
+    "bankEyebrow": "Para practicar",
+    "bankTitle": "Banco de preguntas",
+    "bankLead": "Todas las preguntas de las clases del instituto en un solo lugar, con la respuesta y la explicación. Crece solo: cada clase nueva con prueba entra aquí, y cada pregunta enviada por los educadores también.",
+    "bankReveal": "Ver la respuesta",
+    "bankHide": "Ocultar",
+    "bankLesson": "De la clase",
+    "bankSend": "Enviar una pregunta",
+    "bankCount": "{n} preguntas",
+    "bankRandom": "Sortear 10",
     "find": "Buscar en esta página",
     "count": "{n} elementos",
     "none": "Nada encontrado con ese término.",

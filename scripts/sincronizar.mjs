@@ -18,6 +18,7 @@ import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { lerCabecalho, montarArquivo } from "./cabecalho.mjs";
+import { aplicarTodas } from "./curriculo.mjs";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const conteudo = path.join(raiz, "content");
@@ -428,8 +429,10 @@ if (process.argv.includes("--marcar")) {
     process.exit(0);
   }
   const lido = JSON.parse(fs.readFileSync(anotacao, "utf8"));
-  const { ids = [], avulsos = [], apagar = [] } = Array.isArray(lido) ? { ids: lido } : lido;
+  const { ids = [], avulsos = [], apagar = [], curriculo = null } = Array.isArray(lido) ? { ids: lido } : lido;
   if (ids.length > 0) await chamar("publicacoes_marcar", { p_ids: ids });
+  // As propostas de currículo aplicadas (disciplinas e trilhas) e as que a aplicação recusou, com o motivo.
+  if (curriculo && (curriculo.ids.length > 0 || Object.keys(curriculo.falhas).length > 0)) await chamar("curriculo_marcar", { p_ids: curriculo.ids, p_falhas: curriculo.falhas });
   for (const avulso of avulsos) await chamar("arquivo_publicado", { p_id: avulso.id, p_destino: avulso.destino });
   // O que já está dentro do site sai do depósito: ele não é lugar de guardar nada.
   for (const caminho of apagar) {
@@ -499,7 +502,18 @@ for (const avulso of (await chamar("arquivos_aprovados")).slice(0, LIMITE)) {
   }
 }
 
-fs.writeFileSync(anotacao, JSON.stringify({ ids: marcar, avulsos, apagar }));
+// Currículo: as propostas aprovadas no painel viram disciplinas e trilhas de verdade.
+let curriculo = null;
+try {
+  const aprovadas = await chamar("curriculo_aprovadas");
+  if (Array.isArray(aprovadas) && aprovadas.length > 0) {
+    curriculo = aplicarTodas(raiz, aprovadas.slice(0, 20));
+    resumo.push(...curriculo.resumo);
+  }
+} catch (erro) {
+  console.log(`currículo: ${erro.message}`);
+}
+fs.writeFileSync(anotacao, JSON.stringify({ ids: marcar, avulsos, apagar, curriculo }));
 console.log(resumo.length ? `Publicado:\n${resumo.map((linhaDoResumo) => `- ${linhaDoResumo}`).join("\n")}` : "Nenhum arquivo novo.");
 if (pendentes.length > LIMITE) console.log(`Ficaram ${pendentes.length - LIMITE} itens para a próxima rodada.`);
 if (recusados) console.log(`${recusados} item(ns) recusados: continuam aprovados no painel até serem corrigidos ou recusados lá.`);

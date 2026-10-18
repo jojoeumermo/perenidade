@@ -45,6 +45,7 @@
     "dedication": "Dedication",
     "team": "Who we are",
     "labs": "Labs",
+    "questionBank": "Question bank",
     "contribute": "Contribute",
     "more": "More",
     "search": "Search",
@@ -114,6 +115,15 @@
     "ptOnly": "Exercises are in Portuguese."
   },
   "lists": {
+    "bankEyebrow": "To practise",
+    "bankTitle": "Question bank",
+    "bankLead": "All the questions from the institute's lessons in one place, with the answer and the explanation. It grows by itself: every new lesson with a test lands here, and so does every question sent by educators.",
+    "bankReveal": "Show the answer",
+    "bankHide": "Hide",
+    "bankLesson": "From the lesson",
+    "bankSend": "Send a question",
+    "bankCount": "{n} questions",
+    "bankRandom": "Pick 10 at random",
     "find": "Search this page",
     "count": "{n} items",
     "none": "Nothing found for that term.",
