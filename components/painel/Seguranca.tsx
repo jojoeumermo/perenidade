@@ -2,8 +2,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getClient, signOut, type Me } from "@/lib/backend";
-import { fingerprintAvailable, listFingerprints, registerFingerprint, removeFingerprint, type Passkey } from "@/lib/passkey";
+import { getClient, rpc, signOut, type Me } from "@/lib/backend";
+import { fingerprintAvailable, listFingerprints, registerFingerprint, removeFingerprint, renameFingerprint, type Passkey } from "@/lib/passkey";
 import { Aviso, botao, botaoClaro, campo, dataHora, elo, rotulo, useAcao, useLista } from "./comum";
 
 interface Fator {
@@ -27,6 +27,11 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
   const [codigo, setCodigo] = useState("");
   const [aviso, setAviso] = useState("");
   const [ocupado, setOcupado] = useState(false);
+  /** Trocando de aplicativo: o antigo só sai depois que o novo for confirmado. */
+  const [trocando, setTrocando] = useState<string | null>(null);
+  const [desligando, setDesligando] = useState(false);
+  const [recuperando, setRecuperando] = useState(false);
+  const [codigoDeRecuperacao, setCodigoDeRecuperacao] = useState("");
 
   const [volta, setVolta] = useState(0);
   const carregar = () => setVolta((valor) => valor + 1);
@@ -66,6 +71,7 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
       const supabase = await getClient();
       // Tentativas antigas que ficaram pela metade são descartadas antes de começar outra.
       for (const fator of fatores ?? []) if (fator.status !== "verified") await supabase.auth.mfa.unenroll({ factorId: fator.id });
+      setTrocando((fatores ?? []).find((fator) => fator.status === "verified")?.id ?? null);
       const { data, error } = await supabase.auth.mfa.enroll({ factorType: "totp", friendlyName: `Instituto Lúcia ${Date.now()}` });
       if (error || !data) throw error ?? new Error("falha");
       setCadastro({ id: data.id, qr: data.totp.qr_code, segredo: data.totp.secret });
@@ -77,9 +83,16 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
       const supabase = await getClient();
       const { error } = await supabase.auth.mfa.challengeAndVerify({ factorId: fator, code: codigo.replace(/\D/g, "") });
       if (error) throw error;
+      const novo = Boolean(cadastro);
       setCadastro(null);
       setCodigo("");
-      setAviso("Código confirmado.");
+      if (novo && trocando) {
+        // O novo aplicativo já confirmou: o antigo sai da conta.
+        await supabase.auth.mfa.unenroll({ factorId: trocando }).catch(() => null);
+        setTrocando(null);
+      }
+      if (novo) await rpc("conta_evento", { p_acao: "segundo_fator_ativado" }).catch(() => null);
+      setAviso(novo ? "Aplicativo autenticador ligado ✓ Agora gere os códigos de recuperação." : "Código confirmado ✓");
       carregar();
       recarregar();
     });
@@ -87,8 +100,14 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
   const remover = (fator: string) =>
     trabalhar(async () => {
       const supabase = await getClient();
+      // Desligar pede o código do aplicativo de novo: quem pegou o aparelho com a sessão aberta não desliga sozinho.
+      const conferido = await supabase.auth.mfa.challengeAndVerify({ factorId: fator, code: codigo.replace(/\D/g, "") });
+      if (conferido.error) throw conferido.error;
       const { error } = await supabase.auth.mfa.unenroll({ factorId: fator });
       if (error) throw error;
+      setCodigo("");
+      setDesligando(false);
+      await rpc("conta_evento", { p_acao: "segundo_fator_removido" }).catch(() => null);
       setAviso("Aplicativo autenticador removido desta conta.");
       carregar();
       recarregar();
@@ -129,7 +148,7 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
           <button type="button" className={botao} disabled={ocupado || !pronto} onClick={() => confirmar(cadastro.id)}>
             Confirmar
           </button>
-          <button type="button" className={elo} onClick={() => setCadastro(null)}>
+          <button type="button" className={elo} onClick={() => { setCadastro(null); setTrocando(null); }}>
             Cancelar
           </button>
         </div>
@@ -161,6 +180,34 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
           </button>
         </div>
         <Aviso texto={aviso} />
+        {recuperando ? (
+          <form
+            className="mt-3 border-t border-rule pt-3"
+            onSubmit={(e) => {
+              e.preventDefault();
+              void trabalhar(async () => {
+                const r = await rpc<{ ok: boolean; restantes?: number }>("conta_codigo_usar", { p_codigo: codigoDeRecuperacao });
+                if (!r.ok) {
+                  setAviso("Esse código não vale (errado ou já usado). Confira e tente de novo; são cinco tentativas por hora.");
+                  return;
+                }
+                setCodigoDeRecuperacao("");
+                setRecuperando(false);
+                setAviso(`Aplicativo removido da conta. Cadastre o aplicativo no celular novo agora. Restam ${r.restantes ?? 0} códigos.`);
+                carregar();
+                recarregar();
+              });
+            }}
+          >
+            <label className="block text-sm">
+              Código de recuperação (XXXXX-XXXXX)
+              <input value={codigoDeRecuperacao} onChange={(e) => setCodigoDeRecuperacao(e.target.value)} autoComplete="off" spellCheck={false} maxLength={14} className={`${campo} max-w-56 font-mono uppercase tracking-widest`} />
+            </label>
+            <button type="submit" className={`mt-2 ${botao}`} disabled={ocupado || codigoDeRecuperacao.replace(/[^0-9a-f]/gi, "").length !== 10}>Usar o código</button>
+          </form>
+        ) : (
+          <button type="button" className={`mt-2 ${elo}`} onClick={() => setRecuperando(true)}>Perdi o celular: usar um código de recuperação</button>
+        )}
       </div>
     );
   }
@@ -168,10 +215,24 @@ export function SegundoFator({ me, recarregar }: { me: Me; recarregar: () => voi
   return (
     <div>
       <p>Aplicativo autenticador cadastrado e confirmado nesta sessão.</p>
-      {!me.exige_segundo_fator && (
-        <button type="button" className={`mt-2 ${elo}`} disabled={ocupado} onClick={() => remover(confirmado.id)}>
-          Remover o aplicativo autenticador desta conta
-        </button>
+      <p className="mt-2 flex flex-wrap gap-4">
+        <button type="button" className={elo} disabled={ocupado} onClick={comecar}>Trocar de aplicativo ou de celular</button>
+        {!me.exige_segundo_fator && !desligando && (
+          <button type="button" className={elo} disabled={ocupado} onClick={() => setDesligando(true)}>
+            Desligar o segundo fator
+          </button>
+        )}
+      </p>
+      {me.exige_segundo_fator && <p className="mt-1 text-xs text-ink-soft">A sua função exige o segundo fator: dá para trocar de aplicativo, mas não desligar.</p>}
+      {desligando && (
+        <div className="mt-3 border border-oxblood p-3">
+          <p className="text-sm">Desligar deixa a conta protegida só pela senha. Para confirmar, digite o código atual do aplicativo.</p>
+          <div className="mt-2 flex flex-wrap items-end gap-3">
+            {entrada}
+            <button type="button" className="painel-botao cursor-pointer bg-oxblood px-5 py-2.5 font-semibold text-parchment disabled:opacity-50" disabled={ocupado || !pronto} onClick={() => remover(confirmado.id)}>Desligar</button>
+            <button type="button" className={elo} onClick={() => { setDesligando(false); setCodigo(""); }}>Cancelar</button>
+          </div>
+        </div>
       )}
       <Aviso texto={aviso} />
     </div>
@@ -212,7 +273,10 @@ export function Digital() {
     setAviso("");
     const { outcome, detail } = await registerFingerprint();
     setOcupado(false);
-    if (outcome === "ok") setAviso("Digital cadastrada. Na próxima vez, toque em “Entrar com a digital”.");
+    if (outcome === "ok") {
+      setAviso("Chave de acesso cadastrada ✓ Na próxima vez, toque em “Entrar com a digital”.");
+      await rpc("conta_evento", { p_acao: "chave_acesso_cadastrada" }).catch(() => null);
+    }
     else if (outcome === "cancelled") setAviso("Cadastro cancelado. Nada foi gravado.");
     else if (outcome === "exists") setAviso("Este aparelho já está cadastrado nesta conta.");
     else if (outcome === "unsupported") setAviso("Este aparelho não oferece entrada pela digital.");
@@ -225,7 +289,8 @@ export function Digital() {
     setAviso("");
     try {
       await removeFingerprint(id);
-      setAviso("Aparelho removido: a digital dele não abre mais esta conta.");
+      setAviso("Chave removida: esse aparelho não abre mais esta conta sem senha.");
+      await rpc("conta_evento", { p_acao: "chave_acesso_removida" }).catch(() => null);
     } catch {
       setAviso("Não deu certo remover. Tente de novo.");
     } finally {
@@ -241,25 +306,34 @@ export function Digital() {
       {chaves.length > 0 && (
         <ul className="divide-y divide-rule border-y border-rule">
           {chaves.map((chave) => (
-            <li key={chave.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
-              <span>
-                {chave.nome || "Aparelho"}{" "}
-                <span className="text-ink-soft">
-                  · cadastrado em {dataHora(chave.criada)}
-                  {chave.usada && ` · usado em ${dataHora(chave.usada)}`}
+            <li key={chave.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
+              <span className="min-w-0 flex-1">
+                <input
+                  defaultValue={chave.nome || "Aparelho"}
+                  aria-label="Nome desta chave de acesso"
+                  maxLength={60}
+                  onBlur={(e) => {
+                    const nome = e.target.value.trim();
+                    if (nome && nome !== chave.nome) void renameFingerprint(chave.id, nome).then(() => setAviso("Nome guardado ✓"), () => setAviso("Não deu para guardar o nome."));
+                  }}
+                  className="w-full max-w-64 border-b border-rule bg-transparent px-1 py-0.5 font-semibold focus:border-ink focus:outline-none"
+                />
+                <span className="block text-sm text-ink-soft">
+                  Cadastrada em {dataHora(chave.criada)}
+                  {chave.usada && ` · usada em ${dataHora(chave.usada)}`}
                 </span>
               </span>
-              <button type="button" className={elo} disabled={ocupado} onClick={() => remover(chave.id)}>
+              <button type="button" className={elo} disabled={ocupado} onClick={() => { if (window.confirm(`Remover a chave “${chave.nome || "Aparelho"}”? Esse aparelho vai precisar da senha para entrar.`)) void remover(chave.id); }}>
                 Remover
               </button>
             </li>
           ))}
         </ul>
       )}
-      {chaves.length === 0 && <p className="text-ink-soft">Nenhum aparelho cadastrado ainda.</p>}
+      {chaves.length === 0 && <p className="text-ink-soft">Nenhuma chave de acesso cadastrada ainda.</p>}
       {tem ? (
         <button type="button" className={`mt-3 ${botao}`} disabled={ocupado} onClick={cadastrar}>
-          Cadastrar a digital deste aparelho
+          Cadastrar uma chave de acesso neste aparelho
         </button>
       ) : (
         <p className="mt-3 text-ink-soft">Este aparelho não tem leitor de digital configurado (ou o navegador não oferece o recurso). Abra o painel no celular para cadastrar.</p>

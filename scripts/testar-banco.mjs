@@ -2657,6 +2657,47 @@ await espera("a coordenação pedagógica aprova a sugestão", async () => { con
 await recusa("só o serviço lê as aprovadas", () => rpc(como(ids.coord), "curriculo_aprovadas"), "sem_permissao");
 await espera("o serviço lê as aprovadas e marca uma aplicada e uma com falha", async () => { const lista = await rpc({ papel: "service_role" }, "curriculo_aprovadas"); await rpc({ papel: "service_role" }, "curriculo_marcar", { p_ids: [lista[0].id], p_falhas: { [lista[1].id]: "a disciplina já existe" } }); return rpc(como(ids.coord), "curriculo_listar"); }, (r) => r.some((x) => x.status === "aplicada") && r.some((x) => x.status === "falhou" && x.nota === "a disciplina já existe"));
 
+// ── Minha conta: códigos de recuperação, meus dados, atividade, avisos por e-mail, sessões ──
+await dono("create table if not exists auth.mfa_factors (user_id uuid, status text, created_at timestamptz default now())");
+await dono("delete from auth.mfa_factors");
+await dono("insert into auth.mfa_factors values ($1, 'verified', now())", [ids.revisor]);
+await recusa("sem aplicativo cadastrado, não há códigos de recuperação", () => rpc({ ...como(ids.designer), aal: "aal2" }, "conta_codigos_gerar"), "sem_segundo_fator");
+await recusa("com aplicativo e só a senha, não gera códigos", () => rpc(como(ids.revisor), "conta_codigos_gerar"), "confirme_segundo_fator");
+const codigos = (await rpc({ ...como(ids.revisor), aal: "aal2" }, "conta_codigos_gerar")).codigos;
+await espera("gera dez códigos no formato XXXXX-XXXXX", async () => codigos, (r) => r.length === 10 && r.every((c) => /^[0-9A-F]{5}-[0-9A-F]{5}$/.test(c)));
+await espera("o banco guarda só o resumo", () => dono("select count(*)::int as n from interno.codigos_recuperacao where hash = any($1)", [codigos]), (r) => r.rows[0].n === 0);
+await espera("a proteção mostra dez restantes", () => rpc(como(ids.revisor), "conta_protecao"), (r) => r.segundo_fator === true && Number(r.codigos_restantes) === 10);
+await espera("código errado não vale (e fica no registro)", () => rpc(como(ids.revisor), "conta_codigo_usar", { p_codigo: "00000-00000" }), (r) => r.ok === false && r.motivo === "codigo_invalido");
+await espera("código certo (com minúsculas e sem traço) tira o aplicativo", () => rpc(como(ids.revisor), "conta_codigo_usar", { p_codigo: codigos[0].replace("-", "").toLowerCase() }), (r) => r.ok === true && Number(r.restantes) === 9);
+await espera("o aplicativo saiu da conta", () => dono("select count(*)::int as n from auth.mfa_factors where user_id = $1", [ids.revisor]), (r) => r.rows[0].n === 0);
+await espera("o mesmo código não vale duas vezes", () => rpc(como(ids.revisor), "conta_codigo_usar", { p_codigo: codigos[0] }), (r) => r.ok === false);
+await espera("a coordenação é avisada", () => dono("select count(*)::int as n from interno.avisos where texto like '%código de recuperação%'"), (r) => r.rows[0].n >= 2);
+await espera("outra pessoa não usa o código de ninguém", () => rpc(como(ids.designer), "conta_codigo_usar", { p_codigo: codigos[1] }), (r) => r.ok === false);
+await recusa("a sexta tentativa na mesma hora para", async () => { for (let i = 0; i < 6; i++) await rpc(como(ids.designer), "conta_codigo_usar", { p_codigo: "11111-11111" }); }, "muitos_pedidos");
+await espera("as tentativas erradas aparecem na atividade", () => rpc(como(ids.designer), "conta_atividade"), (r) => r.filter((e) => e.acao === "codigo_recuperacao_errado").length >= 5);
+await dono("drop table auth.mfa_factors");
+await recusa("evento fora da lista não entra no registro", () => rpc(como(ids.prof), "conta_evento", { p_acao: "papel_concedido" }), "invalido:acao");
+await espera("troca de senha entra na atividade", async () => { await rpc(como(ids.prof), "conta_evento", { p_acao: "senha_trocada" }); return rpc(como(ids.prof), "conta_atividade"); }, (r) => r.some((e) => e.acao === "senha_trocada"));
+await espera("a atividade de uma pessoa não mostra a de outra", () => rpc(como(ids.designer), "conta_atividade"), (r) => !r.some((e) => e.acao === "senha_trocada"));
+await espera("meus dados traz o perfil e o e-mail, sem o resumo dos códigos", () => rpc(como(ids.revisor), "conta_meus_dados"), (r) => r.perfil && r.conta.email && !Object.keys(r).some((k) => k.startsWith("codigos_recuperacao")) && !("limites.chave" in r));
+await recusa("anônimo não baixa dados", () => rpc(anon, "conta_meus_dados"), "entre_primeiro");
+await espera("desliga o aviso da equipe por e-mail (e ignora o que não é opcional)", () => rpc(como(ids.prof), "conta_emails_salvar", { p_desligados: ["aviso_equipe", "convite"] }), (r) => JSON.stringify(r.desligados) === JSON.stringify(["aviso_equipe"]));
+await espera("o e-mail desligado não entra na fila", async () => {
+  const email = (await dono("select email from auth.users where id = $1", [ids.prof])).rows[0].email;
+  const r = await dono("select interno.email($1, 'aviso_equipe', 'Teste', 'x') as entrou, interno.email($1, 'convite', 'Teste', 'x') as convite", [email]);
+  return r.rows[0];
+}, (r) => r.entrou === false && r.convite === true);
+await recusa("só a coordenação muda o prazo das sessões", () => rpc({ ...como(ids.curadora), aal: "aal2" }, "seguranca_sessoes", { p_dias: 30 }), "sem_permissao");
+await recusa("prazo fora do intervalo é recusado", () => rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_sessoes", { p_dias: 2 }), "invalido:dias");
+await espera("a coordenação muda o prazo e aparelhos parados saem", async () => {
+  await rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_sessoes", { p_dias: 30 });
+  await dono("insert into interno.aparelhos (usuario, marca, rotulo, primeiro, ultimo) values ($1, repeat('d0', 32), 'Velho', now() - interval '90 days', now() - interval '90 days')", [ids.prof]);
+  await dono("insert into interno.aparelhos (usuario, marca, rotulo) values ($1, repeat('d1', 32), 'Novo')", [ids.prof]);
+  await dono("select interno.vencer_sessoes()");
+  return dono("select marca from interno.aparelhos where marca in (repeat('d0', 32), repeat('d1', 32))");
+}, (r) => r.rows.length === 1 && r.rows[0].marca.startsWith("d1"));
+await espera("qualquer pessoa da equipe sobe foto própria", () => rpc(como(ids.prof), "perfil_avatar", { p_avatar: "data:image/webp;base64,UklGRg==" }), (r) => r.ok === true);
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);

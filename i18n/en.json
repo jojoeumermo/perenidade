@@ -2658,15 +2658,25 @@
     "leaked": "This password has already appeared in leaks from other sites and is one of the first an attacker tries. Choose another. (The check does not send your password to anyone.)",
     "show": "Show password",
     "hide": "Hide password",
-    "rulesTitle": "Your password needs",
+    "rulesTitle": "The password must",
     "rules": {
-      "length": "at least 12 characters",
-      "upper": "an uppercase letter",
-      "lower": "a lowercase letter",
-      "number": "a number",
-      "special": "a special character (!, @, #, ., ?…)"
+      "length": "have at least 12 characters (a long phrase works very well)",
+      "common": "not be a common password or your name with numbers",
+      "variety": "not be just repetition (aaaa…, 1212…)"
     },
-    "strong": "Strong password."
+    "strong": "Password accepted.",
+    "meterTitle": "Strength",
+    "meter": [
+      "Weak",
+      "Fair",
+      "Good",
+      "Strong"
+    ],
+    "recoveryLink": "Lost my phone: use a recovery code",
+    "recoveryLabel": "Recovery code (XXXXX-XXXXX)",
+    "recoveryButton": "Use the code",
+    "recoveryBad": "That code is not valid (wrong or already used). You have five tries per hour.",
+    "recoveryDone": "Done: the authenticator app was removed from the account. Set up the one on your new phone in My account."
   },
   "radio": {
     "back15": "Back 15 seconds",

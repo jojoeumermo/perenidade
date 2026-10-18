@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 // Confere o estudo guardado no navegador: a conta da repetição espaçada, o caderno de erros e a cópia de segurança
 // (que nunca pode levar chave de aparelho, de sala ou de sessão).
+import { avaliarSenha } from "../lib/forca-senha.ts";
 import { agendar, apagarErro, guardarCartoes, idDaQuestao, lerCartoes, lerCopia, lerErros, montarCopia, paraHoje, refazerErro, registrarErro, responderCartao, restaurarCopia, somarDias } from "../lib/estudo.ts";
 
 let ok = 0;
@@ -70,6 +71,16 @@ const n = restaurarCopia(lerCopia(JSON.stringify(copia)), destino);
 const cadernos = JSON.parse(destino.getItem("lucia:caderno"));
 conferir("restaura e junta por id", n === 4 && cadernos.length === 2 && cadernos.find((x) => x.id === "k1").titulo === "Novo", JSON.stringify(cadernos));
 conferir("restaurar não toca em chave de sala", destino.getItem("lucia:sala-chave") === "MEU");
+
+// Senha nova: 12 ou mais, nada comum, nada de nome com número, nada de repetição; frase longa sem símbolo é forte.
+conferir("curta não passa", !avaliarSenha("Ab1!xyz").aceita);
+conferir("comum com enfeite não passa", !avaliarSenha("Senha123456!").aceita && !avaliarSenha("Flamengo2024").aceita && !avaliarSenha("qwertyuiop12").aceita);
+conferir("sequência não passa", !avaliarSenha("123456789012").aceita && !avaliarSenha("abcdefghijkl").aceita);
+conferir("repetição não passa", !avaliarSenha("aaaaaaaaaaaa").aceita && !avaliarSenha("121212121212").aceita && !avaliarSenha("abcabcabcabc").aceita);
+conferir("nome com número não passa", !avaliarSenha("paulo2024abc", ["Paulo Professor"]).aceita);
+conferir("frase longa com o nome passa", avaliarSenha("paulo e maria foram ao mercado", ["Paulo Professor"]).aceita);
+conferir("frase longa sem símbolo é forte", avaliarSenha("minha avó plantava feijão no quintal").forca === 3);
+conferir("aceita senha de gerenciador", avaliarSenha("k8#Qz!pW2vR9mT").aceita);
 
 for (const f of falhas) console.log(`  ✗ ${f}`);
 console.log(`estudo: ${ok} conferências certas, ${falhas.length} falhas`);
