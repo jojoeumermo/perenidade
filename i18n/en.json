@@ -2609,7 +2609,164 @@
     "note": "Contributions are made on Benfeitoria, a Brazilian crowdfunding platform. This site neither receives nor stores payment data.",
     "wallTitle": "Supporters' wall",
     "wallLead": "Those who helped keep the institute standing and chose to leave their name here.",
-    "wallEmpty": "The wall is still empty."
+    "wallEmpty": "The wall is still empty.",
+    "page": {
+      "leaving": "The button opens Benfeitoria in another tab.",
+      "opensOutside": "(opens another site, in another tab)",
+      "whyTitle": "Why we ask for support",
+      "howTitle": "How it works",
+      "how": [
+        "Support is monthly: you choose a tier on Benfeitoria and can change or cancel it on the platform itself, whenever you want.",
+        "Supporting is optional. Nobody loses access to anything, and there is no exclusive content for supporters.",
+        "Payment happens on Benfeitoria. This site neither receives nor stores payment data."
+      ],
+      "cancelSteps": "How to cancel, step by step",
+      "tiersTitle": "The tiers",
+      "tierDefault": "Solidarity support, with no exclusive benefit. If you want, your name appears on the wall.",
+      "perMonth": "per month",
+      "goalsTitle": "Goals",
+      "goal1": "Goal 1",
+      "goal2": "Goal 2",
+      "goalMid": "First goal",
+      "goalProgress": "{atual} of {alvo}",
+      "goalTarget": "{alvo} per month",
+      "goalSupporters": "{atual} of {alvo} supporters",
+      "goalNoData": "The coordination has not reported how much has come in yet, so for now the goals show only the target.",
+      "updatedAt": "Campaign figures reported by the coordination on {data}. This is not a live counter.",
+      "worthTitle": "What each contribution is worth",
+      "worth": "With {n} contributions of {valor} per month, the site's fixed bills are covered.",
+      "worthOne": "One contribution of {valor} per month already covers the site's fixed bills.",
+      "worthPick": "Choose a tier",
+      "whereTitle": "Where the money goes",
+      "whereDefault": [
+        {
+          "title": "Hosting and database",
+          "text": "The server that keeps the site and the team's panel online."
+        },
+        {
+          "title": "Domain",
+          "text": "The institutolucia.org address."
+        },
+        {
+          "title": "Audio and backups",
+          "text": "Storage for the audio files and for the collection's backups."
+        },
+        {
+          "title": "Growing the collection",
+          "text": "Whatever is left goes to more lessons, more translations and more review."
+        }
+      ],
+      "monthly": "{valor} per month",
+      "dollar": "partly billed in US dollars",
+      "doneTitle": "What we have done so far",
+      "counters": {
+        "works": "works in the collection",
+        "lessons": "published lessons",
+        "translations": "lesson translations",
+        "languages": "site languages",
+        "volunteers": "active volunteers",
+        "contributions": "published contributions"
+      },
+      "otherTitle": "Other ways to help",
+      "other": [
+        {
+          "title": "Contribute a lesson or a correction",
+          "text": "Write, correct or suggest a work. No account needed.",
+          "href": "/contribuir"
+        },
+        {
+          "title": "Volunteer",
+          "text": "Review, translation, design, curation, moderation: there is room for anyone with a few hours.",
+          "href": "/voluntarios"
+        },
+        {
+          "title": "Help translate",
+          "text": "The lessons exist in Portuguese and are waiting for versions in other languages.",
+          "href": "/voluntarios"
+        },
+        {
+          "title": "Study and share the collection",
+          "text": "Using and recommending the collection also sustains the project.",
+          "href": "/acervo"
+        }
+      ],
+      "shareTitle": "Share this page",
+      "copyLink": "Copy the link",
+      "copied": "Link copied ✓",
+      "shareText": "Instituto Lúcia runs a free, ad-free school and library. You can support it here:",
+      "shareEmail": "Email",
+      "responsibleTitle": "Who is responsible",
+      "helpersTitle": "Who already helps without money",
+      "helpers": "{c} published contributions and {v} active volunteers keep the collection going.",
+      "helpersVolunteers": "{v} active volunteers keep the collection going.",
+      "helpersNames": "Volunteers who allowed their name here:",
+      "wallFormTitle": "I already support and want to appear on the wall",
+      "wallName": "Name or nickname",
+      "wallMessage": "Short message (optional)",
+      "wallSend": "Ask to appear",
+      "wallSent": "Request sent. The coordination checks the Benfeitoria supporters list before publishing.",
+      "wallPrivacy": "We keep only the name and message you write, no email. To remove your name later, just ask the coordination.",
+      "wallError": "It could not be sent right now. Please try again later.",
+      "transparencyTitle": "Transparency",
+      "transparencyEmpty": "Monthly financial reports will be published here.",
+      "lastMonth": "Latest report: {mes}",
+      "income": "Income",
+      "expenses": "Expenses",
+      "balance": "Balance",
+      "seeAccounts": "See the financial reports",
+      "faqTitle": "Frequently asked questions",
+      "faq": {
+        "mandatory": {
+          "q": "Do I have to support?",
+          "a": "No. The collection is free for everyone, with or without support, and it will stay that way."
+        },
+        "tiers": {
+          "q": "What does each tier mean?",
+          "a": "They are monthly amounts named after books. They are all the same thing: solidarity support, with no exclusive benefit."
+        },
+        "anonymous": {
+          "q": "Can I support without appearing on the wall?",
+          "a": "Yes. Your name only appears on the wall if you ask (with the form on this page) or authorize the coordination."
+        },
+        "fee": {
+          "q": "How much of each contribution reaches the project?"
+        },
+        "cancel": {
+          "q": "How do I cancel?",
+          "a": "On Benfeitoria itself, where you made the contribution. This site has no access to your payment."
+        },
+        "dollar": {
+          "q": "Why are some bills in US dollars?",
+          "a": "Some services that keep the site online charge in dollars, so the cost in reais changes with the exchange rate."
+        },
+        "surplus": {
+          "q": "What happens if the goal is exceeded?",
+          "a": "Whatever goes beyond the fixed bills goes to growing the collection: more lessons, more translations and more review."
+        },
+        "data": {
+          "q": "Does the site keep my data?",
+          "a": "It keeps no payment data: everything happens on Benfeitoria. A request to appear on the wall keeps only the name and message you write."
+        }
+      },
+      "endTitle": "If you can, support us",
+      "preview": "Draft preview: only the coordination sees this. None of it is published yet.",
+      "previous": "This is the previous version of the Support page, kept as a backup.",
+      "accounts": {
+        "title": "Financial reports",
+        "lead": "Income, expenses and balance for each month, published by the coordination. No personal data about supporters appears here.",
+        "empty": "Monthly reports will be published here.",
+        "chart": "Income and expenses by month",
+        "month": "Month",
+        "byIncome": "Income by source",
+        "byExpense": "Expenses by category",
+        "note": "Note from the coordination",
+        "published": "Published on {data}",
+        "corrections": "Corrections",
+        "corrected": "Corrected on {data}: {motivo}",
+        "previousVersion": "Before the correction: income {e}, expenses {s}, balance {b}.",
+        "back": "Back to Support"
+      }
+    }
   },
   "auth": {
     "unconfirmed": "Your email is not confirmed yet. Open the email we sent and tap “Confirm email”. Can't find it, or the link expired? Ask for another one here.",

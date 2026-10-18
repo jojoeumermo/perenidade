@@ -2540,7 +2540,164 @@
     "note": "捐助在巴西的众筹平台 Benfeitoria 上完成。本站不接收也不保存任何支付信息。",
     "wallTitle": "支持者墙",
     "wallLead": "帮助本站坚持下来并愿意留下名字的人。",
-    "wallEmpty": "这面墙还是空的。"
+    "wallEmpty": "这面墙还是空的。",
+    "page": {
+      "leaving": "按钮会在新标签页打开 Benfeitoria。",
+      "opensOutside": "（在新标签页打开其他网站）",
+      "whyTitle": "我们为什么请求支持",
+      "howTitle": "如何运作",
+      "how": [
+        "支持按月进行：你在 Benfeitoria 上选择一个档位，随时可以在该平台上更改或取消。",
+        "支持完全自愿。不支持的人不会失去任何访问权限，也没有只给支持者的专属内容。",
+        "付款在 Benfeitoria 上完成。本网站既不接收也不保存任何付款信息。"
+      ],
+      "cancelSteps": "如何取消（分步说明）",
+      "tiersTitle": "支持档位",
+      "tierDefault": "团结互助式的支持，没有专属回报。如果你愿意，你的名字可以出现在支持者墙上。",
+      "perMonth": "每月",
+      "goalsTitle": "目标",
+      "goal1": "目标一",
+      "goal2": "目标二",
+      "goalMid": "起步目标",
+      "goalProgress": "{atual} / {alvo}",
+      "goalTarget": "每月 {alvo}",
+      "goalSupporters": "{atual} / {alvo} 份支持",
+      "goalNoData": "协调组尚未公布已筹得的金额，因此目前只显示目标金额。",
+      "updatedAt": "活动数据由协调组于 {data} 提供，并非实时计数。",
+      "worthTitle": "每一份支持的意义",
+      "worth": "有 {n} 份每月 {valor} 的支持，网站的固定开支就能得到保障。",
+      "worthOne": "一份每月 {valor} 的支持就足以支付网站的固定开支。",
+      "worthPick": "选择一个档位",
+      "whereTitle": "资金用途",
+      "whereDefault": [
+        {
+          "title": "主机与数据库",
+          "text": "让网站和团队后台保持在线的服务器。"
+        },
+        {
+          "title": "域名",
+          "text": "institutolucia.org 这个网址。"
+        },
+        {
+          "title": "音频与备份",
+          "text": "音频文件和馆藏备份的存储空间。"
+        },
+        {
+          "title": "扩充馆藏",
+          "text": "剩余的资金用于更多课程、更多翻译和更多审校。"
+        }
+      ],
+      "monthly": "每月 {valor}",
+      "dollar": "部分以美元计费",
+      "doneTitle": "我们已经完成的",
+      "counters": {
+        "works": "部馆藏作品",
+        "lessons": "节已发布课程",
+        "translations": "份课程译文",
+        "languages": "种网站语言",
+        "volunteers": "名活跃志愿者",
+        "contributions": "份已发布投稿"
+      },
+      "otherTitle": "其他帮助方式",
+      "other": [
+        {
+          "title": "投稿一节课或一处更正",
+          "text": "撰写、更正或推荐作品，无需注册账号。",
+          "href": "/contribuir"
+        },
+        {
+          "title": "成为志愿者",
+          "text": "审校、翻译、设计、策展、调解：只要有几个小时，就有你的位置。",
+          "href": "/voluntarios"
+        },
+        {
+          "title": "帮助翻译",
+          "text": "课程目前以葡萄牙语写成，等待其他语言的版本。",
+          "href": "/voluntarios"
+        },
+        {
+          "title": "学习并分享馆藏",
+          "text": "使用和推荐馆藏，同样是在支持这个项目。",
+          "href": "/acervo"
+        }
+      ],
+      "shareTitle": "分享本页",
+      "copyLink": "复制链接",
+      "copied": "链接已复制 ✓",
+      "shareText": "卢西亚学院维持着一所免费、无广告的学校和图书馆。可以在这里支持：",
+      "shareEmail": "电子邮件",
+      "responsibleTitle": "负责人",
+      "helpersTitle": "已经在用金钱之外的方式帮忙的人",
+      "helpers": "{c} 份已发布的投稿和 {v} 名活跃志愿者让馆藏得以维持。",
+      "helpersVolunteers": "{v} 名活跃志愿者让馆藏得以维持。",
+      "helpersNames": "同意在此署名的志愿者：",
+      "wallFormTitle": "我已经支持，想出现在支持者墙上",
+      "wallName": "姓名或昵称",
+      "wallMessage": "简短留言（可选）",
+      "wallSend": "申请出现在墙上",
+      "wallSent": "申请已发送。协调组会先核对 Benfeitoria 的支持者名单再发布。",
+      "wallPrivacy": "我们只保存你填写的名字和留言，不收集电子邮件。之后想撤下名字，只需告诉协调组。",
+      "wallError": "暂时无法发送，请稍后再试。",
+      "transparencyTitle": "透明度",
+      "transparencyEmpty": "每月的账目报告将在这里公布。",
+      "lastMonth": "最新报告：{mes}",
+      "income": "收入",
+      "expenses": "支出",
+      "balance": "结余",
+      "seeAccounts": "查看财务公开",
+      "faqTitle": "常见问题",
+      "faq": {
+        "mandatory": {
+          "q": "必须支持吗？",
+          "a": "不必。无论是否有人支持，馆藏对所有人都是免费的，并将一直如此。"
+        },
+        "tiers": {
+          "q": "每个档位有什么区别？",
+          "a": "它们是以书籍命名的每月金额，本质相同：团结互助式的支持，没有专属回报。"
+        },
+        "anonymous": {
+          "q": "可以支持但不出现在墙上吗？",
+          "a": "可以。只有你提出申请（使用本页表单）或授权协调组时，名字才会出现在墙上。"
+        },
+        "fee": {
+          "q": "每份支持有多少到达项目？"
+        },
+        "cancel": {
+          "q": "如何取消？",
+          "a": "在你进行支持的 Benfeitoria 平台上取消。本网站无法访问你的付款。"
+        },
+        "dollar": {
+          "q": "为什么部分开支以美元计？",
+          "a": "一些维持网站运行的服务以美元收费，因此以雷亚尔计算的成本会随汇率变化。"
+        },
+        "surplus": {
+          "q": "如果超过目标会怎样？",
+          "a": "超出固定开支的部分将用于扩充馆藏：更多课程、更多翻译和更多审校。"
+        },
+        "data": {
+          "q": "网站会保存我的数据吗？",
+          "a": "不会保存任何付款数据：付款都在 Benfeitoria 上完成。上墙申请只保存你填写的名字和留言。"
+        }
+      },
+      "endTitle": "如果可以，请支持我们",
+      "preview": "草稿预览：只有协调组可以看到，这些内容尚未发布。",
+      "previous": "这是支持页面的旧版本，作为备份保留。",
+      "accounts": {
+        "title": "财务公开",
+        "lead": "每月的收入、支出和结余，由协调组公布。这里不会出现任何支持者的个人信息。",
+        "empty": "每月报告将在这里公布。",
+        "chart": "每月收入与支出",
+        "month": "月份",
+        "byIncome": "收入来源",
+        "byExpense": "支出类别",
+        "note": "协调组说明",
+        "published": "发布于 {data}",
+        "corrections": "更正记录",
+        "corrected": "于 {data} 更正：{motivo}",
+        "previousVersion": "更正前：收入 {e}，支出 {s}，结余 {b}。",
+        "back": "返回支持页面"
+      }
+    }
   },
   "auth": {
     "unconfirmed": "你的邮箱尚未确认。请打开我们发送的邮件并点击“确认邮箱”。找不到邮件或链接已过期？在这里重新获取。",

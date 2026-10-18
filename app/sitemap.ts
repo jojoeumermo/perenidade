@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/dedicatoria",
     "/contribuir",
     "/apoie",
+    "/apoie/contas",
     "/explorar",
     "/autores",
     "/voluntarios",
