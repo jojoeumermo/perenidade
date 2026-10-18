@@ -24,7 +24,6 @@ export const groups = [
       "antropologia",
       "filosofia",
       "economia",
-      "politica",
       "direito",
       "psicologia",
       "neurodiversidade",
@@ -37,8 +36,8 @@ export const groups = [
       "arquivologia",
     ],
   },
-  // A teoria começa pela política básica (o Estado, as instituições, o voto) e só então chega ao capitalismo e às correntes.
-  { id: "teoria", areas: ["estado", "instituicoes", "eleicoes", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo"] },
+  // A teoria começa pela política básica (política e cidadania, o Estado, as instituições, o voto) e só então chega ao capitalismo e às correntes.
+  { id: "teoria", areas: ["politica", "estado", "instituicoes", "eleicoes", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo"] },
   {
     id: "lutas",
     areas: [

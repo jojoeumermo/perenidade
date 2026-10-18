@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "o-que-e-eletricidade",
+    "titulo": "O que é eletricidade"
+  },
+  {
+    "slug": "seguranca-com-eletricidade",
+    "titulo": "Segurança com eletricidade: choque, curto e incêndio"
+  },
+  {
+    "slug": "tensao-corrente-e-a-lei-de-ohm",
+    "titulo": "Tensão, corrente e a lei de Ohm"
+  },
+  {
+    "slug": "circuitos-em-serie-e-em-paralelo",
+    "titulo": "Circuitos em série e em paralelo"
+  },
+  {
+    "slug": "pilhas-baterias-e-fontes",
+    "titulo": "Pilhas, baterias e fontes"
+  },
+  {
+    "slug": "resistor-led-e-protoboard",
+    "titulo": "Resistor, LED e protoboard"
+  },
+  {
+    "slug": "o-multimetro-na-pratica",
+    "titulo": "O multímetro na prática"
+  },
+  {
+    "slug": "primeiro-projeto-um-pisca-pisca",
+    "titulo": "Primeiro projeto: um pisca-pisca"
+  }
+]
