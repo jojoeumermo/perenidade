@@ -104,7 +104,9 @@ export function EducadoresDaDisciplina({ area, lang, nomes }: { area: string; la
 /** Todos os educadores, para a página "Quem somos". */
 export function ListaDeEducadores({ lang, nomes }: { lang: Locale; nomes: Record<string, string[]> }) {
   const s = textos[lang] ?? textos.pt;
-  const lista = useEducadores();
+  const todos = useEducadores();
+  // Na página da equipe só entra quem completou o cartão: foto, apresentação e pelo menos um endereço.
+  const lista = todos?.filter((e) => e.avatar && e.bio?.trim() && Object.entries(e.curriculo ?? {}).some(([k, v]) => NOMES_DOS_ENDERECOS[k] && /^https:\/\//.test(v)));
   if (!hasBackend || !lista || lista.length === 0) return null;
   return (
     <section className="mt-10">
