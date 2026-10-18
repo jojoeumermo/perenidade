@@ -44,7 +44,9 @@ const Dictionary = dynamic(() => import("./Idiomas").then((m) => m.Dictionary), 
 const Sentences = dynamic(() => import("./Idiomas").then((m) => m.Sentences), { ssr: false, loading: espera });
 
 /** Mostra uma ferramenta pelo nome, com os textos que a página da aula mandou (só os das ferramentas daquela disciplina). */
-export function ToolView({ id, s, lang }: { id: ToolId; s: Partial<Tools>; lang: string }) {
+const PhetLista = dynamic(() => import("../labs/Phet").then((m) => m.PhetLista), { ssr: false, loading: espera });
+
+export function ToolView({ id, s, lang, area }: { id: ToolId; s: Partial<Tools>; lang: string; area?: string }) {
   const t = s as Tools;
   switch (id) {
     case "resolvedor":
@@ -114,5 +116,21 @@ export function ToolView({ id, s, lang }: { id: ToolId; s: Partial<Tools>; lang:
       return <Rcp s={t.cpr} />;
     case "frequencia-cardiaca":
       return <FrequenciaCardiaca s={t.heart} />;
+    case "ide":
+      return <AtalhoDaIde lang={lang} />;
+    case "simulacoes":
+      return <PhetLista area={area} compacto />;
   }
+}
+
+/** Na caixa da aula não cabe a IDE inteira: o atalho leva à página dela, no perfil da disciplina. */
+function AtalhoDaIde({ lang }: { lang: string }) {
+  const textos: Record<string, [string, string]> = { pt: ["Abrir a IDE", "Editor com arquivos, execução e saída. Abre em página própria, para ter espaço."], en: ["Open the IDE", "Editor with files, run and output. Opens on its own page, to have room."], es: ["Abrir la IDE", "Editor con archivos, ejecución y salida. Abre en página propia."], ru: ["Открыть IDE", "Редактор с файлами, запуском и выводом. Открывается на отдельной странице."], zh: ["打开 IDE", "带文件、运行和输出的编辑器，在独立页面打开。"] };
+  const [rotulo, texto] = textos[lang] ?? textos.pt;
+  return (
+    <div className="mt-6 font-sans text-sm">
+      <p className="text-ink-soft">{texto}</p>
+      <a href={`/${lang}/laboratorios/ide`} className="mt-3 inline-block bg-ink px-4 py-2 font-semibold text-parchment hover:bg-oxblood">{rotulo} →</a>
+    </div>
+  );
 }

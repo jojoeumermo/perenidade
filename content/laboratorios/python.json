@@ -1,0 +1,247 @@
+[
+  {
+    "id": "py-01-ola",
+    "perfil": "python",
+    "titulo": "Olá, você",
+    "enunciado": "Faça o programa cumprimentar quem digitar o nome. Leia o nome com input() e imprima exatamente: Olá, NOME!",
+    "arquivos": [
+      {
+        "nome": "main.py",
+        "conteudo": "nome = input(\"Nome: \")\n# complete aqui\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "saida",
+        "esperado": "Olá, Lúcia!"
+      }
+    ],
+    "dicas": [
+      "print aceita vários pedaços: print(\"Olá, \" + nome + \"!\")",
+      "Ou use f-string: f\"Olá, {nome}!\""
+    ],
+    "nivel": 1,
+    "solucao": [
+      {
+        "nome": "main.py",
+        "conteudo": "nome = input(\"Nome: \")\nprint(f\"Olá, {nome}!\")\n"
+      }
+    ],
+    "entrada": "Lúcia"
+  },
+  {
+    "id": "py-02-tabuada",
+    "perfil": "python",
+    "titulo": "Tabuada do 7",
+    "enunciado": "Imprima a tabuada do 7, de 1 a 10, uma linha por produto, no formato: 7 x 1 = 7",
+    "arquivos": [
+      {
+        "nome": "main.py",
+        "conteudo": "# use um laço for com range\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "contem",
+        "texto": "7 x 1 = 7"
+      },
+      {
+        "tipo": "contem",
+        "texto": "7 x 10 = 70"
+      },
+      {
+        "tipo": "regex",
+        "padrao": "^7 x 5 = 35$"
+      }
+    ],
+    "dicas": [
+      "range(1, 11) vai de 1 a 10.",
+      "Dentro do laço: print(f\"7 x {n} = {7 * n}\")"
+    ],
+    "nivel": 1,
+    "solucao": [
+      {
+        "nome": "main.py",
+        "conteudo": "for n in range(1, 11):\n    print(f\"7 x {n} = {7 * n}\")\n"
+      }
+    ]
+  },
+  {
+    "id": "py-03-media",
+    "perfil": "python",
+    "titulo": "Média de uma lista",
+    "enunciado": "Calcule a média das notas da lista e imprima com uma casa decimal: Média: 7.5",
+    "arquivos": [
+      {
+        "nome": "main.py",
+        "conteudo": "notas = [8.5, 6.0, 9.5, 5.5, 7.0, 8.0]\n# calcule e imprima a média\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "saida",
+        "esperado": "Média: 7.4"
+      }
+    ],
+    "dicas": [
+      "sum(notas) soma; len(notas) conta.",
+      "Formato com uma casa: f\"{media:.1f}\""
+    ],
+    "nivel": 1,
+    "solucao": [
+      {
+        "nome": "main.py",
+        "conteudo": "notas = [8.5, 6.0, 9.5, 5.5, 7.0, 8.0]\nmedia = sum(notas) / len(notas)\nprint(f\"Média: {media:.1f}\")\n"
+      }
+    ]
+  },
+  {
+    "id": "py-04-par-impar",
+    "perfil": "python",
+    "titulo": "Par ou ímpar",
+    "enunciado": "Leia números (um por linha) até acabar a entrada e, para cada um, imprima “N é par” ou “N é ímpar”.",
+    "arquivos": [
+      {
+        "nome": "main.py",
+        "conteudo": "import sys\nfor linha in sys.stdin:\n    n = int(linha)\n    # complete\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "saida",
+        "esperado": "4 é par\n7 é ímpar\n10 é par"
+      }
+    ],
+    "dicas": [
+      "O resto da divisão por 2: n % 2 == 0 é par."
+    ],
+    "nivel": 1,
+    "solucao": [
+      {
+        "nome": "main.py",
+        "conteudo": "import sys\nfor linha in sys.stdin:\n    n = int(linha)\n    print(f\"{n} é par\" if n % 2 == 0 else f\"{n} é ímpar\")\n"
+      }
+    ],
+    "entrada": "4\n7\n10"
+  },
+  {
+    "id": "py-05-funcao",
+    "perfil": "python",
+    "titulo": "Uma função de desconto",
+    "enunciado": "Escreva a função preco_com_desconto(preco, porcentagem) que devolve o preço com o desconto aplicado, e use-a para imprimir: 80.0",
+    "arquivos": [
+      {
+        "nome": "main.py",
+        "conteudo": "def preco_com_desconto(preco, porcentagem):\n    pass\n\nprint(preco_com_desconto(100, 20))\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "saida",
+        "esperado": "80.0"
+      }
+    ],
+    "dicas": [
+      "desconto = preco * porcentagem / 100",
+      "Devolva preco - desconto com return."
+    ],
+    "nivel": 2,
+    "solucao": [
+      {
+        "nome": "main.py",
+        "conteudo": "def preco_com_desconto(preco, porcentagem):\n    return preco - preco * porcentagem / 100\n\nprint(preco_com_desconto(100, 20))\n"
+      }
+    ]
+  },
+  {
+    "id": "py-06-dicionario",
+    "perfil": "python",
+    "titulo": "Contando palavras",
+    "enunciado": "Conte quantas vezes cada palavra aparece na frase e imprima no formato palavra: n, em ordem alfabética.",
+    "arquivos": [
+      {
+        "nome": "main.py",
+        "conteudo": "frase = \"terra trabalho terra pão trabalho terra\"\n# use um dicionário\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "saida",
+        "esperado": "pão: 1\nterra: 3\ntrabalho: 2"
+      }
+    ],
+    "dicas": [
+      "frase.split() separa as palavras.",
+      "sorted(contagem) percorre as chaves em ordem."
+    ],
+    "nivel": 2,
+    "solucao": [
+      {
+        "nome": "main.py",
+        "conteudo": "frase = \"terra trabalho terra pão trabalho terra\"\ncontagem = {}\nfor p in frase.split():\n    contagem[p] = contagem.get(p, 0) + 1\nfor p in sorted(contagem):\n    print(f\"{p}: {contagem[p]}\")\n"
+      }
+    ]
+  },
+  {
+    "id": "py-07-arquivo",
+    "perfil": "python",
+    "titulo": "Ler um arquivo",
+    "enunciado": "O arquivo dados.csv tem nome;nota por linha. Imprima o nome de quem tirou nota maior ou igual a 7, na ordem do arquivo.",
+    "arquivos": [
+      {
+        "nome": "main.py",
+        "conteudo": "# abra dados.csv e percorra as linhas\n"
+      },
+      {
+        "nome": "dados.csv",
+        "conteudo": "Ana;8.5\nBruno;6.0\nCarla;9.5\nDavi;5.5\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "saida",
+        "esperado": "Ana\nCarla"
+      }
+    ],
+    "dicas": [
+      "with open(\"dados.csv\", encoding=\"utf-8\") as f: for linha in f:",
+      "linha.strip().split(\";\") separa nome e nota; float() converte."
+    ],
+    "nivel": 2,
+    "solucao": [
+      {
+        "nome": "main.py",
+        "conteudo": "with open(\"dados.csv\", encoding=\"utf-8\") as f:\n    for linha in f:\n        nome, nota = linha.strip().split(\";\")\n        if float(nota) >= 7:\n            print(nome)\n"
+      }
+    ]
+  },
+  {
+    "id": "py-08-classe",
+    "perfil": "python",
+    "titulo": "Uma classe Conta",
+    "enunciado": "Crie a classe Conta com saldo inicial, depositar(valor) e sacar(valor) (que não deixa o saldo ficar negativo e devolve False nesse caso). O programa deve imprimir: 150\nFalse\n150",
+    "arquivos": [
+      {
+        "nome": "main.py",
+        "conteudo": "class Conta:\n    pass\n\nc = Conta(100)\nc.depositar(50)\nprint(c.saldo)\nprint(c.sacar(500))\nprint(c.saldo)\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "saida",
+        "esperado": "150\nFalse\n150"
+      }
+    ],
+    "dicas": [
+      "__init__(self, saldo) guarda self.saldo.",
+      "sacar: if valor > self.saldo: return False; senão desconta e return True."
+    ],
+    "nivel": 3,
+    "solucao": [
+      {
+        "nome": "main.py",
+        "conteudo": "class Conta:\n    def __init__(self, saldo):\n        self.saldo = saldo\n\n    def depositar(self, valor):\n        self.saldo += valor\n\n    def sacar(self, valor):\n        if valor > self.saldo:\n            return False\n        self.saldo -= valor\n        return True\n\nc = Conta(100)\nc.depositar(50)\nprint(c.saldo)\nprint(c.sacar(500))\nprint(c.saldo)\n"
+      }
+    ]
+  }
+]

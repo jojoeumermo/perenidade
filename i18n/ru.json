@@ -52,6 +52,7 @@
     "memorial": "Мемориал",
     "dedication": "Посвящение",
     "team": "Кто мы",
+    "labs": "Лаборатории",
     "contribute": "Участвовать",
     "more": "Ещё",
     "search": "Поиск",
@@ -92,6 +93,33 @@
     "podcasts": "Подкасты",
     "live": "Живые занятия",
     "notebook": "Учебная тетрадь"
+  },
+  "labs": {
+    "eyebrow": "Настоящая практика",
+    "title": "Лаборатории",
+    "lead": "Программировать, строить сети, работать в терминале, тренировать безопасность и моделировать науку — всё в браузере, ничего не отправляя на сервер.",
+    "ide": "IDE",
+    "ideLead": "Python, PHP, Web, JavaScript and SQL, with files, exercises and project download.",
+    "redes": "Сетевая лаборатория",
+    "redesLead": "Build the network, set IPs, VLANs and routes and watch the packet travel.",
+    "linux": "Терминал Linux",
+    "linuxLead": "A shell with a virtual file system and guided exercises.",
+    "montador": "Сборка компьютера",
+    "montadorLead": "Fit the right parts and diagnose the computer that will not turn on.",
+    "ia": "Лаборатория ИИ",
+    "iaLead": "Watch the machine learn: a line fitting points and a tiny network.",
+    "planilha": "Таблица",
+    "planilhaLead": "Formulas, chart and CSV, in the browser.",
+    "seguranca": "Лаборатория безопасности",
+    "segurancaLead": "Phishing, logs and passwords in a training-only sandbox: the defence for each attack.",
+    "simulacoes": "Симуляции (PhET)",
+    "simulacoesLead": "Physics, chemistry, biology and maths through PhET's official iframe.",
+    "creditos": "Авторы и лицензии",
+    "exercicios": "Задания",
+    "livre": "Свободный режим",
+    "concluido": "выполнено",
+    "voltar": "К лабораториям",
+    "ptOnly": "Задания на португальском."
   },
   "lists": {
     "find": "Поиск на этой странице",
@@ -1421,6 +1449,14 @@
     "goTo": "показать отрывок"
   },
   "toolNames": {
+    "ide": [
+      "IDE в браузере",
+      "Редактор с файлами, запуском и выводом для Python, PHP, Web, JavaScript и SQL. Ничего не покидает ваше устройство."
+    ],
+    "simulacoes": [
+      "Симуляции (PhET)",
+      "Интерактивные симуляции по физике, химии, биологии и математике от Университета Колорадо, прямо в уроке."
+    ],
     "python": [
       "Python в браузере",
       "Пишите и запускайте код на Python, ничего не устанавливая."

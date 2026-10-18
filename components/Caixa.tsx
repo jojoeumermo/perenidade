@@ -122,7 +122,7 @@ export function Caixa({ ferramentas, sugeridas, area, nomes, s, lang }: { ferram
           {/* Toda ferramenta aberta continua montada: o que se digitou não se perde ao trocar de ferramenta ou fechar a caixa. */}
           {montadas.map((id) => (
             <div key={id} hidden={id !== atual} className="[&>div]:!mt-4">
-              <ToolView id={id} s={s} lang={lang} />
+              <ToolView id={id} s={s} lang={lang} area={area} />
             </div>
           ))}
         </div>

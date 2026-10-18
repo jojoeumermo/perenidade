@@ -3,8 +3,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { IDEPagina } from "@/components/labs/IDEPagina";
+import { PhetLista } from "@/components/labs/Phet";
 import { PageHeading } from "@/components/PageHeading";
-import { CodeRunner } from "@/components/tools/CodeRunner";
 import { Keyboard, Metronome, NoteReading, Tuner } from "@/components/tools/Music";
 import { Pronounce } from "@/components/tools/Pronounce";
 import { Graphs } from "@/components/tools/Graficos";
@@ -14,7 +15,7 @@ import { Balanceador, Conversor, MassaMolarTool, Punnett, SistemaSolar } from "@
 import { Estatistica, TabelaVerdade } from "@/components/tools/Dados";
 import { Cronometro, Redacao, Silabario } from "@/components/tools/Estudo";
 import { Resolvedor } from "@/components/tools/Resolvedor";
-import { AtelieHtml, Cores, Escala, FrequenciaCardiaca, Fusos, MaisValia, Rcp } from "@/components/tools/Varias";
+import { Cores, Escala, FrequenciaCardiaca, Fusos, MaisValia, Rcp } from "@/components/tools/Varias";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
 import { areaTools, tools, universalTools, type AreaSlug, type ToolId } from "@/lib/areas";
@@ -45,8 +46,10 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
   const areas = (Object.keys(areaTools) as AreaSlug[]).filter((area) => areaTools[area]?.includes(tool));
   const body: Record<ToolId, React.ReactNode> = {
     // O editor lê o código vindo de uma aula pelo endereço, por isso espera o navegador para aparecer.
-    python: <Suspense><CodeRunner language="python" s={s.code} /></Suspense>,
-    php: <Suspense><CodeRunner language="php" s={s.code} /></Suspense>,
+    python: <Suspense><IDEPagina perfilInicial="python" /></Suspense>,
+    php: <Suspense><IDEPagina perfilInicial="php" /></Suspense>,
+    ide: <Suspense><IDEPagina /></Suspense>,
+    simulacoes: <PhetLista />,
     afinador: <Tuner s={s.music} />,
     metronomo: <Metronome s={s.music} />,
     teclado: <Keyboard s={s.music} />,
@@ -67,7 +70,7 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
     balanceamento: <Balanceador s={s.balance} />,
     punnett: <Punnett s={s.punnett} />,
     "sistema-solar": <SistemaSolar s={s.solar} lang={lang} />,
-    html: <AtelieHtml s={s.html} />,
+    html: <Suspense><IDEPagina perfilInicial="web" /></Suspense>,
     cronometro: <Cronometro s={s.timer} />,
     redacao: <Redacao s={s.essay} lang={lang} />,
     silabario: <Silabario s={s.syllables} />,

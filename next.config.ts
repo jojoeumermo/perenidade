@@ -43,10 +43,10 @@ const policy = (script: string) =>
     // A rádio e o podcast tocam arquivos do próprio acervo ou a transmissão ao vivo indicada pela coordenação;
     // blob: é o áudio gravado ou escolhido no próprio aparelho (pergunta gravada, teste de microfone, corte de vídeo).
     `media-src 'self' https: blob: ${service}`.trim(),
-    "worker-src 'self'",
+    "worker-src 'self' blob:",
     "manifest-src 'self'",
     // blob: é a prévia, no próprio aparelho, de um PDF ou DOCX recebido nas conversas (nunca um endereço de fora).
-    `frame-src blob: ${captcha} ${jitsi} ${videos}`,
+    `frame-src blob: ${captcha} ${jitsi} https://phet.colorado.edu ${videos}`,
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
