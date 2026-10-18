@@ -120,6 +120,28 @@ export function Estudio({ me }: { me: Me }) {
   const trabalhos = useLista<Trabalho[]>("designs_listar", {}, { quieta: true });
   const acao = useAcao(trabalhos.recarregar);
   const escala = zoomManual ?? ajuste;
+  // Vindo do calendário da divulgação ("Criar arte no Estúdio de design"): o título da peça entra no maior texto do modelo.
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      let pedido: { titulo?: string; legenda?: string } | null = null;
+      try {
+        pedido = JSON.parse(window.sessionStorage.getItem("lucia:estudio-pedido") ?? "null");
+        window.sessionStorage.removeItem("lucia:estudio-pedido");
+      } catch {
+        pedido = null;
+      }
+      if (!pedido?.titulo) return;
+      const tituloDoPedido = pedido.titulo.slice(0, 120);
+      setTitulo(`Post: ${tituloDoPedido}`.slice(0, 80));
+      setDocBruto((d) => {
+        const textos = d.camadas.filter((c) => c.tipo === "texto") as Extract<Camada, { tipo: "texto" }>[];
+        const maior = [...textos].sort((x, y) => y.tamanho - x.tamanho)[0];
+        return maior ? { ...d, camadas: d.camadas.map((c) => (c.id === maior.id ? { ...c, texto: tituloDoPedido } : c)) } : d;
+      });
+      setAviso(pedido.legenda ? `Título trazido do calendário. A legenda está na peça do calendário (${pedido.legenda.length} caracteres).` : "Título trazido do calendário.");
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, []);
   const camada = useMemo(() => doc.camadas.find((c) => c.id === selecionado) ?? null, [doc, selecionado]);
 
   // Guarda o passo anterior para desfazer; o futuro se perde a cada mudança nova.
