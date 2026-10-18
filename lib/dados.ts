@@ -35,9 +35,12 @@ async function serie(codigo: number): Promise<{ valor: number; referencia: strin
     `https://api.bcb.gov.br/dados/serie/bcdata.sgs.${codigo}/dados?formato=json&dataInicial=${br(inicio)}&dataFinal=${br(hoje)}`,
     { guardar: 21600 },
   );
-  const lidos = (dados ?? [])
+  // A fonte de fora pode responder com qualquer coisa (aviso de erro, página de manutenção): só lista entra, e só
+  // itens que sejam objetos. Uma resposta torta já derrubou o build inteiro.
+  const lidos = (Array.isArray(dados) ? dados : [])
+    .filter((item) => item !== null && typeof item === "object")
     .map((item) => {
-      const [dia, mes, ano] = (item.data ?? "").split("/");
+      const [dia, mes, ano] = (typeof item.data === "string" ? item.data : "").split("/");
       return { referencia: ano ? `${ano}-${mes}-${dia}` : "", valor: Number(item.valor) };
     })
     .filter((item) => item.referencia && item.referencia <= hoje && Number.isFinite(item.valor));
@@ -62,8 +65,9 @@ export async function indicadores(): Promise<Indicador[]> {
     "https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos/-1/variaveis/9324?localidades=N1%5Ball%5D",
     { guardar: 86400 },
   );
-  const serieIbge = ibge?.[0]?.resultados?.[0]?.series?.[0]?.serie ?? {};
-  const ano = Object.keys(serieIbge).sort().pop();
+  const bruta = Array.isArray(ibge) ? ibge[0]?.resultados?.[0]?.series?.[0]?.serie : undefined;
+  const serieIbge: Record<string, string> = bruta && typeof bruta === "object" && !Array.isArray(bruta) ? bruta : {};
+  const ano = Object.keys(serieIbge).filter((k) => /^\d{4}$/.test(k)).sort().pop();
   const populacao = ano ? Number(serieIbge[ano]) : NaN;
   const lista = lidos.filter((item): item is Indicador => item !== null);
   if (ano && Number.isFinite(populacao)) {
@@ -78,8 +82,8 @@ export async function votacoesCamara(): Promise<Votacao[]> {
     "https://dadosabertos.camara.leg.br/api/v2/votacoes?idOrgao=180&ordem=DESC&ordenarPor=dataHoraRegistro&itens=8",
     { guardar: 3600 },
   );
-  return (dados?.dados ?? [])
-    .filter((item) => item.id && item.data && item.descricao)
+  return (Array.isArray(dados?.dados) ? dados.dados : [])
+    .filter((item) => item && typeof item === "object" && typeof item.id === "string" && typeof item.data === "string" && typeof item.descricao === "string")
     .map((item) => {
       const evento = /\/eventos\/(\d+)$/.exec(item.uriEvento ?? "")?.[1];
       return {
