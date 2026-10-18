@@ -2763,6 +2763,26 @@ await espera("publicado o arquivo, o endereço aparece sozinho", async () => { a
 await recusa("arquivo de outra pessoa não se usa", async () => { const outro = (await dono("insert into interno.arquivos (caminho, nome, dono) values ($1, 'Outro', $2) returning id", [`${ids.prof}/outro-arquivo-01.pdf`, ids.prof])).rows[0].id; return rpc(designer, "material_salvar", { p: { ...base, url: "", arquivo: outro } }); }, "invalido:arquivo");
 await espera("o público vê crédito e licença, e não vê o arquivo interno", async () => { await rpc(C1, "material_salvar", { p: { ...base, id: comArquivo.id, url: "", arquivo: arquivoDoForm, publicado: true } }); return rpc(anon, "materiais_listar"); }, (r) => r.some((m) => m.id === comArquivo.id && m.licenca === "cc-by-sa" && m.credito_autor === "Equipe de design" && m.arquivo == null && m.arquivo_caminho == null));
 
+// ── Traduções: reserva de aula, glossário por trilha e o envio que libera a reserva ──
+const tradutor = await criarUsuario("trad@exemplo.org", "Tânia Tradutora");
+await dono("insert into interno.papeis (usuario, papel) values ($1, 'traducao')", [tradutor]);
+const outroTradutor = await criarUsuario("trad2@exemplo.org", "Túlio Tradutor");
+await dono("insert into interno.papeis (usuario, papel) values ($1, 'traducao')", [outroTradutor]);
+const aulaAlvo = "/trilhas/matematica-fundamental/fracoes";
+await recusa("quem não traduz não reserva", () => rpc(como(ids.designer), "traducao_reservar", { p_alvo: aulaAlvo, p_idioma: "en" }), "sem_permissao");
+await espera("a tradutora reserva a aula para o inglês", () => rpc(como(tradutor), "traducao_reservar", { p_alvo: aulaAlvo, p_idioma: "en" }), (r) => r.ok === true);
+await recusa("outra pessoa não reserva a mesma aula no mesmo idioma", () => rpc(como(outroTradutor), "traducao_reservar", { p_alvo: aulaAlvo, p_idioma: "en" }), "traducao_reservada");
+await espera("mas pode reservar em outro idioma", () => rpc(como(outroTradutor), "traducao_reservar", { p_alvo: aulaAlvo, p_idioma: "es" }), (r) => r.ok === true);
+await espera("a reserva aparece em andamento, com prazo", () => rpc(como(outroTradutor), "traducoes_andamento"), (r) => r.some((x) => x.alvo === aulaAlvo && x.idioma === "en" && x.status === "em_andamento" && x.prazo && x.minha === false));
+await espera("reserva vencida cai sozinha", async () => { await dono("update interno.traducao_reservas set prazo = current_date - 1 where idioma = 'es'"); return rpc(como(outroTradutor), "traducoes_andamento"); }, (r) => !r.some((x) => x.idioma === "es" && x.alvo === aulaAlvo));
+await espera("enviar a tradução tira a reserva", async () => {
+  await rpc(como(tradutor), "contribuir", { p: { tipo: "traducao", titulo: "Fractions", corpo: "A fraction is a part of a whole. ".repeat(6), disciplina: null, dados: { idioma: "en" }, fontes: [], alvo: aulaAlvo } });
+  return dono("select count(*)::int as n from interno.traducao_reservas where alvo = $1 and idioma = 'en'", [aulaAlvo]);
+}, (r) => r.rows[0].n === 0);
+await recusa("e ninguém reserva o que já está a caminho", () => rpc(como(outroTradutor), "traducao_reservar", { p_alvo: aulaAlvo, p_idioma: "en" }), "traducao_a_caminho");
+await espera("o glossário da trilha guarda um termo", async () => { await rpc(como(tradutor), "traducao_glossario_salvar", { p_trilha: "matematica-fundamental", p_idioma: "en", p_termo: "fração", p_traducao: "fraction", p_nota: "" }); return rpc(como(outroTradutor), "traducao_glossario", { p_trilha: "matematica-fundamental", p_idioma: "en" }); }, (r) => r.length === 1 && r[0].traducao === "fraction");
+await recusa("quem não traduz não mexe no glossário", () => rpc(como(ids.designer), "traducao_glossario_salvar", { p_trilha: "matematica-fundamental", p_idioma: "en", p_termo: "x", p_traducao: "y" }), "sem_permissao");
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);

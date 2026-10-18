@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { can, type Me } from "@/lib/backend";
@@ -312,7 +313,7 @@ function PainelDoItem({ form, setForm, item, equipe, aprova, coordena, recarrega
     }
   }
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-40 flex justify-end bg-black/40" onMouseDown={(e) => { if (e.target === e.currentTarget) fechar(); }}>
       <div ref={caixa} role="dialog" aria-modal="true" aria-label={form.id ? "Corrigir peça" : "Nova peça"} className="h-full w-full max-w-3xl overflow-y-auto bg-parchment p-5 shadow-xl">
         <div className="flex items-center justify-between">
@@ -387,7 +388,8 @@ function PainelDoItem({ form, setForm, item, equipe, aprova, coordena, recarrega
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
