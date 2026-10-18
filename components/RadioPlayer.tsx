@@ -112,7 +112,14 @@ export function RadioPlayer() {
 
   useEffect(() => {
     const el = audio.current;
-    if (!el || !track) return;
+    if (!el) return;
+    // Fechou o tocador (✕): para o som e solta a conexão com a emissora.
+    if (!track) {
+      el.pause();
+      el.removeAttribute("src");
+      el.load();
+      return;
+    }
     if (playing) {
       if (own && !graph.current) {
         try {

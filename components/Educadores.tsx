@@ -101,6 +101,52 @@ export function EducadoresDaDisciplina({ area, lang, nomes }: { area: string; la
   );
 }
 
+/**
+ * O mesmo cartão, em pé: fica ao lado do título da aula, no espaço livre à direita, nas telas largas.
+ * Faixa vinho com o rótulo, o rosto grande, nome, disciplina, formação, apresentação e endereços.
+ */
+export function CartaoDoEducador({ area, lang, nomes }: { area: string; lang: Locale; nomes: Record<string, string[]> }) {
+  const s = textos[lang] ?? textos.pt;
+  const lista = useEducadores();
+  const [i, setI] = useState(0);
+  if (!hasBackend || !lista) return null;
+  const daArea = lista.filter((e) => e.disciplinas?.includes(area));
+  const n = daArea.length;
+  const atual = n > 0 ? daArea[((i % n) + n) % n] : undefined;
+  return (
+    <aside className="no-print border-2 border-ink bg-parchment-deep font-sans text-sm shadow-[5px_5px_0_var(--ink)]">
+      <p className="flex items-center justify-between bg-oxblood px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.25em] text-parchment">
+        <span>{s.quem}</span>
+        <span aria-hidden>★</span>
+      </p>
+      {atual ? (
+        <div className="p-4">
+          <Avatar nome={atual.nome} avatar={atual.avatar} className="aspect-square h-auto w-full border-2 border-ink text-5xl" />
+          <p className="mt-3 font-serif text-xl font-semibold leading-tight">{atual.nome}</p>
+          <p className="mt-0.5 text-ink-soft">{s.de} {(atual.disciplinas ?? []).map((d) => nomes[d]?.[0] ?? d).join(", ")}</p>
+          {atual.curriculo?.formacao && <p className="mt-2 text-ink-soft">{atual.curriculo.formacao}</p>}
+          {atual.bio && <p className="mt-2 line-clamp-6">{atual.bio}</p>}
+          <Enderecos curriculo={atual.curriculo} />
+          {n > 1 && (
+            <p className="mt-3 flex items-center justify-between">
+              <button type="button" aria-label={s.anterior} onClick={() => setI((k) => k - 1)} className="cursor-pointer border border-ink px-2 py-1 hover:bg-ink hover:text-parchment">←</button>
+              <span className="font-mono text-xs text-ink-soft">{((i % n) + n) % n + 1}/{n}</span>
+              <button type="button" aria-label={s.proximo} onClick={() => setI((k) => k + 1)} className="cursor-pointer border border-ink px-2 py-1 hover:bg-ink hover:text-parchment">→</button>
+            </p>
+          )}
+        </div>
+      ) : (
+        <p className="p-4 text-ink-soft">
+          {s.vazio} <Link href={localePath(lang, "/voluntarios")} className="underline hover:text-oxblood">→</Link>
+        </p>
+      )}
+      <p className="border-t border-rule px-4 py-2">
+        <Link href={localePath(lang, "/quem-somos")} className="underline hover:text-oxblood">{s.todos}</Link>
+      </p>
+    </aside>
+  );
+}
+
 /** Todos os educadores, para a página "Quem somos". */
 export function ListaDeEducadores({ lang, nomes }: { lang: Locale; nomes: Record<string, string[]> }) {
   const s = textos[lang] ?? textos.pt;
