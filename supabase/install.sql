@@ -3332,11 +3332,24 @@ end $$;
  * serviço falhou, devolve o uso à pessoa (ela não perde a vez por um defeito que não é dela).
  */
 create or replace function public.assistente_resultado(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_provedor text := coalesce(p ->> 'provedor', '');
 begin
   if not interno.servico() then perform interno.erro('sem_permissao'); end if;
   insert into configuracoes (chave, valor) values ('assistente', jsonb_build_object('ultimo', jsonb_build_object(
-    'em', now(), 'ok', coalesce((p ->> 'ok')::boolean, false), 'falha', left(coalesce(p ->> 'falha', ''), 40))))
+    'em', now(), 'ok', coalesce((p ->> 'ok')::boolean, false), 'falha', left(coalesce(p ->> 'falha', ''), 40), 'provedor', left(v_provedor, 20))))
   on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
+  -- O consumo do dia por provedor (quantas respostas e quantas falhas), para o painel mostrar quem está respondendo.
+  if v_provedor = any(interno.assistente_provedores_conhecidos()) then
+    insert into assistente_provedor_uso (dia, provedor, ok, falhas) values (interno.assistente_dia(), v_provedor, case when coalesce((p ->> 'ok')::boolean, false) then 1 else 0 end, case when coalesce((p ->> 'ok')::boolean, false) then 0 else 1 end)
+    on conflict (dia, provedor) do update set ok = assistente_provedor_uso.ok + excluded.ok, falhas = assistente_provedor_uso.falhas + excluded.falhas;
+  end if;
+  -- Falhas no caminho (provedores que não responderam antes do que respondeu) também contam no dia.
+  if jsonb_typeof(p -> 'tentativas') = 'array' then
+    insert into assistente_provedor_uso (dia, provedor, ok, falhas)
+    select interno.assistente_dia(), t ->> 'id', 0, 1 from jsonb_array_elements(p -> 'tentativas') t
+    where t ->> 'id' = any(interno.assistente_provedores_conhecidos()) and coalesce(t ->> 'falha', '') not in ('', 'sem_chave', 'sem_visao', 'desligado')
+    on conflict (dia, provedor) do update set falhas = assistente_provedor_uso.falhas + 1;
+  end if;
   if not coalesce((p ->> 'ok')::boolean, false) and coalesce(p ->> 'usuario', '') ~ '^[0-9a-f-]{36}$' then
     update assistente_uso set usos = greatest(usos - 1, 0) where dia = interno.assistente_dia() and usuario = (p ->> 'usuario')::uuid;
   end if;
@@ -3349,7 +3362,12 @@ begin
   if not interno.servico() then perform interno.erro('sem_permissao'); end if;
   insert into configuracoes (chave, valor) values ('assistente', jsonb_build_object('verificacao', jsonb_build_object(
     'em', now(), 'chave', coalesce((p ->> 'chave')::boolean, false), 'ok', coalesce((p ->> 'ok')::boolean, false),
-    'falha', left(coalesce(p ->> 'falha', ''), 40), 'modelo', left(coalesce(p ->> 'modelo', ''), 60))))
+    'falha', left(coalesce(p ->> 'falha', ''), 40), 'modelo', left(coalesce(p ->> 'modelo', ''), 60),
+    -- Um resultado por provedor: chave cadastrada, respondeu ao teste, motivo da falha e o modelo usado. Nunca a chave.
+    'provedores', coalesce((select jsonb_agg(jsonb_build_object('id', t ->> 'id', 'chave', coalesce((t ->> 'chave')::boolean, false), 'ok', coalesce((t ->> 'ok')::boolean, false),
+                     'falha', left(coalesce(t ->> 'falha', ''), 40), 'modelo', left(coalesce(t ->> 'modelo', ''), 100)))
+                   from jsonb_array_elements(case when jsonb_typeof(p -> 'provedores') = 'array' then p -> 'provedores' else '[]'::jsonb end) t
+                   where t ->> 'id' = any(interno.assistente_provedores_conhecidos())), '[]'::jsonb))))
   on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
   return jsonb_build_object('ok', true);
 end $$;
@@ -3369,12 +3387,14 @@ begin
     'hoje', (select coalesce(sum(usos), 0) from assistente_uso where dia = v_dia),
     'pessoas_hoje', (select count(*) from assistente_uso where dia = v_dia and usos > 0),
     'semana', (select coalesce(sum(usos), 0) from assistente_uso where dia > v_dia - 7),
-    'interditado', interno.interditada('reforco'));
+    'interditado', interno.interditada('reforco'),
+    'provedores', interno.assistente_provedores_lista(),
+    'uso_provedores', (select coalesce(jsonb_object_agg(provedor, jsonb_build_object('ok', ok, 'falhas', falhas)), '{}'::jsonb) from assistente_provedor_uso where dia = v_dia));
 end $$;
 
 /** Liga, desliga e muda os limites. Fica no registro; ligar avisa a liderança (é um serviço pago). */
 create or replace function public.assistente_configurar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare c jsonb := interno.assistente_config(); v_ligado boolean; v_pessoa integer; v_dia integer;
+declare c jsonb := interno.assistente_config(); v_ligado boolean; v_pessoa integer; v_dia integer; v_provedores jsonb;
 begin
   perform interno.eu();
   if not interno.coord() then perform interno.erro('sem_permissao'); end if;
@@ -3383,11 +3403,19 @@ begin
   v_dia := coalesce(nullif(p ->> 'por_dia', '')::integer, (c ->> 'por_dia')::integer);
   if v_pessoa not between 1 and 100 then perform interno.erro('invalido:por_pessoa'); end if;
   if v_dia not between 1 and 5000 then perform interno.erro('invalido:por_dia'); end if;
-  insert into configuracoes (chave, valor) values ('assistente', jsonb_build_object('ligado', v_ligado, 'por_pessoa', v_pessoa, 'por_dia', v_dia))
+  -- A ordem dos provedores e quais entram: só nomes conhecidos, cada um uma vez. A chave de cada um nunca passa por aqui.
+  if jsonb_typeof(p -> 'provedores') = 'array' then
+    if exists (select 1 from jsonb_array_elements(p -> 'provedores') t where not (t ->> 'id' = any(interno.assistente_provedores_conhecidos())))
+       or (select count(distinct t ->> 'id') from jsonb_array_elements(p -> 'provedores') t) <> jsonb_array_length(p -> 'provedores') then
+      perform interno.erro('invalido:provedores');
+    end if;
+    select jsonb_agg(jsonb_build_object('id', t ->> 'id', 'ligado', coalesce((t ->> 'ligado')::boolean, false))) into v_provedores from jsonb_array_elements(p -> 'provedores') t;
+  end if;
+  insert into configuracoes (chave, valor) values ('assistente', jsonb_build_object('ligado', v_ligado, 'por_pessoa', v_pessoa, 'por_dia', v_dia) || case when v_provedores is null then '{}'::jsonb else jsonb_build_object('provedores', v_provedores) end)
   on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
-  perform interno.registrar('assistente_configurado', '', jsonb_build_object('ligado', v_ligado, 'por_pessoa', v_pessoa, 'por_dia', v_dia));
+  perform interno.registrar('assistente_configurado', '', jsonb_build_object('ligado', v_ligado, 'por_pessoa', v_pessoa, 'por_dia', v_dia) || case when v_provedores is null then '{}'::jsonb else jsonb_build_object('provedores', v_provedores) end);
   if v_ligado and not coalesce((c ->> 'ligado')::boolean, false) then
-    perform interno.avisar_lideranca('O assistente de reforço (serviço pago de inteligência artificial) foi ligado.', auth.uid());
+    perform interno.avisar_lideranca('O assistente de reforço (serviço de inteligência artificial) foi ligado.', auth.uid());
   end if;
   return public.assistente_controles();
 exception when invalid_text_representation then
@@ -10003,6 +10031,69 @@ do $$
 declare f text;
 begin
   foreach f in array array['traducao_reservar(text, text, integer)', 'traducao_liberar(text, text)', 'traducao_glossario(text, text)', 'traducao_glossario_salvar(text, text, text, text, text)', 'traducao_glossario_apagar(text, text, text)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;
+
+
+-- ───────────────────────────── Assistente: vários provedores, em ordem, com reserva ─────────────────────────────
+
+-- Os provedores que a função "assistente" sabe chamar. A chave de cada um mora só nos segredos da função (nunca no banco
+-- nem no navegador); aqui fica a ordem de tentativa, quais estão ligados e quanto cada um respondeu no dia.
+create or replace function interno.assistente_provedores_conhecidos() returns text[] language sql immutable as $$
+  select array['anthropic', 'groq', 'cerebras', 'gemini', 'openrouter']
+$$;
+
+create table if not exists interno.assistente_provedor_uso (
+  dia date not null,
+  provedor text not null,
+  ok integer not null default 0,
+  falhas integer not null default 0,
+  primary key (dia, provedor)
+);
+alter table interno.assistente_provedor_uso enable row level security;
+
+/** A lista guardada, completada com os que faltarem (desligados, no fim): provedor novo no código aparece sozinho no painel. */
+create or replace function interno.assistente_provedores_lista() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  with guardada as (
+    select t ->> 'id' as id, coalesce((t ->> 'ligado')::boolean, false) as ligado, n
+    from jsonb_array_elements(coalesce(interno.assistente_config() -> 'provedores', '[{"id": "anthropic", "ligado": true}]'::jsonb)) with ordinality as x(t, n)
+    where t ->> 'id' = any(interno.assistente_provedores_conhecidos())
+  ), todos as (
+    select id, ligado, n from guardada
+    union all
+    select c, false, 100 + k from unnest(interno.assistente_provedores_conhecidos()) with ordinality as y(c, k) where c not in (select id from guardada)
+  )
+  select coalesce(jsonb_agg(jsonb_build_object('id', id, 'ligado', ligado) order by n), '[]'::jsonb) from todos
+$$;
+
+/** Para a função "assistente" (só com a chave de serviço): os provedores ligados, na ordem de tentativa. */
+create or replace function public.assistente_provedores() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object('ordem', (select coalesce(jsonb_agg(t ->> 'id'), '[]'::jsonb) from jsonb_array_elements(interno.assistente_provedores_lista()) t where (t ->> 'ligado')::boolean));
+end $$;
+
+-- ───────────────────────────── Controles do site: quem mudou o quê, e quando ─────────────────────────────
+
+/** A última mudança de cada controle (do registro de atividades): quem e quando. Coordenação e supervisão. */
+create or replace function public.controles_mudancas() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_object_agg(acao, jsonb_build_object('nome', interno.nome_visto(nome), 'em', criado_em, 'detalhes', detalhes)), '{}'::jsonb)
+          from (select distinct on (acao) acao, nome, criado_em, detalhes from auditoria
+                where acao in ('site_configurado', 'comunidade_modo_seguranca', 'chat_controlado', 'dicionario_salvo', 'seguranca_configurada', 'assistente_configurado', 'seguranca_sessoes')
+                order by acao, criado_em desc) x);
+end $$;
+
+revoke all on function interno.assistente_provedores_conhecidos() from public, anon, authenticated;
+revoke all on function interno.assistente_provedores_lista() from public, anon, authenticated;
+do $$
+declare f text;
+begin
+  foreach f in array array['assistente_provedores()', 'controles_mudancas()'] loop
     execute format('revoke all on function public.%s from public', f);
     execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
   end loop;

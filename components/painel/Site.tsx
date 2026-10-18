@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { rpc, verifyAssistant, verifyModeration } from "@/lib/backend";
 import { KEYS, setItem } from "@/lib/storage";
 import { useI18n } from "../I18n";
@@ -15,15 +15,6 @@ export interface Controles {
   cadastro?: boolean;
 }
 
-/** O que a coordenação muda no site inteiro, na hora, sem publicar nada. */
-export function Site() {
-  const atual = useLista<Controles>("site");
-  const [aviso, setAviso] = useState("");
-  if (!atual.dados) return <Aviso texto={atual.erro || "Carregando…"} />;
-  // A chave refaz os campos com o que acabou de ser guardado; o aviso mora aqui em cima para não sumir junto.
-  return <Formulario key={JSON.stringify(atual.dados)} inicial={atual.dados} recarregar={atual.recarregar} aviso={aviso} setAviso={setAviso} />;
-}
-
 interface SituacaoDosEmails {
   pendentes: number;
   enviados_7_dias: number;
@@ -31,9 +22,36 @@ interface SituacaoDosEmails {
   ultimo_envio: string | null;
   mais_antigo_esperando: string | null;
   ultimo_erro: string | null;
-  /** Há e-mail esperando há mais de meia hora (conta do banco). */
   parado?: boolean;
 }
+interface Moderacao {
+  aprovacao_manual: boolean;
+  habilitada: boolean;
+  verificacao: { em: string; chave: boolean; ok: boolean; falha: string } | null;
+  ultima_avaliacao: { em: string; ok: boolean; falha: string } | null;
+  esperando: number;
+}
+interface VerificacaoDoProvedor {
+  id: string;
+  chave: boolean;
+  ok: boolean;
+  falha: string;
+  modelo: string;
+}
+interface ControlesDoAssistente {
+  ligado: boolean;
+  por_pessoa: number;
+  por_dia: number;
+  verificacao: { em: string; chave: boolean; ok: boolean; falha: string; modelo?: string; provedores?: VerificacaoDoProvedor[] } | null;
+  ultimo: { em: string; ok: boolean; falha: string; provedor?: string } | null;
+  hoje: number;
+  pessoas_hoje: number;
+  semana: number;
+  interditado: boolean;
+  provedores?: { id: string; ligado: boolean }[];
+  uso_provedores?: Record<string, { ok: number; falhas: number }>;
+}
+type Mudancas = Record<string, { nome: string; em: string }>;
 
 const errosDeEnvio: Record<string, string> = {
   chave_recusada: "o serviço de envio recusou a chave",
@@ -42,257 +60,103 @@ const errosDeEnvio: Record<string, string> = {
   tempo_esgotado: "o serviço demorou demais",
   sem_conexao: "a rotina não alcançou o serviço",
 };
-
-/**
- * E-mails automáticos: confirmação de candidatura e de boletim, convites, avisos de decisão. Quem envia é a rotina
- * "Enviar e-mails", de dez em dez minutos. Este cartão diz só o que o banco viu acontecer, sem endereço de ninguém.
- */
-function Emails() {
-  const estado = useLista<SituacaoDosEmails>("emails_situacao");
-  const e = estado.dados;
-  if (!e) return null;
-  const parado = e.parado === true;
-  return (
-    <section className={parado ? "border-2 border-oxblood bg-parchment-deep p-5" : "border border-rule bg-parchment-deep p-5"}>
-      <h2 className="font-serif text-xl font-semibold">E-mails automáticos</h2>
-      <p className="mt-1 text-ink-soft">Confirmação de candidatura e de boletim, convites, avisos de decisão e as edições do boletim. Saem de dez em dez minutos.</p>
-      <ul className="mt-3 space-y-1">
-        <li>Esperando para sair: <strong>{e.pendentes}</strong>{e.mais_antigo_esperando && <span className="text-ink-soft"> · o mais antigo desde {dataHora(e.mais_antigo_esperando)}</span>}.</li>
-        <li>Enviados nos últimos sete dias: <strong>{e.enviados_7_dias}</strong>{e.ultimo_envio && <span className="text-ink-soft"> · o último em {dataHora(e.ultimo_envio)}</span>}.</li>
-        <li>Que não saíram depois de cinco tentativas: <strong>{e.falhos_7_dias}</strong>{e.ultimo_erro && <span className="text-ink-soft"> · último motivo: {errosDeEnvio[e.ultimo_erro] ?? e.ultimo_erro}</span>}.</li>
-      </ul>
-      {parado && <p className="mt-2 font-semibold text-oxblood">Há e-mails esperando há mais de meia hora: o envio não está funcionando. Confira a rotina &ldquo;Enviar e-mails&rdquo; no GitHub e a chave do serviço (guia de manutenção).</p>}
-      {!e.ultimo_envio && !parado && <p className="mt-2 text-ink-soft">Nenhum e-mail saiu até agora.</p>}
-    </section>
-  );
-}
-
-interface Moderacao {
-  aprovacao_manual: boolean;
-  habilitada: boolean;
-  verificacao: { em: string; chave: boolean; ok: boolean; falha: string } | null;
-  ultima_avaliacao: { em: string; ok: boolean; falha: string } | null;
-  esperando: number;
-}
-
 const falhas: Record<string, string> = {
   sem_chave: "a chave não está cadastrada nos segredos da função",
   chave_recusada: "o serviço recusou a chave",
-  limite: "limite de requisições do serviço",
+  limite: "limite de requisições do serviço (cota do dia ou do minuto)",
   tempo_esgotado: "o serviço demorou demais",
   sem_conexao: "a função não alcançou o serviço",
   indisponivel: "o serviço estava fora do ar",
   resposta_invalida: "o serviço respondeu algo que não se entende",
-};
-
-/**
- * Modo de segurança e estado da avaliação automática da Comunidade. São três perguntas separadas, e o painel só responde
- * "sim" ao que foi visto acontecer: está habilitada no banco? a função respondeu a um teste de verdade? alguma mensagem
- * real já passou por ela?
- */
-function Moderacao() {
-  const estado = useLista<Moderacao>("comunidade_controles");
-  const [aviso, setAviso] = useState("");
-  const [ocupado, setOcupado] = useState(false);
-  const m = estado.dados;
-  // Banco ainda sem esta parte: o cartão não aparece, e o resto dos controles segue igual.
-  if (!m) return null;
-
-  async function trocar(ligar: boolean) {
-    setOcupado(true);
-    setAviso("");
-    try {
-      await rpc("comunidade_modo_seguranca", { p_ligar: ligar });
-      setAviso(ligar ? "Modo de segurança ligado: toda mensagem nova espera aprovação manual." : "Modo de segurança desligado.");
-      estado.recarregar();
-    } catch (erro) {
-      setAviso(textoDoErro(erro));
-    } finally {
-      setOcupado(false);
-    }
-  }
-
-  async function testar() {
-    setOcupado(true);
-    setAviso("Testando…");
-    const r = await verifyModeration();
-    setAviso(r === null ? "A função não respondeu: ela não está publicada neste serviço, ou o serviço está fora do ar." : r.ok ? "Teste feito: a função respondeu e o serviço de avaliação devolveu um resultado." : `Teste feito, com falha: ${falhas[r.falha] ?? r.falha}.`);
-    estado.recarregar();
-    setOcupado(false);
-  }
-
-  const v = m.verificacao;
-  const u = m.ultima_avaliacao;
-  return (
-    <section className={m.aprovacao_manual ? "border-2 border-oxblood bg-parchment-deep p-5" : "border border-rule bg-parchment-deep p-5"}>
-      <h2 className="font-serif text-xl font-semibold">Modo de segurança: somente aprovação manual</h2>
-      <p className="mt-1 text-ink-soft">
-        Ligado, toda conversa e resposta nova na Comunidade espera a leitura de quem cuida dela, e nenhuma avaliação automática publica nada. Não apaga o que já está no ar, não fecha a leitura
-        nem o cadastro, e não muda o Mural dos Trabalhadores nem a triagem das contribuições.
-      </p>
-      <p className="mt-3 font-semibold">{m.aprovacao_manual ? "Ligado: só aprovação manual." : "Desligado: vale a avaliação automática."}</p>
-      <div className="mt-3">
-        <button type="button" className={m.aprovacao_manual ? botaoClaro : "cursor-pointer bg-oxblood px-5 py-2.5 font-medium text-parchment disabled:cursor-not-allowed disabled:opacity-50"} disabled={ocupado} onClick={() => trocar(!m.aprovacao_manual)}>
-          {m.aprovacao_manual ? "Desligar o modo de segurança" : "Ligar o modo de segurança"}
-        </button>
-      </div>
-
-      <h3 className="mt-6 font-semibold">Avaliação automática</h3>
-      <ul className="mt-2 space-y-1">
-        <li>Regras do próprio banco (primeira camada): sempre ligadas.</li>
-        <li>Segunda avaliação, habilitada no banco: <strong>{m.habilitada ? "sim" : "não"}</strong>{m.habilitada && m.aprovacao_manual ? " (sem efeito enquanto o modo de segurança estiver ligado)" : ""}.</li>
-        <li>
-          Função publicada e chave cadastrada: <strong>{v ? (v.chave ? "sim, no último teste" : "a função respondeu, mas sem a chave") : "nunca testado por aqui"}</strong>
-          {v && <span className="text-ink-soft"> · {dataHora(v.em)}</span>}.
-        </li>
-        <li>
-          Serviço respondendo de verdade: <strong>{v ? (v.ok ? "sim, no último teste" : `não: ${falhas[v.falha] ?? v.falha}`) : "nunca testado por aqui"}</strong>.
-        </li>
-        <li>
-          Última mensagem real avaliada: <strong>{u ? (u.ok ? "com resultado" : `com falha (${falhas[u.falha] ?? (u.falha || "sem detalhe")})`) : "nenhuma até agora"}</strong>
-          {u && <span className="text-ink-soft"> · {dataHora(u.em)}</span>}.
-        </li>
-        <li>Mensagens esperando leitura na fila: <strong>{m.esperando}</strong>.</li>
-      </ul>
-      <p className="mt-2 text-ink-soft">Habilitada não quer dizer funcionando: só o teste e a última mensagem avaliada mostram isso. A segunda avaliação se liga e desliga pelo banco (guia de manutenção).</p>
-      <p className="mt-2">
-        <button type="button" className={elo} disabled={ocupado} onClick={testar}>Testar agora a segunda avaliação</button>
-      </p>
-      <Aviso texto={aviso} />
-    </section>
-  );
-}
-
-interface ControlesDoAssistente {
-  ligado: boolean;
-  por_pessoa: number;
-  por_dia: number;
-  verificacao: { em: string; chave: boolean; ok: boolean; falha: string; modelo?: string } | null;
-  ultimo: { em: string; ok: boolean; falha: string } | null;
-  hoje: number;
-  pessoas_hoje: number;
-  semana: number;
-  interditado: boolean;
-}
-
-const falhasDoAssistente: Record<string, string> = {
-  ...falhas,
-  pedido_recusado: "o serviço recusou o pedido (confira o modelo escolhido no segredo ASSISTENTE_MODELO)",
+  pedido_recusado: "o serviço recusou o pedido (confira o modelo no segredo)",
   recusa: "o modelo recusou o teste",
   vazia: "o serviço respondeu sem texto",
   cortada: "a resposta passou do tamanho e veio cortada",
+  sem_visao: "não entende foto",
   desconhecida: "falha desconhecida",
 };
+const PROVEDORES: Record<string, { nome: string; plano: string; segredo: string }> = {
+  anthropic: { nome: "Claude (Anthropic)", plano: "pago por pergunta", segredo: "ANTHROPIC_API_KEY" },
+  groq: { nome: "Groq", plano: "plano gratuito, com limite por minuto e por dia", segredo: "GROQ_API_KEY" },
+  cerebras: { nome: "Cerebras", plano: "plano gratuito, com limite diário", segredo: "CEREBRAS_API_KEY" },
+  gemini: { nome: "Gemini (Google)", plano: "plano gratuito, com limite por minuto e por dia; entende foto", segredo: "GEMINI_API_KEY" },
+  openrouter: { nome: "OpenRouter", plano: "modelos marcados com :free", segredo: "OPENROUTER_API_KEY" },
+};
 
-/**
- * Assistente de reforço: responde dúvidas quando não há voluntário, usando um serviço pago de inteligência artificial.
- * Como na moderação, o painel separa ligado no banco, testado de verdade e usado de verdade. Só coordenação e vice.
- */
-function AssistenteDeReforco() {
-  const estado = useLista<ControlesDoAssistente>("assistente_controles");
+/** Selo de estado: palavra e cor, nunca só cor. */
+function Selo({ tipo, children }: { tipo: "ok" | "atencao" | "erro" | "neutro"; children: ReactNode }) {
+  const cor = tipo === "ok" ? "border-ok text-ok" : tipo === "atencao" ? "border-gold text-gold" : tipo === "erro" ? "border-oxblood text-oxblood" : "border-rule text-ink-soft";
+  return <span className={`inline-flex items-center gap-1 border px-2 py-0.5 font-mono text-[0.7rem] uppercase tracking-wider ${cor}`}>{tipo === "ok" ? "●" : tipo === "erro" ? "■" : "○"} {children}</span>;
+}
+/** Explicação longa, recolhida: o cartão mostra o essencial e o resto fica em "saiba mais". */
+const SaibaMais = ({ children }: { children: ReactNode }) => (
+  <details className="mt-1 text-sm text-ink-soft">
+    <summary className="cursor-pointer select-none underline">Saiba mais</summary>
+    <div className="mt-1 space-y-1">{children}</div>
+  </details>
+);
+/** Quem mudou o controle por último, e quando (do registro de atividades). */
+const Mudado = ({ m }: { m?: { nome: string; em: string } }) => (m ? <p className="mt-2 text-xs text-ink-soft">Mudado por último por {m.nome || "alguém da coordenação"} em {dataHora(m.em)}.</p> : null);
+const Cartao = ({ titulo, selo, alerta = false, id, children }: { titulo: string; selo?: ReactNode; alerta?: boolean; id?: string; children: ReactNode }) => (
+  <section id={id} className={`painel-cartao p-5 ${alerta ? "border-2 border-oxblood" : ""}`}>
+    <div className="flex flex-wrap items-center gap-2">
+      <h3 className="font-serif text-xl font-semibold">{titulo}</h3>
+      {selo}
+    </div>
+    {children}
+  </section>
+);
+
+/** O que a coordenação muda no site inteiro, na hora, sem publicar nada. */
+export function Site() {
+  const atual = useLista<Controles>("site");
+  const mudancas = useLista<Mudancas>("controles_mudancas", {}, { quieta: true });
   const [aviso, setAviso] = useState("");
-  const [ocupado, setOcupado] = useState(false);
-  const [limites, setLimites] = useState<{ por_pessoa: string; por_dia: string } | null>(null);
-  const a = estado.dados;
-  // Banco ainda sem esta parte, ou quem olha não é da coordenação: o cartão não aparece.
-  if (!a) return null;
-  const campos = limites ?? { por_pessoa: String(a.por_pessoa), por_dia: String(a.por_dia) };
+  if (!atual.dados) return <Aviso texto={atual.erro || "Carregando…"} />;
+  // A chave refaz os campos com o que acabou de ser guardado; o aviso mora aqui em cima para não sumir junto.
+  return <Formulario key={JSON.stringify(atual.dados)} inicial={atual.dados} recarregar={() => { atual.recarregar(); mudancas.recarregar(); }} aviso={aviso} setAviso={setAviso} mudancas={mudancas.dados ?? {}} />;
+}
 
-  async function salvar(mudanca: Record<string, unknown>, sucesso: string) {
-    setOcupado(true);
-    setAviso("");
-    try {
-      await rpc("assistente_configurar", { p: mudanca });
-      setAviso(sucesso);
-      setLimites(null);
-      estado.recarregar();
-    } catch (erro) {
-      setAviso(textoDoErro(erro));
-    } finally {
-      setOcupado(false);
-    }
-  }
-
-  async function testar() {
-    setOcupado(true);
-    setAviso("Testando…");
-    const r = await verifyAssistant();
-    setAviso(
-      r === null
-        ? "A função não respondeu: ela não está publicada neste serviço, ou o serviço está fora do ar."
-        : r.ok
-          ? `Teste feito: a função respondeu e o modelo ${r.modelo} devolveu uma resposta.`
-          : `Teste feito, com falha: ${falhasDoAssistente[r.falha] ?? r.falha}.`,
-    );
-    estado.recarregar();
-    setOcupado(false);
-  }
-
-  const v = a.verificacao;
-  const u = a.ultimo;
+/** O resumo do topo: tudo certo, ou a lista do que está pausado, desligado ou com falha. */
+function Resumo({ site }: { site: Controles }) {
+  const moderacao = useLista<Moderacao>("comunidade_controles");
+  const assistente = useLista<ControlesDoAssistente>("assistente_controles");
+  const emails = useLista<SituacaoDosEmails>("emails_situacao");
+  const chat = useLista<{ controle: { fechado?: boolean } | null }>("chat_controles");
+  const itens: [string, string][] = [];
+  if (site.pausa) itens.push(["Os envios do público estão pausados.", "#pausa"]);
+  if (site.cadastro === false) itens.push(["O cadastro da comunidade está fechado (só por convite).", "#cadastro"]);
+  if (moderacao.dados?.aprovacao_manual) itens.push(["O modo de segurança da Comunidade está ligado (só aprovação manual).", "#moderacao"]);
+  if (moderacao.dados?.verificacao && !moderacao.dados.verificacao.ok) itens.push(["O último teste da segunda avaliação da Comunidade falhou.", "#moderacao"]);
+  if (emails.dados?.parado) itens.push(["Há e-mails parados há mais de meia hora: o envio não está funcionando.", "#emails"]);
+  else if ((emails.dados?.falhos_7_dias ?? 0) > 0) itens.push([`${emails.dados?.falhos_7_dias} e-mail(s) não saíram nos últimos sete dias.`, "#emails"]);
+  if (chat.dados?.controle?.fechado) itens.push(["As conversas da equipe estão fechadas.", "#conversas"]);
+  if (assistente.dados?.ligado && assistente.dados.verificacao && !assistente.dados.verificacao.ok) itens.push(["O assistente está ligado, mas o último teste falhou.", "#assistente"]);
+  if (assistente.dados?.ligado && assistente.dados.ultimo && !assistente.dados.ultimo.ok) itens.push(["A última pergunta ao assistente não foi respondida.", "#assistente"]);
+  const pronto = moderacao.dados !== null || moderacao.erro;
   return (
-    <section className="border border-rule bg-parchment-deep p-5">
-      <h2 className="font-serif text-xl font-semibold">Assistente de reforço (inteligência artificial)</h2>
-      <p className="mt-1 text-ink-soft">
-        Ligado, a página de reforço e o resolvedor ganham um quadro &ldquo;Pergunte ao assistente&rdquo; para quem tem conta: ele explica a dúvida na hora, quando não há voluntário. Usa o Claude, da
-        Anthropic, que é um serviço pago por pergunta. A pergunta e a foto vão para esse serviço; o site guarda só quantas perguntas cada pessoa fez em cada dia.
-      </p>
-      <p className="mt-3 font-semibold">{a.ligado ? "Ligado." : "Desligado."}{a.ligado && a.interditado ? " (Sem efeito agora: a aula de reforço está interditada.)" : ""}</p>
-      <div className="mt-3">
-        <button type="button" className={a.ligado ? botaoClaro : botao} disabled={ocupado} onClick={() => salvar({ ligado: !a.ligado }, a.ligado ? "Assistente desligado." : "Assistente ligado. Faça um teste abaixo para conferir a chave.")}>
-          {a.ligado ? "Desligar o assistente" : "Ligar o assistente"}
-        </button>
+    <section className={`painel-cartao mb-6 p-5 ${itens.length ? "border-2 border-gold" : ""}`} aria-live="polite">
+      <div className="flex flex-wrap items-center gap-3">
+        <h2 className="font-serif text-2xl font-semibold">{itens.length ? "Atenção" : pronto ? "Tudo certo" : "Conferindo…"}</h2>
+        {pronto && <Selo tipo={itens.length ? "atencao" : "ok"}>{itens.length ? `${itens.length} ${itens.length === 1 ? "ponto" : "pontos"}` : "tudo aberto e funcionando"}</Selo>}
       </div>
-
-      <form
-        className="mt-5 grid gap-3 sm:grid-cols-2"
-        onSubmit={(e) => {
-          e.preventDefault();
-          void salvar({ por_pessoa: Number(campos.por_pessoa), por_dia: Number(campos.por_dia) }, "Limites guardados.");
-        }}
-      >
-        <label className="block">
-          Perguntas por pessoa, por dia (1 a 100)
-          <input type="number" min={1} max={100} required value={campos.por_pessoa} onChange={(e) => setLimites({ ...campos, por_pessoa: e.target.value })} className={campo} />
-        </label>
-        <label className="block">
-          Teto do site inteiro, por dia (1 a 5.000)
-          <input type="number" min={1} max={5000} required value={campos.por_dia} onChange={(e) => setLimites({ ...campos, por_dia: e.target.value })} className={campo} />
-        </label>
-        <p className="sm:col-span-2">
-          <button type="submit" className={botaoClaro} disabled={ocupado || limites === null}>Guardar os limites</button>
-        </p>
-      </form>
-      <p className="mt-2 text-ink-soft">O teto do dia é o freio de gasto: quando ele acaba, o quadro avisa que o assistente lotou e manda a pessoa ao voluntário. O dia vira à meia-noite de Brasília.</p>
-
-      <h3 className="mt-6 font-semibold">Situação</h3>
-      <ul className="mt-2 space-y-1">
-        <li>
-          Função publicada e chave cadastrada: <strong>{v ? (v.chave ? "sim, no último teste" : "a função respondeu, mas sem a chave") : "nunca testado por aqui"}</strong>
-          {v && <span className="text-ink-soft"> · {dataHora(v.em)}{v.modelo ? ` · modelo ${v.modelo}` : ""}</span>}.
-        </li>
-        <li>Serviço respondendo de verdade: <strong>{v ? (v.ok ? "sim, no último teste" : `não: ${falhasDoAssistente[v.falha] ?? v.falha}`) : "nunca testado por aqui"}</strong>.</li>
-        <li>
-          Última pergunta de verdade: <strong>{u ? (u.ok ? "respondida" : `com falha (${falhasDoAssistente[u.falha] ?? (u.falha || "sem detalhe")})`) : "nenhuma até agora"}</strong>
-          {u && <span className="text-ink-soft"> · {dataHora(u.em)}</span>}.
-        </li>
-        <li>Perguntas hoje: <strong>{a.hoje}</strong> de {a.por_dia}, de <strong>{a.pessoas_hoje}</strong> {a.pessoas_hoje === 1 ? "pessoa" : "pessoas"}. Nos últimos sete dias: <strong>{a.semana}</strong>.</li>
-      </ul>
-      <p className="mt-2 text-ink-soft">Quando o serviço falha, a pergunta não é descontada da pessoa. Como publicar a função, cadastrar a chave e quanto custa: guia de manutenção, &ldquo;Assistente de reforço&rdquo;.</p>
-      <p className="mt-2">
-        <button type="button" className={elo} disabled={ocupado} onClick={testar}>Testar agora o assistente</button>
-      </p>
-      <Aviso texto={aviso} />
+      {itens.length > 0 ? (
+        <ul className="mt-2 list-disc space-y-1 pl-5">
+          {itens.map(([texto, alvo]) => <li key={texto}><a href={alvo} className="hover:text-oxblood">{texto}</a></li>)}
+        </ul>
+      ) : pronto ? (
+        <p className="mt-1 text-ink-soft">Envios abertos, cadastro aberto, Comunidade na avaliação automática, e-mails saindo e conversas abertas.</p>
+      ) : null}
+      {assistente.dados && <p className="mt-2 text-sm text-ink-soft">Assistente de reforço: {assistente.dados.ligado ? "ligado" : "desligado"}.</p>}
     </section>
   );
 }
 
-function Formulario({ inicial, recarregar, aviso, setAviso }: { inicial: Controles; recarregar: () => void; aviso: string; setAviso: (texto: string) => void }) {
+function Formulario({ inicial, recarregar, aviso, setAviso, mudancas }: { inicial: Controles; recarregar: () => void; aviso: string; setAviso: (texto: string) => void; mudancas: Mudancas }) {
   const { t } = useI18n();
   const [faixa, setFaixa] = useState(inicial.faixa);
   const [motivo, setMotivo] = useState(inicial.motivo);
   const [ocupado, setOcupado] = useState(false);
-  const cartao = "border border-rule bg-parchment-deep p-5";
 
   async function salvar(novo: Controles, sucesso: string) {
     setOcupado(true);
@@ -311,96 +175,288 @@ function Formulario({ inicial, recarregar, aviso, setAviso }: { inicial: Control
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      <section className={cartao}>
-        <h2 className="font-serif text-xl font-semibold">Faixa do alto</h2>
-        <p className="mt-1 text-ink-soft">A linha escura que aparece no topo de todas as páginas. Serve para um chamado curto: um ato, uma campanha, um aviso. Deixe em branco para voltar ao texto de sempre.</p>
-        <label className="mt-3 block">
-          Texto da faixa
-          <input value={faixa} onChange={(e) => setFaixa(e.target.value)} maxLength={140} placeholder={t.common.strip} className={campo} />
-        </label>
-        <p className="mt-1 text-right font-mono text-xs text-ink-soft">{faixa.length}/140</p>
-        <p className="mt-2 text-xs uppercase tracking-widest text-ink-soft">Como vai aparecer</p>
-        <p className="mt-1 bg-ink px-4 py-1.5 text-center font-mono text-xs tracking-wide text-parchment">{faixa.trim() || t.common.strip}</p>
-        <div className="mt-4 flex flex-wrap gap-3">
-          <button type="button" className={botao} disabled={ocupado || faixa.trim() === inicial.faixa} onClick={() => salvar({ faixa, pausa: inicial.pausa, motivo: inicial.motivo }, "Faixa trocada.")}>
-            Guardar a faixa
-          </button>
-          {inicial.faixa && (
-            <button type="button" className={botaoClaro} disabled={ocupado} onClick={() => salvar({ faixa: "", pausa: inicial.pausa, motivo: inicial.motivo }, "A faixa voltou ao texto de sempre.")}>
-              Voltar ao texto de sempre
-            </button>
-          )}
-        </div>
-      </section>
+    <div>
+      <Resumo site={inicial} />
+      <Aviso texto={aviso} />
 
-      <section className={inicial.pausa ? "border-2 border-oxblood bg-parchment-deep p-5" : cartao}>
-        <h2 className="font-serif text-xl font-semibold">Pausa geral de envios</h2>
-        <p className="mt-1 text-ink-soft">
-          Fecha, na hora, tudo o que o público pode enviar: anúncios do mural, pedidos de reforço, assinaturas do boletim, contribuições e mensagens da comunidade. Ler e estudar continua normal, e a equipe continua trabalhando. É o freio para um ataque de mensagens ou uma manutenção.
-        </p>
-        <p className="mt-3 font-semibold">{inicial.pausa ? "Os envios estão pausados agora." : "Os envios estão abertos."}</p>
-        <label className="mt-3 block">
-          Recado para quem visita (opcional)
-          <input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={200} placeholder="Ex.: Voltamos a receber mensagens amanhã cedo." className={campo} />
-        </label>
-        <div className="mt-4 flex flex-wrap gap-3">
-          {inicial.pausa ? (
-            <>
-              <button type="button" className={botao} disabled={ocupado} onClick={() => salvar({ faixa: inicial.faixa, pausa: false, motivo: "" }, "Envios reabertos.")}>
-                Reabrir os envios
-              </button>
-              <button type="button" className={botaoClaro} disabled={ocupado || motivo.trim() === inicial.motivo} onClick={() => salvar({ faixa: inicial.faixa, pausa: true, motivo }, "Recado trocado.")}>
-                Trocar o recado
-              </button>
-            </>
-          ) : (
-            <button
-              type="button"
-              className="cursor-pointer bg-oxblood px-5 py-2.5 font-medium text-parchment disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={ocupado}
-              onClick={() => {
-                if (window.confirm("Pausar agora tudo o que o público pode enviar?")) void salvar({ faixa: inicial.faixa, pausa: true, motivo }, "Envios pausados.");
-              }}
-            >
-              Pausar os envios
-            </button>
-          )}
-        </div>
-      </section>
-
-      <section className={cartao}>
-        <h2 className="font-serif text-xl font-semibold">Cadastro da comunidade</h2>
-        <p className="mt-1 text-ink-soft">
-          Com o cadastro aberto, qualquer pessoa cria conta com e-mail e senha para perguntar e responder na Comunidade. A conta nasce sem função nenhuma, e o que ela escreve passa pela
-          avaliação da Comunidade antes de aparecer. Fechado, só entra quem recebe convite. A pausa geral de envios também fecha o cadastro enquanto durar.
-        </p>
-        <p className="mt-3 font-semibold">{inicial.cadastro === false ? "O cadastro está fechado: só por convite." : "O cadastro está aberto."}</p>
-        <div className="mt-4">
+      <h2 className="mt-2 border-b-2 border-ink pb-1 font-serif text-2xl font-semibold">Segurança</h2>
+      <div className="mt-4 grid gap-6 lg:grid-cols-2">
+        <Cartao id="cadastro" titulo="Cadastro da comunidade" selo={<Selo tipo={inicial.cadastro === false ? "atencao" : "ok"}>{inicial.cadastro === false ? "fechado" : "aberto"}</Selo>}>
+          <p className="mt-1">{inicial.cadastro === false ? "Só entra quem recebe convite." : "Qualquer pessoa cria conta para perguntar e responder na Comunidade."}</p>
+          <SaibaMais>
+            <p>A conta nasce sem função nenhuma, e o que ela escreve passa pela avaliação da Comunidade antes de aparecer.</p>
+            <p>A pausa geral de envios também fecha o cadastro enquanto durar.</p>
+          </SaibaMais>
           <button
             type="button"
-            className={inicial.cadastro === false ? botao : botaoClaro}
+            className={`mt-3 ${inicial.cadastro === false ? botao : botaoClaro}`}
             disabled={ocupado}
-            onClick={() => salvar({ faixa: inicial.faixa, pausa: inicial.pausa, motivo: inicial.motivo, cadastro: inicial.cadastro === false }, inicial.cadastro === false ? "Cadastro reaberto." : "Cadastro fechado: só por convite.")}
+            onClick={() => {
+              if (inicial.cadastro !== false && !window.confirm("Fechar o cadastro? A partir de agora só entra quem receber convite. Quem já tem conta continua entrando.")) return;
+              void salvar({ faixa: inicial.faixa, pausa: inicial.pausa, motivo: inicial.motivo, cadastro: inicial.cadastro === false }, inicial.cadastro === false ? "Cadastro reaberto ✓" : "Cadastro fechado: só por convite.");
+            }}
           >
             {inicial.cadastro === false ? "Reabrir o cadastro" : "Fechar o cadastro"}
           </button>
-        </div>
-      </section>
-
-      <Moderacao />
-      <AssistenteDeReforco />
-      <Emails />
-
-      <ControlesDoChat />
-      <DicionarioDoInstituto />
-      <div className="lg:col-span-2">
-        <Aviso texto={aviso} />
-        <p className="max-w-3xl text-ink-soft">
-          As mudanças valem na hora no serviço. Quem já está com o site aberto passa a ver a faixa nova em até dez minutos. Tudo o que é mexido aqui fica no registro de atividades.
-        </p>
+          <Mudado m={mudancas.site_configurado} />
+        </Cartao>
+        <ModeracaoCartao mudanca={mudancas.comunidade_modo_seguranca} />
+        <PrazoDasSessoes mudanca={mudancas.seguranca_sessoes} />
       </div>
+
+      <h2 className="mt-10 border-b-2 border-ink pb-1 font-serif text-2xl font-semibold">Comunicação</h2>
+      <div className="mt-4 grid gap-6 lg:grid-cols-2">
+        <Cartao titulo="Faixa do alto" selo={<Selo tipo={inicial.faixa ? "atencao" : "neutro"}>{inicial.faixa ? "com recado" : "texto de sempre"}</Selo>}>
+          <p className="mt-1">A linha escura no topo de todas as páginas, para um chamado curto.</p>
+          <label className="mt-3 block">
+            Texto da faixa
+            <input value={faixa} onChange={(e) => setFaixa(e.target.value)} maxLength={140} placeholder={t.common.strip} className={campo} />
+          </label>
+          <p className="mt-1 text-right font-mono text-xs text-ink-soft">{faixa.length}/140</p>
+          <p className="mt-1 text-xs uppercase tracking-widest text-ink-soft">Prévia</p>
+          <p className="mt-1 bg-ink px-4 py-1.5 text-center font-mono text-xs tracking-wide text-parchment">{faixa.trim() || t.common.strip}</p>
+          <div className="mt-3 flex flex-wrap gap-3">
+            <button type="button" className={botao} disabled={ocupado || faixa.trim() === inicial.faixa} onClick={() => salvar({ faixa, pausa: inicial.pausa, motivo: inicial.motivo }, "Faixa trocada ✓")}>Guardar a faixa</button>
+            {inicial.faixa && <button type="button" className={botaoClaro} disabled={ocupado} onClick={() => salvar({ faixa: "", pausa: inicial.pausa, motivo: inicial.motivo }, "A faixa voltou ao texto de sempre.")}>Voltar ao texto de sempre</button>}
+          </div>
+          <SaibaMais><p>Quem já está com o site aberto passa a ver a faixa nova em até dez minutos.</p></SaibaMais>
+        </Cartao>
+
+        <Cartao id="pausa" titulo="Pausa geral de envios" alerta={inicial.pausa} selo={<Selo tipo={inicial.pausa ? "erro" : "ok"}>{inicial.pausa ? "pausados" : "abertos"}</Selo>}>
+          <p className="mt-1">{inicial.pausa ? "O público não consegue enviar nada agora." : "O público pode enviar contribuições, mensagens, anúncios e pedidos."}</p>
+          <SaibaMais>
+            <p>Fecha, na hora, tudo o que o público pode enviar: anúncios do mural, pedidos de reforço, assinaturas do boletim, contribuições e mensagens da comunidade.</p>
+            <p>Ler e estudar continua normal, e a equipe continua trabalhando. É o freio para um ataque de mensagens ou uma manutenção.</p>
+          </SaibaMais>
+          <label className="mt-3 block">
+            Recado para quem visita (opcional)
+            <input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={200} placeholder="Ex.: Voltamos a receber mensagens amanhã cedo." className={campo} />
+          </label>
+          <div className="mt-3 flex flex-wrap gap-3">
+            {inicial.pausa ? (
+              <>
+                <button type="button" className={botao} disabled={ocupado} onClick={() => salvar({ faixa: inicial.faixa, pausa: false, motivo: "" }, "Envios reabertos ✓")}>Reabrir os envios</button>
+                <button type="button" className={botaoClaro} disabled={ocupado || motivo.trim() === inicial.motivo} onClick={() => salvar({ faixa: inicial.faixa, pausa: true, motivo }, "Recado trocado ✓")}>Trocar o recado</button>
+              </>
+            ) : (
+              <button type="button" className="painel-botao cursor-pointer bg-oxblood px-5 py-2.5 font-semibold text-parchment disabled:cursor-not-allowed disabled:opacity-50" disabled={ocupado} onClick={() => { if (window.confirm("Pausar agora tudo o que o público pode enviar? Contribuições, mensagens da Comunidade, anúncios, pedidos de reforço e assinaturas do boletim param até alguém reabrir.")) void salvar({ faixa: inicial.faixa, pausa: true, motivo }, "Envios pausados."); }}>
+                Pausar os envios
+              </button>
+            )}
+          </div>
+          <Mudado m={mudancas.site_configurado} />
+        </Cartao>
+
+        <Emails />
+        <ControlesDoChat mudanca={mudancas.chat_controlado} />
+        <DicionarioDoInstituto mudanca={mudancas.dicionario_salvo} />
+      </div>
+
+      <h2 className="mt-10 border-b-2 border-ink pb-1 font-serif text-2xl font-semibold">Assistente</h2>
+      <div className="mt-4">
+        <AssistenteDeReforco mudanca={mudancas.assistente_configurado} />
+      </div>
+      <p className="mt-6 max-w-3xl text-sm text-ink-soft">As mudanças valem na hora. Tudo o que é mexido aqui fica no registro de atividades, com quem mudou e quando.</p>
     </div>
+  );
+}
+
+/** E-mails automáticos: o que o banco viu acontecer, sem endereço de ninguém. */
+function Emails() {
+  const estado = useLista<SituacaoDosEmails>("emails_situacao");
+  const e = estado.dados;
+  if (!e) return null;
+  const parado = e.parado === true;
+  return (
+    <Cartao id="emails" titulo="E-mails automáticos" alerta={parado} selo={<Selo tipo={parado ? "erro" : e.falhos_7_dias > 0 ? "atencao" : e.ultimo_envio ? "ok" : "neutro"}>{parado ? "parado" : e.falhos_7_dias > 0 ? "com falhas" : e.ultimo_envio ? "saindo" : "nenhum enviado"}</Selo>}>
+      <ul className="mt-2 space-y-1 text-sm">
+        <li>Esperando para sair: <strong>{e.pendentes}</strong>{e.mais_antigo_esperando && <span className="text-ink-soft"> · desde {dataHora(e.mais_antigo_esperando)}</span>}.</li>
+        <li>Enviados em sete dias: <strong>{e.enviados_7_dias}</strong>{e.ultimo_envio && <span className="text-ink-soft"> · o último em {dataHora(e.ultimo_envio)}</span>}.</li>
+        <li>Que não saíram: <strong>{e.falhos_7_dias}</strong>{e.ultimo_erro && <span className="text-ink-soft"> · {errosDeEnvio[e.ultimo_erro] ?? e.ultimo_erro}</span>}.</li>
+      </ul>
+      {parado && <p className="mt-2 font-semibold text-oxblood">O envio não está funcionando. Confira a função “enviar-emails” e a chave do serviço (guia de manutenção).</p>}
+      <SaibaMais><p>Confirmações de candidatura e de boletim, convites, avisos de decisão e as edições do boletim saem de minuto em minuto pela função do serviço de contas, com a rotina do GitHub de reserva. Para a entrega, veja Boletim → Configurar a entrega.</p></SaibaMais>
+    </Cartao>
+  );
+}
+
+/** Modo de segurança e estado da avaliação automática da Comunidade. */
+function ModeracaoCartao({ mudanca }: { mudanca?: { nome: string; em: string } }) {
+  const estado = useLista<Moderacao>("comunidade_controles");
+  const [aviso, setAviso] = useState("");
+  const [ocupado, setOcupado] = useState(false);
+  const m = estado.dados;
+  if (!m) return null;
+
+  async function trocar(ligar: boolean) {
+    if (ligar && !window.confirm("Ligar o modo de segurança? Toda conversa e resposta nova na Comunidade passa a esperar leitura humana antes de aparecer.")) return;
+    setOcupado(true);
+    setAviso("");
+    try {
+      await rpc("comunidade_modo_seguranca", { p_ligar: ligar });
+      setAviso(ligar ? "Modo de segurança ligado." : "Modo de segurança desligado ✓");
+      estado.recarregar();
+    } catch (erro) {
+      setAviso(textoDoErro(erro));
+    } finally {
+      setOcupado(false);
+    }
+  }
+  async function testar() {
+    setOcupado(true);
+    setAviso("Testando…");
+    const r = await verifyModeration();
+    setAviso(r === null ? "A função não respondeu: ela não está publicada neste serviço, ou o serviço está fora do ar." : r.ok ? "Teste feito: a segunda avaliação respondeu ✓" : `Teste feito, com falha: ${falhas[r.falha] ?? r.falha}.`);
+    estado.recarregar();
+    setOcupado(false);
+  }
+  const v = m.verificacao;
+  const u = m.ultima_avaliacao;
+  return (
+    <Cartao id="moderacao" titulo="Modo de segurança da Comunidade" alerta={m.aprovacao_manual} selo={<Selo tipo={m.aprovacao_manual ? "atencao" : "ok"}>{m.aprovacao_manual ? "ligado" : "desligado"}</Selo>}>
+      <p className="mt-1">{m.aprovacao_manual ? "Só aprovação manual: nada novo aparece sem leitura humana." : "Vale a avaliação automática."} Na fila: <strong>{m.esperando}</strong>.</p>
+      <SaibaMais>
+        <p>Não apaga o que já está no ar, não fecha a leitura nem o cadastro, e não muda o Mural dos Trabalhadores nem a triagem das contribuições.</p>
+        <p>Segunda avaliação habilitada no banco: <strong>{m.habilitada ? "sim" : "não"}</strong>. Último teste: <strong>{v ? (v.ok ? "respondeu" : `falhou (${falhas[v.falha] ?? v.falha})`) : "nunca testado"}</strong>{v && ` · ${dataHora(v.em)}`}. Última mensagem real: <strong>{u ? (u.ok ? "avaliada" : `falha (${falhas[u.falha] ?? u.falha})`) : "nenhuma"}</strong>{u && ` · ${dataHora(u.em)}`}.</p>
+      </SaibaMais>
+      <p className="mt-3 flex flex-wrap gap-3">
+        <button type="button" className={m.aprovacao_manual ? botaoClaro : "painel-botao cursor-pointer bg-oxblood px-5 py-2.5 font-semibold text-parchment disabled:opacity-50"} disabled={ocupado} onClick={() => trocar(!m.aprovacao_manual)}>{m.aprovacao_manual ? "Desligar o modo de segurança" : "Ligar o modo de segurança"}</button>
+        <button type="button" className={elo} disabled={ocupado} onClick={testar}>Testar a segunda avaliação</button>
+      </p>
+      <Aviso texto={aviso} />
+      <Mudado m={mudanca} />
+    </Cartao>
+  );
+}
+
+/** Quanto tempo uma sessão parada continua valendo (Minha conta mostra o mesmo prazo a cada pessoa). */
+function PrazoDasSessoes({ mudanca }: { mudanca?: { nome: string; em: string } }) {
+  const protecao = useLista<{ sessao_dias: number }>("conta_protecao", {}, { quieta: true });
+  const acao = useAcao(protecao.recarregar);
+  const [dias, setDias] = useState<string | null>(null);
+  const atual = protecao.dados?.sessao_dias ?? 60;
+  return (
+    <Cartao titulo="Sessões antigas" selo={<Selo tipo="neutro">{atual} dias</Selo>}>
+      <p className="mt-1">Aparelho parado há mais que o prazo precisa entrar de novo com a senha.</p>
+      <div className="mt-3 flex flex-wrap items-end gap-3">
+        <label className="block">Prazo em dias (7 a 365)<input type="number" min={7} max={365} value={dias ?? String(atual)} onChange={(e) => setDias(e.target.value)} className={`${campo} max-w-32`} /></label>
+        <button type="button" className={botaoClaro} disabled={acao.ocupado || dias === null} onClick={async () => { if (await acao.agir("seguranca_sessoes", { p_dias: Number(dias) }, "Prazo guardado ✓")) setDias(null); }}>Guardar</button>
+      </div>
+      <Aviso texto={acao.aviso} />
+      <Mudado m={mudanca} />
+    </Cartao>
+  );
+}
+
+/**
+ * Assistente de reforço: responde dúvidas quando não há voluntário. Os provedores entram na ordem escolhida aqui; se um
+ * falhar (cota do dia, fora do ar), o próximo responde. Chaves só nos segredos da função, nunca no navegador nem no banco.
+ */
+function AssistenteDeReforco({ mudanca }: { mudanca?: { nome: string; em: string } }) {
+  const estado = useLista<ControlesDoAssistente>("assistente_controles");
+  const [aviso, setAviso] = useState("");
+  const [ocupado, setOcupado] = useState(false);
+  const [limites, setLimites] = useState<{ por_pessoa: string; por_dia: string } | null>(null);
+  const a = estado.dados;
+  if (!a) return null;
+  const campos = limites ?? { por_pessoa: String(a.por_pessoa), por_dia: String(a.por_dia) };
+  const lista = a.provedores ?? [{ id: "anthropic", ligado: true }];
+  const verificados = new Map((a.verificacao?.provedores ?? []).map((p) => [p.id, p]));
+
+  async function salvar(mudanca: Record<string, unknown>, sucesso: string) {
+    setOcupado(true);
+    setAviso("");
+    try {
+      await rpc("assistente_configurar", { p: mudanca });
+      setAviso(sucesso);
+      setLimites(null);
+      estado.recarregar();
+    } catch (erro) {
+      setAviso(textoDoErro(erro));
+    } finally {
+      setOcupado(false);
+    }
+  }
+  async function testar() {
+    setOcupado(true);
+    setAviso("Testando cada provedor…");
+    const r = await verifyAssistant();
+    setAviso(r === null ? "A função não respondeu: ela não está publicada neste serviço, ou o serviço está fora do ar." : r.ok ? `Teste feito ✓ Pelo menos um provedor respondeu (${r.modelo}).` : `Teste feito: nenhum provedor respondeu (${falhas[r.falha] ?? r.falha}).`);
+    estado.recarregar();
+    setOcupado(false);
+  }
+  const mover = (i: number, d: number) => {
+    const n = [...lista];
+    const [x] = n.splice(i, 1);
+    n.splice(i + d, 0, x);
+    void salvar({ provedores: n }, "Ordem guardada ✓");
+  };
+
+  return (
+    <Cartao id="assistente" titulo="Assistente de reforço (inteligência artificial)" selo={<Selo tipo={a.ligado ? (a.verificacao && !a.verificacao.ok ? "erro" : "ok") : "neutro"}>{a.ligado ? "ligado" : "desligado"}</Selo>}>
+      <p className="mt-1">Ligado, a página de reforço e o resolvedor ganham “Pergunte ao assistente” para quem tem conta. Sempre avisa que é uma inteligência artificial.{a.ligado && a.interditado ? " Sem efeito agora: a aula de reforço está interditada." : ""}</p>
+      <SaibaMais>
+        <p>A pergunta e a foto vão para o provedor que responder; o site guarda só quantas perguntas cada pessoa fez em cada dia e qual provedor respondeu.</p>
+        <p>Quando o provedor falha, a pergunta não é descontada da pessoa e vai para o próximo da lista.</p>
+      </SaibaMais>
+      <p className="mt-3">
+        <button
+          type="button"
+          className={a.ligado ? botaoClaro : botao}
+          disabled={ocupado}
+          onClick={() => {
+            if (a.ligado && !window.confirm("Desligar o assistente? O quadro some do site e as dúvidas voltam a ir só para os voluntários.")) return;
+            if (!a.ligado && !window.confirm("Ligar o assistente? Provedores pagos (como o Claude) cobram por pergunta; os gratuitos têm limites por dia.")) return;
+            void salvar({ ligado: !a.ligado }, a.ligado ? "Assistente desligado." : "Assistente ligado. Faça o teste abaixo.");
+          }}
+        >
+          {a.ligado ? "Desligar o assistente" : "Ligar o assistente"}
+        </button>
+      </p>
+
+      <h4 className="mt-5 font-semibold">Provedores, na ordem de tentativa</h4>
+      <ol className="mt-2 divide-y divide-rule border-y border-rule text-sm">
+        {lista.map((p, i) => {
+          const info = PROVEDORES[p.id] ?? { nome: p.id, plano: "", segredo: "" };
+          const v = verificados.get(p.id);
+          const uso = a.uso_provedores?.[p.id];
+          return (
+            <li key={p.id} className="flex flex-wrap items-center gap-3 py-2">
+              <span className="w-6 text-center font-mono text-ink-soft">{i + 1}</span>
+              <label className="flex min-w-48 flex-1 cursor-pointer items-start gap-2">
+                <input type="checkbox" className="mt-1" checked={p.ligado} disabled={ocupado} onChange={() => void salvar({ provedores: lista.map((x) => (x.id === p.id ? { ...x, ligado: !x.ligado } : x)) }, "Guardado ✓")} />
+                <span>
+                  <strong>{info.nome}</strong> <span className="text-xs text-ink-soft">· {info.plano}</span>
+                  <span className="block text-xs">
+                    {v ? (v.chave ? (v.ok ? <span className="text-ok">✓ respondeu no teste ({v.modelo})</span> : <span className="text-oxblood">✗ {falhas[v.falha] ?? v.falha}</span>) : <span className="text-ink-soft">sem chave ({info.segredo} nos segredos da função)</span>) : <span className="text-ink-soft">ainda não testado</span>}
+                    {uso ? <span className="text-ink-soft"> · hoje: {uso.ok} respondidas, {uso.falhas} falhas</span> : null}
+                  </span>
+                </span>
+              </label>
+              <span className="flex gap-1">
+                <button type="button" aria-label={`Subir ${info.nome}`} disabled={ocupado || i === 0} onClick={() => mover(i, -1)} className="cursor-pointer border border-rule px-1.5 disabled:opacity-30">↑</button>
+                <button type="button" aria-label={`Descer ${info.nome}`} disabled={ocupado || i === lista.length - 1} onClick={() => mover(i, 1)} className="cursor-pointer border border-rule px-1.5 disabled:opacity-30">↓</button>
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+      <p className="mt-1 text-xs text-ink-soft">Só os marcados entram. As chaves ficam nos segredos da função “assistente” no serviço de contas (guia de manutenção); o painel nunca as vê.</p>
+
+      <form className="mt-5 grid gap-3 sm:grid-cols-2" onSubmit={(e) => { e.preventDefault(); void salvar({ por_pessoa: Number(campos.por_pessoa), por_dia: Number(campos.por_dia) }, "Limites guardados ✓"); }}>
+        <label className="block">Perguntas por pessoa, por dia (1 a 100)<input type="number" min={1} max={100} required value={campos.por_pessoa} onChange={(e) => setLimites({ ...campos, por_pessoa: e.target.value })} className={campo} /></label>
+        <label className="block">Teto do site inteiro, por dia (1 a 5.000)<input type="number" min={1} max={5000} required value={campos.por_dia} onChange={(e) => setLimites({ ...campos, por_dia: e.target.value })} className={campo} /></label>
+        <p className="sm:col-span-2"><button type="submit" className={botaoClaro} disabled={ocupado || limites === null}>Guardar os limites</button></p>
+      </form>
+
+      <ul className="mt-3 space-y-1 text-sm">
+        <li>Perguntas hoje: <strong>{a.hoje}</strong> de {a.por_dia}, de <strong>{a.pessoas_hoje}</strong> {a.pessoas_hoje === 1 ? "pessoa" : "pessoas"}. Em sete dias: <strong>{a.semana}</strong>.</li>
+        <li>Última pergunta: <strong>{a.ultimo ? (a.ultimo.ok ? `respondida${a.ultimo.provedor ? ` por ${PROVEDORES[a.ultimo.provedor]?.nome ?? a.ultimo.provedor}` : ""}` : `com falha (${falhas[a.ultimo.falha] ?? (a.ultimo.falha || "sem detalhe")})`) : "nenhuma até agora"}</strong>{a.ultimo && <span className="text-ink-soft"> · {dataHora(a.ultimo.em)}</span>}.</li>
+      </ul>
+      <p className="mt-3"><button type="button" className={elo} disabled={ocupado} onClick={testar}>Testar agora cada provedor</button></p>
+      <Aviso texto={aviso} />
+      <Mudado m={mudanca} />
+    </Cartao>
   );
 }
 
@@ -411,11 +467,8 @@ interface ControleDoChat {
   silenciados: string[];
 }
 
-/**
- * Desligar as conversas quando for preciso: todas de uma vez, só alguns grupos ou só algumas pessoas. Quem está
- * barrado continua lendo; a liderança nunca é barrada. Tudo fica no registro de atividades.
- */
-function ControlesDoChat() {
+/** Desligar as conversas quando for preciso: todas, alguns grupos ou algumas pessoas. A liderança nunca é barrada. */
+function ControlesDoChat({ mudanca }: { mudanca?: { nome: string; em: string } }) {
   const dados = useLista<{ controle: ControleDoChat | null; grupos: { id: string; nome: string; tipo: string; membros: number }[]; pessoas: { id: string; nome: string }[] }>("chat_controles");
   const acao = useAcao(dados.recarregar);
   const [motivo, setMotivo] = useState("");
@@ -425,83 +478,82 @@ function ControlesDoChat() {
   const salvar = (p: Partial<ControleDoChat>, texto: string) => acao.agir("chat_controlar", { p }, texto);
   const pessoas = (dados.dados?.pessoas ?? []).filter((p) => !busca || p.nome.toLowerCase().includes(busca.toLowerCase()));
   return (
-    <section className="border border-rule bg-parchment-deep p-5 lg:col-span-2">
-      <h2 className="font-serif text-xl font-semibold">Conversas da equipe</h2>
-      <p className="mt-1 text-ink-soft">Para quando for preciso desligar: todas as conversas, alguns grupos ou algumas pessoas. Quem está barrado continua lendo, só não escreve. A coordenação, a coordenação pedagógica e a supervisão nunca são barradas.</p>
-      {!dados.dados ? (
-        <p className="painel-carregando mt-3 text-ink-soft">Carregando…</p>
-      ) : (
-        <div className="mt-4 grid gap-6 md:grid-cols-3">
-          <div>
-            <h3 className="font-semibold">Todas as conversas</h3>
-            <p className="mt-1 text-ink-soft">{c.fechado ? "Fechadas agora." : "Abertas."}</p>
-            {!c.fechado && (
-              <label className="mt-2 block text-xs">
-                Motivo (aparece para a equipe, opcional)
-                <input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={200} className={campo} />
-              </label>
-            )}
-            <button type="button" className={`mt-3 ${c.fechado ? botao : botaoClaro}`} disabled={acao.ocupado} onClick={() => salvar(c.fechado ? { fechado: false, motivo: "" } : { fechado: true, motivo }, c.fechado ? "Conversas reabertas." : "Conversas fechadas.")}>
-              {c.fechado ? "Reabrir as conversas" : "Fechar todas as conversas"}
-            </button>
+    <div className="lg:col-span-2">
+      <Cartao id="conversas" titulo="Conversas da equipe" alerta={c.fechado} selo={<Selo tipo={c.fechado ? "erro" : c.grupos_fechados.length || c.silenciados.length ? "atencao" : "ok"}>{c.fechado ? "fechadas" : c.grupos_fechados.length || c.silenciados.length ? "com restrições" : "abertas"}</Selo>}>
+        <SaibaMais><p>Quem está barrado continua lendo, só não escreve. A coordenação, a coordenação pedagógica e a supervisão nunca são barradas.</p></SaibaMais>
+        {!dados.dados ? (
+          <p className="painel-carregando mt-3 text-ink-soft">Carregando…</p>
+        ) : (
+          <div className="mt-4 grid gap-6 md:grid-cols-3">
+            <div>
+              <h4 className="font-semibold">Todas as conversas</h4>
+              {!c.fechado && (
+                <label className="mt-2 block text-xs">Motivo (aparece para a equipe, opcional)<input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={200} className={campo} /></label>
+              )}
+              <button type="button" className={`mt-3 ${c.fechado ? botao : botaoClaro}`} disabled={acao.ocupado} onClick={() => { if (!c.fechado && !window.confirm("Fechar todas as conversas da equipe? Ninguém (fora a liderança) escreve até reabrir.")) return; void salvar(c.fechado ? { fechado: false, motivo: "" } : { fechado: true, motivo }, c.fechado ? "Conversas reabertas ✓" : "Conversas fechadas."); }}>
+                {c.fechado ? "Reabrir as conversas" : "Fechar todas as conversas"}
+              </button>
+            </div>
+            <div>
+              <h4 className="font-semibold">Grupos fechados</h4>
+              <ul className="mt-2 max-h-64 space-y-1 overflow-y-auto">
+                {dados.dados.grupos.map((g) => {
+                  const fechado = c.grupos_fechados.includes(g.id);
+                  return (
+                    <li key={g.id}>
+                      <label className="flex cursor-pointer items-center gap-2">
+                        <input type="checkbox" className="h-4 w-4" checked={fechado} disabled={acao.ocupado} onChange={() => salvar({ grupos_fechados: fechado ? c.grupos_fechados.filter((id) => id !== g.id) : [...c.grupos_fechados, g.id] }, fechado ? "Grupo reaberto ✓" : "Grupo fechado.")} />
+                        <span className="min-w-0 truncate">{g.nome} <span className="text-ink-soft">· {g.tipo === "departamento" ? "departamento" : "grupo"} · {g.membros}</span></span>
+                      </label>
+                    </li>
+                  );
+                })}
+                {dados.dados.grupos.length === 0 && <li className="text-ink-soft">Nenhum grupo ainda.</li>}
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold">Pessoas silenciadas</h4>
+              <input value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Procurar pelo nome" aria-label="Procurar pessoa" className={`${campo} mt-2`} />
+              <ul className="mt-2 max-h-64 space-y-1 overflow-y-auto">
+                {pessoas.map((p) => {
+                  const calada = c.silenciados.includes(p.id);
+                  return (
+                    <li key={p.id}>
+                      <label className="flex cursor-pointer items-center gap-2">
+                        <input type="checkbox" className="h-4 w-4" checked={calada} disabled={acao.ocupado} onChange={() => salvar({ silenciados: calada ? c.silenciados.filter((id) => id !== p.id) : [...c.silenciados, p.id] }, calada ? "Pessoa pode escrever de novo ✓" : "Pessoa silenciada.")} />
+                        <span className="min-w-0 truncate">{p.nome}</span>
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
-          <div>
-            <h3 className="font-semibold">Grupos fechados</h3>
-            <ul className="mt-2 max-h-64 space-y-1 overflow-y-auto">
-              {dados.dados.grupos.map((g) => {
-                const fechado = c.grupos_fechados.includes(g.id);
-                return (
-                  <li key={g.id}>
-                    <label className="flex cursor-pointer items-center gap-2">
-                      <input type="checkbox" className="h-4 w-4" checked={fechado} disabled={acao.ocupado} onChange={() => salvar({ grupos_fechados: fechado ? c.grupos_fechados.filter((id) => id !== g.id) : [...c.grupos_fechados, g.id] }, fechado ? "Grupo reaberto." : "Grupo fechado.")} />
-                      <span className="min-w-0 truncate">{g.nome} <span className="text-ink-soft">· {g.tipo === "departamento" ? "departamento" : "grupo"} · {g.membros}</span></span>
-                    </label>
-                  </li>
-                );
-              })}
-              {dados.dados.grupos.length === 0 && <li className="text-ink-soft">Nenhum grupo ainda.</li>}
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold">Pessoas silenciadas</h3>
-            <input value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Procurar pelo nome" className={`${campo} mt-2`} />
-            <ul className="mt-2 max-h-64 space-y-1 overflow-y-auto">
-              {pessoas.map((p) => {
-                const calada = c.silenciados.includes(p.id);
-                return (
-                  <li key={p.id}>
-                    <label className="flex cursor-pointer items-center gap-2">
-                      <input type="checkbox" className="h-4 w-4" checked={calada} disabled={acao.ocupado} onChange={() => salvar({ silenciados: calada ? c.silenciados.filter((id) => id !== p.id) : [...c.silenciados, p.id] }, calada ? "Pessoa pode escrever de novo." : "Pessoa silenciada.")} />
-                      <span className="min-w-0 truncate">{p.nome}</span>
-                    </label>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </div>
-      )}
-      <Aviso texto={acao.aviso} />
-    </section>
+        )}
+        <Aviso texto={acao.aviso} />
+        <Mudado m={mudanca} />
+      </Cartao>
+    </div>
   );
 }
 
 /** Os termos que a conferência de ortografia aceita sem apontar: nomes próprios, siglas, palavras das trilhas. */
-function DicionarioDoInstituto() {
+function DicionarioDoInstituto({ mudanca }: { mudanca?: { nome: string; em: string } }) {
   const termos = useLista<string[]>("dicionario_termos");
   const acao = useAcao(termos.recarregar);
   const [texto, setTexto] = useState<string | null>(null);
   const atual = texto ?? (termos.dados ?? []).join("\n");
   return (
-    <section className="border border-rule bg-parchment-deep p-5 lg:col-span-2">
-      <h2 className="font-serif text-xl font-semibold">Dicionário do instituto</h2>
-      <p className="mt-1 text-ink-soft">Uma palavra por linha. O conferidor de ortografia dos editores deixa de apontar estas palavras (nomes próprios, siglas, termos das trilhas). A revisão e a coordenação editam.</p>
-      <textarea value={atual} onChange={(e) => setTexto(e.target.value)} rows={8} className={`${campo} font-mono`} spellCheck={false} />
-      <p className="mt-2 flex flex-wrap items-center gap-3">
-        <button type="button" className={botao} disabled={acao.ocupado || texto === null} onClick={async () => { if (await acao.agir("dicionario_salvar", { p_termos: atual.split(/\n+/).map((x) => x.trim()).filter(Boolean) }, "Dicionário guardado.")) setTexto(null); }}>Guardar</button>
-        <span className="text-xs text-ink-soft">{(termos.dados ?? []).length} termos</span>
-      </p>
-      <Aviso texto={termos.erro || acao.aviso} />
-    </section>
+    <div className="lg:col-span-2">
+      <Cartao titulo="Dicionário do instituto" selo={<Selo tipo="neutro">{(termos.dados ?? []).length} termos</Selo>}>
+        <p className="mt-1">Uma palavra por linha: o conferidor de ortografia dos editores deixa de apontar estas palavras.</p>
+        <textarea value={atual} onChange={(e) => setTexto(e.target.value)} rows={8} className={`${campo} font-mono`} spellCheck={false} aria-label="Termos do dicionário" />
+        <p className="mt-2 flex flex-wrap items-center gap-3">
+          <button type="button" className={botao} disabled={acao.ocupado || texto === null} onClick={async () => { if (await acao.agir("dicionario_salvar", { p_termos: atual.split(/\n+/).map((x) => x.trim()).filter(Boolean) }, "Dicionário guardado ✓")) setTexto(null); }}>Guardar</button>
+        </p>
+        <Aviso texto={termos.erro || acao.aviso} />
+        <Mudado m={mudanca} />
+      </Cartao>
+    </div>
   );
 }
