@@ -21,7 +21,8 @@ import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
 import { Estatisticas } from "./Estatisticas";
 import { TermoDeVoluntario } from "./Termo";
 import { Aviso, botao, botaoClaro, campo, data, elo, localDoPainel, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, useAcao, useLista } from "./comum";
-import { Apoiadores, Comunidade, MuralFila, SugerirEmissora } from "./Cuidar";
+import { Comunidade, MuralFila, SugerirEmissora } from "./Cuidar";
+import { Apoio } from "./Apoio";
 import { Boletim } from "./Boletim";
 import { CadernoNoPainel } from "./Caderno";
 import { Estudio } from "./design/Estudio";
@@ -496,7 +497,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
       { id: "podcast", nome: "Podcast", sobre: "Episódios da pauta à publicação: roteiro, gravação, versões, revisão, capas, cortes e agenda.", grupo: "Produção", mostra: can(eu, "coordenacao", "jornalismo", "design", "mediacao", "curadoria"), conta: podcast.dados ?? undefined },
       { id: "emissoras", nome: "Rádios do povo", sobre: "Indicar emissoras populares e comunitárias para o diretório público de rádios.", grupo: "Site", mostra: can(eu, "coordenacao", "jornalismo") },
-      { id: "apoiadores", nome: "Apoiadores", sobre: "Quem autorizou aparecer no mural de apoio.", grupo: "Site", mostra: lidera },
+      { id: "apoiadores", nome: "Apoio e transparência", sobre: "A página de Apoie (faixas, metas, custos), o mural de apoiadores, as contas do mês e o texto para a Benfeitoria.", grupo: "Site", mostra: lidera },
       { id: "tecnico", nome: "Estado técnico", sobre: "Publicação, avaliação automática, faxina e sinais de varredura.", grupo: "Site", mostra: can(eu, "coordenacao", "desenvolvimento"), conta: r?.publicacao_atrasada },
       { id: "seguranca", nome: "Segurança e sucessão", sobre: "Segundo fator obrigatório, coordenação pedagógica e ordem de sucessão.", grupo: "Segurança", mostra: lidera },
       { id: "interdicao", nome: "Interdição e expurgo", sobre: "Tirar o site ou uma área do ar por um tempo, e apagar de uma vez uma chuva de spam.", grupo: "Segurança", mostra: lidera || supervisiona, conta: r?.pedidos_supervisao },
@@ -727,7 +728,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "abertura" && <AvisoDeAbertura />}
           {atual.id === "podcast" && <Podcast />}
           {atual.id === "emissoras" && <SugerirEmissora />}
-          {atual.id === "apoiadores" && <Apoiadores />}
+          {atual.id === "apoiadores" && <Apoio />}
           {atual.id === "tecnico" && <Tecnico />}
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
           {atual.id === "interdicao" && <Interdicao me={eu} aoMudar={estadoDoSite.recarregar} />}

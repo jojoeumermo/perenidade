@@ -2609,7 +2609,164 @@
     "note": "La contribución se hace en Benfeitoria, una plataforma brasileña de financiación colectiva. Este sitio no recibe ni guarda datos de pago.",
     "wallTitle": "Mural de quienes apoyan",
     "wallLead": "Quienes ayudaron a mantener el instituto en pie y quisieron dejar su nombre aquí.",
-    "wallEmpty": "El mural todavía está vacío."
+    "wallEmpty": "El mural todavía está vacío.",
+    "page": {
+      "leaving": "El botón abre Benfeitoria en otra pestaña.",
+      "opensOutside": "(abre otro sitio, en otra pestaña)",
+      "whyTitle": "Por qué pedimos apoyo",
+      "howTitle": "Cómo funciona",
+      "how": [
+        "El apoyo es mensual: eliges un nivel en Benfeitoria y puedes cambiarlo o cancelarlo en la propia plataforma, cuando quieras.",
+        "Apoyar es opcional. Nadie pierde acceso a nada y no hay contenido exclusivo para quien apoya.",
+        "El pago se hace en Benfeitoria. Este sitio no recibe ni guarda datos de pago."
+      ],
+      "cancelSteps": "Cómo cancelar, paso a paso",
+      "tiersTitle": "Los niveles",
+      "tierDefault": "Apoyo solidario, sin beneficio exclusivo. Si quieres, tu nombre aparece en el mural.",
+      "perMonth": "al mes",
+      "goalsTitle": "Metas",
+      "goal1": "Meta 1",
+      "goal2": "Meta 2",
+      "goalMid": "Primera meta",
+      "goalProgress": "{atual} de {alvo}",
+      "goalTarget": "{alvo} al mes",
+      "goalSupporters": "{atual} de {alvo} apoyos",
+      "goalNoData": "La coordinación todavía no informó cuánto ha llegado: por ahora las metas muestran solo el valor a alcanzar.",
+      "updatedAt": "Cifras de la campaña informadas por la coordinación el {data}. No es un contador en vivo.",
+      "worthTitle": "Cuánto vale cada apoyo",
+      "worth": "Con {n} apoyos de {valor} al mes, las cuentas fijas del sitio quedan cubiertas.",
+      "worthOne": "Un apoyo de {valor} al mes ya cubre las cuentas fijas del sitio.",
+      "worthPick": "Elige un nivel",
+      "whereTitle": "A dónde va",
+      "whereDefault": [
+        {
+          "title": "Alojamiento y base de datos",
+          "text": "El servidor que mantiene en línea el sitio y el panel del equipo."
+        },
+        {
+          "title": "Dominio",
+          "text": "La dirección institutolucia.org."
+        },
+        {
+          "title": "Audios y copias de seguridad",
+          "text": "El almacenamiento de los audios y de las copias de seguridad del acervo."
+        },
+        {
+          "title": "Ampliación del acervo",
+          "text": "Lo que sobre va a más clases, más traducciones y más revisión."
+        }
+      ],
+      "monthly": "{valor} al mes",
+      "dollar": "parte cobrada en dólares",
+      "doneTitle": "Lo que ya hicimos",
+      "counters": {
+        "works": "obras en el acervo",
+        "lessons": "clases publicadas",
+        "translations": "traducciones de clases",
+        "languages": "idiomas del sitio",
+        "volunteers": "voluntarios activos",
+        "contributions": "contribuciones publicadas"
+      },
+      "otherTitle": "Otras formas de ayudar",
+      "other": [
+        {
+          "title": "Contribuye con una clase o una corrección",
+          "text": "Escribe, corrige o sugiere una obra. No hace falta cuenta.",
+          "href": "/contribuir"
+        },
+        {
+          "title": "Hazte voluntario",
+          "text": "Revisión, traducción, diseño, curaduría, mediación: hay lugar para quien tenga algunas horas.",
+          "href": "/voluntarios"
+        },
+        {
+          "title": "Ayuda a traducir",
+          "text": "Las clases existen en portugués y esperan versiones en otros idiomas.",
+          "href": "/voluntarios"
+        },
+        {
+          "title": "Estudia y comparte el acervo",
+          "text": "Usar y recomendar el acervo también sostiene el proyecto.",
+          "href": "/acervo"
+        }
+      ],
+      "shareTitle": "Comparte esta página",
+      "copyLink": "Copiar el enlace",
+      "copied": "Enlace copiado ✓",
+      "shareText": "El Instituto Lúcia mantiene una escuela y biblioteca gratuitas, sin anuncios. Se puede apoyar aquí:",
+      "shareEmail": "Correo",
+      "responsibleTitle": "Quién es responsable",
+      "helpersTitle": "Quién ya ayuda sin dinero",
+      "helpers": "{c} contribuciones publicadas y {v} voluntarios activos mantienen el acervo en pie.",
+      "helpersVolunteers": "{v} voluntarios activos mantienen el acervo en pie.",
+      "helpersNames": "Voluntarios que autorizaron su nombre aquí:",
+      "wallFormTitle": "Ya apoyo y quiero aparecer en el mural",
+      "wallName": "Nombre o apodo",
+      "wallMessage": "Mensaje corto (opcional)",
+      "wallSend": "Pedir aparecer",
+      "wallSent": "Pedido enviado. La coordinación revisa la lista de apoyos de Benfeitoria antes de publicar.",
+      "wallPrivacy": "Guardamos solo el nombre y el mensaje que escribas, sin correo. Para quitar tu nombre después, basta con pedirlo a la coordinación.",
+      "wallError": "No se pudo enviar ahora. Inténtalo de nuevo más tarde.",
+      "transparencyTitle": "Transparencia",
+      "transparencyEmpty": "Los informes mensuales de cuentas se publicarán aquí.",
+      "lastMonth": "Último informe: {mes}",
+      "income": "Entradas",
+      "expenses": "Salidas",
+      "balance": "Saldo",
+      "seeAccounts": "Ver la rendición de cuentas",
+      "faqTitle": "Preguntas frecuentes",
+      "faq": {
+        "mandatory": {
+          "q": "¿Es obligatorio apoyar?",
+          "a": "No. El acervo es gratuito para todo el mundo, con o sin apoyo, y seguirá así."
+        },
+        "tiers": {
+          "q": "¿Qué significa cada nivel?",
+          "a": "Son montos mensuales con nombres de libro. Todos son lo mismo: apoyo solidario, sin beneficio exclusivo."
+        },
+        "anonymous": {
+          "q": "¿Puedo apoyar sin aparecer en el mural?",
+          "a": "Sí. Tu nombre solo aparece en el mural si lo pides (con el formulario de esta página) o lo autorizas a la coordinación."
+        },
+        "fee": {
+          "q": "¿Cuánto de cada apoyo llega al proyecto?"
+        },
+        "cancel": {
+          "q": "¿Cómo cancelo?",
+          "a": "En la propia Benfeitoria, donde hiciste el apoyo. Este sitio no tiene acceso a tu pago."
+        },
+        "dollar": {
+          "q": "¿Por qué parte de las cuentas está en dólares?",
+          "a": "Algunos servicios que mantienen el sitio en línea cobran en dólares, por eso el costo en reales cambia con el tipo de cambio."
+        },
+        "surplus": {
+          "q": "¿Qué pasa si se supera la meta?",
+          "a": "Lo que pase de las cuentas fijas va a ampliar el acervo: más clases, más traducciones y más revisión."
+        },
+        "data": {
+          "q": "¿El sitio guarda mis datos?",
+          "a": "No guarda datos de pago: todo ocurre en Benfeitoria. El pedido para el mural guarda solo el nombre y el mensaje que escribas."
+        }
+      },
+      "endTitle": "Si puedes, apoya",
+      "preview": "Vista previa del borrador: solo la coordinación la ve. Nada de esto está publicado todavía.",
+      "previous": "Esta es la versión anterior de la página de Apoyo, guardada como reserva.",
+      "accounts": {
+        "title": "Rendición de cuentas",
+        "lead": "Entradas, salidas y saldo de cada mes, publicados por la coordinación. Aquí no aparece ningún dato personal de quien apoya.",
+        "empty": "Los informes mensuales se publicarán aquí.",
+        "chart": "Entradas y salidas por mes",
+        "month": "Mes",
+        "byIncome": "Entradas por origen",
+        "byExpense": "Salidas por categoría",
+        "note": "Nota de la coordinación",
+        "published": "Publicado el {data}",
+        "corrections": "Correcciones",
+        "corrected": "Corregido el {data}: {motivo}",
+        "previousVersion": "Antes de la corrección: entradas {e}, salidas {s}, saldo {b}.",
+        "back": "Volver a Apoyo"
+      }
+    }
   },
   "auth": {
     "unconfirmed": "Tu correo todavía no está confirmado. Abre el correo que te enviamos y toca «Confirmar correo». ¿No lo encuentras o el enlace venció? Pide otro aquí.",
