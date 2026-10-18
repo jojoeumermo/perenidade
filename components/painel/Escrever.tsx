@@ -184,6 +184,9 @@ export function Escrever({ me }: { me: Me }) {
 
   const tipo = tipos[id] as Tipo;
   const trilha = tracks.find((track) => track.slug === valores.trilha) ?? tracks[0];
+  // A trilha se escolhe em dois passos: primeiro a disciplina, depois a trilha dela (a lista inteira era grande demais).
+  const [areaDaTrilha, setAreaDaTrilha] = useState("");
+  const areaEscolhida = areaDaTrilha || trilha?.area || "";
   const mudar = (nome: string, valor: string) => setValores((antes) => ({ ...antes, [nome]: valor }));
 
   // Educadores só publicam nas disciplinas que lhes foram confiadas; o aviso evita trabalho perdido.
@@ -238,21 +241,31 @@ export function Escrever({ me }: { me: Me }) {
   function campoDe(c: Campo) {
     const valor = valores[c.nome] ?? "";
     if (c.tipo === "trilha") {
+      const daArea = tracks.filter((track) => track.area === areaEscolhida);
       return (
-        <select value={trilha?.slug ?? ""} onChange={(e) => setValores((antes) => ({ ...antes, trilha: e.target.value, slug: "" }))} className={campo}>
-          {areaSlugs.map((area) => {
-            const daArea = tracks.filter((track) => track.area === area);
-            return daArea.length > 0 ? (
-              <optgroup key={area} label={t.areas[area][0]}>
-                {daArea.map((track) => (
-                  <option key={track.slug} value={track.slug}>
-                    {track.title}
-                  </option>
-                ))}
-              </optgroup>
-            ) : null;
-          })}
-        </select>
+        <div className="grid gap-2 sm:grid-cols-2">
+          <select
+            aria-label="Disciplina da trilha"
+            value={areaEscolhida}
+            onChange={(e) => {
+              setAreaDaTrilha(e.target.value);
+              const primeira = tracks.find((track) => track.area === e.target.value);
+              setValores((antes) => ({ ...antes, trilha: primeira?.slug ?? "", slug: "" }));
+            }}
+            className={campo}
+          >
+            {areaSlugs.filter((area) => tracks.some((track) => track.area === area)).map((area) => (
+              <option key={area} value={area}>{t.areas[area][0]}</option>
+            ))}
+          </select>
+          <select aria-label="Trilha" value={trilha?.slug ?? ""} onChange={(e) => setValores((antes) => ({ ...antes, trilha: e.target.value, slug: "" }))} className={campo}>
+            {daArea.map((track) => (
+              <option key={track.slug} value={track.slug}>
+                {track.title}{track.stage ? ` · ${track.stage === "medio" ? "médio" : track.stage === "superior" ? "superior" : "fundamental"}` : ""}
+              </option>
+            ))}
+          </select>
+        </div>
       );
     }
     if (c.tipo === "plano") {
@@ -427,7 +440,7 @@ export function Escrever({ me }: { me: Me }) {
             </ul>
           )}
           {colegas.length < 5 && (
-            <div className="mt-2 max-w-md">
+            <div className="relative mt-2 max-w-md">
               <BuscaDePessoa rotulo="Chamar colega" entre={candidatos} escolhida={null} escolher={(pessoa) => pessoa && setColegas([...colegas, pessoa])} />
             </div>
           )}

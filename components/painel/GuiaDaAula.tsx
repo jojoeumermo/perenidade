@@ -124,6 +124,17 @@ export function GuiaDaAula({ trilha, slug, titulo, nomeDaArea, tipo, temTexto, i
                 ) : (
                   <p>Tema fora do roteiro: a aula entra no fim da trilha. Diga logo na abertura o que a pessoa precisa saber antes.</p>
                 )}
+                {plano.length > 0 && (
+                  <p>
+                    A trilha tem <strong className="text-ink">{plano.filter((item) => item.ready).length} de {plano.length}</strong> aulas escritas.
+                    {plano.some((item) => !item.ready) && (
+                      <>
+                        {" "}Ainda faltam: {plano.filter((item) => !item.ready).slice(0, 6).map((item) => item.title).join("; ")}
+                        {plano.filter((item) => !item.ready).length > 6 ? ` e mais ${plano.filter((item) => !item.ready).length - 6}` : ""}.
+                      </>
+                    )}
+                  </p>
+                )}
                 {nivel && <p>Tom para o {nivel}.</p>}
                 {tipo === "avulso" && <p>Material avulso: fica na aba própria da disciplina, fora da ordem das trilhas. Diga para que serve e para quem é.</p>}
               </>
@@ -140,11 +151,19 @@ export function GuiaDaAula({ trilha, slug, titulo, nomeDaArea, tipo, temTexto, i
               <li><strong className="text-ink">Para praticar</strong>: uma tarefa que dá para fazer sem computador.</li>
             </ol>
             <p>Tamanho bom: de 600 a 1.500 palavras (5 a 8 minutos de leitura). Frases curtas, uma ideia por frase. Palavra difícil é explicada na hora em que aparece.</p>
-            {!temTexto && (
-              <p>
-                <button type="button" className={botaoClaro} onClick={() => inserir(esqueleto(titulo, idioma))}>Usar o esqueleto</button>
-              </p>
-            )}
+          </Bloco>
+          <Bloco titulo="Atalhos" aberto>
+            <p>Cada botão põe um trecho pronto no fim do texto, para você só preencher.</p>
+            <p className="flex flex-wrap gap-2">
+              {!temTexto && <button type="button" className={botaoClaro} onClick={() => inserir(esqueleto(titulo, idioma))}>Usar o esqueleto</button>}
+              <button type="button" className={botaoClaro} onClick={() => inserir("\n```verificar\nPergunta curta sobre o que acabou de ser dito?\n- Alternativa errada\n+ Alternativa certa\n- Outra errada\n> Releia o parágrafo acima: a resposta está lá.\n```\n")}>Pergunta rápida</button>
+              <button type="button" className={botaoClaro} onClick={() => inserir("\n```conta\n2x + 3 = 11\n2x = 11 - 3\n2x = 8\nx = 4\n```\n")}>Conta passo a passo</button>
+              <button type="button" className={botaoClaro} onClick={() => inserir("\n## Na vida real\n\nOnde isso aparece no trabalho, na cidade, na luta de quem estuda aqui.\n")}>Seção “Na vida real”</button>
+              <button type="button" className={botaoClaro} onClick={() => inserir("\n## Resumo\n\n- Uma frase por ideia.\n- No máximo cinco.\n\n## Para praticar\n\nUma tarefa que dá para fazer sem computador, em dez minutos.\n")}>Resumo e prática</button>
+              <button type="button" className={botaoClaro} onClick={() => inserir("\n> “Citação curta, com a fonte logo abaixo.”\n> — Autor, *Obra* (ano)\n")}>Citação com fonte</button>
+              {idioma && <button type="button" className={botaoClaro} onClick={() => inserir("\n## Vocabulário\n\n| Palavra | Tradução | Como se fala |\n| --- | --- | --- |\n| … | … | … |\n")}>Tabela de vocabulário</button>}
+            </p>
+            <p className="text-xs">As três a cinco questões do fim vão no campo “Teste o que você aprendeu”, abaixo do texto.</p>
           </Bloco>
           <Bloco titulo="Formatação do texto">
             <ul className="list-disc space-y-1 pl-5">

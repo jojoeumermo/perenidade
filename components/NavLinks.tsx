@@ -13,13 +13,14 @@ export function NavLinks() {
   const pathname = usePathname();
   const { lang, t } = useI18n();
   const novo = useEpisodioNovo();
-  // Na linha só o que se usa todo dia. Memorial, Dedicatória e o resto continuam em "Mais".
+  // Na linha só o que se usa todo dia, mais a Dedicatória (de onde vem o nome). Memorial e o resto continuam em "Mais".
   const links: [string, string, string][] = [
     [t.nav.disciplines, "/trilhas", ""],
     [t.nav.library, "/acervo", ""],
     [t.nav.journal, "/jornal", ""],
     [t.nav.podcasts, "/podcasts", ""],
     [t.nav.community, "/comunidade", ""],
+    [t.nav.dedication, "/dedicatoria", "hidden lg:inline"],
     [t.nav.more, "/explorar", ""],
   ];
   const link = (label: React.ReactNode, path: string, name?: string, show = "") => {
