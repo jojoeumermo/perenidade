@@ -5,6 +5,7 @@ import { useState } from "react";
 import { type Aula } from "@/lib/aovivo";
 import { areaSlugs } from "@/lib/areas";
 import { can, type Me } from "@/lib/backend";
+import { JITSI_DOMINIO, novaSalaJitsi } from "@/lib/jitsi";
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
@@ -147,11 +148,12 @@ export function AulasAoVivo({ me }: { me: Me }) {
             )}
           </fieldset>
           <label className="block">
-            Sala de fora, para turma grande (Jitsi, Meet; opcional)
+            Sala de vídeo (Jitsi; recomendada para turma grande)
             <span className="mt-1 flex gap-2">
               <input value={form.sala_externa} onChange={(e) => mudar("sala_externa", e.target.value)} placeholder="https://" maxLength={500} className={`${campo} mt-0 font-mono`} />
-              {!form.sala_externa && <button type="button" className={botaoClaro} onClick={() => mudar("sala_externa", `https://meet.jit.si/InstitutoLucia-${crypto.randomUUID().slice(0, 8)}`)}>Criar sala no Jitsi</button>}
+              {!form.sala_externa && <button type="button" className={botaoClaro} onClick={() => mudar("sala_externa", novaSalaJitsi())}>Criar sala no Jitsi</button>}
             </span>
+            <span className="mt-1 block text-xs text-ink-soft">A sala em {JITSI_DOMINIO} abre dentro da página da aula, para quem ensina e para quem assiste; o nome é sorteado e não se adivinha. Outro endereço (Meet etc.) abre fora do site.</span>
           </label>
           {editando && (
             <label className="block">

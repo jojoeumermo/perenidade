@@ -6490,7 +6490,7 @@ begin
              'chat_aparelho_registrar', 'chat_aparelhos_meus', 'chat_aparelho_remover', 'chat_chaves', 'chat_chave_nova', 'chat_chaves_pendentes',
              'chat_chaves_dar', 'chat_chaves_recusar', 'chat_autodestruir', 'chat_aparelho_estado', 'chat_aparelho_aprovar', 'chat_identidade_definir',
              'chat_identidade_redefinir', 'chat_recuperacao_guardar', 'chat_recuperacao_ler', 'chat_aparelho_pedir', 'chat_aparelho_recuperar',
-             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias', 'chat_anexo_enviar', 'chat_anexo_ler', 'chat_privadas', 'chat_conversa_marcar', 'chat_controles', 'chat_controlar', 'perfil_avatar', 'perfil_curriculo', 'dicionario_termos', 'dicionario_salvar', 'termo_voluntario_aceitar', 'aprendizado_aceitar', 'marketing_sugerir', 'marketing_caixa', 'marketing_caixa_decidir', 'painel_estatisticas', 'educadores', 'chat_relatar', 'chat_relatos', 'chat_relato_resolver',
+             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias', 'chat_anexo_enviar', 'chat_anexo_ler', 'chat_privadas', 'chat_conversa_marcar', 'chat_controles', 'chat_controlar', 'perfil_avatar', 'perfil_curriculo', 'reuniao_salvar', 'reunioes_listar', 'reuniao_estado', 'reuniao_ata', 'reuniao_presenca', 'reuniao_propor', 'reunioes_propostas', 'reuniao_proposta_decidir', 'dicionario_termos', 'dicionario_salvar', 'termo_voluntario_aceitar', 'aprendizado_aceitar', 'marketing_sugerir', 'marketing_caixa', 'marketing_caixa_decidir', 'painel_estatisticas', 'educadores', 'chat_relatar', 'chat_relatos', 'chat_relato_resolver',
              'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao',
              'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao', 'papeis_historico_listar',
              'equipe_supervisao', 'pedidos_supervisao', 'protecoes', 'site_pausa', 'usuario_editar', 'usuario_senha_redefinir', 'senha_trocada',
@@ -8689,6 +8689,234 @@ create or replace function public.rascunhos_listar() returns jsonb language sql 
   select coalesce(jsonb_agg(jsonb_build_object('chave', r.chave, 'titulo', coalesce(r.dados ->> 'titulo', ''), 'atualizado_em', r.atualizado_em) order by r.atualizado_em desc), '[]'::jsonb)
   from rascunhos r where r.usuario = interno.eu()
 $$;
+
+-- ───────────────────────────── Reuniões da equipe ─────────────────────────────
+-- Reuniões por vídeo (Jitsi, servidor configurável) dentro do painel. A coordenação, a coordenação pedagógica e a
+-- supervisão criam e conduzem; qualquer voluntário propõe, e a proposta espera a decisão. Só nome, papel e horários
+-- de entrada e saída ficam guardados: nada de áudio ou vídeo no servidor.
+create table if not exists interno.reunioes (
+  id uuid primary key default gen_random_uuid(),
+  titulo text not null check (char_length(titulo) between 3 and 140),
+  pauta text not null default '' check (char_length(pauta) <= 4000),
+  inicio timestamptz not null,
+  duracao integer not null default 60 check (duracao between 15 and 480),
+  tipo text not null default 'aberta' check (tipo in ('aberta', 'coordenacao', 'convidados')),
+  recorrencia text not null default '' check (recorrencia in ('', 'semanal', 'quinzenal')),
+  link_pauta text not null default '' check (link_pauta = '' or link_pauta ~ '^https://[^\s]{3,500}$'),
+  -- O nome da sala é sorteado no banco: longo e imprevisível, nunca adivinhável pelo título.
+  sala text not null default ('InstitutoLucia-' || replace(gen_random_uuid()::text, '-', '')),
+  status text not null default 'agendada' check (status in ('agendada', 'ao_vivo', 'encerrada', 'cancelada')),
+  organizador uuid not null references interno.perfis (id) on delete cascade,
+  ata text not null default '' check (char_length(ata) <= 20000),
+  iniciada_em timestamptz,
+  encerrada_em timestamptz,
+  criado_em timestamptz not null default now()
+);
+create index if not exists reunioes_inicio on interno.reunioes (inicio);
+create table if not exists interno.reunioes_convites (
+  reuniao uuid not null references interno.reunioes (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  primary key (reuniao, usuario)
+);
+create table if not exists interno.reunioes_presencas (
+  id uuid primary key default gen_random_uuid(),
+  reuniao uuid not null references interno.reunioes (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  entrou_em timestamptz not null default now(),
+  saiu_em timestamptz
+);
+create index if not exists reunioes_presencas_reuniao on interno.reunioes_presencas (reuniao);
+create table if not exists interno.reunioes_propostas (
+  id uuid primary key default gen_random_uuid(),
+  autor uuid not null references interno.perfis (id) on delete cascade,
+  titulo text not null check (char_length(titulo) between 3 and 140),
+  assunto text not null default '' check (char_length(assunto) <= 2000),
+  inicio timestamptz not null,
+  duracao integer not null default 60 check (duracao between 15 and 480),
+  convidados text not null default '' check (char_length(convidados) <= 500),
+  status text not null default 'pendente' check (status in ('pendente', 'aprovada', 'recusada', 'reagendada')),
+  resposta text not null default '' check (char_length(resposta) <= 500),
+  reuniao uuid references interno.reunioes (id) on delete set null,
+  decidido_por uuid references interno.perfis (id) on delete set null,
+  decidido_em timestamptz,
+  criado_em timestamptz not null default now()
+);
+alter table interno.reunioes enable row level security;
+alter table interno.reunioes_convites enable row level security;
+alter table interno.reunioes_presencas enable row level security;
+alter table interno.reunioes_propostas enable row level security;
+
+/** Posso entrar nesta reunião? Aberta a todos os voluntários; da coordenação, só quem gere cargos; de convidados, quem está na lista (e quem organiza). */
+create or replace function interno.reuniao_entra(r interno.reunioes) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select auth.uid() is not null and (
+    r.organizador = auth.uid() or interno.gere_cargos()
+    or (r.tipo = 'aberta' and interno.voluntario())
+    or (r.tipo = 'convidados' and exists (select 1 from reunioes_convites c where c.reuniao = r.id and c.usuario = auth.uid())))
+$$;
+
+create or replace function interno.reuniao_json(r interno.reunioes) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'id', r.id, 'titulo', r.titulo, 'pauta', r.pauta, 'inicio', r.inicio, 'duracao', r.duracao, 'tipo', r.tipo, 'recorrencia', r.recorrencia,
+    'link_pauta', r.link_pauta, 'status', r.status, 'ata', r.ata, 'iniciada_em', r.iniciada_em, 'encerrada_em', r.encerrada_em, 'criado_em', r.criado_em,
+    'organizador', jsonb_build_object('id', r.organizador, 'nome', coalesce((select interno.nome_visto(f.nome) from perfis f where f.id = r.organizador), '')),
+    'conduzo', r.organizador = auth.uid() or interno.gere_cargos(),
+    'posso_entrar', interno.reuniao_entra(r),
+    -- A sala só vai para quem pode entrar, e nunca de uma reunião cancelada ou encerrada.
+    'sala', case when interno.reuniao_entra(r) and r.status in ('agendada', 'ao_vivo') then r.sala end,
+    'convidados', (select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', interno.nome_visto(f.nome)) order by f.nome), '[]'::jsonb) from reunioes_convites c join perfis f on f.id = c.usuario where c.reuniao = r.id),
+    'presentes', (select count(distinct p.usuario) from reunioes_presencas p where p.reuniao = r.id),
+    'presencas', case when r.organizador = auth.uid() or interno.gere_cargos()
+      then (select coalesce(jsonb_agg(jsonb_build_object('nome', interno.nome_visto(f.nome), 'entrou_em', p.entrou_em, 'saiu_em', p.saiu_em) order by p.entrou_em), '[]'::jsonb) from reunioes_presencas p join perfis f on f.id = p.usuario where p.reuniao = r.id)
+      else '[]'::jsonb end)
+$$;
+
+/** Cria ou altera uma reunião. Coordenação, coordenação pedagógica e supervisão. */
+create or replace function public.reuniao_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r reunioes; v_inicio timestamptz; v_conv uuid[]; c uuid;
+begin
+  if not interno.gere_cargos() then perform interno.erro('sem_permissao'); end if;
+  begin v_inicio := (p ->> 'inicio')::timestamptz; exception when others then perform interno.erro('invalido:inicio'); end;
+  if v_inicio is null or v_inicio > now() + interval '365 days' then perform interno.erro('invalido:inicio'); end if;
+  if coalesce(p ->> 'tipo', 'aberta') not in ('aberta', 'coordenacao', 'convidados') then perform interno.erro('invalido:tipo'); end if;
+  v_conv := coalesce((select array_agg((x #>> '{}')::uuid) from jsonb_array_elements(coalesce(p -> 'convidados', '[]'::jsonb)) x), '{}');
+  if cardinality(v_conv) > 200 then perform interno.erro('invalido:convidados'); end if;
+  if p_id is null then
+    insert into reunioes (titulo, pauta, inicio, duracao, tipo, recorrencia, link_pauta, organizador)
+    values (interno.txt(p ->> 'titulo', 'titulo', 3, 140), interno.txt(coalesce(p ->> 'pauta', ''), 'pauta', 0, 4000), v_inicio, coalesce((p ->> 'duracao')::int, 60),
+            coalesce(p ->> 'tipo', 'aberta'), coalesce(p ->> 'recorrencia', ''), coalesce(p ->> 'link_pauta', ''), v)
+    returning * into r;
+  else
+    update reunioes set titulo = interno.txt(p ->> 'titulo', 'titulo', 3, 140), pauta = interno.txt(coalesce(p ->> 'pauta', ''), 'pauta', 0, 4000), inicio = v_inicio,
+      duracao = coalesce((p ->> 'duracao')::int, duracao), tipo = coalesce(p ->> 'tipo', tipo), recorrencia = coalesce(p ->> 'recorrencia', recorrencia), link_pauta = coalesce(p ->> 'link_pauta', link_pauta)
+    where id = p_id returning * into r;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  delete from reunioes_convites where reuniao = r.id;
+  foreach c in array v_conv loop
+    if interno.da_equipe(c) then
+      insert into reunioes_convites (reuniao, usuario) values (r.id, c) on conflict do nothing;
+      if c <> v then perform interno.avisar(c, 'Você foi convidado para a reunião “' || r.titulo || '”, em ' || to_char(r.inicio at time zone 'America/Sao_Paulo', 'DD/MM HH24:MI') || '. Veja em Reuniões.'); end if;
+    end if;
+  end loop;
+  perform interno.registrar('reuniao_salva', r.id::text, jsonb_build_object('titulo', r.titulo, 'tipo', r.tipo));
+  return interno.reuniao_json(r);
+end $$;
+
+/** As reuniões que posso ver: as próximas e as ao vivo, e as passadas (histórico), nos últimos 180 dias. */
+create or replace function public.reunioes_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(interno.reuniao_json(r) order by r.inicio desc), '[]'::jsonb)
+          from reunioes r where r.inicio > now() - interval '180 days' and (interno.reuniao_entra(r) or r.tipo = 'aberta'));
+end $$;
+
+/** Começar, encerrar (para todos) ou cancelar. Quem organiza e quem gere cargos. */
+create or replace function public.reuniao_estado(p_id uuid, p_status text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r reunioes;
+begin
+  select * into r from reunioes where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (r.organizador = v or interno.gere_cargos()) then perform interno.erro('sem_permissao'); end if;
+  if p_status not in ('ao_vivo', 'encerrada', 'cancelada') then perform interno.erro('invalido:status'); end if;
+  update reunioes set status = p_status,
+    iniciada_em = case when p_status = 'ao_vivo' then coalesce(iniciada_em, now()) else iniciada_em end,
+    encerrada_em = case when p_status in ('encerrada', 'cancelada') then now() else encerrada_em end
+  where id = p_id returning * into r;
+  if p_status = 'encerrada' then update reunioes_presencas set saiu_em = now() where reuniao = p_id and saiu_em is null; end if;
+  if p_status = 'ao_vivo' then
+    -- Quem foi convidado (ou toda a equipe, se aberta) recebe o aviso de que começou.
+    insert into avisos (para, texto)
+    select distinct u, left('A reunião “' || r.titulo || '” começou agora. Entre em Reuniões.', 500)
+    from (select c.usuario as u from reunioes_convites c where c.reuniao = p_id
+          union select p.usuario from papeis p where r.tipo = 'aberta'
+          union select p.usuario from papeis p where r.tipo = 'coordenacao' and p.papel in ('coordenacao', 'vice', 'supervisao')) x where u <> v;
+  end if;
+  -- Reunião recorrente encerrada: a próxima já fica marcada.
+  if p_status = 'encerrada' and r.recorrencia <> '' then
+    insert into reunioes (titulo, pauta, inicio, duracao, tipo, recorrencia, link_pauta, organizador)
+    values (r.titulo, r.pauta, r.inicio + case when r.recorrencia = 'semanal' then interval '7 days' else interval '14 days' end, r.duracao, r.tipo, r.recorrencia, r.link_pauta, r.organizador);
+  end if;
+  perform interno.registrar('reuniao_' || p_status, p_id::text, '{}'::jsonb);
+  return interno.reuniao_json(r);
+end $$;
+
+create or replace function public.reuniao_ata(p_id uuid, p_ata text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r reunioes;
+begin
+  select * into r from reunioes where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (r.organizador = v or interno.gere_cargos()) then perform interno.erro('sem_permissao'); end if;
+  update reunioes set ata = left(coalesce(p_ata, ''), 20000) where id = p_id returning * into r;
+  return interno.reuniao_json(r);
+end $$;
+
+/** Entrei (ou saí) da sala: a lista de presença. */
+create or replace function public.reuniao_presenca(p_id uuid, p_entrou boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r reunioes;
+begin
+  select * into r from reunioes where id = p_id;
+  if not found or not interno.reuniao_entra(r) then perform interno.erro('nao_encontrado'); end if;
+  if p_entrou then
+    if not exists (select 1 from reunioes_presencas where reuniao = p_id and usuario = v and saiu_em is null) then
+      insert into reunioes_presencas (reuniao, usuario) values (p_id, v);
+    end if;
+  else
+    update reunioes_presencas set saiu_em = now() where reuniao = p_id and usuario = v and saiu_em is null;
+  end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Um voluntário propõe uma reunião; a liderança decide. */
+create or replace function public.reuniao_propor(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_inicio timestamptz; v_id uuid; v_titulo text;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('reuniao_propor', 10, 1440);
+  begin v_inicio := (p ->> 'inicio')::timestamptz; exception when others then perform interno.erro('invalido:inicio'); end;
+  if v_inicio is null or v_inicio < now() or v_inicio > now() + interval '180 days' then perform interno.erro('invalido:inicio'); end if;
+  v_titulo := interno.txt(p ->> 'titulo', 'titulo', 3, 140);
+  insert into reunioes_propostas (autor, titulo, assunto, inicio, duracao, convidados)
+  values (v, v_titulo, interno.txt(coalesce(p ->> 'assunto', ''), 'assunto', 0, 2000), v_inicio, least(greatest(coalesce((p ->> 'duracao')::int, 60), 15), 480), left(coalesce(p ->> 'convidados', ''), 500))
+  returning id into v_id;
+  perform interno.avisar_lideranca('Proposta de reunião: “' || v_titulo || '”, para ' || to_char(v_inicio at time zone 'America/Sao_Paulo', 'DD/MM HH24:MI') || '. Decida em Reuniões → Propostas.', v);
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** As propostas: as minhas; para quem gere cargos, todas. */
+create or replace function public.reunioes_propostas() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', p.id, 'titulo', p.titulo, 'assunto', p.assunto, 'inicio', p.inicio, 'duracao', p.duracao, 'convidados', p.convidados,
+                                                        'status', p.status, 'resposta', p.resposta, 'reuniao', p.reuniao, 'criado_em', p.criado_em, 'minha', p.autor = v,
+                                                        'autor', coalesce((select interno.nome_visto(f.nome) from perfis f where f.id = p.autor), ''))
+                                     order by case p.status when 'pendente' then 0 else 1 end, p.inicio desc), '[]'::jsonb)
+          from reunioes_propostas p where p.criado_em > now() - interval '180 days' and (p.autor = v or interno.gere_cargos()));
+end $$;
+
+/** Aprovar (vira reunião de convidados, com o autor dentro), recusar com motivo curto, ou sugerir outro horário. */
+create or replace function public.reuniao_proposta_decidir(p_id uuid, p_status text, p_resposta text default '', p_inicio timestamptz default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); p reunioes_propostas; r reunioes;
+begin
+  if not interno.gere_cargos() then perform interno.erro('sem_permissao'); end if;
+  select * into p from reunioes_propostas where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if p_status not in ('aprovada', 'recusada', 'reagendada') then perform interno.erro('invalido:status'); end if;
+  if p_status = 'aprovada' then
+    insert into reunioes (titulo, pauta, inicio, duracao, tipo, organizador)
+    values (p.titulo, p.assunto || case when p.convidados <> '' then E'\n\nConvidar: ' || p.convidados else '' end, coalesce(p_inicio, p.inicio), p.duracao, 'convidados', v)
+    returning * into r;
+    insert into reunioes_convites (reuniao, usuario) values (r.id, p.autor) on conflict do nothing;
+    insert into reunioes_convites (reuniao, usuario) values (r.id, v) on conflict do nothing;
+  end if;
+  update reunioes_propostas set status = p_status, resposta = left(coalesce(p_resposta, ''), 500), reuniao = r.id, decidido_por = v, decidido_em = now(),
+    inicio = coalesce(p_inicio, inicio) where id = p_id;
+  perform interno.avisar(p.autor, case p_status when 'aprovada' then 'Sua proposta de reunião “' || p.titulo || '” foi aprovada: ' || to_char(coalesce(p_inicio, p.inicio) at time zone 'America/Sao_Paulo', 'DD/MM HH24:MI') || '. Veja em Reuniões.'
+                                   when 'recusada' then 'Sua proposta de reunião “' || p.titulo || '” não foi aprovada. ' || coalesce(p_resposta, '')
+                                   else 'Sua proposta de reunião “' || p.titulo || '” ganhou outro horário: ' || to_char(coalesce(p_inicio, p.inicio) at time zone 'America/Sao_Paulo', 'DD/MM HH24:MI') || '. ' || coalesce(p_resposta, '') end);
+  perform interno.registrar('reuniao_proposta_' || p_status, p_id::text, '{}'::jsonb);
+  return jsonb_build_object('ok', true, 'reuniao', r.id);
+end $$;
 
 -- ───────────────────────────── Aulas ao vivo ─────────────────────────────
 
