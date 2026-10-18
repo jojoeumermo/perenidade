@@ -1587,7 +1587,7 @@ await espera("a coordenação vê quem está em conversa privada, sem o conteúd
 await recusa("a vice não vê a lista de conversas privadas", () => rpc(como(ids.vice), "chat_privadas"), "sem_permissao");
 
 // ── Materiais de campanha ──
-const material = (extra = {}) => ({ tipo: "panfleto", titulo: "Panfleto da jornada de lutas", descricao: "Frente e verso, A5.", campanha: "Jornada de lutas", url: "/arquivos/abc123.pdf", publicado: true, ...extra });
+const material = (extra = {}) => ({ tipo: "panfleto", titulo: "Panfleto da jornada de lutas", descricao: "Frente e verso, A5.", campanha: "Jornada de lutas", url: "/arquivos/abc123.pdf", publicado: true, credito_autor: "Equipe do instituto", credito_origem: "Feito pelo instituto", licenca: "cc-by-sa", ...extra });
 let materialId;
 await recusa("educador não cadastra material", () => rpc(como(ids.prof), "material_salvar", { p: material() }), "sem_permissao");
 await recusa("endereço estranho é recusado", () => rpc(como(ids.designer), "material_salvar", { p: material({ url: "javascript:alert(1)" }) }), "invalido:url");
@@ -2028,7 +2028,7 @@ await recusa("revisor não apaga item do calendário", () => rpc(como(ids.alvo),
 await recusa("marketing não define o perfil do Instagram", () => rpc(mkt, "divulgacao_instagram_salvar", { p_url: "https://www.instagram.com/institutolucia" }), "sem_permissao");
 await recusa("o perfil só aceita endereço do Instagram", () => rpc(C1, "divulgacao_instagram_salvar", { p_url: "https://golpe.exemplo/login" }), "invalido:instagram");
 await espera("coordenação indica o perfil e o marketing vê", async () => { await rpc(C1, "divulgacao_instagram_salvar", { p_url: "https://www.instagram.com/institutolucia" }); return rpc(mkt, "divulgacao_listar"); }, (r) => r.instagram === "https://www.instagram.com/institutolucia");
-await espera("marketing prepara materiais, como o design", () => rpc(mkt, "material_salvar", { p: { tipo: "cartaz", titulo: "Cartaz da aula aberta", descricao: "Cartaz A3.", campanha: "", url: "https://exemplo.org/cartaz" } }), (r) => Boolean(r.id));
+await espera("marketing prepara materiais, como o design", () => rpc(mkt, "material_salvar", { p: { credito_autor: "Equipe do instituto", credito_origem: "Feito pelo instituto", licenca: "cc-by-sa", tipo: "cartaz", titulo: "Cartaz da aula aberta", descricao: "Cartaz A3.", campanha: "", url: "https://exemplo.org/cartaz" } }), (r) => Boolean(r.id));
 await espera("marketing vê o canal dele e o do design no mural da equipe", () => rpc(mkt, "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "aprendizado", "design", "marketing"]));
 await espera("marketing apaga um item do calendário", () => rpc(mkt, "divulgacao_apagar", { p_id: post.id }), (r) => r.ok);
 
@@ -2745,6 +2745,23 @@ await espera("quem saiu do painel com acesso gera lembrete para a coordenação"
   const aviso = await dono("select count(*)::int as n from interno.avisos where texto like '%ainda aparece com acesso ao Instagram%'");
   return { fora: lista.find((a) => a.pessoa === marketing)?.na_equipe, avisos: aviso.rows[0].n };
 }, (r) => r.fora === false && r.avisos >= 1);
+
+// ── Materiais: arquivo no próprio formulário, crédito e licença obrigatórios, regras de candidatura ──
+const designer = como(ids.designer);
+const base = { tipo: "cartaz", titulo: "Cartaz da jornada", url: "https://exemplo.org/cartaz.pdf", credito_autor: "Equipe de design", credito_origem: "Feito pelo instituto", licenca: "cc-by-sa" };
+await recusa("material sem crédito não entra", () => rpc(designer, "material_salvar", { p: { ...base, credito_autor: "" } }), "invalido:credito_autor");
+await recusa("material sem licença não entra", () => rpc(designer, "material_salvar", { p: { ...base, licenca: "" } }), "invalido:licenca");
+await recusa("apoio a candidatura pede quem responde", () => rpc(designer, "material_salvar", { p: { ...base, candidatura: true, candidatura_sem_impulsionamento: true } }), "invalido:candidatura_responsavel");
+await recusa("e que não haja impulsionamento pago", () => rpc(designer, "material_salvar", { p: { ...base, candidatura: true, candidatura_responsavel: "Fulana de Tal, CPF 000" } }), "invalido:candidatura_impulsionamento");
+const hojeIso = (await dono("select current_date::text as d")).rows[0].d;
+await recusa("não publica novidade de candidatura no dia da votação", () => rpc(C1, "material_salvar", { p: { ...base, publicado: true, candidatura: true, candidatura_responsavel: "Fulana de Tal, CPF 000", candidatura_sem_impulsionamento: true, candidatura_votacao: hojeIso } }), "candidatura_dia_da_votacao");
+const arquivoDoForm = (await dono("insert into interno.arquivos (caminho, nome, dono) values ($1, 'Cartaz em PDF', $2) returning id", [`${ids.designer}/cartaz-teste-01.pdf`, ids.designer])).rows[0].id;
+const comArquivo = await rpc(designer, "material_salvar", { p: { ...base, url: "", arquivo: arquivoDoForm } });
+await espera("com o arquivo do formulário, o material fica esperando a publicação", () => rpc(designer, "materiais_listar"), (r) => r.some((m) => m.id === comArquivo.id && m.url === "" && m.estado === "rascunho" && m.arquivo === arquivoDoForm));
+await recusa("e não vai ao ar sem o arquivo publicado", () => rpc(C1, "material_salvar", { p: { ...base, id: comArquivo.id, url: "", arquivo: arquivoDoForm, publicado: true } }), "arquivo_nao_publicado");
+await espera("publicado o arquivo, o endereço aparece sozinho", async () => { await dono("update interno.arquivos set status = 'publicado', destino = '/arquivos/0123456789abcdef0123.pdf' where id = $1", [arquivoDoForm]); return rpc(designer, "materiais_listar"); }, (r) => r.some((m) => m.id === comArquivo.id && m.url === "/arquivos/0123456789abcdef0123.pdf" && m.estado === "aprovado"));
+await recusa("arquivo de outra pessoa não se usa", async () => { const outro = (await dono("insert into interno.arquivos (caminho, nome, dono) values ($1, 'Outro', $2) returning id", [`${ids.prof}/outro-arquivo-01.pdf`, ids.prof])).rows[0].id; return rpc(designer, "material_salvar", { p: { ...base, url: "", arquivo: outro } }); }, "invalido:arquivo");
+await espera("o público vê crédito e licença, e não vê o arquivo interno", async () => { await rpc(C1, "material_salvar", { p: { ...base, id: comArquivo.id, url: "", arquivo: arquivoDoForm, publicado: true } }); return rpc(anon, "materiais_listar"); }, (r) => r.some((m) => m.id === comArquivo.id && m.licenca === "cc-by-sa" && m.credito_autor === "Equipe de design" && m.arquivo == null && m.arquivo_caminho == null));
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
