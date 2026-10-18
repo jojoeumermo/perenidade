@@ -2783,6 +2783,24 @@ await recusa("e ninguém reserva o que já está a caminho", () => rpc(como(outr
 await espera("o glossário da trilha guarda um termo", async () => { await rpc(como(tradutor), "traducao_glossario_salvar", { p_trilha: "matematica-fundamental", p_idioma: "en", p_termo: "fração", p_traducao: "fraction", p_nota: "" }); return rpc(como(outroTradutor), "traducao_glossario", { p_trilha: "matematica-fundamental", p_idioma: "en" }); }, (r) => r.length === 1 && r[0].traducao === "fraction");
 await recusa("quem não traduz não mexe no glossário", () => rpc(como(ids.designer), "traducao_glossario_salvar", { p_trilha: "matematica-fundamental", p_idioma: "en", p_termo: "x", p_traducao: "y" }), "sem_permissao");
 
+// ── Assistente com vários provedores e o "quem mudou" dos controles ──
+await espera("a lista de provedores nasce com o Claude ligado e os outros desligados", () => rpc(C1, "assistente_controles"), (r) => r.provedores[0].id === "anthropic" && r.provedores[0].ligado === true && r.provedores.length === 5 && r.provedores.slice(1).every((p) => p.ligado === false));
+await recusa("provedor desconhecido é recusado", () => rpc(C1, "assistente_configurar", { p: { provedores: [{ id: "chatgpt-pirata", ligado: true }] } }), "invalido:provedores");
+await recusa("provedor repetido é recusado", () => rpc(C1, "assistente_configurar", { p: { provedores: [{ id: "groq", ligado: true }, { id: "groq", ligado: false }] } }), "invalido:provedores");
+await espera("a coordenação põe o Groq primeiro e o Gemini de reserva", () => rpc(C1, "assistente_configurar", { p: { provedores: [{ id: "groq", ligado: true }, { id: "gemini", ligado: true }, { id: "anthropic", ligado: false }] } }), (r) => r.provedores.map((p) => p.id).join() === "groq,gemini,anthropic,cerebras,openrouter");
+await espera("a função recebe só os ligados, na ordem", () => rpc(servico, "assistente_provedores"), (r) => JSON.stringify(r.ordem) === JSON.stringify(["groq", "gemini"]));
+await recusa("só a função lê a ordem", () => rpc(C1, "assistente_provedores"), "sem_permissao");
+await espera("o consumo do dia conta quem respondeu e quem falhou no caminho", async () => {
+  await rpc(servico, "assistente_resultado", { p: { ok: true, provedor: "gemini", tentativas: [{ id: "groq", falha: "limite" }] } });
+  return rpc(C1, "assistente_controles");
+}, (r) => r.uso_provedores.gemini.ok === 1 && r.uso_provedores.groq.falhas === 1 && r.ultimo.provedor === "gemini");
+await espera("a verificação guarda um resultado por provedor, sem chave", async () => {
+  await rpc(servico, "assistente_verificacao", { p: { chave: true, ok: true, modelo: "x", provedores: [{ id: "groq", chave: true, ok: true, modelo: "llama" }, { id: "inventado", chave: true }] } });
+  return rpc(C1, "assistente_controles");
+}, (r) => r.verificacao.provedores.length === 1 && r.verificacao.provedores[0].id === "groq" && !JSON.stringify(r.verificacao).includes("inventado"));
+await espera("os controles dizem quem mudou e quando", () => rpc(C1, "controles_mudancas"), (r) => r.assistente_configurado && r.assistente_configurado.nome && r.assistente_configurado.em);
+await recusa("quem não coordena não vê o histórico dos controles", () => rpc(como(ids.prof), "controles_mudancas"), "sem_permissao");
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);

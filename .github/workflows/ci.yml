@@ -43,6 +43,8 @@ jobs:
       - run: npm run testar:blocos
       # O estudo guardado no navegador: repetição espaçada, caderno de erros e a cópia (que não leva chave de aparelho).
       - run: npm run testar:estudo
+      # O assistente de reforço sem rede: o que se aceita, o pedido a cada provedor, a reserva e a leitura das respostas.
+      - run: npm run testar:assistente
       # As áreas que a coordenação pode tirar do ar cobrem todas as rotas públicas.
       - run: npm run testar:interdicao
       # O build lê e valida todo o conteúdo de content/: arquivo inválido falha aqui.
