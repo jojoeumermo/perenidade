@@ -44,6 +44,7 @@
     "memorial": "Memorial",
     "dedication": "Dedication",
     "team": "Who we are",
+    "labs": "Labs",
     "contribute": "Contribute",
     "more": "More",
     "search": "Search",
@@ -84,6 +85,33 @@
     "podcasts": "Podcasts",
     "live": "Live classes",
     "notebook": "Study notebook"
+  },
+  "labs": {
+    "eyebrow": "Real practice",
+    "title": "Labs",
+    "lead": "Code, build networks, use the terminal, train security and simulate science, all in the browser and without sending anything to any server.",
+    "ide": "IDE",
+    "ideLead": "Python, PHP, Web, JavaScript and SQL, with files, exercises and project download.",
+    "redes": "Network Lab",
+    "redesLead": "Build the network, set IPs, VLANs and routes and watch the packet travel.",
+    "linux": "Linux terminal",
+    "linuxLead": "A shell with a virtual file system and guided exercises.",
+    "montador": "PC builder",
+    "montadorLead": "Fit the right parts and diagnose the computer that will not turn on.",
+    "ia": "AI Lab",
+    "iaLead": "Watch the machine learn: a line fitting points and a tiny network.",
+    "planilha": "Spreadsheet",
+    "planilhaLead": "Formulas, chart and CSV, in the browser.",
+    "seguranca": "Security Lab",
+    "segurancaLead": "Phishing, logs and passwords in a training-only sandbox: the defence for each attack.",
+    "simulacoes": "Simulations (PhET)",
+    "simulacoesLead": "Physics, chemistry, biology and maths through PhET's official iframe.",
+    "creditos": "Credits and licences",
+    "exercicios": "Exercises",
+    "livre": "Free mode",
+    "concluido": "done",
+    "voltar": "Back to the labs",
+    "ptOnly": "Exercises are in Portuguese."
   },
   "lists": {
     "find": "Search this page",
@@ -1287,6 +1315,14 @@
     "goTo": "see the passage"
   },
   "toolNames": {
+    "ide": [
+      "IDE in the browser",
+      "Editor with files, run and output for Python, PHP, Web, JavaScript and SQL. Nothing leaves your device."
+    ],
+    "simulacoes": [
+      "Simulations (PhET)",
+      "Interactive physics, chemistry, biology and maths simulations from the University of Colorado, inside the lesson."
+    ],
     "python": [
       "Python in the browser",
       "Write and run Python code without installing anything."

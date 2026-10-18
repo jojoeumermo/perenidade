@@ -33,6 +33,7 @@
     "importar:catalogo": "node scripts/importar-catalogo.mjs"
   },
   "dependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "@supabase/supabase-js": "^2.117.3",
     "github-slugger": "^2.0.0",
     "js-yaml": "^4.3.2",
@@ -53,7 +54,6 @@
     "remark-math": "^6.0.0"
   },
   "devDependencies": {
-    "@electric-sql/pglite": "^0.5.8",
     "@tailwindcss/postcss": "^4",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20",

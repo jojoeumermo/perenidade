@@ -1,0 +1,364 @@
+[
+  {
+    "id": "sql-01-select",
+    "perfil": "sql",
+    "titulo": "Todos os alunos",
+    "enunciado": "Liste o nome de todos os alunos em ordem alfabética.",
+    "arquivos": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": "-- tabelas: turmas(id, nome), alunos(id, nome, turma, nascimento), notas(aluno, disciplina, nota)\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "linhas",
+        "esperado": [
+          [
+            "Ana"
+          ],
+          [
+            "Bruno"
+          ],
+          [
+            "Carla"
+          ],
+          [
+            "Davi"
+          ],
+          [
+            "Elisa"
+          ],
+          [
+            "Fábio"
+          ]
+        ]
+      }
+    ],
+    "dicas": [
+      "select nome from alunos order by nome;"
+    ],
+    "nivel": 1,
+    "solucao": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": "select nome from alunos order by nome;\n"
+      }
+    ]
+  },
+  {
+    "id": "sql-02-where",
+    "perfil": "sql",
+    "titulo": "Quem nasceu em 2009",
+    "enunciado": "Liste o nome de quem nasceu em 2009, em ordem alfabética.",
+    "arquivos": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "linhas",
+        "esperado": [
+          [
+            "Ana"
+          ],
+          [
+            "Bruno"
+          ],
+          [
+            "Carla"
+          ]
+        ]
+      }
+    ],
+    "dicas": [
+      "extract(year from nascimento) = 2009",
+      "Ou: nascimento between '2009-01-01' and '2009-12-31'"
+    ],
+    "nivel": 1,
+    "solucao": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": "select nome from alunos where extract(year from nascimento) = 2009 order by nome;\n"
+      }
+    ]
+  },
+  {
+    "id": "sql-03-join",
+    "perfil": "sql",
+    "titulo": "Aluno e turma",
+    "enunciado": "Liste nome do aluno e nome da turma, em ordem alfabética do aluno.",
+    "arquivos": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "linhas",
+        "esperado": [
+          [
+            "Ana",
+            "1º ano A"
+          ],
+          [
+            "Bruno",
+            "1º ano A"
+          ],
+          [
+            "Carla",
+            "1º ano B"
+          ],
+          [
+            "Davi",
+            "1º ano B"
+          ],
+          [
+            "Elisa",
+            "2º ano A"
+          ],
+          [
+            "Fábio",
+            "2º ano A"
+          ]
+        ]
+      }
+    ],
+    "dicas": [
+      "join turmas t on t.id = a.turma"
+    ],
+    "nivel": 2,
+    "solucao": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": "select a.nome, t.nome from alunos a join turmas t on t.id = a.turma order by a.nome;\n"
+      }
+    ]
+  },
+  {
+    "id": "sql-04-media",
+    "perfil": "sql",
+    "titulo": "Média por aluno",
+    "enunciado": "Para cada aluno, a média das notas com uma casa decimal, do maior para o menor (e por nome em caso de empate).",
+    "arquivos": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "linhas",
+        "esperado": [
+          [
+            "Carla",
+            "8.8"
+          ],
+          [
+            "Ana",
+            "8.8"
+          ],
+          [
+            "Elisa",
+            "8.3"
+          ],
+          [
+            "Fábio",
+            "7.5"
+          ],
+          [
+            "Bruno",
+            "6.8"
+          ],
+          [
+            "Davi",
+            "6.0"
+          ]
+        ]
+      }
+    ],
+    "dicas": [
+      "round(avg(n.nota), 1)",
+      "group by a.nome order by 2 desc, a.nome"
+    ],
+    "nivel": 2,
+    "solucao": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": "select a.nome, round(avg(n.nota), 1) as media from alunos a join notas n on n.aluno = a.id group by a.nome order by media desc, a.nome desc;\n"
+      }
+    ]
+  },
+  {
+    "id": "sql-05-having",
+    "perfil": "sql",
+    "titulo": "Turmas com média acima de 7,5",
+    "enunciado": "Nome da turma e média (uma casa) só das turmas com média acima de 7,5, da maior para a menor.",
+    "arquivos": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "linhas",
+        "esperado": [
+          [
+            "1º ano A",
+            "7.8"
+          ],
+          [
+            "2º ano A",
+            "7.9"
+          ]
+        ]
+      }
+    ],
+    "dicas": [
+      "having avg(n.nota) > 7.5",
+      "Dica: confira a ordem pedida."
+    ],
+    "nivel": 2,
+    "solucao": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": "select t.nome, round(avg(n.nota), 1) as media from turmas t join alunos a on a.turma = t.id join notas n on n.aluno = a.id group by t.nome having avg(n.nota) > 7.5 order by t.nome;\n"
+      }
+    ]
+  },
+  {
+    "id": "sql-06-insert",
+    "perfil": "sql",
+    "titulo": "Matricular uma aluna",
+    "enunciado": "Insira a aluna Gabi (id 7, turma 1, nascida em 2009-09-09) e depois liste os nomes da turma 1 em ordem alfabética.",
+    "arquivos": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "linhas",
+        "esperado": [
+          [
+            "Ana"
+          ],
+          [
+            "Bruno"
+          ],
+          [
+            "Gabi"
+          ]
+        ]
+      }
+    ],
+    "dicas": [
+      "insert into alunos values (7, 'Gabi', 1, '2009-09-09');",
+      "A última consulta é a que aparece na tabela."
+    ],
+    "nivel": 2,
+    "solucao": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": "insert into alunos values (7, 'Gabi', 1, '2009-09-09');\nselect nome from alunos where turma = 1 order by nome;\n"
+      }
+    ]
+  },
+  {
+    "id": "sql-07-update",
+    "perfil": "sql",
+    "titulo": "Corrigir uma nota",
+    "enunciado": "A nota de matemática do Davi era 7.5, não 5.5. Corrija e mostre nome e nota de matemática de todos, em ordem alfabética.",
+    "arquivos": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "linhas",
+        "esperado": [
+          [
+            "Ana",
+            "8.5"
+          ],
+          [
+            "Bruno",
+            "6.0"
+          ],
+          [
+            "Carla",
+            "9.5"
+          ],
+          [
+            "Davi",
+            "7.5"
+          ],
+          [
+            "Elisa",
+            "7.0"
+          ],
+          [
+            "Fábio",
+            "8.0"
+          ]
+        ]
+      }
+    ],
+    "dicas": [
+      "update notas set nota = 7.5 where aluno = 4 and disciplina = 'matemática';"
+    ],
+    "nivel": 3,
+    "solucao": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": "update notas set nota = 7.5 where aluno = 4 and disciplina = 'matemática';\nselect a.nome, n.nota from alunos a join notas n on n.aluno = a.id where n.disciplina = 'matemática' order by a.nome;\n"
+      }
+    ]
+  },
+  {
+    "id": "sql-08-subconsulta",
+    "perfil": "sql",
+    "titulo": "Acima da média geral",
+    "enunciado": "Liste o nome de quem tem média pessoal acima da média geral de todas as notas, em ordem alfabética.",
+    "arquivos": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "linhas",
+        "esperado": [
+          [
+            "Ana"
+          ],
+          [
+            "Carla"
+          ],
+          [
+            "Elisa"
+          ]
+        ]
+      }
+    ],
+    "dicas": [
+      "(select avg(nota) from notas) é a média geral.",
+      "having avg(n.nota) > (select avg(nota) from notas)"
+    ],
+    "nivel": 3,
+    "solucao": [
+      {
+        "nome": "consulta.sql",
+        "conteudo": "select a.nome from alunos a join notas n on n.aluno = a.id group by a.nome having avg(n.nota) > (select avg(nota) from notas) order by a.nome;\n"
+      }
+    ]
+  }
+]

@@ -1,0 +1,276 @@
+[
+  {
+    "id": "web-01-titulo",
+    "perfil": "web",
+    "titulo": "Título e parágrafo",
+    "enunciado": "Dentro do body, ponha um título h1 com o texto “Instituto Lúcia” e um parágrafo com qualquer texto.",
+    "arquivos": [
+      {
+        "nome": "index.html",
+        "conteudo": "<!doctype html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Exercício</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n"
+      },
+      {
+        "nome": "style.css",
+        "conteudo": ""
+      },
+      {
+        "nome": "script.js",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "html",
+        "seletor": "h1",
+        "texto": "Instituto Lúcia"
+      },
+      {
+        "tipo": "html",
+        "seletor": "p"
+      }
+    ],
+    "dicas": [
+      "<h1>…</h1> é o título principal; <p>…</p> é um parágrafo."
+    ],
+    "nivel": 1
+  },
+  {
+    "id": "web-02-lista",
+    "perfil": "web",
+    "titulo": "Uma lista de links",
+    "enunciado": "Crie uma lista não ordenada (ul) com três itens (li), cada um com um link (a) para uma página do instituto.",
+    "arquivos": [
+      {
+        "nome": "index.html",
+        "conteudo": "<!doctype html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Exercício</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n"
+      },
+      {
+        "nome": "style.css",
+        "conteudo": ""
+      },
+      {
+        "nome": "script.js",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "html",
+        "seletor": "ul li:nth-child(3) a"
+      }
+    ],
+    "dicas": [
+      "<ul><li><a href=\"/pt/trilhas\">Disciplinas</a></li>…</ul>"
+    ],
+    "nivel": 1
+  },
+  {
+    "id": "web-03-imagem",
+    "perfil": "web",
+    "titulo": "Imagem com texto alternativo",
+    "enunciado": "Ponha uma imagem (img) com o atributo alt descrevendo a imagem, dentro de uma figure com figcaption.",
+    "arquivos": [
+      {
+        "nome": "index.html",
+        "conteudo": "<!doctype html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Exercício</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n"
+      },
+      {
+        "nome": "style.css",
+        "conteudo": ""
+      },
+      {
+        "nome": "script.js",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "html",
+        "seletor": "figure img[alt]"
+      },
+      {
+        "tipo": "html",
+        "seletor": "figure figcaption"
+      }
+    ],
+    "dicas": [
+      "Use /marca-96.png como src.",
+      "O alt é o texto para quem não vê a imagem."
+    ],
+    "nivel": 1
+  },
+  {
+    "id": "web-04-css",
+    "perfil": "web",
+    "titulo": "Cor e letra pelo CSS",
+    "enunciado": "No style.css, faça o body ter fundo #f4ecd8 e o h1 ficar com a cor #6e1f1a. Mantenha o h1 “Instituto Lúcia”.",
+    "arquivos": [
+      {
+        "nome": "index.html",
+        "conteudo": "<!doctype html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Exercício</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <h1>Instituto Lúcia</h1>\n  <script src=\"script.js\"></script>\n</body>\n</html>\n"
+      },
+      {
+        "nome": "style.css",
+        "conteudo": "/* escreva aqui */\n"
+      },
+      {
+        "nome": "script.js",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "html",
+        "seletor": "h1",
+        "texto": "Instituto Lúcia"
+      },
+      {
+        "tipo": "html",
+        "seletor": "link[href='style.css'], style"
+      }
+    ],
+    "dicas": [
+      "body { background: #f4ecd8; }",
+      "h1 { color: #6e1f1a; }"
+    ],
+    "nivel": 1
+  },
+  {
+    "id": "web-05-formulario",
+    "perfil": "web",
+    "titulo": "Um formulário acessível",
+    "enunciado": "Crie um form com um label ligado a um input de texto (pelo atributo for e id) e um botão de enviar.",
+    "arquivos": [
+      {
+        "nome": "index.html",
+        "conteudo": "<!doctype html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Exercício</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n"
+      },
+      {
+        "nome": "style.css",
+        "conteudo": ""
+      },
+      {
+        "nome": "script.js",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "html",
+        "seletor": "form label[for]"
+      },
+      {
+        "tipo": "html",
+        "seletor": "form input#nome, form input[id]"
+      },
+      {
+        "tipo": "html",
+        "seletor": "form button, form input[type=submit]"
+      }
+    ],
+    "dicas": [
+      "<label for=\"nome\">Nome</label><input id=\"nome\">"
+    ],
+    "nivel": 2
+  },
+  {
+    "id": "web-06-clique",
+    "perfil": "web",
+    "titulo": "Reagir ao clique",
+    "enunciado": "Há um botão #botao e um parágrafo #saida. No script.js, ao clicar no botão, escreva “Clicou!” no parágrafo (use textContent).",
+    "arquivos": [
+      {
+        "nome": "index.html",
+        "conteudo": "<!doctype html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Exercício</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n  <button id=\"botao\">Clique</button>\n  <p id=\"saida\"></p>\n  <script src=\"script.js\"></script>\n</body>\n</html>\n"
+      },
+      {
+        "nome": "style.css",
+        "conteudo": ""
+      },
+      {
+        "nome": "script.js",
+        "conteudo": "// document.getElementById e addEventListener\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "html",
+        "seletor": "#botao"
+      },
+      {
+        "tipo": "html",
+        "seletor": "#saida"
+      }
+    ],
+    "dicas": [
+      "document.getElementById(\"botao\").addEventListener(\"click\", () => { … })",
+      "Teste clicando na prévia: o texto deve aparecer."
+    ],
+    "nivel": 2
+  },
+  {
+    "id": "web-07-tabela",
+    "perfil": "web",
+    "titulo": "Tabela de preços",
+    "enunciado": "Monte uma table com thead (duas colunas: Produto e Preço) e pelo menos três linhas no tbody.",
+    "arquivos": [
+      {
+        "nome": "index.html",
+        "conteudo": "<!doctype html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Exercício</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n"
+      },
+      {
+        "nome": "style.css",
+        "conteudo": "table { border-collapse: collapse; } td, th { border: 1px solid #999; padding: 4px 8px; }\n"
+      },
+      {
+        "nome": "script.js",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "html",
+        "seletor": "table thead th"
+      },
+      {
+        "tipo": "html",
+        "seletor": "table tbody tr:nth-child(3) td"
+      }
+    ],
+    "dicas": [
+      "<table><thead><tr><th>Produto</th><th>Preço</th></tr></thead><tbody>…</tbody></table>"
+    ],
+    "nivel": 2
+  },
+  {
+    "id": "web-08-responsivo",
+    "perfil": "web",
+    "titulo": "Duas colunas que viram uma",
+    "enunciado": "Crie uma div.grade com dois artigos (article). No CSS, use display: grid com duas colunas; numa media query (max-width: 600px), uma coluna só.",
+    "arquivos": [
+      {
+        "nome": "index.html",
+        "conteudo": "<!doctype html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Exercício</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body>\n\n  <script src=\"script.js\"></script>\n</body>\n</html>\n"
+      },
+      {
+        "nome": "style.css",
+        "conteudo": "/* .grade { display: grid; grid-template-columns: 1fr 1fr; } */\n"
+      },
+      {
+        "nome": "script.js",
+        "conteudo": ""
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "html",
+        "seletor": ".grade article:nth-child(2)"
+      }
+    ],
+    "dicas": [
+      "@media (max-width: 600px) { .grade { grid-template-columns: 1fr; } }",
+      "Estreite a janela para ver mudar."
+    ],
+    "nivel": 3
+  }
+]

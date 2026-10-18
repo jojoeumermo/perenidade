@@ -44,6 +44,7 @@
     "memorial": "Memorial",
     "dedication": "Dedicatoria",
     "team": "Quiénes somos",
+    "labs": "Laboratorios",
     "contribute": "Contribuir",
     "more": "Más",
     "search": "Buscar",
@@ -84,6 +85,33 @@
     "podcasts": "Pódcasts",
     "live": "Clases en vivo",
     "notebook": "Cuaderno de estudio"
+  },
+  "labs": {
+    "eyebrow": "Practicar de verdad",
+    "title": "Laboratorios",
+    "lead": "Programar, montar redes, usar la terminal, entrenar seguridad y simular ciencia, todo en el navegador y sin enviar nada a ningún servidor.",
+    "ide": "IDE",
+    "ideLead": "Python, PHP, Web, JavaScript e SQL, com arquivos, exercícios e download do projeto.",
+    "redes": "Laboratorio de Redes",
+    "redesLead": "Monte a rede, configure IPs, VLANs e rotas e veja o pacote andar.",
+    "linux": "Terminal Linux",
+    "linuxLead": "Um shell com sistema de arquivos virtual e exercícios guiados.",
+    "montador": "Armador de computadoras",
+    "montadorLead": "Encaixe as peças certas e diagnostique o computador que não liga.",
+    "ia": "Laboratorio de IA",
+    "iaLead": "Veja a máquina aprender: uma reta que se ajusta aos pontos e uma rede minúscula.",
+    "planilha": "Hoja de cálculo",
+    "planilhaLead": "Fórmulas, gráfico e CSV, no navegador.",
+    "seguranca": "Laboratorio de Seguridad",
+    "segurancaLead": "Phishing, logs e senhas num ambiente só de treino: a defesa de cada ataque.",
+    "simulacoes": "Simulaciones (PhET)",
+    "simulacoesLead": "Física, química, biologia e matemática, pelo iframe oficial do PhET.",
+    "creditos": "Créditos y licencias",
+    "exercicios": "Ejercicios",
+    "livre": "Modo libre",
+    "concluido": "hecho",
+    "voltar": "Volver a los laboratorios",
+    "ptOnly": "Los ejercicios están en portugués."
   },
   "lists": {
     "find": "Buscar en esta página",
@@ -1287,6 +1315,14 @@
     "goTo": "ver el fragmento"
   },
   "toolNames": {
+    "ide": [
+      "IDE en el navegador",
+      "Editor con archivos, ejecución y salida para Python, PHP, Web, JavaScript y SQL. Nada sale de tu aparato."
+    ],
+    "simulacoes": [
+      "Simulaciones (PhET)",
+      "Simulaciones interactivas de física, química, biología y matemáticas de la Universidad de Colorado, dentro de la clase."
+    ],
     "python": [
       "Python en el navegador",
       "Escribe y ejecuta código Python sin instalar nada."

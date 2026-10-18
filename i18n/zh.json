@@ -40,6 +40,7 @@
     "memorial": "纪念馆",
     "dedication": "献词",
     "team": "我们是谁",
+    "labs": "实验室",
     "contribute": "投稿",
     "more": "更多",
     "search": "搜索",
@@ -80,6 +81,33 @@
     "podcasts": "播客",
     "live": "直播课",
     "notebook": "学习笔记本"
+  },
+  "labs": {
+    "eyebrow": "真正的实践",
+    "title": "实验室",
+    "lead": "编程、搭建网络、使用终端、训练安全、模拟科学，全部在浏览器中完成，不向任何服务器发送数据。",
+    "ide": "IDE",
+    "ideLead": "Python, PHP, Web, JavaScript and SQL, with files, exercises and project download.",
+    "redes": "网络实验室",
+    "redesLead": "Build the network, set IPs, VLANs and routes and watch the packet travel.",
+    "linux": "Linux 终端",
+    "linuxLead": "A shell with a virtual file system and guided exercises.",
+    "montador": "电脑组装",
+    "montadorLead": "Fit the right parts and diagnose the computer that will not turn on.",
+    "ia": "人工智能实验室",
+    "iaLead": "Watch the machine learn: a line fitting points and a tiny network.",
+    "planilha": "电子表格",
+    "planilhaLead": "Formulas, chart and CSV, in the browser.",
+    "seguranca": "安全实验室",
+    "segurancaLead": "Phishing, logs and passwords in a training-only sandbox: the defence for each attack.",
+    "simulacoes": "模拟（PhET）",
+    "simulacoesLead": "Physics, chemistry, biology and maths through PhET's official iframe.",
+    "creditos": "致谢与许可",
+    "exercicios": "练习",
+    "livre": "自由模式",
+    "concluido": "已完成",
+    "voltar": "返回实验室",
+    "ptOnly": "练习为葡萄牙语。"
   },
   "lists": {
     "find": "在本页搜索",
@@ -1214,6 +1242,14 @@
     "goTo": "查看这一段"
   },
   "toolNames": {
+    "ide": [
+      "浏览器中的 IDE",
+      "带文件、运行和输出的编辑器，支持 Python、PHP、Web、JavaScript 和 SQL。所有内容都留在你的设备上。"
+    ],
+    "simulacoes": [
+      "模拟（PhET）",
+      "科罗拉多大学的物理、化学、生物和数学互动模拟，直接在课程中使用。"
+    ],
     "python": [
       "浏览器里的 Python",
       "无需安装，直接编写并运行 Python 代码。"
