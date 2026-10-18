@@ -2647,6 +2647,16 @@ await espera("a coordenação aprova e a proposta vira reunião de convidados co
 await espera("entrar registra presença; encerrar fecha a sala e a presença", async () => { await rpc(como(ids.prof), "reuniao_presenca", { p_id: reuniao.id, p_entrou: true }); await rpc(como(ids.coord), "reuniao_estado", { p_id: reuniao.id, p_status: "ao_vivo" }); await rpc(como(ids.coord), "reuniao_estado", { p_id: reuniao.id, p_status: "encerrada" }); return (await rpc(como(ids.coord), "reunioes_listar")).find((x) => x.id === reuniao.id); }, (x) => x.status === "encerrada" && x.presentes === 1 && x.sala === null && x.presencas.length === 1 && Boolean(x.presencas[0].saiu_em));
 await espera("a ata fica no histórico", () => rpc(como(ids.coord), "reuniao_ata", { p_id: reuniao.id, p_ata: "Decidimos X." }), (r) => r.ata === "Decidimos X.");
 
+// ── Currículo pelo painel: a coordenação cria (nasce aprovada), o voluntário sugere, a rotina aplica e marca ──
+await recusa("quem é de fora não propõe currículo", () => rpc(anon, "curriculo_propor", { p_tipo: "trilha", p_dados: { slug: "x-y", titulo: "X" } }), "entre_primeiro");
+await recusa("slug inválido é recusado", () => rpc(como(ids.prof), "curriculo_propor", { p_tipo: "trilha", p_dados: { slug: "Com Espaço", titulo: "Trilha" } }), "invalido:slug");
+await espera("voluntário sugere uma trilha e ela fica pendente", () => rpc(como(ids.prof), "curriculo_propor", { p_tipo: "trilha", p_dados: { slug: "fracoes-na-feira", disciplina: "matematica", titulo: "Frações na feira", etapa: "fundamental", aulas: ["O que é fração", "Metade e dobro"] } }), (r) => r.status === "pendente" && r.minha === true);
+await espera("a coordenação cria uma disciplina direto, já aprovada", () => rpc(como(ids.coord), "curriculo_propor", { p_tipo: "disciplina", p_dados: { slug: "cooperativismo", grupo: "lutas", etapas: ["medio"], nomes: { pt: "Cooperativismo" }, descricoes: { pt: "Como se organiza uma cooperativa." } } }), (r) => r.status === "aprovada");
+await recusa("educador não decide proposta", async () => { const p = (await rpc(como(ids.prof), "curriculo_listar")).find((x) => x.status === "pendente"); return rpc(como(ids.prof), "curriculo_decidir", { p_id: p.id, p_aprovar: true }); }, "sem_permissao");
+await espera("a coordenação pedagógica aprova a sugestão", async () => { const p = (await rpc(como(ids.vice), "curriculo_listar")).find((x) => x.status === "pendente"); return rpc(como(ids.vice), "curriculo_decidir", { p_id: p.id, p_aprovar: true }); }, (r) => r.status === "aprovada");
+await recusa("só o serviço lê as aprovadas", () => rpc(como(ids.coord), "curriculo_aprovadas"), "sem_permissao");
+await espera("o serviço lê as aprovadas e marca uma aplicada e uma com falha", async () => { const lista = await rpc({ papel: "service_role" }, "curriculo_aprovadas"); await rpc({ papel: "service_role" }, "curriculo_marcar", { p_ids: [lista[0].id], p_falhas: { [lista[1].id]: "a disciplina já existe" } }); return rpc(como(ids.coord), "curriculo_listar"); }, (r) => r.some((x) => x.status === "aplicada") && r.some((x) => x.status === "falhou" && x.nota === "a disciplina já existe"));
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);
