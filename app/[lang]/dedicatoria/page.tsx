@@ -2,11 +2,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import bust from "@/public/lucia.png";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/dedicatoria">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.dedication.title, description: t.dedication.text[0] };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/dedicatoria", t.dedication.title, t.dedication.text[0]);
 }
 
 // A homenagem a quem dá nome ao instituto, no formato de um verbete de dicionário.

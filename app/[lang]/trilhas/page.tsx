@@ -3,12 +3,13 @@ import type { Metadata } from "next";
 import { DisciplineBrowser, type DisciplineGroup } from "@/components/DisciplineBrowser";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { essential, groups, stages, type Stage } from "@/lib/areas";
 import { getTracks } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/trilhas">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.tracks.title, description: t.tracks.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/trilhas", t.tracks.title, t.tracks.description);
 }
 
 export default async function Disciplinas({ params }: PageProps<"/[lang]/trilhas">) {

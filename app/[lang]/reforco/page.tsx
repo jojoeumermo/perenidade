@@ -3,10 +3,11 @@ import type { Metadata } from "next";
 import { PageHeading } from "@/components/PageHeading";
 import { Tutoring } from "@/components/Tutoring";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/reforco">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.tutoring.title, description: t.tutoring.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/reforco", t.tutoring.title, t.tutoring.description);
 }
 
 // Aula de reforço: quem travou em uma matéria escreve a dúvida e recebe a explicação por e-mail.

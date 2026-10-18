@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Star } from "@/components/Masthead";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { fill, localePath } from "@/i18n/config";
 import { getNews } from "@/lib/news";
 
@@ -10,8 +11,8 @@ import { getNews } from "@/lib/news";
 export const revalidate = 900;
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/noticias">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.news.title, description: t.news.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/noticias", t.news.title, t.news.description);
 }
 
 // O giro de notícias como um mural de imprensa: faixa preta com a cunha vermelha, as três manchetes

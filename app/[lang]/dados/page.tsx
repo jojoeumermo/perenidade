@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { htmlLang } from "@/i18n/config";
 import { indicadores, votacoesCamara } from "@/lib/dados";
 
@@ -9,8 +10,8 @@ import { indicadores, votacoesCamara } from "@/lib/dados";
 export const revalidate = 21600;
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/dados">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.povo.title, description: t.povo.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/dados", t.povo.title, t.povo.lead);
 }
 
 export default async function Dados({ params }: PageProps<"/[lang]/dados">) {

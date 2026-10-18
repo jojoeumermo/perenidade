@@ -7,12 +7,13 @@ import { FalaciasList } from "@/components/FalaciasList";
 import { Markdown } from "@/components/Markdown";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 import { getDebates, getFallacies } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/falacias">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.fallacies.title, description: t.fallacies.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/falacias", t.fallacies.title, t.fallacies.lead);
 }
 
 // Guia das falácias: os truques de argumento mais comuns, cada um com exemplo e com o jeito de responder.

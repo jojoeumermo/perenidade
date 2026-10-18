@@ -5,13 +5,14 @@ import { EstadoVazio } from "@/components/EstadoVazio";
 import { Masthead, Star } from "@/components/Masthead";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { fill, htmlLang, localePath } from "@/i18n/config";
 import { getArticles, type Article } from "@/lib/content";
 import { Newsletter } from "@/components/Newsletter";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/jornal">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.journal.title, description: t.journal.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/jornal", t.journal.title, t.journal.lead);
 }
 
 /** Primeiro parágrafo da matéria, sem marcação, para a chamada da capa. */

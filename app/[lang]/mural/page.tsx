@@ -3,10 +3,11 @@ import type { Metadata } from "next";
 import { Mural } from "@/components/Mural";
 import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/mural">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.mural.title, description: t.mural.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/mural", t.mural.title, t.mural.description);
 }
 
 // Economia solidária: quem vive do próprio trabalho divulga o que faz, sem intermediário e sem pagar nada.

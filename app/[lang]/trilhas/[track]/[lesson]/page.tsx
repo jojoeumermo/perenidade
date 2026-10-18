@@ -20,6 +20,7 @@ import { fileHistory } from "@/lib/history";
 import { lessonId } from "@/lib/ids";
 import { withLangs } from "@/lib/params";
 import { linguaDe } from "@/lib/pratica";
+import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
@@ -33,11 +34,11 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { lang } = await loadLang(params);
+  const { lang, t } = await loadLang(params);
   const { track: trackSlug, lesson: lessonSlug } = await params;
   const track = getTrack(trackSlug, lang);
   const lesson = track?.lessons.find((l) => l.slug === lessonSlug);
-  return track && lesson ? { title: `${lesson.title} · ${track.title}`, description: lesson.summary } : {};
+  return track && lesson ? paginaMeta(lang, `/trilhas/${track.slug}/${lesson.slug}`, `${lesson.title} · ${track.title}`, lesson.summary, { titulo: lesson.title, subtitulo: `${track.title} · ${t.areas[track.area][0]}`, kicker: t.nav.disciplines }) : {};
 }
 
 /** Subtítulos (##) da aula, com as mesmas âncoras que o texto recebe. */

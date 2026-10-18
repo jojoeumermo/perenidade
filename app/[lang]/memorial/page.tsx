@@ -5,12 +5,13 @@ import { Cartaz } from "@/components/Cartaz";
 import { ListaComIndice } from "@/components/ListaComIndice";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { htmlLang, localePath } from "@/i18n/config";
 import { getTributes } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/memorial">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.memorial.title, description: t.memorial.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/memorial", t.memorial.title, t.memorial.lead);
 }
 
 export default async function Memorial({ params }: PageProps<"/[lang]/memorial">) {

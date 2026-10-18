@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 import { DataPanel } from "@/components/DataPanel";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/meus-dados">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.data.title, description: t.data.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/meus-dados", t.data.title, t.data.description);
 }
 
 export default async function MeusDados({ params }: PageProps<"/[lang]/meus-dados">) {

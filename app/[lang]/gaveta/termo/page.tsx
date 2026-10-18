@@ -2,12 +2,13 @@
 import type { Metadata } from "next";
 import { ContentPageView } from "@/components/ContentPageView";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { getPage } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/gaveta/termo">): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const page = getPage("gaveta-termo", lang);
-  return { title: page.title, description: page.lead };
+  return paginaMeta(lang, "/gaveta/termo", page.title, page.lead);
 }
 
 // O termo de cessão da Gaveta Aberta, inteiro, numa página própria: o mesmo texto que aparece antes do envio.

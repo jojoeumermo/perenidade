@@ -3,10 +3,11 @@ import type { Metadata } from "next";
 import { CadernoDeEstudos } from "@/components/caderno/Caderno";
 import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/caderno">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.notebook.title, description: t.notebook.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/caderno", t.notebook.title, t.notebook.description);
 }
 
 /** O caderno de estudos: a sala para estudar com todas as ferramentas à mão, de graça e sem conta. */

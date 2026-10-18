@@ -4,12 +4,13 @@ import { Cartaz } from "@/components/Cartaz";
 import { GaleriaGrade } from "@/components/GaleriaGrade";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { defaultLocale } from "@/i18n/config";
 import { getGallery } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/galeria">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.gallery.title, description: t.gallery.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/galeria", t.gallery.title, t.gallery.description);
 }
 
 // A arte que os trabalhadores fizeram para si mesmos: cada peça com quem fez, quando, por quê e de onde veio a imagem.

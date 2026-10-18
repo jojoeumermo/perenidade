@@ -4,11 +4,12 @@ import { Suspense } from "react";
 import { AcervoBrowser } from "@/components/AcervoBrowser";
 import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { getBooks } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/acervo">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.library.title, description: t.library.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/acervo", t.library.title, t.library.description);
 }
 
 export default async function Acervo({ params }: PageProps<"/[lang]/acervo">) {
