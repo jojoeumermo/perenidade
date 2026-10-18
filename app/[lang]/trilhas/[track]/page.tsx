@@ -54,6 +54,18 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
         <p className="mt-3 text-xl text-ink-soft">{track.summary}</p>
       </div>
       <Untranslated lang={lang} t={t} show={!track.translated} />
+      {ready.length < items.length && (
+        <aside className="no-print mt-6 border-2 border-gold bg-parchment-deep p-4 font-sans text-sm">
+          <p className="flex flex-wrap items-center gap-3">
+            <span className="bg-gold px-2 py-0.5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-ink">{t.tracks.underConstruction}</span>
+            <span className="text-ink-soft">{fill(t.tracks.ready, { a: ready.length, b: items.length })}</span>
+          </p>
+          <div className="mt-3 h-2 w-full bg-parchment" role="progressbar" aria-valuemin={0} aria-valuemax={items.length} aria-valuenow={ready.length} aria-label={t.tracks.underConstruction}>
+            <div className="h-2 bg-oxblood" style={{ width: `${Math.round((ready.length / Math.max(items.length, 1)) * 100)}%` }} />
+          </div>
+          <Link href={`${to("/contribuir")}?trilha=${encodeURIComponent(track.slug)}`} className="mt-3 inline-block border-2 border-ink px-4 py-2 font-medium hover:border-oxblood hover:text-oxblood">{t.tracks.helpWrite} →</Link>
+        </aside>
+      )}
 
       {track.intro && (
         <div className="mt-8" {...originalLang(track.translated)}>

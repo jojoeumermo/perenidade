@@ -18,7 +18,7 @@ export default async function Memorial({ params }: PageProps<"/[lang]/memorial">
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
-      <Cartaz eyebrow={t.memorial.eyebrow} title={t.memorial.title} slogan={t.footer.slogan} tone="luto">
+      <Cartaz eyebrow={t.memorial.eyebrow} title={t.memorial.title} slogan={t.slogans.memorial} tone="luto">
         {t.memorial.lead}
       </Cartaz>
       <Untranslated lang={lang} t={t} show={tributes.some((tribute) => !tribute.translated)} />
