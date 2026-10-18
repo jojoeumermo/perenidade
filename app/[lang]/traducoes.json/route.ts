@@ -22,9 +22,12 @@ export async function GET(_request: Request, { params }: RouteContext<"/[lang]/t
       slug: track.slug,
       title: track.title,
       area: track.area,
-      lessons: track.lessons.map((lesson) => ({
+      lessons: track.lessons.map((lesson, posicao) => ({
         slug: lesson.slug,
         title: lesson.title,
+        // Para escolher o que traduzir primeiro: o tamanho (minutos de leitura) e a posição na trilha (as primeiras são as mais lidas).
+        minutos: lesson.minutes,
+        posicao,
         faltam: outros.filter((locale) => !traduzidas.get(locale)?.has(`${track.slug}/${lesson.slug}`)),
       })),
     })),
