@@ -9,7 +9,7 @@ export const groups = [
   },
   {
     id: "ciencias",
-    areas: ["matematica", "fisica", "quimica", "biologia", "astronomia", "primeiros-socorros"],
+    areas: ["matematica", "fisica", "quimica", "biologia", "astronomia", "primeiros-socorros", "educacao-sexual"],
   },
   {
     id: "tecnologia",
@@ -73,8 +73,8 @@ export const essential: readonly AreaSlug[] = ["alfabetizacao", "portugues", "ma
  * Uma disciplina pode estar em mais de uma etapa (português e matemática acompanham a vida escolar inteira).
  */
 export const stageAreas: Record<"fundamental" | "medio" | "superior", readonly AreaSlug[]> = {
-  fundamental: ["alfabetizacao", "portugues", "matematica", "ingles", "ingles-infantil", "espanhol", "artes", "desenho", "musica", "danca", "educacao-fisica", "historia", "geografia", "biologia", "informatica", "primeiros-socorros", "meio-ambiente"],
-  medio: ["enem", "portugues", "literatura", "ingles", "espanhol", "frances", "chines", "russo", "artes", "teatro", "cinema", "educacao-fisica", "matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "historia", "geografia", "sociologia", "filosofia", "economia", "politica", "estado", "instituicoes", "eleicoes", "neurodiversidade", "costureira", "midia", "meio-ambiente", "trabalho", "primeiros-socorros"],
+  fundamental: ["alfabetizacao", "portugues", "matematica", "ingles", "ingles-infantil", "espanhol", "artes", "desenho", "musica", "danca", "educacao-fisica", "historia", "geografia", "biologia", "informatica", "primeiros-socorros", "educacao-sexual", "meio-ambiente"],
+  medio: ["enem", "portugues", "literatura", "ingles", "espanhol", "frances", "chines", "russo", "artes", "teatro", "cinema", "educacao-fisica", "matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "historia", "geografia", "sociologia", "filosofia", "economia", "politica", "estado", "instituicoes", "eleicoes", "neurodiversidade", "costureira", "midia", "meio-ambiente", "trabalho", "primeiros-socorros", "educacao-sexual"],
   superior: ["literatura", "design", "cinema", "matematica", "fisica", "quimica", "biologia", "astronomia", "programacao", "engenharia-de-sistemas", "redes-e-seguranca", "inteligencia-artificial", "manutencao", "historia", "geografia", "sociologia", "antropologia", "filosofia", "economia", "politica", "direito", "psicologia", "neurodiversidade", "servico-social", "teologia", "educacao-popular", "midia", "arquitetura", "arquivologia", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo", "sindicalismo", "luta-negra", "feminismo", "lgbtqia", "deficiencia", "povos-indigenas", "luta-pela-terra", "favelas", "luta-dos-professores", "movimento-estudantil", "pessoas-idosas"],
 };
 
