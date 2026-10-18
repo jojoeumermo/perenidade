@@ -86,6 +86,7 @@ export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id
 
       <p className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-sans text-sm text-ink-soft">
         <Link href={`${to("/contribuir")}?corrigir=${encodeURIComponent(`/acervo/${book.id}`)}`} className="underline hover:text-oxblood">{t.library.fix}</Link>
+        <Link href={`${to("/comunidade")}?nova=1&alvo=${encodeURIComponent(`/acervo/${book.id}`)}&titulo=${encodeURIComponent(book.title)}&sala=${book.area}`} className="underline hover:text-oxblood">{t.common.askCommunity}</Link>
         <Link href={to(`/denunciar?item=${encodeURIComponent(`/acervo/${book.id}`)}`)} className="underline hover:text-oxblood">
           {t.common.report}
         </Link>

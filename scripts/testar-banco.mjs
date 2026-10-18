@@ -2889,6 +2889,23 @@ await espera("o código do envio mostra a situação, sem conta", async () => { 
 await recusa("no máximo trinta códigos por vez", () => rpc(anon, "contribuicao_situacao", { p_ids: Array.from({ length: 31 }, () => crypto.randomUUID()) }), "invalido:ids");
 await espera("código que não existe não mostra nada", () => rpc(anon, "contribuicao_situacao", { p_ids: [crypto.randomUUID()] }), (r) => r.length === 0);
 
+// Comunidade: conversa ligada a uma aula, árvore de respostas, selo de papel e salas.
+let conversaDaAula;
+await recusa("ligação só com aula ou obra", () => rpc(como(ids.prof), "topico_criar", { p_titulo: "Dúvida sobre frações", p_corpo: "Não entendi a parte das frações equivalentes.", p_disciplina: "matematica", p_tipo: "duvida", p_alvo: "https://fora.exemplo", p_alvo_titulo: "x" }), "invalido:alvo");
+await espera("conversa ligada a uma aula aparece no filtro da aula, com selo e trecho", async () => { conversaDaAula = await rpc(como(ids.prof), "topico_criar", { p_titulo: "Dúvida sobre frações", p_corpo: "Não entendi a parte das **frações equivalentes**.", p_disciplina: "matematica", p_tipo: "duvida", p_alvo: "/trilhas/matematica-fundamental/fracoes", p_alvo_titulo: "Frações" }); return rpc(anon, "topicos_listar", { p_ordem: "novos", p_alvo: "/trilhas/matematica-fundamental/fracoes" }); }, (r) => r.length === 1 && r[0].alvo_titulo === "Frações" && r[0].autor_selo === "educacao" && r[0].trecho.includes("frações equivalentes") && !r[0].trecho.includes("**"));
+await espera("a busca também lê o texto da conversa", () => rpc(anon, "topicos_listar", { p_ordem: "novos", p_busca: "equivalentes" }), (r) => r.some((x) => x.id === conversaDaAula.id));
+await espera("resposta a uma resposta guarda a mãe, até três níveis", async () => {
+  const a = await rpc(V1, "responder", { p_topico: conversaDaAula.id, p_corpo: "Frações equivalentes representam a mesma parte do todo." });
+  const b = await rpc(como(ids.prof), "responder", { p_topico: conversaDaAula.id, p_corpo: "Pode dar um exemplo?", p_pai: a.id });
+  const c = await rpc(V1, "responder", { p_topico: conversaDaAula.id, p_corpo: "1/2 e 2/4, por exemplo.", p_pai: b.id });
+  const d = await rpc(como(ids.prof), "responder", { p_topico: conversaDaAula.id, p_corpo: "Entendi, obrigado!", p_pai: c.id });
+  const ver = await rpc(anon, "topico_ver", { p_id: conversaDaAula.id });
+  const mae = (id) => ver.respostas.find((x) => x.id === id)?.pai;
+  return [mae(a.id), mae(b.id) === a.id, mae(c.id) === b.id, mae(d.id) === b.id, ver.alvo === "/trilhas/matematica-fundamental/fracoes", ver.respostas.find((x) => x.id === a.id)?.autor_selo];
+}, (r) => r[0] === null && r[1] && r[2] && r[3] && r[4] && r[5] === "coordenacao");
+await recusa("resposta-mãe de outra conversa não serve", async () => { const outra = (await rpc(anon, "topicos_listar", { p_ordem: "novos" })).find((x) => x.id !== conversaDaAula.id && !x.trancado); const ver = await rpc(anon, "topico_ver", { p_id: conversaDaAula.id }); return rpc(V1, "responder", { p_topico: outra.id, p_corpo: "Resposta no lugar errado.", p_pai: ver.respostas[0].id }); }, "nao_encontrado");
+await espera("as salas contam as conversas", () => rpc(anon, "comunidade_salas"), (r) => r.total >= 1 && r.salas.matematica >= 1 && typeof r.sem_resposta === "number");
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);

@@ -246,6 +246,11 @@ alter table interno.topicos add column if not exists avaliacao_em timestamptz;
 alter table interno.topicos add column if not exists tentativas smallint not null default 0;
 alter table interno.respostas add column if not exists avaliacao_em timestamptz;
 alter table interno.respostas add column if not exists tentativas smallint not null default 0;
+-- Conversa ligada a uma aula ou a uma obra do acervo, e resposta a outra resposta (a árvore da conversa).
+alter table interno.topicos add column if not exists alvo text check (alvo is null or alvo ~ '^/(trilhas|acervo)/[a-z0-9/-]{2,200}$');
+alter table interno.topicos add column if not exists alvo_titulo text not null default '' check (char_length(alvo_titulo) <= 200);
+alter table interno.respostas add column if not exists pai uuid references interno.respostas (id) on delete set null;
+create index if not exists topicos_alvo on interno.topicos (alvo) where alvo is not null;
 
 -- Papéis e tipos de contribuição acrescentados depois da primeira instalação. A supervisão é cargo de confiança: entra
 -- por nomeação ou convite, nunca por candidatura. A educação secundária tem os poderes da educação, na disciplina; o
@@ -2509,24 +2514,45 @@ end $$;
 
 drop function if exists public.topicos_listar(text, text, integer);
 drop function if exists public.topico_criar(text, text, text);
+-- As versões sem a aula ou obra ligada e sem a resposta-mãe saem: as novas aceitam os mesmos argumentos e mais estes.
+drop function if exists public.topicos_listar(text, text, integer, text, text);
+drop function if exists public.topico_criar(text, text, text, text);
+drop function if exists public.responder(uuid, text);
+
+/** O selo de quem escreve na comunidade: a função mais próxima do estudo (coordenação, educação, mentoria, mediação ou equipe). */
+create or replace function interno.selo(p_usuario uuid) returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select case
+    when p_usuario is null then null
+    when exists (select 1 from papeis where usuario = p_usuario and papel in ('coordenacao', 'vice')) then 'coordenacao'
+    when exists (select 1 from papeis where usuario = p_usuario and papel in ('educacao', 'educacao_secundaria')) then 'educacao'
+    when exists (select 1 from papeis where usuario = p_usuario and papel = 'mentoria') then 'mentoria'
+    when exists (select 1 from papeis where usuario = p_usuario and papel = 'mediacao') then 'mediacao'
+    when exists (select 1 from papeis where usuario = p_usuario) then 'equipe'
+  end
+$$;
+revoke all on function interno.selo(uuid) from public, anon, authenticated;
 
 /**
  * Lista de conversas e dúvidas, aberta a qualquer visitante. p_tipo: 'conversa', 'duvida' ou vazio (tudo).
  * p_ordem: 'alta', 'novos', 'melhores', 'sem_resposta'. O que espera a mediação só aparece para quem escreveu e para quem cuida.
  */
-create or replace function public.topicos_listar(p_ordem text default 'alta', p_disciplina text default null, p_pagina integer default 0, p_tipo text default null, p_busca text default null) returns jsonb
+create or replace function public.topicos_listar(p_ordem text default 'alta', p_disciplina text default null, p_pagina integer default 0, p_tipo text default null, p_busca text default null, p_alvo text default null) returns jsonb
 language sql stable security definer set search_path = interno, pg_temp as $$
   select interno.aberta('comunidade');
   select coalesce(jsonb_agg(x.j order by x.n), '[]'::jsonb) from (
     select row_number() over () as n, jsonb_build_object(
       'id', t.id, 'titulo', t.titulo, 'disciplina', t.disciplina, 'pontos', t.pontos, 'respostas', t.respostas, 'tipo', t.tipo, 'resolvida', t.aceita is not null,
       'trancado', t.trancado, 'oculto', t.oculto, 'retido', t.retido, 'criado_em', t.criado_em, 'autor', coalesce(f.nome, ''),
+      'autor_selo', interno.selo(t.autor), 'trecho', left(regexp_replace(t.corpo, '[#*_>`\[\]()!]+|\s+', ' ', 'g'), 180),
+      'alvo', t.alvo, 'alvo_titulo', t.alvo_titulo,
+      'ultima', coalesce((select max(r.criado_em) from respostas r where r.topico = t.id and not r.oculto), t.criado_em),
       'meu_voto', coalesce((select v.valor from votos v where v.usuario = auth.uid() and v.tipo = 'topico' and v.alvo = t.id), 0)) as j
     from topicos t left join perfis f on f.id = t.autor
     where (not t.oculto or interno.cuida() or coalesce(t.retido and t.autor = auth.uid(), false)) and (coalesce(p_disciplina, '') = '' or t.disciplina = p_disciplina)
       and (coalesce(p_tipo, '') = '' or t.tipo = p_tipo)
+      and (coalesce(p_alvo, '') = '' or t.alvo = p_alvo)
       and (p_ordem is distinct from 'sem_resposta' or t.respostas = 0)
-      and (coalesce(btrim(p_busca), '') = '' or position(interno.normal(left(p_busca, 80)) in interno.normal(t.titulo)) > 0)
+      and (coalesce(btrim(p_busca), '') = '' or position(interno.normal(left(p_busca, 80)) in interno.normal(t.titulo || ' ' || left(t.corpo, 3000))) > 0)
     order by
       case when p_ordem in ('novos', 'sem_resposta') then extract(epoch from t.criado_em) end desc nulls last,
       case when p_ordem = 'melhores' then t.pontos end desc nulls last,
@@ -2544,7 +2570,7 @@ begin
   if not found or (t.oculto and not interno.cuida() and not coalesce(t.retido and t.autor = auth.uid(), false)) then perform interno.erro('nao_encontrado'); end if;
   return jsonb_build_object(
     'id', t.id, 'titulo', t.titulo, 'corpo', t.corpo, 'disciplina', t.disciplina, 'pontos', t.pontos, 'trancado', t.trancado, 'oculto', t.oculto, 'retido', t.retido,
-    'tipo', t.tipo, 'aceita', t.aceita,
+    'tipo', t.tipo, 'aceita', t.aceita, 'alvo', t.alvo, 'alvo_titulo', t.alvo_titulo, 'autor_selo', interno.selo(t.autor),
     'criado_em', t.criado_em, 'autor', coalesce((select nome from perfis where id = t.autor), ''),
     'meu', t.autor is not null and t.autor = auth.uid(),
     'meu_voto', coalesce((select valor from votos where usuario = auth.uid() and tipo = 'topico' and alvo = t.id), 0),
@@ -2554,7 +2580,7 @@ begin
     'respostas', coalesce((
       select jsonb_agg(jsonb_build_object(
         'id', r.id, 'corpo', r.corpo, 'pontos', r.pontos, 'oculto', r.oculto, 'retido', r.retido, 'criado_em', r.criado_em, 'autor', coalesce(f.nome, ''),
-        'aceita', r.id = t.aceita, 'da_equipe', exists (select 1 from papeis p where p.usuario = r.autor),
+        'aceita', r.id = t.aceita, 'da_equipe', exists (select 1 from papeis p where p.usuario = r.autor), 'autor_selo', interno.selo(r.autor), 'pai', r.pai,
         'autor_id', case when interno.media() then r.autor end,
         'meu_voto', coalesce((select valor from votos where usuario = auth.uid() and tipo = 'resposta' and alvo = r.id), 0))
         order by (t.tipo = 'duvida' and r.id = t.aceita) desc, case when t.tipo = 'duvida' then r.pontos end desc nulls last, r.criado_em)
@@ -2566,10 +2592,11 @@ end $$;
  * Abrir conversa ou dúvida: só com conta. Toda mensagem passa pela avaliação automática (interno.veredito): a adequada
  * aparece na hora, a que viola claramente as regras é bloqueada e a duvidosa espera a leitura de quem cuida da comunidade.
  */
-create or replace function public.topico_criar(p_titulo text, p_corpo text, p_disciplina text, p_tipo text default 'conversa') returns jsonb
+create or replace function public.topico_criar(p_titulo text, p_corpo text, p_disciplina text, p_tipo text default 'conversa', p_alvo text default null, p_alvo_titulo text default '') returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
 declare
   v uuid := interno.eu(); v_id uuid;
+  v_alvo text := nullif(btrim(coalesce(p_alvo, '')), '');
   v_titulo text := interno.txt(p_titulo, 'titulo', 5, 140);
   v_corpo text := interno.txt(p_corpo, 'corpo', 10, 8000);
   v_av jsonb; v_veredito text; v_externa boolean := false;
@@ -2577,6 +2604,7 @@ begin
   perform interno.aberta('comunidade');
   perform interno.limite('topico', 3, 60);
   if coalesce(p_tipo, 'conversa') not in ('conversa', 'duvida') then perform interno.erro('invalido:tipo'); end if;
+  if v_alvo is not null and v_alvo !~ '^/(trilhas|acervo)/[a-z0-9/-]{2,200}$' then perform interno.erro('invalido:alvo'); end if;
   v_av := interno.veredito(v_titulo || ' ' || v_corpo, interno.cuida(), v);
   v_veredito := v_av ->> 'veredito';
   -- Com a segunda avaliação ligada, o que as regras deixam passar fica na fila até ela responder. Sem resposta, fica lá.
@@ -2585,22 +2613,34 @@ begin
   elsif v_veredito = 'publicar' and interno.avaliacao_externa() then
     v_veredito := 'revisar'; v_av := jsonb_build_object('veredito', 'revisar', 'motivo', 'aguardando_avaliacao'); v_externa := true;
   end if;
-  insert into topicos (autor, titulo, corpo, disciplina, tipo, oculto, retido, avaliacao, motivo)
+  insert into topicos (autor, titulo, corpo, disciplina, tipo, oculto, retido, avaliacao, motivo, alvo, alvo_titulo)
   values (v, v_titulo, v_corpo, interno.disciplina_ok(p_disciplina), coalesce(p_tipo, 'conversa'), v_veredito <> 'publicar', v_veredito = 'revisar',
-          case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end, v_av ->> 'motivo')
+          case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end, v_av ->> 'motivo',
+          v_alvo, case when v_alvo is null then '' else interno.txt(p_alvo_titulo, 'alvo_titulo', 0, 200) end)
   returning id into v_id;
   if v_veredito = 'bloquear' then perform interno.registrar('comunidade_bloqueada', v_id::text, jsonb_build_object('tipo', 'topico', 'motivo', v_av ->> 'motivo')); end if;
   return jsonb_build_object('id', v_id, 'retido', v_veredito = 'revisar', 'bloqueado', v_veredito = 'bloquear', 'avaliando', v_externa);
 end $$;
 
-create or replace function public.responder(p_topico uuid, p_corpo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+create or replace function public.responder(p_topico uuid, p_corpo text, p_pai uuid default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); t topicos; v_id uuid; v_corpo text := interno.txt(p_corpo, 'corpo', 2, 8000); v_av jsonb; v_veredito text; v_externa boolean := false;
+  v_pai uuid := p_pai; v_nivel integer := 1; v_cima uuid;
 begin
   perform interno.aberta('comunidade');
   perform interno.limite('responder', 30, 60);
   select * into t from topicos where id = p_topico for update;
   if not found or t.oculto then perform interno.erro('nao_encontrado'); end if;
   if t.trancado then perform interno.erro('topico_trancado'); end if;
+  if v_pai is not null then
+    if not exists (select 1 from respostas where id = v_pai and topico = p_topico and not oculto) then perform interno.erro('nao_encontrado'); end if;
+    -- A árvore vai até três níveis: resposta a uma resposta de terceiro nível fica ao lado dela.
+    select pai into v_cima from respostas where id = v_pai;
+    while v_cima is not null and v_nivel < 3 loop
+      v_nivel := v_nivel + 1;
+      select pai into v_cima from respostas where id = v_cima;
+    end loop;
+    if v_nivel >= 3 then select pai into v_pai from respostas where id = v_pai; end if;
+  end if;
   v_av := interno.veredito(v_corpo, interno.cuida(), v);
   v_veredito := v_av ->> 'veredito';
   if v_veredito = 'publicar' and interno.aprovacao_manual() and not interno.cuida() then
@@ -2608,9 +2648,9 @@ begin
   elsif v_veredito = 'publicar' and interno.avaliacao_externa() then
     v_veredito := 'revisar'; v_av := jsonb_build_object('veredito', 'revisar', 'motivo', 'aguardando_avaliacao'); v_externa := true;
   end if;
-  insert into respostas (topico, autor, corpo, oculto, retido, avaliacao, motivo)
+  insert into respostas (topico, autor, corpo, oculto, retido, avaliacao, motivo, pai)
   values (p_topico, v, v_corpo, v_veredito <> 'publicar', v_veredito = 'revisar',
-          case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end, v_av ->> 'motivo')
+          case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end, v_av ->> 'motivo', v_pai)
   returning id into v_id;
   if v_veredito = 'publicar' then update topicos set respostas = respostas + 1 where id = p_topico; end if;
   if v_veredito = 'bloquear' then perform interno.registrar('comunidade_bloqueada', v_id::text, jsonb_build_object('tipo', 'resposta', 'motivo', v_av ->> 'motivo')); end if;
@@ -11093,3 +11133,16 @@ end $$;
 
 revoke all on function public.contribuicao_situacao(uuid[]) from public;
 grant execute on function public.contribuicao_situacao(uuid[]) to anon, authenticated, service_role;
+
+-- ───────────────────────────── Comunidade: salas ─────────────────────────────
+
+/** As salas (disciplinas) com o número de conversas visíveis em cada uma, e o total, para a barra lateral da Comunidade. */
+create or replace function public.comunidade_salas() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.aberta('comunidade');
+  select jsonb_build_object(
+    'total', (select count(*) from topicos where not oculto),
+    'salas', (select coalesce(jsonb_object_agg(disciplina, n), '{}'::jsonb) from (select disciplina, count(*) n from topicos where not oculto and disciplina is not null group by disciplina) x),
+    'sem_resposta', (select count(*) from topicos where not oculto and respostas = 0 and tipo = 'duvida'))
+$$;
+revoke all on function public.comunidade_salas() from public;
+grant execute on function public.comunidade_salas() to anon, authenticated, service_role;
