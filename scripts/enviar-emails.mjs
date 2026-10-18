@@ -15,7 +15,7 @@
 import { pathToFileURL } from "node:url";
 import { rodada } from "../supabase/functions/_shared/emails.mjs";
 
-export { boletim, html, pedido, RESEND, rodada } from "../supabase/functions/_shared/emails.mjs";
+export { boletim, html, pedido, renderBlocos, RESEND, rodada, textoDosBlocos } from "../supabase/functions/_shared/emails.mjs";
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   const base = (process.env.SUPABASE_URL ?? "").replace(/\/$/, "");

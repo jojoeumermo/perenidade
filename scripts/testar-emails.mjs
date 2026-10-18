@@ -2,7 +2,7 @@
 //
 // Prova a rotina de envio de e-mails sem rede: o banco e o serviço de envio são trocados por respostas montadas aqui.
 // O que entra na fila, e quando, é provado em testar-banco.mjs. Uso: npm run testar:emails
-import { boletim, html, pedido, RESEND, rodada } from "./enviar-emails.mjs";
+import { boletim, html, pedido, renderBlocos, RESEND, rodada, textoDosBlocos } from "./enviar-emails.mjs";
 
 let certos = 0;
 const falhas = [];
@@ -87,6 +87,23 @@ await espera("sem conexão", async () => { const b = banco(fila(1)); const r = a
   ([r, res]) => r.erros.sem_conexao === 1 && res.p_ok === false);
 await espera("fila vazia não chama o serviço", async () => { const s = servico(200); const r = await rodada({ ...base, chamar: banco([]).chamar, buscar: s.buscar }); return [r, s.pedidos.length]; }, ([r, n]) => r.enviados === 0 && n === 0);
 await espera("nenhuma falha devolve a chave", async () => JSON.stringify(await rodada({ ...base, chamar: banco(fila(1)).chamar, buscar: async () => { throw new Error(`falha com ${CHAVE}`); } })), (texto) => !texto.includes(CHAVE));
+
+// Edição por blocos: tudo escapado, só imagem do site, link só https ou do site, versão em texto, modo escuro.
+const ORIGEM = "https://institutolucia.org";
+const blocosDeTeste = [
+  { tipo: "titulo", texto: "<script>alert(1)</script>Novidades" },
+  { tipo: "paragrafo", texto: "Veja https://institutolucia.org/pt/jornal agora." },
+  { tipo: "imagem", src: "/arquivos/abc.webp", alt: "Cartaz \"da greve\"" },
+  { tipo: "imagem", src: "https://rastreio.exemplo/pixel.gif", alt: "x" },
+  { tipo: "botao", texto: "Ler", url: "javascript:alert(1)" },
+  { tipo: "botao", texto: "Ler no site", url: "/pt/jornal" },
+  { tipo: "materia", titulo: "Greve geral", resumo: "Resumo", url: "/pt/jornal/greve" },
+];
+await espera("blocos escapam o texto", async () => renderBlocos(blocosDeTeste, ORIGEM), (h) => !h.includes("<script>") && h.includes("&lt;script&gt;"));
+await espera("imagem de fora e link javascript somem", async () => renderBlocos(blocosDeTeste, ORIGEM), (h) => !h.includes("rastreio.exemplo") && !h.includes("javascript:") && h.includes(`${ORIGEM}/arquivos/abc.webp`) && h.includes(`${ORIGEM}/pt/jornal`));
+await espera("versão em texto da edição", async () => textoDosBlocos(blocosDeTeste, ORIGEM), (t) => t.startsWith("<SCRIPT>ALERT(1)</SCRIPT>NOVIDADES") && t.includes("Ler no site: https://institutolucia.org/pt/jornal") && t.includes("JORNAL — Greve geral") && !t.includes("javascript"));
+await espera("a edição usa os blocos e o texto de pré-visualização", async () => boletim({ assunto: "Boletim", texto: "texto", sair: `${ORIGEM}/pt/jornal?boletim=sair&codigo=x`, blocos: blocosDeTeste, preheader: "Prévia escrita" }), (h) => h.includes("Prévia escrita") && h.includes("Greve geral") && h.includes("Sair da lista"));
+await espera("a edição tem modo escuro e o escuro forçado da prévia", async () => [boletim({ assunto: "B", texto: "t", sair: `${ORIGEM}/x` }), boletim({ assunto: "B", texto: "t", sair: `${ORIGEM}/x` }, new Date(), { escuro: true })], ([claro, escuro]) => claro.includes("prefers-color-scheme:dark") && escuro.length > claro.length);
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
