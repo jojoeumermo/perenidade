@@ -115,6 +115,8 @@ const erros: Record<string, string> = {
   area_interditada: "Esta parte do site está interditada agora.",
   pedido_vencido: "Este pedido venceu (passou de 72 horas sem decisão). A supervisão pode fazer outro.",
   sem_conexao: "Sem conexão com o serviço.",
+  chat_fechado: "As conversas estão fechadas pela coordenação por enquanto.",
+  silenciado: "A coordenação silenciou a sua conta nas conversas por enquanto. Fale com ela pelo painel.",
   banco_desatualizado: "Esta parte do painel ainda não está disponível. Tente mais tarde ou avise a coordenação.",
   falha: "Algo deu errado. Tente de novo.",
 };

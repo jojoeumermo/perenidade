@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Avatar } from "./Avatar";
 import { useEffect, useState } from "react";
 import { rpc, type Role } from "@/lib/backend";
 import { contextoDoMural } from "@/lib/sigilo";
@@ -44,11 +45,13 @@ export interface Membro {
   papeis: { papel: Role["papel"]; disciplina: string | null }[];
   /** Posso abrir conversa privada com esta pessoa (liderança ou colaboração em andamento). */
   privado: boolean;
+  avatar?: string;
 }
 
 const nomes: Record<string, string> = {
   geral: "Todos",
   pedidos: "Pedidos de ajuda",
+  aprendizado: "Aprendizado interno",
   coordenacao: "Coordenação",
   supervisao: "Supervisão",
   curadoria: "Curadoria",
@@ -84,7 +87,8 @@ function quando(iso: string) {
   return new Date(iso).toLocaleDateString(localDoPainel(), { day: "2-digit", month: "2-digit" });
 }
 
-function Rosto({ nome, menor = false }: { nome: string; menor?: boolean }) {
+function Rosto({ nome, menor = false, avatar }: { nome: string; menor?: boolean; avatar?: string | null }) {
+  if (avatar) return <Avatar nome={nome} avatar={avatar} className={menor ? "h-7 w-7 text-[0.7rem]" : "h-10 w-10"} />;
   return (
     <span aria-hidden className={`flex shrink-0 items-center justify-center bg-ink font-semibold text-parchment ${menor ? "h-7 w-7 text-[0.7rem]" : "h-10 w-10"}`}>
       {iniciais(nome)}
@@ -93,11 +97,35 @@ function Rosto({ nome, menor = false }: { nome: string; menor?: boolean }) {
 }
 
 /**
+ * O aprendizado interno: um quadro de estudo entre colegas (quem sabe ensina quem quer aprender), aberto a toda a
+ * equipe. Quem quer que as horas contem aceita o termo; as horas só valem para quem também assinou o termo de adesão
+ * do certificado, em "Horas e certificados".
+ */
+function TermoDoAprendizado({ aceito, recarregar }: { aceito: boolean | undefined; recarregar: () => void }) {
+  const acao = useAcao(recarregar);
+  if (aceito === undefined) return null;
+  return (
+    <section className={`mt-4 border-l-4 px-4 py-3 ${aceito ? "border-ok bg-parchment-deep" : "border-oxblood bg-parchment-deep"}`}>
+      <p className="font-semibold">Aprendizado interno</p>
+      <p className="mt-1 text-ink-soft">
+        Aqui a equipe ensina a equipe: alguém oferece uma oficina, um estudo dirigido ou uma troca de ofício, e quem quiser acompanha. Cada dia de participação registrada conta meia hora de voluntariado, só para quem aceitou este termo e assinou o termo de adesão em “Horas e certificados”.
+      </p>
+      {aceito ? (
+        <p className="mt-2 text-xs text-ink-soft">Você participa do aprendizado interno. <button type="button" className="cursor-pointer underline" disabled={acao.ocupado} onClick={() => acao.agir("aprendizado_aceitar", { p_aceito: false }, "Você saiu do aprendizado interno.")}>Sair</button></p>
+      ) : (
+        <button type="button" className={`mt-3 ${botao}`} disabled={acao.ocupado} onClick={() => acao.agir("aprendizado_aceitar", { p_aceito: true }, "Bem-vindo ao aprendizado interno.")}>Aceito participar</button>
+      )}
+      <Aviso texto={acao.aviso} />
+    </section>
+  );
+}
+
+/**
  * A rede interna da equipe: publicações e comentários por canal (um para todos, um por função e um de pedidos
  * de ajuda entre funções). Tudo é cifrado de ponta a ponta neste aparelho, com a chave do grupo do departamento
  * de cada canal (a mesma das Conversas), antes de ser enviado, e some depois de trinta dias.
  */
-export function Equipe({ usuario, lider, modera = lider }: { usuario: string; lider: boolean; /** Coordenação, vice-coordenação e supervisão apagam o que for de outra pessoa. */ modera?: boolean }) {
+export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: recarregarConta }: { usuario: string; lider: boolean; /** Coordenação, coordenação pedagógica e supervisão apagam o que for de outra pessoa. */ modera?: boolean; /** Já aceitou o termo do aprendizado interno (undefined: banco antigo). */ aprendiz?: boolean; recarregar?: () => void }) {
   const { t } = useI18n();
   const canais = useLista<Canais>("equipe_canais");
   const membros = useLista<Membro[]>("equipe_membros");
@@ -170,6 +198,7 @@ export function Equipe({ usuario, lider, modera = lider }: { usuario: string; li
             </button>
           ))}
         </nav>
+        {canal === "aprendizado" && <TermoDoAprendizado aceito={aprendiz} recarregar={() => recarregarConta?.()} />}
 
         <form className="mt-4 border border-rule bg-parchment-deep p-4" onSubmit={async (e) => { e.preventDefault(); if (await escrever(texto, null)) setTexto(""); }}>
           {canal === "pedidos" && (
@@ -262,7 +291,7 @@ export function Equipe({ usuario, lider, modera = lider }: { usuario: string; li
             {membros.dados?.filter((membro) => membro.nome.toLowerCase().includes(quem.trim().toLowerCase())).map((membro) => (
               <li key={membro.id} className="flex items-start gap-2.5" title={membro.bio || undefined}>
                 <span className="relative">
-                  <Rosto nome={membro.nome} menor />
+                  <Rosto nome={membro.nome} menor avatar={membro.avatar} />
                   {membro.online && <span title="online" className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-parchment bg-ok" />}
                 </span>
                 <span className="min-w-0">

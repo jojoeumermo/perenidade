@@ -11,6 +11,7 @@ import { contextoDaConversa } from "@/lib/sigilo";
 import { getItem, setItem } from "@/lib/storage";
 import { useI18n } from "../I18n";
 import { Aviso, botao, botaoClaro, campo, dataHora, elo, localDoPainel, papeis, rotulo, textoDoErro, useLista } from "./comum";
+import { Avatar } from "./Avatar";
 import type { Membro } from "./Equipe";
 import { Formatado } from "./Formatado";
 import { AnexoVisto, type EstadoDoAnexo, Galeria, Gravador, type ItemDaGaleria, Preparados, type Preparado, preparar, soltar, subir } from "./Anexos";
@@ -43,6 +44,8 @@ interface Conversa {
   descricao: string;
   /** A mensagem com a foto do grupo, cifrada como as outras. */
   foto: { id: string; corpo: string; autor: string | null; criado_em: string } | null;
+  /** Fechada pela coordenação por enquanto (ninguém escreve; ler pode). */
+  fechada?: boolean;
 }
 
 interface Mensagem {
@@ -66,6 +69,7 @@ interface Mensagem {
 interface MembroDaConversa {
   id: string;
   nome: string;
+  avatar?: string;
   eu: boolean;
   /** Nulo quando a pessoa (ou eu) esconde o "visto por último". */
   online: boolean | null;
@@ -94,6 +98,9 @@ interface Aberta {
   /** Administro este grupo (ou sou da coordenação). */
   admin: boolean;
   posso_enviar: boolean;
+  /** Por que não posso enviar, quando foi a coordenação: "chat_fechado" ou "silenciado". */
+  barrado?: string | null;
+  motivo_do_fechamento?: string;
   membros: MembroDaConversa[];
   fixadas: string[];
   favoritas: string[];
@@ -144,7 +151,15 @@ function presenca(online: boolean | null, visto: string | null) {
   return `visto por último em ${quando.toLocaleDateString(localDoPainel(), { day: "2-digit", month: "2-digit" })}`;
 }
 
-function Rosto({ nome, online = false, tipo = "direta" }: { nome: string; online?: boolean; tipo?: Tipo }) {
+function Rosto({ nome, online = false, tipo = "direta", avatar }: { nome: string; online?: boolean; tipo?: Tipo; avatar?: string | null }) {
+  if (tipo === "direta" && avatar) {
+    return (
+      <span className="relative shrink-0">
+        <Avatar nome={nome} avatar={avatar} className="h-10 w-10" />
+        {online && <span title="online" className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-parchment-deep bg-ok" />}
+      </span>
+    );
+  }
   return (
     <span className="relative shrink-0">
       <span aria-hidden className={`flex h-10 w-10 items-center justify-center font-semibold ${tipo === "departamento" ? "bg-oxblood text-parchment" : tipo === "grupo" ? "border-2 border-ink text-ink" : "bg-ink text-parchment"}`}>
@@ -179,7 +194,7 @@ export function Conversas({ me }: { me: Me }) {
   const [aberta, setAberta] = useState<string | null>(null);
   const [busca, setBusca] = useState("");
   const [tela, setTela] = useState<"conversa" | "grupo" | "favoritas" | "relatos" | "privadas">("conversa");
-  const [filtro, setFiltro] = useState<"todas" | "nao_lidas" | "grupos" | "fixadas">("todas");
+  const [filtro, setFiltro] = useState<"todas" | "nao_lidas" | "pessoas" | "grupos" | "fixadas">("todas");
   const [arquivadas, setArquivadas] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
   const [achadas, setAchadas] = useState<Indexada[]>([]);
@@ -223,6 +238,7 @@ export function Conversas({ me }: { me: Me }) {
     if (termo) return conversa.nome.toLowerCase().includes(termo);
     if (conversa.arquivada !== arquivadas) return false;
     if (filtro === "nao_lidas") return conversa.nao_lidas > 0 || conversa.marcada_nao_lida;
+    if (filtro === "pessoas") return conversa.tipo === "direta";
     if (filtro === "grupos") return conversa.tipo !== "direta";
     if (filtro === "fixadas") return conversa.fixada;
     return true;
@@ -306,7 +322,7 @@ export function Conversas({ me }: { me: Me }) {
             )}
           </div>
           <div className="flex flex-wrap gap-1 text-xs" role="group" aria-label="Filtrar conversas">
-            {([["todas", "Todas"], ["nao_lidas", "Não lidas"], ["grupos", "Grupos"], ["fixadas", "Fixadas"]] as const).map(([valor, nome]) => (
+            {([["todas", "Todas"], ["nao_lidas", "Não lidas"], ["pessoas", "Pessoas"], ["grupos", "Grupos"], ["fixadas", "Fixadas"]] as const).map(([valor, nome]) => (
               <button key={valor} type="button" aria-pressed={filtro === valor} onClick={() => { setFiltro(valor); setArquivadas(false); }} className={`cursor-pointer border px-2 py-0.5 ${filtro === valor && !arquivadas ? "border-ink bg-ink text-parchment" : "border-rule hover:border-ink"}`}>
                 {nome}
               </button>
@@ -340,6 +356,7 @@ export function Conversas({ me }: { me: Me }) {
                           {conversa.trancada && <span title="Trancada com a digital" className="mr-1 font-normal text-ink-soft">🔒</span>}
                           {conversa.nome}
                           {conversa.apagar_apos && <span title={`Autodestruição: ${nomeDoPrazo(conversa.apagar_apos)}`} className="ml-1 font-normal text-ink-soft">⏱</span>}
+                          {conversa.fechada && <span title="Fechada pela coordenação por enquanto" className="ml-1 font-normal text-ink-soft">⛔</span>}
                           {conversa.silenciada && <span title="Silenciada" className="ml-1 font-normal text-ink-soft">🔕</span>}
                         </span>
                         <span className="flex shrink-0 items-center gap-1 text-xs text-ink-soft">
@@ -403,7 +420,7 @@ export function Conversas({ me }: { me: Me }) {
                 {pessoas.map((membro) => (
                   <li key={membro.id}>
                     <button type="button" onClick={() => void conversarCom(membro.id)} className="flex w-full cursor-pointer items-center gap-3 px-3 py-2 text-left hover:bg-parchment">
-                      <Rosto nome={membro.nome} online={Boolean(membro.online)} />
+                      <Rosto nome={membro.nome} online={Boolean(membro.online)} avatar={membro.avatar} />
                       <span className="min-w-0">
                         <span className="block truncate font-semibold">{membro.nome}</span>
                         <span className="block truncate text-xs text-ink-soft">{presenca(membro.online, membro.visto_em)}</span>
@@ -797,7 +814,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
     <>
       <header className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-rule bg-parchment-deep px-3 py-2.5">
         <button type="button" aria-label="Voltar às conversas" className="cursor-pointer px-1 text-xl lg:hidden" onClick={voltar}>←</button>
-        <Rosto nome={nome} online={Boolean(outro?.online)} tipo={dados.tipo} />
+        <Rosto nome={nome} online={Boolean(outro?.online)} tipo={dados.tipo} avatar={outro?.avatar} />
         <div className="min-w-[10rem] flex-1">
           <p className="truncate font-semibold">
             {nome}
@@ -1022,7 +1039,15 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
           {gravando && <Gravador aoGravar={(audio) => void enviar([audio])} aoAvisar={avisarDigitando} fechar={() => setGravando(false)} />}
           {compondo === "enquete" && <NovaEnquete fechar={() => setCompondo(null)} criar={(enquete) => { setCompondo(null); void enviarConteudo({ texto: "", enquete }); }} />}
           {compondo === "evento" && <NovoEvento fechar={() => setCompondo(null)} criar={(evento) => { setCompondo(null); void enviarConteudo({ texto: "", evento }); }} />}
-          {!dados.posso_enviar && <p className="border-t border-rule bg-parchment-deep px-3 py-2 text-center text-xs text-ink-soft">Neste grupo, só os administradores mandam mensagem. Você ainda pode reagir e votar.</p>}
+          {!dados.posso_enviar && (
+            <p className="border-t border-rule bg-parchment-deep px-3 py-2 text-center text-xs text-ink-soft">
+              {dados.barrado === "chat_fechado"
+                ? `As conversas estão fechadas pela coordenação por enquanto.${dados.motivo_do_fechamento ? ` Motivo: ${dados.motivo_do_fechamento}` : ""} Ler pode; escrever, ainda não.`
+                : dados.barrado === "silenciado"
+                  ? "A coordenação silenciou a sua conta nas conversas por enquanto. Você lê, mas não escreve."
+                  : "Neste grupo, só os administradores mandam mensagem. Você ainda pode reagir e votar."}
+            </p>
+          )}
           <form
             className={`relative border-t border-rule bg-parchment-deep p-3 ${arrastando ? "outline outline-2 -outline-offset-4 outline-dashed outline-oxblood" : ""} ${dados.posso_enviar ? "" : "hidden"}`}
             onSubmit={(e) => { e.preventDefault(); void enviar(); }}
@@ -1266,7 +1291,7 @@ function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu, enviarFoto
           {dados.membros.map((membro) => (
             <li key={membro.id} className="flex items-center justify-between gap-3 py-2">
               <span className="flex min-w-0 items-center gap-3">
-                <Rosto nome={membro.nome} online={Boolean(membro.online)} />
+                <Rosto nome={membro.nome} online={Boolean(membro.online)} avatar={membro.avatar} />
                 <span className="min-w-0">
                   <span className="block truncate font-semibold">
                     {membro.nome}{membro.eu && " (você)"}
