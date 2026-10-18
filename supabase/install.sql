@@ -161,6 +161,9 @@ create table if not exists interno.apoiadores (
   mensagem text not null default '' check (char_length(mensagem) <= 200),
   criado_em timestamptz not null default now()
 );
+-- Escondido sai do mural público sem apagar; o consentimento diz como a pessoa autorizou o nome ali.
+alter table interno.apoiadores add column if not exists visivel boolean not null default true;
+alter table interno.apoiadores add column if not exists consentimento text not null default 'adicionado pela coordenação';
 
 -- Mural dos Trabalhadores: anúncios de cooperativas, ofícios, arte e iniciativas de quem vive do próprio trabalho.
 -- Só texto, sem imagem nem arquivo. Todo anúncio passa pela coordenação ou pela mediação e vence sozinho, para o mural não envelhecer.
@@ -2876,7 +2879,7 @@ end $$;
 
 create or replace function public.apoiadores_listar() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
   select interno.aberta('voluntariado');
-  select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'nome', a.nome, 'mensagem', a.mensagem) order by a.criado_em), '[]'::jsonb) from apoiadores a
+  select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'nome', a.nome, 'mensagem', a.mensagem) order by a.criado_em), '[]'::jsonb) from apoiadores a where a.visivel
 $$;
 
 create or replace function public.apoiador_salvar(p_id uuid, p_nome text, p_mensagem text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -10631,6 +10634,440 @@ begin
     'tarefa_entregar(uuid, jsonb)', 'tarefas_revisao()', 'tarefa_revisar(uuid, boolean, text)', 'tarefa_criar(jsonb)', 'tarefas_configurar(jsonb)', 'tarefas_painel_config()',
     'tarefas_visao_geral()', 'minhas_contribuicoes()', 'perfil_tarefas_salvar(jsonb)', 'tarefa_pedir_mentor(uuid)', 'mutiroes_listar()', 'mutirao_salvar(jsonb)', 'mutirao_inscrever(uuid, boolean)',
     'projetos_listar()', 'projeto_salvar(jsonb)', 'tarefas_aplicaveis()', 'tarefas_aplicadas(uuid[], jsonb)', 'links_para_conferir(jsonb, integer)', 'links_resultado(jsonb)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;
+
+-- ───────────────────────────── Apoio e transparência ─────────────────────────────
+-- A página de Apoie e a prestação de contas. Tudo o que é número ou afirmação vem daqui (escrito pela coordenação) ou de
+-- contagens do próprio sistema: nada é inventado. O site não recebe nem guarda dados de pagamento, e o mural só tem nome
+-- de quem pediu ou autorizou. A página tem rascunho, prévia, publicação e "desfazer a última publicação".
+
+create table if not exists interno.apoio_pedidos_mural (
+  id uuid primary key default gen_random_uuid(),
+  nome text not null check (char_length(nome) between 2 and 80),
+  mensagem text not null default '' check (char_length(mensagem) <= 200),
+  status text not null default 'pendente' check (status in ('pendente', 'aprovado', 'recusado')),
+  criado_em timestamptz not null default now(),
+  decidido_por uuid references interno.perfis (id) on delete set null,
+  decidido_em timestamptz
+);
+alter table interno.apoio_pedidos_mural enable row level security;
+
+create table if not exists interno.apoio_lancamentos (
+  id uuid primary key default gen_random_uuid(),
+  mes date not null check (extract(day from mes) = 1),
+  tipo text not null check (tipo in ('entrada', 'saida')),
+  categoria text not null check (char_length(categoria) between 2 and 60),
+  valor numeric(12, 2) not null check (valor > 0 and valor < 10000000),
+  descricao text not null default '' check (char_length(descricao) <= 300),
+  -- Onde o comprovante está guardado (pasta da coordenação, nome do arquivo): nunca sai para o público.
+  comprovante text not null default '' check (char_length(comprovante) <= 300),
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+alter table interno.apoio_lancamentos enable row level security;
+create index if not exists apoio_lancamentos_mes on interno.apoio_lancamentos (mes);
+
+create table if not exists interno.apoio_relatorios (
+  id uuid primary key default gen_random_uuid(),
+  mes date not null unique check (extract(day from mes) = 1),
+  -- {entradas: {categoria: valor}, saidas: {categoria: valor}, total_entradas, total_saidas, saldo}
+  dados jsonb not null,
+  nota text not null default '' check (char_length(nota) <= 2000),
+  status text not null default 'aguardando' check (status in ('aguardando', 'publicado')),
+  -- A versão que espera a segunda pessoa (na primeira publicação, ou numa correção).
+  proposta jsonb,
+  pedido_por uuid references interno.perfis (id) on delete set null,
+  pedido_em timestamptz,
+  confirmado_por uuid references interno.perfis (id) on delete set null,
+  publicado_em timestamptz,
+  -- As versões publicadas antes de cada correção: [{dados, nota, publicado_em, corrigido_em, motivo}]
+  historico jsonb not null default '[]'::jsonb
+);
+alter table interno.apoio_relatorios enable row level security;
+
+/** A configuração da página quando nada foi escrito ainda: os valores da campanha que já existe na Benfeitoria. */
+create or replace function interno.apoio_padrao() returns jsonb language sql immutable as $$
+  select jsonb_build_object(
+    'link', 'https://benfeitoria.com/projeto/instituto-lucia-28cx',
+    'faixas', jsonb_build_array(
+      jsonb_build_object('valor', 10, 'nome', 'Página', 'descricao', ''),
+      jsonb_build_object('valor', 25, 'nome', 'Capítulo', 'descricao', ''),
+      jsonb_build_object('valor', 50, 'nome', 'Livro', 'descricao', ''),
+      jsonb_build_object('valor', 100, 'nome', 'Estante', 'descricao', ''),
+      jsonb_build_object('valor', 200, 'nome', 'Biblioteca', 'descricao', '')),
+    'metas', jsonb_build_object(
+      'meta1', jsonb_build_object('alvo', 550, 'texto', 'Cobre todas as contas fixas do site'),
+      'meta2', jsonb_build_object('alvo', 1000, 'texto', ''),
+      'intermediaria', null),
+    'campanha', null,
+    'custos', '[]'::jsonb,
+    'responsavel', jsonb_build_object('texto', '', 'confirmado', false),
+    'taxa', jsonb_build_object('texto', '', 'confirmado', false),
+    'cancelamento', jsonb_build_object('texto', '', 'confirmado', false),
+    'faq', '[]'::jsonb)
+$$;
+
+create or replace function interno.apoio_regras() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('segunda_pessoa', true) || coalesce((select valor from configuracoes where chave = 'apoio_regras'), '{}'::jsonb)
+$$;
+
+/** Número dentro da faixa (ou erro com o nome do campo). */
+create or replace function interno.apoio_num(p jsonb, p_campo text, p_min numeric, p_max numeric) returns numeric language plpgsql immutable as $$
+declare v numeric;
+begin
+  if p is null or jsonb_typeof(p) <> 'number' then raise exception 'invalido:%', p_campo using errcode = 'P0001'; end if;
+  v := (p #>> '{}')::numeric;
+  if v < p_min or v > p_max then raise exception 'invalido:%', p_campo using errcode = 'P0001'; end if;
+  return round(v, 2);
+end $$;
+
+/** Texto que só vai ao público depois de a coordenação confirmar: {texto, confirmado}. */
+create or replace function interno.apoio_confirmavel(p jsonb, p_campo text, p_max integer) returns jsonb language plpgsql immutable as $$
+begin
+  if p is null or jsonb_typeof(p) <> 'object' then return jsonb_build_object('texto', '', 'confirmado', false); end if;
+  return jsonb_build_object('texto', interno.txt(p ->> 'texto', p_campo, 0, p_max),
+    'confirmado', coalesce((p ->> 'confirmado')::boolean, false) and btrim(coalesce(p ->> 'texto', '')) <> '');
+end $$;
+
+/** Confere e limpa a configuração da página antes de guardar o rascunho. */
+create or replace function interno.apoio_validar(p jsonb) returns jsonb language plpgsql stable as $$
+declare
+  v_faixas jsonb := '[]'::jsonb; v_custos jsonb := '[]'::jsonb; v_faq jsonb := '[]'::jsonb; x jsonb; v_inter jsonb := null; v_camp jsonb := null;
+begin
+  if p is null or jsonb_typeof(p) <> 'object' then perform interno.erro('invalido:configuracao'); end if;
+  if coalesce(p ->> 'link', '') !~ '^https://[^\s"<>]{4,}$' or char_length(p ->> 'link') > 300 then perform interno.erro('invalido:link'); end if;
+  if jsonb_typeof(p -> 'faixas') <> 'array' or jsonb_array_length(p -> 'faixas') not between 1 and 8 then perform interno.erro('invalido:faixas'); end if;
+  for x in select value from jsonb_array_elements(p -> 'faixas') loop
+    v_faixas := v_faixas || jsonb_build_array(jsonb_build_object('valor', interno.apoio_num(x -> 'valor', 'faixa_valor', 1, 100000),
+      'nome', interno.txt(x ->> 'nome', 'faixa_nome', 1, 40), 'descricao', interno.txt(x ->> 'descricao', 'faixa_descricao', 0, 200)));
+  end loop;
+  if jsonb_typeof(p -> 'metas') <> 'object' then perform interno.erro('invalido:metas'); end if;
+  if jsonb_typeof(p -> 'metas' -> 'intermediaria') = 'object' then
+    if coalesce(p -> 'metas' -> 'intermediaria' ->> 'unidade', '') not in ('apoiadores', 'reais') then perform interno.erro('invalido:meta_unidade'); end if;
+    v_inter := jsonb_build_object('texto', interno.txt(p -> 'metas' -> 'intermediaria' ->> 'texto', 'meta_texto', 3, 140),
+      'alvo', interno.apoio_num(p -> 'metas' -> 'intermediaria' -> 'alvo', 'meta_alvo', 1, 10000000), 'unidade', p -> 'metas' -> 'intermediaria' ->> 'unidade');
+  end if;
+  if jsonb_typeof(p -> 'campanha') = 'object' then
+    if coalesce(p -> 'campanha' ->> 'em', '') !~ '^\d{4}-\d{2}-\d{2}$' or (p -> 'campanha' ->> 'em')::date > current_date + 1 then perform interno.erro('invalido:campanha_data'); end if;
+    v_camp := jsonb_build_object('mensal', interno.apoio_num(p -> 'campanha' -> 'mensal', 'campanha_mensal', 0, 10000000),
+      'apoiadores', interno.apoio_num(p -> 'campanha' -> 'apoiadores', 'campanha_apoiadores', 0, 1000000), 'em', p -> 'campanha' ->> 'em');
+  end if;
+  if jsonb_typeof(coalesce(p -> 'custos', '[]')) <> 'array' or jsonb_array_length(coalesce(p -> 'custos', '[]')) > 20 then perform interno.erro('invalido:custos'); end if;
+  for x in select value from jsonb_array_elements(coalesce(p -> 'custos', '[]')) loop
+    v_custos := v_custos || jsonb_build_array(jsonb_build_object('categoria', interno.txt(x ->> 'categoria', 'custo_categoria', 2, 60),
+      'valor', case when x -> 'valor' is null or jsonb_typeof(x -> 'valor') = 'null' then null else interno.apoio_num(x -> 'valor', 'custo_valor', 0, 1000000) end,
+      'dolar', coalesce((x ->> 'dolar')::boolean, false), 'descricao', interno.txt(x ->> 'descricao', 'custo_descricao', 0, 200)));
+  end loop;
+  if jsonb_typeof(coalesce(p -> 'faq', '[]')) <> 'array' or jsonb_array_length(coalesce(p -> 'faq', '[]')) > 20 then perform interno.erro('invalido:faq'); end if;
+  for x in select value from jsonb_array_elements(coalesce(p -> 'faq', '[]')) loop
+    v_faq := v_faq || jsonb_build_array(jsonb_build_object('p', interno.txt(x ->> 'p', 'faq_pergunta', 3, 200), 'r', interno.txt(x ->> 'r', 'faq_resposta', 3, 1500)));
+  end loop;
+  return jsonb_build_object(
+    'link', p ->> 'link',
+    'faixas', v_faixas,
+    'metas', jsonb_build_object(
+      'meta1', jsonb_build_object('alvo', interno.apoio_num(p -> 'metas' -> 'meta1' -> 'alvo', 'meta1', 1, 10000000), 'texto', interno.txt(p -> 'metas' -> 'meta1' ->> 'texto', 'meta1_texto', 0, 140)),
+      'meta2', case when jsonb_typeof(p -> 'metas' -> 'meta2') = 'object' and jsonb_typeof(p -> 'metas' -> 'meta2' -> 'alvo') = 'number'
+                    then jsonb_build_object('alvo', interno.apoio_num(p -> 'metas' -> 'meta2' -> 'alvo', 'meta2', 1, 10000000), 'texto', interno.txt(p -> 'metas' -> 'meta2' ->> 'texto', 'meta2_texto', 0, 140)) else null end,
+      'intermediaria', v_inter),
+    'campanha', v_camp,
+    'custos', v_custos,
+    'responsavel', interno.apoio_confirmavel(p -> 'responsavel', 'responsavel', 1500),
+    'taxa', interno.apoio_confirmavel(p -> 'taxa', 'taxa', 600),
+    'cancelamento', interno.apoio_confirmavel(p -> 'cancelamento', 'cancelamento', 1000),
+    'faq', v_faq);
+exception when invalid_text_representation or numeric_value_out_of_range or datetime_field_overflow or invalid_datetime_format then
+  perform interno.erro('invalido:numero');
+end $$;
+
+/** O que a página pública mostra: só o confirmado, contagens agregadas, o mural e o último relatório. */
+create or replace function interno.apoio_vitrine(c jsonb) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select c
+    || jsonb_build_object(
+      'responsavel', case when coalesce((c -> 'responsavel' ->> 'confirmado')::boolean, false) then c -> 'responsavel' ->> 'texto' else null end,
+      'taxa', case when coalesce((c -> 'taxa' ->> 'confirmado')::boolean, false) then c -> 'taxa' ->> 'texto' else null end,
+      'cancelamento', case when coalesce((c -> 'cancelamento' ->> 'confirmado')::boolean, false) then c -> 'cancelamento' ->> 'texto' else null end,
+      'mural', (select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'nome', a.nome, 'mensagem', a.mensagem) order by a.criado_em), '[]'::jsonb) from apoiadores a where a.visivel),
+      'voluntarios', (select count(distinct p.usuario) from papeis p join perfis f on f.id = p.usuario where not f.suspenso and f.visto_em > now() - interval '90 days'),
+      'nomes_voluntarios', (select coalesce(jsonb_agg(nome order by nome), '[]'::jsonb) from (select distinct f.nome from perfis f join papeis p on p.usuario = f.id
+                              where f.agradecimento_publico and not f.suspenso and btrim(f.nome) <> '' limit 80) x),
+      'contribuicoes_publicadas', (select count(*) from contribuicoes where status = 'publicada'),
+      'relatorio', (select jsonb_build_object('mes', r.mes, 'dados', r.dados, 'publicado_em', r.publicado_em) from apoio_relatorios r where r.publicado_em is not null order by r.mes desc limit 1))
+$$;
+
+create or replace function public.apoio_publico() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  return interno.apoio_vitrine(coalesce((select valor from configuracoes where chave = 'apoio'), interno.apoio_padrao()))
+    || jsonb_build_object('atualizado_em', (select valor ->> 'em' from configuracoes where chave = 'apoio_publicado_em'));
+end $$;
+
+/** A prévia: o rascunho como a página vai mostrar, só para a coordenação. */
+create or replace function public.apoio_previa() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return interno.apoio_vitrine(coalesce((select valor from configuracoes where chave = 'apoio_rascunho'), (select valor from configuracoes where chave = 'apoio'), interno.apoio_padrao()))
+    || jsonb_build_object('previa', true);
+end $$;
+
+create or replace function public.apoio_painel() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'publicado', coalesce((select valor from configuracoes where chave = 'apoio'), interno.apoio_padrao()),
+    'rascunho', coalesce((select valor from configuracoes where chave = 'apoio_rascunho'), (select valor from configuracoes where chave = 'apoio'), interno.apoio_padrao()),
+    'publicado_em', (select valor ->> 'em' from configuracoes where chave = 'apoio_publicado_em'),
+    'pode_desfazer', exists (select 1 from configuracoes where chave = 'apoio_anterior'),
+    'regras', interno.apoio_regras(),
+    'coordenacao', (select count(distinct p.usuario) from papeis p join perfis f on f.id = p.usuario where p.papel in ('coordenacao', 'vice') and not f.suspenso),
+    'eu', v,
+    'pedidos', (select coalesce(jsonb_agg(jsonb_build_object('id', id, 'nome', nome, 'mensagem', mensagem, 'criado_em', criado_em) order by criado_em), '[]'::jsonb) from apoio_pedidos_mural where status = 'pendente'),
+    'mural', (select coalesce(jsonb_agg(jsonb_build_object('id', id, 'nome', nome, 'mensagem', mensagem, 'visivel', visivel, 'consentimento', consentimento, 'criado_em', criado_em) order by criado_em), '[]'::jsonb) from apoiadores),
+    'lancamentos', (select coalesce(jsonb_agg(jsonb_build_object('id', id, 'mes', mes, 'tipo', tipo, 'categoria', categoria, 'valor', valor, 'descricao', descricao, 'comprovante', comprovante) order by mes desc, criado_em desc), '[]'::jsonb)
+                    from apoio_lancamentos where mes > current_date - interval '3 years'),
+    'relatorios', (select coalesce(jsonb_agg(jsonb_build_object('id', r.id, 'mes', r.mes, 'dados', r.dados, 'nota', r.nota, 'status', r.status, 'proposta', r.proposta,
+                     'pedido_por', r.pedido_por, 'pedido_nome', (select nome from perfis where id = r.pedido_por), 'publicado_em', r.publicado_em, 'historico', r.historico) order by r.mes desc), '[]'::jsonb) from apoio_relatorios r),
+    'texto', (select valor from configuracoes where chave = 'apoio_texto'),
+    'voluntarios', (select count(distinct p.usuario) from papeis p join perfis f on f.id = p.usuario where not f.suspenso and f.visto_em > now() - interval '90 days'));
+end $$;
+
+create or replace function public.apoio_rascunho_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_limpo jsonb;
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  v_limpo := interno.apoio_validar(p);
+  insert into configuracoes (chave, valor) values ('apoio_rascunho', v_limpo) on conflict (chave) do update set valor = excluded.valor;
+  return v_limpo;
+end $$;
+
+create or replace function public.apoio_publicar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_rascunho jsonb; v_atual jsonb;
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  select valor into v_rascunho from configuracoes where chave = 'apoio_rascunho';
+  if v_rascunho is null then perform interno.erro('nada_a_publicar'); end if;
+  select valor into v_atual from configuracoes where chave = 'apoio';
+  insert into configuracoes (chave, valor) values ('apoio_anterior', jsonb_build_object('config', v_atual, 'em', (select valor ->> 'em' from configuracoes where chave = 'apoio_publicado_em')))
+    on conflict (chave) do update set valor = excluded.valor;
+  insert into configuracoes (chave, valor) values ('apoio', v_rascunho) on conflict (chave) do update set valor = excluded.valor;
+  insert into configuracoes (chave, valor) values ('apoio_publicado_em', jsonb_build_object('em', now())) on conflict (chave) do update set valor = excluded.valor;
+  delete from configuracoes where chave = 'apoio_rascunho';
+  perform interno.registrar('apoio_publicado', '', jsonb_build_object('config', v_rascunho));
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Desfaz a última publicação: a página volta ao que era antes (uma vez só). */
+create or replace function public.apoio_desfazer() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_anterior jsonb;
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  select valor into v_anterior from configuracoes where chave = 'apoio_anterior';
+  if v_anterior is null then perform interno.erro('nada_a_desfazer'); end if;
+  if v_anterior -> 'config' is null or jsonb_typeof(v_anterior -> 'config') = 'null' then
+    delete from configuracoes where chave in ('apoio', 'apoio_publicado_em');
+  else
+    update configuracoes set valor = v_anterior -> 'config' where chave = 'apoio';
+    insert into configuracoes (chave, valor) values ('apoio_publicado_em', jsonb_build_object('em', v_anterior ->> 'em')) on conflict (chave) do update set valor = excluded.valor;
+  end if;
+  delete from configuracoes where chave = 'apoio_anterior';
+  perform interno.registrar('apoio_desfeito', '');
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.apoio_regras_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  insert into configuracoes (chave, valor) values ('apoio_regras', jsonb_build_object('segunda_pessoa', coalesce((p ->> 'segunda_pessoa')::boolean, true)))
+    on conflict (chave) do update set valor = excluded.valor;
+  perform interno.registrar('apoio_regras', '', p);
+  return interno.apoio_regras();
+end $$;
+
+/** "Já apoiei e quero aparecer no mural": nome e mensagem curta, sem e-mail nem nada mais. Vai para a fila da coordenação. */
+create or replace function public.apoio_mural_pedir(p_nome text, p_mensagem text default '', p_site text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.aberta('voluntariado');
+  -- Campo-isca: gente não vê, robô preenche.
+  if coalesce(p_site, '') <> '' then return jsonb_build_object('ok', true); end if;
+  perform interno.limite('apoio_mural', 3, 60);
+  insert into apoio_pedidos_mural (nome, mensagem) values (interno.txt(p_nome, 'nome', 2, 80), interno.txt(p_mensagem, 'mensagem', 0, 200));
+  if (select count(*) from apoio_pedidos_mural where status = 'pendente') <= 1 then
+    perform interno.avisar_lideranca('Alguém pediu para aparecer no mural de apoiadores. Confira na lista da Benfeitoria antes de aprovar (Apoio e transparência).');
+  end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.apoio_mural_decidir(p_id uuid, p_aprovar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r apoio_pedidos_mural;
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  update apoio_pedidos_mural set status = case when p_aprovar then 'aprovado' else 'recusado' end, decidido_por = v, decidido_em = now()
+   where id = p_id and status = 'pendente' returning * into r;
+  if r.id is null then perform interno.erro('nao_encontrado'); end if;
+  if p_aprovar then
+    insert into apoiadores (nome, mensagem, consentimento) values (r.nome, r.mensagem, 'pediu pela página em ' || to_char(r.criado_em at time zone 'America/Sao_Paulo', 'DD/MM/YYYY'));
+  end if;
+  perform interno.registrar(case when p_aprovar then 'apoio_mural_aprovado' else 'apoio_mural_recusado' end, p_id::text);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** A coordenação acrescenta um nome direto, dizendo como a pessoa autorizou. */
+create or replace function public.apoio_mural_adicionar(p_nome text, p_mensagem text, p_consentimento text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_id uuid;
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  insert into apoiadores (nome, mensagem, consentimento) values (interno.txt(p_nome, 'nome', 2, 80), interno.txt(p_mensagem, 'mensagem', 0, 200), interno.txt(p_consentimento, 'consentimento', 5, 200))
+    returning id into v_id;
+  perform interno.registrar('apoiador_salvo', v_id::text);
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.apoio_mural_visivel(p_id uuid, p_visivel boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  update apoiadores set visivel = coalesce(p_visivel, true) where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.registrar(case when p_visivel then 'apoiador_mostrado' else 'apoiador_escondido' end, p_id::text);
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.apoio_lancamento_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid; v_mes date;
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p ->> 'mes', '') !~ '^\d{4}-\d{2}(-\d{2})?$' then perform interno.erro('invalido:mes'); end if;
+  v_mes := date_trunc('month', (left(p ->> 'mes', 7) || '-01')::date)::date;
+  if v_mes > date_trunc('month', current_date) then perform interno.erro('invalido:mes'); end if;
+  if coalesce(p ->> 'tipo', '') not in ('entrada', 'saida') then perform interno.erro('invalido:tipo'); end if;
+  if nullif(p ->> 'id', '') is null then
+    insert into apoio_lancamentos (mes, tipo, categoria, valor, descricao, comprovante, criado_por)
+    values (v_mes, p ->> 'tipo', interno.txt(p ->> 'categoria', 'categoria', 2, 60), interno.apoio_num(p -> 'valor', 'valor', 0.01, 9999999), interno.txt(p ->> 'descricao', 'descricao', 0, 300), interno.txt(p ->> 'comprovante', 'comprovante', 0, 300), v)
+    returning id into v_id;
+  else
+    update apoio_lancamentos set mes = v_mes, tipo = p ->> 'tipo', categoria = interno.txt(p ->> 'categoria', 'categoria', 2, 60), valor = interno.apoio_num(p -> 'valor', 'valor', 0.01, 9999999),
+      descricao = interno.txt(p ->> 'descricao', 'descricao', 0, 300), comprovante = interno.txt(p ->> 'comprovante', 'comprovante', 0, 300)
+    where id = (p ->> 'id')::uuid returning id into v_id;
+    if v_id is null then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  perform interno.registrar('apoio_lancamento', v_id::text, jsonb_build_object('mes', v_mes, 'tipo', p ->> 'tipo', 'valor', p -> 'valor'));
+  return jsonb_build_object('id', v_id);
+exception when invalid_text_representation or invalid_datetime_format or datetime_field_overflow then
+  perform interno.erro('invalido:numero');
+end $$;
+
+create or replace function public.apoio_lancamento_remover(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  delete from apoio_lancamentos where id = p_id;
+  if found then perform interno.registrar('apoio_lancamento_removido', p_id::text); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Os números de um mês, somados dos lançamentos. */
+create or replace function interno.apoio_somar(p_mes date) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'entradas', (select coalesce(jsonb_object_agg(categoria, total), '{}'::jsonb) from (select categoria, sum(valor) total from apoio_lancamentos where mes = p_mes and tipo = 'entrada' group by categoria) x),
+    'saidas', (select coalesce(jsonb_object_agg(categoria, total), '{}'::jsonb) from (select categoria, sum(valor) total from apoio_lancamentos where mes = p_mes and tipo = 'saida' group by categoria) x),
+    'total_entradas', (select coalesce(sum(valor), 0) from apoio_lancamentos where mes = p_mes and tipo = 'entrada'),
+    'total_saidas', (select coalesce(sum(valor), 0) from apoio_lancamentos where mes = p_mes and tipo = 'saida'),
+    'saldo', (select coalesce(sum(case when tipo = 'entrada' then valor else -valor end), 0) from apoio_lancamentos where mes = p_mes))
+$$;
+
+/**
+ * Pede a publicação do relatório do mês (ou de uma correção). Com a regra da segunda pessoa ligada, outra pessoa da
+ * coordenação confirma; desligada (ou se a coordenação tem uma pessoa só e a regra foi desligada), sai na hora.
+ */
+create or replace function public.apoio_relatorio_pedir(p_mes text, p_nota text default '', p_motivo text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_mes date; r apoio_relatorios; v_prop jsonb;
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_mes, '') !~ '^\d{4}-\d{2}' then perform interno.erro('invalido:mes'); end if;
+  v_mes := (left(p_mes, 7) || '-01')::date;
+  if v_mes >= date_trunc('month', current_date) then perform interno.erro('mes_em_andamento'); end if;
+  if not exists (select 1 from apoio_lancamentos where mes = v_mes) then perform interno.erro('sem_lancamentos'); end if;
+  select * into r from apoio_relatorios where mes = v_mes for update;
+  if r.publicado_em is not null and char_length(btrim(coalesce(p_motivo, ''))) < 5 then perform interno.erro('invalido:motivo'); end if;
+  v_prop := jsonb_build_object('dados', interno.apoio_somar(v_mes), 'nota', interno.txt(p_nota, 'nota', 0, 2000), 'motivo', interno.txt(p_motivo, 'motivo', 0, 300));
+  if r.id is null then
+    insert into apoio_relatorios (mes, dados, nota, status, proposta, pedido_por, pedido_em) values (v_mes, v_prop -> 'dados', v_prop ->> 'nota', 'aguardando', v_prop, v, now()) returning * into r;
+  else
+    update apoio_relatorios set proposta = v_prop, pedido_por = v, pedido_em = now(), status = case when publicado_em is null then 'aguardando' else status end where id = r.id returning * into r;
+  end if;
+  perform interno.registrar('apoio_relatorio_pedido', r.id::text, jsonb_build_object('mes', v_mes));
+  if not coalesce((interno.apoio_regras() ->> 'segunda_pessoa')::boolean, true) then
+    return public.apoio_relatorio_confirmar(r.id);
+  end if;
+  perform interno.avisar_lideranca('O relatório de contas de ' || to_char(v_mes, 'MM/YYYY') || ' espera a confirmação de uma segunda pessoa da coordenação (Apoio e transparência).', v);
+  return jsonb_build_object('id', r.id, 'aguardando', true);
+end $$;
+
+create or replace function public.apoio_relatorio_confirmar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r apoio_relatorios; v_segunda boolean := coalesce((interno.apoio_regras() ->> 'segunda_pessoa')::boolean, true);
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  select * into r from apoio_relatorios where id = p_id for update;
+  if r.id is null or r.proposta is null then perform interno.erro('nao_encontrado'); end if;
+  if v_segunda and r.pedido_por = v then perform interno.erro('segunda_pessoa'); end if;
+  update apoio_relatorios set
+    historico = case when publicado_em is null then historico
+                     else historico || jsonb_build_array(jsonb_build_object('dados', dados, 'nota', nota, 'publicado_em', publicado_em, 'corrigido_em', now(), 'motivo', r.proposta ->> 'motivo')) end,
+    dados = r.proposta -> 'dados', nota = r.proposta ->> 'nota', status = 'publicado', proposta = null, confirmado_por = v, publicado_em = now()
+  where id = p_id;
+  perform interno.registrar('apoio_relatorio_publicado', p_id::text, jsonb_build_object('mes', r.mes, 'segunda_pessoa', v_segunda));
+  return jsonb_build_object('id', p_id, 'publicado', true);
+end $$;
+
+create or replace function public.apoio_relatorio_descartar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  delete from apoio_relatorios where id = p_id and publicado_em is null;
+  if not found then update apoio_relatorios set proposta = null where id = p_id; end if;
+  perform interno.registrar('apoio_relatorio_descartado', p_id::text);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** A prestação de contas pública: só os relatórios publicados, com o histórico das correções. Nenhum dado de pessoa. */
+create or replace function public.apoio_relatorios_publicos() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('mes', mes, 'dados', dados, 'nota', nota, 'publicado_em', publicado_em, 'historico', historico) order by mes desc), '[]'::jsonb)
+  from apoio_relatorios where publicado_em is not null
+$$;
+
+/** Guarda os números do texto que foi copiado para a Benfeitoria, para o painel avisar quando ficarem velhos. */
+create or replace function public.apoio_texto_copiado(p_numeros jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if jsonb_typeof(p_numeros) <> 'object' or pg_column_size(p_numeros) > 2000 then perform interno.erro('invalido:numeros'); end if;
+  insert into configuracoes (chave, valor) values ('apoio_texto', jsonb_build_object('numeros', p_numeros, 'em', now())) on conflict (chave) do update set valor = excluded.valor;
+  return jsonb_build_object('ok', true);
+end $$;
+
+revoke all on function interno.apoio_padrao() from public, anon, authenticated;
+revoke all on function interno.apoio_regras() from public, anon, authenticated;
+revoke all on function interno.apoio_num(jsonb, text, numeric, numeric) from public, anon, authenticated;
+revoke all on function interno.apoio_confirmavel(jsonb, text, integer) from public, anon, authenticated;
+revoke all on function interno.apoio_validar(jsonb) from public, anon, authenticated;
+revoke all on function interno.apoio_vitrine(jsonb) from public, anon, authenticated;
+revoke all on function interno.apoio_somar(date) from public, anon, authenticated;
+do $$
+declare f text;
+begin
+  foreach f in array array['apoio_publico()', 'apoio_previa()', 'apoio_painel()', 'apoio_rascunho_salvar(jsonb)', 'apoio_publicar()', 'apoio_desfazer()', 'apoio_regras_salvar(jsonb)',
+    'apoio_mural_pedir(text, text, text)', 'apoio_mural_decidir(uuid, boolean)', 'apoio_mural_adicionar(text, text, text)', 'apoio_mural_visivel(uuid, boolean)',
+    'apoio_lancamento_salvar(jsonb)', 'apoio_lancamento_remover(uuid)', 'apoio_relatorio_pedir(text, text, text)', 'apoio_relatorio_confirmar(uuid)',
+    'apoio_relatorio_descartar(uuid)', 'apoio_relatorios_publicos()', 'apoio_texto_copiado(jsonb)'] loop
     execute format('revoke all on function public.%s from public', f);
     execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
   end loop;
