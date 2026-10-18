@@ -38,4 +38,6 @@ export const secaoDaFerramenta = {
   "mais-valia": "surplus",
   rcp: "cpr",
   "frequencia-cardiaca": "heart",
+  ide: "code",
+  simulacoes: "code",
 } as const satisfies Record<ToolId, string>;
