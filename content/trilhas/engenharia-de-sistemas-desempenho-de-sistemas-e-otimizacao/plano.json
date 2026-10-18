@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "o-metodo-medir-formular-hipotese-testar",
+    "titulo": "O método: medir, formular hipótese, testar"
+  },
+  {
+    "slug": "cpu-profiling-e-flame-graphs",
+    "titulo": "CPU: profiling e flame graphs"
+  },
+  {
+    "slug": "memoria-alocacao-cache-e-vazamentos",
+    "titulo": "Memória: alocação, cache e vazamentos"
+  },
+  {
+    "slug": "disco-e-rede-como-gargalos",
+    "titulo": "Disco e rede como gargalos"
+  },
+  {
+    "slug": "latencia-vazao-e-percentis",
+    "titulo": "Latência, vazão e percentis"
+  },
+  {
+    "slug": "benchmarks-honestos",
+    "titulo": "Benchmarks honestos"
+  },
+  {
+    "slug": "otimizacoes-comuns-e-seus-custos",
+    "titulo": "Otimizações comuns e seus custos"
+  },
+  {
+    "slug": "projeto-acelerar-um-servico-lento",
+    "titulo": "Projeto: acelerar um serviço lento"
+  }
+]

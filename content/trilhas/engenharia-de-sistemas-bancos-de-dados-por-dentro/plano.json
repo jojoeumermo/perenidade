@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "o-que-um-banco-de-dados-promete",
+    "titulo": "O que um banco de dados promete"
+  },
+  {
+    "slug": "armazenamento-paginas-b-trees-e-lsm-trees",
+    "titulo": "Armazenamento: páginas, B-trees e LSM-trees"
+  },
+  {
+    "slug": "indices-quando-ajudam-e-quando-atrapalham",
+    "titulo": "Índices: quando ajudam e quando atrapalham"
+  },
+  {
+    "slug": "transacoes-e-acid",
+    "titulo": "Transações e ACID"
+  },
+  {
+    "slug": "isolamento-e-concorrencia",
+    "titulo": "Isolamento e concorrência"
+  },
+  {
+    "slug": "o-log-de-escrita-e-a-recuperacao",
+    "titulo": "O log de escrita e a recuperação"
+  },
+  {
+    "slug": "o-planejador-de-consultas",
+    "titulo": "O planejador de consultas"
+  },
+  {
+    "slug": "projeto-um-banco-chave-valor-simples",
+    "titulo": "Projeto: um banco chave-valor simples"
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "por-que-rust-seguranca-sem-coletor-de-lixo",
+    "titulo": "Por que Rust: segurança sem coletor de lixo"
+  },
+  {
+    "slug": "variaveis-tipos-e-funcoes",
+    "titulo": "Variáveis, tipos e funções"
+  },
+  {
+    "slug": "propriedade-emprestimo-e-tempo-de-vida",
+    "titulo": "Propriedade, empréstimo e tempo de vida"
+  },
+  {
+    "slug": "structs-enums-e-pattern-matching",
+    "titulo": "Structs, enums e pattern matching"
+  },
+  {
+    "slug": "erros-que-nao-derrubam-o-programa",
+    "titulo": "Erros que não derrubam o programa"
+  },
+  {
+    "slug": "colecoes-iteradores-e-traits",
+    "titulo": "Coleções, iteradores e traits"
+  },
+  {
+    "slug": "concorrencia-sem-medo",
+    "titulo": "Concorrência sem medo"
+  },
+  {
+    "slug": "projeto-uma-ferramenta-de-linha-de-comando",
+    "titulo": "Projeto: uma ferramenta de linha de comando"
+  }
+]

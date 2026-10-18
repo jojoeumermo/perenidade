@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "os-tres-pilares-metricas-logs-e-traces",
+    "titulo": "Os três pilares: métricas, logs e traces"
+  },
+  {
+    "slug": "instrumentar-um-servico",
+    "titulo": "Instrumentar um serviço"
+  },
+  {
+    "slug": "alertas-que-acordam-so-quando-precisa",
+    "titulo": "Alertas que acordam só quando precisa"
+  },
+  {
+    "slug": "slis-slos-e-orcamento-de-erro",
+    "titulo": "SLIs, SLOs e orçamento de erro"
+  },
+  {
+    "slug": "resposta-a-incidentes",
+    "titulo": "Resposta a incidentes"
+  },
+  {
+    "slug": "post-mortem-sem-culpa",
+    "titulo": "Post-mortem sem culpa"
+  },
+  {
+    "slug": "capacidade-e-planejamento",
+    "titulo": "Capacidade e planejamento"
+  },
+  {
+    "slug": "projeto-um-painel-de-saude-de-um-servico",
+    "titulo": "Projeto: um painel de saúde de um serviço"
+  }
+]

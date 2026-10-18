@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "o-que-e-e-o-que-faz-o-sistema-operacional",
+    "titulo": "O que é e o que faz o sistema operacional"
+  },
+  {
+    "slug": "processos-e-threads",
+    "titulo": "Processos e threads"
+  },
+  {
+    "slug": "escalonamento-quem-roda-agora",
+    "titulo": "Escalonamento: quem roda agora"
+  },
+  {
+    "slug": "memoria-virtual-e-paginacao",
+    "titulo": "Memória virtual e paginação"
+  },
+  {
+    "slug": "sistemas-de-arquivos",
+    "titulo": "Sistemas de arquivos"
+  },
+  {
+    "slug": "sincronizacao-locks-semaforos-e-deadlocks",
+    "titulo": "Sincronização: locks, semáforos e deadlocks"
+  },
+  {
+    "slug": "chamadas-de-sistema-e-o-espaco-do-usuario",
+    "titulo": "Chamadas de sistema e o espaço do usuário"
+  },
+  {
+    "slug": "projeto-ler-o-codigo-de-um-escalonador",
+    "titulo": "Projeto: ler o código de um escalonador"
+  }
+]

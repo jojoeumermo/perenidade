@@ -423,8 +423,28 @@
       "Trenzas afro: cuidado del cabello, técnicas, historia y cómo convertir el oficio en ingresos."
     ],
     "costureira": [
-      "Costura",
-      "Costura desde lo básico hasta el arreglo y la confección de prendas, con seguridad en el trabajo y caminos para generar ingresos."
+      "Costura y crochet",
+      "Costura desde lo básico hasta el arreglo y la confección, y crochet desde el primer punto hasta piezas para vender, con seguridad en el trabajo e ingresos."
+    ],
+    "engenharia-de-sistemas": [
+      "Ingeniería de Sistemas",
+      "Cómo funcionan por dentro los sistemas de software y cómo diseñarlos para que sean eficientes, confiables y escalables: del procesador a los sistemas distribuidos."
+    ],
+    "estado": [
+      "¿Qué es y cómo funciona el Estado?",
+      "Política básica para quien nunca tuvo clase de política: qué es el Estado, quién manda, de dónde sale el dinero y por qué le importa al pueblo."
+    ],
+    "instituicoes": [
+      "Congreso, Supremo, Fiscalía: las instituciones",
+      "Cómo funcionan el Congreso, el Supremo, la Fiscalía General, los ministerios y los ayuntamientos, y cómo el pueblo presiona a cada uno."
+    ],
+    "eleicoes": [
+      "Elecciones, partidos y voto",
+      "Cómo se vota y cómo se cuenta el voto, qué es un partido, quién financia las campañas y cómo fiscalizar a los electos."
+    ],
+    "neurodiversidade": [
+      "Neurodiversidad y psicoanálisis",
+      "Autismo, TDAH, dislexia y otras formas de ser y aprender, sin patologizar, y una introducción al psicoanálisis."
     ],
     "barbeiro": [
       "Barbería",
@@ -1151,7 +1171,8 @@
   },
   "groups": {
     "linguagens": "Lenguajes y artes",
-    "ciencias": "Ciencias y tecnología",
+    "ciencias": "Ciencias",
+    "tecnologia": "Tecnología",
     "humanidades": "Humanidades",
     "teoria": "Teoría revolucionaria",
     "lutas": "Luchas del pueblo",

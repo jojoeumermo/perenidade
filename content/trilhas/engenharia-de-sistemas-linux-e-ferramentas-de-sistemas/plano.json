@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "o-terminal-e-o-shell",
+    "titulo": "O terminal e o shell"
+  },
+  {
+    "slug": "arquivos-diretorios-e-permissoes",
+    "titulo": "Arquivos, diretórios e permissões"
+  },
+  {
+    "slug": "processos-sinais-e-servicos",
+    "titulo": "Processos, sinais e serviços"
+  },
+  {
+    "slug": "redirecionamento-pipes-e-filtros",
+    "titulo": "Redirecionamento, pipes e filtros"
+  },
+  {
+    "slug": "scripts-de-shell",
+    "titulo": "Scripts de shell"
+  },
+  {
+    "slug": "pacotes-e-configuracao-do-sistema",
+    "titulo": "Pacotes e configuração do sistema"
+  },
+  {
+    "slug": "diagnostico-logs-strace-e-top",
+    "titulo": "Diagnóstico: logs, strace e top"
+  },
+  {
+    "slug": "projeto-automatizar-a-rotina-de-um-servidor",
+    "titulo": "Projeto: automatizar a rotina de um servidor"
+  }
+]
