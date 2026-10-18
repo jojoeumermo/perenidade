@@ -14,7 +14,7 @@ export default async function AoVivo({ params }: PageProps<"/[lang]/ao-vivo">) {
   const { t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <Cartaz eyebrow={t.live.eyebrow} title={t.live.title} slogan={t.footer.slogan} tone="vermelho">
+      <Cartaz eyebrow={t.live.eyebrow} title={t.live.title} slogan={t.slogans.aoVivo} tone="vermelho">
         {t.live.lead}
       </Cartaz>
       <Agenda s={t.live} />

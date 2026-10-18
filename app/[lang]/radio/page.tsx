@@ -7,14 +7,14 @@ import { loadLang } from "@/i18n";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/radio">): Promise<Metadata> {
   const { t } = await loadLang(params);
-  return { title: t.radio.title, description: t.radio.lead, robots: { index: false } };
+  return { title: t.radio.title, description: t.radio.lead };
 }
 
 export default async function Radio({ params }: PageProps<"/[lang]/radio">) {
   const { t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <Cartaz eyebrow={t.radio.eyebrow} title={t.radio.title} slogan={t.footer.slogan} tone="preto">
+      <Cartaz eyebrow={t.radio.eyebrow} title={t.radio.title} slogan={t.slogans.radio} tone="preto">
         {t.radio.lead}
       </Cartaz>
       <RadioPage stations={stations as Station[]} />

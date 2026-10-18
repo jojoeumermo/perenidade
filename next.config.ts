@@ -27,8 +27,6 @@ const videos = [
     .filter((host) => /^[a-z0-9.-]+\.[a-z]{2,}$/.test(host))
     .map((host) => `https://${host}`),
 ].join(" ");
-// Conferência de ortografia e gramática do editor: só é chamada quando quem escreve aperta o botão.
-const spelling = "https://api.languagetool.org";
 
 // Fora o desafio da entrada, o site não carrega nada de terceiros: scripts, estilos e fontes vêm do próprio domínio.
 const policy = (script: string) =>
@@ -39,7 +37,7 @@ const policy = (script: string) =>
     // blob: é a prévia de uma imagem antes do envio; o serviço de contas mostra à equipe as imagens ainda em revisão.
     `img-src 'self' data: blob: ${service}`.trim(),
     "font-src 'self'",
-    `connect-src 'self' ${spelling} ${service} ${realtime}${dev ? " ws:" : ""}`.replace(/\s+/g, " ").trim(),
+    `connect-src 'self' ${service} ${realtime}${dev ? " ws:" : ""}`.replace(/\s+/g, " ").trim(),
     // A rádio e o podcast tocam arquivos do próprio acervo ou a transmissão ao vivo indicada pela coordenação;
     // blob: é o áudio gravado ou escolhido no próprio aparelho (pergunta gravada, teste de microfone, corte de vídeo).
     `media-src 'self' https: blob: ${service}`.trim(),

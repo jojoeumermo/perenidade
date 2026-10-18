@@ -18,7 +18,7 @@ export default async function Galeria({ params }: PageProps<"/[lang]/galeria">) 
   const pieces = getGallery();
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.footer.slogan} tone="vermelho">
+      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.slogans.galeria} tone="vermelho">
         {s.lead}
       </Cartaz>
       <Untranslated lang={lang} t={t} show={lang !== defaultLocale} />

@@ -15,7 +15,7 @@ export default async function Apoie({ params }: PageProps<"/[lang]/apoie">) {
   const s = t.support;
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.footer.slogan} tone="raios">
+      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.slogans.apoie} tone="raios">
         {s.lead}
       </Cartaz>
 

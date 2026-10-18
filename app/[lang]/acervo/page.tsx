@@ -15,7 +15,7 @@ export default async function Acervo({ params }: PageProps<"/[lang]/acervo">) {
   const { lang, t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
-      <Cartaz eyebrow={t.library.eyebrow} title={t.library.title} slogan={t.footer.slogan} tone="preto">
+      <Cartaz eyebrow={t.library.eyebrow} title={t.library.title} slogan={t.slogans.acervo} tone="preto">
         {t.library.lead}
       </Cartaz>
       <Suspense>
