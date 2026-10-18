@@ -602,6 +602,9 @@ create table if not exists interno.boletim (
 alter table interno.boletim add column if not exists confirmado boolean not null default true;
 alter table interno.boletim add column if not exists codigo text check (codigo is null or codigo ~ '^[a-f0-9]{32}$');
 update interno.boletim set codigo = replace(gen_random_uuid()::text, '-', '') where codigo is null;
+-- Qualidade da lista: endereço que falha seguidamente para de receber (sem rastrear abertura nem clique de ninguém).
+alter table interno.boletim add column if not exists falhas integer not null default 0;
+alter table interno.boletim add column if not exists pausado boolean not null default false;
 
 -- Trabalho em conjunto: quem escreve libera a própria contribuição para colegas específicos, enquanto ela está pendente.
 create table if not exists interno.colaboradores (
@@ -4425,7 +4428,7 @@ begin
   perform interno.eu();
   if not (interno.coord() or interno.tem('jornalismo')) then perform interno.erro('sem_permissao'); end if;
   perform interno.registrar('boletim_lido');
-  return (select coalesce(jsonb_agg(jsonb_build_object('email', email, 'criado_em', criado_em, 'confirmado', confirmado) order by criado_em desc), '[]'::jsonb) from boletim);
+  return (select coalesce(jsonb_agg(jsonb_build_object('email', email, 'criado_em', criado_em, 'confirmado', confirmado, 'falhas', falhas, 'pausado', pausado) order by criado_em desc), '[]'::jsonb) from boletim);
 end $$;
 
 /**
@@ -4438,7 +4441,7 @@ begin
   perform interno.eu();
   if not (interno.coord() or interno.tem('jornalismo')) then perform interno.erro('sem_permissao'); end if;
   if exists (select 1 from emails where tipo = 'boletim' and criado_em > now() - interval '6 hours') then perform interno.erro('boletim_recente'); end if;
-  for r in select email, codigo from boletim where confirmado loop
+  for r in select email, codigo from boletim where confirmado and not pausado loop
     if interno.email(r.email, 'boletim', v_assunto,
          v_texto || E'\n\n---\nVocê recebe este boletim porque pediu no site do Instituto Lúcia. Para sair da lista: ' || interno.endereco() || '/pt/jornal?boletim=sair&codigo=' || r.codigo,
          interno.endereco() || '/pt/jornal?boletim=sair&codigo=' || r.codigo, 2) then
@@ -5820,12 +5823,14 @@ begin
   select array_agg(id) into v_ids from (
     select id from emails where status = 'pendente' order by criado_em limit greatest(1, least(coalesce(p_limite, 50), 100)) for update skip locked) x;
   update emails set status = 'enviando', tentado_em = now(), tentativas = tentativas + 1 where id = any (coalesce(v_ids, '{}'));
-  return (select coalesce(jsonb_agg(jsonb_build_object('id', id, 'para', para, 'assunto', assunto, 'texto', texto, 'sair', sair) order by criado_em), '[]'::jsonb)
-          from emails where id = any (coalesce(v_ids, '{}')));
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', e.id, 'para', e.para, 'assunto', e.assunto, 'texto', e.texto, 'sair', e.sair,
+            'blocos', coalesce(b.blocos, 'null'::jsonb), 'preheader', coalesce(b.preheader, '')) order by e.criado_em), '[]'::jsonb)
+          from emails e left join boletim_edicoes b on b.id = e.edicao where e.id = any (coalesce(v_ids, '{}')));
 end $$;
 
 /** Para a rotina de envio: o resultado de cada e-mail. Enviado, o texto sai do banco (ele pode levar um link de convite). */
 create or replace function public.email_resultado(p_id uuid, p_ok boolean, p_erro text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_achou boolean;
 begin
   if not interno.servico() then perform interno.erro('sem_permissao'); end if;
   if coalesce(p_ok, false) then
@@ -5834,9 +5839,14 @@ begin
       insert into configuracoes (chave, valor) values ('email', '{"ativo": true}'::jsonb) on conflict (chave) do update set valor = configuracoes.valor || '{"ativo": true}'::jsonb;
     end if;
   else
-    update emails set status = case when tentativas >= 5 then 'falhou' else 'pendente' end, erro = left(coalesce(p_erro, ''), 200) where id = p_id and status = 'enviando';
+    update emails set status = case when tentativas >= 5 or coalesce(p_erro, '') = 'recusado' then 'falhou' else 'pendente' end, erro = left(coalesce(p_erro, ''), 200) where id = p_id and status = 'enviando';
   end if;
-  return jsonb_build_object('ok', found);
+  v_achou := found;
+  -- Boletim: cada falha definitiva conta para o endereço; três seguidas e ele para de receber até alguém reativar.
+  update boletim b set falhas = case when coalesce(p_ok, false) then 0 else b.falhas + 1 end,
+                       pausado = b.pausado or (not coalesce(p_ok, false) and b.falhas + 1 >= 3)
+  from emails e where e.id = p_id and e.tipo = 'boletim' and b.email = e.para and (coalesce(p_ok, false) or e.status = 'falhou');
+  return jsonb_build_object('ok', v_achou);
 end $$;
 
 /** O que a coordenação vê sobre os e-mails: quantos esperam, quantos saíram e o último erro. Sem endereço de ninguém. */
@@ -9555,6 +9565,156 @@ do $$
 declare f text;
 begin
   foreach f in array array['conta_codigos_gerar()', 'conta_protecao()', 'conta_codigo_usar(text)', 'conta_evento(text)', 'conta_atividade()', 'conta_meus_dados()', 'conta_emails()', 'conta_emails_salvar(text[])', 'seguranca_sessoes(integer)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;
+
+
+-- ───────────────────────────── Boletim: edições por blocos, rascunhos, histórico, teste ─────────────────────────────
+
+-- Cada edição: assunto, texto de pré-visualização, os blocos (título, parágrafo, imagem, botão, matéria, acervo) e a
+-- versão em texto. Rascunho até ser enviada; enviada fica no histórico com a data, quem enviou e para quantos.
+create table if not exists interno.boletim_edicoes (
+  id uuid primary key default gen_random_uuid(),
+  assunto text not null default '' check (char_length(assunto) <= 150),
+  preheader text not null default '' check (char_length(preheader) <= 140),
+  blocos jsonb not null default '[]'::jsonb check (jsonb_typeof(blocos) = 'array'),
+  texto text not null default '' check (char_length(texto) <= 15000),
+  status text not null default 'rascunho' check (status in ('rascunho', 'enviada')),
+  autor uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  atualizado_em timestamptz not null default now(),
+  enviada_em timestamptz,
+  enviada_por uuid references interno.perfis (id) on delete set null,
+  destinatarios integer not null default 0
+);
+alter table interno.boletim_edicoes enable row level security;
+alter table interno.emails add column if not exists edicao uuid references interno.boletim_edicoes (id) on delete set null;
+
+/** Confere os blocos de uma edição: até 40, só os tipos conhecidos, textos com tamanho, endereços https ou do próprio site. */
+create or replace function interno.boletim_blocos(p jsonb) returns jsonb language plpgsql immutable as $$
+declare b jsonb; v_saida jsonb := '[]'::jsonb; v_url text;
+begin
+  if p is null or jsonb_typeof(p) <> 'array' then return '[]'::jsonb; end if;
+  if jsonb_array_length(p) > 40 then perform interno.erro('invalido:blocos'); end if;
+  for b in select * from jsonb_array_elements(p) loop
+    if jsonb_typeof(b) <> 'object' or coalesce(b ->> 'tipo', '') not in ('titulo', 'paragrafo', 'imagem', 'botao', 'materia', 'acervo') then perform interno.erro('invalido:blocos'); end if;
+    v_url := coalesce(b ->> 'url', '');
+    if v_url <> '' and v_url !~ '^(https://[^[:space:]"''<>]+|/[A-Za-z0-9/._~%?=&#-]*)$' then perform interno.erro('invalido:url'); end if;
+    if b ->> 'tipo' = 'imagem' and coalesce(b ->> 'src', '') !~ '^/(arquivos|imagens)/[A-Za-z0-9/._-]+$' then perform interno.erro('invalido:imagem'); end if;
+    if b ->> 'tipo' = 'imagem' and char_length(btrim(coalesce(b ->> 'alt', ''))) < 3 then perform interno.erro('invalido:descricao'); end if;
+    if char_length(coalesce(b ->> 'texto', '')) > 6000 or char_length(coalesce(b ->> 'titulo', '')) > 200 or char_length(coalesce(b ->> 'resumo', '')) > 600
+       or char_length(coalesce(b ->> 'alt', '')) > 300 or char_length(coalesce(b ->> 'legenda', '')) > 300 or char_length(coalesce(b ->> 'autor', '')) > 160 then
+      perform interno.erro('invalido:blocos');
+    end if;
+    v_saida := v_saida || jsonb_build_array(jsonb_strip_nulls(jsonb_build_object('tipo', b ->> 'tipo', 'texto', b ->> 'texto', 'titulo', b ->> 'titulo', 'resumo', b ->> 'resumo',
+      'autor', b ->> 'autor', 'url', nullif(v_url, ''), 'src', b ->> 'src', 'alt', b ->> 'alt', 'legenda', b ->> 'legenda')));
+  end loop;
+  return v_saida;
+end $$;
+
+create or replace function interno.pode_boletim() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or interno.tem('jornalismo')
+$$;
+
+/** Guarda (cria ou atualiza) o rascunho de uma edição. Edição enviada não muda mais. */
+create or replace function public.boletim_edicao_salvar(p_id uuid, p_assunto text, p_preheader text, p_blocos jsonb, p_texto text) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid := p_id; v_blocos jsonb := interno.boletim_blocos(p_blocos);
+begin
+  if not interno.pode_boletim() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('boletim_rascunho', 120, 60);
+  if v_id is null then
+    insert into boletim_edicoes (assunto, preheader, blocos, texto, autor) values (left(coalesce(p_assunto, ''), 150), left(coalesce(p_preheader, ''), 140), v_blocos, left(coalesce(p_texto, ''), 15000), v)
+    returning id into v_id;
+  else
+    update boletim_edicoes set assunto = left(coalesce(p_assunto, ''), 150), preheader = left(coalesce(p_preheader, ''), 140), blocos = v_blocos, texto = left(coalesce(p_texto, ''), 15000), atualizado_em = now()
+    where id = v_id and status = 'rascunho';
+    if not found then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  return jsonb_build_object('id', v_id, 'salvo_em', now());
+end $$;
+
+/** Rascunhos e edições enviadas, com quem escreveu, quem enviou e para quantos. */
+create or replace function public.boletim_edicoes_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.pode_boletim() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', e.id, 'assunto', e.assunto, 'preheader', e.preheader, 'blocos', e.blocos, 'texto', e.texto, 'status', e.status,
+            'autor', interno.nome_visto(a.nome), 'criado_em', e.criado_em, 'atualizado_em', e.atualizado_em, 'enviada_em', e.enviada_em,
+            'enviada_por', interno.nome_visto(p.nome), 'destinatarios', e.destinatarios) order by coalesce(e.enviada_em, e.atualizado_em) desc), '[]'::jsonb)
+          from (select * from boletim_edicoes order by coalesce(enviada_em, atualizado_em) desc limit 100) e
+          left join perfis a on a.id = e.autor left join perfis p on p.id = e.enviada_por);
+end $$;
+
+create or replace function public.boletim_edicao_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.pode_boletim() then perform interno.erro('sem_permissao'); end if;
+  delete from boletim_edicoes where id = p_id and status = 'rascunho';
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** "Enviar teste para mim": a edição vai só para o e-mail de quem pediu, não conta no limite de seis horas e não vai à lista. */
+create or replace function public.boletim_testar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); e boletim_edicoes; v_email text := interno.email_da_conta(v);
+begin
+  if not interno.pode_boletim() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('boletim_teste', 10, 60);
+  select * into e from boletim_edicoes where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if char_length(btrim(e.assunto)) < 5 or char_length(btrim(e.texto)) < 20 then perform interno.erro('invalido:edicao'); end if;
+  if lower(coalesce(v_email, '')) !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' then perform interno.erro('sem_email'); end if;
+  insert into emails (para, tipo, assunto, texto, sair, edicao)
+  values (lower(v_email), 'boletim_teste', left('[Teste] ' || e.assunto, 200),
+          e.texto || E'\n\n---\nEste é um envio de teste: só você recebeu. Para sair da lista (nos envios de verdade): ' || interno.endereco() || '/pt/jornal',
+          interno.endereco() || '/pt/jornal', e.id);
+  return jsonb_build_object('ok', true, 'para', regexp_replace(lower(v_email), '^(.).*(@.*)$', '\1…\2'));
+end $$;
+
+/**
+ * Envia a edição para todos os endereços confirmados que não estão pausados, cada um com o próprio link de saída. No máximo
+ * uma edição a cada seis horas. A edição vai para o histórico com a data, quem enviou e para quantos.
+ */
+create or replace function public.boletim_edicao_enviar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); e boletim_edicoes; v_total integer := 0; r record; v_sair text;
+begin
+  if not interno.pode_boletim() then perform interno.erro('sem_permissao'); end if;
+  select * into e from boletim_edicoes where id = p_id for update;
+  if not found or e.status <> 'rascunho' then perform interno.erro('nao_encontrado'); end if;
+  if char_length(btrim(e.assunto)) < 5 or char_length(btrim(e.texto)) < 50 then perform interno.erro('invalido:edicao'); end if;
+  if exists (select 1 from emails where tipo = 'boletim' and criado_em > now() - interval '6 hours') then perform interno.erro('boletim_recente'); end if;
+  for r in select email, codigo from boletim where confirmado and not pausado loop
+    v_sair := interno.endereco() || '/pt/jornal?boletim=sair&codigo=' || r.codigo;
+    if (select count(*) from emails where para = r.email and tipo = 'boletim' and criado_em > now() - interval '1 day') < 2 then
+      insert into emails (para, tipo, assunto, texto, sair, edicao)
+      values (r.email, 'boletim', e.assunto, e.texto || E'\n\n---\nVocê recebe este boletim porque pediu no site do Instituto Lúcia. Para sair da lista: ' || v_sair, v_sair, e.id);
+      v_total := v_total + 1;
+    end if;
+  end loop;
+  update boletim_edicoes set status = 'enviada', enviada_em = now(), enviada_por = v, destinatarios = v_total where id = e.id;
+  perform interno.registrar('boletim_enviado', e.assunto, jsonb_build_object('emails', v_total, 'edicao', e.id));
+  return jsonb_build_object('emails', v_total);
+end $$;
+
+/** Endereço pausado por falhas volta a receber (por exemplo, a caixa encheu e já foi esvaziada). */
+create or replace function public.boletim_reativar(p_email text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.pode_boletim() then perform interno.erro('sem_permissao'); end if;
+  update boletim set pausado = false, falhas = 0 where email = lower(btrim(coalesce(p_email, '')));
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+revoke all on function interno.boletim_blocos(jsonb) from public, anon, authenticated;
+revoke all on function interno.pode_boletim() from public, anon, authenticated;
+do $$
+declare f text;
+begin
+  foreach f in array array['boletim_edicao_salvar(uuid, text, text, jsonb, text)', 'boletim_edicoes_listar()', 'boletim_edicao_apagar(uuid)', 'boletim_testar(uuid)', 'boletim_edicao_enviar(uuid)', 'boletim_reativar(text)'] loop
     execute format('revoke all on function public.%s from public', f);
     execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
   end loop;

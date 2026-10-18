@@ -2698,6 +2698,34 @@ await espera("a coordenação muda o prazo e aparelhos parados saem", async () =
 }, (r) => r.rows.length === 1 && r.rows[0].marca.startsWith("d1"));
 await espera("qualquer pessoa da equipe sobe foto própria", () => rpc(como(ids.prof), "perfil_avatar", { p_avatar: "data:image/webp;base64,UklGRg==" }), (r) => r.ok === true);
 
+// ── Boletim: edições por blocos, teste para mim, envio com histórico e pausa de endereço com falhas ──
+await recusa("quem não é do jornal não escreve edição", () => rpc(como(ids.designer), "boletim_edicao_salvar", { p_id: null, p_assunto: "x", p_preheader: "", p_blocos: [], p_texto: "" }), "sem_permissao");
+await recusa("imagem de fora não entra (rastreio)", () => rpc(como(ids.jornal), "boletim_edicao_salvar", { p_id: null, p_assunto: "Edição", p_preheader: "", p_blocos: [{ tipo: "imagem", src: "https://rastreio.exemplo/pixel.gif", alt: "x" }], p_texto: "" }), "invalido:imagem");
+await recusa("imagem sem descrição não entra", () => rpc(como(ids.jornal), "boletim_edicao_salvar", { p_id: null, p_assunto: "Edição", p_preheader: "", p_blocos: [{ tipo: "imagem", src: "/arquivos/a.webp", alt: "" }], p_texto: "" }), "invalido:descricao");
+await recusa("link javascript não entra", () => rpc(como(ids.jornal), "boletim_edicao_salvar", { p_id: null, p_assunto: "Edição", p_preheader: "", p_blocos: [{ tipo: "botao", texto: "x", url: "javascript:alert(1)" }], p_texto: "" }), "invalido:url");
+const edicaoBoletim = await rpc(como(ids.jornal), "boletim_edicao_salvar", { p_id: null, p_assunto: "Boletim de outubro", p_preheader: "As novidades do mês", p_blocos: [{ tipo: "titulo", texto: "Novidades" }, { tipo: "paragrafo", texto: "Um texto longo o bastante para valer como edição de verdade, com mais de cinquenta letras." }, { tipo: "materia", titulo: "Greve", url: "/pt/jornal/greve", campo_estranho: "x" }], p_texto: "NOVIDADES\n\nUm texto longo o bastante para valer como edição de verdade, com mais de cinquenta letras." });
+await espera("o rascunho fica guardado, sem campo estranho", () => rpc(como(ids.jornal), "boletim_edicoes_listar"), (r) => r.some((e) => e.id === edicaoBoletim.id && e.status === "rascunho" && e.blocos.length === 3 && !("campo_estranho" in e.blocos[2])));
+await espera("teste para mim vai só para quem pediu", async () => { await rpc(como(ids.jornal), "boletim_testar", { p_id: edicaoBoletim.id }); return dono("select count(*)::int as n, min(assunto) as assunto from interno.emails where tipo = 'boletim_teste'"); }, (r) => r.rows[0].n === 1 && r.rows[0].assunto.startsWith("[Teste]"));
+await dono("insert into interno.boletim (email, confirmado, codigo) values ('leitor1@exemplo.com', true, replace(gen_random_uuid()::text, '-', '')), ('leitor2@exemplo.com', true, replace(gen_random_uuid()::text, '-', '')), ('pausado@exemplo.com', true, replace(gen_random_uuid()::text, '-', '')) on conflict do nothing");
+await dono("update interno.boletim set pausado = true where email = 'pausado@exemplo.com'");
+await dono("delete from interno.emails where tipo = 'boletim'");
+await espera("a edição vai para os confirmados, menos o pausado, e entra no histórico", async () => {
+  const r = await rpc(como(ids.jornal), "boletim_edicao_enviar", { p_id: edicaoBoletim.id });
+  const pausado = await dono("select count(*)::int as n from interno.emails where tipo = 'boletim' and para = 'pausado@exemplo.com'");
+  const lista = await rpc(como(ids.jornal), "boletim_edicoes_listar");
+  return { r, pausado: pausado.rows[0].n, e: lista.find((x) => x.id === edicaoBoletim.id) };
+}, (v) => v.r.emails >= 2 && v.pausado === 0 && v.e.status === "enviada" && v.e.destinatarios === v.r.emails && v.e.enviada_por);
+await recusa("edição enviada não muda", () => rpc(como(ids.jornal), "boletim_edicao_salvar", { p_id: edicaoBoletim.id, p_assunto: "Outro", p_preheader: "", p_blocos: [], p_texto: "" }), "nao_encontrado");
+await espera("a fila leva os blocos e o texto de pré-visualização", () => rpc(servico, "emails_pendentes", { p_limite: 100 }), (r) => r.some((e) => e.para === "leitor1@exemplo.com" && Array.isArray(e.blocos) && e.blocos.length === 3 && e.preheader === "As novidades do mês"));
+await espera("três falhas seguidas pausam o endereço", async () => {
+  for (let i = 0; i < 3; i++) {
+    const id = (await dono("insert into interno.emails (para, tipo, assunto, texto, status, tentativas, tentado_em) values ('leitor2@exemplo.com', 'boletim', 'x', 'y', 'enviando', 5, now()) returning id")).rows[0].id;
+    await rpc(servico, "email_resultado", { p_id: id, p_ok: false, p_erro: "recusado" });
+  }
+  return dono("select falhas, pausado from interno.boletim where email = 'leitor2@exemplo.com'");
+}, (r) => r.rows[0].pausado === true && r.rows[0].falhas >= 3);
+await espera("o jornal reativa o endereço", async () => { await rpc(como(ids.jornal), "boletim_reativar", { p_email: "leitor2@exemplo.com" }); return dono("select falhas, pausado from interno.boletim where email = 'leitor2@exemplo.com'"); }, (r) => r.rows[0].pausado === false && r.rows[0].falhas === 0);
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);
