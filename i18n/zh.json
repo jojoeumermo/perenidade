@@ -29,7 +29,8 @@
     "sources": "资料来源",
     "copy": "复制",
     "copied": "已复制",
-    "loading": "加载中……"
+    "loading": "加载中……",
+    "askCommunity": "在社区提问"
   },
   "nav": {
     "main": "主导航",
@@ -2919,7 +2920,36 @@
     "signUp": "创建账号",
     "ban": "封禁作者",
     "banConfirm": "确认封禁",
-    "banned": "账号已封禁，已通知协调组。"
+    "banned": "账号已封禁，已通知协调组。",
+    "rulesTitle": "社区规则",
+    "rulesSummary": "互相尊重，禁止仇恨言论，不公开个人信息，陈述事实请注明来源。",
+    "rooms": "讨论区",
+    "allRooms": "全部讨论区",
+    "order": "排序",
+    "useful": "有用",
+    "usefulMark": "标记为有用",
+    "usefulUnmark": "取消有用",
+    "about": "关于",
+    "clearAbout": "查看全部讨论",
+    "replyHere": "回复",
+    "replyingTo": "回复 {nome}",
+    "cancel": "取消",
+    "lastActivity": "最后活动 {tempo}",
+    "unansweredHelp": {
+      "other": "个问题等待回答"
+    },
+    "helpOut": "帮忙回答",
+    "tutoringTitle": "课程上需要帮助吗？",
+    "tutoringText": "申请辅导课：团队成员会回答你。",
+    "tutoringLink": "辅导课",
+    "badges": {
+      "coordenacao": "协调组",
+      "educacao": "教学",
+      "mentoria": "导师",
+      "mediacao": "调解",
+      "equipe": "团队"
+    },
+    "room": "讨论区"
   },
   "mural": {
     "eyebrow": "团结经济",

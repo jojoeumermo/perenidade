@@ -11,18 +11,14 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/comunidade
   return paginaMeta(lang, "/comunidade", t.community.title, t.community.lead);
 }
 
+/** Conversas: a lista com a barra de ferramentas presa no alto, as salas e as regras ao lado (ou recolhidas, no celular). */
 export default async function Comunidade({ params }: PageProps<"/[lang]/comunidade">) {
   const { t } = await loadLang(params);
   return (
-    <div className="mx-auto max-w-4xl px-4 py-12">
+    <div className="mx-auto max-w-6xl px-4 py-12">
       <Cartaz eyebrow={t.community.eyebrow} title={t.community.title} slogan={t.slogans.comunidade} tone="vermelho">
         {t.community.lead}
       </Cartaz>
-      <ul className="mt-6 list-disc space-y-1 pl-5 font-sans text-sm text-ink-soft">
-        {t.community.rules.map((rule) => (
-          <li key={rule}>{rule}</li>
-        ))}
-      </ul>
       <Suspense>
         <Forum s={t.community} />
       </Suspense>

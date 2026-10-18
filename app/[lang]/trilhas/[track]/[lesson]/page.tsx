@@ -168,6 +168,7 @@ export default async function LessonPage({ params }: Props) {
           </p>
           <p className="no-print flex flex-wrap gap-x-5 gap-y-1">
             <Link href={fix} className="underline hover:text-oxblood">{t.common.suggestFix}</Link>
+            <Link href={`${to("/comunidade")}?nova=1&alvo=${encodeURIComponent(path(lesson.slug))}&titulo=${encodeURIComponent(lesson.title)}&sala=${track.area}`} className="underline hover:text-oxblood">{t.common.askCommunity}</Link>
             <a href={to(`${path(lesson.slug)}/texto`)} className="underline hover:text-oxblood">{t.lesson.plainText}</a>
             <CiteButton citation={`${lesson.authors.join(", ") || site.name}. “${lesson.title}”. ${track.title}. ${site.name}.`} />
             <Link href={to(`/denunciar?item=${encodeURIComponent(path(lesson.slug))}`)} className="underline hover:text-oxblood">
