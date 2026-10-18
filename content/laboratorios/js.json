@@ -1,0 +1,116 @@
+[
+  {
+    "id": "js-01-soma",
+    "perfil": "js",
+    "titulo": "Somar uma lista",
+    "enunciado": "Some os números do array e imprima com console.log: Soma: 31",
+    "arquivos": [
+      {
+        "nome": "main.js",
+        "conteudo": "const numeros = [3, 1, 4, 1, 5, 9, 2, 6];\n// reduce ou um laço\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "saida",
+        "esperado": "Soma: 31"
+      }
+    ],
+    "dicas": [
+      "numeros.reduce((s, n) => s + n, 0)"
+    ],
+    "nivel": 1,
+    "solucao": [
+      {
+        "nome": "main.js",
+        "conteudo": "const numeros = [3, 1, 4, 1, 5, 9, 2, 6];\nconsole.log(\"Soma:\", numeros.reduce((s, n) => s + n, 0));\n"
+      }
+    ]
+  },
+  {
+    "id": "js-02-filtrar",
+    "perfil": "js",
+    "titulo": "Só os pares",
+    "enunciado": "Imprima os pares do array, em ordem, como lista JSON: [4,2,6]",
+    "arquivos": [
+      {
+        "nome": "main.js",
+        "conteudo": "const numeros = [3, 1, 4, 1, 5, 9, 2, 6];\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "saida",
+        "esperado": "[4,2,6]"
+      }
+    ],
+    "dicas": [
+      "numeros.filter((n) => n % 2 === 0)",
+      "console.log(JSON.stringify(lista))"
+    ],
+    "nivel": 1,
+    "solucao": [
+      {
+        "nome": "main.js",
+        "conteudo": "const numeros = [3, 1, 4, 1, 5, 9, 2, 6];\nconsole.log(JSON.stringify(numeros.filter((n) => n % 2 === 0)));\n"
+      }
+    ]
+  },
+  {
+    "id": "js-03-objetos",
+    "perfil": "js",
+    "titulo": "O mais caro",
+    "enunciado": "Encontre o produto mais caro e imprima: Mais caro: Caderno (12.5)",
+    "arquivos": [
+      {
+        "nome": "main.js",
+        "conteudo": "const produtos = [{ nome: \"Lápis\", preco: 1.5 }, { nome: \"Caderno\", preco: 12.5 }, { nome: \"Borracha\", preco: 2 }];\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "saida",
+        "esperado": "Mais caro: Caderno (12.5)"
+      }
+    ],
+    "dicas": [
+      "Percorra guardando o maior, ou ordene por preço."
+    ],
+    "nivel": 2,
+    "solucao": [
+      {
+        "nome": "main.js",
+        "conteudo": "const produtos = [{ nome: \"Lápis\", preco: 1.5 }, { nome: \"Caderno\", preco: 12.5 }, { nome: \"Borracha\", preco: 2 }];\nconst maior = produtos.reduce((a, b) => (b.preco > a.preco ? b : a));\nconsole.log(`Mais caro: ${maior.nome} (${maior.preco})`);\n"
+      }
+    ]
+  },
+  {
+    "id": "js-04-async",
+    "perfil": "js",
+    "titulo": "Esperar uma promessa",
+    "enunciado": "Escreva a função esperar(ms) que devolve uma Promise resolvida depois de ms milissegundos e use-a para imprimir “antes”, esperar 100 ms e imprimir “depois”.",
+    "arquivos": [
+      {
+        "nome": "main.js",
+        "conteudo": "// function esperar(ms) { return new Promise(...) }\n"
+      }
+    ],
+    "testes": [
+      {
+        "tipo": "saida",
+        "esperado": "antes\ndepois"
+      }
+    ],
+    "dicas": [
+      "new Promise((ok) => setTimeout(ok, ms))",
+      "Use await dentro de uma função async (ou no topo: o laboratório aceita)."
+    ],
+    "nivel": 2,
+    "solucao": [
+      {
+        "nome": "main.js",
+        "conteudo": "function esperar(ms) {\n  return new Promise((ok) => setTimeout(ok, ms));\n}\nconsole.log(\"antes\");\nawait esperar(100);\nconsole.log(\"depois\");\n"
+      }
+    ]
+  }
+]
