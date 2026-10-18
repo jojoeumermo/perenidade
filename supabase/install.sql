@@ -6133,9 +6133,18 @@ create or replace function public.traducoes_andamento() returns jsonb language p
 begin
   perform interno.eu();
   if not (interno.curador() or interno.tem('traducao') or interno.tem('revisao')) then perform interno.erro('sem_permissao'); end if;
-  return (select coalesce(jsonb_agg(jsonb_build_object('alvo', c.alvo, 'idioma', c.dados ->> 'idioma', 'status', c.status, 'nome', c.nome_autor,
-            'criado_em', c.criado_em, 'minha', c.autor is not null and c.autor = auth.uid()) order by c.criado_em desc), '[]'::jsonb)
-          from contribuicoes c where c.tipo = 'traducao' and c.status in ('pendente', 'aprovada'));
+  -- Reserva parada além do prazo sai sozinha: a aula volta para a lista de quem quer traduzir.
+  delete from traducao_reservas where prazo < current_date;
+  return (
+    select coalesce(jsonb_agg(x order by (x ->> 'criado_em') desc), '[]'::jsonb) from (
+      select jsonb_build_object('alvo', c.alvo, 'idioma', c.dados ->> 'idioma', 'status', case when c.status = 'aprovada' then 'aprovada' else 'enviada' end,
+        'nome', c.nome_autor, 'criado_em', c.criado_em, 'minha', c.autor is not null and c.autor = auth.uid(), 'prazo', null) as x
+      from contribuicoes c where c.tipo = 'traducao' and c.status in ('pendente', 'aprovada')
+      union all
+      select jsonb_build_object('alvo', r.alvo, 'idioma', r.idioma, 'status', 'em_andamento', 'nome', interno.nome_visto(f.nome), 'criado_em', r.criado_em,
+        'minha', r.usuario = auth.uid(), 'prazo', r.prazo)
+      from traducao_reservas r left join perfis f on f.id = r.usuario
+    ) t);
 end $$;
 
 -- ───────────────────────────── Estado técnico ─────────────────────────────
@@ -9891,6 +9900,109 @@ do $$
 declare f text;
 begin
   foreach f in array array['instagram_acessos_listar()', 'instagram_acesso_salvar(jsonb)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;
+
+
+-- ───────────────────────────── Traduções: reserva de aula e glossário por trilha ─────────────────────────────
+
+-- "Vou traduzir esta": a aula fica reservada no nome da pessoa, para ninguém fazer a mesma no mesmo idioma. O prazo
+-- sugerido é de duas semanas (até oito); passou do prazo sem envio, a reserva cai sozinha. Enviar a tradução tira a reserva.
+create table if not exists interno.traducao_reservas (
+  alvo text not null check (alvo ~ '^/trilhas/[a-z0-9-]+/[a-z0-9-]+$'),
+  idioma text not null check (idioma in ('en', 'es', 'zh', 'ru', 'fr')),
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  prazo date not null,
+  criado_em timestamptz not null default now(),
+  primary key (alvo, idioma)
+);
+alter table interno.traducao_reservas enable row level security;
+
+-- Os termos de cada trilha e como ficam em cada idioma, para todas as aulas da trilha dizerem a mesma coisa.
+create table if not exists interno.traducao_glossario (
+  trilha text not null check (trilha ~ '^[a-z0-9-]{2,80}$'),
+  idioma text not null check (idioma in ('en', 'es', 'zh', 'ru', 'fr')),
+  termo text not null check (char_length(termo) between 1 and 120),
+  traducao text not null check (char_length(traducao) between 1 and 160),
+  nota text not null default '' check (char_length(nota) <= 300),
+  autor uuid references interno.perfis (id) on delete set null,
+  atualizado_em timestamptz not null default now(),
+  primary key (trilha, idioma, termo)
+);
+alter table interno.traducao_glossario enable row level security;
+
+create or replace function interno.traduz() returns boolean language sql stable as $$ select interno.curador() or interno.tem('traducao') $$;
+
+create or replace function public.traducao_reservar(p_alvo text, p_idioma text, p_dias integer default 14) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r traducao_reservas;
+begin
+  if not interno.traduz() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('traducao_reserva', 30, 60);
+  if coalesce(p_alvo, '') !~ '^/trilhas/[a-z0-9-]+/[a-z0-9-]+$' then perform interno.erro('invalido:alvo'); end if;
+  if coalesce(p_idioma, '') not in ('en', 'es', 'zh', 'ru', 'fr') then perform interno.erro('invalido:idioma'); end if;
+  delete from traducao_reservas where prazo < current_date;
+  select * into r from traducao_reservas where alvo = p_alvo and idioma = p_idioma;
+  if found and r.usuario <> v then perform interno.erro('traducao_reservada'); end if;
+  if exists (select 1 from contribuicoes where tipo = 'traducao' and alvo = p_alvo and dados ->> 'idioma' = p_idioma and status in ('pendente', 'aprovada')) then perform interno.erro('traducao_a_caminho'); end if;
+  if not found and (select count(*) from traducao_reservas where usuario = v) >= 5 then perform interno.erro('traducao_reservas_demais'); end if;
+  insert into traducao_reservas (alvo, idioma, usuario, prazo) values (p_alvo, p_idioma, v, current_date + least(greatest(coalesce(p_dias, 14), 3), 56))
+  on conflict (alvo, idioma) do update set prazo = excluded.prazo;
+  return jsonb_build_object('ok', true, 'prazo', current_date + least(greatest(coalesce(p_dias, 14), 3), 56));
+end $$;
+
+create or replace function public.traducao_liberar(p_alvo text, p_idioma text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  delete from traducao_reservas where alvo = p_alvo and idioma = p_idioma and (usuario = v or interno.coord());
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Enviar a tradução tira a reserva daquela aula naquele idioma. */
+create or replace function interno.traducao_reserva_gatilho() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if new.tipo = 'traducao' then delete from traducao_reservas where alvo = regexp_replace(coalesce(new.alvo, ''), '^/(pt|en|es|zh|ru|fr)(?=/)', '') and idioma = new.dados ->> 'idioma'; end if;
+  return new;
+end $$;
+drop trigger if exists lucia_traducao_reserva on interno.contribuicoes;
+create trigger lucia_traducao_reserva after insert on interno.contribuicoes for each row execute function interno.traducao_reserva_gatilho();
+
+create or replace function public.traducao_glossario(p_trilha text, p_idioma text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.traduz() or interno.tem('revisao')) then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('termo', g.termo, 'traducao', g.traducao, 'nota', g.nota, 'autor', interno.nome_visto(f.nome), 'atualizado_em', g.atualizado_em) order by lower(g.termo)), '[]'::jsonb)
+          from traducao_glossario g left join perfis f on f.id = g.autor where g.trilha = p_trilha and g.idioma = p_idioma);
+end $$;
+
+create or replace function public.traducao_glossario_salvar(p_trilha text, p_idioma text, p_termo text, p_traducao text, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.traduz() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('glossario_traducao', 120, 60);
+  insert into traducao_glossario (trilha, idioma, termo, traducao, nota, autor)
+  values (p_trilha, p_idioma, interno.txt(p_termo, 'termo', 1, 120), interno.txt(p_traducao, 'traducao', 1, 160), interno.txt(p_nota, 'nota', 0, 300), v)
+  on conflict (trilha, idioma, termo) do update set traducao = excluded.traducao, nota = excluded.nota, autor = v, atualizado_em = now();
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.traducao_glossario_apagar(p_trilha text, p_idioma text, p_termo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.traduz() then perform interno.erro('sem_permissao'); end if;
+  delete from traducao_glossario where trilha = p_trilha and idioma = p_idioma and termo = p_termo;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+revoke all on function interno.traducao_reserva_gatilho() from public, anon, authenticated;
+revoke all on function interno.traduz() from public, anon, authenticated;
+do $$
+declare f text;
+begin
+  foreach f in array array['traducao_reservar(text, text, integer)', 'traducao_liberar(text, text)', 'traducao_glossario(text, text)', 'traducao_glossario_salvar(text, text, text, text, text)', 'traducao_glossario_apagar(text, text, text)'] loop
     execute format('revoke all on function public.%s from public', f);
     execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
   end loop;
