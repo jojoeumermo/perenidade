@@ -20,7 +20,7 @@ export function NavLinks() {
     [t.nav.journal, "/jornal", ""],
     [t.nav.podcasts, "/podcasts", ""],
     [t.nav.community, "/comunidade", ""],
-    [t.nav.dedication, "/dedicatoria", "hidden lg:inline"],
+    [t.nav.dedication, "/dedicatoria", "hidden xl:inline"],
     [t.nav.more, "/explorar", ""],
   ];
   const link = (label: React.ReactNode, path: string, name?: string, show = "") => {
@@ -103,16 +103,20 @@ export function AccountLink() {
   const session = useStored(KEYS.session);
   const saved = useStored(KEYS.name);
   const me = useMe();
-  const loaded = me.status === "in" ? firstName(me.me.nome) : "";
+  // Antes do código do segundo fator a sessão ainda não é da pessoa: o cabeçalho não a cumprimenta nem guarda o nome.
+  const confirmada = me.status === "in" && (!me.me.exige_segundo_fator || me.me.segundo_fator);
+  const pendente = me.status === "in" && !confirmada;
+  const loaded = confirmada ? firstName(me.me.nome) : "";
   useEffect(() => {
     if (loaded && loaded !== saved) setItem(KEYS.name, loaded);
-  }, [loaded, saved]);
+    else if (pendente && saved) setItem(KEYS.name, null);
+  }, [loaded, saved, pendente]);
   if (!hydrated) return null;
-  const name = session ? loaded || saved : "";
+  const name = session && !pendente ? loaded || saved : "";
   if (!name) {
     return (
-      <Link href={localePath(lang, session ? "/painel" : "/entrar")} className="whitespace-nowrap font-sans text-xs text-ink-soft hover:text-oxblood sm:text-sm">
-        {session ? t.nav.panel : t.nav.signIn}
+      <Link href={localePath(lang, session && !pendente ? "/painel" : "/entrar")} className="whitespace-nowrap font-sans text-xs text-ink-soft hover:text-oxblood sm:text-sm">
+        {session && !pendente ? t.nav.panel : t.nav.signIn}
       </Link>
     );
   }

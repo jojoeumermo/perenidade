@@ -85,6 +85,59 @@
     "live": "Clases en vivo",
     "notebook": "Cuaderno de estudio"
   },
+  "lists": {
+    "find": "Buscar en esta página",
+    "count": "{n} elementos",
+    "none": "Nada encontrado con ese término.",
+    "copyLink": "Copiar enlace",
+    "copied": "Enlace copiado",
+    "top": "Volver arriba",
+    "more": "Mostrar más",
+    "suggestFact": "Sugerir un hecho para la línea de tiempo",
+    "study": "Quiero estudiar",
+    "inform": "Quiero informarme",
+    "help": "Quiero ayudar",
+    "about": "Sobre el instituto",
+    "offline": "Funciona sin internet",
+    "anySubject": "Para cualquier materia",
+    "availableToday": "voluntario disponible hoy",
+    "mayTakeLonger": "Ningún voluntario de esta disciplina pasó por aquí en las últimas 24 horas: la respuesta puede tardar más.",
+    "nextLive": "Próxima clase",
+    "muralNew": "El mural es nuevo y está abierto: anuncia lo que haces o busca quién lo hace.",
+    "whatHere": "Lo que aparecerá aquí",
+    "empty": {
+      "jornal": {
+        "what": "Aquí sale el periódico del instituto: reportajes de fondo, entrevistas y la lectura de las noticias desde el punto de vista de quien trabaja.",
+        "state": "La primera edición está en producción.",
+        "act": "Sugerir un tema",
+        "related": "Mientras tanto, lee las noticias del país"
+      },
+      "materiais": {
+        "what": "Fanzines, carteles, panfletos y PDF para imprimir, pegar y llevar a la reunión, la escuela y el sindicato.",
+        "state": "Los primeros materiales están en producción.",
+        "act": "Enviar un material",
+        "related": "Mira la galería de carteles"
+      },
+      "aoVivo": {
+        "what": "Clases en vivo con educadores del instituto, con video y chat, directo desde el navegador.",
+        "state": "Todavía no hay clase programada.",
+        "act": "Quiero dar una clase en vivo",
+        "related": "Mientras tanto, mira las clases en video"
+      },
+      "videoaulas": {
+        "what": "Clases cortas en video, de hasta diez minutos, grabadas por los educadores del instituto, con transcripción.",
+        "state": "Las primeras clases en video se están grabando.",
+        "act": "Quiero grabar una clase",
+        "related": "Mientras tanto, mira los videos recomendados"
+      },
+      "mural": {
+        "what": "Un mural de trabajadoras y trabajadores: servicios, productos, cooperativas e iniciativas, sin tasa y sin intermediario.",
+        "state": "El mural es nuevo: el primer anuncio puede ser el tuyo.",
+        "act": "Anunciar",
+        "related": "Mira también el Cajón Abierto"
+      }
+    }
+  },
   "slogans": {
     "acervo": "Leer es un acto de resistencia.",
     "aoVivo": "Aprender juntos, en vivo.",

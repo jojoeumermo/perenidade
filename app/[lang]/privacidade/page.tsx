@@ -12,5 +12,5 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/privacidad
 
 export default async function Page({ params }: PageProps<"/[lang]/privacidade">) {
   const { lang, t } = await loadLang(params);
-  return <ContentPageView slug="privacidade" lang={lang} t={t} />;
+  return <ContentPageView slug="privacidade" lang={lang} t={t} indice />;
 }

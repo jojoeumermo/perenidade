@@ -48,3 +48,6 @@ next-env.d.ts
 
 # livros digitais gerados a cada montagem do site (npm run epub)
 /public/epub/
+
+# Configuração local do app Claude (prévia do servidor de desenvolvimento)
+/.claude/

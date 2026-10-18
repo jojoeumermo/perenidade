@@ -5,6 +5,7 @@ import { SourceList } from "@/components/Cards";
 import { CopyButton } from "@/components/CopyButton";
 import { Markdown } from "@/components/Markdown";
 import { Cartaz } from "@/components/Cartaz";
+import { ListaComIndice } from "@/components/ListaComIndice";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
@@ -33,9 +34,14 @@ export default async function Debates({ params }: PageProps<"/[lang]/debates">) 
         <Link href={localePath(lang, "/falacias")} className="mt-3 inline-block bg-ink px-4 py-2 text-sm font-medium text-parchment hover:bg-oxblood">{t.debates.beforeLink}</Link>
       </aside>
       <Untranslated lang={lang} t={t} show={cards.some((card) => !card.translated)} />
-      <div className="mt-10 space-y-6">
-        {cards.map((card) => (
-          <article key={card.slug} id={card.slug} className="scroll-mt-6 border-t-8 border-ink bg-parchment-deep p-6" {...originalLang(card.translated)}>
+      <ListaComIndice
+        rotulo={t.debates.title}
+        items={cards.map((card) => ({
+          id: card.slug,
+          nome: card.claim,
+          chaves: `${card.claim} ${card.answer} ${card.body ?? ""}`,
+          node: (
+          <article className="border-t-8 border-ink bg-parchment-deep p-6" {...originalLang(card.translated)}>
             <p className="jornal-editoria">{t.debates.claim}</p>
             <h2 className="jornal-manchete mt-3 text-2xl sm:text-3xl">“{card.claim}”</h2>
             <p className="mt-4 font-mono text-xs uppercase tracking-widest text-gold">{t.debates.answer}</p>
@@ -66,8 +72,9 @@ export default async function Debates({ params }: PageProps<"/[lang]/debates">) 
             )}
             <SourceList sources={card.sources} title={t.common.sources} />
           </article>
-        ))}
-      </div>
+          ),
+        }))}
+      />
     </div>
   );
 }

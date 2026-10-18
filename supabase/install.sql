@@ -3124,6 +3124,13 @@ end $$;
 
 -- ───────────────────────────── Aula de reforço ─────────────────────────────
 
+/** Disciplinas com algum mentor ou educador que passou pelo painel nas últimas 24 horas: só a lista, nenhum nome. */
+create or replace function public.reforco_disponibilidade() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(distinct p.disciplina), '[]'::jsonb)
+  from papeis p join perfis f on f.id = p.usuario
+  where p.papel in ('mentoria', 'educacao', 'educacao_secundaria') and p.disciplina is not null and not f.suspenso and f.visto_em > now() - interval '24 hours'
+$$;
+
 create or replace function public.reforco_pedir(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare
   v uuid := auth.uid();
@@ -6430,7 +6437,7 @@ begin
              'voluntariar', 'inscricoes_listar', 'inscricao_decidir',
              'lideranca_passar', 'sucessao_definir', 'sucessao_ver', 'seguranca_ver', 'seguranca_configurar', 'acesso_registrar', 'aparelhos_meus',
              'aparelho_esquecer', 'avisos_meus', 'aviso_ler', 'auditoria_listar', 'exportar_usuarios', 'admin_senhas', 'chaves_api', 'resposta_aceitar',
-             'comunidade_retidos', 'filtro_listar', 'filtro_salvar', 'abertura', 'abertura_salvar', 'reforco_pedir', 'reforco_meus', 'reforco_cancelar',
+             'comunidade_retidos', 'filtro_listar', 'filtro_salvar', 'abertura', 'abertura_salvar', 'reforco_pedir', 'reforco_disponibilidade', 'reforco_meus', 'reforco_cancelar',
              'reforco_fila', 'reforco_assumir', 'reforco_soltar', 'reforco_concluir', 'equipe_canais', 'equipe_listar', 'equipe_escrever', 'equipe_marcar',
              'equipe_apagar', 'equipe_sala_salvar', 'materiais_listar', 'material_salvar', 'material_remover', 'termo_meu', 'termo_aceitar',
              'horas_registrar', 'horas_minhas', 'horas_remover', 'horas_fila', 'horas_conferir', 'certificado_abrir', 'certificado_testemunhar',

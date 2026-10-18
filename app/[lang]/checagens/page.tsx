@@ -4,6 +4,7 @@ import Link from "next/link";
 import { SourceList } from "@/components/Cards";
 import { Markdown } from "@/components/Markdown";
 import { Cartaz } from "@/components/Cartaz";
+import { ListaComIndice } from "@/components/ListaComIndice";
 import { ComoChecar } from "@/components/ComoChecar";
 import { FactCheckSearch } from "@/components/FactCheckSearch";
 import { originalLang, Untranslated } from "@/components/Untranslated";
@@ -43,9 +44,16 @@ export default async function Checagens({ params }: PageProps<"/[lang]/checagens
       </section>
       <Untranslated lang={lang} t={t} show={checks.some((check) => !check.translated)} />
       {checks.length === 0 && <p className="mt-10 text-xl text-ink-soft">{t.factCheck.empty}</p>}
-      <div className="mt-10 space-y-8">
-        {checks.map((check) => (
-          <article key={check.slug} id={check.slug} className="scroll-mt-6 border-t-8 border-ink bg-parchment-deep p-6" {...originalLang(check.translated)}>
+      {checks.length > 0 && (
+      <ListaComIndice
+        rotulo={t.factCheck.title}
+        items={checks.map((check) => ({
+          id: check.slug,
+          nome: check.claim,
+          chaves: `${check.claim} ${check.verdict} ${check.body}`,
+          meta: check.verdict,
+          node: (
+          <article className="border-t-8 border-ink bg-parchment-deep p-6" {...originalLang(check.translated)}>
             <p className="jornal-editoria">{t.factCheck.claim}</p>
             <h2 className="jornal-manchete mt-3 text-2xl sm:text-3xl">“{check.claim}”</h2>
             <p className="jornal-carimbo mt-4 text-xl">{check.verdict}</p>
@@ -54,8 +62,10 @@ export default async function Checagens({ params }: PageProps<"/[lang]/checagens
             </div>
             <SourceList sources={check.sources} title={t.common.sources} />
           </article>
-        ))}
-      </div>
+          ),
+        }))}
+      />
+      )}
       <section aria-labelledby="ferramentas-de-checagem" className="mt-14 border-t-8 border-ink pt-6 font-sans text-sm">
         <h2 id="ferramentas-de-checagem" className="font-serif text-3xl font-semibold">{toolbox.title}</h2>
         <p className="mt-1 text-ink-soft">{toolbox.lead}</p>

@@ -12,6 +12,7 @@ import { OpeningNotice } from "@/components/OpeningNotice";
 import { OutsidePanel } from "@/components/OutsidePanel";
 import { RadioPlayer } from "@/components/RadioPlayer";
 import { Shortcuts } from "@/components/Shortcuts";
+import { VoltarAoTopo } from "@/components/VoltarAoTopo";
 import { PrefsScript } from "@/components/ThemeToggle";
 import abertura from "@/content/abertura.json";
 import { loadLang } from "@/i18n";
@@ -93,6 +94,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             <RadioPlayer />
             <A11yWidget />
             <BottomNav />
+            <VoltarAoTopo label={t.lists.top} />
             <OpeningNotice initial={abertura} close={t.a11y.close} />
           </OutsidePanel>
           <Shortcuts />

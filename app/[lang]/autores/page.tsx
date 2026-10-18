@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ListaComIndice } from "@/components/ListaComIndice";
 import { PageHeading } from "@/components/PageHeading";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
@@ -24,17 +25,18 @@ export default async function Autores({ params }: PageProps<"/[lang]/autores">) 
       </PageHeading>
       <Untranslated lang={lang} t={t} show={authors.some((author) => !author.translated)} />
 
-      <nav aria-label={t.authors.title} className="mt-8 flex flex-wrap gap-x-4 gap-y-1 font-sans text-sm">
-        {authors.map((author) => (
-          <a key={author.slug} href={`#${author.slug}`} className="underline hover:text-oxblood">{author.name}</a>
-        ))}
-      </nav>
-
-      <div className="mt-10 space-y-6">
-        {authors.map((author) => {
+      <ListaComIndice
+        az
+        rotulo={t.authors.title}
+        items={authors.map((author) => {
           const works = books.filter((book) => book.authorSlugs.includes(author.slug));
-          return (
-            <article key={author.slug} id={author.slug} className="scroll-mt-6 border border-rule bg-parchment-deep p-6">
+          return {
+            id: author.slug,
+            nome: author.name,
+            chaves: `${author.name} ${author.place} ${author.years} ${author.bio}`,
+            meta: String(works.length),
+            node: (
+            <article className="border border-rule bg-parchment-deep p-6">
               <p className="font-mono text-xs text-gold">
                 {author.years} · {author.place}
               </p>
@@ -65,9 +67,10 @@ export default async function Autores({ params }: PageProps<"/[lang]/autores">) 
                 </a>
               )}
             </article>
-          );
+            ),
+          };
         })}
-      </div>
+      />
     </div>
   );
 }

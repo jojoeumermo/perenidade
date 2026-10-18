@@ -85,6 +85,59 @@
     "live": "Live classes",
     "notebook": "Study notebook"
   },
+  "lists": {
+    "find": "Search this page",
+    "count": "{n} items",
+    "none": "Nothing found for that term.",
+    "copyLink": "Copy link",
+    "copied": "Link copied",
+    "top": "Back to top",
+    "more": "Show more",
+    "suggestFact": "Suggest a fact for the timeline",
+    "study": "I want to study",
+    "inform": "I want to stay informed",
+    "help": "I want to help",
+    "about": "About the institute",
+    "offline": "Works offline",
+    "anySubject": "For any subject",
+    "availableToday": "volunteer available today",
+    "mayTakeLonger": "No volunteer from this discipline has been around in the last 24 hours: the reply may take longer.",
+    "nextLive": "Next class",
+    "muralNew": "The board is new and open: advertise what you do or find who does it.",
+    "whatHere": "What will appear here",
+    "empty": {
+      "jornal": {
+        "what": "This is where the institute's journal comes out: in-depth stories, interviews and the news read from the point of view of working people.",
+        "state": "The first issue is in production.",
+        "act": "Suggest a story",
+        "related": "Meanwhile, read the national news round-up"
+      },
+      "materiais": {
+        "what": "Zines, posters, leaflets and PDFs to print, paste and take to the meeting, the school and the union.",
+        "state": "The first materials are in production.",
+        "act": "Send a material",
+        "related": "See the poster gallery"
+      },
+      "aoVivo": {
+        "what": "Live classes with the institute's educators, with video and chat, straight from the browser.",
+        "state": "No class scheduled yet.",
+        "act": "I want to teach a live class",
+        "related": "Meanwhile, see the video lessons"
+      },
+      "videoaulas": {
+        "what": "Short video lessons, up to ten minutes, recorded by the institute's educators, with transcript.",
+        "state": "The first video lessons are being recorded.",
+        "act": "I want to record a lesson",
+        "related": "Meanwhile, see the recommended videos"
+      },
+      "mural": {
+        "what": "A board of working people: services, products, cooperatives and initiatives, with no fee and no middleman.",
+        "state": "The board is new: the first ad could be yours.",
+        "act": "Advertise",
+        "related": "See the Open Drawer too"
+      }
+    }
+  },
   "slogans": {
     "acervo": "Reading is an act of resistance.",
     "aoVivo": "Learning together, live.",
