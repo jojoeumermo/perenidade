@@ -24,7 +24,7 @@ export default async function Falacias({ params }: PageProps<"/[lang]/falacias">
   const debates = getDebates(lang);
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.footer.slogan} tone="preto">
+      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.slogans.falacias} tone="preto">
         {s.lead}
       </Cartaz>
       <p className="mt-6 border-l-4 border-gold pl-4 font-sans text-sm text-ink-soft">{s.remember}</p>

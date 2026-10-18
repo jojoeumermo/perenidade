@@ -14,6 +14,21 @@ export default function NotFound() {
         <L href="/busca" className="bg-ink px-8 py-3 font-medium text-parchment hover:bg-oxblood">{t.notFound.search}</L>
         <L href="/" className="border-2 border-ink px-8 py-3 font-medium hover:border-oxblood hover:text-oxblood">{t.notFound.home}</L>
       </div>
+      <p className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 font-sans text-sm">
+        <L href="/trilhas" className="underline hover:text-oxblood">{t.nav.disciplines}</L>
+        <L href="/acervo" className="underline hover:text-oxblood">{t.nav.library}</L>
+        <L href="/comecar" className="underline hover:text-oxblood">{t.nav.start}</L>
+      </p>
+      <p className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 font-sans text-sm">
+        <L href="/trilhas" className="underline hover:text-oxblood">{t.nav.disciplines}</L>
+        <L href="/acervo" className="underline hover:text-oxblood">{t.nav.library}</L>
+        <L href="/comecar" className="underline hover:text-oxblood">{t.nav.start}</L>
+      </p>
+      <p className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 font-sans text-sm">
+        <L href="/trilhas" className="underline hover:text-oxblood">{t.nav.disciplines}</L>
+        <L href="/acervo" className="underline hover:text-oxblood">{t.nav.library}</L>
+        <L href="/comecar" className="underline hover:text-oxblood">{t.nav.start}</L>
+      </p>
     </div>
   );
 }

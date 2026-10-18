@@ -50,7 +50,7 @@ export default async function Podcasts({ params }: PageProps<"/[lang]/podcasts">
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       <MarcarVisto ultimo={novo?.publicado_em ?? null} />
-      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.footer.slogan} tone="vermelho">
+      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.slogans.podcasts} tone="vermelho">
         {config?.descricao ? <span lang="pt-BR">{config.descricao}</span> : s.lead}
       </Cartaz>
 

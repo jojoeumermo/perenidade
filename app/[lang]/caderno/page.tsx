@@ -14,7 +14,7 @@ export default async function Caderno({ params }: PageProps<"/[lang]/caderno">) 
   const { t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
-      <Cartaz eyebrow={t.notebook.eyebrow} title={t.notebook.title} slogan={t.footer.slogan} tone="preto">
+      <Cartaz eyebrow={t.notebook.eyebrow} title={t.notebook.title} slogan={t.slogans.caderno} tone="preto">
         {t.notebook.lead}
       </Cartaz>
       <CadernoDeEstudos s={t.notebook} />

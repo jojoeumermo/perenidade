@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { can, getClient, storageUrl, type Me, recoverPending } from "@/lib/backend";
+import { can, type Me, recoverPending } from "@/lib/backend";
 import { Abas, Aviso, botao, botaoClaro, campo, data, elo, rotulo, useAcao, useLista } from "./comum";
 
 interface Denuncia {
@@ -428,27 +428,6 @@ export function Apoiadores() {
   );
 }
 
-interface Faixa {
-  id: string;
-  titulo: string;
-  artista: string;
-  url: string;
-  duracao: number;
-  ordem: number;
-}
-interface Canal {
-  id: string;
-  nome: string;
-  descricao: string;
-  ordem: number;
-  faixas: Faixa[];
-}
-interface EstadoRadio {
-  no_ar: boolean;
-  ao_vivo: string;
-  canais: Canal[];
-}
-
 /** Quem cuida da rádio indica uma emissora nova para a lista "Rádios do povo": a indicação entra na fila de revisão, como toda contribuição. */
 interface Emissora {
   id: string;
@@ -460,7 +439,7 @@ interface Emissora {
   formato: string;
 }
 
-function SugerirEmissora() {
+export function SugerirEmissora() {
   const acao = useAcao();
   const [nova, setNova] = useState({ nome: "", lugar: "", site: "", porque: "" });
   const [procura, setProcura] = useState({ texto: "", por: "name" });
@@ -555,157 +534,6 @@ function SugerirEmissora() {
   );
 }
 
-/** Rádio: montar canais e faixas com calma e só depois pôr no ar. Coordenação e jornalismo (que também é a rádio). */
-export function RadioAdmin({ me }: { me: Me }) {
-  const estado = useLista<EstadoRadio>("radio_estado");
-  const acao = useAcao(estado.recarregar);
-  const [canal, setCanal] = useState({ nome: "", descricao: "" });
-  const [faixa, setFaixa] = useState({ canal: "", titulo: "", artista: "", url: "" });
-  const [aoVivo, setAoVivo] = useState<string | null>(null);
-  const [enviando, setEnviando] = useState(false);
-  const r = estado.dados;
-  if (!r) return <Aviso texto={estado.erro || "Carregando…"} />;
-  const vivo = aoVivo ?? r.ao_vivo;
-
-  /** Envia o arquivo de áudio e devolve o endereço público dele. */
-  async function enviarArquivo(arquivo: File | undefined) {
-    if (!arquivo) return;
-    setEnviando(true);
-    try {
-      const nome = `${Date.now()}-${arquivo.name.toLowerCase().replace(/[^a-z0-9.]+/g, "-").slice(-60)}`;
-      const supabase = await getClient();
-      const { error } = await supabase.storage.from("radio").upload(nome, arquivo, { contentType: arquivo.type || "audio/ogg" });
-      if (error) throw error;
-      setFaixa((antes) => ({ ...antes, url: storageUrl(`radio/${nome}`), titulo: antes.titulo || arquivo.name.replace(/\.[a-z0-9]+$/i, "") }));
-      acao.setAviso("Arquivo enviado. Confira o título e adicione a faixa.");
-    } catch {
-      acao.setAviso("Não foi possível enviar o arquivo. Confira o formato (ogg, opus, mp3) e o tamanho (até 50 MB).");
-    } finally {
-      setEnviando(false);
-    }
-  }
-
-  return (
-    <div className="space-y-10">
-      <section className="border-2 border-ink p-5">
-        <p className={rotulo}>Situação</p>
-        <p className="mt-1 font-serif text-2xl font-semibold">{r.no_ar ? "No ar para todo mundo" : "Fora do ar: o público vê “Em breve”"}</p>
-        <p className="mt-1 text-ink-soft">Enquanto estiver fora do ar, só a coordenação e o jornalismo enxergam e escutam a programação.</p>
-        <label className="mt-4 block">
-          Transmissão ao vivo (endereço https de um fluxo de áudio; deixe vazio para tocar a programação gravada)
-          <input value={vivo} onChange={(e) => setAoVivo(e.target.value)} placeholder="https://…" className={`${campo} font-mono`} />
-        </label>
-        <div className="mt-3 flex flex-wrap gap-3">
-          <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("radio_configurar", { p_no_ar: !r.no_ar, p_ao_vivo: vivo }, r.no_ar ? "Rádio fora do ar." : "Rádio no ar.")}>
-            {r.no_ar ? "Tirar do ar" : "Pôr no ar"}
-          </button>
-          <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => acao.agir("radio_configurar", { p_no_ar: r.no_ar, p_ao_vivo: vivo }, "Transmissão atualizada.")}>
-            Guardar transmissão ao vivo
-          </button>
-        </div>
-      </section>
-
-      <section>
-        <h2 className="font-serif text-2xl font-semibold">Canais</h2>
-        <div className="mt-3 grid gap-3 sm:grid-cols-[1fr_2fr_auto] sm:items-end">
-          <label className="block">
-            Nome do canal
-            <input value={canal.nome} onChange={(e) => setCanal({ ...canal, nome: e.target.value })} maxLength={60} className={campo} />
-          </label>
-          <label className="block">
-            Descrição
-            <input value={canal.descricao} onChange={(e) => setCanal({ ...canal, descricao: e.target.value })} maxLength={300} className={campo} />
-          </label>
-          <button
-            type="button"
-            className={botao}
-            disabled={acao.ocupado || canal.nome.trim().length < 2}
-            onClick={async () => {
-              const ok = await acao.agir("radio_canal_salvar", { p_id: null, p_nome: canal.nome, p_descricao: canal.descricao, p_ordem: r.canais.length }, "Canal criado.");
-              if (ok) setCanal({ nome: "", descricao: "" });
-            }}
-          >
-            Criar canal
-          </button>
-        </div>
-      </section>
-
-      {r.canais.length > 0 && (
-        <section>
-          <h2 className="font-serif text-2xl font-semibold">Nova faixa</h2>
-          <p className="mt-1 text-ink-soft">
-            Só envie áudio que o instituto pode distribuir: gravações próprias, material em domínio público, com licença aberta ou com autorização. Música comercial exige licença.
-          </p>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-            <label className="block">
-              Canal
-              <select value={faixa.canal || r.canais[0].id} onChange={(e) => setFaixa({ ...faixa, canal: e.target.value })} className={campo}>
-                {r.canais.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.nome}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="block">
-              Arquivo de áudio (ogg/opus ou mp3, até 50 MB)
-              <input type="file" accept="audio/*" disabled={enviando} onChange={(e) => enviarArquivo(e.target.files?.[0])} className={campo} />
-            </label>
-            <label className="block">
-              Título
-              <input value={faixa.titulo} onChange={(e) => setFaixa({ ...faixa, titulo: e.target.value })} maxLength={160} className={campo} />
-            </label>
-            <label className="block">
-              Autoria ou intérprete
-              <input value={faixa.artista} onChange={(e) => setFaixa({ ...faixa, artista: e.target.value })} maxLength={120} className={campo} />
-            </label>
-            <label className="block sm:col-span-2">
-              Endereço do áudio (preenchido ao enviar o arquivo; também aceita um endereço https)
-              <input value={faixa.url} onChange={(e) => setFaixa({ ...faixa, url: e.target.value })} placeholder="https://…" className={`${campo} font-mono`} />
-            </label>
-          </div>
-          <button
-            type="button"
-            className={`mt-3 ${botao}`}
-            disabled={acao.ocupado || enviando || !faixa.titulo.trim() || !faixa.url.trim()}
-            onClick={async () => {
-              const destino = r.canais.find((item) => item.id === (faixa.canal || r.canais[0].id));
-              const ok = await acao.agir("radio_faixa_salvar", { p_id: null, p_canal: destino?.id, p_titulo: faixa.titulo, p_artista: faixa.artista, p_url: faixa.url, p_duracao: 0, p_ordem: destino?.faixas.length ?? 0 }, "Faixa adicionada.");
-              if (ok) setFaixa({ canal: faixa.canal, titulo: "", artista: "", url: "" });
-            }}
-          >
-            Adicionar faixa
-          </button>
-        </section>
-      )}
-
-      <Aviso texto={acao.aviso} />
-
-      {can(me, "coordenacao", "jornalismo") && <SugerirEmissora />}
-
-      {r.canais.map((item) => (
-        <section key={item.id} className="border border-rule bg-parchment-deep p-4">
-          <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <h3 className="font-serif text-xl font-semibold">{item.nome}</h3>
-            <button type="button" className={elo} onClick={() => acao.agir("radio_canal_remover", { p_id: item.id }, "Canal removido.")}>Remover canal</button>
-          </div>
-          <p className="text-ink-soft">{item.descricao}</p>
-          {item.faixas.length === 0 && <p className="mt-2 text-ink-soft">Sem faixas.</p>}
-          <ol className="mt-2 list-decimal space-y-1 pl-5">
-            {item.faixas.map((musica) => (
-              <li key={musica.id}>
-                {musica.titulo}
-                {musica.artista && <span className="text-ink-soft"> · {musica.artista}</span>}{" "}
-                <button type="button" className={elo} onClick={() => acao.agir("radio_faixa_remover", { p_id: musica.id }, "Faixa removida.")}>remover</button>
-              </li>
-            ))}
-          </ol>
-        </section>
-      ))}
-    </div>
-  );
-}
-
 interface Anuncio {
   id: string;
   categoria: string;
@@ -723,10 +551,12 @@ interface Anuncio {
 
 const tiposDeAnuncio: Record<string, string> = { cooperativa: "Cooperativa ou associação", servico: "Serviço", produto: "Produto", arte: "Arte e cultura", iniciativa: "Iniciativa comunitária" };
 
-/**
- * Anúncios do Mural dos Trabalhadores à espera de leitura e, na outra aba, os que estão no ar. Retirar do ar um anúncio
- * aprovado é com a coordenação: ele passa a "não aprovado", com a nota que quem anunciou lê em "Meus anúncios".
- */
+// A gestão da Rádio Lúcia própria saiu do painel em 18/10/2026: o projeto foi adiado. As tabelas radio_canais e radio_faixas e as
+// funções radio_* continuam no banco, intactas, para a retomada (veja docs/RELATORIO-RODADA-3.md).
+
+// A gestão da Rádio Lúcia própria saiu do painel em 18/10/2026: o projeto foi adiado. As tabelas radio_canais e radio_faixas e as
+// funções radio_* continuam no banco, intactas, para a retomada (veja docs/RELATORIO-RODADA-3.md).
+
 export function MuralFila({ me }: { me: Me }) {
   const [ver, setVer] = useState<"pendente" | "aprovado">("pendente");
   const lista = useLista<Anuncio[]>("mural_fila", { p_status: ver });

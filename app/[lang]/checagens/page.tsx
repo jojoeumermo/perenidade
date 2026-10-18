@@ -25,7 +25,7 @@ export default async function Checagens({ params }: PageProps<"/[lang]/checagens
   const seals = t.factCheck.verdicts.items as Record<string, string>;
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <Cartaz eyebrow={t.factCheck.eyebrow} title={t.factCheck.title} slogan={t.footer.slogan} tone="preto">
+      <Cartaz eyebrow={t.factCheck.eyebrow} title={t.factCheck.title} slogan={t.slogans.checagens} tone="preto">
         {t.factCheck.lead}
       </Cartaz>
       <FactCheckSearch s={t.factCheck} />

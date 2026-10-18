@@ -15,7 +15,7 @@ export default async function MuralPage({ params }: PageProps<"/[lang]/mural">) 
   const s = t.mural;
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.footer.slogan} tone="raios">
+      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.slogans.mural} tone="raios">
         {s.lead}
       </Cartaz>
       <section className="mt-8 border-2 border-ink font-sans text-sm">

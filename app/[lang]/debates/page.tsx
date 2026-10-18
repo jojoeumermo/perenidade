@@ -24,7 +24,7 @@ export default async function Debates({ params }: PageProps<"/[lang]/debates">) 
   const host = site.url.replace(/^https?:\/\//, "");
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <Cartaz eyebrow={t.debates.eyebrow} title={t.debates.title} slogan={t.footer.slogan} tone="vermelho">
+      <Cartaz eyebrow={t.debates.eyebrow} title={t.debates.title} slogan={t.slogans.debates} tone="vermelho">
         {t.debates.lead}
       </Cartaz>
       <aside className="no-print mt-8 border-2 border-ink p-5 font-sans">
