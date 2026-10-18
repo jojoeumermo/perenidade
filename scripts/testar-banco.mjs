@@ -2015,12 +2015,13 @@ let post;
 await espera("marketing põe um post no calendário", async () => (post = await rpc(mkt, "divulgacao_salvar", { p: { titulo: "Convite para a aula aberta", formato: "carrossel", legenda: "Sábado tem aula aberta de história.", data_prevista: "2026-11-02", material: "https://exemplo.org/pasta", situacao: "rascunho" } })), (r) => Boolean(r.id));
 await recusa("material com endereço estranho é recusado", () => rpc(mkt, "divulgacao_salvar", { p: { titulo: "Outro post", material: "javascript:alert(1)" } }), "invalido:material");
 await recusa("data inválida é recusada", () => rpc(mkt, "divulgacao_salvar", { p: { titulo: "Outro post", data_prevista: "amanhã" } }), "invalido:data_prevista");
-await espera("marketing marca como pronto", () => rpc(mkt, "divulgacao_situacao", { p_id: post.id, p_situacao: "pronto" }), (r) => r.ok);
+await recusa("marketing não marca como pronto sozinho (é aprovação)", () => rpc(mkt, "divulgacao_situacao", { p_id: post.id, p_situacao: "pronto" }), "sem_permissao:aprovar");
+await espera("a coordenação aprova: pronto para sair", () => rpc(C1, "divulgacao_situacao", { p_id: post.id, p_situacao: "pronto" }), (r) => r.ok);
 await recusa("marketing não comenta como coordenação", () => rpc(mkt, "divulgacao_comentar", { p_id: post.id, p_nota: "Aprovado por mim mesma" }), "sem_permissao");
 await recusa("devolver exige uma nota", () => rpc(C1, "divulgacao_comentar", { p_id: post.id, p_nota: "", p_devolver: true }), "invalido:nota");
 await espera("coordenação devolve para rascunho e o marketing é avisado", async () => { await rpc(C1, "divulgacao_comentar", { p_id: post.id, p_nota: "Falta o crédito da foto.", p_devolver: true }); return [(await rpc(mkt, "divulgacao_listar")).itens.find((i) => i.id === post.id), (await rpc(mkt, "painel_resumo")).divulgacao, (await rpc(mkt, "eu")).avisos]; },
   (r) => r[0].situacao === "rascunho" && r[0].devolvido === true && r[0].nota === "Falta o crédito da foto." && r[1] === 1 && r[2] >= 1);
-await espera("ao corrigir, a marca de devolvido sai", async () => { await rpc(mkt, "divulgacao_salvar", { p: { id: post.id, titulo: "Convite para a aula aberta", formato: "carrossel", legenda: "Sábado tem aula aberta de história. Foto: acervo próprio.", situacao: "pronto" } }); return (await rpc(mkt, "divulgacao_listar")).itens.find((i) => i.id === post.id); }, (r) => r.devolvido === false && r.situacao === "pronto");
+await espera("ao corrigir, a marca de devolvido sai (e a peça espera nova aprovação)", async () => { await rpc(mkt, "divulgacao_salvar", { p: { id: post.id, titulo: "Convite para a aula aberta", formato: "carrossel", legenda: "Sábado tem aula aberta de história. Foto: acervo próprio.", situacao: "rascunho" } }); return (await rpc(mkt, "divulgacao_listar")).itens.find((i) => i.id === post.id); }, (r) => r.devolvido === false && r.situacao === "rascunho");
 await recusa("leitora não vê o calendário", () => rpc(como(ids.leitora), "divulgacao_listar"), "sem_permissao");
 await recusa("o design antigo não vê o calendário", () => rpc(como(ids.designer), "divulgacao_listar"), "sem_permissao");
 await recusa("revisor não apaga item do calendário", () => rpc(como(ids.alvo), "divulgacao_apagar", { p_id: post.id }), "sem_permissao");
@@ -2725,6 +2726,25 @@ await espera("três falhas seguidas pausam o endereço", async () => {
   return dono("select falhas, pausado from interno.boletim where email = 'leitor2@exemplo.com'");
 }, (r) => r.rows[0].pausado === true && r.rows[0].falhas >= 3);
 await espera("o jornal reativa o endereço", async () => { await rpc(como(ids.jornal), "boletim_reativar", { p_email: "leitor2@exemplo.com" }); return dono("select falhas, pausado from interno.boletim where email = 'leitor2@exemplo.com'"); }, (r) => r.rows[0].pausado === false && r.rows[0].falhas === 0);
+
+// ── Divulgação: responsável, aprovação para "pronto" e registro de acesso ao Instagram ──
+const marketing = await criarUsuario("mkt@exemplo.org", "Mara Marketing");
+await dono("insert into interno.papeis (usuario, papel) values ($1, 'marketing')", [marketing]);
+await recusa("o marketing não aprova sozinho", () => rpc(como(marketing), "divulgacao_salvar", { p: { titulo: "Post da greve", situacao: "pronto" } }), "sem_permissao:aprovar");
+const peca = await rpc(como(marketing), "divulgacao_salvar", { p: { titulo: "Post da greve", legenda: "Legenda", situacao: "rascunho", responsavel: marketing } });
+await recusa("responsável precisa ser da equipe", () => rpc(como(marketing), "divulgacao_salvar", { p: { id: peca.id, titulo: "Post da greve", responsavel: ids.leitora } }), "invalido:responsavel");
+await recusa("nem pela troca rápida de situação", () => rpc(como(marketing), "divulgacao_situacao", { p_id: peca.id, p_situacao: "pronto" }), "sem_permissao:aprovar");
+await espera("a supervisão aprova e fica anotado quem aprovou", async () => { await rpc({ ...como(ids.revisor), aal: "aal2" }, "divulgacao_situacao", { p_id: peca.id, p_situacao: "pronto" }).catch(() => rpc(coordenacao, "divulgacao_situacao", { p_id: peca.id, p_situacao: "pronto" })); return (await rpc(como(marketing), "divulgacao_listar")).itens.find((i) => i.id === peca.id); }, (i) => i.situacao === "pronto" && Boolean(i.aprovado_por) && i.responsavel_id === marketing && Boolean(i.responsavel));
+await espera("mexer no texto de uma peça aprovada a devolve para rascunho", () => rpc(como(marketing), "divulgacao_salvar", { p: { id: peca.id, titulo: "Post da greve", legenda: "Outra legenda", situacao: "pronto", responsavel: marketing } }), (r) => r.situacao === "rascunho");
+await recusa("o marketing não vê o registro do Instagram", () => rpc(como(marketing), "instagram_acessos_listar"), "sem_permissao");
+await recusa("conta com espaço não entra", () => rpc(coordenacao, "instagram_acesso_salvar", { p: { nome: "Mara", conta: "@mara marketing" } }), "violates check constraint");
+await espera("a coordenação registra o convite", () => rpc(coordenacao, "instagram_acesso_salvar", { p: { nome: "Mara Marketing", pessoa: marketing, conta: "@mara.mkt", permissoes: "publicar posts e stories", situacao: "ativo" } }), (r) => Boolean(r.id));
+await espera("quem saiu do painel com acesso gera lembrete para a coordenação", async () => {
+  await dono("delete from interno.papeis where usuario = $1", [marketing]);
+  const lista = await rpc(coordenacao, "instagram_acessos_listar");
+  const aviso = await dono("select count(*)::int as n from interno.avisos where texto like '%ainda aparece com acesso ao Instagram%'");
+  return { fora: lista.find((a) => a.pessoa === marketing)?.na_equipe, avisos: aviso.rows[0].n };
+}, (r) => r.fora === false && r.avisos >= 1);
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);

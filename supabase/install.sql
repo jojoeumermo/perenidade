@@ -896,6 +896,10 @@ create table if not exists interno.divulgacao (
   mexido_em timestamptz not null default now()
 );
 create index if not exists divulgacao_data on interno.divulgacao (data_prevista);
+-- Quem cuida de cada peça e quem aprovou ("pronto para sair" só com aprovação de quem pode).
+alter table interno.divulgacao add column if not exists responsavel uuid references interno.perfis (id) on delete set null;
+alter table interno.divulgacao add column if not exists aprovado_por uuid references interno.perfis (id) on delete set null;
+alter table interno.divulgacao add column if not exists aprovado_em timestamptz;
 
 -- Os votos ganham data, para o expurgo saber o que entrou num período. Os antigos ficam com a data da instalação.
 alter table interno.votos add column if not exists criado_em timestamptz not null default now();
@@ -1057,6 +1061,8 @@ create or replace function interno.media_mural() returns boolean language sql st
 create or replace function interno.supervisor() returns boolean language sql stable as $$ select interno.coord() or interno.tem('supervisao') $$;
 /** Marketing e divulgação: o calendário das redes e o kit da marca. Coordenação e vice-coordenação também. */
 create or replace function interno.divulga() returns boolean language sql stable as $$ select interno.coord() or interno.tem('marketing') $$;
+/** Quem aprova uma peça para sair (marca "pronto para sair"): coordenação, coordenação pedagógica e supervisão. */
+create or replace function interno.aprova_divulgacao() returns boolean language sql stable as $$ select interno.coord() or interno.tem('supervisao') $$;
 /**
  * Quem pode atender um pedido de reforço desta disciplina: mentoria e educação da disciplina, e a coordenação
  * (que destrava pedido parado). A curadoria cuida de conteúdo, não de reforço: não vê o e-mail de estudante nenhum.
@@ -5902,7 +5908,9 @@ create or replace function interno.divulgacao_json(d interno.divulgacao) returns
   select jsonb_build_object(
     'id', d.id, 'rede', d.rede, 'formato', d.formato, 'titulo', d.titulo, 'legenda', d.legenda, 'data_prevista', d.data_prevista, 'material', d.material,
     'situacao', d.situacao, 'nota', d.nota, 'devolvido', d.devolvido, 'criado_em', d.criado_em, 'mexido_em', d.mexido_em,
-    'criado_por', coalesce((select nome from perfis where id = d.criado_por), ''), 'mexido_por', coalesce((select nome from perfis where id = d.mexido_por), ''))
+    'criado_por', coalesce((select nome from perfis where id = d.criado_por), ''), 'mexido_por', coalesce((select nome from perfis where id = d.mexido_por), ''),
+    'responsavel_id', d.responsavel, 'responsavel', coalesce((select interno.nome_visto(nome) from perfis where id = d.responsavel), ''),
+    'aprovado_por', coalesce((select interno.nome_visto(nome) from perfis where id = d.aprovado_por), ''), 'aprovado_em', d.aprovado_em)
 $$;
 
 /** O material de um item: um endereço https, ou um arquivo que a coordenação aprovou e que já está publicado no site. */
@@ -5936,7 +5944,8 @@ declare
   v_rede text := coalesce(nullif(p ->> 'rede', ''), 'instagram');
   v_formato text := coalesce(nullif(p ->> 'formato', ''), 'post');
   v_situacao text := coalesce(nullif(p ->> 'situacao', ''), 'ideia');
-  v_data date; v_titulo text; v_legenda text; v_material text;
+  v_resp uuid;
+  v_data date; v_titulo text; v_legenda text; v_material text; d divulgacao; v_aprovado uuid; v_aprovado_em timestamptz;
 begin
   if not interno.divulga() then perform interno.erro('sem_permissao'); end if;
   perform interno.limite('divulgacao', 120, 60);
@@ -5951,34 +5960,62 @@ begin
       perform interno.erro('invalido:data_prevista');
     end;
   end if;
+  begin
+    v_resp := nullif(p ->> 'responsavel', '')::uuid;
+  exception when others then
+    perform interno.erro('invalido:responsavel');
+  end;
+  if v_resp is not null and not exists (select 1 from papeis where usuario = v_resp) then perform interno.erro('invalido:responsavel'); end if;
   v_titulo := interno.txt(p ->> 'titulo', 'titulo', 3, 120);
   v_legenda := interno.txt(p ->> 'legenda', 'legenda', 0, 2200);
   v_material := interno.material_ok(p ->> 'material');
+  if v_id is not null then
+    select * into d from divulgacao where id = v_id for update;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  v_aprovado := d.aprovado_por;
+  v_aprovado_em := d.aprovado_em;
+  -- "Pronto para sair" é aprovação: só quem aprova marca. Quem não aprova e mexe no texto de uma peça já aprovada a devolve
+  -- para rascunho (precisa de aprovação de novo); só mudar para "publicado" mantém a aprovação.
+  if v_situacao = 'pronto' and coalesce(d.situacao, '') <> 'pronto' then
+    if not interno.aprova_divulgacao() then perform interno.erro('sem_permissao:aprovar'); end if;
+    v_aprovado := v; v_aprovado_em := now();
+  elsif v_situacao = 'pronto' and (d.titulo, d.legenda, d.material, d.formato) is distinct from (v_titulo, v_legenda, v_material, v_formato) then
+    if interno.aprova_divulgacao() then v_aprovado := v; v_aprovado_em := now(); else v_situacao := 'rascunho'; v_aprovado := null; v_aprovado_em := null; end if;
+  elsif v_situacao in ('ideia', 'rascunho') then
+    v_aprovado := null; v_aprovado_em := null;
+  end if;
   if v_id is null then
-    insert into divulgacao (rede, formato, titulo, legenda, data_prevista, material, situacao, criado_por, mexido_por)
-    values (v_rede, v_formato, v_titulo, v_legenda, v_data, v_material, v_situacao, v, v)
+    insert into divulgacao (rede, formato, titulo, legenda, data_prevista, material, situacao, criado_por, mexido_por, responsavel, aprovado_por, aprovado_em)
+    values (v_rede, v_formato, v_titulo, v_legenda, v_data, v_material, v_situacao, v, v, v_resp, v_aprovado, v_aprovado_em)
     returning id into v_id;
     perform interno.registrar('divulgacao_criada', v_titulo, jsonb_build_object('formato', v_formato, 'situacao', v_situacao));
   else
     update divulgacao set rede = v_rede, formato = v_formato, titulo = v_titulo, legenda = v_legenda, data_prevista = v_data, material = v_material,
-      situacao = v_situacao, devolvido = false, mexido_por = v, mexido_em = now()
+      situacao = v_situacao, devolvido = false, mexido_por = v, mexido_em = now(), responsavel = v_resp, aprovado_por = v_aprovado, aprovado_em = v_aprovado_em
     where id = v_id;
-    if not found then perform interno.erro('nao_encontrado'); end if;
     perform interno.registrar('divulgacao_editada', v_titulo, jsonb_build_object('situacao', v_situacao));
   end if;
-  return jsonb_build_object('id', v_id);
+  if v_resp is not null and v_resp <> v and v_resp is distinct from d.responsavel then
+    perform interno.avisar(v_resp, 'Você ficou responsável pela peça "' || left(v_titulo, 80) || '" no calendário da divulgação.');
+  end if;
+  return jsonb_build_object('id', v_id, 'situacao', v_situacao);
 end $$;
 
 /** Muda só a situação de um item (ideia, rascunho, pronto, publicado), sem abrir o formulário. */
 create or replace function public.divulgacao_situacao(p_id uuid, p_situacao text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); v_titulo text;
+declare v uuid := interno.eu(); d divulgacao;
 begin
   if not interno.divulga() then perform interno.erro('sem_permissao'); end if;
   if coalesce(p_situacao, '') not in ('ideia', 'rascunho', 'pronto', 'publicado') then perform interno.erro('invalido:situacao'); end if;
-  update divulgacao set situacao = p_situacao, devolvido = devolvido and p_situacao = 'rascunho', mexido_por = v, mexido_em = now()
-  where id = p_id returning titulo into v_titulo;
+  select * into d from divulgacao where id = p_id for update;
   if not found then perform interno.erro('nao_encontrado'); end if;
-  perform interno.registrar('divulgacao_situacao', v_titulo, jsonb_build_object('situacao', p_situacao));
+  if p_situacao = 'pronto' and d.situacao <> 'pronto' and not interno.aprova_divulgacao() then perform interno.erro('sem_permissao:aprovar'); end if;
+  update divulgacao set situacao = p_situacao, devolvido = devolvido and p_situacao = 'rascunho', mexido_por = v, mexido_em = now(),
+    aprovado_por = case when p_situacao = 'pronto' and d.situacao <> 'pronto' then v when p_situacao in ('ideia', 'rascunho') then null else aprovado_por end,
+    aprovado_em = case when p_situacao = 'pronto' and d.situacao <> 'pronto' then now() when p_situacao in ('ideia', 'rascunho') then null else aprovado_em end
+  where id = p_id;
+  perform interno.registrar('divulgacao_situacao', d.titulo, jsonb_build_object('situacao', p_situacao));
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -9715,6 +9752,91 @@ do $$
 declare f text;
 begin
   foreach f in array array['boletim_edicao_salvar(uuid, text, text, jsonb, text)', 'boletim_edicoes_listar()', 'boletim_edicao_apagar(uuid)', 'boletim_testar(uuid)', 'boletim_edicao_enviar(uuid)', 'boletim_reativar(text)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;
+
+
+-- ───────────────────────────── Divulgação: registro de quem tem acesso ao Instagram ─────────────────────────────
+
+-- O site não guarda senha de rede social: o acesso é dado na Central de Contas da Meta. Aqui fica só o registro de quem foi
+-- convidado e quando, para ninguém esquecer de tirar o acesso de quem saiu da equipe.
+create table if not exists interno.instagram_acessos (
+  id uuid primary key default gen_random_uuid(),
+  pessoa uuid references interno.perfis (id) on delete set null,
+  nome text not null check (char_length(nome) between 2 and 120),
+  conta text not null default '' check (conta = '' or conta ~ '^@?[A-Za-z0-9_.]{1,30}$'),
+  permissoes text not null default '' check (char_length(permissoes) <= 300),
+  situacao text not null default 'convidado' check (situacao in ('convidado', 'ativo', 'removido')),
+  convidado_em date not null default current_date,
+  removido_em date,
+  nota text not null default '' check (char_length(nota) <= 500),
+  registrado_por uuid references interno.perfis (id) on delete set null,
+  atualizado_em timestamptz not null default now()
+);
+alter table interno.instagram_acessos enable row level security;
+
+create or replace function public.instagram_acessos_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'pessoa', a.pessoa, 'nome', a.nome, 'conta', a.conta, 'permissoes', a.permissoes, 'situacao', a.situacao,
+            'convidado_em', a.convidado_em, 'removido_em', a.removido_em, 'nota', a.nota, 'atualizado_em', a.atualizado_em,
+            'na_equipe', a.pessoa is not null and exists (select 1 from papeis p join perfis f on f.id = p.usuario where p.usuario = a.pessoa and not f.suspenso))
+          order by (a.situacao = 'removido'), a.convidado_em desc), '[]'::jsonb) from instagram_acessos a);
+end $$;
+
+/** A coordenação registra (ou corrige) um convite ou acesso. "removido" pede a data em que o acesso saiu. */
+create or replace function public.instagram_acesso_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid; v_pessoa uuid; v_situacao text := coalesce(nullif(p ->> 'situacao', ''), 'convidado'); v_conv date; v_rem date;
+begin
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  begin
+    v_id := nullif(p ->> 'id', '')::uuid;
+    v_pessoa := nullif(p ->> 'pessoa', '')::uuid;
+    v_conv := coalesce(nullif(p ->> 'convidado_em', '')::date, current_date);
+    v_rem := nullif(p ->> 'removido_em', '')::date;
+  exception when others then
+    perform interno.erro('invalido:dados');
+  end;
+  if v_situacao not in ('convidado', 'ativo', 'removido') then perform interno.erro('invalido:situacao'); end if;
+  if v_situacao = 'removido' then v_rem := coalesce(v_rem, current_date); else v_rem := null; end if;
+  if v_id is null then
+    insert into instagram_acessos (pessoa, nome, conta, permissoes, situacao, convidado_em, removido_em, nota, registrado_por)
+    values (v_pessoa, interno.txt(p ->> 'nome', 'nome', 2, 120), btrim(coalesce(p ->> 'conta', '')), interno.txt(p ->> 'permissoes', 'permissoes', 0, 300), v_situacao, v_conv, v_rem,
+            interno.txt(p ->> 'nota', 'nota', 0, 500), v)
+    returning id into v_id;
+  else
+    update instagram_acessos set pessoa = v_pessoa, nome = interno.txt(p ->> 'nome', 'nome', 2, 120), conta = btrim(coalesce(p ->> 'conta', '')), permissoes = interno.txt(p ->> 'permissoes', 'permissoes', 0, 300),
+      situacao = v_situacao, convidado_em = v_conv, removido_em = v_rem, nota = interno.txt(p ->> 'nota', 'nota', 0, 500), registrado_por = v, atualizado_em = now()
+    where id = v_id;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  perform interno.registrar('instagram_acesso', coalesce(p ->> 'nome', ''), jsonb_build_object('situacao', v_situacao));
+  return jsonb_build_object('id', v_id);
+end $$;
+
+/** Quem sai do painel (perde a última função) e ainda tem acesso ao Instagram: a coordenação recebe o lembrete. */
+create or replace function interno.instagram_lembrete_gatilho() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_nome text;
+begin
+  if exists (select 1 from instagram_acessos where pessoa = old.usuario and situacao <> 'removido')
+     and not exists (select 1 from papeis where usuario = old.usuario and id <> old.id) then
+    select nome into v_nome from instagram_acessos where pessoa = old.usuario and situacao <> 'removido' limit 1;
+    perform interno.avisar_lideranca(coalesce(v_nome, 'Alguém') || ' saiu do painel e ainda aparece com acesso ao Instagram do instituto. Tire o acesso na Central de Contas da Meta e marque como removido em Divulgação → Acesso ao Instagram.');
+  end if;
+  return old;
+end $$;
+drop trigger if exists lucia_instagram_lembrete on interno.papeis;
+create trigger lucia_instagram_lembrete after delete on interno.papeis for each row execute function interno.instagram_lembrete_gatilho();
+
+revoke all on function interno.instagram_lembrete_gatilho() from public, anon, authenticated;
+revoke all on function interno.aprova_divulgacao() from public, anon, authenticated;
+do $$
+declare f text;
+begin
+  foreach f in array array['instagram_acessos_listar()', 'instagram_acesso_salvar(jsonb)'] loop
     execute format('revoke all on function public.%s from public', f);
     execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
   end loop;
