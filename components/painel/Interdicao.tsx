@@ -78,7 +78,7 @@ function Interditar({ estado, coordena, recarregar }: { estado: Estado; coordena
         }
       }
     } else {
-      await acao.agir("pedido_criar", { p_tipo: reabrir ? "liberacao" : "interdicao", p_dados: dados, p_justificativa: motivo.trim() }, "Pedido enviado. Ele só vale depois que a coordenação ou a vice-coordenação aprovar.");
+      await acao.agir("pedido_criar", { p_tipo: reabrir ? "liberacao" : "interdicao", p_dados: dados, p_justificativa: motivo.trim() }, "Pedido enviado. Ele só vale depois que a coordenação ou a coordenação pedagógica aprovar.");
     }
   }
 
@@ -111,7 +111,7 @@ function Interditar({ estado, coordena, recarregar }: { estado: Estado; coordena
         <p className="mt-1 max-w-3xl text-ink-soft">
           O que fica fechado mostra só uma página simples dizendo que aquela parte está fora do ar por um tempo, com o recado que você escrever. Nada é apagado. As funções do banco daquela área recusam o público,
           mas quem cuida dela continua lendo e limpando pelo painel. A mudança chega a todos em até meio minuto.
-          {!coordena && " O pedido só vale depois que a coordenação ou a vice-coordenação aprovar; parado, vence em 72 horas."}
+          {!coordena && " O pedido só vale depois que a coordenação ou a coordenação pedagógica aprovar; parado, vence em 72 horas."}
         </p>
         <label className="mt-4 flex items-start gap-2 font-semibold">
           <input type="checkbox" checked={geral} onChange={(e) => setGeral(e.target.checked)} className="mt-1 h-4 w-4" />
@@ -178,7 +178,7 @@ function Expurgo({ coordena }: { coordena: boolean }) {
         setPrevia(null);
         setConfirmacao("");
       }
-    } else if (await acao.agir("pedido_criar", { p_tipo: "expurgo", p_dados: dados, p_justificativa: justificativa.trim() }, "Pedido de expurgo enviado. Ele só vale depois que a coordenação ou a vice-coordenação aprovar.")) {
+    } else if (await acao.agir("pedido_criar", { p_tipo: "expurgo", p_dados: dados, p_justificativa: justificativa.trim() }, "Pedido de expurgo enviado. Ele só vale depois que a coordenação ou a coordenação pedagógica aprovar.")) {
       setJustificativa("");
       setPrevia(null);
     }

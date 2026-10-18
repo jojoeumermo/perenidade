@@ -3,12 +3,12 @@
 
 import { getClient, signedStorageUrl } from "./backend";
 
-// Aulas em vídeo: até 10 minutos, até 720p e até 50 MB (o limite por arquivo do plano gratuito do serviço).
+// Aulas em vídeo: até 10 minutos, até 480p e até 50 MB (o limite por arquivo do plano gratuito do serviço).
 // Tudo é medido e, se preciso, convertido no próprio navegador de quem envia: o servidor só confere os números.
 export const DEPOSITO = "videoaulas";
 export const LIMITE_SEGUNDOS = 600;
 export const LIMITE_BYTES = 50 * 1024 * 1024;
-const LADO_MENOR = 720;
+const LADO_MENOR = 480;
 const LADO_MAIOR = 1280;
 /** Taxa pensada para caber em 50 MB com folga: dez minutos a ~620 kbit/s dão uns 47 MB. */
 const TAXA_VIDEO = 560_000;
@@ -43,7 +43,7 @@ export function formatoDeGravacao(): Formato | null {
 
 export const opcoesDoGravador = (formato: Formato): MediaRecorderOptions => ({ mimeType: formato.mime, videoBitsPerSecond: TAXA_VIDEO, audioBitsPerSecond: TAXA_AUDIO });
 
-/** A câmera ou a tela já pedidas no limite de 720p, para a gravação nascer no tamanho certo. */
+/** A câmera ou a tela já pedidas no limite de 480p, para a gravação nascer no tamanho certo. */
 export const restricoesDeVideo = { width: { ideal: LADO_MAIOR, max: LADO_MAIOR }, height: { ideal: LADO_MENOR, max: LADO_MENOR }, frameRate: { ideal: 24, max: 30 } };
 
 /**
@@ -82,7 +82,7 @@ export function medir(arquivo: Blob): Promise<Medidas> {
 export const cabe = (m: Medidas) => m.duracao <= LIMITE_SEGUNDOS && Math.min(m.largura, m.altura) <= LADO_MENOR && Math.max(m.largura, m.altura) <= LADO_MAIOR;
 
 /**
- * Converte um vídeo maior que 720p, no próprio navegador: toca o vídeo uma vez, redesenha cada quadro num tamanho
+ * Converte um vídeo maior que 480p, no próprio navegador: toca o vídeo uma vez, redesenha cada quadro num tamanho
  * menor e grava de novo. Leva o mesmo tempo que o vídeo dura. O som vai só para a gravação, não para os alto-falantes.
  */
 export async function converterPara720p(arquivo: Blob, aoAndar: (fracao: number) => void, sinal: AbortSignal): Promise<{ blob: Blob; formato: Formato }> {

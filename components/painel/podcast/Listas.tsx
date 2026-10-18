@@ -819,14 +819,14 @@ export function Ajustes({ painel, recarregar }: { painel: PainelDoPodcast; recar
                     <strong>{p.nome}</strong> <span className="text-xs text-ink-soft">{p.separadas ? "tarefas separadas" : p.jornalismo ? "padrão do jornalismo" : ""}</span>
                   </span>
                   <span className="flex flex-wrap gap-4">
-                    {(["producao", "edicao", "supervisao"] as const).map((f) => (
+                    {(["producao", "edicao"] as const).map((f) => (
                       <label key={f} className="flex items-center gap-1">
                         <input
                           type="checkbox"
                           checked={efetivas.includes(f)}
                           onChange={(e) => acaoEquipe.agir("podcast_funcoes_definir", { p_usuario: p.id, p_funcoes: e.target.checked ? [...new Set([...efetivas, f])] : efetivas.filter((x) => x !== f) }, "Tarefas atualizadas.")}
                         />
-                        {f === "producao" ? "produção" : f === "edicao" ? "edição" : "supervisão"}
+                        {f === "producao" ? "produção" : "edição"}
                       </label>
                     ))}
                     {p.separadas && <button type="button" className={elo} onClick={() => acaoEquipe.agir("podcast_funcoes_definir", { p_usuario: p.id, p_funcoes: [] }, "Voltou ao padrão.")}>voltar ao padrão</button>}

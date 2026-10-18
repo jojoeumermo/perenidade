@@ -63,10 +63,6 @@ El [Periódico](/jornal) publica noticias y análisis desde el punto de vista de
 
 Quien hace el periódico también hace la [Radio Lúcia](/radio) (canales, pistas, transmisión en directo y la lista de emisoras populares) y los [podcasts](/podcasts): pauta, guion, grabación, edición y publicación. Se puede cuidar de los tres o solo de uno.
 
-### Supervisión del podcast
-
-Antes de salir, cada episodio del podcast pasa por la supervisión: escucha, comprueba hechos y cuidados, y aprueba o devuelve a la producción con una nota. Nadie aprueba su propio episodio. La coordinación elige, dentro del equipo del podcast, quién hace la supervisión.
-
 ### Clases de refuerzo
 
 Quien se atasca en una materia puede [pedir refuerzo](/reforco). El pedido llega a los voluntarios de esa asignatura; quien lo asume responde por correo, con paciencia y mostrando el camino, no solo la respuesta. Es una buena forma de ayudar para quien tiene poco tiempo: una duda cada vez.
@@ -79,19 +75,23 @@ Las lecciones mejoran con un buen dibujo: un esquema, un gráfico, un mapa, un c
 
 Un curso gratuito solo cumple su papel si la gente sabe que existe. El marketing se ocupa de la difusión: publicaciones y piezas para las redes sociales, carteles de convocatoria, campañas de voluntariado y de apoyo, fragmentos de los episodios del podcast. Trabaja junto con el diseño, usa los materiales y archivos del panel y tiene un canal propio en el mural del equipo.
 
+### Representante de departamento
+
+Cada departamento (educación, revisión, periodismo, diseño…) puede tener un representante: la primera puerta de entrada y quien organiza el grupo, acuerda y delega tareas, sin ser jefe. Lo nombra la coordinación, la coordinación pedagógica o la supervisión, entre quienes ya forman parte del departamento. No concede ni retira funciones.
+
+### Portavoz
+
+El instituto crece y necesita presentarse en escuelas, sindicatos, movimientos y eventos, en cualquier ciudad. El portavoz lleva la palabra del instituto a esos lugares y trae de vuelta lo que escuchó. Lo nombra la coordinación, la coordinación pedagógica o la supervisión.
+
 ### Desarrollo
 
 El sitio es software libre y hay mucho por hacer: nuevas herramientas de práctica, accesibilidad, rendimiento en móviles sencillos e internet lenta, traducciones de la interfaz. Quien programa acuerda el trabajo con la coordinación por el panel.
-
-### Coordinación y vicecoordinación
-
-La coordinación comunitaria tiene la última palabra: aprueba voluntarios, reparte funciones y asignaturas, decide lo que sale y emite los certificados. El vicecoordinador hace casi todo lo que hace el coordinador y firma los certificados con él. Estas funciones no se abren a candidatura: se confían a quien ya forma parte del equipo.
 
 ## Horas y certificado
 
 Quien acepta, en el panel, el acuerdo de adhesión al trabajo voluntario (basado en la Ley brasileña n.º 9.608/1998: sin salario y sin relación laboral) tiene sus horas contadas por la propia plataforma con cada trabajo terminado: lección aprobada, opinión de revisión, traducción, refuerzo respondido, episodio publicado y otros. Lo que se hace fuera del panel se puede registrar a mano y lo comprueba la coordinación.
 
-Cuando quiera, el voluntario pide el certificado de un periodo. Lleva tres firmas electrónicas (un educador, el vicecoordinador y el coordinador) y un código que cualquiera comprueba en la página [Comprobar certificado](/certificado). Mientras el instituto no esté registrado como organización, el certificado es una declaración de un proyecto comunitario: cada escuela o universidad decide si lo acepta como horas complementarias.
+Cuando quiera, el voluntario pide el certificado de un periodo. Lleva tres firmas electrónicas (un educador, la coordinación pedagógica y el coordinador) y un código que cualquiera comprueba en la página [Comprobar certificado](/certificado). Mientras el instituto no esté registrado como organización, el certificado es una declaración de un proyecto comunitario: cada escuela o universidad decide si lo acepta como horas complementarias.
 
 ## Difundiendo
 

@@ -119,7 +119,7 @@
       ],
       [
         "Toda aula tem fonte",
-        "Cada contribuição é lida pela curadoria antes de entrar. Tudo fica registrado e pode ser desfeito."
+        "Cada contribuição é lida pela revisão antes de entrar. Tudo fica registrado e pode ser desfeito."
       ],
       [
         "Sem dados sensíveis",
@@ -611,7 +611,7 @@
   "contribute": {
     "eyebrow": "Construção coletiva",
     "title": "Contribuir",
-    "lead": "Escreva uma aula, indique uma obra livre, corrija um erro ou dê uma ideia. Não precisa de conta. Tudo é lido pela curadoria antes de entrar no acervo.",
+    "lead": "Escreva uma aula, indique uma obra livre, corrija um erro ou dê uma ideia. Não precisa de conta. Tudo é lido pela equipe de revisão antes de entrar no site.",
     "description": "Envie uma aula, indique uma obra livre ou corrija um erro. Toda contribuição passa por revisão.",
     "rules": [
       "Escreva com as suas palavras. Não copie textos protegidos por direitos autorais.",
@@ -625,7 +625,7 @@
         "Preencha o formulário abaixo. O rascunho fica salvo neste navegador enquanto você escreve."
       ],
       [
-        "A curadoria lê",
+        "A revisão lê",
         "Voluntários conferem as fontes, o texto e a licença."
       ],
       [
@@ -666,7 +666,7 @@
     "credit": "Seu nome ou apelido, como deve aparecer (opcional)",
     "declareLesson": "Declaro que este texto é de minha autoria ou está sob licença livre, e aceito publicá-lo sob a licença CC BY-SA 4.0.",
     "declareWork": "Declaro que a obra está em domínio público ou sob licença aberta, e que o link leva a uma fonte legítima.",
-    "sent": "Recebemos a sua contribuição. Obrigado! Ela será lida pela curadoria antes de entrar no acervo.",
+    "sent": "Recebemos a sua contribuição. Obrigado! Ela será lida pela equipe de revisão antes de entrar no site.",
     "ready": "Tudo certo para enviar.",
     "offline": "O envio pelo site ainda não está ativo nesta cópia.",
     "send": "Enviar para revisão",
@@ -2323,7 +2323,7 @@
   "videoLessons": {
     "eyebrow": "Gravadas pelo instituto",
     "title": "Aulas em vídeo",
-    "lead": "Aulas curtas, de até 10 minutos, gravadas pelos educadores do instituto e revisadas pela curadoria antes de ir ao ar. No tocador dá para mudar a velocidade (de 0,5x a 3x), ligar as legendas quando houver e ler a transcrição.",
+    "lead": "Aulas curtas, de até 10 minutos, gravadas pelos educadores do instituto e revisadas antes de ir ao ar. No tocador dá para mudar a velocidade (de 0,5x a 3x), ligar as legendas quando houver e ler a transcrição.",
     "filter": "Disciplina",
     "all": "Todas as disciplinas",
     "loading": "Carregando as aulas…",

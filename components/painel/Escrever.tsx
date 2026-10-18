@@ -435,7 +435,7 @@ export function Escrever({ me }: { me: Me }) {
       )}
 
       <p className="text-ink-soft">
-        Você assina como <strong>{me.nome}</strong>. Tudo passa pela curadoria antes de ir ao ar.
+        Você assina como <strong>{me.nome}</strong>. Tudo passa pela revisão antes de ir ao ar: outro educador da disciplina, a revisão ou a coordenação põe no ar.
       </p>
       <button type="button" onClick={enviar} disabled={ocupado} className={botao}>
         Enviar para revisão
