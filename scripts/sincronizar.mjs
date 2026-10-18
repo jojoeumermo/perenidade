@@ -209,8 +209,8 @@ async function publicarArquivo(caminho) {
 
 /** Troca, no texto de uma contribuição, cada imagem enviada pelo endereço dela dentro do site. */
 async function trazerImagens(texto, usados) {
-  const caminhos = [...new Set([...texto.matchAll(/envio:([0-9a-f-]{36}\/[a-z0-9-]{8,60}\.(?:webp|jpg))/g)].map((achado) => achado[1]))];
-  if (caminhos.length > 12) recusar("imagens demais em um texto só (o limite é 12)");
+  const caminhos = [...new Set([...texto.matchAll(/envio:([0-9a-f-]{36}\/[a-z0-9-]{8,60}\.(?:webp|jpg|pdf))/g)].map((achado) => achado[1]))];
+  if (caminhos.length > 12) recusar("imagens e anexos demais em um texto só (o limite é 12)");
   let saida = texto;
   for (const caminho of caminhos) {
     saida = saida.replaceAll(`envio:${caminho}`, await publicarArquivo(caminho));

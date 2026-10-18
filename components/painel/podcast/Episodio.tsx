@@ -462,7 +462,7 @@ function AbaRoteiro({ valor, mudar, podeProduzir }: { valor: Valor; mudar: Mudar
       {painel === "checar" && <ChecarAfirmacao inicial={selecao} fechar={() => setPainel("")} />}
       {prompter && <Teleprompter texto={roteiro} fechar={() => setPrompter(false)} />}
       {podeProduzir ? (
-        <MarkdownEditor id="podcast-roteiro" value={roteiro} onChange={(v) => mudar("roteiro", v)} labels={editorPt} rows={22} placeholder="Escreva o roteiro, ou comece pelo gabarito." />
+        <MarkdownEditor id="podcast-roteiro" value={roteiro} onChange={(v) => mudar("roteiro", v)} labels={editorPt} rows={22} placeholder="Escreva o roteiro, ou comece pelo gabarito." blocos />
       ) : (
         <pre className="whitespace-pre-wrap border border-rule bg-parchment-deep p-4 font-serif text-lg">{roteiro || "Sem roteiro ainda."}</pre>
       )}

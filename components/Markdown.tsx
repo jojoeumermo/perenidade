@@ -8,7 +8,7 @@ import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
 import { localePath } from "@/i18n/config";
 import { InlineCheck } from "./InlineCheck";
-import { PendingImage, VideoEmbed } from "./LessonMedia";
+import { AnexoPendente, PendingImage, VideoEmbed } from "./LessonMedia";
 import { KeyboardDiagram, Staff } from "./Staff";
 
 export interface GlossaryLink {
@@ -77,6 +77,9 @@ const textOf = (node: Node | undefined): string => (node?.value ?? "") + (node?.
 
 /** Imagem enviada pela equipe e ainda não publicada: "envio:<pessoa>/<arquivo>". */
 const pending = /^envio:([0-9a-f-]{36}\/[a-z0-9-]{8,60}\.(webp|jpg))$/;
+/** Anexo em PDF enviado pela equipe: aguardando ("envio:…pdf") ou já na pasta do site ("/arquivos/…pdf"). */
+const pendingPdf = /^envio:([0-9a-f-]{36}\/[a-z0-9-]{8,60}\.pdf)$/;
+const publishedPdf = /^\/arquivos\/[a-z0-9]{8,64}\.pdf$/;
 
 /** Conta passo a passo: a expressão na primeira linha e uma passagem por linha, cada uma começando com "=". */
 function Calculation({ spec }: { spec: string }) {
@@ -102,7 +105,7 @@ export function Markdown({ children, lang, terms, tryCode }: { children: string;
         // Fórmulas entre $$ e $$ (no meio da frase ou em bloco). Um cifrão sozinho não é fórmula: "R$ 10" segue sendo dinheiro.
         remarkPlugins={terms?.length ? [remarkGfm, [remarkMath, { singleDollarTextMath: false }], linkGlossary(terms)] : [remarkGfm, [remarkMath, { singleDollarTextMath: false }]]}
         rehypePlugins={[rehypeSlug, [rehypeKatex, { throwOnError: false, strict: "ignore", output: "htmlAndMathml" }], numberBlocks]}
-        urlTransform={(url) => (pending.test(url) ? url : defaultUrlTransform(url))}
+        urlTransform={(url) => (pending.test(url) || pendingPdf.test(url) ? url : defaultUrlTransform(url))}
         components={{
           // A legenda vem do título da imagem: ![descrição](/arquivos/x.webp "Autor, licença").
           img: ({ src, alt = "", title }) => {
@@ -119,7 +122,11 @@ export function Markdown({ children, lang, terms, tryCode }: { children: string;
             );
           },
           a: ({ href = "", children: label, className, title }) =>
-            href.startsWith("/") ? (
+            pendingPdf.test(href) ? (
+              <AnexoPendente path={pendingPdf.exec(href)![1]}>{label}</AnexoPendente>
+            ) : publishedPdf.test(href) ? (
+              <a href={href} download className="anexo" title={title}>{label} <span className="font-sans text-sm text-ink-soft">(PDF)</span></a>
+            ) : href.startsWith("/") ? (
               <Link href={localePath(lang, href)} className={className} title={title}>{label}</Link>
             ) : href.startsWith("#") ? (
               <a href={href}>{label}</a>

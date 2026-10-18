@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { hasBackend, rpc } from "@/lib/backend";
 import { htmlLang } from "@/i18n/config";
 import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
+import { EditorPorBlocos } from "./EditorPorBlocos";
 import { useI18n } from "./I18n";
 import { Markdown } from "./Markdown";
 
@@ -121,11 +122,29 @@ const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
  * Editor de texto com barra de ferramentas (negrito, itálico, títulos, citação, listas, link, vídeo, conta),
  * pré-visualização e conferência de ortografia e gramática. Com `upload`, a equipe também envia imagens.
  */
-export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeholder = "", upload = false }: { id: string; value: string; onChange: (value: string) => void; labels: EditorLabels; rows?: number; placeholder?: string; upload?: boolean }) {
+export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeholder = "", upload = false, blocos: comBlocos = false }: { id: string; value: string; onChange: (value: string) => void; labels: EditorLabels; rows?: number; placeholder?: string; upload?: boolean; /** Oferece o modo por blocos (painel). */ blocos?: boolean }) {
   const { lang } = useI18n();
   const area = useRef<HTMLTextAreaElement>(null);
   const picker = useRef<HTMLInputElement>(null);
+  const pdf = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState(false);
+  // Texto ou blocos: preferência deste aparelho, lembrada entre as aulas.
+  const [porBlocos, setPorBlocos] = useState(() => {
+    try {
+      return comBlocos && window.localStorage.getItem("lucia:editor-por-blocos") === "1";
+    } catch {
+      return false;
+    }
+  });
+  const escolherBlocos = (sim: boolean) => {
+    setPorBlocos(sim);
+    setPreview(false);
+    try {
+      window.localStorage.setItem("lucia:editor-por-blocos", sim ? "1" : "0");
+    } catch {
+      // sem armazenamento
+    }
+  };
   const [notice, setNotice] = useState("");
   const [issues, setIssues] = useState<Issue[] | null>(null);
   const [checking, setChecking] = useState(false);
@@ -193,6 +212,25 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
       setNotice(uploadMessages[error instanceof UploadError ? error.message : "envio"] ?? uploadMessages.envio);
     } finally {
       if (picker.current) picker.current.value = "";
+    }
+  }
+
+  async function anexo(file: File | undefined) {
+    if (!file) return;
+    if (file.type !== "application/pdf" && !/\.pdf$/i.test(file.name)) {
+      setNotice("O anexo precisa ser um PDF.");
+      return;
+    }
+    setNotice(labels.sending);
+    try {
+      const path = await sendFile(file, "pdf");
+      const nome = (window.prompt("Nome do anexo (o que a pessoa vai baixar)", "Material da aula") ?? "").replace(/[[\]\n]/g, " ").trim() || "Anexo";
+      insertBlock(`[📎 ${nome}](envio:${path})`);
+      setNotice("");
+    } catch (error) {
+      setNotice(uploadMessages[error instanceof UploadError ? error.message : "envio"] ?? uploadMessages.envio);
+    } finally {
+      if (pdf.current) pdf.current.value = "";
     }
   }
 
@@ -343,7 +381,7 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     ["↗", labels.link, "link"],
     ["▶", labels.video, "video"],
     ["∑", labels.math, "conta"],
-    ...(upload ? [["▣", labels.image, "imagem"] as [string, string, string]] : []),
+    ...(upload ? [["▣", labels.image, "imagem"] as [string, string, string], ["📎", "Anexo em PDF", "anexo"] as [string, string, string]] : []),
   ];
 
   function apply(name: string, mark: string) {
@@ -351,6 +389,7 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     else if (mark === "video") video();
     else if (mark === "conta") insertBlock(["```conta", "2 + 3 × (4 − 1)²", "= 2 + 3 × 3²", "= 2 + 3 × 9", "= 2 + 27", "= 29", "```"].join("\n"));
     else if (mark === "imagem") picker.current?.click();
+    else if (mark === "anexo") pdf.current?.click();
     else if (mark === "**" || mark === "*") wrap(mark, mark, name);
     else if (mark === "1. ") prefix((i) => `${i + 1}. `);
     else prefix(mark);
@@ -359,8 +398,14 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
   return (
     <div>
       <div className="flex flex-wrap items-center gap-1 border-2 border-b-0 border-ink bg-parchment px-2 py-1.5">
+        {comBlocos && (
+          <span role="group" aria-label="Modo do editor" className="mr-2 flex">
+            <button type="button" aria-pressed={!porBlocos} onClick={() => escolherBlocos(false)} className={`cursor-pointer border px-2 py-1 text-xs ${!porBlocos ? "border-ink bg-ink text-parchment" : "border-rule"}`}>Texto</button>
+            <button type="button" aria-pressed={porBlocos} onClick={() => escolherBlocos(true)} className={`cursor-pointer border px-2 py-1 text-xs ${porBlocos ? "border-ink bg-ink text-parchment" : "border-rule"}`}>Blocos</button>
+          </span>
+        )}
         {tools.map(([symbol, name, mark, style]) => (
-          <button key={name} type="button" title={name} aria-label={name} disabled={preview} onClick={() => apply(name, mark)} className={`min-w-9 cursor-pointer border border-rule px-2 py-1 text-sm hover:border-gold disabled:opacity-40 ${style ?? ""}`}>
+          <button key={name} type="button" title={name} aria-label={name} disabled={preview} onClick={() => apply(name, mark)} className={`min-w-9 cursor-pointer border border-rule px-2 py-1 text-sm hover:border-gold disabled:opacity-40 ${porBlocos ? "hidden" : ""} ${style ?? ""}`}>
             {symbol}
           </button>
         ))}
@@ -368,7 +413,9 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
           {preview ? labels.write : labels.preview}
         </button>
       </div>
-      {preview ? (
+      {porBlocos && !preview ? (
+        <EditorPorBlocos value={value} onChange={onChange} upload={upload} />
+      ) : preview ? (
         <div className="min-h-64 border-2 border-ink bg-parchment p-5 font-serif">
           <Markdown lang={lang}>{value || labels.empty}</Markdown>
         </div>
@@ -394,6 +441,7 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
         </div>
       )}
       {upload && <input ref={picker} type="file" accept="image/jpeg,image/png,image/webp" className="sr-only" tabIndex={-1} aria-hidden onChange={(e) => void image(e.target.files?.[0])} />}
+      {upload && <input ref={pdf} type="file" accept="application/pdf" className="sr-only" tabIndex={-1} aria-hidden onChange={(e) => void anexo(e.target.files?.[0])} />}
       <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
         <button type="button" onClick={check} disabled={checking || value.trim().length < 20} className="cursor-pointer border-2 border-ink px-3 py-1.5 text-sm font-medium hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50">
           {checking ? labels.checking : labels.check}

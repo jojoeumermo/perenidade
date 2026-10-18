@@ -98,6 +98,30 @@ export function VideoEmbed({ spec }: { spec: string }) {
 }
 
 /** Imagem que a equipe enviou e ainda não foi publicada: só quem tem acesso ao painel consegue vê-la. */
+/** Anexo em PDF ainda não publicado: quem tem acesso ao depósito abre a prévia; o público só vê o aviso. */
+export function AnexoPendente({ path, children }: { path: string; children: React.ReactNode }) {
+  const [erro, setErro] = useState(false);
+  return (
+    <span className="inline-flex flex-wrap items-baseline gap-2">
+      <button
+        type="button"
+        className="cursor-pointer underline"
+        onClick={() => {
+          previewFile(path)
+            .then((url) => {
+              window.open(url, "_blank", "noopener");
+              window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+            })
+            .catch(() => setErro(true));
+        }}
+      >
+        {children}
+      </button>
+      <span className="font-sans text-xs text-ink-soft">(PDF aguardando publicação{erro ? "; só a equipe abre antes de publicar" : ""})</span>
+    </span>
+  );
+}
+
 export function PendingImage({ path, alt, caption }: { path: string; alt: string; caption?: string }) {
   const { t } = useI18n();
   const [src, setSrc] = useState("");
