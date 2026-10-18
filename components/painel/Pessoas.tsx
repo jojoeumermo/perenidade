@@ -232,6 +232,9 @@ export function Pessoas({ me }: { me: Me }) {
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? papeis[slug as Role["papel"]] ?? slug) : "todo o site");
   const pendentes = coordena ? (pedidos.dados?.filter((pedido) => pedido.status === "pendente") ?? []) : [];
   const visiveis = pessoas.dados?.filter((pessoa) => `${pessoa.nome} ${pessoa.email}`.toLowerCase().includes(filtro.toLowerCase())) ?? [];
+  const [grupo, setGrupo] = useState<"equipe" | "comunidade">("equipe");
+  const daEquipe = visiveis.filter((pessoa) => pessoa.papeis.length > 0);
+  const daComunidade = visiveis.filter((pessoa) => pessoa.papeis.length === 0);
   // Quem foi escolhido na busca já vem com o nível: a tela avisa antes de o banco recusar.
   const alvoForaDoAlcance = quem !== null && quem.nivel !== undefined && !podeMexer({ id: quem.id, nivel: quem.nivel });
 
@@ -384,8 +387,16 @@ export function Pessoas({ me }: { me: Me }) {
       <section hidden={aba !== "equipe"}>
         <Aviso texto={pessoas.erro} />
         <input value={filtro} onChange={(e) => setFiltro(e.target.value)} placeholder={coordena ? "Filtrar por nome ou e-mail" : "Filtrar por nome"} aria-label="Filtrar pessoas" className={campo} />
+        {/* A equipe (quem tem alguma função) fica separada de quem só participa da comunidade. */}
+        <p className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Quem mostrar">
+          {([["equipe", `Voluntários da equipe (${daEquipe.length})`], ["comunidade", `Só comunidade (${daComunidade.length})`]] as const).map(([valor, rotulo]) => (
+            <button key={valor} type="button" aria-pressed={grupo === valor} onClick={() => setGrupo(valor)} className={`cursor-pointer border-2 px-3 py-1.5 font-sans text-sm ${grupo === valor ? "border-ink bg-ink text-parchment" : "border-rule hover:border-ink"}`}>
+              {rotulo}
+            </button>
+          ))}
+        </p>
         <ul className="mt-3 divide-y divide-rule border-y border-rule">
-          {visiveis.map((pessoa) => (
+          {(grupo === "equipe" ? daEquipe : daComunidade).map((pessoa) => (
             <li key={pessoa.id} className="py-3">
               <p className="font-serif text-xl font-semibold">
                 {pessoa.nome} {pessoa.id === me.id && <span className="font-sans text-sm text-ink-soft">(você)</span>} {pessoa.suspenso && <span className="font-sans text-sm text-oxblood">(suspensa)</span>}
