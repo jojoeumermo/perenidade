@@ -85,6 +85,59 @@
     "live": "Aulas ao vivo",
     "notebook": "Caderno de estudos"
   },
+  "lists": {
+    "find": "Buscar nesta página",
+    "count": "{n} itens",
+    "none": "Nada encontrado com esse termo.",
+    "copyLink": "Copiar link",
+    "copied": "Link copiado",
+    "top": "Voltar ao topo",
+    "more": "Mostrar mais",
+    "suggestFact": "Sugerir um fato para a linha do tempo",
+    "study": "Quero estudar",
+    "inform": "Quero me informar",
+    "help": "Quero ajudar",
+    "about": "Sobre o instituto",
+    "offline": "Funciona sem internet",
+    "anySubject": "Para qualquer matéria",
+    "availableToday": "voluntário disponível hoje",
+    "mayTakeLonger": "Nenhum voluntário dessa disciplina passou por aqui nas últimas 24 horas: a resposta pode demorar mais.",
+    "nextLive": "Próxima aula",
+    "muralNew": "O mural é novo e está aberto: anuncie o que você faz ou procure quem faz.",
+    "whatHere": "O que vai aparecer aqui",
+    "empty": {
+      "jornal": {
+        "what": "Aqui sai o jornal do instituto: matérias de fôlego, entrevistas e a leitura das notícias do ponto de vista de quem trabalha.",
+        "state": "A primeira edição está em produção.",
+        "act": "Sugerir uma pauta",
+        "related": "Enquanto isso, leia as Notícias do país"
+      },
+      "materiais": {
+        "what": "Zines, cartazes, panfletos e PDFs para imprimir, colar e levar à reunião, à escola e ao sindicato.",
+        "state": "Os primeiros materiais estão em produção.",
+        "act": "Enviar um material",
+        "related": "Veja a Galeria de cartazes"
+      },
+      "aoVivo": {
+        "what": "Aulas ao vivo com educadores do instituto, com vídeo e bate-papo, direto do navegador.",
+        "state": "Nenhuma aula marcada ainda.",
+        "act": "Quero dar uma aula ao vivo",
+        "related": "Enquanto isso, veja as Aulas em vídeo"
+      },
+      "videoaulas": {
+        "what": "Aulas curtas em vídeo, de até dez minutos, gravadas pelos educadores do instituto, com transcrição.",
+        "state": "As primeiras aulas em vídeo estão sendo gravadas.",
+        "act": "Quero gravar uma aula",
+        "related": "Enquanto isso, veja os vídeos indicados"
+      },
+      "mural": {
+        "what": "Um mural de trabalhadoras e trabalhadores: serviços, produtos, cooperativas e iniciativas, sem taxa e sem intermediário.",
+        "state": "O mural é novo: o primeiro anúncio pode ser o seu.",
+        "act": "Anunciar",
+        "related": "Veja também a Gaveta Aberta"
+      }
+    }
+  },
   "slogans": {
     "acervo": "Ler é um ato de resistência.",
     "aoVivo": "Aprender junto, ao vivo.",

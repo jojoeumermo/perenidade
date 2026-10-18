@@ -12,5 +12,5 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/termos">):
 
 export default async function Page({ params }: PageProps<"/[lang]/termos">) {
   const { lang, t } = await loadLang(params);
-  return <ContentPageView slug="termos" lang={lang} t={t} />;
+  return <ContentPageView slug="termos" lang={lang} t={t} indice />;
 }

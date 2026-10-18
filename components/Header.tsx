@@ -30,7 +30,7 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
           <span className="marca-nome whitespace-nowrap text-lg font-semibold leading-none tracking-tight sm:text-2xl md:text-xl lg:text-2xl xl:text-3xl">{site.name}</span>
         </Link>
         {/* No celular o menu fica embaixo (BottomNav); aqui ele aparece a partir de telas médias, sempre em uma linha. */}
-        <nav aria-label={t.nav.main} className="mr-auto hidden translate-y-[3px] items-center justify-center gap-x-2.5 font-sans text-sm leading-none text-ink-soft md:flex lg:mr-0 lg:justify-self-center lg:gap-x-3 xl:gap-x-5">
+        <nav aria-label={t.nav.main} className="mr-auto hidden translate-y-[3px] items-center justify-center gap-x-2.5 font-sans text-sm leading-none text-ink-soft md:flex lg:mr-0 lg:justify-self-center lg:gap-x-2.5 lg:text-[0.8125rem] xl:gap-x-3.5 2xl:gap-x-5 2xl:text-sm">
           <NavLinks />
         </nav>
         {/* Se faltar espaço, quem encolhe é o nome do "Olá, Fulano" (com reticências), nunca o nome do instituto nem os ícones. */}

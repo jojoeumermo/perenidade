@@ -12,5 +12,5 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/guia">): P
 
 export default async function Guia({ params }: PageProps<"/[lang]/guia">) {
   const { lang, t } = await loadLang(params);
-  return <ContentPageView slug="guia" lang={lang} t={t} />;
+  return <ContentPageView slug="guia" lang={lang} t={t} indice />;
 }

@@ -7,6 +7,7 @@ import { errorText } from "@/i18n/core";
 import type { Dict } from "@/i18n/types";
 import { BackendError, hasBackend, rpc, useMe } from "@/lib/backend";
 import { safeLink } from "@/lib/text";
+import { EstadoVazio } from "./EstadoVazio";
 import { L, useI18n } from "./I18n";
 
 type S = Dict["mural"];
@@ -180,6 +181,7 @@ export function Mural({ s }: { s: S }) {
         </button>
         <button type="button" onClick={() => setWithdraw(withdraw === null ? "" : null)} className={link}>{s.withdraw}</button>
       </div>
+      <p className="mt-3 max-w-2xl font-sans text-sm text-ink-soft">{t.lists.muralNew}</p>
 
       {withdraw !== null && (
         <form
@@ -286,7 +288,7 @@ export function Mural({ s }: { s: S }) {
       {ads === null ? (
         <p className="mt-8 font-mono text-xs text-ink-soft">{t.common.loading}</p>
       ) : ads.length === 0 ? (
-        <p className="mt-8 text-lg text-ink-soft">{search || state || city || category ? s.none : s.empty}</p>
+        search || state || city || category ? <p className="mt-8 text-lg text-ink-soft">{s.none}</p> : <EstadoVazio textos={t.lists.empty.mural} aoAgir={() => { setDraft(emptyDraft); setCode(""); window.scrollTo({ top: 0, behavior: "smooth" }); }} relacionadoHref="/gaveta" />
       ) : (
         <>
           <p className="mt-8 font-mono text-xs uppercase tracking-widest text-ink-soft">{fill(s.found, { n: ads.length })}</p>
