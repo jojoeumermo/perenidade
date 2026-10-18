@@ -2,12 +2,12 @@
 "use client";
 
 import { useId, useState } from "react";
+import { avaliarSenha, MINIMO, REGRAS_DE_SENHA, type RegraDeSenha } from "@/lib/forca-senha";
 
-/** As regras de uma senha nova: tamanho, maiúscula, minúscula, número e caractere especial. */
-export const REGRAS = ["length", "upper", "lower", "number", "special"] as const;
-export type Regra = (typeof REGRAS)[number];
-
-export const MINIMO = 12;
+/** As regras de uma senha nova: 12 caracteres ou mais, não ser comum, não ser só repetição. Frase longa vale. */
+export const REGRAS = REGRAS_DE_SENHA;
+export type Regra = RegraDeSenha;
+export { MINIMO };
 
 export interface SenhaLabels {
   show: string;
@@ -15,32 +15,30 @@ export interface SenhaLabels {
   rulesTitle: string;
   rules: Record<Regra, string>;
   strong: string;
+  /** Rótulo do medidor e os quatro níveis (fraca, razoável, boa, forte). Banco de textos antigo pode não ter. */
+  meterTitle?: string;
+  meter?: string[];
 }
 
 export const senhaPt: SenhaLabels = {
   show: "Mostrar a senha",
   hide: "Esconder a senha",
-  rulesTitle: "A senha precisa ter",
+  rulesTitle: "A senha precisa",
   rules: {
-    length: "pelo menos 12 caracteres",
-    upper: "uma letra maiúscula",
-    lower: "uma letra minúscula",
-    number: "um número",
-    special: "um caractere especial (!, @, #, ., ?…)",
+    length: "ter pelo menos 12 caracteres (uma frase longa funciona muito bem)",
+    common: "não ser uma senha comum nem o seu nome com números",
+    variety: "não ser só repetição (aaaa…, 1212…)",
   },
-  strong: "Senha forte.",
+  strong: "Senha aceita.",
+  meterTitle: "Força",
+  meter: ["Fraca", "Razoável", "Boa", "Forte"],
 };
 
-const conferir: Record<Regra, (senha: string) => boolean> = {
-  length: (senha) => senha.length >= MINIMO,
-  upper: (senha) => /\p{Lu}/u.test(senha),
-  lower: (senha) => /\p{Ll}/u.test(senha),
-  number: (senha) => /\p{Nd}/u.test(senha),
-  special: (senha) => /[^\p{L}\p{Nd}\s]/u.test(senha),
+export const regrasDaSenha = (senha: string, pessoais: string[] = []) => {
+  const { regras } = avaliarSenha(senha, pessoais);
+  return REGRAS.map((id) => ({ id, ok: regras[id] }));
 };
-
-export const regrasDaSenha = (senha: string) => REGRAS.map((id) => ({ id, ok: conferir[id](senha) }));
-export const senhaForte = (senha: string) => REGRAS.every((id) => conferir[id](senha));
+export const senhaForte = (senha: string, pessoais: string[] = []) => avaliarSenha(senha, pessoais).aceita;
 
 function Olho({ aberto }: { aberto: boolean }) {
   return (
@@ -52,9 +50,12 @@ function Olho({ aberto }: { aberto: boolean }) {
   );
 }
 
+const CORES_DO_MEDIDOR = ["bg-oxblood", "bg-gold", "bg-ok", "bg-ok"];
+
 /**
  * Campo de senha com o "olho mágico" (mostra e esconde o que foi digitado) e, para senha nova, a lista de regras
- * que vai sendo marcada enquanto a pessoa escreve. A conferência é toda aqui no navegador.
+ * que vai sendo marcada enquanto a pessoa escreve e o medidor de força. Colar e gerenciador de senha funcionam.
+ * A conferência é toda aqui no navegador.
  */
 export function SenhaCampo({
   id,
@@ -62,6 +63,7 @@ export function SenhaCampo({
   onChange,
   labels = senhaPt,
   regras = false,
+  pessoais = [],
   className = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2",
   autoComplete = "new-password",
   required = false,
@@ -71,8 +73,10 @@ export function SenhaCampo({
   value: string;
   onChange: (value: string) => void;
   labels?: SenhaLabels;
-  /** Mostra a lista de regras (senha nova). */
+  /** Mostra a lista de regras e o medidor (senha nova). */
   regras?: boolean;
+  /** Nome e e-mail da pessoa: a senha não pode ser eles com números. */
+  pessoais?: string[];
   className?: string;
   autoComplete?: "new-password" | "current-password";
   required?: boolean;
@@ -81,8 +85,8 @@ export function SenhaCampo({
   const proprio = useId();
   const campoId = id ?? proprio;
   const [visivel, setVisivel] = useState(false);
-  const lista = regrasDaSenha(value);
-  const forte = lista.every((regra) => regra.ok);
+  const avaliacao = avaliarSenha(value, pessoais);
+  const niveis = labels.meter ?? senhaPt.meter!;
   return (
     <div>
       <div className="relative">
@@ -112,17 +116,31 @@ export function SenhaCampo({
       </div>
       {regras && (
         <div id={`${campoId}-regras`} className="mt-2 text-sm">
-          <p className="text-ink-soft">{forte && value ? labels.strong : labels.rulesTitle}</p>
-          <ul className="mt-1 grid gap-x-4 gap-y-0.5 sm:grid-cols-2" aria-live="polite">
-            {lista.map((regra) => (
-              <li key={regra.id} className={`flex items-center gap-1.5 ${regra.ok ? "text-ok" : "text-ink-soft"}`}>
-                <span aria-hidden className={`flex h-4 w-4 shrink-0 items-center justify-center border text-[0.65rem] font-bold ${regra.ok ? "border-ok bg-ok text-parchment" : "border-rule"}`}>
-                  {regra.ok ? "✓" : ""}
-                </span>
-                <span className="sr-only">{regra.ok ? "✓ " : "✗ "}</span>
-                {labels.rules[regra.id]}
-              </li>
-            ))}
+          {value && (
+            <div className="mb-2 flex items-center gap-2" aria-live="polite">
+              <span className="text-ink-soft">{labels.meterTitle ?? senhaPt.meterTitle}:</span>
+              <span className="flex flex-1 gap-1" aria-hidden>
+                {[0, 1, 2, 3].map((i) => (
+                  <span key={i} className={`h-1.5 flex-1 ${i <= avaliacao.forca && (avaliacao.aceita || i === 0) ? CORES_DO_MEDIDOR[avaliacao.forca] : "bg-rule"}`} />
+                ))}
+              </span>
+              <strong className={avaliacao.aceita ? "text-ok" : "text-oxblood"}>{niveis[avaliacao.forca]}</strong>
+            </div>
+          )}
+          <p className="text-ink-soft">{avaliacao.aceita && value ? labels.strong : labels.rulesTitle}</p>
+          <ul className="mt-1 grid gap-y-0.5" aria-live="polite">
+            {REGRAS.map((regra) => {
+              const ok = avaliacao.regras[regra];
+              return (
+                <li key={regra} className={`flex items-center gap-1.5 ${ok ? "text-ok" : "text-ink-soft"}`}>
+                  <span aria-hidden className={`flex h-4 w-4 shrink-0 items-center justify-center border text-[0.65rem] font-bold ${ok ? "border-ok bg-ok text-parchment" : "border-rule"}`}>
+                    {ok ? "✓" : ""}
+                  </span>
+                  <span className="sr-only">{ok ? "✓ " : "✗ "}</span>
+                  {labels.rules[regra]}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
