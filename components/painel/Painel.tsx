@@ -41,6 +41,7 @@ import { Interdicao } from "./Interdicao";
 import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lideranca";
 import { Materiais } from "./Materiais";
 import { Pessoas } from "./Pessoas";
+import { Reunioes } from "./Reunioes";
 import { Podcast } from "./podcast/Podcast";
 import { Reforco } from "./Reforco";
 import { Supervisao } from "./Supervisao";
@@ -120,6 +121,7 @@ const icones: Record<string, string> = {
   registro: "M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5",
   estatisticas: "M4 20V10M10 20V4M16 20v-8M22 20H2",
   emissoras: "M3 9h18v11H3zM7 9l10-5M8.5 12a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M14 13h4M14 16h4",
+  reunioes: "M3 7h12v10H3zM15 10l6-3v10l-6-3M6 20h6",
   conta: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-8 8-8s8 3.6 8 8",
   aovivo: "M3 7h13v10H3zM16 10l5-3v10l-5-3M6 4h7",
   estudio: "M4 20l4-1 11-11-3-3L5 16zM13 8l3 3M4 20v-4",
@@ -480,6 +482,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: manages(eu), conta: r?.candidaturas },
       { id: "supervisao", nome: "Supervisão", sobre: "Proteções reversíveis, a equipe sem e-mails e os pedidos de voluntariado.", grupo: "Pessoas", mostra: supervisiona, conta: r?.candidaturas },
+      { id: "reunioes", nome: "Reuniões", sobre: "Reuniões da equipe por vídeo, dentro do painel: a liderança marca, qualquer pessoa propõe, a presença e a ata ficam no histórico.", grupo: "Pessoas", mostra: voluntario },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar + (r.pedidos ?? 0) : undefined },
       { id: "estatisticas", nome: "Estatísticas", sobre: "O que os estudantes procuram e o que a equipe produz, por disciplina: a base para decidir o que entra e o que sai.", grupo: "Pessoas", mostra: lidera || can(eu, "vice") },
       { id: "avisos", nome: "Avisos à equipe", sobre: "Um quadro que aparece por cima do painel de toda a equipe, ou só de algumas funções, até cada pessoa fechar.", grupo: "Pessoas", mostra: eu.supervisao === true || lidera || supervisiona },
@@ -707,6 +710,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "boletim" && <Boletim />}
           {atual.id === "pessoas" && <Pessoas me={eu} />}
           {atual.id === "supervisao" && <Supervisao />}
+          {atual.id === "reunioes" && <Reunioes me={eu} />}
           {atual.id === "horas" && <Horas me={eu} />}
           {atual.id === "site" && <Site />}
           {atual.id === "abertura" && <AvisoDeAbertura />}
