@@ -39,5 +39,9 @@ jobs:
       - run: npm run testar:redes
       # O aplicador de currículo (disciplinas e trilhas criadas pelo painel), numa cópia temporária dos arquivos.
       - run: npm run testar:curriculo
+      # O editor por blocos: toda aula do acervo passa por ele e volta igual.
+      - run: npm run testar:blocos
+      # As áreas que a coordenação pode tirar do ar cobrem todas as rotas públicas.
+      - run: npm run testar:interdicao
       # O build lê e valida todo o conteúdo de content/: arquivo inválido falha aqui.
       - run: npm run build
