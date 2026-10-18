@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "levantar-requisitos-e-limites",
+    "titulo": "Levantar requisitos e limites"
+  },
+  {
+    "slug": "monolito-servicos-e-quando-dividir",
+    "titulo": "Monólito, serviços e quando dividir"
+  },
+  {
+    "slug": "cache-filas-e-balanceamento-de-carga",
+    "titulo": "Cache, filas e balanceamento de carga"
+  },
+  {
+    "slug": "apis-contratos-e-versoes",
+    "titulo": "APIs: contratos e versões"
+  },
+  {
+    "slug": "escalar-leitura-e-escrita",
+    "titulo": "Escalar leitura e escrita"
+  },
+  {
+    "slug": "padroes-que-se-repetem",
+    "titulo": "Padrões que se repetem"
+  },
+  {
+    "slug": "documentar-decisoes-de-arquitetura",
+    "titulo": "Documentar decisões de arquitetura"
+  },
+  {
+    "slug": "projeto-desenhar-um-sistema-real-de-ponta-a-ponta",
+    "titulo": "Projeto: desenhar um sistema real de ponta a ponta"
+  }
+]

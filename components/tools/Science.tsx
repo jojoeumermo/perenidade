@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef } from "react";
 import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { calculate } from "@/lib/expressao";
@@ -51,6 +51,7 @@ const tint = (group: string) => `color-mix(in srgb, ${HUES[group] ?? "#888"} 26%
 
 export function PeriodicTable({ s, lang }: { s: Tools["table"]; lang: string }) {
   const [selected, setSelected] = useState<Element>(elements[0]);
+  const detalhe = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
   const name = (element: Element) => (lang === "pt" ? element.pt : element.en);
   const groups = s.groups as Record<string, string>;
@@ -66,7 +67,7 @@ export function PeriodicTable({ s, lang }: { s: Tools["table"]; lang: string }) 
         <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} className={field} />
       </label>
 
-      <div className="mt-5 border border-rule bg-parchment-deep p-5" aria-live="polite">
+      <div ref={detalhe} className="mt-5 scroll-mt-4 border border-rule bg-parchment-deep p-5" aria-live="polite">
         <div className="flex flex-wrap items-center gap-5">
           <div className="flex h-24 w-24 flex-col items-center justify-center border-2 border-ink" style={{ background: tint(selected.g) }}>
             <span className="font-mono text-xs">{selected.n}</span>
@@ -101,7 +102,7 @@ export function PeriodicTable({ s, lang }: { s: Tools["table"]; lang: string }) 
               <button
                 key={element.n}
                 type="button"
-                onClick={() => setSelected(element)}
+                onClick={() => { setSelected(element); detalhe.current?.scrollIntoView({ block: "nearest", behavior: "smooth" }); }}
                 aria-label={`${element.n} ${name(element)}`}
                 aria-pressed={selected.n === element.n}
                 className={`flex aspect-square cursor-pointer flex-col items-center justify-center border ${selected.n === element.n ? "border-2 border-ink" : "border-rule"} ${on ? "" : "opacity-25"}`}

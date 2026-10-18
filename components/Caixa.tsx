@@ -91,7 +91,7 @@ export function Caixa({ ferramentas, sugeridas, area, nomes, s, lang }: { ferram
         id="caixa-de-ferramentas"
         aria-label={b.title}
         hidden={!aberta}
-        className={`fixed inset-x-0 z-40 flex flex-col border-t-[3px] border-ink bg-parchment shadow-[0_-6px_24px_rgba(0,0,0,0.25)] bottom-[calc(4.5rem+env(safe-area-inset-bottom,0px))] md:bottom-0 lg:inset-y-0 lg:left-auto lg:right-0 lg:h-auto lg:w-[28rem] lg:border-l-[3px] lg:border-t-0 lg:shadow-none ${alta ? "h-[78vh]" : "h-[52vh]"} lg:!h-auto`}
+        className={`fixed inset-x-0 z-40 flex flex-col border-t-[3px] border-ink bg-parchment shadow-[0_-6px_24px_rgba(0,0,0,0.25)] bottom-[calc(4.5rem+env(safe-area-inset-bottom,0px))] md:bottom-0 lg:inset-y-0 lg:left-auto lg:right-0 lg:h-auto lg:w-[28rem] lg:border-l-[3px] lg:border-t-0 lg:shadow-none ${alta ? "h-[78dvh] max-h-[calc(100dvh-5rem-env(safe-area-inset-bottom,0px))]" : "h-[52dvh]"} lg:!h-auto`}
       >
         <header className="flex items-center gap-2 border-b-2 border-ink px-3 py-2">
           <h2 ref={titulo} tabIndex={-1} className="mr-auto font-serif text-lg font-semibold outline-none">{b.title}</h2>
@@ -118,7 +118,7 @@ export function Caixa({ ferramentas, sugeridas, area, nomes, s, lang }: { ferram
             </button>
           ))}
         </nav>
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-6">
+        <div className="@container min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-6">
           {/* Toda ferramenta aberta continua montada: o que se digitou não se perde ao trocar de ferramenta ou fechar a caixa. */}
           {montadas.map((id) => (
             <div key={id} hidden={id !== atual} className="[&>div]:!mt-4">

@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "por-que-distribuir-e-o-que-se-perde",
+    "titulo": "Por que distribuir e o que se perde"
+  },
+  {
+    "slug": "tempo-relogios-e-ordem-dos-eventos",
+    "titulo": "Tempo, relógios e ordem dos eventos"
+  },
+  {
+    "slug": "replicacao-e-consistencia",
+    "titulo": "Replicação e consistência"
+  },
+  {
+    "slug": "consenso-paxos-e-raft-em-portugues-claro",
+    "titulo": "Consenso: Paxos e Raft em português claro"
+  },
+  {
+    "slug": "particionamento-e-sharding",
+    "titulo": "Particionamento e sharding"
+  },
+  {
+    "slug": "falhas-parciais-e-tolerancia",
+    "titulo": "Falhas parciais e tolerância"
+  },
+  {
+    "slug": "filas-eventos-e-mensageria",
+    "titulo": "Filas, eventos e mensageria"
+  },
+  {
+    "slug": "projeto-um-servico-replicado",
+    "titulo": "Projeto: um serviço replicado"
+  }
+]

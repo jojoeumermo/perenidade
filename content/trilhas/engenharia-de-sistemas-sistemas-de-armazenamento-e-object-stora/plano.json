@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "discos-ssds-e-o-custo-de-cada-byte",
+    "titulo": "Discos, SSDs e o custo de cada byte"
+  },
+  {
+    "slug": "raid-e-redundancia",
+    "titulo": "RAID e redundância"
+  },
+  {
+    "slug": "sistemas-de-arquivos-distribuidos",
+    "titulo": "Sistemas de arquivos distribuídos"
+  },
+  {
+    "slug": "object-storage-o-modelo-s3",
+    "titulo": "Object storage: o modelo S3"
+  },
+  {
+    "slug": "durabilidade-replicacao-e-erasure-coding",
+    "titulo": "Durabilidade, replicação e erasure coding"
+  },
+  {
+    "slug": "backups-e-restauracao-que-funcionam",
+    "titulo": "Backups e restauração que funcionam"
+  },
+  {
+    "slug": "custos-e-ciclo-de-vida-dos-dados",
+    "titulo": "Custos e ciclo de vida dos dados"
+  },
+  {
+    "slug": "projeto-um-servico-de-armazenamento-de-objetos",
+    "titulo": "Projeto: um serviço de armazenamento de objetos"
+  }
+]
