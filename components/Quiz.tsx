@@ -1,14 +1,23 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { fill } from "@/i18n/config";
 import type { QuizQuestion } from "@/lib/content";
-import { useI18n } from "./I18n";
+import { idDaQuestao, lerErros, refazerErro, registrarErro } from "@/lib/estudo";
+import { L, useI18n } from "./I18n";
 
 export function Quiz({ questions }: { questions: QuizQuestion[] }) {
   const { t } = useI18n();
+  const pathname = usePathname();
   const [answers, setAnswers] = useState<Record<number, number>>({});
+  /** Errou: a questão vai para o caderno de erros. Acertou uma que estava lá: conta para ela sair. */
+  const anotar = (q: QuizQuestion, escolhida: number) => {
+    const id = idDaQuestao(q.question, q.options);
+    if (escolhida !== q.answer) registrarErro({ id, pergunta: q.question, opcoes: q.options, resposta: q.answer, escolhida, explicacao: q.explanation, href: pathname.replace(/^\/[a-z]{2}(?=\/)/, ""), origem: "aula" });
+    else if (lerErros().some((e) => e.id === id)) refazerErro(id, true, escolhida);
+  };
   const right = questions.filter((q, i) => answers[i] === q.answer).length;
   const finished = Object.keys(answers).length === questions.length;
 
@@ -39,7 +48,7 @@ export function Quiz({ questions }: { questions: QuizQuestion[] }) {
                       key={j}
                       type="button"
                       disabled={answered}
-                      onClick={() => setAnswers((prev) => ({ ...prev, [i]: j }))}
+                      onClick={() => { setAnswers((prev) => ({ ...prev, [i]: j })); anotar(q, j); }}
                       className={`border-2 bg-parchment px-4 py-2 text-left text-sm ${state}`}
                     >
                       {answered && isAnswer && <span aria-hidden>✓ </span>}
@@ -64,6 +73,7 @@ export function Quiz({ questions }: { questions: QuizQuestion[] }) {
       {finished && (
         <div className="mt-8 flex flex-wrap items-center gap-4 border-t border-rule pt-5 font-sans text-sm">
           <p>{fill(t.lesson.score, { a: right, b: questions.length })}</p>
+          {right < questions.length && <L href="/caderno?ferramenta=erros" className="text-ink-soft underline hover:text-oxblood">{t.lesson.toMistakes}</L>}
           <button type="button" onClick={() => setAnswers({})} className="cursor-pointer underline hover:text-oxblood">
             {t.lesson.tryAgain}
           </button>
