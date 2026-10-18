@@ -75,6 +75,11 @@ const common = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // O build gera mais de dezesseis mil páginas. Na Vercel há um só processo para todas, com oito páginas ao mesmo tempo,
+  // e o prazo de cada uma conta também a espera na fila: com o padrão de 60 s, até o robots.txt estourava quando o
+  // processo estava ocupado, e o build caía (o mesmo commit passava numa tentativa e falhava na outra). Cinco minutos
+  // por página tiram essa loteria sem esconder nada: uma página de fato travada continua derrubando o build.
+  staticPageGenerationTimeout: 300,
   // Só em desenvolvimento: abrir o painel também em 127.0.0.1 faz de conta que é um segundo aparelho (outro navegador, outras
   // chaves), o que serve para testar a aprovação de aparelhos das conversas sem dois computadores.
   allowedDevOrigins: ["127.0.0.1"],
