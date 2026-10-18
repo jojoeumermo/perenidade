@@ -423,8 +423,28 @@
       "Afro braids: hair care, techniques, history and how to turn the craft into income."
     ],
     "costureira": [
-      "Sewing",
-      "Sewing from the basics to mending and making garments, with safety at work and ways to earn an income."
+      "Sewing and crochet",
+      "Sewing from the basics to mending and making garments, and crochet from the first stitch to pieces to sell, with safety at work and ways to earn an income."
+    ],
+    "engenharia-de-sistemas": [
+      "Systems Engineering",
+      "How software systems work inside and how to design them to be efficient, reliable and scalable: from the processor to distributed systems."
+    ],
+    "estado": [
+      "What is the State and how does it work?",
+      "Basic politics for people who never had a politics class: what the State is, who rules, where the money comes from and why it matters to the people."
+    ],
+    "instituicoes": [
+      "Congress, Supreme Court, Prosecutor's Office: the institutions",
+      "How Congress, the Supreme Court, the Prosecutor General's Office, ministries and city halls work, and how the people press each of them."
+    ],
+    "eleicoes": [
+      "Elections, parties and the vote",
+      "How people vote and how votes are counted, what a party is, who funds campaigns and how to watch over those elected."
+    ],
+    "neurodiversidade": [
+      "Neurodiversity and psychoanalysis",
+      "Autism, ADHD, dyslexia and other ways of being and learning, without pathologising, plus an introduction to psychoanalysis."
     ],
     "barbeiro": [
       "Barbering",
@@ -1151,7 +1171,8 @@
   },
   "groups": {
     "linguagens": "Languages and arts",
-    "ciencias": "Science and technology",
+    "ciencias": "Sciences",
+    "tecnologia": "Technology",
     "humanidades": "Humanities",
     "teoria": "Revolutionary theory",
     "lutas": "People's struggles",

@@ -202,14 +202,14 @@ export function Redacao({ s, lang }: { s: T["essay"]; lang: string }) {
   const c = contarTexto(texto, porLinha);
   const alerta = c.linhas > 30 ? s.over : c.linhas > 0 && c.linhas <= 7 ? s.under : "";
   return (
-    <div className="mt-8 grid max-w-5xl gap-8 font-sans text-sm lg:grid-cols-[minmax(0,1fr)_18rem]">
+    <div className="mt-8 grid max-w-5xl gap-8 font-sans text-sm lg:grid-cols-[minmax(0,1fr)_18rem] @max-3xl:lg:grid-cols-1 @max-3xl:gap-4">
       <div>
         <label className="block">
           {s.sheet}
           <textarea
             value={texto}
             onChange={(e) => mudar(e.target.value)}
-            rows={18}
+            rows={24}
             placeholder={s.placeholder}
             className="mt-1 w-full border-2 border-ink bg-parchment-deep px-4 py-2 font-serif text-lg leading-8 [background-image:repeating-linear-gradient(transparent,transparent_31px,var(--rule)_31px,var(--rule)_32px)] [background-attachment:local]"
           />
