@@ -15,7 +15,7 @@ export const rotulo = "font-mono text-xs uppercase tracking-widest text-gold";
 
 export const papeis: Record<Role["papel"], string> = {
   coordenacao: "Coordenação comunitária",
-  vice: "Vice-coordenação",
+  vice: "Coordenação pedagógica",
   supervisao: "Supervisão",
   curadoria: "Curadoria",
   mediacao: "Mediação",
@@ -29,12 +29,13 @@ export const papeis: Record<Role["papel"], string> = {
   marketing: "Marketing e divulgação",
   desenvolvimento: "Desenvolvimento",
   representante: "Representante do departamento",
+  porta_voz: "Porta-voz",
 };
 
 /** O que cada papel enxerga e faz no painel. É a regra do banco, escrita para gente. */
 export const oQueFaz: Record<Role["papel"], string> = {
-  coordenacao: "Palavra final em tudo: confia e retira papéis, nomeia a vice-coordenação, define a sucessão, edita contas e redefine senhas, publica materiais e emite certificados.",
-  vice: "Tudo o que a coordenação faz, menos mexer na coordenação, nomear outra vice-coordenação, definir a sucessão e emitir certificados.",
+  coordenacao: "Coordenação comunitária: palavra final em tudo. Confia e retira papéis, nomeia a coordenação pedagógica e a supervisão, define a sucessão, edita contas e redefine senhas, publica materiais e emite certificados. É a única que vê nome completo e e-mail.",
+  vice: "Cuida do lado pedagógico: ouve os interesses dos estudantes, pedidos de disciplinas novas e as estatísticas, acompanha educadores e curadoria, decide o que vai ao ar e assina os certificados com o educador e a coordenação. Pode haver mais de uma pessoa. Não mexe na coordenação, na sucessão nem na segurança.",
   supervisao:
     "Faz o painel andar quando a coordenação e a vice-coordenação estão ausentes: acompanha a equipe (sem ver e-mails), suspende contas em emergência com motivo, cuida do mural da equipe, lê o registro, pausa os envios do público e liga o modo de segurança da Comunidade. Interdição e expurgo, só como pedido que a coordenação aprova. Também confia e retira os papéis de trabalho de quem está abaixo na hierarquia e nomeia representantes de departamento.",
   curadoria: "Aprova ou recusa contribuições, cuida da comunidade, das denúncias e do filtro de palavras.",
@@ -48,7 +49,8 @@ export const oQueFaz: Record<Role["papel"], string> = {
   design: "Prepara materiais gráficos e atende pedidos de ajuda das outras funções.",
   marketing: "Divulga o instituto: posts e artes para as redes sociais, cartazes de chamada, campanhas de voluntariado e de apoio, cortes do podcast. Monta o calendário de posts e stories do Instagram e usa o kit da marca e os materiais do painel, como o design. O acesso ao Instagram é dado pela coordenação pela própria Meta; o site nunca guarda senha de rede social.",
   desenvolvimento: "Cuida do código: vê o estado técnico do site (publicação, avaliação automática, faxina, sinais de varredura) e atende pedidos de ajuda das outras funções.",
-  representante: "Porta-voz e primeira entrada de um departamento, nomeado pela coordenação, vice ou supervisão: organiza o grupo do departamento (administra a conversa, combina e delega tarefas) sem ser chefe. Não dá nem tira funções.",
+  representante: "Primeira entrada e organizador de um departamento, nomeado pela coordenação, coordenação pedagógica ou supervisão: administra o grupo do departamento nas conversas, combina e delega tarefas, sem ser chefe. Não dá nem tira funções.",
+  porta_voz: "Leva a palavra do instituto a escolas, sindicatos, movimentos e eventos, em qualquer cidade: apresenta o projeto e traz de volta o que ouviu. Nomeado pela coordenação, coordenação pedagógica ou supervisão.",
 };
 
 export const situacoes: Record<string, string> = {
@@ -68,7 +70,7 @@ const erros: Record<string, string> = {
   conta_suspensa: "Esta conta está suspensa.",
   nao_encontrado: "Não encontrado.",
   privado_fechado: "As conversas privadas são só para trabalho: com a coordenação, vice e supervisão, ou com quem está colaborando com você numa contribuição em andamento. O resto é nos grupos de departamento.",
-  sem_consenso: "Uma aula só vai ao ar com consenso: precisa de um parecer favorável de outro educador da mesma disciplina (ou, se não houver outro, da supervisão, vice ou coordenação), e quem aprova por fim precisa ser uma terceira pessoa.",
+
   ja_decidida: "Esta contribuição já foi decidida.",
   ja_pediu: "Você já fez esse pedido e ele está em análise.",
   limite_anuncios: "Cada pessoa pode ter até três anúncios no mural.",
@@ -77,8 +79,9 @@ const erros: Record<string, string> = {
   confirme_segundo_fator: "Confirme primeiro o seu próprio código do aplicativo autenticador.",
   falta_termo: "Falta o aceite do termo de adesão ao trabalho voluntário.",
   sem_horas: "Não há horas confirmadas nesse período.",
-  falta_assinatura: "Ainda faltam as assinaturas do educador e do vice-coordenador.",
-  falta_vice: "É preciso um vice-coordenador para assinar o certificado.",
+  falta_assinatura: "Ainda faltam as assinaturas do educador e da coordenação pedagógica.",
+  falta_vice: "É preciso alguém da coordenação pedagógica para assinar o certificado.",
+  falta_educador: "O que vem de fora só vai ao ar depois do parecer favorável de um educador, e quem põe no ar é a revisão (ou a liderança).",
   topico_trancado: "Esta conversa está trancada.",
   falta_apoio: "Faltam apoios da equipe: são precisos dois antes de aprovar.",
   chave_desatualizada: "A chave desta conversa acabou de ser trocada. Envie de novo.",

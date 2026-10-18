@@ -119,7 +119,7 @@
       ],
       [
         "Every lesson cites its sources",
-        "Each contribution is read by the curators before it goes in. Everything is recorded and can be undone."
+        "Each contribution is read by the review team before it goes in. Everything is recorded and can be undone."
       ],
       [
         "No sensitive data",
@@ -625,7 +625,7 @@
         "Fill in the form below. The draft is saved in this browser while you write."
       ],
       [
-        "The curators read it",
+        "The review team reads it",
         "Volunteers check the sources, the text and the licence."
       ],
       [
@@ -666,7 +666,7 @@
     "credit": "Your name or nickname, as it should appear (optional)",
     "declareLesson": "I declare that this text is my own work or is under a free licence, and I agree to publish it under the CC BY-SA 4.0 licence.",
     "declareWork": "I declare that the work is in the public domain or under an open licence, and that the link leads to a legitimate source.",
-    "sent": "We have received your contribution. Thank you! The curators will read it before it enters the collection.",
+    "sent": "We have received your contribution. Thank you! The review team will read it before it enters the site.",
     "ready": "Ready to send.",
     "offline": "Sending through the site is not active on this copy yet.",
     "send": "Send for review",

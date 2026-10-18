@@ -9,22 +9,7 @@ import {
 import { criarBanco } from "./banco-local.mjs";
 
 const banco = await criarBanco();
-const { rpc: rpcDoBanco, dono, criarUsuario } = banco;
-/**
- * Aula só vai ao ar com consenso de outro educador da disciplina (ou da liderança, se não houver). Nos fluxos antigos
- * destes testes, um colega dá o parecer favorável logo antes de a curadoria aprovar; a regra em si é provada na seção
- * "Consenso dos educadores", com isto desligado.
- */
-let consensoAutomatico = true;
-async function rpc(quem, funcao, args = {}) {
-  if (consensoAutomatico && funcao === "contribuicao_decidir" && args.p_aprovar) {
-    await dono(`insert into interno.pareceres (contribuicao, autor, favoravel, texto)
-      select c.id, coalesce((select p.usuario from interno.papeis p where p.papel in ('educacao', 'educacao_secundaria') and p.disciplina = c.disciplina and p.usuario <> c.autor and p.usuario <> $2 order by (p.usuario = $3) limit 1),
-                            (select usuario from interno.papeis where papel in ('vice', 'coordenacao') and usuario <> $2 order by papel desc limit 1)), true, 'De acordo, pode ir ao ar.'
-      from interno.contribuicoes c where c.id = $1 and c.tipo in ('aula', 'avulso') and c.status = 'pendente'`, [args.p_id, quem.sub, ids.vol ?? null]);
-  }
-  return rpcDoBanco(quem, funcao, args);
-}
+const { rpc, dono, criarUsuario } = banco;
 let certos = 0;
 const falhas = [];
 
@@ -194,14 +179,14 @@ await espera("revisor vê a fila inteira", () => rpc(como(ids.revisor), "fila"),
 await espera("jornalista não vê aulas na fila", () => rpc(como(ids.jornal), "fila"), (r) => r.length === 0);
 await espera("revisor dá parecer", () => rpc(como(ids.revisor), "parecer", { p_id: doProf.id, p_favoravel: true, p_texto: "Conferi as contas, está correto." }));
 await recusa("leitora não dá parecer", () => rpc(como(ids.leitora), "parecer", { p_id: doProf.id, p_favoravel: true, p_texto: "Gostei muito." }), "sem_permissao");
-await recusa("educador não aprova", () => rpc(como(ids.prof), "contribuicao_decidir", { p_id: doProf.id, p_aprovar: true, p_nota: "" }), "sem_permissao");
-await recusa("revisor não aprova", () => rpc(como(ids.revisor), "contribuicao_decidir", { p_id: doProf.id, p_aprovar: true, p_nota: "" }), "sem_permissao");
+await recusa("o autor não aprova a própria aula", () => rpc(como(ids.prof), "contribuicao_decidir", { p_id: doProf.id, p_aprovar: true, p_nota: "" }), "sem_permissao");
+await recusa("a curadoria não decide aula: ela cuida do acervo", () => rpc(como(ids.curadora), "contribuicao_decidir", { p_id: doProf.id, p_aprovar: true, p_nota: "" }), "sem_permissao");
 await recusa("jornalista não aprova a própria matéria", () => rpc(como(ids.jornal), "contribuicao_decidir", { p_id: artigo.id, p_aprovar: true, p_nota: "" }), "sem_permissao");
 await recusa("troll não edita contribuição alheia", () => rpc(como(ids.troll), "contribuicao_editar", { p_id: doProf.id, p: aula({ titulo: "Hackeado" }) }), "sem_permissao");
 await espera("autor edita enquanto está pendente", () => rpc(como(ids.prof), "contribuicao_editar", { p_id: doProf.id, p: aula({ titulo: "Regra de três simples" }) }));
 await recusa("edição não pode tirar a fonte", () => rpc(como(ids.prof), "contribuicao_editar", { p_id: doProf.id, p: aula({ fontes: [] }) }), "falta_fonte");
-await espera("curadoria aprova", () => rpc(como(ids.curadora), "contribuicao_decidir", { p_id: doProf.id, p_aprovar: true, p_nota: "Ótima aula." }));
-await recusa("decisão não se repete", () => rpc(como(ids.curadora), "contribuicao_decidir", { p_id: doProf.id, p_aprovar: false, p_nota: "" }), "ja_decidida");
+await espera("a revisão aprova sozinha: uma pessoa basta", () => rpc(como(ids.revisor), "contribuicao_decidir", { p_id: doProf.id, p_aprovar: true, p_nota: "Ótima aula." }));
+await recusa("decisão não se repete", () => rpc(como(ids.revisor), "contribuicao_decidir", { p_id: doProf.id, p_aprovar: false, p_nota: "" }), "ja_decidida");
 await recusa("autor não edita depois de decidida", () => rpc(como(ids.prof), "contribuicao_editar", { p_id: doProf.id, p: aula() }), "ja_decidida");
 await espera("coordenação recusa a pública", () => rpc(como(ids.coord), "contribuicao_decidir", { p_id: publica.id, p_aprovar: false, p_nota: "Faltou desenvolver." }));
 await espera("autor acompanha as próprias", () => rpc(como(ids.prof), "contribuicoes_minhas"), (r) => r.length === 1 && r[0].status === "aprovada" && r[0].pareceres >= 1);
@@ -213,8 +198,9 @@ await espera("rotina marca como publicada", () => rpc(servico, "publicacoes_marc
 await espera("nada mais a publicar", () => rpc(servico, "publicacoes_pendentes"), (r) => r.length === 0);
 await espera("correção aprovada vira 'resolvida', não vai para publicação", async () => {
   const c = await rpc(anon, "contribuir", { p: { tipo: "correcao", titulo: "Erro de data", corpo: "A data da Lei Áurea está errada na aula tal.", alvo: "/trilhas/x/y" } });
-  await rpc(como(ids.curadora), "contribuicao_decidir", { p_id: c.id, p_aprovar: true, p_nota: "Corrigido." });
-  return rpc(como(ids.curadora), "contribuicao_ver", { p_id: c.id });
+  await rpc(como(ids.med), "triagem_decidir", { p_id: c.id, p_liberar: true, p_nota: "" });
+  await rpc(como(ids.revisor), "contribuicao_decidir", { p_id: c.id, p_aprovar: true, p_nota: "Corrigido." });
+  return rpc(como(ids.revisor), "contribuicao_ver", { p_id: c.id });
 }, (r) => r.status === "resolvida");
 
 // ── Limite de pedidos ──
@@ -1071,11 +1057,11 @@ await espera("conta suspensa sai dos grupos de departamento e volta ao ser reati
 
 // ── Mural da equipe ──
 await recusa("quem não é da equipe não vê os canais", () => rpc(como(ids.troll), "equipe_canais"), "conta_suspensa");
-await espera("designer vê geral, pedidos e design", () => rpc(como(ids.designer), "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "design"]));
+await espera("designer vê geral, pedidos e design", () => rpc(como(ids.designer), "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "aprendizado", "design"]));
 await espera("cada canal usa a chave do grupo do departamento; geral e pedidos, a da equipe toda", async () => [await rpc(como(ids.designer), "equipe_canais"), (await departamento("designer", "geral")).id, (await departamento("designer", "design")).id],
   ([r, geral, design]) => r.conversas.geral === geral && r.conversas.pedidos === geral && r.conversas.design === design && !("educacao" in r.conversas));
 await espera("a frase da equipe não existe mais", () => rpc(como(ids.coord), "equipe_canais"), (r) => !("prova" in r) && !("sal" in r));
-await espera("coordenação vê todos os canais", () => rpc(como(ids.coord), "equipe_canais"), (r) => r.canais.length === 14);
+await espera("coordenação vê todos os canais", () => rpc(como(ids.coord), "equipe_canais"), (r) => r.canais.length === 15);
 await espera("mediador vê o canal da mediação, e não o da curadoria", () => rpc(como(ids.med), "equipe_canais"), (r) => r.canais.includes("mediacao") && !r.canais.includes("curadoria"));
 await recusa("designer não lê o canal dos educadores", () => rpc(como(ids.designer), "equipe_listar", { p_canal: "educacao" }), "sem_permissao");
 await recusa("designer não escreve no canal da coordenação", () => rpc(como(ids.designer), "equipe_escrever", { p_canal: "coordenacao", p_corpo: "Olá" }), "sem_permissao");
@@ -1562,7 +1548,6 @@ await espera("a supervisão lê e resolve", async () => { await rpc(como(ids.vic
 await espera("o banco nunca lê a conversa por conta própria: fora o relato, nada de texto aberto nas tabelas das conversas", () => dono("select count(*)::int as n from interno.conversa_mensagens where tipo <> 'sistema' and corpo !~ '^c[12][.]'"), (r) => r.rows[0].n === 0);
 
 // ── Consenso dos educadores, nomes só para a coordenação, representante de departamento ──
-consensoAutomatico = false;
 const ed1 = await criarUsuario("ed1@teste.local", "Edna Primeira Silva");
 const ed2 = await criarUsuario("ed2@teste.local", "Edu Segundo Souza");
 const ed3 = await criarUsuario("ed3@teste.local", "Elis Terceira Lima");
@@ -1570,15 +1555,26 @@ await dono("insert into interno.papeis (usuario, papel, disciplina) values ($1, 
 const aulaDe = async (autor, disciplina) => (await dono("insert into interno.contribuicoes (tipo, disciplina, titulo, corpo, autor, status, triagem) values ('aula', $2, 'Aula de consenso', 'Texto da aula com mais de vinte caracteres.', $1, 'pendente', 'liberada') returning id", [autor, disciplina])).rows[0].id;
 const parecerDe = (autor, id) => dono("insert into interno.pareceres (contribuicao, autor, favoravel, texto) values ($1, $2, true, 'Pode ir ao ar.')", [id, autor]);
 const aulaVideo = await aulaDe(ed1, "edicao-de-video");
-await recusa("aula sem parecer de outro educador da disciplina não vai ao ar", () => rpc(como(ids.curadora), "contribuicao_decidir", { p_id: aulaVideo, p_aprovar: true, p_nota: "" }), "sem_consenso");
-await recusa("parecer da liderança não basta quando há outro educador da disciplina", async () => { await parecerDe(ids.vice, aulaVideo); return rpc(como(ids.curadora), "contribuicao_decidir", { p_id: aulaVideo, p_aprovar: true, p_nota: "" }); }, "sem_consenso");
-await espera("com o parecer favorável do colega da disciplina, uma terceira pessoa aprova", async () => { await parecerDe(ed2, aulaVideo); await rpc(como(ids.curadora), "contribuicao_decidir", { p_id: aulaVideo, p_aprovar: true, p_nota: "" }); return dono("select status from interno.contribuicoes where id = $1", [aulaVideo]); }, (r) => r.rows[0].status === "aprovada");
 await dono("update interno.perfis set nome = $2 where id = $1", [ed1, "Edna Primeira Silva"]);
-const aulaQuimica = await aulaDe(ed3, "arquivologia");
-await recusa("sem outro educador na disciplina, quem deu o parecer da liderança não aprova sozinho", async () => { await parecerDe(ids.vice, aulaQuimica); return rpc(como(ids.vice), "contribuicao_decidir", { p_id: aulaQuimica, p_aprovar: true, p_nota: "" }); }, "sem_consenso");
-await espera("sem outro educador na disciplina, vale o parecer da vice e aprova uma terceira pessoa", async () => { await rpc(como(ids.curadora), "contribuicao_decidir", { p_id: aulaQuimica, p_aprovar: true, p_nota: "" }); return dono("select status from interno.contribuicoes where id = $1", [aulaQuimica]); }, (r) => r.rows[0].status === "aprovada");
-await espera("recusar não precisa de consenso", async () => { const id = await aulaDe(ed1, "edicao-de-video"); await rpc(como(ids.curadora), "contribuicao_decidir", { p_id: id, p_aprovar: false, p_nota: "Faltam fontes." }); return dono("select status from interno.contribuicoes where id = $1", [id]); }, (r) => r.rows[0].status === "recusada");
-consensoAutomatico = true;
+const sup1 = await criarUsuario("sup1@teste.local", "Sueli Antes");
+await rpc(como(ids.coord), "papel_conceder", { p_usuario: sup1, p_papel: "supervisao", p_disciplina: null });
+await recusa("o autor não aprova a própria aula", () => rpc({ papel: "authenticated", sub: ed1 }, "contribuicao_decidir", { p_id: aulaVideo, p_aprovar: true, p_nota: "" }), "sem_permissao");
+await recusa("a curadoria não decide aula (cuida do acervo)", () => rpc(como(ids.curadora), "contribuicao_decidir", { p_id: aulaVideo, p_aprovar: true, p_nota: "" }), "sem_permissao");
+await recusa("educador de outra disciplina não decide", () => rpc({ papel: "authenticated", sub: ed3 }, "contribuicao_decidir", { p_id: aulaVideo, p_aprovar: true, p_nota: "" }), "sem_permissao");
+await espera("outro educador da mesma disciplina aprova sozinho: uma pessoa basta", async () => { await rpc({ papel: "authenticated", sub: ed2 }, "contribuicao_decidir", { p_id: aulaVideo, p_aprovar: true, p_nota: "" }); return dono("select status from interno.contribuicoes where id = $1", [aulaVideo]); }, (r) => r.rows[0].status === "aprovada");
+await espera("a supervisão também decide sozinha", async () => { const id = await aulaDe(ed1, "edicao-de-video"); await rpc({ papel: "authenticated", sub: sup1 }, "contribuicao_decidir", { p_id: id, p_aprovar: true, p_nota: "" }); return dono("select status from interno.contribuicoes where id = $1", [id]); }, (r) => r.rows[0].status === "aprovada");
+await espera("a coordenação pedagógica também", async () => { const id = await aulaDe(ed1, "edicao-de-video"); await rpc(como(ids.vice), "contribuicao_decidir", { p_id: id, p_aprovar: true, p_nota: "" }); return dono("select status from interno.contribuicoes where id = $1", [id]); }, (r) => r.rows[0].status === "aprovada");
+await espera("recusar segue a mesma regra de quem decide", async () => { const id = await aulaDe(ed1, "edicao-de-video"); await rpc(como(ids.revisor), "contribuicao_decidir", { p_id: id, p_aprovar: false, p_nota: "Faltam fontes." }); return dono("select status from interno.contribuicoes where id = $1", [id]); }, (r) => r.rows[0].status === "recusada");
+// O que vem de fora: mediação → educador → revisão.
+let deFora;
+await espera("quem é de fora envia e a mediação libera na triagem", async () => { deFora = (await rpc(anon, "contribuir", { p: { ...aula({ titulo: "Aula de quem é de fora", disciplina: "edicao-de-video" }), nome: "Visitante" } })).id; await rpc(como(ids.med), "triagem_decidir", { p_id: deFora, p_liberar: true, p_nota: "" }); return dono("select triagem from interno.contribuicoes where id = $1", [deFora]); }, (r) => r.rows[0].triagem === "liberada");
+await recusa("a revisão não põe no ar o que vem de fora sem o parecer de um educador", () => rpc(como(ids.revisor), "contribuicao_decidir", { p_id: deFora, p_aprovar: true, p_nota: "" }), "falta_educador");
+await recusa("o educador dá o parecer, mas quem põe no ar é a revisão", async () => { await rpc({ papel: "authenticated", sub: ed1 }, "parecer", { p_id: deFora, p_favoravel: true, p_texto: "Conferi, está correto." }); return rpc({ papel: "authenticated", sub: ed1 }, "contribuicao_decidir", { p_id: deFora, p_aprovar: true, p_nota: "" }); }, "falta_educador");
+await espera("com o parecer do educador, a revisão põe no ar", async () => { await rpc(como(ids.revisor), "contribuicao_decidir", { p_id: deFora, p_aprovar: true, p_nota: "" }); return dono("select status from interno.contribuicoes where id = $1", [deFora]); }, (r) => r.rows[0].status === "aprovada");
+await espera("a coordenação aprova o que vem de fora a qualquer momento", async () => { const id = (await rpc(anon, "contribuir", { p: { ...aula({ titulo: "Outra de fora", disciplina: "edicao-de-video" }), nome: "Visitante" } })).id; await rpc(como(ids.med), "triagem_decidir", { p_id: id, p_liberar: true, p_nota: "" }); await rpc(como(ids.coord), "contribuicao_decidir", { p_id: id, p_aprovar: true, p_nota: "" }); return dono("select status from interno.contribuicoes where id = $1", [id]); }, (r) => r.rows[0].status === "aprovada");
+await recusa("mediação não escreve aula pelo painel", () => rpc(como(ids.med), "contribuir", { p: aula({ titulo: "Aula do mediador" }) }), "sem_permissao");
+await recusa("porta-voz precisa de nível: a supervisão nomeia", () => rpc(como(ids.prof), "papel_conceder", { p_usuario: ed3, p_papel: "porta_voz", p_disciplina: null }), "sem_permissao");
+await espera("a supervisão nomeia um porta-voz, que fica só no grupo da equipe toda", async () => { await rpc({ papel: "authenticated", sub: sup1 }, "papel_conceder", { p_usuario: ed3, p_papel: "porta_voz", p_disciplina: null }); return [(await rpc({ papel: "authenticated", sub: ed3 }, "eu")).papeis.some((p) => p.papel === "porta_voz"), (await rpc({ papel: "authenticated", sub: ed3 }, "chat_conversas")).filter((c) => c.tipo === "departamento").map((c) => c.departamento)]; }, ([tem, deps]) => tem && deps.includes("geral") && !deps.includes("porta_voz"));
 await espera("só a coordenação vê nome completo e e-mail; a vice vê o primeiro nome e nenhum e-mail", async () => [(await rpc(como(ids.coord), "voluntarios_listar")).find((p) => p.id === ed1), (await rpc(como(ids.vice), "voluntarios_listar")).find((p) => p.id === ed1), (await rpc(como(ids.prof), "equipe_membros")).find((p) => p.id === ed1)], ([coord, vice, colega]) => coord.nome === "Edna Primeira Silva" && coord.email.includes("@") && vice.nome === "Edna" && vice.email === "" && colega.nome === "Edna");
 await recusa("representante precisa de um departamento", () => rpc(como(ids.vice), "papel_conceder", { p_usuario: ed2, p_papel: "representante", p_disciplina: null }), "invalido:departamento");
 await espera("a vice nomeia representante do departamento de educação; ele administra o grupo do departamento", async () => {
@@ -1644,7 +1640,7 @@ const hojeBr = (await dono("select interno.dia_de(now())::text as d")).rows[0].d
 const ontemBr = (await dono("select (interno.dia_de(now()) - 1)::text as d")).rows[0].d;
 await espera("a coordenação confia o ensino de matemática a uma voluntária nova", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: ids.vol, p_papel: "educacao", p_disciplina: "matematica" }));
 let aulaDaVol, aulaParaParecer;
-await espera("ela escreve uma aula e a curadoria aprova", async () => { aulaDaVol = await rpc(como(ids.vol), "contribuir", { p: aula({ titulo: "Frações no dia a dia" }) }); return rpc(como(ids.curadora), "contribuicao_decidir", { p_id: aulaDaVol.id, p_aprovar: true, p_nota: "" }); }, (r) => r.ok);
+await espera("ela escreve uma aula e a revisão aprova", async () => { aulaDaVol = await rpc(como(ids.vol), "contribuir", { p: aula({ titulo: "Frações no dia a dia" }) }); return rpc(como(ids.revisor), "contribuicao_decidir", { p_id: aulaDaVol.id, p_aprovar: true, p_nota: "" }); }, (r) => r.ok);
 await espera("ela dá dois pareceres na aula de outro educador", async () => {
   aulaParaParecer = await rpc(como(ids.prof), "contribuir", { p: aula({ titulo: "Porcentagem no mercado" }) });
   await rpc(como(ids.vol), "parecer", { p_id: aulaParaParecer.id, p_favoravel: true, p_texto: "As contas batem." });
@@ -1660,13 +1656,13 @@ await recusa("vice-coordenação não mexe na tabela de horas", () => rpc(como(i
 await recusa("tipo de trabalho inventado não entra na tabela", () => rpc(como(ids.coord), "horas_pesos_salvar", { p: { churrasco: 2 } }), "invalido:tabela");
 await recusa("nenhum trabalho vale mais de doze horas", () => rpc(como(ids.coord), "horas_pesos_salvar", { p: { aula: 13 } }), "invalido:aula");
 await espera("o coordenador ajusta quanto vale uma aula", () => rpc(como(ids.coord), "horas_pesos_salvar", { p: { aula: 6 } }), (r) => Number(r.find((x) => x.chave === "aula").horas) === 6 && Number(r.find((x) => x.chave === "aula").padrao) === 4);
-await espera("toda a equipe vê a tabela", () => rpc(como(ids.vol), "horas_pesos"), (r) => r.length === 25 && Number(r.find((x) => x.chave === "parecer").horas) === 0.5);
+await espera("toda a equipe vê a tabela", () => rpc(como(ids.vol), "horas_pesos"), (r) => r.length === 26 && Number(r.find((x) => x.chave === "parecer").horas) === 0.5);
 await recusa("quem não é da equipe não vê a tabela", () => rpc(como(ids.leitora), "horas_pesos"), "sem_permissao");
 await espera("o ajuste não muda o que já foi contado", () => rpc(como(ids.vol), "horas_minhas"), (r) => Number(r.plataforma) === 4.5);
 await espera("ela registra à mão sete horas do mesmo dia", () => rpc(como(ids.vol), "horas_registrar", { p_dia: hojeBr, p_horas: 7, p_atividade: "Preparei e gravei a videoaula de frações." }), (r) => Boolean(r.id));
 await espera("uma segunda aula aprovada no mesmo dia só completa as doze horas", async () => {
   const outra = await rpc(como(ids.vol), "contribuir", { p: aula({ titulo: "Frações equivalentes" }) });
-  await rpc(como(ids.curadora), "contribuicao_decidir", { p_id: outra.id, p_aprovar: true, p_nota: "" });
+  await rpc(como(ids.revisor), "contribuicao_decidir", { p_id: outra.id, p_aprovar: true, p_nota: "" });
   return rpc(como(ids.vol), "horas_minhas");
 }, (r) => Number(r.lista.find((h) => h.atividade.includes("Frações equivalentes"))?.horas) === 0.5 && Number(r.pendentes) === 7);
 await espera("episódio publicado conta para quem produziu", async () => {
@@ -2032,7 +2028,7 @@ await recusa("marketing não define o perfil do Instagram", () => rpc(mkt, "divu
 await recusa("o perfil só aceita endereço do Instagram", () => rpc(C1, "divulgacao_instagram_salvar", { p_url: "https://golpe.exemplo/login" }), "invalido:instagram");
 await espera("coordenação indica o perfil e o marketing vê", async () => { await rpc(C1, "divulgacao_instagram_salvar", { p_url: "https://www.instagram.com/institutolucia" }); return rpc(mkt, "divulgacao_listar"); }, (r) => r.instagram === "https://www.instagram.com/institutolucia");
 await espera("marketing prepara materiais, como o design", () => rpc(mkt, "material_salvar", { p: { tipo: "cartaz", titulo: "Cartaz da aula aberta", descricao: "Cartaz A3.", campanha: "", url: "https://exemplo.org/cartaz" } }), (r) => Boolean(r.id));
-await espera("marketing vê o canal dele e o do design no mural da equipe", () => rpc(mkt, "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "design", "marketing"]));
+await espera("marketing vê o canal dele e o do design no mural da equipe", () => rpc(mkt, "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "aprendizado", "design", "marketing"]));
 await espera("marketing apaga um item do calendário", () => rpc(mkt, "divulgacao_apagar", { p_id: post.id }), (r) => r.ok);
 
 // Coordenação e vice-coordenação editam contas (menos o e-mail) e redefinem senhas.
@@ -2521,19 +2517,19 @@ const videoaula = (extra = {}) => ({
   caminho: `${ids.prof}/${crypto.randomUUID()}.webm`,
   tipo: "video/webm",
   duracao: "540",
-  largura: "1280",
-  altura: "720",
+  largura: "854",
+  altura: "480",
   tamanho: "41000000",
   fontes: fonte,
   ...extra,
 });
-const curadoria2 = { ...como(ids.curadora), aal: "aal2" };
+const curadoria2 = como(ids.revisor);
 let video;
 await recusa("quem não ensina não envia aula em vídeo", () => rpc(como(ids.leitora), "videoaula_enviar", { p: videoaula({ caminho: `${ids.leitora}/${crypto.randomUUID()}.webm` }) }), "sem_permissao");
 await recusa("educador não envia para a pasta de outra pessoa", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ caminho: `${ids.leitora}/${crypto.randomUUID()}.webm` }) }), "invalido:caminho");
 await recusa("mais de dez minutos é recusado", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ duracao: "601" }) }), "invalido:duracao");
 await recusa("1080p é recusado", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ largura: "1920", altura: "1080" }) }), "invalido:resolucao");
-await espera("vídeo em pé de 720 por 1280 é aceito como 720p", async () => (await rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ largura: "720", altura: "1280" }) })).id, (r) => Boolean(r));
+await espera("vídeo em pé de 480 por 854 é aceito como 480p", async () => (await rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ largura: "480", altura: "854" }) })).id, (r) => Boolean(r));
 await recusa("arquivo acima de 50 MB é recusado", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ tamanho: "60000000" }) }), "invalido:tamanho");
 await recusa("aula em vídeo sem fonte é recusada", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ fontes: [] }) }), "falta_fonte");
 await recusa("legenda que não é WebVTT é recusada", () => rpc(como(ids.prof), "videoaula_enviar", { p: videoaula({ legenda: "1\n00:00:01,000 --> 00:00:02,000\nOi" }) }), "invalido:legenda");
@@ -2541,11 +2537,11 @@ await recusa("educador de matemática não envia aula de física", () => rpc(com
 await espera("educador envia a aula em vídeo da própria disciplina", async () => (video = videoaula()) && rpc(como(ids.prof), "videoaula_enviar", { p: video }), (r) => Boolean(r.id) && (video.id = r.id));
 await espera("ela fica fora da lista pública enquanto espera", () => rpc(anon, "videoaulas_publicas"), (r) => !r.some((x) => x.id === video.id));
 await espera("o visitante ainda não lê o arquivo", () => rpc(anon, "videoaula_pode_ler", { p_nome: video.caminho }), (r) => r === false);
-await espera("quem enviou e a curadoria leem o arquivo pendente", async () => [await rpc(como(ids.prof), "videoaula_pode_ler", { p_nome: video.caminho }), await rpc(curadoria2, "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0] === true && r[1] === true);
-await espera("a curadoria vê a aula na fila, com a transcrição", () => rpc(curadoria2, "videoaulas_fila"), (r) => r.some((x) => x.id === video.id && "transcricao" in x));
+await espera("quem enviou e a revisão leem o arquivo pendente", async () => [await rpc(como(ids.prof), "videoaula_pode_ler", { p_nome: video.caminho }), await rpc(curadoria2, "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0] === true && r[1] === true);
+await espera("a revisão vê a aula na fila, com a transcrição", () => rpc(curadoria2, "videoaulas_fila"), (r) => r.some((x) => x.id === video.id && "transcricao" in x));
 await recusa("educador não decide a própria aula", () => rpc(como(ids.prof), "videoaula_decidir", { p_id: video.id, p_aprovar: true }), "sem_permissao");
 await recusa("recusar exige nota", () => rpc(curadoria2, "videoaula_decidir", { p_id: video.id, p_aprovar: false, p_nota: "" }), "invalido:nota");
-await espera("a curadoria aprova", () => rpc(curadoria2, "videoaula_decidir", { p_id: video.id, p_aprovar: true }), (r) => r.ok === true);
+await espera("a revisão aprova", () => rpc(curadoria2, "videoaula_decidir", { p_id: video.id, p_aprovar: true }), (r) => r.ok === true);
 await espera("aprovada, entra na lista pública da disciplina e o visitante lê o arquivo", async () => [await rpc(anon, "videoaulas_publicas", { p_disciplina: "matematica" }), await rpc(anon, "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0].some((x) => x.id === video.id && !("nota" in x)) && r[1] === true);
 await espera("o visitante abre a aula com a transcrição", () => rpc(anon, "videoaula_ver", { p_id: video.id }), (r) => r.id === video.id && "transcricao" in r);
 await recusa("quem enviou não apaga a aula que está no ar", () => rpc(como(ids.prof), "videoaula_apagar", { p_id: video.id }), "sem_permissao");

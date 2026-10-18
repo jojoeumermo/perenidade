@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/videoaulas
   return { title: t.videoLessons.title, description: t.videoLessons.lead };
 }
 
-// As aulas gravadas pelos educadores do instituto, revisadas pela curadoria. A lista vem do serviço, na hora.
+// As aulas gravadas pelos educadores do instituto, revisadas pela revisão. A lista vem do serviço, na hora.
 export default async function Videoaulas({ params }: PageProps<"/[lang]/videoaulas">) {
   const { lang, t } = await loadLang(params);
   return (

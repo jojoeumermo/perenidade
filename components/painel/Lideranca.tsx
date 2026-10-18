@@ -174,7 +174,7 @@ export function SegurancaSucessao({ me }: { me: Me }) {
       <section hidden={aba !== "fator"}>
         <h2 className="font-serif text-2xl font-semibold">Segundo fator obrigatório</h2>
         <p className="mt-1 text-ink-soft">
-          Com esta exigência ligada, coordenação, vice-coordenação, supervisão, curadoria e mediação só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
+          Com esta exigência ligada, coordenação, coordenação pedagógica, supervisão, curadoria e mediação só usam o painel depois de digitar o código do aplicativo autenticador. Senha ou link de e-mail roubado, sozinho, não abre nada.
         </p>
         <p className="mt-2">
           Situação: <strong>{seguranca.dados?.exigir_2fa ? "ligada" : "desligada"}</strong>
@@ -244,7 +244,7 @@ export function SegurancaSucessao({ me }: { me: Me }) {
       {lider && (
         <section hidden={aba !== "passar"}>
           <h2 className="font-serif text-2xl font-semibold">Passar a coordenação</h2>
-          <p className="mt-1 text-ink-soft">Você entrega o posto e passa a ser vice-coordenação. Só a nova coordenação pode devolver.</p>
+          <p className="mt-1 text-ink-soft">Você entrega o posto e passa a ser coordenação pedagógica. Só a nova coordenação pode devolver.</p>
           <div className="mt-3 flex flex-wrap items-end gap-3">
             <div className="min-w-60 flex-1">
               Para quem
