@@ -8,7 +8,9 @@ import { errorText } from "@/i18n/core";
 import { type Aula, type Fala, faixaPreta, Transmissao } from "@/lib/aovivo";
 import { BackendError, hasBackend, rpc, useMe } from "@/lib/backend";
 import { type Presente, Sala, temTempoReal, transmitir, useSinal } from "@/lib/tempo-real";
+import { salaJitsiDe } from "@/lib/jitsi";
 import { safeLink } from "@/lib/text";
+import { JitsiSala } from "../JitsiSala";
 import { L, useI18n } from "../I18n";
 import { CartaoDeAula, type LiveStrings } from "./Agenda";
 
@@ -332,6 +334,10 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
     await sala.current?.atualizar({ mao: nova });
   }
 
+  // A sala do Jitsi (se a aula tem uma no servidor configurado) abre aqui dentro, sem sair do site.
+  const salaJitsi = aula.sala_externa ? salaJitsiDe(aula.sala_externa) : null;
+  const [naSala, setNaSala] = useState(false);
+  const { lang } = useI18n();
   const educadores = presentes.filter((p) => p.papel === "educador");
   const alunos = presentes.filter((p) => p.papel === "aluno");
   const maos = presentes.filter((p) => p.mao);
@@ -353,6 +359,19 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
               </>
             )}
           </p>
+        )}
+
+        {salaJitsi && aula.status !== "cancelada" && aula.status !== "encerrada" && (
+          naSala ? (
+            <JitsiSala sala={salaJitsi} nome={eu.current.nome} conduzo={conduzo} lang={lang} assunto={aula.titulo} aoSair={() => setNaSala(false)} />
+          ) : (
+            (conduzo || aula.status === "ao_vivo") && (
+              <p>
+                <button type="button" className={vermelho} onClick={() => setNaSala(true)}>{conduzo ? "Abrir a sala de vídeo (Jitsi)" : "Entrar na aula (Jitsi)"}</button>
+                <span className="ml-3 font-sans text-xs text-ink-soft">Jitsi Meet, código aberto; sem gravação.</span>
+              </p>
+            )
+          )
         )}
 
         {/* Os vídeos: o meu (quem ensina) e os de quem ensina (quem assiste). */}

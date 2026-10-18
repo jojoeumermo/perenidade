@@ -2634,6 +2634,19 @@ await recusa("exercício de tipo desconhecido é recusado", () => rpc(como(ids.p
 await recusa("prática precisa apontar a aula", () => rpc(como(ids.prof), "contribuir", { p: { ...pratica, alvo: "/trilhas/x" } }), "invalido:alvo");
 await espera("educador envia a prática da aula", () => rpc(como(ids.prof), "contribuir", { p: pratica }), (r) => Boolean(r.id));
 
+// ── Reuniões da equipe (Jitsi dentro do painel; a liderança marca, qualquer voluntário propõe) ──
+const daqui = (h) => new Date(Date.now() + h * 3600e3).toISOString();
+await recusa("voluntário não cria reunião", () => rpc(como(ids.prof), "reuniao_salvar", { p_id: null, p: { titulo: "Reunião geral", inicio: daqui(1) } }), "sem_permissao");
+let reuniao;
+await espera("a coordenação marca uma reunião aberta com sala sorteada", async () => { reuniao = await rpc(como(ids.coord), "reuniao_salvar", { p_id: null, p: { titulo: "Reunião geral", pauta: "Pauta", inicio: daqui(1), duracao: 60, tipo: "aberta" } }); return reuniao; }, (r) => /^InstitutoLucia-[0-9a-f]{32}$/.test(r.sala) && r.conduzo === true);
+await espera("quem é da equipe vê a reunião aberta e a sala", () => rpc(como(ids.prof), "reunioes_listar"), (r) => r.some((x) => x.id === reuniao.id && x.sala && x.posso_entrar && !x.conduzo));
+await espera("reunião só da coordenação não aparece para o voluntário", async () => { const r = await rpc(como(ids.coord), "reuniao_salvar", { p_id: null, p: { titulo: "Só coordenação", inicio: daqui(2), tipo: "coordenacao" } }); return (await rpc(como(ids.prof), "reunioes_listar")).find((x) => x.id === r.id); }, (x) => x === undefined);
+await espera("voluntário propõe uma reunião", () => rpc(como(ids.prof), "reuniao_propor", { p: { titulo: "Reunião da disciplina", assunto: "Planejar", inicio: daqui(24), duracao: 45 } }), (r) => Boolean(r.id));
+await recusa("voluntário não decide proposta", async () => { const p = (await rpc(como(ids.prof), "reunioes_propostas"))[0]; return rpc(como(ids.prof), "reuniao_proposta_decidir", { p_id: p.id, p_status: "aprovada" }); }, "sem_permissao");
+await espera("a coordenação aprova e a proposta vira reunião de convidados com o autor dentro", async () => { const p = (await rpc(como(ids.coord), "reunioes_propostas")).find((x) => x.status === "pendente"); const r = await rpc(como(ids.coord), "reuniao_proposta_decidir", { p_id: p.id, p_status: "aprovada" }); return (await rpc(como(ids.prof), "reunioes_listar")).find((x) => x.id === r.reuniao); }, (x) => Boolean(x && x.tipo === "convidados" && x.posso_entrar && x.sala));
+await espera("entrar registra presença; encerrar fecha a sala e a presença", async () => { await rpc(como(ids.prof), "reuniao_presenca", { p_id: reuniao.id, p_entrou: true }); await rpc(como(ids.coord), "reuniao_estado", { p_id: reuniao.id, p_status: "ao_vivo" }); await rpc(como(ids.coord), "reuniao_estado", { p_id: reuniao.id, p_status: "encerrada" }); return (await rpc(como(ids.coord), "reunioes_listar")).find((x) => x.id === reuniao.id); }, (x) => x.status === "encerrada" && x.presentes === 1 && x.sala === null && x.presencas.length === 1 && Boolean(x.presencas[0].saiu_em));
+await espera("a ata fica no histórico", () => rpc(como(ids.coord), "reuniao_ata", { p_id: reuniao.id, p_ata: "Decidimos X." }), (r) => r.ata === "Decidimos X.");
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);
