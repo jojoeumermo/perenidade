@@ -10098,3 +10098,540 @@ begin
     execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
   end loop;
 end $$;
+
+
+-- ───────────────────────────── Tarefas: "Para você hoje", saúde do acervo, mutirões ─────────────────────────────
+-- Uma camada nova por cima das filas que já existem (Traduções, Fila de revisão, Triagem, Fontes abertas): nada delas muda.
+-- O verificador do acervo (lib/lacunas.ts, no build) aponta as lacunas; a rotina de publicação as traz para cá, e cada uma
+-- vira uma tarefa pequena (5, 15 ou 30 minutos) que qualquer pessoa da equipe pode reservar, entregar e ver revisada.
+
+create table if not exists interno.tarefas (
+  id uuid primary key default gen_random_uuid(),
+  chave text unique check (chave is null or char_length(chave) <= 300),
+  tipo text not null check (tipo ~ '^[a-z_]{3,30}$'),
+  alvo text not null default '' check (char_length(alvo) <= 300),
+  titulo text not null check (char_length(titulo) between 2 and 200),
+  descricao text not null default '' check (char_length(descricao) <= 2000),
+  detalhe text not null default '' check (char_length(detalhe) <= 300),
+  minutos smallint not null default 15 check (minutos in (5, 15, 30)),
+  dificuldade text not null default 'iniciante' check (dificuldade in ('iniciante', 'intermediario', 'avancado')),
+  papel text not null default '' check (char_length(papel) <= 40),
+  impacto text not null default '' check (char_length(impacto) <= 300),
+  origem text not null default 'verificador' check (origem in ('verificador', 'manual')),
+  status text not null default 'aberta' check (status in ('aberta', 'reservada', 'entregue', 'aprovada', 'concluida', 'encerrada')),
+  reservada_por uuid references interno.perfis (id) on delete set null,
+  reservada_em timestamptz,
+  prazo timestamptz,
+  avisada boolean not null default false,
+  entrega jsonb not null default '{}'::jsonb,
+  entregue_em timestamptz,
+  revisada_por uuid references interno.perfis (id) on delete set null,
+  revisada_em timestamptz,
+  nota_revisao text not null default '' check (char_length(nota_revisao) <= 600),
+  aplicada boolean not null default false,
+  concluida_em timestamptz,
+  mutirao uuid,
+  projeto uuid,
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  atualizado_em timestamptz not null default now()
+);
+create index if not exists tarefas_status on interno.tarefas (status, tipo, minutos);
+create index if not exists tarefas_pessoa on interno.tarefas (reservada_por, status);
+create index if not exists tarefas_concluidas on interno.tarefas (concluida_em);
+alter table interno.tarefas enable row level security;
+
+create table if not exists interno.tarefas_mutiroes (
+  id uuid primary key default gen_random_uuid(),
+  tema text not null check (char_length(tema) between 3 and 140),
+  descricao text not null default '' check (char_length(descricao) <= 1000),
+  tipo text not null default '' check (char_length(tipo) <= 30),
+  meta integer not null check (meta between 1 and 10000),
+  inicio date not null,
+  fim date not null,
+  reuniao uuid,
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  check (fim >= inicio)
+);
+alter table interno.tarefas_mutiroes enable row level security;
+create table if not exists interno.tarefas_mutirao_pessoas (
+  mutirao uuid not null references interno.tarefas_mutiroes (id) on delete cascade,
+  pessoa uuid not null references interno.perfis (id) on delete cascade,
+  criado_em timestamptz not null default now(),
+  primary key (mutirao, pessoa)
+);
+alter table interno.tarefas_mutirao_pessoas enable row level security;
+create table if not exists interno.tarefas_projetos (
+  id uuid primary key default gen_random_uuid(),
+  nome text not null check (char_length(nome) between 3 and 140),
+  descricao text not null default '' check (char_length(descricao) <= 1500),
+  responsavel uuid references interno.perfis (id) on delete set null,
+  prazo date,
+  status text not null default 'ativo' check (status in ('ativo', 'concluido', 'arquivado')),
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+alter table interno.tarefas_projetos enable row level security;
+-- A conferência periódica dos links das obras: um lote pequeno por rodada, para não sobrecarregar ninguém.
+create table if not exists interno.links_conferidos (
+  url text primary key check (char_length(url) <= 600),
+  alvo text not null default '' check (char_length(alvo) <= 300),
+  status integer not null default 0,
+  ok boolean not null default true,
+  falhas integer not null default 0,
+  conferido_em timestamptz not null default now()
+);
+alter table interno.links_conferidos enable row level security;
+
+alter table interno.perfis add column if not exists habilidades text[] not null default '{}';
+alter table interno.perfis add column if not exists agradecimento_publico boolean not null default false;
+alter table interno.perfis add column if not exists selos_ocultos boolean not null default false;
+alter table interno.perfis add column if not exists mentoria_oferecida boolean not null default false;
+
+/** As regras, os limites e a meta da semana, com os padrões para o que a coordenação ainda não mexeu. */
+create or replace function interno.tarefas_config() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'regras', jsonb_build_object('ficha_ano', true, 'ficha_sinopse', true, 'licenca', true, 'sem_ligacao', true, 'biografia', true, 'duplicata', true, 'traducao', true, 'revisao_aula', true, 'imagem_alt', true, 'link', true),
+    'max_por_ciclo', 60, 'max_reservas', 3, 'meta', null, 'mostrar', true)
+  || coalesce((select valor from configuracoes where chave = 'tarefas'), '{}'::jsonb)
+$$;
+
+/** Prazo da reserva pelo tamanho da tarefa: 5 minutos, um dia; 15, três; 30, uma semana. */
+create or replace function interno.tarefa_prazo(p_minutos integer) returns interval language sql immutable as $$
+  select case when p_minutos <= 5 then interval '1 day' when p_minutos <= 15 then interval '3 days' else interval '7 days' end
+$$;
+
+/** Reservas vencidas voltam para a fila (com recado sem cobrança); as que vencem em menos de um dia ganham um lembrete. */
+create or replace function interno.tarefas_vencer() returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+declare r record;
+begin
+  for r in select id, titulo, reservada_por from tarefas where status = 'reservada' and prazo < now() for update skip locked loop
+    update tarefas set status = 'aberta', reservada_por = null, reservada_em = null, prazo = null, avisada = false, atualizado_em = now() where id = r.id;
+    perform interno.avisar(r.reservada_por, 'A tarefa "' || left(r.titulo, 80) || '" voltou para a fila porque o prazo passou. Sem problema: quando der, é só pegar outra.');
+  end loop;
+  for r in select id, titulo, reservada_por from tarefas where status = 'reservada' and not avisada and prazo < now() + interval '1 day' for update skip locked loop
+    update tarefas set avisada = true where id = r.id;
+    perform interno.avisar(r.reservada_por, 'A tarefa "' || left(r.titulo, 80) || '" vence em menos de um dia. Se não for dar, libere sem culpa: ela volta para a fila.');
+  end loop;
+end $$;
+
+create or replace function interno.tarefa_json(t interno.tarefas) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('id', t.id, 'tipo', t.tipo, 'alvo', t.alvo, 'titulo', t.titulo, 'descricao', t.descricao, 'detalhe', t.detalhe, 'minutos', t.minutos,
+    'dificuldade', t.dificuldade, 'papel', t.papel, 'impacto', t.impacto, 'origem', t.origem, 'status', t.status, 'prazo', t.prazo, 'entrega', t.entrega,
+    'nota_revisao', t.nota_revisao, 'minha', t.reservada_por = auth.uid(), 'reservada_por', case when t.reservada_por is null then '' else coalesce((select interno.nome_visto(nome) from perfis where id = t.reservada_por), '') end,
+    'mutirao', t.mutirao, 'projeto', t.projeto, 'atualizado_em', t.atualizado_em)
+$$;
+
+/**
+ * Traz as lacunas do verificador (a rotina de publicação, com a chave de serviço, ou a coordenação, pelo painel). Abre uma
+ * tarefa para cada lacuna nova (até o limite do ciclo, só nas regras ligadas); não recria o que está aberto, reservado,
+ * entregue, aprovado ou concluído; encerra o que perdeu o motivo (a lacuna sumiu por outro caminho) e conclui o que foi
+ * entregue e cuja lacuna sumiu de verdade. Guarda os números da saúde do acervo.
+ */
+create or replace function public.tarefas_sincronizar(p_lacunas jsonb, p_saude jsonb default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare c jsonb := interno.tarefas_config(); v_max int := coalesce((c ->> 'max_por_ciclo')::int, 60); v_novas int := 0; v_encerradas int := 0; v_concluidas int := 0; l jsonb; v_chaves text[];
+begin
+  if not (interno.servico() or interno.coord()) then perform interno.erro('sem_permissao'); end if;
+  if jsonb_typeof(p_lacunas) <> 'array' then perform interno.erro('invalido:lacunas'); end if;
+  -- Links que falharam duas vezes seguidas também são lacunas.
+  p_lacunas := p_lacunas || coalesce((select jsonb_agg(jsonb_build_object('chave', 'link:' || url, 'tipo', 'link', 'alvo', alvo, 'titulo', 'Link quebrado', 'detalhe', url)) from links_conferidos where not ok and falhas >= 2), '[]'::jsonb);
+  select array_agg(x ->> 'chave') into v_chaves from jsonb_array_elements(p_lacunas) x;
+  -- O que perdeu o motivo
+  with fora as (
+    update tarefas set status = case when status in ('entregue', 'aprovada') then 'concluida' else 'encerrada' end,
+      concluida_em = case when status in ('entregue', 'aprovada') then now() else concluida_em end,
+      reservada_por = case when status in ('aberta', 'reservada') then null else reservada_por end, atualizado_em = now()
+    where origem = 'verificador' and status in ('aberta', 'reservada', 'entregue', 'aprovada') and not (chave = any(coalesce(v_chaves, '{}'))) returning status)
+  select count(*) filter (where status = 'encerrada'), count(*) filter (where status = 'concluida') into v_encerradas, v_concluidas from fora;
+  -- O que é novo (ou voltou depois de encerrado)
+  for l in select x from jsonb_array_elements(p_lacunas) x loop
+    exit when v_novas >= v_max;
+    continue when not coalesce((c -> 'regras' ->> (l ->> 'tipo'))::boolean, false);
+    continue when coalesce(l ->> 'chave', '') = '' or exists (select 1 from tarefas where chave = l ->> 'chave' and status in ('aberta', 'reservada', 'entregue', 'aprovada', 'concluida'));
+    insert into tarefas (chave, tipo, alvo, titulo, detalhe, minutos, dificuldade, papel, impacto, origem)
+    values (left(l ->> 'chave', 300), l ->> 'tipo', left(coalesce(l ->> 'alvo', ''), 300), left(coalesce(nullif(l ->> 'titulo', ''), 'Tarefa'), 200), left(coalesce(l ->> 'detalhe', ''), 300),
+            case l ->> 'tipo' when 'ficha_ano' then 5 when 'duplicata' then 5 when 'imagem_alt' then 5 when 'biografia' then 30 when 'traducao' then 30 when 'revisao_aula' then 30 else 15 end,
+            case l ->> 'tipo' when 'ficha_ano' then 'iniciante' when 'duplicata' then 'iniciante' when 'imagem_alt' then 'iniciante' when 'biografia' then 'avancado' when 'traducao' then 'avancado' else 'intermediario' end,
+            case l ->> 'tipo' when 'licenca' then 'curadoria' when 'biografia' then 'curadoria' when 'sem_ligacao' then 'educacao' when 'traducao' then 'traducao' when 'revisao_aula' then 'revisao' else '' end,
+            '', 'verificador')
+    on conflict (chave) do update set status = 'aberta', reservada_por = null, reservada_em = null, prazo = null, entrega = '{}'::jsonb, entregue_em = null, revisada_por = null,
+      revisada_em = null, nota_revisao = '', aplicada = false, concluida_em = null, atualizado_em = now()
+    where tarefas.status = 'encerrada';
+    v_novas := v_novas + 1;
+  end loop;
+  if p_saude is not null and jsonb_typeof(p_saude) = 'object' then
+    insert into configuracoes (chave, valor) values ('acervo_saude', p_saude || jsonb_build_object('em', now())) on conflict (chave) do update set valor = excluded.valor;
+  end if;
+  insert into configuracoes (chave, valor) values ('tarefas_ciclo', jsonb_build_object('em', now(), 'novas', v_novas, 'encerradas', v_encerradas, 'concluidas', v_concluidas))
+  on conflict (chave) do update set valor = excluded.valor;
+  if not interno.servico() then perform interno.registrar('tarefas_verificadas', '', jsonb_build_object('novas', v_novas)); end if;
+  return jsonb_build_object('novas', v_novas, 'encerradas', v_encerradas, 'concluidas', v_concluidas);
+end $$;
+
+/** Quantos itens esperam nas filas que já existem (só contagem): o atalho do "Para você hoje" leva até elas. */
+create or replace function interno.tarefas_filas() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object(
+    'revisao', (select count(*) from contribuicoes where status = 'pendente'),
+    'triagem', (select count(*) from contribuicoes where status = 'pendente' and triagem = 'aguardando'),
+    'traducoes', (select count(*) from tarefas where tipo = 'traducao' and status = 'aberta'))
+$$;
+
+/**
+ * O bloco "Para você hoje": de 3 a 5 tarefas para o tempo que a pessoa tem, pelas funções e habilidades dela, variando o
+ * tipo (não repete o que ela acabou de fazer); o que ela reservou e ainda não terminou; as filas que já existem; a saúde
+ * do acervo; a meta da semana; e se é o primeiro dia (sem nenhuma tarefa feita: o passo a passo aparece).
+ */
+create or replace function public.tarefas_para_mim(p_minutos integer default 15, p_pular uuid[] default '{}') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_papeis text[]; v_hab text[]; v_recentes text[]; c jsonb := interno.tarefas_config(); v_meta jsonb := c -> 'meta';
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  perform interno.tarefas_vencer();
+  select coalesce(array_agg(distinct papel), '{}') into v_papeis from papeis where usuario = v;
+  select habilidades into v_hab from perfis where id = v;
+  select coalesce(array_agg(tipo), '{}') into v_recentes from (select tipo from tarefas where reservada_por = v and status in ('entregue', 'aprovada', 'concluida') order by atualizado_em desc limit 3) x;
+  return jsonb_build_object(
+    'sugestoes', (
+      select coalesce(jsonb_agg(interno.tarefa_json(t) order by r.ordem), '[]'::jsonb) from (
+        select id, row_number() over (order by (case when papel = '' or papel = any(v_papeis) or papel = any(coalesce(v_hab, '{}')) then 0 else 1 end), (case when tipo = any(v_recentes) then 1 else 0 end), random()) as ordem,
+               row_number() over (partition by tipo order by random()) as no_tipo
+        from tarefas where status = 'aberta' and minutos <= greatest(coalesce(p_minutos, 15), 5) and not (id = any(coalesce(p_pular, '{}')))
+          and (papel = '' or papel = any(v_papeis) or papel = any(coalesce(v_hab, '{}')) or interno.coord())
+        limit 400) r join tarefas t on t.id = r.id
+      where r.no_tipo <= 2 and r.ordem <= 40
+      limit 5),
+    'minhas', (select coalesce(jsonb_agg(interno.tarefa_json(t) order by t.prazo nulls last), '[]'::jsonb) from tarefas t where t.reservada_por = v and t.status in ('reservada', 'entregue')),
+    'filas', interno.tarefas_filas(),
+    'saude', coalesce((select valor from configuracoes where chave = 'acervo_saude'), '{}'::jsonb),
+    'abertas', (select coalesce(jsonb_object_agg(tipo, n), '{}'::jsonb) from (select tipo, count(*) n from tarefas where status = 'aberta' group by tipo) x),
+    'semanas', (select coalesce(jsonb_agg(jsonb_build_object('semana', semana, 'n', n) order by semana), '[]'::jsonb) from (
+                  select date_trunc('week', concluida_em)::date semana, count(*) n from tarefas where concluida_em > now() - interval '8 weeks' and status in ('aprovada', 'concluida') group by 1) x),
+    'meta', case when v_meta is null or jsonb_typeof(v_meta) <> 'object' then null else v_meta || jsonb_build_object('feitas', (select count(*) from tarefas where status in ('aprovada', 'concluida') and concluida_em >= coalesce((v_meta ->> 'desde')::date, date_trunc('week', now())::date) and (coalesce(v_meta ->> 'tipo', '') = '' or tipo = v_meta ->> 'tipo'))) end,
+    'novato', not exists (select 1 from tarefas where reservada_por = v and status in ('entregue', 'aprovada', 'concluida')),
+    'mentores', (select count(*) from perfis where mentoria_oferecida and id <> v),
+    'mostrar', coalesce((interno.tarefas_config() ->> 'mostrar')::boolean, true));
+end $$;
+
+create or replace function public.tarefas_listar(p_tipo text default '', p_status text default 'aberta', p_pagina integer default 0) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  perform interno.tarefas_vencer();
+  return (select coalesce(jsonb_agg(interno.tarefa_json(t) order by t.minutos, t.criado_em), '[]'::jsonb) from (
+    select * from tarefas where (coalesce(p_tipo, '') = '' or tipo = p_tipo) and (coalesce(p_status, '') = '' or status = p_status)
+    order by minutos, criado_em limit 50 offset greatest(coalesce(p_pagina, 0), 0) * 50) t);
+end $$;
+
+/** "Vou fazer esta": reserva no nome da pessoa, com prazo pelo tamanho; há um limite de reservas ao mesmo tempo. */
+create or replace function public.tarefa_reservar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); t tarefas; v_max int := coalesce((interno.tarefas_config() ->> 'max_reservas')::int, 3);
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  perform interno.tarefas_vencer();
+  select * into t from tarefas where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if t.status = 'reservada' and t.reservada_por = v then return interno.tarefa_json(t); end if;
+  if t.status <> 'aberta' then perform interno.erro('tarefa_ocupada'); end if;
+  if (select count(*) from tarefas where reservada_por = v and status = 'reservada') >= v_max then perform interno.erro('tarefas_demais'); end if;
+  update tarefas set status = 'reservada', reservada_por = v, reservada_em = now(), prazo = now() + interno.tarefa_prazo(minutos), avisada = false, atualizado_em = now()
+  where id = p_id returning * into t;
+  return interno.tarefa_json(t);
+end $$;
+
+create or replace function public.tarefa_liberar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  update tarefas set status = 'aberta', reservada_por = null, reservada_em = null, prazo = null, avisada = false, atualizado_em = now()
+  where id = p_id and status = 'reservada' and (reservada_por = v or interno.coord());
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** A entrega: o que a pessoa fez (campos curtos e um texto). Vai para a revisão rápida. */
+create or replace function public.tarefa_entregar(p_id uuid, p_entrega jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); t tarefas; e jsonb := '{}'::jsonb; k text;
+begin
+  select * into t from tarefas where id = p_id for update;
+  if not found or t.status <> 'reservada' or t.reservada_por <> v then perform interno.erro('nao_encontrado'); end if;
+  if jsonb_typeof(p_entrega) <> 'object' then perform interno.erro('invalido:entrega'); end if;
+  -- Só campos conhecidos, só texto curto.
+  foreach k in array array['texto', 'ano', 'sinopse', 'licenca', 'prova', 'aula', 'decisao', 'url', 'alt', 'biografia'] loop
+    if p_entrega ? k then e := e || jsonb_build_object(k, left(btrim(coalesce(p_entrega ->> k, '')), case when k in ('sinopse', 'biografia', 'texto') then 6000 else 400 end)); end if;
+  end loop;
+  if (select coalesce(sum(char_length(value)), 0) from jsonb_each_text(e)) < 1 then perform interno.erro('invalido:entrega'); end if;
+  if e ? 'ano' and coalesce(e ->> 'ano', '') !~ '^-?[0-9]{1,4}$' then perform interno.erro('invalido:ano'); end if;
+  if e ? 'url' and coalesce(e ->> 'url', '') !~ '^https://[^[:space:]]+$' then perform interno.erro('invalido:url'); end if;
+  if e ? 'prova' and coalesce(e ->> 'prova', '') <> '' and e ->> 'prova' !~ '^https://[^[:space:]]+$' then perform interno.erro('invalido:url'); end if;
+  if e ? 'licenca' and coalesce(e ->> 'licenca', '') not in ('Domínio público', 'CC BY', 'CC BY-SA', 'CC BY-NC', 'CC BY-NC-SA', 'CC BY-ND', 'CC BY-NC-ND', 'CC0', 'Direitos reservados', 'Conforme a fonte') then perform interno.erro('invalido:licenca'); end if;
+  update tarefas set status = 'entregue', entrega = e, entregue_em = now(), nota_revisao = '', atualizado_em = now() where id = p_id returning * into t;
+  return interno.tarefa_json(t);
+end $$;
+
+create or replace function interno.revisa_tarefas() returns boolean language sql stable as $$
+  select interno.coord() or interno.curador() or interno.tem('revisao') or interno.tem('supervisao')
+$$;
+
+/** A revisão rápida: o antes (o que estava no acervo) e o depois (a entrega), para aprovar ou devolver com um motivo. */
+create or replace function public.tarefas_revisao() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.revisa_tarefas() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(interno.tarefa_json(t) || jsonb_build_object('entregue_em', t.entregue_em, 'espera_horas', round(extract(epoch from now() - t.entregue_em) / 3600)) order by t.entregue_em), '[]'::jsonb)
+          from tarefas t where t.status = 'entregue' and t.reservada_por is distinct from auth.uid());
+end $$;
+
+/**
+ * Aprovar ou devolver. Aprovado: a pessoa recebe a frase do que mudou; ficha (ano, sinopse, licença, link) é aplicada ao
+ * acervo pela rotina de publicação e só fica concluída quando o verificador vê a lacuna sumir. Devolvido: volta para a
+ * pessoa, reservada, com o motivo.
+ */
+create or replace function public.tarefa_revisar(p_id uuid, p_aprovar boolean, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); t tarefas; v_nota text := interno.txt(p_nota, 'nota', 0, 600); v_frase text;
+begin
+  if not interno.revisa_tarefas() then perform interno.erro('sem_permissao'); end if;
+  select * into t from tarefas where id = p_id for update;
+  if not found or t.status <> 'entregue' then perform interno.erro('nao_encontrado'); end if;
+  if t.reservada_por = v then perform interno.erro('sem_permissao'); end if;
+  if not coalesce(p_aprovar, false) and char_length(v_nota) < 5 then perform interno.erro('invalido:nota'); end if;
+  if coalesce(p_aprovar, false) then
+    update tarefas set status = case when tipo in ('ficha_ano', 'ficha_sinopse', 'licenca', 'link') and origem = 'verificador' then 'aprovada' else 'concluida' end,
+      concluida_em = now(), revisada_por = v, revisada_em = now(), nota_revisao = v_nota, atualizado_em = now() where id = p_id returning * into t;
+    v_frase := case t.tipo
+      when 'ficha_ano' then 'A obra "' || left(t.titulo, 80) || '" ganha o ano na próxima publicação e passa a aparecer na época certa.'
+      when 'ficha_sinopse' then 'A sinopse de "' || left(t.titulo, 80) || '" entra na próxima publicação: quem acha a obra na busca vai entender do que ela trata.'
+      when 'licenca' then 'A licença de "' || left(t.titulo, 80) || '" foi conferida e entra na próxima publicação.'
+      when 'link' then 'O link consertado entra na próxima publicação.'
+      when 'traducao' then 'A tradução segue para a fila de revisão e vai ao ar quando for aprovada.'
+      else 'Tarefa "' || left(t.titulo, 80) || '" aprovada. Obrigada pelo trabalho!' end;
+    perform interno.avisar(t.reservada_por, v_frase);
+  else
+    update tarefas set status = 'reservada', nota_revisao = v_nota, revisada_por = v, revisada_em = now(), prazo = greatest(coalesce(prazo, now()), now() + interval '2 days'), avisada = false, atualizado_em = now()
+    where id = p_id returning * into t;
+    perform interno.avisar(t.reservada_por, 'A tarefa "' || left(t.titulo, 80) || '" voltou com um comentário: ' || v_nota);
+  end if;
+  perform interno.registrar(case when coalesce(p_aprovar, false) then 'tarefa_aprovada' else 'tarefa_devolvida' end, t.id::text, jsonb_build_object('tipo', t.tipo));
+  return interno.tarefa_json(t);
+end $$;
+
+/** Tarefa avulsa: coordenação e curadoria criam (título, descrição, tempo, papel, prazo opcional, mutirão ou projeto). */
+create or replace function public.tarefa_criar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid; v_min int := coalesce(nullif(p ->> 'minutos', '')::int, 15);
+begin
+  if not (interno.coord() or interno.curador()) then perform interno.erro('sem_permissao'); end if;
+  if v_min not in (5, 15, 30) then perform interno.erro('invalido:minutos'); end if;
+  insert into tarefas (tipo, alvo, titulo, descricao, minutos, dificuldade, papel, impacto, origem, criado_por, mutirao, projeto, prazo)
+  values ('avulsa', left(coalesce(p ->> 'alvo', ''), 300), interno.txt(p ->> 'titulo', 'titulo', 3, 200), interno.txt(p ->> 'descricao', 'descricao', 0, 2000), v_min,
+          coalesce(nullif(p ->> 'dificuldade', ''), 'iniciante'), left(coalesce(p ->> 'papel', ''), 40), interno.txt(p ->> 'impacto', 'impacto', 0, 300), 'manual', v,
+          nullif(p ->> 'mutirao', '')::uuid, nullif(p ->> 'projeto', '')::uuid, null)
+  returning id into v_id;
+  perform interno.registrar('tarefa_criada', v_id::text, jsonb_build_object('titulo', p ->> 'titulo'));
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.tarefas_configurar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare c jsonb := interno.tarefas_config(); v_novo jsonb := '{}'::jsonb;
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if jsonb_typeof(p -> 'regras') = 'object' then v_novo := v_novo || jsonb_build_object('regras', (c -> 'regras') || (select coalesce(jsonb_object_agg(k, (val)::boolean), '{}'::jsonb) from jsonb_each_text(p -> 'regras') x(k, val) where (c -> 'regras') ? k)); end if;
+  if p ? 'max_por_ciclo' then
+    if coalesce((p ->> 'max_por_ciclo')::int, 0) not between 1 and 500 then perform interno.erro('invalido:max_por_ciclo'); end if;
+    v_novo := v_novo || jsonb_build_object('max_por_ciclo', (p ->> 'max_por_ciclo')::int);
+  end if;
+  if p ? 'max_reservas' then
+    if coalesce((p ->> 'max_reservas')::int, 0) not between 1 and 20 then perform interno.erro('invalido:max_reservas'); end if;
+    v_novo := v_novo || jsonb_build_object('max_reservas', (p ->> 'max_reservas')::int);
+  end if;
+  if p ? 'mostrar' then v_novo := v_novo || jsonb_build_object('mostrar', coalesce((p ->> 'mostrar')::boolean, true)); end if;
+  if p ? 'meta' then
+    v_novo := v_novo || jsonb_build_object('meta', case when jsonb_typeof(p -> 'meta') = 'object' and coalesce((p -> 'meta' ->> 'alvo')::int, 0) > 0 then
+      jsonb_build_object('texto', interno.txt(p -> 'meta' ->> 'texto', 'texto', 3, 140), 'alvo', (p -> 'meta' ->> 'alvo')::int, 'tipo', left(coalesce(p -> 'meta' ->> 'tipo', ''), 30), 'desde', coalesce(nullif(p -> 'meta' ->> 'desde', ''), date_trunc('week', now())::date::text))
+      else null end);
+  end if;
+  insert into configuracoes (chave, valor) values ('tarefas', v_novo) on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
+  perform interno.registrar('tarefas_configuradas', '', v_novo);
+  return interno.tarefas_config();
+exception when invalid_text_representation then
+  perform interno.erro('invalido:numero');
+end $$;
+
+create or replace function public.tarefas_painel_config() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return interno.tarefas_config() || jsonb_build_object('ciclo', (select valor from configuracoes where chave = 'tarefas_ciclo'));
+end $$;
+
+/** A visão geral para a coordenação: por tipo, por pessoa, tempo de revisão, paradas e onde falta gente. */
+create or replace function public.tarefas_visao_geral() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'por_tipo', (select coalesce(jsonb_object_agg(tipo, jsonb_build_object('abertas', abertas, 'reservadas', reservadas, 'entregues', entregues, 'concluidas_30', concluidas)), '{}'::jsonb) from (
+      select tipo, count(*) filter (where status = 'aberta') abertas, count(*) filter (where status = 'reservada') reservadas, count(*) filter (where status = 'entregue') entregues,
+             count(*) filter (where status in ('aprovada', 'concluida') and concluida_em > now() - interval '30 days') concluidas from tarefas group by tipo) x),
+    'por_pessoa', (select coalesce(jsonb_agg(jsonb_build_object('nome', nome, 'reservadas', reservadas, 'feitas_30', feitas) order by feitas desc), '[]'::jsonb) from (
+      select f.nome, count(*) filter (where t.status = 'reservada') reservadas, count(*) filter (where t.status in ('aprovada', 'concluida') and t.concluida_em > now() - interval '30 days') feitas
+      from tarefas t join perfis f on f.id = t.reservada_por group by f.nome) x),
+    'revisao_horas', (select round(avg(extract(epoch from revisada_em - entregue_em) / 3600)::numeric, 1) from tarefas where revisada_em > now() - interval '30 days' and entregue_em is not null),
+    'esperando_revisao', (select count(*) from tarefas where status = 'entregue'),
+    'paradas', (select coalesce(jsonb_agg(jsonb_build_object('titulo', t.titulo, 'nome', f.nome, 'desde', t.reservada_em) order by t.reservada_em), '[]'::jsonb) from tarefas t join perfis f on f.id = t.reservada_por where t.status = 'reservada' and t.reservada_em < now() - interval '5 days'),
+    -- Onde falta gente: tipos com muita tarefa aberta e ninguém com nenhuma reservada.
+    'falta_gente', (select coalesce(jsonb_agg(tipo order by n desc), '[]'::jsonb) from (select tipo, count(*) n from tarefas where status = 'aberta' group by tipo having count(*) >= 20) x where not exists (select 1 from tarefas y where y.tipo = x.tipo and y.status in ('reservada', 'entregue'))));
+end $$;
+
+/** O que a própria pessoa fez: tarefas, horas estimadas e selos (que ela pode esconder). */
+create or replace function public.minhas_contribuicoes() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); f perfis;
+begin
+  select * into f from perfis where id = v;
+  return jsonb_build_object(
+    'nome', f.nome,
+    'tarefas', (select coalesce(jsonb_agg(jsonb_build_object('titulo', titulo, 'tipo', tipo, 'minutos', minutos, 'status', status, 'quando', coalesce(concluida_em, entregue_em), 'alvo', alvo) order by coalesce(concluida_em, entregue_em) desc), '[]'::jsonb)
+                from tarefas where reservada_por = v and status in ('entregue', 'aprovada', 'concluida')),
+    'envios', (select count(*) from contribuicoes where autor = v and status in ('aprovada', 'publicada')),
+    'minutos', (select coalesce(sum(minutos), 0) from tarefas where reservada_por = v and status in ('aprovada', 'concluida')),
+    'selos', case when f.selos_ocultos then '[]'::jsonb else (select coalesce(jsonb_agg(s), '[]'::jsonb) from (
+        select 'Primeira tarefa' s where exists (select 1 from tarefas where reservada_por = v and status in ('aprovada', 'concluida'))
+        union all select '10 fichas' where (select count(*) from tarefas where reservada_por = v and status in ('aprovada', 'concluida') and tipo like 'ficha%') >= 10
+        union all select 'Primeira tradução publicada' where exists (select 1 from contribuicoes where autor = v and tipo = 'traducao' and status = 'publicada')
+        union all select '50 tarefas' where (select count(*) from tarefas where reservada_por = v and status in ('aprovada', 'concluida')) >= 50) x) end,
+    'selos_ocultos', f.selos_ocultos, 'agradecimento_publico', f.agradecimento_publico, 'habilidades', to_jsonb(coalesce(f.habilidades, '{}')), 'mentoria_oferecida', f.mentoria_oferecida);
+end $$;
+
+create or replace function public.perfil_tarefas_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_hab text[];
+begin
+  if jsonb_typeof(p -> 'habilidades') = 'array' then
+    select coalesce(array_agg(distinct left(lower(btrim(x)), 30)), '{}') into v_hab from jsonb_array_elements_text(p -> 'habilidades') x where btrim(x) <> '' limit 20;
+  end if;
+  update perfis set habilidades = coalesce(v_hab, habilidades), agradecimento_publico = coalesce((p ->> 'agradecimento_publico')::boolean, agradecimento_publico),
+    selos_ocultos = coalesce((p ->> 'selos_ocultos')::boolean, selos_ocultos), mentoria_oferecida = coalesce((p ->> 'mentoria_oferecida')::boolean, mentoria_oferecida)
+  where id = v;
+  return public.minhas_contribuicoes();
+end $$;
+
+/** "Pedir ajuda a um mentor": o recado vai a quem se ofereceu como mentor, com a tarefa; a conversa segue em Conversas. */
+create or replace function public.tarefa_pedir_mentor(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); t tarefas; v_mentor uuid; v_nome text;
+begin
+  perform interno.limite('pedir_mentor', 5, 60);
+  select * into t from tarefas where id = p_id and reservada_por = v;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  select id into v_mentor from perfis where mentoria_oferecida and id <> v and not suspenso order by random() limit 1;
+  if v_mentor is null then perform interno.erro('sem_mentor'); end if;
+  select nome into v_nome from perfis where id = v;
+  perform interno.avisar(v_mentor, interno.primeiro_nome(v_nome) || ' pediu uma mão na tarefa "' || left(t.titulo, 80) || '" (' || t.tipo || '). Chame nas Conversas para combinar.');
+  return jsonb_build_object('ok', true, 'mentor', (select interno.nome_visto(nome) from perfis where id = v_mentor));
+end $$;
+
+/** Mutirões: tema, datas, meta e tipo de tarefa; a barra é coletiva e pode apontar para a sala de uma reunião. */
+create or replace function public.mutiroes_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', m.id, 'tema', m.tema, 'descricao', m.descricao, 'tipo', m.tipo, 'meta', m.meta, 'inicio', m.inicio, 'fim', m.fim, 'reuniao', m.reuniao,
+            'pessoas', (select count(*) from tarefas_mutirao_pessoas x where x.mutirao = m.id), 'inscrito', exists (select 1 from tarefas_mutirao_pessoas x where x.mutirao = m.id and x.pessoa = auth.uid()),
+            'feitas', (select count(*) from tarefas t where t.status in ('aprovada', 'concluida') and t.concluida_em::date between m.inicio and m.fim and (m.tipo = '' or t.tipo = m.tipo or t.mutirao = m.id))) order by m.inicio desc), '[]'::jsonb)
+          from tarefas_mutiroes m where m.fim >= current_date - 30);
+end $$;
+
+create or replace function public.mutirao_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid;
+begin
+  if not (interno.coord() or interno.curador()) then perform interno.erro('sem_permissao'); end if;
+  insert into tarefas_mutiroes (tema, descricao, tipo, meta, inicio, fim, reuniao, criado_por)
+  values (interno.txt(p ->> 'tema', 'tema', 3, 140), interno.txt(p ->> 'descricao', 'descricao', 0, 1000), left(coalesce(p ->> 'tipo', ''), 30), (p ->> 'meta')::int,
+          (p ->> 'inicio')::date, (p ->> 'fim')::date, nullif(p ->> 'reuniao', '')::uuid, v)
+  returning id into v_id;
+  perform interno.registrar('mutirao_criado', v_id::text, jsonb_build_object('tema', p ->> 'tema'));
+  return jsonb_build_object('id', v_id);
+exception when invalid_text_representation or invalid_datetime_format or check_violation or not_null_violation then
+  perform interno.erro('invalido:mutirao');
+end $$;
+
+create or replace function public.mutirao_inscrever(p_id uuid, p_entrar boolean default true) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_entrar, true) then insert into tarefas_mutirao_pessoas (mutirao, pessoa) values (p_id, v) on conflict do nothing;
+  else delete from tarefas_mutirao_pessoas where mutirao = p_id and pessoa = v; end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.projetos_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', p.id, 'nome', p.nome, 'descricao', p.descricao, 'responsavel', coalesce((select interno.nome_visto(nome) from perfis where id = p.responsavel), ''),
+            'prazo', p.prazo, 'status', p.status, 'tarefas', (select count(*) from tarefas t where t.projeto = p.id), 'feitas', (select count(*) from tarefas t where t.projeto = p.id and t.status in ('aprovada', 'concluida'))) order by p.criado_em desc), '[]'::jsonb)
+          from tarefas_projetos p where p.status = 'ativo');
+end $$;
+
+create or replace function public.projeto_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid;
+begin
+  if not (interno.coord() or interno.curador()) then perform interno.erro('sem_permissao'); end if;
+  insert into tarefas_projetos (nome, descricao, responsavel, prazo, criado_por)
+  values (interno.txt(p ->> 'nome', 'nome', 3, 140), interno.txt(p ->> 'descricao', 'descricao', 0, 1500), nullif(p ->> 'responsavel', '')::uuid, nullif(p ->> 'prazo', '')::date, v)
+  returning id into v_id;
+  return jsonb_build_object('id', v_id);
+exception when invalid_text_representation or invalid_datetime_format then
+  perform interno.erro('invalido:projeto');
+end $$;
+
+-- Para a rotina de publicação (só com a chave de serviço): as fichas aprovadas que ela aplica ao acervo e a conferência dos links.
+create or replace function public.tarefas_aplicaveis() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', id, 'tipo', tipo, 'alvo', alvo, 'entrega', entrega)), '[]'::jsonb) from tarefas where status = 'aprovada' and not aplicada);
+end $$;
+
+create or replace function public.tarefas_aplicadas(p_ids uuid[], p_falhas jsonb default '{}') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare k text;
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  update tarefas set aplicada = true, atualizado_em = now() where id = any(coalesce(p_ids, '{}'));
+  for k in select jsonb_object_keys(coalesce(p_falhas, '{}'::jsonb)) loop
+    update tarefas set status = 'entregue', nota_revisao = left('Não deu para aplicar: ' || (p_falhas ->> k), 600), atualizado_em = now() where id = k::uuid and status = 'aprovada';
+  end loop;
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.links_para_conferir(p_urls jsonb, p_limite integer default 25) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  -- Dos endereços das obras, os nunca conferidos primeiro e depois os conferidos há mais tempo.
+  return (select coalesce(jsonb_agg(x order by l.conferido_em nulls first), '[]'::jsonb) from (
+    select x from jsonb_array_elements(p_urls) x) a left join links_conferidos l on l.url = a.x ->> 'url'
+    where coalesce(l.conferido_em, 'epoch') < now() - interval '7 days' limit least(greatest(coalesce(p_limite, 25), 1), 100));
+end $$;
+
+create or replace function public.links_resultado(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare r jsonb;
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  for r in select x from jsonb_array_elements(p) x loop
+    insert into links_conferidos (url, alvo, status, ok, falhas, conferido_em)
+    values (left(r ->> 'url', 600), left(coalesce(r ->> 'alvo', ''), 300), coalesce((r ->> 'status')::int, 0), coalesce((r ->> 'ok')::boolean, true), case when coalesce((r ->> 'ok')::boolean, true) then 0 else 1 end, now())
+    on conflict (url) do update set status = excluded.status, ok = excluded.ok, alvo = excluded.alvo, conferido_em = now(),
+      falhas = case when excluded.ok then 0 else links_conferidos.falhas + 1 end;
+  end loop;
+  return jsonb_build_object('ok', true);
+end $$;
+
+revoke all on function interno.tarefas_config() from public, anon, authenticated;
+revoke all on function interno.tarefa_prazo(integer) from public, anon, authenticated;
+revoke all on function interno.tarefas_vencer() from public, anon, authenticated;
+revoke all on function interno.tarefa_json(interno.tarefas) from public, anon, authenticated;
+revoke all on function interno.tarefas_filas() from public, anon, authenticated;
+revoke all on function interno.revisa_tarefas() from public, anon, authenticated;
+do $$
+declare f text;
+begin
+  foreach f in array array['tarefas_sincronizar(jsonb, jsonb)', 'tarefas_para_mim(integer, uuid[])', 'tarefas_listar(text, text, integer)', 'tarefa_reservar(uuid)', 'tarefa_liberar(uuid)',
+    'tarefa_entregar(uuid, jsonb)', 'tarefas_revisao()', 'tarefa_revisar(uuid, boolean, text)', 'tarefa_criar(jsonb)', 'tarefas_configurar(jsonb)', 'tarefas_painel_config()',
+    'tarefas_visao_geral()', 'minhas_contribuicoes()', 'perfil_tarefas_salvar(jsonb)', 'tarefa_pedir_mentor(uuid)', 'mutiroes_listar()', 'mutirao_salvar(jsonb)', 'mutirao_inscrever(uuid, boolean)',
+    'projetos_listar()', 'projeto_salvar(jsonb)', 'tarefas_aplicaveis()', 'tarefas_aplicadas(uuid[], jsonb)', 'links_para_conferir(jsonb, integer)', 'links_resultado(jsonb)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;

@@ -118,7 +118,7 @@ const erros: Record<string, string> = {
   candidatura_dia_da_votacao: "Hoje é o dia da votação: material de candidatura não pode ser publicado como novidade.",
   "invalido:credito_autor": "Diga quem fez o material.",
   "invalido:credito_origem": "Diga de onde veio o material.",
-  "invalido:licenca": "Escolha a licença do material.",
+  "invalido:licenca": "Escolha a licença.",
   "invalido:responsavel": "O responsável precisa ser alguém da equipe.",
   "invalido:edicao": "A edição precisa de assunto (5 letras ou mais) e de texto (50 letras ou mais).",
   "invalido:imagem": "Imagem só do próprio site (/arquivos ou /imagens).",
@@ -136,12 +136,25 @@ const erros: Record<string, string> = {
   chat_fechado: "As conversas estão fechadas pela coordenação por enquanto.",
   silenciado: "A coordenação silenciou a sua conta nas conversas por enquanto. Fale com ela pelo painel.",
   banco_desatualizado: "Esta parte do painel ainda não está disponível. Tente mais tarde ou avise a coordenação.",
+  tarefa_ocupada: "Outra pessoa pegou esta tarefa agora há pouco. Escolha outra: há mais na fila.",
+  tarefas_demais: "Você já tem o máximo de tarefas reservadas ao mesmo tempo. Entregue ou libere uma antes.",
+  sem_mentor: "Ainda não há mentores disponíveis. Pergunte no grupo do seu departamento, nas Conversas.",
+  "invalido:entrega": "A entrega está vazia ou faltando o campo principal da tarefa.",
+  "invalido:ano": "O ano precisa ser só números (por exemplo, 1949).",
+  "invalido:mutirao": "O mutirão precisa de tema, meta e datas (a de fim depois da de início).",
+  "invalido:projeto": "O projeto precisa de nome (3 letras ou mais).",
+  "invalido:nota": "Para devolver, escreva um comentário curto dizendo o que ajustar.",
+  "invalido:minutos": "O tempo da tarefa é 5, 15 ou 30 minutos.",
+  "invalido:max_por_ciclo": "Tarefas novas por rodada: de 1 a 500.",
+  "invalido:max_reservas": "Reservas por pessoa: de 1 a 20.",
+  "invalido:numero": "Algum número está fora do formato.",
   falha: "Algo deu errado. Tente de novo.",
 };
 
 export function textoDoErro(erro: unknown): string {
   const codigo = erro instanceof BackendError ? erro.code : "falha";
   const [tipo, qual] = codigo.split(":");
+  if (erros[codigo]) return erros[codigo];
   if (tipo === "invalido") return `Confira o campo: ${qual}.`;
   return erros[tipo] ?? erros.falha;
 }

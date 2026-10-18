@@ -2801,6 +2801,58 @@ await espera("a verificação guarda um resultado por provedor, sem chave", asyn
 await espera("os controles dizem quem mudou e quando", () => rpc(C1, "controles_mudancas"), (r) => r.assistente_configurado && r.assistente_configurado.nome && r.assistente_configurado.em);
 await recusa("quem não coordena não vê o histórico dos controles", () => rpc(como(ids.prof), "controles_mudancas"), "sem_permissao");
 
+// ── Tarefas: verificador, "Para você hoje", reservar, entregar, revisar, concluir quando a lacuna some ──
+const lacunasDeTeste = [
+  { chave: "ficha_ano:obra-a", tipo: "ficha_ano", alvo: "/acervo/obra-a", titulo: "Obra A", detalhe: "Autor A" },
+  { chave: "ficha_sinopse:obra-b", tipo: "ficha_sinopse", alvo: "/acervo/obra-b", titulo: "Obra B", detalhe: "" },
+  { chave: "licenca:obra-c", tipo: "licenca", alvo: "/acervo/obra-c", titulo: "Obra C", detalhe: "" },
+  { chave: "traducao:/trilhas/x/y:en", tipo: "traducao", alvo: "/trilhas/x/y", titulo: "Aula Y", detalhe: "en" },
+];
+await recusa("só a rotina ou a coordenação sincronizam", () => rpc(como(ids.prof), "tarefas_sincronizar", { p_lacunas: lacunasDeTeste }), "sem_permissao");
+await espera("o verificador abre uma tarefa por lacuna", () => rpc(servico, "tarefas_sincronizar", { p_lacunas: lacunasDeTeste, p_saude: { obras: 4, fichas_completas: 1 } }), (r) => r.novas === 4);
+await espera("e não repete na rodada seguinte", () => rpc(servico, "tarefas_sincronizar", { p_lacunas: lacunasDeTeste }), (r) => r.novas === 0);
+await espera("o tempo de 5 minutos traz só as de 5 minutos", () => rpc(como(ids.prof), "tarefas_para_mim", { p_minutos: 5 }), (r) => r.sugestoes.length >= 1 && r.sugestoes.every((s) => s.minutos <= 5) && r.novato === true && r.saude.obras === 4);
+await espera("tradução não aparece para quem não traduz", () => rpc(como(ids.prof), "tarefas_para_mim", { p_minutos: 30 }), (r) => !r.sugestoes.some((s) => s.tipo === "traducao"));
+const tarefaAno = (await dono("select id from interno.tarefas where chave = 'ficha_ano:obra-a'")).rows[0].id;
+await espera("a pessoa reserva a tarefa, com prazo", () => rpc(como(ids.prof), "tarefa_reservar", { p_id: tarefaAno }), (r) => r.status === "reservada" && r.minha === true && Boolean(r.prazo));
+await recusa("outra pessoa não pega a mesma", () => rpc(como(ids.designer), "tarefa_reservar", { p_id: tarefaAno }), "tarefa_ocupada");
+await recusa("ano inválido não entra", () => rpc(como(ids.prof), "tarefa_entregar", { p_id: tarefaAno, p_entrega: { ano: "mil novecentos" } }), "invalido:ano");
+await espera("entrega com o ano", () => rpc(como(ids.prof), "tarefa_entregar", { p_id: tarefaAno, p_entrega: { ano: "1949", texto: "Na página da fonte.", campo_estranho: "x" } }), (r) => r.status === "entregue" && r.entrega.ano === "1949" && !("campo_estranho" in r.entrega));
+await recusa("quem entregou não revisa a própria tarefa", () => rpc({ ...como(ids.prof), aal: "aal2" }, "tarefa_revisar", { p_id: tarefaAno, p_aprovar: true }), "sem_permissao");
+await recusa("devolver pede motivo", () => rpc(C1, "tarefa_revisar", { p_id: tarefaAno, p_aprovar: false, p_nota: "" }), "invalido:nota");
+await espera("a revisão rápida mostra a entrega", () => rpc(C1, "tarefas_revisao"), (r) => r.some((x) => x.id === tarefaAno && x.entrega.ano === "1949"));
+await espera("aprovada, a ficha espera a publicação e a pessoa recebe a frase do que mudou", async () => { await rpc(C1, "tarefa_revisar", { p_id: tarefaAno, p_aprovar: true }); return dono("select status, (select count(*)::int from interno.avisos a where a.para = $1 and a.texto like '%próxima publicação%') as frases from interno.tarefas where id = $2", [ids.prof, tarefaAno]); }, (r) => r.rows[0].status === "aprovada" && r.rows[0].frases >= 1);
+await espera("a rotina lê o que aplicar e marca como aplicado", async () => { const lista = await rpc(servico, "tarefas_aplicaveis"); await rpc(servico, "tarefas_aplicadas", { p_ids: lista.map((x) => x.id) }); return lista; }, (r) => r.some((x) => x.id === tarefaAno && x.entrega.ano === "1949"));
+await espera("quando a lacuna some, a tarefa conclui sozinha (e as que perderam o motivo se encerram)", async () => { await rpc(servico, "tarefas_sincronizar", { p_lacunas: lacunasDeTeste.slice(2) }); return dono("select chave, status from interno.tarefas where chave in ('ficha_ano:obra-a', 'ficha_sinopse:obra-b') order by chave"); }, (r) => r.rows[0].status === "concluida" && r.rows[1].status === "encerrada");
+await espera("minhas contribuições mostram a tarefa, as horas e o primeiro selo", () => rpc(como(ids.prof), "minhas_contribuicoes"), (r) => r.tarefas.length >= 1 && r.minutos >= 5 && r.selos.includes("Primeira tarefa"));
+await espera("os selos podem ser escondidos", () => rpc(como(ids.prof), "perfil_tarefas_salvar", { p: { selos_ocultos: true, habilidades: ["História", " revisão ", ""] } }), (r) => r.selos.length === 0 && r.habilidades.includes("história"));
+await espera("limite de reservas ao mesmo tempo", async () => {
+  await rpc(C1, "tarefas_configurar", { p: { max_reservas: 1 } });
+  const outra = (await dono("select id from interno.tarefas where status = 'aberta' and tipo = 'licenca'")).rows[0].id;
+  const avulsa = (await rpc(C1, "tarefa_criar", { p: { titulo: "Conferir capas", minutos: 5 } })).id;
+  await rpc(como(ids.designer), "tarefa_reservar", { p_id: avulsa });
+  return rpc(como(ids.designer), "tarefa_reservar", { p_id: outra }).then(() => "passou", (e) => e.message);
+}, (r) => r.includes("tarefas_demais"));
+await espera("reserva vencida volta para a fila, com recado sem cobrança", async () => {
+  await dono("update interno.tarefas set prazo = now() - interval '1 hour' where reservada_por = $1 and status = 'reservada'", [ids.designer]);
+  await rpc(como(ids.designer), "tarefas_para_mim", { p_minutos: 30 });
+  return dono("select (select count(*)::int from interno.tarefas where reservada_por = $1 and status = 'reservada') as reservadas, (select count(*)::int from interno.avisos where para = $1 and texto like '%voltou para a fila%') as recados", [ids.designer]);
+}, (r) => r.rows[0].reservadas === 0 && r.rows[0].recados >= 1);
+await espera("a coordenação desliga e religa o “Para você hoje”", async () => { await rpc(C1, "tarefas_configurar", { p: { mostrar: false } }); const r = await rpc(como(ids.prof), "tarefas_para_mim", { p_minutos: 15 }); await rpc(C1, "tarefas_configurar", { p: { mostrar: true } }); return r; }, (r) => r.mostrar === false);
+await espera("religado, volta a aparecer", () => rpc(como(ids.prof), "tarefas_para_mim", { p_minutos: 15 }), (r) => r.mostrar === true);
+await espera("as contribuições vêm com listas, mesmo vazias", () => rpc(como(ids.designer), "minhas_contribuicoes"), (r) => Array.isArray(r.selos) && Array.isArray(r.habilidades) && Array.isArray(r.tarefas));
+await recusa("só a coordenação configura as regras", () => rpc(como(ids.prof), "tarefas_configurar", { p: { max_reservas: 9 } }), "sem_permissao");
+await espera("regra desligada não abre tarefa", async () => { await rpc(C1, "tarefas_configurar", { p: { regras: { biografia: false } } }); return rpc(servico, "tarefas_sincronizar", { p_lacunas: [...lacunasDeTeste.slice(2), { chave: "biografia:fulano", tipo: "biografia", alvo: "/autores/fulano", titulo: "Fulano" }] }); }, (r) => r.novas === 0);
+await espera("links que falham duas vezes viram tarefa", async () => {
+  await rpc(servico, "links_resultado", { p: [{ url: "https://quebrado.exemplo/livro", alvo: "/acervo/obra-c", status: 404, ok: false }] });
+  await rpc(servico, "links_resultado", { p: [{ url: "https://quebrado.exemplo/livro", alvo: "/acervo/obra-c", status: 404, ok: false }] });
+  await rpc(servico, "tarefas_sincronizar", { p_lacunas: lacunasDeTeste.slice(2) });
+  return dono("select count(*)::int as n from interno.tarefas where tipo = 'link' and status = 'aberta'");
+}, (r) => r.rows[0].n === 1);
+await espera("mutirão com meta e barra coletiva", async () => { const m = await rpc(C1, "mutirao_salvar", { p: { tema: "Fichas de história", meta: 100, inicio: "2026-10-01", fim: "2026-12-31" } }); await rpc(como(ids.prof), "mutirao_inscrever", { p_id: m.id }); return rpc(como(ids.prof), "mutiroes_listar"); }, (r) => r.some((m) => m.tema === "Fichas de história" && m.inscrito === true && m.pessoas === 1));
+await espera("a visão geral da coordenação", () => rpc(C1, "tarefas_visao_geral"), (r) => r.por_tipo && typeof r.esperando_revisao === "number");
+await recusa("sem mentor oferecido, o pedido avisa", async () => { const minha = (await rpc(C1, "tarefa_criar", { p: { titulo: "Tarefa do mentor", minutos: 5 } })).id; await rpc(como(ids.prof), "tarefa_reservar", { p_id: minha }); return rpc(como(ids.prof), "tarefa_pedir_mentor", { p_id: minha }); }, "sem_mentor");
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);
