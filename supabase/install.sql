@@ -466,6 +466,18 @@ create unique index if not exists certificado_pedidos_aberto on interno.certific
 create table if not exists interno.termos_vetados (termo text primary key check (termo ~ '^[a-z0-9 ]{3,40}$'));
 
 -- Impressão digital de arquivos recusados por serem falsos ou perigosos: o mesmo arquivo não entra de novo.
+-- Materiais: o arquivo enviado pelo próprio formulário, crédito e licença obrigatórios, e o que a lei eleitoral pede ao
+-- material de apoio a candidatura. O endereço pode ficar vazio enquanto o arquivo espera a publicação.
+alter table interno.materiais add column if not exists credito_autor text not null default '' check (char_length(credito_autor) <= 160);
+alter table interno.materiais add column if not exists credito_origem text not null default '' check (char_length(credito_origem) <= 200);
+alter table interno.materiais add column if not exists licenca text not null default '' check (licenca in ('', 'cc-by-sa', 'cc-by', 'cc0', 'dominio-publico', 'autorizacao', 'outra'));
+alter table interno.materiais add column if not exists candidatura boolean not null default false;
+alter table interno.materiais add column if not exists candidatura_responsavel text not null default '' check (char_length(candidatura_responsavel) <= 200);
+alter table interno.materiais add column if not exists candidatura_sem_impulsionamento boolean not null default false;
+alter table interno.materiais add column if not exists candidatura_votacao date;
+alter table interno.materiais drop constraint if exists materiais_url_check;
+alter table interno.materiais add constraint materiais_url_check check (url = '' or ((url ~ '^https://[^[:space:]]+$' or url ~ '^/[A-Za-z0-9/._-]+$') and char_length(url) <= 500));
+
 create table if not exists interno.arquivos_bloqueados (
   sha256 text primary key check (sha256 ~ '^[a-f0-9]{64}$'),
   motivo text not null default '' check (char_length(motivo) <= 200),
@@ -483,6 +495,7 @@ create table if not exists interno.arquivos (
   destino text not null default '' check (destino = '' or destino ~ '^/arquivos/[a-f0-9]{20}[.](webp|jpg|pdf)$'),
   criado_em timestamptz not null default now()
 );
+alter table interno.materiais add column if not exists arquivo uuid references interno.arquivos (id) on delete set null;
 
 insert into interno.configuracoes (chave, valor) values
   ('seguranca', '{"exigir_2fa": true, "padrao_ligado": true}'::jsonb),
@@ -3488,9 +3501,18 @@ end $$;
 
 create or replace function public.materiais_listar() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
   select interno.aberta('materiais');
-  select coalesce(jsonb_agg(jsonb_build_object('id', m.id, 'tipo', m.tipo, 'titulo', m.titulo, 'descricao', m.descricao, 'campanha', m.campanha, 'url', m.url,
-    'publicado', m.publicado, 'ordem', m.ordem, 'criado_em', m.criado_em) order by m.ordem, m.criado_em desc), '[]'::jsonb)
-  from materiais m where m.publicado or interno.curador() or interno.tem('design') or interno.tem('marketing')
+  select coalesce(jsonb_agg(jsonb_build_object('id', m.id, 'tipo', m.tipo, 'titulo', m.titulo, 'descricao', m.descricao, 'campanha', m.campanha,
+    -- O arquivo enviado pelo próprio formulário: o endereço aparece sozinho quando a publicação o põe no site.
+    'url', coalesce(nullif(m.url, ''), nullif(a.destino, ''), ''),
+    'publicado', m.publicado, 'ordem', m.ordem, 'criado_em', m.criado_em,
+    'credito_autor', m.credito_autor, 'credito_origem', m.credito_origem, 'licenca', m.licenca,
+    'candidatura', m.candidatura, 'candidatura_responsavel', m.candidatura_responsavel,
+    'arquivo', case when interno.voluntario() then m.arquivo end, 'arquivo_caminho', case when interno.voluntario() then a.caminho end,
+    'arquivo_status', case when interno.voluntario() then a.status end,
+    'estado', case when m.publicado then 'publicado' when a.status in ('aprovado', 'publicado') then 'aprovado' else 'rascunho' end)
+    order by m.ordem, m.criado_em desc), '[]'::jsonb)
+  from materiais m left join arquivos a on a.id = m.arquivo
+  where m.publicado or interno.curador() or interno.tem('design') or interno.tem('marketing')
 $$;
 
 /** Curadoria, design e marketing preparam o material; só a coordenação (ou a vice-coordenação) põe no ar. */
@@ -3498,19 +3520,51 @@ create or replace function public.material_salvar(p jsonb) returns jsonb languag
 declare
   v uuid := interno.eu(); v_id uuid := nullif(p ->> 'id', '')::uuid; v_url text := btrim(coalesce(p ->> 'url', ''));
   v_tipo text := coalesce(p ->> 'tipo', ''); v_publicar boolean := coalesce((p ->> 'publicado')::boolean, false) and interno.coord();
+  v_arquivo uuid; a arquivos; v_cand boolean := coalesce((p ->> 'candidatura')::boolean, false); v_votacao date;
+  v_autor text; v_origem text; v_licenca text := btrim(coalesce(p ->> 'licenca', ''));
 begin
   if not (interno.curador() or interno.tem('design') or interno.tem('marketing')) then perform interno.erro('sem_permissao'); end if;
   if v_tipo not in ('zine', 'panfleto', 'cartaz', 'banner', 'video', 'texto') then perform interno.erro('invalido:tipo'); end if;
-  if (v_url !~ '^https://[^[:space:]]+$' and v_url !~ '^/[A-Za-z0-9/._-]+$') or char_length(v_url) > 500 then perform interno.erro('invalido:url'); end if;
+  begin
+    v_arquivo := nullif(p ->> 'arquivo', '')::uuid;
+    v_votacao := nullif(p ->> 'candidatura_votacao', '')::date;
+  exception when others then
+    perform interno.erro('invalido:dados');
+  end;
+  if v_arquivo is not null then
+    select * into a from arquivos where id = v_arquivo and (dono = v or interno.coord());
+    if not found then perform interno.erro('invalido:arquivo'); end if;
+    if v_url = '' then v_url := a.destino; end if;
+  end if;
+  if v_url <> '' and ((v_url !~ '^https://[^[:space:]]+$' and v_url !~ '^/[A-Za-z0-9/._-]+$') or char_length(v_url) > 500) then perform interno.erro('invalido:url'); end if;
+  if v_url = '' and v_arquivo is null then perform interno.erro('invalido:url'); end if;
+  -- Crédito e licença: quem fez, de onde veio e com que licença. Sem isso o material não é guardado.
+  v_autor := interno.txt(p ->> 'credito_autor', 'credito_autor', 2, 160);
+  v_origem := interno.txt(p ->> 'credito_origem', 'credito_origem', 2, 200);
+  if v_licenca not in ('cc-by-sa', 'cc-by', 'cc0', 'dominio-publico', 'autorizacao', 'outra') then perform interno.erro('invalido:licenca'); end if;
+  -- Apoio a candidatura (lei eleitoral): quem responde pelo material, sem pagamento para impulsionar e nada de novidade no dia da votação.
+  if v_cand then
+    if char_length(btrim(coalesce(p ->> 'candidatura_responsavel', ''))) < 5 then perform interno.erro('invalido:candidatura_responsavel'); end if;
+    if not coalesce((p ->> 'candidatura_sem_impulsionamento')::boolean, false) then perform interno.erro('invalido:candidatura_impulsionamento'); end if;
+    if v_publicar and v_votacao is not null and current_date = v_votacao then perform interno.erro('candidatura_dia_da_votacao'); end if;
+  end if;
+  if v_publicar and v_url = '' then perform interno.erro('arquivo_nao_publicado'); end if;
   if v_id is null then
-    insert into materiais (tipo, titulo, descricao, campanha, url, publicado, ordem, criado_por)
+    insert into materiais (tipo, titulo, descricao, campanha, url, publicado, ordem, criado_por, arquivo, credito_autor, credito_origem, licenca,
+                           candidatura, candidatura_responsavel, candidatura_sem_impulsionamento, candidatura_votacao)
     values (v_tipo, interno.txt(p ->> 'titulo', 'titulo', 3, 120), interno.txt(p ->> 'descricao', 'descricao', 0, 600), interno.txt(p ->> 'campanha', 'campanha', 0, 80),
-            v_url, v_publicar, coalesce((p ->> 'ordem')::int, 0), v)
+            v_url, v_publicar, coalesce((p ->> 'ordem')::int, 0), v, v_arquivo, v_autor, v_origem, v_licenca,
+            v_cand, case when v_cand then interno.txt(p ->> 'candidatura_responsavel', 'candidatura_responsavel', 5, 200) else '' end,
+            v_cand and coalesce((p ->> 'candidatura_sem_impulsionamento')::boolean, false), case when v_cand then v_votacao end)
     returning id into v_id;
   else
     update materiais set tipo = v_tipo, titulo = interno.txt(p ->> 'titulo', 'titulo', 3, 120), descricao = interno.txt(p ->> 'descricao', 'descricao', 0, 600),
       campanha = interno.txt(p ->> 'campanha', 'campanha', 0, 80), url = v_url, ordem = coalesce((p ->> 'ordem')::int, 0),
-      publicado = case when interno.coord() then v_publicar else false end
+      publicado = case when interno.coord() then v_publicar else false end, arquivo = v_arquivo,
+      credito_autor = v_autor, credito_origem = v_origem, licenca = v_licenca, candidatura = v_cand,
+      candidatura_responsavel = case when v_cand then interno.txt(p ->> 'candidatura_responsavel', 'candidatura_responsavel', 5, 200) else '' end,
+      candidatura_sem_impulsionamento = v_cand and coalesce((p ->> 'candidatura_sem_impulsionamento')::boolean, false),
+      candidatura_votacao = case when v_cand then v_votacao end
     where id = v_id and (interno.coord() or criado_por = v);
     if not found then perform interno.erro('nao_encontrado'); end if;
   end if;
