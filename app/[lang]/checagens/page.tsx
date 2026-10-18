@@ -9,12 +9,13 @@ import { ComoChecar } from "@/components/ComoChecar";
 import { FactCheckSearch } from "@/components/FactCheckSearch";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 import { getCheckTools, getFactChecks, verdicts } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/checagens">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.factCheck.title, description: t.factCheck.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/checagens", t.factCheck.title, t.factCheck.lead);
 }
 
 export default async function Checagens({ params }: PageProps<"/[lang]/checagens">) {

@@ -89,7 +89,7 @@ export function VolunteerForm({ s, id = "candidatura" }: { s: Dict["volunteer"];
           </label>
           <label className="sr-only" aria-hidden>
             Site
-            <input tabIndex={-1} autoComplete="off" value={draft.site} onChange={(e) => setDraft({ ...draft, site: e.target.value })} />
+            <input tabIndex={-1} aria-hidden autoComplete="off" value={draft.site} onChange={(e) => setDraft({ ...draft, site: e.target.value })} />
           </label>
           <button type="submit" disabled={!ready || state === "sending"} className="cursor-pointer bg-oxblood px-6 py-2.5 font-medium text-parchment hover:bg-ink disabled:cursor-not-allowed disabled:opacity-50">
             {s.send}

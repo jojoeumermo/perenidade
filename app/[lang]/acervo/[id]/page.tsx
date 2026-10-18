@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { licenseName } from "@/components/Cards";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { defaultLocale, fill, localePath } from "@/i18n/config";
 import { getAuthors, getBook, getBooks } from "@/lib/content";
 import { withLangs } from "@/lib/params";
@@ -16,9 +17,9 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/acervo/[id]">): Promise<Metadata> {
-  const { lang } = await loadLang(params);
+  const { lang, t } = await loadLang(params);
   const book = getBook((await params).id, lang);
-  return book ? { title: `${book.title} · ${book.author}`, description: book.synopsis.slice(0, 160) } : {};
+  return book ? paginaMeta(lang, `/acervo/${book.id}`, `${book.title} · ${book.author}`, book.synopsis.slice(0, 160), { titulo: book.title, subtitulo: book.author, kicker: t.nav.library }) : {};
 }
 
 export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id]">) {

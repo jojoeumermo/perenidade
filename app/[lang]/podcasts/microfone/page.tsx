@@ -4,11 +4,12 @@ import Link from "next/link";
 import { Cartaz } from "@/components/Cartaz";
 import { TesteDeMicrofone } from "@/components/podcast/Microfone";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/podcasts/microfone">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.podcast.micTitle, description: t.podcast.micLead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/podcasts/microfone", t.podcast.micTitle, t.podcast.micLead);
 }
 
 /** Teste de microfone aberto a qualquer pessoa: convidado, ouvinte que vai mandar pergunta gravada, quem grava em casa. */

@@ -5,13 +5,14 @@ import { Markdown } from "@/components/Markdown";
 import { PageHeading } from "@/components/PageHeading";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 import { GlossaryList } from "@/components/GlossaryList";
 import { getGlossaryIndex } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/glossario">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.glossary.title, description: t.glossary.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/glossario", t.glossary.title, t.glossary.lead);
 }
 
 export default async function Glossario({ params }: PageProps<"/[lang]/glossario">) {

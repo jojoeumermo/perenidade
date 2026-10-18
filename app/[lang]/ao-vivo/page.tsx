@@ -3,10 +3,11 @@ import type { Metadata } from "next";
 import { Agenda } from "@/components/aovivo/Agenda";
 import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/ao-vivo">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.live.title, description: t.live.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/ao-vivo", t.live.title, t.live.description);
 }
 
 /** A agenda das aulas ao vivo: o que está no ar, o que vem e as gravações recentes. */

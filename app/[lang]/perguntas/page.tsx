@@ -4,12 +4,13 @@ import Link from "next/link";
 import { PageHeading } from "@/components/PageHeading";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { defaultLocale, localePath } from "@/i18n/config";
 import { getQuestions } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/perguntas">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.questions.title, description: t.questions.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/perguntas", t.questions.title, t.questions.lead);
 }
 
 // A teoria começa pela vida real: cada pergunta do dia a dia leva aos materiais que ajudam a respondê-la.

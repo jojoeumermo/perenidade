@@ -9,6 +9,7 @@ import { Ouvir } from "@/components/podcast/Ouvir";
 import { PergunteAoPodcast, VotacaoDePautas } from "@/components/podcast/Participar";
 import { MarcarVisto } from "@/components/podcast/Partes";
 import { loadLang } from "@/i18n";
+import { alternatesDe, paginaMeta } from "@/lib/seo";
 import { htmlLang, localePath } from "@/i18n/config";
 import { minutos } from "@/lib/podcast";
 import { catalogo } from "@/lib/podcast-servidor";
@@ -18,8 +19,8 @@ import { site } from "@/lib/site";
 export const revalidate = 300;
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/podcasts">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.podcast.title, description: t.podcast.lead, alternates: { types: { "application/rss+xml": `${site.url}/podcast.xml` } } };
+  const { lang, t } = await loadLang(params);
+  return { ...paginaMeta(lang, "/podcasts", t.podcast.title, t.podcast.lead), alternates: { ...alternatesDe(lang, "/podcasts"), types: { "application/rss+xml": `${site.url}/podcast.xml` } } };
 }
 
 const plataformas: [string, string][] = [

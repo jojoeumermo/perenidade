@@ -4,10 +4,11 @@ import { Suspense } from "react";
 import { PageHeading } from "@/components/PageHeading";
 import { SearchClient } from "@/components/SearchClient";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/busca">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.search.title, description: t.search.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/busca", t.search.title, t.search.lead);
 }
 
 export default async function Busca({ params }: PageProps<"/[lang]/busca">) {

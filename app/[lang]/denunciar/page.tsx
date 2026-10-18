@@ -4,10 +4,11 @@ import { Suspense } from "react";
 import { PageHeading } from "@/components/PageHeading";
 import { ReportForm } from "@/components/ReportForm";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/denunciar">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.report.title, description: t.report.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/denunciar", t.report.title, t.report.description);
 }
 
 export default async function Denunciar({ params }: PageProps<"/[lang]/denunciar">) {

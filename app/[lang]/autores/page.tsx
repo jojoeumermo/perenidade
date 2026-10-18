@@ -5,12 +5,13 @@ import { ListaComIndice } from "@/components/ListaComIndice";
 import { PageHeading } from "@/components/PageHeading";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { fill, localePath } from "@/i18n/config";
 import { getAuthors, getBooks } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/autores">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.authors.title, description: t.authors.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/autores", t.authors.title, t.authors.lead);
 }
 
 export default async function Autores({ params }: PageProps<"/[lang]/autores">) {
