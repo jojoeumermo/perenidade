@@ -81,7 +81,7 @@ Cada departamento (educación, revisión, periodismo, diseño…) puede tener un
 
 ### Portavoz
 
-El instituto crece y necesita presentarse en escuelas, sindicatos, movimientos y eventos, en cualquier ciudad. El portavoz lleva la palabra del instituto a esos lugares y trae de vuelta lo que escuchó. Lo nombra la coordinación, la coordinación pedagógica o la supervisión.
+El instituto crece y necesita presentarse en escuelas, sindicatos, movimientos y eventos, en cualquier ciudad. El portavoz lleva la palabra del instituto a esos lugares y trae de vuelta lo que escuchó. Es un título, no una función aparte: se suma a lo que la persona ya hace (un mediador, una traductora o un educador pueden ser portavoces). Lo nombra la coordinación, la coordinación pedagógica o la supervisión.
 
 ### Desarrollo
 

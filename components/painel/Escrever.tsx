@@ -10,7 +10,7 @@ import { cleanSources, MarkdownEditor, SourcesField, type EditorLabels, type Sou
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
-import { Aviso, botao, botaoClaro, campo, elo, papeis, rotulo, useAcao, useLista } from "./comum";
+import { Aviso, botao, campo, elo, papeis, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
 import { GuiaDaAula } from "./GuiaDaAula";
 import { EditorDePratica } from "./Pratica";
@@ -188,6 +188,16 @@ export function Escrever({ me }: { me: Me }) {
   // A trilha se escolhe em dois passos: primeiro a disciplina, depois a trilha dela (a lista inteira era grande demais).
   const [areaDaTrilha, setAreaDaTrilha] = useState("");
   const areaEscolhida = areaDaTrilha || trilha?.area || "";
+  // Trocar de trilha zera o tema do roteiro e a "nova versão"; o título só é apagado se veio do roteiro da trilha anterior.
+  const trocarTrilha = (nova: string) => {
+    const veioDoRoteiro = Boolean(trilha?.plan?.some((item) => item.title === titulo.trim()));
+    setValores((antes) => {
+      const resto = { ...antes };
+      delete resto.substitui;
+      return { ...resto, trilha: nova, slug: "" };
+    });
+    if (veioDoRoteiro) setTitulo("");
+  };
   const mudar = (nome: string, valor: string) => setValores((antes) => ({ ...antes, [nome]: valor }));
 
   // Educadores só publicam nas disciplinas que lhes foram confiadas; o aviso evita trabalho perdido.
@@ -277,7 +287,7 @@ export function Escrever({ me }: { me: Me }) {
             onChange={(e) => {
               setAreaDaTrilha(e.target.value);
               const primeira = tracks.find((track) => track.area === e.target.value);
-              setValores((antes) => ({ ...antes, trilha: primeira?.slug ?? "", slug: "" }));
+              trocarTrilha(primeira?.slug ?? "");
             }}
             className={campo}
           >
@@ -285,7 +295,7 @@ export function Escrever({ me }: { me: Me }) {
               <option key={area} value={area}>{t.areas[area][0]}</option>
             ))}
           </select>
-          <select aria-label="Trilha" value={trilha?.slug ?? ""} onChange={(e) => setValores((antes) => ({ ...antes, trilha: e.target.value, slug: "" }))} className={campo}>
+          <select aria-label="Trilha" value={trilha?.slug ?? ""} onChange={(e) => trocarTrilha(e.target.value)} className={campo}>
             {daArea.map((track) => (
               <option key={track.slug} value={track.slug}>
                 {track.title}{track.stage ? ` · ${track.stage === "medio" ? "médio" : track.stage === "superior" ? "superior" : "fundamental"}` : ""}
@@ -502,11 +512,7 @@ export function Escrever({ me }: { me: Me }) {
     <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_20rem]">
       {formulario}
       <div className="xl:sticky xl:top-6 xl:self-start">
-        <GuiaDaAula trilha={id === "aula" ? trilha : undefined} slug={valores.slug ?? ""} titulo={titulo} nomeDaArea={nomeDaArea(alvo)} tipo={id} temTexto={corpo.trim().length > 0} inserir={(texto) => setCorpo(texto)} />
-        <p className={`${rotulo} mt-4`}>Atalho</p>
-        <p className="mt-1 text-xs text-ink-soft">
-          <button type="button" className={botaoClaro} onClick={() => setQuestoes((q) => (q.length ? q : [questaoVazia(), questaoVazia(), questaoVazia()]))}>Começar as três questões</button>
-        </p>
+        <GuiaDaAula trilha={id === "aula" ? trilha : undefined} slug={valores.slug ?? ""} titulo={titulo} nomeDaArea={nomeDaArea(alvo)} tipo={id} temTexto={corpo.trim().length > 0} inserir={(texto) => setCorpo(texto)} comecarQuestoes={comQuestoes ? () => setQuestoes((q) => (q.length ? q : [questaoVazia(), questaoVazia(), questaoVazia()])) : undefined} />
       </div>
     </div>
   );

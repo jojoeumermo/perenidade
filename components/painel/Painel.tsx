@@ -1040,6 +1040,38 @@ function AvisosETrava() {
   );
 }
 
+/** O cartão público do educador: formação em uma linha e endereços (portfólio, Lattes, site, redes). Tudo opcional. */
+function Curriculo({ me, recarregar }: { me: Me; recarregar: () => void }) {
+  const acao = useAcao(recarregar);
+  const campos: [string, string, string][] = [
+    ["formacao", "Formação, em uma linha", "Ex.: Licenciada em História (UERJ), mestranda em Educação"],
+    ["portfolio", "Portfólio", "https://"],
+    ["lattes", "Currículo Lattes", "https://lattes.cnpq.br/…"],
+    ["site", "Site pessoal", "https://"],
+    ["instagram", "Instagram", "https://instagram.com/…"],
+    ["youtube", "YouTube", "https://youtube.com/…"],
+    ["linkedin", "LinkedIn", "https://linkedin.com/in/…"],
+    ["github", "GitHub", "https://github.com/…"],
+  ];
+  const [valores, setValores] = useState<Record<string, string>>(() => ({ ...(me.curriculo ?? {}) }));
+  return (
+    <section className="painel-cartao p-5">
+      <h2 className="font-serif text-xl font-semibold">Seu cartão de educador</h2>
+      <p className="mt-1 text-ink-soft">Aparece no fim das aulas da sua disciplina e em “Quem somos”, com o seu nome, o “sobre você” e o ícone. Tudo aqui é opcional: o que ficar vazio não aparece.</p>
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        {campos.map(([chave, rotuloDoCampo, dica]) => (
+          <label key={chave} className={`block ${chave === "formacao" ? "sm:col-span-2" : ""}`}>
+            {rotuloDoCampo}
+            <input value={valores[chave] ?? ""} onChange={(e) => setValores((v) => ({ ...v, [chave]: e.target.value }))} maxLength={chave === "formacao" ? 160 : 300} placeholder={dica} className={campo} />
+          </label>
+        ))}
+      </div>
+      <button type="button" className={`mt-3 ${botao}`} disabled={acao.ocupado} onClick={() => acao.agir("perfil_curriculo", { p: valores }, "Cartão guardado.")}>Guardar o cartão</button>
+      <Aviso texto={acao.aviso} />
+    </section>
+  );
+}
+
 /** O ícone do perfil: um dos desenhos predefinidos para todo mundo; a liderança pode subir uma imagem pequena. */
 function EscolherAvatar({ me, recarregar }: { me: Me; recarregar: () => void }) {
   const acao = useAcao(recarregar);
@@ -1130,6 +1162,7 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
       </section>
 
       <EscolherAvatar me={me} recarregar={recarregar} />
+      {me.papeis.some((p) => p.papel === "educacao" || p.papel === "educacao_secundaria") && <Curriculo me={me} recarregar={recarregar} />}
 
       <section className={cartao}>
         <h2 className="font-serif text-xl font-semibold">Privacidade nas conversas</h2>

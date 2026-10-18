@@ -81,7 +81,7 @@ Cada departamento (educação, revisão, jornalismo, design…) pode ter um repr
 
 ### Porta-voz
 
-O instituto cresce e precisa ser apresentado em escolas, sindicatos, movimentos e eventos, em qualquer cidade do país. O porta-voz leva a palavra do instituto a esses lugares e traz de volta o que ouviu. É nomeado pela coordenação, pela coordenação pedagógica ou pela supervisão.
+O instituto cresce e precisa ser apresentado em escolas, sindicatos, movimentos e eventos, em qualquer cidade do país. O porta-voz leva a palavra do instituto a esses lugares e traz de volta o que ouviu. É um título, não uma função à parte: soma-se ao que a pessoa já faz (um mediador, uma tradutora ou um educador podem ser porta-vozes). É nomeado pela coordenação, pela coordenação pedagógica ou pela supervisão.
 
 ### Desenvolvimento
 
