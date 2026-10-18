@@ -60,6 +60,20 @@ export function Tutoring({ s }: { s: Dict["tutoring"] }) {
   const buscar = useMemo(() => (indice ? buildSearch(indice, synonyms) : null), [indice]);
   const consulta = useDeferredValue((form.assunto.trim() || form.duvida.trim().split(/\s+/).slice(0, 12).join(" ")).trim());
   const area = form.disciplina ? (t.areas[form.disciplina as keyof typeof t.areas]?.[0] ?? "") : "";
+  // Quais disciplinas têm voluntário que passou pelo painel hoje (só a lista de disciplinas, sem nomes).
+  const [disponiveis, setDisponiveis] = useState<string[]>([]);
+  useEffect(() => {
+    if (!hasBackend) return;
+    let vivo = true;
+    rpc<string[]>("reforco_disponibilidade")
+      .then((lista) => {
+        if (vivo && Array.isArray(lista)) setDisponiveis(lista);
+      })
+      .catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, []);
   const sugestoes = useMemo(
     () => (buscar && consulta.length >= 4 ? buscar(consulta, 60).filter((hit) => SUGERIVEIS.has(hit.entry.kind) && (!area || !hit.entry.area || hit.entry.area === area)).slice(0, 5) : []),
     [buscar, consulta, area],
@@ -117,10 +131,11 @@ export function Tutoring({ s }: { s: Dict["tutoring"] }) {
               <option value="">{s.choose}</option>
               {areaSlugs.map((slug) => (
                 <option key={slug} value={slug}>
-                  {t.areas[slug][0]}
+                  {t.areas[slug][0]}{disponiveis.includes(slug) ? ` · ${t.lists.availableToday}` : ""}
                 </option>
               ))}
             </select>
+            {form.disciplina && disponiveis.length > 0 && !disponiveis.includes(form.disciplina) && <span className="mt-1 block text-xs text-ink-soft">{t.lists.mayTakeLonger}</span>}
           </label>
           <label className="block">
             {s.subject}

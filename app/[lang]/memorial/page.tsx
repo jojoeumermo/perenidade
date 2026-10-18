@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Cartaz } from "@/components/Cartaz";
+import { ListaComIndice } from "@/components/ListaComIndice";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { htmlLang, localePath } from "@/i18n/config";
@@ -23,15 +24,15 @@ export default async function Memorial({ params }: PageProps<"/[lang]/memorial">
       </Cartaz>
       <Untranslated lang={lang} t={t} show={tributes.some((tribute) => !tribute.translated)} />
 
-      <nav aria-label={t.memorial.title} className="mt-8 flex flex-wrap gap-x-4 gap-y-1 font-sans text-sm">
-        {tributes.map((tribute) => (
-          <a key={tribute.slug} href={`#${tribute.slug}`} className="underline hover:text-oxblood">{tribute.name}</a>
-        ))}
-      </nav>
-
-      <div className="mt-10 space-y-6">
-        {tributes.map((tribute) => (
-          <article key={tribute.slug} id={tribute.slug} className="scroll-mt-6 flex items-center gap-5 border-t-8 border-ink bg-parchment-deep p-5 sm:gap-6 sm:p-6" {...originalLang(tribute.translated)}>
+      <ListaComIndice
+        az
+        rotulo={t.memorial.title}
+        items={tributes.map((tribute) => ({
+          id: tribute.slug,
+          nome: tribute.name,
+          chaves: `${tribute.name} ${tribute.place} ${tribute.born} ${tribute.died} ${tribute.body}`,
+          node: (
+          <article className="flex items-center gap-5 border-t-8 border-ink bg-parchment-deep p-5 sm:gap-6 sm:p-6" {...originalLang(tribute.translated)}>
             {tribute.photo && (
               // O retrato fica entre a barra e o texto, centrado na altura do cartão.
               // eslint-disable-next-line @next/next/no-img-element
@@ -51,8 +52,9 @@ export default async function Memorial({ params }: PageProps<"/[lang]/memorial">
               )}
             </div>
           </article>
-        ))}
-      </div>
+          ),
+        }))}
+      />
 
       <p className="no-print mt-10 border-t border-rule pt-6 font-sans text-sm text-ink-soft">
         {t.memorial.add}{" "}

@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EstadoVazio } from "@/components/EstadoVazio";
 import { Masthead, Star } from "@/components/Masthead";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
@@ -73,6 +74,7 @@ export default async function Jornal({ params }: PageProps<"/[lang]/jornal">) {
           {giro}
         </section>
       )}
+      {!lead && <EstadoVazio textos={t.lists.empty.jornal} acaoHref="/contribuir?tipo=sugestao" relacionadoHref="/noticias" />}
 
       {lead && (
         <>

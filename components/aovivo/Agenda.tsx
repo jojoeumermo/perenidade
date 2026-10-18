@@ -9,6 +9,7 @@ import { areaSlugs } from "@/lib/areas";
 import { type Aula, calendario } from "@/lib/aovivo";
 import { BackendError, hasBackend, rpc, useMe } from "@/lib/backend";
 import { useSinal } from "@/lib/tempo-real";
+import { EstadoVazio } from "../EstadoVazio";
 import { L, useI18n } from "../I18n";
 
 export type LiveStrings = Dict["live"];
@@ -141,7 +142,14 @@ export function Agenda({ s }: { s: LiveStrings }) {
       </label>
       {erro && <p role="alert" className="mt-4 text-oxblood">{erro}</p>}
       {aulas === null && !erro && <p className="mt-6 font-mono text-xs text-ink-soft">{t.common.loading}</p>}
-      {aulas && aulas.length === 0 && <p className="mt-6 border border-rule bg-parchment-deep px-4 py-6 text-center text-ink-soft">{s.empty}</p>}
+      {aulas && aulas.length === 0 && <EstadoVazio textos={t.lists.empty.aoVivo} acaoHref="/voluntarios" relacionadoHref="/videoaulas" />}
+      {agora.length === 0 && proximas[0] && (
+        <section className="mt-6 border-2 border-ink bg-parchment-deep p-4">
+          <p className="jornal-editoria">{t.lists.nextLive}</p>
+          <p className="mt-2 font-serif text-2xl font-semibold leading-tight">{proximas[0].titulo}</p>
+          <p className="mt-1 text-ink-soft">{dia.format(new Date(proximas[0].inicio))} · {new Intl.DateTimeFormat(htmlLang[lang], { hour: "2-digit", minute: "2-digit" }).format(new Date(proximas[0].inicio))} · {t.areas[proximas[0].disciplina as keyof typeof t.areas]?.[0] ?? proximas[0].disciplina}</p>
+        </section>
+      )}
 
       {agora.length > 0 && (
         <section className="mt-8">
