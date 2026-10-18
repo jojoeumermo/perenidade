@@ -3,12 +3,13 @@ import type { Metadata } from "next";
 import { ContentPageView } from "@/components/ContentPageView";
 import { VolunteerForm } from "@/components/VolunteerForm";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { getPage } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/voluntarios">): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const page = getPage("voluntarios", lang);
-  return { title: page.title, description: page.lead };
+  return paginaMeta(lang, "/voluntarios", page.title, page.lead);
 }
 
 export default async function Voluntarios({ params }: PageProps<"/[lang]/voluntarios">) {

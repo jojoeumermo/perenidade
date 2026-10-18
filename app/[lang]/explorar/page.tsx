@@ -5,11 +5,12 @@ import { InstagramIcon } from "@/components/Footer";
 import { LanguageSwitcher } from "@/components/NavLinks";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/explorar">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.more.title, description: t.more.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/explorar", t.more.title, t.more.lead);
 }
 
 // Tudo o que não cabe no menu do topo, em um só lugar, para o menu continuar curto.

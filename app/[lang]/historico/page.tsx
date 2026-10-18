@@ -3,14 +3,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { fill, htmlLang, localePath } from "@/i18n/config";
 import { notFound } from "next/navigation";
 import { describePart, publicHistory, TITLES } from "@/lib/history";
 import { site } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/historico">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.history.title, description: t.history.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/historico", t.history.title, t.history.description);
 }
 
 export default async function Historico({ params }: PageProps<"/[lang]/historico">) {

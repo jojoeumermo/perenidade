@@ -9,6 +9,7 @@ import { SaveOffline } from "@/components/Offline";
 import { LessonList, TrackProgress } from "@/components/Progress";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { defaultLocale, fill, localePath } from "@/i18n/config";
 import { getTrack, getTracks } from "@/lib/content";
 import { lessonId } from "@/lib/ids";
@@ -21,9 +22,9 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/trilhas/[track]">): Promise<Metadata> {
-  const { lang } = await loadLang(params);
+  const { lang, t } = await loadLang(params);
   const track = getTrack((await params).track, lang);
-  return track ? { title: track.title, description: track.summary } : {};
+  return track ? paginaMeta(lang, `/trilhas/${track.slug}`, track.title, track.summary, { kicker: `${t.areas[track.area][0]} · ${t.stages[track.stage]}` }) : {};
 }
 
 export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[track]">) {

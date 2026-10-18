@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 import { Cartaz } from "@/components/Cartaz";
 import { SupportersWall } from "@/components/SupportersWall";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/apoie">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.support.title, description: t.support.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/apoie", t.support.title, t.support.lead);
 }
 
 export default async function Apoie({ params }: PageProps<"/[lang]/apoie">) {

@@ -3,10 +3,11 @@ import type { Metadata } from "next";
 import { Materials } from "@/components/Materials";
 import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/materiais">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.materials.title, description: t.materials.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/materiais", t.materials.title, t.materials.description);
 }
 
 // Materiais para imprimir e distribuir: zines, panfletos, cartazes e banners publicados pela coordenação.

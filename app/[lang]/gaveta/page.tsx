@@ -4,11 +4,12 @@ import { Cartaz } from "@/components/Cartaz";
 import { Gaveta } from "@/components/Gaveta";
 import { Markdown } from "@/components/Markdown";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { getPage } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/gaveta">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.drawer.title, description: t.drawer.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/gaveta", t.drawer.title, t.drawer.description);
 }
 
 // Gaveta Aberta: o trabalho que ficou parado depois da entrega (o TCC, o projeto da disciplina, a apostila) volta a

@@ -5,11 +5,12 @@ import { Suspense } from "react";
 import { ContributeForm } from "@/components/ContributeForm";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/contribuir">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.contribute.title, description: t.contribute.description };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/contribuir", t.contribute.title, t.contribute.description);
 }
 
 export default async function Contribuir({ params }: PageProps<"/[lang]/contribuir">) {

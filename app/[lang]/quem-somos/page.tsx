@@ -3,12 +3,13 @@ import type { Metadata } from "next";
 import { ContentPageView } from "@/components/ContentPageView";
 import { ListaDeEducadores } from "@/components/Educadores";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { getPage } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/quem-somos">): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const page = getPage("quem-somos", lang);
-  return { title: page.title, description: page.lead };
+  return paginaMeta(lang, "/quem-somos", page.title, page.lead);
 }
 
 export default async function Page({ params }: PageProps<"/[lang]/quem-somos">) {

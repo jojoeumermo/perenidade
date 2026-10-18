@@ -8,6 +8,7 @@ import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { BookCard, TrackCard } from "@/components/Cards";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { localePath, plural } from "@/i18n/config";
 import { areaSlugs, areaTools, isArea, stages } from "@/lib/areas";
 import { getBooks, getCatalog, getLooseMaterials, getTracks, getVideos, looseFormats } from "@/lib/content";
@@ -20,9 +21,9 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/estantes/[area]">): Promise<Metadata> {
-  const { t } = await loadLang(params);
+  const { lang, t } = await loadLang(params);
   const { area } = await params;
-  return isArea(area) ? { title: t.areas[area][0], description: t.areas[area][1] } : {};
+  return isArea(area) ? paginaMeta(lang, `/estantes/${area}`, t.areas[area][0], t.areas[area][1], { kicker: t.nav.disciplines }) : {};
 }
 
 export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[area]">) {

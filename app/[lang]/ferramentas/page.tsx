@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 import { areaTools, groups, tools, type AreaSlug } from "@/lib/areas";
 
@@ -10,8 +11,8 @@ import { areaTools, groups, tools, type AreaSlug } from "@/lib/areas";
 const precisaDeInternet = new Set(["dicionario", "frases", "pronuncia", "python", "php"]);
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/ferramentas">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.tools.title, description: t.tools.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/ferramentas", t.tools.title, t.tools.lead);
 }
 
 export default async function Ferramentas({ params }: PageProps<"/[lang]/ferramentas">) {

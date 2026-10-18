@@ -4,12 +4,13 @@ import Link from "next/link";
 import { PageHeading } from "@/components/PageHeading";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { defaultLocale, localePath } from "@/i18n/config";
 import { getStartSteps } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/comecar">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.start.title, description: t.start.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/comecar", t.start.title, t.start.lead);
 }
 
 // Uma ordem de leitura para quem está chegando: do que se vive no trabalho até os textos mais longos.
