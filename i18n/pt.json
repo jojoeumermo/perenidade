@@ -45,6 +45,7 @@
     "dedication": "Dedicatória",
     "team": "Quem somos",
     "labs": "Laboratórios",
+    "questionBank": "Banco de questões",
     "contribute": "Contribuir",
     "more": "Mais",
     "search": "Buscar",
@@ -114,6 +115,15 @@
     "ptOnly": "Os exercícios estão em português."
   },
   "lists": {
+    "bankEyebrow": "Para treinar",
+    "bankTitle": "Banco de questões",
+    "bankLead": "Todas as questões das aulas do instituto, num lugar só, com a resposta e a explicação. Cresce sozinho: cada aula nova com teste entra aqui, e cada questão enviada pelos educadores também.",
+    "bankReveal": "Ver a resposta",
+    "bankHide": "Esconder",
+    "bankLesson": "Da aula",
+    "bankSend": "Enviar uma questão",
+    "bankCount": "{n} questões",
+    "bankRandom": "Sortear 10",
     "find": "Buscar nesta página",
     "count": "{n} itens",
     "none": "Nada encontrado com esse termo.",
