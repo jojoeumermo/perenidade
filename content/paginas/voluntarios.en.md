@@ -63,10 +63,6 @@ The [Newspaper](/jornal) publishes news and analysis from the point of view of w
 
 Those who make the newspaper also make [Rádio Lúcia](/radio) (channels, tracks, live broadcasts and the list of community stations) and the [podcasts](/podcasts): agenda, script, recording, editing and publishing. You can look after all three or just one.
 
-### Podcast supervision
-
-Before it goes live, every podcast episode goes through supervision: they listen, check facts and care, and approve it or send it back to production with a note. Nobody approves their own episode. The coordination chooses, within the podcast team, who does the supervision.
-
 ### Tutoring
 
 Anyone who gets stuck on a subject can [ask for tutoring](/reforco). The request goes to the volunteers of that subject; whoever takes it answers by email, patiently, showing the way and not just the answer. It is a good way to help if you have little time: one question at a time.
@@ -79,19 +75,23 @@ Lessons are better with good drawings: a diagram, a chart, a map, a poster to pr
 
 A free course only does its job if people know it exists. Marketing looks after outreach: posts and artwork for social media, call-out posters, volunteering and support campaigns, clips from podcast episodes. It works with design, uses the panel's materials and files and has its own channel on the team board.
 
+### Department representative
+
+Each department (education, review, journalism, design…) can have a representative: the first point of contact and the person who organises the group, agrees and delegates tasks, without being a boss. Appointed by the coordination, the pedagogical coordination or the supervision, among those already in the department. Does not grant or remove roles.
+
+### Spokesperson
+
+The institute is growing and needs to be presented in schools, unions, movements and events, in any city. The spokesperson carries the institute's word to those places and brings back what was heard. Appointed by the coordination, the pedagogical coordination or the supervision.
+
 ### Development
 
 The site is free software and there is a lot to do: new practice tools, accessibility, performance on simple phones and slow internet, translations of the interface. Programmers agree on the work with the coordination through the panel.
-
-### Coordination and vice-coordination
-
-The community coordination has the final word: it approves volunteers, assigns roles and subjects, decides what goes live and issues certificates. The vice-coordinator does almost everything the coordinator does and signs the certificates with them. These roles are not open to applications: they are entrusted to people who are already part of the team.
 
 ## Hours and certificate
 
 Whoever accepts, in the panel, the volunteer agreement (based on Brazilian Law No. 9,608/1998: no salary and no employment relationship) has their hours counted by the platform itself for each finished task: approved lesson, review opinion, translation, answered tutoring request, published episode and others. Work done outside the panel can be logged by hand and is checked by the coordination.
 
-Whenever they want, volunteers can request a certificate for a period. It carries three electronic signatures (an educator, the vice-coordinator and the coordinator) and a code that anyone can check on the [Check a certificate](/certificado) page. Until the institute is a registered organisation, the certificate is a statement from a community project: each school or university decides whether to accept it as complementary hours.
+Whenever they want, volunteers can request a certificate for a period. It carries three electronic signatures (an educator, the pedagogical coordination and the coordinator) and a code that anyone can check on the [Check a certificate](/certificado) page. Until the institute is a registered organisation, the certificate is a statement from a community project: each school or university decides whether to accept it as complementary hours.
 
 ## Spreading the word
 

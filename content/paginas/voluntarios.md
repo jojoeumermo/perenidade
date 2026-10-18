@@ -43,7 +43,7 @@ O educador secundário tem os mesmos poderes do educador: se quiser, também esc
 - uma informação errada ou desatualizada;
 - uma explicação confusa, que poderia ser mais clara.
 
-Toda aula e toda ficha tem um link **Sugerir correção** no final. No painel, o revisor lê o que chega e dá o seu parecer antes da decisão da curadoria.
+Toda aula e toda ficha tem um link **Sugerir correção** no final. No painel, o revisor lê o que chega, dá o seu parecer e decide o que vai ao ar: uma pessoa que revisa basta (outro educador da mesma disciplina, a revisão ou a coordenação). O que vem de fora passa antes pela mediação e por um educador.
 
 ### Tradutor
 
@@ -51,7 +51,7 @@ O site existe em português, inglês, espanhol, chinês e russo, mas a maior par
 
 ### Curador
 
-O acervo só indexa: guarda o título, o autor, uma sinopse e o link para a fonte legítima, como o Project Gutenberg, o Arquivo Marxista ou a biblioteca digital MEC Livros, do Ministério da Educação. O curador indica obras em domínio público, com licença aberta ou de empréstimo gratuito, confere se os links antigos continuam funcionando e decide, com a coordenação, o que entra no site.
+O acervo só indexa: guarda o título, o autor, uma sinopse e o link para a fonte legítima, como o Project Gutenberg, o Arquivo Marxista ou a biblioteca digital MEC Livros, do Ministério da Educação. O curador indica obras em domínio público, com licença aberta ou de empréstimo gratuito, confere se os links antigos continuam funcionando e decide, com a coordenação, o que entra no acervo. A curadoria cuida do acervo, não das aulas: essas passam pela revisão.
 
 ### Mediador
 
@@ -62,10 +62,6 @@ A [Comunidade](/comunidade) é aberta: qualquer pessoa pode ler, e quem cria uma
 O [Jornal](/jornal) publica notícias e análises do ponto de vista de quem trabalha. Fatos conferidos, fontes à vista e cuidado ao falar de pessoas e organizações: o objetivo é informar e educar.
 
 Quem faz o jornal também faz a [Rádio Lúcia](/radio) (canais, faixas, transmissão ao vivo e a lista de emissoras populares) e os [podcasts](/podcasts): pauta, roteiro, gravação, edição e publicação. Dá para cuidar dos três ou só de um.
-
-### Supervisão do podcast
-
-Antes de ir ao ar, cada episódio do podcast passa pela supervisão: ela ouve, confere fatos e cuidados, aprova ou devolve com uma nota para a produção. Ninguém aprova o próprio episódio. A coordenação escolhe, dentro da equipe do podcast, quem faz a supervisão.
 
 ### Aula de reforço
 
@@ -79,19 +75,23 @@ Aulas ficam melhores com um bom desenho: um esquema, um gráfico, um mapa, um ca
 
 Um curso gratuito só cumpre o seu papel se as pessoas souberem que ele existe. O marketing cuida da divulgação: posts e artes para as redes sociais, cartazes de chamada, campanhas de voluntariado e de apoio, cortes dos episódios do podcast. Trabalha junto com o design, usa os materiais e arquivos do painel e tem um canal próprio no mural da equipe.
 
+### Representante de departamento
+
+Cada departamento (educação, revisão, jornalismo, design…) pode ter um representante: a primeira entrada e quem organiza o grupo, combina e delega tarefas, sem ser chefe. É nomeado pela coordenação, pela coordenação pedagógica ou pela supervisão, entre quem já faz parte do departamento, e não dá nem tira funções. A ideia é que os departamentos se organizem cada vez mais por conta própria.
+
+### Porta-voz
+
+O instituto cresce e precisa ser apresentado em escolas, sindicatos, movimentos e eventos, em qualquer cidade do país. O porta-voz leva a palavra do instituto a esses lugares e traz de volta o que ouviu. É nomeado pela coordenação, pela coordenação pedagógica ou pela supervisão.
+
 ### Desenvolvimento
 
 O site é software livre e tem muito por fazer: novas ferramentas de prática, acessibilidade, desempenho em celular simples e internet lenta, traduções da interface. Quem programa combina o trabalho com a coordenação pelo painel.
-
-### Coordenação e vice-coordenação
-
-A coordenação comunitária tem a palavra final: aprova voluntários, distribui funções e disciplinas, decide o que vai ao ar e emite os certificados. O vice-coordenador faz quase tudo o que o coordenador faz e assina os certificados com ele. Essas funções não são abertas por candidatura: são confiadas a quem já faz parte da equipe.
 
 ## Horas e certificado
 
 Quem aceita, no painel, o termo de adesão ao trabalho voluntário (baseado na Lei nº 9.608/1998: sem salário e sem vínculo de emprego) passa a ter as horas contadas pela própria plataforma, a cada trabalho concluído: aula aprovada, parecer, tradução, reforço respondido, episódio publicado e outros. O que é feito fora do painel pode ser registrado à mão e é conferido pela coordenação.
 
-Quando quiser, o voluntário pede o certificado de um período. Ele leva três assinaturas eletrônicas (um educador, o vice-coordenador e o coordenador) e um código que qualquer pessoa confere na página [Conferir certificado](/certificado). Enquanto o instituto não tiver CNPJ, o certificado é uma declaração de um projeto comunitário: cada escola ou faculdade decide se aceita como hora complementar.
+Quando quiser, o voluntário pede o certificado de um período. Ele leva três assinaturas eletrônicas (um educador, a coordenação pedagógica e a coordenação) e um código que qualquer pessoa confere na página [Conferir certificado](/certificado). Enquanto o instituto não tiver CNPJ, o certificado é uma declaração de um projeto comunitário: cada escola ou faculdade decide se aceita como hora complementar.
 
 ## Divulgando
 
@@ -101,15 +101,17 @@ Fale do instituto para seus colegas, no seu sindicato, no seu cursinho popular, 
 
 O que o instituto mais precisa agora:
 
-- **Escrever as aulas que faltam.** Cada trilha mostra o que está "em preparação".
+- **Escrever as aulas que faltam.** Cada trilha mostra o que está "em preparação"; as trilhas novas de Engenharia de Sistemas, Neurodiversidade, Política e Crochê começam do zero.
 - **Materiais avulsos** em todas as disciplinas: listas de exercícios, resumos e roteiros de estudo.
-- **Revisar as aulas publicadas**, conferindo datas, contas, exemplos e fontes.
+- **Revisar e aprovar.** A fila de revisão decide o que vai ao ar: uma pessoa que revisa basta. Quanto mais gente revisando, mais rápido as aulas chegam ao público.
 - **Traduzir** as aulas para inglês, espanhol, chinês e russo.
+- **Aulas em vídeo** curtas, de até 10 minutos, e aulas ao vivo.
+- **Edição de vídeo:** cortar, legendar e finalizar os vídeos das aulas, do jornal e das redes.
 - **História do Brasil vista de baixo:** a Revolta dos Malês, Canudos, a Revolta da Chibata, a greve geral de 1917, as greves do ABC.
 - **Indicar obras livres** de autoras e autores latino-americanos, africanos e asiáticos.
 - **Ampliar o Memorial** e o **Glossário**, sempre com fonte.
 - **Conferir boatos** para a seção de [checagem de fatos](/checagens).
-- **Divulgar** o instituto nas redes e nos movimentos sociais.
+- **Divulgar** o instituto nas redes e nos movimentos sociais, e representá-lo onde você estiver (porta-vozes).
 
 ## Tudo aqui é gratuito
 

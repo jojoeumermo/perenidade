@@ -280,7 +280,7 @@ export function Horas({ me }: { me: Me }) {
       {atual === "certificados" && (
         <section>
           <p className="max-w-3xl text-ink-soft">
-            Todo certificado leva três assinaturas eletrônicas (um educador, o vice-coordenador e, por último, o coordenador) e um código que qualquer pessoa confere na página Conferir certificado. A aceitação como horas complementares depende de cada faculdade: pergunte na coordenação do seu curso antes de contar com ele.
+            Todo certificado leva três assinaturas eletrônicas (um educador, a coordenação pedagógica e, por último, o coordenador) e um código que qualquer pessoa confere na página Conferir certificado. A aceitação como horas complementares depende de cada faculdade: pergunte na coordenação do seu curso antes de contar com ele.
           </p>
           {certificados.dados?.length === 0 && <p className="mt-3 text-ink-soft">Nenhum certificado ainda.</p>}
           <ul className="mt-4 space-y-4">
@@ -384,7 +384,7 @@ function PedirCertificado({ minhas, depois }: { minhas: Minhas; depois: () => vo
           De {dia(pedido.inicio)} a {dia(pedido.fim)}
         </p>
         <p className="mt-1 text-ink-soft">
-          A coordenação e a vice-coordenação foram avisadas. Quando o coordenador abrir o processo, chega um aviso aqui no painel e o certificado aparece em Certificados, esperando as assinaturas.
+          A coordenação e a coordenação pedagógica foram avisadas. Quando o coordenador abrir o processo, chega um aviso aqui no painel e o certificado aparece em Certificados, esperando as assinaturas.
         </p>
         {pedido.mensagem && <p className="mt-2 border-l-2 border-rule pl-3">{pedido.mensagem}</p>}
         <p className="mt-3">
@@ -618,7 +618,7 @@ function Pedidos({ me, preparar }: { me: Me; preparar: (pedido: PedidoDaFila) =>
   );
 }
 
-/** Coordenação e vice-coordenação conferem as horas registradas pelos outros. */
+/** Coordenação e coordenação pedagógica conferem as horas registradas pelos outros. */
 function Conferir() {
   const fila = useLista<HoraDaFila[]>("horas_fila");
   const acao = useAcao(fila.recarregar);
@@ -673,7 +673,7 @@ function Abrir({ me, inicial, depois }: { me: Me; inicial: Preenchido | null; de
     atividades: form.atividades.trim(),
     testemunhas: [
       { id: "educador", nome: educador?.nome || "Educador(a) que assina", papel: "educacao", disciplina: educador?.papeis.find((item) => item.papel === "educacao")?.disciplina ?? null, confirmou_em: null },
-      { id: "vice", nome: vice || "Vice-coordenador que assina", papel: "vice", confirmou_em: null },
+      { id: "vice", nome: vice || "Coordenação pedagógica que assina", papel: "vice", confirmou_em: null },
       { id: "coordenacao", nome: me.nome, papel: "coordenacao", confirmou_em: null },
     ],
     status: "aberto",
@@ -724,7 +724,7 @@ function Abrir({ me, inicial, depois }: { me: Me; inicial: Preenchido | null; de
             <BuscaDePessoa rotulo="Educador ou educadora que assina" entre={educadores} escolhida={educadores.find((pessoa) => pessoa.id === form.educador) ?? null} escolher={(pessoa) => setForm({ ...form, educador: pessoa?.id ?? "", vice: "" })} />
           </div>
           <label className="block">
-            Vice-coordenador que assina
+            Coordenação pedagógica que assina
             <select value={form.vice} onChange={(e) => setForm({ ...form, vice: e.target.value })} className={campo}>
               <option value="">{vices.length === 1 ? vices[0].nome : vices.length === 0 ? "Ninguém disponível" : "Quem entrou por último"}</option>
               {vices.length > 1 &&
@@ -739,7 +739,7 @@ function Abrir({ me, inicial, depois }: { me: Me; inicial: Preenchido | null; de
         {pessoas.dados && form.usuario && (educadores.length === 0 || vices.length === 0) && (
           <p className="border-l-2 border-oxblood pl-3 text-oxblood">
             {educadores.length === 0 ? "Não há outro educador na equipe para assinar. " : ""}
-            {vices.length === 0 ? "Não há vice-coordenador disponível para assinar: nomeie um em Voluntários e convites." : ""}
+            {vices.length === 0 ? "Não há ninguém da coordenação pedagógica disponível para assinar: nomeie em Voluntários e convites." : ""}
           </p>
         )}
         <div className="flex flex-wrap gap-3">
