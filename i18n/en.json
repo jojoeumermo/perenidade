@@ -33,7 +33,8 @@
     "sources": "Sources",
     "copy": "Copy",
     "copied": "Copied",
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "askCommunity": "Ask the community"
   },
   "nav": {
     "main": "Main",
@@ -2989,7 +2990,37 @@
     "signUp": "Create account",
     "ban": "Ban the author",
     "banConfirm": "Confirm the ban",
-    "banned": "Account banned. The coordination has been notified."
+    "banned": "Account banned. The coordination has been notified.",
+    "rulesTitle": "Community rules",
+    "rulesSummary": "Respect, no hate, no personal data, sources for facts.",
+    "rooms": "Rooms",
+    "allRooms": "All rooms",
+    "order": "Sort",
+    "useful": "Useful",
+    "usefulMark": "Mark as useful",
+    "usefulUnmark": "Remove useful",
+    "about": "About",
+    "clearAbout": "See all conversations",
+    "replyHere": "Reply",
+    "replyingTo": "Replying to {nome}",
+    "cancel": "Cancel",
+    "lastActivity": "last activity {tempo}",
+    "unansweredHelp": {
+      "one": "question waiting for an answer",
+      "other": "questions waiting for an answer"
+    },
+    "helpOut": "Help answer",
+    "tutoringTitle": "Need help with a lesson?",
+    "tutoringText": "Ask for a tutoring session: someone from the team answers.",
+    "tutoringLink": "Tutoring",
+    "badges": {
+      "coordenacao": "Coordination",
+      "educacao": "Education",
+      "mentoria": "Mentoring",
+      "mediacao": "Moderation",
+      "equipe": "Team"
+    },
+    "room": "Room"
   },
   "mural": {
     "eyebrow": "Solidarity economy",
