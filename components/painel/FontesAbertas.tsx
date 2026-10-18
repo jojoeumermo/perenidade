@@ -22,6 +22,7 @@ const atalhos: { nome: string; sobre: string; link: (busca: string) => string }[
   { nome: "BNDigital", sobre: "Biblioteca Nacional: jornais, livros, mapas e imagens antigas", link: () => "https://bndigital.bn.gov.br/" },
   { nome: "Brasiliana Guita e José Mindlin (USP)", sobre: "livros raros brasileiros digitalizados", link: () => "https://digital.bbm.usp.br/" },
   { nome: "OpenStax", sobre: "livros didáticos abertos (em inglês)", link: () => "https://openstax.org/subjects" },
+  { nome: "Anna's Archive", sobre: "catálogo de bibliotecas digitais; para achar edições, autores e referências. Indique nas fontes só o que for livre ou em domínio público", link: (busca) => `https://annas-archive.org/search?q=${encodeURIComponent(busca)}` },
 ];
 
 /**

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { rpc, verifyAssistant, verifyModeration } from "@/lib/backend";
 import { KEYS, setItem } from "@/lib/storage";
 import { useI18n } from "../I18n";
-import { Aviso, botao, botaoClaro, campo, dataHora, elo, textoDoErro, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, dataHora, elo, textoDoErro, useAcao, useLista } from "./comum";
 
 export interface Controles {
   faixa: string;
@@ -392,6 +392,7 @@ function Formulario({ inicial, recarregar, aviso, setAviso }: { inicial: Control
       <AssistenteDeReforco />
       <Emails />
 
+      <ControlesDoChat />
       <div className="lg:col-span-2">
         <Aviso texto={aviso} />
         <p className="max-w-3xl text-ink-soft">
@@ -399,5 +400,87 @@ function Formulario({ inicial, recarregar, aviso, setAviso }: { inicial: Control
         </p>
       </div>
     </div>
+  );
+}
+
+interface ControleDoChat {
+  fechado: boolean;
+  motivo: string;
+  grupos_fechados: string[];
+  silenciados: string[];
+}
+
+/**
+ * Desligar as conversas quando for preciso: todas de uma vez, só alguns grupos ou só algumas pessoas. Quem está
+ * barrado continua lendo; a liderança nunca é barrada. Tudo fica no registro de atividades.
+ */
+function ControlesDoChat() {
+  const dados = useLista<{ controle: ControleDoChat | null; grupos: { id: string; nome: string; tipo: string; membros: number }[]; pessoas: { id: string; nome: string }[] }>("chat_controles");
+  const acao = useAcao(dados.recarregar);
+  const [motivo, setMotivo] = useState("");
+  const [busca, setBusca] = useState("");
+  if (dados.erro) return null;
+  const c: ControleDoChat = { fechado: false, motivo: "", grupos_fechados: [], silenciados: [], ...(dados.dados?.controle ?? {}) };
+  const salvar = (p: Partial<ControleDoChat>, texto: string) => acao.agir("chat_controlar", { p }, texto);
+  const pessoas = (dados.dados?.pessoas ?? []).filter((p) => !busca || p.nome.toLowerCase().includes(busca.toLowerCase()));
+  return (
+    <section className="border border-rule bg-parchment-deep p-5 lg:col-span-2">
+      <h2 className="font-serif text-xl font-semibold">Conversas da equipe</h2>
+      <p className="mt-1 text-ink-soft">Para quando for preciso desligar: todas as conversas, alguns grupos ou algumas pessoas. Quem está barrado continua lendo, só não escreve. A coordenação, a coordenação pedagógica e a supervisão nunca são barradas.</p>
+      {!dados.dados ? (
+        <p className="painel-carregando mt-3 text-ink-soft">Carregando…</p>
+      ) : (
+        <div className="mt-4 grid gap-6 md:grid-cols-3">
+          <div>
+            <h3 className="font-semibold">Todas as conversas</h3>
+            <p className="mt-1 text-ink-soft">{c.fechado ? "Fechadas agora." : "Abertas."}</p>
+            {!c.fechado && (
+              <label className="mt-2 block text-xs">
+                Motivo (aparece para a equipe, opcional)
+                <input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={200} className={campo} />
+              </label>
+            )}
+            <button type="button" className={`mt-3 ${c.fechado ? botao : botaoClaro}`} disabled={acao.ocupado} onClick={() => salvar(c.fechado ? { fechado: false, motivo: "" } : { fechado: true, motivo }, c.fechado ? "Conversas reabertas." : "Conversas fechadas.")}>
+              {c.fechado ? "Reabrir as conversas" : "Fechar todas as conversas"}
+            </button>
+          </div>
+          <div>
+            <h3 className="font-semibold">Grupos fechados</h3>
+            <ul className="mt-2 max-h-64 space-y-1 overflow-y-auto">
+              {dados.dados.grupos.map((g) => {
+                const fechado = c.grupos_fechados.includes(g.id);
+                return (
+                  <li key={g.id}>
+                    <label className="flex cursor-pointer items-center gap-2">
+                      <input type="checkbox" className="h-4 w-4" checked={fechado} disabled={acao.ocupado} onChange={() => salvar({ grupos_fechados: fechado ? c.grupos_fechados.filter((id) => id !== g.id) : [...c.grupos_fechados, g.id] }, fechado ? "Grupo reaberto." : "Grupo fechado.")} />
+                      <span className="min-w-0 truncate">{g.nome} <span className="text-ink-soft">· {g.tipo === "departamento" ? "departamento" : "grupo"} · {g.membros}</span></span>
+                    </label>
+                  </li>
+                );
+              })}
+              {dados.dados.grupos.length === 0 && <li className="text-ink-soft">Nenhum grupo ainda.</li>}
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold">Pessoas silenciadas</h3>
+            <input value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Procurar pelo nome" className={`${campo} mt-2`} />
+            <ul className="mt-2 max-h-64 space-y-1 overflow-y-auto">
+              {pessoas.map((p) => {
+                const calada = c.silenciados.includes(p.id);
+                return (
+                  <li key={p.id}>
+                    <label className="flex cursor-pointer items-center gap-2">
+                      <input type="checkbox" className="h-4 w-4" checked={calada} disabled={acao.ocupado} onChange={() => salvar({ silenciados: calada ? c.silenciados.filter((id) => id !== p.id) : [...c.silenciados, p.id] }, calada ? "Pessoa pode escrever de novo." : "Pessoa silenciada.")} />
+                      <span className="min-w-0 truncate">{p.nome}</span>
+                    </label>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      )}
+      <Aviso texto={acao.aviso} />
+    </section>
   );
 }

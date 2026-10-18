@@ -123,7 +123,7 @@ export interface Me {
   suspenso: boolean;
   /** Todos os papéis da pessoa: ela pode ter quantos quiser, e as permissões são a soma deles. */
   papeis: Role[];
-  /** O nível na hierarquia de cargos (0 sem papel, 1 papéis de trabalho, 2 supervisão, 3 vice, 4 coordenação). */
+  /** O nível na hierarquia de cargos (0 sem papel, 1 papéis de trabalho, 2 supervisão, 3 coordenação pedagógica, 4 coordenação). */
   nivel: number;
   /** A sessão foi confirmada com o código do aplicativo autenticador. */
   segundo_fator: boolean;
@@ -141,6 +141,12 @@ export interface Me {
   desenha?: boolean;
   /** A coordenação redefiniu a senha: a pessoa escolhe uma nova antes de o painel abrir. */
   trocar_senha?: boolean;
+  /** Ícone do perfil: "p:nome" (um dos predefinidos) ou uma imagem data: pequena (só a liderança sobe imagem). */
+  avatar?: string;
+  /** Já aceitou o termo de voluntário que aparece ao entrar no painel. Banco antigo não manda o campo. */
+  termo_voluntario?: boolean;
+  /** Entrou no aprendizado interno (aceitou o termo do aprendizado). */
+  aprendizado?: boolean;
 }
 
 /** Funções que valem por outra: a educação secundária tem os poderes da educação; o marketing, os do design. */

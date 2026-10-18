@@ -61,6 +61,16 @@ const letras: [string, string][] = [
   ["IBM Plex Mono", "rótulos, datas e carimbos"],
 ];
 
+interface Sugestao {
+  id: string;
+  autor: string;
+  texto: string;
+  quando: string | null;
+  status: "nova" | "em_andamento" | "feita" | "descartada";
+  criado_em: string;
+}
+const situacaoDaSugestao: Record<string, string> = { nova: "nova", em_andamento: "em andamento", feita: "feita", descartada: "não vai acontecer" };
+
 /**
  * Marketing e divulgação: o calendário do que vai para as redes do instituto, o kit da marca e o acesso ao Instagram.
  * O site não guarda senha nem chave de rede social: o acesso ao perfil é dado pela coordenação na própria Meta.
@@ -68,7 +78,9 @@ const letras: [string, string][] = [
 export function Divulgacao({ me }: { me: Me }) {
   const coordena = can(me, "coordenacao");
   const lista = useLista<Calendario>("divulgacao_listar");
-  const [aba, setAba] = useState<"calendario" | "kit" | "instagram">("calendario");
+  const [aba, setAba] = useState<"calendario" | "caixa" | "kit" | "instagram">("calendario");
+  const caixa = useLista<Sugestao[]>("marketing_caixa");
+  const caixaAcao = useAcao(caixa.recarregar);
   const [form, setForm] = useState(vazio);
   const [filtro, setFiltro] = useState<"" | Item["situacao"]>("");
   const [notas, setNotas] = useState<Record<string, string>>({});
@@ -89,10 +101,38 @@ export function Divulgacao({ me }: { me: Me }) {
         escolher={setAba}
         opcoes={[
           { id: "calendario" as const, nome: "Calendário", conta: itens.filter((item) => item.devolvido).length },
+          { id: "caixa" as const, nome: "Caixa de sugestões", conta: caixa.dados?.filter((s) => s.status === "nova").length },
           { id: "kit" as const, nome: "Kit da marca" },
           { id: "instagram" as const, nome: "Acesso ao Instagram" },
         ]}
       />
+
+      <div hidden={aba !== "caixa"}>
+        <section className="border border-rule bg-parchment-deep p-5">
+          <h2 className="font-serif text-xl font-semibold">O que a equipe sugere</h2>
+          <p className="mt-1 text-ink-soft">Ideias de post, datas e pautas mandadas por qualquer pessoa da equipe pela Mesa. Marque o que entrou no calendário e o que não vai acontecer.</p>
+          <Aviso texto={caixa.erro || caixaAcao.aviso} />
+          <ul className="mt-3 space-y-2">
+            {caixa.dados?.map((s) => (
+              <li key={s.id} className={`border border-rule bg-parchment p-3 ${s.status === "feita" || s.status === "descartada" ? "opacity-70" : ""}`}>
+                <p className="whitespace-pre-wrap">{s.texto}</p>
+                <p className="mt-1 text-xs text-ink-soft">{s.autor || "Alguém da equipe"} · {dataHora(s.criado_em)}{s.quando ? ` · para ${dia(s.quando)}` : ""} · {situacaoDaSugestao[s.status] ?? s.status}</p>
+                <p className="mt-2 flex flex-wrap gap-2">
+                  {(["em_andamento", "feita", "descartada"] as const).filter((x) => x !== s.status).map((x) => (
+                    <button key={x} type="button" className={elo} disabled={caixaAcao.ocupado} onClick={() => caixaAcao.agir("marketing_caixa_decidir", { p_id: s.id, p_status: x }, "Anotado.")}>
+                      {x === "em_andamento" ? "Em andamento" : x === "feita" ? "Feita" : "Não vai acontecer"}
+                    </button>
+                  ))}
+                  {s.status !== "nova" && s.quando && s.status !== "feita" && (
+                    <button type="button" className={elo} onClick={() => { setForm({ ...vazio, titulo: s.texto.slice(0, 80), legenda: s.texto, data_prevista: s.quando ?? "" }); setAba("calendario"); }}>Pôr no calendário</button>
+                  )}
+                </p>
+              </li>
+            ))}
+            {caixa.dados?.length === 0 && <li className="text-ink-soft">Nenhuma sugestão ainda.</li>}
+          </ul>
+        </section>
+      </div>
 
       <div hidden={aba !== "calendario"}>
         <section className="border border-rule bg-parchment-deep p-5">

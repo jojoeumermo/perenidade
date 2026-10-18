@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { hasBackend, rpc } from "@/lib/backend";
 import { getItem, KEYS, parse, setItem, useHydrated, useStored } from "@/lib/storage";
 import { safeLink } from "@/lib/text";
@@ -30,7 +30,24 @@ interface Saved {
   valor?: Notice | { definido: false } | null;
   /** Versão que a pessoa já fechou. */
   fechado?: number;
+  /** Quando fechou o convite ao apoio (aparece de novo depois de trinta dias). */
+  apoio?: number;
 }
+
+/** O convite ao apoio que entra no lugar do aviso quando ele acaba (ou quando não há aviso). */
+const CONVITE: Notice = {
+  ativo: true,
+  versao: -1,
+  titulo: "Ajude a manter o instituto no ar",
+  texto: "O Instituto Lúcia é gratuito, sem anúncio e sem rastreador: aulas, acervo, jornal, podcast e reforço escolar, feitos por voluntários.\n\nO que custa dinheiro (servidor, domínio, e-mail) é pago por quem pode contribuir. Qualquer valor ajuda, e a prestação de contas é pública.",
+  imagem: "",
+  credito: "",
+  link: "/apoie",
+  link_texto: "Apoiar o instituto",
+  assinatura: "",
+  ate: "",
+};
+const TRINTA_DIAS = 30 * 24 * 3600 * 1000;
 
 const SEIS_HORAS = 6 * 3600 * 1000;
 
@@ -65,11 +82,16 @@ export function OpeningNotice({ initial, close }: { initial: Notice | null; clos
   }, []);
 
   const remote = saved.valor && saved.valor.definido ? (saved.valor as Notice) : null;
-  const notice = remote ?? initial;
+  const aviso = remote ?? initial;
   // O último dia vale até 23h59min59s no horário de Brasília, esteja o aparelho onde estiver.
   const today = hydrated ? new Date().toLocaleDateString("sv-SE", { timeZone: "America/Sao_Paulo" }) : "";
-  const inside = /\/(painel|entrar)(\/|$)/.test(pathname);
-  const show = Boolean(hydrated && lang === "pt" && !inside && notice?.ativo && notice.titulo && (!notice.ate || today <= notice.ate) && saved.fechado !== notice.versao);
+  const inside = /\/(painel|entrar|apoie)(\/|$)/.test(pathname);
+  const avisoVale = Boolean(aviso?.ativo && aviso.titulo && (!aviso.ate || today <= aviso.ate));
+  // Sem aviso em vigor, entra o convite ao apoio, uma vez a cada trinta dias.
+  const notice = avisoVale ? aviso : CONVITE;
+  const [agora] = useState(() => Date.now());
+  const fechado = notice === CONVITE ? Boolean(saved.apoio && agora - saved.apoio < TRINTA_DIAS) : saved.fechado === notice!.versao;
+  const show = Boolean(hydrated && lang === "pt" && !inside && !fechado);
 
   useEffect(() => {
     const element = dialog.current;
@@ -77,7 +99,7 @@ export function OpeningNotice({ initial, close }: { initial: Notice | null; clos
   }, [show]);
 
   if (!show || !notice) return null;
-  const dismiss = () => setItem(KEYS.notice, JSON.stringify({ ...parse<Saved>(getItem(KEYS.notice), {}), fechado: notice.versao }));
+  const dismiss = () => setItem(KEYS.notice, JSON.stringify({ ...parse<Saved>(getItem(KEYS.notice), {}), ...(notice === CONVITE ? { apoio: Date.now() } : { fechado: notice.versao }) }));
   const internal = notice.link.startsWith("/");
 
   return (
