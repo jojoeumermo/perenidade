@@ -328,7 +328,7 @@ function Edicao({ id, c, edicao, setEdicao, mudou, exigeFonte, podeImagem, ocupa
         Título
         <input value={edicao.titulo} onChange={(e) => setEdicao({ ...edicao, titulo: e.target.value })} maxLength={160} className={campo} />
       </label>
-      <MarkdownEditor id="edicao-corpo" value={edicao.corpo} onChange={(corpo) => setEdicao({ ...edicao, corpo })} labels={editorPt} upload={podeImagem} />
+      <MarkdownEditor id="edicao-corpo" value={edicao.corpo} onChange={(corpo) => setEdicao({ ...edicao, corpo })} labels={editorPt} upload={podeImagem} blocos />
       {exigeFonte && <SourcesField value={edicao.fontes} onChange={(fontes) => setEdicao({ ...edicao, fontes })} labels={fontesPt} />}
       <p className="font-mono text-xs text-ink-soft">{rascunho.salvoEm ? `Rascunho guardado às ${horaDoRascunho(rascunho.salvoEm)}.` : "O rascunho desta edição é guardado sozinho enquanto você escreve."}</p>
       <div className="flex gap-4">
