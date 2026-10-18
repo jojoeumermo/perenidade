@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { htmlLang } from "@/i18n/config";
 import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
 import { useI18n } from "./I18n";
@@ -29,6 +29,8 @@ export interface EditorLabels {
   sending: string;
   check: string;
   checking: string;
+  /** Conferir sozinho enquanto a pessoa escreve (opcional: sem o texto, "Conferir enquanto escrevo"). */
+  checkLive?: string;
   checkNone: string;
   checkNote: string;
   checkFailed: string;
@@ -95,6 +97,23 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
   const [notice, setNotice] = useState("");
   const [issues, setIssues] = useState<Issue[] | null>(null);
   const [checking, setChecking] = useState(false);
+  // Conferência ao vivo: alguns segundos depois de parar de digitar, o texto é conferido de novo e os apontamentos
+  // ficam sublinhados por trás do texto. Preferência deste aparelho.
+  const [live, setLive] = useState(() => {
+    try {
+      return window.localStorage.getItem("lucia:conferir-ao-vivo") === "1";
+    } catch {
+      return false;
+    }
+  });
+  const lastChecked = useRef("");
+  const checkRef = useRef<() => Promise<void>>(async () => undefined);
+  const fundo = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!live || preview || value.trim().length < 20 || value === lastChecked.current) return;
+    const marca = window.setTimeout(() => void checkRef.current(), 2500);
+    return () => window.clearTimeout(marca);
+  }, [live, preview, value]);
 
   /** Insere um bloco em linhas próprias, no ponto do cursor. */
   function insertBlock(block: string) {
@@ -135,7 +154,9 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     setNotice("");
     try {
       const text = value.slice(0, 20000);
-      const response = await fetch("https://api.languagetool.org/v2/check", { method: "POST", body: new URLSearchParams({ text, language: lang === "pt" ? "pt-BR" : "auto" }) });
+      lastChecked.current = value;
+      // Pelo próprio site (app/api/gramatica), que fala com o LanguageTool do instituto ou, sem ele, com o serviço público.
+      const response = await fetch("/api/gramatica", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, language: lang === "pt" ? "pt-BR" : "auto" }) });
       if (!response.ok) throw new Error("conferencia");
       const data = (await response.json()) as CheckResponse;
       const skip = fenced(text);
@@ -161,6 +182,25 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     } finally {
       setChecking(false);
     }
+  }
+
+  useEffect(() => {
+    checkRef.current = check;
+  });
+
+  /** O texto repetido por trás da caixa, invisível, só para sublinhar os apontamentos no lugar certo. */
+  function marcado() {
+    if (!issues?.length) return null;
+    const partes: React.ReactNode[] = [];
+    let pos = 0;
+    for (const issue of [...issues].sort((a, b) => a.offset - b.offset)) {
+      if (issue.offset < pos) continue;
+      partes.push(value.slice(pos, issue.offset));
+      partes.push(<mark key={issue.offset} className="bg-oxblood/15 text-transparent underline decoration-oxblood decoration-wavy">{value.slice(issue.offset, issue.offset + issue.length)}</mark>);
+      pos = issue.offset + issue.length;
+    }
+    partes.push(value.slice(pos));
+    return partes;
   }
 
   function fix(issue: Issue, replacement: string) {
@@ -248,13 +288,33 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
           <Markdown lang={lang}>{value || labels.empty}</Markdown>
         </div>
       ) : (
-        <textarea ref={area} id={id} value={value} onChange={(e) => onChange(e.target.value)} rows={rows} placeholder={placeholder} spellCheck lang={htmlLang[lang]} className="w-full border-2 border-ink bg-parchment-deep px-3 py-2 font-mono" />
+        <div className="relative">
+          <div ref={fundo} aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden whitespace-pre-wrap break-words border-2 border-transparent bg-parchment-deep px-3 py-2 font-mono text-transparent">
+            {marcado()}
+          </div>
+          <textarea
+            ref={area}
+            id={id}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            onScroll={(e) => { if (fundo.current) fundo.current.scrollTop = e.currentTarget.scrollTop; }}
+            rows={rows}
+            placeholder={placeholder}
+            spellCheck
+            lang={htmlLang[lang]}
+            className="relative w-full border-2 border-ink bg-transparent px-3 py-2 font-mono"
+          />
+        </div>
       )}
       {upload && <input ref={picker} type="file" accept="image/jpeg,image/png,image/webp" className="sr-only" tabIndex={-1} aria-hidden onChange={(e) => void image(e.target.files?.[0])} />}
       <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1">
         <button type="button" onClick={check} disabled={checking || value.trim().length < 20} className="cursor-pointer border-2 border-ink px-3 py-1.5 text-sm font-medium hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50">
           {checking ? labels.checking : labels.check}
         </button>
+        <label className="flex cursor-pointer items-center gap-1.5 text-sm">
+          <input type="checkbox" checked={live} onChange={(e) => { setLive(e.target.checked); try { window.localStorage.setItem("lucia:conferir-ao-vivo", e.target.checked ? "1" : "0"); } catch { /* sem armazenamento */ } }} />
+          {labels.checkLive ?? (lang === "pt" ? "Conferir enquanto escrevo" : "Check as I write")}
+        </label>
         <span className="text-sm text-ink-soft">{labels.checkNote}</span>
       </div>
       <p role="status" className="mt-1 min-h-5 text-sm text-oxblood">

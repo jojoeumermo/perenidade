@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
+import { EducadoresDaDisciplina } from "@/components/Educadores";
 import { SourceList } from "@/components/Cards";
 import { Markdown } from "@/components/Markdown";
 import { Pratica } from "@/components/Pratica";
@@ -141,6 +142,8 @@ export default async function LessonPage({ params }: Props) {
         </nav>
 
         <StudyTools id={id} path={path(lesson.slug)} s={t.study} />
+
+        <EducadoresDaDisciplina area={track.area} lang={lang} nomes={t.areas as Record<string, string[]>} />
 
         <footer className="mt-8 space-y-2 font-mono text-xs text-ink-soft">
           <p>

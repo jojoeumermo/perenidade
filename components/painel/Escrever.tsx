@@ -58,7 +58,8 @@ export const editorPt: EditorLabels = {
   check: "Conferir ortografia e gramática",
   checking: "Conferindo…",
   checkNone: "Nenhum apontamento.",
-  checkNote: "O texto é enviado ao serviço aberto LanguageTool só quando você aperta o botão.",
+  checkLive: "Conferir enquanto escrevo",
+  checkNote: "O texto vai ao conferidor do instituto (LanguageTool, de código aberto) ao apertar o botão ou, se você ligar, alguns segundos depois de parar de digitar. Os apontamentos ficam sublinhados no texto.",
   checkFailed: "A conferência não respondeu. Tente de novo em um minuto.",
   checkStale: "O texto mudou: confira de novo.",
 };
@@ -199,6 +200,26 @@ export function Escrever({ me }: { me: Me }) {
   const funcoesDe = (membro: Membro) => [...new Set(membro.papeis.map((p) => `${papeis[p.papel]}${p.disciplina ? ` de ${nomeDaArea(p.disciplina)}` : ""}`))].join(", ");
   const candidatos = (membros.dados ?? []).filter((m) => !m.eu && ensina(m) && !colegas.some((c) => c.id === m.id)).map((m) => ({ id: m.id, nome: m.nome, email: funcoesDe(m) }));
 
+  /** Carrega o texto de uma aula publicada para escrever a nova versão (só de quem assinou, salvo a liderança e a revisão). */
+  async function carregarPublicada(trilhaSlug: string, slug: string) {
+    setAviso("");
+    try {
+      const resposta = await fetch(`/${lang}/trilhas/${trilhaSlug}/${slug}/texto`);
+      if (!resposta.ok) throw new Error("texto");
+      const linhas = (await resposta.text()).split("\n");
+      const fim = linhas.lastIndexOf("---");
+      const assinatura = linhas[fim + 1] ?? "";
+      const minha = assinatura.includes(me.nome) || can(me, "coordenacao", "supervisao", "revisao");
+      if (!minha) return setAviso(`Esta aula é assinada por ${assinatura.split(" · ")[0]}. Peça a essa pessoa, pelas Conversas, que faça a edição ou chame você para trabalhar junto.`);
+      setTitulo(linhas[0] ?? "");
+      setCorpo(linhas.slice(5, fim).join("\n").trim());
+      setValores((antes) => ({ ...antes, trilha: trilhaSlug, slug, resumo: linhas[3] ?? "", substitui: slug }));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
+      setAviso("Não deu para carregar o texto da aula agora.");
+    }
+  }
+
   async function enviar() {
     for (const c of tipo.campos) {
       if (c.tipo !== "trilha" && c.obrigatorio && !(valores[c.nome] ?? "").trim()) return setAviso(`Preencha: ${c.rotulo}.`);
@@ -213,7 +234,7 @@ export function Escrever({ me }: { me: Me }) {
     const prontas = comQuestoes ? limparQuestoes(questoes) : [];
     const resposta = (await agir(
       "contribuir",
-      { p: { tipo: id, titulo, corpo, disciplina: alvo || null, dados: prontas.length > 0 ? { ...dados, quiz: prontas } : dados, fontes: lista, alvo: caminho ?? null } },
+      { p: { tipo: id, titulo, corpo, disciplina: alvo || null, dados: { ...dados, ...(prontas.length > 0 ? { quiz: prontas } : {}), ...(valores.substitui ? { substitui: valores.substitui } : {}) }, fontes: lista, alvo: caminho ?? null } },
       "Recebido. Sua contribuição entrou na fila de revisão.",
     )) as { id?: string } | null;
     if (resposta?.id) {
@@ -244,6 +265,12 @@ export function Escrever({ me }: { me: Me }) {
       const daArea = tracks.filter((track) => track.area === areaEscolhida);
       return (
         <div className="grid gap-2 sm:grid-cols-2">
+          {valores.substitui && (
+            <p className="border-l-4 border-oxblood bg-parchment-deep px-3 py-2 sm:col-span-2">
+              Você está escrevendo a <strong>nova versão</strong> da aula publicada “{valores.substitui}”. Ela passa pela revisão como uma aula nova e, aprovada, substitui a atual.{" "}
+              <button type="button" className={elo} onClick={() => { setValores((antes) => { const resto = { ...antes }; delete resto.substitui; return resto; }); setTitulo(""); setCorpo(""); }}>Desistir</button>
+            </p>
+          )}
           <select
             aria-label="Disciplina da trilha"
             value={areaEscolhida}
@@ -265,6 +292,19 @@ export function Escrever({ me }: { me: Me }) {
               </option>
             ))}
           </select>
+          {id === "aula" && !valores.substitui && (trilha?.lessons?.length ?? 0) > 0 && (
+            <details className="sm:col-span-2">
+              <summary className="cursor-pointer text-sm underline hover:text-oxblood">Editar uma aula já publicada desta trilha</summary>
+              <p className="mt-1 text-xs text-ink-soft">Só as suas: aula de outro educador, peça a ele pelas Conversas. A nova versão passa pela revisão antes de substituir a atual.</p>
+              <ul className="mt-2 space-y-1 text-sm">
+                {trilha!.lessons!.map((l) => (
+                  <li key={l.slug}>
+                    <button type="button" className={elo} onClick={() => void carregarPublicada(trilha!.slug, l.slug)}>{l.title}</button>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
         </div>
       );
     }

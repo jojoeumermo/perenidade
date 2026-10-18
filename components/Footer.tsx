@@ -49,6 +49,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
       title: t.footer.project,
       links: [
         [t.nav.about, "/sobre"],
+        [t.nav.team, "/quem-somos"],
         [t.nav.dedication, "/dedicatoria"],
         [t.nav.memorial, "/memorial"],
         [t.nav.timeline, "/linha-do-tempo"],
