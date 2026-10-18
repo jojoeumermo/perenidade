@@ -85,6 +85,13 @@ export async function listFingerprints(): Promise<Passkey[]> {
   return (data ?? []).map((item) => ({ id: item.id, nome: item.friendly_name ?? "", criada: item.created_at, usada: item.last_used_at ?? "" }));
 }
 
+/** Troca o nome de uma chave de acesso (para a pessoa reconhecer o aparelho na lista). */
+export async function renameFingerprint(id: string, nome: string): Promise<void> {
+  const supabase = await getClient();
+  const { error } = await supabase.auth.passkey.update({ passkeyId: id, friendlyName: nome.trim().slice(0, 60) || deviceName() });
+  if (error) throw error;
+}
+
 export async function removeFingerprint(id: string): Promise<void> {
   const supabase = await getClient();
   const { error } = await supabase.auth.passkey.delete({ passkeyId: id });

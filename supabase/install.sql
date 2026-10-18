@@ -1195,11 +1195,15 @@ $$;
  * Põe um e-mail na fila de saída. Endereço inválido não entra, e o mesmo endereço recebe no máximo p_max e-mails do
  * mesmo tipo por dia: ninguém usa os formulários do site para encher a caixa de outra pessoa. Devolve se entrou.
  */
+alter table interno.perfis add column if not exists emails_desligados text[] not null default '{}';
+
 create or replace function interno.email(p_para text, p_tipo text, p_assunto text, p_texto text, p_sair text default '', p_max integer default 3)
 returns boolean language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v_para text := lower(btrim(coalesce(p_para, '')));
 begin
   if v_para !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_para) > 200 then return false; end if;
+  -- Quem é da equipe escolhe, em Minha conta, os avisos por e-mail que não quer receber (convites e segurança sempre chegam).
+  if exists (select 1 from auth.users u join perfis f on f.id = u.id where lower(u.email) = v_para and p_tipo = any(f.emails_desligados)) then return false; end if;
   if (select count(*) from emails where para = v_para and tipo = p_tipo and criado_em > now() - interval '1 day') >= coalesce(p_max, 3) then return false; end if;
   insert into emails (para, tipo, assunto, texto, sair)
   values (v_para, p_tipo, left(p_assunto, 200), left(coalesce(p_texto, ''), 19000) || E'\n\n— Instituto Lúcia\n' || interno.endereco(), coalesce(p_sair, ''));
@@ -1416,7 +1420,8 @@ create or replace function public.perfil_avatar(p_avatar text) returns jsonb lan
 declare v uuid := interno.eu(); a text := coalesce(p_avatar, '');
 begin
   if a <> '' and a !~ '^p:[a-z0-9-]{1,30}$' then
-    if not interno.gere_cargos() then perform interno.erro('sem_permissao'); end if;
+    -- Foto própria: qualquer pessoa da equipe (o painel recorta, reduz e tira os dados da câmera antes de enviar).
+    if not (interno.voluntario() or interno.gere_cargos()) then perform interno.erro('sem_permissao'); end if;
     if a !~ '^data:image/webp;base64,[A-Za-z0-9+/=]+$' or char_length(a) > 40000 then perform interno.erro('invalido:avatar'); end if;
   end if;
   update perfis set avatar = a where id = v;
@@ -1825,6 +1830,7 @@ declare v uuid := interno.eu(); v_rotulo text := interno.txt(p_rotulo, 'rotulo',
 begin
   perform interno.limite('acesso', 30, 60);
   if coalesce(p_marca, '') !~ '^[a-f0-9]{64}$' then perform interno.erro('invalido:marca'); end if;
+  if random() < 0.05 then perform interno.vencer_sessoes(); end if;
   update aparelhos set ultimo = now(), rotulo = v_rotulo where usuario = v and marca = p_marca;
   if found then return jsonb_build_object('novo', false); end if;
   select count(*) into v_outros from aparelhos where usuario = v;
@@ -9356,3 +9362,200 @@ end $$;
 revoke all on function interno.papeis_historico_gatilho() from public, anon, authenticated;
 revoke all on function public.papeis_historico_listar(uuid, integer) from public;
 grant execute on function public.papeis_historico_listar(uuid, integer) to anon, authenticated, service_role;
+
+
+-- ───────────────────────────── Minha conta: recuperação, meus dados, atividade, avisos por e-mail, sessões ─────────────────────────────
+
+-- Códigos de recuperação do segundo fator: dez, de uso único, mostrados uma vez só. Aqui fica só o resumo (hash).
+create table if not exists interno.codigos_recuperacao (
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  hash text not null check (hash ~ '^[a-f0-9]{64}$'),
+  usado_em timestamptz,
+  criado_em timestamptz not null default now(),
+  primary key (usuario, hash)
+);
+alter table interno.codigos_recuperacao enable row level security;
+
+create or replace function interno.codigo_hash(p text) returns text language sql immutable as $$
+  select encode(sha256(convert_to('lucia:recuperacao:' || upper(regexp_replace(coalesce(p, ''), '[^0-9A-Fa-f]', '', 'g')), 'UTF8')), 'hex')
+$$;
+
+/** Gera dez códigos novos (os antigos deixam de valer). Só com o segundo fator confirmado nesta sessão. */
+create or replace function public.conta_codigos_gerar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_codigos text[] := '{}'; v_c text;
+begin
+  perform interno.limite('codigos_gerar', 5, 60);
+  if not interno.tem_fator() then perform interno.erro('sem_segundo_fator'); end if;
+  if not interno.aal2() then perform interno.erro('confirme_segundo_fator'); end if;
+  delete from codigos_recuperacao where usuario = v;
+  for i in 1..10 loop
+    v_c := upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 5) || '-' || substr(replace(gen_random_uuid()::text, '-', ''), 1, 5));
+    insert into codigos_recuperacao (usuario, hash) values (v, interno.codigo_hash(v_c));
+    v_codigos := v_codigos || v_c;
+  end loop;
+  perform interno.registrar('codigos_recuperacao_gerados', v::text, '{}'::jsonb);
+  return jsonb_build_object('codigos', to_jsonb(v_codigos));
+end $$;
+
+/** Situação da proteção: segundo fator (desde quando), códigos que restam. */
+create or replace function public.conta_protecao() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_desde timestamptz;
+begin
+  if to_regclass('auth.mfa_factors') is not null then
+    begin
+      execute 'select min(created_at) from auth.mfa_factors where user_id = $1 and status = ''verified''' into v_desde using v;
+    exception when undefined_column then v_desde := null;
+    end;
+  end if;
+  return jsonb_build_object(
+    'segundo_fator', interno.tem_fator(), 'segundo_fator_desde', v_desde,
+    'codigos_restantes', (select count(*) from codigos_recuperacao where usuario = v and usado_em is null),
+    'codigos_gerados_em', (select max(criado_em) from codigos_recuperacao where usuario = v),
+    'sessao_dias', coalesce((select (valor ->> 'sessao_dias')::int from configuracoes where chave = 'seguranca'), 60));
+end $$;
+
+/**
+ * Perdeu o celular do aplicativo autenticador: com a senha (sessão aal1) e um código de recuperação, o aplicativo é
+ * tirado da conta e a pessoa cadastra outro. Cinco tentativas por hora; a pessoa e a coordenação recebem aviso.
+ * Código errado não é erro (devolve ok: false): um erro desfaria também a contagem de tentativas, e o limite não valeria.
+ */
+create or replace function public.conta_codigo_usar(p_codigo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_nome text;
+begin
+  perform interno.limite('codigo_recuperacao', 5, 60);
+  update codigos_recuperacao set usado_em = now() where usuario = v and hash = interno.codigo_hash(p_codigo) and usado_em is null;
+  if not found then
+    perform interno.registrar('codigo_recuperacao_errado', v::text, '{}'::jsonb);
+    return jsonb_build_object('ok', false, 'motivo', 'codigo_invalido');
+  end if;
+  if to_regclass('auth.mfa_factors') is not null then execute 'delete from auth.mfa_factors where user_id = $1' using v; end if;
+  select nome into v_nome from perfis where id = v;
+  perform interno.registrar('segundo_fator_recuperado', v::text, '{}'::jsonb);
+  perform interno.avisar(v, 'Um código de recuperação foi usado e o aplicativo autenticador saiu da sua conta. Cadastre outro em Minha conta. Se não foi você, troque a senha agora e avise a coordenação.');
+  if exists (select 1 from papeis where usuario = v) then
+    perform interno.avisar_lideranca(coalesce(v_nome, 'Alguém da equipe') || ' usou um código de recuperação para tirar o aplicativo autenticador da conta.', v);
+  end if;
+  return jsonb_build_object('ok', true, 'restantes', (select count(*) from codigos_recuperacao where usuario = v and usado_em is null));
+end $$;
+
+/** O painel anota no registro o que acontece na conta e que o banco não vê sozinho (troca de senha, chave de acesso…). */
+create or replace function public.conta_evento(p_acao text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  perform interno.limite('conta_evento', 30, 60);
+  if p_acao not in ('senha_trocada', 'segundo_fator_ativado', 'segundo_fator_removido', 'chave_acesso_cadastrada', 'chave_acesso_removida', 'saiu_dos_outros', 'meus_dados_baixados') then
+    perform interno.erro('invalido:acao');
+  end if;
+  perform interno.registrar(p_acao, v::text, '{}'::jsonb);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Os últimos acontecimentos da conta: o que o registro do painel anotou e as entradas que o serviço de contas guardou. */
+create or replace function public.conta_atividade() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_auth jsonb := '[]'::jsonb;
+begin
+  if to_regclass('auth.audit_log_entries') is not null then
+    execute $q$
+      select coalesce(jsonb_agg(jsonb_build_object('acao', 'auth:' || coalesce(a.payload ->> 'action', ''), 'quando', a.created_at, 'ip', coalesce(a.ip_address, '')) order by a.created_at desc), '[]'::jsonb)
+      from (select * from auth.audit_log_entries where payload ->> 'actor_id' = $1::text
+              and coalesce(payload ->> 'action', '') not in ('token_refreshed', 'token_revoked')
+            order by created_at desc limit 40) a
+    $q$ into v_auth using v;
+  end if;
+  return (
+    select coalesce(jsonb_agg(x order by (x ->> 'quando') desc), '[]'::jsonb) from (
+      select jsonb_build_object('acao', a.acao, 'quando', a.criado_em, 'ip', '') as x
+      from (select * from auditoria where (quem = v or alvo = v::text)
+              and acao in ('aparelho_novo', 'segundo_fator_recuperado', 'codigo_recuperacao_errado', 'codigos_recuperacao_gerados', 'senha_trocada', 'segundo_fator_ativado', 'segundo_fator_removido',
+                           'chave_acesso_cadastrada', 'chave_acesso_removida', 'saiu_dos_outros', 'meus_dados_baixados', 'emails_preferencias', 'termo_voluntario', 'papel_concedido', 'papel_removido', 'senha_redefinida')
+            order by criado_em desc limit 60) a
+      union all
+      select e from jsonb_array_elements(v_auth) e
+    ) t
+  );
+end $$;
+
+/**
+ * Tudo o que o painel guarda sobre a pessoa (LGPD, art. 18): perfil, funções, aparelhos, recados e cada linha das tabelas
+ * em que ela aparece como autora ou dona. Conversas cifradas saem cifradas (só os aparelhos da pessoa as abrem).
+ */
+create or replace function public.conta_meus_dados() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_saida jsonb; v_dados jsonb; r record;
+begin
+  perform interno.limite('meus_dados', 3, 60);
+  v_saida := jsonb_build_object(
+    'gerado_em', now(),
+    'conta', jsonb_build_object('id', v, 'email', interno.email_da_conta(v)),
+    'perfil', (select to_jsonb(p) - 'avatar' from perfis p where p.id = v));
+  for r in
+    select c.table_name, c.column_name from information_schema.columns c
+    where c.table_schema = 'interno' and c.data_type = 'uuid' and c.column_name in ('autor', 'usuario', 'quem', 'para', 'criado_por', 'pessoa', 'responsavel')
+      and c.table_name not in ('codigos_recuperacao', 'limites', 'perfis')
+    order by c.table_name, c.column_name
+  loop
+    execute format('select coalesce(jsonb_agg(to_jsonb(t)), ''[]''::jsonb) from (select * from interno.%I where %I = $1 limit 1000) t', r.table_name, r.column_name) into v_dados using v;
+    if v_dados <> '[]'::jsonb then v_saida := v_saida || jsonb_build_object(r.table_name || '.' || r.column_name, v_dados); end if;
+  end loop;
+  perform interno.registrar('meus_dados_baixados', v::text, '{}'::jsonb);
+  return v_saida;
+end $$;
+
+/** Os avisos por e-mail que a pessoa pode desligar (os de segurança e os convites sempre chegam). */
+create or replace function interno.emails_opcionais() returns text[] language sql immutable as $$
+  select array['aviso_equipe', 'inscricao_nova', 'certificado_pedido']
+$$;
+
+create or replace function public.conta_emails() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  return jsonb_build_object('opcoes', to_jsonb(interno.emails_opcionais()), 'desligados', (select to_jsonb(emails_desligados) from perfis where id = v));
+end $$;
+
+create or replace function public.conta_emails_salvar(p_desligados text[]) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_lista text[];
+begin
+  select coalesce(array_agg(distinct x), '{}') into v_lista from unnest(coalesce(p_desligados, '{}')) x where x = any(interno.emails_opcionais());
+  update perfis set emails_desligados = v_lista where id = v;
+  perform interno.registrar('emails_preferencias', v::text, jsonb_build_object('desligados', to_jsonb(v_lista)));
+  return public.conta_emails();
+end $$;
+
+/**
+ * Sessões paradas há mais que o prazo (padrão 60 dias; a coordenação muda em Controles do site) vencem: o aparelho
+ * precisa entrar de novo. Aparelhos sem uso no mesmo prazo saem da lista.
+ */
+create or replace function interno.vencer_sessoes() returns integer language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_dias int := coalesce((select (valor ->> 'sessao_dias')::int from configuracoes where chave = 'seguranca'), 60); v_n int := 0;
+begin
+  if v_dias < 1 then return 0; end if;
+  if to_regclass('auth.sessions') is not null then
+    execute format('delete from auth.sessions where coalesce(updated_at, created_at) < now() - interval ''%s days''', v_dias);
+    get diagnostics v_n = row_count;
+  end if;
+  delete from aparelhos where ultimo < now() - make_interval(days => v_dias);
+  return v_n;
+end $$;
+
+/** O prazo das sessões, em dias (7 a 365). Coordenação, com o segundo fator. */
+create or replace function public.seguranca_sessoes(p_dias integer) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.lider() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_dias, 0) not between 7 and 365 then perform interno.erro('invalido:dias'); end if;
+  insert into configuracoes (chave, valor) values ('seguranca', jsonb_build_object('sessao_dias', p_dias))
+  on conflict (chave) do update set valor = configuracoes.valor || excluded.valor;
+  perform interno.registrar('seguranca_sessoes', '', jsonb_build_object('dias', p_dias));
+  return jsonb_build_object('sessao_dias', p_dias);
+end $$;
+
+revoke all on function interno.codigo_hash(text) from public, anon, authenticated;
+revoke all on function interno.emails_opcionais() from public, anon, authenticated;
+revoke all on function interno.vencer_sessoes() from public, anon, authenticated;
+do $$
+declare f text;
+begin
+  foreach f in array array['conta_codigos_gerar()', 'conta_protecao()', 'conta_codigo_usar(text)', 'conta_evento(text)', 'conta_atividade()', 'conta_meus_dados()', 'conta_emails()', 'conta_emails_salvar(text[])', 'seguranca_sessoes(integer)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;
