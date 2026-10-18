@@ -6919,9 +6919,9 @@ $$;
  */
 create or replace function interno.podcast_pode(p_funcao text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select interno.coord()
-    -- A antiga "supervisão do podcast" não existe mais: quem faz o podcast aprova entre si (representante do jornalismo incluído).
-    or (p_funcao = 'supervisao' and (interno.podcast_pode('producao') or interno.podcast_pode('edicao')
-                                     or exists (select 1 from papeis where usuario = auth.uid() and papel = 'representante' and disciplina = 'jornalismo')))
+    -- A "supervisão do podcast" deixou de ser um cargo próprio: a supervisão geral e o representante do jornalismo
+    -- a exercem (quem foi nomeado antes pela função podcast_funcoes continua valendo, pelo caso abaixo).
+    or (p_funcao = 'supervisao' and (interno.tem('supervisao') or exists (select 1 from papeis where usuario = auth.uid() and papel = 'representante' and disciplina = 'jornalismo')))
     or (
     auth.uid() is not null and (interno.aal2() or not interno.tem_fator())
     and not exists (select 1 from perfis where id = auth.uid() and suspenso)

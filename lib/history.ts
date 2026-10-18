@@ -277,7 +277,20 @@ export function describePart(part: HistoryPart, lang: Locale, t: Dict): string {
   return count + (part.area ? fill(text, { area: t.areas[part.area][0] }) : text);
 }
 
+// Um índice arquivo → (última alteração, quantas versões), montado numa só passada pelo histórico. O mapa do site
+// pergunta por dezesseis mil páginas: filtrar o histórico a cada pergunta passava de um minuto no build.
+const porArquivo = cache((): Map<string, { updated: string; revisions: number }> => {
+  const mapa = new Map<string, { updated: string; revisions: number }>();
+  for (const commit of getHistory()) {
+    for (const f of commit.files) {
+      const atual = mapa.get(f.path);
+      if (atual) atual.revisions++;
+      else mapa.set(f.path, { updated: commit.date, revisions: 1 });
+    }
+  }
+  return mapa;
+});
+
 export function fileHistory(file: string): { updated?: string; revisions: number } {
-  const changes = getHistory().filter((c) => c.files.some((f) => f.path === file));
-  return { updated: changes[0]?.date, revisions: changes.length };
+  return porArquivo().get(file) ?? { revisions: 0 };
 }
