@@ -27,7 +27,9 @@ async function publico<T>(funcao: string, argumentos: Record<string, unknown>, s
 export const vazio: Catalogo = { config: null, series: [], episodios: [] };
 
 export async function catalogo(): Promise<Catalogo> {
-  return (await publico<Catalogo>("podcast_catalogo", {}, 300)) ?? vazio;
+  const lido = await publico<Catalogo>("podcast_catalogo", {}, 300);
+  if (!lido || typeof lido !== "object") return vazio;
+  return { config: lido.config ?? null, series: Array.isArray(lido.series) ? lido.series : [], episodios: Array.isArray(lido.episodios) ? lido.episodios : [] };
 }
 
 export async function episodio(slug: string): Promise<Episodio | null> {
@@ -51,5 +53,7 @@ export interface Feed {
 }
 
 export async function feed(): Promise<Feed> {
-  return (await publico<Feed>("podcast_feed", {}, 900)) ?? { config: null, episodios: [] };
+  const lido = await publico<Feed>("podcast_feed", {}, 900);
+  if (!lido || typeof lido !== "object") return { config: null, episodios: [] };
+  return { config: lido.config ?? null, episodios: Array.isArray(lido.episodios) ? lido.episodios : [] };
 }
