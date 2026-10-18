@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { fill } from "@/i18n/config";
 import { normalize } from "@/lib/text";
 import { L, useI18n } from "./I18n";
+import { Simulado } from "./Simulado";
 
 export interface QuestaoDoBanco {
   id: string;
@@ -31,7 +32,9 @@ export function BancoDeQuestoes({ questoes }: { questoes: QuestaoDoBanco[] }) {
   const vistas = questoes.filter((q) => (!area || q.area === area) && (!n || normalize(`${q.pergunta} ${q.opcoes.join(" ")} ${q.aula}`).includes(n)) && (!sorteio || sorteio.includes(q.id)));
   return (
     <div className="mt-8 font-sans text-sm">
-      <div className="grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
+      <Simulado questoes={questoes} nome={nome} />
+      <h2 className="mt-10 border-b border-rule pb-2 font-serif text-2xl font-semibold">{t.lists.bankTitle}</h2>
+      <div className="mt-4 grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
         <label className="block">{t.lists.find}<input type="search" value={termo} onChange={(e) => { setTermo(e.target.value); setSorteio(null); }} className="mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2" /></label>
         <label className="block">{t.nav.disciplines}<select value={area} onChange={(e) => { setArea(e.target.value); setSorteio(null); }} className="mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2"><option value="">{t.lists.anySubject}</option>{areas.map((a) => <option key={a} value={a}>{nome(a)} ({questoes.filter((q) => q.area === a).length})</option>)}</select></label>
         <button type="button" className="self-end cursor-pointer border-2 border-ink px-4 py-2 font-semibold hover:border-oxblood hover:text-oxblood" onClick={() => { const base = questoes.filter((q) => !area || q.area === area); setSorteio([...base].sort(() => Math.random() - 0.5).slice(0, 10).map((q) => q.id)); setTermo(""); }}>{t.lists.bankRandom}</button>

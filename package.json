@@ -25,6 +25,7 @@
     "testar:mensagens": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-mensagens.mjs",
     "testar:curriculo": "node scripts/testar-curriculo.mjs",
     "testar:blocos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-blocos.mjs",
+    "testar:estudo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-estudo.mjs",
     "testar:redes": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-redes.mjs",
     "testar:anexos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-anexos.mjs",
     "testar:podcast": "node scripts/testar-podcast.mjs",
