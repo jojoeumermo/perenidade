@@ -15,11 +15,25 @@ interface Material {
   descricao: string;
   campanha: string;
   url: string;
+  publicado?: boolean;
+  credito_autor?: string;
+  licenca?: string;
 }
+
+/** O nome da licença no idioma da página (as Creative Commons têm o mesmo nome em toda língua). */
+const LICENCAS: Record<string, Record<string, string> | string> = {
+  "cc-by-sa": "CC BY-SA 4.0",
+  "cc-by": "CC BY 4.0",
+  cc0: "CC0",
+  "dominio-publico": { pt: "Domínio público", en: "Public domain", es: "Dominio público", ru: "Общественное достояние", zh: "公有领域" },
+  autorizacao: { pt: "Com autorização de quem fez", en: "Used with the author's permission", es: "Con autorización de quien lo hizo", ru: "С разрешения автора", zh: "经作者授权" },
+  outra: { pt: "Licença livre", en: "Free license", es: "Licencia libre", ru: "Свободная лицензия", zh: "自由许可" },
+};
+const nomeDaLicenca = (l: string | undefined, lang: string) => { const x = LICENCAS[l ?? ""]; return typeof x === "string" ? x : x?.[lang] ?? x?.pt ?? ""; };
 
 /** Zines, panfletos, cartazes e banners para baixar, imprimir e distribuir. A lista é mantida pela coordenação. */
 export function Materials({ s }: { s: Dict["materials"] }) {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [list, setList] = useState<Material[] | null>(null);
 
   useEffect(() => {
@@ -27,7 +41,8 @@ export function Materials({ s }: { s: Dict["materials"] }) {
     let cancelled = false;
     rpc<Material[]>("materiais_listar")
       .then((data) => {
-        if (!cancelled) setList(data);
+        // Só o que está no ar e já tem endereço (a equipe logada também recebe rascunhos, que ficam no painel).
+        if (!cancelled) setList(data.filter((item) => item.publicado !== false && item.url));
       })
       .catch(() => {
         if (!cancelled) setList([]);
@@ -55,6 +70,7 @@ export function Materials({ s }: { s: Dict["materials"] }) {
                   <p className="font-mono text-xs uppercase tracking-widest text-gold">{s.types[item.tipo] ?? item.tipo}</p>
                   <p className="mt-2 text-2xl font-semibold">{item.titulo}</p>
                   {item.descricao && <p className="mt-1 flex-1 text-ink-soft">{item.descricao}</p>}
+                  {item.credito_autor && <p className="mt-2 font-sans text-xs text-ink-soft">{item.credito_autor}{item.licenca ? ` · ${nomeDaLicenca(item.licenca, lang)}` : ""}</p>}
                   <p className="mt-4 font-sans text-sm">
                     <a href={safeLink(item.url) ? item.url : undefined} target="_blank" rel="noopener noreferrer" className="inline-block bg-ink px-5 py-2 font-medium text-parchment hover:bg-oxblood">
                       {s.open}
