@@ -1,0 +1,1682 @@
+[
+  {
+    "id": "rd-01",
+    "nivel": 1,
+    "titulo": "Dois PCs e um cabo",
+    "objetivo": "PC1 e PC2 estão ligados por um cabo, mas só o PC1 tem endereço. Configure o PC2 com 192.168.1.11 e a máscara 255.255.255.0 e faça o PC1 pingar o PC2.",
+    "topologia": {
+      "dispositivos": [
+        {
+          "id": "pc1",
+          "tipo": "pc",
+          "nome": "PC1",
+          "x": 120,
+          "y": 160,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.10",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "pc2",
+          "tipo": "pc",
+          "nome": "PC2",
+          "x": 420,
+          "y": 160,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        }
+      ],
+      "cabos": [
+        {
+          "id": "c-pc1-eth0-pc2-eth0",
+          "de": {
+            "dispositivo": "pc1",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "pc2",
+            "porta": "eth0"
+          }
+        }
+      ]
+    },
+    "verificacoes": [
+      {
+        "tipo": "ping",
+        "de": "PC1",
+        "para": "PC2",
+        "deve": true,
+        "texto": "PC1 pinga PC2"
+      }
+    ],
+    "dicas": [
+      "Clique no PC2 → Configurar: IP e máscara.",
+      "Dois PCs na mesma rede (192.168.1.x/24) se falam direto, sem gateway."
+    ],
+    "solucao": "PC2: IP 192.168.1.11, máscara 255.255.255.0. No terminal do PC1: ping 192.168.1.11"
+  },
+  {
+    "id": "rd-02",
+    "nivel": 1,
+    "titulo": "Agora com um switch",
+    "objetivo": "Três PCs e um switch: ligue cada PC a uma porta do switch (ferramenta Cabo) e configure os IPs 192.168.1.10, .11 e .12 (/24). Todos devem se pingar.",
+    "topologia": {
+      "dispositivos": [
+        {
+          "id": "pc1",
+          "tipo": "pc",
+          "nome": "PC1",
+          "x": 100,
+          "y": 90,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.10",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "pc2",
+          "tipo": "pc",
+          "nome": "PC2",
+          "x": 100,
+          "y": 250,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "pc3",
+          "tipo": "pc",
+          "nome": "PC3",
+          "x": 100,
+          "y": 410,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "sw1",
+          "tipo": "switch",
+          "nome": "SW1",
+          "x": 420,
+          "y": 250,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "Fa0/1",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/2",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/3",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/4",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/5",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/6",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/7",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/8",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        }
+      ],
+      "cabos": []
+    },
+    "verificacoes": [
+      {
+        "tipo": "ping",
+        "de": "PC1",
+        "para": "PC2",
+        "deve": true,
+        "texto": "PC1 pinga PC2"
+      },
+      {
+        "tipo": "ping",
+        "de": "PC2",
+        "para": "PC3",
+        "deve": true,
+        "texto": "PC2 pinga PC3"
+      }
+    ],
+    "dicas": [
+      "Ferramenta Cabo: clique na porta do PC (eth0) e depois numa porta do switch.",
+      "Veja no modo “ver o pacote andando” o switch aprendendo os MACs e inundando o primeiro quadro."
+    ],
+    "solucao": "Cabos PC1→Fa0/1, PC2→Fa0/2, PC3→Fa0/3; PC2 192.168.1.11/24; PC3 192.168.1.12/24."
+  },
+  {
+    "id": "rd-03",
+    "nivel": 1,
+    "titulo": "O erro de máscara",
+    "objetivo": "PC1 (192.168.1.10/24) não consegue pingar PC2 (192.168.1.200). Descubra o que está errado na configuração do PC2 e corrija, sem mudar o IP.",
+    "topologia": {
+      "dispositivos": [
+        {
+          "id": "pc1",
+          "tipo": "pc",
+          "nome": "PC1",
+          "x": 100,
+          "y": 160,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.10",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "sw1",
+          "tipo": "switch",
+          "nome": "SW1",
+          "x": 320,
+          "y": 160,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "Fa0/1",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/2",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/3",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/4",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/5",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/6",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/7",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/8",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "pc2",
+          "tipo": "pc",
+          "nome": "PC2",
+          "x": 540,
+          "y": 160,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.200",
+              "mascara": "255.255.255.128",
+              "descricao": ""
+            }
+          ]
+        }
+      ],
+      "cabos": [
+        {
+          "id": "c-pc1-eth0-sw1-Fa01",
+          "de": {
+            "dispositivo": "pc1",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "sw1",
+            "porta": "Fa0/1"
+          }
+        },
+        {
+          "id": "c-pc2-eth0-sw1-Fa02",
+          "de": {
+            "dispositivo": "pc2",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "sw1",
+            "porta": "Fa0/2"
+          }
+        }
+      ]
+    },
+    "verificacoes": [
+      {
+        "tipo": "ping",
+        "de": "PC2",
+        "para": "PC1",
+        "deve": true,
+        "texto": "PC2 pinga PC1"
+      },
+      {
+        "tipo": "ping",
+        "de": "PC1",
+        "para": "PC2",
+        "deve": true,
+        "texto": "PC1 pinga PC2"
+      }
+    ],
+    "dicas": [
+      "Rode ping do PC2 para o PC1 e leia a mensagem.",
+      "Com máscara /25 (255.255.255.128), 192.168.1.200 está na metade de cima (.128–.255) e o .10 na de baixo: redes diferentes para o PC2."
+    ],
+    "solucao": "PC2: máscara 255.255.255.0."
+  },
+  {
+    "id": "rd-04",
+    "nivel": 2,
+    "titulo": "Duas redes e um roteador",
+    "objetivo": "A rede A (192.168.1.0/24) e a rede B (10.0.0.0/24) estão ligadas ao roteador R1, que ainda não tem IPs. Configure Gi0/0 = 192.168.1.1 e Gi0/1 = 10.0.0.1 (no shutdown!) e os gateways dos PCs. PC1 deve pingar PC2.",
+    "topologia": {
+      "dispositivos": [
+        {
+          "id": "pc1",
+          "tipo": "pc",
+          "nome": "PC1",
+          "x": 100,
+          "y": 160,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.10",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "r1",
+          "tipo": "roteador",
+          "nome": "R1",
+          "x": 360,
+          "y": 160,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "Gi0/0",
+              "ligada": false,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Gi0/1",
+              "ligada": false,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Gi0/2",
+              "ligada": false,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "pc2",
+          "tipo": "pc",
+          "nome": "PC2",
+          "x": 620,
+          "y": 160,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "10.0.0.10",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        }
+      ],
+      "cabos": [
+        {
+          "id": "c-pc1-eth0-r1-Gi00",
+          "de": {
+            "dispositivo": "pc1",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "r1",
+            "porta": "Gi0/0"
+          }
+        },
+        {
+          "id": "c-r1-Gi01-pc2-eth0",
+          "de": {
+            "dispositivo": "r1",
+            "porta": "Gi0/1"
+          },
+          "para": {
+            "dispositivo": "pc2",
+            "porta": "eth0"
+          }
+        }
+      ]
+    },
+    "verificacoes": [
+      {
+        "tipo": "ping",
+        "de": "PC1",
+        "para": "PC2",
+        "deve": true,
+        "texto": "PC1 pinga PC2 através do roteador"
+      }
+    ],
+    "dicas": [
+      "No terminal do R1: enable → configure terminal → interface Gi0/0 → ip address 192.168.1.1 255.255.255.0 → no shutdown.",
+      "Cada PC precisa do gateway: o IP do roteador na SUA rede."
+    ],
+    "solucao": "R1 Gi0/0 192.168.1.1/24 up; Gi0/1 10.0.0.1/24 up. PC1 gateway 192.168.1.1; PC2 gateway 10.0.0.1."
+  },
+  {
+    "id": "rd-05",
+    "nivel": 2,
+    "titulo": "Rota estática",
+    "objetivo": "Dois roteadores ligados entre si (172.16.0.0/30). R1 conhece a rede A e R2 a rede B, mas nenhum sabe chegar à rede do outro. Acrescente uma rota estática em cada roteador para que PC1 pingue PC2.",
+    "topologia": {
+      "dispositivos": [
+        {
+          "id": "pc1",
+          "tipo": "pc",
+          "nome": "PC1",
+          "x": 80,
+          "y": 160,
+          "gateway": "192.168.1.1",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.10",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "r1",
+          "tipo": "roteador",
+          "nome": "R1",
+          "x": 300,
+          "y": 160,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "Gi0/0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.1",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            },
+            {
+              "nome": "Gi0/1",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "172.16.0.1",
+              "mascara": "255.255.255.252",
+              "descricao": ""
+            },
+            {
+              "nome": "Gi0/2",
+              "ligada": false,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "r2",
+          "tipo": "roteador",
+          "nome": "R2",
+          "x": 520,
+          "y": 160,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "Gi0/0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "10.0.0.1",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            },
+            {
+              "nome": "Gi0/1",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "172.16.0.2",
+              "mascara": "255.255.255.252",
+              "descricao": ""
+            },
+            {
+              "nome": "Gi0/2",
+              "ligada": false,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "pc2",
+          "tipo": "pc",
+          "nome": "PC2",
+          "x": 740,
+          "y": 160,
+          "gateway": "10.0.0.1",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "10.0.0.10",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        }
+      ],
+      "cabos": [
+        {
+          "id": "c-pc1-eth0-r1-Gi00",
+          "de": {
+            "dispositivo": "pc1",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "r1",
+            "porta": "Gi0/0"
+          }
+        },
+        {
+          "id": "c-r1-Gi01-r2-Gi01",
+          "de": {
+            "dispositivo": "r1",
+            "porta": "Gi0/1"
+          },
+          "para": {
+            "dispositivo": "r2",
+            "porta": "Gi0/1"
+          }
+        },
+        {
+          "id": "c-r2-Gi00-pc2-eth0",
+          "de": {
+            "dispositivo": "r2",
+            "porta": "Gi0/0"
+          },
+          "para": {
+            "dispositivo": "pc2",
+            "porta": "eth0"
+          }
+        }
+      ]
+    },
+    "verificacoes": [
+      {
+        "tipo": "rota",
+        "dispositivo": "R1",
+        "rede": "10.0.0.0/24",
+        "texto": "R1 tem rota para 10.0.0.0/24"
+      },
+      {
+        "tipo": "rota",
+        "dispositivo": "R2",
+        "rede": "192.168.1.0/24",
+        "texto": "R2 tem rota para 192.168.1.0/24"
+      },
+      {
+        "tipo": "ping",
+        "de": "PC1",
+        "para": "PC2",
+        "deve": true,
+        "texto": "PC1 pinga PC2 (ida e volta)"
+      }
+    ],
+    "dicas": [
+      "R1: ip route 10.0.0.0 255.255.255.0 172.16.0.2",
+      "A volta também precisa de rota: R2 tem de saber voltar para 192.168.1.0/24.",
+      "traceroute no PC1 mostra os dois saltos."
+    ],
+    "solucao": "R1(config)# ip route 10.0.0.0 255.255.255.0 172.16.0.2\nR2(config)# ip route 192.168.1.0 255.255.255.0 172.16.0.1"
+  },
+  {
+    "id": "rd-06",
+    "nivel": 2,
+    "titulo": "Rota padrão",
+    "objetivo": "R1 liga a rede local à “internet” (o roteador ISP, 203.0.113.1, que já sabe voltar). Em vez de uma rota por destino, ponha em R1 uma rota padrão (0.0.0.0/0) para 203.0.113.1. PC1 deve pingar o servidor 198.51.100.80.",
+    "topologia": {
+      "dispositivos": [
+        {
+          "id": "pc1",
+          "tipo": "pc",
+          "nome": "PC1",
+          "x": 80,
+          "y": 160,
+          "gateway": "192.168.1.1",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.10",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "r1",
+          "tipo": "roteador",
+          "nome": "R1",
+          "x": 300,
+          "y": 160,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "Gi0/0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.1",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            },
+            {
+              "nome": "Gi0/1",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "203.0.113.2",
+              "mascara": "255.255.255.252",
+              "descricao": ""
+            },
+            {
+              "nome": "Gi0/2",
+              "ligada": false,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "isp",
+          "tipo": "roteador",
+          "nome": "ISP",
+          "x": 520,
+          "y": 160,
+          "gateway": "",
+          "dns": "",
+          "rotas": [
+            {
+              "rede": "192.168.1.0",
+              "mascara": "255.255.255.0",
+              "via": "203.0.113.2"
+            }
+          ],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "Gi0/0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "203.0.113.1",
+              "mascara": "255.255.255.252",
+              "descricao": ""
+            },
+            {
+              "nome": "Gi0/1",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "198.51.100.1",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            },
+            {
+              "nome": "Gi0/2",
+              "ligada": false,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "web",
+          "tipo": "servidor",
+          "nome": "WEB",
+          "x": 740,
+          "y": 160,
+          "gateway": "198.51.100.1",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "198.51.100.80",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        }
+      ],
+      "cabos": [
+        {
+          "id": "c-pc1-eth0-r1-Gi00",
+          "de": {
+            "dispositivo": "pc1",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "r1",
+            "porta": "Gi0/0"
+          }
+        },
+        {
+          "id": "c-r1-Gi01-isp-Gi00",
+          "de": {
+            "dispositivo": "r1",
+            "porta": "Gi0/1"
+          },
+          "para": {
+            "dispositivo": "isp",
+            "porta": "Gi0/0"
+          }
+        },
+        {
+          "id": "c-isp-Gi01-web-eth0",
+          "de": {
+            "dispositivo": "isp",
+            "porta": "Gi0/1"
+          },
+          "para": {
+            "dispositivo": "web",
+            "porta": "eth0"
+          }
+        }
+      ]
+    },
+    "verificacoes": [
+      {
+        "tipo": "rota",
+        "dispositivo": "R1",
+        "rede": "0.0.0.0/0",
+        "texto": "R1 tem rota padrão"
+      },
+      {
+        "tipo": "ping",
+        "de": "PC1",
+        "para": "WEB",
+        "deve": true,
+        "texto": "PC1 pinga o servidor WEB"
+      }
+    ],
+    "dicas": [
+      "ip route 0.0.0.0 0.0.0.0 203.0.113.1",
+      "A rota padrão casa com qualquer destino que não tenha rota mais específica."
+    ],
+    "solucao": "R1(config)# ip route 0.0.0.0 0.0.0.0 203.0.113.1"
+  },
+  {
+    "id": "rd-07",
+    "nivel": 3,
+    "titulo": "Duas VLANs",
+    "objetivo": "No switch SW1, crie a VLAN 10 (ALUNOS) com PC1 e PC2 e a VLAN 20 (PROFESSORES) com PC3. Todos estão em 192.168.1.0/24. PC1 deve pingar PC2, mas NÃO o PC3: as VLANs isolam.",
+    "topologia": {
+      "dispositivos": [
+        {
+          "id": "pc1",
+          "tipo": "pc",
+          "nome": "PC1",
+          "x": 100,
+          "y": 80,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.10",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "pc2",
+          "tipo": "pc",
+          "nome": "PC2",
+          "x": 100,
+          "y": 250,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "pc3",
+          "tipo": "pc",
+          "nome": "PC3",
+          "x": 100,
+          "y": 420,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.30",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "sw1",
+          "tipo": "switch",
+          "nome": "SW1",
+          "x": 420,
+          "y": 250,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "Fa0/1",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/2",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/3",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/4",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/5",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/6",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/7",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/8",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        }
+      ],
+      "cabos": [
+        {
+          "id": "c-pc1-eth0-sw1-Fa01",
+          "de": {
+            "dispositivo": "pc1",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "sw1",
+            "porta": "Fa0/1"
+          }
+        },
+        {
+          "id": "c-pc2-eth0-sw1-Fa02",
+          "de": {
+            "dispositivo": "pc2",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "sw1",
+            "porta": "Fa0/2"
+          }
+        },
+        {
+          "id": "c-pc3-eth0-sw1-Fa03",
+          "de": {
+            "dispositivo": "pc3",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "sw1",
+            "porta": "Fa0/3"
+          }
+        }
+      ]
+    },
+    "verificacoes": [
+      {
+        "tipo": "vlan",
+        "dispositivo": "SW1",
+        "porta": "Fa0/1",
+        "vlan": 10,
+        "texto": "Fa0/1 na VLAN 10"
+      },
+      {
+        "tipo": "vlan",
+        "dispositivo": "SW1",
+        "porta": "Fa0/2",
+        "vlan": 10,
+        "texto": "Fa0/2 na VLAN 10"
+      },
+      {
+        "tipo": "vlan",
+        "dispositivo": "SW1",
+        "porta": "Fa0/3",
+        "vlan": 20,
+        "texto": "Fa0/3 na VLAN 20"
+      },
+      {
+        "tipo": "ping",
+        "de": "PC1",
+        "para": "PC2",
+        "deve": true,
+        "texto": "PC1 pinga PC2 (mesma VLAN)"
+      },
+      {
+        "tipo": "ping",
+        "de": "PC1",
+        "para": "PC3",
+        "deve": false,
+        "texto": "PC1 NÃO pinga PC3 (VLAN diferente)"
+      }
+    ],
+    "dicas": [
+      "Configure o IP do PC2 (192.168.1.20/24) primeiro.",
+      "No SW1: vlan 10 → name ALUNOS → exit → interface Fa0/1 → switchport mode access → switchport access vlan 10.",
+      "Ou use a tabela em Configurar do switch."
+    ],
+    "solucao": "SW1(config)# vlan 10\n name ALUNOS\n vlan 20\n name PROFESSORES\n interface Fa0/1 / Fa0/2: switchport access vlan 10\n interface Fa0/3: switchport access vlan 20\nPC2: 192.168.1.20/24"
+  },
+  {
+    "id": "rd-08",
+    "nivel": 3,
+    "titulo": "VLAN atravessando dois switches (tronco)",
+    "objetivo": "PC1 (SW1, VLAN 10) e PC2 (SW2, VLAN 10) precisam se falar; PC3 (SW2, VLAN 20) fica isolado. As portas Fa0/8 que ligam SW1 e SW2 devem ser tronco (802.1Q).",
+    "topologia": {
+      "dispositivos": [
+        {
+          "id": "pc1",
+          "tipo": "pc",
+          "nome": "PC1",
+          "x": 80,
+          "y": 120,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.10",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "sw1",
+          "tipo": "switch",
+          "nome": "SW1",
+          "x": 300,
+          "y": 200,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            },
+            {
+              "id": 10,
+              "nome": "ALUNOS"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "Fa0/1",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 10,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/2",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/3",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/4",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/5",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/6",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/7",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/8",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "sw2",
+          "tipo": "switch",
+          "nome": "SW2",
+          "x": 540,
+          "y": 200,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            },
+            {
+              "id": 10,
+              "nome": "ALUNOS"
+            },
+            {
+              "id": 20,
+              "nome": "PROFESSORES"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "Fa0/1",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 10,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/2",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 20,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/3",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/4",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/5",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/6",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/7",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/8",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "pc2",
+          "tipo": "pc",
+          "nome": "PC2",
+          "x": 760,
+          "y": 120,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.20",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        },
+        {
+          "id": "pc3",
+          "tipo": "pc",
+          "nome": "PC3",
+          "x": 760,
+          "y": 300,
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.30",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ]
+        }
+      ],
+      "cabos": [
+        {
+          "id": "c-pc1-eth0-sw1-Fa01",
+          "de": {
+            "dispositivo": "pc1",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "sw1",
+            "porta": "Fa0/1"
+          }
+        },
+        {
+          "id": "c-sw1-Fa08-sw2-Fa08",
+          "de": {
+            "dispositivo": "sw1",
+            "porta": "Fa0/8"
+          },
+          "para": {
+            "dispositivo": "sw2",
+            "porta": "Fa0/8"
+          }
+        },
+        {
+          "id": "c-sw2-Fa01-pc2-eth0",
+          "de": {
+            "dispositivo": "sw2",
+            "porta": "Fa0/1"
+          },
+          "para": {
+            "dispositivo": "pc2",
+            "porta": "eth0"
+          }
+        },
+        {
+          "id": "c-sw2-Fa02-pc3-eth0",
+          "de": {
+            "dispositivo": "sw2",
+            "porta": "Fa0/2"
+          },
+          "para": {
+            "dispositivo": "pc3",
+            "porta": "eth0"
+          }
+        }
+      ]
+    },
+    "verificacoes": [
+      {
+        "tipo": "ping",
+        "de": "PC1",
+        "para": "PC2",
+        "deve": true,
+        "texto": "PC1 pinga PC2 pelo tronco"
+      },
+      {
+        "tipo": "ping",
+        "de": "PC1",
+        "para": "PC3",
+        "deve": false,
+        "texto": "PC1 NÃO pinga PC3"
+      }
+    ],
+    "dicas": [
+      "Hoje Fa0/8 está em modo acesso na VLAN 1 nos dois switches: o quadro da VLAN 10 é descartado.",
+      "Nos dois switches: interface Fa0/8 → switchport mode trunk."
+    ],
+    "solucao": "SW1(config)# interface Fa0/8 → switchport mode trunk\nSW2(config)# interface Fa0/8 → switchport mode trunk"
+  }
+]
