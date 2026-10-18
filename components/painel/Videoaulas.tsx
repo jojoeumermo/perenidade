@@ -80,7 +80,7 @@ export function Videoaulas({ me }: { me: Me }) {
   return (
     <div>
       <p className="mb-6 max-w-3xl border-l-2 border-gold pl-4 text-ink-soft">
-        Aulas curtas em vídeo, de até 10 minutos e até 720p, para complementar as trilhas. Grave aqui mesmo (câmera ou tela, com o seu microfone) ou envie um vídeo pronto. Como toda aula, ela passa pela curadoria antes de ir ao ar e precisa de pelo menos uma fonte. Escrever a transcrição deixa a aula acessível para quem não ouve.
+        Aulas curtas em vídeo, de até 10 minutos e até 480p, para complementar as trilhas. Grave aqui mesmo (câmera ou tela, com o seu microfone) ou envie um vídeo pronto. Como toda aula, ela passa pela revisão antes de ir ao ar e precisa de pelo menos uma fonte. Escrever a transcrição deixa a aula acessível para quem não ouve.
       </p>
       <p className="-mt-3 mb-6 max-w-3xl text-ink-soft">
         Ao enviar, você autoriza a publicação da sua imagem e da sua voz nesta aula, com o seu nome público, sob a mesma licença das aulas escritas (CC BY-SA 4.0). Não grave outras pessoas sem a autorização delas.
@@ -240,7 +240,7 @@ function Gravar({ me, enviado }: { me: Me; enviado: () => void }) {
   );
 }
 
-/** Grava da câmera ou da tela, com o microfone, em até 720p, parando sozinho nos 10 minutos. Ou recebe um arquivo pronto. */
+/** Grava da câmera ou da tela, com o microfone, em até 480p, parando sozinho nos 10 minutos. Ou recebe um arquivo pronto. */
 function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
   const [modo, setModo] = useState<"camera" | "tela">("camera");
   const [estado, setEstado] = useState<"parado" | "pronto" | "gravando" | "convertendo">("parado");
@@ -338,7 +338,7 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
         aoTerminar({ blob: arquivo, formato: { mime: tipo, tipo, extensao: tipo === "video/mp4" ? "mp4" : "webm" }, medidas, previa: URL.createObjectURL(arquivo) });
         return;
       }
-      // Maior que 720p, pesado demais ou num formato que o site não guarda: converte aqui mesmo.
+      // Maior que 480p, pesado demais ou num formato que o site não guarda: converte aqui mesmo.
       setEstado("convertendo");
       setProgresso(0);
       cancelar.current = new AbortController();
@@ -354,7 +354,7 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
   return (
     <section className="painel-cartao space-y-4 p-5">
       <h2 className="font-serif text-xl font-semibold">1. O vídeo</h2>
-      {!formato && <p className="border-l-2 border-oxblood pl-3">{mensagensDeVideo.sem_gravador} Você ainda pode enviar um vídeo pronto, em MP4 ou WebM, de até 720p.</p>}
+      {!formato && <p className="border-l-2 border-oxblood pl-3">{mensagensDeVideo.sem_gravador} Você ainda pode enviar um vídeo pronto, em MP4 ou WebM, de até 480p.</p>}
       {estado !== "convertendo" && (
         <div className="flex flex-wrap items-end gap-4">
           {formato && (
@@ -414,7 +414,7 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
       )}
       {estado === "convertendo" && (
         <div className="space-y-2">
-          <p>Convertendo para 720p. Leva o mesmo tempo que o vídeo dura; deixe esta página aberta.</p>
+          <p>Convertendo para 480p. Leva o mesmo tempo que o vídeo dura; deixe esta página aberta.</p>
           <progress value={progresso} max={1} className="w-full max-w-xl" aria-label="Andamento da conversão" />
           <p className="font-mono text-sm">{Math.round(progresso * 100)}%</p>
           <button type="button" className={elo} onClick={() => cancelar.current?.abort()}>

@@ -376,7 +376,7 @@ export function Pessoas({ me }: { me: Me }) {
           <strong>{papeis[novo.papel]}:</strong> {oQueFaz[novo.papel]}
         </p>
         <p className="mt-2 text-ink-soft">
-          Hierarquia dos cargos: coordenação, vice-coordenação, supervisão e, abaixo, os papéis de trabalho. Cada pessoa só confia papéis de nível menor que o próprio, e só a quem está abaixo dela.
+          Hierarquia dos cargos: coordenação, coordenação pedagógica, supervisão e, abaixo, os papéis de trabalho. Cada pessoa só confia papéis de nível menor que o próprio, e só a quem está abaixo dela.
           {coordena && " Para criar a conta de alguém da equipe com e-mail e senha definidos por você, use o painel do serviço de contas (o passo a passo está no guia de manutenção). Depois que a pessoa entrar uma vez, ela aparece aqui para receber a função."}
         </p>
       </section>

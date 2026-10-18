@@ -87,7 +87,7 @@ export function Folha({ certificado, cpf = "", rascunho = false }: { certificado
     assinatura.papel === "coordenacao"
       ? "Coordenador"
       : assinatura.papel === "vice"
-        ? "Vice-coordenador"
+        ? "Coordenador(a) pedagógico(a)"
         : assinatura.papel === "educacao"
           ? `Educador(a)${assinatura.disciplina ? ` de ${areas[assinatura.disciplina]?.[0] ?? assinatura.disciplina}` : ""}`
           : "Testemunha";
