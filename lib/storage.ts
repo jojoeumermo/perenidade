@@ -5,6 +5,10 @@ import { useSyncExternalStore } from "react";
 
 // Tudo o que o site guarda fica no navegador da pessoa, sob estas chaves. Não há servidor.
 export const KEYS = {
+  /** Menu do painel só com ícones (computador). */
+  painelCompacto: "lucia:painel-compacto",
+  /** Modo foco do painel: só as seções essenciais no menu. */
+  painelFoco: "lucia:painel-foco",
   done: "lucia:concluidas",
   last: "lucia:ultima-aula",
   draft: "lucia:rascunho",

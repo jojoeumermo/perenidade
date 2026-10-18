@@ -17,7 +17,10 @@ import { L, useI18n } from "../I18n";
 import { Star } from "../Masthead";
 import { SenhaCampo, senhaForte } from "../SenhaCampo";
 import { AulasAoVivo } from "./AoVivo";
+import { Avatar, AVATARES, imagemParaAvatar } from "./Avatar";
 import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
+import { Estatisticas } from "./Estatisticas";
+import { TermoDeVoluntario } from "./Termo";
 import { Aviso, botao, botaoClaro, campo, data, elo, localDoPainel, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
 import { Boletim } from "./Boletim";
@@ -116,6 +119,7 @@ const icones: Record<string, string> = {
   apoiadores: "M20.8 8.6a5 5 0 0 0-8.8-3.2A5 5 0 0 0 3.2 8.6c0 5.4 8.8 10.9 8.8 10.9s8.8-5.5 8.8-10.9z",
   seguranca: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
   registro: "M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5",
+  estatisticas: "M4 20V10M10 20V4M16 20v-8M22 20H2",
   conta: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-8 8-8s8 3.6 8 8",
   aovivo: "M3 7h13v10H3zM16 10l5-3v10l-5-3M6 4h7",
   estudio: "M4 20l4-1 11-11-3-3L5 16zM13 8l3 3M4 20v-4",
@@ -214,13 +218,6 @@ function IrPara({ secoes, fechar, ir }: { secoes: Secao[]; fechar: () => void; i
 /** Sem uso por este tempo, o painel se fecha sozinho: aparelho esquecido aberto não vira porta de entrada. */
 const OCIOSO = 30 * 60 * 1000;
 
-const iniciais = (nome: string) =>
-  nome
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((parte) => parte[0]?.toUpperCase() ?? "")
-    .join("") || "?";
 
 /** Claro ou escuro, como no site: a escolha fica guardada no navegador. */
 function Tema() {
@@ -484,6 +481,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: manages(eu), conta: r?.candidaturas },
       { id: "supervisao", nome: "Supervisão", sobre: "Proteções reversíveis, a equipe sem e-mails e os pedidos de voluntariado.", grupo: "Pessoas", mostra: supervisiona, conta: r?.candidaturas },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar + (r.pedidos ?? 0) : undefined },
+      { id: "estatisticas", nome: "Estatísticas", sobre: "O que os estudantes procuram e o que a equipe produz, por disciplina: a base para decidir o que entra e o que sai.", grupo: "Pessoas", mostra: lidera || can(eu, "vice") },
       { id: "avisos", nome: "Avisos à equipe", sobre: "Um quadro que aparece por cima do painel de toda a equipe, ou só de algumas funções, até cada pessoa fechar.", grupo: "Pessoas", mostra: eu.supervisao === true || lidera || supervisiona },
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
       { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
@@ -509,6 +507,22 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
     atualizarResumo();
   };
   const [irPara, setIrPara] = useState(false);
+  // Menu só com ícones (no computador) e modo foco (só o essencial no menu): preferências deste aparelho.
+  // (Dentro só monta no navegador, depois de carregar a conta: dá para ler o armazenamento já na primeira renderização.)
+  const [compacto, setCompacto] = useState(() => getItem(KEYS.painelCompacto) === "1");
+  const [foco, setFoco] = useState(() => getItem(KEYS.painelFoco) === "1");
+  const [telaCheia, setTelaCheia] = useState(false);
+  useEffect(() => {
+    const mudou = () => setTelaCheia(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", mudou);
+    return () => document.removeEventListener("fullscreenchange", mudou);
+  }, []);
+  const alternarCompacto = () => { setCompacto((c) => { setItem(KEYS.painelCompacto, c ? "0" : "1"); return !c; }); };
+  const alternarFoco = () => { setFoco((f) => { setItem(KEYS.painelFoco, f ? "0" : "1"); return !f; }); };
+  const alternarTelaCheia = () => {
+    if (document.fullscreenElement) void document.exitFullscreen();
+    else void document.documentElement.requestFullscreen?.().catch(() => undefined);
+  };
   // Ctrl+K (ou Cmd+K) de qualquer lugar; "/" fora de campos de texto.
   useEffect(() => {
     const tecla = (e: KeyboardEvent) => {
@@ -524,7 +538,9 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
     window.addEventListener("keydown", tecla);
     return () => window.removeEventListener("keydown", tecla);
   }, []);
-  const grupos = [...new Set(secoes.map((secao) => secao.grupo))];
+  const essenciais = ["mesa", "conversas", "escrever", "minhas", "fila", "caderno", "horas", "conta"];
+  const noMenu = foco ? secoes.filter((secao) => essenciais.includes(secao.id) || secao.id === atual.id) : secoes;
+  const grupos = [...new Set(noMenu.map((secao) => secao.grupo))];
   // O principal primeiro (o de maior nível) e, quando há mais de dois, "+N": a linha do menu é curta. A lista inteira vai no título.
   const todasAsFuncoes = [...new Set(porNivel(eu.papeis).map((papel) => papeis[papel.papel]))];
   const funcao = !voluntario ? "Comunidade" : todasAsFuncoes.length <= 2 ? todasAsFuncoes.join(" · ") : `${todasAsFuncoes[0]} +${todasAsFuncoes.length - 1}`;
@@ -532,11 +548,13 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const ambiente = lidera ? "Coordenação" : supervisiona ? "Supervisão" : voluntario ? "Equipe" : "Comunidade";
 
   return (
-    <div className="painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid lg:grid-cols-[17.5rem_minmax(0,1fr)]">
+    <div className={`painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid ${compacto ? "lg:grid-cols-[4.25rem_minmax(0,1fr)]" : "lg:grid-cols-[17.5rem_minmax(0,1fr)]"}`}>
       <TraduzirPainel />
       {irPara && <IrPara secoes={secoes} fechar={() => setIrPara(false)} ir={ir} />}
       {/* Aviso da coordenação, da vice ou da supervisão: aparece por cima de tudo até a pessoa apertar "Entendi". */}
       {(voluntario || eu.supervisao) && <QuadroDeAvisos />}
+      {/* O termo de voluntário: quem tem função aceita uma vez; quem recusa sai. Banco antigo não manda o campo e nada aparece. */}
+      {voluntario && eu.termo_voluntario === false && <TermoDeVoluntario aceitou={recarregar} sair={sair} />}
       {/* Barra do alto no celular: a faixa bordô do site, o nome e o menu. */}
       <div className="no-print sticky top-0 z-30 flex items-center justify-between gap-3 border-b-[3px] border-[#d4a24c] bg-[#6e1f1a] px-4 pt-[calc(0.625rem+env(safe-area-inset-top,0px))] pb-2.5 text-[#f4ecd8] lg:hidden">
         <span className="flex min-w-0 items-center gap-2.5">
@@ -556,27 +574,30 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
 
       {/* No celular, o menu aberto ocupa a tela toda (sem sobra clara embaixo) e o rodapé dele fica no fim. */}
       <aside id="menu-do-painel" className={`painel-lado no-print bg-[#17130e] text-[#efe4c8] max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r-4 lg:border-[#c21f16] ${menu ? "flex flex-col" : "hidden"}`}>
-        <div className="hidden px-5 pt-6 lg:block">
-          <L href="/" className="flex items-center gap-3">
+        <div className={`hidden pt-6 lg:block ${compacto ? "px-3" : "px-5"}`}>
+          <L href="/" className="flex items-center gap-3" title={compacto ? "Instituto Lúcia · voltar ao site" : undefined}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/marca-96.png" alt="" width={44} height={44} className="h-11 w-11" />
-            <span>
-              <span className="block font-serif text-xl font-semibold leading-none">Instituto Lúcia</span>
-              <span className="mt-1.5 inline-block bg-[#c21f16] px-1.5 py-0.5 font-sans text-[0.6rem] font-extrabold uppercase italic tracking-[0.14em] text-white">Painel · {ambiente}</span>
-            </span>
+            {!compacto && (
+              <span>
+                <span className="block font-serif text-xl font-semibold leading-none">Instituto Lúcia</span>
+                <span className="mt-1.5 inline-block bg-[#c21f16] px-1.5 py-0.5 font-sans text-[0.6rem] font-extrabold uppercase italic tracking-[0.14em] text-white">Painel · {ambiente}</span>
+              </span>
+            )}
           </L>
-          <button type="button" onClick={() => setIrPara(true)} className="mt-5 flex w-full cursor-pointer items-center gap-2 border border-[#3a3226] px-3 py-2 text-left text-[#b9ad90] transition-colors hover:border-[#d4a24c] hover:text-white">
+          <button type="button" onClick={() => setIrPara(true)} title="Ir para uma seção (Ctrl K)" className={`mt-5 flex w-full cursor-pointer items-center gap-2 border border-[#3a3226] py-2 text-left text-[#b9ad90] transition-colors hover:border-[#d4a24c] hover:text-white ${compacto ? "justify-center px-0" : "px-3"}`}>
             <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="6.5" /><path d="M16 16l4.5 4.5" /></svg>
-            <span className="flex-1">Ir para…</span>
-            <kbd className="font-mono text-[0.62rem] text-[#8f8468]">Ctrl K</kbd>
+            {!compacto && <span className="flex-1">Ir para…</span>}
+            {!compacto && <kbd className="font-mono text-[0.62rem] text-[#8f8468]">Ctrl K</kbd>}
           </button>
         </div>
         <nav aria-label="Seções do painel" className="flex-1 overflow-y-auto px-3 py-5 [scrollbar-color:#4a4032_transparent] [scrollbar-width:thin]">
           {grupos.map((grupo) => (
             <div key={grupo || "inicio"} className="mb-4">
-              {grupo && <p className="painel-grupo px-2 pb-1.5 font-mono text-[0.6rem] uppercase tracking-[0.25em] text-[#d4a24c]">{grupo}</p>}
+              {grupo && (compacto ? <hr className="mx-2 mb-2 hidden border-[#3a3226] lg:block" /> : null)}
+              {grupo && <p className={`painel-grupo px-2 pb-1.5 font-mono text-[0.6rem] uppercase tracking-[0.25em] text-[#d4a24c] ${compacto ? "lg:hidden" : ""}`}>{grupo}</p>}
               <ul>
-                {secoes
+                {noMenu
                   .filter((secao) => secao.grupo === grupo)
                   .map((secao) => {
                     const ativa = secao.id === atual.id;
@@ -586,11 +607,12 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
                           type="button"
                           onClick={() => ir(secao.id)}
                           aria-current={ativa ? "page" : undefined}
-                          className={`painel-item flex w-full cursor-pointer items-center gap-2.5 px-3 py-2 text-left ${ativa ? "painel-item-ativo" : ""}`}
+                          title={compacto ? secao.nome : undefined}
+                          className={`painel-item relative flex w-full cursor-pointer items-center gap-2.5 py-2 text-left ${compacto ? "px-3 lg:justify-center lg:px-0" : "px-3"} ${ativa ? "painel-item-ativo" : ""}`}
                         >
                           <Icone id={secao.id} />
-                          <span className="min-w-0 flex-1 truncate">{secao.nome}</span>
-                          {Boolean(secao.conta) && <span className="painel-conta min-w-6 bg-[#c21f16] px-1.5 py-0.5 text-center font-mono text-[0.7rem] font-semibold leading-none text-white">{secao.conta}</span>}
+                          <span className={`min-w-0 flex-1 truncate ${compacto ? "lg:hidden" : ""}`}>{secao.nome}</span>
+                          {Boolean(secao.conta) && <span className={`painel-conta min-w-6 bg-[#c21f16] px-1.5 py-0.5 text-center font-mono text-[0.7rem] font-semibold leading-none text-white ${compacto ? "lg:absolute lg:top-0.5 lg:right-1 lg:min-w-4 lg:px-1 lg:text-[0.6rem]" : ""}`}>{secao.conta}</span>}
                         </button>
                       </li>
                     );
@@ -599,20 +621,34 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
             </div>
           ))}
         </nav>
-        <div className="border-t border-[#3a3226] px-4 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))]">
-          <p className="flex items-center gap-3">
-            <span aria-hidden className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#c21f16] font-sans font-black italic text-white">{iniciais(eu.nome)}</span>
-            <span className="min-w-0">
+        <div className={`border-t border-[#3a3226] pt-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] ${compacto ? "px-2" : "px-4"}`}>
+          <p className={`flex items-center gap-3 ${compacto ? "lg:justify-center" : ""}`}>
+            <button type="button" onClick={() => ir("conta")} title="Minha conta" className="cursor-pointer">
+              <Avatar nome={eu.nome} avatar={eu.avatar} className="h-10 w-10" texto="font-sans font-black italic" />
+            </button>
+            <span className={`min-w-0 ${compacto ? "lg:hidden" : ""}`}>
               <span className="block truncate font-semibold">{eu.nome}</span>
               <span className="block truncate text-xs text-[#b9ad90]" title={todasAsFuncoes.join(" · ") || undefined}>{funcao}</span>
             </span>
           </p>
-          <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+          <p className={`mt-3 flex flex-wrap items-center gap-2 ${compacto ? "lg:flex-col" : ""}`}>
+            <button type="button" onClick={alternarCompacto} aria-pressed={compacto} title={compacto ? "Mostrar os nomes das seções" : "Recolher o menu (só ícones)"} className="hidden cursor-pointer border border-[#3a3226] p-1.5 text-[#b9ad90] hover:border-[#d4a24c] hover:text-white lg:block">
+              <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{compacto ? <path d="M9 6l6 6-6 6M4 4v16" /> : <path d="M15 6l-6 6 6 6M20 4v16" />}</svg>
+            </button>
+            <button type="button" onClick={alternarFoco} aria-pressed={foco} title={foco ? "Sair do modo foco: mostrar todas as seções" : "Modo foco: só o essencial no menu"} className={`cursor-pointer border p-1.5 hover:border-[#d4a24c] hover:text-white ${foco ? "border-[#d4a24c] text-[#d4a24c]" : "border-[#3a3226] text-[#b9ad90]"}`}>
+              <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="3" /><circle cx="12" cy="12" r="8" /></svg>
+            </button>
+            <button type="button" onClick={alternarTelaCheia} aria-pressed={telaCheia} title={telaCheia ? "Sair da tela cheia" : "Tela cheia"} className="cursor-pointer border border-[#3a3226] p-1.5 text-[#b9ad90] hover:border-[#d4a24c] hover:text-white">
+              <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{telaCheia ? <path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" /> : <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />}</svg>
+            </button>
+          </p>
+          <p className={`mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs ${compacto ? "lg:hidden" : ""}`}>
             <L href="/" className="underline hover:text-white">← Voltar ao site</L>
             <Tema />
             <button type="button" onClick={sair} className="cursor-pointer underline hover:text-white">Sair</button>
             <IdiomaDoPainel />
           </p>
+          {compacto && <p className="mt-3 hidden justify-center lg:flex"><button type="button" onClick={sair} title="Sair" className="cursor-pointer text-xs text-[#b9ad90] underline hover:text-white">Sair</button></p>}
         </div>
       </aside>
 
@@ -649,7 +685,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} />}
           {voluntario && <Repasse usuario={eu.id} />}
           {atual.id === "conversas" && <Conversas me={eu} />}
-          {atual.id === "rede" && <Equipe usuario={eu.id} lider={leads(eu)} modera={lidera || supervisiona} />}
+          {atual.id === "rede" && <Equipe usuario={eu.id} lider={leads(eu)} modera={lidera || supervisiona} aprendiz={eu.aprendizado} recarregar={recarregar} />}
           {atual.id === "escrever" && <Escrever me={eu} />}
           {atual.id === "videoaulas" && <Videoaulas me={eu} />}
           {atual.id === "aovivo" && <AulasAoVivo me={eu} />}
@@ -681,6 +717,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
           {atual.id === "interdicao" && <Interdicao me={eu} aoMudar={estadoDoSite.recarregar} />}
           {atual.id === "registro" && <RegistroDeAtividades />}
+          {atual.id === "estatisticas" && <Estatisticas />}
           {atual.id === "conta" && <Conta me={eu} recarregar={recarregar} sair={sair} />}
         </div>
       </div>
@@ -784,9 +821,45 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
 
       <Recados recarregar={recarregar} />
 
+      {me.papeis.length > 0 && !can(me, "marketing") && <SugerirAoMarketing />}
+
       {/* Quem não tem função pede a primeira; quem já tem pode pedir outra: uma pessoa acumula quantas a coordenação confiar. */}
       {!can(me, "coordenacao") && <Candidatura me={me} />}
     </div>
+  );
+}
+
+/** Qualquer pessoa da equipe manda uma ideia para a divulgação: uma data, uma pauta, um post. Cai na caixa do marketing. */
+function SugerirAoMarketing() {
+  const acao = useAcao();
+  const [texto, setTexto] = useState("");
+  const [quando, setQuando] = useState("");
+  const [aberto, setAberto] = useState(false);
+  return (
+    <section>
+      <h2 className="jornal-secao">
+        <span className="jornal-editoria">Ideia para a divulgação</span>
+      </h2>
+      {!aberto ? (
+        <p className="mt-3"><button type="button" className={botaoClaro} onClick={() => setAberto(true)}>Sugerir um post, uma data ou uma pauta ao marketing</button></p>
+      ) : (
+        <form className="painel-cartao mt-3 max-w-2xl p-4" onSubmit={async (e) => { e.preventDefault(); if (await acao.agir("marketing_sugerir", { p_texto: texto, p_quando: quando || null }, "Sugestão enviada ao marketing.")) { setTexto(""); setQuando(""); } }}>
+          <label className="block">
+            O que você sugere
+            <textarea value={texto} onChange={(e) => setTexto(e.target.value)} rows={3} maxLength={1000} placeholder="Uma data importante, um post, uma campanha, uma pauta para as redes…" className={campo} />
+          </label>
+          <label className="mt-2 block max-w-xs">
+            Para quando (opcional)
+            <input type="date" value={quando} onChange={(e) => setQuando(e.target.value)} className={campo} />
+          </label>
+          <p className="mt-3 flex gap-3">
+            <button type="submit" className={botao} disabled={acao.ocupado || texto.trim().length < 5}>Enviar</button>
+            <button type="button" className={botaoClaro} onClick={() => setAberto(false)}>Fechar</button>
+          </p>
+          <Aviso texto={acao.aviso} />
+        </form>
+      )}
+    </section>
   );
 }
 
@@ -814,10 +887,10 @@ function Situacao({ lidera, supervisiona, ir }: { lidera: boolean; supervisiona:
         {site.dados &&
           (lidera ? (
             <>
-              <button type="button" onClick={() => ir("site")} className={`${site.dados.pausa ? alerta : quadro} cursor-pointer`}>
+              <button type="button" onClick={() => ir(site.dados?.pausa ? "site" : "triagem")} className={`${site.dados.pausa ? alerta : quadro} cursor-pointer`}>
                 <span className="block text-ink-soft">Envios do público</span>
                 <span className={`mt-1 block font-serif text-2xl font-semibold leading-tight ${site.dados.pausa ? "text-oxblood" : ""}`}>{site.dados.pausa ? "Pausados" : "Abertos"}</span>
-                <span className="mt-1 block text-ink-soft">{site.dados.pausa ? "Ninguém de fora envia nada até você reabrir" : "Mural, reforço, boletim, contribuições e comunidade"}</span>
+                <span className="mt-1 block text-ink-soft">{site.dados.pausa ? "Ninguém de fora envia nada até você reabrir (Controles do site)" : "Ver o que chegou na triagem · pausar em Controles do site"}</span>
               </button>
               <button type="button" onClick={() => ir("site")} className={`${quadro} cursor-pointer`}>
                 <span className="block text-ink-soft">Faixa do alto</span>
@@ -967,6 +1040,46 @@ function AvisosETrava() {
   );
 }
 
+/** O ícone do perfil: um dos desenhos predefinidos para todo mundo; a liderança pode subir uma imagem pequena. */
+function EscolherAvatar({ me, recarregar }: { me: Me; recarregar: () => void }) {
+  const acao = useAcao(recarregar);
+  const [aviso, setAviso] = useState("");
+  const atual = me.avatar ?? "";
+  async function subir(arquivo: File | undefined) {
+    if (!arquivo) return;
+    setAviso("");
+    try {
+      const dado = await imagemParaAvatar(arquivo);
+      await acao.agir("perfil_avatar", { p_avatar: dado }, "Imagem guardada.");
+    } catch {
+      setAviso("Não deu para usar essa imagem: escolha uma foto comum (jpg, png ou webp).");
+    }
+  }
+  return (
+    <section className="painel-cartao p-5">
+      <h2 className="font-serif text-xl font-semibold">Ícone do perfil</h2>
+      <p className="mt-1 text-ink-soft">Aparece ao lado do seu nome nas conversas e na equipe. Escolha um dos desenhos{manages(me) ? " ou suba uma imagem pequena" : ""}.</p>
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <button type="button" aria-pressed={atual === ""} title="Só as iniciais" onClick={() => acao.agir("perfil_avatar", { p_avatar: "" }, "Ícone guardado.")} className={`cursor-pointer border-2 p-0.5 ${atual === "" ? "border-oxblood" : "border-transparent hover:border-rule"}`}>
+          <Avatar nome={me.nome} className="h-10 w-10" />
+        </button>
+        {AVATARES.map((a) => (
+          <button key={a.id} type="button" aria-pressed={atual === `p:${a.id}`} title={a.nome} disabled={acao.ocupado} onClick={() => acao.agir("perfil_avatar", { p_avatar: `p:${a.id}` }, "Ícone guardado.")} className={`cursor-pointer border-2 p-0.5 ${atual === `p:${a.id}` ? "border-oxblood" : "border-transparent hover:border-rule"}`}>
+            <Avatar nome={me.nome} avatar={`p:${a.id}`} className="h-10 w-10" />
+          </button>
+        ))}
+      </div>
+      {manages(me) && (
+        <label className={`mt-4 inline-block ${botaoClaro} cursor-pointer`}>
+          Subir uma imagem
+          <input type="file" accept="image/*" className="sr-only" onChange={(e) => void subir(e.target.files?.[0])} />
+        </label>
+      )}
+      <Aviso texto={aviso || acao.aviso} />
+    </section>
+  );
+}
+
 function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair: () => void }) {
   const perfil = useAcao(recarregar);
   const preferencias = useAcao(recarregar);
@@ -1015,6 +1128,8 @@ function Conta({ me, recarregar, sair }: { me: Me; recarregar: () => void; sair:
         </button>
         <Aviso texto={perfil.aviso} />
       </section>
+
+      <EscolherAvatar me={me} recarregar={recarregar} />
 
       <section className={cartao}>
         <h2 className="font-serif text-xl font-semibold">Privacidade nas conversas</h2>

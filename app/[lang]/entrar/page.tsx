@@ -19,8 +19,11 @@ export default async function Entrar({ params }: PageProps<"/[lang]/entrar">) {
       </PageHeading>
       <SignIn s={t.auth} />
       {/* Quem quer ser voluntário não precisa de conta para se candidatar: o formulário abre aqui mesmo. */}
-      <details className="mt-12 border-t border-rule pt-6">
-        <summary className="cursor-pointer font-sans text-base font-medium underline hover:text-oxblood">{t.auth.volunteerLink}</summary>
+      <details className="mt-12 border-2 border-oxblood bg-parchment-deep p-5">
+        <summary className="flex cursor-pointer items-center gap-3 font-sans text-lg font-semibold text-oxblood hover:underline">
+          <span aria-hidden className="flex h-9 w-9 shrink-0 items-center justify-center bg-oxblood font-sans text-xl font-black italic text-parchment">+</span>
+          {t.auth.volunteerLink}
+        </summary>
         <VolunteerForm s={t.volunteer} />
       </details>
     </div>
