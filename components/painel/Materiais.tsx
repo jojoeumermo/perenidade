@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { createPortal } from "react-dom";
 import { useEffect, useState } from "react";
 import { can, rpc, type Me } from "@/lib/backend";
 import { cleanImage, previewFile, sendFile, UploadError, uploadMessages } from "@/lib/upload";
@@ -163,7 +164,7 @@ function FormularioDoMaterial({ form, setForm, publica, depois, fechar }: { form
     }
   }
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-40 flex justify-end bg-black/40" onMouseDown={(e) => { if (e.target === e.currentTarget) fechar(); }}>
       <form
         role="dialog"
@@ -251,7 +252,8 @@ function FormularioDoMaterial({ form, setForm, publica, depois, fechar }: { form
         </p>
         <Aviso texto={acao.aviso} />
       </form>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
