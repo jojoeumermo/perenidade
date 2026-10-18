@@ -898,8 +898,38 @@
       "pdf": "The link must lead to the work's page at the source, not straight to a PDF file.",
       "synopsis": "The synopsis is too short (at least 40 characters).",
       "details": "Describe it in a little more detail (at least 20 characters).",
-      "declare": "Tick the declaration to continue."
-    }
+      "declare": "Tick the declaration to continue.",
+      "area": "Choose the subject."
+    },
+    "chooseArea": "Choose the subject",
+    "chooseTrack": "Choose the track",
+    "rulesTitle": "Rules",
+    "rulesSummary": "In your own words, with sources, no pirated copies. Lessons under CC BY-SA 4.0.",
+    "howTitle": "How it works",
+    "sentTitle": "Received ✓",
+    "trackingCode": "Tracking code:",
+    "copyCode": "Copy the code",
+    "copied": "Copied ✓",
+    "trackingHint": "The code is saved on this device. On another device, paste it into “Track a submission”.",
+    "sendAnother": "Send another contribution",
+    "mineTitle": "Your submissions from this device",
+    "addCode": "Track a submission",
+    "addCodePlaceholder": "Paste the code you received",
+    "addCodeButton": "Track",
+    "forget": "Remove from the list",
+    "noteLabel": "Comment from the team",
+    "sentOn": "Sent on {data}",
+    "badCode": "That code does not look right: it has 36 letters and numbers, with hyphens.",
+    "statuses": {
+      "triagem": "Received, waiting for a first reading",
+      "revisao": "Under review by the team",
+      "aprovada": "Approved: it goes on the site with the next publication",
+      "publicada": "Published on the site",
+      "recusada": "Not accepted this time",
+      "resolvida": "Resolved",
+      "sumida": "Not found"
+    },
+    "blocksNote": "Prefer building with blocks (paragraph, heading, image, formula)? Use the Blocks button at the top of the editor."
   },
   "report": {
     "eyebrow": "Copyright and quality",

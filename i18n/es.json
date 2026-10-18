@@ -898,8 +898,38 @@
       "pdf": "El enlace debe llevar a la página de la obra en la fuente, no directamente a un archivo PDF.",
       "synopsis": "La sinopsis es demasiado corta (mínimo 40 caracteres).",
       "details": "Describe con un poco más de detalle (mínimo 20 caracteres).",
-      "declare": "Marca la declaración para continuar."
-    }
+      "declare": "Marca la declaración para continuar.",
+      "area": "Elige la disciplina."
+    },
+    "chooseArea": "Elige la disciplina",
+    "chooseTrack": "Elige la ruta",
+    "rulesTitle": "Reglas",
+    "rulesSummary": "Con tus palabras, con fuentes, sin copias piratas. Clases bajo CC BY-SA 4.0.",
+    "howTitle": "Cómo funciona",
+    "sentTitle": "Recibido ✓",
+    "trackingCode": "Código de seguimiento:",
+    "copyCode": "Copiar el código",
+    "copied": "Copiado ✓",
+    "trackingHint": "El código queda guardado en este dispositivo. En otro dispositivo, pégalo en “Seguir un envío”.",
+    "sendAnother": "Enviar otra contribución",
+    "mineTitle": "Tus envíos desde este dispositivo",
+    "addCode": "Seguir un envío",
+    "addCodePlaceholder": "Pega el código recibido",
+    "addCodeButton": "Seguir",
+    "forget": "Quitar de la lista",
+    "noteLabel": "Comentario del equipo",
+    "sentOn": "Enviada el {data}",
+    "badCode": "Ese código no parece correcto: tiene 36 letras y números, con guiones.",
+    "statuses": {
+      "triagem": "Recibida, esperando la primera lectura",
+      "revisao": "En revisión por el equipo",
+      "aprovada": "Aprobada: entra en el sitio con la próxima publicación",
+      "publicada": "Publicada en el sitio",
+      "recusada": "No entró esta vez",
+      "resolvida": "Resuelta",
+      "sumida": "No encontrada"
+    },
+    "blocksNote": "¿Prefieres armar por bloques (párrafo, título, imagen, fórmula)? Usa el botón Bloques arriba del editor."
   },
   "report": {
     "eyebrow": "Derechos de autor y calidad",
