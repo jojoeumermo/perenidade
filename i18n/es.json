@@ -33,7 +33,8 @@
     "sources": "Fuentes",
     "copy": "Copiar",
     "copied": "Copiado",
-    "loading": "Cargando…"
+    "loading": "Cargando…",
+    "askCommunity": "Preguntar en la comunidad"
   },
   "nav": {
     "main": "Principal",
@@ -2989,7 +2990,37 @@
     "signUp": "Crear cuenta",
     "ban": "Expulsar a quien escribió",
     "banConfirm": "Confirmar la expulsión",
-    "banned": "Cuenta expulsada. Se avisó a la coordinación."
+    "banned": "Cuenta expulsada. Se avisó a la coordinación.",
+    "rulesTitle": "Reglas de la comunidad",
+    "rulesSummary": "Respeto, nada de odio, nada de datos personales, fuentes para los hechos.",
+    "rooms": "Salas",
+    "allRooms": "Todas las salas",
+    "order": "Ordenar",
+    "useful": "Útil",
+    "usefulMark": "Marcar como útil",
+    "usefulUnmark": "Quitar el útil",
+    "about": "Sobre",
+    "clearAbout": "Ver todas las conversaciones",
+    "replyHere": "Responder",
+    "replyingTo": "Respondiendo a {nome}",
+    "cancel": "Cancelar",
+    "lastActivity": "última actividad {tempo}",
+    "unansweredHelp": {
+      "one": "duda esperando respuesta",
+      "other": "dudas esperando respuesta"
+    },
+    "helpOut": "Ayuda a responder",
+    "tutoringTitle": "¿Necesitas ayuda con una clase?",
+    "tutoringText": "Pide una clase de refuerzo: alguien del equipo responde.",
+    "tutoringLink": "Clase de refuerzo",
+    "badges": {
+      "coordenacao": "Coordinación",
+      "educacao": "Educación",
+      "mentoria": "Mentoría",
+      "mediacao": "Mediación",
+      "equipe": "Equipo"
+    },
+    "room": "Sala"
   },
   "mural": {
     "eyebrow": "Economía solidaria",
