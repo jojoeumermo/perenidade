@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
-import { EducadoresDaDisciplina } from "@/components/Educadores";
+import { CartaoDoEducador, EducadoresDaDisciplina } from "@/components/Educadores";
 import { PhetLista } from "@/components/labs/Phet";
 import sims from "@/content/phet.json";
 import { SourceList } from "@/components/Cards";
@@ -111,6 +111,8 @@ export default async function LessonPage({ params }: Props) {
         )}
       </aside>
 
+      {/* Nas telas largas, o cartão de quem ensina ocupa o espaço livre à direita do título; nas outras, fica no fim da aula. */}
+      <div className="min-w-0 xl:grid xl:grid-cols-[minmax(0,1fr)_14rem] xl:items-start xl:gap-10">
       <article className="min-w-0 max-w-prose">
         <p className="font-mono text-xs text-gold">
           {t.areas[track.area][0]} · {t.stages[track.stage]} · {fill(t.lesson.position, { i: index + 1, n: track.lessons.length })} ·{" "}
@@ -152,7 +154,9 @@ export default async function LessonPage({ params }: Props) {
             <PhetLista area={track.area} compacto />
           </section>
         )}
-        <EducadoresDaDisciplina area={track.area} lang={lang} nomes={t.areas as Record<string, string[]>} />
+        <div className="xl:hidden">
+          <EducadoresDaDisciplina area={track.area} lang={lang} nomes={t.areas as Record<string, string[]>} />
+        </div>
 
         <footer className="mt-8 space-y-2 font-mono text-xs text-ink-soft">
           <p>
@@ -173,6 +177,10 @@ export default async function LessonPage({ params }: Props) {
           <p className="no-print hidden md:block">{t.lesson.keys}</p>
         </footer>
       </article>
+      <div className="no-print mt-1 hidden xl:block">
+        <CartaoDoEducador area={track.area} lang={lang} nomes={t.areas as Record<string, string[]>} />
+      </div>
+      </div>
       <CaixaDaAula t={t} lang={lang} area={track.area} sugeridas={lesson.tools} />
     </div>
   );
