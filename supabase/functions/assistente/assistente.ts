@@ -101,16 +101,21 @@ export function validarEntrada(dado: unknown): { entrada: Entrada } | { erro: st
 /** Os campos que pedem a reserva do lado do serviço, só nos modelos que a têm. */
 const reserva = (modelo: string): Pick<Pedido, "betas" | "fallbacks"> => (COM_RESERVA.has(modelo) ? { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" } : {});
 
-/** Monta o pedido para client.beta.messages.create. O raciocínio do modelo fica no padrão dele (não se manda "thinking"). */
-export function montarPedido(entrada: Entrada, modelo = MODELO_PADRAO): Pedido {
+/** O texto da mensagem (contexto, instrução da foto e a dúvida): o mesmo para o Claude e para os provedores de formato aberto. */
+export function textoDaMensagem(entrada: Entrada): string {
   const contexto = [`Idioma do site: ${entrada.idioma}.`];
   if (entrada.disciplina) contexto.push(`Disciplina escolhida: ${entrada.disciplina}.`);
   if (entrada.aulas.length) contexto.push(`Aulas do site que podem ajudar (título — endereço):\n${entrada.aulas.map((aula) => `- ${aula.titulo} — ${aula.caminho}`).join("\n")}`);
   // Quem escreve "</duvida>" no meio da pergunta não consegue fechar a caixa antes da hora.
   const pergunta = entrada.pergunta.replace(/<\/?duvida>/gi, "") || (entrada.modo === "foto" ? "Resolva o exercício da imagem." : "Explique o exercício da imagem.");
+  return `${contexto.join("\n")}\n\n${entrada.modo === "foto" ? `${INSTRUCAO_FOTO}\n\n` : ""}<duvida>\n${pergunta}\n</duvida>`;
+}
+
+/** Monta o pedido para client.beta.messages.create. O raciocínio do modelo fica no padrão dele (não se manda "thinking"). */
+export function montarPedido(entrada: Entrada, modelo = MODELO_PADRAO): Pedido {
   const partes: Parte[] = [];
   if (entrada.imagem) partes.push({ type: "image", source: { type: "base64", media_type: entrada.imagem.tipo, data: entrada.imagem.dados } });
-  partes.push({ type: "text", text: `${contexto.join("\n")}\n\n${entrada.modo === "foto" ? `${INSTRUCAO_FOTO}\n\n` : ""}<duvida>\n${pergunta}\n</duvida>` });
+  partes.push({ type: "text", text: textoDaMensagem(entrada) });
   return {
     model: modelo,
     max_tokens: 16000,
