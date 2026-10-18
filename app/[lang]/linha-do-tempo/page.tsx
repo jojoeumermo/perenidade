@@ -3,13 +3,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContentPageView } from "@/components/ContentPageView";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 import { getPage } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/linha-do-tempo">): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const page = getPage("linha-do-tempo", lang);
-  return { title: page.title, description: page.lead };
+  return paginaMeta(lang, "/linha-do-tempo", page.title, page.lead);
 }
 
 export default async function Page({ params }: PageProps<"/[lang]/linha-do-tempo">) {

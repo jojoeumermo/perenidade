@@ -8,14 +8,15 @@ import { Cartaz } from "@/components/Cartaz";
 import { ListaComIndice } from "@/components/ListaComIndice";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 import { getDebates, getFallacies } from "@/lib/content";
 import { CardImage } from "@/components/CardImage";
 import { site } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/debates">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.debates.title, description: t.debates.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/debates", t.debates.title, t.debates.lead);
 }
 
 export default async function Debates({ params }: PageProps<"/[lang]/debates">) {

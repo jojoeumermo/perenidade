@@ -175,7 +175,7 @@ export function Tutoring({ s }: { s: Dict["tutoring"] }) {
           <p className="text-ink-soft">{s.textOnly}</p>
           <label className="sr-only" aria-hidden>
             Site
-            <input tabIndex={-1} autoComplete="off" value={form.site} onChange={set("site")} />
+            <input tabIndex={-1} aria-hidden autoComplete="off" value={form.site} onChange={set("site")} />
           </label>
           <button type="submit" disabled={busy} className="cursor-pointer bg-ink px-6 py-2.5 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50">
             {s.send}

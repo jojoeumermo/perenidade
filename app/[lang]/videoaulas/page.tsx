@@ -5,11 +5,12 @@ import { Suspense } from "react";
 import { PageHeading } from "@/components/PageHeading";
 import { VideoaulasPublicas } from "@/components/VideoaulasPublicas";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/videoaulas">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.videoLessons.title, description: t.videoLessons.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/videoaulas", t.videoLessons.title, t.videoLessons.lead);
 }
 
 // As aulas gravadas pelos educadores do instituto, revisadas pela revisão. A lista vem do serviço, na hora.

@@ -1631,3 +1631,16 @@ body {
     padding-right: 28rem;
   }
 }
+
+/* No toque, todo link e botão do cabeçalho e do rodapé tem pelo menos 44 px de altura (o visual no computador não muda). */
+@media (pointer: coarse) {
+  header a,
+  header button,
+  header select,
+  footer a,
+  footer button {
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
+  }
+}

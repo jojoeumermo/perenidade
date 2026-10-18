@@ -3,13 +3,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 import { areaSlugs } from "@/lib/areas";
 import { getVideos } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/videos">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.videos.title, description: t.videos.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/videos", t.videos.title, t.videos.lead);
 }
 
 // Os vídeos não ficam hospedados aqui: cada item leva ao canal de quem produziu.

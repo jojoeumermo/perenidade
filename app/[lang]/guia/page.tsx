@@ -2,12 +2,13 @@
 import type { Metadata } from "next";
 import { ContentPageView } from "@/components/ContentPageView";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 import { getPage } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/guia">): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const page = getPage("guia", lang);
-  return { title: page.title, description: page.lead };
+  return paginaMeta(lang, "/guia", page.title, page.lead);
 }
 
 export default async function Guia({ params }: PageProps<"/[lang]/guia">) {

@@ -3,6 +3,7 @@ import type { MetadataRoute } from "next";
 import { defaultLocale, htmlLang, locales } from "@/i18n/config";
 import { areaSlugs, tools } from "@/lib/areas";
 import { getArticles, getBooks, getTracks } from "@/lib/content";
+import { fileHistory } from "@/lib/history";
 import { site } from "@/lib/site";
 
 // Mapa do site para os buscadores. Cada endereço aparece uma vez por idioma, com a indicação das
@@ -20,7 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contribuir",
     "/apoie",
     "/explorar",
-    "/busca",
     "/autores",
     "/voluntarios",
     "/glossario",
@@ -39,29 +39,47 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/mural",
     "/gaveta",
     "/gaveta/termo",
-    "/reforco",
     "/materiais",
     "/sobre",
+    "/quem-somos",
+    "/radio",
     "/privacidade",
     "/termos",
-    "/denunciar",
   ];
   for (const area of areaSlugs) paths.push(`/estantes/${area}`);
   for (const tool of tools) paths.push(`/ferramentas/${tool}`);
+  // A data real da última alteração, lida do histórico do Git, só para o que tem arquivo próprio (aula, trilha, obra, matéria).
+  const datas = new Map<string, string>();
+  const anotar = (path: string, file?: string) => {
+    if (!file) return;
+    const { updated } = fileHistory(file);
+    if (updated) datas.set(path, updated);
+  };
   for (const track of getTracks(defaultLocale)) {
     paths.push(`/trilhas/${track.slug}`);
-    for (const lesson of track.lessons) paths.push(`/trilhas/${track.slug}/${lesson.slug}`);
+    let ultima = "";
+    for (const lesson of track.lessons) {
+      paths.push(`/trilhas/${track.slug}/${lesson.slug}`);
+      anotar(`/trilhas/${track.slug}/${lesson.slug}`, lesson.file);
+      const d = datas.get(`/trilhas/${track.slug}/${lesson.slug}`);
+      if (d && d > ultima) ultima = d;
+    }
+    if (ultima) datas.set(`/trilhas/${track.slug}`, ultima);
   }
-  for (const book of getBooks(defaultLocale)) paths.push(`/acervo/${book.id}`);
-  for (const article of getArticles(defaultLocale)) paths.push(`/jornal/${article.slug}`);
-  const modified = new Date();
+  for (const book of getBooks(defaultLocale)) {
+    paths.push(`/acervo/${book.id}`);
+    anotar(`/acervo/${book.id}`, (book as { file?: string }).file);
+  }
+  for (const article of getArticles(defaultLocale)) {
+    paths.push(`/jornal/${article.slug}`);
+    anotar(`/jornal/${article.slug}`, (article as { file?: string }).file);
+  }
   return paths.flatMap((path) => {
     const languages = { ...Object.fromEntries(locales.map((code) => [htmlLang[code], `${site.url}/${code}${path}`])), "x-default": `${site.url}/${defaultLocale}${path}` };
+    const data = datas.get(path);
     return locales.map((lang) => ({
       url: `${site.url}/${lang}${path}`,
-      lastModified: modified,
-      changeFrequency: (path === "" || path === "/jornal" ? "daily" : "weekly") as "daily" | "weekly",
-      priority: path === "" ? 1 : lang === defaultLocale ? 0.8 : 0.5,
+      ...(data ? { lastModified: new Date(data) } : {}),
       alternates: { languages },
     }));
   });

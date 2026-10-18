@@ -4,10 +4,11 @@ import { Suspense } from "react";
 import { Forum } from "@/components/Forum";
 import { Cartaz } from "@/components/Cartaz";
 import { loadLang } from "@/i18n";
+import { paginaMeta } from "@/lib/seo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/comunidade">): Promise<Metadata> {
-  const { t } = await loadLang(params);
-  return { title: t.community.title, description: t.community.lead };
+  const { lang, t } = await loadLang(params);
+  return paginaMeta(lang, "/comunidade", t.community.title, t.community.lead);
 }
 
 export default async function Comunidade({ params }: PageProps<"/[lang]/comunidade">) {
