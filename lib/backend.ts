@@ -147,6 +147,8 @@ export interface Me {
   termo_voluntario?: boolean;
   /** Entrou no aprendizado interno (aceitou o termo do aprendizado). */
   aprendizado?: boolean;
+  /** Currículo público do educador: endereços https (portfolio, lattes, site, redes) e uma linha de formação. */
+  curriculo?: Record<string, string>;
 }
 
 /** Funções que valem por outra: a educação secundária tem os poderes da educação; o marketing, os do design. */

@@ -741,6 +741,7 @@ alter table interno.perfis add column if not exists chat_leitura boolean not nul
 -- Retrato: um ícone pré-definido ("p:estrela") para todo mundo; coordenação, coordenação pedagógica e supervisão podem
 -- subir uma imagem própria, pequena (WebP em data URI, redesenhada no navegador, sem dados da câmera).
 alter table interno.perfis add column if not exists avatar text not null default '' check (char_length(avatar) <= 40000);
+alter table interno.perfis add column if not exists curriculo jsonb not null default '{}'::jsonb;
 -- O termo de voluntariado que todo mundo da equipe confirma ao abrir o painel (não é CLT: trabalho voluntário).
 alter table interno.perfis add column if not exists termo_voluntario_em timestamptz;
 -- O aprendizado interno: quem aceitou aprender com os educadores pelo painel.
@@ -1352,7 +1353,7 @@ begin
                           from papeis p where p.usuario = f.id), '[]'::jsonb),
       'nivel', interno.nivel_de(f.id),
       'chat_visto', f.chat_visto, 'chat_leitura', f.chat_leitura,
-      'avatar', f.avatar, 'termo_voluntario', f.termo_voluntario_em is not null, 'aprendizado', f.aprendizado_em is not null,
+      'avatar', f.avatar, 'curriculo', coalesce(f.curriculo, '{}'::jsonb), 'termo_voluntario', f.termo_voluntario_em is not null, 'aprendizado', f.aprendizado_em is not null,
       'segundo_fator', interno.aal2(),
       'exige_segundo_fator', interno.tem_fator() or (interno.exige_2fa() and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('coordenacao', 'vice', 'supervisao', 'curadoria', 'mediacao'))),
       'trocar_senha', f.trocar_senha,
@@ -1373,6 +1374,44 @@ end $$;
 
 /** As escolhas de privacidade das conversas: mostrar o "visto por último" e confirmar leitura. Quem esconde também não vê o dos outros. */
 /** O retrato: ícone pré-definido para todo mundo; imagem própria só para quem gere a equipe. */
+/**
+ * O currículo público do educador, para o cartão nas aulas e a página "Quem somos": só endereços https (portfólio,
+ * Lattes, site, redes) e uma linha de formação. Tudo opcional; o que ficar vazio não aparece.
+ */
+create or replace function public.perfil_curriculo(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); k text; u text; v_novo jsonb := '{}'::jsonb;
+begin
+  perform interno.limite('perfil', 20, 60);
+  if jsonb_typeof(coalesce(p, '{}'::jsonb)) <> 'object' then perform interno.erro('invalido:curriculo'); end if;
+  foreach k in array array['portfolio', 'lattes', 'site', 'instagram', 'youtube', 'linkedin', 'github'] loop
+    u := btrim(coalesce(p ->> k, ''));
+    if u <> '' then
+      if u !~ '^https://[^\s]{3,300}$' then perform interno.erro('invalido:' || k); end if;
+      v_novo := v_novo || jsonb_build_object(k, u);
+    end if;
+  end loop;
+  u := btrim(coalesce(p ->> 'formacao', ''));
+  if u <> '' then v_novo := v_novo || jsonb_build_object('formacao', left(u, 160)); end if;
+  update perfis set curriculo = v_novo where id = v;
+  return public.eu();
+end $$;
+
+/** O dicionário do instituto: termos aceitos pela conferência de ortografia (nomes próprios, siglas, palavras das trilhas). Qualquer pessoa lê. */
+create or replace function public.dicionario_termos() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((select valor from configuracoes where chave = 'dicionario'), '[]'::jsonb)
+$$;
+
+create or replace function public.dicionario_salvar(p_termos text[]) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_lista jsonb;
+begin
+  if not (interno.lider() or interno.tem('vice') or interno.tem('revisao')) then perform interno.erro('sem_permissao'); end if;
+  select coalesce(jsonb_agg(distinct t order by t), '[]'::jsonb) into v_lista
+  from (select btrim(x) as t from unnest(coalesce(p_termos, '{}')) x where btrim(x) ~ '^[^\s]{2,60}$' limit 5000) s;
+  insert into configuracoes (chave, valor) values ('dicionario', v_lista) on conflict (chave) do update set valor = excluded.valor;
+  perform interno.registrar('dicionario_salvo', '', jsonb_build_object('termos', jsonb_array_length(v_lista)));
+  return v_lista;
+end $$;
+
 create or replace function public.perfil_avatar(p_avatar text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); a text := coalesce(p_avatar, '');
 begin
@@ -3080,7 +3119,7 @@ $$;
  * "sobre você" do perfil, o ícone e as disciplinas. Só educadores ativos; nada de e-mail nem de outros papéis.
  */
 create or replace function public.educadores() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
-  select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', f.nome, 'bio', f.bio, 'avatar', f.avatar,
+  select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', f.nome, 'bio', f.bio, 'avatar', f.avatar, 'curriculo', coalesce(f.curriculo, '{}'::jsonb),
            'disciplinas', (select jsonb_agg(distinct p.disciplina) from papeis p where p.usuario = f.id and p.papel in ('educacao', 'educacao_secundaria') and p.disciplina is not null))
            order by f.nome), '[]'::jsonb)
   from perfis f
@@ -6451,7 +6490,7 @@ begin
              'chat_aparelho_registrar', 'chat_aparelhos_meus', 'chat_aparelho_remover', 'chat_chaves', 'chat_chave_nova', 'chat_chaves_pendentes',
              'chat_chaves_dar', 'chat_chaves_recusar', 'chat_autodestruir', 'chat_aparelho_estado', 'chat_aparelho_aprovar', 'chat_identidade_definir',
              'chat_identidade_redefinir', 'chat_recuperacao_guardar', 'chat_recuperacao_ler', 'chat_aparelho_pedir', 'chat_aparelho_recuperar',
-             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias', 'chat_anexo_enviar', 'chat_anexo_ler', 'chat_privadas', 'chat_conversa_marcar', 'chat_controles', 'chat_controlar', 'perfil_avatar', 'termo_voluntario_aceitar', 'aprendizado_aceitar', 'marketing_sugerir', 'marketing_caixa', 'marketing_caixa_decidir', 'painel_estatisticas', 'educadores', 'chat_relatar', 'chat_relatos', 'chat_relato_resolver',
+             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias', 'chat_anexo_enviar', 'chat_anexo_ler', 'chat_privadas', 'chat_conversa_marcar', 'chat_controles', 'chat_controlar', 'perfil_avatar', 'perfil_curriculo', 'dicionario_termos', 'dicionario_salvar', 'termo_voluntario_aceitar', 'aprendizado_aceitar', 'marketing_sugerir', 'marketing_caixa', 'marketing_caixa_decidir', 'painel_estatisticas', 'educadores', 'chat_relatar', 'chat_relatos', 'chat_relato_resolver',
              'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao',
              'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao', 'papeis_historico_listar',
              'equipe_supervisao', 'pedidos_supervisao', 'protecoes', 'site_pausa', 'usuario_editar', 'usuario_senha_redefinir', 'senha_trocada',
