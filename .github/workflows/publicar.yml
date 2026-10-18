@@ -37,6 +37,11 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      # As fichas aprovadas nas tarefas do painel (ano, sinopse, licença, link) entram no acervo junto com o resto.
+      - run: node scripts/tarefas.mjs aplicar
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       - name: Há algo novo?
         id: novo
         run: |
@@ -57,6 +62,13 @@ jobs:
           git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${GITHUB_REF_NAME}"
       # Só depois de o arquivo estar no acervo o painel passa a mostrar o item como publicado.
       - run: npm run sincronizar -- --marcar
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      # Depois do envio: marca as fichas aplicadas, leva ao banco as lacunas do verificador (do site publicado) e confere um
+      # lote pequeno de links das obras. Falha aqui não desfaz a publicação.
+      - run: node scripts/tarefas.mjs verificar
+        continue-on-error: true
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
