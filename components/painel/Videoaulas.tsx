@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
-import { can, type Me } from "@/lib/backend";
+import { can, getClient, type Me } from "@/lib/backend";
 import {
   apagarVideo,
   cabe,
@@ -106,7 +106,32 @@ function Gravar({ me, enviado }: { me: Me; enviado: () => void }) {
   const [pronto, setPronto] = useState<Pronto | null>(null);
   const [aviso, setAviso] = useState("");
   const [enviando, setEnviando] = useState(false);
+  const [transcrevendo, setTranscrevendo] = useState(false);
   const acao = useAcao();
+
+  /** Manda o vídeo gravado ao serviço de transcrição (Whisper, pela função do serviço de contas) e preenche a transcrição e a legenda. */
+  async function transcrever() {
+    if (!pronto) return;
+    if (pronto.blob.size > 25 * 1024 * 1024) return setAviso("O serviço de transcrição aceita até 25 MB: grave um trecho mais curto ou escreva a transcrição à mão.");
+    setTranscrevendo(true);
+    setAviso("");
+    try {
+      const supabase = await getClient();
+      const corpo = new FormData();
+      corpo.append("arquivo", pronto.blob, `aula.${pronto.formato.extensao}`);
+      const { data, error } = await supabase.functions.invoke<{ texto?: string; vtt?: string; erro?: string }>("transcrever-audio", { body: corpo });
+      if (error || !data || data.erro || !data.texto) {
+        const e = data?.erro;
+        setAviso(e === "desligada" ? "A transcrição automática ainda não foi ligada no serviço (falta a chave)." : e === "cota" ? "O serviço de transcrição atingiu a cota de agora. Tente mais tarde." : "A transcrição não respondeu. Tente de novo ou escreva à mão.");
+        return;
+      }
+      setForm((f) => ({ ...f, transcricao: data.texto ?? "", legenda: data.vtt || f.legenda }));
+    } catch {
+      setAviso("A transcrição não respondeu. Tente de novo ou escreva à mão.");
+    } finally {
+      setTranscrevendo(false);
+    }
+  }
 
   useEffect(() => () => (pronto ? URL.revokeObjectURL(pronto.previa) : undefined), [pronto]);
 
@@ -207,6 +232,10 @@ function Gravar({ me, enviado }: { me: Me; enviado: () => void }) {
         <label className="block">
           Transcrição (recomendado: quem não ouve acompanha a aula pelo texto)
           <textarea value={form.transcricao} onChange={(e) => setForm({ ...form, transcricao: e.target.value })} maxLength={60000} rows={6} className={campo} />
+          <span className="mt-1 block">
+            <button type="button" className={botaoClaro} disabled={!pronto || transcrevendo} onClick={() => void transcrever()}>{transcrevendo ? "Transcrevendo…" : "Transcrever automaticamente (Whisper)"}</button>
+            <span className="ml-2 text-xs text-ink-soft">Preenche a transcrição e a legenda a partir do vídeo gravado; revise antes de enviar.</span>
+          </span>
         </label>
         <label className="block">
           Legendas em WebVTT (opcional, arquivo .vtt)
@@ -242,7 +271,11 @@ function Gravar({ me, enviado }: { me: Me; enviado: () => void }) {
 
 /** Grava da câmera ou da tela, com o microfone, em até 480p, parando sozinho nos 10 minutos. Ou recebe um arquivo pronto. */
 function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
-  const [modo, setModo] = useState<"camera" | "tela">("camera");
+  const [modo, setModo] = useState<"camera" | "tela" | "ambos">("camera");
+  // Um PDF aberto aqui mesmo, para compartilhar esta aba enquanto grava.
+  const [pdf, setPdf] = useState<string | null>(null);
+  const extras = useRef<MediaStream[]>([]);
+  const quadro = useRef<number | null>(null);
   const [estado, setEstado] = useState<"parado" | "pronto" | "gravando" | "convertendo">("parado");
   const [segundos, setSegundos] = useState(0);
   const [progresso, setProgresso] = useState(0);
@@ -258,6 +291,10 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
   const desligar = () => {
     fluxo.current?.getTracks().forEach((faixa) => faixa.stop());
     fluxo.current = null;
+    extras.current.forEach((s) => s.getTracks().forEach((faixa) => faixa.stop()));
+    extras.current = [];
+    if (quadro.current) window.cancelAnimationFrame(quadro.current);
+    quadro.current = null;
     if (relogioRef.current) window.clearInterval(relogioRef.current);
     relogioRef.current = null;
   };
@@ -265,10 +302,48 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
   useEffect(
     () => () => {
       fluxo.current?.getTracks().forEach((faixa) => faixa.stop());
+      extras.current.forEach((s) => s.getTracks().forEach((faixa) => faixa.stop()));
+      if (quadro.current) window.cancelAnimationFrame(quadro.current);
       if (relogioRef.current) window.clearInterval(relogioRef.current);
     },
     [],
   );
+
+  /** Tela e câmera ao mesmo tempo: a tela inteira e a câmera num canto, desenhadas num quadro de 854 por 480. */
+  function compor(tela: MediaStream, camera: MediaStream): MediaStream {
+    const tela2 = document.createElement("video");
+    const cam = document.createElement("video");
+    tela2.srcObject = tela;
+    cam.srcObject = camera;
+    tela2.muted = cam.muted = true;
+    void tela2.play();
+    void cam.play();
+    const canvas = document.createElement("canvas");
+    canvas.width = 854;
+    canvas.height = 480;
+    const ctx = canvas.getContext("2d")!;
+    const desenhar = () => {
+      ctx.fillStyle = "#17130e";
+      ctx.fillRect(0, 0, 854, 480);
+      if (tela2.videoWidth) {
+        const k = Math.min(854 / tela2.videoWidth, 480 / tela2.videoHeight);
+        const w = tela2.videoWidth * k;
+        const h = tela2.videoHeight * k;
+        ctx.drawImage(tela2, (854 - w) / 2, (480 - h) / 2, w, h);
+      }
+      if (cam.videoWidth) {
+        const w = 214;
+        const h = (cam.videoHeight / cam.videoWidth) * w;
+        ctx.fillStyle = "#c21f16";
+        ctx.fillRect(854 - w - 20, 480 - h - 20, w + 6, h + 6);
+        ctx.drawImage(cam, 854 - w - 17, 480 - h - 17, w, h);
+      }
+      quadro.current = window.requestAnimationFrame(desenhar);
+    };
+    desenhar();
+    extras.current = [tela, camera];
+    return canvas.captureStream(24);
+  }
 
   async function finalizar(blob: Blob, usado: Formato) {
     try {
@@ -287,7 +362,12 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
       const microfone = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
       let imagem: MediaStream;
       if (modo === "camera") imagem = await navigator.mediaDevices.getUserMedia({ video: restricoesDeVideo });
-      else imagem = await navigator.mediaDevices.getDisplayMedia({ video: restricoesDeVideo, audio: false });
+      else if (modo === "tela") imagem = await navigator.mediaDevices.getDisplayMedia({ video: restricoesDeVideo, audio: false });
+      else {
+        const tela = await navigator.mediaDevices.getDisplayMedia({ video: restricoesDeVideo, audio: false });
+        const camera = await navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 320 }, height: { ideal: 240 }, frameRate: { ideal: 24, max: 30 } } });
+        imagem = compor(tela, camera);
+      }
       fluxo.current = new MediaStream([...imagem.getVideoTracks(), ...microfone.getAudioTracks()]);
       if (espelho.current) {
         espelho.current.srcObject = fluxo.current;
@@ -354,6 +434,14 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
   return (
     <section className="painel-cartao space-y-4 p-5">
       <h2 className="font-serif text-xl font-semibold">1. O vídeo</h2>
+      {pdf && (
+        <div>
+          <p className="text-xs text-ink-soft">O PDF abre aqui embaixo. Ao escolher a tela, compartilhe <strong>esta aba</strong>: o que você rolar no PDF entra na gravação. <button type="button" className={elo} onClick={() => { URL.revokeObjectURL(pdf); setPdf(null); }}>Fechar o PDF</button></p>
+          <object data={pdf} type="application/pdf" className="mt-2 h-[60vh] w-full border border-rule" aria-label="PDF da aula">
+            <p className="p-3 text-ink-soft">Este navegador não mostra PDF aqui dentro: abra o arquivo em outra aba e compartilhe aquela aba.</p>
+          </object>
+        </div>
+      )}
       {!formato && <p className="border-l-2 border-oxblood pl-3">{mensagensDeVideo.sem_gravador} Você ainda pode enviar um vídeo pronto, em MP4 ou WebM, de até 480p.</p>}
       {estado !== "convertendo" && (
         <div className="flex flex-wrap items-end gap-4">
@@ -366,12 +454,21 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
               <label className="flex items-center gap-2">
                 <input type="radio" name="modo" checked={modo === "tela"} onChange={() => setModo("tela")} /> Tela (slides, quadro, programa)
               </label>
+              <label className="flex items-center gap-2">
+                <input type="radio" name="modo" checked={modo === "ambos"} onChange={() => setModo("ambos")} /> Tela e câmera juntas
+              </label>
             </fieldset>
           )}
           {formato && estado === "parado" && (
             <button type="button" className={botao} onClick={() => void ligar()}>
-              {modo === "camera" ? "Ligar a câmera" : "Escolher a tela"}
+              {modo === "camera" ? "Ligar a câmera" : modo === "tela" ? "Escolher a tela" : "Escolher a tela e ligar a câmera"}
             </button>
+          )}
+          {formato && modo !== "camera" && (
+            <label className={`${botaoClaro} cursor-pointer`}>
+              {pdf ? "Trocar o PDF" : "Mostrar um PDF"}
+              <input type="file" accept="application/pdf" className="sr-only" onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) { if (pdf) URL.revokeObjectURL(pdf); setPdf(URL.createObjectURL(f)); } }} />
+            </label>
           )}
           {estado === "pronto" && (
             <button type="button" className={botao} onClick={gravar}>
