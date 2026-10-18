@@ -6,11 +6,14 @@ import synonyms from "@/content/busca.json";
 import { fill, localePath } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { type Caderno, type Cartao, cartoesDe, type Fonte, guardarCadernos, lerCadernos, limpar, linhaDoTempo, mapaDe, minutosDe, novoId, palavrasChave, procurar, type Questao, questoesDe, type Ramo, resumir, roteiroDeAudio } from "@/lib/caderno";
+import { guardarCartoes, registrarErro } from "@/lib/estudo";
 import { buildSearch, type SearchEntry, type SearchHit } from "@/lib/search";
 import { L, useI18n } from "../I18n";
+import { CopiaDeSeguranca, Erros, Ler, Revisao } from "./Estudo";
 
 export type NotebookStrings = Dict["notebook"];
-type Ferramenta = "resumo" | "perguntar" | "cartoes" | "questionario" | "mapa" | "tempo" | "audio" | "notas" | "plano" | "roteiro";
+type Ferramenta = "resumo" | "ler" | "perguntar" | "cartoes" | "revisao" | "questionario" | "erros" | "mapa" | "tempo" | "audio" | "notas" | "plano" | "roteiro";
+const SEM_FONTE: Ferramenta[] = ["notas", "plano", "revisao", "erros"];
 
 const botao = "cursor-pointer bg-ink px-4 py-2 font-sans text-sm font-semibold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
 const claro = "cursor-pointer border-2 border-ink px-3 py-1.5 font-sans text-sm font-semibold hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50";
@@ -39,6 +42,9 @@ export function CadernoDeEstudos({ s, modo = "site" }: { s: NotebookStrings; mod
       const pronta = lista.length ? lista : [novoCaderno(s.untitled)];
       setCadernos(pronta);
       setAtualId(pronta[0].id);
+      // Endereço com ?ferramenta=erros (vindo do simulado) ou ?ferramenta=revisao abre direto nela.
+      const pedida = new URLSearchParams(window.location.search).get("ferramenta");
+      if (pedida === "erros" || pedida === "revisao" || pedida === "ler") setFerramenta(pedida);
     }, 0);
     return () => window.clearTimeout(relogio);
   }, [s.untitled]);
@@ -53,14 +59,20 @@ export function CadernoDeEstudos({ s, modo = "site" }: { s: NotebookStrings; mod
     });
   };
   const ativas = useMemo(() => (atual?.fontes ?? []).filter((f) => f.ativa), [atual]);
+  const mudarFonte = (id: string, m: Partial<Fonte>) => {
+    if (atual) mudar({ fontes: atual.fontes.map((f) => (f.id === id ? { ...f, ...m } : f)) });
+  };
 
   if (!cadernos || !atual) return <p className="mt-8 font-mono text-xs text-ink-soft">…</p>;
 
   const ferramentas: [Ferramenta, string][] = [
     ["resumo", s.tools.summary],
+    ["ler", s.tools.read],
     ["perguntar", s.tools.ask],
     ["cartoes", s.tools.cards],
+    ["revisao", s.tools.review],
     ["questionario", s.tools.quiz],
+    ["erros", s.tools.mistakes],
     ["mapa", s.tools.map],
     ["tempo", s.tools.timeline],
     ["audio", s.tools.audio],
@@ -153,6 +165,7 @@ export function CadernoDeEstudos({ s, modo = "site" }: { s: NotebookStrings; mod
           {aba === "colar" && <Colar s={s} acrescentar={acrescentar} />}
           {aba === "arquivo" && <Arquivo s={s} acrescentar={acrescentar} />}
         </section>
+        <CopiaDeSeguranca s={s} />
         <p className="text-xs text-ink-soft">{s.honest}</p>
       </aside>
 
@@ -166,11 +179,14 @@ export function CadernoDeEstudos({ s, modo = "site" }: { s: NotebookStrings; mod
           ))}
         </div>
         <div className="mt-5">
-          {ativas.length === 0 && ferramenta !== "notas" && ferramenta !== "plano" ? (
+          {ativas.length === 0 && !SEM_FONTE.includes(ferramenta) ? (
             <p className="border border-rule bg-parchment-deep px-4 py-8 text-center text-ink-soft">{s.needSources}</p>
           ) : (
             <>
               {ferramenta === "resumo" && <Resumo s={s} fontes={ativas} paraNotas={(t) => mudar({ notas: `${atual.notas}${atual.notas ? "\n\n" : ""}${t}` })} />}
+              {ferramenta === "ler" && <Ler key={atual.id} s={s} fontes={ativas} mudarFonte={mudarFonte} paraNotas={(t) => mudar({ notas: `${atual.notas}${atual.notas ? "\n\n" : ""}${t}` })} />}
+              {ferramenta === "revisao" && <Revisao s={s} />}
+              {ferramenta === "erros" && <Erros s={s} />}
               {ferramenta === "perguntar" && <Perguntar s={s} fontes={ativas} paraNotas={(t) => mudar({ notas: `${atual.notas}${atual.notas ? "\n\n" : ""}${t}` })} />}
               {ferramenta === "cartoes" && <Cartoes key={ativas.map((f) => f.id).join()} s={s} fontes={ativas} />}
               {ferramenta === "questionario" && <Questionario key={ativas.map((f) => f.id).join()} s={s} fontes={ativas} />}
@@ -344,7 +360,9 @@ function Cartoes({ s, fontes }: { s: NotebookStrings; fontes: Fonte[] }) {
   const [virado, setVirado] = useState(false);
   const [sei, setSei] = useState(0);
   const [repetir, setRepetir] = useState<Cartao[]>([]);
+  const [guardados, setGuardados] = useState("");
   if (todos.length === 0) return <p className="text-ink-soft">{s.cardsEmpty}</p>;
+  const guardar = (lista: Cartao[]) => setGuardados(fill(s.savedN, { n: guardarCartoes(lista.map((c) => ({ frente: c.frente, verso: c.verso, origem: c.fonte }))) }));
   const cartao = fila[i];
   const avancar = (soube: boolean) => {
     if (soube) setSei((n) => n + 1);
@@ -366,6 +384,11 @@ function Cartoes({ s, fontes }: { s: NotebookStrings; fontes: Fonte[] }) {
   return (
     <div>
       <p className="text-ink-soft">{s.cardsLead}</p>
+      <p className="mt-2 flex flex-wrap items-center gap-3 text-xs">
+        <button type="button" className={elo} onClick={() => guardar([cartao])}>{s.saveCard}</button>
+        <button type="button" className={elo} onClick={() => guardar(todos)}>{s.saveAllCards} ({todos.length})</button>
+        <span role="status" className="text-ok">{guardados}</span>
+      </p>
       <p className="mt-3 font-mono text-xs text-ink-soft">{i + 1} / {fila.length} · {cartao.fonte}</p>
       <button type="button" onClick={() => setVirado((v) => !v)} className="mt-2 flex min-h-48 w-full cursor-pointer flex-col items-center justify-center border-2 border-ink bg-parchment-deep p-6 text-center hover:border-gold">
         <span className="font-serif text-2xl leading-snug">{virado ? cartao.verso : cartao.frente}</span>
@@ -405,7 +428,7 @@ function Questionario({ s, fontes }: { s: NotebookStrings; fontes: Fonte[] }) {
       <p className="mt-2 font-serif text-xl leading-snug">{q.pergunta}</p>
       <div className="mt-3 grid gap-2 sm:grid-cols-2">
         {q.opcoes.map((o, j) => (
-          <button key={j} type="button" disabled={escolha !== null} onClick={() => { setEscolha(j); if (j === q.resposta) setAcertos((n) => n + 1); }} className={`cursor-pointer border-2 bg-parchment px-3 py-2 text-left disabled:cursor-default ${escolha === null ? "border-rule hover:border-gold" : j === q.resposta ? "border-ok text-ok" : j === escolha ? "border-oxblood text-oxblood" : "border-rule opacity-60"}`}>
+          <button key={j} type="button" disabled={escolha !== null} onClick={() => { setEscolha(j); if (j === q.resposta) setAcertos((n) => n + 1); else registrarErro({ pergunta: q.pergunta, opcoes: q.opcoes, resposta: q.resposta, escolhida: j, explicacao: q.explicacao, origem: q.fonte }); }} className={`cursor-pointer border-2 bg-parchment px-3 py-2 text-left disabled:cursor-default ${escolha === null ? "border-rule hover:border-gold" : j === q.resposta ? "border-ok text-ok" : j === escolha ? "border-oxblood text-oxblood" : "border-rule opacity-60"}`}>
             {o}
           </button>
         ))}

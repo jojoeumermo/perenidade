@@ -15,6 +15,16 @@ export interface Fonte {
   origem: string;
   /** Entra nas ferramentas? */
   ativa: boolean;
+  /** Trechos marcados no leitor. */
+  marcas?: Marca[];
+}
+
+/** Um trecho marcado com o marca-texto do leitor, com a nota de quem leu. */
+export interface Marca {
+  id: string;
+  trecho: string;
+  cor: "amarelo" | "verde" | "rosa";
+  nota: string;
 }
 
 export interface Caderno {
