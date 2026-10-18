@@ -28,6 +28,7 @@ import { CadernoNoPainel } from "./Caderno";
 import { Estudio } from "./design/Estudio";
 import { PorOndeComecar } from "./Comecar";
 import { Conversas } from "./Conversas";
+import { Curriculo as DisciplinasETrilhas } from "./Curriculo";
 import { Divulgacao } from "./Divulgacao";
 import { Equipe, type Membro } from "./Equipe";
 import { Repasse } from "./Sigilo";
@@ -122,6 +123,7 @@ const icones: Record<string, string> = {
   estatisticas: "M4 20V10M10 20V4M16 20v-8M22 20H2",
   emissoras: "M3 9h18v11H3zM7 9l10-5M8.5 12a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M14 13h4M14 16h4",
   reunioes: "M3 7h12v10H3zM15 10l6-3v10l-6-3M6 20h6",
+  curriculo: "M4 4h16v16H4zM4 10h16M10 10v10",
   conta: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-8 8-8s8 3.6 8 8",
   aovivo: "M3 7h13v10H3zM16 10l5-3v10l-5-3M6 4h7",
   estudio: "M4 20l4-1 11-11-3-3L5 16zM13 8l3 3M4 20v-4",
@@ -472,6 +474,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "supervisao", "curadoria", "revisao", "educacao"), conta: r?.fila },
       { id: "traducoes", nome: "Traduções", sobre: "As aulas que ainda não têm tradução e as traduções a caminho.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "traducao", "revisao") },
       { id: "triagem", nome: "Triagem", sobre: "A primeira leitura do que o público envia: o que passa segue para a fila de revisão.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.triagem },
+      { id: "curriculo", nome: "Disciplinas e trilhas", sobre: "Criar, editar e remover disciplinas e trilhas (coordenação e coordenação pedagógica); todo voluntário sugere.", grupo: "Produção", mostra: voluntario },
       { id: "fontes", nome: "Fontes abertas", sobre: "Obras, verbetes e datas em acervos e enciclopédias livres, para escrever com fonte à vista.", grupo: "Produção", mostra: voluntario },
       { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design", "marketing") },
       { id: "divulgacao", nome: "Divulgação", sobre: "Calendário de posts e stories, kit da marca e acesso ao Instagram.", grupo: "Produção", mostra: can(eu, "coordenacao", "marketing"), conta: r?.divulgacao },
@@ -700,6 +703,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "fila" && <Fila key="fila" me={eu} />}
           {atual.id === "traducoes" && <Traducoes irEscrever={() => ir("escrever")} />}
           {atual.id === "triagem" && <Fila key="triagem" me={eu} triagem />}
+          {atual.id === "curriculo" && <DisciplinasETrilhas me={eu} />}
           {atual.id === "fontes" && <FontesAbertas />}
           {atual.id === "materiais" && <Materiais me={eu} />}
           {atual.id === "divulgacao" && <Divulgacao me={eu} />}
