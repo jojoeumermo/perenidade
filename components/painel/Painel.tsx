@@ -26,6 +26,7 @@ import { Boletim } from "./Boletim";
 import { CadernoNoPainel } from "./Caderno";
 import { Estudio } from "./design/Estudio";
 import { PorOndeComecar } from "./Comecar";
+import { AcervoPorDentro, MinhasContribuicoes, ParaVoceHoje, Tarefas } from "./Tarefas";
 import { Conversas } from "./Conversas";
 import { Curriculo as DisciplinasETrilhas } from "./Curriculo";
 import { Divulgacao } from "./Divulgacao";
@@ -469,6 +470,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "aovivo", nome: "Aulas ao vivo", sobre: "Marcar aulas na agenda pública, chamar colegas para dar junto e abrir a sala, com vídeo e bate-papo.", grupo: "Produção", mostra: can(eu, "coordenacao", "educacao", "mentoria") },
       { id: "estudio", nome: "Estúdio de design", sobre: "Posts, stories, cartazes e capas com a identidade do instituto, montados aqui mesmo.", grupo: "Produção", mostra: eu.desenha === true || can(eu, "coordenacao", "design", "jornalismo") },
       { id: "caderno", nome: "Caderno de estudos", sobre: "Fontes, resumo, cartões, questionário, mapa e leitura em voz alta: a sala de estudo para preparar aulas e episódios.", grupo: "Produção", mostra: true },
+      { id: "tarefas", nome: "Tarefas", sobre: "Microtarefas do acervo e das aulas para 5, 15 ou 30 minutos, a revisão rápida, mutirões e projetos.", grupo: "Produção", mostra: voluntario },
+      { id: "acervo-dentro", nome: "Acervo por dentro", sobre: "Cada obra com o selo da ficha (completa, parcial ou faltando), para escolher o que cuidar.", grupo: "Produção", mostra: voluntario },
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: produz },
       { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "supervisao", "curadoria", "revisao", "educacao"), conta: r?.fila },
@@ -498,6 +501,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "seguranca", nome: "Segurança e sucessão", sobre: "Segundo fator obrigatório, coordenação pedagógica e ordem de sucessão.", grupo: "Segurança", mostra: lidera },
       { id: "interdicao", nome: "Interdição e expurgo", sobre: "Tirar o site ou uma área do ar por um tempo, e apagar de uma vez uma chuva de spam.", grupo: "Segurança", mostra: lidera || supervisiona, conta: r?.pedidos_supervisao },
       { id: "registro", nome: "Registro de atividades", sobre: "Tudo o que foi decidido, por quem e quando.", grupo: "Segurança", mostra: lidera || supervisiona },
+      { id: "contribuicoes", nome: "Minhas contribuições", sobre: "O que você fez, as horas estimadas, os selos e o comprovante de voluntariado.", grupo: "Você", mostra: voluntario },
       { id: "conta", nome: "Minha conta", sobre: "Seu nome, sua senha e a proteção da sua conta.", grupo: "Você", mostra: true },
     ] satisfies Secao[]
   ).filter((secao) => secao.mostra);
@@ -697,6 +701,9 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "aovivo" && <AulasAoVivo me={eu} />}
           {atual.id === "estudio" && <Estudio me={eu} />}
           {atual.id === "caderno" && <CadernoNoPainel />}
+          {atual.id === "tarefas" && <Tarefas me={eu} ir={ir} />}
+          {atual.id === "acervo-dentro" && <AcervoPorDentro />}
+          {atual.id === "contribuicoes" && <MinhasContribuicoes />}
           {atual.id === "avisos" && <AvisosEquipe />}
           {atual.id === "minhas" && <Fila key="minhas" me={eu} minhas />}
           {atual.id === "juntas" && <Fila key="juntas" me={eu} juntas />}
@@ -831,7 +838,16 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
         </p>
       </section>
 
-      {me.papeis.length > 0 && <PorOndeComecar me={me} ir={ir} />}
+      {me.papeis.length > 0 && <ParaVoceHoje me={me} ir={ir} />}
+
+      {me.papeis.length > 0 && (
+        <details className="painel-cartao p-4">
+          <summary className="cursor-pointer font-semibold">Guia de primeiros passos da sua função</summary>
+          <div className="mt-3">
+            <PorOndeComecar me={me} ir={ir} />
+          </div>
+        </details>
+      )}
 
       {me.papeis.length > 0 && <Situacao lidera={can(me, "coordenacao")} supervisiona={can(me, "supervisao")} ir={ir} />}
 

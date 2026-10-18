@@ -51,3 +51,4 @@ next-env.d.ts
 
 # Configuração local do app Claude (prévia do servidor de desenvolvimento)
 /.claude/
+.tarefas-aplicadas.json

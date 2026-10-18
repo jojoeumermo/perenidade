@@ -45,6 +45,8 @@ jobs:
       - run: npm run testar:estudo
       # O assistente de reforço sem rede: o que se aceita, o pedido a cada provedor, a reserva e a leitura das respostas.
       - run: npm run testar:assistente
+      # O aplicador das tarefas aprovadas (ano, sinopse, licença, link), numa cópia temporária de obras.
+      - run: npm run testar:tarefas
       # As áreas que a coordenação pode tirar do ar cobrem todas as rotas públicas.
       - run: npm run testar:interdicao
       # O build lê e valida todo o conteúdo de content/: arquivo inválido falha aqui.
