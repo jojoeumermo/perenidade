@@ -459,7 +459,7 @@ export function Escrever({ me }: { me: Me }) {
         <label htmlFor="painel-corpo">{tipo.corpo.rotulo}</label>
         <div className="mt-1">
           {tipo.corpo.editor ? (
-            <MarkdownEditor id="painel-corpo" value={corpo} onChange={setCorpo} labels={editorPt} upload={can(me, "coordenacao", "curadoria", "educacao", "jornalismo", "design")} />
+            <MarkdownEditor id="painel-corpo" value={corpo} onChange={setCorpo} labels={editorPt} upload={can(me, "coordenacao", "curadoria", "educacao", "jornalismo", "design")} blocos />
           ) : (
             <textarea id="painel-corpo" value={corpo} onChange={(e) => setCorpo(e.target.value)} rows={6} className="w-full border-2 border-ink bg-parchment-deep px-3 py-2" />
           )}
