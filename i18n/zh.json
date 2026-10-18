@@ -892,8 +892,38 @@
       "pdf": "链接应指向来源网站上的作品页面，而不是直接指向 PDF 文件。",
       "synopsis": "简介太短（至少 40 个字符）。",
       "details": "请再说得详细一点（至少 20 个字符）。",
-      "declare": "请勾选声明后继续。"
-    }
+      "declare": "请勾选声明后继续。",
+      "area": "请选择学科。"
+    },
+    "chooseArea": "选择学科",
+    "chooseTrack": "选择学习路径",
+    "rulesTitle": "规则",
+    "rulesSummary": "用自己的话写，注明来源，不传盗版。课程以 CC BY-SA 4.0 发布。",
+    "howTitle": "如何运作",
+    "sentTitle": "已收到 ✓",
+    "trackingCode": "查询代码：",
+    "copyCode": "复制代码",
+    "copied": "已复制 ✓",
+    "trackingHint": "代码已保存在此设备上。在其他设备上，可将代码粘贴到“查询投稿”中。",
+    "sendAnother": "再投一份稿",
+    "mineTitle": "你在此设备上的投稿",
+    "addCode": "查询投稿",
+    "addCodePlaceholder": "粘贴收到的代码",
+    "addCodeButton": "查询",
+    "forget": "从列表中移除",
+    "noteLabel": "团队意见",
+    "sentOn": "发送于 {data}",
+    "badCode": "这个代码看起来不对：它由 36 个字母、数字和连字符组成。",
+    "statuses": {
+      "triagem": "已收到，等待初读",
+      "revisao": "团队审阅中",
+      "aprovada": "已通过：将在下次发布时上线",
+      "publicada": "已在网站发布",
+      "recusada": "本次未被采纳",
+      "resolvida": "已处理",
+      "sumida": "未找到"
+    },
+    "blocksNote": "想用区块（段落、标题、图片、公式）来编排吗？点击编辑器顶部的“区块”按钮。"
   },
   "report": {
     "eyebrow": "版权与质量",

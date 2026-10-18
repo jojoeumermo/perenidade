@@ -898,8 +898,38 @@
       "pdf": "O link deve levar à página da obra na fonte, não direto a um arquivo PDF.",
       "synopsis": "A sinopse está curta demais (mínimo de 40 caracteres).",
       "details": "Descreva com um pouco mais de detalhe (mínimo de 20 caracteres).",
-      "declare": "Marque a declaração para continuar."
-    }
+      "declare": "Marque a declaração para continuar.",
+      "area": "Escolha a disciplina."
+    },
+    "chooseArea": "Escolha a disciplina",
+    "chooseTrack": "Escolha a trilha",
+    "rulesTitle": "Regras",
+    "rulesSummary": "Com as suas palavras, com fonte, sem cópia pirata. Aulas sob CC BY-SA 4.0.",
+    "howTitle": "Como funciona",
+    "sentTitle": "Recebido ✓",
+    "trackingCode": "Código para acompanhar:",
+    "copyCode": "Copiar o código",
+    "copied": "Copiado ✓",
+    "trackingHint": "O código fica guardado neste aparelho. Em outro aparelho, cole o código em “Acompanhar um envio”.",
+    "sendAnother": "Enviar outra contribuição",
+    "mineTitle": "Seus envios deste aparelho",
+    "addCode": "Acompanhar um envio",
+    "addCodePlaceholder": "Cole o código recebido",
+    "addCodeButton": "Acompanhar",
+    "forget": "Tirar da lista",
+    "noteLabel": "Comentário da equipe",
+    "sentOn": "Enviada em {data}",
+    "badCode": "Esse código não parece certo: ele tem 36 letras e números, com hífens.",
+    "statuses": {
+      "triagem": "Recebida, esperando a primeira leitura",
+      "revisao": "Em revisão pela equipe",
+      "aprovada": "Aprovada: entra no site na próxima publicação",
+      "publicada": "Publicada no site",
+      "recusada": "Não entrou desta vez",
+      "resolvida": "Resolvida",
+      "sumida": "Não encontrada"
+    },
+    "blocksNote": "Prefere montar por blocos (parágrafo, título, imagem, fórmula)? Use o botão Blocos no alto do editor."
   },
   "report": {
     "eyebrow": "Direitos autorais e qualidade",

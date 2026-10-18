@@ -11072,3 +11072,24 @@ begin
     execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
   end loop;
 end $$;
+
+-- ───────────────────────────── Contribuir: acompanhar o envio ─────────────────────────────
+
+/**
+ * "Seus envios deste aparelho": a situação do que a pessoa mandou pela página de Contribuir, pelo código que ela recebeu
+ * ao enviar (o id, que ninguém adivinha). Sem conta: o código é a chave. Mostra só o necessário: tipo, título, situação,
+ * datas e o comentário da decisão.
+ */
+create or replace function public.contribuicao_situacao(p_ids uuid[]) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  if coalesce(array_length(p_ids, 1), 0) > 30 then perform interno.erro('invalido:ids'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object(
+      'id', c.id, 'tipo', c.tipo, 'titulo', c.titulo, 'criado_em', c.criado_em,
+      'situacao', case when c.status = 'pendente' and c.triagem = 'aguardando' then 'triagem' when c.status = 'pendente' then 'revisao' else c.status end,
+      'decidido_em', coalesce(c.publicado_em, c.revisado_em),
+      'nota', case when c.status in ('recusada', 'resolvida', 'aprovada', 'publicada') then c.nota else '' end) order by c.criado_em desc), '[]'::jsonb)
+    from contribuicoes c where c.id = any(p_ids));
+end $$;
+
+revoke all on function public.contribuicao_situacao(uuid[]) from public;
+grant execute on function public.contribuicao_situacao(uuid[]) to anon, authenticated, service_role;

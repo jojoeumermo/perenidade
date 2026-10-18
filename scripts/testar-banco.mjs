@@ -2884,6 +2884,11 @@ await espera("sem a regra da segunda pessoa, sai na hora", async () => { await r
 await recusa("lançamentos são só da coordenação", () => rpc(como(ids.prof), "apoio_lancamento_salvar", { p: { mes: "2026-09", tipo: "entrada", categoria: "Xis", valor: 1 } }), "sem_permissao");
 await espera("o último relatório aparece na página de apoio", () => rpc(anon, "apoio_publico"), (r) => r.relatorio && r.relatorio.mes === "2026-09-01");
 
+// Contribuir: o código recebido ao enviar mostra a situação, sem conta.
+await espera("o código do envio mostra a situação, sem conta", async () => { const r = await rpc(anonDe("10.8.8.8"), "contribuir", { p: { tipo: "sugestao", titulo: "Uma ideia para o acervo", corpo: "Que tal uma estante só de obras sobre cooperativas?" } }); return rpc(anon, "contribuicao_situacao", { p_ids: [r.id] }); }, (r) => r.length === 1 && ["triagem", "revisao"].includes(r[0].situacao) && r[0].titulo === "Uma ideia para o acervo" && r[0].nota === "");
+await recusa("no máximo trinta códigos por vez", () => rpc(anon, "contribuicao_situacao", { p_ids: Array.from({ length: 31 }, () => crypto.randomUUID()) }), "invalido:ids");
+await espera("código que não existe não mostra nada", () => rpc(anon, "contribuicao_situacao", { p_ids: [crypto.randomUUID()] }), (r) => r.length === 0);
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);
