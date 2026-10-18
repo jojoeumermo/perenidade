@@ -8,6 +8,7 @@ import type { Dict } from "@/i18n/types";
 import { areaSlugs } from "@/lib/areas";
 import { hasBackend, rpc } from "@/lib/backend";
 import { enderecoDoVideo, relogio } from "@/lib/videoaula";
+import { EstadoVazio } from "./EstadoVazio";
 import { L, useI18n } from "./I18n";
 import { useTrackOptions } from "./useTrackOptions";
 import { VideoPlayer } from "./VideoPlayer";
@@ -168,11 +169,7 @@ export function VideoaulasPublicas({ s }: { s: Textos }) {
       </label>
       {falhou && <p className="mt-6 font-sans text-oxblood" role="alert">{s.failed}</p>}
       {!falhou && dados === null && <p className="mt-6 font-sans text-ink-soft" role="status">{s.loading}</p>}
-      {dados?.length === 0 && (
-        <p className="mt-6 text-lg text-ink-soft">
-          {s.empty} <L href="/voluntarios" className="underline hover:text-oxblood">{s.join}</L>
-        </p>
-      )}
+      {dados?.length === 0 && <EstadoVazio textos={t.lists.empty.videoaulas} acaoHref="/voluntarios" relacionadoHref="/videos" />}
       {dados && dados.length > 0 && (
         <ul className="mt-6 grid gap-4 md:grid-cols-2">
           {dados.map((aula) => (

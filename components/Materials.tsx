@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import type { Dict } from "@/i18n/types";
 import { hasBackend, rpc } from "@/lib/backend";
 import { safeLink } from "@/lib/text";
+import { EstadoVazio } from "./EstadoVazio";
+import { useI18n } from "./I18n";
 
 interface Material {
   id: string;
@@ -17,6 +19,7 @@ interface Material {
 
 /** Zines, panfletos, cartazes e banners para baixar, imprimir e distribuir. A lista é mantida pela coordenação. */
 export function Materials({ s }: { s: Dict["materials"] }) {
+  const { t } = useI18n();
   const [list, setList] = useState<Material[] | null>(null);
 
   useEffect(() => {
@@ -36,7 +39,7 @@ export function Materials({ s }: { s: Dict["materials"] }) {
 
   if (!hasBackend) return <p className="mt-10 text-lg text-ink-soft">{s.offline}</p>;
   if (list === null) return null;
-  if (list.length === 0) return <p className="mt-10 text-lg text-ink-soft">{s.empty}</p>;
+  if (list.length === 0) return <EstadoVazio textos={t.lists.empty.materiais} acaoHref="/contribuir" relacionadoHref="/galeria" />;
 
   const campaigns = [...new Set(list.map((item) => item.campanha))];
   return (
