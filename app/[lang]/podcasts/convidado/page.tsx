@@ -14,7 +14,7 @@ export default async function Convidado({ params }: PageProps<"/[lang]/podcasts/
   const { t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      <Cartaz eyebrow={t.podcast.eyebrow} title={t.podcast.guestTitle} slogan={t.footer.slogan} tone="vermelho">
+      <Cartaz eyebrow={t.podcast.eyebrow} title={t.podcast.guestTitle} slogan={t.slogans.podcasts} tone="vermelho">
         {t.podcast.guestLead}
       </Cartaz>
       <PaginaDoConvidado s={t.podcast} />

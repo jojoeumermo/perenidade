@@ -36,7 +36,7 @@ export default async function Materia({ params }: PageProps<"/[lang]/jornal/[slu
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-8">
-      <Masthead lang={lang} s={t.journal} slogan={t.footer.slogan} small />
+      <Masthead lang={lang} s={t.journal} slogan={t.slogans.jornal} small />
       <div className="mt-6" {...originalLang(article.translated)}>
         <span className="jornal-editoria">{article.section || t.journal.eyebrow}</span>
         <h1 className="jornal-manchete mt-3 text-4xl sm:text-6xl">{article.title}</h1>

@@ -22,7 +22,7 @@ import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
 import { Estatisticas } from "./Estatisticas";
 import { TermoDeVoluntario } from "./Termo";
 import { Aviso, botao, botaoClaro, campo, data, elo, localDoPainel, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
-import { Apoiadores, Comunidade, MuralFila, RadioAdmin } from "./Cuidar";
+import { Apoiadores, Comunidade, MuralFila, SugerirEmissora } from "./Cuidar";
 import { Boletim } from "./Boletim";
 import { CadernoNoPainel } from "./Caderno";
 import { Estudio } from "./design/Estudio";
@@ -114,12 +114,12 @@ const icones: Record<string, string> = {
   horas: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2",
   site: "M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M14 4v4M8 10v4M16 16v4",
   abertura: "M3 4h18v16H3zM3 9h18M7 13h10M7 16h6",
-  radio: "M3 9h18v11H3zM7 9l10-5M8.5 12a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M14 13h4M14 16h4",
   podcast: "M9 3h6v11H9zM5 11a7 7 0 0 0 14 0M12 18v3M8 21h8",
   apoiadores: "M20.8 8.6a5 5 0 0 0-8.8-3.2A5 5 0 0 0 3.2 8.6c0 5.4 8.8 10.9 8.8 10.9s8.8-5.5 8.8-10.9z",
   seguranca: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
   registro: "M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5",
   estatisticas: "M4 20V10M10 20V4M16 20v-8M22 20H2",
+  emissoras: "M3 9h18v11H3zM7 9l10-5M8.5 12a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M14 13h4M14 16h4",
   conta: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-8 8-8s8 3.6 8 8",
   aovivo: "M3 7h13v10H3zM16 10l5-3v10l-5-3M6 4h7",
   estudio: "M4 20l4-1 11-11-3-3L5 16zM13 8l3 3M4 20v-4",
@@ -486,7 +486,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
       { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
       { id: "podcast", nome: "Podcast", sobre: "Episódios da pauta à publicação: roteiro, gravação, versões, revisão, capas, cortes e agenda.", grupo: "Produção", mostra: can(eu, "coordenacao", "jornalismo", "design", "mediacao", "curadoria"), conta: podcast.dados ?? undefined },
-      { id: "radio", nome: "Rádio", sobre: "Rádio Lúcia: canais, faixas, transmissão ao vivo e sugestão de emissoras.", grupo: "Site", mostra: can(eu, "coordenacao", "jornalismo") },
+      { id: "emissoras", nome: "Rádios do povo", sobre: "Indicar emissoras populares e comunitárias para o diretório público de rádios.", grupo: "Site", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "apoiadores", nome: "Apoiadores", sobre: "Quem autorizou aparecer no mural de apoio.", grupo: "Site", mostra: lidera },
       { id: "tecnico", nome: "Estado técnico", sobre: "Publicação, avaliação automática, faxina e sinais de varredura.", grupo: "Site", mostra: can(eu, "coordenacao", "desenvolvimento"), conta: r?.publicacao_atrasada },
       { id: "seguranca", nome: "Segurança e sucessão", sobre: "Segundo fator obrigatório, coordenação pedagógica e ordem de sucessão.", grupo: "Segurança", mostra: lidera },
@@ -710,8 +710,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "horas" && <Horas me={eu} />}
           {atual.id === "site" && <Site />}
           {atual.id === "abertura" && <AvisoDeAbertura />}
-          {atual.id === "radio" && <RadioAdmin me={eu} />}
           {atual.id === "podcast" && <Podcast />}
+          {atual.id === "emissoras" && <SugerirEmissora />}
           {atual.id === "apoiadores" && <Apoiadores />}
           {atual.id === "tecnico" && <Tecnico />}
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}

@@ -14,7 +14,7 @@ export default async function Comunidade({ params }: PageProps<"/[lang]/comunida
   const { t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
-      <Cartaz eyebrow={t.community.eyebrow} title={t.community.title} slogan={t.footer.slogan} tone="vermelho">
+      <Cartaz eyebrow={t.community.eyebrow} title={t.community.title} slogan={t.slogans.comunidade} tone="vermelho">
         {t.community.lead}
       </Cartaz>
       <ul className="mt-6 list-disc space-y-1 pl-5 font-sans text-sm text-ink-soft">
