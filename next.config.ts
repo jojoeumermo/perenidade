@@ -17,6 +17,8 @@ const realtime = service.replace(/^https:/, "wss:");
 
 // Desafio contra robôs da página de entrada: o único programa que o site carrega de fora.
 const captcha = "https://challenges.cloudflare.com";
+// A sala de vídeo (Sala Lúcia e Reuniões): o servidor público do Jitsi por padrão; troca-se por um próprio em NEXT_PUBLIC_JITSI_DOMAIN.
+const jitsi = `https://${(process.env.NEXT_PUBLIC_JITSI_DOMAIN ?? "meet.jit.si").replace(/^https?:\/\//, "").replace(/\/.*$/, "")}`;
 // Vídeos de aula ficam em outros sites e só carregam quando a pessoa clica. Servidores PeerTube entram por NEXT_PUBLIC_VIDEO_HOSTS.
 const videos = [
   "https://www.youtube-nocookie.com",
@@ -44,7 +46,7 @@ const policy = (script: string) =>
     "worker-src 'self'",
     "manifest-src 'self'",
     // blob: é a prévia, no próprio aparelho, de um PDF ou DOCX recebido nas conversas (nunca um endereço de fora).
-    `frame-src blob: ${captcha} ${videos}`,
+    `frame-src blob: ${captcha} ${jitsi} ${videos}`,
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
@@ -52,7 +54,7 @@ const policy = (script: string) =>
   ].join("; ");
 
 // 'unsafe-inline' é exigido pelos scripts de hidratação das páginas estáticas do Next.
-const pages = policy(`'unsafe-inline' ${captcha}${dev ? " 'unsafe-eval'" : ""}`);
+const pages = policy(`'unsafe-inline' ${captcha} ${jitsi}${dev ? " 'unsafe-eval'" : ""}`);
 // Os interpretadores de Python e PHP rodam isolados em um Worker, sem acesso à página;
 // só ali é permitido compilar WebAssembly e código gerado em tempo de execução.
 const workers = policy("'wasm-unsafe-eval' 'unsafe-eval'");

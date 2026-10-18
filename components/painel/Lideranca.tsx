@@ -134,18 +134,15 @@ export function SegurancaSucessao({ me }: { me: Me }) {
   const seguranca = useLista<Seguranca>("seguranca_ver");
   const sucessao = useLista<Sucessao>("sucessao_ver");
   const pessoas = useLista<Pessoa[]>("voluntarios_listar");
-  const canais = useLista<{ sala: string }>("equipe_canais");
   const acao = useAcao(() => {
     seguranca.recarregar();
     sucessao.recarregar();
-    canais.recarregar();
   });
   const [ordem, setOrdem] = useState<string[] | null>(null);
   const [nova, setNova] = useState("");
   const [herdeiro, setHerdeiro] = useState("");
   const [confirma, setConfirma] = useState(false);
-  const [sala, setSala] = useState<string | null>(null);
-  const [aba, setAba] = useState<"fator" | "sucessao" | "passar" | "sala">("fator");
+  const [aba, setAba] = useState<"fator" | "sucessao" | "passar">("fator");
 
   const atual = ordem ?? sucessao.dados?.ordem.map((pessoa) => pessoa.id) ?? [];
   const nomeDe = (id: string) => pessoas.dados?.find((pessoa) => pessoa.id === id)?.nome ?? sucessao.dados?.ordem.find((pessoa) => pessoa.id === id)?.nome ?? "…";
@@ -168,7 +165,6 @@ export function SegurancaSucessao({ me }: { me: Me }) {
           { id: "fator" as const, nome: "Segundo fator" },
           { id: "sucessao" as const, nome: "Sucessão" },
           { id: "passar" as const, nome: "Passar a coordenação" },
-          { id: "sala" as const, nome: "Sala de voz e vídeo" },
         ].filter((opcao) => lider || opcao.id !== "passar")}
       />
       <section hidden={aba !== "fator"}>
@@ -271,23 +267,6 @@ export function SegurancaSucessao({ me }: { me: Me }) {
         </section>
       )}
 
-      <section hidden={aba !== "sala"}>
-        <h2 className="font-serif text-2xl font-semibold">Sala de voz e vídeo da equipe</h2>
-        <p className="mt-1 text-ink-soft">
-          A conversa escrita da equipe acontece em Conversas e no Mural da equipe. Para voz e vídeo, use uma sala com criptografia de ponta a ponta fora do site (por exemplo, uma sala Matrix aberta no aplicativo Element). Cole aqui o endereço de convite: ele aparece no Mural da equipe para todos.
-        </p>
-        <div className="mt-3 flex flex-wrap items-end gap-3">
-          <label className="block min-w-60 flex-1">
-            Endereço da sala (https)
-            <input value={sala ?? canais.dados?.sala ?? ""} onChange={(e) => setSala(e.target.value)} maxLength={300} placeholder="https://matrix.to/#/…" disabled={!lider} className={campo} />
-          </label>
-          {lider && (
-            <button type="button" className={botaoClaro} disabled={acao.ocupado || sala === null} onClick={() => acao.agir("equipe_sala_salvar", { p_url: sala ?? "" }, "Endereço guardado.")}>
-              Guardar
-            </button>
-          )}
-        </div>
-      </section>
       <Aviso texto={seguranca.erro || sucessao.erro || acao.aviso} />
     </div>
   );
