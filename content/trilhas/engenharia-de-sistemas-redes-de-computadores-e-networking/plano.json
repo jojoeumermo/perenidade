@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "camadas-do-fisico-a-aplicacao",
+    "titulo": "Camadas: do físico à aplicação"
+  },
+  {
+    "slug": "enderecos-ip-sub-redes-e-roteamento",
+    "titulo": "Endereços IP, sub-redes e roteamento"
+  },
+  {
+    "slug": "tcp-e-udp-confiabilidade-e-velocidade",
+    "titulo": "TCP e UDP: confiabilidade e velocidade"
+  },
+  {
+    "slug": "dns-o-nome-vira-endereco",
+    "titulo": "DNS: o nome vira endereço"
+  },
+  {
+    "slug": "http-e-https-por-dentro",
+    "titulo": "HTTP e HTTPS por dentro"
+  },
+  {
+    "slug": "firewalls-nat-e-portas",
+    "titulo": "Firewalls, NAT e portas"
+  },
+  {
+    "slug": "diagnostico-ping-traceroute-tcpdump-e-wireshark",
+    "titulo": "Diagnóstico: ping, traceroute, tcpdump e Wireshark"
+  },
+  {
+    "slug": "projeto-montar-e-proteger-uma-rede-pequena",
+    "titulo": "Projeto: montar e proteger uma rede pequena"
+  }
+]

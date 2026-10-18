@@ -5,11 +5,15 @@ export const groups = [
   { id: "percursos", areas: ["alfabetizacao", "enem"] },
   {
     id: "linguagens",
-    areas: ["portugues", "literatura", "ingles", "ingles-infantil", "espanhol", "frances", "chines", "russo", "artes", "desenho", "design", "musica", "danca", "teatro", "cinema", "edicao-de-video", "educacao-fisica"],
+    areas: ["portugues", "literatura", "ingles", "ingles-infantil", "espanhol", "frances", "chines", "russo", "artes", "desenho", "design", "musica", "danca", "teatro", "cinema", "educacao-fisica"],
   },
   {
     id: "ciencias",
-    areas: ["matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "redes-e-seguranca", "inteligencia-artificial", "manutencao", "primeiros-socorros"],
+    areas: ["matematica", "fisica", "quimica", "biologia", "astronomia", "primeiros-socorros"],
+  },
+  {
+    id: "tecnologia",
+    areas: ["informatica", "programacao", "engenharia-de-sistemas", "redes-e-seguranca", "inteligencia-artificial", "manutencao", "edicao-de-video"],
   },
   {
     id: "humanidades",
@@ -23,6 +27,7 @@ export const groups = [
       "politica",
       "direito",
       "psicologia",
+      "neurodiversidade",
       "servico-social",
       "teologia",
       "educacao-popular",
@@ -32,7 +37,8 @@ export const groups = [
       "arquivologia",
     ],
   },
-  { id: "teoria", areas: ["capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo"] },
+  // A teoria começa pela política básica (o Estado, as instituições, o voto) e só então chega ao capitalismo e às correntes.
+  { id: "teoria", areas: ["estado", "instituicoes", "eleicoes", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo"] },
   {
     id: "lutas",
     areas: [
@@ -69,8 +75,8 @@ export const essential: readonly AreaSlug[] = ["alfabetizacao", "portugues", "ma
  */
 export const stageAreas: Record<"fundamental" | "medio" | "superior", readonly AreaSlug[]> = {
   fundamental: ["alfabetizacao", "portugues", "matematica", "ingles", "ingles-infantil", "espanhol", "artes", "desenho", "musica", "danca", "educacao-fisica", "historia", "geografia", "biologia", "informatica", "primeiros-socorros", "meio-ambiente"],
-  medio: ["enem", "portugues", "literatura", "ingles", "espanhol", "frances", "chines", "russo", "artes", "teatro", "cinema", "educacao-fisica", "matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "historia", "geografia", "sociologia", "filosofia", "economia", "politica", "midia", "meio-ambiente", "trabalho", "primeiros-socorros"],
-  superior: ["literatura", "design", "cinema", "matematica", "fisica", "quimica", "biologia", "astronomia", "programacao", "redes-e-seguranca", "inteligencia-artificial", "manutencao", "historia", "geografia", "sociologia", "antropologia", "filosofia", "economia", "politica", "direito", "psicologia", "servico-social", "teologia", "educacao-popular", "midia", "arquitetura", "arquivologia", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo", "sindicalismo", "luta-negra", "feminismo", "lgbtqia", "deficiencia", "povos-indigenas", "luta-pela-terra", "favelas", "luta-dos-professores", "movimento-estudantil", "pessoas-idosas"],
+  medio: ["enem", "portugues", "literatura", "ingles", "espanhol", "frances", "chines", "russo", "artes", "teatro", "cinema", "educacao-fisica", "matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "historia", "geografia", "sociologia", "filosofia", "economia", "politica", "estado", "instituicoes", "eleicoes", "neurodiversidade", "costureira", "midia", "meio-ambiente", "trabalho", "primeiros-socorros"],
+  superior: ["literatura", "design", "cinema", "matematica", "fisica", "quimica", "biologia", "astronomia", "programacao", "engenharia-de-sistemas", "redes-e-seguranca", "inteligencia-artificial", "manutencao", "historia", "geografia", "sociologia", "antropologia", "filosofia", "economia", "politica", "direito", "psicologia", "neurodiversidade", "servico-social", "teologia", "educacao-popular", "midia", "arquitetura", "arquivologia", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo", "sindicalismo", "luta-negra", "feminismo", "lgbtqia", "deficiencia", "povos-indigenas", "luta-pela-terra", "favelas", "luta-dos-professores", "movimento-estudantil", "pessoas-idosas"],
 };
 
 /** Etapas do currículo comum, usadas para organizar as trilhas dentro de cada disciplina. */
@@ -98,7 +104,7 @@ export type License = (typeof licenses)[number];
  */
 export const areaTools: Partial<Record<AreaSlug, string[]>> = {
   alfabetizacao: ["silabario"],
-  enem: ["redacao", "cronometro", "resolvedor", "estatistica", "tabela-periodica"],
+  enem: ["redacao", "cronometro", "resolvedor", "estatistica"],
   portugues: ["redacao"],
   literatura: ["redacao"],
   ingles: ["pronuncia", "frases"],
@@ -125,6 +131,11 @@ export const areaTools: Partial<Record<AreaSlug, string[]>> = {
   filosofia: ["tabela-verdade"],
   economia: ["juros-compostos", "mais-valia", "estatistica", "resolvedor"],
   politica: ["estatistica"],
+  estado: ["estatistica"],
+  instituicoes: ["estatistica"],
+  eleicoes: ["estatistica"],
+  "engenharia-de-sistemas": ["python", "bases-numericas", "tabela-verdade", "conversor-de-unidades"],
+  neurodiversidade: ["estatistica"],
   psicologia: ["estatistica"],
   "servico-social": ["estatistica"],
   "educacao-popular": ["silabario"],

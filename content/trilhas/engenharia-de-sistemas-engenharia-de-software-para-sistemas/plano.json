@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "git-e-o-trabalho-em-equipe",
+    "titulo": "Git e o trabalho em equipe"
+  },
+  {
+    "slug": "testes-unitarios-integracao-e-propriedade",
+    "titulo": "Testes: unitários, integração e propriedade"
+  },
+  {
+    "slug": "revisao-de-codigo",
+    "titulo": "Revisão de código"
+  },
+  {
+    "slug": "integracao-e-entrega-continuas",
+    "titulo": "Integração e entrega contínuas"
+  },
+  {
+    "slug": "dependencias-e-seguranca-da-cadeia",
+    "titulo": "Dependências e segurança da cadeia"
+  },
+  {
+    "slug": "documentacao-que-se-le",
+    "titulo": "Documentação que se lê"
+  },
+  {
+    "slug": "manutencao-e-divida-tecnica",
+    "titulo": "Manutenção e dívida técnica"
+  },
+  {
+    "slug": "projeto-integrador-construir-medir-e-operar-um-sistema",
+    "titulo": "Projeto integrador: construir, medir e operar um sistema"
+  }
+]

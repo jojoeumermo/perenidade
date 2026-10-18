@@ -1,0 +1,34 @@
+[
+  {
+    "slug": "bits-bytes-e-como-o-computador-representa-tudo",
+    "titulo": "Bits, bytes e como o computador representa tudo"
+  },
+  {
+    "slug": "portas-logicas-e-circuitos",
+    "titulo": "Portas lógicas e circuitos"
+  },
+  {
+    "slug": "o-processador-ciclo-de-busca-decodificacao-e-execucao",
+    "titulo": "O processador: ciclo de busca, decodificação e execução"
+  },
+  {
+    "slug": "memoria-registradores-cache-ram-e-disco",
+    "titulo": "Memória: registradores, cache, RAM e disco"
+  },
+  {
+    "slug": "como-um-programa-vira-instrucoes-de-maquina",
+    "titulo": "Como um programa vira instruções de máquina"
+  },
+  {
+    "slug": "entrada-e-saida-e-interrupcoes",
+    "titulo": "Entrada e saída e interrupções"
+  },
+  {
+    "slug": "paralelismo-e-multiplos-nucleos",
+    "titulo": "Paralelismo e múltiplos núcleos"
+  },
+  {
+    "slug": "projeto-um-processador-simples-no-papel",
+    "titulo": "Projeto: um processador simples no papel"
+  }
+]
