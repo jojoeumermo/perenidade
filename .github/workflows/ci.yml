@@ -41,6 +41,8 @@ jobs:
       - run: npm run testar:curriculo
       # O editor por blocos: toda aula do acervo passa por ele e volta igual.
       - run: npm run testar:blocos
+      # O estudo guardado no navegador: repetição espaçada, caderno de erros e a cópia (que não leva chave de aparelho).
+      - run: npm run testar:estudo
       # As áreas que a coordenação pode tirar do ar cobrem todas as rotas públicas.
       - run: npm run testar:interdicao
       # O build lê e valida todo o conteúdo de content/: arquivo inválido falha aqui.
