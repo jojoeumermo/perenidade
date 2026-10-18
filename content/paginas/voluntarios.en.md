@@ -81,7 +81,7 @@ Each department (education, review, journalism, design…) can have a representa
 
 ### Spokesperson
 
-The institute is growing and needs to be presented in schools, unions, movements and events, in any city. The spokesperson carries the institute's word to those places and brings back what was heard. Appointed by the coordination, the pedagogical coordination or the supervision.
+The institute is growing and needs to be presented in schools, unions, movements and events, in any city. The spokesperson carries the institute's word to those places and brings back what was heard. It is a title, not a separate role: it adds to what the person already does (a mediator, a translator or an educator can be a spokesperson). Appointed by the coordination, the pedagogical coordination or the supervision.
 
 ### Development
 
