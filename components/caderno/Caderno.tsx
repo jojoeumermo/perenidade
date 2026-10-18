@@ -432,9 +432,53 @@ function Mapa({ s, fontes }: { s: NotebookStrings; fontes: Fonte[] }) {
   ramos.forEach((r) => andar(r, 0));
   const passo = 30;
   const altura = linhas.length * passo + 20;
+  const [radial, setRadial] = useState(true);
+  const corta = (t: string, n: number) => (t.length > n ? `${t.slice(0, n - 1)}…` : t);
   return (
     <div>
       <p className="text-ink-soft">{s.mapLead}</p>
+      <p className="mt-2 flex gap-2 text-xs">
+        <button type="button" aria-pressed={radial} onClick={() => setRadial(true)} className={`cursor-pointer border px-2 py-0.5 ${radial ? "border-ink bg-ink text-parchment" : "border-rule"}`}>◎</button>
+        <button type="button" aria-pressed={!radial} onClick={() => setRadial(false)} className={`cursor-pointer border px-2 py-0.5 ${!radial ? "border-ink bg-ink text-parchment" : "border-rule"}`}>☰</button>
+      </p>
+      {radial ? (
+        <div className="mt-3 space-y-4">
+          {ramos.map((r, k) => {
+            // Mapa mental: a fonte no centro, os títulos em volta e os subtítulos saindo de cada título.
+            const cx = 380;
+            const cy = 250;
+            const n = Math.max(r.filhos.length, 1);
+            return (
+              <div key={k} className="overflow-x-auto border border-rule bg-parchment-deep p-3">
+                <svg viewBox="0 0 760 500" width="760" height="500" role="img" aria-label={`${s.tools.map}: ${r.titulo}`} className="max-w-full font-sans">
+                  {r.filhos.map((f, i) => {
+                    const ang = (i / n) * Math.PI * 2 - Math.PI / 2;
+                    const x = cx + Math.cos(ang) * 250;
+                    const y = cy + Math.sin(ang) * 170;
+                    const direita = Math.cos(ang) >= 0;
+                    return (
+                      <g key={i}>
+                        <path d={`M ${cx} ${cy} Q ${(cx + x) / 2 + Math.sin(ang) * 30} ${(cy + y) / 2 - Math.cos(ang) * 30}, ${x} ${y}`} fill="none" stroke="#8a5f1c" strokeWidth="2" />
+                        <circle cx={x} cy={y} r="6" fill="#1f1a14" />
+                        <text x={x + (direita ? 10 : -10)} y={y + 4} textAnchor={direita ? "start" : "end"} fontSize="13" fontWeight="600" fill="currentColor">{corta(f.titulo, 30)}</text>
+                        {f.filhos.slice(0, 4).map((g, j) => {
+                          const gx = x + (direita ? 10 : -10);
+                          const gy = y + 18 + j * 15;
+                          return (
+                            <text key={j} x={gx} y={gy} textAnchor={direita ? "start" : "end"} fontSize="11" fill="#8a5f1c">· {corta(g.titulo, 28)}</text>
+                          );
+                        })}
+                      </g>
+                    );
+                  })}
+                  <circle cx={cx} cy={cy} r="34" fill="#c21f16" />
+                  <text x={cx} y={cy + 5} textAnchor="middle" fontSize="13" fontWeight="700" fill="#f4ecd8">{corta(r.titulo, 14)}</text>
+                </svg>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
       <div className="mt-3 overflow-x-auto border border-rule bg-parchment-deep p-3">
         <svg viewBox={`0 0 760 ${altura}`} width="760" height={altura} role="img" aria-label={s.tools.map} className="max-w-full font-sans">
           {linhas.map((l, i) => {
@@ -455,6 +499,7 @@ function Mapa({ s, fontes }: { s: NotebookStrings; fontes: Fonte[] }) {
           })}
         </svg>
       </div>
+      )}
     </div>
   );
 }
@@ -549,11 +594,31 @@ function Notas({ s, caderno, mudar }: { s: NotebookStrings; caderno: Caderno; mu
     a.click();
     window.setTimeout(() => URL.revokeObjectURL(a.href), 5000);
   }
+  /** Tudo o que o caderno extraiu, num arquivo só, para estudar depois sem internet. */
+  function exportarTudo() {
+    const fontes = caderno.fontes.filter((f) => f.ativa);
+    const partes: string[] = [`# ${caderno.titulo}`, ""];
+    partes.push(`## ${s.tools.summary}`, "", ...fontes.flatMap((f) => [`### ${f.titulo}`, "", ...resumir(f.texto).map((x) => `- ${x}`), ""]));
+    partes.push(`## ${s.keywords}`, "", palavrasChave(fontes.map((f) => f.texto).join("\n")).map((p) => p.palavra).join(", "), "");
+    partes.push(`## ${s.tools.cards}`, "", ...fontes.flatMap((f) => cartoesDe(f).map((c) => `- **${c.frente}** — ${c.verso}`)), "");
+    partes.push(`## ${s.tools.quiz}`, "", ...questoesDe(fontes).flatMap((q, i) => [`${i + 1}. ${q.pergunta}`, ...q.opcoes.map((o, j) => `   ${j === q.resposta ? "[x]" : "[ ]"} ${o}`), ""]));
+    const ramo = (r: Ramo, nivel: number): string[] => [`${"  ".repeat(nivel)}- ${r.titulo}`, ...r.filhos.flatMap((f) => ramo(f, nivel + 1))];
+    partes.push(`## ${s.tools.map}`, "", ...mapaDe(fontes).flatMap((r) => ramo(r, 0)), "");
+    const marcos = linhaDoTempo(fontes);
+    if (marcos.length) partes.push(`## ${s.tools.timeline}`, "", ...marcos.map((m) => `- **${m.ano}** — ${m.texto}`), "");
+    partes.push(`## ${s.tools.notes}`, "", caderno.notas, "", "---", `${s.sources}:`, ...caderno.fontes.map((f) => `- ${f.titulo}${f.origem ? ` (${f.origem})` : ""}`), "");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([partes.join("\n")], { type: "text/markdown;charset=utf-8" }));
+    a.download = `${caderno.titulo.toLowerCase().replace(/[^a-z0-9]+/gi, "-").slice(0, 50) || "caderno"}-completo.md`;
+    a.click();
+    window.setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+  }
   return (
     <div>
       <p className="text-ink-soft">{s.notesLead}</p>
       <textarea value={caderno.notas} onChange={(e) => mudar({ notas: e.target.value })} rows={18} placeholder={s.notesPlaceholder} className={`${campo} mt-3 font-serif text-base leading-relaxed`} />
       <p className="mt-3 flex flex-wrap gap-3">
+        <button type="button" className={botao} onClick={exportarTudo}>{s.exportAll}</button>
         <button type="button" className={claro} onClick={exportar}>{s.exportNotes}</button>
         <button type="button" className={claro} onClick={() => window.print()}>{s.print}</button>
       </p>

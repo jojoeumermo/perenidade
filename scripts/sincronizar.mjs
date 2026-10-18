@@ -228,8 +228,10 @@ const montar = {
     const pedido = String(item.dados?.slug ?? "");
     const nome = /^[a-z0-9-]{2,80}$/.test(pedido) ? pedido : slug(titulo) || recusar("título sem letras");
     // A aula pode já existir com número na frente ("03-fracoes.md"): nesse caso também não se sobrescreve.
-    const existente = fs.readdirSync(path.join(conteudo, "trilhas", trilha)).some((arquivo) => arquivo.replace(/^\d+-/, "") === `${nome}.md`);
-    const arquivo = existente ? livre(`trilhas/${trilha}`, `${nome}-nova-versao`) : destino(`trilhas/${trilha}`, nome);
+    const atual = fs.readdirSync(path.join(conteudo, "trilhas", trilha)).find((arquivo) => arquivo.replace(/^\d+-/, "") === `${nome}.md`);
+    // Nova versão de uma aula publicada (dados.substitui = o slug dela, só de quem ensina a disciplina): sobrescreve o arquivo.
+    const substitui = atual && String(item.dados?.substitui ?? "") === nome;
+    const arquivo = substitui ? path.join(conteudo, "trilhas", trilha, atual) : atual ? livre(`trilhas/${trilha}`, `${nome}-nova-versao`) : destino(`trilhas/${trilha}`, nome);
     return {
       arquivo,
       dados: { titulo, resumo: linha(item.dados?.resumo, "resumo", { max: 220 }), autores: [assinatura(item)], revisada: true, fontes: fontes(item.fontes, true), ...(questoes(item.dados?.quiz).length ? { quiz: questoes(item.dados?.quiz) } : {}) },

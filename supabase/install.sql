@@ -1922,6 +1922,14 @@ begin
     if coalesce(v_dados ->> 'correta', '') !~ '^[0-5]$' or (v_dados ->> 'correta')::int >= jsonb_array_length(v_dados -> 'opcoes') then perform interno.erro('invalido:correta'); end if;
     if coalesce(p ->> 'alvo', '') !~ '^[a-z0-9-]{2,80}/[a-z0-9-]{2,80}$' then perform interno.erro('invalido:alvo'); end if;
   end if;
+  -- Nova versão de uma aula já publicada: só quem ensina a disciplina (ou a revisão e a liderança), nunca de fora.
+  if v_tipo = 'aula' and coalesce(v_dados ->> 'substitui', '') <> '' then
+    if v is null then perform interno.erro('entre_primeiro'); end if;
+    if not (interno.coord() or interno.tem('supervisao') or interno.tem('revisao')
+            or exists (select 1 from papeis p where p.usuario = v and p.papel in ('educacao', 'educacao_secundaria') and p.disciplina = v_disc)) then
+      perform interno.erro('sem_permissao');
+    end if;
+  end if;
   -- Temas para as próximas aulas de uma trilha: de um a vinte títulos, um por linha, e a trilha a que pertencem.
   if v_tipo = 'temas' then
     if coalesce(v_dados ->> 'trilha', '') !~ '^[a-z0-9-]{2,80}$' then perform interno.erro('invalido:trilha'); end if;
@@ -3067,6 +3075,18 @@ $$;
 -- ───────────────────────────── Aviso de abertura ─────────────────────────────
 
 /** O aviso que abre junto com o site, quando a coordenação definiu um pelo painel. */
+/**
+ * Quem ensina, para a página "Quem somos" e o cartão de educadores de cada aula: nome (como assina as aulas), o
+ * "sobre você" do perfil, o ícone e as disciplinas. Só educadores ativos; nada de e-mail nem de outros papéis.
+ */
+create or replace function public.educadores() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', f.nome, 'bio', f.bio, 'avatar', f.avatar,
+           'disciplinas', (select jsonb_agg(distinct p.disciplina) from papeis p where p.usuario = f.id and p.papel in ('educacao', 'educacao_secundaria') and p.disciplina is not null))
+           order by f.nome), '[]'::jsonb)
+  from perfis f
+  where not f.suspenso and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('educacao', 'educacao_secundaria'))
+$$;
+
 create or replace function public.abertura() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
   select coalesce((select case when coalesce((valor ->> 'definido')::boolean, false) then valor else null end from configuracoes where chave = 'abertura'),
                   jsonb_build_object('definido', false))
@@ -6424,7 +6444,7 @@ begin
              'chat_aparelho_registrar', 'chat_aparelhos_meus', 'chat_aparelho_remover', 'chat_chaves', 'chat_chave_nova', 'chat_chaves_pendentes',
              'chat_chaves_dar', 'chat_chaves_recusar', 'chat_autodestruir', 'chat_aparelho_estado', 'chat_aparelho_aprovar', 'chat_identidade_definir',
              'chat_identidade_redefinir', 'chat_recuperacao_guardar', 'chat_recuperacao_ler', 'chat_aparelho_pedir', 'chat_aparelho_recuperar',
-             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias', 'chat_anexo_enviar', 'chat_anexo_ler', 'chat_privadas', 'chat_conversa_marcar', 'chat_controles', 'chat_controlar', 'perfil_avatar', 'termo_voluntario_aceitar', 'aprendizado_aceitar', 'marketing_sugerir', 'marketing_caixa', 'marketing_caixa_decidir', 'painel_estatisticas', 'chat_relatar', 'chat_relatos', 'chat_relato_resolver',
+             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias', 'chat_anexo_enviar', 'chat_anexo_ler', 'chat_privadas', 'chat_conversa_marcar', 'chat_controles', 'chat_controlar', 'perfil_avatar', 'termo_voluntario_aceitar', 'aprendizado_aceitar', 'marketing_sugerir', 'marketing_caixa', 'marketing_caixa_decidir', 'painel_estatisticas', 'educadores', 'chat_relatar', 'chat_relatos', 'chat_relato_resolver',
              'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao',
              'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao', 'papeis_historico_listar',
              'equipe_supervisao', 'pedidos_supervisao', 'protecoes', 'site_pausa', 'usuario_editar', 'usuario_senha_redefinir', 'senha_trocada',
