@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { hasBackend, rpc } from "@/lib/backend";
 import { htmlLang } from "@/i18n/config";
 import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
 import { useI18n } from "./I18n";
@@ -31,6 +32,8 @@ export interface EditorLabels {
   checking: string;
   /** Conferir sozinho enquanto a pessoa escreve (opcional: sem o texto, "Conferir enquanto escrevo"). */
   checkLive?: string;
+  /** Aviso de que o conferidor do instituto não respondeu e o serviço público entrou de reserva. */
+  checkFallback?: string;
   checkNone: string;
   checkNote: string;
   checkFailed: string;
@@ -38,6 +41,8 @@ export interface EditorLabels {
 }
 
 /** Um apontamento da conferência de texto: onde está, o que diz e o que sugere. */
+type Categoria = "grafia" | "gramatica" | "pontuacao" | "estilo";
+
 interface Issue {
   offset: number;
   length: number;
@@ -46,13 +51,37 @@ interface Issue {
   before: string;
   wrong: string;
   after: string;
+  categoria: Categoria;
 }
 
 interface CheckResponse {
-  matches: { offset: number; length: number; message: string; replacements: { value: string }[] }[];
+  matches: { offset: number; length: number; message: string; replacements: { value: string }[]; rule?: { id?: string; issueType?: string; category?: { id?: string } } }[];
+  fonte?: "proprio" | "publico";
+  reserva?: boolean;
 }
 
-/** Trechos entre cercas de código (exemplos de programa, pautas, contas) não passam pela conferência. */
+const NOMES_DAS_CATEGORIAS: Record<Categoria, string> = { grafia: "Ortografia", gramatica: "Gramática", pontuacao: "Pontuação", estilo: "Estilo e clareza" };
+function categoriaDe(rule?: { id?: string; issueType?: string; category?: { id?: string } }): Categoria {
+  const tipo = (rule?.issueType ?? "").toLowerCase();
+  const cat = (rule?.category?.id ?? "").toUpperCase();
+  if (tipo === "misspelling" || cat === "TYPOS") return "grafia";
+  if (tipo === "typographical" || cat === "PUNCTUATION" || cat === "TYPOGRAPHY") return "pontuacao";
+  if (tipo === "style" || tipo === "register" || tipo === "locale-violation" || cat === "STYLE" || cat === "REDUNDANCY" || cat === "PLAIN_ENGLISH" || cat === "SEMANTICS") return "estilo";
+  return "gramatica";
+}
+const CHAVE_DICIONARIO_PESSOAL = "lucia:dicionario-pessoal";
+function dicionarioPessoal(): string[] {
+  try {
+    return JSON.parse(window.localStorage.getItem(CHAVE_DICIONARIO_PESSOAL) ?? "[]") as string[];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Só prosa passa pela conferência: ficam de fora os blocos de código (programas, pautas, contas), as fórmulas entre
+ * cifrões, as linhas de tabela, os endereços e as citações diretas entre aspas.
+ */
 function fenced(text: string): [number, number][] {
   const ranges: [number, number][] = [];
   const fence = /^```.*$/gm;
@@ -63,6 +92,9 @@ function fenced(text: string): [number, number][] {
       ranges.push([open, match.index + match[0].length]);
       open = -1;
     }
+  }
+  for (const re of [/\$\$[\s\S]*?\$\$/g, /^\|.*$/gm, /https?:\/\/\S+/g, /“[^”]{12,}”/g, /"[^"\n]{12,}"/g]) {
+    for (let m = re.exec(text); m; m = re.exec(text)) ranges.push([m.index, m.index + m[0].length]);
   }
   return ranges;
 }
@@ -107,11 +139,27 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     }
   });
   const lastChecked = useRef("");
+  const [ativa, setAtiva] = useState<number | null>(null);
+  const [reserva, setReserva] = useState(false);
+  const [termosDoInstituto, setTermosDoInstituto] = useState<string[]>([]);
+  const [pessoal, setPessoal] = useState<string[]>(() => (typeof window === "undefined" ? [] : dicionarioPessoal()));
+  useEffect(() => {
+    if (!hasBackend) return;
+    let vivo = true;
+    rpc<string[]>("dicionario_termos")
+      .then((lista) => {
+        if (vivo && Array.isArray(lista)) setTermosDoInstituto(lista);
+      })
+      .catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, []);
   const checkRef = useRef<() => Promise<void>>(async () => undefined);
   const fundo = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!live || preview || value.trim().length < 20 || value === lastChecked.current) return;
-    const marca = window.setTimeout(() => void checkRef.current(), 2500);
+    const marca = window.setTimeout(() => void checkRef.current(), 1200);
     return () => window.clearTimeout(marca);
   }, [live, preview, value]);
 
@@ -159,7 +207,9 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
       const response = await fetch("/api/gramatica", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, language: lang === "pt" ? "pt-BR" : "auto" }) });
       if (!response.ok) throw new Error("conferencia");
       const data = (await response.json()) as CheckResponse;
+      setReserva(Boolean(data.reserva));
       const skip = fenced(text);
+      const aceitas = new Set([...termosDoInstituto, ...pessoal].map((t) => t.toLowerCase()));
       setIssues(
         data.matches
           .filter((match) => !skip.some(([from, to]) => match.offset >= from && match.offset < to))
@@ -171,11 +221,13 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
             before: text.slice(Math.max(0, match.offset - 30), match.offset),
             wrong: text.slice(match.offset, match.offset + match.length),
             after: text.slice(match.offset + match.length, match.offset + match.length + 30),
+            categoria: categoriaDe(match.rule),
           }))
-          // Marcas do próprio formato do texto (asteriscos, cerquilhas, colchetes) não são erro de escrita.
-          .filter((issue) => !/[*_#`>|\[\]()]/.test(issue.wrong) && !/^https?:/.test(issue.wrong))
-          .slice(0, 40),
+          // Marcas do próprio formato do texto (asteriscos, cerquilhas, colchetes) não são erro de escrita; termos dos dicionários também não.
+          .filter((issue) => !/[*_#`>|\[\]()]/.test(issue.wrong) && !/^https?:/.test(issue.wrong) && !aceitas.has(issue.wrong.toLowerCase()))
+          .slice(0, 60),
       );
+      setAtiva(null);
     } catch {
       setIssues(null);
       setNotice(labels.checkFailed);
@@ -196,11 +248,44 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     for (const issue of [...issues].sort((a, b) => a.offset - b.offset)) {
       if (issue.offset < pos) continue;
       partes.push(value.slice(pos, issue.offset));
-      partes.push(<mark key={issue.offset} className="bg-oxblood/15 text-transparent underline decoration-oxblood decoration-wavy">{value.slice(issue.offset, issue.offset + issue.length)}</mark>);
+      // Vermelho ondulado para grafia; azul pontilhado para gramática, pontuação e estilo (não só a cor distingue).
+      partes.push(<mark key={issue.offset} className={issue.categoria === "grafia" ? "bg-oxblood/15 text-transparent underline decoration-oxblood decoration-wavy decoration-2" : "bg-[#1d4ed8]/10 text-transparent underline decoration-[#1d4ed8] decoration-dotted decoration-2"}>{value.slice(issue.offset, issue.offset + issue.length)}</mark>);
       pos = issue.offset + issue.length;
     }
     partes.push(value.slice(pos));
     return partes;
+  }
+
+  /** Clicar numa marcação (ou pôr o cursor sobre ela) abre o apontamento correspondente na lista. */
+  function apontarNoCursor() {
+    const pos = area.current?.selectionStart ?? -1;
+    if (pos < 0 || !issues?.length) return;
+    const i = issues.findIndex((issue) => pos >= issue.offset && pos <= issue.offset + issue.length);
+    if (i >= 0) {
+      setAtiva(i);
+      document.getElementById(`${id}-apontamento-${i}`)?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+  }
+  /** Leva o cursor ao apontamento escolhido (navegação por teclado entre os problemas). */
+  function irPara(i: number) {
+    const issue = issues?.[i];
+    if (!issue || !area.current) return;
+    setAtiva(i);
+    area.current.focus();
+    area.current.setSelectionRange(issue.offset, issue.offset + issue.length);
+  }
+  function ignorar(issue: Issue) {
+    setIssues((list) => (list ?? []).filter((item) => item !== issue));
+  }
+  function aoDicionario(issue: Issue) {
+    const lista = [...new Set([...pessoal, issue.wrong])];
+    setPessoal(lista);
+    try {
+      window.localStorage.setItem(CHAVE_DICIONARIO_PESSOAL, JSON.stringify(lista));
+    } catch {
+      // sem armazenamento: vale só nesta sessão
+    }
+    setIssues((list) => (list ?? []).filter((item) => item.wrong.toLowerCase() !== issue.wrong.toLowerCase()));
   }
 
   function fix(issue: Issue, replacement: string) {
@@ -298,6 +383,8 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
             value={value}
             onChange={(e) => onChange(e.target.value)}
             onScroll={(e) => { if (fundo.current) fundo.current.scrollTop = e.currentTarget.scrollTop; }}
+            onClick={apontarNoCursor}
+            onKeyUp={(e) => { if (/^Arrow/.test(e.key)) apontarNoCursor(); }}
             rows={rows}
             placeholder={placeholder}
             spellCheck
@@ -320,11 +407,30 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
       <p role="status" className="mt-1 min-h-5 text-sm text-oxblood">
         {notice}
         {issues?.length === 0 && labels.checkNone}
+        {reserva && issues && <span className="block text-ink-soft">{labels.checkFallback ?? (lang === "pt" ? "O conferidor do instituto não respondeu: esta conferência foi feita pelo serviço público do LanguageTool." : "The institute's checker did not respond: this check used the public LanguageTool service.")}</span>}
       </p>
       {issues && issues.length > 0 && (
-        <ul className="mt-1 max-h-80 divide-y divide-rule overflow-y-auto border border-rule bg-parchment text-sm">
-          {issues.map((issue) => (
-            <li key={`${issue.offset}-${issue.wrong}`} className="p-3">
+        <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 border border-b-0 border-rule bg-parchment-deep px-3 py-2 text-xs">
+          {(Object.keys(NOMES_DAS_CATEGORIAS) as Categoria[]).map((c) => {
+            const n = issues.filter((i) => i.categoria === c).length;
+            return n > 0 ? (
+              <span key={c}>
+                <span aria-hidden className={`mr-1 inline-block h-2.5 w-2.5 align-middle ${c === "grafia" ? "bg-oxblood" : "bg-[#1d4ed8]"}`} />
+                {NOMES_DAS_CATEGORIAS[c]}: {n}
+              </span>
+            ) : null;
+          })}
+          <span className="ml-auto flex gap-1">
+            <button type="button" aria-label="Apontamento anterior" onClick={() => irPara(((ativa ?? 0) - 1 + issues.length) % issues.length)} className="cursor-pointer border border-rule px-2 py-0.5 hover:border-ink">↑</button>
+            <button type="button" aria-label="Próximo apontamento" onClick={() => irPara(ativa === null ? 0 : (ativa + 1) % issues.length)} className="cursor-pointer border border-rule px-2 py-0.5 hover:border-ink">↓</button>
+          </span>
+        </div>
+      )}
+      {issues && issues.length > 0 && (
+        <ul className="max-h-80 divide-y divide-rule overflow-y-auto border border-rule bg-parchment text-sm">
+          {issues.map((issue, i) => (
+            <li key={`${issue.offset}-${issue.wrong}`} id={`${id}-apontamento-${i}`} className={`p-3 ${ativa === i ? "bg-parchment-deep outline outline-2 -outline-offset-2 outline-oxblood" : ""}`}>
+              <p className="font-mono text-[0.65rem] uppercase tracking-wider text-ink-soft">{NOMES_DAS_CATEGORIAS[issue.categoria]}</p>
               <p className="font-mono text-xs">
                 …{issue.before}
                 <mark className="bg-oxblood px-0.5 text-parchment">{issue.wrong}</mark>
@@ -337,9 +443,11 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
                     {replacement || "∅"}
                   </button>
                 ))}
-                <button type="button" onClick={() => setIssues((list) => (list ?? []).filter((item) => item !== issue))} aria-label={labels.write} className="cursor-pointer px-2 text-ink-soft hover:text-oxblood">
-                  ✕
-                </button>
+                <button type="button" onClick={() => irPara(i)} className="cursor-pointer px-2 text-ink-soft underline hover:text-oxblood">{lang === "pt" ? "Ir ao trecho" : "Go to text"}</button>
+                <button type="button" onClick={() => ignorar(issue)} className="cursor-pointer px-2 text-ink-soft underline hover:text-oxblood">{lang === "pt" ? "Ignorar" : "Ignore"}</button>
+                {issue.categoria === "grafia" && /^[\p{L}\p{N}'’-]+$/u.test(issue.wrong) && (
+                  <button type="button" onClick={() => aoDicionario(issue)} className="cursor-pointer px-2 text-ink-soft underline hover:text-oxblood">{lang === "pt" ? "Adicionar ao meu dicionário" : "Add to my dictionary"}</button>
+                )}
               </p>
             </li>
           ))}

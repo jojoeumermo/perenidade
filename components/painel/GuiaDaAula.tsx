@@ -72,7 +72,7 @@ const codigo = (texto: string) => <code className="rounded-none bg-parchment px-
  * O guia de produção de uma aula: do que ela trata (pela posição no roteiro), como estruturar, como formatar,
  * como fazer os testes e que perguntas fazer. É orientação, não obrigação: quem ensina sabe o seu ofício.
  */
-export function GuiaDaAula({ trilha, slug, titulo, nomeDaArea, tipo, temTexto, inserir }: { trilha?: TrackOption; slug: string; titulo: string; nomeDaArea: string; tipo: "aula" | "avulso"; temTexto: boolean; inserir: (texto: string) => void }) {
+export function GuiaDaAula({ trilha, slug, titulo, nomeDaArea, tipo, temTexto, inserir, comecarQuestoes }: { trilha?: TrackOption; slug: string; titulo: string; nomeDaArea: string; tipo: "aula" | "avulso"; temTexto: boolean; inserir: (texto: string) => void; /** Cria as três questões do fim da aula no campo "Teste o que você aprendeu". */ comecarQuestoes?: () => void }) {
   const [aberto, setAberto] = useState(true);
   const plano = trilha?.plan ?? [];
   const posicao = slug ? plano.findIndex((item) => item.slug === slug) : -1;
@@ -156,6 +156,7 @@ export function GuiaDaAula({ trilha, slug, titulo, nomeDaArea, tipo, temTexto, i
             <p>Cada botão põe um trecho pronto no fim do texto, para você só preencher.</p>
             <p className="flex flex-wrap gap-2">
               {!temTexto && <button type="button" className={botaoClaro} onClick={() => inserir(esqueleto(titulo, idioma))}>Usar o esqueleto</button>}
+              {comecarQuestoes && <button type="button" className={botaoClaro} onClick={comecarQuestoes}>Começar as três questões</button>}
               <button type="button" className={botaoClaro} onClick={() => inserir("\n```verificar\nPergunta curta sobre o que acabou de ser dito?\n- Alternativa errada\n+ Alternativa certa\n- Outra errada\n> Releia o parágrafo acima: a resposta está lá.\n```\n")}>Pergunta rápida</button>
               <button type="button" className={botaoClaro} onClick={() => inserir("\n```conta\n2x + 3 = 11\n2x = 11 - 3\n2x = 8\nx = 4\n```\n")}>Conta passo a passo</button>
               <button type="button" className={botaoClaro} onClick={() => inserir("\n## Na vida real\n\nOnde isso aparece no trabalho, na cidade, na luta de quem estuda aqui.\n")}>Seção “Na vida real”</button>
@@ -163,7 +164,7 @@ export function GuiaDaAula({ trilha, slug, titulo, nomeDaArea, tipo, temTexto, i
               <button type="button" className={botaoClaro} onClick={() => inserir("\n> “Citação curta, com a fonte logo abaixo.”\n> — Autor, *Obra* (ano)\n")}>Citação com fonte</button>
               {idioma && <button type="button" className={botaoClaro} onClick={() => inserir("\n## Vocabulário\n\n| Palavra | Tradução | Como se fala |\n| --- | --- | --- |\n| … | … | … |\n")}>Tabela de vocabulário</button>}
             </p>
-            <p className="text-xs">As três a cinco questões do fim vão no campo “Teste o que você aprendeu”, abaixo do texto.</p>
+            <p className="text-xs">“Começar as três questões” cria as questões do fim da aula no campo “Teste o que você aprendeu”, abaixo do texto; de três a cinco.</p>
           </Bloco>
           <Bloco titulo="Formatação do texto">
             <ul className="list-disc space-y-1 pl-5">

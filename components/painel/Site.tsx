@@ -393,6 +393,7 @@ function Formulario({ inicial, recarregar, aviso, setAviso }: { inicial: Control
       <Emails />
 
       <ControlesDoChat />
+      <DicionarioDoInstituto />
       <div className="lg:col-span-2">
         <Aviso texto={aviso} />
         <p className="max-w-3xl text-ink-soft">
@@ -481,6 +482,26 @@ function ControlesDoChat() {
         </div>
       )}
       <Aviso texto={acao.aviso} />
+    </section>
+  );
+}
+
+/** Os termos que a conferência de ortografia aceita sem apontar: nomes próprios, siglas, palavras das trilhas. */
+function DicionarioDoInstituto() {
+  const termos = useLista<string[]>("dicionario_termos");
+  const acao = useAcao(termos.recarregar);
+  const [texto, setTexto] = useState<string | null>(null);
+  const atual = texto ?? (termos.dados ?? []).join("\n");
+  return (
+    <section className="border border-rule bg-parchment-deep p-5 lg:col-span-2">
+      <h2 className="font-serif text-xl font-semibold">Dicionário do instituto</h2>
+      <p className="mt-1 text-ink-soft">Uma palavra por linha. O conferidor de ortografia dos editores deixa de apontar estas palavras (nomes próprios, siglas, termos das trilhas). A revisão e a coordenação editam.</p>
+      <textarea value={atual} onChange={(e) => setTexto(e.target.value)} rows={8} className={`${campo} font-mono`} spellCheck={false} />
+      <p className="mt-2 flex flex-wrap items-center gap-3">
+        <button type="button" className={botao} disabled={acao.ocupado || texto === null} onClick={async () => { if (await acao.agir("dicionario_salvar", { p_termos: atual.split(/\n+/).map((x) => x.trim()).filter(Boolean) }, "Dicionário guardado.")) setTexto(null); }}>Guardar</button>
+        <span className="text-xs text-ink-soft">{(termos.dados ?? []).length} termos</span>
+      </p>
+      <Aviso texto={termos.erro || acao.aviso} />
     </section>
   );
 }

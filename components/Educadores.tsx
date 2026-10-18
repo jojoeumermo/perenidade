@@ -13,6 +13,7 @@ interface Educador {
   bio: string;
   avatar: string;
   disciplinas: string[] | null;
+  curriculo?: Record<string, string>;
 }
 
 const textos: Record<string, { quem: string; de: string; todos: string; anterior: string; proximo: string; vazio: string; ensina: string }> = {
@@ -22,6 +23,21 @@ const textos: Record<string, { quem: string; de: string; todos: string; anterior
   ru: { quem: "Кто преподаёт", de: "Преподаватель:", todos: "Вся команда", anterior: "Предыдущий", proximo: "Следующий", vazio: "Этой дисциплине ещё нужны преподаватели. Хотите преподавать?", ensina: "Преподаёт" },
   zh: { quem: "授课者", de: "教师：", todos: "认识整个团队", anterior: "上一位", proximo: "下一位", vazio: "这门学科还在寻找教师。想来教吗？", ensina: "教授" },
 };
+
+const NOMES_DOS_ENDERECOS: Record<string, string> = { portfolio: "Portfólio", lattes: "Lattes", site: "Site", instagram: "Instagram", youtube: "YouTube", linkedin: "LinkedIn", github: "GitHub" };
+
+/** Os endereços do cartão (só https, já conferidos pelo banco). */
+function Enderecos({ curriculo }: { curriculo?: Record<string, string> }) {
+  const pares = Object.entries(curriculo ?? {}).filter(([k, v]) => NOMES_DOS_ENDERECOS[k] && /^https:\/\//.test(v));
+  if (pares.length === 0) return null;
+  return (
+    <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+      {pares.map(([k, v]) => (
+        <a key={k} href={v} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">{NOMES_DOS_ENDERECOS[k]} ↗</a>
+      ))}
+    </p>
+  );
+}
 
 let guardados: Educador[] | null = null;
 function useEducadores() {
@@ -61,7 +77,9 @@ export function EducadoresDaDisciplina({ area, lang, nomes }: { area: string; la
           <div className="min-w-0 flex-1">
             <p className="font-serif text-lg font-semibold leading-tight">{atual.nome}</p>
             <p className="text-ink-soft">{s.de} {(atual.disciplinas ?? []).map((d) => nomes[d]?.[0] ?? d).join(", ")}</p>
+            {atual.curriculo?.formacao && <p className="mt-1 text-ink-soft">{atual.curriculo.formacao}</p>}
             {atual.bio && <p className="mt-1">{atual.bio}</p>}
+            <Enderecos curriculo={atual.curriculo} />
           </div>
           {daArea.length > 1 && (
             <p className="flex shrink-0 items-center gap-1">
@@ -98,7 +116,9 @@ export function ListaDeEducadores({ lang, nomes }: { lang: Locale; nomes: Record
             <div className="min-w-0">
               <p className="font-serif text-lg font-semibold leading-tight">{e.nome}</p>
               <p className="text-ink-soft">{s.ensina} {(e.disciplinas ?? []).map((d) => nomes[d]?.[0] ?? d).join(", ")}</p>
+              {e.curriculo?.formacao && <p className="mt-1 text-ink-soft">{e.curriculo.formacao}</p>}
               {e.bio && <p className="mt-1">{e.bio}</p>}
+              <Enderecos curriculo={e.curriculo} />
             </div>
           </li>
         ))}
