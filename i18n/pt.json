@@ -2609,7 +2609,164 @@
     "note": "A contribuição é feita na Benfeitoria, plataforma brasileira de financiamento coletivo. Este site não recebe nem guarda dados de pagamento.",
     "wallTitle": "Mural de apoiadores",
     "wallLead": "Quem ajudou a manter o instituto de pé e quis deixar o nome aqui.",
-    "wallEmpty": "O mural ainda está vazio."
+    "wallEmpty": "O mural ainda está vazio.",
+    "page": {
+      "leaving": "O botão abre a Benfeitoria em outra aba.",
+      "opensOutside": "(abre outro site, em outra aba)",
+      "whyTitle": "Por que pedimos apoio",
+      "howTitle": "Como funciona",
+      "how": [
+        "O apoio é mensal: você escolhe uma faixa na Benfeitoria e pode mudar ou cancelar pela própria plataforma, quando quiser.",
+        "Apoiar é opcional. Ninguém perde acesso a nada, e não há conteúdo exclusivo para quem apoia.",
+        "O pagamento acontece na Benfeitoria. Este site não recebe nem guarda dados de pagamento."
+      ],
+      "cancelSteps": "Como cancelar, passo a passo",
+      "tiersTitle": "As faixas",
+      "tierDefault": "Apoio solidário, sem benefício exclusivo. Se quiser, seu nome aparece no mural.",
+      "perMonth": "por mês",
+      "goalsTitle": "Metas",
+      "goal1": "Meta 1",
+      "goal2": "Meta 2",
+      "goalMid": "Meta do começo",
+      "goalProgress": "{atual} de {alvo}",
+      "goalTarget": "{alvo} por mês",
+      "goalSupporters": "{atual} de {alvo} apoios",
+      "goalNoData": "A coordenação ainda não informou quanto já chegou: por enquanto as metas aparecem só com o valor a alcançar.",
+      "updatedAt": "Números da campanha informados pela coordenação em {data}. Não é um contador ao vivo.",
+      "worthTitle": "Quanto vale cada apoio",
+      "worth": "Com {n} apoios de {valor} por mês, as contas fixas do site ficam cobertas.",
+      "worthOne": "Um apoio de {valor} por mês já cobre as contas fixas do site.",
+      "worthPick": "Escolha uma faixa",
+      "whereTitle": "Para onde vai",
+      "whereDefault": [
+        {
+          "title": "Hospedagem e banco de dados",
+          "text": "O servidor que mantém o site e o painel da equipe no ar."
+        },
+        {
+          "title": "Domínio",
+          "text": "O endereço institutolucia.org."
+        },
+        {
+          "title": "Áudios e cópias de segurança",
+          "text": "O armazenamento dos áudios e das cópias de segurança do acervo."
+        },
+        {
+          "title": "Ampliação do acervo",
+          "text": "O que sobrar vai para mais aulas, mais traduções e mais revisão."
+        }
+      ],
+      "monthly": "{valor} por mês",
+      "dollar": "parte cobrada em dólar",
+      "doneTitle": "O que já fizemos",
+      "counters": {
+        "works": "obras no acervo",
+        "lessons": "aulas publicadas",
+        "translations": "traduções de aulas",
+        "languages": "idiomas no site",
+        "volunteers": "voluntários ativos",
+        "contributions": "contribuições publicadas"
+      },
+      "otherTitle": "Outras formas de ajudar",
+      "other": [
+        {
+          "title": "Contribua com uma aula ou correção",
+          "text": "Escreva, corrija ou indique uma obra. Não precisa de conta.",
+          "href": "/contribuir"
+        },
+        {
+          "title": "Seja voluntário",
+          "text": "Revisão, tradução, design, curadoria, mediação: tem lugar para quem tem algumas horas.",
+          "href": "/voluntarios"
+        },
+        {
+          "title": "Ajude a traduzir",
+          "text": "As aulas existem em português e esperam versões em outros idiomas.",
+          "href": "/voluntarios"
+        },
+        {
+          "title": "Estude e compartilhe o acervo",
+          "text": "Usar e indicar o acervo também sustenta o projeto.",
+          "href": "/acervo"
+        }
+      ],
+      "shareTitle": "Compartilhe esta página",
+      "copyLink": "Copiar o link",
+      "copied": "Link copiado ✓",
+      "shareText": "O Instituto Lúcia mantém uma escola e biblioteca gratuitas, sem anúncios. Dá para apoiar:",
+      "shareEmail": "E-mail",
+      "responsibleTitle": "Quem é responsável",
+      "helpersTitle": "Quem já ajuda sem dinheiro",
+      "helpers": "{c} contribuições publicadas e {v} voluntários ativos mantêm o acervo de pé.",
+      "helpersVolunteers": "{v} voluntários ativos mantêm o acervo de pé.",
+      "helpersNames": "Voluntários que autorizaram o nome aqui:",
+      "wallFormTitle": "Já apoiei e quero aparecer no mural",
+      "wallName": "Nome ou apelido",
+      "wallMessage": "Mensagem curta (opcional)",
+      "wallSend": "Pedir para aparecer",
+      "wallSent": "Pedido enviado. A coordenação confere na lista de apoiadores da Benfeitoria antes de publicar.",
+      "wallPrivacy": "Guardamos só o nome e a mensagem que você escrever, sem e-mail. Para tirar o nome depois, é só pedir à coordenação.",
+      "wallError": "Não deu para enviar agora. Tente de novo mais tarde.",
+      "transparencyTitle": "Transparência",
+      "transparencyEmpty": "Os relatórios mensais de contas serão publicados aqui.",
+      "lastMonth": "Último relatório: {mes}",
+      "income": "Entradas",
+      "expenses": "Saídas",
+      "balance": "Saldo",
+      "seeAccounts": "Ver a prestação de contas",
+      "faqTitle": "Perguntas frequentes",
+      "faq": {
+        "mandatory": {
+          "q": "É obrigatório apoiar?",
+          "a": "Não. O acervo é gratuito para todo mundo, com ou sem apoio, e continua assim."
+        },
+        "tiers": {
+          "q": "O que cada faixa significa?",
+          "a": "São valores mensais com nomes de livro. Todas são a mesma coisa: apoio solidário, sem benefício exclusivo."
+        },
+        "anonymous": {
+          "q": "Posso apoiar sem aparecer no mural?",
+          "a": "Sim. O nome só aparece no mural se você pedir (no formulário desta página) ou autorizar a coordenação."
+        },
+        "fee": {
+          "q": "Quanto do apoio chega ao projeto?"
+        },
+        "cancel": {
+          "q": "Como cancelo?",
+          "a": "Pela própria Benfeitoria, onde o apoio foi feito. Este site não tem acesso ao seu pagamento."
+        },
+        "dollar": {
+          "q": "Por que parte das contas é em dólar?",
+          "a": "Alguns serviços que mantêm o site no ar cobram em dólar. Por isso o custo em reais muda com o câmbio."
+        },
+        "surplus": {
+          "q": "O que acontece se a meta for superada?",
+          "a": "O que passar das contas fixas vai para ampliar o acervo: mais aulas, mais traduções e mais revisão."
+        },
+        "data": {
+          "q": "O site guarda meus dados?",
+          "a": "Não guarda dado de pagamento: tudo acontece na Benfeitoria. O pedido para o mural guarda só o nome e a mensagem que você escrever."
+        }
+      },
+      "endTitle": "Se puder, apoie",
+      "preview": "Prévia do rascunho: só a coordenação vê. Nada disto está publicado ainda.",
+      "previous": "Esta é a versão anterior da página de Apoie, guardada como reserva.",
+      "accounts": {
+        "title": "Prestação de contas",
+        "lead": "Entradas, saídas e saldo de cada mês, publicados pela coordenação. Nenhum dado pessoal de quem apoia aparece aqui.",
+        "empty": "Os relatórios mensais serão publicados aqui.",
+        "chart": "Entradas e saídas por mês",
+        "month": "Mês",
+        "byIncome": "Entradas por origem",
+        "byExpense": "Saídas por categoria",
+        "note": "Nota da coordenação",
+        "published": "Publicado em {data}",
+        "corrections": "Correções",
+        "corrected": "Corrigido em {data}: {motivo}",
+        "previousVersion": "Antes da correção: entradas {e}, saídas {s}, saldo {b}.",
+        "back": "Voltar ao Apoie"
+      }
+    }
   },
   "auth": {
     "unconfirmed": "Seu e-mail ainda não foi confirmado. Abra o e-mail que mandamos e toque em «Confirmar e-mail». Não achou ou o link venceu? Peça outro aqui.",
