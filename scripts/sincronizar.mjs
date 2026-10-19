@@ -140,6 +140,9 @@ const assinaturas = {
   webp: (b) => b.length > 16 && b.toString("latin1", 0, 4) === "RIFF" && b.toString("latin1", 8, 12) === "WEBP",
   jpg: (b) => b.length > 4 && b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff,
   pdf: (b) => b.toString("latin1", 0, 5) === "%PDF-",
+  // Gravações de voz do bloco de pronúncia: WebM (Chrome, Firefox) e MP4/M4A (Safari).
+  webm: (b) => b.length > 4 && b[0] === 0x1a && b[1] === 0x45 && b[2] === 0xdf && b[3] === 0xa3,
+  m4a: (b) => b.length > 12 && b.toString("latin1", 4, 8) === "ftyp",
 };
 
 /** Blocos de dados embutidos em uma imagem (local da foto, aparelho, autor, programa de edição). */
@@ -186,7 +189,7 @@ let bloqueados = null;
  * conteúdo: o mesmo arquivo sempre cai no mesmo endereço, e ninguém troca um arquivo já publicado.
  */
 async function publicarArquivo(caminho) {
-  const extensao = /^[0-9a-f-]{36}\/[a-z0-9-]{8,60}\.(webp|jpg|pdf)$/.exec(String(caminho))?.[1];
+  const extensao = /^[0-9a-f-]{36}\/[a-z0-9-]{8,60}\.(webp|jpg|pdf|webm|m4a)$/.exec(String(caminho))?.[1];
   if (!extensao) recusar("caminho de arquivo inválido");
   const resposta = await fetch(`${base}/storage/v1/object/envios/${caminho}`, { headers: { apikey: chave, Authorization: `Bearer ${chave}` }, signal: AbortSignal.timeout(60_000) });
   if (!resposta.ok) recusar(`arquivo não encontrado no depósito (${caminho})`);
@@ -198,7 +201,7 @@ async function publicarArquivo(caminho) {
   if (extensao === "pdf") {
     dados = limparPdf(dados);
     if (/\/(JavaScript|JS|Launch|EmbeddedFile|RichMedia)\b/.test(dados.toString("latin1"))) recusar("PDF com programa, anexo ou ação automática embutida");
-  } else if (temDadosEmbutidos(dados, extensao)) {
+  } else if ((extensao === "webp" || extensao === "jpg") && temDadosEmbutidos(dados, extensao)) {
     recusar("imagem com dados embutidos (local, aparelho ou autor): envie de novo pelo painel, que limpa o arquivo");
   }
   const nome = `${sha256(dados).slice(0, 20)}.${extensao}`;
@@ -209,7 +212,7 @@ async function publicarArquivo(caminho) {
 
 /** Troca, no texto de uma contribuição, cada imagem enviada pelo endereço dela dentro do site. */
 async function trazerImagens(texto, usados) {
-  const caminhos = [...new Set([...texto.matchAll(/envio:([0-9a-f-]{36}\/[a-z0-9-]{8,60}\.(?:webp|jpg|pdf))/g)].map((achado) => achado[1]))];
+  const caminhos = [...new Set([...texto.matchAll(/envio:([0-9a-f-]{36}\/[a-z0-9-]{8,60}\.(?:webp|jpg|pdf|webm|m4a))/g)].map((achado) => achado[1]))];
   if (caminhos.length > 12) recusar("imagens e anexos demais em um texto só (o limite é 12)");
   let saida = texto;
   for (const caminho of caminhos) {

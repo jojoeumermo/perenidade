@@ -2957,6 +2957,18 @@ await espera("o educador comenta e quem entregou vê o comentário", async () =>
 await espera("o painel do educador conta as entregas", () => rpc(como(ids.prof), "exercicios_meus"), (r) => r.some((x) => x.id === exercicio.id && x.entregas === 1 && x.sem_retorno === 0));
 await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), "exercicio_arquivar", { p_id: exercicio.id, p_ativo: false }); return rpc(anon, "exercicios_listar", { p_aula: "/trilhas/matematica-fundamental/fracoes" }); }, (r) => !r.some((x) => x.id === exercicio.id));
 
+// Sugestões da revisão: quem revisa propõe a troca de um trecho; quem escreveu aceita com um clique e a troca entra no texto.
+{
+  const sugerida = await rpc(como(ids.aluno2), "contribuir", { p: { tipo: "aula", titulo: "Frações no mercado", corpo: "Uma fração mostra partes de um todo. O numerador fica embaixo e o denominador fica em cima, como em 3/4. ".repeat(3), disciplina: "matematica", dados: { trilha: "matematica-fundamental", resumo: "Frações no dia a dia" }, fontes: [{ titulo: "BNCC", autor: "MEC", url: "https://basenacionalcomum.mec.gov.br/" }] } });
+  await recusa("a sugestão precisa citar um trecho que está no texto", () => rpc(como(ids.coord), "sugestao_criar", { p_id: sugerida.id, p_trecho: "isto não está lá", p_troca: "x", p_comentario: "" }), "invalido:trecho");
+  await recusa("quem escreveu não sugere para si mesmo pela fila (não vê o item como revisão)", () => rpc(como(ids.aluno2), "sugestao_criar", { p_id: sugerida.id, p_trecho: "numerador", p_troca: "x", p_comentario: "" }), "sem_permissao");
+  let sugestao;
+  await espera("a revisão sugere a troca e quem escreveu vê o antes e o depois", async () => { sugestao = await rpc(como(ids.coord), "sugestao_criar", { p_id: sugerida.id, p_trecho: "O numerador fica embaixo e o denominador fica em cima", p_troca: "O numerador fica em cima e o denominador fica embaixo", p_comentario: "Os dois estavam trocados." }); return rpc(como(ids.aluno2), "sugestoes_listar", { p_id: sugerida.id }); }, (r) => r.length === 1 && r[0].cabe === true && r[0].status === "aberta");
+  await recusa("só quem escreveu (ou trabalha junto, ou a curadoria) aceita", () => rpc(como(ids.designer), "sugestao_responder", { p_sugestao: sugestao.id, p_aceitar: true }), "sem_permissao");
+  await espera("aceitar troca o trecho no texto (a primeira ocorrência)", async () => { await rpc(como(ids.aluno2), "sugestao_responder", { p_sugestao: sugestao.id, p_aceitar: true }); return rpc(como(ids.aluno2), "contribuicao_ver", { p_id: sugerida.id }); }, (r) => r.corpo.startsWith("Uma fração mostra partes de um todo. O numerador fica em cima e o denominador fica embaixo") && r.corpo.includes("O numerador fica embaixo"));
+  await recusa("sugestão decidida não se decide de novo", () => rpc(como(ids.aluno2), "sugestao_responder", { p_sugestao: sugestao.id, p_aceitar: false }), "ja_decidida");
+}
+
 // Tranca final: nenhuma tabela interna sem segurança por linha, nenhuma com permissão direta para quem vem de fora.
 await espera("toda tabela interna tem segurança por linha ligada", async () => (await dono("select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'interno' and c.relkind = 'r' and not c.relrowsecurity")).rows, (r) => r.length === 0);
 await espera("nenhuma tabela interna dá permissão direta a anon ou authenticated", async () => (await dono("select table_name from information_schema.role_table_grants where table_schema = 'interno' and grantee in ('anon', 'authenticated', 'PUBLIC')")).rows, (r) => r.length === 0);
