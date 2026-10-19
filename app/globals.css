@@ -1069,6 +1069,13 @@ body {
   color: #000 !important;
   text-decoration: underline;
 }
+/* Link com cara de botão (fundo escuro, como "Começar a trilha"): o texto do link é sempre preto aqui, então o fundo
+   vira branco com borda; senão o texto some, preto no preto. */
+:root[data-leitor] a:is([class*="bg-ink"], [class*="bg-oxblood"]) {
+  background: #fff !important;
+  border: 1px solid #000 !important;
+  padding: 0.45em 0.7em !important;
+}
 /* Cartão inteiro clicável: sem sublinhar tudo, com o título em destaque. */
 :root[data-leitor] main a[class*="border"] {
   text-decoration: none !important;
