@@ -298,17 +298,33 @@ function ctf(corpo) {
   );
 }
 
-/** A lista das ferramentas: ícone, nome, categoria e como desenhar a janela. A ordem é a do menu. */
+/** Ícones de linha (no espírito dos ícones do Kali), desenhados à mão: um por ferramenta. */
+const D = (p) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const ICONES = {
+  terminal: D(`<rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M6 9l3 3-3 3"/><path d="M12.5 15h5"/>`),
+  alvos: D(`<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>`),
+  nmap: D(`<circle cx="12" cy="12" r="9"/><path d="M12 12V3"/><path d="M12 12l7.5 4.3"/><path d="M4.8 15.5a8.5 8.5 0 0 0 8 4.3"/>`),
+  dirb: D(`<path d="M3 7a1 1 0 0 1 1-1h4.5l2 2H16a1 1 0 0 1 1 1v2"/><path d="M3 7v11a1 1 0 0 0 1 1h7"/><circle cx="15" cy="15.5" r="3"/><path d="M17.2 17.7L20 20.5"/>`),
+  wireshark: D(`<path d="M2.5 17c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2"/><path d="M13 13.5c0-4.2 2.2-7.3 5.2-8.3-.6 3.1.4 5.3 2 6.4-2.1 1-4.4 1.1-7.2 1.9z"/>`),
+  burp: D(`<ellipse cx="12" cy="13.5" rx="3.8" ry="5"/><path d="M12 8.5V5M9.2 6.2L7.4 4.4M14.8 6.2l1.8-1.8"/><path d="M8.2 11.5H4M8.2 14.5H3.3M8.3 17.5l-2.8 1.8M15.8 11.5H20M15.8 14.5h4.9M15.7 17.5l2.8 1.8"/>`),
+  sqlmap: D(`<ellipse cx="9.5" cy="6" rx="6" ry="2.5"/><path d="M3.5 6v8c0 1.3 2.5 2.4 5.5 2.5"/><path d="M3.5 10c0 1.3 2.4 2.3 5.3 2.5"/><path d="M17.5 13.8c0 1.1-.9 2-2 2s-2-.9-2-2c0-1.4 2-3.8 2-3.8s2 2.4 2 3.8z"/>`),
+  hydra: D(`<circle cx="7" cy="9" r="3"/><path d="M9.1 11.1l6 6M13.5 15.5l1.8 1.8M15.3 17.3l1.8-1.8"/><circle cx="15.5" cy="8" r="2.3"/>`),
+  john: D(`<circle cx="8" cy="8" r="3.6"/><path d="M10.6 10.6L20 20M15.5 15.5l2-2M17.5 17.5l2-2"/>`),
+  metasploit: D(`<circle cx="11" cy="13" r="7"/><circle cx="11" cy="13" r="2.6"/><path d="M11 13L20.5 3.5M16 3.5h4.5V8"/>`),
+  ctf: D(`<path d="M6 3v18"/><path d="M6 3.5h11.5l-2.2 3.2 2.2 3.2H6z"/>`),
+};
+
+/** A lista das ferramentas: ícone, nome, categoria (numerada como no Kali) e como desenhar a janela. A ordem é a do menu. */
 export const FERRAMENTAS = [
-  { id: "terminal", nome: "Terminal", icone: "▸_", cat: "Sistema", largura: 680, altura: 420, terminal: true },
-  { id: "alvos", nome: "Alvos da rede", icone: "🗺", cat: "Reconhecimento", largura: 640, altura: 480, render: alvos },
-  { id: "nmap", nome: "Nmap", icone: "📡", cat: "Reconhecimento", largura: 640, altura: 460, render: nmap },
-  { id: "dirb", nome: "dirb", icone: "📁", cat: "Reconhecimento", largura: 620, altura: 420, render: dirb },
-  { id: "wireshark", nome: "Wireshark", icone: "🦈", cat: "Rede", largura: 760, altura: 480, render: wireshark },
-  { id: "burp", nome: "Burp (HTTP)", icone: "🕷", cat: "Web", largura: 740, altura: 460, render: burp },
-  { id: "sqlmap", nome: "sqlmap", icone: "💉", cat: "Web", largura: 680, altura: 440, render: sqlmap },
-  { id: "hydra", nome: "Hydra", icone: "🐉", cat: "Senhas", largura: 640, altura: 420, render: hydra },
-  { id: "john", nome: "John", icone: "🔑", cat: "Senhas", largura: 640, altura: 420, render: john },
-  { id: "metasploit", nome: "Metasploit", icone: "🎯", cat: "Cenário", largura: 700, altura: 460, render: metasploit },
-  { id: "ctf", nome: "Desafio", icone: "🚩", cat: "Cenário", largura: 620, altura: 460, render: ctf },
-];
+  { id: "terminal", nome: "Terminal", cat: "Sistema", largura: 720, altura: 440, terminal: true },
+  { id: "alvos", nome: "Alvos da rede", cat: "01 · Coleta de informações", largura: 640, altura: 480, render: alvos },
+  { id: "nmap", nome: "Nmap", cat: "01 · Coleta de informações", largura: 660, altura: 470, render: nmap },
+  { id: "dirb", nome: "dirb", cat: "01 · Coleta de informações", largura: 620, altura: 430, render: dirb },
+  { id: "burp", nome: "Burp Suite", cat: "03 · Aplicações web", largura: 760, altura: 470, render: burp },
+  { id: "sqlmap", nome: "sqlmap", cat: "03 · Aplicações web", largura: 680, altura: 450, render: sqlmap },
+  { id: "hydra", nome: "Hydra", cat: "05 · Ataques de senha", largura: 640, altura: 430, render: hydra },
+  { id: "john", nome: "John the Ripper", cat: "05 · Ataques de senha", largura: 640, altura: 430, render: john },
+  { id: "wireshark", nome: "Wireshark", cat: "09 · Sniffing e Spoofing", largura: 780, altura: 490, render: wireshark },
+  { id: "metasploit", nome: "Metasploit", cat: "08 · Exploração", largura: 700, altura: 470, render: metasploit },
+  { id: "ctf", nome: "Desafio (CTF)", cat: "Desafio", largura: 620, altura: 470, render: ctf },
+].map((f) => ({ ...f, svg: ICONES[f.id] }));
