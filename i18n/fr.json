@@ -4342,7 +4342,17 @@
     "allInPlace": "Tout est à sa place ✓",
     "buildHint": "Touchez les mots dans le bon ordre. Pour en retirer un, touchez-le de nouveau.",
     "showTranslation": "Afficher la traduction",
-    "lyrics": "Paroles"
+    "lyrics": "Paroles",
+    "pencil": "Crayon",
+    "line": "Ligne",
+    "arrow": "Flèche",
+    "rectangle": "Rectangle",
+    "ellipse": "Ellipse",
+    "text": "Texte",
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "thickness": "Épaisseur",
+    "typeText": "Écrivez et appuyez sur Entrée"
   },
   "studyGroup": {
     "eyebrow": "Étudier ensemble",
