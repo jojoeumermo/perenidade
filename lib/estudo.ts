@@ -162,7 +162,17 @@ const CHAVES_DA_COPIA = new Set([
   "lucia:acervo-vista",
   "lucia:lab:redes",
   "lucia:lab:concluidos",
+  // As do painel "Meu estudo" (lib/meu-estudo.ts): testes, exercícios, datas, meta, nivelamento, "Isso ajudou?" e turmas.
+  "lucia:testes",
+  "lucia:exercicios",
+  "lucia:concluidas-em",
+  "lucia:metas",
+  "lucia:nivelamento",
+  "lucia:ajudou",
+  "lucia:turmas",
 ]);
+/** Chaves que guardam um objeto por item (aula ou exercício): na restauração, cada item fica com a versão mais nova. */
+const REGISTROS = ["lucia:testes", "lucia:exercicios", "lucia:concluidas-em", "lucia:nivelamento", "lucia:ajudou"];
 const PREFIXOS_DA_COPIA = ["lucia:lab:", "lucia:ouvido:"];
 export const entraNaCopia = (chave: string) => CHAVES_DA_COPIA.has(chave) || PREFIXOS_DA_COPIA.some((p) => chave.startsWith(p) && !/[\s]/.test(chave) && chave.length < 200);
 
@@ -230,11 +240,31 @@ function juntarListas(atual: string | null, vindo: string): string {
   }
 }
 
-/** Restaura a cópia: listas com id (cadernos, cartões, erros) se juntam; o resto é trocado. Devolve quantas chaves mudaram. */
+/** Junta objetos por chave: o que só existe de um lado fica; no mesmo item, vence o mais recente ("quando" ou o número). */
+function juntarRegistros(atual: string | null, vindo: string): string {
+  try {
+    const a: unknown = JSON.parse(atual ?? "{}");
+    const b: unknown = JSON.parse(vindo);
+    const ok = (x: unknown): x is Record<string, unknown> => Boolean(x) && typeof x === "object" && !Array.isArray(x);
+    if (!ok(a) || !ok(b)) return vindo;
+    const data = (x: unknown) => (typeof x === "number" ? x : ok(x) ? Number(x.quando ?? 0) : 0);
+    const saida: Record<string, unknown> = { ...a };
+    for (const [id, item] of Object.entries(b)) if (!(id in saida) || data(item) >= data(saida[id])) saida[id] = item;
+    return JSON.stringify(saida);
+  } catch {
+    return vindo;
+  }
+}
+
+/** Restaura a cópia: listas com id (cadernos, cartões, erros) e registros por item se juntam; o resto é trocado. Devolve quantas chaves mudaram. */
 export function restaurarCopia(copia: Copia, armazenamento: Pick<Storage, "getItem" | "setItem">): number {
   let n = 0;
   for (const [chave, valor] of Object.entries(copia.dados)) {
-    const final = ["lucia:caderno", "lucia:revisao", "lucia:erros"].includes(chave) ? juntarListas(armazenamento.getItem(chave), valor) : valor;
+    const final = ["lucia:caderno", "lucia:revisao", "lucia:erros"].includes(chave)
+      ? juntarListas(armazenamento.getItem(chave), valor)
+      : REGISTROS.includes(chave)
+        ? juntarRegistros(armazenamento.getItem(chave), valor)
+        : valor;
     try {
       armazenamento.setItem(chave, final);
       n++;

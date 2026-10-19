@@ -1,0 +1,99 @@
+# Exercícios da aula "Números decimais" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: decimais-01
+  tema: "Valor de cada casa"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "No número 4,07, quanto vale o algarismo 7?"
+  alternativas:
+    - texto: "Sete centésimos"
+      certa: true
+    - texto: "Sete décimos"
+      erro: "A primeira casa depois da vírgula é a dos décimos, e nela está o 0. O 7 está na segunda casa: a dos centésimos."
+    - texto: "Sete unidades"
+      erro: "As unidades ficam antes da vírgula, e ali está o 4. Depois da vírgula cada casa vale dez vezes menos: décimos, depois centésimos."
+    - texto: "Setenta centésimos"
+      erro: "Setenta centésimos é 0,70. Em 4,07 o zero vem antes do 7: são sete centésimos, 0,07."
+  explicacao: "Em 4,07: o 4 está nas unidades, o 0 nos décimos e o 7 nos centésimos. O 7 vale 7/100, ou 0,07."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: decimais-02
+  tema: "Comparar decimais"
+  dificuldade: 2
+  enunciado: "Qual destes números é o maior?"
+  alternativas:
+    - texto: "0,5"
+      certa: true
+    - texto: "0,45"
+      erro: "Mais casas depois da vírgula não quer dizer número maior. Iguale as casas: 0,50 é maior que 0,45."
+    - texto: "0,125"
+      erro: "Iguale as casas: 0,500 contra 0,125. Cinco décimos é mais que um décimo e pouco."
+    - texto: "0,09"
+      erro: "0,09 são nove centésimos, menos que um décimo. 0,5 são cinco décimos."
+  explicacao: "Escrevendo todos com três casas: 0,500; 0,450; 0,125; 0,090. O maior é 0,500, isto é, 0,5."
+  conferir: "0.5"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: decimais-03
+  tipo: numero
+  tema: "Somar e subtrair decimais"
+  dificuldade: 2
+  enunciado: "Você comprou arroz por R$ 23,90 e feijão por R$ 8,45 e pagou com uma nota de R$ 50. Qual é o troco?"
+  resposta: "17,65"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "32,35"
+      explicacao: "R$ 32,35 é o total da compra. O troco é o que sobra dos R$ 50: 50,00 − 32,35."
+    - resposta: "18,65"
+      explicacao: "Confira com a soma: 32,35 + 18,65 = 51,00, não 50. Arme a conta com vírgula embaixo de vírgula: 50,00 − 32,35 = 17,65."
+    - resposta: "26,10"
+      explicacao: "Você tirou só o arroz. Some as duas compras antes: 23,90 + 8,45 = 32,35."
+  dica: "Some as compras, com vírgula embaixo de vírgula, e tire o total de 50,00."
+  explicacao: "Total: 23,90 + 8,45 = 32,35. Troco: 50,00 − 32,35 = 17,65. Prova real: 32,35 + 17,65 = 50,00."
+  conferir: "50 - 23.90 - 8.45"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: decimais-04
+  tema: "Multiplicar por 10, 100 e 1000"
+  dificuldade: 1
+  enunciado: "Quanto é 3,6 × 100?"
+  alternativas:
+    - texto: "360"
+      certa: true
+    - texto: "36"
+      erro: "Multiplicar por 100 anda a vírgula duas casas para a direita; você andou uma, o que é multiplicar por 10."
+    - texto: "3,600"
+      erro: "Acrescentar zeros depois da vírgula não muda o número: 3,600 = 3,6. Ande a vírgula duas casas para a direita: 360."
+    - texto: "0,036"
+      erro: "Você andou a vírgula para a esquerda, o que é dividir por 100. Na multiplicação ela vai para a direita."
+  explicacao: "Multiplicar por 100 anda a vírgula duas casas para a direita: 3,6 → 36 → 360. Faltando algarismo, completa-se com zero."
+  conferir: "3.6 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: decimais-05
+  tema: "Decimais e frações"
+  dificuldade: 3
+  enunciado: "Qual número decimal é igual a 3/8?"
+  alternativas:
+    - texto: "0,375"
+      certa: true
+    - texto: "0,38"
+      erro: "0,38 é um arredondamento. A divisão 3 ÷ 8 termina, e dá exatamente 0,375: três casas."
+    - texto: "3,8"
+      erro: "Juntar o 3 e o 8 com uma vírgula não é dividir. Fração é divisão: 3 ÷ 8 = 0,375."
+    - texto: "0,24"
+      erro: "0,24 é 3 × 8 dividido por 100. Fração é divisão: 3 ÷ 8 = 0,375."
+  explicacao: "3/8 é 3 dividido por 8. Na conta armada: 30 ÷ 8 dá 3 e sobra 6; 60 ÷ 8 dá 7 e sobra 4; 40 ÷ 8 dá 5 e não sobra nada. Resultado: 0,375."
+  conferir: "3 / 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
