@@ -2929,6 +2929,23 @@ await espera("com a segunda avaliação ligada, o comentário espera por ela e a
   return [r, pendentes, texto];
 }, ([r, pendentes, texto]) => r.avaliando === true && pendentes.some((x) => x.tipo === "comentario" && x.id === r.id) && texto?.texto === "Uma dúvida sobre o minuto dois.");
 
+// Exercícios de prática: o educador da disciplina cria, a aula mostra, a entrega vai pela Gaveta e o educador comenta.
+const exercicioBase = (extra = {}) => ({ disciplina: "matematica", aula: "/trilhas/matematica-fundamental/fracoes", aula_titulo: "Frações", titulo: "Corte de 30 segundos", objetivo: "Montar um corte de 30 segundos com três planos e uma transição.", programa: "filmcraft", materiais: [{ titulo: "Big Buck Bunny", url: "https://peach.blender.org/download/", credito: "(c) copyright 2008, Blender Foundation" }], passos: "1. Importe o vídeo.\n2. Corte três planos.\n3. Exporte.", criterios: "Ritmo, continuidade e crédito do material.", ...extra });
+await recusa("quem não ensina a disciplina não cria exercício", () => rpc(como(ids.designer), "exercicio_salvar", { p: exercicioBase() }), "sem_permissao");
+await recusa("material só com https", () => rpc(como(ids.prof), "exercicio_salvar", { p: exercicioBase({ materiais: [{ titulo: "Vídeo", url: "javascript:alert(1)" }] }) }), "invalido:materiais");
+let exercicio;
+await espera("o educador da disciplina cria o exercício e a aula o mostra", async () => { exercicio = await rpc(como(ids.prof), "exercicio_salvar", { p: exercicioBase() }); return rpc(anon, "exercicios_listar", { p_aula: "/trilhas/matematica-fundamental/fracoes" }); }, (r) => r.some((x) => x.id === exercicio.id && x.programa === "filmcraft" && x.materiais.length === 1));
+ids.aluno2 = await criarUsuario("ana.exercicio@teste.local", "Ana Aluna");
+await rpc(como(ids.aluno2), "eu");
+const entregaDe = (extra = {}) => ({ titulo: "Exercício: Corte de 30 segundos", tipo: "projeto", disciplina: "matematica", curso: "", instituicao: "", ano: "", comentario: "Usei três planos do Big Buck Bunny e uma transição de dissolver entre o segundo e o terceiro.", link: "https://video.exemplo.org/v/abc", licenca: "CC BY 4.0", credito: "Ana Aluna", termo: true, termo_versao: "1", termo_nome: "Ana Aluna de Souza", exercicio: exercicio.id, ...extra });
+await recusa("entrega de exercício de outra disciplina não vale", () => rpc(como(ids.aluno2), "gaveta_enviar", { p: entregaDe({ disciplina: "geografia" }) }), "invalido:exercicio");
+let entrega;
+await espera("a entrega vai pela Gaveta e o educador é avisado", async () => { entrega = await rpc(como(ids.aluno2), "gaveta_enviar", { p: entregaDe() }); return [await rpc(como(ids.prof), "exercicio_entregas", { p_id: exercicio.id }), await rpc(como(ids.prof), "avisos_meus")]; }, ([lista, avisos]) => lista.some((g) => g.id === entrega.id && g.link === "https://video.exemplo.org/v/abc") && avisos.some((a) => a.texto.includes("Corte de 30 segundos")));
+await recusa("quem não ensina não vê as entregas", () => rpc(como(ids.designer), "exercicio_entregas", { p_id: exercicio.id }), "sem_permissao");
+await espera("o educador comenta e quem entregou vê o comentário", async () => { await rpc(como(ids.prof), "exercicio_retorno", { p_gaveta: entrega.id, p_texto: "Bom ritmo! A transição ficou longa: tente 12 quadros." }); return rpc(como(ids.aluno2), "gaveta_minhas"); }, (r) => r.some((g) => g.id === entrega.id && g.retorno.startsWith("Bom ritmo") && g.exercicio_titulo === "Corte de 30 segundos"));
+await espera("o painel do educador conta as entregas", () => rpc(como(ids.prof), "exercicios_meus"), (r) => r.some((x) => x.id === exercicio.id && x.entregas === 1 && x.sem_retorno === 0));
+await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), "exercicio_arquivar", { p_id: exercicio.id, p_ativo: false }); return rpc(anon, "exercicios_listar", { p_aula: "/trilhas/matematica-fundamental/fracoes" }); }, (r) => !r.some((x) => x.id === exercicio.id));
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);

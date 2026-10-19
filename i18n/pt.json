@@ -3388,7 +3388,10 @@
     "note": "Nota da mediação",
     "withdraw": "Tirar do ar",
     "withdrawConfirm": "Tirar esta ficha do ar? Quem já copiou o trabalho continua podendo usá-lo, pela licença.",
-    "withdrawn": "Ficha retirada."
+    "withdrawn": "Ficha retirada.",
+    "exerciseFor": "Entrega do exercício: {titulo}",
+    "exerciseHint": "Mande o link do vídeo exportado. O educador da disciplina comenta; publicar na Gaveta para todo mundo continua com a mediação.",
+    "feedback": "Comentário do educador"
   },
   "podcast": {
     "title": "Podcasts",
@@ -3924,6 +3927,17 @@
         ]
       ],
       "back": "Voltar ao Estúdio de prática"
+    },
+    "exercises": {
+      "title": "Exercício de prática",
+      "objective": "Objetivo",
+      "program": "Programa",
+      "materials": "Material",
+      "steps": "Passo a passo",
+      "criteria": "Como vai ser avaliado",
+      "open": "Abrir no estúdio",
+      "deliver": "Entregar pela Gaveta Aberta",
+      "deliverHint": "Exporte o vídeo, publique num link (YouTube não listado, PeerTube, Drive…) e entregue o link. O educador comenta a sua entrega."
     }
   }
 }

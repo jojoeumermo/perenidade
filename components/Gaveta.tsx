@@ -82,6 +82,23 @@ function Publicar({ s, termo, depois }: { s: S; termo: React.ReactNode; depois: 
   const { t } = useI18n();
   const me = useMe();
   const [rascunho, setRascunho] = useState(vazio);
+  // Veio de "Entregar pela Gaveta Aberta" num exercício: o formulário já sabe de qual exercício é a entrega.
+  const [exercicio, setExercicio] = useState<{ id: string; titulo: string } | null>(null);
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get("exercicio") ?? "";
+    if (!/^[0-9a-f-]{36}$/.test(id)) return;
+    let vivo = true;
+    rpc<{ id: string; titulo: string; disciplina: string }>("exercicio_ver", { p_id: id })
+      .then((x) => {
+        if (!vivo) return;
+        setExercicio({ id: x.id, titulo: x.titulo });
+        setRascunho((r) => ({ ...r, tipo: "projeto", disciplina: x.disciplina, titulo: r.titulo || `${x.titulo}`.slice(0, 160), como: "link" }));
+      })
+      .catch(() => null);
+    return () => {
+      vivo = false;
+    };
+  }, []);
   const [arquivo, setArquivo] = useState<File | null>(null);
   const [estado, setEstado] = useState<"" | "enviando" | "enviado">("");
   const [erro, setErro] = useState("");
@@ -114,7 +131,7 @@ function Publicar({ s, termo, depois }: { s: S; termo: React.ReactNode; depois: 
         }
       }
       const { como, ...dados } = rascunho;
-      await rpc("gaveta_enviar", { p: { ...dados, link: como === "link" ? rascunho.link.trim() : "", arquivo: caminho, termo_versao: TERMO_VERSAO } });
+      await rpc("gaveta_enviar", { p: { ...dados, link: como === "link" ? rascunho.link.trim() : "", arquivo: caminho, termo_versao: TERMO_VERSAO, exercicio: exercicio?.id ?? "" } });
       setRascunho(vazio);
       setArquivo(null);
       setEstado("enviado");
@@ -126,7 +143,13 @@ function Publicar({ s, termo, depois }: { s: S; termo: React.ReactNode; depois: 
   }
 
   return (
-    <form className="mt-4 space-y-4 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void enviar(); }}>
+    <form id="publicar" className="mt-4 scroll-mt-24 space-y-4 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void enviar(); }}>
+      {exercicio && (
+        <div className="border-l-4 border-gold bg-parchment-deep p-3">
+          <p className="font-semibold">{fill(s.exerciseFor, { titulo: exercicio.titulo })}</p>
+          <p className="mt-1 text-ink-soft">{s.exerciseHint}</p>
+        </div>
+      )}
       <label className="block">
         {s.fieldTitle}
         <input value={rascunho.titulo} onChange={mudar("titulo")} required minLength={5} maxLength={160} className={field} />
@@ -288,7 +311,9 @@ function Minhas({ s, versao }: { s: S; versao: number }) {
             <p className="text-ink-soft">
               {s.types[trabalho.tipo]} · {(s.statuses as Record<string, string>)[trabalho.status ?? "pendente"]}
             </p>
+            {trabalho.exercicio_titulo && <p className="text-xs text-ink-soft">{fill(s.exerciseFor, { titulo: trabalho.exercicio_titulo })}</p>}
             {trabalho.nota && <p className="mt-1">{s.note}: {trabalho.nota}</p>}
+            {trabalho.retorno && <p className="mt-1 border-l-4 border-ok pl-2"><span className="text-ink-soft">{s.feedback}: </span>{trabalho.retorno}</p>}
             <button type="button" className={`${link} mt-1`} onClick={() => void retirar(trabalho)}>{s.withdraw}</button>
           </li>
         ))}

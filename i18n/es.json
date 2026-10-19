@@ -3388,7 +3388,10 @@
     "note": "Nota de la mediación",
     "withdraw": "Retirar",
     "withdrawConfirm": "¿Retirar esta ficha? Quien ya copió el trabajo puede seguir usándolo según la licencia.",
-    "withdrawn": "Ficha retirada."
+    "withdrawn": "Ficha retirada.",
+    "exerciseFor": "Entrega del ejercicio: {titulo}",
+    "exerciseHint": "Envía el enlace del video exportado. El educador de la disciplina comenta; publicarlo en el Cajón para todos sigue pasando por la mediación.",
+    "feedback": "Comentario del educador"
   },
   "podcast": {
     "title": "Pódcasts",
@@ -3924,6 +3927,17 @@
         ]
       ],
       "back": "Volver al estudio de práctica"
+    },
+    "exercises": {
+      "title": "Ejercicio de práctica",
+      "objective": "Objetivo",
+      "program": "Programa",
+      "materials": "Material",
+      "steps": "Paso a paso",
+      "criteria": "Cómo se va a evaluar",
+      "open": "Abrir en el estudio",
+      "deliver": "Entregar por el Cajón Abierto",
+      "deliverHint": "Exporta el video, publícalo en un enlace (YouTube no listado, PeerTube, Drive…) y entrega el enlace. El educador comenta tu entrega."
     }
   }
 }

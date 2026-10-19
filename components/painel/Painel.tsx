@@ -28,6 +28,7 @@ import { CadernoNoPainel } from "./Caderno";
 import { EstudioDeDesign } from "./design/EstudioDeDesign";
 import { PorOndeComecar } from "./Comecar";
 import { AcervoPorDentro, MinhasContribuicoes, ParaVoceHoje, Tarefas } from "./Tarefas";
+import { Exercicios } from "./Exercicios";
 import { Conversas } from "./Conversas";
 import { Curriculo as DisciplinasETrilhas } from "./Curriculo";
 import { Divulgacao } from "./Divulgacao";
@@ -473,6 +474,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "caderno", nome: "Caderno de estudos", sobre: "Fontes, resumo, cartões, questionário, mapa e leitura em voz alta: a sala de estudo para preparar aulas e episódios.", grupo: "Produção", mostra: true },
       { id: "tarefas", nome: "Tarefas", sobre: "Microtarefas do acervo e das aulas para 5, 15 ou 30 minutos, a revisão rápida, mutirões e projetos.", grupo: "Produção", mostra: voluntario },
       { id: "acervo-dentro", nome: "Acervo por dentro", sobre: "Cada obra com o selo da ficha (completa, parcial ou faltando), para escolher o que cuidar.", grupo: "Produção", mostra: voluntario },
+      { id: "exercicios", nome: "Exercícios de prática", sobre: "Exercícios ligados às aulas (vídeo, animação, imagem) com o programa do Estúdio de prática, e as entregas para comentar.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "educacao") },
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: produz },
       { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "supervisao", "curadoria", "revisao", "educacao"), conta: r?.fila },
@@ -703,6 +705,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "estudio" && <EstudioDeDesign me={eu} />}
           {atual.id === "caderno" && <CadernoNoPainel />}
           {atual.id === "tarefas" && <Tarefas me={eu} ir={ir} />}
+          {atual.id === "exercicios" && <Exercicios me={eu} />}
           {atual.id === "acervo-dentro" && <AcervoPorDentro />}
           {atual.id === "contribuicoes" && <MinhasContribuicoes />}
           {atual.id === "avisos" && <AvisosEquipe />}
