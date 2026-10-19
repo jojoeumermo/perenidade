@@ -31,7 +31,9 @@
     "copied": "已复制",
     "loading": "加载中……",
     "askCommunity": "在社区提问",
-    "practiceStudio": "练习工作室"
+    "practiceStudio": "练习工作室",
+    "videoRoomFailed": "视频会议室没有加载（服务器 {dominio} 没有响应，或在此网络中被屏蔽）。",
+    "openInNewTab": "在新标签页中打开 ↗"
   },
   "nav": {
     "main": "主导航",
