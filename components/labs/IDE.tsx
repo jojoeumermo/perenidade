@@ -1,14 +1,15 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { chaveDoRascunho, conferirHtml, conferirLinhas, conferirSaida, type Exercicio, type Perfil, PERFIS, SQL_EXEMPLO } from "@/lib/laboratorios";
 import { abrirZip, type ArquivoDoProjeto, montarZip } from "@/lib/zip";
+import { lerDoLink, linkDoProjeto } from "@/lib/compartilhar-projeto";
 import { useI18n } from "../I18n";
 import { EditorDeCodigo } from "./EditorDeCodigo";
 
 const TEXTOS: Record<string, Record<string, string>> = {
-  pt: { arquivos: "Arquivos", novo: "Novo arquivo", apagar: "Apagar", renomear: "Renomear", executar: "Executar", parar: "Parar", limpar: "Limpar", saida: "Saída", previa: "Prévia", baixar: "Baixar (.zip)", abrir: "Abrir arquivo ou .zip", exemplo: "Exemplo", restaurar: "Restaurar rascunho", guardado: "Rascunho guardado neste navegador", carregando: "Carregando o interpretador…", primeira: "Na primeira vez o navegador baixa o interpretador:", carregar: "Carregar e executar", semWasm: "Este navegador não tem WebAssembly ou Web Workers: use o Chrome, o Firefox ou o Edge atualizados.", tempo: "O programa passou de 20 segundos e foi interrompido. Confira se não há um laço sem fim.", falhou: "O interpretador não carregou. Recarregue a página e tente de novo.", entradas: "Entradas (uma por linha, para input)", testes: "Conferir o exercício", passou: "passou", falhou2: "falhou", dica: "Dica", solucao: "Ver a solução", naoRoda: "O que não roda aqui", privacidade: "O que você escreve não sai deste aparelho: o código roda no navegador e o rascunho fica só aqui. Baixe o projeto para guardar.", simples: "Editor simples", realce: "Realce", fonte: "Letra", parabens: "Tudo certo! Exercício concluído.", quase: "Ainda não: veja o que falhou e a dica.", teclas: "Ctrl+Enter executa · Ctrl+S guarda · Tab recua", apagarConfirma: "Apagar este arquivo?" },
+  pt: { arquivos: "Arquivos", novo: "Novo arquivo", apagar: "Apagar", renomear: "Renomear", executar: "Executar", parar: "Parar", limpar: "Limpar", saida: "Saída", previa: "Prévia", baixar: "Baixar (.zip)", abrir: "Abrir arquivo ou .zip", exemplo: "Exemplo", restaurar: "Restaurar rascunho", guardado: "Rascunho guardado neste navegador", carregando: "Carregando o interpretador…", primeira: "Na primeira vez o navegador baixa o interpretador:", carregar: "Carregar e executar", semWasm: "Este navegador não tem WebAssembly ou Web Workers: use o Chrome, o Firefox ou o Edge atualizados.", tempo: "O programa passou de 20 segundos e foi interrompido. Confira se não há um laço sem fim.", falhou: "O interpretador não carregou. Recarregue a página e tente de novo.", entradas: "Entradas (uma por linha, para input)", testes: "Conferir o exercício", passou: "passou", falhou2: "falhou", dica: "Dica", solucao: "Ver a solução", naoRoda: "O que não roda aqui", privacidade: "O que você escreve não sai deste aparelho: o código roda no navegador e o rascunho fica só aqui. Baixe o projeto para guardar.", simples: "Editor simples", realce: "Realce", fonte: "Letra", parabens: "Tudo certo! Exercício concluído.", quase: "Ainda não: veja o que falhou e a dica.", teclas: "Ctrl+Enter executa · Ctrl+S guarda · Tab recua", apagarConfirma: "Apagar este arquivo?", modelos: "Modelos", compartilhar: "Compartilhar link", copiado: "Link copiado: quem abrir vê uma cópia do projeto (o código vai no próprio link, não fica guardado em servidor nenhum).", grandeDemais: "O projeto é grande demais para caber num link: baixe o .zip.", ladoALado: "Console ao lado", tempoDeExecucao: "terminou em {ms} ms", erroDeTipo: "erro de tipo", doLink: "Projeto aberto a partir de um link compartilhado." },
   en: { arquivos: "Files", novo: "New file", apagar: "Delete", renomear: "Rename", executar: "Run", parar: "Stop", limpar: "Clear", saida: "Output", previa: "Preview", baixar: "Download (.zip)", abrir: "Open file or .zip", exemplo: "Example", restaurar: "Restore draft", guardado: "Draft saved in this browser", carregando: "Loading the interpreter…", primeira: "The first time, the browser downloads the interpreter:", carregar: "Load and run", semWasm: "This browser lacks WebAssembly or Web Workers: use an up-to-date Chrome, Firefox or Edge.", tempo: "The program ran over 20 seconds and was stopped. Check for an endless loop.", falhou: "The interpreter did not load. Reload the page and try again.", entradas: "Inputs (one per line, for input)", testes: "Check the exercise", passou: "passed", falhou2: "failed", dica: "Hint", solucao: "Show solution", naoRoda: "What does not run here", privacidade: "What you write never leaves this device: code runs in the browser and the draft stays here. Download the project to keep it.", simples: "Simple editor", realce: "Highlight", fonte: "Font", parabens: "All good! Exercise complete.", quase: "Not yet: see what failed and the hint.", teclas: "Ctrl+Enter runs · Ctrl+S saves · Tab indents", apagarConfirma: "Delete this file?" },
 };
 TEXTOS.es = { ...TEXTOS.pt, arquivos: "Archivos", novo: "Nuevo archivo", apagar: "Borrar", executar: "Ejecutar", parar: "Detener", limpar: "Limpiar", saida: "Salida", previa: "Vista previa", baixar: "Descargar (.zip)", abrir: "Abrir archivo o .zip", exemplo: "Ejemplo", restaurar: "Restaurar borrador", guardado: "Borrador guardado en este navegador", carregando: "Cargando el intérprete…", primeira: "La primera vez el navegador descarga el intérprete:", carregar: "Cargar y ejecutar", testes: "Comprobar el ejercicio", passou: "pasó", falhou2: "falló", dica: "Pista", solucao: "Ver la solución", naoRoda: "Lo que no corre aquí", parabens: "¡Todo bien! Ejercicio completo.", quase: "Todavía no: mira lo que falló y la pista.", apagarConfirma: "¿Borrar este archivo?" };
@@ -17,6 +18,8 @@ TEXTOS.zh = { ...TEXTOS.en, arquivos: "文件", novo: "新建文件", apagar: "�
 
 type Linha = { texto: string; erro?: boolean };
 const LIMITE_TEMPO = 20_000;
+const agora = () => performance.now();
+const semAssinatura = () => () => {};
 
 function montarDocumento(arquivos: ArquivoDoProjeto[]): string {
   const indice = arquivos.find((a) => a.nome === "index.html")?.conteudo ?? "<!doctype html><p>Crie um index.html.</p>";
@@ -41,7 +44,7 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
   const inicial = useMemo<ArquivoDoProjeto[]>(() => (exercicio ? exercicio.arquivos : PERFIS[perfil].exemplo).map((a) => ({ ...a })), [perfil, exercicio]);
   const [arquivos, setArquivos] = useState<ArquivoDoProjeto[]>(inicial);
   const [ativo, setAtivo] = useState(inicial[0]?.nome ?? "");
-  const [entrada, setEntrada] = useState(exercicio?.entrada ?? "");
+  const [entrada, setEntrada] = useState(exercicio?.entrada ?? PERFIS[perfil].entrada ?? "");
   const [saida, setSaida] = useState<Linha[]>([]);
   const [linhas, setLinhas] = useState<{ campos: string[]; linhas: unknown[][] } | null>(null);
   const [estado, setEstado] = useState<"parado" | "carregando" | "rodando">("parado");
@@ -50,21 +53,42 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
   const [dicasVistas, setDicasVistas] = useState(0);
   const [verSolucao, setVerSolucao] = useState(false);
   const [aviso, setAviso] = useState("");
-  const [temRascunho, setTemRascunho] = useState(() => { try { return typeof window !== "undefined" && Boolean(window.localStorage.getItem(chaveDoRascunho(perfil, exercicio?.id))); } catch { return false; } });
+  // O rascunho guardado só existe no navegador: no servidor (e na primeira pintura) não há, para não destoar.
+  const [guardouAgora, setTemRascunho] = useState(false);
+  const jaTinha = useSyncExternalStore(semAssinatura, () => { try { return Boolean(window.localStorage.getItem(chave)); } catch { return false; } }, () => false);
+  const temRascunho = guardouAgora || jaTinha;
   const [confirmarDownload, setConfirmarDownload] = useState(false);
   const [realce, setRealce] = useState(true);
   const [fonte, setFonte] = useState(14);
   const [arquivosAbertos, setArquivosAbertos] = useState(true);
   const worker = useRef<Worker | null>(null);
+  const compilado = useRef<Worker | null>(null);
   const relogio = useRef<number | null>(null);
   const db = useRef<{ exec: (q: string) => Promise<{ fields: { name: string }[]; rows: Record<string, unknown>[] }[]> } | null>(null);
   const entradaArquivo = useRef<HTMLInputElement>(null);
   // A pessoa aceitou o download do interpretador nesta montagem.
   const confirmado = useRef(false);
   const suporte = typeof window !== "undefined" && typeof WebAssembly !== "undefined" && typeof Worker !== "undefined";
-  const pesado = perfil === "python" || perfil === "php" || perfil === "sql";
+  const pesado = Boolean(PERFIS[perfil].pesado);
+  const [ladoALado, setLadoALado] = useState(true);
+  const inicio = useRef(0);
   const atual = arquivos.find((a) => a.nome === ativo) ?? arquivos[0];
 
+  // Projeto vindo de um link compartilhado (#projeto=...): só no modo livre e no mesmo perfil.
+  useEffect(() => {
+    if (exercicio) return;
+    let vivo = true;
+    void lerDoLink(window.location.hash).then((p) => {
+      if (!vivo || !p || p.perfil !== perfil || !p.arquivos.length) return;
+      setArquivos(p.arquivos);
+      setAtivo(p.arquivos[0].nome);
+      if (p.entrada !== undefined) setEntrada(p.entrada);
+      setAviso(s.doLink);
+    });
+    return () => {
+      vivo = false;
+    };
+  }, [exercicio, perfil, s.doLink]);
   // Rascunho: guardado neste navegador a cada mudança (com um respiro), restaurável por botão.
   useEffect(() => {
     const marca = window.setTimeout(() => {
@@ -77,7 +101,7 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
     }, 800);
     return () => window.clearTimeout(marca);
   }, [arquivos, chave]);
-  useEffect(() => () => { worker.current?.terminate(); if (relogio.current) window.clearTimeout(relogio.current); }, []);
+  useEffect(() => () => { worker.current?.terminate(); compilado.current?.terminate(); if (relogio.current) window.clearTimeout(relogio.current); }, []);
   // A prévia web ouve o console do iframe.
   useEffect(() => {
     if (perfil !== "web") return;
@@ -144,22 +168,57 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
       }
       return;
     }
-    // Python, PHP e JavaScript: num worker, com teto de tempo.
+    // As outras linguagens: num worker, com teto de tempo.
     setEstado(worker.current ? "rodando" : "carregando");
+    inicio.current = agora();
     let codigo = atual?.conteudo ?? "";
+    const outrosArquivos = arquivos.filter((a) => a.nome !== atual?.nome);
     if (perfil === "python") {
       const outros = arquivos.filter((a) => a.nome !== atual?.nome);
       if (outros.length) codigo = `${outros.map((a) => `open(${JSON.stringify(a.nome)}, "w", encoding="utf-8").write(${JSON.stringify(a.conteudo)})`).join("\n")}\n${codigo}`;
     }
-    if (perfil === "js") {
-      worker.current?.terminate();
-      const fonteDoWorker = `const __p=(t)=>(...m)=>postMessage({type:t,text:m.map((x)=>{try{return typeof x==="object"?JSON.stringify(x):String(x)}catch(e){return String(x)}}).join(" ")+"\\n"});self.console={log:__p("out"),info:__p("out"),warn:__p("err"),error:__p("err"),table:__p("out")};postMessage({type:"ready"});(async()=>{try{${codigo}\n}catch(e){postMessage({type:"err",text:String(e&&e.stack||e)+"\\n"})}postMessage({type:"done"})})();`;
+    if (perfil === "js") rodarJs(codigo, "");
+    else rodarNoWorker(codigo, outrosArquivos);
+  }
+
+  /** JavaScript num worker descartável (cada execução começa do zero), com prompt() lendo do campo de entradas. */
+  function rodarJs(codigo: string, jaImpresso: string) {
+    worker.current?.terminate();
+    const entradas = JSON.stringify(entrada.split("\n"));
+    {
+      const fonteDoWorker = `const __e=${entradas};self.prompt=()=>__e.length?__e.shift():null;const __p=(t)=>(...m)=>postMessage({type:t,text:m.map((x)=>{try{return typeof x==="object"?JSON.stringify(x):String(x)}catch(e){return String(x)}}).join(" ")+"\\n"});self.console={log:__p("out"),info:__p("out"),warn:__p("err"),error:__p("err"),table:__p("out")};postMessage({type:"ready"});(async()=>{try{${codigo}\n}catch(e){postMessage({type:"err",text:String(e&&e.stack||e)+"\\n"})}postMessage({type:"done"})})();`;
       worker.current = new Worker(URL.createObjectURL(new Blob([fonteDoWorker], { type: "text/javascript" })));
-    } else {
-      worker.current ??= perfil === "python" ? new Worker("/workers/python.js") : new Worker("/workers/php.mjs", { type: "module" });
     }
+    ouvir(worker.current, jaImpresso, true);
+  }
+
+  const WORKERS: Partial<Record<Perfil, string>> = { python: "/workers/python.js", ts: "/workers/typescript.js", cpp: "/workers/cpp.js", ruby: "/workers/ruby.js", lua: "/workers/lua.js" };
+  function rodarNoWorker(codigo: string, outrosArquivos: ArquivoDoProjeto[]) {
+    if (perfil === "ts") {
+      // O compilador fica guardado para a próxima vez e devolve o JavaScript; quem roda é o executor de JavaScript.
+      const c = (compilado.current ??= new Worker(WORKERS.ts!));
+      c.onmessage = (ev: MessageEvent<{ type: string; text?: string; js?: string; erros?: string[] }>) => {
+        const { type, text = "", js = "", erros = [] } = ev.data;
+        if (type === "ready") setEstado("rodando");
+        else if (type === "compiled") {
+          const tipos = erros.map((e) => `${s.erroDeTipo}: ${e}\n`).join("");
+          if (tipos) setSaida((l) => [...l, { texto: tipos, erro: true }]);
+          rodarJs(js, tipos);
+        } else if (type === "err") setSaida((l) => [...l, { texto: text, erro: true }]);
+        else if (type === "done") setEstado("parado");
+      };
+      c.onerror = () => { compilado.current?.terminate(); compilado.current = null; parar(s.falhou); };
+      c.postMessage({ arquivos, principal: atual?.nome ?? "main.ts" });
+      return;
+    }
+    worker.current ??= perfil === "php" ? new Worker("/workers/php.mjs", { type: "module" }) : new Worker(WORKERS[perfil]!);
     const w = worker.current;
-    let texto = "";
+    ouvir(w, "", false);
+    w.postMessage({ code: codigo, input: entrada, arquivos: outrosArquivos });
+  }
+
+  function ouvir(w: Worker, jaImpresso: string, descartavel: boolean) {
+    let texto = jaImpresso;
     w.onmessage = (ev: MessageEvent<{ type: string; text?: string }>) => {
       const { type, text = "" } = ev.data;
       if (type === "ready") {
@@ -168,7 +227,9 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
       } else if (type === "done") {
         if (relogio.current) window.clearTimeout(relogio.current);
         setEstado("parado");
-        if (perfil === "js") { w.terminate(); worker.current = null; }
+        if (descartavel) { w.terminate(); worker.current = null; }
+        const ms = Math.round(agora() - inicio.current);
+        setSaida((l) => [...l, { texto: `\n— ${s.tempoDeExecucao.replace("{ms}", String(ms))}\n` }]);
         conferir(texto);
       } else {
         texto += text;
@@ -176,11 +237,11 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
       }
     };
     w.onerror = () => parar(s.falhou);
-    if (perfil !== "js") w.postMessage({ code: codigo, input: entrada });
   }
 
   function novoArquivo() {
-    const nome = window.prompt(s.novo, perfil === "web" ? "pagina.html" : perfil === "python" ? "modulo.py" : perfil === "php" ? "funcoes.php" : perfil === "sql" ? "outra.sql" : "outro.js")?.trim();
+    const sugestao: Record<Perfil, string> = { web: "pagina.html", python: "modulo.py", php: "funcoes.php", sql: "outra.sql", js: "outro.js", ts: "util.ts", cpp: "outro.cpp", ruby: "util.rb", lua: "util.lua" };
+    const nome = window.prompt(s.novo, sugestao[perfil])?.trim();
     if (!nome || !/^[\w.-]{1,60}$/.test(nome) || arquivos.some((a) => a.nome === nome) || arquivos.length >= 30) return;
     setArquivos([...arquivos, { nome, conteudo: "" }]);
     setAtivo(nome);
@@ -221,6 +282,20 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
       setAviso("Não deu para abrir: só arquivos de texto ou .zip de projeto, até 2 MB cada.");
     }
   }
+  async function compartilhar() {
+    const base = new URL(window.location.href);
+    base.searchParams.set("p", perfil);
+    base.searchParams.delete("ex");
+    const link = await linkDoProjeto(base.toString(), { perfil, arquivos, entrada });
+    if (!link) return setAviso(s.grandeDemais);
+    window.history.replaceState(null, "", link);
+    try {
+      await navigator.clipboard.writeText(link);
+    } catch {
+      // sem área de transferência: o link fica na barra de endereço
+    }
+    setAviso(s.copiado);
+  }
   function restaurar() {
     try {
       const r = JSON.parse(window.localStorage.getItem(chave) ?? "null") as { arquivos?: ArquivoDoProjeto[] } | null;
@@ -257,10 +332,22 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
         <span className="mx-1 hidden h-5 w-px bg-rule sm:block" />
         <button type="button" className={claro} onClick={baixar}>{s.baixar}</button>
         <button type="button" className={claro} onClick={() => entradaArquivo.current?.click()}>{s.abrir}</button>
-        <input ref={entradaArquivo} type="file" multiple accept=".zip,.txt,.py,.php,.html,.htm,.css,.js,.mjs,.sql,.json,.md" className="sr-only" onChange={(e) => { void abrir(e.target.files); e.target.value = ""; }} />
-        <button type="button" className={claro} onClick={() => { setArquivos(PERFIS[perfil].exemplo.map((a) => ({ ...a }))); setAtivo(PERFIS[perfil].exemplo[0].nome); }}>{s.exemplo}</button>
+        <input ref={entradaArquivo} type="file" multiple accept=".zip,.txt,.py,.php,.html,.htm,.css,.js,.mjs,.ts,.c,.cpp,.h,.hpp,.rb,.lua,.sql,.json,.md,.csv" className="sr-only" onChange={(e) => { void abrir(e.target.files); e.target.value = ""; }} />
+        <select aria-label={s.modelos} value="" onChange={(e) => {
+          const i = Number(e.target.value);
+          const m = i === 0 ? { arquivos: PERFIS[perfil].exemplo, entrada: PERFIS[perfil].entrada } : PERFIS[perfil].modelos![i - 1];
+          setArquivos(m.arquivos.map((a) => ({ ...a })));
+          setAtivo(m.arquivos[0].nome);
+          setEntrada(m.entrada ?? "");
+        }} className="cursor-pointer border-2 border-ink bg-parchment px-2 py-1.5 font-semibold">
+          <option value="" disabled>{s.modelos}…</option>
+          <option value="0">{s.exemplo}</option>
+          {PERFIS[perfil].modelos?.map((m, i) => <option key={m.nome} value={i + 1}>{m.nome}</option>)}
+        </select>
+        {!exercicio && <button type="button" className={claro} onClick={() => void compartilhar()}>{s.compartilhar}</button>}
         {temRascunho && <button type="button" className={elo} onClick={restaurar}>{s.restaurar}</button>}
         <span className="ml-auto flex items-center gap-2 text-xs text-ink-soft">
+          <label className="hidden cursor-pointer items-center gap-1 lg:flex"><input type="checkbox" checked={ladoALado} onChange={(e) => setLadoALado(e.target.checked)} />{s.ladoALado}</label>
           <label className="flex cursor-pointer items-center gap-1"><input type="checkbox" checked={!realce} onChange={(e) => setRealce(!e.target.checked)} />{s.simples}</label>
           <button type="button" aria-label={`${s.fonte} −`} className={claro} onClick={() => setFonte((f) => Math.max(11, f - 1))}>A−</button>
           <button type="button" aria-label={`${s.fonte} +`} className={claro} onClick={() => setFonte((f) => Math.min(22, f + 1))}>A+</button>
@@ -276,6 +363,7 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
           <button type="button" className={`${claro} ml-2`} onClick={() => setConfirmarDownload(false)}>✕</button>
         </p>
       )}
+      <div className={`grid gap-3 ${ladoALado && perfil !== "web" ? "lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]" : ""}`}>
       <div className={`grid gap-3 ${arquivosAbertos ? "lg:grid-cols-[11rem_minmax(0,1fr)]" : ""}`}>
         {arquivosAbertos && (
           <aside className="border-2 border-ink bg-parchment-deep p-2">
@@ -300,7 +388,7 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
         <div className="min-w-0">
           {!arquivosAbertos && <button type="button" className={`${elo} mb-1`} onClick={() => setArquivosAbertos(true)}>» {s.arquivos}</button>}
           {atual && <EditorDeCodigo valor={atual.conteudo} mudar={mudarAtual} nome={atual.nome} aoExecutar={() => { if (!ocupado) void executar(); }} aoGuardar={() => setAviso(s.guardado)} realce={realce} tamanho={fonte} altura={perfil === "web" ? "20rem" : "24rem"} />}
-          {perfil === "python" && (
+          {PERFIS[perfil].le && (
             <label className="mt-2 block text-xs">
               {s.entradas}
               <textarea value={entrada} onChange={(e) => setEntrada(e.target.value)} rows={2} className="mt-1 w-full border-2 border-rule bg-parchment-deep px-3 py-1.5 font-mono text-xs" />
@@ -327,6 +415,7 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
             </table>
           </div>
         )}
+      </div>
       </div>
       {exercicio && (
         <div className="mt-3 border-2 border-ink p-3">
