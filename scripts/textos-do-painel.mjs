@@ -8,7 +8,7 @@
 //   npm run conferir:painel                      → diz o que falta traduzir em cada idioma (sai com erro se faltar)
 //
 // Frase nova no painel: rode a conferência e acrescente a frase, escrita igual à da tela (entidades como &ldquo;
-// já viram “), em i18n/painel/en.json, es.json, ru.json e zh.json, com a tradução de cada idioma. As partes
+// já viram “), em i18n/painel/en.json, es.json, fr.json, ru.json e zh.json, com a tradução de cada idioma. As partes
 // variáveis ficam como {0}, {1}... na mesma ordem do código; na tradução, podem mudar de lugar. Enquanto faltar,
 // a frase simplesmente aparece em português. Quem aplica os dicionários é components/painel/Idioma.tsx.
 import fs from "node:fs";
@@ -18,7 +18,7 @@ import ts from "typescript";
 const raiz = path.resolve(import.meta.dirname, "..");
 const pastas = ["components/painel"];
 const arquivosSoltos = ["lib/videoaula.ts", "components/VideoPlayer.tsx", "components/Editor.tsx"];
-const idiomas = ["en", "es", "ru", "zh"];
+const idiomas = ["en", "es", "fr", "ru", "zh"];
 const destino = path.join(raiz, "i18n/painel");
 
 /** Atributos que nunca são texto para pessoas. */
@@ -27,7 +27,7 @@ const atributosTecnicos = new Set(["className", "key", "id", "href", "type", "na
 const chamadasTecnicas = new Set(["rpc", "agir", "useLista", "getItem", "setItem", "removeItem", "addEventListener", "removeEventListener", "dispatchEvent", "Event", "querySelector", "querySelectorAll", "getElementById", "createElement", "fetch", "require", "import", "from", "includes", "startsWith", "endsWith", "split", "replace", "replaceAll", "join", "indexOf", "test", "match", "getAttribute", "setAttribute", "has", "get", "set", "delete", "postMessage", "signedStorageUrl", "storage", "upload", "remove", "localeCompare", "toLocaleDateString", "toLocaleString", "toLocaleTimeString", "Intl", "NumberFormat", "DateTimeFormat", "padStart", "erro", "VideoErro", "Blob", "File", "MediaRecorder", "isTypeSupported", "getContext", "captureStream", "toBlob", "toDataURL", "open", "registrar"]);
 
 /** Palavras soltas, em minúscula, que aparecem na tela (o filtro as tomaria por chaves técnicas). */
-const palavrasSoltas = new Set(["pessoa", "pessoas"]);
+const palavrasSoltas = new Set(["pessoa", "pessoas", "iniciante"]);
 
 /** Textos que o filtro deixaria passar, mas não são para gente ler. */
 const ignorar = new Set(["use client", "system-ui, sans-serif", "grayscale(1) contrast(1.15)", "ativo: false"]);
