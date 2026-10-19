@@ -1,0 +1,37 @@
+name: Publicar funções do Supabase
+
+# Sempre que o código das funções muda no master (o desenho dos e-mails, por exemplo), publica a função
+# "enviar-emails" no Supabase de produção. Sem isso, o banco continua mandando e-mail com o código antigo.
+# Só roda depois de criada a variável FUNCOES com o valor "sim" e do segredo SUPABASE_ACCESS_TOKEN (um token pessoal
+# do Supabase: supabase.com › Account › Access Tokens). A variável SUPABASE_PROJECT_REF guarda o código do projeto.
+on:
+  push:
+    branches: [master]
+    paths:
+      - "supabase/functions/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: funcoes
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    if: ${{ vars.FUNCOES == 'sim' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            supabase
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - run: supabase functions deploy enviar-emails --project-ref "${{ vars.SUPABASE_PROJECT_REF }}"
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
