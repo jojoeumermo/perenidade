@@ -2,40 +2,13 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { enderecoDo } from "@/lib/estudio";
+import { ziparBinarios } from "@/lib/zip";
 import galeria from "@/content/galeria.json";
 import type { Me } from "@/lib/backend";
 import { Aviso, botao, campo, dataHora, elo, rotulo, useAcao, useLista } from "../comum";
 import { MODELOS, GRUPOS, type Modelo } from "./modelos";
-import {
-  type Alca,
-  alcas,
-  alturaDoTexto,
-  type Camada,
-  type CamadaForma,
-  type CamadaImagem,
-  type CamadaMarca,
-  type CamadaTexto,
-  camadaEm,
-  carregarImagem,
-  COR,
-  desenhar,
-  desenharSelecao,
-  type Documento,
-  documentoVazio,
-  exportar,
-  forma,
-  FORMATOS,
-  type FormatoId,
-  imagem,
-  marca,
-  miniatura,
-  nomeDeArquivo,
-  novoId,
-  PALETA,
-  prepararFontes,
-  prepararImagem,
-  texto,
-} from "./motor";
+import { adaptar, type Alca, alcas, alturaDoTexto, type Camada, camadaEm, type CamadaForma, type CamadaImagem, type CamadaMarca, type CamadaTexto, carregarImagem, COR, desenhar, desenharSelecao, type Documento, documentoVazio, exportar, forma, type FormatoId, FORMATOS, imagem, marca, miniatura, nomeDaCamada, nomeDeArquivo, novoId, PALETA, paraPsd, prepararFontes, prepararImagem, texto } from "./motor";
 
 type AbaEsquerda = "modelos" | "texto" | "formas" | "imagens" | "marca" | "fundo" | "trabalhos";
 
@@ -112,7 +85,15 @@ export function Estudio({ me }: { me: Me }) {
   const [achados, setAchados] = useState<Achado[] | null>(null);
   const [buscando, setBuscando] = useState(false);
   const [fontesProntas, setFontesProntas] = useState(false);
-  const historico = useRef<{ passado: Documento[]; futuro: Documento[] }>({ passado: [], futuro: [] });
+  const historico = useRef<{ passado: Passo[]; futuro: Passo[] }>({ passado: [], futuro: [] });
+  // O histórico visível (os rótulos dos passos) e se há mudança ainda não guardada na conta.
+  const [passos, setPassos] = useState<string[]>([]);
+  const [mexido, setMexido] = useState(false);
+  const [guias, setGuias] = useState<{ v: number[]; h: number[] } | null>(null);
+  const [ferramenta, setFerramenta] = useState<"mover" | "texto">("mover");
+  const espaco = useRef(false);
+  const mao = useRef<{ x0: number; y0: number; sl: number; st: number } | null>(null);
+  const sincronizar = useCallback(() => window.setTimeout(() => setPassos(historico.current.passado.map((p) => p.rotulo)), 0), []);
   const tela = useRef<HTMLCanvasElement>(null);
   const moldura = useRef<HTMLDivElement>(null);
   const arquivo = useRef<HTMLInputElement>(null);
@@ -145,32 +126,52 @@ export function Estudio({ me }: { me: Me }) {
   const camada = useMemo(() => doc.camadas.find((c) => c.id === selecionado) ?? null, [doc, selecionado]);
 
   // Guarda o passo anterior para desfazer; o futuro se perde a cada mudança nova.
-  const setDoc = useCallback((proximo: Documento | ((d: Documento) => Documento), lembrar = true) => {
+  const setDoc = useCallback((proximo: Documento | ((d: Documento) => Documento), lembrar = true, rotulo?: string) => {
     setDocBruto((atual) => {
       const novo = typeof proximo === "function" ? proximo(atual) : proximo;
       if (lembrar && novo !== atual) {
-        historico.current.passado = [...historico.current.passado.slice(-59), atual];
+        historico.current.passado = [...historico.current.passado.slice(-59), { doc: atual, rotulo: rotulo ?? rotular(atual, novo) }];
         historico.current.futuro = [];
       }
       return novo;
     });
-  }, []);
+    if (lembrar) {
+      setMexido(true);
+      sincronizar();
+    }
+  }, [sincronizar]);
   const desfazer = useCallback(() => {
     const anterior = historico.current.passado.pop();
     if (!anterior) return;
     setDocBruto((atual) => {
-      historico.current.futuro.push(atual);
-      return anterior;
+      historico.current.futuro.push({ doc: atual, rotulo: anterior.rotulo });
+      return anterior.doc;
     });
-  }, []);
+    setMexido(true);
+    sincronizar();
+  }, [sincronizar]);
   const refazer = useCallback(() => {
     const proximo = historico.current.futuro.pop();
     if (!proximo) return;
     setDocBruto((atual) => {
-      historico.current.passado.push(atual);
-      return proximo;
+      historico.current.passado.push({ doc: atual, rotulo: proximo.rotulo });
+      return proximo.doc;
     });
-  }, []);
+    setMexido(true);
+    sincronizar();
+  }, [sincronizar]);
+  /** Volta até o passo escolhido no histórico (cada passo desfeito pode ser refeito). */
+  const voltarAte = (indice: number) => {
+    for (let i = passos.length - 1; i >= indice; i--) desfazer();
+  };
+
+  // Sair com mudança não guardada pede confirmação ao navegador.
+  useEffect(() => {
+    if (!mexido) return;
+    const avisar = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", avisar);
+    return () => window.removeEventListener("beforeunload", avisar);
+  }, [mexido]);
 
   /** Muda a camada selecionada (texto recalcula a altura). */
   const mudar = useCallback((mudanca: Partial<Camada>, lembrar = true) => {
@@ -205,15 +206,26 @@ export function Estudio({ me }: { me: Me }) {
   useEffect(() => {
     const el = tela.current;
     if (!el) return;
-    let pedido = requestAnimationFrame(() => {
+    const pintar = () => {
       desenhar(el, doc, escala);
       const ctx = el.getContext("2d");
       if (ctx && camada && !camada.oculta) desenharSelecao(ctx, camada, escala);
-    });
+      if (ctx && guias) {
+        ctx.save();
+        ctx.setTransform(escala, 0, 0, escala, 0, 0);
+        ctx.strokeStyle = "#c21f16";
+        ctx.lineWidth = 1 / escala;
+        ctx.setLineDash([4 / escala, 3 / escala]);
+        for (const x of guias.v) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, doc.h); ctx.stroke(); }
+        for (const y of guias.h) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(doc.w, y); ctx.stroke(); }
+        ctx.restore();
+      }
+    };
+    let pedido = requestAnimationFrame(pintar);
     const pendentes = doc.camadas.filter((c): c is CamadaImagem => c.tipo === "imagem").map((c) => carregarImagem(c.src).then(() => undefined, () => undefined));
-    if (pendentes.length) void Promise.all(pendentes).then(() => { cancelAnimationFrame(pedido); pedido = requestAnimationFrame(() => { desenhar(el, doc, escala); const ctx = el.getContext("2d"); if (ctx && camada && !camada.oculta) desenharSelecao(ctx, camada, escala); }); });
+    if (pendentes.length) void Promise.all(pendentes).then(() => { cancelAnimationFrame(pedido); pedido = requestAnimationFrame(pintar); });
     return () => cancelAnimationFrame(pedido);
-  }, [doc, escala, camada, fontesProntas]);
+  }, [doc, escala, camada, fontesProntas, guias]);
 
   // Teclas: apagar, setas, desfazer, refazer, duplicar, guardar.
   useEffect(() => {
@@ -227,9 +239,17 @@ export function Estudio({ me }: { me: Me }) {
       } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "y") {
         e.preventDefault();
         refazer();
-      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "d" && camada) {
+      } else if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === "d" || e.key.toLowerCase() === "j") && camada) {
         e.preventDefault();
         duplicar();
+      } else if (e.key === " " && !e.repeat) {
+        // Espaço segurado: a mão, para arrastar a tela.
+        e.preventDefault();
+        espaco.current = true;
+      } else if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === "v") {
+        setFerramenta("mover");
+      } else if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === "t") {
+        setFerramenta("texto");
       } else if ((e.key === "Delete" || e.key === "Backspace") && camada) {
         e.preventDefault();
         apagar();
@@ -240,8 +260,15 @@ export function Estudio({ me }: { me: Me }) {
         mudar({ x: camada.x + (e.key === "ArrowRight" ? passo : e.key === "ArrowLeft" ? -passo : 0), y: camada.y + (e.key === "ArrowDown" ? passo : e.key === "ArrowUp" ? -passo : 0) });
       }
     };
+    const soltarTecla = (e: KeyboardEvent) => {
+      if (e.key === " ") espaco.current = false;
+    };
     window.addEventListener("keydown", tecla);
-    return () => window.removeEventListener("keydown", tecla);
+    window.addEventListener("keyup", soltarTecla);
+    return () => {
+      window.removeEventListener("keydown", tecla);
+      window.removeEventListener("keyup", soltarTecla);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [camada, mudar, desfazer, refazer]);
 
@@ -256,7 +283,19 @@ export function Estudio({ me }: { me: Me }) {
   };
 
   function apontar(e: React.PointerEvent<HTMLCanvasElement>) {
+    if (espaco.current && moldura.current) {
+      mao.current = { x0: e.clientX, y0: e.clientY, sl: moldura.current.scrollLeft, st: moldura.current.scrollTop };
+      tela.current?.setPointerCapture(e.pointerId);
+      return;
+    }
     const p = ponto(e);
+    if (ferramenta === "texto") {
+      const largura = Math.min(doc.w - p.x, doc.w * 0.6);
+      acrescentar(texto({ x: p.x, y: p.y, w: Math.max(80, largura), texto: "Escreva aqui", fonte: "serifa", tamanho: Math.round(doc.w / 100) * 4, peso: 400 }));
+      setFerramenta("mover");
+      window.setTimeout(() => document.getElementById("estudio-texto")?.focus(), 50);
+      return;
+    }
     if (camada) {
       const alca = alcas(camada, escala).find((a) => Math.hypot((a.x - p.x) * escala, (a.y - p.y) * escala) <= 10);
       if (alca) {
@@ -274,6 +313,11 @@ export function Estudio({ me }: { me: Me }) {
   }
 
   function arrastar(e: React.PointerEvent<HTMLCanvasElement>) {
+    if (mao.current && moldura.current) {
+      moldura.current.scrollLeft = mao.current.sl - (e.clientX - mao.current.x0);
+      moldura.current.scrollTop = mao.current.st - (e.clientY - mao.current.y0);
+      return;
+    }
     const a = arrasto.current;
     if (!a) return;
     const p = ponto(e);
@@ -286,10 +330,24 @@ export function Estudio({ me }: { me: Me }) {
     if (a.modo === "mover") {
       let x = c.x + (e.shiftKey && Math.abs(dx) < Math.abs(dy) ? 0 : dx);
       let y = c.y + (e.shiftKey && Math.abs(dy) <= Math.abs(dx) ? 0 : dy);
-      // Imã ao centro e às bordas da página.
+      // Imã: bordas e centro da página e das outras camadas visíveis; as guias mostram onde encaixou.
       const ima = 8 / escala;
-      for (const alvo of [0, doc.w / 2 - c.w / 2, doc.w - c.w]) if (Math.abs(x - alvo) < ima) x = alvo;
-      for (const alvo of [0, doc.h / 2 - c.h / 2, doc.h - c.h]) if (Math.abs(y - alvo) < ima) y = alvo;
+      const outras = doc.camadas.filter((k) => k.id !== c.id && !k.oculta);
+      const linhasV = [0, doc.w / 2, doc.w, ...outras.flatMap((k) => [k.x, k.x + k.w / 2, k.x + k.w])];
+      const linhasH = [0, doc.h / 2, doc.h, ...outras.flatMap((k) => [k.y, k.y + k.h / 2, k.y + k.h])];
+      const encaixar = (pos: number, tamanho: number, linhas: number[]) => {
+        let melhor: { pos: number; linha: number; d: number } | null = null;
+        for (const borda of [0, tamanho / 2, tamanho]) for (const l of linhas) {
+          const d = Math.abs(pos + borda - l);
+          if (d < ima && (!melhor || d < melhor.d)) melhor = { pos: l - borda, linha: l, d };
+        }
+        return melhor;
+      };
+      const ex = encaixar(x, c.w, linhasV);
+      const ey = encaixar(y, c.h, linhasH);
+      if (ex) x = ex.pos;
+      if (ey) y = ey.pos;
+      setGuias(ex || ey ? { v: ex ? [ex.linha] : [], h: ey ? [ey.linha] : [] } : null);
       mudanca = { x, y };
     } else if (a.modo === "girar") {
       const cx = c.x + c.w / 2;
@@ -332,14 +390,19 @@ export function Estudio({ me }: { me: Me }) {
   function soltar(e: React.PointerEvent<HTMLCanvasElement>) {
     const a = arrasto.current;
     arrasto.current = null;
+    mao.current = null;
+    setGuias(null);
     tela.current?.releasePointerCapture(e.pointerId);
     if (!a?.mexeu) return;
     // O passo inteiro do arrasto vira uma entrada só no histórico.
+    const rotulo = `${a.modo === "mover" ? "Moveu" : a.modo === "girar" ? "Girou" : "Redimensionou"}: ${nomeDaCamada(a.inicio)}`;
     setDocBruto((atual) => {
-      historico.current.passado = [...historico.current.passado.slice(-59), { ...atual, camadas: atual.camadas.map((k) => (k.id === a.inicio.id ? a.inicio : k)) }];
+      historico.current.passado = [...historico.current.passado.slice(-59), { doc: { ...atual, camadas: atual.camadas.map((k) => (k.id === a.inicio.id ? a.inicio : k)) }, rotulo }];
       historico.current.futuro = [];
       return atual;
     });
+    setMexido(true);
+    sincronizar();
   }
 
   function acrescentar(nova: Camada) {
@@ -377,11 +440,12 @@ export function Estudio({ me }: { me: Me }) {
   function usarModelo(modelo: Modelo) {
     if (doc.camadas.length > 0 && !window.confirm("Trocar pelo modelo? O que está na tela sai (dá para desfazer).")) return;
     const novo = modelo.montar();
-    setDoc({ ...novo, camadas: novo.camadas.map(ajustarAltura) });
+    setDoc({ ...novo, camadas: novo.camadas.map(ajustarAltura) }, true, `Modelo: ${modelo.nome}`);
     setFormato(modelo.formato);
     setTitulo(modelo.nome);
     setSelecionado(null);
     setIdSalvo(null);
+    setMexido(false);
   }
   function mudarFormato(id: FormatoId) {
     const f = FORMATOS.find((x) => x.id === id);
@@ -433,6 +497,13 @@ export function Estudio({ me }: { me: Me }) {
     }
   }
 
+  function baixarArquivo(blob: Blob, nome: string) {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = nome;
+    a.click();
+    window.setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+  }
   async function baixar(tipo: "png" | "jpeg") {
     try {
       const blob = await exportar(doc, tipo, formato === "capa-podcast" ? 1 : 1);
@@ -443,6 +514,36 @@ export function Estudio({ me }: { me: Me }) {
       window.setTimeout(() => URL.revokeObjectURL(a.href), 5000);
     } catch {
       setAviso("Não deu para exportar.");
+    }
+  }
+  /** A mesma arte em post, story e quadrado, num .zip (os textos refazem as linhas; confira antes de publicar). */
+  async function exportarEmLote() {
+    try {
+      setAviso("Preparando os três formatos…");
+      const alvos = FORMATOS.filter((f) => f.id === "post" || f.id === "story" || f.id === "quadrado");
+      const arquivos = [];
+      for (const f of alvos) {
+        const versao = doc.w === f.w && doc.h === f.h ? doc : adaptar(doc, f.w, f.h);
+        arquivos.push({ nome: `${nomeDeArquivo(titulo)}-${f.id}-${f.w}x${f.h}.png`, dados: await exportar(versao, "png") });
+      }
+      baixarArquivo(await ziparBinarios(arquivos), `${nomeDeArquivo(titulo)}-formatos.zip`);
+      setAviso("Pronto: post, story e quadrado no .zip. Confira cada um: em formato diferente, o texto pode ter quebrado em outro lugar.");
+    } catch {
+      setAviso("Não deu para exportar os formatos.");
+    }
+  }
+  /** O PSD da arte (camadas com nome, textos editáveis quando dá), para continuar no editor avançado. */
+  async function abrirNoEditorAvancado(d: Documento = doc, nome = titulo) {
+    try {
+      setAviso("Montando o PSD…");
+      baixarArquivo(await paraPsd(d), `${nomeDeArquivo(nome)}.psd`);
+      const endereco = enderecoDo("photocraft");
+      if (endereco) window.open(endereco, "_blank", "noopener");
+      setAviso(endereco
+        ? "PSD baixado. O editor avançado abriu em outra aba: abra o arquivo nele (File › Open… ou arrastando para a janela). Fontes: EB Garamond, Inter e IBM Plex Mono (Google Fonts, livres)."
+        : "PSD baixado. O editor avançado ainda não está no ar no endereço do instituto; o arquivo abre em qualquer editor que leia PSD. Fontes: EB Garamond, Inter e IBM Plex Mono (Google Fonts, livres).");
+    } catch {
+      setAviso("Não deu para montar o PSD.");
     }
   }
   async function imprimir() {
@@ -461,7 +562,10 @@ export function Estudio({ me }: { me: Me }) {
     try {
       const mini = await miniatura(doc);
       const r = (await acao.agir("design_salvar", { p_id: idSalvo, p: { titulo: titulo || "Sem título", formato, largura: doc.w, altura: doc.h, dados: doc, miniatura: mini, compartilhado } }, "Trabalho guardado na sua conta.")) as { id?: string } | null;
-      if (r?.id) setIdSalvo(r.id);
+      if (r?.id) {
+        setIdSalvo(r.id);
+        setMexido(false);
+      }
     } catch {
       setAviso("Não deu para guardar.");
     }
@@ -476,6 +580,7 @@ export function Estudio({ me }: { me: Me }) {
       setIdSalvo(r.id);
       setSelecionado(null);
       setAba("modelos");
+      setMexido(false);
     } catch {
       setAviso("Não deu para abrir.");
     }
@@ -488,6 +593,11 @@ export function Estudio({ me }: { me: Me }) {
       {/* A barra do alto: título, formato, histórico, guardar e exportar. */}
       <div className="flex flex-wrap items-center gap-2 border-b-2 border-ink bg-parchment-deep px-4 py-2">
         <input value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={120} aria-label="Nome do trabalho" className="min-w-40 flex-1 border-2 border-transparent bg-transparent px-2 py-1 font-serif text-base font-semibold hover:border-rule focus:border-ink focus:outline-none" />
+        {mexido && <span className="font-mono text-[0.65rem] text-oxblood" role="status" title="Há mudanças que ainda não foram guardadas na conta">● não guardado</span>}
+        <span className="flex gap-1" role="group" aria-label="Ferramenta">
+          <button type="button" className={`${BOTAOZINHO} ${ferramenta === "mover" ? ATIVO : ""}`} aria-pressed={ferramenta === "mover"} onClick={() => setFerramenta("mover")} title="Mover e selecionar (V)">↖ V</button>
+          <button type="button" className={`${BOTAOZINHO} ${ferramenta === "texto" ? ATIVO : ""}`} aria-pressed={ferramenta === "texto"} onClick={() => setFerramenta("texto")} title="Texto: clique na tela para escrever (T)">T</button>
+        </span>
         <select value={formato} onChange={(e) => mudarFormato(e.target.value as FormatoId)} aria-label="Formato" className={`${CAMPO} w-auto`}>
           {FORMATOS.map((f) => (
             <option key={f.id} value={f.id}>{f.nome}</option>
@@ -506,6 +616,8 @@ export function Estudio({ me }: { me: Me }) {
           <button type="button" className={BOTAOZINHO} onClick={() => void baixar("png")}>Baixar PNG</button>
           <button type="button" className={BOTAOZINHO} onClick={() => void baixar("jpeg")}>Baixar JPG</button>
           <button type="button" className={BOTAOZINHO} onClick={() => void imprimir()}>Imprimir / PDF</button>
+          <button type="button" className={BOTAOZINHO} onClick={() => void exportarEmLote()} title="A mesma arte em post, story e quadrado, num .zip">Exportar em lote</button>
+          <button type="button" className={BOTAOZINHO} onClick={() => void abrirNoEditorAvancado()} title="Baixa o PSD com as camadas e abre o editor avançado (PhotoCraft)">Abrir no editor avançado ↗</button>
           <button type="button" className={`${botao} py-1 text-xs`} disabled={acao.ocupado} onClick={() => void guardar()}>{idSalvo ? "Guardar" : "Guardar na conta"}</button>
         </span>
       </div>
@@ -526,11 +638,12 @@ export function Estudio({ me }: { me: Me }) {
                   <p className={rotulo}>{grupo}</p>
                   <ul className="mt-1 space-y-1">
                     {MODELOS.filter((m) => m.grupo === grupo).map((m) => (
-                      <li key={m.id}>
-                        <button type="button" onClick={() => usarModelo(m)} className="w-full cursor-pointer border border-rule bg-parchment px-2 py-1.5 text-left hover:border-ink">
+                      <li key={m.id} className="flex items-stretch gap-0.5">
+                        <button type="button" onClick={() => usarModelo(m)} className="min-w-0 flex-1 cursor-pointer border border-rule bg-parchment px-2 py-1.5 text-left hover:border-ink">
                           {m.nome}
                           <span className="block font-mono text-[0.6rem] text-ink-soft">{FORMATOS.find((f) => f.id === m.formato)?.nome}</span>
                         </button>
+                        <button type="button" title={`Baixar “${m.nome}” em PSD, para começar no editor avançado`} aria-label={`Baixar ${m.nome} em PSD`} onClick={() => { const d = m.montar(); void abrirNoEditorAvancado({ ...d, camadas: d.camadas.map(ajustarAltura) }, m.nome); }} className="cursor-pointer border border-rule bg-parchment px-1 font-mono text-[0.55rem] hover:border-ink">PSD</button>
                       </li>
                     ))}
                   </ul>
@@ -684,7 +797,7 @@ export function Estudio({ me }: { me: Me }) {
             onPointerCancel={soltar}
             onDoubleClick={() => camada?.tipo === "texto" && document.getElementById("estudio-texto")?.focus()}
             className="touch-none shadow-[8px_8px_0_#1f1a14]"
-            style={{ width: doc.w * escala, height: doc.h * escala, cursor: camada ? "move" : "default" }}
+            style={{ width: doc.w * escala, height: doc.h * escala, cursor: ferramenta === "texto" ? "text" : camada ? "move" : "default" }}
             aria-label={`Tela de ${doc.w} por ${doc.h} pontos`}
           />
         </div>
@@ -711,6 +824,19 @@ export function Estudio({ me }: { me: Me }) {
                 ))}
               </ul>
             </div>
+            {passos.length > 0 && (
+              <div className="mt-4 border-t border-rule pt-3">
+                <p className={rotulo}>Histórico</p>
+                <ol className="mt-1 max-h-40 space-y-0.5 overflow-y-auto">
+                  {passos.map((r, i) => ({ r, i })).slice(-15).reverse().map(({ r, i }) => (
+                    <li key={i}>
+                      <button type="button" className="w-full cursor-pointer truncate border border-transparent px-1.5 py-0.5 text-left hover:border-rule" title="Voltar para antes deste passo" onClick={() => voltarAte(i)}>↶ {r}</button>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+            <p className="mt-2 text-[0.65rem] text-ink-soft">Atalhos: V mover · T texto · Ctrl+Z desfazer · Ctrl+Shift+Z refazer · Ctrl+J duplicar · Delete apagar · setas ajuste fino · espaço segurado arrasta a tela.</p>
             <p className="mt-4 text-[0.65rem] text-ink-soft">Você assina como {me.nome}. Identidade do instituto: pergaminho, tinta, bordô e vermelho da gráfica; serifa para o texto, letra pesada para as etiquetas, monoespaçada para os rodapés.</p>
           </div>
         </aside>
@@ -900,4 +1026,30 @@ function PropriedadesMarca({ c, mudar }: { c: CamadaMarca; mudar: (m: Partial<Ca
       )}
     </div>
   );
+}
+
+interface Passo {
+  doc: Documento;
+  rotulo: string;
+}
+
+/** O nome de um passo do histórico, tirado da diferença entre o antes e o depois. */
+function rotular(antes: Documento, depois: Documento): string {
+  if (antes.w !== depois.w || antes.h !== depois.h) return "Mudou o formato";
+  if (depois.camadas.length > antes.camadas.length) {
+    const nova = depois.camadas.find((c) => !antes.camadas.some((k) => k.id === c.id));
+    return `Acrescentou: ${nova ? nomeDaCamada(nova) : "camada"}`;
+  }
+  if (depois.camadas.length < antes.camadas.length) {
+    const saiu = antes.camadas.find((c) => !depois.camadas.some((k) => k.id === c.id));
+    return `Apagou: ${saiu ? nomeDaCamada(saiu) : "camada"}`;
+  }
+  if (antes.fundo !== depois.fundo) return "Mudou o fundo";
+  if (antes.camadas.some((c, i) => depois.camadas[i]?.id !== c.id)) return "Mudou a ordem";
+  const mudou = depois.camadas.find((c, i) => c !== antes.camadas[i]);
+  if (!mudou) return "Mudança";
+  const velho = antes.camadas.find((c) => c.id === mudou.id);
+  if (velho && velho.oculta !== mudou.oculta) return `${mudou.oculta ? "Escondeu" : "Mostrou"}: ${nomeDaCamada(mudou)}`;
+  if (velho && velho.travada !== mudou.travada) return `${mudou.travada ? "Travou" : "Destravou"}: ${nomeDaCamada(mudou)}`;
+  return `Editou: ${nomeDaCamada(mudou)}`;
 }

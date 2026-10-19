@@ -83,3 +83,25 @@ export async function abrirZip(arquivo: Blob): Promise<ArquivoDoProjeto[]> {
   if (saida.length === 0) throw new Error("vazio");
   return saida;
 }
+
+/** Monta um .zip sem compressão com arquivos binários (imagens já comprimidas): a mesma arte em vários formatos. */
+export async function ziparBinarios(arquivos: { nome: string; dados: Blob | Uint8Array }[]): Promise<Blob> {
+  const enc = new TextEncoder();
+  const partes: Uint8Array[] = [];
+  const central: Uint8Array[] = [];
+  let deslocamento = 0;
+  const u16 = (n: number) => [n & 0xff, (n >> 8) & 0xff];
+  const u32 = (n: number) => [n & 0xff, (n >> 8) & 0xff, (n >> 16) & 0xff, (n >>> 24) & 0xff];
+  for (const a of arquivos) {
+    const nome = enc.encode(a.nome);
+    const dados = a.dados instanceof Uint8Array ? a.dados : new Uint8Array(await a.dados.arrayBuffer());
+    const crc = crc32(dados);
+    const local = new Uint8Array([...u32(0x04034b50), ...u16(20), ...u16(0x0800), ...u16(0), ...u16(0), ...u16(0), ...u32(crc), ...u32(dados.length), ...u32(dados.length), ...u16(nome.length), ...u16(0), ...nome]);
+    partes.push(local, dados);
+    central.push(new Uint8Array([...u32(0x02014b50), ...u16(20), ...u16(20), ...u16(0x0800), ...u16(0), ...u16(0), ...u16(0), ...u32(crc), ...u32(dados.length), ...u32(dados.length), ...u16(nome.length), ...u16(0), ...u16(0), ...u16(0), ...u16(0), ...u32(0), ...u32(deslocamento), ...nome]));
+    deslocamento += local.length + dados.length;
+  }
+  const tamanhoCentral = central.reduce((n, c) => n + c.length, 0);
+  const fim = new Uint8Array([...u32(0x06054b50), ...u16(0), ...u16(0), ...u16(arquivos.length), ...u16(arquivos.length), ...u32(tamanhoCentral), ...u32(deslocamento), ...u16(0)]);
+  return new Blob([...partes, ...central, fim] as unknown as BlobPart[], { type: "application/zip" });
+}

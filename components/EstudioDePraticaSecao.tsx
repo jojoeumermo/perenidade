@@ -1,0 +1,42 @@
+// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import type { Dict } from "@/i18n/types";
+import { FILMES } from "@/lib/estudio";
+import { CartoesDoEstudio } from "./EstudioDePratica";
+
+/**
+ * "Estúdio de prática" da disciplina Edição de vídeo: os dois programas (FilmCraft e EffectCraft), os avisos de
+ * sempre (alfa, download, tudo no aparelho), os limites e o material para praticar. Usada na página própria e na
+ * página da disciplina.
+ */
+export function SecaoEstudioDePratica({ s, titulo = true }: { s: Dict["practiceStudio"]; titulo?: boolean }) {
+  return (
+    <section aria-labelledby="estudio-de-pratica" className="font-sans">
+      {titulo && <h2 id="estudio-de-pratica" className="mt-12 border-b border-rule pb-3 font-serif text-3xl font-semibold">{s.title}</h2>}
+      {!titulo && <h2 id="estudio-de-pratica" className="sr-only">{s.title}</h2>}
+      {titulo && <p className="mt-4 max-w-3xl text-lg">{s.lead}</p>}
+      <ul className="mt-3 max-w-3xl space-y-1 border-l-4 border-gold pl-3 text-sm">
+        <li>{s.alpha}</li>
+        <li>{s.local}</li>
+      </ul>
+      <div className="mt-6">
+        <CartoesDoEstudio s={s} />
+      </div>
+      <h3 className="mt-8 font-serif text-xl font-semibold">{s.limitsTitle}</h3>
+      <ul className="mt-2 max-w-3xl list-disc space-y-1 pl-5 text-sm text-ink-soft">
+        {s.limits.map((x) => <li key={x}>{x}</li>)}
+      </ul>
+      <h3 className="mt-8 font-serif text-xl font-semibold">{s.materialTitle}</h3>
+      <p className="mt-1 max-w-3xl text-sm text-ink-soft">{s.materialLead}</p>
+      <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+        {FILMES.map((f) => (
+          <li key={f.titulo} className="border border-rule p-3 text-sm">
+            <p className="font-serif text-lg font-semibold">{f.titulo} <span className="font-sans text-xs text-ink-soft">({f.ano}, {f.licenca})</span></p>
+            <p className="text-xs text-ink-soft">{s.credit}: {f.credito}</p>
+            <a href={f.pagina} target="_blank" rel="noopener noreferrer" className="mt-1 inline-block underline hover:text-oxblood">{s.page} ↗</a>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-6 max-w-3xl text-xs text-ink-soft"><span className="font-semibold">{s.creditsTitle}:</span> {s.credits}</p>
+    </section>
+  );
+}
