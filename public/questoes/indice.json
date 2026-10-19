@@ -187,6 +187,455 @@
      }
     }
    ]
+  },
+  {
+   "id": "vestibulares",
+   "nome": "Vestibulares: Unicamp e Fuvest (USP)",
+   "origem": "https://huggingface.co/datasets/portuguese-benchmark-datasets/BLUEX",
+   "provas": [
+    {
+     "ano": 2025,
+     "titulo": "Unicamp 2025",
+     "arquivo": "unicamp-2025.json",
+     "total": 70,
+     "porArea": {
+      "humanas": 20,
+      "matematica": 11,
+      "natureza": 20,
+      "linguagens": 19
+     }
+    },
+    {
+     "ano": 2025,
+     "titulo": "Fuvest (USP) 2025",
+     "arquivo": "usp-2025.json",
+     "total": 88,
+     "porArea": {
+      "humanas": 26,
+      "linguagens": 25,
+      "matematica": 11,
+      "natureza": 26
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Unicamp 2024",
+     "arquivo": "unicamp-2024.json",
+     "total": 70,
+     "porArea": {
+      "linguagens": 18,
+      "humanas": 20,
+      "natureza": 20,
+      "matematica": 12
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Fuvest (USP) 2024",
+     "arquivo": "usp-2024.json",
+     "total": 86,
+     "porArea": {
+      "linguagens": 19,
+      "humanas": 29,
+      "matematica": 12,
+      "natureza": 26
+     }
+    },
+    {
+     "ano": 2023,
+     "titulo": "Unicamp 2023",
+     "arquivo": "unicamp-2023.json",
+     "total": 71,
+     "porArea": {
+      "linguagens": 18,
+      "humanas": 18,
+      "natureza": 23,
+      "matematica": 12
+     }
+    },
+    {
+     "ano": 2023,
+     "titulo": "Fuvest (USP) 2023",
+     "arquivo": "usp-2023.json",
+     "total": 87,
+     "porArea": {
+      "linguagens": 18,
+      "natureza": 29,
+      "humanas": 28,
+      "matematica": 12
+     }
+    },
+    {
+     "ano": 2022,
+     "titulo": "Unicamp 2022",
+     "arquivo": "unicamp-2022.json",
+     "total": 70,
+     "porArea": {
+      "linguagens": 19,
+      "matematica": 12,
+      "natureza": 22,
+      "humanas": 17
+     }
+    },
+    {
+     "ano": 2022,
+     "titulo": "Fuvest (USP) 2022",
+     "arquivo": "usp-2022.json",
+     "total": 83,
+     "porArea": {
+      "natureza": 25,
+      "linguagens": 22,
+      "humanas": 26,
+      "matematica": 10
+     }
+    },
+    {
+     "ano": 2021,
+     "titulo": "Unicamp 2021",
+     "arquivo": "unicamp-2021.json",
+     "total": 139,
+     "porArea": {
+      "linguagens": 39,
+      "matematica": 23,
+      "natureza": 44,
+      "humanas": 33
+     }
+    },
+    {
+     "ano": 2021,
+     "titulo": "Fuvest (USP) 2021",
+     "arquivo": "usp-2021.json",
+     "total": 84,
+     "porArea": {
+      "matematica": 12,
+      "humanas": 23,
+      "natureza": 26,
+      "linguagens": 23
+     }
+    },
+    {
+     "ano": 2020,
+     "titulo": "Unicamp 2020",
+     "arquivo": "unicamp-2020.json",
+     "total": 86,
+     "porArea": {
+      "linguagens": 22,
+      "natureza": 26,
+      "humanas": 21,
+      "matematica": 17
+     }
+    },
+    {
+     "ano": 2020,
+     "titulo": "Fuvest (USP) 2020",
+     "arquivo": "usp-2020.json",
+     "total": 86,
+     "porArea": {
+      "natureza": 25,
+      "matematica": 13,
+      "linguagens": 23,
+      "humanas": 25
+     }
+    },
+    {
+     "ano": 2019,
+     "titulo": "Unicamp 2019",
+     "arquivo": "unicamp-2019.json",
+     "total": 88,
+     "porArea": {
+      "linguagens": 22,
+      "humanas": 21,
+      "natureza": 28,
+      "matematica": 17
+     }
+    },
+    {
+     "ano": 2019,
+     "titulo": "Fuvest (USP) 2019",
+     "arquivo": "usp-2019.json",
+     "total": 82,
+     "porArea": {
+      "humanas": 19,
+      "natureza": 30,
+      "matematica": 10,
+      "linguagens": 23
+     }
+    },
+    {
+     "ano": 2018,
+     "titulo": "Unicamp 2018",
+     "arquivo": "unicamp-2018.json",
+     "total": 89,
+     "porArea": {
+      "linguagens": 22,
+      "humanas": 24,
+      "matematica": 12,
+      "natureza": 31
+     }
+    },
+    {
+     "ano": 2018,
+     "titulo": "Fuvest (USP) 2018",
+     "arquivo": "usp-2018.json",
+     "total": 87,
+     "porArea": {
+      "natureza": 34,
+      "matematica": 10,
+      "humanas": 21,
+      "linguagens": 22
+     }
+    }
+   ]
+  },
+  {
+   "id": "oab",
+   "nome": "OAB: Exame de Ordem (1.ª fase)",
+   "origem": "https://huggingface.co/datasets/eduagarcia/oab_exams",
+   "provas": [
+    {
+     "ano": 2018,
+     "titulo": "OAB 2018, 25.º exame (1.ª fase)",
+     "arquivo": "oab-2018-25.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2017,
+     "titulo": "OAB 2017, 24.º exame (1.ª fase)",
+     "arquivo": "oab-2017-24.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2017,
+     "titulo": "OAB 2017, 23.º exame (1.ª fase)",
+     "arquivo": "oab-2017-23.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2017,
+     "titulo": "OAB 2017, 22.º exame (1.ª fase)",
+     "arquivo": "oab-2017-22.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2016,
+     "titulo": "OAB 2016, 21.º exame (1.ª fase)",
+     "arquivo": "oab-2016-21.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2016,
+     "titulo": "OAB 2016, NaN.º exame (1.ª fase)",
+     "arquivo": "oab-2016-20a.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2016,
+     "titulo": "OAB 2016, 20.º exame (1.ª fase)",
+     "arquivo": "oab-2016-20.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2016,
+     "titulo": "OAB 2016, 19.º exame (1.ª fase)",
+     "arquivo": "oab-2016-19.json",
+     "total": 78,
+     "porArea": {
+      "direito": 78
+     }
+    },
+    {
+     "ano": 2015,
+     "titulo": "OAB 2015, 18.º exame (1.ª fase)",
+     "arquivo": "oab-2015-18.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2015,
+     "titulo": "OAB 2015, 17.º exame (1.ª fase)",
+     "arquivo": "oab-2015-17.json",
+     "total": 78,
+     "porArea": {
+      "direito": 78
+     }
+    },
+    {
+     "ano": 2015,
+     "titulo": "OAB 2015, 16.º exame (1.ª fase)",
+     "arquivo": "oab-2015-16.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2014,
+     "titulo": "OAB 2014, 15.º exame (1.ª fase)",
+     "arquivo": "oab-2014-15.json",
+     "total": 78,
+     "porArea": {
+      "direito": 78
+     }
+    },
+    {
+     "ano": 2014,
+     "titulo": "OAB 2014, 14.º exame (1.ª fase)",
+     "arquivo": "oab-2014-14.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2014,
+     "titulo": "OAB 2014, 13.º exame (1.ª fase)",
+     "arquivo": "oab-2014-13.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2013,
+     "titulo": "OAB 2013, 12.º exame (1.ª fase)",
+     "arquivo": "oab-2013-12.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2013,
+     "titulo": "OAB 2013, 11.º exame (1.ª fase)",
+     "arquivo": "oab-2013-11.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2013,
+     "titulo": "OAB 2013, 10.º exame (1.ª fase)",
+     "arquivo": "oab-2013-10.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2012,
+     "titulo": "OAB 2012, 9.º exame (1.ª fase)",
+     "arquivo": "oab-2012-09.json",
+     "total": 77,
+     "porArea": {
+      "direito": 77
+     }
+    },
+    {
+     "ano": 2012,
+     "titulo": "OAB 2012, 8.º exame (1.ª fase)",
+     "arquivo": "oab-2012-08.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2012,
+     "titulo": "OAB 2012, 7.º exame (1.ª fase)",
+     "arquivo": "oab-2012-07.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2012,
+     "titulo": "OAB 2012, NaN.º exame (1.ª fase)",
+     "arquivo": "oab-2012-06a.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2012,
+     "titulo": "OAB 2012, 6.º exame (1.ª fase)",
+     "arquivo": "oab-2012-06.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2011,
+     "titulo": "OAB 2011, 5.º exame (1.ª fase)",
+     "arquivo": "oab-2011-05.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2011,
+     "titulo": "OAB 2011, 4.º exame (1.ª fase)",
+     "arquivo": "oab-2011-04.json",
+     "total": 80,
+     "porArea": {
+      "direito": 80
+     }
+    },
+    {
+     "ano": 2011,
+     "titulo": "OAB 2011, 3.º exame (1.ª fase)",
+     "arquivo": "oab-2011-03.json",
+     "total": 99,
+     "porArea": {
+      "direito": 99
+     }
+    },
+    {
+     "ano": 2010,
+     "titulo": "OAB 2010, 2.º exame (1.ª fase)",
+     "arquivo": "oab-2010-02.json",
+     "total": 100,
+     "porArea": {
+      "direito": 100
+     }
+    },
+    {
+     "ano": 2010,
+     "titulo": "OAB 2010, 1.º exame (1.ª fase)",
+     "arquivo": "oab-2010-01.json",
+     "total": 100,
+     "porArea": {
+      "direito": 100
+     }
+    }
+   ]
   }
  ]
 }
