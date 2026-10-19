@@ -1,6 +1,6 @@
 name: Atualizar o banco de questões
 
-# Toda segunda-feira busca as provas públicas com fonte aberta (hoje, o ENEM inteiro pela API aberta enem.dev) e, se
+# Toda segunda-feira busca as provas públicas com fonte aberta (ENEM, vestibulares da Unicamp e da Fuvest, OAB) e, se
 # entrou prova nova ou alguma questão mudou, grava em public/questoes/ e publica. Semana sem novidade não vira registro.
 on:
   schedule:

@@ -198,7 +198,7 @@
     "mockNotEnough": "No hay suficientes preguntas en esta asignatura.",
     "mockSkipped": "en blanco",
     "publicTitle": "Exámenes públicos",
-    "publicLead": "{n} preguntas del ENEM, el examen nacional de Brasil, desde 2009 hasta la edición más reciente, con las respuestas. La lista se actualiza sola cada semana; las resoluciones comentadas las escriben los educadores del instituto.",
+    "publicLead": "{n} preguntas de exámenes públicos con respuestas: el ENEM desde 2009, los exámenes de ingreso de Unicamp y Fuvest (USP) y el examen de la OAB. La lista se actualiza sola cada semana; las resoluciones comentadas las escriben los educadores del instituto.",
     "publicExam": "Examen",
     "publicArea": "Área",
     "publicAllAreas": "Todas las áreas",
@@ -206,7 +206,8 @@
       "linguagens": "Lenguajes",
       "humanas": "Ciencias humanas",
       "natureza": "Ciencias de la naturaleza",
-      "matematica": "Matemáticas"
+      "matematica": "Matemáticas",
+      "direito": "Derecho"
     },
     "publicLanguage": "Lengua extranjera",
     "publicEnglish": "Inglés",
@@ -226,7 +227,8 @@
     "publicSend": "Publicar la resolución",
     "publicRemove": "retirar",
     "publicResolutionFailed": "No se pudo publicar la resolución ahora.",
-    "publicSource": "Preguntas de los exámenes públicos del Inep, transcritas por el proyecto abierto enem.dev. Actualizado el {data}. Fuente:"
+    "publicSource": "Preguntas de exámenes públicos, transcritas por proyectos abiertos (enem.dev, BLUEX y oab_exams). Actualizado el {data}. Fuente de este examen:",
+    "publicSourcePick": "Fuente"
   },
   "slogans": {
     "acervo": "Leer es un acto de resistencia.",

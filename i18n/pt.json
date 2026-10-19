@@ -198,7 +198,7 @@
     "mockNotEnough": "Não há questões suficientes nessa disciplina.",
     "mockSkipped": "em branco",
     "publicTitle": "Provas públicas",
-    "publicLead": "{n} questões do ENEM, de 2009 até a prova mais recente, com gabarito. A lista se atualiza sozinha toda semana; as resoluções comentadas são escritas pelos educadores do instituto.",
+    "publicLead": "{n} questões de provas públicas com gabarito: o ENEM desde 2009, os vestibulares da Unicamp e da Fuvest (USP) e o Exame da OAB. A lista se atualiza sozinha toda semana; as resoluções comentadas são escritas pelos educadores do instituto.",
     "publicExam": "Prova",
     "publicArea": "Área",
     "publicAllAreas": "Todas as áreas",
@@ -206,7 +206,8 @@
       "linguagens": "Linguagens",
       "humanas": "Ciências humanas",
       "natureza": "Ciências da natureza",
-      "matematica": "Matemática"
+      "matematica": "Matemática",
+      "direito": "Direito"
     },
     "publicLanguage": "Língua estrangeira",
     "publicEnglish": "Inglês",
@@ -226,7 +227,8 @@
     "publicSend": "Publicar a resolução",
     "publicRemove": "retirar",
     "publicResolutionFailed": "Não deu para publicar a resolução agora.",
-    "publicSource": "Questões das provas públicas do Inep, transcritas pelo projeto aberto enem.dev. Atualizado em {data}. Fonte:"
+    "publicSource": "Questões das provas públicas, transcritas por projetos abertos (enem.dev, BLUEX e oab_exams). Atualizado em {data}. Fonte desta prova:",
+    "publicSourcePick": "Fonte"
   },
   "slogans": {
     "acervo": "Ler é um ato de resistência.",
