@@ -15,12 +15,16 @@ import {
   paraRevisar,
   porTema,
   proximaRevisao,
+  gravarMetas,
+  lerMetas,
   registrarTeste,
   responderExercicio,
+  sugerirInicio,
 } from "../lib/meu-estudo.ts";
 import fs from "node:fs";
 import { CORE_SCHEMA, load } from "js-yaml";
 import { validarMapa } from "../lib/mapa-curricular.ts";
+import { icsSemanal } from "../lib/agenda.ts";
 import { conferirModelo, lerRevisoes } from "../lib/modelo-de-aula.ts";
 import { codificarSequencia, codigoDaSequencia, gerarComprovante, lerComprovante, lerComprovantes, lerSequencia } from "../lib/turma.ts";
 import { ligado, lerRecursos, RECURSOS } from "../lib/recursos.ts";
@@ -176,6 +180,31 @@ for (const nome of fs.existsSync("content/curriculo") ? fs.readdirSync("content/
     falhas.push(erro.message);
   }
 }
+
+// Nivelamento: a primeira aula do roteiro em que a pessoa escorregou (ou disse "não sei")
+const roteiro = ["t/a", "t/b", "t/c", "t/d", "t/e"];
+const cobertas = ["t/a", "t/c", "t/d"];
+conferir("começa pela primeira que escorregou", sugerirInicio(roteiro, { "t/a": true, "t/c": false, "t/d": false }, cobertas) === "t/c");
+conferir("não respondida conta como não sei", sugerirInicio(roteiro, { "t/a": true }, cobertas) === "t/c");
+conferir("acertou tudo: a seguinte à última coberta", sugerirInicio(roteiro, { "t/a": true, "t/c": true, "t/d": true }, cobertas) === "t/e");
+conferir("cobre até o fim: nenhuma sugestão", sugerirInicio(["t/a"], { "t/a": true }, ["t/a"]) === null);
+
+// Meta da semana e o lembrete .ics
+gravarMetas({ porSemana: 3, dias: [1, 3, 9], hora: "07:30" });
+conferir("meta guardada e saneada", lerMetas().porSemana === 3 && JSON.stringify(lerMetas().dias) === "[1,3]" && lerMetas().hora === "07:30");
+localStorage.setItem("lucia:metas", "{quebrado");
+conferir("meta ilegível vira sem meta", lerMetas().porSemana === 0);
+const ics = icsSemanal({ dias: [3, 1], hora: "19:00", titulo: "Hora de estudar; e revisar, ok", descricao: "Linha 1\nLinha 2", url: "https://institutolucia.org/pt/meu-estudo", inicio: new Date("2026-10-21T08:00:00"), id: "semanal" }, new Date("2026-10-19T12:00:00Z"));
+conferir("ics começa no primeiro dia escolhido", ics.includes("DTSTART:20261021T190000") && ics.includes("RRULE:FREQ=WEEKLY;BYDAY=MO,WE"));
+conferir("ics escapa vírgula, ponto e vírgula e quebra de linha", ics.includes("Hora de estudar\\; e revisar\\, ok") && ics.includes("Linha 1\\nLinha 2"));
+conferir("ics com aviso e linhas CRLF", ics.includes("BEGIN:VALARM") && ics.split("\r\n").length > 10 && ics.split("\r\n").every((l) => l.length <= 75));
+let semDia = false;
+try {
+  icsSemanal({ dias: [], hora: "19:00", titulo: "x", descricao: "", url: "https://x", inicio: new Date(), id: "x" });
+} catch {
+  semDia = true;
+}
+conferir("sem dia escolhido, sem arquivo", semDia);
 
 console.log(`meu estudo: ${ok} conferências certas, ${falhas.length} falhas`);
 for (const f of falhas) console.log(`  ✗ ${f}`);
