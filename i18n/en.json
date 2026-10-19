@@ -198,7 +198,7 @@
     "mockNotEnough": "There are not enough questions in this subject.",
     "mockSkipped": "left blank",
     "publicTitle": "Public exams",
-    "publicLead": "{n} questions from ENEM, Brazil's national secondary-school exam, from 2009 to the latest edition, with the answer key. The list updates itself every week; the commented solutions are written by the institute's educators.",
+    "publicLead": "{n} questions from public exams with answer keys: ENEM since 2009, the Unicamp and Fuvest (USP) entrance exams and the Brazilian Bar Exam (OAB). The list updates itself every week; the commented solutions are written by the institute's educators.",
     "publicExam": "Exam",
     "publicArea": "Area",
     "publicAllAreas": "All areas",
@@ -206,7 +206,8 @@
       "linguagens": "Languages",
       "humanas": "Human sciences",
       "natureza": "Natural sciences",
-      "matematica": "Mathematics"
+      "matematica": "Mathematics",
+      "direito": "Law"
     },
     "publicLanguage": "Foreign language",
     "publicEnglish": "English",
@@ -226,7 +227,8 @@
     "publicSend": "Publish the solution",
     "publicRemove": "remove",
     "publicResolutionFailed": "Could not publish the solution right now.",
-    "publicSource": "Questions from Inep's public exams, transcribed by the open project enem.dev. Updated on {data}. Source:"
+    "publicSource": "Questions from public exams, transcribed by open projects (enem.dev, BLUEX and oab_exams). Updated on {data}. Source of this exam:",
+    "publicSourcePick": "Source"
   },
   "slogans": {
     "acervo": "Reading is an act of resistance.",
