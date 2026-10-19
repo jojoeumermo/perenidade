@@ -105,7 +105,7 @@
     "escritorioTab": "选择程序",
     "escritorioLocal": "所有内容只保存在本设备的浏览器中：完成后请保存文件。",
     "seguranca": "安全实验室",
-    "segurancaLead": "Phishing, logs and passwords in a training-only sandbox: the defence for each attack.",
+    "segurancaLead": "浏览器里的训练用 Kali Linux：一个隔离运行的真实 Linux，配上为学习而重做的安全工具——全部虚构，外加防御挑战。",
     "simulacoes": "模拟（PhET）",
     "simulacoesLead": "Physics, chemistry, biology and maths through PhET's official iframe.",
     "creditos": "致谢与许可",
@@ -113,7 +113,13 @@
     "livre": "自由模式",
     "concluido": "已完成",
     "voltar": "返回实验室",
-    "ptOnly": "练习为葡萄牙语。"
+    "ptOnly": "练习为葡萄牙语。",
+    "segurancaKaliIntro": "这是一个训练环境，秉持道德黑客的精神：研究攻击是为了学会防御。桌面模仿 Kali Linux，运行一个真实的 Linux（隔离，不连真实网络）。工具——Nmap、Wireshark、Burp、sqlmap 等——是教学性的重现：输出是虚构的，没有任何一个会触及真实系统。未经书面授权攻击系统是犯罪。",
+    "segurancaKaliAbrir": "打开实验室",
+    "segurancaKaliAviso": "打开时，浏览器会下载约 8 MB（模拟器和一个小型 Linux 镜像）并启动系统——需要几秒钟。最好在电脑上，使用最新的 Chrome、Edge 或 Firefox。",
+    "segurancaKaliTelaCheia": "全屏",
+    "segurancaKaliDefesa": "防御训练：识别攻击",
+    "segurancaKaliForaDoAr": "实验室尚未在学院的地址上线。"
   },
   "lists": {
     "bankEyebrow": "练习",
