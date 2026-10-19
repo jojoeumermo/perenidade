@@ -2,7 +2,8 @@
 //
 // Lista os textos em português que o painel mostra, para a tradução do painel (i18n/painel/<idioma>.json).
 // Lê o código com o compilador do TypeScript: textos de JSX, textos entre aspas e modelos com ${...} (que viram
-// "{0}", "{1}"...). Deixa de fora nomes de classe, chaves, nomes de funções do serviço e o que não parece frase.
+// "{0}", "{1}"...), mais os rótulos dos tipos de contribuição em lib/tipos.json. Deixa de fora nomes de classe,
+// chaves, nomes de funções do serviço e o que não parece frase.
 //
 //   node scripts/textos-do-painel.mjs            → escreve i18n/painel/textos.json (a lista de origem)
 //   npm run conferir:painel                      → diz o que falta traduzir em cada idioma (sai com erro se faltar)
@@ -17,7 +18,7 @@ import ts from "typescript";
 
 const raiz = path.resolve(import.meta.dirname, "..");
 const pastas = ["components/painel"];
-const arquivosSoltos = ["lib/videoaula.ts", "components/VideoPlayer.tsx", "components/Editor.tsx"];
+const arquivosSoltos = ["lib/videoaula.ts", "lib/tipos-de-tarefa.ts", "components/VideoPlayer.tsx", "components/Editor.tsx"];
 const idiomas = ["en", "es", "fr", "ru", "zh"];
 const destino = path.join(raiz, "i18n/painel");
 
@@ -27,7 +28,10 @@ const atributosTecnicos = new Set(["className", "key", "id", "href", "type", "na
 const chamadasTecnicas = new Set(["rpc", "agir", "useLista", "getItem", "setItem", "removeItem", "addEventListener", "removeEventListener", "dispatchEvent", "Event", "querySelector", "querySelectorAll", "getElementById", "createElement", "fetch", "require", "import", "from", "includes", "startsWith", "endsWith", "split", "replace", "replaceAll", "join", "indexOf", "test", "match", "getAttribute", "setAttribute", "has", "get", "set", "delete", "postMessage", "signedStorageUrl", "storage", "upload", "remove", "localeCompare", "toLocaleDateString", "toLocaleString", "toLocaleTimeString", "Intl", "NumberFormat", "DateTimeFormat", "padStart", "erro", "VideoErro", "Blob", "File", "MediaRecorder", "isTypeSupported", "getContext", "captureStream", "toBlob", "toDataURL", "open", "registrar"]);
 
 /** Palavras soltas, em minúscula, que aparecem na tela (o filtro as tomaria por chaves técnicas). */
-const palavrasSoltas = new Set(["pessoa", "pessoas", "iniciante"]);
+const palavrasSoltas = new Set(["pessoa", "pessoas", "iniciante", "selecionada", "selecionadas"]);
+
+/** Uma palavra só no meio do JSX ("ligado", "trabalho", "resp.:") é texto da tela; endereços e códigos (_dmarc, p=none) não passam. */
+const palavraDoJsx = (texto) => /^\p{Ll}{3,}[.:]{0,2}$/u.test(texto);
 
 /** Textos que o filtro deixaria passar, mas não são para gente ler. */
 const ignorar = new Set(["use client", "system-ui, sans-serif", "grayscale(1) contrast(1.15)", "ativo: false"]);
@@ -102,7 +106,7 @@ function textosDe(arquivo) {
   const visitar = (no) => {
     if (ts.isJsxText(no)) {
       const texto = decodificar(no.text).replace(/\s+/g, " ").trim();
-      if (frase(texto)) achados.push(texto);
+      if (frase(texto) || palavraDoJsx(texto)) achados.push(texto);
     } else if ((ts.isStringLiteral(no) || ts.isNoSubstitutionTemplateLiteral(no)) && !tecnico(no)) {
       const texto = no.text.replace(/\s+/g, " ").trim();
       if (palavrasSoltas.has(texto) || (frase(texto) && /[\s]|[áéíóúâêôãõçÁÉÍÓÚ]|^[A-ZÁÉÍÓÚ][a-záéíóúâêôãõç]+$/.test(texto))) achados.push(texto);
@@ -129,7 +133,21 @@ function arquivos() {
   return [...lista, ...arquivosSoltos.map((arquivo) => path.join(raiz, arquivo))];
 }
 
-const textos = [...new Set(arquivos().flatMap(textosDe))].sort((a, b) => a.localeCompare(b, "pt"));
+/** Rótulos, ajudas e opções dos tipos de contribuição (Escrever, Fila), que moram em lib/tipos.json. */
+function textosDosTipos() {
+  const achados = [];
+  const andar = (valor, chave) => {
+    if (typeof valor === "string") {
+      const texto = valor.replace(/\s+/g, " ").trim();
+      if (["rotulo", "ajuda", "titulo", "opcoes"].includes(chave) && frase(texto)) achados.push(texto);
+    } else if (Array.isArray(valor)) valor.forEach((item) => andar(item, chave));
+    else if (valor && typeof valor === "object") for (const [nome, item] of Object.entries(valor)) andar(item, nome);
+  };
+  andar(JSON.parse(fs.readFileSync(path.join(raiz, "lib/tipos.json"), "utf8")), "");
+  return achados;
+}
+
+const textos = [...new Set([...arquivos().flatMap(textosDe), ...textosDosTipos()])].sort((a, b) => a.localeCompare(b, "pt"));
 
 if (process.argv.includes("--conferir")) {
   let faltas = 0;
