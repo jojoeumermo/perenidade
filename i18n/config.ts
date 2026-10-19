@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-export const locales = ["pt", "en", "es", "zh", "ru"] as const;
+export const locales = ["pt", "en", "es", "zh", "ru", "fr"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "pt";
 
@@ -12,6 +12,7 @@ export const localeNames: Record<Locale, string> = {
   es: "Español",
   zh: "中文",
   ru: "Русский",
+  fr: "Français",
 };
 
 /** Código usado no atributo lang do HTML e na leitura em voz alta. */
@@ -21,6 +22,7 @@ export const htmlLang: Record<Locale, string> = {
   es: "es",
   zh: "zh-Hans",
   ru: "ru",
+  fr: "fr",
 };
 
 /** Caminho com o prefixo do idioma. */

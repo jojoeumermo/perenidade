@@ -126,7 +126,7 @@ type Unit =
 function classify(file: string): Unit | null {
   if (!file.startsWith("content/")) return null;
   // Tradução de algo público ("aula.en.md") conta como tradução; de página institucional, fica de fora.
-  const original = file.replace(/\.(en|es|zh|ru)\.md$/, ".md");
+  const original = file.replace(/\.(en|es|zh|ru|fr)\.md$/, ".md");
   if (original !== file) return classify(original) ? { type: "file", kind: "translations" } : null;
   const parts = file.slice("content/".length).split("/");
   const [dir, name] = parts;

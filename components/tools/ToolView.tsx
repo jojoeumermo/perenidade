@@ -125,7 +125,7 @@ export function ToolView({ id, s, lang, area }: { id: ToolId; s: Partial<Tools>;
 
 /** Na caixa da aula não cabe a IDE inteira: o atalho leva à página dela, no perfil da disciplina. */
 function AtalhoDaIde({ lang }: { lang: string }) {
-  const textos: Record<string, [string, string]> = { pt: ["Abrir a IDE", "Editor com arquivos, execução e saída. Abre em página própria, para ter espaço."], en: ["Open the IDE", "Editor with files, run and output. Opens on its own page, to have room."], es: ["Abrir la IDE", "Editor con archivos, ejecución y salida. Abre en página propia."], ru: ["Открыть IDE", "Редактор с файлами, запуском и выводом. Открывается на отдельной странице."], zh: ["打开 IDE", "带文件、运行和输出的编辑器，在独立页面打开。"] };
+  const textos: Record<string, [string, string]> = { pt: ["Abrir a IDE", "Editor com arquivos, execução e saída. Abre em página própria, para ter espaço."], en: ["Open the IDE", "Editor with files, run and output. Opens on its own page, to have room."], es: ["Abrir la IDE", "Editor con archivos, ejecución y salida. Abre en página propia."], ru: ["Открыть IDE", "Редактор с файлами, запуском и выводом. Открывается на отдельной странице."], fr: ["Ouvrir l'IDE", "Éditeur avec fichiers, exécution et sortie. S'ouvre sur une page à part, pour avoir de la place."], zh: ["打开 IDE", "带文件、运行和输出的编辑器，在独立页面打开。"] };
   const [rotulo, texto] = textos[lang] ?? textos.pt;
   return (
     <div className="mt-6 font-sans text-sm">

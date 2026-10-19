@@ -37,7 +37,7 @@ interface Termo {
   autor: string;
 }
 
-const idiomas: Record<string, string> = { en: "inglês", es: "espanhol", zh: "chinês", ru: "russo" };
+const idiomas: Record<string, string> = { en: "inglês", es: "espanhol", zh: "chinês", ru: "russo", fr: "francês" };
 const nomeDaSituacao: Record<string, string> = { em_andamento: "em andamento", enviada: "enviada, em revisão", aprovada: "aprovada: entra na próxima publicação" };
 const semIdioma = (alvo: string) => alvo.replace(/^\/(pt|en|es|zh|ru|fr)(?=\/)/, "");
 

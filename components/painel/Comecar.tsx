@@ -17,7 +17,7 @@ interface Trilha {
   /** As próximas aulas do roteiro (no máximo três). */
   faltam: { slug: string; titulo: string }[];
   quantasFaltam: number;
-  traduzidas: Record<"en" | "es" | "zh" | "ru", number>;
+  traduzidas: Record<"en" | "es" | "zh" | "ru" | "fr", number>;
 }
 type Retrato = Record<string, { obras: number; avulsos: number; videos: number; trilhas: Trilha[] }>;
 
@@ -30,7 +30,7 @@ interface Sugestao {
   link?: string;
 }
 
-const idiomas = { en: "inglês", es: "espanhol", zh: "chinês", ru: "russo" } as const;
+const idiomas = { en: "inglês", es: "espanhol", zh: "chinês", ru: "russo", fr: "francês" } as const;
 const ordem = (etapa: Trilha["etapa"]) => stages.indexOf(etapa);
 
 let pedido: Promise<Retrato | null> | null = null;

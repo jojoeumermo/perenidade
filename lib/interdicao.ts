@@ -47,7 +47,7 @@ export const semInterdicao: EstadoDaInterdicao = { geral: false, areas: [], mens
 
 /** Sempre abertos, mesmo com o site inteiro fora do ar: a entrada e o painel (para a equipe poder religar) e a própria página fantasma. */
 const sempreAbertos = ["/entrar", "/painel", "/fora-do-ar"];
-const idiomas = ["pt", "en", "es", "zh", "ru"];
+const idiomas = ["pt", "en", "es", "zh", "ru", "fr"];
 
 /** Separa o idioma do resto do caminho: "/en/comunidade/x" → ["en", "/comunidade/x"]. Sem idioma, vale o português. */
 export function semIdioma(caminho: string): [string, string] {
