@@ -12,6 +12,7 @@ import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, PAINEL_MUDOU, pap
 import { BuscaDePessoa } from "./BuscaDePessoa";
 import type { Membro } from "./Equipe";
 import { editorPt, fontesPt } from "./Escrever";
+import { SugestoesDaRevisao } from "./Sugestoes";
 
 interface Resumo {
   id: string;
@@ -226,6 +227,7 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
               {c.minha || c.colaboro ? "Editar" : tria ? "Acertar a forma" : "Editar antes de decidir"}
             </button>
           )}
+          <SugestoesDaRevisao id={id} podeSugerir={pendente && !c.minha && !semParecer && !tria} podeResponder={pendente && (c.minha || c.colaboro || decide)} depois={recarregar} />
         </>
       )}
 
