@@ -46,6 +46,7 @@ next-env.d.ts
 /public/lua/
 /public/ruby/
 /public/jscpp/
+/public/blockly/
 
 # anotacao temporaria da publicacao automatica
 .publicados.json
