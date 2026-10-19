@@ -289,7 +289,10 @@ export function TerminalLinux() {
   const [resultado, setResultado] = useState<boolean | null>(null);
   const [dica, setDica] = useState(0);
   const fim = useRef<HTMLDivElement>(null);
-  useEffect(() => fim.current?.scrollIntoView({ block: "end" }), [linhas]);
+  // Chave no corpo: o scrollIntoView do Chrome novo devolve uma promessa, e efeito que devolve algo que não é função derruba a página.
+  useEffect(() => {
+    fim.current?.scrollIntoView({ block: "end" });
+  }, [linhas]);
   function enviar() {
     const c = comando.trim();
     const prompt = `aluno@lucia:${estado.current.cwd.replace("/home/aluno", "~") || "/"}$ ${comando}`;
