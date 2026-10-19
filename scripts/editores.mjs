@@ -6,11 +6,14 @@
 // Depois é só publicar a pasta estudio/site num projeto próprio (veja docs/ESTUDIO-EDITORES.md). Nada é automático:
 // trocar de versão é mudar o número aqui e em lib/estudio.ts, rodar de novo, testar e publicar.
 //
-// Uso: node scripts/editores.mjs [photocraft|filmcraft|effectcraft ...]   (sem nome: os três)
+// Os de 3D (Blockbench, SculptGL e o editor do three.js) são compilados do código oficial: veja scripts/editores-livres.mjs.
+//
+// Uso: node scripts/editores.mjs [photocraft|filmcraft|effectcraft|blockbench|sculptgl|threejs ...]   (sem nome: todos)
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { inflateRawSync } from "node:zlib";
+import { LIVRES, montarLivre } from "./editores-livres.mjs";
 
 export const VERSOES = {
   photocraft: "0.10.0",
@@ -95,8 +98,17 @@ async function montar(id) {
 /**
  * As regras de cabeçalho do site inteiro (formato _headers da Cloudflare Pages): as que cada pacote já traz, com o
  * caminho do editor na frente, e uma CSP restrita por editor, com o hash dos scripts escritos dentro do index.html.
- * Nada do site do instituto entra nos editores; eles não podem ser embutidos em outra página (frame-ancestors).
+ * Nada do site do instituto entra nos editores. Eles só podem ser embutidos pelas páginas do próprio instituto
+ * (frame-ancestors), que os mostram dentro de institutolucia.org sem dar a eles acesso à sessão: a origem continua outra.
  */
+const ANCESTRAIS = "'self' https://institutolucia.org https://www.institutolucia.org http://localhost:3000 http://localhost:3100";
+// O que algum editor precisa a mais (conferido abrindo cada um com a CSP aplicada).
+// Os de 3D usam eval e scripts escritos no HTML (manipuladores e trechos gerados): só neles, e esta origem não guarda
+// nada do instituto. Com 'unsafe-inline', os hashes saem (o navegador ignora 'unsafe-inline' quando há hash).
+const LIBERA = "'unsafe-eval' 'unsafe-inline'";
+const EXTRA = { blockbench: { script: LIBERA }, sculptgl: { script: LIBERA }, // O editor do three.js traz, no próprio importmap, duas bibliotecas por versão fixa no jsDelivr (o traçador de
+  // caminhos e o codificador Draco): sem elas, o editor não abre.
+  threejs: { script: `${LIBERA} https://cdn.jsdelivr.net`, connect: "https://cdn.jsdelivr.net" } };
 export function regrasDeCabecalho(pastas) {
   const linhas = [
     "# Gerado por scripts/editores.mjs. Não edite à mão: rode o script de novo.",
@@ -107,8 +119,8 @@ export function regrasDeCabecalho(pastas) {
     "  Cross-Origin-Resource-Policy: same-origin",
     "",
   ];
-  for (const { id, pasta } of pastas) {
-    const inline = [...fs.readFileSync(path.join(pasta, "index.html"), "utf8").matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map((m) => `'sha256-${createHash("sha256").update(m[1]).digest("base64")}'`);
+  for (const { id, pasta, entrada = "index.html" } of pastas) {
+    const inline = [...fs.readFileSync(path.join(pasta, entrada), "utf8").matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map((m) => `'sha256-${createHash("sha256").update(m[1]).digest("base64")}'`);
     const proprio = path.join(pasta, "_headers");
     if (fs.existsSync(proprio)) {
       linhas.push(`# Regras do próprio pacote do ${id}, com o caminho /${id} na frente.`);
@@ -119,29 +131,31 @@ export function regrasDeCabecalho(pastas) {
     }
     const csp = [
       "default-src 'self'",
-      `script-src 'self' 'wasm-unsafe-eval' ${inline.join(" ")}`.trim(),
+      `script-src 'self' 'wasm-unsafe-eval' ${EXTRA[id]?.script ?? ""} ${EXTRA[id]?.script?.includes("unsafe-inline") ? "" : inline.join(" ")}`.replace(/\s+/g, " ").trim(),
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob:",
       "media-src 'self' data: blob:",
       "font-src 'self' data:",
-      "connect-src 'self' data: blob:",
+      `connect-src 'self' data: blob: ${EXTRA[id]?.connect ?? ""}`.trim(),
       "worker-src 'self' blob:",
       "object-src 'none'",
       "base-uri 'none'",
       "form-action 'none'",
-      "frame-ancestors 'none'",
+      `frame-ancestors ${ANCESTRAIS}`,
     ].join("; ");
-    linhas.push("", `/${id}/*`, `  Content-Security-Policy: ${csp}`, "", `/${id}/`, "  Cache-Control: no-cache", "");
+    const inicio = `/${id}/${path.dirname(entrada) === "." ? "" : `${path.dirname(entrada)}/`}`;
+    linhas.push("", `/${id}/*`, `  Content-Security-Policy: ${csp}`, "", inicio, "  Cache-Control: no-cache", "");
   }
   return `${linhas.join("\n")}\n`;
 }
 
-const pedidos = process.argv.slice(2).filter((x) => x in VERSOES);
+const pedidos = process.argv.slice(2).filter((x) => x in VERSOES || x in LIVRES);
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"))) {
-  const lista = pedidos.length ? pedidos : Object.keys(VERSOES);
-  for (const id of lista) await montar(id);
+  const lista = pedidos.length ? pedidos : [...Object.keys(VERSOES), ...Object.keys(LIVRES)];
+  for (const id of lista) id in LIVRES ? montarLivre(id, DESTINO) : await montar(id);
   // As regras valem para todos os editores já montados na pasta (os de antes e os de agora).
-  const montados = Object.keys(VERSOES).filter((id) => fs.existsSync(path.join(DESTINO, id, "index.html"))).map((id) => ({ id, pasta: path.join(DESTINO, id) }));
+  const todos = [...Object.keys(VERSOES).map((id) => ({ id, entrada: "index.html" })), ...Object.entries(LIVRES).map(([id, f]) => ({ id, entrada: f.entrada }))];
+  const montados = todos.filter(({ id, entrada }) => fs.existsSync(path.join(DESTINO, id, entrada))).map(({ id, entrada }) => ({ id, entrada, pasta: path.join(DESTINO, id) }));
   fs.writeFileSync(path.join(DESTINO, "_headers"), regrasDeCabecalho(montados));
   console.log(`Regras de cabeçalho para: ${montados.map((m) => m.id).join(", ")}.`);
   console.log("Pronto. Publique a pasta estudio/site (veja docs/ESTUDIO-EDITORES.md).");
