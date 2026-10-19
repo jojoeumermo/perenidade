@@ -42,6 +42,8 @@ const NoteReading = dynamic(() => import("./Music").then((m) => m.NoteReading), 
 const Pronounce = dynamic(() => import("./Pronounce").then((m) => m.Pronounce), { ssr: false, loading: espera });
 const Dictionary = dynamic(() => import("./Idiomas").then((m) => m.Dictionary), { ssr: false, loading: espera });
 const Sentences = dynamic(() => import("./Idiomas").then((m) => m.Sentences), { ssr: false, loading: espera });
+const FisicaSimulada = dynamic(() => import("./Simulacoes").then((m) => m.FisicaSimulada), { ssr: false, loading: espera });
+const Reacoes = dynamic(() => import("./Simulacoes").then((m) => m.Reacoes), { ssr: false, loading: espera });
 
 /** Mostra uma ferramenta pelo nome, com os textos que a página da aula mandou (só os das ferramentas daquela disciplina). */
 const PhetLista = dynamic(() => import("../labs/Phet").then((m) => m.PhetLista), { ssr: false, loading: espera });
@@ -71,6 +73,10 @@ export function ToolView({ id, s, lang, area }: { id: ToolId; s: Partial<Tools>;
       return <Punnett s={t.punnett} />;
     case "sistema-solar":
       return <SistemaSolar s={t.solar} lang={lang} />;
+    case "fisica-simulada":
+      return <FisicaSimulada s={t.physics} lang={lang} />;
+    case "reacoes":
+      return <Reacoes s={t.reaction} />;
     case "python":
     case "php":
       return (

@@ -1472,6 +1472,14 @@
     "frequencia-cardiaca": [
       "心率",
       "估算的最大心率和训练强度区间。"
+    ],
+    "fisica-simulada": [
+      "运动中的物理",
+      "抛体与自由落体、电路（欧姆定律、串联与并联）和波，公式就在屏幕上。"
+    ],
+    "reacoes": [
+      "原子里的化学反应",
+      "看原子在反应中交换伙伴：没有原子消失，也没有原子凭空出现。"
     ]
   },
   "tools": {
@@ -1521,7 +1529,34 @@
         "G",
         "A",
         "B"
-      ]
+      ],
+      "scalesTitle": "音阶与和弦",
+      "root": "主音",
+      "scale": "音阶",
+      "scaleKinds": {
+        "maior": "大调",
+        "menor": "自然小调",
+        "pentatonica": "大调五声音阶",
+        "blues": "布鲁斯"
+      },
+      "playScale": "弹奏音阶",
+      "chord": "和弦",
+      "chordKinds": {
+        "maior": "大三和弦",
+        "menor": "小三和弦",
+        "setima": "属七和弦",
+        "diminuto": "减三和弦"
+      },
+      "playChord": "弹奏和弦",
+      "arpeggio": "琶音",
+      "rollTitle": "钢琴卷帘",
+      "rollHint": "点击格子标记音符（每行一个音，每列一拍），然后播放这段旋律。",
+      "play": "播放",
+      "clear": "清空",
+      "dictation": "听写",
+      "dictationHint": "听这个音并说出是哪一个。需要时可以和参考音 do 比较。",
+      "listenAgain": "再听一次",
+      "reference": "听参考音 do"
     },
     "table": {
       "search": "查找元素（名称、符号或原子序数）",
@@ -1925,7 +1960,18 @@
         "lado": "方程式缺少一边。",
         "sem_solucao": "按现在的写法，这个反应无法配平：请检查化学式。",
         "varias_solucoes": "这个方程式有不止一种独立的配平方式（像是两个反应写在一起）。请把反应分开。"
-      }
+      },
+      "modeSolve": "求解",
+      "modePractice": "练习",
+      "practiceHint": "填写系数并检查：表格逐个原子显示哪些已经配平。",
+      "exerciseOf": "第 {i} 题，共 {n} 题",
+      "coefficient": "{f} 的系数",
+      "verify": "检查",
+      "showAnswer": "查看答案",
+      "nextOne": "换一道",
+      "allGood": "完全正确：所有原子都已配平，且系数是最小整数。",
+      "notMinimal": "所有原子都配平了，但所有系数都能被 {n} 整除：请用最小整数。",
+      "fix": "还没有配平：检查标有 ✗ 的行。"
     },
     "punnett": {
       "title": "庞纳特方格",
@@ -2033,7 +2079,20 @@
       "source": "数据：NASA《行星概况表》（Planetary Fact Sheet）。",
       "seconds": "{s} 秒",
       "minutes": "{m} 分 {s} 秒",
-      "hours": "{h} 小时 {m} 分"
+      "hours": "{h} 小时 {m} 分",
+      "orbitsTitle": "运动中的轨道",
+      "zoom": "缩放",
+      "zoomValue": "从太阳到边缘：{d} 百万公里",
+      "speed": "速度",
+      "speedValue": "1 秒 = {d} 天",
+      "pause": "暂停",
+      "resume": "继续",
+      "dayCount": "第 {d} 天",
+      "orbitNote": "距离彼此按比例；行星大小不按比例。周期是真实的：水星绕太阳一圈 88 天，海王星 165 年。轨道画成圆，但实际是接近圆的椭圆。",
+      "dropTitle": "各天体上的重力",
+      "dropHint": "从 {h} 米高处放下一个球，看看它在各处落地需要多久（没有空气）。",
+      "drop": "放下小球",
+      "fallTime": "{t} 秒落地"
     },
     "timer": {
       "modes": {
@@ -2078,7 +2137,43 @@
         "展示构建论证所需的语言手段的知识。",
         "在尊重人权的前提下，针对所讨论的问题提出干预方案。"
       ],
-      "lessons": "Enem 作文课"
+      "lessons": "Enem 作文课",
+      "checkTitle": "按五项能力引导自查",
+      "checkLead": "重读作文，勾选已经做好的项目。勾选只保存在本设备上；文本不会发送到任何地方。",
+      "checkDone": "已检查 {a} / {b} 项",
+      "checkReset": "全部取消",
+      "competencyN": "能力 {n}",
+      "paragraphHint": "你的文章有 {n} 段。常见的是 4 到 5 段：引言、两到三段论证和结论。",
+      "connectors": "文中找到的连接词：{n} 个。",
+      "checks": [
+        [
+          "没有拼写和重音错误。",
+          "动词和名词的一致已检查。",
+          "标点已检查（逗号、句号）。",
+          "没有俚语和口语习惯。"
+        ],
+        [
+          "没有偏题：主题从引言就出现。",
+          "文章是议论文：引言、论证和结论。",
+          "使用了正当的论据材料（数据、法律、历史事实、作品、作者）并与讨论相关。"
+        ],
+        [
+          "论点（观点）在引言中清楚。",
+          "每个论据都有解释和展开，而不只是提到。",
+          "论据支持论点并彼此关联。"
+        ],
+        [
+          "有连接词连接段落。",
+          "有连接词连接段落内的句子。",
+          "避免重复用词：使用了同义词和代词。"
+        ],
+        [
+          "建议说明由谁来做（主体）。",
+          "说明做什么（行动）以及怎样做（方式）。",
+          "说明目的并补充一个细节。",
+          "建议尊重人权。"
+        ]
+      ]
     },
     "syllables": {
       "help": "点按一个音节就能听到它。依次点按几个音节组成一个词，再听整个词。音节是葡萄牙语的。",
@@ -2221,6 +2316,58 @@
       "reset": "恢复示例",
       "preview": "结果",
       "sandbox": "结果在一个与网站隔离的封闭盒子里运行：代码读不到本页、你的账号或浏览器中保存的任何内容。"
+    },
+    "physics": {
+      "tabs": {
+        "lancamento": "抛体与落体",
+        "circuito": "电路",
+        "ondas": "波"
+      },
+      "speed": "初速度",
+      "angle": "角度",
+      "height": "初始高度",
+      "gravity": "地点",
+      "places": {
+        "terra": "地球",
+        "lua": "月球",
+        "marte": "火星",
+        "jupiter": "木星"
+      },
+      "launch": "发射",
+      "freeFallHint": "要看自由落体，把速度设为零并选择一个高度。",
+      "range": "射程",
+      "maxHeight": "最大高度",
+      "flightTime": "飞行时间",
+      "noAir": "不计空气阻力",
+      "voltage": "电池电压",
+      "series": "串联",
+      "parallel": "并联",
+      "equivalent": "等效电阻",
+      "current": "总电流",
+      "power": "功率",
+      "seriesNote": "串联时，各电阻电流相同，电压被分配：Req = R1 + R2 + R3。",
+      "parallelNote": "并联时，各电阻电压相同，电流被分配：1/Req = 1/R1 + 1/R2 + 1/R3。",
+      "ohmNote": "欧姆定律：U = R · i。功率：P = U · i。",
+      "amplitude": "振幅",
+      "frequency": "频率",
+      "wavelength": "波长",
+      "superpose": "叠加第二列波",
+      "frequency2": "第二列波的频率",
+      "waveNote": "提高频率，看波峰更快地经过；波速等于波长乘以频率。",
+      "superposeNote": "两条细波相加得到粗波：波峰相遇处波变大；波峰遇到波谷处相互抵消（干涉）。相近的频率会产生拍。"
+    },
+    "reaction": {
+      "names": {
+        "agua": "水的生成",
+        "amonia": "氨的合成",
+        "metano": "甲烷燃烧",
+        "sal": "食盐"
+      },
+      "react": "反应",
+      "reset": "回到开始",
+      "reactants": "反应物",
+      "products": "生成物",
+      "note": "没有原子消失或凭空出现：反应中原子只是交换伙伴（拉瓦锡定律）。所以两边的原子数相同。颜色遵循球棍模型的惯例。"
     }
   },
   "journal": {
@@ -3762,8 +3909,48 @@
     "insideNote": "程序在本站内一个独立的空间里运行：它看不到你的账户和数据。",
     "desktopOnly": "电脑程序：不能在浏览器中运行。",
     "downloadApp": "下载（Windows、Mac 或 Linux）",
-    "studios": {"edicao-de-foto": {"lead": "在浏览器中修图、裁剪和合成图像的开源程序，免费，无需安装。", "limits": ["它们不能以 Photoshop 的全部功能打开 .psd 文件，也不支持插件。", "PhotoCraft 可以打开和保存 PSD、PNG、JPG 和 WebP。", "LightCraft 用于冲洗 RAW 和整理照片，是电脑程序，需要下载安装。"], "credits": "PhotoCraft 和 LightCraft 由 ArtCraft 团队和社区制作，采用 MIT 或 Apache-2.0 许可。ArtCraft 名称是 ArtCraft 团队的商标。二者都不是 Adobe 产品，也与 Adobe 无关；Photoshop 和 Lightroom 是 Adobe 的商标。"}, "modelagem-3d": {"lead": "在浏览器中建模、雕刻和搭建 3D 场景的开源程序，免费，无需安装。", "limits": ["它们都不是完整的 Blender：想深入学习，请安装免费的 Blender，这也是课程所教的。", "三个程序都能打开和保存 OBJ 与 glTF：在 SculptGL 里雕刻，在 Blockbench 里细化和做动画，在 three.js 里搭场景，再全部带到 Blender。", "Blockbench 适合低多边形模型，比如游戏里的模型。"], "credits": "Blockbench 由 Jannis Petersen 及贡献者开发（GPL-3.0）；SculptGL 由 Stéphane Ginier 开发（MIT）；three.js 编辑器由 three.js 作者开发（MIT）。学院从官方源代码编译每一个程序，不做任何修改。"}},
-    "editors": {"photocraft": {"title": "编辑图像（Photoshop 风格）：PhotoCraft", "text": "图层、蒙版、选区、调色和文字，使用 Photoshop 的快捷键。"}, "lightcraft": {"title": "冲洗和整理照片（Lightroom 风格）：LightCraft", "text": "照片库和 RAW 冲洗：调整光线、颜色和裁剪，不破坏原图。"}, "blockbench": {"title": "建模和动画：Blockbench", "text": "顶点和面建模、UV 展开、纹理绘制和骨骼动画。"}, "sculptgl": {"title": "雕刻：SculptGL", "text": "数字雕刻，就像捏黏土：用笔刷拉伸、抹平和刻画形状。"}, "threejs": {"title": "搭建场景：three.js 编辑器", "text": "在 3D 场景中放置物体、材质、灯光和相机，可导出或带到 Blender。"}},
+    "studios": {
+      "edicao-de-foto": {
+        "lead": "在浏览器中修图、裁剪和合成图像的开源程序，免费，无需安装。",
+        "limits": [
+          "它们不能以 Photoshop 的全部功能打开 .psd 文件，也不支持插件。",
+          "PhotoCraft 可以打开和保存 PSD、PNG、JPG 和 WebP。",
+          "LightCraft 用于冲洗 RAW 和整理照片，是电脑程序，需要下载安装。"
+        ],
+        "credits": "PhotoCraft 和 LightCraft 由 ArtCraft 团队和社区制作，采用 MIT 或 Apache-2.0 许可。ArtCraft 名称是 ArtCraft 团队的商标。二者都不是 Adobe 产品，也与 Adobe 无关；Photoshop 和 Lightroom 是 Adobe 的商标。"
+      },
+      "modelagem-3d": {
+        "lead": "在浏览器中建模、雕刻和搭建 3D 场景的开源程序，免费，无需安装。",
+        "limits": [
+          "它们都不是完整的 Blender：想深入学习，请安装免费的 Blender，这也是课程所教的。",
+          "三个程序都能打开和保存 OBJ 与 glTF：在 SculptGL 里雕刻，在 Blockbench 里细化和做动画，在 three.js 里搭场景，再全部带到 Blender。",
+          "Blockbench 适合低多边形模型，比如游戏里的模型。"
+        ],
+        "credits": "Blockbench 由 Jannis Petersen 及贡献者开发（GPL-3.0）；SculptGL 由 Stéphane Ginier 开发（MIT）；three.js 编辑器由 three.js 作者开发（MIT）。学院从官方源代码编译每一个程序，不做任何修改。"
+      }
+    },
+    "editors": {
+      "photocraft": {
+        "title": "编辑图像（Photoshop 风格）：PhotoCraft",
+        "text": "图层、蒙版、选区、调色和文字，使用 Photoshop 的快捷键。"
+      },
+      "lightcraft": {
+        "title": "冲洗和整理照片（Lightroom 风格）：LightCraft",
+        "text": "照片库和 RAW 冲洗：调整光线、颜色和裁剪，不破坏原图。"
+      },
+      "blockbench": {
+        "title": "建模和动画：Blockbench",
+        "text": "顶点和面建模、UV 展开、纹理绘制和骨骼动画。"
+      },
+      "sculptgl": {
+        "title": "雕刻：SculptGL",
+        "text": "数字雕刻，就像捏黏土：用笔刷拉伸、抹平和刻画形状。"
+      },
+      "threejs": {
+        "title": "搭建场景：three.js 编辑器",
+        "text": "在 3D 场景中放置物体、材质、灯光和相机，可导出或带到 Blender。"
+      }
+    },
     "eyebrow": "视频剪辑",
     "title": "练习工作室",
     "lead": "在浏览器里练习视频剪辑和动画的开源程序，免费，无需安装。",
