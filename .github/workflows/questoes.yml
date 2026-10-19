@@ -1,0 +1,42 @@
+name: Atualizar o banco de questões
+
+# Toda segunda-feira busca as provas públicas com fonte aberta (hoje, o ENEM inteiro pela API aberta enem.dev) e, se
+# entrou prova nova ou alguma questão mudou, grava em public/questoes/ e publica. Semana sem novidade não vira registro.
+on:
+  schedule:
+    - cron: "40 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: questoes
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      # O importador não usa pacote nenhum: só o fetch do Node. Nada de npm ci aqui.
+      - run: node scripts/importar-questoes.mjs
+      - name: Há algo novo?
+        id: novo
+        run: |
+          git add -A -- public/questoes
+          if git diff --cached --quiet; then echo "sim=nao" >> "$GITHUB_OUTPUT"; else echo "sim=sim" >> "$GITHUB_OUTPUT"; fi
+      - if: steps.novo.outputs.sim == 'sim'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "Publicação do Instituto Lúcia"
+          git config user.email "publicacao@users.noreply.github.com"
+          git commit -m "Banco de questões: provas públicas atualizadas"
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${GITHUB_REF_NAME}"
