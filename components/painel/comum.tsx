@@ -72,6 +72,8 @@ const erros: Record<string, string> = {
   privado_fechado: "As conversas privadas são só para trabalho: com a coordenação, vice e supervisão, ou com quem está colaborando com você numa contribuição em andamento. O resto é nos grupos de departamento.",
 
   ja_decidida: "Esta contribuição já foi decidida.",
+  trecho_mudou: "O trecho já mudou no texto; a sugestão não cabe mais. Ajuste à mão, se quiser, e recuse.",
+  "invalido:trecho": "Esse trecho não está no texto. Copie o trecho exato (ou selecione no texto e use o botão).",
   ja_pediu: "Você já fez esse pedido e ele está em análise.",
   limite_anuncios: "Cada pessoa pode ter até três anúncios no mural.",
   ultima_coordenacao: "O instituto precisa de uma pessoa na coordenação.",

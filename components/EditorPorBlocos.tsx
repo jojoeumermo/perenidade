@@ -3,6 +3,8 @@
 
 import { useRef, useState } from "react";
 import { comMarcas, miolo, partir, textoPuro, tipoDe, type Tipo } from "@/lib/blocos";
+import { eInterativo, INTERATIVOS, type Interativo as TipoInterativo, MODELOS_INTERATIVOS } from "@/lib/interativos";
+import { Interativo } from "./blocos/Interativo";
 import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
 import { PendingImage } from "./LessonMedia";
 import { Markdown } from "./Markdown";
@@ -34,6 +36,7 @@ const NOMES: Record<Tipo, string> = {
   codigo: "Código",
   anexo: "Anexo (PDF)",
   tabela: "Tabela",
+  interativo: "Interativo",
   bruto: "Markdown",
 };
 const MODELOS: Record<Tipo, string> = {
@@ -51,12 +54,19 @@ const MODELOS: Record<Tipo, string> = {
   codigo: "```python\nprint(\"Olá\")\n```",
   anexo: "[📎 Anexo](#)",
   tabela: "| Coluna | Coluna |\n| --- | --- |\n| valor | valor |",
+  interativo: "",
   bruto: "",
 };
 /** Os tipos que são só texto: dá para trocar um pelo outro sem perder o conteúdo. */
 const DE_TEXTO: Tipo[] = ["paragrafo", "titulo", "subtitulo", "lista", "numerada", "citacao"];
 const NO_MENU: Tipo[] = ["paragrafo", "titulo", "subtitulo", "lista", "numerada", "citacao", "imagem", "video", "formula", "conta", "questao", "codigo", "anexo", "tabela"];
 const LINGUAGENS = ["python", "php", "javascript", "html", "css", "sql", "bash", "texto"];
+
+/** O nome que aparece no alto do bloco: o dos interativos vem da lista deles ("Gráfico de função", "Forca"…). */
+const nomeDoBloco = (md: string, tipo: Tipo) => {
+  const lingua = /^```\s*([\w-]*)/.exec(md)?.[1] ?? "";
+  return tipo === "interativo" && eInterativo(lingua) ? MODELOS_INTERATIVOS[lingua].nome : NOMES[tipo];
+};
 
 let contador = 0;
 const novoId = () => `b${++contador}-${Math.random().toString(36).slice(2, 7)}`;
@@ -70,6 +80,9 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
   if (estado.fonte !== value) setEstado({ fonte: value, blocos: partir(value).map((md) => ({ id: novoId(), md })) });
   const blocos = estado.blocos;
   const [menu, setMenu] = useState<number | null>(null);
+  const [busca, setBusca] = useState("");
+  const casa = (nome: string) => !busca.trim() || nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(busca.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+  const [gravando, setGravando] = useState<{ bloco: number; linha: number; gravador: MediaRecorder } | null>(null);
   const [aviso, setAviso] = useState("");
   const arrastando = useRef<number | null>(null);
 
@@ -79,9 +92,9 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
     onChange(texto);
   };
   const trocar = (i: number, md: string) => mudar(blocos.map((b, j) => (j === i ? { ...b, md } : b)));
-  const inserir = (i: number, tipo: Tipo) => {
+  const inserir = (i: number, tipo: Tipo, md = MODELOS[tipo]) => {
     const novos = [...blocos];
-    novos.splice(i, 0, { id: novoId(), md: MODELOS[tipo] });
+    novos.splice(i, 0, { id: novoId(), md });
     mudar(novos);
     setMenu(null);
     requestAnimationFrame(() => document.querySelector<HTMLElement>(`[data-bloco="${i}"] textarea, [data-bloco="${i}"] input`)?.focus());
@@ -107,6 +120,50 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
       setAviso(uploadMessages[erro instanceof UploadError ? erro.message : "envio"] ?? uploadMessages.envio);
     }
   }
+  async function gravar(i: number, linha: number) {
+    if (gravando) {
+      gravando.gravador.stop();
+      return;
+    }
+    if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === "undefined") {
+      setAviso("Este navegador não grava áudio.");
+      return;
+    }
+    try {
+      const fluxo = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const tipo = MediaRecorder.isTypeSupported("audio/webm") ? "audio/webm" : "audio/mp4";
+      const gravador = new MediaRecorder(fluxo, { mimeType: tipo });
+      const pedacos: Blob[] = [];
+      gravador.ondataavailable = (e) => pedacos.push(e.data);
+      gravador.onstop = async () => {
+        fluxo.getTracks().forEach((faixa) => faixa.stop());
+        setGravando(null);
+        setAviso("Enviando a gravação…");
+        try {
+          const caminho = await sendFile(new Blob(pedacos, { type: tipo }), tipo === "audio/webm" ? "webm" : "m4a");
+          const dentro = miolo(blocos[i].md).split("\n");
+          let n = -1;
+          const novas = dentro.map((l) => {
+            if (!l.trim() || /^(lingua|língua|idioma)\s*:/i.test(l.trim())) return l;
+            n++;
+            if (n !== linha) return l;
+            const [frase, traducao = ""] = l.split("|").map((x) => x.trim());
+            return `${frase} | ${traducao} | envio:${caminho}`;
+          });
+          trocar(i, ["```pronuncia", ...novas, "```"].join("\n"));
+          setAviso("Gravação guardada. Ela vai para a pasta do site quando a aula for publicada.");
+        } catch (erro) {
+          setAviso(uploadMessages[erro instanceof UploadError ? erro.message : "envio"] ?? uploadMessages.envio);
+        }
+      };
+      gravador.start();
+      setGravando({ bloco: i, linha, gravador });
+      setTimeout(() => gravador.state === "recording" && gravador.stop(), 20_000);
+    } catch {
+      setAviso("O navegador não deixou usar o microfone.");
+    }
+  }
+
   async function enviarPdf(i: number, arquivo: File | undefined) {
     if (!arquivo) return;
     if (arquivo.type !== "application/pdf" && !/\.pdf$/i.test(arquivo.name)) {
@@ -126,16 +183,27 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
 
   const menuDeInsercao = (i: number) => (
     <div className="relative my-1 flex justify-center">
-      <button type="button" onClick={() => setMenu(menu === i ? null : i)} aria-expanded={menu === i} className="cursor-pointer border border-dashed border-rule px-3 py-0.5 font-sans text-xs text-ink-soft hover:border-oxblood hover:text-oxblood">
+      <button type="button" onClick={() => { setMenu(menu === i ? null : i); setBusca(""); }} aria-expanded={menu === i} className="cursor-pointer border border-dashed border-rule px-3 py-0.5 font-sans text-xs text-ink-soft hover:border-oxblood hover:text-oxblood">
         ＋ bloco
       </button>
       {menu === i && (
-        <div role="menu" className="absolute top-7 z-20 grid w-72 grid-cols-2 gap-1 border-2 border-ink bg-parchment p-2 font-sans text-xs shadow-lg">
-          {NO_MENU.filter((t) => upload || (t !== "anexo")).map((t) => (
-            <button key={t} type="button" role="menuitem" onClick={() => inserir(i, t)} className="cursor-pointer border border-rule px-2 py-1 text-left hover:border-oxblood">
-              {NOMES[t]}
-            </button>
-          ))}
+        <div role="menu" className="absolute top-7 z-20 max-h-96 w-80 overflow-y-auto border-2 border-ink bg-parchment p-2 font-sans text-xs shadow-lg">
+          <input autoFocus value={busca} onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => { if (e.key === "Escape") setMenu(null); }} placeholder="Procurar bloco…" aria-label="Procurar bloco" className="mb-2 w-full border border-rule bg-parchment-deep px-2 py-1" />
+          <div className="grid grid-cols-2 gap-1">
+            {NO_MENU.filter((t) => (upload || t !== "anexo") && casa(NOMES[t])).map((t) => (
+              <button key={t} type="button" role="menuitem" onClick={() => inserir(i, t)} className="cursor-pointer border border-rule px-2 py-1 text-left hover:border-oxblood">
+                {NOMES[t]}
+              </button>
+            ))}
+          </div>
+          <p className="mt-2 font-mono uppercase tracking-wider text-gold">Interativos</p>
+          <div className="mt-1 grid grid-cols-2 gap-1">
+            {INTERATIVOS.filter((k) => casa(MODELOS_INTERATIVOS[k].nome)).map((k) => (
+              <button key={k} type="button" role="menuitem" onClick={() => inserir(i, "interativo", ["```" + k, MODELOS_INTERATIVOS[k].modelo, "```"].join("\n"))} className="cursor-pointer border border-rule px-2 py-1 text-left hover:border-oxblood">
+                {MODELOS_INTERATIVOS[k].nome}
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </div>
@@ -151,12 +219,18 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
             rows={linhasDe(b.md, 3)}
             onChange={(e) => trocar(i, e.target.value)}
             onKeyDown={(e) => {
+              if (e.key === "/" && b.md.trim() === "") {
+                e.preventDefault();
+                setBusca("");
+                setMenu(i + 1);
+                return;
+              }
               if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
                 e.preventDefault();
                 inserir(i + 1, "paragrafo");
               }
             }}
-            placeholder="Escreva o parágrafo. **negrito**, *itálico* e [links](https://…) funcionam aqui. Ctrl+Enter abre outro parágrafo."
+            placeholder="Escreva o parágrafo. **negrito**, *itálico* e [links](https://…) funcionam aqui. Ctrl+Enter abre outro parágrafo; / num parágrafo vazio abre os blocos."
             className={`${campo} font-serif text-base`}
           />
         );
@@ -274,6 +348,33 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
           </div>
         );
       }
+      case "interativo": {
+        const lingua = (/^```\s*([\w-]*)/.exec(b.md)?.[1] ?? "") as TipoInterativo;
+        const dentro = miolo(b.md);
+        const info = eInterativo(lingua) ? MODELOS_INTERATIVOS[lingua] : null;
+        const frases = lingua === "pronuncia" ? dentro.split("\n").filter((l) => l.trim() && !/^(lingua|língua|idioma)\s*:/i.test(l.trim())) : [];
+        return (
+          <div className="space-y-2">
+            <div className="grid gap-2 lg:grid-cols-2">
+              <textarea value={dentro} rows={linhasDe(dentro, 5)} onChange={(e) => trocar(i, ["```" + lingua, e.target.value, "```"].join("\n"))} spellCheck={false} aria-label={`Dados do bloco ${info?.nome ?? lingua}`} className={`${campo} font-mono text-sm`} />
+              <div className="min-w-0 border border-rule bg-parchment p-2">
+                <p className="text-xs text-ink-soft">Prévia (funciona como na aula)</p>
+                {eInterativo(lingua) && <Interativo key={dentro} tipo={lingua} spec={dentro} />}
+              </div>
+            </div>
+            {info && <p className="text-xs text-ink-soft">{info.ajuda}</p>}
+            {upload && frases.length > 0 && (
+              <div className="flex flex-wrap gap-2 text-xs">
+                {frases.map((f, k) => (
+                  <button key={k} type="button" onClick={() => void gravar(i, k)} disabled={Boolean(gravando) && !(gravando?.bloco === i && gravando.linha === k)} className="cursor-pointer border border-ink px-2 py-1 hover:border-oxblood disabled:opacity-40">
+                    {gravando?.bloco === i && gravando.linha === k ? "■ Parar" : `🎙 Gravar: ${f.split("|")[0].trim().slice(0, 24)}`}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      }
       default:
         return <textarea value={b.md} rows={linhasDe(b.md, 3)} onChange={(e) => trocar(i, e.target.value)} spellCheck={false} className={`${campo} font-mono text-sm`} />;
     }
@@ -289,7 +390,7 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
           <div key={b.id}>
             <section
               data-bloco={i}
-              aria-label={`${NOMES[tipo]} (${i + 1} de ${blocos.length})`}
+              aria-label={`${nomeDoBloco(b.md, tipo)} (${i + 1} de ${blocos.length})`}
               onDragOver={(e) => { if (arrastando.current !== null) e.preventDefault(); }}
               onDrop={(e) => { e.preventDefault(); if (arrastando.current !== null) mover(arrastando.current, i); arrastando.current = null; }}
               className="border border-rule bg-parchment-deep p-2 focus-within:border-ink"
@@ -301,7 +402,7 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
                     {DE_TEXTO.map((t) => <option key={t} value={t}>{NOMES[t]}</option>)}
                   </select>
                 ) : (
-                  <span className="font-mono uppercase tracking-wider text-gold">{NOMES[tipo]}</span>
+                  <span className="font-mono uppercase tracking-wider text-gold">{nomeDoBloco(b.md, tipo)}</span>
                 )}
                 <span className="ml-auto flex gap-1">
                   <button type="button" aria-label="Subir o bloco" disabled={i === 0} onClick={() => mover(i, i - 1)} className="cursor-pointer border border-rule px-1.5 disabled:opacity-30">↑</button>

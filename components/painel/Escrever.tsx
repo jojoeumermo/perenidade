@@ -1,16 +1,18 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { areaSlugs, licenses } from "@/lib/areas";
 import { can, type Me, rpc } from "@/lib/backend";
 import { horaDoRascunho, useRascunho } from "@/lib/rascunho";
+import { getItem, parse, setItem } from "@/lib/storage";
 import tipos from "@/lib/tipos.json";
 import { cleanSources, MarkdownEditor, SourcesField, type EditorLabels, type SourceDraft, type SourceLabels } from "../Editor";
 import { useI18n } from "../I18n";
+import { Markdown } from "../Markdown";
 import { useTrackOptions } from "../useTrackOptions";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
-import { Aviso, botao, campo, elo, papeis, useAcao, useLista } from "./comum";
+import { Aviso, campo, elo, papeis, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
 import { FerramentasDoAutor } from "./FerramentasDoAutor";
 import { GuiaDaAula } from "./GuiaDaAula";
@@ -147,6 +149,8 @@ interface Rascunho {
   questoes: Questao[];
 }
 
+const rotuloPequeno = "block font-mono text-[0.7rem] uppercase tracking-widest text-ink-soft";
+const campoFino = "mt-1 w-full border border-rule bg-parchment px-3 py-2";
 const semFontes = (fontes: SourceDraft[]) => fontes.every((f) => !f.titulo.trim() && !f.autor.trim() && !f.url.trim());
 
 /** Formulário único para tudo o que entra no site. O que muda de um tipo para outro são os campos. */
@@ -166,6 +170,28 @@ export function Escrever({ me }: { me: Me }) {
   const [questoes, setQuestoes] = useState<Questao[]>([]);
   const [colegas, setColegas] = useState<PessoaAchada[]>([]);
   const { agir, aviso, setAviso, ocupado } = useAcao();
+  const [detalhes, setDetalhes] = useState(false);
+  const [lado, setLado] = useState(false);
+  const [foco, setFoco] = useState(false);
+  const [faixaDispensada, setFaixaDispensada] = useState(false);
+  const palavras = corpo.split(/\s+/).filter(Boolean).length;
+  // Modo foco: some o menu do painel e o guia, fica só a folha. Ctrl+Shift+F liga e desliga; Esc sai.
+  useEffect(() => {
+    document.documentElement.dataset.escritaFoco = foco ? "1" : "";
+    return () => {
+      document.documentElement.dataset.escritaFoco = "";
+    };
+  }, [foco]);
+  useEffect(() => {
+    const tecla = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "f") {
+        e.preventDefault();
+        setFoco((f) => !f);
+      } else if (e.key === "Escape") setFoco(false);
+    };
+    document.addEventListener("keydown", tecla);
+    return () => document.removeEventListener("keydown", tecla);
+  }, []);
   const membros = useLista<Membro[]>("equipe_membros", {}, { quieta: true });
 
   // O rascunho: no navegador e no banco, um por tipo de contribuição. Fechou, atualizou, trocou de aparelho: volta.
@@ -290,13 +316,13 @@ export function Escrever({ me }: { me: Me }) {
               const primeira = tracks.find((track) => track.area === e.target.value);
               trocarTrilha(primeira?.slug ?? "");
             }}
-            className={campo}
+            className={campoFino}
           >
             {areaSlugs.filter((area) => tracks.some((track) => track.area === area)).map((area) => (
               <option key={area} value={area}>{t.areas[area][0]}</option>
             ))}
           </select>
-          <select aria-label="Trilha" value={trilha?.slug ?? ""} onChange={(e) => trocarTrilha(e.target.value)} className={campo}>
+          <select aria-label="Trilha" value={trilha?.slug ?? ""} onChange={(e) => trocarTrilha(e.target.value)} className={campoFino}>
             {daArea.map((track) => (
               <option key={track.slug} value={track.slug}>
                 {track.title}{track.stage ? ` · ${track.stage === "medio" ? "médio" : track.stage === "superior" ? "superior" : "fundamental"}` : ""}
@@ -328,7 +354,7 @@ export function Escrever({ me }: { me: Me }) {
             const escolhida = trilha?.planned.find((item) => item.slug === e.target.value);
             if (escolhida) setTitulo(escolhida.title);
           }}
-          className={campo}
+          className={campoFino}
         >
           <option value="">Outro tema (entra no fim da trilha)</option>
           {trilha?.planned.map((item) => (
@@ -342,7 +368,7 @@ export function Escrever({ me }: { me: Me }) {
     if (c.tipo === "licenca" || c.tipo === "select") {
       const opcoes = c.tipo === "licenca" ? [...licenses] : (c.opcoes ?? []);
       return (
-        <select value={valor} onChange={(e) => mudar(c.nome, e.target.value)} className={campo}>
+        <select value={valor} onChange={(e) => mudar(c.nome, e.target.value)} className={campoFino}>
           <option value="">Escolha…</option>
           {opcoes.map((opcao) => (
             <option key={opcao}>{opcao}</option>
@@ -350,7 +376,7 @@ export function Escrever({ me }: { me: Me }) {
         </select>
       );
     }
-    if (c.tipo === "longo") return <textarea value={valor} onChange={(e) => mudar(c.nome, e.target.value)} maxLength={c.max} rows={4} className={campo} />;
+    if (c.tipo === "longo") return <textarea value={valor} onChange={(e) => mudar(c.nome, e.target.value)} maxLength={c.max} rows={4} className={campoFino} />;
     return (
       <input
         value={valor}
@@ -358,15 +384,15 @@ export function Escrever({ me }: { me: Me }) {
         maxLength={c.max ?? 300}
         type={c.tipo === "url" ? "url" : "text"}
         placeholder={c.tipo === "url" ? "https://…" : c.tipo === "caminho" ? "/trilhas/…" : ""}
-        className={`${campo} ${c.tipo === "url" || c.tipo === "caminho" ? "font-mono" : ""}`}
+        className={`${campoFino} ${c.tipo === "url" || c.tipo === "caminho" ? "font-mono" : ""}`}
       />
     );
   }
 
   const seletor = (
     <label className="block">
-      O que você quer publicar
-      <select value={id} onChange={(e) => setId(e.target.value as TipoId)} className={campo}>
+      <span className={rotuloPequeno}>O que você quer publicar</span>
+      <select value={id} onChange={(e) => setId(e.target.value as TipoId)} className={campoFino}>
         {disponiveis.map((tipoId) => (
           <option key={tipoId} value={tipoId}>
             {(tipos[tipoId] as Tipo).rotulo}
@@ -386,88 +412,148 @@ export function Escrever({ me }: { me: Me }) {
     );
   }
 
+  // As etapas: o que já está pronto para mandar, na ordem em que a pessoa trabalha.
+  const resumo = tipo.campos.find((c) => c.nome === "resumo");
+  const outrosCampos = tipo.campos.filter((c) => c.tipo !== "trilha" && c.tipo !== "plano" && c.nome !== "resumo");
+  const okTrilha = tipo.disciplina === "trilha" ? Boolean(trilha) : tipo.disciplina === "obrigatoria" ? Boolean(disciplina) : true;
+  const okTexto = titulo.trim().length >= 3 && corpo.trim().length >= tipo.corpo.min;
+  const okRevisar = okTexto && tipo.campos.every((c) => c.tipo === "trilha" || !c.obrigatorio || (valores[c.nome] ?? "").trim()) && (!tipo.fonte || cleanSources(fontes).length > 0);
+  const etapas: [string, boolean][] = [["Tipo", true], [tipo.disciplina === "trilha" ? "Trilha" : "Disciplina", okTrilha], ["Escrever", okTexto], ["Revisar", okRevisar], ["Enviar", false]];
+  const atual = etapas.findIndex(([, ok]) => !ok);
+  const aulaDoRoteiro = id === "aula" ? (valores.slug ? (trilha?.planned.find((item) => item.slug === valores.slug)?.title ?? trilha?.lessons?.find((l) => l.slug === valores.slug)?.title ?? valores.slug) : "Outro tema") : "";
+  const faixa = [tipo.rotulo, tipo.disciplina === "trilha" ? trilha?.title : nomeDaArea(disciplina), aulaDoRoteiro].filter(Boolean).join(" · ");
+  const detalhesVisiveis = detalhes || !okTrilha;
+
   const formulario = (
-    <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-      {seletor}
-      <p className="border-l-2 border-gold pl-4 text-ink-soft">{tipo.ajuda}</p>
-      {rascunho.restaurado && rascunho.salvoEm && (
-        <p className="flex flex-wrap items-center gap-x-4 gap-y-1 border border-rule bg-parchment-deep px-4 py-2 text-ink-soft">
-          <span>Recuperamos o rascunho guardado às {horaDoRascunho(rascunho.salvoEm)}. Continue de onde parou.</span>
+    <form className="space-y-5 pb-4" onSubmit={(e) => e.preventDefault()}>
+      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs" aria-label="Etapas">
+        {etapas.map(([nome, ok], i) => (
+          <li key={nome} className="flex items-center gap-2" aria-current={i === atual ? "step" : undefined}>
+            {i > 0 && <span aria-hidden className="text-ink-soft">→</span>}
+            <span className={ok ? "text-ok" : i === atual ? "font-semibold text-oxblood" : "text-ink-soft"}>{ok ? "✓ " : ""}{nome}</span>
+          </li>
+        ))}
+      </ol>
+
+      <div className="flex flex-wrap items-center justify-between gap-3 border-y border-rule py-2">
+        <button type="button" onClick={() => setDetalhes((d) => !d)} aria-expanded={detalhesVisiveis} className="cursor-pointer text-left hover:text-oxblood">
+          <span className={rotuloPequeno}>Detalhes</span> <span className="font-medium">{faixa}</span> <span aria-hidden className="text-ink-soft">{detalhesVisiveis ? "▴" : "▾"}</span>
+        </button>
+        <span className="flex items-center gap-3 font-mono text-xs text-ink-soft">
+          <span role="status">{rascunho.salvoEm ? `Salvo às ${horaDoRascunho(rascunho.salvoEm)}` : "Rascunho guardado sozinho"}</span>
+          <Versoes chave={`escrever:${id}`} titulo={titulo} corpo={corpo} restaurar={(v) => { setTitulo(v.titulo); setCorpo(v.corpo); }} />
+        </span>
+      </div>
+
+      {rascunho.restaurado && rascunho.salvoEm && !faixaDispensada && (
+        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-soft">
+          <span>Recuperamos o rascunho guardado às {horaDoRascunho(rascunho.salvoEm)}.</span>
           <button type="button" className={elo} onClick={() => { setTitulo(""); setCorpo(""); setFontes([{ titulo: "", autor: "", url: "" }]); setQuestoes([]); setValores({ trilha: valores.trilha }); rascunho.limpar(); }}>
             Descartar e começar do zero
           </button>
+          <button type="button" className={elo} aria-label="Fechar o aviso" onClick={() => setFaixaDispensada(true)}>✕</button>
         </p>
       )}
 
-      {tipo.campos
-        .filter((c) => c.tipo === "trilha" || c.tipo === "plano")
-        .map((c) => (
-          <label key={c.nome} className="block">
-            {c.rotulo}
-            {campoDe(c)}
-          </label>
-        ))}
-      {id === "temas" && trilha && (
-        <div className="border-l-2 border-rule pl-4">
-          <p>
-            Roteiro atual: <strong>{trilha.ready}</strong> {trilha.ready === 1 ? "aula pronta" : "aulas prontas"} de <strong>{trilha.ready + trilha.planned.length}</strong>.
-            {trilha.planned.length === 0 ? " A trilha está completa: os temas aprovados abrem a próxima etapa." : " Ainda em preparação:"}
-          </p>
-          {trilha.planned.length > 0 && (
-            <ul className="mt-1 list-disc pl-5 text-ink-soft">
-              {trilha.planned.map((item) => (
-                <li key={item.slug}>{item.title}</li>
-              ))}
-            </ul>
+      {detalhesVisiveis && (
+        <div className="space-y-4 border border-rule bg-parchment-deep p-4">
+          {seletor}
+          <p className="border-l-2 border-gold pl-3 text-sm text-ink-soft">{tipo.ajuda}</p>
+          {tipo.campos
+            .filter((c) => c.tipo === "trilha" || c.tipo === "plano")
+            .map((c) => (
+              <label key={c.nome} className="block">
+                <span className={rotuloPequeno}>{c.rotulo}</span>
+                {campoDe(c)}
+              </label>
+            ))}
+          {id === "temas" && trilha && (
+            <div className="border-l-2 border-rule pl-4">
+              <p>
+                Roteiro atual: <strong>{trilha.ready}</strong> {trilha.ready === 1 ? "aula pronta" : "aulas prontas"} de <strong>{trilha.ready + trilha.planned.length}</strong>.
+                {trilha.planned.length === 0 ? " A trilha está completa: os temas aprovados abrem a próxima etapa." : " Ainda em preparação:"}
+              </p>
+              {trilha.planned.length > 0 && (
+                <ul className="mt-1 list-disc pl-5 text-ink-soft">
+                  {trilha.planned.map((item) => (
+                    <li key={item.slug}>{item.title}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
           )}
+          {(tipo.disciplina === "obrigatoria" || tipo.disciplina === "opcional") && (
+            <label className="block">
+              <span className={rotuloPequeno}>Disciplina{tipo.disciplina === "opcional" ? " (opcional)" : ""}</span>
+              <select value={disciplina} onChange={(e) => setDisciplina(e.target.value)} className={campoFino}>
+                <option value="">Escolha…</option>
+                {areaSlugs.map((area) => (
+                  <option key={area} value={area}>
+                    {t.areas[area][0]}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
+          {okTrilha && <button type="button" className={elo} onClick={() => setDetalhes(false)}>Fechar os detalhes e escrever</button>}
         </div>
       )}
       {minhas.length > 0 && tipo.disciplina !== "nao" && alvo && !minhas.includes(alvo) && !can(me, "coordenacao", "curadoria") && (
-        <p className="text-ink-soft">
+        <p className="text-sm text-ink-soft">
           Esta disciplina não está entre as suas ({minhas.map((slug) => nomeDaArea(slug)).join(", ")}). O envio entra na fila como contribuição pública.
         </p>
       )}
 
-      {(tipo.disciplina === "obrigatoria" || tipo.disciplina === "opcional") && (
-        <label className="block">
-          Disciplina{tipo.disciplina === "opcional" ? " (opcional)" : ""}
-          <select value={disciplina} onChange={(e) => setDisciplina(e.target.value)} className={campo}>
-            <option value="">Escolha…</option>
-            {areaSlugs.map((area) => (
-              <option key={area} value={area}>
-                {t.areas[area][0]}
-              </option>
-            ))}
-          </select>
-        </label>
-      )}
-
-      <label className="block">
-        {tipo.titulo}
-        <input value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={160} className={campo} />
-      </label>
-
-      {tipo.campos
-        .filter((c) => c.tipo !== "trilha" && c.tipo !== "plano")
-        .map((c) => (
-          <label key={c.nome} className="block">
-            {c.rotulo}
-            {campoDe(c)}
-          </label>
-        ))}
-
-      <div>
-        <label htmlFor="painel-corpo">{tipo.corpo.rotulo}</label>
-        <div className="mt-1">
-          {tipo.corpo.editor ? (
-            <MarkdownEditor id="painel-corpo" value={corpo} onChange={setCorpo} labels={editorPt} upload={can(me, "coordenacao", "curadoria", "educacao", "jornalismo", "design")} blocos />
-          ) : (
-            <textarea id="painel-corpo" value={corpo} onChange={(e) => setCorpo(e.target.value)} rows={6} className="w-full border-2 border-ink bg-parchment-deep px-3 py-2" />
+      <div className={lado ? "grid gap-6 2xl:grid-cols-2" : ""}>
+        <div className="folha-de-escrita mx-auto w-full max-w-[680px] border border-rule bg-parchment px-5 py-7 shadow-sm sm:px-8">
+          <input
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
+            maxLength={160}
+            aria-label={tipo.titulo}
+            placeholder={tipo.titulo}
+            className="w-full border-b border-transparent bg-transparent font-serif text-3xl font-semibold leading-tight outline-none placeholder:text-ink-soft/50 focus:border-rule sm:text-4xl"
+          />
+          {resumo && (
+            <input
+              value={valores.resumo ?? ""}
+              onChange={(e) => mudar("resumo", e.target.value)}
+              maxLength={resumo.max ?? 200}
+              aria-label={resumo.rotulo}
+              placeholder={resumo.rotulo}
+              className="mt-2 w-full border-b border-transparent bg-transparent font-serif text-lg italic text-ink-soft outline-none placeholder:text-ink-soft/50 focus:border-rule"
+            />
           )}
+          {outrosCampos.length > 0 && (
+            <div className="mt-5 space-y-3 font-sans text-sm">
+              {outrosCampos.map((c) => (
+                <label key={c.nome} className="block">
+                  <span className={rotuloPequeno}>{c.rotulo}</span>
+                  {campoDe(c)}
+                </label>
+              ))}
+            </div>
+          )}
+          <div className="mt-6 font-serif text-[18px] leading-relaxed">
+            <span id="rotulo-corpo" className="sr-only">{tipo.corpo.rotulo}</span>
+            {tipo.corpo.editor ? (
+              <MarkdownEditor id="painel-corpo" value={corpo} onChange={setCorpo} labels={editorPt} upload={can(me, "coordenacao", "curadoria", "educacao", "jornalismo", "design")} blocos />
+            ) : (
+              <textarea id="painel-corpo" aria-labelledby="rotulo-corpo" value={corpo} onChange={(e) => setCorpo(e.target.value)} rows={8} placeholder={tipo.corpo.rotulo} className="w-full border border-rule bg-parchment-deep px-3 py-2" />
+            )}
+          </div>
+          <p className="mt-2 font-mono text-xs text-ink-soft">{palavras} {palavras === 1 ? "palavra" : "palavras"} · cerca de {Math.max(1, Math.round(palavras / 200))} min de leitura</p>
         </div>
-        <p className="mt-1 font-mono text-xs text-ink-soft">
-          {rascunho.salvoEm ? `Rascunho guardado às ${horaDoRascunho(rascunho.salvoEm)}, neste navegador e na sua conta.` : "O rascunho é guardado sozinho enquanto você escreve, neste navegador e na sua conta."}
-        </p>
+        {lado && (
+          <article className="mx-auto w-full max-w-[680px] border border-dashed border-rule bg-parchment-deep px-5 py-7 sm:px-8" aria-label="Pré-visualização">
+            <p className={rotuloPequeno}>Como fica na aula</p>
+            <h1 className="mt-2 font-serif text-3xl font-semibold">{titulo || tipo.titulo}</h1>
+            {valores.resumo && <p className="mt-2 font-serif text-lg italic text-ink-soft">{valores.resumo}</p>}
+            <div className="mt-6">
+              <Markdown lang="pt">{corpo || "*Nada para mostrar ainda.*"}</Markdown>
+            </div>
+          </article>
+        )}
       </div>
 
       {comQuestoes && tipo.corpo.editor && <FerramentasDoAutor key={trilha?.slug ?? ""} titulo={titulo} corpo={corpo} questoes={questoes.length} fontes={fontes.filter((f) => f.titulo.trim()).length} trilha={id === "aula" ? trilha : undefined} slug={valores.slug ?? ""} inserir={setCorpo} />}
@@ -503,14 +589,27 @@ export function Escrever({ me }: { me: Me }) {
       <p className="text-ink-soft">
         Você assina como <strong>{me.nome}</strong>. Tudo passa pela revisão antes de ir ao ar: outro educador da disciplina, a revisão ou a coordenação põe no ar.
       </p>
-      <button type="button" onClick={enviar} disabled={ocupado} className={botao}>
-        Enviar para revisão
-      </button>
       <Aviso texto={aviso} />
+
+      {/* A barra de ação fica presa no rodapé enquanto a pessoa escreve. */}
+      <div className="no-print sticky bottom-0 z-20 -mx-1 flex flex-wrap items-center gap-2 border-t-2 border-ink bg-parchment-deep/95 px-3 py-3 backdrop-blur">
+        <button type="button" className="cursor-pointer border border-ink px-4 py-2 text-sm font-medium hover:border-oxblood hover:text-oxblood" onClick={() => { guardarVersao(`escrever:${id}`, titulo, corpo, true); setAviso("Rascunho salvo neste navegador e na sua conta. Ele também fica na lista de versões."); }}>
+          Salvar rascunho
+        </button>
+        <button type="button" aria-pressed={lado} className="cursor-pointer border border-ink px-4 py-2 text-sm font-medium hover:border-oxblood hover:text-oxblood" onClick={() => setLado((l) => !l)}>
+          {lado ? "Esconder a prévia" : "Pré-visualizar ao lado"}
+        </button>
+        <button type="button" aria-pressed={foco} title="Ctrl+Shift+F" className="cursor-pointer border border-ink px-4 py-2 text-sm font-medium hover:border-oxblood hover:text-oxblood" onClick={() => setFoco((f) => !f)}>
+          {foco ? "Sair do modo foco" : "Modo foco"}
+        </button>
+        <button type="button" onClick={enviar} disabled={ocupado} className="ml-auto cursor-pointer bg-oxblood px-6 py-2.5 font-semibold text-parchment hover:bg-ink disabled:cursor-not-allowed disabled:opacity-50">
+          Enviar para revisão
+        </button>
+      </div>
     </form>
   );
 
-  if (!comQuestoes) return formulario;
+  if (!comQuestoes || foco) return <div className={foco ? "mx-auto max-w-5xl" : ""}>{formulario}</div>;
   return (
     <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_20rem]">
       {formulario}
@@ -518,5 +617,63 @@ export function Escrever({ me }: { me: Me }) {
         <GuiaDaAula trilha={id === "aula" ? trilha : undefined} slug={valores.slug ?? ""} titulo={titulo} nomeDaArea={nomeDaArea(alvo)} tipo={id} temTexto={corpo.trim().length > 0} inserir={(texto) => setCorpo(texto)} comecarQuestoes={comQuestoes ? () => setQuestoes((q) => (q.length ? q : [questaoVazia(), questaoVazia(), questaoVazia()])) : undefined} />
       </div>
     </div>
+  );
+}
+
+// ───────────── Versões do rascunho ─────────────
+
+interface Versao {
+  em: number;
+  titulo: string;
+  corpo: string;
+}
+const chaveDasVersoes = (chave: string) => `lucia:versoes:${chave}`;
+const lerVersoes = (chave: string) => parse<Versao[]>(getItem(chaveDasVersoes(chave)), []);
+
+/** Guarda uma foto do texto no navegador (até quinze, as mais novas primeiro). Sozinha, no máximo a cada três minutos. */
+export function guardarVersao(chave: string, titulo: string, corpo: string, agora = false) {
+  if (!corpo.trim() && !titulo.trim()) return;
+  const lista = lerVersoes(chave);
+  const ultima = lista[0];
+  if (ultima && ultima.corpo === corpo && ultima.titulo === titulo) return;
+  if (!agora && ultima && Date.now() - ultima.em < 3 * 60 * 1000) return;
+  setItem(chaveDasVersoes(chave), JSON.stringify([{ em: Date.now(), titulo, corpo }, ...lista].slice(0, 15)));
+}
+
+function Versoes({ chave, titulo, corpo, restaurar }: { chave: string; titulo: string; corpo: string; restaurar: (v: Versao) => void }) {
+  const [aberto, setAberto] = useState(false);
+  const [lista, setLista] = useState<Versao[]>([]);
+  // A foto automática: alguns segundos depois de a pessoa parar de escrever.
+  useEffect(() => {
+    const espera = setTimeout(() => guardarVersao(chave, titulo, corpo), 5000);
+    return () => clearTimeout(espera);
+  }, [chave, titulo, corpo]);
+  return (
+    <span className="relative">
+      <button type="button" className="cursor-pointer underline hover:text-oxblood" aria-expanded={aberto} onClick={() => { setLista(lerVersoes(chave)); setAberto((a) => !a); }}>
+        Versões
+      </button>
+      {aberto && (
+        <div className="absolute right-0 top-6 z-30 w-72 border-2 border-ink bg-parchment p-2 font-sans text-xs shadow-lg">
+          {lista.length === 0 ? (
+            <p className="text-ink-soft">Ainda não há versões guardadas. Elas aparecem enquanto você escreve.</p>
+          ) : (
+            <ul className="max-h-72 space-y-1 overflow-y-auto">
+              {lista.map((v) => (
+                <li key={v.em} className="flex items-center justify-between gap-2 border-b border-rule py-1">
+                  <span>
+                    {new Date(v.em).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
+                    <span className="block text-ink-soft">{v.titulo || "(sem título)"} · {v.corpo.split(/\s+/).filter(Boolean).length} palavras</span>
+                  </span>
+                  <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => { if (window.confirm("Trocar o texto atual por esta versão? O texto atual fica guardado na lista.")) { guardarVersao(chave, titulo, corpo, true); restaurar(v); setAberto(false); } }}>
+                    Voltar a esta
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+    </span>
   );
 }
