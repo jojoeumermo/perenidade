@@ -666,7 +666,17 @@
     "planEnds": "At this pace, you will finish on {date}.",
     "planDownload": "Download for your calendar (.ics)",
     "planEmpty": "There are no pending lessons to plan.",
-    "planNone": "Choose at least one day."
+    "planNone": "Choose at least one day.",
+    "studyInNotebook": "Study the whole track in the notebook",
+    "studyGroup": "Study in a group",
+    "badge": "Track completed",
+    "certLead": "You have finished every ready lesson in this track. If you like, generate the certificate of participation: it has a number anyone can check on the site.",
+    "certName": "Your name, as it should appear",
+    "certIssue": "Generate the certificate",
+    "certFailed": "Could not generate it right now. Try again in a few minutes.",
+    "certTitle": "Certificate of participation",
+    "certText": "Instituto Lúcia certifies that {nome} studied the {n} lessons of the track “{trilha}” at the institute's free people's school.",
+    "certCode": "Verification number: {c}"
   },
   "lesson": {
     "position": "lesson {i} of {n}",
@@ -701,7 +711,8 @@
     "videoNote": "The video is hosted on another site. Once loaded, that site can see your visit.",
     "videoOpen": "Open the video in another tab",
     "imagePending": "image awaiting publication",
-    "toMistakes": "Missed questions go to your mistakes notebook."
+    "toMistakes": "Missed questions go to your mistakes notebook.",
+    "studyInNotebook": "Study this lesson in the notebook"
   },
   "library": {
     "areasTitle": "Areas",
@@ -2274,7 +2285,9 @@
           "It says what for (purpose) and adds a further detail.",
           "The proposal respects human rights."
         ]
-      ]
+      ],
+      "askCorrection": "Ask a volunteer to correct it",
+      "askCorrectionNote": "Want comments from a person? The text goes to Tutoring, and a volunteer replies by e-mail with notes on the five competencies (no score). It only leaves your device when you confirm."
     },
     "syllables": {
       "help": "Tap a syllable to hear it. Tap several, one after the other, to build a word, and hear the whole word. The syllables are in Portuguese.",
@@ -3385,7 +3398,10 @@
     "activities": "Activities",
     "issued": "Issued on",
     "witnesses": "Signed by",
-    "offline": "Verification is not active on this copy of the site yet."
+    "offline": "Verification is not active on this copy of the site yet.",
+    "student": "Certificate of participation for a learner, issued by Instituto Lúcia.",
+    "track": "Track",
+    "lessons": "Lessons"
   },
   "start": {
     "eyebrow": "Reading list",
@@ -4006,7 +4022,12 @@
     "backupInvalid": "This file is not a notebook backup.",
     "backupConfirm": "Restore the backup? Notebooks, cards and mistakes are merged with the ones already here; everything else is replaced by the backup.",
     "nextTomorrow": "back tomorrow",
-    "exportAnki": "Download for Anki (.csv)"
+    "exportAnki": "Download for Anki (.csv)",
+    "readyTitle": "Ready-made notebooks",
+    "readyLead": "Put together by volunteers, by track or topic. Using one makes your own copy on this device.",
+    "readyUse": "Use this notebook",
+    "readySources": "{n} source(s)",
+    "building": "Building the notebook with the lessons…"
   },
   "practiceStudio": {
     "inside": "Open here",
@@ -4220,5 +4241,24 @@
     "clear": "Clear",
     "download": "Download the drawing",
     "open": "Open"
+  },
+  "studyGroup": {
+    "eyebrow": "Study together",
+    "title": "Group study room",
+    "lead": "Open a room, send the link to your group and study together, with video and the same focus timer for everyone.",
+    "focusMinutes": "Focus minutes",
+    "breakMinutes": "Break minutes",
+    "create": "Open a room",
+    "note": "The timer travels in the link itself: whoever opens it sees the same phase and time, with no sign-up.",
+    "phaseFocus": "Focus",
+    "phaseBreak": "Break",
+    "cycle": "{f} min focus, {p} min break · round {n}",
+    "roomLink": "Send this link to whoever is studying with you:",
+    "copy": "Copy the link",
+    "copied": "Link copied ✓",
+    "yourName": "Your name in the room",
+    "join": "Join the video room",
+    "someone": "Learner",
+    "privacy": "The video goes through the video-call server set up by the institute (Jitsi). Nothing is recorded."
   }
 }
