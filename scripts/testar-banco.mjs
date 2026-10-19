@@ -1124,6 +1124,17 @@ await espera("mensagem atribuída a outra pessoa no banco não abre", async () =
   await dono("update interno.conversa_mensagens set autor = $1 where id = $2", [ids.prof, id]);
   return resultado;
 }, (r) => r === null);
+// Aviso por e-mail das mensagens importantes não lidas: só as da coordenação e dos grupos de departamento, sem o conteúdo.
+await espera("mensagem da coordenação não lida há mais de 15 minutos vira um e-mail de resumo, sem o texto", async () => {
+  const id = aberta.mensagens[0].id;
+  await dono("update interno.conversa_mensagens set autor = $1, criado_em = now() - interval '20 minutes' where id = $2", [ids.coord, id]);
+  await dono("update interno.conversa_membros set lido_em = now() - interval '1 hour', avisado_em = null where conversa = $1 and usuario = $2", [privada, ids.designer]);
+  await dono("select interno.chat_emails()");
+  await dono("select interno.chat_emails()");
+  const r = await dono("select e.assunto, e.texto from interno.emails e join auth.users u on lower(u.email) = e.para where u.id = $1 and e.tipo = 'chat_mensagem'", [ids.designer]);
+  await dono("update interno.conversa_mensagens set autor = $1 where id = $2", [ids.prof, id]);
+  return r.rows;
+}, (r) => r.length === 1 && r[0].assunto.includes("1 mensagem nova") && r[0].texto.includes("Conversa com") && !r[0].texto.includes("Tudo certo para amanhã") && !r[0].texto.includes("c2."));
 await recusa("a coordenação não lê conversa privada dos outros", () => rpc(como(ids.coord), "chat_ver", { p_id: privada }), "nao_encontrado");
 await recusa("nem pega as chaves dela", () => rpc(como(ids.coord), "chat_chaves", { p_conversa: privada, p_aparelho: aparelhos.coord.id }), "nao_encontrado");
 await espera("nenhuma chave da conversa privada foi embrulhada para aparelho de fora", () => dono("select count(*)::int as n from interno.chat_chaves k join interno.chat_aparelhos a on a.id = k.para where k.conversa = $1 and a.usuario not in ($2, $3)", [privada, ids.prof, ids.designer]), (r) => r.rows[0].n === 0);

@@ -436,6 +436,7 @@ const NOMES_DOS_EMAILS: Record<string, string> = {
   aviso_equipe: "Avisos da equipe (mandados pela coordenação e pela supervisão)",
   inscricao_nova: "Novos pedidos de voluntariado (para quem decide)",
   certificado_pedido: "Pedidos de certificado (para quem emite)",
+  chat_mensagem: "Mensagens da coordenação e do grupo do seu departamento que você ainda não leu",
 };
 
 function Privacidade({ me, recarregar, sair, avisosETrava }: { me: Me; recarregar: () => void; sair: () => void; avisosETrava?: ReactNode }) {
