@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Estúdio — Instituto Lúcia</title>
+<style>
+  :root { color-scheme: light dark; --papel: #f4ecd8; --tinta: #1f1a14; --bordo: #6e1f1a; --fio: #cdbb91; }
+  @media (prefers-color-scheme: dark) { :root { --papel: #17130e; --tinta: #f4ecd8; --bordo: #d4372b; --fio: #5a4e3c; } }
+  body { margin: 0; background: var(--papel); color: var(--tinta); font: 17px/1.55 Georgia, "Times New Roman", serif; }
+  main { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1rem 4rem; }
+  h1 { font: 900 italic 2.4rem/1 system-ui, sans-serif; text-transform: uppercase; margin: 0 0 .5rem; }
+  h2 { margin: 2rem 0 .3rem; font-size: 1.4rem; }
+  a { color: var(--bordo); }
+  .cartao { border: 2px solid var(--tinta); padding: 1rem 1.2rem; margin-top: 1rem; }
+  .aviso { border-left: 4px solid var(--bordo); padding-left: .8rem; }
+  small, .mono { font-family: ui-monospace, "IBM Plex Mono", monospace; font-size: .8rem; }
+</style>
+</head>
+<body>
+<main>
+  <p class="mono">institutolucia.org · estúdio</p>
+  <h1>Estúdio</h1>
+  <p>Programas de código aberto para praticar edição de imagem e de vídeo, hospedados pelo Instituto Lúcia <strong>sem modificação</strong>, num endereço separado do site e do painel (eles não têm acesso a contas, sessões ou dados do instituto).</p>
+  <p class="aviso">Fase de testes (alfa): podem ter falhas e são para praticar. Tudo o que você faz fica só no navegador deste aparelho: exporte o resultado e guarde o arquivo do projeto para não perder trabalho.</p>
+
+  <div class="cartao">
+    <h2>PhotoCraft</h2>
+    <p>Editor de imagens no estilo do Photoshop. <a href="./photocraft/">Abrir o PhotoCraft</a> (cerca de 11 MB na primeira vez).</p>
+    <p><small>Código: <a href="https://github.com/storytold/photocraft">github.com/storytold/photocraft</a> · Licença MIT ou Apache-2.0 · Feito pelo time e pela comunidade ArtCraft (<a href="https://getartcraft.com">getartcraft.com</a>).</small></p>
+  </div>
+  <div class="cartao">
+    <h2>FilmCraft</h2>
+    <p>Editor de vídeo não linear no estilo do Premiere, com perfil de atalhos do Premiere Pro. <a href="./filmcraft/">Abrir o FilmCraft</a>.</p>
+    <p><small>Código: <a href="https://github.com/storytold/filmcraft">github.com/storytold/filmcraft</a> · Licença Apache-2.0 · Projeto ArtCraft.</small></p>
+  </div>
+  <div class="cartao">
+    <h2>EffectCraft</h2>
+    <p>Animação, motion graphics e composição no estilo do After Effects. <a href="./effectcraft/">Abrir o EffectCraft</a>.</p>
+    <p><small>Código: <a href="https://github.com/storytold/effectcraft">github.com/storytold/effectcraft</a> · Licença Apache-2.0 · Projeto ArtCraft.</small></p>
+  </div>
+
+  <h2>Créditos e avisos</h2>
+  <p>PhotoCraft, FilmCraft e EffectCraft são feitos pelo time e pela comunidade ArtCraft. O nome e a marca ArtCraft pertencem ao time ArtCraft e aparecem aqui só para dizer quem faz os programas. Os programas incluem material de terceiros com as próprias licenças, listado no arquivo NOTICE de cada projeto.</p>
+  <p>Nenhum destes programas é produto da Adobe nem é afiliado a ela. Photoshop, Premiere Pro e After Effects são marcas da Adobe; os nomes aparecem só para dizer com o que os programas se parecem.</p>
+  <p>Não abrem arquivos .prproj nem .aep e não aceitam plugins. O FilmCraft importa e exporta XML e OpenTimelineIO, o que ajuda a levar o trabalho para o Premiere.</p>
+  <p><a href="https://institutolucia.org/pt">Voltar ao Instituto Lúcia</a></p>
+</main>
+</body>
+</html>

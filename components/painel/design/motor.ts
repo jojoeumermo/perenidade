@@ -536,3 +536,124 @@ export const nomeDeArquivo = (titulo: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "")
     .slice(0, 60) || "arte";
+
+// ───── Outros formatos e o editor avançado ─────
+
+/**
+ * A mesma arte noutro formato (post, story, quadrado). Para um formato mais baixo, posições e tamanhos encolhem juntos
+ * (nada se sobrepõe); para um mais alto, as camadas mantêm o tamanho e se espalham na mesma altura relativa. O que
+ * ocupa a página inteira acompanha a página. Os textos refazem as linhas.
+ */
+export function adaptar(doc: Documento, w: number, h: number): Documento {
+  const s = w / doc.w;
+  const ry = h / doc.h;
+  const k = Math.min(s, ry);
+  const camadas = doc.camadas.map((c) => {
+    const cheiaV = c.h >= doc.h * 0.85;
+    const cheiaH = c.w >= doc.w * 0.9;
+    let nova: Camada;
+    if (cheiaV) nova = { ...c, x: c.x * s, y: c.y * ry, w: c.w * s, h: c.h * ry } as Camada;
+    else if (ry < s) {
+      // Mais baixo: tudo encolhe na mesma proporção; a largura do texto continua a da coluna.
+      const largura = c.tipo === "texto" || cheiaH ? c.w * s : c.w * k;
+      const x = c.tipo === "texto" || cheiaH ? c.x * s : c.x * s + (c.w * s - largura) / 2;
+      nova = { ...c, x, y: c.y * ry, w: largura, h: c.h * k } as Camada;
+    } else {
+      // Mais alto: mesmo tamanho, centro na mesma altura relativa.
+      const altura = c.h * s;
+      const y = Math.min(Math.max(0, (c.y + c.h / 2) * ry - altura / 2), Math.max(0, h - altura));
+      nova = { ...c, x: c.x * s, y, w: c.w * s, h: altura } as Camada;
+    }
+    const escalaDoTexto = ry < s && !cheiaV ? k : s;
+    if (nova.tipo === "texto") {
+      nova.tamanho = nova.tamanho * escalaDoTexto;
+      nova.recuo = nova.recuo * escalaDoTexto;
+      nova.h = alturaDoTexto(nova);
+    }
+    if ("espessura" in nova) nova.espessura = nova.espessura * escalaDoTexto;
+    return nova;
+  });
+  return { ...doc, w, h, fundo: { ...doc.fundo, espessura: doc.fundo.espessura * k }, camadas };
+}
+
+/** Uma camada sozinha, sobre fundo transparente, no tamanho real do documento (para virar camada do PSD). */
+function telaDaCamada(doc: Documento, c: Camada): HTMLCanvasElement {
+  const tela = document.createElement("canvas");
+  tela.width = doc.w;
+  tela.height = doc.h;
+  const ctx = tela.getContext("2d");
+  if (ctx) desenharCamada(ctx, c, doc.w / 100);
+  return tela;
+}
+
+/** O fundo (cor e trama de pontinhos) e os fios de cima e de baixo, como camadas próprias. */
+function telaDoFundo(doc: Documento, fios: boolean): HTMLCanvasElement {
+  const tela = document.createElement("canvas");
+  tela.width = doc.w;
+  tela.height = doc.h;
+  const ctx = tela.getContext("2d");
+  if (!ctx) return tela;
+  if (!fios) {
+    desenhar(tela, { ...doc, camadas: [], fundo: { ...doc.fundo, espessura: 0 } }, 1);
+    return tela;
+  }
+  if (doc.fundo.bordaCima) {
+    ctx.fillStyle = doc.fundo.bordaCima;
+    ctx.fillRect(0, 0, doc.w, doc.fundo.espessura);
+  }
+  if (doc.fundo.bordaBaixo) {
+    ctx.fillStyle = doc.fundo.bordaBaixo;
+    ctx.fillRect(0, doc.h - doc.fundo.espessura, doc.w, doc.fundo.espessura);
+  }
+  return tela;
+}
+
+const hex = (cor: string) => {
+  const m = /^#([0-9a-f]{6})$/i.exec(cor);
+  const n = m ? parseInt(m[1], 16) : 0;
+  return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+};
+
+/** O nome PostScript das fontes livres do instituto (EB Garamond, Inter e IBM Plex Mono, todas com licença OFL). */
+function nomePostScript(c: CamadaTexto): string {
+  const nome = (familia: string, peso: string) => (peso === "Regular" ? `${familia}-${c.italico ? "Italic" : "Regular"}` : `${familia}-${peso}${c.italico ? "Italic" : ""}`);
+  if (c.fonte === "mono") return nome("IBMPlexMono", c.peso >= 600 ? "SemiBold" : c.peso >= 500 ? "Medium" : "Regular");
+  const pesos: Record<number, string> = { 400: "Regular", 500: "Medium", 600: "SemiBold", 700: "Bold", 800: "ExtraBold", 900: "Black" };
+  if (c.fonte === "sans") return nome("Inter", pesos[c.peso] ?? "Regular");
+  return nome("EBGaramond", c.peso >= 800 ? "ExtraBold" : (pesos[c.peso] ?? "Regular"));
+}
+
+export const nomeDaCamada = (c: Camada) =>
+  (c.nome || (c.tipo === "texto" ? c.texto.split("\n")[0].slice(0, 40) || "Texto" : c.tipo === "imagem" ? "Imagem" : c.tipo === "marca" ? "Marca" : c.tipo)).slice(0, 60);
+
+/**
+ * A arte como PSD, para abrir no editor avançado: uma camada por camada do estúdio, com nome, posição, opacidade e a
+ * visibilidade. Cada camada vai desenhada (o que garante o visual em qualquer editor) e os textos levam também o texto
+ * editável, a fonte, o tamanho e a cor. Efeitos que só o estúdio sabe fazer (filtros de imagem, a tarja atrás do
+ * texto) chegam já desenhados, sem ser editáveis.
+ */
+export async function paraPsd(doc: Documento): Promise<Blob> {
+  await Promise.all(doc.camadas.filter((c): c is CamadaImagem => c.tipo === "imagem").map((c) => carregarImagem(c.src).catch(() => null)));
+  const { writePsd } = await import("ag-psd");
+  type CamadaPsd = NonNullable<Parameters<typeof writePsd>[0]["children"]>[number];
+  const filhos: CamadaPsd[] = [{ name: "Fundo", left: 0, top: 0, canvas: telaDoFundo(doc, false) }];
+  for (const c of doc.camadas) {
+    const camada: CamadaPsd = { name: nomeDaCamada(c), left: 0, top: 0, canvas: telaDaCamada(doc, c), opacity: c.opacidade, hidden: Boolean(c.oculta) };
+    if (c.tipo === "texto" && !c.fundo && c.rot === 0) {
+      const alinhamento = c.alinhar === "center" ? "center" : c.alinhar === "right" ? "right" : "left";
+      const x = c.alinhar === "center" ? c.x + c.w / 2 : c.alinhar === "right" ? c.x + c.w - c.recuo : c.x + c.recuo;
+      camada.text = {
+        text: (c.maiusculas ? c.texto.toUpperCase() : c.texto).replace(/\n/g, "\r"),
+        transform: [1, 0, 0, 1, x, c.y + c.recuo + c.tamanho * 0.8],
+        style: { font: { name: nomePostScript(c) }, fontSize: c.tamanho, leading: c.tamanho * c.entrelinha, tracking: Math.round(c.espacamento * 1000), fillColor: hex(c.cor) },
+        paragraphStyle: { justification: alinhamento },
+      };
+    }
+    filhos.push(camada);
+  }
+  if (doc.fundo.espessura > 0 && (doc.fundo.bordaCima || doc.fundo.bordaBaixo)) filhos.push({ name: "Fios", left: 0, top: 0, canvas: telaDoFundo(doc, true) });
+  const composta = document.createElement("canvas");
+  desenhar(composta, doc, 1);
+  const dados = writePsd({ width: doc.w, height: doc.h, children: filhos, canvas: composta }, { generateThumbnail: true, invalidateTextLayers: true });
+  return new Blob([dados], { type: "image/vnd.adobe.photoshop" });
+}
