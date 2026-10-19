@@ -109,7 +109,7 @@
     "escritorioTab": "Elige el programa",
     "escritorioLocal": "Todo queda solo en el navegador de este dispositivo: guarda el archivo al terminar.",
     "seguranca": "Laboratorio de Seguridad",
-    "segurancaLead": "Phishing, logs e senhas num ambiente só de treino: a defesa de cada ataque.",
+    "segurancaLead": "Un Kali Linux de entrenamiento en el navegador: un Linux real aislado, con herramientas de seguridad recreadas para aprender — todo ficticio, más los desafíos de defensa.",
     "simulacoes": "Simulaciones (PhET)",
     "simulacoesLead": "Física, química, biologia e matemática, pelo iframe oficial do PhET.",
     "creditos": "Créditos y licencias",
@@ -117,7 +117,13 @@
     "livre": "Modo libre",
     "concluido": "hecho",
     "voltar": "Volver a los laboratorios",
-    "ptOnly": "Los ejercicios están en portugués."
+    "ptOnly": "Los ejercicios están en portugués.",
+    "segurancaKaliIntro": "Es un entorno de entrenamiento, en el espíritu del hacking ético: estudiar el ataque para saber defender. El escritorio imita Kali Linux y ejecuta un Linux real (aislado, sin red hacia el mundo real). Las herramientas — Nmap, Wireshark, Burp, sqlmap y otras — son recreaciones didácticas: la salida es ficticia y ninguna toca un sistema real. Atacar un sistema sin autorización por escrito es delito.",
+    "segurancaKaliAbrir": "Abrir el laboratorio",
+    "segurancaKaliAviso": "Al abrir, el navegador descarga unos 8 MB (el emulador y una imagen pequeña de Linux) y arranca el sistema — tarda unos segundos. Mejor en una computadora, con Chrome, Edge o Firefox actualizados.",
+    "segurancaKaliTelaCheia": "Pantalla completa",
+    "segurancaKaliDefesa": "Entrenamiento de defensa: reconocer el ataque",
+    "segurancaKaliForaDoAr": "El laboratorio aún no está disponible en la dirección del instituto."
   },
   "lists": {
     "bankEyebrow": "Para practicar",
