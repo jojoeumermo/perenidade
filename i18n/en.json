@@ -2576,6 +2576,30 @@
       "hideTranscript": "Hide the transcript",
       "keys": "Shortcuts: space plays and pauses, arrows move 5 seconds, < and > change the speed, M mutes, C turns captions on, F full screen.",
       "error": "This video cannot be played right now."
+    },
+    "comments": {
+      "title": "Comments",
+      "live": "New comments appear on their own, without reloading the page.",
+      "placeholder": "Comment, ask, or help someone who is studying…",
+      "send": "Comment",
+      "rules": "The Community rules apply: respect, no hate, no personal data. Anything doubtful waits for moderation.",
+      "signIn": "Sign in to comment",
+      "signUp": "Create an account",
+      "reply": "Reply",
+      "replyingTo": "Replying to {nome}",
+      "cancel": "Cancel",
+      "held": "Comment received. It appears for everyone after moderation reads it.",
+      "pending": "awaiting moderation",
+      "remove": "Remove",
+      "removeConfirm": "Remove this comment?",
+      "empty": "No comments yet. Start the conversation.",
+      "badges": {
+        "coordenacao": "Coordination",
+        "educacao": "Education",
+        "mentoria": "Mentoring",
+        "mediacao": "Moderation",
+        "equipe": "Team"
+      }
     }
   },
   "more": {
@@ -3630,7 +3654,9 @@
     "inRoom": "{n} in the room",
     "teacher": "teaching",
     "mediaFailed": "Couldn't turn on the camera, screen or microphone. Check the browser permission.",
-    "recordFailed": "This browser can't record video."
+    "recordFailed": "This browser can't record video.",
+    "chatHeld": "Your message was received and appears for everyone after moderation reads it.",
+    "chatPending": "awaiting moderation"
   },
   "notebook": {
     "eyebrow": "Study room",

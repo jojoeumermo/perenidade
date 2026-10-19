@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { fill, htmlLang } from "@/i18n/config";
 import { errorText } from "@/i18n/core";
 import { type Aula, type Fala, faixaPreta, Transmissao } from "@/lib/aovivo";
-import { BackendError, hasBackend, rpc, useMe } from "@/lib/backend";
+import { BackendError, evaluatePost, hasBackend, rpc, useMe } from "@/lib/backend";
 import { type Presente, Sala, temTempoReal, transmitir, useSinal } from "@/lib/tempo-real";
 import { salaJitsiDe } from "@/lib/jitsi";
 import { safeLink } from "@/lib/text";
@@ -90,10 +90,14 @@ function Conversa({ aula, s, conduzo }: { aula: Aula; s: LiveStrings; conduzo: b
     setOcupado(true);
     setAviso("");
     try {
-      await rpc("aula_chat_enviar", { p_aula: aula.id, p_corpo: limpo, p_tipo: tipo });
+      const r = await rpc<{ id: string; retido?: boolean; avaliando?: boolean }>("aula_chat_enviar", { p_aula: aula.id, p_corpo: limpo, p_tipo: tipo });
+      // Com a segunda avaliação ligada, a fala espera por ela (alguns segundos); em dúvida, vai para a mediação.
+      const veredito = r.avaliando ? await evaluatePost("aula_chat", r.id) : "";
       setTexto("");
-      transmitir("aula_chat_enviar", aula.id);
-      await buscar();
+      if (veredito === "bloquear") setAviso(errorText(t, "conteudo_recusado"));
+      else if (r.retido && veredito !== "publicar") setAviso(s.chatHeld);
+      else transmitir("aula_chat_enviar", aula.id);
+      await buscar(true);
     } catch (erro) {
       setAviso(errorText(t, erro instanceof BackendError ? erro.code : "falha"));
     } finally {
@@ -124,6 +128,7 @@ function Conversa({ aula, s, conduzo }: { aula: Aula; s: LiveStrings; conduzo: b
               <p className="text-xs">
                 <strong>{fala.nome || "—"}</strong> <span className="text-ink-soft">{hora.format(new Date(fala.criado_em))}</span>
                 {fala.tipo === "pergunta" && <span className="ml-1 bg-gold px-1 font-mono text-[0.6rem] uppercase text-ink">{s.question}</span>}
+                {fala.retido && <span className="ml-1 border border-oxblood px-1 font-mono text-[0.6rem] uppercase text-oxblood">{s.chatPending}</span>}
                 {(conduzo || (me.status === "in" && me.me.id === fala.autor)) && (
                   <button type="button" className="ml-2 cursor-pointer text-ink-soft underline hover:text-oxblood" onClick={() => void esconder(fala)}>{fala.oculta ? s.show : s.hide}</button>
                 )}
