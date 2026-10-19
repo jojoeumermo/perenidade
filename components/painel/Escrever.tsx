@@ -371,7 +371,7 @@ export function Escrever({ me }: { me: Me }) {
         <select value={valor} onChange={(e) => mudar(c.nome, e.target.value)} className={campoFino}>
           <option value="">Escolha…</option>
           {opcoes.map((opcao) => (
-            <option key={opcao}>{opcao}</option>
+            <option key={opcao} value={opcao}>{opcao}</option>
           ))}
         </select>
       );

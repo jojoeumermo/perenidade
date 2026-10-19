@@ -39,6 +39,8 @@ interface Modelo {
   ordem: number[];
   /** O maior trecho fixo da frase: só se testa a regra quando ele aparece no texto. */
   pista: string;
+  /** Quantas letras fixas a frase tem: no empate de pista, ganha a mais específica. */
+  fixo: number;
 }
 
 /** Monta o tradutor de um dicionário: frases inteiras por busca direta, modelos com {n} por expressão regular. */
@@ -53,10 +55,16 @@ function tradutor(dicionario: Dicionario) {
     const partes = pt.split(/\{\d+\}/);
     const ordem = [...pt.matchAll(/\{(\d+)\}/g)].map((achado) => Number(achado[1]));
     const fonte = partes.map(escapar).join("([\\s\\S]+?)");
-    modelos.push({ regra: new RegExp(`^${fonte}$`), alvo, ordem, pista: partes.reduce((maior, parte) => (parte.trim().length > maior.length ? parte.trim() : maior), "") });
+    modelos.push({
+      regra: new RegExp(`^${fonte}$`),
+      alvo,
+      ordem,
+      pista: partes.reduce((maior, parte) => (parte.trim().length > maior.length ? parte.trim() : maior), ""),
+      fixo: partes.join("").length,
+    });
   }
-  // Os modelos mais específicos primeiro.
-  modelos.sort((a, b) => b.pista.length - a.pista.length);
+  // Os modelos mais específicos primeiro ("Alternativa {0} é a certa" antes de "Alternativa {0} certa").
+  modelos.sort((a, b) => b.pista.length - a.pista.length || b.fixo - a.fixo);
 
   const nucleo = (texto: string): string | null => {
     const direto = exatos.get(texto);
