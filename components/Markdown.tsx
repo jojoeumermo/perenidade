@@ -7,6 +7,8 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import "katex/dist/katex.min.css";
 import { localePath } from "@/i18n/config";
+import { eInterativo } from "@/lib/interativos";
+import { Interativo } from "./blocos/Interativo";
 import { InlineCheck } from "./InlineCheck";
 import { AnexoPendente, PendingImage, VideoEmbed } from "./LessonMedia";
 import { KeyboardDiagram, Staff } from "./Staff";
@@ -150,6 +152,7 @@ export function Markdown({ children, lang, terms, tryCode }: { children: string;
             if (language === "verificar") return <InlineCheck spec={source} />;
             if (language === "video") return <VideoEmbed spec={source} />;
             if (language === "conta") return <Calculation spec={source} />;
+            if (eInterativo(language)) return <Interativo tipo={language} spec={source} />;
             const runnable = (language === "python" || language === "php") && tryCode;
             return (
               <div>

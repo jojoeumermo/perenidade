@@ -6808,7 +6808,7 @@ do $$
 begin
   if exists (select 1 from pg_namespace where nspname = 'storage') then
     insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-    values ('envios', 'envios', false, 8388608, array['image/webp', 'image/jpeg', 'application/pdf'])
+    values ('envios', 'envios', false, 8388608, array['image/webp', 'image/jpeg', 'application/pdf', 'audio/webm', 'audio/mp4'])
     on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
 
     execute 'drop policy if exists "envios_envio" on storage.objects';
@@ -11523,6 +11523,83 @@ declare f text;
 begin
   foreach f in array array['exercicios_listar(text, text)', 'exercicio_ver(uuid)', 'exercicio_salvar(jsonb)', 'exercicio_arquivar(uuid, boolean)', 'exercicios_meus()',
     'exercicio_entregas(uuid)', 'exercicio_retorno(uuid, text)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;
+
+-- ───────────────────────────── Sugestões da revisão ─────────────────────────────
+-- Quem revisa marca um trecho do texto e propõe a troca ("trocar isto por aquilo", com um comentário). A pessoa que
+-- escreveu (ou quem trabalha junto com ela) aceita com um clique, e a troca entra no texto, ou recusa.
+create table if not exists interno.sugestoes_de_revisao (
+  id uuid primary key default gen_random_uuid(),
+  contribuicao uuid not null references interno.contribuicoes (id) on delete cascade,
+  autor uuid references interno.perfis (id) on delete set null,
+  trecho text not null check (char_length(trecho) between 1 and 2000),
+  troca text not null default '' check (char_length(troca) <= 2000),
+  comentario text not null default '' check (char_length(comentario) <= 1000),
+  status text not null default 'aberta' check (status in ('aberta', 'aceita', 'recusada')),
+  criado_em timestamptz not null default now(),
+  decidido_em timestamptz,
+  decidido_por uuid references interno.perfis (id) on delete set null
+);
+create index if not exists sugestoes_de_revisao_contribuicao on interno.sugestoes_de_revisao (contribuicao);
+alter table interno.sugestoes_de_revisao enable row level security;
+revoke all on interno.sugestoes_de_revisao from public;
+
+create or replace function public.sugestao_criar(p_id uuid, p_trecho text, p_troca text, p_comentario text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c contribuicoes; v_id uuid;
+begin
+  perform interno.limite('sugestao', 120, 60);
+  select * into c from contribuicoes where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not interno.ve_item(c) then perform interno.erro('sem_permissao'); end if;
+  if c.status <> 'pendente' then perform interno.erro('ja_decidida'); end if;
+  if coalesce(p_trecho, '') = '' or char_length(p_trecho) > 2000 or strpos(c.corpo, p_trecho) = 0 then perform interno.erro('invalido:trecho'); end if;
+  if char_length(coalesce(p_troca, '')) > 2000 then perform interno.erro('invalido:troca'); end if;
+  if p_troca = p_trecho and coalesce(btrim(p_comentario), '') = '' then perform interno.erro('invalido:troca'); end if;
+  insert into sugestoes_de_revisao (contribuicao, autor, trecho, troca, comentario)
+  values (p_id, v, p_trecho, coalesce(p_troca, ''), left(coalesce(btrim(p_comentario), ''), 1000)) returning id into v_id;
+  if c.autor is not null and c.autor <> v then
+    perform interno.avisar(c.autor, 'A revisão sugeriu uma mudança em "' || left(c.titulo, 80) || '". Aceite ou recuse em Meus envios.');
+  end if;
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.sugestoes_listar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare c contribuicoes;
+begin
+  select * into c from contribuicoes where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (coalesce(c.autor = auth.uid(), false) or interno.ve_item(c) or interno.colabora(c.id)) then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('id', s.id, 'trecho', s.trecho, 'troca', s.troca, 'comentario', s.comentario, 'status', s.status,
+                                                       'autor', coalesce(interno.nome_visto(f.nome), 'Revisão'), 'criado_em', s.criado_em,
+                                                       'cabe', strpos(c.corpo, s.trecho) > 0) order by s.criado_em)
+                   from sugestoes_de_revisao s left join perfis f on f.id = s.autor where s.contribuicao = p_id), '[]'::jsonb);
+end $$;
+
+create or replace function public.sugestao_responder(p_sugestao uuid, p_aceitar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s sugestoes_de_revisao; c contribuicoes; v_pos int;
+begin
+  select * into s from sugestoes_de_revisao where id = p_sugestao for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if s.status <> 'aberta' then perform interno.erro('ja_decidida'); end if;
+  select * into c from contribuicoes where id = s.contribuicao for update;
+  if not (coalesce(c.autor = v, false) or interno.colabora(c.id) or interno.curador()) then perform interno.erro('sem_permissao'); end if;
+  if c.status <> 'pendente' then perform interno.erro('ja_decidida'); end if;
+  if p_aceitar then
+    v_pos := strpos(c.corpo, s.trecho);
+    if v_pos = 0 then perform interno.erro('trecho_mudou'); end if;
+    update contribuicoes set corpo = overlay(corpo placing s.troca from v_pos for char_length(s.trecho)), editado_em = clock_timestamp(), editado_por = v where id = c.id;
+  end if;
+  update sugestoes_de_revisao set status = case when p_aceitar then 'aceita' else 'recusada' end, decidido_em = now(), decidido_por = v where id = p_sugestao;
+  return jsonb_build_object('ok', true);
+end $$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array['sugestao_criar(uuid, text, text, text)', 'sugestoes_listar(uuid)', 'sugestao_responder(uuid, boolean)'] loop
     execute format('revoke all on function public.%s from public', f);
     execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
   end loop;
