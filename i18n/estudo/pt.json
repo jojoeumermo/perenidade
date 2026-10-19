@@ -99,5 +99,16 @@
     "apagarConfirma": "Apagar o seu estudo deste aparelho? Isso não tem volta. Se quiser guardar, baixe a cópia antes.",
     "apagado": "Pronto: {n} registros apagados deste aparelho.",
     "todosOsDados": "Ver tudo o que o site guarda (Meus dados)"
+  },
+  "revisao": {
+    "emRevisao": "Em revisão.",
+    "emRevisaoDetalhe": "Esta aula ainda não foi conferida por um educador. Pode estudar normalmente; se algo parecer estranho, avise.",
+    "aprovada": "Aprovada pela equipe.",
+    "aprovadaDetalhe": "Passou pelo painel, com o parecer de outro educador da disciplina; a revisão com função e data ainda não foi registrada.",
+    "revisadaPor": "Revisada por {quem} em {data}.",
+    "sugira": "Sugerir uma correção",
+    "como": "Como as aulas são revisadas",
+    "historico": "Histórico de revisões ({n})",
+    "creditos": "Revisão: {lista}"
   }
 }
