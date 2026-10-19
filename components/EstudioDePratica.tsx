@@ -90,7 +90,7 @@ export function CartoesDoEstudio({ s, area = "edicao-de-video" }: { s: S; area?:
  * O programa aberto dentro do institutolucia.org: um quadro de outra origem (o estúdio), que não alcança a sessão nem
  * os dados do site. Tela cheia pelo navegador, sem sair da página.
  */
-export function QuadroDoEditor({ s, id, nome }: { s: S; id: EditorAvancado["id"]; nome: string }) {
+export function QuadroDoEditor({ s, id, nome }: { s: Pick<S, "insideNote" | "fullscreen" | "notYet">; id: EditorAvancado["id"]; nome: string }) {
   const quadro = useRef<HTMLIFrameElement>(null);
   const endereco = enderecoDo(id);
   if (!endereco) return <p className="mt-6 text-oxblood">{s.notYet}</p>;

@@ -103,8 +103,11 @@
     "montadorLead": "Assemblez les bonnes pièces et diagnostiquez l'ordinateur qui ne démarre pas.",
     "ia": "Labo d'IA",
     "iaLead": "Regardez la machine apprendre : une droite qui s'ajuste aux points et un tout petit réseau.",
-    "planilha": "Tableur",
-    "planilhaLead": "Formules, graphique et CSV, dans le navigateur.",
+    "escritorio": "Bureautique",
+    "escritorioLead": "Texte, tableur et présentation (style Word, Excel et PowerPoint), gratuits, dans le navigateur.",
+    "escritorioIntro": "Trois logiciels libres du projet ArtCraft, ouverts ici même : écrivez un document, construisez un tableur avec formules et graphiques et préparez une présentation. Ils ouvrent et enregistrent les fichiers .docx, .xlsx et .pptx.",
+    "escritorioTab": "Choisissez le logiciel",
+    "escritorioLocal": "Tout reste dans le navigateur de cet appareil : enregistrez le fichier à la fin.",
     "seguranca": "Labo de sécurité",
     "segurancaLead": "Hameçonnage, journaux et mots de passe dans un bac à sable d'entraînement : la défense pour chaque attaque.",
     "simulacoes": "Simulations (PhET)",
@@ -4052,6 +4055,18 @@
       "threejs": {
         "title": "Monter la scène : éditeur three.js",
         "text": "Objets, matériaux, lumières et caméra dans une scène 3D, à exporter ou à emporter dans Blender."
+      },
+      "wordcraft": {
+        "title": "Écrire des documents (style Word) : WordCraft",
+        "text": "Texte avec styles, tableaux, images, sommaire et révision ; ouvre et enregistre .docx."
+      },
+      "gridcraft": {
+        "title": "Tableurs (style Excel) : GridCraft",
+        "text": "Formules, fonctions, filtres, mise en forme conditionnelle et graphiques ; ouvre et enregistre .xlsx et .csv."
+      },
+      "deckcraft": {
+        "title": "Présentations (style PowerPoint) : DeckCraft",
+        "text": "Diapositives avec mises en page, thèmes, formes, images et mode présentateur ; ouvre et enregistre .pptx."
       }
     },
     "eyebrow": "Montage vidéo",
