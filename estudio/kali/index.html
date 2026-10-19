@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Laboratório de Segurança — Instituto Lúcia</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="xterm.css">
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <div id="painel">
+    <button id="menu-botao" title="Aplicativos">
+      <svg class="dragao" viewBox="0 0 24 24" aria-hidden="true"><use href="dragao.svg#d"/></svg>
+      Aplicativos
+    </button>
+    <span class="painel-sep"></span>
+    <span id="modo-treino" title="Tudo aqui é fictício e isolado. Nenhuma ferramenta toca um sistema real.">● MODO TREINO · tudo fictício</span>
+    <span id="relogio">--:--</span>
+  </div>
+
+  <nav id="menu" aria-label="Aplicativos"></nav>
+
+  <div id="area">
+    <div id="atalhos"></div>
+  </div>
+
+  <div id="tarefas-barra">
+    <div id="tarefas"></div>
+  </div>
+
+  <script type="module" src="area.js"></script>
+</body>
+</html>

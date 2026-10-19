@@ -1,0 +1,182 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+   Aparência no estilo do Kali Linux (ambiente Xfce): tema escuro, azul ciano, janelas com barra de título. */
+:root {
+  --fundo: #0b0e14;
+  --painel: #1a1d24;
+  --painel2: #22262f;
+  --borda: #2f3540;
+  --azul: #1793d1;
+  --azul-claro: #4fc1ff;
+  --texto: #d7dae0;
+  --texto-fraco: #8b9099;
+  --verde: #8ae234;
+  --vermelho: #ff6b6b;
+  --amarelo: #ffce51;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body {
+  font-family: "DejaVu Sans", "Segoe UI", system-ui, sans-serif;
+  color: var(--texto);
+  background: var(--fundo);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Papel de parede: degradê escuro com um dragão discreto (o símbolo do Kali). */
+#area {
+  position: absolute;
+  inset: 30px 0 42px 0;
+  overflow: hidden;
+  background:
+    radial-gradient(1200px 600px at 70% 20%, rgba(23, 147, 209, 0.12), transparent 60%),
+    radial-gradient(900px 500px at 20% 90%, rgba(23, 147, 209, 0.08), transparent 60%),
+    linear-gradient(160deg, #0a0d13, #0e141d 60%, #0a0d13);
+}
+#area::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: center/420px no-repeat url("dragao.svg");
+  opacity: 0.08;
+  pointer-events: none;
+}
+
+/* Painel de cima */
+#painel {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+  background: rgba(16, 19, 25, 0.96);
+  border-bottom: 1px solid var(--borda);
+  font-size: 13px;
+  z-index: 1000;
+}
+#menu-botao {
+  display: flex; align-items: center; gap: 6px;
+  background: none; border: 0; color: var(--texto); cursor: pointer;
+  font: inherit; font-weight: 600; padding: 4px 8px; border-radius: 4px;
+}
+#menu-botao:hover, #menu-botao.ativo { background: var(--azul); color: #04121b; }
+#menu-botao .dragao { width: 16px; height: 16px; }
+.painel-sep { flex: 1; }
+#modo-treino {
+  color: var(--amarelo); font-size: 12px; border: 1px solid #5a4a16;
+  background: rgba(90, 74, 22, 0.25); padding: 2px 8px; border-radius: 10px;
+}
+#relogio { color: var(--texto-fraco); font-variant-numeric: tabular-nums; }
+
+/* Menu de aplicativos */
+#menu {
+  position: absolute; top: 30px; left: 6px; width: 240px; max-height: 70vh; overflow-y: auto;
+  background: var(--painel); border: 1px solid var(--borda); border-radius: 0 0 8px 8px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5); padding: 6px; z-index: 1200;
+  display: none;
+}
+#menu.aberto { display: block; }
+.menu-cat { color: var(--azul-claro); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; padding: 8px 8px 3px; }
+.menu-item {
+  display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+  background: none; border: 0; color: var(--texto); font: inherit; padding: 7px 8px; border-radius: 5px; cursor: pointer;
+}
+.menu-item:hover { background: var(--azul); color: #04121b; }
+.menu-icone { width: 20px; text-align: center; }
+
+/* Atalhos na área de trabalho */
+#atalhos { position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; gap: 14px; }
+.atalho {
+  display: flex; flex-direction: column; align-items: center; gap: 4px; width: 78px;
+  background: none; border: 0; color: var(--texto); font: inherit; font-size: 12px; cursor: pointer; padding: 4px; border-radius: 6px;
+}
+.atalho:hover { background: rgba(23,147,209,0.18); }
+.atalho-icone { font-size: 26px; }
+
+/* Janelas */
+.janela {
+  position: absolute; min-width: 320px; min-height: 180px; display: flex; flex-direction: column;
+  background: var(--painel); border: 1px solid var(--borda); border-radius: 8px; overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+}
+.janela.minimizada { display: none; }
+.jan-topo {
+  display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 6px 0 12px;
+  background: linear-gradient(var(--painel2), #1b1f27); border-bottom: 1px solid var(--borda); cursor: grab;
+}
+.jan-icone { opacity: .9; }
+.jan-titulo { flex: 1; font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.jan-botoes { display: flex; gap: 2px; }
+.jan-botoes button { width: 26px; height: 24px; border: 0; background: none; color: var(--texto-fraco); cursor: pointer; border-radius: 4px; font-size: 14px; }
+.jan-botoes button:hover { background: rgba(255,255,255,0.08); color: var(--texto); }
+.jan-fechar:hover { background: var(--vermelho) !important; color: #fff !important; }
+.jan-corpo { flex: 1; overflow: auto; padding: 14px; }
+.jan-corpo.sem-pad { padding: 0; }
+
+/* Barra de tarefas */
+#tarefas-barra {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 42px; display: flex; align-items: center; gap: 6px;
+  padding: 0 10px; background: rgba(16,19,25,0.96); border-top: 1px solid var(--borda); z-index: 1000;
+}
+.tarefa {
+  display: flex; align-items: center; gap: 7px; max-width: 190px; height: 30px; padding: 0 12px;
+  background: var(--painel2); border: 1px solid var(--borda); border-radius: 5px; color: var(--texto); font: inherit; font-size: 12px; cursor: pointer;
+}
+.tarefa.ativa { border-color: var(--azul); color: var(--azul-claro); }
+.tarefa-nome { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#tarefas { display: flex; gap: 6px; overflow: hidden; flex: 1; }
+
+/* Terminal (xterm) */
+.terminal-tela { width: 100%; height: 100%; background: #0b0e14; padding: 6px; }
+.terminal-tela .xterm { height: 100%; }
+
+/* Conteúdo das ferramentas */
+.aviso-treino { margin: 0 0 12px; padding: 8px 12px; border-left: 3px solid var(--amarelo); background: rgba(255,206,81,0.08); color: #f0e2b8; font-size: 13px; line-height: 1.4; }
+.k-barra { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+.k-rotulo { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--texto-fraco); margin-bottom: 4px; }
+.k-campo { background: #0b0e14; border: 1px solid var(--borda); color: var(--texto); padding: 6px 8px; border-radius: 4px; font: 13px monospace; }
+.k-campo.largo { flex: 1; min-width: 180px; }
+.k-botao { background: var(--azul); color: #04121b; border: 0; padding: 7px 14px; border-radius: 4px; font: inherit; font-weight: 600; cursor: pointer; }
+.k-botao:hover { background: var(--azul-claro); }
+.k-botao:disabled { opacity: .5; cursor: default; }
+.k-console { background: #05070b; border: 1px solid var(--borda); border-radius: 5px; padding: 10px; font: 12.5px/1.45 "DejaVu Sans Mono", monospace; white-space: pre-wrap; color: #cfe3ee; min-height: 120px; max-height: 300px; overflow: auto; margin: 0; }
+.k-console.vermelho { color: #ffd0d0; border-color: #5a2a2a; }
+.k-console.editavel { outline: none; color: #d7f0ff; }
+.k-dica { margin: 12px 0 0; padding: 8px 12px; border-left: 3px solid var(--verde); background: rgba(138,226,52,0.07); font-size: 12.5px; line-height: 1.45; color: #d4e9c4; }
+.k-split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.k-split > div { min-width: 0; }
+.k-tabela { width: 100%; border-collapse: collapse; font: 12px monospace; }
+.k-tabela th { text-align: left; color: var(--texto-fraco); border-bottom: 1px solid var(--borda); padding: 4px 6px; font-weight: 600; }
+.k-tabela td { padding: 3px 6px; border-bottom: 1px solid #191c22; }
+.pac { cursor: pointer; }
+.pac:hover { background: rgba(23,147,209,0.12); }
+.pac.sel { background: rgba(23,147,209,0.22); }
+.pac.http td:nth-child(5) { color: var(--amarelo); }
+.pac.dns td:nth-child(5) { color: var(--azul-claro); }
+.k-detalhe { background: #05070b; border: 1px solid var(--borda); border-radius: 5px; padding: 10px; font-size: 13px; line-height: 1.45; overflow: auto; }
+.k-detalhe p { margin: 0 0 8px; }
+
+/* Mapa de alvos */
+.k-mapa { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.k-host { background: var(--painel2); border: 1px solid var(--borda); border-radius: 8px; padding: 12px; }
+.k-host.alvo { border-color: var(--azul); box-shadow: 0 0 0 1px var(--azul) inset; }
+.k-host-ip { font: 13px monospace; color: var(--azul-claro); }
+.k-host-nome { font-weight: 700; margin: 2px 0; }
+.k-host-sis { font-size: 12px; color: var(--texto-fraco); }
+.k-host-portas { display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0; }
+.k-porta { background: rgba(23,147,209,0.18); color: var(--azul-claro); font: 11px monospace; padding: 2px 6px; border-radius: 10px; }
+.k-host-nota { font-size: 12px; color: var(--texto-fraco); margin: 6px 0 0; line-height: 1.4; }
+
+/* Desafio */
+.k-passos { margin: 0 0 12px; padding-left: 20px; line-height: 1.6; font-size: 13.5px; }
+.k-passos li { margin-bottom: 4px; }
+.k-resp { margin: 10px 0 0; font-weight: 600; }
+.k-resp.ok { color: var(--verde); }
+.k-resp.erro { color: var(--amarelo); }
+
+@media (max-width: 680px) {
+  .k-split, .k-mapa { grid-template-columns: 1fr; }
+  #atalhos { display: none; }
+}
