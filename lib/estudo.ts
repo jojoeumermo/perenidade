@@ -166,6 +166,16 @@ const CHAVES_DA_COPIA = new Set([
 const PREFIXOS_DA_COPIA = ["lucia:lab:", "lucia:ouvido:"];
 export const entraNaCopia = (chave: string) => CHAVES_DA_COPIA.has(chave) || PREFIXOS_DA_COPIA.some((p) => chave.startsWith(p) && !/[\s]/.test(chave) && chave.length < 200);
 
+/** As chaves de estudo que existem neste armazenamento (para Meus dados copiar ou apagar tudo de uma vez). */
+export function chavesDeEstudo(armazenamento: Pick<Storage, "length" | "key">): string[] {
+  const chaves: string[] = [];
+  for (let i = 0; i < armazenamento.length; i++) {
+    const chave = armazenamento.key(i);
+    if (chave && entraNaCopia(chave)) chaves.push(chave);
+  }
+  return chaves;
+}
+
 export interface Copia {
   formato: "lucia-copia";
   versao: 1;
