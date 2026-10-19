@@ -22,6 +22,7 @@ type Dicionario = Record<string, string>;
 const dicionarios: Partial<Record<Locale, () => Promise<{ default: Dicionario }>>> = {
   en: () => import("@/i18n/painel/en.json"),
   es: () => import("@/i18n/painel/es.json"),
+  fr: () => import("@/i18n/painel/fr.json"),
   ru: () => import("@/i18n/painel/ru.json"),
   zh: () => import("@/i18n/painel/zh.json"),
 };
