@@ -4,7 +4,7 @@ import type { Dict } from "./types";
 // Só os textos usados em todas as páginas viajam para o navegador. Os de uma página específica
 // (comunidade, ferramentas, formulários) chegam como propriedade do componente daquela página,
 // para ninguém baixar o que não vai usar.
-export const coreSections = ["common", "nav", "areas", "groups", "stages", "tracks", "lesson", "library", "search", "a11y", "notFound", "errors", "radio", "lists", "labs"] as const;
+export const coreSections = ["common", "nav", "areas", "groups", "stages", "tracks", "lesson", "library", "search", "a11y", "notFound", "errors", "radio", "lists", "labs", "blocks"] as const;
 export type CoreDict = Pick<Dict, (typeof coreSections)[number]>;
 
 export function pickCore(t: Dict): CoreDict {
