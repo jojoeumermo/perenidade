@@ -14,7 +14,7 @@ export const dynamicParams = false;
 /** A prova só existe para trilhas com questões suficientes. */
 const MINIMUM = 10;
 const questionsOf = (track: NonNullable<ReturnType<typeof getTrack>>) =>
-  track.lessons.flatMap((lesson) => lesson.quiz.map((question) => ({ ...question, explanation: [question.explanation, `(${lesson.title})`].filter(Boolean).join(" ") })));
+  track.lessons.flatMap((lesson) => lesson.quiz.map((question) => ({ ...question, href: `/trilhas/${track.slug}/${lesson.slug}`, explanation: [question.explanation, `(${lesson.title})`].filter(Boolean).join(" ") })));
 
 export function generateStaticParams() {
   return withLangs(

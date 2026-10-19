@@ -147,7 +147,7 @@ export default async function LessonPage({ params }: Props) {
           {next ? <Link href={to(path(next.slug))} data-next className={`text-right hover:text-oxblood app:max-md:order-first ${vizinha}`}>{next.title} →</Link> : <span />}
         </nav>
 
-        <StudyTools id={id} path={path(lesson.slug)} s={t.study} />
+        <StudyTools id={id} path={path(lesson.slug)} s={t.study} titulo={lesson.title} sala={track.area} />
 
         <ExerciciosDaAula aula={path(lesson.slug)} s={t.practiceStudio.exercises} />
 

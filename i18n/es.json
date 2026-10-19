@@ -639,7 +639,31 @@
     "epubHint": "se abre en Kindle (con Enviar a Kindle), Kobo y aplicaciones de lectura",
     "jump": "Ir a",
     "showAll": "Ver las {n}",
-    "showLess": "Mostrar menos"
+    "showLess": "Mostrar menos",
+    "nowTitle": "¿Qué estudio ahora?",
+    "nowNext": "Próxima clase: {title}",
+    "nowReview": "Repasar: {title} ({n} pregunta(s) falladas)",
+    "nowDone": "Terminaste todas las clases listas de esta ruta. ¿Qué tal el examen de la ruta?",
+    "nowPlacement": "¿No sabes por dónde empezar? Haz el examen de la ruta: las clases de las preguntas que falles aparecen aquí como punto de partida.",
+    "planTitle": "Plan de estudios",
+    "planLead": "Elige los días y la hora: el sitio reparte las clases que faltan y arma un archivo para tu agenda. Nada sale del dispositivo.",
+    "planDays": "Días de estudio",
+    "weekdays": [
+      "dom",
+      "lun",
+      "mar",
+      "mié",
+      "jue",
+      "vie",
+      "sáb"
+    ],
+    "planTime": "Hora",
+    "planPerDay": "Clases por día",
+    "planStart": "Empezar el",
+    "planEnds": "A este ritmo, terminas el {date}.",
+    "planDownload": "Descargar para la agenda (.ics)",
+    "planEmpty": "No hay clases pendientes para planificar.",
+    "planNone": "Elige al menos un día."
   },
   "lesson": {
     "position": "lección {i} de {n}",
@@ -1403,7 +1427,12 @@
     "save": "Enviar nota",
     "cancel": "Cancelar",
     "pending": "en espera de revisión",
-    "goTo": "ver el fragmento"
+    "goTo": "ver el fragmento",
+    "confused": "No entendí este fragmento",
+    "confusedHint": "Selecciona el fragmento confuso y toca el botón. Ves lo que se envía antes de mandarlo a la comunidad o a un voluntario de refuerzo.",
+    "confusedPreview": "Va junto con tu duda",
+    "toCommunity": "Preguntar a la comunidad",
+    "toTutoring": "Pedir refuerzo a un voluntario"
   },
   "toolNames": {
     "ide": [
