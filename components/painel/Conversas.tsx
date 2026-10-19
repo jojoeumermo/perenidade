@@ -773,7 +773,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
           await enviarCifrado(chaveiro, destino, empacotar(conteudo), contextoDaConversa(destino, me.id), (corpo) => rpc("chat_enviar", { p_id: destino, p_corpo: corpo, p_anexos: conteudo.anexos?.map((anexo) => anexo.id) ?? null }));
         }
       }
-      setAviso(`Encaminhada${ids.length > 1 ? "s" : ""} para ${destinos.length} conversa${destinos.length > 1 ? "s" : ""}.`);
+      setAviso(destinos.length > 1 ? (ids.length > 1 ? `Encaminhadas para ${destinos.length} conversas.` : `Encaminhada para ${destinos.length} conversas.`) : ids.length > 1 ? "Encaminhadas para 1 conversa." : "Encaminhada para 1 conversa.");
       mudou();
     } catch (erro) {
       setAviso(textoDoErro(erro));
@@ -1208,7 +1208,7 @@ function Favoritas({ chaveiro, fechar, abrir }: { chaveiro: Chaveiro; fechar: ()
             <p className="text-xs text-ink-soft">
               <button type="button" className={elo} onClick={() => abrir(item.conversa)}>{item.conversa_nome || "Conversa"}</button> · {item.nome || "Alguém"} · {hora(item.criado_em)}, {new Date(item.criado_em).toLocaleDateString("pt-BR")}
             </p>
-            <p className="whitespace-pre-line break-words">{abertos[item.id] ? semFormatacao(desempacotar(abertos[item.id]!.texto).texto) : "…"}</p>
+            <p className="whitespace-pre-line break-words" data-original>{abertos[item.id] ? semFormatacao(desempacotar(abertos[item.id]!.texto).texto) : "…"}</p>
             <button type="button" className={`${elo} text-xs`} onClick={() => void acao(item.id)}>Tirar das favoritas</button>
           </li>
         ))}
@@ -1257,7 +1257,7 @@ function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu, enviarFoto
             : `O grupo de ${papeis[dados.departamento as keyof typeof papeis] ?? dados.nome}. Quem recebe essa função entra sozinho, quem deixa de tê-la sai, e a coordenação participa de todos os grupos. Não dá para sair nem tirar ninguém.`}
         </p>
       )}
-      {!fixo && !edita && dados.descricao && <p className="max-w-xl whitespace-pre-line text-ink-soft">{dados.descricao}</p>}
+      {!fixo && !edita && dados.descricao && <p className="max-w-xl whitespace-pre-line text-ink-soft" data-original>{dados.descricao}</p>}
       {edita && (
         <form className="space-y-2" onSubmit={(e) => { e.preventDefault(); void fazer("chat_grupo_mudar", { p_id: dados.id, p_nome: fixo ? null : nome, p_descricao: descricao }); }}>
           <div className="flex flex-wrap items-end gap-2">
@@ -1433,7 +1433,7 @@ function EventoVista({ evento, rsvps, minha, responder }: { evento: Evento; rsvp
   return (
     <div className={`my-1 border px-2 py-1.5 text-sm ${minha ? "border-parchment/40" : "border-rule bg-parchment"}`}>
       <p className="font-semibold">📅 {evento.titulo}</p>
-      <p className="text-xs">{quando.toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "long" })} às {quando.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}{evento.local ? ` · ${evento.local}` : ""}</p>
+      <p className="text-xs">{quando.toLocaleString(localDoPainel(), { weekday: "long", day: "2-digit", month: "long", hour: "2-digit", minute: "2-digit" })}{evento.local ? ` · ${evento.local}` : ""}</p>
       <p className="mt-1 flex flex-wrap gap-1">
         {grupos.map(([valor, nome]) => (
           <button key={valor} type="button" aria-pressed={minhaResposta === valor} className={`cursor-pointer border px-2 py-0.5 text-xs ${minhaResposta === valor ? "border-gold bg-gold/30 text-ink" : "border-current/30"}`} onClick={() => responder(valor)}>
@@ -1560,7 +1560,7 @@ function Relatos({ fechar }: { fechar: () => void }) {
             <p className="text-xs text-ink-soft">{dataHora(relato.criado_em)} · {relato.conversa_nome} · relatado por {relato.autor || "alguém"}{relato.contra ? ` · sobre ${relato.contra}` : ""} · {relato.status === "aberto" ? "em aberto" : "resolvido"}</p>
             <p className="mt-1 font-semibold">{relato.motivo}</p>
             <ul className="mt-2 space-y-1 border-l-2 border-rule pl-2 text-sm">
-              {relato.mensagens.map((item) => <li key={item.id}><strong>{item.autor}</strong> <span className="text-xs text-ink-soft">{item.quando ? dataHora(item.quando) : ""}</span>: <span className="whitespace-pre-line">{item.texto}</span></li>)}
+              {relato.mensagens.map((item) => <li key={item.id}><strong>{item.autor}</strong> <span className="text-xs text-ink-soft">{item.quando ? dataHora(item.quando) : ""}</span>: <span className="whitespace-pre-line" data-original>{item.texto}</span></li>)}
             </ul>
             {relato.nota && <p className="mt-2 text-sm"><strong>Encaminhamento:</strong> {relato.nota}</p>}
             {relato.status === "aberto" && <button type="button" className={`mt-2 ${botaoClaro}`} onClick={() => void resolver(relato.id)}>Marcar como resolvido</button>}

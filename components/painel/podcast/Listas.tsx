@@ -149,8 +149,8 @@ export function Agenda({ painel }: { painel: PainelDoPodcast }) {
         <span>rede: postagem agendada</span>
       </p>
       <div className="grid grid-cols-7 border-l border-t border-rule text-xs">
-        {["seg", "ter", "qua", "qui", "sex", "sáb", "dom"].map((d) => (
-          <p key={d} className="border-b border-r border-rule bg-parchment-deep px-1 py-1 text-center font-mono uppercase">{d}</p>
+        {Array.from({ length: 7 }, (_, i) => new Date(2026, 1, 2 + i).toLocaleDateString(localDoPainel(), { weekday: "short" }).replace(".", "")).map((d, i) => (
+          <p key={i} className="border-b border-r border-rule bg-parchment-deep px-1 py-1 text-center font-mono uppercase">{d}</p>
         ))}
         {dias.map((n, i) => {
           const chave = n ? iso(new Date(mes.getFullYear(), mes.getMonth(), n)) : "";
@@ -348,7 +348,7 @@ export function Perguntas({ painel, podeDecidir }: { painel: PainelDoPodcast; po
               {q.assinatura ? `"${q.assinatura}"` : "sem assinatura"} · conta de {q.autor || "—"} · {dataHora(q.criado_em)}
               {q.episodio_titulo && ` · episódio: ${q.episodio_titulo}`}
             </p>
-            {q.texto && <p className="whitespace-pre-line text-base">{q.texto}</p>}
+            {q.texto && <p className="whitespace-pre-line text-base" data-original>{q.texto}</p>}
             {q.audio && <OuvirFechado caminho={q.audio} />}
             {podeDecidir && q.status !== "descartada" && (
               <p className="flex flex-wrap items-center gap-3">
@@ -424,7 +424,7 @@ export function Convidados({ podeEditar }: { podeEditar: boolean }) {
             <p className="flex flex-wrap items-baseline justify-between gap-2">
               <strong className="font-serif text-lg">{c.nome}</strong>
               <span className={`font-mono text-xs ${c.autoriza_voz ? "text-ok" : "text-oxblood"}`}>
-                {c.autoriza_voz ? `voz autorizada${c.autoriza_imagem ? " · imagem autorizada" : ""}` : "sem autorização de voz"}
+                {c.autoriza_voz ? (c.autoriza_imagem ? "voz e imagem autorizadas" : "voz autorizada") : "sem autorização de voz"}
               </span>
             </p>
             {c.minibio && <p className="text-ink-soft">{c.minibio}</p>}
@@ -600,7 +600,7 @@ export function Pedidos({ abrir }: { abrir: (episodio: string) => void }) {
               {p.atendido_por && ` · feito por ${p.atendido_por}`}
             </p>
             <p className="font-serif text-lg font-semibold">{p.episodio_titulo ?? "Sem episódio"}{p.numero != null && ` · #${p.numero}`}{p.serie && ` · ${p.serie}`}</p>
-            <p className="whitespace-pre-line">{p.texto}</p>
+            <p className="whitespace-pre-line" data-original>{p.texto}</p>
             <p className="flex gap-3">
               {p.episodio && <button type="button" className={elo} onClick={() => abrir(p.episodio!)}>Abrir o episódio (capa e artes)</button>}
               {p.status === "aberto" && <button type="button" className={elo} onClick={() => acao.agir("podcast_pedido_concluir", { p_id: p.id }, "Pedido marcado como feito.")}>Marcar como feito</button>}

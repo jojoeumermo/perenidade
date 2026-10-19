@@ -12,9 +12,10 @@ import { useI18n } from "../I18n";
  * O texto do painel está escrito em português dentro dos componentes. Em vez de reescrever cada um, os dicionários
  * em i18n/painel/<idioma>.json trazem a tradução de cada frase (a chave é a frase em português, como aparece na
  * tela) e este componente troca o texto na página: na abertura e a cada mudança que o React faz. Frases com partes
- * variáveis viram modelos ("Escreva “{0}”"). O que a equipe escreve (mensagens, aulas, nomes) quase nunca bate com
- * uma frase do dicionário e fica como está; o que não pode mudar de jeito nenhum leva translate="no", como a folha do
- * certificado, que é um documento em português. A lista de frases sai de scripts/textos-do-painel.mjs.
+ * variáveis viram modelos ("Escreva “{0}”"). O que a equipe escreve (mensagens, recados, pautas, o texto das aulas)
+ * fica dentro de um elemento com data-original: este componente não mexe ali, mas a tradução do navegador continua
+ * podendo traduzir. O que não pode mudar de jeito nenhum leva translate="no", como a folha do certificado e o termo
+ * do podcast, que são documentos em português. A lista de frases sai de scripts/textos-do-painel.mjs.
  */
 
 type Dicionario = Record<string, string>;
@@ -73,12 +74,23 @@ function tradutor(dicionario: Dicionario) {
       if (modelo.pista && !texto.includes(modelo.pista)) continue;
       const achado = modelo.regra.exec(texto);
       if (!achado) continue;
-      // As partes variáveis também são traduzidas quando são uma frase conhecida (o nome de uma função, um idioma).
+      // As partes variáveis também são traduzidas quando são uma frase conhecida (o nome de uma função, um idioma) ou
+      // outro modelo ("Restam 3 códigos (gerados em …)"), com os mesmos espaços nas pontas.
       return modelo.alvo.replace(/\{(\d+)\}/g, (_, n: string) => {
         const valor = achado[modelo.ordem.indexOf(Number(n)) + 1] ?? "";
-        return exatos.get(normalizar(valor)) ?? valor;
+        const traduzido = normalizar(valor).length < 2 ? null : nucleo(normalizar(valor));
+        return traduzido === null ? valor : `${/^\s*/.exec(valor)?.[0] ?? ""}${traduzido}${/\s*$/.exec(valor)?.[0] ?? ""}`;
       });
     }
+    // Rótulos juntados num texto só ("Tradução · Revisão") e pares "rótulo: valor" ("função: Revisão", "Aulas enviadas: 3"):
+    // cada pedaço por si. Um título como "Inglês: conversação e leitura" fica inteiro (rótulo maiúsculo e valor com letras).
+    if (texto.includes(" · ")) {
+      const juntos = texto.split(" · ").map((pedaco) => nucleo(pedaco) ?? pedaco).join(" · ");
+      return juntos === texto ? null : juntos;
+    }
+    const par = /^([^:]{2,40}): (.+)$/.exec(texto);
+    const rotulo = par ? exatos.get(par[1]) : undefined;
+    if (par && rotulo !== undefined && (/^\p{Ll}/u.test(par[1]) || !/\p{L}/u.test(par[2]))) return `${rotulo}: ${nucleo(par[2]) ?? par[2]}`;
     return null;
   };
 
@@ -111,7 +123,7 @@ export function TraduzirPainel() {
       const textos = new WeakMap<Text, string>();
       const atributos = new WeakMap<Element, Map<string, string>>();
 
-      const protegido = (elemento: Element | null) => Boolean(elemento?.closest('[translate="no"], [contenteditable="true"]'));
+      const protegido = (elemento: Element | null) => Boolean(elemento?.closest('[translate="no"], [contenteditable="true"], [data-original]'));
 
       const texto = (no: Text) => {
         const atual = no.nodeValue ?? "";

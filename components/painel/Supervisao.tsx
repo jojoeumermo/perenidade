@@ -169,7 +169,7 @@ function PedidosPendentes() {
               {papeis[pedido.papel]} · {nomeDaArea(pedido.disciplina)} · {pedido.origem === "formulario" ? "formulário do site" : "pedido pelo painel"} · {data(pedido.criado_em)}
             </p>
             <p className="mt-1 font-serif text-xl font-semibold">{pedido.nome}</p>
-            <p className="mt-1 whitespace-pre-line">{pedido.mensagem}</p>
+            <p className="mt-1 whitespace-pre-line" data-original>{pedido.mensagem}</p>
           </li>
         ))}
       </ul>

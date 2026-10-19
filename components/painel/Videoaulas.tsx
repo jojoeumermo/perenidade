@@ -609,7 +609,7 @@ function Revisar({ me, fila, erro, recarregar }: { me: Me; fila: Videoaula[]; er
               {t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina} · {aula.nome_autor || "sem nome"} · {relogio(aula.duracao)} · {aula.largura}×{aula.altura} · {megas(aula.tamanho)}
             </p>
             <p className="font-serif text-xl font-semibold">{aula.titulo}</p>
-            {aula.descricao && <p className="whitespace-pre-line">{aula.descricao}</p>}
+            {aula.descricao && <p className="whitespace-pre-line" data-original>{aula.descricao}</p>}
             <Assistir aula={aula} />
             {aula.fontes && aula.fontes.length > 0 && (
               <ul className="list-disc pl-5 text-ink-soft">

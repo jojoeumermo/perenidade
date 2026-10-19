@@ -60,7 +60,7 @@ export function MinhaConta({ me, recarregar, sair, curriculo, avisosETrava }: { 
     [true, "Senha com pelo menos 12 caracteres"],
     [Boolean(p?.segundo_fator), p?.segundo_fator ? "Aplicativo autenticador ligado" : "Sem aplicativo autenticador (segundo fator)"],
     [Boolean(p && p.codigos_restantes > 0), p?.segundo_fator ? (p.codigos_restantes > 0 ? `${p.codigos_restantes} códigos de recuperação guardados` : "Sem códigos de recuperação: se perder o celular, fica sem entrar") : "Códigos de recuperação (precisam do segundo fator)"],
-    [Boolean(chaves), chaves ? `${chaves} chave${chaves > 1 ? "s" : ""} de acesso (digital, rosto ou PIN)` : "Nenhuma chave de acesso cadastrada"],
+    [Boolean(chaves), chaves && chaves > 1 ? `${chaves} chaves de acesso (digital, rosto ou PIN)` : chaves === 1 ? "1 chave de acesso (digital, rosto ou PIN)" : "Nenhuma chave de acesso cadastrada"],
   ];
   const nota = p?.segundo_fator && p.codigos_restantes > 0 ? "boa" : p?.segundo_fator || chaves ? "media" : "fraca";
   const recarregarTudo = () => {
