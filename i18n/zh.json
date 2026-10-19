@@ -3929,7 +3929,8 @@
     "backupDone": "备份已恢复（{n} 项）。重新加载页面即可看到全部内容。",
     "backupInvalid": "这个文件不是笔记本备份。",
     "backupConfirm": "要恢复备份吗？笔记本、卡片和错题会与现有的合并；其他内容会被备份替换。",
-    "nextTomorrow": "明天再出现"
+    "nextTomorrow": "明天再出现",
+    "exportAnki": "下载为 Anki 格式（.csv）"
   },
   "practiceStudio": {
     "inside": "在此打开",
