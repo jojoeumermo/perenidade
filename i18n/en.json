@@ -3058,6 +3058,7 @@
     "rulesTitle": "The password must",
     "rules": {
       "length": "have at least 12 characters (a long phrase works very well)",
+      "mix": "have a lowercase letter, an uppercase letter and a number (e.g. My grandma grew 3 bean plants)",
       "common": "not be a common password or your name with numbers",
       "variety": "not be just repetition (aaaa…, 1212…)"
     },
