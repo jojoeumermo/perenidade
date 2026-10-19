@@ -7,7 +7,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const IDIOMAS = ["pt", "en", "es", "ru", "zh"];
+const IDIOMAS = ["pt", "en", "es", "ru", "zh", "fr"];
 const ETAPAS = ["fundamental", "medio", "superior"];
 const slugOk = (s) => /^[a-z0-9][a-z0-9-]{1,59}$/.test(String(s ?? ""));
 const linha = (v, max) => String(v ?? "").replace(/[\u0000-\u001f\u007f\u2028\u2029]/g, " ").replace(/\s+/g, " ").trim().slice(0, max);
@@ -121,7 +121,7 @@ export function aplicar(raiz, proposta) {
     if (Array.isArray(d.aulas)) {
       const planoPath = path.join(pasta, "plano.json");
       const antigo = fs.existsSync(planoPath) ? JSON.parse(fs.readFileSync(planoPath, "utf8")) : [];
-      const prontas = fs.readdirSync(pasta).filter((f) => /\.md$/.test(f) && f !== "_trilha.md" && !/\.(en|es|zh|ru)\.md$/.test(f)).map((f) => f.replace(/^\d+-/, "").replace(/\.md$/, ""));
+      const prontas = fs.readdirSync(pasta).filter((f) => /\.md$/.test(f) && f !== "_trilha.md" && !/\.(en|es|zh|ru|fr)\.md$/.test(f)).map((f) => f.replace(/^\d+-/, "").replace(/\.md$/, ""));
       const vistos = new Set();
       const plano = d.aulas.map((a) => linha(typeof a === "string" ? a : a?.titulo, 120)).filter(Boolean).slice(0, 80).map((t) => {
         const existente = antigo.find((p) => p.titulo === t);

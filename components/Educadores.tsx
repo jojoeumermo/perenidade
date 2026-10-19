@@ -21,6 +21,7 @@ const textos: Record<string, { quem: string; de: string; todos: string; anterior
   en: { quem: "Who teaches", de: "Educator of", todos: "Meet the whole team", anterior: "Previous educator", proximo: "Next educator", vazio: "This discipline is still looking for educators. Want to teach?", ensina: "Teaches" },
   es: { quem: "Quién enseña", de: "Educador de", todos: "Conoce a todo el equipo", anterior: "Educador anterior", proximo: "Siguiente educador", vazio: "Esta disciplina todavía busca educadores. ¿Quieres enseñar?", ensina: "Enseña" },
   ru: { quem: "Кто преподаёт", de: "Преподаватель:", todos: "Вся команда", anterior: "Предыдущий", proximo: "Следующий", vazio: "Этой дисциплине ещё нужны преподаватели. Хотите преподавать?", ensina: "Преподаёт" },
+  fr: { quem: "Qui enseigne", de: "Éducateur de", todos: "Découvrir toute l'équipe", anterior: "Éducateur précédent", proximo: "Éducateur suivant", vazio: "Cette discipline cherche encore des éducateurs. Vous voulez enseigner ?", ensina: "Enseigne" },
   zh: { quem: "授课者", de: "教师：", todos: "认识整个团队", anterior: "上一位", proximo: "下一位", vazio: "这门学科还在寻找教师。想来教吗？", ensina: "教授" },
 };
 

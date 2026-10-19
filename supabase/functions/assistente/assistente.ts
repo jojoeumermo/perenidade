@@ -26,7 +26,7 @@ export const MODELOS = ["claude-opus-5-5", "claude-sonnet-5-5", "claude-haiku-5-
 const COM_RESERVA = new Set(["claude-opus-5-5", "claude-sonnet-5-5", "claude-fable-5-1"]);
 
 export const LIMITES = { pergunta: 3000, titulo: 160, aulas: 5, imagem: 2_000_000, resposta: 20_000, conta: 200, transcricao: 2000 };
-const IDIOMAS: unknown[] = ["pt", "en", "es", "zh", "ru"];
+const IDIOMAS: unknown[] = ["pt", "en", "es", "zh", "ru", "fr"];
 const TIPOS_DE_IMAGEM: string[] = ["image/jpeg", "image/png", "image/webp"];
 
 /** Fixo, sem data nem nada que mude a cada pergunta. O que muda (idioma, disciplina, aulas) vai na mensagem. */

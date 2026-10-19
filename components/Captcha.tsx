@@ -19,7 +19,7 @@ declare global {
 
 export const captchaEnabled = Boolean(captchaKey);
 
-const languages: Record<Locale, string> = { pt: "pt-br", en: "en", es: "es", zh: "zh-cn", ru: "ru" };
+const languages: Record<Locale, string> = { pt: "pt-br", en: "en", es: "es", zh: "zh-cn", ru: "ru", fr: "fr" };
 
 let loading: Promise<void> | null = null;
 

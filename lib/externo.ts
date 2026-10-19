@@ -13,6 +13,7 @@ const permitidos = [
   "es.wikipedia.org",
   "ru.wikipedia.org",
   "zh.wikipedia.org",
+  "fr.wikipedia.org",
   "pt.wikisource.org",
   "pt.wiktionary.org",
   "pt.wikibooks.org",
