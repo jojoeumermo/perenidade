@@ -30,6 +30,16 @@ const videos = [
     .map((host) => `https://${host}`),
 ].join(" ");
 
+// O Estúdio de prática: os editores (FilmCraft, Blockbench…) abrem dentro das páginas do site, num quadro de outra
+// origem (estudio.institutolucia.org), para não alcançarem a sessão nem os dados do instituto.
+const estudio = (() => {
+  try {
+    return new URL(process.env.NEXT_PUBLIC_ESTUDIO_URL ?? "").origin;
+  } catch {
+    return "";
+  }
+})();
+
 // Fora o desafio da entrada, o site não carrega nada de terceiros: scripts, estilos e fontes vêm do próprio domínio.
 const policy = (script: string) =>
   [
@@ -46,7 +56,7 @@ const policy = (script: string) =>
     "worker-src 'self' blob:",
     "manifest-src 'self'",
     // blob: é a prévia, no próprio aparelho, de um PDF ou DOCX recebido nas conversas (nunca um endereço de fora).
-    `frame-src blob: ${captcha} ${jitsi} https://phet.colorado.edu ${videos}`,
+    `frame-src blob: ${captcha} ${jitsi} https://phet.colorado.edu ${videos} ${estudio}`.trim(),
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
