@@ -58,13 +58,13 @@ export async function imageForAssistant(file: File): Promise<{ tipo: string; dad
 const randomName = () => `a-${crypto.randomUUID().replace(/-/g, "").slice(0, 24)}`;
 
 /** Envia para a pasta da própria pessoa no depósito fechado e devolve o caminho ("<id>/<nome>.<ext>"). */
-export async function sendFile(blob: Blob, extension: "webp" | "jpg" | "pdf"): Promise<string> {
+export async function sendFile(blob: Blob, extension: "webp" | "jpg" | "pdf" | "webm" | "m4a"): Promise<string> {
   if (blob.size > MAX_BYTES) throw new UploadError("tamanho");
   const supabase = await getClient();
   const { data } = await supabase.auth.getUser();
   if (!data.user) throw new UploadError("sessao");
   const path = `${data.user.id}/${randomName()}.${extension}`;
-  const contentType = extension === "pdf" ? "application/pdf" : extension === "jpg" ? "image/jpeg" : "image/webp";
+  const contentType = { pdf: "application/pdf", jpg: "image/jpeg", webp: "image/webp", webm: "audio/webm", m4a: "audio/mp4" }[extension];
   const { error } = await supabase.storage.from(BUCKET).upload(path, blob, { contentType, upsert: false });
   if (error) throw new UploadError("envio");
   return path;

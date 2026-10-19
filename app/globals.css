@@ -1644,3 +1644,11 @@ body {
     align-items: center;
   }
 }
+
+/* Modo foco do Escrever: some o menu do painel e fica só a folha de escrita. */
+html[data-escrita-foco="1"] #menu-do-painel {
+  display: none !important;
+}
+html[data-escrita-foco="1"] .painel {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
