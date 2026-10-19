@@ -35,7 +35,9 @@
     "copied": "Copié",
     "loading": "Chargement…",
     "askCommunity": "Demander à la communauté",
-    "practiceStudio": "Studio de pratique"
+    "practiceStudio": "Studio de pratique",
+    "videoRoomFailed": "La salle vidéo ne s'est pas chargée (le serveur {dominio} n'a pas répondu ou est bloqué sur ce réseau).",
+    "openInNewTab": "Ouvrir dans un autre onglet ↗"
   },
   "nav": {
     "main": "Principal",
