@@ -4,6 +4,7 @@
 import { useRef, useState } from "react";
 import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
+import { chavesDeEstudo, entraNaCopia, restaurarCopia } from "@/lib/estudo";
 import { applyPrefs, defaultPrefs } from "@/lib/prefs";
 import { useCompleted } from "@/lib/progress";
 import { getItem, KEYS, setItem, useStored } from "@/lib/storage";
@@ -11,7 +12,11 @@ import { quickExit } from "./Shortcuts";
 
 const action = "cursor-pointer border-2 border-ink px-5 py-2.5 font-medium hover:border-oxblood hover:text-oxblood";
 // A sessão de quem tem conta (e o nome que vem com ela) não entra na cópia: é credencial, não dado de estudo.
-const portable = Object.values(KEYS).filter((key) => key !== KEYS.session && key !== KEYS.name && key !== KEYS.seen && key !== KEYS.site);
+// A marca do aparelho também não: levada para outro navegador, ele se passaria por este (como na cópia do caderno).
+const portable = Object.values(KEYS).filter((key) => key !== KEYS.session && key !== KEYS.name && key !== KEYS.seen && key !== KEYS.site && key !== KEYS.device);
+// Além delas, a cópia e o "apagar" levam as chaves de estudo (caderno de erros, revisão, caderno, prática, Meu estudo…),
+// a mesma lista da cópia de segurança do caderno (lib/estudo.ts): a página de privacidade promete que tudo sai daqui.
+const doEstudo = (key: string) => !portable.includes(key as (typeof portable)[number]) && entraNaCopia(key);
 
 /** Baixar, restaurar e apagar o que o site guarda neste navegador. */
 export function DataPanel({ s }: { s: Dict["data"] }) {
@@ -26,6 +31,10 @@ export function DataPanel({ s }: { s: Dict["data"] }) {
       const value = getItem(key);
       if (value) data[key] = value;
     }
+    for (const key of chavesDeEstudo(localStorage)) {
+      const value = getItem(key);
+      if (value && doEstudo(key)) data[key] = value;
+    }
     const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }));
     const link = document.createElement("a");
     link.href = url;
@@ -38,12 +47,16 @@ export function DataPanel({ s }: { s: Dict["data"] }) {
     if (!file) return;
     try {
       const data = JSON.parse(await file.text()) as Record<string, unknown>;
-      const known = portable.filter((key) => typeof data[key] === "string" && (data[key] as string).length < 2_000_000);
-      if (known.length === 0) throw new Error("vazio");
-      for (const key of known) {
-        JSON.parse(data[key] as string);
-        setItem(key, data[key] as string);
-      }
+      const cabe = (key: string) => typeof data[key] === "string" && (data[key] as string).length < 2_000_000;
+      const known = portable.filter(cabe);
+      const estudo = Object.keys(data).filter((key) => doEstudo(key) && cabe(key));
+      if (known.length + estudo.length === 0) throw new Error("vazio");
+      // Só chaves conhecidas, só texto e com tamanho limitado. Nem todo valor é JSON (o tema é "dark", um código de
+      // laboratório é o próprio código): exigir JSON fazia a restauração falhar no meio.
+      for (const key of known) setItem(key, data[key] as string);
+      // O estudo se junta ao que já está aqui (cartões, erros, testes…), sem apagar nada, como na cópia do caderno.
+      restaurarCopia({ formato: "lucia-copia", versao: 1, feita: "", dados: Object.fromEntries(estudo.map((key) => [key, data[key] as string])) }, localStorage);
+      window.dispatchEvent(new Event("lucia:estudo"));
       setNotice(s.imported);
     } catch {
       setNotice(s.importFailed);
@@ -53,6 +66,8 @@ export function DataPanel({ s }: { s: Dict["data"] }) {
 
   function clearAll() {
     for (const key of Object.values(KEYS)) setItem(key, null);
+    for (const key of chavesDeEstudo(localStorage)) setItem(key, null);
+    window.dispatchEvent(new Event("lucia:estudo"));
     document.documentElement.removeAttribute("data-theme");
     applyPrefs(defaultPrefs);
     setNotice(s.cleared);
