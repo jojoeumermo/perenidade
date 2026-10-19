@@ -4,6 +4,8 @@ import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { comMarcas, miolo, partir, textoPuro, tipoDe } from "../lib/blocos.ts";
 import { expressaoSegura, lacunaCerta, lerCacaPalavras, lerCalculadora, lerDados, lerForca, lerGrafico, lerPares, lerPronuncia, lerTeste, MODELOS_INTERATIVOS, montarGrade, numeroCerto } from "../lib/interativos.ts";
+import { anguloEm, areaDoPoligono, distancia, lerArrastar, lerCena, lerGeometria, lerMapa, lerMolecula, lerMusica, lerProgramacao, lerRodar, lerSimulacao, nomeDeLugar, parDeNumeros, posicoesDaGeometria, saidaConfere, segundos } from "../lib/interativos-mais.ts";
+import { BIBLIOTECA, comprimentoDaLigacao, formula, lerSmiles, moleculaDe } from "../lib/moleculas.ts";
 
 let ok = 0;
 const falhas = [];
@@ -74,6 +76,76 @@ conferir("pronúncia: áudio do site aceito, endereço estranho recusado", pr.li
 conferir("bloco interativo é reconhecido pelo editor", tipoDe("```forca\ncasa | onde se mora\n```") === "interativo" && tipoDe("```python\nprint(1)\n```") === "codigo");
 const comBranco = "Antes.\n\n```teste\n? Um\n= 1\n\n? Dois\n= 2\n```\n\nDepois.";
 conferir("teste com linha em branco continua um bloco só", partir(comBranco).length === 3);
+
+// ───────────── Blocos de ciência, mapa, programação e jogos de montar ─────────────
+
+const sim = lerSimulacao(MODELOS_INTERATIVOS.simulacao.modelo);
+conferir("simulação: rampa, bola, caixa e pêndulo do modelo", sim.corpos.map((c) => c.tipo).join() === "rampa,bola,caixa,pendulo", sim.corpos.map((c) => c.tipo).join());
+conferir("simulação: nome, raio com vírgula e cor", sim.corpos[1].nome === "A" && Math.abs(sim.corpos[1].raio - 0.4) < 1e-9 && sim.corpos[1].cor.startsWith("#"));
+conferir("simulação: gravidade e o que mostrar", sim.gravidade === 9.8 && sim.mostrar.join() === "A");
+conferir("simulação: valor absurdo não entra", lerSimulacao("bola em (500, 2)").corpos.length === 0 && lerSimulacao("gravidade: 999\nbola em (2, 2)").gravidade === 9.8);
+conferir("simulação: velocidade dentro de palavra não confunde (de)", lerSimulacao("bola em (2, 3) velocidade (4, 1)").corpos[0].vx === 4 && lerSimulacao("bola em (2, 3) velocidade (4, 1)").corpos[0].x === 2);
+
+const geo = lerGeometria(MODELOS_INTERATIVOS.geometria.modelo);
+const pos = posicoesDaGeometria(geo);
+conferir("geometria: triângulo 3-4-5", Math.abs(distancia(pos.B, pos.C) - 5) < 1e-9 && Math.abs(areaDoPoligono([pos.A, pos.B, pos.C]) - 6) < 1e-9 && Math.abs(anguloEm(pos.B, pos.A, pos.C) - 90) < 1e-9);
+const comMeio = lerGeometria("A = (0, 0)\nB = (4, 2)\nM = meio A B\nsegmento A M");
+conferir("geometria: ponto médio acompanha o arrasto", posicoesDaGeometria(comMeio, { B: { x: 6, y: 6 } }).M.x === 3 && comMeio.objetos.length === 1);
+conferir("geometria: objeto com ponto que não existe fica de fora", lerGeometria("A = (0, 0)\nsegmento A Z").objetos.length === 0);
+
+const mapa = lerMapa(MODELOS_INTERATIVOS.mapa.modelo);
+conferir("mapa: pontos com vírgula decimal e rota", mapa.pontos[0].lat === 38.72 && mapa.pontos[0].lon === -9.14 && mapa.rotas[0].trecho.length === 7 && mapa.destaques.join() === "Portugal,Índia");
+conferir("mapa: coordenada impossível recusada", lerMapa("ponto 120 10 | x").pontos.length === 0 && parDeNumeros("(38.7, -9.1)")?.[1] === -9.1);
+conferir("mapa: nome comparável sem acento e sem artigo", nomeDeLugar("os Estados Unidos") === "estados unidos" && nomeDeLugar("Índia") === "india");
+
+const prog = lerProgramacao(MODELOS_INTERATIVOS.programacao.modelo);
+conferir("programação: categorias com acento e plural", prog.categorias.join() === "lacos,matematica,texto,variaveis" && prog.esperado === "1\n2\n3\n4\n5");
+conferir("programação: sem 'blocos:' vêm todas as gavetas", lerProgramacao("objetivo: x").categorias.length === 7);
+const rod = lerRodar(MODELOS_INTERATIVOS.rodar.modelo);
+conferir("código para rodar: linguagem, código e saída esperada", rod.linguagem === "python" && rod.codigo.startsWith("nome =") && rod.esperado === "Olá, Lúcia 0\nOlá, Lúcia 1\nOlá, Lúcia 2");
+conferir("código para rodar: saída confere sem ligar para espaço no fim", saidaConfere("1 \n2\n\n", "1\n2") && !saidaConfere("1\n3", "1\n2"));
+
+conferir("cena: modelo com duas áreas e modo", lerCena(MODELOS_INTERATIVOS.cena.modelo)?.areas.length === 2);
+conferir("cena: imagem de fora do site é recusada", lerCena("imagem: https://exemplo.com/a.png\nx | 1 1 10 10") === null && lerCena("imagem: /arquivos/../segredo.png\nx | 1 1 10 10") === null);
+const arr = lerArrastar(MODELOS_INTERATIVOS.arrastar.modelo);
+conferir("arrastar: três grupos de três itens", arr.grupos.length === 3 && arr.grupos.every((g) => g.itens.length === 3));
+conferir("arrastar: um grupo só não vira jogo", lerArrastar("A: x, y").grupos.length === 0);
+const mus = lerMusica(MODELOS_INTERATIVOS.musica.modelo);
+conferir("música: tempos em segundos e tradução", mus.linhas[0].t === 5 && mus.linhas[1].t === 12 && mus.linhas[0].traducao.startsWith("tradução") && mus.lingua === "es-ES");
+conferir("música: áudio de fora é recusado", lerMusica("audio: https://x.com/a.mp3\n0:01 | a").audio === "" && segundos("1:05,5") === 65.5);
+
+// Moléculas: a forma que a escola ensina.
+const angulos = (m, c) => {
+  const viz = m.ligacoes.filter((l) => l.a === c || l.b === c).map((l) => (l.a === c ? l.b : l.a));
+  const r = [];
+  for (let i = 0; i < viz.length; i++) for (let j = i + 1; j < viz.length; j++) {
+    const [A, C, B] = [m.atomos[viz[i]], m.atomos[c], m.atomos[viz[j]]];
+    const u = [A.x - C.x, A.y - C.y, A.z - C.z], v = [B.x - C.x, B.y - C.y, B.z - C.z];
+    r.push((Math.acos(Math.max(-1, Math.min(1, (u[0] * v[0] + u[1] * v[1] + u[2] * v[2]) / (Math.hypot(...u) * Math.hypot(...v))))) * 180) / Math.PI);
+  }
+  return r;
+};
+const agua = moleculaDe("água").mol;
+conferir("molécula: água angular, perto de 104,5°", formula(agua) === "H₂O" && Math.abs(angulos(agua, 0)[0] - 104.5) < 2);
+const metano = moleculaDe("metano").mol;
+conferir("molécula: metano tetraédrico (109,5°)", angulos(metano, 0).every((a) => Math.abs(a - 109.47) < 2));
+const sf6 = moleculaDe("SF6").mol;
+conferir("molécula: SF6 octaédrico (90° e 180°)", angulos(sf6, 1).every((a) => Math.abs(a - 90) < 3 || Math.abs(a - 180) < 3));
+const xef4 = moleculaDe("xef4").mol;
+conferir("molécula: XeF4 quadrado plano", angulos(xef4, 1).filter((a) => Math.abs(a - 180) < 3).length === 2);
+const benzeno = moleculaDe("benzeno").mol;
+conferir("molécula: benzeno plano, 120° e seis hidrogênios", formula(benzeno) === "C₆H₆" && angulos(benzeno, 0).every((a) => Math.abs(a - 120) < 3));
+conferir("molécula: cafeína com a fórmula certa", formula(moleculaDe("cafeína").mol) === "C₈H₁₀N₄O₂");
+const naftaleno = moleculaDe("c1ccc2ccccc2c1").mol;
+conferir("molécula: anéis fundidos sem ligação esticada", naftaleno.ligacoes.every((l) => {
+  const [a, b] = [naftaleno.atomos[l.a], naftaleno.atomos[l.b]];
+  return Math.abs(Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z) - comprimentoDaLigacao(a.el, b.el, l.ordem)) < 0.1;
+}));
+conferir("molécula: SMILES inválido não trava", moleculaDe("C(C") === null && lerSmiles("C1CC") === null);
+conferir("molécula: toda a biblioteca monta", BIBLIOTECA.every((b) => moleculaDe(b.nomes[0]) !== null));
+conferir("molécula: XYZ pronto vira ligações pela distância", moleculaDe("", [{ el: "O", x: 0, y: 0, z: 0 }, { el: "H", x: 0.96, y: 0, z: 0 }, { el: "H", x: -0.24, y: 0.93, z: 0 }]).mol.ligacoes.length === 2);
+const lido = lerMolecula("etanol\nestilo: bolas\nrotulos: sim");
+conferir("molécula: opções do bloco", lido.entrada === "etanol" && lido.estilo === "bolas" && lido.rotulos);
 
 for (const f of falhas.slice(0, 20)) console.log(`  ✗ ${f}`);
 console.log(`blocos: ${ok} conferências certas, ${falhas.length} falhas`);

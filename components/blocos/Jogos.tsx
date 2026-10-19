@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import { fill } from "@/i18n/config";
 import { idDaQuestao, registrarErro } from "@/lib/estudo";
 import { lacunaCerta, lerCacaPalavras, lerForca, lerPares, lerTeste, montarGrade, numeroCerto, type Questao } from "@/lib/interativos";
+import { imagemDoSite } from "@/lib/interativos-mais";
 import { useI18n } from "../I18n";
 
 // Testes autocorrigíveis e jogos (cartões, memória, forca, caça-palavras). Tudo no aparelho; quem erra um teste
@@ -22,6 +23,19 @@ const embaralhar = <T,>(lista: T[]) => {
   }
   return copia;
 };
+
+/** Enunciado ou alternativa com figura: "![descrição](/arquivos/gato.webp) texto". Só imagens do próprio site. */
+function ComImagem({ texto, className }: { texto: string; className?: string }) {
+  const m = /^!\[([^\]]*)\]\(([^)\s]+)\)\s*([\s\S]*)$/.exec(texto);
+  if (!m || !imagemDoSite(m[2])) return <span className={className}>{texto}</span>;
+  return (
+    <span className={`inline-flex flex-col items-start gap-1 ${className ?? ""}`}>
+      {/* eslint-disable-next-line @next/next/no-img-element -- imagem do acervo, já otimizada no envio */}
+      <img src={m[2]} alt={m[1]} loading="lazy" className="max-h-48 max-w-full object-contain" />
+      {m[3] && <span>{m[3]}</span>}
+    </span>
+  );
+}
 
 // ───────────── Teste ─────────────
 
@@ -75,11 +89,11 @@ function UmaQuestao({ q, marcar }: { q: Questao; marcar: (certa: boolean) => voi
   if (q.tipo === "escolha") {
     return (
       <div>
-        <p className="font-medium">{q.enunciado}</p>
+        <p className="font-medium"><ComImagem texto={q.enunciado} /></p>
         <div className="mt-2 flex flex-wrap gap-2">
           {q.opcoes.map((o, k) => (
             <button key={k} type="button" disabled={conferida !== null} aria-pressed={escolhida === k} onClick={() => { setEscolhida(k); conferir(o.certa, k); }} className={`cursor-pointer border-2 bg-parchment px-3 py-1.5 text-left ${escolhida === k ? (o.certa ? "border-ok text-ok" : "border-oxblood") : "border-rule hover:border-gold"}`}>
-              {o.texto}
+              <ComImagem texto={o.texto} />
             </button>
           ))}
         </div>
@@ -90,7 +104,7 @@ function UmaQuestao({ q, marcar }: { q: Questao; marcar: (certa: boolean) => voi
   if (q.tipo === "vf") {
     return (
       <div>
-        <p className="font-medium">{q.enunciado}</p>
+        <p className="font-medium"><ComImagem texto={q.enunciado} /></p>
         <div className="mt-2 flex gap-2">
           {[true, false].map((v) => (
             <button key={String(v)} type="button" disabled={conferida !== null} onClick={() => { setEscolhida(v ? 0 : 1); conferir(v === q.resposta, v ? 0 : 1); }} className={claro}>
@@ -105,7 +119,7 @@ function UmaQuestao({ q, marcar }: { q: Questao; marcar: (certa: boolean) => voi
   if (q.tipo === "numero") {
     return (
       <div onKeyDown={(e) => { if (e.key === "Enter" && conferida === null && resposta[0]) { e.preventDefault(); conferir(numeroCerto(q, resposta[0] ?? "")); } }}>
-        <p className="font-medium">{q.enunciado}</p>
+        <p className="font-medium"><ComImagem texto={q.enunciado} /></p>
         <div className="mt-2 flex gap-2">
           <input inputMode="decimal" aria-label={t.blocks.yourAnswer} value={resposta[0] ?? ""} onChange={(e) => setResposta([e.target.value])} disabled={conferida !== null} className="w-32 border-2 border-ink bg-parchment px-2 py-1.5 font-mono" />
           <button type="button" className={botao} disabled={conferida !== null || !resposta[0]} onClick={() => conferir(numeroCerto(q, resposta[0] ?? ""))}>{t.blocks.check}</button>
@@ -136,7 +150,7 @@ function UmaQuestao({ q, marcar }: { q: Questao; marcar: (certa: boolean) => voi
   // Ordenar: subir e descer cada item (funciona no teclado e no toque, sem arrastar).
   return (
     <div>
-      <p className="font-medium">{q.enunciado}</p>
+      <p className="font-medium"><ComImagem texto={q.enunciado} /></p>
       <ol className="mt-2 space-y-1">
         {ordem.map((item, k) => (
           <li key={item} className="flex items-center gap-2 border border-rule bg-parchment px-2 py-1">

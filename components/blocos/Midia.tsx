@@ -3,6 +3,7 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { lerFerramenta, lerLinhaDoTempo, lerPronuncia } from "@/lib/interativos";
+import { lerMusica } from "@/lib/interativos-mais";
 import { L, useI18n } from "../I18n";
 import { PendingAudio } from "./PendingAudio";
 
@@ -174,5 +175,63 @@ export function Ferramenta({ spec }: { spec: string }) {
     <p className="no-print my-6 font-sans">
       <L href={`/ferramentas/${f.id}`} className="inline-block bg-ink px-5 py-2.5 font-medium text-parchment hover:bg-oxblood">{f.rotulo || t.blocks.open} →</L>
     </p>
+  );
+}
+
+// ───────────── Música com letra ─────────────
+
+export function Musica({ spec }: { spec: string }) {
+  const { t } = useI18n();
+  const musica = useMemo(() => lerMusica(spec), [spec]);
+  const tocador = useRef<HTMLAudioElement>(null);
+  const lista = useRef<HTMLOListElement>(null);
+  const [atual, setAtual] = useState(-1);
+  const [traducao, setTraducao] = useState(false);
+  const temTraducao = musica.linhas.some((l) => l.traducao);
+  if (!musica.linhas.length) return <pre className="text-sm">{spec}</pre>;
+  const pendente = musica.audio.startsWith("envio:");
+  function acompanhar() {
+    const agora = tocador.current?.currentTime ?? 0;
+    let i = -1;
+    for (let k = 0; k < musica.linhas.length && musica.linhas[k].t <= agora + 0.15; k++) i = k;
+    if (i === atual) return;
+    setAtual(i);
+    // Rola só a caixa da letra, nunca a página.
+    const caixaDaLetra = lista.current;
+    const linha = caixaDaLetra?.children[i] as HTMLElement | undefined;
+    if (caixaDaLetra && linha) caixaDaLetra.scrollTo({ top: linha.offsetTop - caixaDaLetra.clientHeight / 2 + linha.clientHeight / 2, behavior: "smooth" });
+  }
+  return (
+    <figure className={caixa}>
+      {musica.audio && (pendente ? <PendingAudio path={musica.audio.slice(6)} /> : <audio ref={tocador} controls preload="metadata" src={musica.audio} className="w-full" onTimeUpdate={acompanhar} onSeeked={acompanhar} />)}
+      {temTraducao && (
+        <label className="mt-2 flex items-center gap-2 text-xs">
+          <input type="checkbox" checked={traducao} onChange={(e) => setTraducao(e.target.checked)} className="accent-[var(--oxblood)]" />
+          {t.blocks.showTranslation}
+        </label>
+      )}
+      <ol ref={lista} className="relative mt-2 max-h-80 space-y-1 overflow-y-auto border border-rule bg-parchment p-3" aria-label={t.blocks.lyrics} lang={musica.lingua || undefined}>
+        {musica.linhas.map((l, i) => (
+          <li key={i}>
+            <button
+              type="button"
+              disabled={!musica.audio || pendente}
+              onClick={() => {
+                const a = tocador.current;
+                if (!a) return;
+                a.currentTime = l.t;
+                void a.play().catch(() => {});
+              }}
+              aria-current={i === atual ? "true" : undefined}
+              className={`w-full cursor-pointer text-left font-serif text-lg leading-snug transition-colors disabled:cursor-default ${i === atual ? "font-semibold text-oxblood" : i < atual ? "text-ink-soft" : ""}`}
+            >
+              {l.texto}
+              {traducao && l.traducao && <span className="block font-sans text-sm text-ink-soft">{l.traducao}</span>}
+            </button>
+          </li>
+        ))}
+      </ol>
+      {musica.credito && <figcaption className="mt-1 text-xs text-ink-soft">{musica.credito}</figcaption>}
+    </figure>
   );
 }
