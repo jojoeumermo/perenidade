@@ -5,7 +5,9 @@ import { Suspense } from "react";
 import { ContributeForm } from "@/components/ContributeForm";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
+import { textosDoEstudo } from "@/lib/textos-estudo";
 import { localePath } from "@/i18n/config";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/contribuir">): Promise<Metadata> {
@@ -33,6 +35,14 @@ export default async function Contribuir({ params }: PageProps<"/[lang]/contribu
       <PageHeading eyebrow={c.eyebrow} title={c.title}>
         {c.lead}
       </PageHeading>
+      {/* Recurso "guia-contribuir" (lib/recursos.ts): desligado, a página fica como era. */}
+      {ligado("guia-contribuir") && (
+        <p className="mt-4 font-sans text-sm">
+          <Link href={localePath(lang, "/contribuir/guia")} className="underline hover:text-oxblood">
+            {textosDoEstudo(lang).s.guia.verGuia} →
+          </Link>
+        </p>
+      )}
 
       <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_19rem]">
         <div>

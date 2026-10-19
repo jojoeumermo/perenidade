@@ -38,6 +38,7 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         ...(ligado("nivelamento") ? [[novos.nivelamento.titulo, "/nivelamento", novos.nivelamento.descricao] as [string, string, string]] : []),
         ...(ligado("turma") ? [[novos.turma.titulo, "/turma", novos.turma.descricao] as [string, string, string]] : []),
         ...(ligado("professores") ? [[novos.professores.titulo, "/professores", novos.professores.descricao] as [string, string, string]] : []),
+        ...(ligado("guia-contribuir") ? [[novos.guia.titulo, "/contribuir/guia", novos.guia.descricao] as [string, string, string]] : []),
         [n.tutoring, "/reforco", d.tutoring],
         [n.tools, "/ferramentas", d.tools],
         [n.labs, "/laboratorios", t.labs.lead],
