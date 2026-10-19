@@ -3388,7 +3388,10 @@
     "note": "Moderator's note",
     "withdraw": "Take down",
     "withdrawConfirm": "Take this entry down? People who already copied the work can keep using it under the license.",
-    "withdrawn": "Entry taken down."
+    "withdrawn": "Entry taken down.",
+    "exerciseFor": "Exercise hand-in: {titulo}",
+    "exerciseHint": "Send the link to the exported video. The subject's educator comments; publishing it in the Drawer for everyone still goes through moderation.",
+    "feedback": "Educator's comment"
   },
   "podcast": {
     "title": "Podcasts",
@@ -3924,6 +3927,17 @@
         ]
       ],
       "back": "Back to the practice studio"
+    },
+    "exercises": {
+      "title": "Practice exercise",
+      "objective": "Goal",
+      "program": "Program",
+      "materials": "Material",
+      "steps": "Step by step",
+      "criteria": "How it will be assessed",
+      "open": "Open in the studio",
+      "deliver": "Hand in through the Open Drawer",
+      "deliverHint": "Export the video, publish it at a link (unlisted YouTube, PeerTube, Drive…) and hand in the link. The educator comments on your work."
     }
   }
 }

@@ -23,6 +23,10 @@ export const enderecoDaLicenca: Record<LicencaDaGaveta, string> = {
 };
 
 export interface Trabalho {
+  /** Entrega de exercício de prática: o exercício e o comentário do educador (só em "Minhas"). */
+  exercicio?: string | null;
+  exercicio_titulo?: string | null;
+  retorno?: string;
   id: string;
   titulo: string;
   tipo: TipoDeTrabalho;
