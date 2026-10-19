@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 import { useI18n } from "../I18n";
-import { botao, botaoClaro, campo, dia } from "./comum";
+import { botao, botaoClaro, campo, diaBr, localDoPainel } from "./comum";
 
 export interface Assinatura {
   id: string;
@@ -81,7 +81,7 @@ export function Folha({ certificado, cpf = "", rascunho = false }: { certificado
   }, [lang]);
   const areas: Record<string, string[]> = lang === "pt" ? t.areas : (areasPt ?? t.areas);
   const emitido = certificado.status === "emitido";
-  const data = (iso: string) => (iso ? dia(iso) : "__/__/____");
+  const data = (iso: string) => (iso ? diaBr(iso) : "__/__/____");
   const endereco = `${site.url.replace(/^https?:\/\//, "")}/pt/certificado`;
   const cargo = (assinatura: Assinatura) =>
     assinatura.papel === "coordenacao"
@@ -133,7 +133,7 @@ export function Folha({ certificado, cpf = "", rascunho = false }: { certificado
         <footer>
           <p>
             Certificado nº {rascunho ? "a definir na abertura" : codigoBonito(certificado.codigo)}
-            {certificado.emitido_em && <> · emitido em {new Date(certificado.emitido_em).toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo" })}</>} · confira a autenticidade em {endereco}
+            {certificado.emitido_em && <> · emitido em {new Date(certificado.emitido_em).toLocaleDateString(localDoPainel(), { timeZone: "America/Sao_Paulo" })}</>} · confira a autenticidade em {endereco}
           </p>
           <p>Impressão digital (SHA-256): {rascunho ? "calculada na abertura do processo" : certificado.impressao}</p>
         </footer>

@@ -122,7 +122,7 @@ export function ProvasPublicas({ s }: { s: S }) {
   if (!indice) return null;
   const fonte = indice.fontes.find((f) => f.id === fonteId) ?? indice.fontes[0];
   const presentes = new Set(fonte.provas.flatMap((p) => Object.keys(p.porArea ?? {})));
-  const todasAsAreas: [string, string][] = [["linguagens", s.publicAreas.linguagens], ["humanas", s.publicAreas.humanas], ["natureza", s.publicAreas.natureza], ["matematica", s.publicAreas.matematica], ["direito", s.publicAreas.direito]];
+  const todasAsAreas: [string, string][] = [["linguagens", s.publicAreas.linguagens], ["humanas", s.publicAreas.humanas], ["natureza", s.publicAreas.natureza], ["matematica", s.publicAreas.matematica], ["direito", s.publicAreas.direito], ["saude", s.publicAreas.saude]];
   const areas: [string, string][] = [["", s.publicAllAreas], ...todasAsAreas.filter(([id]) => presentes.size === 0 || presentes.has(id))];
   const total = indice.fontes.reduce((n, f) => n + f.provas.reduce((m, p) => m + p.total, 0), 0);
 

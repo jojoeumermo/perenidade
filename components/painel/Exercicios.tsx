@@ -58,7 +58,7 @@ function Entregas({ exercicio }: { exercicio: Exercicio }) {
           <li key={g.id} className="border border-rule p-3 text-sm">
             <p className="font-semibold">{g.autor || g.credito} <span className="font-normal text-ink-soft">· {data(g.criado_em)} · na Gaveta: {g.status}</span></p>
             {g.link && <a href={g.link} target="_blank" rel="noopener noreferrer nofollow" className={elo}>Ver o vídeo ↗</a>}
-            <p className="mt-1 whitespace-pre-line">{g.comentario}</p>
+            <p className="mt-1 whitespace-pre-line" data-original>{g.comentario}</p>
             {g.retorno && <p className="mt-2 border-l-4 border-ok pl-2"><span className="text-ink-soft">Seu comentário: </span>{g.retorno}</p>}
             <label className="mt-2 block">{g.retorno ? "Trocar o comentário" : "Comentar a entrega"}
               <textarea value={textos[g.id] ?? ""} onChange={(e) => setTextos({ ...textos, [g.id]: e.target.value })} rows={2} maxLength={2000} className={campo} />
