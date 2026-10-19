@@ -30,6 +30,8 @@ import { RegistroDeConclusao } from "@/components/estudo/RegistroDeConclusao";
 import { exerciciosDaAula } from "@/lib/exercicios-conteudo";
 import { ligado } from "@/lib/recursos";
 import { textosDoEstudo } from "@/lib/textos-estudo";
+import { creditosDeRevisao, EtiquetaDeRevisao } from "@/components/estudo/EtiquetaDeRevisao";
+import { revisoesDaAula } from "@/lib/revisoes-conteudo";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
@@ -88,6 +90,7 @@ export default async function LessonPage({ params }: Props) {
   // Recursos novos (lib/recursos.ts): desligados, nada disto aparece e a aula fica como era.
   const estudo = textosDoEstudo(lang).s;
   const exercicios = ligado("exercicios") ? exerciciosDaAula(track.slug, lesson.slug) : [];
+  const revisoes = ligado("revisoes") ? revisoesDaAula(lesson.file) : [];
 
   return (
     <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! md:grid-cols-[16rem_1fr]">
@@ -134,7 +137,8 @@ export default async function LessonPage({ params }: Props) {
         </div>
 
         <Untranslated lang={lang} t={t} show={!lesson.translated} />
-        {!lesson.reviewed && (
+        {ligado("revisoes") && <EtiquetaDeRevisao revisoes={revisoes} aprovada={lesson.reviewed} lang={lang} s={estudo.revisao} corrigir={fix} como={ligado("guia-contribuir") ? to("/contribuir/guia#revisar") : undefined} />}
+        {!ligado("revisoes") && !lesson.reviewed && (
           <p className="no-print mt-6 border-l-2 border-gold pl-4 font-sans text-sm text-ink-soft">
             {t.lesson.awaitingReview} <Link href={fix} className="underline hover:text-oxblood">{t.lesson.suggestOne}</Link>.
           </p>
@@ -174,6 +178,7 @@ export default async function LessonPage({ params }: Props) {
         <footer className="mt-8 space-y-2 font-mono text-xs text-ink-soft">
           <p>
             {lesson.authors.length > 0 && <>{fill(t.lesson.by, { names: lesson.authors.join(", ") })} · </>}
+            {revisoes.length > 0 && <>{creditosDeRevisao(revisoes, estudo.revisao)} · </>}
             {updated
               ? `${fill(t.lesson.lastChange, { date: updated })} · ${plural(lang, history.revisions, t.lesson.saved)}`
               : t.lesson.noHistory}{" "}
