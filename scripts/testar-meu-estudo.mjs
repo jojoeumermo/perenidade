@@ -18,6 +18,7 @@ import {
   registrarTeste,
   responderExercicio,
 } from "../lib/meu-estudo.ts";
+import { conferirModelo, lerRevisoes } from "../lib/modelo-de-aula.ts";
 import { ligado, lerRecursos, RECURSOS } from "../lib/recursos.ts";
 
 let ok = 0;
@@ -104,6 +105,27 @@ localStorage.setItem("lucia:caderno", "[]");
 const n = apagarProgresso(localStorage);
 conferir("apaga o progresso", n >= 4 && lerTestes()["x/y"] === undefined && localStorage.getItem("lucia:concluidas") === null);
 conferir("as notas do caderno ficam", localStorage.getItem("lucia:caderno") === "[]");
+
+// Modelo de aula e revisões
+const linhas = (...l) => l.join("\n");
+const corpo = linhas("## O que você vai aprender", "", "Somar frações.", "", "## Partes", "", "palavra ".repeat(260), "", "## Exemplo resolvido", "", "1 + 1", "", "## Resumo", "", "- isso");
+conferir("aula no modelo", conferirModelo({ corpo, quiz: 3, fontes: 1 }).every((p) => p.ok));
+const faltando = conferirModelo({ corpo: linhas("## Partes", "", "curto"), quiz: 0, fontes: 1 }).filter((p) => !p.ok).map((p) => p.parte);
+conferir("aponta o que falta", JSON.stringify(faltando) === JSON.stringify(["objetivo", "explicacao", "exemplo", "exercicio", "resumo"]));
+const blocos = linhas("```conta", "1+1", "```", "```verificar", "p", "+ a", "```");
+conferir("bloco conta vale como exemplo e verificar como exercício", conferirModelo({ corpo: blocos, quiz: 0, fontes: 1 }).filter((p) => p.ok).map((p) => p.parte).join() === "exemplo,exercicio,fontes");
+conferir("sem revisões é em revisão", lerRevisoes(undefined, "x").length === 0);
+const rev = lerRevisoes([{ funcao: "revisão", data: "2026-10-01" }, { funcao: "educador de matemática", nome: "Ana", data: new Date("2026-10-20"), nota: "ok" }], "x");
+conferir("revisões em ordem, a mais nova primeiro", rev[0].data === "2026-10-20" && rev[0].nome === "Ana" && rev[1].funcao === "revisão");
+let recusou = 0;
+for (const errado of [[{ data: "2026-10-01" }], [{ funcao: "x", data: "ontem" }], "revisada"]) {
+  try {
+    lerRevisoes(errado, "x");
+  } catch {
+    recusou++;
+  }
+}
+conferir("recusa revisão sem função, sem data ou fora de lista", recusou === 3);
 
 console.log(`meu estudo: ${ok} conferências certas, ${falhas.length} falhas`);
 for (const f of falhas) console.log(`  ✗ ${f}`);

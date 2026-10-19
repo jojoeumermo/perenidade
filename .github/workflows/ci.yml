@@ -47,6 +47,8 @@ jobs:
       - run: npm run testar:exercicios
       # O que os recursos novos guardam no aparelho (Meu estudo, revisão dos erros, turma, metas) e a leitura das flags.
       - run: npm run testar:meu-estudo
+      # O histórico de revisões das aulas (campo "revisoes") e os arquivos de exercícios com o formato certo.
+      - run: npm run pendencias
       # O assistente de reforço sem rede: o que se aceita, o pedido a cada provedor, a reserva e a leitura das respostas.
       - run: npm run testar:assistente
       # O aplicador das tarefas aprovadas (ano, sinopse, licença, link), numa cópia temporária de obras.
