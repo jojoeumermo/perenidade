@@ -673,6 +673,11 @@ alter table interno.conversas drop constraint if exists conversas_tipo_check;
 alter table interno.conversas add constraint conversas_tipo_check check (tipo in ('direta', 'grupo', 'departamento'));
 alter table interno.conversas add column if not exists departamento text;
 alter table interno.conversas drop constraint if exists conversas_departamento_check;
+-- Grupo de departamento que deixou de existir (de uma versão anterior) vira grupo comum: a conversa e as mensagens ficam,
+-- só sai do conjunto dos fixos. Assim a regra abaixo nunca para a instalação.
+update interno.conversas set tipo = 'grupo', departamento = null
+where departamento is not null and departamento not in
+  ('geral', 'coordenacao', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'marketing');
 alter table interno.conversas add constraint conversas_departamento_check check (departamento is null or departamento in
   ('geral', 'coordenacao', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'marketing'));
 create unique index if not exists conversas_departamento on interno.conversas (departamento);
@@ -6869,6 +6874,59 @@ begin
 exception when others then null;
 end $$;
 
+-- ───────────────────────────── Mensagens do chat por e-mail ─────────────────────────────
+
+-- Quem não abre as Conversas recebe por e-mail um resumo do que importa e ainda não leu: as mensagens da coordenação
+-- (de qualquer conversa) e as do grupo do próprio departamento. Só o resumo (de onde e quantas): as mensagens são
+-- cifradas de ponta a ponta e o banco nem sabe o que dizem. Espera 15 minutos antes de avisar (quem está com o painel
+-- aberto lê antes) e não repete o aviso da mesma conversa até chegar mensagem nova. Dá para desligar em Minha conta.
+alter table interno.conversa_membros add column if not exists avisado_em timestamptz;
+
+create or replace function interno.chat_emails() returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+declare r record; v_linhas text; v_total integer;
+begin
+  for r in
+    select m.usuario, u.email, interno.primeiro_nome(f.nome) as nome
+    from conversa_membros m join perfis f on f.id = m.usuario join auth.users u on u.id = m.usuario
+    where not f.suspenso and coalesce(u.email, '') <> ''
+      and exists (select 1 from papeis p where p.usuario = m.usuario)
+    group by m.usuario, u.email, f.nome
+  loop
+    with pendentes as (
+      select c.id, c.tipo, c.nome, count(*) as n, max(x.criado_em) as ultima,
+             string_agg(distinct interno.primeiro_nome(a.nome), ', ') as de
+      from conversa_membros m join conversas c on c.id = m.conversa
+      join conversa_mensagens x on x.conversa = c.id
+      left join perfis a on a.id = x.autor
+      where m.usuario = r.usuario and x.tipo = 'texto' and x.autor is distinct from r.usuario
+        and x.criado_em > m.lido_em and x.criado_em > coalesce(m.avisado_em, '-infinity')
+        and x.criado_em < now() - interval '15 minutes' and x.criado_em > now() - interval '3 days'
+        and (c.tipo = 'departamento' or exists (select 1 from papeis p where p.usuario = x.autor and p.papel in ('coordenacao', 'vice')))
+      group by c.id, c.tipo, c.nome
+    )
+    select string_agg('• ' || case when tipo = 'departamento' then 'Grupo ' || nome when tipo = 'direta' then 'Conversa com ' || coalesce(de, 'a coordenação') else nome || ' (' || coalesce(de, '') || ')' end
+                      || ': ' || n || case when n = 1 then ' mensagem nova' else ' mensagens novas' end, E'\n' order by ultima desc),
+           sum(n)
+    into v_linhas, v_total from pendentes;
+    if v_total is null then continue; end if;
+    perform interno.email(r.email, 'chat_mensagem',
+      case when v_total = 1 then 'Você tem 1 mensagem nova da equipe' else 'Você tem ' || v_total || ' mensagens novas da equipe' end,
+      'Olá, ' || coalesce(nullif(r.nome, ''), 'tudo bem') || E'.\n\nChegaram mensagens importantes nas Conversas do painel e você ainda não leu:\n\n' || v_linhas
+      || E'\n\nAbra o painel para ler (as mensagens são cifradas e só aparecem lá):\n\n' || interno.endereco() || E'/pt/painel\n\nPara não receber estes avisos, desligue em Minha conta › E-mails.', '', 6);
+    update conversa_membros m set avisado_em = now()
+    where m.usuario = r.usuario and exists (select 1 from conversa_mensagens x where x.conversa = m.conversa and x.criado_em > m.lido_em);
+  end loop;
+end $$;
+revoke all on function interno.chat_emails() from public, anon, authenticated;
+
+do $$
+begin
+  if exists (select 1 from pg_extension where extname = 'pg_cron') then
+    perform cron.schedule('lucia-chat-emails', '*/10 * * * *', 'select interno.chat_emails()');
+  end if;
+exception when others then null;
+end $$;
+
 -- ───────────────────────────── Podcasts ─────────────────────────────
 --
 -- O departamento de jornalismo é também a rádio e o podcast: quem tem a função "jornalismo" pode cuidar dos três, ou só
@@ -9860,7 +9918,7 @@ end $$;
 
 /** Os avisos por e-mail que a pessoa pode desligar (os de segurança e os convites sempre chegam). */
 create or replace function interno.emails_opcionais() returns text[] language sql immutable as $$
-  select array['aviso_equipe', 'inscricao_nova', 'certificado_pedido']
+  select array['aviso_equipe', 'inscricao_nova', 'certificado_pedido', 'chat_mensagem']
 $$;
 
 create or replace function public.conta_emails() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
