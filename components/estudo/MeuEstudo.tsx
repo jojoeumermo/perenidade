@@ -2,7 +2,7 @@
 "use client";
 
 import { type ReactNode, useState } from "react";
-import { fill } from "@/i18n/config";
+import { fill, htmlLang } from "@/i18n/config";
 import { type CartaoDeRevisao, type Erro, lerCartoes, lerErros, paraHoje } from "@/lib/estudo";
 import { apagarProgresso, emRevisao, lerRespostas, lerTestes, paraRevisar, porTema, type RespostaGuardada, type Teste } from "@/lib/meu-estudo";
 import { useCompleted, useLastLesson } from "@/lib/progress";
@@ -137,7 +137,7 @@ export function MeuEstudo({ s, caderno, praticar, extras }: { s: S; caderno: Not
                   </L>
                 </>
               ) : proximas.length > 0 ? (
-                <p className="text-ink-soft">{fill(s.proximaRevisao, { data: new Date(`${proximas[0].proxima}T12:00:00`).toLocaleDateString(lang) })}</p>
+                <p className="text-ink-soft">{fill(s.proximaRevisao, { data: new Date(`${proximas[0].proxima}T12:00:00`).toLocaleDateString(htmlLang[lang]) })}</p>
               ) : (
                 <p className="text-ink-soft">{s.semExercicioParaRevisar}</p>
               )}
