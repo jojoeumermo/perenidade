@@ -1,6 +1,6 @@
 # Componentes do painel
 
-O painel existe só em português e usa a mesma identidade do site (pergaminho, tinta, bordô e vermelho; EB Garamond,
+O painel é escrito em português (os outros idiomas vêm de `i18n/painel/<idioma>.json`, aplicados por `Idioma.tsx`) e usa a mesma identidade do site (pergaminho, tinta, bordô e vermelho; EB Garamond,
 Inter e IBM Plex Mono; tema claro e escuro). Antes de criar um elemento novo, procure aqui.
 
 ## Estilos prontos (`components/painel/comum.tsx`)
@@ -25,7 +25,7 @@ acontecer: `window.confirm("Apagar “X”? Não tem volta.")` ou, quando pede m
 | `Abas` | comum.tsx | Abas de uma seção (`role="tablist"`), com contador opcional. |
 | `useLista` | comum.tsx | Carrega uma função do banco e recarrega quando outro painel avisa que algo mudou. |
 | `useAcao` | comum.tsx | Executa uma ação, mostra “ocupado”, a mensagem de sucesso ou o erro traduzido (`textoDoErro`). |
-| `CampoData` | Campos.tsx | Data em português (dd/mm/aaaa), com calendário próprio; valor AAAA-MM-DD. Teclado: setas, Enter, Esc. |
+| `CampoData` | Campos.tsx | Data digitada como dd/mm/aaaa, com calendário próprio no idioma da página; valor AAAA-MM-DD. Teclado: setas, Enter, Esc. |
 | `CampoArquivo` | Campos.tsx | Arrastar e soltar (ou clicar), confere tipo e tamanho; nada de “Choose File”. |
 | `Selo` | MinhaConta.tsx | Estado com palavra e cor (ok, atenção, erro), nunca só cor. |
 | `Avatar` | Avatar.tsx | Foto, desenho ou iniciais da pessoa. |
@@ -39,3 +39,5 @@ acontecer: `window.confirm("Apagar “X”? Não tem volta.")` ou, quando pede m
 - Nada depende só de cor: “✓ aprovado”, “✗ falhou”, “! atenção”.
 - Testar no tema claro e no escuro e na largura de celular.
 - Ação de risco testada com uma conta sem privilégios e com a conta da coordenação.
+- Frase nova no painel: rode `node scripts/textos-do-painel.mjs` e `npm run conferir:painel` e escreva a tradução nos cinco dicionários de `i18n/painel`. Plural com frase inteira para cada caso (nada de `aviso${n > 1 ? "s" : ""}`), e nada de juntar função e disciplina com " de ".
+- Texto escrito pela equipe (mensagem, recado, pauta, texto de aula) vai dentro de um elemento com `data-original`, para o painel não traduzir; documento que precisa ficar em português (certificado, termo) leva `translate="no"`. Datas com nome de mês ou de dia saem de `toLocaleDateString` no idioma da página.

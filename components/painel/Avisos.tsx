@@ -42,14 +42,14 @@ function Quadro({ aviso, restantes, fechar, ocupado }: { aviso: AvisoGeral; rest
       {/* Aviso longo no celular: o texto rola dentro do quadro, e o cabeçalho (com o ✕) e o "Entendi" ficam à vista. */}
       <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5">
         <h2 id={`aviso-${aviso.id}`} className="font-serif text-3xl font-semibold leading-tight">{aviso.titulo}</h2>
-        <p className="mt-3 whitespace-pre-line text-base leading-relaxed">{aviso.texto}</p>
+        <p className="mt-3 whitespace-pre-line text-base leading-relaxed" data-original>{aviso.texto}</p>
         <p className="mt-4 text-xs text-ink-soft">
           {aviso.autor || "Coordenação"} · {dataHora(aviso.criado_em)}
         </p>
       </div>
       {fechar && (
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-rule px-5 py-3">
-          <span className="text-xs text-ink-soft">{restantes > 0 ? `Mais ${restantes} aviso${restantes === 1 ? "" : "s"} depois deste.` : "Último aviso."}</span>
+          <span className="text-xs text-ink-soft">{restantes > 1 ? `Mais ${restantes} avisos depois deste.` : restantes === 1 ? "Mais 1 aviso depois deste." : "Último aviso."}</span>
           <button type="button" className={botao} disabled={ocupado} onClick={fechar} autoFocus>
             Entendi
           </button>
