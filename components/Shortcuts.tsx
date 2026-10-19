@@ -4,7 +4,6 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { localePath } from "@/i18n/config";
-import { chavesDeEstudo } from "@/lib/estudo";
 import { KEYS, notifyStored } from "@/lib/storage";
 import { useI18n } from "./I18n";
 
@@ -51,8 +50,14 @@ function purgeIfIdle() {
     const now = Date.now();
     if (days > 0 && seen > 0 && now - seen > days * 86_400_000) {
       for (const key of Object.values(KEYS)) if (key !== KEYS.purge) localStorage.removeItem(key);
-      // E o estudo guardado (caderno de erros, revisão, caderno, Meu estudo…), que não está em KEYS.
-      for (const key of chavesDeEstudo(localStorage)) localStorage.removeItem(key);
+      // E o estudo guardado (caderno de erros, revisão, caderno, Meu estudo…), que não está em KEYS. A lista só é
+      // baixada aqui, no momento raro da limpeza, para não pesar no código que vai a todas as páginas.
+      void import("@/lib/estudo")
+        .then(({ chavesDeEstudo }) => {
+          for (const key of chavesDeEstudo(localStorage)) localStorage.removeItem(key);
+          notifyStored();
+        })
+        .catch(() => undefined);
       sessionStorage.clear();
       void forgetPages();
       notifyStored();
