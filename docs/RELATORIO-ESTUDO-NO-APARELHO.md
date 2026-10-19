@@ -105,7 +105,7 @@ Conferido no navegador embutido, com o build de produção, em computador (1440 
 
 ## O que depende de você
 
-1. **Ligar os recursos**, quando quiser, na Vercel (`NEXT_PUBLIC_RECURSOS`), começando, se fizer sentido, por `meu-estudo,exercicios,revisoes`. Antes, uma prévia: o ramo ainda não foi enviado ao GitHub (enviar cria uma prévia na Vercel).
+1. **Ligar os recursos**, quando quiser, na Vercel (`NEXT_PUBLIC_RECURSOS`), começando, se fizer sentido, por `meu-estudo,exercicios,revisoes`. Antes, olhar a prévia que a Vercel monta para o ramo `estudo-no-aparelho` (já enviado ao GitHub; a prévia usa as variáveis de prévia, então os recursos só aparecem ligados se `NEXT_PUBLIC_RECURSOS` estiver definida para prévias).
 2. **Revisão humana:** os 30 exercícios estão "em revisão"; as ligações BNCC/Enem estão "a confirmar".
 3. **Medição:** escolher entre as opções de `docs/MEDIR-SE-AS-AULAS-FUNCIONAM.md`.
 4. **VLibras:** conferir o avatar num aparelho de verdade e pôr o texto de `docs/privacidade-vlibras.md` na página de privacidade no dia de ligar.
