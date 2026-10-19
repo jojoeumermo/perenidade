@@ -3316,7 +3316,10 @@
     "note": "审核备注",
     "withdraw": "撤下",
     "withdrawConfirm": "要撤下这条记录吗？已经复制过作品的人仍可按照许可证继续使用。",
-    "withdrawn": "记录已撤下。"
+    "withdrawn": "记录已撤下。",
+    "exerciseFor": "练习提交：{titulo}",
+    "exerciseHint": "请发送导出视频的链接。该学科的教师会点评；若要在抽屉中向所有人公开，仍需经过调解员审阅。",
+    "feedback": "教师点评"
   },
   "podcast": {
     "title": "播客",
@@ -3852,6 +3855,17 @@
         ]
       ],
       "back": "返回练习工作室"
+    },
+    "exercises": {
+      "title": "练习作业",
+      "objective": "目标",
+      "program": "程序",
+      "materials": "素材",
+      "steps": "步骤",
+      "criteria": "评价方式",
+      "open": "在工作室中打开",
+      "deliver": "通过开放抽屉提交",
+      "deliverHint": "导出视频，发布到一个链接（不公开的 YouTube、PeerTube、Drive 等），然后提交链接。教师会点评你的作业。"
     }
   }
 }

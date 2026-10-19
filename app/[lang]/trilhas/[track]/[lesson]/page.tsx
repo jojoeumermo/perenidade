@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import GithubSlugger from "github-slugger";
 import type { Metadata } from "next";
+import { ExerciciosDaAula } from "@/components/ExerciciosDaAula";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
@@ -147,6 +148,8 @@ export default async function LessonPage({ params }: Props) {
         </nav>
 
         <StudyTools id={id} path={path(lesson.slug)} s={t.study} />
+
+        <ExerciciosDaAula aula={path(lesson.slug)} s={t.practiceStudio.exercises} />
 
         {sims.some((sim) => sim.areas.includes(track.area)) && (
           <section className="no-print mt-10">

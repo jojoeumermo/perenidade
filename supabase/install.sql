@@ -971,6 +971,11 @@ create table if not exists interno.gaveta (
   criado_em timestamptz not null default now(),
   check ((link = '') <> (arquivo = ''))
 );
+-- Entrega de exercício de prática (Edição de vídeo e outras): o exercício e o comentário do educador da disciplina.
+alter table interno.gaveta add column if not exists exercicio uuid;
+alter table interno.gaveta add column if not exists retorno text not null default '' check (char_length(retorno) <= 2000);
+alter table interno.gaveta add column if not exists retorno_por uuid references interno.perfis (id) on delete set null;
+alter table interno.gaveta add column if not exists retorno_em timestamptz;
 create index if not exists gaveta_status on interno.gaveta (status, decidido_em desc);
 create index if not exists gaveta_autor on interno.gaveta (autor);
 
@@ -6582,6 +6587,7 @@ declare
   v uuid; v_id uuid; v_tipo text := coalesce(p ->> 'tipo', ''); v_licenca text := coalesce(nullif(p ->> 'licenca', ''), 'CC BY 4.0');
   v_link text := btrim(coalesce(p ->> 'link', '')); v_arquivo text := btrim(coalesce(p ->> 'arquivo', '')); v_ano smallint;
   v_titulo text; v_comentario text; v_curso text; v_instituicao text; v_credito text; v_termo_nome text; v_disciplina text;
+  v_exercicio uuid;
 begin
   perform interno.aberta('gaveta');
   v := interno.eu();
@@ -6611,9 +6617,20 @@ begin
     end if;
   end if;
   if interno.vetado(v_titulo || ' ' || v_comentario || ' ' || v_curso || ' ' || v_instituicao || ' ' || v_credito) then perform interno.erro('conteudo_recusado'); end if;
-  insert into gaveta (autor, titulo, tipo, disciplina, curso, instituicao, ano, comentario, link, arquivo, licenca, credito, termo_nome, termo_versao)
-  values (v, v_titulo, v_tipo, v_disciplina, v_curso, v_instituicao, v_ano, v_comentario, v_link, v_arquivo, v_licenca, v_credito, v_termo_nome, interno.gaveta_termo_versao())
+  -- Entrega de um exercício de prática: o exercício tem de existir, estar ativo e ser da mesma disciplina.
+  if coalesce(p ->> 'exercicio', '') <> '' then
+    if (p ->> 'exercicio') !~ '^[0-9a-f-]{36}$' then perform interno.erro('invalido:exercicio'); end if;
+    v_exercicio := (p ->> 'exercicio')::uuid;
+    if not exists (select 1 from exercicios_pratica where id = v_exercicio and ativo and disciplina = v_disciplina) then perform interno.erro('invalido:exercicio'); end if;
+  end if;
+  insert into gaveta (autor, titulo, tipo, disciplina, curso, instituicao, ano, comentario, link, arquivo, licenca, credito, termo_nome, termo_versao, exercicio)
+  values (v, v_titulo, v_tipo, v_disciplina, v_curso, v_instituicao, v_ano, v_comentario, v_link, v_arquivo, v_licenca, v_credito, v_termo_nome, interno.gaveta_termo_versao(), v_exercicio)
   returning id into v_id;
+  if v_exercicio is not null then
+    perform interno.avisar(p2.usuario, 'Chegou uma entrega do exercício "' || left(x.titulo, 80) || '". Veja em Exercícios de prática.')
+    from exercicios_pratica x join papeis p2 on p2.papel in ('educacao', 'educacao_secundaria') and p2.disciplina = x.disciplina
+    where x.id = v_exercicio;
+  end if;
   return jsonb_build_object('id', v_id);
 end $$;
 
@@ -6622,7 +6639,8 @@ create or replace function public.gaveta_minhas() returns jsonb language plpgsql
 declare v uuid := auth.uid();
 begin
   if v is null then perform interno.erro('entre_primeiro'); end if;
-  return (select coalesce(jsonb_agg(interno.gaveta_json(g, false) || jsonb_build_object('status', g.status, 'nota', g.nota, 'criado_em', g.criado_em) order by g.criado_em desc), '[]'::jsonb)
+  return (select coalesce(jsonb_agg(interno.gaveta_json(g, false) || jsonb_build_object('status', g.status, 'nota', g.nota, 'criado_em', g.criado_em,
+            'exercicio', g.exercicio, 'exercicio_titulo', (select titulo from exercicios_pratica where id = g.exercicio), 'retorno', g.retorno, 'retorno_em', g.retorno_em) order by g.criado_em desc), '[]'::jsonb)
           from gaveta g where g.autor = v and g.status <> 'retirado');
 end $$;
 
@@ -11302,3 +11320,149 @@ create or replace function public.comunidade_salas() returns jsonb language sql 
 $$;
 revoke all on function public.comunidade_salas() from public;
 grant execute on function public.comunidade_salas() to anon, authenticated, service_role;
+
+-- ───────────────────────────── Exercícios de prática (Estúdio de prática) ─────────────────────────────
+-- O educador da disciplina cria exercícios ligados às aulas: objetivo, material, programa, passo a passo e critérios.
+-- Na aula aparece o exercício com "Abrir no estúdio"; a entrega vai pela Gaveta Aberta (link do vídeo) e o educador comenta.
+
+create table if not exists interno.exercicios_pratica (
+  id uuid primary key default gen_random_uuid(),
+  disciplina text not null check (disciplina ~ '^[a-z0-9-]{2,40}$'),
+  aula text not null check (aula ~ '^/trilhas/[a-z0-9-]{2,80}/[a-z0-9-]{2,80}$'),
+  aula_titulo text not null default '' check (char_length(aula_titulo) <= 200),
+  titulo text not null check (char_length(titulo) between 3 and 140),
+  objetivo text not null check (char_length(objetivo) between 10 and 600),
+  programa text not null check (programa in ('filmcraft', 'effectcraft', 'photocraft')),
+  materiais jsonb not null default '[]'::jsonb,
+  passos text not null check (char_length(passos) between 10 and 4000),
+  criterios text not null check (char_length(criterios) between 5 and 2000),
+  autor uuid references interno.perfis (id) on delete set null,
+  ativo boolean not null default true,
+  criado_em timestamptz not null default now(),
+  atualizado_em timestamptz not null default now()
+);
+alter table interno.exercicios_pratica enable row level security;
+create index if not exists exercicios_pratica_aula on interno.exercicios_pratica (aula) where ativo;
+
+/** Quem ensina a disciplina (educação ou educação secundária dela), a curadoria e a coordenação. */
+create or replace function interno.ensina(p_disciplina text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or interno.curador() or exists (select 1 from papeis p where p.usuario = auth.uid() and p.papel in ('educacao', 'educacao_secundaria') and p.disciplina = p_disciplina)
+$$;
+revoke all on function interno.ensina(text) from public, anon, authenticated;
+
+create or replace function interno.exercicio_json(x interno.exercicios_pratica) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('id', x.id, 'disciplina', x.disciplina, 'aula', x.aula, 'aula_titulo', x.aula_titulo, 'titulo', x.titulo, 'objetivo', x.objetivo,
+    'programa', x.programa, 'materiais', x.materiais, 'passos', x.passos, 'criterios', x.criterios, 'ativo', x.ativo,
+    'autor', coalesce((select nome from perfis where id = x.autor), ''), 'atualizado_em', x.atualizado_em)
+$$;
+revoke all on function interno.exercicio_json(interno.exercicios_pratica) from public, anon, authenticated;
+
+/** Os exercícios ativos de uma aula (ou de uma disciplina), para qualquer visitante. */
+create or replace function public.exercicios_listar(p_aula text default null, p_disciplina text default null) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.aberta('estudo');
+  return (select coalesce(jsonb_agg(interno.exercicio_json(x) order by x.criado_em), '[]'::jsonb) from exercicios_pratica x
+          where x.ativo and (coalesce(p_aula, '') = '' or x.aula = p_aula) and (coalesce(p_disciplina, '') = '' or x.disciplina = p_disciplina));
+end $$;
+
+create or replace function public.exercicio_ver(p_id uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare x exercicios_pratica;
+begin
+  select * into x from exercicios_pratica where id = p_id and ativo;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return interno.exercicio_json(x);
+end $$;
+
+/** Criar ou corrigir um exercício: só quem ensina a disciplina (ou a curadoria e a coordenação). */
+create or replace function public.exercicio_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_disc text := interno.disciplina_ok(p ->> 'disciplina'); v_mat jsonb := '[]'::jsonb; m jsonb; x exercicios_pratica; v_id uuid;
+begin
+  v_id := nullif(p ->> 'id', '')::uuid;
+  if v_disc is null then perform interno.erro('invalido:disciplina'); end if;
+  if not interno.ensina(v_disc) then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('exercicio_salvar', 60, 60);
+  if coalesce(p ->> 'aula', '') !~ '^/trilhas/[a-z0-9-]{2,80}/[a-z0-9-]{2,80}$' then perform interno.erro('invalido:aula'); end if;
+  if coalesce(p ->> 'programa', '') not in ('filmcraft', 'effectcraft', 'photocraft') then perform interno.erro('invalido:programa'); end if;
+  if jsonb_typeof(coalesce(p -> 'materiais', '[]')) <> 'array' or jsonb_array_length(coalesce(p -> 'materiais', '[]')) > 8 then perform interno.erro('invalido:materiais'); end if;
+  for m in select value from jsonb_array_elements(coalesce(p -> 'materiais', '[]')) loop
+    if coalesce(m ->> 'url', '') !~ '^https://[^[:space:]"<>]{4,}$' or char_length(m ->> 'url') > 500 then perform interno.erro('invalido:materiais'); end if;
+    v_mat := v_mat || jsonb_build_array(jsonb_build_object('titulo', interno.txt(m ->> 'titulo', 'material', 2, 120), 'url', m ->> 'url', 'credito', interno.txt(m ->> 'credito', 'credito', 0, 200)));
+  end loop;
+  if v_id is null then
+    insert into exercicios_pratica (disciplina, aula, aula_titulo, titulo, objetivo, programa, materiais, passos, criterios, autor)
+    values (v_disc, p ->> 'aula', interno.txt(p ->> 'aula_titulo', 'aula_titulo', 0, 200), interno.txt(p ->> 'titulo', 'titulo', 3, 140), interno.txt(p ->> 'objetivo', 'objetivo', 10, 600),
+            p ->> 'programa', v_mat, interno.txt(p ->> 'passos', 'passos', 10, 4000), interno.txt(p ->> 'criterios', 'criterios', 5, 2000), v)
+    returning * into x;
+  else
+    select * into x from exercicios_pratica where id = v_id for update;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+    if not interno.ensina(x.disciplina) then perform interno.erro('sem_permissao'); end if;
+    update exercicios_pratica set disciplina = v_disc, aula = p ->> 'aula', aula_titulo = interno.txt(p ->> 'aula_titulo', 'aula_titulo', 0, 200),
+      titulo = interno.txt(p ->> 'titulo', 'titulo', 3, 140), objetivo = interno.txt(p ->> 'objetivo', 'objetivo', 10, 600), programa = p ->> 'programa',
+      materiais = v_mat, passos = interno.txt(p ->> 'passos', 'passos', 10, 4000), criterios = interno.txt(p ->> 'criterios', 'criterios', 5, 2000), atualizado_em = now()
+    where id = v_id returning * into x;
+  end if;
+  perform interno.registrar('exercicio_salvo', x.id::text, jsonb_build_object('aula', x.aula));
+  return interno.exercicio_json(x);
+exception when invalid_text_representation then
+  perform interno.erro('invalido:id');
+end $$;
+
+create or replace function public.exercicio_arquivar(p_id uuid, p_ativo boolean default false) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare x exercicios_pratica;
+begin
+  perform interno.eu();
+  select * into x from exercicios_pratica where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not interno.ensina(x.disciplina) then perform interno.erro('sem_permissao'); end if;
+  update exercicios_pratica set ativo = coalesce(p_ativo, false), atualizado_em = now() where id = p_id;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** No painel: os exercícios das disciplinas que a pessoa ensina (tudo, para a coordenação), com as entregas. */
+create or replace function public.exercicios_meus() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.educador() or interno.curador()) then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(interno.exercicio_json(x) || jsonb_build_object(
+            'entregas', (select count(*) from gaveta g where g.exercicio = x.id and g.status <> 'retirado'),
+            'sem_retorno', (select count(*) from gaveta g where g.exercicio = x.id and g.status <> 'retirado' and g.retorno = '')) order by x.ativo desc, x.atualizado_em desc), '[]'::jsonb)
+          from exercicios_pratica x where interno.ensina(x.disciplina));
+end $$;
+
+/** As entregas de um exercício, para quem ensina a disciplina comentar (o link do vídeo, o comentário e a situação na Gaveta). */
+create or replace function public.exercicio_entregas(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare x exercicios_pratica;
+begin
+  perform interno.eu();
+  select * into x from exercicios_pratica where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not interno.ensina(x.disciplina) then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', g.id, 'titulo', g.titulo, 'autor', coalesce(f.nome, ''), 'credito', g.credito, 'link', g.link, 'arquivo', g.arquivo,
+            'comentario', g.comentario, 'status', g.status, 'criado_em', g.criado_em, 'retorno', g.retorno, 'retorno_em', g.retorno_em) order by g.criado_em desc), '[]'::jsonb)
+          from gaveta g left join perfis f on f.id = g.autor where g.exercicio = p_id and g.status <> 'retirado');
+end $$;
+
+/** O comentário do educador sobre uma entrega: quem entregou recebe um recado. */
+create or replace function public.exercicio_retorno(p_gaveta uuid, p_texto text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); g gaveta; x exercicios_pratica; v_texto text := interno.txt(p_texto, 'retorno', 5, 2000);
+begin
+  select * into g from gaveta where id = p_gaveta for update;
+  if not found or g.exercicio is null then perform interno.erro('nao_encontrado'); end if;
+  select * into x from exercicios_pratica where id = g.exercicio;
+  if not interno.ensina(x.disciplina) then perform interno.erro('sem_permissao'); end if;
+  update gaveta set retorno = v_texto, retorno_por = v, retorno_em = now() where id = p_gaveta;
+  perform interno.avisar(g.autor, 'O educador comentou a sua entrega do exercício "' || left(x.titulo, 80) || '". Veja em Gaveta Aberta › Minhas publicações.');
+  perform interno.registrar('exercicio_retorno', p_gaveta::text);
+  return jsonb_build_object('ok', true);
+end $$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array['exercicios_listar(text, text)', 'exercicio_ver(uuid)', 'exercicio_salvar(jsonb)', 'exercicio_arquivar(uuid, boolean)', 'exercicios_meus()',
+    'exercicio_entregas(uuid)', 'exercicio_retorno(uuid, text)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;
