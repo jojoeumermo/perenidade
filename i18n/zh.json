@@ -662,7 +662,17 @@
     "planEnds": "按这个节奏，你将在 {date} 学完。",
     "planDownload": "下载到日历（.ics）",
     "planEmpty": "没有待安排的课程。",
-    "planNone": "请至少选择一天。"
+    "planNone": "请至少选择一天。",
+    "studyInNotebook": "在笔记本中学习整条路径",
+    "studyGroup": "小组学习",
+    "badge": "路径已完成",
+    "certLead": "你已学完这条路径中所有已发布的课程。愿意的话，可以生成参与证书：证书上有编号，任何人都能在网站上核对。",
+    "certName": "你的名字（证书上显示的样子）",
+    "certIssue": "生成证书",
+    "certFailed": "现在无法生成，请几分钟后再试。",
+    "certTitle": "参与证书",
+    "certText": "露西亚学院证明 {nome} 在学院免费的人民学校学习了路径“{trilha}”的 {n} 节课。",
+    "certCode": "核验编号：{c}"
   },
   "lesson": {
     "position": "第 {i} 课，共 {n} 课",
@@ -696,7 +706,8 @@
     "videoNote": "视频存放在其他网站。加载后，该网站可以看到你的访问。",
     "videoOpen": "在新标签页中打开视频",
     "imagePending": "图片等待发布",
-    "toMistakes": "答错的题会进入你的错题本。"
+    "toMistakes": "答错的题会进入你的错题本。",
+    "studyInNotebook": "在笔记本中学习这节课"
   },
   "library": {
     "areasTitle": "领域",
@@ -2205,7 +2216,9 @@
           "说明目的并补充一个细节。",
           "建议尊重人权。"
         ]
-      ]
+      ],
+      "askCorrection": "请志愿者批改",
+      "askCorrectionNote": "想要真人的意见？文章会发到辅导栏目，志愿者通过电子邮件按五项能力给出评语（不打分）。只有在你确认后，文字才会离开你的设备。"
     },
     "syllables": {
       "help": "点按一个音节就能听到它。依次点按几个音节组成一个词，再听整个词。音节是葡萄牙语的。",
@@ -3314,7 +3327,10 @@
     "activities": "工作内容",
     "issued": "签发日期",
     "witnesses": "签署人",
-    "offline": "本站的这个副本尚未开通核验。"
+    "offline": "本站的这个副本尚未开通核验。",
+    "student": "露西亚学院颁发的学习者参与证书。",
+    "track": "路径",
+    "lessons": "课程数"
   },
   "start": {
     "eyebrow": "阅读书单",
@@ -3934,7 +3950,12 @@
     "backupInvalid": "这个文件不是笔记本备份。",
     "backupConfirm": "要恢复备份吗？笔记本、卡片和错题会与现有的合并；其他内容会被备份替换。",
     "nextTomorrow": "明天再出现",
-    "exportAnki": "下载为 Anki 格式（.csv）"
+    "exportAnki": "下载为 Anki 格式（.csv）",
+    "readyTitle": "现成的笔记本",
+    "readyLead": "由志愿者按路径或主题整理。使用后会在本设备上生成你自己的副本。",
+    "readyUse": "使用这个笔记本",
+    "readySources": "{n} 个来源",
+    "building": "正在用课程生成笔记本……"
   },
   "practiceStudio": {
     "inside": "在此打开",
@@ -4148,5 +4169,24 @@
     "clear": "清空",
     "download": "下载画作",
     "open": "打开"
+  },
+  "studyGroup": {
+    "eyebrow": "一起学习",
+    "title": "小组自习室",
+    "lead": "开一个房间，把链接发给大家，一起学习：有视频，所有人共用同一个专注计时器。",
+    "focusMinutes": "专注分钟数",
+    "breakMinutes": "休息分钟数",
+    "create": "开一个房间",
+    "note": "计时器就在链接里：打开链接的人看到相同的阶段和时间，无需注册。",
+    "phaseFocus": "专注",
+    "phaseBreak": "休息",
+    "cycle": "专注 {f} 分钟、休息 {p} 分钟 · 第 {n} 轮",
+    "roomLink": "把这个链接发给和你一起学习的人：",
+    "copy": "复制链接",
+    "copied": "链接已复制 ✓",
+    "yourName": "你在房间里的名字",
+    "join": "进入视频房间",
+    "someone": "学习者",
+    "privacy": "视频经过学院设置的视频通话服务器（Jitsi），不会录制。"
   }
 }

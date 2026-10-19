@@ -45,6 +45,22 @@ export function Tutoring({ s }: { s: Dict["tutoring"] }) {
   // Veio de "Não entendi este trecho" numa aula: disciplina, assunto e o trecho já entram no formulário.
   useEffect(() => {
     const p = new URLSearchParams(window.location.search);
+    // Veio da Folha de redação: o texto foi deixado na aba (sem passar pelo endereço) para um voluntário corrigir.
+    if (p.get("redacao") === "1") {
+      let redacao = "";
+      try {
+        redacao = sessionStorage.getItem("lucia:redacao-para-correcao") ?? "";
+        sessionStorage.removeItem("lucia:redacao-para-correcao");
+      } catch {
+        // sem armazenamento: a pessoa cola o texto
+      }
+      if (redacao.trim()) {
+        void Promise.resolve().then(() =>
+          setForm((f) => ({ ...f, disciplina: "enem", assunto: f.assunto || "Correção de redação do ENEM", duvida: `Peço a correção da minha redação (comentários pelas cinco competências, sem nota):\n\n${redacao}`.slice(0, 3000) })),
+        );
+      }
+      return;
+    }
     const trecho = (p.get("trecho") ?? "").replace(/\s+/g, " ").trim().slice(0, 600);
     if (!trecho) return;
     const disciplina = p.get("disciplina") ?? "";
