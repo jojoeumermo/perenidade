@@ -24,15 +24,23 @@ const prazos = [1, 3, 7, 14, 30, 60];
 
 function Quadro({ aviso, restantes, fechar, ocupado }: { aviso: AvisoGeral; restantes: number; fechar?: () => void; ocupado?: boolean }) {
   return (
-    <div role="dialog" aria-modal="true" aria-labelledby={`aviso-${aviso.id}`} className="painel-ir w-full max-w-lg border-2 border-ink bg-parchment text-ink shadow-[8px_8px_0_#6e1f1a]">
+    <div role="dialog" aria-modal="true" aria-labelledby={`aviso-${aviso.id}`} className="painel-ir flex max-h-full w-full max-w-lg flex-col border-2 border-ink bg-parchment text-ink shadow-[8px_8px_0_#6e1f1a]">
       <div className={`flex items-center justify-between gap-3 px-5 py-2.5 text-parchment ${aviso.importante ? "bg-[#c21f16]" : "bg-ink"}`}>
         <span className="flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.25em]">
           <Star className="h-3.5 w-3.5" />
           {aviso.importante ? "Aviso importante" : "Aviso à equipe"}
         </span>
-        <span className="font-mono text-[0.65rem] text-[#f0cf8e]">{aviso.para.length === 0 ? "toda a equipe" : aviso.para.map(nomeDoDestino).join(" · ")}</span>
+        <span className="flex items-center gap-3">
+          <span className="font-mono text-[0.65rem] text-[#f0cf8e]">{aviso.para.length === 0 ? "toda a equipe" : aviso.para.map(nomeDoDestino).join(" · ")}</span>
+          {fechar && (
+            <button type="button" onClick={fechar} disabled={ocupado} aria-label="Fechar o aviso" title="Fechar" className="-mr-2 flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center text-xl leading-none hover:text-[#f0cf8e] disabled:opacity-50">
+              ✕
+            </button>
+          )}
+        </span>
       </div>
-      <div className="px-5 py-5">
+      {/* Aviso longo no celular: o texto rola dentro do quadro, e o cabeçalho (com o ✕) e o "Entendi" ficam à vista. */}
+      <div className="min-h-0 flex-1 overflow-y-auto px-5 py-5">
         <h2 id={`aviso-${aviso.id}`} className="font-serif text-3xl font-semibold leading-tight">{aviso.titulo}</h2>
         <p className="mt-3 whitespace-pre-line text-base leading-relaxed">{aviso.texto}</p>
         <p className="mt-4 text-xs text-ink-soft">
@@ -68,7 +76,7 @@ export function QuadroDeAvisos() {
   const atual = lista.dados?.[0];
   if (!atual) return null;
   return (
-    <div className="painel-veu fixed inset-0 z-50 flex items-center justify-center bg-[#17130e]/70 px-4 py-8">
+    <div className="painel-veu fixed inset-0 z-50 flex items-center justify-center bg-[#17130e]/70 px-3 py-[max(1rem,env(safe-area-inset-top))]">
       <Quadro aviso={atual} restantes={(lista.dados?.length ?? 1) - 1} ocupado={acao.ocupado} fechar={() => void acao.agir("aviso_geral_fechar", { p_id: atual.id }, "")} />
     </div>
   );
