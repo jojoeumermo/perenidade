@@ -1,4 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import type { Metadata } from "next";
 import Link from "next/link";
 import { TrackCard } from "@/components/Cards";
 import { DailyQuote } from "@/components/DailyQuote";
@@ -9,8 +10,15 @@ import { fill, htmlLang, localePath, plural } from "@/i18n/config";
 import { essential, groups, type Stage, stages } from "@/lib/areas";
 import { getBooks, getCatalog, getQuestions, getQuotes, getTracks } from "@/lib/content";
 import { describePart, overview, publicHistory } from "@/lib/history";
+import { alternatesDe } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { DisciplineBrowser, type DisciplineGroup } from "@/components/DisciplineBrowser";
+
+// A página inicial herda título e descrição do layout; aqui entram o endereço canônico e as versões em cada idioma.
+export async function generateMetadata({ params }: PageProps<"/[lang]">): Promise<Metadata> {
+  const { lang } = await loadLang(params);
+  return { alternates: alternatesDe(lang, "") };
+}
 
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang, t } = await loadLang(params);

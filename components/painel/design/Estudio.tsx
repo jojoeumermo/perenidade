@@ -552,7 +552,7 @@ export function Estudio({ me }: { me: Me }) {
       const url = URL.createObjectURL(blob);
       const janela = window.open("", "_blank");
       if (!janela) return;
-      janela.document.write(`<!doctype html><html><head><title>${titulo.replace(/</g, "&lt;")}</title><style>@page{margin:0}body{margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh}img{max-width:100%;max-height:100vh}</style></head><body><img src="${url}" onload="setTimeout(function(){window.print()},300)"></body></html>`);
+      janela.document.write(`<!doctype html><html><head><title>${titulo.replace(/</g, "&lt;")}</title><style>@page{margin:0}body{margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh}img{max-width:100%;max-height:100vh}</style></head><body><img alt="" src="${url}" onload="setTimeout(function(){window.print()},300)"></body></html>`);
       janela.document.close();
     } catch {
       setAviso("Não deu para preparar a impressão.");
