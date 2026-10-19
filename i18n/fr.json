@@ -1541,6 +1541,14 @@
     "frequencia-cardiaca": [
       "Fréquence cardiaque",
       "Fréquence cardiaque maximale estimée et zones d'effort pour l'entraînement."
+    ],
+    "fisica-simulada": [
+      "Physique en mouvement",
+      "Lancer et chute libre, circuit électrique (loi d'Ohm, série et parallèle) et ondes, avec les formules à l'écran."
+    ],
+    "reacoes": [
+      "Réactions avec des atomes",
+      "Regardez les atomes changer de partenaire dans une réaction : rien ne disparaît, rien n'apparaît."
     ]
   },
   "tools": {
@@ -1590,7 +1598,34 @@
         "sol",
         "la",
         "si"
-      ]
+      ],
+      "scalesTitle": "Gammes et accords",
+      "root": "Tonique",
+      "scale": "Gamme",
+      "scaleKinds": {
+        "maior": "Majeure",
+        "menor": "Mineure naturelle",
+        "pentatonica": "Pentatonique majeure",
+        "blues": "Blues"
+      },
+      "playScale": "Jouer la gamme",
+      "chord": "Accord",
+      "chordKinds": {
+        "maior": "Majeur",
+        "menor": "Mineur",
+        "setima": "De septième (dominante)",
+        "diminuto": "Diminué"
+      },
+      "playChord": "Jouer l'accord",
+      "arpeggio": "Arpège",
+      "rollTitle": "Piano roll",
+      "rollHint": "Cliquez sur les cases pour marquer des notes (chaque ligne est une note, chaque colonne un temps) et jouez la séquence.",
+      "play": "Jouer",
+      "clear": "Effacer",
+      "dictation": "Dictée",
+      "dictationHint": "Écoutez la note et dites laquelle c'est. Si besoin, comparez-la avec le do de référence.",
+      "listenAgain": "Réécouter",
+      "reference": "Écouter le do de référence"
     },
     "table": {
       "search": "Chercher un élément (nom, symbole ou numéro)",
@@ -1994,7 +2029,18 @@
         "lado": "Il manque un côté de l'équation.",
         "sem_solucao": "Telle qu'elle est écrite, cette réaction ne s'équilibre pas : vérifiez les formules.",
         "varias_solucoes": "Cette équation peut être équilibrée de plusieurs façons indépendantes (on dirait deux réactions ensemble). Séparez les réactions."
-      }
+      },
+      "modeSolve": "Résoudre",
+      "modePractice": "S'entraîner",
+      "practiceHint": "Écrivez les coefficients et vérifiez : le tableau montre, atome par atome, ce qui est déjà équilibré.",
+      "exerciseOf": "Équation {i} sur {n}",
+      "coefficient": "Coefficient de {f}",
+      "verify": "Vérifier",
+      "showAnswer": "Voir la réponse",
+      "nextOne": "Une autre équation",
+      "allGood": "Tout est juste : tous les atomes sont équilibrés avec les plus petits coefficients entiers.",
+      "notMinimal": "Tous les atomes sont équilibrés, mais tous les coefficients se divisent par {n} : utilisez les plus petits entiers.",
+      "fix": "Pas encore équilibré : vérifiez les lignes marquées ✗."
     },
     "punnett": {
       "title": "Échiquier de Punnett",
@@ -2102,7 +2148,20 @@
       "source": "Données : NASA, Planetary Fact Sheet.",
       "seconds": "{s} s",
       "minutes": "{m} min {s} s",
-      "hours": "{h} h {m} min"
+      "hours": "{h} h {m} min",
+      "orbitsTitle": "Orbites en mouvement",
+      "zoom": "Zoom",
+      "zoomValue": "du Soleil au bord : {d} millions de km",
+      "speed": "Vitesse",
+      "speedValue": "1 seconde = {d} jour(s)",
+      "pause": "Pause",
+      "resume": "Reprendre",
+      "dayCount": "jour {d}",
+      "orbitNote": "Les distances sont à l'échelle entre elles ; la taille des planètes, non. Les périodes sont réelles : Mercure fait le tour du Soleil en 88 jours, Neptune en 165 ans. Les orbites sont dessinées en cercles, mais ce sont des ellipses presque circulaires.",
+      "dropTitle": "La gravité sur chaque astre",
+      "dropHint": "Lâchez une balle de {h} m de haut et voyez combien de temps elle met pour toucher le sol à chaque endroit (sans air).",
+      "drop": "Lâcher la balle",
+      "fallTime": "{t} s jusqu'au sol"
     },
     "timer": {
       "modes": {
@@ -2147,7 +2206,43 @@
         "Montrer la connaissance des mécanismes linguistiques nécessaires à la construction de l'argumentation.",
         "Proposer une intervention pour le problème abordé, dans le respect des droits humains."
       ],
-      "lessons": "Cours de rédaction pour l'Enem"
+      "lessons": "Cours de rédaction pour l'Enem",
+      "checkTitle": "Relecture guidée par les cinq compétences",
+      "checkLead": "Relisez la rédaction et cochez ce qui est déjà bon. Les coches restent uniquement sur cet appareil ; le texte n'est envoyé nulle part.",
+      "checkDone": "{a} sur {b} points vérifiés",
+      "checkReset": "Tout décocher",
+      "competencyN": "Compétence {n}",
+      "paragraphHint": "Votre texte a {n} paragraphe(s). Le plus courant est d'en avoir 4 ou 5 : introduction, deux ou trois de développement et conclusion.",
+      "connectors": "Connecteurs trouvés dans le texte : {n}.",
+      "checks": [
+        [
+          "Pas de fautes d'orthographe ni d'accents.",
+          "Accords du verbe et du nom vérifiés.",
+          "Ponctuation relue (virgules, points).",
+          "Pas d'argot ni de tics de langage oral."
+        ],
+        [
+          "Je ne suis pas sorti du sujet : il apparaît dès l'introduction.",
+          "Le texte est argumentatif : introduction, développement et conclusion.",
+          "J'ai utilisé des références légitimes (donnée, loi, fait historique, œuvre, auteur) liées à la discussion."
+        ],
+        [
+          "Ma thèse (point de vue) est claire dans l'introduction.",
+          "Chaque argument est expliqué et développé, pas seulement cité.",
+          "Les arguments défendent la thèse et sont liés entre eux."
+        ],
+        [
+          "Des connecteurs relient les paragraphes.",
+          "Des connecteurs relient les phrases à l'intérieur des paragraphes.",
+          "J'ai évité les répétitions : synonymes et pronoms."
+        ],
+        [
+          "La proposition dit qui agit (agent).",
+          "Elle dit quoi faire (action) et comment (moyen).",
+          "Elle dit dans quel but (finalité) et ajoute un détail.",
+          "La proposition respecte les droits humains."
+        ]
+      ]
     },
     "syllables": {
       "help": "Touchez une syllabe pour l'entendre. Touchez-en plusieurs, l'une après l'autre, pour former un mot, et écoutez le mot entier. Les syllabes sont en portugais.",
@@ -2290,6 +2385,58 @@
       "reset": "Revenir à l'exemple",
       "preview": "Résultat",
       "sandbox": "Le résultat tourne dans une boîte fermée, séparée du site : le code ne peut lire ni cette page, ni votre compte, ni rien de ce qui est gardé dans le navigateur."
+    },
+    "physics": {
+      "tabs": {
+        "lancamento": "Lancer et chute",
+        "circuito": "Circuit électrique",
+        "ondas": "Ondes"
+      },
+      "speed": "Vitesse initiale",
+      "angle": "Angle",
+      "height": "Hauteur initiale",
+      "gravity": "Où",
+      "places": {
+        "terra": "Terre",
+        "lua": "Lune",
+        "marte": "Mars",
+        "jupiter": "Jupiter"
+      },
+      "launch": "Lancer",
+      "freeFallHint": "Pour voir la chute libre, mettez la vitesse à zéro et choisissez une hauteur.",
+      "range": "Portée",
+      "maxHeight": "Hauteur maximale",
+      "flightTime": "Temps de vol",
+      "noAir": "sans résistance de l'air",
+      "voltage": "Tension de la pile",
+      "series": "En série",
+      "parallel": "En parallèle",
+      "equivalent": "Résistance équivalente",
+      "current": "Courant total",
+      "power": "Puissance",
+      "seriesNote": "En série, le courant est le même partout et la tension se partage : Req = R1 + R2 + R3.",
+      "parallelNote": "En parallèle, la tension est la même partout et le courant se partage : 1/Req = 1/R1 + 1/R2 + 1/R3.",
+      "ohmNote": "Loi d'Ohm : U = R · i. Puissance : P = U · i.",
+      "amplitude": "Amplitude",
+      "frequency": "Fréquence",
+      "wavelength": "Longueur d'onde",
+      "superpose": "Ajouter une deuxième onde",
+      "frequency2": "Fréquence de la deuxième onde",
+      "waveNote": "Augmentez la fréquence et regardez les crêtes passer plus vite ; la vitesse de l'onde est la longueur d'onde fois la fréquence.",
+      "superposeNote": "Les deux ondes fines additionnées donnent l'épaisse : là où les crêtes se rencontrent, l'onde grandit ; là où une crête rencontre un creux, elle s'annule (interférence). Des fréquences proches produisent des battements."
+    },
+    "reaction": {
+      "names": {
+        "agua": "Formation de l'eau",
+        "amonia": "Synthèse de l'ammoniac",
+        "metano": "Combustion du méthane",
+        "sal": "Sel de table"
+      },
+      "react": "Réagir",
+      "reset": "Revenir au début",
+      "reactants": "Réactifs",
+      "products": "Produits",
+      "note": "Aucun atome ne disparaît ni n'apparaît de nulle part : dans la réaction, ils changent seulement de partenaire (loi de Lavoisier). C'est pourquoi le compte de chaque côté est le même. Les couleurs suivent la convention des modèles boules et bâtonnets."
     }
   },
   "journal": {

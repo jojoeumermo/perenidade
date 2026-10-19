@@ -29,6 +29,8 @@ export const KEYS = {
   passkey: "lucia:digital",
   // O rascunho da folha de redação e a última ferramenta aberta em cada disciplina (caixa de ferramentas das aulas).
   essay: "lucia:redacao",
+  // Os itens já conferidos na revisão guiada da redação.
+  essayCheck: "lucia:redacao-revisao",
   tools: "lucia:ferramentas",
 } as const;
 
