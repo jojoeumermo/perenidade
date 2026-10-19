@@ -1652,3 +1652,142 @@ html[data-escrita-foco="1"] #menu-do-painel {
 html[data-escrita-foco="1"] .painel {
   grid-template-columns: minmax(0, 1fr) !important;
 }
+
+/* ---- Caderno de estudos: o caderno de quem estuda e luta, no desenho do jornal ---- */
+:root {
+  --papel: #fffdf6;
+  --papel-tinta: #1f1a14;
+  --pauta: rgba(63, 127, 168, 0.32);
+  --margem: rgba(194, 31, 22, 0.55);
+}
+:root[data-theme="dark"] {
+  --papel: #241e16;
+  --papel-tinta: #efe4c8;
+  --pauta: rgba(127, 170, 200, 0.22);
+  --margem: rgba(224, 131, 122, 0.5);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papel: #241e16;
+    --papel-tinta: #efe4c8;
+    --pauta: rgba(127, 170, 200, 0.22);
+    --margem: rgba(224, 131, 122, 0.5);
+  }
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) {
+  --papel: var(--parchment);
+  --papel-tinta: var(--ink);
+  --pauta: transparent;
+  --margem: var(--ink);
+}
+/* Bloco com a sombra chapada dos cartazes. */
+.caderno-bloco {
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+/* Fonte do caderno: um recorte colado na pasta. A desmarcada fica de lado, tracejada. */
+.caderno-recorte {
+  border: 2px solid var(--ink);
+  background: var(--papel);
+  color: var(--papel-tinta);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.caderno-recorte[data-ativa="false"] {
+  border-style: dashed;
+  box-shadow: none;
+  opacity: 0.7;
+}
+/* Cada caderno na estante é uma lombada, com a cor própria na borda. */
+.caderno-lombada {
+  border: 2px solid var(--ink);
+  border-left-width: 12px;
+  background: var(--parchment);
+}
+.caderno-lombada[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--parchment);
+}
+/* Ficha dos cartões: o fio vermelho no alto, como nas fichas de estudo. */
+.caderno-ficha {
+  border: 2px solid var(--ink);
+  border-top: 8px solid var(--prelo);
+  background-color: var(--papel);
+  color: var(--papel-tinta);
+  box-shadow: 5px 5px 0 var(--ink);
+}
+/* Folha do caderno: margem vermelha e linhas azuis; o texto corre em cima das linhas. */
+.caderno-pauta {
+  --linha: 2rem;
+  border: 2px solid var(--ink);
+  background-color: var(--papel);
+  color: var(--papel-tinta);
+  background-image:
+    linear-gradient(to right, transparent 3.25rem, var(--margem) 3.25rem, var(--margem) calc(3.25rem + 2px), transparent calc(3.25rem + 2px)),
+    repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--linha) - 1px), var(--pauta) calc(var(--linha) - 1px), var(--pauta) var(--linha));
+  background-attachment: local;
+  background-position: 0 0.5rem;
+  line-height: var(--linha);
+  padding: 0.5rem 1rem 1rem 4.1rem;
+}
+.caderno-pauta:focus {
+  outline: 3px solid var(--prelo);
+  outline-offset: 2px;
+}
+/* Folha lisa para ler as fontes. */
+.caderno-folha {
+  border: 2px solid var(--ink);
+  background: var(--papel);
+  color: var(--papel-tinta);
+}
+/* Número grande dos itens do resumo e dos passos. */
+.caderno-numero {
+  color: var(--prelo);
+  font-weight: 900;
+  font-style: italic;
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
+}
+:root[data-theme="dark"] .caderno-numero {
+  color: #e0837a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .caderno-numero {
+    color: #e0837a;
+  }
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .caderno-numero {
+  color: var(--ink);
+}
+/* Ferramenta escolhida: a etiqueta vermelha do jornal. */
+.caderno-ferramenta[aria-pressed="true"] {
+  background: var(--prelo);
+  border-color: var(--ink);
+  color: #fff;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .caderno-ferramenta[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--parchment);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .caderno-ficha-virar {
+    animation: caderno-virar 0.28s ease-out;
+  }
+}
+@keyframes caderno-virar {
+  from {
+    transform: perspective(900px) rotateX(-75deg);
+    opacity: 0.4;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@media print {
+  .caderno-bloco,
+  .caderno-recorte,
+  .caderno-ficha {
+    box-shadow: none;
+  }
+}

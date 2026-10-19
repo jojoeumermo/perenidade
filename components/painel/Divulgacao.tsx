@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { can, type Me } from "@/lib/backend";
+import { useI18n } from "../I18n";
 import { CampoData } from "./Campos";
 import { Abas, Aviso, botao, botaoClaro, campo, dataHora, dia, elo, rotulo, useAcao, useLista } from "./comum";
 
@@ -62,8 +63,8 @@ const ordem: Item["situacao"][] = ["ideia", "rascunho", "pronto", "publicado"];
 const situacaoDaSugestao: Record<string, string> = { nova: "nova", em_andamento: "em andamento", feita: "feita", descartada: "não vai acontecer" };
 const vazio = { id: "", rede: "instagram" as Item["rede"], formato: "post" as Item["formato"], titulo: "", legenda: "", data_prevista: "", material: "", situacao: "ideia" as Item["situacao"], responsavel: "" };
 type Formulario = typeof vazio;
-const MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
-const SEMANA = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+/** Os dias da semana abreviados no idioma da página, de domingo a sábado (1º de fevereiro de 2026 é um domingo). */
+const semana = (lang: string) => Array.from({ length: 7 }, (_, i) => new Date(2026, 1, 1 + i).toLocaleDateString(lang, { weekday: "short" }).replace(".", ""));
 const isoDe = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
 /** As peças da marca que moram no site: nome, para que serve e os tamanhos disponíveis. */
@@ -99,6 +100,7 @@ const letras: [string, string][] = [
  * marcam. O site não guarda senha nem chave de rede social: o acesso ao perfil é dado pela coordenação na própria Meta.
  */
 export function Divulgacao({ me }: { me: Me }) {
+  const { lang } = useI18n();
   const coordena = can(me, "coordenacao");
   const aprova = coordena || can(me, "supervisao");
   const lista = useLista<Calendario>("divulgacao_listar");
@@ -185,7 +187,7 @@ export function Divulgacao({ me }: { me: Me }) {
           <ul className="mt-3 space-y-2">
             {caixa.dados?.map((s) => (
               <li key={s.id} className={`border border-rule bg-parchment p-3 ${s.status === "feita" || s.status === "descartada" ? "opacity-70" : ""}`}>
-                <p className="whitespace-pre-wrap">{s.texto}</p>
+                <p className="whitespace-pre-wrap" data-original>{s.texto}</p>
                 <p className="mt-1 text-xs text-ink-soft">{s.autor || "Alguém da equipe"} · {dataHora(s.criado_em)}{s.quando ? ` · para ${dia(s.quando)}` : ""} · {situacaoDaSugestao[s.status] ?? s.status}</p>
                 <p className="mt-2 flex flex-wrap gap-3 text-sm">
                   {(["em_andamento", "feita", "descartada"] as const).filter((x) => x !== s.status).map((x) => (
@@ -246,12 +248,12 @@ export function Divulgacao({ me }: { me: Me }) {
             <div className="mt-3">
               <div className="mb-2 flex items-center gap-3">
                 <button type="button" className={botaoClaro} aria-label="Anterior" onClick={() => andar(-1)}>‹</button>
-                <strong className="font-serif text-lg">{vista === "mes" ? `${MESES[mesAtual]} de ${ano}` : `Semana de ${dia(diasDaSemana[0])} a ${dia(diasDaSemana[6])}`}</strong>
+                <strong className="font-serif text-lg">{vista === "mes" ? new Date(ano, mesAtual, 1).toLocaleDateString(lang, { month: "long", year: "numeric" }) : `Semana de ${dia(diasDaSemana[0])} a ${dia(diasDaSemana[6])}`}</strong>
                 <button type="button" className={botaoClaro} aria-label="Próximo" onClick={() => andar(1)}>›</button>
                 <button type="button" className={elo} onClick={() => setReferencia(new Date())}>Hoje</button>
               </div>
               <div className="grid grid-cols-7 gap-1 text-sm">
-                {SEMANA.map((d) => <span key={d} className="text-center font-mono text-xs uppercase text-ink-soft">{d}</span>)}
+                {semana(lang).map((d, i) => <span key={i} className="text-center font-mono text-xs uppercase text-ink-soft">{d}</span>)}
                 {vista === "mes" && Array.from({ length: new Date(ano, mesAtual, 1).getDay() }, (_, i) => <span key={`v${i}`} />)}
                 {(vista === "mes" ? diasDoMes : diasDaSemana).map((iso) => (
                   <div
@@ -382,7 +384,7 @@ function PainelDoItem({ form, setForm, item, equipe, aprova, coordena, recarrega
                   <span className="px-4 text-center font-serif text-lg text-[#8e8e8e]">{form.titulo || "A arte aparece aqui"}</span>
                 )}
               </div>
-              <p className="whitespace-pre-line p-2 text-xs leading-relaxed"><strong>institutolucia</strong> {form.legenda.length > 160 ? `${form.legenda.slice(0, 160)}… mais` : form.legenda || <span className="text-[#8e8e8e]">legenda</span>}</p>
+              <p className="whitespace-pre-line p-2 text-xs leading-relaxed" data-original={form.legenda ? "" : undefined}><strong>institutolucia</strong> {form.legenda.length > 160 ? `${form.legenda.slice(0, 160)}… mais` : form.legenda || <span className="text-[#8e8e8e]">legenda</span>}</p>
             </div>
             <p className="mt-1 text-xs text-ink-soft">Aproximação do que aparece no Instagram. A arte precisa estar publicada em /arquivos para aparecer aqui.</p>
           </div>

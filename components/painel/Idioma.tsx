@@ -12,9 +12,10 @@ import { useI18n } from "../I18n";
  * O texto do painel está escrito em português dentro dos componentes. Em vez de reescrever cada um, os dicionários
  * em i18n/painel/<idioma>.json trazem a tradução de cada frase (a chave é a frase em português, como aparece na
  * tela) e este componente troca o texto na página: na abertura e a cada mudança que o React faz. Frases com partes
- * variáveis viram modelos ("Escreva “{0}”"). O que a equipe escreve (mensagens, aulas, nomes) quase nunca bate com
- * uma frase do dicionário e fica como está; o que não pode mudar de jeito nenhum leva translate="no", como a folha do
- * certificado, que é um documento em português. A lista de frases sai de scripts/textos-do-painel.mjs.
+ * variáveis viram modelos ("Escreva “{0}”"). O que a equipe escreve (mensagens, recados, pautas, o texto das aulas)
+ * fica dentro de um elemento com data-original: este componente não mexe ali, mas a tradução do navegador continua
+ * podendo traduzir. O que não pode mudar de jeito nenhum leva translate="no", como a folha do certificado e o termo
+ * do podcast, que são documentos em português. A lista de frases sai de scripts/textos-do-painel.mjs.
  */
 
 type Dicionario = Record<string, string>;
@@ -73,12 +74,23 @@ function tradutor(dicionario: Dicionario) {
       if (modelo.pista && !texto.includes(modelo.pista)) continue;
       const achado = modelo.regra.exec(texto);
       if (!achado) continue;
-      // As partes variáveis também são traduzidas quando são uma frase conhecida (o nome de uma função, um idioma).
+      // As partes variáveis também são traduzidas quando são uma frase conhecida (o nome de uma função, um idioma) ou
+      // outro modelo ("Restam 3 códigos (gerados em …)"), com os mesmos espaços nas pontas.
       return modelo.alvo.replace(/\{(\d+)\}/g, (_, n: string) => {
         const valor = achado[modelo.ordem.indexOf(Number(n)) + 1] ?? "";
-        return exatos.get(normalizar(valor)) ?? valor;
+        const traduzido = normalizar(valor).length < 2 ? null : nucleo(normalizar(valor));
+        return traduzido === null ? valor : `${/^\s*/.exec(valor)?.[0] ?? ""}${traduzido}${/\s*$/.exec(valor)?.[0] ?? ""}`;
       });
     }
+    // Rótulos juntados num texto só ("Tradução · Revisão") e pares "rótulo: valor" ("função: Revisão", "Aulas enviadas: 3"):
+    // cada pedaço por si. Um título como "Inglês: conversação e leitura" fica inteiro (rótulo maiúsculo e valor com letras).
+    if (texto.includes(" · ")) {
+      const juntos = texto.split(" · ").map((pedaco) => nucleo(pedaco) ?? pedaco).join(" · ");
+      return juntos === texto ? null : juntos;
+    }
+    const par = /^([^:]{2,40}): (.+)$/.exec(texto);
+    const rotulo = par ? exatos.get(par[1]) : undefined;
+    if (par && rotulo !== undefined && (/^\p{Ll}/u.test(par[1]) || !/\p{L}/u.test(par[2]))) return `${rotulo}: ${nucleo(par[2]) ?? par[2]}`;
     return null;
   };
 
@@ -92,6 +104,12 @@ function tradutor(dicionario: Dicionario) {
   };
 }
 
+/** O tradutor do idioma aberto agora (nenhum em português). */
+let traducaoAtual: ((texto: string) => string | null) | null = null;
+
+/** Traduz um texto que não passa pela página, como o aviso do navegador; sem tradução, devolve o próprio texto. */
+export const traduzirNoPainel = (texto: string) => traducaoAtual?.(texto) ?? texto;
+
 /** Traduz o painel aberto quando o idioma do endereço não é o português. Não desenha nada. */
 export function TraduzirPainel() {
   const { lang } = useI18n();
@@ -103,15 +121,23 @@ export function TraduzirPainel() {
     let observador: MutationObserver | null = null;
     const confirmar = window.confirm;
     const avisar = window.alert;
+    const perguntar = window.prompt;
 
     void carregar().then(({ default: dicionario }) => {
       if (!ativo) return;
       const traduzir = tradutor(dicionario);
+      traducaoAtual = traduzir;
       // O que já foi trocado: assim a página sabe distinguir a própria tradução de um texto novo do React.
       const textos = new WeakMap<Text, string>();
       const atributos = new WeakMap<Element, Map<string, string>>();
 
-      const protegido = (elemento: Element | null) => Boolean(elemento?.closest('[translate="no"], [contenteditable="true"]'));
+      // data-traduzir reabre a tradução dentro de um data-original (o bloco do painel dentro do caderno do site).
+      const protegido = (elemento: Element | null) => {
+        if (!elemento || elemento.closest('[translate="no"], [contenteditable="true"]')) return Boolean(elemento);
+        const original = elemento.closest("[data-original]");
+        const traduzir = elemento.closest("[data-traduzir]");
+        return Boolean(original && !(traduzir && original.contains(traduzir)));
+      };
 
       const texto = (no: Text) => {
         const atual = no.nodeValue ?? "";
@@ -138,7 +164,14 @@ export function TraduzirPainel() {
 
       const percorrer = (raiz: Node) => {
         if (raiz.nodeType === Node.TEXT_NODE) return texto(raiz as Text);
-        if (!(raiz instanceof Element) || PULAR.has(raiz.tagName) || protegido(raiz)) return;
+        if (!(raiz instanceof Element) || PULAR.has(raiz.tagName)) return;
+        if (protegido(raiz)) {
+          // Um bloco do painel dentro de texto protegido (data-traduzir) se traduz por si.
+          raiz.querySelectorAll("[data-traduzir]").forEach((bloco) => {
+            if (!protegido(bloco)) percorrer(bloco);
+          });
+          return;
+        }
         for (const nome of ATRIBUTOS) atributo(raiz, nome);
         for (const elemento of raiz.querySelectorAll(ATRIBUTOS.map((nome) => `[${nome}]`).join(","))) {
           if (!protegido(elemento)) for (const nome of ATRIBUTOS) atributo(elemento, nome);
@@ -157,16 +190,20 @@ export function TraduzirPainel() {
       });
       observador.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: [...ATRIBUTOS] });
 
-      // As perguntas de confirmação ("Apagar esta aula?") também saem no idioma escolhido.
+      // As perguntas de confirmação ("Apagar esta aula?") também saem no idioma escolhido. No prompt, só a pergunta: o
+      // valor sugerido é dado (o nome de um anexo, um endereço) e fica como está.
       window.confirm = (mensagem?: string) => confirmar.call(window, mensagem ? (traduzir(mensagem) ?? mensagem) : mensagem);
       window.alert = (mensagem?: unknown) => avisar.call(window, typeof mensagem === "string" ? (traduzir(mensagem) ?? mensagem) : mensagem);
+      window.prompt = (mensagem?: string, padrao?: string) => perguntar.call(window, mensagem ? (traduzir(mensagem) ?? mensagem) : mensagem, padrao);
     });
 
     return () => {
       ativo = false;
+      traducaoAtual = null;
       observador?.disconnect();
       window.confirm = confirmar;
       window.alert = avisar;
+      window.prompt = perguntar;
     };
   }, [lang]);
 
