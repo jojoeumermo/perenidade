@@ -33,9 +33,13 @@ const arquivosSoltos = [
   "lib/podcast-audio.ts",
   "lib/pratica.ts",
   "lib/upload.ts",
+  "lib/notificacoes.ts",
   "components/VideoPlayer.tsx",
   "components/Editor.tsx",
   "components/caderno/Prontos.tsx",
+  "components/JitsiSala.tsx",
+  "components/Markdown.tsx",
+  "components/SenhaCampo.tsx",
 ];
 const idiomas = ["en", "es", "fr", "ru", "zh"];
 const destino = path.join(raiz, "i18n/painel");

@@ -104,6 +104,12 @@ function tradutor(dicionario: Dicionario) {
   };
 }
 
+/** O tradutor do idioma aberto agora (nenhum em português). */
+let traducaoAtual: ((texto: string) => string | null) | null = null;
+
+/** Traduz um texto que não passa pela página, como o aviso do navegador; sem tradução, devolve o próprio texto. */
+export const traduzirNoPainel = (texto: string) => traducaoAtual?.(texto) ?? texto;
+
 /** Traduz o painel aberto quando o idioma do endereço não é o português. Não desenha nada. */
 export function TraduzirPainel() {
   const { lang } = useI18n();
@@ -115,10 +121,12 @@ export function TraduzirPainel() {
     let observador: MutationObserver | null = null;
     const confirmar = window.confirm;
     const avisar = window.alert;
+    const perguntar = window.prompt;
 
     void carregar().then(({ default: dicionario }) => {
       if (!ativo) return;
       const traduzir = tradutor(dicionario);
+      traducaoAtual = traduzir;
       // O que já foi trocado: assim a página sabe distinguir a própria tradução de um texto novo do React.
       const textos = new WeakMap<Text, string>();
       const atributos = new WeakMap<Element, Map<string, string>>();
@@ -182,16 +190,20 @@ export function TraduzirPainel() {
       });
       observador.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: [...ATRIBUTOS] });
 
-      // As perguntas de confirmação ("Apagar esta aula?") também saem no idioma escolhido.
+      // As perguntas de confirmação ("Apagar esta aula?") também saem no idioma escolhido. No prompt, só a pergunta: o
+      // valor sugerido é dado (o nome de um anexo, um endereço) e fica como está.
       window.confirm = (mensagem?: string) => confirmar.call(window, mensagem ? (traduzir(mensagem) ?? mensagem) : mensagem);
       window.alert = (mensagem?: unknown) => avisar.call(window, typeof mensagem === "string" ? (traduzir(mensagem) ?? mensagem) : mensagem);
+      window.prompt = (mensagem?: string, padrao?: string) => perguntar.call(window, mensagem ? (traduzir(mensagem) ?? mensagem) : mensagem, padrao);
     });
 
     return () => {
       ativo = false;
+      traducaoAtual = null;
       observador?.disconnect();
       window.confirm = confirmar;
       window.alert = avisar;
+      window.prompt = perguntar;
     };
   }, [lang]);
 

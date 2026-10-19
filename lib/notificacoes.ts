@@ -29,14 +29,18 @@ export async function escolherModo(modo: ModoDeAviso): Promise<boolean> {
 
 let ultimo = 0;
 
-/** Mostra o aviso, se a pessoa quis e a aba não está à vista. No máximo um a cada vinte segundos. */
-export function avisar(quem: string[]) {
+/**
+ * Mostra o aviso, se a pessoa quis e a aba não está à vista. No máximo um a cada vinte segundos. O aviso não passa
+ * pela página: quem chama manda o tradutor do idioma do painel.
+ */
+export function avisar(quem: string[], traduzir: (texto: string) => string = (texto) => texto) {
   const modo = modoDeAviso();
   if (modo === "nenhum" || !avisosDisponiveis() || Notification.permission !== "granted") return;
   if (document.visibilityState === "visible" || Date.now() - ultimo < 20_000) return;
   ultimo = Date.now();
   const nomes = [...new Set(quem.filter(Boolean))];
-  const corpo = modo === "nome" && nomes.length ? `${nomes.slice(0, 3).join(", ")}${nomes.length > 3 ? " e mais gente" : ""}: mensagem nova nas conversas da equipe.` : "Mensagem nova nas conversas da equipe.";
+  const remetentes = nomes.length > 3 ? `${nomes.slice(0, 3).join(", ")} e mais gente` : nomes.join(", ");
+  const corpo = traduzir(modo === "nome" && nomes.length ? `${remetentes}: mensagem nova nas conversas da equipe.` : "Mensagem nova nas conversas da equipe.");
   try {
     const aviso = new Notification("Instituto Lúcia", { body: corpo, tag: "lucia-conversas", silent: false });
     aviso.onclick = () => { window.focus(); aviso.close(); };
