@@ -30,7 +30,8 @@ igual("pergunta longa demais", validarEntrada({ pergunta: "a".repeat(LIMITES.per
 confere("pergunta no limite passa", "entrada" in validarEntrada({ pergunta: "a".repeat(LIMITES.pergunta) }));
 igual("caracteres de controle somem", validarEntrada({ pergunta: "Quanto\u0000 é 2\u0007 + 2?" }).entrada?.pergunta, "Quanto é 2 + 2?");
 igual("disciplina inválida vira vazio", validarEntrada({ ...base, disciplina: "Mat; drop" }).entrada?.disciplina, "");
-igual("idioma desconhecido vira pt", validarEntrada({ ...base, idioma: "fr" }).entrada?.idioma, "pt");
+igual("idioma desconhecido vira pt", validarEntrada({ ...base, idioma: "de" }).entrada?.idioma, "pt");
+igual("francês aceito", validarEntrada({ ...base, idioma: "fr" }).entrada?.idioma, "fr");
 igual("idioma aceito", validarEntrada({ ...base, idioma: "ru" }).entrada?.idioma, "ru");
 
 const png = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
