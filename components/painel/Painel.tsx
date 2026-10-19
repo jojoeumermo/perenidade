@@ -138,6 +138,10 @@ const icones: Record<string, string> = {
   tecnico: "M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12",
   interdicao: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM5.6 5.6l12.8 12.8",
   gaveta: "M3 4h18v6H3zM3 10v10h18V10M10 7h4M10 15h4",
+  tarefas: "M4 4h16v16H4zM8 9l2 2 4-4M8 15h8",
+  "acervo-dentro": "M5 4v16M9 4v16M13 5l4 15M3 20h18",
+  exercicios: "M4 3h12v18H4zM8 7h4M8 11h4M14 20l6-6-2-2-6 6v2z",
+  contribuicoes: "M12 14a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM8.5 13 7 21l5-3 5 3-1.5-8",
 };
 
 function Icone({ id, className = "h-[18px] w-[18px]" }: { id: string; className?: string }) {
