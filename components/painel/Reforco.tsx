@@ -47,7 +47,7 @@ export function Reforco() {
               {area(pedido.disciplina)} · {data(pedido.criado_em)} · {pedido.status === "aberto" ? "aguardando" : `em atendimento por ${pedido.meu ? "você" : pedido.mentor}`}
             </p>
             <p className="mt-2 font-serif text-2xl font-semibold">{pedido.assunto}</p>
-            <p className="mt-2 whitespace-pre-line font-serif text-lg">{pedido.duvida}</p>
+            <p className="mt-2 whitespace-pre-line font-serif text-lg" data-original>{pedido.duvida}</p>
             <p className="mt-1 text-ink-soft">Pedido de {pedido.nome || "pessoa sem nome no perfil"}</p>
             {pedido.status === "aberto" && (
               <button type="button" className={`mt-3 ${botao}`} disabled={acao.ocupado} onClick={() => acao.agir("reforco_assumir", { p_id: pedido.id }, "Pedido assumido: o e-mail da pessoa aparece abaixo.")}>

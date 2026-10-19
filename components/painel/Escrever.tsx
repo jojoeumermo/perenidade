@@ -12,7 +12,7 @@ import { useI18n } from "../I18n";
 import { Markdown } from "../Markdown";
 import { useTrackOptions } from "../useTrackOptions";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
-import { Aviso, campo, elo, papeis, useAcao, useLista } from "./comum";
+import { Aviso, campo, elo, localDoPainel, papeis, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
 import { FerramentasDoAutor } from "./FerramentasDoAutor";
 import { GuiaDaAula } from "./GuiaDaAula";
@@ -285,7 +285,7 @@ export function Escrever({ me }: { me: Me }) {
           // Se não deu (limite, conta suspensa), a contribuição segue; a pessoa pode chamar de novo em Meus envios.
         }
       }
-      if (chamados.length > 0) setAviso(`Recebido. Sua contribuição entrou na fila de revisão, e ${chamados.join(", ")} já ${chamados.length === 1 ? "recebeu" : "receberam"} o recado para trabalhar junto.`);
+      if (chamados.length > 0) setAviso(chamados.length === 1 ? `Recebido. Sua contribuição entrou na fila de revisão, e ${chamados[0]} já recebeu o recado para trabalhar junto.` : `Recebido. Sua contribuição entrou na fila de revisão, e ${chamados.join(", ")} já receberam o recado para trabalhar junto.`);
       setTitulo("");
       setCorpo("");
       setFontes([{ titulo: "", autor: "", url: "" }]);
@@ -547,9 +547,9 @@ export function Escrever({ me }: { me: Me }) {
         {lado && (
           <article className="mx-auto w-full max-w-[680px] border border-dashed border-rule bg-parchment-deep px-5 py-7 sm:px-8" aria-label="Pré-visualização">
             <p className={rotuloPequeno}>Como fica na aula</p>
-            <h1 className="mt-2 font-serif text-3xl font-semibold">{titulo || tipo.titulo}</h1>
-            {valores.resumo && <p className="mt-2 font-serif text-lg italic text-ink-soft">{valores.resumo}</p>}
-            <div className="mt-6">
+            <h1 className="mt-2 font-serif text-3xl font-semibold" data-original={titulo ? "" : undefined}>{titulo || tipo.titulo}</h1>
+            {valores.resumo && <p className="mt-2 font-serif text-lg italic text-ink-soft" data-original>{valores.resumo}</p>}
+            <div className="mt-6" data-original={corpo ? "" : undefined}>
               <Markdown lang="pt">{corpo || "*Nada para mostrar ainda.*"}</Markdown>
             </div>
           </article>
@@ -662,7 +662,7 @@ function Versoes({ chave, titulo, corpo, restaurar }: { chave: string; titulo: s
               {lista.map((v) => (
                 <li key={v.em} className="flex items-center justify-between gap-2 border-b border-rule py-1">
                   <span>
-                    {new Date(v.em).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
+                    {new Date(v.em).toLocaleString(localDoPainel(), { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
                     <span className="block text-ink-soft">{v.titulo || "(sem título)"} · {v.corpo.split(/\s+/).filter(Boolean).length} palavras</span>
                   </span>
                   <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => { if (window.confirm("Trocar o texto atual por esta versão? O texto atual fica guardado na lista.")) { guardarVersao(chave, titulo, corpo, true); restaurar(v); setAberto(false); } }}>

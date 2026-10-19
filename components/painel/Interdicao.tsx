@@ -283,7 +283,7 @@ function Pedidos({ coordena, depois }: { coordena: boolean; depois: () => void }
               {pedido.situacao === "pendente" && ` · vence em ${dataHora(pedido.vence_em)}`}
             </p>
             <p className="mt-1 font-semibold">{descrever(pedido)}</p>
-            <p className="mt-1 whitespace-pre-line">{pedido.justificativa}</p>
+            <p className="mt-1 whitespace-pre-line" data-original>{pedido.justificativa}</p>
             {pedido.situacao !== "pendente" && pedido.decidido_por && (
               <p className="mt-1 text-ink-soft">
                 Decidido por {pedido.decidido_por}{pedido.decidido_em && ` em ${dataHora(pedido.decidido_em)}`}{pedido.nota && `: ${pedido.nota}`}
