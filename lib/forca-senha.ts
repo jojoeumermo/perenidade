@@ -2,7 +2,9 @@
 //
 // A conferência de senha nova, toda aqui no aparelho e sem serviço de fora: tamanho mínimo de 12, nada de senha comum
 // (uma lista curta empacotada com o site, mais as variações óbvias), nada de só repetição, e um medidor de força.
-// Frase longa vale, colar vale, gerenciador de senha vale: não se exige mistura de maiúscula, número e símbolo.
+// Frase longa vale, colar vale, gerenciador de senha vale. Como o Supabase do instituto exige letra minúscula,
+// maiúscula e número (Authentication › Email › Password requirements), o site cobra o mesmo: senão o medidor diria
+// "aceita" e o servidor recusaria.
 // Sem os atalhos "@/" de propósito: `npm run testar:estudo` roda este arquivo direto no Node.
 
 export const MINIMO = 12;
@@ -48,8 +50,8 @@ export function soRepeticao(senha: string): boolean {
   return false;
 }
 
-export type RegraDeSenha = "length" | "common" | "variety";
-export const REGRAS_DE_SENHA: RegraDeSenha[] = ["length", "common", "variety"];
+export type RegraDeSenha = "length" | "mix" | "common" | "variety";
+export const REGRAS_DE_SENHA: RegraDeSenha[] = ["length", "mix", "common", "variety"];
 
 export interface Avaliacao {
   regras: Record<RegraDeSenha, boolean>;
@@ -66,6 +68,7 @@ export interface Avaliacao {
 export function avaliarSenha(senha: string, pessoais: string[] = []): Avaliacao {
   const regras: Record<RegraDeSenha, boolean> = {
     length: [...senha].length >= MINIMO,
+    mix: /[a-z]/.test(senha) && /[A-Z]/.test(senha) && /\d/.test(senha),
     common: senha.length > 0 && !senhaComum(senha, pessoais),
     variety: senha.length > 0 && !soRepeticao(senha),
   };
