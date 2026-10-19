@@ -4342,7 +4342,17 @@
     "allInPlace": "Todo en su lugar ✓",
     "buildHint": "Toca las palabras en el orden correcto. Para quitar una, tócala de nuevo.",
     "showTranslation": "Mostrar la traducción",
-    "lyrics": "Letra"
+    "lyrics": "Letra",
+    "pencil": "Lápiz",
+    "line": "Línea",
+    "arrow": "Flecha",
+    "rectangle": "Rectángulo",
+    "ellipse": "Elipse",
+    "text": "Texto",
+    "undo": "Deshacer",
+    "redo": "Rehacer",
+    "thickness": "Grosor",
+    "typeText": "Escribe y pulsa Enter"
   },
   "studyGroup": {
     "eyebrow": "Estudiar juntos",

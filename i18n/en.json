@@ -4342,7 +4342,17 @@
     "allInPlace": "Everything in place ✓",
     "buildHint": "Tap the words in the right order. To remove one, tap it again.",
     "showTranslation": "Show the translation",
-    "lyrics": "Lyrics"
+    "lyrics": "Lyrics",
+    "pencil": "Pencil",
+    "line": "Line",
+    "arrow": "Arrow",
+    "rectangle": "Rectangle",
+    "ellipse": "Ellipse",
+    "text": "Text",
+    "undo": "Undo",
+    "redo": "Redo",
+    "thickness": "Thickness",
+    "typeText": "Type and press Enter"
   },
   "studyGroup": {
     "eyebrow": "Study together",
