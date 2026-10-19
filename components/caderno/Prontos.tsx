@@ -122,7 +122,7 @@ export function PublicarCadernoPronto({ caderno }: { caderno: Caderno }) {
   }
   const paraRevisar = fila.filter((c) => c.status === "pendente");
   return (
-    <section className="border-2 border-ink bg-parchment-deep p-3 text-xs">
+    <section className="border-2 border-ink bg-parchment-deep p-3 text-xs" data-traduzir>
       <p className="font-mono uppercase tracking-widest text-gold">Caderno pronto</p>
       {!aberto ? (
         <button type="button" className={`mt-2 ${elo}`} disabled={doSite.length === 0} onClick={() => setAberto(true)}>
