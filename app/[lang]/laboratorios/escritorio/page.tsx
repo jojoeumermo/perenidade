@@ -19,7 +19,7 @@ export default async function Page({ params }: PageProps<"/[lang]/laboratorios/e
       <PageHeading eyebrow={t.labs.title} title={t.labs.escritorio}>
         {t.labs.escritorioIntro}
       </PageHeading>
-      <Escritorio s={{ code: s.code, insideNote: s.insideNote, fullscreen: s.fullscreen, notYet: s.notYet, editors: s.editors, tab: t.labs.escritorioTab, local: t.labs.escritorioLocal }} />
+      <Escritorio s={{ code: s.code, insideNote: s.insideNote, fullscreen: s.fullscreen, notYet: s.notYet, render: s.render, editors: s.editors, tab: t.labs.escritorioTab, local: t.labs.escritorioLocal }} />
     </div>
   );
 }
