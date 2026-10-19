@@ -30,7 +30,8 @@
     "copy": "复制",
     "copied": "已复制",
     "loading": "加载中……",
-    "askCommunity": "在社区提问"
+    "askCommunity": "在社区提问",
+    "practiceStudio": "练习工作室"
   },
   "nav": {
     "main": "主导航",
@@ -3716,5 +3717,107 @@
     "backupInvalid": "这个文件不是笔记本备份。",
     "backupConfirm": "要恢复备份吗？笔记本、卡片和错题会与现有的合并；其他内容会被备份替换。",
     "nextTomorrow": "明天再出现"
+  },
+  "practiceStudio": {
+    "eyebrow": "视频剪辑",
+    "title": "练习工作室",
+    "lead": "在浏览器里练习视频剪辑和动画的开源程序，免费，无需安装。",
+    "alpha": "测试阶段（alpha）：程序可能有错误，仅供练习。",
+    "local": "所有内容只保存在本设备的浏览器中。完成后请导出视频并下载项目文件，以免丢失。",
+    "download": "第一次打开时，浏览器会下载 {mb} MB。使用移动数据时请注意。",
+    "open": "打开",
+    "notYet": "尚未在学院的网址上线。",
+    "help": "开始之前",
+    "film": {
+      "title": "剪辑视频（Premiere 风格）：FilmCraft",
+      "text": "时间线、剪切、转场、调色和声音，界面与快捷键同 Premiere Pro。"
+    },
+    "effect": {
+      "title": "动画与特效（After Effects 风格）：EffectCraft",
+      "text": "合成、图层、关键帧、特效和表达式，用法同 After Effects。"
+    },
+    "check": "检查本设备能否运行",
+    "checking": "正在检查…",
+    "ok": "你的浏览器可以运行。",
+    "slow": "在本设备上可能会很慢。",
+    "no": "这里无法运行：请在电脑上使用 Chrome 或 Edge。",
+    "wasm": "WebAssembly",
+    "gpu": "WebGPU（显卡）",
+    "memory": "内存",
+    "memoryUnknown": "浏览器未提供",
+    "yes": "是",
+    "noShort": "否",
+    "browser": "浏览器",
+    "limitsTitle": "限制",
+    "limits": [
+      "不能打开 .prproj（Premiere）或 .aep（After Effects）文件，也不支持插件。",
+      "FilmCraft 可导入导出 XML（Premiere 交换用的 Final Cut Pro 7 格式）和 OpenTimelineIO，方便把剪辑带回 Premiere。",
+      "EffectCraft 可导入导出 Lottie 动画。"
+    ],
+    "materialTitle": "练习素材",
+    "materialLead": "Blender 基金会的开放电影，采用允许在课堂上使用和剪辑的知识共享许可。设备较弱时请下载较小的版本（720p 或更低）。发布时请注明出处。",
+    "credit": "署名",
+    "page": "官方页面（下载）",
+    "creditsTitle": "致谢",
+    "credits": "FilmCraft 和 EffectCraft 由 ArtCraft 团队和社区制作，采用 Apache-2.0 许可。ArtCraft 名称是 ArtCraft 团队的商标。二者都不是 Adobe 的产品，也与 Adobe 无关；Premiere Pro 和 After Effects 是 Adobe 的商标。",
+    "code": "代码与许可",
+    "before": {
+      "title": "开始之前",
+      "lead": "避免丢失作品、让双手找到熟悉快捷键的基本说明。",
+      "browserTitle": "浏览器",
+      "browser": "请在电脑上使用最新版的 Chrome 或 Edge。它们支持 WebGPU，运行更快。在 Firefox 和 Safari 中可能较慢。",
+      "shortcutsTitle": "在 FilmCraft 中使用 Premiere 快捷键",
+      "shortcuts": "打开 Edit ▸ Keyboard Shortcuts…，选择 Premiere Pro Compatible 方案。之后按键与 Premiere 相同（列表按 Mac 键盘，与 Premiere 一致）。",
+      "saveTitle": "保存、导出和导入",
+      "save": [
+        "把文件拖进窗口或通过导入菜单导入。",
+        "有改动时，FilmCraft 每 5 秒会在浏览器中自动保存一份恢复副本；不要只依赖它。",
+        "完成后导出视频并保存项目：两者都会作为下载文件。",
+        "在 EffectCraft 中，通过渲染队列（Render Queue）导出，并同样下载项目。"
+      ],
+      "tableTitle": "在 Premiere 或 After Effects 中是这样 → 这里是这样",
+      "tableNote": "只列出程序自身文档确认的内容。菜单名称与程序一致，为英文。",
+      "colFrom": "Premiere / After Effects",
+      "colTo": "这里",
+      "rows": [
+        [
+          "Premiere：Premiere 快捷键",
+          "FilmCraft：Edit ▸ Keyboard Shortcuts… › Premiere Pro Compatible"
+        ],
+        [
+          "Premiere：选择播放头处的剪辑（D）",
+          "FilmCraft：D"
+        ],
+        [
+          "Premiere：下一个和上一个编辑点（↓ 和 ↑）",
+          "FilmCraft：↓ 和 ↑"
+        ],
+        [
+          "Premiere：导出帧（Shift+E）",
+          "FilmCraft 使用 Premiere 方案时：Shift+E"
+        ],
+        [
+          "Premiere：发送到 Media Encoder",
+          "FilmCraft：Send to Export Queue（Alt+Shift+M）"
+        ],
+        [
+          "Premiere：帮助（F1）",
+          "FilmCraft：F1"
+        ],
+        [
+          "After Effects：显示图层属性（A、P、S…）",
+          "EffectCraft：相同按键"
+        ],
+        [
+          "After Effects：表达式（wiggle、loopOut）",
+          "EffectCraft：使用相同对象模型的 JavaScript 表达式"
+        ],
+        [
+          "After Effects：导出 Lottie（需插件）",
+          "EffectCraft：内置 Lottie，无需插件"
+        ]
+      ],
+      "back": "返回练习工作室"
+    }
   }
 }

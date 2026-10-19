@@ -18,6 +18,10 @@ const eslintConfig = defineConfig([
     "public/php/**",
     // Função que roda no serviço de contas (Deno), fora do site.
     "supabase/functions/**",
+    // Pacotes oficiais dos editores avançados, baixados por scripts/editores.mjs e publicados sem modificação.
+    "estudio/site/photocraft/**",
+    "estudio/site/filmcraft/**",
+    "estudio/site/effectcraft/**",
   ]),
 ]);
 

@@ -52,3 +52,9 @@ next-env.d.ts
 # Configuração local do app Claude (prévia do servidor de desenvolvimento)
 /.claude/
 .tarefas-aplicadas.json
+
+# Pacotes dos editores avançados, baixados e conferidos por scripts/editores.mjs (publicados à parte, não vão para o Git)
+/estudio/site/photocraft/
+/estudio/site/filmcraft/
+/estudio/site/effectcraft/
+/estudio/site/_headers

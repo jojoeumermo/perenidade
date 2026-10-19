@@ -32,6 +32,10 @@ export default async function Ferramentas({ params }: PageProps<"/[lang]/ferrame
       <PageHeading eyebrow={t.tools.eyebrow} title={t.tools.title}>
         {t.tools.lead}
       </PageHeading>
+      <p className="mt-6 border-2 border-ink bg-parchment-deep p-4 font-sans">
+        <Link href={localePath(lang, "/estudio-de-pratica")} className="font-serif text-xl font-semibold hover:text-oxblood">{t.practiceStudio.title} →</Link>
+        <span className="mt-1 block text-sm text-ink-soft">{t.practiceStudio.lead}</span>
+      </p>
       {grupos.map(({ titulo, lista }) => (
         <section key={titulo} className="mt-10">
           <h2 className="border-b border-rule pb-2 text-2xl font-semibold">{titulo}</h2>
