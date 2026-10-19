@@ -11728,6 +11728,65 @@ begin
   end loop;
 end $$;
 
+-- ───────────────────────────── Resoluções das questões de provas públicas ─────────────────────────────
+-- As questões do ENEM (e de outras provas públicas que tiverem fonte aberta) entram sozinhas no banco de questões. A
+-- resolução comentada é escrita por quem ensina: educadores e educadores secundários publicam direto (a coordenação,
+-- a coordenação pedagógica e a revisão podem tirar do ar). Também servem para apontar erro no gabarito da fonte.
+create table if not exists interno.questoes_resolucoes (
+  id uuid primary key default gen_random_uuid(),
+  questao text not null check (questao ~ '^[a-z0-9-]{3,80}$'),
+  autor uuid references interno.perfis (id) on delete set null,
+  texto text not null check (char_length(texto) between 20 and 6000),
+  status text not null default 'publicada' check (status in ('publicada', 'retirada')),
+  criado_em timestamptz not null default now(),
+  retirada_por uuid references interno.perfis (id) on delete set null
+);
+create index if not exists questoes_resolucoes_questao on interno.questoes_resolucoes (questao);
+alter table interno.questoes_resolucoes enable row level security;
+revoke all on interno.questoes_resolucoes from public;
+
+create or replace function interno.resolve_questoes() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or interno.tem('educacao') or interno.tem('educacao_secundaria') or interno.tem('revisao') or interno.tem('vice') or interno.tem('supervisao')
+$$;
+
+create or replace function public.resolucao_enviar(p_questao text, p_texto text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid;
+begin
+  if not interno.resolve_questoes() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('resolucao', 60, 60);
+  if coalesce(p_questao, '') !~ '^[a-z0-9-]{3,80}$' then perform interno.erro('invalido:questao'); end if;
+  insert into questoes_resolucoes (questao, autor, texto) values (p_questao, v, interno.txt(p_texto, 'texto', 20, 6000)) returning id into v_id;
+  perform interno.registrar('resolucao_enviada', p_questao);
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.resolucoes_listar(p_questoes text[]) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('id', r.id, 'questao', r.questao, 'texto', r.texto, 'autor', coalesce(interno.nome_visto(f.nome), 'Educador'),
+                                               'criado_em', r.criado_em, 'minha', r.autor = auth.uid()) order by r.criado_em), '[]'::jsonb)
+  from questoes_resolucoes r left join perfis f on f.id = r.autor
+  where r.status = 'publicada' and r.questao = any ((coalesce(p_questoes, '{}'::text[]))[1:60])
+$$;
+
+create or replace function public.resolucao_retirar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r questoes_resolucoes;
+begin
+  select * into r from questoes_resolucoes where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (r.autor = v or interno.coord() or interno.tem('vice') or interno.tem('revisao')) then perform interno.erro('sem_permissao'); end if;
+  update questoes_resolucoes set status = 'retirada', retirada_por = v where id = p_id;
+  perform interno.registrar('resolucao_retirada', r.questao);
+  return jsonb_build_object('ok', true);
+end $$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array['resolucao_enviar(text, text)', 'resolucoes_listar(text[])', 'resolucao_retirar(uuid)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;
+
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança
 -- por linha até a próxima execução deste arquivo. Aqui, no fim, toda tabela do esquema interno fica com a segurança por
