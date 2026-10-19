@@ -17,6 +17,10 @@ const EXERCICIOS: Record<Perfil, Exercicio[]> = {
   web: exerciciosWeb as Exercicio[],
   js: exerciciosJs as Exercicio[],
   sql: exerciciosSql as Exercicio[],
+  ts: [],
+  cpp: [],
+  ruby: [],
+  lua: [],
 };
 const CHAVE_PROGRESSO = "lucia:lab:concluidos";
 const lerConcluidos = (): string[] => {
