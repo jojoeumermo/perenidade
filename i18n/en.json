@@ -109,7 +109,7 @@
     "escritorioTab": "Choose the program",
     "escritorioLocal": "Everything stays in this device's browser: save the file when you finish.",
     "seguranca": "Security Lab",
-    "segurancaLead": "Phishing, logs and passwords in a training-only sandbox: the defence for each attack.",
+    "segurancaLead": "A training Kali Linux in the browser: a real Linux running isolated, with security tools recreated for learning — all fictitious, plus the defense challenges.",
     "simulacoes": "Simulations (PhET)",
     "simulacoesLead": "Physics, chemistry, biology and maths through PhET's official iframe.",
     "creditos": "Credits and licences",
@@ -117,7 +117,13 @@
     "livre": "Free mode",
     "concluido": "done",
     "voltar": "Back to the labs",
-    "ptOnly": "Exercises are in Portuguese."
+    "ptOnly": "Exercises are in Portuguese.",
+    "segurancaKaliIntro": "This is a training environment, in the spirit of ethical hacking: study attack to learn defense. The desktop mimics Kali Linux and runs a real Linux (isolated, with no network to the real world). The tools — Nmap, Wireshark, Burp, sqlmap and others — are didactic recreations: the output is fictitious and none touches a real system. Attacking a system without written authorization is a crime.",
+    "segurancaKaliAbrir": "Open the lab",
+    "segurancaKaliAviso": "On opening, the browser downloads about 8 MB (the emulator and a small Linux image) and boots the system — it takes a few seconds. Best on a computer, with an up-to-date Chrome, Edge or Firefox.",
+    "segurancaKaliTelaCheia": "Fullscreen",
+    "segurancaKaliDefesa": "Defense training: spotting the attack",
+    "segurancaKaliForaDoAr": "The lab is not yet live at the institute's address."
   },
   "lists": {
     "bankEyebrow": "To practise",
