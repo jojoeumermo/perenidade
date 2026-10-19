@@ -98,7 +98,7 @@ const nextConfig: NextConfig = {
       { source: "/((?!workers/).*)", headers: [{ key: "Content-Security-Policy", value: pages }, ...common] },
       { source: "/workers/:path*", headers: [{ key: "Content-Security-Policy", value: workers }, ...common] },
       // Os interpretadores são grandes e mudam raramente: o navegador pode guardá-los por uma semana.
-      { source: "/(pyodide|php)/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=604800" }] },
+      { source: "/(pyodide|php|typescript|lua|ruby|jscpp)/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=604800" }] },
       // Imagens e arquivos publicados têm o nome derivado do próprio conteúdo: nunca mudam, podem ficar guardados por um ano.
       { source: "/(arquivos|imagens)/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
       // O arquivo que liga o modo sem internet é conferido a cada visita, para as correções chegarem logo.
