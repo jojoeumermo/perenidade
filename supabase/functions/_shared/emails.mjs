@@ -25,13 +25,16 @@ const ARQUIVO = "'IBM Plex Mono',Consolas,'Courier New',monospace";
  * sozinho num parágrafo vira botão vermelho e a assinatura que o banco põe no fim vira o rodapé. Tabelas e estilo na
  * linha, que é o que os leitores de e-mail respeitam. Tudo o que vem do texto é escapado.
  */
+/** O texto do botão conforme o endereço: convite, confirmação ou um link qualquer. */
+const rotuloDoBotao = (url) => (/[?&]convite=/.test(url) ? "Aceitar o convite" : /confirmar/.test(url) ? "Confirmar" : /\/entrar/.test(url) ? "Entrar" : "Abrir o link");
+
 export function html(texto, assunto = "Instituto Lúcia") {
   const corte = texto.lastIndexOf("\n\n— Instituto Lúcia");
   const corpo = (corte >= 0 ? texto.slice(0, corte) : texto).trim();
   const blocos = paragrafos(corpo, "color:#6e1f1a;text-decoration:underline").map((p) => {
     const sozinho = /^<a href="(https:[^"]+)"[^>]*>[^<]+<\/a>$/.exec(p);
     if (sozinho) {
-      return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:6px 0 22px"><tr><td bgcolor="#c21f16" style="background:#c21f16;border:3px solid #1f1a14"><a href="${sozinho[1]}" style="display:inline-block;padding:14px 22px;font-family:${CARTAZ};font-size:14px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#ffffff;text-decoration:none">Abrir o link &rarr;</a></td></tr></table><p style="margin:0 0 18px;font-family:${ARQUIVO};font-size:12px;line-height:1.5;color:#5a4e3c;word-break:break-all">${p}</p>`;
+      return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:6px 0 22px"><tr><td bgcolor="#c21f16" style="background:#c21f16;border:3px solid #1f1a14"><a href="${sozinho[1]}" style="display:inline-block;padding:14px 22px;font-family:${CARTAZ};font-size:14px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:#ffffff;text-decoration:none">${rotuloDoBotao(sozinho[1])} &rarr;</a></td></tr></table><p style="margin:0 0 18px;font-family:${ARQUIVO};font-size:12px;line-height:1.5;color:#5a4e3c;word-break:break-all">${p}</p>`;
     }
     return `<p style="margin:0 0 18px;font-family:${SERIFA};font-size:18px;line-height:1.55;color:#1f1a14">${p}</p>`;
   }).join("");
