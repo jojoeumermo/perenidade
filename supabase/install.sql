@@ -3918,7 +3918,11 @@ declare c certificados; v_codigo text := upper(regexp_replace(coalesce(p_codigo,
 begin
   perform interno.limite('conferir', 20, 60);
   select * into c from certificados where codigo = v_codigo and status in ('emitido', 'cancelado');
-  if not found then return jsonb_build_object('encontrado', false); end if;
+  if not found then
+    -- Certificado de participação de quem estuda (começa com A).
+    return coalesce((select jsonb_build_object('encontrado', true, 'valido', true, 'aluno', true, 'nome', a.nome, 'trilha', a.trilha_titulo, 'aulas', a.aulas, 'emitido_em', a.emitido_em)
+                     from certificados_alunos a where a.codigo = v_codigo), jsonb_build_object('encontrado', false));
+  end if;
   if c.status = 'cancelado' then return jsonb_build_object('encontrado', true, 'valido', false); end if;
   return jsonb_build_object('encontrado', true, 'valido', true, 'nome', c.nome, 'horas', c.horas, 'inicio', c.inicio, 'fim', c.fim,
     'atividades', c.atividades, 'emitido_em', c.emitido_em, 'impressao', interno.certificado_json(c) ->> 'impressao',
@@ -11600,6 +11604,184 @@ do $$
 declare f text;
 begin
   foreach f in array array['sugestao_criar(uuid, text, text, text)', 'sugestoes_listar(uuid)', 'sugestao_responder(uuid, boolean)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;
+
+-- ───────────────────────────── Cadernos prontos ─────────────────────────────
+-- Coleções de fontes do próprio site (aulas, obras, páginas) montadas por voluntários por trilha ou tema. Quem estuda
+-- duplica uma delas para o caderno do próprio aparelho com um clique. Guardam só os endereços: o texto vem do site.
+-- Antes de aparecer, passam pela revisão (coordenação, curadoria, revisão, supervisão ou um educador da disciplina).
+create table if not exists interno.cadernos_prontos (
+  id uuid primary key default gen_random_uuid(),
+  titulo text not null check (char_length(titulo) between 3 and 120),
+  descricao text not null default '' check (char_length(descricao) <= 500),
+  disciplina text,
+  fontes jsonb not null default '[]'::jsonb,
+  autor uuid references interno.perfis (id) on delete set null,
+  status text not null default 'pendente' check (status in ('pendente', 'publicado', 'recusado', 'arquivado')),
+  nota text not null default '' check (char_length(nota) <= 1000),
+  criado_em timestamptz not null default now(),
+  decidido_em timestamptz,
+  decidido_por uuid references interno.perfis (id) on delete set null
+);
+alter table interno.cadernos_prontos enable row level security;
+revoke all on interno.cadernos_prontos from public;
+
+create or replace function interno.revisa_caderno(p_disciplina text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or interno.curador() or interno.tem('revisao') or interno.tem('supervisao')
+    or (p_disciplina is not null and exists (select 1 from papeis where usuario = auth.uid() and papel in ('educacao', 'educacao_secundaria') and disciplina = p_disciplina))
+$$;
+
+create or replace function interno.caderno_pronto_json(c interno.cadernos_prontos) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('id', c.id, 'titulo', c.titulo, 'descricao', c.descricao, 'disciplina', c.disciplina, 'fontes', c.fontes, 'status', c.status,
+                            'nota', c.nota, 'autor', coalesce(interno.nome_visto((select nome from perfis where id = c.autor)), ''), 'criado_em', c.criado_em)
+$$;
+
+create or replace function public.caderno_pronto_enviar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_fontes jsonb; v_id uuid; v_disc text := nullif(p ->> 'disciplina', '');
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('caderno_pronto', 10, 60);
+  if jsonb_typeof(p -> 'fontes') <> 'array' then perform interno.erro('invalido:fontes'); end if;
+  select coalesce(jsonb_agg(jsonb_build_object('titulo', left(btrim(f ->> 'titulo'), 160), 'origem', f ->> 'origem')), '[]'::jsonb) into v_fontes
+  from jsonb_array_elements(p -> 'fontes') f
+  where coalesce(f ->> 'origem', '') ~ '^/[a-z0-9/-]{1,200}$' and char_length(btrim(coalesce(f ->> 'titulo', ''))) between 1 and 160;
+  if jsonb_array_length(v_fontes) not between 1 and 30 then perform interno.erro('invalido:fontes'); end if;
+  if v_disc is not null and v_disc !~ '^[a-z0-9-]{2,40}$' then perform interno.erro('invalido:disciplina'); end if;
+  insert into cadernos_prontos (titulo, descricao, disciplina, fontes, autor)
+  values (interno.txt(p ->> 'titulo', 'titulo', 3, 120), left(btrim(coalesce(p ->> 'descricao', '')), 500), v_disc, v_fontes, v) returning id into v_id;
+  perform interno.registrar('caderno_pronto_enviado', v_id::text);
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.cadernos_prontos_fila() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  return coalesce((select jsonb_agg(interno.caderno_pronto_json(c) order by c.criado_em) from cadernos_prontos c
+                   where (c.status = 'pendente' and interno.revisa_caderno(c.disciplina) and c.autor is distinct from auth.uid()) or c.autor = auth.uid()), '[]'::jsonb);
+end $$;
+
+create or replace function public.caderno_pronto_decidir(p_id uuid, p_publicar boolean, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c cadernos_prontos;
+begin
+  select * into c from cadernos_prontos where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if c.autor = v and not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if not interno.revisa_caderno(c.disciplina) then perform interno.erro('sem_permissao'); end if;
+  if c.status = 'publicado' and not p_publicar then
+    update cadernos_prontos set status = 'arquivado', decidido_em = now(), decidido_por = v where id = p_id;
+  elsif c.status <> 'pendente' then perform interno.erro('ja_decidida');
+  else
+    update cadernos_prontos set status = case when p_publicar then 'publicado' else 'recusado' end, nota = left(coalesce(btrim(p_nota), ''), 1000), decidido_em = now(), decidido_por = v where id = p_id;
+  end if;
+  if c.autor is not null and c.autor <> v then
+    perform interno.avisar(c.autor, case when p_publicar then 'O caderno pronto "' || left(c.titulo, 80) || '" foi publicado no Caderno de estudos.' else 'O caderno pronto "' || left(c.titulo, 80) || '" não foi publicado. Veja o recado no Caderno de estudos do painel.' end);
+  end if;
+  perform interno.registrar('caderno_pronto_decidido', p_id::text);
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.cadernos_prontos_listar() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('id', c.id, 'titulo', c.titulo, 'descricao', c.descricao, 'disciplina', c.disciplina, 'fontes', c.fontes) order by c.decidido_em desc), '[]'::jsonb)
+  from cadernos_prontos c where c.status = 'publicado'
+$$;
+
+-- ───────────────────────────── Certificado de participação de quem estuda ─────────────────────────────
+-- Quem conclui todas as aulas de uma trilha (o progresso fica no aparelho) pede um certificado de participação. O site
+-- guarda só o nome que a pessoa escreveu, a trilha e a data, para qualquer um conferir o número depois. Não é diploma:
+-- declara que a pessoa estudou as aulas da trilha no Instituto Lúcia.
+create table if not exists interno.certificados_alunos (
+  codigo text primary key check (codigo ~ '^A[A-Z0-9]{11}$'),
+  nome text not null check (char_length(nome) between 3 and 120),
+  trilha text not null check (trilha ~ '^[a-z0-9-]{2,80}$'),
+  trilha_titulo text not null check (char_length(trilha_titulo) between 2 and 160),
+  aulas integer not null check (aulas between 1 and 200),
+  emitido_em timestamptz not null default now()
+);
+alter table interno.certificados_alunos enable row level security;
+revoke all on interno.certificados_alunos from public;
+
+create or replace function public.certificado_aluno_emitir(p_nome text, p_trilha text, p_titulo text, p_aulas integer) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_codigo text; v_nome text := interno.txt(p_nome, 'nome', 3, 120);
+begin
+  perform interno.limite('certificado_aluno', 5, 60);
+  if coalesce(p_trilha, '') !~ '^[a-z0-9-]{2,80}$' then perform interno.erro('invalido:trilha'); end if;
+  if coalesce(p_aulas, 0) not between 1 and 200 then perform interno.erro('invalido:aulas'); end if;
+  if v_nome ~ '(https?://|www\.|@)' then perform interno.erro('invalido:nome'); end if;
+  loop
+    v_codigo := 'A' || upper(substr(replace(gen_random_uuid()::text, '-', ''), 1, 11));
+    exit when v_codigo ~ '^A[A-Z0-9]{11}$' and not exists (select 1 from certificados_alunos where codigo = v_codigo);
+  end loop;
+  insert into certificados_alunos (codigo, nome, trilha, trilha_titulo, aulas) values (v_codigo, v_nome, p_trilha, interno.txt(p_titulo, 'titulo', 2, 160), p_aulas);
+  return jsonb_build_object('codigo', v_codigo, 'emitido_em', now());
+end $$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array['caderno_pronto_enviar(jsonb)', 'cadernos_prontos_fila()', 'caderno_pronto_decidir(uuid, boolean, text)', 'cadernos_prontos_listar()',
+    'certificado_aluno_emitir(text, text, text, integer)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;
+
+-- ───────────────────────────── Resoluções das questões de provas públicas ─────────────────────────────
+-- As questões do ENEM (e de outras provas públicas que tiverem fonte aberta) entram sozinhas no banco de questões. A
+-- resolução comentada é escrita por quem ensina: educadores e educadores secundários publicam direto (a coordenação,
+-- a coordenação pedagógica e a revisão podem tirar do ar). Também servem para apontar erro no gabarito da fonte.
+create table if not exists interno.questoes_resolucoes (
+  id uuid primary key default gen_random_uuid(),
+  questao text not null check (questao ~ '^[a-z0-9-]{3,80}$'),
+  autor uuid references interno.perfis (id) on delete set null,
+  texto text not null check (char_length(texto) between 20 and 6000),
+  status text not null default 'publicada' check (status in ('publicada', 'retirada')),
+  criado_em timestamptz not null default now(),
+  retirada_por uuid references interno.perfis (id) on delete set null
+);
+create index if not exists questoes_resolucoes_questao on interno.questoes_resolucoes (questao);
+alter table interno.questoes_resolucoes enable row level security;
+revoke all on interno.questoes_resolucoes from public;
+
+create or replace function interno.resolve_questoes() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or interno.tem('educacao') or interno.tem('educacao_secundaria') or interno.tem('revisao') or interno.tem('vice') or interno.tem('supervisao')
+$$;
+
+create or replace function public.resolucao_enviar(p_questao text, p_texto text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid;
+begin
+  if not interno.resolve_questoes() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('resolucao', 60, 60);
+  if coalesce(p_questao, '') !~ '^[a-z0-9-]{3,80}$' then perform interno.erro('invalido:questao'); end if;
+  insert into questoes_resolucoes (questao, autor, texto) values (p_questao, v, interno.txt(p_texto, 'texto', 20, 6000)) returning id into v_id;
+  perform interno.registrar('resolucao_enviada', p_questao);
+  return jsonb_build_object('id', v_id);
+end $$;
+
+create or replace function public.resolucoes_listar(p_questoes text[]) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('id', r.id, 'questao', r.questao, 'texto', r.texto, 'autor', coalesce(interno.nome_visto(f.nome), 'Educador'),
+                                               'criado_em', r.criado_em, 'minha', r.autor = auth.uid()) order by r.criado_em), '[]'::jsonb)
+  from questoes_resolucoes r left join perfis f on f.id = r.autor
+  where r.status = 'publicada' and r.questao = any ((coalesce(p_questoes, '{}'::text[]))[1:60])
+$$;
+
+create or replace function public.resolucao_retirar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r questoes_resolucoes;
+begin
+  select * into r from questoes_resolucoes where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (r.autor = v or interno.coord() or interno.tem('vice') or interno.tem('revisao')) then perform interno.erro('sem_permissao'); end if;
+  update questoes_resolucoes set status = 'retirada', retirada_por = v where id = p_id;
+  perform interno.registrar('resolucao_retirada', r.questao);
+  return jsonb_build_object('ok', true);
+end $$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array['resolucao_enviar(text, text)', 'resolucoes_listar(text[])', 'resolucao_retirar(uuid)'] loop
     execute format('revoke all on function public.%s from public', f);
     execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
   end loop;

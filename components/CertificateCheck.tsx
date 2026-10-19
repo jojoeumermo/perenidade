@@ -18,6 +18,9 @@ interface Result {
   atividades?: string;
   emitido_em?: string;
   testemunhas?: string[];
+  aluno?: boolean;
+  trilha?: string;
+  aulas?: number;
 }
 
 /** Datas sem hora não passam pelo fuso, para não virarem o dia anterior. */
@@ -60,7 +63,22 @@ export function CertificateCheck({ s }: { s: Dict["certificate"] }) {
         {state === "error" && <p className="text-oxblood">{s.failed}</p>}
         {result && !result.encontrado && <p className="border-l-2 border-oxblood pl-4 text-lg text-oxblood">{s.notFound}</p>}
         {result?.encontrado && !result.valido && <p className="border-l-2 border-oxblood pl-4 text-lg text-oxblood">{s.cancelled}</p>}
-        {result?.valido && (
+        {result?.valido && result.aluno && (
+          <div className="max-w-2xl border-l-2 border-ok pl-4">
+            <p className="text-lg font-semibold text-ok">{s.student}</p>
+            <dl className="mt-3 grid gap-x-6 gap-y-2 font-serif text-lg sm:grid-cols-[auto_1fr]">
+              <dt className="font-sans text-sm text-ink-soft">{s.name}</dt>
+              <dd>{result.nome}</dd>
+              <dt className="font-sans text-sm text-ink-soft">{s.track}</dt>
+              <dd lang="pt-BR">{result.trilha}</dd>
+              <dt className="font-sans text-sm text-ink-soft">{s.lessons}</dt>
+              <dd>{result.aulas}</dd>
+              <dt className="font-sans text-sm text-ink-soft">{s.issued}</dt>
+              <dd>{day(result.emitido_em ?? "", locale)}</dd>
+            </dl>
+          </div>
+        )}
+        {result?.valido && !result.aluno && (
           <div className="max-w-2xl border-l-2 border-ok pl-4">
             <p className="text-lg font-semibold text-ok">{s.valid}</p>
             <dl className="mt-3 grid gap-x-6 gap-y-2 font-serif text-lg sm:grid-cols-[auto_1fr]">

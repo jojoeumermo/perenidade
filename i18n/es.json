@@ -196,7 +196,37 @@
     "mockToErrors": "Las preguntas falladas fueron al cuaderno de errores.",
     "mockOpenErrors": "Abrir el cuaderno de errores",
     "mockNotEnough": "No hay suficientes preguntas en esta asignatura.",
-    "mockSkipped": "en blanco"
+    "mockSkipped": "en blanco",
+    "publicTitle": "Exámenes públicos",
+    "publicLead": "{n} preguntas del ENEM, el examen nacional de Brasil, desde 2009 hasta la edición más reciente, con las respuestas. La lista se actualiza sola cada semana; las resoluciones comentadas las escriben los educadores del instituto.",
+    "publicExam": "Examen",
+    "publicArea": "Área",
+    "publicAllAreas": "Todas las áreas",
+    "publicAreas": {
+      "linguagens": "Lenguajes",
+      "humanas": "Ciencias humanas",
+      "natureza": "Ciencias de la naturaleza",
+      "matematica": "Matemáticas"
+    },
+    "publicLanguage": "Lengua extranjera",
+    "publicEnglish": "Inglés",
+    "publicSpanish": "Español",
+    "publicLoading": "Cargando el examen…",
+    "publicPage": "página {a} de {b}",
+    "publicPrev": "Anterior",
+    "publicNext": "Siguiente",
+    "publicQuestion": "pregunta",
+    "publicImage": "ver la imagen de la pregunta (abre la fuente)",
+    "publicRight": "¡Correcto!",
+    "publicWrong": "Todavía no: la respuesta es {l}. La pregunta fue a tu cuaderno de errores.",
+    "publicAnswerIs": "Respuesta: {l}",
+    "publicResolutions": "Resolución de los educadores",
+    "publicWrite": "Escribir la resolución de esta pregunta",
+    "publicWriteHint": "Explica el camino hasta la respuesta, paso a paso. Si la respuesta de la fuente está mal, dilo aquí.",
+    "publicSend": "Publicar la resolución",
+    "publicRemove": "retirar",
+    "publicResolutionFailed": "No se pudo publicar la resolución ahora.",
+    "publicSource": "Preguntas de los exámenes públicos del Inep, transcritas por el proyecto abierto enem.dev. Actualizado el {data}. Fuente:"
   },
   "slogans": {
     "acervo": "Leer es un acto de resistencia.",
@@ -666,7 +696,17 @@
     "planEnds": "A este ritmo, terminas el {date}.",
     "planDownload": "Descargar para la agenda (.ics)",
     "planEmpty": "No hay clases pendientes para planificar.",
-    "planNone": "Elige al menos un día."
+    "planNone": "Elige al menos un día.",
+    "studyInNotebook": "Estudiar la ruta entera en el cuaderno",
+    "studyGroup": "Estudiar en grupo",
+    "badge": "Ruta terminada",
+    "certLead": "Terminaste todas las clases listas de esta ruta. Si quieres, genera el certificado de participación: tiene un número que cualquiera comprueba en el sitio.",
+    "certName": "Tu nombre, como debe aparecer",
+    "certIssue": "Generar el certificado",
+    "certFailed": "No se pudo generar ahora. Inténtalo de nuevo en unos minutos.",
+    "certTitle": "Certificado de participación",
+    "certText": "El Instituto Lúcia certifica que {nome} estudió las {n} clases de la ruta «{trilha}» en la escuela popular y gratuita del instituto.",
+    "certCode": "Número de verificación: {c}"
   },
   "lesson": {
     "position": "lección {i} de {n}",
@@ -701,7 +741,8 @@
     "videoNote": "El video está en otro sitio. Al cargarlo, ese sitio pasa a ver tu acceso.",
     "videoOpen": "Abrir el video en otra pestaña",
     "imagePending": "imagen en espera de publicación",
-    "toMistakes": "Las preguntas falladas van a tu cuaderno de errores."
+    "toMistakes": "Las preguntas falladas van a tu cuaderno de errores.",
+    "studyInNotebook": "Estudiar esta clase en el cuaderno"
   },
   "library": {
     "areasTitle": "Áreas",
@@ -2274,7 +2315,9 @@
           "Dice para qué (finalidad) y añade un detalle más.",
           "La propuesta respeta los derechos humanos."
         ]
-      ]
+      ],
+      "askCorrection": "Pedir la corrección a un voluntario",
+      "askCorrectionNote": "¿Quieres comentarios de una persona? El texto va a Refuerzo escolar y un voluntario responde por correo con observaciones por las cinco competencias (sin nota). Solo sale del dispositivo cuando confirmas."
     },
     "syllables": {
       "help": "Toca una sílaba para oírla. Toca varias, una tras otra, para armar una palabra, y escucha la palabra entera. Las sílabas están en portugués.",
@@ -3385,7 +3428,10 @@
     "activities": "Actividades",
     "issued": "Emitido el",
     "witnesses": "Firmado por",
-    "offline": "La verificación todavía no está activa en esta copia del sitio."
+    "offline": "La verificación todavía no está activa en esta copia del sitio.",
+    "student": "Certificado de participación de quien estudia, emitido por el Instituto Lúcia.",
+    "track": "Ruta",
+    "lessons": "Clases"
   },
   "start": {
     "eyebrow": "Lista de lectura",
@@ -4006,7 +4052,12 @@
     "backupInvalid": "Este archivo no es una copia del cuaderno.",
     "backupConfirm": "¿Restaurar la copia? Cuadernos, tarjetas y errores se suman a los que ya están aquí; lo demás se reemplaza por lo de la copia.",
     "nextTomorrow": "vuelve mañana",
-    "exportAnki": "Descargar para Anki (.csv)"
+    "exportAnki": "Descargar para Anki (.csv)",
+    "readyTitle": "Cuadernos listos",
+    "readyLead": "Armados por voluntarios, por ruta o tema. Usarlo crea una copia tuya en este dispositivo.",
+    "readyUse": "Usar este cuaderno",
+    "readySources": "{n} fuente(s)",
+    "building": "Armando el cuaderno con las clases…"
   },
   "practiceStudio": {
     "inside": "Abrir aquí",
@@ -4220,5 +4271,24 @@
     "clear": "Limpiar",
     "download": "Descargar el dibujo",
     "open": "Abrir"
+  },
+  "studyGroup": {
+    "eyebrow": "Estudiar juntos",
+    "title": "Sala de estudio en grupo",
+    "lead": "Abre una sala, manda el enlace al grupo y estudien juntos, con video y el mismo cronómetro de foco para todos.",
+    "focusMinutes": "Minutos de foco",
+    "breakMinutes": "Minutos de pausa",
+    "create": "Abrir una sala",
+    "note": "El cronómetro va en el propio enlace: quien lo abra ve la misma fase y el mismo tiempo, sin registro.",
+    "phaseFocus": "Foco",
+    "phaseBreak": "Pausa",
+    "cycle": "{f} min de foco y {p} de pausa · ronda {n}",
+    "roomLink": "Manda este enlace a quien va a estudiar contigo:",
+    "copy": "Copiar el enlace",
+    "copied": "Enlace copiado ✓",
+    "yourName": "Tu nombre en la sala",
+    "join": "Entrar en la sala de video",
+    "someone": "Estudiante",
+    "privacy": "El video pasa por el servidor de videollamadas configurado por el instituto (Jitsi). No se graba nada."
   }
 }
