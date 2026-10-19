@@ -26,6 +26,7 @@ import { Apoio } from "./Apoio";
 import { Boletim } from "./Boletim";
 import { CadernoNoPainel } from "./Caderno";
 import { EstudioDeDesign } from "./design/EstudioDeDesign";
+import { EscritorioNoPainel } from "./Escritorio";
 import { PorOndeComecar } from "./Comecar";
 import { AcervoPorDentro, MinhasContribuicoes, ParaVoceHoje, Tarefas } from "./Tarefas";
 import { Exercicios } from "./Exercicios";
@@ -130,6 +131,7 @@ const icones: Record<string, string> = {
   conta: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-8 8-8s8 3.6 8 8",
   aovivo: "M3 7h13v10H3zM16 10l5-3v10l-5-3M6 4h7",
   estudio: "M4 20l4-1 11-11-3-3L5 16zM13 8l3 3M4 20v-4",
+  escritorio: "M4 4h16v16H4zM4 9h16M9 9v11M12 13h5M12 16h5",
   caderno: "M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11M9 8h6M9 11h4",
   avisos: "M4 11h3l7-5v12l-7-5H4zM17 9a4 4 0 0 1 0 6M19.5 6.5a8 8 0 0 1 0 11",
   traducoes: "M4 5h8M8 3v2M5 5c0 4 3 7 6 8M11 5c-1 3-3 6-6 8M13 21l4-9 4 9M14.5 18h5",
@@ -475,6 +477,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "videoaulas", nome: "Aulas em vídeo", sobre: "Gravar ou enviar aulas curtas em vídeo, de até 10 minutos, e revisar as da sua disciplina.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "educacao"), conta: videos.dados ?? undefined },
       { id: "aovivo", nome: "Aulas ao vivo", sobre: "Marcar aulas na agenda pública, chamar colegas para dar junto e abrir a sala, com vídeo e bate-papo.", grupo: "Produção", mostra: can(eu, "coordenacao", "educacao", "mentoria") },
       { id: "estudio", nome: "Estúdio de design", sobre: "Estúdio rápido (modelos da marca) e editor avançado (PhotoCraft): posts, stories, cartazes e capas com a identidade do instituto.", grupo: "Produção", mostra: eu.desenha === true || can(eu, "coordenacao", "design", "jornalismo") },
+      { id: "escritorio", nome: "Escritório", sobre: "Documentos, planilhas e apresentações (WordCraft, GridCraft e DeckCraft), dentro do painel.", grupo: "Produção", mostra: true },
       { id: "caderno", nome: "Caderno de estudos", sobre: "Fontes, resumo, cartões, questionário, mapa e leitura em voz alta: a sala de estudo para preparar aulas e episódios.", grupo: "Produção", mostra: true },
       { id: "tarefas", nome: "Tarefas", sobre: "Microtarefas do acervo e das aulas para 5, 15 ou 30 minutos, a revisão rápida, mutirões e projetos.", grupo: "Produção", mostra: voluntario },
       { id: "acervo-dentro", nome: "Acervo por dentro", sobre: "Cada obra com o selo da ficha (completa, parcial ou faltando), para escolher o que cuidar.", grupo: "Produção", mostra: voluntario },
@@ -708,6 +711,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "aovivo" && <AulasAoVivo me={eu} />}
           {atual.id === "estudio" && <EstudioDeDesign me={eu} />}
           {atual.id === "caderno" && <CadernoNoPainel />}
+          {atual.id === "escritorio" && <EscritorioNoPainel />}
           {atual.id === "tarefas" && <Tarefas me={eu} ir={ir} />}
           {atual.id === "exercicios" && <Exercicios me={eu} />}
           {atual.id === "acervo-dentro" && <AcervoPorDentro />}

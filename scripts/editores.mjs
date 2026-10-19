@@ -1,14 +1,14 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Monta o site separado dos editores avançados (estudio.institutolucia.org): baixa o pacote web OFICIAL de cada um
-// (PhotoCraft, FilmCraft, EffectCraft) da página de releases do GitHub, na versão fixada abaixo, confere o SHA-256
+// (PhotoCraft, FilmCraft, EffectCraft, DeckCraft, GridCraft, WordCraft) da página de releases do GitHub, na versão fixada abaixo, confere o SHA-256
 // contra o SHA256SUMS.txt publicado pelo projeto e extrai sem modificar nada em estudio/site/<editor>/.
 // Depois é só publicar a pasta estudio/site num projeto próprio (veja docs/ESTUDIO-EDITORES.md). Nada é automático:
 // trocar de versão é mudar o número aqui e em lib/estudio.ts, rodar de novo, testar e publicar.
 //
 // Os de 3D (Blockbench, SculptGL e o editor do three.js) são compilados do código oficial: veja scripts/editores-livres.mjs.
 //
-// Uso: node scripts/editores.mjs [photocraft|filmcraft|effectcraft|blockbench|sculptgl|threejs ...]   (sem nome: todos)
+// Uso: node scripts/editores.mjs [photocraft|filmcraft|effectcraft|deckcraft|gridcraft|wordcraft|blockbench|sculptgl|threejs ...]   (sem nome: todos)
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
@@ -19,6 +19,9 @@ export const VERSOES = {
   photocraft: "0.10.0",
   filmcraft: "0.9.0",
   effectcraft: "0.11.1",
+  deckcraft: "0.7.0", // a 0.8.0 web trava ao abrir ("no pids on this platform")
+  gridcraft: "0.8.0",
+  wordcraft: "0.8.0",
 };
 const LIMITE_POR_ARQUIVO = 25 * 1024 * 1024; // Cloudflare Pages: 25 MiB por arquivo; acima disso, R2.
 

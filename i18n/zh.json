@@ -99,8 +99,11 @@
     "montadorLead": "Fit the right parts and diagnose the computer that will not turn on.",
     "ia": "人工智能实验室",
     "iaLead": "Watch the machine learn: a line fitting points and a tiny network.",
-    "planilha": "电子表格",
-    "planilhaLead": "Formulas, chart and CSV, in the browser.",
+    "escritorio": "办公",
+    "escritorioLead": "文档、表格和演示文稿（Word、Excel、PowerPoint 风格），免费，在浏览器中使用。",
+    "escritorioIntro": "来自 ArtCraft 项目的三个开源程序，直接在这里打开：写文档、用公式和图表做表格、准备演示文稿。可打开和保存 .docx、.xlsx 和 .pptx 文件。",
+    "escritorioTab": "选择程序",
+    "escritorioLocal": "所有内容只保存在本设备的浏览器中：完成后请保存文件。",
     "seguranca": "安全实验室",
     "segurancaLead": "Phishing, logs and passwords in a training-only sandbox: the defence for each attack.",
     "simulacoes": "模拟（PhET）",
@@ -3980,6 +3983,18 @@
       "threejs": {
         "title": "搭建场景：three.js 编辑器",
         "text": "在 3D 场景中放置物体、材质、灯光和相机，可导出或带到 Blender。"
+      },
+      "wordcraft": {
+        "title": "写文档（Word 风格）：WordCraft",
+        "text": "样式文本、表格、图片、目录和审阅；打开和保存 .docx。"
+      },
+      "gridcraft": {
+        "title": "电子表格（Excel 风格）：GridCraft",
+        "text": "公式、函数、筛选、条件格式和图表；打开和保存 .xlsx 和 .csv。"
+      },
+      "deckcraft": {
+        "title": "演示文稿（PowerPoint 风格）：DeckCraft",
+        "text": "带版式、主题、形状、图片和演示模式的幻灯片；打开和保存 .pptx。"
       }
     },
     "eyebrow": "视频剪辑",
