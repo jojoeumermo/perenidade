@@ -388,6 +388,668 @@
    ]
   },
   {
+   "id": "vestibulares-mais",
+   "nome": "Vestibulares: ITA, IME e mais anos da Fuvest e da Unicamp",
+   "origem": "https://huggingface.co/datasets/HenriqueGodoy/Alvorada-bench",
+   "provas": [
+    {
+     "ano": 2024,
+     "titulo": "ITA 2024",
+     "arquivo": "vest-ita-2024.json",
+     "total": 43,
+     "porArea": {
+      "matematica": 11,
+      "natureza": 15,
+      "linguagens": 17
+     }
+    },
+    {
+     "ano": 2023,
+     "titulo": "IME 2023",
+     "arquivo": "vest-ime-2023.json",
+     "total": 14,
+     "porArea": {
+      "matematica": 8,
+      "natureza": 6
+     }
+    },
+    {
+     "ano": 2023,
+     "titulo": "ITA 2023",
+     "arquivo": "vest-ita-2023.json",
+     "total": 33,
+     "porArea": {
+      "matematica": 6,
+      "natureza": 12,
+      "linguagens": 15
+     }
+    },
+    {
+     "ano": 2022,
+     "titulo": "IME 2022",
+     "arquivo": "vest-ime-2022.json",
+     "total": 18,
+     "porArea": {
+      "matematica": 11,
+      "natureza": 7
+     }
+    },
+    {
+     "ano": 2022,
+     "titulo": "ITA 2022",
+     "arquivo": "vest-ita-2022.json",
+     "total": 54,
+     "porArea": {
+      "matematica": 10,
+      "natureza": 27,
+      "linguagens": 17
+     }
+    },
+    {
+     "ano": 2021,
+     "titulo": "IME 2021",
+     "arquivo": "vest-ime-2021.json",
+     "total": 27,
+     "porArea": {
+      "matematica": 12,
+      "natureza": 15
+     }
+    },
+    {
+     "ano": 2021,
+     "titulo": "ITA 2021",
+     "arquivo": "vest-ita-2021.json",
+     "total": 55,
+     "porArea": {
+      "matematica": 15,
+      "natureza": 23,
+      "linguagens": 17
+     }
+    },
+    {
+     "ano": 2020,
+     "titulo": "IME 2020",
+     "arquivo": "vest-ime-2020.json",
+     "total": 29,
+     "porArea": {
+      "matematica": 14,
+      "natureza": 15
+     }
+    },
+    {
+     "ano": 2020,
+     "titulo": "ITA 2020",
+     "arquivo": "vest-ita-2020.json",
+     "total": 44,
+     "porArea": {
+      "matematica": 14,
+      "natureza": 19,
+      "linguagens": 11
+     }
+    },
+    {
+     "ano": 2019,
+     "titulo": "IME 2019",
+     "arquivo": "vest-ime-2019.json",
+     "total": 18,
+     "porArea": {
+      "matematica": 12,
+      "natureza": 6
+     }
+    },
+    {
+     "ano": 2019,
+     "titulo": "ITA 2019",
+     "arquivo": "vest-ita-2019.json",
+     "total": 33,
+     "porArea": {
+      "matematica": 11,
+      "natureza": 15,
+      "linguagens": 7
+     }
+    },
+    {
+     "ano": 2018,
+     "titulo": "IME 2018",
+     "arquivo": "vest-ime-2018.json",
+     "total": 26,
+     "porArea": {
+      "matematica": 13,
+      "natureza": 13
+     }
+    },
+    {
+     "ano": 2018,
+     "titulo": "ITA 2018",
+     "arquivo": "vest-ita-2018.json",
+     "total": 39,
+     "porArea": {
+      "matematica": 14,
+      "natureza": 22,
+      "linguagens": 3
+     }
+    },
+    {
+     "ano": 2017,
+     "titulo": "Fuvest (USP) 2017",
+     "arquivo": "vest-fuvest-2017.json",
+     "total": 39,
+     "porArea": {
+      "natureza": 19,
+      "linguagens": 5,
+      "humanas": 15
+     }
+    },
+    {
+     "ano": 2017,
+     "titulo": "IME 2017",
+     "arquivo": "vest-ime-2017.json",
+     "total": 15,
+     "porArea": {
+      "matematica": 7,
+      "natureza": 8
+     }
+    },
+    {
+     "ano": 2017,
+     "titulo": "ITA 2017",
+     "arquivo": "vest-ita-2017.json",
+     "total": 47,
+     "porArea": {
+      "matematica": 18,
+      "natureza": 29
+     }
+    },
+    {
+     "ano": 2017,
+     "titulo": "Unicamp 2017",
+     "arquivo": "vest-unicamp-2017.json",
+     "total": 59,
+     "porArea": {
+      "matematica": 10,
+      "natureza": 16,
+      "linguagens": 14,
+      "humanas": 19
+     }
+    },
+    {
+     "ano": 2016,
+     "titulo": "Fuvest (USP) 2016",
+     "arquivo": "vest-fuvest-2016.json",
+     "total": 45,
+     "porArea": {
+      "matematica": 1,
+      "natureza": 18,
+      "linguagens": 11,
+      "humanas": 15
+     }
+    },
+    {
+     "ano": 2016,
+     "titulo": "ITA 2016",
+     "arquivo": "vest-ita-2016.json",
+     "total": 43,
+     "porArea": {
+      "matematica": 17,
+      "natureza": 16,
+      "linguagens": 10
+     }
+    },
+    {
+     "ano": 2016,
+     "titulo": "Unicamp 2016",
+     "arquivo": "vest-unicamp-2016.json",
+     "total": 62,
+     "porArea": {
+      "matematica": 10,
+      "natureza": 21,
+      "linguagens": 14,
+      "humanas": 17
+     }
+    },
+    {
+     "ano": 2015,
+     "titulo": "Fuvest (USP) 2015",
+     "arquivo": "vest-fuvest-2015.json",
+     "total": 9,
+     "porArea": {
+      "natureza": 5,
+      "linguagens": 3,
+      "humanas": 1
+     }
+    },
+    {
+     "ano": 2015,
+     "titulo": "ITA 2015",
+     "arquivo": "vest-ita-2015.json",
+     "total": 43,
+     "porArea": {
+      "matematica": 19,
+      "natureza": 24
+     }
+    },
+    {
+     "ano": 2015,
+     "titulo": "Unicamp 2015",
+     "arquivo": "vest-unicamp-2015.json",
+     "total": 62,
+     "porArea": {
+      "matematica": 8,
+      "natureza": 24,
+      "linguagens": 11,
+      "humanas": 19
+     }
+    },
+    {
+     "ano": 2014,
+     "titulo": "Fuvest (USP) 2014",
+     "arquivo": "vest-fuvest-2014.json",
+     "total": 49,
+     "porArea": {
+      "matematica": 7,
+      "natureza": 22,
+      "linguagens": 11,
+      "humanas": 9
+     }
+    },
+    {
+     "ano": 2014,
+     "titulo": "ITA 2014",
+     "arquivo": "vest-ita-2014.json",
+     "total": 49,
+     "porArea": {
+      "matematica": 15,
+      "natureza": 28,
+      "linguagens": 6
+     }
+    },
+    {
+     "ano": 2014,
+     "titulo": "Unicamp 2014",
+     "arquivo": "vest-unicamp-2014.json",
+     "total": 33,
+     "porArea": {
+      "matematica": 4,
+      "natureza": 12,
+      "humanas": 17
+     }
+    },
+    {
+     "ano": 2013,
+     "titulo": "Fuvest (USP) 2013",
+     "arquivo": "vest-fuvest-2013.json",
+     "total": 38,
+     "porArea": {
+      "natureza": 15,
+      "linguagens": 11,
+      "humanas": 12
+     }
+    },
+    {
+     "ano": 2013,
+     "titulo": "ITA 2013",
+     "arquivo": "vest-ita-2013.json",
+     "total": 39,
+     "porArea": {
+      "matematica": 17,
+      "natureza": 8,
+      "linguagens": 13,
+      "humanas": 1
+     }
+    },
+    {
+     "ano": 2013,
+     "titulo": "Unicamp 2013",
+     "arquivo": "vest-unicamp-2013.json",
+     "total": 31,
+     "porArea": {
+      "matematica": 1,
+      "natureza": 14,
+      "humanas": 16
+     }
+    },
+    {
+     "ano": 2012,
+     "titulo": "Fuvest (USP) 2012",
+     "arquivo": "vest-fuvest-2012.json",
+     "total": 58,
+     "porArea": {
+      "matematica": 6,
+      "natureza": 22,
+      "linguagens": 15,
+      "humanas": 15
+     }
+    },
+    {
+     "ano": 2012,
+     "titulo": "ITA 2012",
+     "arquivo": "vest-ita-2012.json",
+     "total": 47,
+     "porArea": {
+      "matematica": 19,
+      "natureza": 21,
+      "linguagens": 7
+     }
+    },
+    {
+     "ano": 2012,
+     "titulo": "Unicamp 2012",
+     "arquivo": "vest-unicamp-2012.json",
+     "total": 33,
+     "porArea": {
+      "matematica": 8,
+      "natureza": 11,
+      "humanas": 14
+     }
+    },
+    {
+     "ano": 2011,
+     "titulo": "Fuvest (USP) 2011",
+     "arquivo": "vest-fuvest-2011.json",
+     "total": 48,
+     "porArea": {
+      "natureza": 19,
+      "linguagens": 12,
+      "humanas": 17
+     }
+    },
+    {
+     "ano": 2011,
+     "titulo": "ITA 2011",
+     "arquivo": "vest-ita-2011.json",
+     "total": 43,
+     "porArea": {
+      "matematica": 14,
+      "natureza": 23,
+      "linguagens": 6
+     }
+    },
+    {
+     "ano": 2011,
+     "titulo": "Unicamp 2011",
+     "arquivo": "vest-unicamp-2011.json",
+     "total": 32,
+     "porArea": {
+      "matematica": 3,
+      "natureza": 13,
+      "linguagens": 1,
+      "humanas": 15
+     }
+    },
+    {
+     "ano": 2010,
+     "titulo": "Fuvest (USP) 2010",
+     "arquivo": "vest-fuvest-2010.json",
+     "total": 51,
+     "porArea": {
+      "natureza": 23,
+      "linguagens": 14,
+      "humanas": 14
+     }
+    },
+    {
+     "ano": 2010,
+     "titulo": "ITA 2010",
+     "arquivo": "vest-ita-2010.json",
+     "total": 40,
+     "porArea": {
+      "natureza": 25,
+      "linguagens": 12,
+      "humanas": 3
+     }
+    },
+    {
+     "ano": 2009,
+     "titulo": "Fuvest (USP) 2009",
+     "arquivo": "vest-fuvest-2009.json",
+     "total": 57,
+     "porArea": {
+      "matematica": 2,
+      "natureza": 20,
+      "linguagens": 12,
+      "humanas": 23
+     }
+    },
+    {
+     "ano": 2009,
+     "titulo": "ITA 2009",
+     "arquivo": "vest-ita-2009.json",
+     "total": 33,
+     "porArea": {
+      "natureza": 33
+     }
+    },
+    {
+     "ano": 2008,
+     "titulo": "Fuvest (USP) 2008",
+     "arquivo": "vest-fuvest-2008.json",
+     "total": 56,
+     "porArea": {
+      "matematica": 4,
+      "natureza": 21,
+      "linguagens": 11,
+      "humanas": 20
+     }
+    },
+    {
+     "ano": 2008,
+     "titulo": "ITA 2008",
+     "arquivo": "vest-ita-2008.json",
+     "total": 35,
+     "porArea": {
+      "natureza": 26,
+      "linguagens": 9
+     }
+    },
+    {
+     "ano": 2007,
+     "titulo": "Fuvest (USP) 2007",
+     "arquivo": "vest-fuvest-2007.json",
+     "total": 56,
+     "porArea": {
+      "matematica": 4,
+      "natureza": 22,
+      "linguagens": 12,
+      "humanas": 18
+     }
+    },
+    {
+     "ano": 2006,
+     "titulo": "Fuvest (USP) 2006",
+     "arquivo": "vest-fuvest-2006.json",
+     "total": 73,
+     "porArea": {
+      "matematica": 7,
+      "natureza": 23,
+      "linguagens": 27,
+      "humanas": 16
+     }
+    },
+    {
+     "ano": 2005,
+     "titulo": "Fuvest (USP) 2005",
+     "arquivo": "vest-fuvest-2005.json",
+     "total": 48,
+     "porArea": {
+      "matematica": 5,
+      "natureza": 20,
+      "linguagens": 7,
+      "humanas": 16
+     }
+    },
+    {
+     "ano": 2004,
+     "titulo": "Fuvest (USP) 2004",
+     "arquivo": "vest-fuvest-2004.json",
+     "total": 43,
+     "porArea": {
+      "matematica": 1,
+      "natureza": 14,
+      "linguagens": 10,
+      "humanas": 18
+     }
+    },
+    {
+     "ano": 2003,
+     "titulo": "Fuvest (USP) 2003",
+     "arquivo": "vest-fuvest-2003.json",
+     "total": 52,
+     "porArea": {
+      "matematica": 7,
+      "natureza": 21,
+      "linguagens": 6,
+      "humanas": 18
+     }
+    },
+    {
+     "ano": 1992,
+     "titulo": "Fuvest (USP) 1992",
+     "arquivo": "vest-fuvest-1992.json",
+     "total": 13,
+     "porArea": {
+      "matematica": 1,
+      "natureza": 10,
+      "linguagens": 1,
+      "humanas": 1
+     }
+    },
+    {
+     "ano": 1991,
+     "titulo": "Fuvest (USP) 1991",
+     "arquivo": "vest-fuvest-1991.json",
+     "total": 32,
+     "porArea": {
+      "matematica": 4,
+      "natureza": 14,
+      "linguagens": 1,
+      "humanas": 13
+     }
+    },
+    {
+     "ano": 1990,
+     "titulo": "Fuvest (USP) 1990",
+     "arquivo": "vest-fuvest-1990.json",
+     "total": 15,
+     "porArea": {
+      "natureza": 6,
+      "linguagens": 5,
+      "humanas": 4
+     }
+    },
+    {
+     "ano": 1989,
+     "titulo": "Fuvest (USP) 1989",
+     "arquivo": "vest-fuvest-1989.json",
+     "total": 29,
+     "porArea": {
+      "matematica": 3,
+      "natureza": 10,
+      "linguagens": 3,
+      "humanas": 13
+     }
+    },
+    {
+     "ano": 1988,
+     "titulo": "Fuvest (USP) 1988",
+     "arquivo": "vest-fuvest-1988.json",
+     "total": 25,
+     "porArea": {
+      "matematica": 3,
+      "natureza": 12,
+      "linguagens": 4,
+      "humanas": 6
+     }
+    },
+    {
+     "ano": 1986,
+     "titulo": "Fuvest (USP) 1986",
+     "arquivo": "vest-fuvest-1986.json",
+     "total": 36,
+     "porArea": {
+      "matematica": 3,
+      "natureza": 17,
+      "humanas": 16
+     }
+    },
+    {
+     "ano": 1983,
+     "titulo": "Fuvest (USP) 1983",
+     "arquivo": "vest-fuvest-1983.json",
+     "total": 28,
+     "porArea": {
+      "matematica": 2,
+      "natureza": 15,
+      "linguagens": 6,
+      "humanas": 5
+     }
+    },
+    {
+     "ano": 1982,
+     "titulo": "Fuvest (USP) 1982",
+     "arquivo": "vest-fuvest-1982.json",
+     "total": 25,
+     "porArea": {
+      "matematica": 3,
+      "natureza": 10,
+      "linguagens": 1,
+      "humanas": 11
+     }
+    },
+    {
+     "ano": 1981,
+     "titulo": "Fuvest (USP) 1981",
+     "arquivo": "vest-fuvest-1981.json",
+     "total": 6,
+     "porArea": {
+      "natureza": 6
+     }
+    }
+   ]
+  },
+  {
+   "id": "olimpiadas",
+   "nome": "Olimpíadas de matemática (OBMEP e outras)",
+   "origem": "https://huggingface.co/datasets/tiagoteixeira03/MATH-PT",
+   "provas": [
+    {
+     "ano": 0,
+     "titulo": "Olimpíadas de matemática · nível 2",
+     "arquivo": "olimpiadas-nivel-2.json",
+     "total": 118,
+     "porArea": {
+      "matematica": 118
+     }
+    },
+    {
+     "ano": 0,
+     "titulo": "Olimpíadas de matemática · nível 3",
+     "arquivo": "olimpiadas-nivel-3.json",
+     "total": 140,
+     "porArea": {
+      "matematica": 140
+     }
+    },
+    {
+     "ano": 0,
+     "titulo": "Olimpíadas de matemática · nível 4",
+     "arquivo": "olimpiadas-nivel-4.json",
+     "total": 270,
+     "porArea": {
+      "matematica": 270
+     }
+    },
+    {
+     "ano": 0,
+     "titulo": "Olimpíadas de matemática · nível 5",
+     "arquivo": "olimpiadas-nivel-5.json",
+     "total": 110,
+     "porArea": {
+      "matematica": 110
+     }
+    }
+   ]
+  },
+  {
    "id": "oab",
    "nome": "OAB: Exame de Ordem (1.ª fase)",
    "origem": "https://huggingface.co/datasets/eduagarcia/oab_exams",
