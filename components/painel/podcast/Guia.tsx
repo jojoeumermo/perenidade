@@ -128,8 +128,8 @@ export function Guia() {
 
       <Bloco titulo="Termo de cessão de voz">
         <p>O convidado pode aceitar pelo link pessoal (na ficha do convidado) ou assinar em papel. Para o papel, imprima o modelo e anexe a foto ou o PDF assinado na ficha.</p>
-        <p className={rotulo}>{TERMO_TITULO}</p>
-        <div className="space-y-2 text-sm text-ink-soft">
+        <p className={rotulo} lang="pt-BR" translate="no">{TERMO_TITULO}</p>
+        <div className="space-y-2 text-sm text-ink-soft" lang="pt-BR" translate="no">
           {termo("").map((x) => (
             <p key={x}>{x}</p>
           ))}

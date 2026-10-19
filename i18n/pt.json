@@ -35,7 +35,9 @@
     "copied": "Copiado",
     "loading": "Carregando…",
     "askCommunity": "Perguntar na comunidade",
-    "practiceStudio": "Estúdio de prática"
+    "practiceStudio": "Estúdio de prática",
+    "videoRoomFailed": "A sala de vídeo não carregou (o servidor {dominio} não respondeu ou está bloqueado nesta rede).",
+    "openInNewTab": "Abrir em outra aba ↗"
   },
   "nav": {
     "main": "Principal",
@@ -213,7 +215,8 @@
       "humanas": "Ciências humanas",
       "natureza": "Ciências da natureza",
       "matematica": "Matemática",
-      "direito": "Direito"
+      "direito": "Direito",
+      "saude": "Saúde"
     },
     "publicLanguage": "Língua estrangeira",
     "publicEnglish": "Inglês",
@@ -4065,7 +4068,28 @@
     "readyLead": "Montados por voluntários, por trilha ou tema. Usar cria uma cópia sua, neste aparelho.",
     "readyUse": "Usar este caderno",
     "readySources": "{n} fonte(s)",
-    "building": "Montando o caderno com as aulas…"
+    "building": "Montando o caderno com as aulas…",
+    "shelf": "Seus cadernos",
+    "sourcesCount": "{n} fontes",
+    "notebookNo": "Caderno {n} de {total}",
+    "sourcesInUse": "{a} de {b} fontes em uso",
+    "updatedOn": "atualizado em {d}",
+    "typeLesson": "Aula",
+    "typeSite": "Site",
+    "typeFile": "Arquivo",
+    "typeText": "Texto",
+    "openSource": "abrir",
+    "addSource": "Acrescentar fonte",
+    "toolsLabel": "Ferramentas do caderno",
+    "groupUnderstand": "Entender",
+    "groupPractice": "Treinar",
+    "groupOrganize": "Organizar",
+    "startHere": "Comece por aqui",
+    "step1": "Junte o que vai estudar: uma aula do site, um texto seu ou um arquivo.",
+    "step2": "Escolha uma ferramenta: resumo, mapa, cartões, questionário…",
+    "step3": "Anote, treine e volte amanhã: a revisão traz cada cartão no dia certo.",
+    "back": "Resposta",
+    "question": "Pergunta"
   },
   "practiceStudio": {
     "inside": "Abrir aqui",
