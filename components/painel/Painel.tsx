@@ -40,7 +40,7 @@ import { FontesAbertas } from "./FontesAbertas";
 import { Fila } from "./Fila";
 import { GavetaFila } from "./GavetaFila";
 import { Horas } from "./Horas";
-import { IdiomaDoPainel, TraduzirPainel } from "./Idioma";
+import { IdiomaDoPainel, TraduzirPainel, traduzirNoPainel } from "./Idioma";
 import { Interdicao } from "./Interdicao";
 import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lideranca";
 import { Materiais } from "./Materiais";
@@ -435,8 +435,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
     if (pendentes === undefined) return;
     if (vistasAntes !== null && pendentes > vistasAntes && document.visibilityState !== "visible" && modoDeAviso() !== "nenhum") {
       void rpc<{ nao_lidas: number; silenciada: boolean; arquivada: boolean; ultima: { autor: string; minha: boolean } | null }[]>("chat_conversas")
-        .then((lista) => avisar(lista.filter((c) => c.nao_lidas > 0 && !c.silenciada && !c.arquivada && c.ultima && !c.ultima.minha).map((c) => c.ultima!.autor)))
-        .catch(() => avisar([]));
+        .then((lista) => avisar(lista.filter((c) => c.nao_lidas > 0 && !c.silenciada && !c.arquivada && c.ultima && !c.ultima.minha).map((c) => c.ultima!.autor), traduzirNoPainel))
+        .catch(() => avisar([], traduzirNoPainel));
     }
     const marca = window.setTimeout(() => setVistasAntes(pendentes), 0);
     return () => window.clearTimeout(marca);

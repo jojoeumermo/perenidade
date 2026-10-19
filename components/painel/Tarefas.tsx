@@ -374,8 +374,8 @@ function RevisaoRapida() {
             <p className={rotulo}>{infoDe(t.tipo).nome} · de {t.reservada_por || "alguém"} · há {t.espera_horas ?? 0} h</p>
             <p className="font-serif text-lg font-semibold">{t.titulo} {t.alvo && <a href={`/pt${t.alvo}`} target="_blank" rel="noopener noreferrer" className={`${elo} text-sm`}>↗</a>}</p>
             <div className="mt-2 grid gap-3 md:grid-cols-2">
-              <div className="border border-rule p-2 text-sm"><p className={rotulo}>Antes</p><p className="whitespace-pre-wrap">{antes(t)}</p></div>
-              <div className="border border-ok p-2 text-sm"><p className={rotulo}>Depois</p>{Object.entries(t.entrega).map(([k, v]) => <p key={k} className="whitespace-pre-wrap"><span className="text-ink-soft">{k}: </span>{k === "prova" || k === "url" ? <a href={v} target="_blank" rel="noopener noreferrer nofollow" className={elo}>{v}</a> : v}</p>)}</div>
+              <div className="border border-rule p-2 text-sm"><p className={rotulo}>Antes</p><p className="whitespace-pre-wrap" data-original>{antes(t)}</p></div>
+              <div className="border border-ok p-2 text-sm"><p className={rotulo}>Depois</p>{Object.entries(t.entrega).map(([k, v]) => <p key={k} className="whitespace-pre-wrap" data-original><span className="text-ink-soft">{k}: </span>{k === "prova" || k === "url" ? <a href={v} target="_blank" rel="noopener noreferrer nofollow" className={elo}>{v}</a> : v}</p>)}</div>
             </div>
             <div className="mt-2 flex flex-wrap items-end gap-3">
               <button type="button" className={botao} disabled={acao.ocupado} onClick={() => void acao.agir("tarefa_revisar", { p_id: t.id, p_aprovar: true, p_nota: notas[t.id] ?? "" }, "Aprovada ✓ A pessoa recebeu a frase do que mudou.")}>Aprovar</button>

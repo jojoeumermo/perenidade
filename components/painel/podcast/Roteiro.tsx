@@ -212,7 +212,7 @@ export function Teleprompter({ texto, fechar }: { texto: string; fechar: () => v
       </div>
       <div ref={caixa} className="relative flex-1 overflow-y-auto px-[8vw]" style={{ transform: espelho ? "scaleX(-1)" : undefined }}>
         <div aria-hidden className="pointer-events-none sticky top-[30%] z-10 h-0 border-t-2 border-[#c21f16]/70" />
-        <div className="whitespace-pre-wrap py-[30vh] font-sans font-semibold leading-snug" style={{ fontSize: `${tamanho}px` }}>
+        <div className="whitespace-pre-wrap py-[30vh] font-sans font-semibold leading-snug" style={{ fontSize: `${tamanho}px` }} data-original={limpo ? "" : undefined}>
           {limpo || "O roteiro está vazio."}
         </div>
       </div>

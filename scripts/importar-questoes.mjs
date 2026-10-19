@@ -5,7 +5,8 @@
 //   - vestibulares da Unicamp (Comvest) e da USP (Fuvest), pelo conjunto aberto BLUEX (Almeida et al., 2023);
 //   - o Exame de Ordem da OAB (1.ª fase, 2010 a 2018), pelo conjunto aberto oab_exams (Eduardo Garcia);
 //   - ITA, IME e os anos da Fuvest (desde 1981) e da Unicamp que o BLUEX não tem, pelo Alvorada-Bench (licença MIT);
-//   - olimpíadas de matemática (OBMEP e outras, por nível), pelo MATH-PT (licença MIT).
+//   - olimpíadas de matemática (OBMEP e outras, por nível), pelo MATH-PT (licença MIT);
+//   - saúde: Revalida (Inep) e as provas de residência do Enare, médica e multiprofissional, pelo HealthQA-BR (CC BY 4.0).
 // Roda toda semana pela rotina do GitHub (.github/workflows/questoes.yml): prova nova que a fonte publicar entra sozinha.
 // Se uma fonte estiver fora do ar, ficam as provas que já tínhamos dela.
 //
@@ -257,11 +258,58 @@ async function olimpiadas() {
   return [...porNivel.entries()].sort(([a], [b]) => a - b).map(([nivel, questoes]) => ({ ano: 0, titulo: `Olimpíadas de matemática · nível ${nivel}`, arquivo: `olimpiadas-nivel-${nivel}.json`, questoes }));
 }
 
+/** HealthQA-BR: Revalida por ano; Enare (residência médica e multiprofissional) por especialidade. */
+const lesma = (t) => String(t).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 50);
+async function saude() {
+  const provas = new Map();
+  for (const q of await linhasDoHf("Larxel/healthqa-br", "train")) {
+    const texto = String(q.question ?? "").replace(/\r\n?/g, "\n");
+    // As alternativas vêm no fim do texto, uma por linha: 'A': 'texto'.
+    const alternativas = [...texto.matchAll(/^'([A-E])':\s*'([\s\S]*?)'\s*$/gm)];
+    if (alternativas.length < 2) continue;
+    const resposta = alternativas.map((m) => m[1]).indexOf(String(q.answer ?? "").trim().toUpperCase());
+    if (resposta < 0) continue;
+    const enunciado = limpar(desquebrar(texto.slice(0, alternativas[0].index)));
+    if (!enunciado) continue;
+    const fonte = String(q.source ?? "");
+    const ano = Number(q.year) || 0;
+    const medica = /m[eé]dica/i.test(fonte);
+    const grupo = String(q.group ?? "").trim() || "Geral";
+    const chave = fonte === "Revalida" ? `revalida-${ano}` : `enare-${medica ? "medica" : "multi"}-${lesma(grupo)}`;
+    if (!provas.has(chave)) {
+      provas.set(chave, {
+        ordem: fonte === "Revalida" ? 0 : medica ? 1 : 2,
+        titulo: fonte === "Revalida" ? `Revalida ${ano}` : `Enare, residência ${medica ? "médica" : "multiprofissional"} · ${grupo}`,
+        arquivo: `saude-${chave}.json`,
+        ano: 0,
+        questoes: [],
+      });
+    }
+    const prova = provas.get(chave);
+    prova.ano = Math.max(prova.ano, ano);
+    prova.questoes.push({
+      id: `saude-${chave}-${prova.questoes.length + 1}`,
+      n: prova.questoes.length + 1,
+      area: "saude",
+      lingua: "",
+      contexto: /\b(figura|imagem|radiografia abaixo|eletrocardiograma abaixo|foto)\b/i.test(enunciado) ? `${enunciado}\n\n_[Esta questão pode ter imagem na prova original.]_` : enunciado,
+      imagens: [],
+      enunciado: "",
+      alternativas: alternativas.map((m) => limpar(m[2])),
+      resposta,
+    });
+  }
+  return [...provas.values()]
+    .sort((a, b) => a.ordem - b.ordem || (a.ordem === 0 ? b.ano - a.ano : a.titulo.localeCompare(b.titulo, "pt")))
+    .map((p) => ({ ano: p.ano, titulo: p.titulo, arquivo: p.arquivo, questoes: p.questoes }));
+}
+
 const FONTES = [
   { id: "enem", nome: "ENEM (Inep)", origem: "https://enem.dev", importar: enem },
   { id: "vestibulares", nome: "Vestibulares: Unicamp e Fuvest (USP)", origem: "https://huggingface.co/datasets/portuguese-benchmark-datasets/BLUEX", importar: bluex },
   { id: "vestibulares-mais", nome: "Vestibulares: ITA, IME e mais anos da Fuvest e da Unicamp", origem: "https://huggingface.co/datasets/HenriqueGodoy/Alvorada-bench", importar: alvorada },
   { id: "olimpiadas", nome: "Olimpíadas de matemática (OBMEP e outras)", origem: "https://huggingface.co/datasets/tiagoteixeira03/MATH-PT", importar: olimpiadas },
+  { id: "saude", nome: "Saúde: Revalida e residências do Enare", origem: "https://huggingface.co/datasets/Larxel/healthqa-br", importar: saude },
   { id: "oab", nome: "OAB: Exame de Ordem (1.ª fase)", origem: "https://huggingface.co/datasets/eduagarcia/oab_exams", importar: oab },
 ];
 

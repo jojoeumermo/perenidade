@@ -126,7 +126,7 @@ export function Reunioes({ me }: { me: Me }) {
           </div>
         </div>
         <JitsiSala sala={naSala.sala ?? ""} nome={me.nome} conduzo={naSala.conduzo} lang={lang} assunto={naSala.titulo} aoSair={() => void sair()} />
-        {naSala.pauta && <div className="painel-cartao p-4"><p className={rotulo}>Pauta</p><p className="mt-1 whitespace-pre-wrap">{naSala.pauta}</p></div>}
+        {naSala.pauta && <div className="painel-cartao p-4"><p className={rotulo}>Pauta</p><p className="mt-1 whitespace-pre-wrap" data-original>{naSala.pauta}</p></div>}
         <p className="text-xs text-ink-soft">Vídeo pelo Jitsi Meet em {JITSI_DOMINIO}: nada de áudio ou vídeo fica no servidor do instituto; só quem entrou e quando. Sem gravação.</p>
         <Aviso texto={acao.aviso} />
       </div>
@@ -142,7 +142,7 @@ export function Reunioes({ me }: { me: Me }) {
       </p>
       <h3 className="mt-1 font-serif text-xl font-semibold">{r.titulo}</h3>
       <p className="text-ink-soft">{dataHora(r.inicio)} · {r.duracao} min · {r.organizador.nome}{r.convidados.length > 0 ? ` · ${r.convidados.length} convidados` : ""}{r.presentes > 0 ? ` · ${r.presentes} presentes` : ""}</p>
-      {r.pauta && <p className="mt-2 line-clamp-3 whitespace-pre-wrap text-ink-soft">{r.pauta}</p>}
+      {r.pauta && <p className="mt-2 line-clamp-3 whitespace-pre-wrap text-ink-soft" data-original>{r.pauta}</p>}
       {r.link_pauta && <p className="mt-1"><a href={r.link_pauta} target="_blank" rel="noopener noreferrer" className={elo}>Documento da pauta ↗</a></p>}
       <p className="mt-3 flex flex-wrap gap-2">
         {r.sala && (r.status === "ao_vivo" || r.conduzo) && <button type="button" className={r.status === "ao_vivo" ? botao : botaoClaro} onClick={() => void entrar(r)}>{r.status === "ao_vivo" ? "Entrar" : "Abrir a sala"}</button>}
@@ -280,7 +280,7 @@ function Propostas({ gere, propostas, erro, recarregar }: { gere: boolean; propo
               <p className="font-mono text-[0.65rem] uppercase tracking-widest text-ink-soft">{situacao[p.status]} · {p.autor}{p.minha ? " (você)" : ""}</p>
               <h3 className="mt-1 font-serif text-lg font-semibold">{p.titulo}</h3>
               <p className="text-ink-soft">{dataHora(p.inicio)} · {p.duracao} min{p.convidados ? ` · convidar: ${p.convidados}` : ""}</p>
-              {p.assunto && <p className="mt-1 whitespace-pre-wrap">{p.assunto}</p>}
+              {p.assunto && <p className="mt-1 whitespace-pre-wrap" data-original>{p.assunto}</p>}
               {p.resposta && <p className="mt-2 border-l-4 border-gold pl-3 text-ink-soft">{p.resposta}</p>}
               {gere && p.status === "pendente" && (
                 <div className="mt-3 space-y-2 border-t border-rule pt-3">
@@ -312,7 +312,7 @@ function Historico({ reunioes, recarregar }: { reunioes: Reuniao[]; recarregar: 
           <p className="font-mono text-[0.65rem] uppercase tracking-widest text-ink-soft">{situacoes[r.status]} · {tipos[r.tipo]}</p>
           <h3 className="mt-1 font-serif text-lg font-semibold">{r.titulo}</h3>
           <p className="text-ink-soft">{dataHora(r.inicio)} · {r.duracao} min · {r.organizador.nome}</p>
-          {r.pauta && <details className="mt-2"><summary className="cursor-pointer text-sm underline">Pauta</summary><p className="mt-1 whitespace-pre-wrap text-ink-soft">{r.pauta}</p></details>}
+          {r.pauta && <details className="mt-2"><summary className="cursor-pointer text-sm underline">Pauta</summary><p className="mt-1 whitespace-pre-wrap text-ink-soft" data-original>{r.pauta}</p></details>}
           {r.presencas.length > 0 && (
             <details className="mt-2">
               <summary className="cursor-pointer text-sm underline">Presença ({r.presencas.length})</summary>
@@ -325,7 +325,7 @@ function Historico({ reunioes, recarregar }: { reunioes: Reuniao[]; recarregar: 
               <button type="button" className={`mt-2 ${botaoClaro}`} disabled={atas[r.id] === undefined || atas[r.id] === r.ata} onClick={async () => { try { await rpc("reuniao_ata", { p_id: r.id, p_ata: atas[r.id] ?? "" }); setAviso("Ata guardada."); recarregar(); } catch (e) { setAviso(textoDoErro(e)); } }}>Guardar a ata</button>
             </div>
           ) : (
-            r.ata && <div className="mt-2"><p className={rotulo}>Ata</p><p className="mt-1 whitespace-pre-wrap">{r.ata}</p></div>
+            r.ata && <div className="mt-2"><p className={rotulo}>Ata</p><p className="mt-1 whitespace-pre-wrap" data-original>{r.ata}</p></div>
           )}
         </li>
       ))}

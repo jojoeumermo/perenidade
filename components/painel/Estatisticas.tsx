@@ -124,7 +124,7 @@ export function Estatisticas() {
             {d.pedidos_de_disciplina.map((p, i) => (
               <li key={i} className="border border-rule bg-parchment-deep p-3">
                 <p className="font-semibold">{p.titulo} <span className="font-normal text-ink-soft">· {dataHora(p.criado_em)} · {p.status}</span></p>
-                <p className="mt-1 whitespace-pre-wrap text-ink-soft">{p.corpo}</p>
+                <p className="mt-1 whitespace-pre-wrap text-ink-soft" data-original>{p.corpo}</p>
               </li>
             ))}
           </ul>

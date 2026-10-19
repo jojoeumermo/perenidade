@@ -293,7 +293,7 @@ export function Horas({ me }: { me: Me }) {
                     {situacao[certificado.status]} · {dia(certificado.inicio)} a {dia(certificado.fim)} · {horasPt(Number(certificado.horas))}
                   </p>
                   <p className="mt-1 font-serif text-xl font-semibold">{certificado.nome}</p>
-                  <p className="mt-1 whitespace-pre-line">{certificado.atividades}</p>
+                  <p className="mt-1 whitespace-pre-line" data-original>{certificado.atividades}</p>
                   {certificado.testemunhas.length > 0 && (
                     <p className="mt-1 text-ink-soft">
                       Assinaturas: {certificado.testemunhas.map((assinatura) => `${assinatura.nome} (${assinatura.confirmou_em ? "assinou" : "falta assinar"})`).join(", ")}
