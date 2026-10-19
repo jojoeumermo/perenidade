@@ -198,7 +198,7 @@
     "mockNotEnough": "Il n'y a pas assez de questions dans cette discipline.",
     "mockSkipped": "sans réponse",
     "publicTitle": "Examens publics",
-    "publicLead": "{n} questions de l'ENEM, l'examen national brésilien de fin de lycée, de 2009 à la dernière édition, avec le corrigé. La liste se met à jour toute seule chaque semaine ; les résolutions commentées sont écrites par les éducateurs de l'institut.",
+    "publicLead": "{n} questions d'examens publics avec corrigé : l'ENEM depuis 2009, les concours d'entrée de l'Unicamp et de la Fuvest (USP) et l'examen du barreau (OAB). La liste se met à jour toute seule chaque semaine ; les corrections commentées sont écrites par les éducateurs de l'institut.",
     "publicExam": "Examen",
     "publicArea": "Domaine",
     "publicAllAreas": "Tous les domaines",
@@ -206,7 +206,8 @@
       "linguagens": "Langages",
       "humanas": "Sciences humaines",
       "natureza": "Sciences de la nature",
-      "matematica": "Mathématiques"
+      "matematica": "Mathématiques",
+      "direito": "Droit"
     },
     "publicLanguage": "Langue étrangère",
     "publicEnglish": "Anglais",
@@ -226,7 +227,8 @@
     "publicSend": "Publier la résolution",
     "publicRemove": "retirer",
     "publicResolutionFailed": "Impossible de publier la résolution pour le moment.",
-    "publicSource": "Questions des examens publics de l'Inep, transcrites par le projet ouvert enem.dev. Mis à jour le {data}. Source :"
+    "publicSource": "Questions d'examens publics, transcrites par des projets ouverts (enem.dev, BLUEX et oab_exams). Mis à jour le {data}. Source de cet examen :",
+    "publicSourcePick": "Source"
   },
   "slogans": {
     "acervo": "Lire est un acte de résistance.",

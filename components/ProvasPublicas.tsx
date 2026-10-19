@@ -16,6 +16,7 @@ interface Prova {
   titulo: string;
   arquivo: string;
   total: number;
+  porArea?: Record<string, number>;
 }
 interface Indice {
   atualizado: string;
@@ -45,7 +46,8 @@ const LETRAS = "ABCDE";
 const campo = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
 
 /**
- * As provas públicas no banco de questões: o ENEM inteiro, trazido toda semana da fonte aberta (scripts/importar-questoes.mjs).
+ * As provas públicas no banco de questões: o ENEM inteiro, os vestibulares da Unicamp e da Fuvest e o Exame da OAB, trazidos
+ * toda semana das fontes abertas (scripts/importar-questoes.mjs).
  * O site baixa só a prova aberta; as imagens das questões ficam na fonte e abrem só se a pessoa pedir. As resoluções
  * comentadas são escritas pelos educadores do instituto.
  */
@@ -54,6 +56,7 @@ export function ProvasPublicas({ s }: { s: S }) {
   const eu = useMe();
   const educa = eu.status === "in" && can(eu.me, "educacao", "educacao_secundaria", "coordenacao", "revisao", "supervisao");
   const [indice, setIndice] = useState<Indice | null>(null);
+  const [fonteId, setFonteId] = useState("");
   const [arquivo, setArquivo] = useState("");
   const [questoes, setQuestoes] = useState<Questao[] | null>(null);
   const [area, setArea] = useState("");
@@ -73,6 +76,7 @@ export function ProvasPublicas({ s }: { s: S }) {
       .then((dados) => {
         if (!vivo || !dados) return;
         setIndice(dados);
+        setFonteId(dados.fontes[0]?.id ?? "");
         setArquivo(dados.fontes[0]?.provas[0]?.arquivo ?? "");
       })
       .catch(() => {});
@@ -116,8 +120,11 @@ export function ProvasPublicas({ s }: { s: S }) {
   }, [chave]);
 
   if (!indice) return null;
-  const fonte = indice.fontes[0];
-  const areas: [string, string][] = [["", s.publicAllAreas], ["linguagens", s.publicAreas.linguagens], ["humanas", s.publicAreas.humanas], ["natureza", s.publicAreas.natureza], ["matematica", s.publicAreas.matematica]];
+  const fonte = indice.fontes.find((f) => f.id === fonteId) ?? indice.fontes[0];
+  const presentes = new Set(fonte.provas.flatMap((p) => Object.keys(p.porArea ?? {})));
+  const todasAsAreas: [string, string][] = [["linguagens", s.publicAreas.linguagens], ["humanas", s.publicAreas.humanas], ["natureza", s.publicAreas.natureza], ["matematica", s.publicAreas.matematica], ["direito", s.publicAreas.direito]];
+  const areas: [string, string][] = [["", s.publicAllAreas], ...todasAsAreas.filter(([id]) => presentes.size === 0 || presentes.has(id))];
+  const total = indice.fontes.reduce((n, f) => n + f.provas.reduce((m, p) => m + p.total, 0), 0);
 
   function responder(q: Questao, k: number) {
     if (q.id in respostas) return;
@@ -141,8 +148,14 @@ export function ProvasPublicas({ s }: { s: S }) {
   return (
     <section className="mt-12 font-sans text-sm" aria-labelledby="provas-publicas">
       <h2 id="provas-publicas" className="border-b border-rule pb-2 font-serif text-2xl font-semibold">{s.publicTitle}</h2>
-      <p className="mt-2 text-ink-soft">{fill(s.publicLead, { n: fonte.provas.reduce((total, p) => total + p.total, 0) })}</p>
-      <div className="mt-4 grid gap-3 sm:grid-cols-4">
+      <p className="mt-2 text-ink-soft">{fill(s.publicLead, { n: total.toLocaleString(lang) })}</p>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <label className="block">
+          {s.publicSourcePick}
+          <select value={fonte.id} onChange={(e) => { const f = indice.fontes.find((x) => x.id === e.target.value); if (!f) return; setFonteId(f.id); setArquivo(f.provas[0]?.arquivo ?? ""); setArea(""); setPagina(0); }} className={campo}>
+            {indice.fontes.map((f) => <option key={f.id} value={f.id}>{f.nome}</option>)}
+          </select>
+        </label>
         <label className="block">
           {s.publicExam}
           <select value={arquivo} onChange={(e) => { setArquivo(e.target.value); setPagina(0); }} className={campo}>
@@ -155,13 +168,13 @@ export function ProvasPublicas({ s }: { s: S }) {
             {areas.map(([id, nome]) => <option key={id} value={id}>{nome}</option>)}
           </select>
         </label>
-        <label className="block">
+        {fonte.id === "enem" && <label className="block">
           {s.publicLanguage}
           <select value={lingua} onChange={(e) => { setLingua(e.target.value); setPagina(0); }} className={campo}>
             <option value="ingles">{s.publicEnglish}</option>
             <option value="espanhol">{s.publicSpanish}</option>
           </select>
-        </label>
+        </label>}
         <label className="block">
           {s.find}
           <input type="search" value={termo} onChange={(e) => { setTermo(e.target.value); setPagina(0); }} className={campo} />
