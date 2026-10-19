@@ -103,8 +103,11 @@
     "montadorLead": "Fit the right parts and diagnose the computer that will not turn on.",
     "ia": "AI Lab",
     "iaLead": "Watch the machine learn: a line fitting points and a tiny network.",
-    "planilha": "Spreadsheet",
-    "planilhaLead": "Formulas, chart and CSV, in the browser.",
+    "escritorio": "Office",
+    "escritorioLead": "Documents, spreadsheets and slides (Word, Excel and PowerPoint style), free, in the browser.",
+    "escritorioIntro": "Three open-source programs from the ArtCraft project, opened right here: write a document, build a spreadsheet with formulas and charts, and prepare a presentation. They open and save .docx, .xlsx and .pptx files.",
+    "escritorioTab": "Choose the program",
+    "escritorioLocal": "Everything stays in this device's browser: save the file when you finish.",
     "seguranca": "Security Lab",
     "segurancaLead": "Phishing, logs and passwords in a training-only sandbox: the defence for each attack.",
     "simulacoes": "Simulations (PhET)",
@@ -4052,6 +4055,18 @@
       "threejs": {
         "title": "Build the scene: three.js editor",
         "text": "Objects, materials, lights and camera in a 3D scene, to export or take to Blender."
+      },
+      "wordcraft": {
+        "title": "Write documents (Word style): WordCraft",
+        "text": "Styled text, tables, images, table of contents and review; opens and saves .docx."
+      },
+      "gridcraft": {
+        "title": "Spreadsheets (Excel style): GridCraft",
+        "text": "Formulas, functions, filters, conditional formatting and charts; opens and saves .xlsx and .csv."
+      },
+      "deckcraft": {
+        "title": "Presentations (PowerPoint style): DeckCraft",
+        "text": "Slides with layouts, themes, shapes, images and presenter mode; opens and saves .pptx."
       }
     },
     "eyebrow": "Video editing",
