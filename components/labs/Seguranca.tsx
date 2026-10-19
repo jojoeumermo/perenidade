@@ -1,7 +1,9 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { URL_KALI } from "@/lib/estudio";
+import { useI18n } from "../I18n";
 
 interface Desafio {
   id: string;
@@ -26,8 +28,59 @@ const DESAFIOS: Desafio[] = [
   { id: "ph-4", tipo: "phishing", titulo: "O painel pede a senha", texto: "Mensagem no chat da equipe: “Oi, sou do suporte do painel. Para migrar sua conta, me manda sua senha e o código do autenticador.”", pergunta: "O que fazer?", opcoes: ["Mandar, é o suporte", "Mandar só o código", "Não mandar nada: ninguém do instituto pede senha nem código; avisar a coordenação", "Pedir o e-mail do suporte e mandar por lá"], certa: 2, explicacao: "Nenhuma equipe legítima pede senha ou código do segundo fator. Quem pede está tentando entrar como você.", defesa: "Regra fixa: senha e código não se compartilham com ninguém. Denuncie pelo canal oficial." },
 ];
 
-/** Desafios de segurança num ambiente só de treino: reconhecer o ataque e aprender a defesa. Nada aqui ataca sistema nenhum. */
+/**
+ * O laboratório Kali: um Linux de verdade (emulador v86), com cara de Kali e ferramentas de treino de saída fictícia,
+ * aberto dentro da página num quadro de outra origem (o estúdio isolado). Só carrega quando a pessoa pede, porque sobe
+ * um sistema inteiro. Nada aqui tem rede nem toca sistema real.
+ */
+function LaboratorioKali() {
+  const { t } = useI18n();
+  const s = t.labs;
+  const [aberto, setAberto] = useState(false);
+  const quadro = useRef<HTMLIFrameElement>(null);
+  if (!URL_KALI) return <p className="mt-6 text-oxblood">{s.segurancaKaliForaDoAr}</p>;
+  return (
+    <section className="mt-6">
+      <p className="border-l-4 border-gold bg-parchment-deep px-4 py-3 font-sans text-sm leading-relaxed">{s.segurancaKaliIntro}</p>
+      {!aberto ? (
+        <div className="mt-4 border-2 border-ink bg-parchment-deep p-6 text-center font-sans">
+          <button type="button" onClick={() => setAberto(true)} className="cursor-pointer bg-oxblood px-6 py-3 text-lg font-semibold text-parchment hover:bg-ink">{s.segurancaKaliAbrir} →</button>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-ink-soft">{s.segurancaKaliAviso}</p>
+        </div>
+      ) : (
+        <div className="mt-4">
+          <p className="flex flex-wrap items-center justify-end gap-3 font-sans text-sm">
+            <button type="button" onClick={() => void quadro.current?.requestFullscreen?.()} className="cursor-pointer border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{s.segurancaKaliTelaCheia}</button>
+          </p>
+          <iframe
+            ref={quadro}
+            src={URL_KALI}
+            title="Kali"
+            allow="fullscreen; clipboard-read; clipboard-write"
+            allowFullScreen
+            referrerPolicy="no-referrer"
+            className="mt-2 block h-[calc(100dvh-9rem)] min-h-[34rem] w-full border-2 border-ink bg-black"
+          />
+        </div>
+      )}
+    </section>
+  );
+}
+
+/** A página do laboratório de segurança: o Kali de treino e, abaixo, os desafios de defesa (reconhecer o ataque). */
 export function LabSeguranca() {
+  const { t } = useI18n();
+  return (
+    <div>
+      <LaboratorioKali />
+      <h2 className="mt-12 border-b border-rule pb-2 font-serif text-2xl font-semibold">{t.labs.segurancaKaliDefesa}</h2>
+      <DesafiosDefesa />
+    </div>
+  );
+}
+
+/** Desafios de segurança num ambiente só de treino: reconhecer o ataque e aprender a defesa. Nada aqui ataca sistema nenhum. */
+function DesafiosDefesa() {
   const [atual, setAtual] = useState(0);
   const [escolha, setEscolha] = useState<number | null>(null);
   const [acertos, setAcertos] = useState<Record<string, boolean>>({});
