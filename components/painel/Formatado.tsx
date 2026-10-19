@@ -67,5 +67,5 @@ export function Formatado({ texto, membros = [], eu, className = "" }: { texto: 
     );
   });
   fecharLista();
-  return <span className={className}>{saida}</span>;
+  return <span className={className} data-original>{saida}</span>;
 }

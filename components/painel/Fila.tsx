@@ -181,7 +181,7 @@ function Detalhe({ id, me, semParecer, triagem = false, voltar }: { id: string; 
           {Object.entries(c.dados).map(([chave, valor]) => (
             <div key={chave} className="contents">
               <dt className="font-mono text-xs text-gold">{chave}</dt>
-              <dd className="break-words whitespace-pre-line">{String(valor)}</dd>
+              <dd className="break-words whitespace-pre-line" data-original>{String(valor)}</dd>
             </div>
           ))}
         </dl>
