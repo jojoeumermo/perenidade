@@ -60,6 +60,9 @@ export const ESTUDIO_URL = (process.env.NEXT_PUBLIC_ESTUDIO_URL ?? "").replace(/
 
 export const enderecoDo = (id: EditorAvancado["id"]) => (ESTUDIO_URL ? `${ESTUDIO_URL}/${editor(id)?.caminho ?? `${id}/`}` : "");
 
+/** O laboratório de segurança (Kali) fica no mesmo estúdio isolado, onde o WebAssembly do emulador é permitido. */
+export const URL_KALI = ESTUDIO_URL ? `${ESTUDIO_URL}/kali/` : "";
+
 export interface Compatibilidade {
   webgpu: boolean;
   wasm: boolean;

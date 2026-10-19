@@ -67,5 +67,6 @@ next-env.d.ts
 /estudio/site/blockbench/
 /estudio/site/sculptgl/
 /estudio/site/threejs/
+/estudio/site/kali/
 /estudio/site/_headers
 /estudio/site/.assetsignore
