@@ -32,6 +32,8 @@ import { ligado } from "@/lib/recursos";
 import { textosDoEstudo } from "@/lib/textos-estudo";
 import { creditosDeRevisao, EtiquetaDeRevisao } from "@/components/estudo/EtiquetaDeRevisao";
 import { revisoesDaAula } from "@/lib/revisoes-conteudo";
+import { HabilidadesDaAula } from "@/components/estudo/Habilidades";
+import { mapaDaAula } from "@/lib/curriculo-conteudo";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
@@ -91,6 +93,7 @@ export default async function LessonPage({ params }: Props) {
   const estudo = textosDoEstudo(lang).s;
   const exercicios = ligado("exercicios") ? exerciciosDaAula(track.slug, lesson.slug) : [];
   const revisoes = ligado("revisoes") ? revisoesDaAula(lesson.file) : [];
+  const habilidades = ligado("mapa-curricular") ? mapaDaAula(track.slug, lesson.slug) : null;
 
   return (
     <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! md:grid-cols-[16rem_1fr]">
@@ -152,6 +155,7 @@ export default async function LessonPage({ params }: Props) {
           {exercicios.length > 0 && <ExerciciosComExplicacao exercicios={exercicios} aula={id} s={estudo.exercicios} corrigir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} praticar="/meu-estudo/praticar" />}
           {lesson.practice.length > 0 && <Pratica key={`pratica-${id}`} id={id} exercicios={lesson.practice} lingua={linguaDe(track.area)} s={t.practice} />}
           <SourceList sources={lesson.sources} title={t.lesson.sources} />
+          {habilidades && <HabilidadesDaAula mapa={habilidades} s={estudo.mapa} />}
         </div>
 
         <CompleteButton id={id} next={next && { path: path(next.slug), title: next.title }} />

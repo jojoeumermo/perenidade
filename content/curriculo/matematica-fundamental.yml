@@ -1,0 +1,205 @@
+# Mapa curricular da trilha "Matemática fundamental": cada aula ligada às habilidades da BNCC (Ensino Fundamental,
+# Matemática) e à Matriz de Referência do Enem (Matemática e suas Tecnologias). Formato em lib/mapa-curricular.ts.
+#
+# REGRA: só códigos oficiais, e nenhum código inventado. "a-confirmar" quer dizer: proposto pela equipe, ainda sem
+# conferência no documento oficial. Quem conferir (código e sentido da habilidade) troca para "confirmado".
+# O "resumo" é uma frase nossa para orientar; a redação oficial está nos documentos abaixo.
+
+fontes:
+  - "Base Nacional Comum Curricular (BNCC), Ministério da Educação, 2018: https://basenacionalcomum.mec.gov.br/"
+  - "Matriz de Referência do Enem, Instituto Nacional de Estudos e Pesquisas Educacionais Anísio Teixeira (Inep): https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/outros-documentos"
+
+aulas:
+  as-quatro-operacoes:
+    bncc:
+      - codigo: EF06MA03
+        resumo: "Resolver e elaborar problemas com cálculos de números naturais (mentais ou escritos, exatos ou aproximados), por estratégias variadas."
+        situacao: a-confirmar
+    enem:
+      - competencia: 1
+        habilidade: 3
+        resumo: "Resolver situação-problema envolvendo conhecimentos numéricos."
+        situacao: a-confirmar
+
+  multiplos-divisores-e-numeros-primos:
+    bncc:
+      - codigo: EF06MA05
+        resumo: "Classificar números naturais em primos e compostos e estabelecer critérios de divisibilidade."
+        situacao: a-confirmar
+      - codigo: EF06MA06
+        resumo: "Resolver e elaborar problemas que envolvam as ideias de múltiplo e de divisor."
+        situacao: a-confirmar
+    enem:
+      - competencia: 1
+        habilidade: 3
+        resumo: "Resolver situação-problema envolvendo conhecimentos numéricos."
+        situacao: a-confirmar
+
+  fracoes:
+    bncc:
+      - codigo: EF06MA07
+        resumo: "Compreender, comparar e ordenar frações (partes de inteiros e resultado de divisão), identificando frações equivalentes."
+        situacao: a-confirmar
+      - codigo: EF06MA09
+        resumo: "Resolver e elaborar problemas que envolvam o cálculo da fração de uma quantidade."
+        situacao: a-confirmar
+      - codigo: EF06MA10
+        resumo: "Resolver e elaborar problemas de adição e subtração de números racionais positivos na forma de fração."
+        situacao: a-confirmar
+    enem:
+      - competencia: 1
+        habilidade: 1
+        resumo: "Reconhecer, no contexto social, diferentes significados e representações dos números e operações."
+        situacao: a-confirmar
+      - competencia: 1
+        habilidade: 3
+        resumo: "Resolver situação-problema envolvendo conhecimentos numéricos."
+        situacao: a-confirmar
+
+  numeros-decimais:
+    bncc:
+      - codigo: EF06MA08
+        resumo: "Reconhecer que os racionais positivos podem ser escritos como fração e como decimal, e passar de uma forma para a outra."
+        situacao: a-confirmar
+      - codigo: EF06MA11
+        resumo: "Resolver e elaborar problemas com números racionais positivos na forma decimal, com as quatro operações."
+        situacao: a-confirmar
+    enem:
+      - competencia: 1
+        habilidade: 1
+        resumo: "Reconhecer, no contexto social, diferentes significados e representações dos números e operações."
+        situacao: a-confirmar
+
+  porcentagem:
+    bncc:
+      - codigo: EF06MA13
+        resumo: "Resolver e elaborar problemas que envolvam porcentagens, com base na ideia de proporcionalidade."
+        situacao: a-confirmar
+      - codigo: EF07MA02
+        resumo: "Resolver e elaborar problemas de porcentagem com acréscimos e decréscimos simples, em contextos de educação financeira."
+        situacao: a-confirmar
+    enem:
+      - competencia: 1
+        habilidade: 3
+        resumo: "Resolver situação-problema envolvendo conhecimentos numéricos."
+        situacao: a-confirmar
+      - competencia: 1
+        habilidade: 4
+        resumo: "Avaliar a razoabilidade de um resultado numérico na construção de argumentos sobre afirmações quantitativas."
+        situacao: a-confirmar
+
+  razao-e-proporcao:
+    bncc:
+      - codigo: EF07MA09
+        resumo: "Usar a associação entre razão e fração na resolução de problemas."
+        situacao: a-confirmar
+      - codigo: EF06MA15
+        resumo: "Resolver e elaborar problemas de partilha de uma quantidade em partes desiguais, com a razão entre as partes."
+        situacao: a-confirmar
+    enem:
+      - competencia: 4
+        habilidade: 15
+        resumo: "Identificar a relação de dependência entre grandezas."
+        situacao: a-confirmar
+      - competencia: 3
+        habilidade: 11
+        resumo: "Utilizar a noção de escalas na leitura de representações de situações do cotidiano."
+        situacao: a-confirmar
+
+  regra-de-tres:
+    bncc:
+      - codigo: EF07MA17
+        resumo: "Resolver e elaborar problemas de grandezas direta e inversamente proporcionais."
+        situacao: a-confirmar
+    enem:
+      - competencia: 4
+        habilidade: 16
+        resumo: "Resolver situação-problema envolvendo a variação de grandezas, direta ou inversamente proporcionais."
+        situacao: a-confirmar
+
+  potencias-e-raizes:
+    bncc:
+      - codigo: EF08MA01
+        resumo: "Efetuar cálculos com potências de expoentes inteiros e usar a notação científica."
+        situacao: a-confirmar
+      - codigo: EF08MA02
+        resumo: "Resolver e elaborar problemas usando a relação entre potenciação e radiciação."
+        situacao: a-confirmar
+    enem:
+      - competencia: 1
+        habilidade: 3
+        resumo: "Resolver situação-problema envolvendo conhecimentos numéricos."
+        situacao: a-confirmar
+
+  numeros-negativos:
+    bncc:
+      - codigo: EF07MA03
+        resumo: "Comparar e ordenar números inteiros, associá-los à reta numérica e usá-los em adições e subtrações."
+        situacao: a-confirmar
+      - codigo: EF07MA04
+        resumo: "Resolver e elaborar problemas que envolvam operações com números inteiros."
+        situacao: a-confirmar
+    enem:
+      - competencia: 1
+        habilidade: 1
+        resumo: "Reconhecer, no contexto social, diferentes significados e representações dos números e operações."
+        situacao: a-confirmar
+
+  expressoes-e-ordem-das-operacoes:
+    bncc:
+      - codigo: EF06MA03
+        resumo: "Resolver e elaborar problemas com cálculos de números naturais, com compreensão dos processos envolvidos."
+        situacao: a-confirmar
+    enem:
+      - competencia: 1
+        habilidade: 3
+        resumo: "Resolver situação-problema envolvendo conhecimentos numéricos."
+        situacao: a-confirmar
+
+  equacoes-do-1-grau:
+    bncc:
+      - codigo: EF07MA18
+        resumo: "Resolver e elaborar problemas que possam ser representados por equações do 1º grau (ax + b = c)."
+        situacao: a-confirmar
+    enem:
+      - competencia: 5
+        habilidade: 21
+        resumo: "Resolver situação-problema cuja modelagem envolva conhecimentos algébricos."
+        situacao: a-confirmar
+
+  perimetro-e-area:
+    bncc:
+      - codigo: EF06MA24
+        resumo: "Resolver e elaborar problemas com grandezas como comprimento e área (triângulos e retângulos), em contextos reais."
+        situacao: a-confirmar
+    enem:
+      - competencia: 3
+        habilidade: 12
+        resumo: "Resolver situação-problema que envolva medidas de grandezas."
+        situacao: a-confirmar
+
+  medidas-comprimento-massa-tempo-e-capacidade:
+    bncc:
+      - codigo: EF06MA24
+        resumo: "Resolver e elaborar problemas com as grandezas comprimento, massa, tempo, temperatura, área, capacidade e volume."
+        situacao: a-confirmar
+    enem:
+      - competencia: 3
+        habilidade: 10
+        resumo: "Identificar relações entre grandezas e unidades de medida."
+        situacao: a-confirmar
+
+  leitura-de-graficos-e-tabelas:
+    bncc:
+      - codigo: EF06MA32
+        resumo: "Interpretar e resolver situações com dados de pesquisas apresentados em tabelas e gráficos, e sintetizar conclusões."
+        situacao: a-confirmar
+    enem:
+      - competencia: 6
+        habilidade: 24
+        resumo: "Utilizar informações expressas em gráficos ou tabelas para fazer inferências."
+        situacao: a-confirmar
+      - competencia: 6
+        habilidade: 25
+        resumo: "Resolver problema com dados apresentados em tabelas ou gráficos."
+        situacao: a-confirmar

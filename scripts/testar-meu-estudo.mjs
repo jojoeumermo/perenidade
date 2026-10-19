@@ -18,7 +18,11 @@ import {
   registrarTeste,
   responderExercicio,
 } from "../lib/meu-estudo.ts";
+import fs from "node:fs";
+import { CORE_SCHEMA, load } from "js-yaml";
+import { validarMapa } from "../lib/mapa-curricular.ts";
 import { conferirModelo, lerRevisoes } from "../lib/modelo-de-aula.ts";
+import { codificarSequencia, codigoDaSequencia, gerarComprovante, lerComprovante, lerComprovantes, lerSequencia } from "../lib/turma.ts";
 import { ligado, lerRecursos, RECURSOS } from "../lib/recursos.ts";
 
 let ok = 0;
@@ -126,6 +130,52 @@ for (const errado of [[{ data: "2026-10-01" }], [{ funcao: "x", data: "ontem" }]
   }
 }
 conferir("recusa revisão sem função, sem data ou fora de lista", recusou === 3);
+
+// Modo turma: a sequência vai e volta pelo link; o comprovante confere erro de cópia
+const seq = { v: 1, titulo: "6º B: frações, semana 1 — ção", aulas: ["matematica-fundamental/fracoes", "matematica-fundamental/numeros-decimais", "matematica-fundamental/fracoes", "../x"], recado: "Até sexta!" };
+const fragmento = codificarSequencia(seq);
+const lida = lerSequencia(`#${fragmento}`);
+conferir("sequência vai e volta pelo link", lida && lida.titulo === seq.titulo && lida.recado === "Até sexta!");
+conferir("tira repetidas e endereços estranhos", lida.aulas.length === 2 && !lida.aulas.includes("../x"));
+conferir("link sem dados não abre", lerSequencia("") === null && lerSequencia("t=@@@") === null && lerSequencia(`t=${fragmento.slice(2, 20)}`) === null);
+conferir("o código da sequência é estável", codigoDaSequencia(lida) === codigoDaSequencia(lerSequencia(fragmento)) && /^T-[0-9A-Z]{6}$/.test(codigoDaSequencia(lida)));
+const recibo = gerarComprovante(lida, new Set(["matematica-fundamental/numeros-decimais"]), "Maria da Silva", "2026-10-19");
+const lido = lerComprovante(recibo);
+conferir("comprovante lido de volta", lido && lido.n === "Maria da Silva" && JSON.stringify(lido.c) === "[1]" && lido.t === 2 && lido.s === codigoDaSequencia(lida));
+const meio = Math.floor(recibo.length / 2);
+const trocado = recibo.slice(0, meio) + (recibo[meio] === "A" ? "B" : "A") + recibo.slice(meio + 1);
+conferir("comprovante alterado na cópia é recusado", lerComprovante(trocado) === null && lerComprovante(recibo.slice(0, -3)) === null);
+const varios = lerComprovantes(`oi professora\n${recibo}\n${gerarComprovante(lida, new Set(), "", "2026-10-20")} e ${trocado}`);
+conferir("vários comprovantes colados juntos", varios.lidos.length === 2 && varios.invalidos === 1);
+
+// Mapa curricular: só a forma dos códigos oficiais, e o arquivo de verdade
+const mapaOk = validarMapa({ fontes: ["BNCC"], aulas: { fracoes: { bncc: [{ codigo: "EF06MA07", resumo: "r", situacao: "a-confirmar" }], enem: [{ competencia: 1, habilidade: 3, resumo: "r", situacao: "confirmado" }] } } }, "teste");
+conferir("mapa válido", mapaOk.aulas.fracoes.bncc[0].codigo === "EF06MA07" && mapaOk.aulas.fracoes.enem[0].area === "matematica");
+let recusouMapa = 0;
+for (const errado of [
+  { codigo: "EF6MA07", competencia: 1, habilidade: 3 },
+  { codigo: "EF96MA07", competencia: 1, habilidade: 3 },
+  { codigo: "EF06MA07", competencia: 8, habilidade: 3 },
+  { codigo: "EF06MA07", competencia: 1, habilidade: 12 },
+  { codigo: "EF06MA07", competencia: 1, habilidade: 3, situacao: "talvez" },
+]) {
+  try {
+    validarMapa({ fontes: ["BNCC"], aulas: { a: { bncc: [{ codigo: errado.codigo, resumo: "r", situacao: errado.situacao ?? "a-confirmar" }], enem: [{ competencia: errado.competencia, habilidade: errado.habilidade, resumo: "r", situacao: "a-confirmar" }] } } }, "teste");
+  } catch {
+    recusouMapa++;
+  }
+}
+conferir("recusa código fora da forma, competência e habilidade que não existem, situação errada", recusouMapa === 5);
+for (const nome of fs.existsSync("content/curriculo") ? fs.readdirSync("content/curriculo").filter((n) => n.endsWith(".yml")) : []) {
+  const trilha = nome.slice(0, -4);
+  try {
+    const mapa = validarMapa(load(fs.readFileSync(`content/curriculo/${nome}`, "utf8"), { schema: CORE_SCHEMA }), nome);
+    const aulas = fs.readdirSync(`content/trilhas/${trilha}`);
+    for (const aula of Object.keys(mapa.aulas)) conferir(`${nome}: a aula ${aula} existe`, aulas.some((a) => a === `${aula}.md` || new RegExp(`^\\d+-${aula}\\.md$`).test(a)));
+  } catch (erro) {
+    falhas.push(erro.message);
+  }
+}
 
 console.log(`meu estudo: ${ok} conferências certas, ${falhas.length} falhas`);
 for (const f of falhas) console.log(`  ✗ ${f}`);
