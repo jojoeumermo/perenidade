@@ -4270,7 +4270,17 @@
     "allInPlace": "全部正确 ✓",
     "buildHint": "按正确顺序点击单词。要移除一个，再点一下它。",
     "showTranslation": "显示翻译",
-    "lyrics": "歌词"
+    "lyrics": "歌词",
+    "pencil": "铅笔",
+    "line": "直线",
+    "arrow": "箭头",
+    "rectangle": "矩形",
+    "ellipse": "椭圆",
+    "text": "文字",
+    "undo": "撤销",
+    "redo": "重做",
+    "thickness": "粗细",
+    "typeText": "输入后按回车"
   },
   "studyGroup": {
     "eyebrow": "一起学习",
