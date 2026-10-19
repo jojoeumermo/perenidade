@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Copia para public/ os interpretadores que rodam no navegador na IDE (Python, PHP, TypeScript, Lua, Ruby e C/C++).
+// Copia para public/ os interpretadores que rodam no navegador na IDE (Python, PHP, TypeScript, Lua, Ruby e C/C++)
+// e os desenhos do Blockly.
 // Eles vêm das dependências instaladas e não entram no repositório. Roda sozinho depois de "npm install".
 import fs from "node:fs";
 import path from "node:path";
@@ -47,3 +48,7 @@ if (fs.existsSync(jscpp)) {
   copiar("pegjs-util", "jscpp", ["PEGUtil.js"]);
   fs.copyFileSync(path.join(raiz, "node_modules/printf/lib/printf.js"), path.join(raiz, "public/jscpp/printf.js"));
 }
+
+// Blockly (programação por blocos nas aulas): os desenhos que ele usa (setas, aspas, cursores), servidos pelo próprio site.
+const blockly = path.join(raiz, "node_modules/blockly/media");
+if (fs.existsSync(blockly)) copiar("blockly/media", "blockly", fs.readdirSync(blockly).filter((f) => /\.(svg|png|gif|cur)$/.test(f)));
