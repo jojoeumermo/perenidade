@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "o-que-e-3d-vertices-arestas-e-faces",
+    "titulo": "O que é 3D: vértices, arestas e faces"
+  },
+  {
+    "slug": "conhecendo-o-blender",
+    "titulo": "Conhecendo o Blender"
+  },
+  {
+    "slug": "navegar-na-cena-e-mexer-nos-objetos",
+    "titulo": "Navegar na cena e mexer nos objetos"
+  },
+  {
+    "slug": "modelando-a-partir-de-formas-simples",
+    "titulo": "Modelando a partir de formas simples"
+  },
+  {
+    "slug": "modificadores-espelho-subdivisao-e-bisel",
+    "titulo": "Modificadores: espelho, subdivisão e bisel"
+  },
+  {
+    "slug": "materiais-e-cores",
+    "titulo": "Materiais e cores"
+  },
+  {
+    "slug": "luz-e-camera",
+    "titulo": "Luz e câmera"
+  },
+  {
+    "slug": "renderizar-a-primeira-imagem",
+    "titulo": "Renderizar a primeira imagem"
+  },
+  {
+    "slug": "preparar-uma-peca-para-impressao-3d",
+    "titulo": "Preparar uma peça para impressão 3D"
+  }
+]
