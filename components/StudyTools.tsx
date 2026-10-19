@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { BackendError, hasBackend, rpc, useMe } from "@/lib/backend";
 import { KEYS, parse, setItem, useHydrated, useStored } from "@/lib/storage";
 import { errorText } from "@/i18n/core";
-import { useI18n } from "./I18n";
+import { L, useI18n } from "./I18n";
 
 interface Excerpt {
   tag: number;
@@ -38,6 +38,11 @@ export interface StudyStrings {
   cancel: string;
   pending: string;
   goTo: string;
+  confused: string;
+  confusedHint: string;
+  confusedPreview: string;
+  toCommunity: string;
+  toTutoring: string;
 }
 
 /** Trecho selecionado dentro do texto da aula e o bloco em que ele está. */
@@ -56,8 +61,10 @@ function selection(): { text: string; block: number } | null {
  * fichamento (trechos marcados por quem lê, guardados no navegador) e
  * anotações da comunidade (explicações de voluntários presas a um parágrafo).
  */
-export function StudyTools({ id, path, s }: { id: string; path: string; s: StudyStrings }) {
+export function StudyTools({ id, path, s, titulo = "", sala = "" }: { id: string; path: string; s: StudyStrings; titulo?: string; sala?: string }) {
   const { t } = useI18n();
+  // "Não entendi este trecho": a pessoa vê o que vai junto antes de escolher para onde mandar.
+  const [confuso, setConfuso] = useState<string | null>(null);
   const hydrated = useHydrated();
   const stored = useStored(KEYS.notes);
   const all = useMemo(() => parse<Record<string, Excerpt[]>>(stored, {}), [stored]);
@@ -136,6 +143,34 @@ export function StudyTools({ id, path, s }: { id: string; path: string; s: Study
         <button type="button" className={link} onClick={() => printAs("")}>{s.print}</button>
         <button type="button" className={link} onClick={() => printAs("zine")}>{s.zine}</button>
       </p>
+
+      <section className="no-print border-l-4 border-gold pl-4">
+        <button
+          type="button"
+          className="cursor-pointer border-2 border-ink px-4 py-2 font-medium hover:border-oxblood hover:text-oxblood"
+          onClick={() => {
+            const picked = selection();
+            if (!picked) return setMessage(s.selectFirst);
+            setMessage("");
+            setConfuso(picked.text);
+          }}
+        >
+          {s.confused}
+        </button>
+        <p className="mt-2 text-ink-soft">{s.confusedHint}</p>
+        {confuso && (
+          <div className="mt-3 border border-rule bg-parchment-deep p-4">
+            <p className="font-mono text-xs uppercase tracking-widest text-gold">{s.confusedPreview}</p>
+            <blockquote className="mt-2 border-l-2 border-rule pl-3 font-serif text-base">“{confuso}”</blockquote>
+            <p className="mt-1 text-xs text-ink-soft">{titulo}</p>
+            <div className="mt-3 flex flex-wrap gap-3">
+              <L href={`/comunidade?nova=1&alvo=${encodeURIComponent(path)}&titulo=${encodeURIComponent(titulo)}&sala=${encodeURIComponent(sala)}&trecho=${encodeURIComponent(confuso)}`} className="bg-ink px-4 py-2 font-medium text-parchment hover:bg-oxblood">{s.toCommunity}</L>
+              <L href={`/reforco?disciplina=${encodeURIComponent(sala)}&assunto=${encodeURIComponent(titulo)}&aula=${encodeURIComponent(path)}&trecho=${encodeURIComponent(confuso)}`} className="border-2 border-ink px-4 py-2 font-medium hover:border-oxblood hover:text-oxblood">{s.toTutoring}</L>
+              <button type="button" className={link} onClick={() => setConfuso(null)}>{s.cancel}</button>
+            </div>
+          </div>
+        )}
+      </section>
 
       <section id="fichamento">
         <h2 className="font-mono text-xs uppercase tracking-widest text-gold">{s.notesTitle}</h2>

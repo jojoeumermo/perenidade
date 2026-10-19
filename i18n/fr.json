@@ -639,7 +639,31 @@
     "epubHint": "s'ouvre sur Kindle (via Send to Kindle), Kobo et les applications de lecture",
     "jump": "Aller à",
     "showAll": "Voir les {n}",
-    "showLess": "Voir moins"
+    "showLess": "Voir moins",
+    "nowTitle": "Qu'étudier maintenant ?",
+    "nowNext": "Prochain cours : {title}",
+    "nowReview": "Revoir : {title} ({n} question(s) ratée(s))",
+    "nowDone": "Vous avez terminé tous les cours prêts de ce parcours. Et si vous passiez l'épreuve du parcours ?",
+    "nowPlacement": "Vous ne savez pas par où commencer ? Passez l'épreuve du parcours : les cours des questions ratées apparaissent ici comme point de départ.",
+    "planTitle": "Plan d'étude",
+    "planLead": "Choisissez les jours et l'heure : le site répartit les cours restants et prépare un fichier pour votre agenda. Rien ne quitte l'appareil.",
+    "planDays": "Jours d'étude",
+    "weekdays": [
+      "dim",
+      "lun",
+      "mar",
+      "mer",
+      "jeu",
+      "ven",
+      "sam"
+    ],
+    "planTime": "Heure",
+    "planPerDay": "Cours par jour",
+    "planStart": "Commencer le",
+    "planEnds": "À ce rythme, vous terminez le {date}.",
+    "planDownload": "Télécharger pour l'agenda (.ics)",
+    "planEmpty": "Aucun cours en attente à planifier.",
+    "planNone": "Choisissez au moins un jour."
   },
   "lesson": {
     "position": "cours {i} sur {n}",
@@ -1403,7 +1427,12 @@
     "save": "Envoyer la note",
     "cancel": "Annuler",
     "pending": "en attente de relecture",
-    "goTo": "voir le passage"
+    "goTo": "voir le passage",
+    "confused": "Je n'ai pas compris ce passage",
+    "confusedHint": "Sélectionnez le passage confus et touchez le bouton. Vous voyez ce qui sera joint avant de l'envoyer à la communauté ou à un bénévole du soutien scolaire.",
+    "confusedPreview": "Joint à votre question",
+    "toCommunity": "Demander à la communauté",
+    "toTutoring": "Demander du soutien à un bénévole"
   },
   "toolNames": {
     "ide": [
