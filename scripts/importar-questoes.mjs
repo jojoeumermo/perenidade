@@ -3,7 +3,9 @@
 // Traz para o banco de questões as provas públicas que têm fonte aberta e estruturada, com gabarito:
 //   - ENEM inteiro (2009 em diante), pela API aberta enem.dev (código aberto, MIT), que transcreve as provas do Inep;
 //   - vestibulares da Unicamp (Comvest) e da USP (Fuvest), pelo conjunto aberto BLUEX (Almeida et al., 2023);
-//   - o Exame de Ordem da OAB (1.ª fase, 2010 a 2018), pelo conjunto aberto oab_exams (Eduardo Garcia).
+//   - o Exame de Ordem da OAB (1.ª fase, 2010 a 2018), pelo conjunto aberto oab_exams (Eduardo Garcia);
+//   - ITA, IME e os anos da Fuvest (desde 1981) e da Unicamp que o BLUEX não tem, pelo Alvorada-Bench (licença MIT);
+//   - olimpíadas de matemática (OBMEP e outras, por nível), pelo MATH-PT (licença MIT).
 // Roda toda semana pela rotina do GitHub (.github/workflows/questoes.yml): prova nova que a fonte publicar entra sozinha.
 // Se uma fonte estiver fora do ar, ficam as provas que já tínhamos dela.
 //
@@ -21,12 +23,13 @@ const ENEM = "https://api.enem.dev/v1";
 const HF = "https://datasets-server.huggingface.co/rows";
 const AREAS = { linguagens: "linguagens", "ciencias-humanas": "humanas", "ciencias-natureza": "natureza", matematica: "matematica" };
 
-async function buscar(url, tentativas = 4) {
+async function buscar(url, tentativas = 8) {
   for (let i = 1; ; i++) {
     try {
       const r = await fetch(url, { headers: { accept: "application/json" }, signal: AbortSignal.timeout(30_000) });
+      // Limite de pedidos do serviço (429): espera cada vez mais, até uns dois minutos no total.
       if (r.status === 429 && i < tentativas) {
-        await new Promise((ok) => setTimeout(ok, 3000 * i));
+        await new Promise((ok) => setTimeout(ok, 5000 * i));
         continue;
       }
       if (!r.ok) throw new Error(`${r.status} em ${url}`);
@@ -54,11 +57,12 @@ function limpar(texto) {
 const desquebrar = (t) => String(t ?? "").replace(/[ \t]+\n(?!\n)/g, " ").replace(/([^\n.:;!?])\n(?=[a-zà-ú(])/g, "$1 ").replace(/ {2,}/g, " ");
 
 /** Todas as linhas de um conjunto aberto do Hugging Face, de cem em cem. */
-async function linhasDoHf(dataset, split) {
+async function linhasDoHf(dataset, split, config = "default") {
   const linhas = [];
   for (let offset = 0; ; offset += 100) {
-    const pagina = await buscar(`${HF}?dataset=${encodeURIComponent(dataset)}&config=default&split=${split}&offset=${offset}&length=100`);
+    const pagina = await buscar(`${HF}?dataset=${encodeURIComponent(dataset)}&config=${encodeURIComponent(config)}&split=${split}&offset=${offset}&length=100`);
     linhas.push(...(pagina.rows ?? []).map((r) => r.row));
+    await new Promise((ok) => setTimeout(ok, 400));
     if (!pagina.rows?.length || linhas.length >= (pagina.num_rows_total ?? 0)) break;
   }
   return linhas;
@@ -105,6 +109,8 @@ const MATERIAS = {
   biology: "natureza", chemistry: "natureza", physics: "natureza",
   mathematics: "matematica",
 };
+/** Provas que o BLUEX já trouxe ("USP-2019"): o Alvorada-Bench não repete. */
+const jaNoBluex = new Set();
 async function bluex() {
   const porProva = new Map();
   for (const q of await linhasDoHf("portuguese-benchmark-datasets/BLUEX", "questions")) {
@@ -114,6 +120,7 @@ async function bluex() {
     if (resposta < 0 || !ano) continue;
     const texto = limpar(desquebrar(q.question));
     const chave = `${universidade}-${ano}`;
+    jaNoBluex.add(chave.toUpperCase());
     if (!porProva.has(chave)) porProva.set(chave, { universidade, ano: Number(ano), questoes: [] });
     porProva.get(chave).questoes.push({
       id: `${universidade.toLowerCase()}-${ano}-${q.number}`,
@@ -164,9 +171,97 @@ async function oab() {
     });
 }
 
+/** LaTeX solto, sem $ (algumas questões do ITA e do IME vêm assim), vira texto legível: \frac{a}{b} → (a)/(b). */
+const LETRAS_GREGAS = { alpha: "α", beta: "β", gamma: "γ", delta: "δ", Delta: "Δ", epsilon: "ε", varepsilon: "ε", theta: "θ", lambda: "λ", mu: "μ", pi: "π", rho: "ρ", sigma: "σ", Sigma: "Σ", tau: "τ", phi: "φ", varphi: "φ", omega: "ω", Omega: "Ω" };
+const SINAIS = { cdot: "·", times: "×", div: "÷", leq: "≤", le: "≤", geq: "≥", ge: "≥", neq: "≠", ne: "≠", approx: "≈", infty: "∞", pm: "±", in: "∈", notin: "∉", subset: "⊂", cup: "∪", cap: "∩", to: "→", rightarrow: "→", Rightarrow: "⇒", Leftrightarrow: "⇔", ldots: "…", cdots: "…", circ: "°", angle: "∠", perp: "⊥", parallel: "∥" };
+function semLatex(texto) {
+  if (texto.includes("$") || !/\\[a-zA-Z]/.test(texto)) return texto;
+  let t = texto;
+  for (let i = 0; i < 6; i++) t = t.replace(/\\[dt]?frac\{([^{}]*)\}\{([^{}]*)\}/g, "($1)/($2)").replace(/\\sqrt\[([^\]]*)\]\{([^{}]*)\}/g, "($2)^(1/$1)").replace(/\\sqrt\{([^{}]*)\}/g, "√($1)");
+  return t
+    .replace(/\\(?:left|right|big|Big|bigg|Bigg)(\\[{}]|[()[\]|.])/g, (_, c) => (c === "." ? "" : c.replace("\\", "")))
+    .replace(/\\mathbb\{R\}/g, "ℝ").replace(/\\mathbb\{N\}/g, "ℕ").replace(/\\mathbb\{Z\}/g, "ℤ").replace(/\\mathbb\{Q\}/g, "ℚ").replace(/\\mathbb\{C\}/g, "ℂ")
+    .replace(/\\(?:text|mathrm|mathbf|mathit|operatorname)\{([^{}]*)\}/g, "$1")
+    .replace(/\^\{?\\circ\}?/g, "°")
+    .replace(/\\([a-zA-Z]+)/g, (_, nome) => LETRAS_GREGAS[nome] ?? SINAIS[nome] ?? nome)
+    .replace(/\\[,;:! ]/g, " ")
+    .replace(/\\([{}%])/g, "$1")
+    .replace(/\^\{([^{}]*)\}/g, "^($1)")
+    .replace(/_\{([^{}]*)\}/g, "_$1")
+    .replace(/ {2,}/g, " ");
+}
+
+/** Alvorada-Bench: as matérias já vêm em português. */
+const MATERIAS_PT = [
+  [/portugu|ingl|espanh|literat|linguagens|artes/i, "linguagens"],
+  [/hist|geogr|filos|sociol|humanas/i, "humanas"],
+  [/biolog|f[ií]sica|qu[ií]mica|natureza/i, "natureza"],
+  [/matem/i, "matematica"],
+];
+const areaDaMateria = (materia) => MATERIAS_PT.find(([r]) => r.test(String(materia ?? "")))?.[1] ?? "linguagens";
+const NOMES_DAS_PROVAS = { fuvest: (ano) => `Fuvest (USP) ${ano}`, unicamp: (ano) => `Unicamp ${ano}`, ita: (ano) => `ITA ${ano}`, ime: (ano) => `IME ${ano}` };
+const ORDEM_DAS_MATERIAS = ["Matemática", "Física", "Química", "Português", "Inglês", "Biologia", "História", "Geografia", "Filosofia", "Sociologia"];
+
+async function alvorada() {
+  // Se o BLUEX não respondeu nesta rodada, vale o que ele trouxe da última vez (para não repetir provas).
+  if (!jaNoBluex.size) for (const p of antigo?.fontes?.find((f) => f.id === "vestibulares")?.provas ?? []) jaNoBluex.add(p.arquivo.replace(/\.json$/, "").toUpperCase());
+  const porProva = new Map();
+  for (const q of await linhasDoHf("HenriqueGodoy/Alvorada-bench", "train", "questions")) {
+    const tipo = String(q.exam_type ?? "").toLowerCase();
+    if (!NOMES_DAS_PROVAS[tipo]) continue;
+    const ano = Number(/(\d{4})/.exec(String(q.exam_name))?.[1] ?? q.exam_year);
+    if (!ano) continue;
+    if ((tipo === "fuvest" && jaNoBluex.has(`USP-${ano}`)) || (tipo === "unicamp" && jaNoBluex.has(`UNICAMP-${ano}`))) continue;
+    const opcoes = ["a", "b", "c", "d", "e"].map((l) => [l, String(q[`alternative_${l}`] ?? "").trim()]).filter(([, texto]) => texto);
+    const resposta = opcoes.findIndex(([l]) => l === String(q.correct_answer ?? "").trim().toLowerCase());
+    if (opcoes.length < 2 || resposta < 0) continue;
+    const texto = limpar(semLatex(desquebrar(q.question_statement)));
+    if (!texto) continue;
+    const chave = `${tipo}-${ano}`;
+    if (!porProva.has(chave)) porProva.set(chave, { tipo, ano, questoes: [] });
+    porProva.get(chave).questoes.push({
+      materia: String(q.subject ?? ""),
+      numero: Number(q.question_number) || 0,
+      area: areaDaMateria(q.subject),
+      contexto: /\b(figura|gr[aá]fico|imagem|esquema|ilustra|charge|tirinha|quadrinho|mapa abaixo)/i.test(texto) ? `${texto}\n\n_[Esta questão pode ter figura na prova original.]_` : texto,
+      alternativas: opcoes.map(([, a]) => limpar(semLatex(a)).replace(/^\(?[a-eA-E]\)\s*/, "")),
+      resposta,
+    });
+  }
+  const posicao = (m) => ORDEM_DAS_MATERIAS.indexOf(m) + 1 || 99;
+  return [...porProva.values()]
+    .sort((a, b) => b.ano - a.ano || a.tipo.localeCompare(b.tipo))
+    .map((p) => ({
+      ano: p.ano,
+      titulo: NOMES_DAS_PROVAS[p.tipo](p.ano),
+      arquivo: `vest-${p.tipo}-${p.ano}.json`,
+      // O ITA vem por matéria, cada uma numerada do 1: aqui viram uma prova só, numerada em sequência.
+      questoes: p.questoes
+        .sort((a, b) => posicao(a.materia) - posicao(b.materia) || a.numero - b.numero)
+        .map((q, i) => ({ id: `${p.tipo}-${p.ano}-${i + 1}`, n: i + 1, area: q.area, lingua: "", contexto: q.contexto, imagens: [], enunciado: "", alternativas: q.alternativas, resposta: q.resposta })),
+    }));
+}
+
+/** MATH-PT: olimpíadas de matemática brasileiras (OBMEP e outras), separadas por nível. */
+async function olimpiadas() {
+  const porNivel = new Map();
+  for (const q of await linhasDoHf("tiagoteixeira03/MATH-PT", "test", "ptbr_multiple_choice")) {
+    const letras = Object.keys(q.choices ?? {}).filter((l) => String(q.choices[l] ?? "").trim()).sort();
+    const resposta = letras.indexOf(String(q.answer ?? "").trim().toUpperCase());
+    if (letras.length < 2 || resposta < 0 || !q.problem) continue;
+    const nivel = Number(q.level) || 0;
+    if (!porNivel.has(nivel)) porNivel.set(nivel, []);
+    const lista = porNivel.get(nivel);
+    lista.push({ id: `olimpiada-${nivel}-${lista.length + 1}`, n: lista.length + 1, area: "matematica", lingua: "", contexto: limpar(q.problem), imagens: [], enunciado: "", alternativas: letras.map((l) => limpar(q.choices[l])), resposta });
+  }
+  return [...porNivel.entries()].sort(([a], [b]) => a - b).map(([nivel, questoes]) => ({ ano: 0, titulo: `Olimpíadas de matemática · nível ${nivel}`, arquivo: `olimpiadas-nivel-${nivel}.json`, questoes }));
+}
+
 const FONTES = [
   { id: "enem", nome: "ENEM (Inep)", origem: "https://enem.dev", importar: enem },
   { id: "vestibulares", nome: "Vestibulares: Unicamp e Fuvest (USP)", origem: "https://huggingface.co/datasets/portuguese-benchmark-datasets/BLUEX", importar: bluex },
+  { id: "vestibulares-mais", nome: "Vestibulares: ITA, IME e mais anos da Fuvest e da Unicamp", origem: "https://huggingface.co/datasets/HenriqueGodoy/Alvorada-bench", importar: alvorada },
+  { id: "olimpiadas", nome: "Olimpíadas de matemática (OBMEP e outras)", origem: "https://huggingface.co/datasets/tiagoteixeira03/MATH-PT", importar: olimpiadas },
   { id: "oab", nome: "OAB: Exame de Ordem (1.ª fase)", origem: "https://huggingface.co/datasets/eduagarcia/oab_exams", importar: oab },
 ];
 

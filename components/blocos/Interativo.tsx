@@ -21,9 +21,29 @@ const Diagrama = dynamic(() => import("./Midia").then((m) => m.Diagrama), { ssr:
 const LinhaDoTempo = dynamic(() => import("./Midia").then((m) => m.LinhaDoTempo), { ssr: false, loading: espera });
 const Desenho = dynamic(() => import("./Midia").then((m) => m.Desenho), { ssr: false, loading: espera });
 const Ferramenta = dynamic(() => import("./Midia").then((m) => m.Ferramenta), { ssr: false, loading: espera });
+const Musica = dynamic(() => import("./Midia").then((m) => m.Musica), { ssr: false, loading: espera });
+const Simulacao = dynamic(() => import("./Ciencia").then((m) => m.Simulacao), { ssr: false, loading: espera });
+const Molecula = dynamic(() => import("./Ciencia").then((m) => m.Molecula), { ssr: false, loading: espera });
+const Geometria = dynamic(() => import("./Ciencia").then((m) => m.Geometria), { ssr: false, loading: espera });
+const Mapa = dynamic(() => import("./Mapa").then((m) => m.Mapa), { ssr: false, loading: espera });
+const Programacao = dynamic(() => import("./Programar").then((m) => m.Programacao), { ssr: false, loading: espera });
+const Rodar = dynamic(() => import("./Programar").then((m) => m.Rodar), { ssr: false, loading: espera });
+const Cena = dynamic(() => import("./Montar").then((m) => m.Cena), { ssr: false, loading: espera });
+const Arrastar = dynamic(() => import("./Montar").then((m) => m.Arrastar), { ssr: false, loading: espera });
+const Frase = dynamic(() => import("./Montar").then((m) => m.Frase), { ssr: false, loading: espera });
 
 const COMPONENTES: Record<Tipo, React.ComponentType<{ spec: string }>> = {
   grafico: GraficoDeFuncao,
+  geometria: Geometria,
+  simulacao: Simulacao,
+  molecula: Molecula,
+  mapa: Mapa,
+  programacao: Programacao,
+  rodar: Rodar,
+  cena: Cena,
+  arrastar: Arrastar,
+  frase: Frase,
+  musica: Musica,
   calculadora: CalculadoraDeVariaveis,
   dados: GraficoDeDados,
   teste: Teste,
