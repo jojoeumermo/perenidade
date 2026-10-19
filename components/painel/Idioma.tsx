@@ -123,7 +123,13 @@ export function TraduzirPainel() {
       const textos = new WeakMap<Text, string>();
       const atributos = new WeakMap<Element, Map<string, string>>();
 
-      const protegido = (elemento: Element | null) => Boolean(elemento?.closest('[translate="no"], [contenteditable="true"], [data-original]'));
+      // data-traduzir reabre a tradução dentro de um data-original (o bloco do painel dentro do caderno do site).
+      const protegido = (elemento: Element | null) => {
+        if (!elemento || elemento.closest('[translate="no"], [contenteditable="true"]')) return Boolean(elemento);
+        const original = elemento.closest("[data-original]");
+        const traduzir = elemento.closest("[data-traduzir]");
+        return Boolean(original && !(traduzir && original.contains(traduzir)));
+      };
 
       const texto = (no: Text) => {
         const atual = no.nodeValue ?? "";
@@ -150,7 +156,14 @@ export function TraduzirPainel() {
 
       const percorrer = (raiz: Node) => {
         if (raiz.nodeType === Node.TEXT_NODE) return texto(raiz as Text);
-        if (!(raiz instanceof Element) || PULAR.has(raiz.tagName) || protegido(raiz)) return;
+        if (!(raiz instanceof Element) || PULAR.has(raiz.tagName)) return;
+        if (protegido(raiz)) {
+          // Um bloco do painel dentro de texto protegido (data-traduzir) se traduz por si.
+          raiz.querySelectorAll("[data-traduzir]").forEach((bloco) => {
+            if (!protegido(bloco)) percorrer(bloco);
+          });
+          return;
+        }
         for (const nome of ATRIBUTOS) atributo(raiz, nome);
         for (const elemento of raiz.querySelectorAll(ATRIBUTOS.map((nome) => `[${nome}]`).join(","))) {
           if (!protegido(elemento)) for (const nome of ATRIBUTOS) atributo(elemento, nome);
