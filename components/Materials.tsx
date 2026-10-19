@@ -25,9 +25,9 @@ const LICENCAS: Record<string, Record<string, string> | string> = {
   "cc-by-sa": "CC BY-SA 4.0",
   "cc-by": "CC BY 4.0",
   cc0: "CC0",
-  "dominio-publico": { pt: "Domínio público", en: "Public domain", es: "Dominio público", ru: "Общественное достояние", zh: "公有领域" },
-  autorizacao: { pt: "Com autorização de quem fez", en: "Used with the author's permission", es: "Con autorización de quien lo hizo", ru: "С разрешения автора", zh: "经作者授权" },
-  outra: { pt: "Licença livre", en: "Free license", es: "Licencia libre", ru: "Свободная лицензия", zh: "自由许可" },
+  "dominio-publico": { pt: "Domínio público", en: "Public domain", es: "Dominio público", ru: "Общественное достояние", zh: "公有领域", fr: "Domaine public" },
+  autorizacao: { pt: "Com autorização de quem fez", en: "Used with the author's permission", es: "Con autorización de quien lo hizo", ru: "С разрешения автора", zh: "经作者授权", fr: "Avec l'autorisation de l'auteur" },
+  outra: { pt: "Licença livre", en: "Free license", es: "Licencia libre", ru: "Свободная лицензия", zh: "自由许可", fr: "Licence libre" },
 };
 const nomeDaLicenca = (l: string | undefined, lang: string) => { const x = LICENCAS[l ?? ""]; return typeof x === "string" ? x : x?.[lang] ?? x?.pt ?? ""; };
 

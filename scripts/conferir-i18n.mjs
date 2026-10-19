@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Confere se os cinco dicionários têm exatamente as mesmas chaves que o português (a referência)
+// Confere se os seis dicionários têm exatamente as mesmas chaves que o português (a referência)
 // e se nenhum texto ficou vazio. Uso: npm run conferir:i18n
 import fs from "node:fs";
 import path from "node:path";
@@ -23,7 +23,7 @@ function chaves(valor, prefixo = "", saida = new Map()) {
 
 const referencia = chaves(ler("pt"));
 let problemas = 0;
-for (const idioma of ["pt", "en", "es", "zh", "ru"]) {
+for (const idioma of ["pt", "en", "es", "zh", "ru", "fr"]) {
   const atual = chaves(ler(idioma));
   const avisos = [];
   for (const [chave, tipo] of referencia) {

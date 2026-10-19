@@ -33,7 +33,7 @@ const DISCIPLINAS = new Set(
   [...fs.readFileSync(path.join(raiz, "lib/areas.ts"), "utf8").matchAll(/areas: \[([^\]]+)\]/g)].flatMap((grupo) => [...grupo[1].matchAll(/"([a-z-]+)"/g)].map((m) => m[1])),
 );
 const LICENCAS = ["Domínio público", "CC BY", "CC BY-SA", "CC BY-NC", "CC BY-NC-SA", "CC BY-NC-ND", "Conforme a fonte", "Direitos reservados"];
-const IDIOMAS = ["en", "es", "zh", "ru"];
+const IDIOMAS = ["en", "es", "zh", "ru", "fr"];
 const FORMATOS = tipos.avulso.campos.find((campo) => campo.nome === "formato").opcoes;
 
 async function chamar(funcao, argumentos = {}) {
@@ -324,7 +324,7 @@ const montar = {
   traducao(item) {
     const idioma = String(item.dados?.idioma ?? "");
     if (!IDIOMAS.includes(idioma)) recusar("idioma desconhecido");
-    const alvo = String(item.alvo ?? item.dados?.alvo ?? "").replace(/^\/(pt|en|es|zh|ru)(?=\/)/, "");
+    const alvo = String(item.alvo ?? item.dados?.alvo ?? "").replace(/^\/(pt|en|es|zh|ru|fr)(?=\/)/, "");
     const aula = /^\/trilhas\/([a-z0-9-]{2,80})\/([a-z0-9-]{2,80})$/.exec(alvo);
     const trilha = /^\/trilhas\/([a-z0-9-]{2,80})$/.exec(alvo);
     const obra = /^\/acervo\/([a-z0-9-]{2,80})$/.exec(alvo);

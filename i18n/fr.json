@@ -1,0 +1,3943 @@
+{
+  "meta": {
+    "title": "Instituto Lúcia — la bibliothèque communautaire",
+    "description": "Un savoir libre, ouvert et préservé. Cours, parcours d'apprentissage et une bibliothèque d'œuvres du domaine public, entretenus par la communauté."
+  },
+  "common": {
+    "back": "Retour",
+    "skip": "Aller au contenu",
+    "strip": "Archive vivante · 100 % gratuit · contenu versionné et réversible",
+    "language": "Langue",
+    "theme": "Basculer entre le thème clair et le thème sombre",
+    "notTranslated": "Ce contenu n'a pas encore été traduit dans votre langue, il est donc affiché en portugais.",
+    "helpTranslate": "Aidez à le traduire",
+    "readAt": "Lire sur {source}",
+    "report": "Signaler",
+    "suggestFix": "Proposer une correction",
+    "lessons": {
+      "one": "cours",
+      "other": "cours"
+    },
+    "works": {
+      "one": "œuvre",
+      "other": "œuvres"
+    },
+    "tracks": {
+      "one": "parcours",
+      "other": "parcours"
+    },
+    "disciplines": {
+      "one": "discipline",
+      "other": "disciplines"
+    },
+    "sources": "Sources",
+    "copy": "Copier",
+    "copied": "Copié",
+    "loading": "Chargement…",
+    "askCommunity": "Demander à la communauté",
+    "practiceStudio": "Studio de pratique"
+  },
+  "nav": {
+    "main": "Principal",
+    "disciplines": "Disciplines",
+    "library": "Bibliothèque",
+    "journal": "Journal",
+    "community": "Communauté",
+    "memorial": "Mémorial",
+    "dedication": "Dédicace",
+    "team": "Qui sommes-nous",
+    "labs": "Labos",
+    "questionBank": "Banque de questions",
+    "contribute": "Contribuer",
+    "more": "Plus",
+    "search": "Rechercher",
+    "support": "Soutenir",
+    "panel": "Panneau",
+    "hello": "Bonjour, {name}",
+    "helloLabel": "Bonjour, {name} : ouvrir le panneau",
+    "openPanel": "Ouvrir le panneau",
+    "signIn": "Se connecter",
+    "tools": "Outils de pratique",
+    "glossary": "Glossaire",
+    "questions": "Partir d'une question",
+    "authors": "Auteurs",
+    "volunteers": "Bénévoles",
+    "factCheck": "Vérification des faits",
+    "debates": "Fiches de débat",
+    "fallacies": "Guide des sophismes",
+    "about": "À propos et licences",
+    "timeline": "Frise des luttes",
+    "myData": "Mes données",
+    "reportContent": "Signaler un contenu",
+    "videos": "Vidéos",
+    "videoLessons": "Cours en vidéo",
+    "sources": "Guide des sources",
+    "radio": "Radio",
+    "history": "Historique de la bibliothèque",
+    "mural": "Mur des travailleurs",
+    "drawer": "Tiroir ouvert",
+    "home": "Accueil",
+    "tutoring": "Soutien scolaire",
+    "materials": "Matériel à imprimer",
+    "privacy": "Confidentialité",
+    "terms": "Conditions d'utilisation",
+    "start": "Par où commencer",
+    "news": "Actualités",
+    "gallery": "Galerie d'affiches",
+    "data": "Données du peuple",
+    "podcasts": "Podcasts",
+    "live": "Cours en direct",
+    "notebook": "Cahier d'étude"
+  },
+  "labs": {
+    "eyebrow": "Pratique réelle",
+    "title": "Labos",
+    "lead": "Programmer, monter des réseaux, utiliser le terminal, s'entraîner à la sécurité et simuler la science, tout dans le navigateur et sans rien envoyer à aucun serveur.",
+    "ide": "IDE",
+    "ideLead": "Python, PHP, Web, JavaScript et SQL, avec fichiers, exercices et téléchargement du projet.",
+    "redes": "Labo de réseaux",
+    "redesLead": "Montez le réseau, réglez les IP, les VLAN et les routes et regardez le paquet voyager.",
+    "linux": "Terminal Linux",
+    "linuxLead": "Un shell avec un système de fichiers virtuel et des exercices guidés.",
+    "montador": "Monteur de PC",
+    "montadorLead": "Assemblez les bonnes pièces et diagnostiquez l'ordinateur qui ne démarre pas.",
+    "ia": "Labo d'IA",
+    "iaLead": "Regardez la machine apprendre : une droite qui s'ajuste aux points et un tout petit réseau.",
+    "planilha": "Tableur",
+    "planilhaLead": "Formules, graphique et CSV, dans le navigateur.",
+    "seguranca": "Labo de sécurité",
+    "segurancaLead": "Hameçonnage, journaux et mots de passe dans un bac à sable d'entraînement : la défense pour chaque attaque.",
+    "simulacoes": "Simulations (PhET)",
+    "simulacoesLead": "Physique, chimie, biologie et mathématiques par l'iframe officielle de PhET.",
+    "creditos": "Crédits et licences",
+    "exercicios": "Exercices",
+    "livre": "Mode libre",
+    "concluido": "terminé",
+    "voltar": "Revenir aux labos",
+    "ptOnly": "Les exercices sont en portugais."
+  },
+  "lists": {
+    "bankEyebrow": "Pour s'entraîner",
+    "bankTitle": "Banque de questions",
+    "bankLead": "Toutes les questions des cours de l'institut au même endroit, avec la réponse et l'explication. Elle grandit toute seule : chaque nouveau cours avec un exercice arrive ici, comme chaque question envoyée par les éducateurs.",
+    "bankReveal": "Voir la réponse",
+    "bankHide": "Cacher",
+    "bankLesson": "Du cours",
+    "bankSend": "Envoyer une question",
+    "bankCount": "{n} questions",
+    "bankRandom": "Tirer 10 au hasard",
+    "find": "Chercher dans cette page",
+    "count": "{n} éléments",
+    "none": "Rien trouvé pour ce terme.",
+    "copyLink": "Copier le lien",
+    "copied": "Lien copié",
+    "top": "Revenir en haut",
+    "more": "Voir plus",
+    "suggestFact": "Proposer un fait pour la frise",
+    "study": "Je veux étudier",
+    "inform": "Je veux m'informer",
+    "help": "Je veux aider",
+    "about": "À propos de l'institut",
+    "offline": "Fonctionne hors ligne",
+    "anySubject": "Pour toutes les disciplines",
+    "availableToday": "bénévole disponible aujourd'hui",
+    "mayTakeLonger": "Aucun bénévole de cette discipline n'est passé ces dernières 24 heures : la réponse peut prendre plus de temps.",
+    "nextLive": "Prochain cours",
+    "muralNew": "Le mur est nouveau et ouvert : annoncez ce que vous faites ou trouvez qui le fait.",
+    "whatHere": "Ce qui apparaîtra ici",
+    "empty": {
+      "jornal": {
+        "what": "C'est ici que paraît le journal de l'institut : des reportages approfondis, des entretiens et l'actualité lue du point de vue de qui travaille.",
+        "state": "Le premier numéro est en production.",
+        "act": "Proposer un sujet",
+        "related": "En attendant, lisez la revue de presse nationale"
+      },
+      "materiais": {
+        "what": "Fanzines, affiches, tracts et PDF à imprimer, coller et apporter à la réunion, à l'école et au syndicat.",
+        "state": "Les premiers matériels sont en production.",
+        "act": "Envoyer un matériel",
+        "related": "Voir la galerie d'affiches"
+      },
+      "aoVivo": {
+        "what": "Des cours en direct avec les éducateurs de l'institut, avec vidéo et discussion, directement dans le navigateur.",
+        "state": "Aucun cours programmé pour l'instant.",
+        "act": "Je veux donner un cours en direct",
+        "related": "En attendant, voyez les cours en vidéo"
+      },
+      "videoaulas": {
+        "what": "De courts cours en vidéo, jusqu'à dix minutes, enregistrés par les éducateurs de l'institut, avec transcription.",
+        "state": "Les premiers cours en vidéo sont en cours d'enregistrement.",
+        "act": "Je veux enregistrer un cours",
+        "related": "En attendant, voyez les vidéos recommandées"
+      },
+      "mural": {
+        "what": "Un mur de qui travaille : services, produits, coopératives et initiatives, sans frais et sans intermédiaire.",
+        "state": "Le mur est nouveau : la première annonce peut être la vôtre.",
+        "act": "Publier une annonce",
+        "related": "Voir aussi le Tiroir ouvert"
+      }
+    },
+    "mockTitle": "Examen blanc",
+    "mockLead": "Choisissez la discipline, le nombre de questions et le temps. À la fin, vous voyez la note par discipline et les réponses commentées ; celles que vous ratez vont dans le cahier d'erreurs.",
+    "mockQuestions": "Questions",
+    "mockTime": "Temps en minutes (0 = sans chrono)",
+    "mockStart": "Commencer l'examen blanc",
+    "mockFinish": "Rendre",
+    "mockLeft": "Il reste {t}",
+    "mockResult": "Vous avez réussi {a} sur {b}.",
+    "mockByArea": "Par discipline",
+    "mockReview": "Réponses",
+    "mockAgain": "Un autre examen blanc",
+    "mockTimeUp": "Le temps est écoulé : l'examen blanc a été rendu.",
+    "mockAnswered": "{a} sur {b} répondues",
+    "mockToErrors": "Les questions ratées sont allées dans le cahier d'erreurs.",
+    "mockOpenErrors": "Ouvrir le cahier d'erreurs",
+    "mockNotEnough": "Il n'y a pas assez de questions dans cette discipline.",
+    "mockSkipped": "sans réponse"
+  },
+  "slogans": {
+    "acervo": "Lire est un acte de résistance.",
+    "aoVivo": "Apprendre ensemble, en direct.",
+    "apoie": "Chaque brique appartient à qui a aidé à la poser.",
+    "caderno": "Étudier, c'est organiser sa propre lutte.",
+    "checagens": "Vérifier avant de croire.",
+    "comunidade": "Personne n'apprend seul.",
+    "debates": "Débattre, c'est penser ensemble.",
+    "falacias": "Penser par soi-même est le premier pas.",
+    "galeria": "Le mur était le journal de qui travaille.",
+    "jornal": "L'information aussi est un outil de lutte.",
+    "materiais": "À imprimer, coller et faire passer.",
+    "memorial": "Qui lutte ne meurt pas.",
+    "mural": "Du travail de chacun, la force de tous.",
+    "podcasts": "La parole du peuple, à l'antenne.",
+    "radio": "Les voix du peuple, de radio en radio.",
+    "voluntarios": "Personne ne le fait seul.",
+    "linhaDoTempo": "Aucun droit n'est tombé du ciel.",
+    "noticias": "L'information aussi est un outil de lutte."
+  },
+  "footer": {
+    "tagline": "Un savoir libre, pour tous, pour toujours.",
+    "learn": "Apprendre",
+    "community": "Communauté",
+    "project": "Projet",
+    "legal": "Cours sous licence CC BY-SA 4.0 · Sans publicité ni traceurs publicitaires · Chaque œuvre et chaque image indique sa source et sa licence",
+    "slogan": "Prolétaires de tous les pays, unissez-vous !",
+    "instagram": "Suivez-nous sur Instagram",
+    "team": "Accès des bénévoles"
+  },
+  "home": {
+    "eyebrow": "Bibliothèque d'Alexandrie · édition communautaire",
+    "h1a": "Tout le savoir,",
+    "h1b": "pour tous",
+    "h1c": ", pour toujours.",
+    "lead": "Apprenez gratuitement. Contribuez si vous le voulez. Rien ne se perd : chaque cours est versionné, relu par la communauté et préservé.",
+    "searchLabel": "Chercher dans toute la bibliothèque",
+    "searchPlaceholder": "Chercher dans toute la bibliothèque…",
+    "searchButton": "Rechercher",
+    "indexed": "indexées",
+    "shelves": "Les étagères",
+    "startTrack": "Commencez par un parcours",
+    "seeAll": "Tout voir",
+    "timelineTitle": "Frise de la bibliothèque",
+    "timelineSub": "comme la Wayback Machine : chaque version est gardée",
+    "fullHistory": "Historique complet",
+    "soon": "bientôt",
+    "yourContribution": "Votre contribution entre ici",
+    "pillars": [
+      [
+        "Pas de PDF de tiers",
+        "La bibliothèque indexe des œuvres du domaine public et sous licence ouverte, en renvoyant vers des sources légitimes."
+      ],
+      [
+        "Chaque cours cite ses sources",
+        "Chaque contribution est lue par l'équipe de relecture avant d'entrer. Tout est enregistré et peut être annulé."
+      ],
+      [
+        "Pas de données sensibles",
+        "Étudier ne demande ni compte ni mot de passe. Votre progression reste uniquement dans votre navigateur."
+      ]
+    ],
+    "wingsTitle": "Au-delà des cours",
+    "wings": [
+      [
+        "Outils de pratique",
+        "Accordeur, métronome, éditeur Python et PHP, tableau périodique et plus encore.",
+        "/ferramentas"
+      ],
+      [
+        "Mémorial",
+        "Pour se souvenir de celles et ceux qui sont tombés en luttant pour la justice. Marielle, Martin Luther King, Chico Mendes et d'autres.",
+        "/memorial"
+      ],
+      [
+        "Bénévoles",
+        "L'institut est fait par celles et ceux qui l'utilisent. Relire, traduire, enseigner ou écrire.",
+        "/voluntarios"
+      ]
+    ],
+    "ctaTitle": "Aidez à construire la bibliothèque",
+    "ctaText": "Écrivez un cours, indiquez une œuvre libre ou corrigez une erreur. Tout est relu avant d'être accepté.",
+    "ctaButton": "Envoyer une contribution",
+    "questionsTitle": "Partir d'une question",
+    "shelvesHint": "Il y en a beaucoup. Choisissez l'essentiel ou l'étape que vous voulez étudier.",
+    "tryLabel": "Essayez :",
+    "onThisDay": "Ce jour-là",
+    "onThisDaySource": "Événements choisis par Wikipédia pour la date d'aujourd'hui. Texte de Wikipédia, licence CC BY-SA."
+  },
+  "areas": {
+    "portugues": [
+      "Portugais",
+      "Lire, écrire et comprendre : de l'alphabétisation à la rédaction."
+    ],
+    "literatura": [
+      "Littérature",
+      "Des classiques du domaine public à la littérature qui vient du peuple."
+    ],
+    "ingles": [
+      "Anglais",
+      "De zéro à la lecture de vrais textes, sans payer de cours."
+    ],
+    "espanhol": [
+      "Espagnol",
+      "La langue de nos voisins latino-américains."
+    ],
+    "chines": [
+      "Chinois (mandarin)",
+      "Les tons, le pinyin et les premiers caractères."
+    ],
+    "russo": [
+      "Russe",
+      "Le russe depuis le début : l'alphabet cyrillique, la communication de tous les jours, les cas et la lecture de textes."
+    ],
+    "artes": [
+      "Arts",
+      "Histoire de l'art, arts visuels, théâtre, cinéma et culture populaire."
+    ],
+    "musica": [
+      "Musique",
+      "Du son à la partition : théorie, lecture et pratique."
+    ],
+    "matematica": [
+      "Mathématiques",
+      "Des tables de multiplication au calcul différentiel, pas à pas."
+    ],
+    "fisica": [
+      "Physique",
+      "Mouvement, énergie, électricité et structure de la matière."
+    ],
+    "quimica": [
+      "Chimie",
+      "De l'atome aux réactions de la vie quotidienne et de l'industrie."
+    ],
+    "biologia": [
+      "Biologie",
+      "La vie, de la cellule aux écosystèmes, et la santé du peuple."
+    ],
+    "astronomia": [
+      "Astronomie et astronautique",
+      "Le ciel, le Système solaire et la course à l'espace."
+    ],
+    "informatica": [
+      "Informatique",
+      "Du premier contact avec l'ordinateur à la sécurité numérique."
+    ],
+    "programacao": [
+      "Programmation",
+      "D'abord la logique ; ensuite Python et PHP."
+    ],
+    "inteligencia-artificial": [
+      "Intelligence artificielle",
+      "Comment les machines apprennent, ce qu'elles savent faire et à qui elles servent."
+    ],
+    "historia": [
+      "Histoire",
+      "L'histoire racontée du point de vue de ceux qui travaillent."
+    ],
+    "geografia": [
+      "Géographie",
+      "Territoire, population, ville et campagne."
+    ],
+    "sociologia": [
+      "Sociologie",
+      "Classes, travail, culture et inégalités."
+    ],
+    "filosofia": [
+      "Philosophie",
+      "Des Grecs au matérialisme : apprendre à penser par soi-même."
+    ],
+    "economia": [
+      "Économie",
+      "Travail, salaire, prix, dette et crise, sans jargon."
+    ],
+    "politica": [
+      "Politique et citoyenneté",
+      "État, droits, élections et participation populaire."
+    ],
+    "educacao-popular": [
+      "Éducation populaire et pédagogie",
+      "Paulo Freire, la pédagogie historico-critique et l'école comme lieu où enseigner, c'est aussi apprendre."
+    ],
+    "midia": [
+      "Médias et communication",
+      "Lire l'actualité avec un regard critique et faire ses propres médias."
+    ],
+    "meio-ambiente": [
+      "Environnement",
+      "Climat, terre, eau et qui paie la facture de la destruction."
+    ],
+    "marxismo": [
+      "Marxisme",
+      "Marx et Engels depuis le début : classes, plus-value et matérialisme historique."
+    ],
+    "socialismo": [
+      "Socialisme",
+      "Des utopies aux révolutions : expériences, conquêtes et débats."
+    ],
+    "comunismo": [
+      "Communisme",
+      "L'idée d'une société sans classes et l'histoire de ceux qui ont lutté pour elle."
+    ],
+    "ideologia-e-politica": [
+      "Idéologie et politique",
+      "Morale, droit et société : l'éducation politique enseignée dans les écoles chinoises."
+    ],
+    "trabalho": [
+      "Éducation au travail",
+      "Droits du travail, syndicats, coopératives et économie solidaire."
+    ],
+    "luta-negra": [
+      "Lutte noire",
+      "De la résistance à l'esclavage au mouvement noir d'aujourd'hui."
+    ],
+    "feminismo": [
+      "Féminisme",
+      "La lutte des femmes pour l'égalité, au travail et dans la vie."
+    ],
+    "lgbtqia": [
+      "Lutte LGBTQIA+",
+      "Histoire, droits et résistance."
+    ],
+    "deficiencia": [
+      "Personnes handicapées",
+      "Droits, accessibilité et lutte contre le validisme."
+    ],
+    "povos-indigenas": [
+      "Peuples autochtones",
+      "Histoire, terre et résistance des peuples originaires."
+    ],
+    "danca": [
+      "Danse",
+      "Le corps qui s'exprime : l'histoire sociale de la danse et les danses du peuple brésilien."
+    ],
+    "primeiros-socorros": [
+      "Santé et premiers secours",
+      "Prendre soin de sa santé, connaître le système public de santé du Brésil et savoir quoi faire en attendant les secours."
+    ],
+    "educacao-sexual": [
+      "Éducation sexuelle",
+      "Le corps, le consentement et la prévention des abus ; soins de santé, IST, grossesse et moyens de protection, avec une information sérieuse et sans tabou."
+    ],
+    "psicologia": [
+      "Psychologie",
+      "Notions de base et souffrance psychique liée au travail et à la vie sociale."
+    ],
+    "direito": [
+      "Droit et Constitution",
+      "La Constitution brésilienne de 1988, les droits des travailleurs, le droit de grève et de manifester."
+    ],
+    "teologia": [
+      "Théologie et religions",
+      "Histoire des religions, christianisme primitif et théologie de la libération."
+    ],
+    "luta-dos-professores": [
+      "Lutte des enseignants",
+      "Grèves, syndicats et défense de l'école publique."
+    ],
+    "sindicalismo": [
+      "Syndicalisme",
+      "Organisation sur le lieu de travail, grèves générales et négociation collective."
+    ],
+    "pessoas-idosas": [
+      "Lutte des personnes âgées",
+      "Retraite, Statut de la personne âgée et droit de vieillir dans la dignité."
+    ],
+    "favelas": [
+      "Lutte des favelas",
+      "Logement, assainissement, construction collective et organisation de ceux qui ont bâti la ville."
+    ],
+    "desenho": [
+      "Dessin",
+      "Du trait à la perspective : observation, proportion, ombre et lumière, au crayon et sur papier."
+    ],
+    "design": [
+      "Design",
+      "Affiches, typographie et design d'objets : la forme au service de qui l'utilise."
+    ],
+    "teatro": [
+      "Théâtre et arts de la scène",
+      "Des jeux théâtraux au Théâtre de l'opprimé : la scène comme lieu pour penser et agir."
+    ],
+    "cinema": [
+      "Cinéma et audiovisuel",
+      "Comment un film se fait et se lit ; le cinéma brésilien et le cinéma de lutte."
+    ],
+    "edicao-de-video": [
+      "Montage vidéo",
+      "Couper, monter, sous-titrer et finaliser des vidéos pour les cours, le journal et les réseaux sociaux, avec des logiciels libres."
+    ],
+    "edicao-de-foto": [
+      "Retouche photo",
+      "Retoucher, recadrer, corriger les couleurs et composer des images pour des affiches, le journal et les réseaux sociaux, du téléphone au logiciel professionnel."
+    ],
+    "modelagem-3d": [
+      "Modélisation 3D",
+      "Créer des objets, des personnages et des scènes en trois dimensions avec des logiciels libres comme Blender, de la première forme à l'animation et à l'impression 3D."
+    ],
+    "educacao-fisica": [
+      "Éducation physique",
+      "Corps, jeu, sport et santé : le mouvement comme droit, pas comme marchandise."
+    ],
+    "alfabetizacao": [
+      "Alphabétisation",
+      "Apprendre à lire et à écrire à tout âge, à partir des mots de sa propre vie."
+    ],
+    "enem": [
+      "ENEM",
+      "Comment fonctionne l'examen national de fin d'études secondaires du Brésil, comment étudier chaque domaine et comment écrire la rédaction."
+    ],
+    "manutencao": [
+      "Électronique",
+      "Circuits, composants, soudure et réparation de cartes, plus le montage et la réparation d'ordinateurs de bureau et portables."
+    ],
+    "capitalismo": [
+      "Qu'est-ce que le capitalisme",
+      "Marchandise, salaire, profit et crise : comment fonctionne le système où nous vivons, vu d'en bas."
+    ],
+    "luta-pela-terra": [
+      "Lutte pour la terre",
+      "La question agraire, la réforme agraire et les mouvements paysans du Brésil."
+    ],
+    "movimento-estudantil": [
+      "Lutte étudiante",
+      "Syndicats étudiants, occupations et défense de l'éducation publique."
+    ],
+    "antropologia": [
+      "Anthropologie",
+      "Culture, parenté, rite et différence : l'étude des façons de vivre."
+    ],
+    "servico-social": [
+      "Travail social",
+      "La question sociale, les politiques publiques et le travail de ceux qui servent le peuple."
+    ],
+    "arquitetura": [
+      "Architecture et urbanisme",
+      "La maison, la rue et la ville : comment l'espace se construit, et pour qui."
+    ],
+    "arquivologia": [
+      "Bibliothèques, archives et musées",
+      "Garder, organiser et ouvrir la mémoire : bibliothéconomie, archivistique et muséologie."
+    ],
+    "dependencia": [
+      "Théorie de la dépendance et Amérique latine",
+      "Pourquoi l'Amérique latine reste pauvre même quand elle croît : Marini, Bambirra, Theotonio dos Santos et la surexploitation du travail."
+    ],
+    "imperialismo": [
+      "Impérialisme et géopolitique contemporaine",
+      "Qui dirige le monde et comment : capital financier, guerres, sanctions, dette et rivalité entre puissances aujourd'hui."
+    ],
+    "ecossocialismo": [
+      "Écosocialisme",
+      "La crise climatique comme crise du capitalisme : la nature, le travail et la sortie qui ne tient pas dans le profit."
+    ],
+    "frances": [
+      "Français",
+      "Le français depuis le début : communication de tous les jours, lecture et le monde francophone."
+    ],
+    "ingles-infantil": [
+      "Anglais pour enfants",
+      "Premiers pas en anglais pour les enfants : mots du quotidien, chansons et jeux."
+    ],
+    "redes-e-seguranca": [
+      "Réseaux et sécurité de l'information",
+      "Comment les réseaux fonctionnent de l'intérieur et comment protéger systèmes et personnes, avec l'accent sur le hacking éthique : toujours autorisé et dans la loi."
+    ],
+    "trancista": [
+      "Tresses",
+      "Tresses afro : soin des cheveux, techniques, histoire et comment faire du métier un revenu."
+    ],
+    "costureira": [
+      "Couture et crochet",
+      "La couture, des bases aux retouches et à la confection de vêtements, et le crochet, du premier point aux pièces à vendre, avec la sécurité au travail et des façons d'en tirer un revenu."
+    ],
+    "engenharia-de-sistemas": [
+      "Ingénierie des systèmes",
+      "Comment les systèmes logiciels fonctionnent de l'intérieur et comment les concevoir efficaces, fiables et évolutifs : du processeur aux systèmes distribués."
+    ],
+    "estado": [
+      "Qu'est-ce que l'État et comment fonctionne-t-il ?",
+      "La politique de base pour qui n'a jamais eu de cours de politique : ce qu'est l'État, qui gouverne, d'où vient l'argent et pourquoi cela compte pour le peuple."
+    ],
+    "instituicoes": [
+      "Congrès, Cour suprême, parquet : les institutions",
+      "Comment fonctionnent le Congrès, la Cour suprême, le parquet général, les ministères et les mairies, et comment le peuple fait pression sur chacun."
+    ],
+    "eleicoes": [
+      "Élections, partis et vote",
+      "Comment on vote et comment les voix sont comptées, ce qu'est un parti, qui finance les campagnes et comment surveiller les élus."
+    ],
+    "neurodiversidade": [
+      "Neurodiversité et psychanalyse",
+      "Autisme, TDAH, dyslexie et autres façons d'être et d'apprendre, sans pathologiser, plus une introduction à la psychanalyse."
+    ],
+    "barbeiro": [
+      "Barbier",
+      "Coupe et barbe masculines : outils, hygiène et biosécurité, techniques et comment monter son propre travail."
+    ],
+    "oratoria-e-lideranca": [
+      "Prise de parole et leadership",
+      "Parler en public avec clarté, préparer une intervention, mener des réunions et des assemblées et diriger collectivement."
+    ]
+  },
+  "tracks": {
+    "eyebrow": "Apprentissage guidé",
+    "title": "Disciplines",
+    "lead": "Chaque discipline est divisée en parcours, de l'école primaire à l'enseignement supérieur. Les cours sont courts, suivent un ordre et se terminent par un exercice. Votre progression est gardée dans ce navigateur.",
+    "description": "Disciplines et parcours de cours gratuits, avec sources, écrits et relus par des bénévoles.",
+    "back": "Disciplines",
+    "minutes": "~{n} min de lecture",
+    "lessonsTitle": "Cours",
+    "startFirst": "Commencer par le premier cours",
+    "progress": "Progression dans le parcours",
+    "completed": "{a} sur {b} terminés",
+    "doneMark": "terminé",
+    "continue": "Reprendre là où vous vous êtes arrêté",
+    "resume": "Reprendre",
+    "ready": "{a} sur {b} cours prêts",
+    "underConstruction": "En construction",
+    "helpWrite": "Aidez à écrire ce parcours",
+    "planned": "en préparation",
+    "plannedHelp": "Les cours marqués « en préparation » font partie du programme de ce parcours et n'ont pas encore été écrits.",
+    "plannedLink": "Vous voulez en écrire un ?",
+    "filter": "Afficher",
+    "filterAll": "Toutes les disciplines",
+    "filterEssential": "L'essentiel",
+    "filterEssentialHint": "Seulement la base : lecture, écriture, nombres, langues et sciences.",
+    "filterNone": "Aucune discipline n'a encore de parcours à cette étape.",
+    "exam": "Épreuve du parcours",
+    "examLead": "Jusqu'à trente questions tirées des cours de ce parcours. Elle ne compte pas pour une note : elle montre ce que vous savez déjà et ce qui mérite d'être relu.",
+    "examStart": "Passer l'épreuve",
+    "examNeed": "L'épreuve apparaît quand le parcours a au moins dix questions.",
+    "examAgain": "Tirer une autre épreuve",
+    "examResult": "Vous avez réussi {a} sur {b}.",
+    "examFrom": "Du cours : {title}",
+    "offlineSave": "Garder ce parcours pour le lire hors ligne",
+    "offlineSaving": "Enregistrement des cours…",
+    "offlineSaved": "Gardé sur cet appareil. Vous pouvez ouvrir les cours sans connexion.",
+    "offlineFailed": "Impossible d'enregistrer pour le moment. Vérifiez la connexion et réessayez.",
+    "offlineUnsupported": "Ce navigateur ne peut pas garder de pages.",
+    "epub": "Télécharger le parcours en livre numérique (EPUB)",
+    "epubHint": "s'ouvre sur Kindle (via Send to Kindle), Kobo et les applications de lecture",
+    "jump": "Aller à",
+    "showAll": "Voir les {n}",
+    "showLess": "Voir moins"
+  },
+  "lesson": {
+    "position": "cours {i} sur {n}",
+    "awaitingReview": "Ce cours attend encore la relecture de la communauté. Vous avez trouvé une erreur ?",
+    "suggestOne": "Proposer une correction",
+    "inThisLesson": "Dans ce cours",
+    "quizTitle": "Testez ce que vous avez appris",
+    "correct": "Correct.",
+    "notYet": "Pas encore.",
+    "score": "Vous avez réussi {a} sur {b}.",
+    "tryAgain": "Réessayer",
+    "markDone": "Marquer comme terminé",
+    "done": "Cours terminé",
+    "next": "Suivant :",
+    "neighbors": "Cours voisins",
+    "by": "Par {names}",
+    "lastChange": "Dernière modification le {date}",
+    "saved": {
+      "one": "version gardée",
+      "other": "versions gardées"
+    },
+    "noHistory": "Pas encore d'historique publié",
+    "license": "Licence CC BY-SA 4.0",
+    "plainText": "Texte brut",
+    "cite": "Copier la citation",
+    "cited": "Citation copiée",
+    "keys": "Utilisez les flèches ← → pour passer d'un cours à l'autre.",
+    "sources": "Sources de ce cours",
+    "tryCode": "Essayez ce code",
+    "reread": "Pas encore. Relisez le passage ci-dessus et réessayez.",
+    "videoLoad": "Charger la vidéo ({host})",
+    "videoNote": "La vidéo est hébergée sur un autre site. Une fois chargée, ce site peut voir votre visite.",
+    "videoOpen": "Ouvrir la vidéo dans un autre onglet",
+    "imagePending": "image en attente de publication",
+    "toMistakes": "Les questions ratées vont dans votre cahier d'erreurs."
+  },
+  "library": {
+    "areasTitle": "Domaines",
+    "newTitle": "Nouveautés",
+    "pdTitle": "Domaine public",
+    "startTitle": "Par où commencer",
+    "mineTitle": "Mon étagère",
+    "seeAll": "Voir les {n} œuvres",
+    "surprise": "Surprenez-moi",
+    "viewCards": "Fiches",
+    "viewList": "Liste",
+    "loadMore": "Voir plus",
+    "showing": "{a} sur {b} affichées",
+    "clear": "Effacer les filtres",
+    "suggest": "Indiquer une œuvre",
+    "shelfAdd": "Garder sur mon étagère",
+    "shelfRemove": "Retirer de mon étagère",
+    "shelfNote": "Votre étagère n'existe que dans ce navigateur : rien ne part vers un serveur. Exportez-la pour l'emporter sur un autre appareil.",
+    "shelfExport": "Exporter",
+    "shelfImport": "Importer",
+    "want": "à lire",
+    "reading": "en cours",
+    "read": "lu",
+    "backShelves": "← Étagères",
+    "allWorks": "Toutes les œuvres",
+    "eyebrow": "Index des œuvres",
+    "title": "Bibliothèque",
+    "lead": "Seulement des métadonnées et des liens vers des sources légitimes. Nous n'hébergeons pas de fichiers de tiers.",
+    "description": "Un index d'œuvres du domaine public et sous licence ouverte, chacune reliée à sa source légitime.",
+    "searchLabel": "Chercher par titre ou auteur",
+    "searchPlaceholder": "Titre, auteur…",
+    "area": "Discipline",
+    "allAreas": "Toutes les disciplines",
+    "license": "Licence",
+    "allLicenses": "Toutes les licences",
+    "nothing": "Rien trouvé. Essayez un autre terme ou retirez un filtre.",
+    "back": "Bibliothèque",
+    "language": "Langue",
+    "source": "Source",
+    "varies": "Le statut juridique peut varier d'un pays à l'autre ; vérifiez les conditions sur la page de la source.",
+    "fix": "Corriger cette fiche",
+    "licenseNames": {
+      "Domínio público": "Domaine public",
+      "Conforme a fonte": "Selon la source",
+      "Direitos reservados": "Tous droits réservés"
+    },
+    "licenseNotes": {
+      "Domínio público": "Les droits patrimoniaux ont expiré. L'œuvre peut être lue, copiée et redistribuée librement.",
+      "CC BY": "Peut être copiée et adaptée, y compris à des fins commerciales, à condition de citer l'auteur.",
+      "CC BY-SA": "Peut être copiée et adaptée en citant l'auteur ; les œuvres dérivées doivent garder la même licence.",
+      "CC BY-NC": "Peut être copiée et adaptée en citant l'auteur, uniquement à des fins non commerciales.",
+      "CC BY-NC-SA": "Usage non commercial, en citant l'auteur ; les œuvres dérivées doivent garder la même licence.",
+      "CC BY-NC-ND": "Peut être redistribuée sans modification, en citant l'auteur, uniquement à des fins non commerciales.",
+      "Conforme a fonte": "La licence varie d'un texte à l'autre. Les conditions de chacun sont sur la page de la source.",
+      "Direitos reservados": "Cette œuvre est protégée par le droit d'auteur. Cette fiche n'est qu'une référence bibliographique : le lien mène au catalogue d'une bibliothèque, jamais à une boutique ni à une copie du livre."
+    },
+    "catalogTitle": "Catalogue élargi",
+    "catalogLead": "Des œuvres réunies à partir de catalogues ouverts, avec un lien direct vers la source. Ces fiches sont plus simples que celles choisies par la curation. Qu'une œuvre figure ici ne veut pas dire que nous sommes d'accord avec ce qu'elle dit.",
+    "seeAt": "Voir sur {source}",
+    "mecNote": "Prêt numérique gratuit de MEC Livros, la bibliothèque numérique du ministère de l'Éducation du Brésil : il suffit de se connecter avec un compte gov.br."
+  },
+  "shelf": {
+    "eyebrow": "Discipline",
+    "tracks": "Parcours",
+    "noTracks": "Il n'y a pas encore de parcours sur cette étagère.",
+    "writeFirst": "Et si vous écriviez le premier cours ?",
+    "works": "Œuvres dans la bibliothèque",
+    "noWorks": "Aucune œuvre indexée pour l'instant.",
+    "suggestWork": "Indiquez une œuvre libre.",
+    "tools": "Pour s'entraîner",
+    "videos": "Vidéos",
+    "sections": "Dans cette discipline",
+    "loose": "Matériels à part",
+    "looseLead": "Cours isolés, fiches d'exercices, résumés et guides d'étude faits par les éducateurs du secondaire, en dehors des parcours.",
+    "looseEmpty": "Il n'y a pas encore de matériels à part dans cette discipline.",
+    "looseJoin": "Vous voulez en proposer un ? Devenez bénévole."
+  },
+  "search": {
+    "eyebrow": "Toute la bibliothèque",
+    "title": "Recherche",
+    "lead": "Cherche dans le texte complet des cours, les fiches de la bibliothèque, le glossaire et le journal. Les accents et les majuscules n'ont pas d'importance.",
+    "label": "Chercher des cours, des disciplines et des œuvres",
+    "placeholder": "Ex. : plus-value, Machado, verbe être…",
+    "loading": "Chargement de l'index…",
+    "failed": "L'index de recherche n'a pas pu être chargé. Rechargez la page pour réessayer.",
+    "results": {
+      "one": "résultat",
+      "other": "résultats"
+    },
+    "indexSize": "{n} éléments dans l'index. Tapez pour chercher.",
+    "nothingFor": "Rien trouvé pour « {q} ». Si ce sujet manque,",
+    "canContribute": "vous pouvez le proposer",
+    "kinds": {
+      "aula": "Cours",
+      "obra": "Œuvre",
+      "trilha": "Parcours",
+      "autor": "Auteur",
+      "memorial": "Mémorial",
+      "verbete": "Glossaire",
+      "materia": "Journal",
+      "checagem": "Vérification",
+      "debate": "Débat",
+      "pergunta": "Question",
+      "falacia": "Sophisme"
+    }
+  },
+  "authors": {
+    "eyebrow": "Archives par auteur",
+    "title": "Auteurs",
+    "lead": "Qui a écrit ce qui est sur les étagères. Chaque nom mène aux œuvres disponibles dans des sources libres.",
+    "inLibrary": "Dans la bibliothèque",
+    "fullArchive": "Archives complètes sur {source}",
+    "none": "Aucune œuvre cataloguée pour l'instant. Vous pouvez en indiquer une."
+  },
+  "memorial": {
+    "eyebrow": "Présents",
+    "title": "Mémorial",
+    "lead": "Pour se souvenir de celles et ceux qui sont tombés en luttant pour la justice, pour la terre, pour la liberté. Tant qu'on se souvient d'eux, ils restent présents.",
+    "add": "Il manque quelqu'un ici ? Le mémorial est construit par la communauté.",
+    "addLink": "Proposer un nom",
+    "present": "Présent !"
+  },
+  "contribute": {
+    "eyebrow": "Construction collective",
+    "title": "Contribuer",
+    "lead": "Écrivez un cours, indiquez une œuvre libre, corrigez une erreur ou partagez une idée. Pas besoin de compte. Tout est lu par la curation avant d'entrer dans la bibliothèque.",
+    "description": "Envoyez un cours, indiquez une œuvre libre ou corrigez une erreur. Chaque contribution est relue.",
+    "rules": [
+      "Écrivez avec vos propres mots. Ne copiez pas de textes protégés par le droit d'auteur.",
+      "Chaque cours a besoin d'au moins une source fiable.",
+      "N'envoyez pas de fichiers ni de liens vers des copies piratées : la bibliothèque ne renvoie que vers des sources légitimes.",
+      "Les cours publiés sont placés sous licence CC BY-SA 4.0."
+    ],
+    "steps": [
+      [
+        "Vous envoyez",
+        "Remplissez le formulaire ci-dessous. Le brouillon est gardé dans ce navigateur pendant que vous écrivez."
+      ],
+      [
+        "L'équipe de relecture lit",
+        "Des bénévoles vérifient les sources, le texte et la licence."
+      ],
+      [
+        "Ça entre dans la bibliothèque",
+        "Une fois approuvée, la contribution est publiée sous le nom que vous indiquez."
+      ],
+      [
+        "C'est gardé",
+        "Chaque version est enregistrée. Si quelque chose tourne mal, il suffit de revenir à la précédente."
+      ]
+    ],
+    "more": "Vous voulez aider régulièrement, en relisant, en traduisant ou en enseignant ? Voyez la page des bénévoles.",
+    "loading": "Chargement du formulaire…",
+    "kindLegend": "Que voulez-vous envoyer ?",
+    "kindLesson": "Un cours",
+    "kindWork": "Une œuvre pour la bibliothèque",
+    "kindFix": "Une correction",
+    "kindIdea": "Une idée",
+    "track": "Parcours",
+    "planned": "Cours du programme",
+    "plannedOther": "Un autre cours, hors programme",
+    "target": "Adresse de la page qui contient l'erreur",
+    "lessonTitle": "Titre du cours",
+    "workTitle": "Titre de l'œuvre",
+    "subject": "Sujet",
+    "summary": "Résumé en une phrase",
+    "author": "Auteur de l'œuvre",
+    "language": "Langue de l'œuvre",
+    "area": "Discipline",
+    "license": "Licence",
+    "source": "Nom de la source (ex. : Projet Gutenberg)",
+    "url": "Adresse de l'œuvre sur la source",
+    "body": "Texte du cours",
+    "synopsis": "Synopsis",
+    "details": "Décrivez",
+    "bodyPlaceholder": "Écrivez ici. Utilisez les boutons ci-dessus pour les titres, les listes et les liens.",
+    "autosave": "Le brouillon est gardé dans ce navigateur.",
+    "credit": "Votre nom ou pseudonyme, tel qu'il doit apparaître (facultatif)",
+    "declareLesson": "Je déclare que ce texte est de ma création ou sous licence libre, et j'accepte de le publier sous licence CC BY-SA 4.0.",
+    "declareWork": "Je déclare que l'œuvre est dans le domaine public ou sous licence ouverte, et que le lien mène vers une source légitime.",
+    "sent": "Nous avons reçu votre contribution. Merci ! L'équipe de relecture la lira avant qu'elle entre sur le site.",
+    "ready": "Prêt à envoyer.",
+    "offline": "L'envoi par le site n'est pas encore actif sur cette copie.",
+    "send": "Envoyer en relecture",
+    "clear": "Effacer le formulaire",
+    "editor": {
+      "bold": "Gras",
+      "italic": "Italique",
+      "heading": "Titre",
+      "subheading": "Sous-titre",
+      "quote": "Citation",
+      "list": "Liste",
+      "numbered": "Liste numérotée",
+      "link": "Lien",
+      "linkPrompt": "Adresse du lien (https://…)",
+      "preview": "Voir le rendu",
+      "write": "Revenir à l'écriture",
+      "empty": "Rien à afficher pour l'instant.",
+      "video": "Vidéo",
+      "videoPrompt": "Adresse de la vidéo (https://…), de YouTube, Vimeo ou PeerTube :",
+      "math": "Calcul pas à pas",
+      "image": "Image",
+      "imageAlt": "Décrivez l'image pour qui ne peut pas la voir :",
+      "imageCredit": "Crédit et licence de l'image :",
+      "sending": "Envoi de l'image…",
+      "check": "Vérifier l'orthographe et la grammaire",
+      "checking": "Vérification…",
+      "checkNone": "Rien à signaler.",
+      "checkNote": "Le texte n'est envoyé au service ouvert LanguageTool que lorsque vous appuyez sur le bouton.",
+      "checkFailed": "Le correcteur n'a pas répondu. Réessayez dans une minute.",
+      "checkStale": "Le texte a changé : vérifiez à nouveau."
+    },
+    "sourcesField": {
+      "title": "Sources",
+      "hint": "D'où vient ce que vous avez écrit ? Livres, articles, pages officielles. Au moins une.",
+      "name": "Titre de la source",
+      "author": "Auteur ou institution",
+      "url": "Adresse (https://…), s'il y en a une",
+      "add": "Ajouter une autre source",
+      "remove": "Retirer cette source"
+    },
+    "problems": {
+      "title": "Il manque le titre.",
+      "track": "Choisissez le parcours.",
+      "summary": "Il manque le résumé en une phrase.",
+      "body": "Le texte du cours est trop court (au moins 200 caractères).",
+      "sources": "Indiquez au moins une source.",
+      "author": "Il manque l'auteur de l'œuvre.",
+      "source": "Il manque le nom de la source.",
+      "https": "L'adresse doit commencer par https://.",
+      "pdf": "Le lien doit mener à la page de l'œuvre sur la source, et non directement à un fichier PDF.",
+      "synopsis": "Le synopsis est trop court (au moins 40 caractères).",
+      "details": "Décrivez un peu plus (au moins 20 caractères).",
+      "declare": "Cochez la déclaration pour continuer.",
+      "area": "Choisissez la discipline."
+    },
+    "chooseArea": "Choisissez la discipline",
+    "chooseTrack": "Choisissez le parcours",
+    "rulesTitle": "Règles",
+    "rulesSummary": "Avec vos mots, avec des sources, sans copie piratée. Cours sous licence CC BY-SA 4.0.",
+    "howTitle": "Comment ça marche",
+    "sentTitle": "Reçu ✓",
+    "trackingCode": "Code de suivi :",
+    "copyCode": "Copier le code",
+    "copied": "Copié ✓",
+    "trackingHint": "Le code est gardé sur cet appareil. Sur un autre appareil, collez-le dans « Suivre un envoi ».",
+    "sendAnother": "Envoyer une autre contribution",
+    "mineTitle": "Vos envois depuis cet appareil",
+    "addCode": "Suivre un envoi",
+    "addCodePlaceholder": "Collez le code reçu",
+    "addCodeButton": "Suivre",
+    "forget": "Retirer de la liste",
+    "noteLabel": "Commentaire de l'équipe",
+    "sentOn": "Envoyé le {data}",
+    "badCode": "Ce code ne semble pas correct : il a 36 lettres et chiffres, avec des tirets.",
+    "statuses": {
+      "triagem": "Reçu, en attente d'une première lecture",
+      "revisao": "En relecture par l'équipe",
+      "aprovada": "Approuvé : il entre sur le site à la prochaine publication",
+      "publicada": "Publié sur le site",
+      "recusada": "Pas accepté cette fois",
+      "resolvida": "Résolu",
+      "sumida": "Introuvable"
+    },
+    "blocksNote": "Vous préférez construire par blocs (paragraphe, titre, image, formule) ? Utilisez le bouton Blocs en haut de l'éditeur."
+  },
+  "report": {
+    "eyebrow": "Droit d'auteur et qualité",
+    "title": "Signaler un contenu",
+    "lead": "Nous respectons le droit d'auteur. Si quelque chose ici ne devrait pas y être, prévenez-nous et nous le retirerons pour l'examiner.",
+    "description": "Signalez une atteinte au droit d'auteur, une erreur ou un contenu inapproprié dans la bibliothèque.",
+    "stages": [
+      [
+        "Enregistrement",
+        "Le signalement est enregistré avec sa date et part directement à la curation."
+      ],
+      [
+        "Quarantaine",
+        "Pour le droit d'auteur, l'élément est retiré pendant l'examen."
+      ],
+      [
+        "Décision",
+        "Si le problème est confirmé, l'élément est retiré ou corrigé. La décision reste enregistrée."
+      ]
+    ],
+    "item": "Page ou élément signalé",
+    "reason": "Motif",
+    "details": "Ce qui ne va pas",
+    "detailsPlaceholder": "Expliquez le problème. Pour le droit d'auteur, dites de quelle œuvre il s'agit et qui en détient les droits.",
+    "submit": "Envoyer le signalement",
+    "notReady": "Indiquez l'élément et décrivez le problème (au moins 20 caractères) pour continuer.",
+    "reasons": [
+      "Droit d'auteur",
+      "Information erronée",
+      "Contenu offensant ou discours de haine",
+      "Données personnelles exposées",
+      "Autre motif"
+    ],
+    "sent": "Signalement reçu. La curation va l'examiner.",
+    "offline": "L'envoi de signalements par le site n'est pas encore actif sur cette copie."
+  },
+  "history": {
+    "eyebrow": "Rien ne se perd",
+    "title": "Historique de la bibliothèque",
+    "lead": "Chaque changement du contenu est enregistré avec sa date, et n'importe quelle version antérieure peut être récupérée.",
+    "description": "Tous les changements faits dans la bibliothèque, du plus récent au plus ancien.",
+    "unavailable": "L'historique n'est pas disponible dans cette copie du site.",
+    "more": "et {n} de plus",
+    "kinds": {
+      "lessonsIn": {
+        "added": {
+          "one": "nouveau cours en {area}",
+          "other": "nouveaux cours en {area}"
+        },
+        "updated": {
+          "one": "cours mis à jour en {area}",
+          "other": "cours mis à jour en {area}"
+        },
+        "removed": {
+          "one": "cours retiré de {area}",
+          "other": "cours retirés de {area}"
+        }
+      },
+      "lessons": {
+        "added": {
+          "one": "nouveau cours",
+          "other": "nouveaux cours"
+        },
+        "updated": {
+          "one": "cours mis à jour",
+          "other": "cours mis à jour"
+        },
+        "removed": {
+          "one": "cours retiré",
+          "other": "cours retirés"
+        }
+      },
+      "tracks": {
+        "added": {
+          "one": "nouveau parcours",
+          "other": "nouveaux parcours"
+        },
+        "updated": {
+          "one": "parcours mis à jour",
+          "other": "parcours mis à jour"
+        },
+        "removed": {
+          "one": "parcours retiré",
+          "other": "parcours retirés"
+        }
+      },
+      "translations": {
+        "added": {
+          "one": "nouvelle traduction",
+          "other": "nouvelles traductions"
+        },
+        "updated": {
+          "one": "traduction mise à jour",
+          "other": "traductions mises à jour"
+        },
+        "removed": {
+          "one": "traduction retirée",
+          "other": "traductions retirées"
+        }
+      },
+      "library": {
+        "added": {
+          "one": "nouvelle œuvre dans la bibliothèque",
+          "other": "nouvelles œuvres dans la bibliothèque"
+        },
+        "updated": {
+          "one": "fiche de la bibliothèque mise à jour",
+          "other": "fiches de la bibliothèque mises à jour"
+        },
+        "removed": {
+          "one": "œuvre retirée de la bibliothèque",
+          "other": "œuvres retirées de la bibliothèque"
+        }
+      },
+      "catalog": {
+        "added": {
+          "one": "nouvelle œuvre dans le catalogue élargi",
+          "other": "nouvelles œuvres dans le catalogue élargi"
+        },
+        "updated": {
+          "one": "fiche du catalogue élargi mise à jour",
+          "other": "fiches du catalogue élargi mises à jour"
+        },
+        "removed": {
+          "one": "œuvre retirée du catalogue élargi",
+          "other": "œuvres retirées du catalogue élargi"
+        }
+      },
+      "authors": {
+        "added": {
+          "one": "nouvelle biographie d'auteur",
+          "other": "nouvelles biographies d'auteurs"
+        },
+        "updated": {
+          "one": "biographie d'auteur mise à jour",
+          "other": "biographies d'auteurs mises à jour"
+        },
+        "removed": {
+          "one": "biographie d'auteur retirée",
+          "other": "biographies d'auteurs retirées"
+        }
+      },
+      "memorial": {
+        "added": {
+          "one": "nouvel hommage dans le mémorial",
+          "other": "nouveaux hommages dans le mémorial"
+        },
+        "updated": {
+          "one": "hommage du mémorial mis à jour",
+          "other": "hommages du mémorial mis à jour"
+        },
+        "removed": {
+          "one": "hommage retiré du mémorial",
+          "other": "hommages retirés du mémorial"
+        }
+      },
+      "glossary": {
+        "added": {
+          "one": "nouvelle entrée du glossaire",
+          "other": "nouvelles entrées du glossaire"
+        },
+        "updated": {
+          "one": "entrée du glossaire mise à jour",
+          "other": "entrées du glossaire mises à jour"
+        },
+        "removed": {
+          "one": "entrée du glossaire retirée",
+          "other": "entrées du glossaire retirées"
+        }
+      },
+      "journal": {
+        "added": {
+          "one": "nouvel article dans le journal",
+          "other": "nouveaux articles dans le journal"
+        },
+        "updated": {
+          "one": "article du journal mis à jour",
+          "other": "articles du journal mis à jour"
+        },
+        "removed": {
+          "one": "article retiré du journal",
+          "other": "articles retirés du journal"
+        }
+      },
+      "factChecks": {
+        "added": {
+          "one": "nouvelle vérification",
+          "other": "nouvelles vérifications"
+        },
+        "updated": {
+          "one": "vérification mise à jour",
+          "other": "vérifications mises à jour"
+        },
+        "removed": {
+          "one": "vérification retirée",
+          "other": "vérifications retirées"
+        }
+      },
+      "debates": {
+        "added": {
+          "one": "nouvelle fiche de débat",
+          "other": "nouvelles fiches de débat"
+        },
+        "updated": {
+          "one": "fiche de débat mise à jour",
+          "other": "fiches de débat mises à jour"
+        },
+        "removed": {
+          "one": "fiche de débat retirée",
+          "other": "fiches de débat retirées"
+        }
+      },
+      "fallacies": {
+        "added": {
+          "one": "nouvelle entrée dans le guide des sophismes",
+          "other": "nouvelles entrées dans le guide des sophismes"
+        },
+        "updated": {
+          "one": "entrée mise à jour dans le guide des sophismes",
+          "other": "entrées mises à jour dans le guide des sophismes"
+        },
+        "removed": {
+          "one": "entrée retirée du guide des sophismes",
+          "other": "entrées retirées du guide des sophismes"
+        }
+      },
+      "videos": {
+        "added": {
+          "one": "nouvelle vidéo recommandée",
+          "other": "nouvelles vidéos recommandées"
+        },
+        "updated": {
+          "one": "recommandation de vidéo mise à jour",
+          "other": "recommandations de vidéos mises à jour"
+        },
+        "removed": {
+          "one": "recommandation de vidéo retirée",
+          "other": "recommandations de vidéos retirées"
+        }
+      },
+      "gallery": {
+        "added": {
+          "one": "nouvelle affiche dans la galerie",
+          "other": "nouvelles affiches dans la galerie"
+        },
+        "updated": {
+          "one": "affiche de la galerie mise à jour",
+          "other": "affiches de la galerie mises à jour"
+        },
+        "removed": {
+          "one": "affiche retirée de la galerie",
+          "other": "affiches retirées de la galerie"
+        }
+      },
+      "pages": {
+        "added": {
+          "one": "nouvelle page d'étude",
+          "other": "nouvelles pages d'étude"
+        },
+        "updated": {
+          "one": "page d'étude mise à jour",
+          "other": "pages d'étude mises à jour"
+        },
+        "removed": {
+          "one": "page d'étude retirée",
+          "other": "pages d'étude retirées"
+        }
+      },
+      "start": {
+        "added": {
+          "one": "nouvelle étape dans Par où commencer",
+          "other": "nouvelles étapes dans Par où commencer"
+        },
+        "updated": {
+          "one": "étape mise à jour dans Par où commencer",
+          "other": "étapes mises à jour dans Par où commencer"
+        },
+        "removed": {
+          "one": "étape retirée de Par où commencer",
+          "other": "étapes retirées de Par où commencer"
+        }
+      },
+      "questions": {
+        "added": {
+          "one": "nouvelle question de départ",
+          "other": "nouvelles questions de départ"
+        },
+        "updated": {
+          "one": "question de départ mise à jour",
+          "other": "questions de départ mises à jour"
+        },
+        "removed": {
+          "one": "question de départ retirée",
+          "other": "questions de départ retirées"
+        }
+      },
+      "quotes": {
+        "added": {
+          "one": "nouvelle phrase du jour",
+          "other": "nouvelles phrases du jour"
+        },
+        "updated": {
+          "one": "phrase du jour mise à jour",
+          "other": "phrases du jour mises à jour"
+        },
+        "removed": {
+          "one": "phrase du jour retirée",
+          "other": "phrases du jour retirées"
+        }
+      },
+      "radios": {
+        "added": {
+          "one": "nouvelle station dans Radios du peuple",
+          "other": "nouvelles stations dans Radios du peuple"
+        },
+        "updated": {
+          "one": "station mise à jour dans Radios du peuple",
+          "other": "stations mises à jour dans Radios du peuple"
+        },
+        "removed": {
+          "one": "station retirée de Radios du peuple",
+          "other": "stations retirées de Radios du peuple"
+        }
+      },
+      "news": {
+        "added": {
+          "one": "nouveau média dans la revue de presse",
+          "other": "nouveaux médias dans la revue de presse"
+        },
+        "updated": {
+          "one": "média mis à jour dans la revue de presse",
+          "other": "médias mis à jour dans la revue de presse"
+        },
+        "removed": {
+          "one": "média retiré de la revue de presse",
+          "other": "médias retirés de la revue de presse"
+        }
+      }
+    }
+  },
+  "dedication": {
+    "eyebrow": "Dédicace",
+    "title": "Pour Lúcia",
+    "kind": "nom propre féminin",
+    "etymLabel": "Origine",
+    "etym": "Du latin Lucia, féminin de Lucius, dérivé de lux, lucis : « lumière ».",
+    "senses": [
+      "La lumineuse ; celle qui apporte la lumière.",
+      "Selon la tradition, nom donné dans la Rome antique aux enfants nés à l'aube.",
+      "Dans ce projet : la grand-mère à qui cette bibliothèque est dédiée."
+    ],
+    "related": "De la même racine : lucide, élucider, illuminer.",
+    "text": [
+      "Ce projet porte le nom de Lúcia, la grand-mère de la personne qui l'a créé.",
+      "Elle n'est plus là, mais le nom est resté, et avec lui ce qu'un tel nom promet : la lumière.",
+      "Toute bibliothèque est une façon d'allumer la lumière pour quelqu'un. Que chacun qui apprend quelque chose ici emporte un peu de cette clarté plus loin."
+    ],
+    "closing": "Lúcia, présente.",
+    "sign": "Avec amour et nostalgie.",
+    "bustAlt": "Buste de Lúcia"
+  },
+  "notFound": {
+    "eyebrow": "Erreur 404",
+    "title": "Ce rouleau n'est pas sur l'étagère",
+    "text": "La page a peut-être changé d'adresse ou n'a jamais existé. La bibliothèque, elle, est intacte.",
+    "search": "Chercher dans la bibliothèque",
+    "home": "Page d'accueil"
+  },
+  "a11y": {
+    "button": "Accessibilité",
+    "title": "Accessibilité",
+    "close": "Fermer",
+    "textSize": "Taille du texte",
+    "sizes": [
+      "Normale",
+      "Grande",
+      "Plus grande"
+    ],
+    "contrast": "Contraste élevé",
+    "contrastHint": "Jaune et blanc sur noir, avec des bordures marquées.",
+    "eink": "Mode encre électronique",
+    "einkHint": "Noir et blanc, sans animations. Bon pour les écrans à encre électronique et pour économiser la batterie.",
+    "spacing": "Texte espacé",
+    "spacingHint": "Plus d'espace entre les lettres, les mots et les lignes.",
+    "focus": "Mode concentration",
+    "focusHint": "Cache les menus et le pied de page et ne laisse que le texte.",
+    "read": "Lire à voix haute",
+    "readHint": "Lit le passage sélectionné ou, si rien n'est sélectionné, toute la page.",
+    "readPage": "Lire cette page",
+    "readAgain": "Relire",
+    "stop": "Arrêter",
+    "reading": "Lecture à voix haute",
+    "noSpeech": "Ce navigateur ne sait pas lire à voix haute.",
+    "reset": "Rétablir les réglages",
+    "black": "Noir pur",
+    "blackHint": "Un fond entièrement noir dans le thème sombre : consomme moins de batterie sur les écrans AMOLED.",
+    "light": "Mode léger",
+    "lightHint": "Cache les images et le lecteur de radio, retire les animations et utilise les polices de votre appareil. Bon pour les connexions lentes."
+  },
+  "data": {
+    "eyebrow": "Vos données sont à vous",
+    "title": "Mes données",
+    "lead": "Pas besoin de s'inscrire pour étudier. Ce que le site sait de vos études est gardé dans ce navigateur, et seulement là.",
+    "description": "Téléchargez, restaurez ou effacez la progression gardée dans votre navigateur.",
+    "stored": "Ce qui est gardé ici",
+    "doneLessons": "Cours terminés : {n}",
+    "nothing": "Rien n'est encore gardé.",
+    "export": "Télécharger mes données (JSON)",
+    "import": "Restaurer à partir d'un fichier",
+    "imported": "Données restaurées.",
+    "importFailed": "Ce fichier ne ressemble pas à une copie de vos données.",
+    "clear": "Tout effacer de ce navigateur",
+    "cleared": "Tout a été effacé.",
+    "clearHint": "Efface la progression, les brouillons et les préférences. Utile sur les ordinateurs partagés, comme ceux des cybercafés et des bibliothèques.",
+    "panicTitle": "Sortie rapide",
+    "panic": "Sur n'importe quelle page, appuyez trois fois de suite sur la touche Échap pour quitter le site d'un coup. Sur un téléphone, touchez cinq fois de suite la bande sombre en haut de la page. Tout ce qui est gardé dans ce navigateur est effacé, y compris les pages gardées pour la lecture hors ligne, et une page neutre s'ouvre à la place.",
+    "dumpTitle": "Emportez la bibliothèque",
+    "dump": "Toute la bibliothèque tient dans un seul fichier. Personne ne peut prendre ce savoir en otage.",
+    "dumpLink": "Télécharger toute la bibliothèque (JSON)",
+    "textHint": "Chaque cours existe aussi en texte brut : il suffit d'ajouter /texto à son adresse. Ça marche même depuis le terminal, avec curl.",
+    "trackingTitle": "Zéro pistage",
+    "tracking": "Pas de Google Analytics, pas de pixel de réseau social, pas de cookies publicitaires. Le site ne compte pas les visites et ne mesure pas l'audience. Nous ne vendons pas vos données parce que nous ne les avons pas.",
+    "exitNow": "Sortir maintenant",
+    "purgeTitle": "Tout effacer automatiquement",
+    "purgeNever": "Jamais (seulement quand je le demande)",
+    "purgeAfter": "Après {n} jour(s) sans ouvrir le site",
+    "purgeHint": "Pour qui risque de voir son appareil saisi ou fouillé : une fois le délai passé sans utilisation, le site efface la progression, les brouillons, les préférences, la session et les pages gardées dès qu'il est rouvert. Cela n'efface pas l'historique du navigateur lui-même : pour cela, utilisez une fenêtre privée."
+  },
+  "groups": {
+    "linguagens": "Langues et arts",
+    "ciencias": "Sciences",
+    "tecnologia": "Technologie",
+    "humanidades": "Sciences humaines",
+    "teoria": "Théorie révolutionnaire",
+    "lutas": "Luttes populaires",
+    "percursos": "Alphabétisation et ENEM",
+    "oficios": "Métiers et revenus : apprenez un savoir-faire et vivez-en"
+  },
+  "stages": {
+    "fundamental": "École primaire et collège",
+    "medio": "Lycée",
+    "superior": "Enseignement supérieur"
+  },
+  "study": {
+    "notesTitle": "Mes notes de lecture",
+    "notesHint": "Sélectionnez un passage du cours et choisissez une étiquette pour le garder. Il est gardé uniquement dans ce navigateur.",
+    "tags": [
+      "Concept",
+      "Question",
+      "Citation"
+    ],
+    "notesEmpty": "Aucun passage gardé pour l'instant.",
+    "notesPrint": "Imprimer mes notes",
+    "remove": "Retirer",
+    "selectFirst": "Sélectionnez d'abord un passage du cours.",
+    "zine": "Imprimer en fanzine",
+    "print": "Imprimer le cours",
+    "annotationsTitle": "Notes de la communauté",
+    "annotate": "Annoter le passage sélectionné",
+    "annotatePlaceholder": "Expliquez le passage, donnez du contexte ou indiquez une source.",
+    "save": "Envoyer la note",
+    "cancel": "Annuler",
+    "pending": "en attente de relecture",
+    "goTo": "voir le passage"
+  },
+  "toolNames": {
+    "ide": [
+      "IDE dans le navigateur",
+      "Éditeur avec fichiers, exécution et sortie pour Python, PHP, Web, JavaScript et SQL. Rien ne quitte votre appareil."
+    ],
+    "simulacoes": [
+      "Simulations (PhET)",
+      "Simulations interactives de physique, chimie, biologie et mathématiques de l'université du Colorado, dans le cours."
+    ],
+    "python": [
+      "Python dans le navigateur",
+      "Écrivez et exécutez du code Python sans rien installer."
+    ],
+    "php": [
+      "PHP dans le navigateur",
+      "Testez vos scripts PHP directement sur la page."
+    ],
+    "afinador": [
+      "Accordeur",
+      "Accordez une guitare, un cavaquinho, votre voix ou n'importe quel instrument avec le microphone."
+    ],
+    "metronomo": [
+      "Métronome",
+      "Bat la mesure pour que vous vous entraîniez au bon tempo."
+    ],
+    "teclado": [
+      "Clavier",
+      "Un piano de deux octaves pour entendre des notes, des gammes et des accords."
+    ],
+    "leitura-de-notas": [
+      "Lecture de notes",
+      "Entraînez-vous à reconnaître les notes sur la portée, en clé de sol et en clé de fa."
+    ],
+    "tabela-periodica": [
+      "Tableau périodique",
+      "Les 118 éléments, avec masse, famille et configuration électronique."
+    ],
+    "calculadora": [
+      "Calculatrice scientifique",
+      "Puissances, racines, logarithmes et trigonométrie."
+    ],
+    "juros-compostos": [
+      "Intérêts composés",
+      "Voyez combien l'épargne grandit et combien coûte une dette."
+    ],
+    "bases-numericas": [
+      "Bases numériques",
+      "Convertissez entre décimal, binaire, octal et hexadécimal, pas à pas."
+    ],
+    "pronuncia": [
+      "Prononciation",
+      "Écoutez n'importe quelle phrase en anglais, espagnol, chinois ou russe, à la vitesse voulue."
+    ],
+    "dicionario": [
+      "Dictionnaire",
+      "Le sens des mots en portugais et en anglais, avec la source de chaque définition."
+    ],
+    "frases": [
+      "Phrases traduites",
+      "De vraies phrases en anglais, français et espagnol, avec la traduction à côté."
+    ],
+    "graficos": [
+      "Graphiques et algèbre",
+      "Tracez des fonctions, simplifiez des expressions et calculez des dérivées."
+    ],
+    "resolvedor": [
+      "Solveur pas à pas",
+      "Fractions, pourcentages, règle de trois, équations du premier et du second degré et systèmes, expliqués pas à pas."
+    ],
+    "estatistica": [
+      "Statistique",
+      "Moyenne, médiane, mode, écart type, quartiles et histogramme d'une liste de nombres."
+    ],
+    "conversor-de-unidades": [
+      "Convertisseur d'unités",
+      "Longueur, aire, masse, temps, température, énergie et plus, avec le calcul affiché."
+    ],
+    "tabela-verdade": [
+      "Table de vérité",
+      "Construisez la table de n'importe quelle proposition et voyez si c'est une tautologie, une contradiction ou une contingence."
+    ],
+    "massa-molar": [
+      "Masse molaire",
+      "La masse molaire de n'importe quelle formule et le pourcentage de chaque élément."
+    ],
+    "balanceamento": [
+      "Équilibrage d'équations",
+      "Les plus petits coefficients entiers, vérifiés atome par atome."
+    ],
+    "punnett": [
+      "Échiquier de Punnett",
+      "Croisements à un ou deux gènes et hérédité liée à l'X, avec les proportions."
+    ],
+    "sistema-solar": [
+      "Système solaire",
+      "Tailles et distances, combien vous pèseriez sur chaque planète et combien de temps met la lumière du Soleil pour arriver."
+    ],
+    "html": [
+      "Atelier HTML",
+      "Écrivez du HTML, du CSS et du JavaScript et voyez le résultat à côté."
+    ],
+    "cronometro": [
+      "Minuteur d'étude",
+      "Pomodoro, les durées de l'ENEM et un chronomètre simple."
+    ],
+    "redacao": [
+      "Feuille de rédaction",
+      "Écrivez au format de l'ENEM, comptez mots et lignes et relisez selon les cinq compétences."
+    ],
+    "silabario": [
+      "Syllabaire",
+      "Des lettres et des syllabes qui parlent quand on les touche, pour apprendre à lire (en portugais)."
+    ],
+    "cores": [
+      "Couleurs et contraste",
+      "Harmonies, conversion HEX, RGB et HSL et contraste pour la lisibilité."
+    ],
+    "escala-cartografica": [
+      "Échelle cartographique",
+      "De la carte au terrain et retour, avec le calcul."
+    ],
+    "fusos-horarios": [
+      "Fuseaux horaires",
+      "L'heure qu'il est maintenant dans des villes du Brésil et du monde."
+    ],
+    "mais-valia": [
+      "Plus-value",
+      "Quelle part de la journée de travail paie le salaire et quelle part va au patron, d'après Marx."
+    ],
+    "rcp": [
+      "Rythme de la RCP",
+      "Le rythme des compressions thoraciques et les étapes pour les témoins. Ne remplace pas une formation."
+    ],
+    "frequencia-cardiaca": [
+      "Fréquence cardiaque",
+      "Fréquence cardiaque maximale estimée et zones d'effort pour l'entraînement."
+    ]
+  },
+  "tools": {
+    "eyebrow": "Pratique",
+    "title": "Outils de pratique",
+    "lead": "Pour pratiquer ce que les cours enseignent. Tout fonctionne sur votre appareil : rien de ce que vous tapez, jouez ou dites n'est envoyé ailleurs.",
+    "usedIn": "Utilisé dans :",
+    "code": {
+      "code": "Code",
+      "input": "Entrées, une par ligne (pour les programmes qui lisent des entrées)",
+      "run": "Exécuter",
+      "stop": "Arrêter",
+      "stopped": "Exécution arrêtée.",
+      "timeout": "Le programme a tourné plus de 15 secondes et a été arrêté. Vérifiez s'il n'y a pas une boucle sans fin.",
+      "failed": "L'interpréteur n'a pas pu être chargé. Rechargez la page et réessayez.",
+      "loading": "Chargement de l'interpréteur (la première fois seulement)…",
+      "running": "Exécution…",
+      "shortcut": "Raccourci : Ctrl + Entrée",
+      "output": "Sortie",
+      "empty": "La sortie du programme apparaît ici.",
+      "note": "Le code s'exécute dans votre navigateur, sans rien installer ni rien envoyer à des serveurs. Il n'a pas accès aux fichiers de votre appareil."
+    },
+    "music": {
+      "start": "Démarrer",
+      "stop": "Arrêter",
+      "micDenied": "Le microphone n'a pas pu être utilisé. Autorisez l'accès dans les réglages du navigateur.",
+      "listen": "Jouez ou chantez une note",
+      "inTune": "Juste",
+      "tooLow": "Trop bas : montez la note",
+      "tooHigh": "Trop haut : descendez la note",
+      "tunerNote": "Le son du microphone est analysé sur votre appareil ; il n'est ni enregistré ni envoyé. Référence : la = 440 Hz.",
+      "bpm": "battements par minute",
+      "tempo": "Tempo",
+      "beats": "Temps par mesure",
+      "keyboardNote": "Jouez avec le doigt ou la souris. Sur ordinateur, les touches A S D F G H J K L jouent les notes blanches, et W E T Y U O P les noires.",
+      "clefG": "Clé de sol",
+      "clefF": "Clé de fa",
+      "whichNote": "Quelle est cette note ?",
+      "right": "C'est juste !",
+      "wrong": "C'était {note}.",
+      "score": "{a} sur {b} justes",
+      "notes": [
+        "do",
+        "ré",
+        "mi",
+        "fa",
+        "sol",
+        "la",
+        "si"
+      ]
+    },
+    "table": {
+      "search": "Chercher un élément (nom, symbole ou numéro)",
+      "number": "Numéro atomique",
+      "mass": "Masse atomique",
+      "config": "Configuration électronique",
+      "state": "État physique dans les conditions normales",
+      "groups": {
+        "nao-metal": "Non-métaux",
+        "gas-nobre": "Gaz nobles",
+        "metal-alcalino": "Métaux alcalins",
+        "alcalino-terroso": "Métaux alcalino-terreux",
+        "semimetal": "Métalloïdes",
+        "halogenio": "Halogènes",
+        "outro-metal": "Métaux pauvres",
+        "metal-de-transicao": "Métaux de transition",
+        "lantanideo": "Lanthanides",
+        "actinideo": "Actinides"
+      },
+      "states": {
+        "Gas": "Gaz",
+        "Solid": "Solide",
+        "Liquid": "Liquide",
+        "Expected to be a Solid": "Solide (prévu)",
+        "Expected to be a Gas": "Gaz (prévu)"
+      },
+      "source": "Données : PubChem, des Instituts nationaux de la santé des États-Unis."
+    },
+    "calc": {
+      "expression": "Calcul",
+      "placeholder": "ex. : (2 + 3) × 4 ^ 2",
+      "result": "Calculer",
+      "invalid": "Ce calcul n'a pas pu être compris. Vérifiez les parenthèses et les signes.",
+      "help": "Accepte + − × ÷, les puissances (^), le pourcentage (%), la factorielle (!), les parenthèses, π, e, ans (le dernier résultat) et les fonctions sqrt( ), sin( ), cos( ), tan( ), les inverses sin⁻¹, cos⁻¹ et tan⁻¹, log( ) en base 10 et ln( ). La virgule sépare les décimales.",
+      "history": "Calculs précédents",
+      "clear": "Effacer",
+      "erase": "Supprimer le dernier caractère",
+      "angle": "Unité d'angle",
+      "degrees": "Degrés",
+      "radians": "Radians",
+      "sin": "sin",
+      "decimal": ",",
+      "steps": "Pas à pas",
+      "stepsCopy": "Copier le développement pour le coller dans un cours",
+      "stepsCopied": "Copié. Collez-le dans le texte du cours : il apparaît mis en forme.",
+      "memory": "Mémoire",
+      "memoryClear": "Effacer la mémoire",
+      "memoryRecall": "Utiliser le nombre en mémoire",
+      "memoryAdd": "Ajouter le dernier résultat à la mémoire",
+      "memorySubtract": "Soustraire le dernier résultat de la mémoire"
+    },
+    "interest": {
+      "initial": "Montant de départ",
+      "monthly": "Versement par mois",
+      "rate": "Taux d'intérêt (%)",
+      "perMonth": "par mois",
+      "perYear": "par an",
+      "months": "Durée, en mois",
+      "total": "Total à la fin",
+      "invested": "Total versé",
+      "earned": "Intérêts",
+      "compare": "Avec des intérêts simples au même taux, le total serait de {simple} : {diff} de moins.",
+      "month": "Mois",
+      "invalid": "Vérifiez les valeurs : utilisez des nombres positifs et une durée entre 1 et 1200 mois.",
+      "note": "Les intérêts composés sont des intérêts sur les intérêts : chaque mois, le taux s'applique à tout ce qui a été accumulé. C'est ainsi que l'épargne grossit, et c'est aussi ainsi que la dette de carte de crédit explose. Le calcul suppose que le versement est fait à la fin de chaque mois."
+    },
+    "bases": {
+      "number": "Nombre",
+      "base": "Il est écrit en",
+      "decimal": "Décimal",
+      "binary": "Binaire",
+      "octal": "Octal",
+      "hex": "Hexadécimal",
+      "expansion": "Comment arriver au décimal",
+      "division": "Comment arriver au binaire",
+      "remainder": "reste",
+      "readUp": "Lisez les restes de bas en haut : c'est le nombre en binaire.",
+      "invalid": "Ce nombre n'existe pas dans la base choisie ({base}). Vérifiez les chiffres.",
+      "note": "Un ordinateur stocke tout en binaire, avec 0 et 1. L'hexadécimal est une façon courte d'écrire le binaire : chaque chiffre hexadécimal représente quatre bits."
+    },
+    "speak": {
+      "text": "Phrase",
+      "language": "Langue",
+      "speed": "Vitesse",
+      "speak": "Écouter",
+      "slow": "Écouter lentement",
+      "stop": "Arrêter",
+      "noVoice": "Votre appareil n'a pas de voix installée pour cette langue. Installez le pack de voix dans les réglages du système ou essayez un autre navigateur.",
+      "unsupported": "Ce navigateur ne sait pas lire à voix haute.",
+      "note": "La voix est celle de votre appareil : la qualité varie d'un appareil à l'autre, et rien de ce que vous écrivez n'est envoyé ailleurs. Écoutez, répétez à voix haute et comparez."
+    },
+    "dictionary": {
+      "word": "Mot",
+      "language": "Dictionnaire",
+      "search": "Chercher",
+      "none": "Nous n'avons pas trouvé ce mot. Vérifiez l'orthographe.",
+      "fail": "Le dictionnaire n'a pas répondu pour le moment. Réessayez dans un instant.",
+      "source": "Source :",
+      "oldSpelling": "définitions de 1913, avec l'orthographe de l'époque"
+    },
+    "sentences": {
+      "word": "Mot ou expression",
+      "from": "Phrase en",
+      "to": "Traduction en",
+      "search": "Chercher",
+      "none": "Aucune phrase trouvée. Essayez un mot plus courant.",
+      "fail": "Tatoeba n'a pas répondu pour le moment. Réessayez dans un instant.",
+      "same": "Choisissez deux langues différentes."
+    },
+    "graphs": {
+      "loading": "Chargement de la calculatrice…",
+      "invalid": "Nous n'avons pas compris cette expression. Utilisez x, +, -, *, /, ^ et des fonctions comme sin(x) ou sqrt(x).",
+      "from": "x de",
+      "to": "à",
+      "badRange": "Le début doit être plus petit que la fin.",
+      "algebra": "Simplifier et dériver",
+      "expression": "Expression en x",
+      "simplified": "Simplifiée",
+      "derivative": "Dérivée",
+      "hint": "Tapez comme sur une calculatrice : 3x^2 + 2x - 1, sqrt(x), sin(x), log(x), e. Utilisez un point ou une virgule pour les décimales."
+    },
+    "universal": "Un outil pour n'importe quel cours : il est toujours dans la boîte à outils des cours.",
+    "box": {
+      "open": "Outils",
+      "openLabel": "Ouvrir la boîte à outils de ce cours",
+      "title": "Boîte à outils",
+      "close": "Fermer",
+      "choose": "Choisissez un outil",
+      "bigger": "Plus haut",
+      "smaller": "Plus bas",
+      "suggested": "suggéré pour ce cours"
+    },
+    "solver": {
+      "modes": {
+        "conta": "Expression ou équation",
+        "porcentagem": "Pourcentage",
+        "regra": "Règle de trois"
+      },
+      "input": "Expression, équation ou système",
+      "placeholder": "Ex. : 1/2 + 3/4   ·   2x + 3 = 11   ·   x² − 5x + 6 = 0",
+      "keys": "Touches de maths",
+      "erase": "Supprimer le dernier caractère",
+      "solve": "Résoudre",
+      "complex": "Montrer les racines complexes quand Δ est négatif",
+      "method": "Résoudre les systèmes par",
+      "addition": "combinaison",
+      "substitution": "substitution",
+      "help": "Fractions avec une barre (3/4) ; pour diviser, utilisez ÷. Puissances avec ^ ou ² (x^2, x²). Deux équations en x et y, séparées par un point-virgule ou sur des lignes différentes, forment un système.",
+      "examples": "Exemples",
+      "answer": "Réponse",
+      "approx": "En décimal",
+      "steps": "Pas à pas",
+      "copy": "Copier les étapes",
+      "copied": "Copié.",
+      "photo": {
+        "button": "Photo de l'exercice",
+        "label": "Prendre ou choisir une photo de l'exercice",
+        "warning": "La photo va vers un service d'intelligence artificielle d'une autre entreprise (Anthropic), qui lit l'exercice et explique comment le résoudre. Photographiez seulement l'exercice, sans noms ni visages. L'Institut Lúcia ne garde pas la photo.",
+        "reading": "Lecture de la photo… cela peut prendre jusqu'à une minute.",
+        "read": "Ce que l'assistant a lu sur la photo",
+        "solveHere": "Le résoudre ici, pas à pas",
+        "explanation": "L'explication de l'assistant",
+        "mayErr": "Lecture et explication automatiques, qui peuvent contenir des erreurs. Vérifiez la transcription avant de vous fier au calcul.",
+        "refused": "L'assistant n'a pas pu aider avec cette photo.",
+        "cut": "L'explication était trop longue et a été coupée à la fin.",
+        "left": "Questions à l'assistant restantes aujourd'hui : {n}."
+      },
+      "pct": {
+        "de": "Combien font p % d'une valeur",
+        "quanto": "Une partie représente quel % du tout",
+        "variacao": "Hausse ou remise",
+        "percent": "Pourcentage (%)",
+        "part": "Partie",
+        "whole": "Tout",
+        "value": "Valeur",
+        "increase": "Hausse",
+        "discount": "Remise"
+      },
+      "rule": {
+        "a": "Si cette valeur…",
+        "b": "…correspond à celle-ci,",
+        "c": "alors cette valeur…",
+        "direct": "Directement proportionnelles : l'une augmente et l'autre augmente avec elle (plus de pain, plus de farine).",
+        "inverse": "Inversement proportionnelles : l'une augmente et l'autre diminue (plus de maçons, moins de jours de travail).",
+        "help": "Vérifiez d'abord que les grandeurs sont vraiment proportionnelles : l'âge et la taille, par exemple, ne le sont pas."
+      },
+      "errors": {
+        "vazio": "Tapez d'abord le calcul.",
+        "leitura": "Ce n'est pas compréhensible. Vérifiez les parenthèses, les signes et qu'il n'y a qu'un seul signe égal.",
+        "divisao": "Division par zéro : elle n'existe pas.",
+        "nao_suportado": "Le solveur ne sait pas encore faire cela (racines, fonctions, x au dénominateur). Pour les calculs avec des décimales, utilisez la calculatrice.",
+        "grau": "Les équations de degré supérieur à 2 ne sont pas encore résolues ici.",
+        "variavel": "Utilisez seulement la lettre x dans une équation (x et y seulement dans les systèmes de deux équations).",
+        "sistema": "Un système, ici, a exactement deux équations, en x et y.",
+        "numero": "Tapez des nombres (avec une virgule ou un point pour les décimales)."
+      },
+      "stepTexts": {
+        "expressao": "Le calcul :",
+        "mmc": "Pour additionner ou soustraire des fractions, il faut le même dénominateur. Le PPCM de {a} et {b} est {m} :",
+        "somar": "Additionnez :",
+        "subtrair": "Soustrayez :",
+        "somar_fracoes": "Avec le même dénominateur ({d}), additionnez les numérateurs :",
+        "subtrair_fracoes": "Avec le même dénominateur ({d}), soustrayez les numérateurs :",
+        "multiplicar": "Multipliez :",
+        "multiplicar_fracoes": "Multipliez numérateur par numérateur et dénominateur par dénominateur :",
+        "dividir": "Divisez :",
+        "inversa": "Diviser par {f} revient à multiplier par son inverse, {i} :",
+        "potencia": "Calculez la puissance (exposant {e}) :",
+        "potencia_negativa": "Exposant négatif : inversez la base et utilisez l'exposant positif :",
+        "simplificar": "Simplifiez {de} en divisant le haut et le bas par {g} : {para}",
+        "em_decimal": "En décimal : {valor}",
+        "misto": "En nombre mixte : {inteiro} et {fracao}",
+        "equacao": "L'équation :",
+        "organizar": "Rangez chaque membre (développez les parenthèses et regroupez les termes semblables) :",
+        "transpor": "Passez les termes en x à gauche et les nombres à droite, en changeant le signe quand ils changent de côté :",
+        "identidade": "Les deux membres sont égaux pour tout x : l'équation a une infinité de solutions.",
+        "impossivel": "Les termes en x s'annulent et il reste une égalité fausse : l'équation n'a pas de solution.",
+        "juntar": "Regroupez les termes de chaque membre :",
+        "dividir_lados": "Divisez les deux membres par {a} :",
+        "resultado": "Résultat :",
+        "conferir": "Vérification : remplacez x par {x} dans l'équation de départ et constatez que les deux membres donnent le même nombre.",
+        "igualar_zero": "C'est une équation du second degré. Passez tout d'un côté, en laissant zéro de l'autre :",
+        "tirar_fracoes": "Multipliez tout par {m} pour éliminer les fractions :",
+        "coeficientes": "Les coefficients : a = {a}, b = {b}, c = {c}.",
+        "delta": "Calculez le discriminant, Δ = b² − 4ac :",
+        "delta_negativo": "Δ est négatif : il n'y a pas de racine réelle (aucun nombre réel au carré n'est négatif).",
+        "complexas": "Dans les nombres complexes, avec i = √−1 :",
+        "raiz_dupla": "Δ = 0 : les deux racines sont égales (racine double), x = −b ÷ 2a :",
+        "bhaskara": "Δ est positif : il y a deux racines réelles. Par la formule du second degré, x = (−b ± √Δ) ÷ 2a :",
+        "raiz_exata": "√{delta} = {raiz}. Les deux racines :",
+        "simplificar_raiz": "Simplifiez la racine : {delta} a un facteur carré parfait, donc √{delta} = {fora}√{dentro} :",
+        "simplificar_fracao_raiz": "Divisez tout par {g} :",
+        "aproximar": "En décimal : x₁ ≈ {x1} et x₂ ≈ {x2}.",
+        "sistema": "Le système :",
+        "sistema_impossivel": "Les deux équations sont des droites parallèles : le système n'a pas de solution (impossible).",
+        "sistema_indeterminado": "Les deux équations sont la même droite : le système a une infinité de solutions (indéterminé).",
+        "isolar_direto": "Une des équations n'a que x : résolvez-la d'abord.",
+        "multiplicar_equacoes": "Multipliez la première équation par {f1} et la seconde par {f2}, pour que les termes en y deviennent opposés :",
+        "somar_equacoes": "Additionnez les deux équations : les termes en y s'annulent.",
+        "achar_x": "Trouvez x :",
+        "isolar": "Isolez {letra} dans la première équation :",
+        "substituir": "Remplacez dans la seconde équation et résolvez :",
+        "voltar": "Revenez à une des équations pour trouver l'autre lettre :",
+        "conferir_sistema": "Vérification : avec x = {x} et y = {y}, les deux équations sont vraies.",
+        "pct_ideia": "{p} % veut dire {p} sur 100 : multipliez par la valeur et divisez par 100.",
+        "pct_conta": "Le calcul :",
+        "pct_parte": "Divisez la partie par le tout :",
+        "pct_vezes_cem": "Multipliez par 100 pour obtenir le pourcentage :",
+        "pct_somar": "Ajoutez-le à la valeur :",
+        "pct_tirar": "Retirez-le de la valeur :",
+        "pct_fator": "Ou directement, en multipliant par le facteur {fator} :",
+        "regra_direta": "Grandeurs directement proportionnelles (l'une augmente, l'autre augmente avec elle) :",
+        "regra_inversa": "Grandeurs inversement proportionnelles (l'une augmente, l'autre diminue) :",
+        "regra_produto_cruzado": "Faites le produit en croix :",
+        "regra_produto_inverso": "En proportion inverse, le produit reste le même : multipliez le long des lignes :",
+        "regra_isolar": "Isolez x :"
+      }
+    },
+    "units": {
+      "quantity": "Grandeur",
+      "value": "Valeur",
+      "from": "De",
+      "to": "Vers",
+      "swap": "Inverser les unités",
+      "factor": "1 {de} = {f} {para}",
+      "formula": "Formule",
+      "invalid": "Tapez un nombre.",
+      "below": "Il n'existe pas de température en dessous du zéro absolu (−273,15 °C).",
+      "regional": "L'alqueire est une unité régionale au Brésil et varie d'un endroit à l'autre : vérifiez laquelle vaut dans votre région. Les documents officiels utilisent l'hectare.",
+      "quantities": {
+        "comprimento": "Longueur",
+        "area": "Aire",
+        "volume": "Volume",
+        "massa": "Masse",
+        "tempo": "Temps",
+        "temperatura": "Température",
+        "velocidade": "Vitesse",
+        "energia": "Énergie",
+        "pressao": "Pression",
+        "potencia": "Puissance",
+        "dados": "Données numériques"
+      },
+      "unitNames": {
+        "mm": "millimètre (mm)",
+        "cm": "centimètre (cm)",
+        "m": "mètre (m)",
+        "km": "kilomètre (km)",
+        "pol": "pouce (in)",
+        "pe": "pied (ft)",
+        "jarda": "yard",
+        "milha": "mille",
+        "milha_nautica": "mille marin",
+        "mm2": "millimètre carré (mm²)",
+        "cm2": "centimètre carré (cm²)",
+        "m2": "mètre carré (m²)",
+        "ha": "hectare (ha)",
+        "km2": "kilomètre carré (km²)",
+        "alqueire_sp": "alqueire (São Paulo)",
+        "alqueire_mg": "alqueire (Minas Gerais)",
+        "pe2": "pied carré",
+        "acre": "acre",
+        "ml": "millilitre (mL)",
+        "cm3": "centimètre cube (cm³)",
+        "l": "litre (L)",
+        "dm3": "décimètre cube (dm³)",
+        "m3": "mètre cube (m³)",
+        "galao_us": "gallon américain",
+        "mg": "milligramme (mg)",
+        "g": "gramme (g)",
+        "kg": "kilogramme (kg)",
+        "t": "tonne (t)",
+        "arroba": "arroba (15 kg)",
+        "lb": "livre (lb)",
+        "oz": "once (oz)",
+        "s": "seconde (s)",
+        "min": "minute (min)",
+        "h": "heure (h)",
+        "dia": "jour",
+        "semana": "semaine",
+        "ano": "année (365,25 jours)",
+        "c": "degré Celsius (°C)",
+        "f": "degré Fahrenheit (°F)",
+        "k": "kelvin (K)",
+        "m_s": "mètre par seconde (m/s)",
+        "km_h": "kilomètre par heure (km/h)",
+        "mph": "mille par heure (mph)",
+        "no": "nœud",
+        "j": "joule (J)",
+        "kj": "kilojoule (kJ)",
+        "cal": "calorie (cal)",
+        "kcal": "kilocalorie (kcal)",
+        "wh": "wattheure (Wh)",
+        "kwh": "kilowattheure (kWh)",
+        "ev": "électronvolt (eV)",
+        "pa": "pascal (Pa)",
+        "kpa": "kilopascal (kPa)",
+        "bar": "bar",
+        "atm": "atmosphère (atm)",
+        "mmhg": "millimètre de mercure (mmHg)",
+        "psi": "livre par pouce carré (psi)",
+        "w": "watt (W)",
+        "kw": "kilowatt (kW)",
+        "cv": "cheval-vapeur (ch)",
+        "hp": "horsepower (hp)",
+        "bit": "bit",
+        "byte": "octet (o)",
+        "kb": "kilooctet (ko, mille octets)",
+        "mb": "mégaoctet (Mo)",
+        "gb": "gigaoctet (Go)",
+        "tb": "téraoctet (To)",
+        "kib": "kibioctet (Kio, 1 024 octets)",
+        "mib": "mébioctet (Mio)",
+        "gib": "gibioctet (Gio)"
+      },
+      "formulas": {
+        "c_f": "°F = °C × 9/5 + 32",
+        "f_c": "°C = (°F − 32) × 5/9",
+        "c_k": "K = °C + 273,15",
+        "k_c": "°C = K − 273,15",
+        "f_k": "K = (°F − 32) × 5/9 + 273,15",
+        "k_f": "°F = (K − 273,15) × 9/5 + 32",
+        "igual": "même unité"
+      }
+    },
+    "molar": {
+      "formula": "Formule",
+      "placeholder": "Ex. : H2SO4, Ca(OH)2, CuSO4·5H2O",
+      "help": "Une majuscule commence chaque élément (Co est le cobalt ; CO, carbone et oxygène). Utilisez des parenthèses et des crochets pour les groupes et le point (·) pour l'eau d'hydratation.",
+      "result": "Masse molaire",
+      "element": "Élément",
+      "count": "Atomes",
+      "mass": "Masse atomique",
+      "subtotal": "Calcul",
+      "percent": "% en masse",
+      "source": "Masses atomiques : les mêmes que celles du tableau périodique du site (IUPAC).",
+      "errors": {
+        "vazio": "Tapez une formule.",
+        "simbolo": "Il y a un symbole qui ne fait pas partie d'une formule chimique.",
+        "elemento": "L'élément {x} n'existe pas.",
+        "parentese": "Vérifiez les parenthèses et les crochets.",
+        "carga": "Les ions chargés ne sont pas encore acceptés ici."
+      }
+    },
+    "balance": {
+      "equation": "Équation",
+      "placeholder": "Ex. : CH4 + O2 -> CO2 + H2O",
+      "balance": "Équilibrer",
+      "help": "Séparez les substances par + et les deux membres par -> (ou →). Comme aucun atome ne disparaît ni n'apparaît de nulle part (loi de Lavoisier), chaque élément donne une équation ; la réponse est le plus petit ensemble de coefficients entiers qui les satisfait toutes.",
+      "balanced": "Équilibrée",
+      "check": "Vérification : atomes de chaque côté",
+      "element": "Élément",
+      "left": "Réactifs",
+      "right": "Produits",
+      "errors": {
+        "vazio": "Tapez l'équation.",
+        "simbolo": "Il y a un symbole qui ne fait pas partie d'une formule chimique.",
+        "elemento": "L'élément {x} n'existe pas.",
+        "parentese": "Vérifiez les parenthèses et les crochets.",
+        "carga": "Les ions chargés ne sont pas encore acceptés ici.",
+        "seta": "Mettez une flèche (-> ou →) entre les réactifs et les produits.",
+        "lado": "Il manque un côté de l'équation.",
+        "sem_solucao": "Telle qu'elle est écrite, cette réaction ne s'équilibre pas : vérifiez les formules.",
+        "varias_solucoes": "Cette équation peut être équilibrée de plusieurs façons indépendantes (on dirait deux réactions ensemble). Séparez les réactions."
+      }
+    },
+    "punnett": {
+      "title": "Échiquier de Punnett",
+      "mother": "Premier parent (la mère, pour les caractères liés à l'X)",
+      "father": "Second parent (le père, pour les caractères liés à l'X)",
+      "cross": "Croiser",
+      "help": "Une majuscule est l'allèle dominant ; une minuscule, le récessif. Un gène : Aa. Deux gènes : AaBb. Lié à l'X : XAXa (femelle) et XAY (mâle).",
+      "examples": "Exemples",
+      "genotypes": "Génotypes",
+      "phenotypes": "Phénotypes",
+      "ratio": "Proportion",
+      "dominant": "caractère dominant ({g})",
+      "recessive": "caractère récessif ({g})",
+      "sex": {
+        "homem": "Homme",
+        "mulher": "Femme"
+      },
+      "status": {
+        "normal": "sans le caractère",
+        "portadora": "porteuse (ne montre pas le caractère, mais le transmet)",
+        "afetado": "avec le caractère"
+      },
+      "explainMono": "Chaque parent transmet un allèle de chaque gène, au hasard (première loi de Mendel). Chaque case de l'échiquier a la même chance : la proportion des phénotypes est la chance que chaque enfant naisse avec ce caractère.",
+      "explainDi": "Avec deux gènes sur des chromosomes différents, les allèles se séparent indépendamment (deuxième loi de Mendel) : c'est pourquoi un croisement dihybride a 16 cases et, entre deux hétérozygotes, la proportion 9 : 3 : 3 : 1.",
+      "explainX": "Dans l'hérédité liée à l'X, les hommes n'ont qu'un X : un seul allèle récessif suffit pour que le caractère apparaisse. C'est pourquoi le daltonisme et l'hémophilie sont plus fréquents chez les hommes.",
+      "errors": {
+        "vazio": "Tapez les deux génotypes.",
+        "genotipo": "Ce génotype n'a pas pu être compris. Écrivez les allèles par paires : Aa, AaBb, XAXa, XAY.",
+        "genes_diferentes": "Les deux parents doivent avoir les mêmes gènes (les mêmes lettres).",
+        "muitos_genes": "Jusqu'à deux gènes ici (AaBb).",
+        "sexo": "Pour les caractères liés à l'X, le premier génotype est celui de la mère (XX) et le second celui du père (XY)."
+      }
+    },
+    "stats": {
+      "numbers": "Nombres",
+      "placeholder": "Ex. : 7,5 ; 8 ; 6 ; 9,5 ; 7",
+      "help": "Séparez par des points-virgules, des espaces ou un nombre par ligne : la virgule est alors la marque décimale. Avec seulement des virgules entre les nombres, utilisez le point pour les décimales.",
+      "n": "Effectif (n)",
+      "sum": "Somme",
+      "mean": "Moyenne",
+      "median": "Médiane",
+      "mode": "Mode",
+      "noMode": "aucun (pas de mode)",
+      "min": "Plus petite valeur",
+      "max": "Plus grande valeur",
+      "range": "Étendue",
+      "q1": "Premier quartile (Q1)",
+      "q3": "Troisième quartile (Q3)",
+      "varPop": "Variance de la population",
+      "sdPop": "Écart type de la population",
+      "varSample": "Variance de l'échantillon",
+      "sdSample": "Écart type de l'échantillon",
+      "whichSd": "Utilisez la version population quand les nombres sont le groupe entier (toutes les notes d'une classe) et la version échantillon, avec n − 1, quand ils sont un échantillon d'un groupe plus grand.",
+      "quartiles": "Quartiles par la méthode de la médiane des moitiés, celle des manuels scolaires. Les tableurs utilisent d'autres méthodes et peuvent donner des valeurs un peu différentes.",
+      "histogram": "Histogramme",
+      "classes": "classes selon la règle de Sturges",
+      "classesNote": "Chaque classe comprend son début mais pas sa fin (⊢) ; la dernière comprend aussi la plus grande valeur.",
+      "errors": {
+        "vazio": "Tapez au moins un nombre.",
+        "numero": "« {x} » n'a pas pu être lu comme un nombre."
+      }
+    },
+    "truth": {
+      "formula": "Proposition",
+      "placeholder": "Ex. : (p → q) ∧ p → q",
+      "clear": "Effacer",
+      "help": "¬ non (~ ou !), ∧ et (&), ∨ ou (|), ⊕ ou exclusif (xor), → si… alors (->), ↔ si et seulement si (<->). Les propositions sont des lettres minuscules (sauf e, v et f). V = vrai, F = faux.",
+      "true": "V",
+      "false": "F",
+      "result": {
+        "tautologia": "Tautologie : vraie à chaque ligne.",
+        "contradicao": "Contradiction : fausse à chaque ligne.",
+        "contingencia": "Contingence : vraie à certaines lignes et fausse à d'autres."
+      },
+      "errors": {
+        "vazio": "Tapez une proposition.",
+        "simbolo": "Il y a un symbole qui n'est ni un connecteur ni une proposition.",
+        "parentese": "Vérifiez les parenthèses.",
+        "falta": "Il manque quelque chose : un connecteur sans ses deux côtés, par exemple.",
+        "muitas": "Jusqu'à six propositions ici (64 lignes)."
+      }
+    },
+    "solar": {
+      "weight": "Votre poids sur Terre (kg)",
+      "scale": "Tailles à l'échelle",
+      "body": "Astre",
+      "diameter": "Diamètre",
+      "gravity": "Gravité",
+      "distance": "Distance moyenne au Soleil",
+      "light": "La lumière du Soleil met",
+      "yourWeight": "Sur une balance là-bas",
+      "names": {
+        "mercurio": "Mercure",
+        "venus": "Vénus",
+        "terra": "Terre",
+        "lua": "Lune",
+        "marte": "Mars",
+        "jupiter": "Jupiter",
+        "saturno": "Saturne",
+        "urano": "Uranus",
+        "netuno": "Neptune",
+        "plutao": "Pluton"
+      },
+      "notes": "La Lune est à 384 000 km de la Terre. Pluton est classée planète naine depuis 2006. Jupiter, Saturne, Uranus et Neptune n'ont pas de sol solide : leur gravité est donnée au sommet des nuages. Ce qui change sur la balance n'est pas votre masse : c'est la force avec laquelle chaque astre vous attire.",
+      "source": "Données : NASA, Planetary Fact Sheet.",
+      "seconds": "{s} s",
+      "minutes": "{m} min {s} s",
+      "hours": "{h} h {m} min"
+    },
+    "timer": {
+      "modes": {
+        "pomodoro": "Pomodoro",
+        "enem": "Examen Enem",
+        "livre": "Chronomètre"
+      },
+      "focus": "Concentration",
+      "break": "Pause",
+      "minutes": "minutes",
+      "round": "tour {n}",
+      "start": "Démarrer",
+      "pause": "Pause",
+      "resume": "Reprendre",
+      "reset": "Remettre à zéro",
+      "done": "Temps écoulé.",
+      "sound": "Bip à la fin",
+      "dia1": "Jour 1 : Langues, Sciences humaines et Rédaction (5 h 30 min)",
+      "dia2": "Jour 2 : Sciences de la nature et Mathématiques (5 h)",
+      "enemNote": "Horaires de l'avis officiel de l'Enem 2026 publié par l'Inep, l'organisme brésilien des examens nationaux. À l'examen, le chronomètre démarre quand le surveillant l'autorise ; les candidats qui y ont droit ont du temps supplémentaire. S'entraîner avec le vrai temps aide à se répartir pendant l'épreuve.",
+      "help": "Pomodoro : des blocs de concentration (25 minutes, c'est la durée classique) avec de courtes pauses entre eux. Ajustez les temps à ce qui vous convient.",
+      "freeHelp": "Montre combien de temps s'est écoulé. Utile pour chronométrer une question ou une lecture."
+    },
+    "essay": {
+      "sheet": "Votre rédaction",
+      "placeholder": "Écrivez ici. Laissez une ligne vide entre les paragraphes.",
+      "saved": "Le texte est gardé seulement sur cet appareil.",
+      "lines": "Lignes (estimation)",
+      "words": "Mots",
+      "paragraphs": "Paragraphes",
+      "chars": "Caractères",
+      "over": "Plus de 30 lignes : ce qui dépasse n'est pas corrigé.",
+      "under": "Avec 7 lignes ou moins, la rédaction reçoit zéro (texte insuffisant).",
+      "perLine": "Caractères par ligne dans votre écriture",
+      "perLineHelp": "Il n'y a pas de nombre officiel : cela dépend de la taille de votre écriture. Pour viser juste, écrivez une ligne à la main sur du papier ligné, comptez les caractères (espaces compris) et indiquez-le ici.",
+      "limit": "La feuille de réponse de l'Enem a 30 lignes. Avec 7 lignes ou moins, la rédaction reçoit zéro, selon le Guide du participant de l'Inep.",
+      "competencies": "Les cinq compétences (Inep)",
+      "list": [
+        "Maîtriser le registre écrit formel du portugais.",
+        "Comprendre le sujet de la rédaction et mobiliser des notions de différents domaines pour développer le thème, dans la structure d'un texte argumentatif en prose.",
+        "Sélectionner, relier, organiser et interpréter des informations, des faits, des opinions et des arguments pour défendre un point de vue.",
+        "Montrer la connaissance des mécanismes linguistiques nécessaires à la construction de l'argumentation.",
+        "Proposer une intervention pour le problème abordé, dans le respect des droits humains."
+      ],
+      "lessons": "Cours de rédaction pour l'Enem"
+    },
+    "syllables": {
+      "help": "Touchez une syllabe pour l'entendre. Touchez-en plusieurs, l'une après l'autre, pour former un mot, et écoutez le mot entier. Les syllabes sont en portugais.",
+      "noVoice": "Ce navigateur n'a pas de voix portugaise installée : les syllabes apparaissent, mais ne parlent pas.",
+      "word": "Votre mot",
+      "listen": "Écouter le mot",
+      "clear": "Recommencer",
+      "vowels": "Voyelles",
+      "families": "Familles de syllabes",
+      "examples": "Mots à écouter"
+    },
+    "cpr": {
+      "call": "Quelqu'un s'est effondré, ne répond pas et ne respire pas normalement : appelez le 192 (SAMU, le service d'urgence médicale du Brésil) tout de suite et mettez le haut-parleur. Hors du Brésil, appelez le numéro d'urgence local.",
+      "count": "compressions",
+      "perMinute": "par minute",
+      "start": "Lancer le rythme",
+      "stop": "Arrêter",
+      "rate": "Rythme",
+      "sound": "Avec le son (vous pouvez suivre seulement le cercle)",
+      "steps": [
+        "Assurez-vous que l'endroit est sûr pour vous. Appelez la personne d'une voix forte et tapotez ses épaules.",
+        "Si elle ne répond pas et ne respire pas normalement (ou seulement par à-coups), appelez les secours et mettez le haut-parleur. Demandez à quelqu'un de chercher un défibrillateur (DAE) à proximité.",
+        "Agenouillez-vous à côté d'elle. Posez le talon d'une main au centre de la poitrine et l'autre main par-dessus, bras tendus.",
+        "Appuyez fort et vite : 5 à 6 cm de profondeur chez l'adulte, 100 à 120 fois par minute, au rythme de ce battement.",
+        "Laissez la poitrine remonter complètement entre les compressions. Ne vous arrêtez pas : si quelqu'un d'autre est là, relayez-vous toutes les 2 minutes, rapidement.",
+        "Continuez jusqu'à l'arrivée de l'équipe de secours ou jusqu'à ce que la personne respire de nouveau. Si un DAE arrive, allumez-le et suivez ses instructions."
+      ],
+      "warning": "Cela ne remplace pas une formation aux premiers secours. La technique est différente pour les enfants et les bébés.",
+      "sources": "Sources :"
+    },
+    "heart": {
+      "age": "Votre âge",
+      "invalid": "Tapez un âge entre 10 et 100 ans.",
+      "max": "Fréquence cardiaque maximale estimée",
+      "bpm": "battements par minute",
+      "tanaka": "Selon la formule de Tanaka (208 − 0,7 × âge), plus précise chez les adultes plus âgés.",
+      "fox": "Selon la formule plus ancienne et plus connue (220 − âge).",
+      "zones": "Zones d'effort",
+      "moderado": "Modéré (50 % à 70 % du maximum)",
+      "vigoroso": "Intense (70 % à 85 % du maximum)",
+      "howTo": "Pour mesurer : deux doigts sur le poignet ou le cou, comptez les battements pendant 15 secondes et multipliez par 4.",
+      "warning": "C'est une estimation pour des groupes de personnes : le maximum d'une personne peut être environ 10 battements plus haut ou plus bas. Les personnes ayant une maladie cardiaque ou de l'hypertension, prenant un médicament qui modifie la fréquence cardiaque (comme un bêtabloquant) ou débutant une activité physique doivent d'abord en parler à un professionnel de santé.",
+      "sources": "Sources :"
+    },
+    "mapScale": {
+      "modes": {
+        "real": "De la carte au terrain",
+        "mapa": "Du terrain à la carte",
+        "escala": "Trouver l'échelle"
+      },
+      "scale": "Échelle",
+      "onMap": "Mesure sur la carte",
+      "real": "Mesure sur le terrain",
+      "resultIn": "Résultat en",
+      "howReal": "{a} {u} × {n} = {r} {v} sur le terrain (à l'échelle 1:{n}, chaque unité sur la carte vaut {n} sur le terrain).",
+      "howMap": "{a} {u} ÷ {n} = {r} {v} sur la carte.",
+      "howFind": "Terrain ÷ carte, dans la même unité : {b} {v} ÷ {a} {u} = {r}. L'échelle est 1:{r}.",
+      "invalid": "Vérifiez les nombres (seulement des nombres supérieurs à zéro).",
+      "graphic": "Échelle graphique",
+      "graphicNote": "Chaque segment de 1 cm sur la carte = {km} km sur le terrain."
+    },
+    "timezones": {
+      "cities": {
+        "brasilia": "Brasília",
+        "manaus": "Manaus",
+        "rio_branco": "Rio Branco",
+        "noronha": "Fernando de Noronha",
+        "buenos_aires": "Buenos Aires",
+        "santiago": "Santiago du Chili",
+        "bogota": "Bogota",
+        "cidade_mexico": "Mexico",
+        "havana": "La Havane",
+        "caracas": "Caracas",
+        "la_paz": "La Paz",
+        "nova_york": "New York",
+        "lisboa": "Lisbonne",
+        "londres": "Londres",
+        "paris": "Paris",
+        "moscou": "Moscou",
+        "luanda": "Luanda",
+        "maputo": "Maputo",
+        "joanesburgo": "Johannesburg",
+        "nova_delhi": "New Delhi",
+        "pequim": "Pékin",
+        "toquio": "Tokyo",
+        "sydney": "Sydney"
+      },
+      "offset": "décalage avec Brasília",
+      "remove": "Retirer",
+      "add": "Ajouter",
+      "compare": "Comparer une heure",
+      "when": "Quand il est",
+      "in": "à",
+      "now": "Revenir à maintenant",
+      "help": "Les décalages viennent du navigateur lui-même, y compris l'heure d'été là où elle s'applique. Le Brésil n'a plus d'heure d'été depuis 2019."
+    },
+    "colors": {
+      "color": "Couleur",
+      "harmonies": "Harmonies (cercle chromatique)",
+      "kinds": {
+        "complementar": "Complémentaire",
+        "analogas": "Analogues",
+        "triade": "Triade"
+      },
+      "use": "Utiliser cette couleur",
+      "invalid": "Écrivez la couleur en HEX, comme #c21f16.",
+      "contrast": "Contraste pour la lecture",
+      "text": "Texte",
+      "background": "Fond",
+      "sample": "Exemple de texte dans ces couleurs.",
+      "ratio": "Contraste : {r} : 1",
+      "aaNormal": "Texte normal, niveau AA (au moins 4,5 : 1)",
+      "aaLarge": "Grand texte, niveau AA (au moins 3 : 1)",
+      "aaa": "Texte normal, niveau AAA (au moins 7 : 1)",
+      "pass": "réussi",
+      "fail": "échoue",
+      "source": "Règle de contraste :"
+    },
+    "surplus": {
+      "day": "Journée de travail (heures par jour)",
+      "needed": "Travail nécessaire (heures qui paient le salaire)",
+      "wage": "Salaire journalier (R$)",
+      "invalid": "Vérifiez les nombres : le travail nécessaire ne peut pas dépasser la journée de travail.",
+      "bar": "La journée de travail",
+      "neededShort": "Travail nécessaire",
+      "surplusHours": "Surtravail",
+      "perHour": "Valeur que chaque heure de travail crée",
+      "newValue": "Valeur nouvelle créée dans la journée",
+      "surplus": "Plus-value (va au patron)",
+      "rate": "Taux de plus-value (pl/v)",
+      "explain": "Chez Marx, la journée de travail a deux parties. Pendant le travail nécessaire, le travailleur produit l'équivalent de son propre salaire (le capital variable, v). Pendant le surtravail, il continue à produire, mais cette valeur, la plus-value (pl), va à qui possède les moyens de production. Le taux pl/v, égal au surtravail ÷ travail nécessaire, mesure le degré d'exploitation.",
+      "assume": "Le calcul suppose, comme dans l'exemple du livre, que chaque heure de travail crée la même valeur.",
+      "source": "Source : Karl Marx, Le Capital, livre I, chapitre 9, « Le taux de la plus-value » (chapitre 7 dans l'édition portugaise en lien), sur les Archives Internet des marxistes."
+    },
+    "html": {
+      "sampleHtml": "<h1>Bonjour !</h1>\n<p>Changez ce texte et voyez le résultat à côté.</p>\n<button>Cliquez ici</button>",
+      "sampleClicked": "Vous avez cliqué ! C'était du JavaScript.",
+      "run": "Mettre à jour le résultat",
+      "auto": "Mettre à jour pendant que je tape",
+      "reset": "Revenir à l'exemple",
+      "preview": "Résultat",
+      "sandbox": "Le résultat tourne dans une boîte fermée, séparée du site : le code ne peut lire ni cette page, ni votre compte, ni rien de ce qui est gardé dans le navigateur."
+    }
+  },
+  "journal": {
+    "eyebrow": "Presse populaire",
+    "title": "Jornal Revolucionário Lúcia",
+    "lead": "Des nouvelles et des analyses écrites par des journalistes bénévoles, toujours avec les sources bien visibles.",
+    "empty": "La première édition est sous presse.",
+    "nameTop": "Jornal Revolucionário",
+    "nameBottom": "Lúcia",
+    "tagline": "Presse populaire, faite par des bénévoles",
+    "free": "Gratuit",
+    "updated": "Mis à jour le {date}",
+    "more": "Plus de nouvelles",
+    "back": "Revenir à la une",
+    "round": "Revue de presse",
+    "newsletter": {
+      "title": "Recevez le journal par e-mail",
+      "lead": "Les journalistes de l'institut envoient une lettre d'information avec les nouveaux articles. Sans publicité, et votre adresse n'est jamais transmise.",
+      "email": "Votre e-mail",
+      "button": "S'abonner",
+      "done": "Presque fini : nous avons envoyé un lien à votre e-mail. La lettre ne commence à arriver qu'après que vous l'avez ouvert.",
+      "doneDirect": "C'est fait. Vous recevrez la prochaine lettre.",
+      "leave": "Chaque lettre contient un lien pour quitter la liste. Vous pouvez aussi écrire à",
+      "roundTitle": "Revue de presse du Brésil",
+      "roundLead": "Les titres du moment de la presse populaire, indépendante et publique, dix-sept médias sur une seule page. Se met à jour toute seule toutes les quinze minutes.",
+      "roundButton": "Ouvrir la revue de presse",
+      "confirmed": "C'est fait : votre e-mail est confirmé et vous recevrez la prochaine lettre.",
+      "left": "C'est fait : votre e-mail a quitté la liste de la lettre.",
+      "badLink": "Ce lien n'est plus valable. Abonnez-vous à nouveau si vous le voulez."
+    }
+  },
+  "factCheck": {
+    "eyebrow": "Contre la désinformation",
+    "title": "Vérification des faits",
+    "lead": "Rumeurs et demi-vérités qui circulent, vérifiées à partir de sources publiques.",
+    "empty": "Aucune vérification publiée pour l'instant.",
+    "claim": "Ce qu'on dit",
+    "searchTitle": "Déjà vérifié ?",
+    "searchLead": "Cherchez la rumeur dans les vérifications publiées par des agences comme Lupa et Aos Fatos.",
+    "searchPlaceholder": "Ex. : vaccin, urne électronique, salaire minimum",
+    "searchButton": "Rechercher",
+    "searchNone": "Aucune vérification trouvée avec ces mots. Essayez-en d'autres.",
+    "searchFail": "La recherche n'a pas répondu pour le moment. Réessayez dans un instant.",
+    "searchSource": "Résultats de Google Fact Check Tools. Chaque vérification appartient à l'agence qui l'a publiée : ouvrez le lien pour la lire.",
+    "fallaciesLink": "Voir aussi le guide des sophismes.",
+    "steps": {
+      "title": "Comment vérifier en 6 étapes",
+      "lead": "Collez le message reçu et répondez aux questions. Rien ne quitte votre appareil.",
+      "claim": "Ce qu'on dit",
+      "claimPlaceholder": "Collez le message, la phrase ou le titre que vous voulez vérifier.",
+      "items": [
+        {
+          "q": "Peut-on savoir qui l'a dit en premier ?",
+          "help": "Une personne ou une organisation nommée, pas « l'ami d'un ami » ou « un médecin » sans nom.",
+          "options": [
+            "Oui, la source est identifiable",
+            "Impossible de savoir",
+            "Je ne sais pas"
+          ]
+        },
+        {
+          "q": "Avez-vous trouvé la source originale ?",
+          "help": "Le document, l'étude, la loi ou le discours complet, pas seulement un extrait ou une capture d'écran.",
+          "options": [
+            "Oui, j'ai lu l'original",
+            "Elle n'existe pas ou je ne l'ai pas trouvée",
+            "Je ne sais pas"
+          ]
+        },
+        {
+          "q": "La date correspond-elle ?",
+          "help": "Beaucoup d'intox sont de vieilles nouvelles qui circulent comme si elles étaient récentes.",
+          "options": [
+            "Oui, c'est actuel",
+            "Non, c'est ancien ou d'une autre époque",
+            "Je ne sais pas"
+          ]
+        },
+        {
+          "q": "D'autres sources fiables le confirment-elles ?",
+          "help": "Des médias et des agences différents, qui ne se recopient pas les uns les autres.",
+          "options": [
+            "Oui, plusieurs le confirment",
+            "Non, aucune ne le confirme",
+            "Je ne sais pas"
+          ]
+        },
+        {
+          "q": "La photo ou la vidéo vient-elle vraiment de ce lieu et de cette date ?",
+          "help": "Faites une recherche d'image inversée (voir la boîte à outils plus bas).",
+          "options": [
+            "Oui, ça correspond",
+            "Non, c'est d'un autre lieu ou d'une autre époque",
+            "Je ne sais pas",
+            "Il n'y a ni photo ni vidéo"
+          ]
+        },
+        {
+          "q": "Des agences de vérification en ont-elles parlé ?",
+          "help": "Cherchez dans « Déjà vérifié ? » plus haut ou sur les sites des agences.",
+          "options": [
+            "Elles ont dit que c'est vrai",
+            "Elles ont dit que c'est faux ou trompeur",
+            "Je n'ai trouvé aucune vérification"
+          ]
+        }
+      ],
+      "result": "Résultat suggéré",
+      "results": {
+        "checadores": "Des agences de vérification ont déjà dit que c'est faux ou trompeur. Ne le faites pas suivre ; si vous voulez, répondez avec le lien de la vérification.",
+        "falso": "Sans auteur, sans source originale et sans confirmation : probablement faux ou sans fondement. Ne le faites pas suivre.",
+        "contexto": "Il y a peut-être quelque chose de vrai, mais c'est sorti de son contexte (date, lieu ou image d'une autre situation). Tel quel, cela trompe.",
+        "confiavel": "Ça a passé les étapes : ça semble fiable. Quand vous le partagez, joignez la source originale.",
+        "duvida": "Impossible de savoir pour l'instant. Dans le doute, ne partagez pas : attendez une source fiable."
+      },
+      "pending": "Répondez aux six étapes pour voir le résultat suggéré.",
+      "copy": "Copier le résumé",
+      "copied": "Résumé copié.",
+      "reset": "Recommencer",
+      "note": "Le résultat est une suggestion fondée sur vos réponses, pas un verdict."
+    },
+    "verdicts": {
+      "title": "Ce que veut dire chaque étiquette",
+      "items": {
+        "Falso": "Faux : l'affirmation contredit les faits et les sources fiables.",
+        "Enganoso": "Trompeur : mélange vérité et déformation, ou utilise un chiffre réel pour mener à une conclusion fausse.",
+        "Falta contexto": "Manque de contexte : le chiffre, la photo ou la citation sont réels, mais sans la bonne date, le bon lieu ou la bonne comparaison ils donnent une idée fausse.",
+        "Verdadeiro": "Vrai : correspond aux sources fiables."
+      }
+    },
+    "toolbox": {
+      "title": "Boîte à outils de vérification",
+      "lead": "Des services gratuits pour vérifier par vous-même. Les liens ouvrent le site de chaque service.",
+      "groups": {
+        "imagem": [
+          "Recherche d'image inversée",
+          "Envoyez la photo ou collez le lien : le moteur montre où et quand elle est déjà apparue."
+        ],
+        "video": [
+          "Vidéo",
+          "Pour découper une vidéo en images et trouver d'où elle vient."
+        ],
+        "arquivo": [
+          "Pages anciennes",
+          "Pour voir à quoi ressemblait une page avant d'être modifiée ou supprimée."
+        ],
+        "agencias": [
+          "Agences brésiliennes de vérification",
+          "Voyez si des journalistes ont déjà vérifié l'intox."
+        ],
+        "buscador": [
+          "Moteur de recherche de vérifications",
+          "Cherche les vérifications d'agences du monde entier."
+        ],
+        "dados": [
+          "Données officielles",
+          "Pour vérifier les chiffres à la source."
+        ],
+        "dominio": [
+          "À qui appartient le site",
+          "Pour savoir qui a enregistré une adresse internet."
+        ],
+        "guias": [
+          "Pour aller plus loin",
+          "Des guides de personnes qui enquêtent avec des sources ouvertes."
+        ]
+      },
+      "tools": {
+        "google-lens": "Recherche d'images sur Google.",
+        "tineye": "Montre quand l'image est apparue pour la première fois et ses versions modifiées.",
+        "bing": "La recherche visuelle de Microsoft.",
+        "yandex": "Trouve souvent des visages et des lieux que les autres moteurs ratent.",
+        "invid": "Une extension de navigateur gratuite utilisée par les journalistes : elle découpe la vidéo en images et lance une recherche inversée sur chacune.",
+        "wayback": "L'archive d'internet, avec des copies de pages depuis 1996.",
+        "archive-today": "Garde une copie exacte d'une page à l'instant même.",
+        "lupa": "La première agence brésilienne spécialisée dans la vérification des faits.",
+        "aos-fatos": "Vérification des faits et enquête sur la désinformation.",
+        "fato-ou-fake": "Les vérifications de g1, du Grupo Globo.",
+        "estadao-verifica": "La rubrique de vérification du journal O Estado de S. Paulo.",
+        "uol-confere": "Les vérifications du portail UOL.",
+        "comprova": "Des médias qui vérifient ensemble les intox sur les politiques publiques et les élections.",
+        "boatos": "Démonte les intox d'internet et les chaînes de messages depuis 2013.",
+        "e-farsas": "L'un des plus anciens sites de vérification du Brésil, en ligne depuis 2002.",
+        "fact-check-explorer": "Cherche les vérifications d'agences de nombreux pays et langues.",
+        "ibge": "Population, emploi, revenus et prix.",
+        "transparencia": "Dépenses et transferts du gouvernement fédéral.",
+        "tse": "Candidatures, patrimoine déclaré et comptes de campagne.",
+        "datasus": "Données de santé : maladies, hospitalisations et décès.",
+        "dou": "Lois, décrets et nominations, publiés officiellement.",
+        "camara": "Projets de loi, votes et discours des députés fédéraux.",
+        "senado": "Projets, votes et législation au Sénat.",
+        "registro-br": "Montre qui a enregistré une adresse terminée par .br.",
+        "bellingcat": "Guides d'enquête en sources ouvertes."
+      }
+    }
+  },
+  "debates": {
+    "eyebrow": "Des arguments sous la main",
+    "title": "Fiches de débat",
+    "lead": "Des réponses courtes et sourcées aux lieux communs que tout le monde a déjà entendus. Chaque fiche peut être copiée ou téléchargée en image, prête à envoyer dans une discussion ou à imprimer.",
+    "claim": "On dit",
+    "answer": "Réponse",
+    "more": "Pour aller plus loin",
+    "download": "Télécharger en image",
+    "beforeTitle": "Avant de débattre : connaissez les sophismes",
+    "beforeText": "Homme de paille, faux dilemme, attaque personnelle : les pièges les plus courants et comment répondre à chacun.",
+    "beforeLink": "Ouvrir le guide des sophismes",
+    "fallacies": "Sophismes dans cette phrase"
+  },
+  "fallacies": {
+    "eyebrow": "Penser par soi-même",
+    "title": "Guide des sophismes",
+    "lead": "Un sophisme est un raisonnement qui paraît juste mais ne tient pas debout. Connaître les plus courants aide à les éviter et à répondre calmement quand ils apparaissent dans une conversation, une vidéo ou un débat.",
+    "families": {
+      "relevancia": "Des raisons à côté du sujet",
+      "provas": "Des preuves faibles",
+      "premissas": "Des prémisses cachées",
+      "desvio": "Détourner la discussion",
+      "sentido": "Des confusions de sens"
+    },
+    "filter": "Type",
+    "all": "Tous",
+    "find": "Rechercher",
+    "count": "{n} sophismes",
+    "none": "Aucun sophisme ne correspond à cette recherche.",
+    "what": "Ce que c'est",
+    "everyday": "Au quotidien",
+    "publicDebate": "Dans le débat public",
+    "reply": "Comment répondre",
+    "related": "Proches",
+    "inDebates": "Apparaît dans les fiches de débat",
+    "remember": "Montrer un sophisme ne prouve pas que la conclusion est fausse : cela montre seulement que cet argument ne la soutient pas. Et la meilleure réponse n'est presque jamais le nom latin, mais la bonne question.",
+    "toDebates": "Voir les fiches de débat",
+    "toChecks": "Voir les vérifications"
+  },
+  "questions": {
+    "eyebrow": "Par où commencer",
+    "title": "Partir d'une question",
+    "lead": "Les questions que se posent celles et ceux qui travaillent sont un bon point de départ pour étudier. Choisissez-en une et voyez où aller ensuite."
+  },
+  "glossary": {
+    "eyebrow": "Vocabulaire",
+    "title": "Glossaire",
+    "lead": "Des mots difficiles expliqués simplement. La liste grandit toute seule : chaque terme qu'un nouveau cours définit apparaît ici, et vous pouvez ne voir que ceux d'une discipline. Dans les cours, les termes soulignés portent l'explication.",
+    "missing": "Il manque un terme ?",
+    "filter": "Afficher les termes utilisés en",
+    "all": "Toutes les disciplines",
+    "find": "Chercher un terme",
+    "count": "{n} terme(s)",
+    "usedIn": "Apparaît dans :",
+    "none": "Aucun terme ne correspond à ce filtre."
+  },
+  "videos": {
+    "eyebrow": "À regarder",
+    "title": "Vidéos",
+    "lead": "Des cours et des chaînes gratuits, choisis par la curation. Les vidéos s'ouvrent sur leur site d'origine.",
+    "own": "Vous cherchez les cours enregistrés par l'institut lui-même ? Voyez les cours en vidéo."
+  },
+  "videoLessons": {
+    "eyebrow": "Enregistrés par l'institut",
+    "title": "Cours en vidéo",
+    "lead": "Des cours courts, jusqu'à 10 minutes, enregistrés par les éducateurs de l'institut et relus par la curation avant d'être mis en ligne. Le lecteur permet de changer la vitesse (de 0,5x à 3x), d'activer les sous-titres quand il y en a et de lire la transcription.",
+    "filter": "Discipline",
+    "all": "Toutes les disciplines",
+    "loading": "Chargement des cours…",
+    "failed": "Les cours en vidéo n'ont pas pu être chargés pour le moment. Réessayez plus tard.",
+    "empty": "Il n'y a pas encore de cours en vidéo ici.",
+    "join": "Vous enseignez ? Devenez bénévole et enregistrez le premier.",
+    "by": "Par {name}",
+    "back": "Tous les cours en vidéo",
+    "sources": "Sources",
+    "track": "Parcours",
+    "inPortuguese": "Les cours sont enregistrés en portugais.",
+    "shelfLead": "Des cours courts enregistrés par les éducateurs de cette discipline.",
+    "watch": "Regarder",
+    "player": {
+      "play": "Lecture",
+      "pause": "Pause",
+      "back": "Reculer de 10 secondes",
+      "forward": "Avancer de 10 secondes",
+      "speed": "Vitesse",
+      "captions": "Sous-titres",
+      "noCaptions": "Ce cours n'a pas encore de sous-titres.",
+      "mute": "Couper le son",
+      "unmute": "Remettre le son",
+      "volume": "Volume",
+      "fullscreen": "Plein écran",
+      "pip": "Image dans l'image",
+      "progress": "Position dans la vidéo",
+      "of": "sur",
+      "transcript": "Lire la transcription",
+      "hideTranscript": "Cacher la transcription",
+      "keys": "Raccourcis : espace lance et met en pause, les flèches déplacent de 5 secondes, < et > changent la vitesse, M coupe le son, C active les sous-titres, F plein écran.",
+      "error": "Cette vidéo ne peut pas être lue pour le moment."
+    },
+    "comments": {
+      "title": "Commentaires",
+      "live": "Les nouveaux commentaires apparaissent tout seuls, sans recharger la page.",
+      "placeholder": "Commentez, posez une question ou aidez quelqu'un qui étudie…",
+      "send": "Commenter",
+      "rules": "Les règles de la Communauté s'appliquent : respect, pas de haine, pas de données personnelles. Ce qui est douteux attend la médiation.",
+      "signIn": "Connectez-vous pour commenter",
+      "signUp": "Créer un compte",
+      "reply": "Répondre",
+      "replyingTo": "En réponse à {nome}",
+      "cancel": "Annuler",
+      "held": "Commentaire reçu. Il apparaît pour tout le monde après la lecture de la médiation.",
+      "pending": "en attente de médiation",
+      "remove": "Retirer",
+      "removeConfirm": "Retirer ce commentaire ?",
+      "empty": "Pas encore de commentaires. Lancez la conversation.",
+      "badges": {
+        "coordenacao": "Coordination",
+        "educacao": "Éducation",
+        "mentoria": "Tutorat",
+        "mediacao": "Médiation",
+        "equipe": "Équipe"
+      }
+    }
+  },
+  "more": {
+    "eyebrow": "Tout ce qu'il y a ici",
+    "title": "Plus",
+    "lead": "Ce qui ne tenait pas dans le menu, réuni au même endroit.",
+    "critical": "Lecture critique",
+    "items": {
+      "tools": "Accordeur, éditeur de code, tableau périodique et autres.",
+      "questions": "Des questions du quotidien qui mènent aux bons cours.",
+      "glossary": "Des termes difficiles en langage simple.",
+      "authors": "Qui a écrit les œuvres de la bibliothèque.",
+      "videos": "Des cours et des chaînes gratuits.",
+      "videoLessons": "Des cours courts enregistrés par les éducateurs de l'institut, avec transcription et vitesse réglable.",
+      "sources": "Où trouver des livres, des données et des nouvelles fiables.",
+      "timeline": "Des révoltes d'hier aux luttes d'aujourd'hui.",
+      "factCheck": "Des rumeurs vérifiées à partir de sources publiques.",
+      "debates": "Des réponses courtes aux phrases toutes faites.",
+      "fallacies": "Les pièges d'argumentation les plus courants, et comment répondre à chacun.",
+      "radio": "De la musique et de la parole pour étudier.",
+      "volunteers": "Relire, traduire, enseigner ou écrire.",
+      "about": "Ce qu'est l'institut et sous quelle licence est le contenu.",
+      "team": "Les éducateurs de l'institut et ce que chacun enseigne.",
+      "history": "Tout ce qui a changé dans la bibliothèque, avec les dates.",
+      "myData": "Téléchargez ou effacez ce qui est gardé dans ce navigateur.",
+      "mural": "Coopératives, métiers, art et initiatives de qui travaille.",
+      "drawer": "Des travaux d'étudiants, libres pour tous : thèses, articles, projets et fiches de révision.",
+      "tutoring": "Bloqué dans une discipline ? Un bénévole répond à votre question par e-mail.",
+      "materials": "Fanzines, tracts, affiches et banderoles à télécharger et distribuer.",
+      "privacy": "Ce que le site garde, où et combien de temps, et comment l'effacer.",
+      "terms": "Les règles du site et les limites de notre responsabilité.",
+      "journal": "Des nouvelles et des analyses écrites par l'équipe du journal.",
+      "memorial": "Celles et ceux qui ont lutté et ne doivent pas être oubliés.",
+      "dedication": "D'où vient le nom de l'institut.",
+      "contribute": "Envoyez un cours, une œuvre, une correction ou une idée.",
+      "support": "Aidez à payer le serveur et le domaine.",
+      "start": "Des livres courts et des cours pour les premiers pas.",
+      "news": "Les titres de médias populaires, indépendants et publics, mis à jour automatiquement.",
+      "gallery": "Des affiches et des images de la lutte ouvrière, avec l'histoire de chacune.",
+      "data": "Salaire minimum, inflation, taux d'intérêt, chômage et ce que le Congrès a voté, de sources officielles.",
+      "podcasts": "Des épisodes d'éducation politique à écouter dans le bus, dans la cuisine ou à la pause.",
+      "instagram": "Nouvelles de l'institut, cours et appels à bénévoles.",
+      "live": "Le programme des cours en direct, avec vidéo et discussion sur le site même.",
+      "notebook": "Réunissez des cours et des textes et obtenez-en un résumé, des cartes mémoire, un quiz, une carte, une frise et un audio. Tout dans votre navigateur."
+    }
+  },
+  "support": {
+    "eyebrow": "Financement participatif",
+    "title": "Soutenez l'Institut Lúcia",
+    "lead": "La bibliothèque est gratuite et sans publicité, et elle le restera, avec ou sans votre contribution.",
+    "paragraphs": [
+      "L'Institut Lúcia n'a pas de sponsor, ne vend pas de cours et ne vend pas vos données. Il vit du travail bénévole, parce que le savoir n'est pas une marchandise.",
+      "Malgré tout, garder un site en ligne coûte de l'argent. Ceux qui peuvent aider à payer cette facture garantissent l'accès de ceux qui ne peuvent pas. C'est ainsi que la classe ouvrière a toujours construit ce qui est à elle : en réunissant le peu de chacun.",
+      "L'argent collecté a une destination précise :"
+    ],
+    "costs": [
+      "Le domaine et l'hébergement du site.",
+      "Le stockage des audios et des copies de sauvegarde de la bibliothèque.",
+      "Ce qui reste sert à agrandir la bibliothèque : plus de cours, plus de traductions, plus de relecture."
+    ],
+    "optional": "Donner est entièrement facultatif. Personne ne perd l'accès à quoi que ce soit en ne contribuant pas, et il n'y a pas de contenu réservé aux donateurs. Si l'argent manque, ne donnez pas : étudiez, partagez un cours ou venez faire du bénévolat. Cela fait vivre le projet aussi.",
+    "button": "Soutenir sur Benfeitoria",
+    "note": "La contribution se fait sur Benfeitoria, une plateforme brésilienne de financement participatif. Ce site ne reçoit ni ne garde aucune donnée de paiement.",
+    "wallTitle": "Mur des soutiens",
+    "wallLead": "Ceux qui ont aidé à faire tenir l'institut debout et ont voulu laisser leur nom ici.",
+    "wallEmpty": "Le mur est encore vide.",
+    "page": {
+      "leaving": "Le bouton ouvre Benfeitoria dans un autre onglet.",
+      "opensOutside": "(ouvre un autre site, dans un autre onglet)",
+      "whyTitle": "Pourquoi nous demandons du soutien",
+      "howTitle": "Comment ça marche",
+      "how": [
+        "Le soutien est mensuel : vous choisissez un palier sur Benfeitoria et pouvez le changer ou l'annuler sur la plateforme elle-même, quand vous voulez.",
+        "Soutenir est facultatif. Personne ne perd l'accès à quoi que ce soit, et il n'y a pas de contenu réservé aux soutiens.",
+        "Le paiement se fait sur Benfeitoria. Ce site ne reçoit ni ne garde aucune donnée de paiement."
+      ],
+      "cancelSteps": "Comment annuler, pas à pas",
+      "tiersTitle": "Les paliers",
+      "tierDefault": "Soutien solidaire, sans avantage réservé. Si vous le voulez, votre nom apparaît sur le mur.",
+      "perMonth": "par mois",
+      "goalsTitle": "Objectifs",
+      "goal1": "Objectif 1",
+      "goal2": "Objectif 2",
+      "goalMid": "Premier objectif",
+      "goalProgress": "{atual} sur {alvo}",
+      "goalTarget": "{alvo} par mois",
+      "goalSupporters": "{atual} sur {alvo} soutiens",
+      "goalNoData": "La coordination n'a pas encore indiqué combien est déjà arrivé : pour l'instant, les objectifs montrent seulement la somme à atteindre.",
+      "updatedAt": "Chiffres de la campagne indiqués par la coordination le {data}. Ce n'est pas un compteur en direct.",
+      "worthTitle": "Ce que vaut chaque soutien",
+      "worth": "Avec {n} soutiens de {valor} par mois, les frais fixes du site sont couverts.",
+      "worthOne": "Un soutien de {valor} par mois couvre déjà les frais fixes du site.",
+      "worthPick": "Choisissez un palier",
+      "whereTitle": "Où va l'argent",
+      "whereDefault": [
+        {
+          "title": "Hébergement et base de données",
+          "text": "Le serveur qui garde le site et le panneau de l'équipe en ligne."
+        },
+        {
+          "title": "Domaine",
+          "text": "L'adresse institutolucia.org."
+        },
+        {
+          "title": "Audios et sauvegardes",
+          "text": "Le stockage des fichiers audio et des sauvegardes de la bibliothèque."
+        },
+        {
+          "title": "Agrandir la bibliothèque",
+          "text": "Ce qui reste sert à plus de cours, plus de traductions et plus de relecture."
+        }
+      ],
+      "monthly": "{valor} par mois",
+      "dollar": "en partie facturé en dollars",
+      "doneTitle": "Ce que nous avons déjà fait",
+      "counters": {
+        "works": "œuvres dans la bibliothèque",
+        "lessons": "cours publiés",
+        "translations": "traductions de cours",
+        "languages": "langues du site",
+        "volunteers": "bénévoles actifs",
+        "contributions": "contributions publiées"
+      },
+      "otherTitle": "D'autres façons d'aider",
+      "other": [
+        {
+          "title": "Proposez un cours ou une correction",
+          "text": "Écrivez, corrigez ou indiquez une œuvre. Pas besoin de compte.",
+          "href": "/contribuir"
+        },
+        {
+          "title": "Devenez bénévole",
+          "text": "Relecture, traduction, design, curation, médiation : il y a de la place pour qui a quelques heures.",
+          "href": "/voluntarios"
+        },
+        {
+          "title": "Aidez à traduire",
+          "text": "Les cours existent en portugais et attendent des versions dans d'autres langues.",
+          "href": "/voluntarios"
+        },
+        {
+          "title": "Étudiez et partagez la bibliothèque",
+          "text": "Utiliser et recommander la bibliothèque fait aussi vivre le projet.",
+          "href": "/acervo"
+        }
+      ],
+      "shareTitle": "Partagez cette page",
+      "copyLink": "Copier le lien",
+      "copied": "Lien copié ✓",
+      "shareText": "L'Institut Lúcia fait vivre une école et une bibliothèque gratuites, sans publicité. On peut le soutenir ici :",
+      "shareEmail": "E-mail",
+      "responsibleTitle": "Qui est responsable",
+      "helpersTitle": "Ceux qui aident déjà sans argent",
+      "helpers": "{c} contributions publiées et {v} bénévoles actifs font tenir la bibliothèque debout.",
+      "helpersVolunteers": "{v} bénévoles actifs font tenir la bibliothèque debout.",
+      "helpersNames": "Bénévoles qui ont autorisé leur nom ici :",
+      "wallFormTitle": "Je soutiens déjà et je veux apparaître sur le mur",
+      "wallName": "Nom ou pseudonyme",
+      "wallMessage": "Message court (facultatif)",
+      "wallSend": "Demander à apparaître",
+      "wallSent": "Demande envoyée. La coordination vérifie la liste des soutiens sur Benfeitoria avant de publier.",
+      "wallPrivacy": "Nous gardons seulement le nom et le message que vous écrivez, sans e-mail. Pour retirer votre nom plus tard, il suffit de le demander à la coordination.",
+      "wallError": "L'envoi n'a pas été possible pour le moment. Réessayez plus tard.",
+      "transparencyTitle": "Transparence",
+      "transparencyEmpty": "Les rapports financiers mensuels seront publiés ici.",
+      "lastMonth": "Dernier rapport : {mes}",
+      "income": "Recettes",
+      "expenses": "Dépenses",
+      "balance": "Solde",
+      "seeAccounts": "Voir les comptes",
+      "faqTitle": "Questions fréquentes",
+      "faq": {
+        "mandatory": {
+          "q": "Est-ce obligatoire de soutenir ?",
+          "a": "Non. La bibliothèque est gratuite pour tout le monde, avec ou sans soutien, et elle le restera."
+        },
+        "tiers": {
+          "q": "Que veut dire chaque palier ?",
+          "a": "Ce sont des montants mensuels qui portent des noms de livre. Ils sont tous la même chose : un soutien solidaire, sans avantage réservé."
+        },
+        "anonymous": {
+          "q": "Puis-je soutenir sans apparaître sur le mur ?",
+          "a": "Oui. Votre nom n'apparaît sur le mur que si vous le demandez (avec le formulaire de cette page) ou si vous l'autorisez à la coordination."
+        },
+        "fee": {
+          "q": "Quelle part de chaque soutien arrive au projet ?"
+        },
+        "cancel": {
+          "q": "Comment annuler ?",
+          "a": "Sur Benfeitoria, là où vous avez fait le soutien. Ce site n'a pas accès à votre paiement."
+        },
+        "dollar": {
+          "q": "Pourquoi une partie des frais est-elle en dollars ?",
+          "a": "Certains services qui gardent le site en ligne facturent en dollars : le coût en reais varie donc avec le taux de change."
+        },
+        "surplus": {
+          "q": "Que se passe-t-il si l'objectif est dépassé ?",
+          "a": "Ce qui dépasse les frais fixes sert à agrandir la bibliothèque : plus de cours, plus de traductions et plus de relecture."
+        },
+        "data": {
+          "q": "Le site garde-t-il mes données ?",
+          "a": "Il ne garde aucune donnée de paiement : tout se passe sur Benfeitoria. La demande pour le mur garde seulement le nom et le message que vous écrivez."
+        }
+      },
+      "endTitle": "Si vous le pouvez, soutenez-nous",
+      "preview": "Aperçu du brouillon : seule la coordination le voit. Rien de tout cela n'est encore publié.",
+      "previous": "Ceci est l'ancienne version de la page Soutenir, gardée en réserve.",
+      "accounts": {
+        "title": "Comptes",
+        "lead": "Recettes, dépenses et solde de chaque mois, publiés par la coordination. Aucune donnée personnelle des soutiens n'apparaît ici.",
+        "empty": "Les rapports mensuels seront publiés ici.",
+        "chart": "Recettes et dépenses par mois",
+        "month": "Mois",
+        "byIncome": "Recettes par origine",
+        "byExpense": "Dépenses par catégorie",
+        "note": "Note de la coordination",
+        "published": "Publié le {data}",
+        "corrections": "Corrections",
+        "corrected": "Corrigé le {data} : {motivo}",
+        "previousVersion": "Avant la correction : recettes {e}, dépenses {s}, solde {b}.",
+        "back": "Revenir à Soutenir"
+      }
+    }
+  },
+  "auth": {
+    "unconfirmed": "Votre e-mail n'est pas encore confirmé. Ouvrez l'e-mail que nous avons envoyé et touchez « Confirmer l'e-mail ». Vous ne le trouvez pas, ou le lien a expiré ? Demandez-en un autre ici.",
+    "resend": "Renvoyer l'e-mail de confirmation",
+    "resent": "C'est fait : nous avons envoyé un nouvel e-mail. Ouvrez-le et touchez le bouton dans les 24 heures (regardez aussi dans les indésirables). Ensuite, connectez-vous ici.",
+    "expired": "Le lien de confirmation a expiré ou a déjà servi. Tapez votre e-mail et votre mot de passe, touchez Se connecter et demandez un nouvel e-mail.",
+    "or": "ou",
+    "fingerprint": "Se connecter avec l'empreinte",
+    "fingerprintHint": "Fonctionne après avoir enregistré l'empreinte de cet appareil dans le panneau, dans Mon compte. L'empreinte ne quitte jamais votre téléphone.",
+    "fingerprintCancelled": "Lecture de l'empreinte annulée. Touchez à nouveau pour réessayer, ou connectez-vous avec votre mot de passe.",
+    "fingerprintFailed": "Impossible de se connecter avec l'empreinte sur cet appareil. Connectez-vous avec votre mot de passe.",
+    "eyebrow": "Bénévoles et communauté",
+    "title": "Se connecter",
+    "lead": "Pas besoin de compte pour étudier. Le compte sert à participer à la Communauté et à celles et ceux qui travaillent comme bénévoles.",
+    "email": "Votre e-mail",
+    "password": "Mot de passe",
+    "enter": "Se connecter",
+    "wrong": "E-mail ou mot de passe incorrect.",
+    "codeTitle": "Confirmez que c'est vous",
+    "codeLabel": "Code à 6 chiffres de votre application d'authentification",
+    "codeConfirm": "Confirmer",
+    "codeWrong": "Code incorrect. Vérifiez l'application et réessayez.",
+    "codeOther": "Se connecter avec un autre compte",
+    "failed": "Impossible de terminer. Réessayez dans quelques minutes.",
+    "why": "Pas encore de compte ? Créez-en un, avec e-mail et mot de passe, pour poser des questions et répondre dans la Communauté. Mot de passe perdu ? Parlez à la coordination.",
+    "offline": "La connexion n'est pas encore active sur cette copie du site.",
+    "consent": "En vous connectant, vous acceptez les conditions d'utilisation et confirmez avoir lu comment nous traitons vos données :",
+    "inviteTitle": "Vous avez été invité",
+    "inviteWhy": "Nous gardons seulement votre e-mail. Le nom affiché sur le site commence par un nom de code, que vous pouvez changer.",
+    "inviteInvalid": "Cette invitation n'est plus valable, ou elle n'est pas pour cet e-mail. Demandez-en une autre à la personne qui l'a envoyée.",
+    "passwordNew": "Créez un mot de passe",
+    "passwordAgain": "Répétez le mot de passe",
+    "mismatch": "Les deux mots de passe ne sont pas identiques.",
+    "create": "Créer le compte",
+    "confirm": "Compte créé. Si un e-mail de confirmation arrive, ouvrez-le ; ensuite, connectez-vous avec votre e-mail et votre mot de passe.",
+    "newPasswordTitle": "Choisissez un nouveau mot de passe",
+    "save": "Enregistrer le mot de passe",
+    "saved": "Mot de passe enregistré.",
+    "toCreate": "Créez un compte pour participer à la Communauté",
+    "toEnter": "J'ai déjà un compte : me connecter",
+    "createTitle": "Créer un compte",
+    "createWhy": "Le compte permet de poser des questions et de répondre dans la Communauté. Ce qui respecte les règles apparaît tout de suite ; la médiation veille et intervient quand il le faut. Nous gardons seulement votre e-mail ; le nom affiché sur le site commence par un pseudonyme, que vous pouvez changer.",
+    "createFailed": "Le compte n'a pas pu être créé. Cet e-mail a peut-être déjà un compte, ou les inscriptions sont peut-être fermées pour le moment.",
+    "volunteerLink": "Vous voulez être bénévole ? Remplissez la candidature",
+    "whyClosed": "Il n'y a pas de « mot de passe oublié » ici et, pour l'instant, les comptes sont créés sur invitation de la coordination. Mot de passe perdu ? Parlez à la personne qui vous a invité.",
+    "leaked": "Ce mot de passe est déjà apparu dans des fuites d'autres sites et fait partie des premiers qu'un attaquant essaie. Choisissez-en un autre. (La vérification n'envoie votre mot de passe à personne.)",
+    "show": "Afficher le mot de passe",
+    "hide": "Cacher le mot de passe",
+    "rulesTitle": "Le mot de passe doit",
+    "rules": {
+      "length": "avoir au moins 12 caractères (une longue phrase marche très bien)",
+      "common": "ne pas être un mot de passe courant ni votre nom suivi de chiffres",
+      "variety": "ne pas être seulement une répétition (aaaa…, 1212…)"
+    },
+    "strong": "Mot de passe accepté.",
+    "meterTitle": "Solidité",
+    "meter": [
+      "Faible",
+      "Moyen",
+      "Bon",
+      "Solide"
+    ],
+    "recoveryLink": "J'ai perdu mon téléphone : utiliser un code de récupération",
+    "recoveryLabel": "Code de récupération (XXXXX-XXXXX)",
+    "recoveryButton": "Utiliser le code",
+    "recoveryBad": "Ce code n'est pas valable (incorrect ou déjà utilisé). Vous avez cinq essais par heure.",
+    "recoveryDone": "C'est fait : l'application d'authentification a été retirée du compte. Configurez celle de votre nouveau téléphone dans Mon compte."
+  },
+  "radio": {
+    "back15": "Reculer de 15 secondes",
+    "forward30": "Avancer de 30 secondes",
+    "speed": "Vitesse",
+    "position": "Position dans l'épisode",
+    "openEpisode": "Ouvrir l'épisode",
+    "related": "Écouter",
+    "relatedLead": "Des épisodes de podcast qui accompagnent ce sujet.",
+    "newEpisode": "Nouvel épisode",
+    "eyebrow": "Annuaire",
+    "title": "Radios du peuple",
+    "lead": "Des stations populaires, communautaires et ouvrières du Brésil et du monde. Lancez la lecture et continuez à naviguer : le son vous suit sur tout le site.",
+    "soon": "Bientôt",
+    "soonText": "La radio est en préparation et passera bientôt à l'antenne.",
+    "play": "Lecture",
+    "pause": "Pause",
+    "next": "Morceau suivant",
+    "previous": "Morceau précédent",
+    "live": "En direct",
+    "liveTitle": "Diffusion en direct",
+    "close": "Fermer le lecteur",
+    "preview": "La radio n'est pas encore à l'antenne : seule la coordination voit cette page ainsi.",
+    "empty": "Aucune chaîne enregistrée pour l'instant.",
+    "stations": "Radios du peuple, à l'antenne maintenant",
+    "stationsLead": "Des stations populaires, communautaires et ouvrières du Brésil et du monde entier. Lancez la lecture et continuez à naviguer : le son vous suit sur tout le site.",
+    "listen": "Écouter",
+    "site": "Site de la station",
+    "siteOnly": "Écouter sur le site de la station",
+    "fronts": {
+      "brasil": "Brésil",
+      "latina": "Amérique latine",
+      "mundo": "Europe et Amérique du Nord"
+    },
+    "stationsNote": "Le son vient directement de chaque station, qui est responsable de sa programmation ; l'institut ne fait que les indiquer et ne garde rien de ce qui est diffusé. Vous faites partie de l'une de ces stations et voulez être retiré, ou vous en connaissez une autre qui a sa place ici ? Écrivez-nous par la page Contribuer."
+  },
+  "errors": {
+    "entre_primeiro": "Connectez-vous pour continuer.",
+    "sem_permissao": "Vous n'avez pas la permission de faire cela.",
+    "muitos_pedidos": "Trop d'envois en peu de temps. Attendez un peu et réessayez.",
+    "falta_fonte": "Indiquez au moins une source.",
+    "conta_suspensa": "Ce compte est suspendu.",
+    "nao_encontrado": "Nous n'avons pas trouvé ce que vous cherchez.",
+    "topico_trancado": "Cette conversation est fermée aux nouvelles réponses.",
+    "sem_conexao": "Pas de connexion. Vérifiez votre internet et réessayez.",
+    "sem_servico": "Cette fonction n'est pas encore active sur cette copie du site.",
+    "invalido": "Vérifiez ce champ : {campo}.",
+    "falha": "Quelque chose s'est mal passé. Réessayez dans un instant.",
+    "limite_anuncios": "Chaque personne peut avoir jusqu'à trois annonces. Retirez-en une pour en publier une autre.",
+    "limite_pedidos": "Vous avez déjà trois demandes ouvertes. Attendez une réponse ou annulez-en une.",
+    "conteudo_recusado": "Le texte contient des mots que ce site n'accepte pas. Réécrivez-le et renvoyez-le.",
+    "sem_links": "Seulement du texte ici : pas d'adresses de sites, d'images ni de fichiers.",
+    "envios_pausados": "Les envois sont suspendus pour le moment.",
+    "area_interditada": "Cette partie du site est fermée pour un temps. Réessayez plus tard.",
+    "falta_termo": "Pour publier, acceptez les conditions et tapez votre nom complet.",
+    "acesso_bloqueado": "Les envois depuis ce réseau ont été bloqués par la médiation.",
+    "ja_pediu": "Vous avez déjà envoyé cette demande ; elle est en cours d'examen.",
+    "assistente_desligado": "L'assistant est éteint pour le moment. Demandez du soutien scolaire à un bénévole.",
+    "assistente_limite": "Vous avez utilisé toutes les questions du jour à l'assistant. Il y en aura d'autres demain ; en attendant, demandez du soutien scolaire à un bénévole.",
+    "assistente_lotado": "L'assistant a atteint la limite de questions du jour pour tout le site. Demandez du soutien scolaire à un bénévole ou réessayez demain.",
+    "assistente_indisponivel": "L'assistant n'est pas disponible pour le moment. Réessayez plus tard ou demandez du soutien scolaire à un bénévole.",
+    "assistente_falhou": "L'assistant n'a pas pu répondre pour le moment, et la question n'a pas été comptée. Réessayez dans un petit moment.",
+    "imagem": "L'image n'a pas pu être lue. Utilisez une photo JPG, PNG ou WebP.",
+    "pergunta_curta": "Décrivez votre question un peu plus en détail.",
+    "pergunta_longa": "La question dépasse le maximum (3 000 caractères)."
+  },
+  "community": {
+    "eyebrow": "Communauté",
+    "title": "Conversations",
+    "lead": "Posez des questions, proposez des groupes d'étude et aidez celles et ceux qui commencent. L'objectif de l'institut est l'enseignement ; cet espace existe pour soutenir l'étude.",
+    "rules": [
+      "Tout le monde peut lire. Poser une question ou répondre demande un compte. Ce qui respecte les règles apparaît tout de suite, ce qui les enfreint est bloqué, et les cas douteux attendent la lecture de la médiation.",
+      "Le respect toujours : contestez les idées, n'attaquez pas les personnes.",
+      "Pas de racisme, de sexisme, de LGBTphobie, de validisme ni d'aucun discours de haine.",
+      "Ne publiez pas de données personnelles, les vôtres ou celles des autres.",
+      "Vous affirmez un fait ? Donnez la source."
+    ],
+    "offline": "La communauté n'est pas encore active sur cette copie du site.",
+    "hot": "En vogue",
+    "new": "Récent",
+    "top": "Les plus votés",
+    "discipline": "Discipline",
+    "all": "Toutes",
+    "newTopic": "Nouvelle conversation",
+    "signInToPost": "Connectez-vous pour participer",
+    "titleLabel": "Titre",
+    "bodyLabel": "Message",
+    "post": "Publier",
+    "empty": "Pas encore de conversations ici.",
+    "replies": {
+      "one": "réponse",
+      "other": "réponses"
+    },
+    "locked": "conversation fermée",
+    "hidden": "cachée",
+    "back": "Toutes les conversations",
+    "show": "Afficher",
+    "hide": "Cacher",
+    "lock": "Fermer la conversation",
+    "unlock": "Rouvrir la conversation",
+    "reply": "Répondre",
+    "replyPlaceholder": "Écrivez votre réponse…",
+    "up": "Voter pour",
+    "down": "Voter contre",
+    "points": "points",
+    "kinds": {
+      "all": "Tout",
+      "question": "Question",
+      "talk": "Conversation",
+      "askQuestion": "J'ai une question d'étude",
+      "startTalk": "Je veux lancer une conversation"
+    },
+    "kindLabel": "Type de publication",
+    "unanswered": "Sans réponse",
+    "search": "Chercher dans la communauté",
+    "solved": "Résolu",
+    "accept": "Cette réponse a résolu",
+    "unaccept": "Décocher",
+    "accepted": "Réponse choisie par la personne qui a demandé",
+    "staff": "équipe",
+    "held": "Message reçu. Il apparaîtra pour tout le monde après la lecture de la médiation.",
+    "pending": "en attente de médiation",
+    "signUp": "Créer un compte",
+    "ban": "Bannir l'auteur",
+    "banConfirm": "Confirmer le bannissement",
+    "banned": "Compte banni. La coordination a été prévenue.",
+    "rulesTitle": "Règles de la communauté",
+    "rulesSummary": "Respect, pas de haine, pas de données personnelles, des sources pour les faits.",
+    "rooms": "Salles",
+    "allRooms": "Toutes les salles",
+    "order": "Trier",
+    "useful": "Utile",
+    "usefulMark": "Marquer comme utile",
+    "usefulUnmark": "Retirer utile",
+    "about": "À propos de",
+    "clearAbout": "Voir toutes les conversations",
+    "replyHere": "Répondre",
+    "replyingTo": "En réponse à {nome}",
+    "cancel": "Annuler",
+    "lastActivity": "dernière activité {tempo}",
+    "unansweredHelp": {
+      "one": "question en attente de réponse",
+      "other": "questions en attente de réponse"
+    },
+    "helpOut": "Aider à répondre",
+    "tutoringTitle": "Besoin d'aide avec un cours ?",
+    "tutoringText": "Demandez du soutien scolaire : quelqu'un de l'équipe répond.",
+    "tutoringLink": "Soutien scolaire",
+    "badges": {
+      "coordenacao": "Coordination",
+      "educacao": "Éducation",
+      "mentoria": "Tutorat",
+      "mediacao": "Médiation",
+      "equipe": "Équipe"
+    },
+    "room": "Salle"
+  },
+  "mural": {
+    "eyebrow": "Économie solidaire",
+    "title": "Mur des travailleurs",
+    "lead": "Vous cherchez une blanchisseuse, un maçon, une couturière, une coopérative ? Choisissez l'État et la ville. Vous êtes indépendant ? Publiez une annonce : c'est gratuit, sans intermédiaire et sans frais.",
+    "description": "Un espace gratuit où celles et ceux qui travaillent font connaître coopératives, services, produits, art et initiatives.",
+    "rulesTitle": "Comment fonctionne le mur",
+    "rules": [
+      "C'est pour celles et ceux qui vivent de leur propre travail : coopératives, associations, travailleurs indépendants, artisans, artistes, collectifs et initiatives communautaires.",
+      "Ne sont pas acceptés : entreprises qui cherchent de la main-d'œuvre, revente sur catalogue, systèmes pyramidaux, prêts, paris, promesses d'argent facile et propagande électorale.",
+      "Pas besoin de compte pour publier. Chaque annonce est lue par la coordination avant d'être mise en ligne et reste visible 180 jours. La ville et l'État sont obligatoires.",
+      "Le contact que vous écrivez est public. Ne publiez que ce que n'importe qui peut voir.",
+      "L'institut ne fait rien payer, ne prend aucune part sur les ventes et ne se porte pas garant des services annoncés. Vous avez vu quelque chose d'anormal ? Utilisez le lien Signaler."
+    ],
+    "offline": "Le mur n'est pas encore actif sur cette copie du site.",
+    "empty": "Pas encore d'annonces ici.",
+    "category": "Type",
+    "allCategories": "Tous les types",
+    "state": "État",
+    "allStates": "Tout le Brésil",
+    "categories": {
+      "cooperativa": "Coopérative ou association",
+      "servico": "Service",
+      "produto": "Produit",
+      "arte": "Art et culture",
+      "iniciativa": "Initiative communautaire"
+    },
+    "contact": "Contact",
+    "by": "Publié par {name}",
+    "newAd": "Publier une annonce gratuite",
+    "mine": "Mes annonces",
+    "formTitle": "Votre annonce",
+    "fields": {
+      "title": "Titre",
+      "description": "Ce que vous faites ou proposez",
+      "city": "Ville",
+      "state": "État",
+      "contact": "Contact (téléphone, réseau social ou e-mail)",
+      "link": "Site ou page (facultatif)",
+      "trade": "Métier ou service (par exemple : blanchisseuse, électricien)"
+    },
+    "contactHint": "Attention : le contact est montré à quiconque ouvre le mur.",
+    "send": "Envoyer à la coordination",
+    "sent": "Annonce envoyée. Elle apparaît sur le mur après la lecture de la coordination.",
+    "cancel": "Annuler",
+    "status": {
+      "pendente": "en attente de la coordination",
+      "aprovado": "en ligne",
+      "recusado": "pas approuvée",
+      "vencido": "expirée : renouvelez-la pour la remettre en ligne"
+    },
+    "edit": "Modifier",
+    "remove": "Retirer",
+    "removed": "Annonce retirée.",
+    "renew": "Renouveler",
+    "renewed": "Annonce renouvelée pour 180 jours de plus.",
+    "validUntil": "jusqu'au {date}",
+    "search": "Que cherchez-vous ?",
+    "searchPlaceholder": "blanchisserie, électricien, gâteau, cours de guitare…",
+    "city": "Ville",
+    "allCities": "Toutes les villes",
+    "found": "{n} annonce(s)",
+    "none": "Rien trouvé avec ces filtres. Essayez un autre mot ou une autre ville.",
+    "withdraw": "Retirer une annonce",
+    "withdrawLabel": "Code de l'annonce",
+    "codeTitle": "Gardez ce code",
+    "codeText": "Vous en aurez besoin pour retirer l'annonce quand vous le voudrez. Il ne sera plus affiché."
+  },
+  "tutoring": {
+    "eyebrow": "Personne n'étudie seul",
+    "title": "Soutien scolaire",
+    "lead": "Bloqué dans une discipline ? Écrivez votre question. Un bénévole de l'équipe pédagogique répond par e-mail.",
+    "description": "Demandez de l'aide dans n'importe quelle discipline : un bénévole de l'Institut Lúcia répond à votre question par e-mail, gratuitement.",
+    "how": [
+      "Écrivez votre question et dites ce que vous avez déjà essayé. Pas besoin de compte.",
+      "Quelqu'un de l'équipe de la discipline prend la demande et répond à l'adresse e-mail indiquée.",
+      "Votre e-mail n'est vu que par la personne qui a pris la demande et il est effacé de notre base dès que la réponse est envoyée."
+    ],
+    "discipline": "Discipline",
+    "choose": "Choisissez…",
+    "subject": "Sujet (par exemple : équations du second degré)",
+    "question": "Votre question",
+    "email": "Adresse e-mail pour la réponse",
+    "emailHint": "Vérifiez l'adresse : l'explication y sera envoyée. Regardez aussi dans les indésirables.",
+    "send": "Demander du soutien",
+    "sent": "Demande envoyée. La réponse arrivera à l'e-mail indiqué.",
+    "mine": "Mes demandes",
+    "status": {
+      "aberto": "en attente",
+      "em_atendimento": "en cours",
+      "atendido": "répondu par e-mail",
+      "cancelado": "annulée"
+    },
+    "cancel": "Annuler la demande",
+    "cancelled": "Demande annulée.",
+    "offline": "Le soutien scolaire n'est pas encore actif sur cette copie du site.",
+    "textOnly": "Seulement du texte : les adresses de sites, les images et les fichiers ne sont pas acceptés.",
+    "suggestTitle": "Des cours et des entrées qui peuvent aider",
+    "assistant": {
+      "title": "Pas de bénévole en ce moment ? Demandez à l'assistant",
+      "lead": "Un assistant automatique explique votre question tout de suite, pas à pas, à partir de ce que vous avez écrit plus haut. Il peut se tromper : vérifiez avec les cours et, si vous êtes encore bloqué, demandez du soutien à un bénévole juste en dessous.",
+      "warning": "Avant de demander : votre question (et la photo, si vous en envoyez une) part vers un service d'intelligence artificielle d'une autre entreprise, Anthropic, avec des serveurs hors du Brésil. N'écrivez pas votre nom, votre adresse, votre téléphone ni d'autres données personnelles. L'Institut Lúcia ne garde ni la question ni la réponse.",
+      "login": "L'assistant est réservé aux personnes qui ont un compte.",
+      "loginLink": "Connectez-vous ou créez un compte",
+      "photo": "Joindre une photo de l'exercice (facultatif)",
+      "removePhoto": "Retirer la photo",
+      "ask": "Demander à l'assistant",
+      "need": "Écrivez votre question plus haut (ou joignez une photo) pour demander.",
+      "asking": "L'assistant réfléchit… cela peut prendre jusqu'à une minute.",
+      "answer": "La réponse de l'assistant",
+      "mayErr": "Réponse automatique, qui peut contenir des erreurs. Vérifiez avec les cours du site ou demandez à un bénévole.",
+      "cut": "La réponse était trop longue et a été coupée à la fin.",
+      "refused": "L'assistant ne peut pas aider sur cette question. Envoyez-la à un bénévole avec le formulaire ci-dessous.",
+      "left": "Questions restantes aujourd'hui : {n}.",
+      "toVolunteer": "Toujours bloqué ? Demandez du soutien à un bénévole juste en dessous : votre question est déjà écrite."
+    }
+  },
+  "materials": {
+    "eyebrow": "À imprimer et distribuer",
+    "title": "Matériel",
+    "lead": "Fanzines, tracts, affiches et banderoles faits par l'institut. Téléchargez, imprimez et faites passer.",
+    "description": "Fanzines, tracts, affiches et banderoles de l'Institut Lúcia à télécharger, imprimer et distribuer.",
+    "empty": "Aucun matériel publié pour l'instant.",
+    "offline": "Le matériel n'est pas encore actif sur cette copie du site.",
+    "open": "Ouvrir ou télécharger",
+    "types": {
+      "zine": "Fanzine",
+      "panfleto": "Tract",
+      "cartaz": "Affiche",
+      "banner": "Banderole",
+      "video": "Vidéo",
+      "texto": "Texte"
+    }
+  },
+  "certificate": {
+    "eyebrow": "Bénévolat",
+    "title": "Vérifier une attestation",
+    "lead": "Tapez le code imprimé sur une attestation de travail bénévole pour confirmer que l'institut l'a délivrée.",
+    "description": "Vérification publique des attestations de travail bénévole délivrées par l'Institut Lúcia.",
+    "code": "Code de l'attestation",
+    "check": "Vérifier",
+    "failed": "Impossible de vérifier pour le moment. Réessayez dans quelques minutes.",
+    "notFound": "Il n'existe pas d'attestation avec ce code.",
+    "cancelled": "Cette attestation a été annulée et n'est pas valable.",
+    "valid": "Attestation authentique, délivrée par l'Institut Lúcia.",
+    "name": "Nom",
+    "hours": "Heures",
+    "period": "Période",
+    "activities": "Activités",
+    "issued": "Délivrée le",
+    "witnesses": "Signée par",
+    "offline": "La vérification n'est pas encore active sur cette copie du site."
+  },
+  "start": {
+    "eyebrow": "Liste de lecture",
+    "title": "Par où commencer",
+    "lead": "Sept étapes pour qui arrive, de ce que vous vivez au travail jusqu'aux textes plus longs. Tout ici est gratuit et sur ce site.",
+    "lessons": "Cours",
+    "readings": "Lectures",
+    "reference": "fiche de référence, cherchez-la dans une bibliothèque",
+    "after": "Terminé ? Continuez par les disciplines, la bibliothèque, ou apportez vos questions à la communauté :"
+  },
+  "news": {
+    "eyebrow": "Revue de presse",
+    "title": "Nouvelles du Brésil",
+    "lead": "Les derniers titres de la presse populaire, indépendante et publique du Brésil, réunis au même endroit. Touchez un titre pour lire l'article sur le site de l'éditeur. Les titres sont en portugais.",
+    "description": "Les titres récents de la presse populaire, indépendante et publique du Brésil, mis à jour toutes les quinze minutes.",
+    "updated": "Mis à jour à {time} (heure de Brasília) ; la liste se renouvelle toutes les quinze minutes",
+    "latest": "Les plus récents",
+    "byOutlet": "Par média",
+    "empty": "Les titres n'ont pas pu être récupérés pour le moment. Réessayez dans quelques minutes.",
+    "note": "L'institut n'écrit pas, ne modifie pas et ne répond pas de ces textes : il montre seulement le titre, la date et le lien que chaque média diffuse publiquement. Les articles de l'institut lui-même sont dans le Journal."
+  },
+  "gallery": {
+    "eyebrow": "Art et presse de la lutte",
+    "title": "Galerie d'affiches",
+    "lead": "Avant la radio et la télévision, le mur était le journal de qui travaille. Ces affiches, gravures et photographies ont été faites pour appeler, enseigner et dénoncer. Chacune vient avec qui l'a faite, quand et pourquoi.",
+    "description": "Affiches, gravures et photographies historiques de la lutte ouvrière, dans le domaine public, avec contexte et source.",
+    "publicDomain": "Image du domaine public. Source :",
+    "note": "Seules des œuvres du domaine public sont montrées ici, gardées sur ce site avec leur source. Une affiche est un document de son époque : la montrer n'est pas approuver tout ce qui a été fait en son nom."
+  },
+  "volunteer": {
+    "title": "Candidature bénévole",
+    "lead": "Remplissez le formulaire. La coordination lit chaque candidature et répond à l'e-mail indiqué.",
+    "name": "Nom complet",
+    "email": "E-mail de contact",
+    "role": "Rôle souhaité",
+    "discipline": "Discipline",
+    "chooseDiscipline": "Choisissez…",
+    "message": "Présentation : parlez de votre expérience et de pourquoi vous voulez aider",
+    "messageHint": "Au moins 30 caractères.",
+    "send": "Envoyer la candidature",
+    "sent": "Candidature reçue. La coordination va la lire et répondre à l'e-mail indiqué.",
+    "privacy": "Votre nom et votre e-mail ne sont vus que par la coordination et servent uniquement à répondre à la candidature.",
+    "offline": "Les candidatures ne sont pas encore actives sur cette copie du site.",
+    "roles": {
+      "educacao": "Éducateur",
+      "mediacao": "Médiation de la communauté",
+      "revisao": "Relecture",
+      "traducao": "Traduction",
+      "jornalismo": "Journaliste, animateur radio ou podcasteur",
+      "mentoria": "Soutien scolaire",
+      "design": "Design",
+      "marketing": "Communication et diffusion",
+      "desenvolvimento": "Infrastructure et développement",
+      "curadoria": "Curation",
+      "educacao_secundaria": "Éducateur du secondaire : matériels et cours isolés"
+    }
+  },
+  "povo": {
+    "eyebrow": "Conscience politique",
+    "title": "Données du peuple",
+    "lead": "Les chiffres qui pèsent le plus sur la vie de qui travaille, et ce que vote la Chambre des députés, directement depuis des sources officielles brésiliennes. Mis à jour toutes les quelques heures.",
+    "economy": "Salaires, prix et emploi",
+    "indicators": {
+      "salario": [
+        "Salaire minimum",
+        "Valeur mensuelle du salaire minimum national (Brésil)."
+      ],
+      "ipca": [
+        "Inflation sur 12 mois",
+        "IPCA cumulé sur douze mois : de combien les prix ont monté en un an."
+      ],
+      "selic": [
+        "Taux directeur (Selic)",
+        "Objectif annuel de la Selic fixé par la Banque centrale. Il rend le crédit plus cher ou moins cher."
+      ],
+      "desocupacao": [
+        "Chômage",
+        "Taux de chômage de l'enquête PNAD Contínua, trimestre glissant."
+      ],
+      "populacao": [
+        "Population du Brésil",
+        "Estimation officielle de l'IBGE."
+      ]
+    },
+    "reference": "Référence",
+    "votes": "Ce que la Chambre a voté",
+    "votesLead": "Les derniers votes en séance plénière de la Chambre des députés du Brésil, tels que décrits par la Chambre elle-même (en portugais).",
+    "approved": "approuvé",
+    "rejected": "rejeté",
+    "seeSession": "Voir la séance sur le site de la Chambre",
+    "votesSource": "Source : données ouvertes de la Chambre des députés.",
+    "unavailable": "La source n'a pas répondu pour le moment. Revenez dans quelques heures.",
+    "note": "Tous les chiffres viennent des sources indiquées dans chaque encadré, sans ajustement. Si une source ne répond pas, l'encadré disparaît au lieu de montrer un vieux chiffre."
+  },
+  "closed": {
+    "siteTitle": "Hors ligne pour un temps",
+    "siteLead": "L'Institut Lúcia est temporairement hors ligne. Revenez un peu plus tard.",
+    "areaTitle": "Cette partie du site est fermée pour un temps",
+    "areaLead": "Le reste du site fonctionne normalement.",
+    "home": "Aller à la page d'accueil",
+    "team": "Équipe : se connecter"
+  },
+  "drawer": {
+    "eyebrow": "Travaux d'étudiants",
+    "title": "Tiroir ouvert",
+    "tagline": "des travaux d'étudiants, libres pour tous",
+    "lead": "Mémoires, articles, projets, rapports et fiches de révision qui dormaient dans un tiroir. Qui les a faits les publie avec un commentaire et une licence libre ; qui s'y intéresse peut les utiliser librement.",
+    "description": "Des travaux d'étudiants publiés par leurs auteurs sous licence libre : mémoires, articles, projets, rapports et fiches de révision.",
+    "offline": "Le Tiroir ouvert n'est pas encore actif sur cette copie du site.",
+    "filters": "Filtrer le Tiroir ouvert",
+    "allSubjects": "Toutes les disciplines",
+    "allTypes": "Tous les types",
+    "search": "Chercher par titre, formation, établissement…",
+    "empty": "Aucun travail ne correspond encore à ces filtres.",
+    "loading": "Chargement…",
+    "count": {
+      "one": "travail",
+      "other": "travaux"
+    },
+    "types": {
+      "tcc": "Mémoire de fin d'études",
+      "monografia": "Monographie",
+      "dissertacao": "Mémoire de master ou thèse",
+      "artigo": "Article",
+      "projeto": "Projet",
+      "relatorio": "Rapport",
+      "apostila": "Fiches ou résumé",
+      "codigo": "Code",
+      "apresentacao": "Présentation",
+      "outro": "Autre"
+    },
+    "credit": "Crédit : {name}",
+    "why": "Pourquoi ça vaut le coup",
+    "open": "Ouvrir le travail",
+    "download": "Télécharger le PDF",
+    "downloading": "Téléchargement…",
+    "downloadFailed": "Le téléchargement n'a pas marché pour le moment. Réessayez dans un instant.",
+    "report": "Signaler",
+    "license": "Licence",
+    "licenses": {
+      "CC BY 4.0": "CC BY 4.0 : usage libre, avec crédit",
+      "CC BY-SA 4.0": "CC BY-SA 4.0 : usage libre, avec crédit et la même licence pour les adaptations",
+      "CC0 1.0": "CC0 1.0 : domaine public, sans besoin de crédit"
+    },
+    "publishTitle": "Publier un travail",
+    "publishLead": "Vous avez fait quelque chose qui a fini dans un tiroir ? Publiez-le avec votre propre commentaire. La médiation le vérifie avant qu'il apparaisse.",
+    "signInFirst": "Pour publier, connectez-vous ou créez un compte. C'est gratuit.",
+    "signIn": "Se connecter ou créer un compte",
+    "fieldTitle": "Titre du travail",
+    "fieldType": "Type",
+    "fieldSubject": "Discipline",
+    "chooseSubject": "Choisissez…",
+    "fieldCourse": "Formation (facultatif)",
+    "fieldInstitution": "Établissement (facultatif)",
+    "fieldYear": "Année (facultatif)",
+    "fieldComment": "Votre commentaire : de quoi il s'agit et pourquoi cela peut aider quelqu'un (de 40 à 2 000 caractères)",
+    "fieldCredit": "Nom pour le crédit public",
+    "how": "Comment les lecteurs accèdent au travail",
+    "howLink": "Un lien vers l'endroit où il est déjà",
+    "howFile": "Envoyer le PDF",
+    "fieldLink": "Adresse (https://…) : dépôt de l'université, Zenodo, OSF, GitHub, Google Drive…",
+    "fieldFile": "Fichier PDF (jusqu'à 10 Mo)",
+    "fileWarning": "Les PDF gardent souvent le nom de l'auteur et d'autres données dans leurs métadonnées (Fichier → Propriétés). Vérifiez avant d'envoyer. La médiation vérifie aussi le fichier avant de publier.",
+    "notPdf": "Choisissez un fichier PDF de 10 Mo maximum.",
+    "uploadFailed": "Le PDF n'a pas été envoyé. Vérifiez que c'est un PDF de 10 Mo maximum et réessayez.",
+    "fieldLicense": "Licence",
+    "term": "Conditions de cession",
+    "termAgree": "J'ai lu et j'accepte les conditions de cession (version {v})",
+    "termName": "Votre nom complet (gardé seulement par l'équipe qui décide, comme trace de l'acceptation ; il n'apparaît jamais sur le site)",
+    "termPage": "Ouvrir les conditions sur une page à part",
+    "send": "Publier",
+    "sending": "Envoi…",
+    "sent": "Reçu. La médiation va vérifier et publier bientôt ; vous recevrez un avis dans votre panneau.",
+    "mine": "Mes publications",
+    "statuses": {
+      "pendente": "en attente de médiation",
+      "aprovado": "publié",
+      "recusado": "pas publié"
+    },
+    "note": "Note de la médiation",
+    "withdraw": "Retirer",
+    "withdrawConfirm": "Retirer cette publication ? Les personnes qui ont déjà copié le travail peuvent continuer à l'utiliser selon la licence.",
+    "withdrawn": "Publication retirée.",
+    "exerciseFor": "Remise d'exercice : {titulo}",
+    "exerciseHint": "Envoyez le lien de la vidéo exportée. L'éducateur de la discipline commente ; la publier dans le Tiroir pour tout le monde passe toujours par la médiation.",
+    "feedback": "Commentaire de l'éducateur"
+  },
+  "podcast": {
+    "title": "Podcasts",
+    "eyebrow": "Écouter et apprendre",
+    "lead": "Des conversations d'éducation populaire et politique : histoire, économie, luttes sociales et l'examen ENEM du Brésil. Gratuit, avec transcription et sources.",
+    "newest": "Nouveau",
+    "season": "Saison",
+    "episode": "Épisode",
+    "openEpisode": "Voir l'épisode",
+    "soon": "Bientôt",
+    "soonText": "Le premier épisode est en production. En attendant, votez pour les thèmes et envoyez votre question.",
+    "subscribe": "S'abonner",
+    "subscribeLead": "Écoutez dans l'application que vous utilisez déjà, ou copiez l'adresse du flux (RSS) dans n'importe quel lecteur de podcasts.",
+    "copyFeed": "Copier",
+    "copied": "Copié",
+    "guestNote": "Vous participez à un épisode ?",
+    "micTitle": "Testez votre microphone",
+    "micShort": "Microphone",
+    "listen": "Écouter",
+    "pause": "Pause",
+    "all": "Tous",
+    "filters": "Filtrer les épisodes",
+    "recent": "Épisodes récents",
+    "series": "Séries",
+    "episodes": "épisodes",
+    "allEpisodes": "Tous les épisodes",
+    "openDiscipline": "Ouvrir l'étagère de",
+    "themes": {
+      "historia": "Histoire",
+      "economia": "Économie",
+      "luta-social": "Luttes sociales",
+      "enem": "ENEM",
+      "filosofia": "Philosophie",
+      "cultura": "Culture",
+      "ciencia": "Science",
+      "trabalho": "Travail",
+      "educacao": "Éducation",
+      "internacional": "International",
+      "memoria": "Mémoire",
+      "atualidade": "Actualité"
+    },
+    "position": "Position dans l'épisode",
+    "chapters": "Chapitres",
+    "searchTranscript": "Chercher dans la transcription",
+    "playFrom": "Écouter à partir de",
+    "noMatch": "Rien trouvé.",
+    "commentBlocked": "Le message n'a pas passé les règles de la communauté.",
+    "commentHeld": "Reçu : le message apparaîtra après la lecture de la médiation.",
+    "tooMany": "Trop d'envois en peu de temps. Réessayez plus tard.",
+    "commentsClosed": "Les commentaires de cet épisode sont fermés.",
+    "failed": "Cela n'a pas marché. Réessayez.",
+    "commentsEmpty": "Pas encore de commentaires. Lancez la conversation.",
+    "team": "équipe",
+    "waitingModeration": "en attente de médiation",
+    "commentLabel": "Qu'en avez-vous pensé ? Une question ?",
+    "comment": "Commenter",
+    "commentRules": "Les mêmes règles que la communauté : respect, pas de données personnelles, une source quand vous affirmez un fait.",
+    "signIn": "Connectez-vous",
+    "signInToComment": "pour commenter.",
+    "copyLink": "Copiez l'adresse :",
+    "share": "Partager",
+    "refused": "Le texte contient des mots que le filtre de la communauté n'accepte pas.",
+    "paused": "Les envois sont suspendus pour le moment.",
+    "signInWhy": "pour participer. C'est gratuit.",
+    "voteTitle": "Votez pour les prochains thèmes",
+    "voteLead": "L'équipe choisit les prochains thèmes parmi ce que la communauté veut le plus entendre.",
+    "voteEmpty": "Aucun thème soumis au vote pour le moment.",
+    "signInToVote": "Connectez-vous pour voter.",
+    "unvote": "Retirer le vote",
+    "vote": "Voter",
+    "chosen": "Choisi",
+    "recorded": "déjà sorti",
+    "inProduction": "en production",
+    "suggestTitle": "Proposer un thème",
+    "suggestLabel": "Thème",
+    "suggestWhy": "Pourquoi ce thème ? (facultatif)",
+    "suggest": "Proposer",
+    "suggested": "Proposition envoyée. L'équipe la lit et décide si elle passe au vote.",
+    "stop": "Arrêter",
+    "discard": "Jeter",
+    "record": "Enregistrer la question",
+    "micDenied": "Le navigateur n'a pas autorisé le microphone. Autorisez l'accès dans les réglages du site.",
+    "askTitle": "Posez une question au podcast",
+    "askLead": "Envoyez votre question par écrit ou avec votre propre voix. Celles qui sont choisies reçoivent une réponse dans les épisodes.",
+    "askText": "Votre question",
+    "askSign": "Comment devons-nous vous appeler à l'antenne ? (facultatif)",
+    "askSignExample": "Ana, de Recife",
+    "askSend": "Envoyer la question",
+    "askPrivacy": "Seule l'équipe du podcast l'écoute et la lit. Si la question passe à l'antenne, seule la signature que vous avez choisie est utilisée.",
+    "askSent": "Question envoyée. Merci !",
+    "micTooHot": "Ça sature : éloignez-vous d'une main du microphone ou baissez le volume d'entrée.",
+    "micTooLow": "Votre voix est faible : rapprochez-vous (à une main) ou montez le volume d'entrée.",
+    "micVoiceOk": "Le niveau de la voix est bon.",
+    "micNoisy": "Il y a beaucoup de bruit de fond : éteignez les ventilateurs et frigos proches, fermez la fenêtre, enregistrez dans une pièce avec des tissus (rideaux, canapé, vêtements).",
+    "micQuiet": "La pièce est silencieuse.",
+    "micCloser": "Votre voix dépasse à peine le bruit : rapprochez-vous du microphone.",
+    "micLead": "Vérifiez le niveau de votre voix et le bruit de la pièce avant d'enregistrer. Rien ne sort de votre appareil.",
+    "micStart": "Allumer le microphone",
+    "micDevice": "Microphone",
+    "micLevel": "Niveau maintenant",
+    "micTarget": "En parlant normalement, le niveau doit rester surtout dans le vert, sans jamais atteindre le rouge.",
+    "micSilence": "Silence pendant 5 secondes…",
+    "micSpeak": "Maintenant, lisez la phrase à voix haute…",
+    "micGuided": "Faire le test guidé (11 secondes)",
+    "micSentence": "« Le savoir appartient à tout le monde, et qui étudie ensemble apprend plus vite. »",
+    "micNoise": "Bruit",
+    "micVoice": "Voix",
+    "micPeak": "Crête",
+    "micListen": "Écoutez comment ça sonne :",
+    "micStop": "Éteindre le microphone",
+    "micTipsTitle": "Conseils pour bien enregistrer à la maison",
+    "micTips": [
+      "Portez un casque pendant l'enregistrement : la conversation ne repassera pas dans le microphone.",
+      "Restez à une main du microphone, un peu de côté, pour que les « p » et les « b » ne claquent pas.",
+      "Enregistrez dans une petite pièce pleine d'objets (vêtements, livres, rideaux) : les murs nus font de l'écho.",
+      "Mettez votre téléphone en mode avion et coupez les notifications de l'ordinateur.",
+      "Un kit mains libres de téléphone suffit. Les microphones d'ordinateur portable captent le bruit du clavier et du ventilateur."
+    ],
+    "guestInvalid": "Ce lien n'existe pas ou a expiré. Demandez-en un nouveau à la personne qui vous a invité.",
+    "guestHello": "Bonjour,",
+    "guestAccepted": "Accord accepté le",
+    "guestWithImage": "Vous avez autorisé l'usage de votre voix et de votre image.",
+    "guestVoiceOnly": "Vous avez autorisé l'usage de votre voix.",
+    "guestName": "Votre nom complet",
+    "guestVoice": "J'ai lu et j'autorise l'usage de ma voix, comme dans l'accord ci-dessus.",
+    "guestImage": "J'autorise aussi l'usage de mon image (photo ou vidéo de l'enregistrement).",
+    "guestAccept": "Accepter l'accord",
+    "guestRecordTitle": "Si l'enregistrement est à distance",
+    "guestRecordSteps": [
+      "Entrez dans la salle par le lien envoyé par la production, avec un casque.",
+      "Si la production le demande, enregistrez aussi votre propre voix sur votre appareil (dictaphone du téléphone, Audacity ou l'application d'appel elle-même) du début à la fin de la conversation.",
+      "À la fin, envoyez le fichier à la production, comme convenu. Votre piste locale sonne bien mieux que l'appel.",
+      "Si la connexion tombe, continuez à enregistrer sur votre appareil et revenez dans la salle dès que possible."
+    ],
+    "guestTitle": "Invité du podcast",
+    "guestLead": "Merci de participer. Ici, vous pouvez lire et accepter l'accord d'usage de la voix et tester votre microphone.",
+    "plays": "écoutes",
+    "guests": "Invités",
+    "download": "Télécharger l'audio",
+    "notes": "Notes de l'épisode",
+    "citedWorks": "Œuvres citées",
+    "sources": "Sources",
+    "transcript": "Transcription",
+    "downloadCaptions": "Télécharger les sous-titres (.vtt)",
+    "conversation": "Conversation",
+    "more": "À suivre"
+  },
+  "loose": {
+    "eyebrow": "Matériel à part",
+    "formats": [
+      "Cours isolé",
+      "Fiche d'exercices",
+      "Résumé",
+      "Guide d'étude",
+      "Matériel à imprimer",
+      "Recommandation commentée"
+    ]
+  },
+  "practice": {
+    "title": "Jouer et s'entraîner",
+    "lead": "Jouez avec ce que vous venez d'apprendre : un exercice à la fois, réponse immédiate, des points et une série quotidienne à entretenir. La voix est celle de votre appareil ; rien n'en sort.",
+    "best": "Votre meilleur résultat dans ce cours : {n} % · {k} session(s).",
+    "start": "Commencer",
+    "again": "Rejouer",
+    "exercises": "{n} exercices",
+    "reviewCards": "Réviser les cartes du jour",
+    "progress": "Progression de la session",
+    "exerciseOf": "{i} sur {n}",
+    "correct": "Correct !",
+    "wrong": "Pas encore.",
+    "skipped": "Passé.",
+    "answerWas": "La réponse était :",
+    "continue": "Continuer",
+    "finish": "Voir le résultat",
+    "quit": "Quitter la session",
+    "score": "Vous avez réussi {a} sur {b}.",
+    "earned": "+{n} points",
+    "previewNote": "Essai : les points ne comptent pas.",
+    "streakDays": "{n} jour(s) d'affilée",
+    "xp": "points",
+    "streak": "Série quotidienne",
+    "soundOn": "son activé",
+    "soundOff": "son coupé",
+    "redoWrong": "Refaire seulement les erreurs",
+    "check": "Vérifier",
+    "listen": "Écouter",
+    "slow": "Écouter lentement",
+    "orderWords": "Mettez les mots dans l'ordre",
+    "translate": "Traduisez",
+    "yourAnswer": "Votre réponse",
+    "tapWords": "Touchez les mots pour construire la phrase.",
+    "typeAnswer": "Tapez la réponse",
+    "fillBlank": "Complétez le blanc",
+    "matchPairs": "Associez les paires",
+    "typeHeard": "Tapez ce que vous avez entendu",
+    "noSpeech": "Votre appareil n'a pas de voix pour cette langue. Lisez et tapez :",
+    "sayIt": "Dites-le à voix haute",
+    "speak": "Parler",
+    "speaking": "J'écoute… touchez pour arrêter",
+    "heard": "Nous avons entendu :",
+    "noMic": "Impossible de vous entendre. Vérifiez le microphone et réessayez, ou passez.",
+    "skip": "Passer",
+    "couldSay": "Ce navigateur ne reconnaît pas la parole. Écoutez, répétez à voix haute et dites comment ça s'est passé :",
+    "iDid": "J'y suis arrivé",
+    "notYet": "Pas encore",
+    "flashcards": "Cartes mémoire",
+    "front": "touchez pour revenir",
+    "flip": "touchez pour retourner",
+    "hard": "Difficile",
+    "easy": "Facile"
+  },
+  "live": {
+    "eyebrow": "Enseignement à distance",
+    "title": "Cours en direct",
+    "lead": "Les enseignants programment les cours ici ; à l'heure dite, vous entrez, regardez et posez vos questions. Gratuit, rien à installer.",
+    "description": "Programme public des cours en direct de l'Institut Lúcia, avec vidéo et discussion sur le site même.",
+    "room": "Salle de cours",
+    "offline": "Les cours en direct ne sont pas encore actifs sur cette copie du site.",
+    "filter": "Discipline",
+    "all": "Toutes les disciplines",
+    "empty": "Aucun cours programmé pour l'instant. Revenez bientôt.",
+    "liveNow": "En direct maintenant",
+    "recorded": "Enregistrement",
+    "recordings": "Cours enregistrés",
+    "minutes": "{n} min",
+    "with": "avec {names}",
+    "registered": "{n} inscrits",
+    "enter": "Entrer dans le cours",
+    "openRoom": "Ouvrir la salle",
+    "register": "S'inscrire",
+    "unregister": "Annuler l'inscription",
+    "addToCalendar": "Ajouter à l'agenda",
+    "watchRecording": "Regarder l'enregistrement",
+    "howItWorks": "Comment ça marche : la vidéo va directement du navigateur de l'enseignant au vôtre, sans serveur entre les deux. La discussion est gardée comme trace du cours. Il faut un compte pour parler ; pas pour regarder.",
+    "chat": "Discussion",
+    "chatEmpty": "Personne n'a encore parlé.",
+    "chatPlaceholder": "Écrivez à la classe",
+    "send": "Envoyer",
+    "markQuestion": "C'est une question pour l'enseignant",
+    "question": "question",
+    "show": "afficher",
+    "hide": "cacher",
+    "chatClosed": "Le cours est terminé : la discussion est fermée.",
+    "signInToChat": "Connectez-vous pour parler dans la discussion.",
+    "someone": "Quelqu'un",
+    "you": "vous",
+    "cancelled": "Ce cours a été annulé.",
+    "ended": "Ce cours est terminé.",
+    "noChannel": "La vidéo n'est pas disponible sur cette copie du site. Utilisez la salle externe, s'il y en a une ; la discussion fonctionne.",
+    "noChannelShort": "sans canal",
+    "hostHint": "Allumez la caméra ou l'écran ci-dessous. Toute la salle vous verra.",
+    "waitingVideo": "Le cours a commencé. En attente de la vidéo de l'enseignant…",
+    "notStarted": "Le cours n'a pas encore commencé. Restez ici : la vidéo apparaît toute seule.",
+    "externalRoom": "Entrer dans la salle externe",
+    "hostControls": "Vous animez ce cours",
+    "camera": "Caméra",
+    "screen": "Écran",
+    "audioOnly": "Voix seule",
+    "mute": "Couper le micro",
+    "unmute": "Activer le micro",
+    "record": "Enregistrer",
+    "stopRecording": "Arrêter et télécharger",
+    "turnOff": "Éteindre",
+    "startClass": "Commencer le cours",
+    "endClass": "Terminer le cours",
+    "confirmEnd": "Terminer le cours pour tout le monde ?",
+    "recordHint": "L'enregistrement reste sur votre appareil (fichier .webm). Ensuite, envoyez-le comme cours en vidéo dans le panneau ou collez son adresse dans « Ajouter l'enregistrement ».",
+    "handsRaised": "Main levée : {names}",
+    "raiseHand": "Lever la main",
+    "lowerHand": "Baisser la main",
+    "inRoom": "{n} dans la salle",
+    "teacher": "enseigne",
+    "mediaFailed": "Impossible d'allumer la caméra, l'écran ou le microphone. Vérifiez l'autorisation du navigateur.",
+    "recordFailed": "Ce navigateur ne peut pas enregistrer de vidéo.",
+    "chatHeld": "Votre message a été reçu et apparaît pour tout le monde après la lecture de la médiation.",
+    "chatPending": "en attente de médiation"
+  },
+  "notebook": {
+    "eyebrow": "Salle d'étude",
+    "title": "Cahier d'étude",
+    "lead": "Rassemblez ce que vous allez étudier (cours et œuvres du site, vos propres textes, des fichiers) et gardez tout sous la main : résumé, questions aux sources, cartes, quiz, carte mentale, frise, résumé audio, notes et plan. Gratuit, sans compte : gardé seulement dans ce navigateur.",
+    "description": "Cahier d'étude de l'Institut Lúcia : résumé, cartes, quiz, carte mentale, frise chronologique et audio à partir des cours et de vos propres textes, dans le navigateur.",
+    "notebooks": "Cahiers",
+    "newNotebook": "Nouveau cahier",
+    "untitled": "Mon cahier",
+    "rename": "Nom du cahier",
+    "delete": "Supprimer ce cahier",
+    "confirmDelete": "Supprimer le cahier, avec ses sources et ses notes ? C'est irréversible.",
+    "sources": "Sources",
+    "fromSite": "Du site",
+    "searchSite": "Chercher dans les cours et les œuvres du site",
+    "searchPlaceholder": "Chercher un cours, une œuvre, une entrée du glossaire…",
+    "noResults": "Rien sous ce nom.",
+    "paste": "Coller un texte",
+    "pasteTitle": "Titre de la source",
+    "pasteText": "Collez le texte ici (notes, un chapitre, un article…)",
+    "pasteAdd": "Ajouter",
+    "file": "Fichier",
+    "fileHint": "Fichiers .txt ou .md de votre appareil. Rien n'est envoyé ailleurs.",
+    "active": "Utiliser cette source",
+    "remove": "retirer",
+    "empty": "Pas encore de sources. Commencez par le site, collez un texte ou ouvrez un fichier.",
+    "needSources": "Cochez au moins une source pour que cet outil fonctionne.",
+    "minutes": "{n} min de lecture",
+    "tools": {
+      "summary": "Résumé",
+      "ask": "Demander",
+      "cards": "Cartes",
+      "quiz": "Quiz",
+      "map": "Carte",
+      "timeline": "Frise",
+      "audio": "Audio",
+      "notes": "Notes",
+      "plan": "Plan",
+      "script": "Script",
+      "read": "Lire",
+      "review": "Révision",
+      "mistakes": "Erreurs"
+    },
+    "summaryLead": "Les phrases qui portent le plus d'idées des sources, dans l'ordre où elles apparaissent. Pas un texte nouveau : le texte lui-même, condensé.",
+    "summaryLength": "Phrases",
+    "keywords": "Les mots qui pèsent le plus",
+    "copyToNotes": "Copier dans les notes",
+    "askLead": "Demandez avec vos mots : le cahier apporte les passages des sources qui en parlent le plus. C'est le texte qui répond, pas une machine.",
+    "askPlaceholder": "Qu'est-ce que la plus-value ? Quand a eu lieu la grève de 1917 ?",
+    "askButton": "Chercher",
+    "askNone": "Aucun passage n'en parle. Essayez d'autres mots ou ajoutez des sources.",
+    "cardsLead": "Des cartes faites à partir des titres et des termes en évidence dans les sources. Retournez, dites si vous saviez, et répétez celles que vous avez manquées.",
+    "cardsEmpty": "Impossible de faire des cartes avec ces sources : elles n'ont ni titres ni termes en évidence. Essayez un cours du site.",
+    "flip": "touchez pour retourner",
+    "front": "touchez pour revenir",
+    "know": "Je savais",
+    "dontKnow": "Pas encore",
+    "again": "Mélanger et refaire",
+    "redoUnknown": "Répéter les manquées",
+    "cardsDone": "Vous saviez {a} sur {b}.",
+    "quizLead": "Les questions rapides écrites dans les cours et des phrases à trous tirées des mots clés. Sans note.",
+    "quizEmpty": "Impossible de faire des questions avec ces sources. Essayez un cours du site, qui a déjà des questions.",
+    "check": "Vérifier",
+    "correct": "Juste.",
+    "wrong": "Pas encore.",
+    "next": "Suivante",
+    "quizScore": "Vous avez eu {a} sur {b}.",
+    "restart": "En tirer d'autres",
+    "mapLead": "Les titres de chaque source en arbre : la structure du sujet d'un seul coup d'œil.",
+    "timelineLead": "Les années citées dans les sources, avec la phrase où elles apparaissent, dans l'ordre.",
+    "timelineEmpty": "Aucune date dans les sources cochées.",
+    "audioLead": "Deux voix de votre appareil commentent le résumé, comme une courte émission. Rien ne sort du navigateur.",
+    "audioPlay": "Écouter",
+    "audioStop": "Arrêter",
+    "audioSpeed": "Vitesse",
+    "audioNoVoice": "Ce navigateur ne sait pas lire à voix haute.",
+    "audioIntro": [
+      "Aujourd'hui, nous parlons de",
+      "Voici les sources sur la table :",
+      "Les mots qui reviennent le plus sont"
+    ],
+    "audioQuestions": [
+      "Et pourquoi est-ce important pour qui étudie et travaille ?",
+      "Une chose à méditer : qu'est-ce qui change, en pratique, quand on comprend cela ?"
+    ],
+    "audioClose": "Lisez les sources en entier. Bonne étude.",
+    "voiceA": "Voix A",
+    "voiceB": "Voix B",
+    "notesLead": "Vos notes, en texte simple. Enregistrées automatiquement dans ce navigateur.",
+    "notesPlaceholder": "Écrivez ici…",
+    "exportNotes": "Télécharger les notes (.md)",
+    "exportAll": "Télécharger tout le cahier (.md)",
+    "print": "Imprimer",
+    "planLead": "Une tâche par section des sources. Cochez au fur et à mesure ; l'horloge à côté marque les blocs d'étude.",
+    "pomodoro": "25 minutes de concentration, 5 de repos.",
+    "focus": "Concentration",
+    "rest": "Repos",
+    "start": "Démarrer",
+    "pause": "Pause",
+    "reset": "Remettre à zéro",
+    "scriptLead": "Un plan de script dans le modèle du podcast, avec les points tirés des sources. Un point de départ : réécrivez-le avec votre voix.",
+    "scriptCopy": "Copier le script",
+    "copied": "Copié.",
+    "honest": "Le cahier n'utilise pas d'intelligence artificielle : il résume, cherche et interroge par statistiques de texte, ici même sur votre appareil. Ce qu'il montre vient toujours des sources que vous avez choisies.",
+    "allFree": "Tout est gratuit, sans compte. Besoin d'un mot ?",
+    "dictionary": "Dictionnaire",
+    "moreTools": "Autres outils",
+    "readLead": "Lisez la source et marquez ce qui compte : sélectionnez un passage et choisissez une couleur. Les marques restent dans le cahier et deviennent des notes ou des cartes de révision.",
+    "readSource": "Source",
+    "markYellow": "Jaune",
+    "markGreen": "Vert",
+    "markPink": "Rose",
+    "selectHint": "Sélectionnez un passage du texte pour le marquer.",
+    "marks": "Marques ({n})",
+    "marksEmpty": "Pas encore de marques dans cette source.",
+    "markNote": "Note sur le passage",
+    "markToCard": "En faire une carte de révision",
+    "markRemove": "supprimer",
+    "explain": "Expliquez avec vos mots :",
+    "reviewLead": "Répétition espacée : chaque carte revient le bon jour. Si vous la manquez, elle revient vite ; si vous la savez facilement, elle s'espace. Dix minutes par jour valent mieux qu'une nuit entière la veille de l'examen.",
+    "reviewToday": "À réviser aujourd'hui : {n}",
+    "reviewTotal": "{n} cartes dans le paquet",
+    "reviewNone": "Rien à réviser aujourd'hui. Revenez demain ou enregistrez de nouvelles cartes (à partir des marques, des cartes des sources ou des erreurs).",
+    "gradeAgain": "Manqué",
+    "gradeHard": "Difficile",
+    "gradeGood": "Bien",
+    "gradeEasy": "Facile",
+    "nextIn": "revient dans {n} jours",
+    "nextToday": "revient aujourd'hui",
+    "addCard": "Nouvelle carte",
+    "cardFront": "Recto (question)",
+    "cardBack": "Verso (réponse)",
+    "save": "Enregistrer",
+    "saveCard": "Enregistrer pour réviser",
+    "saveAllCards": "Tout enregistrer pour réviser",
+    "savedN": "{n} enregistrées dans le paquet.",
+    "deck": "Paquet",
+    "deleteCard": "supprimer",
+    "box": "boîte {n}",
+    "mistakesLead": "Les questions que vous avez ratées dans les cours, la banque de questions, les examens blancs et ici dans le cahier. Réussissez-en une deux fois de suite et elle sort de la liste.",
+    "mistakesEmpty": "Aucune erreur enregistrée. Quand vous ratez une question dans un cours ou un examen blanc, elle apparaît ici.",
+    "mistakesRedo": "Refaire les erreurs",
+    "mistakesCount": "{n} questions à revoir",
+    "yourAnswer": "Vous avez choisi",
+    "rightAnswer": "Bonne réponse",
+    "studyAgain": "Revoir le cours",
+    "mistakeToCard": "En faire une carte",
+    "mistakeOut": "Juste deux fois de suite : elle est sortie de la liste.",
+    "mistakeKeep": "Juste. Encore une fois de suite et elle sort de la liste.",
+    "mockExam": "Faire un examen blanc",
+    "backup": "Copie de sauvegarde",
+    "backupLead": "Tout ce que le site garde dans ce navigateur pour vos études (cahiers, marques, révision, erreurs, étagère, progression) dans un fichier à vous. Emportez-le sur un autre appareil ou mettez-le à l'abri des nettoyages du navigateur.",
+    "backupExport": "Télécharger la sauvegarde (.json)",
+    "backupImport": "Restaurer à partir d'un fichier",
+    "backupDone": "Sauvegarde restaurée ({n} éléments). Rechargez la page pour tout voir.",
+    "backupInvalid": "Ce fichier n'est pas une sauvegarde du cahier.",
+    "backupConfirm": "Restaurer la sauvegarde ? Les cahiers, les cartes et les erreurs sont fusionnés avec ceux déjà ici ; tout le reste est remplacé par la sauvegarde.",
+    "nextTomorrow": "revient demain"
+  },
+  "practiceStudio": {
+    "eyebrow": "Montage vidéo",
+    "title": "Studio de pratique",
+    "lead": "Des logiciels libres pour s'entraîner au montage vidéo et à l'animation dans le navigateur, gratuitement et sans rien installer.",
+    "alpha": "Phase de test (alpha) : les logiciels peuvent avoir des bugs et servent à s'entraîner.",
+    "local": "Tout reste uniquement dans le navigateur de cet appareil. Exportez la vidéo et téléchargez le fichier du projet quand vous terminez, pour ne pas perdre votre travail.",
+    "download": "La première fois, le navigateur télécharge {mb} Mo. Attention aux données mobiles.",
+    "open": "Ouvrir",
+    "notYet": "Pas encore en ligne à l'adresse de l'institut.",
+    "help": "Avant de commencer",
+    "film": {
+      "title": "Monter une vidéo (style Premiere) : FilmCraft",
+      "text": "Ligne de temps, coupes, transitions, couleur et son, avec les panneaux et les raccourcis de Premiere Pro."
+    },
+    "effect": {
+      "title": "Animation et effets (style After Effects) : EffectCraft",
+      "text": "Compositions, calques, images clés, effets et expressions, comme dans After Effects."
+    },
+    "check": "Vérifier si cet appareil peut le faire tourner",
+    "checking": "Vérification…",
+    "ok": "Votre navigateur peut le faire tourner.",
+    "slow": "Cela peut être lent sur cet appareil.",
+    "no": "Ça ne marchera pas ici : essayez Chrome ou Edge sur un ordinateur.",
+    "wasm": "WebAssembly",
+    "gpu": "WebGPU (carte graphique)",
+    "memory": "Mémoire",
+    "memoryUnknown": "le navigateur ne l'indique pas",
+    "yes": "oui",
+    "noShort": "non",
+    "browser": "Navigateur",
+    "limitsTitle": "Limites",
+    "limits": [
+      "Ils n'ouvrent pas les fichiers .prproj (Premiere) ni .aep (After Effects) et n'acceptent pas de plugins.",
+      "FilmCraft importe et exporte le XML (Final Cut Pro 7, le format d'échange de Premiere) et OpenTimelineIO, pour que vous puissiez emporter votre montage dans Premiere.",
+      "EffectCraft importe et exporte des animations Lottie."
+    ],
+    "materialTitle": "Matériel d'entraînement",
+    "materialLead": "Les films libres de la Blender Foundation, sous licences Creative Commons qui permettent de les utiliser et de les monter en cours. Téléchargez la version la plus légère (720p ou moins) pour les appareils plus modestes. Citez le crédit quand vous publiez.",
+    "credit": "Crédit",
+    "page": "Page officielle (téléchargement)",
+    "creditsTitle": "Crédits",
+    "credits": "FilmCraft et EffectCraft sont faits par l'équipe et la communauté ArtCraft, sous licence Apache-2.0. Le nom ArtCraft est une marque de l'équipe ArtCraft. Aucun des deux n'est un produit d'Adobe ni n'est affilié à Adobe ; Premiere Pro et After Effects sont des marques d'Adobe.",
+    "code": "Code et licence",
+    "before": {
+      "title": "Avant de commencer",
+      "lead": "L'essentiel pour ne pas perdre votre travail et pour que vos mains retrouvent les raccourcis habituels.",
+      "browserTitle": "Navigateur",
+      "browser": "Utilisez un Chrome ou un Edge à jour sur un ordinateur. Ils ont WebGPU, qui rend tout plus rapide. Firefox et Safari peuvent fonctionner plus lentement.",
+      "shortcutsTitle": "Raccourcis de Premiere dans FilmCraft",
+      "shortcuts": "Ouvrez Edit ▸ Keyboard Shortcuts… et choisissez le jeu Premiere Pro Compatible. À partir de là, les touches sont celles de Premiere (la liste suit le clavier du Mac, comme celle de Premiere).",
+      "saveTitle": "Enregistrer, exporter et importer",
+      "save": [
+        "Importez en glissant les fichiers dans la fenêtre ou par le menu d'import.",
+        "FilmCraft garde une copie de récupération dans le navigateur toutes les 5 secondes quand il y a des modifications ; ne comptez pas que sur elle.",
+        "Quand vous terminez, exportez la vidéo et enregistrez le projet : les deux arrivent en téléchargement.",
+        "Dans EffectCraft, exportez par la Render Queue et téléchargez aussi le projet."
+      ],
+      "tableTitle": "Dans Premiere ou After Effects c'est comme ça → ici c'est comme ça",
+      "tableNote": "Seulement ce que la documentation des logiciels confirme. Les noms de menus sont en anglais, comme dans les logiciels.",
+      "colFrom": "Dans Premiere / After Effects",
+      "colTo": "Ici",
+      "rows": [
+        [
+          "Premiere : raccourcis de Premiere",
+          "FilmCraft : Edit ▸ Keyboard Shortcuts… › Premiere Pro Compatible"
+        ],
+        [
+          "Premiere : sélectionner le clip sous la tête de lecture (D)",
+          "FilmCraft : D"
+        ],
+        [
+          "Premiere : point de montage suivant et précédent (↓ et ↑)",
+          "FilmCraft : ↓ et ↑"
+        ],
+        [
+          "Premiere : exporter l'image (Shift+E)",
+          "FilmCraft avec le jeu Premiere : Shift+E"
+        ],
+        [
+          "Premiere : envoyer à Media Encoder",
+          "FilmCraft : Send to Export Queue (Alt+Shift+M)"
+        ],
+        [
+          "Premiere : aide (F1)",
+          "FilmCraft : F1"
+        ],
+        [
+          "After Effects : afficher les propriétés du calque (A, P, S…)",
+          "EffectCraft : les mêmes touches"
+        ],
+        [
+          "After Effects : expressions (wiggle, loopOut)",
+          "EffectCraft : expressions JavaScript avec le même modèle d'objets"
+        ],
+        [
+          "After Effects : exporter en Lottie (avec un plugin)",
+          "EffectCraft : Lottie intégré, sans plugin"
+        ]
+      ],
+      "back": "Revenir au studio de pratique"
+    },
+    "exercises": {
+      "title": "Exercice de pratique",
+      "objective": "Objectif",
+      "program": "Logiciel",
+      "materials": "Matériel",
+      "steps": "Pas à pas",
+      "criteria": "Comment ce sera évalué",
+      "open": "Ouvrir dans le studio",
+      "deliver": "Remettre par le Tiroir ouvert",
+      "deliverHint": "Exportez la vidéo, publiez-la sur un lien (YouTube non répertorié, PeerTube, Drive…) et remettez le lien. L'éducateur commente votre travail."
+    }
+  }
+}

@@ -22,7 +22,7 @@ interface Proposta {
 }
 const TIPOS: Record<Proposta["tipo"], string> = { disciplina: "Nova disciplina", trilha: "Nova trilha", editar_disciplina: "Editar disciplina", editar_trilha: "Editar trilha", remover_disciplina: "Remover disciplina", remover_trilha: "Remover trilha" };
 const SITUACOES: Record<Proposta["status"], string> = { pendente: "esperando decisão", aprovada: "aprovada: entra na próxima publicação (de hora em hora)", recusada: "recusada", aplicada: "no site", falhou: "a aplicação recusou (veja o motivo)" };
-const IDIOMAS: [string, string][] = [["pt", "Português"], ["en", "Inglês"], ["es", "Espanhol"], ["ru", "Russo"], ["zh", "Chinês"]];
+const IDIOMAS: [string, string][] = [["pt", "Português"], ["en", "Inglês"], ["es", "Espanhol"], ["ru", "Russo"], ["zh", "Chinês"], ["fr", "Francês"]];
 const slugDe = (t: string) => t.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
 
 /**

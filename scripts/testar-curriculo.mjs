@@ -12,7 +12,7 @@ fs.mkdirSync(path.join(raiz, "lib"), { recursive: true });
 fs.mkdirSync(path.join(raiz, "i18n"), { recursive: true });
 fs.mkdirSync(path.join(raiz, "content/trilhas"), { recursive: true });
 fs.copyFileSync(path.join(raizReal, "lib/areas.ts"), path.join(raiz, "lib/areas.ts"));
-for (const l of ["pt", "en", "es", "ru", "zh"]) fs.copyFileSync(path.join(raizReal, `i18n/${l}.json`), path.join(raiz, `i18n/${l}.json`));
+for (const l of ["pt", "en", "es", "ru", "zh", "fr"]) fs.copyFileSync(path.join(raizReal, `i18n/${l}.json`), path.join(raiz, `i18n/${l}.json`));
 let certos = 0;
 const falhas = [];
 const confere = (nome, ok, detalhe = "") => { if (ok) certos++; else falhas.push(`${nome}${detalhe ? `: ${detalhe}` : ""}`); };

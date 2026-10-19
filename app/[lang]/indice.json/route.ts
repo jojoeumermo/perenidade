@@ -6,12 +6,13 @@ import type { SearchEntry } from "@/lib/search";
 import { plainText } from "@/lib/text";
 import en from "@/i18n/en.json";
 import es from "@/i18n/es.json";
+import fr from "@/i18n/fr.json";
 import pt from "@/i18n/pt.json";
 import ru from "@/i18n/ru.json";
 import zh from "@/i18n/zh.json";
 
-/** O nome da disciplina nos cinco idiomas: quem escreve "math", "matemáticas" ou "数学" encontra matemática. */
-const everywhere = (slug: string) => [pt, en, es, zh, ru].map((dict) => (dict.areas as Record<string, string[]>)[slug]?.[0] ?? "").join(" ");
+/** O nome da disciplina nos seis idiomas: quem escreve "math", "matemáticas" ou "数学" encontra matemática. */
+const everywhere = (slug: string) => [pt, en, es, zh, ru, fr].map((dict) => (dict.areas as Record<string, string[]>)[slug]?.[0] ?? "").join(" ");
 
 // Índice de busca gerado na publicação: um arquivo estático por idioma.
 // Como traz o texto completo, também serve de cópia de segurança do acervo.

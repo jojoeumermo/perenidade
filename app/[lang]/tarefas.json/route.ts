@@ -13,7 +13,7 @@ export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
-const outras = ["en", "es", "zh", "ru"] as const;
+const outras = ["en", "es", "zh", "ru", "fr"] as const;
 
 export async function GET(_request: Request, { params }: RouteContext<"/[lang]/tarefas.json">) {
   const { lang } = await loadLang(params);
