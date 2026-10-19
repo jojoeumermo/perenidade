@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BancoDeQuestoes, type QuestaoDoBanco } from "@/components/BancoDeQuestoes";
 import { PageHeading } from "@/components/PageHeading";
+import { ProvasPublicas } from "@/components/ProvasPublicas";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
 import { getTracks } from "@/lib/content";
@@ -30,6 +31,7 @@ export default async function Page({ params }: PageProps<"/[lang]/questoes">) {
         <Link href={`${localePath(lang, "/contribuir")}?tipo=questao`} className="inline-block bg-ink px-4 py-2 font-semibold text-parchment hover:bg-oxblood">{t.lists.bankSend} →</Link>
       </p>
       <BancoDeQuestoes questoes={questoes} />
+      <ProvasPublicas s={t.lists} />
     </div>
   );
 }
