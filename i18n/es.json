@@ -4232,6 +4232,13 @@
       "open": "Abrir en el estudio",
       "deliver": "Entregar por el Cajón Abierto",
       "deliverHint": "Exporta el video, publícalo en un enlace (YouTube no listado, PeerTube, Drive…) y entrega el enlace. El educador comenta tu entrega."
+    },
+    "render": {
+      "label": "Modo de dibujo",
+      "webgl": "Estable (WebGL)",
+      "webgpu": "Rápido (WebGPU)",
+      "cpu": "Compatible (sin tarjeta de video)",
+      "help": "Si el programa se congela o muestra “graphics device was lost”, quédate en el modo estable; en una computadora más débil, usa el compatible. El rápido aprovecha mejor la tarjeta de video, pero se congela en algunos equipos."
     }
   },
   "blocks": {

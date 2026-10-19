@@ -4160,6 +4160,13 @@
       "open": "在工作室中打开",
       "deliver": "通过开放抽屉提交",
       "deliverHint": "导出视频，发布到一个链接（不公开的 YouTube、PeerTube、Drive 等），然后提交链接。教师会点评你的作业。"
+    },
+    "render": {
+      "label": "绘制模式",
+      "webgl": "稳定（WebGL）",
+      "webgpu": "快速（WebGPU）",
+      "cpu": "兼容（不用显卡）",
+      "help": "如果程序卡死或显示 “graphics device was lost”，请使用稳定模式；电脑较弱时使用兼容模式。快速模式更好地利用显卡，但在部分设备上会卡死。"
     }
   },
   "blocks": {
