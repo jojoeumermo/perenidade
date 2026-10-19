@@ -62,10 +62,16 @@ function comandosDeTreino() {
   ];
 }
 
+/** O serial do v86 manda um byte por caractere (charCodeAt): para passar acentos e os traços ┌─└ (do prompt do Kali),
+ * mandamos a sequência já em bytes UTF-8, um por "caractere". Assim o Linux recebe o texto certo e o xterm o desenha. */
+const emBytesUtf8 = (texto) => Array.from(new TextEncoder().encode(texto), (b) => String.fromCharCode(b)).join("");
+
 /** Escreve os comandos de treino dentro do Linux real, por heredoc no shell, e dá um 'clear' no fim. */
 function injetarComandos(emulator) {
   const pasta = "/opt/lucia";
-  let sh = `mkdir -p ${pasta}\n`;
+  // Sem eco durante a preparação, para o terminal abrir limpo (sem os comandos de montagem no histórico).
+  let sh = "stty -echo 2>/dev/null\n";
+  sh += `mkdir -p ${pasta}\n`;
   for (const c of comandosDeTreino()) {
     sh += `cat > ${pasta}/${c.nome}.txt <<'LUCIATXT'\n${c.texto}\nLUCIATXT\n`;
     sh += `cat > /usr/bin/${c.nome} <<'LUCIASH'\n#!/bin/sh\ncat ${pasta}/${c.nome}.txt\nLUCIASH\n`;
@@ -73,9 +79,13 @@ function injetarComandos(emulator) {
   }
   // enviar-flag confere a bandeira e avisa a área de trabalho pelo próprio texto do shell.
   sh += `cat > /usr/bin/enviar-flag <<'LUCIASH'\n#!/bin/sh\nif [ "$1" = "${FLAG}" ]; then echo "CORRETO! Você concluiu o desafio. Parabéns."; echo "LUCIA-FLAG-OK"; else echo "Ainda não. A bandeira tem o formato LUCIA{...}. Use as ferramentas para encontrá-la."; fi\nLUCIASH\nchmod +x /usr/bin/enviar-flag\n`;
+  // Deixa o terminal com a cara do Kali: nome da máquina e o prompt de duas linhas ┌──(kali㉿kali)-[~] / └─$.
+  sh += "hostname kali 2>/dev/null\n";
+  sh += "export PS1='\\n\\033[1;34m┌──(\\033[1;31mkali㉿kali\\033[1;34m)-[\\033[0;37m\\w\\033[1;34m]\\n\\033[1;34m└─\\033[1;31m$\\033[0m '\n";
+  sh += "stty echo 2>/dev/null\n";
   sh += "clear\n";
   sh += "echo 'Laboratório pronto. Digite  ajuda  para ver os comandos de treino.'\n";
-  emulator.serial0_send(sh);
+  emulator.serial0_send(emBytesUtf8(sh));
 }
 
 /**
@@ -116,8 +126,9 @@ export function montarTerminal(elemento, { aoPronto } = {}) {
   let pronto = false;
   let buffer = "";
   emulator.add_listener("serial0-output-byte", (byte) => {
-    const ch = String.fromCharCode(byte);
-    term.write(ch);
+    // Escreve o byte cru: o xterm junta os bytes e decodifica UTF-8 (assim os acentos e os traços ┌─└ aparecem).
+    term.write(new Uint8Array([byte]));
+    const ch = byte < 128 ? String.fromCharCode(byte) : ""; // só ASCII para detectar o login e o prompt
     buffer = (buffer + ch).slice(-200);
     if (!entrou && /login:\s*$/.test(buffer)) {
       entrou = true;
@@ -131,8 +142,8 @@ export function montarTerminal(elemento, { aoPronto } = {}) {
       }, 600);
     }
   });
-  // O que o aluno digita no xterm vai para o serial do Linux.
-  term.onData((d) => emulator.serial0_send(d));
+  // O que o aluno digita no xterm vai para o serial do Linux (em bytes UTF-8, para acentos funcionarem).
+  term.onData((d) => emulator.serial0_send(emBytesUtf8(d)));
 
   const observador = new ResizeObserver(() => {
     try {

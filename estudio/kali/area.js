@@ -90,7 +90,7 @@ function abrir(f) {
   const corpo = h("div.jan-corpo");
   const win = h("div.janela",
     h("div.jan-topo",
-      h("span.jan-icone", f.icone),
+      h("span.jan-icone", { html: f.svg }),
       h("span.jan-titulo", f.nome),
       h("div.jan-botoes",
         h("button.jan-min", { title: "Minimizar", onclick: () => minimizar(f.id) }, "–"),
@@ -107,7 +107,7 @@ function abrir(f) {
   win.addEventListener("mousedown", () => focar(f.id));
   area.append(win);
 
-  const tarefa = h("button.tarefa", h("span", f.icone), h("span.tarefa-nome", f.nome));
+  const tarefa = h("button.tarefa", h("span.tarefa-icone", { html: f.svg }), h("span.tarefa-nome", f.nome));
   tarefa.addEventListener("click", () => minimizar(f.id));
   barraTarefas.append(tarefa);
 
@@ -127,21 +127,42 @@ function abrir(f) {
   focar(f.id);
 }
 
-// Menu de aplicativos, agrupado por categoria.
+// Menu de aplicativos, agrupado por categoria (como o menu do Kali), com busca.
+const buscaMenu = document.getElementById("menu-busca");
+const listaMenu = document.getElementById("menu-lista");
 function montarMenu() {
   const cats = [...new Set(FERRAMENTAS.map((f) => f.cat))];
   for (const c of cats) {
-    menu.append(h("div.menu-cat", c));
+    const grupo = h("div.menu-grupo");
+    grupo.append(h("div.menu-cat", c));
     for (const f of FERRAMENTAS.filter((x) => x.cat === c)) {
-      const item = h("button.menu-item", h("span.menu-icone", f.icone), h("span", f.nome));
+      const item = h("button.menu-item", { "data-busca": `${f.nome} ${f.cat}`.toLowerCase() }, h("span.menu-icone", { html: f.svg }), h("span", f.nome));
       item.addEventListener("click", () => {
         abrir(f);
         fecharMenu();
       });
-      menu.append(item);
+      grupo.append(item);
     }
+    listaMenu.append(grupo);
   }
 }
+function filtrarMenu(termo) {
+  const t = termo.trim().toLowerCase();
+  for (const item of listaMenu.querySelectorAll(".menu-item")) {
+    item.style.display = !t || item.dataset.busca.includes(t) ? "" : "none";
+  }
+  for (const grupo of listaMenu.querySelectorAll(".menu-grupo")) {
+    const algum = [...grupo.querySelectorAll(".menu-item")].some((i) => i.style.display !== "none");
+    grupo.style.display = algum ? "" : "none";
+  }
+}
+buscaMenu.addEventListener("input", () => filtrarMenu(buscaMenu.value));
+buscaMenu.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const primeiro = [...listaMenu.querySelectorAll(".menu-item")].find((i) => i.style.display !== "none");
+    primeiro?.click();
+  }
+});
 function abrirMenu() {
   menu.classList.add("aberto");
   botaoMenu.classList.add("ativo");
@@ -150,28 +171,24 @@ function fecharMenu() {
   menu.classList.remove("aberto");
   botaoMenu.classList.remove("ativo");
 }
+function abrirMenu2() {
+  abrirMenu();
+  buscaMenu.value = "";
+  filtrarMenu("");
+  setTimeout(() => buscaMenu.focus(), 20);
+}
 botaoMenu.addEventListener("click", (e) => {
   e.stopPropagation();
-  menu.classList.contains("aberto") ? fecharMenu() : abrirMenu();
+  menu.classList.contains("aberto") ? fecharMenu() : abrirMenu2();
 });
 document.addEventListener("click", (e) => {
-  if (!menu.contains(e.target) && e.target !== botaoMenu) fecharMenu();
+  if (!menu.contains(e.target) && !botaoMenu.contains(e.target)) fecharMenu();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") fecharMenu();
 });
 
-// Atalhos na área de trabalho (os mais usados).
-function montarAtalhos() {
-  const docas = document.getElementById("atalhos");
-  for (const id of ["terminal", "alvos", "nmap", "wireshark", "burp", "metasploit", "ctf"]) {
-    const f = FERRAMENTAS.find((x) => x.id === id);
-    const a = h("button.atalho", h("span.atalho-icone", f.icone), h("span", f.nome));
-    a.addEventListener("dblclick", () => abrir(f));
-    a.addEventListener("click", () => abrir(f)); // toque único também abre
-    docas.append(a);
-  }
-}
-
 montarMenu();
-montarAtalhos();
-// Abre o terminal e os alvos ao entrar, para o laboratório já começar vivo.
+// Abre o terminal e os alvos ao entrar, para o laboratório já começar vivo (a tela em si fica limpa, como no Kali).
 abrir(FERRAMENTAS.find((f) => f.id === "terminal"));
 setTimeout(() => abrir(FERRAMENTAS.find((f) => f.id === "alvos")), 300);
