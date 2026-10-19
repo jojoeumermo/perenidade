@@ -2946,6 +2946,10 @@ await espera("o educador comenta e quem entregou vê o comentário", async () =>
 await espera("o painel do educador conta as entregas", () => rpc(como(ids.prof), "exercicios_meus"), (r) => r.some((x) => x.id === exercicio.id && x.entregas === 1 && x.sem_retorno === 0));
 await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), "exercicio_arquivar", { p_id: exercicio.id, p_ativo: false }); return rpc(anon, "exercicios_listar", { p_aula: "/trilhas/matematica-fundamental/fracoes" }); }, (r) => !r.some((x) => x.id === exercicio.id));
 
+// Tranca final: nenhuma tabela interna sem segurança por linha, nenhuma com permissão direta para quem vem de fora.
+await espera("toda tabela interna tem segurança por linha ligada", async () => (await dono("select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'interno' and c.relkind = 'r' and not c.relrowsecurity")).rows, (r) => r.length === 0);
+await espera("nenhuma tabela interna dá permissão direta a anon ou authenticated", async () => (await dono("select table_name from information_schema.role_table_grants where table_schema = 'interno' and grantee in ('anon', 'authenticated', 'PUBLIC')")).rows, (r) => r.length === 0);
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);
