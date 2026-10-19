@@ -4232,6 +4232,13 @@
       "open": "Open in the studio",
       "deliver": "Hand in through the Open Drawer",
       "deliverHint": "Export the video, publish it at a link (unlisted YouTube, PeerTube, Drive…) and hand in the link. The educator comments on your work."
+    },
+    "render": {
+      "label": "Drawing mode",
+      "webgl": "Stable (WebGL)",
+      "webgpu": "Fast (WebGPU)",
+      "cpu": "Compatible (no graphics card)",
+      "help": "If the program freezes or shows “graphics device was lost”, stay on stable; on a weaker computer, use compatible. Fast makes better use of the graphics card but freezes on some devices."
     }
   },
   "blocks": {
