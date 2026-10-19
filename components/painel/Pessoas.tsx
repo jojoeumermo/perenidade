@@ -289,7 +289,7 @@ export function Pessoas({ me }: { me: Me }) {
               <p className="font-mono text-xs text-ink-soft">
                 {item.email} · {item.tem_conta ? "já tem conta no site" : "ainda sem conta"}
               </p>
-              <p className="mt-2 whitespace-pre-line">{item.mensagem}</p>
+              <p className="mt-2 whitespace-pre-line" data-original>{item.mensagem}</p>
               <div className="mt-3 flex gap-3">
                 <button type="button" className={botao} onClick={() => void decidirInscricao(item, true)}>Aceitar</button>
                 <button type="button" className={botaoClaro} onClick={() => void decidirInscricao(item, false)}>Recusar</button>
@@ -342,7 +342,7 @@ export function Pessoas({ me }: { me: Me }) {
             </select>
           </label>
           <label className="block">
-            {novo.papel === "representante" ? "Departamento" : `Disciplina${porDisciplina ? "" : " (opcional)"}`}
+            {novo.papel === "representante" ? "Departamento" : porDisciplina ? "Disciplina" : "Disciplina (opcional)"}
             <select value={novo.disciplina} onChange={(e) => setNovo({ ...novo, disciplina: e.target.value })} className={campo}>
               {novo.papel === "representante" ? (
                 <>
@@ -411,7 +411,7 @@ export function Pessoas({ me }: { me: Me }) {
                   <li key={papel.id} className="border border-rule bg-parchment-deep px-2 py-1">
                     {papeis[papel.papel]} · {nomeDaArea(papel.disciplina)}
                     {podeTirar(pessoa, papel) && (
-                      <button type="button" title="Retirar função" aria-label={`Retirar ${papeis[papel.papel]} de ${pessoa.nome}`} className="ml-1 cursor-pointer px-1 hover:text-oxblood" onClick={() => acao.agir("papel_remover", { p_id: papel.id }, "Função retirada.")}>
+                      <button type="button" title="Retirar função" aria-label={`Retirar de ${pessoa.nome} a função ${papeis[papel.papel]}`} className="ml-1 cursor-pointer px-1 hover:text-oxblood" onClick={() => acao.agir("papel_remover", { p_id: papel.id }, "Função retirada.")}>
                         ✕
                       </button>
                     )}

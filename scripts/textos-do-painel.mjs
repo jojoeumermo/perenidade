@@ -18,23 +18,46 @@ import ts from "typescript";
 
 const raiz = path.resolve(import.meta.dirname, "..");
 const pastas = ["components/painel"];
-const arquivosSoltos = ["lib/videoaula.ts", "lib/tipos-de-tarefa.ts", "components/VideoPlayer.tsx", "components/Editor.tsx"];
+// Módulos de lib/ com texto de tela do painel. Ficam de fora lib/apoio.ts (o texto da campanha sai num textarea, em
+// português, para colar na Benfeitoria) e lib/podcast-termo.ts (documento em português, mostrado com translate="no").
+const arquivosSoltos = [
+  "lib/videoaula.ts",
+  "lib/tipos-de-tarefa.ts",
+  "lib/areas.ts",
+  "lib/chaveiro.ts",
+  "lib/device.ts",
+  "lib/estudio.ts",
+  "lib/interdicao.ts",
+  "lib/passkey.ts",
+  "lib/podcast.ts",
+  "lib/podcast-audio.ts",
+  "lib/pratica.ts",
+  "lib/upload.ts",
+  "components/VideoPlayer.tsx",
+  "components/Editor.tsx",
+];
 const idiomas = ["en", "es", "fr", "ru", "zh"];
 const destino = path.join(raiz, "i18n/painel");
 
 /** Atributos que nunca são texto para pessoas. */
 const atributosTecnicos = new Set(["className", "key", "id", "href", "type", "name", "role", "accept", "autoComplete", "inputMode", "lang", "rel", "target", "htmlFor", "value", "method", "encType", "pattern", "src", "viewBox", "d", "fill", "stroke", "strokeWidth", "strokeLinecap", "strokeLinejoin", "xmlns", "aria-controls", "aria-labelledby", "aria-describedby", "aria-live", "aria-current", "aria-haspopup", "aria-expanded", "aria-pressed", "aria-hidden", "srcLang", "kind", "preload", "dir", "spellCheck", "capture", "download", "form", "list", "step", "min", "max", "wrap"]);
 /** Chamadas cujo primeiro argumento é técnico (função do serviço, chave guardada, evento, seletor). */
-const chamadasTecnicas = new Set(["rpc", "agir", "useLista", "getItem", "setItem", "removeItem", "addEventListener", "removeEventListener", "dispatchEvent", "Event", "querySelector", "querySelectorAll", "getElementById", "createElement", "fetch", "require", "import", "from", "includes", "startsWith", "endsWith", "split", "replace", "replaceAll", "join", "indexOf", "test", "match", "getAttribute", "setAttribute", "has", "get", "set", "delete", "postMessage", "signedStorageUrl", "storage", "upload", "remove", "localeCompare", "toLocaleDateString", "toLocaleString", "toLocaleTimeString", "Intl", "NumberFormat", "DateTimeFormat", "padStart", "erro", "VideoErro", "Blob", "File", "MediaRecorder", "isTypeSupported", "getContext", "captureStream", "toBlob", "toDataURL", "open", "registrar"]);
+const chamadasTecnicas = new Set(["rpc", "agir", "setRequestHeader", "useLista", "getItem", "setItem", "removeItem", "addEventListener", "removeEventListener", "dispatchEvent", "Event", "querySelector", "querySelectorAll", "getElementById", "createElement", "fetch", "require", "import", "from", "includes", "startsWith", "endsWith", "split", "replace", "replaceAll", "join", "indexOf", "test", "match", "getAttribute", "setAttribute", "has", "get", "set", "delete", "postMessage", "signedStorageUrl", "storage", "upload", "remove", "localeCompare", "toLocaleDateString", "toLocaleString", "toLocaleTimeString", "Intl", "NumberFormat", "DateTimeFormat", "padStart", "erro", "VideoErro", "Blob", "File", "MediaRecorder", "isTypeSupported", "getContext", "captureStream", "toBlob", "toDataURL", "open", "registrar"]);
 
 /** Palavras soltas, em minúscula, que aparecem na tela (o filtro as tomaria por chaves técnicas). */
-const palavrasSoltas = new Set(["pessoa", "pessoas", "iniciante", "selecionada", "selecionadas"]);
+const palavrasSoltas = new Set(["pessoa", "pessoas", "iniciante", "selecionada", "selecionadas", "faixa", "pausa", "recado", "disciplina", "tipo", "origem", "programa", "motivo", "situação", "formato", "canal", "ligado", "definido", "sim"]);
 
 /** Uma palavra só no meio do JSX ("ligado", "trabalho", "resp.:") é texto da tela; endereços e códigos (_dmarc, p=none) não passam. */
 const palavraDoJsx = (texto) => /^\p{Ll}{3,}[.:]{0,2}$/u.test(texto);
 
+/**
+ * Modelo com uma palavra fixa só entra quando ela é rótulo ("Motivo: {0}", "Subir {0}"). Ficam de fora preposições
+ * ("por {0}", "Em {0}"), classes ("block {0}") e o que vem todo em maiúsculas (campos do .ics, unidades, desenho no canvas).
+ */
+const rotuloDeUmaPalavra = (fixo) => fixo !== fixo.toUpperCase() && (/^\p{Lu}\p{L}{2,}:?$/u.test(fixo) || /^\p{L}{3,}:$/u.test(fixo));
+
 /** Textos que o filtro deixaria passar, mas não são para gente ler. */
-const ignorar = new Set(["use client", "system-ui, sans-serif", "grayscale(1) contrast(1.15)", "ativo: false"]);
+const ignorar = new Set(["use client", "system-ui, sans-serif", "grayscale(1) contrast(1.15)", "ativo: false", "Bearer"]);
 
 /** Parece texto para gente ler? */
 function frase(texto) {
@@ -45,7 +68,8 @@ function frase(texto) {
   if (/^\[[\w-]+(=|\])/.test(limpo)) return false; // seletores
   if (!/\p{L}/u.test(limpo)) return false;
   if (/^[a-z0-9_.:/#?&=-]+$/.test(limpo) && !/[áéíóúâêôãõç]/.test(limpo) && !limpo.includes(" ")) return false; // chaves, caminhos, códigos
-  if (/^(https?:|mailto:|\/|#|\.\/|@\/)/.test(limpo)) return false;
+  if (/^(mailto:|#|\.\/|@\/)/.test(limpo)) return false;
+  if (/^(https?:|\/)/.test(limpo) && !/\s/.test(limpo)) return false; // endereços ("https://… (com licença livre)" é frase)
   if (/^[\w-]+\/[\w.+-]+$/.test(limpo)) return false; // tipos de arquivo
   if (/^[MmLlHhVvCcSsQqTtAaZz][\d\s.,MmLlHhVvCcSsQqTtAaZz-]*$/.test(limpo)) return false; // desenho de ícone
   if (/^\(.*:.*\)$/.test(limpo) || /\{\d+\}px/.test(limpo) || /^[\d\s{}px%.,-]+$/.test(limpo)) return false; // regras de estilo
@@ -112,7 +136,8 @@ function textosDe(arquivo) {
       if (palavrasSoltas.has(texto) || (frase(texto) && /[\s]|[áéíóúâêôãõçÁÉÍÓÚ]|^[A-ZÁÉÍÓÚ][a-záéíóúâêôãõç]+$/.test(texto))) achados.push(texto);
     } else if (ts.isTemplateExpression(no) && !tecnico(no)) {
       const texto = modelo(no).replace(/\s+/g, " ").trim();
-      if (frase(texto.replace(/\{\d+\}/g, "")) && /\s/.test(texto.replace(/\{\d+\}/g, "").trim())) achados.push(texto);
+      const fixo = texto.replace(/\{\d+\}/g, "").trim();
+      if (frase(fixo) && (/\s/.test(fixo) || rotuloDeUmaPalavra(fixo))) achados.push(texto);
     }
     ts.forEachChild(no, visitar);
   };
