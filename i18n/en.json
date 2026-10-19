@@ -639,7 +639,31 @@
     "epubHint": "opens on Kindle (through Send to Kindle), Kobo and reading apps",
     "jump": "Jump to",
     "showAll": "See all {n}",
-    "showLess": "Show fewer"
+    "showLess": "Show fewer",
+    "nowTitle": "What should I study now?",
+    "nowNext": "Next lesson: {title}",
+    "nowReview": "Review: {title} ({n} question(s) missed)",
+    "nowDone": "You have finished every ready lesson in this track. How about the track exam?",
+    "nowPlacement": "Not sure where to start? Take the track exam: the lessons behind the questions you miss show up here as your starting point.",
+    "planTitle": "Study plan",
+    "planLead": "Choose the days and the time: the site spreads the remaining lessons and builds a file for your calendar. Nothing leaves your device.",
+    "planDays": "Study days",
+    "weekdays": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ],
+    "planTime": "Time",
+    "planPerDay": "Lessons per day",
+    "planStart": "Start on",
+    "planEnds": "At this pace, you will finish on {date}.",
+    "planDownload": "Download for your calendar (.ics)",
+    "planEmpty": "There are no pending lessons to plan.",
+    "planNone": "Choose at least one day."
   },
   "lesson": {
     "position": "lesson {i} of {n}",
@@ -1403,7 +1427,12 @@
     "save": "Send note",
     "cancel": "Cancel",
     "pending": "awaiting review",
-    "goTo": "see the passage"
+    "goTo": "see the passage",
+    "confused": "I didn't understand this passage",
+    "confusedHint": "Select the confusing passage and tap the button. You see what goes with it before sending it to the community or to a tutoring volunteer.",
+    "confusedPreview": "Goes with your question",
+    "toCommunity": "Ask the community",
+    "toTutoring": "Ask a volunteer for tutoring"
   },
   "toolNames": {
     "ide": [

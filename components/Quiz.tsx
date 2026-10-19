@@ -15,7 +15,7 @@ export function Quiz({ questions }: { questions: QuizQuestion[] }) {
   /** Errou: a questão vai para o caderno de erros. Acertou uma que estava lá: conta para ela sair. */
   const anotar = (q: QuizQuestion, escolhida: number) => {
     const id = idDaQuestao(q.question, q.options);
-    if (escolhida !== q.answer) registrarErro({ id, pergunta: q.question, opcoes: q.options, resposta: q.answer, escolhida, explicacao: q.explanation, href: pathname.replace(/^\/[a-z]{2}(?=\/)/, ""), origem: "aula" });
+    if (escolhida !== q.answer) registrarErro({ id, pergunta: q.question, opcoes: q.options, resposta: q.answer, escolhida, explicacao: q.explanation, href: q.href ?? pathname.replace(/^\/[a-z]{2}(?=\/)/, ""), origem: "aula" });
     else if (lerErros().some((e) => e.id === id)) refazerErro(id, true, escolhida);
   };
   const right = questions.filter((q, i) => answers[i] === q.answer).length;
