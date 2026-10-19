@@ -52,7 +52,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/laboratorios/linux",
     "/laboratorios/montador",
     "/laboratorios/ia",
-    "/laboratorios/planilha",
+    "/laboratorios/escritorio",
     "/laboratorios/seguranca",
     "/laboratorios/simulacoes",
     "/creditos",
