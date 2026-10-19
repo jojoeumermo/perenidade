@@ -111,7 +111,21 @@ const ANCESTRAIS = "'self' https://institutolucia.org https://www.institutolucia
 const LIBERA = "'unsafe-eval' 'unsafe-inline'";
 const EXTRA = { blockbench: { script: LIBERA }, sculptgl: { script: LIBERA }, // O editor do three.js traz, no próprio importmap, duas bibliotecas por versão fixa no jsDelivr (o traçador de
   // caminhos e o codificador Draco): sem elas, o editor não abre.
-  threejs: { script: `${LIBERA} https://cdn.jsdelivr.net`, connect: "https://cdn.jsdelivr.net" } };
+  threejs: { script: `${LIBERA} https://cdn.jsdelivr.net`, connect: "https://cdn.jsdelivr.net" },
+  // O laboratório de segurança (montado por scripts/kali.mjs): o v86 compila x86 para WebAssembly em tempo real
+  // ('wasm-unsafe-eval' e 'unsafe-eval') e monta o som num worklet a partir de um blob ('unsafe-inline' e blob:).
+  // Origem isolada, sem nada do instituto — mesma postura dos editores 3D.
+  kali: { script: "'unsafe-eval' 'unsafe-inline' blob:" } };
+
+/** Os editores já montados na pasta do estúdio, mais o laboratório (/kali) quando scripts/kali.mjs já o montou. */
+export function pastasMontadas() {
+  const todos = [
+    ...Object.keys(VERSOES).map((id) => ({ id, entrada: "index.html" })),
+    ...Object.entries(LIVRES).map(([id, f]) => ({ id, entrada: f.entrada })),
+    { id: "kali", entrada: "index.html" },
+  ];
+  return todos.filter(({ id, entrada }) => fs.existsSync(path.join(DESTINO, id, entrada))).map(({ id, entrada }) => ({ id, entrada, pasta: path.join(DESTINO, id) }));
+}
 export function regrasDeCabecalho(pastas) {
   const linhas = [
     "# Gerado por scripts/editores.mjs. Não edite à mão: rode o script de novo.",
@@ -159,9 +173,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(im
     if (id in LIVRES) montarLivre(id, DESTINO);
     else await montar(id);
   }
-  // As regras valem para todos os editores já montados na pasta (os de antes e os de agora).
-  const todos = [...Object.keys(VERSOES).map((id) => ({ id, entrada: "index.html" })), ...Object.entries(LIVRES).map(([id, f]) => ({ id, entrada: f.entrada }))];
-  const montados = todos.filter(({ id, entrada }) => fs.existsSync(path.join(DESTINO, id, entrada))).map(({ id, entrada }) => ({ id, entrada, pasta: path.join(DESTINO, id) }));
+  // As regras valem para tudo já montado na pasta (os editores de antes e de agora, e o laboratório /kali se já existe).
+  const montados = pastasMontadas();
   fs.writeFileSync(path.join(DESTINO, "_headers"), regrasDeCabecalho(montados));
   console.log(`Regras de cabeçalho para: ${montados.map((m) => m.id).join(", ")}.`);
   console.log("Pronto. Publique a pasta estudio/site (veja docs/ESTUDIO-EDITORES.md).");
