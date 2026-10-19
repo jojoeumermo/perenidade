@@ -3058,6 +3058,7 @@
     "rulesTitle": "A senha precisa",
     "rules": {
       "length": "ter pelo menos 12 caracteres (uma frase longa funciona muito bem)",
+      "mix": "ter letra minúscula, letra maiúscula e número (ex.: Minha avó plantava 3 pés de feijão)",
       "common": "não ser uma senha comum nem o seu nome com números",
       "variety": "não ser só repetição (aaaa…, 1212…)"
     },
