@@ -12,18 +12,28 @@
   <div id="painel">
     <button id="menu-botao" title="Aplicativos">
       <svg class="dragao" viewBox="0 0 24 24" aria-hidden="true"><use href="dragao.svg#d"/></svg>
-      Aplicativos
+      <span>Aplicativos</span>
     </button>
     <span class="painel-sep"></span>
     <span id="modo-treino" title="Tudo aqui é fictício e isolado. Nenhuma ferramenta toca um sistema real.">● MODO TREINO · tudo fictício</span>
+    <div id="bandeja" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 13a10 10 0 0 1 14 0"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9.5a3.5 3.5 0 0 1 0 5"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="2.5" y="8" width="16" height="8" rx="1.5"/><path d="M20.5 11v2"/><rect x="4.5" y="10" width="9" height="4" fill="currentColor" stroke="none"/></svg>
+    </div>
     <span id="relogio">--:--</span>
   </div>
 
-  <nav id="menu" aria-label="Aplicativos"></nav>
+  <nav id="menu" aria-label="Aplicativos">
+    <div id="menu-topo">
+      <svg class="dragao-menu" viewBox="0 0 24 24" aria-hidden="true"><use href="dragao.svg#d"/></svg>
+      <span>kali</span>
+    </div>
+    <input id="menu-busca" type="search" placeholder="Buscar ferramenta…" autocomplete="off" aria-label="Buscar ferramenta">
+    <div id="menu-lista"></div>
+  </nav>
 
-  <div id="area">
-    <div id="atalhos"></div>
-  </div>
+  <div id="area"></div>
 
   <div id="tarefas-barra">
     <div id="tarefas"></div>
