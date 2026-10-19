@@ -94,7 +94,7 @@
     "title": "Labs",
     "lead": "Code, build networks, use the terminal, train security and simulate science, all in the browser and without sending anything to any server.",
     "ide": "IDE",
-    "ideLead": "Python, PHP, Web, JavaScript and SQL, with files, exercises and project download.",
+    "ideLead": "Python, JavaScript, TypeScript, C and C++, PHP, Ruby, Lua, Web and SQL: files, templates, exercises, side console, share link and project download.",
     "redes": "Network Lab",
     "redesLead": "Build the network, set IPs, VLANs and routes and watch the packet travel.",
     "linux": "Linux terminal",
