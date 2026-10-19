@@ -31,6 +31,8 @@ Auditoria feita em 19/10/2026 no ramo `estudo-no-aparelho`, com o critério WCAG
 | 4 | "a confirmar" em letra de 10 px | mapa curricular (novo) | **Corrigido** para 12 px. |
 | 5 | Blocos de conta (`pre`) com rolagem para o lado no modo de tinta eletrônica | aulas com contas, no Kindle | Registrado. Recomendação: no modo `data-eink`, quebrar as linhas desses blocos (`white-space: pre-wrap`). |
 | 6 | VLibras: o botão e a janela são do próprio serviço | botão de acessibilidade (recurso `vlibras`) | O botão do VLibras tem nome acessível. O avatar roda num quadro à parte e **não foi conferido num aparelho de verdade** nesta rodada: conferir antes de ligar. |
+| 7 | No modo de leitor digital (Kindle), os links com fundo escuro ficavam preto no preto, sem texto visível | "Começar pela primeira aula" de cada trilha, "Enviar questão", "Buscar" da página não encontrada e outros | **Corrigido** com uma regra que só vale nesse modo (fundo branco com borda), em `app/globals.css`. |
+| 8 | Com a pessoa logada, a saudação "Olá, [nome] · Painel →" alarga o cabeçalho em 8 px num celular de 375 px, no navegador (no aplicativo já havia regra para isso) | cabeçalho, para quem tem conta | Registrado. Recomendação: estender ao navegador a regra que, no aplicativo, esconde o nome do instituto quando a saudação aparece em telas estreitas. |
 
 Nas páginas novas a varredura não achou campo sem rótulo, botão sem nome, imagem sem texto alternativo, título fora de ordem nem rolagem para o lado (Meu estudo, Praticar, Turma nas duas vistas, Nivelamento, Professores, plano de aula, mapa).
 
@@ -38,13 +40,20 @@ Nas páginas novas a varredura não achou campo sem rótulo, botão sem nome, im
 
 Medido na aula "Frações" (`/pt/trilhas/matematica-fundamental/fracoes`), sem compressão, com os recursos novos desligados.
 
-| | Antes (master `fb90a5c`) | Depois |
+| | Antes (master `fb90a5c`) | Depois (este ramo, recursos desligados) |
 | --- | --- | --- |
-| HTML | 143 KB | ver abaixo |
-| JavaScript | 12 arquivos, 717 KB (220 KB com gzip) | ver abaixo |
+| HTML | 147 KB | 147 KB |
+| JavaScript inicial | 12 arquivos, 717 KB (220 KB com gzip) | 12 arquivos, **685 KB (211 KB com gzip)** |
 | Fontes pré-carregadas | 12 arquivos, 385 KB | 12 arquivos, 385 KB (sem mudança) |
 
-O que entrou: a prática das aulas de idioma (com voz e reconhecimento de fala) ia no JavaScript de **todas** as aulas, inclusive as de matemática. Agora vai num arquivo à parte, baixado só nas aulas que têm prática (`components/estudo/PraticaSobDemanda.tsx`). A página é montada no servidor do mesmo jeito; nada muda na tela.
+Medido nos arquivos do build de produção (sem compressão e com gzip). Mesmo com as seis fases no código, a aula ficou 32 KB mais leve.
+
+O que entrou:
+
+- A prática das aulas de idioma (com voz e reconhecimento de fala) ia no JavaScript de **todas** as aulas, inclusive as de matemática. Agora vai num arquivo à parte, baixado só nas aulas que têm prática (`components/estudo/PraticaSobDemanda.tsx`).
+- As peças novas da aula (exercícios, "Isso ajudou?", registros do Meu estudo) e a lista de chaves usada pela limpeza automática de Meus dados também ficam em arquivos à parte, baixados só quando usados (`components/estudo/NaAula.tsx`). Com os recursos desligados, nada novo vai para as páginas.
+
+A página é montada no servidor do mesmo jeito; nada muda na tela.
 
 O que ficou como recomendação (mexe em regra da casa):
 
