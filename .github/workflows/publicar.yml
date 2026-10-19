@@ -26,6 +26,8 @@ jobs:
       - uses: actions/checkout@v5
         with:
           persist-credentials: false
+          # O histórico inteiro: o resumo dele vai para historico/acervo.json (a Vercel só enxerga os últimos registros).
+          fetch-depth: 0
       - uses: actions/setup-node@v5
         with:
           node-version: 22
@@ -47,7 +49,8 @@ jobs:
         run: |
           # A pasta dos arquivos aprovados pode ainda não existir: sem ela o "git add" pararia a rotina inteira.
           mkdir -p public/arquivos
-          git add -A -- content public/arquivos
+          node scripts/historico.mjs
+          git add -A -- content public/arquivos historico
           if git diff --cached --quiet; then echo "sim=nao" >> "$GITHUB_OUTPUT"; else echo "sim=sim" >> "$GITHUB_OUTPUT"; fi
       # O build confere cada arquivo novo com as mesmas regras do site: conteúdo inválido não entra.
       - if: steps.novo.outputs.sim == 'sim'
