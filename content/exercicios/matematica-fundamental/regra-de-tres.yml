@@ -1,0 +1,99 @@
+# Exercícios da aula "Regra de três" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: regra-01
+  tipo: numero
+  tema: "Regra de três direta"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Se 3 kg de feijão custam R$ 24, quanto custam 5 kg?"
+  resposta: "40"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "26"
+      explicacao: "Você somou 2 reais porque são 2 kg a mais. Mas cada quilo custa 24 ÷ 3 = 8: 5 × 8 = 40."
+    - resposta: "14,4"
+      explicacao: "Você montou a conta ao contrário (24 × 3 ÷ 5). Mais feijão custa mais: 24 × 5 ÷ 3 = 40."
+  dica: "Descubra quanto custa 1 kg e multiplique por 5."
+  explicacao: "Um quilo custa 24 ÷ 3 = 8 reais. Cinco quilos: 5 × 8 = 40. Pela regra de três: 3 está para 24 assim como 5 está para x, então x = 24 × 5 ÷ 3 = 40."
+  conferir: "24 * 5 / 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: regra-02
+  tema: "Direta ou inversa?"
+  dificuldade: 2
+  enunciado: "Em qual destas situações as grandezas são inversamente proporcionais?"
+  alternativas:
+    - texto: "Número de pessoas pintando um muro e o tempo para terminar, todas no mesmo ritmo"
+      certa: true
+    - texto: "Quantidade de pães comprados e o preço pago"
+      erro: "Dobrando os pães, o preço também dobra: é diretamente proporcional. Inversa é quando uma dobra e a outra cai pela metade."
+    - texto: "Distância percorrida e combustível gasto pelo mesmo carro"
+      erro: "Mais quilômetros, mais combustível, na mesma proporção: é diretamente proporcional."
+    - texto: "Idade de uma criança e a altura dela"
+      erro: "Aqui nem há proporção: a altura não dobra quando a idade dobra. A regra de três não vale nesse caso."
+  explicacao: "Com o dobro de pessoas no mesmo ritmo, o muro fica pronto na metade do tempo: uma grandeza sobe e a outra desce na mesma proporção. É o que se chama de inversamente proporcional."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: regra-03
+  tipo: numero
+  tema: "Regra de três inversa"
+  dificuldade: 2
+  enunciado: "Quatro pessoas levam 6 horas para limpar um terreno. No mesmo ritmo, quanto tempo levariam 8 pessoas?"
+  resposta: "3"
+  unidade: "horas"
+  erros_comuns:
+    - resposta: "12"
+      explicacao: "Você fez como se fosse direta. Mais gente trabalhando termina mais rápido: é inversa. 4 × 6 = 24 horas de trabalho, divididas entre 8 pessoas."
+    - resposta: "10"
+      explicacao: "Você somou as 4 pessoas a mais às horas. Pense no trabalho total: 4 × 6 = 24 horas-pessoa; 24 ÷ 8 = 3."
+  dica: "Mais pessoas, menos tempo. Calcule o trabalho total (pessoas × horas) e divida pelas 8 pessoas."
+  explicacao: "O trabalho todo equivale a 4 × 6 = 24 horas de uma pessoa. Divididas entre 8 pessoas: 24 ÷ 8 = 3 horas. Dobrou o número de pessoas, o tempo caiu pela metade."
+  conferir: "4 * 6 / 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: regra-04
+  tipo: numero
+  tema: "Porcentagem com regra de três"
+  dificuldade: 2
+  enunciado: "De um salário de R$ 2.000, foram descontados R$ 150 de contribuição. Quantos por cento foram descontados?"
+  resposta: "7,5"
+  unidade: "%"
+  erros_comuns:
+    - resposta: "13,33"
+      explicacao: "Você dividiu o salário pelo desconto (2.000 ÷ 150). É o contrário: 150 ÷ 2.000 = 0,075, que é 7,5%."
+    - resposta: "0,075"
+      explicacao: "0,075 é o resultado em decimal. Multiplique por 100 para ter a porcentagem: 7,5%."
+    - resposta: "15"
+      explicacao: "Você leu os R$ 150 como 15%. Monte a proporção: 2.000 está para 100% assim como 150 está para x."
+  dica: "2.000 está para 100% assim como 150 está para x."
+  explicacao: "Pela regra de três: 2.000 × x = 150 × 100, então x = 15.000 ÷ 2.000 = 7,5. Foram descontados 7,5%."
+  conferir: "150 / 2000 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: regra-05
+  tema: "Quando a regra de três não vale"
+  dificuldade: 3
+  enunciado: "Uma corrida de táxi custa R$ 5 de bandeirada mais R$ 3 por quilômetro. Uma corrida de 4 km custa R$ 17. Quanto custa uma corrida de 8 km?"
+  alternativas:
+    - texto: "R$ 29"
+      certa: true
+    - texto: "R$ 34"
+      erro: "Você dobrou o preço porque a distância dobrou. Mas a bandeirada de R$ 5 se paga uma vez só: 5 + 3 × 8 = 29."
+    - texto: "R$ 24"
+      erro: "R$ 24 é só o valor dos quilômetros (3 × 8). Falta somar a bandeirada: 24 + 5."
+    - texto: "R$ 21"
+      erro: "Você somou R$ 1 por quilômetro a mais. Cada quilômetro custa R$ 3: 5 + 3 × 8 = 29."
+  explicacao: "Há uma parte fixa (a bandeirada) e uma parte que cresce com a distância. Por isso o preço não é proporcional à distância: 5 + 3 × 8 = 29, e não o dobro de 17."
+  conferir: "5 + 3 * 8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
