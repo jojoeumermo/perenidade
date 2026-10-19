@@ -4232,6 +4232,13 @@
       "open": "Ouvrir dans le studio",
       "deliver": "Remettre par le Tiroir ouvert",
       "deliverHint": "Exportez la vidéo, publiez-la sur un lien (YouTube non répertorié, PeerTube, Drive…) et remettez le lien. L'éducateur commente votre travail."
+    },
+    "render": {
+      "label": "Mode d'affichage",
+      "webgl": "Stable (WebGL)",
+      "webgpu": "Rapide (WebGPU)",
+      "cpu": "Compatible (sans carte graphique)",
+      "help": "Si le logiciel se fige ou affiche « graphics device was lost », restez en mode stable ; sur un ordinateur plus faible, utilisez le compatible. Le rapide exploite mieux la carte graphique, mais se fige sur certains appareils."
     }
   },
   "blocks": {

@@ -4232,6 +4232,13 @@
       "open": "Abrir no estúdio",
       "deliver": "Entregar pela Gaveta Aberta",
       "deliverHint": "Exporte o vídeo, publique num link (YouTube não listado, PeerTube, Drive…) e entregue o link. O educador comenta a sua entrega."
+    },
+    "render": {
+      "label": "Modo de desenho",
+      "webgl": "Estável (WebGL)",
+      "webgpu": "Rápido (WebGPU)",
+      "cpu": "Compatível (sem placa de vídeo)",
+      "help": "Se o programa travar ou mostrar “graphics device was lost”, fique no modo estável; em computador mais fraco, use o compatível. O rápido aproveita melhor a placa de vídeo, mas trava em alguns aparelhos."
     }
   },
   "blocks": {

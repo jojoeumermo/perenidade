@@ -8,7 +8,7 @@ import { QuadroDoEditor } from "../EstudioDePratica";
 
 type Id = (typeof ESCRITORIO)[number];
 /** Os textos vêm do dicionário do site (laboratório) ou escritos no painel (que tem tradução própria). */
-export type TextosDoEscritorio = Pick<Dict["practiceStudio"], "code" | "insideNote" | "fullscreen" | "notYet"> & {
+export type TextosDoEscritorio = Pick<Dict["practiceStudio"], "code" | "insideNote" | "fullscreen" | "notYet" | "render"> & {
   editors: Record<Id, { text: string }>;
   tab: string;
   local: string;
