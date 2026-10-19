@@ -540,7 +540,7 @@ function Privacidade({ me, recarregar, sair, avisosETrava }: { me: Me; recarrega
           ) : (
             <div className="mt-2 space-y-2 text-sm">
               <label className="block">
-                Para confirmar, escreva <strong className="font-mono">APAGAR</strong>
+                Para confirmar, escreva <strong className="font-mono" translate="no">APAGAR</strong>
                 <input value={palavra} onChange={(e) => setPalavra(e.target.value)} className={`${campo} max-w-xs font-mono`} autoComplete="off" />
               </label>
               <p className="flex gap-3">
