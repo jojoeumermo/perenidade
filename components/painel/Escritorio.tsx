@@ -15,6 +15,13 @@ export function EscritorioNoPainel() {
           insideNote: "O programa abre aqui dentro e não tem acesso à sua conta nem ao painel.",
           fullscreen: "Tela cheia",
           notYet: "Ainda não está no ar no endereço do instituto.",
+          render: {
+            label: "Modo de desenho",
+            webgl: "Estável (WebGL)",
+            webgpu: "Rápido (WebGPU)",
+            cpu: "Compatível (sem placa de vídeo)",
+            help: "Se o programa travar ou mostrar “graphics device was lost”, use o modo estável ou o compatível.",
+          },
           tab: "Escolha o programa",
           local: "Tudo fica só no navegador deste aparelho: salve o arquivo ao terminar e guarde em Materiais e arquivos se for da equipe.",
           editors: {
