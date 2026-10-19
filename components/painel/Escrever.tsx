@@ -285,7 +285,7 @@ export function Escrever({ me }: { me: Me }) {
           // Se não deu (limite, conta suspensa), a contribuição segue; a pessoa pode chamar de novo em Meus envios.
         }
       }
-      if (chamados.length > 0) setAviso(`Recebido. Sua contribuição entrou na fila de revisão, e ${chamados.join(", ")} já ${chamados.length === 1 ? "recebeu" : "receberam"} o recado para trabalhar junto.`);
+      if (chamados.length > 0) setAviso(chamados.length === 1 ? `Recebido. Sua contribuição entrou na fila de revisão, e ${chamados[0]} já recebeu o recado para trabalhar junto.` : `Recebido. Sua contribuição entrou na fila de revisão, e ${chamados.join(", ")} já receberam o recado para trabalhar junto.`);
       setTitulo("");
       setCorpo("");
       setFontes([{ titulo: "", autor: "", url: "" }]);
@@ -547,9 +547,9 @@ export function Escrever({ me }: { me: Me }) {
         {lado && (
           <article className="mx-auto w-full max-w-[680px] border border-dashed border-rule bg-parchment-deep px-5 py-7 sm:px-8" aria-label="Pré-visualização">
             <p className={rotuloPequeno}>Como fica na aula</p>
-            <h1 className="mt-2 font-serif text-3xl font-semibold">{titulo || tipo.titulo}</h1>
-            {valores.resumo && <p className="mt-2 font-serif text-lg italic text-ink-soft">{valores.resumo}</p>}
-            <div className="mt-6">
+            <h1 className="mt-2 font-serif text-3xl font-semibold" data-original={titulo ? "" : undefined}>{titulo || tipo.titulo}</h1>
+            {valores.resumo && <p className="mt-2 font-serif text-lg italic text-ink-soft" data-original>{valores.resumo}</p>}
+            <div className="mt-6" data-original={corpo ? "" : undefined}>
               <Markdown lang="pt">{corpo || "*Nada para mostrar ainda.*"}</Markdown>
             </div>
           </article>

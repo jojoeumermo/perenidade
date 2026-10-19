@@ -75,7 +75,7 @@ export function GavetaFila() {
             <p className="mt-1 font-serif text-xl font-semibold">{item.titulo}</p>
             <p className="text-ink-soft">{[item.curso, item.instituicao, item.ano ? String(item.ano) : ""].filter(Boolean).join(" · ")}</p>
             <p className="mt-1">Crédito público: <strong>{item.credito}</strong> · conta: {item.autor || "apagada"}</p>
-            <p className="mt-2 whitespace-pre-line">{item.comentario}</p>
+            <p className="mt-2 whitespace-pre-line" data-original>{item.comentario}</p>
             <p className="mt-2 flex flex-wrap gap-x-5 gap-y-1">
               {item.link && safeLink(item.link) && <a href={item.link} target="_blank" rel="noopener noreferrer" className={elo}>Abrir o link: {item.link}</a>}
               {item.arquivo && <Previa caminho={item.arquivo} />}

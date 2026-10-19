@@ -2,12 +2,13 @@
 "use client";
 
 import { type ReactNode, useEffect, useId, useRef, useState } from "react";
+import { useI18n } from "../I18n";
 
-// Campos do painel que o navegador desenha mal ou em inglês: a data (dd/mm/aaaa, com calendário próprio em português) e o
-// arquivo (arrastar e soltar, sem o "Choose File"). Documentados em docs/PAINEL-COMPONENTES.md.
+// Campos do painel que o navegador desenha mal ou em inglês: a data (dd/mm/aaaa, com calendário próprio no idioma da
+// página) e o arquivo (arrastar e soltar, sem o "Choose File"). Documentados em docs/PAINEL-COMPONENTES.md.
 
-const MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
-const SEMANA = ["D", "S", "T", "Q", "Q", "S", "S"];
+/** As iniciais dos dias da semana, de domingo a sábado (1º de fevereiro de 2026 é um domingo). */
+const semana = (lang: string) => Array.from({ length: 7 }, (_, i) => new Date(2026, 1, 1 + i).toLocaleDateString(lang, { weekday: "narrow" }));
 const iso = (a: number, m: number, d: number) => `${a}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
 export const isoParaBr = (v: string) => (/^\d{4}-\d{2}-\d{2}$/.test(v) ? v.split("-").reverse().join("/") : "");
 export function brParaIso(v: string): string {
@@ -23,6 +24,7 @@ export function brParaIso(v: string): string {
  * AAAA-MM-DD (ou vazio), como o banco espera. Teclado: setas mudam o dia no calendário, Enter escolhe, Esc fecha.
  */
 export function CampoData({ valor, mudar, rotulo, id, className = "" }: { valor: string; mudar: (iso: string) => void; rotulo: string; id?: string; className?: string }) {
+  const { lang } = useI18n();
   const proprio = useId();
   const campoId = id ?? proprio;
   const [texto, setTexto] = useState(isoParaBr(valor));
@@ -106,11 +108,11 @@ export function CampoData({ valor, mudar, rotulo, id, className = "" }: { valor:
         >
           <div className="flex items-center justify-between">
             <button type="button" aria-label="Mês anterior" className="cursor-pointer px-2" onClick={() => setMes(({ a, m }) => (m === 0 ? { a: a - 1, m: 11 } : { a, m: m - 1 }))}>‹</button>
-            <span className="font-semibold">{MESES[mes.m]} de {mes.a}</span>
+            <span className="font-semibold">{new Date(mes.a, mes.m, 1).toLocaleDateString(lang, { month: "long", year: "numeric" })}</span>
             <button type="button" aria-label="Próximo mês" className="cursor-pointer px-2" onClick={() => setMes(({ a, m }) => (m === 11 ? { a: a + 1, m: 0 } : { a, m: m + 1 }))}>›</button>
           </div>
           <div className="mt-2 grid grid-cols-7 gap-1 text-center text-xs">
-            {SEMANA.map((d, i) => <span key={i} className="text-ink-soft" aria-hidden>{d}</span>)}
+            {semana(lang).map((d, i) => <span key={i} className="text-ink-soft" aria-hidden>{d}</span>)}
             {Array.from({ length: primeiro }, (_, i) => <span key={`v${i}`} />)}
             {Array.from({ length: dias }, (_, i) => {
               const v = iso(mes.a, mes.m, i + 1);
@@ -123,7 +125,7 @@ export function CampoData({ valor, mudar, rotulo, id, className = "" }: { valor:
                   autoFocus={v === foco}
                   tabIndex={v === foco ? 0 : -1}
                   aria-pressed={marcado}
-                  aria-label={`${i + 1} de ${MESES[mes.m]} de ${mes.a}`}
+                  aria-label={new Date(mes.a, mes.m, i + 1).toLocaleDateString(lang, { dateStyle: "long" })}
                   onClick={() => escolher(v)}
                   className={`cursor-pointer py-1 ${marcado ? "bg-ink text-parchment" : ehHoje ? "border border-oxblood" : "hover:bg-parchment-deep"} ${v === foco ? "outline outline-2 outline-gold" : ""}`}
                 >
