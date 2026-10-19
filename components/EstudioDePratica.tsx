@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import { fill } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { type AreaDoEstudio, type Compatibilidade, conferirCompatibilidade, type EditorAvancado, editor, enderecoDo, ESTUDIOS } from "@/lib/estudio";
@@ -86,21 +86,64 @@ export function CartoesDoEstudio({ s, area = "edicao-de-video" }: { s: S; area?:
   );
 }
 
+/** Como os programas do ArtCraft desenham. O padrão é o WebGL2: com o WebGPU, drivers de vídeo instáveis (comuns em
+ * notebooks e placas integradas) derrubam o programa ("graphics device was lost") e às vezes travam o navegador inteiro. */
+type Modo = "webgl" | "webgpu" | "cpu";
+const CHAVE_MODO = "lucia:estudio:modo";
+const MUDOU_MODO = "lucia:estudio:modo-mudou";
+const lerModo = (): Modo => {
+  try {
+    const m = window.localStorage.getItem(CHAVE_MODO);
+    return m === "webgpu" || m === "cpu" ? m : "webgl";
+  } catch {
+    return "webgl";
+  }
+};
+const assinarModo = (avisar: () => void) => {
+  window.addEventListener(MUDOU_MODO, avisar);
+  return () => window.removeEventListener(MUDOU_MODO, avisar);
+};
+function guardarModo(m: Modo) {
+  try {
+    window.localStorage.setItem(CHAVE_MODO, m);
+  } catch {
+    // sem armazenamento: vale só nesta página
+  }
+  window.dispatchEvent(new Event(MUDOU_MODO));
+}
+
 /**
  * O programa aberto dentro do institutolucia.org: um quadro de outra origem (o estúdio), que não alcança a sessão nem
  * os dados do site. Tela cheia pelo navegador, sem sair da página.
  */
-export function QuadroDoEditor({ s, id, nome }: { s: Pick<S, "insideNote" | "fullscreen" | "notYet">; id: EditorAvancado["id"]; nome: string }) {
+export function QuadroDoEditor({ s, id, nome }: { s: Pick<S, "insideNote" | "fullscreen" | "notYet" | "render">; id: EditorAvancado["id"]; nome: string }) {
   const quadro = useRef<HTMLIFrameElement>(null);
-  const endereco = enderecoDo(id);
-  if (!endereco) return <p className="mt-6 text-oxblood">{s.notYet}</p>;
+  const modo = useSyncExternalStore(assinarModo, lerModo, () => "webgl" as Modo);
+  const base = enderecoDo(id);
+  if (!base) return <p className="mt-6 text-oxblood">{s.notYet}</p>;
+  const ed = editor(id);
+  const wgpu = ed?.wgpu === true;
+  // WebGPU é o padrão dos próprios programas (sem nada no endereço); os outros modos vão como ?webgl ou ?cpu.
+  const endereco = wgpu && modo !== "webgpu" ? `${base}?${ed?.consulta?.[modo] ?? modo}` : base;
   return (
     <div className="mt-4">
       <p className="flex flex-wrap items-center justify-between gap-3 font-sans text-sm">
         <span className="text-ink-soft">{s.insideNote}</span>
+        {wgpu && (
+          <label className="flex flex-wrap items-center gap-2">
+            <span className="font-semibold">{s.render.label}</span>
+            <select value={modo} onChange={(e) => guardarModo(e.target.value as Modo)} className="border-2 border-ink bg-parchment px-2 py-1">
+              <option value="webgl">{s.render.webgl}</option>
+              <option value="webgpu">{s.render.webgpu}</option>
+              <option value="cpu">{s.render.cpu}</option>
+            </select>
+          </label>
+        )}
         <button type="button" onClick={() => void quadro.current?.requestFullscreen?.()} className="cursor-pointer border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{s.fullscreen}</button>
       </p>
+      {wgpu && <p className="mt-1 font-sans text-xs text-ink-soft">{s.render.help}</p>}
       <iframe
+        key={endereco}
         ref={quadro}
         src={endereco}
         title={nome}

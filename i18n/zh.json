@@ -194,7 +194,7 @@
     "mockNotEnough": "这个学科的题目不够。",
     "mockSkipped": "未作答",
     "publicTitle": "公开考试",
-    "publicLead": "巴西全国中学考试 ENEM 的 {n} 道题，从 2009 年到最新一届，附答案。题库每周自动更新；带讲解的解答由学院的教师撰写。",
+    "publicLead": "{n} 道带答案的公开考试题：2009 年以来的 ENEM、坎皮纳斯州立大学和圣保罗大学（Fuvest）入学考试，以及巴西律师资格考试（OAB）。列表每周自动更新；带讲解的解答由学院的教育者撰写。",
     "publicExam": "考试",
     "publicArea": "领域",
     "publicAllAreas": "全部领域",
@@ -202,7 +202,8 @@
       "linguagens": "语言",
       "humanas": "人文科学",
       "natureza": "自然科学",
-      "matematica": "数学"
+      "matematica": "数学",
+      "direito": "法律"
     },
     "publicLanguage": "外语",
     "publicEnglish": "英语",
@@ -222,7 +223,8 @@
     "publicSend": "发布解答",
     "publicRemove": "撤下",
     "publicResolutionFailed": "现在无法发布解答。",
-    "publicSource": "题目来自 Inep 的公开考试，由开放项目 enem.dev 转录。更新于 {data}。来源："
+    "publicSource": "公开考试题目，由开放项目转录（enem.dev、BLUEX 和 oab_exams）。更新于 {data}。本试卷来源：",
+    "publicSourcePick": "来源"
   },
   "slogans": {
     "acervo": "阅读是一种抵抗。",
@@ -4158,6 +4160,13 @@
       "open": "在工作室中打开",
       "deliver": "通过开放抽屉提交",
       "deliverHint": "导出视频，发布到一个链接（不公开的 YouTube、PeerTube、Drive 等），然后提交链接。教师会点评你的作业。"
+    },
+    "render": {
+      "label": "绘制模式",
+      "webgl": "稳定（WebGL）",
+      "webgpu": "快速（WebGPU）",
+      "cpu": "兼容（不用显卡）",
+      "help": "如果程序卡死或显示 “graphics device was lost”，请使用稳定模式；电脑较弱时使用兼容模式。快速模式更好地利用显卡，但在部分设备上会卡死。"
     }
   },
   "blocks": {
