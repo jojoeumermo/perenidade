@@ -9,7 +9,7 @@ const AREAS: Record<HabilidadeEnem["area"], keyof S> = { matematica: "areaMatema
 
 function Situacao({ situacao, s }: { situacao: HabilidadeBncc["situacao"]; s: S }) {
   return situacao === "confirmado" ? null : (
-    <span className="ml-1 border border-gold px-1 font-sans text-[0.65rem] uppercase tracking-wide text-gold" title={s.aConfirmarDica}>
+    <span className="ml-1 border border-gold px-1 font-sans text-xs uppercase tracking-wide text-ink" title={s.aConfirmarDica}>
       {s.aConfirmar}
     </span>
   );

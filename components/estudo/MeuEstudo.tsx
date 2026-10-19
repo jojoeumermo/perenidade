@@ -112,7 +112,7 @@ export function MeuEstudo({ s, caderno, praticar, extras }: { s: S; caderno: Not
       {ultima?.path && (
         <L href={ultima.path} className="flex flex-wrap items-center justify-between gap-3 border-2 border-gold bg-parchment-deep px-5 py-4 hover:border-oxblood">
           <span>
-            <span className="block font-mono text-xs uppercase tracking-widest text-gold">{s.continuar}</span>
+            <span className="block font-mono text-xs uppercase tracking-widest text-oxblood">{s.continuar}</span>
             <span className="font-serif text-xl font-semibold">{ultima.title}</span>
             <span className="text-ink-soft"> · {ultima.track}</span>
           </span>
