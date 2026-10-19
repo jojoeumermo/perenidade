@@ -1541,6 +1541,14 @@
     "frequencia-cardiaca": [
       "Heart rate",
       "Estimated maximum heart rate and the effort zones for training."
+    ],
+    "fisica-simulada": [
+      "Physics in motion",
+      "Projectile and free fall, electric circuit (Ohm's law, series and parallel) and waves, with the formulas on screen."
+    ],
+    "reacoes": [
+      "Reactions with atoms",
+      "Watch atoms swap partners in a reaction: nothing disappears, nothing appears."
     ]
   },
   "tools": {
@@ -1590,7 +1598,34 @@
         "G",
         "A",
         "B"
-      ]
+      ],
+      "scalesTitle": "Scales and chords",
+      "root": "Root",
+      "scale": "Scale",
+      "scaleKinds": {
+        "maior": "Major",
+        "menor": "Natural minor",
+        "pentatonica": "Major pentatonic",
+        "blues": "Blues"
+      },
+      "playScale": "Play the scale",
+      "chord": "Chord",
+      "chordKinds": {
+        "maior": "Major",
+        "menor": "Minor",
+        "setima": "Seventh (dominant)",
+        "diminuto": "Diminished"
+      },
+      "playChord": "Play the chord",
+      "arpeggio": "Arpeggio",
+      "rollTitle": "Piano roll",
+      "rollHint": "Click the cells to mark notes (each row is a note, each column a beat) and play the sequence.",
+      "play": "Play",
+      "clear": "Clear",
+      "dictation": "Dictation",
+      "dictationHint": "Listen to the note and say which one it is. If you need to, compare it with the reference C.",
+      "listenAgain": "Listen again",
+      "reference": "Play the reference C"
     },
     "table": {
       "search": "Find an element (name, symbol or number)",
@@ -1994,7 +2029,18 @@
         "lado": "One side of the equation is missing.",
         "sem_solucao": "As written, this reaction does not balance: check the formulas.",
         "varias_solucoes": "This equation can be balanced in more than one independent way (it looks like two reactions together). Separate the reactions."
-      }
+      },
+      "modeSolve": "Solve",
+      "modePractice": "Practise",
+      "practiceHint": "Write the coefficients and check: the table shows, atom by atom, what already balances.",
+      "exerciseOf": "Equation {i} of {n}",
+      "coefficient": "Coefficient of {f}",
+      "verify": "Check",
+      "showAnswer": "Show the answer",
+      "nextOne": "Another equation",
+      "allGood": "All right: every atom balances with the smallest whole-number coefficients.",
+      "notMinimal": "Every atom balances, but all the coefficients can be divided by {n}: use the smallest whole numbers.",
+      "fix": "Not balanced yet: check the rows marked ✗."
     },
     "punnett": {
       "title": "Punnett square",
@@ -2102,7 +2148,20 @@
       "source": "Data: NASA, Planetary Fact Sheet.",
       "seconds": "{s} s",
       "minutes": "{m} min {s} s",
-      "hours": "{h} h {m} min"
+      "hours": "{h} h {m} min",
+      "orbitsTitle": "Orbits in motion",
+      "zoom": "Zoom",
+      "zoomValue": "from the Sun to the edge: {d} million km",
+      "speed": "Speed",
+      "speedValue": "1 second = {d} day(s)",
+      "pause": "Pause",
+      "resume": "Resume",
+      "dayCount": "day {d}",
+      "orbitNote": "Distances are to scale with each other; planet sizes are not. The periods are real: Mercury goes round the Sun in 88 days, Neptune in 165 years. Orbits are drawn as circles, but they are nearly circular ellipses.",
+      "dropTitle": "Gravity on each body",
+      "dropHint": "Drop a ball from {h} m and see how long it takes to reach the ground in each place (no air).",
+      "drop": "Drop the ball",
+      "fallTime": "{t} s to the ground"
     },
     "timer": {
       "modes": {
@@ -2147,7 +2206,43 @@
         "Show knowledge of the linguistic devices needed to build an argument.",
         "Propose an intervention for the problem discussed, respecting human rights."
       ],
-      "lessons": "Essay lessons for the Enem"
+      "lessons": "Essay lessons for the Enem",
+      "checkTitle": "Guided review by the five competencies",
+      "checkLead": "Reread the essay and tick what is already right. The ticks stay on this device only; the text is not sent anywhere.",
+      "checkDone": "{a} of {b} items checked",
+      "checkReset": "Untick everything",
+      "competencyN": "Competency {n}",
+      "paragraphHint": "Your text has {n} paragraph(s). Most essays have 4 or 5: introduction, two or three body paragraphs and conclusion.",
+      "connectors": "Connectives found in the text: {n}.",
+      "checks": [
+        [
+          "No spelling or accent mistakes.",
+          "Verb and noun agreement checked.",
+          "Punctuation reviewed (commas, full stops).",
+          "No slang or speech habits."
+        ],
+        [
+          "I did not stray from the topic: it appears from the introduction on.",
+          "The text is argumentative: introduction, body and conclusion.",
+          "I used legitimate references (data, law, historical fact, work, author) linked to the discussion."
+        ],
+        [
+          "My thesis (point of view) is clear in the introduction.",
+          "Each argument is explained and developed, not just mentioned.",
+          "The arguments support the thesis and relate to each other."
+        ],
+        [
+          "Connectives link the paragraphs.",
+          "Connectives link the sentences within the paragraphs.",
+          "I avoided repeating words: I used synonyms and pronouns."
+        ],
+        [
+          "The proposal says who acts (agent).",
+          "It says what to do (action) and how (means).",
+          "It says what for (purpose) and adds a further detail.",
+          "The proposal respects human rights."
+        ]
+      ]
     },
     "syllables": {
       "help": "Tap a syllable to hear it. Tap several, one after the other, to build a word, and hear the whole word. The syllables are in Portuguese.",
@@ -2290,6 +2385,58 @@
       "reset": "Back to the example",
       "preview": "Result",
       "sandbox": "The result runs in a closed box, separate from the site: the code cannot read this page, your account or anything stored in the browser."
+    },
+    "physics": {
+      "tabs": {
+        "lancamento": "Projectile and fall",
+        "circuito": "Electric circuit",
+        "ondas": "Waves"
+      },
+      "speed": "Initial speed",
+      "angle": "Angle",
+      "height": "Initial height",
+      "gravity": "Where",
+      "places": {
+        "terra": "Earth",
+        "lua": "Moon",
+        "marte": "Mars",
+        "jupiter": "Jupiter"
+      },
+      "launch": "Launch",
+      "freeFallHint": "To see free fall, set the speed to zero and choose a height.",
+      "range": "Range",
+      "maxHeight": "Maximum height",
+      "flightTime": "Flight time",
+      "noAir": "no air resistance",
+      "voltage": "Battery voltage",
+      "series": "In series",
+      "parallel": "In parallel",
+      "equivalent": "Equivalent resistance",
+      "current": "Total current",
+      "power": "Power",
+      "seriesNote": "In series, the current is the same in all of them and the voltage is shared: Req = R1 + R2 + R3.",
+      "parallelNote": "In parallel, the voltage is the same in all of them and the current is shared: 1/Req = 1/R1 + 1/R2 + 1/R3.",
+      "ohmNote": "Ohm's law: U = R · i. Power: P = U · i.",
+      "amplitude": "Amplitude",
+      "frequency": "Frequency",
+      "wavelength": "Wavelength",
+      "superpose": "Add a second wave",
+      "frequency2": "Frequency of the second wave",
+      "waveNote": "Raise the frequency and watch the crests pass faster; the wave speed is the wavelength times the frequency.",
+      "superposeNote": "The two thin waves add up to the thick one: where crests meet, the wave grows; where a crest meets a trough, it cancels (interference). Close frequencies make beats."
+    },
+    "reaction": {
+      "names": {
+        "agua": "Making water",
+        "amonia": "Making ammonia",
+        "metano": "Burning methane",
+        "sal": "Table salt"
+      },
+      "react": "React",
+      "reset": "Back to the start",
+      "reactants": "Reactants",
+      "products": "Products",
+      "note": "No atom disappears or appears out of nowhere: in a reaction they only swap partners (Lavoisier's law). That is why the count on each side is the same. The colours follow the ball-and-stick model convention."
     }
   },
   "journal": {
@@ -3834,8 +3981,48 @@
     "insideNote": "The program runs here inside the site, in a separate space: it can’t see your account or your data.",
     "desktopOnly": "Desktop program: it doesn’t run in the browser.",
     "downloadApp": "Download (Windows, Mac or Linux)",
-    "studios": {"edicao-de-foto": {"lead": "Open-source programs to retouch, crop and compose images in the browser, free and with nothing to install.", "limits": ["They don’t open .psd files with every Photoshop feature and don’t take plugins.", "PhotoCraft opens and saves PSD, PNG, JPG and WebP.", "LightCraft, for developing RAW and organizing photos, is a desktop program: it has to be downloaded and installed."], "credits": "PhotoCraft and LightCraft are made by the ArtCraft team and community, under the MIT or Apache-2.0 licence. The ArtCraft name is a trademark of the ArtCraft team. Neither is an Adobe product or affiliated with Adobe; Photoshop and Lightroom are Adobe trademarks."}, "modelagem-3d": {"lead": "Open-source programs to model, sculpt and build 3D scenes in the browser, free and with nothing to install.", "limits": ["None of them is the full Blender: to go deep, install Blender (free), which is what the tracks teach.", "All three open and save OBJ and glTF: sculpt in SculptGL, refine and animate in Blockbench, build the scene in three.js and take it all to Blender.", "Blockbench is made for low-poly models, like the ones in games."], "credits": "Blockbench is by Jannis Petersen and contributors (GPL-3.0); SculptGL by Stéphane Ginier (MIT); the three.js editor by the three.js authors (MIT). The institute builds each one from the official source code, unmodified."}},
-    "editors": {"photocraft": {"title": "Edit images (Photoshop style): PhotoCraft", "text": "Layers, masks, selection, colour adjustments and text, with Photoshop shortcuts."}, "lightcraft": {"title": "Develop and organize photos (Lightroom style): LightCraft", "text": "Photo library and RAW development: light, colour and crop without harming the original."}, "blockbench": {"title": "Model and animate: Blockbench", "text": "Vertex and face modeling, UV mapping, texture painting and skeletal animation."}, "sculptgl": {"title": "Sculpt: SculptGL", "text": "Digital sculpting, like working clay: brushes to pull, smooth and carve the shape."}, "threejs": {"title": "Build the scene: three.js editor", "text": "Objects, materials, lights and camera in a 3D scene, to export or take to Blender."}},
+    "studios": {
+      "edicao-de-foto": {
+        "lead": "Open-source programs to retouch, crop and compose images in the browser, free and with nothing to install.",
+        "limits": [
+          "They don’t open .psd files with every Photoshop feature and don’t take plugins.",
+          "PhotoCraft opens and saves PSD, PNG, JPG and WebP.",
+          "LightCraft, for developing RAW and organizing photos, is a desktop program: it has to be downloaded and installed."
+        ],
+        "credits": "PhotoCraft and LightCraft are made by the ArtCraft team and community, under the MIT or Apache-2.0 licence. The ArtCraft name is a trademark of the ArtCraft team. Neither is an Adobe product or affiliated with Adobe; Photoshop and Lightroom are Adobe trademarks."
+      },
+      "modelagem-3d": {
+        "lead": "Open-source programs to model, sculpt and build 3D scenes in the browser, free and with nothing to install.",
+        "limits": [
+          "None of them is the full Blender: to go deep, install Blender (free), which is what the tracks teach.",
+          "All three open and save OBJ and glTF: sculpt in SculptGL, refine and animate in Blockbench, build the scene in three.js and take it all to Blender.",
+          "Blockbench is made for low-poly models, like the ones in games."
+        ],
+        "credits": "Blockbench is by Jannis Petersen and contributors (GPL-3.0); SculptGL by Stéphane Ginier (MIT); the three.js editor by the three.js authors (MIT). The institute builds each one from the official source code, unmodified."
+      }
+    },
+    "editors": {
+      "photocraft": {
+        "title": "Edit images (Photoshop style): PhotoCraft",
+        "text": "Layers, masks, selection, colour adjustments and text, with Photoshop shortcuts."
+      },
+      "lightcraft": {
+        "title": "Develop and organize photos (Lightroom style): LightCraft",
+        "text": "Photo library and RAW development: light, colour and crop without harming the original."
+      },
+      "blockbench": {
+        "title": "Model and animate: Blockbench",
+        "text": "Vertex and face modeling, UV mapping, texture painting and skeletal animation."
+      },
+      "sculptgl": {
+        "title": "Sculpt: SculptGL",
+        "text": "Digital sculpting, like working clay: brushes to pull, smooth and carve the shape."
+      },
+      "threejs": {
+        "title": "Build the scene: three.js editor",
+        "text": "Objects, materials, lights and camera in a 3D scene, to export or take to Blender."
+      }
+    },
     "eyebrow": "Video editing",
     "title": "Practice studio",
     "lead": "Open-source programs to practise video editing and animation in the browser, free and with nothing to install.",

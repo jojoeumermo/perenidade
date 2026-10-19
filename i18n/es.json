@@ -1541,6 +1541,14 @@
     "frequencia-cardiaca": [
       "Frecuencia cardíaca",
       "La frecuencia máxima estimada y las zonas de esfuerzo para entrenar."
+    ],
+    "fisica-simulada": [
+      "Física en movimiento",
+      "Lanzamiento y caída libre, circuito eléctrico (ley de Ohm, serie y paralelo) y ondas, con las fórmulas en pantalla."
+    ],
+    "reacoes": [
+      "Reacciones con átomos",
+      "Mira cómo los átomos cambian de pareja en una reacción: nada desaparece, nada aparece."
     ]
   },
   "tools": {
@@ -1590,7 +1598,34 @@
         "sol",
         "la",
         "si"
-      ]
+      ],
+      "scalesTitle": "Escalas y acordes",
+      "root": "Tónica",
+      "scale": "Escala",
+      "scaleKinds": {
+        "maior": "Mayor",
+        "menor": "Menor natural",
+        "pentatonica": "Pentatónica mayor",
+        "blues": "Blues"
+      },
+      "playScale": "Tocar la escala",
+      "chord": "Acorde",
+      "chordKinds": {
+        "maior": "Mayor",
+        "menor": "Menor",
+        "setima": "Con séptima (dominante)",
+        "diminuto": "Disminuido"
+      },
+      "playChord": "Tocar el acorde",
+      "arpeggio": "Arpegio",
+      "rollTitle": "Piano roll",
+      "rollHint": "Haz clic en las casillas para marcar notas (cada fila es una nota, cada columna un tiempo) y toca la secuencia.",
+      "play": "Tocar",
+      "clear": "Borrar",
+      "dictation": "Dictado",
+      "dictationHint": "Escucha la nota y di cuál es. Si lo necesitas, compárala con el do de referencia.",
+      "listenAgain": "Escuchar de nuevo",
+      "reference": "Escuchar el do de referencia"
     },
     "table": {
       "search": "Buscar elemento (nombre, símbolo o número)",
@@ -1994,7 +2029,18 @@
         "lado": "Falta uno de los lados de la ecuación.",
         "sem_solucao": "Tal como está escrita, esta reacción no cierra: revisa las fórmulas.",
         "varias_solucoes": "Esta ecuación se puede balancear de más de una forma independiente (parecen dos reacciones juntas). Separa las reacciones."
-      }
+      },
+      "modeSolve": "Resolver",
+      "modePractice": "Practicar",
+      "practiceHint": "Escribe los coeficientes y comprueba: la tabla muestra, átomo por átomo, lo que ya cuadra.",
+      "exerciseOf": "Ecuación {i} de {n}",
+      "coefficient": "Coeficiente de {f}",
+      "verify": "Comprobar",
+      "showAnswer": "Ver la respuesta",
+      "nextOne": "Otra ecuación",
+      "allGood": "Todo bien: todos los átomos cuadran con los menores coeficientes enteros.",
+      "notMinimal": "Todos los átomos cuadran, pero se pueden dividir todos los coeficientes entre {n}: usa los menores enteros.",
+      "fix": "Todavía no cuadra: revisa las filas marcadas con ✗."
     },
     "punnett": {
       "title": "Cuadro de Punnett",
@@ -2102,7 +2148,20 @@
       "source": "Datos: NASA, Planetary Fact Sheet.",
       "seconds": "{s} s",
       "minutes": "{m} min {s} s",
-      "hours": "{h} h {m} min"
+      "hours": "{h} h {m} min",
+      "orbitsTitle": "Órbitas en movimiento",
+      "zoom": "Acercamiento",
+      "zoomValue": "del Sol al borde: {d} millones de km",
+      "speed": "Velocidad",
+      "speedValue": "1 segundo = {d} día(s)",
+      "pause": "Pausar",
+      "resume": "Continuar",
+      "dayCount": "día {d}",
+      "orbitNote": "Las distancias están a escala entre sí; los tamaños de los planetas, no. Los periodos son los reales: Mercurio da la vuelta al Sol en 88 días, Neptuno en 165 años. Las órbitas se dibujan como círculos, pero son elipses casi circulares.",
+      "dropTitle": "Gravedad en cada cuerpo",
+      "dropHint": "Suelta una pelota desde {h} m y mira cuánto tarda en llegar al suelo en cada lugar (sin aire).",
+      "drop": "Soltar la pelota",
+      "fallTime": "{t} s hasta el suelo"
     },
     "timer": {
       "modes": {
@@ -2147,7 +2206,43 @@
         "Demostrar conocimiento de los mecanismos lingüísticos necesarios para construir la argumentación.",
         "Elaborar una propuesta de intervención para el problema tratado, respetando los derechos humanos."
       ],
-      "lessons": "Clases de redacción para el Enem"
+      "lessons": "Clases de redacción para el Enem",
+      "checkTitle": "Revisión guiada por las cinco competencias",
+      "checkLead": "Relee la redacción y marca lo que ya está bien. Las marcas se quedan solo en este dispositivo; el texto no se envía a ningún sitio.",
+      "checkDone": "{a} de {b} puntos revisados",
+      "checkReset": "Desmarcar todo",
+      "competencyN": "Competencia {n}",
+      "paragraphHint": "Tu texto tiene {n} párrafo(s). Lo más común es tener de 4 a 5: introducción, dos o tres de desarrollo y conclusión.",
+      "connectors": "Conectores encontrados en el texto: {n}.",
+      "checks": [
+        [
+          "Sin errores de ortografía ni de acentuación.",
+          "Concordancia verbal y nominal revisada.",
+          "Puntuación revisada (comas, puntos).",
+          "Sin jerga ni marcas del habla."
+        ],
+        [
+          "No me salí del tema: aparece desde la introducción.",
+          "El texto es argumentativo: introducción, desarrollo y conclusión.",
+          "Usé referencias legítimas (dato, ley, hecho histórico, obra, autor) ligadas a la discusión."
+        ],
+        [
+          "Mi tesis (punto de vista) está clara en la introducción.",
+          "Cada argumento está explicado y desarrollado, no solo citado.",
+          "Los argumentos defienden la tesis y se relacionan entre sí."
+        ],
+        [
+          "Hay conectores que unen los párrafos.",
+          "Hay conectores que unen las frases dentro de los párrafos.",
+          "Evité repetir palabras: usé sinónimos y pronombres."
+        ],
+        [
+          "La propuesta dice quién actúa (agente).",
+          "Dice qué hacer (acción) y cómo (medio).",
+          "Dice para qué (finalidad) y añade un detalle más.",
+          "La propuesta respeta los derechos humanos."
+        ]
+      ]
     },
     "syllables": {
       "help": "Toca una sílaba para oírla. Toca varias, una tras otra, para armar una palabra, y escucha la palabra entera. Las sílabas están en portugués.",
@@ -2290,6 +2385,58 @@
       "reset": "Volver al ejemplo",
       "preview": "Resultado",
       "sandbox": "El resultado se ejecuta en una caja cerrada, separada del sitio: el código no lee esta página, tu cuenta ni nada guardado en el navegador."
+    },
+    "physics": {
+      "tabs": {
+        "lancamento": "Lanzamiento y caída",
+        "circuito": "Circuito eléctrico",
+        "ondas": "Ondas"
+      },
+      "speed": "Velocidad inicial",
+      "angle": "Ángulo",
+      "height": "Altura inicial",
+      "gravity": "Dónde",
+      "places": {
+        "terra": "Tierra",
+        "lua": "Luna",
+        "marte": "Marte",
+        "jupiter": "Júpiter"
+      },
+      "launch": "Lanzar",
+      "freeFallHint": "Para ver la caída libre, pon la velocidad en cero y elige una altura.",
+      "range": "Alcance",
+      "maxHeight": "Altura máxima",
+      "flightTime": "Tiempo de vuelo",
+      "noAir": "sin resistencia del aire",
+      "voltage": "Tensión de la batería",
+      "series": "En serie",
+      "parallel": "En paralelo",
+      "equivalent": "Resistencia equivalente",
+      "current": "Corriente total",
+      "power": "Potencia",
+      "seriesNote": "En serie, la corriente es la misma en todas y la tensión se reparte: Req = R1 + R2 + R3.",
+      "parallelNote": "En paralelo, la tensión es la misma en todas y la corriente se reparte: 1/Req = 1/R1 + 1/R2 + 1/R3.",
+      "ohmNote": "Ley de Ohm: U = R · i. Potencia: P = U · i.",
+      "amplitude": "Amplitud",
+      "frequency": "Frecuencia",
+      "wavelength": "Longitud de onda",
+      "superpose": "Sumar una segunda onda",
+      "frequency2": "Frecuencia de la segunda onda",
+      "waveNote": "Sube la frecuencia y mira cómo las crestas pasan más rápido; la velocidad de la onda es la longitud por la frecuencia.",
+      "superposeNote": "Las dos ondas finas sumadas dan la gruesa: donde se encuentran las crestas, la onda crece; donde una cresta encuentra un valle, se anula (interferencia). Frecuencias cercanas producen batidos."
+    },
+    "reaction": {
+      "names": {
+        "agua": "Formación del agua",
+        "amonia": "Síntesis del amoníaco",
+        "metano": "Combustión del metano",
+        "sal": "Sal de mesa"
+      },
+      "react": "Reaccionar",
+      "reset": "Volver al inicio",
+      "reactants": "Reactivos",
+      "products": "Productos",
+      "note": "Ningún átomo desaparece ni aparece de la nada: en la reacción solo cambian de pareja (ley de Lavoisier). Por eso el recuento de cada lado es igual. Los colores siguen la convención de los modelos de bolas y varillas."
     }
   },
   "journal": {
@@ -3834,8 +3981,48 @@
     "insideNote": "El programa funciona aquí dentro del sitio, en un espacio separado: no ve tu cuenta ni tus datos.",
     "desktopOnly": "Programa de computadora: no funciona en el navegador.",
     "downloadApp": "Descargar (Windows, Mac o Linux)",
-    "studios": {"edicao-de-foto": {"lead": "Programas de código abierto para retocar, recortar y componer imágenes en el navegador, gratis y sin instalar nada.", "limits": ["No abren archivos .psd con todos los recursos de Photoshop ni aceptan plugins.", "PhotoCraft abre y guarda PSD, PNG, JPG y WebP.", "LightCraft, para revelar RAW y organizar fotos, es un programa de computadora: hay que descargarlo e instalarlo."], "credits": "PhotoCraft y LightCraft son hechos por el equipo y la comunidad de ArtCraft, con licencia MIT o Apache-2.0. El nombre ArtCraft es marca del equipo ArtCraft. Ninguno es producto de Adobe ni está afiliado a ella; Photoshop y Lightroom son marcas de Adobe."}, "modelagem-3d": {"lead": "Programas de código abierto para modelar, esculpir y montar escenas 3D en el navegador, gratis y sin instalar nada.", "limits": ["Ninguno es el Blender completo: para profundizar, instala Blender (gratis), que es lo que enseñan las rutas.", "Los tres abren y guardan OBJ y glTF: esculpe en SculptGL, refina y anima en Blockbench, monta la escena en three.js y llévalo todo a Blender.", "Blockbench está hecho para modelos low-poly (pocos polígonos), como los de videojuegos."], "credits": "Blockbench es de Jannis Petersen y colaboradores (GPL-3.0); SculptGL, de Stéphane Ginier (MIT); el editor de three.js, de los autores de three.js (MIT). El instituto compila cada uno a partir del código oficial, sin modificarlo."}},
-    "editors": {"photocraft": {"title": "Editar imágenes (estilo Photoshop): PhotoCraft", "text": "Capas, máscaras, selección, ajustes de color y texto, con los atajos de Photoshop."}, "lightcraft": {"title": "Revelar y organizar fotos (estilo Lightroom): LightCraft", "text": "Biblioteca de fotos y revelado RAW: luz, color y recorte sin dañar el original."}, "blockbench": {"title": "Modelar y animar: Blockbench", "text": "Modelado por vértices y caras, mapeado UV, pintura de texturas y animación con esqueleto."}, "sculptgl": {"title": "Esculpir: SculptGL", "text": "Escultura digital, como modelar arcilla: pinceles para estirar, alisar y marcar la forma."}, "threejs": {"title": "Montar la escena: editor de three.js", "text": "Objetos, materiales, luces y cámara en una escena 3D, para exportar o llevar a Blender."}},
+    "studios": {
+      "edicao-de-foto": {
+        "lead": "Programas de código abierto para retocar, recortar y componer imágenes en el navegador, gratis y sin instalar nada.",
+        "limits": [
+          "No abren archivos .psd con todos los recursos de Photoshop ni aceptan plugins.",
+          "PhotoCraft abre y guarda PSD, PNG, JPG y WebP.",
+          "LightCraft, para revelar RAW y organizar fotos, es un programa de computadora: hay que descargarlo e instalarlo."
+        ],
+        "credits": "PhotoCraft y LightCraft son hechos por el equipo y la comunidad de ArtCraft, con licencia MIT o Apache-2.0. El nombre ArtCraft es marca del equipo ArtCraft. Ninguno es producto de Adobe ni está afiliado a ella; Photoshop y Lightroom son marcas de Adobe."
+      },
+      "modelagem-3d": {
+        "lead": "Programas de código abierto para modelar, esculpir y montar escenas 3D en el navegador, gratis y sin instalar nada.",
+        "limits": [
+          "Ninguno es el Blender completo: para profundizar, instala Blender (gratis), que es lo que enseñan las rutas.",
+          "Los tres abren y guardan OBJ y glTF: esculpe en SculptGL, refina y anima en Blockbench, monta la escena en three.js y llévalo todo a Blender.",
+          "Blockbench está hecho para modelos low-poly (pocos polígonos), como los de videojuegos."
+        ],
+        "credits": "Blockbench es de Jannis Petersen y colaboradores (GPL-3.0); SculptGL, de Stéphane Ginier (MIT); el editor de three.js, de los autores de three.js (MIT). El instituto compila cada uno a partir del código oficial, sin modificarlo."
+      }
+    },
+    "editors": {
+      "photocraft": {
+        "title": "Editar imágenes (estilo Photoshop): PhotoCraft",
+        "text": "Capas, máscaras, selección, ajustes de color y texto, con los atajos de Photoshop."
+      },
+      "lightcraft": {
+        "title": "Revelar y organizar fotos (estilo Lightroom): LightCraft",
+        "text": "Biblioteca de fotos y revelado RAW: luz, color y recorte sin dañar el original."
+      },
+      "blockbench": {
+        "title": "Modelar y animar: Blockbench",
+        "text": "Modelado por vértices y caras, mapeado UV, pintura de texturas y animación con esqueleto."
+      },
+      "sculptgl": {
+        "title": "Esculpir: SculptGL",
+        "text": "Escultura digital, como modelar arcilla: pinceles para estirar, alisar y marcar la forma."
+      },
+      "threejs": {
+        "title": "Montar la escena: editor de three.js",
+        "text": "Objetos, materiales, luces y cámara en una escena 3D, para exportar o llevar a Blender."
+      }
+    },
     "eyebrow": "Edición de video",
     "title": "Estudio de práctica",
     "lead": "Programas de código abierto para practicar edición de video y animación en el navegador, gratis y sin instalar nada.",
