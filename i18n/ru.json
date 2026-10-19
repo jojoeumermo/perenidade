@@ -102,7 +102,7 @@
     "title": "Лаборатории",
     "lead": "Программировать, строить сети, работать в терминале, тренировать безопасность и моделировать науку — всё в браузере, ничего не отправляя на сервер.",
     "ide": "IDE",
-    "ideLead": "Python, PHP, Web, JavaScript and SQL, with files, exercises and project download.",
+    "ideLead": "Python, JavaScript, TypeScript, C и C++, PHP, Ruby, Lua, Web и SQL: файлы, шаблоны, упражнения, консоль сбоку, ссылка для обмена и скачивание проекта.",
     "redes": "Сетевая лаборатория",
     "redesLead": "Build the network, set IPs, VLANs and routes and watch the packet travel.",
     "linux": "Терминал Linux",

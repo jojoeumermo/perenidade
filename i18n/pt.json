@@ -94,7 +94,7 @@
     "title": "Laboratórios",
     "lead": "Programar, montar redes, usar o terminal, treinar segurança e simular ciência, tudo dentro do navegador e sem mandar nada para servidor nenhum.",
     "ide": "IDE",
-    "ideLead": "Python, PHP, Web, JavaScript e SQL, com arquivos, exercícios e download do projeto.",
+    "ideLead": "Python, JavaScript, TypeScript, C e C++, PHP, Ruby, Lua, Web e SQL: arquivos, modelos, exercícios, console ao lado, link para compartilhar e download do projeto.",
     "redes": "Laboratório de Redes",
     "redesLead": "Monte a rede, configure IPs, VLANs e rotas e veja o pacote andar.",
     "linux": "Terminal Linux",
