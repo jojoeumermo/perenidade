@@ -4001,7 +4001,8 @@
     "backupDone": "Sauvegarde restaurée ({n} éléments). Rechargez la page pour tout voir.",
     "backupInvalid": "Ce fichier n'est pas une sauvegarde du cahier.",
     "backupConfirm": "Restaurer la sauvegarde ? Les cahiers, les cartes et les erreurs sont fusionnés avec ceux déjà ici ; tout le reste est remplacé par la sauvegarde.",
-    "nextTomorrow": "revient demain"
+    "nextTomorrow": "revient demain",
+    "exportAnki": "Télécharger pour Anki (.csv)"
   },
   "practiceStudio": {
     "inside": "Ouvrir ici",
