@@ -26,6 +26,8 @@
     "testar:curriculo": "node scripts/testar-curriculo.mjs",
     "testar:blocos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-blocos.mjs",
     "testar:estudo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-estudo.mjs",
+    "testar:exercicios": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-exercicios.mjs",
+    "testar:meu-estudo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-meu-estudo.mjs",
     "testar:tarefas": "node scripts/testar-tarefas.mjs",
     "testar:redes": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-redes.mjs",
     "testar:anexos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-anexos.mjs",

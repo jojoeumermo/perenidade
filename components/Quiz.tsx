@@ -6,9 +6,11 @@ import { useState } from "react";
 import { fill } from "@/i18n/config";
 import type { QuizQuestion } from "@/lib/content";
 import { idDaQuestao, lerErros, refazerErro, registrarErro } from "@/lib/estudo";
+import { registrarTeste } from "@/lib/meu-estudo";
 import { L, useI18n } from "./I18n";
 
-export function Quiz({ questions }: { questions: QuizQuestion[] }) {
+/** `registro` (opcional): a aula ("trilha/aula") cujo resultado vai para o "Meu estudo" quando o teste termina. Sem ele, nada é guardado além do caderno de erros. */
+export function Quiz({ questions, registro }: { questions: QuizQuestion[]; registro?: string }) {
   const { t } = useI18n();
   const pathname = usePathname();
   const [answers, setAnswers] = useState<Record<number, number>>({});
@@ -48,7 +50,12 @@ export function Quiz({ questions }: { questions: QuizQuestion[] }) {
                       key={j}
                       type="button"
                       disabled={answered}
-                      onClick={() => { setAnswers((prev) => ({ ...prev, [i]: j })); anotar(q, j); }}
+                      onClick={() => {
+                        const novas = { ...answers, [i]: j };
+                        setAnswers(novas);
+                        anotar(q, j);
+                        if (registro && Object.keys(novas).length === questions.length) registrarTeste(registro, questions.filter((x, k) => novas[k] === x.answer).length, questions.length);
+                      }}
                       className={`border-2 bg-parchment px-4 py-2 text-left text-sm ${state}`}
                     >
                       {answered && isAnswer && <span aria-hidden>✓ </span>}

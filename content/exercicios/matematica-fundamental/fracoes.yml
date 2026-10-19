@@ -1,0 +1,98 @@
+# Exercícios da aula "Frações" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: fracoes-01
+  tema: "Frações equivalentes"
+  dificuldade: 1
+  enunciado: "Qual destas frações é equivalente a 3/4?"
+  alternativas:
+    - texto: "6/8"
+      certa: true
+    - texto: "3/8"
+      erro: "Você mudou só o denominador. Para ter uma fração equivalente, multiplique em cima e embaixo pelo mesmo número: 3 × 2 = 6 e 4 × 2 = 8."
+    - texto: "4/3"
+      erro: "Você inverteu a fração. 4/3 é mais que um inteiro; 3/4 é menos. Multiplique numerador e denominador pelo mesmo número."
+    - texto: "5/6"
+      erro: "Você somou 2 em cima e embaixo. Somar o mesmo número muda o valor; o que mantém o valor é multiplicar (ou dividir) os dois pelo mesmo número."
+  explicacao: "Multiplicando numerador e denominador por 2: 3 × 2 = 6 e 4 × 2 = 8. Então 3/4 = 6/8: o mesmo pedaço, cortado em partes menores."
+  conferir: "3/4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: fracoes-02
+  tema: "Simplificar"
+  dificuldade: 1
+  enunciado: "Qual é a forma mais simples de 18/24?"
+  alternativas:
+    - texto: "3/4"
+      certa: true
+    - texto: "9/12"
+      erro: "9/12 é equivalente, mas ainda dá para dividir os dois por 3. A forma mais simples é quando só o 1 divide o numerador e o denominador."
+    - texto: "6/8"
+      erro: "Ainda dá para dividir os dois por 2. Continue até não haver divisor em comum: 6/8 = 3/4."
+    - texto: "3/6"
+      erro: "Você dividiu o 18 por 6, mas o 24 por 4. Em cima e embaixo, o mesmo número: 18 ÷ 6 = 3 e 24 ÷ 6 = 4."
+  explicacao: "18 e 24 são divisíveis por 6: 18 ÷ 6 = 3 e 24 ÷ 6 = 4. Como 3 e 4 só têm o 1 como divisor comum, 3/4 é a forma mais simples."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: fracoes-03
+  tema: "Somar frações"
+  dificuldade: 2
+  nivelamento: true
+  enunciado: "Quanto é 1/3 + 1/4?"
+  alternativas:
+    - texto: "7/12"
+      certa: true
+    - texto: "2/7"
+      erro: "Você somou em cima e embaixo. Os pedaços têm tamanhos diferentes: primeiro transforme os dois em doze avos (4/12 e 3/12) e só então some os numeradores."
+    - texto: "2/12"
+      erro: "Você achou o denominador comum (12), mas somou 1 + 1 em cima. Ao trocar para doze avos, o numerador também muda: 1/3 = 4/12 e 1/4 = 3/12."
+    - texto: "1/12"
+      erro: "1/12 é o resultado de 1/3 × 1/4, uma multiplicação. Na soma, iguale os denominadores: 4/12 + 3/12."
+  explicacao: "12 é múltiplo de 3 e de 4. Em doze avos: 1/3 = 4/12 e 1/4 = 3/12. Somando: 4/12 + 3/12 = 7/12. Repare que 2/7 seria menos que 1/3, e a soma tem de ser maior que cada parcela."
+  conferir: "1/3 + 1/4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: fracoes-04
+  tipo: numero
+  tema: "Fração de uma quantidade"
+  dificuldade: 2
+  enunciado: "Uma turma tem 30 estudantes, e 2/5 deles vão de ônibus para a escola. Quantos estudantes vão de ônibus?"
+  resposta: "12"
+  unidade: "estudantes"
+  erros_comuns:
+    - resposta: "6"
+      explicacao: "6 é 1/5 da turma (30 ÷ 5). São 2/5: o dobro, 6 × 2."
+    - resposta: "75"
+      explicacao: "Você dividiu 30 por 2 e multiplicou por 5. É o contrário: divida pelo denominador (30 ÷ 5 = 6) e multiplique pelo numerador (6 × 2)."
+    - resposta: "15"
+      explicacao: "15 é a metade da turma. 2/5 é menos que a metade: 30 ÷ 5 × 2."
+  dica: "Divida a turma em 5 partes iguais e pegue 2 delas."
+  explicacao: "Um quinto de 30 é 30 ÷ 5 = 6. Dois quintos são 2 × 6 = 12 estudantes."
+  conferir: "30 / 5 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: fracoes-05
+  tipo: numero
+  tema: "Subtrair frações"
+  dificuldade: 3
+  enunciado: "Uma pessoa já leu 3/8 de um livro e vai ler mais 1/4 dele hoje. Que fração do livro ainda vai faltar depois disso?"
+  resposta: "3/8"
+  erros_comuns:
+    - resposta: "5/8"
+      explicacao: "5/8 é a parte lida depois de hoje (3/8 + 2/8). A pergunta é o que falta: o livro inteiro menos isso, 8/8 − 5/8."
+    - resposta: "1/2"
+      explicacao: "Você tirou 1 oitavo no lugar de 1/4. Um quarto são 2 oitavos: 8/8 − 3/8 − 2/8 = 3/8."
+  dica: "Escreva tudo em oitavos: o livro inteiro é 8/8 e 1/4 = 2/8."
+  explicacao: "Em oitavos: 1/4 = 2/8. Lido até o fim do dia: 3/8 + 2/8 = 5/8. Falta 8/8 − 5/8 = 3/8 do livro."
+  conferir: "1 - 3/8 - 1/4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

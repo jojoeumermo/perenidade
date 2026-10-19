@@ -1,0 +1,103 @@
+# Exercícios da aula "Porcentagem" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: porcentagem-01
+  tipo: numero
+  tema: "Porcentagem de um valor"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quanto é 15% de 80?"
+  resposta: "12"
+  erros_comuns:
+    - resposta: "8"
+      explicacao: "8 é 10% de 80. Falta somar os 5%, que são a metade de 10%: 4. Então 8 + 4 = 12."
+    - resposta: "65"
+      explicacao: "Você tirou 15 de 80. Porcentagem não é subtrair o número: 15% de 80 é 80 × 0,15."
+    - resposta: "1200"
+      explicacao: "Você multiplicou 80 × 15 e esqueceu de dividir por 100: 15% quer dizer 15/100. 1.200 ÷ 100 = 12."
+  dica: "Use o atalho dos 10%: ache 10% de 80 e depois a metade disso, que são 5%."
+  explicacao: "15% = 15/100 = 0,15. Então 80 × 0,15 = 12. Pelo atalho: 10% de 80 é 8, 5% é 4, e 8 + 4 = 12."
+  conferir: "80 * 0.15"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: porcentagem-02
+  tipo: numero
+  tema: "Desconto"
+  dificuldade: 2
+  enunciado: "Uma blusa custa R$ 60 e está com 25% de desconto. Quanto você paga?"
+  resposta: "45"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "15"
+      explicacao: "R$ 15 é o desconto (25% de 60). Você paga o preço menos o desconto: 60 − 15."
+    - resposta: "35"
+      explicacao: "Você tirou 25 reais, não 25%. 25% é um quarto: 60 ÷ 4 = 15. Depois, 60 − 15 = 45."
+    - resposta: "75"
+      explicacao: "Você somou o desconto ao preço. Desconto diminui o preço: 60 − 15."
+  dica: "25% é um quarto. Descubra quanto é um quarto de 60 e tire do preço."
+  explicacao: "25% de 60 = 60 × 0,25 = 15. Com o desconto: 60 − 15 = 45. Outro caminho: pagar com 25% de desconto é pagar 75% do preço, e 60 × 0,75 = 45."
+  conferir: "60 - 60 * 0.25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: porcentagem-03
+  tema: "Aumento"
+  dificuldade: 2
+  enunciado: "Um aluguel de R$ 800 vai ter um reajuste de 6%. Qual será o novo valor?"
+  alternativas:
+    - texto: "R$ 848"
+      certa: true
+    - texto: "R$ 48"
+      erro: "R$ 48 é só o aumento (6% de 800). O novo aluguel é o antigo mais o aumento: 800 + 48."
+    - texto: "R$ 806"
+      erro: "Você somou 6 reais, não 6%. 6% de 800 é 800 × 0,06 = 48."
+    - texto: "R$ 1.280"
+      erro: "Você multiplicou 800 por 1,6, o que seria um aumento de 60%. 6% é 0,06: 800 × 1,06 = 848."
+  explicacao: "6% de 800 = 800 × 0,06 = 48. Novo valor: 800 + 48 = 848. Em uma conta só: 800 × 1,06 = 848."
+  conferir: "800 * 1.06"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: porcentagem-04
+  tipo: numero
+  tema: "Que porcentagem uma parte representa"
+  dificuldade: 2
+  enunciado: "Numa assembleia de 40 pessoas, 18 votaram a favor da proposta. Que porcentagem votou a favor?"
+  resposta: "45"
+  unidade: "%"
+  erros_comuns:
+    - resposta: "18"
+      explicacao: "18 é o número de pessoas, não a porcentagem. Divida a parte pelo todo: 18 ÷ 40 = 0,45, ou seja, 45%."
+    - resposta: "0,45"
+      explicacao: "Você achou 18 ÷ 40 = 0,45. Falta multiplicar por 100 para virar porcentagem: 45%."
+    - resposta: "2,22"
+      explicacao: "Você dividiu o todo pela parte (40 ÷ 18). É a parte pelo todo: 18 ÷ 40."
+  dica: "Divida quem votou a favor pelo total de pessoas e multiplique por 100."
+  explicacao: "18 ÷ 40 = 0,45 e 0,45 × 100 = 45%. Conferindo: 45% de 40 = 40 × 0,45 = 18."
+  conferir: "18 / 40 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: porcentagem-05
+  tema: "Aumento seguido de desconto"
+  dificuldade: 3
+  enunciado: "Um produto de R$ 100 teve um aumento de 10% e, depois, um desconto de 10%. Quanto ele custa agora?"
+  alternativas:
+    - texto: "R$ 99"
+      certa: true
+    - texto: "R$ 100"
+      erro: "Os dois 10% não são da mesma base. O aumento é sobre 100 (vira 110); o desconto é sobre 110 (tira 11). Sobram 99."
+    - texto: "R$ 90"
+      erro: "Você aplicou só o desconto sobre o preço antigo. Primeiro o aumento: 110. Depois, 10% de 110 = 11, e 110 − 11 = 99."
+    - texto: "R$ 101"
+      erro: "O desconto é maior que o aumento, porque é calculado sobre um valor maior (110). O resultado fica abaixo de 100: 99."
+  explicacao: "Aumento: 100 + 10% de 100 = 110. Desconto: 10% de 110 = 11, e 110 − 11 = 99. Em uma conta só: 100 × 1,10 × 0,90 = 99."
+  conferir: "100 * 1.1 * 0.9"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
