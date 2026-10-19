@@ -94,7 +94,7 @@
     "title": "Labos",
     "lead": "Programmer, monter des réseaux, utiliser le terminal, s'entraîner à la sécurité et simuler la science, tout dans le navigateur et sans rien envoyer à aucun serveur.",
     "ide": "IDE",
-    "ideLead": "Python, PHP, Web, JavaScript et SQL, avec fichiers, exercices et téléchargement du projet.",
+    "ideLead": "Python, JavaScript, TypeScript, C et C++, PHP, Ruby, Lua, Web et SQL : fichiers, modèles, exercices, console à côté, lien de partage et téléchargement du projet.",
     "redes": "Labo de réseaux",
     "redesLead": "Montez le réseau, réglez les IP, les VLAN et les routes et regardez le paquet voyager.",
     "linux": "Terminal Linux",
