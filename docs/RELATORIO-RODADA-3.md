@@ -42,7 +42,7 @@ Já resolvido nesta rodada, sem nada a fazer: funções do Supabase publicadas s
 | **Editor de aulas, os blocos que faltavam:** simulação física (Matter.js, em metros, com altura e velocidade ao vivo), molécula em 3D (nome, fórmula SMILES do PubChem ou coordenadas XYZ; forma pela teoria VSEPR, girar com o dedo), geometria com pontos que se arrastam (medidas, ângulos e áreas ao vivo), mapa (Natural Earth, sem servidor de fora; pontos, rotas e países em destaque), programação por blocos (Blockly, com saída esperada e o programa em Python e JavaScript), código para rodar (Python e JavaScript no navegador, laço sem fim interrompido), cena clicável (explorar ou encontrar), arrastar para o grupo, montar a frase, música com letra que acompanha, figuras nos testes e quadro de desenho no estilo do Excalidraw | `c67adba`, `e1a21b4` |
 | **Linha do tempo do acervo completa:** o histórico inteiro, resumido em `historico/acervo.json` pela rotina de publicação | `ad18f74` |
 | **Painel em francês:** todas as frases traduzidas e o francês na escolha de idioma do painel | `a04bca2`, `fb90a5c` |
-| **Painel completo nos cinco idiomas** (4.637 frases em cada um, inclusive os textos que vêm de `lib/`: senha, sala de vídeo, avisos do navegador; feito numa sessão paralela) | `f22b3ef` |
+| **Painel completo nos cinco idiomas** (4.635 frases em cada um, inclusive os textos que vêm de `lib/`: senha, avisos do navegador; datas no idioma da página; o aviso da sala de vídeo vem do dicionário do site, nos seis idiomas; feito numa sessão paralela) | `f22b3ef`, `14a4465` |
 | Verificação do GitHub voltou a passar (ESLint sem ler pacotes de terceiros; "Estudo em grupo" no interruptor de áreas) | `d1b72d2` e o commit deste relatório |
 
 ## Conferência do pedido, item por item
