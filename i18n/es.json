@@ -198,7 +198,7 @@
     "mockNotEnough": "No hay suficientes preguntas en esta asignatura.",
     "mockSkipped": "en blanco",
     "publicTitle": "Exámenes públicos",
-    "publicLead": "{n} preguntas del ENEM, el examen nacional de Brasil, desde 2009 hasta la edición más reciente, con las respuestas. La lista se actualiza sola cada semana; las resoluciones comentadas las escriben los educadores del instituto.",
+    "publicLead": "{n} preguntas de exámenes públicos con respuestas: el ENEM desde 2009, los exámenes de ingreso de Unicamp y Fuvest (USP) y el examen de la OAB. La lista se actualiza sola cada semana; las resoluciones comentadas las escriben los educadores del instituto.",
     "publicExam": "Examen",
     "publicArea": "Área",
     "publicAllAreas": "Todas las áreas",
@@ -206,7 +206,8 @@
       "linguagens": "Lenguajes",
       "humanas": "Ciencias humanas",
       "natureza": "Ciencias de la naturaleza",
-      "matematica": "Matemáticas"
+      "matematica": "Matemáticas",
+      "direito": "Derecho"
     },
     "publicLanguage": "Lengua extranjera",
     "publicEnglish": "Inglés",
@@ -226,7 +227,8 @@
     "publicSend": "Publicar la resolución",
     "publicRemove": "retirar",
     "publicResolutionFailed": "No se pudo publicar la resolución ahora.",
-    "publicSource": "Preguntas de los exámenes públicos del Inep, transcritas por el proyecto abierto enem.dev. Actualizado el {data}. Fuente:"
+    "publicSource": "Preguntas de exámenes públicos, transcritas por proyectos abiertos (enem.dev, BLUEX y oab_exams). Actualizado el {data}. Fuente de este examen:",
+    "publicSourcePick": "Fuente"
   },
   "slogans": {
     "acervo": "Leer es un acto de resistencia.",
@@ -4230,6 +4232,13 @@
       "open": "Abrir en el estudio",
       "deliver": "Entregar por el Cajón Abierto",
       "deliverHint": "Exporta el video, publícalo en un enlace (YouTube no listado, PeerTube, Drive…) y entrega el enlace. El educador comenta tu entrega."
+    },
+    "render": {
+      "label": "Modo de dibujo",
+      "webgl": "Estable (WebGL)",
+      "webgpu": "Rápido (WebGPU)",
+      "cpu": "Compatible (sin tarjeta de video)",
+      "help": "Si el programa se congela o muestra “graphics device was lost”, quédate en el modo estable; en una computadora más débil, usa el compatible. El rápido aprovecha mejor la tarjeta de video, pero se congela en algunos equipos."
     }
   },
   "blocks": {
