@@ -2576,6 +2576,30 @@
       "hideTranscript": "Esconder a transcrição",
       "keys": "Atalhos: espaço toca e pausa, setas andam 5 segundos, < e > mudam a velocidade, M tira o som, C liga as legendas, F tela cheia.",
       "error": "Não foi possível tocar este vídeo agora."
+    },
+    "comments": {
+      "title": "Comentários",
+      "live": "Os comentários novos aparecem sozinhos, sem recarregar a página.",
+      "placeholder": "Comente, pergunte ou ajude quem está estudando…",
+      "send": "Comentar",
+      "rules": "As regras são as da Comunidade: respeito, nada de ódio, nada de dados pessoais. O que fica em dúvida espera a mediação.",
+      "signIn": "Entre para comentar",
+      "signUp": "Criar conta",
+      "reply": "Responder",
+      "replyingTo": "Respondendo a {nome}",
+      "cancel": "Cancelar",
+      "held": "Comentário recebido. Ele aparece para todo mundo depois da leitura da mediação.",
+      "pending": "aguardando mediação",
+      "remove": "Tirar",
+      "removeConfirm": "Tirar este comentário?",
+      "empty": "Ninguém comentou ainda. Comece a conversa.",
+      "badges": {
+        "coordenacao": "Coordenação",
+        "educacao": "Educação",
+        "mentoria": "Mentoria",
+        "mediacao": "Mediação",
+        "equipe": "Equipe"
+      }
     }
   },
   "more": {
@@ -3630,7 +3654,9 @@
     "inRoom": "{n} na sala",
     "teacher": "ensina",
     "mediaFailed": "Não deu para ligar a câmera, a tela ou o microfone. Confira a permissão do navegador.",
-    "recordFailed": "Este navegador não grava vídeo."
+    "recordFailed": "Este navegador não grava vídeo.",
+    "chatHeld": "Sua fala foi recebida e aparece para todos depois da leitura da mediação.",
+    "chatPending": "aguardando mediação"
   },
   "notebook": {
     "eyebrow": "Sala de estudo",

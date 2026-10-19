@@ -2601,7 +2601,10 @@ await recusa("quem não conduz não começa a aula", () => rpc(como(ids.aluna), 
 await espera("o educador começa a aula", () => rpc(como(ids.prof), "aula_ao_vivo_estado", { p_id: aulaViva, p_status: "ao_vivo" }), (r) => r.status === "ao_vivo");
 await espera("quem se inscreveu é avisado", () => rpc(como(ids.aluna), "avisos_meus"), (r) => r.some((a) => a.texto.includes("começou agora")));
 await espera("a aluna pergunta no bate-papo", () => rpc(como(ids.aluna), "aula_chat_enviar", { p_aula: aulaViva, p_corpo: "Não entendi a divisão de frações.", p_tipo: "pergunta" }), (r) => r.id && r.tipo === "pergunta" && (fala = r.id));
-await recusa("palavra vetada não entra no bate-papo", () => rpc(como(ids.aluna), "aula_chat_enviar", { p_aula: aulaViva, p_corpo: "palavrão novo aqui" }), "conteudo_recusado");
+let falaRetida;
+await espera("palavra do filtro no bate-papo espera a mediação, como na Comunidade", async () => { const r = await rpc(como(ids.aluna), "aula_chat_enviar", { p_aula: aulaViva, p_corpo: "palavrão novo aqui" }); falaRetida = r.id; return [r, await rpc(anon, "aula_chat_listar", { p_aula: aulaViva }), await rpc(como(ids.aluna), "aula_chat_listar", { p_aula: aulaViva })]; }, ([r, publico, propria]) => r.retido === true && !publico.some((m) => m.id === falaRetida) && propria.some((m) => m.id === falaRetida && m.retido));
+await espera("a fala retida aparece na fila da mediação", () => rpc(como(ids.med), "comunidade_retidos"), (r) => r.some((x) => x.tipo === "aula_chat" && x.id === falaRetida));
+await espera("aprovada pela mediação, a fala aparece para todo mundo", async () => { await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "aula_chat", p_alvo: falaRetida, p_acao: "mostrar" }); return rpc(anon, "aula_chat_listar", { p_aula: aulaViva }); }, (r) => r.some((m) => m.id === falaRetida && !m.retido));
 await recusa("sem conta não se fala", () => rpc(anon, "aula_chat_enviar", { p_aula: aulaViva, p_corpo: "Oi" }), "entre_primeiro");
 await espera("qualquer visitante lê o bate-papo, com a fala do sistema", () => rpc(anon, "aula_chat_listar", { p_aula: aulaViva }), (r) => r.some((m) => m.id === fala) && r.some((m) => m.tipo === "sistema"));
 await recusa("quem não conduz nem media não esconde a fala dos outros", () => rpc(como(ids.jornal), "aula_chat_moderar", { p_id: fala, p_ocultar: true }), "sem_permissao");
@@ -2905,6 +2908,26 @@ await espera("resposta a uma resposta guarda a mãe, até três níveis", async 
 }, (r) => r[0] === null && r[1] && r[2] && r[3] && r[4] && r[5] === "coordenacao");
 await recusa("resposta-mãe de outra conversa não serve", async () => { const outra = (await rpc(anon, "topicos_listar", { p_ordem: "novos" })).find((x) => x.id !== conversaDaAula.id && !x.trancado); const ver = await rpc(anon, "topico_ver", { p_id: conversaDaAula.id }); return rpc(V1, "responder", { p_topico: outra.id, p_corpo: "Resposta no lugar errado.", p_pai: ver.respostas[0].id }); }, "nao_encontrado");
 await espera("as salas contam as conversas", () => rpc(anon, "comunidade_salas"), (r) => r.total >= 1 && r.salas.matematica >= 1 && typeof r.sem_resposta === "number");
+
+// Comentários em tempo real nas aulas em vídeo: a mesma moderação da Comunidade e a mesma fila da mediação.
+const videoDeTeste = (await dono("insert into interno.videoaulas (autor, disciplina, titulo, caminho, tipo, duracao, largura, altura, tamanho, status) values ($1, 'matematica', 'Frações na prática', $2, 'video/mp4', 120, 640, 360, 1000, 'aprovada') returning id", [ids.prof, `${crypto.randomUUID()}/${crypto.randomUUID()}.mp4`])).rows[0].id;
+let comentarioOk;
+await espera("comentário que respeita as regras aparece na hora", async () => { const r = await rpc(como(ids.aluna), "comentario_enviar", { p_videoaula: videoDeTeste, p_corpo: "Que explicação boa, obrigado!" }); comentarioOk = r.id; return [r, await rpc(anon, "comentarios_listar", { p_videoaula: videoDeTeste })]; }, ([r, lista]) => r.retido === false && lista.some((c) => c.id === comentarioOk && c.autor));
+await espera("resposta a um comentário guarda a mãe", async () => { const r = await rpc(como(ids.prof), "comentario_enviar", { p_videoaula: videoDeTeste, p_corpo: "Obrigado! Tente o exercício 3 também.", p_pai: comentarioOk }); return rpc(anon, "comentarios_listar", { p_videoaula: videoDeTeste }); }, (r) => r.some((c) => c.pai === comentarioOk && c.autor_selo === "educacao"));
+await recusa("sem conta não se comenta", () => rpc(anon, "comentario_enviar", { p_videoaula: videoDeTeste, p_corpo: "Oi, tudo bem?" }), "entre_primeiro");
+let comentarioRetido;
+await espera("comentário com palavra do filtro espera a mediação", async () => { const r = await rpc(como(ids.aluna), "comentario_enviar", { p_videoaula: videoDeTeste, p_corpo: "palavrão novo aqui de novo" }); comentarioRetido = r.id; return [r, await rpc(anon, "comentarios_listar", { p_videoaula: videoDeTeste }), await rpc(como(ids.med), "comunidade_retidos")]; }, ([r, publico, fila]) => r.retido === true && !publico.some((c) => c.id === comentarioRetido) && fila.some((x) => x.tipo === "comentario" && x.id === comentarioRetido));
+await espera("recusado pela mediação, não aparece", async () => { await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "comentario", p_alvo: comentarioRetido, p_acao: "ocultar" }); return rpc(anon, "comentarios_listar", { p_videoaula: videoDeTeste }); }, (r) => !r.some((c) => c.id === comentarioRetido));
+await espera("quem escreveu tira o próprio comentário", async () => { await rpc(como(ids.aluna), "comentario_apagar", { p_id: comentarioOk }); return rpc(anon, "comentarios_listar", { p_videoaula: videoDeTeste }); }, (r) => !r.some((c) => c.id === comentarioOk));
+await recusa("ninguém apaga o comentário dos outros", () => rpc(como(ids.jornal), "comentario_apagar", { p_id: comentarioRetido }), "nao_encontrado");
+await espera("com a segunda avaliação ligada, o comentário espera por ela e a função de serviço o encontra", async () => {
+  await dono("update interno.configuracoes set valor = valor || '{\"avaliacao_externa\": true}'::jsonb where chave = 'comunidade'");
+  const r = await rpc(como(ids.aluna), "comentario_enviar", { p_videoaula: videoDeTeste, p_corpo: "Uma dúvida sobre o minuto dois." });
+  const pendentes = await rpc(servico, "comunidade_pendentes");
+  const texto = await rpc(servico, "comunidade_para_avaliar", { p_tipo: "comentario", p_id: r.id });
+  await dono("update interno.configuracoes set valor = valor || '{\"avaliacao_externa\": false}'::jsonb where chave = 'comunidade'");
+  return [r, pendentes, texto];
+}, ([r, pendentes, texto]) => r.avaliando === true && pendentes.some((x) => x.tipo === "comentario" && x.id === r.id) && texto?.texto === "Uma dúvida sobre o minuto dois.");
 
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);

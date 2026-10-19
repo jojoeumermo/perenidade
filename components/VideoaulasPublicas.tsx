@@ -8,6 +8,7 @@ import type { Dict } from "@/i18n/types";
 import { areaSlugs } from "@/lib/areas";
 import { hasBackend, rpc } from "@/lib/backend";
 import { enderecoDoVideo, relogio } from "@/lib/videoaula";
+import { Comentarios } from "./Comentarios";
 import { EstadoVazio } from "./EstadoVazio";
 import { L, useI18n } from "./I18n";
 import { useTrackOptions } from "./useTrackOptions";
@@ -127,6 +128,7 @@ function Aberta({ id, s }: { id: string; s: Textos }) {
         </section>
       )}
       <p className="mt-4 font-sans text-sm text-ink-soft">{t.lesson.license}</p>
+      <Comentarios videoaula={a.id} s={s.comments} />
     </article>
   );
 }
