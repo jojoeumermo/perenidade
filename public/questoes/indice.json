@@ -1,0 +1,192 @@
+{
+ "atualizado": "2026-10-19",
+ "fontes": [
+  {
+   "id": "enem",
+   "nome": "ENEM (Inep)",
+   "origem": "https://enem.dev",
+   "provas": [
+    {
+     "ano": 2023,
+     "titulo": "ENEM 2023",
+     "arquivo": "enem-2023.json",
+     "total": 181,
+     "porArea": {
+      "linguagens": 44,
+      "humanas": 56,
+      "natureza": 35,
+      "matematica": 46
+     }
+    },
+    {
+     "ano": 2022,
+     "titulo": "ENEM 2022",
+     "arquivo": "enem-2022.json",
+     "total": 183,
+     "porArea": {
+      "linguagens": 43,
+      "humanas": 51,
+      "natureza": 44,
+      "matematica": 45
+     }
+    },
+    {
+     "ano": 2021,
+     "titulo": "ENEM 2021",
+     "arquivo": "enem-2021.json",
+     "total": 183,
+     "porArea": {
+      "linguagens": 40,
+      "humanas": 58,
+      "natureza": 41,
+      "matematica": 44
+     }
+    },
+    {
+     "ano": 2020,
+     "titulo": "ENEM 2020",
+     "arquivo": "enem-2020.json",
+     "total": 180,
+     "porArea": {
+      "linguagens": 43,
+      "humanas": 50,
+      "natureza": 47,
+      "matematica": 40
+     }
+    },
+    {
+     "ano": 2019,
+     "titulo": "ENEM 2019",
+     "arquivo": "enem-2019.json",
+     "total": 179,
+     "porArea": {
+      "linguagens": 44,
+      "humanas": 51,
+      "natureza": 39,
+      "matematica": 45
+     }
+    },
+    {
+     "ano": 2018,
+     "titulo": "ENEM 2018",
+     "arquivo": "enem-2018.json",
+     "total": 182,
+     "porArea": {
+      "linguagens": 44,
+      "humanas": 51,
+      "natureza": 44,
+      "matematica": 43
+     }
+    },
+    {
+     "ano": 2017,
+     "titulo": "ENEM 2017",
+     "arquivo": "enem-2017.json",
+     "total": 183,
+     "porArea": {
+      "linguagens": 41,
+      "humanas": 56,
+      "natureza": 42,
+      "matematica": 44
+     }
+    },
+    {
+     "ano": 2016,
+     "titulo": "ENEM 2016",
+     "arquivo": "enem-2016.json",
+     "total": 184,
+     "porArea": {
+      "humanas": 47,
+      "natureza": 44,
+      "linguagens": 47,
+      "matematica": 46
+     }
+    },
+    {
+     "ano": 2015,
+     "titulo": "ENEM 2015",
+     "arquivo": "enem-2015.json",
+     "total": 183,
+     "porArea": {
+      "humanas": 54,
+      "natureza": 42,
+      "linguagens": 44,
+      "matematica": 43
+     }
+    },
+    {
+     "ano": 2014,
+     "titulo": "ENEM 2014",
+     "arquivo": "enem-2014.json",
+     "total": 183,
+     "porArea": {
+      "humanas": 50,
+      "natureza": 41,
+      "linguagens": 46,
+      "matematica": 46
+     }
+    },
+    {
+     "ano": 2013,
+     "titulo": "ENEM 2013",
+     "arquivo": "enem-2013.json",
+     "total": 183,
+     "porArea": {
+      "humanas": 54,
+      "natureza": 40,
+      "linguagens": 46,
+      "matematica": 43
+     }
+    },
+    {
+     "ano": 2012,
+     "titulo": "ENEM 2012",
+     "arquivo": "enem-2012.json",
+     "total": 183,
+     "porArea": {
+      "humanas": 49,
+      "natureza": 45,
+      "linguagens": 46,
+      "matematica": 43
+     }
+    },
+    {
+     "ano": 2011,
+     "titulo": "ENEM 2011",
+     "arquivo": "enem-2011.json",
+     "total": 188,
+     "porArea": {
+      "humanas": 53,
+      "natureza": 45,
+      "linguagens": 51,
+      "matematica": 39
+     }
+    },
+    {
+     "ano": 2010,
+     "titulo": "ENEM 2010",
+     "arquivo": "enem-2010.json",
+     "total": 183,
+     "porArea": {
+      "humanas": 79,
+      "natureza": 45,
+      "linguagens": 13,
+      "matematica": 46
+     }
+    },
+    {
+     "ano": 2009,
+     "titulo": "ENEM 2009",
+     "arquivo": "enem-2009.json",
+     "total": 182,
+     "porArea": {
+      "humanas": 60,
+      "natureza": 38,
+      "linguagens": 41,
+      "matematica": 43
+     }
+    }
+   ]
+  }
+ ]
+}
