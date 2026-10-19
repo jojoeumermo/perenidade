@@ -1,0 +1,98 @@
+# Exercícios da aula "As quatro operações" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: operacoes-01
+  tema: "Escolher a operação"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Uma cooperativa recebeu 4 caixas com 36 garrafas de suco em cada uma. Quantas garrafas chegaram ao todo?"
+  alternativas:
+    - texto: "144"
+      certa: true
+    - texto: "40"
+      erro: "Você somou 4 + 36. Mas são 4 grupos iguais de 36 garrafas: isso é multiplicação, 4 × 36."
+    - texto: "9"
+      erro: "Você dividiu 36 por 4, como se fosse repartir as garrafas. A pergunta é o total de 4 caixas cheias: multiplique, 4 × 36."
+    - texto: "32"
+      erro: "Você subtraiu. Nada foi tirado: as caixas se juntam. São 4 grupos de 36, então 4 × 36."
+  explicacao: "São 4 grupos iguais de 36 garrafas, uma soma repetida: 4 × 36 = 144. Para conferir, 144 ÷ 4 = 36."
+  conferir: "4 * 36"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: operacoes-02
+  tipo: numero
+  tema: "Divisão com resto"
+  dificuldade: 2
+  enunciado: "Uma escola tem 230 cadernos para repartir igualmente entre 9 turmas, e cada turma recebe o maior número possível de cadernos. Quantos cadernos sobram?"
+  resposta: "5"
+  unidade: "cadernos"
+  erros_comuns:
+    - resposta: "25"
+      explicacao: "25 é o quociente: quantos cadernos cada turma recebe. A pergunta é o que sobra: 230 − 9 × 25."
+    - resposta: "26"
+      explicacao: "Com 26 por turma seriam 9 × 26 = 234 cadernos, mais do que existe. Cada turma recebe 25, e sobram 230 − 225."
+  dica: "Descubra quantos cadernos cada turma recebe (9 vezes quanto chega perto de 230 sem passar?) e veja quanto falta para 230."
+  explicacao: "9 × 25 = 225 e 9 × 26 = 234, que passa de 230. Então cada turma recebe 25 e sobram 230 − 225 = 5. O resto, 5, é menor que 9, como tem de ser."
+  conferir: "230 - 9 * 25"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: operacoes-03
+  tema: "Conferir a conta"
+  dificuldade: 1
+  enunciado: "Ana fez 812 − 347 e achou 465. Qual conta confirma que ela acertou?"
+  alternativas:
+    - texto: "465 + 347, que tem de dar 812"
+      certa: true
+    - texto: "812 + 347, que tem de dar 1.159"
+      erro: "Somar os dois números do problema não desfaz a subtração. Some o resultado (465) com o que foi tirado (347): tem de voltar ao 812."
+    - texto: "465 − 347, que tem de dar 118"
+      erro: "Subtrair de novo não confere nada. A operação que desfaz a subtração é a soma: 465 + 347."
+    - texto: "812 ÷ 347"
+      erro: "A divisão desfaz a multiplicação, não a subtração. Some 465 + 347 e veja se dá 812."
+  explicacao: "Soma e subtração são operações inversas. Se 465 + 347 = 812, a subtração 812 − 347 = 465 está certa. É a prova real."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: operacoes-04
+  tema: "Cálculo mental"
+  dificuldade: 2
+  enunciado: "Qual é o jeito mais fácil de calcular 25 × 7 × 4 de cabeça?"
+  alternativas:
+    - texto: "Fazer 25 × 4 = 100 e depois 100 × 7 = 700"
+      certa: true
+    - texto: "Fazer 25 × 7 primeiro, porque na multiplicação a ordem importa"
+      erro: "Na multiplicação a ordem não muda o resultado. Por isso dá para juntar 25 × 4 = 100 primeiro, que é bem mais fácil."
+    - texto: "Somar 25 + 7 + 4 = 36"
+      erro: "Somar troca a conta: multiplicação não vira soma dos números. Junte os fatores que dão um número redondo: 25 × 4 = 100."
+    - texto: "Não dá para mudar a ordem dos números"
+      erro: "Na multiplicação (e na soma) dá, sim: a ordem não muda o resultado. Só na subtração e na divisão a ordem importa."
+  explicacao: "Como a ordem dos fatores não muda o produto, 25 × 7 × 4 = 25 × 4 × 7 = 100 × 7 = 700. Procurar o número redondo é o atalho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: operacoes-05
+  tipo: numero
+  tema: "Escolher a operação"
+  dificuldade: 3
+  enunciado: "Uma pessoa gasta R$ 12 por dia com passagens, 22 dias por mês. O salário é de R$ 1.650. Quanto sobra do salário depois de pagar as passagens do mês?"
+  resposta: "1386"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "264"
+      explicacao: "R$ 264 é o gasto com passagens no mês (12 × 22). Falta tirar esse valor do salário: 1.650 − 264."
+    - resposta: "1638"
+      explicacao: "Você tirou só um dia de passagem (1.650 − 12). São 22 dias: primeiro 12 × 22 = 264, depois 1.650 − 264."
+    - resposta: "1914"
+      explicacao: "Você somou o gasto ao salário. O gasto sai do salário: 1.650 − 264."
+  dica: "Primeiro descubra quanto custam as passagens do mês inteiro; depois tire esse valor do salário."
+  explicacao: "Passagens do mês: 12 × 22 = 264. O que sobra: 1.650 − 264 = 1.386. São duas operações seguidas: uma multiplicação e uma subtração."
+  conferir: "1650 - 12 * 22"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

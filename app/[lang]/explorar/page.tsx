@@ -5,8 +5,10 @@ import { InstagramIcon } from "@/components/Footer";
 import { LanguageSwitcher } from "@/components/NavLinks";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
+import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { textosDoEstudo } from "@/lib/textos-estudo";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/explorar">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
@@ -15,8 +17,10 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/explorar">
 
 // Tudo o que não cabe no menu do topo, em um só lugar, para o menu continuar curto.
 export default async function Explorar({ params }: PageProps<"/[lang]/explorar">) {
-  const { t } = await loadLang(params);
+  const { lang, t } = await loadLang(params);
   const n = t.nav;
+  // Recursos novos (lib/recursos.ts): só entram na lista quando ligados.
+  const novos = textosDoEstudo(lang).s;
   const d = t.more.items as Record<string, string>;
   const sections: SecaoDoExplorar[] = [
     {
@@ -30,6 +34,7 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         [n.videoLessons, "/videoaulas", d.videoLessons],
         [n.videos, "/videos", d.videos],
         [n.notebook, "/caderno", d.notebook],
+        ...(ligado("meu-estudo") ? [[novos.meuEstudo.titulo, "/meu-estudo", novos.meuEstudo.descricao] as [string, string, string]] : []),
         [n.tutoring, "/reforco", d.tutoring],
         [n.tools, "/ferramentas", d.tools],
         [n.labs, "/laboratorios", t.labs.lead],

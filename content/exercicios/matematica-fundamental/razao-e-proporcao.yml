@@ -1,0 +1,95 @@
+# Exercícios da aula "Razão e proporção" (Matemática fundamental). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: razao-01
+  tema: "Razão"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Numa receita de suco vão 2 copos de polpa para 6 copos de água. Qual é a razão entre polpa e água, na forma mais simples?"
+  alternativas:
+    - texto: "1 para 3 (1:3)"
+      certa: true
+    - texto: "3 para 1 (3:1)"
+      erro: "Você inverteu a ordem. A pergunta é polpa para água, nessa ordem: 2:6, que simplificado dá 1:3."
+    - texto: "2 para 8 (2:8)"
+      erro: "2:8 compara a polpa com o total de copos (2 + 6). A pergunta compara a polpa com a água: 2:6 = 1:3."
+    - texto: "4 para 12 (4:12)"
+      erro: "4:12 é equivalente (é 2:6 dobrado), mas a pergunta pede a forma mais simples: divida os dois por 4 e fica 1:3."
+  explicacao: "Polpa para água é 2:6. Dividindo os dois termos por 2, fica 1:3: para cada copo de polpa, três de água."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: razao-02
+  tipo: numero
+  tema: "Proporção"
+  dificuldade: 2
+  enunciado: "Descubra x na proporção 4/6 = x/15."
+  resposta: "10"
+  erros_comuns:
+    - resposta: "13"
+      explicacao: "Você somou: o denominador cresceu 9 (de 6 para 15) e você somou 9 em cima. Em proporção se multiplica: 15 é 6 × 2,5, então x = 4 × 2,5."
+    - resposta: "22,5"
+      explicacao: "Você multiplicou cruzado, mas dividiu pelo número errado. 4 × 15 = 6 × x, então x = 60 ÷ 6."
+  dica: "Multiplique cruzado: 4 × 15 = 6 × x."
+  explicacao: "Multiplicando cruzado: 6 × x = 4 × 15 = 60, então x = 60 ÷ 6 = 10. Conferindo: 4/6 e 10/15 simplificam os dois para 2/3."
+  conferir: "4 * 15 / 6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: razao-03
+  tipo: numero
+  tema: "Escala"
+  dificuldade: 2
+  enunciado: "Numa planta na escala 1:50, uma parede aparece com 8 cm. Qual é o comprimento real da parede, em metros?"
+  resposta: "4"
+  unidade: "metros"
+  erros_comuns:
+    - resposta: "400"
+      explicacao: "400 é o comprimento em centímetros. A pergunta pede metros: 400 cm = 4 m."
+    - resposta: "0,16"
+      explicacao: "Você dividiu por 50. Na escala 1:50, cada centímetro do papel vale 50 de verdade: multiplique, 8 × 50 = 400 cm."
+  dica: "Cada 1 cm no papel vale 50 cm de verdade. Depois, passe de centímetros para metros (100 cm = 1 m)."
+  explicacao: "8 cm × 50 = 400 cm de verdade. Como 100 cm = 1 m, 400 cm = 4 m."
+  conferir: "8 * 50 / 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: razao-04
+  tema: "Preço por unidade"
+  dificuldade: 2
+  enunciado: "O que sai mais barato por quilo: o pacote de 5 kg de arroz por R$ 27,50 ou o de 2 kg por R$ 11,60?"
+  alternativas:
+    - texto: "O de 5 kg, a R$ 5,50 o quilo"
+      certa: true
+    - texto: "O de 2 kg, porque custa menos"
+      erro: "Custar menos no total não quer dizer ser mais barato. Compare o preço de um quilo: 27,50 ÷ 5 = 5,50 e 11,60 ÷ 2 = 5,80."
+    - texto: "Os dois custam o mesmo por quilo"
+      erro: "Divida o preço pelo peso: R$ 5,50 o quilo no pacote grande e R$ 5,80 no pequeno. Não são iguais."
+    - texto: "O de 2 kg, a R$ 5,50 o quilo"
+      erro: "Confira a divisão: 11,60 ÷ 2 = 5,80. Quem sai a R$ 5,50 o quilo é o pacote de 5 kg."
+  explicacao: "Preço de um quilo: 27,50 ÷ 5 = 5,50 no pacote de 5 kg e 11,60 ÷ 2 = 5,80 no de 2 kg. O de 5 kg sai 30 centavos mais barato por quilo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: razao-05
+  tipo: numero
+  tema: "Divisão proporcional"
+  dificuldade: 3
+  enunciado: "Três pessoas trabalharam 2, 3 e 5 dias num mutirão pago e vão dividir R$ 1.500 na proporção dos dias. Quanto recebe quem trabalhou 3 dias?"
+  resposta: "450"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "500"
+      explicacao: "R$ 500 é a divisão em partes iguais (1.500 ÷ 3). Na divisão proporcional, cada dia vale 1.500 ÷ 10 = 150."
+    - resposta: "300"
+      explicacao: "Você dividiu por 5, os dias de uma só pessoa. Some os dias de todos: 2 + 3 + 5 = 10."
+  dica: "Some os dias de todo mundo e descubra quanto vale um dia de trabalho."
+  explicacao: "Ao todo foram 2 + 3 + 5 = 10 dias. Cada dia vale 1.500 ÷ 10 = 150. Quem trabalhou 3 dias recebe 3 × 150 = 450. Conferindo: 300 + 450 + 750 = 1.500."
+  conferir: "1500 / 10 * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

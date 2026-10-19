@@ -43,6 +43,10 @@ jobs:
       - run: npm run testar:blocos
       # O estudo guardado no navegador: repetição espaçada, caderno de erros e a cópia (que não leva chave de aparelho).
       - run: npm run testar:estudo
+      # Os exercícios com explicação do erro (content/exercicios): formato, aula existente e cada conta refeita.
+      - run: npm run testar:exercicios
+      # O que os recursos novos guardam no aparelho (Meu estudo, revisão dos erros, turma, metas) e a leitura das flags.
+      - run: npm run testar:meu-estudo
       # O assistente de reforço sem rede: o que se aceita, o pedido a cada provedor, a reserva e a leitura das respostas.
       - run: npm run testar:assistente
       # O aplicador das tarefas aprovadas (ano, sinopse, licença, link), numa cópia temporária de obras.

@@ -25,6 +25,11 @@ import { withLangs } from "@/lib/params";
 import { linguaDe } from "@/lib/pratica";
 import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
+import { ExerciciosComExplicacao } from "@/components/estudo/ExerciciosComExplicacao";
+import { RegistroDeConclusao } from "@/components/estudo/RegistroDeConclusao";
+import { exerciciosDaAula } from "@/lib/exercicios-conteudo";
+import { ligado } from "@/lib/recursos";
+import { textosDoEstudo } from "@/lib/textos-estudo";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
@@ -80,11 +85,15 @@ export default async function LessonPage({ params }: Props) {
   // No aplicativo, "anterior" e "próxima" viram dois botões largos, a próxima em cima: é o que o polegar mais aperta.
   const vizinha = "app:max-md:rounded-[0.875rem] app:max-md:border app:max-md:border-rule app:max-md:bg-parchment-deep app:max-md:px-4 app:max-md:py-3.5 app:max-md:text-base";
   const fix = `${to("/contribuir")}?corrigir=${encodeURIComponent(path(lesson.slug))}`;
+  // Recursos novos (lib/recursos.ts): desligados, nada disto aparece e a aula fica como era.
+  const estudo = textosDoEstudo(lang).s;
+  const exercicios = ligado("exercicios") ? exerciciosDaAula(track.slug, lesson.slug) : [];
 
   return (
     <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! md:grid-cols-[16rem_1fr]">
       <ReadingChrome />
       <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} />
+      {(ligado("meu-estudo") || ligado("metas")) && <RegistroDeConclusao />}
 
       {/* No aplicativo o texto vem primeiro, como em um leitor de livros; a lista das aulas da disciplina fica depois dele. */}
       <aside className="indice-da-trilha no-print no-focus font-sans text-sm app:max-md:order-2 app:max-md:border-t app:max-md:border-rule app:max-md:pt-6 md:sticky md:top-6 md:self-start">
@@ -135,7 +144,8 @@ export default async function LessonPage({ params }: Props) {
           <div id="texto-da-aula" className="mt-8">
             <Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode}>{lesson.body}</Markdown>
           </div>
-          {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} />}
+          {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} registro={ligado("meu-estudo") ? id : undefined} />}
+          {exercicios.length > 0 && <ExerciciosComExplicacao exercicios={exercicios} aula={id} s={estudo.exercicios} corrigir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} praticar="/meu-estudo/praticar" />}
           {lesson.practice.length > 0 && <Pratica key={`pratica-${id}`} id={id} exercicios={lesson.practice} lingua={linguaDe(track.area)} s={t.practice} />}
           <SourceList sources={lesson.sources} title={t.lesson.sources} />
         </div>
