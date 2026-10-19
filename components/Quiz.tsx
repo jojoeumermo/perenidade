@@ -6,7 +6,6 @@ import { useState } from "react";
 import { fill } from "@/i18n/config";
 import type { QuizQuestion } from "@/lib/content";
 import { idDaQuestao, lerErros, refazerErro, registrarErro } from "@/lib/estudo";
-import { registrarTeste } from "@/lib/meu-estudo";
 import { L, useI18n } from "./I18n";
 
 /** `registro` (opcional): a aula ("trilha/aula") cujo resultado vai para o "Meu estudo" quando o teste termina. Sem ele, nada é guardado além do caderno de erros. */
@@ -54,7 +53,11 @@ export function Quiz({ questions, registro }: { questions: QuizQuestion[]; regis
                         const novas = { ...answers, [i]: j };
                         setAnswers(novas);
                         anotar(q, j);
-                        if (registro && Object.keys(novas).length === questions.length) registrarTeste(registro, questions.filter((x, k) => novas[k] === x.answer).length, questions.length);
+                        // Com o "Meu estudo" ligado, o resultado do teste fica no aparelho (o código só é baixado nesse caso).
+                        if (registro && Object.keys(novas).length === questions.length) {
+                          const acertos = questions.filter((x, k) => novas[k] === x.answer).length;
+                          void import("@/lib/meu-estudo").then((m) => m.registrarTeste(registro, acertos, questions.length)).catch(() => undefined);
+                        }
                       }}
                       className={`border-2 bg-parchment px-4 py-2 text-left text-sm ${state}`}
                     >
