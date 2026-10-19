@@ -117,7 +117,7 @@
     "escritorioTab": "Выберите программу",
     "escritorioLocal": "Всё остаётся только в браузере этого устройства: сохраните файл, когда закончите.",
     "seguranca": "Лаборатория безопасности",
-    "segurancaLead": "Phishing, logs and passwords in a training-only sandbox: the defence for each attack.",
+    "segurancaLead": "Учебный Kali Linux в браузере: настоящий Linux в изоляции, с воссозданными для обучения инструментами безопасности — всё вымышлено, плюс задачи по защите.",
     "simulacoes": "Симуляции (PhET)",
     "simulacoesLead": "Physics, chemistry, biology and maths through PhET's official iframe.",
     "creditos": "Авторы и лицензии",
@@ -125,7 +125,13 @@
     "livre": "Свободный режим",
     "concluido": "выполнено",
     "voltar": "К лабораториям",
-    "ptOnly": "Задания на португальском."
+    "ptOnly": "Задания на португальском.",
+    "segurancaKaliIntro": "Это учебная среда в духе этичного хакинга: изучать атаку, чтобы уметь защищаться. Рабочий стол повторяет Kali Linux и запускает настоящий Linux (изолированный, без сети во внешний мир). Инструменты — Nmap, Wireshark, Burp, sqlmap и другие — это учебные воссоздания: вывод вымышлен, и ни один не касается реальной системы. Атаковать систему без письменного разрешения — преступление.",
+    "segurancaKaliAbrir": "Открыть лабораторию",
+    "segurancaKaliAviso": "При открытии браузер скачивает около 8 МБ (эмулятор и небольшой образ Linux) и запускает систему — это занимает несколько секунд. Лучше на компьютере, в свежих Chrome, Edge или Firefox.",
+    "segurancaKaliTelaCheia": "Во весь экран",
+    "segurancaKaliDefesa": "Тренировка защиты: распознать атаку",
+    "segurancaKaliForaDoAr": "Лаборатория ещё не доступна по адресу института."
   },
   "lists": {
     "bankEyebrow": "Для тренировки",

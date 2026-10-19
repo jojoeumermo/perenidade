@@ -1,0 +1,15 @@
+# Tipos e cache dos arquivos grandes do laboratório (o caminho /kali é posto na frente por scripts/editores.mjs).
+/*.wasm
+  Content-Type: application/wasm
+  Cache-Control: no-cache
+/v86.wasm
+  Cache-Control: public, max-age=604800
+/seabios.bin
+  Content-Type: application/octet-stream
+  Cache-Control: public, max-age=604800
+/vgabios.bin
+  Content-Type: application/octet-stream
+  Cache-Control: public, max-age=604800
+/linux.iso
+  Content-Type: application/octet-stream
+  Cache-Control: public, max-age=604800
