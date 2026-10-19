@@ -353,6 +353,18 @@ function Perguntar({ s, fontes, paraNotas }: { s: NotebookStrings; fontes: Fonte
   );
 }
 
+/** Cartões num CSV que o Anki importa (Arquivo → Importar): frente, verso e a fonte como etiqueta. Gerado no aparelho. */
+function baixarParaAnki(lista: Cartao[]) {
+  const celula = (texto: string) => `"${texto.replace(/"/g, '""').replace(/\r?\n/g, "<br>")}"`;
+  const linhas = ["#separator:Comma", "#html:true", "#columns:Frente,Verso,Tags", ...lista.map((c) => [c.frente, c.verso, c.fonte.replace(/[^\p{L}\p{N}]+/gu, "_").slice(0, 60)].map(celula).join(","))];
+  const url = URL.createObjectURL(new Blob(["\ufeff" + linhas.join("\n")], { type: "text/csv;charset=utf-8" }));
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "cartoes-anki.csv";
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
 function Cartoes({ s, fontes }: { s: NotebookStrings; fontes: Fonte[] }) {
   const todos = useMemo(() => fontes.flatMap(cartoesDe), [fontes]);
   const [fila, setFila] = useState<Cartao[]>(() => todos);
@@ -387,6 +399,7 @@ function Cartoes({ s, fontes }: { s: NotebookStrings; fontes: Fonte[] }) {
       <p className="mt-2 flex flex-wrap items-center gap-3 text-xs">
         <button type="button" className={elo} onClick={() => guardar([cartao])}>{s.saveCard}</button>
         <button type="button" className={elo} onClick={() => guardar(todos)}>{s.saveAllCards} ({todos.length})</button>
+        <button type="button" className={elo} onClick={() => baixarParaAnki(todos)}>{s.exportAnki}</button>
         <span role="status" className="text-ok">{guardados}</span>
       </p>
       <p className="mt-3 font-mono text-xs text-ink-soft">{i + 1} / {fila.length} · {cartao.fonte}</p>
