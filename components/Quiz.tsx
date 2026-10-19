@@ -61,6 +61,9 @@ export function Quiz({ questions, registro }: { questions: QuizQuestion[]; regis
                       {answered && isAnswer && <span aria-hidden>✓ </span>}
                       {answered && j === chosen && !isAnswer && <span aria-hidden>✗ </span>}
                       {option}
+                      {/* O ✓ e o ✗ são só visuais: quem usa leitor de tela ouve o mesmo pelo texto. */}
+                      {answered && isAnswer && <span className="sr-only"> ({t.lesson.correct})</span>}
+                      {answered && j === chosen && !isAnswer && <span className="sr-only"> ({t.lesson.notYet})</span>}
                     </button>
                   );
                 })}

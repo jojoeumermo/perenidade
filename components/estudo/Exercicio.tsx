@@ -22,7 +22,7 @@ export function EtiquetaDoExercicio({ ex, s }: { ex: ExercicioNovo; s: S }) {
     return <span className="border border-ok px-1.5 py-0.5 text-ok">{fill(s.revisado, { por: ex.revisao.por, data })}</span>;
   }
   return (
-    <span className="border border-gold px-1.5 py-0.5 text-gold" title={s.emRevisaoDica}>
+    <span className="border border-gold px-1.5 py-0.5 text-ink" title={s.emRevisaoDica}>
       {s.emRevisao}
     </span>
   );

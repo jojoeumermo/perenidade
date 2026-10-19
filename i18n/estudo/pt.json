@@ -278,5 +278,21 @@
     "lembreteDescricao": "Sua meta: {n} aulas por semana. Continue de onde parou em Meu estudo.",
     "lembreteSemMeta": "Continue de onde parou em Meu estudo.",
     "porQueNaoNotificacao": "Por que não um aviso do navegador? Para avisar com o site fechado, o instituto precisaria guardar um endereço do seu aparelho num servidor. O arquivo de agenda faz o mesmo sem nada sair daqui."
+  },
+  "vlibras": {
+    "titulo": "Libras (VLibras)",
+    "dica": "Tradução do texto para a Língua Brasileira de Sinais, com um avatar. Usa o VLibras, serviço do Governo Federal.",
+    "ativar": "Ativar o VLibras",
+    "aviso": "O VLibras é um serviço externo, do Governo Federal (vlibras.gov.br). Ao ativar, este navegador baixa o tradutor de lá, e o texto que você escolher traduzir é enviado ao serviço. O endereço de rede do seu aparelho fica visível para ele, como em qualquer site. O Instituto Lúcia não controla esse serviço.",
+    "lembrar": "Lembrar neste aparelho (o VLibras carrega sozinho nas próximas páginas)",
+    "confirmar": "Ativar",
+    "cancelar": "Cancelar",
+    "carregando": "Carregando o VLibras…",
+    "ligado": "VLibras ativo: use o botão azul com a mão, na lateral da tela, e depois toque no texto que quer traduzir.",
+    "erro": "Não foi possível carregar o VLibras agora (sem internet ou serviço fora do ar). Tente de novo mais tarde.",
+    "esquecer": "Não carregar sozinho nas próximas páginas"
+  },
+  "praticaSemPlacar": {
+    "lead": "Treine com o que acabou de aprender: um exercício de cada vez, com a resposta na hora. Sem pontos e sem contagem de dias: o ritmo é seu. A voz é a do seu aparelho; nada sai dele."
   }
 }

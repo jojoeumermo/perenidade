@@ -10,7 +10,7 @@ import { PhetLista } from "@/components/labs/Phet";
 import sims from "@/content/phet.json";
 import { SourceList } from "@/components/Cards";
 import { Markdown } from "@/components/Markdown";
-import { Pratica } from "@/components/Pratica";
+import { PraticaSobDemanda as Pratica } from "@/components/estudo/PraticaSobDemanda";
 import { CiteButton, CompleteButton, LessonList, RememberLesson } from "@/components/Progress";
 import { Quiz } from "@/components/Quiz";
 import { ReadingChrome } from "@/components/ReadingChrome";
@@ -153,7 +153,7 @@ export default async function LessonPage({ params }: Props) {
           </div>
           {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} registro={ligado("meu-estudo") ? id : undefined} />}
           {exercicios.length > 0 && <ExerciciosComExplicacao exercicios={exercicios} aula={id} s={estudo.exercicios} corrigir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} praticar="/meu-estudo/praticar" />}
-          {lesson.practice.length > 0 && <Pratica key={`pratica-${id}`} id={id} exercicios={lesson.practice} lingua={linguaDe(track.area)} s={t.practice} />}
+          {lesson.practice.length > 0 && <Pratica key={`pratica-${id}`} id={id} exercicios={lesson.practice} lingua={linguaDe(track.area)} s={t.practice} semPlacar={ligado("pratica-sem-placar")} lead={ligado("pratica-sem-placar") ? estudo.praticaSemPlacar.lead : undefined} />}
           <SourceList sources={lesson.sources} title={t.lesson.sources} />
           {habilidades && <HabilidadesDaAula mapa={habilidades} s={estudo.mapa} />}
         </div>

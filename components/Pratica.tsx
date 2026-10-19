@@ -379,7 +379,8 @@ function Exercicio({ ex, lingua, s, responder, chaveDoCartao }: { ex: Exercicio;
  * um exercício de cada vez, resposta na hora, pontos e sequência de dias. Tudo roda no navegador: a voz é a do aparelho,
  * o reconhecimento de fala (quando existe) também, e o progresso fica guardado só aqui.
  */
-export function Pratica({ id, exercicios, lingua, s, previa = false }: { id: string; exercicios: Exercicio[]; lingua: string; s: PraticaStrings; previa?: boolean }) {
+/** `semPlacar` e `lead` (opcionais, recurso "pratica-sem-placar"): escondem os pontos e a sequência de dias e trocam o texto de abertura. */
+export function Pratica({ id, exercicios, lingua, s, previa = false, semPlacar = false, lead }: { id: string; exercicios: Exercicio[]; lingua: string; s: PraticaStrings; previa?: boolean; semPlacar?: boolean; lead?: string }) {
   const progresso = useProgresso();
   const [fase, setFase] = useState<"inicio" | "jogando" | "fim">("inicio");
   const [fila, setFila] = useState<number[]>([]);
@@ -427,15 +428,19 @@ export function Pratica({ id, exercicios, lingua, s, previa = false }: { id: str
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 id="pratica-titulo" className="font-sans text-2xl font-black uppercase italic">{s.title}</h2>
         <p className="flex flex-wrap gap-4 font-mono text-xs text-ink-soft">
-          <span title={s.xp}>★ {progresso.xp} {s.xp}</span>
-          <span title={s.streak}>🔥 {fill(s.streakDays, { n: progresso.sequencia })}</span>
+          {!semPlacar && (
+            <>
+              <span title={s.xp}>★ {progresso.xp} {s.xp}</span>
+              <span title={s.streak}>🔥 {fill(s.streakDays, { n: progresso.sequencia })}</span>
+            </>
+          )}
           <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => guardarProgresso({ ...lerProgresso(), som: !progresso.som })}>{progresso.som ? s.soundOn : s.soundOff}</button>
         </p>
       </div>
 
       {fase === "inicio" && (
         <div className="mt-4 font-sans text-sm">
-          <p className="max-w-2xl text-ink-soft">{s.lead}</p>
+          <p className="max-w-2xl text-ink-soft">{lead ?? s.lead}</p>
           {daAula && <p className="mt-2 text-ink-soft">{fill(s.best, { n: daAula.melhor, k: daAula.sessoes })}</p>}
           <p className="mt-4 flex flex-wrap gap-3">
             <button type="button" className={botao} onClick={() => comecar(exercicios.map((_, i) => i))}>
@@ -485,9 +490,11 @@ export function Pratica({ id, exercicios, lingua, s, previa = false }: { id: str
       {fase === "fim" && resumo && (
         <div className="mt-4 font-sans text-sm">
           <p className="font-serif text-3xl font-semibold">{fill(s.score, { a: resumo.acertos, b: resumo.total })}</p>
-          <p className="mt-1 text-ink-soft">
-            {previa ? s.previewNote : fill(s.earned, { n: resumo.xp })} · 🔥 {fill(s.streakDays, { n: lerProgresso().sequencia })}
-          </p>
+          {!semPlacar && (
+            <p className="mt-1 text-ink-soft">
+              {previa ? s.previewNote : fill(s.earned, { n: resumo.xp })} · 🔥 {fill(s.streakDays, { n: lerProgresso().sequencia })}
+            </p>
+          )}
           <p className="mt-4 flex flex-wrap gap-3">
             {errados.length > 0 && <button type="button" className={botao} onClick={() => comecar(errados)}>{s.redoWrong}</button>}
             <button type="button" className={claro} onClick={() => comecar(exercicios.map((_, i) => i))}>{s.again}</button>
