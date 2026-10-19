@@ -368,7 +368,10 @@ function Terminal({ d, t, estado, host, simular, mudar }: { d: Dispositivo; t: T
   const [hist, setHist] = useState<string[]>([]);
   const [pos, setPos] = useState<number | null>(null);
   const fim = useRef<HTMLDivElement>(null);
-  useEffect(() => fim.current?.scrollIntoView({ block: "end" }), [linhas]);
+  // Chave no corpo: o scrollIntoView do Chrome novo devolve uma promessa, e efeito que devolve algo que não é função derruba a página.
+  useEffect(() => {
+    fim.current?.scrollIntoView({ block: "end" });
+  }, [linhas]);
   const p = host ? `${d.nome}> ` : `${prompt(d, sessao)} `;
   function enviar() {
     const c = comando;
