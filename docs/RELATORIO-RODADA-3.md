@@ -34,24 +34,26 @@ Já resolvido nesta rodada, sem nada a fazer: funções do Supabase publicadas s
 | Estudo: "O que estudar agora?", plano com .ics, nivelamento, "Não entendi este trecho", cartões para o Anki | `4dadd26`, `b8b8320` |
 | **Editor de aulas:** folha com etapas, faixa de detalhes, versões, prévia ao lado, modo foco, barra de ação, menu "/" e **blocos interativos** (gráfico com controles, calculadora, gráficos de dados, testes de cinco tipos, cartões, memória, forca, caça-palavras, pronúncia com gravação, diagramas, linha do tempo, desenho, atalho para ferramentas); sugestões da revisão aceitas num clique | `ba159f0` |
 | **Caderno:** cadernos prontos montados no painel, caderno da aula e da trilha, selo de trilha com certificado de participação conferível, sala de estudo em grupo com cronômetro, redação enviada para correção por voluntário | `07d26f0` |
-| **Banco de questões:** ENEM de 2009 em diante (enem.dev), Unicamp e Fuvest (BLUEX, 2018–2024) e 1.ª fase da OAB (2010–2018), 6.316 questões, atualizadas sozinhas toda semana, com correção na hora, caderno de erros e resoluções dos educadores | `551aaaf`, `5598818` |
+| **Banco de questões:** ENEM de 2009 em diante (enem.dev), Unicamp e Fuvest (BLUEX, 2018–2024) e 1.ª fase da OAB (2010–2018), com correção na hora, caderno de erros e resoluções dos educadores, atualizado sozinho toda semana | `551aaaf`, `5598818` |
+| **Banco de questões, segunda leva:** ITA (2008–2024), IME (2017–2023), Fuvest desde 1981 e mais anos da Unicamp (Alvorada-Bench, licença MIT) e olimpíadas de matemática por nível, com a OBMEP (MATH-PT, licença MIT). Total: **9.064 questões** | `38184fe` |
+| **Editor de aulas, os blocos que faltavam:** simulação física (Matter.js, em metros, com altura e velocidade ao vivo), molécula em 3D (nome, fórmula SMILES do PubChem ou coordenadas XYZ; forma pela teoria VSEPR, girar com o dedo), geometria com pontos que se arrastam (medidas, ângulos e áreas ao vivo), mapa (Natural Earth, sem servidor de fora; pontos, rotas e países em destaque), programação por blocos (Blockly, com saída esperada e o programa em Python e JavaScript), código para rodar (Python e JavaScript no navegador, laço sem fim interrompido), cena clicável (explorar ou encontrar), arrastar para o grupo, montar a frase, música com letra que acompanha, figuras nos testes e quadro de desenho no estilo do Excalidraw | `c67adba`, `e1a21b4` |
 | **Linha do tempo do acervo completa:** o histórico inteiro, resumido em `historico/acervo.json` pela rotina de publicação | `ad18f74` |
-| **Painel em francês:** as 4.322 frases traduzidas e o francês na escolha de idioma do painel | `a04bca2`, `fb90a5c` |
+| **Painel em francês:** todas as frases traduzidas e o francês na escolha de idioma do painel | `a04bca2`, `fb90a5c` |
+| **Painel completo em inglês, espanhol, russo e chinês** (4.468 frases em cada idioma, feito numa sessão paralela) | no `master` |
 | Verificação do GitHub voltou a passar (ESLint sem ler pacotes de terceiros; "Estudo em grupo" no interruptor de áreas) | `d1b72d2` e o commit deste relatório |
 
 ## Conferência do pedido, item por item
 
 Legenda: ✅ feito · ◐ feito em parte · ✗ não feito.
 
-- ✅ **Escrever:** layout novo e blocos interativos (lista acima). ◐ Ficaram de fora, trocados por blocos próprios mais leves: Blockly, moléculas 3D, simulação física (Matter.js), quadro tipo Excalidraw e mapa (Leaflet). Para simulações e moléculas, o bloco "ferramenta" leva às ferramentas do site que já fazem isso.
+- ✅ **Escrever:** layout novo e todos os blocos interativos do pedido, inclusive Blockly, moléculas 3D, Matter.js, quadro no estilo do Excalidraw e mapa. O mapa não usa o Leaflet: ele precisaria de um servidor de mapas de fora, que veria quem estuda; os contornos vêm do Natural Earth e são desenhados aqui.
 - ✅ **Caderno:** tudo do pedido. A conta para sincronizar continua opcional: o caderno funciona sem conta e tem cópia de segurança em arquivo.
-- ✅ **Banco de questões:** ENEM, Unicamp, Fuvest e OAB. ◐ Outros vestibulares e concursos públicos não têm fonte aberta organizada (com gabarito e enunciado em texto); entram pelo "Enviar questão" dos educadores.
+- ✅ **Banco de questões:** ENEM, Unicamp, Fuvest, ITA, IME, OAB e olimpíadas de matemática. ◐ Concursos públicos (bancas como Cespe, FCC, FGV) e os outros vestibulares não têm hoje nenhuma fonte aberta organizada, com gabarito e enunciado em texto; os sites que reúnem essas provas não liberam os dados. Quando aparecer uma fonte assim, ela entra no importador como as outras; até lá, entram pelo "Enviar questão" dos educadores.
 - ✅ **Linha do tempo do acervo** completa.
-- ✅ **Painel em francês** completo.
+- ✅ **Painel** completo nos cinco idiomas (francês, inglês, espanhol, russo e chinês).
 - ✅ O restante da rodada 2 e da rodada 3 (Sala Lúcia, Reuniões, Psicologia, Engenharia de Sistemas, Estúdio de design, telas do painel, tarefas, comunidade, Apoie, rádio, SEO, acessibilidade, auditoria, laboratórios), conforme os commits acima.
 
 ## O que ainda falta
 
-1. **Rodar o `install.sql` de novo** (item 1 acima). Até lá, cadernos prontos, certificado do aluno, sugestões da revisão e resoluções das questões dão erro em produção.
-2. **Painel em inglês, espanhol, russo e chinês:** o painel cresceu muito nas rodadas de chat, cargos e plataforma EaD (de 2.137 para 4.322 frases) e esses quatro dicionários só cobrem 1.955. As frases que faltam aparecem em português. O francês está completo.
-3. Os blocos que ficaram de fora do editor (Blockly, moléculas 3D, Matter.js, Excalidraw, mapa), se ainda quiser.
+1. **Rodar o `install.sql` de novo** (item 1 acima). É a única coisa que depende de você. Até lá, cadernos prontos, certificado do aluno, sugestões da revisão e resoluções das questões dão erro em produção.
+2. **Concursos públicos no banco de questões:** só quando existir uma fonte aberta (ver acima).
