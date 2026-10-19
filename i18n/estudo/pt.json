@@ -294,5 +294,22 @@
   },
   "praticaSemPlacar": {
     "lead": "Treine com o que acabou de aprender: um exercício de cada vez, com a resposta na hora. Sem pontos e sem contagem de dias: o ritmo é seu. A voz é a do seu aparelho; nada sai dele."
+  },
+  "guia": {
+    "olho": "Contribuir",
+    "titulo": "Guia de contribuição",
+    "descricao": "Cinco formas de ajudar o Instituto Lúcia, o caminho de uma contribuição, o modelo de aula e o checklist de revisão.",
+    "nestaPagina": "Nesta página",
+    "modelo": "Modelo de aula",
+    "checklist": "Checklist de revisão",
+    "verGuia": "Antes de escrever, veja o guia de contribuição: as formas de ajudar, o modelo de aula e o checklist de revisão"
+  },
+  "ajudou": {
+    "pergunta": "Esta aula ajudou você?",
+    "sim": "Ajudou",
+    "emParte": "Em parte",
+    "nao": "Não ajudou",
+    "obrigado": "Obrigado. A sua resposta fica só neste aparelho.",
+    "contar": "Quer contar o que faltou? Sugira uma melhoria."
   }
 }

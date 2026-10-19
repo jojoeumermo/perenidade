@@ -34,6 +34,7 @@ import { creditosDeRevisao, EtiquetaDeRevisao } from "@/components/estudo/Etique
 import { revisoesDaAula } from "@/lib/revisoes-conteudo";
 import { HabilidadesDaAula } from "@/components/estudo/Habilidades";
 import { mapaDaAula } from "@/lib/curriculo-conteudo";
+import { IssoAjudou } from "@/components/estudo/IssoAjudou";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
@@ -159,6 +160,7 @@ export default async function LessonPage({ params }: Props) {
         </div>
 
         <CompleteButton id={id} next={next && { path: path(next.slug), title: next.title }} />
+        {ligado("ajudou") && <IssoAjudou aula={id} s={estudo.ajudou} sugerir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} />}
 
         <nav aria-label={t.lesson.neighbors} className="no-print mt-12 flex justify-between gap-6 border-t border-rule pt-6 font-sans text-sm app:max-md:flex-col app:max-md:gap-3">
           {prev ? <Link href={to(path(prev.slug))} data-prev className={`hover:text-oxblood ${vizinha}`}>← {prev.title}</Link> : <span />}
