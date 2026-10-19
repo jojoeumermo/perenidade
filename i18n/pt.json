@@ -666,7 +666,17 @@
     "planEnds": "Nesse ritmo, você termina em {date}.",
     "planDownload": "Baixar para a agenda (.ics)",
     "planEmpty": "Não há aulas pendentes para planejar.",
-    "planNone": "Escolha pelo menos um dia."
+    "planNone": "Escolha pelo menos um dia.",
+    "studyInNotebook": "Estudar a trilha inteira no caderno",
+    "studyGroup": "Estudar em grupo",
+    "badge": "Trilha concluída",
+    "certLead": "Você terminou todas as aulas prontas desta trilha. Se quiser, gere o certificado de participação: ele traz um número que qualquer pessoa confere no site.",
+    "certName": "Seu nome, como deve aparecer",
+    "certIssue": "Gerar o certificado",
+    "certFailed": "Não deu para gerar agora. Tente de novo em alguns minutos.",
+    "certTitle": "Certificado de participação",
+    "certText": "O Instituto Lúcia certifica que {nome} estudou as {n} aulas da trilha “{trilha}”, na escola popular e gratuita do instituto.",
+    "certCode": "Número de verificação: {c}"
   },
   "lesson": {
     "position": "aula {i} de {n}",
@@ -701,7 +711,8 @@
     "videoNote": "O vídeo fica em outro site. Ao carregar, esse site passa a ver o seu acesso.",
     "videoOpen": "Abrir o vídeo em outra aba",
     "imagePending": "imagem aguardando publicação",
-    "toMistakes": "As questões erradas vão para o caderno de erros."
+    "toMistakes": "As questões erradas vão para o caderno de erros.",
+    "studyInNotebook": "Estudar esta aula no caderno"
   },
   "library": {
     "areasTitle": "Áreas",
@@ -2274,7 +2285,9 @@
           "Diz para quê (finalidade) e traz um detalhe a mais.",
           "A proposta respeita os direitos humanos."
         ]
-      ]
+      ],
+      "askCorrection": "Pedir a correção a um voluntário",
+      "askCorrectionNote": "Quer comentários de gente? O texto vai para a Aula de reforço, e um voluntário responde por e-mail com observações pelas cinco competências (sem nota). Ele só sai do aparelho quando você confirmar o envio."
     },
     "syllables": {
       "help": "Toque numa sílaba para ouvir. Toque em várias, uma depois da outra, para montar uma palavra, e ouça a palavra inteira.",
@@ -3385,7 +3398,10 @@
     "activities": "Atividades",
     "issued": "Emitido em",
     "witnesses": "Assinado por",
-    "offline": "A conferência ainda não está ativa nesta cópia do site."
+    "offline": "A conferência ainda não está ativa nesta cópia do site.",
+    "student": "Certificado de participação de quem estuda, emitido pelo Instituto Lúcia.",
+    "track": "Trilha",
+    "lessons": "Aulas"
   },
   "start": {
     "eyebrow": "Lista de leitura",
@@ -4006,7 +4022,12 @@
     "backupInvalid": "Este arquivo não é uma cópia do caderno.",
     "backupConfirm": "Restaurar a cópia? Cadernos, cartões e erros se juntam aos que já estão aqui; o resto é trocado pelo da cópia.",
     "nextTomorrow": "volta amanhã",
-    "exportAnki": "Baixar para o Anki (.csv)"
+    "exportAnki": "Baixar para o Anki (.csv)",
+    "readyTitle": "Cadernos prontos",
+    "readyLead": "Montados por voluntários, por trilha ou tema. Usar cria uma cópia sua, neste aparelho.",
+    "readyUse": "Usar este caderno",
+    "readySources": "{n} fonte(s)",
+    "building": "Montando o caderno com as aulas…"
   },
   "practiceStudio": {
     "inside": "Abrir aqui",
@@ -4220,5 +4241,24 @@
     "clear": "Limpar",
     "download": "Baixar o desenho",
     "open": "Abrir"
+  },
+  "studyGroup": {
+    "eyebrow": "Estudar junto",
+    "title": "Sala de estudo em grupo",
+    "lead": "Abra uma sala, mande o link para a turma e estudem juntos, com vídeo e o mesmo cronômetro de foco para todo mundo.",
+    "focusMinutes": "Minutos de foco",
+    "breakMinutes": "Minutos de pausa",
+    "create": "Abrir uma sala",
+    "note": "O cronômetro vai no próprio link: quem abrir o link vê a mesma fase e o mesmo tempo, sem cadastro.",
+    "phaseFocus": "Foco",
+    "phaseBreak": "Pausa",
+    "cycle": "{f} min de foco e {p} de pausa · rodada {n}",
+    "roomLink": "Mande este link para quem vai estudar com você:",
+    "copy": "Copiar o link",
+    "copied": "Link copiado ✓",
+    "yourName": "Seu nome na sala",
+    "join": "Entrar na sala de vídeo",
+    "someone": "Estudante",
+    "privacy": "O vídeo passa pelo servidor de videochamada configurado pelo instituto (Jitsi). Nada é gravado."
   }
 }

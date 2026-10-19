@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { Markdown } from "@/components/Markdown";
 import { SaveOffline } from "@/components/Offline";
+import { CertificadoDaTrilha } from "@/components/CertificadoDaTrilha";
 import { PlanoDeEstudos } from "@/components/PlanoDeEstudos";
 import { LessonList, TrackProgress } from "@/components/Progress";
 import { originalLang, Untranslated } from "@/components/Untranslated";
@@ -104,6 +105,13 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
           </p>
         )}
         {ready.length > 0 && <SaveOffline paths={[to(`/trilhas/${track.slug}`), ...ready.map((item) => to(item.path))]} s={t.tracks} />}
+        {ready.length > 0 && (
+          <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 font-sans text-sm">
+            <Link href={`${to("/caderno")}?abrir=${encodeURIComponent(ready.map((item) => item.path).join(","))}&titulo=${encodeURIComponent(track.title)}`} className="underline hover:text-oxblood">{t.tracks.studyInNotebook}</Link>
+            <Link href={to("/estudo-em-grupo")} className="underline hover:text-oxblood">{t.tracks.studyGroup}</Link>
+          </p>
+        )}
+        {ready.length > 0 && <CertificadoDaTrilha ids={ready.map((item) => item.id)} trilha={track.slug} titulo={track.title} s={t.tracks} />}
         {ready.length > 0 && <PlanoDeEstudos aulas={ready.map((item) => ({ id: item.id, path: item.path, title: item.title }))} trilha={track.title} temProva={questionCount >= 10} s={t.tracks} />}
         {ready.length < items.length && (
           <p className="mt-6 font-sans text-sm text-ink-soft">
