@@ -110,6 +110,6 @@ Conferido no navegador embutido, com o build de produção, em computador (1440 
 3. **Medição:** escolher entre as opções de `docs/MEDIR-SE-AS-AULAS-FUNCIONAM.md`.
 4. **VLibras:** conferir o avatar num aparelho de verdade e pôr o texto de `docs/privacidade-vlibras.md` na página de privacidade no dia de ligar.
 5. **Recomendações de identidade visual:** o dourado das peças antigas, as fontes pré-carregadas, a ordem dos títulos e as contas no Kindle.
-6. **Traduções** dos textos novos (`i18n/estudo/pt.json`) para os outros cinco idiomas; até lá, aparecem em português com o aviso.
+6. **Traduções:** os textos das telas novas (`i18n/estudo/`) já estão nos seis idiomas, com as mesmas chaves e marcadores (conferido por script). Vale a leitura de quem fala cada idioma. O conteúdo em si (exercícios, guia do professor, planos de aula) segue só em português, com o aviso.
 7. **Juntar ao master:** não fiz, como pedido.
 8. **Sugestão:** a rotina de publicação (`scripts/sincronizar.mjs`) poderia gravar a linha `revisoes` (função e data de quem aprovou) quando uma aula é aprovada pelo painel. Não mexi, por ser a rotina que publica.
