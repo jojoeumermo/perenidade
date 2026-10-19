@@ -32,6 +32,8 @@ export interface Fala {
   corpo: string;
   tipo: "fala" | "pergunta" | "sistema";
   oculta: boolean;
+  /** Espera a leitura da mediação: só quem escreveu (e quem conduz) vê. */
+  retido?: boolean;
   criado_em: string;
 }
 

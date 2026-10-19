@@ -2507,6 +2507,30 @@
       "hideTranscript": "隐藏文字稿",
       "keys": "快捷键：空格播放或暂停，方向键前后 5 秒，< 和 > 调节速度，M 静音，C 打开字幕，F 全屏。",
       "error": "暂时无法播放这个视频。"
+    },
+    "comments": {
+      "title": "评论",
+      "live": "新评论会自动出现，无需刷新页面。",
+      "placeholder": "发表评论、提问，或帮助正在学习的人…",
+      "send": "评论",
+      "rules": "适用社区规则：互相尊重，禁止仇恨言论，不公开个人信息。有疑问的内容会等待调解员审阅。",
+      "signIn": "登录后评论",
+      "signUp": "注册账号",
+      "reply": "回复",
+      "replyingTo": "回复 {nome}",
+      "cancel": "取消",
+      "held": "评论已收到，经调解员审阅后对所有人显示。",
+      "pending": "等待审阅",
+      "remove": "删除",
+      "removeConfirm": "删除这条评论？",
+      "empty": "还没有人评论。来开始讨论吧。",
+      "badges": {
+        "coordenacao": "协调组",
+        "educacao": "教学",
+        "mentoria": "导师",
+        "mediacao": "调解",
+        "equipe": "团队"
+      }
     }
   },
   "more": {
@@ -3558,7 +3582,9 @@
     "inRoom": "教室内 {n} 人",
     "teacher": "授课",
     "mediaFailed": "无法打开摄像头、屏幕或麦克风。请检查浏览器权限。",
-    "recordFailed": "此浏览器无法录制视频。"
+    "recordFailed": "此浏览器无法录制视频。",
+    "chatHeld": "你的消息已收到，经调解员审阅后对所有人显示。",
+    "chatPending": "等待审阅"
   },
   "notebook": {
     "eyebrow": "自习室",

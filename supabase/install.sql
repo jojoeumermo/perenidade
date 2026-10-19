@@ -2390,6 +2390,16 @@ begin
     where id = p_id and retido and tentativas < 3
       and (motivo = 'aguardando_avaliacao' or (motivo in ('em_avaliacao', 'avaliacao_externa_falhou') and avaliacao_em < now() - interval '2 minutes'))
     returning corpo into v_texto;
+  elsif p_tipo = 'comentario' then
+    update comentarios set motivo = 'em_avaliacao', avaliacao_em = now(), tentativas = tentativas + 1
+    where id = p_id and retido and tentativas < 3
+      and (motivo = 'aguardando_avaliacao' or (motivo in ('em_avaliacao', 'avaliacao_externa_falhou') and avaliacao_em < now() - interval '2 minutes'))
+    returning corpo into v_texto;
+  elsif p_tipo = 'aula_chat' then
+    update aulas_chat set motivo = 'em_avaliacao', avaliacao_em = now(), tentativas = tentativas + 1
+    where id = p_id and retido and tentativas < 3
+      and (motivo = 'aguardando_avaliacao' or (motivo in ('em_avaliacao', 'avaliacao_externa_falhou') and avaliacao_em < now() - interval '2 minutes'))
+    returning corpo into v_texto;
   else
     perform interno.erro('invalido:tipo');
   end if;
@@ -2425,6 +2435,18 @@ begin
     where id = p_id and retido and motivo = 'em_avaliacao' returning topico into v_topico;
     v_achou := found;
     if v_achou and v_veredito = 'publicar' then update topicos set respostas = respostas + 1 where id = v_topico; end if;
+  elsif p_tipo = 'comentario' then
+    update comentarios set
+      oculto = (v_veredito <> 'publicar'), retido = (v_veredito = 'revisar'), motivo = v ->> 'motivo',
+      avaliacao = case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end
+    where id = p_id and retido and motivo = 'em_avaliacao';
+    v_achou := found;
+  elsif p_tipo = 'aula_chat' then
+    update aulas_chat set
+      oculta = (v_veredito <> 'publicar'), retido = (v_veredito = 'revisar'), motivo = v ->> 'motivo',
+      avaliacao = case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end
+    where id = p_id and retido and motivo = 'em_avaliacao';
+    v_achou := found;
   else
     perform interno.erro('invalido:tipo');
   end if;
@@ -2450,6 +2472,12 @@ begin
       where retido and tentativas < 3 and (motivo = 'aguardando_avaliacao' or (motivo in ('em_avaliacao', 'avaliacao_externa_falhou') and avaliacao_em < now() - interval '2 minutes'))
       union all
       select 'resposta', id, criado_em from respostas
+      where retido and tentativas < 3 and (motivo = 'aguardando_avaliacao' or (motivo in ('em_avaliacao', 'avaliacao_externa_falhou') and avaliacao_em < now() - interval '2 minutes'))
+      union all
+      select 'comentario', id, criado_em from comentarios
+      where retido and tentativas < 3 and (motivo = 'aguardando_avaliacao' or (motivo in ('em_avaliacao', 'avaliacao_externa_falhou') and avaliacao_em < now() - interval '2 minutes'))
+      union all
+      select 'aula_chat', id, criado_em from aulas_chat
       where retido and tentativas < 3 and (motivo = 'aguardando_avaliacao' or (motivo in ('em_avaliacao', 'avaliacao_externa_falhou') and avaliacao_em < now() - interval '2 minutes'))
       order by criado_em limit 20) x);
 end $$;
@@ -2716,6 +2744,16 @@ begin
     -- A contagem do tópico acompanha o que está à vista: entra quando a resposta aparece, sai quando é ocultada.
     if v_achou and p_acao = 'mostrar' and v_oculto then update topicos set respostas = respostas + 1 where id = v_topico; end if;
     if v_achou and p_acao = 'ocultar' and not v_oculto then update topicos set respostas = greatest(respostas - 1, 0) where id = v_topico; end if;
+  elsif p_tipo = 'comentario' and p_acao in ('ocultar', 'mostrar') then
+    select retido, autor, avaliacao = 'bloqueada', oculto into v_retido, v_autor, v_bloqueada, v_oculto from comentarios where id = p_alvo;
+    update comentarios set oculto = (p_acao = 'ocultar'), retido = false,
+      avaliacao = case when p_acao = 'mostrar' and avaliacao = 'bloqueada' then 'revista' else avaliacao end where id = p_alvo;
+    v_achou := found;
+  elsif p_tipo = 'aula_chat' and p_acao in ('ocultar', 'mostrar') then
+    select retido, autor, avaliacao = 'bloqueada', oculta into v_retido, v_autor, v_bloqueada, v_oculto from aulas_chat where id = p_alvo;
+    update aulas_chat set oculta = (p_acao = 'ocultar'), retido = false,
+      avaliacao = case when p_acao = 'mostrar' and avaliacao = 'bloqueada' then 'revista' else avaliacao end where id = p_alvo;
+    v_achou := found;
   else perform interno.erro('invalido:acao'); end if;
   if not coalesce(v_achou, false) then perform interno.erro('nao_encontrado'); end if;
   perform interno.registrar('comunidade_' || p_acao, p_alvo::text, jsonb_build_object('tipo', p_tipo));
@@ -2739,6 +2777,10 @@ begin
     update topicos set titulo = interno.txt(p_titulo, 'titulo', 5, 140), corpo = interno.txt(p_corpo, 'corpo', 10, 8000) where id = p_alvo;
   elsif p_tipo = 'resposta' then
     update respostas set corpo = interno.txt(p_corpo, 'corpo', 2, 8000) where id = p_alvo;
+  elsif p_tipo = 'comentario' then
+    update comentarios set corpo = interno.txt(p_corpo, 'corpo', 2, 1000) where id = p_alvo;
+  elsif p_tipo = 'aula_chat' then
+    update aulas_chat set corpo = interno.txt(p_corpo, 'corpo', 1, 500) where id = p_alvo;
   else
     perform interno.erro('invalido:tipo');
   end if;
@@ -2761,6 +2803,14 @@ begin
       select r.criado_em, jsonb_build_object('tipo', 'resposta', 'id', r.id, 'topico', r.topico, 'titulo', (select titulo from topicos where id = r.topico), 'corpo', r.corpo, 'autor', coalesce(f.nome, ''), 'criado_em', r.criado_em,
         'autor_id', case when interno.media() then r.autor end, 'filtro', interno.vetado(r.corpo), 'motivo', r.motivo)
       from respostas r left join perfis f on f.id = r.autor where r.retido
+      union all
+      select c.criado_em, jsonb_build_object('tipo', 'comentario', 'id', c.id, 'topico', null, 'titulo', 'Comentário na aula em vídeo: ' || coalesce((select titulo from videoaulas where id = c.videoaula), ''), 'corpo', c.corpo, 'autor', coalesce(f.nome, ''), 'criado_em', c.criado_em,
+        'autor_id', case when interno.media() then c.autor end, 'filtro', interno.vetado(c.corpo), 'motivo', c.motivo)
+      from comentarios c left join perfis f on f.id = c.autor where c.retido
+      union all
+      select m.criado_em, jsonb_build_object('tipo', 'aula_chat', 'id', m.id, 'topico', null, 'titulo', 'Bate-papo da aula ao vivo: ' || coalesce((select titulo from aulas_ao_vivo where id = m.aula), ''), 'corpo', m.corpo, 'autor', coalesce(f.nome, ''), 'criado_em', m.criado_em,
+        'autor_id', case when interno.media() then m.autor end, 'filtro', interno.vetado(m.corpo), 'motivo', m.motivo)
+      from aulas_chat m left join perfis f on f.id = m.autor where m.retido
     ) x);
 end $$;
 
@@ -2787,6 +2837,8 @@ begin
   update perfis set suspenso = true, suspensao = case when v_ja and suspensao <> '' then suspensao else 'mediacao' end where id = p_usuario;
   update topicos set retido = false where autor = p_usuario and retido;
   update respostas set retido = false where autor = p_usuario and retido;
+  update comentarios set retido = false where autor = p_usuario and retido;
+  update aulas_chat set retido = false where autor = p_usuario and retido;
   update gaveta set status = 'recusado', nota = 'Conta banida pela mediação.', decidido_por = v, decidido_em = now() where autor = p_usuario and status = 'pendente';
   update banimentos set ativo = false, encerrado_por = v, encerrado_em = now() where usuario = p_usuario and ativo;
   insert into banimentos (usuario, nome, origem, motivo, por, ja_suspensa) values (p_usuario, f.nome, v_origem, v_motivo, v, v_ja);
@@ -8735,6 +8787,30 @@ create table if not exists interno.aulas_chat (
   criado_em timestamptz not null default now()
 );
 create index if not exists aulas_chat_aula on interno.aulas_chat (aula, criado_em);
+-- O bate-papo passa pelas mesmas camadas da Comunidade: regras do banco, segunda avaliação opcional e fila da mediação.
+alter table interno.aulas_chat add column if not exists retido boolean not null default false;
+alter table interno.aulas_chat add column if not exists avaliacao text check (avaliacao is null or avaliacao in ('publicada', 'revisao', 'bloqueada', 'revista'));
+alter table interno.aulas_chat add column if not exists motivo text not null default '';
+alter table interno.aulas_chat add column if not exists avaliacao_em timestamptz;
+alter table interno.aulas_chat add column if not exists tentativas smallint not null default 0;
+
+-- Comentários das aulas em vídeo, com resposta a outro comentário e a mesma moderação da Comunidade.
+create table if not exists interno.comentarios (
+  id uuid primary key default gen_random_uuid(),
+  videoaula uuid not null references interno.videoaulas (id) on delete cascade,
+  autor uuid references interno.perfis (id) on delete set null,
+  corpo text not null check (char_length(corpo) between 2 and 1000),
+  pai uuid references interno.comentarios (id) on delete set null,
+  oculto boolean not null default false,
+  retido boolean not null default false,
+  avaliacao text check (avaliacao is null or avaliacao in ('publicada', 'revisao', 'bloqueada', 'revista')),
+  motivo text not null default '',
+  avaliacao_em timestamptz,
+  tentativas smallint not null default 0,
+  criado_em timestamptz not null default now()
+);
+alter table interno.comentarios enable row level security;
+create index if not exists comentarios_videoaula on interno.comentarios (videoaula, criado_em);
 
 create table if not exists interno.designs (
   id uuid primary key default gen_random_uuid(),
@@ -9348,23 +9424,31 @@ begin
 end $$;
 
 create or replace function interno.chat_aula_json(m interno.aulas_chat) returns jsonb language sql stable as $$
-  select jsonb_build_object('id', m.id, 'autor', m.autor, 'nome', m.nome, 'corpo', m.corpo, 'tipo', m.tipo, 'oculta', m.oculta, 'criado_em', m.criado_em)
+  select jsonb_build_object('id', m.id, 'autor', m.autor, 'nome', m.nome, 'corpo', m.corpo, 'tipo', m.tipo, 'oculta', m.oculta, 'retido', m.retido, 'criado_em', m.criado_em)
 $$;
 
 /** Fala no bate-papo da aula (precisa de conta). Abre meia hora antes e fecha quando a aula termina. */
 create or replace function public.aula_chat_enviar(p_aula uuid, p_corpo text, p_tipo text default 'fala') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); a aulas_ao_vivo; m aulas_chat; v_corpo text := interno.txt(p_corpo, 'corpo', 1, 500); v_nome text;
+declare v uuid := interno.eu(); a aulas_ao_vivo; m aulas_chat; v_corpo text := interno.txt(p_corpo, 'corpo', 1, 500); v_nome text; v_av jsonb; v_veredito text;
 begin
   select * into a from aulas_ao_vivo where id = p_aula;
   if not found then perform interno.erro('nao_encontrado'); end if;
   if a.status in ('encerrada', 'cancelada') then perform interno.erro('topico_trancado'); end if;
   if not (a.status = 'ao_vivo' or a.inicio < now() + interval '30 minutes' or interno.conduz(a)) then perform interno.erro('topico_trancado'); end if;
   if p_tipo not in ('fala', 'pergunta') then perform interno.erro('invalido:tipo'); end if;
-  if interno.vetado(v_corpo) then perform interno.erro('conteudo_recusado'); end if;
   perform interno.limite('aula_chat', 40, 2);
+  -- A mesma avaliação da Comunidade; quem conduz a aula (e a equipe que cuida) fala direto.
+  v_av := interno.moderar_texto(v_corpo, v, interno.conduz(a));
+  v_veredito := v_av ->> 'veredito';
+  if v_veredito = 'bloquear' then
+    perform interno.registrar('comunidade_bloqueada', p_aula::text, jsonb_build_object('tipo', 'aula_chat', 'motivo', v_av ->> 'motivo'));
+    perform interno.erro('conteudo_recusado');
+  end if;
   select nome into v_nome from perfis where id = v;
-  insert into aulas_chat (aula, autor, nome, corpo, tipo) values (p_aula, v, coalesce(v_nome, ''), v_corpo, p_tipo) returning * into m;
-  return interno.chat_aula_json(m);
+  insert into aulas_chat (aula, autor, nome, corpo, tipo, oculta, retido, avaliacao, motivo)
+  values (p_aula, v, coalesce(v_nome, ''), v_corpo, p_tipo, v_veredito <> 'publicar', v_veredito = 'revisar',
+          case v_veredito when 'publicar' then 'publicada' else 'revisao' end, v_av ->> 'motivo') returning * into m;
+  return interno.chat_aula_json(m) || jsonb_build_object('avaliando', coalesce((v_av ->> 'externa')::boolean, false));
 end $$;
 
 /** O bate-papo (qualquer visitante lê). Com p_depois, só o que chegou depois daquele instante: é o que a sala pede a cada poucos segundos. */
@@ -9374,7 +9458,7 @@ begin
   select * into a from aulas_ao_vivo where id = p_aula;
   if found then v_conduzo := interno.conduz(a); end if;
   return coalesce((select jsonb_agg(interno.chat_aula_json(m) order by m.criado_em) from (
-    select * from aulas_chat m where m.aula = p_aula and (not m.oculta or v_conduzo)
+    select * from aulas_chat m where m.aula = p_aula and (not m.oculta or v_conduzo or (m.retido and m.autor = auth.uid()))
       and (p_depois is null or m.criado_em > p_depois) order by m.criado_em desc limit 300) m), '[]'::jsonb);
 end $$;
 
@@ -9388,6 +9472,78 @@ begin
   if not (interno.conduz(a) or interno.media() or m.autor = v) then perform interno.erro('sem_permissao'); end if;
   update aulas_chat set oculta = p_ocultar where id = p_id;
   return jsonb_build_object('ok', true);
+end $$;
+
+-- ───────────────────────────── Comentários em tempo real ─────────────────────────────
+
+/**
+ * A avaliação de sempre da Comunidade, para outros lugares onde o público escreve: as regras do banco
+ * (interno.veredito), o modo de segurança (tudo espera aprovação manual) e a segunda avaliação opcional (o texto espera
+ * por ela). Quem cuida da comunidade (ou conduz a aula) passa direto pelo modo de segurança.
+ */
+create or replace function interno.moderar_texto(p_texto text, p_autor uuid, p_equipe boolean default false) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_av jsonb := interno.veredito(p_texto, interno.cuida() or coalesce(p_equipe, false), p_autor); v_veredito text := v_av ->> 'veredito';
+begin
+  if v_veredito = 'publicar' and interno.aprovacao_manual() and not (interno.cuida() or coalesce(p_equipe, false)) then
+    return jsonb_build_object('veredito', 'revisar', 'motivo', 'modo_seguranca');
+  elsif v_veredito = 'publicar' and interno.avaliacao_externa() then
+    return jsonb_build_object('veredito', 'revisar', 'motivo', 'aguardando_avaliacao', 'externa', true);
+  end if;
+  return v_av;
+end $$;
+revoke all on function interno.moderar_texto(text, uuid, boolean) from public, anon, authenticated;
+
+create or replace function interno.comentario_json(c interno.comentarios) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('id', c.id, 'corpo', c.corpo, 'pai', c.pai, 'criado_em', c.criado_em, 'retido', c.retido, 'oculto', c.oculto,
+    'autor', coalesce((select nome from perfis where id = c.autor), ''), 'autor_selo', interno.selo(c.autor), 'meu', c.autor is not null and c.autor = auth.uid())
+$$;
+revoke all on function interno.comentario_json(interno.comentarios) from public, anon, authenticated;
+
+/** Os comentários de uma aula em vídeo (qualquer visitante lê). Com p_depois, só os que chegaram depois. */
+create or replace function public.comentarios_listar(p_videoaula uuid, p_depois timestamptz default null) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.aberta('videos');
+  return coalesce((select jsonb_agg(interno.comentario_json(c) order by c.criado_em) from (
+    select * from comentarios c where c.videoaula = p_videoaula
+      and (not c.oculto or (c.retido and c.autor = auth.uid()) or interno.cuida())
+      and (p_depois is null or c.criado_em > p_depois)
+    order by c.criado_em desc limit 300) c), '[]'::jsonb);
+end $$;
+
+/** Comentar uma aula em vídeo (precisa de conta), com resposta a outro comentário. A avaliação é a da Comunidade. */
+create or replace function public.comentario_enviar(p_videoaula uuid, p_corpo text, p_pai uuid default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_corpo text := interno.txt(p_corpo, 'corpo', 2, 1000); v_av jsonb; v_veredito text; c comentarios;
+begin
+  perform interno.aberta('videos');
+  perform interno.limite('comentario', 20, 10);
+  if not exists (select 1 from videoaulas where id = p_videoaula and status = 'aprovada') then perform interno.erro('nao_encontrado'); end if;
+  if p_pai is not null and not exists (select 1 from comentarios where id = p_pai and videoaula = p_videoaula and not oculto) then perform interno.erro('nao_encontrado'); end if;
+  v_av := interno.moderar_texto(v_corpo, v, false);
+  v_veredito := v_av ->> 'veredito';
+  insert into comentarios (videoaula, autor, corpo, pai, oculto, retido, avaliacao, motivo)
+  values (p_videoaula, v, v_corpo, p_pai, v_veredito <> 'publicar', v_veredito = 'revisar',
+          case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end, v_av ->> 'motivo')
+  returning * into c;
+  if v_veredito = 'bloquear' then perform interno.registrar('comunidade_bloqueada', c.id::text, jsonb_build_object('tipo', 'comentario', 'motivo', v_av ->> 'motivo')); end if;
+  return jsonb_build_object('id', c.id, 'retido', v_veredito = 'revisar', 'bloqueado', v_veredito = 'bloquear', 'avaliando', coalesce((v_av ->> 'externa')::boolean, false), 'comentario', interno.comentario_json(c));
+end $$;
+
+/** Quem escreveu tira o próprio comentário; quem cuida da comunidade também (e pode devolver). */
+create or replace function public.comentario_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  update comentarios set oculto = true, retido = false where id = p_id and (autor = v or interno.cuida());
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+do $$
+declare f text;
+begin
+  foreach f in array array['comentarios_listar(uuid, timestamptz)', 'comentario_enviar(uuid, text, uuid)', 'comentario_apagar(uuid)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
 end $$;
 
 -- ───────────────────────────── Estúdio de design ─────────────────────────────

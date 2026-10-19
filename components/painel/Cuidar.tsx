@@ -71,7 +71,7 @@ export function Comunidade({ me }: { me: Me }) {
 }
 
 interface Retido {
-  tipo: "topico" | "resposta";
+  tipo: "topico" | "resposta" | "comentario" | "aula_chat";
   id: string;
   titulo: string;
   corpo: string;
@@ -189,7 +189,7 @@ function Retidos({ media, aoBanir }: { media: boolean; aoBanir: () => void }) {
         {lista.dados.map((item) => (
           <li key={item.id} className="border border-rule bg-parchment-deep p-4">
             <p className={rotulo}>
-              {item.tipo === "topico" ? "Conversa nova" : "Resposta"} · {item.autor || "—"} · {data(item.criado_em)}
+              {({ topico: "Conversa nova", resposta: "Resposta", comentario: "Comentário em aula em vídeo", aula_chat: "Bate-papo de aula ao vivo" } as Record<string, string>)[item.tipo] ?? item.tipo} · {item.autor || "—"} · {data(item.criado_em)}
               {(item.motivo || item.filtro) && <span className="text-oxblood"> · {motivos[item.motivo ?? ""] ?? "tem palavra do filtro"}</span>}
             </p>
             {edicao?.id === item.id ? (

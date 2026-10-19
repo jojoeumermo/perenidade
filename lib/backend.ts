@@ -211,7 +211,7 @@ export function useMe(): MeState & { reload: () => void } {
  * Pede ao serviço a segunda avaliação de uma mensagem da Comunidade que ficou esperando por ela. Daqui só sai o pedido:
  * o texto é lido do banco e a decisão é tomada do lado de lá. Sem resposta, devolve "" e a mensagem segue na fila de revisão.
  */
-export async function evaluatePost(kind: "topico" | "resposta", id: string): Promise<string> {
+export async function evaluatePost(kind: "topico" | "resposta" | "comentario" | "aula_chat", id: string): Promise<string> {
   try {
     const supabase = await getClient();
     const { data } = await supabase.auth.getSession();
