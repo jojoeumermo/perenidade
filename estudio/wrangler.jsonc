@@ -1,0 +1,11 @@
+// estudio.institutolucia.org: Worker com arquivos estáticos (site/) e um bucket R2 para os arquivos acima de 25 MiB.
+// Publicar: node scripts/publicar-estudio.mjs (veja docs/ESTUDIO-EDITORES.md).
+{
+  "name": "estudio-lucia",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./site" },
+  "r2_buckets": [{ "binding": "GRANDES", "bucket_name": "estudio-lucia-grandes" }],
+  "routes": [{ "pattern": "estudio.institutolucia.org", "custom_domain": true }],
+  "workers_dev": false
+}
