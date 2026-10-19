@@ -3828,6 +3828,54 @@
     "nextTomorrow": "revient demain"
   },
   "practiceStudio": {
+    "inside": "Ouvrir ici",
+    "fullscreen": "Plein écran",
+    "back": "Revenir au studio",
+    "insideNote": "Le logiciel tourne ici, dans le site, dans un espace séparé : il ne peut voir ni votre compte ni vos données.",
+    "desktopOnly": "Logiciel de bureau : il ne tourne pas dans le navigateur.",
+    "downloadApp": "Télécharger (Windows, Mac ou Linux)",
+    "studios": {
+      "edicao-de-foto": {
+        "lead": "Des logiciels libres pour retoucher, recadrer et composer des images dans le navigateur, gratuitement et sans rien installer.",
+        "limits": [
+          "Ils n'ouvrent pas les fichiers .psd avec toutes les fonctions de Photoshop et n'acceptent pas de plugins.",
+          "PhotoCraft ouvre et enregistre en PSD, PNG, JPG et WebP.",
+          "LightCraft, pour développer les RAW et organiser les photos, est un logiciel de bureau : il faut le télécharger et l'installer."
+        ],
+        "credits": "PhotoCraft et LightCraft sont faits par l'équipe et la communauté ArtCraft, sous licence MIT ou Apache-2.0. Le nom ArtCraft est une marque de l'équipe ArtCraft. Aucun des deux n'est un produit d'Adobe ni n'est affilié à Adobe ; Photoshop et Lightroom sont des marques d'Adobe."
+      },
+      "modelagem-3d": {
+        "lead": "Des logiciels libres pour modéliser, sculpter et construire des scènes 3D dans le navigateur, gratuitement et sans rien installer.",
+        "limits": [
+          "Aucun n'est le Blender complet : pour aller loin, installez Blender (gratuit), qui est ce qu'enseignent les parcours.",
+          "Les trois ouvrent et enregistrent en OBJ et glTF : sculptez dans SculptGL, affinez et animez dans Blockbench, montez la scène dans three.js et emportez le tout dans Blender.",
+          "Blockbench est fait pour les modèles low-poly, comme ceux des jeux vidéo."
+        ],
+        "credits": "Blockbench est de Jannis Petersen et des contributeurs (GPL-3.0) ; SculptGL de Stéphane Ginier (MIT) ; l'éditeur three.js des auteurs de three.js (MIT). L'institut compile chacun à partir du code source officiel, sans modification."
+      }
+    },
+    "editors": {
+      "photocraft": {
+        "title": "Retoucher des images (style Photoshop) : PhotoCraft",
+        "text": "Calques, masques, sélection, réglages de couleur et texte, avec les raccourcis de Photoshop."
+      },
+      "lightcraft": {
+        "title": "Développer et organiser des photos (style Lightroom) : LightCraft",
+        "text": "Photothèque et développement RAW : lumière, couleur et recadrage sans abîmer l'original."
+      },
+      "blockbench": {
+        "title": "Modéliser et animer : Blockbench",
+        "text": "Modélisation par sommets et faces, dépliage UV, peinture de textures et animation par squelette."
+      },
+      "sculptgl": {
+        "title": "Sculpter : SculptGL",
+        "text": "Sculpture numérique, comme travailler l'argile : des pinceaux pour tirer, lisser et creuser la forme."
+      },
+      "threejs": {
+        "title": "Monter la scène : éditeur three.js",
+        "text": "Objets, matériaux, lumières et caméra dans une scène 3D, à exporter ou à emporter dans Blender."
+      }
+    },
     "eyebrow": "Montage vidéo",
     "title": "Studio de pratique",
     "lead": "Des logiciels libres pour s'entraîner au montage vidéo et à l'animation dans le navigateur, gratuitement et sans rien installer.",
