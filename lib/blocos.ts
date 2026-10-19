@@ -1,8 +1,9 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 // O editor por blocos lê e escreve o Markdown de sempre. Este arquivo é a parte pura (sem React), para o
 // roteiro de conferência (npm run testar:blocos) rodar direto no Node. Sem os atalhos "@/" de propósito.
+import { eInterativo } from "./interativos";
 
-export type Tipo = "paragrafo" | "titulo" | "subtitulo" | "lista" | "numerada" | "citacao" | "imagem" | "video" | "formula" | "conta" | "questao" | "codigo" | "anexo" | "tabela" | "bruto";
+export type Tipo = "paragrafo" | "titulo" | "subtitulo" | "lista" | "numerada" | "citacao" | "imagem" | "video" | "formula" | "conta" | "questao" | "codigo" | "anexo" | "tabela" | "interativo" | "bruto";
 /** Corta o Markdown em blocos: linhas em branco separam; cercas de código e fórmulas em bloco ficam inteiras; títulos são sempre um bloco só. */
 export function partir(md: string): string[] {
   const linhas = md.replace(/\r\n?/g, "\n").split("\n");
@@ -60,6 +61,7 @@ export function tipoDe(md: string): Tipo {
     if (lingua === "verificar") return "questao";
     if (lingua === "conta") return "conta";
     if (lingua === "pauta" || lingua === "teclado") return "bruto";
+    if (eInterativo(lingua)) return "interativo";
     return "codigo";
   }
   if (/^~~~/.test(md)) return "bruto";
