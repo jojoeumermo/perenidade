@@ -2,11 +2,11 @@
 "use client";
 
 import { useId, useState } from "react";
-import { fill } from "@/i18n/config";
+import { fill, htmlLang } from "@/i18n/config";
 import { certaDe, corrigirEscolha, corrigirNumero, type ExercicioNovo } from "@/lib/exercicios";
 import { responderExercicio } from "@/lib/meu-estudo";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
-import { L } from "../I18n";
+import { L, useI18n } from "../I18n";
 
 type S = TextosDoEstudo["exercicios"];
 type Fase = "respondendo" | "certo" | "errado" | "resolvido";
@@ -16,8 +16,9 @@ const claro = "cursor-pointer border-2 border-ink px-3 py-1.5 font-sans text-sm 
 
 /** A etiqueta de revisão de um exercício: "Em revisão" até uma pessoa conferir; depois, quem (a função) e quando. */
 export function EtiquetaDoExercicio({ ex, s }: { ex: ExercicioNovo; s: S }) {
+  const { lang } = useI18n();
   if (ex.revisao.status === "revisada") {
-    const data = new Date(`${ex.revisao.em}T12:00:00Z`).toLocaleDateString(undefined, { timeZone: "UTC" });
+    const data = new Date(`${ex.revisao.em}T12:00:00Z`).toLocaleDateString(htmlLang[lang], { timeZone: "UTC" });
     return <span className="border border-ok px-1.5 py-0.5 text-ok">{fill(s.revisado, { por: ex.revisao.por, data })}</span>;
   }
   return (

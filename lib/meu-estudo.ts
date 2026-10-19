@@ -219,14 +219,16 @@ export const gravarMetas = (m: Metas) => gravar(CHAVES.metas, m);
 export interface Nivelamento {
   /** trilha/aula sugerida para começar; null quando a pessoa foi bem em tudo o que o teste cobre. */
   sugestao: string | null;
+  /** O título da aula sugerida, para mostrar sem precisar da lista de aulas. */
+  titulo?: string;
   quando: number;
 }
 
 export const lerNivelamentos = () => lerObjeto<Nivelamento>(CHAVES.nivelamento);
 
-export function gravarNivelamento(trilha: string, n: Nivelamento) {
+export function gravarNivelamento(trilha: string, n: Omit<Nivelamento, "quando">, agora = Date.now()) {
   const todos = lerNivelamentos();
-  todos[trilha] = n;
+  todos[trilha] = { ...n, quando: agora };
   gravar(CHAVES.nivelamento, todos);
 }
 
