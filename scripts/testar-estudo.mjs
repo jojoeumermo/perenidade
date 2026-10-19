@@ -78,8 +78,8 @@ conferir("comum com enfeite não passa", !avaliarSenha("Senha123456!").aceita &&
 conferir("sequência não passa", !avaliarSenha("123456789012").aceita && !avaliarSenha("abcdefghijkl").aceita);
 conferir("repetição não passa", !avaliarSenha("aaaaaaaaaaaa").aceita && !avaliarSenha("121212121212").aceita && !avaliarSenha("abcabcabcabc").aceita);
 conferir("nome com número não passa", !avaliarSenha("paulo2024abc", ["Paulo Professor"]).aceita);
-conferir("frase longa com o nome passa", avaliarSenha("paulo e maria foram ao mercado", ["Paulo Professor"]).aceita);
-conferir("frase longa sem símbolo é forte", avaliarSenha("minha avó plantava feijão no quintal").forca === 3);
+conferir("frase longa com o nome passa", avaliarSenha("Paulo e Maria foram 2 vezes ao mercado", ["Paulo Professor"]).aceita);
+conferir("frase longa sem símbolo é forte", avaliarSenha("Minha avó plantava 3 pés de feijão no quintal").forca === 3);
 conferir("aceita senha de gerenciador", avaliarSenha("k8#Qz!pW2vR9mT").aceita);
 
 for (const f of falhas) console.log(`  ✗ ${f}`);

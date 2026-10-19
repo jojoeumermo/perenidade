@@ -3058,6 +3058,7 @@
     "rulesTitle": "Le mot de passe doit",
     "rules": {
       "length": "avoir au moins 12 caractères (une longue phrase marche très bien)",
+      "mix": "avoir une minuscule, une majuscule et un chiffre (ex. : Ma grand-mère plantait 3 pieds de haricots)",
       "common": "ne pas être un mot de passe courant ni votre nom suivi de chiffres",
       "variety": "ne pas être seulement une répétition (aaaa…, 1212…)"
     },

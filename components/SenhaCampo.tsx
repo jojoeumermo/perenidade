@@ -4,7 +4,7 @@
 import { useId, useState } from "react";
 import { avaliarSenha, MINIMO, REGRAS_DE_SENHA, type RegraDeSenha } from "@/lib/forca-senha";
 
-/** As regras de uma senha nova: 12 caracteres ou mais, não ser comum, não ser só repetição. Frase longa vale. */
+/** As regras de uma senha nova: 12 caracteres ou mais, minúscula, maiúscula e número, não ser comum, não ser só repetição. Frase longa vale. */
 export const REGRAS = REGRAS_DE_SENHA;
 export type Regra = RegraDeSenha;
 export { MINIMO };
@@ -26,6 +26,7 @@ export const senhaPt: SenhaLabels = {
   rulesTitle: "A senha precisa",
   rules: {
     length: "ter pelo menos 12 caracteres (uma frase longa funciona muito bem)",
+    mix: "ter letra minúscula, letra maiúscula e número (ex.: Minha avó plantava 3 pés de feijão)",
     common: "não ser uma senha comum nem o seu nome com números",
     variety: "não ser só repetição (aaaa…, 1212…)",
   },
