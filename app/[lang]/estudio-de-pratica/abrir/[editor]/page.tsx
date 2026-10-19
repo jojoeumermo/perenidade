@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { QuadroDoEditor } from "@/components/EstudioDePratica";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
-import { type AreaDoEstudio, EDITORES, editor, ESTUDIOS } from "@/lib/estudio";
+import { type AreaDoEstudio, EDITORES, editor, ESCRITORIO, ESTUDIOS } from "@/lib/estudio";
 import { paginaMeta } from "@/lib/seo";
 
 /** Só os que rodam no navegador têm página para abrir (o LightCraft é programa de computador). */
@@ -30,13 +30,20 @@ export default async function AbrirEditor({ params }: PageProps<"/[lang]/estudio
   const { editor: id } = await params;
   const ed = abriveis.find((e) => e.id === id);
   const area = areaDo(id);
-  if (!ed || !area) notFound();
+  const escritorio = (ESCRITORIO as readonly string[]).includes(id);
+  if (!ed || (!area && !escritorio)) notFound();
   const s = t.practiceStudio;
   return (
     <div className="mx-auto max-w-[96rem] px-3 py-4">
       <p className="flex flex-wrap items-baseline gap-x-4 gap-y-1 font-sans text-sm">
-        <Link href={localePath(lang, `/estantes/${area}`)} className="text-ink-soft hover:text-oxblood">← {t.areas[area][0]}</Link>
-        <Link href={localePath(lang, "/estudio-de-pratica")} className="text-ink-soft hover:text-oxblood">{s.back}</Link>
+        {area ? (
+          <>
+            <Link href={localePath(lang, `/estantes/${area}`)} className="text-ink-soft hover:text-oxblood">← {t.areas[area][0]}</Link>
+            <Link href={localePath(lang, "/estudio-de-pratica")} className="text-ink-soft hover:text-oxblood">{s.back}</Link>
+          </>
+        ) : (
+          <Link href={localePath(lang, "/laboratorios/escritorio")} className="text-ink-soft hover:text-oxblood">← {t.labs.escritorio}</Link>
+        )}
       </p>
       <h1 className="mt-2 font-serif text-3xl font-semibold">{ed.nome}</h1>
       <QuadroDoEditor s={s} id={ed.id} nome={ed.nome} />

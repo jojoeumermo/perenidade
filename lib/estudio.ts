@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
-// Os editores do Estúdio de prática (PhotoCraft, FilmCraft e EffectCraft, do projeto ArtCraft; Blockbench, SculptGL e o
+// Os editores do Estúdio de prática (PhotoCraft, FilmCraft, EffectCraft, WordCraft, GridCraft e DeckCraft, do projeto ArtCraft; Blockbench, SculptGL e o
 // editor do three.js para 3D): código aberto, hospedados SEM modificação num endereço separado (estudio.institutolucia.org),
 // para que o código deles não alcance os cookies, a sessão do painel nem as chaves do banco. O aluno não sai do site: as
 // páginas /estudio-de-pratica/abrir/<editor> mostram o programa dentro do institutolucia.org, num quadro de outra origem. A versão fica fixa aqui e em scripts/editores.mjs; trocar de
@@ -8,7 +8,7 @@
 // só o que funciona sem ele (baixar o PSD).
 
 export interface EditorAvancado {
-  id: "photocraft" | "filmcraft" | "effectcraft" | "lightcraft" | "blockbench" | "sculptgl" | "threejs";
+  id: "photocraft" | "filmcraft" | "effectcraft" | "lightcraft" | "wordcraft" | "gridcraft" | "deckcraft" | "blockbench" | "sculptgl" | "threejs";
   nome: string;
   repositorio: string;
   versao: string;
@@ -27,6 +27,10 @@ export const EDITORES: EditorAvancado[] = [
   { id: "filmcraft", nome: "FilmCraft", repositorio: "https://github.com/storytold/filmcraft", versao: "0.9.0", mb: 12, licenca: "Apache-2.0", estilo: "Premiere" },
   { id: "effectcraft", nome: "EffectCraft", repositorio: "https://github.com/storytold/effectcraft", versao: "0.11.1", mb: 18, licenca: "Apache-2.0", estilo: "After Effects" },
   { id: "lightcraft", nome: "LightCraft", repositorio: "https://github.com/storytold/lightcraft", versao: "0.9.1", mb: 105, licenca: "Apache-2.0", estilo: "Lightroom", baixar: "https://github.com/storytold/lightcraft/releases/tag/v0.9.1" },
+  // O DeckCraft fica na 0.7.0: o pacote web da 0.8.0 trava ao abrir ("no pids on this platform").
+  { id: "wordcraft", nome: "WordCraft", repositorio: "https://github.com/storytold/wordcraft", versao: "0.8.0", mb: 15, licenca: "Apache-2.0", estilo: "Word" },
+  { id: "gridcraft", nome: "GridCraft", repositorio: "https://github.com/storytold/gridcraft", versao: "0.8.0", mb: 7, licenca: "Apache-2.0", estilo: "Excel" },
+  { id: "deckcraft", nome: "DeckCraft", repositorio: "https://github.com/storytold/deckcraft", versao: "0.7.0", mb: 9, licenca: "Apache-2.0", estilo: "PowerPoint" },
   { id: "blockbench", nome: "Blockbench", repositorio: "https://github.com/JannisX11/blockbench", versao: "5.2.2", mb: 10, licenca: "GPL-3.0", estilo: "Blender (low-poly)" },
   { id: "sculptgl", nome: "SculptGL", repositorio: "https://github.com/stephomi/sculptgl", versao: "0.9.0", mb: 5, licenca: "MIT", estilo: "ZBrush" },
   { id: "threejs", nome: "Editor do three.js", repositorio: "https://github.com/mrdoob/three.js", versao: "r186", mb: 9, licenca: "MIT", estilo: "cena 3D", caminho: "threejs/editor/" },
@@ -38,6 +42,8 @@ export const ESTUDIOS = {
   "edicao-de-foto": ["photocraft", "lightcraft"],
   "modelagem-3d": ["blockbench", "sculptgl", "threejs"],
 } as const satisfies Record<string, readonly EditorAvancado["id"][]>;
+/** Não é disciplina: o laboratório de escritório (texto, planilha e apresentação), que também está no painel. */
+export const ESCRITORIO = ["wordcraft", "gridcraft", "deckcraft"] as const satisfies readonly EditorAvancado["id"][];
 export type AreaDoEstudio = keyof typeof ESTUDIOS;
 export const temEstudio = (area: string): area is AreaDoEstudio => area in ESTUDIOS;
 export const editor = (id: string) => EDITORES.find((e) => e.id === id);
