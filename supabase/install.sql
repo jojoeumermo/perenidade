@@ -673,6 +673,11 @@ alter table interno.conversas drop constraint if exists conversas_tipo_check;
 alter table interno.conversas add constraint conversas_tipo_check check (tipo in ('direta', 'grupo', 'departamento'));
 alter table interno.conversas add column if not exists departamento text;
 alter table interno.conversas drop constraint if exists conversas_departamento_check;
+-- Grupo de departamento que deixou de existir (de uma versão anterior) vira grupo comum: a conversa e as mensagens ficam,
+-- só sai do conjunto dos fixos. Assim a regra abaixo nunca para a instalação.
+update interno.conversas set tipo = 'grupo', departamento = null
+where departamento is not null and departamento not in
+  ('geral', 'coordenacao', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'marketing');
 alter table interno.conversas add constraint conversas_departamento_check check (departamento is null or departamento in
   ('geral', 'coordenacao', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'marketing'));
 create unique index if not exists conversas_departamento on interno.conversas (departamento);
