@@ -4,9 +4,10 @@ Tudo está no `master` e publicado pela Vercel. Cada lote passou por `lint`, `ty
 
 ## Preciso de você
 
-1. **Banco de produção: rodar o `supabase/install.sql` de novo.** Você já rodou uma vez nesta rodada, mas depois entraram: sugestões da revisão aceitas num clique, cadernos prontos, certificado de participação do aluno (e a conferência dele), resoluções das questões escritas pelos educadores e áudio (gravação de voz) no depósito de envios. Faça um backup (Database → Backups) e rode o arquivo inteiro no SQL Editor; ele é idempotente e só acrescenta.
+1. **Cloudflare: os buscadores estão barrados.** Em "Controle de rastreamento de IA → Segurança", o **Googlebot**, o **BingBot** e o **Applebot** estão com "Bloquear Crawler" ligado: o Google e o Bing não conseguem ler o site. Desligue esses três (os robôs de treino de IA continuam bloqueados). Em "Controle de rastreamento de IA → Sinais", desligue **"Enable Bot Preference Sync"**: é ele que põe na frente do robots.txt do site um bloco que manda o **Baiduspider** (busca chinesa, da versão /zh) embora. O robots.txt do próprio site já barra os robôs de treino. (A trava de segurança não me deixa mexer em configuração de conta.)
 2. **Assistente de reforço:** continua **desligado**, como você pediu. Para ligar um dia, os provedores gratuitos entram como segredos das funções (`GROQ_API_KEY`, `CEREBRAS_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY`).
-3. **Cloudflare (se ainda aparecer):** se o painel da Cloudflare injetar o "Managed robots.txt", desligue em Security → Bots → "Manage your robots.txt".
+
+O `install.sql` foi rodado de novo (19/10/2026) e conferido em produção: os cadernos prontos e as resoluções das questões respondem.
 
 Já resolvido nesta rodada, sem nada a fazer: funções do Supabase publicadas sozinhas pelo GitHub (segredo `SUPABASE_ACCESS_TOKEN` e variável `FUNCOES=sim`), Estúdio no ar em estudio.institutolucia.org, SPF/DKIM/DMARC do e-mail, PRs do Dependabot, senha com minúscula, maiúscula e número nos dois lados. A variável `VERCEL_DEEP_CLONE` foi retirada: a linha do tempo do acervo agora vem de `historico/acervo.json`.
 
@@ -35,6 +36,8 @@ Já resolvido nesta rodada, sem nada a fazer: funções do Supabase publicadas s
 | **Editor de aulas:** folha com etapas, faixa de detalhes, versões, prévia ao lado, modo foco, barra de ação, menu "/" e **blocos interativos** (gráfico com controles, calculadora, gráficos de dados, testes de cinco tipos, cartões, memória, forca, caça-palavras, pronúncia com gravação, diagramas, linha do tempo, desenho, atalho para ferramentas); sugestões da revisão aceitas num clique | `ba159f0` |
 | **Caderno:** cadernos prontos montados no painel, caderno da aula e da trilha, selo de trilha com certificado de participação conferível, sala de estudo em grupo com cronômetro, redação enviada para correção por voluntário | `07d26f0` |
 | **Banco de questões:** ENEM de 2009 em diante (enem.dev), Unicamp e Fuvest (BLUEX, 2018–2024) e 1.ª fase da OAB (2010–2018), com correção na hora, caderno de erros e resoluções dos educadores, atualizado sozinho toda semana | `551aaaf`, `5598818` |
+| **Banco de questões, saúde:** Revalida (Inep) por ano e as residências do Enare, médica e multiprofissional, por especialidade (HealthQA-BR, CC BY 4.0). Total: **14.696 questões** | `f23f3bb` |
+| **Caderno de estudos com a identidade do instituto:** capa na faixa preta com a cunha e a estrela, cadernos como lombadas, fontes como recortes, ferramentas em três gavetas (Entender, Treinar, Organizar) com ícones, cada ferramenta com a sua faixa, resumo numerado, carimbos, fichas, questionário com letras, folha pautada, relógio de foco e um começo guiado; claro, escuro e celular | `678700e` |
 | **Banco de questões, segunda leva:** ITA (2008–2024), IME (2017–2023), Fuvest desde 1981 e mais anos da Unicamp (Alvorada-Bench, licença MIT) e olimpíadas de matemática por nível, com a OBMEP (MATH-PT, licença MIT). Total: **9.064 questões** | `38184fe` |
 | **Editor de aulas, os blocos que faltavam:** simulação física (Matter.js, em metros, com altura e velocidade ao vivo), molécula em 3D (nome, fórmula SMILES do PubChem ou coordenadas XYZ; forma pela teoria VSEPR, girar com o dedo), geometria com pontos que se arrastam (medidas, ângulos e áreas ao vivo), mapa (Natural Earth, sem servidor de fora; pontos, rotas e países em destaque), programação por blocos (Blockly, com saída esperada e o programa em Python e JavaScript), código para rodar (Python e JavaScript no navegador, laço sem fim interrompido), cena clicável (explorar ou encontrar), arrastar para o grupo, montar a frase, música com letra que acompanha, figuras nos testes e quadro de desenho no estilo do Excalidraw | `c67adba`, `e1a21b4` |
 | **Linha do tempo do acervo completa:** o histórico inteiro, resumido em `historico/acervo.json` pela rotina de publicação | `ad18f74` |
@@ -48,12 +51,12 @@ Legenda: ✅ feito · ◐ feito em parte · ✗ não feito.
 
 - ✅ **Escrever:** layout novo e todos os blocos interativos do pedido, inclusive Blockly, moléculas 3D, Matter.js, quadro no estilo do Excalidraw e mapa. O mapa não usa o Leaflet: ele precisaria de um servidor de mapas de fora, que veria quem estuda; os contornos vêm do Natural Earth e são desenhados aqui.
 - ✅ **Caderno:** tudo do pedido. A conta para sincronizar continua opcional: o caderno funciona sem conta e tem cópia de segurança em arquivo.
-- ✅ **Banco de questões:** ENEM, Unicamp, Fuvest, ITA, IME, OAB e olimpíadas de matemática. ◐ Concursos públicos (bancas como Cespe, FCC, FGV) e os outros vestibulares não têm hoje nenhuma fonte aberta organizada, com gabarito e enunciado em texto; os sites que reúnem essas provas não liberam os dados. Quando aparecer uma fonte assim, ela entra no importador como as outras; até lá, entram pelo "Enviar questão" dos educadores.
+- ✅ **Banco de questões:** ENEM, Unicamp, Fuvest, ITA, IME, OAB, olimpíadas de matemática, Revalida e Enare (14.696 questões). ◐ Concursos públicos (bancas como Cespe, FCC, FGV) e os outros vestibulares não têm hoje nenhuma fonte aberta organizada, com gabarito e enunciado em texto; os sites que reúnem essas provas não liberam os dados. Quando aparecer uma fonte assim, ela entra no importador como as outras; até lá, entram pelo "Enviar questão" dos educadores.
 - ✅ **Linha do tempo do acervo** completa.
 - ✅ **Painel** completo nos cinco idiomas (francês, inglês, espanhol, russo e chinês).
 - ✅ O restante da rodada 2 e da rodada 3 (Sala Lúcia, Reuniões, Psicologia, Engenharia de Sistemas, Estúdio de design, telas do painel, tarefas, comunidade, Apoie, rádio, SEO, acessibilidade, auditoria, laboratórios), conforme os commits acima.
 
 ## O que ainda falta
 
-1. **Rodar o `install.sql` de novo** (item 1 acima). É a única coisa que depende de você. Até lá, cadernos prontos, certificado do aluno, sugestões da revisão e resoluções das questões dão erro em produção.
-2. **Concursos públicos no banco de questões:** só quando existir uma fonte aberta (ver acima).
+1. **Cloudflare** (item 1 acima): quatro interruptores, só você pode mexer.
+2. **Concursos públicos de outras bancas no banco de questões:** só quando existir uma fonte aberta (ver acima).

@@ -8,10 +8,10 @@ import { agendar, apagarCartao, apagarErro, type CartaoDeRevisao, type Erro, gua
 import { L } from "../I18n";
 import type { NotebookStrings } from "./Caderno";
 
-const botao = "cursor-pointer bg-ink px-4 py-2 font-sans text-sm font-semibold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
-const claro = "cursor-pointer border-2 border-ink px-3 py-1.5 font-sans text-sm font-semibold hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50";
+const botao = "cursor-pointer border-2 border-ink bg-ink px-4 py-2 font-sans text-sm font-bold uppercase tracking-wide text-parchment hover:border-oxblood hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
+const claro = "cursor-pointer border-2 border-ink bg-parchment px-3 py-1.5 font-sans text-sm font-bold uppercase tracking-wide hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50";
 const elo = "cursor-pointer underline hover:text-oxblood";
-const campo = "w-full border-2 border-ink bg-parchment-deep px-3 py-2 font-sans text-sm";
+const campo = "w-full border-2 border-ink bg-parchment px-3 py-2 font-sans text-sm";
 
 /** Cores do marca-texto: o texto marcado fica sempre escuro, para ler bem no tema claro e no escuro. */
 const CORES: Record<Marca["cor"], string> = { amarelo: "#f3dc6b", verde: "#9fd8a8", rosa: "#f2a7c3" };
@@ -83,7 +83,7 @@ export function Ler({ s, fontes, mudarFonte, paraNotas }: { s: NotebookStrings; 
 
   return (
     <div>
-      <p className="text-ink-soft">{s.readLead}</p>
+      <p className="font-serif text-lg italic leading-snug text-ink-soft">{s.readLead}</p>
       {fontes.length > 1 && (
         <label className="mt-3 block max-w-md">
           <span className="text-xs text-ink-soft">{s.readSource}</span>
@@ -100,20 +100,20 @@ export function Ler({ s, fontes, mudarFonte, paraNotas }: { s: NotebookStrings; 
         ))}
         <span className="text-xs text-ink-soft">{selecao ? `“${selecao.slice(0, 80)}${selecao.length > 80 ? "…" : ""}”` : s.selectHint}</span>
       </div>
-      <div ref={area} onMouseUp={lerSelecao} onKeyUp={lerSelecao} onTouchEnd={() => window.setTimeout(lerSelecao, 50)} className="mt-3 max-h-[70vh] overflow-y-auto border border-rule bg-parchment-deep p-5 font-serif text-lg leading-relaxed">
+      <div ref={area} onMouseUp={lerSelecao} onKeyUp={lerSelecao} onTouchEnd={() => window.setTimeout(lerSelecao, 50)} className="caderno-folha mt-3 max-h-[70vh] overflow-y-auto px-6 py-6 font-serif text-lg leading-relaxed sm:px-10">
         {blocos.map((b, i) => {
           const titulo = /^(#{1,6})\s+(.*)$/.exec(b);
           const texto = limpar(titulo ? titulo[2] : b);
           return titulo ? <h3 key={i} className="mt-5 text-xl font-semibold first:mt-0">{pintar(texto, marcas)}</h3> : <p key={i} className="mt-3 first:mt-0">{pintar(texto, marcas)}</p>;
         })}
       </div>
-      <h3 className="mt-6 font-serif text-xl font-semibold">{fill(s.marks, { n: marcas.length })}</h3>
+      <h3 className="jornal-secao mt-8 font-sans text-xs font-black uppercase tracking-[0.18em]"><span className="jornal-editoria">{fill(s.marks, { n: marcas.length })}</span></h3>
       {marcas.length === 0 ? (
         <p className="mt-2 text-ink-soft">{s.marksEmpty}</p>
       ) : (
         <ul className="mt-3 space-y-3">
           {marcas.map((m) => (
-            <li key={m.id} className="border-l-8 bg-parchment-deep p-3" style={{ borderColor: CORES[m.cor] }}>
+            <li key={m.id} className="caderno-recorte border-l-[10px] p-3" style={{ borderLeftColor: CORES[m.cor] }}>
               <p className="font-serif">“{m.trecho}”</p>
               <input value={m.nota} onChange={(e) => mudarMarca(m.id, { nota: e.target.value.slice(0, 600) })} placeholder={s.markNote} aria-label={s.markNote} className={`${campo} mt-2`} />
               <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs">
@@ -146,12 +146,12 @@ export function Revisao({ s }: { s: NotebookStrings }) {
 
   return (
     <div>
-      <p className="text-ink-soft">{s.reviewLead}</p>
+      <p className="font-serif text-lg italic leading-snug text-ink-soft">{s.reviewLead}</p>
       <p className="mt-3 font-mono text-xs text-ink-soft">{fill(s.reviewToday, { n: fila.length })} · {fill(s.reviewTotal, { n: cartoes.length })}</p>
       {c ? (
         <>
-          <button type="button" onClick={() => setVirado((v) => !v)} className="mt-2 flex min-h-48 w-full cursor-pointer flex-col items-center justify-center border-2 border-ink bg-parchment-deep p-6 text-center hover:border-gold">
-            <span className="font-serif text-2xl leading-snug">{virado ? c.verso : c.frente}</span>
+          <button type="button" key={`${c.id}-${virado}`} onClick={() => setVirado((v) => !v)} className="caderno-ficha caderno-ficha-virar mt-2 flex min-h-64 w-full cursor-pointer flex-col items-center justify-center px-8 py-10 text-center">
+            <span className="font-serif text-2xl leading-snug sm:text-3xl">{virado ? c.verso : c.frente}</span>
             <span className="mt-3 font-mono text-xs uppercase tracking-widest text-ink-soft">{virado ? s.front : s.flip}</span>
           </button>
           <p className="mt-1 font-mono text-[0.65rem] text-ink-soft">{c.origem} · {fill(s.box, { n: c.caixa })}</p>
@@ -167,7 +167,7 @@ export function Revisao({ s }: { s: NotebookStrings }) {
           )}
         </>
       ) : (
-        <p className="mt-3 border border-rule bg-parchment-deep px-4 py-8 text-center text-ink-soft">{s.reviewNone}</p>
+        <p className="caderno-folha mt-3 px-5 py-10 text-center font-serif text-lg italic">{s.reviewNone}</p>
       )}
 
       <details className="mt-8 border-t border-rule pt-4">
@@ -210,7 +210,7 @@ export function Erros({ s }: { s: NotebookStrings }) {
     if (!e) {
       return (
         <div>
-          <p className="font-serif text-2xl font-semibold">{fill(s.mistakesCount, { n: erros.length })}</p>
+          <p className="font-sans text-3xl font-black uppercase italic">{fill(s.mistakesCount, { n: erros.length })}</p>
           <button type="button" className={`${botao} mt-3`} onClick={() => setRefazendo(null)}>{s.next}</button>
         </div>
       );
@@ -239,14 +239,14 @@ export function Erros({ s }: { s: NotebookStrings }) {
 
   return (
     <div>
-      <p className="text-ink-soft">{s.mistakesLead}</p>
+      <p className="font-serif text-lg italic leading-snug text-ink-soft">{s.mistakesLead}</p>
       <p className="mt-3 flex flex-wrap items-center gap-3">
         <button type="button" className={botao} disabled={erros.length === 0} onClick={() => setRefazendo([...erros].sort(() => Math.random() - 0.5).map((e) => e.id))}>{s.mistakesRedo}</button>
         <L href="/questoes#simulado" className={claro}>{s.mockExam}</L>
         <span className="font-mono text-xs text-ink-soft">{fill(s.mistakesCount, { n: erros.length })}</span>
       </p>
       {erros.length === 0 ? (
-        <p className="mt-4 border border-rule bg-parchment-deep px-4 py-8 text-center text-ink-soft">{s.mistakesEmpty}</p>
+        <p className="caderno-folha mt-4 px-5 py-10 text-center font-serif text-lg italic">{s.mistakesEmpty}</p>
       ) : (
         <ul className="mt-4 space-y-3">
           {erros.map((e) => (
@@ -276,9 +276,9 @@ export function CopiaDeSeguranca({ s }: { s: NotebookStrings }) {
   const [aviso, setAviso] = useState("");
   const arquivo = useRef<HTMLInputElement>(null);
   return (
-    <section className="border-2 border-ink bg-parchment-deep p-3">
-      <p className="font-mono text-xs uppercase tracking-widest text-gold">{s.backup}</p>
-      <p className="mt-1 text-xs text-ink-soft">{s.backupLead}</p>
+    <section className="caderno-bloco p-4">
+      <h2 className="jornal-secao font-sans text-xs font-black uppercase tracking-[0.18em]"><span className="jornal-editoria">{s.backup}</span></h2>
+      <p className="mt-3 text-sm text-ink-soft">{s.backupLead}</p>
       <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs">
         <button
           type="button"
