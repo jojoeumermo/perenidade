@@ -880,7 +880,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
           )}
           {selecionadas && (
             <div className="flex flex-wrap items-center gap-3 border-b border-rule bg-ink px-3 py-1.5 text-xs text-parchment">
-              <span>{selecionadas.size} selecionada{selecionadas.size === 1 ? "" : "s"}</span>
+              <span>{selecionadas.size} {selecionadas.size === 1 ? "selecionada" : "selecionadas"}</span>
               <button type="button" className="cursor-pointer underline disabled:opacity-50" disabled={selecionadas.size === 0} onClick={() => setEncaminhando([...selecionadas])}>Encaminhar</button>
               <button type="button" className="cursor-pointer underline disabled:opacity-50" disabled={![...selecionadas].some((alvo) => vistas.find((vista) => vista.mensagem.id === alvo)?.mensagem.minha)} onClick={() => void apagarSelecionadas()}>Apagar as minhas</button>
               <button type="button" className="cursor-pointer underline disabled:opacity-50" disabled={selecionadas.size === 0} onClick={() => setCompondo("relato")}>Relatar à coordenação</button>
