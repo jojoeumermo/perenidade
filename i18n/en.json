@@ -35,7 +35,9 @@
     "copied": "Copied",
     "loading": "Loading…",
     "askCommunity": "Ask the community",
-    "practiceStudio": "Practice studio"
+    "practiceStudio": "Practice studio",
+    "videoRoomFailed": "The video room didn't load (the server {dominio} didn't respond or is blocked on this network).",
+    "openInNewTab": "Open in another tab ↗"
   },
   "nav": {
     "main": "Main",
