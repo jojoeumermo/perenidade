@@ -4001,7 +4001,8 @@
     "backupDone": "Backup restored ({n} items). Reload the page to see everything.",
     "backupInvalid": "This file is not a notebook backup.",
     "backupConfirm": "Restore the backup? Notebooks, cards and mistakes are merged with the ones already here; everything else is replaced by the backup.",
-    "nextTomorrow": "back tomorrow"
+    "nextTomorrow": "back tomorrow",
+    "exportAnki": "Download for Anki (.csv)"
   },
   "practiceStudio": {
     "inside": "Open here",

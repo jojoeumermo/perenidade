@@ -4001,7 +4001,8 @@
     "backupDone": "Cópia restaurada ({n} itens). Recarregue a página para ver tudo.",
     "backupInvalid": "Este arquivo não é uma cópia do caderno.",
     "backupConfirm": "Restaurar a cópia? Cadernos, cartões e erros se juntam aos que já estão aqui; o resto é trocado pelo da cópia.",
-    "nextTomorrow": "volta amanhã"
+    "nextTomorrow": "volta amanhã",
+    "exportAnki": "Baixar para o Anki (.csv)"
   },
   "practiceStudio": {
     "inside": "Abrir aqui",
