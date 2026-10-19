@@ -90,7 +90,7 @@
     "title": "实验室",
     "lead": "编程、搭建网络、使用终端、训练安全、模拟科学，全部在浏览器中完成，不向任何服务器发送数据。",
     "ide": "IDE",
-    "ideLead": "Python, PHP, Web, JavaScript and SQL, with files, exercises and project download.",
+    "ideLead": "Python、JavaScript、TypeScript、C 和 C++、PHP、Ruby、Lua、Web 和 SQL：文件、模板、练习、侧边控制台、分享链接和项目下载。",
     "redes": "网络实验室",
     "redesLead": "Build the network, set IPs, VLANs and routes and watch the packet travel.",
     "linux": "Linux 终端",

@@ -42,6 +42,10 @@ next-env.d.ts
 # gerados na instalacao
 /public/pyodide/
 /public/php/
+/public/typescript/
+/public/lua/
+/public/ruby/
+/public/jscpp/
 
 # anotacao temporaria da publicacao automatica
 .publicados.json
