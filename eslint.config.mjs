@@ -16,12 +16,17 @@ const eslintConfig = defineConfig([
     // Interpretadores copiados das dependências (scripts/preparar.mjs).
     "public/pyodide/**",
     "public/php/**",
+    "public/typescript/**",
+    "public/lua/**",
+    "public/ruby/**",
+    "public/jscpp/**",
+    // Livros digitais gerados a cada montagem (npm run epub).
+    "public/epub/**",
     // Função que roda no serviço de contas (Deno), fora do site.
     "supabase/functions/**",
-    // Pacotes oficiais dos editores avançados, baixados por scripts/editores.mjs e publicados sem modificação.
-    "estudio/site/photocraft/**",
-    "estudio/site/filmcraft/**",
-    "estudio/site/effectcraft/**",
+    // Pacotes oficiais dos editores avançados (PhotoCraft, FilmCraft, Blockbench, three.js…), baixados por
+    // scripts/editores.mjs e publicados sem modificação. Nada ali é código nosso.
+    "estudio/site/**",
   ]),
 ]);
 
