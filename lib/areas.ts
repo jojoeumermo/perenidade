@@ -116,8 +116,8 @@ export const areaTools: Partial<Record<AreaSlug, string[]>> = {
   danca: ["metronomo"],
   "educacao-fisica": ["frequencia-cardiaca"],
   matematica: ["resolvedor", "graficos", "simulacoes", "estatistica", "tabela-verdade", "conversor-de-unidades"],
-  fisica: ["simulacoes", "graficos", "conversor-de-unidades", "resolvedor", "sistema-solar"],
-  quimica: ["simulacoes", "tabela-periodica", "massa-molar", "balanceamento", "conversor-de-unidades"],
+  fisica: ["simulacoes", "fisica-simulada", "graficos", "conversor-de-unidades", "resolvedor", "sistema-solar"],
+  quimica: ["simulacoes", "reacoes", "tabela-periodica", "massa-molar", "balanceamento", "conversor-de-unidades"],
   biologia: ["simulacoes", "punnett", "estatistica", "conversor-de-unidades"],
   astronomia: ["simulacoes", "sistema-solar", "conversor-de-unidades"],
   informatica: ["ide", "bases-numericas", "html", "tabela-verdade"],
@@ -191,5 +191,7 @@ export const tools = [
   "frequencia-cardiaca",
   "ide",
   "simulacoes",
+  "fisica-simulada",
+  "reacoes",
 ] as const;
 export type ToolId = (typeof tools)[number];

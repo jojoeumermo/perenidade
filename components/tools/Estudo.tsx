@@ -6,7 +6,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import type { Dict } from "@/i18n/types";
 import { localePath } from "@/i18n/config";
 import { contarTexto } from "@/lib/ferramentas/diversas";
-import { getItem, KEYS, setItem } from "@/lib/storage";
+import { getItem, KEYS, parse, setItem, useStored } from "@/lib/storage";
 
 type T = Dict["tools"];
 
@@ -247,7 +247,60 @@ export function Redacao({ s, lang }: { s: T["essay"]; lang: string }) {
           <Link href={localePath(lang, "/trilhas/enem-redacao")} className="mt-3 inline-block underline hover:text-oxblood">{s.lessons}</Link>
         </section>
       </aside>
+      <RevisaoGuiada s={s} texto={texto} paragrafos={c.paragrafos} />
     </div>
+  );
+}
+
+// Palavras que ligam as ideias (competência 4). A contagem só orienta: a banca lê o uso, não o número.
+const CONECTIVOS = ["além disso", "ademais", "portanto", "logo", "assim", "dessa forma", "desse modo", "nesse sentido", "por conseguinte", "entretanto", "contudo", "todavia", "no entanto", "porém", "embora", "apesar de", "visto que", "uma vez que", "já que", "pois", "porque", "consequentemente", "em suma", "por fim", "primeiramente", "em primeiro lugar", "em segundo lugar", "outrossim", "sobretudo", "ou seja", "isto é", "por exemplo", "diante disso", "nesse contexto"];
+const contarConectivos = (texto: string) => {
+  const baixo = ` ${texto.toLowerCase().replace(/[^\p{L}\s]/gu, " ").replace(/\s+/g, " ")} `;
+  return CONECTIVOS.reduce((total, conectivo) => total + (baixo.split(` ${conectivo} `).length - 1), 0);
+};
+
+/** Revisão guiada pelas cinco competências: a pessoa marca o que já está certo. Nada sai do aparelho. */
+function RevisaoGuiada({ s, texto, paragrafos }: { s: T["essay"]; texto: string; paragrafos: number }) {
+  const guardado = useStored(KEYS.essayCheck);
+  const grupos = s.checks as string[][];
+  const validos = new Set(grupos.flatMap((g, i) => g.map((_, j) => `${i}-${j}`)));
+  const marcados = new Set(parse<string[]>(guardado, []).filter((id) => validos.has(id)));
+  const alternar = (id: string) => {
+    const novo = new Set(marcados);
+    if (novo.has(id)) novo.delete(id);
+    else novo.add(id);
+    setItem(KEYS.essayCheck, novo.size ? JSON.stringify([...novo]) : null);
+  };
+  const conectivos = contarConectivos(texto);
+  return (
+    <section className="border-t border-rule pt-6 lg:col-span-2 @max-3xl:lg:col-span-1">
+      <h3 className="font-serif text-xl">{s.checkTitle}</h3>
+      <p className="mt-1 text-ink-soft">{s.checkLead}</p>
+      <p className="mt-2 font-mono text-xs">{s.checkDone.replace("{a}", String(marcados.size)).replace("{b}", String(validos.size))}</p>
+      <div className="mt-4 grid gap-5 md:grid-cols-2">
+        {grupos.map((itens, i) => (
+          <fieldset key={i} className="border border-rule p-4">
+            <legend className={`px-1 ${rotulo}`}>{s.competencyN.replace("{n}", String(i + 1))}</legend>
+            <ul className="space-y-2">
+              {itens.map((item, j) => {
+                const id = `${i}-${j}`;
+                return (
+                  <li key={id}>
+                    <label className="flex cursor-pointer gap-2">
+                      <input type="checkbox" checked={marcados.has(id)} onChange={() => alternar(id)} className="mt-1 accent-[var(--oxblood)]" />
+                      <span>{item}</span>
+                    </label>
+                  </li>
+                );
+              })}
+            </ul>
+            {i === 1 && texto.trim() !== "" && <p className="mt-3 text-xs text-ink-soft">{s.paragraphHint.replace("{n}", String(paragrafos))}</p>}
+            {i === 3 && texto.trim() !== "" && <p className="mt-3 text-xs text-ink-soft">{s.connectors.replace("{n}", String(conectivos))}</p>}
+          </fieldset>
+        ))}
+      </div>
+      <button type="button" className={`mt-4 ${claro}`} onClick={() => setItem(KEYS.essayCheck, null)}>{s.checkReset}</button>
+    </section>
   );
 }
 

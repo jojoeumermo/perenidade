@@ -15,6 +15,7 @@ import { Balanceador, Conversor, MassaMolarTool, Punnett, SistemaSolar } from "@
 import { Estatistica, TabelaVerdade } from "@/components/tools/Dados";
 import { Cronometro, Redacao, Silabario } from "@/components/tools/Estudo";
 import { Resolvedor } from "@/components/tools/Resolvedor";
+import { FisicaSimulada, Reacoes } from "@/components/tools/Simulacoes";
 import { Cores, Escala, FrequenciaCardiaca, Fusos, MaisValia, Rcp } from "@/components/tools/Varias";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
@@ -70,6 +71,8 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
     balanceamento: <Balanceador s={s.balance} />,
     punnett: <Punnett s={s.punnett} />,
     "sistema-solar": <SistemaSolar s={s.solar} lang={lang} />,
+    "fisica-simulada": <FisicaSimulada s={s.physics} lang={lang} />,
+    reacoes: <Reacoes s={s.reaction} />,
     html: <Suspense><IDEPagina perfilInicial="web" /></Suspense>,
     cronometro: <Cronometro s={s.timer} />,
     redacao: <Redacao s={s.essay} lang={lang} />,
