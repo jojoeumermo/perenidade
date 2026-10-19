@@ -35,7 +35,9 @@
     "copied": "Copied",
     "loading": "Loading…",
     "askCommunity": "Ask the community",
-    "practiceStudio": "Practice studio"
+    "practiceStudio": "Practice studio",
+    "videoRoomFailed": "The video room didn't load (the server {dominio} didn't respond or is blocked on this network).",
+    "openInNewTab": "Open in another tab ↗"
   },
   "nav": {
     "main": "Main",
@@ -213,7 +215,8 @@
       "humanas": "Human sciences",
       "natureza": "Natural sciences",
       "matematica": "Mathematics",
-      "direito": "Law"
+      "direito": "Law",
+      "saude": "Health"
     },
     "publicLanguage": "Foreign language",
     "publicEnglish": "English",
@@ -4065,7 +4068,28 @@
     "readyLead": "Put together by volunteers, by track or topic. Using one makes your own copy on this device.",
     "readyUse": "Use this notebook",
     "readySources": "{n} source(s)",
-    "building": "Building the notebook with the lessons…"
+    "building": "Building the notebook with the lessons…",
+    "shelf": "Your notebooks",
+    "sourcesCount": "{n} sources",
+    "notebookNo": "Notebook {n} of {total}",
+    "sourcesInUse": "{a} of {b} sources in use",
+    "updatedOn": "updated on {d}",
+    "typeLesson": "Lesson",
+    "typeSite": "Site",
+    "typeFile": "File",
+    "typeText": "Text",
+    "openSource": "open",
+    "addSource": "Add a source",
+    "toolsLabel": "Notebook tools",
+    "groupUnderstand": "Understand",
+    "groupPractice": "Practise",
+    "groupOrganize": "Organise",
+    "startHere": "Start here",
+    "step1": "Gather what you will study: a lesson from the site, a text of yours or a file.",
+    "step2": "Pick a tool: summary, map, cards, quiz…",
+    "step3": "Take notes, practise and come back tomorrow: review brings each card back on the right day.",
+    "back": "Answer",
+    "question": "Question"
   },
   "practiceStudio": {
     "inside": "Open here",

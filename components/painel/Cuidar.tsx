@@ -221,7 +221,7 @@ function Retidos({ media, aoBanir }: { media: boolean; aoBanir: () => void }) {
             ) : (
               <>
                 <p className="mt-1 font-semibold">{item.tipo === "resposta" ? `Em: ${item.titulo}` : item.titulo}</p>
-                <p className="mt-1 whitespace-pre-line font-serif text-lg">{item.corpo}</p>
+                <p className="mt-1 whitespace-pre-line font-serif text-lg" data-original>{item.corpo}</p>
                 <div className="mt-3 flex flex-wrap items-center gap-3">
                   <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("comunidade_cuidar", { p_tipo: item.tipo, p_alvo: item.id, p_acao: "mostrar" }, "Mensagem aprovada: já aparece na Comunidade.")}>Aprovar</button>
                   <button type="button" className={botaoClaro} disabled={acao.ocupado} onClick={() => setEdicao({ id: item.id, titulo: item.titulo, corpo: item.corpo })}>Editar</button>
@@ -628,7 +628,7 @@ export function MuralFila({ me }: { me: Me }) {
               <>
                 <p className="mt-2 font-serif text-2xl font-semibold">{item.titulo}</p>
                 {item.oficio && <p className="text-ink-soft">{item.oficio}</p>}
-                <p className="mt-2 whitespace-pre-line font-serif text-lg">{item.descricao}</p>
+                <p className="mt-2 whitespace-pre-line font-serif text-lg" data-original>{item.descricao}</p>
                 <p className="mt-2">Contato: {item.contato}</p>
                 {item.link && <p className="break-all">Link: {item.link}</p>}
                 {ver === "pendente" && (

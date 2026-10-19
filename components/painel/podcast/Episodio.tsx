@@ -743,7 +743,7 @@ function AbaRevisao({ e, tempoAtual, irPara, recarregar }: { e: EpisodioCompleto
               <strong className="text-ink">{c.autor}</strong> · {dataHora(c.criado_em)}
               {c.tempo !== null && <button type="button" onClick={() => irPara(c.tempo ?? 0)} className="ml-2 cursor-pointer font-mono text-oxblood underline">{relogio(c.tempo)}</button>}
             </p>
-            <p className={`whitespace-pre-line ${c.resolvido ? "line-through" : ""}`}>{c.texto}</p>
+            <p className={`whitespace-pre-line ${c.resolvido ? "line-through" : ""}`} data-original>{c.texto}</p>
             <button type="button" className={`${elo} text-xs`} onClick={() => rpc("podcast_comentario_resolver", { p_id: c.id, p_resolvido: !c.resolvido }).then(recarregar).catch(() => {})}>
               {c.resolvido ? "reabrir" : "marcar como resolvido"}
             </button>

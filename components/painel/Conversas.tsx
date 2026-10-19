@@ -404,7 +404,7 @@ export function Conversas({ me }: { me: Me }) {
                 {achadas.map((item) => (
                   <li key={item.id}>
                     <button type="button" className="block w-full cursor-pointer border-b border-rule px-3 py-2 text-left hover:bg-parchment" onClick={() => { const conversa = lista.dados?.find((c) => c.id === item.conversa); if (conversa) void abrirConversa(conversa).then(() => window.setTimeout(() => document.getElementById(`m-${item.id}`)?.scrollIntoView({ block: "center" }), 600)); }}>
-                      <span className="block truncate text-xs text-ink-soft">{item.conversa_nome} · {item.autor} · {new Date(item.criado_em).toLocaleDateString("pt-BR")}</span>
+                      <span className="block truncate text-xs text-ink-soft">{item.conversa_nome} · {item.autor} · {new Date(item.criado_em).toLocaleDateString(localDoPainel())}</span>
                       <span className="block truncate">{item.texto}</span>
                     </button>
                   </li>
@@ -773,7 +773,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
           await enviarCifrado(chaveiro, destino, empacotar(conteudo), contextoDaConversa(destino, me.id), (corpo) => rpc("chat_enviar", { p_id: destino, p_corpo: corpo, p_anexos: conteudo.anexos?.map((anexo) => anexo.id) ?? null }));
         }
       }
-      setAviso(`Encaminhada${ids.length > 1 ? "s" : ""} para ${destinos.length} conversa${destinos.length > 1 ? "s" : ""}.`);
+      setAviso(destinos.length > 1 ? (ids.length > 1 ? `Encaminhadas para ${destinos.length} conversas.` : `Encaminhada para ${destinos.length} conversas.`) : ids.length > 1 ? "Encaminhadas para 1 conversa." : "Encaminhada para 1 conversa.");
       mudou();
     } catch (erro) {
       setAviso(textoDoErro(erro));
@@ -1002,7 +1002,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                         {vista.editada && <span>Editada · </span>}
                         {dados.fixadas.includes(mensagem.id) && <span title="Fixada">📌 </span>}
                         {favoritas.has(mensagem.id) && <span title="Favorita">★ </span>}
-                        {mensagem.expira_em && <span title={`Autodestruição: ${new Date(mensagem.expira_em).toLocaleString("pt-BR")}`}>⏱ {restante(mensagem.expira_em)} · </span>}
+                        {mensagem.expira_em && <span title={`Autodestruição: ${new Date(mensagem.expira_em).toLocaleString(localDoPainel())}`}>⏱ {restante(mensagem.expira_em)} · </span>}
                         {hora(mensagem.criado_em)}
                         {tiques(mensagem)}
                       </p>
@@ -1033,7 +1033,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
               conversa={id}
               fechar={() => setGaleria(false)}
               irPara={irPara}
-              itens={vistas.flatMap((vista): ItemDaGaleria[] => (vista.conteudo?.anexos ?? []).map((anexo) => ({ mensagem: vista.mensagem.id, anexo, estado: vista.mensagem.anexos.find((estado) => estado.id === anexo.id), autor: vista.mensagem.nome, minha: vista.mensagem.minha, quando: `${new Date(vista.mensagem.criado_em).toLocaleDateString("pt-BR")} ${hora(vista.mensagem.criado_em)}` })))}
+              itens={vistas.flatMap((vista): ItemDaGaleria[] => (vista.conteudo?.anexos ?? []).map((anexo) => ({ mensagem: vista.mensagem.id, anexo, estado: vista.mensagem.anexos.find((estado) => estado.id === anexo.id), autor: vista.mensagem.nome, minha: vista.mensagem.minha, quando: `${new Date(vista.mensagem.criado_em).toLocaleDateString(localDoPainel())} ${hora(vista.mensagem.criado_em)}` })))}
             />
           )}
           {gravando && <Gravador aoGravar={(audio) => void enviar([audio])} aoAvisar={avisarDigitando} fechar={() => setGravando(false)} />}
@@ -1206,9 +1206,9 @@ function Favoritas({ chaveiro, fechar, abrir }: { chaveiro: Chaveiro; fechar: ()
         {lista.dados?.map((item) => (
           <li key={item.id} className="py-2">
             <p className="text-xs text-ink-soft">
-              <button type="button" className={elo} onClick={() => abrir(item.conversa)}>{item.conversa_nome || "Conversa"}</button> · {item.nome || "Alguém"} · {hora(item.criado_em)}, {new Date(item.criado_em).toLocaleDateString("pt-BR")}
+              <button type="button" className={elo} onClick={() => abrir(item.conversa)}>{item.conversa_nome || "Conversa"}</button> · {item.nome || "Alguém"} · {hora(item.criado_em)}, {new Date(item.criado_em).toLocaleDateString(localDoPainel())}
             </p>
-            <p className="whitespace-pre-line break-words">{abertos[item.id] ? semFormatacao(desempacotar(abertos[item.id]!.texto).texto) : "…"}</p>
+            <p className="whitespace-pre-line break-words" data-original>{abertos[item.id] ? semFormatacao(desempacotar(abertos[item.id]!.texto).texto) : "…"}</p>
             <button type="button" className={`${elo} text-xs`} onClick={() => void acao(item.id)}>Tirar das favoritas</button>
           </li>
         ))}
@@ -1257,7 +1257,7 @@ function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu, enviarFoto
             : `O grupo de ${papeis[dados.departamento as keyof typeof papeis] ?? dados.nome}. Quem recebe essa função entra sozinho, quem deixa de tê-la sai, e a coordenação participa de todos os grupos. Não dá para sair nem tirar ninguém.`}
         </p>
       )}
-      {!fixo && !edita && dados.descricao && <p className="max-w-xl whitespace-pre-line text-ink-soft">{dados.descricao}</p>}
+      {!fixo && !edita && dados.descricao && <p className="max-w-xl whitespace-pre-line text-ink-soft" data-original>{dados.descricao}</p>}
       {edita && (
         <form className="space-y-2" onSubmit={(e) => { e.preventDefault(); void fazer("chat_grupo_mudar", { p_id: dados.id, p_nome: fixo ? null : nome, p_descricao: descricao }); }}>
           <div className="flex flex-wrap items-end gap-2">
@@ -1433,7 +1433,7 @@ function EventoVista({ evento, rsvps, minha, responder }: { evento: Evento; rsvp
   return (
     <div className={`my-1 border px-2 py-1.5 text-sm ${minha ? "border-parchment/40" : "border-rule bg-parchment"}`}>
       <p className="font-semibold">📅 {evento.titulo}</p>
-      <p className="text-xs">{quando.toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "long" })} às {quando.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}{evento.local ? ` · ${evento.local}` : ""}</p>
+      <p className="text-xs">{quando.toLocaleString(localDoPainel(), { weekday: "long", day: "2-digit", month: "long", hour: "2-digit", minute: "2-digit" })}{evento.local ? ` · ${evento.local}` : ""}</p>
       <p className="mt-1 flex flex-wrap gap-1">
         {grupos.map(([valor, nome]) => (
           <button key={valor} type="button" aria-pressed={minhaResposta === valor} className={`cursor-pointer border px-2 py-0.5 text-xs ${minhaResposta === valor ? "border-gold bg-gold/30 text-ink" : "border-current/30"}`} onClick={() => responder(valor)}>
@@ -1560,7 +1560,7 @@ function Relatos({ fechar }: { fechar: () => void }) {
             <p className="text-xs text-ink-soft">{dataHora(relato.criado_em)} · {relato.conversa_nome} · relatado por {relato.autor || "alguém"}{relato.contra ? ` · sobre ${relato.contra}` : ""} · {relato.status === "aberto" ? "em aberto" : "resolvido"}</p>
             <p className="mt-1 font-semibold">{relato.motivo}</p>
             <ul className="mt-2 space-y-1 border-l-2 border-rule pl-2 text-sm">
-              {relato.mensagens.map((item) => <li key={item.id}><strong>{item.autor}</strong> <span className="text-xs text-ink-soft">{item.quando ? dataHora(item.quando) : ""}</span>: <span className="whitespace-pre-line">{item.texto}</span></li>)}
+              {relato.mensagens.map((item) => <li key={item.id}><strong>{item.autor}</strong> <span className="text-xs text-ink-soft">{item.quando ? dataHora(item.quando) : ""}</span>: <span className="whitespace-pre-line" data-original>{item.texto}</span></li>)}
             </ul>
             {relato.nota && <p className="mt-2 text-sm"><strong>Encaminhamento:</strong> {relato.nota}</p>}
             {relato.status === "aberto" && <button type="button" className={`mt-2 ${botaoClaro}`} onClick={() => void resolver(relato.id)}>Marcar como resolvido</button>}

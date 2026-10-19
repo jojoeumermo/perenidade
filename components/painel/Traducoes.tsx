@@ -339,7 +339,7 @@ function EditorDeTraducao({ trilha, aula, idioma, fechar }: { trilha: Trilha; au
                   <div key={i} className="grid gap-3 border-t border-rule pt-3 md:grid-cols-2">
                     <div className="whitespace-pre-wrap font-serif text-base leading-relaxed">
                       <span className="mb-1 block font-mono text-[0.65rem] uppercase tracking-widest text-gold">{i + 1} · {tipo}</span>
-                      {comTermos(b, termos.dados ?? [])}
+                      <span data-original>{comTermos(b, termos.dados ?? [])}</span>
                     </div>
                     <div>
                       <textarea

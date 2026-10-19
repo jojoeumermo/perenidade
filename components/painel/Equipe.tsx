@@ -236,7 +236,7 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
                   </p>
                 </div>
               </div>
-              <p className="whitespace-pre-line px-4 py-3 font-serif text-lg leading-snug">{lido(recado)}</p>
+              <p className="whitespace-pre-line px-4 py-3 font-serif text-lg leading-snug" data-original>{lido(recado)}</p>
               {recado.respostas.length > 0 && (
                 <ul className="space-y-3 border-t border-rule bg-parchment px-4 py-3">
                   {recado.respostas.map((resposta) => (
@@ -246,7 +246,7 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
                         <p className="text-xs">
                           <strong>{resposta.autor || "—"}</strong> <span className="text-ink-soft">· {quando(resposta.criado_em)}</span>
                         </p>
-                        <p className="whitespace-pre-line">{lido(resposta)}</p>
+                        <p className="whitespace-pre-line" data-original>{lido(resposta)}</p>
                       </div>
                     </li>
                   ))}
@@ -297,7 +297,7 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
                 <span className="min-w-0">
                   <span className="block truncate font-semibold">{membro.nome}{membro.eu && " (você)"}</span>
                   <span className="block text-xs leading-snug text-ink-soft">
-                    {membro.papeis.map((papel) => `${papeis[papel.papel]}${papel.disciplina ? ` de ${nomeDaArea(papel.disciplina)}` : ""}`).join(" · ")}
+                    {membro.papeis.map((papel) => `${papeis[papel.papel]}${papel.disciplina ? ` · ${nomeDaArea(papel.disciplina)}` : ""}`).join(" · ")}
                   </span>
                 </span>
               </li>
