@@ -66,25 +66,27 @@ Para testar no computador antes de publicar: `node scripts/servir-estudio.mjs` e
 mesmo `_headers`). Teste: abrir o PhotoCraft, abrir um PSD baixado do Estúdio rápido (botão “Abrir no editor avançado”
 ou “PSD” num modelo), mexer numa camada de texto, exportar PNG.
 
-## 2. Publicar (uma vez)
+## 2. Publicar
 
-1. Na Cloudflare: **Workers & Pages › Create › Pages › Upload assets**, projeto `estudio-lucia`, e envie a pasta
-   `estudio/site` (ou, com o Wrangler: `npx wrangler pages deploy estudio/site --project-name estudio-lucia`).
-2. No projeto: **Custom domains › estudio.institutolucia.org**.
+O estúdio é um Worker da Cloudflare (`estudio/wrangler.jsonc`) com os arquivos estáticos de `estudio/site` e um bucket
+R2 (`estudio-lucia-grandes`) para os arquivos acima de 25 MiB, que o `estudio/worker.js` entrega no mesmo caminho.
+O domínio `estudio.institutolucia.org` é criado pelo próprio deploy (a zona já está na Cloudflare).
+
+1. `npx wrangler login` (uma vez por computador; abre o navegador para autorizar).
+2. `node scripts/publicar-estudio.mjs`: manda os arquivos grandes para o R2 e publica o Worker.
+   Sem o R2 ativado na conta (Cloudflare › R2 › ativar), use `--sem-r2`: tudo sobe menos o WebAssembly do FilmCraft e
+   do EffectCraft, que ficam sem abrir até a próxima publicação completa.
 3. Na Vercel do site principal: variável `NEXT_PUBLIC_ESTUDIO_URL=https://estudio.institutolucia.org` e um redeploy.
-   Sem ela, o painel e as páginas dizem que o editor ainda não está no ar e oferecem só o que funciona sem ele.
+   Sem ela, as páginas dizem que o editor ainda não está no ar.
 4. Confira o isolamento: em https://estudio.institutolucia.org/photocraft/, o DevTools › Application não mostra cookies
    nem armazenamento do institutolucia.org; e a aba Network não mostra chamadas ao Supabase.
-
-Plano gratuito da Cloudflare Pages: até 20 000 arquivos por site e 25 MiB por arquivo, banda sem cobrança. Não é preciso R2
-com as versões atuais.
 
 ## 3. Trocar de versão (sempre à mão)
 
 1. Leia as notas da release nova e confira de novo `LICENSE`, `NOTICE` e `docs/brand/LICENSE-brand.txt`.
 2. Mude o número em `scripts/editores.mjs` (`VERSOES`) e em `lib/estudio.ts` (`EDITORES`, com o tamanho novo).
 3. `node scripts/editores.mjs` (confere o SHA-256), teste com `node scripts/servir-estudio.mjs`.
-4. Publique de novo a pasta `estudio/site` e faça o commit das mudanças de número.
+4. Publique de novo com `node scripts/publicar-estudio.mjs` e faça o commit das mudanças de número.
 
 ## O que se perde do Estúdio rápido para o PSD
 
