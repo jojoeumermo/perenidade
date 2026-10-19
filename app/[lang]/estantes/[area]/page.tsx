@@ -8,6 +8,7 @@ import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { BookCard, TrackCard } from "@/components/Cards";
 import { PageHeading } from "@/components/PageHeading";
 import { SecaoEstudioDePratica } from "@/components/EstudioDePraticaSecao";
+import { temEstudio } from "@/lib/estudio";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
 import { localePath, plural } from "@/i18n/config";
@@ -120,8 +121,8 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
       {/* Aulas em vídeo gravadas pelos educadores da disciplina, lidas do serviço na hora. */}
       <VideoaulasDaDisciplina disciplina={area} s={t.videoLessons} />
 
-      {/* Edição de vídeo: os programas de prática (FilmCraft e EffectCraft), hospedados à parte. */}
-      {area === "edicao-de-video" && <SecaoEstudioDePratica s={t.practiceStudio} />}
+      {/* Edição de vídeo, de foto e Modelagem 3D: os programas de prática, que abrem dentro do site. */}
+      {temEstudio(area) && <SecaoEstudioDePratica s={t.practiceStudio} area={area} />}
 
       {/* Episódios do podcast ligados a esta disciplina: aparecem só se houver. */}
       <PodcastsRelacionados disciplina={area} />
