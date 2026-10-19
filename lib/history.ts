@@ -1,5 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { execFileSync } from "node:child_process";
+import path from "node:path";
 import { existsSync, readFileSync } from "node:fs";
 import { fill, htmlLang, type Locale, plural } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
@@ -61,7 +62,29 @@ function umaVez<R>(ler: () => R): () => R {
   };
 }
 
+/**
+ * O histórico inteiro, gravado pela rotina do GitHub (que tem o clone completo) em historico/acervo.json. Na Vercel o
+ * clone é raso: o que ele enxerga vale primeiro, e este arquivo completa o resto, sem repetir registro.
+ */
+function historicoGravado(): Commit[] {
+  try {
+    const caminho = path.join(process.cwd(), "historico", "acervo.json");
+    if (!existsSync(caminho)) return [];
+    const lista = JSON.parse(readFileSync(caminho, "utf8")) as Commit[];
+    return Array.isArray(lista) ? lista.filter((c) => typeof c?.hash === "string" && /^\d{4}-\d{2}-\d{2}$/.test(c.date ?? "") && Array.isArray(c.files)) : [];
+  } catch {
+    return [];
+  }
+}
+
 const getHistory = umaVez((): Commit[] => {
+  const vivo = historicoDoGit();
+  const vistos = new Set(vivo.map((c) => c.hash));
+  // Os dois já vêm do mais novo para o mais antigo; juntos, ficam na ordem das datas.
+  return [...vivo, ...historicoGravado().filter((c) => !vistos.has(c.hash))].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0)).slice(0, 1000);
+});
+
+function historicoDoGit(): Commit[] {
   try {
     let fronteira = new Set<string>();
     try {
@@ -91,7 +114,7 @@ const getHistory = umaVez((): Commit[] => {
   } catch {
     return [];
   }
-});
+}
 
 // O histórico público fala só de ensino e acervo. O que é funcionamento do site (páginas institucionais e
 // legais, aviso de abertura, dicionário da busca) fica de fora, e também qualquer arquivo que não esteja nesta lista.
