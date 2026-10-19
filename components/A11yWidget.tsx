@@ -1,11 +1,17 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import { resetPrefs, setPrefs, TEXT_SCALES, usePrefs } from "@/lib/prefs";
+import { ligado } from "@/lib/recursos";
 import { speechSupported, startReading, stopReading, useSpeaking } from "@/lib/speech";
 import { useHydrated } from "@/lib/storage";
 import { useI18n } from "./I18n";
+
+// VLibras (recurso "vlibras", desligado por padrão): o código só é baixado com o recurso ligado e o painel aberto.
+const AtivarVLibras = dynamic(() => import("./estudo/AtivarVLibras"), { ssr: false });
+const VLibrasLembrado = dynamic(() => import("./estudo/VLibrasLembrado"), { ssr: false });
 
 function Switch({ checked, onChange, label, hint }: { checked: boolean; onChange: (value: boolean) => void; label: string; hint: string }) {
   return (
@@ -56,6 +62,7 @@ export function A11yWidget() {
 
   return (
     <div className="app-flutua no-print fixed bottom-[calc(4.75rem+var(--recuo-baixo))] right-3 z-40 font-sans text-sm md:bottom-4 md:right-4">
+      {ligado("vlibras") && <VLibrasLembrado />}
       {open && (
         <div
           ref={panelRef}
@@ -116,6 +123,8 @@ export function A11yWidget() {
             )}
             <span role="status" className="sr-only">{speaking ? t.a11y.reading : ""}</span>
           </div>
+
+          {ligado("vlibras") && <AtivarVLibras />}
 
           <button type="button" onClick={resetPrefs} className="cursor-pointer text-ink-soft underline hover:text-oxblood">
             {t.a11y.reset}
