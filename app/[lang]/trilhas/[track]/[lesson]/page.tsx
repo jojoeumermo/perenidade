@@ -25,8 +25,7 @@ import { withLangs } from "@/lib/params";
 import { linguaDe } from "@/lib/pratica";
 import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
-import { ExerciciosComExplicacao } from "@/components/estudo/ExerciciosComExplicacao";
-import { RegistroDeConclusao } from "@/components/estudo/RegistroDeConclusao";
+import { ExerciciosComExplicacaoSobDemanda as ExerciciosComExplicacao, IssoAjudouSobDemanda as IssoAjudou, RegistroDeConclusaoSobDemanda as RegistroDeConclusao } from "@/components/estudo/NaAula";
 import { exerciciosDaAula } from "@/lib/exercicios-conteudo";
 import { ligado } from "@/lib/recursos";
 import { textosDoEstudo } from "@/lib/textos-estudo";
@@ -34,7 +33,6 @@ import { creditosDeRevisao, EtiquetaDeRevisao } from "@/components/estudo/Etique
 import { revisoesDaAula } from "@/lib/revisoes-conteudo";
 import { HabilidadesDaAula } from "@/components/estudo/Habilidades";
 import { mapaDaAula } from "@/lib/curriculo-conteudo";
-import { IssoAjudou } from "@/components/estudo/IssoAjudou";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
