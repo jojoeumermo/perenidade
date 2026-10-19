@@ -25,7 +25,7 @@ import { Comunidade, MuralFila, SugerirEmissora } from "./Cuidar";
 import { Apoio } from "./Apoio";
 import { Boletim } from "./Boletim";
 import { CadernoNoPainel } from "./Caderno";
-import { Estudio } from "./design/Estudio";
+import { EstudioDeDesign } from "./design/EstudioDeDesign";
 import { PorOndeComecar } from "./Comecar";
 import { AcervoPorDentro, MinhasContribuicoes, ParaVoceHoje, Tarefas } from "./Tarefas";
 import { Conversas } from "./Conversas";
@@ -469,7 +469,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "escrever", nome: "Escrever", sobre: "Aulas, matérias, verbetes e tudo o que vai para o site.", grupo: "Produção", mostra: produz },
       { id: "videoaulas", nome: "Aulas em vídeo", sobre: "Gravar ou enviar aulas curtas em vídeo, de até 10 minutos, e revisar as da sua disciplina.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "educacao"), conta: videos.dados ?? undefined },
       { id: "aovivo", nome: "Aulas ao vivo", sobre: "Marcar aulas na agenda pública, chamar colegas para dar junto e abrir a sala, com vídeo e bate-papo.", grupo: "Produção", mostra: can(eu, "coordenacao", "educacao", "mentoria") },
-      { id: "estudio", nome: "Estúdio de design", sobre: "Posts, stories, cartazes e capas com a identidade do instituto, montados aqui mesmo.", grupo: "Produção", mostra: eu.desenha === true || can(eu, "coordenacao", "design", "jornalismo") },
+      { id: "estudio", nome: "Estúdio de design", sobre: "Estúdio rápido (modelos da marca) e editor avançado (PhotoCraft): posts, stories, cartazes e capas com a identidade do instituto.", grupo: "Produção", mostra: eu.desenha === true || can(eu, "coordenacao", "design", "jornalismo") },
       { id: "caderno", nome: "Caderno de estudos", sobre: "Fontes, resumo, cartões, questionário, mapa e leitura em voz alta: a sala de estudo para preparar aulas e episódios.", grupo: "Produção", mostra: true },
       { id: "tarefas", nome: "Tarefas", sobre: "Microtarefas do acervo e das aulas para 5, 15 ou 30 minutos, a revisão rápida, mutirões e projetos.", grupo: "Produção", mostra: voluntario },
       { id: "acervo-dentro", nome: "Acervo por dentro", sobre: "Cada obra com o selo da ficha (completa, parcial ou faltando), para escolher o que cuidar.", grupo: "Produção", mostra: voluntario },
@@ -700,7 +700,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "escrever" && <Escrever me={eu} />}
           {atual.id === "videoaulas" && <Videoaulas me={eu} />}
           {atual.id === "aovivo" && <AulasAoVivo me={eu} />}
-          {atual.id === "estudio" && <Estudio me={eu} />}
+          {atual.id === "estudio" && <EstudioDeDesign me={eu} />}
           {atual.id === "caderno" && <CadernoNoPainel />}
           {atual.id === "tarefas" && <Tarefas me={eu} ir={ir} />}
           {atual.id === "acervo-dentro" && <AcervoPorDentro />}

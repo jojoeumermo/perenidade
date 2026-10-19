@@ -34,7 +34,8 @@
     "copy": "Copiar",
     "copied": "Copiado",
     "loading": "Carregando…",
-    "askCommunity": "Perguntar na comunidade"
+    "askCommunity": "Perguntar na comunidade",
+    "practiceStudio": "Estúdio de prática"
   },
   "nav": {
     "main": "Principal",
@@ -3788,5 +3789,107 @@
     "backupInvalid": "Este arquivo não é uma cópia do caderno.",
     "backupConfirm": "Restaurar a cópia? Cadernos, cartões e erros se juntam aos que já estão aqui; o resto é trocado pelo da cópia.",
     "nextTomorrow": "volta amanhã"
+  },
+  "practiceStudio": {
+    "eyebrow": "Edição de vídeo",
+    "title": "Estúdio de prática",
+    "lead": "Programas de código aberto para praticar edição de vídeo e animação no navegador, sem pagar nada e sem instalar.",
+    "alpha": "Fase de testes (alfa): os programas podem ter falhas e são para praticar.",
+    "local": "Tudo fica só no navegador deste aparelho. Exporte o vídeo e baixe o arquivo do projeto ao terminar, para não perder trabalho.",
+    "download": "Na primeira vez, o navegador baixa {mb} MB. Cuidado com dados móveis.",
+    "open": "Abrir",
+    "notYet": "Ainda não está no ar no endereço do instituto.",
+    "help": "Antes de começar",
+    "film": {
+      "title": "Editar vídeo (estilo Premiere): FilmCraft",
+      "text": "Linha do tempo, cortes, transições, cor e som, com os painéis e os atalhos do Premiere Pro."
+    },
+    "effect": {
+      "title": "Animação e efeitos (estilo After Effects): EffectCraft",
+      "text": "Composições, camadas, quadros-chave, efeitos e expressões, como no After Effects."
+    },
+    "check": "Conferir se este aparelho consegue",
+    "checking": "Conferindo…",
+    "ok": "Seu navegador consegue.",
+    "slow": "Pode ficar lento neste aparelho.",
+    "no": "Não vai funcionar aqui: tente o Chrome ou o Edge num computador.",
+    "wasm": "WebAssembly",
+    "gpu": "WebGPU (placa de vídeo)",
+    "memory": "Memória",
+    "memoryUnknown": "o navegador não informa",
+    "yes": "sim",
+    "noShort": "não",
+    "browser": "Navegador",
+    "limitsTitle": "Limites",
+    "limits": [
+      "Não abrem arquivos .prproj (Premiere) nem .aep (After Effects) e não aceitam plugins.",
+      "O FilmCraft importa e exporta XML (Final Cut Pro 7, o formato que o Premiere troca) e OpenTimelineIO: assim dá para levar a montagem para o Premiere.",
+      "O EffectCraft importa e exporta animações Lottie."
+    ],
+    "materialTitle": "Material para praticar",
+    "materialLead": "Filmes abertos da Blender Foundation, com licença Creative Commons que permite usar e editar em aula. Baixe a versão menor (720p ou menos) para aparelho fraco. Ao publicar, dê o crédito.",
+    "credit": "Crédito",
+    "page": "Página oficial (download)",
+    "creditsTitle": "Créditos",
+    "credits": "FilmCraft e EffectCraft são feitos pelo time e pela comunidade ArtCraft, com licença Apache-2.0. O nome ArtCraft é marca do time ArtCraft. Nenhum dos dois é produto da Adobe nem é afiliado a ela; Premiere Pro e After Effects são marcas da Adobe.",
+    "code": "Código e licença",
+    "before": {
+      "title": "Antes de começar",
+      "lead": "O básico para não perder trabalho e para as mãos acharem os atalhos de sempre.",
+      "browserTitle": "Navegador",
+      "browser": "Use o Chrome ou o Edge, atualizados, num computador. Eles têm WebGPU, que deixa tudo mais rápido. No Firefox e no Safari pode funcionar mais devagar.",
+      "shortcutsTitle": "Atalhos do Premiere no FilmCraft",
+      "shortcuts": "Abra Edit ▸ Keyboard Shortcuts… e escolha o conjunto Premiere Pro Compatible. A partir daí as teclas são as do Premiere (a lista segue o teclado do Mac, como o Premiere).",
+      "saveTitle": "Salvar, exportar e importar",
+      "save": [
+        "Importe arrastando os arquivos para a janela ou pelo menu de importar.",
+        "O FilmCraft guarda sozinho uma cópia de recuperação no navegador a cada 5 segundos enquanto houver mudança; não confie só nela.",
+        "Ao terminar, exporte o vídeo e salve o projeto: os dois chegam como download.",
+        "No EffectCraft, exporte pela fila de render (Render Queue) e baixe o projeto também."
+      ],
+      "tableTitle": "No Premiere ou no After Effects é assim → aqui é assim",
+      "tableNote": "Só o que a documentação dos próprios programas confirma. Os nomes dos menus estão em inglês, como nos programas.",
+      "colFrom": "No Premiere / After Effects",
+      "colTo": "Aqui",
+      "rows": [
+        [
+          "Premiere: atalhos do Premiere",
+          "FilmCraft: Edit ▸ Keyboard Shortcuts… › Premiere Pro Compatible"
+        ],
+        [
+          "Premiere: selecionar o clipe sob o cursor (D)",
+          "FilmCraft: D"
+        ],
+        [
+          "Premiere: próximo e anterior ponto de edição (↓ e ↑)",
+          "FilmCraft: ↓ e ↑"
+        ],
+        [
+          "Premiere: exportar o quadro (Shift+E)",
+          "FilmCraft com o conjunto do Premiere: Shift+E"
+        ],
+        [
+          "Premiere: enviar ao Media Encoder",
+          "FilmCraft: Send to Export Queue (Alt+Shift+M)"
+        ],
+        [
+          "Premiere: ajuda (F1)",
+          "FilmCraft: F1"
+        ],
+        [
+          "After Effects: mostrar propriedades da camada (A, P, S…)",
+          "EffectCraft: as mesmas teclas"
+        ],
+        [
+          "After Effects: expressões (wiggle, loopOut)",
+          "EffectCraft: expressões em JavaScript com o mesmo modelo de objetos"
+        ],
+        [
+          "After Effects: exportar Lottie (com plugin)",
+          "EffectCraft: Lottie embutido, sem plugin"
+        ]
+      ],
+      "back": "Voltar ao Estúdio de prática"
+    }
   }
 }
