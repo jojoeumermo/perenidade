@@ -42,6 +42,23 @@ export function Tutoring({ s }: { s: Dict["tutoring"] }) {
   const [indice, setIndice] = useState<SearchEntry[] | null>(null);
   const [escrevendo, setEscrevendo] = useState(false);
 
+  // Veio de "Não entendi este trecho" numa aula: disciplina, assunto e o trecho já entram no formulário.
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    const trecho = (p.get("trecho") ?? "").replace(/\s+/g, " ").trim().slice(0, 600);
+    if (!trecho) return;
+    const disciplina = p.get("disciplina") ?? "";
+    const aula = /^\/[a-z0-9/-]{1,200}$/.test(p.get("aula") ?? "") ? (p.get("aula") as string) : "";
+    void Promise.resolve().then(() =>
+      setForm((f) => ({
+        ...f,
+        disciplina: (areaSlugs as readonly string[]).includes(disciplina) ? disciplina : f.disciplina,
+        assunto: f.assunto || (p.get("assunto") ?? "").slice(0, 140),
+        duvida: f.duvida || `“${trecho}”${aula ? ` (${location.origin}/${lang}${aula})` : ""}\n\n`,
+      })),
+    );
+  }, [lang]);
+
   // Enquanto a pessoa escreve, o próprio site sugere aulas e verbetes, sem mandar nada para fora (é o índice da busca,
   // baixado só quando ela começa a escrever).
   useEffect(() => {

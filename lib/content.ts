@@ -42,6 +42,8 @@ export interface QuizQuestion {
   options: string[];
   answer: number;
   explanation?: string;
+  /** Aula de onde a questão veio, quando ela aparece fora da aula (prova da trilha). */
+  href?: string;
 }
 
 interface Localized {

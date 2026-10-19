@@ -12,6 +12,7 @@ import { useTrackOptions } from "../useTrackOptions";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Aviso, botao, campo, elo, papeis, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
+import { FerramentasDoAutor } from "./FerramentasDoAutor";
 import { GuiaDaAula } from "./GuiaDaAula";
 import { EditorDePratica } from "./Pratica";
 
@@ -468,6 +469,8 @@ export function Escrever({ me }: { me: Me }) {
           {rascunho.salvoEm ? `Rascunho guardado às ${horaDoRascunho(rascunho.salvoEm)}, neste navegador e na sua conta.` : "O rascunho é guardado sozinho enquanto você escreve, neste navegador e na sua conta."}
         </p>
       </div>
+
+      {comQuestoes && tipo.corpo.editor && <FerramentasDoAutor key={trilha?.slug ?? ""} titulo={titulo} corpo={corpo} questoes={questoes.length} fontes={fontes.filter((f) => f.titulo.trim()).length} trilha={id === "aula" ? trilha : undefined} slug={valores.slug ?? ""} inserir={setCorpo} />}
 
       {comQuestoes && <QuestoesEditor valor={questoes} mudar={setQuestoes} />}
 

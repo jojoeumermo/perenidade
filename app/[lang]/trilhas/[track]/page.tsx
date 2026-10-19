@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { Markdown } from "@/components/Markdown";
 import { SaveOffline } from "@/components/Offline";
+import { PlanoDeEstudos } from "@/components/PlanoDeEstudos";
 import { LessonList, TrackProgress } from "@/components/Progress";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
@@ -103,6 +104,7 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
           </p>
         )}
         {ready.length > 0 && <SaveOffline paths={[to(`/trilhas/${track.slug}`), ...ready.map((item) => to(item.path))]} s={t.tracks} />}
+        {ready.length > 0 && <PlanoDeEstudos aulas={ready.map((item) => ({ id: item.id, path: item.path, title: item.title }))} trilha={track.title} temProva={questionCount >= 10} s={t.tracks} />}
         {ready.length < items.length && (
           <p className="mt-6 font-sans text-sm text-ink-soft">
             {t.tracks.plannedHelp}{" "}

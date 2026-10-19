@@ -149,7 +149,8 @@ function TopicList({ s }: { s: S }) {
   const [query, setQuery] = useState("");
   const [list, setList] = useState<TopicRow[] | null>(null);
   const [salas, setSalas] = useState<Salas | null>(null);
-  const [draft, setDraft] = useState({ title: "", body: "", area, kind: "duvida", alvo, alvoTitulo });
+  const trechoDoLink = (params.get("trecho") ?? "").replace(/\s+/g, " ").trim().slice(0, 600);
+  const [draft, setDraft] = useState({ title: "", body: trechoDoLink ? `> ${trechoDoLink}\n\n` : "", area, kind: "duvida", alvo, alvoTitulo });
   const [open, setOpen] = useState(params.get("nova") === "1");
   const [message, setMessage] = useState("");
   const [tick, setTick] = useState(0);
