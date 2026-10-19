@@ -152,7 +152,10 @@ export function regrasDeCabecalho(pastas) {
 const pedidos = process.argv.slice(2).filter((x) => x in VERSOES || x in LIVRES);
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"))) {
   const lista = pedidos.length ? pedidos : [...Object.keys(VERSOES), ...Object.keys(LIVRES)];
-  for (const id of lista) id in LIVRES ? montarLivre(id, DESTINO) : await montar(id);
+  for (const id of lista) {
+    if (id in LIVRES) montarLivre(id, DESTINO);
+    else await montar(id);
+  }
   // As regras valem para todos os editores já montados na pasta (os de antes e os de agora).
   const todos = [...Object.keys(VERSOES).map((id) => ({ id, entrada: "index.html" })), ...Object.entries(LIVRES).map(([id, f]) => ({ id, entrada: f.entrada }))];
   const montados = todos.filter(({ id, entrada }) => fs.existsSync(path.join(DESTINO, id, entrada))).map(({ id, entrada }) => ({ id, entrada, pasta: path.join(DESTINO, id) }));
