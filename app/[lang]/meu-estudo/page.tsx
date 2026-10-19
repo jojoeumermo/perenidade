@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MeuEstudo } from "@/components/estudo/MeuEstudo";
+import { MinhasTurmas } from "@/components/estudo/MinhasTurmas";
 import { RegistroDeConclusao } from "@/components/estudo/RegistroDeConclusao";
 import { PageHeading } from "@/components/PageHeading";
 import { Untranslated } from "@/components/Untranslated";
@@ -29,7 +30,7 @@ export default async function Page({ params }: PageProps<"/[lang]/meu-estudo">) 
       </PageHeading>
       <Untranslated lang={lang} t={t} show={!traduzido} />
       <RegistroDeConclusao />
-      <MeuEstudo s={s.meuEstudo} caderno={t.notebook} praticar={ligado("exercicios")} />
+      <MeuEstudo s={s.meuEstudo} caderno={t.notebook} praticar={ligado("exercicios")} extras={ligado("turma") ? <MinhasTurmas s={s.turma} /> : null} />
     </div>
   );
 }

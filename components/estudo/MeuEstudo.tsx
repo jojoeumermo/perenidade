@@ -11,6 +11,7 @@ import type { TextosDoEstudo } from "@/lib/textos-estudo";
 import { CopiaDeSeguranca } from "../caderno/Estudo";
 import type { NotebookStrings } from "../caderno/Caderno";
 import { L, useI18n } from "../I18n";
+import { Barra } from "./Barra";
 import { useGuardado } from "./guardado";
 import { useIndice } from "./indice";
 
@@ -18,16 +19,6 @@ type S = TextosDoEstudo["meuEstudo"];
 
 const cartao = "border border-rule bg-parchment-deep p-5";
 const botao = "inline-block cursor-pointer bg-ink px-4 py-2 font-sans text-sm font-semibold text-parchment hover:bg-oxblood";
-
-/** Uma barra de progresso discreta, sem nota: só mostra quanto do caminho já foi feito. */
-export function Barra({ feito, total, rotulo }: { feito: number; total: number; rotulo: string }) {
-  const pct = total ? Math.round((feito / total) * 100) : 0;
-  return (
-    <div role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={rotulo} className="h-1.5 bg-rule">
-      <div className="h-full bg-gold" style={{ width: `${pct}%` }} />
-    </div>
-  );
-}
 
 function Numero({ valor, rotulo, detalhe }: { valor: ReactNode; rotulo: string; detalhe?: string }) {
   return (
