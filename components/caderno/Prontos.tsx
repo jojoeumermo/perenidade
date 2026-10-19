@@ -59,18 +59,18 @@ export function CadernosProntos({ s, usar }: { s: S; usar: (titulo: string, font
   }, []);
   if (!lista.length) return null;
   return (
-    <section className="border-2 border-ink bg-parchment-deep p-3">
-      <p className="font-mono text-xs uppercase tracking-widest text-gold">{s.readyTitle}</p>
-      <p className="mt-1 text-xs text-ink-soft">{s.readyLead}</p>
-      <ul className="mt-2 max-h-72 space-y-2 overflow-y-auto">
+    <section>
+      <h2 className="jornal-secao font-sans text-xs font-black uppercase tracking-[0.18em]"><span className="jornal-editoria">{s.readyTitle}</span></h2>
+      <p className="mt-3 font-serif text-base italic text-ink-soft">{s.readyLead}</p>
+      <ul className="mt-4 grid max-h-[28rem] gap-3 overflow-y-auto pr-1 sm:grid-cols-2 [scrollbar-width:thin]">
         {lista.map((c) => (
-          <li key={c.id} className="border border-rule bg-parchment p-2">
-            <p className="font-semibold">{c.titulo}</p>
-            {c.descricao && <p className="text-xs text-ink-soft">{c.descricao}</p>}
-            <p className="text-xs text-ink-soft">
-              {fill(s.readySources, { n: c.fontes.length })} ·{" "}
-              <button type="button" className={elo} onClick={() => usar(c.titulo, c.fontes)}>{s.readyUse}</button>
-            </p>
+          <li key={c.id}>
+            <button type="button" onClick={() => usar(c.titulo, c.fontes)} className="caderno-recorte block h-full w-full cursor-pointer p-3 text-left hover:-translate-y-0.5 motion-safe:transition-transform">
+              <span className="font-mono text-[0.65rem] uppercase tracking-wider opacity-75">{fill(s.readySources, { n: c.fontes.length })}</span>
+              <span className="mt-1 block font-serif text-lg leading-snug font-semibold">{c.titulo}</span>
+              {c.descricao && <span className="mt-1 block text-xs opacity-80">{c.descricao}</span>}
+              <span className="mt-2 inline-block font-sans text-xs font-black uppercase italic text-[#c21f16]">{s.readyUse} →</span>
+            </button>
           </li>
         ))}
       </ul>

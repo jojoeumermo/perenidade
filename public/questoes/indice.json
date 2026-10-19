@@ -1050,6 +1050,598 @@
    ]
   },
   {
+   "id": "saude",
+   "nome": "Saúde: Revalida e residências do Enare",
+   "origem": "https://huggingface.co/datasets/Larxel/healthqa-br",
+   "provas": [
+    {
+     "ano": 2025,
+     "titulo": "Revalida 2025",
+     "arquivo": "saude-revalida-2025.json",
+     "total": 98,
+     "porArea": {
+      "saude": 98
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Revalida 2024",
+     "arquivo": "saude-revalida-2024.json",
+     "total": 183,
+     "porArea": {
+      "saude": 183
+     }
+    },
+    {
+     "ano": 2023,
+     "titulo": "Revalida 2023",
+     "arquivo": "saude-revalida-2023.json",
+     "total": 172,
+     "porArea": {
+      "saude": 172
+     }
+    },
+    {
+     "ano": 2022,
+     "titulo": "Revalida 2022",
+     "arquivo": "saude-revalida-2022.json",
+     "total": 170,
+     "porArea": {
+      "saude": 170
+     }
+    },
+    {
+     "ano": 2021,
+     "titulo": "Revalida 2021",
+     "arquivo": "saude-revalida-2021.json",
+     "total": 85,
+     "porArea": {
+      "saude": 85
+     }
+    },
+    {
+     "ano": 2020,
+     "titulo": "Revalida 2020",
+     "arquivo": "saude-revalida-2020.json",
+     "total": 188,
+     "porArea": {
+      "saude": 188
+     }
+    },
+    {
+     "ano": 2017,
+     "titulo": "Revalida 2017",
+     "arquivo": "saude-revalida-2017.json",
+     "total": 162,
+     "porArea": {
+      "saude": 162
+     }
+    },
+    {
+     "ano": 2016,
+     "titulo": "Revalida 2016",
+     "arquivo": "saude-revalida-2016.json",
+     "total": 91,
+     "porArea": {
+      "saude": 91
+     }
+    },
+    {
+     "ano": 2015,
+     "titulo": "Revalida 2015",
+     "arquivo": "saude-revalida-2015.json",
+     "total": 123,
+     "porArea": {
+      "saude": 123
+     }
+    },
+    {
+     "ano": 2014,
+     "titulo": "Revalida 2014",
+     "arquivo": "saude-revalida-2014.json",
+     "total": 196,
+     "porArea": {
+      "saude": 196
+     }
+    },
+    {
+     "ano": 2013,
+     "titulo": "Revalida 2013",
+     "arquivo": "saude-revalida-2013.json",
+     "total": 106,
+     "porArea": {
+      "saude": 106
+     }
+    },
+    {
+     "ano": 2012,
+     "titulo": "Revalida 2012",
+     "arquivo": "saude-revalida-2012.json",
+     "total": 104,
+     "porArea": {
+      "saude": 104
+     }
+    },
+    {
+     "ano": 2011,
+     "titulo": "Revalida 2011",
+     "arquivo": "saude-revalida-2011.json",
+     "total": 99,
+     "porArea": {
+      "saude": 99
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Alergia e Imunologia",
+     "arquivo": "saude-enare-medica-alergia-e-imunologia.json",
+     "total": 39,
+     "porArea": {
+      "saude": 39
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Anestesiologia",
+     "arquivo": "saude-enare-medica-anestesiologia.json",
+     "total": 10,
+     "porArea": {
+      "saude": 10
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Cardiologia",
+     "arquivo": "saude-enare-medica-cardiologia.json",
+     "total": 155,
+     "porArea": {
+      "saude": 155
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Cirurgia de Cabeça e Pescoço",
+     "arquivo": "saude-enare-medica-cirurgia-de-cabeca-e-pescoco.json",
+     "total": 24,
+     "porArea": {
+      "saude": 24
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Cirurgia do Aparelho Digestivo",
+     "arquivo": "saude-enare-medica-cirurgia-do-aparelho-digestivo.json",
+     "total": 40,
+     "porArea": {
+      "saude": 40
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Cirurgia Geral",
+     "arquivo": "saude-enare-medica-cirurgia-geral.json",
+     "total": 141,
+     "porArea": {
+      "saude": 141
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Cirurgia Plástica",
+     "arquivo": "saude-enare-medica-cirurgia-plastica.json",
+     "total": 88,
+     "porArea": {
+      "saude": 88
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Cirurgia Torácica",
+     "arquivo": "saude-enare-medica-cirurgia-toracica.json",
+     "total": 83,
+     "porArea": {
+      "saude": 83
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Cirurgia Vascular e Angiologia",
+     "arquivo": "saude-enare-medica-cirurgia-vascular-e-angiologia.json",
+     "total": 55,
+     "porArea": {
+      "saude": 55
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Clínica Médica",
+     "arquivo": "saude-enare-medica-clinica-medica.json",
+     "total": 242,
+     "porArea": {
+      "saude": 242
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Dermatologia",
+     "arquivo": "saude-enare-medica-dermatologia.json",
+     "total": 14,
+     "porArea": {
+      "saude": 14
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Endocrinologia e Metabologia",
+     "arquivo": "saude-enare-medica-endocrinologia-e-metabologia.json",
+     "total": 51,
+     "porArea": {
+      "saude": 51
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Endoscopia Digestiva",
+     "arquivo": "saude-enare-medica-endoscopia-digestiva.json",
+     "total": 71,
+     "porArea": {
+      "saude": 71
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Foniatria",
+     "arquivo": "saude-enare-medica-foniatria.json",
+     "total": 58,
+     "porArea": {
+      "saude": 58
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Gastroenterologia",
+     "arquivo": "saude-enare-medica-gastroenterologia.json",
+     "total": 64,
+     "porArea": {
+      "saude": 64
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Ginecologia e Obstetrícia",
+     "arquivo": "saude-enare-medica-ginecologia-e-obstetricia.json",
+     "total": 111,
+     "porArea": {
+      "saude": 111
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Hematologia e Hemoterapia",
+     "arquivo": "saude-enare-medica-hematologia-e-hemoterapia.json",
+     "total": 100,
+     "porArea": {
+      "saude": 100
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Homeopatia",
+     "arquivo": "saude-enare-medica-homeopatia.json",
+     "total": 89,
+     "porArea": {
+      "saude": 89
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Infectologia",
+     "arquivo": "saude-enare-medica-infectologia.json",
+     "total": 75,
+     "porArea": {
+      "saude": 75
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Medicina de Emergência",
+     "arquivo": "saude-enare-medica-medicina-de-emergencia.json",
+     "total": 40,
+     "porArea": {
+      "saude": 40
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Medicina de Família, Preventiva e Saúde Coletiva",
+     "arquivo": "saude-enare-medica-medicina-de-familia-preventiva-e-saude-coletiva.json",
+     "total": 146,
+     "porArea": {
+      "saude": 146
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Medicina do Adolescente",
+     "arquivo": "saude-enare-medica-medicina-do-adolescente.json",
+     "total": 41,
+     "porArea": {
+      "saude": 41
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Medicina Física e Reabilitação",
+     "arquivo": "saude-enare-medica-medicina-fisica-e-reabilitacao.json",
+     "total": 27,
+     "porArea": {
+      "saude": 27
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Medicina Intensiva",
+     "arquivo": "saude-enare-medica-medicina-intensiva.json",
+     "total": 42,
+     "porArea": {
+      "saude": 42
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Nefrologia",
+     "arquivo": "saude-enare-medica-nefrologia.json",
+     "total": 82,
+     "porArea": {
+      "saude": 82
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Neurocirurgia",
+     "arquivo": "saude-enare-medica-neurocirurgia.json",
+     "total": 25,
+     "porArea": {
+      "saude": 25
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Neurologia",
+     "arquivo": "saude-enare-medica-neurologia.json",
+     "total": 89,
+     "porArea": {
+      "saude": 89
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Oftalmologia",
+     "arquivo": "saude-enare-medica-oftalmologia.json",
+     "total": 78,
+     "porArea": {
+      "saude": 78
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Oncologia",
+     "arquivo": "saude-enare-medica-oncologia.json",
+     "total": 48,
+     "porArea": {
+      "saude": 48
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Ortopedia e Traumatologia",
+     "arquivo": "saude-enare-medica-ortopedia-e-traumatologia.json",
+     "total": 79,
+     "porArea": {
+      "saude": 79
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Otorrinolaringologia",
+     "arquivo": "saude-enare-medica-otorrinolaringologia.json",
+     "total": 66,
+     "porArea": {
+      "saude": 66
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Patologia",
+     "arquivo": "saude-enare-medica-patologia.json",
+     "total": 82,
+     "porArea": {
+      "saude": 82
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Pediatria",
+     "arquivo": "saude-enare-medica-pediatria.json",
+     "total": 102,
+     "porArea": {
+      "saude": 102
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Pneumologia",
+     "arquivo": "saude-enare-medica-pneumologia.json",
+     "total": 42,
+     "porArea": {
+      "saude": 42
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Psiquiatria",
+     "arquivo": "saude-enare-medica-psiquiatria.json",
+     "total": 81,
+     "porArea": {
+      "saude": 81
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Radiologia e Diagnóstico por Imagem",
+     "arquivo": "saude-enare-medica-radiologia-e-diagnostico-por-imagem.json",
+     "total": 103,
+     "porArea": {
+      "saude": 103
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência médica · Reumatologia",
+     "arquivo": "saude-enare-medica-reumatologia.json",
+     "total": 8,
+     "porArea": {
+      "saude": 8
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Biomedicina",
+     "arquivo": "saude-enare-multi-biomedicina.json",
+     "total": 80,
+     "porArea": {
+      "saude": 80
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Ciências biológicas",
+     "arquivo": "saude-enare-multi-ciencias-biologicas.json",
+     "total": 81,
+     "porArea": {
+      "saude": 81
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Educação física",
+     "arquivo": "saude-enare-multi-educacao-fisica.json",
+     "total": 73,
+     "porArea": {
+      "saude": 73
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Enfermagem",
+     "arquivo": "saude-enare-multi-enfermagem.json",
+     "total": 78,
+     "porArea": {
+      "saude": 78
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Farmácia",
+     "arquivo": "saude-enare-multi-farmacia.json",
+     "total": 74,
+     "porArea": {
+      "saude": 74
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Física médica",
+     "arquivo": "saude-enare-multi-fisica-medica.json",
+     "total": 73,
+     "porArea": {
+      "saude": 73
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Fisioterapia",
+     "arquivo": "saude-enare-multi-fisioterapia.json",
+     "total": 78,
+     "porArea": {
+      "saude": 78
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Fonoaudiologia",
+     "arquivo": "saude-enare-multi-fonoaudiologia.json",
+     "total": 79,
+     "porArea": {
+      "saude": 79
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Medicina veterinária",
+     "arquivo": "saude-enare-multi-medicina-veterinaria.json",
+     "total": 70,
+     "porArea": {
+      "saude": 70
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Nutrição",
+     "arquivo": "saude-enare-multi-nutricao.json",
+     "total": 69,
+     "porArea": {
+      "saude": 69
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Odontologia",
+     "arquivo": "saude-enare-multi-odontologia.json",
+     "total": 80,
+     "porArea": {
+      "saude": 80
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Psicologia",
+     "arquivo": "saude-enare-multi-psicologia.json",
+     "total": 75,
+     "porArea": {
+      "saude": 75
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Saúde coletiva",
+     "arquivo": "saude-enare-multi-saude-coletiva.json",
+     "total": 96,
+     "porArea": {
+      "saude": 96
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Serviço social",
+     "arquivo": "saude-enare-multi-servico-social.json",
+     "total": 79,
+     "porArea": {
+      "saude": 79
+     }
+    },
+    {
+     "ano": 2024,
+     "titulo": "Enare, residência multiprofissional · Terapia ocupacional",
+     "arquivo": "saude-enare-multi-terapia-ocupacional.json",
+     "total": 79,
+     "porArea": {
+      "saude": 79
+     }
+    }
+   ]
+  },
+  {
    "id": "oab",
    "nome": "OAB: Exame de Ordem (1.ª fase)",
    "origem": "https://huggingface.co/datasets/eduagarcia/oab_exams",
