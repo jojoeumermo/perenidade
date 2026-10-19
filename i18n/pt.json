@@ -103,8 +103,11 @@
     "montadorLead": "Encaixe as peças certas e diagnostique o computador que não liga.",
     "ia": "Laboratório de IA",
     "iaLead": "Veja a máquina aprender: uma reta que se ajusta aos pontos e uma rede minúscula.",
-    "planilha": "Planilha",
-    "planilhaLead": "Fórmulas, gráfico e CSV, no navegador.",
+    "escritorio": "Escritório",
+    "escritorioLead": "Texto, planilha e apresentação (estilo Word, Excel e PowerPoint), de graça e no navegador.",
+    "escritorioIntro": "Três programas de código aberto do projeto ArtCraft, abertos aqui mesmo: escreva um documento, monte uma planilha com fórmulas e gráficos e prepare uma apresentação. Abrem e salvam arquivos .docx, .xlsx e .pptx.",
+    "escritorioTab": "Escolha o programa",
+    "escritorioLocal": "Tudo fica só no navegador deste aparelho: salve o arquivo ao terminar.",
     "seguranca": "Laboratório de Segurança",
     "segurancaLead": "Phishing, logs e senhas num ambiente só de treino: a defesa de cada ataque.",
     "simulacoes": "Simulações (PhET)",
@@ -4052,6 +4055,18 @@
       "threejs": {
         "title": "Montar a cena: editor do three.js",
         "text": "Objetos, materiais, luzes e câmera numa cena 3D, para exportar ou levar ao Blender."
+      },
+      "wordcraft": {
+        "title": "Escrever documentos (estilo Word): WordCraft",
+        "text": "Texto com estilos, tabelas, imagens, sumário e revisão; abre e salva .docx."
+      },
+      "gridcraft": {
+        "title": "Planilhas (estilo Excel): GridCraft",
+        "text": "Fórmulas, funções, filtros, formatação condicional e gráficos; abre e salva .xlsx e .csv."
+      },
+      "deckcraft": {
+        "title": "Apresentações (estilo PowerPoint): DeckCraft",
+        "text": "Slides com layouts, temas, formas, imagens e modo de apresentação; abre e salva .pptx."
       }
     },
     "eyebrow": "Edição de vídeo",

@@ -111,8 +111,11 @@
     "montadorLead": "Fit the right parts and diagnose the computer that will not turn on.",
     "ia": "Лаборатория ИИ",
     "iaLead": "Watch the machine learn: a line fitting points and a tiny network.",
-    "planilha": "Таблица",
-    "planilhaLead": "Formulas, chart and CSV, in the browser.",
+    "escritorio": "Офис",
+    "escritorioLead": "Документы, таблицы и презентации (в стиле Word, Excel и PowerPoint), бесплатно, в браузере.",
+    "escritorioIntro": "Три программы с открытым кодом из проекта ArtCraft открываются прямо здесь: напишите документ, соберите таблицу с формулами и графиками и подготовьте презентацию. Они открывают и сохраняют файлы .docx, .xlsx и .pptx.",
+    "escritorioTab": "Выберите программу",
+    "escritorioLocal": "Всё остаётся только в браузере этого устройства: сохраните файл, когда закончите.",
     "seguranca": "Лаборатория безопасности",
     "segurancaLead": "Phishing, logs and passwords in a training-only sandbox: the defence for each attack.",
     "simulacoes": "Симуляции (PhET)",
@@ -4196,6 +4199,18 @@
       "threejs": {
         "title": "Собрать сцену: редактор three.js",
         "text": "Объекты, материалы, свет и камера в 3D-сцене — для экспорта или переноса в Blender."
+      },
+      "wordcraft": {
+        "title": "Документы (в стиле Word): WordCraft",
+        "text": "Текст со стилями, таблицы, изображения, оглавление и рецензирование; открывает и сохраняет .docx."
+      },
+      "gridcraft": {
+        "title": "Таблицы (в стиле Excel): GridCraft",
+        "text": "Формулы, функции, фильтры, условное форматирование и диаграммы; открывает и сохраняет .xlsx и .csv."
+      },
+      "deckcraft": {
+        "title": "Презентации (в стиле PowerPoint): DeckCraft",
+        "text": "Слайды с макетами, темами, фигурами, изображениями и режимом показа; открывает и сохраняет .pptx."
       }
     },
     "eyebrow": "Видеомонтаж",
