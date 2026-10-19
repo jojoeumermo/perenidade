@@ -2969,6 +2969,28 @@ await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), 
   await recusa("sugestão decidida não se decide de novo", () => rpc(como(ids.aluno2), "sugestao_responder", { p_sugestao: sugestao.id, p_aceitar: false }), "ja_decidida");
 }
 
+// Cadernos prontos: o voluntário monta, a revisão publica, quem estuda vê na lista pública.
+{
+  const fontes = [{ titulo: "Frações", origem: "/trilhas/matematica-fundamental/fracoes" }, { titulo: "Endereço de fora", origem: "https://exemplo.org" }];
+  await recusa("quem não é da equipe não publica caderno pronto", () => rpc(como(ids.aluno2), "caderno_pronto_enviar", { p: { titulo: "Revisão de frações", fontes } }), "sem_permissao");
+  let pronto;
+  await espera("o voluntário envia e o pedido não aparece na lista pública antes da revisão", async () => { pronto = await rpc(como(ids.prof), "caderno_pronto_enviar", { p: { titulo: "Revisão de frações", descricao: "Para a prova do bimestre.", disciplina: "matematica", fontes } }); return rpc(anon, "cadernos_prontos_listar"); }, (r) => !r.some((x) => x.id === pronto.id));
+  await recusa("quem enviou não publica o próprio caderno", () => rpc(como(ids.prof), "caderno_pronto_decidir", { p_id: pronto.id, p_publicar: true }), "sem_permissao");
+  await espera("a coordenação publica e só as fontes do site ficam", async () => { await rpc(como(ids.coord), "caderno_pronto_decidir", { p_id: pronto.id, p_publicar: true, p_nota: "" }); return rpc(anon, "cadernos_prontos_listar"); }, (r) => r.some((x) => x.id === pronto.id && x.fontes.length === 1 && x.fontes[0].origem === "/trilhas/matematica-fundamental/fracoes"));
+}
+// Certificado de participação de quem estuda: emitido com o nome escrito pela pessoa e conferido por qualquer um.
+{
+  await recusa("trilha com nome estranho não vale", () => rpc(anon, "certificado_aluno_emitir", { p_nome: "Ana Souza", p_trilha: "../x", p_titulo: "Frações", p_aulas: 8 }), "invalido:trilha");
+  let cert;
+  await espera("emitido, o número confere na página pública", async () => { cert = await rpc(anon, "certificado_aluno_emitir", { p_nome: "Ana Souza", p_trilha: "matematica-fundamental", p_titulo: "Matemática do fundamental", p_aulas: 12 }); return rpc(anon, "certificado_conferir", { p_codigo: cert.codigo }); }, (r) => /^A[A-Z0-9]{11}$/.test(cert.codigo) && r.encontrado && r.valido && r.aluno && r.nome === "Ana Souza" && r.aulas === 12);
+}
+// Resoluções das questões de provas públicas: o educador publica, qualquer um lê, a coordenação retira.
+{
+  await recusa("quem não ensina não publica resolução", () => rpc(como(ids.designer), "resolucao_enviar", { p_questao: "enem-2023-136", p_texto: "Resolução de quem não ensina, que não deve entrar." }), "sem_permissao");
+  let res;
+  await espera("o educador publica e a resolução aparece para quem não entrou", async () => { res = await rpc(como(ids.prof), "resolucao_enviar", { p_questao: "enem-2023-136", p_texto: "Some as frações com o mesmo denominador: 3/8 + 1/8 = 4/8 = 1/2. Letra B." }); return rpc(anon, "resolucoes_listar", { p_questoes: ["enem-2023-136", "enem-2023-137"] }); }, (r) => r.length === 1 && r[0].texto.includes("Letra B"));
+  await espera("a coordenação retira e ela some", async () => { await rpc(como(ids.coord), "resolucao_retirar", { p_id: res.id }); return rpc(anon, "resolucoes_listar", { p_questoes: ["enem-2023-136"] }); }, (r) => r.length === 0);
+}
 // Tranca final: nenhuma tabela interna sem segurança por linha, nenhuma com permissão direta para quem vem de fora.
 await espera("toda tabela interna tem segurança por linha ligada", async () => (await dono("select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'interno' and c.relkind = 'r' and not c.relrowsecurity")).rows, (r) => r.length === 0);
 await espera("nenhuma tabela interna dá permissão direta a anon ou authenticated", async () => (await dono("select table_name from information_schema.role_table_grants where table_schema = 'interno' and grantee in ('anon', 'authenticated', 'PUBLIC')")).rows, (r) => r.length === 0);

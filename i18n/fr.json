@@ -196,7 +196,37 @@
     "mockToErrors": "Les questions ratées sont allées dans le cahier d'erreurs.",
     "mockOpenErrors": "Ouvrir le cahier d'erreurs",
     "mockNotEnough": "Il n'y a pas assez de questions dans cette discipline.",
-    "mockSkipped": "sans réponse"
+    "mockSkipped": "sans réponse",
+    "publicTitle": "Examens publics",
+    "publicLead": "{n} questions de l'ENEM, l'examen national brésilien de fin de lycée, de 2009 à la dernière édition, avec le corrigé. La liste se met à jour toute seule chaque semaine ; les résolutions commentées sont écrites par les éducateurs de l'institut.",
+    "publicExam": "Examen",
+    "publicArea": "Domaine",
+    "publicAllAreas": "Tous les domaines",
+    "publicAreas": {
+      "linguagens": "Langages",
+      "humanas": "Sciences humaines",
+      "natureza": "Sciences de la nature",
+      "matematica": "Mathématiques"
+    },
+    "publicLanguage": "Langue étrangère",
+    "publicEnglish": "Anglais",
+    "publicSpanish": "Espagnol",
+    "publicLoading": "Chargement de l'examen…",
+    "publicPage": "page {a} sur {b}",
+    "publicPrev": "Précédente",
+    "publicNext": "Suivante",
+    "publicQuestion": "question",
+    "publicImage": "voir l'image de la question (ouvre la source)",
+    "publicRight": "Juste !",
+    "publicWrong": "Pas encore : la bonne réponse est {l}. La question est allée dans votre cahier d'erreurs.",
+    "publicAnswerIs": "Corrigé : {l}",
+    "publicResolutions": "Résolution des éducateurs",
+    "publicWrite": "Écrire la résolution de cette question",
+    "publicWriteHint": "Expliquez le chemin jusqu'à la réponse, pas à pas. Si le corrigé de la source est faux, dites-le ici.",
+    "publicSend": "Publier la résolution",
+    "publicRemove": "retirer",
+    "publicResolutionFailed": "Impossible de publier la résolution pour le moment.",
+    "publicSource": "Questions des examens publics de l'Inep, transcrites par le projet ouvert enem.dev. Mis à jour le {data}. Source :"
   },
   "slogans": {
     "acervo": "Lire est un acte de résistance.",
@@ -666,7 +696,17 @@
     "planEnds": "À ce rythme, vous terminez le {date}.",
     "planDownload": "Télécharger pour l'agenda (.ics)",
     "planEmpty": "Aucun cours en attente à planifier.",
-    "planNone": "Choisissez au moins un jour."
+    "planNone": "Choisissez au moins un jour.",
+    "studyInNotebook": "Étudier tout le parcours dans le cahier",
+    "studyGroup": "Étudier en groupe",
+    "badge": "Parcours terminé",
+    "certLead": "Vous avez terminé tous les cours prêts de ce parcours. Si vous voulez, générez l'attestation de participation : elle porte un numéro que n'importe qui peut vérifier sur le site.",
+    "certName": "Votre nom, tel qu'il doit apparaître",
+    "certIssue": "Générer l'attestation",
+    "certFailed": "Impossible de la générer pour le moment. Réessayez dans quelques minutes.",
+    "certTitle": "Attestation de participation",
+    "certText": "L'Institut Lúcia certifie que {nome} a étudié les {n} cours du parcours « {trilha} » à l'école populaire et gratuite de l'institut.",
+    "certCode": "Numéro de vérification : {c}"
   },
   "lesson": {
     "position": "cours {i} sur {n}",
@@ -701,7 +741,8 @@
     "videoNote": "La vidéo est hébergée sur un autre site. Une fois chargée, ce site peut voir votre visite.",
     "videoOpen": "Ouvrir la vidéo dans un autre onglet",
     "imagePending": "image en attente de publication",
-    "toMistakes": "Les questions ratées vont dans votre cahier d'erreurs."
+    "toMistakes": "Les questions ratées vont dans votre cahier d'erreurs.",
+    "studyInNotebook": "Étudier ce cours dans le cahier"
   },
   "library": {
     "areasTitle": "Domaines",
@@ -2274,7 +2315,9 @@
           "Elle dit dans quel but (finalité) et ajoute un détail.",
           "La proposition respecte les droits humains."
         ]
-      ]
+      ],
+      "askCorrection": "Demander la correction à un bénévole",
+      "askCorrectionNote": "Vous voulez l'avis d'une personne ? Le texte part vers le Soutien scolaire et un bénévole répond par e-mail avec des remarques selon les cinq compétences (sans note). Il ne quitte l'appareil que lorsque vous confirmez."
     },
     "syllables": {
       "help": "Touchez une syllabe pour l'entendre. Touchez-en plusieurs, l'une après l'autre, pour former un mot, et écoutez le mot entier. Les syllabes sont en portugais.",
@@ -3385,7 +3428,10 @@
     "activities": "Activités",
     "issued": "Délivrée le",
     "witnesses": "Signée par",
-    "offline": "La vérification n'est pas encore active sur cette copie du site."
+    "offline": "La vérification n'est pas encore active sur cette copie du site.",
+    "student": "Attestation de participation d'une personne qui étudie, délivrée par l'Institut Lúcia.",
+    "track": "Parcours",
+    "lessons": "Cours"
   },
   "start": {
     "eyebrow": "Liste de lecture",
@@ -4006,7 +4052,12 @@
     "backupInvalid": "Ce fichier n'est pas une sauvegarde du cahier.",
     "backupConfirm": "Restaurer la sauvegarde ? Les cahiers, les cartes et les erreurs sont fusionnés avec ceux déjà ici ; tout le reste est remplacé par la sauvegarde.",
     "nextTomorrow": "revient demain",
-    "exportAnki": "Télécharger pour Anki (.csv)"
+    "exportAnki": "Télécharger pour Anki (.csv)",
+    "readyTitle": "Cahiers prêts",
+    "readyLead": "Montés par des bénévoles, par parcours ou par thème. Les utiliser crée votre propre copie sur cet appareil.",
+    "readyUse": "Utiliser ce cahier",
+    "readySources": "{n} source(s)",
+    "building": "Montage du cahier avec les cours…"
   },
   "practiceStudio": {
     "inside": "Ouvrir ici",
@@ -4220,5 +4271,24 @@
     "clear": "Effacer",
     "download": "Télécharger le dessin",
     "open": "Ouvrir"
+  },
+  "studyGroup": {
+    "eyebrow": "Étudier ensemble",
+    "title": "Salle d'étude en groupe",
+    "lead": "Ouvrez une salle, envoyez le lien au groupe et étudiez ensemble, avec la vidéo et le même minuteur de concentration pour tous.",
+    "focusMinutes": "Minutes de concentration",
+    "breakMinutes": "Minutes de pause",
+    "create": "Ouvrir une salle",
+    "note": "Le minuteur voyage dans le lien lui-même : quiconque l'ouvre voit la même phase et le même temps, sans inscription.",
+    "phaseFocus": "Concentration",
+    "phaseBreak": "Pause",
+    "cycle": "{f} min de concentration et {p} de pause · tour {n}",
+    "roomLink": "Envoyez ce lien à celles et ceux qui étudient avec vous :",
+    "copy": "Copier le lien",
+    "copied": "Lien copié ✓",
+    "yourName": "Votre nom dans la salle",
+    "join": "Entrer dans la salle vidéo",
+    "someone": "Élève",
+    "privacy": "La vidéo passe par le serveur de visioconférence configuré par l'institut (Jitsi). Rien n'est enregistré."
   }
 }

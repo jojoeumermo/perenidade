@@ -10,6 +10,7 @@ import { guardarCartoes, registrarErro } from "@/lib/estudo";
 import { buildSearch, type SearchEntry, type SearchHit } from "@/lib/search";
 import { L, useI18n } from "../I18n";
 import { CopiaDeSeguranca, Erros, Ler, Revisao } from "./Estudo";
+import { CadernosProntos, enderecoDoSite, montarCaderno, PublicarCadernoPronto, type ReferenciaDoSite } from "./Prontos";
 
 export type NotebookStrings = Dict["notebook"];
 type Ferramenta = "resumo" | "ler" | "perguntar" | "cartoes" | "revisao" | "questionario" | "erros" | "mapa" | "tempo" | "audio" | "notas" | "plano" | "roteiro";
@@ -35,6 +36,21 @@ export function CadernoDeEstudos({ s, modo = "site" }: { s: NotebookStrings; mod
   const [atualId, setAtualId] = useState<string>("");
   const [ferramenta, setFerramenta] = useState<Ferramenta>("resumo");
   const [aba, setAba] = useState<"site" | "colar" | "arquivo" | null>(null);
+  const [montando, setMontando] = useState(false);
+
+  /** Um caderno novo já com as páginas do site (uma aula, a trilha inteira, um caderno pronto). */
+  async function abrirComFontes(titulo: string, refs: ReferenciaDoSite[]) {
+    setMontando(true);
+    const novo = await montarCaderno(lang, titulo, refs, novoId);
+    setCadernos((lista) => {
+      const nova = [novo, ...(lista ?? []).filter((c) => c.fontes.length || c.notas.trim())];
+      guardarCadernos(nova);
+      return nova;
+    });
+    setAtualId(novo.id);
+    setFerramenta("resumo");
+    setMontando(false);
+  }
 
   useEffect(() => {
     const relogio = window.setTimeout(() => {
@@ -43,10 +59,19 @@ export function CadernoDeEstudos({ s, modo = "site" }: { s: NotebookStrings; mod
       setCadernos(pronta);
       setAtualId(pronta[0].id);
       // Endereço com ?ferramenta=erros (vindo do simulado) ou ?ferramenta=revisao abre direto nela.
-      const pedida = new URLSearchParams(window.location.search).get("ferramenta");
+      const busca = new URLSearchParams(window.location.search);
+      const pedida = busca.get("ferramenta");
       if (pedida === "erros" || pedida === "revisao" || pedida === "ler") setFerramenta(pedida);
+      // ?abrir=/trilhas/x/a,/trilhas/x/b&titulo=… (de "Estudar esta aula no caderno" ou "Estudar a trilha no caderno").
+      const abrir = (busca.get("abrir") ?? "").split(",").filter((origem) => enderecoDoSite.test(origem)).slice(0, 30);
+      if (abrir.length) {
+        void abrirComFontes((busca.get("titulo") ?? s.untitled).slice(0, 80), abrir.map((origem) => ({ titulo: "", origem })));
+        window.history.replaceState(null, "", window.location.pathname);
+      }
     }, 0);
     return () => window.clearTimeout(relogio);
+    // Roda uma vez ao abrir a página: o endereço só é lido nesse momento (e depois é limpo).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [s.untitled]);
 
   const atual = cadernos?.find((c) => c.id === atualId) ?? cadernos?.[0] ?? null;
@@ -165,6 +190,9 @@ export function CadernoDeEstudos({ s, modo = "site" }: { s: NotebookStrings; mod
           {aba === "colar" && <Colar s={s} acrescentar={acrescentar} />}
           {aba === "arquivo" && <Arquivo s={s} acrescentar={acrescentar} />}
         </section>
+        {montando && <p role="status" className="text-xs text-ink-soft">{s.building}</p>}
+        <CadernosProntos s={s} usar={(titulo, fontes) => void abrirComFontes(titulo, fontes)} />
+        {modo !== "site" && <PublicarCadernoPronto caderno={atual} />}
         <CopiaDeSeguranca s={s} />
         <p className="text-xs text-ink-soft">{s.honest}</p>
       </aside>

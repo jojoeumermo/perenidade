@@ -248,6 +248,24 @@ export function Redacao({ s, lang }: { s: T["essay"]; lang: string }) {
         </section>
       </aside>
       <RevisaoGuiada s={s} texto={texto} paragrafos={c.paragrafos} />
+      <section className="border-t border-rule pt-6 lg:col-span-2 @max-3xl:lg:col-span-1">
+        <p className="text-ink-soft">{s.askCorrectionNote}</p>
+        <button
+          type="button"
+          disabled={c.palavras < 50}
+          className={`mt-2 ${button}`}
+          onClick={() => {
+            try {
+              sessionStorage.setItem("lucia:redacao-para-correcao", texto.slice(0, 2800));
+            } catch {
+              // sem armazenamento: o reforço abre vazio e a pessoa cola o texto
+            }
+            window.location.href = localePath(lang, "/reforco?disciplina=enem&redacao=1");
+          }}
+        >
+          {s.askCorrection}
+        </button>
+      </section>
     </div>
   );
 }
