@@ -138,7 +138,7 @@ function MontarSequencia({ s, indice }: { s: S; indice: Indice | null }) {
           <ol className="mt-2 space-y-1">
             {aulas.map((id, i) => (
               <li key={id} className="flex items-center gap-2 border-b border-rule py-1">
-                <span className="w-6 shrink-0 font-mono text-xs text-gold">{String(i + 1).padStart(2, "0")}</span>
+                <span className="w-6 shrink-0 font-mono text-xs text-ink-soft">{String(i + 1).padStart(2, "0")}</span>
                 <span className="min-w-0 flex-1">{nomeDaAula(indice, id)}</span>
                 <button type="button" className="cursor-pointer px-1 hover:text-oxblood disabled:opacity-30" disabled={i === 0} onClick={() => mover(i, -1)} aria-label={fill(s.subir, { aula: nomeDaAula(indice, id) })}>
                   ↑
@@ -287,7 +287,7 @@ function VistaDoAluno({ seq, fragmento, s, indice }: { seq: Sequencia; fragmento
   return (
     <div className="mt-6 space-y-6">
       <section className={cartao} aria-labelledby="tu-seq">
-        <p className="font-mono text-xs uppercase tracking-widest text-gold">{fill(s.daTurma, { codigo })}</p>
+        <p className="font-mono text-xs uppercase tracking-widest text-oxblood">{fill(s.daTurma, { codigo })}</p>
         <h2 id="tu-seq" className="mt-1 font-serif text-3xl font-semibold">
           {seq.titulo}
         </h2>
@@ -320,7 +320,7 @@ function VistaDoAluno({ seq, fragmento, s, indice }: { seq: Sequencia; fragmento
             const aula = indice?.aulas.get(id);
             return (
               <li key={id} className="flex gap-3 border-b border-rule py-1.5">
-                <span className={`w-6 shrink-0 font-mono text-xs ${feita ? "text-ok" : "text-gold"}`}>{feita ? "✓" : String(i + 1).padStart(2, "0")}</span>
+                <span className={`w-6 shrink-0 font-mono text-xs ${feita ? "text-ok" : "text-ink-soft"}`}>{feita ? "✓" : String(i + 1).padStart(2, "0")}</span>
                 <span className="min-w-0">
                   <L href={`/trilhas/${id}`} className="underline hover:text-oxblood">
                     {aula?.titulo ?? id}

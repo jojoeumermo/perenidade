@@ -1,5 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { NextConfig } from "next";
+import { ligado } from "./lib/recursos";
 
 const dev = process.env.NODE_ENV !== "production";
 
@@ -40,23 +41,31 @@ const estudio = (() => {
   }
 })();
 
+// VLibras (recurso "vlibras", desligado por padrão): o tradutor de Libras do Governo Federal (lib/vlibras.ts). Só com o
+// recurso ligado a política libera o repositório oficial dele no jsDelivr (o programa, os estilos, as imagens e o quadro
+// do avatar, só esse caminho) e os serviços do governo (*.vlibras.gov.br: tradução e dicionário). O avatar roda dentro
+// do quadro, com a política dele: a página não precisa liberar WebAssembly. Ele só carrega depois do clique de quem
+// quer usar, e outros destinos que tente (métricas de terceiros) ficam bloqueados. Desligado, nada aqui muda.
+const vlibrasCodigo = ligado("vlibras") ? " https://cdn.jsdelivr.net/gh/spbgovbr-vlibras/" : "";
+const vlibras = ligado("vlibras") ? `${vlibrasCodigo} https://vlibras.gov.br https://*.vlibras.gov.br` : "";
+
 // Fora o desafio da entrada, o site não carrega nada de terceiros: scripts, estilos e fontes vêm do próprio domínio.
 const policy = (script: string) =>
   [
     "default-src 'self'",
     `script-src 'self' ${script}`,
-    "style-src 'self' 'unsafe-inline'",
+    `style-src 'self' 'unsafe-inline'${vlibras}`,
     // blob: é a prévia de uma imagem antes do envio; o serviço de contas mostra à equipe as imagens ainda em revisão.
-    `img-src 'self' data: blob: ${service}`.trim(),
-    "font-src 'self'",
-    `connect-src 'self' ${service} ${realtime}${dev ? " ws:" : ""}`.replace(/\s+/g, " ").trim(),
+    `img-src 'self' data: blob: ${service}${vlibras}`.trim(),
+    `font-src 'self'${vlibras}`,
+    `connect-src 'self' ${service} ${realtime}${dev ? " ws:" : ""}${vlibras}`.replace(/\s+/g, " ").trim(),
     // A rádio e o podcast tocam arquivos do próprio acervo ou a transmissão ao vivo indicada pela coordenação;
     // blob: é o áudio gravado ou escolhido no próprio aparelho (pergunta gravada, teste de microfone, corte de vídeo).
     `media-src 'self' https: blob: ${service}`.trim(),
     "worker-src 'self' blob:",
     "manifest-src 'self'",
     // blob: é a prévia, no próprio aparelho, de um PDF ou DOCX recebido nas conversas (nunca um endereço de fora).
-    `frame-src blob: ${captcha} ${jitsi} https://phet.colorado.edu ${videos} ${estudio}`.trim(),
+    `frame-src blob: ${captcha} ${jitsi} https://phet.colorado.edu ${videos} ${estudio}${vlibrasCodigo}`.trim(),
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
@@ -64,7 +73,7 @@ const policy = (script: string) =>
   ].join("; ");
 
 // 'unsafe-inline' é exigido pelos scripts de hidratação das páginas estáticas do Next.
-const pages = policy(`'unsafe-inline' ${captcha} ${jitsi}${dev ? " 'unsafe-eval'" : ""}`);
+const pages = policy(`'unsafe-inline' ${captcha} ${jitsi}${dev ? " 'unsafe-eval'" : ""}${vlibrasCodigo}`);
 // Os interpretadores de Python e PHP rodam isolados em um Worker, sem acesso à página;
 // só ali é permitido compilar WebAssembly e código gerado em tempo de execução.
 const workers = policy("'wasm-unsafe-eval' 'unsafe-eval'");
