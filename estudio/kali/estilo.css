@@ -183,6 +183,38 @@ body {
 .k-resp.ok { color: var(--verde); }
 .k-resp.erro { color: var(--amarelo); }
 
+/* ───────── Missões (o wargame) ───────── */
+.missoes { display: flex; flex-direction: column; gap: 10px; }
+.missao { border: 1px solid var(--borda); border-radius: 7px; padding: 12px 14px; background: #1c2026; }
+.missao.ativa { border-color: var(--azul); box-shadow: 0 0 0 1px rgba(30,155,215,0.35) inset; }
+.missao.feita { opacity: 0.75; border-color: #2f5a32; }
+.missao.travada { opacity: 0.5; }
+.missao-topo { display: flex; align-items: center; gap: 10px; }
+.missao-num { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: var(--azul); color: #06131c; font-weight: 700; font-size: 13px; flex: none; }
+.missao.feita .missao-num { background: var(--verde); }
+.missao.travada .missao-num { background: #3a4048; color: var(--texto-fraco); }
+.missao-titulo { font-weight: 700; font-size: 15px; flex: 1; }
+.missao-tec { font: 11px "DejaVu Sans Mono", monospace; color: var(--azul-claro); background: rgba(30,155,215,0.14); padding: 2px 7px; border-radius: 10px; }
+.missao-obj { margin: 9px 0 0; line-height: 1.5; color: var(--texto); }
+.missao-obj.ok { color: var(--verde); font-size: 13px; }
+.missao-dicas { margin-top: 6px; }
+.missao-dicas .dica { margin: 6px 0 0; padding: 7px 10px; border-left: 3px solid var(--amarelo); background: rgba(233,182,75,0.08); font-size: 13px; line-height: 1.5; }
+.missao-barra { display: flex; gap: 8px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+.k-link { background: none; border: 0; color: var(--azul-claro); cursor: pointer; font: inherit; font-size: 13px; text-decoration: underline; padding: 0; }
+.k-link:hover { color: #9adbff; }
+.missao-resp { display: block; margin-top: 6px; font-size: 13px; }
+.missao-resp.erro { color: var(--amarelo); }
+.vitoria { border: 1px solid var(--verde); border-radius: 8px; padding: 14px; background: rgba(120,199,90,0.1); }
+.vitoria strong { font-size: 16px; color: var(--verde); }
+.vitoria p { margin: 6px 0 0; line-height: 1.5; font-size: 13px; }
+
+/* ───────── Guia de comandos ───────── */
+.guia-cat { font-size: 13px; color: var(--azul-claro); margin: 16px 0 6px; border-bottom: 1px solid var(--borda); padding-bottom: 4px; }
+.guia-cat:first-of-type { margin-top: 4px; }
+.guia-tab { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: baseline; }
+.guia-cmd { font: 12.5px "DejaVu Sans Mono", monospace; color: #cfe3ee; background: #05080c; border: 1px solid var(--borda); border-radius: 4px; padding: 2px 7px; white-space: nowrap; }
+.guia-desc { font-size: 13px; color: var(--texto-fraco); line-height: 1.4; }
+
 .jan-corpo::-webkit-scrollbar, .k-console::-webkit-scrollbar, .k-detalhe::-webkit-scrollbar { width: 9px; height: 9px; }
 .jan-corpo::-webkit-scrollbar-thumb, .k-console::-webkit-scrollbar-thumb, .k-detalhe::-webkit-scrollbar-thumb { background: #3a4048; border-radius: 4px; }
 
