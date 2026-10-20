@@ -12,7 +12,7 @@ import { useI18n } from "../I18n";
 import { Markdown } from "../Markdown";
 import { useTrackOptions } from "../useTrackOptions";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
-import { Aviso, campo, elo, papeis, useAcao, useLista } from "./comum";
+import { Aviso, campo, elo, localDoPainel, papeis, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
 import { FerramentasDoAutor } from "./FerramentasDoAutor";
 import { GuiaDaAula } from "./GuiaDaAula";
@@ -662,7 +662,7 @@ function Versoes({ chave, titulo, corpo, restaurar }: { chave: string; titulo: s
               {lista.map((v) => (
                 <li key={v.em} className="flex items-center justify-between gap-2 border-b border-rule py-1">
                   <span>
-                    {new Date(v.em).toLocaleString("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
+                    {new Date(v.em).toLocaleString(localDoPainel(), { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}
                     <span className="block text-ink-soft">{v.titulo || "(sem título)"} · {v.corpo.split(/\s+/).filter(Boolean).length} palavras</span>
                   </span>
                   <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => { if (window.confirm("Trocar o texto atual por esta versão? O texto atual fica guardado na lista.")) { guardarVersao(chave, titulo, corpo, true); restaurar(v); setAberto(false); } }}>

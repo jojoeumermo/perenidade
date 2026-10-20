@@ -40,7 +40,7 @@ const DAS_DEPENDENCIAS = [
   ["@xterm/addon-fit/lib/addon-fit.mjs", "addon-fit.mjs"],
 ];
 // O código do laboratório, versionado aqui.
-const DO_REPOSITORIO = ["index.html", "estilo.css", "area.js", "ferramentas.js", "terminal.js", "rede.js", "dragao.svg", "_headers"];
+const DO_REPOSITORIO = ["index.html", "estilo.css", "area.js", "ferramentas.js", "terminal.js", "jogo.js", "dragao.svg", "papel.svg", "_headers"];
 
 async function baixar(url) {
   const r = await fetch(url, { redirect: "follow", headers: { "User-Agent": "InstitutoLucia-kali/1.0" } });

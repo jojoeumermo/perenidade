@@ -37,7 +37,6 @@ const arquivosSoltos = [
   "components/VideoPlayer.tsx",
   "components/Editor.tsx",
   "components/caderno/Prontos.tsx",
-  "components/JitsiSala.tsx",
   "components/Markdown.tsx",
   "components/SenhaCampo.tsx",
 ];
@@ -50,7 +49,7 @@ const atributosTecnicos = new Set(["className", "key", "id", "href", "type", "na
 const chamadasTecnicas = new Set(["rpc", "agir", "setRequestHeader", "useLista", "getItem", "setItem", "removeItem", "addEventListener", "removeEventListener", "dispatchEvent", "Event", "querySelector", "querySelectorAll", "getElementById", "createElement", "fetch", "require", "import", "from", "includes", "startsWith", "endsWith", "split", "replace", "replaceAll", "join", "indexOf", "test", "match", "getAttribute", "setAttribute", "has", "get", "set", "delete", "postMessage", "signedStorageUrl", "storage", "upload", "remove", "localeCompare", "toLocaleDateString", "toLocaleString", "toLocaleTimeString", "Intl", "NumberFormat", "DateTimeFormat", "padStart", "erro", "VideoErro", "Blob", "File", "MediaRecorder", "isTypeSupported", "getContext", "captureStream", "toBlob", "toDataURL", "open", "registrar"]);
 
 /** Palavras soltas, em minúscula, que aparecem na tela (o filtro as tomaria por chaves técnicas). */
-const palavrasSoltas = new Set(["pessoa", "pessoas", "iniciante", "selecionada", "selecionadas", "faixa", "pausa", "recado", "disciplina", "tipo", "origem", "programa", "motivo", "situação", "formato", "canal", "ligado", "definido", "sim", "publicado"]);
+const palavrasSoltas = new Set(["pessoa", "pessoas", "iniciante", "selecionada", "selecionadas", "faixa", "pausa", "recado", "disciplina", "tipo", "origem", "programa", "motivo", "situação", "formato", "canal", "ligado", "definido", "sim", "publicado", "dd/mm/aaaa"]);
 
 /** Uma palavra só no meio do JSX ("ligado", "trabalho", "resp.:") é texto da tela; endereços e códigos (_dmarc, p=none) não passam. */
 const palavraDoJsx = (texto) => /^\p{Ll}{3,}[.:]{0,2}$/u.test(texto);

@@ -3,8 +3,18 @@
 // A área de trabalho no estilo do Kali Linux: painel de cima, menu de aplicativos, barra de tarefas e janelas
 // arrastáveis. Cada janela é uma ferramenta de treino (ferramentas.js); o Terminal é o Linux real do v86 (terminal.js).
 // Nada aqui é um sistema de verdade nem alcança a rede: é um laboratório fechado, só para aprender.
-import { FERRAMENTAS, h } from "./ferramentas.js";
+import { configurar, FERRAMENTAS, h } from "./ferramentas.js";
+import { roteiroDePreparacao } from "./jogo.js";
 import { montarTerminal } from "./terminal.js";
+
+// Sorteia as senhas do wargame desta sessão (só em memória) e monta o roteiro que prepara a máquina.
+const PALAVRAS = ["sol", "lua", "mar", "rio", "ceu", "mata", "vento", "pedra", "chuva", "fogo", "neve", "raiz", "folha", "onda", "trovao", "aurora", "cometa", "duna", "orvalho", "brisa"];
+const palavra = () => PALAVRAS[Math.floor(Math.random() * PALAVRAS.length)];
+const num = () => 1000 + Math.floor(Math.random() * 9000);
+const token = () => `${palavra()}-${palavra()}-${num()}`;
+const SENHAS = { nivel: Array.from({ length: 9 }, token), root: token(), flag: `LUCIA{${palavra()}_${palavra()}_${num()}}` };
+const ROTEIRO = roteiroDePreparacao(SENHAS);
+configurar(SENHAS);
 
 const area = document.getElementById("area");
 const barraTarefas = document.getElementById("tarefas");
@@ -119,7 +129,7 @@ function abrir(f) {
     const tela = h("div.terminal-tela");
     corpo.append(tela);
     corpo.classList.add("sem-pad");
-    reg.terminal = terminalVivo = montarTerminal(tela, { aoPronto: () => {} });
+    reg.terminal = terminalVivo = montarTerminal(tela, { roteiro: ROTEIRO, aoPronto: () => abrir(FERRAMENTAS.find((x) => x.id === "missoes")) });
     setTimeout(() => reg.terminal.ajustar(), 80);
   } else {
     f.render(corpo);
@@ -189,6 +199,5 @@ document.addEventListener("keydown", (e) => {
 });
 
 montarMenu();
-// Abre o terminal e os alvos ao entrar, para o laboratório já começar vivo (a tela em si fica limpa, como no Kali).
+// Abre o terminal ao entrar; a janela de Missões abre sozinha quando o laboratório termina de preparar (aoPronto).
 abrir(FERRAMENTAS.find((f) => f.id === "terminal"));
-setTimeout(() => abrir(FERRAMENTAS.find((f) => f.id === "alvos")), 300);
