@@ -243,7 +243,10 @@
     "publicRemove": "remove",
     "publicResolutionFailed": "Could not publish the solution right now.",
     "publicSource": "Questions from public exams, transcribed by open projects (enem.dev, BLUEX and oab_exams). Updated on {data}. Source of this exam:",
-    "publicSourcePick": "Source"
+    "publicSourcePick": "Source",
+    "bankTabInstitute": "The institute's questions",
+    "bankTabInstituteHint": "{n} questions from the lessons, with answers and explanations by the educators",
+    "bankTabPublicHint": "ENEM, university entrance exams (Fuvest, Unicamp, ITA, IME), olympiads, OAB, Revalida and Enare"
   },
   "slogans": {
     "acervo": "Reading is an act of resistance.",
@@ -726,7 +729,10 @@
     "certCode": "Verification number: {c}",
     "certPrint": "Save as PDF or print",
     "certClose": "Close",
-    "certPrintHint": "In the print window, choose “Save as PDF”, A4 paper and turn on “Background graphics”."
+    "certPrintHint": "In the print window, choose “Save as PDF”, A4 paper and turn on “Background graphics”.",
+    "searchLabel": "Search for a subject",
+    "searchPlaceholder": "Search for a subject or a topic (e.g. photosynthesis, samba, Python)…",
+    "searchClear": "Clear"
   },
   "lesson": {
     "position": "lesson {i} of {n}",
@@ -822,7 +828,9 @@
     "catalogTitle": "Extended catalogue",
     "catalogLead": "Works gathered from open catalogues, with a direct link to the source. These entries are simpler than those selected by the curators. A work being listed here does not mean agreement with what it says.",
     "seeAt": "See at {source}",
-    "mecNote": "Free digital loan from MEC Livros, the digital library of Brazil's Ministry of Education: just sign in with a gov.br account."
+    "mecNote": "Free digital loan from MEC Livros, the digital library of Brazil's Ministry of Education: just sign in with a gov.br account.",
+    "carouselPause": "Pause",
+    "carouselPlay": "Play"
   },
   "shelf": {
     "eyebrow": "Subject",
@@ -2893,7 +2901,10 @@
       "podcasts": "Political education episodes to listen to on the bus, in the kitchen or on your work break.",
       "instagram": "Institute news, lessons and calls for volunteers.",
       "live": "Schedule of live classes, with video and chat on the site itself.",
-      "notebook": "Gather lessons and texts and get summary, flashcards, quiz, map, timeline and audio from them. All in your browser."
+      "notebook": "Gather lessons and texts and get summary, flashcards, quiz, map, timeline and audio from them. All in your browser.",
+      "community": "The learners' forum: questions, answers and debates, moderated and ad-free.",
+      "health": "Volunteer health professionals offering free or social-rate care: you talk to them directly.",
+      "bugs": "Something froze or looked wrong? Tell the people who maintain the code."
     }
   },
   "support": {
@@ -3793,7 +3804,9 @@
       "Summary",
       "Study guide",
       "Printable material",
-      "Annotated recommendation"
+      "Annotated recommendation",
+      "Mind map",
+      "Downloadable file (PDF)"
     ]
   },
   "practice": {

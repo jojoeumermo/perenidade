@@ -103,6 +103,10 @@ export interface Book extends Localized {
   language: string;
   year?: string;
   synopsis: string;
+  /** A capa guardada no próprio site (public/capas, montada por scripts/capas.mjs), quando a fonte tem uma aberta. */
+  cover?: string;
+  /** De onde veio a capa e a licença dela (content/capas.json). */
+  coverCredit?: string;
 }
 
 /** Obra vinda dos catálogos abertos (content/catalogo): só os dados que a fonte publica. */
@@ -232,7 +236,7 @@ export interface Video extends Localized {
 }
 
 /** Formatos de material avulso, como o painel oferece. O texto guardado é o português; cada idioma traduz na tela. */
-export const looseFormats = ["Aula avulsa", "Lista de exercícios", "Resumo", "Roteiro de estudo", "Material para imprimir", "Indicação comentada"] as const;
+export const looseFormats = ["Aula avulsa", "Lista de exercícios", "Resumo", "Roteiro de estudo", "Material para imprimir", "Indicação comentada", "Mapa mental", "Arquivo para baixar (PDF)"] as const;
 export type LooseFormat = (typeof looseFormats)[number];
 
 /** Material avulso de uma disciplina: feito pelos educadores secundários, fora das trilhas. */
@@ -478,6 +482,17 @@ export const getTracks = cache((lang: Locale): Track[] => {
   return tracks.sort((a, b) => a.order - b.order || a.title.localeCompare(b.title, lang));
 });
 
+/** As capas que existem em public/capas e o crédito de cada uma. Lido uma vez por processo. */
+let capas: { ids: Set<string>; creditos: Record<string, { fonte: string }> } | null = null;
+function capasDoSite() {
+  if (!capas) {
+    const pasta = path.join(process.cwd(), "public", "capas");
+    const ids = new Set(fs.existsSync(pasta) ? fs.readdirSync(pasta).filter((f) => f.endsWith(".webp")).map((f) => f.slice(0, -5)) : []);
+    capas = { ids, creditos: readJson<Record<string, { fonte: string }>>("content/capas.json", {}) };
+  }
+  return capas;
+}
+
 export const getBooks = cache((lang: Locale): Book[] =>
   collection("acervo", lang, ({ slug, file, data, body, translated }) => {
     const url = httpsUrl(data, "url", file);
@@ -495,6 +510,7 @@ export const getBooks = cache((lang: Locale): Book[] =>
       language: text(data, "idioma", file),
       year: optional(data, "ano"),
       synopsis: body,
+      ...(capasDoSite().ids.has(slug) ? { cover: `/capas/${slug}.webp`, coverCredit: capasDoSite().creditos[slug]?.fonte } : {}),
       translated,
       file,
     };

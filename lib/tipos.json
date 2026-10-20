@@ -138,9 +138,9 @@
     "titulo": "Título do material",
     "disciplina": "obrigatoria",
     "fonte": true,
-    "corpo": { "rotulo": "Texto do material", "min": 200, "editor": true },
+    "corpo": { "rotulo": "Texto do material", "min": 40, "editor": true },
     "campos": [
-      { "nome": "formato", "rotulo": "Formato", "tipo": "select", "opcoes": ["Aula avulsa", "Lista de exercícios", "Resumo", "Roteiro de estudo", "Material para imprimir", "Indicação comentada"], "obrigatorio": true },
+      { "nome": "formato", "rotulo": "Formato", "tipo": "select", "opcoes": ["Aula avulsa", "Lista de exercícios", "Resumo", "Roteiro de estudo", "Material para imprimir", "Indicação comentada", "Mapa mental", "Arquivo para baixar (PDF)"], "obrigatorio": true },
       { "nome": "resumo", "rotulo": "Resumo (uma linha)", "tipo": "texto", "obrigatorio": true, "max": 200 }
     ]
   },

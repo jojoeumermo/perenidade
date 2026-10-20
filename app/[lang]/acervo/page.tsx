@@ -19,12 +19,12 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/acervo">):
 export default async function Acervo({ params }: PageProps<"/[lang]/acervo">) {
   const { lang, t } = await loadLang(params);
   const books = getBooks(lang);
-  // Novidades: as oito obras acrescentadas por último, pela data do histórico (índice de uma passada só).
+  // Novidades: as 24 obras acrescentadas por último, pela data do histórico (índice de uma passada só).
   const novidades = books
     .map((b) => ({ id: b.id, data: fileHistory(b.file).updated ?? "" }))
     .filter((x) => x.data)
     .sort((a, b) => b.data.localeCompare(a.data) || misturar(a.id) - misturar(b.id))
-    .slice(0, 8)
+    .slice(0, 24)
     .map((x) => x.id);
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
