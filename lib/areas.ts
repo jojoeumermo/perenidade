@@ -153,6 +153,35 @@ export const areaTools: Partial<Record<AreaSlug, string[]>> = {
   russo: ["pronuncia"],
 };
 
+/** Os laboratórios do site (páginas inteiras) que também abrem dentro da caixa das aulas, ao lado do texto. */
+export const LABS = {
+  ide: "/laboratorios/ide",
+  linux: "/laboratorios/linux",
+  redes: "/laboratorios/redes",
+  seguranca: "/laboratorios/seguranca",
+  montador: "/laboratorios/montador",
+  ia: "/laboratorios/ia",
+  escritorio: "/laboratorios/escritorio",
+  simulacoes: "/laboratorios/simulacoes",
+} as const;
+export type LabId = keyof typeof LABS;
+
+/** Que laboratórios cada disciplina tem à mão na caixa das aulas. Disciplina fora da lista: nenhum. */
+export const areaLabs: Partial<Record<AreaSlug, LabId[]>> = {
+  informatica: ["ide", "linux", "escritorio", "montador"],
+  programacao: ["ide", "linux"],
+  "engenharia-de-sistemas": ["ide", "linux", "redes"],
+  "redes-e-seguranca": ["redes", "seguranca", "linux"],
+  "inteligencia-artificial": ["ia", "ide"],
+  manutencao: ["montador"],
+  // As simulações do PhET já estão na caixa como ferramenta nas ciências; aqui só onde não estão.
+  enem: ["simulacoes", "escritorio"],
+  portugues: ["escritorio"],
+  literatura: ["escritorio"],
+  design: ["escritorio"],
+  midia: ["escritorio"],
+};
+
 /** Ferramentas que servem a qualquer aula: ficam sempre na caixa de ferramentas. */
 export const universalTools = ["calculadora", "cronometro", "dicionario"] as const;
 

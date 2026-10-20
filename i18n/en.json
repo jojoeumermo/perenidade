@@ -768,7 +768,13 @@
     "videoOpen": "Open the video in another tab",
     "imagePending": "image awaiting publication",
     "toMistakes": "Missed questions go to your mistakes notebook.",
-    "studyInNotebook": "Study this lesson in the notebook"
+    "studyInNotebook": "Study this lesson in the notebook",
+    "beforeTitle": "Before this lesson",
+    "beforeLead": "It helps to have seen first:",
+    "beforeKnow": "I know this, continue",
+    "beforeDone": "done",
+    "beforeMissing": "not yet",
+    "alsoInTitle": "Also in other subjects"
   },
   "library": {
     "areasTitle": "Areas",
@@ -4431,5 +4437,8 @@
     "title": "I found a bug",
     "lead": "Something didn't open, froze, looked broken or had the wrong text? Tell us here: it goes straight to the people who maintain the site's code.",
     "description": "Report a bug on the Instituto Lúcia site: what went wrong and where. No account needed and your network address is not stored."
+  },
+  "instituto": {
+    "description": "Purpose, mission, vision, values and the working charter (statute) of Instituto Lúcia: a free school and library run by volunteers."
   }
 }
