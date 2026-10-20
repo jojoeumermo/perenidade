@@ -381,6 +381,33 @@ export function Escrever({ me }: { me: Me }) {
         </div>
       );
     }
+    if (c.tipo === "requisitos") {
+      // As aulas já publicadas da mesma disciplina, para marcar o que é bom ter visto antes. Sem nada marcado, vale a
+      // aula anterior da trilha.
+      const marcadas = valor ? valor.split(",").filter(Boolean) : [];
+      const daDisciplina = tracks.filter((track) => track.area === trilha?.area);
+      return (
+        <details className="mt-1 border border-rule bg-parchment-deep p-2">
+          <summary className="cursor-pointer">{marcadas.length ? `${marcadas.length} aula(s) marcada(s)` : "Nenhuma marcada: vale a aula anterior da trilha"}</summary>
+          <div className="mt-2 max-h-56 space-y-2 overflow-y-auto">
+            {daDisciplina.map((track) => (track.lessons?.length ?? 0) > 0 && (
+              <fieldset key={track.slug}>
+                <legend className="font-mono text-[0.65rem] uppercase tracking-widest text-ink-soft">{track.title}</legend>
+                {track.lessons!.filter((l) => !(track.slug === trilha?.slug && l.slug === valores.slug)).map((l) => {
+                  const chave = `${track.slug}/${l.slug}`;
+                  return (
+                    <label key={chave} className="flex items-start gap-2">
+                      <input type="checkbox" className="mt-1" checked={marcadas.includes(chave)} onChange={(e) => mudar(c.nome, (e.target.checked ? [...marcadas, chave] : marcadas.filter((x) => x !== chave)).slice(0, 8).join(","))} />
+                      {l.title}
+                    </label>
+                  );
+                })}
+              </fieldset>
+            ))}
+          </div>
+        </details>
+      );
+    }
     if (c.tipo === "plano") {
       return (
         <select

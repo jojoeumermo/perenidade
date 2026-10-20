@@ -15,22 +15,24 @@ type Tools = Dict["tools"];
  * baixo, acima da barra de navegação, e a aula continua rolando por trás. A ferramenta só é baixada quando se abre, e o
  * que se digitou nela continua lá ao fechar e abrir de novo.
  */
-export function Caixa({ ferramentas, sugeridas, area, nomes, s, lang }: { ferramentas: ToolId[]; sugeridas: ToolId[]; area: string; nomes: Record<string, string[]>; s: Partial<Tools> & { box: Tools["box"] }; lang: string }) {
+export function Caixa({ ferramentas, sugeridas, area, nomes, s, lang, laboratorios = [] }: { ferramentas: ToolId[]; sugeridas: ToolId[]; area: string; nomes: Record<string, string[]>; s: Partial<Tools> & { box: Tools["box"] }; lang: string; laboratorios?: { id: string; nome: string; caminho: string }[] }) {
   const b = s.box;
   const [aberta, setAberta] = useState(false);
-  const [atual, setAtual] = useState<ToolId>(ferramentas[0]);
-  const [montadas, setMontadas] = useState<ToolId[]>([]);
+  // A escolha é uma ferramenta ("calculadora") ou um laboratório ("lab:linux"), que abre a página dele aqui dentro.
+  const [atual, setAtual] = useState<ToolId | `lab:${string}`>(ferramentas[0]);
+  const [montadas, setMontadas] = useState<(ToolId | `lab:${string}`)[]>([]);
+  const labAtual = atual.startsWith("lab:") ? laboratorios.find((l) => `lab:${l.id}` === atual) : undefined;
   const [alta, setAlta] = useState(false);
   const botao = useRef<HTMLButtonElement>(null);
   const titulo = useRef<HTMLHeadingElement>(null);
 
   // Na primeira vez que a caixa abre nesta página, volta à última ferramenta usada nesta disciplina.
-  function ultimaUsada(): ToolId {
+  function ultimaUsada(): ToolId | `lab:${string}` {
     if (montadas.length) return atual;
     try {
       const guardado = JSON.parse(getItem(KEYS.tools) || "{}") as Record<string, string>;
       const ultima = guardado[area] as ToolId | undefined;
-      if (ultima && ferramentas.includes(ultima)) return ultima;
+      if (ultima && (ferramentas.includes(ultima) || laboratorios.some((l) => `lab:${l.id}` === ultima))) return ultima;
     } catch {
       // nada guardado ainda
     }
@@ -52,7 +54,7 @@ export function Caixa({ ferramentas, sugeridas, area, nomes, s, lang }: { ferram
     return () => window.removeEventListener("keydown", tecla);
   }, [aberta]);
 
-  function abrir(id = atual) {
+  function abrir(id: ToolId | `lab:${string}` = atual) {
     setAtual(id);
     setMontadas((lista) => (lista.includes(id) ? lista : [...lista, id]));
     setAberta(true);
@@ -91,10 +93,11 @@ export function Caixa({ ferramentas, sugeridas, area, nomes, s, lang }: { ferram
         id="caixa-de-ferramentas"
         aria-label={b.title}
         hidden={!aberta}
-        className={`fixed inset-x-0 z-40 flex flex-col border-t-[3px] border-ink bg-parchment shadow-[0_-6px_24px_rgba(0,0,0,0.25)] bottom-[calc(4.5rem+env(safe-area-inset-bottom,0px))] md:bottom-0 lg:inset-y-0 lg:left-auto lg:right-0 lg:h-auto lg:w-[28rem] lg:border-l-[3px] lg:border-t-0 lg:shadow-none ${alta ? "h-[78dvh] max-h-[calc(100dvh-5rem-env(safe-area-inset-bottom,0px))]" : "h-[52dvh]"} lg:!h-auto`}
+        className={`fixed inset-x-0 z-40 flex flex-col border-t-[3px] border-ink bg-parchment shadow-[0_-6px_24px_rgba(0,0,0,0.25)] bottom-[calc(4.5rem+env(safe-area-inset-bottom,0px))] md:bottom-0 lg:inset-y-0 lg:left-auto lg:right-0 lg:h-auto ${labAtual ? "lg:w-[min(60rem,62vw)]" : "lg:w-[28rem]"} lg:border-l-[3px] lg:border-t-0 lg:shadow-none ${alta || labAtual ? "h-[78dvh] max-h-[calc(100dvh-5rem-env(safe-area-inset-bottom,0px))]" : "h-[52dvh]"} lg:!h-auto`}
       >
         <header className="flex items-center gap-2 border-b-2 border-ink px-3 py-2">
           <h2 ref={titulo} tabIndex={-1} className="mr-auto font-serif text-lg font-semibold outline-none">{b.title}</h2>
+          {labAtual && <a href={labAtual.caminho} target="_blank" rel="noopener" className="border border-rule px-2 py-1 hover:border-ink">⤢</a>}
           <button type="button" onClick={() => setAlta(!alta)} className="cursor-pointer border border-rule px-2 py-1 lg:hidden" aria-pressed={alta}>
             {alta ? b.smaller : b.bigger}
           </button>
@@ -117,14 +120,37 @@ export function Caixa({ ferramentas, sugeridas, area, nomes, s, lang }: { ferram
               {sugeridas.includes(id) && <span aria-hidden className="ml-1 text-gold">★</span>}
             </button>
           ))}
+          {laboratorios.length > 0 && <span aria-hidden className="mx-1 w-px shrink-0 bg-rule" />}
+          {laboratorios.map((l) => (
+            <button
+              key={l.id}
+              type="button"
+              onClick={() => abrir(`lab:${l.id}`)}
+              aria-current={atual === `lab:${l.id}` ? "true" : undefined}
+              className={`shrink-0 cursor-pointer whitespace-nowrap border px-2.5 py-1 ${atual === `lab:${l.id}` ? "border-ink bg-ink text-parchment" : "border-[#c21f16]/50 bg-parchment-deep hover:border-ink"}`}
+            >
+              <span aria-hidden>🧪 </span>{l.nome}
+            </button>
+          ))}
         </nav>
         <div className="@container min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-6">
           {/* Toda ferramenta aberta continua montada: o que se digitou não se perde ao trocar de ferramenta ou fechar a caixa. */}
-          {montadas.map((id) => (
-            <div key={id} hidden={id !== atual} className="[&>div]:!mt-4">
-              <ToolView id={id} s={s} lang={lang} area={area} />
-            </div>
-          ))}
+          {montadas.map((id) => {
+            if (id.startsWith("lab:")) {
+              const lab = laboratorios.find((l) => `lab:${l.id}` === id);
+              // O laboratório é a própria página dele, aberta aqui dentro (mesmo endereço do site, sem cabeçalho nem rodapé).
+              return lab ? (
+                <div key={id} hidden={id !== atual} className="-mx-4 h-full">
+                  <iframe src={lab.caminho} title={lab.nome} className="h-full min-h-[60dvh] w-full border-0 bg-parchment" allow="clipboard-write; fullscreen" />
+                </div>
+              ) : null;
+            }
+            return (
+              <div key={id} hidden={id !== atual} className="[&>div]:!mt-4">
+                <ToolView id={id as ToolId} s={s} lang={lang} area={area} />
+              </div>
+            );
+          })}
         </div>
       </section>
     </div>

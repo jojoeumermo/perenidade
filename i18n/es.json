@@ -768,7 +768,13 @@
     "videoOpen": "Abrir el video en otra pestaña",
     "imagePending": "imagen en espera de publicación",
     "toMistakes": "Las preguntas falladas van a tu cuaderno de errores.",
-    "studyInNotebook": "Estudiar esta clase en el cuaderno"
+    "studyInNotebook": "Estudiar esta clase en el cuaderno",
+    "beforeTitle": "Antes de esta clase",
+    "beforeLead": "Conviene haber visto antes:",
+    "beforeKnow": "Ya lo sé, seguir",
+    "beforeDone": "hecha",
+    "beforeMissing": "todavía no",
+    "alsoInTitle": "También en otras disciplinas"
   },
   "library": {
     "areasTitle": "Áreas",
@@ -4431,5 +4437,8 @@
     "title": "Encontré un error",
     "lead": "¿Algo no abrió, se trabó, apareció torcido o con el texto equivocado? Cuéntenos aquí: va directo a quien cuida el código del sitio.",
     "description": "Informe un error del sitio del Instituto Lúcia: qué falló y dónde. Sin cuenta y sin guardar su dirección de red."
+  },
+  "instituto": {
+    "description": "Propósito, misión, visión, valores y la carta de funcionamiento (estatuto) del Instituto Lúcia: escuela y biblioteca gratuitas, mantenidas por voluntarios."
   }
 }
