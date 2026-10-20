@@ -717,7 +717,10 @@
     "certFailed": "Impossible de la générer pour le moment. Réessayez dans quelques minutes.",
     "certTitle": "Attestation de participation",
     "certText": "L'Institut Lúcia certifie que {nome} a étudié les {n} cours du parcours « {trilha} » à l'école populaire et gratuite de l'institut.",
-    "certCode": "Numéro de vérification : {c}"
+    "certCode": "Numéro de vérification : {c}",
+    "certPrint": "Enregistrer en PDF ou imprimer",
+    "certClose": "Fermer",
+    "certPrintHint": "Dans la fenêtre d'impression, choisissez « Enregistrer au format PDF », papier A4 et activez « Graphiques d'arrière-plan »."
   },
   "lesson": {
     "position": "cours {i} sur {n}",
