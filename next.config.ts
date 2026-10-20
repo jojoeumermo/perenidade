@@ -1,5 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { NextConfig } from "next";
+import { SERVIDORES_JITSI } from "./lib/jitsi";
 import { ligado } from "./lib/recursos";
 
 const dev = process.env.NODE_ENV !== "production";
@@ -18,8 +19,9 @@ const realtime = service.replace(/^https:/, "wss:");
 
 // Desafio contra robôs da página de entrada: o único programa que o site carrega de fora.
 const captcha = "https://challenges.cloudflare.com";
-// A sala de vídeo (Sala Lúcia e Reuniões): o servidor público do Jitsi por padrão; troca-se por um próprio em NEXT_PUBLIC_JITSI_DOMAIN.
-const jitsi = `https://${(process.env.NEXT_PUBLIC_JITSI_DOMAIN ?? "meet.jit.si").replace(/^https?:\/\//, "").replace(/\/.*$/, "")}`;
+// A sala de vídeo (Sala Lúcia, Reuniões e estudo em grupo): os servidores Jitsi de lib/jitsi.ts (públicos, sem limite
+// de tempo nem login de moderador); troca-se por um próprio em NEXT_PUBLIC_JITSI_DOMAIN.
+const jitsi = SERVIDORES_JITSI.map((d) => `https://${d}`).join(" ");
 // Vídeos de aula ficam em outros sites e só carregam quando a pessoa clica. Servidores PeerTube entram por NEXT_PUBLIC_VIDEO_HOSTS.
 const videos = [
   "https://www.youtube-nocookie.com",
@@ -42,12 +44,13 @@ const estudio = (() => {
 })();
 
 // VLibras (recurso "vlibras", desligado por padrão): o tradutor de Libras do Governo Federal (lib/vlibras.ts). Só com o
-// recurso ligado a política libera o repositório oficial dele no jsDelivr (o programa, os estilos, as imagens e o quadro
-// do avatar, só esse caminho) e os serviços do governo (*.vlibras.gov.br: tradução e dicionário). O avatar roda dentro
-// do quadro, com a política dele: a página não precisa liberar WebAssembly. Ele só carrega depois do clique de quem
-// quer usar, e outros destinos que tente (métricas de terceiros) ficam bloqueados. Desligado, nada aqui muda.
-const vlibrasCodigo = ligado("vlibras") ? " https://cdn.jsdelivr.net/gh/spbgovbr-vlibras/" : "";
-const vlibras = ligado("vlibras") ? `${vlibrasCodigo} https://vlibras.gov.br https://*.vlibras.gov.br` : "";
+// recurso ligado a política libera o endereço oficial (vlibras.gov.br, que entrega o quadro do avatar e redireciona o
+// resto), o repositório oficial dele no jsDelivr (só esse caminho) e os serviços do governo (*.vlibras.gov.br: tradução
+// e dicionário). O avatar roda dentro do quadro, com a política dele: a página não precisa liberar WebAssembly. Ele só
+// carrega depois do clique de quem quer usar, e outros destinos que tente (métricas de terceiros) ficam bloqueados.
+// Desligado, nada aqui muda.
+const vlibrasCodigo = ligado("vlibras") ? " https://vlibras.gov.br https://cdn.jsdelivr.net/gh/spbgovbr-vlibras/" : "";
+const vlibras = ligado("vlibras") ? `${vlibrasCodigo} https://*.vlibras.gov.br` : "";
 
 // Fora o desafio da entrada, o site não carrega nada de terceiros: scripts, estilos e fontes vêm do próprio domínio.
 const policy = (script: string) =>

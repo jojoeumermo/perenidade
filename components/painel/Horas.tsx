@@ -2,22 +2,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { can, leads, type Me } from "@/lib/backend";
+import { can, leads, type Me, rpc } from "@/lib/backend";
+import { TERMO_ADESAO, textoDoTermo } from "@/lib/termos";
 import { BuscaDePessoa } from "./BuscaDePessoa";
 import { type Certificado, Folha, Impresso } from "./Certificado";
 import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, dia, elo, PAINEL_MUDOU, rotulo, useAcao, useLista } from "./comum";
 
-export const VERSAO_DO_TERMO = "2026-10-14";
-
-export const TERMO: string[] = [
-  "O Instituto Lúcia é uma iniciativa educacional gratuita e sem fins lucrativos, mantida por trabalho voluntário.",
-  "Participo por vontade própria e sem remuneração, nas atividades combinadas com a coordenação: escrita e revisão de aulas, curadoria, tradução, jornal, aula de reforço, design ou desenvolvimento.",
-  "Nos termos da Lei nº 9.608, de 18 de fevereiro de 1998, o serviço voluntário não gera vínculo empregatício nem obrigação de natureza trabalhista, previdenciária ou afim.",
-  "Não há horário fixo nem meta obrigatória. A plataforma conta sozinha as horas do trabalho que faço no painel (aula aprovada, parecer, tradução, aula de reforço, episódio publicado e os demais tipos da tabela de horas definida pela coordenação). O que eu fizer fora do painel, registro com a descrição do que fiz, e essas horas só contam para certificado depois de conferidas pela coordenação.",
-  "Posso deixar o voluntariado a qualquer momento, e o instituto pode encerrar a minha participação, sem ônus para nenhuma das partes.",
-  "O que eu escrever para o site é publicado sob a licença de conteúdo do instituto, com o crédito que eu escolher.",
-  "Comprometo-me a não inventar informações, a citar as fontes do que escrevo e a guardar sigilo sobre dados pessoais a que tiver acesso no painel.",
-];
+export const VERSAO_DO_TERMO = TERMO_ADESAO.versao;
+export const TERMO: string[] = TERMO_ADESAO.clausulas;
 
 interface Termo {
   nome_completo: string;
@@ -157,7 +149,7 @@ export function Horas({ me }: { me: Me }) {
           <h2 className="mt-1 font-serif text-2xl font-semibold">{antigo ? "O termo mudou: aceite de novo" : "Aceite o termo de adesão"}</h2>
           <p className="mt-2 text-ink-soft">
             {antigo
-              ? "Agora a plataforma conta sozinha as horas do trabalho feito no painel (cláusula 4). As horas que você já tem continuam valendo."
+              ? "O termo ganhou cláusulas que deixam claro o voluntariado: sem pagamento nem promessa de compensação, sem horário nem subordinação, licença livre e irrevogável do que você publica e as leis do Brasil. As horas que você já tem continuam valendo."
               : "As horas só começam a contar depois do aceite. É ele que transforma o seu trabalho em horas de voluntariado (Lei nº 9.608/1998)."}{" "}
             Leia o termo na aba <strong>Termo de adesão</strong> e confirme aqui.
           </p>
@@ -170,7 +162,12 @@ export function Horas({ me }: { me: Me }) {
               type="button"
               className={botao}
               disabled={acao.ocupado || (nome || termo.dados?.nome_completo || "").trim().length < 5}
-              onClick={() => acao.agir("termo_aceitar", { p_nome_completo: nome || termo.dados?.nome_completo || "", p_versao: VERSAO_DO_TERMO }, "Aceite registrado.")}
+              onClick={async () => {
+                const completo = nome || termo.dados?.nome_completo || "";
+                // O texto exato do termo fica guardado para sempre (interno.termos_aceites), junto com o nome completo.
+                await rpc("termo_registrar", { p_termo: "adesao", p_versao: VERSAO_DO_TERMO, p_texto: textoDoTermo(TERMO_ADESAO, [`Nome completo: ${completo}`]), p_dados: { nome_completo: completo } }).catch(() => null);
+                await acao.agir("termo_aceitar", { p_nome_completo: completo, p_versao: VERSAO_DO_TERMO }, "Aceite registrado.");
+              }}
             >
               Li e aceito o termo
             </button>

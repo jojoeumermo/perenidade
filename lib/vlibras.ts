@@ -4,14 +4,15 @@
 // clicar em "Ativar" e confirmar o aviso de serviço externo. "Lembrar neste aparelho" (desmarcado por padrão) faz o
 // tradutor carregar sozinho nas próximas páginas; é a única coisa que o site guarda sobre isso (lucia:vlibras).
 //
-// De onde vem: vlibras.gov.br/app redireciona para o repositório oficial do governo no jsDelivr, numa versão fixa.
-// O site aponta direto para essa versão (sem redirecionamento), e a política de segurança (next.config.ts) libera, com o
-// recurso ligado, só esse caminho e os serviços *.vlibras.gov.br (tradução, dicionário, repositório). Outros destinos
-// que o tradutor tente usar, como serviços de métrica de terceiros, continuam bloqueados.
-// Nova versão do VLibras? Troque VERSAO_VLIBRAS e confira no navegador (ativar, abrir o avatar, traduzir um trecho).
+// De onde vem: o endereço oficial, vlibras.gov.br/app. Ele entrega as páginas (o quadro do avatar, unity/index.html)
+// e redireciona os scripts, estilos e imagens para o repositório oficial do governo no jsDelivr, na versão que o
+// governo publica. Apontar direto para o jsDelivr não serve: ele entrega páginas HTML como texto puro, e o avatar
+// ficava girando para sempre ("Não foi possível carregar o player"). A política de segurança (next.config.ts) libera,
+// com o recurso ligado, só vlibras.gov.br, o caminho do repositório oficial no jsDelivr e os serviços *.vlibras.gov.br
+// (tradução, dicionário). Outros destinos que o tradutor tente usar, como a métrica PostHog, continuam bloqueados.
+// Conferido em 20/10/2026 com a versão v7.12.2 (ativar, abrir o avatar, traduzir um trecho).
 
-export const VERSAO_VLIBRAS = "v7.12.2";
-export const ENDERECO_VLIBRAS = `https://cdn.jsdelivr.net/gh/spbgovbr-vlibras/vlibras-portal@${VERSAO_VLIBRAS}/app`;
+export const ENDERECO_VLIBRAS = "https://vlibras.gov.br/app";
 export const LEMBRAR_VLIBRAS = "lucia:vlibras";
 
 type Janela = Window & { VLibras?: { Widget: new (endereco: string) => unknown }; VLibrasWidget?: { path?: string } };

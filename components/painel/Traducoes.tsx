@@ -6,6 +6,7 @@ import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { rpc } from "@/lib/backend";
 import { partir, tipoDe } from "@/lib/blocos";
 import { useI18n } from "../I18n";
+import type { Membro } from "./Equipe";
 import { Abas, Aviso, botao, botaoClaro, campo, data, dia, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 
 interface Aula {
@@ -29,6 +30,9 @@ interface Andamento {
   criado_em: string;
   minha: boolean;
   prazo: string | null;
+  /** Quem reservou (só ele convida); "minha" também vale para quem traduz junto. */
+  dona?: boolean;
+  coautores?: { id: string; nome: string }[];
 }
 interface Termo {
   termo: string;
@@ -51,6 +55,9 @@ export function Traducoes({ irEscrever }: { irEscrever: () => void }) {
   const [aba, setAba] = useState<"traduzir" | "caminho" | "glossario">("traduzir");
   const andamento = useLista<Andamento[]>("traducoes_andamento");
   const acao = useAcao(andamento.recarregar);
+  const membros = useLista<Membro[]>("equipe_membros", {}, { quieta: true });
+  const tradutores = (membros.dados ?? []).filter((m) => !m.eu && m.papeis.some((p) => p.papel === "traducao" || p.papel === "curadoria"));
+  const [convidar, setConvidar] = useState<{ chave: string; pessoa: string }>({ chave: "", pessoa: "" });
   const [trilhas, setTrilhas] = useState<Trilha[] | null>(null);
   const [erro, setErro] = useState("");
   const [idioma, setIdioma] = useState("en");
@@ -169,7 +176,21 @@ export function Traducoes({ irEscrever }: { irEscrever: () => void }) {
                 <li key={`${item.alvo}-${item.idioma}-${item.criado_em}`} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
                   <span>
                     <span className={rotulo}>{idiomas[item.idioma] ?? item.idioma} · {nomeDaSituacao[item.status] ?? item.status} · {data(item.criado_em)}{item.prazo ? ` · prazo ${dia(item.prazo)}` : ""}</span>
-                    <span className="block"><a href={`/pt${alvo}`} target="_blank" rel="noopener noreferrer" className={elo}>{aula?.title ?? alvo}</a> · {item.minha ? "sua" : item.nome || "de outra pessoa"}</span>
+                    <span className="block"><a href={`/pt${alvo}`} target="_blank" rel="noopener noreferrer" className={elo}>{aula?.title ?? alvo}</a> · {item.dona || (item.minha && item.dona === undefined) ? "sua" : item.nome || "de outra pessoa"}{item.coautores?.length ? ` · junto com ${item.coautores.map((c) => c.nome).join(", ")}` : ""}</span>
+                    {item.dona && item.status === "em_andamento" && (
+                      convidar.chave === `${alvo}-${item.idioma}` ? (
+                        <span className="mt-1 flex flex-wrap items-center gap-2 text-sm">
+                          <select value={convidar.pessoa} onChange={(e) => setConvidar({ ...convidar, pessoa: e.target.value })} className="border border-rule bg-parchment px-2 py-1">
+                            <option value="">Quem vai traduzir junto…</option>
+                            {tradutores.map((m) => <option key={m.id} value={m.id}>{m.nome}</option>)}
+                          </select>
+                          <button type="button" className={botaoClaro} disabled={!convidar.pessoa || acao.ocupado} onClick={async () => { await acao.agir("traducao_convidar", { p_alvo: alvo, p_idioma: item.idioma, p_usuario: convidar.pessoa }, "Convidado: a pessoa foi avisada e já pode abrir a tradução."); setConvidar({ chave: "", pessoa: "" }); }}>Convidar</button>
+                          <button type="button" className={elo} onClick={() => setConvidar({ chave: "", pessoa: "" })}>Cancelar</button>
+                        </span>
+                      ) : (
+                        <button type="button" className={`${elo} text-sm`} onClick={() => setConvidar({ chave: `${alvo}-${item.idioma}`, pessoa: "" })}>+ Chamar outro tradutor para ajudar</button>
+                      )
+                    )}
                   </span>
                   {item.minha && item.status === "em_andamento" && (
                     <span className="flex gap-3 text-sm">

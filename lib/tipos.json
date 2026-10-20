@@ -14,6 +14,7 @@
   },
   "obra": {
     "rotulo": "Obra para o acervo",
+    "papel": "curadoria",
     "ajuda": "Só a ficha: título, autor e o link para a página da obra em uma fonte legítima. Nunca um PDF.",
     "titulo": "Título da obra",
     "disciplina": "obrigatoria",

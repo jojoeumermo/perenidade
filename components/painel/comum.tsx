@@ -30,6 +30,7 @@ export const papeis: Record<Role["papel"], string> = {
   desenvolvimento: "Desenvolvimento",
   representante: "Representante do departamento",
   porta_voz: "Porta-voz",
+  saude: "Profissional de saúde",
 };
 
 /** O que cada papel enxerga e faz no painel. É a regra do banco, escrita para gente. */
@@ -49,9 +50,25 @@ export const oQueFaz: Record<Role["papel"], string> = {
   design: "Prepara materiais gráficos e atende pedidos de ajuda das outras funções.",
   marketing: "Divulga o instituto: posts e artes para as redes sociais, cartazes de chamada, campanhas de voluntariado e de apoio, cortes do podcast. Monta o calendário de posts e stories do Instagram e usa o kit da marca e os materiais do painel, como o design. O acesso ao Instagram é dado pela coordenação pela própria Meta; o site nunca guarda senha de rede social.",
   desenvolvimento: "Cuida do código: vê o estado técnico do site (publicação, avaliação automática, faxina, sinais de varredura) e atende pedidos de ajuda das outras funções.",
-  representante: "Primeira entrada e organizador de um departamento, nomeado pela coordenação, coordenação pedagógica ou supervisão: administra o grupo do departamento nas conversas, combina e delega tarefas, sem ser chefe. Não dá nem tira funções.",
+  representante: "Primeira entrada e organizador de um departamento, nomeado pela coordenação, coordenação pedagógica ou supervisão: administra o grupo do departamento nas conversas, combina e delega tarefas, sem ser chefe. Não dá nem tira funções. O departamento é tudo o que a área engloba: o de Tecnologia, por exemplo, reúne informática, programação, modelagem 3D, edição de vídeo e de foto. Um departamento pode ter mais de um representante.",
+  saude: "Profissional de saúde voluntário que aparece na vitrine Saúde Solidária: preenche o próprio perfil (registro no conselho, abordagem, contato), aceita o termo da vitrine e aprova o texto antes de ir ao ar. A coordenação confere o registro no conselho a cada seis meses. Não vê o resto do painel nem dado de ninguém.",
   porta_voz: "Um título, não uma função de trabalho: soma-se ao que a pessoa já faz (mediação, tradução, aulas…). O porta-voz leva a palavra do instituto a escolas, sindicatos, movimentos e eventos, em qualquer cidade, e traz de volta o que ouviu. Nomeado pela coordenação, coordenação pedagógica ou supervisão.",
 };
+
+/** Os grupos de disciplinas que também são departamentos (representante de "grupo-tecnologia" etc.). */
+export const GRUPOS_DEPARTAMENTO: Record<string, string> = {
+  "grupo-percursos": "Percursos (alfabetização e ENEM)",
+  "grupo-linguagens": "Linguagens e artes",
+  "grupo-ciencias": "Ciências da natureza e matemática",
+  "grupo-tecnologia": "Tecnologia",
+  "grupo-humanidades": "Humanidades",
+  "grupo-teoria": "Teoria política",
+  "grupo-lutas": "Lutas do povo",
+  "grupo-oficios": "Ofícios",
+  "grupo-hobbies": "Hobbies",
+};
+/** O nome de um departamento: uma função (educação, curadoria…) ou um grupo de disciplinas. */
+export const nomeDoDepartamento = (valor: string | null | undefined) => (valor ? (GRUPOS_DEPARTAMENTO[valor] ?? papeis[valor as keyof typeof papeis] ?? valor) : "");
 
 export const situacoes: Record<string, string> = {
   pendente: "aguardando revisão",

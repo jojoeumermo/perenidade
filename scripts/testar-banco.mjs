@@ -2991,6 +2991,108 @@ await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), 
   await espera("o educador publica e a resolução aparece para quem não entrou", async () => { res = await rpc(como(ids.prof), "resolucao_enviar", { p_questao: "enem-2023-136", p_texto: "Some as frações com o mesmo denominador: 3/8 + 1/8 = 4/8 = 1/2. Letra B." }); return rpc(anon, "resolucoes_listar", { p_questoes: ["enem-2023-136", "enem-2023-137"] }); }, (r) => r.length === 1 && r[0].texto.includes("Letra B"));
   await espera("a coordenação retira e ela some", async () => { await rpc(como(ids.coord), "resolucao_retirar", { p_id: res.id }); return rpc(anon, "resolucoes_listar", { p_questoes: ["enem-2023-136"] }); }, (r) => r.length === 0);
 }
+// Rodada 4: cada educador na própria disciplina (outra, só com convite), acervo só da curadoria, termos guardados para
+// sempre, foto aprovada pela coordenação e a vitrine de saúde com todas as condições conferidas a cada leitura.
+{
+  const r4 = {};
+  for (const [chave, nome] of [["mat", "Mara Matemática"], ["his", "Hugo História"], ["cur", "Clara Curadoria"], ["sau", "Sara Saúde"], ["tra1", "Tânia Tradutora"], ["tra2", "Túlio Tradutor"]]) {
+    r4[chave] = await criarUsuario(`${chave}.r4@teste.local`, nome);
+    await rpc(como(r4[chave]), "eu");
+  }
+  await rpc(como(ids.coord), "papel_conceder", { p_usuario: r4.mat, p_papel: "educacao", p_disciplina: "matematica" });
+  await rpc(como(ids.coord), "papel_conceder", { p_usuario: r4.his, p_papel: "educacao", p_disciplina: "historia" });
+  await rpc(como(ids.coord), "papel_conceder", { p_usuario: r4.cur, p_papel: "curadoria", p_disciplina: null });
+  await rpc(como(ids.coord), "papel_conceder", { p_usuario: r4.tra1, p_papel: "traducao", p_disciplina: null });
+  await rpc(como(ids.coord), "papel_conceder", { p_usuario: r4.tra2, p_papel: "traducao", p_disciplina: null });
+  await espera("a coordenação confia o cargo de profissional de saúde", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: r4.sau, p_papel: "saude", p_disciplina: null }));
+  await espera("representante de um grupo de disciplinas (Tecnologia)", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: r4.mat, p_papel: "representante", p_disciplina: "grupo-tecnologia" }));
+  await espera("mais de um representante no mesmo departamento", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: r4.his, p_papel: "representante", p_disciplina: "grupo-tecnologia" }));
+  await recusa("departamento inventado não vale", () => rpc(como(ids.coord), "papel_conceder", { p_usuario: r4.his, p_papel: "representante", p_disciplina: "grupo-qualquer" }), "invalido:departamento");
+
+  const aulaDeHistoria = { tipo: "aula", disciplina: "historia", titulo: "A Revolta da Chibata", corpo: "Texto da aula com mais de vinte caracteres.", dados: { trilha: "historia-do-brasil", resumo: "Marinheiros contra a chibata." }, fontes: fonte };
+  const obra = { tipo: "obra", titulo: "O Capital para crianças", corpo: "", disciplina: "economia", dados: { autor: "Joan R. Riera", licenca: "Todos os direitos reservados" }, fontes: [] };
+  await recusa("educadora de matemática não escreve aula de história", () => rpc(como(r4.mat), "contribuir", { p: aulaDeHistoria }), "sem_permissao");
+  await espera("o educador de história escreve aula de história", () => rpc(como(r4.his), "contribuir", { p: aulaDeHistoria }), (r) => Boolean(r.id));
+  await recusa("educador não manda obra para o acervo", () => rpc(como(r4.mat), "contribuir", { p: obra }), "sem_permissao");
+  await espera("a curadoria manda obra para o acervo", () => rpc(como(r4.cur), "contribuir", { p: obra }), (r) => Boolean(r.id));
+  await espera("o público continua podendo sugerir obra", () => rpc(anon, "contribuir", { p: { ...obra, nome: "Visitante" } }), (r) => Boolean(r.id));
+
+  await recusa("quem não ensina história não convida para história", () => rpc(como(r4.mat), "disciplina_convidar", { p_usuario: r4.cur, p_disciplina: "historia" }), "sem_permissao");
+  await espera("o educador de história convida a de matemática", () => rpc(como(r4.his), "disciplina_convidar", { p_usuario: r4.mat, p_disciplina: "historia", p_trilha: "historia-do-brasil", p_nota: "Para a aula de estatística das revoltas." }), (r) => Boolean(r.id));
+  await espera("convidada, ela vê o convite em eu()", () => rpc(como(r4.mat), "eu"), (r) => r.convites.some((c) => c.disciplina === "historia" && c.trilha === "historia-do-brasil"));
+  await espera("convidada, ela escreve para história", () => rpc(como(r4.mat), "contribuir", { p: aulaDeHistoria }), (r) => Boolean(r.id));
+  await espera("convite revogado: volta a não escrever", async () => {
+    const [convite] = await rpc(como(r4.his), "disciplina_convites");
+    await rpc(como(r4.his), "disciplina_convite_revogar", { p_id: convite.id });
+    try {
+      await rpc(como(r4.mat), "contribuir", { p: aulaDeHistoria });
+      return false;
+    } catch (erro) {
+      return String(erro.message).includes("sem_permissao");
+    }
+  }, (r) => r === true);
+
+  const trilhaNova = (disciplina) => ({ slug: `trilha-de-${disciplina}`, disciplina, titulo: "Trilha de teste", etapa: "medio", ordem: 1, resumo: "", aulas: ["Primeira aula"] });
+  await recusa("educadora não propõe trilha em outra disciplina", () => rpc(como(r4.mat), "curriculo_propor", { p_tipo: "trilha", p_dados: trilhaNova("historia") }), "sem_permissao");
+  await espera("educadora propõe trilha na própria disciplina (espera a coordenação)", () => rpc(como(r4.mat), "curriculo_propor", { p_tipo: "trilha", p_dados: trilhaNova("matematica") }), (r) => r.status === "pendente");
+  await recusa("só a coordenação remove trilha", () => rpc(como(r4.mat), "curriculo_propor", { p_tipo: "remover_trilha", p_dados: { slug: "matematica-fundamental", disciplina: "matematica" } }), "sem_permissao");
+  await espera("o educador de história não vê a proposta de matemática; a coordenação vê", async () => [await rpc(como(r4.his), "curriculo_listar"), await rpc(como(ids.coord), "curriculo_listar")],
+    ([dele, coord]) => !dele.some((p) => p.dados.disciplina === "matematica") && coord.some((p) => p.dados.disciplina === "matematica"));
+
+  // Traduções em dupla: quem reservou chama outra pessoa da tradução.
+  const alvo = "/trilhas/historia-do-brasil/a-revolta-da-chibata";
+  await rpc(como(r4.tra1), "traducao_reservar", { p_alvo: alvo, p_idioma: "en", p_dias: 14 });
+  await recusa("sem convite, a reserva é de outra pessoa", () => rpc(como(r4.tra2), "traducao_reservar", { p_alvo: alvo, p_idioma: "en", p_dias: 14 }), "traducao_reservada");
+  await espera("convidado, traduz junto", async () => { await rpc(como(r4.tra1), "traducao_convidar", { p_alvo: alvo, p_idioma: "en", p_usuario: r4.tra2 }); await rpc(como(r4.tra2), "traducao_reservar", { p_alvo: alvo, p_idioma: "en", p_dias: 14 }); return rpc(como(r4.tra2), "traducoes_andamento"); },
+    (r) => r.some((x) => x.alvo === alvo && x.minha && !x.dona && x.coautores.length === 1));
+
+  // Termos: o aceite fica com o texto inteiro e nunca muda.
+  let aceite;
+  await espera("o aceite fica guardado com o texto e o SHA-256", async () => { aceite = await rpc(como(r4.mat), "termo_registrar", { p_termo: "voluntario", p_versao: "2026-10-20", p_texto: "Texto do termo de voluntário, longo o bastante para valer.", p_dados: { maior_de_idade: true } }); return rpc(como(r4.mat), "termos_meus"); },
+    (r) => r.length === 1 && r[0].sha256 === aceite.sha256 && /^[a-f0-9]{64}$/.test(aceite.sha256));
+  await recusa("ninguém altera um aceite, nem o dono do banco", () => dono("update interno.termos_aceites set nome = 'Outra pessoa' where id = $1", [aceite.id]), "não se alteram");
+  await recusa("ninguém apaga um aceite, nem o dono do banco", () => dono("delete from interno.termos_aceites where id = $1", [aceite.id]), "não se alteram");
+  await espera("termo de voluntário com versão: antes do aceite, eu() diz que falta", () => rpc(como(r4.mat), "eu"), (r) => r.termo_voluntario === false);
+  await espera("depois do aceite da versão vigente, eu() diz que está aceito", async () => { await rpc(como(r4.mat), "termo_voluntario_aceitar"); return rpc(como(r4.mat), "eu"); }, (r) => r.termo_voluntario === true);
+  await espera("a coordenação lê todos os aceites", () => rpc(como(ids.coord), "termos_aceites_listar"), (r) => r.some((x) => x.id === aceite.id));
+  await recusa("quem não coordena não lê os aceites dos outros", () => rpc(como(r4.his), "termos_aceites_listar"), "sem_permissao");
+
+  // Foto de perfil: espera a coordenação antes de aparecer nos cartões.
+  const foto = "data:image/webp;base64,UklGRgAAAABXRUJQ";
+  await espera("foto de voluntário fica pendente", async () => { const r = await rpc(como(r4.his), "perfil_avatar", { p_avatar: foto }); const eu = await rpc(como(r4.his), "eu"); return [r, eu]; }, ([r, eu]) => r.pendente === true && eu.avatar !== foto && eu.foto_pendente === true);
+  await espera("a coordenação vê a foto na fila", () => rpc(como(ids.coord), "fotos_pendentes"), (r) => r.some((x) => x.id === r4.his && x.foto === foto));
+  await recusa("quem não coordena não aprova foto", () => rpc(como(r4.mat), "foto_decidir", { p_usuario: r4.his, p_aprovar: true }), "sem_permissao");
+  await espera("aprovada, vira o ícone público", async () => { await rpc(como(ids.coord), "foto_decidir", { p_usuario: r4.his, p_aprovar: true }); return rpc(anon, "educadores"); }, (r) => r.some((x) => x.id === r4.his && x.avatar === foto));
+
+  // Vitrine de saúde: cada condição que falha tira o perfil.
+  const vitrine = () => rpc(anon, "saude_vitrine");
+  const perfil = { nome: "Sara Saúde", profissao: "Psicóloga", conselho: "CRP", uf: "RJ", registro: "05/00000 (fictício de teste)", abordagem: "Terapia Cognitivo-Comportamental", areas: ["ansiedade", "luto"], modalidade: "online", valor: "social", bio: "Atendo adultos.", contatos: { instagram: "@sara.teste", whatsapp: "+55 21 90000-0000" }, foto_autorizada: false };
+  await recusa("quem não é profissional de saúde não tem perfil", () => rpc(como(r4.mat), "saude_meu"), "sem_permissao");
+  await espera("preço na biografia é recusado com o motivo", () => rpc(como(r4.sau), "saude_salvar", { p: { ...perfil, bio: "Sessão por R$ 50." } }), (r) => r.ok === false && /preço/.test(r.motivo));
+  await espera("promessa de cura é recusada", () => rpc(como(r4.sau), "saude_salvar", { p: { ...perfil, bio: "Garanto a cura da ansiedade." } }), (r) => r.ok === false);
+  await espera("perfil salvo fica esperando e fora da vitrine", async () => { await rpc(como(r4.sau), "saude_salvar", { p: perfil }); return vitrine(); }, (r) => r.perfis.length === 0);
+  await espera("o que falta aparece para o profissional", () => rpc(como(r4.sau), "saude_meu"), (r) => r.faltam.length >= 3 && r.contatos.whatsapp === "5521900000000" && r.contatos.instagram === "sara.teste");
+  await rpc(como(r4.sau), "saude_termo_aceitar", { p_texto: "Texto do termo da vitrine de saúde, rascunho para revisão jurídica.", p_nome: "Sara Saúde", p_registro: "05/00000" });
+  await recusa("registro conferido há mais de 180 dias não vale", () => rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "verificar", p_verificado_em: "2025-01-01", p_nota: "" }), "invalido:data");
+  await rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "verificar", p_verificado_em: new Date().toISOString().slice(0, 10), p_nota: "Consulta no cadastro do conselho." });
+  await espera("sem publicar, não aparece", vitrine, (r) => r.perfis.length === 0);
+  await espera("termo, registro, texto e publicação: aparece, em ordem alfabética e sem dado interno", async () => { await rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "publicar" }); return vitrine(); },
+    (r) => r.perfis.length === 1 && r.perfis[0].nome === "Sara Saúde" && !("status" in r.perfis[0]) && !("verificacao_nota" in r.perfis[0]) && r.perfis[0].foto === "");
+  await espera("chave geral desligada: some na hora", async () => { await rpc(como(ids.coord), "saude_chave", { p_desligar: true }); return vitrine(); }, (r) => r.desligada === true && r.perfis.length === 0);
+  await rpc(como(ids.coord), "saude_chave", { p_desligar: false });
+  await espera("registro vencido: some sozinho", async () => { await dono("update interno.saude_perfis set verificado_em = current_date - 181 where usuario = $1", [r4.sau]); const r = await vitrine(); await dono("update interno.saude_perfis set verificado_em = current_date where usuario = $1", [r4.sau]); return r; }, (r) => r.perfis.length === 0);
+  await espera("termo de versão antiga: some", async () => { await dono("update interno.saude_perfis set termo_versao = '2020-01-01' where usuario = $1", [r4.sau]); const r = await vitrine(); await dono("update interno.saude_perfis set termo_versao = interno.saude_termo_vigente() where usuario = $1", [r4.sau]); return r; }, (r) => r.perfis.length === 0);
+  await espera("conta suspensa: some", async () => { await dono("update interno.perfis set suspenso = true where id = $1", [r4.sau]); const r = await vitrine(); await dono("update interno.perfis set suspenso = false where id = $1", [r4.sau]); return r; }, (r) => r.perfis.length === 0);
+  await espera("editar o perfil tira da vitrine até a coordenação olhar de novo", async () => { await rpc(como(r4.sau), "saude_salvar", { p: { ...perfil, bio: "Atendo adultos e adolescentes." } }); return vitrine(); }, (r) => r.perfis.length === 0);
+  await espera("pedir para sair: some e a coordenação não republica", async () => { await rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "publicar" }); await rpc(como(r4.sau), "saude_sair"); return vitrine(); }, (r) => r.perfis.length === 0);
+  await recusa("perfil removido a pedido não volta pela coordenação", () => rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "publicar" }), "saude_removido");
+
+  // Relatos de erro: qualquer pessoa relata; só quem cuida do código lê.
+  await espera("visitante relata um erro", () => rpc(anon, "erro_relatar", { p: { pagina: "/pt/acervo", descricao: "A capa do livro não aparece no celular.", passos: "Abrir o acervo no celular.", navegador: "", tela: "360x800" } }), (r) => r.ok === true);
+  await recusa("quem não cuida do código não lê os relatos", () => rpc(como(r4.mat), "erros_listar"), "sem_permissao");
+  await espera("a coordenação lê o relato", () => rpc(como(ids.coord), "erros_listar"), (r) => r.some((x) => x.pagina === "/pt/acervo"));
+}
+
 // Tranca final: nenhuma tabela interna sem segurança por linha, nenhuma com permissão direta para quem vem de fora.
 await espera("toda tabela interna tem segurança por linha ligada", async () => (await dono("select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'interno' and c.relkind = 'r' and not c.relrowsecurity")).rows, (r) => r.length === 0);
 await espera("nenhuma tabela interna dá permissão direta a anon ou authenticated", async () => (await dono("select table_name from information_schema.role_table_grants where table_schema = 'interno' and grantee in ('anon', 'authenticated', 'PUBLIC')")).rows, (r) => r.length === 0);

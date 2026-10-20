@@ -3,7 +3,7 @@
 
 import { useEffect, useState } from "react";
 import { areaSlugs, licenses } from "@/lib/areas";
-import { can, type Me, rpc } from "@/lib/backend";
+import { can, cuidaDeTudo, disciplinasQueEnsina, escreveEm, type Me, rpc } from "@/lib/backend";
 import { horaDoRascunho, useRascunho } from "@/lib/rascunho";
 import { getItem, parse, setItem } from "@/lib/storage";
 import tipos from "@/lib/tipos.json";
@@ -211,7 +211,14 @@ export function Escrever({ me }: { me: Me }) {
   );
 
   const tipo = tipos[id] as Tipo;
-  const trilha = tracks.find((track) => track.slug === valores.trilha) ?? tracks[0];
+  // Cada educador escreve para a própria disciplina; para outra, só com o convite de quem ensina lá (o banco confere
+  // de novo). A lista de disciplinas e trilhas já vem só com as permitidas, para ninguém perder trabalho.
+  const restrito = id === "aula" || id === "avulso" || id === "temas" || id === "video";
+  const trilhaPermitida = (track: (typeof tracks)[number]) =>
+    !restrito || cuidaDeTudo(me) || disciplinasQueEnsina(me).includes(track.area) || Boolean(me.convites?.some((c) => c.disciplina === track.area && (!c.trilha || c.trilha === track.slug)));
+  const tracksPermitidas = tracks.filter(trilhaPermitida);
+  const areasPermitidas = areaSlugs.filter((area) => !restrito || escreveEm(me, area));
+  const trilha = tracksPermitidas.find((track) => track.slug === valores.trilha) ?? tracksPermitidas[0];
   // A trilha se escolhe em dois passos: primeiro a disciplina, depois a trilha dela (a lista inteira era grande demais).
   const [areaDaTrilha, setAreaDaTrilha] = useState("");
   const areaEscolhida = areaDaTrilha || trilha?.area || "";
@@ -299,7 +306,7 @@ export function Escrever({ me }: { me: Me }) {
   function campoDe(c: Campo) {
     const valor = valores[c.nome] ?? "";
     if (c.tipo === "trilha") {
-      const daArea = tracks.filter((track) => track.area === areaEscolhida);
+      const daArea = tracksPermitidas.filter((track) => track.area === areaEscolhida);
       return (
         <div className="grid gap-2 sm:grid-cols-2">
           {valores.substitui && (
@@ -313,12 +320,12 @@ export function Escrever({ me }: { me: Me }) {
             value={areaEscolhida}
             onChange={(e) => {
               setAreaDaTrilha(e.target.value);
-              const primeira = tracks.find((track) => track.area === e.target.value);
+              const primeira = tracksPermitidas.find((track) => track.area === e.target.value);
               trocarTrilha(primeira?.slug ?? "");
             }}
             className={campoFino}
           >
-            {areaSlugs.filter((area) => tracks.some((track) => track.area === area)).map((area) => (
+            {areaSlugs.filter((area) => tracksPermitidas.some((track) => track.area === area)).map((area) => (
               <option key={area} value={area}>{t.areas[area][0]}</option>
             ))}
           </select>
@@ -487,7 +494,7 @@ export function Escrever({ me }: { me: Me }) {
               <span className={rotuloPequeno}>Disciplina{tipo.disciplina === "opcional" ? " (opcional)" : ""}</span>
               <select value={disciplina} onChange={(e) => setDisciplina(e.target.value)} className={campoFino}>
                 <option value="">Escolha…</option>
-                {areaSlugs.map((area) => (
+                {areasPermitidas.map((area) => (
                   <option key={area} value={area}>
                     {t.areas[area][0]}
                   </option>
@@ -498,10 +505,13 @@ export function Escrever({ me }: { me: Me }) {
           {okTrilha && <button type="button" className={elo} onClick={() => setDetalhes(false)}>Fechar os detalhes e escrever</button>}
         </div>
       )}
-      {minhas.length > 0 && tipo.disciplina !== "nao" && alvo && !minhas.includes(alvo) && !can(me, "coordenacao", "curadoria") && (
-        <p className="text-sm text-ink-soft">
-          Esta disciplina não está entre as suas ({minhas.map((slug) => nomeDaArea(slug)).join(", ")}). O envio entra na fila como contribuição pública.
+      {restrito && areasPermitidas.length === 0 && (
+        <p className="border-l-4 border-oxblood bg-parchment-deep px-3 py-2 text-sm">
+          Você ainda não tem disciplina para escrever. Quem ensina uma disciplina (ou a coordenação) pode convidar você para ajudar nela, em Disciplinas e trilhas › Convites.
         </p>
+      )}
+      {restrito && minhas.length > 0 && areasPermitidas.some((area) => !minhas.includes(area)) && !cuidaDeTudo(me) && (
+        <p className="text-xs text-ink-soft">Além das suas disciplinas, aparecem as que você foi convidado a ajudar.</p>
       )}
 
       <div className={lado ? "grid gap-6 2xl:grid-cols-2" : ""}>
