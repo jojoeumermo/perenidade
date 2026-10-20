@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Capa } from "@/components/AcervoBrowser";
 import { licenseName } from "@/components/Cards";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
@@ -37,14 +38,23 @@ export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 app:max-md:px-5">
       <Link href={to("/acervo")} className="font-sans text-sm text-ink-soft hover:text-oxblood app:max-md:hidden">← {t.library.back}</Link>
-      <p className="mt-6 font-mono text-xs uppercase tracking-[0.3em] text-gold app:max-md:mt-2 app:max-md:text-center">
-        <Link href={to(`/estantes/${book.area}`)} className="hover:text-oxblood">{t.areas[book.area][0]}</Link>
-      </p>
-      <h1 className="mt-2 text-4xl font-semibold app:max-md:mt-4 app:max-md:text-center app:max-md:text-[2.125rem] app:max-md:leading-[1.12] sm:text-5xl">{book.title}</h1>
-      <p className="mt-2 text-2xl italic text-ink-soft app:max-md:mt-3 app:max-md:text-center app:max-md:text-xl app:max-md:after:mx-auto app:max-md:after:mt-5 app:max-md:after:block app:max-md:after:h-px app:max-md:after:w-16 app:max-md:after:bg-gold">
-        {book.author}
-        {book.year && `, ${book.year}`}
-      </p>
+      {/* A capa ao lado do título: a da edição (fonte aberta, guardada no site) ou a desenhada da coleção. */}
+      <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-end app:max-md:mt-2 app:max-md:items-center">
+        <figure className="shrink-0 self-center sm:self-auto">
+          <Capa book={book} grande />
+          {book.coverCredit && <figcaption className="mt-2 max-w-48 font-sans text-[0.65rem] text-ink-soft">Capa: {book.coverCredit}</figcaption>}
+        </figure>
+        <div className="min-w-0">
+          <p className="font-mono text-xs uppercase tracking-[0.3em] text-gold app:max-md:text-center">
+            <Link href={to(`/estantes/${book.area}`)} className="hover:text-oxblood">{t.areas[book.area][0]}</Link>
+          </p>
+          <h1 className="mt-2 text-4xl font-semibold app:max-md:mt-4 app:max-md:text-center app:max-md:text-[2.125rem] app:max-md:leading-[1.12] sm:text-5xl">{book.title}</h1>
+          <p className="mt-2 text-2xl italic text-ink-soft app:max-md:mt-3 app:max-md:text-center app:max-md:text-xl app:max-md:after:mx-auto app:max-md:after:mt-5 app:max-md:after:block app:max-md:after:h-px app:max-md:after:w-16 app:max-md:after:bg-gold">
+            {book.author}
+            {book.year && `, ${book.year}`}
+          </p>
+        </div>
+      </div>
       <Untranslated lang={lang} t={t} show={!book.translated} />
       <p className="mt-8 text-xl leading-relaxed app:max-md:mt-6 app:max-md:text-[1.1875rem] app:max-md:leading-[1.75] app:max-md:hyphens-auto" {...originalLang(book.translated)}>{book.synopsis}</p>
 

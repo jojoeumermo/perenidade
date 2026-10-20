@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { can, type Me, rpc } from "@/lib/backend";
 import { getItem, setItem } from "@/lib/storage";
@@ -601,9 +602,45 @@ export function AcervoPorDentro() {
   const termo = busca.trim().toLowerCase();
   const vistas = (fichas ?? []).filter((f) => (!area || f.area === area) && (!estado || f.completude === estado) && (!termo || `${f.titulo} ${f.autor}`.toLowerCase().includes(termo)));
   const conta = (c: string) => (fichas ?? []).filter((f) => f.completude === c && (!area || f.area === area)).length;
+  const total = (fichas ?? []).filter((f) => !area || f.area === area).length;
   return (
-    <div>
+    <div className="space-y-6">
+      <section className="grid gap-3 md:grid-cols-3">
+        <Link href="/pt/painel?aba=escrever&tipo=obra" className="painel-cartao flex items-start gap-3 border-2 border-oxblood p-4 hover:bg-parchment-deep">
+          <span aria-hidden className="text-3xl">📚</span>
+          <span><span className="block font-serif text-xl font-semibold">Adicionar uma obra</span><span className="text-sm text-ink-soft">Abre Escrever › Obra para o acervo, já no formulário da ficha.</span></span>
+        </Link>
+        <button type="button" onClick={() => setEstado("vazia")} className="painel-cartao flex cursor-pointer items-start gap-3 p-4 text-left hover:bg-parchment-deep">
+          <span aria-hidden className="text-3xl">🩹</span>
+          <span><span className="block font-serif text-xl font-semibold">Completar fichas</span><span className="text-sm text-ink-soft">{fichas ? `${conta("vazia")} com muita coisa faltando e ${conta("parcial")} parciais.` : "As fichas que precisam de cuidado."}</span></span>
+        </button>
+        <a href="/pt/acervo" target="_blank" rel="noopener noreferrer" className="painel-cartao flex items-start gap-3 p-4 hover:bg-parchment-deep">
+          <span aria-hidden className="text-3xl">🏛️</span>
+          <span><span className="block font-serif text-xl font-semibold">Ver o acervo público</span><span className="text-sm text-ink-soft">Como as obras aparecem para quem visita (abre em outra aba).</span></span>
+        </a>
+      </section>
+
+      <details className="painel-cartao p-4">
+        <summary className="cursor-pointer font-serif text-xl font-semibold">Como pôr um livro no acervo, em quatro passos</summary>
+        <ol className="mt-3 grid gap-4 md:grid-cols-2">
+          <li className="border-l-4 border-[#c21f16] pl-3"><strong>1. Ache uma fonte legítima.</strong> Domínio público (Project Gutenberg, Domínio Público, Wikisource, Arquivo Marxista), licença aberta (SciELO Livros, OpenStax, MEC Livros) ou, para obra protegida, a página da editora ou de uma biblioteca.</li>
+          <li className="border-l-4 border-[#c21f16] pl-3"><strong>2. Confira a licença.</strong> No Brasil, a obra entra em domínio público em 1º de janeiro do ano seguinte aos 70 anos da morte do autor (e a tradução tem direitos próprios). Livro protegido entra como <em>Direitos reservados</em>: só a ficha, com o link da editora ou biblioteca. Nunca PDF de fora da fonte.</li>
+          <li className="border-l-4 border-[#c21f16] pl-3"><strong>3. Preencha a ficha.</strong> Em Escrever › 📚 Obra para o acervo: título, autor, disciplina, licença, o link da página da obra (não do PDF) e uma sinopse curta, com as suas palavras.</li>
+          <li className="border-l-4 border-[#c21f16] pl-3"><strong>4. Revisão.</strong> Outra pessoa da curadoria confere a ficha e a licença; aprovada, a obra entra no site na próxima publicação, com capa se a fonte tiver uma aberta.</li>
+        </ol>
+        <p className="mt-3 text-sm text-ink-soft">Exemplo: achou um livro infantil protegido? Ele entra como ficha “Direitos reservados”, com o link da editora ou de uma biblioteca pública, sem arquivo. Só a curadoria e a coordenação mexem no acervo.</p>
+      </details>
+
+      <section>
+      <h2 className="font-serif text-2xl font-semibold">As obras e as fichas</h2>
       <p className="text-ink-soft">Cada obra do acervo com o selo da ficha. As que têm algo faltando já viram tarefa na fila (até o limite de cada rodada).</p>
+      {fichas && (
+        <p className="mt-2 flex flex-wrap gap-2 text-sm">
+          {([["", `Todas (${total})`], ["completa", `✓ Completas (${conta("completa")})`], ["parcial", `◐ Parciais (${conta("parcial")})`], ["vazia", `○ Faltando muito (${conta("vazia")})`]] as const).map(([v, nomeDoFiltro]) => (
+            <button key={v} type="button" aria-pressed={estado === v} onClick={() => setEstado(v)} className={`cursor-pointer border-2 px-3 py-1 ${estado === v ? "border-ink bg-ink text-parchment" : "border-ink/20 hover:border-ink"}`}>{nomeDoFiltro}</button>
+          ))}
+        </p>
+      )}
       <div className="mt-3 grid gap-3 sm:grid-cols-3">
         <label className="block text-sm">Disciplina<select value={area} onChange={(e) => setArea(e.target.value)} className={campo}><option value="">Todas</option>{areas.map((a) => <option key={a} value={a}>{nome(a)}</option>)}</select></label>
         <label className="block text-sm">Ficha<select value={estado} onChange={(e) => setEstado(e.target.value)} className={campo}><option value="">Todas</option><option value="completa">Completa ({conta("completa")})</option><option value="parcial">Parcial ({conta("parcial")})</option><option value="vazia">Faltando muito ({conta("vazia")})</option></select></label>
@@ -622,6 +659,7 @@ export function AcervoPorDentro() {
         ))}
       </ul>
       {vistas.length > 300 && <p className="mt-2 text-sm text-ink-soft">Mostrando 300: use os filtros para ver as outras.</p>}
+      </section>
     </div>
   );
 }

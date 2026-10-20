@@ -42,7 +42,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         counts[track.stage][0] += track.lessons.length;
         counts[track.stage][1] += track.plan.length;
       }
-      return { slug, name: t.areas[slug][0], description: t.areas[slug][1], essential: essential.includes(slug), counts };
+      const palavras = tracks.filter((track) => track.area === slug).map((track) => track.title).join(" ");
+      return { slug, name: t.areas[slug][0], description: t.areas[slug][1], essential: essential.includes(slug), counts, palavras };
     }),
   }));
   const started = tracks.filter((track) => track.lessons.length > 0).sort((a, b) => b.lessons.length - a.lessons.length);

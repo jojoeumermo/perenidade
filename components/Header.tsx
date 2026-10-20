@@ -6,23 +6,28 @@ import { site } from "@/lib/site";
 import { AccountLink, AppBack, LanguageSwitcher, NavLinks, NewsLink, PodcastLink, RadioLink } from "./NavLinks";
 import { Strip } from "./Strip";
 import { ThemeToggle } from "./ThemeToggle";
+import { TopoFixo } from "./TopoFixo";
 
 export function Header({ lang, t }: { lang: Locale; t: Dict }) {
   // No celular a barra é a faixa bordô do instituto; só o idioma sai dela (está em "Mais"). Notícias e rádio
   // ficam sempre à mão, também no aplicativo, onde a barra é curta, fica presa no topo e perde a faixa de avisos.
+  // A faixa de avisos fica fora do cabeçalho e rola junto com a página; o cabeçalho (nome, conta e menu) fica preso no
+  // topo e encolhe depois que a página rola (TopoFixo).
   return (
-    <header className="app-barra barra-celular no-print no-focus border-b border-rule app:sticky app:top-0 app:z-30 app:bg-parchment app:pt-[env(safe-area-inset-top,0px)]">
+    <>
       <a
         href="#conteudo"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-10 focus:bg-ink focus:px-3 focus:py-2 focus:font-sans focus:text-sm focus:text-parchment"
+        className="no-print sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:bg-ink focus:px-3 focus:py-2 focus:font-sans focus:text-sm focus:text-parchment"
       >
         {t.common.skip}
       </a>
-      <div className="app:hidden">
+      <div className="no-print app:hidden">
         <Strip fallback={t.common.strip} />
       </div>
+    <header className="cabecalho-site app-barra barra-celular no-print no-focus sticky top-0 z-40 border-b border-rule bg-parchment app:z-30 app:pt-[env(safe-area-inset-top,0px)]">
+      <TopoFixo />
       {/* A linha de cima: o nome à esquerda e, à direita, conta, idioma e os atalhos. */}
-      <div className="mx-auto flex max-w-7xl items-center gap-x-2 px-3 py-3 app:px-4 app:py-2 sm:gap-x-5 sm:px-4 sm:py-4 md:py-3">
+      <div className="linha-de-cima mx-auto flex max-w-7xl items-center gap-x-2 px-3 py-3 app:px-4 app:py-2 sm:gap-x-5 sm:px-4 sm:py-4 md:py-3">
         <AppBack />
         <Link href={localePath(lang, "/")} aria-label={site.name} className="flex shrink-0 items-center gap-2 sm:gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -49,5 +54,6 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
         </div>
       </nav>
     </header>
+    </>
   );
 }

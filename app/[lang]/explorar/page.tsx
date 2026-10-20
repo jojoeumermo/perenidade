@@ -66,6 +66,8 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         [n.materials, "/materiais", d.materials],
         [n.mural, "/mural", d.mural],
         [n.community, "/comunidade", d.community ?? n.community],
+        [n.health, "/saude", d.health],
+        [n.reportBug, "/relatar-erro", d.bugs],
       ].map(([label, path, description]) => ({ label, path, description })),
     },
     {
