@@ -2,7 +2,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { fill } from "@/i18n/config";
 import { JITSI_DOMINIO } from "@/lib/jitsi";
+import { useI18n } from "./I18n";
 
 interface JitsiApi {
   dispose(): void;
@@ -43,6 +45,7 @@ const BOTOES_DE_QUEM_CONDUZ = [...BOTOES_DE_QUEM_ASSISTE, "participants-pane", "
  * servidor. Sem gravação. Ao sair da sala, avisa quem embutiu.
  */
 export function JitsiSala({ sala, nome, conduzo, lang, assunto, aoSair, aoEntrar }: { sala: string; nome: string; conduzo: boolean; lang: string; assunto?: string; aoSair?: () => void; aoEntrar?: () => void }) {
+  const { t } = useI18n();
   const caixa = useRef<HTMLDivElement>(null);
   const [erro, setErro] = useState(false);
   useEffect(() => {
@@ -99,8 +102,8 @@ export function JitsiSala({ sala, nome, conduzo, lang, assunto, aoSair, aoEntrar
   if (erro) {
     return (
       <p className="border-2 border-oxblood p-4 font-sans text-sm text-oxblood">
-        A sala de vídeo não carregou (o servidor {JITSI_DOMINIO} não respondeu ou está bloqueado nesta rede).{" "}
-        <a href={`https://${JITSI_DOMINIO}/${sala}`} target="_blank" rel="noopener noreferrer" className="underline">Abrir em outra aba ↗</a>
+        {fill(t.common.videoRoomFailed, { dominio: JITSI_DOMINIO })}{" "}
+        <a href={`https://${JITSI_DOMINIO}/${sala}`} target="_blank" rel="noopener noreferrer" className="underline">{t.common.openInNewTab}</a>
       </p>
     );
   }
