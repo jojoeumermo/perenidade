@@ -206,7 +206,7 @@
     "mockNotEnough": "There are not enough questions in this subject.",
     "mockSkipped": "left blank",
     "publicTitle": "Public exams",
-    "publicLead": "{n} questions from public exams with answer keys: ENEM since 2009, the Unicamp and Fuvest (USP) entrance exams and the Brazilian Bar Exam (OAB). The list updates itself every week; the commented solutions are written by the institute's educators.",
+    "publicLead": "{n} questions from public exams with answer keys: ENEM since 2009, university entrance exams (Fuvest since 1981, Unicamp, ITA and IME), maths olympiads including OBMEP, the OAB bar exam, Revalida and Enare residency exams. Pick the source and the exam below. The list updates itself every week; worked solutions are written by the institute's educators.",
     "publicExam": "Exam",
     "publicArea": "Area",
     "publicAllAreas": "All areas",
