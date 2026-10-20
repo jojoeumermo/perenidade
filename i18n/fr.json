@@ -243,7 +243,10 @@
     "publicRemove": "retirer",
     "publicResolutionFailed": "Impossible de publier la résolution pour le moment.",
     "publicSource": "Questions d'examens publics, transcrites par des projets ouverts (enem.dev, BLUEX et oab_exams). Mis à jour le {data}. Source de cet examen :",
-    "publicSourcePick": "Source"
+    "publicSourcePick": "Source",
+    "bankTabInstitute": "Questions de l'institut",
+    "bankTabInstituteHint": "{n} questions des cours, avec la réponse et l'explication des éducateurs",
+    "bankTabPublicHint": "ENEM, concours d'entrée (Fuvest, Unicamp, ITA, IME), olympiades, OAB, Revalida et Enare"
   },
   "slogans": {
     "acervo": "Lire est un acte de résistance.",
@@ -726,7 +729,10 @@
     "certCode": "Numéro de vérification : {c}",
     "certPrint": "Enregistrer en PDF ou imprimer",
     "certClose": "Fermer",
-    "certPrintHint": "Dans la fenêtre d'impression, choisissez « Enregistrer au format PDF », papier A4 et activez « Graphiques d'arrière-plan »."
+    "certPrintHint": "Dans la fenêtre d'impression, choisissez « Enregistrer au format PDF », papier A4 et activez « Graphiques d'arrière-plan ».",
+    "searchLabel": "Chercher une discipline",
+    "searchPlaceholder": "Chercher une discipline ou un thème (ex. : photosynthèse, samba, Python)…",
+    "searchClear": "Effacer"
   },
   "lesson": {
     "position": "cours {i} sur {n}",
@@ -822,7 +828,9 @@
     "catalogTitle": "Catalogue élargi",
     "catalogLead": "Des œuvres réunies à partir de catalogues ouverts, avec un lien direct vers la source. Ces fiches sont plus simples que celles choisies par la curation. Qu'une œuvre figure ici ne veut pas dire que nous sommes d'accord avec ce qu'elle dit.",
     "seeAt": "Voir sur {source}",
-    "mecNote": "Prêt numérique gratuit de MEC Livros, la bibliothèque numérique du ministère de l'Éducation du Brésil : il suffit de se connecter avec un compte gov.br."
+    "mecNote": "Prêt numérique gratuit de MEC Livros, la bibliothèque numérique du ministère de l'Éducation du Brésil : il suffit de se connecter avec un compte gov.br.",
+    "carouselPause": "Pause",
+    "carouselPlay": "Reprendre"
   },
   "shelf": {
     "eyebrow": "Discipline",
@@ -2893,7 +2901,10 @@
       "podcasts": "Des épisodes d'éducation politique à écouter dans le bus, dans la cuisine ou à la pause.",
       "instagram": "Nouvelles de l'institut, cours et appels à bénévoles.",
       "live": "Le programme des cours en direct, avec vidéo et discussion sur le site même.",
-      "notebook": "Réunissez des cours et des textes et obtenez-en un résumé, des cartes mémoire, un quiz, une carte, une frise et un audio. Tout dans votre navigateur."
+      "notebook": "Réunissez des cours et des textes et obtenez-en un résumé, des cartes mémoire, un quiz, une carte, une frise et un audio. Tout dans votre navigateur.",
+      "community": "Le forum de celles et ceux qui étudient : questions, réponses et débats, modéré et sans publicité.",
+      "health": "Des professionnels de santé bénévoles, gratuits ou à tarif social : vous leur parlez directement.",
+      "bugs": "Quelque chose bloque ou s'affiche mal ? Dites-le à ceux qui maintiennent le code."
     }
   },
   "support": {
@@ -3793,7 +3804,9 @@
       "Résumé",
       "Guide d'étude",
       "Matériel à imprimer",
-      "Recommandation commentée"
+      "Recommandation commentée",
+      "Carte mentale",
+      "Fichier à télécharger (PDF)"
     ]
   },
   "practice": {

@@ -239,7 +239,10 @@
     "publicRemove": "撤下",
     "publicResolutionFailed": "现在无法发布解答。",
     "publicSource": "公开考试题目，由开放项目转录（enem.dev、BLUEX 和 oab_exams）。更新于 {data}。本试卷来源：",
-    "publicSourcePick": "来源"
+    "publicSourcePick": "来源",
+    "bankTabInstitute": "研究所的题目",
+    "bankTabInstituteHint": "{n} 道来自课程的题目，附有教育者的答案和解释",
+    "bankTabPublicHint": "ENEM、大学入学考试（Fuvest、Unicamp、ITA、IME）、奥赛、OAB、Revalida 和 Enare"
   },
   "slogans": {
     "acervo": "阅读是一种抵抗。",
@@ -722,7 +725,10 @@
     "certCode": "核验编号：{c}",
     "certPrint": "保存为 PDF 或打印",
     "certClose": "关闭",
-    "certPrintHint": "在打印窗口中选择“另存为 PDF”、A4 纸张，并打开“背景图形”。"
+    "certPrintHint": "在打印窗口中选择“另存为 PDF”、A4 纸张，并打开“背景图形”。",
+    "searchLabel": "搜索学科",
+    "searchPlaceholder": "搜索学科或主题（例如：光合作用、桑巴、Python）…",
+    "searchClear": "清除"
   },
   "lesson": {
     "position": "第 {i} 课，共 {n} 课",
@@ -817,7 +823,9 @@
     "catalogTitle": "扩展目录",
     "catalogLead": "从开放目录中汇集的作品，附有直达来源的链接。这些条目比编审人员精选的作品更简略。收录某部作品并不代表认同其内容。",
     "seeAt": "在 {source} 查看",
-    "mecNote": "可在巴西教育部数字图书馆 MEC Livros 免费借阅电子版：只需使用 gov.br 账号登录。"
+    "mecNote": "可在巴西教育部数字图书馆 MEC Livros 免费借阅电子版：只需使用 gov.br 账号登录。",
+    "carouselPause": "暂停",
+    "carouselPlay": "继续"
   },
   "shelf": {
     "eyebrow": "学科",
@@ -2824,7 +2832,10 @@
       "podcasts": "政治与大众教育节目，可以在公交车上、厨房里或工作间隙收听。",
       "instagram": "学院动态、课程和志愿者招募。",
       "live": "直播课日程，视频和聊天都在本站内。",
-      "notebook": "汇集课程和文本，从中生成摘要、卡片、测验、导图、时间线和音频。全部在你的浏览器中完成。"
+      "notebook": "汇集课程和文本，从中生成摘要、卡片、测验、导图、时间线和音频。全部在你的浏览器中完成。",
+      "community": "学习者论坛：提问、回答和讨论，有人管理，没有广告。",
+      "health": "志愿医疗工作者，免费或以公益价格接诊：你直接与他们联系。",
+      "bugs": "有东西卡住或显示错误？告诉维护代码的人。"
     }
   },
   "support": {
@@ -3721,7 +3732,9 @@
       "摘要",
       "学习指南",
       "可打印资料",
-      "附评注的推荐"
+      "附评注的推荐",
+      "思维导图",
+      "可下载文件（PDF）"
     ]
   },
   "practice": {

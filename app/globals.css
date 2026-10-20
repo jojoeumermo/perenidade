@@ -1505,6 +1505,22 @@ body {
   height: 1px;
   background: #3a3226;
 }
+/* Menu recolhido (só ícones, no computador): reto e parado. Sem os nomes dos grupos (que vazavam cortados), sem o
+   empurrão para o lado ao passar o mouse e sem rolagem para os lados; só rola para cima e para baixo. */
+@media (min-width: 64rem) {
+  .painel-compacto .painel-grupo {
+    display: none;
+  }
+  .painel-compacto .painel-item,
+  .painel-compacto .painel-item:hover {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .painel-compacto,
+  .painel-compacto nav {
+    overflow-x: hidden;
+  }
+}
 .painel-cabeca {
   border: 0;
 }
@@ -1803,4 +1819,58 @@ html[data-escrita-foco="1"] .painel {
   .caderno-ficha {
     box-shadow: none;
   }
+}
+
+/* ───────────── Acervo: a vitrine que anda ───────────── */
+@keyframes carrossel-andar {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.carrossel-janela {
+  overflow: hidden;
+  /* As pontas somem no papel, como vitrine. */
+  mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent);
+}
+.carrossel-trilho {
+  animation: carrossel-andar linear infinite;
+}
+.carrossel:hover .carrossel-trilho,
+.carrossel:focus-within .carrossel-trilho,
+.carrossel[data-pausado="1"] .carrossel-trilho {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .carrossel-trilho { animation: none; }
+  .carrossel-janela { overflow-x: auto; mask-image: none; }
+}
+
+/* ───────────── Faixa do topo presa ao rolar ───────────── */
+/* As âncoras e os índices laterais param logo abaixo da faixa (a altura vem de TopoFixo). */
+:root[data-topo-fixo] {
+  scroll-padding-top: calc(var(--altura-topo, 0px) + 0.75rem);
+}
+:root[data-topo-fixo] main [class*="sticky"][class*="top-"]:not([class*="bottom-"]):not([class*="top-["]) {
+  top: calc(var(--altura-topo, 0px) + 0.5rem);
+}
+.cabecalho-site .linha-de-cima,
+.cabecalho-site .marca-nome,
+.cabecalho-site .linha-de-cima img {
+  transition: padding 0.2s ease, font-size 0.2s ease, height 0.2s ease, width 0.2s ease;
+}
+/* Depois de rolar, a linha do nome encolhe: o menu continua inteiro, a leitura ganha espaço. */
+:root[data-rolou] .cabecalho-site .linha-de-cima {
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+}
+:root[data-rolou] .cabecalho-site .marca-nome {
+  font-size: 1.15rem;
+}
+:root[data-rolou] .cabecalho-site .linha-de-cima img {
+  height: 1.75rem;
+  width: 1.75rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cabecalho-site .linha-de-cima,
+  .cabecalho-site .marca-nome,
+  .cabecalho-site .linha-de-cima img { transition: none; }
 }

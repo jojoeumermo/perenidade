@@ -609,7 +609,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       </div>
 
       {/* No celular, o menu aberto ocupa a tela toda (sem sobra clara embaixo) e o rodapé dele fica no fim. */}
-      <aside id="menu-do-painel" className={`painel-lado no-print bg-[#17130e] text-[#efe4c8] max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r-4 lg:border-[#c21f16] ${menu ? "flex flex-col" : "hidden"}`}>
+      <aside id="menu-do-painel" className={`painel-lado no-print ${compacto ? "painel-compacto" : ""} bg-[#17130e] text-[#efe4c8] max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r-4 lg:border-[#c21f16] ${menu ? "flex flex-col" : "hidden"}`}>
         <div className={`hidden pt-6 lg:block ${compacto ? "px-3" : "px-5"}`}>
           <L href="/" className="flex items-center gap-3" title={compacto ? "Instituto Lúcia · voltar ao site" : undefined}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -627,7 +627,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
             {!compacto && <kbd className="font-mono text-[0.62rem] text-[#8f8468]">Ctrl K</kbd>}
           </button>
         </div>
-        <nav aria-label="Seções do painel" className="flex-1 overflow-y-auto px-3 py-5 [scrollbar-color:#4a4032_transparent] [scrollbar-width:thin]">
+        <nav aria-label="Seções do painel" className={`flex-1 overflow-y-auto overflow-x-hidden py-5 [scrollbar-color:#4a4032_transparent] [scrollbar-width:thin] ${compacto ? "px-3 lg:px-1.5" : "px-3"}`}>
           {grupos.map((grupo) => (
             <div key={grupo || "inicio"} className="mb-4">
               {grupo && (compacto ? <hr className="mx-2 mb-2 hidden border-[#3a3226] lg:block" /> : null)}
