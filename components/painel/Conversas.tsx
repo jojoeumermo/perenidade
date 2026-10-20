@@ -404,7 +404,7 @@ export function Conversas({ me }: { me: Me }) {
                 {achadas.map((item) => (
                   <li key={item.id}>
                     <button type="button" className="block w-full cursor-pointer border-b border-rule px-3 py-2 text-left hover:bg-parchment" onClick={() => { const conversa = lista.dados?.find((c) => c.id === item.conversa); if (conversa) void abrirConversa(conversa).then(() => window.setTimeout(() => document.getElementById(`m-${item.id}`)?.scrollIntoView({ block: "center" }), 600)); }}>
-                      <span className="block truncate text-xs text-ink-soft">{item.conversa_nome} · {item.autor} · {new Date(item.criado_em).toLocaleDateString("pt-BR")}</span>
+                      <span className="block truncate text-xs text-ink-soft">{item.conversa_nome} · {item.autor} · {new Date(item.criado_em).toLocaleDateString(localDoPainel())}</span>
                       <span className="block truncate">{item.texto}</span>
                     </button>
                   </li>
@@ -1002,7 +1002,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                         {vista.editada && <span>Editada · </span>}
                         {dados.fixadas.includes(mensagem.id) && <span title="Fixada">📌 </span>}
                         {favoritas.has(mensagem.id) && <span title="Favorita">★ </span>}
-                        {mensagem.expira_em && <span title={`Autodestruição: ${new Date(mensagem.expira_em).toLocaleString("pt-BR")}`}>⏱ {restante(mensagem.expira_em)} · </span>}
+                        {mensagem.expira_em && <span title={`Autodestruição: ${new Date(mensagem.expira_em).toLocaleString(localDoPainel())}`}>⏱ {restante(mensagem.expira_em)} · </span>}
                         {hora(mensagem.criado_em)}
                         {tiques(mensagem)}
                       </p>
@@ -1033,7 +1033,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
               conversa={id}
               fechar={() => setGaleria(false)}
               irPara={irPara}
-              itens={vistas.flatMap((vista): ItemDaGaleria[] => (vista.conteudo?.anexos ?? []).map((anexo) => ({ mensagem: vista.mensagem.id, anexo, estado: vista.mensagem.anexos.find((estado) => estado.id === anexo.id), autor: vista.mensagem.nome, minha: vista.mensagem.minha, quando: `${new Date(vista.mensagem.criado_em).toLocaleDateString("pt-BR")} ${hora(vista.mensagem.criado_em)}` })))}
+              itens={vistas.flatMap((vista): ItemDaGaleria[] => (vista.conteudo?.anexos ?? []).map((anexo) => ({ mensagem: vista.mensagem.id, anexo, estado: vista.mensagem.anexos.find((estado) => estado.id === anexo.id), autor: vista.mensagem.nome, minha: vista.mensagem.minha, quando: `${new Date(vista.mensagem.criado_em).toLocaleDateString(localDoPainel())} ${hora(vista.mensagem.criado_em)}` })))}
             />
           )}
           {gravando && <Gravador aoGravar={(audio) => void enviar([audio])} aoAvisar={avisarDigitando} fechar={() => setGravando(false)} />}
@@ -1206,7 +1206,7 @@ function Favoritas({ chaveiro, fechar, abrir }: { chaveiro: Chaveiro; fechar: ()
         {lista.dados?.map((item) => (
           <li key={item.id} className="py-2">
             <p className="text-xs text-ink-soft">
-              <button type="button" className={elo} onClick={() => abrir(item.conversa)}>{item.conversa_nome || "Conversa"}</button> · {item.nome || "Alguém"} · {hora(item.criado_em)}, {new Date(item.criado_em).toLocaleDateString("pt-BR")}
+              <button type="button" className={elo} onClick={() => abrir(item.conversa)}>{item.conversa_nome || "Conversa"}</button> · {item.nome || "Alguém"} · {hora(item.criado_em)}, {new Date(item.criado_em).toLocaleDateString(localDoPainel())}
             </p>
             <p className="whitespace-pre-line break-words" data-original>{abertos[item.id] ? semFormatacao(desempacotar(abertos[item.id]!.texto).texto) : "…"}</p>
             <button type="button" className={`${elo} text-xs`} onClick={() => void acao(item.id)}>Tirar das favoritas</button>

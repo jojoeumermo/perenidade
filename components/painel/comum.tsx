@@ -165,8 +165,10 @@ export function textoDoErro(erro: unknown): string {
 export const localDoPainel = () => (typeof document !== "undefined" && document.documentElement.lang) || "pt-BR";
 export const data = (iso: string) => new Date(iso).toLocaleDateString(localDoPainel());
 export const dataHora = (iso: string) => new Date(iso).toLocaleString(localDoPainel(), { dateStyle: "short", timeStyle: "short" });
-/** Datas sem hora (AAAA-MM-DD) não podem passar pelo fuso: viram o dia anterior no Brasil. */
-export const dia = (iso: string) => iso.slice(0, 10).split("-").reverse().join("/");
+/** Datas sem hora (AAAA-MM-DD) não podem passar pelo fuso: viram o dia anterior no Brasil. Ao meio-dia, não viram. */
+export const dia = (iso: string) => (/^\d{4}-\d{2}-\d{2}/.test(iso) ? new Date(`${iso.slice(0, 10)}T12:00:00`).toLocaleDateString(localDoPainel()) : "");
+/** A mesma data sempre em dd/mm/aaaa, para documentos em português (a folha do certificado). */
+export const diaBr = (iso: string) => iso.slice(0, 10).split("-").reverse().join("/");
 
 /**
  * Carrega uma lista do serviço e devolve um jeito de recarregar. A lista também se refaz sozinha quando outro painel
