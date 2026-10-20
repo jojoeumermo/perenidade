@@ -4,6 +4,7 @@
 import { useRef, useState } from "react";
 import { comMarcas, miolo, partir, textoPuro, tipoDe, type Tipo } from "@/lib/blocos";
 import { eInterativo, INTERATIVOS, type Interativo as TipoInterativo, MODELOS_INTERATIVOS } from "@/lib/interativos";
+import { FormularioDoBloco, VITRINE } from "./blocos/Formularios";
 import { Interativo } from "./blocos/Interativo";
 import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
 import { PendingImage } from "./LessonMedia";
@@ -76,6 +77,8 @@ const linhasDe = (texto: string, minimo = 2) => Math.max(minimo, texto.split("\n
 
 export function EditorPorBlocos({ value, onChange, upload = false }: { value: string; onChange: (value: string) => void; upload?: boolean }) {
   const [estado, setEstado] = useState(() => ({ fonte: value, blocos: partir(value).map((md) => ({ id: novoId(), md })) }));
+  /** Blocos interativos abertos no modo texto (o resto mostra o formulário). */
+  const [avancado, setAvancado] = useState<Set<string>>(() => new Set());
   // Mudou por fora (modo texto, gabarito, rascunho recuperado): os blocos são refeitos a partir do texto.
   if (estado.fonte !== value) setEstado({ fonte: value, blocos: partir(value).map((md) => ({ id: novoId(), md })) });
   const blocos = estado.blocos;
@@ -187,7 +190,7 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
         ＋ bloco
       </button>
       {menu === i && (
-        <div role="menu" className="absolute top-7 z-20 max-h-96 w-80 overflow-y-auto border-2 border-ink bg-parchment p-2 font-sans text-xs shadow-lg">
+        <div role="menu" className="absolute top-7 z-20 max-h-[28rem] w-[26rem] max-w-[90vw] overflow-y-auto border-2 border-ink bg-parchment p-2 font-sans text-xs shadow-lg">
           <input autoFocus value={busca} onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => { if (e.key === "Escape") setMenu(null); }} placeholder="Procurar bloco…" aria-label="Procurar bloco" className="mb-2 w-full border border-rule bg-parchment-deep px-2 py-1" />
           <div className="grid grid-cols-2 gap-1">
             {NO_MENU.filter((t) => (upload || t !== "anexo") && casa(NOMES[t])).map((t) => (
@@ -196,14 +199,22 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
               </button>
             ))}
           </div>
-          <p className="mt-2 font-mono uppercase tracking-wider text-gold">Interativos</p>
-          <div className="mt-1 grid grid-cols-2 gap-1">
-            {INTERATIVOS.filter((k) => casa(MODELOS_INTERATIVOS[k].nome)).map((k) => (
-              <button key={k} type="button" role="menuitem" onClick={() => inserir(i, "interativo", ["```" + k, MODELOS_INTERATIVOS[k].modelo, "```"].join("\n"))} className="cursor-pointer border border-rule px-2 py-1 text-left hover:border-oxblood">
-                {MODELOS_INTERATIVOS[k].nome}
-              </button>
-            ))}
-          </div>
+          {(["Jogos", "Testes", "Línguas", "Ciência e matemática", "Outros"] as const).map((gaveta) => {
+            const itens = INTERATIVOS.filter((k) => VITRINE[k][1] === gaveta && casa(MODELOS_INTERATIVOS[k].nome));
+            return itens.length ? (
+              <div key={gaveta}>
+                <p className="mt-3 font-mono uppercase tracking-wider text-oxblood">{gaveta}</p>
+                <div className="mt-1 grid grid-cols-2 gap-1">
+                  {itens.map((k) => (
+                    <button key={k} type="button" role="menuitem" onClick={() => inserir(i, "interativo", ["```" + k, MODELOS_INTERATIVOS[k].modelo, "```"].join("\n"))} className="flex cursor-pointer items-center gap-2 border-2 border-ink/15 bg-parchment-deep px-2 py-2 text-left text-sm font-semibold hover:border-oxblood">
+                      <span className="text-xl" aria-hidden>{VITRINE[k][0]}</span>
+                      {MODELOS_INTERATIVOS[k].nome}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null;
+          })}
         </div>
       )}
     </div>
@@ -353,16 +364,25 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
         const dentro = miolo(b.md);
         const info = eInterativo(lingua) ? MODELOS_INTERATIVOS[lingua] : null;
         const frases = lingua === "pronuncia" ? dentro.split("\n").filter((l) => l.trim() && !/^(lingua|língua|idioma)\s*:/i.test(l.trim())) : [];
+        const escrever = (texto: string) => trocar(i, ["```" + lingua, texto, "```"].join("\n"));
+        const formulario = eInterativo(lingua) && !avancado.has(b.id) ? <FormularioDoBloco key={`${b.id}-f`} tipo={lingua} spec={dentro} mudar={escrever} /> : null;
         return (
           <div className="space-y-2">
             <div className="grid gap-2 lg:grid-cols-2">
-              <textarea value={dentro} rows={linhasDe(dentro, 5)} onChange={(e) => trocar(i, ["```" + lingua, e.target.value, "```"].join("\n"))} spellCheck={false} aria-label={`Dados do bloco ${info?.nome ?? lingua}`} className={`${campo} font-mono text-sm`} />
+              <div className="min-w-0">
+                {formulario ?? <textarea value={dentro} rows={linhasDe(dentro, 5)} onChange={(e) => escrever(e.target.value)} spellCheck={false} aria-label={`Dados do bloco ${info?.nome ?? lingua}`} className={`${campo} font-mono text-sm`} />}
+                {eInterativo(lingua) && (formulario || avancado.has(b.id)) && (
+                  <button type="button" onClick={() => setAvancado((a) => { const n = new Set(a); if (n.has(b.id)) n.delete(b.id); else n.add(b.id); return n; })} className="mt-2 cursor-pointer text-xs text-ink-soft underline">
+                    {avancado.has(b.id) ? "← Voltar ao formulário" : "Modo avançado (editar como texto)"}
+                  </button>
+                )}
+              </div>
               <div className="min-w-0 border border-rule bg-parchment p-2">
                 <p className="text-xs text-ink-soft">Prévia (funciona como na aula)</p>
                 {eInterativo(lingua) && <Interativo key={dentro} tipo={lingua} spec={dentro} />}
               </div>
             </div>
-            {info && <p className="text-xs text-ink-soft">{info.ajuda}</p>}
+            {info && (!formulario || !eInterativo(lingua)) && <p className="text-xs text-ink-soft">{info.ajuda}</p>}
             {upload && frases.length > 0 && (
               <div className="flex flex-wrap gap-2 text-xs">
                 {frases.map((f, k) => (
