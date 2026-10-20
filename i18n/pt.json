@@ -243,7 +243,10 @@
     "publicRemove": "retirar",
     "publicResolutionFailed": "Não deu para publicar a resolução agora.",
     "publicSource": "Questões das provas públicas, transcritas por projetos abertos (enem.dev, BLUEX e oab_exams). Atualizado em {data}. Fonte desta prova:",
-    "publicSourcePick": "Fonte"
+    "publicSourcePick": "Fonte",
+    "bankTabInstitute": "Questões do instituto",
+    "bankTabInstituteHint": "{n} questões das aulas, com resposta e explicação dos educadores",
+    "bankTabPublicHint": "ENEM, vestibulares (Fuvest, Unicamp, ITA, IME), olimpíadas, OAB, Revalida e Enare"
   },
   "slogans": {
     "acervo": "Ler é um ato de resistência.",
@@ -726,7 +729,10 @@
     "certCode": "Número de verificação: {c}",
     "certPrint": "Salvar em PDF ou imprimir",
     "certClose": "Fechar",
-    "certPrintHint": "Na janela de impressão, escolha “Salvar como PDF”, papel A4 e ligue “Gráficos de plano de fundo”."
+    "certPrintHint": "Na janela de impressão, escolha “Salvar como PDF”, papel A4 e ligue “Gráficos de plano de fundo”.",
+    "searchLabel": "Buscar uma disciplina",
+    "searchPlaceholder": "Buscar uma disciplina ou um tema (ex.: fotossíntese, samba, Python)…",
+    "searchClear": "Limpar"
   },
   "lesson": {
     "position": "aula {i} de {n}",
@@ -822,7 +828,9 @@
     "catalogTitle": "Catálogo ampliado",
     "catalogLead": "Obras reunidas a partir de catálogos abertos, com link direto para a fonte. A ficha é mais simples que a das obras selecionadas pela curadoria. A presença de uma obra aqui não significa concordância com o que ela diz.",
     "seeAt": "Ver em {source}",
-    "mecNote": "Empréstimo digital gratuito pela biblioteca MEC Livros, do Ministério da Educação: basta entrar com a conta gov.br."
+    "mecNote": "Empréstimo digital gratuito pela biblioteca MEC Livros, do Ministério da Educação: basta entrar com a conta gov.br.",
+    "carouselPause": "Pausar",
+    "carouselPlay": "Continuar"
   },
   "shelf": {
     "eyebrow": "Disciplina",
@@ -2893,7 +2901,10 @@
       "podcasts": "Episódios de formação para ouvir no ônibus, na cozinha ou no intervalo do trabalho.",
       "instagram": "Novidades do instituto, aulas e chamadas para voluntários.",
       "live": "Agenda de aulas ao vivo, com vídeo e bate-papo no próprio site.",
-      "notebook": "Junte aulas e textos e tire deles resumo, cartões, questionário, mapa, linha do tempo e áudio. Tudo no seu navegador."
+      "notebook": "Junte aulas e textos e tire deles resumo, cartões, questionário, mapa, linha do tempo e áudio. Tudo no seu navegador.",
+      "community": "O fórum de quem estuda: perguntas, respostas e debates, com moderação e sem anúncio.",
+      "health": "Profissionais de saúde voluntários, com atendimento gratuito ou por valor social: você fala direto com eles.",
+      "bugs": "Algo travou ou apareceu errado? Conte para quem cuida do código."
     }
   },
   "support": {
@@ -3793,7 +3804,9 @@
       "Resumo",
       "Roteiro de estudo",
       "Material para imprimir",
-      "Indicação comentada"
+      "Indicação comentada",
+      "Mapa mental",
+      "Arquivo para baixar (PDF)"
     ]
   },
   "practice": {

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BancoDeQuestoes, type QuestaoDoBanco } from "@/components/BancoDeQuestoes";
 import { PageHeading } from "@/components/PageHeading";
 import { ProvasPublicas } from "@/components/ProvasPublicas";
+import { QuestoesAbas } from "@/components/QuestoesAbas";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
 import { getTracks } from "@/lib/content";
@@ -28,11 +29,9 @@ export default async function Page({ params }: PageProps<"/[lang]/questoes">) {
         {t.lists.bankLead}
       </PageHeading>
       <p className="mt-6 font-sans text-sm">
-        <Link href={`${localePath(lang, "/contribuir")}?tipo=questao`} className="inline-block bg-ink px-4 py-2 font-semibold text-parchment hover:bg-oxblood">{t.lists.bankSend} →</Link>{" "}
-        <a href="#provas-publicas" className="ml-2 inline-block border-2 border-ink px-4 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{t.lists.publicTitle} ↓</a>
+        <Link href={`${localePath(lang, "/contribuir")}?tipo=questao`} className="inline-block bg-ink px-4 py-2 font-semibold text-parchment hover:bg-oxblood">{t.lists.bankSend} →</Link>
       </p>
-      <ProvasPublicas s={t.lists} />
-      <BancoDeQuestoes questoes={questoes} />
+      <QuestoesAbas totalInstituto={questoes.length} instituto={<BancoDeQuestoes questoes={questoes} />} publicas={<ProvasPublicas s={t.lists} />} />
     </div>
   );
 }
