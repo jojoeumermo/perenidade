@@ -717,7 +717,10 @@
     "certFailed": "Could not generate it right now. Try again in a few minutes.",
     "certTitle": "Certificate of participation",
     "certText": "Instituto Lúcia certifies that {nome} studied the {n} lessons of the track “{trilha}” at the institute's free people's school.",
-    "certCode": "Verification number: {c}"
+    "certCode": "Verification number: {c}",
+    "certPrint": "Save as PDF or print",
+    "certClose": "Close",
+    "certPrintHint": "In the print window, choose “Save as PDF”, A4 paper and turn on “Background graphics”."
   },
   "lesson": {
     "position": "lesson {i} of {n}",

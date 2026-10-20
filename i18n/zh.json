@@ -713,7 +713,10 @@
     "certFailed": "现在无法生成，请几分钟后再试。",
     "certTitle": "参与证书",
     "certText": "露西亚学院证明 {nome} 在学院免费的人民学校学习了路径“{trilha}”的 {n} 节课。",
-    "certCode": "核验编号：{c}"
+    "certCode": "核验编号：{c}",
+    "certPrint": "保存为 PDF 或打印",
+    "certClose": "关闭",
+    "certPrintHint": "在打印窗口中选择“另存为 PDF”、A4 纸张，并打开“背景图形”。"
   },
   "lesson": {
     "position": "第 {i} 课，共 {n} 课",
