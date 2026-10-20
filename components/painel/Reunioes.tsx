@@ -127,7 +127,7 @@ export function Reunioes({ me }: { me: Me }) {
         </div>
         <JitsiSala sala={naSala.sala ?? ""} nome={me.nome} conduzo={naSala.conduzo} lang={lang} assunto={naSala.titulo} aoSair={() => void sair()} />
         {naSala.pauta && <div className="painel-cartao p-4"><p className={rotulo}>Pauta</p><p className="mt-1 whitespace-pre-wrap" data-original>{naSala.pauta}</p></div>}
-        <p className="text-xs text-ink-soft">Vídeo pelo Jitsi Meet em {JITSI_DOMINIO}: nada de áudio ou vídeo fica no servidor do instituto; só quem entrou e quando. Sem gravação.</p>
+        <p className="text-xs text-ink-soft">Nada de áudio ou vídeo fica no servidor do instituto; só quem entrou e quando. Quem abre a reunião entra primeiro e modera.</p>
         <Aviso texto={acao.aviso} />
       </div>
     );
@@ -177,7 +177,7 @@ export function Reunioes({ me }: { me: Me }) {
           <h2 className="jornal-secao"><span className="jornal-editoria">Próximas</span></h2>
           {proximas.length === 0 ? <p className="mt-4 text-ink-soft">Nenhuma reunião marcada. {gere ? "Crie uma em “Nova reunião”." : "Proponha uma em “Propostas”."}</p> : <div className="mt-4 grid gap-4 md:grid-cols-2">{proximas.map(cartao)}</div>}
         </section>
-        <p className="mt-8 text-xs text-ink-soft">As reuniões acontecem pelo Jitsi Meet (código aberto) em {JITSI_DOMINIO}, dentro do painel. Cada reunião tem uma sala de nome sorteado, que só quem pode entrar recebe. Guardamos só quem entrou e quando; nada de áudio ou vídeo.</p>
+        <p className="mt-8 text-xs text-ink-soft">As reuniões acontecem pelo Jitsi Meet (código aberto) em {JITSI_DOMINIO}, dentro do painel, sem limite de tempo e sem conta de moderador. Cada reunião tem uma sala de nome sorteado, que só quem pode entrar recebe. Guardamos só quem entrou e quando; nada de áudio ou vídeo.</p>
       </div>
       <div hidden={aba !== "propostas"}>
         <Propostas gere={gere} propostas={propostas.dados ?? []} erro={propostas.erro} recarregar={() => { propostas.recarregar(); lista.recarregar(); }} />

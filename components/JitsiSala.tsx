@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { fill } from "@/i18n/config";
-import { JITSI_DOMINIO } from "@/lib/jitsi";
+import { escolherServidor, SERVIDORES_JITSI, servidorEscolhido } from "@/lib/jitsi";
 import { useI18n } from "./I18n";
 
 interface JitsiApi {
@@ -17,44 +17,50 @@ declare global {
   }
 }
 
-let carregando: Promise<void> | null = null;
-function carregarApi(): Promise<void> {
-  if (window.JitsiMeetExternalAPI) return Promise.resolve();
-  if (!carregando) {
-    carregando = new Promise((ok, erro) => {
+// O programa de cada servidor é baixado uma vez por visita (todos definem a mesma API).
+const carregando = new Map<string, Promise<void>>();
+function carregarApi(servidor: string): Promise<void> {
+  let pedido = carregando.get(servidor);
+  if (!pedido) {
+    pedido = new Promise<void>((ok, erro) => {
       const s = document.createElement("script");
-      s.src = `https://${JITSI_DOMINIO}/external_api.js`;
+      s.src = `https://${servidor}/external_api.js`;
       s.async = true;
       s.onload = () => ok();
       s.onerror = () => {
-        carregando = null;
+        carregando.delete(servidor);
         erro(new Error("jitsi"));
       };
       document.head.appendChild(s);
     });
+    carregando.set(servidor, pedido);
   }
-  return carregando;
+  return pedido;
 }
 
 const BOTOES_DE_QUEM_ASSISTE = ["microphone", "camera", "desktop", "chat", "raisehand", "tileview", "fullscreen", "hangup", "settings", "select-background"];
 const BOTOES_DE_QUEM_CONDUZ = [...BOTOES_DE_QUEM_ASSISTE, "participants-pane", "mute-everyone", "mute-video-everyone", "security", "shareaudio", "whiteboard"];
 
 /**
- * A sala de vídeo dentro da página, pelo Jitsi Meet (código aberto), no servidor configurado. O que a API deixa
- * personalizar (cores de fundo, marcas d'água, botões, idioma, nome de quem entra) está aqui; o resto do visual é do
- * servidor. Sem gravação. Ao sair da sala, avisa quem embutiu.
+ * A sala de vídeo dentro da página, pelo Jitsi Meet (código aberto), num servidor público sem limite de tempo e sem
+ * login de moderador (lib/jitsi.ts). O que a API deixa personalizar (cores de fundo, marcas d'água, botões, idioma, nome
+ * de quem entra) está aqui; o resto do visual é do servidor. Sem gravação. Ao sair da sala, avisa quem embutiu.
+ * Se o servidor estiver fora do ar, dá para trocar: a escolha fica neste aparelho, e todos da sala precisam usar o mesmo.
  */
-export function JitsiSala({ sala, nome, conduzo, lang, assunto, aoSair, aoEntrar }: { sala: string; nome: string; conduzo: boolean; lang: string; assunto?: string; aoSair?: () => void; aoEntrar?: () => void }) {
+export function JitsiSala({ sala, servidor: servidorDaSala, nome, conduzo, lang, assunto, aoSair, aoEntrar }: { sala: string; servidor?: string; nome: string; conduzo: boolean; lang: string; assunto?: string; aoSair?: () => void; aoEntrar?: () => void }) {
   const { t } = useI18n();
   const caixa = useRef<HTMLDivElement>(null);
   const [erro, setErro] = useState(false);
+  const [servidor, setServidor] = useState(() => servidorEscolhido(sala, servidorDaSala));
+  const [trocar, setTrocar] = useState(false);
   useEffect(() => {
     let api: JitsiApi | null = null;
     let vivo = true;
-    carregarApi()
+    void Promise.resolve().then(() => vivo && setErro(false));
+    carregarApi(servidor)
       .then(() => {
         if (!vivo || !caixa.current || !window.JitsiMeetExternalAPI) return;
-        api = new window.JitsiMeetExternalAPI(JITSI_DOMINIO, {
+        api = new window.JitsiMeetExternalAPI(servidor, {
           roomName: sala,
           parentNode: caixa.current,
           width: "100%",
@@ -98,14 +104,37 @@ export function JitsiSala({ sala, nome, conduzo, lang, assunto, aoSair, aoEntrar
       vivo = false;
       api?.dispose();
     };
-  }, [sala, nome, conduzo, lang, assunto, aoSair, aoEntrar]);
+  }, [sala, servidor, nome, conduzo, lang, assunto, aoSair, aoEntrar]);
+  const outros = SERVIDORES_JITSI.filter((s) => s !== servidor);
+  const rodape = (
+    <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 font-sans text-xs text-ink-soft">
+      <span>{fill(t.common.videoServer, { dominio: servidor })}</span>
+      <a href={`https://${servidor}/${sala}`} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">{t.common.openInNewTab}</a>
+      {outros.length > 0 && (
+        <button type="button" onClick={() => setTrocar((x) => !x)} className="cursor-pointer underline hover:text-oxblood">{t.common.videoSwitch}</button>
+      )}
+      {trocar && (
+        <span className="flex w-full flex-wrap items-center gap-2">
+          <span>{t.common.videoSwitchHint}</span>
+          {outros.map((s) => (
+            <button key={s} type="button" onClick={() => { escolherServidor(sala, s); setServidor(s); setTrocar(false); }} className="cursor-pointer border border-ink px-2 py-0.5 font-mono hover:border-oxblood">{s}</button>
+          ))}
+        </span>
+      )}
+    </p>
+  );
   if (erro) {
     return (
-      <p className="border-2 border-oxblood p-4 font-sans text-sm text-oxblood">
-        {fill(t.common.videoRoomFailed, { dominio: JITSI_DOMINIO })}{" "}
-        <a href={`https://${JITSI_DOMINIO}/${sala}`} target="_blank" rel="noopener noreferrer" className="underline">{t.common.openInNewTab}</a>
-      </p>
+      <div>
+        <p className="border-2 border-oxblood p-4 font-sans text-sm text-oxblood">{fill(t.common.videoRoomFailed, { dominio: servidor })}</p>
+        {rodape}
+      </div>
     );
   }
-  return <div ref={caixa} className="aspect-video w-full min-h-[22rem] border-4 border-ink bg-[#17130e] lg:min-h-[32rem]" />;
+  return (
+    <div>
+      <div ref={caixa} className="aspect-video w-full min-h-[22rem] border-4 border-ink bg-[#17130e] lg:min-h-[32rem]" />
+      {rodape}
+    </div>
+  );
 }

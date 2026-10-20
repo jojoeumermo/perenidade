@@ -13,6 +13,7 @@ import { ligarTrava, travaDisponivel, travaLigada, travarAgora } from "@/lib/tra
 import { applyPrefs, readPrefs } from "@/lib/prefs";
 import { senhaVazada } from "@/lib/senha";
 import { getItem, KEYS, setItem } from "@/lib/storage";
+import { minutosOcioso } from "./ocioso";
 import { L, useI18n } from "../I18n";
 import { Star } from "../Masthead";
 import { AulasAoVivo } from "./AoVivo";
@@ -20,6 +21,8 @@ import { Avatar } from "./Avatar";
 import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
 import { Estatisticas } from "./Estatisticas";
 import { TermoDeVoluntario } from "./Termo";
+import { SaudeNoPainel } from "./Saude";
+import { ErrosRelatados } from "./Erros";
 import { Aviso, botao, botaoClaro, campo, data, elo, localDoPainel, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, useAcao, useLista } from "./comum";
 import { Comunidade, MuralFila, SugerirEmissora } from "./Cuidar";
 import { Apoio } from "./Apoio";
@@ -144,6 +147,8 @@ const icones: Record<string, string> = {
   "acervo-dentro": "M5 4v16M9 4v16M13 5l4 15M3 20h18",
   exercicios: "M4 3h12v18H4zM8 7h4M8 11h4M14 20l6-6-2-2-6 6v2z",
   contribuicoes: "M12 14a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM8.5 13 7 21l5-3 5 3-1.5-8",
+  saude: "M20.8 8.6a5 5 0 0 0-8.8-3.2A5 5 0 0 0 3.2 8.6c0 5.4 8.8 10.9 8.8 10.9s8.8-5.5 8.8-10.9zM12 8v6M9 11h6",
+  erros: "M8 8a4 4 0 0 1 8 0v6a4 4 0 0 1-8 0zM12 10v8M4 9h4M16 9h4M4 15h4M16 15h4M9 4l1.5 2M15 4l-1.5 2",
 };
 
 function Icone({ id, className = "h-[18px] w-[18px]" }: { id: string; className?: string }) {
@@ -228,8 +233,6 @@ function IrPara({ secoes, fechar, ir }: { secoes: Secao[]; fechar: () => void; i
   );
 }
 
-/** Sem uso por este tempo, o painel se fecha sozinho: aparelho esquecido aberto não vira porta de entrada. */
-const OCIOSO = 30 * 60 * 1000;
 
 
 /** Claro ou escuro, como no site: a escolha fica guardada no navegador. */
@@ -297,18 +300,26 @@ export function Painel() {
     if (dentro) void registerDevice();
   }, [dentro]);
 
-  // Fecha a sessão depois de meia hora sem ninguém mexer.
+  // Fecha a sessão depois do tempo escolhido sem ninguém mexer em nenhuma aba do painel neste navegador.
   useEffect(() => {
     if (!dentro) return;
-    let ultimo = Date.now();
+    let ultimoLocal = 0;
     const tocar = () => {
-      ultimo = Date.now();
+      // No máximo uma escrita a cada 15 s: rolar a página não pode virar uma enxurrada no armazenamento.
+      const agora = Date.now();
+      if (agora - ultimoLocal < 15_000) return;
+      ultimoLocal = agora;
+      setItem(KEYS.painelUltimoUso, String(agora));
     };
+    tocar();
     const sinais = ["pointerdown", "keydown", "scroll"] as const;
     for (const sinal of sinais) window.addEventListener(sinal, tocar, { passive: true });
     const relogio = window.setInterval(() => {
-      if (Date.now() - ultimo > OCIOSO) void signOut().then(() => router.replace(`/${lang}/entrar`));
-    }, 30_000);
+      const minutos = minutosOcioso();
+      if (minutos === 0) return;
+      const ultimo = Number(getItem(KEYS.painelUltimoUso)) || Date.now();
+      if (Date.now() - ultimo > minutos * 60_000) void signOut().then(() => router.replace(`/${lang}/entrar`));
+    }, 60_000);
     return () => {
       for (const sinal of sinais) window.removeEventListener(sinal, tocar);
       window.clearInterval(relogio);
@@ -461,7 +472,10 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       window.removeEventListener(PAINEL_MUDOU, atualizarResumo);
     };
   }, [avisarPresenca, atualizarResumo, lerSite]);
-  const voluntario = eu.papeis.length > 0;
+  // O profissional de saúde da vitrine não é da equipe de produção: vê a mesa, o próprio perfil na vitrine e a conta.
+  const soSaude = eu.papeis.length > 0 && eu.papeis.every((p) => p.papel === "saude");
+  const voluntario = eu.papeis.length > 0 && !soSaude;
+  const educa = can(eu, "educacao") || (eu.convites?.length ?? 0) > 0;
   // Quem produz para o site: educação, curadoria, revisão, tradução, jornalismo, design, marketing e a liderança.
   const produz = can(eu, "coordenacao", "supervisao", "curadoria", "educacao", "revisao", "traducao", "jornalismo", "design", "marketing");
   const lidera = can(eu, "coordenacao");
@@ -480,15 +494,15 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "escritorio", nome: "Escritório", sobre: "Documentos, planilhas e apresentações (WordCraft, GridCraft e DeckCraft), dentro do painel.", grupo: "Produção", mostra: true },
       { id: "caderno", nome: "Caderno de estudos", sobre: "Fontes, resumo, cartões, questionário, mapa e leitura em voz alta: a sala de estudo para preparar aulas e episódios.", grupo: "Produção", mostra: true },
       { id: "tarefas", nome: "Tarefas", sobre: "Microtarefas do acervo e das aulas para 5, 15 ou 30 minutos, a revisão rápida, mutirões e projetos.", grupo: "Produção", mostra: voluntario },
-      { id: "acervo-dentro", nome: "Acervo por dentro", sobre: "Cada obra com o selo da ficha (completa, parcial ou faltando), para escolher o que cuidar.", grupo: "Produção", mostra: voluntario },
+      { id: "acervo-dentro", nome: "Acervo por dentro", sobre: "Cada obra com o selo da ficha (completa, parcial ou faltando), para escolher o que cuidar: só a curadoria mexe no acervo.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "revisao") },
       { id: "exercicios", nome: "Exercícios de prática", sobre: "Exercícios ligados às aulas (vídeo, animação, imagem) com o programa do Estúdio de prática, e as entregas para comentar.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "educacao") },
       { id: "minhas", nome: "Meus envios", sobre: "O que você enviou e em que pé está.", grupo: "Produção", mostra: produz },
       { id: "juntas", nome: "Compartilhadas comigo", sobre: "Contribuições de colegas que chamaram você para trabalhar junto.", grupo: "Produção", mostra: voluntario, conta: r?.juntas },
       { id: "fila", nome: "Fila de revisão", sobre: "Ler, dar parecer e decidir o que vai ao ar.", grupo: "Produção", mostra: can(eu, "coordenacao", "supervisao", "curadoria", "revisao", "educacao"), conta: r?.fila },
       { id: "traducoes", nome: "Traduções", sobre: "As aulas que ainda não têm tradução e as traduções a caminho.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "traducao", "revisao") },
       { id: "triagem", nome: "Triagem", sobre: "A primeira leitura do que o público envia: o que passa segue para a fila de revisão.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.triagem },
-      { id: "curriculo", nome: "Disciplinas e trilhas", sobre: "Criar, editar e remover disciplinas e trilhas (coordenação e coordenação pedagógica); todo voluntário sugere.", grupo: "Produção", mostra: voluntario },
-      { id: "fontes", nome: "Fontes abertas", sobre: "Obras, verbetes e datas em acervos e enciclopédias livres, para escrever com fonte à vista.", grupo: "Produção", mostra: voluntario },
+      { id: "curriculo", nome: "Disciplinas e trilhas", sobre: "As suas disciplinas e trilhas: sugerir mudanças e convidar colegas de outras disciplinas para ajudar (a coordenação cria, edita e remove).", grupo: "Produção", mostra: educa || can(eu, "coordenacao", "supervisao", "curadoria") },
+      { id: "fontes", nome: "Fontes abertas", sobre: "Obras, verbetes e datas em acervos e enciclopédias livres, para escrever com fonte à vista.", grupo: "Produção", mostra: produz },
       { id: "materiais", nome: "Materiais e arquivos", sobre: "Zines, cartazes, imagens e PDFs.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "design", "marketing") },
       { id: "divulgacao", nome: "Divulgação", sobre: "Calendário de posts e stories, kit da marca e acesso ao Instagram.", grupo: "Produção", mostra: can(eu, "coordenacao", "marketing"), conta: r?.divulgacao },
       { id: "comunidade", nome: "Comunidade", sobre: "Fila de revisão, banimentos, denúncias, anotações e o filtro de palavras.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao", "educacao"), conta: r ? r.denuncias + r.anotacoes + r.retidos : undefined },
@@ -500,6 +514,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "supervisao", nome: "Supervisão", sobre: "Proteções reversíveis, a equipe sem e-mails e os pedidos de voluntariado.", grupo: "Pessoas", mostra: supervisiona, conta: r?.candidaturas },
       { id: "reunioes", nome: "Reuniões", sobre: "Reuniões da equipe por vídeo, dentro do painel: a liderança marca, qualquer pessoa propõe, a presença e a ata ficam no histórico.", grupo: "Pessoas", mostra: voluntario },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar + (r.pedidos ?? 0) : undefined },
+      { id: "saude", nome: soSaude || !lidera ? "Meu perfil na vitrine" : "Saúde Solidária", sobre: "A vitrine de profissionais de saúde voluntários: o perfil de cada um, o termo, a conferência do registro e a chave geral.", grupo: "Pessoas", mostra: can(eu, "coordenacao", "saude") },
       { id: "estatisticas", nome: "Estatísticas", sobre: "O que os estudantes procuram e o que a equipe produz, por disciplina: a base para decidir o que entra e o que sai.", grupo: "Pessoas", mostra: lidera || can(eu, "vice") },
       { id: "avisos", nome: "Avisos à equipe", sobre: "Um quadro que aparece por cima do painel de toda a equipe, ou só de algumas funções, até cada pessoa fechar.", grupo: "Pessoas", mostra: eu.supervisao === true || lidera || supervisiona },
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
@@ -507,6 +522,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "podcast", nome: "Podcast", sobre: "Episódios da pauta à publicação: roteiro, gravação, versões, revisão, capas, cortes e agenda.", grupo: "Produção", mostra: can(eu, "coordenacao", "jornalismo", "design", "mediacao", "curadoria"), conta: podcast.dados ?? undefined },
       { id: "emissoras", nome: "Rádios do povo", sobre: "Indicar emissoras populares e comunitárias para o diretório público de rádios.", grupo: "Site", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "apoiadores", nome: "Apoio e transparência", sobre: "A página de Apoie (faixas, metas, custos), o mural de apoiadores, as contas do mês e o texto para a Benfeitoria.", grupo: "Site", mostra: lidera },
+      { id: "erros", nome: "Erros relatados", sobre: "O que o público relatou na página Achei um erro.", grupo: "Site", mostra: can(eu, "coordenacao", "desenvolvimento") },
       { id: "tecnico", nome: "Estado técnico", sobre: "Publicação, avaliação automática, faxina e sinais de varredura.", grupo: "Site", mostra: can(eu, "coordenacao", "desenvolvimento"), conta: r?.publicacao_atrasada },
       { id: "seguranca", nome: "Segurança e sucessão", sobre: "Segundo fator obrigatório, coordenação pedagógica e ordem de sucessão.", grupo: "Segurança", mostra: lidera },
       { id: "interdicao", nome: "Interdição e expurgo", sobre: "Tirar o site ou uma área do ar por um tempo, e apagar de uma vez uma chuva de spam.", grupo: "Segurança", mostra: lidera || supervisiona, conta: r?.pedidos_supervisao },
@@ -745,6 +761,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "interdicao" && <Interdicao me={eu} aoMudar={estadoDoSite.recarregar} />}
           {atual.id === "registro" && <RegistroDeAtividades />}
           {atual.id === "estatisticas" && <Estatisticas />}
+          {atual.id === "saude" && <SaudeNoPainel me={eu} />}
+          {atual.id === "erros" && <ErrosRelatados />}
           {atual.id === "conta" && (
             <MinhaConta
               me={eu}

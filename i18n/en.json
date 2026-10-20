@@ -37,7 +37,10 @@
     "askCommunity": "Ask the community",
     "practiceStudio": "Practice studio",
     "videoRoomFailed": "The video room didn't load (the server {dominio} didn't respond or is blocked on this network).",
-    "openInNewTab": "Open in another tab ↗"
+    "openInNewTab": "Open in another tab ↗",
+    "videoServer": "Video by Jitsi Meet on {dominio}: no recording, no time limit and no account; whoever joins first moderates.",
+    "videoSwitch": "Switch server",
+    "videoSwitchHint": "Only if this one does not open. Everyone in the room must pick the same one:"
   },
   "nav": {
     "main": "Main",
@@ -89,7 +92,10 @@
     "data": "People's data",
     "podcasts": "Podcasts",
     "live": "Live classes",
-    "notebook": "Study notebook"
+    "notebook": "Study notebook",
+    "health": "Health",
+    "reportBug": "Report a site bug",
+    "institute": "Charter, mission and values"
   },
   "labs": {
     "eyebrow": "Real practice",
@@ -4399,5 +4405,18 @@
     "join": "Join the video room",
     "someone": "Learner",
     "privacy": "The video goes through the video-call server set up by the institute (Jitsi). Nothing is recorded."
+  },
+  "saude": {
+    "eyebrow": "Contact board",
+    "title": "Solidarity Health",
+    "slogan": "Care belongs to the people too",
+    "lead": "Volunteer health professionals who see people for free or at a social rate leave their contact here. You talk to them directly: the institute only publicises; it neither provides nor guarantees care.",
+    "description": "Contacts of volunteer health professionals offering free or social-rate care. Instituto Lúcia only publicises them: it neither provides nor guarantees care."
+  },
+  "bugs": {
+    "eyebrow": "Help us fix it",
+    "title": "I found a bug",
+    "lead": "Something didn't open, froze, looked broken or had the wrong text? Tell us here: it goes straight to the people who maintain the site's code.",
+    "description": "Report a bug on the Instituto Lúcia site: what went wrong and where. No account needed and your network address is not stored."
   }
 }

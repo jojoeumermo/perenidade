@@ -9,6 +9,10 @@ export const KEYS = {
   painelCompacto: "lucia:painel-compacto",
   /** Modo foco do painel: só as seções essenciais no menu. */
   painelFoco: "lucia:painel-foco",
+  /** Depois de quantos minutos sem uso o painel se fecha neste aparelho ("0": nunca). */
+  painelOcioso: "lucia:painel-ocioso",
+  /** O último toque no painel, em qualquer aba deste navegador (uma aba esquecida não derruba a que está em uso). */
+  painelUltimoUso: "lucia:painel-ultimo-uso",
   done: "lucia:concluidas",
   last: "lucia:ultima-aula",
   draft: "lucia:rascunho",

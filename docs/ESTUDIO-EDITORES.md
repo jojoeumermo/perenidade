@@ -59,8 +59,13 @@ confere o SHA-256 contra o `SHA256SUMS.txt` publicado pelo projeto (se não conf
 - `Referrer-Policy: no-referrer`, `nosniff` e `Permissions-Policy` sem câmera, microfone ou localização.
 
 Os pacotes ficam fora do Git (`.gitignore`): são publicados à parte. O script avisa se algum arquivo passar de 25 MiB
-(limite por arquivo da Cloudflare Pages). Hoje passam o WebAssembly do FilmCraft (39 MB) e do EffectCraft (60 MB): esses
-dois arquivos vão para um bucket R2 ligado ao mesmo domínio (o PhotoCraft já vem com o WebAssembly cortado em partes).
+(limite por arquivo da Cloudflare). Hoje passam o WebAssembly do FilmCraft (39 MB), do EffectCraft (60 MB) e do
+WordCraft: na publicação, cada um é cortado em partes de 20 MiB (`<arquivo>.parte-0`, `.parte-1`… e o índice
+`<arquivo>.partes.json`), e o `estudio/worker.js` emenda as partes na hora em que o navegador pede o arquivo inteiro.
+Não precisa de R2 (o PhotoCraft já vem com o WebAssembly cortado pelo próprio projeto).
+
+Até 20/10/2026 esses arquivos iam para um bucket R2 que nunca foi ativado: o FilmCraft mostrava "failed to fetch Wasm:
+404", e o EffectCraft e o WordCraft ficavam em "Loading…" para sempre.
 
 Para testar no computador antes de publicar: `node scripts/servir-estudio.mjs` e abra http://localhost:4600/ (aplica o
 mesmo `_headers`). Teste: abrir o PhotoCraft, abrir um PSD baixado do Estúdio rápido (botão “Abrir no editor avançado”
@@ -68,14 +73,13 @@ ou “PSD” num modelo), mexer numa camada de texto, exportar PNG.
 
 ## 2. Publicar
 
-O estúdio é um Worker da Cloudflare (`estudio/wrangler.jsonc`) com os arquivos estáticos de `estudio/site` e um bucket
-R2 (`estudio-lucia-grandes`) para os arquivos acima de 25 MiB, que o `estudio/worker.js` entrega no mesmo caminho.
+O estúdio é um Worker da Cloudflare (`estudio/wrangler.jsonc`) com os arquivos estáticos de `estudio/site`. Os
+arquivos acima de 25 MiB sobem em partes, e o `estudio/worker.js` entrega o arquivo inteiro no caminho de sempre.
 O domínio `estudio.institutolucia.org` é criado pelo próprio deploy (a zona já está na Cloudflare).
 
 1. `npx wrangler login` (uma vez por computador; abre o navegador para autorizar).
-2. `node scripts/publicar-estudio.mjs`: manda os arquivos grandes para o R2 e publica o Worker.
-   Sem o R2 ativado na conta (Cloudflare › R2 › ativar), use `--sem-r2`: tudo sobe menos o WebAssembly do FilmCraft e
-   do EffectCraft, que ficam sem abrir até a próxima publicação completa.
+2. `node scripts/publicar-estudio.mjs`: corta os arquivos grandes em partes, confere que as partes emendadas dão o
+   arquivo original e publica o Worker. Para só cortar e conferir, sem publicar: `--so-cortar`.
 3. Na Vercel do site principal: variável `NEXT_PUBLIC_ESTUDIO_URL=https://estudio.institutolucia.org` e um redeploy.
    Sem ela, as páginas dizem que o editor ainda não está no ar.
 4. Confira o isolamento: em https://estudio.institutolucia.org/photocraft/, o DevTools › Application não mostra cookies

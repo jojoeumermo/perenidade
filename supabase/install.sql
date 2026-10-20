@@ -259,10 +259,10 @@ do $$
 begin
   alter table interno.papeis drop constraint if exists papeis_papel_check;
   alter table interno.papeis add constraint papeis_papel_check
-    check (papel in ('coordenacao', 'vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'representante', 'porta_voz'));
+    check (papel in ('coordenacao', 'vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'representante', 'porta_voz', 'saude'));
   alter table interno.candidaturas drop constraint if exists candidaturas_papel_check;
   alter table interno.candidaturas add constraint candidaturas_papel_check
-    check (papel in ('curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'porta_voz'));
+    check (papel in ('curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'porta_voz', 'saude'));
   alter table interno.contribuicoes drop constraint if exists contribuicoes_tipo_check;
   alter table interno.contribuicoes add constraint contribuicoes_tipo_check
     check (tipo in ('aula', 'obra', 'artigo', 'checagem', 'debate', 'verbete', 'memorial', 'video', 'frase', 'traducao', 'correcao', 'sugestao', 'questao', 'avulso', 'temas', 'pratica'));
@@ -290,7 +290,7 @@ create index if not exists inscricoes_status on interno.inscricoes (status, cria
 -- Funções acrescentadas depois: educação secundária e marketing e divulgação.
 alter table interno.inscricoes drop constraint if exists inscricoes_papel_check;
 alter table interno.inscricoes add constraint inscricoes_papel_check
-  check (papel in ('curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'porta_voz'));
+  check (papel in ('curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'porta_voz', 'saude'));
 
 -- Banimentos decididos pela mediação. A conta fica suspensa; em caso extremo, a origem dos envios também é barrada.
 -- "origem" é o mesmo código embaralhado que conta os envios (interno.origem): o endereço de rede em si não é guardado.
@@ -552,7 +552,7 @@ create table if not exists interno.convites (
 -- Funções acrescentadas depois da primeira instalação: o convite também pode trazer a mediação, a supervisão e o marketing.
 alter table interno.convites drop constraint if exists convites_papel_check;
 alter table interno.convites add constraint convites_papel_check
-  check (papel is null or papel in ('vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'porta_voz'));
+  check (papel is null or papel in ('vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'porta_voz', 'saude'));
 create table if not exists interno.convites_usos (
   usuario uuid primary key,
   convite uuid references interno.convites (id) on delete set null,
@@ -1230,7 +1230,7 @@ create or replace function interno.nome_papel(p text) returns text language sql 
   select case p when 'coordenacao' then 'coordenação' when 'vice' then 'coordenação pedagógica' when 'supervisao' then 'supervisão' when 'curadoria' then 'curadoria'
     when 'mediacao' then 'mediação' when 'educacao' then 'educação' when 'educacao_secundaria' then 'educação secundária' when 'revisao' then 'revisão'
     when 'traducao' then 'tradução' when 'jornalismo' then 'jornalismo, rádio e podcast' when 'mentoria' then 'aula de reforço' when 'design' then 'design'
-    when 'marketing' then 'marketing e divulgação' when 'desenvolvimento' then 'desenvolvimento' when 'representante' then 'representante do departamento' when 'porta_voz' then 'porta-voz'
+    when 'marketing' then 'marketing e divulgação' when 'desenvolvimento' then 'desenvolvimento' when 'representante' then 'representante do departamento' when 'porta_voz' then 'porta-voz' when 'saude' then 'profissional de saúde'
     else coalesce(p, '') end
 $$;
 
@@ -1400,14 +1400,17 @@ begin
                           from papeis p where p.usuario = f.id), '[]'::jsonb),
       'nivel', interno.nivel_de(f.id),
       'chat_visto', f.chat_visto, 'chat_leitura', f.chat_leitura,
-      'avatar', f.avatar, 'curriculo', coalesce(f.curriculo, '{}'::jsonb), 'termo_voluntario', f.termo_voluntario_em is not null, 'aprendizado', f.aprendizado_em is not null,
+      'avatar', f.avatar, 'curriculo', coalesce(f.curriculo, '{}'::jsonb), 'termo_voluntario', f.termo_voluntario_em is not null and f.termo_voluntario_versao = interno.termo_voluntario_vigente(), 'aprendizado', f.aprendizado_em is not null,
       'segundo_fator', interno.aal2(),
       'exige_segundo_fator', interno.tem_fator() or (interno.exige_2fa() and exists (select 1 from papeis p where p.usuario = f.id and p.papel in ('coordenacao', 'vice', 'supervisao', 'curadoria', 'mediacao'))),
       'trocar_senha', f.trocar_senha,
       'avisos', (select count(*) from avisos a where a.para = f.id and not a.lido),
       -- Pode mandar avisos à equipe (coordenação, vice-coordenação, supervisão) e usar o estúdio de design.
       'supervisao', interno.supervisiona(),
-      'desenha', interno.desenha())
+      'desenha', interno.desenha(),
+      -- Disciplinas em que a pessoa foi convidada a ajudar (lib/backend.ts › escreveEm).
+      'convites', coalesce((select jsonb_agg(jsonb_build_object('disciplina', c.disciplina, 'trilha', c.trilha)) from disciplina_convites c where c.convidado = f.id and c.revogado_em is null), '[]'::jsonb),
+      'foto_pendente', f.foto_pendente <> '')
     from perfis f where f.id = v);
 end $$;
 
@@ -1466,8 +1469,15 @@ begin
     -- Foto própria: qualquer pessoa da equipe (o painel recorta, reduz e tira os dados da câmera antes de enviar).
     if not (interno.voluntario() or interno.gere_cargos()) then perform interno.erro('sem_permissao'); end if;
     if a !~ '^data:image/webp;base64,[A-Za-z0-9+/=]+$' or char_length(a) > 40000 then perform interno.erro('invalido:avatar'); end if;
+    -- A foto aparece nos cartões públicos de quem ensina: só depois de a coordenação aprovar. A coordenação aprova a própria.
+    if not (interno.coord() or interno.tem('vice')) then
+      perform interno.limite('foto_perfil', 10, 1440);
+      update perfis set foto_pendente = a, foto_enviada_em = now() where id = v;
+      perform interno.avisar_lideranca('Foto de perfil para aprovar: abra Voluntários e convites › Fotos.', v);
+      return jsonb_build_object('ok', true, 'pendente', true);
+    end if;
   end if;
-  update perfis set avatar = a where id = v;
+  update perfis set avatar = a, foto_pendente = case when a ~ '^data:' then '' else foto_pendente end where id = v;
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -1475,8 +1485,8 @@ end $$;
 create or replace function public.termo_voluntario_aceitar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu();
 begin
-  update perfis set termo_voluntario_em = coalesce(termo_voluntario_em, now()) where id = v;
-  perform interno.registrar('termo_voluntario', v::text, '{}'::jsonb);
+  update perfis set termo_voluntario_em = coalesce(termo_voluntario_em, now()), termo_voluntario_versao = interno.termo_voluntario_vigente() where id = v;
+  perform interno.registrar('termo_voluntario', v::text, jsonb_build_object('versao', interno.termo_voluntario_vigente()));
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -1522,7 +1532,7 @@ language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); v_id uuid; v_papel text := p_papel;
 begin
   perform interno.limite('candidatar', 5, 1440);
-  if coalesce(v_papel, '') not in ('curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'porta_voz') then perform interno.erro('invalido:papel'); end if;
+  if coalesce(v_papel, '') not in ('curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'porta_voz', 'saude') then perform interno.erro('invalido:papel'); end if;
   -- Educação, educação secundária e reforço são por disciplina: a pessoa só enxerga a fila da disciplina que receber.
   if v_papel in ('educacao', 'educacao_secundaria', 'mentoria') and coalesce(p_disciplina, '') = '' then perform interno.erro('invalido:disciplina'); end if;
   if exists (select 1 from candidaturas where usuario = v and papel = v_papel and coalesce(disciplina, '') = coalesce(p_disciplina, '') and status = 'pendente') then
@@ -1651,8 +1661,9 @@ language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu();
 begin
   if not interno.gere_cargos() then perform interno.erro('sem_permissao'); end if;
-  if coalesce(p_papel, '') not in ('vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'representante', 'porta_voz') then perform interno.erro('invalido:papel'); end if;
-  if p_papel = 'representante' and coalesce(p_disciplina, '') not in ('educacao', 'curadoria', 'mediacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento') then perform interno.erro('invalido:departamento'); end if;
+  if coalesce(p_papel, '') not in ('vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'representante', 'porta_voz', 'saude') then perform interno.erro('invalido:papel'); end if;
+  if p_papel = 'representante' and coalesce(p_disciplina, '') not in ('educacao', 'curadoria', 'mediacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'saude')
+     and coalesce(p_disciplina, '') !~ '^grupo-(percursos|linguagens|ciencias|tecnologia|humanidades|teoria|lutas|oficios|hobbies)$' then perform interno.erro('invalido:departamento'); end if;
   if not interno.pode_conceder(p_papel) then perform interno.erro('sem_permissao'); end if;
   -- Educação, educação secundária e reforço são por disciplina: sem ela, a pessoa enxergaria a fila de todas.
   if p_papel in ('educacao', 'educacao_secundaria', 'mentoria') and coalesce(p_disciplina, '') = '' then perform interno.erro('invalido:disciplina'); end if;
@@ -2029,6 +2040,12 @@ begin
   end if;
   -- O jornal é escrito por quem tem esse papel.
   if v_tipo = 'artigo' and not (interno.tem('jornalismo') or interno.coord()) then perform interno.erro('sem_permissao'); end if;
+  -- O acervo é da curadoria: na equipe, só curadoria e coordenação mandam obra (o público continua podendo sugerir).
+  if v_tipo = 'obra' and v is not null and interno.voluntario() and not (interno.curador() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  -- Cada educador escreve para a própria disciplina; para outra, só com o convite de quem ensina lá (interno.escreve_em).
+  if v is not null and interno.voluntario() and v_tipo in ('aula', 'avulso', 'questao', 'temas', 'video') and v_disc is not null and not interno.escreve_em(v_disc) then
+    perform interno.erro('sem_permissao');
+  end if;
   -- Quem é da equipe só escreve aula, material e questão se tiver função de produção (educação, curadoria, revisão, tradução, jornalismo, design, marketing).
   if v is not null and interno.voluntario() and v_tipo in ('aula', 'avulso', 'questao', 'temas', 'pratica')
      and not (interno.envia() or interno.tem('revisao') or interno.tem('traducao') or interno.tem('supervisao')) then perform interno.erro('sem_permissao'); end if;
@@ -4394,7 +4411,7 @@ begin
   perform interno.limite('convite_criar', 60, 1440);
   if v_email <> '' and (v_email !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_email) > 200) then perform interno.erro('invalido:email'); end if;
   if v_papel is not null then
-    if v_papel not in ('vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'porta_voz') then perform interno.erro('invalido:papel'); end if;
+    if v_papel not in ('vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'porta_voz', 'saude') then perform interno.erro('invalido:papel'); end if;
     if v_papel in ('vice', 'curadoria') and not interno.lider() then perform interno.erro('sem_permissao'); end if;
     -- O convite confia o papel na entrada: valem as regras de nível de papel_conceder.
     if not interno.pode_conceder(v_papel) then perform interno.erro('sem_permissao'); end if;
@@ -4796,7 +4813,7 @@ begin
   if coalesce(p ->> 'site', '') <> '' then return jsonb_build_object('id', gen_random_uuid()); end if;
   perform interno.limite('voluntariar', 3, 1440);
   if v_email !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_email) > 200 then perform interno.erro('invalido:email'); end if;
-  if v_papel not in ('curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'porta_voz') then perform interno.erro('invalido:papel'); end if;
+  if v_papel not in ('curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'porta_voz', 'saude') then perform interno.erro('invalido:papel'); end if;
   if v_papel in ('educacao', 'educacao_secundaria', 'mentoria') and v_disc is null then perform interno.erro('invalido:disciplina'); end if;
   if v_papel not in ('educacao', 'educacao_secundaria', 'mentoria') then v_disc := null; end if;
   v_nome := interno.txt(p ->> 'nome', 'nome', 5, 120);
@@ -4905,7 +4922,9 @@ end $$;
 create or replace function interno.no_departamento(p_usuario uuid, p_departamento text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select exists (select 1 from papeis p join perfis f on f.id = p.usuario
                  where p.usuario = p_usuario and not f.suspenso
-                   and (p_departamento = 'geral' or p.papel in ('coordenacao', 'vice') or p.papel = p_departamento or (p.papel = 'representante' and p.disciplina = p_departamento)
+                   and ((p_departamento = 'geral' and p.papel <> 'saude') or p.papel in ('coordenacao', 'vice') or p.papel = p_departamento or (p.papel = 'representante' and p.disciplina = p_departamento)
+                        -- Representante de um grupo de disciplinas (Tecnologia, Ciências…) é do departamento de educação.
+                        or (p_departamento = 'educacao' and p.papel = 'representante' and p.disciplina like 'grupo-%')
                         -- A educação secundária conversa com a educação; o marketing, com o design (como no resto do painel).
                         or (p_departamento = 'educacao' and p.papel = 'educacao_secundaria') or (p_departamento = 'design' and p.papel = 'marketing')
                         -- A supervisão acompanha os grupos das funções para manter a conversa em ordem; o da coordenação, não.
@@ -6282,7 +6301,10 @@ begin
       from contribuicoes c where c.tipo = 'traducao' and c.status in ('pendente', 'aprovada')
       union all
       select jsonb_build_object('alvo', r.alvo, 'idioma', r.idioma, 'status', 'em_andamento', 'nome', interno.nome_visto(f.nome), 'criado_em', r.criado_em,
-        'minha', r.usuario = auth.uid(), 'prazo', r.prazo)
+        'minha', r.usuario = auth.uid() or exists (select 1 from traducao_coautores c where c.alvo = r.alvo and c.idioma = r.idioma and c.usuario = auth.uid()),
+        'dona', r.usuario = auth.uid(), 'prazo', r.prazo,
+        'coautores', coalesce((select jsonb_agg(jsonb_build_object('id', c.usuario, 'nome', interno.nome_visto(g.nome))) from traducao_coautores c join perfis g on g.id = c.usuario
+                               where c.alvo = r.alvo and c.idioma = r.idioma), '[]'::jsonb))
       from traducao_reservas r left join perfis f on f.id = r.usuario
     ) t);
 end $$;
@@ -8548,7 +8570,7 @@ do $$
 begin
   alter table interno.inscricoes drop constraint if exists inscricoes_papel_check;
   alter table interno.inscricoes add constraint inscricoes_papel_check
-    check (papel in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing', 'porta_voz'));
+    check (papel in ('curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'educacao_secundaria', 'marketing', 'porta_voz', 'saude'));
   alter table interno.equipe_mensagens drop constraint if exists equipe_mensagens_canal_check;
   alter table interno.equipe_mensagens add constraint equipe_mensagens_canal_check
     check (canal in ('geral', 'pedidos', 'aprendizado', 'coordenacao', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento'));
@@ -8944,7 +8966,7 @@ declare
   v_nome text;
 begin
   if not interno.supervisiona() then perform interno.erro('sem_permissao'); end if;
-  if exists (select 1 from unnest(v_para) x where x not in ('podcast', 'coordenacao', 'vice', 'curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'supervisao', 'representante', 'porta_voz')) then
+  if exists (select 1 from unnest(v_para) x where x not in ('podcast', 'coordenacao', 'vice', 'curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'supervisao', 'representante', 'porta_voz', 'saude')) then
     perform interno.erro('invalido:para');
   end if;
   perform interno.limite('aviso_geral', 20, 60);
@@ -9080,6 +9102,11 @@ begin
   if p_tipo in ('disciplina', 'editar_disciplina') and char_length(coalesce(p_dados -> 'nomes' ->> 'pt', '')) not between 2 and 60 then perform interno.erro('invalido:nome'); end if;
   if p_tipo in ('trilha') and char_length(coalesce(p_dados ->> 'titulo', '')) not between 3 and 120 then perform interno.erro('invalido:titulo'); end if;
   if p_tipo in ('trilha', 'editar_trilha') and coalesce(p_dados ->> 'etapa', 'medio') not in ('fundamental', 'medio', 'superior') then perform interno.erro('invalido:etapa'); end if;
+  if not interno.curriculo_decide() then
+    if p_tipo in ('remover_disciplina', 'remover_trilha') then perform interno.erro('sem_permissao'); end if;
+    if p_tipo = 'editar_disciplina' and not interno.escreve_em(v_slug) then perform interno.erro('sem_permissao'); end if;
+    if p_tipo in ('trilha', 'editar_trilha') and not interno.escreve_em(p_dados ->> 'disciplina') then perform interno.erro('sem_permissao'); end if;
+  end if;
   insert into curriculo_propostas (tipo, dados, autor, status, decidido_por, decidido_em)
   values (p_tipo, p_dados, v, case when interno.curriculo_decide() then 'aprovada' else 'pendente' end, case when interno.curriculo_decide() then v end, case when interno.curriculo_decide() then now() end)
   returning * into p;
@@ -9093,7 +9120,8 @@ declare v uuid := interno.eu();
 begin
   if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
   return (select coalesce(jsonb_agg(interno.curriculo_json(p) order by case p.status when 'pendente' then 0 when 'aprovada' then 1 else 2 end, p.criado_em desc), '[]'::jsonb)
-          from curriculo_propostas p where p.criado_em > now() - interval '365 days' and (p.autor = v or interno.curriculo_decide()));
+          from curriculo_propostas p where p.criado_em > now() - interval '365 days'
+            and (p.autor = v or interno.curriculo_decide() or interno.ensina(coalesce(p.dados ->> 'disciplina', p.dados ->> 'slug'))));
 end $$;
 
 create or replace function public.curriculo_decidir(p_id uuid, p_aprovar boolean, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -10254,7 +10282,8 @@ begin
   if coalesce(p_idioma, '') not in ('en', 'es', 'zh', 'ru', 'fr') then perform interno.erro('invalido:idioma'); end if;
   delete from traducao_reservas where prazo < current_date;
   select * into r from traducao_reservas where alvo = p_alvo and idioma = p_idioma;
-  if found and r.usuario <> v then perform interno.erro('traducao_reservada'); end if;
+  if found and r.usuario <> v and not exists (select 1 from traducao_coautores c where c.alvo = p_alvo and c.idioma = p_idioma and c.usuario = v) then perform interno.erro('traducao_reservada'); end if;
+  if found and r.usuario <> v then return jsonb_build_object('ok', true, 'prazo', r.prazo); end if;
   if exists (select 1 from contribuicoes where tipo = 'traducao' and alvo = p_alvo and dados ->> 'idioma' = p_idioma and status in ('pendente', 'aprovada')) then perform interno.erro('traducao_a_caminho'); end if;
   if not found and (select count(*) from traducao_reservas where usuario = v) >= 5 then perform interno.erro('traducao_reservas_demais'); end if;
   insert into traducao_reservas (alvo, idioma, usuario, prazo) values (p_alvo, p_idioma, v, current_date + least(greatest(coalesce(p_dias, 14), 3), 56))
@@ -11782,6 +11811,479 @@ do $$
 declare f text;
 begin
   foreach f in array array['resolucao_enviar(text, text)', 'resolucoes_listar(text[])', 'resolucao_retirar(uuid)'] loop
+    execute format('revoke all on function public.%s from public', f);
+    execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
+  end loop;
+end $$;
+
+-- ───────────────────────────── Rodada 4: convites entre disciplinas, fotos, termos para sempre, saúde ─────────────
+-- Cada educador cuida da própria disciplina: escreve aulas, materiais e questões só para ela, e só vê as trilhas dela
+-- em Disciplinas e trilhas. Para outra disciplina, só com o convite de quem ensina lá (ou da coordenação).
+
+alter table interno.perfis add column if not exists foto_pendente text not null default '' check (char_length(foto_pendente) <= 40000);
+alter table interno.perfis add column if not exists foto_enviada_em timestamptz;
+alter table interno.perfis add column if not exists termo_voluntario_versao text;
+
+/** A versão vigente do termo de voluntário que aparece ao entrar no painel (o texto mora em lib/termos.ts). */
+create or replace function interno.termo_voluntario_vigente() returns text language sql immutable as $$ select '2026-10-20'::text $$;
+
+create table if not exists interno.disciplina_convites (
+  id uuid primary key default gen_random_uuid(),
+  disciplina text not null check (disciplina ~ '^[a-z0-9-]{2,40}$'),
+  trilha text check (trilha is null or trilha ~ '^[a-z0-9-]{2,80}$'),
+  convidado uuid not null references interno.perfis (id) on delete cascade,
+  convidado_por uuid references interno.perfis (id) on delete set null,
+  nota text not null default '' check (char_length(nota) <= 500),
+  criado_em timestamptz not null default now(),
+  revogado_em timestamptz,
+  revogado_por uuid references interno.perfis (id) on delete set null
+);
+create unique index if not exists disciplina_convites_ativo on interno.disciplina_convites (disciplina, coalesce(trilha, ''), convidado) where revogado_em is null;
+create index if not exists disciplina_convites_convidado on interno.disciplina_convites (convidado) where revogado_em is null;
+alter table interno.disciplina_convites enable row level security;
+
+/** Ensina esta disciplina por função (educação ou educação secundária), não por convite. */
+create or replace function interno.leciona(p_disc text, p_usuario uuid default null) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_disc is not null and exists (select 1 from papeis p join perfis f on f.id = p.usuario
+                                        where p.usuario = coalesce(p_usuario, auth.uid()) and not f.suspenso
+                                          and p.papel in ('educacao', 'educacao_secundaria') and p.disciplina = p_disc)
+$$;
+
+/**
+ * Pode escrever para esta disciplina (aula, material avulso, questão, temas, vídeo indicado, trilhas em Disciplinas e
+ * trilhas): quem ensina a disciplina, quem foi convidado por quem ensina, e quem cuida do site inteiro (coordenação,
+ * coordenação pedagógica, supervisão, curadoria e revisão).
+ */
+create or replace function interno.escreve_em(p_disc text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_disc is not null and (
+    interno.coord() or interno.tem('vice') or interno.tem('supervisao') or interno.curador() or interno.tem('revisao')
+    or interno.leciona(p_disc)
+    or exists (select 1 from disciplina_convites c where c.convidado = auth.uid() and c.revogado_em is null and c.disciplina = p_disc))
+$$;
+
+/** Quem ensina a disciplina (ou a coordenação) convida outra pessoa da equipe para ajudar nela, numa trilha ou em toda. */
+create or replace function public.disciplina_convidar(p_usuario uuid, p_disciplina text, p_trilha text default null, p_nota text default '') returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_id uuid;
+begin
+  if coalesce(p_disciplina, '') !~ '^[a-z0-9-]{2,40}$' then perform interno.erro('invalido:disciplina'); end if;
+  if p_trilha is not null and p_trilha !~ '^[a-z0-9-]{2,80}$' then perform interno.erro('invalido:trilha'); end if;
+  if not (interno.leciona(p_disciplina) or interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('disciplina_convite', 40, 1440);
+  if p_usuario is null or p_usuario = v or not exists (select 1 from perfis f where f.id = p_usuario and not f.suspenso)
+     or not exists (select 1 from papeis where usuario = p_usuario) then perform interno.erro('nao_encontrado'); end if;
+  if interno.leciona(p_disciplina, p_usuario) then perform interno.erro('ja_ensina'); end if;
+  insert into disciplina_convites (disciplina, trilha, convidado, convidado_por, nota)
+  values (p_disciplina, p_trilha, p_usuario, v, interno.txt(p_nota, 'nota', 0, 500))
+  on conflict (disciplina, coalesce(trilha, ''), convidado) where revogado_em is null do nothing
+  returning id into v_id;
+  perform interno.avisar(p_usuario, coalesce((select interno.primeiro_nome(nome) from perfis where id = v), 'Alguém') || ' convidou você para ajudar na disciplina ' || p_disciplina
+    || coalesce(' (trilha ' || p_trilha || ')', '') || '. Ela já aparece em Escrever e em Disciplinas e trilhas.');
+  perform interno.registrar('disciplina_convite', p_usuario::text, jsonb_build_object('disciplina', p_disciplina, 'trilha', p_trilha));
+  return jsonb_build_object('ok', true, 'id', v_id);
+end $$;
+
+/** Os convites ativos que me dizem respeito: os que recebi, os das disciplinas em que ensino e, para a coordenação, todos. */
+create or replace function public.disciplina_convites() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', c.id, 'disciplina', c.disciplina, 'trilha', c.trilha, 'nota', c.nota, 'criado_em', c.criado_em,
+            'convidado', interno.nome_visto(a.nome), 'convidado_id', c.convidado, 'por', coalesce(interno.nome_visto(b.nome), ''), 'meu', c.convidado = v,
+            'posso_revogar', c.convidado = v or c.convidado_por = v or interno.leciona(c.disciplina) or interno.coord() or interno.tem('vice')) order by c.criado_em desc), '[]'::jsonb)
+          from disciplina_convites c join perfis a on a.id = c.convidado left join perfis b on b.id = c.convidado_por
+          where c.revogado_em is null and (c.convidado = v or c.convidado_por = v or interno.leciona(c.disciplina) or interno.coord() or interno.tem('vice')));
+end $$;
+
+create or replace function public.disciplina_convite_revogar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c disciplina_convites;
+begin
+  select * into c from disciplina_convites where id = p_id and revogado_em is null for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (c.convidado = v or c.convidado_por = v or interno.leciona(c.disciplina) or interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  update disciplina_convites set revogado_em = now(), revogado_por = v where id = p_id;
+  if c.convidado <> v then perform interno.avisar(c.convidado, 'O seu convite para ajudar na disciplina ' || c.disciplina || ' foi encerrado. Obrigado pela ajuda!'); end if;
+  perform interno.registrar('disciplina_convite_fim', c.convidado::text, jsonb_build_object('disciplina', c.disciplina));
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- Traduções em dupla (ou mais): quem reservou a aula convida outros tradutores para ela.
+create table if not exists interno.traducao_coautores (
+  alvo text not null check (alvo ~ '^/trilhas/[a-z0-9-]+/[a-z0-9-]+$'),
+  idioma text not null check (idioma in ('en', 'es', 'zh', 'ru', 'fr')),
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  convidado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  primary key (alvo, idioma, usuario)
+);
+alter table interno.traducao_coautores enable row level security;
+
+create or replace function public.traducao_convidar(p_alvo text, p_idioma text, p_usuario uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not exists (select 1 from traducao_reservas where alvo = p_alvo and idioma = p_idioma and (usuario = v or interno.coord())) then perform interno.erro('sem_permissao'); end if;
+  if p_usuario is null or p_usuario = v or not exists (select 1 from papeis p join perfis f on f.id = p.usuario where p.usuario = p_usuario and not f.suspenso and (p.papel in ('traducao', 'curadoria', 'coordenacao', 'vice'))) then
+    perform interno.erro('nao_encontrado');
+  end if;
+  if (select count(*) from traducao_coautores where alvo = p_alvo and idioma = p_idioma) >= 5 then perform interno.erro('invalido:coautores'); end if;
+  insert into traducao_coautores (alvo, idioma, usuario, convidado_por) values (p_alvo, p_idioma, p_usuario, v) on conflict do nothing;
+  perform interno.avisar(p_usuario, coalesce((select interno.primeiro_nome(nome) from perfis where id = v), 'Alguém') || ' chamou você para traduzir junto a aula ' || p_alvo || ' (' || p_idioma || '). Abra Traduções › A caminho.');
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.traducao_coautor_tirar(p_alvo text, p_idioma text, p_usuario uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  delete from traducao_coautores c where c.alvo = p_alvo and c.idioma = p_idioma and c.usuario = p_usuario
+    and (p_usuario = v or interno.coord() or exists (select 1 from traducao_reservas r where r.alvo = p_alvo and r.idioma = p_idioma and r.usuario = v));
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- Fotos de perfil esperando a coordenação.
+create or replace function public.fotos_pendentes() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', f.nome, 'foto', f.foto_pendente, 'enviada_em', f.foto_enviada_em, 'atual', f.avatar,
+            'funcoes', (select coalesce(jsonb_agg(distinct interno.nome_papel(p.papel)), '[]'::jsonb) from papeis p where p.usuario = f.id)) order by f.foto_enviada_em), '[]'::jsonb)
+          from perfis f where f.foto_pendente <> '');
+end $$;
+
+create or replace function public.foto_decidir(p_usuario uuid, p_aprovar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  if not exists (select 1 from perfis where id = p_usuario and foto_pendente <> '') then perform interno.erro('nao_encontrado'); end if;
+  update perfis set avatar = case when p_aprovar then foto_pendente else avatar end, foto_pendente = '', foto_enviada_em = null where id = p_usuario;
+  perform interno.avisar(p_usuario, case when p_aprovar then 'Sua foto de perfil foi aprovada e já aparece no seu cartão.' else 'Sua foto de perfil não foi aprovada. Tente outra, de rosto, com boa luz e sem outras pessoas.' end);
+  perform interno.registrar(case when p_aprovar then 'foto_aprovada' else 'foto_recusada' end, p_usuario::text, '{}'::jsonb);
+  return jsonb_build_object('ok', true);
+end $$;
+
+-- ───────────────────────────── Termos aceitos, guardados para sempre ─────────────────────────────
+-- Cada aceite (o termo de voluntário ao entrar no painel, o termo de adesão das horas, o termo da vitrine de saúde) fica
+-- registrado com o texto inteiro que a pessoa leu, a versão, o resumo SHA-256 e a data. Não tem chave estrangeira para a
+-- conta: se a conta for apagada, o registro fica (é a prova do voluntariado e da licença do que foi publicado). Ninguém
+-- altera nem apaga: um gatilho recusa UPDATE e DELETE para qualquer papel.
+create table if not exists interno.termos_aceites (
+  id uuid primary key default gen_random_uuid(),
+  usuario uuid,
+  nome text not null check (char_length(nome) between 1 and 120),
+  termo text not null check (termo ~ '^[a-z0-9-]{2,40}$'),
+  versao text not null check (char_length(versao) between 1 and 40),
+  texto text not null check (char_length(texto) between 20 and 60000),
+  sha256 text not null check (sha256 ~ '^[a-f0-9]{64}$'),
+  dados jsonb not null default '{}'::jsonb check (pg_column_size(dados) <= 4000),
+  navegador text not null default '' check (char_length(navegador) <= 300),
+  aceito_em timestamptz not null default now()
+);
+create index if not exists termos_aceites_usuario on interno.termos_aceites (usuario, aceito_em desc);
+alter table interno.termos_aceites enable row level security;
+
+create or replace function interno.termos_aceites_imutavel() returns trigger language plpgsql as $$
+begin
+  raise exception 'termos aceitos não se alteram nem se apagam';
+end $$;
+drop trigger if exists lucia_termos_aceites_imutavel on interno.termos_aceites;
+create trigger lucia_termos_aceites_imutavel before update or delete on interno.termos_aceites for each row execute function interno.termos_aceites_imutavel();
+drop trigger if exists lucia_termos_aceites_sem_truncar on interno.termos_aceites;
+create trigger lucia_termos_aceites_sem_truncar before truncate on interno.termos_aceites for each statement execute function interno.termos_aceites_imutavel();
+
+/** Registra um aceite com o texto que a pessoa leu. Os dados extras (maioridade, responsável, registro) vêm do formulário. */
+create or replace function public.termo_registrar(p_termo text, p_versao text, p_texto text, p_dados jsonb default '{}'::jsonb) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_texto text := interno.txt(p_texto, 'texto', 20, 60000); v_sha text; v_id uuid; v_agente text;
+begin
+  perform interno.limite('termo_registrar', 30, 60);
+  if coalesce(p_termo, '') not in ('voluntario', 'adesao', 'saude') then perform interno.erro('invalido:termo'); end if;
+  if jsonb_typeof(coalesce(p_dados, '{}'::jsonb)) <> 'object' or pg_column_size(p_dados) > 4000 then perform interno.erro('invalido:dados'); end if;
+  v_sha := encode(sha256(convert_to(v_texto, 'UTF8')), 'hex');
+  begin
+    v_agente := left(coalesce(current_setting('request.headers', true)::json ->> 'user-agent', ''), 300);
+  exception when others then v_agente := '';
+  end;
+  insert into termos_aceites (usuario, nome, termo, versao, texto, sha256, dados, navegador)
+  values (v, coalesce((select nome from perfis where id = v), ''), p_termo, interno.txt(p_versao, 'versao', 1, 40), v_texto, v_sha, coalesce(p_dados, '{}'::jsonb), v_agente)
+  returning id into v_id;
+  return jsonb_build_object('id', v_id, 'sha256', v_sha, 'aceito_em', now());
+end $$;
+
+create or replace function public.termos_meus() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', t.id, 'termo', t.termo, 'versao', t.versao, 'texto', t.texto, 'sha256', t.sha256, 'dados', t.dados, 'aceito_em', t.aceito_em)
+            order by t.aceito_em desc), '[]'::jsonb) from termos_aceites t where t.usuario = v);
+end $$;
+
+/** Para a coordenação: todos os aceites (inclusive de contas já apagadas), sem o texto, que se lê pelo id. */
+create or replace function public.termos_aceites_listar(p_texto_de uuid default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  if p_texto_de is not null then return (select to_jsonb(t) - 'navegador' from termos_aceites t where t.id = p_texto_de); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', t.id, 'nome', t.nome, 'termo', t.termo, 'versao', t.versao, 'sha256', t.sha256, 'dados', t.dados, 'aceito_em', t.aceito_em,
+            'conta_apagada', t.usuario is null or not exists (select 1 from perfis f where f.id = t.usuario)) order by t.aceito_em desc), '[]'::jsonb)
+          from (select * from termos_aceites order by aceito_em desc limit 2000) t);
+end $$;
+
+-- ───────────────────────────── Saúde Solidária: a vitrine de profissionais de saúde ─────────────────────────────
+-- Um mural de contatos, como o Mural dos Trabalhadores: o instituto só mostra o contato que o profissional autorizou e
+-- não presta, agenda, intermedeia nem garante atendimento. Sem chat, sem agenda, sem dado de paciente. Um profissional
+-- só aparece se TUDO valer ao mesmo tempo, conferido a cada leitura pública (interno.saude_apto): tem o cargo de
+-- profissional de saúde; aceitou a versão vigente do termo; a coordenação conferiu o registro no conselho há menos de
+-- 180 dias; o profissional aprovou o texto final do próprio perfil; a coordenação publicou; não está suspenso nem pediu
+-- remoção; e a chave geral da vitrine não está desligada (configuracoes 'saude' › desligada).
+create table if not exists interno.saude_perfis (
+  usuario uuid primary key references interno.perfis (id) on delete cascade,
+  nome text not null default '' check (char_length(nome) <= 80),
+  profissao text not null default '' check (char_length(profissao) <= 60),
+  conselho text not null default '' check (conselho = '' or conselho ~ '^[A-Za-z]{2,10}$'),
+  uf text not null default '' check (uf = '' or uf ~ '^[A-Z]{2}$'),
+  registro text not null default '' check (char_length(registro) <= 30),
+  abordagem text not null default '' check (char_length(abordagem) <= 120),
+  areas text[] not null default '{}' check (cardinality(areas) <= 12),
+  modalidade text not null default 'online' check (modalidade in ('online', 'presencial', 'ambas')),
+  cidade text not null default '' check (char_length(cidade) <= 80),
+  valor text not null default 'social' check (valor in ('gratuito', 'social', 'ambos')),
+  bio text not null default '' check (char_length(bio) <= 900),
+  contatos jsonb not null default '{}'::jsonb check (pg_column_size(contatos) <= 2000),
+  foto text not null default '' check (char_length(foto) <= 60000),
+  foto_autorizada boolean not null default false,
+  status text not null default 'rascunho' check (status in ('rascunho', 'aguardando', 'publicado', 'suspenso', 'removido')),
+  texto_aprovado_em timestamptz,
+  termo_versao text,
+  verificado_em date,
+  verificado_por uuid references interno.perfis (id) on delete set null,
+  verificacao_nota text not null default '' check (char_length(verificacao_nota) <= 500),
+  atualizado_em timestamptz not null default now()
+);
+alter table interno.saude_perfis enable row level security;
+
+create or replace function interno.saude_termo_vigente() returns text language sql immutable as $$ select '2026-10-20'::text $$;
+
+create or replace function interno.saude_desligada() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce((select (valor ->> 'desligada')::boolean from configuracoes where chave = 'saude'), false)
+$$;
+
+create or replace function interno.saude_apto(s interno.saude_perfis) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select not interno.saude_desligada()
+    and s.status = 'publicado'
+    and s.termo_versao = interno.saude_termo_vigente()
+    and s.verificado_em is not null and s.verificado_em > current_date - 180
+    and s.texto_aprovado_em is not null
+    and exists (select 1 from papeis p join perfis f on f.id = p.usuario where p.usuario = s.usuario and p.papel = 'saude' and not f.suspenso)
+$$;
+
+/** Texto que não pode ir para a vitrine: preço, promessa de resultado, "o melhor", depoimento. Devolve o motivo ou null. */
+create or replace function interno.saude_texto_proibido(p text) returns text language sql immutable as $$
+  select case
+    when p ~* 'r\$\s*\d|\d+\s*reais' then 'Não ponha preço: o valor é combinado direto com cada pessoa.'
+    when p ~* '\m(cura|curar|garant[a-z]*|100\s*%|resultado garantido)\M' then 'Não prometa cura nem resultado.'
+    when p ~* '\m(o|a) melhor\M|\mmelhores\M|\mnúmero 1\M' then 'Evite "o melhor": a vitrine não compara profissionais.'
+    when p ~* '\mdepoimento' then 'Depoimentos de pacientes não entram.'
+    when p ~ '\d{3}\.?\d{3}\.?\d{3}-?\d{2}' then 'Não ponha CPF.'
+    else null end
+$$;
+
+create or replace function interno.saude_json(s interno.saude_perfis, p_completo boolean) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('id', s.usuario, 'nome', s.nome, 'profissao', s.profissao, 'conselho', upper(s.conselho), 'uf', s.uf, 'registro', s.registro,
+           'abordagem', s.abordagem, 'areas', to_jsonb(s.areas), 'modalidade', s.modalidade, 'cidade', s.cidade, 'valor', s.valor, 'bio', s.bio,
+           'contatos', s.contatos, 'foto', case when s.foto_autorizada then s.foto else '' end, 'verificado_em', s.verificado_em)
+    || case when p_completo then jsonb_build_object('status', s.status, 'foto_autorizada', s.foto_autorizada, 'foto_guardada', s.foto, 'texto_aprovado_em', s.texto_aprovado_em,
+           'termo_versao', s.termo_versao, 'termo_vigente', interno.saude_termo_vigente(), 'verificacao_nota', s.verificacao_nota, 'atualizado_em', s.atualizado_em,
+           'apto', interno.saude_apto(s),
+           'faltam', to_jsonb(array_remove(array[
+             case when s.termo_versao is distinct from interno.saude_termo_vigente() then 'aceitar o termo vigente' end,
+             case when s.verificado_em is null or s.verificado_em <= current_date - 180 then 'a coordenação conferir o registro no conselho' end,
+             case when s.texto_aprovado_em is null then 'o profissional aprovar o texto do perfil' end,
+             case when s.status <> 'publicado' then 'a coordenação publicar' end,
+             case when interno.saude_desligada() then 'a vitrine está desligada' end], null))) else '{}'::jsonb end
+$$;
+
+/** O meu perfil na vitrine (quem tem o cargo de profissional de saúde). */
+create or replace function public.saude_meu() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s saude_perfis;
+begin
+  if not interno.tem('saude') then perform interno.erro('sem_permissao'); end if;
+  insert into saude_perfis (usuario, nome) values (v, coalesce((select nome from perfis where id = v), '')) on conflict do nothing;
+  select * into s from saude_perfis where usuario = v;
+  return interno.saude_json(s, true);
+end $$;
+
+/**
+ * O profissional escreve o próprio perfil. Qualquer mudança tira o perfil da vitrine até a coordenação olhar de novo
+ * (status "aguardando"), e o texto salvo pelo próprio profissional conta como aprovado por ele.
+ */
+create or replace function public.saude_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s saude_perfis; v_motivo text; v_contatos jsonb := '{}'::jsonb; v_areas text[];
+begin
+  if not interno.tem('saude') then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('saude_salvar', 40, 60);
+  v_motivo := interno.saude_texto_proibido(coalesce(p ->> 'bio', '') || ' ' || coalesce(p ->> 'abordagem', '') || ' ' || coalesce(p ->> 'profissao', ''));
+  if v_motivo is not null then return jsonb_build_object('ok', false, 'motivo', v_motivo); end if;
+  -- Contatos aceitos: WhatsApp (só números, com DDI), Instagram (usuário), e-mail e um site https. Nada embutido.
+  if coalesce(p -> 'contatos' ->> 'whatsapp', '') ~ '^\+?[0-9 ()-]{10,20}$' then v_contatos := v_contatos || jsonb_build_object('whatsapp', regexp_replace(p -> 'contatos' ->> 'whatsapp', '[^0-9]', '', 'g')); end if;
+  if coalesce(p -> 'contatos' ->> 'instagram', '') ~ '^@?[A-Za-z0-9._]{1,30}$' then v_contatos := v_contatos || jsonb_build_object('instagram', ltrim(p -> 'contatos' ->> 'instagram', '@')); end if;
+  if coalesce(p -> 'contatos' ->> 'email', '') ~ '^[^@\s]+@[^@\s]+\.[^@\s]+$' and char_length(p -> 'contatos' ->> 'email') <= 120 then v_contatos := v_contatos || jsonb_build_object('email', p -> 'contatos' ->> 'email'); end if;
+  if coalesce(p -> 'contatos' ->> 'site', '') ~ '^https://[^\s<>"]{4,200}$' then v_contatos := v_contatos || jsonb_build_object('site', p -> 'contatos' ->> 'site'); end if;
+  select coalesce(array_agg(left(btrim(x), 40)), '{}') into v_areas from (select jsonb_array_elements_text(coalesce(p -> 'areas', '[]'::jsonb)) x limit 12) a where btrim(x) <> '';
+  if coalesce(p ->> 'foto', '') <> '' and (p ->> 'foto' !~ '^data:image/webp;base64,[A-Za-z0-9+/=]+$' or char_length(p ->> 'foto') > 60000) then perform interno.erro('invalido:foto'); end if;
+  insert into saude_perfis (usuario) values (v) on conflict do nothing;
+  update saude_perfis set
+    nome = interno.txt(p ->> 'nome', 'nome', 2, 80), profissao = interno.txt(p ->> 'profissao', 'profissao', 2, 60),
+    conselho = upper(coalesce(nullif(btrim(p ->> 'conselho'), ''), '')), uf = upper(coalesce(p ->> 'uf', '')), registro = interno.txt(p ->> 'registro', 'registro', 1, 30),
+    abordagem = interno.txt(p ->> 'abordagem', 'abordagem', 0, 120), areas = v_areas,
+    modalidade = coalesce(nullif(p ->> 'modalidade', ''), 'online'), cidade = interno.txt(p ->> 'cidade', 'cidade', 0, 80),
+    valor = coalesce(nullif(p ->> 'valor', ''), 'social'), bio = interno.txt(p ->> 'bio', 'bio', 0, 900), contatos = v_contatos,
+    foto = case when p ? 'foto' then coalesce(p ->> 'foto', '') else foto end, foto_autorizada = coalesce((p ->> 'foto_autorizada')::boolean, false),
+    status = case when status = 'removido' then 'removido' when status = 'suspenso' then 'suspenso' else 'aguardando' end,
+    texto_aprovado_em = now(), atualizado_em = now()
+  where usuario = v returning * into s;
+  perform interno.avisar_lideranca('Perfil da vitrine de saúde atualizado: confira o registro e publique em Saúde Solidária.', v);
+  perform interno.registrar('saude_perfil_salvo', v::text, '{}'::jsonb);
+  return jsonb_build_object('ok', true, 'perfil', interno.saude_json(s, true));
+end $$;
+
+/** O profissional aceita o termo vigente (o texto inteiro fica em termos_aceites, para sempre). */
+create or replace function public.saude_termo_aceitar(p_texto text, p_nome text, p_registro text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.tem('saude') then perform interno.erro('sem_permissao'); end if;
+  perform public.termo_registrar('saude', interno.saude_termo_vigente(), p_texto, jsonb_build_object('nome_digitado', left(coalesce(p_nome, ''), 120), 'registro', left(coalesce(p_registro, ''), 40)));
+  insert into saude_perfis (usuario) values (v) on conflict do nothing;
+  update saude_perfis set termo_versao = interno.saude_termo_vigente(), atualizado_em = now() where usuario = v;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Pedir para sair da vitrine: some na hora; a coordenação só confirma. */
+create or replace function public.saude_sair() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  update saude_perfis set status = 'removido', atualizado_em = now() where usuario = v;
+  perform interno.avisar_lideranca('Um profissional pediu para sair da vitrine de saúde (já saiu).', v);
+  perform interno.registrar('saude_saiu', v::text, '{}'::jsonb);
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Para a coordenação: todos os perfis, com o que falta para cada um aparecer. */
+create or replace function public.saude_fila() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object('desligada', interno.saude_desligada(),
+    'perfis', (select coalesce(jsonb_agg(interno.saude_json(s, true) order by lower(s.nome)), '[]'::jsonb) from saude_perfis s));
+end $$;
+
+/** A coordenação confere o registro, publica, suspende ou devolve para ajuste. */
+create or replace function public.saude_decidir(p_usuario uuid, p_acao text, p_verificado_em date default null, p_nota text default '') returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s saude_perfis;
+begin
+  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  select * into s from saude_perfis where usuario = p_usuario for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if p_acao = 'verificar' then
+    if p_verificado_em is null or p_verificado_em > current_date or p_verificado_em <= current_date - 180 then perform interno.erro('invalido:data'); end if;
+    update saude_perfis set verificado_em = p_verificado_em, verificado_por = v, verificacao_nota = interno.txt(p_nota, 'nota', 0, 500) where usuario = p_usuario;
+  elsif p_acao = 'publicar' then
+    if s.status = 'removido' then perform interno.erro('saude_removido'); end if;
+    update saude_perfis set status = 'publicado' where usuario = p_usuario;
+  elsif p_acao in ('suspender', 'aguardar') then
+    update saude_perfis set status = case p_acao when 'suspender' then 'suspenso' else 'aguardando' end, verificacao_nota = interno.txt(p_nota, 'nota', 0, 500) where usuario = p_usuario;
+    perform interno.avisar(p_usuario, 'Seu perfil na vitrine de saúde saiu do ar' || coalesce(': ' || nullif(p_nota, ''), '.') || ' Abra o painel para ver o que falta.');
+  else
+    perform interno.erro('invalido:acao');
+  end if;
+  perform interno.registrar('saude_' || p_acao, p_usuario::text, jsonb_build_object('verificado_em', p_verificado_em));
+  select * into s from saude_perfis where usuario = p_usuario;
+  return interno.saude_json(s, true);
+end $$;
+
+/** A chave geral: desliga a vitrine inteira na hora, sem publicar o site de novo. */
+create or replace function public.saude_chave(p_desligar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  insert into configuracoes (chave, valor) values ('saude', jsonb_build_object('desligada', coalesce(p_desligar, false)))
+  on conflict (chave) do update set valor = configuracoes.valor || jsonb_build_object('desligada', coalesce(p_desligar, false));
+  perform interno.registrar(case when p_desligar then 'saude_desligada' else 'saude_ligada' end, '', '{}'::jsonb);
+  return jsonb_build_object('desligada', coalesce(p_desligar, false));
+end $$;
+
+/** A vitrine pública: só quem está apto agora, em ordem alfabética (nunca ranking), e o estado da chave geral. */
+create or replace function public.saude_vitrine() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('desligada', interno.saude_desligada(),
+    'perfis', case when interno.saude_desligada() then '[]'::jsonb
+                   else (select coalesce(jsonb_agg(interno.saude_json(s, false) order by lower(s.nome)), '[]'::jsonb) from saude_perfis s where interno.saude_apto(s)) end)
+$$;
+
+-- ───────────────────────────── Relatos de erro do site ─────────────────────────────
+-- A página "Achei um erro" (/relatar-erro): o que deu errado, onde, e, só se a pessoa marcar, o navegador. Sem conta,
+-- sem endereço de rede guardado. Quem cuida do código lê e responde no painel (Estado técnico › Erros relatados).
+create table if not exists interno.erros_relatados (
+  id uuid primary key default gen_random_uuid(),
+  pagina text not null default '' check (char_length(pagina) <= 300),
+  descricao text not null check (char_length(descricao) between 10 and 4000),
+  passos text not null default '' check (char_length(passos) <= 2000),
+  navegador text not null default '' check (char_length(navegador) <= 300),
+  tela text not null default '' check (char_length(tela) <= 40),
+  contato text not null default '' check (char_length(contato) <= 200),
+  status text not null default 'novo' check (status in ('novo', 'visto', 'resolvido', 'descartado')),
+  nota text not null default '' check (char_length(nota) <= 1000),
+  criado_em timestamptz not null default now()
+);
+create index if not exists erros_relatados_status on interno.erros_relatados (status, criado_em desc);
+alter table interno.erros_relatados enable row level security;
+
+create or replace function public.erro_relatar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_id uuid;
+begin
+  -- Campo-isca: gente não vê, robô preenche.
+  if coalesce(p ->> 'site', '') <> '' then return jsonb_build_object('ok', true); end if;
+  perform interno.limite('erro_relatar', 6, 60);
+  insert into erros_relatados (pagina, descricao, passos, navegador, tela, contato)
+  values (interno.txt(p ->> 'pagina', 'pagina', 0, 300), interno.txt(p ->> 'descricao', 'descricao', 10, 4000), interno.txt(p ->> 'passos', 'passos', 0, 2000),
+          interno.txt(p ->> 'navegador', 'navegador', 0, 300), interno.txt(p ->> 'tela', 'tela', 0, 40), interno.txt(p ->> 'contato', 'contato', 0, 200))
+  returning id into v_id;
+  return jsonb_build_object('ok', true, 'id', v_id);
+end $$;
+
+create or replace function public.erros_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('desenvolvimento')) then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(to_jsonb(e) order by (e.status = 'novo') desc, e.criado_em desc), '[]'::jsonb)
+          from (select * from erros_relatados where criado_em > now() - interval '365 days' order by criado_em desc limit 500) e);
+end $$;
+
+create or replace function public.erro_mudar(p_id uuid, p_status text, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('desenvolvimento')) then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_status, '') not in ('novo', 'visto', 'resolvido', 'descartado') then perform interno.erro('invalido:status'); end if;
+  update erros_relatados set status = p_status, nota = interno.txt(p_nota, 'nota', 0, 1000) where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+revoke all on function interno.termos_aceites_imutavel() from public, anon, authenticated;
+revoke all on function interno.leciona(text, uuid) from public, anon, authenticated;
+revoke all on function interno.escreve_em(text) from public, anon, authenticated;
+revoke all on function interno.termo_voluntario_vigente() from public, anon, authenticated;
+revoke all on function interno.saude_termo_vigente() from public, anon, authenticated;
+revoke all on function interno.saude_desligada() from public, anon, authenticated;
+revoke all on function interno.saude_apto(interno.saude_perfis) from public, anon, authenticated;
+revoke all on function interno.saude_texto_proibido(text) from public, anon, authenticated;
+revoke all on function interno.saude_json(interno.saude_perfis, boolean) from public, anon, authenticated;
+do $$
+declare f text;
+begin
+  foreach f in array array['disciplina_convidar(uuid, text, text, text)', 'disciplina_convites()', 'disciplina_convite_revogar(uuid)',
+    'traducao_convidar(text, text, uuid)', 'traducao_coautor_tirar(text, text, uuid)', 'fotos_pendentes()', 'foto_decidir(uuid, boolean)',
+    'termo_registrar(text, text, text, jsonb)', 'termos_meus()', 'termos_aceites_listar(uuid)',
+    'saude_meu()', 'saude_salvar(jsonb)', 'saude_termo_aceitar(text, text, text)', 'saude_sair()', 'saude_fila()', 'saude_decidir(uuid, text, date, text)',
+    'saude_chave(boolean)', 'saude_vitrine()', 'erro_relatar(jsonb)', 'erros_listar()', 'erro_mudar(uuid, text, text)'] loop
     execute format('revoke all on function public.%s from public', f);
     execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
   end loop;

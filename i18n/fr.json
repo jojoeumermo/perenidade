@@ -37,7 +37,10 @@
     "askCommunity": "Demander à la communauté",
     "practiceStudio": "Studio de pratique",
     "videoRoomFailed": "La salle vidéo ne s'est pas chargée (le serveur {dominio} n'a pas répondu ou est bloqué sur ce réseau).",
-    "openInNewTab": "Ouvrir dans un autre onglet ↗"
+    "openInNewTab": "Ouvrir dans un autre onglet ↗",
+    "videoServer": "Vidéo par Jitsi Meet sur {dominio} : sans enregistrement, sans limite de temps et sans compte ; la première personne entrée modère.",
+    "videoSwitch": "Changer de serveur",
+    "videoSwitchHint": "Seulement si celui-ci ne s'ouvre pas. Tout le monde dans la salle doit choisir le même :"
   },
   "nav": {
     "main": "Principal",
@@ -89,7 +92,10 @@
     "data": "Données du peuple",
     "podcasts": "Podcasts",
     "live": "Cours en direct",
-    "notebook": "Cahier d'étude"
+    "notebook": "Cahier d'étude",
+    "health": "Santé",
+    "reportBug": "Signaler un bug du site",
+    "institute": "Statuts, mission et valeurs"
   },
   "labs": {
     "eyebrow": "Pratique réelle",
@@ -4399,5 +4405,18 @@
     "join": "Entrer dans la salle vidéo",
     "someone": "Élève",
     "privacy": "La vidéo passe par le serveur de visioconférence configuré par l'institut (Jitsi). Rien n'est enregistré."
+  },
+  "saude": {
+    "eyebrow": "Tableau de contacts",
+    "title": "Santé solidaire",
+    "slogan": "Prendre soin, c'est aussi l'affaire du peuple",
+    "lead": "Des professionnels de santé bénévoles, qui reçoivent gratuitement ou à tarif social, laissent ici leur contact. Vous leur parlez directement : l'institut ne fait que diffuser, il ne fournit ni ne garantit les soins.",
+    "description": "Contacts de professionnels de santé bénévoles, gratuits ou à tarif social. L'Instituto Lúcia ne fait que les diffuser : il ne fournit ni ne garantit les soins."
+  },
+  "bugs": {
+    "eyebrow": "Aidez-nous à réparer",
+    "title": "J'ai trouvé un bug",
+    "lead": "Quelque chose ne s'ouvre pas, bloque, s'affiche mal ou avec le mauvais texte ? Dites-le ici : cela va directement à ceux qui maintiennent le code du site.",
+    "description": "Signalez un bug du site de l'Instituto Lúcia : ce qui n'a pas marché et où. Sans compte et sans conserver votre adresse réseau."
   }
 }

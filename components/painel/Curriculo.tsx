@@ -3,10 +3,24 @@
 
 import { useState } from "react";
 import { areaSlugs, groups, stageAreas, type Stage } from "@/lib/areas";
-import { can, type Me } from "@/lib/backend";
+import { can, disciplinasQueEnsina, escreveEm, type Me } from "@/lib/backend";
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
 import { Abas, Aviso, botao, botaoClaro, campo, dataHora, elo, rotulo, useAcao, useLista } from "./comum";
+import type { Membro } from "./Equipe";
+
+interface Convite {
+  id: string;
+  disciplina: string;
+  trilha: string | null;
+  nota: string;
+  criado_em: string;
+  convidado: string;
+  convidado_id: string;
+  por: string;
+  meu: boolean;
+  posso_revogar: boolean;
+}
 
 interface Proposta {
   id: string;
@@ -27,16 +41,27 @@ const slugDe = (t: string) => t.normalize("NFKD").replace(/[\u0300-\u036f]/g, ""
 
 /**
  * Disciplinas e trilhas pelo painel, sem depender de ninguém: a coordenação e a coordenação pedagógica criam, editam e
- * removem (a mudança é aplicada aos arquivos do site pela rotina de publicação, de hora em hora, e o build confere);
- * qualquer voluntário sugere, e a sugestão espera a decisão.
+ * removem (a mudança é aplicada aos arquivos do site pela rotina de publicação, de hora em hora, e o build confere).
+ * Cada educador vê só as disciplinas que ensina (e as que foi convidado a ajudar) e sugere mudanças nelas; quem ensina
+ * uma disciplina convida colegas de outras para ajudar numa trilha ou na disciplina toda.
  */
 export function Curriculo({ me }: { me: Me }) {
   const { t, lang } = useI18n();
   const decide = can(me, "coordenacao", "vice");
   const tracks = useTrackOptions(lang);
   const propostas = useLista<Proposta[]>("curriculo_listar");
-  const acao = useAcao(propostas.recarregar);
-  const [aba, setAba] = useState<"mapa" | "nova" | "propostas">("mapa");
+  const convites = useLista<Convite[]>("disciplina_convites");
+  const membros = useLista<Membro[]>("equipe_membros", {}, { quieta: true });
+  const acao = useAcao(() => { propostas.recarregar(); convites.recarregar(); });
+  const [aba, setAba] = useState<"mapa" | "nova" | "propostas" | "convites">("mapa");
+  const [convite, setConvite] = useState({ disciplina: "", trilha: "", pessoa: "", nota: "" });
+  // O que cada pessoa enxerga: a coordenação, tudo; os outros, as disciplinas em que escrevem.
+  const minhas = disciplinasQueEnsina(me);
+  const visivel = (slug: string) => decide || escreveEm(me, slug);
+  const posso = (slug: string) => decide || escreveEm(me, slug);
+  const convidaEm = decide ? [...areaSlugs] : minhas;
+  // A situação de cada mudança, no próprio mapa: quem pediu vê que está andando, sem abrir Propostas.
+  const andamento = (slug: string) => (propostas.dados ?? []).find((p) => String(p.dados.slug) === slug && (p.status === "pendente" || p.status === "aprovada" || p.status === "falhou"));
   const [form, setForm] = useState<{ tipo: Proposta["tipo"]; slug: string; grupo: string; etapas: Stage[]; nomes: Record<string, string>; descricoes: Record<string, string>; disciplina: string; titulo: string; etapa: Stage; ordem: number; resumo: string; aulas: string; intro: string }>({ tipo: "disciplina", slug: "", grupo: "humanidades", etapas: ["medio"], nomes: {}, descricoes: {}, disciplina: areaSlugs[0], titulo: "", etapa: "medio", ordem: 1, resumo: "", aulas: "", intro: "" });
   const nomeDaArea = (slug: string) => t.areas[slug as keyof typeof t.areas]?.[0] ?? slug;
   const pendentes = (propostas.dados ?? []).filter((p) => p.status === "pendente").length;
@@ -54,34 +79,39 @@ export function Curriculo({ me }: { me: Me }) {
 
   return (
     <div>
-      <Abas atual={aba} escolher={setAba} opcoes={[{ id: "mapa" as const, nome: "Disciplinas e trilhas" }, { id: "nova" as const, nome: decide ? "Criar ou mudar" : "Sugerir" }, { id: "propostas" as const, nome: "Propostas", conta: decide ? pendentes : undefined }]} />
+      <Abas atual={aba} escolher={setAba} opcoes={[{ id: "mapa" as const, nome: decide ? "Disciplinas e trilhas" : "Minhas disciplinas" }, { id: "nova" as const, nome: decide ? "Criar ou mudar" : "Sugerir" }, { id: "propostas" as const, nome: "Propostas", conta: decide ? pendentes : undefined }, { id: "convites" as const, nome: "Convites", conta: (convites.dados ?? []).filter((c) => c.meu).length || undefined }]} />
       <Aviso texto={propostas.erro || acao.aviso} />
       <div hidden={aba !== "mapa"}>
-        <p className="text-ink-soft">{decide ? "Clique para editar ou remover. O que você criar ou mudar entra no site na próxima publicação automática (de hora em hora); nomes e trilhas novas saem em português e, nos outros idiomas, com o texto que você escrever (ou o português, até a tradução)." : "Veja o que existe e sugira o que falta: a coordenação decide."}</p>
-        {groups.map((g) => (
+        <p className="text-ink-soft">{decide ? "Clique para editar ou remover. O que você criar ou mudar entra no site na próxima publicação automática (de hora em hora); nomes e trilhas novas saem em português e, nos outros idiomas, com o texto que você escrever (ou o português, até a tradução)." : "Aqui aparecem só as disciplinas que você ensina e as que foi convidado a ajudar. Sugira trilhas e mudanças: a coordenação decide, e a situação aparece aqui mesmo."}</p>
+        {!decide && groups.every((g) => g.areas.every((slug) => !visivel(slug))) && (
+          <p className="mt-4 border-l-4 border-oxblood bg-parchment-deep px-3 py-2">Você ainda não ensina nenhuma disciplina. Quem ensina uma pode convidar você para ajudar (aba Convites), ou peça à coordenação a função de educador.</p>
+        )}
+        {groups.filter((g) => g.areas.some(visivel)).map((g) => (
           <section key={g.id} className="mt-6">
             <h2 className="jornal-secao"><span className="jornal-editoria">{t.groups[g.id]}</span></h2>
             <ul className="mt-3 grid gap-2 md:grid-cols-2">
-              {g.areas.map((slug) => {
+              {g.areas.filter(visivel).map((slug) => {
                 const trilhas = tracks.filter((x) => x.area === slug);
+                const situacao = andamento(slug);
                 return (
                   <li key={slug} className="painel-cartao p-3">
                     <p className="flex items-start justify-between gap-2">
-                      <span><strong>{nomeDaArea(slug)}</strong> <span className="font-mono text-xs text-ink-soft">{slug}</span><br /><span className="text-xs text-ink-soft">{(Object.keys(stageAreas) as Stage[]).filter((e) => (stageAreas[e] as readonly string[]).includes(slug)).join(", ") || "sem etapa"} · {trilhas.length} trilha(s)</span></span>
+                      <span><strong>{nomeDaArea(slug)}</strong> <span className="font-mono text-xs text-ink-soft">{slug}</span><br /><span className="text-xs text-ink-soft">{(Object.keys(stageAreas) as Stage[]).filter((e) => (stageAreas[e] as readonly string[]).includes(slug)).join(", ") || "sem etapa"} · {trilhas.length} trilha(s){!decide && !minhas.includes(slug) ? " · você foi convidado" : ""}</span></span>
                       <span className="flex shrink-0 gap-2 text-xs">
-                        <button type="button" className={elo} onClick={() => preparar({ tipo: "editar_disciplina", slug, nomes: { pt: nomeDaArea(slug) }, descricoes: { pt: t.areas[slug as keyof typeof t.areas]?.[1] ?? "" } })}>editar</button>
-                        <button type="button" className={elo} onClick={() => preparar({ tipo: "trilha", disciplina: slug, slug: "", titulo: "", aulas: "" })}>+ trilha</button>
-                        {trilhas.length === 0 && <button type="button" className={`${elo} text-oxblood`} onClick={() => { if (window.confirm(`Remover a disciplina ${nomeDaArea(slug)}?`)) void acao.agir("curriculo_propor", { p_tipo: "remover_disciplina", p_dados: { slug } }, decide ? "Remoção marcada: sai na próxima publicação." : "Sugestão enviada."); }}>remover</button>}
+                        {posso(slug) && <button type="button" className={elo} onClick={() => preparar({ tipo: "editar_disciplina", slug, nomes: { pt: nomeDaArea(slug) }, descricoes: { pt: t.areas[slug as keyof typeof t.areas]?.[1] ?? "" } })}>editar</button>}
+                        {posso(slug) && <button type="button" className={elo} onClick={() => preparar({ tipo: "trilha", disciplina: slug, slug: "", titulo: "", aulas: "" })}>+ trilha</button>}
+                        {decide && trilhas.length === 0 && <button type="button" className={`${elo} text-oxblood`} onClick={() => { if (window.confirm(`Remover a disciplina ${nomeDaArea(slug)}?`)) void acao.agir("curriculo_propor", { p_tipo: "remover_disciplina", p_dados: { slug } }, "Remoção marcada: sai na próxima publicação."); }}>remover</button>}
                       </span>
                     </p>
+                    {situacao && <p className={`mt-1 text-xs ${situacao.status === "falhou" ? "text-oxblood" : "text-ink-soft"}`}>⏳ {TIPOS[situacao.tipo]}: {SITUACOES[situacao.status]}{situacao.nota ? ` — ${situacao.nota}` : ""}</p>}
                     {trilhas.length > 0 && (
                       <ul className="mt-2 space-y-1 border-t border-rule pt-2 text-xs">
                         {trilhas.map((x) => (
                           <li key={x.slug} className="flex items-start justify-between gap-2">
-                            <span>{x.title} <span className="text-ink-soft">· {x.stage ?? "?"} · {x.plan?.filter((p) => p.ready).length ?? 0}/{x.plan?.length ?? 0} aulas</span></span>
+                            <span>{x.title} <span className="text-ink-soft">· {x.stage ?? "?"} · {x.plan?.filter((p) => p.ready).length ?? 0}/{x.plan?.length ?? 0} aulas</span>{andamento(x.slug) && <span className="block text-ink-soft">⏳ {SITUACOES[andamento(x.slug)!.status]}</span>}</span>
                             <span className="flex shrink-0 gap-2">
-                              <button type="button" className={elo} onClick={() => preparar({ tipo: "editar_trilha", slug: x.slug, disciplina: x.area, titulo: x.title, resumo: x.summary ?? "", etapa: (x.stage ?? "medio") as Stage, aulas: (x.plan ?? []).map((p) => p.title).join("\n") })}>editar</button>
-                              {(x.plan?.filter((p) => p.ready).length ?? 0) === 0 && <button type="button" className={`${elo} text-oxblood`} onClick={() => { if (window.confirm(`Remover a trilha “${x.title}”?`)) void acao.agir("curriculo_propor", { p_tipo: "remover_trilha", p_dados: { slug: x.slug } }, decide ? "Remoção marcada: sai na próxima publicação." : "Sugestão enviada."); }}>remover</button>}
+                              {posso(x.area) && <button type="button" className={elo} onClick={() => preparar({ tipo: "editar_trilha", slug: x.slug, disciplina: x.area, titulo: x.title, resumo: x.summary ?? "", etapa: (x.stage ?? "medio") as Stage, aulas: (x.plan ?? []).map((p) => p.title).join("\n") })}>editar</button>}
+                              {decide && (x.plan?.filter((p) => p.ready).length ?? 0) === 0 && <button type="button" className={`${elo} text-oxblood`} onClick={() => { if (window.confirm(`Remover a trilha “${x.title}”?`)) void acao.agir("curriculo_propor", { p_tipo: "remover_trilha", p_dados: { slug: x.slug, disciplina: x.area } }, "Remoção marcada: sai na próxima publicação."); }}>remover</button>}
                             </span>
                           </li>
                         ))}
@@ -131,7 +161,7 @@ export function Curriculo({ me }: { me: Me }) {
           )}
           {trilhaForm && (
             <>
-              <label className="mt-3 block">Disciplina<select value={form.disciplina} onChange={(e) => setForm({ ...form, disciplina: e.target.value })} className={campo}>{areaSlugs.map((s) => <option key={s} value={s}>{nomeDaArea(s)}</option>)}</select></label>
+              <label className="mt-3 block">Disciplina<select value={form.disciplina} onChange={(e) => setForm({ ...form, disciplina: e.target.value })} className={campo}>{areaSlugs.filter(posso).map((s) => <option key={s} value={s}>{nomeDaArea(s)}</option>)}</select></label>
               <label className="mt-2 block">Título da trilha<input value={form.titulo} onChange={(e) => setForm({ ...form, titulo: e.target.value, slug: form.tipo === "trilha" ? slugDe(e.target.value) : form.slug })} maxLength={120} className={campo} /></label>
               <label className="mt-2 block">Identificador (slug)<input value={form.slug} disabled={form.tipo === "editar_trilha"} onChange={(e) => setForm({ ...form, slug: e.target.value.toLowerCase() })} maxLength={60} className={`${campo} font-mono`} /></label>
               <div className="mt-2 grid gap-2 sm:grid-cols-2">
@@ -149,6 +179,40 @@ export function Curriculo({ me }: { me: Me }) {
           </p>
           <p className="mt-2 text-xs text-ink-soft">A mudança é escrita nos arquivos do site pela rotina de publicação, de hora em hora, e o build confere tudo antes de ir ao ar. Nada é apagado: uma disciplina só sai se não tiver trilhas, e uma trilha só sai se não tiver aulas escritas.</p>
         </section>
+      </div>
+      <div hidden={aba !== "convites"}>
+        <p className="max-w-3xl text-ink-soft">Cada educador cuida da própria disciplina. Para alguém de outra disciplina ajudar numa aula ou numa trilha da sua, convide aqui: a pessoa passa a ver a sua disciplina em Escrever e aqui, até o convite acabar. Quem convidou, quem ensina a disciplina e a coordenação encerram quando quiserem.</p>
+        {convidaEm.length > 0 && (
+          <section className="painel-cartao mt-4 max-w-3xl p-5">
+            <h2 className="font-serif text-xl font-semibold">Convidar para ajudar</h2>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              <label className="block">Disciplina<select value={convite.disciplina} onChange={(e) => setConvite({ ...convite, disciplina: e.target.value, trilha: "" })} className={campo}><option value="">Escolha…</option>{convidaEm.map((s) => <option key={s} value={s}>{nomeDaArea(s)}</option>)}</select></label>
+              <label className="block">Trilha (opcional: vazio vale a disciplina toda)<select value={convite.trilha} onChange={(e) => setConvite({ ...convite, trilha: e.target.value })} className={campo}><option value="">A disciplina toda</option>{tracks.filter((x) => x.area === convite.disciplina).map((x) => <option key={x.slug} value={x.slug}>{x.title}</option>)}</select></label>
+              <label className="block sm:col-span-2">Quem
+                <select value={convite.pessoa} onChange={(e) => setConvite({ ...convite, pessoa: e.target.value })} className={campo}>
+                  <option value="">Escolha a pessoa…</option>
+                  {(membros.dados ?? []).filter((m) => !m.eu && !m.papeis.some((p) => (p.papel === "educacao" || p.papel === "educacao_secundaria") && p.disciplina === convite.disciplina)).map((m) => (
+                    <option key={m.id} value={m.id}>{m.nome} — {[...new Set(m.papeis.map((p) => (p.disciplina && p.papel.startsWith("educacao") ? `educação de ${nomeDaArea(p.disciplina)}` : p.papel)))].join(", ")}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="block sm:col-span-2">Para quê (aparece para a pessoa)<input value={convite.nota} onChange={(e) => setConvite({ ...convite, nota: e.target.value })} maxLength={500} placeholder="Ex.: a aula de estatística das revoltas" className={campo} /></label>
+            </div>
+            <button type="button" className={`mt-3 ${botao}`} disabled={acao.ocupado || !convite.disciplina || !convite.pessoa} onClick={async () => { const r = await acao.agir("disciplina_convidar", { p_usuario: convite.pessoa, p_disciplina: convite.disciplina, p_trilha: convite.trilha || null, p_nota: convite.nota }, "Convite enviado: a pessoa foi avisada."); if (r) setConvite({ disciplina: "", trilha: "", pessoa: "", nota: "" }); }}>Convidar</button>
+          </section>
+        )}
+        <ul className="mt-6 max-w-3xl space-y-2">
+          {(convites.dados ?? []).length === 0 && <li className="text-ink-soft">Nenhum convite ativo.</li>}
+          {(convites.dados ?? []).map((c) => (
+            <li key={c.id} className="painel-cartao flex flex-wrap items-start justify-between gap-2 p-3">
+              <span>
+                <strong>{c.meu ? "Você" : c.convidado}</strong> ajuda em <strong>{nomeDaArea(c.disciplina)}</strong>{c.trilha ? ` (trilha ${tracks.find((x) => x.slug === c.trilha)?.title ?? c.trilha})` : ""}
+                <span className="block text-xs text-ink-soft">convite de {c.por || "?"} · {dataHora(c.criado_em)}{c.nota ? ` · ${c.nota}` : ""}</span>
+              </span>
+              {c.posso_revogar && <button type="button" className={elo} onClick={() => { if (window.confirm(c.meu ? "Deixar de ajudar nesta disciplina?" : "Encerrar este convite?")) void acao.agir("disciplina_convite_revogar", { p_id: c.id }, "Convite encerrado."); }}>{c.meu ? "Sair" : "Encerrar"}</button>}
+            </li>
+          ))}
+        </ul>
       </div>
       <div hidden={aba !== "propostas"}>
         {(propostas.dados ?? []).length === 0 && <p className="text-ink-soft">Nenhuma proposta ainda.</p>}
