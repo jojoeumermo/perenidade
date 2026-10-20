@@ -10,6 +10,7 @@ import { SenhaCampo, senhaForte } from "../SenhaCampo";
 import { Avatar, AVATARES } from "./Avatar";
 import { Abas, Aviso, botao, botaoClaro, campo, dataHora, elo, oQueFaz, papeis, textoDoErro, useAcao, useLista } from "./comum";
 import { IdiomaDoPainel } from "./Idioma";
+import { minutosOcioso, OPCOES_OCIOSO } from "./ocioso";
 import { Digital, SegundoFator } from "./Seguranca";
 
 type Aba = "perfil" | "seguranca" | "privacidade" | "aparelhos" | "atividade";
@@ -240,7 +241,9 @@ function FotoDoPerfil({ me, recarregar }: { me: Me; recarregar: () => void }) {
     for (const q of [0.85, 0.7, 0.5, 0.35]) {
       const dado = saida.toDataURL("image/webp", q);
       if (dado.length <= 40000 && dado.startsWith("data:image/webp")) {
-        await acao.agir("perfil_avatar", { p_avatar: dado }, "Foto guardada ✓");
+        const r = (await acao.agir("perfil_avatar", { p_avatar: dado }, "Foto guardada ✓")) as { pendente?: boolean } | null;
+        if (r?.pendente) acao.setAviso("Foto enviada ✓ Ela aparece no seu cartão depois que a coordenação aprovar (você recebe um recado).");
+        recarregar();
         setImagem(null);
         return;
       }
@@ -251,7 +254,8 @@ function FotoDoPerfil({ me, recarregar }: { me: Me; recarregar: () => void }) {
   return (
     <section className={cartao}>
       <h2 className="font-serif text-xl font-semibold">Foto ou ícone</h2>
-      <p className="mt-1 text-ink-soft">Aparece ao lado do seu nome nas conversas e na equipe.</p>
+      <p className="mt-1 text-ink-soft">Aparece ao lado do seu nome nas conversas, na equipe e no cartão de quem ensina, nas disciplinas. A foto passa pela coordenação antes de aparecer; os ícones prontos valem na hora.</p>
+      {me.foto_pendente && <p className="mt-2 border-l-4 border-gold bg-parchment-deep px-3 py-1 text-sm">Sua foto nova está esperando a aprovação da coordenação.</p>}
       <div className="mt-3 flex items-center gap-4">
         <Avatar nome={me.nome} avatar={atual} className="h-16 w-16" />
         <div className="flex flex-wrap gap-2 text-sm">
@@ -439,6 +443,43 @@ const NOMES_DOS_EMAILS: Record<string, string> = {
   chat_mensagem: "Mensagens da coordenação e do grupo do seu departamento que você ainda não leu",
 };
 
+interface MeuAceite {
+  id: string;
+  termo: string;
+  versao: string;
+  texto: string;
+  sha256: string;
+  aceito_em: string;
+}
+
+/** Os termos que a pessoa aceitou, com o texto exato de cada um: guardados para sempre, para ela ler quando quiser. */
+function TermosQueAceitei() {
+  const lista = useLista<MeuAceite[]>("termos_meus");
+  const [aberto, setAberto] = useState("");
+  const nomes: Record<string, string> = { voluntario: "Termo de voluntário", adesao: "Termo de adesão (horas e certificados)", saude: "Termo da vitrine Saúde Solidária" };
+  return (
+    <section className={cartao}>
+      <h2 className="font-serif text-xl font-semibold">Termos que você aceitou</h2>
+      <p className="mt-1 text-ink-soft">Cada aceite fica guardado com o texto exato, a versão e a data, para sempre: é a prova de que o seu trabalho aqui é voluntário e de como o que você publica fica livre.</p>
+      {lista.dados?.length === 0 && <p className="mt-2 text-ink-soft">Nenhum aceite registrado ainda (os de antes de 20/10/2026 ficaram só com a data).</p>}
+      <ul className="mt-3 divide-y divide-rule border-y border-rule">
+        {lista.dados?.map((a) => (
+          <li key={a.id} className="py-2">
+            <button type="button" className={elo} onClick={() => setAberto(aberto === a.id ? "" : a.id)}>{nomes[a.termo] ?? a.termo}, versão {a.versao}</button>
+            <span className="ml-2 text-sm text-ink-soft">aceito em {dataHora(a.aceito_em)}</span>
+            {aberto === a.id && (
+              <>
+                <pre className="mt-2 whitespace-pre-wrap border border-rule bg-parchment-deep p-3 font-sans text-sm">{a.texto}</pre>
+                <p className="mt-1 break-all font-mono text-[0.65rem] text-ink-soft">SHA-256: {a.sha256}</p>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function Privacidade({ me, recarregar, sair, avisosETrava }: { me: Me; recarregar: () => void; sair: () => void; avisosETrava?: ReactNode }) {
   const preferencias = useAcao(recarregar);
   const emails = useLista<{ opcoes: string[]; desligados: string[] }>("conta_emails");
@@ -462,6 +503,7 @@ function Privacidade({ me, recarregar, sair, avisosETrava }: { me: Me; recarrega
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
+      <TermosQueAceitei />
       <section className={cartao}>
         <h2 className="font-serif text-xl font-semibold">Privacidade nas conversas</h2>
         <p className="mt-1 text-ink-soft">O que os colegas veem de você. Quem esconde algo também deixa de ver o mesmo dos outros.</p>
@@ -579,6 +621,30 @@ interface Aparelho {
   ultimo: string;
 }
 
+/** Depois de quanto tempo sem uso o painel se fecha neste aparelho. Fica só no navegador. */
+function TempoSemUso() {
+  const [minutos, setMinutos] = useState(() => minutosOcioso());
+  return (
+    <label className="mt-4 block max-w-md">
+      <span className="font-semibold">Fechar o painel sozinho depois de quanto tempo sem uso, neste aparelho</span>
+      <select
+        value={minutos}
+        onChange={(e) => {
+          const n = Number(e.target.value);
+          setItem(KEYS.painelOcioso, String(n));
+          setMinutos(n);
+        }}
+        className={campo}
+      >
+        {OPCOES_OCIOSO.map(([n, nome]) => (
+          <option key={n} value={n}>{nome}</option>
+        ))}
+      </select>
+      <span className="mt-1 block text-xs text-ink-soft">Em computador de uso compartilhado, escolha 1 hora. “Nunca” só no seu próprio aparelho, com tela bloqueada.</span>
+    </label>
+  );
+}
+
 function AparelhosDaConta({ dias }: { dias: number }) {
   const lista = useLista<Aparelho[]>("aparelhos_meus");
   const [meu, setMeu] = useState("");
@@ -624,6 +690,7 @@ function AparelhosDaConta({ dias }: { dias: number }) {
         ))}
       </ul>
       {lista.dados?.length === 0 && <p className="mt-2 text-ink-soft">Nenhum aparelho registrado ainda.</p>}
+      <TempoSemUso />
       <p className="mt-4 flex flex-wrap gap-3">
         <button
           type="button"

@@ -23,7 +23,7 @@ export const VERSOES = {
   gridcraft: "0.8.0",
   wordcraft: "0.8.0",
 };
-const LIMITE_POR_ARQUIVO = 25 * 1024 * 1024; // Cloudflare Pages: 25 MiB por arquivo; acima disso, R2.
+const LIMITE_POR_ARQUIVO = 25 * 1024 * 1024; // Cloudflare: 25 MiB por arquivo; acima disso, o arquivo sobe em partes (scripts/publicar-estudio.mjs).
 
 const RAIZ = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1")), "..");
 const DESTINO = path.join(RAIZ, "estudio", "site");
@@ -94,7 +94,7 @@ async function montar(id) {
   }
   fs.writeFileSync(path.join(pasta, ".versao.json"), JSON.stringify({ editor: id, versao, pacote, sha256: obtido, montado_em: new Date().toISOString() }, null, 2));
   console.log(`  ${arquivos.length} arquivos, ${(total / 1048576).toFixed(1)} MB extraídos em estudio/site/${id}/`);
-  if (grandes.length) console.log(`  ATENÇÃO: acima de 25 MiB (vão pelo R2): ${grandes.join(", ")}`);
+  if (grandes.length) console.log(`  acima de 25 MiB (sobem em partes de 20 MiB): ${grandes.join(", ")}`);
   return { id, versao, mb: total / 1048576, grandes };
 }
 

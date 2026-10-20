@@ -37,7 +37,10 @@
     "askCommunity": "Perguntar na comunidade",
     "practiceStudio": "Estúdio de prática",
     "videoRoomFailed": "A sala de vídeo não carregou (o servidor {dominio} não respondeu ou está bloqueado nesta rede).",
-    "openInNewTab": "Abrir em outra aba ↗"
+    "openInNewTab": "Abrir em outra aba ↗",
+    "videoServer": "Vídeo pelo Jitsi Meet em {dominio}: sem gravação, sem limite de tempo e sem conta; quem entra primeiro modera.",
+    "videoSwitch": "Trocar de servidor",
+    "videoSwitchHint": "Só se este não abrir. Todos da sala precisam escolher o mesmo:"
   },
   "nav": {
     "main": "Principal",
@@ -89,7 +92,10 @@
     "data": "Dados do povo",
     "podcasts": "Podcasts",
     "live": "Aulas ao vivo",
-    "notebook": "Caderno de estudos"
+    "notebook": "Caderno de estudos",
+    "health": "Saúde",
+    "reportBug": "Achei um erro no site",
+    "institute": "Estatuto, missão e valores"
   },
   "labs": {
     "eyebrow": "Praticar de verdade",
@@ -4399,5 +4405,18 @@
     "join": "Entrar na sala de vídeo",
     "someone": "Estudante",
     "privacy": "O vídeo passa pelo servidor de videochamada configurado pelo instituto (Jitsi). Nada é gravado."
+  },
+  "saude": {
+    "eyebrow": "Mural de contatos",
+    "title": "Saúde Solidária",
+    "slogan": "Cuidar também é coisa do povo",
+    "lead": "Profissionais de saúde voluntários que atendem de graça ou por valor social deixam aqui o contato. Você fala direto com eles: o instituto só divulga, não presta nem garante atendimento.",
+    "description": "Contatos de profissionais de saúde voluntários, com atendimento gratuito ou por valor social. O Instituto Lúcia só divulga: não presta nem garante atendimento."
+  },
+  "bugs": {
+    "eyebrow": "Ajude a consertar",
+    "title": "Achei um erro",
+    "lead": "Algo não abriu, travou, apareceu torto ou com o texto errado? Conte aqui: vai direto para quem cuida do código do site.",
+    "description": "Relate um erro do site do Instituto Lúcia: o que deu errado e onde. Sem conta e sem guardar o seu endereço de rede."
   }
 }

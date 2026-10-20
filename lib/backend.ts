@@ -112,7 +112,7 @@ export async function rpc<T>(fn: string, args: Record<string, unknown> = {}): Pr
 
 export interface Role {
   id: string;
-  papel: "coordenacao" | "vice" | "supervisao" | "curadoria" | "mediacao" | "educacao" | "educacao_secundaria" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "marketing" | "desenvolvimento" | "representante" | "porta_voz";
+  papel: "coordenacao" | "vice" | "supervisao" | "curadoria" | "mediacao" | "educacao" | "educacao_secundaria" | "revisao" | "traducao" | "jornalismo" | "mentoria" | "design" | "marketing" | "desenvolvimento" | "representante" | "porta_voz" | "saude";
   disciplina: string | null;
 }
 
@@ -149,7 +149,19 @@ export interface Me {
   aprendizado?: boolean;
   /** Currículo público do educador: endereços https (portfolio, lattes, site, redes) e uma linha de formação. */
   curriculo?: Record<string, string>;
+  /** Disciplinas (e às vezes só uma trilha) em que a pessoa foi convidada a ajudar por quem ensina lá. */
+  convites?: { disciplina: string; trilha: string | null }[];
+  /** Mandou uma foto de perfil que ainda espera a coordenação. */
+  foto_pendente?: boolean;
 }
+
+/** Quem cuida do site inteiro e escreve para qualquer disciplina (o banco confere de novo: interno.escreve_em). */
+export const cuidaDeTudo = (me: Me | null) => can(me, "coordenacao", "supervisao", "curadoria", "revisao");
+/** As disciplinas que a pessoa ensina por função (educação ou educação secundária). */
+export const disciplinasQueEnsina = (me: Me | null) => [...new Set((me?.papeis ?? []).filter((p) => (p.papel === "educacao" || p.papel === "educacao_secundaria") && p.disciplina).map((p) => p.disciplina as string))];
+/** Pode escrever para esta disciplina: ensina lá, foi convidada por quem ensina, ou cuida do site inteiro. */
+export const escreveEm = (me: Me | null, disciplina: string | null | undefined) =>
+  Boolean(disciplina) && (cuidaDeTudo(me) || disciplinasQueEnsina(me).includes(disciplina as string) || Boolean(me?.convites?.some((c) => c.disciplina === disciplina)));
 
 /** Funções que valem por outra: a educação secundária tem os poderes da educação; o marketing, os do design. */
 const equivale: Partial<Record<Role["papel"], Role["papel"]>> = { educacao_secundaria: "educacao", marketing: "design" };

@@ -41,6 +41,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
         [t.nav.podcasts, "/podcasts"],
         [t.nav.news, "/noticias"],
         [t.nav.mural, "/mural"],
+        [t.nav.health, "/saude"],
         [t.nav.materials, "/materiais"],
         [t.nav.factCheck, "/checagens"],
         [t.nav.debates, "/debates"],
@@ -50,6 +51,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
       title: t.footer.project,
       links: [
         [t.nav.about, "/sobre"],
+        [t.nav.institute, "/instituto"],
         [t.nav.team, "/quem-somos"],
         [t.nav.dedication, "/dedicatoria"],
         [t.nav.memorial, "/memorial"],
@@ -60,6 +62,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
         [t.nav.privacy, "/privacidade"],
         [t.nav.terms, "/termos"],
         [t.nav.reportContent, "/denunciar"],
+        [t.nav.reportBug, "/relatar-erro"],
       ],
     },
   ];

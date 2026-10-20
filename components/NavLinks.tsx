@@ -20,6 +20,7 @@ export function NavLinks() {
     [t.nav.journal, "/jornal", ""],
     [t.nav.podcasts, "/podcasts", ""],
     [t.nav.community, "/comunidade", ""],
+    [t.nav.health, "/saude", ""],
     [t.nav.dedication, "/dedicatoria", ""],
     [t.nav.more, "/explorar", ""],
   ];

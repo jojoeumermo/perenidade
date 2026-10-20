@@ -33,7 +33,10 @@
     "askCommunity": "在社区提问",
     "practiceStudio": "练习工作室",
     "videoRoomFailed": "视频会议室没有加载（服务器 {dominio} 没有响应，或在此网络中被屏蔽）。",
-    "openInNewTab": "在新标签页中打开 ↗"
+    "openInNewTab": "在新标签页中打开 ↗",
+    "videoServer": "视频通过 {dominio} 上的 Jitsi Meet：不录制、不限时、无需账号；第一个进入的人担任主持。",
+    "videoSwitch": "更换服务器",
+    "videoSwitchHint": "仅在此服务器打不开时使用。房间里的所有人必须选择同一个："
   },
   "nav": {
     "main": "主导航",
@@ -85,7 +88,10 @@
     "data": "人民数据",
     "podcasts": "播客",
     "live": "直播课",
-    "notebook": "学习笔记本"
+    "notebook": "学习笔记本",
+    "health": "健康",
+    "reportBug": "报告网站错误",
+    "institute": "章程、使命与价值观"
   },
   "labs": {
     "eyebrow": "真正的实践",
@@ -4327,5 +4333,18 @@
     "join": "进入视频房间",
     "someone": "学习者",
     "privacy": "视频经过学院设置的视频通话服务器（Jitsi），不会录制。"
+  },
+  "saude": {
+    "eyebrow": "联系人公告板",
+    "title": "互助健康",
+    "slogan": "关怀也是人民的事",
+    "lead": "免费或以公益价格接诊的志愿医疗工作者在这里留下联系方式。你直接与他们联系：研究所只负责发布，不提供也不保证任何诊疗。",
+    "description": "志愿医疗工作者的联系方式，提供免费或公益价格的诊疗。Instituto Lúcia 只负责发布，不提供也不保证诊疗。"
+  },
+  "bugs": {
+    "eyebrow": "帮我们修好",
+    "title": "我发现了一个错误",
+    "lead": "有东西打不开、卡住、显示错乱或文字错误？在这里告诉我们：会直接送到维护网站代码的人手里。",
+    "description": "报告 Instituto Lúcia 网站的错误：哪里出了什么问题。无需账号，也不保存你的网络地址。"
   }
 }
