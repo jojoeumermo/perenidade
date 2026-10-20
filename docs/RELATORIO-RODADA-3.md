@@ -4,7 +4,7 @@ Tudo está no `master` e publicado pela Vercel. Cada lote passou por `lint`, `ty
 
 ## Preciso de você
 
-1. **Cloudflare: os buscadores estão barrados.** Em "Controle de rastreamento de IA → Segurança", o Googlebot, o BingBot e o Applebot aparecem bloqueados, com o interruptor travado: quem bloqueia é a política "Treinamento: Bloquear" de **Segurança → Configurações → Configure políticas de bots de IA**, que pega também esses três. A mesma janela tem a "sincronização de preferências de bots", que põe na frente do robots.txt do site um bloco que manda o Baiduspider (busca chinesa, da versão /zh) embora. Para resolver: abra essa janela (botão com o número ao lado de "Configure políticas de bots de IA"), troque **Treinamento** para **"Permitir (não bloquear)"**, desligue **"Ativar sincronização de preferências de bots"** e clique em **Salvar**. O robots.txt do próprio site continua mandando embora os robôs de treino de IA (GPTBot, CCBot, ClaudeBot, Google-Extended e os outros), e os interruptores de cada robô ficam livres para bloquear algum na entrada, se quiser. (A trava de segurança não me deixa mudar configuração de conta, nem com o seu pedido.)
+1. **Cloudflare:** resolvido em 19/10/2026. A política de bots de IA passou a permitir o treinamento na entrada, e a sincronização do robots.txt foi desligada; o Google, o Bing, a Apple e o Baidu estão liberados, e o robots.txt do site segue mandando embora os robôs de treino.
 2. **Assistente de reforço:** continua **desligado**, como você pediu. Para ligar um dia, os provedores gratuitos entram como segredos das funções (`GROQ_API_KEY`, `CEREBRAS_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY`).
 
 O `install.sql` foi rodado de novo (19/10/2026) e conferido em produção: os cadernos prontos e as resoluções das questões respondem.
@@ -58,5 +58,4 @@ Legenda: ✅ feito · ◐ feito em parte · ✗ não feito.
 
 ## O que ainda falta
 
-1. **Cloudflare** (item 1 acima): quatro interruptores, só você pode mexer.
-2. **Concursos públicos de outras bancas no banco de questões:** só quando existir uma fonte aberta (ver acima).
+1. **Concursos públicos de outras bancas no banco de questões:** só quando existir uma fonte aberta (ver acima).
