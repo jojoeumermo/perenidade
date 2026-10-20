@@ -1,15 +1,66 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useState } from "react";
-import { fill, htmlLang } from "@/i18n/config";
+import { useEffect, useState } from "react";
 import type { Dict } from "@/i18n/types";
 import { hasBackend, rpc } from "@/lib/backend";
 import { useCompleted } from "@/lib/progress";
+import { site } from "@/lib/site";
 import { useHydrated } from "@/lib/storage";
-import { useI18n } from "./I18n";
 
-const escapar = (t: string) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c] ?? c);
+const codigoBonito = (codigo: string) => codigo.replace(/(.{4})(?=.)/g, "$1-");
+const quando = (iso: string) => `${new Date(iso).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short", timeZone: "America/Sao_Paulo" })} (Brasília)`;
+
+export interface CertificadoDeAluno {
+  codigo: string;
+  nome: string;
+  trilha: string;
+  aulas: number;
+  emitido_em: string;
+}
+
+/**
+ * A folha do certificado de participação de quem estuda: a mesma folha A4 deitada do certificado de voluntariado
+ * (emblema, moldura, marca-d'água, assinatura eletrônica, número para conferir). É sempre um documento em português.
+ */
+export function FolhaDoAluno({ c }: { c: CertificadoDeAluno }) {
+  const endereco = `${site.url.replace(/^https?:\/\//, "")}/pt/certificado`;
+  return (
+    <article className="certificado" lang="pt-BR" translate="no">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/marca.png" alt="" className="certificado-fundo" />
+      <div className="certificado-folha">
+        <header>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/marca.png" alt="" className="certificado-emblema" />
+          <p className="certificado-casa">{site.name}</p>
+          <h2 className="certificado-titulo">Certificado</h2>
+          <p className="certificado-subtitulo">de participação</p>
+        </header>
+        <div className="certificado-corpo">
+          <p>O {site.name}, projeto educacional gratuito e sem fins lucrativos, certifica que</p>
+          <p className="certificado-nome">{c.nome}</p>
+          <p>
+            concluiu a trilha de estudos <strong>“{c.trilha}”</strong>, com <strong>{c.aulas} {c.aulas === 1 ? "aula" : "aulas"}</strong>, na escola popular e gratuita do instituto.
+          </p>
+          <p className="certificado-lei">Certificado de participação em curso livre, emitido pela conclusão de todas as aulas da trilha.</p>
+        </div>
+        <ul className="certificado-assinaturas" style={{ gridTemplateColumns: "1fr" }}>
+          <li style={{ width: "40%", margin: "0 auto" }}>
+            <span className="certificado-selo">Emitido eletronicamente em {quando(c.emitido_em)}</span>
+            <span className="certificado-assina">{site.name}</span>
+            <span className="certificado-cargo">Escola popular e gratuita</span>
+          </li>
+        </ul>
+        <footer>
+          <p>
+            Certificado nº {codigoBonito(c.codigo)} · emitido em {new Date(c.emitido_em).toLocaleDateString("pt-BR", { timeZone: "America/Sao_Paulo" })} · confira a autenticidade em {endereco}
+          </p>
+        </footer>
+      </div>
+    </article>
+  );
+}
 
 /**
  * O selo de trilha concluída e o certificado de participação. O progresso é o do aparelho; o certificado guarda no site
@@ -18,9 +69,15 @@ const escapar = (t: string) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<":
 export function CertificadoDaTrilha({ ids, trilha, titulo, s }: { ids: string[]; trilha: string; titulo: string; s: Dict["tracks"] }) {
   const hidratado = useHydrated();
   const feitas = useCompleted();
-  const { lang } = useI18n();
   const [nome, setNome] = useState("");
   const [estado, setEstado] = useState<"" | "ocupado" | "erro">("");
+  const [pronto, setPronto] = useState<CertificadoDeAluno | null>(null);
+  useEffect(() => {
+    if (!pronto) return;
+    const fechar = (e: KeyboardEvent) => e.key === "Escape" && setPronto(null);
+    window.addEventListener("keydown", fechar);
+    return () => window.removeEventListener("keydown", fechar);
+  }, [pronto]);
   const concluida = ids.length > 0 && ids.every((id) => feitas.has(id));
   if (!hidratado || !concluida) return null;
 
@@ -28,23 +85,7 @@ export function CertificadoDaTrilha({ ids, trilha, titulo, s }: { ids: string[];
     setEstado("ocupado");
     try {
       const { codigo, emitido_em } = await rpc<{ codigo: string; emitido_em: string }>("certificado_aluno_emitir", { p_nome: nome.trim(), p_trilha: trilha, p_titulo: titulo, p_aulas: ids.length });
-      const data = new Intl.DateTimeFormat(htmlLang[lang], { dateStyle: "long" }).format(new Date(emitido_em));
-      const conferir = `${location.origin}/${lang}/certificado?codigo=${codigo}`;
-      const janela = window.open("", "_blank");
-      if (!janela) throw new Error("janela");
-      janela.document.write(`<!doctype html><html lang="${htmlLang[lang]}"><head><meta charset="utf-8"><title>${escapar(s.certTitle)}</title><style>
-        @page{size:A4 landscape;margin:0}body{margin:0;font-family:Georgia,'Times New Roman',serif;background:#f4ecd8;color:#1f1a14}
-        .folha{box-sizing:border-box;width:297mm;height:210mm;padding:22mm 26mm;border:10px solid #8b1e1e;display:flex;flex-direction:column;justify-content:space-between}
-        h1{font-size:34pt;margin:0;letter-spacing:.02em}.sub{font:600 11pt system-ui,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#8b1e1e}
-        .texto{font-size:19pt;line-height:1.5}.nome{font-size:28pt;font-weight:700;border-bottom:2px solid #1f1a14;display:inline-block;padding:0 6mm}
-        .rodape{font:10pt system-ui,sans-serif;display:flex;justify-content:space-between;gap:10mm}code{font-size:12pt}
-      </style></head><body><div class="folha"><div><p class="sub">Instituto Lúcia · institutolucia.org</p><h1>${escapar(s.certTitle)}</h1></div>
-      <p class="texto">${escapar(fill(s.certText, { nome: "\u0000", n: ids.length, trilha: titulo })).replace("\u0000", `<span class="nome">${escapar(nome.trim())}</span>`)}</p>
-      <div class="rodape"><span>${escapar(data)}</span><span>${escapar(fill(s.certCode, { c: codigo }))}<br><code>${escapar(conferir)}</code></span></div></div>
-      </body></html>`);
-      janela.document.close();
-      // Sem script dentro da página nova (a política de segurança do site não deixa): quem manda imprimir é esta aba.
-      setTimeout(() => janela.print(), 400);
+      setPronto({ codigo, emitido_em, nome: nome.trim(), trilha: titulo, aulas: ids.length });
       setEstado("");
     } catch {
       setEstado("erro");
@@ -65,6 +106,20 @@ export function CertificadoDaTrilha({ ids, trilha, titulo, s }: { ids: string[];
         </div>
       )}
       {estado === "erro" && <p className="mt-2 text-oxblood" role="status">{s.certFailed}</p>}
+      {pronto && (
+        <div role="dialog" aria-modal="true" aria-label={s.certTitle} className="certificado-janela fixed inset-0 z-50 overflow-y-auto bg-[#1c1712]/85 p-4 sm:p-8">
+          {/* Enquanto a folha está aberta, a impressão é A4 deitada e sem margens. */}
+          <style>{"@page { size: A4 landscape; margin: 0; }"}</style>
+          <div className="no-print mx-auto mb-4 flex max-w-5xl flex-wrap items-center gap-3 text-[#f4ecd8]">
+            <button type="button" onClick={() => window.print()} className="cursor-pointer bg-[#c21f16] px-5 py-2.5 font-bold text-white hover:bg-[#a51810]">{s.certPrint}</button>
+            <button type="button" onClick={() => setPronto(null)} className="cursor-pointer border-2 border-[#f4ecd8] px-4 py-2 font-semibold">{s.certClose}</button>
+            <p className="w-full text-xs opacity-80">{s.certPrintHint}</p>
+          </div>
+          <div className="mx-auto max-w-5xl shadow-2xl">
+            <FolhaDoAluno c={pronto} />
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -717,7 +717,10 @@
     "certFailed": "Não deu para gerar agora. Tente de novo em alguns minutos.",
     "certTitle": "Certificado de participação",
     "certText": "O Instituto Lúcia certifica que {nome} estudou as {n} aulas da trilha “{trilha}”, na escola popular e gratuita do instituto.",
-    "certCode": "Número de verificação: {c}"
+    "certCode": "Número de verificação: {c}",
+    "certPrint": "Salvar em PDF ou imprimir",
+    "certClose": "Fechar",
+    "certPrintHint": "Na janela de impressão, escolha “Salvar como PDF”, papel A4 e ligue “Gráficos de plano de fundo”."
   },
   "lesson": {
     "position": "aula {i} de {n}",
