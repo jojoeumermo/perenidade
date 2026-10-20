@@ -1,6 +1,6 @@
 # Texto para a página de privacidade: VLibras
 
-Entra em `content/paginas/privacidade.md` **no mesmo dia em que o recurso `vlibras` for ligado** (veja `docs/RECURSOS.md`), nem antes nem depois. Sugestão de lugar: depois do parágrafo sobre os serviços públicos e abertos que o servidor do instituto consulta.
+Já está em `content/paginas/privacidade.md` (desde 20/10/2026), depois do parágrafo sobre os serviços públicos e abertos que o servidor do instituto consulta. Se o recurso `vlibras` for desligado de vez, tire o parágrafo de lá.
 
 ---
 

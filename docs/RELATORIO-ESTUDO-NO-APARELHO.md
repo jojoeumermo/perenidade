@@ -108,7 +108,7 @@ Conferido no navegador embutido, com o build de produção, em computador (1440 
 1. **Ligar os recursos**, quando quiser, na Vercel (`NEXT_PUBLIC_RECURSOS`), começando, se fizer sentido, por `meu-estudo,exercicios,revisoes`. Antes, olhar a prévia que a Vercel monta para o ramo `estudo-no-aparelho` (já enviado ao GitHub; a prévia usa as variáveis de prévia, então os recursos só aparecem ligados se `NEXT_PUBLIC_RECURSOS` estiver definida para prévias).
 2. **Revisão humana:** os 30 exercícios estão "em revisão"; as ligações BNCC/Enem estão "a confirmar".
 3. **Medição:** escolher entre as opções de `docs/MEDIR-SE-AS-AULAS-FUNCIONAM.md`.
-4. **VLibras:** conferir o avatar num aparelho de verdade e pôr o texto de `docs/privacidade-vlibras.md` na página de privacidade no dia de ligar.
+4. **VLibras:** o aviso já está na página de privacidade (20/10/2026). Falta conferir o avatar num aparelho de verdade.
 5. **Recomendações de identidade visual:** o dourado das peças antigas, as fontes pré-carregadas, a ordem dos títulos e as contas no Kindle.
 6. **Traduções:** os textos das telas novas (`i18n/estudo/`) já estão nos seis idiomas, com as mesmas chaves e marcadores (conferido por script). Vale a leitura de quem fala cada idioma. O conteúdo em si (exercícios, guia do professor, planos de aula) segue só em português, com o aviso.
 7. **Juntar ao master:** não fiz, como pedido.

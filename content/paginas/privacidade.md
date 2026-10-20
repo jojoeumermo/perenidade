@@ -4,7 +4,7 @@ sobretitulo: "Seus dados"
 resumo: "O que o site guarda, por quanto tempo e como você apaga. Escrito para ser lido, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018)."
 ---
 
-Atualizada em 15 de outubro de 2026.
+Atualizada em 20 de outubro de 2026.
 
 ## Em uma frase
 
@@ -25,6 +25,8 @@ O site não usa cookies de publicidade, não tem pixel de rede social e não car
 Nenhum site funciona sem que alguém entregue as páginas. O instituto contrata serviços de hospedagem, de proteção contra ataques e de guarda de dados. Para fazer esse trabalho, eles processam dados técnicos da sua visita, como o endereço de rede (IP), e podem gravar um cookie técnico de segurança. Parte dos servidores fica fora do Brasil.
 
 Algumas partes do site mostram dados de serviços públicos e abertos: os números da página Dados do povo (Banco Central, IBGE e Câmara dos Deputados), o quadro "Neste dia" (Wikipédia), o dicionário, as frases traduzidas e a pesquisa de fontes do painel. Quem consulta esses serviços é o servidor do instituto, nunca o seu navegador: eles não ficam sabendo quem você é nem o que você leu. Quando você procura uma checagem de fatos, só as palavras da busca seguem, a partir do nosso servidor, para o serviço de checagens do Google. E, ao criar ou trocar uma senha, o site confere se ela já apareceu em vazamentos conhecidos (serviço Have I Been Pwned) sem enviar a senha: o seu aparelho calcula um resumo dela e só os cinco primeiros caracteres desse resumo saem, também pelo nosso servidor.
+
+**Libras (VLibras).** No botão de acessibilidade há a opção de ativar o VLibras, o tradutor de português para Libras do Governo Federal. Ele só é carregado se você clicar em "Ativar" e confirmar o aviso. A partir daí, o seu navegador baixa o tradutor diretamente dos endereços do governo (o repositório oficial do VLibras e os serviços em vlibras.gov.br), e o texto que você escolher traduzir é enviado a esses serviços. Como em qualquer site, eles recebem o endereço de rede do seu aparelho. O próprio tradutor guarda no seu navegador a escolha de deixá-lo aberto. Se você marcar "Lembrar neste aparelho", o site guarda só essa escolha, e o tradutor passa a carregar sozinho nas próximas páginas; para desfazer, use "Não carregar sozinho" no mesmo lugar, ou apague tudo em [Meus dados](/meus-dados). O Instituto Lúcia não controla o VLibras. As tentativas do tradutor de enviar dados para serviços de métrica de terceiros são bloqueadas pela política de segurança do site, na página; o avatar roda num quadro à parte, sob as regras do próprio serviço.
 
 O site não conta visitas nem usa ferramenta nenhuma de medição de audiência. Na página de entrada e nos formulários, uma verificação automática confere se quem está do outro lado é uma pessoa e não um robô.
 
