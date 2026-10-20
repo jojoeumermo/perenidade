@@ -28,10 +28,11 @@ export default async function Page({ params }: PageProps<"/[lang]/questoes">) {
         {t.lists.bankLead}
       </PageHeading>
       <p className="mt-6 font-sans text-sm">
-        <Link href={`${localePath(lang, "/contribuir")}?tipo=questao`} className="inline-block bg-ink px-4 py-2 font-semibold text-parchment hover:bg-oxblood">{t.lists.bankSend} →</Link>
+        <Link href={`${localePath(lang, "/contribuir")}?tipo=questao`} className="inline-block bg-ink px-4 py-2 font-semibold text-parchment hover:bg-oxblood">{t.lists.bankSend} →</Link>{" "}
+        <a href="#provas-publicas" className="ml-2 inline-block border-2 border-ink px-4 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{t.lists.publicTitle} ↓</a>
       </p>
-      <BancoDeQuestoes questoes={questoes} />
       <ProvasPublicas s={t.lists} />
+      <BancoDeQuestoes questoes={questoes} />
     </div>
   );
 }

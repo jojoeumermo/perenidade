@@ -206,7 +206,7 @@
     "mockNotEnough": "Il n'y a pas assez de questions dans cette discipline.",
     "mockSkipped": "sans réponse",
     "publicTitle": "Examens publics",
-    "publicLead": "{n} questions d'examens publics avec corrigé : l'ENEM depuis 2009, les concours d'entrée de l'Unicamp et de la Fuvest (USP) et l'examen du barreau (OAB). La liste se met à jour toute seule chaque semaine ; les corrections commentées sont écrites par les éducateurs de l'institut.",
+    "publicLead": "{n} questions d'examens publics avec corrigé : ENEM depuis 2009, concours d'entrée (Fuvest depuis 1981, Unicamp, ITA et IME), olympiades de maths avec l'OBMEP, examen de l'OAB, Revalida et internats de l'Enare. Choisissez la source et l'épreuve ci-dessous. La liste se met à jour seule chaque semaine ; les corrigés commentés sont rédigés par les éducateurs de l'institut.",
     "publicExam": "Examen",
     "publicArea": "Domaine",
     "publicAllAreas": "Tous les domaines",

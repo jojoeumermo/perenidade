@@ -206,7 +206,7 @@
     "mockNotEnough": "Não há questões suficientes nessa disciplina.",
     "mockSkipped": "em branco",
     "publicTitle": "Provas públicas",
-    "publicLead": "{n} questões de provas públicas com gabarito: o ENEM desde 2009, os vestibulares da Unicamp e da Fuvest (USP) e o Exame da OAB. A lista se atualiza sozinha toda semana; as resoluções comentadas são escritas pelos educadores do instituto.",
+    "publicLead": "{n} questões de provas públicas com gabarito: ENEM desde 2009, vestibulares (Fuvest desde 1981, Unicamp, ITA e IME), olimpíadas de matemática com a OBMEP, Exame da OAB, Revalida e residências do Enare. Escolha a fonte e a prova logo abaixo. A lista se atualiza sozinha toda semana; as resoluções comentadas são escritas pelos educadores do instituto.",
     "publicExam": "Prova",
     "publicArea": "Área",
     "publicAllAreas": "Todas as áreas",

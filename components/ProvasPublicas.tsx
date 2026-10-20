@@ -146,7 +146,7 @@ export function ProvasPublicas({ s }: { s: S }) {
   }
 
   return (
-    <section className="mt-12 font-sans text-sm" aria-labelledby="provas-publicas">
+    <section className="mt-10 scroll-mt-4 font-sans text-sm" aria-labelledby="provas-publicas">
       <h2 id="provas-publicas" className="border-b border-rule pb-2 font-serif text-2xl font-semibold">{s.publicTitle}</h2>
       <p className="mt-2 text-ink-soft">{fill(s.publicLead, { n: total.toLocaleString(lang) })}</p>
       <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">

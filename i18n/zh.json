@@ -202,7 +202,7 @@
     "mockNotEnough": "这个学科的题目不够。",
     "mockSkipped": "未作答",
     "publicTitle": "公开考试",
-    "publicLead": "{n} 道带答案的公开考试题：2009 年以来的 ENEM、坎皮纳斯州立大学和圣保罗大学（Fuvest）入学考试，以及巴西律师资格考试（OAB）。列表每周自动更新；带讲解的解答由学院的教育者撰写。",
+    "publicLead": "{n} 道带答案的公开考试题：2009 年以来的 ENEM、大学入学考试（1981 年以来的 Fuvest、Unicamp、ITA 和 IME）、包括 OBMEP 在内的数学奥赛、OAB 律师考试、Revalida 和 Enare 住院医师考试。在下方选择来源和考试。列表每周自动更新；解析由学院的教育者撰写。",
     "publicExam": "考试",
     "publicArea": "领域",
     "publicAllAreas": "全部领域",
