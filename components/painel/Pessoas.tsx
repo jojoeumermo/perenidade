@@ -5,9 +5,10 @@ import { useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { can, leads, type Me, nivelDe, nivelDoPapel, porNivel, type Role, rpc } from "@/lib/backend";
 import { useI18n } from "../I18n";
-import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, oQueFaz, PAINEL_MUDOU, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, GRUPOS_DEPARTAMENTO, nomeDoDepartamento, oQueFaz, PAINEL_MUDOU, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Convites } from "./Convites";
+import { Departamentos, FotosParaAprovar, TermosAceitos } from "./PessoasExtras";
 
 interface Candidatura {
   id: string;
@@ -226,10 +227,11 @@ export function Pessoas({ me }: { me: Me }) {
   /** Quem vai receber a função: escolhida na busca, não numa lista com todo mundo. */
   const [quem, setQuem] = useState<PessoaAchada | null>(null);
   const [filtro, setFiltro] = useState("");
-  const [aba, setAba] = useState<"equipe" | "funcao" | "convites" | "pedidos">("equipe");
+  const [aba, setAba] = useState<"equipe" | "funcao" | "convites" | "pedidos" | "departamentos" | "fotos" | "termos">("equipe");
+  const aprova = can(me, "coordenacao", "vice");
   /** A ficha aberta: uma de cada vez, para a lista continuar curta. */
   const [aberta, setAberta] = useState<string | null>(null);
-  const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? papeis[slug as Role["papel"]] ?? slug) : "todo o site");
+  const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? nomeDoDepartamento(slug)) : "todo o site");
   const pendentes = coordena ? (pedidos.dados?.filter((pedido) => pedido.status === "pendente") ?? []) : [];
   const visiveis = pessoas.dados?.filter((pessoa) => `${pessoa.nome} ${pessoa.email}`.toLowerCase().includes(filtro.toLowerCase())) ?? [];
   const [grupo, setGrupo] = useState<"equipe" | "comunidade">("equipe");
@@ -246,9 +248,14 @@ export function Pessoas({ me }: { me: Me }) {
         opcoes={[
           { id: "equipe", nome: "Pessoas" },
           { id: "funcao", nome: "Confiar função" },
+          { id: "departamentos", nome: "Departamentos" },
           ...(coordena ? [{ id: "convites" as const, nome: "Convites" }, { id: "pedidos" as const, nome: "Candidaturas", conta: pendentes.length + novas.length }] : []),
+          ...(aprova ? [{ id: "fotos" as const, nome: "Fotos" }, { id: "termos" as const, nome: "Termos aceitos" }] : []),
         ]}
       />
+      {aba === "departamentos" && <Departamentos pessoas={pessoas.dados ?? []} />}
+      {aprova && aba === "fotos" && <FotosParaAprovar />}
+      {aprova && aba === "termos" && <TermosAceitos />}
       {coordena && (
         <div hidden={aba !== "convites"}>
           <Convites me={me} />
@@ -347,9 +354,16 @@ export function Pessoas({ me }: { me: Me }) {
               {novo.papel === "representante" ? (
                 <>
                   <option value="">Escolha o departamento…</option>
-                  {(["educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "design", "desenvolvimento"] as const).map((dep) => (
-                    <option key={dep} value={dep}>{papeis[dep]}</option>
-                  ))}
+                  <optgroup label="Educação, por área (reúne as disciplinas dela)">
+                    {Object.entries(GRUPOS_DEPARTAMENTO).map(([dep, nome]) => (
+                      <option key={dep} value={dep}>{nome}</option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="Funções">
+                    {(["educacao", "curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "design", "desenvolvimento", "saude"] as const).map((dep) => (
+                      <option key={dep} value={dep}>{papeis[dep]}</option>
+                    ))}
+                  </optgroup>
                 </>
               ) : (
                 <>
