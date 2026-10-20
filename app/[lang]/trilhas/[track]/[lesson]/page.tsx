@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { ExerciciosDaAula } from "@/components/ExerciciosDaAula";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AntesDaAula } from "@/components/AntesDaAula";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { CartaoDoEducador, EducadoresDaDisciplina } from "@/components/Educadores";
 import { PhetLista } from "@/components/labs/Phet";
@@ -18,7 +19,7 @@ import { StudyTools } from "@/components/StudyTools";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { defaultLocale, fill, htmlLang, localePath, plural } from "@/i18n/config";
-import { getGlossary, getTrack, getTracks } from "@/lib/content";
+import { getGlossary, getTrack, getTracks, requisitosDaAula, tambemEmOutras } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
 import { lessonId } from "@/lib/ids";
 import { withLangs } from "@/lib/params";
@@ -93,6 +94,9 @@ export default async function LessonPage({ params }: Props) {
   const exercicios = ligado("exercicios") ? exerciciosDaAula(track.slug, lesson.slug) : [];
   const revisoes = ligado("revisoes") ? revisoesDaAula(lesson.file) : [];
   const habilidades = ligado("mapa-curricular") ? mapaDaAula(track.slug, lesson.slug) : null;
+  // O que é bom ter visto antes e as aulas parecidas em outras disciplinas ("também em Química").
+  const requisitos = requisitosDaAula(lang, track, lesson.slug);
+  const outras = tambemEmOutras(lang, track, lesson.slug);
 
   return (
     <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! md:grid-cols-[16rem_1fr]">
@@ -139,6 +143,7 @@ export default async function LessonPage({ params }: Props) {
         </div>
 
         <Untranslated lang={lang} t={t} show={!lesson.translated} />
+        <AntesDaAula aula={id} requisitos={requisitos} />
         {ligado("revisoes") && <EtiquetaDeRevisao revisoes={revisoes} aprovada={lesson.reviewed} lang={lang} s={estudo.revisao} corrigir={fix} como={ligado("guia-contribuir") ? to("/contribuir/guia#revisar") : undefined} />}
         {!ligado("revisoes") && !lesson.reviewed && (
           <p className="no-print mt-6 border-l-2 border-gold pl-4 font-sans text-sm text-ink-soft">
@@ -154,6 +159,20 @@ export default async function LessonPage({ params }: Props) {
           {exercicios.length > 0 && <ExerciciosComExplicacao exercicios={exercicios} aula={id} s={estudo.exercicios} corrigir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} praticar="/meu-estudo/praticar" />}
           {lesson.practice.length > 0 && <Pratica key={`pratica-${id}`} id={id} exercicios={lesson.practice} lingua={linguaDe(track.area)} s={t.practice} semPlacar={ligado("pratica-sem-placar")} lead={ligado("pratica-sem-placar") ? estudo.praticaSemPlacar.lead : undefined} />}
           <SourceList sources={lesson.sources} title={t.lesson.sources} />
+          {outras.length > 0 && (
+            <aside aria-label={t.lesson.alsoInTitle} className="no-print mt-10 border-t-4 border-[#c21f16] bg-parchment-deep p-4 font-sans text-sm">
+              <p className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-oxblood">{t.lesson.alsoInTitle}</p>
+              <ul className="mt-2 space-y-2">
+                {outras.map((o) => (
+                  <li key={o.id}>
+                    <span className="mr-2 inline-block border border-ink/40 px-1.5 font-mono text-[0.65rem] uppercase tracking-wider">{t.areas[o.area][0]}</span>
+                    <Link href={to(o.path)} className="font-semibold underline hover:text-oxblood">{o.title}</Link>
+                    <span className="text-ink-soft"> · {o.track}</span>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          )}
           {habilidades && <HabilidadesDaAula mapa={habilidades} s={estudo.mapa} />}
         </div>
 

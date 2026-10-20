@@ -20,7 +20,7 @@ export const areasPublicas = [
   { id: "materiais", nome: "Materiais de campanha", caminhos: ["/materiais"] },
   { id: "dados", nome: "Dados do povo", caminhos: ["/dados"] },
   { id: "videos", nome: "Vídeos e videoaulas", caminhos: ["/videos", "/videoaulas"] },
-  { id: "voluntariado", nome: "Voluntariado e apoio", caminhos: ["/voluntarios", "/apoie"] },
+  { id: "voluntariado", nome: "Voluntariado, apoio e o instituto", caminhos: ["/voluntarios", "/apoie", "/instituto"] },
   { id: "busca", nome: "Busca", caminhos: ["/busca"] },
   { id: "gaveta", nome: "Gaveta Aberta", caminhos: ["/gaveta"] },
 ] as const;

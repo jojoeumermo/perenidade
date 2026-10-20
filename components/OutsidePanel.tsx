@@ -2,10 +2,22 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useSyncExternalStore } from "react";
 
 /** O painel da equipe é um ambiente à parte: lá dentro não aparecem cabeçalho, rodapé, rádio nem menu do site. */
 export const inPanel = (pathname: string | null) => /^\/[a-z]{2}\/painel(\/|$)/.test(pathname ?? "");
 
+/** Aberta dentro de outra página do próprio site (um laboratório na caixa da aula): sem cabeçalho, rodapé nem rádio. */
+const embutida = () => {
+  try {
+    return window.self !== window.top;
+  } catch {
+    return true;
+  }
+};
+
 export function OutsidePanel({ children }: { children: React.ReactNode }) {
-  return inPanel(usePathname()) ? null : children;
+  const pathname = usePathname();
+  const dentroDeOutra = useSyncExternalStore(() => () => undefined, embutida, () => false);
+  return inPanel(pathname) || dentroDeOutra ? null : children;
 }
