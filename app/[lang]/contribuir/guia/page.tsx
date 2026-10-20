@@ -17,6 +17,30 @@ const ler = (arquivo: string) => fs.readFileSync(path.join(process.cwd(), arquiv
 /** O documento sem o título (#) do topo, que vem desta página, e com os subtítulos um nível abaixo (## vira ###). */
 const semTitulo = (texto: string) => texto.replace(/^#\s+.+\n+/, "").replace(/^(#{2,5}) /gm, "#$1 ");
 
+/**
+ * Página pública: só o que serve a quem escreve e revisa. Saem as seções de registro técnico (cabeçalho YAML, campos
+ * internos) e toda linha com comando ou caminho do repositório (npm run, content/, docs/, lib/), que ficam só em docs/.
+ */
+const SECOES_INTERNAS = /^(#{2,6})\s+(\d+\.\s*)?(Registrar|Revisão e créditos)/;
+function paraOPublico(texto: string) {
+  const saida: string[] = [];
+  let pulando = 0;
+  for (const linha of texto.split("\n")) {
+    const titulo = /^(#{2,6})\s/.exec(linha);
+    if (titulo) {
+      if (pulando && titulo[1].length <= pulando) pulando = 0;
+      if (!pulando && SECOES_INTERNAS.test(linha)) {
+        pulando = titulo[1].length;
+        continue;
+      }
+    }
+    if (pulando) continue;
+    if (/npm run|`(content|docs|lib|scripts)\//.test(linha)) continue;
+    saida.push(linha);
+  }
+  return saida.join("\n");
+}
+
 export async function generateMetadata({ params }: PageProps<"/[lang]/contribuir/guia">): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const { s } = textosDoEstudo(lang);
@@ -50,14 +74,14 @@ export default async function Page({ params }: PageProps<"/[lang]/contribuir/gui
         </a>
       </nav>
       <div className="mt-8" lang="pt-BR">
-        <Markdown lang={lang}>{guia.content}</Markdown>
+        <Markdown lang={lang}>{paraOPublico(guia.content)}</Markdown>
       </div>
       <section id="modelo" aria-labelledby="guia-modelo" className="mt-12 border-t border-rule pt-6" lang="pt-BR">
         <h2 id="guia-modelo" className="text-3xl font-semibold">
           {s.guia.modelo}
         </h2>
         <div className="mt-4">
-          <Markdown lang={lang}>{semTitulo(ler("docs/MODELO-DE-AULA.md"))}</Markdown>
+          <Markdown lang={lang}>{paraOPublico(semTitulo(ler("docs/MODELO-DE-AULA.md")))}</Markdown>
         </div>
       </section>
       <section id="revisar" aria-labelledby="guia-revisar" className="mt-12 border-t border-rule pt-6" lang="pt-BR">
@@ -65,7 +89,7 @@ export default async function Page({ params }: PageProps<"/[lang]/contribuir/gui
           {s.guia.checklist}
         </h2>
         <div className="mt-4">
-          <Markdown lang={lang}>{semTitulo(ler("docs/CHECKLIST-DE-REVISAO.md"))}</Markdown>
+          <Markdown lang={lang}>{paraOPublico(semTitulo(ler("docs/CHECKLIST-DE-REVISAO.md")))}</Markdown>
         </div>
       </section>
     </div>
