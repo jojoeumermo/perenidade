@@ -861,7 +861,13 @@ body {
   color: #5c5245;
 }
 @media print {
+  .certificado-janela {
+    position: static !important;
+    background: none !important;
+    padding: 0 !important;
+  }
   .certificado {
+    z-index: 9999;
     position: fixed;
     inset: 0;
     width: 297mm;
