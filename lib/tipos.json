@@ -9,7 +9,8 @@
     "campos": [
       { "nome": "trilha", "rotulo": "Trilha", "tipo": "trilha", "obrigatorio": true },
       { "nome": "slug", "rotulo": "Aula do roteiro", "tipo": "plano" },
-      { "nome": "resumo", "rotulo": "Resumo (uma linha)", "tipo": "texto", "obrigatorio": true, "max": 200 }
+      { "nome": "resumo", "rotulo": "Resumo (uma linha)", "tipo": "texto", "obrigatorio": true, "max": 200 },
+      { "nome": "requisitos", "rotulo": "Antes desta aula, é bom ter visto (opcional)", "tipo": "requisitos" }
     ]
   },
   "obra": {

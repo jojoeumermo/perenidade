@@ -768,7 +768,13 @@
     "videoOpen": "Ouvrir la vidéo dans un autre onglet",
     "imagePending": "image en attente de publication",
     "toMistakes": "Les questions ratées vont dans votre cahier d'erreurs.",
-    "studyInNotebook": "Étudier ce cours dans le cahier"
+    "studyInNotebook": "Étudier ce cours dans le cahier",
+    "beforeTitle": "Avant ce cours",
+    "beforeLead": "Il vaut mieux avoir vu avant :",
+    "beforeKnow": "Je connais déjà, continuer",
+    "beforeDone": "terminé",
+    "beforeMissing": "pas encore",
+    "alsoInTitle": "Aussi dans d'autres disciplines"
   },
   "library": {
     "areasTitle": "Domaines",
@@ -4431,5 +4437,8 @@
     "title": "J'ai trouvé un bug",
     "lead": "Quelque chose ne s'ouvre pas, bloque, s'affiche mal ou avec le mauvais texte ? Dites-le ici : cela va directement à ceux qui maintiennent le code du site.",
     "description": "Signalez un bug du site de l'Instituto Lúcia : ce qui n'a pas marché et où. Sans compte et sans conserver votre adresse réseau."
+  },
+  "instituto": {
+    "description": "Raison d'être, mission, vision, valeurs et charte de fonctionnement (statuts) de l'Instituto Lúcia : une école et une bibliothèque gratuites, tenues par des bénévoles."
   }
 }

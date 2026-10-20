@@ -763,7 +763,13 @@
     "videoOpen": "在新标签页中打开视频",
     "imagePending": "图片等待发布",
     "toMistakes": "答错的题会进入你的错题本。",
-    "studyInNotebook": "在笔记本中学习这节课"
+    "studyInNotebook": "在笔记本中学习这节课",
+    "beforeTitle": "学习本课之前",
+    "beforeLead": "最好先学过：",
+    "beforeKnow": "我已经会了，继续",
+    "beforeDone": "已完成",
+    "beforeMissing": "尚未",
+    "alsoInTitle": "其他学科中的相关内容"
   },
   "library": {
     "areasTitle": "领域",
@@ -4359,5 +4365,8 @@
     "title": "我发现了一个错误",
     "lead": "有东西打不开、卡住、显示错乱或文字错误？在这里告诉我们：会直接送到维护网站代码的人手里。",
     "description": "报告 Instituto Lúcia 网站的错误：哪里出了什么问题。无需账号，也不保存你的网络地址。"
+  },
+  "instituto": {
+    "description": "Instituto Lúcia 的宗旨、使命、愿景、价值观和运作章程：由志愿者维持的免费学校和图书馆。"
   }
 }
