@@ -16,6 +16,8 @@ import { Estatistica, TabelaVerdade } from "@/components/tools/Dados";
 import { Cronometro, Redacao, Silabario } from "@/components/tools/Estudo";
 import { Resolvedor } from "@/components/tools/Resolvedor";
 import { Ceu } from "@/components/tools/novas/Ceu";
+import { DicionarioChines, EscritaChinesa } from "@/components/tools/novas/Chines";
+import { CorretorOrtografico } from "@/components/tools/novas/Ortografia";
 import { Algoritmos, Criptografia, Grafos } from "@/components/tools/novas/Computacao";
 import { CalculadorasDeEletronica } from "@/components/tools/novas/Eletronica";
 import { PalavrasGeradoras, Referencias } from "@/components/tools/novas/Escrita";
@@ -40,7 +42,7 @@ export function generateStaticParams() {
 
 const isTool = (value: string): value is ToolId => (tools as readonly string[]).includes(value);
 /** As ferramentas da rodada nova: a interface e os exercícios estão em português por enquanto. */
-const NOVAS_EM_PT = new Set<string>(["algoritmos", "criptografia", "grafos", "sudoku", "referencias-abnt", "palavras-geradoras", "solidos", "contas-do-dia-a-dia", "tons-do-mandarim", "alfabetos", "ceu", "calculadoras-de-eletronica", "direitos-trabalhistas"]);
+const NOVAS_EM_PT = new Set<string>(["algoritmos", "criptografia", "grafos", "sudoku", "referencias-abnt", "palavras-geradoras", "solidos", "contas-do-dia-a-dia", "tons-do-mandarim", "alfabetos", "ceu", "calculadoras-de-eletronica", "direitos-trabalhistas", "dicionario-chines", "escrita-chinesa", "corretor-ortografico"]);
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/ferramentas/[tool]">): Promise<Metadata> {
   const { t } = await loadLang(params);
@@ -108,6 +110,9 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
     "ceu": <div lang="pt-BR"><Ceu /></div>,
     "calculadoras-de-eletronica": <div lang="pt-BR"><CalculadorasDeEletronica /></div>,
     "direitos-trabalhistas": <div lang="pt-BR"><DireitosDoTrabalhador /></div>,
+    "dicionario-chines": <div lang="pt-BR"><DicionarioChines /></div>,
+    "escrita-chinesa": <div lang="pt-BR"><EscritaChinesa /></div>,
+    "corretor-ortografico": <div lang="pt-BR"><CorretorOrtografico /></div>,
   };
 
   // O que mais serve a quem está aqui: ferramentas das mesmas matérias e os laboratórios dessas matérias.
