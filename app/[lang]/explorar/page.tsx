@@ -68,6 +68,8 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         [n.mural, "/mural", d.mural],
         [n.community, "/comunidade", d.community ?? n.community],
         [n.health, "/saude", d.health],
+        [n.rightsGuide, "/direitos", d.rightsGuide],
+        [n.events, "/eventos", d.events],
         [n.reportBug, "/relatar-erro", d.bugs],
       ].map(([label, path, description]) => ({ label, path, description })),
     },
@@ -75,8 +77,14 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
       title: t.lists.help,
       items: [
         [n.volunteers, "/voluntarios", d.volunteers],
+        [n.volunteerTasks, "/voluntarie-se", d.volunteerTasks],
         [n.contribute, "/contribuir", d.contribute],
         [n.support, "/apoie", d.support],
+        [n.spreadKit, "/divulgue", d.spreadKit],
+        [n.contributors, "/contribuidores", d.contributors],
+        [n.conduct, "/conduta", d.conduct],
+        [n.usePolicy, "/uso", d.usePolicy],
+        [n.copyright, "/direitos-autorais", d.copyright],
       ].map(([label, path, description]) => ({ label, path, description })),
     },
     {
