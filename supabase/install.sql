@@ -12976,6 +12976,228 @@ revoke all on function interno.revisa_caderno(text) from public, anon, authentic
 revoke all on function interno.caderno_pronto_json(interno.cadernos_prontos) from public, anon, authenticated;
 revoke all on function interno.resolve_questoes() from public, anon, authenticated;
 
+-- ───────────────────────────── Atividade do site ─────────────────────────────
+-- Tudo o que a galera posta (envios de conteúdo, o que vai ao ar, Comunidade, anotações, Mural dos Trabalhadores, Gaveta
+-- Aberta, reforço, aulas em vídeo e ao vivo, podcast, artes do estúdio e o Mural da equipe) vira uma linha aqui, para a
+-- coordenação acompanhar. Do Mural da equipe só entra que houve publicação e em qual canal: o texto é cifrado e fica lá.
+-- Cada pessoa da coordenação escolhe como quer saber: só no painel, um e-mail a cada postagem ou um resumo por dia.
+create table if not exists interno.atividade (
+  id uuid primary key default gen_random_uuid(),
+  tipo text not null check (tipo ~ '^[a-z_]{3,30}$'),
+  titulo text not null default '' check (char_length(titulo) <= 200),
+  resumo text not null default '' check (char_length(resumo) <= 400),
+  link text not null default '' check (char_length(link) <= 300),
+  autor uuid references interno.perfis (id) on delete set null,
+  autor_nome text not null default '' check (char_length(autor_nome) <= 120),
+  publico boolean not null default true,
+  criado_em timestamptz not null default now()
+);
+create index if not exists atividade_recente on interno.atividade (criado_em desc);
+create index if not exists atividade_tipo on interno.atividade (tipo, criado_em desc);
+
+create table if not exists interno.atividade_assinaturas (
+  usuario uuid primary key references interno.perfis (id) on delete cascade,
+  modo text not null default 'painel' check (modo in ('painel', 'cada', 'resumo')),
+  -- Os tipos que vão por e-mail (vazio: todos). No painel aparece tudo, com filtro.
+  tipos text[] not null default '{}',
+  visto_em timestamptz not null default now(),
+  resumo_em timestamptz
+);
+alter table interno.atividade enable row level security;
+alter table interno.atividade_assinaturas enable row level security;
+
+/** Quem acompanha a atividade do site: coordenação e coordenação pedagógica. */
+create or replace function interno.acompanha() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or interno.tem('vice')
+$$;
+
+/**
+ * Registra uma postagem e manda o e-mail para quem assina "a cada postagem". Nunca impede ninguém de postar: qualquer
+ * falha aqui é engolida (no pior caso, a linha não aparece).
+ */
+create or replace function interno.atividade_nova(p_tipo text, p_titulo text, p_resumo text, p_link text, p_autor uuid, p_publico boolean) returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_nome text; r record; v_link text;
+begin
+  v_nome := coalesce((select nome from perfis where id = p_autor), '');
+  v_link := left(coalesce(p_link, ''), 300);
+  insert into atividade (tipo, titulo, resumo, link, autor, autor_nome, publico)
+  values (p_tipo, left(coalesce(p_titulo, ''), 200), left(regexp_replace(coalesce(p_resumo, ''), '\s+', ' ', 'g'), 400), v_link, p_autor, left(v_nome, 120), coalesce(p_publico, true));
+  for r in select distinct u.email from atividade_assinaturas s
+             join papeis p on p.usuario = s.usuario and p.papel in ('coordenacao', 'vice')
+             join auth.users u on u.id = s.usuario join perfis f on f.id = s.usuario
+           where s.modo = 'cada' and not f.suspenso and coalesce(u.email, '') <> '' and s.usuario is distinct from p_autor
+             and (cardinality(s.tipos) = 0 or p_tipo = any (s.tipos)) loop
+    perform interno.email(r.email, 'atividade', left('Novo no site: ' || coalesce(p_titulo, ''), 200),
+      coalesce(p_titulo, '') || case when v_nome <> '' then E'\nPor ' || interno.primeiro_nome(v_nome) else '' end
+        || case when coalesce(p_resumo, '') <> '' then E'\n\n' || left(p_resumo, 300) else '' end
+        || E'\n\n' || interno.endereco() || '/pt' || case when v_link like '/%' then v_link else '/painel?aba=atividade' end
+        || E'\n\nPara mudar estes avisos: painel, Atividade do site, Como me avisar.',
+      '', 80);
+  end loop;
+  if random() < 0.01 then delete from atividade where criado_em < now() - interval '180 days'; end if;
+exception when others then null;
+end $$;
+
+create or replace function interno.atividade_rotulo(p_tipo text) returns text language sql immutable as $$
+  select case p_tipo when 'aula' then 'Aula' when 'obra' then 'Obra para o acervo' when 'artigo' then 'Matéria para o jornal' when 'checagem' then 'Checagem'
+    when 'debate' then 'Resposta para debate' when 'verbete' then 'Verbete' when 'memorial' then 'Nome para o Memorial' when 'video' then 'Vídeo indicado'
+    when 'frase' then 'Frase' when 'traducao' then 'Tradução' when 'correcao' then 'Correção' when 'sugestao' then 'Sugestão' when 'questao' then 'Questão'
+    when 'avulso' then 'Material avulso' when 'temas' then 'Próximas aulas' when 'pratica' then 'Prática de idioma' else initcap(coalesce(p_tipo, 'Envio')) end
+$$;
+
+create or replace function interno.atividade_gatilho() returns trigger language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  case tg_table_name
+    when 'contribuicoes' then
+      if tg_op = 'INSERT' then
+        perform interno.atividade_nova('envio', interno.atividade_rotulo(new.tipo) || ': ' || new.titulo, coalesce(new.disciplina, ''),
+          case when new.como = 'publico' then '/painel?aba=triagem' else '/painel?aba=fila' end, new.autor, new.como = 'publico');
+      elsif new.status = 'publicada' and old.status is distinct from 'publicada' then
+        perform interno.atividade_nova('no_ar', 'No ar: ' || new.titulo, interno.atividade_rotulo(new.tipo), '/painel?aba=fila', new.autor, new.como = 'publico');
+      end if;
+    when 'topicos' then
+      perform interno.atividade_nova('comunidade', 'Pergunta na Comunidade: ' || new.titulo, left(new.corpo, 300), '/comunidade?t=' || new.id, new.autor, true);
+    when 'respostas' then
+      perform interno.atividade_nova('comunidade', 'Resposta na Comunidade: ' || coalesce((select titulo from topicos where id = new.topico), ''), left(new.corpo, 300), '/comunidade?t=' || new.topico, new.autor, true);
+    when 'anotacoes' then
+      perform interno.atividade_nova('anotacao', 'Anotação numa aula', left(new.corpo, 300), new.caminho, new.autor, true);
+    when 'mural' then
+      perform interno.atividade_nova('mural', 'Mural dos Trabalhadores: ' || new.titulo, new.cidade || coalesce(' · ' || nullif(new.uf, ''), ''), '/painel?aba=mural', new.autor, true);
+    when 'gaveta' then
+      perform interno.atividade_nova('gaveta', 'Gaveta Aberta: ' || new.titulo, new.tipo || ' · ' || new.disciplina, '/painel?aba=gaveta', new.autor, true);
+    when 'reforco' then
+      perform interno.atividade_nova('reforco', 'Pedido de reforço: ' || new.assunto, new.disciplina, '/painel?aba=reforco', new.autor, true);
+    when 'videoaulas' then
+      perform interno.atividade_nova('video', 'Aula em vídeo: ' || new.titulo, new.disciplina, '/painel?aba=videoaulas', new.autor, false);
+    when 'aulas_ao_vivo' then
+      perform interno.atividade_nova('aovivo', 'Aula ao vivo marcada: ' || new.titulo, to_char(new.inicio at time zone 'America/Sao_Paulo', 'DD/MM HH24:MI') || ' · ' || new.disciplina, '/painel?aba=aovivo', new.educador, false);
+    when 'podcast_episodios' then
+      perform interno.atividade_nova('podcast', 'Episódio de podcast: ' || new.titulo, left(new.resumo, 300), '/painel?aba=podcast', new.criado_por, false);
+    when 'designs' then
+      perform interno.atividade_nova('arte', 'Arte no estúdio: ' || new.titulo, new.formato, '/painel?aba=estudio', new.autor, false);
+    when 'equipe_mensagens' then
+      perform interno.atividade_nova('equipe', case when new.resposta_a is null then 'Publicação no Mural da equipe' else 'Resposta no Mural da equipe' end, 'canal ' || new.canal, '/painel?aba=rede', new.autor, false);
+    else null;
+  end case;
+  return new;
+exception when others then
+  return new;
+end $$;
+
+do $$
+declare t text;
+begin
+  foreach t in array array['contribuicoes', 'topicos', 'respostas', 'anotacoes', 'mural', 'gaveta', 'reforco', 'videoaulas', 'aulas_ao_vivo', 'podcast_episodios', 'designs', 'equipe_mensagens'] loop
+    if to_regclass('interno.' || t) is not null then
+      execute format('drop trigger if exists atividade on interno.%I', t);
+      if t = 'contribuicoes' then
+        execute 'create trigger atividade after insert or update of status on interno.contribuicoes for each row execute function interno.atividade_gatilho()';
+      else
+        execute format('create trigger atividade after insert on interno.%I for each row execute function interno.atividade_gatilho()', t);
+      end if;
+    end if;
+  end loop;
+end $$;
+
+create or replace function interno.atividade_json(a interno.atividade) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('id', a.id, 'tipo', a.tipo, 'titulo', a.titulo, 'resumo', a.resumo, 'link', a.link, 'autor', interno.nome_visto(nullif(a.autor_nome, '')),
+    'publico', a.publico, 'criado_em', a.criado_em, 'minha', a.autor = auth.uid())
+$$;
+
+/** A linha do tempo (60 por vez, das mais novas para trás), com o que eu já vi e como quero ser avisado. */
+create or replace function public.atividade_listar(p_antes timestamptz default null, p_tipo text default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s atividade_assinaturas;
+begin
+  if not interno.acompanha() then perform interno.erro('sem_permissao'); end if;
+  select * into s from atividade_assinaturas where usuario = v;
+  return jsonb_build_object(
+    'itens', (select coalesce(jsonb_agg(interno.atividade_json(a) order by a.criado_em desc), '[]'::jsonb)
+              from (select * from atividade where (p_antes is null or criado_em < p_antes) and (p_tipo is null or tipo = p_tipo) order by criado_em desc limit 60) a),
+    'visto_em', coalesce(s.visto_em, now() - interval '7 days'),
+    'modo', coalesce(s.modo, 'painel'),
+    'tipos', to_jsonb(coalesce(s.tipos, '{}'::text[])),
+    'contagem', (select coalesce(jsonb_object_agg(tipo, n), '{}'::jsonb) from (select tipo, count(*) as n from atividade where criado_em > now() - interval '7 days' group by tipo) c));
+end $$;
+
+/** Para o menu e os avisos do navegador: quantas postagens eu não vi e a mais nova. Quem não acompanha recebe zero. */
+create or replace function public.atividade_resumo() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_desde timestamptz;
+begin
+  if v is null or not interno.acompanha() then return jsonb_build_object('nao_vistas', 0); end if;
+  v_desde := coalesce((select visto_em from atividade_assinaturas where usuario = v), now() - interval '7 days');
+  return jsonb_build_object(
+    'nao_vistas', (select count(*) from atividade where criado_em > v_desde and autor is distinct from v),
+    'ultima', (select interno.atividade_json(a) from atividade a where autor is distinct from v order by criado_em desc limit 1));
+end $$;
+
+create or replace function public.atividade_visto() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.acompanha() then perform interno.erro('sem_permissao'); end if;
+  insert into atividade_assinaturas (usuario, visto_em) values (v, now()) on conflict (usuario) do update set visto_em = now();
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.atividade_assinar(p_modo text, p_tipos text[] default '{}') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_tipos text[];
+begin
+  if not interno.acompanha() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_modo, '') not in ('painel', 'cada', 'resumo') then perform interno.erro('invalido:modo'); end if;
+  v_tipos := array(select distinct x from unnest(coalesce(p_tipos, '{}'::text[])) x
+                   where x in ('envio', 'no_ar', 'comunidade', 'anotacao', 'mural', 'gaveta', 'reforco', 'video', 'aovivo', 'podcast', 'arte', 'equipe'));
+  insert into atividade_assinaturas (usuario, modo, tipos) values (v, p_modo, v_tipos)
+  on conflict (usuario) do update set modo = excluded.modo, tipos = excluded.tipos;
+  perform interno.registrar('atividade_assinar', p_modo, jsonb_build_object('tipos', v_tipos));
+  return jsonb_build_object('modo', p_modo, 'tipos', to_jsonb(v_tipos));
+end $$;
+
+/**
+ * O resumo do dia, às 20h (horário de Brasília), para quem escolheu "um resumo por dia": quantas postagens de cada tipo
+ * e as mais recentes. Roda de hora em hora pelo agendador do banco; cada pessoa recebe no máximo um por dia.
+ */
+create or replace function interno.atividade_resumos() returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+declare r record; v_desde timestamptz; v_texto text; v_total integer;
+begin
+  if extract(hour from now() at time zone 'America/Sao_Paulo') < 20 then return; end if;
+  for r in select s.usuario, s.resumo_em, s.tipos, u.email from atividade_assinaturas s
+             join auth.users u on u.id = s.usuario join perfis f on f.id = s.usuario
+           where s.modo = 'resumo' and not f.suspenso and coalesce(u.email, '') <> ''
+             and exists (select 1 from papeis p where p.usuario = s.usuario and p.papel in ('coordenacao', 'vice'))
+             and (s.resumo_em is null or (s.resumo_em at time zone 'America/Sao_Paulo')::date < (now() at time zone 'America/Sao_Paulo')::date) loop
+    v_desde := coalesce(r.resumo_em, now() - interval '1 day');
+    select count(*) into v_total from atividade where criado_em > v_desde and (cardinality(r.tipos) = 0 or tipo = any (r.tipos));
+    update atividade_assinaturas set resumo_em = now() where usuario = r.usuario;
+    if v_total = 0 then continue; end if;
+    select string_agg(to_char(criado_em at time zone 'America/Sao_Paulo', 'HH24:MI') || ' · ' || titulo, E'\n' order by criado_em desc) into v_texto
+      from (select criado_em, titulo from atividade where criado_em > v_desde and (cardinality(r.tipos) = 0 or tipo = any (r.tipos)) order by criado_em desc limit 25) x;
+    perform interno.email(r.email, 'atividade_resumo', v_total || ' postagem(ns) no site hoje',
+      'O que a galera postou desde o último resumo:' || E'\n\n' || v_texto || case when v_total > 25 then E'\n… e mais ' || (v_total - 25) || '.' else '' end
+        || E'\n\n' || interno.endereco() || '/pt/painel?aba=atividade', '', 3);
+  end loop;
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura, n.nspname from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where p.prokind = 'f' and n.nspname in ('public', 'interno') and (p.proname like 'atividade%' or p.proname = 'acompanha') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    if f.nspname = 'public' then
+      execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+    elsif exists (select 1 from pg_roles where rolname = 'anon') then
+      execute format('revoke all on function %s from anon, authenticated', f.assinatura);
+    end if;
+  end loop;
+end $$;
+
+do $$
+begin
+  if exists (select 1 from pg_extension where extname = 'pg_cron') then
+    perform cron.schedule('lucia-atividade-resumo', '7 * * * *', 'select interno.atividade_resumos()');
+  end if;
+exception when others then null;
+end $$;
+
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança
 -- por linha até a próxima execução deste arquivo. Aqui, no fim, toda tabela do esquema interno fica com a segurança por
