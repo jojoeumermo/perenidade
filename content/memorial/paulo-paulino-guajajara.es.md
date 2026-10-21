@@ -1,0 +1,1 @@
+Integrante de los Guardianes del Bosque, grupo de indígenas guajajara que vigilaba la Tierra Indígena Arariboia contra la invasión de madereros ilegales, en una zona donde también viven indígenas awá aislados. Lo conocían como Lobo. Fue asesinado en una emboscada de madereros el 1 de noviembre de 2019. Otro guardián, Laércio Guajajara, resultó herido y sobrevivió.
