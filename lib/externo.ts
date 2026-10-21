@@ -43,6 +43,11 @@ const permitidos = [
 const AGENTE = "InstitutoLucia/1.0 (+https://institutolucia.org)";
 /** Nenhuma resposta de fora passa deste tamanho: o que vier maior é descartado. */
 const MAXIMO = 2_000_000;
+/** Quantos redirecionamentos seguidos são aceitos, e só para endereços que também estão na lista. */
+const SALTOS = 2;
+
+/** Só https e só os destinos da lista: vale para o endereço pedido e para cada redirecionamento. */
+export const permitido = (url: URL) => url.protocol === "https:" && permitidos.includes(url.hostname);
 
 export interface Opcoes {
   /** Por quantos segundos a resposta fica guardada no servidor. */
@@ -62,13 +67,33 @@ export async function buscarTexto(endereco: string, { guardar = 3600, prazo = 80
   } catch {
     return null;
   }
-  if (url.protocol !== "https:" || !permitidos.includes(url.hostname)) return null;
+  if (!permitido(url)) return null;
   try {
-    const resposta = await fetch(url, {
+    let resposta = await fetch(url, {
       headers: { "User-Agent": AGENTE, Accept: "application/json, text/xml;q=0.9, */*;q=0.5", ...cabecalhos },
       signal: AbortSignal.timeout(prazo),
+      // Redirecionamentos não são seguidos às cegas: o destino também precisa estar na lista (abaixo).
+      redirect: "manual",
       next: { revalidate: guardar },
     });
+    for (let salto = 0; salto < SALTOS && resposta.status >= 300 && resposta.status < 400; salto++) {
+      const destino = resposta.headers.get("location");
+      if (!destino) return null;
+      let proximo: URL;
+      try {
+        proximo = new URL(destino, url);
+      } catch {
+        return null;
+      }
+      if (!permitido(proximo)) return null;
+      resposta = await fetch(proximo, {
+        headers: { "User-Agent": AGENTE, Accept: "application/json, text/xml;q=0.9, */*;q=0.5", ...cabecalhos },
+        signal: AbortSignal.timeout(prazo),
+        redirect: "manual",
+        next: { revalidate: guardar },
+      });
+    }
+    if (resposta.status >= 300 && resposta.status < 400) return null;
     if (resposta.status === 404 && se404 !== undefined) return se404;
     if (!resposta.ok) return null;
     const texto = await resposta.text();
