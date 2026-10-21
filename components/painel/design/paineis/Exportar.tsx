@@ -7,6 +7,8 @@ import { sendFile } from "@/lib/upload";
 import { textoDoErro } from "../../comum";
 import { conferirProjeto, creditosDo } from "../conferir";
 import { baixarArquivo, baixarFormatos, baixarImagens, comPagina, EXTENSAO, gravarVideo, type OpcoesDeImagem, pacoteDaCampanha, pdfDaGrafica, separacaoDeCores, tipoDeVideo, type TipoDeImagem } from "../exportacao";
+import { AVISO_DO_LABORATORIO, citaOInstituto } from "../laboratorio";
+import { baixarSvg, pdfVetorial } from "../vetor";
 import { Icone } from "../Icone";
 import { adaptar, exportar, formatoDe, formatoPorMedida, type FormatoId, FORMATOS, nomeDeArquivo } from "../motor";
 import { BOTAO, BOTAO_PRIMARIO, Chave, Dialogo, Faixa, ItemDeMenu, Menu, Miniatura, ROTULO, useEditor } from "../ui";
@@ -17,6 +19,7 @@ export function MenuBaixar({ aberto, fechar }: { aberto: boolean; fechar: () => 
   const varias = ed.projeto.paginas.length > 1;
   const rapido = async (tipo: TipoDeImagem, todas = false) => {
     fechar();
+    if (!ed.podeExportar()) return;
     try {
       ed.progresso(0.1, "Exportando");
       await baixarImagens(ed.projeto, ed.titulo, { tipo, qualidade: 0.92, escala: 1 }, todas ? ed.projeto.paginas.map((_, i) => i) : [ed.pagina], ed.vars, (f) => ed.progresso(f, "Exportando"));
@@ -74,6 +77,7 @@ export function JanelaBaixar({ fechar }: { fechar: () => void }) {
   const [ocupado, setOcupado] = useState(false);
   const [nomeNoSite, setNomeNoSite] = useState(ed.titulo);
   const problemas = useMemo(() => conferirProjeto(ed.projeto), [ed.projeto]);
+  const bloqueada = ed.laboratorio && citaOInstituto(ed.projeto);
   const erros = problemas.filter((p) => p.nivel === "erro");
   const avisos = problemas.filter((p) => p.nivel === "aviso");
   const opcoes: OpcoesDeImagem = { tipo, qualidade, escala };
@@ -82,6 +86,7 @@ export function JanelaBaixar({ fechar }: { fechar: () => void }) {
   const temAnimacao = ed.doc.camadas.some((c) => c.anim);
 
   const fazer = async (rotulo: string, f: () => Promise<void>) => {
+    if (!ed.podeExportar()) return;
     setOcupado(true);
     try {
       ed.progresso(0.05, rotulo);
@@ -105,6 +110,12 @@ export function JanelaBaixar({ fechar }: { fechar: () => void }) {
 
   return (
     <Dialogo titulo="Baixar" fechar={fechar} largura="max-w-4xl">
+      {bloqueada && (
+        <div className="mb-4 flex items-start gap-3 rounded-lg border border-[#c21f16] bg-[#c21f16]/8 p-3 text-sm" role="alert">
+          <Icone nome="alerta" className="mt-0.5 h-5 w-5 text-[#c21f16]" />
+          <p className="min-w-0 flex-1">{AVISO_DO_LABORATORIO} Tire o nome da arte para baixar.</p>
+        </div>
+      )}
       {(erros.length > 0 || avisos.length > 0) && (
         <div className={`mb-4 flex items-start gap-3 rounded-lg border p-3 text-sm ${erros.length ? "border-[#c21f16] bg-[#c21f16]/8" : "border-e-ouro bg-e-ouro/10"}`} role="status">
           <Icone nome="alerta" className={`mt-0.5 h-5 w-5 ${erros.length ? "text-[#c21f16]" : "text-e-ouro"}`} />
@@ -240,6 +251,38 @@ export function JanelaBaixar({ fechar }: { fechar: () => void }) {
             })}>
               <Icone nome="camadas" className="h-4 w-4" /> Baixar os fotolitos
             </button>
+          </section>
+          <section className="space-y-3 border-t border-e-fio pt-4 md:col-span-2">
+            <h3 className="font-serif text-lg font-semibold">Vetor, com o texto em curvas</h3>
+            <p className="text-sm text-e-suave">
+              As letras viram desenho (a gráfica não precisa ter a fonte) e formas, marca, mapas, ícones e QR continuam vetoriais: ampliam sem perder a nitidez, para faixa, adesivo, recorte em vinil ou bordado. Fotos e efeitos de textura entram como imagem.
+            </p>
+            {impresso && <p className="text-xs text-e-suave">No PDF vetorial, a sangria e as marcas de corte seguem as escolhas acima; o que passa da borda da arte aparece na sangria.</p>}
+            <div className="flex flex-wrap gap-2">
+              <button type="button" className={BOTAO_PRIMARIO} disabled={ocupado} onClick={() => void fazer("PDF vetorial", async () => {
+                const pdf = await pdfVetorial(ed.projeto, ed.titulo, ed.vars, { sangria, marcas }, andamento("PDF vetorial"));
+                baixarArquivo(pdf, `${nomeDeArquivo(ed.titulo)}-vetorial.pdf`);
+                ed.avisar("PDF vetorial baixado.");
+              })}>
+                <Icone nome="impressora" className="h-4 w-4" /> PDF vetorial
+              </button>
+              <button type="button" className={BOTAO} disabled={ocupado} onClick={() => void fazer("SVG", async () => {
+                const { blob, nome } = await baixarSvg(ed.projeto, ed.titulo, [ed.pagina], ed.vars);
+                baixarArquivo(blob, nome);
+                ed.avisar("SVG baixado.");
+              })}>
+                <Icone nome="baixar" className="h-4 w-4" /> SVG desta página
+              </button>
+              {ed.projeto.paginas.length > 1 && (
+                <button type="button" className={BOTAO} disabled={ocupado} onClick={() => void fazer("SVG", async () => {
+                  const { blob, nome } = await baixarSvg(ed.projeto, ed.titulo, ed.projeto.paginas.map((_, i) => i), ed.vars, andamento("SVG"));
+                  baixarArquivo(blob, nome);
+                  ed.avisar("SVGs baixados (.zip).");
+                })}>
+                  <Icone nome="zip" className="h-4 w-4" /> SVG de todas as páginas
+                </button>
+              )}
+            </div>
           </section>
         </div>
       )}

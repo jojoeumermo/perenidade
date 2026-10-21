@@ -40,6 +40,7 @@ const iniciais = (nome: string) =>
 
 /** Abre o PSD no editor avançado (PhotoCraft): baixa o arquivo e abre o editor em outra aba. */
 export async function abrirNoAvancado(ed: ReturnType<typeof useEditor>) {
+  if (!ed.podeExportar()) return;
   try {
     ed.progresso(0.2, "Montando o PSD");
     usarVariaveis(variaveisDaPagina(ed.projeto, ed.pagina));

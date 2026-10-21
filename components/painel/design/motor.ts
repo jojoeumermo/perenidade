@@ -266,6 +266,20 @@ const familia = (fonte: Fonte) =>
   familias ? familias[fonte] : fonte === "serifa" ? "Georgia, serif" : fonte === "mono" ? "monospace" : fonte === "manuscrita" ? "cursive" : "system-ui, sans-serif";
 export const NOMES_DAS_FONTES: Record<Fonte, string> = { serifa: "EB Garamond", sans: "Inter", mono: "IBM Plex Mono", manuscrita: "Caveat (à mão)" };
 
+// ───── Laboratório público ─────
+
+let laboratorio = false;
+/**
+ * No laboratório público de design (no site, sem conta), o estúdio não desenha a marca do instituto: nem nas
+ * artes abertas de um arquivo, nem coladas de outro lugar. Material do instituto se faz no painel.
+ */
+export function modoLaboratorio(sim: boolean) {
+  laboratorio = sim;
+}
+export const emLaboratorio = () => laboratorio;
+/** Quem assina o que sai do estúdio (a linha da gráfica, os dados do PDF e do SVG). */
+export const assinatura = () => (laboratorio ? "Laboratório público de design" : "Instituto Lúcia");
+
 // ───── Variáveis ({link}, {arroba}, {data}, {pagina}, {total}) ─────
 
 let variaveis: Record<string, string> = {};
@@ -426,7 +440,7 @@ export function linhasDe(c: CamadaTexto): string[] {
 }
 
 /** A flecha do arco: o quanto o texto em arco desce (ou sobe) nas pontas. */
-function flecha(c: CamadaTexto, d: Diagramacao) {
+export function flecha(c: CamadaTexto, d: Diagramacao) {
   if (!c.curva) return 0;
   const maior = Math.max(1, ...d.linhas.map((l) => l.largura));
   const teta = (Math.abs(c.curva) * Math.PI) / 180;
@@ -509,7 +523,7 @@ export async function prepararImagem(arquivo: Blob, ladoMaior = 1400): Promise<s
   return tela.toDataURL(png ? "image/png" : "image/jpeg", 0.85);
 }
 
-type FonteDeImagem = CanvasImageSource & { width: number; height: number };
+export type FonteDeImagem = CanvasImageSource & { width: number; height: number };
 const tratadas = new Map<string, HTMLCanvasElement>();
 const precisaTratar = (c: CamadaImagem) => Boolean(c.fundoRemovido || c.recorte || c.girar || c.espelhar || c.virar || c.brilho || c.contraste || c.saturacao || c.temperatura || c.filtro !== "nenhum");
 const resumo = (s: string | undefined) => (!s ? "" : s.length > 200 ? `${s.slice(0, 60)}${s.length}${s.slice(-60)}` : s);
@@ -798,6 +812,8 @@ function preencherComGradiente(ctx: CanvasRenderingContext2D, g: Gradiente, w: n
 const ESTRELA = [60, 10, 66.29, 29.35, 86.63, 29.35, 70.17, 41.31, 76.46, 60.65, 60, 48.7, 43.54, 60.65, 49.83, 41.31, 33.37, 29.35, 53.71, 29.35];
 const LIVRO_E = "M56 108V76C46 69 31 67 12 71V101C31 97 46 100 56 108Z";
 const LIVRO_D = "M64 108V76C74 69 89 67 108 71V101C89 97 74 100 64 108Z";
+/** O símbolo como caminhos SVG (para a exportação vetorial), no mesmo quadrado de 120 × 120. */
+export const CAMINHOS_DO_SIMBOLO = [`M${ESTRELA.join(" ")}Z`, LIVRO_E, LIVRO_D];
 
 /** O símbolo do instituto (estrela sobre o livro aberto), no quadrado de 120 × 120 do desenho original. */
 function simbolo(ctx: CanvasRenderingContext2D, cor: string) {
@@ -914,6 +930,8 @@ function desenharLinhaEmArco(ctx: CanvasRenderingContext2D, c: CamadaTexto, linh
   ctx.textAlign = "center";
   let s = 0;
   for (const p of linha.pecas) {
+    // Cada pedaço começa onde a diagramação pôs (o espaço entre as palavras não é um pedaço).
+    s = p.x;
     ctx.font = p.fonte;
     for (const ch of p.texto) {
       const largura = ctx.measureText(ch).width;
@@ -946,6 +964,7 @@ function desenharLinhaEmArco(ctx: CanvasRenderingContext2D, c: CamadaTexto, linh
 }
 
 function desenharMarca(ctx: CanvasRenderingContext2D, c: CamadaMarca) {
+  if (laboratorio) return;
   const lado = Math.min(c.w, c.h);
   if (c.variante === "circulo") {
     ctx.fillStyle = c.fundo;
@@ -1233,6 +1252,70 @@ export function desenhar(tela: HTMLCanvasElement, doc: Documento, escala = 1, op
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, doc.w, doc.h);
   }
+}
+
+/**
+ * Uma camada desenhada só na caixa dela (com folga para sombra e contorno), numa tela à parte: para o SVG e o PDF
+ * vetorial, quando a camada tem um efeito que só existe como imagem.
+ */
+export function recorteDaCamada(c: Camada, escala = 2): { tela: HTMLCanvasElement; x: number; y: number; w: number; h: number } {
+  const b = caixa(c);
+  const folga = Math.max(b.w, b.h) * 0.12 + (c.tipo === "texto" ? Math.abs(c.sombraX ?? 0) + Math.abs(c.sombraY ?? 0) + c.tamanho : 0);
+  const x = b.x - folga;
+  const y = b.y - folga;
+  const w = b.w + 2 * folga;
+  const h = b.h + 2 * folga;
+  // Nunca mais de 6.000 pixels de lado (o navegador recusa telas enormes).
+  const k = Math.min(escala, 6000 / Math.max(w, h, 1));
+  const tela = document.createElement("canvas");
+  tela.width = Math.max(1, Math.ceil(w * k));
+  tela.height = Math.max(1, Math.ceil(h * k));
+  const ctx = tela.getContext("2d");
+  if (ctx) {
+    ctx.scale(k, k);
+    ctx.translate(-x, -y);
+    desenharCamada(ctx, c, undefined, 0);
+  }
+  return { tela, x, y, w, h };
+}
+
+/**
+ * O que cobre a página inteira por cima das camadas e não tem desenho vetorial: a falha de tinta da serigrafia (a
+ * cor do papel aparecendo em pontinhos, igual ao que o desenho faz ao "comer" a tinta) e a vinheta. Transparente
+ * onde não há efeito; nulo quando a página não tem nenhum dos dois.
+ */
+export function coberturaDaPagina(doc: Documento, escala = 2): HTMLCanvasElement | null {
+  const f = doc.fundo;
+  const serigrafia = f.textura === "serigrafia";
+  if (!serigrafia && !(f.vinheta && f.vinheta > 0)) return null;
+  const tela = document.createElement("canvas");
+  tela.width = Math.max(1, Math.round(doc.w * escala));
+  tela.height = Math.max(1, Math.round(doc.h * escala));
+  const ctx = tela.getContext("2d");
+  if (!ctx) return null;
+  ctx.scale(escala, escala);
+  if (serigrafia) {
+    const padrao = ctx.createPattern(grao(), "repeat");
+    if (padrao) {
+      padrao.setTransform(new DOMMatrix().scale(Math.max(1, doc.w / 700)));
+      ctx.globalAlpha = 0.55;
+      ctx.fillStyle = padrao;
+      ctx.fillRect(0, 0, doc.w, doc.h);
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = "source-in";
+      ctx.fillStyle = f.cor;
+      ctx.fillRect(0, 0, doc.w, doc.h);
+      ctx.globalCompositeOperation = "source-over";
+    }
+  }
+  if (f.vinheta && f.vinheta > 0) {
+    const grad = ctx.createRadialGradient(doc.w / 2, doc.h / 2, Math.min(doc.w, doc.h) * 0.35, doc.w / 2, doc.h / 2, Math.hypot(doc.w, doc.h) / 2);
+    grad.addColorStop(0, "rgba(23, 19, 14, 0)");
+    grad.addColorStop(1, `rgba(23, 19, 14, ${Math.min(0.85, f.vinheta)})`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, doc.w, doc.h);
+  }
+  return tela;
 }
 
 /** Uma camada sozinha, numa tela à parte do tamanho da página (para o PSD, a separação de cores e o vetor). */
@@ -1572,6 +1655,7 @@ export const NOMES_DOS_ELEMENTOS: Record<CamadaElemento["desenho"], string> = {
   punho: "Punho erguido",
   "punho-cartaz": "Punho de cartaz",
   brasil: "Mapa do Brasil",
+  "brasil-estados": "Mapa dos estados",
   icone: "Ícone",
   qr: "Código QR",
   ornamento: "Ornamento",

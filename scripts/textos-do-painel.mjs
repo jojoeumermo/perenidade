@@ -98,8 +98,9 @@ function nomeDaChamada(no) {
   return "";
 }
 
-/** Cores e degradês de CSS, letras do canvas ("italic 600 40px ...") e comandos de PDF: nunca são texto para gente. */
+/** Cores e degradês de CSS, letras do canvas ("italic 600 40px ..."), comandos de PDF e marcação de SVG: nunca são texto para gente. */
 const desenhoOuPdf = (texto) =>
+  /^<[?!/a-zA-Z]/.test(texto) ||
   /\b(rgba?|linear-gradient|repeating-linear-gradient|polygon|repeat|minmax|var)\(/.test(texto) ||
   /^xref\b|\bDo Q$|^q \{\d+\}/.test(texto) ||
   /^(italic\s+)?(\d{3}|\{\d+\})\s.*px\b/.test(texto) ||

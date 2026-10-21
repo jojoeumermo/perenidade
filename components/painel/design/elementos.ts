@@ -6,7 +6,7 @@
 // (0, 0, w, h), já com a rotação e a opacidade aplicadas por quem chama.
 
 import QRCode from "qrcode";
-import { BRASIL, FOICE_E_MARTELO, PUNHO, PUNHO_CARTAZ } from "./desenhos";
+import { BRASIL, ESTADOS, FOICE_E_MARTELO, PUNHO, PUNHO_CARTAZ } from "./desenhos";
 import { ICONES, type NomeDoIcone } from "./icones";
 
 export type Desenho =
@@ -14,6 +14,7 @@ export type Desenho =
   | "punho"
   | "punho-cartaz"
   | "brasil"
+  | "brasil-estados"
   | "icone"
   | "qr"
   | "ornamento"
@@ -33,7 +34,7 @@ export interface DadosDoElemento {
   fundo: string;
   /** Espessura do traço (ícones, raios, ornamento), em pontos da arte. */
   espessura: number;
-  /** O texto do QR, do carimbo (em cima) e do selo. */
+  /** O texto do QR, do carimbo (em cima) e do selo; no mapa dos estados, as siglas em destaque (SP, RJ…). */
   conteudo: string;
   /** O texto de baixo do carimbo. */
   conteudo2: string;
@@ -43,7 +44,7 @@ export interface DadosDoElemento {
 }
 
 /** Desenhos de caminho (vetores livres), com a caixa original e o deslocamento. */
-const VETORES = {
+export const VETORES = {
   "foice-martelo": { ...FOICE_E_MARTELO, caminhos: FOICE_E_MARTELO.caminhos },
   punho: { ...PUNHO, desloca: [0, 0] as const },
   "punho-cartaz": { ...PUNHO_CARTAZ, desloca: [0, 0] as const },
@@ -130,6 +131,25 @@ export function desenharElemento(ctx: CanvasRenderingContext2D, e: DadosDoElemen
     return;
   }
   switch (e.desenho) {
+    case "brasil-estados": {
+      // Os 27 estados: os escolhidos (siglas no conteúdo) na segunda cor, os outros na cor principal, com fios claros.
+      const lado = Math.min(w, h);
+      const destaque = new Set((e.conteudo || "").toUpperCase().split(/[^A-Z]+/).filter(Boolean));
+      ctx.save();
+      ctx.translate(w / 2, h / 2);
+      ctx.scale(lado / 1000, lado / 1000);
+      for (const estado of ESTADOS) {
+        const p = caminhos(`uf:${estado.uf}`, [estado.d])[0];
+        ctx.fillStyle = destaque.has(estado.uf) ? e.fundo || "#c21f16" : cor;
+        ctx.fill(p, "evenodd");
+      }
+      ctx.strokeStyle = "rgba(251, 247, 236, 0.9)";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = Math.max(0.6, e.espessura || 1.4);
+      for (const estado of ESTADOS) ctx.stroke(caminhos(`uf:${estado.uf}`, [estado.d])[0]);
+      ctx.restore();
+      return;
+    }
     case "icone": {
       const nome = e.icone && e.icone in ICONES ? e.icone : "estrela";
       const lado = Math.min(w, h);
@@ -205,7 +225,7 @@ export function desenharElemento(ctx: CanvasRenderingContext2D, e: DadosDoElemen
       ctx.letterSpacing = `${tamanho * 0.12}px`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      textoEmCirculo(ctx, (e.conteudo || "Instituto Lúcia").toUpperCase(), cx, cy, r * 0.85, -Math.PI / 2, false);
+      if (e.conteudo) textoEmCirculo(ctx, e.conteudo.toUpperCase(), cx, cy, r * 0.85, -Math.PI / 2, false);
       if (e.conteudo2) textoEmCirculo(ctx, e.conteudo2.toUpperCase(), cx, cy, r * 0.85, Math.PI / 2, true);
       ctx.letterSpacing = "0px";
       ctx.fill(estrelaPath(cx, cy + r * 0.03, r * 0.42));
@@ -234,7 +254,7 @@ export function desenharElemento(ctx: CanvasRenderingContext2D, e: DadosDoElemen
       ctx.beginPath();
       ctx.arc(cx, cy, r * 0.74, 0, Math.PI * 2);
       ctx.stroke();
-      const linhas = (e.conteudo || "Lúcia,\npresente!").split("\n").slice(0, 4);
+      const linhas = (e.conteudo || "").split("\n").slice(0, 4);
       const tamanho = (r * 0.62) / Math.max(1.6, linhas.length * 1.05);
       ctx.fillStyle = miolo;
       ctx.font = `italic 600 ${tamanho}px ${letra.serifa}`;
