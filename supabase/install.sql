@@ -5818,7 +5818,29 @@ begin
         'duvidas', (select count(*) from topicos t where to_char(t.criado_em, 'YYYY-MM') = m.mes)) order by m.mes), '[]'::jsonb)
       from (select to_char(date_trunc('month', now()) - (n || ' months')::interval, 'YYYY-MM') as mes from generate_series(0, 5) n) m),
     'pedidos_de_disciplina', (select coalesce(jsonb_agg(jsonb_build_object('titulo', c.titulo, 'corpo', left(c.corpo, 400), 'criado_em', c.criado_em, 'status', c.status) order by c.criado_em desc), '[]'::jsonb)
-                              from (select * from contribuicoes where tipo = 'sugestao' order by criado_em desc limit 50) c));
+                              from (select * from contribuicoes where tipo = 'sugestao' order by criado_em desc limit 50) c),
+    -- O retrato geral, em contagens e tempos: tamanho da equipe por papel, o que chegou no ano, quanto a revisão demora,
+    -- quanto o reforço demora a ser atendido e o que está esperando alguém. Nenhum nome, nenhum e-mail.
+    'panorama', jsonb_build_object(
+      'equipe', (select count(distinct p.usuario) from papeis p join perfis f on f.id = p.usuario where not f.suspenso),
+      'por_papel', (select coalesce(jsonb_object_agg(x.papel, x.n), '{}'::jsonb)
+                    from (select p.papel, count(distinct p.usuario) as n from papeis p join perfis f on f.id = p.usuario where not f.suspenso group by p.papel) x),
+      'por_tipo_365d', (select coalesce(jsonb_object_agg(x.tipo, x.n), '{}'::jsonb)
+                        from (select tipo, count(*) as n from contribuicoes where criado_em > now() - interval '365 days' group by tipo) x),
+      'na_fila', (select count(*) from contribuicoes where status = 'pendente'),
+      'fila_mais_antiga_dias', (select coalesce(extract(day from now() - min(criado_em))::int, 0) from contribuicoes where status = 'pendente'),
+      'revisao_mediana_horas', (select coalesce(round((percentile_cont(0.5) within group (order by extract(epoch from revisado_em - criado_em)) / 3600)::numeric, 1), 0)
+                                from contribuicoes where revisado_em is not null and criado_em > now() - interval '180 days'),
+      'aprovadas_180d', (select count(*) from contribuicoes where status in ('aprovada', 'publicada', 'resolvida') and criado_em > now() - interval '180 days'),
+      'recusadas_180d', (select count(*) from contribuicoes where status = 'recusada' and criado_em > now() - interval '180 days'),
+      'reforco_atendidos_90d', (select count(*) from reforco where status = 'atendido' and criado_em > now() - interval '90 days'),
+      'reforco_validos_90d', (select count(*) from reforco where status <> 'cancelado' and criado_em > now() - interval '90 days'),
+      'reforco_espera_mediana_horas', (select coalesce(round((percentile_cont(0.5) within group (order by extract(epoch from atendido_em - criado_em)) / 3600)::numeric, 1), 0)
+                                       from reforco where atendido_em is not null and criado_em > now() - interval '180 days'),
+      'reforco_aberto_mais_antigo_dias', (select coalesce(extract(day from now() - min(criado_em))::int, 0) from reforco where status in ('aberto', 'em_atendimento')),
+      'erros_abertos', (select count(*) from erros_relatados where status in ('novo', 'visto')),
+      'saude_publicados', (select count(*) from saude_perfis where status = 'publicado'),
+      'saude_aguardando', (select count(*) from saude_perfis where status = 'aguardando')));
 end $$;
 
 create or replace function public.chat_relatos() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -12186,7 +12208,8 @@ begin
   select * into s from saude_perfis where usuario = p_usuario for update;
   if not found then perform interno.erro('nao_encontrado'); end if;
   if p_acao = 'verificar' then
-    if p_verificado_em is null or p_verificado_em > current_date or p_verificado_em <= current_date - 180 then perform interno.erro('invalido:data'); end if;
+    -- Um dia de folga no futuro: a data vem do relógio de quem confere, que pode estar num fuso adiante do banco.
+    if p_verificado_em is null or p_verificado_em > current_date + 1 or p_verificado_em <= current_date - 180 then perform interno.erro('invalido:data'); end if;
     update saude_perfis set verificado_em = p_verificado_em, verificado_por = v, verificacao_nota = interno.txt(p_nota, 'nota', 0, 500) where usuario = p_usuario;
   elsif p_acao = 'publicar' then
     if s.status = 'removido' then perform interno.erro('saude_removido'); end if;
