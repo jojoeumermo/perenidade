@@ -7,6 +7,7 @@ import type { Me } from "@/lib/backend";
 import { type Abertura, CHAVE_DO_RASCUNHO, lerRascunho, type Rascunho } from "./Estudio";
 import { Icone } from "./Icone";
 import type { NomeDoIcone } from "./icones";
+import { MODELOS_DO_LABORATORIO, VARIAVEIS_DO_LABORATORIO } from "./laboratorio";
 import { MODELOS, paginasDoModelo } from "./modelos";
 import { type CamadaTexto, FORMATOS, type FormatoId, miniatura, usarVariaveis } from "./motor";
 import { projetoNovo, proximasDatas, VARIAVEIS_PADRAO } from "./projeto";
@@ -31,21 +32,21 @@ const quanto = (ms: number) => {
   return h < 24 ? `há ${h} h` : `há ${Math.round(h / 24)} dia(s)`;
 };
 
-function MiniaturaDeModelo({ id }: { id: string }) {
+function MiniaturaDeModelo({ id, laboratorio }: { id: string; laboratorio: boolean }) {
   const [src, setSrc] = useState("");
   useEffect(() => {
-    const m = MODELOS.find((x) => x.id === id);
+    const m = (laboratorio ? MODELOS_DO_LABORATORIO : MODELOS).find((x) => x.id === id);
     if (!m) return;
     let vivo = true;
     void (async () => {
-      usarVariaveis({ ...VARIAVEIS_PADRAO, pagina: "01", total: "05" });
+      usarVariaveis({ ...(laboratorio ? VARIAVEIS_DO_LABORATORIO : VARIAVEIS_PADRAO), pagina: "01", total: "05" });
       const pronto = await miniatura(m.montar(), 240).catch(() => "");
       if (vivo) setSrc(pronto);
     })();
     return () => {
       vivo = false;
     };
-  }, [id]);
+  }, [id, laboratorio]);
   // eslint-disable-next-line @next/next/no-img-element
   return src ? <img src={src} alt="" className="h-full w-full object-contain" /> : <span className="block h-full w-full animate-pulse bg-rule/40" />;
 }
@@ -81,11 +82,13 @@ export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: 
     }
     // Vindo do calendário da divulgação ("Criar arte no Estúdio de design"): o título da peça entra no maior texto do modelo.
     let pedido: { titulo?: string; legenda?: string } | null = null;
-    try {
-      pedido = JSON.parse(window.sessionStorage.getItem("lucia:estudio-pedido") ?? "null");
-      window.sessionStorage.removeItem("lucia:estudio-pedido");
-    } catch {
-      pedido = null;
+    if (!laboratorio) {
+      try {
+        pedido = JSON.parse(window.sessionStorage.getItem("lucia:estudio-pedido") ?? "null");
+        window.sessionStorage.removeItem("lucia:estudio-pedido");
+      } catch {
+        pedido = null;
+      }
     }
     if (pedido?.titulo) {
       const modelo = MODELOS[0];
@@ -102,7 +105,10 @@ export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: 
   const datas = useMemo(() => (agora ? proximasDatas(new Date(agora), 3) : []), [agora]);
   const paraAprovar = can(me, "coordenacao") ? (trabalhos ?? []).filter((t) => t.status === "revisao") : [];
   const meus = (trabalhos ?? []).filter((t) => t.meu && (t.status === "ajustes"));
-  const sugeridos = (usados.length ? usados : ["post-proposito", "carrossel-completo", "story-aviso", "post-edicao-extra"]).map((id) => MODELOS.find((m) => m.id === id)).filter(Boolean).slice(0, 4);
+  // No laboratório público, só os modelos dele (sem a marca do instituto).
+  const catalogo = laboratorio ? MODELOS_DO_LABORATORIO : MODELOS;
+  const inicio = laboratorio ? ["lab-evento", "lab-carrossel", "lab-story-contagem", "lab-cartaz"] : ["post-proposito", "carrossel-completo", "story-aviso", "post-edicao-extra"];
+  const sugeridos = (usados.length ? usados : inicio).map((id) => catalogo.find((m) => m.id === id)).filter(Boolean).slice(0, 4);
   const fecharPrimeiroUso = () => {
     setPrimeiroUso(false);
     try {
@@ -123,10 +129,10 @@ export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: 
           <ol className="mt-4 grid gap-4 text-sm sm:grid-cols-4">
             {(
               [
-                ["modelos", "Escolha um modelo", "Todos já vêm com a identidade do instituto."],
+                ["modelos", "Escolha um modelo", laboratorio ? "Modelos livres, para qualquer projeto." : "Todos já vêm com a identidade do instituto."],
                 ["texto", "Troque o texto", "Duplo clique no texto da arte e escreva."],
                 ["verificar", "Confira", "O estúdio avisa de contraste, letra pequena e área cortada."],
-                ["baixar", "Guarde e baixe", "Guardar leva para a conta; Baixar entrega o PNG."],
+                ["baixar", "Guarde e baixe", laboratorio ? "Guardar fica neste aparelho; Baixar entrega o PNG." : "Guardar leva para a conta; Baixar entrega o PNG."],
               ] as [NomeDoIcone, string, string][]
             ).map(([icone, titulo, texto], i) => (
               <li key={titulo} className="flex gap-3">
@@ -142,7 +148,7 @@ export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: 
               </li>
             ))}
           </ol>
-          <button type="button" className="painel-botao mt-4 cursor-pointer bg-ink px-5 py-2.5 font-semibold text-parchment hover:bg-oxblood" onClick={() => { fecharPrimeiroUso(); abrir({ tipo: "modelo", modelo: MODELOS[0] }); }}>
+          <button type="button" className="painel-botao mt-4 cursor-pointer bg-ink px-5 py-2.5 font-semibold text-parchment hover:bg-oxblood" onClick={() => { fecharPrimeiroUso(); abrir({ tipo: "modelo", modelo: catalogo[0] }); }}>
             Abrir um exemplo
           </button>
         </section>
@@ -191,6 +197,7 @@ export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: 
         </details>
       </section>
 
+      {!laboratorio && (
       <section>
         <h2 className="font-serif text-2xl font-semibold">Datas que vêm aí</h2>
         <ul className="mt-3 grid gap-3 md:grid-cols-3">
@@ -211,6 +218,7 @@ export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: 
           })}
         </ul>
       </section>
+      )}
 
       {(paraAprovar.length > 0 || meus.length > 0) && (
         <section>
@@ -239,7 +247,7 @@ export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: 
             <li key={m!.id}>
               <button type="button" className="w-full cursor-pointer text-left" onClick={() => abrir({ tipo: "modelo", modelo: m! })}>
                 <span className="flex aspect-square items-center justify-center border border-rule bg-parchment-deep p-2 hover:border-ink">
-                  <MiniaturaDeModelo id={m!.id} />
+                  <MiniaturaDeModelo id={m!.id} laboratorio={laboratorio} />
                 </span>
                 <span className="mt-1 block truncate text-sm">{m!.nome}</span>
               </button>
