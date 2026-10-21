@@ -59,7 +59,11 @@ export function Vitrine({ estaticos }: { estaticos: Profissional[] }) {
       vivo = false;
     };
   }, []);
-  const todos = useMemo(() => [...estaticos, ...doBanco].sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR")), [estaticos, doBanco]);
+  // Quem já está no painel não aparece duas vezes: o cartão do arquivo cede lugar ao perfil publicado pelo painel.
+  const todos = useMemo(() => {
+    const doPainel = new Set(doBanco.map((p) => p.nome.toLowerCase()));
+    return [...doBanco, ...estaticos.filter((p) => !doPainel.has(p.nome.toLowerCase()))].sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
+  }, [estaticos, doBanco]);
   const areas = useMemo(() => [...new Set(todos.flatMap((p) => p.areas))].sort((a, b) => a.localeCompare(b, "pt-BR")), [todos]);
   const vistos = area ? todos.filter((p) => p.areas.includes(area)) : todos;
 

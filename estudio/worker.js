@@ -45,9 +45,20 @@ export async function emendar(pedido, env, chave) {
   return new Response(readable, { headers: h });
 }
 
+// O EffectCraft 0.11 sem nada no endereço abre a placa de vídeo em cada worker de quadros, quatro de uma vez, e trava
+// o navegador inteiro em muitos computadores. Quem chega à página sem escolher o modo vai para o estável (só a tela usa
+// a placa). Quem quer o WebGPU completo escolhe no site, que manda ?webgpu (parâmetro que o programa ignora).
+const MODO_ESTAVEL = { "/effectcraft/": "nogpuworkers", "/effectcraft/index.html": "nogpuworkers" };
+
 export default {
   async fetch(pedido, env) {
     if (pedido.method !== "GET" && pedido.method !== "HEAD") return new Response("Método não aceito", { status: 405 });
+    const endereco = new URL(pedido.url);
+    if (MODO_ESTAVEL[endereco.pathname]) {
+      // Só quando a pessoa abre a página: o service worker do programa baixa "./" para guardar e não pode receber redirecionamento.
+      if (!endereco.search && pedido.headers.get("Sec-Fetch-Mode") === "navigate") return Response.redirect(`${endereco.origin}${endereco.pathname}?${MODO_ESTAVEL[endereco.pathname]}`, 302);
+      return env.ASSETS.fetch(pedido);
+    }
     const chave = decodeURIComponent(new URL(pedido.url).pathname).replace(/^\/+/, "");
     if (!chave || chave.includes("..")) return new Response("Não encontrado", { status: 404 });
     const emendado = await emendar(pedido, env, chave);

@@ -5,8 +5,11 @@ import { site } from "@/lib/site";
 // Todo buscador pode indexar o conteúdo público: um único bloco "*" libera tudo, menos as áreas privadas.
 // O Baiduspider (busca chinesa, para /zh) e o YandexBot (busca russa, para /ru) ganham um bloco próprio e
 // explícito, porque alguns deles ignoram o "*" quando há qualquer outro bloco no arquivo.
-// Robôs que só coletam texto para TREINAR modelos de IA ficam de fora: é a escolha do instituto, e não afeta a busca.
-const treinoDeIA = ["GPTBot", "ChatGPT-User", "OAI-SearchBot", "CCBot", "Google-Extended", "anthropic-ai", "ClaudeBot", "Claude-Web", "Bytespider", "PerplexityBot", "Amazonbot", "cohere-ai", "Applebot-Extended", "meta-externalagent", "FacebookBot", "Diffbot", "omgili", "Timpibot", "ImagesiftBot", "YouBot", "AI2Bot", "PetalBot"];
+// Robôs de IA, conforme site.robosDeIA. Os de TREINO só coletam texto para treinar modelos; os de BUSCA respondem
+// perguntas citando e linkando a página (como um buscador), e por isso entram no padrão "bloquear-treino".
+const treinoDeIA = ["GPTBot", "CCBot", "Google-Extended", "anthropic-ai", "ClaudeBot", "Claude-Web", "Bytespider", "Amazonbot", "cohere-ai", "Applebot-Extended", "meta-externalagent", "FacebookBot", "Diffbot", "omgili", "Timpibot", "ImagesiftBot", "YouBot", "AI2Bot", "PetalBot"];
+const buscaComIA = ["OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "Claude-SearchBot", "Claude-User"];
+const bloqueadosDeIA = site.robosDeIA === "permitir-todos" ? [] : site.robosDeIA === "bloquear-todos" ? [...treinoDeIA, ...buscaComIA] : treinoDeIA;
 
 // O que nem os buscadores precisam ver: o painel, a entrada, a busca interna e as páginas que só fazem
 // sentido para quem está usando o site naquele momento. A rádio (diretório de emissoras) é pública.
@@ -17,7 +20,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       { userAgent: "*", allow: "/", disallow: fechado },
       { userAgent: ["Baiduspider", "YandexBot"], allow: "/", disallow: fechado },
-      { userAgent: treinoDeIA, disallow: "/" },
+      ...(bloqueadosDeIA.length ? [{ userAgent: bloqueadosDeIA, disallow: "/" }] : []),
     ],
     sitemap: `${site.url}/sitemap.xml`,
     host: site.url,

@@ -3,6 +3,8 @@ import GithubSlugger from "github-slugger";
 import type { Metadata } from "next";
 import { ExerciciosDaAula } from "@/components/ExerciciosDaAula";
 import Link from "next/link";
+import { DadosEstruturados } from "@/components/DadosEstruturados";
+import { migalhas, recursoDeAula } from "@/lib/dados-estruturados";
 import { notFound } from "next/navigation";
 import { AntesDaAula } from "@/components/AntesDaAula";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
@@ -19,7 +21,7 @@ import { StudyTools } from "@/components/StudyTools";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { defaultLocale, fill, htmlLang, localePath, plural } from "@/i18n/config";
-import { getGlossary, getTrack, getTracks, requisitosDaAula, tambemEmOutras } from "@/lib/content";
+import { getGlossary, getTrack, getTracks, requisitosDaAula, tambemEmOutras, idiomasDe } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
 import { lessonId } from "@/lib/ids";
 import { withLangs } from "@/lib/params";
@@ -50,7 +52,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { track: trackSlug, lesson: lessonSlug } = await params;
   const track = getTrack(trackSlug, lang);
   const lesson = track?.lessons.find((l) => l.slug === lessonSlug);
-  return track && lesson ? paginaMeta(lang, `/trilhas/${track.slug}/${lesson.slug}`, `${lesson.title} · ${track.title}`, lesson.summary, { titulo: lesson.title, subtitulo: `${track.title} · ${t.areas[track.area][0]}`, kicker: t.nav.disciplines }) : {};
+  return track && lesson ? paginaMeta(lang, `/trilhas/${track.slug}/${lesson.slug}`, `${lesson.title} · ${track.title}`, lesson.summary, { titulo: lesson.title, subtitulo: `${track.title} · ${t.areas[track.area][0]}`, kicker: t.nav.disciplines }, { idiomas: idiomasDe(lesson.file) }) : {};
 }
 
 /** Subtítulos (##) da aula, com as mesmas âncoras que o texto recebe. */
@@ -100,6 +102,7 @@ export default async function LessonPage({ params }: Props) {
 
   return (
     <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! md:grid-cols-[16rem_1fr]">
+      <DadosEstruturados dados={[recursoDeAula(lang, track, lesson), migalhas(lang, [[t.nav.disciplines, "/trilhas"], [track.title, `/trilhas/${track.slug}`], [lesson.title, `/trilhas/${track.slug}/${lesson.slug}`]])]} />
       <ReadingChrome />
       <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} />
       {(ligado("meu-estudo") || ligado("metas")) && <RegistroDeConclusao />}

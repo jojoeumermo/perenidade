@@ -5,14 +5,18 @@
 // Uso: node --import ./scripts/carregar-ts.mjs scripts/testar-ferramentas.mjs
 import { register } from "node:module";
 
+// O "@/" dos imports do site é a raiz do projeto (tsconfig "paths").
+const RAIZ = new URL("../", import.meta.url).href;
+
 register(
   "data:text/javascript," +
     encodeURIComponent(`
 export async function resolve(especificador, contexto, proximo) {
+  if (especificador.startsWith("@/")) especificador = ${JSON.stringify(RAIZ)} + especificador.slice(2);
   try {
     return await proximo(especificador, contexto);
   } catch (erro) {
-    if (/^\\.{1,2}\\//.test(especificador) && !/\\.[a-z]+$/i.test(especificador)) return proximo(especificador + ".ts", contexto);
+    if ((/^\\.{1,2}\\//.test(especificador) || especificador.startsWith("file:")) && !/\\.[a-z]+$/i.test(especificador)) return proximo(especificador + ".ts", contexto);
     throw erro;
   }
 }`),

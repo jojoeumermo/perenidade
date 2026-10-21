@@ -124,7 +124,8 @@ export function QuadroDoEditor({ s, id, nome }: { s: Pick<S, "insideNote" | "ful
   const ed = editor(id);
   const wgpu = ed?.wgpu === true;
   // WebGPU é o padrão dos próprios programas (sem nada no endereço); os outros modos vão como ?webgl ou ?cpu.
-  const endereco = wgpu && modo !== "webgpu" ? `${base}?${ed?.consulta?.[modo] ?? modo}` : base;
+  // O EffectCraft sem nada no endereço vai para o modo estável (o estúdio redireciona): o WebGPU completo vai como ?webgpu.
+  const endereco = wgpu && modo !== "webgpu" ? `${base}?${ed?.consulta?.[modo] ?? modo}` : id === "effectcraft" ? `${base}?webgpu` : base;
   return (
     <div className="mt-4">
       <p className="flex flex-wrap items-center justify-between gap-3 font-sans text-sm">

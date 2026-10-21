@@ -1,6 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DadosEstruturados } from "@/components/DadosEstruturados";
+import { curso, migalhas } from "@/lib/dados-estruturados";
 import { PodcastsRelacionados } from "@/components/podcast/Relacionados";
 import { notFound } from "next/navigation";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
@@ -13,7 +15,7 @@ import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
 import { defaultLocale, fill, localePath } from "@/i18n/config";
-import { getTrack, getTracks } from "@/lib/content";
+import { getTrack, getTracks, idiomasDe } from "@/lib/content";
 import { lessonId } from "@/lib/ids";
 import { withLangs } from "@/lib/params";
 
@@ -26,7 +28,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/[lang]/trilhas/[track]">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
   const track = getTrack((await params).track, lang);
-  return track ? paginaMeta(lang, `/trilhas/${track.slug}`, track.title, track.summary, { kicker: `${t.areas[track.area][0]} · ${t.stages[track.stage]}` }) : {};
+  return track ? paginaMeta(lang, `/trilhas/${track.slug}`, track.title, track.summary, { kicker: `${t.areas[track.area][0]} · ${t.stages[track.stage]}` }, { idiomas: idiomasDe(track.file) }) : {};
 }
 
 export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[track]">) {
@@ -47,6 +49,7 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
+      <DadosEstruturados dados={[curso(lang, track), migalhas(lang, [[t.nav.disciplines, "/trilhas"], [t.areas[track.area][0], `/estantes/${track.area}`], [track.title, `/trilhas/${track.slug}`]])]} />
       <Link href={to(`/estantes/${track.area}`)} className="font-sans text-sm text-ink-soft hover:text-oxblood">← {t.areas[track.area][0]}</Link>
       <p className="mt-6 font-mono text-xs uppercase tracking-[0.3em] text-gold">
         {t.stages[track.stage]} · {fill(t.tracks.ready, { a: ready.length, b: items.length })}
