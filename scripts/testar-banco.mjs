@@ -2741,6 +2741,21 @@ await recusa("educador não reaplica", async () => { const p = (await rpc(como(i
 await espera("a coordenação reaplica uma mudança dada como aplicada", async () => { const p = (await rpc(como(ids.coord), "curriculo_listar")).find((x) => x.status === "aplicada"); return rpc(como(ids.coord), "curriculo_reaplicar", { p_id: p.id }); }, (r) => r.status === "aprovada" && r.aplicada_em === null);
 await recusa("educador não pede publicação fora de hora", () => rpc(como(ids.prof), "curriculo_publicar_agora"), "sem_permissao");
 await espera("a coordenação pede publicação fora de hora", () => rpc(como(ids.coord), "curriculo_publicar_agora"), (r) => r === true);
+// Atividade do site: o que a galera posta aparece para a coordenação, com aviso por e-mail para quem escolher.
+await recusa("educador não vê a atividade do site", () => rpc(como(ids.prof), "atividade_listar"), "sem_permissao");
+await espera("quem não acompanha recebe zero no resumo", () => rpc(como(ids.prof), "atividade_resumo"), (r) => r.nao_vistas === 0);
+await espera("a coordenação vê a pergunta da Comunidade na linha do tempo", () => rpc(como(ids.coord), "atividade_listar", { p_tipo: "comunidade" }), (r) => r.itens.some((x) => x.tipo === "comunidade" && /Dúvida sobre frações/.test(x.titulo) && x.link.startsWith("/comunidade?t=")));
+await espera("o envio de conteúdo também entra (com o tipo)", () => rpc(como(ids.coord), "atividade_listar", { p_tipo: "envio" }), (r) => r.itens.length > 0 && r.itens.every((x) => x.tipo === "envio"));
+await espera("marcar como visto zera as não vistas", async () => { await rpc(como(ids.coord), "atividade_visto"); return rpc(como(ids.coord), "atividade_resumo"); }, (r) => r.nao_vistas === 0);
+await recusa("modo de aviso inválido é recusado", () => rpc(como(ids.coord), "atividade_assinar", { p_modo: "sms" }), "invalido:modo");
+await espera("a coordenação escolhe e-mail a cada postagem, só da Comunidade (tipo estranho cai fora)", () => rpc(como(ids.coord), "atividade_assinar", { p_modo: "cada", p_tipos: ["comunidade", "inventado"] }), (r) => r.modo === "cada" && r.tipos.length === 1 && r.tipos[0] === "comunidade");
+await espera("pergunta nova na Comunidade vira não vista e e-mail para a coordenação", async () => {
+  await rpc(como(ids.vice), "topico_criar", { p_titulo: "Onde acho exercícios de frações?", p_corpo: "Queria praticar frações com exercícios resolvidos passo a passo.", p_disciplina: "matematica" });
+  const resumo = await rpc(como(ids.coord), "atividade_resumo");
+  const emails = (await dono("select e.assunto from interno.emails e join auth.users u on lower(u.email) = e.para where u.id = $1 and e.tipo = 'atividade'", [ids.coord])).rows;
+  return { resumo, emails };
+}, (r) => r.resumo.nao_vistas === 1 && r.emails.some((e) => /Onde acho exercícios/.test(e.assunto)));
+await dono("update interno.atividade_assinaturas set modo = 'painel'");
 
 // ── Minha conta: códigos de recuperação, meus dados, atividade, avisos por e-mail, sessões ──
 await dono("create table if not exists auth.mfa_factors (user_id uuid, status text, created_at timestamptz default now())");
