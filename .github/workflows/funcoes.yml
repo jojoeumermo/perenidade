@@ -30,7 +30,7 @@ jobs:
           persist-credentials: false
           sparse-checkout: |
             supabase
-      - uses: supabase/setup-cli@v1
+      - uses: supabase/setup-cli@1dedf2c611547ede7232d26866dd3c56ab903bbb # v1.7.3
         with:
           version: latest
       - run: supabase functions deploy --project-ref "${{ vars.SUPABASE_PROJECT_REF }}"
