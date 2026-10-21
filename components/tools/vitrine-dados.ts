@@ -11,6 +11,7 @@ export const ICONES: Record<string, string> = {
   redacao: "✍️", silabario: "🔤", dicionario: "📖", pronuncia: "🗣️", frases: "💬", afinador: "🎸", metronomo: "🥁", teclado: "🎹", "leitura-de-notas": "🎼",
   cores: "🎨", "escala-cartografica": "🗺️", "fusos-horarios": "🌍", "juros-compostos": "💰", "mais-valia": "🏭", rcp: "❤️‍🩹", "frequencia-cardiaca": "💓",
   ide: "💻", simulacoes: "🔬", "fisica-simulada": "🎯", reacoes: "💥",
+  "algoritmos": "🔢", "criptografia": "🔐", "grafos": "🕸️", "sudoku": "🧩", "referencias-abnt": "📚", "palavras-geradoras": "🧱", "solidos": "🧊", "contas-do-dia-a-dia": "🧾", "tons-do-mandarim": "🎵", "alfabetos": "🔠", "ceu": "🌙", "calculadoras-de-eletronica": "🔌", "direitos-trabalhistas": "⚖️",
 };
 
 export interface ItemDaVitrine {

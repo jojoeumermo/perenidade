@@ -44,6 +44,19 @@ const Dictionary = dynamic(() => import("./Idiomas").then((m) => m.Dictionary), 
 const Sentences = dynamic(() => import("./Idiomas").then((m) => m.Sentences), { ssr: false, loading: espera });
 const FisicaSimulada = dynamic(() => import("./Simulacoes").then((m) => m.FisicaSimulada), { ssr: false, loading: espera });
 const Reacoes = dynamic(() => import("./Simulacoes").then((m) => m.Reacoes), { ssr: false, loading: espera });
+const Algoritmos = dynamic(() => import("./novas/Computacao").then((m) => m.Algoritmos), { ssr: false, loading: espera });
+const Criptografia = dynamic(() => import("./novas/Computacao").then((m) => m.Criptografia), { ssr: false, loading: espera });
+const Grafos = dynamic(() => import("./novas/Computacao").then((m) => m.Grafos), { ssr: false, loading: espera });
+const Sudoku = dynamic(() => import("./novas/Jogos").then((m) => m.Sudoku), { ssr: false, loading: espera });
+const Referencias = dynamic(() => import("./novas/Escrita").then((m) => m.Referencias), { ssr: false, loading: espera });
+const PalavrasGeradoras = dynamic(() => import("./novas/Escrita").then((m) => m.PalavrasGeradoras), { ssr: false, loading: espera });
+const Solidos = dynamic(() => import("./novas/Matematica").then((m) => m.Solidos), { ssr: false, loading: espera });
+const ContasDoDia = dynamic(() => import("./novas/Matematica").then((m) => m.ContasDoDia), { ssr: false, loading: espera });
+const TonsDoMandarim = dynamic(() => import("./novas/Linguas").then((m) => m.TonsDoMandarim), { ssr: false, loading: espera });
+const Alfabetos = dynamic(() => import("./novas/Linguas").then((m) => m.Alfabetos), { ssr: false, loading: espera });
+const Ceu = dynamic(() => import("./novas/Ceu").then((m) => m.Ceu), { ssr: false, loading: espera });
+const CalculadorasDeEletronica = dynamic(() => import("./novas/Eletronica").then((m) => m.CalculadorasDeEletronica), { ssr: false, loading: espera });
+const DireitosDoTrabalhador = dynamic(() => import("./novas/Trabalho").then((m) => m.DireitosDoTrabalhador), { ssr: false, loading: espera });
 
 /** Mostra uma ferramenta pelo nome, com os textos que a página da aula mandou (só os das ferramentas daquela disciplina). */
 const PhetLista = dynamic(() => import("../labs/Phet").then((m) => m.PhetLista), { ssr: false, loading: espera });
@@ -126,6 +139,32 @@ export function ToolView({ id, s, lang, area }: { id: ToolId; s: Partial<Tools>;
       return <AtalhoDaIde lang={lang} />;
     case "simulacoes":
       return <PhetLista area={area} compacto />;
+    case "algoritmos":
+      return <div lang="pt-BR"><Algoritmos /></div>;
+    case "criptografia":
+      return <div lang="pt-BR"><Criptografia /></div>;
+    case "grafos":
+      return <div lang="pt-BR"><Grafos /></div>;
+    case "sudoku":
+      return <div lang="pt-BR"><Sudoku /></div>;
+    case "referencias-abnt":
+      return <div lang="pt-BR"><Referencias /></div>;
+    case "palavras-geradoras":
+      return <div lang="pt-BR"><PalavrasGeradoras /></div>;
+    case "solidos":
+      return <div lang="pt-BR"><Solidos /></div>;
+    case "contas-do-dia-a-dia":
+      return <div lang="pt-BR"><ContasDoDia /></div>;
+    case "tons-do-mandarim":
+      return <div lang="pt-BR"><TonsDoMandarim /></div>;
+    case "alfabetos":
+      return <div lang="pt-BR"><Alfabetos /></div>;
+    case "ceu":
+      return <div lang="pt-BR"><Ceu /></div>;
+    case "calculadoras-de-eletronica":
+      return <div lang="pt-BR"><CalculadorasDeEletronica /></div>;
+    case "direitos-trabalhistas":
+      return <div lang="pt-BR"><DireitosDoTrabalhador /></div>;
   }
 }
 
