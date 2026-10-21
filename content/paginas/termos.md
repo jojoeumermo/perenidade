@@ -24,7 +24,7 @@ O instituto respeita os direitos autorais. Se você é titular de direitos sobre
 
 Como o site também mostra o que voluntários e visitantes enviam, vale o Marco Civil da Internet (Lei nº 12.965/2014): o instituto revê cada envio antes de publicar e retira o que violar a lei assim que fica sabendo.
 
-As imagens trazem o crédito e a licença de cada uma.
+As imagens trazem o crédito e a licença de cada uma. O passo a passo completo, o prazo de resposta e a contranotificação estão em [Direitos autorais](/direitos-autorais).
 
 ## Caráter educacional e histórico
 
@@ -39,7 +39,7 @@ Esta seção explica como o instituto entende o próprio trabalho. Ela não afas
 
 ## Regras de convivência
 
-Vale para a comunidade, as anotações, o Mural dos Trabalhadores e qualquer outro espaço em que você escreve:
+O [Código de conduta](/conduta) detalha estas regras e a [Política de uso](/uso) as resume. Vale para a comunidade, as anotações, o Mural dos Trabalhadores e qualquer outro espaço em que você escreve:
 
 1. **Respeito.** Não é aceito racismo, machismo, LGBTfobia, capacitismo, xenofobia, intolerância religiosa nem apologia ao nazismo e ao fascismo. Divergência de ideias é bem-vinda; ataque a pessoas, não.
 2. **Nada de expor os outros.** Não publique nome completo, endereço, telefone, documento, foto ou local de trabalho de outra pessoa.
