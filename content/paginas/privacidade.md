@@ -36,7 +36,9 @@ Para mandar os e-mails automáticos (a confirmação de que um pedido chegou, o 
 
 **Salas de vídeo.** As reuniões da equipe, o estudo em grupo e algumas aulas ao vivo usam o Jitsi Meet, de código aberto, num servidor público de um coletivo de tecnologia (como meet.systemli.org). Ao entrar na sala, o seu navegador fala direto com esse servidor, que recebe o seu endereço de rede, o nome que aparece na sala e o áudio e o vídeo enquanto você estiver nela. Nada é gravado pelo instituto; no painel fica só quem entrou e quando.
 
-Esses serviços processam os dados só para manter o site funcionando. O instituto não entrega dados a anunciantes nem a corretores de dados. A única situação em que um texto escrito por você é enviado a outra empresa está explicada abaixo, em "Avaliação automática na Comunidade".
+**Conferência de ortografia e gramática.** Os editores de texto do site (Contribuir, painel e Sala livre) têm o botão "Conferir". Só quando você aperta esse botão (ou liga "Conferir enquanto escrevo") o texto é enviado, pelo próprio site, ao LanguageTool, um conferidor de código aberto: ao do instituto, quando ele estiver no ar, ou ao serviço público do LanguageTool (languagetool.org). O texto vai sem o seu nome nem o seu endereço de rede, e o instituto não guarda o que foi conferido. Sem apertar o botão, nada do que você escreve sai do aparelho por esse caminho.
+
+Esses serviços processam os dados só para manter o site funcionando. O instituto não entrega dados a anunciantes nem a corretores de dados. Um texto escrito por você só vai a outra empresa em duas situações: a conferência de ortografia descrita acima, quando você a pede, e a explicada abaixo, em "Avaliação automática na Comunidade".
 
 ## Se você envia algo sem ter conta
 
