@@ -17,6 +17,7 @@ import { minutosOcioso } from "./ocioso";
 import { L, useI18n } from "../I18n";
 import { Star } from "../Masthead";
 import { AulasAoVivo } from "./AoVivo";
+import { AtividadeDoSite, useAtividadeAoVivo } from "./Atividade";
 import { Avatar } from "./Avatar";
 import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
 import { Estatisticas } from "./Estatisticas";
@@ -132,6 +133,7 @@ const icones: Record<string, string> = {
   emissoras: "M3 9h18v11H3zM7 9l10-5M8.5 12a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M14 13h4M14 16h4",
   reunioes: "M3 7h12v10H3zM15 10l6-3v10l-6-3M6 20h6",
   curriculo: "M4 4h16v16H4zM4 10h16M10 10v10",
+  atividade: "M3 12h4l3-8 4 16 3-8h4",
   conta: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-8 8-8s8 3.6 8 8",
   aovivo: "M3 7h13v10H3zM16 10l5-3v10l-5-3M6 4h7",
   estudio: "M4 20l4-1 11-11-3-3L5 16zM13 8l3 3M4 20v-4",
@@ -482,10 +484,13 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const lidera = can(eu, "coordenacao");
   // A supervisão é um papel próprio: can() só estende a vice-coordenação à coordenação, não à supervisão.
   const supervisiona = can(eu, "supervisao");
+  // O que a galera posta, para a coordenação acompanhar: o número do menu e o aviso do navegador.
+  const atividadeNova = useAtividadeAoVivo(lidera || can(eu, "vice"), aba === "atividade");
   // Cada função enxerga só as ferramentas dela. A coordenação e a vice-coordenação enxergam todas.
   const secoes: Secao[] = (
     [
       { id: "mesa", nome: "Mesa", sobre: "O que espera por você hoje.", grupo: "", mostra: true, conta: eu.avisos },
+      { id: "atividade", nome: "Atividade do site", sobre: "Tudo o que a galera posta no site e no painel, na hora em que acontece, com aviso por e-mail se você quiser.", grupo: "", mostra: lidera || can(eu, "vice"), conta: atividadeNova || undefined },
       { id: "conversas", nome: "Conversas", sobre: "Mensagens privadas, grupos e o grupo de cada departamento, cifrados de ponta a ponta.", grupo: "", mostra: voluntario, conta: aba === "conversas" ? 0 : presenca.dados?.conversas },
       { id: "rede", nome: "Mural da equipe", sobre: "Publicações e pedidos de ajuda para todos ou por função, cifrados neste aparelho.", grupo: "", mostra: voluntario },
       { id: "escrever", nome: "Escrever", sobre: "Aulas, matérias, verbetes e tudo o que vai para o site.", grupo: "Produção", mostra: produz },
@@ -740,6 +745,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "traducoes" && <Traducoes irEscrever={() => ir("escrever")} />}
           {atual.id === "triagem" && <Fila key="triagem" me={eu} triagem />}
           {atual.id === "curriculo" && <DisciplinasETrilhas me={eu} />}
+          {atual.id === "atividade" && <AtividadeDoSite />}
           {atual.id === "fontes" && <FontesAbertas />}
           {atual.id === "materiais" && <Materiais me={eu} />}
           {atual.id === "divulgacao" && <Divulgacao me={eu} />}
