@@ -95,7 +95,8 @@
     "notebook": "Cahier d'étude",
     "health": "Santé",
     "reportBug": "Signaler un bug du site",
-    "institute": "Statuts, mission et valeurs"
+    "institute": "Statuts, mission et valeurs",
+    "freeRoom": "Salle libre (pour enseignants)"
   },
   "labs": {
     "eyebrow": "Pratique réelle",
@@ -131,7 +132,9 @@
     "segurancaKaliAviso": "À l'ouverture, le navigateur télécharge environ 8 Mo (l'émulateur et une petite image Linux) et démarre le système — cela prend quelques secondes. De préférence sur un ordinateur, avec un Chrome, Edge ou Firefox à jour.",
     "segurancaKaliTelaCheia": "Plein écran",
     "segurancaKaliDefesa": "Entraînement à la défense : repérer l'attaque",
-    "segurancaKaliForaDoAr": "Le laboratoire n'est pas encore en ligne à l'adresse de l'institut."
+    "segurancaKaliForaDoAr": "Le laboratoire n'est pas encore en ligne à l'adresse de l'institut.",
+    "eletrica": "Laboratoire d'électricité",
+    "eletricaLead": "Un vrai multimètre sur l'établi, série et parallèle avec des ampoules, câbler un point lumineux et une prise avec les bonnes couleurs, et les calculs de l'électricien."
   },
   "lists": {
     "bankEyebrow": "Pour s'entraîner",
@@ -649,6 +652,14 @@
     "oratoria-e-lideranca": [
       "Prise de parole et leadership",
       "Parler en public avec clarté, préparer une intervention, mener des réunions et des assemblées et diriger collectivement."
+    ],
+    "samba-e-cultura": [
+      "Samba et culture",
+      "La samba, du cercle à l'avenue : histoire, rythme, culture noire et brésilienne, le morro, la malandragem et celles et ceux qui l'ont faite."
+    ],
+    "eletricista": [
+      "Électricien",
+      "L'électricité, des bases à l'installation d'une maison, la sécurité d'abord : multimètre, tableau, prises, douche électrique et le métier comme revenu."
     ]
   },
   "tracks": {
@@ -1478,7 +1489,7 @@
     "teoria": "Théorie révolutionnaire",
     "lutas": "Luttes populaires",
     "percursos": "Alphabétisation et ENEM",
-    "oficios": "Métiers et revenus : apprenez un savoir-faire et vivez-en"
+    "oficios": "Métiers et loisirs : apprenez un savoir-faire, faites-le vous-même et gagnez votre vie avec"
   },
   "stages": {
     "fundamental": "École primaire et collège",
@@ -2910,7 +2921,8 @@
       "notebook": "Réunissez des cours et des textes et obtenez-en un résumé, des cartes mémoire, un quiz, une carte, une frise et un audio. Tout dans votre navigateur.",
       "community": "Le forum de celles et ceux qui étudient : questions, réponses et débats, modéré et sans publicité.",
       "health": "Des professionnels de santé bénévoles, gratuits ou à tarif social : vous leur parlez directement.",
-      "bugs": "Quelque chose bloque ou s'affiche mal ? Dites-le à ceux qui maintiennent le code."
+      "bugs": "Quelque chose bloque ou s'affiche mal ? Dites-le à ceux qui maintiennent le code.",
+      "freeRoom": "Construisez et projetez votre cours avec les laboratoires, livres, éditeurs, simulations et jeux du site."
     }
   },
   "support": {
@@ -4440,5 +4452,8 @@
   },
   "instituto": {
     "description": "Raison d'être, mission, vision, valeurs et charte de fonctionnement (statuts) de l'Instituto Lúcia : une école et une bibliothèque gratuites, tenues par des bénévoles."
+  },
+  "salaLivre": {
+    "description": "Construisez et projetez votre cours avec tout ce que propose l'institut : laboratoires, livres du fonds, éditeurs photo, vidéo et 3D, simulations, jeux et quiz. Tout reste dans votre navigateur."
   }
 }

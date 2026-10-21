@@ -3,7 +3,8 @@
 
 import { useMemo, useState } from "react";
 import { type Aparelho, CASOS, SEGURANCA } from "./casos";
-import { Multimetro } from "./Multimetro";
+import { fonteAtx, BANCADA_ELETRICA } from "../eletrica/multimetro";
+import { MultimetroVisual } from "../eletrica/MultimetroVisual";
 import { COOLERS, CPUS, conferir, DISCOS, type Escolha, ETAPAS, FONTES, GABINETES, GPUS, PLACAS, RAMS } from "./pecas";
 import { Resistores } from "./Resistores";
 
@@ -206,7 +207,7 @@ export function Montador() {
       <div role="tabpanel" className="pt-5">
         {aba === "montar" && <Montar />}
         {aba === "ordem" && <Ordem />}
-        {aba === "multimetro" && <Multimetro />}
+        {aba === "multimetro" && <MultimetroDaBancada />}
         {aba === "resistores" && <Resistores />}
         {aba === "casos" && <Casos />}
         {aba === "seguranca" && (
@@ -216,6 +217,27 @@ export function Montador() {
         )}
       </div>
       <p className="mt-8 text-xs text-ink-soft">Peças genéricas, sem marca, com valores típicos arredondados para o estudo. Na vida real, confira sempre o manual da placa-mãe e a ficha técnica de cada peça.</p>
+    </div>
+  );
+}
+
+/** O multímetro na bancada de informática: a fonte ATX (ligada pelo teste do clipe ou em espera), a bateria da placa e o carregador. */
+function MultimetroDaBancada() {
+  const [ligada, setLigada] = useState(false);
+  const pecas = [...fonteAtx(ligada), ...BANCADA_ELETRICA.filter((p) => ["tomada127", "fusivel", "fio", "resistor1k"].includes(p.id))];
+  return (
+    <div>
+      <label className="mb-3 flex items-center gap-2 font-sans text-sm"><input type="checkbox" checked={ligada} onChange={(e) => setLigada(e.target.checked)} /> Fonte ATX ligada (teste do clipe: verde no preto, sem placa-mãe)</label>
+      <MultimetroVisual
+        pecas={pecas}
+        titulo="Bancada de informática"
+        missoes={[
+          { texto: "Com a fonte ligada, meça os 12 V do fio amarelo.", peca: "atx-amarelo", chaves: ["vdc20"] },
+          { texto: "Descubra se a bateria da placa-mãe está fraca.", peca: "cr2032", chaves: ["vdc20"] },
+          { texto: "Confira a saída do carregador do notebook.", peca: "carregador-note", chaves: ["vdc20", "vdc200"] },
+          { texto: "Descubra se o fusível queimou.", peca: "fusivel", chaves: ["cont", "ohm200", "ohm2k"] },
+        ]}
+      />
     </div>
   );
 }
