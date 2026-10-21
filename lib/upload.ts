@@ -78,6 +78,35 @@ export async function previewFile(path: string): Promise<string> {
   return URL.createObjectURL(data);
 }
 
+/**
+ * Saúde Solidária: o termo assinado no gov.br (PDF) e a captura da consulta ao conselho vão para o depósito fechado
+ * "saude", na pasta de quem envia. Só a própria pessoa e a coordenação leem. Devolve o caminho e o SHA-256 do arquivo,
+ * calculado no aparelho.
+ */
+export async function sendSaudeFile(blob: Blob, extension: "pdf" | "webp" | "jpg"): Promise<{ path: string; sha256: string }> {
+  if (blob.size > 10 * 1024 * 1024) throw new UploadError("tamanho");
+  const bytes = new Uint8Array(await blob.arrayBuffer());
+  // O tipo de verdade, pelos primeiros bytes: um PDF começa com "%PDF-".
+  if (extension === "pdf" && String.fromCharCode(...bytes.slice(0, 5)) !== "%PDF-") throw new UploadError("formato");
+  const sha256 = [...new Uint8Array(await crypto.subtle.digest("SHA-256", bytes))].map((b) => b.toString(16).padStart(2, "0")).join("");
+  const supabase = await getClient();
+  const { data } = await supabase.auth.getUser();
+  if (!data.user) throw new UploadError("sessao");
+  const path = `${data.user.id}/${randomName().replace("-", "")}.${extension}`;
+  const contentType = { pdf: "application/pdf", webp: "image/webp", jpg: "image/jpeg" }[extension];
+  const { error } = await supabase.storage.from("saude").upload(path, blob, { contentType, upsert: false });
+  if (error) throw new UploadError("envio");
+  return { path, sha256 };
+}
+
+/** Abre um arquivo do depósito "saude" (o próprio, ou qualquer um para a coordenação) num endereço local temporário. */
+export async function abrirArquivoDaSaude(path: string): Promise<string> {
+  const supabase = await getClient();
+  const { data, error } = await supabase.storage.from("saude").download(path);
+  if (error || !data) throw new UploadError("leitura");
+  return URL.createObjectURL(data);
+}
+
 export const uploadMessages: Record<string, string> = {
   formato: "Este arquivo não é uma imagem que o navegador consiga abrir (use JPG, PNG ou WebP).",
   tamanho: "O arquivo passa de 8 MB.",
