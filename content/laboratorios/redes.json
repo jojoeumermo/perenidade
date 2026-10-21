@@ -1678,5 +1678,392 @@
       "Nos dois switches: interface Fa0/8 → switchport mode trunk."
     ],
     "solucao": "SW1(config)# interface Fa0/8 → switchport mode trunk\nSW2(config)# interface Fa0/8 → switchport mode trunk"
+  },
+  {
+    "id": "rd-09",
+    "nivel": 1,
+    "titulo": "Endereço automático (DHCP)",
+    "objetivo": "O PC1 está sem endereço. Ligue o serviço DHCP no Servidor1 (já configurado para entregar de 192.168.1.100 em diante) e faça o PC1 pegar o endereço sozinho: no PC1, escolha DHCP e peça um endereço (ou digite ipconfig /renew no terminal).",
+    "topologia": {
+      "dispositivos": [
+        {
+          "id": "pc1",
+          "tipo": "pc",
+          "nome": "PC1",
+          "x": 110,
+          "y": 140,
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ],
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "dhcp": false
+        },
+        {
+          "id": "sw1",
+          "tipo": "switch",
+          "nome": "SW1",
+          "x": 330,
+          "y": 200,
+          "portas": [
+            {
+              "nome": "Fa0/1",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/2",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/3",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/4",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/5",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/6",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/7",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            },
+            {
+              "nome": "Fa0/8",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ],
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "dhcp": false
+        },
+        {
+          "id": "srv1",
+          "tipo": "servidor",
+          "nome": "Servidor1",
+          "x": 550,
+          "y": 140,
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.2",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ],
+          "gateway": "192.168.1.1",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "dhcp": false,
+          "servicos": {
+            "dhcp": {
+              "ligado": false,
+              "inicio": "192.168.1.100",
+              "quantidade": 50,
+              "mascara": "255.255.255.0",
+              "gateway": "192.168.1.1",
+              "dns": "192.168.1.2"
+            },
+            "dns": {
+              "ligado": false,
+              "registros": []
+            },
+            "http": {
+              "ligado": true,
+              "titulo": "Servidor da escola",
+              "texto": "Bem-vindo à rede da escola!"
+            }
+          }
+        }
+      ],
+      "cabos": [
+        {
+          "id": "c1",
+          "de": {
+            "dispositivo": "pc1",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "sw1",
+            "porta": "Fa0/1"
+          }
+        },
+        {
+          "id": "c2",
+          "de": {
+            "dispositivo": "srv1",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "sw1",
+            "porta": "Fa0/2"
+          }
+        }
+      ]
+    },
+    "verificacoes": [
+      {
+        "tipo": "dhcp",
+        "dispositivo": "PC1",
+        "texto": "O PC1 recebeu o endereço por DHCP"
+      },
+      {
+        "tipo": "ping",
+        "de": "PC1",
+        "para": "Servidor1",
+        "deve": true,
+        "texto": "O PC1 alcança o Servidor1"
+      }
+    ],
+    "dicas": [
+      "No Servidor1, abra a aba Serviços e ligue o DHCP.",
+      "No PC1, aba Configuração IP: escolha DHCP e clique em Pedir endereço."
+    ],
+    "solucao": "Servidor1 › Serviços › DHCP ligado.\nPC1 › Configuração IP › DHCP › Pedir endereço (ou ipconfig /renew)."
+  },
+  {
+    "id": "rd-10",
+    "nivel": 2,
+    "titulo": "Nome e site (DNS e HTTP)",
+    "objetivo": "O PC1 precisa abrir o site biblioteca.lucia no navegador. O Servidor1 (10.0.0.50, do outro lado do roteador) tem o site e o serviço DNS ligados. Configure o DNS do PC1 e cadastre o nome no servidor DNS.",
+    "topologia": {
+      "dispositivos": [
+        {
+          "id": "pc1",
+          "tipo": "pc",
+          "nome": "PC1",
+          "x": 100,
+          "y": 200,
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.10",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ],
+          "gateway": "192.168.1.1",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "dhcp": false
+        },
+        {
+          "id": "r1",
+          "tipo": "roteador",
+          "nome": "R1",
+          "x": 330,
+          "y": 200,
+          "portas": [
+            {
+              "nome": "Gi0/0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "192.168.1.1",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            },
+            {
+              "nome": "Gi0/1",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "10.0.0.1",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            },
+            {
+              "nome": "Gi0/2",
+              "ligada": false,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "",
+              "mascara": "",
+              "descricao": ""
+            }
+          ],
+          "gateway": "",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "dhcp": false
+        },
+        {
+          "id": "srv1",
+          "tipo": "servidor",
+          "nome": "Servidor1",
+          "x": 560,
+          "y": 200,
+          "portas": [
+            {
+              "nome": "eth0",
+              "ligada": true,
+              "modo": "access",
+              "vlan": 1,
+              "ip": "10.0.0.50",
+              "mascara": "255.255.255.0",
+              "descricao": ""
+            }
+          ],
+          "gateway": "10.0.0.1",
+          "dns": "",
+          "rotas": [],
+          "vlans": [
+            {
+              "id": 1,
+              "nome": "default"
+            }
+          ],
+          "dhcp": false,
+          "servicos": {
+            "dhcp": {
+              "ligado": false,
+              "inicio": "",
+              "quantidade": 50,
+              "mascara": "255.255.255.0",
+              "gateway": "",
+              "dns": ""
+            },
+            "dns": {
+              "ligado": true,
+              "registros": []
+            },
+            "http": {
+              "ligado": true,
+              "titulo": "Biblioteca Lúcia",
+              "texto": "O acervo está aberto a todos. Bons estudos!"
+            }
+          }
+        }
+      ],
+      "cabos": [
+        {
+          "id": "c1",
+          "de": {
+            "dispositivo": "pc1",
+            "porta": "eth0"
+          },
+          "para": {
+            "dispositivo": "r1",
+            "porta": "Gi0/0"
+          }
+        },
+        {
+          "id": "c2",
+          "de": {
+            "dispositivo": "r1",
+            "porta": "Gi0/1"
+          },
+          "para": {
+            "dispositivo": "srv1",
+            "porta": "eth0"
+          }
+        }
+      ]
+    },
+    "verificacoes": [
+      {
+        "tipo": "web",
+        "de": "PC1",
+        "endereco": "biblioteca.lucia",
+        "texto": "O PC1 abre biblioteca.lucia no navegador"
+      }
+    ],
+    "dicas": [
+      "O PC1 precisa saber a quem perguntar os nomes: o campo DNS dele.",
+      "No Servidor1, aba Serviços › DNS, cadastre biblioteca.lucia → 10.0.0.50."
+    ],
+    "solucao": "PC1 › DNS: 10.0.0.50.\nServidor1 › Serviços › DNS › biblioteca.lucia = 10.0.0.50."
   }
 ]
