@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Atalhos, useAtalhos } from "./Atalhos";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
@@ -543,8 +544,10 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const amplo = atual.id === "conversas" || atual.id === "reunioes";
   const interditado = estadoDoSite.dados?.interdicao && (estadoDoSite.dados.interdicao.geral || estadoDoSite.dados.interdicao.areas.length > 0) ? estadoDoSite.dados.interdicao : null;
   // Trocar de seção também refaz as contagens: o número da fila cai assim que a decisão é tomada.
+  const atalhos = useAtalhos();
   const ir = (id: string) => {
     setMenu(false);
+    atalhos.lembrar(id);
     // Cada seção entra no histórico: o voltar do celular (e do navegador) volta para a seção anterior.
     router.push(`/${lang}/painel?aba=${id}`, { scroll: false });
     window.scrollTo(0, 0);
@@ -636,6 +639,23 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           </button>
         </div>
         <nav aria-label="Seções do painel" className={`flex-1 overflow-y-auto overflow-x-hidden py-5 [scrollbar-color:#4a4032_transparent] [scrollbar-width:thin] ${compacto ? "px-3 lg:px-1.5" : "px-3"}`}>
+          {/* As seções que a pessoa fixou (na Mesa, em "Escolher atalhos") ficam no alto do menu. */}
+          {atalhos.fixadas.length > 0 && !compacto && (
+            <div className="mb-4">
+              <p className="painel-grupo px-2 pb-1.5 font-mono text-[0.6rem] uppercase tracking-[0.25em] text-[#d4a24c]">★ Fixadas</p>
+              <ul>
+                {atalhos.fixadas.map((id) => secoes.find((secao) => secao.id === id)).filter((secao): secao is Secao => !!secao).map((secao) => (
+                  <li key={secao.id}>
+                    <button type="button" onClick={() => ir(secao.id)} aria-current={secao.id === atual.id ? "page" : undefined} className={`painel-item relative flex w-full cursor-pointer items-center gap-2.5 px-3 py-2 text-left ${secao.id === atual.id ? "painel-item-ativo" : ""}`}>
+                      <Icone id={secao.id} />
+                      <span className="min-w-0 flex-1 truncate">{secao.nome}</span>
+                      {Boolean(secao.conta) && <span className="painel-conta min-w-6 bg-[#c21f16] px-1.5 py-0.5 text-center font-mono text-[0.7rem] font-semibold leading-none text-white">{secao.conta}</span>}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           {grupos.map((grupo) => (
             <div key={grupo || "inicio"} className="mb-4">
               {grupo && (compacto ? <hr className="mx-2 mb-2 hidden border-[#3a3226] lg:block" /> : null)}
@@ -726,7 +746,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
               )}
             </p>
           )}
-          {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} />}
+          {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} secoes={secoes} />}
           {voluntario && <Repasse usuario={eu.id} />}
           {atual.id === "conversas" && <Conversas me={eu} />}
           {atual.id === "rede" && <Equipe usuario={eu.id} lider={leads(eu)} modera={lidera || supervisiona} aprendiz={eu.aprendizado} recarregar={recarregar} />}
@@ -793,7 +813,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
 }
 
 /** A primeira tela: só o que pede atenção agora. */
-function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; recarregar: () => void; ir: (aba: string) => void }) {
+function Mesa({ me, resumo, recarregar, ir, secoes }: { me: Me; resumo: Resumo | null; recarregar: () => void; ir: (aba: string) => void; secoes: Secao[] }) {
   const { t } = useI18n();
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
   const r = resumo;
@@ -881,6 +901,8 @@ function Mesa({ me, resumo, recarregar, ir }: { me: Me; resumo: Resumo | null; r
           {(r?.minhas ?? 0) > 0 && <button type="button" className={botaoClaro} onClick={() => ir("minhas")}>Meus envios ({r?.minhas})</button>}
         </p>
       </section>
+
+      {me.papeis.length > 0 && <Atalhos secoes={secoes} ir={ir} icone={(id) => <Icone id={id} />} />}
 
       {me.papeis.length > 0 && <ParaVoceHoje me={me} ir={ir} />}
 
