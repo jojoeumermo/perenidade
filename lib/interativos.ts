@@ -4,7 +4,7 @@
 // guarda dados, em linhas simples que qualquer pessoa escreve sem decorar sintaxe. Este arquivo só lê esses dados
 // (sem React), para o roteiro de conferência (npm run testar:blocos) rodar direto no Node. Sem os atalhos "@/".
 
-export const INTERATIVOS = ["grafico", "geometria", "calculadora", "dados", "simulacao", "molecula", "mapa", "linhadotempo", "diagrama", "teste", "cartoes", "memoria", "forca", "cacapalavras", "arrastar", "frase", "cena", "pronuncia", "musica", "programacao", "rodar", "desenho", "ferramenta"] as const;
+export const INTERATIVOS = ["grafico", "geometria", "calculadora", "dados", "simulacao", "molecula", "mapa", "linhadotempo", "diagrama", "teste", "cartoes", "memoria", "forca", "cacapalavras", "arrastar", "frase", "cena", "pronuncia", "musica", "programacao", "rodar", "desenho", "ferramenta", "recurso"] as const;
 export type Interativo = (typeof INTERATIVOS)[number];
 export const eInterativo = (lingua: string): lingua is Interativo => (INTERATIVOS as readonly string[]).includes(lingua);
 
@@ -326,4 +326,5 @@ export const MODELOS_INTERATIVOS: Record<Interativo, { nome: string; modelo: str
   frase: { nome: "Montar a frase", modelo: "lingua: en-US\nI am a student | Eu sou estudante\nWe read every day | Nós lemos todo dia", ajuda: "lingua: en-US, es-ES, fr-FR… (opcional, para ouvir). Uma frase por linha: frase | tradução. As palavras aparecem embaralhadas e a pessoa monta na ordem." },
   musica: { nome: "Música com letra", modelo: "audio: /arquivos/exemplo.mp3 | Título — autoria (licença)\nlingua: es-ES\n0:05 | Primeira linha da letra | tradução (opcional)\n0:12 | Segunda linha", ajuda: "audio: música do site (envie em Materiais e arquivos, com licença livre ou em domínio público) | crédito. Um verso por linha: tempo (minuto:segundo) | letra | tradução. A letra acompanha a música, e tocar num verso pula para ele." },
   ferramenta: { nome: "Ferramenta do site", modelo: "sistema-solar | Abrir o simulador do sistema solar", ajuda: "O nome da ferramenta (como no endereço /ferramentas/…) e o texto do botão, separados por |." },
+  recurso: { nome: "Laboratório, obra ou simulação", modelo: "laboratorio: eletrica", ajuda: "Uma linha: laboratorio: linux (ou ide, redes, seguranca, montador, ia, escritorio, simulacoes, eletrica) · obra: o endereço da obra no acervo · estudio: photocraft, filmcraft, blockbench… · phet: o nome da simulação. Opcional: altura: 700." },
 };

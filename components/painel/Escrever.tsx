@@ -3,11 +3,12 @@
 
 import { useEffect, useState } from "react";
 import { areaSlugs, licenses } from "@/lib/areas";
+import { sendFile, UploadError, uploadMessages } from "@/lib/upload";
 import { can, cuidaDeTudo, disciplinasQueEnsina, escreveEm, type Me, rpc } from "@/lib/backend";
 import { horaDoRascunho, useRascunho } from "@/lib/rascunho";
 import { getItem, parse, setItem } from "@/lib/storage";
 import tipos from "@/lib/tipos.json";
-import { cleanSources, MarkdownEditor, SourcesField, type EditorLabels, type SourceDraft, type SourceLabels } from "../Editor";
+import { cleanSources, MarkdownEditor, SourcesField, type SourceDraft, type SourceLabels } from "../Editor";
 import { useI18n } from "../I18n";
 import { Markdown } from "../Markdown";
 import { useTrackOptions } from "../useTrackOptions";
@@ -38,34 +39,8 @@ interface Tipo {
   campos: Campo[];
 }
 
-export const editorPt: EditorLabels = {
-  bold: "Negrito",
-  italic: "Itálico",
-  heading: "Título de seção",
-  subheading: "Subtítulo",
-  quote: "Citação",
-  list: "Lista",
-  numbered: "Lista numerada",
-  link: "Link",
-  linkPrompt: "Endereço do link:",
-  preview: "Pré-visualizar",
-  write: "Voltar a escrever",
-  empty: "*Nada para mostrar ainda.*",
-  video: "Vídeo (endereço do YouTube, Vimeo ou PeerTube)",
-  videoPrompt: "Endereço do vídeo (https://…). O vídeo fica onde está; a aula só aponta para ele.",
-  math: "Conta passo a passo",
-  image: "Imagem",
-  imageAlt: "Descreva a imagem para quem não enxerga (o que aparece nela):",
-  imageCredit: "Crédito e licença (autor, ano, de onde veio). Só envie imagem sua, em domínio público ou com licença livre:",
-  sending: "Limpando os dados embutidos e enviando a imagem…",
-  check: "Conferir ortografia e gramática",
-  checking: "Conferindo…",
-  checkNone: "Nenhum apontamento.",
-  checkLive: "Conferir enquanto escrevo",
-  checkNote: "O texto vai ao conferidor do instituto (LanguageTool, de código aberto) ao apertar o botão ou, se você ligar, alguns segundos depois de parar de digitar. Os apontamentos ficam sublinhados no texto.",
-  checkFailed: "A conferência não respondeu. Tente de novo em um minuto.",
-  checkStale: "O texto mudou: confira de novo.",
-};
+export { editorPt } from "../rotulosDoEditor";
+import { editorPt } from "../rotulosDoEditor";
 
 export const fontesPt: SourceLabels = {
   title: "Fontes",
@@ -149,6 +124,29 @@ interface Rascunho {
   questoes: Questao[];
 }
 
+/** Cada tipo em cartão: ícone, nome curto e para que serve. */
+const CARTOES_DE_TIPO: Partial<Record<TipoId, [string, string, string]>> = {
+  aula: ["📖", "Aula de uma trilha", "Texto com blocos, jogos e testes, numa trilha da sua disciplina."],
+  avulso: ["📎", "Material avulso", "Resumo, lista de exercícios, roteiro ou um PDF pronto, fora das trilhas."],
+  temas: ["🗺️", "Próximas aulas", "Os temas que faltam numa trilha."],
+  video: ["🎬", "Vídeo indicado", "Um vídeo bom de outro lugar, com o porquê."],
+  pratica: ["🗣️", "Prática de idioma", "Exercícios curtos e lúdicos para uma aula de língua."],
+  verbete: ["🔤", "Verbete do glossário", "Uma palavra explicada em linguagem simples."],
+  checagem: ["✔️", "Checagem de fato", "O que é verdade e o que não é, com fonte."],
+  debate: ["💬", "Resposta para debate", "Como responder a um argumento comum."],
+  frase: ["❝", "Frase da página inicial", "Uma citação com autoria e fonte."],
+  memorial: ["🕯️", "Nome para o Memorial", "Alguém da luta do povo para lembrar."],
+  sugestao: ["💡", "Sugestão", "Uma ideia para o site ou para uma disciplina."],
+  artigo: ["📰", "Matéria para o jornal", "Texto jornalístico (jornalismo)."],
+  obra: ["📚", "Obra para o acervo", "A ficha de um livro (curadoria)."],
+  traducao: ["🌍", "Tradução", "Uma aula em outro idioma."],
+};
+const GRUPOS_DE_TIPOS: [string, TipoId[]][] = [
+  ["Para a sua disciplina", ["aula", "avulso", "temas", "video", "pratica"] as TipoId[]],
+  ["Para o site", ["verbete", "checagem", "debate", "frase", "memorial", "sugestao"] as TipoId[]],
+  ["Jornal, acervo e traduções", ["artigo", "obra", "traducao"] as TipoId[]],
+];
+
 const rotuloPequeno = "block font-mono text-[0.7rem] uppercase tracking-widest text-ink-soft";
 const campoFino = "mt-1 w-full border border-rule bg-parchment px-3 py-2";
 const semFontes = (fontes: SourceDraft[]) => fontes.every((f) => !f.titulo.trim() && !f.autor.trim() && !f.url.trim());
@@ -161,7 +159,12 @@ export function Escrever({ me }: { me: Me }) {
     const tipo = tipos[id] as Tipo;
     return !tipo.papel || can(me, "coordenacao") || can(me, tipo.papel as "jornalismo");
   });
-  const [id, setId] = useState<TipoId>(disponiveis[0]);
+  // ?tipo=obra (o atalho "Adicionar uma obra" do Acervo por dentro) abre direto no formulário daquele tipo.
+  const pedido = typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("tipo");
+  const [id, setId] = useState<TipoId>(() => (pedido && (disponiveis as string[]).includes(pedido) ? (pedido as TipoId) : disponiveis[0]));
+  // Os tipos aparecem em cartões no alto; depois de escolher, fica só uma faixa com "Trocar o tipo".
+  const [escolhendo, setEscolhendo] = useState(() => !(pedido && (disponiveis as string[]).includes(pedido)));
+  const [enviandoArquivo, setEnviandoArquivo] = useState(false);
   const [titulo, setTitulo] = useState("");
   const [corpo, setCorpo] = useState("");
   const [disciplina, setDisciplina] = useState("");
@@ -352,6 +355,33 @@ export function Escrever({ me }: { me: Me }) {
         </div>
       );
     }
+    if (c.tipo === "requisitos") {
+      // As aulas já publicadas da mesma disciplina, para marcar o que é bom ter visto antes. Sem nada marcado, vale a
+      // aula anterior da trilha.
+      const marcadas = valor ? valor.split(",").filter(Boolean) : [];
+      const daDisciplina = tracks.filter((track) => track.area === trilha?.area);
+      return (
+        <details className="mt-1 border border-rule bg-parchment-deep p-2">
+          <summary className="cursor-pointer">{marcadas.length ? `${marcadas.length} aula(s) marcada(s)` : "Nenhuma marcada: vale a aula anterior da trilha"}</summary>
+          <div className="mt-2 max-h-56 space-y-2 overflow-y-auto">
+            {daDisciplina.map((track) => (track.lessons?.length ?? 0) > 0 && (
+              <fieldset key={track.slug}>
+                <legend className="font-mono text-[0.65rem] uppercase tracking-widest text-ink-soft">{track.title}</legend>
+                {track.lessons!.filter((l) => !(track.slug === trilha?.slug && l.slug === valores.slug)).map((l) => {
+                  const chave = `${track.slug}/${l.slug}`;
+                  return (
+                    <label key={chave} className="flex items-start gap-2">
+                      <input type="checkbox" className="mt-1" checked={marcadas.includes(chave)} onChange={(e) => mudar(c.nome, (e.target.checked ? [...marcadas, chave] : marcadas.filter((x) => x !== chave)).slice(0, 8).join(","))} />
+                      {l.title}
+                    </label>
+                  );
+                })}
+              </fieldset>
+            ))}
+          </div>
+        </details>
+      );
+    }
     if (c.tipo === "plano") {
       return (
         <select
@@ -397,16 +427,39 @@ export function Escrever({ me }: { me: Me }) {
   }
 
   const seletor = (
-    <label className="block">
-      <span className={rotuloPequeno}>O que você quer publicar</span>
-      <select value={id} onChange={(e) => setId(e.target.value as TipoId)} className={campoFino}>
-        {disponiveis.map((tipoId) => (
-          <option key={tipoId} value={tipoId}>
-            {(tipos[tipoId] as Tipo).rotulo}
-          </option>
-        ))}
-      </select>
-    </label>
+    <section aria-label="O que você quer publicar" className="font-sans">
+      {escolhendo ? (
+        <div className="space-y-4">
+          <p className="font-serif text-2xl font-semibold">O que você quer publicar hoje?</p>
+          {GRUPOS_DE_TIPOS.map(([grupo, ids]) => {
+            const daqui = ids.filter((tipoId) => disponiveis.includes(tipoId));
+            if (!daqui.length) return null;
+            return (
+              <div key={grupo}>
+                <p className={rotuloPequeno}>{grupo}</p>
+                <div className="mt-1 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                  {daqui.map((tipoId) => {
+                    const [icone, curto, sobre] = CARTOES_DE_TIPO[tipoId] ?? ["📝", (tipos[tipoId] as Tipo).rotulo, ""];
+                    return (
+                      <button key={tipoId} type="button" aria-pressed={id === tipoId} onClick={() => { setId(tipoId); setEscolhendo(false); }} className={`flex cursor-pointer items-start gap-3 border-2 p-3 text-left hover:border-oxblood ${id === tipoId ? "border-oxblood bg-parchment-deep" : "border-ink/20 bg-parchment"}`}>
+                        <span aria-hidden className="text-3xl leading-none">{icone}</span>
+                        <span><span className="block font-bold">{curto}</span><span className="block text-xs text-ink-soft">{sobre}</span></span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <p className="flex flex-wrap items-center gap-3 border-2 border-ink bg-parchment-deep px-3 py-2">
+          <span aria-hidden className="text-2xl">{CARTOES_DE_TIPO[id]?.[0] ?? "📝"}</span>
+          <span><span className={rotuloPequeno}>Você está escrevendo</span><span className="font-bold">{CARTOES_DE_TIPO[id]?.[1] ?? tipo.rotulo}</span></span>
+          <button type="button" className={`${elo} ml-auto text-sm`} onClick={() => setEscolhendo(true)}>Trocar o tipo</button>
+        </p>
+      )}
+    </section>
   );
 
   if (id === "pratica") {
@@ -433,6 +486,7 @@ export function Escrever({ me }: { me: Me }) {
 
   const formulario = (
     <form className="space-y-5 pb-4" onSubmit={(e) => e.preventDefault()}>
+      {seletor}
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs" aria-label="Etapas">
         {etapas.map(([nome, ok], i) => (
           <li key={nome} className="flex items-center gap-2" aria-current={i === atual ? "step" : undefined}>
@@ -464,7 +518,6 @@ export function Escrever({ me }: { me: Me }) {
 
       {detalhesVisiveis && (
         <div className="space-y-4 border border-rule bg-parchment-deep p-4">
-          {seletor}
           <p className="border-l-2 border-gold pl-3 text-sm text-ink-soft">{tipo.ajuda}</p>
           {tipo.campos
             .filter((c) => c.tipo === "trilha" || c.tipo === "plano")
@@ -542,6 +595,38 @@ export function Escrever({ me }: { me: Me }) {
                   {campoDe(c)}
                 </label>
               ))}
+            </div>
+          )}
+          {id === "avulso" && (
+            <div className="mt-5 border-2 border-dashed border-ink/40 bg-parchment-deep p-3 font-sans text-sm">
+              <p className="font-semibold">📎 Tem o material pronto num arquivo?</p>
+              <p className="text-ink-soft">Suba o PDF (resumo, lista de exercícios, apostila, mapa mental, até 8 MB) e escreva embaixo umas linhas dizendo o que é e para quem serve. O arquivo passa pela revisão junto com o texto.</p>
+              <label className={`mt-2 inline-block cursor-pointer border-2 border-ink px-3 py-1.5 font-bold hover:border-oxblood ${enviandoArquivo ? "opacity-50" : ""}`}>
+                {enviandoArquivo ? "Enviando…" : "Escolher o PDF"}
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  className="sr-only"
+                  disabled={enviandoArquivo}
+                  onChange={async (e) => {
+                    const arquivo = e.target.files?.[0];
+                    e.target.value = "";
+                    if (!arquivo) return;
+                    if (arquivo.type !== "application/pdf") return setAviso("Escolha um arquivo PDF.");
+                    setEnviandoArquivo(true);
+                    try {
+                      const caminho = await sendFile(arquivo, "pdf");
+                      const nome = arquivo.name.replace(/\.pdf$/i, "").replace(/[[\]()]/g, "").slice(0, 80) || "Material";
+                      setCorpo((antes) => `${antes.trim() ? `${antes.trim()}\n\n` : ""}[📎 Baixar: ${nome} (PDF)](envio:${caminho})\n\n`);
+                      setAviso("PDF anexado ✓ Agora escreva umas linhas sobre ele.");
+                    } catch (erro) {
+                      setAviso(erro instanceof UploadError ? (uploadMessages[erro.message] ?? "Não deu para enviar o arquivo.") : "Não deu para enviar o arquivo.");
+                    } finally {
+                      setEnviandoArquivo(false);
+                    }
+                  }}
+                />
+              </label>
             </div>
           )}
           <div className="mt-6 font-serif text-[18px] leading-relaxed">

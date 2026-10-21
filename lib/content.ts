@@ -69,6 +69,10 @@ export interface Lesson extends Localized {
   practice: Exercicio[];
   /** Ferramentas que a aula sugere (campo "ferramentas"): vêm primeiro na caixa de ferramentas da aula. */
   tools: ToolId[];
+  /** O que é bom ter visto antes (campo "requisitos"): "slug-da-aula" (mesma trilha) ou "trilha/slug-da-aula". */
+  requires: string[];
+  /** Aulas de outras disciplinas sobre o mesmo assunto, escolhidas por quem escreveu (campo "veja_tambem"). */
+  related: string[];
 }
 
 /** Item do roteiro de uma trilha: aula já escrita ou ainda em preparação. */
@@ -103,6 +107,10 @@ export interface Book extends Localized {
   language: string;
   year?: string;
   synopsis: string;
+  /** A capa guardada no próprio site (public/capas, montada por scripts/capas.mjs), quando a fonte tem uma aberta. */
+  cover?: string;
+  /** De onde veio a capa e a licença dela (content/capas.json). */
+  coverCredit?: string;
 }
 
 /** Obra vinda dos catálogos abertos (content/catalogo): só os dados que a fonte publica. */
@@ -232,7 +240,7 @@ export interface Video extends Localized {
 }
 
 /** Formatos de material avulso, como o painel oferece. O texto guardado é o português; cada idioma traduz na tela. */
-export const looseFormats = ["Aula avulsa", "Lista de exercícios", "Resumo", "Roteiro de estudo", "Material para imprimir", "Indicação comentada"] as const;
+export const looseFormats = ["Aula avulsa", "Lista de exercícios", "Resumo", "Roteiro de estudo", "Material para imprimir", "Indicação comentada", "Mapa mental", "Arquivo para baixar (PDF)"] as const;
 export type LooseFormat = (typeof looseFormats)[number];
 
 /** Material avulso de uma disciplina: feito pelos educadores secundários, fora das trilhas. */
@@ -392,6 +400,16 @@ function collection<T>(dir: string, lang: Locale, build: (entry: { slug: string;
   return items;
 }
 
+/** "requisitos: [fracoes, matematica-fundamental/porcentagem]": uma aula da mesma trilha ou "trilha/aula". */
+function parseCaminhos(value: unknown, campo: string, file: string): string[] {
+  if (value === undefined || value === null) return [];
+  if (!Array.isArray(value)) fail(file, `"${campo}" precisa ser uma lista, por exemplo [fracoes, matematica-fundamental/porcentagem]`);
+  return value.map((item) => {
+    if (typeof item !== "string" || !/^[a-z0-9-]+(\/[a-z0-9-]+)?$/.test(item)) fail(file, `item inválido em "${campo}": ${String(item)} (use slug-da-aula ou trilha/slug-da-aula)`);
+    return item as string;
+  });
+}
+
 /** "ferramentas: [resolvedor, graficos]": cada nome precisa existir em lib/areas.ts, senão a montagem do site para. */
 function parseTools(value: unknown, file: string): ToolId[] {
   if (value === undefined || value === null) return [];
@@ -423,6 +441,8 @@ function loadLesson(file: string, name: string, lang: Locale): (Lesson & { numbe
     }),
     reviewed: data.revisada === true,
     tools: parseTools(data.ferramentas, file),
+    requires: parseCaminhos(data.requisitos, "requisitos", file),
+    related: parseCaminhos(data.veja_tambem, "veja_tambem", file),
     body,
     quiz: parseQuiz(data.quiz, file),
     practice: validarPratica(data.pratica, file),
@@ -478,6 +498,17 @@ export const getTracks = cache((lang: Locale): Track[] => {
   return tracks.sort((a, b) => a.order - b.order || a.title.localeCompare(b.title, lang));
 });
 
+/** As capas que existem em public/capas e o crédito de cada uma. Lido uma vez por processo. */
+let capas: { ids: Set<string>; creditos: Record<string, { fonte: string }> } | null = null;
+function capasDoSite() {
+  if (!capas) {
+    const pasta = path.join(process.cwd(), "public", "capas");
+    const ids = new Set(fs.existsSync(pasta) ? fs.readdirSync(pasta).filter((f) => f.endsWith(".webp")).map((f) => f.slice(0, -5)) : []);
+    capas = { ids, creditos: readJson<Record<string, { fonte: string }>>("content/capas.json", {}) };
+  }
+  return capas;
+}
+
 export const getBooks = cache((lang: Locale): Book[] =>
   collection("acervo", lang, ({ slug, file, data, body, translated }) => {
     const url = httpsUrl(data, "url", file);
@@ -495,6 +526,7 @@ export const getBooks = cache((lang: Locale): Book[] =>
       language: text(data, "idioma", file),
       year: optional(data, "ano"),
       synopsis: body,
+      ...(capasDoSite().ids.has(slug) ? { cover: `/capas/${slug}.webp`, coverCredit: capasDoSite().creditos[slug]?.fonte } : {}),
       translated,
       file,
     };
@@ -831,6 +863,77 @@ export const getPage = cache((slug: string, lang: Locale): ContentPage => {
     file,
   };
 });
+
+// ───────────── Aulas ligadas: pré-requisitos e "também em outra disciplina" ─────────────
+
+export interface AulaLigada {
+  id: string;
+  path: string;
+  title: string;
+  track: string;
+  area: AreaSlug;
+}
+
+/** Palavras que não dizem o assunto de uma aula (pt, en, es): ficam fora da comparação. */
+const VAZIAS = new Set(
+  "sobre entre como quando onde porque para pelos pelas pela pelo depois antes ainda mesmo muito muita muitos muitas outro outra outros outras todos todas cada sendo seria serem fazer feito feita parte partes forma formas modo coisa coisas tempo vida primeiro primeira segunda segundo introducao nocoes basico basica basicos basicas conceito conceitos aula aulas trilha estudo estudos pratica praticas exemplo exemplos geral simples historia brasil brasileira brasileiro mundo social sociais what with from that this your about como para entre sobre desde hasta sobre entre cuando donde".split(" "),
+);
+const palavrasDe = (texto: string) => new Set(plainText(texto).normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(/[^a-z0-9]+/).filter((p) => p.length >= 5 && !VAZIAS.has(p)));
+
+const indiceDeAulas = cache((lang: Locale) =>
+  getTracks(lang).flatMap((track) =>
+    track.lessons.map((lesson) => ({
+      id: `${track.slug}/${lesson.slug}`,
+      path: `/trilhas/${track.slug}/${lesson.slug}`,
+      title: lesson.title,
+      track: track.title,
+      area: track.area,
+      palavras: palavrasDe(`${lesson.title} ${lesson.title} ${lesson.summary}`),
+    })),
+  ),
+);
+
+/** As aulas que esta pede antes: as do campo "requisitos" e, se ela não disser nada, a aula anterior da trilha. */
+export function requisitosDaAula(lang: Locale, track: Track, lessonSlug: string): AulaLigada[] {
+  const indice = new Map(indiceDeAulas(lang).map((a) => [a.id, a]));
+  const posicao = track.lessons.findIndex((l) => l.slug === lessonSlug);
+  const lesson = track.lessons[posicao];
+  if (!lesson) return [];
+  const pedidos = lesson.requires.length ? lesson.requires.map((r) => (r.includes("/") ? r : `${track.slug}/${r}`)) : posicao > 0 ? [`${track.slug}/${track.lessons[posicao - 1].slug}`] : [];
+  return pedidos.map((id) => indice.get(id)).filter((a): a is NonNullable<typeof a> => Boolean(a)).map(({ id, path, title, track, area }) => ({ id, path, title, track, area }));
+}
+
+/**
+ * "Também em outras disciplinas": as escolhidas por quem escreveu (campo "veja_tambem") e, para completar até três,
+ * as aulas de outras disciplinas que mais dividem palavras com o título e o resumo desta (pelo menos duas palavras de
+ * assunto em comum). Nada é inventado: só aulas que existem no site.
+ */
+export function tambemEmOutras(lang: Locale, track: Track, lessonSlug: string, maximo = 3): AulaLigada[] {
+  const indice = indiceDeAulas(lang);
+  const porId = new Map(indice.map((a) => [a.id, a]));
+  const lesson = track.lessons.find((l) => l.slug === lessonSlug);
+  if (!lesson) return [];
+  const escolhidas = lesson.related.map((r) => porId.get(r.includes("/") ? r : `${track.slug}/${r}`)).filter((a): a is NonNullable<typeof a> => Boolean(a));
+  const minhas = porId.get(`${track.slug}/${lessonSlug}`)?.palavras ?? new Set<string>();
+  const parecidas = minhas.size
+    ? indice
+        .filter((a) => a.area !== track.area && !escolhidas.some((e) => e.id === a.id))
+        .map((a) => {
+          let comum = 0;
+          for (const p of a.palavras) if (minhas.has(p)) comum++;
+          return { a, comum, nota: comum / Math.sqrt(a.palavras.size * minhas.size || 1) };
+        })
+        .filter((x) => x.comum >= 2 && x.nota >= 0.3)
+        .sort((x, y) => y.nota - x.nota)
+        .map((x) => x.a)
+    : [];
+  // Uma por disciplina, para a lista mostrar disciplinas diferentes.
+  const vistas = new Set<string>();
+  return [...escolhidas, ...parecidas]
+    .filter((a) => (vistas.has(a.area) ? false : (vistas.add(a.area), true)))
+    .slice(0, maximo)
+    .map(({ id, path, title, track, area }) => ({ id, path, title, track, area }));
+}
 
 export function getTrack(slug: string, lang: Locale): Track | undefined {
   return getTracks(lang).find((t) => t.slug === slug);

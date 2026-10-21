@@ -95,7 +95,8 @@
     "notebook": "Study notebook",
     "health": "Health",
     "reportBug": "Report a site bug",
-    "institute": "Charter, mission and values"
+    "institute": "Charter, mission and values",
+    "freeRoom": "Open classroom (for teachers)"
   },
   "labs": {
     "eyebrow": "Real practice",
@@ -131,7 +132,9 @@
     "segurancaKaliAviso": "On opening, the browser downloads about 8 MB (the emulator and a small Linux image) and boots the system — it takes a few seconds. Best on a computer, with an up-to-date Chrome, Edge or Firefox.",
     "segurancaKaliTelaCheia": "Fullscreen",
     "segurancaKaliDefesa": "Defense training: spotting the attack",
-    "segurancaKaliForaDoAr": "The lab is not yet live at the institute's address."
+    "segurancaKaliForaDoAr": "The lab is not yet live at the institute's address.",
+    "eletrica": "Electrical lab",
+    "eletricaLead": "A real-looking multimeter on the bench, series and parallel with bulbs, wiring a light and an outlet with the right colours, and an electrician's maths."
   },
   "lists": {
     "bankEyebrow": "To practise",
@@ -243,7 +246,10 @@
     "publicRemove": "remove",
     "publicResolutionFailed": "Could not publish the solution right now.",
     "publicSource": "Questions from public exams, transcribed by open projects (enem.dev, BLUEX and oab_exams). Updated on {data}. Source of this exam:",
-    "publicSourcePick": "Source"
+    "publicSourcePick": "Source",
+    "bankTabInstitute": "The institute's questions",
+    "bankTabInstituteHint": "{n} questions from the lessons, with answers and explanations by the educators",
+    "bankTabPublicHint": "ENEM, university entrance exams (Fuvest, Unicamp, ITA, IME), olympiads, OAB, Revalida and Enare"
   },
   "slogans": {
     "acervo": "Reading is an act of resistance.",
@@ -646,6 +652,14 @@
     "oratoria-e-lideranca": [
       "Public speaking and leadership",
       "Speaking in public with clarity, preparing a talk, running meetings and assemblies and leading collectively."
+    ],
+    "samba-e-cultura": [
+      "Samba and culture",
+      "Samba from the circle to the avenue: history, rhythm, Black and Brazilian culture, the hillside, malandragem and the people who made samba."
+    ],
+    "eletricista": [
+      "Electrician",
+      "Electricity from the basics to wiring a house, with safety first: multimeter, breaker panel, outlets, electric shower and the trade as a living."
     ]
   },
   "tracks": {
@@ -726,7 +740,10 @@
     "certCode": "Verification number: {c}",
     "certPrint": "Save as PDF or print",
     "certClose": "Close",
-    "certPrintHint": "In the print window, choose “Save as PDF”, A4 paper and turn on “Background graphics”."
+    "certPrintHint": "In the print window, choose “Save as PDF”, A4 paper and turn on “Background graphics”.",
+    "searchLabel": "Search for a subject",
+    "searchPlaceholder": "Search for a subject or a topic (e.g. photosynthesis, samba, Python)…",
+    "searchClear": "Clear"
   },
   "lesson": {
     "position": "lesson {i} of {n}",
@@ -762,7 +779,13 @@
     "videoOpen": "Open the video in another tab",
     "imagePending": "image awaiting publication",
     "toMistakes": "Missed questions go to your mistakes notebook.",
-    "studyInNotebook": "Study this lesson in the notebook"
+    "studyInNotebook": "Study this lesson in the notebook",
+    "beforeTitle": "Before this lesson",
+    "beforeLead": "It helps to have seen first:",
+    "beforeKnow": "I know this, continue",
+    "beforeDone": "done",
+    "beforeMissing": "not yet",
+    "alsoInTitle": "Also in other subjects"
   },
   "library": {
     "areasTitle": "Areas",
@@ -822,7 +845,9 @@
     "catalogTitle": "Extended catalogue",
     "catalogLead": "Works gathered from open catalogues, with a direct link to the source. These entries are simpler than those selected by the curators. A work being listed here does not mean agreement with what it says.",
     "seeAt": "See at {source}",
-    "mecNote": "Free digital loan from MEC Livros, the digital library of Brazil's Ministry of Education: just sign in with a gov.br account."
+    "mecNote": "Free digital loan from MEC Livros, the digital library of Brazil's Ministry of Education: just sign in with a gov.br account.",
+    "carouselPause": "Pause",
+    "carouselPlay": "Play"
   },
   "shelf": {
     "eyebrow": "Subject",
@@ -1464,7 +1489,7 @@
     "teoria": "Revolutionary theory",
     "lutas": "People's struggles",
     "percursos": "Literacy and ENEM",
-    "oficios": "Trades and income: learn a skill and earn a living from it"
+    "oficios": "Trades and hobbies: learn a skill, do it yourself and earn a living from it"
   },
   "stages": {
     "fundamental": "Primary and lower secondary",
@@ -2893,7 +2918,11 @@
       "podcasts": "Political education episodes to listen to on the bus, in the kitchen or on your work break.",
       "instagram": "Institute news, lessons and calls for volunteers.",
       "live": "Schedule of live classes, with video and chat on the site itself.",
-      "notebook": "Gather lessons and texts and get summary, flashcards, quiz, map, timeline and audio from them. All in your browser."
+      "notebook": "Gather lessons and texts and get summary, flashcards, quiz, map, timeline and audio from them. All in your browser.",
+      "community": "The learners' forum: questions, answers and debates, moderated and ad-free.",
+      "health": "Volunteer health professionals offering free or social-rate care: you talk to them directly.",
+      "bugs": "Something froze or looked wrong? Tell the people who maintain the code.",
+      "freeRoom": "Build and project your lesson with the site's labs, books, editors, simulations and games."
     }
   },
   "support": {
@@ -3793,7 +3822,9 @@
       "Summary",
       "Study guide",
       "Printable material",
-      "Annotated recommendation"
+      "Annotated recommendation",
+      "Mind map",
+      "Downloadable file (PDF)"
     ]
   },
   "practice": {
@@ -4418,5 +4449,11 @@
     "title": "I found a bug",
     "lead": "Something didn't open, froze, looked broken or had the wrong text? Tell us here: it goes straight to the people who maintain the site's code.",
     "description": "Report a bug on the Instituto Lúcia site: what went wrong and where. No account needed and your network address is not stored."
+  },
+  "instituto": {
+    "description": "Purpose, mission, vision, values and the working charter (statute) of Instituto Lúcia: a free school and library run by volunteers."
+  },
+  "salaLivre": {
+    "description": "Build and project your own lesson with everything the institute offers: labs, library books, photo, video and 3D editors, simulations, games and quizzes. It stays only in your browser."
   }
 }

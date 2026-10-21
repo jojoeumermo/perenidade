@@ -8,6 +8,7 @@ import { areaSlugs, essential, groups, licenses } from "@/lib/areas";
 import type { Book, CatalogEntry } from "@/lib/content";
 import { normalize } from "@/lib/text";
 import { licenseName } from "./Cards";
+import { useHydrated } from "@/lib/storage";
 import { L, useI18n } from "./I18n";
 
 const field = "border-2 border-ink bg-parchment-deep px-3 py-2";
@@ -27,15 +28,84 @@ function lerEstante(): Estante {
   }
 }
 
-/** Capa tipográfica, gerada aqui: título e autor sobre a cor da área. Nenhuma imagem de terceiros. */
-function Capa({ book, pequena = false }: { book: Book; pequena?: boolean }) {
+/**
+ * A capa: a da própria edição, quando a fonte publica uma aberta (guardada no site por scripts/capas.mjs); senão, uma
+ * capa desenhada aqui, como livro de coleção: o autor no alto, o título grande, o fio dourado com a estrela e a faixa
+ * da coleção embaixo, na cor da área. Nenhuma imagem de terceiros é carregada do endereço deles.
+ */
+export function Capa({ book, pequena = false, grande = false }: { book: Book; pequena?: boolean; grande?: boolean }) {
+  const tamanho = pequena ? "h-20 w-14" : grande ? "h-72 w-48" : "h-48 w-32";
+  if (book.cover) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={book.cover} alt="" loading="lazy" decoding="async" className={`${tamanho} shrink-0 border border-ink/40 bg-parchment-deep object-cover shadow-[3px_3px_0_0_rgba(23,19,14,0.35)]`} />
+    );
+  }
+  const cor = tomDe(book.area);
   return (
-    <div aria-hidden className={`flex shrink-0 flex-col justify-between border-2 border-ink p-2 text-[#f4ecd8] ${pequena ? "h-20 w-14" : "h-36 w-24"}`} style={{ background: tomDe(book.area) }}>
-      <span className="h-1 w-6 bg-[#d4a24c]" />
-      <span className={`font-serif font-semibold leading-tight ${pequena ? "line-clamp-3 text-[0.55rem]" : "line-clamp-4 text-xs"}`}>{book.title}</span>
-      <span className={`truncate font-mono uppercase tracking-wider opacity-80 ${pequena ? "text-[0.4rem]" : "text-[0.5rem]"}`}>{book.author}</span>
+    <div aria-hidden className={`relative flex shrink-0 flex-col overflow-hidden border border-ink/60 text-[#f4ecd8] shadow-[3px_3px_0_0_rgba(23,19,14,0.35)] ${tamanho}`} style={{ background: cor }}>
+      {/* A lombada: uma sombra à esquerda, como livro de verdade. */}
+      <span className="absolute inset-y-0 left-0 w-2 bg-black/25" />
+      <div className={`flex flex-1 flex-col ${pequena ? "p-1.5 pl-2.5" : grande ? "p-5 pl-7" : "p-3 pl-4"}`}>
+        <span className={`truncate font-mono uppercase tracking-[0.18em] opacity-85 ${pequena ? "text-[0.38rem]" : grande ? "text-[0.7rem]" : "text-[0.5rem]"}`}>{book.author}</span>
+        <span className={`mt-auto font-serif font-semibold leading-[1.05] ${pequena ? "line-clamp-3 text-[0.55rem]" : grande ? "line-clamp-6 text-2xl" : "line-clamp-5 text-[0.95rem]"}`}>{book.title}</span>
+        <span className={`flex items-center gap-1.5 ${pequena ? "mt-1" : "mt-3"}`}>
+          <span className={`${pequena ? "h-px" : "h-0.5"} flex-1 bg-[#d4a24c]`} />
+          <svg viewBox="33 9 54 53" className={pequena ? "h-2 w-2" : "h-3.5 w-3.5"} fill="#d4a24c"><polygon points="60,10 66.29,29.35 86.63,29.35 70.17,41.31 76.46,60.65 60,48.7 43.54,60.65 49.83,41.31 33.37,29.35 53.71,29.35" /></svg>
+          <span className={`${pequena ? "h-px" : "h-0.5"} flex-1 bg-[#d4a24c]`} />
+        </span>
+      </div>
+      {!pequena && (
+        <span className={`block bg-[#17130e]/80 text-center font-mono uppercase tracking-[0.2em] text-[#d4a24c] ${grande ? "py-2 text-[0.6rem]" : "py-1 text-[0.42rem]"}`}>Instituto Lúcia · Acervo</span>
+      )}
     </div>
   );
+}
+
+/**
+ * A vitrine do acervo: uma fileira de livros que anda sozinha, em loop, e para quando o mouse passa por cima, quando
+ * um livro recebe o foco do teclado ou quando a pessoa aperta "Pausar". Com movimento reduzido no aparelho, não anda:
+ * vira uma fileira para rolar com o dedo.
+ */
+function Carrossel({ titulo, obras, verTodas, rotulo }: { titulo: string; obras: Book[]; verTodas?: () => void; rotulo: { pause: string; play: string; all: string } }) {
+  const [pausado, setPausado] = useState(false);
+  if (obras.length === 0) return null;
+  const loop = obras.length >= 6;
+  const lista = loop ? [...obras, ...obras] : obras;
+  return (
+    <section className="carrossel mt-8" data-pausado={pausado ? "1" : undefined} aria-roledescription="carrossel" aria-label={titulo}>
+      <div className="flex flex-wrap items-baseline justify-between gap-3 border-b-2 border-ink pb-2">
+        <h2 className="text-2xl font-semibold">{titulo} <span className="font-mono text-xs font-normal text-ink-soft">{obras.length}</span></h2>
+        <span className="flex items-center gap-4 font-sans text-sm">
+          {loop && <button type="button" aria-pressed={pausado} onClick={() => setPausado((p) => !p)} className="cursor-pointer underline hover:text-oxblood">{pausado ? `▶ ${rotulo.play}` : `⏸ ${rotulo.pause}`}</button>}
+          {verTodas && <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={verTodas}>{rotulo.all} →</button>}
+        </span>
+      </div>
+      <div className="carrossel-janela mt-4">
+        <ul className={`flex w-max ${loop ? "carrossel-trilho" : ""}`} style={loop ? { animationDuration: `${Math.max(30, obras.length * 3.2)}s` } : undefined}>
+          {lista.map((b, i) => {
+            const copia = i >= obras.length;
+            return (
+              <li key={`${b.id}-${i}`} className="w-36 shrink-0 pr-5" aria-hidden={copia || undefined}>
+                <L href={`/acervo/${b.id}`} className="group block" tabIndex={copia ? -1 : undefined}>
+                  <span className="block transition-transform duration-200 group-hover:-translate-y-1"><Capa book={b} /></span>
+                  <span className="mt-2 block line-clamp-2 font-serif text-sm font-semibold leading-tight group-hover:text-oxblood">{b.title}</span>
+                  <span className="block truncate font-sans text-xs text-ink-soft">{b.author}</span>
+                </L>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/** Uma ordem que muda a cada dia (a mesma para todo mundo naquele dia): a vitrine não mostra sempre os mesmos livros. */
+function doDia<T extends { id: string }>(lista: T[], quantos: number) {
+  const dia = Math.floor(Date.now() / 86_400_000);
+  const peso = (id: string) => [...id].reduce((n, c) => (n * 31 + c.charCodeAt(0) + dia) >>> 0, dia);
+  return [...lista].sort((a, b) => peso(a.id) - peso(b.id)).slice(0, quantos);
 }
 
 /**
@@ -57,6 +127,7 @@ export function AcervoBrowser({ books, novidades }: { books: Book[]; /** Ids das
   const [limite, setLimite] = useState(POR_VEZ);
   const [estante, setEstante] = useState<Estante>({});
   const [catalog, setCatalog] = useState<{ key: string; entries: CatalogEntry[] }>({ key: "", entries: [] });
+  const hidratado = useHydrated();
   const importar = useRef<HTMLInputElement>(null);
   // A estante e a vista preferida vivem no navegador: lidas depois da hidratação, numa tarefa à parte, para o HTML do servidor bater com o primeiro desenho.
   useEffect(() => {
@@ -146,26 +217,6 @@ export function AcervoBrowser({ books, novidades }: { books: Book[]; /** Ids das
     </li>
   );
 
-  const estanteDe = (titulo: string, obras: Book[], verTodas?: () => void) => obras.length > 0 && (
-    <section className="mt-10">
-      <div className="flex items-baseline justify-between gap-3 border-b border-rule pb-2">
-        <h2 className="text-2xl font-semibold">{titulo}</h2>
-        {verTodas && <button type="button" className="cursor-pointer font-sans text-sm underline hover:text-oxblood" onClick={verTodas}>{s.allWorks} →</button>}
-      </div>
-      <ul className="mt-4 flex gap-4 overflow-x-auto pb-2 [scrollbar-width:thin]">
-        {obras.slice(0, 8).map((b) => (
-          <li key={b.id} className="w-36 shrink-0">
-            <L href={`/acervo/${b.id}`} className="group block">
-              <Capa book={b} />
-              <span className="mt-2 block line-clamp-2 font-serif text-sm font-semibold leading-tight group-hover:text-oxblood">{b.title}</span>
-              <span className="block truncate font-sans text-xs text-ink-soft">{b.author}</span>
-            </L>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-
   return (
     <>
       <div role="search" className="mt-8 flex flex-wrap gap-3 font-sans text-sm">
@@ -175,7 +226,11 @@ export function AcervoBrowser({ books, novidades }: { books: Book[]; /** Ids das
 
       {!lista ? (
         <>
-          <section className="mt-10">
+          {/* A vitrine fica no alto: os livros passam sozinhos e param com o mouse em cima. */}
+          <Carrossel titulo={s.newTitle} obras={novidades.map((id) => porId.get(id)).filter((b): b is Book => Boolean(b))} rotulo={{ pause: s.carouselPause, play: s.carouselPlay, all: s.allWorks }} />
+          <Carrossel titulo={s.startTitle} obras={books.filter((b) => (essential as readonly string[]).includes(b.area) && b.license === "Domínio público")} rotulo={{ pause: s.carouselPause, play: s.carouselPlay, all: s.allWorks }} />
+          <Carrossel titulo={s.pdTitle} obras={hidratado ? doDia(books.filter((b) => b.license === "Domínio público"), 240) : books.filter((b) => b.license === "Domínio público").slice(0, 240)} verTodas={() => abrirLista({ license: "Domínio público" })} rotulo={{ pause: s.carouselPause, play: s.carouselPlay, all: s.allWorks }} />
+          <section className="mt-12">
             <h2 className="border-b border-rule pb-2 text-2xl font-semibold">{s.areasTitle}</h2>
             {groups.map((g) => {
               const areas = g.areas.filter((a) => (porArea.get(a) ?? 0) > 0);
@@ -196,9 +251,7 @@ export function AcervoBrowser({ books, novidades }: { books: Book[]; /** Ids das
               );
             })}
           </section>
-          {estanteDe(s.newTitle, novidades.map((id) => porId.get(id)).filter((b): b is Book => Boolean(b)))}
-          {estanteDe(s.startTitle, books.filter((b) => (essential as readonly string[]).includes(b.area) && b.license === "Domínio público").slice(0, 8))}
-          {estanteDe(s.pdTitle, books.filter((b) => b.license === "Domínio público").slice(0, 8), () => abrirLista({ license: "Domínio público" }))}
+
           {minhas.length > 0 && (
             <section className="mt-10">
               <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-rule pb-2">

@@ -95,7 +95,8 @@
     "notebook": "Cahier d'étude",
     "health": "Santé",
     "reportBug": "Signaler un bug du site",
-    "institute": "Statuts, mission et valeurs"
+    "institute": "Statuts, mission et valeurs",
+    "freeRoom": "Salle libre (pour enseignants)"
   },
   "labs": {
     "eyebrow": "Pratique réelle",
@@ -131,7 +132,9 @@
     "segurancaKaliAviso": "À l'ouverture, le navigateur télécharge environ 8 Mo (l'émulateur et une petite image Linux) et démarre le système — cela prend quelques secondes. De préférence sur un ordinateur, avec un Chrome, Edge ou Firefox à jour.",
     "segurancaKaliTelaCheia": "Plein écran",
     "segurancaKaliDefesa": "Entraînement à la défense : repérer l'attaque",
-    "segurancaKaliForaDoAr": "Le laboratoire n'est pas encore en ligne à l'adresse de l'institut."
+    "segurancaKaliForaDoAr": "Le laboratoire n'est pas encore en ligne à l'adresse de l'institut.",
+    "eletrica": "Laboratoire d'électricité",
+    "eletricaLead": "Un vrai multimètre sur l'établi, série et parallèle avec des ampoules, câbler un point lumineux et une prise avec les bonnes couleurs, et les calculs de l'électricien."
   },
   "lists": {
     "bankEyebrow": "Pour s'entraîner",
@@ -243,7 +246,10 @@
     "publicRemove": "retirer",
     "publicResolutionFailed": "Impossible de publier la résolution pour le moment.",
     "publicSource": "Questions d'examens publics, transcrites par des projets ouverts (enem.dev, BLUEX et oab_exams). Mis à jour le {data}. Source de cet examen :",
-    "publicSourcePick": "Source"
+    "publicSourcePick": "Source",
+    "bankTabInstitute": "Questions de l'institut",
+    "bankTabInstituteHint": "{n} questions des cours, avec la réponse et l'explication des éducateurs",
+    "bankTabPublicHint": "ENEM, concours d'entrée (Fuvest, Unicamp, ITA, IME), olympiades, OAB, Revalida et Enare"
   },
   "slogans": {
     "acervo": "Lire est un acte de résistance.",
@@ -646,6 +652,14 @@
     "oratoria-e-lideranca": [
       "Prise de parole et leadership",
       "Parler en public avec clarté, préparer une intervention, mener des réunions et des assemblées et diriger collectivement."
+    ],
+    "samba-e-cultura": [
+      "Samba et culture",
+      "La samba, du cercle à l'avenue : histoire, rythme, culture noire et brésilienne, le morro, la malandragem et celles et ceux qui l'ont faite."
+    ],
+    "eletricista": [
+      "Électricien",
+      "L'électricité, des bases à l'installation d'une maison, la sécurité d'abord : multimètre, tableau, prises, douche électrique et le métier comme revenu."
     ]
   },
   "tracks": {
@@ -726,7 +740,10 @@
     "certCode": "Numéro de vérification : {c}",
     "certPrint": "Enregistrer en PDF ou imprimer",
     "certClose": "Fermer",
-    "certPrintHint": "Dans la fenêtre d'impression, choisissez « Enregistrer au format PDF », papier A4 et activez « Graphiques d'arrière-plan »."
+    "certPrintHint": "Dans la fenêtre d'impression, choisissez « Enregistrer au format PDF », papier A4 et activez « Graphiques d'arrière-plan ».",
+    "searchLabel": "Chercher une discipline",
+    "searchPlaceholder": "Chercher une discipline ou un thème (ex. : photosynthèse, samba, Python)…",
+    "searchClear": "Effacer"
   },
   "lesson": {
     "position": "cours {i} sur {n}",
@@ -762,7 +779,13 @@
     "videoOpen": "Ouvrir la vidéo dans un autre onglet",
     "imagePending": "image en attente de publication",
     "toMistakes": "Les questions ratées vont dans votre cahier d'erreurs.",
-    "studyInNotebook": "Étudier ce cours dans le cahier"
+    "studyInNotebook": "Étudier ce cours dans le cahier",
+    "beforeTitle": "Avant ce cours",
+    "beforeLead": "Il vaut mieux avoir vu avant :",
+    "beforeKnow": "Je connais déjà, continuer",
+    "beforeDone": "terminé",
+    "beforeMissing": "pas encore",
+    "alsoInTitle": "Aussi dans d'autres disciplines"
   },
   "library": {
     "areasTitle": "Domaines",
@@ -822,7 +845,9 @@
     "catalogTitle": "Catalogue élargi",
     "catalogLead": "Des œuvres réunies à partir de catalogues ouverts, avec un lien direct vers la source. Ces fiches sont plus simples que celles choisies par la curation. Qu'une œuvre figure ici ne veut pas dire que nous sommes d'accord avec ce qu'elle dit.",
     "seeAt": "Voir sur {source}",
-    "mecNote": "Prêt numérique gratuit de MEC Livros, la bibliothèque numérique du ministère de l'Éducation du Brésil : il suffit de se connecter avec un compte gov.br."
+    "mecNote": "Prêt numérique gratuit de MEC Livros, la bibliothèque numérique du ministère de l'Éducation du Brésil : il suffit de se connecter avec un compte gov.br.",
+    "carouselPause": "Pause",
+    "carouselPlay": "Reprendre"
   },
   "shelf": {
     "eyebrow": "Discipline",
@@ -1464,7 +1489,7 @@
     "teoria": "Théorie révolutionnaire",
     "lutas": "Luttes populaires",
     "percursos": "Alphabétisation et ENEM",
-    "oficios": "Métiers et revenus : apprenez un savoir-faire et vivez-en"
+    "oficios": "Métiers et loisirs : apprenez un savoir-faire, faites-le vous-même et gagnez votre vie avec"
   },
   "stages": {
     "fundamental": "École primaire et collège",
@@ -2893,7 +2918,11 @@
       "podcasts": "Des épisodes d'éducation politique à écouter dans le bus, dans la cuisine ou à la pause.",
       "instagram": "Nouvelles de l'institut, cours et appels à bénévoles.",
       "live": "Le programme des cours en direct, avec vidéo et discussion sur le site même.",
-      "notebook": "Réunissez des cours et des textes et obtenez-en un résumé, des cartes mémoire, un quiz, une carte, une frise et un audio. Tout dans votre navigateur."
+      "notebook": "Réunissez des cours et des textes et obtenez-en un résumé, des cartes mémoire, un quiz, une carte, une frise et un audio. Tout dans votre navigateur.",
+      "community": "Le forum de celles et ceux qui étudient : questions, réponses et débats, modéré et sans publicité.",
+      "health": "Des professionnels de santé bénévoles, gratuits ou à tarif social : vous leur parlez directement.",
+      "bugs": "Quelque chose bloque ou s'affiche mal ? Dites-le à ceux qui maintiennent le code.",
+      "freeRoom": "Construisez et projetez votre cours avec les laboratoires, livres, éditeurs, simulations et jeux du site."
     }
   },
   "support": {
@@ -3793,7 +3822,9 @@
       "Résumé",
       "Guide d'étude",
       "Matériel à imprimer",
-      "Recommandation commentée"
+      "Recommandation commentée",
+      "Carte mentale",
+      "Fichier à télécharger (PDF)"
     ]
   },
   "practice": {
@@ -4418,5 +4449,11 @@
     "title": "J'ai trouvé un bug",
     "lead": "Quelque chose ne s'ouvre pas, bloque, s'affiche mal ou avec le mauvais texte ? Dites-le ici : cela va directement à ceux qui maintiennent le code du site.",
     "description": "Signalez un bug du site de l'Instituto Lúcia : ce qui n'a pas marché et où. Sans compte et sans conserver votre adresse réseau."
+  },
+  "instituto": {
+    "description": "Raison d'être, mission, vision, valeurs et charte de fonctionnement (statuts) de l'Instituto Lúcia : une école et une bibliothèque gratuites, tenues par des bénévoles."
+  },
+  "salaLivre": {
+    "description": "Construisez et projetez votre cours avec tout ce que propose l'institut : laboratoires, livres du fonds, éditeurs photo, vidéo et 3D, simulations, jeux et quiz. Tout reste dans votre navigateur."
   }
 }
