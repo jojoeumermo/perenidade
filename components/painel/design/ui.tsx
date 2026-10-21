@@ -77,6 +77,8 @@ export interface Editor {
   laboratorio: boolean;
   /** Se a arte pode sair do estúdio: no laboratório, nada com o nome ou a marca do instituto (avisa e devolve falso). */
   podeExportar: () => boolean;
+  /** A página aberta está do jeito que um modelo (ou a página em branco) deixou: trocar não perde nada. */
+  paginaIntacta: () => boolean;
 }
 
 export const ContextoDoEditor = createContext<Editor | null>(null);
