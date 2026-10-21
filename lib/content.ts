@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { cache as perPage } from "react";
-import { defaultLocale, type Locale } from "@/i18n/config";
+import { defaultLocale, type Locale, locales } from "@/i18n/config";
 import { areaSlugs, licenses, stages, tools, type AreaSlug, type License, type Stage, type ToolId } from "./areas";
 import { parseFrontmatter } from "./frontmatter";
 import { type Exercicio, validarPratica } from "./pratica";
@@ -347,6 +347,11 @@ const absolute = (file: string) => path.join(CONTENT_DIR, file.slice("content/".
 function parse(file: string) {
   const parsed = parseFrontmatter(fs.readFileSync(absolute(file), "utf8"));
   return { data: parsed.data as Data, body: parsed.content.trim() };
+}
+
+/** Os idiomas em que o texto de um arquivo existe de verdade: o original (pt) e as traduções que estão em content/. */
+export function idiomasDe(file: string): Locale[] {
+  return locales.filter((code) => code === defaultLocale || fs.existsSync(absolute(file.replace(/\.md$/, `.${code}.md`))));
 }
 
 /** Lê o original e, se existir, sobrepõe a tradução para o idioma pedido. */
