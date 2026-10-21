@@ -1732,6 +1732,18 @@
     "direitos-trabalhistas": [
       "Droits du travailleur (Brésil)",
       "Congés, 13e mois, heures sup., préavis, FGTS et indemnités selon le droit brésilien."
+    ],
+    "dicionario-chines": [
+      "Dictionnaire de chinois",
+      "Plus de 120 000 entrées du CC-CEDICT par caractère, pinyin ou anglais, et un convertisseur de pinyin."
+    ],
+    "escrita-chinesa": [
+      "Écriture chinoise",
+      "L'ordre des traits de plus de mille caractères, animé et à pratiquer au doigt."
+    ],
+    "corretor-ortografico": [
+      "Correcteur orthographique (portugais)",
+      "Vérifie l'orthographe du portugais du Brésil avec des suggestions, sans que le texte quitte l'appareil."
     ]
   },
   "tools": {

@@ -1,0 +1,15 @@
+{
+ "cedict": {
+  "fonte": "https://www.mdbg.net/chinese/export/cedict/cedict_1_0_ts_utf-8_mdbg.txt.gz",
+  "licenca": "CC BY-SA 4.0",
+  "autoria": "MDBG e colaboradores do CC-CEDICT",
+  "versao": "2026-09-25T08:54:32Z",
+  "extraido_em": "2026-10-21",
+  "entradas": 125109
+ },
+ "hanzi": {
+  "fonte": "hanzi-writer-data 2.0.1 (Make Me a Hanzi)",
+  "licenca": "Arphic Public License",
+  "caracteres": 1052
+ }
+}
