@@ -92,7 +92,15 @@
     "health": "健康",
     "reportBug": "报告网站错误",
     "institute": "章程、使命与价值观",
-    "freeRoom": "自由教室（教师用）"
+    "freeRoom": "自由教室（教师用）",
+    "rightsGuide": "你的权利",
+    "volunteerTasks": "志愿任务",
+    "contributors": "贡献者",
+    "copyright": "版权",
+    "conduct": "行为准则",
+    "usePolicy": "使用政策",
+    "events": "活动日程",
+    "spreadKit": "宣传材料包"
   },
   "labs": {
     "eyebrow": "真正的实践",
@@ -2856,7 +2864,15 @@
       "community": "学习者论坛：提问、回答和讨论，有人管理，没有广告。",
       "health": "志愿医疗工作者，免费或以公益价格接诊：你直接与他们联系。",
       "bugs": "有东西卡住或显示错误？告诉维护代码的人。",
-      "freeRoom": "用网站的实验室、图书、编辑器、模拟和游戏来编排并投影你的课。"
+      "freeRoom": "用网站的实验室、图书、编辑器、模拟和游戏来编排并投影你的课。",
+      "rightsGuide": "巴西的公共医疗、社会救助、福利、免费法律援助和举报渠道，附官方来源。",
+      "volunteerTasks": "无需注册的小任务：选一个，发一封邮件。",
+      "contributors": "帮助过研究所并同意署名的人。",
+      "copyright": "如何申请从馆藏中撤下作品。",
+      "conduct": "参与空间的相处规则。",
+      "usePolicy": "简明的可做与不可做。",
+      "events": "电影俱乐部、读书会和其他聚会。",
+      "spreadKit": "可打印的海报、传单、小册子和二维码卡片。"
     }
   },
   "support": {

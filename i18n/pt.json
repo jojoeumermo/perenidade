@@ -96,7 +96,15 @@
     "health": "Saúde",
     "reportBug": "Achei um erro no site",
     "institute": "Estatuto, missão e valores",
-    "freeRoom": "Sala livre (para professores)"
+    "freeRoom": "Sala livre (para professores)",
+    "rightsGuide": "Seus direitos",
+    "volunteerTasks": "Voluntarie-se",
+    "contributors": "Quem contribuiu",
+    "copyright": "Direitos autorais",
+    "conduct": "Código de conduta",
+    "usePolicy": "Política de uso",
+    "events": "Agenda de encontros",
+    "spreadKit": "Kit de divulgação"
   },
   "labs": {
     "eyebrow": "Praticar de verdade",
@@ -2925,7 +2933,15 @@
       "community": "O fórum de quem estuda: perguntas, respostas e debates, com moderação e sem anúncio.",
       "health": "Profissionais de saúde voluntários, com atendimento gratuito ou por valor social: você fala direto com eles.",
       "bugs": "Algo travou ou apareceu errado? Conte para quem cuida do código.",
-      "freeRoom": "Monte e projete a sua aula com laboratórios, livros, editores, simulações e jogos do site."
+      "freeRoom": "Monte e projete a sua aula com laboratórios, livros, editores, simulações e jogos do site.",
+      "rightsGuide": "SUS, CRAS, benefícios, Defensoria e canais de denúncia, com a fonte oficial.",
+      "volunteerTasks": "Tarefas pequenas para ajudar sem cadastro: escolha uma e mande um e-mail.",
+      "contributors": "Quem ajudou o instituto e autorizou ser citado.",
+      "copyright": "Como pedir a retirada de uma obra do acervo.",
+      "conduct": "As regras de convivência nos espaços com participação.",
+      "usePolicy": "O que pode e o que não pode, em poucas linhas.",
+      "events": "Cineclube, clube de leitura e outros encontros.",
+      "spreadKit": "Cartazes, folheto, zine e cartões com QR para imprimir."
     }
   },
   "support": {

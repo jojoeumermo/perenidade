@@ -1,0 +1,4 @@
+{
+  "_sobre": "Agenda do cineclube, do clube de leitura e de outros encontros. Cada evento: id, titulo, tipo (cineclube, leitura, outro), inicio (AAAA-MM-DDTHH:MM, horário de Brasília), duracao_min, organizacao (o crédito que a pessoa escolheu), sala (link https da plataforma), descricao e obra (titulo, licenca, link). Filme ou livro só em domínio público ou licença livre confirmada.",
+  "eventos": []
+}
