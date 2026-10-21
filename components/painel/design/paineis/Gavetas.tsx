@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import galeria from "@/content/galeria.json";
 import { rpc } from "@/lib/backend";
 import { textoDoErro } from "../../comum";
@@ -27,7 +28,7 @@ import {
   usarVariaveis,
 } from "../motor";
 import { aplicarTema, TEMAS } from "../projeto";
-import { ATIVO, BOTAO, Chave, Cores, CAMPO, Faixa, Miniatura, ROTULO, useEditor } from "../ui";
+import { ATIVO, BOTAO, BOTAO_PRIMARIO, Chave, Cores, CAMPO, Dialogo, Faixa, Miniatura, ROTULO, useEditor } from "../ui";
 import { apagarDaBiblioteca, guardarPaleta, useBiblioteca, usarBloco } from "./Biblioteca";
 
 const TITULOS = { modelos: "Modelos da marca", texto: "Texto", elementos: "Elementos", imagens: "Imagens", fundo: "Fundo", trabalhos: "Trabalhos" } as const;
@@ -81,6 +82,26 @@ const FILTROS: { id: string; nome: string; vale: (m: Modelo) => boolean }[] = [
 ];
 const semAcento = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
 
+/** O que fazer ao clicar num modelo com a página já mexida, quando a pessoa pede para o estúdio lembrar. */
+type Preferencia = "" | "trocar" | "acrescentar";
+const CHAVE_DA_PREFERENCIA = "lucia:estudio-modelo-escolha";
+function lerPreferencia(): Preferencia {
+  try {
+    const v = window.localStorage.getItem(CHAVE_DA_PREFERENCIA);
+    return v === "trocar" || v === "acrescentar" ? v : "";
+  } catch {
+    return "";
+  }
+}
+function guardarPreferencia(v: Preferencia) {
+  try {
+    if (v) window.localStorage.setItem(CHAVE_DA_PREFERENCIA, v);
+    else window.localStorage.removeItem(CHAVE_DA_PREFERENCIA);
+  } catch {
+    /* sem armazenamento: vale só nesta visita */
+  }
+}
+
 function MiniaturaDoModelo({ modelo }: { modelo: Modelo }) {
   const [src, setSrc] = useState(() => miniaturas.get(modelo.id) ?? "");
   const ed = useEditor();
@@ -120,6 +141,8 @@ function GavetaModelos() {
   const [busca, setBusca] = useState("");
   const [filtro, setFiltro] = useState("todos");
   const [escolha, setEscolha] = useState<Modelo | null>(null);
+  const [preferencia, setPreferencia] = useState<Preferencia>(lerPreferencia);
+  const [lembrar, setLembrar] = useState(false);
   const [usados, setUsados] = useState<string[]>([]);
   const catalogo = ed.laboratorio ? MODELOS_DO_LABORATORIO : MODELOS;
   const grupos = ed.laboratorio ? GRUPOS_DO_LABORATORIO : GRUPOS;
@@ -136,9 +159,22 @@ function GavetaModelos() {
     return catalogo.filter((m) => f.vale(m) && (!b || semAcento(`${m.nome} ${m.grupo}`).includes(b)));
   }, [busca, filtro, catalogo]);
   const vazia = ed.doc.camadas.length === 0;
+  const aplicar = (m: Modelo, modo: "trocar" | "acrescentar") => {
+    ed.usarModelo(m, modo);
+    setEscolha(null);
+    if (lembrar) {
+      guardarPreferencia(modo);
+      setPreferencia(modo);
+    }
+  };
+  // Página vazia, ou do jeito que o último modelo deixou: troca sem perguntar (Ctrl+Z desfaz). Mexida: pergunta, a
+  // não ser que a pessoa tenha pedido para o estúdio lembrar a escolha.
   const usar = (m: Modelo) => {
-    if (vazia && ed.projeto.paginas.length === 1) ed.usarModelo(m, "trocar");
-    else setEscolha(m);
+    if (vazia || ed.paginaIntacta()) ed.usarModelo(m, "trocar");
+    else if (preferencia) {
+      ed.usarModelo(m, preferencia);
+      ed.avisar(preferencia === "trocar" ? "Página trocada pelo modelo. Ctrl+Z desfaz." : "Modelo acrescentado depois da página aberta.", "info");
+    } else setEscolha(m);
   };
   const maisUsados = usados.map((id) => catalogo.find((m) => m.id === id)).filter(Boolean).slice(0, 4) as Modelo[];
   return (
@@ -154,17 +190,41 @@ function GavetaModelos() {
           </button>
         ))}
       </div>
-      {escolha && (
-        <div className="estudio-surge rounded-lg border border-e-bordo bg-e-bordo-claro p-3 text-sm" role="dialog" aria-label="Como usar o modelo">
-          <p className="font-semibold">{escolha.nome}</p>
-          <p className="mt-0.5 text-e-suave">A página aberta já tem coisas. O que fazer?</p>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            <button type="button" className={BOTAO} onClick={() => { ed.usarModelo(escolha, "trocar"); setEscolha(null); }}>Trocar esta página</button>
-            <button type="button" className={BOTAO} onClick={() => { ed.usarModelo(escolha, "acrescentar"); setEscolha(null); }}>Acrescentar depois dela</button>
-            <button type="button" className="cursor-pointer px-2 text-e-suave underline" onClick={() => setEscolha(null)}>Cancelar</button>
-          </div>
-        </div>
+      {preferencia && (
+        <p className="flex flex-wrap items-center gap-x-2 rounded-md bg-e-bordo-claro px-2.5 py-1.5 text-xs text-e-suave">
+          <span>Ao escolher um modelo: {preferencia === "trocar" ? "troca a página aberta" : "acrescenta uma página depois dela"}.</span>
+          <button type="button" className="cursor-pointer text-e-bordo underline" onClick={() => { guardarPreferencia(""); setPreferencia(""); }}>
+            Voltar a perguntar
+          </button>
+        </p>
       )}
+      {escolha &&
+        // A pergunta abre no meio da tela, onde quer que a pessoa esteja na lista de modelos.
+        createPortal(
+          <Dialogo titulo="Usar o modelo" fechar={() => setEscolha(null)} largura="max-w-md">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-20 shrink-0">
+                  <MiniaturaDoModelo modelo={escolha} />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-semibold">{escolha.nome}</p>
+                  <p className="text-sm text-e-suave">A página aberta já tem coisas suas. O que fazer com o modelo?</p>
+                </div>
+              </div>
+              <div className="grid gap-2">
+                <button type="button" className={`${BOTAO_PRIMARIO} justify-center`} onClick={() => aplicar(escolha, "trocar")}>
+                  Trocar esta página
+                </button>
+                <button type="button" className={`${BOTAO} justify-center`} onClick={() => aplicar(escolha, "acrescentar")}>
+                  Acrescentar depois dela
+                </button>
+              </div>
+              <Chave rotulo="Lembrar a escolha e não perguntar de novo" ligado={lembrar} mudar={setLembrar} dica="Dá para voltar atrás no alto da gaveta de modelos. Trocar sempre pode ser desfeito com Ctrl+Z." />
+            </div>
+          </Dialogo>,
+          document.body,
+        )}
       {!busca && filtro === "todos" && maisUsados.length > 0 && (
         <>
           <p className={ROTULO}>Mais usados pela equipe</p>
