@@ -999,7 +999,7 @@
       "check": "Revisar ortografía y gramática",
       "checking": "Revisando…",
       "checkNone": "Ninguna observación.",
-      "checkNote": "El texto se envía al servicio abierto LanguageTool solo cuando aprietas el botón.",
+      "checkNote": "El texto va al corrector de código abierto LanguageTool solo cuando aprietas el botón o activas la revisión mientras escribes.",
       "checkFailed": "La revisión no respondió. Inténtalo de nuevo en un minuto.",
       "checkStale": "El texto cambió: revísalo de nuevo."
     },

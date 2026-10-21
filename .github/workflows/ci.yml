@@ -12,8 +12,8 @@ jobs:
   verificar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version: 22
           cache: npm
@@ -56,5 +56,7 @@ jobs:
       - run: npm run testar:tarefas
       # As áreas que a coordenação pode tirar do ar cobrem todas as rotas públicas.
       - run: npm run testar:interdicao
+      # A porta de saída para os serviços abertos: só https, só a lista, redirecionamento só dentro da lista.
+      - run: npm run testar:externo
       # O build lê e valida todo o conteúdo de content/: arquivo inválido falha aqui.
       - run: npm run build

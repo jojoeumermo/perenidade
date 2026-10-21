@@ -57,10 +57,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/laboratorios/design",
     "/laboratorios/seguranca",
     "/laboratorios/simulacoes",
+    "/laboratorios/eletrica",
     "/creditos",
     "/radio",
     "/privacidade",
     "/termos",
+    "/instituto",
+    "/sala-livre",
+    "/saude/termo",
   ];
   for (const area of areaSlugs) paths.push(`/estantes/${area}`);
   for (const tool of tools) paths.push(`/ferramentas/${tool}`);
