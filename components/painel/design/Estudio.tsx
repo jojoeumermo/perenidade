@@ -157,7 +157,7 @@ const CABECA_DO_PALCO = 64;
  * imagens, fundo, trabalhos), o palco escuro com a arte, a barra de texto flutuante, e à direita as propriedades e
  * as camadas. No celular, abas embaixo e uma folha com os controles da camada.
  */
-export function Estudio({ me, abertura, fechar }: { me: Me; abertura: Abertura; fechar: (guardado: boolean) => void }) {
+export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me; abertura: Abertura; fechar: (guardado: boolean) => void; laboratorio?: boolean }) {
   const [projeto, setProjetoBruto] = useState<Projeto>(() => projetoNovo([documentoVazio("post")]));
   const [pagina, setPagina] = useState(0);
   const [titulo, setTitulo] = useState("Sem título");
@@ -508,6 +508,18 @@ export function Estudio({ me, abertura, fechar }: { me: Me; abertura: Abertura; 
   const guardar = useCallback(
     async (silencioso = false) => {
       if (guardando) return;
+      if (laboratorio) {
+        // No laboratório não há conta: o trabalho fica neste aparelho (e sai pelo Baixar).
+        try {
+          window.localStorage.setItem(CHAVE_DO_RASCUNHO(me.id), JSON.stringify({ projeto: projetoRef.current, titulo, formato, idSalvo: null, quando: Date.now() } satisfies Rascunho));
+          setSalvoEm(Date.now());
+          setMexido(false);
+          if (!silencioso) avisar("Guardado neste aparelho. Para levar a arte, use Baixar.");
+        } catch {
+          if (!silencioso) avisar("O aparelho não tem espaço para guardar: baixe a arte para não perder.", "erro");
+        }
+        return;
+      }
       setGuardando(true);
       try {
         const p = projetoRef.current;
@@ -535,7 +547,7 @@ export function Estudio({ me, abertura, fechar }: { me: Me; abertura: Abertura; 
         setGuardando(false);
       }
     },
-    [guardando, idSalvo, titulo, formato, me.id, avisar],
+    [guardando, idSalvo, titulo, formato, me.id, avisar, laboratorio],
   );
   // O rascunho fica no aparelho a cada mudança (com uma pequena espera), para nada se perder se a aba fechar.
   useEffect(() => {
@@ -1365,6 +1377,7 @@ export function Estudio({ me, abertura, fechar }: { me: Me; abertura: Abertura; 
       void abrir(a);
     },
     mexido,
+    laboratorio,
   };
 
   const comandos: Comando[] = useMemo(

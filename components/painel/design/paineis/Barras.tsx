@@ -128,7 +128,7 @@ export function BarraDoAlto({ mexido, salvoEm, guardando, escala, podeRefazer, p
         <MenuBaixar aberto={menuBaixar} fechar={() => setMenuBaixar(false)} />
       </div>
       <button type="button" className={BOTAO_PRIMARIO} onClick={() => void ed.guardar()} disabled={guardando} title="Guardar na conta (Ctrl+S)">
-        {guardando ? "Guardando…" : "Guardar"}
+        {guardando ? "Guardando…" : ed.laboratorio ? "Guardar no aparelho" : "Guardar"}
       </button>
       <div className="relative">
         <BotaoIcone icone="pontos" rotulo="Mais" onClick={() => setMenuMais(!menuMais)} ativo={menuMais} />
@@ -146,7 +146,9 @@ export function BarraDoAlto({ mexido, salvoEm, guardando, escala, podeRefazer, p
               ["comando", "Todos os comandos", "comandos"],
               ["teclado", "Atalhos do teclado", "atalhos"],
             ] as [NomeDoIcone, string, string][]
-          ).map(([icone, rotulo, acao]) => (
+          )
+            .filter(([, , acao]) => !ed.laboratorio || !["publicar", "revisao", "historicoDeVersoes"].includes(acao))
+            .map(([icone, rotulo, acao]) => (
             <ItemDeMenu key={acao} icone={icone} rotulo={rotulo} atalho={acao === "comandos" ? "Ctrl+K" : acao === "atalhos" ? "?" : undefined} onClick={() => { ed.acoes[acao](); setMenuMais(false); }} />
           ))}
           <div className="my-1 border-t border-e-fio" />
@@ -178,7 +180,7 @@ export function Trilho() {
   const ed = useEditor();
   return (
     <nav className="flex w-20 shrink-0 flex-col items-stretch gap-1 border-r border-e-fio bg-e-fundo px-2 py-2.5" aria-label="Gavetas do estúdio">
-      {ITENS_DO_TRILHO.filter((i) => !ed.simples || i.simples).map((i) => (
+      {ITENS_DO_TRILHO.filter((i) => (!ed.simples || i.simples) && !(ed.laboratorio && i.id === "trabalhos")).map((i) => (
         <button key={i.id} type="button" onClick={() => ed.setGaveta(ed.gaveta === i.id ? null : i.id)} aria-pressed={ed.gaveta === i.id} className={`flex cursor-pointer flex-col items-center gap-1 rounded-lg py-2.5 text-[0.72rem] text-e-tinta hover:bg-e-bordo-claro ${ed.gaveta === i.id ? ATIVO : ""}`}>
           <Icone nome={i.icone} className="h-[22px] w-[22px]" />
           {i.nome}
@@ -200,8 +202,8 @@ export function Trilho() {
 export function AbasDoCelular() {
   const ed = useEditor();
   return (
-    <nav className="grid shrink-0 grid-cols-6 border-t border-e-fio bg-e-painel pb-[env(safe-area-inset-bottom,0px)]" aria-label="Gavetas do estúdio">
-      {ITENS_DO_TRILHO.map((i) => (
+    <nav className="grid shrink-0 border-t border-e-fio bg-e-painel pb-[env(safe-area-inset-bottom,0px)]" style={{ gridTemplateColumns: `repeat(${ed.laboratorio ? 5 : 6}, minmax(0, 1fr))` }} aria-label="Gavetas do estúdio">
+      {ITENS_DO_TRILHO.filter((i) => !(ed.laboratorio && i.id === "trabalhos")).map((i) => (
         <button key={i.id} type="button" onClick={() => ed.setGaveta(ed.gaveta === i.id ? null : i.id)} aria-pressed={ed.gaveta === i.id} className={`flex cursor-pointer flex-col items-center gap-0.5 py-2 text-[0.66rem] ${ed.gaveta === i.id ? "text-e-bordo" : "text-e-tinta"}`}>
           <Icone nome={i.icone} className="h-5 w-5" />
           {i.nome}
