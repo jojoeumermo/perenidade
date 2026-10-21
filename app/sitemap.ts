@@ -65,6 +65,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/instituto",
     "/sala-livre",
     "/saude/termo",
+    "/direitos-autorais",
+    "/conduta",
+    "/uso",
+    "/voluntarie-se",
+    "/contribuidores",
+    "/direitos",
+    "/eventos",
+    "/divulgue",
   ];
   for (const area of areaSlugs) paths.push(`/estantes/${area}`);
   for (const tool of tools) paths.push(`/ferramentas/${tool}`);
