@@ -26,7 +26,7 @@ import { cleanSources, SourcesField, type SourceDraft } from "../Editor";
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
 import { playerPt, VideoPlayer } from "../VideoPlayer";
-import { Abas, Aviso, botao, botaoClaro, campo, data, elo, rotulo, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, data, elo, rotulo, useAcao, useLista } from "./comum";
 import { fontesPt } from "./Escrever";
 
 interface Videoaula {
@@ -66,30 +66,79 @@ const erroDe = (erro: unknown) => (erro instanceof VideoErro ? (mensagensDeVideo
 
 type Aba = "gravar" | "minhas" | "revisar" | "noar";
 
-/** Aulas em vídeo: quem ensina grava ou envia; a curadoria revisa; a coordenação pode tirar do ar. */
+const DESENHOS = {
+  gravar: "M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z",
+  minhas: "M4 5h16v11H4zM8 20h8M12 16v4",
+  revisar: "M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12zM12 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z",
+  noar: "M5 12a7 7 0 0 1 14 0M8.5 12a3.5 3.5 0 0 1 7 0M12 12v8",
+  camera: "M3.5 7h11v10h-11zM14.5 10.5 20.5 7v10l-6-3.5",
+  tela: "M3.5 4.5h17v11h-17zM8 20h8M12 15.5V20",
+  ambos: "M3.5 4.5h17v11h-17zM13 9.5h5v4h-5zM8 20h8",
+  play: "M8 5.5v13l10.5-6.5z",
+  certo: "M5 12.5l4.5 4.5L19 7.5",
+};
+function Desenho({ nome, className = "h-4 w-4" }: { nome: keyof typeof DESENHOS; className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className={`shrink-0 ${className}`} fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round">
+      <path d={DESENHOS[nome]} />
+    </svg>
+  );
+}
+
+const TOM: Record<Videoaula["status"], string> = { pendente: "bg-gold/25 text-ink", aprovada: "bg-ok/20 text-ink", recusada: "bg-oxblood/15 text-oxblood" };
+
+/** Aulas em vídeo, no jeito de um estúdio de canal: quem ensina grava ou envia; a curadoria revisa; a coordenação pode tirar do ar. */
 export function Videoaulas({ me }: { me: Me }) {
   const revisa = can(me, "coordenacao", "curadoria", "educacao");
-  const [aba, setAba] = useState<Aba>("gravar");
+  const [aba, setAba] = useState<Aba>("minhas");
   const fila = useLista<Videoaula[]>(revisa ? "videoaulas_fila" : "videoaulas_minhas");
-  const opcoes: { id: Aba; nome: string; conta?: number }[] = [
-    { id: "gravar", nome: "Gravar ou enviar" },
-    { id: "minhas", nome: "Minhas aulas em vídeo" },
-    ...(revisa ? [{ id: "revisar" as const, nome: "Para revisar", conta: fila.dados?.filter((v) => !v.minha).length }] : []),
-    ...(can(me, "coordenacao") ? [{ id: "noar" as const, nome: "No ar" }] : []),
+  const minhas = useLista<Videoaula[]>("videoaulas_minhas");
+  const lista = minhas.dados ?? [];
+  const paraRevisar = fila.dados?.filter((v) => !v.minha).length ?? 0;
+  const minutos = Math.round(lista.filter((v) => v.status === "aprovada").reduce((soma, v) => soma + v.duracao, 0) / 60);
+  const opcoes: { id: Aba; nome: string; desenho: keyof typeof DESENHOS; conta?: number }[] = [
+    { id: "minhas", nome: "Conteúdo", desenho: "minhas" },
+    { id: "gravar", nome: "Gravar ou enviar", desenho: "gravar" },
+    ...(revisa ? [{ id: "revisar" as const, nome: "Para revisar", desenho: "revisar" as const, conta: paraRevisar }] : []),
+    ...(can(me, "coordenacao") ? [{ id: "noar" as const, nome: "No ar", desenho: "noar" as const }] : []),
   ];
   return (
     <div>
-      <p className="mb-6 max-w-3xl border-l-2 border-gold pl-4 text-ink-soft">
-        Aulas curtas em vídeo, de até 10 minutos e até 480p, para complementar as trilhas. Grave aqui mesmo (câmera ou tela, com o seu microfone) ou envie um vídeo pronto. Como toda aula, ela passa pela revisão antes de ir ao ar e precisa de pelo menos uma fonte. Escrever a transcrição deixa a aula acessível para quem não ouve.
-      </p>
-      <p className="-mt-3 mb-6 max-w-3xl text-ink-soft">
-        Ao enviar, você autoriza a publicação da sua imagem e da sua voz nesta aula, com o seu nome público, sob a mesma licença das aulas escritas (CC BY-SA 4.0). Não grave outras pessoas sem a autorização delas.
-      </p>
-      <Abas opcoes={opcoes} atual={aba} escolher={setAba} />
-      {aba === "gravar" && <Gravar me={me} enviado={() => setAba("minhas")} />}
-      {aba === "minhas" && <Minhas />}
-      {aba === "revisar" && <Revisar me={me} fila={fila.dados ?? []} erro={fila.erro} recarregar={fila.recarregar} />}
-      {aba === "noar" && <NoAr />}
+      <div className="flex flex-wrap items-end gap-x-8 gap-y-3 border-b border-rule pb-4">
+        <dl className="flex flex-wrap gap-x-8 gap-y-2">
+          <div>
+            <dt className="text-xs text-ink-soft">No ar</dt>
+            <dd className="font-serif text-2xl font-semibold">{lista.filter((v) => v.status === "aprovada").length}</dd>
+          </div>
+          <div>
+            <dt className="text-xs text-ink-soft">Esperando revisão</dt>
+            <dd className="font-serif text-2xl font-semibold">{lista.filter((v) => v.status === "pendente").length}</dd>
+          </div>
+          <div>
+            <dt className="text-xs text-ink-soft">Minutos publicados</dt>
+            <dd className="font-serif text-2xl font-semibold">{minutos}</dd>
+          </div>
+        </dl>
+        <button type="button" className={`${botao} ml-auto inline-flex items-center gap-2 rounded-md`} onClick={() => setAba("gravar")}>
+          <span aria-hidden className="h-2.5 w-2.5 rounded-full bg-[#ff5a4f]" />
+          Gravar uma aula
+        </button>
+      </div>
+      <div role="tablist" aria-label="Vistas das aulas em vídeo" className="mt-2 flex flex-wrap gap-1 border-b border-rule">
+        {opcoes.map((opcao) => (
+          <button key={opcao.id} type="button" role="tab" aria-selected={aba === opcao.id} onClick={() => setAba(opcao.id)} className={`-mb-px flex cursor-pointer items-center gap-1.5 border-b-2 px-3 py-2.5 text-sm ${aba === opcao.id ? "border-ink font-semibold" : "border-transparent text-ink-soft hover:text-ink"}`}>
+            <Desenho nome={opcao.desenho} />
+            {opcao.nome}
+            {opcao.conta ? <span className="rounded-full bg-oxblood px-1.5 text-[0.65rem] font-bold text-parchment">{opcao.conta}</span> : null}
+          </button>
+        ))}
+      </div>
+      <div className="mt-5">
+        {aba === "gravar" && <Gravar me={me} enviado={() => { minhas.recarregar(); setAba("minhas"); }} />}
+        {aba === "minhas" && <Minhas lista={minhas.dados} erro={minhas.erro} recarregar={minhas.recarregar} gravar={() => setAba("gravar")} />}
+        {aba === "revisar" && <Revisar me={me} fila={fila.dados ?? []} erro={fila.erro} recarregar={fila.recarregar} />}
+        {aba === "noar" && <NoAr />}
+      </div>
     </div>
   );
 }
@@ -179,92 +228,135 @@ function Gravar({ me, enviado }: { me: Me; enviado: () => void }) {
   if (disciplinas.length === 0)
     return <p className="text-ink-soft">Para gravar aulas em vídeo é preciso ter uma disciplina confiada (educação ou educação secundária). Peça à coordenação em Voluntários e convites.</p>;
 
-  return (
-    <div className="space-y-6">
-      {pronto ? (
-        <section className="painel-cartao space-y-3 p-5">
-          <p className={rotulo}>
-            Prévia · {relogio(pronto.medidas.duracao)} · {pronto.medidas.largura}×{pronto.medidas.altura} · {megas(pronto.blob.size)}
-          </p>
-          <VideoPlayer src={pronto.previa} titulo="Prévia da aula" labels={playerPt} />
-          <button type="button" className={botaoClaro} onClick={() => setPronto(null)}>
-            Descartar e gravar de novo
-          </button>
-        </section>
-      ) : (
-        <Gravador aoTerminar={setPronto} />
-      )}
+  const fontesCertas = cleanSources(fontes).length > 0;
+  const lista = [
+    { feito: Boolean(pronto), nome: "O vídeo, gravado ou escolhido" },
+    { feito: form.titulo.trim().length >= 3, nome: "Um título" },
+    { feito: fontesCertas, nome: "Pelo menos uma fonte" },
+    { feito: form.transcricao.trim().length > 0, nome: "A transcrição (recomendada)", opcional: true },
+  ];
 
-      <section className="space-y-4">
-        <div className="grid gap-3 sm:grid-cols-2">
-          <label className="block">
-            Disciplina
-            <select value={form.disciplina} onChange={(e) => setForm({ ...form, disciplina: e.target.value, trilha: "" })} className={campo}>
-              {disciplinas.map((area) => (
-                <option key={area} value={area}>
-                  {t.areas[area as keyof typeof t.areas]?.[0] ?? area}
-                </option>
-              ))}
-            </select>
+  return (
+    <div className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
+      <div className="min-w-0 space-y-4 xl:sticky xl:top-4 xl:self-start">
+        {pronto ? (
+          <section className="overflow-hidden rounded-xl border border-rule bg-parchment-deep">
+            <VideoPlayer src={pronto.previa} titulo="Prévia da aula" labels={playerPt} />
+            <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
+              <p className="font-mono text-xs text-ink-soft">
+                {relogio(pronto.medidas.duracao)} · {pronto.medidas.largura}×{pronto.medidas.altura} · {megas(pronto.blob.size)}
+              </p>
+              <button type="button" className={`${botaoClaro} rounded-md px-3 py-1.5 text-sm`} onClick={() => setPronto(null)}>
+                Descartar e gravar de novo
+              </button>
+            </div>
+          </section>
+        ) : (
+          <Gravador aoTerminar={setPronto} />
+        )}
+        <details className="rounded-lg border border-rule p-4 text-sm text-ink-soft">
+          <summary className="cursor-pointer font-semibold text-ink">Como funciona e o que você autoriza</summary>
+          <p className="mt-2">Aulas curtas em vídeo, de até 10 minutos e até 480p, para complementar as trilhas. Grave aqui mesmo (câmera ou tela, com o seu microfone) ou envie um vídeo pronto. Como toda aula, ela passa pela revisão antes de ir ao ar e precisa de pelo menos uma fonte. Escrever a transcrição deixa a aula acessível para quem não ouve.</p>
+          <p className="mt-2">Ao enviar, você autoriza a publicação da sua imagem e da sua voz nesta aula, com o seu nome público, sob a mesma licença das aulas escritas (CC BY-SA 4.0). Não grave outras pessoas sem a autorização delas.</p>
+        </details>
+      </div>
+
+      <div className="min-w-0 space-y-4">
+        <section className="rounded-xl border border-rule bg-parchment-deep p-5">
+          <h2 className="flex items-center gap-2 font-serif text-lg font-semibold"><span aria-hidden className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs text-parchment">1</span>Detalhes</h2>
+          <div className="mt-3 space-y-3">
+            <label className="block text-sm font-semibold">
+              Título
+              <input value={form.titulo} onChange={(e) => setForm({ ...form, titulo: e.target.value })} maxLength={160} className={campo} />
+            </label>
+            <label className="block text-sm font-semibold">
+              Do que a aula trata
+              <span className="block text-xs font-normal text-ink-soft">Aparece abaixo do vídeo.</span>
+              <textarea value={form.descricao} onChange={(e) => setForm({ ...form, descricao: e.target.value })} maxLength={2000} rows={3} className={campo} />
+            </label>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <label className="block text-sm font-semibold">
+                Disciplina
+                <select value={form.disciplina} onChange={(e) => setForm({ ...form, disciplina: e.target.value, trilha: "" })} className={campo}>
+                  {disciplinas.map((area) => (
+                    <option key={area} value={area}>
+                      {t.areas[area as keyof typeof t.areas]?.[0] ?? area}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="block text-sm font-semibold">
+                Trilha (opcional)
+                <select value={form.trilha} onChange={(e) => setForm({ ...form, trilha: e.target.value })} className={campo}>
+                  <option value="">Nenhuma: aula avulsa da disciplina</option>
+                  {tracks
+                    .filter((track) => track.area === form.disciplina)
+                    .map((track) => (
+                      <option key={track.slug} value={track.slug}>
+                        {track.title}
+                      </option>
+                    ))}
+                </select>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section className="rounded-xl border border-rule bg-parchment-deep p-5">
+          <h2 className="flex items-center gap-2 font-serif text-lg font-semibold"><span aria-hidden className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs text-parchment">2</span>Acessibilidade</h2>
+          <p className="mt-1 text-sm text-ink-soft">Quem não ouve acompanha a aula pelo texto e pelas legendas.</p>
+          <label className="mt-3 block text-sm font-semibold">
+            Transcrição
+            <textarea value={form.transcricao} onChange={(e) => setForm({ ...form, transcricao: e.target.value })} maxLength={60000} rows={6} className={campo} />
           </label>
-          <label className="block">
-            Trilha (opcional)
-            <select value={form.trilha} onChange={(e) => setForm({ ...form, trilha: e.target.value })} className={campo}>
-              <option value="">Nenhuma: aula avulsa da disciplina</option>
-              {tracks
-                .filter((track) => track.area === form.disciplina)
-                .map((track) => (
-                  <option key={track.slug} value={track.slug}>
-                    {track.title}
-                  </option>
-                ))}
-            </select>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <button type="button" className={`${botaoClaro} rounded-md px-3 py-1.5 text-sm`} disabled={!pronto || transcrevendo} onClick={() => void transcrever()}>{transcrevendo ? "Transcrevendo…" : "Transcrever automaticamente (Whisper)"}</button>
+            <span className="text-xs text-ink-soft">Preenche a transcrição e a legenda a partir do vídeo; revise antes de enviar.</span>
+          </div>
+          <label className="mt-4 block text-sm font-semibold">
+            Legendas em WebVTT (opcional, arquivo .vtt)
+            <input
+              type="file"
+              accept=".vtt,text/vtt"
+              onChange={async (e) => {
+                const arquivo = e.target.files?.[0];
+                if (!arquivo) return setForm({ ...form, legenda: "" });
+                const texto = await arquivo.text();
+                if (!texto.startsWith("WEBVTT") || texto.length > 200000) {
+                  setAviso("O arquivo de legendas precisa ser WebVTT (começa com WEBVTT) e ter até 200 mil caracteres.");
+                  e.target.value = "";
+                  return;
+                }
+                setForm({ ...form, legenda: texto });
+              }}
+              className="mt-1 block text-sm font-normal"
+            />
+            {form.legenda && <span className="mt-1 block text-xs font-normal text-ok">Legenda pronta ✓</span>}
           </label>
-        </div>
-        <label className="block">
-          Título
-          <input value={form.titulo} onChange={(e) => setForm({ ...form, titulo: e.target.value })} maxLength={160} className={campo} />
-        </label>
-        <label className="block">
-          Do que a aula trata (aparece abaixo do vídeo)
-          <textarea value={form.descricao} onChange={(e) => setForm({ ...form, descricao: e.target.value })} maxLength={2000} rows={3} className={campo} />
-        </label>
-        <label className="block">
-          Transcrição (recomendado: quem não ouve acompanha a aula pelo texto)
-          <textarea value={form.transcricao} onChange={(e) => setForm({ ...form, transcricao: e.target.value })} maxLength={60000} rows={6} className={campo} />
-          <span className="mt-1 block">
-            <button type="button" className={botaoClaro} disabled={!pronto || transcrevendo} onClick={() => void transcrever()}>{transcrevendo ? "Transcrevendo…" : "Transcrever automaticamente (Whisper)"}</button>
-            <span className="ml-2 text-xs text-ink-soft">Preenche a transcrição e a legenda a partir do vídeo gravado; revise antes de enviar.</span>
-          </span>
-        </label>
-        <label className="block">
-          Legendas em WebVTT (opcional, arquivo .vtt)
-          <input
-            type="file"
-            accept=".vtt,text/vtt"
-            onChange={async (e) => {
-              const arquivo = e.target.files?.[0];
-              if (!arquivo) return setForm({ ...form, legenda: "" });
-              const texto = await arquivo.text();
-              if (!texto.startsWith("WEBVTT") || texto.length > 200000) {
-                setAviso("O arquivo de legendas precisa ser WebVTT (começa com WEBVTT) e ter até 200 mil caracteres.");
-                e.target.value = "";
-                return;
-              }
-              setForm({ ...form, legenda: texto });
-            }}
-            className="mt-1 block"
-          />
-        </label>
-        <SourcesField value={fontes} onChange={setFontes} labels={fontesPt} />
-        <div className="flex flex-wrap items-center gap-3">
-          <button type="button" className={botao} disabled={!pronto || enviando || acao.ocupado} onClick={() => void enviar()}>
+        </section>
+
+        <section className="rounded-xl border border-rule bg-parchment-deep p-5">
+          <h2 className="flex items-center gap-2 font-serif text-lg font-semibold"><span aria-hidden className="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs text-parchment">3</span>Fontes</h2>
+          <div className="mt-3">
+            <SourcesField value={fontes} onChange={setFontes} labels={fontesPt} />
+          </div>
+        </section>
+
+        <section className="rounded-xl border-2 border-ink p-5">
+          <ul className="space-y-1.5 text-sm">
+            {lista.map((item) => (
+              <li key={item.nome} className={`flex items-center gap-2 ${item.feito ? "" : "text-ink-soft"}`}>
+                <span aria-hidden className={`flex h-5 w-5 items-center justify-center rounded-full border ${item.feito ? "border-ok bg-ok text-parchment" : "border-rule"}`}>{item.feito && <Desenho nome="certo" className="h-3 w-3" />}</span>
+                {item.nome}
+              </li>
+            ))}
+          </ul>
+          <button type="button" className={`${botao} mt-4 w-full rounded-md`} disabled={!pronto || enviando || acao.ocupado} onClick={() => void enviar()}>
             {enviando ? "Enviando…" : "Enviar para revisão"}
           </button>
-          {!pronto && <span className="text-ink-soft">Grave ou escolha o vídeo primeiro.</span>}
-        </div>
-        <Aviso texto={aviso || acao.aviso} />
-      </section>
+          <Aviso texto={aviso || acao.aviso} />
+        </section>
+      </div>
     </div>
   );
 }
@@ -431,58 +523,89 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
     }
   }
 
+  const ligado = estado === "pronto" || estado === "gravando";
   return (
-    <section className="painel-cartao space-y-4 p-5">
-      <h2 className="font-serif text-xl font-semibold">1. O vídeo</h2>
-      {pdf && (
-        <div>
-          <p className="text-xs text-ink-soft">O PDF abre aqui embaixo. Ao escolher a tela, compartilhe <strong>esta aba</strong>: o que você rolar no PDF entra na gravação. <button type="button" className={elo} onClick={() => { URL.revokeObjectURL(pdf); setPdf(null); }}>Fechar o PDF</button></p>
-          <object data={pdf} type="application/pdf" className="mt-2 h-[60vh] w-full border border-rule" aria-label="PDF da aula">
-            <p className="p-3 text-ink-soft">Este navegador não mostra PDF aqui dentro: abra o arquivo em outra aba e compartilhe aquela aba.</p>
-          </object>
+    <section className="overflow-hidden rounded-xl border border-rule bg-parchment-deep">
+      {formato && estado !== "convertendo" && (
+        <div className="grid grid-cols-3 gap-px border-b border-rule bg-rule" role="radiogroup" aria-label="O que gravar">
+          {(
+            [
+              ["camera", "Câmera", "camera"],
+              ["tela", "Tela", "tela"],
+              ["ambos", "Tela e câmera", "ambos"],
+            ] as const
+          ).map(([id, nome, desenho]) => (
+            <button key={id} type="button" role="radio" aria-checked={modo === id} disabled={estado === "gravando"} onClick={() => setModo(id)} className={`flex cursor-pointer flex-col items-center gap-1 px-2 py-3 text-xs disabled:cursor-not-allowed ${modo === id ? "bg-parchment font-semibold text-ink" : "bg-parchment-deep text-ink-soft hover:text-ink"}`}>
+              <Desenho nome={desenho} className="h-5 w-5" />
+              {nome}
+            </button>
+          ))}
         </div>
       )}
-      {!formato && <p className="border-l-2 border-oxblood pl-3">{mensagensDeVideo.sem_gravador} Você ainda pode enviar um vídeo pronto, em MP4 ou WebM, de até 480p.</p>}
+
+      <div className="relative aspect-video w-full bg-[#0f0c09]">
+        <video ref={espelho} playsInline className={`h-full w-full object-contain ${ligado ? "" : "hidden"}`} />
+        {!ligado && estado !== "convertendo" && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center text-[#cdbb91]">
+            <Desenho nome={modo === "camera" ? "camera" : modo === "tela" ? "tela" : "ambos"} className="h-10 w-10 opacity-70" />
+            <p className="max-w-sm text-sm">{formato ? (modo === "camera" ? "Ligue a câmera para ver a imagem aqui antes de gravar." : "Escolha a tela (ou a aba com o PDF) para ver aqui antes de gravar.") : `${mensagensDeVideo.sem_gravador} Você ainda pode enviar um vídeo pronto, em MP4 ou WebM.`}</p>
+          </div>
+        )}
+        {estado === "convertendo" && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center text-[#f3ead8]">
+            <p>Convertendo para 480p. Leva o mesmo tempo que o vídeo dura; deixe esta página aberta.</p>
+            <progress value={progresso} max={1} className="w-full max-w-sm" aria-label="Andamento da conversão" />
+            <p className="font-mono text-sm">{Math.round(progresso * 100)}%</p>
+            <button type="button" className="cursor-pointer text-sm underline" onClick={() => cancelar.current?.abort()}>Cancelar</button>
+          </div>
+        )}
+        {estado === "gravando" && (
+          <p className="absolute left-3 top-3 flex items-center gap-2 rounded bg-black/60 px-2 py-1 font-mono text-xs font-bold text-white">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-[#ff3b30]" />
+            REC {relogio(segundos)}
+          </p>
+        )}
+      </div>
+
+      {ligado && (
+        <div className="h-1 bg-rule" role="progressbar" aria-label="Tempo de gravação" aria-valuemin={0} aria-valuemax={LIMITE_SEGUNDOS} aria-valuenow={segundos}>
+          <div className={`h-1 ${estado === "gravando" ? "bg-[#c21f16]" : "bg-ink-soft"}`} style={{ width: `${Math.min(100, (100 * segundos) / LIMITE_SEGUNDOS)}%` }} />
+        </div>
+      )}
+
       {estado !== "convertendo" && (
-        <div className="flex flex-wrap items-end gap-4">
-          {formato && (
-            <fieldset className="flex flex-wrap gap-4" disabled={estado === "gravando"}>
-              <legend className="sr-only">O que gravar</legend>
-              <label className="flex items-center gap-2">
-                <input type="radio" name="modo" checked={modo === "camera"} onChange={() => setModo("camera")} /> Câmera
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="radio" name="modo" checked={modo === "tela"} onChange={() => setModo("tela")} /> Tela (slides, quadro, programa)
-              </label>
-              <label className="flex items-center gap-2">
-                <input type="radio" name="modo" checked={modo === "ambos"} onChange={() => setModo("ambos")} /> Tela e câmera juntas
-              </label>
-            </fieldset>
-          )}
+        <div className="flex flex-wrap items-center gap-3 px-4 py-3">
           {formato && estado === "parado" && (
-            <button type="button" className={botao} onClick={() => void ligar()}>
+            <button type="button" className={`${botao} rounded-md`} onClick={() => void ligar()}>
               {modo === "camera" ? "Ligar a câmera" : modo === "tela" ? "Escolher a tela" : "Escolher a tela e ligar a câmera"}
             </button>
           )}
-          {formato && modo !== "camera" && (
-            <label className={`${botaoClaro} cursor-pointer`}>
+          {estado === "pronto" && (
+            <button type="button" onClick={gravar} className="flex cursor-pointer items-center gap-2 rounded-full bg-[#c21f16] py-2 pl-2 pr-4 font-semibold text-white hover:bg-[#a51912]">
+              <span aria-hidden className="h-6 w-6 rounded-full border-4 border-white/80 bg-[#ff3b30]" />
+              Começar a gravar
+            </button>
+          )}
+          {estado === "gravando" && (
+            <button type="button" onClick={() => gravador.current?.stop()} className="flex cursor-pointer items-center gap-2 rounded-full bg-ink py-2 pl-2 pr-4 font-semibold text-parchment">
+              <span aria-hidden className="h-6 w-6 rounded-md border-4 border-parchment/80 bg-parchment" />
+              Parar
+            </button>
+          )}
+          {ligado && (
+            <span className="font-mono text-sm tabular-nums text-ink-soft" role="timer" aria-live="off">
+              {relogio(segundos)} de {relogio(LIMITE_SEGUNDOS)}
+            </span>
+          )}
+          {formato && modo !== "camera" && estado !== "gravando" && (
+            <label className="cursor-pointer text-sm underline hover:text-oxblood">
               {pdf ? "Trocar o PDF" : "Mostrar um PDF"}
               <input type="file" accept="application/pdf" className="sr-only" onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) { if (pdf) URL.revokeObjectURL(pdf); setPdf(URL.createObjectURL(f)); } }} />
             </label>
           )}
-          {estado === "pronto" && (
-            <button type="button" className={botao} onClick={gravar}>
-              ● Começar a gravar
-            </button>
-          )}
-          {estado === "gravando" && (
-            <button type="button" className={botao} onClick={() => gravador.current?.stop()}>
-              ■ Parar
-            </button>
-          )}
           {estado === "parado" && (
             <>
-              <button type="button" className={botaoClaro} onClick={() => arquivo.current?.click()}>
+              <button type="button" className="ml-auto cursor-pointer text-sm underline hover:text-oxblood" onClick={() => arquivo.current?.click()}>
                 Enviar um vídeo pronto
               </button>
               <input
@@ -500,27 +623,19 @@ function Gravador({ aoTerminar }: { aoTerminar: (pronto: Pronto) => void }) {
           )}
         </div>
       )}
-      {(estado === "pronto" || estado === "gravando") && (
-        <div>
-          <video ref={espelho} playsInline className="aspect-video w-full max-w-2xl border-2 border-ink bg-black" />
-          <p className={`mt-2 font-mono text-lg tabular-nums ${estado === "gravando" ? "text-oxblood" : ""}`} role="timer" aria-live="off">
-            {estado === "gravando" ? "● gravando " : ""}
-            {relogio(segundos)} de {relogio(LIMITE_SEGUNDOS)}
-          </p>
+
+      {pdf && (
+        <div className="border-t border-rule p-4">
+          <p className="text-xs text-ink-soft">O PDF abre aqui embaixo. Ao escolher a tela, compartilhe <strong>esta aba</strong>: o que você rolar no PDF entra na gravação. <button type="button" className={elo} onClick={() => { URL.revokeObjectURL(pdf); setPdf(null); }}>Fechar o PDF</button></p>
+          <object data={pdf} type="application/pdf" className="mt-2 h-[60vh] w-full border border-rule" aria-label="PDF da aula">
+            <p className="p-3 text-ink-soft">Este navegador não mostra PDF aqui dentro: abra o arquivo em outra aba e compartilhe aquela aba.</p>
+          </object>
         </div>
       )}
-      {estado === "convertendo" && (
-        <div className="space-y-2">
-          <p>Convertendo para 480p. Leva o mesmo tempo que o vídeo dura; deixe esta página aberta.</p>
-          <progress value={progresso} max={1} className="w-full max-w-xl" aria-label="Andamento da conversão" />
-          <p className="font-mono text-sm">{Math.round(progresso * 100)}%</p>
-          <button type="button" className={elo} onClick={() => cancelar.current?.abort()}>
-            Cancelar
-          </button>
-        </div>
-      )}
-      <p className="text-ink-soft">Dica: um lugar silencioso e bem iluminado, a câmera na altura dos olhos e frases curtas. Se travar, pare e grave de novo: são só 10 minutos.</p>
-      <Aviso texto={aviso} />
+      <p className="border-t border-rule px-4 py-3 text-xs text-ink-soft">Dica: um lugar silencioso e bem iluminado, a câmera na altura dos olhos e frases curtas. Se travar, pare e grave de novo: são só 10 minutos.</p>
+      <div className="px-4 pb-3">
+        <Aviso texto={aviso} />
+      </div>
     </section>
   );
 }
@@ -543,31 +658,50 @@ function Assistir({ aula }: { aula: Videoaula }) {
   return <VideoPlayer src={endereco} titulo={aula.titulo} legenda={aula.legenda} transcricao={aula.transcricao} labels={playerPt} />;
 }
 
-function Minhas() {
+function Minhas({ lista, erro, recarregar, gravar }: { lista: Videoaula[] | null; erro: string; recarregar: () => void; gravar: () => void }) {
   const { t } = useI18n();
-  const lista = useLista<Videoaula[]>("videoaulas_minhas");
-  const acao = useAcao(lista.recarregar);
+  const acao = useAcao(recarregar);
   const [aberta, setAberta] = useState<string | null>(null);
+  const tocando = lista?.find((aula) => aula.id === aberta) ?? null;
   return (
     <section>
-      <Aviso texto={lista.erro || acao.aviso} />
-      {lista.dados?.length === 0 && <p className="text-ink-soft">Você ainda não enviou nenhuma aula em vídeo.</p>}
-      <ul className="space-y-4">
-        {lista.dados?.map((aula) => (
-          <li key={aula.id} className="painel-cartao p-4">
-            <p className={rotulo}>
-              {situacao[aula.status]} · {t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina} · {relogio(aula.duracao)} · enviada em {data(aula.criado_em)}
-            </p>
-            <p className="mt-1 font-serif text-xl font-semibold">{aula.titulo}</p>
-            {aula.nota && <p className="mt-1 border-l-2 border-gold pl-3">Nota da curadoria: {aula.nota}</p>}
-            <p className="mt-2 flex flex-wrap gap-4">
-              <button type="button" className={elo} onClick={() => setAberta(aberta === aula.id ? null : aula.id)}>
-                {aberta === aula.id ? "Fechar" : "Assistir"}
-              </button>
+      <Aviso texto={erro || acao.aviso} />
+      {lista?.length === 0 && (
+        <div className="rounded-xl border border-dashed border-rule px-6 py-12 text-center">
+          <p aria-hidden className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-ink text-parchment"><Desenho nome="play" className="h-5 w-5" /></p>
+          <p className="mt-4 font-serif text-2xl font-semibold">Sua primeira aula em vídeo</p>
+          <p className="mx-auto mt-1 max-w-md text-ink-soft">Até 10 minutos, gravada aqui mesmo com a câmera ou a tela. Passa pela revisão e entra nas trilhas.</p>
+          <button type="button" className={`${botao} mt-4 rounded-md`} onClick={gravar}>Gravar agora</button>
+        </div>
+      )}
+      {tocando && (
+        <div className="mb-6 overflow-hidden rounded-xl border border-ink bg-parchment-deep">
+          <Assistir aula={tocando} />
+          <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3">
+            <p className="font-serif text-lg font-semibold">{tocando.titulo}</p>
+            <button type="button" className={elo} onClick={() => setAberta(null)}>Fechar</button>
+          </div>
+        </div>
+      )}
+      <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {lista?.map((aula) => (
+          <li key={aula.id} className="overflow-hidden rounded-xl border border-rule bg-parchment-deep">
+            <button type="button" onClick={() => setAberta(aula.id)} className="group relative block aspect-video w-full cursor-pointer bg-gradient-to-br from-[#2b2117] to-[#0f0c09]" aria-label={`Assistir: ${aula.titulo}`}>
+              <span aria-hidden className="absolute left-3 top-3 font-serif text-3xl font-bold text-[#f3ead8]/20">{(t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina).slice(0, 1)}</span>
+              <span aria-hidden className="absolute inset-0 m-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#f3ead8]/90 text-[#17130e] transition-transform group-hover:scale-110"><Desenho nome="play" className="h-5 w-5" /></span>
+              <span className="absolute bottom-2 right-2 rounded bg-black/75 px-1.5 py-0.5 font-mono text-xs text-white">{relogio(aula.duracao)}</span>
+            </button>
+            <div className="p-3">
+              <p className="flex flex-wrap items-center gap-1.5 text-xs">
+                <span className={`rounded-sm px-1.5 py-0.5 font-medium ${TOM[aula.status]}`}>{situacao[aula.status]}</span>
+                <span className="text-ink-soft">{t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina} · {data(aula.criado_em)}</span>
+              </p>
+              <p className="mt-1 font-semibold leading-snug">{aula.titulo}</p>
+              {aula.nota && <p className="mt-2 border-l-2 border-gold pl-2 text-sm">Nota da curadoria: {aula.nota}</p>}
               {aula.status !== "aprovada" && (
                 <button
                   type="button"
-                  className={elo}
+                  className={`${elo} mt-2 text-sm text-ink-soft`}
                   disabled={acao.ocupado}
                   onClick={async () => {
                     if (!window.confirm("Apagar esta aula em vídeo? O arquivo também é apagado.")) return;
@@ -578,12 +712,7 @@ function Minhas() {
                   Apagar
                 </button>
               )}
-            </p>
-            {aberta === aula.id && (
-              <div className="mt-3">
-                <Assistir aula={aula} />
-              </div>
-            )}
+            </div>
           </li>
         ))}
       </ul>
@@ -595,50 +724,79 @@ function Revisar({ me, fila, erro, recarregar }: { me: Me; fila: Videoaula[]; er
   const { t } = useI18n();
   const acao = useAcao(recarregar);
   const [notas, setNotas] = useState<Record<string, string>>({});
+  const [conferido, setConferido] = useState<Record<string, string[]>>({});
   const decide = can(me, "coordenacao", "curadoria");
   const lista = fila.filter((aula) => !aula.minha || can(me, "coordenacao"));
+  const itens = ["O som está claro", "A imagem dá para ler", "O conteúdo está correto", "As fontes conferem", "Ninguém aparece sem autorização"];
   return (
     <section>
       {!decide && <p className="mb-4 text-ink-soft">Você vê as aulas da sua disciplina para dar a sua opinião à curadoria pelo Mural da equipe. Quem aprova ou recusa é a curadoria.</p>}
       <Aviso texto={erro || acao.aviso} />
-      {lista.length === 0 && <p className="text-ink-soft">Nenhuma aula em vídeo esperando revisão.</p>}
+      {lista.length === 0 && (
+        <div className="rounded-xl border border-dashed border-rule px-6 py-10 text-center">
+          <p className="font-serif text-xl font-semibold">Nada esperando revisão</p>
+          <p className="mt-1 text-ink-soft">Quando alguém enviar uma aula em vídeo da sua disciplina, ela aparece aqui.</p>
+        </div>
+      )}
       <ul className="space-y-6">
-        {lista.map((aula) => (
-          <li key={aula.id} className="painel-cartao space-y-3 p-5">
-            <p className={rotulo}>
-              {t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina} · {aula.nome_autor || "sem nome"} · {relogio(aula.duracao)} · {aula.largura}×{aula.altura} · {megas(aula.tamanho)}
-            </p>
-            <p className="font-serif text-xl font-semibold">{aula.titulo}</p>
-            {aula.descricao && <p className="whitespace-pre-line" data-original>{aula.descricao}</p>}
-            <Assistir aula={aula} />
-            {aula.fontes && aula.fontes.length > 0 && (
-              <ul className="list-disc pl-5 text-ink-soft">
-                {aula.fontes.map((fonte) => (
-                  <li key={fonte.titulo}>
-                    {fonte.titulo}
-                    {fonte.autor ? ` (${fonte.autor})` : ""} {fonte.url && <a href={fonte.url} target="_blank" rel="noopener noreferrer" className={elo}>abrir</a>}
-                  </li>
-                ))}
-              </ul>
-            )}
-            {decide && (
-              <div className="space-y-2">
-                <label className="block">
-                  Nota para quem gravou (obrigatória para recusar)
-                  <textarea value={notas[aula.id] ?? ""} onChange={(e) => setNotas({ ...notas, [aula.id]: e.target.value })} maxLength={1000} rows={2} className={campo} />
-                </label>
-                <div className="flex flex-wrap gap-3">
-                  <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("videoaula_decidir", { p_id: aula.id, p_aprovar: true, p_nota: notas[aula.id] ?? "" }, "Aula aprovada. Ela já está no ar.")}>
-                    Aprovar
-                  </button>
-                  <button type="button" className={botaoClaro} disabled={acao.ocupado || (notas[aula.id] ?? "").trim().length < 5} onClick={() => acao.agir("videoaula_decidir", { p_id: aula.id, p_aprovar: false, p_nota: notas[aula.id] ?? "" }, "Aula recusada. Quem gravou lê a sua nota.")}>
-                    Recusar
-                  </button>
+        {lista.map((aula) => {
+          const marcados = conferido[aula.id] ?? [];
+          return (
+            <li key={aula.id} className="grid gap-5 rounded-xl border border-rule bg-parchment-deep p-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+              <div className="min-w-0 space-y-3">
+                <div className="overflow-hidden rounded-lg">
+                  <Assistir aula={aula} />
                 </div>
+                <p className="font-mono text-xs text-ink-soft">{relogio(aula.duracao)} · {aula.largura}×{aula.altura} · {megas(aula.tamanho)}</p>
               </div>
-            )}
-          </li>
-        ))}
+              <div className="min-w-0 space-y-3">
+                <p className={rotulo}>{t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina} · {aula.nome_autor || "sem nome"}</p>
+                <h3 className="font-serif text-xl font-semibold leading-snug">{aula.titulo}</h3>
+                {aula.descricao && <p className="whitespace-pre-line text-sm" data-original>{aula.descricao}</p>}
+                {aula.fontes && aula.fontes.length > 0 && (
+                  <div className="text-sm">
+                    <p className="font-semibold">Fontes</p>
+                    <ul className="mt-1 list-disc pl-5 text-ink-soft">
+                      {aula.fontes.map((fonte) => (
+                        <li key={fonte.titulo}>
+                          {fonte.titulo}
+                          {fonte.autor ? ` (${fonte.autor})` : ""} {fonte.url && <a href={fonte.url} target="_blank" rel="noopener noreferrer" className={elo}>abrir</a>}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <fieldset className="rounded-lg border border-rule p-3 text-sm">
+                  <legend className="px-1 font-semibold">O que conferir</legend>
+                  {itens.map((item) => (
+                    <label key={item} className="flex cursor-pointer items-center gap-2 py-0.5">
+                      <input type="checkbox" checked={marcados.includes(item)} onChange={(e) => setConferido({ ...conferido, [aula.id]: e.target.checked ? [...marcados, item] : marcados.filter((x) => x !== item) })} />
+                      {item}
+                    </label>
+                  ))}
+                  <p className="mt-1 text-xs text-ink-soft">Só para você se guiar: não fica guardado.</p>
+                </fieldset>
+                {decide && (
+                  <div className="space-y-2">
+                    <label className="block text-sm font-semibold">
+                      Nota para quem gravou
+                      <span className="block text-xs font-normal text-ink-soft">Obrigatória para recusar.</span>
+                      <textarea value={notas[aula.id] ?? ""} onChange={(e) => setNotas({ ...notas, [aula.id]: e.target.value })} maxLength={1000} rows={2} className={campo} />
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      <button type="button" className={`${botao} rounded-md`} disabled={acao.ocupado} onClick={() => acao.agir("videoaula_decidir", { p_id: aula.id, p_aprovar: true, p_nota: notas[aula.id] ?? "" }, "Aula aprovada. Ela já está no ar.")}>
+                        Aprovar e pôr no ar
+                      </button>
+                      <button type="button" className={`${botaoClaro} rounded-md`} disabled={acao.ocupado || (notas[aula.id] ?? "").trim().length < 5} onClick={() => acao.agir("videoaula_decidir", { p_id: aula.id, p_aprovar: false, p_nota: notas[aula.id] ?? "" }, "Aula recusada. Quem gravou lê a sua nota.")}>
+                        Recusar
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );
