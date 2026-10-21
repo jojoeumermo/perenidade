@@ -1,0 +1,31 @@
+name: Publicações agendadas do estúdio
+
+# De 15 em 15 minutos, pede ao site que publique no Instagram o que o estúdio de design agendou e já venceu (o GitHub
+# às vezes atrasa rotinas agendadas; o post sai na primeira rodada depois do horário). Só roda depois de criada a
+# variável AGENDA_INSTAGRAM com o valor "sim" (Settings → Secrets and variables → Actions → Variables); antes disso é
+# pulada e não consome minutos. Precisa do segredo ESTUDIO_CRON_SECRET, igual ao CRON_SECRET da Vercel e ao valor
+# guardado no banco (interno.segredos, nome 'cron'). O passo a passo está em docs/ESTUDIO-INSTAGRAM.md.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: estudio-agendados
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    if: ${{ vars.AGENDA_INSTAGRAM == 'sim' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Pedir ao site que publique o que venceu
+        env:
+          CHAVE: ${{ secrets.ESTUDIO_CRON_SECRET }}
+          SITE: ${{ vars.SITE_URL || 'https://institutolucia.org' }}
+        run: |
+          if [ -z "$CHAVE" ]; then echo "Falta o segredo ESTUDIO_CRON_SECRET."; exit 1; fi
+          curl --fail-with-body -sS -X POST -H "Authorization: Bearer $CHAVE" "$SITE/api/estudio/instagram/agendados"

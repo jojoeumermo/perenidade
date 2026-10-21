@@ -9666,14 +9666,116 @@ create or replace function interno.desenha() returns boolean language sql stable
   select interno.coord() or interno.tem('marketing') or interno.tem('design') or interno.tem('jornalismo')
 $$;
 
+-- Pasta, etiquetas, revisão, lixeira, número de páginas e o alcance anotado de cada trabalho.
+alter table interno.designs add column if not exists pasta text not null default '' check (char_length(pasta) <= 60);
+alter table interno.designs add column if not exists etiquetas text[] not null default '{}' check (cardinality(etiquetas) <= 12);
+alter table interno.designs add column if not exists status text not null default 'rascunho' check (status in ('rascunho', 'revisao', 'ajustes', 'aprovado', 'publicado'));
+alter table interno.designs add column if not exists nota text not null default '' check (char_length(nota) <= 1000);
+alter table interno.designs add column if not exists decidido_por text not null default '';
+alter table interno.designs add column if not exists paginas integer not null default 1 check (paginas between 1 and 60);
+alter table interno.designs add column if not exists apagado_em timestamptz;
+alter table interno.designs add column if not exists alcance integer check (alcance is null or alcance >= 0);
+alter table interno.designs add column if not exists publicado_em timestamptz;
+
+-- Comentários da revisão (de quem cria, da coordenação e de quem mais estiver no trabalho).
+create table if not exists interno.design_comentarios (
+  id uuid primary key default gen_random_uuid(),
+  design uuid not null references interno.designs (id) on delete cascade,
+  autor uuid not null references interno.perfis (id) on delete cascade,
+  autor_nome text not null default '',
+  texto text not null check (char_length(texto) between 1 and 2000),
+  pagina integer not null default 0 check (pagina between 0 and 60),
+  criado_em timestamptz not null default now()
+);
+create index if not exists design_comentarios_design on interno.design_comentarios (design, criado_em);
+
+-- Versões anteriores: o que estava guardado antes de cada mudança (uma a cada dez minutos, as 15 mais novas).
+create table if not exists interno.design_versoes (
+  id uuid primary key default gen_random_uuid(),
+  design uuid not null references interno.designs (id) on delete cascade,
+  autor_nome text not null default '',
+  dados jsonb not null,
+  miniatura text not null default '' check (char_length(miniatura) <= 60000),
+  criado_em timestamptz not null default now()
+);
+create index if not exists design_versoes_design on interno.design_versoes (design, criado_em desc);
+
+-- A biblioteca da equipe: blocos reutilizáveis (camadas) e paletas de campanha.
+create table if not exists interno.design_biblioteca (
+  id uuid primary key default gen_random_uuid(),
+  autor uuid not null references interno.perfis (id) on delete cascade,
+  autor_nome text not null default '',
+  tipo text not null check (tipo in ('bloco', 'paleta')),
+  nome text not null check (char_length(nome) between 1 and 80),
+  dados jsonb not null default '{}'::jsonb,
+  criado_em timestamptz not null default now()
+);
+
+-- Quantas vezes cada modelo foi usado (só o nome do modelo e a contagem).
+create table if not exists interno.design_modelos_uso (
+  modelo text primary key check (modelo ~ '^[a-z0-9-]{2,60}$'),
+  vezes integer not null default 0,
+  atualizado_em timestamptz not null default now()
+);
+
+-- Publicações no Instagram (agora ou agendadas). As imagens ficam no depósito público "estudio-publicacoes".
+create table if not exists interno.design_publicacoes (
+  id uuid primary key default gen_random_uuid(),
+  design uuid references interno.designs (id) on delete set null,
+  autor uuid not null references interno.perfis (id) on delete cascade,
+  autor_nome text not null default '',
+  titulo text not null default '' check (char_length(titulo) <= 120),
+  urls text[] not null check (cardinality(urls) between 1 and 10),
+  legenda text not null default '' check (char_length(legenda) <= 2200),
+  quando timestamptz not null default now(),
+  status text not null default 'agendada' check (status in ('agendada', 'publicando', 'publicada', 'falhou', 'cancelada')),
+  erro text not null default '' check (char_length(erro) <= 500),
+  media_id text not null default '' check (char_length(media_id) <= 80),
+  criado_em timestamptz not null default now()
+);
+create index if not exists design_publicacoes_quando on interno.design_publicacoes (status, quando);
+
+-- Segredos que só o dono do banco escreve (pelo SQL Editor): a chave da tarefa automática que publica os agendados.
+create table if not exists interno.segredos (
+  nome text primary key,
+  valor text not null
+);
+
+do $$
+declare t text;
+begin
+  foreach t in array array['design_comentarios', 'design_versoes', 'design_biblioteca', 'design_modelos_uso', 'design_publicacoes', 'segredos'] loop
+    execute format('alter table interno.%I enable row level security', t);
+    execute format('revoke all on interno.%I from public', t);
+    if exists (select 1 from pg_roles where rolname = 'anon') then execute format('revoke all on interno.%I from anon, authenticated', t); end if;
+  end loop;
+end $$;
+
+/** Quem publica no perfil do instituto: a coordenação e o marketing. */
+create or replace function interno.design_publica() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or interno.tem('marketing')
+$$;
+
 create or replace function interno.design_json(d interno.designs, p_completo boolean) returns jsonb language sql stable as $$
   select jsonb_build_object('id', d.id, 'titulo', d.titulo, 'formato', d.formato, 'largura', d.largura, 'altura', d.altura, 'autor', d.autor_nome,
                             'meu', d.autor = auth.uid(), 'compartilhado', d.compartilhado, 'miniatura', d.miniatura, 'criado_em', d.criado_em, 'atualizado_em', d.atualizado_em,
+                            'pasta', d.pasta, 'etiquetas', to_jsonb(d.etiquetas), 'status', d.status, 'nota', d.nota, 'decidido_por', d.decidido_por,
+                            'paginas', d.paginas, 'apagado_em', d.apagado_em, 'alcance', d.alcance, 'publicado_em', d.publicado_em,
                             'dados', case when p_completo then d.dados else null end)
 $$;
 
+/** Pode ver (e comentar) este trabalho: quem fez, a equipe quando é compartilhado, a coordenação sempre. */
+create or replace function interno.design_ve(d interno.designs) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.desenha() and (d.autor = auth.uid() or d.compartilhado or interno.coord())
+$$;
+
 create or replace function public.design_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); d designs; v_nome text; v_mini text := coalesce(p ->> 'miniatura', '');
+declare
+  v uuid := interno.eu();
+  d designs;
+  v_nome text;
+  v_mini text := coalesce(p ->> 'miniatura', '');
+  v_paginas integer := least(60, greatest(1, coalesce((p ->> 'paginas')::integer, 1)));
 begin
   if not interno.desenha() then perform interno.erro('sem_permissao'); end if;
   -- Até 3 MB: as imagens do aparelho entram no desenho já reduzidas, em data:.
@@ -9682,48 +9784,319 @@ begin
   select nome into v_nome from perfis where id = v;
   if p_id is null then
     perform interno.limite('design_salvar', 200, 60);
-    if (select count(*) from designs where autor = v) >= 200 then perform interno.erro('limite_pedidos'); end if;
-    insert into designs (autor, autor_nome, titulo, formato, largura, altura, dados, miniatura, compartilhado)
+    if (select count(*) from designs where autor = v and apagado_em is null) >= 200 then perform interno.erro('limite_pedidos'); end if;
+    insert into designs (autor, autor_nome, titulo, formato, largura, altura, dados, miniatura, compartilhado, paginas)
     values (v, coalesce(v_nome, ''), interno.txt(p ->> 'titulo', 'titulo', 1, 120), interno.txt(p ->> 'formato', 'formato', 0, 40),
-            (p ->> 'largura')::integer, (p ->> 'altura')::integer, p -> 'dados', v_mini, coalesce((p ->> 'compartilhado')::boolean, true))
+            (p ->> 'largura')::integer, (p ->> 'altura')::integer, p -> 'dados', v_mini, coalesce((p ->> 'compartilhado')::boolean, true), v_paginas)
     returning * into d;
   else
-    select * into d from designs where id = p_id for update;
+    select * into d from designs where id = p_id and apagado_em is null for update;
     if not found then perform interno.erro('nao_encontrado'); end if;
     if not (d.autor = v or (d.compartilhado and interno.desenha()) or interno.coord()) then perform interno.erro('sem_permissao'); end if;
+    -- A versão de antes fica guardada (no máximo uma a cada dez minutos; ficam as 15 mais novas).
+    if d.dados is distinct from (p -> 'dados') and not exists (select 1 from design_versoes where design = d.id and criado_em > now() - interval '10 minutes') then
+      insert into design_versoes (design, autor_nome, dados, miniatura) values (d.id, coalesce(v_nome, ''), d.dados, d.miniatura);
+      delete from design_versoes where design = d.id and id not in (select id from design_versoes where design = d.id order by criado_em desc limit 15);
+    end if;
     update designs set titulo = interno.txt(p ->> 'titulo', 'titulo', 1, 120), formato = interno.txt(p ->> 'formato', 'formato', 0, 40),
-      largura = (p ->> 'largura')::integer, altura = (p ->> 'altura')::integer, dados = p -> 'dados', miniatura = v_mini,
-      compartilhado = case when d.autor = v then coalesce((p ->> 'compartilhado')::boolean, d.compartilhado) else d.compartilhado end, atualizado_em = now()
+      largura = (p ->> 'largura')::integer, altura = (p ->> 'altura')::integer, dados = p -> 'dados', miniatura = v_mini, paginas = v_paginas,
+      compartilhado = case when d.autor = v then coalesce((p ->> 'compartilhado')::boolean, d.compartilhado) else d.compartilhado end,
+      -- Arte aprovada que muda volta para a revisão.
+      status = case when d.status = 'aprovado' and d.dados is distinct from (p -> 'dados') then 'revisao' else d.status end,
+      atualizado_em = now()
     where id = p_id returning * into d;
   end if;
   return interno.design_json(d, false);
 end $$;
 
-/** Os meus trabalhos e os que a equipe compartilhou, sem o desenho em si (que vem em design_ver). */
-create or replace function public.designs_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+/** Os meus trabalhos e os que a equipe compartilhou (ou a lixeira), sem o desenho em si (que vem em design_ver). */
+drop function if exists public.designs_listar();
+create or replace function public.designs_listar(p_lixeira boolean default false) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu();
 begin
   if not interno.desenha() then perform interno.erro('sem_permissao'); end if;
-  return coalesce((select jsonb_agg(interno.design_json(d, false) order by d.atualizado_em desc) from (select * from designs where autor = v or compartilhado order by atualizado_em desc limit 200) d), '[]'::jsonb);
+  -- Faxina: o que está na lixeira há mais de 30 dias sai de vez.
+  if random() < 0.05 then delete from designs where apagado_em < now() - interval '30 days'; end if;
+  if p_lixeira then
+    return coalesce((select jsonb_agg(interno.design_json(d, false) order by d.apagado_em desc) from (select * from designs where apagado_em is not null and (autor = v or interno.coord()) order by apagado_em desc limit 200) d), '[]'::jsonb);
+  end if;
+  return coalesce((select jsonb_agg(interno.design_json(d, false) order by d.atualizado_em desc) from (select * from designs where apagado_em is null and (autor = v or compartilhado) order by atualizado_em desc limit 200) d), '[]'::jsonb);
 end $$;
 
 create or replace function public.design_ver(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); d designs;
 begin
   if not interno.desenha() then perform interno.erro('sem_permissao'); end if;
-  select * into d from designs where id = p_id and (autor = v or compartilhado);
+  select * into d from designs where id = p_id and apagado_em is null and (autor = v or compartilhado or interno.coord());
   if not found then perform interno.erro('nao_encontrado'); end if;
   return interno.design_json(d, true);
 end $$;
 
+/** Apagar manda para a lixeira (dá para restaurar por 30 dias). */
 create or replace function public.design_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); d designs;
 begin
-  select * into d from designs where id = p_id;
+  select * into d from designs where id = p_id and apagado_em is null;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (d.autor = v or interno.coord()) then perform interno.erro('sem_permissao'); end if;
+  update designs set apagado_em = now() where id = p_id;
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.design_restaurar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); d designs;
+begin
+  select * into d from designs where id = p_id and apagado_em is not null;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (d.autor = v or interno.coord()) then perform interno.erro('sem_permissao'); end if;
+  update designs set apagado_em = null, atualizado_em = now() where id = p_id returning * into d;
+  return interno.design_json(d, false);
+end $$;
+
+/** Apagar de vez: só o que já está na lixeira, por quem fez ou pela coordenação. */
+create or replace function public.design_apagar_de_vez(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); d designs;
+begin
+  select * into d from designs where id = p_id and apagado_em is not null;
   if not found then perform interno.erro('nao_encontrado'); end if;
   if not (d.autor = v or interno.coord()) then perform interno.erro('sem_permissao'); end if;
   delete from designs where id = p_id;
   return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.design_organizar(p_id uuid, p_pasta text, p_etiquetas text[]) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); d designs; v_etiquetas text[];
+begin
+  select * into d from designs where id = p_id and apagado_em is null for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (d.autor = v or interno.coord()) then perform interno.erro('sem_permissao'); end if;
+  select coalesce(array_agg(distinct e), '{}') into v_etiquetas
+  from (select lower(interno.txt(x, 'etiquetas', 1, 30)) as e from unnest(coalesce(p_etiquetas, '{}')) x where btrim(x) <> '') t;
+  if cardinality(v_etiquetas) > 12 then perform interno.erro('invalido:etiquetas'); end if;
+  update designs set pasta = interno.txt(coalesce(p_pasta, ''), 'pasta', 0, 60), etiquetas = v_etiquetas where id = p_id returning * into d;
+  return interno.design_json(d, false);
+end $$;
+
+/**
+ * A revisão: quem cria manda para a revisão; a coordenação aprova ou pede ajuste (com nota); depois de aprovada,
+ * quem fez, a coordenação ou o marketing marcam como publicada.
+ */
+create or replace function public.design_status(p_id uuid, p_status text, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); d designs; v_nome text; v_nota text := interno.txt(coalesce(p_nota, ''), 'nota', 0, 1000);
+begin
+  if not interno.desenha() then perform interno.erro('sem_permissao'); end if;
+  select * into d from designs where id = p_id and apagado_em is null for update;
+  if not found or not interno.design_ve(d) then perform interno.erro('nao_encontrado'); end if;
+  if p_status not in ('rascunho', 'revisao', 'ajustes', 'aprovado', 'publicado') then perform interno.erro('invalido:status'); end if;
+  if p_status in ('aprovado', 'ajustes') and not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if p_status = 'ajustes' and char_length(v_nota) < 3 then perform interno.erro('invalido:nota'); end if;
+  if p_status = 'publicado' and not (d.autor = v or interno.design_publica()) then perform interno.erro('sem_permissao'); end if;
+  select nome into v_nome from perfis where id = v;
+  update designs set status = p_status,
+    nota = case when p_status in ('aprovado', 'ajustes') then v_nota else nota end,
+    decidido_por = case when p_status in ('aprovado', 'ajustes') then coalesce(v_nome, '') else decidido_por end,
+    publicado_em = case when p_status = 'publicado' then coalesce(publicado_em, now()) else publicado_em end
+  where id = p_id returning * into d;
+  return interno.design_json(d, false);
+end $$;
+
+create or replace function public.design_revisao(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); d designs;
+begin
+  select * into d from designs where id = p_id and apagado_em is null;
+  if not found or not interno.design_ve(d) then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('status', d.status, 'nota', d.nota, 'decidido_por', d.decidido_por,
+    'comentarios', coalesce((select jsonb_agg(jsonb_build_object('id', c.id, 'autor', c.autor_nome, 'texto', c.texto, 'pagina', c.pagina, 'criado_em', c.criado_em, 'meu', c.autor = v) order by c.criado_em)
+                             from design_comentarios c where c.design = d.id), '[]'::jsonb));
+end $$;
+
+create or replace function public.design_comentar(p_id uuid, p_texto text, p_pagina integer default 0) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); d designs; v_nome text; c design_comentarios;
+begin
+  select * into d from designs where id = p_id and apagado_em is null;
+  if not found or not interno.design_ve(d) then perform interno.erro('nao_encontrado'); end if;
+  perform interno.limite('design_comentar', 60, 60);
+  if (select count(*) from design_comentarios where design = d.id) >= 500 then perform interno.erro('limite_pedidos'); end if;
+  select nome into v_nome from perfis where id = v;
+  insert into design_comentarios (design, autor, autor_nome, texto, pagina)
+  values (d.id, v, coalesce(v_nome, ''), interno.txt(p_texto, 'texto', 1, 2000), least(60, greatest(0, coalesce(p_pagina, 0))))
+  returning * into c;
+  return jsonb_build_object('id', c.id);
+end $$;
+
+create or replace function public.design_versoes(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare d designs;
+begin
+  perform interno.eu();
+  select * into d from designs where id = p_id and apagado_em is null;
+  if not found or not interno.design_ve(d) then perform interno.erro('nao_encontrado'); end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('id', x.id, 'autor', x.autor_nome, 'criado_em', x.criado_em, 'miniatura', x.miniatura) order by x.criado_em desc)
+                   from design_versoes x where x.design = d.id), '[]'::jsonb);
+end $$;
+
+create or replace function public.design_versao(p_versao uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare x design_versoes; d designs;
+begin
+  perform interno.eu();
+  select * into x from design_versoes where id = p_versao;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  select * into d from designs where id = x.design and apagado_em is null;
+  if not found or not interno.design_ve(d) then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('id', x.id, 'criado_em', x.criado_em, 'dados', x.dados);
+end $$;
+
+create or replace function public.design_biblioteca_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.desenha() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('id', b.id, 'tipo', b.tipo, 'nome', b.nome, 'dados', b.dados, 'autor', b.autor_nome, 'meu', b.autor = v) order by b.criado_em desc)
+                   from (select * from design_biblioteca order by criado_em desc limit 300) b), '[]'::jsonb);
+end $$;
+
+create or replace function public.design_biblioteca_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_nome text; b design_biblioteca;
+begin
+  if not interno.desenha() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p ->> 'tipo', '') not in ('bloco', 'paleta') then perform interno.erro('invalido:tipo'); end if;
+  if p -> 'dados' is null or jsonb_typeof(p -> 'dados') <> 'object' or pg_column_size(p -> 'dados') > 1048576 then perform interno.erro('invalido:dados'); end if;
+  perform interno.limite('design_biblioteca', 60, 60);
+  if (select count(*) from design_biblioteca where autor = v) >= 100 then perform interno.erro('limite_pedidos'); end if;
+  select nome into v_nome from perfis where id = v;
+  insert into design_biblioteca (autor, autor_nome, tipo, nome, dados)
+  values (v, coalesce(v_nome, ''), p ->> 'tipo', interno.txt(p ->> 'nome', 'nome', 1, 80), p -> 'dados')
+  returning * into b;
+  return jsonb_build_object('id', b.id);
+end $$;
+
+create or replace function public.design_biblioteca_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); b design_biblioteca;
+begin
+  select * into b from design_biblioteca where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (b.autor = v or interno.coord()) then perform interno.erro('sem_permissao'); end if;
+  delete from design_biblioteca where id = p_id;
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.design_modelo_usado(p_modelo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.desenha() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_modelo, '') !~ '^[a-z0-9-]{2,60}$' then perform interno.erro('invalido:modelo'); end if;
+  perform interno.limite('design_modelo_usado', 120, 60);
+  insert into design_modelos_uso (modelo, vezes) values (p_modelo, 1)
+  on conflict (modelo) do update set vezes = design_modelos_uso.vezes + 1, atualizado_em = now();
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.design_modelos_mais_usados() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.desenha() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(jsonb_build_object('modelo', m.modelo, 'vezes', m.vezes) order by m.vezes desc, m.modelo) from (select * from design_modelos_uso order by vezes desc, modelo limit 8) m), '[]'::jsonb);
+end $$;
+
+/** O alcance anotado de um post publicado (o número que o Instagram mostra), para saber o que funcionou. */
+create or replace function public.design_alcance(p_id uuid, p_alcance integer) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); d designs;
+begin
+  select * into d from designs where id = p_id and apagado_em is null for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (d.autor = v or interno.design_publica()) then perform interno.erro('sem_permissao'); end if;
+  if p_alcance is null or p_alcance < 0 or p_alcance > 100000000 then perform interno.erro('invalido:alcance'); end if;
+  update designs set alcance = p_alcance, publicado_em = coalesce(publicado_em, now()), status = case when status = 'aprovado' then 'publicado' else status end
+  where id = p_id returning * into d;
+  return interno.design_json(d, false);
+end $$;
+
+create or replace function public.design_pode_publicar() returns boolean language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  return interno.design_publica();
+end $$;
+
+create or replace function interno.design_publicacao_json(x interno.design_publicacoes) returns jsonb language sql stable as $$
+  select jsonb_build_object('id', x.id, 'design', x.design, 'titulo', x.titulo, 'quando', x.quando, 'status', x.status, 'erro', x.erro, 'autor', x.autor_nome,
+                            'urls', to_jsonb(x.urls), 'legenda', x.legenda, 'media_id', x.media_id)
+$$;
+
+/**
+ * Registra uma publicação no Instagram: já feita agora (com o número do post) ou agendada para depois. As imagens
+ * precisam estar no depósito público de publicações, na pasta de quem publica.
+ */
+create or replace function public.design_publicacao_registrar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu();
+  v_nome text;
+  v_urls text[];
+  v_quando timestamptz := coalesce((p ->> 'quando')::timestamptz, now());
+  v_status text := coalesce(p ->> 'status', 'agendada');
+  x design_publicacoes;
+begin
+  if not interno.design_publica() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('design_publicar', 30, 60);
+  select array_agg(u) into v_urls from jsonb_array_elements_text(coalesce(p -> 'urls', '[]'::jsonb)) u;
+  if v_urls is null or cardinality(v_urls) not between 1 and 10 then perform interno.erro('invalido:urls'); end if;
+  if exists (select 1 from unnest(v_urls) u where u !~ ('^https?://[^/]+/storage/v1/object/public/estudio-publicacoes/' || v::text || '/[a-z0-9]+\.jpg$')) then perform interno.erro('invalido:urls'); end if;
+  if v_status not in ('agendada', 'publicada') then perform interno.erro('invalido:status'); end if;
+  if v_status = 'agendada' and (v_quando < now() + interval '5 minutes' or v_quando > now() + interval '90 days') then perform interno.erro('invalido:quando'); end if;
+  select nome into v_nome from perfis where id = v;
+  insert into design_publicacoes (design, autor, autor_nome, titulo, urls, legenda, quando, status, media_id)
+  values (case when p ->> 'design' ~ '^[0-9a-f-]{36}$' and exists (select 1 from designs where id = (p ->> 'design')::uuid) then (p ->> 'design')::uuid end,
+          v, coalesce(v_nome, ''), interno.txt(coalesce(p ->> 'titulo', ''), 'titulo', 0, 120), v_urls, interno.txt(coalesce(p ->> 'legenda', ''), 'legenda', 1, 2200),
+          case when v_status = 'publicada' then now() else v_quando end, v_status, interno.txt(coalesce(p ->> 'media_id', ''), 'media_id', 0, 80))
+  returning * into x;
+  return interno.design_publicacao_json(x);
+end $$;
+
+create or replace function public.design_publicacoes() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.desenha() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(interno.design_publicacao_json(x) order by x.quando desc) from (select * from design_publicacoes order by quando desc limit 50) x), '[]'::jsonb);
+end $$;
+
+create or replace function public.design_publicacao_cancelar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x design_publicacoes;
+begin
+  select * into x from design_publicacoes where id = p_id and status = 'agendada' for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (x.autor = v or interno.coord()) then perform interno.erro('sem_permissao'); end if;
+  update design_publicacoes set status = 'cancelada' where id = p_id returning * into x;
+  return interno.design_publicacao_json(x);
+end $$;
+
+/** A chave da tarefa automática confere com a guardada em interno.segredos (nome 'cron', 24 caracteres ou mais). */
+create or replace function interno.design_chave_ok(p_chave text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select exists (select 1 from segredos where nome = 'cron' and char_length(valor) >= 24 and valor = coalesce(p_chave, ''))
+$$;
+
+/** Para a tarefa automática: as publicações agendadas que já venceram (marcadas como "publicando", para não repetir). */
+create or replace function public.design_publicacoes_vencidas(p_chave text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v jsonb;
+begin
+  if not interno.design_chave_ok(p_chave) then perform interno.erro('sem_permissao'); end if;
+  -- Ficou presa em "publicando" (a tarefa caiu no meio)? Volta para a fila depois de 30 minutos.
+  update design_publicacoes set status = 'agendada' where status = 'publicando' and quando < now() - interval '30 minutes';
+  with vencidas as (
+    update design_publicacoes set status = 'publicando'
+    where id in (select id from design_publicacoes where status = 'agendada' and quando <= now() order by quando limit 5 for update skip locked)
+    returning *
+  )
+  select coalesce(jsonb_agg(interno.design_publicacao_json(x)), '[]'::jsonb) into v from vencidas x;
+  return v;
+end $$;
+
+create or replace function public.design_publicacao_marcar(p_chave text, p_id uuid, p_status text, p_erro text default '', p_media_id text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare x design_publicacoes;
+begin
+  if not interno.design_chave_ok(p_chave) then perform interno.erro('sem_permissao'); end if;
+  if p_status not in ('publicada', 'falhou') then perform interno.erro('invalido:status'); end if;
+  update design_publicacoes set status = p_status, erro = left(coalesce(p_erro, ''), 500), media_id = left(coalesce(p_media_id, ''), 80)
+  where id = p_id and status = 'publicando' returning * into x;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if p_status = 'publicada' and x.design is not null then update designs set status = 'publicado', publicado_em = coalesce(publicado_em, now()) where id = x.design; end if;
+  return interno.design_publicacao_json(x);
 end $$;
 
 -- As funções desta parte: as de "public" abertas pela API (cada uma confere quem chama), as de "interno" fechadas.
@@ -9742,6 +10115,24 @@ begin
       execute format('revoke all on function %s from anon, authenticated', f.assinatura);
     end if;
   end loop;
+end $$;
+
+-- O depósito público das publicações no Instagram: o Instagram baixa a imagem pelo endereço público. Só a coordenação
+-- e o marketing enviam, cada um na própria pasta; ninguém lista o depósito (só abre quem tem o endereço exato).
+do $$
+begin
+  if exists (select 1 from pg_namespace where nspname = 'storage') then
+    insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+    values ('estudio-publicacoes', 'estudio-publicacoes', true, 8388608, array['image/jpeg'])
+    on conflict (id) do update set public = true, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+    execute 'drop policy if exists "estudio_publicacoes_envio" on storage.objects';
+    execute 'create policy "estudio_publicacoes_envio" on storage.objects for insert to authenticated with check (bucket_id = ''estudio-publicacoes'' and interno.design_publica() and (storage.foldername(name))[1] = auth.uid()::text)';
+    execute 'drop policy if exists "estudio_publicacoes_remocao" on storage.objects';
+    execute 'create policy "estudio_publicacoes_remocao" on storage.objects for delete to authenticated using (bucket_id = ''estudio-publicacoes'' and ((storage.foldername(name))[1] = auth.uid()::text or interno.coord()))';
+    execute 'grant execute on function interno.design_publica() to authenticated';
+    execute 'grant execute on function interno.tem(text, text) to authenticated';
+    execute 'grant execute on function interno.coord() to authenticated';
+  end if;
 end $$;
 
 -- ───────────────────────────── Cargos: histórico de quem confiou e quem tirou ─────────────────────────────
