@@ -1003,8 +1003,9 @@ create or replace function interno.claims() returns jsonb language sql stable as
   select coalesce(nullif(current_setting('request.jwt.claims', true), ''), '{}')::jsonb
 $$;
 
+-- Sempre verdadeiro ou falso, nunca nulo: um token sem "role" daria nulo, e "if not nulo" não barraria ninguém.
 create or replace function interno.servico() returns boolean language sql stable as $$
-  select interno.claims() ->> 'role' = 'service_role'
+  select coalesce(interno.claims() ->> 'role' = 'service_role', false)
 $$;
 
 create or replace function interno.erro(codigo text) returns void language plpgsql as $$
@@ -1507,16 +1508,25 @@ begin
 end $$;
 
 /** Apaga a conta e tudo o que é pessoal. O que já foi publicado continua, sem ligação com a pessoa. */
-create or replace function public.conta_apagar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := auth.uid();
+-- Apagar a conta pede a senha atual: uma sessão roubada (aparelho emprestado, aba esquecida) não basta para apagar.
+drop function if exists public.conta_apagar();
+create or replace function public.conta_apagar(p_senha text default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_esquema text; v_hash text; v_confere boolean := false;
 begin
   if v is null then perform interno.erro('entre_primeiro'); end if;
+  perform interno.limite('conta_apagar', 5, 15);
   -- Senha roubada, sozinha, não apaga a conta de quem cadastrou o aplicativo autenticador.
   if interno.tem_fator() and not interno.aal2() then perform interno.erro('confirme_segundo_fator'); end if;
   -- Olha o papel direto na tabela: interno.coord() responde "não" em sessão sem o segundo fator, e a trava deixaria de valer.
   if exists (select 1 from papeis where usuario = v and papel = 'coordenacao') and (select count(*) from papeis where papel = 'coordenacao') <= 1 then
     perform interno.erro('ultima_coordenacao');
   end if;
+  select encrypted_password into v_hash from auth.users where id = v;
+  select n.nspname into v_esquema from pg_extension e join pg_namespace n on n.oid = e.extnamespace where e.extname = 'pgcrypto';
+  if v_esquema is not null and coalesce(v_hash, '') <> '' and char_length(coalesce(p_senha, '')) between 1 and 200 then
+    execute format('select %I.crypt($1, $2) = $2', v_esquema) into v_confere using p_senha, v_hash;
+  end if;
+  if not coalesce(v_confere, false) then perform interno.erro('senha_errada'); end if;
   delete from perfis where id = v;
   delete from auth.users where id = v;
   return jsonb_build_object('ok', true);
@@ -12313,6 +12323,16 @@ begin
     execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
   end loop;
 end $$;
+
+-- Funções internas usadas só por dentro de outras funções: ninguém de fora as executa (o esquema já é fechado; isto é a
+-- segunda tranca).
+revoke all on function interno.curriculo_decide() from public, anon, authenticated;
+revoke all on function interno.curriculo_json(interno.curriculo_propostas) from public, anon, authenticated;
+revoke all on function interno.reuniao_entra(interno.reunioes) from public, anon, authenticated;
+revoke all on function interno.reuniao_json(interno.reunioes) from public, anon, authenticated;
+revoke all on function interno.revisa_caderno(text) from public, anon, authenticated;
+revoke all on function interno.caderno_pronto_json(interno.cadernos_prontos) from public, anon, authenticated;
+revoke all on function interno.resolve_questoes() from public, anon, authenticated;
 
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança

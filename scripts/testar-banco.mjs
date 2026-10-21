@@ -1753,7 +1753,10 @@ await espera("a rotina anota o endereço final e avisa quem enviou", async () =>
 // ── Painel e saída ──
 await espera("resumo da coordenação", () => rpc(como(ids.coord), "painel_resumo"), (r) => typeof r.fila === "number" && r.candidaturas === 0);
 await espera("resumo de quem não é voluntário não vaza a fila", () => rpc(como(ids.leitora), "painel_resumo"), (r) => r.fila === 0 && r.denuncias === 0);
-await espera("apagar a conta leva o perfil e mantém o tópico sem dono", async () => { await rpc(como(ids.leitora), "conta_apagar"); return dono("select (select count(*) from interno.perfis where id = $1)::int as perfil, (select count(*) from interno.topicos where autor is null)::int as orfaos", [ids.leitora]); }, (r) => r.rows[0].perfil === 0 && r.rows[0].orfaos === 1);
+await dono("update auth.users set encrypted_password = extensions.crypt($2, extensions.gen_salt('bf', 4)) where id = $1", [ids.leitora, "senha-de-teste-123"]);
+await recusa("sem a senha, a conta não é apagada", () => rpc(como(ids.leitora), "conta_apagar"), "senha_errada");
+await recusa("com a senha errada, também não", () => rpc(como(ids.leitora), "conta_apagar", { p_senha: "outra-senha-qualquer" }), "senha_errada");
+await espera("apagar a conta leva o perfil e mantém o tópico sem dono", async () => { await rpc(como(ids.leitora), "conta_apagar", { p_senha: "senha-de-teste-123" }); return dono("select (select count(*) from interno.perfis where id = $1)::int as perfil, (select count(*) from interno.topicos where autor is null)::int as orfaos", [ids.leitora]); }, (r) => r.rows[0].perfil === 0 && r.rows[0].orfaos === 1);
 await recusa("a última coordenação não apaga a conta", () => rpc(como(ids.coord), "conta_apagar"), "ultima_coordenacao");
 await recusa("nem com a exigência de segundo fator ligada e a sessão só com senha", async () => {
   await rpc({ ...como(ids.coord), aal: "aal2" }, "seguranca_configurar", { p_exigir_2fa: true });
@@ -3098,7 +3101,14 @@ await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), 
   await recusa("educador não vê as estatísticas", () => rpc(como(r4.mat), "painel_estatisticas"), "sem_permissao");
 }
 
+// Token sem papel nenhum: as funções "só do serviço" recusam (antes, o nulo deixava passar).
+await espera("token sem papel não passa pela trava do serviço", async () => {
+  await dono("select set_config('request.jwt.claims', '{}', false)");
+  return (await dono("select interno.servico() as s")).rows[0].s;
+}, (s) => s === false);
+
 // Tranca final: nenhuma tabela interna sem segurança por linha, nenhuma com permissão direta para quem vem de fora.
+await espera("nenhuma função interna executável por anon ou authenticated", async () => (await dono("select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace cross join pg_roles r where n.nspname = 'interno' and r.rolname in ('anon', 'authenticated') and has_function_privilege(r.oid, p.oid, 'execute')")).rows, (r) => r.length === 0);
 await espera("toda tabela interna tem segurança por linha ligada", async () => (await dono("select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'interno' and c.relkind = 'r' and not c.relrowsecurity")).rows, (r) => r.length === 0);
 await espera("nenhuma tabela interna dá permissão direta a anon ou authenticated", async () => (await dono("select table_name from information_schema.role_table_grants where table_schema = 'interno' and grantee in ('anon', 'authenticated', 'PUBLIC')")).rows, (r) => r.length === 0);
 
