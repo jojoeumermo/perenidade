@@ -2,7 +2,9 @@
 "use client";
 
 import { useState } from "react";
+import { Modulos } from "../kit";
 import { Circuitos } from "./Circuitos";
+import { Capacitor, Fonte, LedResistor, Logica, SensorDeLuz } from "./BancadaEletronica";
 import { Instalacao } from "./Instalacao";
 import { BANCADA_ELETRICA } from "./multimetro";
 import { type Missao, MultimetroVisual } from "./MultimetroVisual";
@@ -57,33 +59,46 @@ function Calculadoras() {
   );
 }
 
-const ABAS = [
-  { id: "multimetro", nome: "🔎 Multímetro na bancada" },
-  { id: "circuitos", nome: "💡 Série e paralelo" },
-  { id: "instalacao", nome: "🏠 Ligar luz e tomada" },
-  { id: "contas", nome: "🧮 Contas do eletricista" },
-] as const;
+type Id = "multimetro" | "circuitos" | "instalacao" | "contas" | "led" | "capacitor" | "logica" | "fonte" | "sensor";
+const MODULOS: { id: Id; nome: string; icone: string; resumo: string }[] = [
+  { id: "multimetro", nome: "Multímetro na bancada", icone: "🔎", resumo: "Medir tensão, resistência e continuidade" },
+  { id: "circuitos", nome: "Série e paralelo", icone: "💡", resumo: "Três lâmpadas e uma bateria" },
+  { id: "instalacao", nome: "Ligar luz e tomada", icone: "🏠", resumo: "Fase, neutro, retorno e terra" },
+  { id: "contas", nome: "Contas do eletricista", icone: "🧮", resumo: "Ohm, potência e conta de luz" },
+  { id: "led", nome: "LED e resistor", icone: "🔴", resumo: "A primeira montagem na protoboard" },
+  { id: "capacitor", nome: "Capacitor e o tempo", icone: "⏱️", resumo: "Carga e descarga no osciloscópio" },
+  { id: "logica", nome: "Portas lógicas", icone: "🧠", resumo: "E, OU, NÃO e o somador de 4 bits" },
+  { id: "fonte", nome: "Fonte de alimentação", icone: "🔌", resumo: "Da tomada à tensão contínua" },
+  { id: "sensor", nome: "Sensor de luz", icone: "🌙", resumo: "O poste que acende sozinho" },
+];
 
 /**
- * O laboratório de elétrica: medir com o multímetro como na bancada, ver na prática a diferença entre série e paralelo,
- * ligar um ponto de luz e uma tomada com as cores certas, e as contas do dia a dia. Tudo no aparelho, sem risco: na vida
- * real, desligue o disjuntor e chame um eletricista habilitado para instalação nova.
+ * O laboratório de elétrica e eletrônica: medir com o multímetro como na bancada, série e paralelo, ligar um ponto de
+ * luz e uma tomada com as cores certas, as contas do dia a dia e a bancada de eletrônica (LED, capacitor, portas
+ * lógicas, fonte e sensor). Tudo no aparelho, sem risco: na vida real, desligue o disjuntor e chame um eletricista
+ * habilitado para instalação nova.
  */
 export function LabEletrica() {
-  const [aba, setAba] = useState<(typeof ABAS)[number]["id"]>("multimetro");
+  const [atual, setAtual] = useState<Id>("multimetro");
   return (
-    <div className="mt-8">
-      <div role="tablist" aria-label="Bancadas do laboratório" className="flex flex-wrap gap-2 font-sans text-sm">
-        {ABAS.map((a) => (
-          <button key={a.id} type="button" role="tab" aria-selected={aba === a.id} onClick={() => setAba(a.id)} className={`cursor-pointer border-2 px-3 py-2 font-bold ${aba === a.id ? "border-ink bg-ink text-parchment" : "border-ink/25 bg-parchment-deep hover:border-ink"}`}>{a.nome}</button>
-        ))}
-      </div>
-      <p className="mt-3 border-l-4 border-[#c21f16] bg-parchment-deep px-3 py-2 font-sans text-sm">Simulação para aprender. Na vida real: desligue o disjuntor antes de mexer, confirme que não há tensão e use as ferramentas e os equipamentos de proteção. Instalação nova ou reforma é trabalho de eletricista habilitado.</p>
-      <div className="mt-6">
-        {aba === "multimetro" && <MultimetroVisual pecas={BANCADA_ELETRICA} missoes={MISSOES} titulo="Bancada de elétrica" />}
-        {aba === "circuitos" && <Circuitos />}
-        {aba === "instalacao" && <Instalacao />}
-        {aba === "contas" && <Calculadoras />}
+    <div className="mt-8 font-sans">
+      <p className="border-l-4 border-[#c21f16] bg-parchment-deep px-3 py-2 text-sm">Simulação para aprender. Na vida real: desligue o disjuntor antes de mexer, confirme que não há tensão e use as ferramentas e os equipamentos de proteção. Instalação nova ou reforma é trabalho de eletricista habilitado.</p>
+      <div className="mt-6 grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
+        <div>
+          <p className="mb-2 hidden text-[0.65rem] font-semibold uppercase tracking-widest text-ink-soft lg:block">Elétrica de casa · eletrônica</p>
+          <Modulos itens={MODULOS} atual={atual} escolher={setAtual} />
+        </div>
+        <div className="min-w-0">
+          {atual === "multimetro" && <MultimetroVisual pecas={BANCADA_ELETRICA} missoes={MISSOES} titulo="Bancada de elétrica" />}
+          {atual === "circuitos" && <Circuitos />}
+          {atual === "instalacao" && <Instalacao />}
+          {atual === "contas" && <Calculadoras />}
+          {atual === "led" && <LedResistor />}
+          {atual === "capacitor" && <Capacitor />}
+          {atual === "logica" && <Logica />}
+          {atual === "fonte" && <Fonte />}
+          {atual === "sensor" && <SensorDeLuz />}
+        </div>
       </div>
     </div>
   );
