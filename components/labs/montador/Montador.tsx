@@ -1,11 +1,12 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { type Aparelho, CASOS, SEGURANCA } from "./casos";
 import { fonteAtx, BANCADA_ELETRICA } from "../eletrica/multimetro";
 import { MultimetroVisual } from "../eletrica/MultimetroVisual";
-import { COOLERS, CPUS, conferir, DISCOS, type Escolha, ETAPAS, FONTES, GABINETES, GPUS, PLACAS, RAMS } from "./pecas";
+import { ETAPAS } from "./pecas";
+import { BancadaVisual } from "./BancadaVisual";
 import { Resistores } from "./Resistores";
 
 const ABAS = [
@@ -20,82 +21,6 @@ type Aba = (typeof ABAS)[number]["id"];
 
 const caixa = "border-2 border-ink bg-parchment-deep p-3";
 const rotulo = "font-mono text-[0.65rem] uppercase tracking-widest text-gold";
-
-function Seletor<T extends { id: string; nome: string }>({ nome, lista, valor, mudar }: { nome: string; lista: T[]; valor?: string; mudar: (id?: string) => void }) {
-  return (
-    <label className="block">
-      <span className={rotulo}>{nome}</span>
-      <select value={valor ?? ""} onChange={(e) => mudar(e.target.value || undefined)} className="mt-0.5 w-full border-2 border-ink bg-parchment px-2 py-1.5">
-        <option value="">— escolha —</option>
-        {lista.map((x) => <option key={x.id} value={x.id}>{x.nome}</option>)}
-      </select>
-    </label>
-  );
-}
-
-/** Pedidos de cliente para montar: cada um com o limite de orçamento em pontos de consumo e o uso. */
-const PEDIDOS = [
-  { nome: "Livre", texto: "Monte o que quiser e veja o que é compatível." },
-  { nome: "Escritório da associação", texto: "Planilhas, navegador e reunião por vídeo. Sem placa de vídeo, gabinete pequeno, silencioso.", confere: (e: Escolha) => e.gpu === "nenhuma" && e.gabinete !== "atx" },
-  { nome: "Estúdio de edição de vídeo", texto: "Muitos núcleos, 64 GB de memória, dois SSDs NVMe e placa de vídeo forte.", confere: (e: Escolha) => ["am5-16", "1700-14f", "am4-8"].includes(e.cpu ?? "") && ["d4-4x16", "d5-4x16"].includes(e.ram ?? "") && e.discos.filter((d) => d.startsWith("nvme")).length >= 2 && ["alta", "topo"].includes(e.gpu ?? "") },
-  { nome: "Computador compacto para a sala", texto: "Mini-ITX, cabe na estante, com placa de vídeo de entrada para jogos leves.", confere: (e: Escolha) => e.placa === "1700-itx" && e.gabinete === "itx" && e.gpu === "entrada" },
-];
-
-function Montar() {
-  const [e, setE] = useState<Escolha>({ discos: [] });
-  const [pedido, setPedido] = useState(0);
-  const r = useMemo(() => conferir(e), [e]);
-  const muda = (k: keyof Omit<Escolha, "discos">) => (id?: string) => setE((x) => ({ ...x, [k]: id }));
-  const p = PEDIDOS[pedido];
-  const atende = r.completa && !r.erros.length && (!p.confere || p.confere(e));
-  return (
-    <div>
-      <div className="flex flex-wrap gap-2">
-        {PEDIDOS.map((x, i) => <button key={x.nome} type="button" aria-pressed={i === pedido} onClick={() => setPedido(i)} className={`cursor-pointer border-2 px-2 py-1 ${i === pedido ? "border-ink bg-ink text-parchment" : "border-rule hover:border-ink"}`}>{x.nome}</button>)}
-      </div>
-      <p className="mt-2 text-ink-soft"><strong>Pedido:</strong> {p.texto}</p>
-      <div className="mt-4 grid gap-5 lg:grid-cols-[minmax(0,1fr)_22rem]">
-        <div className="grid gap-3 sm:grid-cols-2">
-          <Seletor nome="Placa-mãe" lista={PLACAS} valor={e.placa} mudar={muda("placa")} />
-          <Seletor nome="Processador" lista={CPUS} valor={e.cpu} mudar={muda("cpu")} />
-          <Seletor nome="Cooler" lista={COOLERS} valor={e.cooler} mudar={muda("cooler")} />
-          <Seletor nome="Memória" lista={RAMS} valor={e.ram} mudar={muda("ram")} />
-          <Seletor nome="Placa de vídeo" lista={GPUS} valor={e.gpu} mudar={muda("gpu")} />
-          <Seletor nome="Fonte" lista={FONTES} valor={e.fonte} mudar={muda("fonte")} />
-          <Seletor nome="Gabinete" lista={GABINETES} valor={e.gabinete} mudar={muda("gabinete")} />
-          <fieldset>
-            <legend className={rotulo}>Armazenamento (um ou mais)</legend>
-            {DISCOS.map((d) => (
-              <label key={d.id} className="flex items-center gap-2">
-                <input type="checkbox" checked={e.discos.includes(d.id)} onChange={(ev) => setE((x) => ({ ...x, discos: ev.target.checked ? [...x.discos, d.id] : x.discos.filter((y) => y !== d.id) }))} />
-                {d.nome}
-              </label>
-            ))}
-          </fieldset>
-        </div>
-        <div className={caixa} aria-live="polite">
-          <p className={rotulo}>Conferência da bancada</p>
-          <p className="mt-1">Consumo estimado: <strong>{r.consumo} W</strong> · fonte recomendada: <strong>{r.recomendada} W</strong> ou mais</p>
-          {r.erros.length > 0 && (
-            <>
-              <p className="mt-2 font-semibold text-oxblood">Não liga ({r.erros.length}):</p>
-              <ul className="list-disc space-y-1 pl-5 text-oxblood">{r.erros.map((x) => <li key={x}>{x}</li>)}</ul>
-            </>
-          )}
-          {r.avisos.length > 0 && (
-            <>
-              <p className="mt-2 font-semibold">Liga, mas atenção:</p>
-              <ul className="list-disc space-y-1 pl-5">{r.avisos.map((x) => <li key={x}>{x}</li>)}</ul>
-            </>
-          )}
-          {!r.completa && !r.erros.length && <p className="mt-2 text-ink-soft">Escolha todas as peças para o primeiro teste.</p>}
-          {r.completa && !r.erros.length && <p className="mt-2 font-semibold text-ok">✓ Liga, entra na BIOS e reconhece tudo.</p>}
-          {pedido > 0 && r.completa && !r.erros.length && <p className={`mt-1 ${atende ? "text-ok" : "text-oxblood"}`}>{atende ? "✓ E atende o pedido do cliente." : "Mas não é o que o cliente pediu: releia o pedido."}</p>}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function embaralhar<T>(lista: T[]) {
   const a = [...lista];
@@ -205,7 +130,7 @@ export function Montador() {
         {ABAS.map((a) => <button key={a.id} type="button" role="tab" aria-selected={aba === a.id} onClick={() => setAba(a.id)} className={`-mb-0.5 cursor-pointer border-2 border-b-0 px-3 py-1.5 font-semibold ${aba === a.id ? "border-ink bg-parchment-deep" : "border-transparent text-ink-soft hover:text-ink"}`}>{a.nome}</button>)}
       </div>
       <div role="tabpanel" className="pt-5">
-        {aba === "montar" && <Montar />}
+        {aba === "montar" && <BancadaVisual />}
         {aba === "ordem" && <Ordem />}
         {aba === "multimetro" && <MultimetroDaBancada />}
         {aba === "resistores" && <Resistores />}
