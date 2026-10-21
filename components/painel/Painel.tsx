@@ -51,7 +51,6 @@ import { AvisoDeAbertura, RegistroDeAtividades, SegurancaSucessao } from "./Lide
 import { Materiais } from "./Materiais";
 import { MinhaConta } from "./MinhaConta";
 import { Pessoas } from "./Pessoas";
-import { Reunioes } from "./Reunioes";
 import { Podcast } from "./podcast/Podcast";
 import { Reforco } from "./Reforco";
 import { Supervisao } from "./Supervisao";
@@ -491,7 +490,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
     [
       { id: "mesa", nome: "Mesa", sobre: "O que espera por você hoje.", grupo: "", mostra: true, conta: eu.avisos },
       { id: "atividade", nome: "Atividade do site", sobre: "Tudo o que a galera posta no site e no painel, na hora em que acontece, com aviso por e-mail se você quiser.", grupo: "", mostra: lidera || can(eu, "vice"), conta: atividadeNova || undefined },
-      { id: "conversas", nome: "Conversas", sobre: "Mensagens privadas, grupos e o grupo de cada departamento, cifrados de ponta a ponta.", grupo: "", mostra: voluntario, conta: aba === "conversas" ? 0 : presenca.dados?.conversas },
+      { id: "conversas", nome: "Conversas e reuniões", sobre: "Os canais de cada departamento, grupos, mensagens diretas e as reuniões por vídeo, num lugar só e cifrado de ponta a ponta.", grupo: "", mostra: voluntario, conta: aba === "conversas" || aba === "reunioes" ? 0 : presenca.dados?.conversas },
       { id: "rede", nome: "Mural da equipe", sobre: "Publicações e pedidos de ajuda para todos ou por função, cifrados neste aparelho.", grupo: "", mostra: voluntario },
       { id: "escrever", nome: "Escrever", sobre: "Aulas, matérias, verbetes e tudo o que vai para o site.", grupo: "Produção", mostra: produz },
       { id: "videoaulas", nome: "Aulas em vídeo", sobre: "Gravar ou enviar aulas curtas em vídeo, de até 10 minutos, e revisar as da sua disciplina.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "educacao"), conta: videos.dados ?? undefined },
@@ -518,7 +517,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: manages(eu), conta: r?.candidaturas },
       { id: "supervisao", nome: "Supervisão", sobre: "Proteções reversíveis, a equipe sem e-mails e os pedidos de voluntariado.", grupo: "Pessoas", mostra: supervisiona, conta: r?.candidaturas },
-      { id: "reunioes", nome: "Reuniões", sobre: "Reuniões da equipe por vídeo, dentro do painel: a liderança marca, qualquer pessoa propõe, a presença e a ata ficam no histórico.", grupo: "Pessoas", mostra: voluntario },
+      // As reuniões moram dentro de Conversas e reuniões; o endereço antigo (?aba=reunioes) abre a agenda de lá.
+      { id: "reunioes", nome: "Reuniões", sobre: "A agenda de reuniões, dentro de Conversas e reuniões.", grupo: "Pessoas", mostra: voluntario && aba === "reunioes" },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar + (r.pedidos ?? 0) : undefined },
       { id: "saude", nome: soSaude || !lidera ? "Meu perfil na vitrine" : "Saúde Solidária", sobre: "A vitrine de profissionais de saúde voluntários: o perfil de cada um, o termo, a conferência do registro e a chave geral.", grupo: "Pessoas", mostra: can(eu, "coordenacao", "saude") },
       { id: "estatisticas", nome: "Estatísticas", sobre: "O que os estudantes procuram e o que a equipe produz, por disciplina: a base para decidir o que entra e o que sai.", grupo: "Pessoas", mostra: lidera || can(eu, "vice") },
@@ -539,6 +539,8 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   ).filter((secao) => secao.mostra);
 
   const atual = secoes.find((secao) => secao.id === aba) ?? secoes[0];
+  // As conversas ocupam a tela inteira (como o Discord): cabeçalho baixinho e sem a margem das outras seções.
+  const amplo = atual.id === "conversas" || atual.id === "reunioes";
   const interditado = estadoDoSite.dados?.interdicao && (estadoDoSite.dados.interdicao.geral || estadoDoSite.dados.interdicao.areas.length > 0) ? estadoDoSite.dados.interdicao : null;
   // Trocar de seção também refaz as contagens: o número da fila cai assim que a decisão é tomada.
   const ir = (id: string) => {
@@ -697,20 +699,20 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       <div className={`min-w-0 ${menu ? "hidden lg:block" : ""}`}>
         {/* A abertura de cada seção, no desenho de cartaz do site: faixa preta, título pesado e a cunha com a estrela. */}
         <header key={`cabeca-${atual.id}`} className="painel-cabeca jornal-preto jornal-cartaz no-print">
-          <div className="relative z-[1] py-6 pr-[24cqw] pl-5 sm:pl-8">
+          <div className={`relative z-[1] pr-[24cqw] pl-5 sm:pl-8 ${amplo ? "py-3" : "py-6"}`}>
             <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-[#d4a24c]">{atual.grupo || ambiente}</p>
             <h1 className="mt-1.5 flex items-center gap-3 font-sans text-3xl font-black uppercase italic leading-none tracking-tight sm:text-4xl">
               <Icone id={atual.id} className="h-7 w-7 text-[#e0372b] sm:h-8 sm:w-8" />
               {atual.nome}
             </h1>
-            <p className="mt-2.5 max-w-2xl text-[#cdbb91]">{atual.sobre}</p>
+            {!amplo && <p className="mt-2.5 max-w-2xl text-[#cdbb91]">{atual.sobre}</p>}
           </div>
           <span className="jornal-cunha jornal-cunha-vermelha painel-cunha" aria-hidden>
             <Star className="jornal-cunha-estrela" />
           </span>
         </header>
         <div className="jornal-fio" />
-        <div key={atual.id} className="painel-conteudo mx-auto max-w-5xl px-5 py-7 sm:px-8">
+        <div key={atual.id} className={`painel-conteudo mx-auto ${amplo ? "max-w-none px-2 py-2 sm:px-3" : "max-w-5xl px-5 py-7 sm:px-8"}`}>
           {eu.suspenso && <p className="mb-6 border-l-4 border-oxblood bg-parchment-deep px-4 py-3 text-oxblood">Esta conta está suspensa: você pode ler, mas não enviar.</p>}
           {interditado && (
             <p role="status" className="mb-6 border-2 border-oxblood bg-parchment-deep px-4 py-3 font-semibold text-oxblood">
@@ -756,7 +758,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "boletim" && <Boletim />}
           {atual.id === "pessoas" && <Pessoas me={eu} />}
           {atual.id === "supervisao" && <Supervisao />}
-          {atual.id === "reunioes" && <Reunioes me={eu} />}
+          {atual.id === "reunioes" && <Conversas me={eu} inicial="reunioes" />}
           {atual.id === "horas" && <Horas me={eu} />}
           {atual.id === "site" && <Site />}
           {atual.id === "abertura" && <AvisoDeAbertura />}

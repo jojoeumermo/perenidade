@@ -59,6 +59,16 @@
   --color-oxblood: var(--oxblood);
   --color-rule: var(--rule);
   --color-ok: var(--ok);
+  --color-s-trilho: var(--s-trilho);
+  --color-s-lado: var(--s-lado);
+  --color-s-chat: var(--s-chat);
+  --color-s-campo: var(--s-campo);
+  --color-s-linha: var(--s-linha);
+  --color-s-texto: var(--s-texto);
+  --color-s-suave: var(--s-suave);
+  --color-s-mudo: var(--s-mudo);
+  --color-s-acento: var(--s-acento);
+  --color-s-ouro: var(--s-ouro);
   --color-e-fundo: var(--e-fundo);
   --color-e-painel: var(--e-painel);
   --color-e-campo: var(--e-campo);
@@ -1971,3 +1981,70 @@ html[data-escrita-foco="1"] .painel {
   :root[data-imprimir-peca] .peca-impressa { position: fixed; left: 0; top: 0; margin: 0 !important; }
   :root[data-imprimir-peca] * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+
+/* ───── Conversas e reuniões (o "Discord" da equipe) ─────
+   Escuro por padrão (tinta, bordô e ouro), com a opção "pergaminho". Dentro de .salas as cores do painel (parchment,
+   ink, rule...) apontam para a paleta da sala: os pedaços antigos (grupo, favoritas, aparelhos) combinam sem reescrever. */
+.salas {
+  --s-trilho: #0e0b08;
+  --s-lado: #17130e;
+  --s-chat: #1f1a14;
+  --s-campo: #2b241c;
+  --s-hover: rgba(239, 228, 200, 0.045);
+  --s-ativo: rgba(239, 228, 200, 0.1);
+  --s-linha: #30281e;
+  --s-texto: #efe4c8;
+  --s-suave: #b3a584;
+  --s-mudo: #85785e;
+  --s-acento: #c21f16;
+  --s-acento-suave: #e0837a;
+  --s-ouro: #d4a24c;
+  --s-mencao: rgba(212, 162, 76, 0.1);
+  --s-ok: #6fbf7a;
+  --parchment: var(--s-chat);
+  --parchment-deep: var(--s-lado);
+  --ink: var(--s-texto);
+  --ink-soft: var(--s-suave);
+  --rule: var(--s-linha);
+  --gold: var(--s-ouro);
+  --oxblood: var(--s-acento-suave);
+  --ok: var(--s-ok);
+  color-scheme: dark;
+  background: var(--s-chat);
+  color: var(--s-texto);
+}
+.salas[data-tema="pergaminho"] {
+  --s-trilho: #dfcda2;
+  --s-lado: #ebdfc1;
+  --s-chat: #f6efdd;
+  --s-campo: #e5d7b3;
+  --s-hover: rgba(31, 26, 20, 0.05);
+  --s-ativo: rgba(110, 31, 26, 0.1);
+  --s-linha: #d5c398;
+  --s-texto: #1f1a14;
+  --s-suave: #5a4e3c;
+  --s-mudo: #85765a;
+  --s-acento: #c21f16;
+  --s-acento-suave: #6e1f1a;
+  --s-ouro: #8a5f1c;
+  --s-mencao: rgba(212, 162, 76, 0.2);
+  --s-ok: #2f5d34;
+  color-scheme: light;
+}
+.salas-rolagem {
+  scrollbar-width: thin;
+  scrollbar-color: var(--s-linha) transparent;
+}
+/* O botão do trilho: círculo que vira quadrado arredondado, com a pílula de "ativo" ou "não lido" do lado. */
+.salas-trilho-botao {
+  border-radius: 1.5rem;
+  transition: border-radius 0.18s, background-color 0.18s, color 0.18s;
+}
+.salas-trilho-botao:hover,
+.salas-trilho-botao[aria-pressed="true"] {
+  border-radius: 1rem;
+}
+.salas-pilula {
+  transition: height 0.18s;
+}
+
