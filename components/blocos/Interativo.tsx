@@ -31,6 +31,7 @@ const Rodar = dynamic(() => import("./Programar").then((m) => m.Rodar), { ssr: f
 const Cena = dynamic(() => import("./Montar").then((m) => m.Cena), { ssr: false, loading: espera });
 const Arrastar = dynamic(() => import("./Montar").then((m) => m.Arrastar), { ssr: false, loading: espera });
 const Frase = dynamic(() => import("./Montar").then((m) => m.Frase), { ssr: false, loading: espera });
+const Recurso = dynamic(() => import("./Recurso").then((m) => m.Recurso), { ssr: false, loading: espera });
 
 const COMPONENTES: Record<Tipo, React.ComponentType<{ spec: string }>> = {
   grafico: GraficoDeFuncao,
@@ -56,6 +57,7 @@ const COMPONENTES: Record<Tipo, React.ComponentType<{ spec: string }>> = {
   linhadotempo: LinhaDoTempo,
   desenho: Desenho,
   ferramenta: Ferramenta,
+  recurso: Recurso,
 };
 
 /** Se o bloco quebrar (dado mal escrito, navegador antigo), a aula continua e mostra o conteúdo em texto. */

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { lerCalculadora, lerDados, lerGrafico } from "@/lib/interativos";
 import { lerMapa, lerMusica, lerSimulacao } from "@/lib/interativos-mais";
 import { tools } from "@/lib/areas";
+import { lerRecurso, RECURSOS_DISPONIVEIS, type TipoDeRecurso } from "./Recurso";
 
 // Os formulários dos blocos de ciência e dos outros que eram só texto: gráfico de função, calculadora de variáveis,
 // gráfico de dados, simulação física, mapa, música com letra e ferramenta do site. Quem escreve preenche campos; o
@@ -335,6 +336,32 @@ export function FormFerramenta({ spec, mudar }: { spec: string; mudar: (s: strin
     <div className="grid gap-2 sm:grid-cols-2">
       <label className={rotulo}>🧰 Qual ferramenta<select value={v.nome} onChange={(e) => salvar({ ...v, nome: e.target.value })} className={`${campo} mt-1`}><option value="">Escolha…</option>{tools.map((t) => <option key={t} value={t}>{t.replace(/-/g, " ")}</option>)}</select></label>
       <label className={rotulo}>Texto do botão<input value={v.texto} onChange={(e) => salvar({ ...v, texto: e.target.value })} placeholder="Abrir o simulador do sistema solar" className={`${campo} mt-1`} /></label>
+    </div>
+  );
+}
+
+// ───────────── Recurso do site (laboratório, obra, estúdio, PhET) ─────────────
+
+const NOMES_DE_RECURSO: Record<TipoDeRecurso, string> = { laboratorio: "🧪 Laboratório do site", obra: "📚 Obra do acervo", estudio: "🎨 Editor do Estúdio de prática", phet: "🔬 Simulação do PhET" };
+
+export function FormRecurso({ spec, mudar }: { spec: string; mudar: (s: string) => void }) {
+  const lido = lerRecurso(spec);
+  const [v, setV] = useState({ tipo: (lido?.tipo ?? "laboratorio") as TipoDeRecurso, id: lido?.id ?? "", altura: String(lido?.altura ?? 640) });
+  const salvar = (n: typeof v) => { setV(n); mudar(`${n.tipo}: ${n.id}${n.altura && n.altura !== "640" ? `\naltura: ${n.altura}` : ""}`); };
+  const opcoes = v.tipo === "obra" ? null : RECURSOS_DISPONIVEIS[v.tipo];
+  return (
+    <div className="space-y-2">
+      <div className="flex flex-wrap gap-1">
+        {(Object.keys(NOMES_DE_RECURSO) as TipoDeRecurso[]).map((tipo) => (
+          <button key={tipo} type="button" aria-pressed={v.tipo === tipo} onClick={() => salvar({ ...v, tipo, id: "" })} className={`cursor-pointer border-2 px-2 py-1 text-sm ${v.tipo === tipo ? "border-ink bg-ink text-parchment" : "border-ink/20 hover:border-ink"}`}>{NOMES_DE_RECURSO[tipo]}</button>
+        ))}
+      </div>
+      {opcoes ? (
+        <label className={rotulo}>Qual<select value={v.id} onChange={(e) => salvar({ ...v, id: e.target.value })} className={`${campo} mt-1`}><option value="">Escolha…</option>{opcoes.map((id) => <option key={id} value={id}>{id.replace(/-/g, " ")}</option>)}</select></label>
+      ) : (
+        <label className={rotulo}>Endereço da obra no acervo (o final de institutolucia.org/pt/acervo/…)<input value={v.id} onChange={(e) => salvar({ ...v, id: e.target.value.trim().toLowerCase().replace(/^.*\/acervo\//, "") })} placeholder="1984" className={`${campo} mt-1 font-mono`} /></label>
+      )}
+      {v.tipo !== "obra" && <label className={rotulo}>Altura do quadro (px)<input inputMode="numeric" value={v.altura} onChange={(e) => salvar({ ...v, altura: e.target.value.replace(/\D/g, "") })} className={`${campo} mt-1 max-w-32`} /></label>}
     </div>
   );
 }

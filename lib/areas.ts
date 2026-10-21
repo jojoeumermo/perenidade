@@ -5,7 +5,7 @@ export const groups = [
   { id: "percursos", areas: ["alfabetizacao", "enem"] },
   {
     id: "linguagens",
-    areas: ["portugues", "literatura", "ingles", "ingles-infantil", "espanhol", "frances", "chines", "russo", "artes", "desenho", "design", "musica", "danca", "teatro", "cinema", "educacao-fisica"],
+    areas: ["portugues", "literatura", "ingles", "ingles-infantil", "espanhol", "frances", "chines", "russo", "artes", "desenho", "design", "musica", "samba-e-cultura", "danca", "teatro", "cinema", "educacao-fisica"],
   },
   {
     id: "ciencias",
@@ -55,7 +55,7 @@ export const groups = [
       "pessoas-idosas",
     ],
   },
-  { id: "oficios", areas: ["trancista", "costureira", "barbeiro", "oratoria-e-lideranca"] },
+  { id: "oficios", areas: ["trancista", "costureira", "barbeiro", "eletricista", "oratoria-e-lideranca"] },
 ] as const;
 
 export type GroupId = (typeof groups)[number]["id"];
@@ -73,8 +73,8 @@ export const essential: readonly AreaSlug[] = ["alfabetizacao", "portugues", "ma
  * Uma disciplina pode estar em mais de uma etapa (português e matemática acompanham a vida escolar inteira).
  */
 export const stageAreas: Record<"fundamental" | "medio" | "superior", readonly AreaSlug[]> = {
-  fundamental: ["alfabetizacao", "portugues", "matematica", "ingles", "ingles-infantil", "espanhol", "artes", "desenho", "musica", "danca", "educacao-fisica", "historia", "geografia", "biologia", "informatica", "primeiros-socorros", "educacao-sexual", "meio-ambiente"],
-  medio: ["enem", "portugues", "literatura", "ingles", "espanhol", "frances", "chines", "russo", "artes", "teatro", "cinema", "educacao-fisica", "matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "historia", "geografia", "sociologia", "filosofia", "economia", "politica", "estado", "instituicoes", "eleicoes", "neurodiversidade", "costureira", "midia", "meio-ambiente", "trabalho", "primeiros-socorros", "educacao-sexual", "edicao-de-foto", "modelagem-3d"],
+  fundamental: ["alfabetizacao", "samba-e-cultura", "eletricista", "portugues", "matematica", "ingles", "ingles-infantil", "espanhol", "artes", "desenho", "musica", "danca", "educacao-fisica", "historia", "geografia", "biologia", "informatica", "primeiros-socorros", "educacao-sexual", "meio-ambiente"],
+  medio: ["enem", "samba-e-cultura", "eletricista", "portugues", "literatura", "ingles", "espanhol", "frances", "chines", "russo", "artes", "teatro", "cinema", "educacao-fisica", "matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "historia", "geografia", "sociologia", "filosofia", "economia", "politica", "estado", "instituicoes", "eleicoes", "neurodiversidade", "costureira", "midia", "meio-ambiente", "trabalho", "primeiros-socorros", "educacao-sexual", "edicao-de-foto", "modelagem-3d"],
   superior: ["literatura", "design", "cinema", "matematica", "fisica", "quimica", "biologia", "astronomia", "programacao", "engenharia-de-sistemas", "redes-e-seguranca", "inteligencia-artificial", "manutencao", "historia", "geografia", "sociologia", "antropologia", "filosofia", "economia", "politica", "direito", "psicologia", "neurodiversidade", "servico-social", "teologia", "educacao-popular", "midia", "arquitetura", "arquivologia", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo", "sindicalismo", "luta-negra", "feminismo", "lgbtqia", "deficiencia", "povos-indigenas", "luta-pela-terra", "favelas", "luta-dos-professores", "movimento-estudantil", "pessoas-idosas", "edicao-de-foto", "modelagem-3d"],
 };
 
@@ -124,6 +124,8 @@ export const areaTools: Partial<Record<AreaSlug, string[]>> = {
   programacao: ["ide", "python", "php", "html", "bases-numericas", "tabela-verdade"],
   "inteligencia-artificial": ["ide", "python", "estatistica", "tabela-verdade"],
   manutencao: ["bases-numericas", "conversor-de-unidades"],
+  eletricista: ["conversor-de-unidades", "resolvedor"],
+  "samba-e-cultura": ["metronomo", "teclado"],
   "primeiros-socorros": ["rcp", "frequencia-cardiaca"],
   geografia: ["escala-cartografica", "fusos-horarios", "estatistica", "conversor-de-unidades"],
   sociologia: ["estatistica"],
@@ -163,6 +165,7 @@ export const LABS = {
   ia: "/laboratorios/ia",
   escritorio: "/laboratorios/escritorio",
   simulacoes: "/laboratorios/simulacoes",
+  eletrica: "/laboratorios/eletrica",
 } as const;
 export type LabId = keyof typeof LABS;
 
@@ -173,7 +176,9 @@ export const areaLabs: Partial<Record<AreaSlug, LabId[]>> = {
   "engenharia-de-sistemas": ["ide", "linux", "redes"],
   "redes-e-seguranca": ["redes", "seguranca", "linux"],
   "inteligencia-artificial": ["ia", "ide"],
-  manutencao: ["montador"],
+  manutencao: ["montador", "eletrica"],
+  eletricista: ["eletrica"],
+  fisica: ["eletrica"],
   // As simulações do PhET já estão na caixa como ferramenta nas ciências; aqui só onde não estão.
   enem: ["simulacoes", "escritorio"],
   portugues: ["escritorio"],

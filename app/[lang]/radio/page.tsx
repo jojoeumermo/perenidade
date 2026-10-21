@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { Cartaz } from "@/components/Cartaz";
+import { RadioLuciaAoVivo } from "@/components/RadioLuciaAoVivo";
 import { RadioPage, type Station } from "@/components/RadioPage";
 import stations from "@/content/radios.json";
 import { loadLang } from "@/i18n";
@@ -18,6 +19,7 @@ export default async function Radio({ params }: PageProps<"/[lang]/radio">) {
       <Cartaz eyebrow={t.radio.eyebrow} title={t.radio.title} slogan={t.slogans.radio} tone="preto">
         {t.radio.lead}
       </Cartaz>
+      <RadioLuciaAoVivo />
       <RadioPage stations={stations as Station[]} />
     </div>
   );
