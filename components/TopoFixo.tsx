@@ -18,9 +18,13 @@ export function TopoFixo() {
     medir();
     const observador = new ResizeObserver(medir);
     observador.observe(topo);
+    // Encolher a faixa diminui a página e mexe na posição da rolagem: com um limite só, a faixa encolhia, a rolagem
+    // voltava para baixo do limite, ela crescia de novo, e assim sem parar. Por isso dois limites bem afastados
+    // (encolhe depois de 160 px, só volta perto do topo) e nada de encolher em página que mal rola.
     let rolou = false;
     const rolar = () => {
-      const agora = window.scrollY > 140;
+      const sobra = document.documentElement.scrollHeight - window.innerHeight;
+      const agora = rolou ? window.scrollY > 24 : window.scrollY > 160 && sobra > 400;
       if (agora === rolou) return;
       rolou = agora;
       if (agora) raiz.setAttribute("data-rolou", "");
