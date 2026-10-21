@@ -1,0 +1,1 @@
+Obrero metalúrgico nacido en Terra Roxa, en el interior de São Paulo, y militante de la Pastoral Obrera. En la huelga de los metalúrgicos de 1979, dirigía un piquete a la puerta de una fábrica en Santo Amaro cuando fue baleado por la Policía Militar, el 30 de octubre de 1979. Su entierro reunió a miles de personas y se convirtió en un gran acto contra la dictadura.
