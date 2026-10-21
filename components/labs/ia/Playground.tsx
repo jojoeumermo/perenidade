@@ -27,6 +27,8 @@ export function Playground() {
   const [historico, setHistorico] = useState<{ treino: number[]; teste: number[] }>({ treino: [], teste: [] });
   const [acertoTeste, setAcertoTeste] = useState(0);
   const rede = useRef<Rede | null>(null);
+  // Sobe a cada rede nova: o mapa de decisão se redesenha logo, sem esperar o treino.
+  const [versao, setVersao] = useState(0);
   const tela = useRef<HTMLCanvasElement>(null);
 
   // Os dados: metade para treinar, metade para testar (o teste mede se a rede generaliza ou só decorou).
@@ -43,6 +45,7 @@ export function Playground() {
     setEpoca(0);
     setHistorico({ treino: [], teste: [] });
     setAcertoTeste(avaliar(rede.current, dadosTeste).acerto);
+    setVersao((v) => v + 1);
   }
   // Mudou a arquitetura ou os dados: rede nova.
   useEffect(() => {
@@ -109,7 +112,7 @@ export function Playground() {
         ctx.stroke();
       }
     }
-  }, [epoca, treino, teste, usadas, historico.treino.length]);
+  }, [epoca, treino, teste, usadas, historico.treino.length, versao]);
 
   const perdaTreino = historico.treino.at(-1);
   const perdaTeste = historico.teste.at(-1);
@@ -125,7 +128,7 @@ export function Playground() {
         <Botao onClick={() => { setRodando(false); reiniciar(); }}>↺ Recomeçar</Botao>
       </>}
     >
-      <div className="grid gap-5 xl:grid-cols-[15rem_minmax(0,1fr)_17rem]">
+      <div className="grid gap-5 md:grid-cols-[15rem_minmax(0,1fr)] 2xl:grid-cols-[15rem_minmax(0,1fr)_17rem]">
         <div className="space-y-4">
           <Escolha rotulo="Dados" valor={conjunto} opcoes={CONJUNTOS} mudar={setConjunto} />
           <Deslizante rotulo="Ruído" valor={ruido} min={0} max={1} passo={0.05} mudar={setRuido} formato={(v) => v.toFixed(2)} />
@@ -143,7 +146,7 @@ export function Playground() {
 
         <div>
           <canvas ref={tela} width={420} height={420} className="mx-auto block aspect-square w-full max-w-[420px] rounded border-2 border-ink" role="img" aria-label="Mapa de decisão: azul é uma classe, laranja a outra; pontos cheios são de treino, vazados de teste" />
-          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+          <div className="mt-3 grid grid-cols-2 gap-2">
             <Leitura rotulo="Época" valor={String(epoca)} />
             <Leitura rotulo="Perda treino" valor={perdaTreino !== undefined ? perdaTreino.toFixed(3) : "—"} />
             <Leitura rotulo="Perda teste" valor={perdaTeste !== undefined ? perdaTeste.toFixed(3) : "—"} destaque={perdaTreino !== undefined && perdaTeste !== undefined && perdaTeste > perdaTreino * 1.5} />
@@ -152,7 +155,7 @@ export function Playground() {
           <div className="mt-3"><Grafico series={[["#9ec5ff", historico.treino], ["#ffb27a", historico.teste]]} rotulos={["perda no treino", "perda no teste"]} /></div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4 md:col-span-2 2xl:col-span-1">
           <div className="text-sm">
             <p className="font-semibold">Camadas ocultas</p>
             <div className="mt-1 space-y-1.5">
