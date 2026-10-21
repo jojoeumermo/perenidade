@@ -8,10 +8,16 @@ import { site } from "@/lib/site";
 // revisão jurídica decidir o contrário. O texto público do termo (/saude/termo) não tem dado pessoal e continua indexado.
 const PRIVADAS = new Set(["/busca", "/denunciar", "/reforco", "/meus-dados", "/certificado", "/entrar", "/painel", "/fora-do-ar", "/apoie/anterior", "/saude"]);
 
-/** O endereço canônico da página no idioma dela e as versões nos outros idiomas (hreflang), com x-default em português. */
-export function alternatesDe(lang: Locale, path: string): NonNullable<Metadata["alternates"]> {
-  const languages = Object.fromEntries(locales.map((code) => [htmlLang[code], `${site.url}/${code}${path}`]));
-  return { canonical: `${site.url}/${lang}${path}`, languages: { ...languages, "x-default": `${site.url}/${defaultLocale}${path}` } };
+/**
+ * O endereço canônico da página no idioma dela e as versões nos outros idiomas (hreflang), com x-default em português.
+ * Com "idiomas" (os idiomas em que o TEXTO existe de verdade), uma página que só repete o original em português não é
+ * anunciada como tradução: ela aponta o canônico para a versão em português e fica fora do hreflang.
+ */
+export function alternatesDe(lang: Locale, path: string, idiomas: readonly Locale[] = locales): NonNullable<Metadata["alternates"]> {
+  const existentes = locales.filter((code) => idiomas.includes(code));
+  const languages = Object.fromEntries(existentes.map((code) => [htmlLang[code], `${site.url}/${code}${path}`]));
+  const canonico = existentes.includes(lang) ? lang : defaultLocale;
+  return { canonical: `${site.url}/${canonico}${path}`, languages: { ...languages, "x-default": `${site.url}/${defaultLocale}${path}` } };
 }
 
 /** A imagem de compartilhamento gerada para esta página (app/api/og), com a identidade do instituto. */
@@ -24,12 +30,19 @@ export function ogDe(lang: Locale, titulo: string, subtitulo = "", kicker = "") 
  * Os metadados de uma página pública: título, descrição, canônico, hreflang e o cartão de compartilhamento.
  * As páginas privadas (busca, denúncia, reforço, meus dados…) saem com noindex.
  */
-export function paginaMeta(lang: Locale, path: string, title: string, description?: string, og: { titulo?: string; subtitulo?: string; kicker?: string } = {}): Metadata {
+export function paginaMeta(
+  lang: Locale,
+  path: string,
+  title: string,
+  description?: string,
+  og: { titulo?: string; subtitulo?: string; kicker?: string } = {},
+  { idiomas }: { idiomas?: readonly Locale[] } = {},
+): Metadata {
   const images = ogDe(lang, og.titulo ?? title, og.subtitulo ?? description ?? "", og.kicker ?? "");
   return {
     title,
     description,
-    alternates: alternatesDe(lang, path),
+    alternates: alternatesDe(lang, path, idiomas),
     openGraph: { type: "article", locale: htmlLang[lang], siteName: site.name, title: og.titulo ?? title, description, url: `${site.url}/${lang}${path}`, images },
     twitter: { card: "summary_large_image", title: og.titulo ?? title, description, images: images.map((i) => i.url) },
     ...(PRIVADAS.has(path) ? { robots: { index: false, follow: false } } : {}),

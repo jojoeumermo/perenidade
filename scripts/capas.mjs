@@ -5,7 +5,9 @@
 // (livros CC BY, capa pela API pública deles). As outras obras (Arquivo Marxista, leis, SciELO…) não têm capa
 // publicada que possa ser reaproveitada: o site desenha uma capa tipográfica para elas.
 // Cada capa é reduzida (240 px de largura) e regravada em WebP sem metadados. O crédito de cada uma fica em
-// content/capas.json. Baixa devagar (uma por segundo) e pula as que já existem.
+// content/capas.json. Baixa devagar (uma por segundo) e pula as que já existem. A capa que o Gutenberg gera sozinho
+// (desenho geométrico colorido, sem relação com a obra; scripts/capa-gerada.mjs) não é guardada: fica marcada como
+// "gerada" e a obra usa a capa tipográfica do site.
 //
 // Uso: node scripts/capas.mjs            (baixa o que falta)
 //      node scripts/capas.mjs --refazer  (baixa tudo de novo)
@@ -13,6 +15,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
+import { capaGerada } from "./capa-gerada.mjs";
 
 const raiz = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const pastaAcervo = path.join(raiz, "content", "acervo");
@@ -63,7 +66,7 @@ let novas = 0;
 let bytes = 0;
 for (const obra of obras) {
   const destino = path.join(pastaCapas, `${obra.id}.webp`);
-  if (!refazer && fs.existsSync(destino)) continue;
+  if (!refazer && (fs.existsSync(destino) || creditos[obra.id]?.gerada)) continue;
   let origem = null;
   let fonte = "";
   const gutenberg = /gutenberg\.org\/ebooks\/(\d+)/.exec(obra.url ?? "");
@@ -77,7 +80,14 @@ for (const obra of obras) {
   }
   if (!origem) continue;
   try {
-    const tamanho = await gravar(obra.id, await baixar(origem));
+    const imagem = await baixar(origem);
+    if (await capaGerada(imagem)) {
+      creditos[obra.id] = { fonte, origem, gerada: true };
+      if (fs.existsSync(destino)) fs.rmSync(destino);
+      await espera(1000);
+      continue;
+    }
+    const tamanho = await gravar(obra.id, imagem);
     creditos[obra.id] = { fonte, origem };
     novas++;
     bytes += tamanho;

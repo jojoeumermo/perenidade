@@ -12484,6 +12484,39 @@ create table if not exists interno.saude_perfis (
   atualizado_em timestamptz not null default now()
 );
 alter table interno.saude_perfis enable row level security;
+-- O termo assinado no gov.br (PDF guardado no depósito fechado "saude", na pasta do profissional) e a conferência dele
+-- pela coordenação; e a prova da consulta ao conselho (captura guardada na pasta de quem conferiu).
+alter table interno.saude_perfis add column if not exists assinatura_arquivo text not null default '' check (char_length(assinatura_arquivo) <= 200);
+alter table interno.saude_perfis add column if not exists assinatura_sha256 text not null default '' check (assinatura_sha256 = '' or assinatura_sha256 ~ '^[a-f0-9]{64}$');
+alter table interno.saude_perfis add column if not exists assinatura_versao text;
+alter table interno.saude_perfis add column if not exists assinatura_enviada_em timestamptz;
+alter table interno.saude_perfis add column if not exists assinatura_conferida_em timestamptz;
+alter table interno.saude_perfis add column if not exists assinatura_conferida_por uuid references interno.perfis (id) on delete set null;
+alter table interno.saude_perfis add column if not exists verificacao_arquivo text not null default '' check (char_length(verificacao_arquivo) <= 200);
+alter table interno.saude_perfis add column if not exists verificacao_link text not null default '' check (verificacao_link = '' or verificacao_link ~ '^https://[^[:space:]]{4,255}$');
+alter table interno.saude_perfis add column if not exists verificacao_situacao text not null default '' check (char_length(verificacao_situacao) <= 120);
+
+-- Tudo o que acontece com um perfil da vitrine, para sempre (no mínimo cinco anos, como diz a Privacidade): quem fez,
+-- o quê e quando, com o antes e o depois quando faz sentido. Ninguém altera nem apaga, nem a coordenação.
+create table if not exists interno.saude_registro (
+  id bigserial primary key,
+  usuario uuid,
+  por uuid,
+  acao text not null check (char_length(acao) between 2 and 40),
+  detalhe jsonb not null default '{}'::jsonb check (pg_column_size(detalhe) <= 8000),
+  em timestamptz not null default now()
+);
+create index if not exists saude_registro_usuario on interno.saude_registro (usuario, em desc);
+alter table interno.saude_registro enable row level security;
+drop trigger if exists lucia_saude_registro_imutavel on interno.saude_registro;
+create trigger lucia_saude_registro_imutavel before update or delete on interno.saude_registro for each row execute function interno.termos_aceites_imutavel();
+drop trigger if exists lucia_saude_registro_sem_truncar on interno.saude_registro;
+create trigger lucia_saude_registro_sem_truncar before truncate on interno.saude_registro for each statement execute function interno.termos_aceites_imutavel();
+
+create or replace function interno.saude_registrar(p_usuario uuid, p_acao text, p_detalhe jsonb default '{}'::jsonb) returns void
+language sql security definer set search_path = interno, pg_temp as $$
+  insert into saude_registro (usuario, por, acao, detalhe) values (p_usuario, auth.uid(), p_acao, coalesce(p_detalhe, '{}'::jsonb))
+$$;
 
 create or replace function interno.saude_termo_vigente() returns text language sql immutable as $$ select '2026-10-20'::text $$;
 
@@ -12497,6 +12530,7 @@ create or replace function interno.saude_apto(s interno.saude_perfis) returns bo
     and s.termo_versao = interno.saude_termo_vigente()
     and s.verificado_em is not null and s.verificado_em > current_date - 180
     and s.texto_aprovado_em is not null
+    and s.assinatura_conferida_em is not null and s.assinatura_versao = interno.saude_termo_vigente()
     and exists (select 1 from papeis p join perfis f on f.id = p.usuario where p.usuario = s.usuario and p.papel = 'saude' and not f.suspenso)
 $$;
 
@@ -12518,8 +12552,14 @@ create or replace function interno.saude_json(s interno.saude_perfis, p_completo
     || case when p_completo then jsonb_build_object('status', s.status, 'foto_autorizada', s.foto_autorizada, 'foto_guardada', s.foto, 'texto_aprovado_em', s.texto_aprovado_em,
            'termo_versao', s.termo_versao, 'termo_vigente', interno.saude_termo_vigente(), 'verificacao_nota', s.verificacao_nota, 'atualizado_em', s.atualizado_em,
            'apto', interno.saude_apto(s),
+           'assinatura_arquivo', s.assinatura_arquivo, 'assinatura_sha256', s.assinatura_sha256, 'assinatura_versao', s.assinatura_versao,
+           'assinatura_enviada_em', s.assinatura_enviada_em, 'assinatura_conferida_em', s.assinatura_conferida_em,
+           'verificacao_arquivo', s.verificacao_arquivo, 'verificacao_link', s.verificacao_link, 'verificacao_situacao', s.verificacao_situacao,
+           'proxima_revisao', s.verificado_em + 180,
            'faltam', to_jsonb(array_remove(array[
              case when s.termo_versao is distinct from interno.saude_termo_vigente() then 'aceitar o termo vigente' end,
+             case when s.assinatura_arquivo = '' or s.assinatura_versao is distinct from interno.saude_termo_vigente() then 'enviar o termo assinado no gov.br' end,
+             case when s.assinatura_arquivo <> '' and s.assinatura_versao = interno.saude_termo_vigente() and s.assinatura_conferida_em is null then 'a coordenação conferir a assinatura gov.br' end,
              case when s.verificado_em is null or s.verificado_em <= current_date - 180 then 'a coordenação conferir o registro no conselho' end,
              case when s.texto_aprovado_em is null then 'o profissional aprovar o texto do perfil' end,
              case when s.status <> 'publicado' then 'a coordenação publicar' end,
@@ -12540,21 +12580,23 @@ end $$;
  * O profissional escreve o próprio perfil. Qualquer mudança tira o perfil da vitrine até a coordenação olhar de novo
  * (status "aguardando"), e o texto salvo pelo próprio profissional conta como aprovado por ele.
  */
-create or replace function public.saude_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v uuid := interno.eu(); s saude_perfis; v_motivo text; v_contatos jsonb := '{}'::jsonb; v_areas text[];
+/**
+ * Grava os campos públicos de um perfil (o profissional no próprio, ou a coordenação editando) passando pelos
+ * validadores: sem preço, sem promessa, sem "o melhor", sem depoimento, sem CPF; contatos só https, e-mail, WhatsApp e
+ * Instagram. Devolve o motivo da recusa, ou null quando gravou. Não mexe em situação, aprovação nem conferência.
+ */
+create or replace function interno.saude_aplicar(p_usuario uuid, p jsonb) returns text language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_motivo text; v_contatos jsonb := '{}'::jsonb; v_areas text[];
 begin
-  if not interno.tem('saude') then perform interno.erro('sem_permissao'); end if;
-  perform interno.limite('saude_salvar', 40, 60);
   v_motivo := interno.saude_texto_proibido(coalesce(p ->> 'bio', '') || ' ' || coalesce(p ->> 'abordagem', '') || ' ' || coalesce(p ->> 'profissao', ''));
-  if v_motivo is not null then return jsonb_build_object('ok', false, 'motivo', v_motivo); end if;
-  -- Contatos aceitos: WhatsApp (só números, com DDI), Instagram (usuário), e-mail e um site https. Nada embutido.
+  if v_motivo is not null then return v_motivo; end if;
   if coalesce(p -> 'contatos' ->> 'whatsapp', '') ~ '^\+?[0-9 ()-]{10,20}$' then v_contatos := v_contatos || jsonb_build_object('whatsapp', regexp_replace(p -> 'contatos' ->> 'whatsapp', '[^0-9]', '', 'g')); end if;
   if coalesce(p -> 'contatos' ->> 'instagram', '') ~ '^@?[A-Za-z0-9._]{1,30}$' then v_contatos := v_contatos || jsonb_build_object('instagram', ltrim(p -> 'contatos' ->> 'instagram', '@')); end if;
   if coalesce(p -> 'contatos' ->> 'email', '') ~ '^[^@\s]+@[^@\s]+\.[^@\s]+$' and char_length(p -> 'contatos' ->> 'email') <= 120 then v_contatos := v_contatos || jsonb_build_object('email', p -> 'contatos' ->> 'email'); end if;
   if coalesce(p -> 'contatos' ->> 'site', '') ~ '^https://[^\s<>"]{4,200}$' then v_contatos := v_contatos || jsonb_build_object('site', p -> 'contatos' ->> 'site'); end if;
   select coalesce(array_agg(left(btrim(x), 40)), '{}') into v_areas from (select jsonb_array_elements_text(coalesce(p -> 'areas', '[]'::jsonb)) x limit 12) a where btrim(x) <> '';
   if coalesce(p ->> 'foto', '') <> '' and (p ->> 'foto' !~ '^data:image/webp;base64,[A-Za-z0-9+/=]+$' or char_length(p ->> 'foto') > 60000) then perform interno.erro('invalido:foto'); end if;
-  insert into saude_perfis (usuario) values (v) on conflict do nothing;
+  insert into saude_perfis (usuario) values (p_usuario) on conflict do nothing;
   update saude_perfis set
     nome = interno.txt(p ->> 'nome', 'nome', 2, 80), profissao = interno.txt(p ->> 'profissao', 'profissao', 2, 60),
     conselho = upper(coalesce(nullif(btrim(p ->> 'conselho'), ''), '')), uf = upper(coalesce(p ->> 'uf', '')), registro = interno.txt(p ->> 'registro', 'registro', 1, 30),
@@ -12562,12 +12604,130 @@ begin
     modalidade = coalesce(nullif(p ->> 'modalidade', ''), 'online'), cidade = interno.txt(p ->> 'cidade', 'cidade', 0, 80),
     valor = coalesce(nullif(p ->> 'valor', ''), 'social'), bio = interno.txt(p ->> 'bio', 'bio', 0, 900), contatos = v_contatos,
     foto = case when p ? 'foto' then coalesce(p ->> 'foto', '') else foto end, foto_autorizada = coalesce((p ->> 'foto_autorizada')::boolean, false),
-    status = case when status = 'removido' then 'removido' when status = 'suspenso' then 'suspenso' else 'aguardando' end,
-    texto_aprovado_em = now(), atualizado_em = now()
-  where usuario = v returning * into s;
+    atualizado_em = now()
+  where usuario = p_usuario;
+  return null;
+end $$;
+
+/** Os campos públicos de um perfil, para o registro guardar o antes e o depois de cada edição. */
+create or replace function interno.saude_publico(s interno.saude_perfis) returns jsonb language sql immutable as $$
+  select jsonb_build_object('nome', s.nome, 'profissao', s.profissao, 'conselho', s.conselho, 'uf', s.uf, 'registro', s.registro, 'abordagem', s.abordagem,
+    'areas', to_jsonb(s.areas), 'modalidade', s.modalidade, 'cidade', s.cidade, 'valor', s.valor, 'bio', s.bio, 'contatos', s.contatos,
+    'foto_autorizada', s.foto_autorizada, 'foto_trocada', md5(s.foto))
+$$;
+
+/**
+ * O profissional escreve o próprio perfil. Qualquer mudança tira o perfil da vitrine até a coordenação olhar de novo
+ * (status "aguardando"), e o texto salvo pelo próprio profissional conta como aprovado por ele.
+ */
+create or replace function public.saude_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s saude_perfis; antes jsonb; v_motivo text;
+begin
+  if not interno.tem('saude') then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('saude_salvar', 40, 60);
+  select interno.saude_publico(x) into antes from saude_perfis x where x.usuario = v;
+  v_motivo := interno.saude_aplicar(v, p);
+  if v_motivo is not null then return jsonb_build_object('ok', false, 'motivo', v_motivo); end if;
+  update saude_perfis set status = case when status = 'removido' then 'removido' when status = 'suspenso' then 'suspenso' else 'aguardando' end,
+    texto_aprovado_em = now() where usuario = v returning * into s;
   perform interno.avisar_lideranca('Perfil da vitrine de saúde atualizado: confira o registro e publique em Saúde Solidária.', v);
   perform interno.registrar('saude_perfil_salvo', v::text, '{}'::jsonb);
+  perform interno.saude_registrar(v, 'perfil_salvo_e_aprovado', jsonb_build_object('antes', antes, 'depois', interno.saude_publico(s)));
   return jsonb_build_object('ok', true, 'perfil', interno.saude_json(s, true));
+end $$;
+
+/**
+ * A coordenação edita o perfil de um profissional. O conteúdo continua sendo do profissional: a edição tira o perfil
+ * do ar e só volta depois que ele aprovar o texto final no painel dele.
+ */
+create or replace function public.saude_editar(p_usuario uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare s saude_perfis; antes jsonb; v_motivo text;
+begin
+  perform interno.eu();
+  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  select interno.saude_publico(x) into antes from saude_perfis x where x.usuario = p_usuario;
+  if antes is null then perform interno.erro('nao_encontrado'); end if;
+  v_motivo := interno.saude_aplicar(p_usuario, p);
+  if v_motivo is not null then return jsonb_build_object('ok', false, 'motivo', v_motivo); end if;
+  update saude_perfis set status = case when status in ('removido', 'suspenso') then status else 'aguardando' end, texto_aprovado_em = null
+  where usuario = p_usuario returning * into s;
+  perform interno.avisar(p_usuario, 'A coordenação ajustou o texto do seu cartão na vitrine de saúde. Ele só volta ao ar depois que você conferir e aprovar no painel (Saúde Solidária).');
+  perform interno.saude_registrar(p_usuario, 'perfil_editado_pela_coordenacao', jsonb_build_object('antes', antes, 'depois', interno.saude_publico(s)));
+  return jsonb_build_object('ok', true, 'perfil', interno.saude_json(s, true));
+end $$;
+
+/** O profissional aprova o texto que a coordenação ajustou, sem mudar nada. */
+create or replace function public.saude_aprovar_texto() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s saude_perfis;
+begin
+  if not interno.tem('saude') then perform interno.erro('sem_permissao'); end if;
+  update saude_perfis set texto_aprovado_em = now() where usuario = v and texto_aprovado_em is null returning * into s;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.avisar_lideranca('Um profissional aprovou o texto ajustado do cartão na vitrine de saúde.', v);
+  perform interno.saude_registrar(v, 'texto_aprovado', jsonb_build_object('texto', interno.saude_publico(s)));
+  return interno.saude_json(s, true);
+end $$;
+
+/**
+ * O profissional envia o PDF do termo assinado no gov.br (já no depósito "saude", na própria pasta) com o resumo SHA-256
+ * calculado no aparelho. Só depois de aceitar a versão vigente no painel. A coordenação confere a assinatura.
+ */
+create or replace function public.saude_assinatura_enviar(p_arquivo text, p_sha256 text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s saude_perfis;
+begin
+  if not interno.tem('saude') then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('saude_assinatura', 10, 60);
+  if coalesce(p_arquivo, '') !~ ('^' || v::text || '/[a-z0-9]{8,40}\.pdf$') then perform interno.erro('invalido:arquivo'); end if;
+  if coalesce(p_sha256, '') !~ '^[a-f0-9]{64}$' then perform interno.erro('invalido:sha256'); end if;
+  select * into s from saude_perfis where usuario = v for update;
+  if not found or s.termo_versao is distinct from interno.saude_termo_vigente() then perform interno.erro('aceite_primeiro'); end if;
+  update saude_perfis set assinatura_arquivo = p_arquivo, assinatura_sha256 = p_sha256, assinatura_versao = interno.saude_termo_vigente(),
+    assinatura_enviada_em = now(), assinatura_conferida_em = null, assinatura_conferida_por = null, atualizado_em = now()
+  where usuario = v returning * into s;
+  perform interno.avisar_lideranca('Termo assinado no gov.br enviado para a vitrine de saúde: confira a assinatura em Saúde Solidária.', v);
+  perform interno.saude_registrar(v, 'assinatura_enviada', jsonb_build_object('arquivo', p_arquivo, 'sha256', p_sha256, 'versao', interno.saude_termo_vigente()));
+  return interno.saude_json(s, true);
+end $$;
+
+/** A coordenação confere a assinatura (no validar.iti.gov.br) e marca como conferida, ou devolve com o motivo. */
+create or replace function public.saude_assinatura_conferir(p_usuario uuid, p_ok boolean, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s saude_perfis;
+begin
+  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  select * into s from saude_perfis where usuario = p_usuario for update;
+  if not found or s.assinatura_arquivo = '' then perform interno.erro('nao_encontrado'); end if;
+  if coalesce(p_ok, false) then
+    update saude_perfis set assinatura_conferida_em = now(), assinatura_conferida_por = v where usuario = p_usuario returning * into s;
+  else
+    update saude_perfis set assinatura_conferida_em = null, assinatura_conferida_por = null where usuario = p_usuario returning * into s;
+    perform interno.avisar(p_usuario, 'A assinatura do termo da vitrine de saúde não foi confirmada' || coalesce(': ' || nullif(btrim(p_nota), ''), '.') || ' Envie o PDF assinado de novo pelo painel.');
+  end if;
+  perform interno.saude_registrar(p_usuario, case when p_ok then 'assinatura_conferida' else 'assinatura_devolvida' end, jsonb_build_object('nota', left(coalesce(p_nota, ''), 500), 'sha256', s.assinatura_sha256));
+  return interno.saude_json(s, true);
+end $$;
+
+/** A prova da consulta ao conselho: o arquivo da captura (na pasta de quem conferiu), o endereço usado e o que encontrou. */
+create or replace function public.saude_verificacao_anexar(p_usuario uuid, p_arquivo text, p_link text, p_situacao text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s saude_perfis;
+begin
+  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_arquivo, '') <> '' and p_arquivo !~ ('^' || v::text || '/[a-z0-9]{8,40}\.(webp|jpg|pdf)$') then perform interno.erro('invalido:arquivo'); end if;
+  if coalesce(p_link, '') <> '' and p_link !~ '^https://[^[:space:]]{4,255}$' then perform interno.erro('invalido:link'); end if;
+  update saude_perfis set verificacao_arquivo = coalesce(nullif(p_arquivo, ''), verificacao_arquivo), verificacao_link = coalesce(p_link, ''),
+    verificacao_situacao = interno.txt(p_situacao, 'situacao', 0, 120)
+  where usuario = p_usuario returning * into s;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.saude_registrar(p_usuario, 'verificacao_anexada', jsonb_build_object('arquivo', p_arquivo, 'link', p_link, 'situacao', p_situacao));
+  return interno.saude_json(s, true);
+end $$;
+
+/** O registro de um perfil: para a coordenação, de qualquer um; para o profissional, só o dele (p_usuario vazio). */
+create or replace function public.saude_registro_listar(p_usuario uuid default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); alvo uuid := coalesce(p_usuario, v);
+begin
+  if alvo <> v and not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('acao', r.acao, 'em', r.em, 'por', coalesce(f.nome, ''), 'detalhe', r.detalhe) order by r.em desc), '[]'::jsonb)
+          from (select * from saude_registro where usuario = alvo order by em desc limit 300) r left join perfis f on f.id = r.por);
 end $$;
 
 /** O profissional aceita o termo vigente (o texto inteiro fica em termos_aceites, para sempre). */
@@ -12578,6 +12738,7 @@ begin
   perform public.termo_registrar('saude', interno.saude_termo_vigente(), p_texto, jsonb_build_object('nome_digitado', left(coalesce(p_nome, ''), 120), 'registro', left(coalesce(p_registro, ''), 40)));
   insert into saude_perfis (usuario) values (v) on conflict do nothing;
   update saude_perfis set termo_versao = interno.saude_termo_vigente(), atualizado_em = now() where usuario = v;
+  perform interno.saude_registrar(v, 'termo_aceito', jsonb_build_object('versao', interno.saude_termo_vigente(), 'registro', left(coalesce(p_registro, ''), 40)));
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -12588,6 +12749,7 @@ begin
   update saude_perfis set status = 'removido', atualizado_em = now() where usuario = v;
   perform interno.avisar_lideranca('Um profissional pediu para sair da vitrine de saúde (já saiu).', v);
   perform interno.registrar('saude_saiu', v::text, '{}'::jsonb);
+  perform interno.saude_registrar(v, 'removido_a_pedido');
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -12622,6 +12784,7 @@ begin
     perform interno.erro('invalido:acao');
   end if;
   perform interno.registrar('saude_' || p_acao, p_usuario::text, jsonb_build_object('verificado_em', p_verificado_em));
+  perform interno.saude_registrar(p_usuario, p_acao, jsonb_build_object('verificado_em', p_verificado_em, 'nota', left(coalesce(p_nota, ''), 500)));
   select * into s from saude_perfis where usuario = p_usuario;
   return interno.saude_json(s, true);
 end $$;
@@ -12634,6 +12797,7 @@ begin
   insert into configuracoes (chave, valor) values ('saude', jsonb_build_object('desligada', coalesce(p_desligar, false)))
   on conflict (chave) do update set valor = configuracoes.valor || jsonb_build_object('desligada', coalesce(p_desligar, false));
   perform interno.registrar(case when p_desligar then 'saude_desligada' else 'saude_ligada' end, '', '{}'::jsonb);
+  perform interno.saude_registrar(null, case when p_desligar then 'vitrine_desligada' else 'vitrine_ligada' end);
   return jsonb_build_object('desligada', coalesce(p_desligar, false));
 end $$;
 
@@ -12643,6 +12807,29 @@ create or replace function public.saude_vitrine() returns jsonb language sql sta
     'perfis', case when interno.saude_desligada() then '[]'::jsonb
                    else (select coalesce(jsonb_agg(interno.saude_json(s, false) order by lower(s.nome)), '[]'::jsonb) from saude_perfis s where interno.saude_apto(s)) end)
 $$;
+
+-- O depósito fechado da vitrine: termos assinados (PDF) e capturas da consulta ao conselho. Cada um envia para a própria
+-- pasta; só o dono da pasta e a coordenação leem. Ninguém de fora, nem o resto da equipe.
+create or replace function interno.saude_deposita() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.tem('saude') or interno.coord() or interno.tem('vice')
+$$;
+create or replace function interno.saude_le_tudo() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or interno.tem('vice')
+$$;
+do $$
+begin
+  if exists (select 1 from pg_namespace where nspname = 'storage') then
+    insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+    values ('saude', 'saude', false, 10485760, array['application/pdf', 'image/webp', 'image/jpeg'])
+    on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
+    execute 'drop policy if exists "saude_envio" on storage.objects';
+    execute 'create policy "saude_envio" on storage.objects for insert to authenticated with check (bucket_id = ''saude'' and interno.saude_deposita() and (storage.foldername(name))[1] = auth.uid()::text)';
+    execute 'drop policy if exists "saude_leitura" on storage.objects';
+    execute 'create policy "saude_leitura" on storage.objects for select to authenticated using (bucket_id = ''saude'' and ((storage.foldername(name))[1] = auth.uid()::text or interno.saude_le_tudo()))';
+    execute 'grant execute on function interno.saude_deposita() to authenticated';
+    execute 'grant execute on function interno.saude_le_tudo() to authenticated';
+  end if;
+end $$;
 
 -- ───────────────────────────── Relatos de erro do site ─────────────────────────────
 -- A página "Achei um erro" (/relatar-erro): o que deu errado, onde, e, só se a pessoa marcar, o navegador. Sem conta,
@@ -12702,6 +12889,12 @@ revoke all on function interno.saude_desligada() from public, anon, authenticate
 revoke all on function interno.saude_apto(interno.saude_perfis) from public, anon, authenticated;
 revoke all on function interno.saude_texto_proibido(text) from public, anon, authenticated;
 revoke all on function interno.saude_json(interno.saude_perfis, boolean) from public, anon, authenticated;
+revoke all on function interno.saude_registrar(uuid, text, jsonb) from public, anon, authenticated;
+revoke all on function interno.saude_aplicar(uuid, jsonb) from public, anon, authenticated;
+revoke all on function interno.saude_publico(interno.saude_perfis) from public, anon, authenticated;
+-- As duas regras do depósito "saude" são lidas pelas políticas do Storage com o papel de quem envia: ficam só para authenticated.
+revoke all on function interno.saude_deposita() from public, anon;
+revoke all on function interno.saude_le_tudo() from public, anon;
 do $$
 declare f text;
 begin
@@ -12709,7 +12902,9 @@ begin
     'traducao_convidar(text, text, uuid)', 'traducao_coautor_tirar(text, text, uuid)', 'fotos_pendentes()', 'foto_decidir(uuid, boolean)',
     'termo_registrar(text, text, text, jsonb)', 'termos_meus()', 'termos_aceites_listar(uuid)',
     'saude_meu()', 'saude_salvar(jsonb)', 'saude_termo_aceitar(text, text, text)', 'saude_sair()', 'saude_fila()', 'saude_decidir(uuid, text, date, text)',
-    'saude_chave(boolean)', 'saude_vitrine()', 'erro_relatar(jsonb)', 'erros_listar()', 'erro_mudar(uuid, text, text)'] loop
+    'saude_chave(boolean)', 'saude_vitrine()', 'erro_relatar(jsonb)', 'erros_listar()', 'erro_mudar(uuid, text, text)',
+    'saude_editar(uuid, jsonb)', 'saude_aprovar_texto()', 'saude_assinatura_enviar(text, text)', 'saude_assinatura_conferir(uuid, boolean, text)',
+    'saude_verificacao_anexar(uuid, text, text, text)', 'saude_registro_listar(uuid)'] loop
     execute format('revoke all on function public.%s from public', f);
     execute format('grant execute on function public.%s to anon, authenticated, service_role', f);
   end loop;
