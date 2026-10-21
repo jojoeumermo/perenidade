@@ -2501,7 +2501,23 @@
       "reactants": "反应物",
       "products": "生成物",
       "note": "没有原子消失或凭空出现：反应中原子只是交换伙伴（拉瓦锡定律）。所以两边的原子数相同。颜色遵循球棍模型的惯例。"
-    }
+    },
+    "findTool": "查找工具",
+    "allGroups": "全部",
+    "favorites": "收藏",
+    "recent": "最近使用",
+    "favorite": "加入收藏",
+    "unfavorite": "取消收藏",
+    "focus": "全屏",
+    "related": "相似工具",
+    "relatedLabs": "进阶实验室",
+    "noResults": "没有这个名称的工具。",
+    "labsTitle": "实验室",
+    "labsText": "当工具不够用时：完整的工作台，可以组装、测量、编程和模拟。",
+    "countTools": "{n} 个工具",
+    "copyLink": "复制链接",
+    "linkCopied": "链接已复制",
+    "localNote": "收藏和最近使用的工具只保存在这台设备上。"
   },
   "journal": {
     "eyebrow": "人民的报刊",
