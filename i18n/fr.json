@@ -2570,7 +2570,23 @@
       "reactants": "Réactifs",
       "products": "Produits",
       "note": "Aucun atome ne disparaît ni n'apparaît de nulle part : dans la réaction, ils changent seulement de partenaire (loi de Lavoisier). C'est pourquoi le compte de chaque côté est le même. Les couleurs suivent la convention des modèles boules et bâtonnets."
-    }
+    },
+    "findTool": "Chercher un outil",
+    "allGroups": "Tous",
+    "favorites": "Favoris",
+    "recent": "Utilisés récemment",
+    "favorite": "Ajouter aux favoris",
+    "unfavorite": "Retirer des favoris",
+    "focus": "Plein écran",
+    "related": "Outils similaires",
+    "relatedLabs": "Laboratoires pour aller plus loin",
+    "noResults": "Aucun outil avec ce nom.",
+    "labsTitle": "Laboratoires",
+    "labsText": "Quand l'outil ne suffit pas : des établis complets pour monter, mesurer, programmer et simuler.",
+    "countTools": "{n} outils",
+    "copyLink": "Copier le lien",
+    "linkCopied": "Lien copié",
+    "localNote": "Les favoris et les outils récents restent uniquement sur cet appareil."
   },
   "journal": {
     "eyebrow": "Presse populaire",

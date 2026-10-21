@@ -19,7 +19,9 @@ import { FisicaSimulada, Reacoes } from "@/components/tools/Simulacoes";
 import { Cores, Escala, FrequenciaCardiaca, Fusos, MaisValia, Rcp } from "@/components/tools/Varias";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
-import { areaTools, tools, universalTools, type AreaSlug, type ToolId } from "@/lib/areas";
+import { Moldura } from "@/components/tools/Vitrine";
+import { ICONES, textosDe } from "@/components/tools/vitrine-dados";
+import { areaLabs, areaTools, LABS, tools, universalTools, type AreaSlug, type LabId, type ToolId } from "@/lib/areas";
 import { withLangs } from "@/lib/params";
 
 export const dynamicParams = false;
@@ -85,17 +87,42 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
     "frequencia-cardiaca": <FrequenciaCardiaca s={s.heart} />,
   };
 
+  // O que mais serve a quem está aqui: ferramentas das mesmas matérias e os laboratórios dessas matérias.
+  const names = t.toolNames as Record<string, string[]>;
+  const parecidas = tools.filter((x) => x !== tool && areas.some((a) => areaTools[a]?.includes(x))).slice(0, 6);
+  const labIds = [...new Set(areas.flatMap((a) => areaLabs[a] ?? []))] as LabId[];
+  const nomesDosLabs = t.labs as unknown as Record<string, string>;
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
       <Link href={localePath(lang, "/ferramentas")} className="font-sans text-sm text-ink-soft hover:text-oxblood">
         ← {s.title}
       </Link>
       <div className="mt-6">
-        <PageHeading eyebrow={s.eyebrow} title={name}>
+        <PageHeading eyebrow={`${ICONES[tool] ?? ""} ${s.eyebrow}`} title={name}>
           {description}
         </PageHeading>
       </div>
-      {body[tool]}
+      <Moldura id={tool} s={textosDe(t)}>{body[tool]}</Moldura>
+      {(parecidas.length > 0 || labIds.length > 0) && (
+        <div className="mt-10 grid gap-6 border-t border-rule pt-6 font-sans sm:grid-cols-2">
+          {parecidas.length > 0 && (
+            <section>
+              <h2 className="font-mono text-xs uppercase tracking-widest text-oxblood">{s.related}</h2>
+              <ul className="mt-2 space-y-1.5">
+                {parecidas.map((x) => <li key={x}><Link href={localePath(lang, `/ferramentas/${x}`)} className="flex items-center gap-2 hover:text-oxblood"><span aria-hidden>{ICONES[x] ?? "🛠️"}</span><span className="font-semibold">{names[x][0]}</span></Link></li>)}
+              </ul>
+            </section>
+          )}
+          {labIds.length > 0 && (
+            <section>
+              <h2 className="font-mono text-xs uppercase tracking-widest text-oxblood">{s.relatedLabs}</h2>
+              <ul className="mt-2 space-y-1.5">
+                {labIds.map((x) => <li key={x}><Link href={localePath(lang, LABS[x])} className="flex items-center gap-2 font-semibold hover:text-oxblood"><span aria-hidden>🧪</span>{nomesDosLabs[x] ?? x}</Link></li>)}
+              </ul>
+            </section>
+          )}
+        </div>
+      )}
       {(universalTools as readonly string[]).includes(tool) && <p className="mt-10 border-t border-rule pt-5 font-sans text-sm text-ink-soft">{s.universal}</p>}
       {areas.length > 0 && (
         <p className="mt-10 border-t border-rule pt-5 font-sans text-sm text-ink-soft">
