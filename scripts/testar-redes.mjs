@@ -3,7 +3,7 @@
 // Rode com: npm run testar:redes
 import { readFileSync } from "node:fs";
 import { pathToFileURL } from "node:url";
-const { ping, traceroute, estadoNovo, verificar, validarTopologia, comandoDeIos } = await import(pathToFileURL(new URL("../lib/redes/motor.ts", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1")).href);
+const { ping, traceroute, estadoNovo, verificar, validarTopologia, comandoDeIos, comandoDeHost, novoDispositivo, pedirDhcp, resolverNome, navegar } = await import(pathToFileURL(new URL("../lib/redes/motor.ts", import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1")).href);
 const exercicios = JSON.parse(readFileSync(new URL("../content/laboratorios/redes.json", import.meta.url), "utf8"));
 let certos = 0;
 const falhas = [];
@@ -91,6 +91,61 @@ for (const ex of exercicios) {
   const t = validarTopologia({ dispositivos: [{ tipo: "pc", nome: "A", portas: [{ nome: "eth0", ip: "1.1.1.1", mascara: "255.0.0.0" }], exec: "alert(1)" }], cabos: [] });
   confere("campos desconhecidos são descartados", !("exec" in t.dispositivos[0]) && t.dispositivos[0].portas[0].ip === "1.1.1.1");
 }
+// Serviços: DHCP, DNS e HTTP.
+{
+  const pc = novoDispositivo("pc", 1, 0, 0); pc.dhcp = true;
+  const sw = novoDispositivo("switch", 1, 0, 0);
+  const srv = novoDispositivo("servidor", 1, 0, 0);
+  srv.portas[0].ip = "192.168.1.2"; srv.portas[0].mascara = "255.255.255.0";
+  srv.servicos.dhcp = { ligado: true, inicio: "192.168.1.100", quantidade: 20, mascara: "255.255.255.0", gateway: "192.168.1.1", dns: "192.168.1.2" };
+  srv.servicos.dns = { ligado: true, registros: [{ nome: "escola.lucia", ip: "192.168.1.2" }] };
+  const t = { dispositivos: [pc, sw, srv], cabos: [
+    { id: "c1", de: { dispositivo: pc.id, porta: "eth0" }, para: { dispositivo: sw.id, porta: "Fa0/1" } },
+    { id: "c2", de: { dispositivo: srv.id, porta: "eth0" }, para: { dispositivo: sw.id, porta: "Fa0/2" } },
+  ] };
+  const estado = estadoNovo();
+  const d = pedirDhcp(t, estado, pc.id);
+  confere("DHCP entrega o primeiro endereço livre", d.sucesso && d.config?.ip === "192.168.1.100" && d.config.gateway === "192.168.1.1", d.resumo);
+  confere("DHCP passa por DISCOVER, OFFER, REQUEST e ACK", ["DISCOVER", "OFFER", "REQUEST", "ACK"].every((x) => d.eventos.some((e) => e.texto.includes(x))));
+  Object.assign(pc.portas[0], { ip: d.config.ip, mascara: d.config.mascara }); pc.gateway = d.config.gateway; pc.dns = d.config.dns;
+  const n = resolverNome(t, estado, pc.id, "escola.lucia");
+  confere("DNS resolve o nome cadastrado", n.sucesso && n.ip === "192.168.1.2", n.resumo);
+  confere("DNS diz quando o nome não existe", !resolverNome(t, estado, pc.id, "nada.lucia").sucesso);
+  const w = navegar(t, estado, pc.id, "http://escola.lucia/");
+  confere("o navegador recebe a página (DNS + HTTP)", w.sucesso && w.pagina?.servidor === srv.nome && w.eventos.some((e) => e.pacote?.protocolo === "HTTP"), w.resumo);
+  srv.servicos.http.ligado = false;
+  confere("HTTP desligado: conexão recusada", !navegar(t, estado, pc.id, "escola.lucia").sucesso);
+  srv.servicos.http.ligado = true;
+  const out = comandoDeHost(t, estado, pc, "nslookup escola.lucia");
+  confere("nslookup no terminal", out.saida.includes("192.168.1.2"));
+  confere("ping por nome no terminal", comandoDeHost(t, estado, pc, "ping escola.lucia").saida.includes("192.168.1.2"));
+  const ocupado = novoDispositivo("pc", 2, 0, 0); ocupado.portas[0].ip = "192.168.1.100"; ocupado.portas[0].mascara = "255.255.255.0";
+  const t2 = { ...t, dispositivos: [...t.dispositivos, ocupado] };
+  pc.portas[0].ip = ""; pc.portas[0].mascara = "";
+  confere("DHCP pula o endereço já usado", pedirDhcp(t2, estadoNovo(), pc.id).config?.ip === "192.168.1.101");
+  srv.servicos.dhcp.ligado = false;
+  confere("sem servidor DHCP ligado, o pedido falha", !pedirDhcp(t, estadoNovo(), pc.id).sucesso);
+  const lido = validarTopologia(JSON.parse(JSON.stringify(t)));
+  confere("os serviços sobrevivem a baixar e abrir o JSON", lido.dispositivos.find((x) => x.tipo === "servidor").servicos.dns.registros[0].nome === "escola.lucia" && lido.dispositivos.find((x) => x.tipo === "pc").dhcp === true);
+}
+// Os dois exercícios novos: a solução passa.
+{
+  const ex = exercicios.find((e) => e.id === "rd-09");
+  const t = validarTopologia(clonar(ex.topologia));
+  porNome(t, "Servidor1").servicos.dhcp.ligado = true;
+  porNome(t, "PC1").dhcp = true;
+  const r = pedirDhcp(t, estadoNovo(), porNome(t, "PC1").id);
+  Object.assign(porNome(t, "PC1").portas[0], { ip: r.config.ip, mascara: r.config.mascara }); porNome(t, "PC1").gateway = r.config.gateway; porNome(t, "PC1").dns = r.config.dns;
+  confere("rd-09 (DHCP) resolvido", verificar(t, ex).every((v) => v.passou), JSON.stringify(verificar(t, ex).map((v) => v.detalhe)));
+}
+{
+  const ex = exercicios.find((e) => e.id === "rd-10");
+  const t = validarTopologia(clonar(ex.topologia));
+  porNome(t, "PC1").dns = "10.0.0.50";
+  porNome(t, "Servidor1").servicos.dns.registros.push({ nome: "biblioteca.lucia", ip: "10.0.0.50" });
+  confere("rd-10 (DNS e web) resolvido", verificar(t, ex).every((v) => v.passou), JSON.stringify(verificar(t, ex).map((v) => v.detalhe)));
+}
+
 console.log(`redes: ${certos} conferências certas, ${falhas.length} falhas`);
 for (const f of falhas) console.log(`  ✗ ${f}`);
 process.exit(falhas.length ? 1 : 0);
