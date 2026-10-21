@@ -83,6 +83,7 @@ const erros: Record<string, string> = {
   entre_primeiro: "Entre na sua conta para continuar.",
   sem_permissao: "Você não tem permissão para isso.",
   muitos_pedidos: "Muitos pedidos em pouco tempo. Tente de novo mais tarde.",
+  fixadas_demais: "Já há três publicações fixadas neste canal. Solte uma antes de fixar outra.",
   falta_fonte: "Cite pelo menos uma fonte.",
   conta_suspensa: "Esta conta está suspensa.",
   nao_encontrado: "Não encontrado.",
