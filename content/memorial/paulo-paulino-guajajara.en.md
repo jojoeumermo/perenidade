@@ -1,0 +1,1 @@
+A member of the Guardians of the Forest, a group of Guajajara Indigenous people who patrolled the Arariboia Indigenous Territory against illegal loggers, in an area where isolated Awá people also live. He was known as Lobo, “Wolf”. He was killed in an ambush by loggers on 1 November 2019. Another guardian, Laércio Guajajara, was wounded and survived.
