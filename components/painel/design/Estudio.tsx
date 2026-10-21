@@ -1,263 +1,1003 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { enderecoDo } from "@/lib/estudio";
-import { ziparBinarios } from "@/lib/zip";
-import galeria from "@/content/galeria.json";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { rpc } from "@/lib/backend";
 import type { Me } from "@/lib/backend";
-import { Aviso, botao, campo, dataHora, elo, rotulo, useAcao, useLista } from "../comum";
-import { MODELOS, GRUPOS, type Modelo } from "./modelos";
-import { adaptar, type Alca, alcas, alturaDoTexto, type Camada, camadaEm, type CamadaForma, type CamadaImagem, type CamadaMarca, type CamadaTexto, carregarImagem, COR, desenhar, desenharSelecao, type Documento, documentoVazio, exportar, forma, type FormatoId, FORMATOS, imagem, marca, miniatura, nomeDaCamada, nomeDeArquivo, novoId, PALETA, paraPsd, prepararFontes, prepararImagem, texto } from "./motor";
+import { textoDoErro } from "../comum";
+import { Icone } from "./Icone";
+import { type Modelo, paginasDoModelo } from "./modelos";
+import {
+  adaptar,
+  type Alca,
+  alcas,
+  alturaDoTexto,
+  caixa,
+  caixaDeVarias,
+  type Camada,
+  camadaEm,
+  camadasEm,
+  type CamadaImagem,
+  type CamadaTexto,
+  carregarImagem,
+  desenhar,
+  desenharAjudas,
+  desenharSelecao,
+  type Documento,
+  documentoVazio,
+  formatoDe,
+  type FormatoId,
+  formatoPorMedida,
+  FORMATOS,
+  imagem,
+  imagemPronta,
+  imagensDo,
+  miniatura,
+  nomeDaCamada,
+  novoId,
+  posicaoDaFoto,
+  prepararFontes,
+  prepararImagem,
+  texto,
+  usarVariaveis,
+} from "./motor";
+import { BarraDoAlto, Trilho, AbasDoCelular } from "./paineis/Barras";
+import { Atalhos, Avisos, type AvisoDoEstudio, BarraFlutuante, type Comando, Comandos, MenuDeContexto, ReguaHorizontal, ReguaVertical } from "./paineis/Flutuantes";
+import { Gavetas } from "./paineis/Gavetas";
+import { Janelas } from "./paineis/Janelas";
+import { FolhaDoCelular, PainelDireito } from "./paineis/Propriedades";
+import { RodapeDoPalco } from "./paineis/Rodape";
+import { aplicarEstilo, CAMPOS_DO_ESTILO, type Projeto, paraProjeto, projetoNovo, variaveisDaPagina } from "./projeto";
+import { type AjudasDaTela, ContextoDoEditor, type Editor, type Gaveta, type Janela, useEditor } from "./ui";
 
-type AbaEsquerda = "modelos" | "texto" | "formas" | "imagens" | "marca" | "fundo" | "trabalhos";
+/** Como o editor abre: um modelo, uma página em branco, um trabalho guardado, o rascunho do aparelho ou um projeto pronto. */
+export type Abertura =
+  | { tipo: "modelo"; modelo: Modelo }
+  | { tipo: "branco"; formato: FormatoId }
+  | { tipo: "trabalho"; id: string; copia?: boolean }
+  | { tipo: "rascunho" }
+  | { tipo: "projeto"; projeto: Projeto; titulo: string; formato: FormatoId };
 
-interface Trabalho {
-  id: string;
+interface Passo {
+  projeto: Projeto;
+  pagina: number;
+  rotulo: string;
+}
+
+interface Arrasto {
+  modo: "mover" | "redimensionar" | "girar" | "escalar" | "enquadre" | "selecao";
+  alca?: Alca;
+  x0: number;
+  y0: number;
+  /** As camadas como estavam no começo (para mover em grupo e para o histórico). */
+  inicio: Camada[];
+  mexeu: boolean;
+  caixa?: { x: number; y: number; w: number; h: number };
+}
+
+export const CHAVE_DO_RASCUNHO = (usuario: string) => `lucia:estudio-rascunho:${usuario}`;
+const CHAVE_DAS_PREFERENCIAS = "lucia:estudio-preferencias";
+
+export interface Rascunho {
+  projeto: Projeto;
   titulo: string;
-  formato: string;
-  largura: number;
-  altura: number;
-  autor: string;
-  meu: boolean;
-  compartilhado: boolean;
-  miniatura: string;
-  atualizado_em: string;
-  dados: Documento | null;
+  formato: FormatoId;
+  idSalvo: string | null;
+  quando: number;
 }
 
-interface Achado {
-  titulo: string;
-  arquivo: string;
-  miniatura: string;
-  autor: string;
-  licenca: string;
-  pagina: string;
+/** Lê o rascunho deste aparelho (o que ficou sem guardar na última vez). */
+export function lerRascunho(usuario: string): Rascunho | null {
+  try {
+    const r = JSON.parse(window.localStorage.getItem(CHAVE_DO_RASCUNHO(usuario)) ?? "null") as Rascunho | null;
+    return r && r.projeto ? { ...r, projeto: paraProjeto(r.projeto) } : null;
+  } catch {
+    return null;
+  }
 }
 
-const CAMPO = `${campo} mt-0 py-1 text-xs`;
-const BOTAOZINHO = "cursor-pointer border border-rule bg-parchment px-2 py-1 text-xs hover:border-ink disabled:cursor-not-allowed disabled:opacity-40";
-const ATIVO = "border-ink bg-ink text-parchment";
-
-function Cores({ valor, mudar, semCor }: { valor: string; mudar: (cor: string) => void; semCor?: boolean }) {
-  return (
-    <div className="flex flex-wrap items-center gap-1">
-      {semCor && (
-        <button type="button" title="Sem cor" aria-label="Sem cor" onClick={() => mudar("")} className={`h-6 w-6 cursor-pointer border ${valor === "" ? "border-ink ring-2 ring-ink" : "border-rule"} bg-[linear-gradient(45deg,transparent_45%,#c21f16_45%,#c21f16_55%,transparent_55%)]`} />
-      )}
-      {PALETA.map(([nome, cor]) => (
-        <button key={cor} type="button" title={nome} aria-label={nome} onClick={() => mudar(cor)} className={`h-6 w-6 cursor-pointer border ${valor === cor ? "border-ink ring-2 ring-ink" : "border-rule"}`} style={{ background: cor }} />
-      ))}
-      <input type="color" value={/^#[0-9a-f]{6}$/i.test(valor) ? valor : "#000000"} onChange={(e) => mudar(e.target.value)} aria-label="Outra cor" title="Outra cor" className="h-6 w-8 cursor-pointer border border-rule bg-parchment p-0" />
-    </div>
-  );
+const AJUDAS_PADRAO: AjudasDaTela = { instagram: false, margens: false, grade: false, reguas: false, oito: true };
+function lerPreferencias(): { ajudas: AjudasDaTela; simples: boolean; tema: "" | "claro" | "escuro" } {
+  const padrao = { ajudas: AJUDAS_PADRAO, simples: false, tema: "" as const };
+  try {
+    const p = JSON.parse(window.localStorage.getItem(CHAVE_DAS_PREFERENCIAS) ?? "null");
+    return p ? { ajudas: { ...AJUDAS_PADRAO, ...p.ajudas }, simples: Boolean(p.simples), tema: p.tema === "claro" || p.tema === "escuro" ? p.tema : "" } : padrao;
+  } catch {
+    return padrao;
+  }
 }
 
-function Faixa({ rotuloTexto, valor, min, max, passo = 1, mudar, sufixo = "" }: { rotuloTexto: string; valor: number; min: number; max: number; passo?: number; mudar: (v: number) => void; sufixo?: string }) {
-  return (
-    <label className="block text-xs">
-      <span className="flex justify-between text-ink-soft">
-        {rotuloTexto}
-        <span className="font-mono">{Number.isInteger(passo) ? Math.round(valor) : valor.toFixed(2)}{sufixo}</span>
-      </span>
-      <input type="range" min={min} max={max} step={passo} value={valor} onChange={(e) => mudar(Number(e.target.value))} className="mt-0.5 w-full" />
-    </label>
-  );
+const ajustarAltura = (c: Camada): Camada => (c.tipo === "texto" && !c.ajustar ? { ...c, h: alturaDoTexto(c) } : c);
+
+/** O nome de um passo do histórico, tirado da diferença entre o antes e o depois. */
+function rotular(antes: Projeto, depois: Projeto, pagina: number): string {
+  if (antes.paginas.length !== depois.paginas.length) return depois.paginas.length > antes.paginas.length ? "Nova página" : "Apagou página";
+  if (antes.legenda !== depois.legenda) return "Legenda";
+  const a = antes.paginas[pagina];
+  const d = depois.paginas[pagina];
+  if (!a || !d) return "Mudança";
+  if (a.w !== d.w || a.h !== d.h) return "Mudou o formato";
+  if (d.camadas.length > a.camadas.length) {
+    const nova = d.camadas.find((c) => !a.camadas.some((k) => k.id === c.id));
+    return `Acrescentou: ${nova ? nomeDaCamada(nova) : "camada"}`;
+  }
+  if (d.camadas.length < a.camadas.length) {
+    const saiu = a.camadas.find((c) => !d.camadas.some((k) => k.id === c.id));
+    return `Apagou: ${saiu ? nomeDaCamada(saiu) : "camada"}`;
+  }
+  if (a.fundo !== d.fundo) return "Mudou o fundo";
+  if (a.camadas.some((c, i) => d.camadas[i]?.id !== c.id)) return "Mudou a ordem";
+  const mudou = d.camadas.find((c, i) => c !== a.camadas[i]);
+  if (!mudou) return "Mudança";
+  const velho = a.camadas.find((c) => c.id === mudou.id);
+  if (velho && velho.oculta !== mudou.oculta) return `${mudou.oculta ? "Escondeu" : "Mostrou"}: ${nomeDaCamada(mudou)}`;
+  if (velho && velho.travada !== mudou.travada) return `${mudou.travada ? "Travou" : "Destravou"}: ${nomeDaCamada(mudou)}`;
+  return `Editou: ${nomeDaCamada(mudou)}`;
 }
+
+/** As contagens do site (disciplinas, obras), lidas do próprio site; sem rede, ficam os números guardados. */
+async function numerosDoSite(): Promise<Record<string, string>> {
+  try {
+    const { areaSlugs } = await import("@/lib/areas");
+    const r = await fetch("/pt/apoio-numeros.json", { cache: "force-cache", signal: AbortSignal.timeout(8000) });
+    const n = r.ok ? ((await r.json()) as { obras?: number; aulas?: number }) : {};
+    return { disciplinas: String(areaSlugs.length), ...(n.obras ? { obras: String(n.obras) } : {}), ...(n.aulas ? { aulas: String(n.aulas) } : {}) };
+  } catch {
+    return {};
+  }
+}
+
+const MARGEM_DO_PALCO = 56;
+const CABECA_DO_PALCO = 64;
 
 /**
- * O estúdio de design: um "Canva" do instituto, dentro do painel. Modelos tirados do Kit de Lançamento, texto, formas,
- * imagens (do aparelho, da galeria de cartazes do site ou da Wikimedia Commons), a marca e o fundo; camadas que se movem,
- * redimensionam e giram com o mouse; desfazer e refazer; exportação em PNG, JPEG e PDF (pela impressão); e os trabalhos
- * guardados na conta, compartilhados com a equipe. Tudo desenhado no navegador, com a identidade visual como padrão.
+ * O estúdio rápido: o "Canva" do instituto, em tela cheia dentro do painel. Barra do alto (título, guardado,
+ * desfazer, zoom, pré-visualizar, baixar, guardar), trilho de ícones com as gavetas (modelos, texto, elementos,
+ * imagens, fundo, trabalhos), o palco escuro com a arte, a barra de texto flutuante, e à direita as propriedades e
+ * as camadas. No celular, abas embaixo e uma folha com os controles da camada.
  */
-export function Estudio({ me }: { me: Me }) {
-  const [doc, setDocBruto] = useState<Documento>(() => MODELOS[0].montar());
-  const [titulo, setTitulo] = useState("Post: propósito");
+export function Estudio({ me, abertura, fechar }: { me: Me; abertura: Abertura; fechar: (guardado: boolean) => void }) {
+  const [projeto, setProjetoBruto] = useState<Projeto>(() => projetoNovo([documentoVazio("post")]));
+  const [pagina, setPagina] = useState(0);
+  const [titulo, setTitulo] = useState("Sem título");
   const [formato, setFormato] = useState<FormatoId>("post");
   const [idSalvo, setIdSalvo] = useState<string | null>(null);
-  const [selecionado, setSelecionado] = useState<string | null>(null);
-  const [aba, setAba] = useState<AbaEsquerda>("modelos");
-  const [ajuste, setAjuste] = useState(1);
-  const [zoomManual, setZoomManual] = useState<number | null>(null);
-  const [aviso, setAviso] = useState("");
-  const [busca, setBusca] = useState("");
-  const [achados, setAchados] = useState<Achado[] | null>(null);
-  const [buscando, setBuscando] = useState(false);
-  const [fontesProntas, setFontesProntas] = useState(false);
-  const historico = useRef<{ passado: Passo[]; futuro: Passo[] }>({ passado: [], futuro: [] });
-  // O histórico visível (os rótulos dos passos) e se há mudança ainda não guardada na conta.
-  const [passos, setPassos] = useState<string[]>([]);
+  const [salvoEm, setSalvoEm] = useState<number | null>(null);
   const [mexido, setMexido] = useState(false);
+  const [guardando, setGuardando] = useState(false);
+  const [pronto, setPronto] = useState(false);
+  const [selecao, setSelecao] = useState<string[]>([]);
+  const [gaveta, setGaveta] = useState<Gaveta>("modelos");
+  const [janela, setJanela] = useState<Janela>(null);
+  // O estúdio só abre depois de um clique (nunca no servidor): dá para ler as preferências já no começo.
+  const [prefs] = useState(lerPreferencias);
+  const [ajudas, setAjudasBruto] = useState<AjudasDaTela>(prefs.ajudas);
+  const [simples, setSimplesBruto] = useState(prefs.simples);
+  const [temaDaInterface, setTemaDaInterface] = useState<"" | "claro" | "escuro">(prefs.tema);
+  const [foco, setFoco] = useState(false);
+  const [ajuste, setAjuste] = useState(0.4);
+  const [zoomManual, setZoomManual] = useState<number | null>(null);
+  const [ferramenta, setFerramenta] = useState<"mover" | "texto" | "mao">("mover");
   const [guias, setGuias] = useState<{ v: number[]; h: number[] } | null>(null);
-  const [ferramenta, setFerramenta] = useState<"mover" | "texto">("mover");
-  const espaco = useRef(false);
-  const mao = useRef<{ x0: number; y0: number; sl: number; st: number } | null>(null);
-  const sincronizar = useCallback(() => window.setTimeout(() => setPassos(historico.current.passado.map((p) => p.rotulo)), 0), []);
+  const [marquise, setMarquise] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
+  const [editando, setEditando] = useState<string | null>(null);
+  const [reenquadrar, setReenquadrar] = useState<string | null>(null);
+  const [menu, setMenu] = useState<{ x: number; y: number } | null>(null);
+  const [avisos, setAvisos] = useState<AvisoDoEstudio[]>([]);
+  const [andamento, setAndamento] = useState<{ f: number; rotulo: string } | null>(null);
+  const [fotoEmEdicao, setFotoEmEdicao] = useState<string | null>(null);
+  const [celular, setCelular] = useState(false);
+  const [folhaAberta, setFolhaAberta] = useState(false);
+  const [desenhoPedido, setDesenhoPedido] = useState(0);
+  const [pegando, setPegando] = useState(false);
+  const [tamanhoDoPalco, setTamanhoDoPalco] = useState({ w: 800, h: 600 });
+  const historico = useRef<{ passado: Passo[]; futuro: Passo[] }>({ passado: [], futuro: [] });
+  const [passos, setPassos] = useState<string[]>([]);
+  const [refaziveis, setRefaziveis] = useState(0);
   const tela = useRef<HTMLCanvasElement>(null);
-  const moldura = useRef<HTMLDivElement>(null);
-  const arquivo = useRef<HTMLInputElement>(null);
-  const arrasto = useRef<{ modo: "mover" | "redimensionar" | "girar"; alca?: Alca; x0: number; y0: number; inicio: Camada; mexeu: boolean } | null>(null);
-  const trabalhos = useLista<Trabalho[]>("designs_listar", {}, { quieta: true });
-  const acao = useAcao(trabalhos.recarregar);
-  const escala = zoomManual ?? ajuste;
-  // Vindo do calendário da divulgação ("Criar arte no Estúdio de design"): o título da peça entra no maior texto do modelo.
+  const palco = useRef<HTMLDivElement>(null);
+  const arrasto = useRef<Arrasto | null>(null);
+  const mao = useRef<{ x0: number; y0: number; sl: number; st: number } | null>(null);
+  const toques = useRef(new Map<number, { x: number; y: number }>());
+  const pinca = useRef<{ d: number; escala: number } | null>(null);
+  const espaco = useRef(false);
+  const ancora = useRef<{ dx: number; dy: number; px: number; py: number } | null>(null);
+  const pegarCorRef = useRef<((cor: string) => void) | null>(null);
+  const area = useRef<Camada[] | null>(null);
+  const estiloCopiado = useRef<Partial<Camada> | null>(null);
+  const focoPeloMouse = useRef(false);
+  const projetoRef = useRef(projeto);
+  const paginaRef = useRef(pagina);
   useEffect(() => {
-    const id = window.setTimeout(() => {
-      let pedido: { titulo?: string; legenda?: string } | null = null;
-      try {
-        pedido = JSON.parse(window.sessionStorage.getItem("lucia:estudio-pedido") ?? "null");
-        window.sessionStorage.removeItem("lucia:estudio-pedido");
-      } catch {
-        pedido = null;
-      }
-      if (!pedido?.titulo) return;
-      const tituloDoPedido = pedido.titulo.slice(0, 120);
-      setTitulo(`Post: ${tituloDoPedido}`.slice(0, 80));
-      setDocBruto((d) => {
-        const textos = d.camadas.filter((c) => c.tipo === "texto") as Extract<Camada, { tipo: "texto" }>[];
-        const maior = [...textos].sort((x, y) => y.tamanho - x.tamanho)[0];
-        return maior ? { ...d, camadas: d.camadas.map((c) => (c.id === maior.id ? { ...c, texto: tituloDoPedido } : c)) } : d;
-      });
-      setAviso(pedido.legenda ? `Título trazido do calendário. A legenda está na peça do calendário (${pedido.legenda.length} caracteres).` : "Título trazido do calendário.");
-    }, 0);
-    return () => window.clearTimeout(id);
-  }, []);
-  const camada = useMemo(() => doc.camadas.find((c) => c.id === selecionado) ?? null, [doc, selecionado]);
+    projetoRef.current = projeto;
+    paginaRef.current = pagina;
+  }, [projeto, pagina]);
 
-  // Guarda o passo anterior para desfazer; o futuro se perde a cada mudança nova.
-  const setDoc = useCallback((proximo: Documento | ((d: Documento) => Documento), lembrar = true, rotulo?: string) => {
-    setDocBruto((atual) => {
-      const novo = typeof proximo === "function" ? proximo(atual) : proximo;
-      if (lembrar && novo !== atual) {
-        historico.current.passado = [...historico.current.passado.slice(-59), { doc: atual, rotulo: rotulo ?? rotular(atual, novo) }];
-        historico.current.futuro = [];
+  const doc = projeto.paginas[Math.min(pagina, projeto.paginas.length - 1)] ?? projeto.paginas[0];
+  const escala = zoomManual ?? ajuste;
+  const [dpr] = useState(() => Math.min(2, window.devicePixelRatio || 1));
+  const vars = useMemo(() => variaveisDaPagina(projeto, pagina), [projeto, pagina]);
+  // As medidas dos textos dependem das variáveis da página aberta ({pagina}, {link}...).
+  usarVariaveis(vars);
+  const selecionadas = useMemo(() => doc.camadas.filter((c) => selecao.includes(c.id)), [doc, selecao]);
+  const camada = selecionadas.length === 1 ? selecionadas[0] : null;
+
+  // ───── Avisos ─────
+  const avisar = useCallback((mensagem: string, tipo: AvisoDoEstudio["tipo"] = "ok") => {
+    const id = novoId();
+    setAvisos((lista) => [...lista.slice(-3), { id, mensagem, tipo }]);
+    window.setTimeout(() => setAvisos((lista) => lista.filter((a) => a.id !== id)), tipo === "erro" ? 7000 : 4200);
+  }, []);
+  const progresso = useCallback((f: number | null, rotulo = "") => setAndamento(f === null ? null : { f, rotulo }), []);
+
+  // ───── Histórico ─────
+  const sincronizar = useCallback(
+    () =>
+      window.setTimeout(() => {
+        setPassos(historico.current.passado.map((p) => p.rotulo));
+        setRefaziveis(historico.current.futuro.length);
+      }, 0),
+    [],
+  );
+  const setProjeto = useCallback(
+    (f: (p: Projeto) => Projeto, lembrar = true, rotulo?: string) => {
+      setProjetoBruto((atual) => {
+        const novo = f(atual);
+        if (lembrar && novo !== atual) {
+          historico.current.passado = [...historico.current.passado.slice(-79), { projeto: atual, pagina: paginaRef.current, rotulo: rotulo ?? rotular(atual, novo, paginaRef.current) }];
+          historico.current.futuro = [];
+        }
+        return novo;
+      });
+      if (lembrar) {
+        setMexido(true);
+        sincronizar();
       }
-      return novo;
-    });
-    if (lembrar) {
-      setMexido(true);
-      sincronizar();
-    }
-  }, [sincronizar]);
+    },
+    [sincronizar],
+  );
+  const setDoc = useCallback(
+    (f: (d: Documento) => Documento, lembrar = true, rotulo?: string) => setProjeto((p) => ({ ...p, paginas: p.paginas.map((d, i) => (i === paginaRef.current ? f(d) : d)) }), lembrar, rotulo),
+    [setProjeto],
+  );
   const desfazer = useCallback(() => {
     const anterior = historico.current.passado.pop();
     if (!anterior) return;
-    setDocBruto((atual) => {
-      historico.current.futuro.push({ doc: atual, rotulo: anterior.rotulo });
-      return anterior.doc;
+    setProjetoBruto((atual) => {
+      historico.current.futuro.push({ projeto: atual, pagina: paginaRef.current, rotulo: anterior.rotulo });
+      return anterior.projeto;
     });
+    setPagina(Math.min(anterior.pagina, anterior.projeto.paginas.length - 1));
     setMexido(true);
     sincronizar();
   }, [sincronizar]);
   const refazer = useCallback(() => {
     const proximo = historico.current.futuro.pop();
     if (!proximo) return;
-    setDocBruto((atual) => {
-      historico.current.passado.push({ doc: atual, rotulo: proximo.rotulo });
-      return proximo.doc;
+    setProjetoBruto((atual) => {
+      historico.current.passado.push({ projeto: atual, pagina: paginaRef.current, rotulo: proximo.rotulo });
+      return proximo.projeto;
     });
+    setPagina(Math.min(proximo.pagina, proximo.projeto.paginas.length - 1));
     setMexido(true);
     sincronizar();
   }, [sincronizar]);
-  /** Volta até o passo escolhido no histórico (cada passo desfeito pode ser refeito). */
-  const voltarAte = (indice: number) => {
-    for (let i = passos.length - 1; i >= indice; i--) desfazer();
-  };
+  const voltarAte = useCallback(
+    (indice: number) => {
+      for (let i = historico.current.passado.length - 1; i >= indice; i--) desfazer();
+    },
+    [desfazer],
+  );
 
-  // Sair com mudança não guardada pede confirmação ao navegador.
+  // ───── Abrir ─────
+  const abrir = useCallback(
+    async (a: Abertura) => {
+      await prepararFontes();
+      setPronto(false);
+      let p: Projeto | null = null;
+      let t = "Sem título";
+      let f: FormatoId = "post";
+      let id: string | null = null;
+      let quando: number | null = null;
+      try {
+        if (a.tipo === "modelo") {
+          p = projetoNovo(paginasDoModelo(a.modelo));
+          t = a.modelo.nome;
+          f = a.modelo.formato;
+          void rpc("design_modelo_usado", { p_modelo: a.modelo.id }).catch(() => undefined);
+        } else if (a.tipo === "branco") {
+          p = projetoNovo([documentoVazio(a.formato)]);
+          f = a.formato;
+        } else if (a.tipo === "rascunho") {
+          const r = lerRascunho(me.id);
+          if (r) {
+            p = r.projeto;
+            t = r.titulo;
+            f = r.formato;
+            id = r.idSalvo;
+          }
+        } else if (a.tipo === "projeto") {
+          p = a.projeto;
+          t = a.titulo;
+          f = a.formato;
+        } else {
+          const r = await rpc<{ id: string; titulo: string; formato: string; dados: unknown; atualizado_em: string }>("design_ver", { p_id: a.id });
+          p = paraProjeto(r.dados);
+          t = a.copia ? `Cópia de ${r.titulo}`.slice(0, 120) : r.titulo;
+          f = (formatoDe(r.formato)?.id ?? formatoPorMedida(p.paginas[0]?.w ?? 1080, p.paginas[0]?.h ?? 1350)?.id ?? "post") as FormatoId;
+          id = a.copia ? null : r.id;
+          quando = a.copia ? null : new Date(r.atualizado_em).getTime();
+        }
+      } catch (erro) {
+        avisar(`Não deu para abrir: ${textoDoErro(erro)}`, "erro");
+      }
+      const base = p && p.paginas.length ? p : projetoNovo([documentoVazio(f)]);
+      const recalcular = (q: Projeto): Projeto => ({
+        ...q,
+        paginas: q.paginas.map((d, i) => {
+          usarVariaveis(variaveisDaPagina(q, i));
+          return { ...d, id: d.id ?? novoId(), camadas: d.camadas.map(ajustarAltura) };
+        }),
+      });
+      const final = recalcular(base);
+      historico.current = { passado: [], futuro: [] };
+      setPassos([]);
+      setRefaziveis(0);
+      setProjetoBruto(final);
+      setTitulo(t);
+      setFormato(f);
+      setIdSalvo(id);
+      setSalvoEm(quando);
+      setPagina(0);
+      setSelecao([]);
+      setZoomManual(null);
+      setMexido(a.tipo === "rascunho" || (a.tipo === "trabalho" && Boolean(a.copia)));
+      setPronto(true);
+      // Os números do site (disciplinas, obras) chegam depois e entram nas variáveis que ainda têm o valor do modelo.
+      void numerosDoSite().then((numeros) => {
+        if (!Object.keys(numeros).length) return;
+        setProjetoBruto((atual) => {
+          const variaveis = { ...atual.variaveis };
+          let mudou = false;
+          for (const [k, v] of Object.entries(numeros))
+            if ((!variaveis[k] || variaveis[k] === "61" || variaveis[k] === "300") && variaveis[k] !== v) {
+              variaveis[k] = v;
+              mudou = true;
+            }
+          return mudou ? recalcular({ ...atual, variaveis }) : atual;
+        });
+      });
+    },
+    [me.id, avisar],
+  );
   useEffect(() => {
-    if (!mexido) return;
-    const avisar = (e: BeforeUnloadEvent) => e.preventDefault();
-    window.addEventListener("beforeunload", avisar);
-    return () => window.removeEventListener("beforeunload", avisar);
-  }, [mexido]);
-
-  /** Muda a camada selecionada (texto recalcula a altura). */
-  const mudar = useCallback((mudanca: Partial<Camada>, lembrar = true) => {
-    if (!selecionado) return;
-    setDoc((d) => ({ ...d, camadas: d.camadas.map((c) => (c.id === selecionado ? ajustarAltura({ ...c, ...mudanca } as Camada) : c)) }), lembrar);
-  }, [selecionado, setDoc]);
-
-  // As fontes do site, carregadas antes do primeiro desenho; o modelo inicial recalcula as alturas dos textos.
-  useEffect(() => {
-    void prepararFontes().then(() => {
-      setFontesProntas(true);
-      setDocBruto((d) => ({ ...d, camadas: d.camadas.map(ajustarAltura) }));
-    });
+    const id = window.setTimeout(() => void abrir(abertura), 0);
+    return () => window.clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // A tela se encaixa na largura disponível.
+  // ───── Preferências e tela ─────
+  const setAjudas = useCallback((f: (a: AjudasDaTela) => AjudasDaTela) => setAjudasBruto(f), []);
+  const setSimples = useCallback((s: boolean) => setSimplesBruto(s), []);
   useEffect(() => {
-    const el = moldura.current;
+    if (!pronto) return;
+    try {
+      window.localStorage.setItem(CHAVE_DAS_PREFERENCIAS, JSON.stringify({ ajudas, simples, tema: temaDaInterface }));
+    } catch {
+      /* sem armazenamento: as preferências valem só agora */
+    }
+  }, [ajudas, simples, temaDaInterface, pronto]);
+  useEffect(() => {
+    const m = window.matchMedia("(max-width: 767.98px)");
+    const ver = () => {
+      setCelular(m.matches);
+      if (m.matches) setGaveta(null);
+    };
+    ver();
+    m.addEventListener("change", ver);
+    return () => m.removeEventListener("change", ver);
+  }, []);
+  // A página do painel não rola enquanto o estúdio está aberto.
+  useEffect(() => {
+    const antes = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = antes;
+    };
+  }, []);
+
+  // O encaixe: a página cabe no palco.
+  useEffect(() => {
+    const el = palco.current;
     if (!el) return;
     const medir = () => {
-      const largura = Math.max(240, el.clientWidth - 8);
-      const altura = Math.max(320, window.innerHeight - 260);
-      setAjuste(Math.min(largura / doc.w, altura / doc.h, 1));
+      const w = el.clientWidth;
+      const h = el.clientHeight;
+      // Medida de zero (a tela ainda montando, a aba escondida): espera a próxima.
+      if (w < 60 || h < 60) return;
+      setTamanhoDoPalco({ w, h });
+      const folgaV = CABECA_DO_PALCO + (celular ? 24 : 92);
+      setAjuste(Math.max(0.05, Math.min((w - 2 * (celular ? 16 : MARGEM_DO_PALCO)) / doc.w, (h - folgaV) / doc.h, 2)));
     };
     medir();
-    const observador = new ResizeObserver(medir);
-    observador.observe(el);
-    return () => observador.disconnect();
-  }, [doc.w, doc.h]);
+    const o = new ResizeObserver(medir);
+    o.observe(el);
+    return () => o.disconnect();
+  }, [doc.w, doc.h, celular]);
 
-  // Desenha a cada mudança (e de novo quando uma imagem termina de carregar).
+  // Aproximar mantendo o ponto do mouse no lugar.
+  const zoomEm = useCallback(
+    (nova: number, px?: number, py?: number) => {
+      const c = tela.current;
+      const limitada = Math.min(8, Math.max(0.05, nova));
+      if (c && px !== undefined && py !== undefined) {
+        const r = c.getBoundingClientRect();
+        ancora.current = { dx: (px - r.left) / escala, dy: (py - r.top) / escala, px, py };
+      }
+      setZoomManual(limitada);
+    },
+    [escala],
+  );
+  useLayoutEffect(() => {
+    const a = ancora.current;
+    const el = palco.current;
+    const c = tela.current;
+    if (!a || !el || !c) return;
+    ancora.current = null;
+    const r = c.getBoundingClientRect();
+    el.scrollLeft += r.left + a.dx * escala - a.px;
+    el.scrollTop += r.top + a.dy * escala - a.py;
+  }, [escala]);
+
+  // ───── Desenho ─────
   useEffect(() => {
     const el = tela.current;
-    if (!el) return;
+    if (!el || !pronto) return;
+    const k = escala * dpr;
     const pintar = () => {
-      desenhar(el, doc, escala);
+      usarVariaveis(vars);
+      const visivel = editando ? { ...doc, camadas: doc.camadas.filter((c) => c.id !== editando) } : doc;
+      desenhar(el, visivel, k);
       const ctx = el.getContext("2d");
-      if (ctx && camada && !camada.oculta) desenharSelecao(ctx, camada, escala);
-      if (ctx && guias) {
+      if (!ctx) return;
+      desenharAjudas(ctx, doc, k, ajudas, dpr);
+      if (!editando) desenharSelecao(ctx, selecionadas.filter((c) => !c.oculta), k, dpr);
+      if (guias) {
         ctx.save();
-        ctx.setTransform(escala, 0, 0, escala, 0, 0);
+        ctx.setTransform(k, 0, 0, k, 0, 0);
         ctx.strokeStyle = "#c21f16";
-        ctx.lineWidth = 1 / escala;
-        ctx.setLineDash([4 / escala, 3 / escala]);
-        for (const x of guias.v) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, doc.h); ctx.stroke(); }
-        for (const y of guias.h) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(doc.w, y); ctx.stroke(); }
+        ctx.lineWidth = dpr / k;
+        ctx.setLineDash([(4 * dpr) / k, (3 * dpr) / k]);
+        for (const x of guias.v) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, doc.h);
+          ctx.stroke();
+        }
+        for (const y of guias.h) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(doc.w, y);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+      if (marquise) {
+        ctx.save();
+        ctx.setTransform(k, 0, 0, k, 0, 0);
+        ctx.fillStyle = "rgba(110, 31, 26, 0.08)";
+        ctx.strokeStyle = "#6e1f1a";
+        ctx.lineWidth = dpr / k;
+        ctx.fillRect(marquise.x, marquise.y, marquise.w, marquise.h);
+        ctx.strokeRect(marquise.x, marquise.y, marquise.w, marquise.h);
         ctx.restore();
       }
     };
-    let pedido = requestAnimationFrame(pintar);
-    const pendentes = doc.camadas.filter((c): c is CamadaImagem => c.tipo === "imagem").map((c) => carregarImagem(c.src).then(() => undefined, () => undefined));
-    if (pendentes.length) void Promise.all(pendentes).then(() => { cancelAnimationFrame(pedido); pedido = requestAnimationFrame(pintar); });
-    return () => cancelAnimationFrame(pedido);
-  }, [doc, escala, camada, fontesProntas, guias]);
+    let quadro = requestAnimationFrame(pintar);
+    const faltam = imagensDo(doc).filter((src) => !imagemPronta(src));
+    if (faltam.length)
+      void Promise.all(faltam.map((src) => carregarImagem(src).catch(() => null))).then(() => {
+        cancelAnimationFrame(quadro);
+        quadro = requestAnimationFrame(pintar);
+      });
+    return () => cancelAnimationFrame(quadro);
+  }, [doc, escala, dpr, selecionadas, guias, marquise, ajudas, pronto, editando, desenhoPedido, vars]);
 
-  // Teclas: apagar, setas, desfazer, refazer, duplicar, guardar.
+  // ───── Guardar (na conta) e rascunho (no aparelho) ─────
+  const guardar = useCallback(
+    async (silencioso = false) => {
+      if (guardando) return;
+      setGuardando(true);
+      try {
+        const p = projetoRef.current;
+        usarVariaveis(variaveisDaPagina(p, 0));
+        const mini = await miniatura(p.paginas[0]);
+        usarVariaveis(variaveisDaPagina(p, paginaRef.current));
+        const r = await rpc<{ id?: string }>("design_salvar", {
+          p_id: idSalvo,
+          p: { titulo: titulo.trim() || "Sem título", formato, largura: p.paginas[0].w, altura: p.paginas[0].h, dados: p, miniatura: mini, compartilhado: true, legenda: p.legenda.slice(0, 2200), paginas: p.paginas.length },
+        });
+        if (r?.id) {
+          setIdSalvo(r.id);
+          setSalvoEm(Date.now());
+          setMexido(false);
+          try {
+            window.localStorage.removeItem(CHAVE_DO_RASCUNHO(me.id));
+          } catch {
+            /* sem armazenamento */
+          }
+          if (!silencioso) avisar("Guardado na sua conta.");
+        }
+      } catch (erro) {
+        if (!silencioso) avisar(`Não deu para guardar: ${textoDoErro(erro)}`, "erro");
+      } finally {
+        setGuardando(false);
+      }
+    },
+    [guardando, idSalvo, titulo, formato, me.id, avisar],
+  );
+  // O rascunho fica no aparelho a cada mudança (com uma pequena espera), para nada se perder se a aba fechar.
   useEffect(() => {
-    const tecla = (e: KeyboardEvent) => {
+    if (!pronto || !mexido) return;
+    const id = window.setTimeout(() => {
+      try {
+        window.localStorage.setItem(CHAVE_DO_RASCUNHO(me.id), JSON.stringify({ projeto, titulo, formato, idSalvo, quando: Date.now() } satisfies Rascunho));
+      } catch {
+        /* sem espaço: o rascunho não fica, mas o trabalho continua na tela */
+      }
+    }, 1200);
+    return () => window.clearTimeout(id);
+  }, [projeto, titulo, formato, idSalvo, mexido, pronto, me.id]);
+  // Trabalho que já está na conta: guarda sozinho 20 segundos depois da última mudança.
+  useEffect(() => {
+    if (!pronto || !mexido || !idSalvo) return;
+    const id = window.setTimeout(() => void guardar(true), 20_000);
+    return () => window.clearTimeout(id);
+  }, [projeto, titulo, mexido, idSalvo, pronto, guardar]);
+  useEffect(() => {
+    if (!mexido) return;
+    const avisarAoSair = (e: BeforeUnloadEvent) => e.preventDefault();
+    window.addEventListener("beforeunload", avisarAoSair);
+    return () => window.removeEventListener("beforeunload", avisarAoSair);
+  }, [mexido]);
+
+  // ───── Camadas ─────
+  const mudarCamada = useCallback((id: string, m: Partial<Camada>, lembrar = true) => setDoc((d) => ({ ...d, camadas: d.camadas.map((c) => (c.id === id ? ajustarAltura({ ...c, ...m } as Camada) : c)) }), lembrar), [setDoc]);
+  const mudar = useCallback(
+    (m: Partial<Camada>, lembrar = true) => {
+      if (!selecao.length) return;
+      const ehEstilo = (k: string) => (CAMPOS_DO_ESTILO as readonly string[]).includes(k);
+      // Texto ligado a um estilo: a mudança de tipografia vale para o estilo inteiro (todas as páginas).
+      if (camada?.tipo === "texto" && camada.estilo && Object.keys(m).some(ehEstilo)) {
+        const estilo = projeto.estilos.find((e) => e.id === camada.estilo);
+        if (estilo) {
+          const proporcao = camada.tamanho / estilo.tamanho || 1;
+          const tamanho = (m as Partial<CamadaTexto>).tamanho;
+          const novo = { ...estilo, ...Object.fromEntries(Object.entries(m).filter(([k]) => ehEstilo(k))) };
+          if (typeof tamanho === "number") novo.tamanho = tamanho / proporcao;
+          const resto = Object.fromEntries(Object.entries(m).filter(([k]) => !ehEstilo(k)));
+          setProjeto(
+            (p) => {
+              const comEstilo = aplicarEstilo(p, novo, ajustarAltura);
+              return { ...comEstilo, paginas: comEstilo.paginas.map((d, i) => (i === paginaRef.current ? { ...d, camadas: d.camadas.map((c) => (c.id === camada.id ? ajustarAltura({ ...c, ...resto, ...(typeof tamanho === "number" ? { tamanho } : {}) } as Camada) : c)) } : d)) };
+            },
+            lembrar,
+            `Estilo: ${estilo.nome}`,
+          );
+          return;
+        }
+      }
+      setDoc((d) => ({ ...d, camadas: d.camadas.map((c) => (selecao.includes(c.id) ? ajustarAltura({ ...c, ...m } as Camada) : c)) }), lembrar);
+    },
+    [selecao, camada, projeto.estilos, setProjeto, setDoc],
+  );
+  const selecionar = useCallback((ids: string[]) => {
+    setSelecao(ids);
+    if (ids.length) setFolhaAberta(true);
+  }, []);
+  const acrescentar = useCallback(
+    (nova: Camada | Camada[]) => {
+      const lista = (Array.isArray(nova) ? nova : [nova]).map(ajustarAltura);
+      setDoc((d) => ({ ...d, camadas: [...d.camadas, ...lista] }));
+      setSelecao(lista.map((c) => c.id));
+    },
+    [setDoc],
+  );
+  const centro = useCallback((w: number, h: number) => ({ x: Math.round(doc.w / 2 - w / 2), y: Math.round(doc.h / 2 - h / 2) }), [doc.w, doc.h]);
+
+  // ───── Páginas ─────
+  const irParaPagina = useCallback((i: number) => {
+    setPagina(i);
+    setSelecao([]);
+    setEditando(null);
+    setReenquadrar(null);
+  }, []);
+  const novaPagina = useCallback(
+    (nova?: Documento, depois = paginaRef.current) => {
+      const atual = projetoRef.current.paginas[paginaRef.current];
+      const d = nova ?? { ...documentoVazio(formato), w: atual.w, h: atual.h, fundo: { ...atual.fundo }, camadas: [] };
+      setProjeto((p) => {
+        const paginas = [...p.paginas];
+        paginas.splice(depois + 1, 0, { ...d, id: novoId() });
+        return { ...p, paginas };
+      }, true, "Nova página");
+      irParaPagina(depois + 1);
+    },
+    [formato, setProjeto, irParaPagina],
+  );
+
+  const ordenar = useCallback(
+    (para: "frente" | "tras" | "topo" | "fundo") => {
+      if (!selecao.length) return;
+      setDoc((d) => {
+        const fica = d.camadas.filter((c) => !selecao.includes(c.id));
+        const vai = d.camadas.filter((c) => selecao.includes(c.id));
+        const primeiro = d.camadas.findIndex((c) => selecao.includes(c.id));
+        const posicao = para === "topo" ? fica.length : para === "fundo" ? 0 : para === "frente" ? Math.min(fica.length, primeiro + 1) : Math.max(0, primeiro - 1);
+        fica.splice(posicao, 0, ...vai);
+        return { ...d, camadas: fica };
+      });
+    },
+    [selecao, setDoc],
+  );
+  const alinhar = useCallback(
+    (como: "esq" | "centro" | "dir" | "cima" | "meio" | "baixo") => {
+      if (!selecionadas.length) return;
+      // Uma camada: em relação à página. Várias: em relação à caixa que contém todas.
+      const alvo = selecionadas.length === 1 ? { x: 0, y: 0, w: doc.w, h: doc.h } : caixaDeVarias(selecionadas);
+      setDoc(
+        (d) => ({
+          ...d,
+          camadas: d.camadas.map((c) => {
+            if (!selecao.includes(c.id)) return c;
+            const b = caixa(c);
+            const dx = como === "esq" ? alvo.x - b.x : como === "centro" ? alvo.x + alvo.w / 2 - (b.x + b.w / 2) : como === "dir" ? alvo.x + alvo.w - (b.x + b.w) : 0;
+            const dy = como === "cima" ? alvo.y - b.y : como === "meio" ? alvo.y + alvo.h / 2 - (b.y + b.h / 2) : como === "baixo" ? alvo.y + alvo.h - (b.y + b.h) : 0;
+            return { ...c, x: Math.round(c.x + dx), y: Math.round(c.y + dy) };
+          }),
+        }),
+        true,
+        "Alinhou",
+      );
+    },
+    [selecionadas, selecao, doc.w, doc.h, setDoc],
+  );
+  const distribuir = useCallback(
+    (eixo: "h" | "v") => {
+      if (selecionadas.length < 3) return;
+      const lista = [...selecionadas].sort((a, b) => (eixo === "h" ? caixa(a).x - caixa(b).x : caixa(a).y - caixa(b).y));
+      const caixas = lista.map(caixa);
+      const total = caixas.reduce((s, b) => s + (eixo === "h" ? b.w : b.h), 0);
+      const ultima = caixas[caixas.length - 1];
+      const inicio = eixo === "h" ? caixas[0].x : caixas[0].y;
+      const fim = eixo === "h" ? ultima.x + ultima.w : ultima.y + ultima.h;
+      const vao = (fim - inicio - total) / (lista.length - 1);
+      let cursor = inicio;
+      const novos = new Map<string, number>();
+      lista.forEach((c, i) => {
+        const b = caixas[i];
+        novos.set(c.id, (eixo === "h" ? c.x - b.x : c.y - b.y) + cursor);
+        cursor += (eixo === "h" ? b.w : b.h) + vao;
+      });
+      setDoc((d) => ({ ...d, camadas: d.camadas.map((c) => (novos.has(c.id) ? { ...c, [eixo === "h" ? "x" : "y"]: Math.round(novos.get(c.id)!) } : c)) }), true, "Distribuiu");
+    },
+    [selecionadas, setDoc],
+  );
+
+  const acoes = useMemo(() => {
+    const sel = () => doc.camadas.filter((c) => selecao.includes(c.id));
+    const novoGrupo = (mapa: Map<string, string>, g?: string) => {
+      if (!g) return undefined;
+      if (!mapa.has(g)) mapa.set(g, novoId());
+      return mapa.get(g);
+    };
+    const a: Record<string, () => void> = {
+      desfazer,
+      refazer,
+      duplicar: () => {
+        const lista = sel();
+        if (!lista.length) return;
+        const grupos = new Map<string, string>();
+        const copias = lista.map((c) => ({ ...c, id: novoId(), x: c.x + 24, y: c.y + 24, grupo: novoGrupo(grupos, c.grupo) }));
+        setDoc((d) => ({ ...d, camadas: [...d.camadas, ...copias] }), true, `Duplicou: ${copias.length > 1 ? `${copias.length} camadas` : nomeDaCamada(copias[0])}`);
+        setSelecao(copias.map((c) => c.id));
+      },
+      apagar: () => {
+        if (!selecao.length) return;
+        setDoc((d) => ({ ...d, camadas: d.camadas.filter((c) => !selecao.includes(c.id)) }));
+        setSelecao([]);
+      },
+      copiar: () => {
+        const lista = sel();
+        if (!lista.length) return;
+        area.current = lista;
+        void navigator.clipboard?.writeText(JSON.stringify({ estudioLucia: 1, camadas: lista })).catch(() => undefined);
+        avisar(lista.length > 1 ? `${lista.length} camadas copiadas.` : "Camada copiada.", "info");
+      },
+      recortar: () => {
+        const lista = sel();
+        if (!lista.length) return;
+        area.current = lista;
+        void navigator.clipboard?.writeText(JSON.stringify({ estudioLucia: 1, camadas: lista })).catch(() => undefined);
+        setDoc((d) => ({ ...d, camadas: d.camadas.filter((c) => !selecao.includes(c.id)) }), true, "Recortou");
+        setSelecao([]);
+      },
+      colar: () => {
+        const colarLista = (lista: Camada[]) => {
+          const grupos = new Map<string, string>();
+          acrescentar(lista.map((c) => ({ ...c, id: novoId(), x: c.x + 16, y: c.y + 16, grupo: novoGrupo(grupos, c.grupo) })));
+        };
+        if (area.current) return colarLista(area.current);
+        void navigator.clipboard
+          ?.readText()
+          .then((t) => {
+            try {
+              const dados = JSON.parse(t) as { estudioLucia?: number; camadas?: Camada[] };
+              if (dados.estudioLucia && Array.isArray(dados.camadas)) return colarLista(dados.camadas);
+            } catch {
+              /* texto comum */
+            }
+            if (t.trim()) acrescentar(texto({ ...centro(doc.w * 0.8, 100), w: doc.w * 0.8, texto: t.slice(0, 2000), tamanho: Math.round(doc.w / 28), peso: 400 }));
+          })
+          .catch(() => undefined);
+      },
+      copiarEstilo: () => {
+        const c = sel()[0];
+        if (!c) return;
+        const copia: Record<string, unknown> = { ...c };
+        for (const k of ["id", "x", "y", "w", "h", "rot", "nome", "texto", "src", "grupo", "credito", "recorte", "enquadre", "fundoRemovido", "conteudo", "conteudo2", "legendaFoto"]) delete copia[k];
+        estiloCopiado.current = copia as Partial<Camada>;
+        avisar("Estilo copiado: use Ctrl+Alt+V em outra camada do mesmo tipo.", "info");
+      },
+      colarEstilo: () => {
+        const e = estiloCopiado.current;
+        if (!e) return;
+        setDoc((d) => ({ ...d, camadas: d.camadas.map((c) => (selecao.includes(c.id) && c.tipo === e.tipo ? ajustarAltura({ ...c, ...e, tipo: c.tipo } as Camada) : c)) }), true, "Colou o estilo");
+      },
+      agrupar: () => {
+        if (selecao.length < 2) return;
+        const g = novoId();
+        setDoc((d) => ({ ...d, camadas: d.camadas.map((c) => (selecao.includes(c.id) ? { ...c, grupo: g } : c)) }), true, "Agrupou");
+      },
+      desagrupar: () => setDoc((d) => ({ ...d, camadas: d.camadas.map((c) => (selecao.includes(c.id) ? { ...c, grupo: undefined } : c)) }), true, "Desagrupou"),
+      tudo: () => setSelecao(doc.camadas.filter((c) => !c.travada && !c.oculta).map((c) => c.id)),
+      travar: () => {
+        const travar = sel().some((c) => !c.travada);
+        setDoc((d) => ({ ...d, camadas: d.camadas.map((c) => (selecao.includes(c.id) ? { ...c, travada: travar } : c)) }));
+      },
+      esconder: () => setDoc((d) => ({ ...d, camadas: d.camadas.map((c) => (selecao.includes(c.id) ? { ...c, oculta: !c.oculta } : c)) })),
+      frente: () => ordenar("frente"),
+      tras: () => ordenar("tras"),
+      topo: () => ordenar("topo"),
+      fundo: () => ordenar("fundo"),
+      "alinhar-esq": () => alinhar("esq"),
+      "alinhar-centro-h": () => alinhar("centro"),
+      "alinhar-dir": () => alinhar("dir"),
+      "alinhar-topo": () => alinhar("cima"),
+      "alinhar-meio": () => alinhar("meio"),
+      "alinhar-base": () => alinhar("baixo"),
+      "distribuir-h": () => distribuir("h"),
+      "distribuir-v": () => distribuir("v"),
+      guardar: () => void guardar(),
+      baixar: () => setJanela("baixar"),
+      previa: () => setJanela("previa"),
+      atalhos: () => setJanela("atalhos"),
+      comandos: () => setJanela("comandos"),
+      conferir: () => setJanela("conferir"),
+      encaixar: () => setZoomManual(null),
+      cem: () => setZoomManual(1),
+      metade: () => setZoomManual(0.5),
+      aproximar: () => setZoomManual(Math.min(8, escala * 1.25)),
+      afastar: () => setZoomManual(Math.max(0.05, escala / 1.25)),
+      foco: () => setFoco((f) => !f),
+      instagram: () => setAjudasBruto((x) => ({ ...x, instagram: !x.instagram })),
+      grade: () => setAjudasBruto((x) => ({ ...x, grade: !x.grade })),
+      margens: () => setAjudasBruto((x) => ({ ...x, margens: !x.margens })),
+      reguas: () => setAjudasBruto((x) => ({ ...x, reguas: !x.reguas })),
+      oito: () => setAjudasBruto((x) => ({ ...x, oito: !x.oito })),
+      temaDaInterface: () => setTemaDaInterface((t) => (t === "escuro" ? "claro" : "escuro")),
+      simples: () => setSimplesBruto((s) => !s),
+      novaPagina: () => novaPagina(),
+      duplicarPagina: () => {
+        const original = projeto.paginas[pagina];
+        novaPagina({ ...original, camadas: original.camadas.map((c) => ({ ...c, id: novoId() })) }, pagina);
+      },
+      apagarPagina: () => {
+        if (projeto.paginas.length <= 1) return;
+        setProjeto((p) => ({ ...p, paginas: p.paginas.filter((_, k) => k !== pagina) }), true, "Apagou página");
+        irParaPagina(Math.max(0, Math.min(pagina, projeto.paginas.length - 2)));
+      },
+      paginaParaTras: () => moverPagina(pagina, pagina - 1),
+      paginaParaFrente: () => moverPagina(pagina, pagina + 1),
+      proximaPagina: () => irParaPagina(Math.min(projeto.paginas.length - 1, pagina + 1)),
+      paginaAnterior: () => irParaPagina(Math.max(0, pagina - 1)),
+      versaoB: () => {
+        const original = projeto.paginas[pagina];
+        setProjeto((p) => {
+          const paginas = [...p.paginas];
+          paginas[pagina] = { ...original, variante: original.variante || "A" };
+          paginas.splice(pagina + 1, 0, { ...original, id: novoId(), variante: "B", camadas: original.camadas.map((c) => ({ ...c, id: novoId() })) });
+          return { ...p, paginas };
+        }, true, "Versão B");
+        irParaPagina(pagina + 1);
+        avisar("Versão B criada logo depois desta página. Compare as duas em Pré-visualizar.", "info");
+      },
+      editarTexto: () => {
+        if (camada?.tipo === "texto") setEditando(camada.id);
+      },
+      reenquadrar: () => {
+        if (camada?.tipo === "imagem") setReenquadrar(camada.id);
+      },
+      editarFoto: () => {
+        if (camada?.tipo === "imagem") setFotoEmEdicao(camada.id);
+      },
+      idioma: () => setJanela("idioma"),
+      lote: () => setJanela("lote"),
+      historicoDeVersoes: () => setJanela("historico"),
+      revisao: () => setJanela("revisao"),
+      publicar: () => setJanela("publicar"),
+      ferramentaMover: () => setFerramenta("mover"),
+      ferramentaTexto: () => setFerramenta("texto"),
+      ferramentaMao: () => setFerramenta("mao"),
+      sair: () => fechar(!mexido),
+    };
+    function moverPagina(i: number, para: number) {
+      if (para < 0 || para >= projeto.paginas.length) return;
+      setProjeto((p) => {
+        const paginas = [...p.paginas];
+        const [d] = paginas.splice(i, 1);
+        paginas.splice(para, 0, d);
+        return { ...p, paginas };
+      }, true, "Mudou a ordem das páginas");
+      irParaPagina(para);
+    }
+    return a;
+  }, [doc, selecao, camada, escala, pagina, projeto.paginas, guardar, desfazer, refazer, mexido, setDoc, setProjeto, acrescentar, avisar, centro, ordenar, alinhar, distribuir, novaPagina, irParaPagina, fechar]);
+
+  const usarModelo = useCallback(
+    (m: Modelo, modo: "trocar" | "acrescentar" | "novo") => {
+      void rpc("design_modelo_usado", { p_modelo: m.id }).catch(() => undefined);
+      const novas = paginasDoModelo(m).map((d) => ({ ...d, id: novoId(), camadas: d.camadas.map(ajustarAltura) }));
+      const p0 = paginaRef.current;
+      if (modo === "trocar") {
+        setProjeto((p) => {
+          const paginas = [...p.paginas];
+          paginas.splice(p0, 1, ...novas);
+          return { ...p, paginas };
+        }, true, `Modelo: ${m.nome}`);
+        if (projetoRef.current.paginas.length === 1) {
+          setFormato(m.formato);
+          setTitulo((t) => (t === "Sem título" ? m.nome : t));
+        }
+      } else {
+        setProjeto((p) => {
+          const paginas = [...p.paginas];
+          paginas.splice(p0 + 1, 0, ...novas);
+          return { ...p, paginas };
+        }, true, `Modelo: ${m.nome}`);
+        irParaPagina(p0 + 1);
+      }
+      setSelecao([]);
+      setZoomManual(null);
+    },
+    [setProjeto, irParaPagina],
+  );
+  const mudarFormato = useCallback(
+    (id: FormatoId, adaptarCamadas: boolean) => {
+      const f = formatoDe(id);
+      if (!f) return;
+      setFormato(id);
+      setProjeto((p) => ({ ...p, paginas: p.paginas.map((d) => (d.w === f.w && d.h === f.h ? d : adaptarCamadas ? adaptar(d, f.w, f.h) : { ...d, w: f.w, h: f.h })) }), true, `Formato: ${f.curto}`);
+      setZoomManual(null);
+    },
+    [setProjeto],
+  );
+
+  // ───── Imagens que chegam de fora (arrastar, colar) ─────
+  const acrescentarArquivo = useCallback(
+    async (arquivo: File, em?: { x: number; y: number }) => {
+      if (!arquivo.type.startsWith("image/")) return;
+      try {
+        const src = await prepararImagem(arquivo);
+        const img = await carregarImagem(src);
+        const w = Math.min(doc.w * 0.6, img.width);
+        const h = (w * img.height) / img.width;
+        const pos = em ? { x: Math.round(em.x - w / 2), y: Math.round(em.y - h / 2) } : centro(w, h);
+        acrescentar(imagem({ ...pos, w, h, src, nome: arquivo.name.slice(0, 40) || "Imagem" }));
+      } catch {
+        avisar("Não deu para abrir esta imagem.", "erro");
+      }
+    },
+    [doc.w, centro, acrescentar, avisar],
+  );
+  useEffect(() => {
+    const colar = (e: ClipboardEvent) => {
       const alvo = e.target as HTMLElement;
       if (alvo && (alvo.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(alvo.tagName))) return;
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") {
+      const arquivo = [...(e.clipboardData?.files ?? [])].find((f) => f.type.startsWith("image/"));
+      if (arquivo) {
         e.preventDefault();
-        if (e.shiftKey) refazer();
-        else desfazer();
-      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "y") {
+        void acrescentarArquivo(arquivo);
+      }
+    };
+    window.addEventListener("paste", colar);
+    return () => window.removeEventListener("paste", colar);
+  }, [acrescentarArquivo]);
+
+  // ───── Teclado ─────
+  useEffect(() => {
+    const tecla = (e: KeyboardEvent) => {
+      if (janela) return;
+      const alvo = e.target as HTMLElement;
+      const digitando = alvo && (alvo.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(alvo.tagName));
+      const ctrl = e.ctrlKey || e.metaKey;
+      const k = e.key.toLowerCase();
+      if (ctrl && k === "s") {
         e.preventDefault();
-        refazer();
-      } else if ((e.ctrlKey || e.metaKey) && (e.key.toLowerCase() === "d" || e.key.toLowerCase() === "j") && camada) {
+        acoes.guardar();
+        return;
+      }
+      if (ctrl && k === "k") {
         e.preventDefault();
-        duplicar();
-      } else if (e.key === " " && !e.repeat) {
-        // Espaço segurado: a mão, para arrastar a tela.
+        setJanela("comandos");
+        return;
+      }
+      if (digitando) return;
+      const fazer = (f: () => void) => {
         e.preventDefault();
-        espaco.current = true;
-      } else if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === "v") {
-        setFerramenta("mover");
-      } else if (!e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === "t") {
-        setFerramenta("texto");
-      } else if ((e.key === "Delete" || e.key === "Backspace") && camada) {
-        e.preventDefault();
-        apagar();
-      } else if (e.key === "Escape") setSelecionado(null);
-      else if (camada && /^Arrow/.test(e.key)) {
+        f();
+      };
+      if (ctrl && k === "z") fazer(e.shiftKey ? refazer : desfazer);
+      else if (ctrl && k === "y") fazer(refazer);
+      else if (ctrl && e.altKey && k === "c") fazer(acoes.copiarEstilo);
+      else if (ctrl && e.altKey && k === "v") fazer(acoes.colarEstilo);
+      else if (ctrl && (k === "d" || k === "j")) fazer(acoes.duplicar);
+      else if (ctrl && k === "c") fazer(acoes.copiar);
+      else if (ctrl && k === "x") fazer(acoes.recortar);
+      else if (ctrl && k === "v") fazer(acoes.colar);
+      else if (ctrl && k === "g") fazer(e.shiftKey ? acoes.desagrupar : acoes.agrupar);
+      else if (ctrl && k === "a") fazer(acoes.tudo);
+      else if (ctrl && k === "e") fazer(acoes.baixar);
+      else if (ctrl && k === "l") fazer(acoes.travar);
+      else if (ctrl && e.shiftKey && k === "h") fazer(acoes.esconder);
+      else if (ctrl && e.key === "]") fazer(e.shiftKey ? acoes.topo : acoes.frente);
+      else if (ctrl && e.key === "[") fazer(e.shiftKey ? acoes.fundo : acoes.tras);
+      else if (ctrl && e.key === "0") fazer(acoes.encaixar);
+      else if (ctrl && e.key === "1") fazer(acoes.cem);
+      else if (ctrl && (e.key === "=" || e.key === "+")) fazer(acoes.aproximar);
+      else if (ctrl && e.key === "-") fazer(acoes.afastar);
+      else if (ctrl && e.key === ".") fazer(acoes.foco);
+      else if (e.key === "Tab" && !ctrl && !e.altKey && !e.shiftKey && focoPeloMouse.current && alvo === palco.current) fazer(acoes.foco);
+      else if (ctrl || e.altKey) return;
+      else if (e.key === "?") fazer(acoes.atalhos);
+      else if (e.shiftKey && k === "i") fazer(acoes.instagram);
+      else if (e.shiftKey && k === "g") fazer(acoes.grade);
+      else if (e.shiftKey && k === "m") fazer(acoes.margens);
+      else if (e.shiftKey && k === "r") fazer(acoes.reguas);
+      else if (k === "v") setFerramenta("mover");
+      else if (k === "t") setFerramenta("texto");
+      else if (k === "h") setFerramenta("mao");
+      else if (k === "p") fazer(acoes.previa);
+      else if (e.key === "PageDown") fazer(acoes.proximaPagina);
+      else if (e.key === "PageUp") fazer(acoes.paginaAnterior);
+      else if (e.key === " " && !e.repeat) fazer(() => (espaco.current = true));
+      else if ((e.key === "Delete" || e.key === "Backspace") && selecao.length) fazer(acoes.apagar);
+      else if (e.key === "Enter" && camada?.tipo === "texto") fazer(acoes.editarTexto);
+      else if (e.key === "Enter" && camada?.tipo === "imagem") fazer(() => setReenquadrar((r) => (r ? null : camada.id)));
+      else if (e.key === "Escape") {
+        if (reenquadrar) setReenquadrar(null);
+        else if (menu) setMenu(null);
+        else if (foco) setFoco(false);
+        else setSelecao([]);
+        pegarCorRef.current = null;
+        setPegando(false);
+      } else if (selecao.length && /^Arrow/.test(e.key)) {
         e.preventDefault();
         const passo = e.shiftKey ? 10 : 1;
-        mudar({ x: camada.x + (e.key === "ArrowRight" ? passo : e.key === "ArrowLeft" ? -passo : 0), y: camada.y + (e.key === "ArrowDown" ? passo : e.key === "ArrowUp" ? -passo : 0) });
+        const dx = e.key === "ArrowRight" ? passo : e.key === "ArrowLeft" ? -passo : 0;
+        const dy = e.key === "ArrowDown" ? passo : e.key === "ArrowUp" ? -passo : 0;
+        setDoc((d) => ({ ...d, camadas: d.camadas.map((c) => (selecao.includes(c.id) && !c.travada ? { ...c, x: c.x + dx, y: c.y + dy } : c)) }), true, "Moveu com as setas");
       }
     };
     const soltarTecla = (e: KeyboardEvent) => {
@@ -269,53 +1009,118 @@ export function Estudio({ me }: { me: Me }) {
       window.removeEventListener("keydown", tecla);
       window.removeEventListener("keyup", soltarTecla);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [camada, mudar, desfazer, refazer]);
+  }, [acoes, janela, selecao, camada, reenquadrar, menu, foco, desfazer, refazer, setDoc]);
 
-  function ajustarAltura(c: Camada): Camada {
-    if (c.tipo !== "texto") return c;
-    return { ...c, h: alturaDoTexto(c) };
-  }
-
-  const ponto = (e: React.PointerEvent) => {
+  // ───── Mouse e toque ─────
+  const ponto = (e: { clientX: number; clientY: number }) => {
     const r = tela.current!.getBoundingClientRect();
     return { x: (e.clientX - r.left) / escala, y: (e.clientY - r.top) / escala };
   };
+  /** As camadas que andam juntas com esta (o grupo dela), a menos que Ctrl esteja apertado. */
+  const comGrupo = (c: Camada, sozinha: boolean) => (sozinha || !c.grupo ? [c.id] : doc.camadas.filter((k) => k.grupo === c.grupo).map((k) => k.id));
 
   function apontar(e: React.PointerEvent<HTMLCanvasElement>) {
-    if (espaco.current && moldura.current) {
-      mao.current = { x0: e.clientX, y0: e.clientY, sl: moldura.current.scrollLeft, st: moldura.current.scrollTop };
+    focoPeloMouse.current = true;
+    palco.current?.focus({ preventScroll: true });
+    setMenu(null);
+    if (e.pointerType === "touch") {
+      toques.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (toques.current.size === 2) {
+        // Dois dedos: pinça para aproximar e arrastar a tela.
+        const [a, b] = [...toques.current.values()];
+        pinca.current = { d: Math.hypot(a.x - b.x, a.y - b.y), escala };
+        mao.current = palco.current ? { x0: (a.x + b.x) / 2, y0: (a.y + b.y) / 2, sl: palco.current.scrollLeft, st: palco.current.scrollTop } : null;
+        arrasto.current = null;
+        return;
+      }
+    }
+    const p = ponto(e);
+    if (pegarCorRef.current) {
+      const ctx = tela.current?.getContext("2d");
+      if (ctx) {
+        const r = tela.current!.getBoundingClientRect();
+        const [rr, gg, bb] = ctx.getImageData(Math.round((e.clientX - r.left) * dpr), Math.round((e.clientY - r.top) * dpr), 1, 1).data;
+        pegarCorRef.current(`#${[rr, gg, bb].map((v) => v.toString(16).padStart(2, "0")).join("")}`);
+      }
+      pegarCorRef.current = null;
+      setPegando(false);
+      return;
+    }
+    if (espaco.current || ferramenta === "mao" || e.button === 1) {
+      if (palco.current) mao.current = { x0: e.clientX, y0: e.clientY, sl: palco.current.scrollLeft, st: palco.current.scrollTop };
       tela.current?.setPointerCapture(e.pointerId);
       return;
     }
-    const p = ponto(e);
+    if (e.button === 2) return;
     if (ferramenta === "texto") {
-      const largura = Math.min(doc.w - p.x, doc.w * 0.6);
-      acrescentar(texto({ x: p.x, y: p.y, w: Math.max(80, largura), texto: "Escreva aqui", fonte: "serifa", tamanho: Math.round(doc.w / 100) * 4, peso: 400 }));
+      const largura = Math.max(120, Math.min(doc.w - p.x, doc.w * 0.6));
+      const nova = texto({ x: Math.round(p.x), y: Math.round(p.y), w: largura, texto: "Escreva aqui", fonte: "serifa", tamanho: Math.round(doc.w / 100) * 4, peso: 400 });
+      acrescentar(nova);
       setFerramenta("mover");
-      window.setTimeout(() => document.getElementById("estudio-texto")?.focus(), 50);
+      window.setTimeout(() => setEditando(nova.id), 30);
       return;
     }
-    if (camada) {
-      const alca = alcas(camada, escala).find((a) => Math.hypot((a.x - p.x) * escala, (a.y - p.y) * escala) <= 10);
+    if (reenquadrar) {
+      const alvoR = doc.camadas.find((c) => c.id === reenquadrar);
+      if (alvoR && camadasEm(doc, p.x, p.y).some((c) => c.id === reenquadrar)) {
+        arrasto.current = { modo: "enquadre", x0: p.x, y0: p.y, inicio: [alvoR], mexeu: false };
+        tela.current?.setPointerCapture(e.pointerId);
+        return;
+      }
+      setReenquadrar(null);
+    }
+    // Alças da seleção (uma camada: redimensiona e gira; várias: escala o conjunto).
+    const livres = selecionadas.filter((c) => !c.travada);
+    if (livres.length) {
+      const alvoDasAlcas = livres.length === 1 ? livres[0] : caixaDeVarias(livres);
+      const alca = alcas(alvoDasAlcas, escala, livres.length === 1).find((a) => Math.hypot((a.x - p.x) * escala, (a.y - p.y) * escala) <= (e.pointerType === "touch" ? 18 : 10));
       if (alca) {
-        arrasto.current = { modo: alca.id === "rot" ? "girar" : "redimensionar", alca: alca.id, x0: p.x, y0: p.y, inicio: camada, mexeu: false };
+        arrasto.current = { modo: alca.id === "rot" ? "girar" : livres.length === 1 ? "redimensionar" : "escalar", alca: alca.id, x0: p.x, y0: p.y, inicio: livres, mexeu: false, caixa: livres.length > 1 ? caixaDeVarias(livres) : undefined };
         tela.current?.setPointerCapture(e.pointerId);
         return;
       }
     }
-    const alvo = camadaEm(doc, p.x, p.y);
-    setSelecionado(alvo?.id ?? null);
-    if (alvo) {
-      arrasto.current = { modo: "mover", x0: p.x, y0: p.y, inicio: alvo, mexeu: false };
+    let alvo = camadaEm(doc, p.x, p.y);
+    if (e.altKey) {
+      // Alt+clique: a próxima camada empilhada sob o ponto.
+      const pilha = camadasEm(doc, p.x, p.y);
+      if (pilha.length) {
+        const atual = pilha.findIndex((c) => selecao.includes(c.id));
+        alvo = pilha[(atual + 1) % pilha.length];
+      }
+    }
+    if (!alvo) {
+      if (!e.shiftKey) setSelecao([]);
+      arrasto.current = { modo: "selecao", x0: p.x, y0: p.y, inicio: [], mexeu: false };
+      tela.current?.setPointerCapture(e.pointerId);
+      return;
+    }
+    const ids = comGrupo(alvo, e.ctrlKey || e.metaKey || e.altKey);
+    let nova = selecao;
+    if (e.shiftKey) nova = ids.every((id) => selecao.includes(id)) ? selecao.filter((id) => !ids.includes(id)) : [...new Set([...selecao, ...ids])];
+    else if (!selecao.includes(alvo.id) || e.altKey) nova = ids;
+    setSelecao(nova);
+    if (nova.length) setFolhaAberta(true);
+    const andam = doc.camadas.filter((c) => nova.includes(c.id) && !c.travada);
+    if (andam.length) {
+      arrasto.current = { modo: "mover", x0: p.x, y0: p.y, inicio: andam, mexeu: false };
       tela.current?.setPointerCapture(e.pointerId);
     }
   }
 
   function arrastar(e: React.PointerEvent<HTMLCanvasElement>) {
-    if (mao.current && moldura.current) {
-      moldura.current.scrollLeft = mao.current.sl - (e.clientX - mao.current.x0);
-      moldura.current.scrollTop = mao.current.st - (e.clientY - mao.current.y0);
+    if (e.pointerType === "touch" && toques.current.has(e.pointerId)) {
+      toques.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (toques.current.size === 2 && pinca.current && palco.current) {
+        const [a, b] = [...toques.current.values()];
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        zoomEm(pinca.current.escala * (d / pinca.current.d), (a.x + b.x) / 2, (a.y + b.y) / 2);
+        return;
+      }
+    }
+    if (mao.current && palco.current && !pinca.current) {
+      palco.current.scrollLeft = mao.current.sl - (e.clientX - mao.current.x0);
+      palco.current.scrollTop = mao.current.st - (e.clientY - mao.current.y0);
       return;
     }
     const a = arrasto.current;
@@ -325,36 +1130,83 @@ export function Estudio({ me }: { me: Me }) {
     const dy = p.y - a.y0;
     if (!a.mexeu && Math.hypot(dx * escala, dy * escala) < 3) return;
     a.mexeu = true;
-    const c = a.inicio;
-    let mudanca: Partial<Camada> = {};
+    if (a.modo === "selecao") {
+      setMarquise({ x: Math.min(a.x0, p.x), y: Math.min(a.y0, p.y), w: Math.abs(dx), h: Math.abs(dy) });
+      return;
+    }
+    const oito = (v: number) => (ajudas.oito && !e.altKey ? Math.round(v / 8) * 8 : v);
+    if (a.modo === "enquadre") {
+      const c = a.inicio[0] as CamadaImagem;
+      const img = imagemPronta(c.src);
+      if (!img) return;
+      const pos = posicaoDaFoto(c, img.naturalWidth, img.naturalHeight, c.w, c.h);
+      const folgaX = Math.max(1, (pos.w - c.w) / 2);
+      const folgaY = Math.max(1, (pos.h - c.h) / 2);
+      const ex = Math.min(1, Math.max(-1, (c.enquadre?.x ?? 0) - dx / folgaX));
+      const ey = Math.min(1, Math.max(-1, (c.enquadre?.y ?? 0) - dy / folgaY));
+      setDoc((d) => ({ ...d, camadas: d.camadas.map((k) => (k.id === c.id ? { ...k, enquadre: { x: ex, y: ey, zoom: (k as CamadaImagem).enquadre?.zoom ?? 1 } } : k)) }), false);
+      return;
+    }
     if (a.modo === "mover") {
-      let x = c.x + (e.shiftKey && Math.abs(dx) < Math.abs(dy) ? 0 : dx);
-      let y = c.y + (e.shiftKey && Math.abs(dy) <= Math.abs(dx) ? 0 : dy);
-      // Imã: bordas e centro da página e das outras camadas visíveis; as guias mostram onde encaixou.
+      const b = caixaDeVarias(a.inicio);
+      let mx = e.shiftKey && Math.abs(dx) < Math.abs(dy) ? 0 : dx;
+      let my = e.shiftKey && Math.abs(dy) <= Math.abs(dx) ? 0 : dy;
+      // Ímã: bordas, centro e margens da página e das outras camadas; as guias mostram onde encaixou.
       const ima = 8 / escala;
-      const outras = doc.camadas.filter((k) => k.id !== c.id && !k.oculta);
-      const linhasV = [0, doc.w / 2, doc.w, ...outras.flatMap((k) => [k.x, k.x + k.w / 2, k.x + k.w])];
-      const linhasH = [0, doc.h / 2, doc.h, ...outras.flatMap((k) => [k.y, k.y + k.h / 2, k.y + k.h])];
+      const ids = new Set(a.inicio.map((c) => c.id));
+      const outras = doc.camadas.filter((k) => !ids.has(k.id) && !k.oculta).map(caixa);
+      const margem = 80 * (doc.w / 1080);
+      const linhasV = [0, doc.w / 2, doc.w, margem, doc.w - margem, ...outras.flatMap((k) => [k.x, k.x + k.w / 2, k.x + k.w])];
+      const linhasH = [0, doc.h / 2, doc.h, margem, doc.h - margem, ...outras.flatMap((k) => [k.y, k.y + k.h / 2, k.y + k.h])];
       const encaixar = (pos: number, tamanho: number, linhas: number[]) => {
         let melhor: { pos: number; linha: number; d: number } | null = null;
-        for (const borda of [0, tamanho / 2, tamanho]) for (const l of linhas) {
-          const d = Math.abs(pos + borda - l);
-          if (d < ima && (!melhor || d < melhor.d)) melhor = { pos: l - borda, linha: l, d };
-        }
+        for (const borda of [0, tamanho / 2, tamanho])
+          for (const l of linhas) {
+            const dist = Math.abs(pos + borda - l);
+            if (dist < ima && (!melhor || dist < melhor.d)) melhor = { pos: l - borda, linha: l, d: dist };
+          }
         return melhor;
       };
-      const ex = encaixar(x, c.w, linhasV);
-      const ey = encaixar(y, c.h, linhasH);
-      if (ex) x = ex.pos;
-      if (ey) y = ey.pos;
+      const ex = e.altKey ? null : encaixar(b.x + mx, b.w, linhasV);
+      const ey = e.altKey ? null : encaixar(b.y + my, b.h, linhasH);
+      if (ex) mx = ex.pos - b.x;
+      else mx = oito(b.x + mx) - b.x;
+      if (ey) my = ey.pos - b.y;
+      else my = oito(b.y + my) - b.y;
       setGuias(ex || ey ? { v: ex ? [ex.linha] : [], h: ey ? [ey.linha] : [] } : null);
-      mudanca = { x, y };
-    } else if (a.modo === "girar") {
+      const novos = new Map(a.inicio.map((c) => [c.id, { x: c.x + mx, y: c.y + my }]));
+      setDoc((d) => ({ ...d, camadas: d.camadas.map((k) => (novos.has(k.id) ? { ...k, ...novos.get(k.id)! } : k)) }), false);
+      return;
+    }
+    if (a.modo === "escalar" && a.caixa && a.alca) {
+      // Várias camadas: escala tudo junto a partir do canto oposto.
+      const b = a.caixa;
+      const al = a.alca;
+      const ax = al.includes("w") ? b.x + b.w : al.includes("e") ? b.x : b.x + b.w / 2;
+      const ay = al.includes("n") ? b.y + b.h : al.includes("s") ? b.y : b.y + b.h / 2;
+      const sx = al.includes("e") || al.includes("w") ? Math.max(0.05, (b.w + (al.includes("e") ? dx : -dx)) / b.w) : 1;
+      const sy = al.includes("n") || al.includes("s") ? Math.max(0.05, (b.h + (al.includes("s") ? dy : -dy)) / b.h) : 1;
+      const fx = al.length === 2 ? Math.max(sx, sy) : sx;
+      const fy = al.length === 2 ? Math.max(sx, sy) : sy;
+      const novos = new Map(
+        a.inicio.map((c) => {
+          const nova = { ...c, x: ax + (c.x - ax) * fx, y: ay + (c.y - ay) * fy, w: c.w * fx, h: c.h * fy } as Camada;
+          if (nova.tipo === "texto") nova.tamanho = Math.max(4, nova.tamanho * Math.min(fx, fy));
+          return [c.id, ajustarAltura(nova)];
+        }),
+      );
+      setDoc((d) => ({ ...d, camadas: d.camadas.map((k) => novos.get(k.id) ?? k) }), false);
+      return;
+    }
+    const c = a.inicio[0];
+    let mudanca: Partial<Camada> = {};
+    if (a.modo === "girar") {
       const cx = c.x + c.w / 2;
       const cy = c.y + c.h / 2;
       let graus = (Math.atan2(p.y - cy, p.x - cx) * 180) / Math.PI + 90;
       if (e.shiftKey) graus = Math.round(graus / 15) * 15;
-      if (Math.abs(((graus % 360) + 360) % 360) < 3) graus = 0;
+      graus = (((graus % 360) + 540) % 360) - 180;
+      if (Math.abs(graus) < 2) graus = 0;
       mudanca = { rot: Math.round(graus * 10) / 10 };
     } else if (a.alca) {
       // Redimensiona nos eixos da própria camada (vale com rotação).
@@ -365,15 +1217,21 @@ export function Estudio({ me }: { me: Me }) {
       let h = c.h;
       let x = c.x;
       let y = c.y;
-      const fixa = c.tipo === "imagem" || c.tipo === "marca" || e.shiftKey;
-      if (a.alca.includes("e")) w = Math.max(10, c.w + lx);
-      if (a.alca.includes("w")) w = Math.max(10, c.w - lx);
-      if (a.alca.includes("s")) h = Math.max(10, c.h + ly);
-      if (a.alca.includes("n")) h = Math.max(10, c.h - ly);
+      const proporcional = c.tipo === "imagem" || c.tipo === "marca" || (c.tipo === "elemento" && !["pincelada", "fita", "ornamento", "figurinha", "raios-traco"].includes(c.desenho));
+      const fixa = proporcional ? !e.shiftKey : e.shiftKey;
+      if (a.alca.includes("e")) w = Math.max(8, c.w + lx);
+      if (a.alca.includes("w")) w = Math.max(8, c.w - lx);
+      if (a.alca.includes("s")) h = Math.max(8, c.h + ly);
+      if (a.alca.includes("n")) h = Math.max(8, c.h - ly);
       if (fixa && a.alca.length === 2) {
         const razao = c.w / c.h;
         if (Math.abs(w - c.w) > Math.abs(h - c.h)) h = w / razao;
         else w = h * razao;
+      } else if (ajudas.oito && !e.altKey && c.rot === 0) {
+        if (a.alca.includes("e")) w = Math.max(8, oito(c.x + w) - c.x);
+        if (a.alca.includes("w")) w = Math.max(8, c.x + c.w - oito(c.x + c.w - w));
+        if (a.alca.includes("s")) h = Math.max(8, oito(c.y + h) - c.y);
+        if (a.alca.includes("n")) h = Math.max(8, c.y + c.h - oito(c.y + c.h - h));
       }
       if (c.rot === 0) {
         if (a.alca.includes("w")) x = c.x + (c.w - w);
@@ -382,22 +1240,42 @@ export function Estudio({ me }: { me: Me }) {
         x = c.x + (c.w - w) / 2;
         y = c.y + (c.h - h) / 2;
       }
-      mudanca = c.tipo === "texto" ? { x, y, w } : { x, y, w, h };
+      // Texto: os cantos mudam o tamanho da letra junto; os lados, só a largura da caixa.
+      if (c.tipo === "texto" && !c.ajustar) mudanca = a.alca.length === 2 ? { x, y, w, tamanho: Math.max(4, c.tamanho * (w / c.w)) } : { x, y, w };
+      else mudanca = { x, y, w, h };
     }
     setDoc((d) => ({ ...d, camadas: d.camadas.map((k) => (k.id === c.id ? ajustarAltura({ ...k, ...mudanca } as Camada) : k)) }), false);
   }
 
   function soltar(e: React.PointerEvent<HTMLCanvasElement>) {
+    toques.current.delete(e.pointerId);
+    if (toques.current.size < 2) pinca.current = null;
     const a = arrasto.current;
     arrasto.current = null;
     mao.current = null;
     setGuias(null);
-    tela.current?.releasePointerCapture(e.pointerId);
-    if (!a?.mexeu) return;
-    // O passo inteiro do arrasto vira uma entrada só no histórico.
-    const rotulo = `${a.modo === "mover" ? "Moveu" : a.modo === "girar" ? "Girou" : "Redimensionou"}: ${nomeDaCamada(a.inicio)}`;
-    setDocBruto((atual) => {
-      historico.current.passado = [...historico.current.passado.slice(-59), { doc: { ...atual, camadas: atual.camadas.map((k) => (k.id === a.inicio.id ? a.inicio : k)) }, rotulo }];
+    if (tela.current?.hasPointerCapture(e.pointerId)) tela.current.releasePointerCapture(e.pointerId);
+    if (!a) return;
+    if (a.modo === "selecao") {
+      const m = marquise;
+      if (m && m.w > 2 && m.h > 2) {
+        const dentro = doc.camadas.filter((c) => {
+          if (c.travada || c.oculta) return false;
+          const b = caixa(c);
+          return b.x < m.x + m.w && b.x + b.w > m.x && b.y < m.y + m.h && b.y + b.h > m.y;
+        });
+        setSelecao((s) => [...new Set([...(e.shiftKey ? s : []), ...dentro.map((c) => c.id)])]);
+      }
+      setMarquise(null);
+      return;
+    }
+    if (!a.mexeu) return;
+    // O arrasto inteiro vira um passo só no histórico.
+    const rotulo = `${a.modo === "mover" ? "Moveu" : a.modo === "girar" ? "Girou" : a.modo === "enquadre" ? "Reenquadrou" : "Redimensionou"}: ${a.inicio.length > 1 ? `${a.inicio.length} camadas` : nomeDaCamada(a.inicio[0])}`;
+    const antes = new Map(a.inicio.map((c) => [c.id, c]));
+    setProjetoBruto((atual) => {
+      const passado = { ...atual, paginas: atual.paginas.map((d, i) => (i === paginaRef.current ? { ...d, camadas: d.camadas.map((k) => antes.get(k.id) ?? k) } : d)) };
+      historico.current.passado = [...historico.current.passado.slice(-79), { projeto: passado, pagina: paginaRef.current, rotulo }];
       historico.current.futuro = [];
       return atual;
     });
@@ -405,651 +1283,385 @@ export function Estudio({ me }: { me: Me }) {
     sincronizar();
   }
 
-  function acrescentar(nova: Camada) {
-    const c = ajustarAltura(nova);
-    setDoc((d) => ({ ...d, camadas: [...d.camadas, c] }));
-    setSelecionado(c.id);
+  function rodinha(e: React.WheelEvent<HTMLDivElement>) {
+    if (e.ctrlKey || e.metaKey) zoomEm(escala * Math.exp(-e.deltaY * 0.0022), e.clientX, e.clientY);
+    else if (reenquadrar && camada?.id === reenquadrar && camada.tipo === "imagem") {
+      const z = Math.min(4, Math.max(1, (camada.enquadre?.zoom ?? 1) * Math.exp(-e.deltaY * 0.0018)));
+      mudarCamada(camada.id, { enquadre: { x: camada.enquadre?.x ?? 0, y: camada.enquadre?.y ?? 0, zoom: z } }, false);
+    }
   }
-  function duplicar() {
-    if (!camada) return;
-    const copia = { ...camada, id: novoId(), x: camada.x + 24, y: camada.y + 24 };
-    setDoc((d) => ({ ...d, camadas: [...d.camadas, copia] }));
-    setSelecionado(copia.id);
-  }
-  function apagar() {
-    if (!camada) return;
-    setDoc((d) => ({ ...d, camadas: d.camadas.filter((c) => c.id !== camada.id) }));
-    setSelecionado(null);
-  }
-  function ordenar(para: "frente" | "tras" | "topo" | "fundo") {
-    if (!camada) return;
-    setDoc((d) => {
-      const lista = d.camadas.filter((c) => c.id !== camada.id);
-      const i = d.camadas.findIndex((c) => c.id === camada.id);
-      const alvo = para === "topo" ? lista.length : para === "fundo" ? 0 : para === "frente" ? Math.min(lista.length, i + 1) : Math.max(0, i - 1);
-      lista.splice(alvo, 0, camada);
-      return { ...d, camadas: lista };
-    });
-  }
-  function alinhar(como: "esq" | "centro" | "dir" | "cima" | "meio" | "baixo") {
-    if (!camada) return;
-    const m = { esq: { x: 0 }, centro: { x: doc.w / 2 - camada.w / 2 }, dir: { x: doc.w - camada.w }, cima: { y: 0 }, meio: { y: doc.h / 2 - camada.h / 2 }, baixo: { y: doc.h - camada.h } }[como];
-    mudar(m);
+  // O navegador só deixa impedir a rolagem e o zoom da página num ouvinte que não é "passivo".
+  useEffect(() => {
+    const el = palco.current;
+    if (!el) return;
+    const impedir = (e: WheelEvent) => {
+      if (e.ctrlKey || e.metaKey || (reenquadrar && e.target === tela.current)) e.preventDefault();
+    };
+    el.addEventListener("wheel", impedir, { passive: false });
+    return () => el.removeEventListener("wheel", impedir);
+  }, [reenquadrar]);
+
+  function menuDeContexto(e: React.MouseEvent<HTMLCanvasElement>) {
+    e.preventDefault();
+    const p = ponto(e);
+    const alvo = camadaEm(doc, p.x, p.y);
+    if (alvo && !selecao.includes(alvo.id)) setSelecao(comGrupo(alvo, false));
+    const r = palco.current!.getBoundingClientRect();
+    setMenu({ x: e.clientX - r.left + palco.current!.scrollLeft, y: e.clientY - r.top + palco.current!.scrollTop });
   }
 
-  function usarModelo(modelo: Modelo) {
-    if (doc.camadas.length > 0 && !window.confirm("Trocar pelo modelo? O que está na tela sai (dá para desfazer).")) return;
-    const novo = modelo.montar();
-    setDoc({ ...novo, camadas: novo.camadas.map(ajustarAltura) }, true, `Modelo: ${modelo.nome}`);
-    setFormato(modelo.formato);
-    setTitulo(modelo.nome);
-    setSelecionado(null);
-    setIdSalvo(null);
-    setMexido(false);
-  }
-  function mudarFormato(id: FormatoId) {
-    const f = FORMATOS.find((x) => x.id === id);
-    if (!f) return;
-    setFormato(id);
-    setDoc((d) => ({ ...d, w: f.w, h: f.h }));
-  }
+  // ───── O editor, para os painéis ─────
+  const editor: Editor = {
+    me,
+    projeto,
+    doc,
+    pagina,
+    titulo,
+    setTitulo: (t) => {
+      setTitulo(t);
+      setMexido(true);
+    },
+    formato,
+    selecionadas,
+    camada,
+    selecionar,
+    setProjeto,
+    setDoc,
+    mudar,
+    mudarCamada,
+    acrescentar,
+    ajustarAltura,
+    acoes,
+    irParaPagina,
+    usarModelo,
+    mudarFormato,
+    avisar,
+    progresso,
+    gaveta,
+    setGaveta,
+    janela,
+    setJanela,
+    ajudas,
+    setAjudas,
+    simples,
+    setSimples,
+    pegarCor: (devolver) => {
+      pegarCorRef.current = devolver;
+      setPegando(true);
+      avisar("Conta-gotas: clique num ponto da arte.", "info");
+    },
+    idSalvo,
+    guardar: () => guardar(),
+    vars,
+    editarFoto: (id) => setFotoEmEdicao(id),
+    reenquadrar,
+    setReenquadrar,
+    editarTexto: (id) => {
+      setSelecao([id]);
+      setEditando(id);
+    },
+    abrir: (a) => {
+      if (mexido && !window.confirm("Trocar de trabalho? O que não foi guardado continua no rascunho deste aparelho só até a próxima mudança.")) return;
+      void abrir(a);
+    },
+    mexido,
+  };
 
-  const centro = (w: number, h: number) => ({ x: Math.round(doc.w / 2 - w / 2), y: Math.round(doc.h / 2 - h / 2) });
-  const u = doc.w / 100;
+  const comandos: Comando[] = useMemo(
+    () => [
+      { id: "guardar", nome: "Guardar", icone: "check", atalho: "Ctrl+S" },
+      { id: "baixar", nome: "Baixar", icone: "baixar", atalho: "Ctrl+E" },
+      { id: "previa", nome: "Pré-visualizar", icone: "olho", atalho: "P" },
+      { id: "conferir", nome: "Conferir antes de postar", icone: "verificar" },
+      { id: "desfazer", nome: "Desfazer", icone: "desfazer", atalho: "Ctrl+Z" },
+      { id: "refazer", nome: "Refazer", icone: "refazer", atalho: "Ctrl+Shift+Z" },
+      { id: "duplicar", nome: "Duplicar", icone: "duplicar", atalho: "Ctrl+D" },
+      { id: "apagar", nome: "Apagar", icone: "lixeira", atalho: "Delete" },
+      { id: "copiar", nome: "Copiar", icone: "copiar", atalho: "Ctrl+C" },
+      { id: "colar", nome: "Colar", icone: "colar", atalho: "Ctrl+V" },
+      { id: "copiarEstilo", nome: "Copiar estilo", icone: "copiar-estilo", atalho: "Ctrl+Alt+C" },
+      { id: "colarEstilo", nome: "Colar estilo", icone: "copiar-estilo", atalho: "Ctrl+Alt+V" },
+      { id: "agrupar", nome: "Agrupar", icone: "agrupar", atalho: "Ctrl+G" },
+      { id: "desagrupar", nome: "Desagrupar", icone: "desagrupar", atalho: "Ctrl+Shift+G" },
+      { id: "tudo", nome: "Selecionar tudo", icone: "camadas", atalho: "Ctrl+A" },
+      { id: "travar", nome: "Travar ou destravar", icone: "cadeado", atalho: "Ctrl+L" },
+      { id: "esconder", nome: "Esconder ou mostrar", icone: "olho-fechado", atalho: "Ctrl+Shift+H" },
+      { id: "frente", nome: "Trazer para a frente", icone: "frente", atalho: "Ctrl+]" },
+      { id: "tras", nome: "Mandar para trás", icone: "tras", atalho: "Ctrl+[" },
+      { id: "alinhar-centro-h", nome: "Centralizar na horizontal", icone: "alinhar-centro-h" },
+      { id: "alinhar-meio", nome: "Centralizar na vertical", icone: "alinhar-meio" },
+      { id: "distribuir-h", nome: "Distribuir na horizontal", icone: "distribuir-h" },
+      { id: "distribuir-v", nome: "Distribuir na vertical", icone: "distribuir-v" },
+      { id: "editarTexto", nome: "Editar o texto na arte", icone: "texto", atalho: "Enter" },
+      { id: "reenquadrar", nome: "Reenquadrar a foto", icone: "enquadrar", atalho: "Enter" },
+      { id: "editarFoto", nome: "Recortar ou tirar o fundo da foto", icone: "remover-fundo" },
+      { id: "novaPagina", nome: "Nova página", icone: "pagina" },
+      { id: "duplicarPagina", nome: "Duplicar página", icone: "paginas" },
+      { id: "apagarPagina", nome: "Apagar página", icone: "lixeira" },
+      { id: "proximaPagina", nome: "Próxima página", icone: "seta-dir", atalho: "PageDown" },
+      { id: "paginaAnterior", nome: "Página anterior", icone: "seta-esq", atalho: "PageUp" },
+      { id: "versaoB", nome: "Criar versão B (teste A/B)", icone: "ab" },
+      { id: "idioma", nome: "Versão em outro idioma", icone: "idioma" },
+      { id: "lote", nome: "Gerar várias artes de uma lista", icone: "lista" },
+      { id: "historicoDeVersoes", nome: "Versões guardadas", icone: "historico" },
+      { id: "revisao", nome: "Revisão e comentários", icone: "comentario" },
+      { id: "publicar", nome: "Publicar no Instagram", icone: "publicar" },
+      { id: "encaixar", nome: "Encaixar na tela", icone: "ajustar", atalho: "Ctrl+0" },
+      { id: "cem", nome: "Tamanho real (100%)", icone: "lupa", atalho: "Ctrl+1" },
+      { id: "aproximar", nome: "Aproximar", icone: "mais", atalho: "Ctrl++" },
+      { id: "afastar", nome: "Afastar", icone: "menos", atalho: "Ctrl+-" },
+      { id: "instagram", nome: "Guias do Instagram", icone: "guias", atalho: "Shift+I" },
+      { id: "grade", nome: "Grade", icone: "grade", atalho: "Shift+G" },
+      { id: "margens", nome: "Margens da marca", icone: "moldura", atalho: "Shift+M" },
+      { id: "reguas", nome: "Réguas", icone: "regua", atalho: "Shift+R" },
+      { id: "oito", nome: "Encaixar de 8 em 8", icone: "grade" },
+      { id: "ferramentaMover", nome: "Ferramenta mover", icone: "mover", atalho: "V" },
+      { id: "ferramentaTexto", nome: "Ferramenta texto", icone: "texto", atalho: "T" },
+      { id: "ferramentaMao", nome: "Ferramenta mão (arrastar a tela)", icone: "maos", atalho: "H" },
+      { id: "foco", nome: "Modo foco (só a arte)", icone: "foco", atalho: "Tab" },
+      { id: "temaDaInterface", nome: "Interface clara ou escura", icone: "lua" },
+      { id: "simples", nome: "Modo simples", icone: "lampada" },
+      { id: "atalhos", nome: "Atalhos do teclado", icone: "teclado", atalho: "?" },
+      { id: "sair", nome: "Sair do estúdio", icone: "seta-esq" },
+    ],
+    [],
+  );
 
-  async function escolherImagem(f: File | undefined) {
-    if (!f) return;
-    try {
-      const src = await prepararImagem(f);
-      const img = await carregarImagem(src);
-      const w = Math.min(doc.w * 0.6, img.width);
-      const h = (w * img.height) / img.width;
-      acrescentar(imagem({ ...centro(w, h), w, h, src, nome: f.name.slice(0, 40) }));
-    } catch {
-      setAviso("Não deu para abrir esta imagem.");
-    } finally {
-      if (arquivo.current) arquivo.current.value = "";
-    }
-  }
-  async function imagemDaGaleria(src: string, credito: string) {
-    try {
-      const img = await carregarImagem(src);
-      const w = Math.min(doc.w * 0.5, img.width);
-      const h = (w * img.height) / img.width;
-      acrescentar(imagem({ ...centro(w, h), w, h, src, credito, borda: COR.Tinta, espessura: Math.max(2, Math.round(u * 0.4)), nome: "Cartaz" }));
-    } catch {
-      setAviso("Não deu para carregar a imagem.");
-    }
-  }
-  async function procurar() {
-    const termo = busca.trim();
-    if (termo.length < 3) return;
-    setBuscando(true);
-    setAchados(null);
-    try {
-      const r = await fetch(`/api/imagens?q=${encodeURIComponent(termo)}`);
-      const dados = (await r.json()) as { achados?: Achado[] };
-      setAchados(dados.achados ?? []);
-    } catch {
-      setAchados([]);
-    } finally {
-      setBuscando(false);
-    }
-  }
+  const largura = doc.w * escala;
+  const altura = doc.h * escala;
+  const margemPalco = celular ? 16 : MARGEM_DO_PALCO;
+  const interno = { w: Math.max(tamanhoDoPalco.w, largura + 2 * margemPalco), h: Math.max(tamanhoDoPalco.h, altura + CABECA_DO_PALCO + (celular ? 24 : 92)) };
+  const esquerda = Math.max(margemPalco, (interno.w - largura) / 2);
+  const topo = Math.max(CABECA_DO_PALCO, (interno.h - altura) / 2 + (celular ? 0 : 6));
+  const editandoCamada = editando ? (doc.camadas.find((c) => c.id === editando) as CamadaTexto | undefined) : undefined;
 
-  function baixarArquivo(blob: Blob, nome: string) {
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = nome;
-    a.click();
-    window.setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-  }
-  async function baixar(tipo: "png" | "jpeg") {
-    try {
-      const blob = await exportar(doc, tipo, formato === "capa-podcast" ? 1 : 1);
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = `${nomeDeArquivo(titulo)}-${doc.w}x${doc.h}.${tipo === "png" ? "png" : "jpg"}`;
-      a.click();
-      window.setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-    } catch {
-      setAviso("Não deu para exportar.");
-    }
-  }
-  /** A mesma arte em post, story e quadrado, num .zip (os textos refazem as linhas; confira antes de publicar). */
-  async function exportarEmLote() {
-    try {
-      setAviso("Preparando os três formatos…");
-      const alvos = FORMATOS.filter((f) => f.id === "post" || f.id === "story" || f.id === "quadrado");
-      const arquivos = [];
-      for (const f of alvos) {
-        const versao = doc.w === f.w && doc.h === f.h ? doc : adaptar(doc, f.w, f.h);
-        arquivos.push({ nome: `${nomeDeArquivo(titulo)}-${f.id}-${f.w}x${f.h}.png`, dados: await exportar(versao, "png") });
-      }
-      baixarArquivo(await ziparBinarios(arquivos), `${nomeDeArquivo(titulo)}-formatos.zip`);
-      setAviso("Pronto: post, story e quadrado no .zip. Confira cada um: em formato diferente, o texto pode ter quebrado em outro lugar.");
-    } catch {
-      setAviso("Não deu para exportar os formatos.");
-    }
-  }
-  /** O PSD da arte (camadas com nome, textos editáveis quando dá), para continuar no editor avançado. */
-  async function abrirNoEditorAvancado(d: Documento = doc, nome = titulo) {
-    try {
-      setAviso("Montando o PSD…");
-      baixarArquivo(await paraPsd(d), `${nomeDeArquivo(nome)}.psd`);
-      const endereco = enderecoDo("photocraft");
-      if (endereco) window.open(endereco, "_blank", "noopener");
-      setAviso(endereco
-        ? "PSD baixado. O editor avançado abriu em outra aba: abra o arquivo nele (File › Open… ou arrastando para a janela). Fontes: EB Garamond, Inter e IBM Plex Mono (Google Fonts, livres)."
-        : "PSD baixado. O editor avançado ainda não está no ar no endereço do instituto; o arquivo abre em qualquer editor que leia PSD. Fontes: EB Garamond, Inter e IBM Plex Mono (Google Fonts, livres).");
-    } catch {
-      setAviso("Não deu para montar o PSD.");
-    }
-  }
-  async function imprimir() {
-    try {
-      const blob = await exportar(doc, "png");
-      const url = URL.createObjectURL(blob);
-      const janela = window.open("", "_blank");
-      if (!janela) return;
-      janela.document.write(`<!doctype html><html><head><title>${titulo.replace(/</g, "&lt;")}</title><style>@page{margin:0}body{margin:0;display:flex;align-items:center;justify-content:center;min-height:100vh}img{max-width:100%;max-height:100vh}</style></head><body><img alt="" src="${url}" onload="setTimeout(function(){window.print()},300)"></body></html>`);
-      janela.document.close();
-    } catch {
-      setAviso("Não deu para preparar a impressão.");
-    }
-  }
-  async function guardar(compartilhado = true) {
-    try {
-      const mini = await miniatura(doc);
-      const r = (await acao.agir("design_salvar", { p_id: idSalvo, p: { titulo: titulo || "Sem título", formato, largura: doc.w, altura: doc.h, dados: doc, miniatura: mini, compartilhado } }, "Trabalho guardado na sua conta.")) as { id?: string } | null;
-      if (r?.id) {
-        setIdSalvo(r.id);
-        setMexido(false);
-      }
-    } catch {
-      setAviso("Não deu para guardar.");
-    }
-  }
-  async function abrir(id: string) {
-    try {
-      const r = (await acao.agir("design_ver", { p_id: id }, "")) as Trabalho | null;
-      if (!r?.dados) return;
-      setDoc({ ...r.dados, camadas: (r.dados.camadas ?? []).map(ajustarAltura) });
-      setTitulo(r.titulo);
-      setFormato((FORMATOS.find((f) => f.id === r.formato)?.id ?? "post") as FormatoId);
-      setIdSalvo(r.id);
-      setSelecionado(null);
-      setAba("modelos");
-      setMexido(false);
-    } catch {
-      setAviso("Não deu para abrir.");
-    }
-  }
-
-  const abas: [AbaEsquerda, string][] = [["modelos", "Modelos"], ["texto", "Texto"], ["formas", "Formas"], ["imagens", "Imagens"], ["marca", "Marca"], ["fundo", "Fundo"], ["trabalhos", "Trabalhos"]];
-
-  return (
-    <div className="estudio -mx-5 -mt-7 flex min-h-[calc(100dvh-14rem)] flex-col text-xs sm:-mx-8">
-      {/* A barra do alto: título, formato, histórico, guardar e exportar. */}
-      <div className="flex flex-wrap items-center gap-2 border-b-2 border-ink bg-parchment-deep px-4 py-2">
-        <input value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={120} aria-label="Nome do trabalho" className="min-w-40 flex-1 border-2 border-transparent bg-transparent px-2 py-1 font-serif text-base font-semibold hover:border-rule focus:border-ink focus:outline-none" />
-        {mexido && <span className="font-mono text-[0.65rem] text-oxblood" role="status" title="Há mudanças que ainda não foram guardadas na conta">● não guardado</span>}
-        <span className="flex gap-1" role="group" aria-label="Ferramenta">
-          <button type="button" className={`${BOTAOZINHO} ${ferramenta === "mover" ? ATIVO : ""}`} aria-pressed={ferramenta === "mover"} onClick={() => setFerramenta("mover")} title="Mover e selecionar (V)">↖ V</button>
-          <button type="button" className={`${BOTAOZINHO} ${ferramenta === "texto" ? ATIVO : ""}`} aria-pressed={ferramenta === "texto"} onClick={() => setFerramenta("texto")} title="Texto: clique na tela para escrever (T)">T</button>
-        </span>
-        <select value={formato} onChange={(e) => mudarFormato(e.target.value as FormatoId)} aria-label="Formato" className={`${CAMPO} w-auto`}>
-          {FORMATOS.map((f) => (
-            <option key={f.id} value={f.id}>{f.nome}</option>
-          ))}
-        </select>
-        <span className="flex gap-1">
-          <button type="button" className={BOTAOZINHO} onClick={desfazer} title="Desfazer (Ctrl+Z)">↶ Desfazer</button>
-          <button type="button" className={BOTAOZINHO} onClick={refazer} title="Refazer (Ctrl+Y)">↷ Refazer</button>
-        </span>
-        <span className="flex items-center gap-1">
-          <button type="button" className={BOTAOZINHO} onClick={() => setZoomManual(Math.max(0.05, escala * 0.8))} aria-label="Afastar">−</button>
-          <button type="button" className={BOTAOZINHO} onClick={() => setZoomManual(null)} title="Encaixar na tela">{Math.round(escala * 100)}%</button>
-          <button type="button" className={BOTAOZINHO} onClick={() => setZoomManual(Math.min(3, escala * 1.25))} aria-label="Aproximar">+</button>
-        </span>
-        <span className="ml-auto flex flex-wrap gap-1">
-          <button type="button" className={BOTAOZINHO} onClick={() => void baixar("png")}>Baixar PNG</button>
-          <button type="button" className={BOTAOZINHO} onClick={() => void baixar("jpeg")}>Baixar JPG</button>
-          <button type="button" className={BOTAOZINHO} onClick={() => void imprimir()}>Imprimir / PDF</button>
-          <button type="button" className={BOTAOZINHO} onClick={() => void exportarEmLote()} title="A mesma arte em post, story e quadrado, num .zip">Exportar em lote</button>
-          <button type="button" className={BOTAOZINHO} onClick={() => void abrirNoEditorAvancado()} title="Baixa o PSD com as camadas e abre o editor avançado (PhotoCraft)">Abrir no editor avançado ↗</button>
-          <button type="button" className={`${botao} py-1 text-xs`} disabled={acao.ocupado} onClick={() => void guardar()}>{idSalvo ? "Guardar" : "Guardar na conta"}</button>
-        </span>
-      </div>
-      <Aviso texto={aviso || acao.aviso} />
-
-      <div className="grid flex-1 gap-0 lg:grid-cols-[13rem_minmax(0,1fr)_17rem]">
-        {/* Esquerda: o que se acrescenta. */}
-        <aside className="border-b-2 border-ink bg-parchment-deep lg:border-b-0 lg:border-r-2">
-          <div className="flex flex-wrap gap-0.5 border-b border-rule p-1.5">
-            {abas.map(([id, nome]) => (
-              <button key={id} type="button" onClick={() => setAba(id)} aria-pressed={aba === id} className={`cursor-pointer border px-2 py-1 ${aba === id ? ATIVO : "border-rule bg-parchment hover:border-ink"}`}>{nome}</button>
-            ))}
+  // Em tela cheia de verdade: o editor vai direto no corpo da página (as animações do painel não o prendem).
+  return createPortal(
+    <ContextoDoEditor.Provider value={editor}>
+      <div className="estudio-app fixed inset-0 z-[80] flex flex-col" data-estudio-tema={temaDaInterface || undefined}>
+        {!foco && <BarraDoAlto mexido={mexido} salvoEm={salvoEm} guardando={guardando} escala={escala} passos={passos} voltarAte={voltarAte} podeRefazer={refaziveis > 0} celular={celular} ferramenta={ferramenta} />}
+        {andamento && (
+          <div className="relative h-1 bg-e-fio" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(andamento.f * 100)} aria-label={andamento.rotulo || "Andamento"}>
+            <div className="h-full bg-e-bordo transition-[width]" style={{ width: `${Math.max(3, andamento.f * 100)}%` }} />
           </div>
-          <div className="max-h-[70vh] overflow-y-auto p-3 [scrollbar-width:thin]">
-            {aba === "modelos" &&
-              GRUPOS.map((grupo) => (
-                <div key={grupo} className="mb-3">
-                  <p className={rotulo}>{grupo}</p>
-                  <ul className="mt-1 space-y-1">
-                    {MODELOS.filter((m) => m.grupo === grupo).map((m) => (
-                      <li key={m.id} className="flex items-stretch gap-0.5">
-                        <button type="button" onClick={() => usarModelo(m)} className="min-w-0 flex-1 cursor-pointer border border-rule bg-parchment px-2 py-1.5 text-left hover:border-ink">
-                          {m.nome}
-                          <span className="block font-mono text-[0.6rem] text-ink-soft">{FORMATOS.find((f) => f.id === m.formato)?.nome}</span>
-                        </button>
-                        <button type="button" title={`Baixar “${m.nome}” em PSD, para começar no editor avançado`} aria-label={`Baixar ${m.nome} em PSD`} onClick={() => { const d = m.montar(); void abrirNoEditorAvancado({ ...d, camadas: d.camadas.map(ajustarAltura) }, m.nome); }} className="cursor-pointer border border-rule bg-parchment px-1 font-mono text-[0.55rem] hover:border-ink">PSD</button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            {aba === "modelos" && (
-              <div>
-                <p className={rotulo}>Em branco</p>
-                <button type="button" className={`${BOTAOZINHO} mt-1 w-full`} onClick={() => { if (!doc.camadas.length || window.confirm("Começar do zero?")) { setDoc(documentoVazio(formato)); setSelecionado(null); setIdSalvo(null); setTitulo("Sem título"); } }}>Página em branco neste formato</button>
-              </div>
-            )}
-            {aba === "texto" && (
-              <div className="space-y-1.5">
-                {[
-                  ["Título", () => texto({ ...centro(80 * u, 20 * u), w: 80 * u, texto: "Um título que fala alto", fonte: "serifa", tamanho: 12 * u, peso: 600, entrelinha: 0.97, espacamento: -0.02 })],
-                  ["Subtítulo", () => texto({ ...centro(80 * u, 8 * u), w: 80 * u, texto: "Uma linha que explica o título.", fonte: "serifa", tamanho: 4.4 * u, peso: 400, cor: COR["Tinta suave"], entrelinha: 1.25 })],
-                  ["Parágrafo", () => texto({ ...centro(80 * u, 12 * u), w: 80 * u, texto: "Escreva aqui. O texto quebra sozinho na largura da caixa; puxe as alças dos lados para mudar a largura.", fonte: "serifa", tamanho: 3.4 * u, peso: 400, entrelinha: 1.3 })],
-                  ["Etiqueta (mono)", () => texto({ ...centro(60 * u, 3 * u), w: 60 * u, texto: "Educação popular", fonte: "mono", tamanho: 2 * u, peso: 500, cor: COR["Bordô"], espacamento: 0.2, maiusculas: true })],
-                  ["Tarja (letra pesada)", () => texto({ ...centro(50 * u, 6 * u), w: 50 * u, texto: "De graça", fonte: "sans", tamanho: 2.2 * u, peso: 800, cor: COR.Pergaminho, fundo: COR.Tinta, recuo: 1.4 * u, alinhar: "center", espacamento: 0.08, maiusculas: true })],
-                  ["Chamada em itálico", () => texto({ ...centro(80 * u, 10 * u), w: 80 * u, texto: "Pergunte. Alguém responde.", fonte: "serifa", tamanho: 6 * u, peso: 500, italico: true, cor: COR["Bordô"] })],
-                  ["Cartaz (sans 900)", () => texto({ ...centro(84 * u, 20 * u), w: 84 * u, texto: "Estude de graça", fonte: "sans", tamanho: 11 * u, peso: 900, italico: true, maiusculas: true, entrelinha: 0.92, espacamento: -0.02 })],
-                  ["Endereço do site", () => texto({ ...centro(60 * u, 3 * u), w: 60 * u, texto: "institutolucia.org", fonte: "mono", tamanho: 2 * u, peso: 500, cor: COR["Bordô"], espacamento: 0.14, maiusculas: true })],
-                ].map(([nome, fazer]) => (
-                  <button key={nome as string} type="button" className={`${BOTAOZINHO} w-full text-left`} onClick={() => acrescentar((fazer as () => Camada)())}>{nome as string}</button>
-                ))}
-              </div>
-            )}
-            {aba === "formas" && (
-              <div className="grid grid-cols-2 gap-1.5">
-                {([
-                  ["Retângulo", () => forma("retangulo", { ...centro(40 * u, 25 * u), w: 40 * u, h: 25 * u })],
-                  ["Elipse", () => forma("elipse", { ...centro(30 * u, 30 * u), w: 30 * u, h: 30 * u, preenchimento: COR["Bordô"] })],
-                  ["Estrela", () => forma("estrela", { ...centro(16 * u, 16 * u), w: 16 * u, h: 16 * u })],
-                  ["Linha", () => forma("linha", { ...centro(80 * u, 2 * u), w: 80 * u, h: 2 * u, preenchimento: COR.Tinta, espessura: Math.max(2, 0.3 * u) })],
-                  ["Cunha", () => forma("cunha", { x: doc.w - 40 * u, y: doc.h - 40 * u, w: 40 * u, h: 40 * u, preenchimento: COR.Tinta })],
-                  ["Raios", () => forma("raios", { x: 0, y: 0, w: doc.w, h: doc.h, preenchimento: COR["Bordô"], opacidade: 0.5 })],
-                  ["Faixa preta", () => forma("retangulo", { x: 8 * u, y: doc.h - 18 * u, w: 84 * u, h: 9 * u, preenchimento: COR.Tinta })],
-                  ["Moldura", () => forma("retangulo", { ...centro(60 * u, 60 * u), w: 60 * u, h: 60 * u, preenchimento: "transparent", borda: COR.Tinta, espessura: Math.max(2, 0.4 * u) })],
-                ] as [string, () => Camada][]).map(([nome, fazer]) => (
-                  <button key={nome} type="button" className={BOTAOZINHO} onClick={() => acrescentar(fazer())}>{nome}</button>
-                ))}
-              </div>
-            )}
-            {aba === "imagens" && (
-              <div className="space-y-4">
-                <div>
-                  <p className={rotulo}>Do seu aparelho</p>
-                  <button type="button" className={`${BOTAOZINHO} mt-1 w-full`} onClick={() => arquivo.current?.click()}>Escolher imagem…</button>
-                  <input ref={arquivo} type="file" accept="image/*" className="sr-only" tabIndex={-1} onChange={(e) => void escolherImagem(e.target.files?.[0])} />
-                  <p className="mt-1 text-[0.65rem] text-ink-soft">Só imagem sua, em domínio público ou com licença livre. Fotos de pessoas, só com autorização.</p>
-                </div>
-                <div>
-                  <p className={rotulo}>Galeria do instituto</p>
-                  <ul className="mt-1 grid grid-cols-2 gap-1.5">
-                    {(galeria as { slug: string; titulo: string; autor: string; ano: string; imagem: string }[]).map((item) => (
-                      <li key={item.slug}>
-                        <button type="button" onClick={() => void imagemDaGaleria(item.imagem, `${item.autor}, ${item.ano}. Domínio público.`)} className="w-full cursor-pointer border border-rule bg-parchment p-1 text-left hover:border-ink" title={`${item.titulo} (${item.autor}, ${item.ano})`}>
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={item.imagem} alt={item.titulo} className="aspect-[3/4] w-full object-cover" loading="lazy" />
-                          <span className="mt-1 block truncate text-[0.65rem]">{item.titulo}</span>
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p className={rotulo}>Wikimedia Commons</p>
-                  <form className="mt-1 flex gap-1" onSubmit={(e) => { e.preventDefault(); void procurar(); }}>
-                    <input value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Procurar imagem livre" aria-label="Procurar na Wikimedia Commons" className={`${CAMPO} min-w-0 flex-1`} />
-                    <button type="submit" className={BOTAOZINHO} disabled={buscando || busca.trim().length < 3}>{buscando ? "…" : "Buscar"}</button>
-                  </form>
-                  {achados && achados.length === 0 && <p className="mt-1 text-ink-soft">Nada encontrado.</p>}
-                  <ul className="mt-1 grid grid-cols-2 gap-1.5">
-                    {achados?.map((a) => (
-                      <li key={a.arquivo}>
-                        <button type="button" onClick={() => void imagemDaGaleria(`/api/imagem?arquivo=${encodeURIComponent(a.arquivo)}`, `${a.autor ? `${a.autor}. ` : ""}${a.licenca}. Wikimedia Commons.`)} className="w-full cursor-pointer border border-rule bg-parchment p-1 text-left hover:border-ink" title={`${a.titulo} · ${a.licenca}`}>
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={a.miniatura} alt={a.titulo} className="aspect-[3/4] w-full object-cover" loading="lazy" />
-                          <span className="mt-1 block truncate text-[0.65rem]">{a.titulo}</span>
-                          <span className="block truncate font-mono text-[0.6rem] text-ink-soft">{a.licenca}</span>
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="mt-1 text-[0.65rem] text-ink-soft">A busca traz só arquivos com licença livre. O crédito entra na camada; cite-o na legenda do post.</p>
-                </div>
-              </div>
-            )}
-            {aba === "marca" && (
-              <div className="space-y-1.5">
-                <button type="button" className={`${BOTAOZINHO} w-full text-left`} onClick={() => acrescentar(marca({ ...centro(20 * u, 20 * u), w: 20 * u, variante: "simbolo", cor: COR.Tinta }))}>Símbolo (estrela e livro)</button>
-                <button type="button" className={`${BOTAOZINHO} w-full text-left`} onClick={() => acrescentar(marca({ ...centro(20 * u, 20 * u), w: 20 * u, variante: "circulo", cor: COR.Pergaminho, fundo: COR["Bordô"] }))}>Símbolo no círculo bordô</button>
-                <button type="button" className={`${BOTAOZINHO} w-full text-left`} onClick={() => acrescentar(marca({ x: 8 * u, y: 6 * u, w: 6 * u, h: 6 * u, variante: "nome", cor: COR.Tinta }))}>Marca com o nome</button>
-                <p className="pt-2 text-[0.65rem] text-ink-soft">A marca é sempre a estrela sobre o livro aberto. Não distorça, não gire, não troque as cores por fora da paleta. Em fundo escuro ou vermelho, use pergaminho ou branco.</p>
-              </div>
-            )}
-            {aba === "fundo" && (
-              <div className="space-y-3">
-                <div>
-                  <p className={rotulo}>Cor</p>
-                  <div className="mt-1"><Cores valor={doc.fundo.cor} mudar={(cor) => setDoc((d) => ({ ...d, fundo: { ...d.fundo, cor } }))} /></div>
-                </div>
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" checked={doc.fundo.pontilhado} onChange={(e) => setDoc((d) => ({ ...d, fundo: { ...d.fundo, pontilhado: e.target.checked } }))} /> Trama de pontinhos
-                </label>
-                <div>
-                  <p className={rotulo}>Fio de cima</p>
-                  <div className="mt-1"><Cores valor={doc.fundo.bordaCima} semCor mudar={(cor) => setDoc((d) => ({ ...d, fundo: { ...d.fundo, bordaCima: cor, espessura: d.fundo.espessura || Math.round(1.8 * u) } }))} /></div>
-                </div>
-                <div>
-                  <p className={rotulo}>Fio de baixo</p>
-                  <div className="mt-1"><Cores valor={doc.fundo.bordaBaixo} semCor mudar={(cor) => setDoc((d) => ({ ...d, fundo: { ...d.fundo, bordaBaixo: cor, espessura: d.fundo.espessura || Math.round(1.8 * u) } }))} /></div>
-                </div>
-                <Faixa rotuloTexto="Espessura dos fios" valor={doc.fundo.espessura} min={0} max={Math.round(6 * u)} mudar={(v) => setDoc((d) => ({ ...d, fundo: { ...d.fundo, espessura: v } }))} />
-              </div>
-            )}
-            {aba === "trabalhos" && (
-              <div>
-                <Aviso texto={trabalhos.erro} />
-                {trabalhos.dados?.length === 0 && <p className="text-ink-soft">Nenhum trabalho guardado ainda. Use “Guardar na conta” na barra de cima.</p>}
-                <ul className="grid grid-cols-2 gap-1.5">
-                  {trabalhos.dados?.map((tr) => (
-                    <li key={tr.id} className={`border bg-parchment p-1 ${tr.id === idSalvo ? "border-ink" : "border-rule"}`}>
-                      <button type="button" className="w-full cursor-pointer text-left" onClick={() => void abrir(tr.id)} title={`${tr.titulo} · ${tr.autor}`}>
-                        {tr.miniatura ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img src={tr.miniatura} alt="" className="aspect-square w-full object-contain" />
-                        ) : (
-                          <span className="block aspect-square w-full bg-parchment-deep" />
-                        )}
-                        <span className="mt-1 block truncate font-semibold">{tr.titulo}</span>
-                        <span className="block truncate text-[0.6rem] text-ink-soft">{tr.autor} · {dataHora(tr.atualizado_em)}</span>
-                      </button>
-                      {tr.meu && <button type="button" className={`${elo} text-[0.65rem] text-oxblood`} onClick={() => { if (window.confirm("Apagar este trabalho?")) void acao.agir("design_apagar", { p_id: tr.id }, "Apagado."); }}>Apagar</button>}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-2 text-[0.65rem] text-ink-soft">Os trabalhos guardados ficam visíveis para a equipe de marketing e design, que pode continuar de onde você parou.</p>
-              </div>
-            )}
-          </div>
-        </aside>
-
-        {/* Centro: a tela. */}
-        <div ref={moldura} className="relative flex min-h-[20rem] items-start justify-center overflow-auto bg-[#cdbb91]/40 p-4 [scrollbar-width:thin]" onPointerDown={(e) => { if (e.target === e.currentTarget) setSelecionado(null); }}>
-          <canvas
-            ref={tela}
-            onPointerDown={apontar}
-            onPointerMove={arrastar}
-            onPointerUp={soltar}
-            onPointerCancel={soltar}
-            onDoubleClick={() => camada?.tipo === "texto" && document.getElementById("estudio-texto")?.focus()}
-            className="touch-none shadow-[8px_8px_0_#1f1a14]"
-            style={{ width: doc.w * escala, height: doc.h * escala, cursor: ferramenta === "texto" ? "text" : camada ? "move" : "default" }}
-            aria-label={`Tela de ${doc.w} por ${doc.h} pontos`}
-          />
-        </div>
-
-        {/* Direita: as propriedades do que está selecionado e a lista de camadas. */}
-        <aside className="border-t-2 border-ink bg-parchment-deep lg:border-l-2 lg:border-t-0">
-          <div className="max-h-[70vh] overflow-y-auto p-3 [scrollbar-width:thin]">
-            {camada ? (
-              <Propriedades camada={camada} doc={doc} mudar={mudar} duplicar={duplicar} apagar={apagar} ordenar={ordenar} alinhar={alinhar} />
-            ) : (
-              <p className="text-ink-soft">Clique numa camada da tela para mudar texto, cor, tamanho e posição. Arraste para mover; puxe as alças para redimensionar; o círculo vermelho gira. Shift trava o eixo ou a proporção.</p>
-            )}
-            <div className="mt-4 border-t border-rule pt-3">
-              <p className={rotulo}>Camadas ({doc.camadas.length})</p>
-              <ul className="mt-1 max-h-48 space-y-0.5 overflow-y-auto">
-                {[...doc.camadas].reverse().map((c) => (
-                  <li key={c.id} className={`flex items-center gap-1 border px-1.5 py-1 ${c.id === selecionado ? ATIVO : "border-transparent hover:border-rule"}`}>
-                    <button type="button" className="min-w-0 flex-1 cursor-pointer truncate text-left" onClick={() => setSelecionado(c.id)}>
-                      {c.nome || (c.tipo === "texto" ? (c.texto.split("\n")[0] || "Texto").slice(0, 30) : c.tipo === "imagem" ? "Imagem" : c.tipo === "marca" ? "Marca" : c.tipo[0].toUpperCase() + c.tipo.slice(1))}
-                    </button>
-                    <button type="button" className="cursor-pointer px-1" title={c.oculta ? "Mostrar" : "Esconder"} aria-label={c.oculta ? "Mostrar" : "Esconder"} onClick={() => setDoc((d) => ({ ...d, camadas: d.camadas.map((k) => (k.id === c.id ? { ...k, oculta: !k.oculta } : k)) }))}>{c.oculta ? "◌" : "●"}</button>
-                    <button type="button" className="cursor-pointer px-1" title={c.travada ? "Destravar" : "Travar"} aria-label={c.travada ? "Destravar" : "Travar"} onClick={() => setDoc((d) => ({ ...d, camadas: d.camadas.map((k) => (k.id === c.id ? { ...k, travada: !k.travada } : k)) }))}>{c.travada ? "🔒" : "🔓"}</button>
-                  </li>
-                ))}
-              </ul>
+        )}
+        <div className="flex min-h-0 flex-1">
+          {!foco && !celular && <Trilho />}
+          {!foco && gaveta && <Gavetas celular={celular} />}
+          <div className="relative min-w-0 flex-1">
+          <div
+            ref={palco}
+            tabIndex={0}
+            aria-label="Palco: a arte"
+            className="estudio-palco absolute inset-0 overflow-auto outline-none [scrollbar-color:#5a4e3c_transparent] [scrollbar-width:thin]"
+            onPointerDownCapture={() => {
+              // Só quem chegou ao palco pelo mouse liga o modo foco com Tab; pelo teclado, o Tab segue adiante.
+              focoPeloMouse.current = true;
+            }}
+            onBlur={(e) => {
+              if (e.target === e.currentTarget) focoPeloMouse.current = false;
+            }}
+            onPointerDown={(e) => {
+              if (e.target === e.currentTarget || (e.target as HTMLElement).dataset.fundo) {
+                setSelecao([]);
+                setMenu(null);
+                if (reenquadrar) setReenquadrar(null);
+              }
+            }}
+            onWheel={rodinha}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => {
+              e.preventDefault();
+              const arquivo = [...e.dataTransfer.files].find((f) => f.type.startsWith("image/"));
+              if (arquivo) void acrescentarArquivo(arquivo, tela.current ? ponto(e) : undefined);
+            }}
+          >
+            <div data-fundo="1" className="relative" style={{ width: interno.w, height: interno.h }}>
+              {ajudas.reguas && (
+                <>
+                  <ReguaHorizontal escala={escala} doc={doc} style={{ left: esquerda, top: topo - 22, width: largura }} />
+                  <ReguaVertical escala={escala} doc={doc} style={{ left: esquerda - 22, top: topo, height: altura }} />
+                </>
+              )}
+              <canvas
+                ref={tela}
+                onPointerDown={apontar}
+                onPointerMove={arrastar}
+                onPointerUp={soltar}
+                onPointerCancel={soltar}
+                onContextMenu={menuDeContexto}
+                onDoubleClick={(e) => {
+                  const p = ponto(e);
+                  const alvo = camadaEm(doc, p.x, p.y);
+                  if (alvo?.tipo === "texto") editor.editarTexto(alvo.id);
+                  else if (alvo?.tipo === "imagem") {
+                    setSelecao([alvo.id]);
+                    setReenquadrar(alvo.id);
+                  }
+                }}
+                className="absolute touch-none shadow-[0_18px_50px_rgba(0,0,0,0.45)]"
+                style={{ left: esquerda, top: topo, width: largura, height: altura, cursor: pegando ? "crosshair" : ferramenta === "texto" ? "text" : ferramenta === "mao" ? "grab" : reenquadrar ? "move" : "default" }}
+                role="img"
+                aria-label={`A arte: ${doc.w} por ${doc.h} pontos, ${doc.camadas.length} camadas. ${doc.alt ?? ""}`}
+              />
+              {editandoCamada && <EditorDeTexto key={editandoCamada.id} camada={editandoCamada} escala={escala} esquerda={esquerda} topo={topo} terminar={() => setEditando(null)} />}
+              {!editando && camada && !camada.travada && !reenquadrar && !celular && <BarraFlutuante key={camada.id} escala={escala} esquerda={esquerda} topo={topo} />}
+              {reenquadrar && (
+                <p className="absolute z-10 -translate-x-1/2 rounded-full bg-[#1f1a14] px-4 py-2 text-sm whitespace-nowrap text-[#f4ecd8] shadow" role="status" style={{ top: topo + 10, left: esquerda + largura / 2 }}>
+                  Arraste a foto para reenquadrar · role para aproximar · Enter ou Esc para terminar
+                </p>
+              )}
+              {menu && <MenuDeContexto x={menu.x} y={menu.y} fechar={() => setMenu(null)} />}
             </div>
-            {passos.length > 0 && (
-              <div className="mt-4 border-t border-rule pt-3">
-                <p className={rotulo}>Histórico</p>
-                <ol className="mt-1 max-h-40 space-y-0.5 overflow-y-auto">
-                  {passos.map((r, i) => ({ r, i })).slice(-15).reverse().map(({ r, i }) => (
-                    <li key={i}>
-                      <button type="button" className="w-full cursor-pointer truncate border border-transparent px-1.5 py-0.5 text-left hover:border-rule" title="Voltar para antes deste passo" onClick={() => voltarAte(i)}>↶ {r}</button>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            )}
-            <p className="mt-2 text-[0.65rem] text-ink-soft">Atalhos: V mover · T texto · Ctrl+Z desfazer · Ctrl+Shift+Z refazer · Ctrl+J duplicar · Delete apagar · setas ajuste fino · espaço segurado arrasta a tela.</p>
-            <p className="mt-4 text-[0.65rem] text-ink-soft">Você assina como {me.nome}. Identidade do instituto: pergaminho, tinta, bordô e vermelho da gráfica; serifa para o texto, letra pesada para as etiquetas, monoespaçada para os rodapés.</p>
           </div>
-        </aside>
+          {!celular && !foco && <CabecaDoPalco formato={formato} />}
+          {!celular && !foco && <RodapeDoPalco />}
+          </div>
+          {!foco && !celular && <PainelDireito passos={passos} voltarAte={voltarAte} />}
+        </div>
+        {celular && !foco && camada && folhaAberta && <FolhaDoCelular fechar={() => setFolhaAberta(false)} />}
+        {celular && !foco && <AbasDoCelular />}
+        {foco && (
+          <button type="button" className="fixed top-3 right-3 z-[85] cursor-pointer rounded-full bg-[#1f1a14]/85 px-4 py-2 text-sm text-[#f4ecd8]" onClick={() => setFoco(false)}>
+            Sair do modo foco
+          </button>
+        )}
+        <Avisos avisos={avisos} />
+        <Janelas comandos={comandos} fotoEmEdicao={fotoEmEdicao} fecharFoto={() => setFotoEmEdicao(null)} redesenhar={() => setDesenhoPedido((n) => n + 1)} />
+        {janela === "comandos" && <Comandos comandos={comandos} fechar={() => setJanela(null)} />}
+        {janela === "atalhos" && <Atalhos comandos={comandos} fechar={() => setJanela(null)} />}
       </div>
+    </ContextoDoEditor.Provider>,
+    document.body,
+  );
+}
+
+/** O chip do formato, a página e o "+ Página", em cima da arte. */
+function CabecaDoPalco({ formato }: { formato: FormatoId }) {
+  const ed = useEditor();
+  const [aberto, setAberto] = useState(false);
+  const f = formatoDe(formato) ?? FORMATOS[0];
+  return (
+    <div className="pointer-events-none absolute inset-x-0 top-3 z-10 flex items-center justify-center gap-2 text-sm text-[#e8dcc0] [&>*]:pointer-events-auto">
+      <div className="relative">
+        <button type="button" className="flex h-9 cursor-pointer items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3.5 whitespace-nowrap hover:bg-white/10" onClick={() => setAberto(!aberto)} aria-expanded={aberto} aria-haspopup="menu">
+          {f.curto} · {ed.doc.w} × {ed.doc.h}
+          <Icone nome="seta" className="h-4 w-4" />
+        </button>
+        {aberto && <MenuDeFormatos fechar={() => setAberto(false)} />}
+      </div>
+      <span className="whitespace-nowrap text-[#b3a584]">
+        Página {ed.pagina + 1} de {ed.projeto.paginas.length}
+        {ed.doc.variante ? ` · versão ${ed.doc.variante}` : ""}
+      </span>
+      <button type="button" className="flex h-9 cursor-pointer items-center gap-1 rounded-full border border-dashed border-white/25 px-3.5 whitespace-nowrap hover:bg-white/10" onClick={ed.acoes.novaPagina}>
+        <Icone nome="mais" className="h-4 w-4" /> Página
+      </button>
     </div>
   );
 }
 
-function Propriedades({ camada: c, doc, mudar, duplicar, apagar, ordenar, alinhar }: { camada: Camada; doc: Documento; mudar: (m: Partial<Camada>, lembrar?: boolean) => void; duplicar: () => void; apagar: () => void; ordenar: (p: "frente" | "tras" | "topo" | "fundo") => void; alinhar: (c: "esq" | "centro" | "dir" | "cima" | "meio" | "baixo") => void }) {
-  const num = (rotuloTexto: string, chave: "x" | "y" | "w" | "h" | "rot", passo = 1) => (
-    <label className="block">
-      <span className="text-ink-soft">{rotuloTexto}</span>
-      <input type="number" step={passo} value={Math.round(c[chave])} onChange={(e) => mudar({ [chave]: Number(e.target.value) } as Partial<Camada>)} className={CAMPO} disabled={chave === "h" && c.tipo === "texto"} />
-    </label>
-  );
+function MenuDeFormatos({ fechar }: { fechar: () => void }) {
+  const ed = useEditor();
+  const [adaptarCamadas, setAdaptarCamadas] = useState(true);
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const fora = (e: PointerEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) fechar();
+    };
+    const tecla = (e: KeyboardEvent) => e.key === "Escape" && fechar();
+    window.addEventListener("pointerdown", fora, true);
+    window.addEventListener("keydown", tecla);
+    return () => {
+      window.removeEventListener("pointerdown", fora, true);
+      window.removeEventListener("keydown", tecla);
+    };
+  }, [fechar]);
+  const grupos = [...new Set(FORMATOS.map((f) => f.grupo))];
   return (
-    <div className="space-y-3">
-      <label className="block">
-        <span className={rotulo}>Nome da camada</span>
-        <input value={c.nome ?? ""} onChange={(e) => mudar({ nome: e.target.value }, false)} maxLength={40} className={CAMPO} />
+    <div ref={ref} className="estudio-surge absolute top-full left-1/2 z-30 mt-2 max-h-[70vh] w-80 -translate-x-1/2 overflow-y-auto rounded-lg border border-e-fio bg-e-painel p-2 text-e-tinta shadow-2xl [scrollbar-width:thin]" role="menu">
+      <label className="mb-2 flex items-center gap-2 px-2 text-xs text-e-suave">
+        <input type="checkbox" checked={adaptarCamadas} onChange={(e) => setAdaptarCamadas(e.target.checked)} /> Reposicionar as camadas no formato novo
       </label>
-
-      {c.tipo === "texto" && <PropriedadesTexto c={c} mudar={mudar} />}
-      {(c.tipo === "retangulo" || c.tipo === "elipse" || c.tipo === "estrela" || c.tipo === "linha" || c.tipo === "cunha" || c.tipo === "raios") && <PropriedadesForma c={c} mudar={mudar} />}
-      {c.tipo === "imagem" && <PropriedadesImagem c={c} mudar={mudar} />}
-      {c.tipo === "marca" && <PropriedadesMarca c={c} mudar={mudar} />}
-
-      <Faixa rotuloTexto="Opacidade" valor={c.opacidade} min={0} max={1} passo={0.05} mudar={(v) => mudar({ opacidade: v })} />
-      <div className="grid grid-cols-3 gap-1">
-        {num("X", "x")}
-        {num("Y", "y")}
-        {num("Giro°", "rot")}
-        {num("Largura", "w")}
-        {num("Altura", "h")}
-      </div>
-      <div>
-        <p className={rotulo}>Alinhar à página</p>
-        <div className="mt-1 grid grid-cols-6 gap-0.5">
-          {([["esq", "⇤"], ["centro", "↔"], ["dir", "⇥"], ["cima", "⤒"], ["meio", "↕"], ["baixo", "⤓"]] as const).map(([como, simbolo]) => (
-            <button key={como} type="button" className={BOTAOZINHO} onClick={() => alinhar(como)} title={como} aria-label={`Alinhar: ${como}`}>{simbolo}</button>
+      {grupos.map((g) => (
+        <div key={g} className="mb-1">
+          <p className="px-2 pt-1 font-mono text-[0.66rem] uppercase tracking-[0.16em] text-e-suave">{g}</p>
+          {FORMATOS.filter((f) => f.grupo === g).map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              role="menuitem"
+              className={`flex w-full cursor-pointer items-center justify-between rounded-md px-2 py-1.5 text-left text-sm hover:bg-e-bordo-claro ${ed.formato === f.id ? "text-e-bordo" : ""}`}
+              onClick={() => {
+                ed.mudarFormato(f.id, adaptarCamadas);
+                fechar();
+              }}
+            >
+              {f.nome}
+              {ed.formato === f.id && <Icone nome="check" className="h-4 w-4" />}
+            </button>
           ))}
         </div>
-      </div>
-      <div>
-        <p className={rotulo}>Ordem</p>
-        <div className="mt-1 grid grid-cols-4 gap-0.5">
-          <button type="button" className={BOTAOZINHO} onClick={() => ordenar("topo")} title="Trazer para o topo">⤒</button>
-          <button type="button" className={BOTAOZINHO} onClick={() => ordenar("frente")} title="Trazer para a frente">↑</button>
-          <button type="button" className={BOTAOZINHO} onClick={() => ordenar("tras")} title="Mandar para trás">↓</button>
-          <button type="button" className={BOTAOZINHO} onClick={() => ordenar("fundo")} title="Mandar para o fundo">⤓</button>
-        </div>
-      </div>
-      <div className="flex flex-wrap gap-1">
-        <button type="button" className={BOTAOZINHO} onClick={duplicar}>Duplicar (Ctrl+D)</button>
-        <button type="button" className={`${BOTAOZINHO} text-oxblood`} onClick={apagar}>Apagar</button>
-      </div>
-      <p className="text-[0.65rem] text-ink-soft">Página: {doc.w} × {doc.h}.</p>
+      ))}
     </div>
   );
 }
 
-function PropriedadesTexto({ c, mudar }: { c: CamadaTexto; mudar: (m: Partial<Camada>, lembrar?: boolean) => void }) {
+/** A edição do texto direto na arte (duplo clique): uma caixa por cima da camada, com a mesma letra. */
+function EditorDeTexto({ camada: c, escala, esquerda, topo, terminar }: { camada: CamadaTexto; escala: number; esquerda: number; topo: number; terminar: () => void }) {
+  const ed = useEditor();
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const original = useRef(c.texto);
+  useEffect(() => {
+    ref.current?.focus();
+    ref.current?.select();
+  }, []);
+  const fim = () => {
+    // A edição inteira vira um passo só no histórico.
+    if (c.texto !== original.current) {
+      const agora = c.texto;
+      ed.mudarCamada(c.id, { texto: original.current }, false);
+      ed.mudarCamada(c.id, { texto: agora }, true);
+    }
+    terminar();
+  };
+  const familia = c.fonte === "serifa" ? "var(--font-serif-display), serif" : c.fonte === "mono" ? "var(--font-archive), monospace" : c.fonte === "manuscrita" ? "var(--font-hand), cursive" : "var(--font-ui), sans-serif";
   return (
-    <div className="space-y-2">
-      <label className="block">
-        <span className={rotulo}>Texto</span>
-        <textarea id="estudio-texto" value={c.texto} onChange={(e) => mudar({ texto: e.target.value })} rows={4} className={`${CAMPO} font-serif text-sm`} />
-      </label>
-      <div className="grid grid-cols-2 gap-1">
-        <label className="block">
-          <span className="text-ink-soft">Letra</span>
-          <select value={c.fonte} onChange={(e) => mudar({ fonte: e.target.value as CamadaTexto["fonte"] })} className={CAMPO}>
-            <option value="serifa">Serifa (EB Garamond)</option>
-            <option value="sans">Pesada (Inter)</option>
-            <option value="mono">Mono (IBM Plex)</option>
-          </select>
-        </label>
-        <label className="block">
-          <span className="text-ink-soft">Peso</span>
-          <select value={c.peso} onChange={(e) => mudar({ peso: Number(e.target.value) as CamadaTexto["peso"] })} className={CAMPO}>
-            {[400, 500, 600, 700, 800, 900].map((p) => (
-              <option key={p} value={p}>{p}</option>
-            ))}
-          </select>
-        </label>
-      </div>
-      <Faixa rotuloTexto="Tamanho" valor={c.tamanho} min={8} max={400} mudar={(v) => mudar({ tamanho: v })} sufixo=" pt" />
-      <Faixa rotuloTexto="Entrelinha" valor={c.entrelinha} min={0.8} max={2} passo={0.01} mudar={(v) => mudar({ entrelinha: v })} />
-      <Faixa rotuloTexto="Espaço entre letras" valor={c.espacamento} min={-0.05} max={0.4} passo={0.01} mudar={(v) => mudar({ espacamento: v })} sufixo=" em" />
-      <div className="flex flex-wrap gap-1">
-        <button type="button" className={`${BOTAOZINHO} italic ${c.italico ? ATIVO : ""}`} onClick={() => mudar({ italico: !c.italico })}>Itálico</button>
-        <button type="button" className={`${BOTAOZINHO} ${c.maiusculas ? ATIVO : ""}`} onClick={() => mudar({ maiusculas: !c.maiusculas })}>MAIÚSCULAS</button>
-        {(["left", "center", "right"] as const).map((a) => (
-          <button key={a} type="button" className={`${BOTAOZINHO} ${c.alinhar === a ? ATIVO : ""}`} onClick={() => mudar({ alinhar: a })} aria-label={`Alinhar ${a}`}>{a === "left" ? "⇤" : a === "center" ? "↔" : "⇥"}</button>
-        ))}
-      </div>
-      <div>
-        <p className="text-ink-soft">Cor do texto</p>
-        <Cores valor={c.cor} mudar={(cor) => mudar({ cor })} />
-      </div>
-      <div>
-        <p className="text-ink-soft">Tarja atrás do texto</p>
-        <Cores valor={c.fundo} semCor mudar={(fundo) => mudar({ fundo, recuo: fundo && !c.recuo ? Math.round(c.tamanho * 0.5) : c.recuo })} />
-        {c.fundo && <Faixa rotuloTexto="Recuo da tarja" valor={c.recuo} min={0} max={200} mudar={(v) => mudar({ recuo: v })} />}
-      </div>
-    </div>
+    <textarea
+      ref={ref}
+      value={c.texto}
+      spellCheck
+      lang="pt-BR"
+      aria-label="Texto da camada"
+      onChange={(e) => ed.mudarCamada(c.id, { texto: e.target.value }, false)}
+      onBlur={fim}
+      onKeyDown={(e) => {
+        if (e.key === "Escape" || (e.key === "Enter" && (e.ctrlKey || e.metaKey))) {
+          e.preventDefault();
+          e.stopPropagation();
+          fim();
+        }
+      }}
+      className="absolute z-20 resize-none overflow-hidden border-0 bg-[rgba(255,255,255,0.14)] p-0 outline-2 outline-[#6e1f1a]"
+      style={{
+        left: esquerda + c.x * escala,
+        top: topo + c.y * escala,
+        width: c.w * escala,
+        height: Math.max(c.h, c.tamanho * c.entrelinha) * escala + 6,
+        transform: `rotate(${c.rot}deg)`,
+        transformOrigin: "center",
+        fontFamily: familia,
+        fontSize: c.tamanho * escala,
+        fontWeight: c.peso,
+        fontStyle: c.italico ? "italic" : "normal",
+        lineHeight: c.entrelinha,
+        letterSpacing: `${c.espacamento}em`,
+        textAlign: c.alinhar,
+        textTransform: c.maiusculas ? "uppercase" : "none",
+        color: c.cor,
+        padding: c.recuo * escala,
+        caretColor: "#c21f16",
+      }}
+    />
   );
-}
-
-function PropriedadesForma({ c, mudar }: { c: CamadaForma; mudar: (m: Partial<Camada>) => void }) {
-  return (
-    <div className="space-y-2">
-      <div>
-        <p className="text-ink-soft">Preenchimento</p>
-        <Cores valor={c.preenchimento === "transparent" ? "" : c.preenchimento} semCor mudar={(cor) => mudar({ preenchimento: cor || "transparent" })} />
-      </div>
-      {c.tipo !== "linha" && c.tipo !== "raios" && (
-        <>
-          <div>
-            <p className="text-ink-soft">Borda</p>
-            <Cores valor={c.borda} semCor mudar={(borda) => mudar({ borda, espessura: borda && !c.espessura ? 4 : c.espessura })} />
-          </div>
-          {c.borda && <Faixa rotuloTexto="Espessura da borda" valor={c.espessura} min={1} max={60} mudar={(v) => mudar({ espessura: v })} />}
-          {c.tipo === "retangulo" && <Faixa rotuloTexto="Cantos" valor={c.raio} min={0} max={200} mudar={(v) => mudar({ raio: v })} />}
-        </>
-      )}
-      {c.tipo === "linha" && <Faixa rotuloTexto="Espessura" valor={c.espessura} min={1} max={60} mudar={(v) => mudar({ espessura: v })} />}
-    </div>
-  );
-}
-
-function PropriedadesImagem({ c, mudar }: { c: CamadaImagem; mudar: (m: Partial<Camada>) => void }) {
-  return (
-    <div className="space-y-2">
-      <div className="grid grid-cols-2 gap-1">
-        <label className="block">
-          <span className="text-ink-soft">Filtro</span>
-          <select value={c.filtro} onChange={(e) => mudar({ filtro: e.target.value as CamadaImagem["filtro"] })} className={CAMPO}>
-            <option value="nenhum">Nenhum</option>
-            <option value="pb">Preto e branco</option>
-            <option value="duotom">Duotom vermelho</option>
-            <option value="sepia">Sépia</option>
-            <option value="contraste">Mais contraste</option>
-          </select>
-        </label>
-        <label className="block">
-          <span className="text-ink-soft">Ajuste</span>
-          <select value={c.ajuste} onChange={(e) => mudar({ ajuste: e.target.value as CamadaImagem["ajuste"] })} className={CAMPO}>
-            <option value="cobrir">Cobrir (corta)</option>
-            <option value="conter">Conter (inteira)</option>
-          </select>
-        </label>
-      </div>
-      <div>
-        <p className="text-ink-soft">Borda</p>
-        <Cores valor={c.borda} semCor mudar={(borda) => mudar({ borda, espessura: borda && !c.espessura ? 4 : c.espessura })} />
-      </div>
-      {c.borda && <Faixa rotuloTexto="Espessura da borda" valor={c.espessura} min={1} max={60} mudar={(v) => mudar({ espessura: v })} />}
-      <label className="block">
-        <span className="text-ink-soft">Crédito (autor, ano, licença)</span>
-        <input value={c.credito} onChange={(e) => mudar({ credito: e.target.value })} maxLength={200} className={CAMPO} />
-      </label>
-    </div>
-  );
-}
-
-function PropriedadesMarca({ c, mudar }: { c: CamadaMarca; mudar: (m: Partial<Camada>) => void }) {
-  return (
-    <div className="space-y-2">
-      <label className="block">
-        <span className="text-ink-soft">Variante</span>
-        <select value={c.variante} onChange={(e) => mudar({ variante: e.target.value as CamadaMarca["variante"] })} className={CAMPO}>
-          <option value="simbolo">Símbolo</option>
-          <option value="circulo">Símbolo no círculo</option>
-          <option value="nome">Símbolo com o nome</option>
-        </select>
-      </label>
-      <div>
-        <p className="text-ink-soft">Cor</p>
-        <Cores valor={c.cor} mudar={(cor) => mudar({ cor })} />
-      </div>
-      {c.variante === "circulo" && (
-        <div>
-          <p className="text-ink-soft">Fundo do círculo</p>
-          <Cores valor={c.fundo} mudar={(fundo) => mudar({ fundo })} />
-        </div>
-      )}
-    </div>
-  );
-}
-
-interface Passo {
-  doc: Documento;
-  rotulo: string;
-}
-
-/** O nome de um passo do histórico, tirado da diferença entre o antes e o depois. */
-function rotular(antes: Documento, depois: Documento): string {
-  if (antes.w !== depois.w || antes.h !== depois.h) return "Mudou o formato";
-  if (depois.camadas.length > antes.camadas.length) {
-    const nova = depois.camadas.find((c) => !antes.camadas.some((k) => k.id === c.id));
-    return `Acrescentou: ${nova ? nomeDaCamada(nova) : "camada"}`;
-  }
-  if (depois.camadas.length < antes.camadas.length) {
-    const saiu = antes.camadas.find((c) => !depois.camadas.some((k) => k.id === c.id));
-    return `Apagou: ${saiu ? nomeDaCamada(saiu) : "camada"}`;
-  }
-  if (antes.fundo !== depois.fundo) return "Mudou o fundo";
-  if (antes.camadas.some((c, i) => depois.camadas[i]?.id !== c.id)) return "Mudou a ordem";
-  const mudou = depois.camadas.find((c, i) => c !== antes.camadas[i]);
-  if (!mudou) return "Mudança";
-  const velho = antes.camadas.find((c) => c.id === mudou.id);
-  if (velho && velho.oculta !== mudou.oculta) return `${mudou.oculta ? "Escondeu" : "Mostrou"}: ${nomeDaCamada(mudou)}`;
-  if (velho && velho.travada !== mudou.travada) return `${mudou.travada ? "Travou" : "Destravou"}: ${nomeDaCamada(mudou)}`;
-  return `Editou: ${nomeDaCamada(mudou)}`;
 }
