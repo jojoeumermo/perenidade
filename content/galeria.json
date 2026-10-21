@@ -346,5 +346,65 @@
     "largura": 347,
     "altura": 525,
     "fonte": "https://commons.wikimedia.org/wiki/File:Industrial_Workers_of_the_World.jpg"
+  },
+  {
+    "slug": "ferrez-fazenda-de-cafe",
+    "titulo": "Escravizados numa fazenda de café",
+    "autor": "Marc Ferrez",
+    "ano": "c. 1885",
+    "lugar": "Brasil",
+    "texto": "Homens, mulheres e crianças escravizados posam diante de uma construção da fazenda, com enxadas e peneiras de café nas mãos. A foto é de poucos anos antes da Abolição, quando o café era o principal produto de exportação do Brasil e as fazendas ainda dependiam do trabalho escravo.",
+    "imagem": "/imagens/galeria/ferrez-fazenda-de-cafe.webp",
+    "largura": 1000,
+    "altura": 731,
+    "fonte": "https://commons.wikimedia.org/wiki/File:Slaves_in_coffee_farm_by_marc_ferrez_1885.jpg"
+  },
+  {
+    "slug": "missa-campal-abolicao",
+    "titulo": "Missa campal pela Abolição",
+    "autor": "Antonio Luiz Ferreira",
+    "ano": "17 de maio de 1888",
+    "lugar": "Campo de São Cristóvão, Rio de Janeiro",
+    "texto": "Uma multidão reunida quatro dias depois da Lei Áurea, numa missa de ação de graças pelo fim da escravidão no Brasil. Em 2015, uma pesquisa identificou o escritor Machado de Assis entre as pessoas da foto.",
+    "imagem": "/imagens/galeria/missa-campal-abolicao.webp",
+    "largura": 1000,
+    "altura": 559,
+    "fonte": "https://commons.wikimedia.org/wiki/File:Missa_campal_celebrada_em_a%C3%A7%C3%A3o_de_gra%C3%A7as_pela_Aboli%C3%A7%C3%A3o_da_Escravatura_no_Brasil,_1888.jpg"
+  },
+  {
+    "slug": "wedgwood-nao-sou-um-homem",
+    "titulo": "Não sou eu um homem e um irmão?",
+    "autor": "Fábrica de Josiah Wedgwood",
+    "ano": "c. 1786–1787",
+    "lugar": "Inglaterra",
+    "texto": "Medalhão de cerâmica com um homem negro acorrentado, ajoelhado, e a pergunta «Am I not a man and a brother?». Feito em série para a campanha britânica contra o tráfico de escravizados, virou broche, pingente e enfeite: um dos primeiros símbolos de uma causa usados no peito.",
+    "imagem": "/imagens/galeria/wedgwood-nao-sou-um-homem.webp",
+    "largura": 860,
+    "altura": 1000,
+    "fonte": "https://commons.wikimedia.org/wiki/File:Am_I_Not_a_Man_and_a_Brother_-_Wedgwood_jasperware_cameo_(Boston_MFA_96.779).jpg"
+  },
+  {
+    "slug": "hine-fiandeira",
+    "titulo": "Adolescente fiandeira numa fábrica de algodão",
+    "autor": "Lewis Hine",
+    "ano": "1908",
+    "lugar": "Carolina, Estados Unidos",
+    "texto": "Uma menina trabalha entre as máquinas de fiar de uma fábrica de algodão. Nas fiações do Sul dos Estados Unidos, crianças passavam o dia emendando fios que arrebentavam, num barulho e num pó que faziam mal à saúde.",
+    "imagem": "/imagens/galeria/hine-fiandeira.webp",
+    "largura": 1000,
+    "altura": 795,
+    "fonte": "https://commons.wikimedia.org/wiki/File:Hine,_Lewis,_Adolescent_Girl,_a_Spinner,_in_a_Carolina_Cotton_Mill,_1908.jpg"
+  },
+  {
+    "slug": "dallas-voto-para-mulheres",
+    "titulo": "Votes for Women (voto para as mulheres)",
+    "autor": "Hilda Dallas",
+    "ano": "1909",
+    "lugar": "Reino Unido",
+    "texto": "Cartaz do jornal sufragista Votes for Women, vendido a um pêni (1d). Uma mulher ergue o jornal no campo, e o texto diz «procurado em toda parte!». No Reino Unido, as mulheres só conquistaram o voto em 1918, e em igualdade com os homens em 1928.",
+    "imagem": "/imagens/galeria/dallas-voto-para-mulheres.webp",
+    "largura": 674,
+    "altura": 1000,
+    "fonte": "https://commons.wikimedia.org/wiki/File:Votes_For_Women.jpg"
   }
 ]
