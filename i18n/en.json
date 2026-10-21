@@ -1680,6 +1680,58 @@
     "reacoes": [
       "Reactions with atoms",
       "Watch atoms swap partners in a reaction: nothing disappears, nothing appears."
+    ],
+    "algoritmos": [
+      "Animated algorithms",
+      "Sorting (bubble, selection, insertion, quicksort) and search, step by step."
+    ],
+    "criptografia": [
+      "Hashing and encryption",
+      "The avalanche effect of hashes and password encryption (AES), in the browser only."
+    ],
+    "grafos": [
+      "Graphs",
+      "Cities and roads: breadth-first search, depth-first search and shortest path."
+    ],
+    "sudoku": [
+      "Sudoku",
+      "Three levels, hints that explain and pencil marks. No scoreboard."
+    ],
+    "referencias-abnt": [
+      "ABNT references",
+      "Books, articles, web pages and theses in the Brazilian NBR 6023 format."
+    ],
+    "palavras-geradoras": [
+      "Generative words",
+      "Adult literacy: talk, split syllables, build words and take dictation."
+    ],
+    "solidos": [
+      "Geometric solids",
+      "Rotate cube, cylinder, cone, pyramid and sphere; nets, area and volume."
+    ],
+    "contas-do-dia-a-dia": [
+      "Everyday math",
+      "Percentages, the rule of three, cash or instalments, and the household budget."
+    ],
+    "tons-do-mandarim": [
+      "Mandarin tones",
+      "The four tones and the neutral tone, with contours, minimal pairs and ear training."
+    ],
+    "alfabetos": [
+      "Alphabets",
+      "Cyrillic, hiragana, katakana and hangul: recognise, listen and write."
+    ],
+    "ceu": [
+      "Today's sky",
+      "Moon phase, sunrise and sunset, and the seasons, for your city."
+    ],
+    "calculadoras-de-eletronica": [
+      "Electronics calculators",
+      "Colour code, series and parallel, divider, RC filter and Karnaugh map."
+    ],
+    "direitos-trabalhistas": [
+      "Workers' rights (Brazil)",
+      "Holidays, 13th salary, overtime, notice, FGTS and severance under Brazilian law."
     ]
   },
   "tools": {

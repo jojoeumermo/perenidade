@@ -1680,6 +1680,58 @@
     "reacoes": [
       "Reações com átomos",
       "Veja os átomos trocarem de parceiro numa reação: nada some, nada aparece."
+    ],
+    "algoritmos": [
+      "Algoritmos animados",
+      "Ordenação (bolha, seleção, inserção, quicksort) e busca, passo a passo."
+    ],
+    "criptografia": [
+      "Hash e criptografia",
+      "O efeito avalanche do hash e cifrar com senha (AES), só com o navegador."
+    ],
+    "grafos": [
+      "Grafos",
+      "Cidades e estradas: busca em largura, em profundidade e o menor caminho."
+    ],
+    "sudoku": [
+      "Sudoku",
+      "Três níveis, dicas que explicam e notas a lápis. Sem placar."
+    ],
+    "referencias-abnt": [
+      "Referências ABNT",
+      "Livro, artigo, página da internet e TCC no formato da NBR 6023."
+    ],
+    "palavras-geradoras": [
+      "Palavras geradoras",
+      "Alfabetização de adultos: conversar, separar sílabas, formar palavras e ditado."
+    ],
+    "solidos": [
+      "Sólidos geométricos",
+      "Gire cubo, cilindro, cone, pirâmide e esfera; planificação, área e volume."
+    ],
+    "contas-do-dia-a-dia": [
+      "Contas do dia a dia",
+      "Porcentagem, regra de três, à vista ou parcelado e o orçamento da casa."
+    ],
+    "tons-do-mandarim": [
+      "Tons do mandarim",
+      "Os quatro tons e o neutro, com curvas, pares mínimos e treino de ouvido."
+    ],
+    "alfabetos": [
+      "Alfabetos",
+      "Cirílico, hiragana, katakana e hangul: reconhecer, ouvir e escrever."
+    ],
+    "ceu": [
+      "O céu do dia",
+      "Fase da Lua, nascer e pôr do Sol e as estações, para a sua cidade."
+    ],
+    "calculadoras-de-eletronica": [
+      "Calculadoras de eletrônica",
+      "Código de cores, série e paralelo, divisor, filtro RC e mapa de Karnaugh."
+    ],
+    "direitos-trabalhistas": [
+      "Direitos do trabalhador",
+      "Férias, 13º, horas extras, aviso prévio, FGTS e rescisão, com a lei de cada conta."
     ]
   },
   "tools": {
