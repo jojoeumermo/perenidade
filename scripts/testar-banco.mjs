@@ -241,6 +241,8 @@ await espera("retirar o voto", () => rpc(como(ids.prof), "votar", { p_tipo: "top
 await recusa("voto com valor inválido", () => rpc(como(ids.prof), "votar", { p_tipo: "topico", p_alvo: topico.id, p_valor: 50 }), "invalido:voto");
 await espera("voto em resposta", () => rpc(como(ids.leitora), "votar", { p_tipo: "resposta", p_alvo: resposta.id, p_valor: 1 }), (r) => r.pontos === 1);
 await espera("lista pública mostra o tópico", () => rpc(anon, "topicos_listar"), (r) => r.length === 1 && r[0].respostas === 1 && r[0].autor === "Lia Leitora");
+await espera("o período de hoje mostra o tópico novo", () => rpc(anon, "topicos_listar", { p_ordem: "melhores", p_periodo: "dia" }), (r) => r.length === 1);
+await espera("a resposta de outra pessoa não leva o selo de autor", async () => (await rpc(anon, "topico_ver", { p_id: topico.id })).respostas, (r) => r.length === 1 && r[0].do_autor === false);
 await espera("tópico com respostas e meu voto", () => rpc(como(ids.leitora), "topico_ver", { p_id: topico.id }), (r) => r.respostas.length === 1 && r.respostas[0].meu_voto === 1 && r.meu === true && r.pode_cuidar === false);
 await espera("resposta adequada do público aparece na hora, e a mediação pode ocultar depois", async () => {
   const nova = await rpc(como(ids.leitora), "responder", { p_topico: topico.id, p_corpo: "Entendi, muito obrigada!" });
