@@ -6,7 +6,7 @@
 // serigrafia, o pacote da campanha (imagens, legenda, textos alternativos e créditos) e o vídeo das animações.
 
 import { ziparBinarios } from "@/lib/zip";
-import { adaptar, carregarTudo, COR, desenhar, type Documento, exportar, formatoDe, formatoPorMedida, type FormatoId, nomeDeArquivo, PALETA, usarVariaveis } from "./motor";
+import { adaptar, assinatura, carregarTudo, COR, desenhar, type Documento, exportar, formatoDe, formatoPorMedida, type FormatoId, nomeDeArquivo, PALETA, usarVariaveis } from "./motor";
 import { montarPdf, marcasDeCorte, type PaginaPdf, textoPdf } from "./pdf";
 import type { Projeto } from "./projeto";
 import { variaveisDaPagina } from "./projeto";
@@ -137,7 +137,7 @@ export async function pdfDaGrafica(p: Projeto, titulo: string, voltar: Record<st
     let desenho = "";
     if (mm && opcoes.marcas) {
       desenho += marcasDeCorte(corteX, corteY, larguraMm * PONTOS_POR_MM, alturaMm * PONTOS_POR_MM, sangriaMm * PONTOS_POR_MM);
-      const linha = `${titulo} — página ${i + 1} de ${p.paginas.length} — ${larguraMm} × ${alturaMm} mm, ${opcoes.dpi} dpi, sangria de ${sangriaMm} mm — Instituto Lúcia`;
+      const linha = `${titulo} — página ${i + 1} de ${p.paginas.length} — ${larguraMm} × ${alturaMm} mm, ${opcoes.dpi} dpi, sangria de ${sangriaMm} mm — ${assinatura()}`;
       desenho += `BT /F1 6 Tf 0 0 0 rg ${margem.toFixed(2)} ${(margem / 3).toFixed(2)} Td (${textoPdf(linha)}) Tj ET\n`;
     }
     paginas.push({
