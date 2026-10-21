@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Caveat, EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
 import { A11yWidget } from "@/components/A11yWidget";
+import { DadosEstruturados } from "@/components/DadosEstruturados";
 import { BottomNav } from "@/components/BottomNav";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -18,6 +19,7 @@ import abertura from "@/content/abertura.json";
 import { loadLang } from "@/i18n";
 import { pickCore } from "@/i18n/core";
 import { htmlLang, locales } from "@/i18n/config";
+import { organizacao, siteWeb } from "@/lib/dados-estruturados";
 import { site } from "@/lib/site";
 
 // O chinês usa as fontes do próprio sistema; o russo, o recorte cirílico das mesmas famílias.
@@ -83,6 +85,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
         <PrefsScript />
       </head>
       <body className="paper min-h-full flex flex-col">
+        <DadosEstruturados dados={[organizacao(), siteWeb(lang, t.meta.description)]} />
         <I18nProvider lang={lang} t={pickCore(t)}>
           {/* O painel da equipe é uma tela à parte: lá dentro o site público não aparece. */}
           <OutsidePanel>

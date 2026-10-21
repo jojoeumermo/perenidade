@@ -3139,12 +3139,32 @@ await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), 
   const hojeNoBanco = (await dono("select current_date::text as d")).rows[0].d;
   await rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "verificar", p_verificado_em: hojeNoBanco, p_nota: "Consulta no cadastro do conselho." });
   await espera("sem publicar, não aparece", vitrine, (r) => r.perfis.length === 0);
-  await espera("termo, registro, texto e publicação: aparece, em ordem alfabética e sem dado interno", async () => { await rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "publicar" }); return vitrine(); },
+  await rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "publicar" });
+  await espera("publicado mas sem o termo assinado no gov.br: não aparece", vitrine, (r) => r.perfis.length === 0);
+  await espera("o que falta inclui a assinatura gov.br", () => rpc(como(r4.sau), "saude_meu"), (r) => r.faltam.some((x) => /gov\.br/.test(x)));
+  const sha = "a".repeat(64);
+  await recusa("assinatura fora da própria pasta é recusada", () => rpc(como(r4.sau), "saude_assinatura_enviar", { p_arquivo: `${ids.coord}/abcdefgh12.pdf`, p_sha256: sha }), "invalido:arquivo");
+  await recusa("arquivo que não é PDF é recusado", () => rpc(como(r4.sau), "saude_assinatura_enviar", { p_arquivo: `${r4.sau}/abcdefgh12.exe`, p_sha256: sha }), "invalido:arquivo");
+  await rpc(como(r4.sau), "saude_assinatura_enviar", { p_arquivo: `${r4.sau}/abcdefgh12.pdf`, p_sha256: sha });
+  await espera("assinatura enviada e ainda não conferida: não aparece", vitrine, (r) => r.perfis.length === 0);
+  await recusa("o profissional não confere a própria assinatura", () => rpc(como(r4.sau), "saude_assinatura_conferir", { p_usuario: r4.sau, p_ok: true }), "sem_permissao");
+  await espera("termo, registro, assinatura conferida, texto e publicação: aparece, em ordem alfabética e sem dado interno", async () => { await rpc(como(ids.coord), "saude_assinatura_conferir", { p_usuario: r4.sau, p_ok: true }); return vitrine(); },
     (r) => r.perfis.length === 1 && r.perfis[0].nome === "Sara Saúde" && !("status" in r.perfis[0]) && !("verificacao_nota" in r.perfis[0]) && r.perfis[0].foto === "");
   await espera("chave geral desligada: some na hora", async () => { await rpc(como(ids.coord), "saude_chave", { p_desligar: true }); return vitrine(); }, (r) => r.desligada === true && r.perfis.length === 0);
   await rpc(como(ids.coord), "saude_chave", { p_desligar: false });
   await espera("registro vencido: some sozinho", async () => { await dono("update interno.saude_perfis set verificado_em = current_date - 181 where usuario = $1", [r4.sau]); const r = await vitrine(); await dono("update interno.saude_perfis set verificado_em = current_date where usuario = $1", [r4.sau]); return r; }, (r) => r.perfis.length === 0);
   await espera("termo de versão antiga: some", async () => { await dono("update interno.saude_perfis set termo_versao = '2020-01-01' where usuario = $1", [r4.sau]); const r = await vitrine(); await dono("update interno.saude_perfis set termo_versao = interno.saude_termo_vigente() where usuario = $1", [r4.sau]); return r; }, (r) => r.perfis.length === 0);
+  await espera("assinatura de outra versão do termo: some", async () => { await dono("update interno.saude_perfis set assinatura_versao = '2020-01-01' where usuario = $1", [r4.sau]); const r = await vitrine(); await dono("update interno.saude_perfis set assinatura_versao = interno.saude_termo_vigente() where usuario = $1", [r4.sau]); return r; }, (r) => r.perfis.length === 0);
+  await espera("a coordenação anexa a prova da consulta ao conselho", () => rpc(como(ids.coord), "saude_verificacao_anexar", { p_usuario: r4.sau, p_arquivo: `${ids.coord}/captura12345.webp`, p_link: "https://cadastro.cfp.org.br/", p_situacao: "Ativo" }), (r) => r.verificacao_situacao === "Ativo" && r.verificacao_link.startsWith("https://"));
+  await recusa("anexo de outra pasta é recusado", () => rpc(como(ids.coord), "saude_verificacao_anexar", { p_usuario: r4.sau, p_arquivo: `${r4.sau}/captura12345.webp`, p_link: "", p_situacao: "" }), "invalido:arquivo");
+  await espera("a coordenação edita o texto: sai do ar até o profissional aprovar", async () => { const e = await rpc(como(ids.coord), "saude_editar", { p_usuario: r4.sau, p: { ...perfil, bio: "Atendimento on-line para adultos." } }); return { e, v: await vitrine() }; }, (r) => r.e.ok === true && r.v.perfis.length === 0);
+  await recusa("a coordenação não aprova pelo profissional", () => rpc(como(ids.coord), "saude_aprovar_texto"), "sem_permissao");
+  await espera("o profissional aprova e o cartão volta", async () => { await rpc(como(r4.sau), "saude_aprovar_texto"); await rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "publicar" }); return vitrine(); }, (r) => r.perfis.length === 1 && r.perfis[0].bio === "Atendimento on-line para adultos.");
+  await espera("a edição da coordenação também passa pelos validadores", () => rpc(como(ids.coord), "saude_editar", { p_usuario: r4.sau, p: { ...perfil, bio: "Sou o melhor do Rio." } }), (r) => r.ok === false);
+  await espera("o registro guarda cada passo, com o antes e o depois da edição", () => rpc(como(ids.coord), "saude_registro_listar", { p_usuario: r4.sau }),
+    (r) => ["termo_aceito", "assinatura_enviada", "assinatura_conferida", "perfil_editado_pela_coordenacao", "texto_aprovado", "verificacao_anexada"].every((a) => r.some((x) => x.acao === a)) && r.some((x) => x.detalhe?.antes && x.detalhe?.depois));
+  await recusa("outro profissional não lê o registro de ninguém", () => rpc(como(r4.mat), "saude_registro_listar", { p_usuario: r4.sau }), "sem_permissao");
+  await recusa("o registro não se apaga", () => dono("delete from interno.saude_registro"), "não se alteram");
   await espera("conta suspensa: some", async () => { await dono("update interno.perfis set suspenso = true where id = $1", [r4.sau]); const r = await vitrine(); await dono("update interno.perfis set suspenso = false where id = $1", [r4.sau]); return r; }, (r) => r.perfis.length === 0);
   await espera("editar o perfil tira da vitrine até a coordenação olhar de novo", async () => { await rpc(como(r4.sau), "saude_salvar", { p: { ...perfil, bio: "Atendo adultos e adolescentes." } }); return vitrine(); }, (r) => r.perfis.length === 0);
   await espera("pedir para sair: some e a coordenação não republica", async () => { await rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "publicar" }); await rpc(como(r4.sau), "saude_sair"); return vitrine(); }, (r) => r.perfis.length === 0);
