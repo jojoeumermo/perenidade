@@ -56,4 +56,7 @@ export const secaoDaFerramenta = {
   "ceu": "eyebrow",
   "calculadoras-de-eletronica": "eyebrow",
   "direitos-trabalhistas": "eyebrow",
+  "dicionario-chines": "eyebrow",
+  "escrita-chinesa": "eyebrow",
+  "corretor-ortografico": "eyebrow",
 } as const satisfies Record<ToolId, string>;

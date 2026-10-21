@@ -24,6 +24,7 @@
     "testar:sigilo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-sigilo.mjs",
     "testar:mensagens": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-mensagens.mjs",
     "testar:curriculo": "node scripts/testar-curriculo.mjs",
+    "testar:chines": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-chines.mjs",
     "testar:rodada": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-rodada.mjs",
     "testar:modelos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-modelos.mjs",
     "testar:ia": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-ia.mjs",
@@ -55,6 +56,7 @@
     "ag-psd": "31.0.2",
     "blockly": "^13.4.0",
     "github-slugger": "^2.0.0",
+    "hanzi-writer": "3.7.3",
     "i18n-iso-countries": "^7.14.0",
     "js-yaml": "^4.3.2",
     "JSCPP": "^2.0.9",
@@ -91,8 +93,10 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/topojson-client": "^3.1.5",
+    "dictionary-pt": "4.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.8",
+    "hanzi-writer-data": "2.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

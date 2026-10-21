@@ -56,6 +56,9 @@ const TonsDoMandarim = dynamic(() => import("./novas/Linguas").then((m) => m.Ton
 const Alfabetos = dynamic(() => import("./novas/Linguas").then((m) => m.Alfabetos), { ssr: false, loading: espera });
 const Ceu = dynamic(() => import("./novas/Ceu").then((m) => m.Ceu), { ssr: false, loading: espera });
 const CalculadorasDeEletronica = dynamic(() => import("./novas/Eletronica").then((m) => m.CalculadorasDeEletronica), { ssr: false, loading: espera });
+const DicionarioChines = dynamic(() => import("./novas/Chines").then((m) => m.DicionarioChines), { ssr: false, loading: espera });
+const EscritaChinesa = dynamic(() => import("./novas/Chines").then((m) => m.EscritaChinesa), { ssr: false, loading: espera });
+const CorretorOrtografico = dynamic(() => import("./novas/Ortografia").then((m) => m.CorretorOrtografico), { ssr: false, loading: espera });
 const DireitosDoTrabalhador = dynamic(() => import("./novas/Trabalho").then((m) => m.DireitosDoTrabalhador), { ssr: false, loading: espera });
 
 /** Mostra uma ferramenta pelo nome, com os textos que a página da aula mandou (só os das ferramentas daquela disciplina). */
@@ -165,6 +168,12 @@ export function ToolView({ id, s, lang, area }: { id: ToolId; s: Partial<Tools>;
       return <div lang="pt-BR"><CalculadorasDeEletronica /></div>;
     case "direitos-trabalhistas":
       return <div lang="pt-BR"><DireitosDoTrabalhador /></div>;
+    case "dicionario-chines":
+      return <div lang="pt-BR"><DicionarioChines /></div>;
+    case "escrita-chinesa":
+      return <div lang="pt-BR"><EscritaChinesa /></div>;
+    case "corretor-ortografico":
+      return <div lang="pt-BR"><CorretorOrtografico /></div>;
   }
 }
 
