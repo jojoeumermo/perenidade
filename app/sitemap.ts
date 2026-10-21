@@ -73,6 +73,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/direitos",
     "/eventos",
     "/divulgue",
+    "/criancas",
+    "/criancas/adultos",
+    "/criancas/letras",
+    "/criancas/historias",
+    "/criancas/contas",
+    "/criancas/robo",
+    "/criancas/seguranca",
+    "/criancas/imprimir",
   ];
   for (const area of areaSlugs) paths.push(`/estantes/${area}`);
   for (const tool of tools) paths.push(`/ferramentas/${tool}`);
