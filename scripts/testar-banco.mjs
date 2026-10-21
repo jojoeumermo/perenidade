@@ -3091,6 +3091,11 @@ await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), 
   await espera("visitante relata um erro", () => rpc(anon, "erro_relatar", { p: { pagina: "/pt/acervo", descricao: "A capa do livro não aparece no celular.", passos: "Abrir o acervo no celular.", navegador: "", tela: "360x800" } }), (r) => r.ok === true);
   await recusa("quem não cuida do código não lê os relatos", () => rpc(como(r4.mat), "erros_listar"), "sem_permissao");
   await espera("a coordenação lê o relato", () => rpc(como(ids.coord), "erros_listar"), (r) => r.some((x) => x.pagina === "/pt/acervo"));
+
+  // Estatísticas: o panorama sai só em contagens, e só para a coordenação.
+  await espera("estatísticas trazem o panorama da equipe e do erro aberto", () => rpc(como(ids.coord), "painel_estatisticas"),
+    (r) => r.panorama.equipe > 0 && r.panorama.erros_abertos >= 1 && typeof r.panorama.por_papel === "object" && !JSON.stringify(r.panorama).includes("@"));
+  await recusa("educador não vê as estatísticas", () => rpc(como(r4.mat), "painel_estatisticas"), "sem_permissao");
 }
 
 // Tranca final: nenhuma tabela interna sem segurança por linha, nenhuma com permissão direta para quem vem de fora.
