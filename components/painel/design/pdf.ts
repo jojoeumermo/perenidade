@@ -1,8 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 
 // Um gerador de PDF mínimo, sem biblioteca: páginas com imagens JPEG (DCTDecode), caminhos vetoriais (para o PDF
-// vetorial e as marcas de corte) e texto curto em Helvetica (a linha de identificação da gráfica). As medidas são em
-// pontos (1/72 de polegada); a origem do PDF é embaixo, à esquerda.
+// vetorial e as marcas de corte), degradês, imagens com transparência e texto curto em Helvetica (a linha de
+// identificação da gráfica). As medidas são em pontos (1/72 de polegada); a origem do PDF é embaixo, à esquerda.
+
+import { emLaboratorio } from "./motor";
 
 export interface ImagemPdf {
   jpeg: Uint8Array;
@@ -22,10 +24,16 @@ export interface PaginaPdf {
   imagens: ImagemPdf[];
   /** Operadores de desenho do PDF (caminhos, cores), já na coordenada da página. */
   desenho?: string;
-  /** Opacidades usadas no desenho (o desenho chama /GSn gs, com n o índice aqui). */
-  opacidades?: number[];
-  /** Imagens com transparência usadas pelo desenho (/Imn Do), em PNG decodificado: RGB e alfa à parte. */
-  imagensRgba?: { rgb: Uint8Array; alfa: Uint8Array; w: number; h: number }[];
+  /** O desenho já comprimido (FlateDecode); quando vem, toma o lugar de `desenho`. */
+  desenhoComprimido?: Uint8Array;
+  /** Opacidades usadas no desenho (o desenho chama /GSn gs, com n o índice aqui); um par é [preenchimento, traço]. */
+  opacidades?: (number | [number, number])[];
+  /** Imagens com transparência usadas pelo desenho (/Ian Do): RGB e alfa à parte, crus ou comprimidos (flate). */
+  imagensRgba?: { rgb: Uint8Array; alfa: Uint8Array; w: number; h: number; flate?: boolean }[];
+  /** Fotos opacas em JPEG usadas pelo desenho (/Jpn Do), no quadrado unitário como toda imagem do PDF. */
+  fotos?: { jpeg: Uint8Array; w: number; h: number }[];
+  /** Degradês (dicionários de sombreamento do PDF) usados pelo desenho (/Shn sh). */
+  sombreados?: string[];
 }
 
 const enc = new TextEncoder();
@@ -81,27 +89,38 @@ export function montarPdf(paginas: PaginaPdf[], titulo: string): Blob {
     const imagens = p.imagens.map(() => reservar());
     const rgba = (p.imagensRgba ?? []).map(() => [reservar(), reservar()] as const);
     const estados = (p.opacidades ?? []).map(() => reservar());
+    const fotos = (p.fotos ?? []).map(() => reservar());
+    const sombreados = (p.sombreados ?? []).map(() => reservar());
     let ops = "";
     p.imagens.forEach((img, i) => {
       ops += `q ${n(img.largura)} 0 0 ${n(img.altura)} ${n(img.x)} ${n(img.y)} cm /Im${i} Do Q\n`;
     });
     if (p.desenho) ops += p.desenho;
-    const xobjetos = [...imagens.map((ref, i) => `/Im${i} ${ref} 0 R`), ...rgba.map(([ref], i) => `/Ia${i} ${ref} 0 R`)].join(" ");
+    const xobjetos = [...imagens.map((ref, i) => `/Im${i} ${ref} 0 R`), ...rgba.map(([ref], i) => `/Ia${i} ${ref} 0 R`), ...fotos.map((ref, i) => `/Jp${i} ${ref} 0 R`)].join(" ");
     const gs = estados.map((ref, i) => `/GS${i} ${ref} 0 R`).join(" ");
-    objeto(id, `<< /Type /Page /Parent ${arvore} 0 R /MediaBox [0 0 ${n(p.largura)} ${n(p.altura)}] /Contents ${conteudo} 0 R /Resources << /Font << /F1 ${fonte} 0 R >> /XObject << ${xobjetos} >> /ExtGState << ${gs} >> >> >>`);
-    objeto(conteudo, [enc.encode(ops)]);
+    const sh = sombreados.map((ref, i) => `/Sh${i} ${ref} 0 R`).join(" ");
+    objeto(id, `<< /Type /Page /Parent ${arvore} 0 R /MediaBox [0 0 ${n(p.largura)} ${n(p.altura)}] /Contents ${conteudo} 0 R /Resources << /Font << /F1 ${fonte} 0 R >> /XObject << ${xobjetos} >> /ExtGState << ${gs} >> /Shading << ${sh} >> >> >>`);
+    if (p.desenhoComprimido) objeto(conteudo, [p.desenhoComprimido], "/Filter /FlateDecode");
+    else objeto(conteudo, [enc.encode(ops)]);
     p.imagens.forEach((img, i) => objeto(imagens[i], [img.jpeg], `/Type /XObject /Subtype /Image /Width ${img.w} /Height ${img.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode`));
     (p.imagensRgba ?? []).forEach((img, i) => {
       const [ref, mascara] = rgba[i];
-      objeto(mascara, [img.alfa], `/Type /XObject /Subtype /Image /Width ${img.w} /Height ${img.h} /ColorSpace /DeviceGray /BitsPerComponent 8`);
-      objeto(ref, [img.rgb], `/Type /XObject /Subtype /Image /Width ${img.w} /Height ${img.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /SMask ${mascara} 0 R`);
+      const filtro = img.flate ? " /Filter /FlateDecode" : "";
+      objeto(mascara, [img.alfa], `/Type /XObject /Subtype /Image /Width ${img.w} /Height ${img.h} /ColorSpace /DeviceGray /BitsPerComponent 8${filtro}`);
+      objeto(ref, [img.rgb], `/Type /XObject /Subtype /Image /Width ${img.w} /Height ${img.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /SMask ${mascara} 0 R${filtro}`);
     });
-    (p.opacidades ?? []).forEach((alfa, i) => objeto(estados[i], `<< /Type /ExtGState /ca ${n(alfa)} /CA ${n(alfa)} >>`));
+    (p.fotos ?? []).forEach((img, i) => objeto(fotos[i], [img.jpeg], `/Type /XObject /Subtype /Image /Width ${img.w} /Height ${img.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode`));
+    (p.sombreados ?? []).forEach((dicionario, i) => objeto(sombreados[i], dicionario));
+    (p.opacidades ?? []).forEach((alfa, i) => {
+      const [preencher, tracar] = typeof alfa === "number" ? [alfa, alfa] : alfa;
+      objeto(estados[i], `<< /Type /ExtGState /ca ${n(preencher)} /CA ${n(tracar)} >>`);
+    });
   }
   objeto(catalogo, `<< /Type /Catalog /Pages ${arvore} 0 R >>`);
   objeto(arvore, `<< /Type /Pages /Kids [${idsDasPaginas.map((id) => `${id} 0 R`).join(" ")}] /Count ${idsDasPaginas.length} >>`);
   objeto(fonte, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>");
-  objeto(info, `<< /Title (${textoPdf(titulo)}) /Producer (Instituto Lucia - Estudio) /Creator (Estudio do Instituto Lucia) >>`);
+  const autoria = emLaboratorio() ? "/Producer (Laboratorio publico de design) /Creator (Laboratorio publico de design - uso livre, sem valor institucional)" : "/Producer (Instituto Lucia - Estudio) /Creator (Estudio do Instituto Lucia)";
+  objeto(info, `<< /Title (${textoPdf(titulo)}) ${autoria} >>`);
   const xref = tamanho;
   let tabela = `xref\n0 ${proximo}\n0000000000 65535 f \n`;
   for (let i = 1; i < proximo; i++) tabela += `${String(offsets[i] ?? 0).padStart(10, "0")} 00000 n \n`;

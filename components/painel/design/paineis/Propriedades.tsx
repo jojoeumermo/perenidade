@@ -482,7 +482,7 @@ function PropriedadesMarca({ c }: { c: CamadaMarca }) {
 
 function PropriedadesElemento({ c }: { c: CamadaElemento }) {
   const ed = useEditor();
-  const comTraco: DadosDoElemento["desenho"][] = ["icone", "raios-traco", "ornamento", "seta-mao"];
+  const comTraco: DadosDoElemento["desenho"][] = ["icone", "raios-traco", "ornamento", "seta-mao", "brasil-estados"];
   return (
     <Secao titulo="Elemento">
       {c.desenho === "icone" && (
@@ -503,17 +503,17 @@ function PropriedadesElemento({ c }: { c: CamadaElemento }) {
           <Cores valor={c.cor} mudar={(cor) => ed.mudar({ cor })} extras={ed.projeto.paleta} />
         </>
       )}
-      {(c.desenho === "qr" || c.desenho === "selo" || c.desenho === "icone") && (
+      {(c.desenho === "qr" || c.desenho === "selo" || c.desenho === "icone" || c.desenho === "brasil-estados") && (
         <>
-          <p className="text-xs text-e-suave">{c.desenho === "qr" ? "Fundo do código" : c.desenho === "selo" ? "Miolo do selo" : "Preenchimento"}</p>
+          <p className="text-xs text-e-suave">{c.desenho === "qr" ? "Fundo do código" : c.desenho === "selo" ? "Miolo do selo" : c.desenho === "brasil-estados" ? "Estados em destaque" : "Preenchimento"}</p>
           <Cores valor={c.fundo} semCor mudar={(fundo) => ed.mudar({ fundo })} />
         </>
       )}
       {comTraco.includes(c.desenho) && <Faixa rotulo="Espessura do traço" valor={c.espessura || (c.desenho === "icone" ? 1.6 : 4)} min={c.desenho === "icone" ? 0.5 : 1} max={c.desenho === "icone" ? 4 : 60} passo={c.desenho === "icone" ? 0.1 : 1} mudar={(espessura, fim) => ed.mudar({ espessura }, Boolean(fim))} />}
       {(c.desenho === "raios-traco" || c.desenho === "louros" || c.desenho === "selo") && <Faixa rotulo={c.desenho === "louros" ? "Folhas" : c.desenho === "selo" ? "Dentes" : "Raios"} valor={c.quantidade ?? (c.desenho === "louros" ? 11 : c.desenho === "selo" ? 28 : 36)} min={c.desenho === "louros" ? 5 : 6} max={c.desenho === "louros" ? 20 : 96} mudar={(quantidade, fim) => ed.mudar({ quantidade }, Boolean(fim))} />}
-      {(c.desenho === "qr" || c.desenho === "carimbo" || c.desenho === "selo" || c.desenho === "figurinha") && (
+      {(c.desenho === "qr" || c.desenho === "carimbo" || c.desenho === "selo" || c.desenho === "figurinha" || c.desenho === "brasil-estados") && (
         <label className="block text-xs text-e-suave">
-          {c.desenho === "qr" ? "Endereço do QR" : c.desenho === "carimbo" ? "Texto de cima" : c.desenho === "selo" ? "Texto do selo (Enter quebra a linha)" : "Rótulo da guia"}
+          {c.desenho === "qr" ? "Endereço do QR" : c.desenho === "carimbo" ? "Texto de cima" : c.desenho === "selo" ? "Texto do selo (Enter quebra a linha)" : c.desenho === "brasil-estados" ? "Siglas dos estados em destaque (ex.: SP, RJ, BA)" : "Rótulo da guia"}
           {c.desenho === "selo" ? <textarea value={c.conteudo} rows={2} onChange={(e) => ed.mudar({ conteudo: e.target.value.slice(0, 60) })} className={`${CAMPO} mt-1 h-auto py-1.5`} /> : <input value={c.conteudo} onChange={(e) => ed.mudar({ conteudo: e.target.value.slice(0, 300) })} className={`${CAMPO} mt-1`} />}
         </label>
       )}
@@ -576,16 +576,25 @@ function PropriedadesDaPagina() {
   const creditos = creditosDo(ed.projeto);
   const mudarLegenda = (l: string, lembrar = false) => ed.setProjeto((p) => ({ ...p, legenda: l.slice(0, 5000) }), lembrar, "Legenda");
   const modelosDeLegenda = useMemo(
-    () => [
+    () =>
+      ed.laboratorio
+        ? [
+            ["Evento", "Vem aí: [nome do evento]!\n\n{data}, às {hora}, em {local}. Entrada livre.\n\nMarque quem vai com você.\n\n#evento #cultura"],
+            ["Dicas", "[Número] dicas para [assunto] →\n\n[resumo em uma frase]\n\nSalve para não esquecer.\n\n#dicas"],
+            ["Carrossel", "Arraste para o lado →\n\n[resumo do carrossel em uma frase]\n\nSalve para ler depois e mande para quem precisa."],
+          ]
+        : [
       ["Lançamento", "Novidade no Instituto Lúcia!\n\n[conte o que mudou em duas frases]\n\nTudo de graça, sem anúncios, em {link}.\n\n#educaçãopopular #InstitutoLúcia"],
       ["Chamada para voluntariado", "Sabe explicar alguma coisa? Escreva uma aula.\n\nPrecisamos de gente para [funções]. Nenhuma função exige diploma.\n\nInscrições em {link}/voluntarios\n\n#voluntariado #educaçãopopular"],
       ["Aula ao vivo", "Hoje, às {hora}: [tema], com [educador(a)].\n\nDe graça, sem instalar nada: {link}/ao-vivo\n\n#aulaaovivo #educaçãopopular"],
       ["Memória", "[Nome], presente!\n\n[duas ou três frases sobre a vida e a luta]\n\n#memória #educaçãopopular"],
       ["Carrossel", "Arraste para o lado →\n\n[resumo do carrossel em uma frase]\n\nSalve para ler depois e mande para quem precisa.\n\n#educaçãopopular #InstitutoLúcia"],
     ],
-    [],
+    [ed.laboratorio],
   );
-  const BANCO = ["#educaçãopopular", "#InstitutoLúcia", "#educaçãogratuita", "#PauloFreire", "#estudegraça", "#voluntariado", "#ENEM", "#saúdesolidária", "#memória", "#culturapopular", "#lutapopular", "#conhecimentolivre"];
+  const BANCO = ed.laboratorio
+    ? ["#evento", "#cultura", "#dicas", "#educação", "#leitura", "#comunidade", "#arte", "#música", "#ciência", "#feira"]
+    : ["#educaçãopopular", "#InstitutoLúcia", "#educaçãogratuita", "#PauloFreire", "#estudegraça", "#voluntariado", "#ENEM", "#saúdesolidária", "#memória", "#culturapopular", "#lutapopular", "#conhecimentolivre"];
   return (
     <div>
       <div className="border-b border-e-fio px-4 py-3">
