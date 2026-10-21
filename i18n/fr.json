@@ -999,7 +999,7 @@
       "check": "Vérifier l'orthographe et la grammaire",
       "checking": "Vérification…",
       "checkNone": "Rien à signaler.",
-      "checkNote": "Le texte n'est envoyé au service ouvert LanguageTool que lorsque vous appuyez sur le bouton.",
+      "checkNote": "Le texte n'est envoyé au correcteur libre LanguageTool que lorsque vous appuyez sur le bouton ou activez la vérification pendant l'écriture.",
       "checkFailed": "Le correcteur n'a pas répondu. Réessayez dans une minute.",
       "checkStale": "Le texte a changé : vérifiez à nouveau."
     },
