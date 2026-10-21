@@ -1908,6 +1908,7 @@ html[data-escrita-foco="1"] .painel {
     opacity: 0;
     transform: translateY(4px);
   }
+}
 /* ───────────── Acervo: a vitrine que anda ───────────── */
 @keyframes carrossel-andar {
   from { transform: translateX(0); }
