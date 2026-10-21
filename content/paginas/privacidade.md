@@ -94,6 +94,10 @@ O termo também é assinado pelo profissional com a conta gov.br (assinatura ele
 
 O instituto não coleta, não recebe e não guarda dados de saúde de quem procura atendimento. O cartão de encaminhamento (com o código) é desenhado no seu próprio aparelho e não é enviado a lugar nenhum; o seu primeiro nome, se você escrever, fica só no seu navegador. Os botões de contato levam a serviços de terceiros (WhatsApp, Instagram, e-mail), com as regras de privacidade deles.
 
+## Cantinho da Lua (área infantil)
+
+RASCUNHO, REVISÃO JURÍDICA PENDENTE. No [Cantinho da Lua](/criancas), nada é coletado: não há conta, nome, foto, idade, microfone, câmera nem localização, e as atividades não enviam nada para o instituto. Só ficam guardadas, no próprio navegador, duas escolhas do adulto (som ligado ou desligado e o lembrete de pausa), que se apagam em [Cantinho da Lua: para os adultos](/criancas/adultos). A leitura em voz alta usa a voz do aparelho; em alguns navegadores essa voz é gerada pela empresa do navegador, que recebe o texto do site a ser lido (nunca algo digitado pela criança).
+
 ## Avaliação automática na Comunidade
 
 Tudo o que é escrito na [Comunidade](/comunidade) passa por uma avaliação automática antes de aparecer. Ela existe para manter a convivência respeitosa, segura e voltada ao estudo: ajuda a barrar spam, assédio, ameaças, discurso de ódio e outras violações das regras da página.
