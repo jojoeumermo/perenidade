@@ -50,7 +50,8 @@ jobs:
           # A pasta dos arquivos aprovados pode ainda não existir: sem ela o "git add" pararia a rotina inteira.
           mkdir -p public/arquivos
           node scripts/historico.mjs
-          git add -A -- content public/arquivos historico
+          # lib/areas.ts e os dicionários: as disciplinas criadas, editadas ou removidas em Disciplinas e trilhas.
+          git add -A -- content public/arquivos historico lib/areas.ts i18n
           if git diff --cached --quiet; then echo "sim=nao" >> "$GITHUB_OUTPUT"; else echo "sim=sim" >> "$GITHUB_OUTPUT"; fi
       # O build confere cada arquivo novo com as mesmas regras do site: conteúdo inválido não entra.
       - if: steps.novo.outputs.sim == 'sim'
