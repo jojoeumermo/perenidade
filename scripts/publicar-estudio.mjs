@@ -54,6 +54,13 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(new URL(im
   fs.writeFileSync(path.join(SITE, ".assetsignore"), [".versao.json", "**/.versao.json", ...grandes].join("\n") + "\n");
   if (!grandes.length) console.log("Nenhum arquivo acima de 25 MiB.");
   if (process.argv.includes("--so-cortar")) process.exit(0);
+  // Publicar troca o estúdio inteiro: o que não estiver na pasta SAI do ar. Sem um editor ou sem o laboratório /kali
+  // montado aqui, a publicação para (aconteceu: uma publicação sem o kali deixou o laboratório de segurança preto).
+  const faltam = ["photocraft", "filmcraft", "effectcraft", "wordcraft", "gridcraft", "deckcraft", "blockbench", "sculptgl", "threejs", "kali"].filter((pasta) => !fs.existsSync(path.join(SITE, pasta)));
+  if (faltam.length && !process.argv.includes("--mesmo-incompleto")) {
+    console.error(`Falta montar: ${faltam.join(", ")}. Rode node scripts/editores.mjs e node scripts/kali.mjs antes (ou --mesmo-incompleto, se for de propósito).`);
+    process.exit(1);
+  }
   wrangler("deploy");
   console.log("Pronto: https://estudio.institutolucia.org/");
 }

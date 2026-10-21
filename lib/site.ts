@@ -15,4 +15,12 @@ export const site = {
    * Com uma data (AAAA-MM-DD), a página volta ao ar e mostra só o que mudou daquele dia em diante.
    */
   historyFrom: "2026-10-11" as string,
+  /**
+   * Robôs de IA no robots.txt:
+   * - "bloquear-treino" (padrão): os buscadores com IA que citam e linkam a fonte (ChatGPT Search, Perplexity…) entram;
+   *   os que só coletam texto para treinar modelos ficam de fora.
+   * - "permitir-todos": nenhum bloqueio além das áreas privadas.
+   * - "bloquear-todos": nenhum robô de IA, nem os de busca.
+   */
+  robosDeIA: "bloquear-treino" as "bloquear-treino" | "permitir-todos" | "bloquear-todos",
 } as const;
