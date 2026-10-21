@@ -1083,6 +1083,32 @@ await espera("autor marca o pedido como resolvido", () => rpc(como(ids.prof), "e
 await recusa("vice-coordenação não define a sala da equipe", () => rpc(como(ids.vice), "equipe_sala_salvar", { p_url: "https://matrix.to/#/!sala:exemplo.org" }), "sem_permissao");
 await espera("coordenação indica a sala cifrada", async () => { await rpc(como(ids.coord), "equipe_sala_salvar", { p_url: "https://matrix.to/#/!sala:exemplo.org" }); return rpc(como(ids.designer), "equipe_canais"); }, (r) => r.sala.startsWith("https://matrix.to/"));
 await espera("instalar de novo não apaga o mural cifrado", async () => { await banco.instalarDeNovo(); return dono("select count(*)::int as n from interno.equipe_mensagens"); }, (r) => r.rows[0].n === 2);
+// O mural no jeito de fórum: etiqueta, apoio (só para cima), fixadas e respostas em fio.
+await recusa("etiqueta inventada é recusada", async () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: await selar(aparelhos.prof, geral, "Ideia nova", contextoDoMural("geral", ids.prof)), p_etiqueta: "spam" }), "invalido:etiqueta");
+let ideia;
+await espera("publicação com etiqueta", async () => (ideia = await rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: await selar(aparelhos.prof, geral, "Mutirão de revisão no sábado\nQuem topa?", contextoDoMural("geral", ids.prof)), p_etiqueta: "ideia" })), (r) => Boolean(r.id));
+await recusa("ninguém apoia a própria publicação", () => rpc(como(ids.prof), "equipe_apoiar", { p_id: ideia.id }), "nao_encontrado");
+const naCoordenacao = (await dono("insert into interno.equipe_mensagens (canal, autor, corpo) values ('coordenacao', $1, 'c2.1.teste') returning id", [ids.coord])).rows[0].id;
+await recusa("quem não enxerga o canal não apoia", () => rpc(como(ids.designer), "equipe_apoiar", { p_id: naCoordenacao }), "nao_encontrado");
+await dono("delete from interno.equipe_mensagens where id = $1", [naCoordenacao]);
+await espera("colega apoia, e apoiar de novo não conta duas vezes", async () => { await rpc(como(ids.designer), "equipe_apoiar", { p_id: ideia.id, p_apoiar: true }); return rpc(como(ids.designer), "equipe_apoiar", { p_id: ideia.id, p_apoiar: true }); }, (r) => r.apoios === 1);
+await espera("a lista diz quantos apoiaram e se eu apoiei", () => rpc(como(ids.designer), "equipe_listar", { p_canal: "geral" }), (r) => r[0].id === ideia.id && r[0].apoios === 1 && r[0].apoiei === true && r[0].etiqueta === "ideia" && r[0].canal === "geral");
+await espera("para quem não apoiou, apoiei vem falso", () => rpc(como(ids.coord), "equipe_listar", { p_canal: "geral" }), (r) => r[0].apoios === 1 && r[0].apoiei === false);
+await espera("tirar o apoio", () => rpc(como(ids.designer), "equipe_apoiar", { p_id: ideia.id, p_apoiar: false }), (r) => r.apoios === 0);
+let comentario;
+await espera("comentário e resposta ao comentário (o fio)", async () => {
+  comentario = await rpc(como(ids.designer), "equipe_escrever", { p_canal: "geral", p_corpo: await selar(aparelhos.designer, geral, "Eu topo.", contextoDoMural("geral", ids.designer)), p_resposta_a: ideia.id });
+  await rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: await selar(aparelhos.prof, geral, "Combinado, Davi.", contextoDoMural("geral", ids.prof)), p_resposta_a: ideia.id, p_acima: comentario.id });
+  return rpc(como(ids.prof), "equipe_listar", { p_canal: "geral" });
+}, (r) => r[0].respostas.length === 2 && r[0].respostas[0].acima === null && r[0].respostas[1].acima === comentario.id);
+await recusa("o fio não aponta para comentário de outra publicação", async () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "pedidos", p_corpo: await selar(aparelhos.prof, geral, "Fora do lugar.", contextoDoMural("pedidos", ids.prof)), p_resposta_a: recado.id, p_acima: comentario.id }), "nao_encontrado");
+await recusa("publicação nova não aponta para comentário", async () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "geral", p_corpo: await selar(aparelhos.prof, geral, "Sem pai.", contextoDoMural("geral", ids.prof)), p_acima: comentario.id }), "nao_encontrado");
+await espera("o comentário também recebe apoio", () => rpc(como(ids.prof), "equipe_apoiar", { p_id: comentario.id }), (r) => r.apoios === 1);
+await recusa("quem não modera não fixa", () => rpc(como(ids.designer), "equipe_fixar", { p_id: ideia.id }), "nao_encontrado");
+await espera("a coordenação fixa, e a fixada vem primeiro no canal", async () => { await rpc(como(ids.coord), "equipe_fixar", { p_id: recado.id, p_fixada: true }); return rpc(como(ids.prof), "equipe_listar", { p_canal: "pedidos" }); }, (r) => r[0].id === recado.id && r[0].fixada === true);
+await espera("o início junta os canais que a pessoa enxerga", () => rpc(como(ids.designer), "equipe_listar", { p_canal: "inicio" }), (r) => r.some((m) => m.canal === "geral") && r.some((m) => m.canal === "pedidos") && r.every((m) => ["geral", "pedidos", "aprendizado", "design"].includes(m.canal)));
+await recusa("quem não é da equipe não abre o início", () => rpc(como(ids.leitora), "equipe_listar", { p_canal: "inicio" }), "sem_permissao");
+await dono("delete from interno.equipe_mensagens where id = $1", [ideia.id]);
 // O canal da mediação aparece para quem media; escrever nele (e pedir ajuda à mediação) precisa funcionar.
 await espera("mediação vê o próprio canal", () => rpc({ ...como(ids.med), aal: "aal2" }, "equipe_canais"), (r) => r.canais.includes("mediacao"));
 await espera("educador pede ajuda à mediação", async () => rpc(como(ids.prof), "equipe_escrever", { p_canal: "pedidos", p_corpo: await selar(aparelhos.prof, geral, "Preciso de ajuda com uma conversa difícil.", contextoDoMural("pedidos", ids.prof)), p_resposta_a: null, p_para: "mediacao" }), (r) => Boolean(r.id));

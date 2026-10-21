@@ -394,6 +394,20 @@ alter table interno.equipe_mensagens add constraint equipe_mensagens_canal_check
 alter table interno.equipe_mensagens drop constraint if exists equipe_mensagens_para_check;
 alter table interno.equipe_mensagens add constraint equipe_mensagens_para_check
   check (para is null or para in ('coordenacao', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento'));
+-- O mural virou fórum: etiqueta da publicação, fixadas pela moderação, respostas em fio (acima: o comentário respondido)
+-- e apoios (o voto, só para cima: uma pessoa, um apoio). Tudo some junto com a mensagem.
+alter table interno.equipe_mensagens add column if not exists etiqueta text;
+alter table interno.equipe_mensagens drop constraint if exists equipe_mensagens_etiqueta_check;
+alter table interno.equipe_mensagens add constraint equipe_mensagens_etiqueta_check
+  check (etiqueta is null or etiqueta in ('duvida', 'ideia', 'aviso', 'conquista', 'material', 'debate'));
+alter table interno.equipe_mensagens add column if not exists fixada boolean not null default false;
+alter table interno.equipe_mensagens add column if not exists acima uuid references interno.equipe_mensagens (id) on delete cascade;
+create table if not exists interno.equipe_apoios (
+  mensagem uuid not null references interno.equipe_mensagens (id) on delete cascade,
+  pessoa uuid not null references interno.perfis (id) on delete cascade,
+  criado_em timestamptz not null default now(),
+  primary key (mensagem, pessoa)
+);
 
 -- Materiais de campanha e de agitação (zines, panfletos, cartazes). Só a coordenação publica.
 create table if not exists interno.materiais (
@@ -3590,26 +3604,35 @@ begin
 end $$;
 
 create or replace function public.equipe_listar(p_canal text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_todos boolean := coalesce(p_canal, '') = 'inicio';
 begin
-  perform interno.eu();
-  if not interno.ve_canal(coalesce(p_canal, '')) then perform interno.erro('sem_permissao'); end if;
+  -- "inicio" junta todos os canais que a pessoa enxerga (o canal geral é a porta: quem não o vê não é da equipe).
+  if not interno.ve_canal(case when v_todos then 'geral' else coalesce(p_canal, '') end) then perform interno.erro('sem_permissao'); end if;
   -- Nada fica guardado por mais de trinta dias.
   delete from equipe_mensagens where criado_em < now() - interval '30 days';
   return (
-    select coalesce(jsonb_agg(x.j order by x.criado_em desc), '[]'::jsonb) from (
-      select m.criado_em, jsonb_build_object(
-        'id', m.id, 'autor', coalesce(f.nome, ''), 'autor_id', m.autor, 'meu', m.autor is not null and m.autor = auth.uid(), 'para', m.para, 'corpo', m.corpo,
-        'resolvido', m.resolvido, 'criado_em', m.criado_em,
-        'respostas', coalesce((select jsonb_agg(jsonb_build_object('id', r.id, 'autor', coalesce(g.nome, ''), 'autor_id', r.autor, 'meu', r.autor is not null and r.autor = auth.uid(), 'corpo', r.corpo, 'criado_em', r.criado_em) order by r.criado_em)
+    select coalesce(jsonb_agg(x.j order by x.primeiro desc, x.criado_em desc), '[]'::jsonb) from (
+      select m.criado_em, (not v_todos and m.fixada) as primeiro, jsonb_build_object(
+        'id', m.id, 'canal', m.canal, 'autor', coalesce(f.nome, ''), 'autor_id', m.autor, 'avatar', f.avatar, 'meu', m.autor is not null and m.autor = v,
+        'para', m.para, 'corpo', m.corpo, 'resolvido', m.resolvido, 'criado_em', m.criado_em, 'etiqueta', m.etiqueta, 'fixada', m.fixada,
+        'apoios', (select count(*) from equipe_apoios a where a.mensagem = m.id),
+        'apoiei', exists (select 1 from equipe_apoios a where a.mensagem = m.id and a.pessoa = v),
+        'respostas', coalesce((select jsonb_agg(jsonb_build_object('id', r.id, 'autor', coalesce(g.nome, ''), 'autor_id', r.autor, 'avatar', g.avatar,
+                                 'meu', r.autor is not null and r.autor = v, 'corpo', r.corpo, 'criado_em', r.criado_em, 'acima', r.acima,
+                                 'apoios', (select count(*) from equipe_apoios a where a.mensagem = r.id),
+                                 'apoiei', exists (select 1 from equipe_apoios a where a.mensagem = r.id and a.pessoa = v)) order by r.criado_em)
                                from equipe_mensagens r left join perfis g on g.id = r.autor where r.resposta_a = m.id), '[]'::jsonb)) as j
       from equipe_mensagens m left join perfis f on f.id = m.autor
-      where m.canal = p_canal and m.resposta_a is null
-      order by m.criado_em desc limit 60) x);
+      where m.resposta_a is null and (case when v_todos then interno.ve_canal(m.canal) else m.canal = p_canal end)
+      order by (not v_todos and m.fixada) desc, m.criado_em desc limit 100) x);
 end $$;
 
-create or replace function public.equipe_escrever(p_canal text, p_corpo text, p_resposta_a uuid default null, p_para text default null) returns jsonb
+drop function if exists public.equipe_escrever(text, text, uuid, text);
+create or replace function public.equipe_escrever(p_canal text, p_corpo text, p_resposta_a uuid default null, p_para text default null,
+  p_etiqueta text default null, p_acima uuid default null) returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); v_id uuid; v_para text := nullif(btrim(coalesce(p_para, '')), ''); v_versao integer;
+  v_etiqueta text := nullif(btrim(coalesce(p_etiqueta, '')), '');
 begin
   if not interno.ve_canal(coalesce(p_canal, '')) then perform interno.erro('sem_permissao'); end if;
   perform interno.limite('equipe', 120, 60);
@@ -3617,13 +3640,20 @@ begin
   v_versao := interno.chat_versao_valida(interno.canal_conversa(p_canal), p_corpo);
   if p_resposta_a is not null then
     if not exists (select 1 from equipe_mensagens where id = p_resposta_a and canal = p_canal and resposta_a is null) then perform interno.erro('nao_encontrado'); end if;
+    -- No fio, o comentário respondido precisa ser da mesma publicação.
+    if p_acima is not null and not exists (select 1 from equipe_mensagens where id = p_acima and resposta_a = p_resposta_a) then perform interno.erro('nao_encontrado'); end if;
     v_para := null;
+    v_etiqueta := null;
+  elsif p_acima is not null then
+    perform interno.erro('nao_encontrado');
   elsif p_canal = 'pedidos' then
     if v_para is null or v_para not in ('coordenacao', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento') then perform interno.erro('invalido:para'); end if;
   else
     v_para := null;
   end if;
-  insert into equipe_mensagens (canal, resposta_a, autor, para, corpo, versao) values (p_canal, p_resposta_a, v, v_para, p_corpo, v_versao) returning id into v_id;
+  if v_etiqueta is not null and v_etiqueta not in ('duvida', 'ideia', 'aviso', 'conquista', 'material', 'debate') then perform interno.erro('invalido:etiqueta'); end if;
+  insert into equipe_mensagens (canal, resposta_a, acima, autor, para, corpo, versao, etiqueta)
+  values (p_canal, p_resposta_a, case when p_resposta_a is null then null else p_acima end, v, v_para, p_corpo, v_versao, v_etiqueta) returning id into v_id;
   return jsonb_build_object('id', v_id);
 end $$;
 
@@ -3648,6 +3678,34 @@ begin
   if not found or not (coalesce(m.autor = v, false) or (interno.supervisor() and interno.ve_canal(m.canal))) then perform interno.erro('nao_encontrado'); end if;
   delete from equipe_mensagens where id = p_id;
   if m.autor is distinct from v then perform interno.registrar('equipe_mensagem_apagada', coalesce(m.autor::text, ''), jsonb_build_object('canal', m.canal)); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Apoiar (o voto do mural, só para cima): uma vez por pessoa, em publicação ou comentário de canal que ela enxerga. O próprio texto, não. */
+create or replace function public.equipe_apoiar(p_id uuid, p_apoiar boolean default true) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); m equipe_mensagens;
+begin
+  select * into m from equipe_mensagens where id = p_id;
+  if not found or not interno.ve_canal(m.canal) or m.autor is not distinct from v then perform interno.erro('nao_encontrado'); end if;
+  perform interno.limite('equipe_apoio', 300, 60);
+  if coalesce(p_apoiar, true) then
+    insert into equipe_apoios (mensagem, pessoa) values (p_id, v) on conflict do nothing;
+  else
+    delete from equipe_apoios where mensagem = p_id and pessoa = v;
+  end if;
+  return jsonb_build_object('apoios', (select count(*) from equipe_apoios where mensagem = p_id));
+end $$;
+
+/** Fixar no alto do canal: quem modera o mural (coordenação e supervisão, nos canais que enxerga). Até três por canal. */
+create or replace function public.equipe_fixar(p_id uuid, p_fixada boolean default true) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare m equipe_mensagens;
+begin
+  perform interno.eu();
+  select * into m from equipe_mensagens where id = p_id and resposta_a is null;
+  if not found or not (interno.supervisor() and interno.ve_canal(m.canal)) then perform interno.erro('nao_encontrado'); end if;
+  if coalesce(p_fixada, true) and not m.fixada
+     and (select count(*) from equipe_mensagens where canal = m.canal and fixada and resposta_a is null) >= 3 then perform interno.erro('fixadas_demais'); end if;
+  update equipe_mensagens set fixada = coalesce(p_fixada, true) where id = p_id;
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -6805,7 +6863,7 @@ begin
              'lideranca_passar', 'sucessao_definir', 'sucessao_ver', 'seguranca_ver', 'seguranca_configurar', 'acesso_registrar', 'aparelhos_meus',
              'aparelho_esquecer', 'avisos_meus', 'aviso_ler', 'auditoria_listar', 'exportar_usuarios', 'admin_senhas', 'chaves_api', 'resposta_aceitar',
              'comunidade_retidos', 'filtro_listar', 'filtro_salvar', 'abertura', 'abertura_salvar', 'reforco_pedir', 'reforco_disponibilidade', 'reforco_meus', 'reforco_cancelar',
-             'reforco_fila', 'reforco_assumir', 'reforco_soltar', 'reforco_concluir', 'equipe_canais', 'equipe_listar', 'equipe_escrever', 'equipe_marcar',
+             'reforco_fila', 'reforco_assumir', 'reforco_soltar', 'reforco_concluir', 'equipe_canais', 'equipe_listar', 'equipe_escrever', 'equipe_marcar', 'equipe_apoiar', 'equipe_fixar',
              'equipe_apagar', 'equipe_sala_salvar', 'materiais_listar', 'material_salvar', 'material_remover', 'termo_meu', 'termo_aceitar',
              'horas_registrar', 'horas_minhas', 'horas_remover', 'horas_fila', 'horas_conferir', 'certificado_abrir', 'certificado_testemunhar',
              'certificado_emitir', 'certificado_cancelar', 'certificados_listar', 'certificado_conferir', 'arquivo_bloquear', 'arquivos_bloqueados',
