@@ -75,6 +75,8 @@ export interface Editor {
   mexido: boolean;
   /** No Laboratório de Design dos estudantes: sem conta, tudo fica no aparelho (sem trabalhos, revisão nem publicação). */
   laboratorio: boolean;
+  /** Se a arte pode sair do estúdio: no laboratório, nada com o nome ou a marca do instituto (avisa e devolve falso). */
+  podeExportar: () => boolean;
 }
 
 export const ContextoDoEditor = createContext<Editor | null>(null);
