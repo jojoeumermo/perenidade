@@ -1680,6 +1680,58 @@
     "reacoes": [
       "Reacciones con átomos",
       "Mira cómo los átomos cambian de pareja en una reacción: nada desaparece, nada aparece."
+    ],
+    "algoritmos": [
+      "Algoritmos animados",
+      "Ordenamiento (burbuja, selección, inserción, quicksort) y búsqueda, paso a paso."
+    ],
+    "criptografia": [
+      "Hash y criptografía",
+      "El efecto avalancha del hash y cifrar con contraseña (AES), solo con el navegador."
+    ],
+    "grafos": [
+      "Grafos",
+      "Ciudades y carreteras: búsqueda en anchura, en profundidad y camino más corto."
+    ],
+    "sudoku": [
+      "Sudoku",
+      "Tres niveles, pistas que explican y notas a lápiz. Sin marcador."
+    ],
+    "referencias-abnt": [
+      "Referencias ABNT",
+      "Libros, artículos, páginas web y tesis en el formato brasileño NBR 6023."
+    ],
+    "palavras-geradoras": [
+      "Palabras generadoras",
+      "Alfabetización de adultos: conversar, separar sílabas, formar palabras y dictado."
+    ],
+    "solidos": [
+      "Sólidos geométricos",
+      "Gira cubo, cilindro, cono, pirámide y esfera; desarrollo, área y volumen."
+    ],
+    "contas-do-dia-a-dia": [
+      "Cuentas del día a día",
+      "Porcentaje, regla de tres, al contado o en cuotas y el presupuesto de la casa."
+    ],
+    "tons-do-mandarim": [
+      "Tonos del mandarín",
+      "Los cuatro tonos y el neutro, con curvas, pares mínimos y entrenamiento del oído."
+    ],
+    "alfabetos": [
+      "Alfabetos",
+      "Cirílico, hiragana, katakana y hangul: reconocer, escuchar y escribir."
+    ],
+    "ceu": [
+      "El cielo del día",
+      "Fase de la Luna, salida y puesta del Sol y las estaciones, para tu ciudad."
+    ],
+    "calculadoras-de-eletronica": [
+      "Calculadoras de electrónica",
+      "Código de colores, serie y paralelo, divisor, filtro RC y mapa de Karnaugh."
+    ],
+    "direitos-trabalhistas": [
+      "Derechos del trabajador (Brasil)",
+      "Vacaciones, aguinaldo, horas extras, preaviso, FGTS y finiquito según la ley brasileña."
     ]
   },
   "tools": {
