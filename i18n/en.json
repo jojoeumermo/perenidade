@@ -95,7 +95,8 @@
     "notebook": "Study notebook",
     "health": "Health",
     "reportBug": "Report a site bug",
-    "institute": "Charter, mission and values"
+    "institute": "Charter, mission and values",
+    "freeRoom": "Open classroom (for teachers)"
   },
   "labs": {
     "eyebrow": "Real practice",
@@ -131,7 +132,9 @@
     "segurancaKaliAviso": "On opening, the browser downloads about 8 MB (the emulator and a small Linux image) and boots the system — it takes a few seconds. Best on a computer, with an up-to-date Chrome, Edge or Firefox.",
     "segurancaKaliTelaCheia": "Fullscreen",
     "segurancaKaliDefesa": "Defense training: spotting the attack",
-    "segurancaKaliForaDoAr": "The lab is not yet live at the institute's address."
+    "segurancaKaliForaDoAr": "The lab is not yet live at the institute's address.",
+    "eletrica": "Electrical lab",
+    "eletricaLead": "A real-looking multimeter on the bench, series and parallel with bulbs, wiring a light and an outlet with the right colours, and an electrician's maths."
   },
   "lists": {
     "bankEyebrow": "To practise",
@@ -649,6 +652,14 @@
     "oratoria-e-lideranca": [
       "Public speaking and leadership",
       "Speaking in public with clarity, preparing a talk, running meetings and assemblies and leading collectively."
+    ],
+    "samba-e-cultura": [
+      "Samba and culture",
+      "Samba from the circle to the avenue: history, rhythm, Black and Brazilian culture, the hillside, malandragem and the people who made samba."
+    ],
+    "eletricista": [
+      "Electrician",
+      "Electricity from the basics to wiring a house, with safety first: multimeter, breaker panel, outlets, electric shower and the trade as a living."
     ]
   },
   "tracks": {
@@ -1478,7 +1489,7 @@
     "teoria": "Revolutionary theory",
     "lutas": "People's struggles",
     "percursos": "Literacy and ENEM",
-    "oficios": "Trades and income: learn a skill and earn a living from it"
+    "oficios": "Trades and hobbies: learn a skill, do it yourself and earn a living from it"
   },
   "stages": {
     "fundamental": "Primary and lower secondary",
@@ -2910,7 +2921,8 @@
       "notebook": "Gather lessons and texts and get summary, flashcards, quiz, map, timeline and audio from them. All in your browser.",
       "community": "The learners' forum: questions, answers and debates, moderated and ad-free.",
       "health": "Volunteer health professionals offering free or social-rate care: you talk to them directly.",
-      "bugs": "Something froze or looked wrong? Tell the people who maintain the code."
+      "bugs": "Something froze or looked wrong? Tell the people who maintain the code.",
+      "freeRoom": "Build and project your lesson with the site's labs, books, editors, simulations and games."
     }
   },
   "support": {
@@ -4440,5 +4452,8 @@
   },
   "instituto": {
     "description": "Purpose, mission, vision, values and the working charter (statute) of Instituto Lúcia: a free school and library run by volunteers."
+  },
+  "salaLivre": {
+    "description": "Build and project your own lesson with everything the institute offers: labs, library books, photo, video and 3D editors, simulations, games and quizzes. It stays only in your browser."
   }
 }

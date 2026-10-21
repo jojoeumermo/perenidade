@@ -95,7 +95,8 @@
     "notebook": "Cuaderno de estudio",
     "health": "Salud",
     "reportBug": "Encontré un error en el sitio",
-    "institute": "Estatuto, misión y valores"
+    "institute": "Estatuto, misión y valores",
+    "freeRoom": "Sala libre (para docentes)"
   },
   "labs": {
     "eyebrow": "Practicar de verdad",
@@ -131,7 +132,9 @@
     "segurancaKaliAviso": "Al abrir, el navegador descarga unos 8 MB (el emulador y una imagen pequeña de Linux) y arranca el sistema — tarda unos segundos. Mejor en una computadora, con Chrome, Edge o Firefox actualizados.",
     "segurancaKaliTelaCheia": "Pantalla completa",
     "segurancaKaliDefesa": "Entrenamiento de defensa: reconocer el ataque",
-    "segurancaKaliForaDoAr": "El laboratorio aún no está disponible en la dirección del instituto."
+    "segurancaKaliForaDoAr": "El laboratorio aún no está disponible en la dirección del instituto.",
+    "eletrica": "Laboratorio de electricidad",
+    "eletricaLead": "Un multímetro de verdad en la mesa, serie y paralelo con lámparas, conectar luz y enchufe con los colores correctos y las cuentas del electricista."
   },
   "lists": {
     "bankEyebrow": "Para practicar",
@@ -649,6 +652,14 @@
     "oratoria-e-lideranca": [
       "Oratoria y liderazgo",
       "Hablar en público con claridad, preparar una intervención, conducir reuniones y asambleas y liderar colectivamente."
+    ],
+    "samba-e-cultura": [
+      "Samba y cultura",
+      "El samba de la rueda a la avenida: historia, ritmo, cultura negra y brasileña, el morro, la malandragem y quienes hicieron el samba."
+    ],
+    "eletricista": [
+      "Electricista",
+      "Electricidad de lo básico a la instalación de una casa, con la seguridad primero: multímetro, tablero, enchufes, ducha eléctrica y el oficio como ingreso."
     ]
   },
   "tracks": {
@@ -1478,7 +1489,7 @@
     "teoria": "Teoría revolucionaria",
     "lutas": "Luchas del pueblo",
     "percursos": "Alfabetización y ENEM",
-    "oficios": "Oficios e ingresos: aprende una habilidad y gana dinero con ella"
+    "oficios": "Oficios y hobbies: aprenda una habilidad, hágalo usted mismo y gane dinero con ella"
   },
   "stages": {
     "fundamental": "Educación primaria",
@@ -2910,7 +2921,8 @@
       "notebook": "Junta clases y textos y saca de ellos resumen, tarjetas, cuestionario, mapa, línea de tiempo y audio. Todo en tu navegador.",
       "community": "El foro de quien estudia: preguntas, respuestas y debates, con moderación y sin anuncios.",
       "health": "Profesionales de la salud voluntarios, con atención gratuita o a precio social: usted habla directamente con ellos.",
-      "bugs": "¿Algo se trabó o apareció mal? Cuénteselo a quien cuida el código."
+      "bugs": "¿Algo se trabó o apareció mal? Cuénteselo a quien cuida el código.",
+      "freeRoom": "Arme y proyecte su clase con los laboratorios, libros, editores, simulaciones y juegos del sitio."
     }
   },
   "support": {
@@ -4440,5 +4452,8 @@
   },
   "instituto": {
     "description": "Propósito, misión, visión, valores y la carta de funcionamiento (estatuto) del Instituto Lúcia: escuela y biblioteca gratuitas, mantenidas por voluntarios."
+  },
+  "salaLivre": {
+    "description": "Arme y proyecte su clase con todo lo que ofrece el instituto: laboratorios, libros del acervo, editores de foto, video y 3D, simulaciones, juegos y pruebas. Queda solo en su navegador."
   }
 }

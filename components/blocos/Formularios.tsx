@@ -4,7 +4,7 @@
 import { useRef, useState } from "react";
 import { type Interativo, lerCacaPalavras, lerForca, lerLinhaDoTempo, lerPares, lerPronuncia, lerTeste } from "@/lib/interativos";
 import { CATEGORIAS_DE_BLOCOS, type CategoriaDeBlocos, lerArrastar, lerCena, lerMolecula, lerProgramacao, lerRodar } from "@/lib/interativos-mais";
-import { FormCalculadora, FormDados, FormFerramenta, FormGrafico, FormMapa, FormMusica, FormSimulacao } from "./FormulariosCiencia";
+import { FormCalculadora, FormDados, FormFerramenta, FormGrafico, FormMapa, FormMusica, FormRecurso, FormSimulacao } from "./FormulariosCiencia";
 
 // Formulários dos blocos interativos: quem faz a aula preenche campos com nome claro ("Pergunta", "Resposta certa",
 // "Palavra", "Dica"…) e o editor escreve o bloco sozinho. O texto do bloco continua existindo (modo avançado), mas
@@ -383,6 +383,7 @@ export function FormularioDoBloco({ tipo, spec, mudar }: { tipo: Interativo; spe
     case "mapa": return <FormMapa spec={spec} mudar={mudar} />;
     case "musica": return <FormMusica spec={spec} mudar={mudar} />;
     case "ferramenta": return <FormFerramenta spec={spec} mudar={mudar} />;
+    case "recurso": return <FormRecurso spec={spec} mudar={mudar} />;
     default: return null;
   }
 }
@@ -392,5 +393,5 @@ export const VITRINE: Record<Interativo, [string, "Jogos" | "Testes" | "Línguas
   teste: ["📝", "Testes"], memoria: ["🃏", "Jogos"], forca: ["🪢", "Jogos"], cacapalavras: ["🔎", "Jogos"], arrastar: ["🧺", "Jogos"], cena: ["🖼️", "Jogos"], cartoes: ["🗂️", "Línguas"],
   frase: ["🧩", "Línguas"], pronuncia: ["🗣️", "Línguas"], musica: ["🎵", "Línguas"], grafico: ["📈", "Ciência e matemática"], geometria: ["📐", "Ciência e matemática"], calculadora: ["🧮", "Ciência e matemática"],
   dados: ["📊", "Ciência e matemática"], simulacao: ["⚽", "Ciência e matemática"], molecula: ["⚛️", "Ciência e matemática"], mapa: ["🗺️", "Outros"], linhadotempo: ["⏳", "Outros"], diagrama: ["🔀", "Outros"],
-  programacao: ["🧱", "Ciência e matemática"], rodar: ["💻", "Ciência e matemática"], desenho: ["✏️", "Outros"], ferramenta: ["🧰", "Outros"],
+  programacao: ["🧱", "Ciência e matemática"], rodar: ["💻", "Ciência e matemática"], desenho: ["✏️", "Outros"], ferramenta: ["🧰", "Outros"], recurso: ["🧪", "Outros"],
 };
