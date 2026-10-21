@@ -732,7 +732,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           </span>
         </header>
         <div className="jornal-fio" />
-        <div key={atual.id} className={`painel-conteudo mx-auto ${amplo ? "max-w-none px-2 py-2 sm:px-3" : "max-w-5xl px-5 py-7 sm:px-8"}`}>
+        <div key={atual.id} className={`painel-conteudo mx-auto ${amplo ? "max-w-none px-2 py-2 sm:px-3" : atual.id === "rede" ? "max-w-7xl px-4 py-6 sm:px-6" : "max-w-5xl px-5 py-7 sm:px-8"}`}>
           {eu.suspenso && <p className="mb-6 border-l-4 border-oxblood bg-parchment-deep px-4 py-3 text-oxblood">Esta conta está suspensa: você pode ler, mas não enviar.</p>}
           {interditado && (
             <p role="status" className="mb-6 border-2 border-oxblood bg-parchment-deep px-4 py-3 font-semibold text-oxblood">
