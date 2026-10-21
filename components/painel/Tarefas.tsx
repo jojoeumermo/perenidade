@@ -2,13 +2,14 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { can, type Me, rpc } from "@/lib/backend";
 import { getItem, setItem } from "@/lib/storage";
 import { TIPOS, type TipoDeLacuna } from "@/lib/tipos-de-tarefa";
 import { useI18n } from "../I18n";
 import { CampoData } from "./Campos";
-import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, dia, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
+import { Aviso, botao, botaoClaro, campo, data, dataHora, dia, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 
 export interface Tarefa {
   id: string;
@@ -30,6 +31,7 @@ export interface Tarefa {
   reservada_por: string;
   entregue_em?: string;
   espera_horas?: number;
+  atualizado_em?: string;
 }
 interface ParaMim {
   sugestoes: Tarefa[];
@@ -260,76 +262,572 @@ export function ParaVoceHoje({ me, ir }: { me: Me; ir: (aba: string) => void }) 
   );
 }
 
-/** A seção Tarefas: a fila inteira, as minhas, a revisão rápida, mutirões e projetos, e os controles da coordenação. */
+/** As colunas do quadro: o caminho de uma tarefa, do "a fazer" ao "feito". */
+const COLUNAS = [
+  { id: "aberta", nome: "A fazer", ponto: "bg-ink-soft", status: ["aberta"], vazio: "Nada aberto: a fila está em dia." },
+  { id: "reservada", nome: "Fazendo", ponto: "bg-gold", status: ["reservada"], vazio: "Arraste para cá o que você vai fazer." },
+  { id: "revisao", nome: "Em revisão", ponto: "bg-oxblood", status: ["entregue", "aprovada"], vazio: "Nada esperando revisão." },
+  { id: "feito", nome: "Feito", ponto: "bg-ok", status: ["concluida"], vazio: "As concluídas aparecem aqui." },
+] as const;
+type Coluna = (typeof COLUNAS)[number]["id"];
+const colunaDe = (status: string): Coluna => COLUNAS.find((c) => (c.status as readonly string[]).includes(status))?.id ?? "aberta";
+
+/** As cores das etiquetas de tipo, no jeito de uma base de dados: suaves, para o título continuar mandando. */
+const TOM: Record<string, string> = {
+  ficha_ano: "bg-gold/25 text-ink",
+  ficha_sinopse: "bg-gold/25 text-ink",
+  licenca: "bg-ink/10 text-ink",
+  link: "bg-ink/10 text-ink",
+  sem_ligacao: "bg-ok/20 text-ink",
+  revisao_aula: "bg-ok/20 text-ink",
+  biografia: "bg-oxblood/15 text-oxblood",
+  traducao: "bg-oxblood/15 text-oxblood",
+  duplicata: "bg-rule text-ink",
+  imagem_alt: "bg-rule text-ink",
+  avulsa: "border border-rule text-ink",
+};
+const tomDe = (tipo: string) => TOM[tipo] ?? TOM.avulsa;
+const NOME_DO_STATUS: Record<string, string> = { aberta: "A fazer", reservada: "Fazendo", entregue: "Esperando revisão", aprovada: "Aprovada", concluida: "Feita", encerrada: "Encerrada" };
+const TOM_DO_STATUS: Record<string, string> = { aberta: "bg-rule text-ink", reservada: "bg-gold/25 text-ink", entregue: "bg-oxblood/15 text-oxblood", aprovada: "bg-ok/20 text-ink", concluida: "bg-ok/20 text-ink", encerrada: "bg-rule text-ink-soft" };
+/** Quantos cartões cada coluna mostra antes do "mostrar mais". */
+const POR_COLUNA = 12;
+
+const DESENHOS = {
+  quadro: "M4 5h4.5v14H4zM9.75 5h4.5v9h-4.5zM15.5 5H20v11h-4.5z",
+  tabela: "M4 5h16v14H4zM4 10h16M4 14.5h16M9.5 5v14",
+  minhas: "M12 12a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM5 20c.8-3.4 3.6-5.5 7-5.5s6.2 2.1 7 5.5",
+  revisao: "M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12zM12 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z",
+  mutiroes: "M8.5 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16 11a2.5 2.5 0 1 0 0-5M3 19.5c.6-3 2.8-5 5.5-5s4.9 2 5.5 5M15.5 14.5c2.4 0 4.3 1.8 4.9 5",
+  configurar: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19 12l2-1.5-2-3.5-2.4.8a7 7 0 0 0-1.6-.9L14.5 4h-5L9 6.9a7 7 0 0 0-1.6.9L5 7l-2 3.5L5 12l-2 1.5L5 17l2.4-.8c.5.4 1 .7 1.6.9l.5 2.9h5l.5-2.9c.6-.2 1.1-.5 1.6-.9L19 17l2-3.5z",
+  relogio: "M12 20.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17zM12 7.5V12l3 2",
+  busca: "M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13zM15.5 15.5 20 20",
+  mais: "M12 5v14M5 12h14",
+  fechar: "M6 6l12 12M18 6 6 18",
+  status: "M12 20.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17zM12 16a4 4 0 1 0 0-8",
+  tipo: "M4 12.5 11.5 5H19v7.5L11.5 20zM15 9h.01",
+  nivel: "M5 19v-4M10 19v-8M15 19V8M20 19V5",
+  pessoa: "M12 12a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM5 20c.8-3.4 3.6-5.5 7-5.5s6.2 2.1 7 5.5",
+  prazo: "M5 6h14v14H5zM5 10h14M9 4v4M15 4v4",
+  elo: "M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1",
+  impacto: "M12 3.5l2.4 5.3 5.6.6-4.2 3.8 1.2 5.6L12 16l-5 2.8 1.2-5.6L4 9.4l5.6-.6z",
+  ideia: "M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.3 1 2.1h5c0-.8.4-1.6 1-2.1A6 6 0 0 0 12 3z",
+  caixa: "M5 4.5h14v15H5zM8.5 12l2.5 2.5 4.5-5",
+};
+
+function Desenho({ nome, className = "h-4 w-4" }: { nome: keyof typeof DESENHOS; className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className={`shrink-0 ${className}`} fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round">
+      <path d={DESENHOS[nome]} />
+    </svg>
+  );
+}
+
+function Pilula({ children, tom = "bg-rule text-ink" }: { children: ReactNode; tom?: string }) {
+  return <span className={`inline-flex max-w-full items-center gap-1 truncate rounded-sm px-1.5 py-0.5 text-xs font-medium ${tom}`}>{children}</span>;
+}
+
+function Iniciais({ nome }: { nome: string }) {
+  const letras = nome.split(/\s+/).filter(Boolean).slice(0, 2).map((parte) => parte[0]?.toUpperCase() ?? "").join("") || "?";
+  return <span aria-hidden className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-ink text-[0.55rem] font-bold text-parchment">{letras}</span>;
+}
+
+type Vista = "quadro" | "tabela" | "minhas" | "revisao" | "mutiroes" | "configurar";
+type Ordem = { por: "titulo" | "tipo" | "minutos" | "status" | "responsavel" | "prazo"; desce: boolean };
+
+/**
+ * A seção Tarefas, no jeito de uma base de dados: o mesmo conjunto visto como quadro (arrastar de "A fazer" para
+ * "Fazendo" reserva a tarefa), como tabela que se ordena pelo cabeçalho ou só as minhas, com filtros por tipo, tempo e
+ * nível, e cada tarefa abrindo ao lado, com as propriedades, o "como fazer" e a entrega. Revisão rápida, mutirões e os
+ * controles da coordenação continuam nas outras vistas.
+ */
 export function Tarefas({ me, ir }: { me: Me; ir: (aba: string) => void }) {
   const revisa = can(me, "coordenacao", "curadoria", "revisao", "supervisao");
   const coordena = can(me, "coordenacao");
-  const [aba, setAba] = useState<"fila" | "minhas" | "revisao" | "mutiroes" | "configurar">("fila");
-  return (
-    <div>
-      <Abas
-        atual={aba}
-        escolher={setAba}
-        opcoes={[
-          { id: "fila" as const, nome: "Fila" },
-          { id: "minhas" as const, nome: "Minhas" },
-          ...(revisa ? [{ id: "revisao" as const, nome: "Revisão rápida" }] : []),
-          { id: "mutiroes" as const, nome: "Mutirões e projetos" },
-          ...(coordena ? [{ id: "configurar" as const, nome: "Configurar e acompanhar" }] : []),
-        ]}
-      />
-      {aba === "fila" && <Fila ir={ir} />}
-      {aba === "minhas" && <Minhas ir={ir} />}
-      {aba === "revisao" && revisa && <RevisaoRapida />}
-      {aba === "mutiroes" && <MutiroesEProjetos me={me} />}
-      {aba === "configurar" && coordena && <Configurar />}
-    </div>
-  );
-}
-
-function Fila({ ir }: { ir: (aba: string) => void }) {
+  const [vista, setVista] = useState<Vista>(() => {
+    const guardada = getItem("lucia:tarefas-vista");
+    return guardada === "tabela" || guardada === "minhas" ? guardada : "quadro";
+  });
   const [tipo, setTipo] = useState("");
-  const [pagina, setPagina] = useState(0);
-  const lista = useLista<Tarefa[]>("tarefas_listar", { p_tipo: tipo, p_status: "aberta", p_pagina: pagina });
-  const acao = useAcao(lista.recarregar);
+  const [tempo, setTempo] = useState(0);
+  const [nivel, setNivel] = useState("");
+  const [busca, setBusca] = useState("");
+  const [espiando, setEspiando] = useState<string | null>(null);
+  const [criando, setCriando] = useState(false);
+  const [arrastando, setArrastando] = useState<string | null>(null);
+  const [alvo, setAlvo] = useState<Coluna | null>(null);
+  const [mais, setMais] = useState<Coluna[]>([]);
+  const [ordem, setOrdem] = useState<Ordem>({ por: "status", desce: false });
+  const abertas = useLista<Tarefa[]>("tarefas_listar", { p_tipo: tipo, p_status: "aberta", p_pagina: 0 });
+  const reservadas = useLista<Tarefa[]>("tarefas_listar", { p_tipo: tipo, p_status: "reservada", p_pagina: 0 });
+  const entregues = useLista<Tarefa[]>("tarefas_listar", { p_tipo: tipo, p_status: "entregue", p_pagina: 0 });
+  const aprovadas = useLista<Tarefa[]>("tarefas_listar", { p_tipo: tipo, p_status: "aprovada", p_pagina: 0 });
+  const feitas = useLista<Tarefa[]>("tarefas_listar", { p_tipo: tipo, p_status: "concluida", p_pagina: 0 });
+  const recarregar = () => {
+    abertas.recarregar();
+    reservadas.recarregar();
+    entregues.recarregar();
+    aprovadas.recarregar();
+    feitas.recarregar();
+  };
+  const acao = useAcao(recarregar);
+
+  const todas = useMemo(
+    () => [...(abertas.dados ?? []), ...(reservadas.dados ?? []), ...(entregues.dados ?? []), ...(aprovadas.dados ?? []), ...(feitas.dados ?? [])],
+    [abertas.dados, reservadas.dados, entregues.dados, aprovadas.dados, feitas.dados],
+  );
+  const termo = busca.trim().toLowerCase();
+  const filtradas = todas.filter(
+    (t) => (!tempo || t.minutos === tempo) && (!nivel || t.dificuldade === nivel) && (!termo || `${t.titulo} ${t.descricao} ${infoDe(t.tipo).nome} ${t.reservada_por}`.toLowerCase().includes(termo)),
+  );
+  const minhas = todas.filter((t) => t.minha && t.status !== "concluida");
+  const espiada = espiando ? (todas.find((t) => t.id === espiando) ?? null) : null;
+  const carregando = !abertas.dados && !abertas.erro;
+  const erro = abertas.erro || reservadas.erro || entregues.erro || aprovadas.erro || feitas.erro;
+  const filtrando = Boolean(tipo || tempo || nivel || termo);
+
+  function escolher(proxima: Vista) {
+    setVista(proxima);
+    // Voltando de Revisão ou Configurar (onde a fila pode ter mudado), o quadro relê as tarefas.
+    if (proxima === "quadro" || proxima === "tabela" || proxima === "minhas") {
+      setItem("lucia:tarefas-vista", proxima);
+      if (vista !== "quadro" && vista !== "tabela" && vista !== "minhas") recarregar();
+    }
+  }
+
+  async function soltar(coluna: Coluna) {
+    const t = todas.find((item) => item.id === arrastando);
+    setArrastando(null);
+    setAlvo(null);
+    if (!t) return;
+    const de = colunaDe(t.status);
+    if (de === coluna) return;
+    if (de === "aberta" && coluna === "reservada") await acao.agir("tarefa_reservar", { p_id: t.id }, "Reservada no seu nome ✓ Abra o cartão para entregar.");
+    else if (de === "reservada" && t.minha && coluna === "aberta") await acao.agir("tarefa_liberar", { p_id: t.id }, "Liberada: a tarefa voltou para a fila. Sem problema.");
+    else if (de === "reservada" && t.minha && coluna === "revisao") {
+      setEspiando(t.id);
+      acao.setAviso("Preencha a entrega para mandar para a revisão.");
+    } else acao.setAviso("Esse caminho não se faz arrastando: a revisão e o verificador do acervo levam a tarefa adiante.");
+  }
+
+  const vistas: { id: Vista; nome: string; desenho: keyof typeof DESENHOS; conta?: number }[] = [
+    { id: "quadro", nome: "Quadro", desenho: "quadro" },
+    { id: "tabela", nome: "Tabela", desenho: "tabela" },
+    { id: "minhas", nome: "Minhas", desenho: "minhas", conta: minhas.length },
+    ...(revisa ? [{ id: "revisao" as const, nome: "Revisão rápida", desenho: "revisao" as const, conta: entregues.dados?.length }] : []),
+    { id: "mutiroes", nome: "Mutirões e projetos", desenho: "mutiroes" },
+    ...(coordena ? [{ id: "configurar" as const, nome: "Configurar e acompanhar", desenho: "configurar" as const }] : []),
+  ];
+
+  const ordenadas = [...filtradas].sort((a, b) => {
+    const valor = (t: Tarefa): string | number =>
+      ordem.por === "titulo" ? t.titulo : ordem.por === "tipo" ? infoDe(t.tipo).nome : ordem.por === "minutos" ? t.minutos : ordem.por === "status" ? COLUNAS.findIndex((c) => c.id === colunaDe(t.status)) : ordem.por === "responsavel" ? t.reservada_por || "~" : (t.prazo ?? "~");
+    const [x, y] = [valor(a), valor(b)];
+    const comparado = typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y), "pt");
+    return ordem.desce ? -comparado : comparado;
+  });
+
   return (
     <div>
-      <label className="block max-w-sm text-sm">Tipo<select value={tipo} onChange={(e) => { setTipo(e.target.value); setPagina(0); }} className={campo}><option value="">Todos</option>{(Object.keys(TIPOS) as TipoDeLacuna[]).map((k) => <option key={k} value={k}>{TIPOS[k].nome}</option>)}</select></label>
-      <Aviso texto={lista.erro || acao.aviso} />
-      {lista.dados?.length === 0 ? (
-        <p className="mt-4 border-2 border-ok bg-parchment-deep p-4">Nada aberto{tipo ? " deste tipo" : ""}: a fila está em dia ✓ {tipo && <button type="button" className={elo} onClick={() => setTipo("")}>Ver os outros tipos</button>}</p>
-      ) : (
-        <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-          {lista.dados?.map((t) => <CartaoDaTarefa key={t.id} t={t} acoes={<button type="button" className={botao} disabled={acao.ocupado} onClick={async () => { if (await acao.agir("tarefa_reservar", { p_id: t.id }, "Reservada ✓ Ela está em “Minhas”.")) ir("tarefas"); }}>Vou fazer esta</button>} />)}
+      <div role="tablist" aria-label="Vistas das tarefas" className="flex flex-wrap items-end gap-x-1 border-b border-rule">
+        {vistas.map((item) => (
+          <button key={item.id} type="button" role="tab" aria-selected={vista === item.id} onClick={() => escolher(item.id)} className={`-mb-px flex cursor-pointer items-center gap-1.5 border-b-2 px-2.5 py-2 text-sm ${vista === item.id ? "border-ink font-semibold text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}>
+            <Desenho nome={item.desenho} />
+            {item.nome}
+            {item.conta ? <span className="rounded-full bg-oxblood px-1.5 text-[0.65rem] font-bold text-parchment">{item.conta}</span> : null}
+          </button>
+        ))}
+      </div>
+
+      {(vista === "quadro" || vista === "tabela") && (
+        <div className="flex flex-wrap items-center gap-2 border-b border-rule py-2.5">
+          <label className="relative">
+            <span className="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-ink-soft">
+              <Desenho nome="busca" className="h-3.5 w-3.5" />
+            </span>
+            <input type="search" value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Buscar" aria-label="Buscar tarefas" className="w-40 rounded-md border border-rule bg-transparent py-1 pl-7 pr-2 text-sm focus:border-ink focus:outline-none sm:w-48" />
+          </label>
+          <select value={tipo} onChange={(e) => setTipo(e.target.value)} aria-label="Tipo" className={`cursor-pointer rounded-md border px-2 py-1 text-sm ${tipo ? "border-ink bg-ink text-parchment" : "border-rule bg-transparent"}`}>
+            <option value="">Tipo: todos</option>
+            {(Object.keys(TIPOS) as TipoDeLacuna[]).map((k) => (
+              <option key={k} value={k}>{TIPOS[k].nome}</option>
+            ))}
+          </select>
+          <span className="flex overflow-hidden rounded-md border border-rule text-sm" role="group" aria-label="Tempo">
+            {[5, 15, 30].map((m) => (
+              <button key={m} type="button" aria-pressed={tempo === m} onClick={() => setTempo(tempo === m ? 0 : m)} className={`cursor-pointer px-2.5 py-1 ${tempo === m ? "bg-ink text-parchment" : "hover:bg-parchment-deep"}`}>
+                {m} min
+              </button>
+            ))}
+          </span>
+          <select value={nivel} onChange={(e) => setNivel(e.target.value)} aria-label="Nível" className={`cursor-pointer rounded-md border px-2 py-1 text-sm ${nivel ? "border-ink bg-ink text-parchment" : "border-rule bg-transparent"}`}>
+            <option value="">Nível: todos</option>
+            {Object.entries(DIFICULDADE).map(([k, nome]) => (
+              <option key={k} value={k}>{nome}</option>
+            ))}
+          </select>
+          {filtrando && (
+            <button type="button" className="cursor-pointer text-sm text-ink-soft underline hover:text-ink" onClick={() => { setTipo(""); setTempo(0); setNivel(""); setBusca(""); }}>
+              Limpar
+            </button>
+          )}
+          <span className="ml-auto text-xs text-ink-soft">{filtradas.length} {filtradas.length === 1 ? "tarefa" : "tarefas"}</span>
+          {coordena && (
+            <button type="button" className={`${botao} inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm`} onClick={() => setCriando(true)}>
+              <Desenho nome="mais" className="h-3.5 w-3.5" />
+              Nova
+            </button>
+          )}
         </div>
       )}
-      <p className="mt-4 flex gap-3">
-        {pagina > 0 && <button type="button" className={botaoClaro} onClick={() => setPagina((p) => p - 1)}>← Anteriores</button>}
-        {(lista.dados?.length ?? 0) === 50 && <button type="button" className={botaoClaro} onClick={() => setPagina((p) => p + 1)}>Próximas →</button>}
-      </p>
+
+      <Aviso texto={erro || acao.aviso} />
+      {carregando && (vista === "quadro" || vista === "tabela" || vista === "minhas") && <p className="painel-carregando mt-4 text-ink-soft">Separando tarefas…</p>}
+
+      {vista === "quadro" && !carregando && (
+        <>
+          <p className="mt-3 text-xs text-ink-soft">Arraste um cartão de “A fazer” para “Fazendo” para pegar a tarefa; de volta, para liberar. Toque no cartão para ver tudo.</p>
+          <div className="mt-3 flex gap-3 overflow-x-auto pb-3">
+            {COLUNAS.map((coluna) => {
+              const daColuna = filtradas.filter((t) => colunaDe(t.status) === coluna.id).sort(coluna.id === "feito" ? (a, b) => String(b.atualizado_em ?? "").localeCompare(String(a.atualizado_em ?? "")) : coluna.id === "reservada" ? (a, b) => Number(b.minha) - Number(a.minha) : () => 0);
+              const mostradas = mais.includes(coluna.id) ? daColuna : daColuna.slice(0, POR_COLUNA);
+              return (
+                <section
+                  key={coluna.id}
+                  aria-label={coluna.nome}
+                  onDragOver={(e) => {
+                    if (!arrastando) return;
+                    e.preventDefault();
+                    if (alvo !== coluna.id) setAlvo(coluna.id);
+                  }}
+                  onDragLeave={(e) => {
+                    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setAlvo(null);
+                  }}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    void soltar(coluna.id);
+                  }}
+                  className={`flex w-[17rem] shrink-0 flex-col rounded-lg p-2 transition-colors lg:w-auto lg:min-w-[14rem] lg:flex-1 ${alvo === coluna.id ? "bg-gold/20 outline-2 outline-dashed outline-gold" : "bg-parchment-deep"}`}
+                >
+                  <header className="flex items-center gap-2 px-1 pb-2 text-sm">
+                    <span aria-hidden className={`h-2 w-2 rounded-full ${coluna.ponto}`} />
+                    <span className="font-semibold">{coluna.nome}</span>
+                    <span className="text-ink-soft">{daColuna.length}</span>
+                    {coluna.id === "aberta" && coordena && (
+                      <button type="button" title="Nova tarefa" aria-label="Nova tarefa" className="ml-auto cursor-pointer rounded p-0.5 text-ink-soft hover:bg-parchment hover:text-ink" onClick={() => setCriando(true)}>
+                        <Desenho nome="mais" className="h-4 w-4" />
+                      </button>
+                    )}
+                  </header>
+                  <div className="flex flex-col gap-2">
+                    {mostradas.map((t) => (
+                      <CartaoDoQuadro key={t.id} t={t} abrir={setEspiando} arrastavel={t.status === "aberta" || (t.status === "reservada" && t.minha)} comecar={setArrastando} parar={() => { setArrastando(null); setAlvo(null); }} />
+                    ))}
+                  </div>
+                  {daColuna.length > mostradas.length && (
+                    <button type="button" className="mt-2 cursor-pointer rounded px-1 py-1 text-left text-xs text-ink-soft hover:bg-parchment hover:text-ink" onClick={() => setMais([...mais, coluna.id])}>
+                      Mostrar mais {daColuna.length - mostradas.length}
+                    </button>
+                  )}
+                  {daColuna.length === 0 && <p className="px-1 py-3 text-xs text-ink-soft">{coluna.vazio}</p>}
+                </section>
+              );
+            })}
+          </div>
+        </>
+      )}
+
+      {vista === "tabela" && !carregando && (
+        <div className="mt-3 overflow-x-auto">
+          <table className="w-full min-w-[48rem] border-collapse text-left text-sm">
+            <thead>
+              <tr className="text-xs text-ink-soft">
+                {(
+                  [
+                    ["titulo", "Título", "caixa"],
+                    ["tipo", "Tipo", "tipo"],
+                    ["minutos", "Tempo", "relogio"],
+                    ["status", "Status", "status"],
+                    ["responsavel", "Quem pegou", "pessoa"],
+                    ["prazo", "Prazo", "prazo"],
+                  ] as const
+                ).map(([id, nome, desenho]) => (
+                  <th key={id} scope="col" className="border-b border-rule px-2 py-1.5 font-normal" aria-sort={ordem.por === id ? (ordem.desce ? "descending" : "ascending") : undefined}>
+                    <button type="button" className="flex cursor-pointer items-center gap-1.5 rounded px-1 py-0.5 hover:bg-parchment-deep hover:text-ink" onClick={() => setOrdem({ por: id, desce: ordem.por === id ? !ordem.desce : false })}>
+                      <Desenho nome={desenho} className="h-3.5 w-3.5" />
+                      {nome}
+                      {ordem.por === id && <span aria-hidden>{ordem.desce ? "↓" : "↑"}</span>}
+                    </button>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {ordenadas.map((t) => (
+                <tr key={t.id} className="cursor-pointer border-b border-rule hover:bg-parchment-deep" onClick={() => setEspiando(t.id)}>
+                  <td className="max-w-[22rem] px-3 py-2">
+                    <button type="button" className="cursor-pointer text-left font-medium hover:underline" onClick={(e) => { e.stopPropagation(); setEspiando(t.id); }}>
+                      {t.titulo}
+                    </button>
+                  </td>
+                  <td className="px-3 py-2"><Pilula tom={tomDe(t.tipo)}>{infoDe(t.tipo).nome}</Pilula></td>
+                  <td className="whitespace-nowrap px-3 py-2">{t.minutos} min</td>
+                  <td className="px-3 py-2"><Pilula tom={TOM_DO_STATUS[t.status]}>{NOME_DO_STATUS[t.status] ?? t.status}</Pilula></td>
+                  <td className="px-3 py-2">{t.reservada_por ? <span className="flex items-center gap-1.5"><Iniciais nome={t.reservada_por} />{t.minha ? "Você" : t.reservada_por}</span> : <span className="text-ink-soft">—</span>}</td>
+                  <td className="whitespace-nowrap px-3 py-2 text-ink-soft">{t.prazo && t.status === "reservada" ? dataHora(t.prazo) : "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {ordenadas.length === 0 && <p className="px-3 py-6 text-center text-ink-soft">{filtrando ? "Nenhuma tarefa com esses filtros." : "Nenhuma tarefa por aqui."}</p>}
+        </div>
+      )}
+
+      {vista === "minhas" && !carregando && (
+        <div className="mt-4">
+          {minhas.length === 0 ? (
+            <div className="rounded-lg border border-dashed border-rule px-6 py-10 text-center">
+              <p className="font-serif text-xl font-semibold">Nada no seu nome agora</p>
+              <p className="mt-1 text-ink-soft">Pegue uma tarefa no Quadro ou em “Para você hoje”, na Mesa.</p>
+              <button type="button" className={`${botaoClaro} mt-3`} onClick={() => escolher("quadro")}>Abrir o quadro</button>
+            </div>
+          ) : (
+            <div className="grid gap-3 md:grid-cols-2">
+              {minhas.map((t) => (
+                <article key={t.id} className="rounded-lg border border-rule bg-parchment-deep p-4">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <Pilula tom={TOM_DO_STATUS[t.status]}>{NOME_DO_STATUS[t.status] ?? t.status}</Pilula>
+                    <Pilula tom={tomDe(t.tipo)}>{infoDe(t.tipo).nome}</Pilula>
+                    {t.prazo && t.status === "reservada" && <span className="text-xs text-ink-soft">até {dataHora(t.prazo)}</span>}
+                  </div>
+                  <button type="button" className="mt-1.5 cursor-pointer text-left font-serif text-lg font-semibold leading-snug hover:underline" onClick={() => setEspiando(t.id)}>
+                    {t.titulo}
+                  </button>
+                  {t.status === "reservada" ? <Entrega t={t} depois={recarregar} ir={ir} /> : <p className="mt-2 text-sm text-ink-soft">{t.status === "aprovada" ? "Aprovada ✓ Entra no site na próxima publicação." : "Entregue ✓ Alguém da equipe revisa e você recebe um recado."}</p>}
+                </article>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {vista === "revisao" && revisa && <div className="mt-4"><RevisaoRapida /></div>}
+      {vista === "mutiroes" && <div className="mt-4"><MutiroesEProjetos me={me} /></div>}
+      {vista === "configurar" && coordena && <div className="mt-4"><Configurar /></div>}
+
+      {espiada && <Espiar t={espiada} fechar={() => setEspiando(null)} ir={ir} depois={recarregar} coordena={coordena} />}
+      {criando && <NovaTarefa fechar={() => setCriando(false)} depois={recarregar} />}
     </div>
   );
 }
 
-function Minhas({ ir }: { ir: (aba: string) => void }) {
-  const reservadas = useLista<Tarefa[]>("tarefas_listar", { p_tipo: "", p_status: "reservada", p_pagina: 0 });
-  const minhas = (reservadas.dados ?? []).filter((t) => t.minha);
+function CartaoDoQuadro({ t, abrir, arrastavel, comecar, parar }: { t: Tarefa; abrir: (id: string) => void; arrastavel: boolean; comecar: (id: string) => void; parar: () => void }) {
   return (
-    <div>
-      {minhas.length === 0 ? <p className="text-ink-soft">Você não tem tarefa reservada. Pegue uma na Fila ou em “Para você hoje”, na Mesa.</p> : (
-        <div className="grid gap-3 md:grid-cols-2">
-          {minhas.map((t) => (
-            <div key={t.id} className="painel-cartao p-4">
-              <p className={rotulo}>{infoDe(t.tipo).nome} · {t.prazo ? `até ${dataHora(t.prazo)}` : ""}</p>
-              <p className="font-serif text-lg font-semibold">{t.titulo}</p>
-              <details className="text-sm"><summary className="cursor-pointer underline">Como fazer</summary><p className="mt-1 text-ink-soft">{infoDe(t.tipo).como}</p>{t.alvo && <a href={`/pt${t.alvo}`} target="_blank" rel="noopener noreferrer" className={elo}>Abrir ↗</a>}</details>
-              <Entrega t={t} depois={reservadas.recarregar} ir={ir} />
-            </div>
-          ))}
-        </div>
+    <button
+      type="button"
+      draggable={arrastavel}
+      onDragStart={(e) => {
+        e.dataTransfer.setData("text/plain", t.id);
+        e.dataTransfer.effectAllowed = "move";
+        comecar(t.id);
+      }}
+      onDragEnd={parar}
+      onClick={() => abrir(t.id)}
+      className={`block w-full rounded-md border border-rule bg-parchment p-3 text-left shadow-[0_1px_0_var(--rule)] hover:border-ink-soft ${arrastavel ? "cursor-grab active:cursor-grabbing" : "cursor-pointer"}`}
+    >
+      <span className="block font-semibold leading-snug">{t.titulo}</span>
+      <span className="mt-2 flex flex-wrap gap-1">
+        <Pilula tom={tomDe(t.tipo)}>{infoDe(t.tipo).nome}</Pilula>
+        <Pilula>
+          <Desenho nome="relogio" className="h-3 w-3" />
+          {t.minutos} min
+        </Pilula>
+        {t.dificuldade === "iniciante" && <Pilula tom="bg-ok/20 text-ink">iniciante</Pilula>}
+      </span>
+      {(t.reservada_por || (t.prazo && t.status === "reservada")) && (
+        <span className="mt-2 flex items-center gap-1.5 text-xs text-ink-soft">
+          {t.reservada_por && (
+            <>
+              <Iniciais nome={t.reservada_por} />
+              {t.minha ? "Você" : t.reservada_por}
+            </>
+          )}
+          {t.prazo && t.status === "reservada" && <span className="ml-auto">até {dataHora(t.prazo)}</span>}
+        </span>
       )}
-      <Aviso texto={reservadas.erro} />
-    </div>
+      {t.nota_revisao && t.status === "reservada" && <span className="mt-2 block text-xs font-semibold text-oxblood">Voltou com um comentário</span>}
+    </button>
+  );
+}
+
+/** Uma linha de propriedade, no jeito de uma página de base de dados: o nome à esquerda, o valor à direita. */
+function Propriedade({ desenho, nome, children }: { desenho: keyof typeof DESENHOS; nome: string; children: ReactNode }) {
+  return (
+    <>
+      <dt className="flex items-center gap-2 py-1 text-ink-soft">
+        <Desenho nome={desenho} className="h-3.5 w-3.5" />
+        {nome}
+      </dt>
+      <dd className="min-w-0 py-1">{children}</dd>
+    </>
+  );
+}
+
+/** A tarefa aberta ao lado do quadro: propriedades, o que fazer, o "como fazer" e a entrega. */
+function Espiar({ t, fechar, ir, depois, coordena }: { t: Tarefa; fechar: () => void; ir: (aba: string) => void; depois: () => void; coordena: boolean }) {
+  const acao = useAcao(depois);
+  const info = infoDe(t.tipo);
+  useEffect(() => {
+    const tecla = (e: KeyboardEvent) => e.key === "Escape" && fechar();
+    window.addEventListener("keydown", tecla);
+    return () => window.removeEventListener("keydown", tecla);
+  }, [fechar]);
+  const destino = t.alvo ? (t.alvo.startsWith("/acervo") ? "a obra" : t.alvo.startsWith("/autores") ? "a página do autor" : "a aula") : "";
+
+  // No body: a área de conteúdo do painel tem transform (da animação de entrada), que prenderia o "fixed" dentro dela.
+  return createPortal(
+    <div className="fixed inset-0 z-[90] flex justify-end bg-[rgba(23,19,14,0.35)]" onPointerDown={(e) => e.target === e.currentTarget && fechar()}>
+      <aside role="dialog" aria-modal="true" aria-label={t.titulo} className="flex h-full w-full max-w-xl flex-col border-l border-ink bg-parchment text-ink shadow-2xl">
+        <div className="flex items-center gap-2 border-b border-rule px-4 py-2 text-sm text-ink-soft">
+          <span className="min-w-0 flex-1 truncate">Tarefas / {info.nome}</span>
+          {t.alvo && (
+            <a href={`/pt${t.alvo}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 rounded px-2 py-1 hover:bg-parchment-deep hover:text-ink">
+              <Desenho nome="elo" className="h-3.5 w-3.5" />
+              Abrir {destino} ↗
+            </a>
+          )}
+          <button type="button" onClick={fechar} aria-label="Fechar" className="cursor-pointer rounded p-1 hover:bg-parchment-deep hover:text-ink">
+            <Desenho nome="fechar" />
+          </button>
+        </div>
+        <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-8 pt-6">
+          <span aria-hidden className={`flex h-12 w-12 items-center justify-center rounded-lg ${tomDe(t.tipo)}`}>
+            <Desenho nome="caixa" className="h-7 w-7" />
+          </span>
+          <h2 className="mt-3 font-serif text-3xl font-semibold leading-tight [text-wrap:balance]">{t.titulo}</h2>
+          <dl className="mt-5 grid grid-cols-[8.5rem_minmax(0,1fr)] items-center gap-x-3 text-sm">
+            <Propriedade desenho="status" nome="Status"><Pilula tom={TOM_DO_STATUS[t.status]}>{NOME_DO_STATUS[t.status] ?? t.status}</Pilula></Propriedade>
+            <Propriedade desenho="tipo" nome="Tipo"><Pilula tom={tomDe(t.tipo)}>{info.nome}</Pilula></Propriedade>
+            <Propriedade desenho="relogio" nome="Tempo">{t.minutos} minutos</Propriedade>
+            <Propriedade desenho="nivel" nome="Nível">{DIFICULDADE[t.dificuldade] ?? t.dificuldade}</Propriedade>
+            <Propriedade desenho="pessoa" nome="Quem pegou">{t.reservada_por ? <span className="flex items-center gap-1.5"><Iniciais nome={t.reservada_por} />{t.minha ? "Você" : t.reservada_por}</span> : <span className="text-ink-soft">Ninguém ainda</span>}</Propriedade>
+            {t.prazo && t.status === "reservada" && <Propriedade desenho="prazo" nome="Prazo">{dataHora(t.prazo)}</Propriedade>}
+            {t.tipo === "traducao" && t.detalhe && <Propriedade desenho="elo" nome="Idioma">{IDIOMAS[t.detalhe] ?? t.detalhe}</Propriedade>}
+          </dl>
+
+          <div className="mt-5 space-y-4 border-t border-rule pt-5">
+            {(t.descricao || (t.detalhe && t.tipo !== "traducao")) && <p className="whitespace-pre-line leading-relaxed">{t.descricao || t.detalhe}</p>}
+            {(t.impacto || info.impacto) && (
+              <p className="flex gap-2 leading-relaxed">
+                <Desenho nome="impacto" className="mt-0.5 h-4 w-4 text-gold" />
+                <span><strong>O que muda:</strong> {t.impacto || info.impacto}</span>
+              </p>
+            )}
+            <div className="flex gap-3 rounded-md bg-parchment-deep p-4 text-sm leading-relaxed">
+              <Desenho nome="ideia" className="mt-0.5 h-5 w-5 text-gold" />
+              <div>
+                <p className="font-semibold">Como fazer</p>
+                <p className="mt-1 text-ink-soft">{info.como}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            {t.status === "aberta" && (
+              <div className="flex flex-wrap items-center gap-3">
+                <button type="button" className={botao} disabled={acao.ocupado} onClick={() => void acao.agir("tarefa_reservar", { p_id: t.id }, "Reservada no seu nome ✓ A entrega aparece aqui embaixo.")}>
+                  Vou fazer esta
+                </button>
+                <span className="text-xs text-ink-soft">Fica no seu nome por um tempo, pelo tamanho da tarefa. Se não der, é só liberar.</span>
+              </div>
+            )}
+            {t.status === "reservada" && t.minha && (
+              <section aria-label="Entrega">
+                <h3 className={rotulo}>Sua entrega</h3>
+                <Entrega t={t} depois={depois} ir={ir} />
+              </section>
+            )}
+            {t.status === "reservada" && !t.minha && (
+              <p className="text-sm text-ink-soft">
+                Com {t.reservada_por || "alguém da equipe"} agora.{" "}
+                {coordena && (
+                  <button type="button" className={elo} disabled={acao.ocupado} onClick={() => void acao.agir("tarefa_liberar", { p_id: t.id }, "Liberada: a tarefa voltou para a fila.")}>
+                    Liberar para a fila
+                  </button>
+                )}
+              </p>
+            )}
+            {(t.status === "entregue" || t.status === "aprovada") && Object.keys(t.entrega ?? {}).length > 0 && (
+              <section aria-label="O que foi entregue" className="rounded-md border border-rule p-4 text-sm">
+                <h3 className={rotulo}>O que foi entregue</h3>
+                {Object.entries(t.entrega).map(([k, v]) => (
+                  <p key={k} className="mt-1 whitespace-pre-wrap break-words" data-original>
+                    <span className="text-ink-soft">{k}: </span>
+                    {v}
+                  </p>
+                ))}
+              </section>
+            )}
+            {t.status === "concluida" && <p className="text-sm text-ok">Feita ✓ O verificador do acervo viu a lacuna sumir.</p>}
+            <Aviso texto={acao.aviso} />
+          </div>
+        </div>
+      </aside>
+    </div>,
+    document.body,
+  );
+}
+
+/** Tarefa avulsa da coordenação, como uma página nova: título grande, as propriedades e o texto. */
+function NovaTarefa({ fechar, depois }: { fechar: () => void; depois: () => void }) {
+  const acao = useAcao(depois);
+  const [avulsa, setAvulsa] = useState({ titulo: "", descricao: "", minutos: "15", papel: "", impacto: "", alvo: "" });
+  useEffect(() => {
+    const tecla = (e: KeyboardEvent) => e.key === "Escape" && fechar();
+    window.addEventListener("keydown", tecla);
+    return () => window.removeEventListener("keydown", tecla);
+  }, [fechar]);
+  return createPortal(
+    <div className="fixed inset-0 z-[90] flex justify-end bg-[rgba(23,19,14,0.35)]" onPointerDown={(e) => e.target === e.currentTarget && fechar()}>
+      <aside role="dialog" aria-modal="true" aria-label="Nova tarefa" className="flex h-full w-full max-w-xl flex-col border-l border-ink bg-parchment text-ink shadow-2xl">
+        <div className="flex items-center gap-2 border-b border-rule px-4 py-2 text-sm text-ink-soft">
+          <span className="flex-1">Tarefas / Nova</span>
+          <button type="button" onClick={fechar} aria-label="Fechar" className="cursor-pointer rounded p-1 hover:bg-parchment-deep hover:text-ink">
+            <Desenho nome="fechar" />
+          </button>
+        </div>
+        <form
+          className="min-h-0 flex-1 overflow-y-auto px-6 pb-8 pt-6"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            if (await acao.agir("tarefa_criar", { p: { ...avulsa, minutos: Number(avulsa.minutos) } }, "Tarefa criada ✓ Ela já está em “A fazer”.")) fechar();
+          }}
+        >
+          <input value={avulsa.titulo} onChange={(e) => setAvulsa({ ...avulsa, titulo: e.target.value })} placeholder="Sem título" aria-label="Título da tarefa" maxLength={200} required autoFocus className="w-full bg-transparent font-serif text-3xl font-semibold placeholder:text-ink-soft/60 focus:outline-none" />
+          <dl className="mt-5 grid grid-cols-[8.5rem_minmax(0,1fr)] items-center gap-x-3 gap-y-1 text-sm">
+            <Propriedade desenho="relogio" nome="Tempo">
+              <select value={avulsa.minutos} onChange={(e) => setAvulsa({ ...avulsa, minutos: e.target.value })} aria-label="Tempo" className="cursor-pointer rounded border border-rule bg-transparent px-2 py-1">
+                <option value="5">5 minutos</option>
+                <option value="15">15 minutos</option>
+                <option value="30">30 minutos</option>
+              </select>
+            </Propriedade>
+            <Propriedade desenho="elo" nome="Endereço">
+              <input value={avulsa.alvo} onChange={(e) => setAvulsa({ ...avulsa, alvo: e.target.value })} placeholder="/acervo/… (opcional)" aria-label="Endereço relacionado" maxLength={300} className="w-full rounded border border-transparent bg-transparent px-2 py-1 hover:border-rule focus:border-ink focus:outline-none" />
+            </Propriedade>
+            <Propriedade desenho="impacto" nome="O que muda">
+              <input value={avulsa.impacto} onChange={(e) => setAvulsa({ ...avulsa, impacto: e.target.value })} placeholder="Quando ficar pronta…" aria-label="Impacto" maxLength={300} className="w-full rounded border border-transparent bg-transparent px-2 py-1 hover:border-rule focus:border-ink focus:outline-none" />
+            </Propriedade>
+          </dl>
+          <textarea value={avulsa.descricao} onChange={(e) => setAvulsa({ ...avulsa, descricao: e.target.value })} placeholder="O que fazer, passo a passo." aria-label="Descrição" rows={8} maxLength={2000} className="mt-5 w-full resize-y border-t border-rule bg-transparent pt-4 leading-relaxed focus:outline-none" />
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <button type="submit" className={botao} disabled={acao.ocupado || avulsa.titulo.trim().length < 3}>Criar a tarefa</button>
+            <button type="button" className={elo} onClick={fechar}>Cancelar</button>
+          </div>
+          <Aviso texto={acao.aviso} />
+        </form>
+      </aside>
+    </div>,
+    document.body,
   );
 }
 
@@ -504,7 +1002,7 @@ function Configurar() {
   const visao = useLista<VisaoGeral>("tarefas_visao_geral");
   const acao = useAcao(() => { config.recarregar(); visao.recarregar(); });
   const [meta, setMeta] = useState<{ texto: string; alvo: string; tipo: string } | null>(null);
-  const [avulsa, setAvulsa] = useState({ titulo: "", descricao: "", minutos: "15", papel: "", impacto: "", alvo: "" });
+  const [criando, setCriando] = useState(false);
   const [verificando, setVerificando] = useState("");
   const c = config.dados;
   const v = visao.dados;
@@ -571,14 +1069,9 @@ function Configurar() {
 
       <section className="painel-cartao p-5 lg:col-span-2">
         <h2 className="font-serif text-xl font-semibold">Tarefa avulsa</h2>
-        <div className="mt-2 grid gap-2 sm:grid-cols-2">
-          <input value={avulsa.titulo} onChange={(e) => setAvulsa({ ...avulsa, titulo: e.target.value })} placeholder="Título" aria-label="Título da tarefa" maxLength={200} className={campo} />
-          <input value={avulsa.alvo} onChange={(e) => setAvulsa({ ...avulsa, alvo: e.target.value })} placeholder="Endereço relacionado (opcional, ex.: /acervo/…)" aria-label="Endereço relacionado" maxLength={300} className={campo} />
-          <textarea value={avulsa.descricao} onChange={(e) => setAvulsa({ ...avulsa, descricao: e.target.value })} placeholder="O que fazer" aria-label="Descrição" rows={2} maxLength={2000} className={`${campo} sm:col-span-2`} />
-          <select value={avulsa.minutos} onChange={(e) => setAvulsa({ ...avulsa, minutos: e.target.value })} aria-label="Tempo" className={campo}><option value="5">5 minutos</option><option value="15">15 minutos</option><option value="30">30 minutos</option></select>
-          <input value={avulsa.impacto} onChange={(e) => setAvulsa({ ...avulsa, impacto: e.target.value })} placeholder="O que muda quando ficar pronta" aria-label="Impacto" maxLength={300} className={campo} />
-        </div>
-        <button type="button" className={`mt-2 ${botao}`} disabled={acao.ocupado || avulsa.titulo.trim().length < 3} onClick={async () => { if (await acao.agir("tarefa_criar", { p: { ...avulsa, minutos: Number(avulsa.minutos) } }, "Tarefa criada ✓")) setAvulsa({ titulo: "", descricao: "", minutos: "15", papel: "", impacto: "", alvo: "" }); }}>Criar a tarefa</button>
+        <p className="mt-1 text-sm text-ink-soft">Algo que o verificador não enxerga: escreva como uma página nova, e ela entra em “A fazer” para quem quiser pegar.</p>
+        <button type="button" className={`mt-3 ${botao}`} onClick={() => setCriando(true)}>Nova tarefa</button>
+        {criando && <NovaTarefa fechar={() => setCriando(false)} depois={() => { config.recarregar(); visao.recarregar(); }} />}
       </section>
     </div>
   );
