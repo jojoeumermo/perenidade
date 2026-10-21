@@ -8,7 +8,8 @@ import { rpc } from "@/lib/backend";
 import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
 import { CampoArquivo } from "../Campos";
 import { Aviso, botao, botaoClaro, campo, elo, rotulo, textoDoErro } from "../comum";
-import { Estudio } from "./Estudio";
+import { type Abertura, Estudio } from "./Estudio";
+import { Inicio } from "./Inicio";
 import { carregarImagem, COR, documentoVazio, imagem, miniatura, prepararImagem, texto } from "./motor";
 
 const PHOTOCRAFT = EDITORES[0];
@@ -101,6 +102,8 @@ const MAPA: [string, string][] = [
 export function EstudioDeDesign({ me }: { me: Me }) {
   const [aberto, setAberto] = useState<"rapido" | "avancado">("rapido");
   const [recarga, setRecarga] = useState(0);
+  // O editor abre em tela cheia por cima do painel; ao sair, volta para a entrada do estúdio.
+  const [abertura, setAbertura] = useState<Abertura | null>(null);
   const endereco = enderecoDo("photocraft");
   return (
     <div>
@@ -117,8 +120,18 @@ export function EstudioDeDesign({ me }: { me: Me }) {
         </button>
       </div>
 
+      {abertura && (
+        <Estudio
+          me={me}
+          abertura={abertura}
+          fechar={() => {
+            setAbertura(null);
+            setRecarga((n) => n + 1);
+          }}
+        />
+      )}
       {aberto === "rapido" ? (
-        <Estudio key={recarga} me={me} />
+        <Inicio key={recarga} me={me} abrir={setAbertura} />
       ) : (
         <div className="grid gap-6 lg:grid-cols-2">
           <section className="painel-cartao p-5">
@@ -144,11 +157,11 @@ export function EstudioDeDesign({ me }: { me: Me }) {
             <div className="mt-2 grid gap-4 text-sm md:grid-cols-3">
               <div>
                 <p className="font-semibold">Usar um modelo</p>
-                <p className="text-ink-soft">No Estúdio rápido, escolha o modelo, clique no texto para trocar, guarde na conta e baixe o PNG.</p>
+                <p className="text-ink-soft">No Estúdio rápido, escolha o modelo, dê duplo clique no texto para trocar, guarde na conta e baixe o PNG.</p>
               </div>
               <div>
                 <p className="font-semibold">Quando passar para o avançado</p>
-                <p className="text-ink-soft">Foto para retocar, recorte com máscara, muitas camadas. No Estúdio rápido, “Abrir no editor avançado” baixa o PSD com as camadas; abra o arquivo no PhotoCraft (File › Open… ou arrastando para a janela). Cada modelo também tem o botão “PSD”.</p>
+                <p className="text-ink-soft">Foto para retocar, recorte com máscara, muitas camadas. No Estúdio rápido, o botão “Avançado” (embaixo, no trilho da esquerda) baixa o PSD com as camadas; abra o arquivo no PhotoCraft (File › Open… ou arrastando para a janela).</p>
               </div>
               <div>
                 <p className="font-semibold">Exportar e enviar</p>

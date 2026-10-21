@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata, Viewport } from "next";
-import { EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Caveat, EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
 import { A11yWidget } from "@/components/A11yWidget";
 import { BottomNav } from "@/components/BottomNav";
@@ -24,6 +24,8 @@ import { site } from "@/lib/site";
 const serif = EB_Garamond({ variable: "--font-serif-display", subsets: ["latin", "latin-ext", "cyrillic"] });
 const ui = Inter({ variable: "--font-ui", subsets: ["latin", "latin-ext", "cyrillic"] });
 const mono = IBM_Plex_Mono({ variable: "--font-archive", subsets: ["latin", "latin-ext", "cyrillic"], weight: ["400", "500"] });
+// A letra escrita à mão do estúdio de design (bilhetes, legendas de foto revelada): só carrega quando alguém usa.
+const mao = Caveat({ variable: "--font-hand", subsets: ["latin", "latin-ext"], preload: false });
 
 // A cor da barra do navegador acompanha o tema. O "viewport-fit=cover" (de borda a borda, sabendo onde ficam
 // o relógio e os botões do aparelho) só é ligado no aplicativo, pelo prefsScript: no navegador ele fazia o
@@ -74,7 +76,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   return (
     <html
       lang={htmlLang[lang]}
-      className={`${serif.variable} ${ui.variable} ${mono.variable} h-full antialiased`}
+      className={`${serif.variable} ${ui.variable} ${mono.variable} ${mao.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
