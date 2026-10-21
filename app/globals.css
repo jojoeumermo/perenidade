@@ -59,6 +59,16 @@
   --color-oxblood: var(--oxblood);
   --color-rule: var(--rule);
   --color-ok: var(--ok);
+  --color-e-fundo: var(--e-fundo);
+  --color-e-painel: var(--e-painel);
+  --color-e-campo: var(--e-campo);
+  --color-e-tinta: var(--e-tinta);
+  --color-e-suave: var(--e-suave);
+  --color-e-fio: var(--e-fio);
+  --color-e-bordo: var(--e-bordo);
+  --color-e-bordo-claro: var(--e-bordo-claro);
+  --color-e-palco: var(--e-palco);
+  --color-e-ouro: var(--e-ouro);
   --font-serif: var(--font-serif-display);
   --font-sans: var(--font-ui);
   --font-mono: var(--font-archive);
@@ -1802,5 +1812,84 @@ html[data-escrita-foco="1"] .painel {
   .caderno-recorte,
   .caderno-ficha {
     box-shadow: none;
+  }
+}
+
+/* ───── Estúdio de design (tela cheia do painel) ─────
+   As cores da interface do estúdio: claras por padrão, escuras quando o site está no tema escuro ou quando a
+   pessoa escolhe "interface escura" no próprio estúdio (data-estudio-tema). O palco é sempre escuro. */
+:root {
+  --e-fundo: #f4ecd8;
+  --e-painel: #faf5e9;
+  --e-campo: #ffffff;
+  --e-tinta: #1f1a14;
+  --e-suave: #6b6156;
+  --e-fio: #ddd0b3;
+  --e-bordo: #6e1f1a;
+  --e-bordo-claro: #f3e3dc;
+  --e-palco: #2a231d;
+  --e-ouro: #d4a64a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .estudio-app:not([data-estudio-tema="claro"]) {
+    --e-fundo: #17130e;
+    --e-painel: #1f1a14;
+    --e-campo: #2a231d;
+    --e-tinta: #efe4c8;
+    --e-suave: #b3a584;
+    --e-fio: #3a3020;
+    --e-bordo: #e0837a;
+    --e-bordo-claro: #3b211c;
+    --e-palco: #120f0b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] .estudio-app:not([data-estudio-tema="claro"]),
+.estudio-app[data-estudio-tema="escuro"] {
+  --e-fundo: #17130e;
+  --e-painel: #1f1a14;
+  --e-campo: #2a231d;
+  --e-tinta: #efe4c8;
+  --e-suave: #b3a584;
+  --e-fio: #3a3020;
+  --e-bordo: #e0837a;
+  --e-bordo-claro: #3b211c;
+  --e-palco: #120f0b;
+  color-scheme: dark;
+}
+.estudio-app {
+  font-family: var(--font-ui), system-ui, sans-serif;
+  color: var(--e-tinta);
+  background: var(--e-fundo);
+}
+.estudio-app :focus-visible {
+  outline: 2px solid var(--e-bordo);
+  outline-offset: 1px;
+}
+/* O botão principal (Guardar) é bordô cheio nos dois temas. */
+.estudio-app .e-primario {
+  background: #6e1f1a;
+  color: #fbf7ec;
+}
+.estudio-app .e-primario:hover:not(:disabled) {
+  background: #5a1915;
+}
+.estudio-palco {
+  background-color: var(--e-palco);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+.estudio-app input[type="range"] {
+  accent-color: var(--e-bordo);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .estudio-surge {
+    animation: estudio-surge 160ms ease-out;
+  }
+}
+@keyframes estudio-surge {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
   }
 }
