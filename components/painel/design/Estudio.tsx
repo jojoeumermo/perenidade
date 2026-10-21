@@ -7,6 +7,7 @@ import { rpc } from "@/lib/backend";
 import type { Me } from "@/lib/backend";
 import { textoDoErro } from "../comum";
 import { Icone } from "./Icone";
+import { AVISO_DO_LABORATORIO, citaOInstituto, paraOLaboratorio } from "./laboratorio";
 import { type Modelo, paginasDoModelo } from "./modelos";
 import {
   adaptar,
@@ -34,6 +35,7 @@ import {
   imagemPronta,
   imagensDo,
   miniatura,
+  modoLaboratorio,
   nomeDaCamada,
   novoId,
   posicaoDaFoto,
@@ -213,6 +215,11 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
     projetoRef.current = projeto;
     paginaRef.current = pagina;
   }, [projeto, pagina]);
+  // No laboratório público, a marca do instituto não é desenhada (veja laboratorio.ts).
+  useEffect(() => {
+    modoLaboratorio(laboratorio);
+    return () => modoLaboratorio(false);
+  }, [laboratorio]);
 
   const doc = projeto.paginas[Math.min(pagina, projeto.paginas.length - 1)] ?? projeto.paginas[0];
   const escala = zoomManual ?? ajuste;
@@ -305,7 +312,7 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
           p = projetoNovo(paginasDoModelo(a.modelo));
           t = a.modelo.nome;
           f = a.modelo.formato;
-          void rpc("design_modelo_usado", { p_modelo: a.modelo.id }).catch(() => undefined);
+          if (!laboratorio) void rpc("design_modelo_usado", { p_modelo: a.modelo.id }).catch(() => undefined);
         } else if (a.tipo === "branco") {
           p = projetoNovo([documentoVazio(a.formato)]);
           f = a.formato;
@@ -332,7 +339,9 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
       } catch (erro) {
         avisar(`Não deu para abrir: ${textoDoErro(erro)}`, "erro");
       }
-      const base = p && p.paginas.length ? p : projetoNovo([documentoVazio(f)]);
+      const aberto = p && p.paginas.length ? p : projetoNovo([documentoVazio(f)]);
+      // No laboratório: sem a marca e sem o endereço do instituto, mesmo num arquivo que venha do painel.
+      const base = laboratorio ? paraOLaboratorio(aberto) : aberto;
       const recalcular = (q: Projeto): Projeto => ({
         ...q,
         paginas: q.paginas.map((d, i) => {
@@ -355,7 +364,7 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
       setMexido(a.tipo === "rascunho" || (a.tipo === "trabalho" && Boolean(a.copia)));
       setPronto(true);
       // Os números do site (disciplinas, obras) chegam depois e entram nas variáveis que ainda têm o valor do modelo.
-      void numerosDoSite().then((numeros) => {
+      if (!laboratorio) void numerosDoSite().then((numeros) => {
         if (!Object.keys(numeros).length) return;
         setProjetoBruto((atual) => {
           const variaveis = { ...atual.variaveis };
@@ -369,7 +378,7 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
         });
       });
     },
-    [me.id, avisar],
+    [me.id, avisar, laboratorio],
   );
   useEffect(() => {
     const id = window.setTimeout(() => void abrir(abertura), 0);
@@ -869,7 +878,7 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
 
   const usarModelo = useCallback(
     (m: Modelo, modo: "trocar" | "acrescentar" | "novo") => {
-      void rpc("design_modelo_usado", { p_modelo: m.id }).catch(() => undefined);
+      if (!laboratorio) void rpc("design_modelo_usado", { p_modelo: m.id }).catch(() => undefined);
       const novas = paginasDoModelo(m).map((d) => ({ ...d, id: novoId(), camadas: d.camadas.map(ajustarAltura) }));
       const p0 = paginaRef.current;
       if (modo === "trocar") {
@@ -893,7 +902,7 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
       setSelecao([]);
       setZoomManual(null);
     },
-    [setProjeto, irParaPagina],
+    [setProjeto, irParaPagina, laboratorio],
   );
   const mudarFormato = useCallback(
     (id: FormatoId, adaptarCamadas: boolean) => {
@@ -1124,9 +1133,15 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
     if (e.pointerType === "touch" && toques.current.has(e.pointerId)) {
       toques.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
       if (toques.current.size === 2 && pinca.current && palco.current) {
+        // Dois dedos: a pinça aproxima e o meio dos dedos arrasta a tela.
         const [a, b] = [...toques.current.values()];
         const d = Math.hypot(a.x - b.x, a.y - b.y);
-        zoomEm(pinca.current.escala * (d / pinca.current.d), (a.x + b.x) / 2, (a.y + b.y) / 2);
+        const meio = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+        if (mao.current) {
+          palco.current.scrollLeft = mao.current.sl - (meio.x - mao.current.x0);
+          palco.current.scrollTop = mao.current.st - (meio.y - mao.current.y0);
+        }
+        if (Math.abs(d / pinca.current.d - 1) > 0.04) zoomEm(pinca.current.escala * (d / pinca.current.d), meio.x, meio.y);
         return;
       }
     }
@@ -1378,6 +1393,11 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
     },
     mexido,
     laboratorio,
+    podeExportar: () => {
+      if (!laboratorio || !citaOInstituto(projetoRef.current)) return true;
+      avisar(AVISO_DO_LABORATORIO, "erro");
+      return false;
+    },
   };
 
   const comandos: Comando[] = useMemo(

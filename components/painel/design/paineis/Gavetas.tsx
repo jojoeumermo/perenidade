@@ -7,6 +7,7 @@ import { rpc } from "@/lib/backend";
 import { textoDoErro } from "../../comum";
 import { Icone } from "../Icone";
 import { ICONES_DAS_ARTES } from "../icones";
+import { GRUPOS_DO_LABORATORIO, MODELOS_DO_LABORATORIO } from "../laboratorio";
 import { GRUPOS, type Modelo, MODELOS, paginasDoModelo } from "../modelos";
 import {
   type Camada,
@@ -35,10 +36,12 @@ const TITULOS = { modelos: "Modelos da marca", texto: "Texto", elementos: "Eleme
 export function Gavetas({ celular }: { celular: boolean }) {
   const ed = useEditor();
   if (!ed.gaveta) return null;
+  // No laboratório público os modelos são outros (sem a marca do instituto).
+  const titulo = ed.gaveta === "modelos" && ed.laboratorio ? "Modelos" : TITULOS[ed.gaveta];
   const corpo = (
     <>
       <div className="flex items-center justify-between px-4 pt-4 pb-2">
-        <h2 className="font-serif text-xl font-semibold text-e-tinta">{TITULOS[ed.gaveta]}</h2>
+        <h2 className="font-serif text-xl font-semibold text-e-tinta">{titulo}</h2>
         <button type="button" className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-e-suave hover:bg-e-bordo-claro" onClick={() => ed.setGaveta(null)} aria-label="Fechar a gaveta">
           <Icone nome="fechar" className="h-4 w-4" />
         </button>
@@ -55,11 +58,11 @@ export function Gavetas({ celular }: { celular: boolean }) {
   );
   if (celular)
     return (
-      <div className="estudio-surge fixed inset-x-0 bottom-[3.6rem] z-[83] flex max-h-[64dvh] flex-col rounded-t-2xl border-t border-e-fio bg-e-painel shadow-[0_-12px_40px_rgba(0,0,0,0.35)]" role="dialog" aria-label={TITULOS[ed.gaveta]}>
+      <div className="estudio-surge fixed inset-x-0 bottom-[3.6rem] z-[83] flex max-h-[64dvh] flex-col rounded-t-2xl border-t border-e-fio bg-e-painel shadow-[0_-12px_40px_rgba(0,0,0,0.35)]" role="dialog" aria-label={titulo}>
         {corpo}
       </div>
     );
-  return <aside className="flex w-[19rem] shrink-0 flex-col border-r border-e-fio bg-e-painel" aria-label={TITULOS[ed.gaveta]}>{corpo}</aside>;
+  return <aside className="flex w-[19rem] shrink-0 flex-col border-r border-e-fio bg-e-painel" aria-label={titulo}>{corpo}</aside>;
 }
 
 // ───── Modelos ─────
@@ -118,22 +121,26 @@ function GavetaModelos() {
   const [filtro, setFiltro] = useState("todos");
   const [escolha, setEscolha] = useState<Modelo | null>(null);
   const [usados, setUsados] = useState<string[]>([]);
+  const catalogo = ed.laboratorio ? MODELOS_DO_LABORATORIO : MODELOS;
+  const grupos = ed.laboratorio ? GRUPOS_DO_LABORATORIO : GRUPOS;
+  const filtros = ed.laboratorio ? FILTROS.filter((f) => f.id !== "datas") : FILTROS;
   useEffect(() => {
+    if (ed.laboratorio) return;
     rpc<{ modelo: string; vezes: number }[]>("design_modelos_mais_usados", {})
       .then((l) => setUsados((l ?? []).map((x) => x.modelo)))
       .catch(() => setUsados([]));
-  }, []);
+  }, [ed.laboratorio]);
   const lista = useMemo(() => {
     const b = semAcento(busca.trim());
     const f = FILTROS.find((x) => x.id === filtro) ?? FILTROS[0];
-    return MODELOS.filter((m) => f.vale(m) && (!b || semAcento(`${m.nome} ${m.grupo}`).includes(b)));
-  }, [busca, filtro]);
+    return catalogo.filter((m) => f.vale(m) && (!b || semAcento(`${m.nome} ${m.grupo}`).includes(b)));
+  }, [busca, filtro, catalogo]);
   const vazia = ed.doc.camadas.length === 0;
   const usar = (m: Modelo) => {
     if (vazia && ed.projeto.paginas.length === 1) ed.usarModelo(m, "trocar");
     else setEscolha(m);
   };
-  const maisUsados = usados.map((id) => MODELOS.find((m) => m.id === id)).filter(Boolean).slice(0, 4) as Modelo[];
+  const maisUsados = usados.map((id) => catalogo.find((m) => m.id === id)).filter(Boolean).slice(0, 4) as Modelo[];
   return (
     <div className="space-y-3">
       <label className="relative block">
@@ -141,7 +148,7 @@ function GavetaModelos() {
         <input value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Procurar modelo" aria-label="Procurar modelo" className={`${CAMPO} h-10 pl-9`} />
       </label>
       <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filtrar modelos">
-        {FILTROS.map((f) => (
+        {filtros.map((f) => (
           <button key={f.id} type="button" onClick={() => setFiltro(f.id)} aria-pressed={filtro === f.id} className={`cursor-pointer rounded-full border px-3 py-1 text-sm ${filtro === f.id ? "e-primario border-transparent" : "border-e-fio text-e-tinta hover:border-e-tinta"}`}>
             {f.nome}
           </button>
@@ -164,7 +171,7 @@ function GavetaModelos() {
           <GradeDeModelos lista={maisUsados} usar={usar} />
         </>
       )}
-      {(busca || filtro !== "todos" ? [null] : GRUPOS).map((grupo) => {
+      {(busca || filtro !== "todos" ? [null] : grupos).map((grupo) => {
         const doGrupo = grupo ? lista.filter((m) => m.grupo === grupo) : lista;
         if (!doGrupo.length) return null;
         return (
@@ -216,10 +223,10 @@ function GavetaTexto() {
     { nome: "Cartaz", estiloDoBotao: { fontFamily: "var(--font-ui)", fontSize: 20, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase" }, fazer: () => texto({ ...centro(84 * u, 20 * u), w: 84 * u, texto: "Estude de graça", fonte: "sans", tamanho: 11 * u, peso: 900, italico: true, maiusculas: true, entrelinha: 0.92, espacamento: -0.02, estilo: "chamada" }) },
     { nome: "Palavra com destaque", estiloDoBotao: { fontFamily: "var(--font-serif-display)", fontSize: 20, fontWeight: 600 }, fazer: () => texto({ ...centro(84 * u, 14 * u), w: 84 * u, texto: "Todo o conhecimento, para _todos_.", fonte: "serifa", tamanho: 8 * u, peso: 600, destaque: COR["Bordô"], entrelinha: 1 }) },
     { nome: "Escrito à mão", estiloDoBotao: { fontFamily: "var(--font-hand), cursive", fontSize: 24 }, fazer: () => texto({ ...centro(70 * u, 8 * u), w: 70 * u, texto: "um bilhete escrito à mão", fonte: "manuscrita", tamanho: 6 * u, peso: 500, cor: COR["Tinta suave"] }) },
-    { nome: "Palavra-d'água", estiloDoBotao: { fontFamily: "var(--font-ui)", fontSize: 22, fontWeight: 900, opacity: 0.25 }, fazer: () => ({ ...texto({ x: -5 * u, y: ed.doc.h / 2 - 15 * u, w: 110 * u, texto: "LÚCIA", fonte: "sans", tamanho: 32 * u, peso: 900, alinhar: "center", cor: COR["Bordô"], entrelinha: 0.9 }), opacidade: 0.08, nome: "Palavra-d'água", rot: -12 }) },
+    { nome: "Palavra-d'água", estiloDoBotao: { fontFamily: "var(--font-ui)", fontSize: 22, fontWeight: 900, opacity: 0.25 }, fazer: () => ({ ...texto({ x: -5 * u, y: ed.doc.h / 2 - 15 * u, w: 110 * u, texto: ed.laboratorio ? "RASCUNHO" : "LÚCIA", fonte: "sans", tamanho: 32 * u, peso: 900, alinhar: "center", cor: COR["Bordô"], entrelinha: 0.9 }), opacidade: 0.08, nome: "Palavra-d'água", rot: -12 }) },
     { nome: "Lista com estrelas", estiloDoBotao: { fontFamily: "var(--font-serif-display)", fontSize: 15 }, fazer: () => texto({ ...centro(80 * u, 20 * u), w: 80 * u, texto: "Aulas de graça\nAcervo livre\nComunidade aberta", fonte: "serifa", tamanho: 4.4 * u, peso: 500, entrelinha: 1.45, marcador: "estrela" }) },
-    { nome: "Texto em arco", estiloDoBotao: { fontFamily: "var(--font-ui)", fontSize: 13, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase" }, fazer: () => texto({ ...centro(70 * u, 12 * u), w: 70 * u, texto: "Instituto Lúcia · educação popular", fonte: "sans", tamanho: 3.6 * u, peso: 800, maiusculas: true, espacamento: 0.12, alinhar: "center", curva: 120 }) },
-    { nome: "Número que conta", estiloDoBotao: { fontFamily: "var(--font-serif-display)", fontSize: 24, fontWeight: 600, color: "#8a5f1c" }, fazer: () => texto({ ...centro(60 * u, 28 * u), w: 60 * u, texto: "{disciplinas}", fonte: "serifa", tamanho: 26 * u, peso: 600, cor: COR["Ouro escuro"], entrelinha: 0.85, anim: { tipo: "contador", inicio: 0.2, duracao: 1.6 } }) },
+    { nome: "Texto em arco", estiloDoBotao: { fontFamily: "var(--font-ui)", fontSize: 13, fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase" }, fazer: () => texto({ ...centro(70 * u, 12 * u), w: 70 * u, texto: ed.laboratorio ? "Clube de leitura · desde 2024" : "Instituto Lúcia · educação popular", fonte: "sans", tamanho: 3.6 * u, peso: 800, maiusculas: true, espacamento: 0.12, alinhar: "center", curva: 120 }) },
+    { nome: "Número que conta", estiloDoBotao: { fontFamily: "var(--font-serif-display)", fontSize: 24, fontWeight: 600, color: "#8a5f1c" }, fazer: () => texto({ ...centro(60 * u, 28 * u), w: 60 * u, texto: ed.laboratorio ? "120" : "{disciplinas}", fonte: "serifa", tamanho: 26 * u, peso: 600, cor: COR["Ouro escuro"], entrelinha: 0.85, anim: { tipo: "contador", inicio: 0.2, duracao: 1.6 } }) },
     { nome: "Endereço do site", estiloDoBotao: { fontFamily: "var(--font-archive)", fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "#6e1f1a" }, fazer: () => texto({ ...centro(60 * u, 3 * u), w: 60 * u, texto: "{link}", fonte: "mono", tamanho: 2 * u, peso: 500, cor: COR["Bordô"], espacamento: 0.14, maiusculas: true, estilo: "rodape" }) },
     { nome: "Numeração do carrossel", estiloDoBotao: { fontFamily: "var(--font-archive)", fontSize: 12, letterSpacing: "0.2em", color: "#6e1f1a" }, fazer: () => texto({ x: ed.doc.w - 30 * u, y: 8 * u, w: 22 * u, texto: "{pagina} / {total}", fonte: "mono", tamanho: 2 * u, peso: 500, cor: COR["Bordô"], alinhar: "right", espacamento: 0.2, nome: "Numeração" }) },
   ];
@@ -236,7 +243,7 @@ function GavetaTexto() {
       </ul>
       {!ed.simples && (
         <section>
-          <p className={`${ROTULO} mb-2`}>Estilos da marca (ligados)</p>
+          <p className={`${ROTULO} mb-2`}>{ed.laboratorio ? "Estilos de texto (ligados)" : "Estilos da marca (ligados)"}</p>
           <p className="mb-2 text-xs text-e-suave">Texto ligado a um estilo muda junto em todas as páginas: mude o tamanho de um título e todos os títulos acompanham.</p>
           <ul className="space-y-1">
             {ed.projeto.estilos.map((e) => (
@@ -289,7 +296,7 @@ function GavetaElementos() {
   const ed = useEditor();
   const u = ed.doc.w / 100;
   const centro = (w: number, h: number) => ({ x: Math.round(ed.doc.w / 2 - w / 2), y: Math.round(ed.doc.h / 2 - h / 2) });
-  const [qr, setQr] = useState("https://institutolucia.org");
+  const [qr, setQr] = useState(() => (ed.laboratorio ? "https://exemplo.org" : "https://institutolucia.org"));
   const biblioteca = useBiblioteca();
   const formas: [string, (k: number) => Camada][] = [
     ["Retângulo", (k) => forma("retangulo", { x: 0, y: 0, w: 40 * k, h: 26 * k })],
@@ -311,15 +318,18 @@ function GavetaElementos() {
     [NOMES_DOS_ELEMENTOS.punho, (k) => elemento({ x: 0, y: 0, w: 26 * k, h: 37 * k, desenho: "punho", cor: COR.Tinta })],
     [NOMES_DOS_ELEMENTOS["punho-cartaz"], (k) => elemento({ x: 0, y: 0, w: 26 * k, h: 37 * k, desenho: "punho-cartaz", cor: COR.Tinta })],
     [NOMES_DOS_ELEMENTOS.brasil, (k) => elemento({ x: 0, y: 0, w: 40 * k, h: 40 * k, desenho: "brasil", cor: COR.Verde })],
+    [NOMES_DOS_ELEMENTOS["brasil-estados"], (k) => elemento({ x: 0, y: 0, w: 50 * k, h: 50 * k, desenho: "brasil-estados", cor: COR.Fio, fundo: COR["Vermelho da gráfica"], conteudo: "SP, RJ", espessura: 1.4 })],
     [NOMES_DOS_ELEMENTOS.louros, (k) => elemento({ x: 0, y: 0, w: 50 * k, h: 36 * k, desenho: "louros", cor: COR.Ouro })],
-    [NOMES_DOS_ELEMENTOS.carimbo, (k) => elemento({ x: 0, y: 0, w: 26 * k, h: 26 * k, desenho: "carimbo", cor: COR["Bordô"], conteudo: "Instituto Lúcia", conteudo2: "Educação popular", rot: -8, textura: true })],
-    [NOMES_DOS_ELEMENTOS.selo, (k) => elemento({ x: 0, y: 0, w: 28 * k, h: 28 * k, desenho: "selo", cor: COR["Bordô"], fundo: COR.Pergaminho, conteudo: "Lúcia,\npresente!" })],
+    [NOMES_DOS_ELEMENTOS.carimbo, (k) => elemento({ x: 0, y: 0, w: 26 * k, h: 26 * k, desenho: "carimbo", cor: COR["Bordô"], conteudo: ed.laboratorio ? "Feito à mão" : "Instituto Lúcia", conteudo2: ed.laboratorio ? "Edição especial" : "Educação popular", rot: -8, textura: true })],
+    [NOMES_DOS_ELEMENTOS.selo, (k) => elemento({ x: 0, y: 0, w: 28 * k, h: 28 * k, desenho: "selo", cor: COR["Bordô"], fundo: COR.Pergaminho, conteudo: ed.laboratorio ? "Novo!" : "Lúcia,\npresente!" })],
     [NOMES_DOS_ELEMENTOS.ornamento, (k) => elemento({ x: 0, y: 0, w: 60 * k, h: 4 * k, desenho: "ornamento", cor: COR["Bordô"] })],
     [NOMES_DOS_ELEMENTOS["raios-traco"], (k) => elemento({ x: 0, y: 0, w: 100 * k, h: 100 * k, desenho: "raios-traco", cor: COR.Ouro, opacidade: 0.6 })],
     [NOMES_DOS_ELEMENTOS.pincelada, (k) => elemento({ x: 0, y: 0, w: 60 * k, h: 10 * k, desenho: "pincelada", cor: COR["Vermelho da gráfica"] })],
     [NOMES_DOS_ELEMENTOS["seta-mao"], (k) => elemento({ x: 0, y: 0, w: 18 * k, h: 18 * k, desenho: "seta-mao", cor: COR["Bordô"] })],
     [NOMES_DOS_ELEMENTOS.fita, (k) => elemento({ x: 0, y: 0, w: 22 * k, h: 5 * k, desenho: "fita", cor: "rgba(233, 220, 188, 0.92)", rot: -6 })],
   ];
+  // A marca do instituto fica só no painel: o laboratório público não a oferece.
+  const simbolos = ed.laboratorio ? desenhos.filter(([, f]) => f(1).tipo !== "marca") : desenhos;
   const noMeio = (c: Camada) => ({ ...c, ...centro(c.w, c.h) });
   const amostra = (f: (k: number) => Camada) => {
     const c = f(2);
@@ -347,9 +357,11 @@ function GavetaElementos() {
         {grade(formas)}
       </section>
       <section>
-        <p className={`${ROTULO} mb-2`}>Marca e símbolos</p>
-        {grade(desenhos)}
-        <p className="mt-2 text-xs text-e-suave">A marca é sempre a estrela sobre o livro aberto: não distorça e não troque as cores por fora da paleta. Desenhos livres: Wikimedia Commons (domínio público e CC0) e Natural Earth.</p>
+        <p className={`${ROTULO} mb-2`}>{ed.laboratorio ? "Símbolos e desenhos" : "Marca e símbolos"}</p>
+        {grade(simbolos)}
+        <p className="mt-2 text-xs text-e-suave">
+          {ed.laboratorio ? "Desenhos livres: Wikimedia Commons (domínio público e CC0) e Natural Earth." : "A marca é sempre a estrela sobre o livro aberto: não distorça e não troque as cores por fora da paleta. Desenhos livres: Wikimedia Commons (domínio público e CC0) e Natural Earth."}
+        </p>
       </section>
       <section>
         <p className={`${ROTULO} mb-2`}>Ícones (capas de destaque e ilustração)</p>
