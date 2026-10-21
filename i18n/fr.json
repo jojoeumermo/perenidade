@@ -96,7 +96,15 @@
     "health": "Santé",
     "reportBug": "Signaler un bug du site",
     "institute": "Statuts, mission et valeurs",
-    "freeRoom": "Salle libre (pour enseignants)"
+    "freeRoom": "Salle libre (pour enseignants)",
+    "rightsGuide": "Vos droits",
+    "volunteerTasks": "Devenir bénévole",
+    "contributors": "Contributeurs",
+    "copyright": "Droits d'auteur",
+    "conduct": "Code de conduite",
+    "usePolicy": "Politique d'utilisation",
+    "events": "Rencontres",
+    "spreadKit": "Kit de diffusion"
   },
   "labs": {
     "eyebrow": "Pratique réelle",
@@ -2925,7 +2933,15 @@
       "community": "Le forum de celles et ceux qui étudient : questions, réponses et débats, modéré et sans publicité.",
       "health": "Des professionnels de santé bénévoles, gratuits ou à tarif social : vous leur parlez directement.",
       "bugs": "Quelque chose bloque ou s'affiche mal ? Dites-le à ceux qui maintiennent le code.",
-      "freeRoom": "Construisez et projetez votre cours avec les laboratoires, livres, éditeurs, simulations et jeux du site."
+      "freeRoom": "Construisez et projetez votre cours avec les laboratoires, livres, éditeurs, simulations et jeux du site.",
+      "rightsGuide": "Santé publique, aide sociale, prestations, aide juridique et signalements au Brésil, avec les sources officielles.",
+      "volunteerTasks": "Petites tâches pour aider sans inscription : choisissez-en une et envoyez un e-mail.",
+      "contributors": "Les personnes qui ont aidé et accepté d'être citées.",
+      "copyright": "Comment demander le retrait d'une œuvre du fonds.",
+      "conduct": "Les règles de vie commune dans les espaces participatifs.",
+      "usePolicy": "Ce qui est permis ou non, en quelques lignes.",
+      "events": "Ciné-club, club de lecture et autres rencontres.",
+      "spreadKit": "Affiches, tract, fanzine et cartes QR à imprimer."
     }
   },
   "support": {

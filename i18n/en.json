@@ -96,7 +96,15 @@
     "health": "Health",
     "reportBug": "Report a site bug",
     "institute": "Charter, mission and values",
-    "freeRoom": "Open classroom (for teachers)"
+    "freeRoom": "Open classroom (for teachers)",
+    "rightsGuide": "Your rights",
+    "volunteerTasks": "Volunteer tasks",
+    "contributors": "Contributors",
+    "copyright": "Copyright",
+    "conduct": "Code of conduct",
+    "usePolicy": "Use policy",
+    "events": "Events",
+    "spreadKit": "Outreach kit"
   },
   "labs": {
     "eyebrow": "Real practice",
@@ -2925,7 +2933,15 @@
       "community": "The learners' forum: questions, answers and debates, moderated and ad-free.",
       "health": "Volunteer health professionals offering free or social-rate care: you talk to them directly.",
       "bugs": "Something froze or looked wrong? Tell the people who maintain the code.",
-      "freeRoom": "Build and project your lesson with the site's labs, books, editors, simulations and games."
+      "freeRoom": "Build and project your lesson with the site's labs, books, editors, simulations and games.",
+      "rightsGuide": "Public health, social assistance, benefits, free legal aid and hotlines in Brazil, with official sources.",
+      "volunteerTasks": "Small tasks to help without signing up: pick one and send an email.",
+      "contributors": "People who helped and agreed to be credited.",
+      "copyright": "How to request the removal of a work from the library.",
+      "conduct": "How we treat each other in participatory spaces.",
+      "usePolicy": "What is and isn't allowed, in a few lines.",
+      "events": "Film club, reading club and other gatherings.",
+      "spreadKit": "Posters, flyer, zine and QR cards to print."
     }
   },
   "support": {
