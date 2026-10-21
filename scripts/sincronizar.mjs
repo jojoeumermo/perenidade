@@ -238,7 +238,23 @@ const montar = {
     const arquivo = substitui ? path.join(conteudo, "trilhas", trilha, atual) : atual ? livre(`trilhas/${trilha}`, `${nome}-nova-versao`) : destino(`trilhas/${trilha}`, nome);
     return {
       arquivo,
-      dados: { titulo, resumo: linha(item.dados?.resumo, "resumo", { max: 220 }), autores: [assinatura(item)], revisada: true, fontes: fontes(item.fontes, true), ...(questoes(item.dados?.quiz).length ? { quiz: questoes(item.dados?.quiz) } : {}) },
+      dados: {
+        titulo,
+        resumo: linha(item.dados?.resumo, "resumo", { max: 220 }),
+        autores: [assinatura(item)],
+        revisada: true,
+        fontes: fontes(item.fontes, true),
+        ...(questoes(item.dados?.quiz).length ? { quiz: questoes(item.dados?.quiz) } : {}),
+        // O que é bom ter visto antes: "trilha/aula", só aulas que existem; o resto é ignorado.
+        ...(() => {
+          const lista = String(item.dados?.requisitos ?? "").split(",").map((x) => x.trim()).filter((x) => /^[a-z0-9-]{2,80}\/[a-z0-9-]{2,80}$/.test(x)).filter((x) => {
+            const [t, a] = x.split("/");
+            const pasta = path.join(conteudo, "trilhas", t);
+            return fs.existsSync(pasta) && fs.readdirSync(pasta).some((f) => f.replace(/^\d+-/, "") === `${a}.md`);
+          }).slice(0, 8);
+          return lista.length ? { requisitos: lista } : {};
+        })(),
+      },
       texto: corpo(item.corpo, tipos.aula.corpo.min),
     };
   },

@@ -26,11 +26,15 @@ Nenhum site funciona sem que alguém entregue as páginas. O instituto contrata 
 
 Algumas partes do site mostram dados de serviços públicos e abertos: os números da página Dados do povo (Banco Central, IBGE e Câmara dos Deputados), o quadro "Neste dia" (Wikipédia), o dicionário, as frases traduzidas e a pesquisa de fontes do painel. Quem consulta esses serviços é o servidor do instituto, nunca o seu navegador: eles não ficam sabendo quem você é nem o que você leu. Quando você procura uma checagem de fatos, só as palavras da busca seguem, a partir do nosso servidor, para o serviço de checagens do Google. E, ao criar ou trocar uma senha, o site confere se ela já apareceu em vazamentos conhecidos (serviço Have I Been Pwned) sem enviar a senha: o seu aparelho calcula um resumo dela e só os cinco primeiros caracteres desse resumo saem, também pelo nosso servidor.
 
-**Libras (VLibras).** No botão de acessibilidade há a opção de ativar o VLibras, o tradutor de português para Libras do Governo Federal. Ele só é carregado se você clicar em "Ativar" e confirmar o aviso. A partir daí, o seu navegador baixa o tradutor diretamente dos endereços do governo (o repositório oficial do VLibras e os serviços em vlibras.gov.br), e o texto que você escolher traduzir é enviado a esses serviços. Como em qualquer site, eles recebem o endereço de rede do seu aparelho. O próprio tradutor guarda no seu navegador a escolha de deixá-lo aberto. Se você marcar "Lembrar neste aparelho", o site guarda só essa escolha, e o tradutor passa a carregar sozinho nas próximas páginas; para desfazer, use "Não carregar sozinho" no mesmo lugar, ou apague tudo em [Meus dados](/meus-dados). O Instituto Lúcia não controla o VLibras. As tentativas do tradutor de enviar dados para serviços de métrica de terceiros são bloqueadas pela política de segurança do site, na página; o avatar roda num quadro à parte, sob as regras do próprio serviço.
+**Libras (VLibras).** No botão de acessibilidade há a opção de ativar o VLibras, o tradutor de português para Libras do Governo Federal. Ele só é carregado se você clicar em "Ativar" e confirmar o aviso. A partir daí, o seu navegador baixa o tradutor diretamente dos endereços do governo (vlibras.gov.br, que entrega o programa a partir do repositório oficial do VLibras, e os serviços de tradução), e o texto que você escolher traduzir é enviado a esses serviços. Como em qualquer site, eles recebem o endereço de rede do seu aparelho. O próprio tradutor guarda no seu navegador a escolha de deixá-lo aberto. Se você marcar "Lembrar neste aparelho", o site guarda só essa escolha, e o tradutor passa a carregar sozinho nas próximas páginas; para desfazer, use "Não carregar sozinho" no mesmo lugar, ou apague tudo em [Meus dados](/meus-dados). O Instituto Lúcia não controla o VLibras. As tentativas do tradutor de enviar dados para serviços de métrica de terceiros são bloqueadas pela política de segurança do site, na página; o avatar roda num quadro à parte, sob as regras do próprio serviço.
 
 O site não conta visitas nem usa ferramenta nenhuma de medição de audiência. Na página de entrada e nos formulários, uma verificação automática confere se quem está do outro lado é uma pessoa e não um robô.
 
 Para mandar os e-mails automáticos (a confirmação de que um pedido chegou, o convite de quem entra na equipe, a confirmação e as edições do boletim), o instituto usa um serviço de envio de e-mails, com servidores fora do Brasil. Ele recebe o endereço e o texto de cada mensagem só para entregá-la. Depois que um e-mail sai, o instituto apaga o texto dele e guarda por trinta dias só o registro de que foi enviado.
+
+**Registros técnicos (logs).** Os serviços de hospedagem e de proteção contra ataques guardam, por um tempo curto definido por eles, o endereço de rede (IP), o navegador e a página pedida em cada visita. Isso serve só para segurança e para barrar ataques (legítimo interesse, art. 7º, IX, da LGPD). O instituto não usa esses registros para saber quem você é nem o que você leu, e não liga nenhuma ferramenta de estatística de visitas desses serviços.
+
+**Salas de vídeo.** As reuniões da equipe, o estudo em grupo e algumas aulas ao vivo usam o Jitsi Meet, de código aberto, num servidor público de um coletivo de tecnologia (como meet.systemli.org). Ao entrar na sala, o seu navegador fala direto com esse servidor, que recebe o seu endereço de rede, o nome que aparece na sala e o áudio e o vídeo enquanto você estiver nela. Nada é gravado pelo instituto; no painel fica só quem entrou e quando.
 
 Esses serviços processam os dados só para manter o site funcionando. O instituto não entrega dados a anunciantes nem a corretores de dados. A única situação em que um texto escrito por você é enviado a outra empresa está explicada abaixo, em "Avaliação automática na Comunidade".
 
@@ -76,6 +80,16 @@ Para publicar um trabalho na [Gaveta Aberta](/gaveta) é preciso ter conta e ace
 
 PDFs costumam guardar o nome de quem escreveu e outros dados nos metadados. Confira antes de enviar: o arquivo é publicado como chegou, depois que a mediação confere.
 
+## Se você relata um erro do site
+
+Na página [Achei um erro](/relatar-erro) você conta o que deu errado. Fica guardado o que você escrever (a página, o que aconteceu, como chegar no erro e, se quiser, um contato) e, só se você marcar, qual navegador e qual tamanho de tela você usa. O endereço de rede não é guardado. Quem lê é só quem cuida do código e a coordenação. O relato é apagado um ano depois.
+
+## Saúde Solidária
+
+Na [Saúde Solidária](/saude), o instituto publica, com autorização do próprio profissional, o nome, a profissão, o registro no conselho, as áreas de atuação, a biografia, a foto (se autorizada) e o contato profissional. Para o cadastro e a conferência também guardamos, com acesso restrito à coordenação: os dados da conta, a data e o resultado da conferência do registro no conselho, o termo aceito (com o texto exato, a versão e a data) e o registro da aceitação. As bases legais são o consentimento do profissional e o legítimo interesse de comprovar a conferência e a adesão. O profissional pode pedir acesso, correção ou retirada dos dados pelo e-mail institutolucia@tutamail.com; o perfil sai do ar na hora em que ele pede.
+
+O instituto não coleta, não recebe e não guarda dados de saúde de quem procura atendimento. O cartão de encaminhamento (com o código) é desenhado no seu próprio aparelho e não é enviado a lugar nenhum; o seu primeiro nome, se você escrever, fica só no seu navegador. Os botões de contato levam a serviços de terceiros (WhatsApp, Instagram, e-mail), com as regras de privacidade deles.
+
 ## Avaliação automática na Comunidade
 
 Tudo o que é escrito na [Comunidade](/comunidade) passa por uma avaliação automática antes de aparecer. Ela existe para manter a convivência respeitosa, segura e voltada ao estudo: ajuda a barrar spam, assédio, ameaças, discurso de ódio e outras violações das regras da página.
@@ -95,6 +109,10 @@ A avaliação automática vale só para a Comunidade. Anúncios do Mural dos Tra
 ## Se você é da equipe de voluntários
 
 Além do que está acima, o painel guarda: as funções que você recebeu; o registro do que foi feito com essas funções, por pouco mais de um ano; um identificador sorteado de cada navegador em que a conta foi aberta, para avisar você e a coordenação quando a conta aparecer em um aparelho novo, por até 180 dias sem uso; o nome completo informado no termo de adesão ao trabalho voluntário; e as horas que você registrar. O CPF não é guardado: quem imprime um certificado digita na hora. Quem faz design e marketing tem também os trabalhos do estúdio de design, guardados na conta e, por padrão, visíveis para a equipe de design e marketing. Nas aulas ao vivo, o vídeo de quem ensina vai direto do navegador dele para o de quem assiste e não é guardado pelo instituto; quem está na sala vê o nome público de quem ensina e de quem assiste enquanto a aula dura.
+
+**Os termos que você aceita ficam guardados para sempre.** Ao entrar no painel, cada pessoa da equipe aceita o termo de voluntário (e, para as horas, o termo de adesão). O painel guarda o texto exato que você leu, a versão, a data, a sua declaração de idade (e, se menor de 18 anos, o nome do responsável que autorizou) e o navegador usado. Esse registro não é apagado nem quando a conta é apagada, porque é a prova de que o trabalho foi voluntário e de como o que você publicou ficou livre (legítimo interesse e exercício regular de direitos, art. 7º, VI e IX, da LGPD). Só você e a coordenação leem.
+
+**Foto de perfil.** Se você enviar uma foto, ela é reduzida e regravada no seu aparelho (sem localização, sem dados da câmera) e espera a aprovação da coordenação antes de aparecer nos cartões de quem ensina.
 
 Quando a coordenação, a vice-coordenação ou a supervisão mandam um aviso à equipe, o painel registra quem já o fechou, para o aviso não voltar. Os avisos somem até 30 dias depois do prazo.
 
@@ -119,7 +137,11 @@ A lei garante a você confirmar se o instituto trata dados seus, acessar, corrig
 
 ## Crianças e adolescentes
 
-Estudar não exige conta em nenhuma idade. O instituto não pede idade, documento, endereço nem telefone de ninguém.
+Estudar não exige conta em nenhuma idade. O instituto não pede idade, documento, endereço nem telefone de quem estuda. Na equipe de voluntários, quem tem menos de 18 anos só participa com a autorização do responsável legal, registrada no aceite do termo.
+
+## Scripts de terceiros e cookies
+
+O site não usa ferramentas de terceiros que rastreiam visitantes (estatística de audiência, pixel de rede social, mapa de calor, anúncios). Por isso não há banner de cookies: o site só guarda cookies e dados técnicos necessários (a sessão de quem entra na conta e a proteção contra robôs). Se um dia alguma ferramenta assim for usada, ela só funcionará depois do seu consentimento e estará listada aqui.
 
 ## Segurança
 

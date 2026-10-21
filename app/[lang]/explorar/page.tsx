@@ -42,6 +42,7 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         [n.tutoring, "/reforco", d.tutoring],
         [n.tools, "/ferramentas", d.tools],
         [n.labs, "/laboratorios", t.labs.lead],
+        [n.freeRoom, "/sala-livre", d.freeRoom],
         [n.questionBank, "/questoes", t.lists.bankLead],
         [n.glossary, "/glossario", d.glossary],
         [n.authors, "/autores", d.authors],
@@ -66,6 +67,8 @@ export default async function Explorar({ params }: PageProps<"/[lang]/explorar">
         [n.materials, "/materiais", d.materials],
         [n.mural, "/mural", d.mural],
         [n.community, "/comunidade", d.community ?? n.community],
+        [n.health, "/saude", d.health],
+        [n.reportBug, "/relatar-erro", d.bugs],
       ].map(([label, path, description]) => ({ label, path, description })),
     },
     {

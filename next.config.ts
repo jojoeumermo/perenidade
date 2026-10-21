@@ -69,7 +69,8 @@ const policy = (script: string) =>
     "manifest-src 'self'",
     // blob: é a prévia, no próprio aparelho, de um PDF ou DOCX recebido nas conversas (nunca um endereço de fora).
     `frame-src blob: ${captcha} ${jitsi} https://phet.colorado.edu ${videos} ${estudio}${vlibrasCodigo}`.trim(),
-    "frame-ancestors 'none'",
+    // Só o próprio site embute as páginas dele (os laboratórios abrem dentro da caixa das aulas); ninguém de fora.
+    "frame-ancestors 'self'",
     "base-uri 'self'",
     "form-action 'self'",
     "object-src 'none'",
@@ -82,7 +83,7 @@ const pages = policy(`'unsafe-inline' ${captcha} ${jitsi}${dev ? " 'unsafe-eval'
 const workers = policy("'wasm-unsafe-eval' 'unsafe-eval'");
 
 const common = [
-  { key: "X-Frame-Options", value: "DENY" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },

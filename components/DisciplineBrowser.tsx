@@ -7,6 +7,7 @@ import { fill, localePath } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { stageAreas, stages, type AreaSlug, type Stage } from "@/lib/areas";
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
+import { normalize } from "@/lib/text";
 import { useI18n } from "./I18n";
 
 export interface DisciplineCard {
@@ -16,6 +17,8 @@ export interface DisciplineCard {
   essential: boolean;
   /** Aulas prontas e planejadas em cada etapa. */
   counts: Record<Stage, [number, number]>;
+  /** Os títulos das trilhas da disciplina: a busca também acha "fotossíntese" em Biologia. */
+  palavras?: string;
 }
 
 export interface DisciplineGroup {
@@ -40,12 +43,15 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
   const hydrated = useHydrated();
   const stored = useStored(KEYS.filter);
   const [abertos, setAbertos] = useState<string[]>([]);
+  const [busca, setBusca] = useState("");
+  const termos = normalize(busca).split(/\s+/).filter(Boolean);
   const filter: Filter = hydrated && (stored === "essencial" || (stages as readonly string[]).includes(stored)) ? (stored as Filter) : "todas";
   const options: [Filter, string][] = [["todas", s.filterAll], ["essencial", s.filterEssential], ...stages.map((stage): [Filter, string] => [stage, stageNames[stage]])];
 
   const total = (card: DisciplineCard): [number, number] =>
     filter === "todas" || filter === "essencial" ? stages.reduce<[number, number]>((sum, stage) => [sum[0] + card.counts[stage][0], sum[1] + card.counts[stage][1]], [0, 0]) : card.counts[filter];
-  const shown = (card: DisciplineCard) => (filter === "todas" ? true : filter === "essencial" ? card.essential : stageAreas[filter].includes(card.slug as AreaSlug));
+  const casa = (card: DisciplineCard) => !termos.length || termos.every((termo) => normalize(`${card.name} ${card.description} ${card.palavras ?? ""}`).includes(termo));
+  const shown = (card: DisciplineCard) => casa(card) && (filter === "todas" ? true : filter === "essencial" ? card.essential : stageAreas[filter].includes(card.slug as AreaSlug));
   // As mais completas primeiro (mais aulas prontas); no empate, vale a ordem de sempre.
   const visible = groups
     .map((group) => ({
@@ -62,7 +68,14 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
 
   return (
     <div>
-      <div role="group" aria-label={s.filter} className="no-print mt-8 flex flex-wrap items-center gap-2 font-sans text-sm">
+      {/* Busca: pelo nome, pela descrição e pelos títulos das trilhas. Com busca, os grupos abrem inteiros. */}
+      {!labels && (
+        <div role="search" className="no-print mt-8 flex max-w-2xl border-2 border-ink bg-parchment-deep">
+          <input type="search" value={busca} onChange={(e) => setBusca(e.target.value)} aria-label={s.searchLabel} placeholder={s.searchPlaceholder} className="min-w-0 flex-1 bg-transparent px-4 py-3 font-mono text-sm outline-none placeholder:text-ink-soft" />
+          {busca && <button type="button" onClick={() => setBusca("")} className="cursor-pointer px-4 font-sans text-sm underline">{s.searchClear}</button>}
+        </div>
+      )}
+      <div role="group" aria-label={s.filter} className="no-print mt-6 flex flex-wrap items-center gap-2 font-sans text-sm">
         <span className="mr-1 text-ink-soft">{s.filter}:</span>
         {options.map(([value, label]) => (
           <button key={value} type="button" onClick={() => setItem(KEYS.filter, value === "todas" ? null : value)} aria-pressed={filter === value} className={`cursor-pointer border-2 px-3 py-1.5 ${filter === value ? "border-ink bg-ink text-parchment" : "border-rule hover:border-gold"}`}>
@@ -84,7 +97,7 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
       {visible.length === 0 && <p className="mt-10 text-lg text-ink-soft">{s.filterNone}</p>}
       {visible.map((group) => {
         // Esconder uma só não vale o botão: com até uma a mais que o limite, o grupo aparece inteiro.
-        const recolhe = labels && group.areas.length > PRIMEIRAS + 1;
+        const recolhe = labels && !termos.length && group.areas.length > PRIMEIRAS + 1;
         const aberto = !recolhe || abertos.includes(group.id);
         const cards = aberto ? group.areas : group.areas.slice(0, PRIMEIRAS);
         return (
