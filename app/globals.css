@@ -1962,3 +1962,12 @@ html[data-escrita-foco="1"] .painel {
   .cabecalho-site .marca-nome,
   .cabecalho-site .linha-de-cima img { transition: none; }
 }
+
+/* Kit de divulgação: na impressão sai só a peça escolhida, no tamanho real e com as cores de fundo. */
+@media print {
+  :root[data-imprimir-peca] body * { visibility: hidden !important; }
+  :root[data-imprimir-peca] .peca-impressa,
+  :root[data-imprimir-peca] .peca-impressa * { visibility: visible !important; }
+  :root[data-imprimir-peca] .peca-impressa { position: fixed; left: 0; top: 0; margin: 0 !important; }
+  :root[data-imprimir-peca] * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

@@ -514,6 +514,13 @@ function capasDoSite() {
   return capas;
 }
 
+/** As obras escondidas por pedido de retirada ou dúvida de direitos (content/acervo-ocultas.json): não aparecem em lugar nenhum. */
+export const obrasOcultas = cache((): Set<string> => {
+  const lista = readJson<{ ocultas: { id: string; motivo: string; data: string }[] }>("content/acervo-ocultas.json", { ocultas: [] });
+  for (const o of lista.ocultas) if (!o.id || !o.motivo || !/^\d{4}-\d{2}-\d{2}$/.test(o.data ?? "")) fail("content/acervo-ocultas.json", `"${o.id}" precisa de id, motivo e data (AAAA-MM-DD)`);
+  return new Set(lista.ocultas.map((o) => o.id));
+});
+
 export const getBooks = cache((lang: Locale): Book[] =>
   collection("acervo", lang, ({ slug, file, data, body, translated }) => {
     const url = httpsUrl(data, "url", file);
@@ -535,7 +542,9 @@ export const getBooks = cache((lang: Locale): Book[] =>
       translated,
       file,
     };
-  }).sort((a, b) => a.title.localeCompare(b.title, lang)),
+  })
+    .filter((book) => !obrasOcultas().has(book.id))
+    .sort((a, b) => a.title.localeCompare(b.title, lang)),
 );
 
 /** Obras importadas dos catálogos abertos para uma disciplina (pode não existir). */
