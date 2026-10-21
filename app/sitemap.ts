@@ -54,6 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/laboratorios/montador",
     "/laboratorios/ia",
     "/laboratorios/escritorio",
+    "/laboratorios/design",
     "/laboratorios/seguranca",
     "/laboratorios/simulacoes",
     "/laboratorios/eletrica",
