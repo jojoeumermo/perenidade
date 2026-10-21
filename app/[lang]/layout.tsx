@@ -97,10 +97,12 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <OutsidePanel>
             <Footer lang={lang} t={t} />
             <RadioPlayer />
-            <A11yWidget />
             <BottomNav />
             <VoltarAoTopo label={t.lists.top} />
             <OpeningNotice initial={abertura} close={t.a11y.close} />
+          </OutsidePanel>
+          <OutsidePanel mostrarNasCriancas>
+            <A11yWidget />
           </OutsidePanel>
           <Shortcuts />
           <OfflineSupport />
