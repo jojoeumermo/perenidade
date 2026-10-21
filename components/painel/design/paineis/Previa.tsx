@@ -98,7 +98,7 @@ export function Previa({ fechar }: { fechar: () => void }) {
             <div className="h-full overflow-y-auto bg-white pt-9 text-[#111]">
               <div className="flex items-center gap-2 px-3 py-2">
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#6e1f1a] text-[0.6rem] font-bold text-white">IL</span>
-                <span className="text-[0.8rem] font-semibold">{(ed.projeto.variaveis.arroba || "@institutoluciaorg").replace(/^@/, "")}</span>
+                <span className="text-[0.8rem] font-semibold">{(ed.projeto.variaveis.arroba || (ed.laboratorio ? "@seuperfil" : "@institutoluciaorg")).replace(/^@/, "")}</span>
                 <Icone nome="pontos" className="ml-auto h-4 w-4" />
               </div>
               <div className="relative">
@@ -118,7 +118,7 @@ export function Previa({ fechar }: { fechar: () => void }) {
                 )}
               </div>
               <p className="px-3 pb-6 text-[0.72rem] leading-snug whitespace-pre-wrap">
-                <strong>{(ed.projeto.variaveis.arroba || "@institutoluciaorg").replace(/^@/, "")}</strong> {legenda ? (legenda.length > 125 ? `${legenda.slice(0, 125)}… mais` : legenda) : <span className="text-[#999]">(a legenda aparece aqui)</span>}
+                <strong>{(ed.projeto.variaveis.arroba || (ed.laboratorio ? "@seuperfil" : "@institutoluciaorg")).replace(/^@/, "")}</strong> {legenda ? (legenda.length > 125 ? `${legenda.slice(0, 125)}… mais` : legenda) : <span className="text-[#999]">(a legenda aparece aqui)</span>}
               </p>
             </div>
           </Celular>
@@ -156,7 +156,7 @@ export function Previa({ fechar }: { fechar: () => void }) {
                 </div>
                 <div className="flex items-center gap-2 text-[0.72rem] text-white">
                   <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#6e1f1a] text-[0.55rem] font-bold">IL</span>
-                  <strong>{(ed.projeto.variaveis.arroba || "@institutoluciaorg").replace(/^@/, "")}</strong> 2 h
+                  <strong>{(ed.projeto.variaveis.arroba || (ed.laboratorio ? "@seuperfil" : "@institutoluciaorg")).replace(/^@/, "")}</strong> 2 h
                 </div>
               </div>
               <div className="absolute inset-x-0 bottom-0 z-10 flex items-center gap-2 bg-gradient-to-t from-black/60 to-transparent px-3 pt-8 pb-4">
