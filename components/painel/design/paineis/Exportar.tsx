@@ -100,7 +100,7 @@ export function JanelaBaixar({ fechar }: { fechar: () => void }) {
     ["grafica", "Gráfica"],
     ["pacote", "Pacote da campanha"],
     ["video", "Vídeo"],
-    ["site", "No site"],
+    ...(ed.laboratorio ? [] : ([["site", "No site"]] as [Aba, string][])),
   ];
 
   return (

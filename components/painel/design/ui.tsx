@@ -73,6 +73,8 @@ export interface Editor {
   /** Abre outro trabalho (ou modelo) no mesmo editor. */
   abrir: (a: Abertura) => void;
   mexido: boolean;
+  /** No Laboratório de Design dos estudantes: sem conta, tudo fica no aparelho (sem trabalhos, revisão nem publicação). */
+  laboratorio: boolean;
 }
 
 export const ContextoDoEditor = createContext<Editor | null>(null);

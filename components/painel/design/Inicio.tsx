@@ -54,7 +54,7 @@ function MiniaturaDeModelo({ id }: { id: string }) {
  * A tela de entrada do estúdio rápido: criar por formato, continuar o rascunho, as datas do calendário que vêm aí,
  * os modelos mais usados, os trabalhos recentes e, para a coordenação, o que espera aprovação.
  */
-export function Inicio({ me, abrir }: { me: Me; abrir: (a: Abertura) => void }) {
+export function Inicio({ me, abrir, laboratorio = false }: { me: Me; abrir: (a: Abertura) => void; laboratorio?: boolean }) {
   const [rascunho, setRascunho] = useState<Rascunho | null>(null);
   const [trabalhos, setTrabalhos] = useState<Trabalho[] | null>(null);
   const [usados, setUsados] = useState<string[]>([]);
@@ -71,12 +71,14 @@ export function Inicio({ me, abrir }: { me: Me; abrir: (a: Abertura) => void }) 
         setPrimeiroUso(false);
       }
     }, 0);
-    rpc<Trabalho[]>("designs_listar", {})
-      .then((l) => setTrabalhos(l ?? []))
-      .catch(() => setTrabalhos([]));
-    rpc<{ modelo: string }[]>("design_modelos_mais_usados", {})
-      .then((l) => setUsados((l ?? []).map((x) => x.modelo)))
-      .catch(() => setUsados([]));
+    if (!laboratorio) {
+      rpc<Trabalho[]>("designs_listar", {})
+        .then((l) => setTrabalhos(l ?? []))
+        .catch(() => setTrabalhos([]));
+      rpc<{ modelo: string }[]>("design_modelos_mais_usados", {})
+        .then((l) => setUsados((l ?? []).map((x) => x.modelo)))
+        .catch(() => setUsados([]));
+    }
     // Vindo do calendário da divulgação ("Criar arte no Estúdio de design"): o título da peça entra no maior texto do modelo.
     let pedido: { titulo?: string; legenda?: string } | null = null;
     try {
@@ -96,7 +98,7 @@ export function Inicio({ me, abrir }: { me: Me; abrir: (a: Abertura) => void }) 
       abrir({ tipo: "projeto", projeto: { ...projetoNovo(paginas), legenda: (pedido.legenda ?? "").slice(0, 2200) }, titulo: `Post: ${titulo}`.slice(0, 80), formato: modelo.formato });
     }
     return () => window.clearTimeout(id);
-  }, [me.id, abrir]);
+  }, [me.id, abrir, laboratorio]);
   const datas = useMemo(() => (agora ? proximasDatas(new Date(agora), 3) : []), [agora]);
   const paraAprovar = can(me, "coordenacao") ? (trabalhos ?? []).filter((t) => t.status === "revisao") : [];
   const meus = (trabalhos ?? []).filter((t) => t.meu && (t.status === "ajustes"));
@@ -246,6 +248,7 @@ export function Inicio({ me, abrir }: { me: Me; abrir: (a: Abertura) => void }) 
         </ul>
       </section>
 
+      {!laboratorio && (
       <section>
         <h2 className="font-serif text-2xl font-semibold">Trabalhos recentes</h2>
         {trabalhos === null ? (
@@ -269,6 +272,7 @@ export function Inicio({ me, abrir }: { me: Me; abrir: (a: Abertura) => void }) 
           </ul>
         )}
       </section>
+      )}
     </div>
   );
 }

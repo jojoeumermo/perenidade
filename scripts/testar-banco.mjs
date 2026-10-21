@@ -2640,7 +2640,65 @@ await espera("e abre o desenho inteiro", () => rpc(como(ids.divulga), "design_ve
 await espera("o marketing edita o trabalho compartilhado", () => rpc(como(ids.divulga), "design_salvar", { p_id: desenho, p: { ...design, titulo: "Post de lançamento (v2)" } }), (r) => r.titulo === "Post de lançamento (v2)");
 await recusa("quem não fez não apaga", () => rpc(como(ids.divulga), "design_apagar", { p_id: desenho }), "sem_permissao");
 await recusa("educador não lista os trabalhos", () => rpc(como(ids.prof), "designs_listar"), "sem_permissao");
-await espera("a designer apaga o trabalho", () => rpc(como(ids.designer), "design_apagar", { p_id: desenho }), (r) => r.ok === true);
+await espera("a designer organiza em pasta e etiquetas", () => rpc(como(ids.designer), "design_organizar", { p_id: desenho, p_pasta: "Campanha de outubro", p_etiquetas: ["Lançamento", "lançamento", "instagram"] }), (r) => r.pasta === "Campanha de outubro" && r.etiquetas.length === 2);
+await recusa("quem não fez não mexe na pasta", () => rpc(como(ids.divulga), "design_organizar", { p_id: desenho, p_pasta: "Outra", p_etiquetas: [] }), "sem_permissao");
+await espera("guardar de novo deixa a versão de antes", () => rpc(como(ids.designer), "design_salvar", { p_id: desenho, p: { ...design, dados: { v: 2, paginas: [] }, paginas: 3 } }), (r) => r.paginas === 3);
+let versao;
+await espera("a versão anterior aparece na lista", () => rpc(como(ids.designer), "design_versoes", { p_id: desenho }), (r) => r.length === 1 && (versao = r[0].id));
+await espera("e abre com o desenho de antes", () => rpc(como(ids.divulga), "design_versao", { p_versao: versao }), (r) => r.dados.camadas.length === 1);
+await recusa("educador não vê as versões", () => rpc(como(ids.prof), "design_versoes", { p_id: desenho }), "nao_encontrado");
+await espera("a designer manda para a revisão", () => rpc(como(ids.designer), "design_status", { p_id: desenho, p_status: "revisao" }), (r) => r.status === "revisao");
+await recusa("quem cria não aprova a própria arte", () => rpc(como(ids.designer), "design_status", { p_id: desenho, p_status: "aprovado" }), "sem_permissao");
+await recusa("pedir ajuste exige nota", () => rpc(como(ids.coord), "design_status", { p_id: desenho, p_status: "ajustes", p_nota: "" }), "invalido:nota");
+await espera("a coordenação comenta a página 2", () => rpc(como(ids.coord), "design_comentar", { p_id: desenho, p_texto: "Aumente o título.", p_pagina: 1 }), (r) => Boolean(r.id));
+await recusa("educador não comenta", () => rpc(como(ids.prof), "design_comentar", { p_id: desenho, p_texto: "Oi" }), "nao_encontrado");
+await espera("a coordenação aprova, com nota e nome", () => rpc(como(ids.coord), "design_status", { p_id: desenho, p_status: "aprovado", p_nota: "Pode postar." }), (r) => r.status === "aprovado" && r.decidido_por === "Jonathan");
+await espera("a revisão mostra a situação e o comentário", () => rpc(como(ids.designer), "design_revisao", { p_id: desenho }), (r) => r.status === "aprovado" && r.comentarios.length === 1 && r.comentarios[0].pagina === 1);
+await espera("arte aprovada que muda volta para a revisão", () => rpc(como(ids.designer), "design_salvar", { p_id: desenho, p: { ...design, dados: { v: 2, paginas: [{ w: 1 }] } } }), (r) => r.status === "revisao");
+await espera("o alcance anotado marca como publicado", async () => {
+  await rpc(como(ids.coord), "design_status", { p_id: desenho, p_status: "aprovado", p_nota: "" });
+  return rpc(como(ids.designer), "design_alcance", { p_id: desenho, p_alcance: 1234 });
+}, (r) => r.alcance === 1234 && r.status === "publicado" && Boolean(r.publicado_em));
+await espera("a biblioteca guarda um bloco da equipe", () => rpc(como(ids.designer), "design_biblioteca_salvar", { p: { tipo: "bloco", nome: "Cabeçalho", dados: { camadas: [{ tipo: "texto" }], w: 100, h: 20 } } }), (r) => Boolean(r.id));
+await recusa("tipo desconhecido na biblioteca é recusado", () => rpc(como(ids.designer), "design_biblioteca_salvar", { p: { tipo: "fonte", nome: "X", dados: {} } }), "invalido:tipo");
+await espera("o marketing vê o bloco da equipe, mas não é dele", () => rpc(como(ids.divulga), "design_biblioteca_listar"), (r) => r.some((b) => b.nome === "Cabeçalho" && !b.meu));
+await recusa("quem não fez não apaga o bloco", async () => rpc(como(ids.divulga), "design_biblioteca_apagar", { p_id: (await rpc(como(ids.divulga), "design_biblioteca_listar"))[0].id }), "sem_permissao");
+await espera("os modelos usados viram contagem", async () => {
+  await rpc(como(ids.designer), "design_modelo_usado", { p_modelo: "post-proposito" });
+  await rpc(como(ids.divulga), "design_modelo_usado", { p_modelo: "post-proposito" });
+  return rpc(como(ids.designer), "design_modelos_mais_usados");
+}, (r) => r[0].modelo === "post-proposito" && r[0].vezes === 2);
+await recusa("nome de modelo estranho é recusado", () => rpc(como(ids.designer), "design_modelo_usado", { p_modelo: "<script>" }), "invalido:modelo");
+await espera("a designer manda o trabalho para a lixeira", () => rpc(como(ids.designer), "design_apagar", { p_id: desenho }), (r) => r.ok === true);
+await espera("na lixeira, e fora da lista", async () => [await rpc(como(ids.designer), "designs_listar"), await rpc(como(ids.designer), "designs_listar", { p_lixeira: true })], ([lista, lixeira]) => !lista.some((d) => d.id === desenho) && lixeira.some((d) => d.id === desenho && d.apagado_em));
+await recusa("o que está na lixeira não abre", () => rpc(como(ids.designer), "design_ver", { p_id: desenho }), "nao_encontrado");
+await espera("e volta da lixeira", () => rpc(como(ids.designer), "design_restaurar", { p_id: desenho }), (r) => r.apagado_em === null);
+await recusa("só apaga de vez o que está na lixeira", () => rpc(como(ids.designer), "design_apagar_de_vez", { p_id: desenho }), "nao_encontrado");
+await espera("lixeira e depois de vez", async () => {
+  await rpc(como(ids.designer), "design_apagar", { p_id: desenho });
+  return rpc(como(ids.designer), "design_apagar_de_vez", { p_id: desenho });
+}, (r) => r.ok === true);
+
+// ── Publicação no Instagram (registro e agenda; a publicação em si é da rota do site, com a chave da Meta) ──
+const urlDaArte = (quem) => `https://projeto.supabase.co/storage/v1/object/public/estudio-publicacoes/${quem}/abc123.jpg`;
+const daquiAPouco = (min) => new Date(Date.now() + min * 60e3).toISOString();
+await recusa("quem é só do design não publica no perfil", () => rpc(como(ids.designer), "design_publicacao_registrar", { p: { urls: [urlDaArte(ids.designer)], legenda: "Oi", quando: daquiAPouco(60) } }), "sem_permissao");
+await espera("o marketing pode publicar", () => rpc(como(ids.divulga), "design_pode_publicar"), (r) => r === true);
+await recusa("imagem de fora do depósito é recusada", () => rpc(como(ids.divulga), "design_publicacao_registrar", { p: { urls: ["https://exemplo.com/a.jpg"], legenda: "Oi", quando: daquiAPouco(60) } }), "invalido:urls");
+await recusa("imagem na pasta de outra pessoa é recusada", () => rpc(como(ids.divulga), "design_publicacao_registrar", { p: { urls: [urlDaArte(ids.designer)], legenda: "Oi", quando: daquiAPouco(60) } }), "invalido:urls");
+await recusa("agenda no passado é recusada", () => rpc(como(ids.divulga), "design_publicacao_registrar", { p: { urls: [urlDaArte(ids.divulga)], legenda: "Oi", quando: daquiAPouco(-5) } }), "invalido:quando");
+let agendada;
+await espera("o marketing agenda um carrossel", () => rpc(como(ids.divulga), "design_publicacao_registrar", { p: { urls: [urlDaArte(ids.divulga), urlDaArte(ids.divulga)], legenda: "Carrossel novo", quando: daquiAPouco(60), titulo: "Carrossel" } }), (r) => r.status === "agendada" && (agendada = r.id));
+await recusa("sem a chave, a tarefa automática não lê a agenda", () => rpc(anon, "design_publicacoes_vencidas", { p_chave: "qualquer-coisa-com-mais-de-24-letras" }), "sem_permissao");
+await espera("com a chave, a tarefa pega a vencida (uma vez só) e marca publicada", async () => {
+  await dono("insert into interno.segredos (nome, valor) values ('cron', 'chave-de-teste-com-mais-de-24-letras') on conflict (nome) do update set valor = excluded.valor");
+  await dono(`update interno.design_publicacoes set quando = now() - interval '1 minute' where id = '${agendada}'`);
+  const primeira = await rpc(anon, "design_publicacoes_vencidas", { p_chave: "chave-de-teste-com-mais-de-24-letras" });
+  const segunda = await rpc(anon, "design_publicacoes_vencidas", { p_chave: "chave-de-teste-com-mais-de-24-letras" });
+  const marcada = await rpc(anon, "design_publicacao_marcar", { p_chave: "chave-de-teste-com-mais-de-24-letras", p_id: agendada, p_status: "publicada", p_media_id: "1789" });
+  return { primeira, segunda, marcada };
+}, ({ primeira, segunda, marcada }) => primeira.length === 1 && segunda.length === 0 && marcada.status === "publicada" && marcada.media_id === "1789");
+await espera("a lista mostra a publicação", () => rpc(como(ids.designer), "design_publicacoes"), (r) => r.some((x) => x.id === agendada && x.status === "publicada"));
 
 // ── Prática lúdica de idioma (vai pela fila, como toda contribuição) ──
 const pratica = { tipo: "pratica", titulo: "Prática: alfabeto e sons", corpo: "Exercícios da aula de alfabeto.", disciplina: "ingles", alvo: "ingles-do-zero/alfabeto-e-sons", dados: { exercicios: [{ tipo: "escolha", pergunta: "Como se diz A?", opcoes: ["ei", "a"], resposta: 0 }] } };
@@ -3074,7 +3132,9 @@ await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), 
   await espera("o que falta aparece para o profissional", () => rpc(como(r4.sau), "saude_meu"), (r) => r.faltam.length >= 3 && r.contatos.whatsapp === "5521900000000" && r.contatos.instagram === "sara.teste");
   await rpc(como(r4.sau), "saude_termo_aceitar", { p_texto: "Texto do termo da vitrine de saúde, rascunho para revisão jurídica.", p_nome: "Sara Saúde", p_registro: "05/00000" });
   await recusa("registro conferido há mais de 180 dias não vale", () => rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "verificar", p_verificado_em: "2025-01-01", p_nota: "" }), "invalido:data");
-  await rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "verificar", p_verificado_em: new Date().toISOString().slice(0, 10), p_nota: "Consulta no cadastro do conselho." });
+  // A data de hoje do próprio banco (à noite, no Brasil, a data em UTC já é a de amanhã).
+  const hojeNoBanco = (await dono("select current_date::text as d")).rows[0].d;
+  await rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "verificar", p_verificado_em: hojeNoBanco, p_nota: "Consulta no cadastro do conselho." });
   await espera("sem publicar, não aparece", vitrine, (r) => r.perfis.length === 0);
   await espera("termo, registro, texto e publicação: aparece, em ordem alfabética e sem dado interno", async () => { await rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "publicar" }); return vitrine(); },
     (r) => r.perfis.length === 1 && r.perfis[0].nome === "Sara Saúde" && !("status" in r.perfis[0]) && !("verificacao_nota" in r.perfis[0]) && r.perfis[0].foto === "");
