@@ -1,0 +1,1 @@
+A metalworker born in Terra Roxa, in the interior of São Paulo state, and an activist in the Workers' Pastoral of the Catholic Church. During the 1979 metalworkers' strike, he was leading a picket at a factory gate in Santo Amaro when he was shot by the Military Police on 30 October 1979. His funeral drew thousands of people and became a major protest against the dictatorship.

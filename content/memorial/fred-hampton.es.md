@@ -1,0 +1,1 @@
+Dirigente del Partido Pantera Negra en Illinois. Muy joven, organizó desayunos gratuitos para niños, apoyó una clínica popular y creó la primera Coalición Arcoíris, que unió a jóvenes negros, puertorriqueños y blancos pobres de Chicago. Fue asesinado a los 21 años, mientras dormía, en una redada policial hecha con la ayuda del FBI, en la madrugada del 4 de diciembre de 1969.

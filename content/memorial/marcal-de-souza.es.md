@@ -1,0 +1,1 @@
+Líder guaraní ñandeva nacido en Ponta Porã. Enfermero, recorrió las aldeas y denunció la invasión de las tierras guaraníes por los hacendados y la violencia contra su pueblo. En 1980 habló en nombre de los indígenas de Brasil ante el papa Juan Pablo II, en Manaos. Tras años de amenazas, fue asesinado a tiros el 25 de noviembre de 1983.

@@ -1,0 +1,1 @@
+A Black priest, the son of a peasant woman, born in Marabá. He coordinated the Pastoral Land Commission in the Bico do Papagaio region, where he defended squatters and rural workers threatened by land grabbers and ranchers. Weeks after surviving an assassination attempt, he was shot dead by a gunman hired by ranchers on 10 May 1986, in Imperatriz.
