@@ -15,6 +15,14 @@ import { Balanceador, Conversor, MassaMolarTool, Punnett, SistemaSolar } from "@
 import { Estatistica, TabelaVerdade } from "@/components/tools/Dados";
 import { Cronometro, Redacao, Silabario } from "@/components/tools/Estudo";
 import { Resolvedor } from "@/components/tools/Resolvedor";
+import { Ceu } from "@/components/tools/novas/Ceu";
+import { Algoritmos, Criptografia, Grafos } from "@/components/tools/novas/Computacao";
+import { CalculadorasDeEletronica } from "@/components/tools/novas/Eletronica";
+import { PalavrasGeradoras, Referencias } from "@/components/tools/novas/Escrita";
+import { Sudoku } from "@/components/tools/novas/Jogos";
+import { Alfabetos, TonsDoMandarim } from "@/components/tools/novas/Linguas";
+import { ContasDoDia, Solidos } from "@/components/tools/novas/Matematica";
+import { DireitosDoTrabalhador } from "@/components/tools/novas/Trabalho";
 import { FisicaSimulada, Reacoes } from "@/components/tools/Simulacoes";
 import { Cores, Escala, FrequenciaCardiaca, Fusos, MaisValia, Rcp } from "@/components/tools/Varias";
 import { loadLang } from "@/i18n";
@@ -31,6 +39,8 @@ export function generateStaticParams() {
 }
 
 const isTool = (value: string): value is ToolId => (tools as readonly string[]).includes(value);
+/** As ferramentas da rodada nova: a interface e os exercícios estão em português por enquanto. */
+const NOVAS_EM_PT = new Set<string>(["algoritmos", "criptografia", "grafos", "sudoku", "referencias-abnt", "palavras-geradoras", "solidos", "contas-do-dia-a-dia", "tons-do-mandarim", "alfabetos", "ceu", "calculadoras-de-eletronica", "direitos-trabalhistas"]);
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/ferramentas/[tool]">): Promise<Metadata> {
   const { t } = await loadLang(params);
@@ -85,6 +95,19 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
     "mais-valia": <MaisValia s={s.surplus} lang={lang} />,
     rcp: <Rcp s={s.cpr} />,
     "frequencia-cardiaca": <FrequenciaCardiaca s={s.heart} />,
+    "algoritmos": <div lang="pt-BR"><Algoritmos /></div>,
+    "criptografia": <div lang="pt-BR"><Criptografia /></div>,
+    "grafos": <div lang="pt-BR"><Grafos /></div>,
+    "sudoku": <div lang="pt-BR"><Sudoku /></div>,
+    "referencias-abnt": <div lang="pt-BR"><Referencias /></div>,
+    "palavras-geradoras": <div lang="pt-BR"><PalavrasGeradoras /></div>,
+    "solidos": <div lang="pt-BR"><Solidos /></div>,
+    "contas-do-dia-a-dia": <div lang="pt-BR"><ContasDoDia /></div>,
+    "tons-do-mandarim": <div lang="pt-BR"><TonsDoMandarim /></div>,
+    "alfabetos": <div lang="pt-BR"><Alfabetos /></div>,
+    "ceu": <div lang="pt-BR"><Ceu /></div>,
+    "calculadoras-de-eletronica": <div lang="pt-BR"><CalculadorasDeEletronica /></div>,
+    "direitos-trabalhistas": <div lang="pt-BR"><DireitosDoTrabalhador /></div>,
   };
 
   // O que mais serve a quem está aqui: ferramentas das mesmas matérias e os laboratórios dessas matérias.
@@ -102,6 +125,7 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
           {description}
         </PageHeading>
       </div>
+      {lang !== "pt" && NOVAS_EM_PT.has(tool) && <p className="mt-4 border-l-4 border-gold bg-parchment-deep px-3 py-2 font-sans text-sm">{t.labs.ptOnly}</p>}
       <Moldura id={tool} s={textosDe(t)}>{body[tool]}</Moldura>
       {(parecidas.length > 0 || labIds.length > 0) && (
         <div className="mt-10 grid gap-6 border-t border-rule pt-6 font-sans sm:grid-cols-2">
