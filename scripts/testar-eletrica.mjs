@@ -5,6 +5,7 @@
 import { ler, BANCADA_ELETRICA, fonteAtx } from "../components/labs/eletrica/multimetro.ts";
 import { resolver } from "../components/labs/eletrica/conta-dos-circuitos.ts";
 import { avaliar } from "../components/labs/eletrica/regras-da-instalacao.ts";
+import { comercialAcima, divisor, fonte, ldr, led, meioSomador, rc, resistorDoLed, somadorCompleto, somar4, tabela } from "../components/labs/eletrica/conta-da-eletronica.ts";
 
 let certos = 0;
 const falhas = [];
@@ -58,6 +59,29 @@ confere("retorno na rosca: aviso de choque", avaliar([{ de: "Q.F", para: "I.1", 
 confere("tomada sem terra: aviso", avaliar(certo.filter((f) => f.para !== "T.T")).itens.some((i) => i.includes("sem terra")));
 confere("neutro em fio preto: aviso de cor", avaliar(certo.map((f) => (f.de === "L.R" ? { ...f, cor: "preto" } : f))).itens.some((i) => i.includes("azul-claro")));
 confere("lâmpada sem interruptor no caminho: aviso", avaliar([{ de: "Q.F", para: "L.C", cor: "preto" }, { de: "L.R", para: "Q.N", cor: "azul-claro" }]).itens.some((i) => i.includes("mesmo com o interruptor desligado")));
+
+// Eletrônica
+confere("LED vermelho em 5 V com 150 Ω: 20 mA, certo", (() => { const r = led(5, "vermelho", 150); return Math.abs(r.i - 0.02) < 1e-9 && r.estado === "certo"; })());
+confere("LED sem resistor queima", led(5, "azul", 0).estado === "queimou");
+confere("LED azul em 3 V não acende (abaixo da tensão direta)", led(3, "azul", 100).estado === "apagado");
+confere("LED com 10 kΩ em 5 V fica fraco", led(5, "vermelho", 10000).estado === "fraco");
+confere("12 V no LED com 100 Ω esquenta o resistor de 1/4 W e queima o LED", (() => { const r = led(12, "vermelho", 100); return r.estado === "queimou" && r.resistorEsquenta; })());
+confere("resistor recomendado do LED branco em 9 V é 330 Ω", resistorDoLed(9, "branco").comercial === 330);
+confere("valor comercial acima de 151 é 180", comercialAcima(151) === 180);
+confere("capacitor carrega 63% em um RC", Math.abs(rc(10, 1000, 0.001, 1, true) - 6.3212) < 0.001);
+confere("capacitor descarrega para 37% em um RC", Math.abs(rc(10, 1000, 0.001, 1, false) - 3.6788) < 0.001);
+confere("tabelas-verdade das portas", tabela("E") === "0001" && tabela("OU") === "0111" && tabela("OUEX") === "0110" && tabela("NAOE") === "1110" && tabela("NAOU") === "1000" && tabela("NAO") === "1100");
+confere("meio somador 1 + 1 = 10", (() => { const r = meioSomador(true, true); return !r.soma && r.vaiUm; })());
+confere("somador completo 1 + 1 + 1 = 11", (() => { const r = somadorCompleto(true, true, true); return r.soma && r.vaiUm; })());
+confere("somador de 4 bits: 5 + 9 = 14 sem estouro", (() => { const r = somar4(5, 9); return r.valor === 14 && !r.estouro; })());
+confere("somador de 4 bits: 12 + 7 estoura (19 não cabe)", (() => { const r = somar4(12, 7); return r.valor === 3 && r.estouro; })());
+confere("sem retificar a saída fica negativa metade do tempo", Math.min(...fonte(17, "nenhuma", 0, 100).saida) < -16);
+confere("meia onda nunca fica negativa e perde 0,7 V", (() => { const r = fonte(17, "meia", 0, 100); return Math.min(...r.saida) >= 0 && Math.abs(r.max - 16.3) < 0.05; })());
+confere("onda completa perde 1,4 V e tem média maior que a meia onda", (() => { const c = fonte(17, "completa", 0, 100); const m = fonte(17, "meia", 0, 100); return Math.abs(c.max - 15.6) < 0.05 && c.media > m.media * 1.8; })());
+confere("capacitor maior deixa a ondulação menor", fonte(17, "completa", 2200, 100).ripple < fonte(17, "completa", 220, 100).ripple / 3);
+confere("carga mais pesada (menos ohms) aumenta a ondulação", fonte(17, "completa", 1000, 50).ripple > fonte(17, "completa", 1000, 500).ripple);
+confere("LDR: escuro tem resistência muito maior que sol", ldr(0) > 100 * ldr(1000));
+confere("divisor com resistores iguais dá metade", divisor(9, 1000, 1000) === 4.5);
 
 console.log(`elétrica: ${certos} conferências certas, ${falhas.length} falhas`);
 for (const f of falhas) console.log("  ✗", f);
