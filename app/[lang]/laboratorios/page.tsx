@@ -21,6 +21,7 @@ export default async function Page({ params }: PageProps<"/[lang]/laboratorios">
     [s.montador, s.montadorLead, "/laboratorios/montador"],
     [s.eletrica, s.eletricaLead, "/laboratorios/eletrica"],
     [s.ia, s.iaLead, "/laboratorios/ia"],
+    [s.modelos, s.modelosLead, "/laboratorios/modelos"],
     [s.escritorio, s.escritorioLead, "/laboratorios/escritorio"],
     [s.design, s.designLead, "/laboratorios/design"],
     [s.seguranca, s.segurancaLead, "/laboratorios/seguranca"],
