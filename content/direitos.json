@@ -1,0 +1,145 @@
+{
+  "_sobre": "Guia de direitos e serviços públicos. Cada item com fonte oficial e a data em que o link foi conferido. Não calcula quem tem direito: explica o que depende e manda ao serviço oficial. Texto preparado por IA, em revisão até a coordenação aprovar.",
+  "conferido_em": "2026-10-21",
+  "emergencia": [
+    { "numero": "192", "nome": "SAMU", "quando": "Urgência médica: desmaio, falta de ar, dor no peito, acidente." },
+    { "numero": "193", "nome": "Bombeiros", "quando": "Incêndio, resgate, afogamento, desabamento." },
+    { "numero": "190", "nome": "Polícia Militar", "quando": "Crime acontecendo ou risco imediato." },
+    { "numero": "188", "nome": "CVV", "quando": "Apoio emocional e prevenção do suicídio, 24 horas, de graça." },
+    { "numero": "180", "nome": "Central de Atendimento à Mulher", "quando": "Violência contra a mulher: orientação e denúncia." },
+    { "numero": "100", "nome": "Disque Direitos Humanos", "quando": "Violação de direitos de crianças, pessoas idosas, pessoas com deficiência e outros grupos." }
+  ],
+  "servicos": [
+    {
+      "id": "sus",
+      "titulo": "SUS: saúde pública e gratuita",
+      "o_que": "Atendimento de saúde gratuito para qualquer pessoa no Brasil: consultas, vacinas, exames, remédios da farmácia popular e internação.",
+      "quem": "Todo mundo que está no Brasil, com ou sem documento, com ou sem emprego.",
+      "onde": "A porta de entrada é a Unidade Básica de Saúde (UBS, o \"posto de saúde\") mais perto de casa. Emergência: UPA ou SAMU 192. Reclamações e informações: Disque Saúde 136.",
+      "documentos": "Cartão do SUS (feito na própria UBS) e um documento com foto. Sem documento, o atendimento de urgência não pode ser negado.",
+      "depende": "O que cada unidade oferece varia de cidade para cidade.",
+      "fontes": [
+        { "nome": "Ministério da Saúde: SUS", "url": "https://www.gov.br/saude/pt-br/sus" },
+        { "nome": "Ouvidoria do SUS (OuvSUS)", "url": "https://www.gov.br/saude/pt-br/canais-de-atendimento/ouvsus" }
+      ]
+    },
+    {
+      "id": "cras",
+      "titulo": "CRAS e CREAS: assistência social no bairro",
+      "o_que": "O CRAS orienta sobre benefícios, faz o Cadastro Único e acompanha famílias. O CREAS atende pessoas e famílias com direitos violados: violência, abandono, trabalho infantil, situação de rua.",
+      "quem": "Qualquer pessoa ou família que precise de apoio da assistência social. O atendimento é gratuito.",
+      "onde": "Na unidade da sua cidade. A prefeitura (ou o site dela) informa o endereço do CRAS que atende o seu bairro.",
+      "documentos": "Um documento com foto e o CPF. Leve comprovante de residência, se tiver.",
+      "depende": "Os serviços oferecidos e o horário mudam de cidade para cidade.",
+      "fontes": [{ "nome": "Ministério do Desenvolvimento e Assistência Social: SUAS", "url": "https://www.gov.br/mds/pt-br/acoes-e-programas/SUAS" }]
+    },
+    {
+      "id": "cadunico",
+      "titulo": "Cadastro Único",
+      "o_que": "O registro do governo federal das famílias de baixa renda. É a porta para o Bolsa Família, a Tarifa Social de Energia, o BPC e muitos outros programas.",
+      "quem": "Famílias de baixa renda, dentro do limite de renda definido pelo governo (confira o valor atual na fonte oficial).",
+      "onde": "No CRAS ou no posto do Cadastro Único da prefeitura. O cadastro é feito por uma pessoa responsável pela família.",
+      "documentos": "CPF ou título de eleitor da pessoa responsável e documentos de todas as pessoas da família. A prefeitura confirma a lista.",
+      "depende": "Estar no cadastro não garante nenhum benefício: cada programa tem as próprias regras. O cadastro precisa ser atualizado a cada dois anos ou quando a família muda.",
+      "fontes": [
+        { "nome": "MDS: Cadastro Único", "url": "https://www.gov.br/mds/pt-br/acoes-e-programas/cadastro-unico" },
+        { "nome": "gov.br: inscrever-se no Cadastro Único", "url": "https://www.gov.br/pt-br/servicos/inscrever-se-no-cadastro-unico-para-programas-sociais-do-governo-federal" }
+      ]
+    },
+    {
+      "id": "bolsa-familia",
+      "titulo": "Bolsa Família",
+      "o_que": "Transferência de renda mensal para famílias de baixa renda, com valores a mais para crianças, adolescentes, gestantes e nutrizes.",
+      "quem": "Famílias inscritas no Cadastro Único com renda por pessoa abaixo do limite do programa (o valor atual está na fonte oficial).",
+      "onde": "Não se pede o Bolsa Família direto: a família entra no Cadastro Único e o governo faz a seleção.",
+      "documentos": "Os do Cadastro Único.",
+      "depende": "A entrada depende da renda declarada, das vagas e do cumprimento dos compromissos de saúde e educação (vacinas, pré-natal, frequência escolar).",
+      "fontes": [{ "nome": "MDS: Bolsa Família", "url": "https://www.gov.br/mds/pt-br/acoes-e-programas/bolsa-familia" }]
+    },
+    {
+      "id": "bpc",
+      "titulo": "BPC: Benefício de Prestação Continuada",
+      "o_que": "Um salário mínimo por mês, sem precisar ter contribuído para o INSS, para pessoas idosas e pessoas com deficiência de baixa renda (Lei Orgânica da Assistência Social, Lei nº 8.742/1993).",
+      "quem": "Pessoas com 65 anos ou mais, e pessoas com deficiência de qualquer idade, cuja família tenha renda por pessoa dentro do limite da lei, com o Cadastro Único em dia.",
+      "onde": "O pedido é feito no INSS: pelo site ou aplicativo Meu INSS ou pelo telefone 135. O CRAS ajuda a fazer.",
+      "documentos": "Documento com foto, CPF e Cadastro Único atualizado. Para pessoa com deficiência, há avaliação médica e social no INSS.",
+      "depende": "A renda familiar, a avaliação da deficiência e a atualização do Cadastro Único. O BPC não dá 13º nem deixa pensão.",
+      "fontes": [
+        { "nome": "gov.br: BPC para pessoa idosa", "url": "https://www.gov.br/pt-br/servicos/solicitar-beneficio-assistencial-ao-idoso" },
+        { "nome": "gov.br: BPC para pessoa com deficiência", "url": "https://www.gov.br/pt-br/servicos/solicitar-beneficio-assistencial-a-pessoa-com-deficiencia" }
+      ]
+    },
+    {
+      "id": "tarifa-social",
+      "titulo": "Tarifa Social de Energia Elétrica",
+      "o_que": "Desconto na conta de luz para famílias de baixa renda.",
+      "quem": "Famílias inscritas no Cadastro Único dentro do limite de renda, e famílias com alguém que recebe o BPC (as faixas e os descontos atuais estão na fonte oficial).",
+      "onde": "A inclusão é feita a partir do Cadastro Único. Se o desconto não aparecer na conta, procure a distribuidora de energia com o número do NIS.",
+      "documentos": "Número do NIS (do Cadastro Único) e a conta de luz no nome de alguém da família.",
+      "depende": "As regras de desconto mudam por lei e por resolução da ANEEL; confira na fonte.",
+      "fontes": [{ "nome": "ANEEL: Tarifa Social", "url": "https://www.gov.br/aneel/pt-br/assuntos/tarifas/tarifa-social" }]
+    },
+    {
+      "id": "seguro-desemprego",
+      "titulo": "Seguro-desemprego",
+      "o_que": "Algumas parcelas de ajuda em dinheiro para quem perdeu o emprego com carteira assinada.",
+      "quem": "Quem foi demitido sem justa causa e cumpre o tempo mínimo de trabalho exigido (que muda conforme quantas vezes a pessoa já pediu).",
+      "onde": "Pela Carteira de Trabalho Digital, pelo gov.br ou numa unidade do Sine. O pedido do trabalhador formal é feito de 7 a 120 dias depois da demissão.",
+      "documentos": "Documento com foto, CPF e os papéis da demissão que a empresa entrega.",
+      "depende": "O tempo trabalhado, quantas vezes já pediu e o último salário (que define o valor).",
+      "fontes": [
+        { "nome": "Ministério do Trabalho: seguro-desemprego", "url": "https://www.gov.br/trabalho-e-emprego/pt-br/servicos/trabalhador/seguro-desemprego" },
+        { "nome": "gov.br: solicitar o seguro-desemprego", "url": "https://www.gov.br/pt-br/servicos/solicitar-o-seguro-desemprego" }
+      ]
+    },
+    {
+      "id": "inss",
+      "titulo": "INSS: aposentadoria, auxílios e pensão",
+      "o_que": "Aposentadorias, auxílio por incapacidade, salário-maternidade, pensão por morte e outros benefícios de quem contribuiu para a Previdência.",
+      "quem": "Quem contribui ou contribuiu para o INSS (carteira assinada, autônomo, MEI, contribuinte individual), e a família de quem morreu contribuindo.",
+      "onde": "Site ou aplicativo Meu INSS, ou telefone 135.",
+      "documentos": "Documento com foto e CPF; cada benefício pede os seus (laudos, certidões, carteira de trabalho).",
+      "depende": "Tempo de contribuição, idade e as regras de cada benefício. Para dúvida sobre direito negado, procure a Defensoria Pública.",
+      "fontes": [
+        { "nome": "INSS", "url": "https://www.gov.br/inss/pt-br" },
+        { "nome": "Meu INSS", "url": "https://meu.inss.gov.br/" }
+      ]
+    },
+    {
+      "id": "defensoria",
+      "titulo": "Defensoria Pública: advogado de graça",
+      "o_que": "Orientação jurídica e defesa gratuitas para quem não pode pagar advogado: família, moradia, consumidor, trabalho, saúde, crime.",
+      "quem": "Quem não pode pagar advogado sem prejudicar o sustento da família.",
+      "onde": "Na Defensoria Pública do seu estado (a maioria dos casos). Causas contra o governo federal, como benefício do INSS, vão para a Defensoria Pública da União (DPU).",
+      "documentos": "Documento com foto, CPF, comprovante de renda e os papéis do caso.",
+      "depende": "Cada Defensoria define como agenda e quem atende.",
+      "fontes": [
+        { "nome": "Defensoria Pública da União", "url": "https://www.dpu.def.br/" },
+        { "nome": "Associação Nacional das Defensoras e Defensores Públicos (contatos das Defensorias estaduais)", "url": "https://www.anadep.org.br/" }
+      ]
+    },
+    {
+      "id": "denuncia",
+      "titulo": "Denunciar violência e violação de direitos",
+      "o_que": "Canais gratuitos, que aceitam denúncia anônima, para violência contra a mulher, crianças, pessoas idosas, pessoas com deficiência, racismo, LGBTfobia e outras violações.",
+      "quem": "Qualquer pessoa, a vítima ou quem sabe do caso.",
+      "onde": "Ligue 180 (mulher) e Disque 100 (direitos humanos), também pelo WhatsApp e pelos sites oficiais. Risco imediato: 190.",
+      "documentos": "Nenhum.",
+      "depende": "",
+      "fontes": [
+        { "nome": "Ministério das Mulheres: Ligue 180", "url": "https://www.gov.br/mulheres/pt-br/ligue180" },
+        { "nome": "Ministério dos Direitos Humanos: Disque 100", "url": "https://www.gov.br/mdh/pt-br/disque100" }
+      ]
+    },
+    {
+      "id": "cvv",
+      "titulo": "CVV: apoio emocional",
+      "o_que": "Conversa sigilosa com voluntários treinados, para quem está em sofrimento ou pensando em suicídio.",
+      "quem": "Qualquer pessoa, a qualquer hora.",
+      "onde": "Telefone 188 (24 horas, de graça), chat e e-mail pelo site.",
+      "documentos": "Nenhum.",
+      "depende": "",
+      "fontes": [{ "nome": "Centro de Valorização da Vida", "url": "https://cvv.org.br/" }]
+    }
+  ]
+}

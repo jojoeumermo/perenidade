@@ -1,0 +1,59 @@
+{
+  "_sobre": "Tarefas pequenas para quem quer ajudar sem cadastro. Editadas à mão: cada uma com o que é, quanto tempo leva, como começar e como entregar. O contato é só por e-mail.",
+  "tarefas": [
+    {
+      "id": "revisar-aula",
+      "titulo": "Revisar uma aula",
+      "area": "Educação",
+      "tempo": "30 a 60 minutos",
+      "descricao": "Ler uma aula marcada como \"em revisão\" e apontar erros de conteúdo, trechos confusos e fontes que faltam.",
+      "comecar": "Escolha uma aula em revisão em Disciplinas e anote o endereço dela.",
+      "entrega": "Um e-mail com o endereço da aula e a lista do que encontrou (trecho, problema, sugestão)."
+    },
+    {
+      "id": "traduzir",
+      "titulo": "Traduzir um texto curto",
+      "area": "Idiomas",
+      "tempo": "1 a 3 horas",
+      "descricao": "Traduzir uma aula ou página do português para inglês, espanhol, francês, russo ou chinês.",
+      "comecar": "Diga no e-mail para qual idioma você traduz; mandamos uma aula curta para começar.",
+      "entrega": "O texto traduzido num arquivo de texto (.txt, .md ou .docx)."
+    },
+    {
+      "id": "gravar-audio",
+      "titulo": "Gravar a leitura de uma aula",
+      "area": "Acessibilidade",
+      "tempo": "30 minutos a 1 hora",
+      "descricao": "Ler uma aula em voz alta, num lugar silencioso, para quem estuda ouvindo.",
+      "comecar": "Grave um minuto de teste com o celular e mande junto, para combinarmos o formato.",
+      "entrega": "Um arquivo de áudio (MP3 ou M4A) por aula."
+    },
+    {
+      "id": "design",
+      "titulo": "Fazer um cartaz ou ilustração",
+      "area": "Design",
+      "tempo": "1 a 4 horas",
+      "descricao": "Criar cartazes de divulgação, ilustrações para aulas ou capas, na identidade visual do instituto.",
+      "comecar": "Veja o Kit de divulgação e diga no e-mail o que gostaria de fazer.",
+      "entrega": "O arquivo final (PDF ou PNG) e, se tiver, o arquivo editável."
+    },
+    {
+      "id": "desenvolvimento",
+      "titulo": "Corrigir um erro no site",
+      "area": "Desenvolvimento",
+      "tempo": "1 a 4 horas",
+      "descricao": "Arrumar um erro relatado na página \"Achei um erro\", melhorar a acessibilidade de uma tela ou escrever um teste.",
+      "comecar": "Conte no e-mail o que você sabe fazer (Next.js, TypeScript, SQL, acessibilidade) e com que tempo conta.",
+      "entrega": "Combinada por e-mail (o código do site ainda não está aberto ao público)."
+    },
+    {
+      "id": "conferir-fontes",
+      "titulo": "Conferir as fontes de uma página",
+      "area": "Checagem",
+      "tempo": "30 minutos",
+      "descricao": "Abrir cada fonte citada numa aula ou no guia de direitos e conferir se o link funciona e se diz o que o texto afirma.",
+      "comecar": "Escolha uma página com fontes e anote o endereço.",
+      "entrega": "Um e-mail com o endereço da página e, para cada fonte com problema, o que está errado."
+    }
+  ]
+}
