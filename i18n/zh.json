@@ -990,7 +990,7 @@
       "check": "检查拼写和语法",
       "checking": "正在检查…",
       "checkNone": "没有需要注意的地方。",
-      "checkNote": "只有在你按下按钮时，文字才会发送到开放服务 LanguageTool。",
+      "checkNote": "只有在你按下按钮或开启\"边写边检查\"时，文字才会发送到开源检查服务 LanguageTool。",
       "checkFailed": "检查服务没有响应。请一分钟后再试。",
       "checkStale": "文字已更改：请重新检查。"
     },
