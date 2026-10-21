@@ -1,8 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { leads, manages, rpc, type Me } from "@/lib/backend";
+import { type CSSProperties, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { can, leads, manages, rpc, type Me } from "@/lib/backend";
+import { JITSI_DOMINIO } from "@/lib/jitsi";
 import { buscar, desindexar, indexar, type Indexada } from "@/lib/busca-local";
 import type { Chaveiro } from "@/lib/chaveiro";
 import { type Citacao, type Conteudo, desempacotar, empacotar, type Enquete, type Evento, extrairMencoes, linksDe, previaDoLink, reacoes, type Rsvp, semFormatacao, trechoDe } from "@/lib/mensagem";
@@ -10,12 +12,14 @@ import { conversaDestravada, destravar, estaDestravado, travaDisponivel, travaLi
 import { contextoDaConversa } from "@/lib/sigilo";
 import { getItem, setItem } from "@/lib/storage";
 import { useI18n } from "../I18n";
+import { JitsiSala } from "../JitsiSala";
 import { Aviso, botao, botaoClaro, campo, dataHora, elo, localDoPainel, papeis, rotulo, textoDoErro, useLista } from "./comum";
 import { Avatar } from "./Avatar";
 import type { Membro } from "./Equipe";
 import { Formatado } from "./Formatado";
 import { AnexoVisto, type EstadoDoAnexo, Galeria, Gravador, type ItemDaGaleria, Preparados, type Preparado, preparar, soltar, subir } from "./Anexos";
 import { Alertas, AparelhoPendente, Aparelhos, ComoFunciona, enviarCifrado, Seguranca, TextoAberto, useAbertos, useChaveiro } from "./Sigilo";
+import { baixarIcs, Historico, NovaReuniao, type Proposta as PropostaDeReuniao, Propostas, type Reuniao, tipos as tiposDeReuniao } from "./Reunioes";
 
 type Tipo = "direta" | "grupo" | "departamento";
 
@@ -118,13 +122,6 @@ const prazos: { segundos: number; nome: string }[] = [
 ];
 const nomeDoPrazo = (segundos: number | null) => prazos.find((prazo) => prazo.segundos === (segundos ?? 0))?.nome ?? "";
 
-const iniciais = (nome: string) =>
-  nome
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((parte) => parte[0]?.toUpperCase() ?? "")
-    .join("") || "?";
 
 const hora = (iso: string) => new Date(iso).toLocaleTimeString(localDoPainel(), { hour: "2-digit", minute: "2-digit" });
 const diaDe = (iso: string) => new Date(iso).toLocaleDateString(localDoPainel(), { weekday: "long", day: "2-digit", month: "long" });
@@ -151,21 +148,20 @@ function presenca(online: boolean | null, visto: string | null) {
   return `visto por último em ${quando.toLocaleDateString(localDoPainel(), { day: "2-digit", month: "2-digit" })}`;
 }
 
-function Rosto({ nome, online = false, tipo = "direta", avatar }: { nome: string; online?: boolean; tipo?: Tipo; avatar?: string | null }) {
-  if (tipo === "direta" && avatar) {
+function Rosto({ nome, online = false, tipo = "direta", avatar, pequeno = false }: { nome: string; online?: boolean; tipo?: Tipo; avatar?: string | null; pequeno?: boolean }) {
+  const tamanho = pequeno ? "h-8 w-8" : "h-10 w-10";
+  if (tipo === "direta") {
     return (
       <span className="relative shrink-0">
-        <Avatar nome={nome} avatar={avatar} className="h-10 w-10" />
-        {online && <span title="online" className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-parchment-deep bg-ok" />}
+        <Avatar nome={nome} avatar={avatar} className={`${tamanho} rounded-full`} />
+        {online && <span title="online" className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-s-lado bg-s-ok" />}
       </span>
     );
   }
   return (
     <span className="relative shrink-0">
-      <span aria-hidden className={`flex h-10 w-10 items-center justify-center font-semibold ${tipo === "departamento" ? "bg-oxblood text-parchment" : tipo === "grupo" ? "border-2 border-ink text-ink" : "bg-ink text-parchment"}`}>
-        {tipo === "direta" ? iniciais(nome) : "#"}
-      </span>
-      {online && <span title="online" className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-parchment bg-ok" />}
+      <span aria-hidden className={`flex ${tamanho} items-center justify-center rounded-full font-semibold ${tipo === "departamento" ? "bg-s-acento text-white" : "bg-s-campo text-s-texto"}`}>#</span>
+      {online && <span title="online" className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-s-lado bg-s-ok" />}
     </span>
   );
 }
@@ -183,26 +179,72 @@ function useRelogio(recarregar: () => void, intervalo: number) {
 /** O rascunho de cada conversa fica só neste aparelho. */
 const chaveDoRascunho = (conversa: string) => `lucia:rascunho:${conversa}`;
 
+/** Ícones de traço da sala (24 × 24). */
+const ICONES_DA_SALA = {
+  conversa: "M4 5h16v11H9l-5 4z",
+  estrela: "M12 3.5l2.6 5.4 5.9.7-4.4 4 1.2 5.8L12 16.6l-5.3 2.8 1.2-5.8-4.4-4 5.9-.7z",
+  mais: "M12 5v14M5 12h14",
+  agenda: "M4 6h16v14H4zM4 10h16M9 3v4M15 3v4",
+  voz: "M4 10v4h3l5 4V6L7 10zM16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11",
+  engrenagem: "M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1",
+  cerquilha: "M9 4L7 20M17 4l-2 16M4 9h16M3 15h16",
+  cadeado: "M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3",
+  pessoas: "M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5M16 4.5a3.5 3.5 0 0 1 0 6.5M18 14c2 .8 3.5 2.9 3.5 5.5",
+  alfinete: "M9 4h6l-1 5 3 3v2H7v-2l3-3zM12 14v6",
+  seta: "M6 9l6 6 6-6",
+  sair: "M10 5H5v14h5M14 8l4 4-4 4M18 12H9",
+  ampliar: "M4 9V4h5M20 15v5h-5M4 4l6 6M20 20l-6-6",
+  menu: "M5 12h.01M12 12h.01M19 12h.01",
+  sol: "M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM12 1.5v2M12 20.5v2M1.5 12h2M20.5 12h2",
+  escudo: "M12 3l7 3v5c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6z",
+} as const;
+function IconeDaSala({ nome, className = "h-5 w-5" }: { nome: keyof typeof ICONES_DA_SALA; className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d={ICONES_DA_SALA[nome]} />
+    </svg>
+  );
+}
+
+const CHAVE_DO_TEMA_DA_SALA = "lucia:salas-tema";
+type Espaco = "instituto" | "diretas";
+type Tela = "conversa" | "grupo" | "favoritas" | "relatos" | "privadas" | "agenda" | "reuniao" | "seguranca";
+
 /**
- * As conversas da equipe: privadas, em grupo e os grupos fixos de cada departamento. Só quem participa de uma conversa a vê.
- * Tudo é cifrado de ponta a ponta neste aparelho antes de ser enviado, e some depois de trinta dias (ou antes, com a autodestruição).
+ * As conversas e as reuniões da equipe, num lugar só, no jeito do Discord: o trilho com os espaços (mensagens diretas e
+ * o Instituto), a lista de canais (departamentos, grupos e as reuniões como canais de voz), a conversa no meio e quem
+ * está por aqui do lado. Tudo o que se escreve é cifrado de ponta a ponta neste aparelho; a reunião é pelo Jitsi, e a
+ * chamada continua ligada (num quadrinho) enquanto a pessoa lê e escreve nos canais.
  */
-export function Conversas({ me }: { me: Me }) {
+export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
+  const { lang } = useI18n();
   const { chaveiro, erro } = useChaveiro(me.id);
   const lista = useLista<Conversa[]>("chat_conversas");
   const membros = useLista<Membro[]>("equipe_membros");
+  const reunioes = useLista<Reuniao[]>("reunioes_listar");
+  const propostasDeReuniao = useLista<PropostaDeReuniao[]>("reunioes_propostas");
+  const gereReunioes = can(me, "coordenacao", "supervisao");
+  const [espaco, setEspaco] = useState<Espaco>("instituto");
   const [aberta, setAberta] = useState<string | null>(null);
+  const [tela, setTela] = useState<Tela>(inicial === "reunioes" ? "agenda" : "conversa");
+  const [reuniaoVista, setReuniaoVista] = useState<string | null>(null);
+  const [chamada, setChamada] = useState<Reuniao | null>(null);
+  const [lugarDaChamada, setLugarDaChamada] = useState<HTMLDivElement | null>(null);
   const [busca, setBusca] = useState("");
-  const [tela, setTela] = useState<"conversa" | "grupo" | "favoritas" | "relatos" | "privadas">("conversa");
-  const [filtro, setFiltro] = useState<"todas" | "nao_lidas" | "pessoas" | "grupos" | "fixadas">("todas");
+  const [filtro, setFiltro] = useState<"todas" | "nao_lidas" | "fixadas">("todas");
   const [arquivadas, setArquivadas] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
+  const [menuDoEspaco, setMenuDoEspaco] = useState(false);
+  const [recolhidas, setRecolhidas] = useState<string[]>([]);
   const [achadas, setAchadas] = useState<Indexada[]>([]);
   const [aviso, setAviso] = useState("");
+  const [tema, setTema] = useState<"escuro" | "pergaminho">(() => (getItem(CHAVE_DO_TEMA_DA_SALA) === "pergaminho" ? "pergaminho" : "escuro"));
   const [trava, setTrava] = useState<"conferindo" | "travada" | "aberta">(() => (travaLigada() && !estaDestravado() ? "travada" : "aberta"));
   const [pedindoTrava, setPedindoTrava] = useState<string | null>(null);
+  const [agora] = useState(() => Date.now());
   useRelogio(lista.recarregar, 8000);
   useRelogio(membros.recarregar, 30000);
+  useRelogio(reunioes.recarregar, 30000);
   // Busca no índice deste aparelho: só o que ele já abriu.
   useEffect(() => {
     const termoDeBusca = busca.trim();
@@ -223,9 +265,9 @@ export function Conversas({ me }: { me: Me }) {
   if (chaveiro.estado !== "aprovado") return <div className="border border-rule bg-parchment"><AparelhoPendente chaveiro={chaveiro} /></div>;
   if (trava !== "aberta") {
     return (
-      <div className="border border-rule bg-parchment p-8 text-center">
+      <div className="salas rounded-lg p-8 text-center" data-tema={tema}>
         <p className="font-serif text-2xl font-semibold">Conversas trancadas</p>
-        <p className="mx-auto mt-2 max-w-md text-ink-soft">Você pediu a digital para abrir as conversas neste aparelho. Confirme no leitor do aparelho para continuar.</p>
+        <p className="mx-auto mt-2 max-w-md text-s-suave">Você pediu a digital para abrir as conversas neste aparelho. Confirme no leitor do aparelho para continuar.</p>
         <button type="button" className={`mt-4 ${botao}`} disabled={trava === "conferindo"} onClick={() => { setTrava("conferindo"); void destravar().then((ok) => setTrava(ok ? "aberta" : "travada")); }}>
           {trava === "conferindo" ? "Conferindo…" : "Destravar com a digital"}
         </button>
@@ -234,20 +276,35 @@ export function Conversas({ me }: { me: Me }) {
   }
 
   const termo = busca.trim().toLowerCase();
-  const conversas = (lista.dados ?? []).filter((conversa) => {
-    if (termo) return conversa.nome.toLowerCase().includes(termo);
+  const todas = lista.dados ?? [];
+  const passaNoFiltro = (conversa: Conversa) => {
     if (conversa.arquivada !== arquivadas) return false;
     if (filtro === "nao_lidas") return conversa.nao_lidas > 0 || conversa.marcada_nao_lida;
-    if (filtro === "pessoas") return conversa.tipo === "direta";
-    if (filtro === "grupos") return conversa.tipo !== "direta";
     if (filtro === "fixadas") return conversa.fixada;
     return true;
-  });
-  const quantasArquivadas = (lista.dados ?? []).filter((conversa) => conversa.arquivada).length;
+  };
+  const ordenar = (a: Conversa, b: Conversa) => Number(b.fixada) - Number(a.fixada) || (b.ultima?.criado_em ?? "").localeCompare(a.ultima?.criado_em ?? "");
+  const departamentos = todas.filter((c) => c.tipo === "departamento" && passaNoFiltro(c)).sort((a, b) => (a.departamento === "geral" ? -1 : b.departamento === "geral" ? 1 : a.nome.localeCompare(b.nome, "pt")));
+  const grupos = todas.filter((c) => c.tipo === "grupo" && passaNoFiltro(c)).sort(ordenar);
+  const diretas = todas.filter((c) => c.tipo === "direta" && passaNoFiltro(c)).sort(ordenar);
+  const achadasPorNome = termo ? todas.filter((c) => c.nome.toLowerCase().includes(termo)) : [];
+  const quantasArquivadas = todas.filter((conversa) => conversa.arquivada).length;
+  const pendentesEm = (lista_: Conversa[]) => lista_.reduce((n, c) => n + (c.silenciada ? 0 : c.nao_lidas || (c.marcada_nao_lida ? 1 : 0)), 0);
+  const naoLidasDiretas = pendentesEm(todas.filter((c) => c.tipo === "direta" && !c.arquivada));
+  const naoLidasInstituto = pendentesEm(todas.filter((c) => c.tipo !== "direta" && !c.arquivada));
+  const listaDeReunioes = reunioes.dados ?? [];
+  const aoVivo = listaDeReunioes.filter((r) => r.status === "ao_vivo");
+  const proximas = listaDeReunioes.filter((r) => r.status === "agendada" && new Date(r.inicio).getTime() > agora - 3600_000).sort((a, b) => a.inicio.localeCompare(b.inicio));
+  const passadas = listaDeReunioes.filter((r) => r.status === "encerrada" || r.status === "cancelada" || (r.status === "agendada" && new Date(r.inicio).getTime() <= agora - 3600_000));
+  const canaisDeVoz = [...aoVivo, ...proximas.slice(0, 6)];
+  const propostasPendentes = (propostasDeReuniao.dados ?? []).filter((p) => p.status === "pendente").length;
+  const reuniaoAberta = listaDeReunioes.find((r) => r.id === reuniaoVista) ?? null;
+  const euMembro = (membros.dados ?? []).find((m) => m.eu);
 
   /** Abrir uma conversa trancada pede a digital (uma vez por alguns minutos). */
   async function abrirConversa(conversa: Conversa) {
     setTela("conversa");
+    setMenu(null);
     if (conversa.trancada && !conversaDestravada(conversa.id)) {
       setPedindoTrava(conversa.id);
       const ok = await destravar(conversa.id);
@@ -268,16 +325,16 @@ export function Conversas({ me }: { me: Me }) {
       setAviso(textoDoErro(erro));
     }
   }
-  const comConversa = new Set((lista.dados ?? []).flatMap((conversa) => (conversa.outro ? [conversa.outro] : [])));
+  const comConversa = new Set(todas.flatMap((conversa) => (conversa.outro ? [conversa.outro] : [])));
   // Privado só para trabalho: a lista traz só com quem o servidor deixa abrir (liderança ou colaboração em andamento).
   const pessoas = (membros.dados ?? []).filter((membro) => !membro.eu && membro.privado && (termo ? membro.nome.toLowerCase().includes(termo) : !comConversa.has(membro.id)));
-  const aberto = tela !== "conversa" || aberta !== null;
 
   async function conversarCom(usuario: string) {
     setAviso("");
     try {
       const { id } = await rpc<{ id: string }>("chat_direta", { p_usuario: usuario });
       setBusca("");
+      setEspaco("diretas");
       setTela("conversa");
       setAberta(id);
       lista.recarregar();
@@ -290,166 +347,273 @@ export function Conversas({ me }: { me: Me }) {
   function previa(conversa: Conversa): { texto: string; mencao: boolean } {
     if (!conversa.ultima) return { texto: conversa.tipo === "direta" ? "Nenhuma mensagem ainda" : `${conversa.membros} pessoas`, mencao: false };
     const quem = conversa.ultima.minha ? "Você: " : conversa.tipo !== "direta" ? `${conversa.ultima.autor.split(" ")[0]}: ` : "";
-    const aberta = previas[`${conversa.id}:${conversa.ultima.criado_em}`];
-    if (!aberta) return { texto: `${quem}${conversa.ultima.corpo.startsWith("c1.") ? "mensagem antiga" : "…"}`, mencao: false };
-    const conteudo = desempacotar(aberta.texto);
-    const arquivo = conteudo.anexos?.length ? `${{ imagem: "🖼 Foto", video: "🎞 Vídeo", audio: "🎙 Áudio", pdf: "📄 PDF", docx: "📝 Documento" }[conteudo.anexos[0].tipo]}${conteudo.anexos.length > 1 ? ` +${conteudo.anexos.length - 1}` : ""}${conteudo.texto ? " · " : ""}` : "";
-    const especial = conteudo.enquete ? `📊 Enquete: ${conteudo.enquete.pergunta}` : conteudo.evento ? `📅 Evento: ${conteudo.evento.titulo}` : conteudo.grupo_foto ? "🖼 Foto do grupo" : "";
+    const ab = previas[`${conversa.id}:${conversa.ultima.criado_em}`];
+    if (!ab) return { texto: `${quem}${conversa.ultima.corpo.startsWith("c1.") ? "mensagem antiga" : "…"}`, mencao: false };
+    const conteudo = desempacotar(ab.texto);
+    const arquivo = conteudo.anexos?.length ? `${{ imagem: "Foto", video: "Vídeo", audio: "Áudio", pdf: "PDF", docx: "Documento" }[conteudo.anexos[0].tipo]}${conteudo.anexos.length > 1 ? ` +${conteudo.anexos.length - 1}` : ""}${conteudo.texto ? " · " : ""}` : "";
+    const especial = conteudo.enquete ? `Enquete: ${conteudo.enquete.pergunta}` : conteudo.evento ? `Evento: ${conteudo.evento.titulo}` : conteudo.grupo_foto ? "Foto do grupo" : "";
     return { texto: `${quem}${conteudo.encaminhada ? "↪ " : ""}${arquivo}${especial || semFormatacao(conteudo.texto)}`, mencao: Boolean(conteudo.mencoes?.includes(me.id)) && !conversa.ultima.minha };
   }
 
+  // ───── Reuniões como canais de voz ─────
+  async function entrarNaChamada(r: Reuniao) {
+    setChamada(r);
+    setReuniaoVista(r.id);
+    setTela("reuniao");
+    setAberta(null);
+    try {
+      await rpc("reuniao_presenca", { p_id: r.id, p_entrou: true });
+    } catch {
+      // a presença é um registro; a sala abre mesmo assim
+    }
+  }
+  async function sairDaChamada() {
+    const r = chamada;
+    setChamada(null);
+    if (r) {
+      try {
+        await rpc("reuniao_presenca", { p_id: r.id, p_entrou: false });
+      } catch {
+        // idem
+      }
+      reunioes.recarregar();
+    }
+  }
+  async function mudarEstado(r: Reuniao, status: Reuniao["status"], mensagem: string) {
+    setAviso("");
+    try {
+      await rpc("reuniao_estado", { p_id: r.id, p_status: status });
+      setAviso(mensagem);
+      reunioes.recarregar();
+      if (chamada?.id === r.id) setChamada({ ...r, status });
+      if (status === "encerrada" && chamada?.id === r.id) void sairDaChamada();
+    } catch (erro) {
+      setAviso(textoDoErro(erro));
+    }
+  }
+  const abrirReuniao = (r: Reuniao) => { setReuniaoVista(r.id); setTela("reuniao"); setAberta(null); };
+  const trocarTema = () => setTema((t) => { const novo = t === "escuro" ? "pergaminho" : "escuro"; setItem(CHAVE_DO_TEMA_DA_SALA, novo === "pergaminho" ? "pergaminho" : null); return novo; });
+
+  const aberto = tela !== "conversa" || aberta !== null;
+  const linhaDeCanal = (conversa: Conversa) => (
+    <LinhaDeCanal
+      key={conversa.id}
+      conversa={conversa}
+      ativa={tela === "conversa" && aberta === conversa.id}
+      previa={previa(conversa)}
+      chaveiro={chaveiro}
+      pedindoTrava={pedindoTrava === conversa.id}
+      menuAberto={menu === conversa.id}
+      abrir={() => void abrirConversa(conversa)}
+      alternarMenu={() => setMenu(menu === conversa.id ? null : conversa.id)}
+      marcar={(campos) => {
+        if (campos.__ler) { setMenu(null); void rpc("chat_ver", { p_id: conversa.id }).then(() => lista.recarregar()).catch(() => undefined); return; }
+        void marcar(conversa, campos);
+      }}
+    />
+  );
+  const categoria = (id: string, titulo: string, conteudo: ReactNode, acao?: { rotulo: string; fazer: () => void }) => (
+    <div className="mt-4 first:mt-1">
+      <div className="group flex items-center justify-between px-1">
+        <button type="button" className="flex cursor-pointer items-center gap-0.5 font-mono text-[0.68rem] font-semibold uppercase tracking-wider text-s-mudo hover:text-s-texto" aria-expanded={!recolhidas.includes(id)} onClick={() => setRecolhidas((r) => (r.includes(id) ? r.filter((x) => x !== id) : [...r, id]))}>
+          <IconeDaSala nome="seta" className={`h-3 w-3 transition-transform ${recolhidas.includes(id) ? "-rotate-90" : ""}`} />
+          {titulo}
+        </button>
+        {acao && <button type="button" className="cursor-pointer text-s-mudo hover:text-s-texto" title={acao.rotulo} aria-label={acao.rotulo} onClick={acao.fazer}><IconeDaSala nome="mais" className="h-4 w-4" /></button>}
+      </div>
+      {!recolhidas.includes(id) && <ul className="mt-0.5 space-y-px">{conteudo}</ul>}
+    </div>
+  );
+
   return (
-    <div className="grid h-[calc(100dvh-16.5rem)] min-h-[18rem] lg:min-h-[24rem] border border-rule lg:h-[calc(100dvh-12.5rem)] lg:grid-cols-[19rem_minmax(0,1fr)]">
-      <aside className={`flex min-h-0 flex-col border-rule bg-parchment-deep lg:border-r ${aberto ? "hidden lg:flex" : "flex"}`}>
-        <div className="space-y-2 border-b border-rule p-3">
-          <input value={busca} onChange={(e) => setBusca(e.target.value)} type="search" placeholder="Procurar pessoa ou conversa" aria-label="Procurar pessoa ou conversa" className={`${campo} mt-0 bg-parchment`} />
-          <div className="flex gap-2">
-            <button type="button" className={`${botaoClaro} flex-1 py-1.5`} onClick={() => { setTela("grupo"); setAberta(null); }}>
-              Novo grupo
-            </button>
-            <button type="button" className={`${botaoClaro} py-1.5`} aria-pressed={tela === "favoritas"} onClick={() => { setTela("favoritas"); setAberta(null); }} title="Mensagens favoritas">
-              ★
-            </button>
-            {manages(me) && (
-              <button type="button" className={`${botaoClaro} py-1.5`} aria-pressed={tela === "relatos"} onClick={() => { setTela("relatos"); setAberta(null); }} title="Relatos à coordenação">
-                ⚑
-              </button>
-            )}
-            {leads(me) && (
-              <button type="button" className={`${botaoClaro} py-1.5`} aria-pressed={tela === "privadas"} onClick={() => { setTela("privadas"); setAberta(null); }} title="Quem está em conversa privada">
-                👥
-              </button>
-            )}
-          </div>
-          <div className="flex flex-wrap gap-1 text-xs" role="group" aria-label="Filtrar conversas">
-            {([["todas", "Todas"], ["nao_lidas", "Não lidas"], ["pessoas", "Pessoas"], ["grupos", "Grupos"], ["fixadas", "Fixadas"]] as const).map(([valor, nome]) => (
-              <button key={valor} type="button" aria-pressed={filtro === valor} onClick={() => { setFiltro(valor); setArquivadas(false); }} className={`cursor-pointer border px-2 py-0.5 ${filtro === valor && !arquivadas ? "border-ink bg-ink text-parchment" : "border-rule hover:border-ink"}`}>
-                {nome}
-              </button>
-            ))}
-            {quantasArquivadas > 0 && (
-              <button type="button" aria-pressed={arquivadas} onClick={() => setArquivadas(!arquivadas)} className={`cursor-pointer border px-2 py-0.5 ${arquivadas ? "border-ink bg-ink text-parchment" : "border-rule hover:border-ink"}`}>
-                Arquivadas ({quantasArquivadas})
-              </button>
-            )}
-          </div>
-        </div>
-        <div className="min-h-0 flex-1 overflow-y-auto [scrollbar-width:thin]">
-          {(lista.erro || membros.erro || aviso) && <Aviso texto={lista.erro || membros.erro || aviso} />}
-          <ul>
-            {conversas.map((conversa) => {
-              const ultima = previa(conversa);
-              const pendentes = conversa.nao_lidas > 0 || conversa.marcada_nao_lida;
-              return (
-                <li key={conversa.id} className="relative">
-                  <button
-                    type="button"
-                    onClick={() => void abrirConversa(conversa)}
-                    onContextMenu={(e) => { e.preventDefault(); setMenu(menu === conversa.id ? null : conversa.id); }}
-                    aria-current={aberta === conversa.id ? "true" : undefined}
-                    className={`flex w-full cursor-pointer items-center gap-3 border-b border-rule px-3 py-2.5 pr-9 text-left ${aberta === conversa.id ? "bg-parchment" : "hover:bg-parchment"}`}
-                  >
-                    {conversa.foto ? <FotoDoGrupo chaveiro={chaveiro} conversa={conversa.id} foto={conversa.foto} nome={conversa.nome} /> : <Rosto nome={conversa.nome} online={Boolean(conversa.online)} tipo={conversa.tipo} />}
-                    <span className="min-w-0 flex-1">
-                      <span className="flex items-baseline justify-between gap-2">
-                        <span className="truncate font-semibold">
-                          {conversa.trancada && <span title="Trancada com a digital" className="mr-1 font-normal text-ink-soft">🔒</span>}
-                          {conversa.nome}
-                          {conversa.apagar_apos && <span title={`Autodestruição: ${nomeDoPrazo(conversa.apagar_apos)}`} className="ml-1 font-normal text-ink-soft">⏱</span>}
-                          {conversa.fechada && <span title="Fechada pela coordenação por enquanto" className="ml-1 font-normal text-ink-soft">⛔</span>}
-                          {conversa.silenciada && <span title="Silenciada" className="ml-1 font-normal text-ink-soft">🔕</span>}
-                        </span>
-                        <span className="flex shrink-0 items-center gap-1 text-xs text-ink-soft">
-                          {conversa.fixada && <span title="Fixada no alto" aria-label="Fixada">📌</span>}
-                          {conversa.ultima && <span>{hora(conversa.ultima.criado_em)}</span>}
-                        </span>
-                      </span>
-                      <span className="flex items-center justify-between gap-2">
-                        <span className={`truncate ${ultima.mencao ? "font-semibold text-ink" : "text-ink-soft"}`}>{pedindoTrava === conversa.id ? "Confirme a digital…" : ultima.texto}</span>
-                        <span className="flex shrink-0 gap-1">
-                          {ultima.mencao && <span title="Você foi mencionado" className="bg-gold px-1.5 py-0.5 font-mono text-[0.7rem] font-semibold leading-none text-ink">@</span>}
-                          {pendentes && <span className={`px-1.5 py-0.5 font-mono text-[0.7rem] font-semibold leading-none ${conversa.silenciada ? "bg-rule text-ink" : "bg-oxblood text-parchment"}`}>{conversa.nao_lidas || "•"}</span>}
-                        </span>
-                      </span>
-                    </span>
-                  </button>
-                  <button type="button" aria-label={`Opções da conversa ${conversa.nome}`} aria-expanded={menu === conversa.id} className="absolute right-1 top-2 cursor-pointer px-2 py-1 text-ink-soft hover:text-ink" onClick={() => setMenu(menu === conversa.id ? null : conversa.id)}>⋯</button>
-                  {menu === conversa.id && (
-                    <ul role="menu" className="absolute right-2 top-9 z-20 w-56 border-2 border-ink bg-parchment text-sm shadow">
-                      {([
-                        [conversa.fixada ? "Desafixar" : "Fixar no alto", { p_fixar: !conversa.fixada }],
-                        [conversa.arquivada ? "Desarquivar" : "Arquivar", { p_arquivar: !conversa.arquivada }],
-                        [conversa.marcada_nao_lida || conversa.nao_lidas > 0 ? "Marcar como lida" : "Marcar como não lida", conversa.marcada_nao_lida || conversa.nao_lidas > 0 ? { p_nao_lida: false, __ler: true } : { p_nao_lida: true }],
-                        [conversa.silenciada ? "Tirar o silêncio" : "Silenciar por 8 horas", { p_silenciar_horas: conversa.silenciada ? 0 : 8 }],
-                        ...(conversa.silenciada ? [] : [["Silenciar por 7 dias", { p_silenciar_horas: 168 }] as const, ["Silenciar para sempre", { p_silenciar_horas: 876000 }] as const]),
-                        [conversa.trancada ? "Destrancar" : "Trancar com a digital", { p_trancar: !conversa.trancada }],
-                      ] as [string, Record<string, unknown>][]).map(([nome, campos]) => (
-                        <li key={nome}>
-                          <button type="button" role="menuitem" className="block w-full cursor-pointer px-3 py-1.5 text-left hover:bg-parchment-deep" onClick={() => {
-                            if (campos.__ler) { setMenu(null); void rpc("chat_ver", { p_id: conversa.id }).then(() => lista.recarregar()).catch(() => undefined); return; }
-                            void marcar(conversa, campos);
-                          }}>{nome}</button>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+    <div className="salas relative grid h-[calc(100dvh-10rem)] min-h-[22rem] overflow-hidden rounded-lg border border-s-linha shadow-xl lg:h-[calc(100dvh-6.25rem)] lg:min-h-[28rem] lg:grid-cols-[4.5rem_16.5rem_minmax(0,1fr)]" data-tema={tema}>
+      {/* Trilho: os espaços, as reuniões ao vivo e os atalhos. */}
+      <nav aria-label="Espaços" className={`salas-rolagem flex-col items-center gap-2 overflow-y-auto bg-s-trilho py-3 ${aberto ? "hidden lg:flex" : "hidden lg:flex"}`}>
+        <BotaoDoTrilho rotulo="Mensagens diretas" ativo={espaco === "diretas"} conta={naoLidasDiretas} fazer={() => { setEspaco("diretas"); setTela("conversa"); setAberta(null); }}>
+          <IconeDaSala nome="conversa" className="h-6 w-6" />
+        </BotaoDoTrilho>
+        <span className="h-0.5 w-8 rounded bg-s-linha" aria-hidden="true" />
+        <BotaoDoTrilho rotulo="Instituto Lúcia" ativo={espaco === "instituto"} conta={naoLidasInstituto} fazer={() => { setEspaco("instituto"); setTela("conversa"); setAberta(null); }}>
+          <IconeDaSala nome="estrela" className="h-6 w-6" />
+        </BotaoDoTrilho>
+        {aoVivo.map((r) => (
+          <BotaoDoTrilho key={r.id} rotulo={`Ao vivo: ${r.titulo}`} vermelho fazer={() => (r.posso_entrar && r.sala ? void entrarNaChamada(r) : abrirReuniao(r))}>
+            <IconeDaSala nome="voz" className="h-6 w-6" />
+          </BotaoDoTrilho>
+        ))}
+        <BotaoDoTrilho rotulo="Reuniões" ativo={tela === "agenda"} conta={gereReunioes ? propostasPendentes : 0} fazer={() => { setTela("agenda"); setAberta(null); }}>
+          <IconeDaSala nome="agenda" className="h-6 w-6" />
+        </BotaoDoTrilho>
+        <BotaoDoTrilho rotulo="Criar grupo" verde fazer={() => { setTela("grupo"); setAberta(null); }}>
+          <IconeDaSala nome="mais" className="h-6 w-6" />
+        </BotaoDoTrilho>
+        <span className="flex-1" />
+        <BotaoDoTrilho rotulo="Mensagens favoritas" ativo={tela === "favoritas"} fazer={() => { setTela("favoritas"); setAberta(null); }}>
+          <IconeDaSala nome="estrela" className="h-5 w-5" />
+        </BotaoDoTrilho>
+      </nav>
+
+      {/* Canais. */}
+      <aside className={`min-h-0 flex-col border-r border-s-linha bg-s-lado ${aberto ? "hidden lg:flex" : "flex"}`}>
+        <div className="relative">
+          <button type="button" className="flex h-12 w-full cursor-pointer items-center justify-between border-b border-s-linha px-4 text-left font-semibold shadow-[0_1px_0_rgba(0,0,0,0.25)] hover:bg-[var(--s-hover)]" aria-expanded={menuDoEspaco} onClick={() => setMenuDoEspaco(!menuDoEspaco)}>
+            <span className="truncate">{espaco === "instituto" ? "Instituto Lúcia" : "Mensagens diretas"}</span>
+            <IconeDaSala nome="seta" className={`h-4 w-4 transition-transform ${menuDoEspaco ? "rotate-180" : ""}`} />
+          </button>
+          {menuDoEspaco && (
+            <ul role="menu" className="absolute inset-x-2 top-12 z-30 rounded-md border border-s-linha bg-s-trilho p-1.5 text-sm shadow-2xl">
+              {/* As duas abas de espaço também aqui: no celular o trilho fica escondido. */}
+              {([
+                [espaco === "instituto" ? "Ir para mensagens diretas" : "Ir para o Instituto", () => setEspaco(espaco === "instituto" ? "diretas" : "instituto")],
+                ["Criar grupo", () => setTela("grupo")],
+                ["Reuniões e agenda", () => setTela("agenda")],
+                ["Mensagens favoritas", () => setTela("favoritas")],
+                ...(manages(me) ? [["Relatos à coordenação", () => setTela("relatos")] as const] : []),
+                ...(leads(me) ? [["Quem está em conversa privada", () => setTela("privadas")] as const] : []),
+                ["Aparelhos e segurança", () => setTela("seguranca")],
+              ] as [string, () => void][]).map(([nome, fazer]) => (
+                <li key={nome}>
+                  <button type="button" role="menuitem" className="block w-full cursor-pointer rounded px-2.5 py-1.5 text-left hover:bg-s-acento hover:text-white" onClick={() => { setMenuDoEspaco(false); setAberta(null); fazer(); }}>{nome}</button>
                 </li>
-              );
-            })}
-          </ul>
-          {achadas.length > 0 && (
-            <>
-              <p className={`${rotulo} px-3 pb-1 pt-4`}>Mensagens (só o que este aparelho já abriu)</p>
-              <ul>
-                {achadas.map((item) => (
-                  <li key={item.id}>
-                    <button type="button" className="block w-full cursor-pointer border-b border-rule px-3 py-2 text-left hover:bg-parchment" onClick={() => { const conversa = lista.dados?.find((c) => c.id === item.conversa); if (conversa) void abrirConversa(conversa).then(() => window.setTimeout(() => document.getElementById(`m-${item.id}`)?.scrollIntoView({ block: "center" }), 600)); }}>
-                      <span className="block truncate text-xs text-ink-soft">{item.conversa_nome} · {item.autor} · {new Date(item.criado_em).toLocaleDateString(localDoPainel())}</span>
-                      <span className="block truncate">{item.texto}</span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </>
+              ))}
+            </ul>
           )}
-          {pessoas.length > 0 && (
-            <>
-              <p className={`${rotulo} px-3 pb-1 pt-4`}>{termo ? "Pessoas" : "Conversa de trabalho"}</p>
-              <p className="px-3 pb-1 text-xs text-ink-soft">Privado só com a liderança ou com quem colabora com você numa contribuição. O resto é nos grupos.</p>
-              <ul>
-                {pessoas.map((membro) => (
-                  <li key={membro.id}>
-                    <button type="button" onClick={() => void conversarCom(membro.id)} className="flex w-full cursor-pointer items-center gap-3 px-3 py-2 text-left hover:bg-parchment">
-                      <Rosto nome={membro.nome} online={Boolean(membro.online)} avatar={membro.avatar} />
-                      <span className="min-w-0">
-                        <span className="block truncate font-semibold">{membro.nome}</span>
-                        <span className="block truncate text-xs text-ink-soft">{presenca(membro.online, membro.visto_em)}</span>
-                      </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-          {termo && conversas.length === 0 && pessoas.length === 0 && achadas.length === 0 && <p className="px-3 py-4 text-ink-soft">Nada com esse nome: nem pessoa, nem conversa, nem mensagem já aberta aqui.</p>}
-          {!termo && conversas.length === 0 && filtro !== "todas" && <p className="px-3 py-4 text-ink-soft">Nenhuma conversa neste filtro.</p>}
         </div>
-        {/* A lista de aparelhos cresce (aprovação, cópia de recuperação): rola dentro do próprio pé, sem empurrar a tela. */}
-        <div className="max-h-[60%] space-y-2 overflow-y-auto border-t border-rule p-3 [scrollbar-width:thin]">
-          <ComoFunciona />
-          <Aparelhos chaveiro={chaveiro} />
+        <div className="space-y-1.5 px-2 pt-2">
+          <input value={busca} onChange={(e) => setBusca(e.target.value)} type="search" placeholder="Procurar" aria-label="Procurar pessoa, canal ou mensagem" className="h-8 w-full rounded bg-s-trilho px-2.5 text-sm text-s-texto placeholder:text-s-mudo focus:outline focus:outline-2 focus:outline-s-acento" />
+          <div className="flex flex-wrap gap-1 text-[0.72rem]" role="group" aria-label="Filtrar">
+            {([["todas", "Todas"], ["nao_lidas", "Não lidas"], ["fixadas", "Fixadas"]] as const).map(([valor, nome]) => (
+              <button key={valor} type="button" aria-pressed={filtro === valor && !arquivadas} onClick={() => { setFiltro(valor); setArquivadas(false); }} className={`cursor-pointer rounded-full px-2 py-0.5 ${filtro === valor && !arquivadas ? "bg-s-acento text-white" : "bg-s-trilho text-s-suave hover:text-s-texto"}`}>{nome}</button>
+            ))}
+            {quantasArquivadas > 0 && <button type="button" aria-pressed={arquivadas} onClick={() => setArquivadas(!arquivadas)} className={`cursor-pointer rounded-full px-2 py-0.5 ${arquivadas ? "bg-s-acento text-white" : "bg-s-trilho text-s-suave hover:text-s-texto"}`}>Arquivadas {quantasArquivadas}</button>}
+          </div>
+        </div>
+        <div className="salas-rolagem min-h-0 flex-1 overflow-y-auto px-2 pb-3">
+          {(lista.erro || membros.erro || aviso) && <p className="px-1 pt-2 text-xs text-s-acento">{lista.erro || membros.erro || aviso}</p>}
+          {termo ? (
+            <>
+              {achadasPorNome.length > 0 && categoria("busca-canais", "Canais e conversas", achadasPorNome.map(linhaDeCanal))}
+              {pessoas.length > 0 && categoria("busca-pessoas", "Pessoas", pessoas.map((membro) => <LinhaDePessoa key={membro.id} membro={membro} fazer={() => void conversarCom(membro.id)} />))}
+              {achadas.length > 0 &&
+                categoria("busca-mensagens", "Mensagens já abertas aqui", achadas.map((item) => (
+                  <li key={item.id}>
+                    <button type="button" className="block w-full cursor-pointer rounded px-2 py-1.5 text-left hover:bg-[var(--s-hover)]" onClick={() => { const conversa = todas.find((c) => c.id === item.conversa); if (conversa) void abrirConversa(conversa).then(() => window.setTimeout(() => document.getElementById(`m-${item.id}`)?.scrollIntoView({ block: "center" }), 600)); }}>
+                      <span className="block truncate text-[0.7rem] text-s-mudo">{item.conversa_nome} · {item.autor} · {new Date(item.criado_em).toLocaleDateString(localDoPainel())}</span>
+                      <span className="block truncate text-sm">{item.texto}</span>
+                    </button>
+                  </li>
+                )))}
+              {achadasPorNome.length === 0 && pessoas.length === 0 && achadas.length === 0 && <p className="px-2 py-4 text-sm text-s-suave">Nada com esse nome: nem pessoa, nem conversa, nem mensagem já aberta aqui.</p>}
+            </>
+          ) : espaco === "instituto" ? (
+            <>
+              <button type="button" onClick={() => { setTela("agenda"); setAberta(null); }} className={`mt-2 flex w-full cursor-pointer items-center gap-2 rounded px-2 py-1.5 text-left text-sm ${tela === "agenda" ? "bg-[var(--s-ativo)] text-s-texto" : "text-s-suave hover:bg-[var(--s-hover)] hover:text-s-texto"}`}>
+                <IconeDaSala nome="agenda" className="h-4 w-4" />
+                <span className="flex-1">{proximas.length ? `${proximas.length} reunião(ões) marcada(s)` : "Reuniões"}</span>
+                {aoVivo.length > 0 && <span className="rounded bg-s-acento px-1.5 font-mono text-[0.62rem] font-semibold text-white">AO VIVO</span>}
+              </button>
+              {categoria("departamentos", "Departamentos", departamentos.length ? departamentos.map(linhaDeCanal) : <li className="px-2 py-1 text-xs text-s-mudo">Nenhum departamento neste filtro.</li>)}
+              {categoria("grupos", "Grupos", grupos.length ? grupos.map(linhaDeCanal) : <li className="px-2 py-1 text-xs text-s-mudo">Nenhum grupo ainda.</li>, { rotulo: "Criar grupo", fazer: () => { setTela("grupo"); setAberta(null); } })}
+              {categoria(
+                "voz",
+                "Reuniões · voz",
+                canaisDeVoz.length ? canaisDeVoz.map((r) => (
+                  <li key={r.id}>
+                    <button type="button" onClick={() => abrirReuniao(r)} className={`group flex w-full cursor-pointer items-center gap-2 rounded px-2 py-1.5 text-left text-sm ${tela === "reuniao" && reuniaoVista === r.id ? "bg-[var(--s-ativo)] text-s-texto" : "text-s-suave hover:bg-[var(--s-hover)] hover:text-s-texto"}`}>
+                      <IconeDaSala nome="voz" className={`h-4 w-4 shrink-0 ${r.status === "ao_vivo" ? "text-s-acento" : ""}`} />
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate">{r.titulo}</span>
+                        <span className="block truncate text-[0.68rem] text-s-mudo">{r.status === "ao_vivo" ? `ao vivo${r.presentes ? ` · ${r.presentes} na sala` : ""}` : new Date(r.inicio).toLocaleString(localDoPainel(), { weekday: "short", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })}</span>
+                      </span>
+                      {chamada?.id === r.id && <span className="h-2 w-2 rounded-full bg-s-ok" title="Você está nesta sala" />}
+                    </button>
+                  </li>
+                )) : <li className="px-2 py-1 text-xs text-s-mudo">Nenhuma reunião marcada.</li>,
+                gereReunioes ? { rotulo: "Marcar reunião", fazer: () => { setTela("agenda"); setAberta(null); } } : undefined,
+              )}
+            </>
+          ) : (
+            <>
+              {categoria("diretas", "Mensagens diretas", diretas.length ? diretas.map(linhaDeCanal) : <li className="px-2 py-1 text-xs text-s-mudo">Nenhuma conversa privada ainda.</li>)}
+              {pessoas.length > 0 && categoria("iniciar", "Conversa de trabalho", (
+                <>
+                  <li className="px-2 pb-1 text-[0.7rem] text-s-mudo">Privado só com a liderança ou com quem colabora com você numa contribuição. O resto é nos grupos.</li>
+                  {pessoas.map((membro) => <LinhaDePessoa key={membro.id} membro={membro} fazer={() => void conversarCom(membro.id)} />)}
+                </>
+              ))}
+            </>
+          )}
+        </div>
+        {chamada && (
+          <div className="border-t border-s-linha bg-s-trilho px-3 py-2 text-sm">
+            <p className="flex items-center gap-1.5 font-semibold text-s-ok"><IconeDaSala nome="voz" className="h-4 w-4" /> Voz conectada</p>
+            <p className="truncate text-xs text-s-suave">{chamada.titulo}</p>
+            <p className="mt-1.5 flex gap-2">
+              <button type="button" className="cursor-pointer rounded bg-s-campo px-2 py-1 text-xs hover:bg-[var(--s-ativo)]" onClick={() => { setReuniaoVista(chamada.id); setTela("reuniao"); setAberta(null); }}>Abrir</button>
+              <button type="button" className="cursor-pointer rounded bg-s-acento px-2 py-1 text-xs text-white" onClick={() => void sairDaChamada()}>Sair</button>
+            </p>
+          </div>
+        )}
+        <div className="flex items-center gap-2 border-t border-s-linha bg-s-trilho px-2 py-2">
+          <span className="relative">
+            <Avatar nome={me.nome} avatar={euMembro?.avatar} className="h-8 w-8 rounded-full" />
+            <span className="absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full border-2 border-s-trilho bg-s-ok" title="online" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-sm font-semibold">{me.nome}</span>
+            <span className="block truncate text-[0.68rem] text-s-mudo">cifrado neste aparelho</span>
+          </span>
+          <button type="button" className="cursor-pointer rounded p-1.5 text-s-suave hover:bg-[var(--s-ativo)] hover:text-s-texto" title={tema === "escuro" ? "Tema pergaminho" : "Tema escuro"} aria-label="Trocar o tema da sala" onClick={trocarTema}><IconeDaSala nome="sol" className="h-4 w-4" /></button>
+          <button type="button" className="cursor-pointer rounded p-1.5 text-s-suave hover:bg-[var(--s-ativo)] hover:text-s-texto" title="Aparelhos e segurança" aria-label="Aparelhos e segurança" onClick={() => { setTela("seguranca"); setAberta(null); }}><IconeDaSala nome="engrenagem" className="h-4 w-4" /></button>
         </div>
       </aside>
 
-      <section className={`min-h-0 min-w-0 flex-col bg-parchment ${aberto ? "flex" : "hidden lg:flex"}`}>
+      {/* O meio: a conversa, a reunião ou uma das telas da sala. */}
+      <section className={`min-h-0 min-w-0 flex-col bg-s-chat ${aberto ? "flex" : "hidden lg:flex"}`}>
         {tela === "grupo" ? (
-          <NovoGrupo membros={membros.dados ?? []} fechar={() => setTela("conversa")} criado={(id) => { setTela("conversa"); setAberta(id); lista.recarregar(); }} />
+          <TelaDaSala titulo="Criar grupo" voltar={() => setTela("conversa")}>
+            <NovoGrupo membros={membros.dados ?? []} fechar={() => setTela("conversa")} criado={(id) => { setTela("conversa"); setEspaco("instituto"); setAberta(id); lista.recarregar(); }} />
+          </TelaDaSala>
         ) : tela === "favoritas" ? (
-          <Favoritas chaveiro={chaveiro} fechar={() => setTela("conversa")} abrir={(id) => { setTela("conversa"); setAberta(id); }} />
+          <TelaDaSala titulo="Mensagens favoritas" voltar={() => setTela("conversa")}>
+            <Favoritas chaveiro={chaveiro} fechar={() => setTela("conversa")} abrir={(id) => { setTela("conversa"); setAberta(id); }} />
+          </TelaDaSala>
         ) : tela === "relatos" ? (
-          <Relatos fechar={() => setTela("conversa")} />
+          <TelaDaSala titulo="Relatos à coordenação" voltar={() => setTela("conversa")}><Relatos fechar={() => setTela("conversa")} /></TelaDaSala>
         ) : tela === "privadas" ? (
-          <Privadas fechar={() => setTela("conversa")} />
+          <TelaDaSala titulo="Conversas privadas" voltar={() => setTela("conversa")}><Privadas fechar={() => setTela("conversa")} /></TelaDaSala>
+        ) : tela === "seguranca" ? (
+          <TelaDaSala titulo="Aparelhos e segurança" voltar={() => setTela("conversa")}>
+            <div className="max-w-2xl space-y-4">
+              <ComoFunciona />
+              <Aparelhos chaveiro={chaveiro} />
+            </div>
+          </TelaDaSala>
+        ) : tela === "agenda" ? (
+          <TelaDaSala titulo="Reuniões" icone="agenda" voltar={() => setTela("conversa")}>
+            <AgendaDeReunioes
+              gere={gereReunioes}
+              aoVivo={aoVivo}
+              proximas={proximas}
+              passadas={passadas}
+              propostas={propostasDeReuniao.dados ?? []}
+              erroDasPropostas={propostasDeReuniao.erro}
+              abrir={abrirReuniao}
+              entrar={(r) => void entrarNaChamada(r)}
+              recarregar={() => { reunioes.recarregar(); propostasDeReuniao.recarregar(); }}
+            />
+          </TelaDaSala>
+        ) : tela === "reuniao" && reuniaoAberta ? (
+          <SalaDeVoz
+            reuniao={reuniaoAberta}
+            naChamada={chamada?.id === reuniaoAberta.id}
+            entrar={() => void entrarNaChamada(reuniaoAberta)}
+            sair={() => void sairDaChamada()}
+            mudarEstado={(status, mensagem) => void mudarEstado(reuniaoAberta, status, mensagem)}
+            lugar={setLugarDaChamada}
+            voltar={() => setTela("agenda")}
+            aviso={aviso}
+          />
         ) : aberta ? (
           <Janela
             key={aberta}
@@ -457,19 +621,329 @@ export function Conversas({ me }: { me: Me }) {
             chaveiro={chaveiro}
             me={me}
             equipe={membros.dados ?? []}
-            conversas={lista.dados ?? []}
-            resumo={lista.dados?.find((conversa) => conversa.id === aberta)}
+            conversas={todas}
+            resumo={todas.find((conversa) => conversa.id === aberta)}
             voltar={() => { setAberta(null); lista.recarregar(); }}
             mudou={lista.recarregar}
           />
         ) : (
-          <div className="m-auto max-w-sm px-6 text-center text-ink-soft">
-            <p className="font-serif text-2xl font-semibold text-ink">Conversas da equipe</p>
-            <p className="mt-2">Escolha uma conversa, procure uma pessoa pelo nome ou crie um grupo. Cada função tem o próprio grupo, e quem tem a função já está nele. Só quem participa de uma conversa consegue vê-la.</p>
-            <p className="mt-2 text-xs">Cifrado de ponta a ponta neste aparelho · some em 30 dias</p>
-          </div>
+          <BoasVindas
+            espaco={espaco}
+            geral={departamentos.find((c) => c.departamento === "geral") ?? departamentos[0]}
+            aoVivo={aoVivo[0]}
+            proxima={proximas[0]}
+            abrir={(c) => void abrirConversa(c)}
+            agenda={() => setTela("agenda")}
+            grupo={() => setTela("grupo")}
+            seguranca={() => setTela("seguranca")}
+            entrar={(r) => void entrarNaChamada(r)}
+          />
         )}
       </section>
+
+      {chamada && (
+        <CamadaDaChamada
+          chamada={chamada}
+          lugar={tela === "reuniao" && reuniaoVista === chamada.id ? lugarDaChamada : null}
+          me={me}
+          lang={lang}
+          abrir={() => { setReuniaoVista(chamada.id); setTela("reuniao"); setAberta(null); }}
+          sair={() => void sairDaChamada()}
+        />
+      )}
+    </div>
+  );
+}
+
+function BotaoDoTrilho({ rotulo, ativo = false, conta = 0, vermelho = false, verde = false, fazer, children }: { rotulo: string; ativo?: boolean; conta?: number; vermelho?: boolean; verde?: boolean; fazer: () => void; children: ReactNode }) {
+  return (
+    <span className="group relative flex w-full justify-center">
+      {/* A pílula do lado: alta quando ativo, baixinha quando há algo não lido. */}
+      <span className={`salas-pilula absolute top-1/2 left-0 w-1 -translate-y-1/2 rounded-r bg-s-texto ${ativo ? "h-10" : conta ? "h-2 group-hover:h-5" : "h-0 group-hover:h-5"}`} aria-hidden="true" />
+      <button
+        type="button"
+        title={rotulo}
+        aria-label={rotulo}
+        aria-pressed={ativo}
+        onClick={fazer}
+        className={`salas-trilho-botao relative flex h-12 w-12 cursor-pointer items-center justify-center ${ativo ? "bg-s-acento text-white" : vermelho ? "bg-s-campo text-s-acento hover:bg-s-acento hover:text-white" : verde ? "bg-s-campo text-s-ok hover:bg-[#2f5d34] hover:text-white" : "bg-s-campo text-s-suave hover:bg-s-acento hover:text-white"}`}
+      >
+        {children}
+        {vermelho && <span className="absolute -right-0.5 -bottom-0.5 h-3.5 w-3.5 animate-pulse rounded-full border-2 border-s-trilho bg-s-acento" aria-hidden="true" />}
+        {conta > 0 && <span className="absolute -right-1 -bottom-1 min-w-5 rounded-full border-[3px] border-s-trilho bg-[#d4372b] px-1 text-center font-mono text-[0.62rem] font-bold leading-4 text-white">{conta > 99 ? "99+" : conta}</span>}
+      </button>
+    </span>
+  );
+}
+
+function LinhaDeCanal({ conversa, ativa, previa, chaveiro, pedindoTrava, menuAberto, abrir, alternarMenu, marcar }: { conversa: Conversa; ativa: boolean; previa: { texto: string; mencao: boolean }; chaveiro: Chaveiro; pedindoTrava: boolean; menuAberto: boolean; abrir: () => void; alternarMenu: () => void; marcar: (campos: Record<string, unknown>) => void }) {
+  const pendentes = conversa.nao_lidas > 0 || conversa.marcada_nao_lida;
+  const direta = conversa.tipo === "direta";
+  return (
+    <li className="relative">
+      {pendentes && !conversa.silenciada && <span className="absolute top-1/2 -left-2 h-2 w-1 -translate-y-1/2 rounded-r bg-s-texto" aria-hidden="true" />}
+      <button
+        type="button"
+        onClick={abrir}
+        onContextMenu={(e) => { e.preventDefault(); alternarMenu(); }}
+        aria-current={ativa ? "true" : undefined}
+        title={previa.texto}
+        className={`group flex w-full cursor-pointer items-center gap-2 rounded px-2 py-1.5 pr-7 text-left text-[0.92rem] ${ativa ? "bg-[var(--s-ativo)] text-s-texto" : pendentes && !conversa.silenciada ? "font-semibold text-s-texto hover:bg-[var(--s-hover)]" : conversa.silenciada ? "text-s-mudo hover:bg-[var(--s-hover)]" : "text-s-suave hover:bg-[var(--s-hover)] hover:text-s-texto"}`}
+      >
+        {direta ? (
+          <Rosto nome={conversa.nome} online={Boolean(conversa.online)} tipo="direta" pequeno />
+        ) : conversa.foto ? (
+          <FotoDoGrupo chaveiro={chaveiro} conversa={conversa.id} foto={conversa.foto} nome={conversa.nome} />
+        ) : (
+          <IconeDaSala nome={conversa.trancada ? "cadeado" : "cerquilha"} className="h-4 w-4 shrink-0 text-s-mudo" />
+        )}
+        <span className="min-w-0 flex-1">
+          <span className="block truncate">
+            {conversa.nome}
+            {conversa.apagar_apos && <span title={`Autodestruição: ${nomeDoPrazo(conversa.apagar_apos)}`} className="ml-1 font-normal text-s-mudo">⏱</span>}
+            {conversa.fechada && <span title="Fechada pela coordenação por enquanto" className="ml-1 font-normal text-s-mudo">⛔</span>}
+          </span>
+          {direta && <span className="block truncate text-[0.7rem] font-normal text-s-mudo">{pedindoTrava ? "Confirme a digital…" : previa.texto}</span>}
+        </span>
+        {previa.mencao && <span title="Você foi mencionado" className="rounded-full bg-[#d4372b] px-1.5 font-mono text-[0.62rem] font-bold text-white">@</span>}
+        {pendentes && conversa.nao_lidas > 0 && !previa.mencao && <span className={`rounded-full px-1.5 font-mono text-[0.62rem] font-bold ${conversa.silenciada ? "bg-s-campo text-s-suave" : "bg-[#d4372b] text-white"}`}>{conversa.nao_lidas}</span>}
+      </button>
+      <button type="button" aria-label={`Opções da conversa ${conversa.nome}`} aria-expanded={menuAberto} className="absolute top-1.5 right-1 cursor-pointer rounded px-1 text-s-mudo opacity-0 group-hover:opacity-100 hover:text-s-texto focus:opacity-100" onClick={alternarMenu}><IconeDaSala nome="menu" className="h-4 w-4" /></button>
+      {menuAberto && (
+        <ul role="menu" className="absolute top-8 right-0 z-30 w-56 rounded-md border border-s-linha bg-s-trilho p-1.5 text-sm shadow-2xl">
+          {([
+            [conversa.fixada ? "Desafixar" : "Fixar no alto", { p_fixar: !conversa.fixada }],
+            [conversa.arquivada ? "Desarquivar" : "Arquivar", { p_arquivar: !conversa.arquivada }],
+            [conversa.marcada_nao_lida || conversa.nao_lidas > 0 ? "Marcar como lida" : "Marcar como não lida", conversa.marcada_nao_lida || conversa.nao_lidas > 0 ? { p_nao_lida: false, __ler: true } : { p_nao_lida: true }],
+            [conversa.silenciada ? "Tirar o silêncio" : "Silenciar por 8 horas", { p_silenciar_horas: conversa.silenciada ? 0 : 8 }],
+            ...(conversa.silenciada ? [] : [["Silenciar por 7 dias", { p_silenciar_horas: 168 }] as const, ["Silenciar para sempre", { p_silenciar_horas: 876000 }] as const]),
+            [conversa.trancada ? "Destrancar" : "Trancar com a digital", { p_trancar: !conversa.trancada }],
+          ] as [string, Record<string, unknown>][]).map(([nome, campos]) => (
+            <li key={nome}>
+              <button type="button" role="menuitem" className="block w-full cursor-pointer rounded px-2.5 py-1.5 text-left hover:bg-s-acento hover:text-white" onClick={() => marcar(campos)}>{nome}</button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+}
+
+function LinhaDePessoa({ membro, fazer }: { membro: Membro; fazer: () => void }) {
+  return (
+    <li>
+      <button type="button" onClick={fazer} className="flex w-full cursor-pointer items-center gap-2 rounded px-2 py-1.5 text-left text-s-suave hover:bg-[var(--s-hover)] hover:text-s-texto">
+        <Rosto nome={membro.nome} online={Boolean(membro.online)} avatar={membro.avatar} pequeno />
+        <span className="min-w-0">
+          <span className="block truncate text-sm">{membro.nome}</span>
+          <span className="block truncate text-[0.68rem] text-s-mudo">{presenca(membro.online, membro.visto_em)}</span>
+        </span>
+      </button>
+    </li>
+  );
+}
+
+/** Uma tela simples dentro da sala (grupo novo, favoritas, segurança…), com o cabeçalho no jeito dos canais. */
+function TelaDaSala({ titulo, icone, voltar, children }: { titulo: string; icone?: keyof typeof ICONES_DA_SALA; voltar: () => void; children: ReactNode }) {
+  return (
+    <>
+      <header className="flex h-12 shrink-0 items-center gap-2 border-b border-s-linha px-4 shadow-[0_1px_0_rgba(0,0,0,0.2)]">
+        <button type="button" aria-label="Voltar" className="cursor-pointer text-xl text-s-suave lg:hidden" onClick={voltar}>←</button>
+        {icone && <IconeDaSala nome={icone} className="h-5 w-5 text-s-mudo" />}
+        <h2 className="font-semibold">{titulo}</h2>
+      </header>
+      <div className="salas-rolagem min-h-0 flex-1 overflow-y-auto">{children}</div>
+    </>
+  );
+}
+
+function BoasVindas({ espaco, geral, aoVivo, proxima, abrir, agenda, grupo, seguranca, entrar }: { espaco: Espaco; geral?: Conversa; aoVivo?: Reuniao; proxima?: Reuniao; abrir: (c: Conversa) => void; agenda: () => void; grupo: () => void; seguranca: () => void; entrar: (r: Reuniao) => void }) {
+  const cartao = "flex cursor-pointer flex-col gap-1 rounded-lg border border-s-linha bg-s-lado p-4 text-left transition hover:-translate-y-0.5 hover:border-s-acento";
+  return (
+    <div className="salas-rolagem m-auto w-full max-w-2xl overflow-y-auto px-6 py-10">
+      <p className="font-mono text-xs uppercase tracking-widest text-s-ouro">{espaco === "instituto" ? "Instituto Lúcia" : "Mensagens diretas"}</p>
+      <h2 className="mt-1 font-serif text-4xl font-semibold">Bem-vindo às conversas da equipe</h2>
+      <p className="mt-2 text-s-suave">Cada departamento tem o próprio canal, e quem tem a função já está nele. Grupos e conversas privadas, só quem participa vê. Tudo cifrado de ponta a ponta neste aparelho, e as reuniões por vídeo acontecem aqui mesmo.</p>
+      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        {aoVivo && aoVivo.posso_entrar && aoVivo.sala && (
+          <button type="button" className={`${cartao} border-s-acento sm:col-span-2`} onClick={() => entrar(aoVivo)}>
+            <span className="flex items-center gap-2 font-semibold text-s-acento"><IconeDaSala nome="voz" /> Ao vivo agora</span>
+            <span className="text-lg font-semibold">{aoVivo.titulo}</span>
+            <span className="text-sm text-s-suave">Entrar na sala</span>
+          </button>
+        )}
+        {geral && (
+          <button type="button" className={cartao} onClick={() => abrir(geral)}>
+            <span className="flex items-center gap-2 font-semibold"><IconeDaSala nome="cerquilha" className="h-4 w-4 text-s-mudo" /> {geral.nome}</span>
+            <span className="text-sm text-s-suave">O canal da equipe toda.</span>
+          </button>
+        )}
+        <button type="button" className={cartao} onClick={agenda}>
+          <span className="flex items-center gap-2 font-semibold"><IconeDaSala nome="agenda" className="h-4 w-4 text-s-mudo" /> Reuniões</span>
+          <span className="text-sm text-s-suave">{proxima ? `Próxima: ${proxima.titulo}, ${new Date(proxima.inicio).toLocaleString(localDoPainel(), { weekday: "long", hour: "2-digit", minute: "2-digit" })}` : "A agenda, as propostas e o histórico com as atas."}</span>
+        </button>
+        <button type="button" className={cartao} onClick={grupo}>
+          <span className="flex items-center gap-2 font-semibold"><IconeDaSala nome="mais" className="h-4 w-4 text-s-mudo" /> Criar um grupo</span>
+          <span className="text-sm text-s-suave">Para um projeto, um mutirão ou uma turma.</span>
+        </button>
+        <button type="button" className={cartao} onClick={seguranca}>
+          <span className="flex items-center gap-2 font-semibold"><IconeDaSala nome="escudo" className="h-4 w-4 text-s-mudo" /> Aparelhos e segurança</span>
+          <span className="text-sm text-s-suave">Como a cifra funciona e os aparelhos da sua conta.</span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+const ROTULO_DO_STATUS: Record<Reuniao["status"], string> = { agendada: "marcada", ao_vivo: "ao vivo", encerrada: "encerrada", cancelada: "cancelada" };
+
+/** Um canal de voz: a reunião com a pauta, quem marcou, quem está na sala e o lugar onde a chamada aparece. */
+function SalaDeVoz({ reuniao: r, naChamada, entrar, sair, mudarEstado, lugar, voltar, aviso }: { reuniao: Reuniao; naChamada: boolean; entrar: () => void; sair: () => void; mudarEstado: (status: Reuniao["status"], mensagem: string) => void; lugar: (el: HTMLDivElement | null) => void; voltar: () => void; aviso: string }) {
+  return (
+    <>
+      <header className="flex h-12 shrink-0 items-center gap-2 border-b border-s-linha px-4 shadow-[0_1px_0_rgba(0,0,0,0.2)]">
+        <button type="button" aria-label="Voltar" className="cursor-pointer text-xl text-s-suave lg:hidden" onClick={voltar}>←</button>
+        <IconeDaSala nome="voz" className={`h-5 w-5 ${r.status === "ao_vivo" ? "text-s-acento" : "text-s-mudo"}`} />
+        <h2 className="min-w-0 flex-1 truncate font-semibold">{r.titulo}</h2>
+        <span className={`rounded px-1.5 py-0.5 font-mono text-[0.62rem] font-semibold uppercase ${r.status === "ao_vivo" ? "bg-s-acento text-white" : "bg-s-campo text-s-suave"}`}>{ROTULO_DO_STATUS[r.status]}</span>
+        {r.conduzo && r.status === "agendada" && <button type="button" className="cursor-pointer rounded bg-s-acento px-3 py-1 text-sm font-semibold text-white" onClick={() => mudarEstado("ao_vivo", "A reunião começou: a equipe foi avisada.")}>Começar</button>}
+        {r.conduzo && r.status === "ao_vivo" && <button type="button" className="cursor-pointer rounded bg-s-campo px-3 py-1 text-sm" onClick={() => { if (window.confirm("Encerrar a reunião para todos?")) mudarEstado("encerrada", "Reunião encerrada."); }}>Encerrar para todos</button>}
+      </header>
+      {naChamada ? (
+        // A chamada (que mora numa camada própria, para não cair ao trocar de canal) se encaixa aqui.
+        <div ref={lugar} className="min-h-0 flex-1 bg-black" />
+      ) : (
+        <div className="salas-rolagem min-h-0 flex-1 overflow-y-auto px-6 py-8">
+          <div className="mx-auto max-w-2xl">
+            <div className="flex flex-col items-center gap-3 rounded-xl border border-s-linha bg-s-lado px-6 py-10 text-center">
+              <span className={`flex h-20 w-20 items-center justify-center rounded-full ${r.status === "ao_vivo" ? "bg-s-acento text-white" : "bg-s-campo text-s-suave"}`}><IconeDaSala nome="voz" className="h-10 w-10" /></span>
+              <h3 className="font-serif text-3xl font-semibold">{r.titulo}</h3>
+              <p className="text-s-suave">{new Date(r.inicio).toLocaleString(localDoPainel(), { weekday: "long", day: "2-digit", month: "long", hour: "2-digit", minute: "2-digit" })} · {r.duracao} min · com {r.organizador.nome}</p>
+              <p className="text-sm text-s-mudo">{tiposDeReuniao[r.tipo]}{r.recorrencia ? ` · ${r.recorrencia}` : ""}{r.presentes ? ` · ${r.presentes} na sala agora` : ""}</p>
+              <div className="mt-2 flex flex-wrap justify-center gap-2">
+                {r.sala && r.posso_entrar && (r.status === "ao_vivo" || r.conduzo) ? (
+                  <button type="button" className="cursor-pointer rounded-md bg-[#2f5d34] px-5 py-2 font-semibold text-white hover:brightness-110" onClick={entrar}>{r.status === "ao_vivo" ? "Entrar na sala" : "Abrir a sala"}</button>
+                ) : (
+                  <p className="text-sm text-s-suave">{r.status === "agendada" ? "A sala abre quando a reunião começar." : r.status === "encerrada" ? "Esta reunião já terminou." : r.status === "cancelada" ? "Esta reunião foi cancelada." : "Você não está entre os convidados desta reunião."}</p>
+                )}
+                {r.status === "agendada" && <button type="button" className="cursor-pointer rounded-md bg-s-campo px-4 py-2 text-sm hover:bg-[var(--s-ativo)]" onClick={() => baixarIcs(r)}>Pôr na agenda (.ics)</button>}
+              </div>
+            </div>
+            {r.pauta && (
+              <section className="mt-6">
+                <h4 className="font-mono text-xs uppercase tracking-widest text-s-ouro">Pauta</h4>
+                <p className="mt-2 whitespace-pre-wrap" data-original>{r.pauta}</p>
+              </section>
+            )}
+            {r.link_pauta && <p className="mt-3"><a href={r.link_pauta} target="_blank" rel="noopener noreferrer" className="text-s-acento underline">Documento da pauta ↗</a></p>}
+            {r.convidados.length > 0 && <p className="mt-4 text-sm text-s-suave">Convidados: {r.convidados.map((c) => c.nome).join(", ")}</p>}
+            {r.presencas.length > 0 && (
+              <section className="mt-6">
+                <h4 className="font-mono text-xs uppercase tracking-widest text-s-ouro">Presença</h4>
+                <ul className="mt-2 space-y-1 text-sm">{r.presencas.map((p, i) => <li key={i} className="flex justify-between gap-3"><span>{p.nome}</span><span className="text-s-mudo">{new Date(p.entrou_em).toLocaleTimeString(localDoPainel(), { hour: "2-digit", minute: "2-digit" })}{p.saiu_em ? ` – ${new Date(p.saiu_em).toLocaleTimeString(localDoPainel(), { hour: "2-digit", minute: "2-digit" })}` : " · na sala"}</span></li>)}</ul>
+              </section>
+            )}
+            {r.ata && (
+              <section className="mt-6">
+                <h4 className="font-mono text-xs uppercase tracking-widest text-s-ouro">Ata</h4>
+                <p className="mt-2 whitespace-pre-wrap text-s-suave" data-original>{r.ata}</p>
+              </section>
+            )}
+            {aviso && <p className="mt-4 text-sm text-s-acento">{aviso}</p>}
+            <p className="mt-8 text-xs text-s-mudo">Nada de áudio ou vídeo fica no servidor do instituto; só quem entrou e quando. Quem abre a reunião entra primeiro e modera.</p>
+          </div>
+        </div>
+      )}
+      {naChamada && (
+        <div className="flex shrink-0 items-center justify-center gap-3 border-t border-s-linha bg-s-lado px-4 py-2">
+          <span className="text-sm text-s-suave">Pode trocar de canal: a chamada continua num quadrinho.</span>
+          <button type="button" className="cursor-pointer rounded-full bg-s-acento px-4 py-1.5 text-sm font-semibold text-white" onClick={sair}>Sair da chamada</button>
+        </div>
+      )}
+    </>
+  );
+}
+
+/**
+ * A chamada do Jitsi numa camada só dela (no body, por cima do painel), para não reiniciar ao trocar de canal: com a
+ * sala aberta, ela cobre o lugar reservado no meio; fora dali, vira um quadrinho no canto que dá para reabrir.
+ */
+function CamadaDaChamada({ chamada, lugar, me, lang, abrir, sair }: { chamada: Reuniao; lugar: HTMLDivElement | null; me: Me; lang: string; abrir: () => void; sair: () => void }) {
+  const [caixa, setCaixa] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
+  useEffect(() => {
+    if (!lugar) return;
+    const medir = () => {
+      const r = lugar.getBoundingClientRect();
+      setCaixa({ x: r.left, y: r.top, w: r.width, h: r.height });
+    };
+    medir();
+    const observador = new ResizeObserver(medir);
+    observador.observe(lugar);
+    window.addEventListener("scroll", medir, true);
+    window.addEventListener("resize", medir);
+    return () => {
+      observador.disconnect();
+      window.removeEventListener("scroll", medir, true);
+      window.removeEventListener("resize", medir);
+    };
+  }, [lugar]);
+  const grande = Boolean(lugar && caixa);
+  const estilo: CSSProperties = grande && caixa ? { left: caixa.x, top: caixa.y, width: caixa.w, height: caixa.h } : { right: 16, bottom: 16, width: 360, height: 236 };
+  return createPortal(
+    <div className={`salas fixed z-[60] flex flex-col overflow-hidden ${grande ? "" : "rounded-lg border border-s-linha shadow-2xl"}`} style={estilo}>
+      {!grande && (
+        <div className="flex items-center gap-2 bg-s-trilho px-2 py-1.5 text-xs">
+          <IconeDaSala nome="voz" className="h-4 w-4 text-s-ok" />
+          <span className="min-w-0 flex-1 truncate font-semibold">{chamada.titulo}</span>
+          <button type="button" className="cursor-pointer rounded p-1 hover:bg-[var(--s-ativo)]" title="Abrir a sala" aria-label="Abrir a sala" onClick={abrir}><IconeDaSala nome="ampliar" className="h-4 w-4" /></button>
+          <button type="button" className="cursor-pointer rounded p-1 text-s-acento hover:bg-[var(--s-ativo)]" title="Sair da chamada" aria-label="Sair da chamada" onClick={sair}><IconeDaSala nome="sair" className="h-4 w-4" /></button>
+        </div>
+      )}
+      <div className="min-h-0 flex-1 bg-black">
+        <JitsiSala sala={chamada.sala ?? ""} nome={me.nome} conduzo={chamada.conduzo} lang={lang} assunto={chamada.titulo} aoSair={sair} />
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
+/** A agenda: o que está ao vivo, as próximas, as propostas, marcar uma nova e o histórico com as atas. */
+function AgendaDeReunioes({ gere, aoVivo, proximas, passadas, propostas, erroDasPropostas, abrir, entrar, recarregar }: { gere: boolean; aoVivo: Reuniao[]; proximas: Reuniao[]; passadas: Reuniao[]; propostas: PropostaDeReuniao[]; erroDasPropostas: string; abrir: (r: Reuniao) => void; entrar: (r: Reuniao) => void; recarregar: () => void }) {
+  const [aba, setAba] = useState<"agora" | "propostas" | "nova" | "historico">("agora");
+  const pendentes = propostas.filter((p) => p.status === "pendente").length;
+  const linha = (r: Reuniao) => (
+    <li key={r.id} className="flex flex-wrap items-center gap-3 rounded-lg border border-s-linha bg-s-lado p-3">
+      <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${r.status === "ao_vivo" ? "bg-s-acento text-white" : "bg-s-campo text-s-suave"}`}><IconeDaSala nome="voz" /></span>
+      <button type="button" className="min-w-0 flex-1 cursor-pointer text-left" onClick={() => abrir(r)}>
+        <span className="block truncate font-semibold">{r.titulo}</span>
+        <span className="block truncate text-xs text-s-suave">{new Date(r.inicio).toLocaleString(localDoPainel(), { weekday: "short", day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })} · {r.duracao} min · {r.organizador.nome} · {tiposDeReuniao[r.tipo]}</span>
+      </button>
+      {r.status === "ao_vivo" && r.sala && r.posso_entrar && <button type="button" className="cursor-pointer rounded-md bg-[#2f5d34] px-3 py-1.5 text-sm font-semibold text-white" onClick={() => entrar(r)}>Entrar</button>}
+      {r.status === "agendada" && <button type="button" className="cursor-pointer rounded-md bg-s-campo px-3 py-1.5 text-sm" onClick={() => baixarIcs(r)}>.ics</button>}
+    </li>
+  );
+  return (
+    <div className="mx-auto max-w-3xl px-4 py-5">
+      <div role="tablist" className="mb-5 flex flex-wrap gap-1 border-b border-s-linha">
+        {([["agora", "Agora e próximas", aoVivo.length], ["propostas", "Propostas", gere ? pendentes : 0], ...(gere ? [["nova", "Marcar reunião", 0] as const] : []), ["historico", "Histórico e atas", 0]] as [typeof aba, string, number][]).map(([id, nome, conta]) => (
+          <button key={id} type="button" role="tab" aria-selected={aba === id} onClick={() => setAba(id)} className={`-mb-px cursor-pointer border-b-2 px-3 py-2 text-sm ${aba === id ? "border-s-acento font-semibold text-s-texto" : "border-transparent text-s-suave hover:text-s-texto"}`}>
+            {nome}{conta > 0 && <span className="ml-1.5 rounded-full bg-[#d4372b] px-1.5 font-mono text-[0.62rem] font-bold text-white">{conta}</span>}
+          </button>
+        ))}
+      </div>
+      {aba === "agora" && (
+        <div className="space-y-6">
+          {aoVivo.length > 0 && <section><h3 className="font-mono text-xs uppercase tracking-widest text-s-acento">Ao vivo agora</h3><ul className="mt-2 space-y-2">{aoVivo.map(linha)}</ul></section>}
+          <section>
+            <h3 className="font-mono text-xs uppercase tracking-widest text-s-ouro">Próximas</h3>
+            {proximas.length ? <ul className="mt-2 space-y-2">{proximas.map(linha)}</ul> : <p className="mt-2 text-sm text-s-suave">Nenhuma reunião marcada. {gere ? "Marque uma em “Marcar reunião”." : "Proponha uma em “Propostas”."}</p>}
+          </section>
+          <p className="text-xs text-s-mudo">As reuniões acontecem pelo Jitsi Meet (código aberto) em {JITSI_DOMINIO}, dentro do painel, sem limite de tempo. Cada reunião tem uma sala de nome sorteado, que só quem pode entrar recebe. Guardamos só quem entrou e quando.</p>
+        </div>
+      )}
+      {aba === "propostas" && <Propostas gere={gere} propostas={propostas} erro={erroDasPropostas} recarregar={recarregar} />}
+      {aba === "nova" && gere && <NovaReuniao editando={null} depois={() => { recarregar(); setAba("agora"); }} cancelar={() => setAba("agora")} />}
+      {aba === "historico" && <Historico reunioes={passadas} recarregar={recarregar} />}
     </div>
   );
 }
@@ -511,6 +985,10 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
   const [andamento, setAndamento] = useState("");
   const [arrastando, setArrastando] = useState(false);
   const [compondo, setCompondo] = useState<"enquete" | "evento" | "relato" | null>(null);
+  // A lista de membros à direita começa aberta nas telas largas, como no Discord.
+  const [membrosAbertos, setMembrosAbertos] = useState(() => typeof window !== "undefined" && window.innerWidth >= 1280);
+  const [menuDoCanal, setMenuDoCanal] = useState(false);
+  const [maisAberto, setMaisAberto] = useState(false);
   const caixa = useRef<HTMLTextAreaElement>(null);
   const escolha = useRef<HTMLInputElement>(null);
   const fim = useRef<HTMLDivElement>(null);
@@ -680,7 +1158,8 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
         setCitando(null);
         if (arquivos.length) { soltar(arquivos); setPreparados([]); }
       }
-      setTexto("");
+      // Só limpa a caixa se ela ainda tem o que foi enviado: o que a pessoa digitou durante o envio fica.
+      setTexto((atual) => (atual.trim() === limpo ? "" : atual));
       setItem(chaveDoRascunho(id), null);
       avisarDigitando("");
       recarregar();
@@ -810,344 +1289,449 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
     caixa.current?.focus();
   }
 
+  /** A cor do nome de cada pessoa, pela função (como as cores de cargo do Discord). */
+  const corDoNome = (autor: string | null) => {
+    const funcoes = equipe.find((membro) => membro.id === autor)?.papeis.map((p) => p.papel) ?? [];
+    if (funcoes.includes("coordenacao") || funcoes.includes("vice")) return "var(--s-acento-suave)";
+    if (funcoes.includes("supervisao")) return "#8fb8d8";
+    if (funcoes.some((f) => f === "educacao" || f === "educacao_secundaria")) return "var(--s-ouro)";
+    if (funcoes.includes("design") || funcoes.includes("marketing")) return "#c99ad6";
+    if (funcoes.includes("jornalismo")) return "#8fc796";
+    return "var(--s-texto)";
+  };
+  const avatarDe = (autor: string | null) => dados.membros.find((membro) => membro.id === autor)?.avatar ?? equipe.find((membro) => membro.id === autor)?.avatar;
+  const itemDoMenu = "block w-full cursor-pointer rounded px-2.5 py-1.5 text-left hover:bg-s-acento hover:text-white";
+
   return (
-    <>
-      <header className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-rule bg-parchment-deep px-3 py-2.5">
-        <button type="button" aria-label="Voltar às conversas" className="cursor-pointer px-1 text-xl lg:hidden" onClick={voltar}>←</button>
-        <Rosto nome={nome} online={Boolean(outro?.online)} tipo={dados.tipo} avatar={outro?.avatar} />
-        <div className="min-w-[10rem] flex-1">
-          <p className="truncate font-semibold">
+    <div className="flex min-h-0 flex-1">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+        <header className="flex h-12 shrink-0 items-center gap-2 border-b border-s-linha px-3 shadow-[0_1px_0_rgba(0,0,0,0.2)]">
+          <button type="button" aria-label="Voltar às conversas" className="cursor-pointer px-1 text-xl text-s-suave lg:hidden" onClick={voltar}>←</button>
+          {dados.tipo === "direta" ? <Rosto nome={nome} online={Boolean(outro?.online)} tipo="direta" avatar={outro?.avatar} pequeno /> : <IconeDaSala nome="cerquilha" className="h-5 w-5 shrink-0 text-s-mudo" />}
+          <h2 className="truncate font-semibold">
             {nome}
-            {outro && verificado(outro.id) && <span title="Identidade verificada pessoalmente" className="ml-1.5 font-normal text-ok">✓ verificado</span>}
-          </p>
-          <p className="truncate text-xs text-ink-soft" aria-live="polite">
+            {outro && verificado(outro.id) && <span title="Identidade verificada pessoalmente" className="ml-1.5 text-xs font-normal text-s-ok">✓ verificado</span>}
+          </h2>
+          <span className="hidden h-6 w-px bg-s-linha sm:block" aria-hidden="true" />
+          <p className="hidden min-w-0 flex-1 truncate text-sm text-s-suave sm:block" aria-live="polite">
             {digitando.length > 0
               ? `${digitando.map((membro) => membro.nome.split(" ")[0]).join(", ")} ${digitando.some((membro) => membro.digitando === "audio") ? "está gravando áudio…" : digitando.length > 1 ? "estão digitando…" : "está digitando…"}`
               : outro
                 ? presenca(outro.online, outro.visto_em)
-                : `${dados.tipo === "departamento" ? "Grupo do departamento · " : ""}${dados.membros.length} pessoas${outros.some((membro) => membro.online !== null) ? ` · ${dados.membros.filter((membro) => membro.online).length} online` : ""}`}
-            {outro && (
-              <>
-                {" · "}
-                <button type="button" className={elo} onClick={() => setSeguranca(seguranca ? null : { usuario: outro.id, nome: outro.nome })}>código de segurança</button>
-              </>
-            )}
+                : dados.descricao || `${dados.tipo === "departamento" ? "Canal do departamento · " : ""}${dados.membros.length} pessoas${outros.some((membro) => membro.online !== null) ? ` · ${dados.membros.filter((membro) => membro.online).length} online` : ""}`}
           </p>
-        </div>
-        <label className="flex items-center gap-1.5 text-xs text-ink-soft">
-          <span aria-hidden>⏱</span>
-          <span className="sr-only">Autodestruição das mensagens</span>
-          <select value={dados.apagar_apos ?? 0} onChange={(e) => void autodestruir(Number(e.target.value))} className="cursor-pointer border border-rule bg-parchment px-1.5 py-1 text-ink" title="Autodestruição das mensagens novas">
-            {prazos.map((prazo) => (
-              <option key={prazo.segundos} value={prazo.segundos}>{prazo.segundos ? `Some em ${prazo.nome}` : "Sem autodestruição"}</option>
-            ))}
-          </select>
-        </label>
-        <button type="button" className={elo} aria-pressed={selecionadas !== null} onClick={() => setSelecionadas(selecionadas ? null : new Set())}>
-          {selecionadas ? "Cancelar seleção" : "Selecionar"}
-        </button>
-        <button type="button" className={elo} onClick={() => setGaleria(true)}>Arquivos</button>
-        {dados.tipo !== "direta" && (
-          <button type="button" className={elo} aria-expanded={gerir} onClick={() => setGerir(!gerir)}>
-            {gerir ? "Fechar" : "Grupo"}
-          </button>
-        )}
-      </header>
-
-      {gerir && dados.tipo !== "direta" ? (
-        <Grupo dados={dados} me={me} equipe={equipe} chaveiro={chaveiro} conversa={id} depois={() => { recarregar(); mudou(); }} saiu={voltar} enviarFoto={async (arquivo) => {
-          // A foto do grupo é uma mensagem com a imagem, cifrada como qualquer outra; o grupo passa a apontar para ela.
-          const [foto] = await preparar([arquivo], 0);
-          const anexos = await subir([foto], id);
-          soltar([foto]);
-          const { id: mensagem } = await enviarCifrado(chaveiro, id, empacotar({ texto: "", anexos, grupo_foto: true }), contextoDaConversa(id, me.id), (corpo) => rpc<{ id: string }>("chat_enviar", { p_id: id, p_corpo: corpo, p_anexos: anexos.map((anexo) => anexo.id) }));
-          await rpc("chat_grupo_mudar", { p_id: id, p_foto: mensagem });
-          recarregar();
-          mudou();
-        }} />
-      ) : (
-        <>
+          <span className="flex-1 sm:hidden" />
+          {dados.apagar_apos && <span title={`Autodestruição: ${nomeDoPrazo(dados.apagar_apos)}`} className="text-sm text-s-mudo">⏱</span>}
           {fixadas.length > 0 && (
-            <div className="flex items-center gap-2 border-b border-rule bg-parchment-deep px-3 py-1.5 text-xs">
-              <span aria-hidden>📌</span>
-              <button type="button" className="min-w-0 flex-1 cursor-pointer truncate text-left hover:underline" onClick={() => irPara(fixadas[0].mensagem.id)}>
-                <span className="font-semibold">{fixadas[0].mensagem.minha ? "Você" : fixadas[0].mensagem.nome.split(" ")[0]}: </span>
-                {fixadas[0].conteudo ? semFormatacao(fixadas[0].conteudo.texto) : "…"}
-                {fixadas.length > 1 && <span className="text-ink-soft"> · +{fixadas.length - 1}</span>}
-              </button>
-              <button type="button" className={elo} onClick={() => void fixar(fixadas[0].mensagem.id, false)}>Desafixar</button>
-            </div>
+            <button type="button" className="relative cursor-pointer rounded p-1.5 text-s-suave hover:text-s-texto" title="Mensagens fixadas" aria-label="Ir para a mensagem fixada" onClick={() => irPara(fixadas[0].mensagem.id)}>
+              <IconeDaSala nome="alfinete" className="h-5 w-5" />
+              <span className="absolute -top-0.5 -right-0.5 rounded-full bg-s-acento px-1 font-mono text-[0.55rem] text-white">{fixadas.length}</span>
+            </button>
           )}
-          {selecionadas && (
-            <div className="flex flex-wrap items-center gap-3 border-b border-rule bg-ink px-3 py-1.5 text-xs text-parchment">
-              <span>{selecionadas.size} {selecionadas.size === 1 ? "selecionada" : "selecionadas"}</span>
-              <button type="button" className="cursor-pointer underline disabled:opacity-50" disabled={selecionadas.size === 0} onClick={() => setEncaminhando([...selecionadas])}>Encaminhar</button>
-              <button type="button" className="cursor-pointer underline disabled:opacity-50" disabled={![...selecionadas].some((alvo) => vistas.find((vista) => vista.mensagem.id === alvo)?.mensagem.minha)} onClick={() => void apagarSelecionadas()}>Apagar as minhas</button>
-              <button type="button" className="cursor-pointer underline disabled:opacity-50" disabled={selecionadas.size === 0} onClick={() => setCompondo("relato")}>Relatar à coordenação</button>
-            </div>
+          {emGrupo && (
+            <button type="button" className={`cursor-pointer rounded p-1.5 ${membrosAbertos ? "text-s-texto" : "text-s-suave hover:text-s-texto"}`} title="Membros" aria-label="Mostrar os membros" aria-pressed={membrosAbertos} onClick={() => setMembrosAbertos(!membrosAbertos)}>
+              <IconeDaSala nome="pessoas" className="h-5 w-5" />
+            </button>
           )}
-          {compondo === "relato" && selecionadas && (
-            <Relatar
-              membros={outros}
-              escolhidas={vistas.filter((vista) => selecionadas.has(vista.mensagem.id) && vista.conteudo).map((vista) => ({ id: vista.mensagem.id, autor: vista.mensagem.minha ? "Você" : vista.mensagem.nome, quando: vista.mensagem.criado_em, texto: semFormatacao(vista.conteudo!.texto) || (vista.conteudo!.anexos?.length ? "[arquivo]" : "") }))}
-              fechar={() => setCompondo(null)}
-              enviar={(contra, motivo, mensagens) => { setCompondo(null); setSelecionadas(null); void agir(async () => { await rpc("chat_relatar", { p_conversa: id, p_contra: contra, p_motivo: motivo, p_mensagens: mensagens }); setAviso("Relato enviado à coordenação."); }); }}
-            />
-          )}
-          <div className="min-h-0 flex-1 space-y-1.5 overflow-y-auto px-3 py-4 [scrollbar-width:thin]" aria-live="polite">
-            {seguranca && (
-              <div className="mb-3">
-                <Seguranca chaveiro={chaveiro} conversa={id} usuario={seguranca.usuario} nome={seguranca.nome} fechar={() => setSeguranca(null)} />
+          <span className="relative">
+            <button type="button" className="cursor-pointer rounded p-1.5 text-s-suave hover:text-s-texto" title="Mais" aria-label="Mais opções do canal" aria-expanded={menuDoCanal} onClick={() => setMenuDoCanal(!menuDoCanal)}>
+              <IconeDaSala nome="menu" className="h-5 w-5" />
+            </button>
+            {menuDoCanal && (
+              <ul role="menu" className="absolute top-9 right-0 z-30 w-64 rounded-md border border-s-linha bg-s-trilho p-1.5 text-sm shadow-2xl">
+                <li><button type="button" role="menuitem" className={itemDoMenu} onClick={() => { setMenuDoCanal(false); setSelecionadas(selecionadas ? null : new Set()); }}>{selecionadas ? "Cancelar a seleção" : "Selecionar mensagens"}</button></li>
+                <li><button type="button" role="menuitem" className={itemDoMenu} onClick={() => { setMenuDoCanal(false); setGaleria(true); }}>Arquivos da conversa</button></li>
+                {emGrupo && <li><button type="button" role="menuitem" className={itemDoMenu} onClick={() => { setMenuDoCanal(false); setGerir(!gerir); }}>{gerir ? "Voltar às mensagens" : "Configurar o grupo"}</button></li>}
+                {outro && <li><button type="button" role="menuitem" className={itemDoMenu} onClick={() => { setMenuDoCanal(false); setSeguranca(seguranca ? null : { usuario: outro.id, nome: outro.nome }); }}>Código de segurança</button></li>}
+                <li className="mt-1 border-t border-s-linha px-2.5 pt-2 pb-1">
+                  <label className="block text-xs text-s-mudo">
+                    Autodestruição das mensagens novas
+                    <select value={dados.apagar_apos ?? 0} onChange={(e) => { setMenuDoCanal(false); void autodestruir(Number(e.target.value)); }} className="mt-1 w-full cursor-pointer rounded bg-s-campo px-2 py-1 text-sm text-s-texto">
+                      {prazos.map((prazo) => (
+                        <option key={prazo.segundos} value={prazo.segundos}>{prazo.segundos ? `Some em ${prazo.nome}` : "Desligada"}</option>
+                      ))}
+                    </select>
+                  </label>
+                </li>
+              </ul>
+            )}
+          </span>
+        </header>
+
+        {gerir && dados.tipo !== "direta" ? (
+          <div className="salas-rolagem min-h-0 flex-1 overflow-y-auto">
+            <Grupo dados={dados} me={me} equipe={equipe} chaveiro={chaveiro} conversa={id} depois={() => { recarregar(); mudou(); }} saiu={voltar} enviarFoto={async (arquivo) => {
+              // A foto do grupo é uma mensagem com a imagem, cifrada como qualquer outra; o grupo passa a apontar para ela.
+              const [foto] = await preparar([arquivo], 0);
+              const anexos = await subir([foto], id);
+              soltar([foto]);
+              const { id: mensagem } = await enviarCifrado(chaveiro, id, empacotar({ texto: "", anexos, grupo_foto: true }), contextoDaConversa(id, me.id), (corpo) => rpc<{ id: string }>("chat_enviar", { p_id: id, p_corpo: corpo, p_anexos: anexos.map((anexo) => anexo.id) }));
+              await rpc("chat_grupo_mudar", { p_id: id, p_foto: mensagem });
+              recarregar();
+              mudou();
+            }} />
+          </div>
+        ) : (
+          <>
+            {fixadas.length > 0 && (
+              <div className="flex shrink-0 items-center gap-2 border-b border-s-linha bg-s-lado px-4 py-1.5 text-xs">
+                <IconeDaSala nome="alfinete" className="h-3.5 w-3.5 text-s-ouro" />
+                <button type="button" className="min-w-0 flex-1 cursor-pointer truncate text-left hover:underline" onClick={() => irPara(fixadas[0].mensagem.id)}>
+                  <span className="font-semibold">{fixadas[0].mensagem.minha ? "Você" : fixadas[0].mensagem.nome.split(" ")[0]}: </span>
+                  {fixadas[0].conteudo ? semFormatacao(fixadas[0].conteudo.texto) : "…"}
+                  {fixadas.length > 1 && <span className="text-s-mudo"> · +{fixadas.length - 1}</span>}
+                </button>
+                <button type="button" className="cursor-pointer text-s-mudo underline hover:text-s-texto" onClick={() => void fixar(fixadas[0].mensagem.id, false)}>Desafixar</button>
               </div>
             )}
-            <Alertas chaveiro={chaveiro} conversa={id} alertas={alertas} />
-            {dados.apagar_apos && (
-              <p className="mx-auto mb-3 max-w-md border border-rule bg-parchment-deep px-3 py-2 text-center text-xs text-ink-soft">
-                Autodestruição ligada{dados.apagar_por ? ` por ${dados.apagar_por}` : ""}: as mensagens enviadas desde então somem {nomeDoPrazo(dados.apagar_apos)} depois de enviadas.
-              </p>
+            {selecionadas && (
+              <div className="flex shrink-0 flex-wrap items-center gap-3 bg-s-acento px-4 py-1.5 text-xs text-white">
+                <span>{selecionadas.size} {selecionadas.size === 1 ? "selecionada" : "selecionadas"}</span>
+                <button type="button" className="cursor-pointer underline disabled:opacity-50" disabled={selecionadas.size === 0} onClick={() => setEncaminhando([...selecionadas])}>Encaminhar</button>
+                <button type="button" className="cursor-pointer underline disabled:opacity-50" disabled={![...selecionadas].some((alvo) => vistas.find((vista) => vista.mensagem.id === alvo)?.mensagem.minha)} onClick={() => void apagarSelecionadas()}>Apagar as minhas</button>
+                <button type="button" className="cursor-pointer underline disabled:opacity-50" disabled={selecionadas.size === 0} onClick={() => setCompondo("relato")}>Relatar à coordenação</button>
+                <button type="button" className="ml-auto cursor-pointer underline" onClick={() => setSelecionadas(null)}>Cancelar</button>
+              </div>
             )}
-            {vistas.length === 0 && <p className="py-10 text-center text-ink-soft">{dados.tipo === "departamento" ? "Ninguém escreveu aqui ainda. Todo mundo dessa função lê o que for escrito." : "Nenhuma mensagem ainda. Diga oi."}</p>}
-            {vistas.map((vista, indice) => {
-              const { mensagem, conteudo } = vista;
-              const anterior = vistas[indice - 1]?.mensagem;
-              const outroDia = !anterior || new Date(anterior.criado_em).toDateString() !== new Date(mensagem.criado_em).toDateString();
-              if (mensagem.tipo === "sistema") {
-                return (
-                  <div key={mensagem.id} id={`m-${mensagem.id}`}>
-                    {outroDia && <p className="py-2 text-center text-xs uppercase tracking-widest text-ink-soft">{diaDe(mensagem.criado_em)}</p>}
-                    <p className="mx-auto my-1 max-w-md border border-rule bg-parchment-deep px-3 py-1 text-center text-xs text-ink-soft">{textoDoAviso(mensagem, me)} · {hora(mensagem.criado_em)}</p>
+            {compondo === "relato" && selecionadas && (
+              <Relatar
+                membros={outros}
+                escolhidas={vistas.filter((vista) => selecionadas.has(vista.mensagem.id) && vista.conteudo).map((vista) => ({ id: vista.mensagem.id, autor: vista.mensagem.minha ? "Você" : vista.mensagem.nome, quando: vista.mensagem.criado_em, texto: semFormatacao(vista.conteudo!.texto) || (vista.conteudo!.anexos?.length ? "[arquivo]" : "") }))}
+                fechar={() => setCompondo(null)}
+                enviar={(contra, motivo, mensagens) => { setCompondo(null); setSelecionadas(null); void agir(async () => { await rpc("chat_relatar", { p_conversa: id, p_contra: contra, p_motivo: motivo, p_mensagens: mensagens }); setAviso("Relato enviado à coordenação."); }); }}
+              />
+            )}
+            <div className="salas-rolagem min-h-0 flex-1 overflow-y-auto pt-4 pb-2" aria-live="polite">
+              {seguranca && (
+                <div className="mx-4 mb-3">
+                  <Seguranca chaveiro={chaveiro} conversa={id} usuario={seguranca.usuario} nome={seguranca.nome} fechar={() => setSeguranca(null)} />
+                </div>
+              )}
+              <div className="px-4"><Alertas chaveiro={chaveiro} conversa={id} alertas={alertas} /></div>
+              {/* O começo do canal, como no Discord. */}
+              <div className="mx-4 mb-4 border-b border-s-linha pb-4">
+                <span className={`flex h-16 w-16 items-center justify-center rounded-full ${dados.tipo === "direta" ? "" : "bg-s-campo"}`}>
+                  {dados.tipo === "direta" ? <Avatar nome={nome} avatar={outro?.avatar} className="h-16 w-16 rounded-full" /> : <IconeDaSala nome="cerquilha" className="h-9 w-9 text-s-texto" />}
+                </span>
+                <h3 className="mt-2 font-serif text-3xl font-semibold">{dados.tipo === "direta" ? nome : `Bem-vindo a #${nome}`}</h3>
+                <p className="text-sm text-s-suave">
+                  {dados.tipo === "direta" ? `O começo da sua conversa privada com ${nome}.` : dados.tipo === "departamento" ? "O canal do departamento: todo mundo dessa função lê o que for escrito aqui." : "O começo do grupo. Só quem participa vê."} Cifrado de ponta a ponta neste aparelho.
+                  {dados.apagar_apos ? ` Autodestruição ligada${dados.apagar_por ? ` por ${dados.apagar_por}` : ""}: as mensagens novas somem ${nomeDoPrazo(dados.apagar_apos)} depois de enviadas.` : ""}
+                </p>
+              </div>
+              {vistas.map((vista, indice) => {
+                const { mensagem, conteudo } = vista;
+                const anterior = vistas[indice - 1]?.mensagem;
+                const outroDia = !anterior || new Date(anterior.criado_em).toDateString() !== new Date(mensagem.criado_em).toDateString();
+                const separador = outroDia ? (
+                  <div className="mx-4 my-3 flex items-center gap-3 text-[0.7rem] font-semibold text-s-mudo" role="separator">
+                    <span className="h-px flex-1 bg-s-linha" />
+                    {diaDe(mensagem.criado_em)}
+                    <span className="h-px flex-1 bg-s-linha" />
                   </div>
-                );
-              }
-              const mostraNome = dados.tipo !== "direta" && !mensagem.minha && (outroDia || anterior?.autor !== mensagem.autor);
-              const meMenciona = Boolean(conteudo?.mencoes?.includes(me.id)) && !mensagem.minha;
-              const marcada = selecionadas?.has(mensagem.id) ?? false;
-              const leram = outros.filter((membro) => membro.lido_em && membro.lido_em >= mensagem.criado_em);
-              return (
-                <div key={mensagem.id} id={`m-${mensagem.id}`} className={destacada === mensagem.id ? "painel-surge" : ""}>
-                  {outroDia && <p className="py-2 text-center text-xs uppercase tracking-widest text-ink-soft">{diaDe(mensagem.criado_em)}</p>}
-                  <div className={`group flex items-end gap-2 ${mensagem.minha ? "justify-end" : "justify-start"}`}>
-                    {selecionadas && (
-                      <input
-                        type="checkbox"
-                        className="mb-3 h-4 w-4 shrink-0"
-                        aria-label="Selecionar mensagem"
-                        checked={marcada}
-                        onChange={(e) => setSelecionadas((atual) => { const novo = new Set(atual); if (e.target.checked) novo.add(mensagem.id); else novo.delete(mensagem.id); return novo; })}
-                      />
-                    )}
-                    {mensagem.minha && !selecionadas && <Acoes vista={vista} eu me={me} favorita={favoritas.has(mensagem.id)} fixada={dados.fixadas.includes(mensagem.id)} editavel={editavel(mensagem)} citar={() => citar(vista)} reagir={() => setReagindo(reagindo === mensagem.id ? null : mensagem.id)} encaminhar={() => setEncaminhando([mensagem.id])} fixar={(sim) => void fixar(mensagem.id, sim)} favoritar={(sim) => void favoritar(mensagem.id, sim)} editar={() => editar(vista)} apagar={() => void apagar(mensagem.id)} />}
-                    <div className={`relative max-w-[80%] px-3 py-1.5 sm:max-w-[70%] ${conteudo?.anexos?.length ? "w-[80%] sm:w-[70%] md:max-w-md" : ""} ${mensagem.minha ? "bg-ink text-parchment" : `border bg-parchment-deep ${meMenciona ? "border-gold border-l-4" : "border-rule"}`} ${destacada === mensagem.id ? "outline outline-2 outline-gold" : ""} ${marcada ? "outline outline-2 outline-oxblood" : ""}`}>
-                      {mostraNome && (
-                        <p className="text-xs font-semibold text-gold">
-                          {mensagem.nome}
-                          {mensagem.autor && verificado(mensagem.autor) && <span title="Identidade verificada pessoalmente" className="ml-1 font-normal text-ok">✓</span>}
-                        </p>
+                ) : null;
+                if (mensagem.tipo === "sistema") {
+                  return (
+                    <div key={mensagem.id} id={`m-${mensagem.id}`}>
+                      {separador}
+                      <p className="flex items-center gap-3 px-4 py-1 text-sm text-s-suave"><span className="w-10 text-center text-s-ok">→</span>{textoDoAviso(mensagem, me)} <span className="text-xs text-s-mudo">{hora(mensagem.criado_em)}</span></p>
+                    </div>
+                  );
+                }
+                // Mensagens seguidas da mesma pessoa, a menos de 7 minutos uma da outra, ficam juntas (sem repetir nome e foto).
+                const continua = Boolean(anterior && !outroDia && anterior.tipo !== "sistema" && anterior.autor === mensagem.autor && new Date(mensagem.criado_em).getTime() - new Date(anterior.criado_em).getTime() < 7 * 60_000 && !conteudo?.citando);
+                const meMenciona = Boolean(conteudo?.mencoes?.includes(me.id)) && !mensagem.minha;
+                const marcada = selecionadas?.has(mensagem.id) ?? false;
+                const leram = outros.filter((membro) => membro.lido_em && membro.lido_em >= mensagem.criado_em);
+                return (
+                  <div key={mensagem.id} id={`m-${mensagem.id}`} className={destacada === mensagem.id ? "painel-surge" : ""}>
+                    {separador}
+                    <div className={`group relative flex gap-4 px-4 py-0.5 ${continua ? "" : "mt-3"} ${meMenciona ? "border-l-2 border-s-ouro bg-[var(--s-mencao)] pl-[0.875rem]" : "hover:bg-[var(--s-hover)]"} ${destacada === mensagem.id || marcada ? "bg-[var(--s-ativo)]" : ""}`}>
+                      {selecionadas && (
+                        <input
+                          type="checkbox"
+                          className="mt-1.5 h-4 w-4 shrink-0 accent-[#c21f16]"
+                          aria-label="Selecionar mensagem"
+                          checked={marcada}
+                          onChange={(e) => setSelecionadas((atual) => { const novo = new Set(atual); if (e.target.checked) novo.add(mensagem.id); else novo.delete(mensagem.id); return novo; })}
+                        />
                       )}
-                      {conteudo?.encaminhada && <p className={`text-[0.7rem] italic ${mensagem.minha ? "text-parchment/70" : "text-ink-soft"}`}>↪ Encaminhada</p>}
-                      {conteudo?.citando && (
-                        <button type="button" onClick={() => irPara(conteudo.citando!.id)} className={`mb-1 block w-full cursor-pointer border-l-2 px-2 py-1 text-left text-xs ${mensagem.minha ? "border-[#f0cf8e] bg-parchment/10" : "border-oxblood bg-parchment"}`}>
-                          <span className="block font-semibold">{conteudo.citando.autor === me.id ? "Você" : conteudo.citando.nome}</span>
-                          <span className="block truncate opacity-80">{conteudo.citando.trecho}</span>
-                        </button>
-                      )}
-                      {conteudo?.anexos?.map((anexo) => (
-                        <AnexoVisto key={anexo.id} anexo={anexo} estado={mensagem.anexos.find((estado) => estado.id === anexo.id)} conversa={id} minha={mensagem.minha} />
-                      ))}
-                      <div className={`whitespace-pre-line break-words ${vista.autoria === "invalida" ? "border border-oxblood p-1" : ""}`}>
-                        {conteudo ? (
-                          <>
-                            {conteudo.texto && <Formatado texto={conteudo.texto} membros={membrosDaConversa} eu={me.id} />}
-                            {vista.autoria === "invalida" && <span className="mt-1 block border-l-2 border-oxblood pl-2 text-xs font-semibold text-oxblood">Não foi possível verificar o autor desta mensagem: a assinatura não confere com a identidade de quem aparece como autor.</span>}
-                          </>
+                      <div className="w-10 shrink-0">
+                        {continua ? (
+                          <span className="invisible block pt-1 text-right text-[0.62rem] text-s-mudo group-hover:visible">{hora(mensagem.criado_em)}</span>
                         ) : (
-                          <TextoAberto aberto={abertos[mensagem.id]} antiga={mensagem.corpo.startsWith("c1.")} />
+                          <Avatar nome={mensagem.minha ? me.nome : mensagem.nome} avatar={avatarDe(mensagem.autor)} className="mt-0.5 h-10 w-10 rounded-full" />
                         )}
                       </div>
-                      {conteudo?.enquete && <EnqueteVista enquete={conteudo.enquete} votos={vista.votos} minha={mensagem.minha} votar={(opcoes) => void enviarConteudo({ texto: "", voto: opcoes }, "voto", mensagem.id)} />}
-                      {conteudo?.evento && <EventoVista evento={conteudo.evento} rsvps={vista.rsvps} minha={mensagem.minha} responder={(resposta) => void enviarConteudo({ texto: "", rsvp: resposta }, "rsvp", mensagem.id)} />}
-                      {conteudo?.previa && (
-                        <a href={conteudo.previa.url} target="_blank" rel="noopener noreferrer nofollow" className={`mt-1 block border px-2 py-1 text-xs no-underline ${mensagem.minha ? "border-parchment/40" : "border-rule bg-parchment"}`}>
-                          <span className="block truncate font-semibold">{conteudo.previa.titulo}</span>
-                          <span className="block truncate opacity-70">{conteudo.previa.dominio} · prévia feita só do endereço</span>
-                        </a>
-                      )}
-                      {vista.reacoes.length > 0 && (
-                        <p className="mt-1 flex flex-wrap gap-1">
-                          {vista.reacoes.map((grupo) => (
-                            <button
-                              key={grupo.emoji}
-                              type="button"
-                              title={grupo.quem.map((quem) => (quem.minha ? "você" : quem.nome)).join(", ")}
-                              aria-label={`${grupo.emoji} de ${grupo.quem.map((quem) => (quem.minha ? "você" : quem.nome)).join(", ")}`}
-                              onClick={() => (quemReagiu === mensagem.id ? setQuemReagiu(null) : setQuemReagiu(mensagem.id))}
-                              className={`cursor-pointer rounded-full border px-1.5 text-xs ${grupo.quem.some((quem) => quem.minha) ? "border-gold bg-gold/30 text-ink" : mensagem.minha ? "border-parchment/40" : "border-rule bg-parchment"}`}
-                            >
-                              {grupo.emoji} {grupo.quem.length}
-                            </button>
-                          ))}
-                        </p>
-                      )}
-                      {quemReagiu === mensagem.id && (
-                        <ul className={`mt-1 text-[0.7rem] ${mensagem.minha ? "text-parchment/80" : "text-ink-soft"}`}>
-                          {vista.reacoes.flatMap((grupo) => grupo.quem.map((quem) => (
-                            <li key={quem.id} className="flex items-center justify-between gap-2">
-                              <span>{grupo.emoji} {quem.minha ? "Você" : quem.nome}</span>
-                              {quem.minha && <button type="button" className="cursor-pointer underline" onClick={() => void apagar(quem.id)}>desfazer</button>}
-                            </li>
-                          )))}
-                        </ul>
-                      )}
-                      <p className={`text-right text-[0.65rem] leading-tight ${mensagem.minha ? "text-parchment/70" : "text-ink-soft"}`}>
-                        {vista.editada && <span>Editada · </span>}
-                        {dados.fixadas.includes(mensagem.id) && <span title="Fixada">📌 </span>}
-                        {favoritas.has(mensagem.id) && <span title="Favorita">★ </span>}
-                        {mensagem.expira_em && <span title={`Autodestruição: ${new Date(mensagem.expira_em).toLocaleString(localDoPainel())}`}>⏱ {restante(mensagem.expira_em)} · </span>}
-                        {hora(mensagem.criado_em)}
-                        {tiques(mensagem)}
-                      </p>
-                      {lidaPor === mensagem.id && (
-                        <p className={`text-[0.7rem] ${mensagem.minha ? "text-parchment/80" : "text-ink-soft"}`}>
-                          {leram.length === 0 ? "Ninguém leu ainda." : `Lida por ${leram.map((membro) => membro.nome.split(" ")[0]).join(", ")}`}
-                          {outros.some((membro) => membro.lido_em === null) && " (quem desligou a confirmação de leitura não aparece)"}
-                        </p>
+                      <div className="min-w-0 flex-1">
+                        {conteudo?.citando && (
+                          <button type="button" onClick={() => irPara(conteudo.citando!.id)} className="relative mb-0.5 flex max-w-full cursor-pointer items-center gap-1.5 text-left text-xs text-s-suave hover:text-s-texto">
+                            <span className="absolute top-1/2 -left-9 h-3 w-7 rounded-tl-md border-t-2 border-l-2 border-s-linha" aria-hidden="true" />
+                            <strong className="shrink-0" style={{ color: corDoNome(conteudo.citando.autor) }}>@{conteudo.citando.autor === me.id ? "Você" : conteudo.citando.nome}</strong>
+                            <span className="truncate">{conteudo.citando.trecho}</span>
+                          </button>
+                        )}
+                        {!continua && (
+                          <p className="flex flex-wrap items-baseline gap-x-2">
+                            <span className="font-semibold" style={{ color: corDoNome(mensagem.autor) }}>{mensagem.minha ? me.nome : mensagem.nome}</span>
+                            {mensagem.autor && verificado(mensagem.autor) && <span title="Identidade verificada pessoalmente" className="text-xs text-s-ok">✓</span>}
+                            <span className="text-xs text-s-mudo">{hora(mensagem.criado_em)}</span>
+                          </p>
+                        )}
+                        {conteudo?.encaminhada && <p className="text-[0.72rem] italic text-s-mudo">↪ Encaminhada</p>}
+                        {conteudo?.anexos?.map((anexo) => (
+                          <div key={anexo.id} className="mt-1 max-w-md">
+                            <AnexoVisto anexo={anexo} estado={mensagem.anexos.find((estado) => estado.id === anexo.id)} conversa={id} minha={mensagem.minha} />
+                          </div>
+                        ))}
+                        <div className={`whitespace-pre-line break-words leading-relaxed ${vista.autoria === "invalida" ? "rounded border border-s-acento p-1" : ""}`}>
+                          {conteudo ? (
+                            <>
+                              {conteudo.texto && <Formatado texto={conteudo.texto} membros={membrosDaConversa} eu={me.id} />}
+                              {vista.autoria === "invalida" && <span className="mt-1 block border-l-2 border-s-acento pl-2 text-xs font-semibold text-s-acento">Não foi possível verificar o autor desta mensagem: a assinatura não confere com a identidade de quem aparece como autor.</span>}
+                            </>
+                          ) : (
+                            <TextoAberto aberto={abertos[mensagem.id]} antiga={mensagem.corpo.startsWith("c1.")} />
+                          )}
+                          {(vista.editada || dados.fixadas.includes(mensagem.id) || favoritas.has(mensagem.id) || mensagem.expira_em || mensagem.minha) && (
+                            <span className="ml-1.5 inline-flex items-center gap-1 align-baseline text-[0.65rem] text-s-mudo">
+                              {vista.editada && <span>(editada)</span>}
+                              {dados.fixadas.includes(mensagem.id) && <span title="Fixada">📌</span>}
+                              {favoritas.has(mensagem.id) && <span title="Favorita">★</span>}
+                              {mensagem.expira_em && <span title={`Autodestruição: ${new Date(mensagem.expira_em).toLocaleString(localDoPainel())}`}>⏱ {restante(mensagem.expira_em)}</span>}
+                              {tiques(mensagem)}
+                            </span>
+                          )}
+                        </div>
+                        {conteudo?.enquete && <EnqueteVista enquete={conteudo.enquete} votos={vista.votos} minha={mensagem.minha} votar={(opcoes) => void enviarConteudo({ texto: "", voto: opcoes }, "voto", mensagem.id)} />}
+                        {conteudo?.evento && <EventoVista evento={conteudo.evento} rsvps={vista.rsvps} minha={mensagem.minha} responder={(resposta) => void enviarConteudo({ texto: "", rsvp: resposta }, "rsvp", mensagem.id)} />}
+                        {conteudo?.previa && (
+                          <a href={conteudo.previa.url} target="_blank" rel="noopener noreferrer nofollow" className="mt-1 block max-w-md rounded border-l-4 border-s-acento bg-s-lado px-3 py-2 text-xs no-underline">
+                            <span className="block truncate font-semibold text-s-texto">{conteudo.previa.titulo}</span>
+                            <span className="block truncate text-s-mudo">{conteudo.previa.dominio} · prévia feita só do endereço</span>
+                          </a>
+                        )}
+                        {vista.reacoes.length > 0 && (
+                          <p className="mt-1 flex flex-wrap gap-1">
+                            {vista.reacoes.map((grupo) => (
+                              <button
+                                key={grupo.emoji}
+                                type="button"
+                                title={grupo.quem.map((quem) => (quem.minha ? "você" : quem.nome)).join(", ")}
+                                aria-label={`${grupo.emoji} de ${grupo.quem.map((quem) => (quem.minha ? "você" : quem.nome)).join(", ")}`}
+                                onClick={() => void reagir(vista, grupo.emoji)}
+                                onContextMenu={(e) => { e.preventDefault(); setQuemReagiu(quemReagiu === mensagem.id ? null : mensagem.id); }}
+                                className={`cursor-pointer rounded-md border px-1.5 py-0.5 text-xs ${grupo.quem.some((quem) => quem.minha) ? "border-s-acento-suave bg-[var(--s-ativo)]" : "border-transparent bg-s-campo hover:border-s-linha"}`}
+                              >
+                                {grupo.emoji} <span className="font-semibold">{grupo.quem.length}</span>
+                              </button>
+                            ))}
+                            <button type="button" className="cursor-pointer rounded-md bg-s-campo px-1.5 py-0.5 text-xs text-s-mudo opacity-0 group-hover:opacity-100 hover:text-s-texto" aria-label="Quem reagiu" onClick={() => setQuemReagiu(quemReagiu === mensagem.id ? null : mensagem.id)}>quem?</button>
+                          </p>
+                        )}
+                        {quemReagiu === mensagem.id && (
+                          <ul className="mt-1 max-w-xs rounded border border-s-linha bg-s-lado p-2 text-[0.72rem] text-s-suave">
+                            {vista.reacoes.flatMap((grupo) => grupo.quem.map((quem) => (
+                              <li key={quem.id} className="flex items-center justify-between gap-2">
+                                <span>{grupo.emoji} {quem.minha ? "Você" : quem.nome}</span>
+                                {quem.minha && <button type="button" className="cursor-pointer underline" onClick={() => void apagar(quem.id)}>desfazer</button>}
+                              </li>
+                            )))}
+                          </ul>
+                        )}
+                        {lidaPor === mensagem.id && (
+                          <p className="text-[0.72rem] text-s-mudo">
+                            {leram.length === 0 ? "Ninguém leu ainda." : `Lida por ${leram.map((membro) => membro.nome.split(" ")[0]).join(", ")}`}
+                            {outros.some((membro) => membro.lido_em === null) && " (quem desligou a confirmação de leitura não aparece)"}
+                          </p>
+                        )}
+                      </div>
+                      {!selecionadas && (
+                        <Acoes vista={vista} eu={mensagem.minha} me={me} favorita={favoritas.has(mensagem.id)} fixada={dados.fixadas.includes(mensagem.id)} editavel={editavel(mensagem)} citar={() => citar(vista)} reagir={() => setReagindo(reagindo === mensagem.id ? null : mensagem.id)} encaminhar={() => setEncaminhando([mensagem.id])} fixar={(sim) => void fixar(mensagem.id, sim)} favoritar={(sim) => void favoritar(mensagem.id, sim)} editar={mensagem.minha ? () => editar(vista) : undefined} apagar={mensagem.minha ? () => void apagar(mensagem.id) : undefined} />
                       )}
                       {reagindo === mensagem.id && (
-                        <p role="group" aria-label="Reagir" className="absolute -top-8 right-0 z-10 flex gap-0.5 border border-rule bg-parchment p-1 text-base shadow">
+                        <p role="group" aria-label="Reagir" className="absolute -top-10 right-4 z-20 flex gap-0.5 rounded-md border border-s-linha bg-s-trilho p-1 text-lg shadow-2xl">
                           {reacoes.map((emoji) => (
-                            <button key={emoji} type="button" className="cursor-pointer px-1 hover:bg-parchment-deep" aria-label={`Reagir com ${emoji}`} onClick={() => void reagir(vista, emoji)}>{emoji}</button>
+                            <button key={emoji} type="button" className="cursor-pointer rounded px-1 hover:bg-[var(--s-ativo)]" aria-label={`Reagir com ${emoji}`} onClick={() => void reagir(vista, emoji)}>{emoji}</button>
                           ))}
                         </p>
                       )}
                     </div>
-                    {!mensagem.minha && !selecionadas && <Acoes vista={vista} me={me} favorita={favoritas.has(mensagem.id)} fixada={dados.fixadas.includes(mensagem.id)} editavel={false} citar={() => citar(vista)} reagir={() => setReagindo(reagindo === mensagem.id ? null : mensagem.id)} encaminhar={() => setEncaminhando([mensagem.id])} fixar={(sim) => void fixar(mensagem.id, sim)} favoritar={(sim) => void favoritar(mensagem.id, sim)} />}
                   </div>
-                </div>
-              );
-            })}
-            <div ref={fim} />
-          </div>
-          {encaminhando && <Encaminhar conversas={conversas.filter((item) => item.id !== id)} quantas={encaminhando.length} fechar={() => setEncaminhando(null)} enviar={(destinos) => void encaminhar(destinos)} />}
-          {galeria && (
-            <Galeria
-              conversa={id}
-              fechar={() => setGaleria(false)}
-              irPara={irPara}
-              itens={vistas.flatMap((vista): ItemDaGaleria[] => (vista.conteudo?.anexos ?? []).map((anexo) => ({ mensagem: vista.mensagem.id, anexo, estado: vista.mensagem.anexos.find((estado) => estado.id === anexo.id), autor: vista.mensagem.nome, minha: vista.mensagem.minha, quando: `${new Date(vista.mensagem.criado_em).toLocaleDateString(localDoPainel())} ${hora(vista.mensagem.criado_em)}` })))}
-            />
-          )}
-          {gravando && <Gravador aoGravar={(audio) => void enviar([audio])} aoAvisar={avisarDigitando} fechar={() => setGravando(false)} />}
-          {compondo === "enquete" && <NovaEnquete fechar={() => setCompondo(null)} criar={(enquete) => { setCompondo(null); void enviarConteudo({ texto: "", enquete }); }} />}
-          {compondo === "evento" && <NovoEvento fechar={() => setCompondo(null)} criar={(evento) => { setCompondo(null); void enviarConteudo({ texto: "", evento }); }} />}
-          {!dados.posso_enviar && (
-            <p className="border-t border-rule bg-parchment-deep px-3 py-2 text-center text-xs text-ink-soft">
-              {dados.barrado === "chat_fechado"
-                ? `As conversas estão fechadas pela coordenação por enquanto.${dados.motivo_do_fechamento ? ` Motivo: ${dados.motivo_do_fechamento}` : ""} Ler pode; escrever, ainda não.`
-                : dados.barrado === "silenciado"
-                  ? "A coordenação silenciou a sua conta nas conversas por enquanto. Você lê, mas não escreve."
-                  : "Neste grupo, só os administradores mandam mensagem. Você ainda pode reagir e votar."}
-            </p>
-          )}
-          <form
-            className={`relative border-t border-rule bg-parchment-deep p-3 ${arrastando ? "outline outline-2 -outline-offset-4 outline-dashed outline-oxblood" : ""} ${dados.posso_enviar ? "" : "hidden"}`}
-            onSubmit={(e) => { e.preventDefault(); void enviar(); }}
-            onDragOver={(e) => { if (e.dataTransfer.types.includes("Files")) { e.preventDefault(); setArrastando(true); } }}
-            onDragLeave={() => setArrastando(false)}
-            onDrop={(e) => { e.preventDefault(); setArrastando(false); void anexar([...e.dataTransfer.files]); }}
-          >
-            <Preparados itens={preparados} mudar={setPreparados} />
-            {andamento && <p className="mb-2 text-xs text-ink-soft" aria-live="polite">{andamento}</p>}
-            {citando && (
-              <div className="mb-2 flex items-start gap-2 border-l-2 border-oxblood bg-parchment px-2 py-1 text-xs">
-                <span className="min-w-0 flex-1">
-                  <span className="block font-semibold">Respondendo a {citando.nome}</span>
-                  <span className="block truncate text-ink-soft">{citando.trecho}</span>
-                </span>
-                <button type="button" className={elo} aria-label="Cancelar a citação" onClick={() => setCitando(null)}>✕</button>
-              </div>
-            )}
-            {editando && (
-              <div className="mb-2 flex items-center gap-2 border-l-2 border-gold bg-parchment px-2 py-1 text-xs">
-                <span className="flex-1 font-semibold">Editando a mensagem (até 15 minutos depois de enviada)</span>
-                <button type="button" className={elo} onClick={() => { setEditando(null); setTexto(getItem(chaveDoRascunho(id))); }}>Cancelar</button>
-              </div>
-            )}
-            {sugestao && sugeridos.length > 0 && (
-              <ul role="listbox" aria-label="Mencionar alguém" className="absolute bottom-full left-3 z-10 mb-1 border-2 border-ink bg-parchment text-xs shadow">
-                {sugeridos.map((membro) => (
-                  <li key={membro.id}>
-                    <button type="button" role="option" aria-selected={false} className="block w-full cursor-pointer px-3 py-1.5 text-left hover:bg-parchment-deep" onMouseDown={(e) => { e.preventDefault(); mencionar(membro); }}>
-                      @{membro.nome}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-            <div className="flex items-end gap-2">
-              <textarea
-                ref={caixa}
-                value={texto}
-                onChange={(e) => aoDigitar(e.target.value, e.target.selectionStart ?? e.target.value.length)}
-                onBlur={() => { window.setTimeout(() => setSugestao(null), 150); avisarDigitando(""); }}
-                onPaste={(e) => { const arquivos = [...e.clipboardData.files]; if (arquivos.length) { e.preventDefault(); void anexar(arquivos); } }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    if (sugestao && sugeridos.length > 0) mencionar(sugeridos[0]);
-                    else void enviar();
-                  } else if (e.key === "Escape") {
-                    setSugestao(null);
-                    setReagindo(null);
-                    if (editando) { setEditando(null); setTexto(getItem(chaveDoRascunho(id))); }
-                  }
-                }}
-                rows={1}
-                maxLength={MAXIMO}
-                aria-label={`Mensagem para ${nome}`}
-                placeholder={preparados.length ? "Legenda (opcional)" : "Escreva uma mensagem (*negrito*, _itálico_, ~tachado~, `mono`, @nome)"}
-                className={`${campo} mt-0 max-h-32 min-h-[2.6rem] min-w-0 flex-1 resize-y bg-parchment`}
-              />
-              {!editando && (
-                <>
-                  <input ref={escolha} type="file" multiple accept="image/*,video/*,audio/*,.pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" className="hidden" onChange={(e) => { void anexar([...(e.target.files ?? [])]); e.target.value = ""; }} />
-                  <button type="button" className={`${botaoClaro} px-1.5 py-1.5 text-sm`} title="Anexar foto, vídeo, áudio, PDF ou DOCX (ou cole, ou arraste aqui)" aria-label="Anexar arquivo" disabled={ocupado} onClick={() => escolha.current?.click()}>📎</button>
-                  <button type="button" className={`${botaoClaro} px-1.5 py-1.5 text-sm`} title="Gravar áudio" aria-label="Gravar áudio" aria-pressed={gravando} disabled={ocupado} onClick={() => setGravando(!gravando)}>🎙</button>
-                  {dados.tipo !== "direta" && (
-                    <>
-                      <button type="button" className={`${botaoClaro} px-1.5 py-1.5 text-sm`} title="Enquete" aria-label="Criar enquete" disabled={ocupado} onClick={() => setCompondo("enquete")}>📊</button>
-                      <button type="button" className={`${botaoClaro} px-1.5 py-1.5 text-sm`} title="Evento" aria-label="Criar evento" disabled={ocupado} onClick={() => setCompondo("evento")}>📅</button>
-                    </>
-                  )}
-                </>
-              )}
-              <button type="submit" className={botao} disabled={ocupado || (!texto.trim() && preparados.length === 0)}>
-                {editando ? "Guardar" : ocupado && andamento ? "Enviando…" : "Enviar"}
-              </button>
+                );
+              })}
+              <div ref={fim} />
             </div>
-          </form>
-          {aviso && <Aviso texto={aviso} />}
-        </>
-      )}
-    </>
+            {encaminhando && <Encaminhar conversas={conversas.filter((item) => item.id !== id)} quantas={encaminhando.length} fechar={() => setEncaminhando(null)} enviar={(destinos) => void encaminhar(destinos)} />}
+            {galeria && (
+              <Galeria
+                conversa={id}
+                fechar={() => setGaleria(false)}
+                irPara={irPara}
+                itens={vistas.flatMap((vista): ItemDaGaleria[] => (vista.conteudo?.anexos ?? []).map((anexo) => ({ mensagem: vista.mensagem.id, anexo, estado: vista.mensagem.anexos.find((estado) => estado.id === anexo.id), autor: vista.mensagem.nome, minha: vista.mensagem.minha, quando: `${new Date(vista.mensagem.criado_em).toLocaleDateString(localDoPainel())} ${hora(vista.mensagem.criado_em)}` })))}
+              />
+            )}
+            {gravando && <Gravador aoGravar={(audio) => void enviar([audio])} aoAvisar={avisarDigitando} fechar={() => setGravando(false)} />}
+            {compondo === "enquete" && <NovaEnquete fechar={() => setCompondo(null)} criar={(enquete) => { setCompondo(null); void enviarConteudo({ texto: "", enquete }); }} />}
+            {compondo === "evento" && <NovoEvento fechar={() => setCompondo(null)} criar={(evento) => { setCompondo(null); void enviarConteudo({ texto: "", evento }); }} />}
+            {!dados.posso_enviar && (
+              <p className="mx-4 mb-4 rounded-lg bg-s-campo px-4 py-3 text-center text-sm text-s-suave">
+                {dados.barrado === "chat_fechado"
+                  ? `As conversas estão fechadas pela coordenação por enquanto.${dados.motivo_do_fechamento ? ` Motivo: ${dados.motivo_do_fechamento}` : ""} Ler pode; escrever, ainda não.`
+                  : dados.barrado === "silenciado"
+                    ? "A coordenação silenciou a sua conta nas conversas por enquanto. Você lê, mas não escreve."
+                    : "Neste grupo, só os administradores mandam mensagem. Você ainda pode reagir e votar."}
+              </p>
+            )}
+            <form
+              className={`relative shrink-0 px-4 pb-4 ${arrastando ? "outline outline-2 -outline-offset-4 outline-dashed outline-s-acento" : ""} ${dados.posso_enviar ? "" : "hidden"}`}
+              onSubmit={(e) => { e.preventDefault(); void enviar(); }}
+              onDragOver={(e) => { if (e.dataTransfer.types.includes("Files")) { e.preventDefault(); setArrastando(true); } }}
+              onDragLeave={() => setArrastando(false)}
+              onDrop={(e) => { e.preventDefault(); setArrastando(false); void anexar([...e.dataTransfer.files]); }}
+            >
+              <Preparados itens={preparados} mudar={setPreparados} />
+              {andamento && <p className="mb-2 text-xs text-s-suave" aria-live="polite">{andamento}</p>}
+              {citando && (
+                <div className="flex items-center gap-2 rounded-t-lg bg-s-lado px-3 py-2 text-xs">
+                  <span className="min-w-0 flex-1 truncate text-s-suave">Respondendo a <strong className="text-s-texto">{citando.nome}</strong> · {citando.trecho}</span>
+                  <button type="button" className="cursor-pointer text-s-mudo hover:text-s-texto" aria-label="Cancelar a resposta" onClick={() => setCitando(null)}>✕</button>
+                </div>
+              )}
+              {editando && (
+                <div className="flex items-center gap-2 rounded-t-lg bg-s-lado px-3 py-2 text-xs">
+                  <span className="flex-1 font-semibold">Editando a mensagem (até 15 minutos depois de enviada)</span>
+                  <button type="button" className="cursor-pointer text-s-mudo underline hover:text-s-texto" onClick={() => { setEditando(null); setTexto(getItem(chaveDoRascunho(id))); }}>Cancelar</button>
+                </div>
+              )}
+              {sugestao && sugeridos.length > 0 && (
+                <ul role="listbox" aria-label="Mencionar alguém" className="absolute bottom-full left-4 z-20 mb-1 w-64 rounded-md border border-s-linha bg-s-trilho p-1 text-sm shadow-2xl">
+                  {sugeridos.map((membro) => (
+                    <li key={membro.id}>
+                      <button type="button" role="option" aria-selected={false} className="flex w-full cursor-pointer items-center gap-2 rounded px-2 py-1.5 text-left hover:bg-[var(--s-ativo)]" onMouseDown={(e) => { e.preventDefault(); mencionar(membro); }}>
+                        <Avatar nome={membro.nome} avatar={membro.avatar} className="h-6 w-6 rounded-full" />@{membro.nome}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {maisAberto && !editando && (
+                <ul role="menu" className="absolute bottom-full left-4 z-20 mb-1 w-56 rounded-md border border-s-linha bg-s-trilho p-1.5 text-sm shadow-2xl">
+                  <li><button type="button" role="menuitem" className={itemDoMenu} onClick={() => { setMaisAberto(false); escolha.current?.click(); }}>Enviar arquivo</button></li>
+                  <li><button type="button" role="menuitem" className={itemDoMenu} onClick={() => { setMaisAberto(false); setGravando(true); }}>Gravar áudio</button></li>
+                  {emGrupo && <li><button type="button" role="menuitem" className={itemDoMenu} onClick={() => { setMaisAberto(false); setCompondo("enquete"); }}>Criar enquete</button></li>}
+                  {emGrupo && <li><button type="button" role="menuitem" className={itemDoMenu} onClick={() => { setMaisAberto(false); setCompondo("evento"); }}>Criar evento</button></li>}
+                </ul>
+              )}
+              <div className={`flex items-end gap-2 bg-s-campo px-3 py-2 ${citando || editando ? "rounded-b-lg" : "rounded-lg"}`}>
+                {!editando && (
+                  <>
+                    <input ref={escolha} type="file" multiple accept="image/*,video/*,audio/*,.pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" className="hidden" onChange={(e) => { void anexar([...(e.target.files ?? [])]); e.target.value = ""; }} />
+                    <button type="button" className="mb-0.5 flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-full bg-s-suave text-s-campo hover:bg-s-texto" title="Arquivo, áudio, enquete ou evento" aria-label="Anexar ou criar" aria-expanded={maisAberto} disabled={ocupado} onClick={() => setMaisAberto(!maisAberto)}>
+                      <IconeDaSala nome="mais" className="h-4 w-4" />
+                    </button>
+                  </>
+                )}
+                <textarea
+                  ref={caixa}
+                  value={texto}
+                  onChange={(e) => aoDigitar(e.target.value, e.target.selectionStart ?? e.target.value.length)}
+                  onBlur={() => { window.setTimeout(() => setSugestao(null), 150); avisarDigitando(""); }}
+                  onPaste={(e) => { const arquivos = [...e.clipboardData.files]; if (arquivos.length) { e.preventDefault(); void anexar(arquivos); } }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      if (sugestao && sugeridos.length > 0) mencionar(sugeridos[0]);
+                      else void enviar();
+                    } else if (e.key === "Escape") {
+                      setSugestao(null);
+                      setReagindo(null);
+                      setMaisAberto(false);
+                      if (editando) { setEditando(null); setTexto(getItem(chaveDoRascunho(id))); }
+                    }
+                  }}
+                  rows={1}
+                  maxLength={MAXIMO}
+                  aria-label={`Mensagem para ${nome}`}
+                  placeholder={preparados.length ? "Legenda (opcional)" : dados.tipo === "direta" ? `Conversar com @${nome}` : `Conversar em #${nome}`}
+                  className="max-h-40 min-h-6 min-w-0 flex-1 resize-none bg-transparent py-0.5 text-s-texto outline-none placeholder:text-s-mudo"
+                />
+                <button type="submit" className="mb-0.5 shrink-0 cursor-pointer rounded px-2 py-0.5 text-sm font-semibold text-s-acento-suave disabled:cursor-default disabled:opacity-30" disabled={ocupado || (!texto.trim() && preparados.length === 0)} aria-label={editando ? "Guardar" : "Enviar"}>
+                  {editando ? "Guardar" : ocupado && andamento ? "Enviando…" : "Enviar"}
+                </button>
+              </div>
+              <p className="mt-1 hidden text-[0.66rem] text-s-mudo sm:block">*negrito* · _itálico_ · ~tachado~ · `mono` · @nome · Enter envia, Shift+Enter quebra a linha · arraste ou cole arquivos</p>
+            </form>
+            {aviso && <p className="px-4 pb-2 text-sm text-s-acento-suave" role="status">{aviso}</p>}
+          </>
+        )}
+      </div>
+      {emGrupo && membrosAbertos && <MembrosDaSala membros={dados.membros} equipe={equipe} corDoNome={corDoNome} />}
+    </div>
   );
 }
 
-/** As ações de uma mensagem, à vista ao passar o mouse ou com o teclado: responder, reagir, encaminhar, fixar, favoritar, editar, apagar. */
-function Acoes({ vista, eu = false, favorita, fixada, editavel, citar, reagir, encaminhar, fixar, favoritar, editar, apagar }: {
+/** Quem está na conversa, como a lista de membros do Discord: por função, quem está por aqui primeiro, depois o resto. */
+function MembrosDaSala({ membros, equipe, corDoNome }: { membros: MembroDaConversa[]; equipe: Membro[]; corDoNome: (autor: string | null) => string }) {
+  const ordem: string[] = ["coordenacao", "vice", "supervisao", "curadoria", "educacao", "educacao_secundaria", "revisao", "traducao", "jornalismo", "design", "marketing", "mediacao", "mentoria", "desenvolvimento", "porta_voz", "representante", "saude"];
+  const funcaoDe = (id: string) => {
+    const funcoes = equipe.find((m) => m.id === id)?.papeis.map((p) => p.papel) ?? [];
+    return ordem.find((papel) => funcoes.includes(papel as never)) ?? "";
+  };
+  const online = membros.filter((m) => m.online !== false);
+  const longe = membros.filter((m) => m.online === false);
+  const grupos = new Map<string, MembroDaConversa[]>();
+  for (const m of online) {
+    const f = funcaoDe(m.id);
+    grupos.set(f, [...(grupos.get(f) ?? []), m]);
+  }
+  const blocos = [...grupos.entries()].sort((a, b) => (a[0] === "" ? 1 : b[0] === "" ? -1 : ordem.indexOf(a[0]) - ordem.indexOf(b[0])));
+  const linha = (m: MembroDaConversa, apagado = false) => (
+    <li key={m.id} className={`flex items-center gap-2.5 rounded px-2 py-1 hover:bg-[var(--s-hover)] ${apagado ? "opacity-45" : ""}`}>
+      <span className="relative shrink-0">
+        <Avatar nome={m.nome} avatar={m.avatar} className="h-8 w-8 rounded-full" />
+        {!apagado && m.online && <span className="absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full border-2 border-s-lado bg-s-ok" title="online" />}
+      </span>
+      <span className="min-w-0 flex-1 truncate text-sm" style={{ color: apagado ? undefined : corDoNome(m.id) }}>
+        {m.eu ? `${m.nome} (você)` : m.nome}
+        {m.admin && <span className="ml-1 text-[0.62rem] text-s-ouro" title="Administra o grupo">★</span>}
+      </span>
+    </li>
+  );
+  return (
+    <aside className="salas-rolagem hidden w-60 shrink-0 overflow-y-auto border-l border-s-linha bg-s-lado px-2 py-4 md:block" aria-label="Membros">
+      {blocos.map(([funcao, lista]) => (
+        <section key={funcao || "outros"} className="mb-4">
+          <h3 className="px-2 font-mono text-[0.66rem] font-semibold uppercase tracking-wider text-s-mudo">{funcao ? (papeis as Record<string, string>)[funcao] ?? funcao : "Por aqui"} — {lista.length}</h3>
+          <ul className="mt-1">{lista.map((m) => linha(m))}</ul>
+        </section>
+      ))}
+      {longe.length > 0 && (
+        <section>
+          <h3 className="px-2 font-mono text-[0.66rem] font-semibold uppercase tracking-wider text-s-mudo">Ausentes — {longe.length}</h3>
+          <ul className="mt-1">{longe.map((m) => linha(m, true))}</ul>
+        </section>
+      )}
+    </aside>
+  );
+}
+
+/** As ações de uma mensagem, numa barrinha que aparece ao passar o mouse (ou com o teclado), como no Discord. */
+function Acoes({ vista, favorita, fixada, editavel, citar, reagir, encaminhar, fixar, favoritar, editar, apagar }: {
   vista: Vista; eu?: boolean; me: Me; favorita: boolean; fixada: boolean; editavel: boolean;
   citar: () => void; reagir: () => void; encaminhar: () => void; fixar: (sim: boolean) => void; favoritar: (sim: boolean) => void; editar?: () => void; apagar?: () => void;
 }) {
   const pronta = Boolean(vista.conteudo);
-  const item = "cursor-pointer px-1 hover:text-oxblood";
+  const item = "flex h-8 w-8 cursor-pointer items-center justify-center text-s-suave hover:bg-[var(--s-ativo)] hover:text-s-texto disabled:opacity-40";
   return (
-    <span role="group" aria-label="Ações da mensagem" className={`mb-2 flex shrink-0 flex-wrap gap-0.5 text-xs text-ink-soft opacity-0 focus-within:opacity-100 group-hover:opacity-100 ${eu ? "justify-end" : ""}`}>
-      <button type="button" className={item} disabled={!pronta} title="Responder" aria-label="Responder" onClick={citar}>↩</button>
+    <span role="group" aria-label="Ações da mensagem" className="absolute -top-4 right-4 z-10 hidden overflow-hidden rounded-md border border-s-linha bg-s-lado text-sm shadow-lg group-hover:flex focus-within:flex">
       <button type="button" className={item} title="Reagir" aria-label="Reagir" onClick={reagir}>☺</button>
+      <button type="button" className={item} disabled={!pronta} title="Responder" aria-label="Responder" onClick={citar}>↩</button>
       <button type="button" className={item} disabled={!pronta} title="Encaminhar" aria-label="Encaminhar" onClick={encaminhar}>↪</button>
       <button type="button" className={item} title={fixada ? "Desafixar" : "Fixar"} aria-label={fixada ? "Desafixar" : "Fixar"} aria-pressed={fixada} onClick={() => fixar(!fixada)}>📌</button>
       <button type="button" className={item} title={favorita ? "Tirar das favoritas" : "Favoritar"} aria-label={favorita ? "Tirar das favoritas" : "Favoritar"} aria-pressed={favorita} onClick={() => favoritar(!favorita)}>{favorita ? "★" : "☆"}</button>
       {editavel && editar && <button type="button" className={item} disabled={!pronta} title="Editar" aria-label="Editar" onClick={editar}>✎</button>}
-      {apagar && <button type="button" className={item} title="Apagar para todos" aria-label="Apagar para todos" onClick={apagar}>🗑</button>}
+      {apagar && <button type="button" className={`${item} hover:text-s-acento`} title="Apagar para todos" aria-label="Apagar para todos" onClick={apagar}>🗑</button>}
     </span>
   );
 }
