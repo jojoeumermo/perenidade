@@ -2570,7 +2570,23 @@
       "reactants": "Reactivos",
       "products": "Productos",
       "note": "Ningún átomo desaparece ni aparece de la nada: en la reacción solo cambian de pareja (ley de Lavoisier). Por eso el recuento de cada lado es igual. Los colores siguen la convención de los modelos de bolas y varillas."
-    }
+    },
+    "findTool": "Buscar una herramienta",
+    "allGroups": "Todas",
+    "favorites": "Favoritas",
+    "recent": "Usadas por última vez",
+    "favorite": "Marcar como favorita",
+    "unfavorite": "Quitar de favoritas",
+    "focus": "Pantalla completa",
+    "related": "Herramientas parecidas",
+    "relatedLabs": "Laboratorios para ir más allá",
+    "noResults": "Ninguna herramienta con ese nombre.",
+    "labsTitle": "Laboratorios",
+    "labsText": "Cuando la herramienta no alcanza: bancos completos para armar, medir, programar y simular.",
+    "countTools": "{n} herramientas",
+    "copyLink": "Copiar enlace",
+    "linkCopied": "Enlace copiado",
+    "localNote": "Las favoritas y las últimas usadas quedan solo en este dispositivo."
   },
   "journal": {
     "eyebrow": "Prensa popular",
