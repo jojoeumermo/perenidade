@@ -73,6 +73,10 @@ Os cursos e as aulas citam programas, linguagens, empresas e serviços (como Pyt
 
 A seção [Saúde Solidária](/saude) funciona como um mural de contatos de profissionais de saúde voluntários que autorizaram aparecer no site. O instituto não presta serviços de saúde, não intermedeia atendimentos ou pagamentos, não recomenda profissionais e não garante a qualidade, a disponibilidade ou o resultado de qualquer atendimento. A relação é só entre você e o profissional, que responde pelos próprios atos e pelo conteúdo do próprio perfil. O instituto confere o registro profissional no conselho na data indicada em cada cartão, mas não acompanha a situação do profissional de forma contínua. A seção não é serviço de emergência. Confira o registro no site do conselho antes de começar o atendimento e denuncie irregularidades pelo e-mail de contato.
 
+## Cantinho da Lua (área infantil)
+
+RASCUNHO, REVISÃO JURÍDICA PENDENTE. O [Cantinho da Lua](/criancas) é a área para crianças de 4 a 12 anos. Ela não tem conta, comentário, chat, anúncio nem links para fora sem o portão de adulto, e não substitui a escola nem faz diagnóstico. O adulto responsável acompanha o uso; as orientações estão em [Cantinho da Lua: para os adultos](/criancas/adultos).
+
 ## Links para fora
 
 O site aponta para bibliotecas, arquivos, rádios e páginas de terceiros. O instituto não controla esses lugares e não responde pelo conteúdo nem pela política de privacidade deles.

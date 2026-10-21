@@ -27,6 +27,19 @@ export interface Rota {
   via: string;
 }
 
+/** Os serviços de um servidor: DHCP (entrega endereços), DNS (nomes) e um site (HTTP). */
+export interface Servicos {
+  dhcp: { ligado: boolean; inicio: string; quantidade: number; mascara: string; gateway: string; dns: string };
+  dns: { ligado: boolean; registros: { nome: string; ip: string }[] };
+  http: { ligado: boolean; titulo: string; texto: string };
+}
+
+export const servicosPadrao = (): Servicos => ({
+  dhcp: { ligado: false, inicio: "", quantidade: 50, mascara: "255.255.255.0", gateway: "", dns: "" },
+  dns: { ligado: false, registros: [] },
+  http: { ligado: true, titulo: "Página do servidor", texto: "Funcionou! Esta página veio do servidor pela rede que você montou." },
+});
+
 export interface Dispositivo {
   id: string;
   tipo: TipoDeDispositivo;
@@ -41,6 +54,10 @@ export interface Dispositivo {
   rotas: Rota[];
   /** Switches: VLANs criadas (1 sempre existe). */
   vlans: { id: number; nome: string }[];
+  /** Hosts: pegar o endereço por DHCP em vez de fixo. */
+  dhcp: boolean;
+  /** Só servidores: DHCP, DNS e HTTP. */
+  servicos?: Servicos;
 }
 
 export interface Cabo {
@@ -118,6 +135,8 @@ export function novoDispositivo(tipo: TipoDeDispositivo, n: number, x: number, y
     dns: "",
     rotas: [],
     vlans: [{ id: 1, nome: "default" }],
+    dhcp: false,
+    ...(tipo === "servidor" ? { servicos: servicosPadrao() } : {}),
   };
 }
 
@@ -139,6 +158,16 @@ export function validarTopologia(dados: unknown): Topologia {
     base.dns = texto(o.dns, 15);
     base.rotas = (Array.isArray(o.rotas) ? o.rotas : []).slice(0, 30).map((r) => ({ rede: texto((r as Rota).rede, 15), mascara: texto((r as Rota).mascara, 15), via: texto((r as Rota).via, 15) }));
     base.vlans = (Array.isArray(o.vlans) ? o.vlans : [{ id: 1, nome: "default" }]).slice(0, 50).map((v) => ({ id: Math.min(4094, Math.max(1, Number((v as { id: number }).id) || 1)), nome: texto((v as { nome: string }).nome, 20) || "vlan" }));
+    base.dhcp = o.dhcp === true && tipo !== "switch" && tipo !== "roteador";
+    if (tipo === "servidor") {
+      const sv = (o.servicos ?? {}) as Partial<Servicos>;
+      const pad = servicosPadrao();
+      base.servicos = {
+        dhcp: { ligado: sv.dhcp?.ligado === true, inicio: texto(sv.dhcp?.inicio, 15), quantidade: Math.min(250, Math.max(1, Number(sv.dhcp?.quantidade) || pad.dhcp.quantidade)), mascara: texto(sv.dhcp?.mascara, 15) || pad.dhcp.mascara, gateway: texto(sv.dhcp?.gateway, 15), dns: texto(sv.dhcp?.dns, 15) },
+        dns: { ligado: sv.dns?.ligado === true, registros: (Array.isArray(sv.dns?.registros) ? sv.dns.registros : []).slice(0, 30).map((r) => ({ nome: texto(r?.nome, 60).toLowerCase(), ip: texto(r?.ip, 15) })).filter((r) => r.nome) },
+        http: { ligado: sv.http?.ligado !== false, titulo: texto(sv.http?.titulo, 80) || pad.http.titulo, texto: texto(sv.http?.texto, 1000) || pad.http.texto },
+      };
+    }
     const portas = Array.isArray(o.portas) ? o.portas : [];
     base.portas = base.portas.map((p) => {
       const q = portas.find((x) => (x as Porta).nome === p.nome) as Partial<Porta> | undefined;
@@ -390,9 +419,114 @@ export function traceroute(t: Topologia, estado: Estado, origemId: string, desti
   return { saltos, resultado: { sucesso: false, resumo: "Mais de 15 saltos.", eventos: [] } };
 }
 
+// ───────────── Serviços: DHCP, DNS e HTTP ─────────────
+
+/** O endereço que o servidor DHCP daria agora: o primeiro do intervalo que ninguém na topologia usa. */
+function proximoLivre(t: Topologia, sv: Servicos["dhcp"], pedinte: Dispositivo): string | null {
+  if (!ipValido(sv.inicio)) return null;
+  const usados = new Set(t.dispositivos.filter((d) => d.id !== pedinte.id).flatMap((d) => d.portas.map((p) => p.ip)).filter(Boolean));
+  const base = ipParaNumero(sv.inicio);
+  for (let i = 0; i < sv.quantidade; i++) {
+    const ip = numeroParaIp((base + i) >>> 0);
+    if (!usados.has(ip)) return ip;
+  }
+  return null;
+}
+
+/**
+ * DHCP: o host grita (broadcast) "alguém me dá um endereço?" (DISCOVER); o servidor da mesma rede local oferece
+ * (OFFER); o host aceita (REQUEST) e o servidor confirma (ACK). O broadcast não atravessa roteador. Devolve os eventos
+ * e a configuração que o host recebe (quem chama aplica).
+ */
+export function pedirDhcp(t: Topologia, estado: Estado, hostId: string): Resultado & { config?: { ip: string; mascara: string; gateway: string; dns: string } } {
+  const eventos: Evento[] = [];
+  const host = dispositivo(t, hostId);
+  if (!host || !ehHost(host)) return { sucesso: false, resumo: "Só PC, notebook e servidor pedem endereço por DHCP.", eventos };
+  const eth = host.portas[0];
+  const meuMac = macDe(host, eth.nome);
+  const pacote = { origemMac: meuMac, destinoMac: "FF:FF:FF:FF:FF:FF", origemIp: "0.0.0.0", destinoIp: "255.255.255.255", protocolo: "DHCP" };
+  eventos.push({ texto: `${host.nome} ainda não tem endereço e grita na rede local (DHCP DISCOVER, broadcast): algum servidor DHCP aí?`, de: host.id, para: host.id, camada: 7, pacote });
+  const chegadas = entregarQuadro(t, estado, host, eth, "broadcast", meuMac, eventos, pacote);
+  const servidor = chegadas.find((c) => c.dispositivo.servicos?.dhcp.ligado);
+  if (!servidor) {
+    const msg = `Nenhum servidor DHCP respondeu na rede local de ${host.nome}. (O DHCP está ligado no servidor? Está na mesma rede, sem roteador no meio?)`;
+    eventos.push({ texto: msg, de: host.id, para: host.id, camada: 7, erro: true });
+    return { sucesso: false, resumo: msg, eventos };
+  }
+  const sv = servidor.dispositivo.servicos!.dhcp;
+  const ip = proximoLivre(t, sv, host);
+  if (!ip || !mascaraValida(sv.mascara)) {
+    const msg = `${servidor.dispositivo.nome} tem o DHCP ligado, mas sem endereço livre (confira o início do intervalo, a quantidade e a máscara).`;
+    eventos.push({ texto: msg, de: servidor.dispositivo.id, para: servidor.dispositivo.id, camada: 7, erro: true });
+    return { sucesso: false, resumo: msg, eventos };
+  }
+  const ipServidor = servidor.porta.ip;
+  eventos.push({ texto: `${servidor.dispositivo.nome} oferece (DHCP OFFER): ${ip}/${prefixo(sv.mascara)}, gateway ${sv.gateway || "nenhum"}, DNS ${sv.dns || "nenhum"}.`, de: servidor.dispositivo.id, para: host.id, camada: 7, pacote: { origemIp: ipServidor, destinoIp: ip, protocolo: "DHCP" } });
+  eventos.push({ texto: `${host.nome} aceita a oferta (DHCP REQUEST).`, de: host.id, para: servidor.dispositivo.id, camada: 7, pacote: { origemIp: "0.0.0.0", destinoIp: "255.255.255.255", protocolo: "DHCP" } });
+  eventos.push({ texto: `${servidor.dispositivo.nome} confirma (DHCP ACK): o endereço ${ip} é de ${host.nome}.`, de: servidor.dispositivo.id, para: host.id, camada: 7, pacote: { origemIp: ipServidor, destinoIp: ip, protocolo: "DHCP" } });
+  return { sucesso: true, resumo: `${host.nome} recebeu ${ip} por DHCP.`, eventos, config: { ip, mascara: sv.mascara, gateway: sv.gateway, dns: sv.dns } };
+}
+
+/** DNS: pergunta ao servidor DNS configurado no host qual é o IP do nome. Viaja pela rede como um pacote de verdade. */
+export function resolverNome(t: Topologia, estado: Estado, hostId: string, nome: string): Resultado & { ip?: string } {
+  const eventos: Evento[] = [];
+  const host = dispositivo(t, hostId);
+  if (!host) return { sucesso: false, resumo: "Dispositivo não encontrado.", eventos };
+  const alvo = nome.trim().toLowerCase();
+  if (ipValido(alvo)) return { sucesso: true, resumo: alvo, eventos, ip: alvo };
+  if (!ipValido(host.dns)) {
+    const msg = `${host.nome} não tem servidor DNS configurado: não sabe a quem perguntar o endereço de "${alvo}".`;
+    eventos.push({ texto: msg, de: host.id, para: host.id, camada: 7, erro: true });
+    return { sucesso: false, resumo: msg, eventos };
+  }
+  eventos.push({ texto: `${host.nome} pergunta ao DNS ${host.dns}: qual o endereço de "${alvo}"?`, de: host.id, para: host.id, camada: 7, pacote: { origemIp: interfacesIp(host)[0]?.ip, destinoIp: host.dns, protocolo: "DNS" } });
+  const ida = caminhar(t, estado, host, host.dns, 64, eventos, "DNS");
+  if (!ida.ok) return { sucesso: false, resumo: `A pergunta ao DNS não chegou: ${ida.resumo}`, eventos };
+  const sv = ida.destino!.servicos?.dns;
+  if (!sv?.ligado) {
+    const msg = `${ida.destino!.nome} recebeu a pergunta, mas o serviço DNS dele está desligado.`;
+    eventos.push({ texto: msg, de: ida.destino!.id, para: ida.destino!.id, camada: 7, erro: true });
+    return { sucesso: false, resumo: msg, eventos };
+  }
+  const registro = sv.registros.find((r) => r.nome === alvo);
+  const meuIp = interfacesIp(host)[0]?.ip ?? "";
+  const volta = caminhar(t, estado, ida.destino!, meuIp, 64, eventos, "DNS");
+  if (!volta.ok) return { sucesso: false, resumo: `A resposta do DNS não voltou: ${volta.resumo}`, eventos };
+  if (!registro || !ipValido(registro.ip)) {
+    const msg = `O DNS respondeu: "${alvo}" não existe (NXDOMAIN).`;
+    eventos.push({ texto: msg, de: host.id, para: host.id, camada: 7, erro: true });
+    return { sucesso: false, resumo: msg, eventos };
+  }
+  eventos.push({ texto: `O DNS respondeu: "${alvo}" é ${registro.ip}.`, de: host.id, para: host.id, camada: 7, pacote: { origemIp: host.dns, destinoIp: meuIp, protocolo: "DNS" } });
+  return { sucesso: true, resumo: registro.ip, eventos, ip: registro.ip };
+}
+
+/** O navegador do PC: resolve o nome (DNS), pede a página (HTTP GET) e recebe a resposta (HTTP 200). */
+export function navegar(t: Topologia, estado: Estado, hostId: string, endereco: string): Resultado & { pagina?: { titulo: string; texto: string; servidor: string } } {
+  const nome = endereco.trim().replace(/^https?:\/\//i, "").split("/")[0];
+  if (!nome) return { sucesso: false, resumo: "Digite um endereço.", eventos: [] };
+  const dns = resolverNome(t, estado, hostId, nome);
+  if (!dns.sucesso || !dns.ip) return { ...dns, sucesso: false };
+  const eventos = [...dns.eventos];
+  const host = dispositivo(t, hostId)!;
+  eventos.push({ texto: `${host.nome} abre conexão com ${dns.ip} na porta 80 e pede a página (HTTP GET /).`, de: host.id, para: host.id, camada: 7, pacote: { origemIp: interfacesIp(host)[0]?.ip, destinoIp: dns.ip, protocolo: "HTTP" } });
+  const ida = caminhar(t, estado, host, dns.ip, 64, eventos, "HTTP");
+  if (!ida.ok) return { sucesso: false, resumo: `O pedido não chegou ao servidor: ${ida.resumo}`, eventos };
+  const sv = ida.destino!.servicos?.http;
+  if (!sv?.ligado) {
+    const msg = `${ida.destino!.nome} recusou a conexão: não há site ligado nele (HTTP desligado).`;
+    eventos.push({ texto: msg, de: ida.destino!.id, para: ida.destino!.id, camada: 7, erro: true });
+    return { sucesso: false, resumo: msg, eventos };
+  }
+  const volta = caminhar(t, estado, ida.destino!, interfacesIp(host)[0]?.ip ?? "", 64, eventos, "HTTP");
+  if (!volta.ok) return { sucesso: false, resumo: `A página não voltou: ${volta.resumo}`, eventos };
+  eventos.push({ texto: `${ida.destino!.nome} respondeu (HTTP 200 OK) e o navegador mostra a página.`, de: host.id, para: host.id, camada: 7, pacote: { origemIp: dns.ip, destinoIp: interfacesIp(host)[0]?.ip, protocolo: "HTTP" } });
+  return { sucesso: true, resumo: `HTTP 200: "${sv.titulo}"`, eventos, pagina: { titulo: sv.titulo, texto: sv.texto, servidor: ida.destino!.nome } };
+}
+
 // ───────────── Terminal dos hosts ─────────────
 
-export function comandoDeHost(t: Topologia, estado: Estado, d: Dispositivo, linha: string): { saida: string; resultado?: Resultado } {
+export function comandoDeHost(t: Topologia, estado: Estado, d: Dispositivo, linha: string): { saida: string; resultado?: Resultado; aplicar?: { ip: string; mascara: string; gateway: string; dns: string } } {
   const [cmd, ...args] = linha.trim().split(/\s+/);
   const eth = d.portas[0];
   switch ((cmd ?? "").toLowerCase()) {
@@ -400,14 +534,29 @@ export function comandoDeHost(t: Topologia, estado: Estado, d: Dispositivo, linh
       return { saida: "" };
     case "help":
     case "?":
-      return { saida: "Comandos: ipconfig, ping <ip>, traceroute <ip> (ou tracert), arp -a, help" };
+      return { saida: "Comandos: ipconfig, ipconfig /renew (DHCP), ping <ip ou nome>, traceroute <ip> (ou tracert), nslookup <nome>, arp -a, help" };
     case "ipconfig":
     case "ifconfig":
+      if ((args[0] ?? "").toLowerCase() === "/renew") {
+        const r = pedirDhcp(t, estado, d.id);
+        return { saida: r.sucesso && r.config ? `Renovando por DHCP...\n  Endereço IPv4. . . : ${r.config.ip}\n  Máscara de sub-rede: ${r.config.mascara}\n  Gateway padrão . . : ${r.config.gateway || "(nenhum)"}\n  Servidor DNS . . . : ${r.config.dns || "(nenhum)"}` : `Falha no DHCP: ${r.resumo}`, resultado: r, aplicar: r.config };
+      }
       return { saida: `Interface ${eth.nome}\n  Endereço MAC . . . : ${macDe(d, eth.nome)}\n  Endereço IPv4. . . : ${eth.ip || "(não configurado)"}\n  Máscara de sub-rede: ${eth.mascara || "(não configurada)"}\n  Gateway padrão . . : ${d.gateway || "(nenhum)"}\n  Servidor DNS . . . : ${d.dns || "(nenhum)"}\n  Estado . . . . . . : ${vizinho(t, d.id, eth.nome) ? "conectado" : "cabo desconectado"}` };
     case "arp":
       return { saida: Object.entries(estado.arp[d.id] ?? {}).map(([ip, mac]) => `  ${ip.padEnd(16)} ${mac}`).join("\n") || "  (tabela ARP vazia)" };
+    case "nslookup": {
+      if (!args[0]) return { saida: "uso: nslookup <nome>" };
+      const r = resolverNome(t, estado, d.id, args[0]);
+      return { saida: r.sucesso ? `Servidor: ${d.dns}\nNome: ${args[0]}\nEndereço: ${r.ip}` : r.resumo, resultado: r };
+    }
     case "ping": {
       if (!args[0]) return { saida: "uso: ping <ip>" };
+      if (!ipValido(args[0])) {
+        const nome = resolverNome(t, estado, d.id, args[0]);
+        if (!nome.sucesso || !nome.ip) return { saida: `A solicitação ping não encontrou o host ${args[0]}. ${nome.resumo}`, resultado: nome };
+        const r = ping(t, estado, d.id, nome.ip);
+        return { saida: `Disparando ${args[0]} [${nome.ip}]:\n${r.resumo}`, resultado: { ...r, eventos: [...nome.eventos, ...r.eventos] } };
+      }
       const r = ping(t, estado, d.id, args[0]);
       return { saida: r.sucesso ? `Disparando ${args[0]} com 32 bytes de dados:\n${r.resumo}\n${r.resumo}\n${r.resumo}\n${r.resumo}\nPacotes: enviados = 4, recebidos = 4, perdidos = 0 (0% de perda)` : `Disparando ${args[0]}:\n${r.resumo}\nPacotes: enviados = 4, recebidos = 0, perdidos = 4 (100% de perda)`, resultado: r };
     }
@@ -418,7 +567,7 @@ export function comandoDeHost(t: Topologia, estado: Estado, d: Dispositivo, linh
       return { saida: `Rastreando a rota para ${args[0]}:\n${saltos.join("\n")}`, resultado };
     }
     default:
-      return { saida: `'${cmd}' não é reconhecido. Comandos: ipconfig, ping, traceroute, arp -a.` };
+      return { saida: `'${cmd}' não é reconhecido. Comandos: ipconfig, ipconfig /renew, ping, traceroute, nslookup, arp -a.` };
   }
 }
 
@@ -588,6 +737,8 @@ export function comandoDeIos(t: Topologia, estado: Estado, d: Dispositivo, s: Se
 
 export type Verificacao =
   | { tipo: "ping"; de: string; para: string; deve: boolean; texto: string }
+  | { tipo: "dhcp"; dispositivo: string; texto: string }
+  | { tipo: "web"; de: string; endereco: string; texto: string }
   | { tipo: "vlan"; dispositivo: string; porta: string; vlan: number; texto: string }
   | { tipo: "rota"; dispositivo: string; rede: string; texto: string };
 
@@ -613,6 +764,18 @@ export function verificar(t: Topologia, ex: ExercicioDeRede): { verificacao: Ver
       if (!de || !ipDestino) return { verificacao: v, passou: !v.deve, detalhe: de ? `${v.para} sem IP` : `${v.de} não existe` };
       const r = ping(t, estadoNovo(), de.id, ipDestino);
       return { verificacao: v, passou: r.sucesso === v.deve, detalhe: r.resumo };
+    }
+    if (v.tipo === "dhcp") {
+      const d = porNome(v.dispositivo);
+      if (!d) return { verificacao: v, passou: false, detalhe: `${v.dispositivo} não existe` };
+      const r = pedirDhcp(t, estadoNovo(), d.id);
+      return { verificacao: v, passou: d.dhcp && r.sucesso && r.config?.ip === d.portas[0].ip, detalhe: !d.dhcp ? `${d.nome} está com endereço fixo` : r.resumo };
+    }
+    if (v.tipo === "web") {
+      const d = porNome(v.de);
+      if (!d) return { verificacao: v, passou: false, detalhe: `${v.de} não existe` };
+      const r = navegar(t, estadoNovo(), d.id, v.endereco);
+      return { verificacao: v, passou: r.sucesso, detalhe: r.resumo };
     }
     if (v.tipo === "vlan") {
       const d = porNome(v.dispositivo);
