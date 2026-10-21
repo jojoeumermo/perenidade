@@ -43,6 +43,28 @@ confere("areas.ts sem a disciplina e ainda válido", !depois.slugs.has("cooperat
 confere("dicionário sem a entrada e válido", !("cooperativismo" in JSON.parse(fs.readFileSync(path.join(raiz, "i18n/pt.json"), "utf8")).areas));
 r = aplicarTodas(raiz, [{ id: "8", tipo: "editar_disciplina", dados: { slug: "matematica", nomes: { en: "Mathematics (renamed)" } } }]);
 confere("nome de disciplina editado num idioma", r.ids.length === 1 && JSON.parse(fs.readFileSync(path.join(raiz, "i18n/en.json"), "utf8")).areas.matematica[0] === "Mathematics (renamed)");
+// Segunda leva: disciplina removida levando as trilhas para outra, trilha com aulas arquivada e citação que impede.
+r = aplicarTodas(raiz, [
+  { id: "9", tipo: "disciplina", dados: { slug: "hortas", grupo: "lutas", etapas: ["medio"], nomes: { pt: "Hortas" } } },
+  { id: "10", tipo: "trilha", dados: { slug: "horta-em-casa", disciplina: "hortas", titulo: "Horta em casa", etapa: "medio", aulas: ["Sol e água"] } },
+  { id: "11", tipo: "trilha", dados: { slug: "compostagem", disciplina: "hortas", titulo: "Compostagem", etapa: "medio", aulas: ["Minhocas"] } },
+]);
+confere("disciplina e duas trilhas criadas", r.ids.length === 3, JSON.stringify(r.falhas));
+fs.writeFileSync(path.join(raiz, "content/trilhas/horta-em-casa/sol-e-agua.md"), "---\ntitulo: Sol e água\n---\nTexto.\n");
+fs.mkdirSync(path.join(raiz, "content/exercicios/horta-em-casa"), { recursive: true });
+fs.writeFileSync(path.join(raiz, "content/exercicios/horta-em-casa/ex.json"), "{}");
+r = aplicarTodas(raiz, [{ id: "12", tipo: "remover_disciplina", dados: { slug: "hortas", destino: "biologia" } }]);
+confere("disciplina removida, trilhas vão para a de destino", r.ids.length === 1 && /^area: biologia$/m.test(fs.readFileSync(path.join(raiz, "content/trilhas/compostagem/_trilha.md"), "utf8")) && !lerAreas(raiz).slugs.has("hortas"), JSON.stringify(r.falhas));
+fs.mkdirSync(path.join(raiz, "content/paginas"), { recursive: true });
+fs.writeFileSync(path.join(raiz, "content/paginas/guia.md"), "Veja [a trilha](/trilhas/compostagem/minhocas).\n");
+r = aplicarTodas(raiz, [{ id: "13", tipo: "arquivar_trilha", dados: { slug: "compostagem" } }]);
+confere("trilha citada não é arquivada (diz onde)", Object.keys(r.falhas).length === 1 && /content\/paginas\/guia\.md/.test(r.falhas["13"]), JSON.stringify(r.falhas));
+r = aplicarTodas(raiz, [{ id: "14", tipo: "arquivar_trilha", dados: { slug: "horta-em-casa" } }]);
+confere("trilha com aula escrita vai para o arquivo, com os exercícios", r.ids.length === 1 && fs.existsSync(path.join(raiz, "content/arquivo/trilhas/horta-em-casa/sol-e-agua.md")) && fs.existsSync(path.join(raiz, "content/arquivo/exercicios/horta-em-casa/ex.json")) && !fs.existsSync(path.join(raiz, "content/trilhas/horta-em-casa")), JSON.stringify(r.falhas));
+r = aplicarTodas(raiz, [{ id: "15", tipo: "disciplina", dados: { slug: "pomares", grupo: "lutas", etapas: ["medio"], nomes: { pt: "Pomares" } } }, { id: "16", tipo: "trilha", dados: { slug: "frutas", disciplina: "pomares", titulo: "Frutas", etapa: "medio", aulas: ["Mudas"] } }, { id: "17", tipo: "remover_disciplina", dados: { slug: "pomares" } }]);
+confere("sem destino nem arquivo, a disciplina com trilha fica", r.ids.length === 2 && /escolha para onde/.test(r.falhas["17"] ?? ""), JSON.stringify(r.falhas));
+r = aplicarTodas(raiz, [{ id: "18", tipo: "remover_disciplina", dados: { slug: "pomares", arquivar: true } }]);
+confere("disciplina removida arquivando as trilhas", r.ids.length === 1 && fs.existsSync(path.join(raiz, "content/arquivo/trilhas/frutas/_trilha.md")) && !lerAreas(raiz).slugs.has("pomares"), JSON.stringify(r.falhas));
 fs.rmSync(raiz, { recursive: true, force: true });
 console.log(`currículo: ${certos} conferências certas, ${falhas.length} falhas`);
 for (const f of falhas) console.log(`  ✗ ${f}`);

@@ -13,6 +13,62 @@ const slugOk = (s) => /^[a-z0-9][a-z0-9-]{1,59}$/.test(String(s ?? ""));
 const linha = (v, max) => String(v ?? "").replace(/[\u0000-\u001f\u007f\u2028\u2029]/g, " ").replace(/\s+/g, " ").trim().slice(0, max);
 const slugDe = (t) => linha(t, 80).normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
+/** As trilhas de uma disciplina (as pastas de content/trilhas cujo _trilha.md diz "area: <disciplina>"). */
+function trilhasDa(raiz, disciplina) {
+  const base = path.join(raiz, "content/trilhas");
+  if (!fs.existsSync(base)) return [];
+  return fs.readdirSync(base).filter((p) => {
+    const f = path.join(base, p, "_trilha.md");
+    return fs.existsSync(f) && new RegExp(`^area: ${disciplina}\\s*$`, "m").test(fs.readFileSync(f, "utf8"));
+  });
+}
+
+/**
+ * Onde mais a trilha é citada, fora das pastas dela: links /trilhas/<slug> no conteúdo e o slug escrito no código do
+ * site (lib/, app/). Arquivar uma trilha citada quebraria o build e travaria a publicação de todo mundo; por isso a
+ * aplicação recusa e diz onde está a citação.
+ */
+function citacoes(raiz, slug) {
+  const proprias = new Set([path.join(raiz, "content/trilhas", slug), path.join(raiz, "content/exercicios", slug), path.join(raiz, "content/arquivo")]);
+  const achadas = [];
+  const andar = (dir, extensoes, teste) => {
+    if (!fs.existsSync(dir)) return;
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      const c = path.join(dir, e.name);
+      if (e.isDirectory()) {
+        if (!proprias.has(c) && e.name !== "node_modules") andar(c, extensoes, teste);
+      } else if (extensoes.test(e.name) && teste(fs.readFileSync(c, "utf8")) && path.basename(c) !== `${slug}.yml`) achadas.push(path.relative(raiz, c).replaceAll("\\", "/"));
+      if (achadas.length >= 5) return;
+    }
+  };
+  andar(path.join(raiz, "content"), /\.(md|json|ya?ml)$/, (t) => t.includes(`/trilhas/${slug}/`) || t.includes(`/trilhas/${slug})`) || t.includes(`/trilhas/${slug}"`));
+  for (const pasta of ["lib", "app"]) andar(path.join(raiz, pasta), /\.(ts|tsx)$/, (t) => t.includes(`"${slug}"`));
+  return achadas;
+}
+
+/** Leva a trilha (aulas, roteiro, exercícios e mapa curricular) para content/arquivo: sai do site, nada se perde. */
+function arquivarTrilha(raiz, slug, tocados) {
+  const origem = path.join(raiz, "content/trilhas", slug);
+  if (!fs.existsSync(path.join(origem, "_trilha.md"))) throw new Error(`a trilha ${slug} não existe`);
+  const onde = citacoes(raiz, slug);
+  if (onde.length) throw new Error(`a trilha ${slug} é citada em ${onde.join(", ")}: tire as citações antes de arquivar`);
+  const quando = new Date().toISOString().slice(0, 10).replaceAll("-", "");
+  const destino = (pasta, nome) => {
+    const alvo = path.join(raiz, "content/arquivo", pasta, nome);
+    return fs.existsSync(alvo) ? path.join(raiz, "content/arquivo", pasta, `${nome.replace(/\.yml$/, "")}-${quando}${nome.endsWith(".yml") ? ".yml" : ""}`) : alvo;
+  };
+  const mover = (de, pasta, nome) => {
+    if (!fs.existsSync(de)) return;
+    const para = destino(pasta, nome);
+    fs.mkdirSync(path.dirname(para), { recursive: true });
+    fs.renameSync(de, para);
+    tocados.push(`${path.relative(raiz, de).replaceAll("\\", "/")} → ${path.relative(raiz, para).replaceAll("\\", "/")}`);
+  };
+  mover(origem, "trilhas", slug);
+  mover(path.join(raiz, "content/exercicios", slug), "exercicios", slug);
+  mover(path.join(raiz, "content/curriculo", `${slug}.yml`), "curriculo", `${slug}.yml`);
+}
+
 export function lerAreas(raiz) {
   const texto = fs.readFileSync(path.join(raiz, "lib/areas.ts"), "utf8");
   const grupos = [...texto.matchAll(/id: "([a-z]+)",\s*areas: \[([^\]]*)\]/g)].map((m) => ({ id: m[1], areas: [...m[2].matchAll(/"([a-z0-9-]+)"/g)].map((x) => x[1]) }));
@@ -72,8 +128,23 @@ export function aplicar(raiz, proposta) {
   }
   if (proposta.tipo === "remover_disciplina") {
     if (!slugs.has(slug)) throw new Error(`a disciplina ${slug} não existe`);
-    const pastas = fs.readdirSync(path.join(raiz, "content/trilhas")).filter((p) => { const f = path.join(raiz, "content/trilhas", p, "_trilha.md"); return fs.existsSync(f) && new RegExp(`^area: ${slug}\\s*$`, "m").test(fs.readFileSync(f, "utf8")); });
-    if (pastas.length) throw new Error(`a disciplina ainda tem trilhas (${pastas.join(", ")}): remova ou mova as trilhas antes`);
+    const pastas = trilhasDa(raiz, slug);
+    // As trilhas vão junto para outra disciplina ("destino") ou para o arquivo ("arquivar"); sem nenhum dos dois, fica.
+    if (pastas.length && d.destino) {
+      const destino = String(d.destino);
+      if (destino === slug || !slugs.has(destino)) throw new Error(`disciplina de destino inválida: ${destino}`);
+      for (const p of pastas) {
+        const f = path.join(raiz, "content/trilhas", p, "_trilha.md");
+        escrever(f, fs.readFileSync(f, "utf8").replace(/^area: .*$/m, `area: ${destino}`));
+      }
+    } else if (pastas.length && d.arquivar === true) {
+      // Confere todas antes de mover a primeira: ou arquiva tudo, ou nada.
+      for (const p of pastas) {
+        const onde = citacoes(raiz, p);
+        if (onde.length) throw new Error(`a trilha ${p} é citada em ${onde.join(", ")}: tire as citações antes de arquivar`);
+      }
+      for (const p of pastas) arquivarTrilha(raiz, p, tocados);
+    } else if (pastas.length) throw new Error(`a disciplina ainda tem trilhas (${pastas.join(", ")}): escolha para onde elas vão ou arquive-as`);
     let novo = areas.replace(new RegExp(`\\s*"${slug}",?`, "g"), (m) => (m.trim().endsWith(",") ? "" : ""));
     // Vírgula pendente antes de "]" e espaços duplos.
     novo = novo.replace(/,(\s*\])/g, "$1").replace(/\[\s*,/g, "[");
@@ -144,6 +215,10 @@ export function aplicar(raiz, proposta) {
     if (escritas.length) throw new Error(`a trilha tem ${escritas.length} aula(s) escrita(s): mova-as antes de remover`);
     fs.rmSync(pasta, { recursive: true });
     tocados.push(`content/trilhas/${slug}/ (removida)`);
+    return tocados;
+  }
+  if (proposta.tipo === "arquivar_trilha") {
+    arquivarTrilha(raiz, slug, tocados);
     return tocados;
   }
   throw new Error(`tipo desconhecido: ${proposta.tipo}`);
