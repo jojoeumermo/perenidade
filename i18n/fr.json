@@ -1680,6 +1680,58 @@
     "reacoes": [
       "Réactions avec des atomes",
       "Regardez les atomes changer de partenaire dans une réaction : rien ne disparaît, rien n'apparaît."
+    ],
+    "algoritmos": [
+      "Algorithmes animés",
+      "Tri (bulles, sélection, insertion, quicksort) et recherche, pas à pas."
+    ],
+    "criptografia": [
+      "Hachage et chiffrement",
+      "L'effet avalanche du hachage et le chiffrement par mot de passe (AES), dans le navigateur."
+    ],
+    "grafos": [
+      "Graphes",
+      "Villes et routes : parcours en largeur, en profondeur et plus court chemin."
+    ],
+    "sudoku": [
+      "Sudoku",
+      "Trois niveaux, des indices qui expliquent et des notes au crayon. Sans score."
+    ],
+    "referencias-abnt": [
+      "Références ABNT",
+      "Livres, articles, pages web et mémoires au format brésilien NBR 6023."
+    ],
+    "palavras-geradoras": [
+      "Mots générateurs",
+      "Alphabétisation des adultes : discuter, découper les syllabes, former des mots et dictée."
+    ],
+    "solidos": [
+      "Solides géométriques",
+      "Faites tourner cube, cylindre, cône, pyramide et sphère ; patrons, aire et volume."
+    ],
+    "contas-do-dia-a-dia": [
+      "Calculs du quotidien",
+      "Pourcentages, règle de trois, comptant ou à crédit, et budget du foyer."
+    ],
+    "tons-do-mandarim": [
+      "Tons du mandarin",
+      "Les quatre tons et le ton neutre, avec courbes, paires minimales et entraînement de l'oreille."
+    ],
+    "alfabetos": [
+      "Alphabets",
+      "Cyrillique, hiragana, katakana et hangul : reconnaître, écouter et écrire."
+    ],
+    "ceu": [
+      "Le ciel du jour",
+      "Phase de la Lune, lever et coucher du Soleil et saisons, pour votre ville."
+    ],
+    "calculadoras-de-eletronica": [
+      "Calculatrices d'électronique",
+      "Code couleur, série et parallèle, diviseur, filtre RC et tableau de Karnaugh."
+    ],
+    "direitos-trabalhistas": [
+      "Droits du travailleur (Brésil)",
+      "Congés, 13e mois, heures sup., préavis, FGTS et indemnités selon le droit brésilien."
     ]
   },
   "tools": {
