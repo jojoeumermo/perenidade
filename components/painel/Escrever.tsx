@@ -177,6 +177,10 @@ export function Escrever({ me }: { me: Me }) {
   const [lado, setLado] = useState(false);
   const [foco, setFoco] = useState(false);
   const [faixaDispensada, setFaixaDispensada] = useState(false);
+  // Embaixo da folha, os complementos (fontes, questões, ferramentas, colegas) ficam em abas, um de cada vez.
+  const [complemento, setComplemento] = useState<"fontes" | "questoes" | "ferramentas" | "colegas">("fontes");
+  // O guia da aula, à direita, pode ser recolhido; a escolha fica neste aparelho.
+  const [guiaAberto, setGuiaAberto] = useState(() => getItem("lucia:escrever-guia") !== "0");
   const palavras = corpo.split(/\s+/).filter(Boolean).length;
   // Modo foco: some o menu do painel e o guia, fica só a folha. Ctrl+Shift+F liga e desliga; Esc sai.
   useEffect(() => {
@@ -453,8 +457,8 @@ export function Escrever({ me }: { me: Me }) {
           })}
         </div>
       ) : (
-        <p className="flex flex-wrap items-center gap-3 border-2 border-ink bg-parchment-deep px-3 py-2">
-          <span aria-hidden className="text-2xl">{CARTOES_DE_TIPO[id]?.[0] ?? "📝"}</span>
+        <p className="flex flex-wrap items-center gap-3">
+          <span aria-hidden className="flex h-10 w-10 items-center justify-center rounded-lg bg-parchment text-2xl">{CARTOES_DE_TIPO[id]?.[0] ?? "📝"}</span>
           <span><span className={rotuloPequeno}>Você está escrevendo</span><span className="font-bold">{CARTOES_DE_TIPO[id]?.[1] ?? tipo.rotulo}</span></span>
           <button type="button" className={`${elo} ml-auto text-sm`} onClick={() => setEscolhendo(true)}>Trocar o tipo</button>
         </p>
@@ -486,25 +490,32 @@ export function Escrever({ me }: { me: Me }) {
 
   const formulario = (
     <form className="space-y-5 pb-4" onSubmit={(e) => e.preventDefault()}>
-      {seletor}
-      <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs" aria-label="Etapas">
-        {etapas.map(([nome, ok], i) => (
-          <li key={nome} className="flex items-center gap-2" aria-current={i === atual ? "step" : undefined}>
-            {i > 0 && <span aria-hidden className="text-ink-soft">→</span>}
-            <span className={ok ? "text-ok" : i === atual ? "font-semibold text-oxblood" : "text-ink-soft"}>{ok ? "✓ " : ""}{nome}</span>
-          </li>
-        ))}
-      </ol>
-
-      <div className="flex flex-wrap items-center justify-between gap-3 border-y border-rule py-2">
-        <button type="button" onClick={() => setDetalhes((d) => !d)} aria-expanded={detalhesVisiveis} className="cursor-pointer text-left hover:text-oxblood">
-          <span className={rotuloPequeno}>Detalhes</span> <span className="font-medium">{faixa}</span> <span aria-hidden className="text-ink-soft">{detalhesVisiveis ? "▴" : "▾"}</span>
-        </button>
-        <span className="flex items-center gap-3 font-mono text-xs text-ink-soft">
-          <span role="status">{rascunho.salvoEm ? `Salvo às ${horaDoRascunho(rascunho.salvoEm)}` : "Rascunho guardado sozinho"}</span>
-          <Versoes chave={`escrever:${id}`} titulo={titulo} corpo={corpo} restaurar={(v) => { setTitulo(v.titulo); setCorpo(v.corpo); }} />
-        </span>
-      </div>
+      {escolhendo ? (
+        seletor
+      ) : (
+        <div className="rounded-lg border-2 border-ink bg-parchment-deep">
+          <div className="px-4 py-3">{seletor}</div>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-rule px-4 py-2">
+            <ol className="flex flex-wrap items-center gap-1.5" aria-label="Etapas">
+              {etapas.map(([nome, ok], i) => (
+                <li key={nome} aria-current={i === atual ? "step" : undefined} className={`rounded-full px-2 py-0.5 font-mono text-[0.68rem] ${ok ? "bg-ok/20 text-ink" : i === atual ? "bg-oxblood text-parchment" : "bg-rule text-ink-soft"}`}>
+                  {ok ? "✓ " : `${i + 1}. `}
+                  {nome}
+                </li>
+              ))}
+            </ol>
+            <span className="ml-auto flex items-center gap-3 font-mono text-xs text-ink-soft">
+              <span role="status">{rascunho.salvoEm ? `Salvo às ${horaDoRascunho(rascunho.salvoEm)}` : "Rascunho guardado sozinho"}</span>
+              <Versoes chave={`escrever:${id}`} titulo={titulo} corpo={corpo} restaurar={(v) => { setTitulo(v.titulo); setCorpo(v.corpo); }} />
+            </span>
+          </div>
+          <button type="button" onClick={() => setDetalhes((d) => !d)} aria-expanded={detalhesVisiveis} className="flex w-full cursor-pointer items-center gap-2 border-t border-rule px-4 py-2 text-left text-sm hover:text-oxblood">
+            <span className={rotuloPequeno}>Detalhes</span>
+            <span className="min-w-0 flex-1 truncate font-medium">{faixa}</span>
+            <span aria-hidden className="text-ink-soft">{detalhesVisiveis ? "▴" : "▾"}</span>
+          </button>
+        </div>
+      )}
 
       {rascunho.restaurado && rascunho.salvoEm && !faixaDispensada && (
         <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-soft">
@@ -651,39 +662,64 @@ export function Escrever({ me }: { me: Me }) {
         )}
       </div>
 
-      {comQuestoes && tipo.corpo.editor && <FerramentasDoAutor key={trilha?.slug ?? ""} titulo={titulo} corpo={corpo} questoes={questoes.length} fontes={fontes.filter((f) => f.titulo.trim()).length} trilha={id === "aula" ? trilha : undefined} slug={valores.slug ?? ""} inserir={setCorpo} />}
-
-      {comQuestoes && <QuestoesEditor valor={questoes} mudar={setQuestoes} />}
-
-      {tipo.fonte && <SourcesField value={fontes} onChange={setFontes} labels={fontesPt} />}
-
-      {comQuestoes && me.papeis.length > 0 && (
-        <fieldset className="border border-rule bg-parchment-deep p-4">
-          <legend className="px-1 font-semibold">Trabalhar junto (opcional)</legend>
-          <p className="text-ink-soft">Chame outro educador ou educadora para esta aula: a pessoa recebe o recado na hora e pode editar o texto enquanto ele espera a revisão. Até cinco.</p>
-          {colegas.length > 0 && (
-            <ul className="mt-2 flex flex-wrap gap-2">
-              {colegas.map((pessoa) => (
-                <li key={pessoa.id} className="flex items-center gap-2 border border-ink bg-parchment px-2 py-1">
-                  <span>
-                    <strong>{pessoa.nome}</strong> <span className="text-xs text-ink-soft">{pessoa.email}</span>
-                  </span>
-                  <button type="button" className={elo} aria-label={`Tirar ${pessoa.nome}`} onClick={() => setColegas(colegas.filter((c) => c.id !== pessoa.id))}>✕</button>
-                </li>
-              ))}
-            </ul>
-          )}
-          {colegas.length < 5 && (
-            <div className="relative mt-2 max-w-md">
-              <BuscaDePessoa rotulo="Chamar colega" entre={candidatos} escolhida={null} escolher={(pessoa) => pessoa && setColegas([...colegas, pessoa])} />
+      {(() => {
+        const nFontes = cleanSources(fontes).length;
+        const abas = [
+          ...(tipo.fonte ? [{ id: "fontes" as const, nome: "Fontes", conta: nFontes ? String(nFontes) : "obrigatória", alerta: nFontes === 0 }] : []),
+          ...(comQuestoes ? [{ id: "questoes" as const, nome: "Questões", conta: questoes.length ? String(questoes.length) : "", alerta: false }] : []),
+          ...(comQuestoes && tipo.corpo.editor ? [{ id: "ferramentas" as const, nome: "Ferramentas do autor", conta: "", alerta: false }] : []),
+          ...(comQuestoes && me.papeis.length > 0 ? [{ id: "colegas" as const, nome: "Trabalhar junto", conta: colegas.length ? String(colegas.length) : "", alerta: false }] : []),
+        ];
+        if (abas.length === 0) return null;
+        const aberta = abas.some((a) => a.id === complemento) ? complemento : abas[0].id;
+        return (
+          <section aria-label="Complementos" className="rounded-lg border border-rule">
+            {abas.length > 1 ? (
+              <div role="tablist" aria-label="Complementos da contribuição" className="flex flex-wrap gap-1 border-b border-rule px-2 pt-1">
+                {abas.map((aba) => (
+                  <button key={aba.id} type="button" role="tab" aria-selected={aberta === aba.id} onClick={() => setComplemento(aba.id)} className={`-mb-px flex cursor-pointer items-center gap-1.5 border-b-2 px-3 py-2 text-sm ${aberta === aba.id ? "border-ink font-semibold" : "border-transparent text-ink-soft hover:text-ink"}`}>
+                    {aba.nome}
+                    {aba.conta && <span className={`rounded-full px-1.5 text-[0.65rem] font-bold ${aba.alerta ? "bg-oxblood text-parchment" : "bg-rule text-ink"}`}>{aba.conta}</span>}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <p className="flex items-center gap-2 border-b border-rule px-4 py-2 text-sm font-semibold">
+                {abas[0].nome}
+                {abas[0].alerta && <span className="rounded-full bg-oxblood px-1.5 text-[0.65rem] font-bold text-parchment">obrigatória</span>}
+              </p>
+            )}
+            <div className="p-4">
+              {aberta === "fontes" && <SourcesField value={fontes} onChange={setFontes} labels={fontesPt} />}
+              {aberta === "questoes" && <QuestoesEditor valor={questoes} mudar={setQuestoes} />}
+              {aberta === "ferramentas" && <FerramentasDoAutor key={trilha?.slug ?? ""} titulo={titulo} corpo={corpo} questoes={questoes.length} fontes={fontes.filter((f) => f.titulo.trim()).length} trilha={id === "aula" ? trilha : undefined} slug={valores.slug ?? ""} inserir={setCorpo} />}
+              {aberta === "colegas" && (
+                <div>
+                  <p className="text-ink-soft">Chame outro educador ou educadora para esta aula: a pessoa recebe o recado na hora e pode editar o texto enquanto ele espera a revisão. Até cinco.</p>
+                  {colegas.length > 0 && (
+                    <ul className="mt-2 flex flex-wrap gap-2">
+                      {colegas.map((pessoa) => (
+                        <li key={pessoa.id} className="flex items-center gap-2 border border-ink bg-parchment px-2 py-1">
+                          <span>
+                            <strong>{pessoa.nome}</strong> <span className="text-xs text-ink-soft">{pessoa.email}</span>
+                          </span>
+                          <button type="button" className={elo} aria-label={`Tirar ${pessoa.nome}`} onClick={() => setColegas(colegas.filter((c) => c.id !== pessoa.id))}>✕</button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {colegas.length < 5 && (
+                    <div className="relative mt-2 max-w-md">
+                      <BuscaDePessoa rotulo="Chamar colega" entre={candidatos} escolhida={null} escolher={(pessoa) => pessoa && setColegas([...colegas, pessoa])} />
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
-          )}
-        </fieldset>
-      )}
+          </section>
+        );
+      })()}
 
-      <p className="text-ink-soft">
-        Você assina como <strong>{me.nome}</strong>. Tudo passa pela revisão antes de ir ao ar: outro educador da disciplina, a revisão ou a coordenação põe no ar.
-      </p>
       <Aviso texto={aviso} />
 
       {/* A barra de ação fica presa no rodapé enquanto a pessoa escreve. */}
@@ -697,7 +733,10 @@ export function Escrever({ me }: { me: Me }) {
         <button type="button" aria-pressed={foco} title="Ctrl+Shift+F" className="cursor-pointer border border-ink px-4 py-2 text-sm font-medium hover:border-oxblood hover:text-oxblood" onClick={() => setFoco((f) => !f)}>
           {foco ? "Sair do modo foco" : "Modo foco"}
         </button>
-        <button type="button" onClick={enviar} disabled={ocupado} className="ml-auto cursor-pointer bg-oxblood px-6 py-2.5 font-semibold text-parchment hover:bg-ink disabled:cursor-not-allowed disabled:opacity-50">
+        <span className="ml-auto hidden max-w-[16rem] text-right text-xs leading-snug text-ink-soft lg:block" title="Tudo passa pela revisão antes de ir ao ar: outro educador da disciplina, a revisão ou a coordenação põe no ar.">
+          Você assina como <strong className="text-ink">{me.nome}</strong>. Passa pela revisão antes de ir ao ar.
+        </span>
+        <button type="button" onClick={enviar} disabled={ocupado} className="ml-auto cursor-pointer bg-oxblood px-6 py-2.5 font-semibold text-parchment hover:bg-ink disabled:cursor-not-allowed disabled:opacity-50 lg:ml-0">
           Enviar para revisão
         </button>
       </div>
@@ -705,10 +744,28 @@ export function Escrever({ me }: { me: Me }) {
   );
 
   if (!comQuestoes || foco) return <div className={foco ? "mx-auto max-w-5xl" : ""}>{formulario}</div>;
+  const alternarGuia = () => {
+    setItem("lucia:escrever-guia", guiaAberto ? "0" : "1");
+    setGuiaAberto(!guiaAberto);
+  };
+  if (!guiaAberto) {
+    return (
+      <div className="relative">
+        <button type="button" onClick={alternarGuia} className="absolute right-0 top-0 z-10 hidden cursor-pointer rounded-l-md border border-r-0 border-rule bg-parchment-deep px-2 py-3 text-xs font-semibold [writing-mode:vertical-rl] hover:text-oxblood xl:block" aria-label="Mostrar o guia da aula">
+          Guia da aula ‹
+        </button>
+        <div className="xl:pr-10">{formulario}</div>
+      </div>
+    );
+  }
   return (
     <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_20rem]">
       {formulario}
       <div className="xl:sticky xl:top-6 xl:self-start">
+        <button type="button" onClick={alternarGuia} className="mb-2 hidden w-full cursor-pointer items-center justify-between rounded-md border border-rule px-3 py-1.5 text-xs text-ink-soft hover:text-ink xl:flex">
+          <span className="font-semibold">Guia da aula</span>
+          <span>Recolher ›</span>
+        </button>
         <GuiaDaAula trilha={id === "aula" ? trilha : undefined} slug={valores.slug ?? ""} titulo={titulo} nomeDaArea={nomeDaArea(alvo)} tipo={id} temTexto={corpo.trim().length > 0} inserir={(texto) => setCorpo(texto)} comecarQuestoes={comQuestoes ? () => setQuestoes((q) => (q.length ? q : [questaoVazia(), questaoVazia(), questaoVazia()])) : undefined} />
       </div>
     </div>
