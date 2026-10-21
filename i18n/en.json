@@ -2570,7 +2570,23 @@
       "reactants": "Reactants",
       "products": "Products",
       "note": "No atom disappears or appears out of nowhere: in a reaction they only swap partners (Lavoisier's law). That is why the count on each side is the same. The colours follow the ball-and-stick model convention."
-    }
+    },
+    "findTool": "Find a tool",
+    "allGroups": "All",
+    "favorites": "Favorites",
+    "recent": "Recently used",
+    "favorite": "Add to favorites",
+    "unfavorite": "Remove from favorites",
+    "focus": "Full screen",
+    "related": "Similar tools",
+    "relatedLabs": "Labs to go further",
+    "noResults": "No tool with that name.",
+    "labsTitle": "Labs",
+    "labsText": "When a tool isn't enough: full benches to build, measure, program and simulate.",
+    "countTools": "{n} tools",
+    "copyLink": "Copy link",
+    "linkCopied": "Link copied",
+    "localNote": "Favorites and recent tools stay only on this device."
   },
   "journal": {
     "eyebrow": "People's press",

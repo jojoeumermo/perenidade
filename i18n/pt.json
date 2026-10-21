@@ -2570,7 +2570,23 @@
       "reactants": "Reagentes",
       "products": "Produtos",
       "note": "Nenhum átomo some nem aparece do nada: na reação, eles só trocam de parceiro (lei de Lavoisier). Por isso a contagem de cada lado é igual. As cores seguem a convenção dos modelos de bola e vareta."
-    }
+    },
+    "findTool": "Procurar uma ferramenta",
+    "allGroups": "Todas",
+    "favorites": "Favoritas",
+    "recent": "Usadas por último",
+    "favorite": "Favoritar",
+    "unfavorite": "Tirar das favoritas",
+    "focus": "Tela cheia",
+    "related": "Ferramentas parecidas",
+    "relatedLabs": "Laboratórios para ir além",
+    "noResults": "Nenhuma ferramenta com esse nome.",
+    "labsTitle": "Laboratórios",
+    "labsText": "Quando a ferramenta não basta: bancadas completas para montar, medir, programar e simular.",
+    "countTools": "{n} ferramentas",
+    "copyLink": "Copiar link",
+    "linkCopied": "Link copiado",
+    "localNote": "Favoritas e últimas usadas ficam só neste aparelho."
   },
   "journal": {
     "eyebrow": "Imprensa popular",
