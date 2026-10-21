@@ -1,0 +1,8 @@
+# Instituto Lúcia: como avisar sobre uma falha de segurança no site (RFC 9116).
+# Escreva para o e-mail abaixo com o endereço da página, o que acontece e como reproduzir. Não publique a falha antes
+# de ela ser corrigida. Não faça testes que derrubem o site, apaguem dados ou leiam dados de outras pessoas.
+Contact: mailto:institutolucia@tutamail.com
+Expires: 2027-10-21T00:00:00.000Z
+Preferred-Languages: pt, en, es
+Canonical: https://institutolucia.org/.well-known/security.txt
+Policy: https://institutolucia.org/pt/termos

@@ -1,6 +1,8 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DadosEstruturados } from "@/components/DadosEstruturados";
+import { livro, migalhas } from "@/lib/dados-estruturados";
 import { notFound } from "next/navigation";
 import { Capa } from "@/components/AcervoBrowser";
 import { licenseName } from "@/components/Cards";
@@ -8,7 +10,7 @@ import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
 import { defaultLocale, fill, localePath } from "@/i18n/config";
-import { getAuthors, getBook, getBooks } from "@/lib/content";
+import { getAuthors, getBook, getBooks, idiomasDe } from "@/lib/content";
 import { withLangs } from "@/lib/params";
 
 export const dynamicParams = false;
@@ -20,7 +22,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/[lang]/acervo/[id]">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
   const book = getBook((await params).id, lang);
-  return book ? paginaMeta(lang, `/acervo/${book.id}`, `${book.title} · ${book.author}`, book.synopsis.slice(0, 160), { titulo: book.title, subtitulo: book.author, kicker: t.nav.library }) : {};
+  return book ? paginaMeta(lang, `/acervo/${book.id}`, `${book.title} · ${book.author}`, book.synopsis.slice(0, 160), { titulo: book.title, subtitulo: book.author, kicker: t.nav.library }, { idiomas: idiomasDe(book.file) }) : {};
 }
 
 export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id]">) {
@@ -37,6 +39,7 @@ export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id
   // leitura e o botão de ler preso ao alcance do polegar. A seta de voltar já está na barra de cima.
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 app:max-md:px-5">
+      <DadosEstruturados dados={[livro(lang, book), migalhas(lang, [[t.nav.library, "/acervo"], [t.areas[book.area][0], `/estantes/${book.area}`], [book.title, `/acervo/${book.id}`]])]} />
       <Link href={to("/acervo")} className="font-sans text-sm text-ink-soft hover:text-oxblood app:max-md:hidden">← {t.library.back}</Link>
       {/* A capa ao lado do título: a da edição (fonte aberta, guardada no site) ou a desenhada da coleção. */}
       <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-end app:max-md:mt-2 app:max-md:items-center">
