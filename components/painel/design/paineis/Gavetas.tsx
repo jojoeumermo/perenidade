@@ -660,6 +660,8 @@ export interface Trabalho {
   status?: string;
   apagado_em?: string | null;
   paginas?: number;
+  alcance?: number | null;
+  publicado_em?: string | null;
 }
 
 export const NOMES_DO_STATUS: Record<string, string> = { rascunho: "Rascunho", revisao: "Em revisão", ajustes: "Pedido de ajuste", aprovado: "Aprovado", publicado: "Publicado" };
@@ -669,7 +671,7 @@ function GavetaTrabalhos() {
   const [lista, setLista] = useState<Trabalho[] | null>(null);
   const [erro, setErro] = useState("");
   const [busca, setBusca] = useState("");
-  const [filtro, setFiltro] = useState<"todos" | "meus" | "revisao" | "aprovado" | "lixeira">("todos");
+  const [filtro, setFiltro] = useState<"todos" | "meus" | "revisao" | "aprovado" | "alcance" | "lixeira">("todos");
   const [pasta, setPasta] = useState("");
   const [volta, setVolta] = useState(0);
   useEffect(() => {
@@ -688,9 +690,10 @@ function GavetaTrabalhos() {
       if (filtro === "meus" && !t.meu) return false;
       if (filtro === "revisao" && t.status !== "revisao" && t.status !== "ajustes") return false;
       if (filtro === "aprovado" && t.status !== "aprovado" && t.status !== "publicado") return false;
+      if (filtro === "alcance" && !(t.alcance && t.alcance > 0)) return false;
       if (pasta && t.pasta !== pasta) return false;
       return !b || semAcento(`${t.titulo} ${t.autor} ${t.pasta ?? ""} ${(t.etiquetas ?? []).join(" ")}`).includes(b);
-    });
+    }).sort((x, y) => (filtro === "alcance" ? (y.alcance ?? 0) - (x.alcance ?? 0) : 0));
   }, [lista, busca, filtro, pasta]);
   const agir = async (funcao: string, args: Record<string, unknown>, ok: string) => {
     try {
@@ -721,6 +724,7 @@ function GavetaTrabalhos() {
             ["meus", "Meus"],
             ["revisao", "Em revisão"],
             ["aprovado", "Aprovados"],
+            ["alcance", "Maior alcance"],
             ["lixeira", "Lixeira"],
           ] as const
         ).map(([id, nome]) => (
@@ -760,6 +764,7 @@ function GavetaTrabalhos() {
                   {(t.etiquetas ?? []).map((e) => (
                     <span key={e} className="rounded border border-e-fio px-1.5 py-0.5 text-[0.65rem]">#{e}</span>
                   ))}
+                  {typeof t.alcance === "number" && <span className="rounded bg-e-bordo-claro px-1.5 py-0.5 text-[0.65rem] text-e-bordo">{t.alcance.toLocaleString("pt-BR")} de alcance</span>}
                 </p>
               </div>
             </div>
@@ -780,6 +785,15 @@ function GavetaTrabalhos() {
                   <button type="button" className={`${BOTAO} h-7 text-xs`} onClick={() => ed.abrir({ tipo: "trabalho", id: t.id })}>Abrir</button>
                   <button type="button" className={`${BOTAO} h-7 text-xs`} onClick={() => ed.abrir({ tipo: "trabalho", id: t.id, copia: true })} title="Uma cópia sua, para mexer sem mudar o original">Fazer cópia</button>
                   {t.meu && <button type="button" className={`${BOTAO} h-7 text-xs`} onClick={() => organizar(t)}>Pasta e etiquetas</button>}
+                  {(t.status === "aprovado" || t.status === "publicado") && (
+                    <button type="button" className={`${BOTAO} h-7 text-xs`} title="Anote o alcance que o Instagram mostra, para saber o que funcionou" onClick={() => {
+                      const valor = window.prompt("Alcance do post (o número que o Instagram mostra em Insights):", String(t.alcance ?? ""));
+                      const n = Number((valor ?? "").replace(/\D/g, ""));
+                      if (valor !== null && Number.isFinite(n)) void agir("design_alcance", { p_id: t.id, p_alcance: n }, "Alcance anotado.");
+                    }}>
+                      Alcance
+                    </button>
+                  )}
                   {t.meu && (
                     <button type="button" className={`${BOTAO} h-7 text-xs`} aria-label={`Mandar ${t.titulo} para a lixeira`} title="Mandar para a lixeira" onClick={() => void agir("design_apagar", { p_id: t.id }, "Foi para a lixeira (dá para restaurar).")}>
                       <Icone nome="lixeira" className="h-3.5 w-3.5" />
