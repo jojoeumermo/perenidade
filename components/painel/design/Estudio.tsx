@@ -211,6 +211,8 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
   const focoPeloMouse = useRef(false);
   const projetoRef = useRef(projeto);
   const paginaRef = useRef(pagina);
+  // As páginas que vieram de um modelo e ninguém mexeu (cada edição cria um objeto novo, que não está aqui).
+  const intactas = useRef(new WeakSet<Documento>());
   useEffect(() => {
     projetoRef.current = projeto;
     paginaRef.current = pagina;
@@ -350,6 +352,7 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
         }),
       });
       const final = recalcular(base);
+      if (a.tipo === "modelo" || a.tipo === "branco") for (const d of final.paginas) intactas.current.add(d);
       historico.current = { passado: [], futuro: [] };
       setPassos([]);
       setRefaziveis(0);
@@ -880,6 +883,7 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
     (m: Modelo, modo: "trocar" | "acrescentar" | "novo") => {
       if (!laboratorio) void rpc("design_modelo_usado", { p_modelo: m.id }).catch(() => undefined);
       const novas = paginasDoModelo(m).map((d) => ({ ...d, id: novoId(), camadas: d.camadas.map(ajustarAltura) }));
+      for (const d of novas) intactas.current.add(d);
       const p0 = paginaRef.current;
       if (modo === "trocar") {
         setProjeto((p) => {
@@ -1393,6 +1397,10 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
     },
     mexido,
     laboratorio,
+    paginaIntacta: () => {
+      const d = projetoRef.current.paginas[paginaRef.current];
+      return Boolean(d && intactas.current.has(d));
+    },
     podeExportar: () => {
       if (!laboratorio || !citaOInstituto(projetoRef.current)) return true;
       avisar(AVISO_DO_LABORATORIO, "erro");
