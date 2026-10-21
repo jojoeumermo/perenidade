@@ -42,6 +42,8 @@ jobs:
       # O editor por blocos: toda aula do acervo passa por ele e volta igual.
       - run: npm run testar:blocos
       - run: npm run testar:eletrica
+      # O que o site diz aos buscadores: JSON-LD, hreflang sem tradução falsa e robots.txt.
+      - run: npm run testar:seo
       # O estudo guardado no navegador: repetição espaçada, caderno de erros e a cópia (que não leva chave de aparelho).
       - run: npm run testar:estudo
       # Os exercícios com explicação do erro (content/exercicios): formato, aula existente e cada conta refeita.
