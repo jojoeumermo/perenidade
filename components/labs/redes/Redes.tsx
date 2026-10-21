@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import exercicios from "@/content/laboratorios/redes.json";
-import { type Cabo, COMANDOS_DO_IOS, comandoDeHost, comandoDeIos, completar, type Dispositivo, type Estado, estadoNovo, type Evento, type ExercicioDeRede, LIMITE_DE_DISPOSITIVOS, mascaraValida, novoDispositivo, prompt, type Resultado, type Sessao, type TipoDeDispositivo, type Topologia, validarTopologia, verificar, vizinho, ipValido } from "@/lib/redes/motor";
+import { type Cabo, COMANDOS_DO_IOS, comandoDeHost, comandoDeIos, completar, type Dispositivo, type Estado, estadoNovo, type Evento, type ExercicioDeRede, LIMITE_DE_DISPOSITIVOS, mascaraValida, navegar, novoDispositivo, pedirDhcp, prompt, type Resultado, type Sessao, servicosPadrao, type TipoDeDispositivo, type Topologia, validarTopologia, verificar, vizinho, ipValido } from "@/lib/redes/motor";
 
 const TIPOS: { tipo: TipoDeDispositivo; nome: string; icone: string }[] = [
   { tipo: "pc", nome: "PC", icone: "M4 5h16v11H4zM9 20h6M12 16v4" },
@@ -14,6 +14,9 @@ const TIPOS: { tipo: TipoDeDispositivo; nome: string; icone: string }[] = [
 ];
 const COR: Record<TipoDeDispositivo, string> = { pc: "#17130e", notebook: "#17130e", servidor: "#4a4032", switch: "#6e1f1a", roteador: "#c21f16" };
 const CHAVE = "lucia:lab:redes";
+/** A cor de cada protocolo, nos envelopes animados e na lista de eventos. */
+const COR_DO_PROTOCOLO: [RegExp, string, string][] = [[/ARP/, "#d4a24c", "ARP"], [/ICMP/, "#8b3fc4", "ICMP"], [/DHCP/, "#e0701a", "DHCP"], [/DNS/, "#1f6fd1", "DNS"], [/HTTP/, "#2e8b57", "HTTP"]];
+const corDoProtocolo = (p?: string) => COR_DO_PROTOCOLO.find(([r]) => r.test(p ?? ""))?.[1] ?? "#8a8070";
 const botao = "cursor-pointer bg-ink px-3 py-1.5 font-sans text-sm font-semibold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
 const claro = "cursor-pointer border-2 border-ink px-3 py-1 font-sans text-sm font-semibold hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50";
 const campo = "mt-1 w-full border-2 border-ink bg-parchment px-2 py-1 font-mono text-xs";
@@ -210,7 +213,11 @@ export function LabRedes() {
               const up = da && db && vizinho(t, da.id, c.de.porta);
               return <g key={c.id}><line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke={ativo ? "#c21f16" : up ? "#17130e" : "#b9ad90"} strokeWidth={ativo ? 4 : 2} strokeDasharray={up ? undefined : "6 4"} /><text x={(a.x + b.x) / 2} y={(a.y + b.y) / 2 - 6} fontSize="9" textAnchor="middle" fill="#8a5a16" fontFamily="monospace">{c.de.porta}·{c.para.porta}</text></g>;
             })}
-            {evento && evento.de !== evento.para && (() => { const a = ponto(evento.de); const b = ponto(evento.para); return <circle cx={(a.x + b.x) / 2} cy={(a.y + b.y) / 2} r={7} fill={evento.erro ? "#c21f16" : "#d4a24c"} stroke="#17130e" strokeWidth="2"><animate attributeName="cx" from={a.x} to={b.x} dur={`${1.2 / (simulacao?.velocidade ?? 1)}s`} fill="freeze" /><animate attributeName="cy" from={a.y} to={b.y} dur={`${1.2 / (simulacao?.velocidade ?? 1)}s`} fill="freeze" /></circle>; })()}
+            {evento && evento.de !== evento.para && (() => { const a = ponto(evento.de); const b = ponto(evento.para); const cor = evento.erro ? "#c21f16" : corDoProtocolo(evento.pacote?.protocolo); return (
+              <g key={`${simulacao?.passo}`}>
+                <g><rect x={-11} y={-8} width={22} height={16} rx={2} fill={cor} stroke="#17130e" strokeWidth="1.5" /><path d="M-11 -8 L0 1 L11 -8" fill="none" stroke="#17130e" strokeWidth="1.5" />
+                  <animateMotion dur={`${1.2 / (simulacao?.velocidade ?? 1)}s`} fill="freeze" path={`M${a.x} ${a.y} L${b.x} ${b.y}`} /></g>
+              </g>); })()}
             {t.dispositivos.map((d) => {
               const icone = TIPOS.find((x) => x.tipo === d.tipo)!.icone;
               const ativo = evento && (evento.de === d.id || evento.para === d.id);
@@ -246,7 +253,8 @@ export function LabRedes() {
       {simulacao && (
         <section className="mt-4 border-2 border-ink bg-parchment-deep p-4">
           <div className="flex flex-wrap items-center gap-2">
-            <p className="font-mono text-[0.65rem] uppercase tracking-widest text-gold">Ver o pacote andando</p>
+            <p className="font-mono text-[0.65rem] uppercase tracking-widest text-gold">Modo simulação</p>
+            <span className="flex flex-wrap gap-2 text-[0.65rem]">{COR_DO_PROTOCOLO.map(([, cor, nome]) => <span key={nome}><span className="mr-0.5 inline-block h-2 w-3 rounded-sm align-middle" style={{ background: cor }} />{nome}</span>)}</span>
             <span className={`ml-2 font-semibold ${simulacao.sucesso ? "text-ok" : "text-oxblood"}`}>{simulacao.resumo}</span>
             <span className="ml-auto flex items-center gap-1">
               <button type="button" className={claro} onClick={() => setSimulacao({ ...simulacao, passo: Math.max(0, simulacao.passo - 1), rodando: false })}>◀</button>
@@ -260,7 +268,7 @@ export function LabRedes() {
             {simulacao.eventos.map((ev, i) => (
               <li key={i}>
                 <button type="button" onClick={() => setSimulacao({ ...simulacao, passo: i, rodando: false })} className={`w-full cursor-pointer px-2 py-0.5 text-left ${i === simulacao.passo ? "bg-ink text-parchment" : ev.erro ? "text-oxblood" : ""}`}>
-                  <span className="mr-2 inline-block w-6 text-right opacity-60">{i + 1}</span><span className="mr-2 opacity-60">L{ev.camada}</span>{ev.texto}
+                  <span className="mr-2 inline-block w-6 text-right opacity-60">{i + 1}</span><span className="mr-2 inline-block h-2.5 w-3.5 rounded-sm align-middle" style={{ background: ev.erro ? "#c21f16" : corDoProtocolo(ev.pacote?.protocolo) }} title={ev.pacote?.protocolo} /><span className="mr-2 opacity-60">L{ev.camada}</span>{ev.texto}
                 </button>
               </li>
             ))}
@@ -278,7 +286,7 @@ export function LabRedes() {
       )}
       <details className="mt-4 text-xs text-ink-soft">
         <summary className="cursor-pointer">Comandos disponíveis neste simulador</summary>
-        <p className="mt-1">PC, notebook e servidor: ipconfig, ping, traceroute (tracert), arp -a.</p>
+        <p className="mt-1">PC, notebook e servidor: ipconfig, ipconfig /renew (DHCP), ping (por IP ou nome), traceroute (tracert), nslookup, arp -a. Servidores têm DHCP, DNS e site (HTTP) na aba Serviços; PCs têm navegador.</p>
         <p className="mt-1">Switch e roteador (modos usuário &gt;, privilegiado #, configuração): {COMANDOS_DO_IOS.join(" · ")}. Não há OSPF, RIP, BGP, ACL nem NAT: para isso, o Packet Tracer oficial.</p>
       </details>
       <p className="mt-2 text-xs text-ink-soft">Tudo roda no navegador: a topologia fica guardada só aqui (e no JSON que você baixar). Nenhum dado vai para servidor. Este laboratório é obra do instituto, não é afiliado à Cisco; os comandos seguem o jeito comum de equipamentos de rede.</p>
@@ -288,7 +296,7 @@ export function LabRedes() {
 
 /** O painel do dispositivo escolhido: configuração gráfica e terminal. */
 function Painel({ d, t, estado, mudar, apagar, simular }: { d: Dispositivo; t: Topologia; estado: Estado; mudar: (f: (c: Topologia) => void) => void; apagar: () => void; simular: (r: Resultado) => void }) {
-  const [aba, setAba] = useState<"config" | "terminal">("config");
+  const [aba, setAba] = useState<"config" | "servicos" | "navegador" | "terminal">("config");
   const [nome, setNome] = useState(d.nome);
   const host = d.tipo !== "switch" && d.tipo !== "roteador";
   const editar = (f: (x: Dispositivo) => void) => mudar((c) => { const x = c.dispositivos.find((y) => y.id === d.id); if (x) f(x); });
@@ -300,16 +308,31 @@ function Painel({ d, t, estado, mudar, apagar, simular }: { d: Dispositivo; t: T
       </div>
       <p className="font-mono text-[0.65rem] uppercase tracking-widest text-gold">{TIPOS.find((x) => x.tipo === d.tipo)?.nome}</p>
       <div className="mt-2 flex gap-1" role="tablist">
-        {(["config", "terminal"] as const).map((a) => <button key={a} type="button" role="tab" aria-selected={aba === a} onClick={() => setAba(a)} className={`cursor-pointer border px-2 py-0.5 text-xs ${aba === a ? "border-ink bg-ink text-parchment" : "border-rule"}`}>{a === "config" ? "Configurar" : "Terminal"}</button>)}
+        {([["config", host ? "Configuração IP" : "Configurar"], ...(d.tipo === "servidor" ? [["servicos", "Serviços"]] : []), ...(host ? [["navegador", "Navegador"]] : []), ["terminal", host ? "Prompt" : "CLI"]] as [typeof aba, string][]).map(([a, nomeDaAba]) => <button key={a} type="button" role="tab" aria-selected={aba === a} onClick={() => setAba(a)} className={`cursor-pointer rounded-t border-x border-t px-2 py-1 text-xs font-semibold ${aba === a ? "border-ink bg-ink text-parchment" : "border-rule bg-parchment"}`}>{nomeDaAba}</button>)}
       </div>
-      {aba === "config" ? (
+      {aba === "servicos" && d.servicos ? (
+        <Servicos d={d} editar={editar} />
+      ) : aba === "navegador" ? (
+        <Navegador d={d} t={t} estado={estado} simular={simular} />
+      ) : aba === "config" ? (
         host ? (
           <div className="mt-2 space-y-2">
+            <div className="flex gap-3 text-xs">
+              <label className="flex items-center gap-1"><input type="radio" checked={!d.dhcp} onChange={() => editar((x) => { x.dhcp = false; })} /> Endereço fixo</label>
+              <label className="flex items-center gap-1"><input type="radio" checked={d.dhcp} onChange={() => editar((x) => { x.dhcp = true; })} /> DHCP (automático)</label>
+            </div>
+            {d.dhcp && (
+              <button type="button" className={botao} onClick={() => {
+                const r = pedirDhcp(t, estado, d.id);
+                simular(r);
+                if (r.config) { const c = r.config; editar((x) => { x.portas[0].ip = c.ip; x.portas[0].mascara = c.mascara; x.gateway = c.gateway; x.dns = c.dns; }); }
+              }}>Pedir endereço (DHCP)</button>
+            )}
             {([["ip", "Endereço IP"], ["mascara", "Máscara"]] as const).map(([k, rotulo]) => (
               <label key={k} className="block text-xs">{rotulo}<input value={d.portas[0][k]} onChange={(e) => editar((x) => { x.portas[0][k] = e.target.value.trim(); })} placeholder={k === "ip" ? "192.168.1.10" : "255.255.255.0"} className={`${campo} ${d.portas[0][k] && !(k === "ip" ? ipValido(d.portas[0][k]) : mascaraValida(d.portas[0][k])) ? "border-oxblood" : ""}`} /></label>
             ))}
             <label className="block text-xs">Gateway padrão<input value={d.gateway} onChange={(e) => editar((x) => { x.gateway = e.target.value.trim(); })} placeholder="192.168.1.1" className={campo} /></label>
-            <label className="block text-xs">DNS (só informativo)<input value={d.dns} onChange={(e) => editar((x) => { x.dns = e.target.value.trim(); })} placeholder="8.8.8.8" className={campo} /></label>
+            <label className="block text-xs">Servidor DNS<input value={d.dns} onChange={(e) => editar((x) => { x.dns = e.target.value.trim(); })} placeholder="10.0.0.50" className={campo} /></label>
             <p className="text-xs text-ink-soft">{vizinho(t, d.id, "eth0") ? `eth0 ligada a ${vizinho(t, d.id, "eth0")!.dispositivo.nome}` : "eth0 sem cabo"}</p>
           </div>
         ) : d.tipo === "roteador" ? (
@@ -343,6 +366,60 @@ function Painel({ d, t, estado, mudar, apagar, simular }: { d: Dispositivo; t: T
       ) : (
         <Terminal d={d} t={t} estado={estado} host={host} simular={simular} mudar={mudar} />
       )}
+    </div>
+  );
+}
+
+/** Os serviços do servidor: DHCP, DNS e o site (HTTP). */
+function Servicos({ d, editar }: { d: Dispositivo; editar: (f: (x: Dispositivo) => void) => void }) {
+  const sv = d.servicos ?? servicosPadrao();
+  const [registro, setRegistro] = useState({ nome: "", ip: "" });
+  const muda = (f: (x: NonNullable<Dispositivo["servicos"]>) => void) => editar((x) => { x.servicos ??= servicosPadrao(); f(x.servicos); });
+  return (
+    <div className="mt-2 space-y-3 text-xs">
+      <fieldset className="border border-rule p-2">
+        <legend className="px-1 font-semibold"><label className="flex items-center gap-1"><input type="checkbox" checked={sv.dhcp.ligado} onChange={(e) => muda((x) => { x.dhcp.ligado = e.target.checked; })} /> DHCP</label></legend>
+        <div className="grid grid-cols-2 gap-2">
+          <label>Primeiro endereço<input value={sv.dhcp.inicio} onChange={(e) => muda((x) => { x.dhcp.inicio = e.target.value.trim(); })} placeholder="192.168.1.100" className={campo} /></label>
+          <label>Quantos<input type="number" min={1} max={250} value={sv.dhcp.quantidade} onChange={(e) => muda((x) => { x.dhcp.quantidade = Math.min(250, Math.max(1, Number(e.target.value) || 1)); })} className={campo} /></label>
+          <label>Máscara<input value={sv.dhcp.mascara} onChange={(e) => muda((x) => { x.dhcp.mascara = e.target.value.trim(); })} className={campo} /></label>
+          <label>Gateway<input value={sv.dhcp.gateway} onChange={(e) => muda((x) => { x.dhcp.gateway = e.target.value.trim(); })} className={campo} /></label>
+          <label className="col-span-2">DNS entregue<input value={sv.dhcp.dns} onChange={(e) => muda((x) => { x.dhcp.dns = e.target.value.trim(); })} className={campo} /></label>
+        </div>
+      </fieldset>
+      <fieldset className="border border-rule p-2">
+        <legend className="px-1 font-semibold"><label className="flex items-center gap-1"><input type="checkbox" checked={sv.dns.ligado} onChange={(e) => muda((x) => { x.dns.ligado = e.target.checked; })} /> DNS</label></legend>
+        {sv.dns.registros.map((r, i) => <p key={i} className="flex items-center justify-between font-mono"><span>{r.nome} → {r.ip}</span><button type="button" className="cursor-pointer underline" onClick={() => muda((x) => { x.dns.registros.splice(i, 1); })}>tirar</button></p>)}
+        <div className="mt-1 grid grid-cols-[1fr_1fr_auto] gap-1">
+          <input value={registro.nome} onChange={(e) => setRegistro({ ...registro, nome: e.target.value.trim().toLowerCase() })} placeholder="nome (escola.lucia)" aria-label="Nome" className={campo} />
+          <input value={registro.ip} onChange={(e) => setRegistro({ ...registro, ip: e.target.value.trim() })} placeholder="IP" aria-label="IP" className={campo} />
+          <button type="button" className={`${claro} mt-1`} disabled={!registro.nome || !ipValido(registro.ip)} onClick={() => { muda((x) => { x.dns.registros.push(registro); }); setRegistro({ nome: "", ip: "" }); }}>+</button>
+        </div>
+      </fieldset>
+      <fieldset className="border border-rule p-2">
+        <legend className="px-1 font-semibold"><label className="flex items-center gap-1"><input type="checkbox" checked={sv.http.ligado} onChange={(e) => muda((x) => { x.http.ligado = e.target.checked; })} /> Site (HTTP)</label></legend>
+        <label className="block">Título<input value={sv.http.titulo} onChange={(e) => muda((x) => { x.http.titulo = e.target.value.slice(0, 80); })} className={campo} /></label>
+        <label className="mt-1 block">Texto da página<textarea value={sv.http.texto} onChange={(e) => muda((x) => { x.http.texto = e.target.value.slice(0, 1000); })} rows={3} className={campo} /></label>
+      </fieldset>
+    </div>
+  );
+}
+
+/** O navegador do PC: digita um endereço, a rede resolve o nome e busca a página, com os pacotes à vista. */
+function Navegador({ d, t, estado, simular }: { d: Dispositivo; t: Topologia; estado: Estado; simular: (r: Resultado) => void }) {
+  const [endereco, setEndereco] = useState("");
+  const [pagina, setPagina] = useState<{ titulo: string; texto: string; servidor: string } | { erro: string } | null>(null);
+  return (
+    <div className="mt-2 overflow-hidden rounded border-2 border-ink bg-white">
+      <form className="flex gap-1 border-b-2 border-ink bg-[#e9e4d8] p-1.5" onSubmit={(e) => { e.preventDefault(); const r = navegar(t, estado, d.id, endereco); simular(r); setPagina(r.pagina ?? { erro: r.resumo }); }}>
+        <input value={endereco} onChange={(e) => setEndereco(e.target.value)} placeholder="http://escola.lucia ou um IP" aria-label="Endereço" className="min-w-0 flex-1 rounded border border-ink/40 bg-white px-2 py-1 font-mono text-xs" />
+        <button type="submit" className={botao}>Ir</button>
+      </form>
+      <div className="min-h-32 p-3 text-sm">
+        {!pagina && <p className="text-ink-soft">Digite o nome de um site da sua rede (cadastrado num servidor DNS) ou o IP do servidor.</p>}
+        {pagina && "erro" in pagina && <p className="text-oxblood">Não foi possível abrir: {pagina.erro}</p>}
+        {pagina && "titulo" in pagina && <><h3 className="font-serif text-xl font-semibold">{pagina.titulo}</h3><p className="mt-2 whitespace-pre-wrap">{pagina.texto}</p><p className="mt-3 text-xs text-ink-soft">Servido por {pagina.servidor}.</p></>}
+      </div>
     </div>
   );
 }
@@ -383,6 +460,7 @@ function Terminal({ d, t, estado, host, simular, mudar }: { d: Dispositivo; t: T
       const r = comandoDeHost(t, estado, d, c);
       if (r.saida) setLinhas((l) => [...l, ...r.saida.split("\n")]);
       if (r.resultado) simular(r.resultado);
+      if (r.aplicar) { const a = r.aplicar; mudar((top) => { const x = top.dispositivos.find((y) => y.id === d.id); if (x) { x.dhcp = true; x.portas[0].ip = a.ip; x.portas[0].mascara = a.mascara; x.gateway = a.gateway; x.dns = a.dns; } }); }
       return;
     }
     // Os comandos de configuração mudam o dispositivo: passam por "mudar" (desfazer, tabelas zeradas).
