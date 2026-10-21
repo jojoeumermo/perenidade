@@ -103,12 +103,12 @@ export type License = (typeof licenses)[number];
  */
 export const areaTools: Partial<Record<AreaSlug, string[]>> = {
   alfabetizacao: ["silabario", "palavras-geradoras", "contas-do-dia-a-dia"],
-  enem: ["redacao", "cronometro", "resolvedor", "estatistica"],
-  portugues: ["redacao", "referencias-abnt"],
-  literatura: ["redacao"],
+  enem: ["redacao", "cronometro", "resolvedor", "estatistica", "corretor-ortografico"],
+  portugues: ["redacao", "referencias-abnt", "corretor-ortografico"],
+  literatura: ["redacao", "corretor-ortografico"],
   ingles: ["pronuncia", "frases"],
   espanhol: ["pronuncia", "frases"],
-  chines: ["pronuncia", "tons-do-mandarim"],
+  chines: ["pronuncia", "tons-do-mandarim", "dicionario-chines", "escrita-chinesa"],
   artes: ["cores"],
   desenho: ["cores"],
   design: ["cores", "html"],
@@ -245,5 +245,8 @@ export const tools = [
   "ceu",
   "calculadoras-de-eletronica",
   "direitos-trabalhistas",
+  "dicionario-chines",
+  "escrita-chinesa",
+  "corretor-ortografico",
 ] as const;
 export type ToolId = (typeof tools)[number];

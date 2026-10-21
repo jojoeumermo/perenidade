@@ -1732,6 +1732,18 @@
     "direitos-trabalhistas": [
       "Derechos del trabajador (Brasil)",
       "Vacaciones, aguinaldo, horas extras, preaviso, FGTS y finiquito según la ley brasileña."
+    ],
+    "dicionario-chines": [
+      "Diccionario de chino",
+      "Más de 120 mil entradas del CC-CEDICT por carácter, pinyin o inglés, y el conversor de pinyin."
+    ],
+    "escrita-chinesa": [
+      "Escritura china",
+      "El orden de los trazos de más de mil caracteres, animado y para practicar con el dedo."
+    ],
+    "corretor-ortografico": [
+      "Corrector ortográfico (portugués)",
+      "Revisa la ortografía del portugués de Brasil con sugerencias, sin que el texto salga del dispositivo."
     ]
   },
   "tools": {
