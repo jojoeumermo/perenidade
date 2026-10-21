@@ -18,6 +18,8 @@ import ts from "typescript";
 
 const raiz = path.resolve(import.meta.dirname, "..");
 const pastas = ["components/painel"];
+// Arquivos só de dados (desenhos vetoriais), sem texto para gente ler.
+const soDados = new Set(["components/painel/design/desenhos.ts"]);
 // Módulos de lib/ com texto de tela do painel. Ficam de fora lib/apoio.ts (o texto da campanha sai num textarea, em
 // português, para colar na Benfeitoria) e lib/podcast-termo.ts (documento em português, mostrado com translate="no").
 const arquivosSoltos = [
@@ -96,7 +98,23 @@ function nomeDaChamada(no) {
   return "";
 }
 
+/** Cores e degradês de CSS, letras do canvas ("italic 600 40px ...") e comandos de PDF: nunca são texto para gente. */
+const desenhoOuPdf = (texto) =>
+  /\b(rgba?|linear-gradient|repeating-linear-gradient|polygon)\(/.test(texto) ||
+  /^(italic\s+)?(\d{3}|\{\d+\})\s.*px\b/.test(texto) ||
+  /^\d+px\s/.test(texto) ||
+  /^%PDF/.test(texto) ||
+  /(^|\s)(<<|>>|obj|endobj|stream|startxref|trailer)(\s|$)|^\/[A-Z]\w*|\s(RG|rg|Tf|Td|Tj)(\s|$)/.test(texto);
+
+/** O que vai desenhado dentro das artes do estúdio (o texto dos modelos, do QR, do selo) não é texto da tela do painel. */
+const camposDaArte = new Set(["texto", "conteudo", "conteudo2", "legendaFoto"]);
+const naArte = (no) => {
+  const pai = no.parent;
+  return ts.isPropertyAssignment(pai) && pai.initializer === no && camposDaArte.has(pai.name.getText()) && /components[\/]painel[\/]design[\/]/.test(no.getSourceFile().fileName);
+};
+
 function tecnico(no) {
+  if (naArte(no)) return true;
   let pai = no.parent;
   // Comparações e chaves de objeto: "x === 'pendente'", { pendente: ... }
   if (ts.isBinaryExpression(pai) && [ts.SyntaxKind.EqualsEqualsEqualsToken, ts.SyntaxKind.ExclamationEqualsEqualsToken, ts.SyntaxKind.EqualsEqualsToken, ts.SyntaxKind.InKeyword].includes(pai.operatorToken.kind)) return true;
@@ -137,11 +155,11 @@ function textosDe(arquivo) {
       if (frase(texto) || palavraDoJsx(texto)) achados.push(texto);
     } else if ((ts.isStringLiteral(no) || ts.isNoSubstitutionTemplateLiteral(no)) && !tecnico(no)) {
       const texto = no.text.replace(/\s+/g, " ").trim();
-      if (palavrasSoltas.has(texto) || (frase(texto) && /[\s]|[áéíóúâêôãõçÁÉÍÓÚ]|^[A-ZÁÉÍÓÚ][a-záéíóúâêôãõç]+$/.test(texto))) achados.push(texto);
+      if (!desenhoOuPdf(texto) && (palavrasSoltas.has(texto) || (frase(texto) && /[\s]|[áéíóúâêôãõçÁÉÍÓÚ]|^[A-ZÁÉÍÓÚ][a-záéíóúâêôãõç]+$/.test(texto)))) achados.push(texto);
     } else if (ts.isTemplateExpression(no) && !tecnico(no)) {
       const texto = modelo(no).replace(/\s+/g, " ").trim();
       const fixo = texto.replace(/\{\d+\}/g, "").trim();
-      if (frase(fixo) && (/\s/.test(fixo) || rotuloDeUmaPalavra(fixo))) achados.push(texto);
+      if (!desenhoOuPdf(texto) && frase(fixo) && (/\s/.test(fixo) || rotuloDeUmaPalavra(fixo))) achados.push(texto);
     }
     ts.forEachChild(no, visitar);
   };
@@ -155,7 +173,7 @@ function arquivos() {
     for (const item of fs.readdirSync(pasta, { withFileTypes: true })) {
       const caminho = path.join(pasta, item.name);
       if (item.isDirectory()) andar(caminho);
-      else if (/\.tsx?$/.test(item.name)) lista.push(caminho);
+      else if (/\.tsx?$/.test(item.name) && !soDados.has(path.relative(raiz, caminho).split(path.sep).join("/"))) lista.push(caminho);
     }
   };
   for (const pasta of pastas) andar(path.join(raiz, pasta));
