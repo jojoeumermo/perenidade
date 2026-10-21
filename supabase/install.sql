@@ -6815,7 +6815,7 @@ begin
              'chat_aparelho_registrar', 'chat_aparelhos_meus', 'chat_aparelho_remover', 'chat_chaves', 'chat_chave_nova', 'chat_chaves_pendentes',
              'chat_chaves_dar', 'chat_chaves_recusar', 'chat_autodestruir', 'chat_aparelho_estado', 'chat_aparelho_aprovar', 'chat_identidade_definir',
              'chat_identidade_redefinir', 'chat_recuperacao_guardar', 'chat_recuperacao_ler', 'chat_aparelho_pedir', 'chat_aparelho_recuperar',
-             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias', 'chat_anexo_enviar', 'chat_anexo_ler', 'chat_privadas', 'chat_conversa_marcar', 'chat_controles', 'chat_controlar', 'perfil_avatar', 'perfil_curriculo', 'curriculo_propor', 'curriculo_listar', 'curriculo_decidir', 'curriculo_aprovadas', 'curriculo_marcar', 'reuniao_salvar', 'reunioes_listar', 'reuniao_estado', 'reuniao_ata', 'reuniao_presenca', 'reuniao_propor', 'reunioes_propostas', 'reuniao_proposta_decidir', 'dicionario_termos', 'dicionario_salvar', 'termo_voluntario_aceitar', 'aprendizado_aceitar', 'marketing_sugerir', 'marketing_caixa', 'marketing_caixa_decidir', 'painel_estatisticas', 'educadores', 'chat_relatar', 'chat_relatos', 'chat_relato_resolver',
+             'chat_recebidas', 'chat_digitando', 'chat_fixar', 'chat_favoritar', 'chat_favoritas', 'perfil_preferencias', 'chat_anexo_enviar', 'chat_anexo_ler', 'chat_privadas', 'chat_conversa_marcar', 'chat_controles', 'chat_controlar', 'perfil_avatar', 'perfil_curriculo', 'curriculo_propor', 'curriculo_listar', 'curriculo_decidir', 'curriculo_aprovadas', 'curriculo_marcar', 'curriculo_cancelar', 'curriculo_reaplicar', 'reuniao_salvar', 'reunioes_listar', 'reuniao_estado', 'reuniao_ata', 'reuniao_presenca', 'reuniao_propor', 'reunioes_propostas', 'reuniao_proposta_decidir', 'dicionario_termos', 'dicionario_salvar', 'termo_voluntario_aceitar', 'aprendizado_aceitar', 'marketing_sugerir', 'marketing_caixa', 'marketing_caixa_decidir', 'painel_estatisticas', 'educadores', 'chat_relatar', 'chat_relatos', 'chat_relato_resolver',
              'audit_logs_listar', 'comunidade_para_avaliar', 'comunidade_avaliada', 'comunidade_avaliacao_externa', 'comunidade_pendentes', 'comunidade_controles', 'comunidade_modo_seguranca', 'comunidade_verificacao',
              'boletim_confirmar', 'boletim_sair', 'boletim_enviar', 'emails_pendentes', 'email_resultado', 'emails_situacao', 'papeis_historico_listar',
              'equipe_supervisao', 'pedidos_supervisao', 'protecoes', 'site_pausa', 'usuario_editar', 'usuario_senha_redefinir', 'senha_trocada',
@@ -9109,6 +9109,14 @@ create table if not exists interno.curriculo_propostas (
   criado_em timestamptz not null default now()
 );
 alter table interno.curriculo_propostas enable row level security;
+-- Segunda leva: arquivar uma trilha com aulas (vai para content/arquivo, nada se perde) e cancelar uma mudança antes de
+-- ela ir ao ar. Os nomes das regras são os que o Postgres deu às regras escritas na própria coluna.
+alter table interno.curriculo_propostas drop constraint if exists curriculo_propostas_tipo_check;
+alter table interno.curriculo_propostas add constraint curriculo_propostas_tipo_check
+  check (tipo in ('disciplina', 'trilha', 'editar_disciplina', 'editar_trilha', 'remover_disciplina', 'remover_trilha', 'arquivar_trilha'));
+alter table interno.curriculo_propostas drop constraint if exists curriculo_propostas_status_check;
+alter table interno.curriculo_propostas add constraint curriculo_propostas_status_check
+  check (status in ('pendente', 'aprovada', 'recusada', 'aplicada', 'falhou', 'cancelada'));
 
 /** Quem decide o currículo: coordenação e coordenação pedagógica. */
 create or replace function interno.curriculo_decide() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
@@ -9129,7 +9137,7 @@ declare v uuid := interno.eu(); p curriculo_propostas; v_slug text;
 begin
   if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
   perform interno.limite('curriculo', 30, 1440);
-  if coalesce(p_tipo, '') not in ('disciplina', 'trilha', 'editar_disciplina', 'editar_trilha', 'remover_disciplina', 'remover_trilha') then perform interno.erro('invalido:tipo'); end if;
+  if coalesce(p_tipo, '') not in ('disciplina', 'trilha', 'editar_disciplina', 'editar_trilha', 'remover_disciplina', 'remover_trilha', 'arquivar_trilha') then perform interno.erro('invalido:tipo'); end if;
   if jsonb_typeof(coalesce(p_dados, '{}'::jsonb)) <> 'object' or pg_column_size(p_dados) > 40000 then perform interno.erro('invalido:dados'); end if;
   v_slug := coalesce(p_dados ->> 'slug', '');
   if v_slug !~ '^[a-z0-9][a-z0-9-]{1,59}$' then perform interno.erro('invalido:slug'); end if;
@@ -9137,7 +9145,7 @@ begin
   if p_tipo in ('trilha') and char_length(coalesce(p_dados ->> 'titulo', '')) not between 3 and 120 then perform interno.erro('invalido:titulo'); end if;
   if p_tipo in ('trilha', 'editar_trilha') and coalesce(p_dados ->> 'etapa', 'medio') not in ('fundamental', 'medio', 'superior') then perform interno.erro('invalido:etapa'); end if;
   if not interno.curriculo_decide() then
-    if p_tipo in ('remover_disciplina', 'remover_trilha') then perform interno.erro('sem_permissao'); end if;
+    if p_tipo in ('remover_disciplina', 'remover_trilha', 'arquivar_trilha') then perform interno.erro('sem_permissao'); end if;
     if p_tipo = 'editar_disciplina' and not interno.escreve_em(v_slug) then perform interno.erro('sem_permissao'); end if;
     if p_tipo in ('trilha', 'editar_trilha') and not interno.escreve_em(p_dados ->> 'disciplina') then perform interno.erro('sem_permissao'); end if;
   end if;
@@ -9153,7 +9161,7 @@ create or replace function public.curriculo_listar() returns jsonb language plpg
 declare v uuid := interno.eu();
 begin
   if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
-  return (select coalesce(jsonb_agg(interno.curriculo_json(p) order by case p.status when 'pendente' then 0 when 'aprovada' then 1 else 2 end, p.criado_em desc), '[]'::jsonb)
+  return (select coalesce(jsonb_agg(interno.curriculo_json(p) order by case p.status when 'pendente' then 0 when 'aprovada' then 1 when 'falhou' then 2 else 3 end, p.criado_em desc), '[]'::jsonb)
           from curriculo_propostas p where p.criado_em > now() - interval '365 days'
             and (p.autor = v or interno.curriculo_decide() or interno.ensina(coalesce(p.dados ->> 'disciplina', p.dados ->> 'slug'))));
 end $$;
@@ -9186,6 +9194,54 @@ begin
     update curriculo_propostas set status = 'falhou', nota = left(coalesce(p_falhas ->> k, ''), 1000) where id = k::uuid and status = 'aprovada';
   end loop;
   return jsonb_build_object('ok', true);
+end $$;
+
+/** Cancela uma mudança que ainda não foi ao ar: quem propôs, ou quem decide. */
+create or replace function public.curriculo_cancelar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); p curriculo_propostas;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  update curriculo_propostas set status = 'cancelada', decidido_por = v, decidido_em = now()
+  where id = p_id and status in ('pendente', 'aprovada', 'falhou') and (autor = v or interno.curriculo_decide())
+  returning * into p;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.registrar('curriculo_cancelada', p.id::text, jsonb_build_object('tipo', p.tipo, 'slug', p.dados ->> 'slug'));
+  return interno.curriculo_json(p);
+end $$;
+
+/**
+ * Manda de novo para a publicação uma mudança marcada como aplicada que não chegou ao site (as de disciplina se perdiam
+ * até a rotina passar a guardar lib/areas.ts e os dicionários) ou uma que falhou depois de corrigido o motivo.
+ */
+create or replace function public.curriculo_reaplicar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); p curriculo_propostas;
+begin
+  if not interno.curriculo_decide() then perform interno.erro('sem_permissao'); end if;
+  update curriculo_propostas set status = 'aprovada', nota = '', aplicada_em = null, decidido_por = v, decidido_em = now()
+  where id = p_id and status in ('aplicada', 'falhou')
+  returning * into p;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.registrar('curriculo_reaplicada', p.id::text, jsonb_build_object('tipo', p.tipo, 'slug', p.dados ->> 'slug'));
+  return interno.curriculo_json(p);
+end $$;
+
+/** "Publicar agora" em Disciplinas e trilhas: quem decide pede a rotina de publicação fora de hora (até 6 vezes por hora). */
+create or replace function public.curriculo_publicar_agora() returns boolean language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.curriculo_decide() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('publicar_agora', 6, 60);
+  perform interno.registrar('publicar_agora', '', '{}'::jsonb);
+  return true;
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('curriculo_cancelar', 'curriculo_reaplicar', 'curriculo_publicar_agora') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
 end $$;
 
 -- ───────────────────────────── Reuniões da equipe ─────────────────────────────
