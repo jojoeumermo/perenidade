@@ -48,6 +48,8 @@ jobs:
       - run: npm run testar:ia
       # O Laboratório de modelos: probabilidade, Schelling, dilema, Gini, SIR, Lotka-Volterra, órbita, Fourier e autômatos.
       - run: npm run testar:modelos
+      # As ferramentas novas de prática: ordenação, grafos, sudoku, ABNT, céu, direitos do trabalhador, Karnaugh e contas.
+      - run: npm run testar:rodada
       # O estudo guardado no navegador: repetição espaçada, caderno de erros e a cópia (que não leva chave de aparelho).
       - run: npm run testar:estudo
       # Os exercícios com explicação do erro (content/exercicios): formato, aula existente e cada conta refeita.
