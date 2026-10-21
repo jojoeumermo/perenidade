@@ -100,10 +100,12 @@ function nomeDaChamada(no) {
 
 /** Cores e degradês de CSS, letras do canvas ("italic 600 40px ...") e comandos de PDF: nunca são texto para gente. */
 const desenhoOuPdf = (texto) =>
-  /\b(rgba?|linear-gradient|repeating-linear-gradient|polygon)\(/.test(texto) ||
+  /\b(rgba?|linear-gradient|repeating-linear-gradient|polygon|repeat|minmax|var)\(/.test(texto) ||
+  /^xref\b|\bDo Q$|^q \{\d+\}/.test(texto) ||
   /^(italic\s+)?(\d{3}|\{\d+\})\s.*px\b/.test(texto) ||
   /^\d+px\s/.test(texto) ||
   /^%PDF/.test(texto) ||
+  /^\{\d+\} 0 R$|^\{\d+\} 0{5} n$/.test(texto) ||
   /(^|\s)(<<|>>|obj|endobj|stream|startxref|trailer)(\s|$)|^\/[A-Z]\w*|\s(RG|rg|Tf|Td|Tj)(\s|$)/.test(texto);
 
 /** O que vai desenhado dentro das artes do estúdio (o texto dos modelos, do QR, do selo) não é texto da tela do painel. */
