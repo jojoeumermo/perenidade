@@ -91,7 +91,8 @@
     "notebook": "学习笔记本",
     "health": "健康",
     "reportBug": "报告网站错误",
-    "institute": "章程、使命与价值观"
+    "institute": "章程、使命与价值观",
+    "freeRoom": "自由教室（教师用）"
   },
   "labs": {
     "eyebrow": "真正的实践",
@@ -127,7 +128,9 @@
     "segurancaKaliAviso": "打开时，浏览器会下载约 8 MB（模拟器和一个小型 Linux 镜像）并启动系统——需要几秒钟。最好在电脑上，使用最新的 Chrome、Edge 或 Firefox。",
     "segurancaKaliTelaCheia": "全屏",
     "segurancaKaliDefesa": "防御训练：识别攻击",
-    "segurancaKaliForaDoAr": "实验室尚未在学院的地址上线。"
+    "segurancaKaliForaDoAr": "实验室尚未在学院的地址上线。",
+    "eletrica": "电工实验室",
+    "eletricaLead": "工作台上的真实万用表、灯泡的串联与并联、用正确颜色的电线连接灯和插座，以及电工常用计算。"
   },
   "lists": {
     "bankEyebrow": "练习",
@@ -239,7 +242,10 @@
     "publicRemove": "撤下",
     "publicResolutionFailed": "现在无法发布解答。",
     "publicSource": "公开考试题目，由开放项目转录（enem.dev、BLUEX 和 oab_exams）。更新于 {data}。本试卷来源：",
-    "publicSourcePick": "来源"
+    "publicSourcePick": "来源",
+    "bankTabInstitute": "研究所的题目",
+    "bankTabInstituteHint": "{n} 道来自课程的题目，附有教育者的答案和解释",
+    "bankTabPublicHint": "ENEM、大学入学考试（Fuvest、Unicamp、ITA、IME）、奥赛、OAB、Revalida 和 Enare"
   },
   "slogans": {
     "acervo": "阅读是一种抵抗。",
@@ -642,6 +648,14 @@
     "oratoria-e-lideranca": [
       "演讲与领导力",
       "清晰地当众讲话，准备发言，主持会议和集会，集体领导。"
+    ],
+    "samba-e-cultura": [
+      "桑巴与文化",
+      "从圆圈到大道的桑巴：历史、节奏、黑人与巴西文化、山丘社区、“马兰德拉任”以及创造桑巴的人们。"
+    ],
+    "eletricista": [
+      "电工",
+      "从基础知识到住宅布线，安全第一：万用表、配电箱、插座、电热淋浴器，以及以此谋生的手艺。"
     ]
   },
   "tracks": {
@@ -722,7 +736,10 @@
     "certCode": "核验编号：{c}",
     "certPrint": "保存为 PDF 或打印",
     "certClose": "关闭",
-    "certPrintHint": "在打印窗口中选择“另存为 PDF”、A4 纸张，并打开“背景图形”。"
+    "certPrintHint": "在打印窗口中选择“另存为 PDF”、A4 纸张，并打开“背景图形”。",
+    "searchLabel": "搜索学科",
+    "searchPlaceholder": "搜索学科或主题（例如：光合作用、桑巴、Python）…",
+    "searchClear": "清除"
   },
   "lesson": {
     "position": "第 {i} 课，共 {n} 课",
@@ -757,7 +774,13 @@
     "videoOpen": "在新标签页中打开视频",
     "imagePending": "图片等待发布",
     "toMistakes": "答错的题会进入你的错题本。",
-    "studyInNotebook": "在笔记本中学习这节课"
+    "studyInNotebook": "在笔记本中学习这节课",
+    "beforeTitle": "学习本课之前",
+    "beforeLead": "最好先学过：",
+    "beforeKnow": "我已经会了，继续",
+    "beforeDone": "已完成",
+    "beforeMissing": "尚未",
+    "alsoInTitle": "其他学科中的相关内容"
   },
   "library": {
     "areasTitle": "领域",
@@ -817,7 +840,9 @@
     "catalogTitle": "扩展目录",
     "catalogLead": "从开放目录中汇集的作品，附有直达来源的链接。这些条目比编审人员精选的作品更简略。收录某部作品并不代表认同其内容。",
     "seeAt": "在 {source} 查看",
-    "mecNote": "可在巴西教育部数字图书馆 MEC Livros 免费借阅电子版：只需使用 gov.br 账号登录。"
+    "mecNote": "可在巴西教育部数字图书馆 MEC Livros 免费借阅电子版：只需使用 gov.br 账号登录。",
+    "carouselPause": "暂停",
+    "carouselPlay": "继续"
   },
   "shelf": {
     "eyebrow": "学科",
@@ -1395,7 +1420,7 @@
     "teoria": "革命理论",
     "lutas": "人民的斗争",
     "percursos": "识字与 ENEM",
-    "oficios": "手艺与收入：学一门手艺，靠它挣钱"
+    "oficios": "手艺与爱好：学一门技能，自己动手，并以此赚钱"
   },
   "stages": {
     "fundamental": "小学与初中",
@@ -2824,7 +2849,11 @@
       "podcasts": "政治与大众教育节目，可以在公交车上、厨房里或工作间隙收听。",
       "instagram": "学院动态、课程和志愿者招募。",
       "live": "直播课日程，视频和聊天都在本站内。",
-      "notebook": "汇集课程和文本，从中生成摘要、卡片、测验、导图、时间线和音频。全部在你的浏览器中完成。"
+      "notebook": "汇集课程和文本，从中生成摘要、卡片、测验、导图、时间线和音频。全部在你的浏览器中完成。",
+      "community": "学习者论坛：提问、回答和讨论，有人管理，没有广告。",
+      "health": "志愿医疗工作者，免费或以公益价格接诊：你直接与他们联系。",
+      "bugs": "有东西卡住或显示错误？告诉维护代码的人。",
+      "freeRoom": "用网站的实验室、图书、编辑器、模拟和游戏来编排并投影你的课。"
     }
   },
   "support": {
@@ -3721,7 +3750,9 @@
       "摘要",
       "学习指南",
       "可打印资料",
-      "附评注的推荐"
+      "附评注的推荐",
+      "思维导图",
+      "可下载文件（PDF）"
     ]
   },
   "practice": {
@@ -4346,5 +4377,11 @@
     "title": "我发现了一个错误",
     "lead": "有东西打不开、卡住、显示错乱或文字错误？在这里告诉我们：会直接送到维护网站代码的人手里。",
     "description": "报告 Instituto Lúcia 网站的错误：哪里出了什么问题。无需账号，也不保存你的网络地址。"
+  },
+  "instituto": {
+    "description": "Instituto Lúcia 的宗旨、使命、愿景、价值观和运作章程：由志愿者维持的免费学校和图书馆。"
+  },
+  "salaLivre": {
+    "description": "用研究所提供的一切来编排并投影你的课：实验室、馆藏图书、照片/视频/3D 编辑器、模拟、游戏和测验。只保存在你的浏览器里。"
   }
 }

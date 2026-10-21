@@ -19,6 +19,7 @@ export default async function Page({ params }: PageProps<"/[lang]/laboratorios">
     [s.redes, s.redesLead, "/laboratorios/redes"],
     [s.linux, s.linuxLead, "/laboratorios/linux"],
     [s.montador, s.montadorLead, "/laboratorios/montador"],
+    [s.eletrica, s.eletricaLead, "/laboratorios/eletrica"],
     [s.ia, s.iaLead, "/laboratorios/ia"],
     [s.escritorio, s.escritorioLead, "/laboratorios/escritorio"],
     [s.seguranca, s.segurancaLead, "/laboratorios/seguranca"],
@@ -37,6 +38,9 @@ export default async function Page({ params }: PageProps<"/[lang]/laboratorios">
           </Link>
         ))}
       </div>
+      <p className="mt-8 border-2 border-ink bg-parchment-deep p-4 font-sans text-sm">
+        <Link href={localePath(lang, "/sala-livre")} className="font-bold underline hover:text-oxblood">{t.nav.freeRoom} →</Link> {t.salaLivre.description}
+      </p>
       <p className="mt-10 border-t border-rule pt-5 font-sans text-sm text-ink-soft">
         <Link href={localePath(lang, "/creditos")} className="underline hover:text-oxblood">{s.creditos}</Link>
       </p>
