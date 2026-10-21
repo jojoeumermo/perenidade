@@ -2048,3 +2048,8 @@ html[data-escrita-foco="1"] .painel {
   transition: height 0.18s;
 }
 
+
+/* Mural da equipe: a faixa da comunidade ganha um tracejado discreto, como o cabeçalho de um fórum. */
+.mural-faixa {
+  background-image: repeating-linear-gradient(135deg, color-mix(in srgb, var(--parchment) 14%, transparent) 0 2px, transparent 2px 14px);
+}
