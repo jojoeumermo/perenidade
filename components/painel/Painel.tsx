@@ -22,6 +22,7 @@ import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
 import { Estatisticas } from "./Estatisticas";
 import { TermoDeVoluntario } from "./Termo";
 import { SaudeNoPainel } from "./Saude";
+import { RadioNoAr } from "./RadioNoAr";
 import { ErrosRelatados } from "./Erros";
 import { Aviso, botao, botaoClaro, campo, data, elo, localDoPainel, oQueFaz, PAINEL_MUDOU, papeis, rotulo, situacoes, useAcao, useLista } from "./comum";
 import { Comunidade, MuralFila, SugerirEmissora } from "./Cuidar";
@@ -520,7 +521,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
       { id: "abertura", nome: "Aviso de abertura", sobre: "O quadro que aparece quando o site abre.", grupo: "Site", mostra: lidera },
       { id: "podcast", nome: "Podcast", sobre: "Episódios da pauta à publicação: roteiro, gravação, versões, revisão, capas, cortes e agenda.", grupo: "Produção", mostra: can(eu, "coordenacao", "jornalismo", "design", "mediacao", "curadoria"), conta: podcast.dados ?? undefined },
-      { id: "emissoras", nome: "Rádios do povo", sobre: "Indicar emissoras populares e comunitárias para o diretório público de rádios.", grupo: "Site", mostra: can(eu, "coordenacao", "jornalismo") },
+      { id: "emissoras", nome: "Rádio Lúcia e rádios do povo", sobre: "Pôr a Rádio Lúcia no ar (live do YouTube ou áudio) e indicar emissoras populares e comunitárias para o diretório público.", grupo: "Site", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "apoiadores", nome: "Apoio e transparência", sobre: "A página de Apoie (faixas, metas, custos), o mural de apoiadores, as contas do mês e o texto para a Benfeitoria.", grupo: "Site", mostra: lidera },
       { id: "erros", nome: "Erros relatados", sobre: "O que o público relatou na página Achei um erro.", grupo: "Site", mostra: can(eu, "coordenacao", "desenvolvimento") },
       { id: "tecnico", nome: "Estado técnico", sobre: "Publicação, avaliação automática, faxina e sinais de varredura.", grupo: "Site", mostra: can(eu, "coordenacao", "desenvolvimento"), conta: r?.publicacao_atrasada },
@@ -609,7 +610,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       </div>
 
       {/* No celular, o menu aberto ocupa a tela toda (sem sobra clara embaixo) e o rodapé dele fica no fim. */}
-      <aside id="menu-do-painel" className={`painel-lado no-print bg-[#17130e] text-[#efe4c8] max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r-4 lg:border-[#c21f16] ${menu ? "flex flex-col" : "hidden"}`}>
+      <aside id="menu-do-painel" className={`painel-lado no-print ${compacto ? "painel-compacto" : ""} bg-[#17130e] text-[#efe4c8] max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r-4 lg:border-[#c21f16] ${menu ? "flex flex-col" : "hidden"}`}>
         <div className={`hidden pt-6 lg:block ${compacto ? "px-3" : "px-5"}`}>
           <L href="/" className="flex items-center gap-3" title={compacto ? "Instituto Lúcia · voltar ao site" : undefined}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -627,7 +628,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
             {!compacto && <kbd className="font-mono text-[0.62rem] text-[#8f8468]">Ctrl K</kbd>}
           </button>
         </div>
-        <nav aria-label="Seções do painel" className="flex-1 overflow-y-auto px-3 py-5 [scrollbar-color:#4a4032_transparent] [scrollbar-width:thin]">
+        <nav aria-label="Seções do painel" className={`flex-1 overflow-y-auto overflow-x-hidden py-5 [scrollbar-color:#4a4032_transparent] [scrollbar-width:thin] ${compacto ? "px-3 lg:px-1.5" : "px-3"}`}>
           {grupos.map((grupo) => (
             <div key={grupo || "inicio"} className="mb-4">
               {grupo && (compacto ? <hr className="mx-2 mb-2 hidden border-[#3a3226] lg:block" /> : null)}
@@ -754,7 +755,12 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "site" && <Site />}
           {atual.id === "abertura" && <AvisoDeAbertura />}
           {atual.id === "podcast" && <Podcast />}
-          {atual.id === "emissoras" && <SugerirEmissora />}
+          {atual.id === "emissoras" && (
+            <>
+              <RadioNoAr />
+              <SugerirEmissora />
+            </>
+          )}
           {atual.id === "apoiadores" && <Apoio />}
           {atual.id === "tecnico" && <Tecnico />}
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}

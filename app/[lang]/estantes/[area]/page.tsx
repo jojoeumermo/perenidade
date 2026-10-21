@@ -98,19 +98,34 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
         <h2 className={heading}>{t.shelf.loose}</h2>
         <p className="mt-3 max-w-3xl text-ink-soft">{t.shelf.looseLead}</p>
         {loose.length > 0 ? (
-          <ul className="mt-6 grid gap-4 font-sans text-sm md:grid-cols-2">
-            {loose.map((material) => (
-              <li key={material.slug} className="border border-rule bg-parchment-deep p-5">
-                <p className="font-mono text-xs text-gold">
-                  {t.loose.formats[looseFormats.indexOf(material.format)] ?? material.format} · {material.authors.join(", ")}
-                </p>
-                <Link href={to(`/avulsos/${material.slug}`)} className="mt-1 block font-serif text-xl font-semibold hover:text-oxblood">
-                  {material.title}
-                </Link>
-                <p className="mt-1 text-ink-soft">{material.summary}</p>
-              </li>
+          // Separados por tipo (resumos, listas, roteiros, arquivos…), na ordem dos formatos, com atalhos no alto.
+          <>
+            {looseFormats.filter((f) => loose.some((m) => m.format === f)).length > 1 && (
+              <nav aria-label={t.shelf.loose} className="mt-4 flex flex-wrap gap-2 font-sans text-sm">
+                {looseFormats.filter((f) => loose.some((m) => m.format === f)).map((f) => (
+                  <a key={f} href={`#avulsos-${looseFormats.indexOf(f)}`} className="border-2 border-ink/20 px-3 py-1 hover:border-oxblood">
+                    {t.loose.formats[looseFormats.indexOf(f)] ?? f} <span className="text-ink-soft">({loose.filter((m) => m.format === f).length})</span>
+                  </a>
+                ))}
+              </nav>
+            )}
+            {looseFormats.filter((f) => loose.some((m) => m.format === f)).map((f) => (
+              <div key={f} id={`avulsos-${looseFormats.indexOf(f)}`} className="scroll-mt-6">
+                <h3 className="mt-8 border-b border-rule pb-1 font-mono text-xs uppercase tracking-widest text-oxblood">{t.loose.formats[looseFormats.indexOf(f)] ?? f}</h3>
+                <ul className="mt-3 grid gap-4 font-sans text-sm md:grid-cols-2">
+                  {loose.filter((m) => m.format === f).map((material) => (
+                    <li key={material.slug} className="border border-rule bg-parchment-deep p-5">
+                      <p className="font-mono text-xs text-gold">{material.authors.join(", ")}</p>
+                      <Link href={to(`/avulsos/${material.slug}`)} className="mt-1 block font-serif text-xl font-semibold hover:text-oxblood">
+                        {material.title}
+                      </Link>
+                      <p className="mt-1 text-ink-soft">{material.summary}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </>
         ) : (
           <p className="mt-4 text-lg text-ink-soft">
             {t.shelf.looseEmpty} <Link href={to("/voluntarios")} className="underline hover:text-oxblood">{t.shelf.looseJoin}</Link>

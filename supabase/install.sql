@@ -4302,6 +4302,8 @@ begin
   delete from auditoria where acao = 'isca' and criado_em < now() - interval '30 days';
   delete from audit_logs where criado_em < now() - interval '400 days';
   delete from emails where criado_em < now() - interval '30 days';
+  -- Relatos de erro do site (/relatar-erro): um ano.
+  if to_regclass('interno.erros_relatados') is not null then delete from erros_relatados where criado_em < now() - interval '365 days'; end if;
   -- Pedido de boletim que ninguém confirmou em uma semana sai da lista.
   delete from boletim where not confirmado and criado_em < now() - interval '7 days';
   delete from aparelhos where ultimo < now() - interval '180 days';
