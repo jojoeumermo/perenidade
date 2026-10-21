@@ -145,7 +145,9 @@
     "segurancaKaliDefesa": "Entraînement à la défense : repérer l'attaque",
     "segurancaKaliForaDoAr": "Le laboratoire n'est pas encore en ligne à l'adresse de l'institut.",
     "eletrica": "Laboratoire d'électricité",
-    "eletricaLead": "Un vrai multimètre sur l'établi, série et parallèle avec des ampoules, câbler un point lumineux et une prise avec les bonnes couleurs, et les calculs de l'électricien."
+    "eletricaLead": "Un vrai multimètre sur l'établi, série et parallèle avec des ampoules, câbler un point lumineux et une prise avec les bonnes couleurs, et les calculs de l'électricien.",
+    "modelos": "Laboratoire de modèles",
+    "modelosLead": "Probabilités, graphiques trompeurs, ségrégation, coopération, richesse, épidémie, prédateur et proie, orbites, ondes, automates, expressions régulières et le téléphone comme instrument : prédire, lancer, comparer, expliquer."
   },
   "lists": {
     "bankEyebrow": "Pour s'entraîner",
