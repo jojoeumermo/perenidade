@@ -2584,6 +2584,8 @@ drop function if exists public.topicos_listar(text, text, integer);
 drop function if exists public.topico_criar(text, text, text);
 -- As versões sem a aula ou obra ligada e sem a resposta-mãe saem: as novas aceitam os mesmos argumentos e mais estes.
 drop function if exists public.topicos_listar(text, text, integer, text, text);
+-- A lista ganhou o período ("mais votadas de hoje, da semana..."): a versão de seis argumentos sai.
+drop function if exists public.topicos_listar(text, text, integer, text, text, text);
 drop function if exists public.topico_criar(text, text, text, text);
 drop function if exists public.responder(uuid, text);
 
@@ -2604,7 +2606,7 @@ revoke all on function interno.selo(uuid) from public, anon, authenticated;
  * Lista de conversas e dúvidas, aberta a qualquer visitante. p_tipo: 'conversa', 'duvida' ou vazio (tudo).
  * p_ordem: 'alta', 'novos', 'melhores', 'sem_resposta'. O que espera a mediação só aparece para quem escreveu e para quem cuida.
  */
-create or replace function public.topicos_listar(p_ordem text default 'alta', p_disciplina text default null, p_pagina integer default 0, p_tipo text default null, p_busca text default null, p_alvo text default null) returns jsonb
+create or replace function public.topicos_listar(p_ordem text default 'alta', p_disciplina text default null, p_pagina integer default 0, p_tipo text default null, p_busca text default null, p_alvo text default null, p_periodo text default null) returns jsonb
 language sql stable security definer set search_path = interno, pg_temp as $$
   select interno.aberta('comunidade');
   select coalesce(jsonb_agg(x.j order by x.n), '[]'::jsonb) from (
@@ -2620,6 +2622,7 @@ language sql stable security definer set search_path = interno, pg_temp as $$
       and (coalesce(p_tipo, '') = '' or t.tipo = p_tipo)
       and (coalesce(p_alvo, '') = '' or t.alvo = p_alvo)
       and (p_ordem is distinct from 'sem_resposta' or t.respostas = 0)
+      and t.criado_em >= now() - case p_periodo when 'dia' then interval '1 day' when 'semana' then interval '7 days' when 'mes' then interval '30 days' when 'ano' then interval '365 days' else interval '100 years' end
       and (coalesce(btrim(p_busca), '') = '' or position(interno.normal(left(p_busca, 80)) in interno.normal(t.titulo || ' ' || left(t.corpo, 3000))) > 0)
     order by
       case when p_ordem in ('novos', 'sem_resposta') then extract(epoch from t.criado_em) end desc nulls last,
@@ -2648,7 +2651,7 @@ begin
     'respostas', coalesce((
       select jsonb_agg(jsonb_build_object(
         'id', r.id, 'corpo', r.corpo, 'pontos', r.pontos, 'oculto', r.oculto, 'retido', r.retido, 'criado_em', r.criado_em, 'autor', coalesce(f.nome, ''),
-        'aceita', r.id = t.aceita, 'da_equipe', exists (select 1 from papeis p where p.usuario = r.autor), 'autor_selo', interno.selo(r.autor), 'pai', r.pai,
+        'aceita', r.id = t.aceita, 'do_autor', coalesce(r.autor = t.autor, false), 'da_equipe', exists (select 1 from papeis p where p.usuario = r.autor), 'autor_selo', interno.selo(r.autor), 'pai', r.pai,
         'autor_id', case when interno.media() then r.autor end,
         'meu_voto', coalesce((select valor from votos where usuario = auth.uid() and tipo = 'resposta' and alvo = r.id), 0))
         order by (t.tipo = 'duvida' and r.id = t.aceita) desc, case when t.tipo = 'duvida' then r.pontos end desc nulls last, r.criado_em)
