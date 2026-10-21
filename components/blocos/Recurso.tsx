@@ -80,13 +80,40 @@ function CartaoDaObra({ id }: { id: string }) {
   );
 }
 
+/** O QR Code do recurso, para a turma abrir no celular durante a aula. Gerado no aparelho, sem serviço de fora. */
+function QrNoCelular({ abrir, titulo }: { abrir: string; titulo: string }) {
+  const [imagem, setImagem] = useState<string | null>(null);
+  const [link, setLink] = useState("");
+  const mostrar = () => {
+    if (imagem) return setImagem(null);
+    const url = new URL(abrir, window.location.origin).toString();
+    setLink(url);
+    import("qrcode")
+      .then((qrcode) => qrcode.toDataURL(url, { errorCorrectionLevel: "M", margin: 1, width: 320, color: { dark: "#17130e", light: "#ffffff" } }))
+      .then(setImagem)
+      .catch(() => setImagem(null));
+  };
+  return (
+    <>
+      <button type="button" onClick={mostrar} aria-expanded={!!imagem} className="cursor-pointer underline hover:text-oxblood">📱 No celular</button>
+      {imagem && (
+        <span className="flex w-full flex-wrap items-center gap-4 border-t border-ink/20 pt-2">
+          {/* eslint-disable-next-line @next/next/no-img-element -- imagem gerada no aparelho (data:) */}
+          <img src={imagem} alt={`QR Code para abrir ${titulo} no celular`} width={200} height={200} className="border border-ink/30 bg-white p-1" />
+          <span className="min-w-0 text-base"><strong>Aponte a câmera do celular</strong> para abrir na hora.<br /><span className="break-all font-mono text-xs text-ink-soft">{link}</span></span>
+        </span>
+      )}
+    </>
+  );
+}
+
 function Quadro({ src, titulo, altura, abrir }: { src: string; titulo: string; altura: number; abrir: string }) {
   const [aberto, setAberto] = useState(false);
   return (
     <figure className="my-6 border-2 border-ink">
       <figcaption className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink bg-parchment-deep px-3 py-2 font-sans text-sm">
         <strong>🧪 {titulo}</strong>
-        <a href={abrir} target="_blank" rel="noopener" className="underline hover:text-oxblood">Abrir em tela cheia ↗</a>
+        <span className="flex flex-wrap gap-3"><a href={abrir} target="_blank" rel="noopener" className="underline hover:text-oxblood">Abrir em tela cheia ↗</a><QrNoCelular abrir={abrir} titulo={titulo} /></span>
       </figcaption>
       {aberto ? (
         <iframe src={src} title={titulo} style={{ height: altura }} className="w-full border-0 bg-parchment" allow="clipboard-write; fullscreen" />

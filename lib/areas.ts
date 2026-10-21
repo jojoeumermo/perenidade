@@ -166,6 +166,7 @@ export const LABS = {
   escritorio: "/laboratorios/escritorio",
   simulacoes: "/laboratorios/simulacoes",
   eletrica: "/laboratorios/eletrica",
+  modelos: "/laboratorios/modelos",
 } as const;
 export type LabId = keyof typeof LABS;
 
@@ -178,7 +179,10 @@ export const areaLabs: Partial<Record<AreaSlug, LabId[]>> = {
   "inteligencia-artificial": ["ia", "ide"],
   manutencao: ["montador", "eletrica"],
   eletricista: ["eletrica"],
-  fisica: ["eletrica"],
+  fisica: ["eletrica", "modelos"],
+  matematica: ["modelos"],
+  biologia: ["modelos"],
+  astronomia: ["modelos"],
   // As simulações do PhET já estão na caixa como ferramenta nas ciências; aqui só onde não estão.
   enem: ["simulacoes", "escritorio"],
   portugues: ["escritorio"],
