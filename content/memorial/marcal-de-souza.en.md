@@ -1,0 +1,1 @@
+A Guarani Nhandeva leader born in Ponta Porã. A nurse, he travelled through the villages and denounced the invasion of Guarani lands by ranchers and the violence against his people. In 1980 he spoke on behalf of Brazil's Indigenous peoples before Pope John Paul II in Manaus. After years of threats, he was shot dead on 25 November 1983.
