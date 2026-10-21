@@ -119,7 +119,7 @@
     "montador": "Assembly and electronics bench",
     "montadorLead": "Build a PC checking every compatibility, use the multimeter, read resistors and solve repair cases for computers, laptops, phones and electronics.",
     "ia": "AI Lab",
-    "iaLead": "Watch the machine learn: a line fitting points and a tiny network.",
+    "iaLead": "Neural networks, nearest neighbours, clustering, overfitting, next-word prediction and bias: models that really train in your browser.",
     "escritorio": "Office",
     "escritorioLead": "Documents, spreadsheets and slides (Word, Excel and PowerPoint style), free, in the browser.",
     "escritorioIntro": "Three open-source programs from the ArtCraft project, opened right here: write a document, build a spreadsheet with formulas and charts, and prepare a presentation. They open and save .docx, .xlsx and .pptx files.",
