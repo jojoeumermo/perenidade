@@ -10,7 +10,7 @@ import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Abas, Aviso, botao, botaoClaro, campo, dataHora, elo, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
 
-interface Reuniao {
+export interface Reuniao {
   id: string;
   titulo: string;
   pauta: string;
@@ -29,7 +29,7 @@ interface Reuniao {
   presentes: number;
   presencas: { nome: string; entrou_em: string; saiu_em: string | null }[];
 }
-interface Proposta {
+export interface Proposta {
   id: string;
   titulo: string;
   assunto: string;
@@ -44,7 +44,7 @@ interface Proposta {
   autor: string;
 }
 
-const tipos: Record<Reuniao["tipo"], string> = { aberta: "Aberta a toda a equipe", coordenacao: "Só coordenação e supervisão", convidados: "Convidados" };
+export const tipos: Record<Reuniao["tipo"], string> = { aberta: "Aberta a toda a equipe", coordenacao: "Só coordenação e supervisão", convidados: "Convidados" };
 const situacoes: Record<Reuniao["status"], string> = { agendada: "agendada", ao_vivo: "AO VIVO", encerrada: "encerrada", cancelada: "cancelada" };
 const daquiAUmaHora = () => {
   const d = new Date(Date.now() + 3600_000);
@@ -57,7 +57,7 @@ const paraCampo = (iso: string) => {
 };
 
 /** Um convite .ics para a agenda de cada pessoa (gerado no aparelho). */
-function baixarIcs(r: Reuniao) {
+export function baixarIcs(r: Reuniao) {
   const f = (d: Date) => d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
   const inicio = new Date(r.inicio);
   const fim = new Date(inicio.getTime() + r.duracao * 60_000);
@@ -194,7 +194,7 @@ export function Reunioes({ me }: { me: Me }) {
   );
 }
 
-function NovaReuniao({ editando, depois, cancelar }: { editando: Reuniao | null; depois: () => void; cancelar: () => void }) {
+export function NovaReuniao({ editando, depois, cancelar }: { editando: Reuniao | null; depois: () => void; cancelar: () => void }) {
   const membros = useLista<Membro[]>("equipe_membros");
   const [form, setForm] = useState({ titulo: editando?.titulo ?? "", pauta: editando?.pauta ?? "", inicio: editando ? paraCampo(editando.inicio) : daquiAUmaHora(), duracao: editando?.duracao ?? 60, tipo: (editando?.tipo ?? "aberta") as Reuniao["tipo"], recorrencia: (editando?.recorrencia ?? "") as Reuniao["recorrencia"], link_pauta: editando?.link_pauta ?? "" });
   const [convidados, setConvidados] = useState<PessoaAchada[]>(editando?.convidados.map((c) => ({ id: c.id, nome: c.nome, email: "" })) ?? []);
@@ -249,7 +249,7 @@ function NovaReuniao({ editando, depois, cancelar }: { editando: Reuniao | null;
   );
 }
 
-function Propostas({ gere, propostas, erro, recarregar }: { gere: boolean; propostas: Proposta[]; erro: string; recarregar: () => void }) {
+export function Propostas({ gere, propostas, erro, recarregar }: { gere: boolean; propostas: Proposta[]; erro: string; recarregar: () => void }) {
   const acao = useAcao(recarregar);
   const [form, setForm] = useState({ titulo: "", assunto: "", inicio: daquiAUmaHora(), duracao: 60, convidados: "" });
   const [resposta, setResposta] = useState<Record<string, string>>({});
@@ -301,7 +301,7 @@ function Propostas({ gere, propostas, erro, recarregar }: { gere: boolean; propo
   );
 }
 
-function Historico({ reunioes, recarregar }: { reunioes: Reuniao[]; recarregar: () => void }) {
+export function Historico({ reunioes, recarregar }: { reunioes: Reuniao[]; recarregar: () => void }) {
   const [atas, setAtas] = useState<Record<string, string>>({});
   const [aviso, setAviso] = useState("");
   if (reunioes.length === 0) return <p className="text-ink-soft">Nenhuma reunião passada ainda.</p>;
