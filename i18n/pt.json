@@ -145,7 +145,9 @@
     "segurancaKaliDefesa": "Treino de defesa: reconhecer o ataque",
     "segurancaKaliForaDoAr": "O laboratório ainda não está no ar no endereço do instituto.",
     "eletrica": "Laboratório de elétrica",
-    "eletricaLead": "Multímetro de verdade na bancada, série e paralelo com lâmpadas, ligar luz e tomada com as cores certas e as contas do eletricista."
+    "eletricaLead": "Multímetro de verdade na bancada, série e paralelo com lâmpadas, ligar luz e tomada com as cores certas e as contas do eletricista.",
+    "modelos": "Laboratório de modelos",
+    "modelosLead": "Probabilidade, gráficos que enganam, segregação, cooperação, riqueza, epidemia, predador e presa, órbitas, ondas, autômatos, expressões regulares e o celular como instrumento: preveja, rode, compare e explique."
   },
   "lists": {
     "bankEyebrow": "Para treinar",
