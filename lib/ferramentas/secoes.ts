@@ -42,4 +42,18 @@ export const secaoDaFerramenta = {
   simulacoes: "code",
   "fisica-simulada": "physics",
   reacoes: "reaction",
+  // As ferramentas da rodada nova têm os textos no próprio componente (em português): vai só o sobretítulo.
+  "algoritmos": "eyebrow",
+  "criptografia": "eyebrow",
+  "grafos": "eyebrow",
+  "sudoku": "eyebrow",
+  "referencias-abnt": "eyebrow",
+  "palavras-geradoras": "eyebrow",
+  "solidos": "eyebrow",
+  "contas-do-dia-a-dia": "eyebrow",
+  "tons-do-mandarim": "eyebrow",
+  "alfabetos": "eyebrow",
+  "ceu": "eyebrow",
+  "calculadoras-de-eletronica": "eyebrow",
+  "direitos-trabalhistas": "eyebrow",
 } as const satisfies Record<ToolId, string>;
