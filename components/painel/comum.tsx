@@ -94,6 +94,7 @@ const erros: Record<string, string> = {
   ja_pediu: "Você já fez esse pedido e ele está em análise.",
   limite_anuncios: "Cada pessoa pode ter até três anúncios no mural.",
   ultima_coordenacao: "O instituto precisa de uma pessoa na coordenação.",
+  senha_errada: "A senha não confere. Escreva a senha que você usa para entrar.",
   limite_pedidos: "Você já tem três pedidos em aberto.",
   confirme_segundo_fator: "Confirme primeiro o seu próprio código do aplicativo autenticador.",
   falta_termo: "Falta o aceite do termo de adesão ao trabalho voluntário.",

@@ -999,7 +999,7 @@
       "check": "Conferir ortografia e gramática",
       "checking": "Conferindo…",
       "checkNone": "Nenhum apontamento.",
-      "checkNote": "O texto é enviado ao serviço aberto LanguageTool só quando você aperta o botão.",
+      "checkNote": "O texto vai ao conferidor LanguageTool, de código aberto, só quando você aperta o botão ou liga a conferência enquanto escreve.",
       "checkFailed": "A conferência não respondeu. Tente de novo em um minuto.",
       "checkStale": "O texto mudou: confira de novo."
     },

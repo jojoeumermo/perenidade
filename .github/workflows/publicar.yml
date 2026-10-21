@@ -23,12 +23,12 @@ jobs:
     # A chave de serviço do banco e o token de escrita no repositório só existem nos passos que precisam deles.
     # A instalação dos pacotes (npm ci) e o build rodam código de terceiros e não podem enxergar nenhum dos dois.
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           persist-credentials: false
           # O histórico inteiro: o resumo dele vai para historico/acervo.json (a Vercel só enxerga os últimos registros).
           fetch-depth: 0
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
         with:
           node-version: 22
           cache: npm

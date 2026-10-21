@@ -6,6 +6,7 @@ import { PageHeading } from "@/components/PageHeading";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { getTracks } from "@/lib/content";
+import type { ExercicioNovo } from "@/lib/exercicios";
 import { exerciciosDaTrilha } from "@/lib/exercicios-conteudo";
 import { ligado } from "@/lib/recursos";
 import { paginaMeta } from "@/lib/seo";
@@ -28,11 +29,32 @@ export default async function Page({ params }: PageProps<"/[lang]/nivelamento">)
   const testes: TesteDeNivelamento[] = getTracks(lang)
     .map((track) => {
       const porAula = new Map(exerciciosDaTrilha(track.slug).map((g) => [g.aula, g.exercicios.filter((ex) => ex.nivelamento)]));
-      // Uma pergunta por aula (a primeira marcada), na ordem em que as aulas são estudadas.
-      const questoes = track.lessons.flatMap((l) => (porAula.get(l.slug)?.[0] ? [{ aula: `${track.slug}/${l.slug}`, ex: porAula.get(l.slug)![0] }] : []));
+      // Uma pergunta por aula, na ordem em que as aulas são estudadas: a marcada para o nivelamento ou, se a aula não
+      // tiver, a primeira pergunta do teste da própria aula (que já passou pela revisão). Assim o "Por onde começar?"
+      // funciona em toda disciplina com aulas prontas, não só na matemática.
+      const questoes = track.lessons.flatMap((l) => {
+        const marcada = porAula.get(l.slug)?.[0];
+        if (marcada) return [{ aula: `${track.slug}/${l.slug}`, ex: marcada }];
+        const q = l.quiz[0];
+        if (!q || q.options.length < 2) return [];
+        const ex: ExercicioNovo = {
+          tipo: "escolha",
+          id: `quiz-${track.slug}-${l.slug}-0`,
+          tema: l.title,
+          dificuldade: 1,
+          enunciado: q.question,
+          explicacao: q.explanation ?? "",
+          fonte: "Teste da aula",
+          nivelamento: true,
+          revisao: { status: "em-revisao" },
+          autoria: l.authors.join(", "),
+          alternativas: q.options.map((texto, i) => ({ texto, certa: i === q.answer })),
+        };
+        return [{ aula: `${track.slug}/${l.slug}`, ex }];
+      });
       return { trilha: track.slug, titulo: track.title, roteiro: track.lessons.map((l) => ({ id: `${track.slug}/${l.slug}`, titulo: l.title })), questoes };
     })
-    .filter((teste) => teste.questoes.length > 0);
+    .filter((teste) => teste.questoes.length >= 3);
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
       <PageHeading eyebrow={s.nivelamento.olho} title={s.nivelamento.titulo}>

@@ -190,9 +190,21 @@ export function pedido(email, { remetente, resposta }) {
   // Só o boletim tem link de saída, e só ele vai com o desenho do Jornal.
   const corpo = { from: remetente, to: [email.para], subject: email.assunto, text: email.texto, html: email.sair ? boletim(email) : html(email.texto, email.assunto) };
   if (resposta) corpo.reply_to = resposta;
-  // Boletim: o leitor de e-mail mostra o botão "cancelar inscrição", que leva ao mesmo link de saída do texto.
-  if (email.sair) corpo.headers = { "List-Unsubscribe": `<${email.sair}>` };
+  // Boletim: o leitor de e-mail mostra o botão "cancelar inscrição". Com o código da pessoa, ele sai com um clique, sem
+  // abrir o site (RFC 8058, que o Gmail e o Yahoo pedem para listas); sem código (envio de teste), leva à página do jornal.
+  if (email.sair) {
+    const umClique = enderecoDeUmClique(email.sair);
+    corpo.headers = umClique
+      ? { "List-Unsubscribe": `<${umClique}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" }
+      : { "List-Unsubscribe": `<${email.sair}>` };
+  }
   return corpo;
+}
+
+/** O endereço de saída com um clique (app/api/boletim/sair) a partir do link de saída do rodapé, ou "" se não der. */
+export function enderecoDeUmClique(sair) {
+  const m = /^(https:\/\/[^/\s]+)\/[a-z]{2}\/jornal\?boletim=sair&codigo=([a-f0-9]{32})$/.exec(String(sair ?? ""));
+  return m ? `${m[1]}/api/boletim/sair?codigo=${m[2]}` : "";
 }
 
 /**

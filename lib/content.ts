@@ -843,7 +843,9 @@ export const getGallery = cache((): GalleryPiece[] => {
     if (!/^\/imagens\/galeria\/[a-z0-9-]+\.webp$/.test(piece.imagem)) fail(file, `"${piece.slug}": a imagem precisa estar em /imagens/galeria`);
     if (!/^https:\/\/commons\.wikimedia\.org\/wiki\//.test(piece.fonte)) fail(file, `"${piece.slug}": falta o endereço da fonte`);
   }
-  return pieces.sort((a, b) => a.ano.localeCompare(b.ano));
+  // Pelo primeiro ano escrito: "c. 1834", "17 de maio de 1888" e "1921–1922" entram na ordem certa.
+  const anoDe = (texto: string) => Number(texto.match(/\d{4}/)?.[0] ?? 9999);
+  return pieces.sort((a, b) => anoDe(a.ano) - anoDe(b.ano) || a.ano.localeCompare(b.ano));
 });
 
 /** Perguntas do dia a dia ("por que o aluguel é tão caro?") com os materiais que ajudam a responder. */

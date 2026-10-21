@@ -999,7 +999,7 @@
       "check": "Check spelling and grammar",
       "checking": "Checking…",
       "checkNone": "Nothing to point out.",
-      "checkNote": "The text is sent to the open LanguageTool service only when you press the button.",
+      "checkNote": "The text goes to the open-source LanguageTool checker only when you press the button or turn on checking as you write.",
       "checkFailed": "The checker did not answer. Try again in a minute.",
       "checkStale": "The text has changed: check again."
     },
