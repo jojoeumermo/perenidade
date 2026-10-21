@@ -488,6 +488,7 @@ function Privacidade({ me, recarregar, sair, avisosETrava }: { me: Me; recarrega
   const [passo, setPasso] = useState<0 | 1 | 2>(0);
   const [entendi, setEntendi] = useState(false);
   const [palavra, setPalavra] = useState("");
+  const [senhaApagar, setSenhaApagar] = useState("");
   const [avisoApagar, setAvisoApagar] = useState("");
 
   async function meusDados() {
@@ -585,14 +586,18 @@ function Privacidade({ me, recarregar, sair, avisosETrava }: { me: Me; recarrega
                 Para confirmar, escreva <strong className="font-mono" translate="no">APAGAR</strong>
                 <input value={palavra} onChange={(e) => setPalavra(e.target.value)} className={`${campo} max-w-xs font-mono`} autoComplete="off" />
               </label>
+              <label className="block">
+                E a sua senha atual
+                <input type="password" value={senhaApagar} onChange={(e) => setSenhaApagar(e.target.value)} className={`${campo} max-w-xs`} autoComplete="current-password" />
+              </label>
               <p className="flex gap-3">
                 <button
                   type="button"
                   className={perigo}
-                  disabled={palavra.trim() !== "APAGAR"}
+                  disabled={palavra.trim() !== "APAGAR" || !senhaApagar}
                   onClick={async () => {
                     try {
-                      await rpc("conta_apagar");
+                      await rpc("conta_apagar", { p_senha: senhaApagar });
                       sair();
                     } catch (erro) {
                       setAvisoApagar(textoDoErro(erro));
@@ -601,7 +606,7 @@ function Privacidade({ me, recarregar, sair, avisosETrava }: { me: Me; recarrega
                 >
                   Apagar a minha conta agora
                 </button>
-                <button type="button" className={elo} onClick={() => { setPasso(0); setEntendi(false); setPalavra(""); }}>Cancelar</button>
+                <button type="button" className={elo} onClick={() => { setPasso(0); setEntendi(false); setPalavra(""); setSenhaApagar(""); }}>Cancelar</button>
               </p>
               <Aviso texto={avisoApagar} />
             </div>

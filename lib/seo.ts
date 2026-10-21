@@ -4,7 +4,9 @@ import { defaultLocale, htmlLang, type Locale, locales } from "@/i18n/config";
 import { site } from "@/lib/site";
 
 /** Páginas que não entram nos buscadores: só fazem sentido para quem está usando o site naquele momento. */
-const PRIVADAS = new Set(["/busca", "/denunciar", "/reforco", "/meus-dados", "/certificado", "/entrar", "/painel", "/fora-do-ar", "/apoie/anterior"]);
+// A vitrine da Saúde Solidária mostra nome, registro e contato de pessoas: fica fora dos buscadores (e do sitemap) até a
+// revisão jurídica decidir o contrário. O texto público do termo (/saude/termo) não tem dado pessoal e continua indexado.
+const PRIVADAS = new Set(["/busca", "/denunciar", "/reforco", "/meus-dados", "/certificado", "/entrar", "/painel", "/fora-do-ar", "/apoie/anterior", "/saude"]);
 
 /** O endereço canônico da página no idioma dela e as versões nos outros idiomas (hreflang), com x-default em português. */
 export function alternatesDe(lang: Locale, path: string): NonNullable<Metadata["alternates"]> {
