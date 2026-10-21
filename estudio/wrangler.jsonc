@@ -5,7 +5,8 @@
   "name": "estudio-lucia",
   "main": "worker.js",
   "compatibility_date": "2026-10-01",
-  "assets": { "directory": "./site", "binding": "ASSETS" },
+  // A página do EffectCraft passa primeiro pelo Worker: aberta sem modo no endereço, ela vai para o modo estável.
+  "assets": { "directory": "./site", "binding": "ASSETS", "run_worker_first": ["/effectcraft/", "/effectcraft/index.html"] },
   "routes": [{ "pattern": "estudio.institutolucia.org", "custom_domain": true }],
   "workers_dev": false
 }
