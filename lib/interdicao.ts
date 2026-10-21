@@ -14,7 +14,7 @@ export const areasPublicas = [
   { id: "radio", nome: "Rádio e podcasts", caminhos: ["/radio", "/podcasts"] },
   { id: "acervo", nome: "Acervo, catálogo e autores", caminhos: ["/acervo", "/catalogo", "/autores"] },
   { id: "estudo", nome: "Disciplinas, trilhas e aulas", caminhos: ["/trilhas", "/estantes", "/avulsos", "/comecar", "/perguntas", "/ao-vivo", "/questoes", "/meu-estudo", "/revisao-pendente", "/turma", "/professores", "/nivelamento"] },
-  { id: "ferramentas", nome: "Ferramentas de prática e caderno", caminhos: ["/ferramentas", "/caderno", "/estudo-em-grupo", "/laboratorios", "/estudio-de-pratica"] },
+  { id: "ferramentas", nome: "Ferramentas de prática e caderno", caminhos: ["/ferramentas", "/caderno", "/estudo-em-grupo", "/laboratorios", "/estudio-de-pratica", "/sala-livre"] },
   { id: "memoria", nome: "Memorial, galeria e linha do tempo", caminhos: ["/memorial", "/galeria", "/linha-do-tempo", "/dedicatoria"] },
   { id: "debate", nome: "Debates, checagens, falácias e glossário", caminhos: ["/debates", "/checagens", "/falacias", "/glossario"] },
   { id: "materiais", nome: "Materiais de campanha", caminhos: ["/materiais"] },

@@ -95,7 +95,8 @@
     "notebook": "Caderno de estudos",
     "health": "Saúde",
     "reportBug": "Achei um erro no site",
-    "institute": "Estatuto, missão e valores"
+    "institute": "Estatuto, missão e valores",
+    "freeRoom": "Sala livre (para professores)"
   },
   "labs": {
     "eyebrow": "Praticar de verdade",
@@ -131,7 +132,9 @@
     "segurancaKaliAviso": "Ao abrir, o navegador baixa cerca de 8 MB (o emulador e uma imagem pequena de Linux) e arranca o sistema — leva alguns segundos. Melhor num computador, com o Chrome, o Edge ou o Firefox atualizados.",
     "segurancaKaliTelaCheia": "Tela cheia",
     "segurancaKaliDefesa": "Treino de defesa: reconhecer o ataque",
-    "segurancaKaliForaDoAr": "O laboratório ainda não está no ar no endereço do instituto."
+    "segurancaKaliForaDoAr": "O laboratório ainda não está no ar no endereço do instituto.",
+    "eletrica": "Laboratório de elétrica",
+    "eletricaLead": "Multímetro de verdade na bancada, série e paralelo com lâmpadas, ligar luz e tomada com as cores certas e as contas do eletricista."
   },
   "lists": {
     "bankEyebrow": "Para treinar",
@@ -649,6 +652,14 @@
     "oratoria-e-lideranca": [
       "Oratória e liderança",
       "Falar em público com clareza, preparar uma fala, conduzir reuniões e assembleias e liderar coletivamente."
+    ],
+    "samba-e-cultura": [
+      "Samba e cultura",
+      "O samba da roda à avenida: história, ritmo, cultura negra e brasileira, o morro, a malandragem e quem fez o samba."
+    ],
+    "eletricista": [
+      "Eletricista",
+      "Eletricidade do básico à instalação de uma casa, com segurança em primeiro lugar: multímetro, quadro, tomadas, chuveiro e o ofício como renda."
     ]
   },
   "tracks": {
@@ -1478,7 +1489,7 @@
     "teoria": "Teoria revolucionária",
     "lutas": "Lutas do povo",
     "percursos": "Alfabetização e ENEM",
-    "oficios": "Ofícios e renda: aprenda uma habilidade e ganhe dinheiro com ela"
+    "oficios": "Ofícios e hobbies: aprenda uma habilidade, faça você mesmo e ganhe renda com ela"
   },
   "stages": {
     "fundamental": "Ensino fundamental",
@@ -2910,7 +2921,8 @@
       "notebook": "Junte aulas e textos e tire deles resumo, cartões, questionário, mapa, linha do tempo e áudio. Tudo no seu navegador.",
       "community": "O fórum de quem estuda: perguntas, respostas e debates, com moderação e sem anúncio.",
       "health": "Profissionais de saúde voluntários, com atendimento gratuito ou por valor social: você fala direto com eles.",
-      "bugs": "Algo travou ou apareceu errado? Conte para quem cuida do código."
+      "bugs": "Algo travou ou apareceu errado? Conte para quem cuida do código.",
+      "freeRoom": "Monte e projete a sua aula com laboratórios, livros, editores, simulações e jogos do site."
     }
   },
   "support": {
@@ -4440,5 +4452,8 @@
   },
   "instituto": {
     "description": "Propósito, missão, visão, valores e a carta de funcionamento (estatuto) do Instituto Lúcia: escola e biblioteca gratuitas, mantidas por voluntários."
+  },
+  "salaLivre": {
+    "description": "Monte e projete a sua aula com tudo o que o instituto oferece: laboratórios, livros do acervo, editores de foto, vídeo e 3D, simulações, jogos e testes. Fica só no seu navegador."
   }
 }
