@@ -3739,6 +3739,7 @@
     "title": "Datos del pueblo",
     "lead": "Los números que más pesan en la vida de quien trabaja y lo que vota la Cámara de Diputados de Brasil, directo de las fuentes oficiales. Actualizados cada pocas horas.",
     "economy": "Salario, precios y empleo",
+    "debt": "Deudas, intereses y dólar",
     "indicators": {
       "salario": [
         "Salario mínimo",
@@ -3759,6 +3760,34 @@
       "populacao": [
         "Población de Brasil",
         "Estimación oficial del IBGE."
+      ],
+      "rendimento": [
+        "Ingreso medio del trabajo",
+        "Cuánto gana por mes, en promedio, quien trabaja, ya descontada la inflación (PNAD Continua, trimestre móvil)."
+      ],
+      "informalidade": [
+        "Trabajo informal",
+        "Parte de quienes trabajan sin contrato formal ni registro, sin derechos como vacaciones y jubilación."
+      ],
+      "dolar": [
+        "Dólar",
+        "Cotización de venta del dólar comercial. Cuando sube, suben también el pan, el gas y el combustible."
+      ],
+      "rotativo": [
+        "Intereses de la tarjeta (rotativo)",
+        "Tasa media anual para quien paga solo parte del resumen de la tarjeta. Es el crédito más caro del país."
+      ],
+      "endividamento": [
+        "Endeudamiento de las familias",
+        "Cuánto deben las familias a los bancos, comparado con el ingreso de un año entero."
+      ],
+      "comprometimento": [
+        "Ingreso destinado a deudas",
+        "Parte del ingreso mensual de las familias que se va en intereses y cuotas a los bancos."
+      ],
+      "inadimplencia": [
+        "Deudas atrasadas",
+        "Parte del crédito personal con más de 90 días de atraso (recursos libres)."
       ]
     },
     "reference": "Referencia",

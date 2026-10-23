@@ -3739,6 +3739,7 @@
     "title": "Dados do povo",
     "lead": "Os números que mais pesam na vida de quem trabalha e o que a Câmara anda votando, direto das fontes oficiais. Atualizados de tantas em tantas horas.",
     "economy": "Salário, preços e emprego",
+    "debt": "Dívidas, juros e dólar",
     "indicators": {
       "salario": [
         "Salário mínimo",
@@ -3759,6 +3760,34 @@
       "populacao": [
         "População do Brasil",
         "Estimativa oficial do IBGE."
+      ],
+      "rendimento": [
+        "Rendimento médio do trabalho",
+        "Quanto ganha por mês, em média, quem trabalha, já descontada a inflação (PNAD Contínua, trimestre móvel)."
+      ],
+      "informalidade": [
+        "Trabalho informal",
+        "Parte de quem trabalha sem carteira assinada, sem CNPJ ou sem direitos como férias e aposentadoria."
+      ],
+      "dolar": [
+        "Dólar",
+        "Cotação de venda do dólar comercial. Quando sobe, sobem também o pão, o gás e o combustível."
+      ],
+      "rotativo": [
+        "Juros do cartão rotativo",
+        "Taxa média ao ano de quem paga só parte da fatura do cartão. É o crédito mais caro do país."
+      ],
+      "endividamento": [
+        "Endividamento das famílias",
+        "Quanto as famílias devem aos bancos, comparado com a renda de um ano inteiro."
+      ],
+      "comprometimento": [
+        "Renda que vai para dívidas",
+        "Parte da renda mensal das famílias que vai para pagar juros e parcelas aos bancos."
+      ],
+      "inadimplencia": [
+        "Contas atrasadas",
+        "Parte do crédito pessoal com mais de 90 dias de atraso (recursos livres)."
       ]
     },
     "reference": "Referência",
