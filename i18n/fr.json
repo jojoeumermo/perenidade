@@ -3739,6 +3739,7 @@
     "title": "Données du peuple",
     "lead": "Les chiffres qui pèsent le plus sur la vie de qui travaille, et ce que vote la Chambre des députés, directement depuis des sources officielles brésiliennes. Mis à jour toutes les quelques heures.",
     "economy": "Salaires, prix et emploi",
+    "debt": "Dettes, taux d’intérêt et dollar",
     "indicators": {
       "salario": [
         "Salaire minimum",
@@ -3759,6 +3760,34 @@
       "populacao": [
         "Population du Brésil",
         "Estimation officielle de l'IBGE."
+      ],
+      "rendimento": [
+        "Revenu moyen du travail",
+        "Revenu mensuel moyen des personnes qui travaillent, corrigé de l’inflation (PNAD continue, trimestre glissant)."
+      ],
+      "informalidade": [
+        "Travail informel",
+        "Part des personnes qui travaillent sans contrat déclaré ni immatriculation, donc sans congés ni retraite."
+      ],
+      "dolar": [
+        "Dollar",
+        "Cours de vente du dollar commercial. Quand il monte, le pain, le gaz et le carburant montent aussi."
+      ],
+      "rotativo": [
+        "Intérêts du crédit renouvelable",
+        "Taux annuel moyen payé par qui ne règle qu’une partie de sa carte. C’est le crédit le plus cher du pays."
+      ],
+      "endividamento": [
+        "Endettement des ménages",
+        "Ce que les familles doivent aux banques, rapporté à une année entière de revenus."
+      ],
+      "comprometimento": [
+        "Revenu consacré aux dettes",
+        "Part du revenu mensuel des familles qui part en intérêts et mensualités aux banques."
+      ],
+      "inadimplencia": [
+        "Impayés",
+        "Part du crédit aux particuliers en retard de plus de 90 jours (ressources libres)."
       ]
     },
     "reference": "Référence",

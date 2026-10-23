@@ -28,7 +28,20 @@ export default async function Dados({ params }: PageProps<"/[lang]/dados">) {
     selic: (valor) => `${numero(valor, 2)}%`,
     desocupacao: (valor) => `${numero(valor, 1)}%`,
     populacao: (valor) => numero(valor),
+    rendimento: (valor) => new Intl.NumberFormat(locale, { style: "currency", currency: "BRL", maximumFractionDigits: 0 }).format(valor),
+    informalidade: (valor) => `${numero(valor, 1)}%`,
+    dolar: (valor) => new Intl.NumberFormat(locale, { style: "currency", currency: "BRL", minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(valor),
+    rotativo: (valor) => `${numero(valor, 0)}%`,
+    endividamento: (valor) => `${numero(valor, 1)}%`,
+    comprometimento: (valor) => `${numero(valor, 1)}%`,
+    inadimplencia: (valor) => `${numero(valor, 1)}%`,
   };
+  const diarios = new Set(["selic", "dolar"]);
+  const deDivida = new Set(["selic", "dolar", "rotativo", "endividamento", "comprometimento", "inadimplencia"]);
+  const grupos: [string, typeof lista][] = [
+    [s.economy, lista.filter((item) => !deDivida.has(item.id))],
+    [s.debt, lista.filter((item) => deDivida.has(item.id))],
+  ];
   const nomes = s.indicators as Record<string, string[]>;
 
   return (
@@ -37,28 +50,29 @@ export default async function Dados({ params }: PageProps<"/[lang]/dados">) {
         {s.lead}
       </PageHeading>
 
-      <section className="mt-10">
-        <h2 className="text-3xl font-semibold">{s.economy}</h2>
-        {lista.length === 0 ? (
-          <p className="mt-4 text-ink-soft">{s.unavailable}</p>
-        ) : (
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {lista.map((item) => (
-              <article key={item.id} className="flex flex-col border border-rule bg-parchment-deep p-5">
-                <h3 className="font-sans text-sm font-semibold uppercase tracking-[0.12em] text-ink-soft">{nomes[item.id][0]}</h3>
-                <p className="mt-2 text-4xl font-semibold">{formato[item.id](item.valor)}</p>
-                <p className="mt-2 text-ink-soft">{nomes[item.id][1]}</p>
-                <p className="mt-auto pt-4 font-sans text-xs text-ink-soft">
-                  {s.reference}: {data(item.referencia, item.id !== "selic")} ·{" "}
-                  <a href={item.link} target="_blank" rel="noopener noreferrer nofollow" className="underline hover:text-oxblood">
-                    {item.fonte}
-                  </a>
-                </p>
-              </article>
-            ))}
-          </div>
-        )}
-      </section>
+      {lista.length === 0 && <p className="mt-10 text-ink-soft">{s.unavailable}</p>}
+      {grupos.map(([titulo, itens]) =>
+        itens.length === 0 ? null : (
+          <section key={titulo} className="mt-10">
+            <h2 className="text-3xl font-semibold">{titulo}</h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {itens.map((item) => (
+                <article key={item.id} className="cartao flex flex-col p-5">
+                  <h3 className="rotulo">{nomes[item.id][0]}</h3>
+                  <p className="mt-2 text-4xl font-semibold">{formato[item.id](item.valor)}</p>
+                  <p className="mt-2 text-ink-soft">{nomes[item.id][1]}</p>
+                  <p className="mt-auto pt-4 font-sans text-xs text-ink-soft">
+                    {s.reference}: {data(item.referencia, !diarios.has(item.id))} ·{" "}
+                    <a href={item.link} target="_blank" rel="noopener noreferrer nofollow" className="underline hover:text-oxblood">
+                      {item.fonte}
+                    </a>
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+        ),
+      )}
 
       <section className="mt-14">
         <h2 className="text-3xl font-semibold">{s.votes}</h2>

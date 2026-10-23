@@ -3739,6 +3739,7 @@
     "title": "People's data",
     "lead": "The numbers that weigh most on working people's lives, and what the Chamber of Deputies is voting, straight from official Brazilian sources. Updated every few hours.",
     "economy": "Wages, prices and jobs",
+    "debt": "Debt, interest and the dollar",
     "indicators": {
       "salario": [
         "Minimum wage",
@@ -3759,6 +3760,34 @@
       "populacao": [
         "Population of Brazil",
         "Official IBGE estimate."
+      ],
+      "rendimento": [
+        "Average earnings from work",
+        "Average monthly income of working people, adjusted for inflation (Continuous PNAD, rolling quarter)."
+      ],
+      "informalidade": [
+        "Informal work",
+        "Share of workers without a formal contract or registration, and so without rights such as paid leave and a pension."
+      ],
+      "dolar": [
+        "US dollar",
+        "Commercial dollar selling rate. When it rises, so do bread, gas and fuel prices."
+      ],
+      "rotativo": [
+        "Revolving credit card interest",
+        "Average yearly rate for people who pay only part of their card bill. It is the most expensive credit in the country."
+      ],
+      "endividamento": [
+        "Household debt",
+        "How much families owe banks, compared with a full year of income."
+      ],
+      "comprometimento": [
+        "Income spent on debt",
+        "Share of families’ monthly income that goes to interest and instalments owed to banks."
+      ],
+      "inadimplencia": [
+        "Overdue loans",
+        "Share of personal credit more than 90 days overdue (non-earmarked loans)."
       ]
     },
     "reference": "Reference",
