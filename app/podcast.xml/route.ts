@@ -5,7 +5,7 @@ import { site } from "@/lib/site";
 
 // O feed do podcast. É ele que se cadastra uma vez no Spotify, no Apple Podcasts, no YouTube Music e nos outros
 // agregadores: dali em diante, cada episódio publicado no painel chega sozinho a todos (em até quinze minutos).
-export const revalidate = 900;
+export const revalidate = 3600;
 
 const xml = (texto: string) => texto.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 const cdata = (texto: string) => `<![CDATA[${texto.replace(/]]>/g, "]]]]><![CDATA[>")}]]>`;
