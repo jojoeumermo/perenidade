@@ -60,19 +60,19 @@ export function IDEPagina({ perfilInicial }: { perfilInicial?: Perfil }) {
         <L href="/laboratorios" className="ml-auto text-xs underline hover:text-oxblood">{t.labs.voltar}</L>
       </div>
       {lista.length > 0 && (
-        <details className="mt-4 border border-rule bg-parchment-deep p-3" open={!atual}>
-          <summary className="cursor-pointer font-semibold">{t.labs.exercicios} ({concluidos.filter((id) => lista.some((e) => e.id === id)).length}/{lista.length}){lang !== "pt" ? ` · ${t.labs.ptOnly}` : ""}</summary>
-          <ol className="mt-2 grid gap-1 sm:grid-cols-2" lang="pt-BR">
-            <li><button type="button" onClick={() => setExercicio(null)} className={`cursor-pointer text-left underline hover:text-oxblood ${!atual ? "font-semibold" : ""}`}>{t.labs.livre}</button></li>
+        <label className="mt-4 flex flex-wrap items-center gap-2 border-2 border-ink bg-parchment-deep px-3 py-2" lang="pt-BR">
+          <span className="font-semibold">
+            {t.labs.exercicios} ({concluidos.filter((id) => lista.some((e) => e.id === id)).length}/{lista.length}){lang !== "pt" ? ` · ${t.labs.ptOnly}` : ""}
+          </span>
+          <select value={atual?.id ?? ""} onChange={(e) => setExercicio(e.target.value || null)} className="min-w-0 flex-1 cursor-pointer border-2 border-ink bg-parchment px-2 py-1.5 font-semibold sm:flex-none">
+            <option value="">{t.labs.livre}</option>
             {lista.map((e, i) => (
-              <li key={e.id}>
-                <button type="button" onClick={() => setExercicio(e.id)} className={`cursor-pointer text-left underline hover:text-oxblood ${atual?.id === e.id ? "font-semibold" : ""}`}>
-                  {i + 1}. {e.titulo} <span className="font-mono text-[0.65rem] text-ink-soft">{"●".repeat(e.nivel)}</span>{concluidos.includes(e.id) && <span className="ml-1 text-ok">✓</span>}
-                </button>
-              </li>
+              <option key={e.id} value={e.id}>
+                {i + 1}. {e.titulo} {"●".repeat(e.nivel)}{concluidos.includes(e.id) ? " ✓" : ""}
+              </option>
             ))}
-          </ol>
-        </details>
+          </select>
+        </label>
       )}
       <IDE key={`${perfil}-${atual?.id ?? "livre"}`} perfil={perfil} exercicio={atual ?? undefined} aoConcluir={concluir} />
     </div>

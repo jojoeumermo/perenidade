@@ -6,11 +6,12 @@ import { chaveDoRascunho, conferirHtml, conferirLinhas, conferirSaida, type Exer
 import { abrirZip, type ArquivoDoProjeto, montarZip } from "@/lib/zip";
 import { lerDoLink, linkDoProjeto } from "@/lib/compartilhar-projeto";
 import { useI18n } from "../I18n";
+import { Selo } from "../Selo";
 import { EditorDeCodigo } from "./EditorDeCodigo";
 
 const TEXTOS: Record<string, Record<string, string>> = {
-  pt: { arquivos: "Arquivos", novo: "Novo arquivo", apagar: "Apagar", renomear: "Renomear", executar: "Executar", parar: "Parar", limpar: "Limpar", saida: "Saída", previa: "Prévia", baixar: "Baixar (.zip)", abrir: "Abrir arquivo ou .zip", exemplo: "Exemplo", restaurar: "Restaurar rascunho", guardado: "Rascunho guardado neste navegador", carregando: "Carregando o interpretador…", primeira: "Na primeira vez o navegador baixa o interpretador:", carregar: "Carregar e executar", semWasm: "Este navegador não tem WebAssembly ou Web Workers: use o Chrome, o Firefox ou o Edge atualizados.", tempo: "O programa passou de 20 segundos e foi interrompido. Confira se não há um laço sem fim.", falhou: "O interpretador não carregou. Recarregue a página e tente de novo.", entradas: "Entradas (uma por linha, para input)", testes: "Conferir o exercício", passou: "passou", falhou2: "falhou", dica: "Dica", solucao: "Ver a solução", naoRoda: "O que não roda aqui", privacidade: "O que você escreve não sai deste aparelho: o código roda no navegador e o rascunho fica só aqui. Baixe o projeto para guardar.", simples: "Editor simples", realce: "Realce", fonte: "Letra", parabens: "Tudo certo! Exercício concluído.", quase: "Ainda não: veja o que falhou e a dica.", teclas: "Ctrl+Enter executa · Ctrl+S guarda · Tab recua", apagarConfirma: "Apagar este arquivo?", modelos: "Modelos", compartilhar: "Compartilhar link", copiado: "Link copiado: quem abrir vê uma cópia do projeto (o código vai no próprio link, não fica guardado em servidor nenhum).", grandeDemais: "O projeto é grande demais para caber num link: baixe o .zip.", ladoALado: "Console ao lado", tempoDeExecucao: "terminou em {ms} ms", erroDeTipo: "erro de tipo", doLink: "Projeto aberto a partir de um link compartilhado." },
-  en: { arquivos: "Files", novo: "New file", apagar: "Delete", renomear: "Rename", executar: "Run", parar: "Stop", limpar: "Clear", saida: "Output", previa: "Preview", baixar: "Download (.zip)", abrir: "Open file or .zip", exemplo: "Example", restaurar: "Restore draft", guardado: "Draft saved in this browser", carregando: "Loading the interpreter…", primeira: "The first time, the browser downloads the interpreter:", carregar: "Load and run", semWasm: "This browser lacks WebAssembly or Web Workers: use an up-to-date Chrome, Firefox or Edge.", tempo: "The program ran over 20 seconds and was stopped. Check for an endless loop.", falhou: "The interpreter did not load. Reload the page and try again.", entradas: "Inputs (one per line, for input)", testes: "Check the exercise", passou: "passed", falhou2: "failed", dica: "Hint", solucao: "Show solution", naoRoda: "What does not run here", privacidade: "What you write never leaves this device: code runs in the browser and the draft stays here. Download the project to keep it.", simples: "Simple editor", realce: "Highlight", fonte: "Font", parabens: "All good! Exercise complete.", quase: "Not yet: see what failed and the hint.", teclas: "Ctrl+Enter runs · Ctrl+S saves · Tab indents", apagarConfirma: "Delete this file?" },
+  pt: { arquivos: "Arquivos", novo: "Novo arquivo", apagar: "Apagar", renomear: "Renomear", executar: "Executar", parar: "Parar", limpar: "Limpar", saida: "Saída", previa: "Prévia", baixar: "Baixar (.zip)", abrir: "Abrir arquivo ou .zip", exemplo: "Exemplo", restaurar: "Restaurar rascunho", guardado: "Rascunho guardado neste navegador", carregando: "Carregando o interpretador…", primeira: "Na primeira vez o navegador baixa o interpretador:", carregar: "Carregar e executar", semWasm: "Este navegador não tem WebAssembly ou Web Workers: use o Chrome, o Firefox ou o Edge atualizados.", tempo: "O programa passou de 20 segundos e foi interrompido. Confira se não há um laço sem fim.", falhou: "O interpretador não carregou. Recarregue a página e tente de novo.", entradas: "Entradas (uma por linha, para input)", testes: "Conferir o exercício", passou: "passou", falhou2: "falhou", dica: "Dica", solucao: "Ver a solução", naoRoda: "O que não roda aqui", privacidade: "O que você escreve não sai deste aparelho: o código roda no navegador e o rascunho fica só aqui. Baixe o projeto para guardar.", simples: "Editor simples", realce: "Realce", fonte: "Letra", parabens: "Tudo certo! Exercício concluído.", quase: "Ainda não: veja o que falhou e a dica.", teclas: "Ctrl+Enter executa · Ctrl+S guarda · Tab recua", apagarConfirma: "Apagar este arquivo?", modelos: "Modelos", compartilhar: "Compartilhar link", copiado: "Link copiado: quem abrir vê uma cópia do projeto (o código vai no próprio link, não fica guardado em servidor nenhum).", grandeDemais: "O projeto é grande demais para caber num link: baixe o .zip.", ladoALado: "Console ao lado", projeto: "Projeto livre", console: "Console", tabela: "Tabela", tarefa: "Exercício", mais: "Mais opções", consoleVazio: "Aperte Executar (ou Ctrl+Enter) e a saída aparece aqui.", tempoDeExecucao: "terminou em {ms} ms", erroDeTipo: "erro de tipo", doLink: "Projeto aberto a partir de um link compartilhado." },
+  en: { arquivos: "Files", novo: "New file", apagar: "Delete", renomear: "Rename", executar: "Run", parar: "Stop", limpar: "Clear", saida: "Output", previa: "Preview", baixar: "Download (.zip)", abrir: "Open file or .zip", exemplo: "Example", restaurar: "Restore draft", guardado: "Draft saved in this browser", carregando: "Loading the interpreter…", primeira: "The first time, the browser downloads the interpreter:", carregar: "Load and run", semWasm: "This browser lacks WebAssembly or Web Workers: use an up-to-date Chrome, Firefox or Edge.", tempo: "The program ran over 20 seconds and was stopped. Check for an endless loop.", falhou: "The interpreter did not load. Reload the page and try again.", entradas: "Inputs (one per line, for input)", testes: "Check the exercise", passou: "passed", falhou2: "failed", dica: "Hint", solucao: "Show solution", naoRoda: "What does not run here", privacidade: "What you write never leaves this device: code runs in the browser and the draft stays here. Download the project to keep it.", simples: "Simple editor", realce: "Highlight", fonte: "Font", parabens: "All good! Exercise complete.", quase: "Not yet: see what failed and the hint.", teclas: "Ctrl+Enter runs · Ctrl+S saves · Tab indents", apagarConfirma: "Delete this file?", modelos: "Templates", compartilhar: "Share link", copiado: "Link copied: whoever opens it gets a copy of the project (the code travels in the link itself, not on any server).", grandeDemais: "The project is too big for a link: download the .zip.", ladoALado: "Console beside", tempoDeExecucao: "finished in {ms} ms", erroDeTipo: "type error", doLink: "Project opened from a shared link.", projeto: "Free project", console: "Console", tabela: "Table", tarefa: "Exercise", mais: "More options", consoleVazio: "Press Run (or Ctrl+Enter) and the output shows up here." },
 };
 TEXTOS.es = { ...TEXTOS.pt, arquivos: "Archivos", novo: "Nuevo archivo", apagar: "Borrar", executar: "Ejecutar", parar: "Detener", limpar: "Limpiar", saida: "Salida", previa: "Vista previa", baixar: "Descargar (.zip)", abrir: "Abrir archivo o .zip", exemplo: "Ejemplo", restaurar: "Restaurar borrador", guardado: "Borrador guardado en este navegador", carregando: "Cargando el intérprete…", primeira: "La primera vez el navegador descarga el intérprete:", carregar: "Cargar y ejecutar", testes: "Comprobar el ejercicio", passou: "pasó", falhou2: "falló", dica: "Pista", solucao: "Ver la solución", naoRoda: "Lo que no corre aquí", parabens: "¡Todo bien! Ejercicio completo.", quase: "Todavía no: mira lo que falló y la pista.", apagarConfirma: "¿Borrar este archivo?" };
 TEXTOS.ru = { ...TEXTOS.en, arquivos: "Файлы", novo: "Новый файл", apagar: "Удалить", executar: "Запустить", parar: "Стоп", limpar: "Очистить", saida: "Вывод", previa: "Предпросмотр", baixar: "Скачать (.zip)", abrir: "Открыть файл или .zip", exemplo: "Пример", testes: "Проверить задание", passou: "пройден", falhou2: "не пройден", dica: "Подсказка", solucao: "Показать решение", parabens: "Всё верно! Задание выполнено.", quase: "Пока нет: смотрите, что не прошло, и подсказку." };
@@ -71,6 +72,7 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
   const suporte = typeof window !== "undefined" && typeof WebAssembly !== "undefined" && typeof Worker !== "undefined";
   const pesado = Boolean(PERFIS[perfil].pesado);
   const [ladoALado, setLadoALado] = useState(true);
+  const [painel, setPainel] = useState<Painel>(exercicio ? "tarefa" : perfil === "web" ? "previa" : "console");
   const inicio = useRef(0);
   const atual = arquivos.find((a) => a.nome === ativo) ?? arquivos[0];
 
@@ -138,6 +140,7 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
     if (!suporte) return setAviso(s.semWasm);
     if (pesado && !confirmado.current && !worker.current && !db.current) return setConfirmarDownload(true);
     setConfirmarDownload(false);
+    if (!exercicio) setPainel(perfil === "web" ? "previa" : "console");
     setSaida([]);
     setLinhas(null);
     if (perfil === "web") {
@@ -305,141 +308,204 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
     }
   }
 
-  const botao = "cursor-pointer bg-ink px-4 py-2 font-sans text-sm font-semibold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50";
-  const claro = "cursor-pointer border-2 border-ink px-3 py-1.5 font-sans text-sm font-semibold hover:border-oxblood hover:text-oxblood disabled:cursor-not-allowed disabled:opacity-50";
-  const elo = "cursor-pointer font-sans text-xs underline hover:text-oxblood";
   const ocupado = estado !== "parado";
+  const comPrevia = perfil === "web";
+  const abas: [Painel, string][] = [
+    ...(exercicio ? ([["tarefa", s.tarefa]] as [Painel, string][]) : []),
+    ...(comPrevia ? ([["previa", s.previa]] as [Painel, string][]) : []),
+    ["console", s.console],
+    ...(linhas && linhas.campos.length > 0 ? ([["tabela", s.tabela]] as [Painel, string][]) : []),
+  ];
+  const painelAtivo: Painel = abas.some(([id]) => id === painel) ? painel : abas[0][0];
+  const icone = "cursor-pointer rounded px-1.5 py-0.5 text-ink-soft hover:bg-parchment hover:text-ink disabled:cursor-not-allowed disabled:opacity-40";
+  const fino = "cursor-pointer rounded border border-rule px-2.5 py-1 font-semibold text-ink hover:bg-parchment disabled:cursor-not-allowed disabled:opacity-50";
 
   return (
-    <div className="mt-6 font-sans text-sm">
-      {exercicio && (
-        <section className="mb-4 border-l-4 border-oxblood bg-parchment-deep p-4" lang="pt-BR">
-          <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-gold">Exercício · nível {exercicio.nivel}</p>
-          <h2 className="mt-1 font-serif text-xl font-semibold">{exercicio.titulo}</h2>
-          <p className="mt-2 whitespace-pre-wrap">{exercicio.enunciado}</p>
-          <p className="mt-3 flex flex-wrap gap-3">
-            {dicasVistas < exercicio.dicas.length && <button type="button" className={elo} onClick={() => setDicasVistas((n) => n + 1)}>{s.dica} ({dicasVistas + 1}/{exercicio.dicas.length})</button>}
-            {exercicio.solucao && resultado && !resultado.every(Boolean) && <button type="button" className={elo} onClick={() => setVerSolucao((v) => !v)}>{s.solucao}</button>}
-          </p>
-          {exercicio.dicas.slice(0, dicasVistas).map((d, i) => <p key={i} className="mt-1 text-ink-soft">{d}</p>)}
-          {verSolucao && exercicio.solucao?.map((a) => <pre key={a.nome} className="mt-2 overflow-x-auto border border-rule bg-parchment p-3 font-mono text-xs"><strong>{a.nome}</strong>{"\n"}{a.conteudo}</pre>)}
-        </section>
-      )}
-      <div className="mb-2 flex flex-wrap items-center gap-2">
-        <button type="button" className={botao} disabled={ocupado} onClick={() => void executar()}>▶ {s.executar}</button>
-        {ocupado && perfil !== "sql" && <button type="button" className="cursor-pointer border-2 border-oxblood px-3 py-1.5 font-semibold text-oxblood" onClick={() => parar()}>{s.parar}</button>}
-        <button type="button" className={claro} onClick={() => { setSaida([]); setLinhas(null); setResultado(null); }}>{s.limpar}</button>
-        <span className="mx-1 hidden h-5 w-px bg-rule sm:block" />
-        <button type="button" className={claro} onClick={baixar}>{s.baixar}</button>
-        <button type="button" className={claro} onClick={() => entradaArquivo.current?.click()}>{s.abrir}</button>
-        <input ref={entradaArquivo} type="file" multiple accept=".zip,.txt,.py,.php,.html,.htm,.css,.js,.mjs,.ts,.c,.cpp,.h,.hpp,.rb,.lua,.sql,.json,.md,.csv" className="sr-only" onChange={(e) => { void abrir(e.target.files); e.target.value = ""; }} />
-        <select aria-label={s.modelos} value="" onChange={(e) => {
-          const i = Number(e.target.value);
-          const m = i === 0 ? { arquivos: PERFIS[perfil].exemplo, entrada: PERFIS[perfil].entrada } : PERFIS[perfil].modelos![i - 1];
-          setArquivos(m.arquivos.map((a) => ({ ...a })));
-          setAtivo(m.arquivos[0].nome);
-          setEntrada(m.entrada ?? "");
-        }} className="cursor-pointer border-2 border-ink bg-parchment px-2 py-1.5 font-semibold">
-          <option value="" disabled>{s.modelos}…</option>
-          <option value="0">{s.exemplo}</option>
-          {PERFIS[perfil].modelos?.map((m, i) => <option key={m.nome} value={i + 1}>{m.nome}</option>)}
-        </select>
-        {!exercicio && <button type="button" className={claro} onClick={() => void compartilhar()}>{s.compartilhar}</button>}
-        {temRascunho && <button type="button" className={elo} onClick={restaurar}>{s.restaurar}</button>}
-        <span className="ml-auto flex items-center gap-2 text-xs text-ink-soft">
-          <label className="hidden cursor-pointer items-center gap-1 lg:flex"><input type="checkbox" checked={ladoALado} onChange={(e) => setLadoALado(e.target.checked)} />{s.ladoALado}</label>
-          <label className="flex cursor-pointer items-center gap-1"><input type="checkbox" checked={!realce} onChange={(e) => setRealce(!e.target.checked)} />{s.simples}</label>
-          <button type="button" aria-label={`${s.fonte} −`} className={claro} onClick={() => setFonte((f) => Math.max(11, f - 1))}>A−</button>
-          <button type="button" aria-label={`${s.fonte} +`} className={claro} onClick={() => setFonte((f) => Math.min(22, f + 1))}>A+</button>
+    <div className="ide-area mt-6 overflow-hidden border-2 border-ink bg-parchment-deep font-sans text-sm text-ink">
+      {/* Barra de cima, como a do Replit: o projeto à esquerda, o Executar no meio, compartilhar e o resto à direita. */}
+      <div className="flex flex-wrap items-center gap-2 border-b border-rule bg-parchment px-3 py-2">
+        <button type="button" className={`${icone} hidden lg:inline-block`} onClick={() => setArquivosAbertos((v) => !v)} aria-label={s.arquivos} aria-pressed={arquivosAbertos}>☰</button>
+        <span className="min-w-0 truncate font-semibold">
+          <span className={`mr-2 inline-block rounded px-1.5 py-0.5 font-mono text-[0.65rem] font-bold ${corDoPerfil(perfil)}`}>{PERFIS[perfil].nome}</span>
+          {exercicio ? exercicio.titulo : s.projeto}
         </span>
+        <div className="order-last flex w-full justify-center sm:order-none sm:mx-auto sm:w-auto">
+          {ocupado && perfil !== "sql" ? (
+            <button type="button" className="ide-executar ide-parar cursor-pointer rounded-md px-6 py-1.5 font-semibold" onClick={() => parar()}>■ {s.parar}</button>
+          ) : (
+            <button type="button" className="ide-executar cursor-pointer rounded-md px-6 py-1.5 font-semibold disabled:opacity-60" disabled={ocupado} onClick={() => void executar()}>▶ {s.executar}</button>
+          )}
+        </div>
+        {!exercicio && <button type="button" className="ide-convidar cursor-pointer rounded-md px-3 py-1 font-semibold" onClick={() => void compartilhar()}>{s.compartilhar}</button>}
+        <details className="relative">
+          <summary className={`${icone} list-none`} aria-label={s.mais}>⋯</summary>
+          <div className="absolute right-0 z-20 mt-1 w-64 space-y-1 rounded-md border border-rule bg-parchment p-2 shadow-xl">
+            <button type="button" className="block w-full cursor-pointer rounded px-2 py-1.5 text-left hover:bg-parchment-deep" onClick={baixar}>{s.baixar}</button>
+            <button type="button" className="block w-full cursor-pointer rounded px-2 py-1.5 text-left hover:bg-parchment-deep" onClick={() => entradaArquivo.current?.click()}>{s.abrir}</button>
+            {temRascunho && <button type="button" className="block w-full cursor-pointer rounded px-2 py-1.5 text-left hover:bg-parchment-deep" onClick={restaurar}>{s.restaurar}</button>}
+            <label className="flex cursor-pointer items-center gap-2 px-2 py-1.5"><input type="checkbox" checked={!realce} onChange={(e) => setRealce(!e.target.checked)} />{s.simples}</label>
+            <label className="hidden cursor-pointer items-center gap-2 px-2 py-1.5 lg:flex"><input type="checkbox" checked={ladoALado} onChange={(e) => setLadoALado(e.target.checked)} />{s.ladoALado}</label>
+            <p className="flex items-center gap-2 px-2 py-1.5">
+              {s.fonte}
+              <button type="button" aria-label={`${s.fonte} −`} className={fino} onClick={() => setFonte((f) => Math.max(11, f - 1))}>A−</button>
+              <button type="button" aria-label={`${s.fonte} +`} className={fino} onClick={() => setFonte((f) => Math.min(22, f + 1))}>A+</button>
+            </p>
+          </div>
+        </details>
+        <input ref={entradaArquivo} type="file" multiple accept=".zip,.txt,.py,.php,.html,.htm,.css,.js,.mjs,.ts,.c,.cpp,.h,.hpp,.rb,.lua,.sql,.json,.md,.csv" className="sr-only" onChange={(e) => { void abrir(e.target.files); e.target.value = ""; }} />
       </div>
-      <p role="status" className="min-h-5 text-xs text-ink-soft">
-        {estado === "carregando" ? s.carregando : aviso || s.teclas}
-      </p>
+
       {confirmarDownload && (
-        <p className="my-2 border-2 border-gold bg-parchment-deep p-3">
+        <p className="border-b border-rule bg-parchment px-3 py-2">
           {s.primeira} <strong>{PERFIS[perfil].download}</strong>.{" "}
-          <button type="button" className={`${botao} ml-2`} onClick={() => { confirmado.current = true; setConfirmarDownload(false); void executar(); }}>{s.carregar}</button>
-          <button type="button" className={`${claro} ml-2`} onClick={() => setConfirmarDownload(false)}>✕</button>
+          <button type="button" className="ide-executar ml-2 cursor-pointer rounded-md px-3 py-1 font-semibold" onClick={() => { confirmado.current = true; setConfirmarDownload(false); void executar(); }}>{s.carregar}</button>
+          <button type="button" className={`${icone} ml-1`} onClick={() => setConfirmarDownload(false)} aria-label="Fechar">✕</button>
         </p>
       )}
-      <div className={`grid gap-3 ${ladoALado && perfil !== "web" ? "lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]" : ""}`}>
-      <div className={`grid gap-3 ${arquivosAbertos ? "lg:grid-cols-[11rem_minmax(0,1fr)]" : ""}`}>
+
+      <div className={`grid min-h-[34rem] ${arquivosAbertos ? "lg:grid-cols-[13rem_minmax(0,1fr)]" : ""}`}>
         {arquivosAbertos && (
-          <aside className="border-2 border-ink bg-parchment-deep p-2">
-            <p className="flex items-center justify-between font-mono text-[0.65rem] uppercase tracking-widest text-gold">
+          <aside className="border-b border-rule bg-parchment lg:border-r lg:border-b-0">
+            <p className="flex items-center justify-between px-3 pt-2 pb-1 text-xs font-semibold text-ink-soft">
               {s.arquivos}
-              <button type="button" className={elo} onClick={() => setArquivosAbertos(false)} aria-label="Recolher">«</button>
+              <span className="flex gap-0.5">
+                <button type="button" className={icone} onClick={novoArquivo} aria-label={s.novo} title={s.novo}>＋</button>
+                <button type="button" className={icone} onClick={renomear} aria-label={s.renomear} title={s.renomear}>✎</button>
+                <button type="button" className={icone} onClick={apagar} disabled={arquivos.length <= 1} aria-label={s.apagar} title={s.apagar}><Selo nome="lixeira" className="h-3.5 w-3.5" /></button>
+              </span>
             </p>
-            <ul className="mt-2 space-y-0.5">
+            <ul className="px-1.5 pb-2">
               {arquivos.map((a) => (
                 <li key={a.nome}>
-                  <button type="button" onClick={() => setAtivo(a.nome)} className={`w-full cursor-pointer truncate px-2 py-1 text-left font-mono text-xs ${a.nome === atual?.nome ? "bg-ink text-parchment" : "hover:bg-parchment"}`}>{a.nome}</button>
+                  <button type="button" onClick={() => setAtivo(a.nome)} className={`flex w-full cursor-pointer items-center gap-2 rounded px-2 py-1 text-left font-mono text-xs ${a.nome === atual?.nome ? "bg-parchment-deep text-ink" : "text-ink-soft hover:bg-parchment-deep hover:text-ink"}`}>
+                    <span className={`w-7 shrink-0 rounded-sm text-center text-[0.55rem] font-bold leading-4 ${corDaExtensao(a.nome)}`}>{extensao(a.nome)}</span>
+                    <span className="truncate">{a.nome}</span>
+                  </button>
                 </li>
               ))}
             </ul>
-            <p className="mt-3 flex flex-wrap gap-x-2 gap-y-1">
-              <button type="button" className={elo} onClick={novoArquivo}>{s.novo}</button>
-              <button type="button" className={elo} onClick={renomear}>{s.renomear}</button>
-              <button type="button" className={elo} onClick={apagar} disabled={arquivos.length <= 1}>{s.apagar}</button>
-            </p>
+            <details className="border-t border-rule px-3 py-2 text-xs">
+              <summary className="cursor-pointer font-semibold text-ink-soft">{s.modelos}</summary>
+              <ul className="mt-1 space-y-0.5">
+                {[{ nome: s.exemplo, arquivos: PERFIS[perfil].exemplo, entrada: PERFIS[perfil].entrada }, ...(PERFIS[perfil].modelos ?? [])].map((m) => (
+                  <li key={m.nome}>
+                    <button type="button" className="cursor-pointer text-left hover:underline" onClick={() => { setArquivos(m.arquivos.map((a) => ({ ...a }))); setAtivo(m.arquivos[0].nome); setEntrada(m.entrada ?? ""); }}>{m.nome}</button>
+                  </li>
+                ))}
+              </ul>
+            </details>
           </aside>
         )}
-        <div className="min-w-0">
-          {!arquivosAbertos && <button type="button" className={`${elo} mb-1`} onClick={() => setArquivosAbertos(true)}>» {s.arquivos}</button>}
-          {atual && <EditorDeCodigo valor={atual.conteudo} mudar={mudarAtual} nome={atual.nome} aoExecutar={() => { if (!ocupado) void executar(); }} aoGuardar={() => setAviso(s.guardado)} realce={realce} tamanho={fonte} altura={perfil === "web" ? "20rem" : "24rem"} />}
-          {PERFIS[perfil].le && (
-            <label className="mt-2 block text-xs">
-              {s.entradas}
-              <textarea value={entrada} onChange={(e) => setEntrada(e.target.value)} rows={2} className="mt-1 w-full border-2 border-rule bg-parchment-deep px-3 py-1.5 font-mono text-xs" />
-            </label>
-          )}
-        </div>
-      </div>
-      {perfil === "web" && (
-        <div className="mt-3">
-          <p className="font-mono text-xs uppercase tracking-widest text-gold">{s.previa}</p>
-          <iframe title={s.previa} sandbox="allow-scripts" srcDoc={documento || montarDocumento(arquivos)} className="mt-1 h-80 w-full border-2 border-ink bg-white" />
-        </div>
-      )}
-      <div className="mt-3">
-        <p className="font-mono text-xs uppercase tracking-widest text-gold">{s.saida}</p>
-        <pre aria-live="polite" className="mt-1 max-h-72 min-h-16 overflow-auto whitespace-pre-wrap border border-rule bg-parchment-deep p-3 font-mono text-xs">
-          {saida.map((l, i) => <span key={i} className={l.erro ? "text-oxblood" : ""}>{l.texto}</span>)}
-        </pre>
-        {linhas && linhas.campos.length > 0 && (
-          <div className="mt-2 max-h-72 overflow-auto border border-rule">
-            <table className="w-full border-collapse font-mono text-xs">
-              <thead><tr className="bg-parchment-deep">{linhas.campos.map((c) => <th key={c} className="border-b border-rule px-2 py-1 text-left">{c}</th>)}</tr></thead>
-              <tbody>{linhas.linhas.slice(0, 500).map((r, i) => <tr key={i}>{r.map((c, j) => <td key={j} className="border-b border-rule px-2 py-1">{String(c ?? "")}</td>)}</tr>)}</tbody>
-            </table>
-          </div>
-        )}
-      </div>
-      </div>
-      {exercicio && (
-        <div className="mt-3 border-2 border-ink p-3">
-          <p className="flex flex-wrap items-center gap-3">
-            <button type="button" className={botao} disabled={ocupado} onClick={() => void executar()}>{s.testes}</button>
-            {resultado && <strong className={resultado.every(Boolean) ? "text-ok" : "text-oxblood"}>{resultado.every(Boolean) ? s.parabens : s.quase}</strong>}
-          </p>
-          {resultado && (
-            <ol className="mt-2 space-y-1 font-mono text-xs">
-              {exercicio.testes.map((t, i) => (
-                <li key={i} className={resultado[i] ? "text-ok" : "text-oxblood"}>
-                  {resultado[i] ? "✓" : "✗"} {t.tipo === "saida" ? `saída esperada: ${t.esperado.split("\n")[0]}${t.esperado.includes("\n") ? "…" : ""}` : t.tipo === "contem" ? `a saída contém “${t.texto}”` : t.tipo === "regex" ? `a saída casa com /${t.padrao}/` : t.tipo === "html" ? `a página tem ${t.seletor}${t.texto ? ` com “${t.texto}”` : ""}` : `a consulta devolve ${t.esperado.length} linha(s) esperada(s)`} · {resultado[i] ? s.passou : s.falhou2}
-                </li>
+
+        <div className={`grid min-w-0 ${ladoALado ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]" : ""}`}>
+          {/* O editor, com as abas dos arquivos em cima. */}
+          <section className="flex min-w-0 flex-col border-b border-rule lg:border-b-0">
+            <div className="flex overflow-x-auto border-b border-rule bg-parchment" role="tablist" aria-label={s.arquivos}>
+              {arquivos.map((a) => (
+                <button key={a.nome} type="button" role="tab" aria-selected={a.nome === atual?.nome} onClick={() => setAtivo(a.nome)} className={`shrink-0 cursor-pointer border-r border-rule px-3 py-1.5 font-mono text-xs ${a.nome === atual?.nome ? "bg-parchment-deep text-ink shadow-[inset_0_2px_0_var(--ide-acento)]" : "text-ink-soft hover:text-ink"}`}>
+                  {a.nome}
+                </button>
               ))}
-            </ol>
-          )}
+            </div>
+            <div className="min-h-0 flex-1">
+              {atual && <EditorDeCodigo valor={atual.conteudo} mudar={mudarAtual} nome={atual.nome} aoExecutar={() => { if (!ocupado) void executar(); }} aoGuardar={() => setAviso(s.guardado)} realce={realce} tamanho={fonte} altura="30rem" />}
+            </div>
+            {PERFIS[perfil].le && (
+              <label className="block border-t border-rule px-3 py-2 text-xs text-ink-soft">
+                {s.entradas}
+                <textarea value={entrada} onChange={(e) => setEntrada(e.target.value)} rows={2} className="mt-1 w-full rounded border border-rule bg-parchment px-2 py-1 font-mono text-xs text-ink" />
+              </label>
+            )}
+          </section>
+
+          {/* O painel da direita: exercício, prévia, console e tabela, em abas. */}
+          <section className={`flex min-w-0 flex-col ${ladoALado ? "lg:border-l lg:border-rule" : "border-t border-rule"}`}>
+            <div className="flex items-center border-b border-rule bg-parchment" role="tablist" aria-label={s.console}>
+              {abas.map(([id, nome]) => (
+                <button key={id} type="button" role="tab" aria-selected={painelAtivo === id} onClick={() => setPainel(id)} className={`cursor-pointer border-r border-rule px-3 py-1.5 text-xs font-semibold ${painelAtivo === id ? "bg-parchment-deep text-ink shadow-[inset_0_2px_0_var(--ide-acento)]" : "text-ink-soft hover:text-ink"}`}>
+                  {nome}
+                </button>
+              ))}
+              {painelAtivo === "console" && <button type="button" className={`${icone} ml-auto mr-2 text-xs`} onClick={() => { setSaida([]); setLinhas(null); setResultado(null); }}>{s.limpar}</button>}
+            </div>
+            <div className="min-h-[16rem] flex-1 overflow-auto">
+              {painelAtivo === "tarefa" && exercicio && (
+                <div className="p-4" lang="pt-BR">
+                  <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-gold">Exercício · nível {exercicio.nivel}</p>
+                  <h2 className="mt-1 font-serif text-xl font-semibold">{exercicio.titulo}</h2>
+                  <p className="mt-2 whitespace-pre-wrap">{exercicio.enunciado}</p>
+                  <p className="mt-3 flex flex-wrap gap-3 text-xs">
+                    {dicasVistas < exercicio.dicas.length && <button type="button" className="cursor-pointer underline" onClick={() => setDicasVistas((n) => n + 1)}>{s.dica} ({dicasVistas + 1}/{exercicio.dicas.length})</button>}
+                    {exercicio.solucao && resultado && !resultado.every(Boolean) && <button type="button" className="cursor-pointer underline" onClick={() => setVerSolucao((v) => !v)}>{s.solucao}</button>}
+                  </p>
+                  {exercicio.dicas.slice(0, dicasVistas).map((d, i) => <p key={i} className="mt-1 text-ink-soft">{d}</p>)}
+                  {verSolucao && exercicio.solucao?.map((a) => <pre key={a.nome} className="mt-2 overflow-x-auto rounded border border-rule bg-parchment p-3 font-mono text-xs"><strong>{a.nome}</strong>{"\n"}{a.conteudo}</pre>)}
+                  <div className="mt-4 border-t border-rule pt-3">
+                    <p className="flex flex-wrap items-center gap-3">
+                      <button type="button" className="ide-executar cursor-pointer rounded-md px-3 py-1 font-semibold disabled:opacity-60" disabled={ocupado} onClick={() => void executar()}>{s.testes}</button>
+                      {resultado && <strong className={resultado.every(Boolean) ? "text-ok" : "text-oxblood"}>{resultado.every(Boolean) ? s.parabens : s.quase}</strong>}
+                    </p>
+                    {resultado && (
+                      <ol className="mt-2 space-y-1 font-mono text-xs">
+                        {exercicio.testes.map((t, i) => (
+                          <li key={i} className={resultado[i] ? "text-ok" : "text-oxblood"}>
+                            {resultado[i] ? "✓" : "✗"} {t.tipo === "saida" ? `saída esperada: ${t.esperado.split("\n")[0]}${t.esperado.includes("\n") ? "…" : ""}` : t.tipo === "contem" ? `a saída contém “${t.texto}”` : t.tipo === "regex" ? `a saída casa com /${t.padrao}/` : t.tipo === "html" ? `a página tem ${t.seletor}${t.texto ? ` com “${t.texto}”` : ""}` : `a consulta devolve ${t.esperado.length} linha(s) esperada(s)`} · {resultado[i] ? s.passou : s.falhou2}
+                          </li>
+                        ))}
+                      </ol>
+                    )}
+                  </div>
+                </div>
+              )}
+              {painelAtivo === "previa" && <iframe title={s.previa} sandbox="allow-scripts" srcDoc={documento || montarDocumento(arquivos)} className="h-full min-h-[28rem] w-full border-0 bg-white" />}
+              {painelAtivo === "console" && (
+                <pre aria-live="polite" className="m-0 min-h-full whitespace-pre-wrap p-3 font-mono text-xs">
+                  {saida.length === 0 ? <span className="text-ink-soft">{s.consoleVazio}</span> : saida.map((l, i) => <span key={i} className={l.erro ? "text-oxblood" : ""}>{l.texto}</span>)}
+                </pre>
+              )}
+              {painelAtivo === "tabela" && linhas && (
+                <table className="w-full border-collapse font-mono text-xs">
+                  <thead><tr className="bg-parchment">{linhas.campos.map((c) => <th key={c} className="border-b border-rule px-2 py-1 text-left">{c}</th>)}</tr></thead>
+                  <tbody>{linhas.linhas.slice(0, 500).map((r, i) => <tr key={i}>{r.map((c, j) => <td key={j} className="border-b border-rule px-2 py-1">{String(c ?? "")}</td>)}</tr>)}</tbody>
+                </table>
+              )}
+            </div>
+          </section>
         </div>
-      )}
-      <details className="mt-3 text-xs text-ink-soft">
-        <summary className="cursor-pointer">{s.naoRoda}</summary>
-        <ul className="mt-1 list-disc pl-5">{PERFIS[perfil].naoRoda.map((x) => <li key={x}>{x}</li>)}</ul>
-      </details>
-      <p className="mt-2 text-xs text-ink-soft">{s.privacidade}</p>
+      </div>
+
+      {/* Barra de baixo: o estado, os atalhos e o que não roda aqui. */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-rule bg-parchment px-3 py-1.5 text-xs text-ink-soft">
+        <span role="status" className="min-w-0 flex-1">{estado === "carregando" ? s.carregando : aviso || s.teclas}</span>
+        <details className="relative">
+          <summary className="cursor-pointer">{s.naoRoda}</summary>
+          <ul className="absolute right-0 bottom-full z-20 mb-1 w-72 list-disc rounded-md border border-rule bg-parchment p-3 pl-6 shadow-xl">{PERFIS[perfil].naoRoda.map((x) => <li key={x}>{x}</li>)}</ul>
+        </details>
+        <span className="w-full sm:w-auto">{s.privacidade}</span>
+      </div>
     </div>
   );
-
 }
+
+type Painel = "tarefa" | "previa" | "console" | "tabela";
+
+const extensao = (nome: string) => (nome.includes(".") ? nome.split(".").pop()!.slice(0, 4).toUpperCase() : "TXT");
+const CORES_DA_EXTENSAO: Record<string, string> = {
+  PY: "bg-[#3572a5] text-white",
+  JS: "bg-[#f1e05a] text-[#1c2333]",
+  MJS: "bg-[#f1e05a] text-[#1c2333]",
+  TS: "bg-[#3178c6] text-white",
+  HTML: "bg-[#e34c26] text-white",
+  HTM: "bg-[#e34c26] text-white",
+  CSS: "bg-[#563d7c] text-white",
+  PHP: "bg-[#777bb4] text-white",
+  SQL: "bg-[#e38c00] text-white",
+  C: "bg-[#555555] text-white",
+  CPP: "bg-[#f34b7d] text-white",
+  H: "bg-[#555555] text-white",
+  HPP: "bg-[#f34b7d] text-white",
+  RB: "bg-[#cc342d] text-white",
+  LUA: "bg-[#000080] text-white",
+};
+const corDaExtensao = (nome: string) => CORES_DA_EXTENSAO[extensao(nome)] ?? "bg-[#5f6b7a] text-white";
+const corDoPerfil = (perfil: Perfil) => ({ python: CORES_DA_EXTENSAO.PY, js: CORES_DA_EXTENSAO.JS, ts: CORES_DA_EXTENSAO.TS, web: CORES_DA_EXTENSAO.HTML, php: CORES_DA_EXTENSAO.PHP, sql: CORES_DA_EXTENSAO.SQL, cpp: CORES_DA_EXTENSAO.CPP, ruby: CORES_DA_EXTENSAO.RB, lua: CORES_DA_EXTENSAO.LUA })[perfil];
