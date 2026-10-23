@@ -53,8 +53,23 @@ export function JitsiSala({ sala, servidor: servidorDaSala, nome, conduzo, lang,
   const [erro, setErro] = useState(false);
   const [servidor, setServidor] = useState(() => servidorEscolhido(sala, servidorDaSala));
   const [trocar, setTrocar] = useState(false);
+  // A sala só é montada de novo quando muda a sala ou o servidor. Nome, assunto e os avisos de entrar e sair mudam a
+  // cada nova renderização de quem embute (funções novas a cada vez): se entrassem na lista do efeito, a sala era
+  // desmontada e montada de novo sem parar, e todo mundo via a pessoa "saindo e entrando" o tempo todo.
+  const avisos = useRef({ aoSair, aoEntrar });
+  const dados = useRef({ nome, assunto, conduzo, lang });
+  const apiAtual = useRef<JitsiApi | null>(null);
+  useEffect(() => {
+    avisos.current = { aoSair, aoEntrar };
+  }, [aoSair, aoEntrar]);
+  useEffect(() => {
+    dados.current = { nome, assunto, conduzo, lang };
+    apiAtual.current?.executeCommand("displayName", nome);
+    if (conduzo && assunto) apiAtual.current?.executeCommand("subject", assunto);
+  }, [nome, assunto, conduzo, lang]);
   useEffect(() => {
     let api: JitsiApi | null = null;
+    const { nome, assunto, conduzo, lang } = dados.current;
     let vivo = true;
     void Promise.resolve().then(() => vivo && setErro(false));
     carregarApi(servidor)
@@ -93,18 +108,20 @@ export function JitsiSala({ sala, servidor: servidorDaSala, nome, conduzo, lang,
             TOOLBAR_ALWAYS_VISIBLE: false,
           },
         });
-        api.addListener("videoConferenceJoined", () => aoEntrar?.());
-        api.addListener("videoConferenceLeft", () => aoSair?.());
-        api.addListener("readyToClose", () => aoSair?.());
+        apiAtual.current = api;
+        api.addListener("videoConferenceJoined", () => avisos.current.aoEntrar?.());
+        api.addListener("videoConferenceLeft", () => avisos.current.aoSair?.());
+        api.addListener("readyToClose", () => avisos.current.aoSair?.());
       })
       .catch(() => {
         if (vivo) setErro(true);
       });
     return () => {
       vivo = false;
+      if (apiAtual.current === api) apiAtual.current = null;
       api?.dispose();
     };
-  }, [sala, servidor, nome, conduzo, lang, assunto, aoSair, aoEntrar]);
+  }, [sala, servidor]);
   const outros = SERVIDORES_JITSI.filter((s) => s !== servidor);
   const rodape = (
     <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 font-sans text-xs text-ink-soft">

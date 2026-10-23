@@ -167,6 +167,11 @@ export function Reunioes({ me }: { me: Me }) {
       />
       <Aviso texto={lista.erro || acao.aviso} />
       <div hidden={aba !== "agora"}>
+        {gere && (
+          <div className="mb-6">
+            <AbrirAgora entrar={(r) => { lista.recarregar(); void entrar(r); }} />
+          </div>
+        )}
         {aoVivo.length > 0 && (
           <section>
             <h2 className="jornal-secao"><span className="jornal-editoria">Ao vivo agora</span></h2>
@@ -331,5 +336,69 @@ export function Historico({ reunioes, recarregar }: { reunioes: Reuniao[]; recar
       ))}
       <Aviso texto={aviso} />
     </ul>
+  );
+}
+
+/**
+ * Abrir uma sala na hora, sem marcar antes: cria a reunião começando agora, já ao vivo (quem pode entrar é avisado) e
+ * entra nela. Só a coordenação e a supervisão abrem salas; os outros propõem uma reunião.
+ */
+export function AbrirAgora({ entrar, escuro = false }: { entrar: (r: Reuniao) => void; escuro?: boolean }) {
+  const [aberto, setAberto] = useState(false);
+  const [titulo, setTitulo] = useState("Reunião rápida");
+  const [tipo, setTipo] = useState<Reuniao["tipo"]>("aberta");
+  const [ocupado, setOcupado] = useState(false);
+  const [aviso, setAviso] = useState("");
+  async function abrir() {
+    setOcupado(true);
+    setAviso("");
+    try {
+      const criada = await rpc<Reuniao>("reuniao_salvar", { p_id: null, p: { titulo: titulo.trim() || "Reunião rápida", pauta: "", inicio: new Date().toISOString(), duracao: 60, tipo, recorrencia: "", link_pauta: "", convidados: [] } });
+      const aoVivo = await rpc<Reuniao>("reuniao_estado", { p_id: criada.id, p_status: "ao_vivo" });
+      setAberto(false);
+      entrar(aoVivo);
+    } catch (erro) {
+      setAviso(textoDoErro(erro));
+    } finally {
+      setOcupado(false);
+    }
+  }
+  const botaoPrincipal = escuro
+    ? "cursor-pointer rounded-md bg-[#c21f16] px-4 py-2 text-sm font-bold text-white hover:bg-[#a51810] disabled:opacity-50"
+    : `${botao} disabled:opacity-50`;
+  if (!aberto) {
+    return (
+      <button type="button" className={botaoPrincipal} onClick={() => setAberto(true)}>
+        ▶ Abrir uma sala agora
+      </button>
+    );
+  }
+  return (
+    <form
+      className={`flex flex-wrap items-end gap-3 p-3 ${escuro ? "rounded-lg border border-s-linha bg-s-lado" : "painel-cartao"}`}
+      onSubmit={(e) => {
+        e.preventDefault();
+        void abrir();
+      }}
+    >
+      <label className="block min-w-48 flex-1 text-sm">
+        Nome da sala
+        <input value={titulo} onChange={(e) => setTitulo(e.target.value)} maxLength={140} className={escuro ? "mt-1 w-full rounded-md border border-s-linha bg-s-campo px-3 py-2" : campo} />
+      </label>
+      <label className="block text-sm">
+        Quem pode entrar
+        <select value={tipo} onChange={(e) => setTipo(e.target.value as Reuniao["tipo"])} className={escuro ? "mt-1 block rounded-md border border-s-linha bg-s-campo px-3 py-2" : campo}>
+          <option value="aberta">{tipos.aberta}</option>
+          <option value="coordenacao">{tipos.coordenacao}</option>
+        </select>
+      </label>
+      <button type="submit" className={botaoPrincipal} disabled={ocupado || titulo.trim().length < 3}>
+        {ocupado ? "Abrindo…" : "Abrir e entrar"}
+      </button>
+      <button type="button" className={escuro ? "cursor-pointer text-sm underline" : elo} onClick={() => setAberto(false)}>
+        Cancelar
+      </button>
+      {aviso && <p role="alert" className="w-full text-sm text-[#e0837a]">{aviso}</p>}
+    </form>
   );
 }
