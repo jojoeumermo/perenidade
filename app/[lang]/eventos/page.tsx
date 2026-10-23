@@ -1,23 +1,12 @@
 // Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
-import type { Metadata } from "next";
-import { ContentPageView } from "@/components/ContentPageView";
-import { Agenda, type Encontro } from "@/components/governanca/Agenda";
-import eventos from "@/content/eventos.json";
+import { redirect } from "next/navigation";
 import { loadLang } from "@/i18n";
-import { getPage } from "@/lib/content";
-import { paginaMeta } from "@/lib/seo";
+import { localePath } from "@/i18n/config";
 
-export async function generateMetadata({ params }: PageProps<"/[lang]/eventos">): Promise<Metadata> {
-  const { lang } = await loadLang(params);
-  const page = getPage("eventos", lang);
-  return paginaMeta(lang, "/eventos", page.title, page.lead);
-}
-
+// A agenda de encontros (cineclube, clube de leitura) está guardada para quando o instituto tiver muita gente: o
+// conteúdo continua em content/eventos.json e components/governanca/Agenda.tsx. Por enquanto o endereço leva às aulas
+// ao vivo, o encontro que já acontece. Redirecionamento temporário (307): a página volta.
 export default async function Eventos({ params }: PageProps<"/[lang]/eventos">) {
-  const { lang, t } = await loadLang(params);
-  return (
-    <ContentPageView slug="eventos" lang={lang} t={t} indice={false}>
-      <Agenda eventos={eventos.eventos as Encontro[]} />
-    </ContentPageView>
-  );
+  const { lang } = await loadLang(params);
+  redirect(localePath(lang, "/ao-vivo"));
 }

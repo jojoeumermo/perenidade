@@ -1,20 +1,23 @@
 // Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // As partes das páginas de governança que vêm de arquivos de conteúdo editados à mão: as tarefas de voluntariado, a
-// lista de quem contribuiu e o guia de direitos. Nada é coletado: o contato é só por e-mail (mailto).
+// lista de quem contribuiu e o guia de direitos. Nada é coletado aqui: as tarefas levam ao formulário de candidatura.
 import contribuidores from "@/content/contribuidores.json";
 import direitos from "@/content/direitos.json";
 import voluntariado from "@/content/voluntariado.json";
-import { site } from "@/lib/site";
 
-const mailto = (assunto: string, corpo: string) => `mailto:${site.newsletter}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(corpo)}`;
 const externo = { target: "_blank", rel: "noopener noreferrer nofollow" } as const;
 
 export function TarefasDeVoluntariado() {
   return (
-    <ul className="mt-8 grid gap-5 sm:grid-cols-2">
+    <section id="tarefas" aria-labelledby="tarefas-titulo" className="mt-12 scroll-mt-28">
+      <h2 id="tarefas-titulo" className="tarja tarja-v">
+        <span className="tarja-nome">★ Tarefas rápidas, no seu tempo</span>
+      </h2>
+      <p className="mt-3 max-w-2xl font-sans text-sm text-ink-soft">Escolha uma tarefa e clique em “Quero fazer esta”: o formulário logo abaixo já vem com ela escrita. A coordenação responde no seu e-mail.</p>
+    <ul className="mt-6 grid gap-6 sm:grid-cols-2">
       {voluntariado.tarefas.map((t) => (
-        <li key={t.id} className="flex flex-col border-[3px] border-ink bg-parchment-deep p-5">
+        <li key={t.id} className="cartao flex flex-col p-5">
           <p className="font-mono text-xs uppercase tracking-widest text-oxblood">{t.area} · {t.tempo}</p>
           <h2 className="mt-1 text-2xl font-semibold">{t.titulo}</h2>
           <p className="mt-2">{t.descricao}</p>
@@ -22,15 +25,13 @@ export function TarefasDeVoluntariado() {
             <div><dt className="inline font-semibold">Como começar: </dt><dd className="inline">{t.comecar}</dd></div>
             <div><dt className="inline font-semibold">Como entregar: </dt><dd className="inline">{t.entrega}</dd></div>
           </dl>
-          <a
-            href={mailto(`Quero ajudar: ${t.titulo}`, `Olá! Quero ajudar com "${t.titulo}".\n\nO que sei fazer:\n\nQuanto tempo tenho por semana:\n\nComo prefiro ser creditado (nome, apelido ou anônimo):\n`)}
-            className="mt-4 inline-block self-start border-2 border-ink bg-ink px-4 py-2 font-sans font-semibold text-parchment hover:bg-oxblood"
-          >
+          <a href={`?tarefa=${t.id}#candidatura`} className="botao botao-tinta botao-menor mt-4 self-start">
             Quero fazer esta →
           </a>
         </li>
       ))}
     </ul>
+    </section>
   );
 }
 

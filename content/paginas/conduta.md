@@ -6,7 +6,7 @@ resumo: "As regras de convivência nos espaços do Instituto Lúcia onde as pess
 
 RASCUNHO, REVISÃO JURÍDICA PENDENTE.
 
-Vale para a Comunidade, o Mural dos Trabalhadores, a vitrine Saúde Solidária, os encontros (cineclube, clube de leitura, aulas ao vivo), o painel da equipe e qualquer espaço novo que o instituto abrir.
+Vale para a Comunidade, o Mural dos Trabalhadores, a vitrine Saúde Solidária, as aulas ao vivo, o painel da equipe e qualquer espaço novo que o instituto abrir.
 
 ## O que esperamos
 

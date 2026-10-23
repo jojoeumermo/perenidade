@@ -481,6 +481,8 @@ await espera("dono do banco gera convite de emergência", () => dono("select pub
 const inscricao = (extra = {}) => ({ nome: "Helena Trabalhadora", email: "Helena@Teste.Local", papel: "mediacao", mensagem: "Sou delegada sindical e quero ajudar a manter o debate em ordem.", ...extra });
 let pedidoHelena, pedidoPovo;
 await recusa("candidatura sem e-mail válido", () => rpc({ papel: "anon", ip: "198.51.100.90" }, "voluntariar", { p: inscricao({ email: "sem-arroba" }) }), "invalido:email");
+await recusa("candidatura só com o primeiro nome (precisa do sobrenome)", () => rpc({ papel: "anon", ip: "198.51.100.90" }, "voluntariar", { p: inscricao({ nome: "Helenaaa" }) }), "invalido:nome");
+await recusa("candidatura com Instagram torto", () => rpc({ papel: "anon", ip: "198.51.100.90" }, "voluntariar", { p: inscricao({ instagram: "nao vale espaco" }) }), "invalido:instagram");
 await recusa("candidatura com apresentação curta", () => rpc({ papel: "anon", ip: "198.51.100.90" }, "voluntariar", { p: inscricao({ mensagem: "Quero ajudar." }) }), "invalido:mensagem");
 await recusa("ninguém se candidata à coordenação", () => rpc({ papel: "anon", ip: "198.51.100.90" }, "voluntariar", { p: inscricao({ papel: "coordenacao" }) }), "invalido:papel");
 await recusa("educador precisa dizer a disciplina na candidatura", () => rpc({ papel: "anon", ip: "198.51.100.90" }, "voluntariar", { p: inscricao({ papel: "educacao" }) }), "invalido:disciplina");

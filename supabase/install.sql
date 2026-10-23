@@ -287,6 +287,8 @@ create table if not exists interno.inscricoes (
   criado_em timestamptz not null default now()
 );
 create index if not exists inscricoes_status on interno.inscricoes (status, criado_em);
+-- O Instagram (opcional) de quem pede para ser voluntário: ajuda a coordenação a saber a quem está dando acesso ao painel.
+alter table interno.inscricoes add column if not exists instagram text check (instagram is null or instagram ~ '^[A-Za-z0-9._]{1,30}$');
 -- Funções acrescentadas depois: educação secundária e marketing e divulgação.
 alter table interno.inscricoes drop constraint if exists inscricoes_papel_check;
 alter table interno.inscricoes add constraint inscricoes_papel_check
@@ -4880,6 +4882,7 @@ declare
   v_papel text := coalesce(p ->> 'papel', '');
   v_disc text := interno.disciplina_ok(p ->> 'disciplina');
   v_nome text; v_mensagem text; v_id uuid;
+  v_instagram text := nullif(regexp_replace(btrim(coalesce(p ->> 'instagram', '')), '^@', ''), '');
 begin
   perform interno.aberta('voluntariado');
   -- Campo-isca: gente não vê, robô preenche. Finge que deu certo e não guarda nada.
@@ -4890,16 +4893,19 @@ begin
   if v_papel in ('educacao', 'educacao_secundaria', 'mentoria') and v_disc is null then perform interno.erro('invalido:disciplina'); end if;
   if v_papel not in ('educacao', 'educacao_secundaria', 'mentoria') then v_disc := null; end if;
   v_nome := interno.txt(p ->> 'nome', 'nome', 5, 120);
+  -- Nome e sobrenome: a coordenação precisa saber quem está pedindo acesso.
+  if array_length(regexp_split_to_array(btrim(v_nome), '\s+'), 1) < 2 then perform interno.erro('invalido:nome'); end if;
+  if v_instagram is not null and v_instagram !~ '^[A-Za-z0-9._]{1,30}$' then perform interno.erro('invalido:instagram'); end if;
   v_mensagem := interno.txt(p ->> 'mensagem', 'mensagem', 30, 2000);
   if interno.vetado(v_nome || ' ' || v_mensagem) then perform interno.erro('conteudo_recusado'); end if;
   if exists (select 1 from inscricoes where email = v_email and papel = v_papel and status = 'pendente') then perform interno.erro('ja_pediu'); end if;
-  insert into inscricoes (nome, email, papel, disciplina, mensagem) values (v_nome, v_email, v_papel, v_disc, v_mensagem) returning id into v_id;
+  insert into inscricoes (nome, email, papel, disciplina, mensagem, instagram) values (v_nome, v_email, v_papel, v_disc, v_mensagem, v_instagram) returning id into v_id;
   perform interno.email(v_email, 'inscricao_recebida', 'Recebemos seu pedido de voluntariado',
     'Olá, ' || v_nome || E'.\n\nRecebemos seu pedido para atuar como voluntário(a) no Instituto Lúcia, na função de ' || interno.nome_papel(v_papel) || E'.\n\n'
     || E'A coordenação lê cada pedido e responde por este mesmo endereço. Se o pedido for aceito, chega aqui o link para você criar a sua conta e entrar no painel da equipe.\n\n'
     || 'Se não foi você quem enviou este pedido, é só ignorar esta mensagem.');
   perform interno.email_lideranca('inscricao_nova', 'Novo pedido de voluntariado: ' || left(v_nome, 60),
-    v_nome || ' (' || v_email || ') quer atuar na função de ' || interno.nome_papel(v_papel) || E'.\n\nLeia o pedido e decida no painel: ' || interno.endereco() || '/pt/painel?aba=pessoas');
+    v_nome || ' (' || v_email || coalesce(', Instagram @' || v_instagram, '') || ') quer atuar na função de ' || interno.nome_papel(v_papel) || E'.\n\nLeia o pedido e decida no painel: ' || interno.endereco() || '/pt/painel?aba=pessoas');
   return jsonb_build_object('id', v_id);
 end $$;
 
@@ -4907,7 +4913,7 @@ create or replace function public.inscricoes_listar() returns jsonb language plp
 begin
   perform interno.eu();
   if not interno.coord() then perform interno.erro('sem_permissao'); end if;
-  return (select coalesce(jsonb_agg(jsonb_build_object('id', i.id, 'nome', i.nome, 'email', i.email, 'papel', i.papel, 'disciplina', i.disciplina,
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', i.id, 'nome', i.nome, 'email', i.email, 'papel', i.papel, 'disciplina', i.disciplina, 'instagram', i.instagram,
             'mensagem', i.mensagem, 'status', i.status, 'criado_em', i.criado_em, 'tem_conta', exists (select 1 from auth.users u where lower(u.email) = i.email))
             order by (i.status = 'pendente') desc, i.criado_em desc), '[]'::jsonb)
           from (select * from inscricoes order by criado_em desc limit 300) i);
