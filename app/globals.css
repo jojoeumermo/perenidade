@@ -2660,3 +2660,54 @@ html[data-escrita-foco="1"] .painel-cabeca {
 :root:is([data-contrast], [data-eink]) .painel-compacto .painel-item-ativo {
   box-shadow: none;
 }
+
+/* A IDE no jeito do Replit: um espaço de trabalho escuro, com as cores do site trocadas só aqui dentro. Nos modos de
+   alto contraste e de tinta eletrônica, a IDE segue o modo escolhido. */
+:root:not([data-contrast], [data-eink]) .ide-area {
+  --parchment: #1c2333;
+  --parchment-deep: #0e1525;
+  --ink: #f5f9fc;
+  --ink-soft: #a3acb9;
+  --gold: #f5c76b;
+  --oxblood: #ff8070;
+  --rule: #2b3245;
+  --ok: #3ed07a;
+  --folha: #0e1525;
+  color-scheme: dark;
+}
+/* O editor dentro da IDE não leva o contorno de cartão do site: a moldura é a da própria IDE. */
+main#conteudo .ide-area :is(div, section)[class~="border-2"][class~="border-ink"][class~="bg-parchment-deep"] {
+  border-color: transparent;
+  box-shadow: none;
+}
+.ide-area {
+  --ide-acento: #0079f2;
+}
+:root:not([data-contrast], [data-eink]) .ide-area .text-\[\#1d4ed8\] {
+  color: #8cc4ff;
+}
+:root:not([data-contrast], [data-eink]) .ide-area .text-\[\#8a5a16\] {
+  color: #f5c76b;
+}
+.ide-executar {
+  background: #0f7b3d;
+  color: #fff;
+}
+.ide-executar:hover:not(:disabled) {
+  background: #13994b;
+}
+.ide-executar.ide-parar {
+  background: #c2311c;
+}
+.ide-convidar {
+  background: #0079f2;
+  color: #fff;
+}
+.ide-convidar:hover {
+  background: #1a8cff;
+}
+:root:is([data-contrast], [data-eink]) :is(.ide-executar, .ide-convidar) {
+  background: transparent;
+  color: var(--ink);
+  outline: 2px solid var(--ink);
+}

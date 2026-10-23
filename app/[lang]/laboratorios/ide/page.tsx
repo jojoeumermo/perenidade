@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/laboratori
 export default async function Page({ params }: PageProps<"/[lang]/laboratorios/ide">) {
   const { t } = await loadLang(params);
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
+    <div className="mx-auto max-w-[96rem] px-4 py-12">
       <PageHeading eyebrow={t.labs.title} title={t.labs.ide}>
         {t.labs.ideLead}
       </PageHeading>
