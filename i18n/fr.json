@@ -147,6 +147,8 @@
     "segurancaKaliForaDoAr": "Le laboratoire n'est pas encore en ligne à l'adresse de l'institut.",
     "eletrica": "Laboratoire d'électricité",
     "eletricaLead": "Un vrai multimètre sur l'établi, série et parallèle, brancher une lampe et une prise, les calculs de l'électricien et l'établi d'électronique : LED et résistance, condensateur à l'oscilloscope, portes logiques, alimentation et capteur de lumière.",
+    "quimica": "Laboratoire de chimie",
+    "quimicaLead": "Titrage acide-base avec une vraie courbe de pH calculée et quatre indicateurs, dilution dans le bécher et l’échelle de pH des produits de la maison, avec l’indicateur au chou rouge.",
     "modelos": "Laboratoire de modèles",
     "modelosLead": "Probabilités, graphiques trompeurs, ségrégation, coopération, richesse, épidémie, prédateur et proie, orbites, ondes, automates, expressions régulières et le téléphone comme instrument : prédire, lancer, comparer, expliquer."
   },

@@ -147,6 +147,8 @@
     "segurancaKaliForaDoAr": "El laboratorio aún no está disponible en la dirección del instituto.",
     "eletrica": "Laboratorio de electricidad",
     "eletricaLead": "Multímetro de verdad en el banco, serie y paralelo, conectar luz y tomacorriente, las cuentas del electricista y el banco de electrónica: LED y resistor, capacitor en el osciloscopio, compuertas lógicas, fuente de alimentación y sensor de luz.",
+    "quimica": "Laboratorio de química",
+    "quimicaLead": "Titulación ácido-base con la curva de pH calculada de verdad y cuatro indicadores, dilución en el vaso y la escala de pH de las cosas de casa, con el indicador de repollo morado.",
     "modelos": "Laboratorio de modelos",
     "modelosLead": "Probabilidad, gráficos que engañan, segregación, cooperación, riqueza, epidemia, depredador y presa, órbitas, ondas, autómatas, expresiones regulares y el celular como instrumento: predice, corre, compara y explica."
   },
