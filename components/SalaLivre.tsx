@@ -1,6 +1,7 @@
 // Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Selo } from "./Selo";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LABS } from "@/lib/areas";
 import { MarkdownEditor } from "./Editor";
@@ -21,57 +22,57 @@ const recurso = (linha: string) => `${cerca}recurso\n${linha}\n${cerca}`;
 const MODELOS: { nome: string; icone: string; sobre: string; titulo: string; corpo: string }[] = [
   {
     nome: "Aula com laboratório",
-    icone: "🧪",
+    icone: "frasco",
     sobre: "Uma pergunta para começar, o laboratório do site para praticar e um teste rápido no fim.",
     titulo: "Eletricidade na prática",
     corpo: `## Para começar · 10 min\n\nPergunte à turma: por que, numa casa, uma lâmpada queimada não apaga as outras?\n\n%% Anote os palpites no quadro antes de abrir o laboratório.\n\n## Na prática · 25 min\n\n${recurso("laboratorio: eletrica")}\n\n%% Peça que cada dupla queime uma lâmpada em série e depois em paralelo.\n\n## Para fechar · 10 min\n\n${cerca}teste\n? Numa casa, as lâmpadas são ligadas em…\n+ paralelo\n- série >> Em série, uma lâmpada queimada apagaria todas.\n> Cada lâmpada tem o próprio caminho até o quadro.\n${cerca}\n`,
   },
   {
     nome: "Modelo e previsão",
-    icone: "🦠",
+    icone: "epidemia",
     sobre: "A turma prevê, roda uma simulação do Laboratório de modelos e explica o que viu.",
     titulo: "Vacina e imunidade coletiva",
     corpo: `## Qual é o seu palpite? · 5 min\n\nSe metade da cidade se vacinar, a doença some, cai pela metade ou quase não muda?\n\n%% Cada um escreve o palpite no caderno. Não corrija ainda.\n\n## Rodar o modelo · 20 min\n\n${recurso("laboratorio: modelos")}\n\n%% Abra o módulo Epidemia. Peça para variar só a vacinação, mantendo o resto.\n\n## Comparar e explicar · 15 min\n\n1. O palpite bateu com o modelo?\n2. O que é o limiar de imunidade coletiva?\n3. O que o modelo deixa de fora?\n`,
   },
   {
     nome: "Rotação por estações",
-    icone: "🔄",
+    icone: "atualizar",
     sobre: "Três estações com tempo marcado: a turma roda em grupos (use o temporizador e o formar grupos).",
     titulo: "Estações de redes",
     corpo: `## Como vai ser · 5 min\n\nA turma se divide em três grupos. Cada estação tem 15 minutos; ao sinal, o grupo passa para a próxima.\n\n%% Abra 🧰 Ferramentas → Formar grupos, depois o Temporizador de 15 min.\n\n## Estação 1: montar a rede · 15 min\n\n${recurso("laboratorio: redes")}\n\n## Estação 2: o terminal · 15 min\n\n${recurso("laboratorio: linux")}\n\n## Estação 3: discutir · 15 min\n\nO que acontece quando você digita o endereço de um site? Desenhe o caminho.\n\n## Fechamento · 5 min\n\nCada grupo conta uma coisa que aprendeu.\n`,
   },
   {
     nome: "Debate regrado",
-    icone: "🎙️",
+    icone: "microfone",
     sobre: "Pergunta, dois lados, tempo de fala e votação no fim (use o placar e o sorteio).",
     titulo: "Debate",
-    corpo: `## A pergunta · 5 min\n\nO celular deve ser proibido na escola?\n\n%% Sorteie quem abre cada lado com 🧰 → Sortear nome.\n\n## Preparar · 10 min\n\nCada lado junta três argumentos e uma fonte.\n\n## Falas · 20 min\n\n- 2 minutos para cada fala\n- Réplica de 1 minuto\n- Quem interrompe perde a vez\n\n## Votação e conversa · 10 min\n\nO que fez você mudar (ou não) de ideia?\n`,
+    corpo: `## A pergunta · 5 min\n\nO celular deve ser proibido na escola?\n\n%% Sorteie quem abre cada lado com Ferramentas → Sortear nome.\n\n## Preparar · 10 min\n\nCada lado junta três argumentos e uma fonte.\n\n## Falas · 20 min\n\n- 2 minutos para cada fala\n- Réplica de 1 minuto\n- Quem interrompe perde a vez\n\n## Votação e conversa · 10 min\n\nO que fez você mudar (ou não) de ideia?\n`,
   },
   {
     nome: "Roda de leitura",
-    icone: "📚",
+    icone: "livros",
     sobre: "Uma obra do acervo, perguntas para conversar e uma linha do tempo para situar o texto.",
     titulo: "Roda de leitura",
     corpo: `## A obra · 10 min\n\n${recurso("obra: 1984")}\n\n## Para conversar · 25 min\n\n1. O que mais chamou a sua atenção?\n2. Isso acontece hoje? Onde?\n3. O que você mudaria no final?\n\n## Quando foi escrito · 10 min\n\n${cerca}linhadotempo\n1949 | Publicação do livro\n${cerca}\n`,
   },
   {
     nome: "Simulação de ciências",
-    icone: "🔬",
+    icone: "microscopio",
     sobre: "Uma simulação do PhET para explorar em grupo, com perguntas guiadas.",
     titulo: "Explorando circuitos",
     corpo: `## O que você acha que vai acontecer? · 5 min\n\nAntes de abrir a simulação, cada grupo escreve um palpite.\n\n${recurso("phet: circuit-construction-kit-dc")}\n\n## O que aconteceu de verdade? · 15 min\n\nCompare com o palpite: o que mudou na sua ideia?\n`,
   },
   {
     nome: "Oficina de criação",
-    icone: "🎨",
+    icone: "paleta",
     sobre: "Um editor do Estúdio de prática (foto, vídeo ou 3D) para a turma criar.",
     titulo: "Oficina de cartaz",
     corpo: `## A proposta · 10 min\n\nCriar um cartaz sobre um direito que falta no bairro.\n\n${recurso("estudio: photocraft")}\n\n## Para mostrar · 15 min\n\nCada grupo apresenta o cartaz e conta por que escolheu aquele tema.\n`,
   },
-  { nome: "Em branco", icone: "📄", sobre: "Comece do zero.", titulo: "Nova sala", corpo: "## Para começar · 10 min\n\n" },
+  { nome: "Em branco", icone: "folha", sobre: "Comece do zero.", titulo: "Nova sala", corpo: "## Para começar · 10 min\n\n" },
 ];
 
-const ICONES_LAB: Record<string, string> = { ide: "💻", linux: "🐧", redes: "🌐", seguranca: "🛡️", montador: "🧰", ia: "🤖", escritorio: "📝", simulacoes: "🧲", eletrica: "⚡", modelos: "🎲" };
+const ICONES_LAB: Record<string, string> = { ide: "terminal", linux: "pinguim", redes: "rede", seguranca: "escudo", montador: "chip", ia: "rede-neural", escritorio: "folha", simulacoes: "microscopio", eletrica: "raio", modelos: "probabilidade" };
 
 const novaId = () => `s${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 
@@ -156,7 +157,7 @@ export function SalaLivre() {
             <li className="shrink-0 rounded bg-ink px-2 py-1 text-parchment">Capa</li>
             {plano.map((x, k) => (
               <li key={k} className="shrink-0 rounded border border-ink/30 bg-parchment px-2 py-1" style={total && x.minutos ? { minWidth: `${Math.max(5, (x.minutos / total) * 100)}%` } : undefined}>
-                <strong>{x.titulo}</strong>{x.minutos ? ` · ${x.minutos} min` : ""}{x.notas.length ? " · 📝" : ""}
+                <strong>{x.titulo}</strong>{x.minutos ? ` · ${x.minutos} min` : ""}{x.notas.length ? " · com notas" : ""}
               </li>
             ))}
           </ol>
@@ -167,7 +168,7 @@ export function SalaLivre() {
           <div className="mt-2 flex flex-wrap gap-1.5">
             {Object.keys(LABS).map((id) => (
               <button key={id} type="button" onClick={() => mudar({ corpo: `${sala.corpo.trimEnd()}\n\n## ${nomes[id] ?? id} · 20 min\n\n${recurso(`laboratorio: ${id}`)}\n` })} className="cursor-pointer rounded-full border-2 border-ink/25 bg-parchment px-3 py-1 text-sm hover:border-oxblood">
-                <span aria-hidden>{ICONES_LAB[id] ?? "🧪"}</span> {nomes[id] ?? id}
+                <Selo nome={ICONES_LAB[id] ?? "frasco"} className="h-5 w-5" /> {nomes[id] ?? id}
               </button>
             ))}
           </div>
@@ -187,9 +188,9 @@ export function SalaLivre() {
   return (
     <div className="mt-8 font-sans">
       {aviso && <p role="alert" className="mb-4 text-oxblood">{aviso}</p>}
-      <section className="grid gap-3 rounded-md border-2 border-ink bg-[#17130e] p-4 text-[#f4ecd8] sm:grid-cols-4">
-        {[["▶", "Projetar", "Uma tela por vez, com setas, tela cheia e tela preta (B)."], ["🧑‍🏫", "Modo apresentador", "Segunda janela com notas, próxima tela e relógio."], ["🧰", "Ferramentas", "Temporizador, sorteio de nomes, grupos e placar."], ["✏️", "Quadro", "Risque por cima da tela projetada."]].map(([i, n, d]) => (
-          <p key={n} className="text-sm"><span aria-hidden className="mr-1 text-xl">{i}</span><strong>{n}</strong><br /><span className="text-[#f4ecd8]/75">{d}</span></p>
+      <section className="cartao-preto grid gap-4 p-4 sm:grid-cols-4">
+        {[["tela", "Projetar", "Uma tela por vez, com setas, tela cheia e tela preta (B)."], ["pessoa", "Modo apresentador", "Segunda janela com notas, próxima tela e relógio."], ["ferramentas", "Ferramentas", "Temporizador, sorteio de nomes, grupos e placar."], ["lapis", "Quadro", "Risque por cima da tela projetada."]].map(([i, n, d]) => (
+          <p key={n} className="flex gap-2.5 text-sm [--prelo-texto:#e0837a]"><Selo nome={i} className="h-7 w-7 shrink-0" /><span><strong>{n}</strong><br /><span className="text-[#f4ecd8]/75">{d}</span></span></p>
         ))}
       </section>
       <section className="mt-8">
@@ -197,15 +198,15 @@ export function SalaLivre() {
         <ul className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {MODELOS.map((m) => (
             <li key={m.nome}>
-              <button type="button" onClick={() => criar(m)} className="flex h-full w-full cursor-pointer items-start gap-3 border-2 border-ink/25 bg-parchment-deep p-4 text-left hover:border-oxblood">
-                <span aria-hidden className="text-3xl">{m.icone}</span>
+              <button type="button" onClick={() => criar(m)} className="cartao sobe flex h-full w-full cursor-pointer items-start gap-3 p-4 text-left">
+                <span className="selo h-11 w-11"><Selo nome={m.icone} className="h-7 w-7" /></span>
                 <span><span className="block font-bold">{m.nome}</span><span className="block text-sm text-ink-soft">{m.sobre}</span></span>
               </button>
             </li>
           ))}
           <li>
             <button type="button" onClick={() => arquivo.current?.click()} className="flex h-full w-full cursor-pointer items-start gap-3 border-2 border-dashed border-ink/40 p-4 text-left hover:border-oxblood">
-              <span aria-hidden className="text-3xl">📥</span>
+              <span className="selo h-11 w-11"><Selo nome="baixar" className="h-7 w-7" /></span>
               <span><span className="block font-bold">Abrir uma sala recebida</span><span className="block text-sm text-ink-soft">O arquivo .sala.json que um colega mandou.</span></span>
             </button>
             <input ref={arquivo} type="file" accept="application/json,.json" className="sr-only" onChange={(e) => { void abrirArquivo(e.target.files?.[0]); e.target.value = ""; }} />

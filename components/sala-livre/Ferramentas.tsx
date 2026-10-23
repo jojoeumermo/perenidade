@@ -1,6 +1,7 @@
 // Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Selo } from "../Selo";
 import { useEffect, useRef, useState } from "react";
 
 // A caixa de ferramentas do professor na hora de projetar: temporizador, sorteio de nomes, grupos, placar e quadro
@@ -245,10 +246,10 @@ export function Quadro({ fechar }: { fechar: () => void }) {
 
 export type Ferramenta = "tempo" | "sorteio" | "grupos" | "placar";
 export const FERRAMENTAS: { id: Ferramenta; nome: string; icone: string }[] = [
-  { id: "tempo", nome: "Temporizador", icone: "⏱️" },
-  { id: "sorteio", nome: "Sortear nome", icone: "🎲" },
-  { id: "grupos", nome: "Formar grupos", icone: "👥" },
-  { id: "placar", nome: "Placar", icone: "🏆" },
+  { id: "tempo", nome: "Temporizador", icone: "cronometro" },
+  { id: "sorteio", nome: "Sortear nome", icone: "dado" },
+  { id: "grupos", nome: "Formar grupos", icone: "pessoas" },
+  { id: "placar", nome: "Placar", icone: "trofeu" },
 ];
 
 /** A gaveta lateral com as ferramentas. Fica montada (escondida) para o temporizador continuar contando. */
@@ -260,7 +261,7 @@ export function Gaveta({ sala, aberta, ferramenta, escolher, fechar }: { sala: s
         <button type="button" onClick={fechar} className="cursor-pointer rounded border-2 border-ink px-2 py-0.5 text-sm font-semibold">Fechar</button>
       </div>
       <div role="tablist" className="mt-3 grid grid-cols-4 gap-1">
-        {FERRAMENTAS.map((f) => <button key={f.id} type="button" role="tab" aria-selected={ferramenta === f.id} onClick={() => escolher(f.id)} className={`cursor-pointer rounded border-2 px-1 py-2 text-xs font-semibold ${ferramenta === f.id ? "border-ink bg-ink text-parchment" : "border-ink/25"}`}><span className="block text-xl" aria-hidden>{f.icone}</span>{f.nome}</button>)}
+        {FERRAMENTAS.map((f) => <button key={f.id} type="button" role="tab" aria-selected={ferramenta === f.id} onClick={() => escolher(f.id)} className={`cursor-pointer rounded border-2 px-1 py-2 text-xs font-semibold ${ferramenta === f.id ? "border-ink bg-ink text-parchment" : "border-ink/25"}`}><Selo nome={f.icone} className="mx-auto mb-1 block h-6 w-6" />{f.nome}</button>)}
       </div>
       <div className="mt-4">
         <div hidden={ferramenta !== "tempo"}><Temporizador /></div>
