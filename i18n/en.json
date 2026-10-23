@@ -722,6 +722,11 @@
       "medio": "Secondary",
       "superior": "Higher ed."
     },
+    "notebookName": "Name",
+    "notebookClass": "Subject",
+    "freeStamp": "Free ★ forever",
+    "trackKicker": "Track",
+    "summaryTitle": "Contents",
     "underConstruction": "Under construction",
     "helpWrite": "Help write this track",
     "planned": "in preparation",

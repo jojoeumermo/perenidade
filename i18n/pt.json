@@ -722,6 +722,11 @@
       "medio": "Médio",
       "superior": "Superior"
     },
+    "notebookName": "Nome",
+    "notebookClass": "Disciplina",
+    "freeStamp": "Livre ★ para sempre",
+    "trackKicker": "Trilha",
+    "summaryTitle": "Sumário",
     "underConstruction": "Em construção",
     "helpWrite": "Ajude a escrever esta trilha",
     "planned": "em preparação",
