@@ -1,17 +1,18 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import Link from "next/link";
-import { TrackCard } from "@/components/Cards";
 import { DailyQuote } from "@/components/DailyQuote";
 import { NesteDia } from "@/components/NesteDia";
+import { Star } from "@/components/Masthead";
+import { Experimente, type Sugestao } from "@/components/inicio/Experimente";
+import { JanelaContinue, JanelaNoAr } from "@/components/inicio/Janelas";
 import { FaixaDaSaude } from "@/components/saude/FaixaDaSaude";
 import saude from "@/content/saude/profissionais.json";
 import type { Profissional } from "@/lib/saude";
-import { ContinueCard } from "@/components/Progress";
 import { loadLang } from "@/i18n";
-import { fill, htmlLang, localePath, plural } from "@/i18n/config";
+import { fill, htmlLang, localePath } from "@/i18n/config";
 import { essential, groups, type Stage, stages } from "@/lib/areas";
-import { getBooks, getCatalog, getQuestions, getQuotes, getTracks } from "@/lib/content";
+import { getArticles, getBooks, getCatalog, getQuestions, getQuotes, getTracks } from "@/lib/content";
 import { describePart, overview, publicHistory } from "@/lib/history";
 import { alternatesDe } from "@/lib/seo";
 import { site } from "@/lib/site";
@@ -23,18 +24,28 @@ export async function generateMetadata({ params }: PageProps<"/[lang]">): Promis
   return { alternates: alternatesDe(lang, "") };
 }
 
+const numero = (lang: string, n: number) => new Intl.NumberFormat(lang).format(n);
+
+/**
+ * A inicial no desenho do Caderno do Povo: o lambe-lambe e a busca no papel pontilhado, a Saúde Solidária logo
+ * abaixo, as três janelas (onde parou, o jornal, o que está no ar), as estantes de cadernos e, no fim, a frase
+ * do dia, os fatos de luta da data, as perguntas e a dedicatória.
+ */
 export default async function Home({ params }: PageProps<"/[lang]">) {
   const { lang, t } = await loadLang(params);
   const h = t.home;
   const to = (path: string) => localePath(lang, path);
   const tracks = getTracks(lang);
   const books = getBooks(lang);
+  const articles = getArticles(lang).slice(0, 3);
   const lessons = tracks.reduce((sum, track) => sum + track.lessons.length, 0);
+  const areas = groups.flatMap((group) => group.areas).length;
   const works = books.length + groups.flatMap((group) => group.areas).reduce((sum, area) => sum + getCatalog(area).length, 0);
   const recent = publicHistory(site.historyFrom, lang)
     .slice(0, 3)
     .map((change) => ({ date: change.date, parts: overview(change.parts) }));
   const date = new Intl.DateTimeFormat(htmlLang[lang], { timeZone: "UTC" });
+  const dataCurta = new Intl.DateTimeFormat(htmlLang[lang], { day: "numeric", month: "short", timeZone: "UTC" });
   const shelves: DisciplineGroup[] = groups.map((group) => ({
     id: group.id,
     title: t.groups[group.id],
@@ -49,76 +60,159 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       return { slug, name: t.areas[slug][0], description: t.areas[slug][1], essential: essential.includes(slug), counts, palavras };
     }),
   }));
+  const [, pontuacao = "", resto = h.h1c] = /^([,，、;:.!?]*)([\s\S]*)$/.exec(h.h1c) ?? [];
   const started = tracks.filter((track) => track.lessons.length > 0).sort((a, b) => b.lessons.length - a.lessons.length);
   const questions = getQuestions().slice(0, 4);
-  const suggestions = started.slice(0, 3);
-  const shortcuts: [string, string, string][] = [
-    [t.nav.start, "/comecar", "M12 3v18M5 10l7-7 7 7"],
-    [t.nav.journal, "/jornal", "M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M7.5 9h6M7.5 12.5h6M7.5 16h3.5"],
-    [t.nav.radio, "/radio", "M3 9h18v11H3zM7 9l10-5M8.5 12a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M14 13h4M14 16h4"],
-    [t.nav.tools, "/ferramentas", "M14.5 6.5a4 4 0 0 0-5.3 5.3L4 17v3h3l5.2-5.2a4 4 0 0 0 5.3-5.3l-2.6 2.6-2.4-.6-.6-2.4z"],
+  // As portas do "Experimente": as trilhas com aula pronta e algumas seções que pegam quem chega curioso.
+  const sugestoes: Sugestao[] = [
+    { label: t.nav.start, path: "/comecar" },
+    ...started.slice(0, 24).map((track) => ({ label: track.title, path: `/trilhas/${track.slug}` })),
+    { label: t.nav.labs, path: "/laboratorios" },
+    { label: t.nav.data, path: "/dados" },
+    { label: t.nav.questionBank, path: "/questoes" },
+    { label: t.nav.timeline, path: "/linha-do-tempo" },
+    { label: t.nav.glossary, path: "/glossario" },
+    { label: t.nav.factCheck, path: "/checagens" },
+    { label: t.nav.memorial, path: "/memorial" },
+    { label: t.nav.tools, path: "/ferramentas" },
   ];
 
   return (
     <>
-      <section className="mx-auto max-w-6xl px-4 pt-16 pb-12 text-center max-md:pt-5 max-md:pb-4 max-md:text-left">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-gold max-md:text-[0.65rem] max-md:tracking-[0.2em]">{h.eyebrow}</p>
-        <h1 className="mt-5 text-5xl font-semibold leading-[1.05] max-md:mt-2 max-md:text-[2.5rem] max-md:leading-[1.02] max-md:tracking-tight sm:text-7xl">
-          {h.h1a}
-          <br />
-          <span className="italic text-oxblood">{h.h1b}</span>
-          {h.h1c}
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-xl text-ink-soft max-md:hidden">{h.lead}</p>
-        <form action={to("/busca")} role="search" className="mx-auto mt-10 flex max-w-2xl border-2 border-ink bg-parchment-deep max-md:mt-4">
-          <input
-            name="q"
-            type="search"
-            aria-label={h.searchLabel}
-            placeholder={h.searchPlaceholder}
-            className="min-w-0 flex-1 bg-transparent px-4 py-3 font-mono text-sm outline-none placeholder:text-ink-soft sm:px-5 sm:py-4 sm:text-base"
-          />
-          <button className="cursor-pointer bg-ink px-6 font-sans text-sm font-medium text-parchment hover:bg-oxblood sm:px-8 sm:text-base">{h.searchButton}</button>
-        </form>
-        {/* Por onde ir, para quem chega sem saber o que procurar: as trilhas com mais aulas prontas e o guia de começo. */}
-        {suggestions.length > 0 && (
-          <p className="mx-auto mt-3 flex max-w-2xl flex-wrap items-center justify-center gap-x-3 gap-y-1 font-sans text-sm max-md:hidden">
-            <span className="text-ink-soft">{h.tryLabel}</span>
-            {suggestions.map((track) => (
-              <Link key={track.slug} href={to(`/trilhas/${track.slug}`)} className="underline decoration-rule underline-offset-4 hover:text-oxblood hover:decoration-gold">
-                {track.title}
+      {/* ── O alto: busca e lambe-lambe no papel pontilhado ── */}
+      <section className="pont border-b-[3px] border-ink">
+        <div className="mx-auto grid max-w-[78rem] items-center gap-12 px-4 pt-14 pb-16 sm:px-6 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-14 lg:px-8 lg:pt-[4.5rem] lg:pb-20 max-md:pt-7 max-md:pb-9">
+          <div className="min-w-0">
+            <p className="rotulo">{h.kicker}</p>
+            <h1 className="mt-4 text-[2.9rem] font-medium leading-[0.98] tracking-[-0.01em] text-balance sm:text-6xl lg:text-[4.9rem]">
+              {h.h1a}{" "}
+              {/* A vírgula logo depois de "para todos" fica grudada nele: nunca começa uma linha sozinha. */}
+              <span className="whitespace-nowrap">
+                <span className="relative inline-block italic text-prelo-texto">
+                  {h.h1b}
+                  <svg viewBox="0 0 300 18" preserveAspectRatio="none" aria-hidden className="absolute inset-x-0 -bottom-1.5 h-3.5 w-full">
+                    <path d="M3 12 C 60 4, 140 4, 297 9" stroke="currentColor" strokeWidth="5" fill="none" strokeLinecap="round" />
+                  </svg>
+                </span>
+                {pontuacao}
+              </span>
+              {resto}
+            </h1>
+            <p className="mt-7 max-w-[35rem] text-[1.35rem] leading-[1.45] text-ink-soft max-md:mt-4 max-md:text-lg">{h.lead}</p>
+            <form action={to("/busca")} role="search" className="mt-9 flex max-w-[39rem] shadow-[6px_6px_0_var(--sombra)] max-md:mt-6">
+              <input
+                name="q"
+                type="search"
+                aria-label={h.searchLabel}
+                placeholder={h.searchPlaceholder}
+                className="min-w-0 flex-1 border-2 border-r-0 border-ink bg-folha px-4 py-4 font-sans text-base text-ink outline-none placeholder:text-ink-soft sm:px-5 sm:py-[1.1rem] sm:text-[1.05rem]"
+              />
+              <button className="cursor-pointer border-2 border-ink bg-[#c21f16] px-6 font-sans text-base font-extrabold text-white hover:bg-[#a51810] sm:px-7">{h.searchButton}</button>
+            </form>
+            <Experimente rotulo={h.tryLabel} sugestoes={sugestoes} />
+          </div>
+
+          {/* O lambe-lambe colado torto, com os números do acervo e o carimbo. */}
+          <div className="relative px-2 pt-4 pb-8 max-md:hidden">
+            <div className="cartao-preto -rotate-2 px-9 pt-10 pb-8">
+              <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#e0837a]">{h.posterLabel}</p>
+              <p className="lambe mt-4 text-[3.6rem] text-[#f4ecd8] xl:text-[3.7rem]">
+                {h.poster[0]}
+                <br />
+                {h.poster[1]}
+                <br />
+                <span className="bg-[#f4ecd8] px-2.5 text-[#c21f16]">{h.poster[2]}</span>
+              </p>
+              <p className="mt-6 text-[1.2rem] leading-snug text-[#e9dcbc]">{h.posterText}</p>
+              <dl className="mt-7 grid grid-cols-3 border-t-[1.5px] border-[#5a4e3c] pt-5">
+                {[
+                  [numero(lang, areas), t.common.disciplines.other.replace("{n}", "").trim()],
+                  [numero(lang, lessons), t.common.lessons.other.replace("{n}", "").trim()],
+                  [numero(lang, works), t.common.works.other.replace("{n}", "").trim()],
+                ].map(([valor, nome]) => (
+                  <div key={nome}>
+                    <dt className="sr-only">{nome}</dt>
+                    <dd className="text-[2.35rem] font-semibold leading-none text-[#f4ecd8]">{valor}</dd>
+                    <dd aria-hidden className="mt-1.5 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[#b3a584]">{nome}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <div aria-hidden className="carimbo absolute right-0 bottom-0 h-32 w-32 rotate-[14deg] bg-[color-mix(in_srgb,var(--parchment)_90%,transparent)] text-[0.72rem]">
+              <span>
+                {h.stamp[0]}
+                <br />
+                {h.stamp[1]}
+                <br />
+                {h.stamp[2]}
+                <br />
+                {h.stamp[3]}
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Saúde Solidária, entre a busca e as janelas (some sozinha depois do prazo) ── */}
+      <FaixaDaSaude estaticos={saude.profissionais as Profissional[]} href={to("/saude")} />
+
+      {/* ── As três janelas ── */}
+      <section>
+        <div className="mx-auto grid max-w-[78rem] gap-8 px-4 py-14 sm:px-6 md:grid-cols-3 lg:px-8 max-md:py-8">
+          <JanelaContinue textos={{ continuar: t.tracks.continue, retomar: t.tracks.resume, comecar: t.nav.start, comecarTexto: h.startText }} />
+
+          {articles.length > 0 ? (
+            <article className="cartao p-6">
+              <p className="rotulo">{h.journalWindow}</p>
+              <ul className="mt-3 flex flex-col">
+                {articles.map((article) => (
+                  <li key={article.slug} className="border-b-[1.5px] border-dashed border-rule py-3.5 last:border-b-0">
+                    <Link href={to(`/jornal/${article.slug}`)} className="text-[1.3rem] leading-tight text-ink hover:text-ink hover:underline hover:decoration-[#c21f16] hover:decoration-2">
+                      {article.title}
+                    </Link>
+                    <p className="mt-1.5 font-mono text-[0.68rem] uppercase tracking-[0.1em] text-ink-soft">
+                      {article.section ? `${article.section} · ` : ""}
+                      {dataCurta.format(new Date(article.date))}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ) : (
+            // Sem matéria ainda: o cartaz do jornal (preto com a estrela) e o sol de raios do giro de notícias.
+            <article className="flex flex-col overflow-hidden border-2 border-[#1f1a14] shadow-[6px_6px_0_var(--sombra)]">
+              <Link href={to("/jornal")} className="jornal-preto relative block flex-1 overflow-hidden p-6 text-[#f4ecd8] hover:text-white">
+                <Star className="pointer-events-none absolute -right-8 -bottom-10 h-36 w-36 rotate-12 text-[#c21f16]" />
+                <span className="relative block font-mono text-[0.68rem] uppercase tracking-[0.22em] text-[#d4a24c]">{t.journal.nameTop} {t.journal.nameBottom}</span>
+                <span className="lambe relative mt-3 block max-w-[15rem] text-[2rem]">{t.journal.empty}</span>
               </Link>
-            ))}
-            <Link href={to("/comecar")} className="font-medium text-oxblood underline underline-offset-4 hover:text-ink">
+              <Link href={to("/noticias")} className="jornal-raios block p-5 font-sans text-white hover:text-white">
+                <span className="lambe block text-[1.35rem]">{t.journal.newsletter.roundTitle}</span>
+                <span className="mt-2 inline-block bg-white px-3 py-1.5 text-xs font-extrabold uppercase tracking-wide text-[#a51810]">{t.journal.newsletter.roundButton} →</span>
+              </Link>
+            </article>
+          )}
+
+          <JanelaNoAr textos={{ noAr: h.onAir, ouvir: h.listen, todos: h.allEpisodes, radio: t.nav.radio, radioTexto: h.radioLive }} />
+        </div>
+      </section>
+
+      {/* ── As estantes ── */}
+      <section className="pont border-y-[3px] border-ink">
+        <div className="mx-auto max-w-[78rem] px-4 pt-16 pb-[4.5rem] sm:px-6 lg:px-8 max-md:pt-9 max-md:pb-10">
+          <p className="rotulo">{h.shelvesKicker}</p>
+          <h2 className="mt-2 text-[2.6rem] font-medium leading-none sm:text-[3.5rem]">{h.shelvesPick}</h2>
+          <p className="mt-3 max-w-2xl text-xl text-ink-soft">{h.shelvesHint}</p>
+          <DisciplineBrowser labels groups={shelves} s={t.tracks} stageNames={t.stages} />
+          <p className="mt-12 flex flex-wrap items-center gap-5">
+            <Link href={to("/trilhas")} className="botao botao-tinta text-[1.05rem]">
+              {fill(h.seeAllShelves, { n: areas })} →
+            </Link>
+            <Link href={to("/comecar")} className="font-sans font-bold text-ink underline decoration-[#c21f16] decoration-2 underline-offset-4 hover:text-prelo-texto">
               {t.nav.start}
             </Link>
           </p>
-        )}
-        <p className="mt-5 font-mono text-xs text-ink-soft max-md:mt-3 max-md:text-[0.7rem]">
-          {plural(lang, groups.flatMap((group) => group.areas).length, t.common.disciplines)} · {plural(lang, lessons, t.common.lessons)} ·{" "}
-          {plural(lang, works, t.common.works)} {h.indexed}
-        </p>
-        {/* Só no celular: quatro atalhos ao alcance do polegar para o que mais se abre no dia a dia. */}
-        <nav aria-label={t.nav.more} className="mt-5 hidden grid-cols-4 gap-2 text-center font-sans text-xs max-md:grid">
-          {shortcuts.map(([label, path, icon]) => (
-            <Link key={path} href={to(path)} className="flex min-h-[4.5rem] flex-col items-center justify-center gap-1.5 border-[1.5px] border-t-4 border-ink border-t-[#c21f16] bg-parchment-deep px-1 py-2 font-semibold leading-tight">
-              <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6 text-oxblood" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d={icon} />
-              </svg>
-              <span className="line-clamp-2">{label}</span>
-            </Link>
-          ))}
-        </nav>
-      </section>
-
-      <ContinueCard />
-
-      <FaixaDaSaude estaticos={saude.profissionais as Profissional[]} href={to("/saude")} />
-
-      <section className="mx-auto max-w-6xl px-4 py-10">
-        <h2 className="text-4xl font-semibold">{h.shelves}</h2>
-        <p className="mt-2 text-lg text-ink-soft">{h.shelvesHint}</p>
-        <DisciplineBrowser labels groups={shelves} s={t.tracks} stageNames={t.stages} />
+        </div>
       </section>
 
       <DailyQuote quotes={getQuotes()} />
@@ -126,61 +220,53 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       <NesteDia s={h} lang={lang} />
 
       {questions.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-10">
-          <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-rule pb-3">
-            <h2 className="text-3xl font-semibold">{h.questionsTitle}</h2>
-            <Link href={to("/perguntas")} className="font-sans text-sm underline hover:text-oxblood">{h.seeAll}</Link>
-          </div>
-          <ul className="mt-6 grid gap-3 font-sans sm:grid-cols-2" lang="pt-BR">
+        <section className="mx-auto max-w-[78rem] px-4 py-12 sm:px-6 lg:px-8">
+          <h2 className="tarja">
+            <span className="tarja-nome">{h.questionsTitle}</span>
+          </h2>
+          <ul className="mt-7 grid gap-5 font-sans sm:grid-cols-2" lang="pt-BR">
             {questions.map((question, i) => (
               <li key={question.pergunta}>
-                <Link href={`${to("/perguntas")}#p${i + 1}`} className="block border-l-2 border-gold py-1 pl-4 text-lg hover:text-oxblood">
+                <Link href={`${to("/perguntas")}#p${i + 1}`} className="cartao sobe flex h-full items-start gap-4 p-5 text-lg font-semibold leading-snug text-ink hover:text-ink">
+                  <span aria-hidden className="font-serif text-3xl leading-none font-semibold text-prelo-texto">?</span>
                   {question.pergunta}
                 </Link>
               </li>
             ))}
           </ul>
+          <p className="mt-6">
+            <Link href={to("/perguntas")} className="font-sans text-sm font-bold underline decoration-[#c21f16] underline-offset-4 hover:text-prelo-texto">{h.seeAll} →</Link>
+          </p>
         </section>
       )}
 
-      {started.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-10">
-          <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-rule pb-3">
-            <h2 className="text-3xl font-semibold">{h.startTrack}</h2>
-            <Link href={to("/trilhas")} className="font-sans text-sm underline hover:text-oxblood">{h.seeAll}</Link>
-          </div>
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {started.slice(0, 3).map((track) => (
-              <TrackCard key={track.slug} track={track} lang={lang} t={t} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      <section className="mx-auto max-w-6xl px-4 py-10">
-        <h2 className="border-b border-rule pb-3 text-3xl font-semibold">{h.wingsTitle}</h2>
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {h.wings.map(([title, description, path]) => (
-            <Link key={path} href={to(path)} className="group border border-rule bg-parchment-deep p-6 hover:border-gold">
-              <h3 className="text-2xl font-semibold group-hover:text-oxblood">{title}</h3>
-              <p className="mt-1 text-ink-soft">{description}</p>
+      <section className="mx-auto max-w-[78rem] px-4 py-12 sm:px-6 lg:px-8">
+        <h2 className="tarja tarja-v">
+          <span className="tarja-nome">★ {h.wingsTitle}</span>
+        </h2>
+        <div className="mt-7 grid gap-7 md:grid-cols-3">
+          {h.wings.map(([title, description, path], i) => (
+            <Link key={path} href={to(path)} className={`sobe flex flex-col p-6 text-ink hover:text-ink ${i === 1 ? "cartao-v" : "cartao"}`}>
+              <h3 className="text-[1.65rem] font-semibold leading-tight">{title}</h3>
+              <p className="mt-2 text-lg leading-snug text-ink-soft">{description}</p>
+              <span className="mt-auto pt-4 font-sans text-sm font-bold">→</span>
             </Link>
           ))}
         </div>
       </section>
 
       {recent.length > 0 && (
-        <section className="mx-auto max-w-6xl px-4 py-10">
-          <div className="border border-rule bg-parchment-deep p-8">
+        <section className="mx-auto max-w-[78rem] px-4 py-12 sm:px-6 lg:px-8">
+          <div className="cartao p-7 sm:p-9">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
               <h2 className="text-3xl font-semibold">{h.timelineTitle}</h2>
-              <Link href={to("/historico")} className="font-sans text-sm underline hover:text-oxblood">{h.fullHistory}</Link>
+              <Link href={to("/historico")} className="font-sans text-sm font-bold underline decoration-[#c21f16] underline-offset-4 hover:text-prelo-texto">{h.fullHistory}</Link>
             </div>
             <p className="mt-1 font-mono text-xs text-ink-soft">{h.timelineSub}</p>
             <ol className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start">
               {recent.map((change) => (
-                <li key={change.date} className="flex-1 border-t-2 border-gold pt-3">
-                  <p className="font-mono text-sm text-gold">
+                <li key={change.date} className="flex-1 border-t-[3px] border-ink pt-3">
+                  <p className="font-mono text-sm text-prelo-texto">
                     <time dateTime={change.date}>{date.format(new Date(change.date))}</time>
                   </p>
                   {/* Só as três primeiras linhas do resumo do dia; o resto está no histórico completo. */}
@@ -190,10 +276,10 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                   </p>
                 </li>
               ))}
-              <li className="flex-1 border-t-2 border-dashed border-gold pt-3">
-                <p className="font-mono text-sm text-gold">{h.soon}</p>
+              <li className="flex-1 border-t-[3px] border-dashed border-ink pt-3">
+                <p className="font-mono text-sm text-prelo-texto">{h.soon}</p>
                 <p className="text-lg">
-                  <Link href={to("/contribuir")} className="underline hover:text-oxblood">{h.yourContribution}</Link>
+                  <Link href={to("/contribuir")} className="underline hover:text-prelo-texto">{h.yourContribution}</Link>
                 </p>
               </li>
             </ol>
@@ -201,21 +287,37 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         </section>
       )}
 
-      <section className="mx-auto grid max-w-6xl gap-6 px-4 py-10 font-sans md:grid-cols-3">
+      <section className="mx-auto grid max-w-[78rem] gap-8 px-4 py-10 font-sans sm:px-6 md:grid-cols-3 lg:px-8">
         {h.pillars.map(([title, description]) => (
-          <div key={title} className="border-l-2 border-gold pl-4">
-            <h3 className="font-semibold">{title}</h3>
-            <p className="mt-1 text-sm text-ink-soft">{description}</p>
+          <div key={title} className="border-t-4 border-[#c21f16] pt-4">
+            <h3 className="text-base font-bold">{title}</h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">{description}</p>
           </div>
         ))}
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-14 text-center">
-        <h2 className="text-4xl font-semibold">{h.ctaTitle}</h2>
-        <p className="mx-auto mt-3 max-w-xl text-lg text-ink-soft">{h.ctaText}</p>
-        <Link href={to("/contribuir")} className="mt-6 inline-block bg-oxblood px-8 py-3 font-sans text-sm font-medium text-parchment hover:bg-ink">
-          {h.ctaButton}
-        </Link>
+      {/* ── O chamado para construir junto, na faixa vermelha ── */}
+      <section className="mt-6 border-y-[3px] border-ink bg-[#c21f16] text-white">
+        <div className="mx-auto flex max-w-[78rem] flex-wrap items-center justify-between gap-6 px-4 py-12 sm:px-6 lg:px-8">
+          <div className="max-w-2xl">
+            <h2 className="lambe text-4xl sm:text-5xl">{h.ctaTitle}</h2>
+            <p className="mt-3 text-xl leading-snug text-[#fde8e4]">{h.ctaText}</p>
+          </div>
+          <Link href={to("/contribuir")} className="botao border-[#1f1a14] bg-[#1f1a14] text-[#f4ecd8] hover:text-white">
+            {h.ctaButton} →
+          </Link>
+        </div>
+      </section>
+
+      {/* ── A dedicatória ── */}
+      <section className="bg-[#1f1a14] text-[#f4ecd8]">
+        <div className="mx-auto max-w-[78rem] px-4 py-16 text-center sm:px-6 lg:px-8">
+          <p aria-hidden className="text-2xl tracking-[0.5em] text-[#c21f16]">★ ★ ★</p>
+          <p className="mx-auto mt-5 max-w-3xl text-4xl italic leading-tight sm:text-5xl">“{h.dedicationQuote}”</p>
+          <Link href={to("/dedicatoria")} className="mt-6 inline-block font-mono text-sm uppercase tracking-[0.24em] text-[#e0837a] hover:text-white">
+            {h.dedicationLink} →
+          </Link>
+        </div>
       </section>
     </>
   );

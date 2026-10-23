@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { fill, localePath } from "@/i18n/config";
+import { fill, localePath, plural } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { stageAreas, stages, type AreaSlug, type Stage } from "@/lib/areas";
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
@@ -39,7 +39,7 @@ const PRIMEIRAS = 6;
  * primeiras aparecem de cara: quem chega encontra conteúdo, não uma parede de cartões.
  */
 export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { labels?: boolean; groups: DisciplineGroup[]; s: Dict["tracks"]; stageNames: Dict["stages"] }) {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
   const hydrated = useHydrated();
   const stored = useStored(KEYS.filter);
   const [abertos, setAbertos] = useState<string[]>([]);
@@ -65,30 +65,32 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
     .filter((group) => group.areas.length > 0);
 
   const Title = labels ? "h3" : "h2";
+  // As capas dos cadernos: cores do cartaz, a mesma para a mesma disciplina em qualquer página.
+  const capa = (slug: string) => CAPAS[[...slug].reduce((soma, letra) => soma + letra.charCodeAt(0), 0) % CAPAS.length];
 
   return (
     <div>
       {/* Busca: pelo nome, pela descrição e pelos títulos das trilhas. Com busca, os grupos abrem inteiros. */}
       {!labels && (
-        <div role="search" className="no-print mt-8 flex max-w-2xl border-2 border-ink bg-parchment-deep">
-          <input type="search" value={busca} onChange={(e) => setBusca(e.target.value)} aria-label={s.searchLabel} placeholder={s.searchPlaceholder} className="min-w-0 flex-1 bg-transparent px-4 py-3 font-mono text-sm outline-none placeholder:text-ink-soft" />
+        <div role="search" className="no-print mt-8 flex max-w-2xl border-2 border-ink bg-folha shadow-[5px_5px_0_var(--sombra)]">
+          <input type="search" value={busca} onChange={(e) => setBusca(e.target.value)} aria-label={s.searchLabel} placeholder={s.searchPlaceholder} className="min-w-0 flex-1 bg-transparent px-4 py-3.5 font-sans text-base outline-none placeholder:text-ink-soft" />
           {busca && <button type="button" onClick={() => setBusca("")} className="cursor-pointer px-4 font-sans text-sm underline">{s.searchClear}</button>}
         </div>
       )}
-      <div role="group" aria-label={s.filter} className="no-print mt-6 flex flex-wrap items-center gap-2 font-sans text-sm">
-        <span className="mr-1 text-ink-soft">{s.filter}:</span>
+      {/* O filtro em abas de pasta de arquivo, assentadas no fio de tinta. */}
+      <div role="group" aria-label={s.filter} className="no-print mt-8 flex flex-wrap items-end gap-1.5 border-b-2 border-ink">
         {options.map(([value, label]) => (
-          <button key={value} type="button" onClick={() => setItem(KEYS.filter, value === "todas" ? null : value)} aria-pressed={filter === value} className={`cursor-pointer border-2 px-3 py-1.5 ${filter === value ? "border-ink bg-ink text-parchment" : "border-rule hover:border-gold"}`}>
+          <button key={value} type="button" onClick={() => setItem(KEYS.filter, value === "todas" ? null : value)} aria-pressed={filter === value} className="aba-pasta">
             {label}
           </button>
         ))}
       </div>
       {filter === "essencial" && <p className="mt-3 font-sans text-sm text-ink-soft">{s.filterEssentialHint}</p>}
-      {visible.length > 1 && (
+      {visible.length > 1 && !labels && (
         <nav aria-label={s.jump} className="no-print mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 font-sans text-sm">
           <span className="text-ink-soft">{s.jump}:</span>
           {visible.map((group) => (
-            <a key={group.id} href={`#grupo-${group.id}`} className="py-1 underline decoration-rule underline-offset-4 hover:text-oxblood hover:decoration-gold">
+            <a key={group.id} href={`#grupo-${group.id}`} className="py-1 underline decoration-rule underline-offset-4 hover:text-prelo-texto hover:decoration-[#c21f16]">
               {group.title}
             </a>
           ))}
@@ -100,35 +102,36 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
         const recolhe = labels && !termos.length && group.areas.length > PRIMEIRAS + 1;
         const aberto = !recolhe || abertos.includes(group.id);
         const cards = aberto ? group.areas : group.areas.slice(0, PRIMEIRAS);
+        const militante = group.id === "teoria" || group.id === "lutas";
         return (
           <section key={group.id} id={`grupo-${group.id}`} className="scroll-mt-24">
-            <Title className={labels ? "mt-10 font-sans text-sm font-semibold uppercase tracking-[0.18em] text-gold" : "mt-12 border-b border-rule pb-3 text-3xl font-semibold"}>
-              {group.title} <span className="font-normal text-ink-soft">· {group.areas.length}</span>
+            <Title className={`tarja mt-12 ${militante ? "tarja-v" : ""}`}>
+              <span className="tarja-nome">{militante ? "★ " : ""}{group.title}</span>
+              <span className="tarja-conta">{group.areas.length}</span>
             </Title>
-            <div className={`${labels ? "mt-4" : "mt-6"} grid gap-4 sm:grid-cols-2 lg:grid-cols-3`}>
+            <div className="mt-6 grid grid-cols-2 gap-5 sm:gap-7 lg:grid-cols-4">
               {cards.map((card, i) => {
                 const [ready, planned] = total(card);
                 const anchor = filter === "todas" || filter === "essencial" ? "" : `#${filter}`;
-                const parte = planned > 0 ? Math.round((ready / planned) * 100) : 0;
-                // O último cartão de uma linha incompleta se estica até o fim: a grade não fica com buraco.
-                const ultimo = i === cards.length - 1;
-                const sobraDois = cards.length % 2 === 1;
-                const sobraTres = cards.length % 3;
-                const estica = !ultimo
-                  ? ""
-                  : `${sobraDois ? "sm:col-span-2" : ""} ${sobraTres === 1 ? "lg:col-span-3" : sobraTres === 2 ? "lg:col-span-2" : sobraDois ? "lg:col-span-1" : ""}`;
+                const cor = capa(card.slug);
+                const etapa = card.essential ? s.essentialTag : stages.filter((stage) => card.counts[stage][1] > 0).map((stage) => s.stageShort[stage]).join(" · ");
                 return (
-                  <Link key={card.slug} href={`${localePath(lang, `/estantes/${card.slug}`)}${anchor}`} className={`group flex flex-col border border-rule bg-parchment-deep p-5 hover:border-gold ${estica}`}>
-                    <p className="text-2xl font-semibold group-hover:text-oxblood">{card.name}</p>
-                    <p className="mt-1 text-ink-soft">{card.description}</p>
-                    <div className="mt-auto pt-4">
-                      <div className="h-1.5 w-full bg-rule/60" role="img" aria-label={fill(s.ready, { a: ready, b: planned })}>
-                        <div className="h-full bg-oxblood" style={{ width: `${Math.max(parte, ready > 0 ? 3 : 0)}%` }} />
-                      </div>
-                      <p className="mt-1.5 font-sans text-sm text-ink-soft" aria-hidden>
-                        {fill(s.ready, { a: ready, b: planned })}
-                      </p>
-                    </div>
+                  <Link
+                    key={card.slug}
+                    href={`${localePath(lang, `/estantes/${card.slug}`)}${anchor}`}
+                    className={`caderno min-h-56 sm:min-h-64 ${i % 2 ? "caderno-v" : ""}`}
+                    style={{ background: cor, ...(cor === "#c21f16" ? { boxShadow: "6px 6px 0 var(--sombra)" } : {}) }}
+                  >
+                    <span className="flex items-start justify-between gap-2 pt-4 pr-4 pl-8 font-mono text-[0.62rem] uppercase tracking-[0.16em] sm:pt-5 sm:pr-5 sm:pl-9 sm:text-[0.68rem]">
+                      <span className="line-clamp-2">{etapa}</span>
+                    </span>
+                    <span className="etiqueta mx-3 mt-4 ml-8 block px-3 py-2.5 sm:mr-5 sm:ml-9 sm:px-3.5 sm:py-3">
+                      <span className="block text-[1.2rem] font-semibold leading-[1.05] sm:text-[1.5rem]">{card.name}</span>
+                      <span className="mt-1 block line-clamp-3 text-[0.85rem] leading-snug text-[#5a4e3c] sm:text-[0.95rem]">{card.description}</span>
+                    </span>
+                    <span className="mt-auto flex items-end justify-between gap-2 pt-4 pr-4 pb-4 pl-8 font-mono text-[0.68rem] uppercase tracking-[0.1em] sm:pr-5 sm:pb-5 sm:pl-9 sm:text-xs">
+                      <span aria-label={fill(s.ready, { a: ready, b: planned })}>{plural(lang, ready, t.common.lessons)} →</span>
+                    </span>
                   </Link>
                 );
               })}
@@ -138,7 +141,7 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
                 type="button"
                 aria-expanded={aberto}
                 onClick={() => setAbertos((lista) => (aberto ? lista.filter((id) => id !== group.id) : [...lista, group.id]))}
-                className="no-print mt-4 cursor-pointer border-2 border-rule px-4 py-2 font-sans text-sm hover:border-gold hover:text-oxblood"
+                className="botao botao-papel botao-menor no-print mt-6"
               >
                 {aberto ? s.showLess : fill(s.showAll, { n: group.areas.length })}
               </button>
@@ -149,3 +152,5 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
     </div>
   );
 }
+
+const CAPAS = ["#6e1f1a", "#2f5d34", "#8a5f1c", "#1f1a14", "#c21f16", "#5a4e3c", "#23485c", "#6b3b5a"];

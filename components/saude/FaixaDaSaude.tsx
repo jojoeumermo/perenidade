@@ -4,18 +4,21 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { hasBackend, rpc } from "@/lib/backend";
-import { AVISO_CURTO, type Profissional, registroCompleto } from "@/lib/saude";
+import { AVISO_CURTO, novoNaVitrine, type Profissional, registroCompleto } from "@/lib/saude";
 
 /**
- * A faixa da Saúde Solidária na página inicial. Aparece só quando há alguém apto na vitrine (os publicados pelo arquivo
- * e os do painel que cumprem todas as condições) e some se a chave geral estiver desligada. Um profissional: o cartão
- * dele em resumo. Vários: os nomes em ordem alfabética, sem rolagem automática nem ranking. O contato só na vitrine,
- * depois da tela de ciência.
+ * O cartão da Saúde Solidária na página inicial, entre a busca e as janelas. Mostra só quem entrou na vitrine nos
+ * últimos DIAS_NA_INICIAL dias (os do arquivo e os do painel que cumprem todas as condições); passado o prazo, o
+ * cartão some da inicial e a pessoa continua na vitrine. Some também se a chave geral estiver desligada.
+ * Um profissional: o cartão dele em resumo. Vários: os nomes em ordem alfabética, sem rolagem automática nem ranking.
+ * O contato só na vitrine, depois da tela de ciência.
  */
 export function FaixaDaSaude({ estaticos, href }: { estaticos: Profissional[]; href: string }) {
   const [doBanco, setDoBanco] = useState<Profissional[]>([]);
   const [desligada, setDesligada] = useState(false);
+  const [agora, setAgora] = useState(0);
   useEffect(() => {
+    setAgora(Date.now());
     if (!hasBackend) return;
     let vivo = true;
     rpc<{ desligada: boolean; perfis: Profissional[] }>("saude_vitrine")
@@ -31,15 +34,18 @@ export function FaixaDaSaude({ estaticos, href }: { estaticos: Profissional[]; h
   }, []);
   // Quem já está no painel não aparece duas vezes (o cartão do arquivo sai quando o perfil do painel é publicado).
   const nomes = new Set(doBanco.map((p) => p.nome.toLowerCase()));
-  const todos = [...doBanco, ...estaticos.filter((p) => !nomes.has(p.nome.toLowerCase()))].sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
+  // A conta do prazo só no navegador: a página é montada uma vez e a data do servidor ficaria parada.
+  const todos = agora
+    ? [...doBanco, ...estaticos.filter((p) => !nomes.has(p.nome.toLowerCase()))].filter((p) => novoNaVitrine(p, agora)).sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"))
+    : [];
   if (desligada || todos.length === 0) return null;
   const um = todos.length === 1 ? todos[0] : null;
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8">
-      <div className="grid gap-5 border-[3px] border-ink bg-parchment-deep p-5 sm:grid-cols-[1fr_auto] sm:items-center">
+    <section className="mx-auto max-w-[78rem] px-4 pt-12 sm:px-6 lg:px-8 max-md:pt-8">
+      <div className="cartao-v grid gap-5 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-7">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.3em] text-oxblood">Saúde Solidária</p>
-          <h2 className="mt-1 text-3xl font-semibold">Profissionais de saúde voluntários</h2>
+          <p className="rotulo">Saúde Solidária</p>
+          <h2 className="mt-1.5 text-[2rem] font-semibold leading-tight">Profissionais de saúde voluntários</h2>
           {um ? (
             <p className="mt-2 text-lg">
               <strong>{um.nome}</strong> · {um.profissao} · {registroCompleto(um)}{um.abordagem ? ` · ${um.abordagem}` : ""}
@@ -49,7 +55,7 @@ export function FaixaDaSaude({ estaticos, href }: { estaticos: Profissional[]; h
           )}
           <p className="mt-2 max-w-3xl font-sans text-sm text-ink-soft">{AVISO_CURTO}</p>
         </div>
-        <Link href={href} className="inline-block border-2 border-ink bg-ink px-5 py-3 text-center font-sans font-semibold text-parchment hover:bg-oxblood">
+        <Link href={href} className="botao botao-tinta">
           Ver {um ? "o cartão" : "os cartões"} →
         </Link>
       </div>

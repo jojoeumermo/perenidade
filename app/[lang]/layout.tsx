@@ -8,6 +8,7 @@ import { BottomNav } from "@/components/BottomNav";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { I18nProvider } from "@/components/I18n";
+import { MaisGaveta } from "@/components/MaisGaveta";
 import { OfflineSupport } from "@/components/Offline";
 import { OpeningNotice } from "@/components/OpeningNotice";
 import { OutsidePanel } from "@/components/OutsidePanel";
@@ -20,6 +21,7 @@ import { loadLang } from "@/i18n";
 import { pickCore } from "@/i18n/core";
 import { htmlLang, locales } from "@/i18n/config";
 import { organizacao, siteWeb } from "@/lib/dados-estruturados";
+import { secoesDoSite } from "@/lib/secoes-do-site";
 import { site } from "@/lib/site";
 
 // O chinês usa as fontes do próprio sistema; o russo, o recorte cirílico das mesmas famílias.
@@ -36,8 +38,8 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   themeColor: [
-    // No celular a barra do navegador continua a faixa bordô do topo do site.
-    { media: "(max-width: 767.98px)", color: "#6e1f1a" },
+    // No celular a barra do navegador continua a faixa preta de avisos do topo do site.
+    { media: "(max-width: 767.98px)", color: "#1f1a14" },
     { media: "(prefers-color-scheme: light)", color: "#f4ecd8" },
     { media: "(prefers-color-scheme: dark)", color: "#17130e" },
   ],
@@ -100,6 +102,10 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             <BottomNav />
             <VoltarAoTopo label={t.lists.top} />
             <OpeningNotice initial={abertura} close={t.a11y.close} />
+            <MaisGaveta
+              secoes={secoesDoSite(lang, t)}
+              textos={{ titulo: t.more.title, busca: t.more.searchPlaceholder, maisUsadas: t.more.mostUsed, rodape: t.more.footnote, instagram: t.footer.instagram }}
+            />
           </OutsidePanel>
           <OutsidePanel mostrarNasCriancas>
             <A11yWidget />

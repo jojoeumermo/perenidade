@@ -53,6 +53,7 @@
     "more": "更多",
     "search": "搜索",
     "support": "支持",
+    "supportLong": "支持本研究所",
     "panel": "工作台",
     "hello": "你好，{name}",
     "helloLabel": "你好，{name}：打开工作台",
@@ -292,6 +293,20 @@
   },
   "home": {
     "eyebrow": "亚历山大图书馆 · 社区版",
+    "kicker": "★ 免费学习 · 愿意就来贡献",
+    "posterLabel": "街头海报 第1号",
+    "poster": [
+      "知识",
+      "属于",
+      "人民。"
+    ],
+    "posterText": "进来不用付钱，这里的一切不属于任何人。",
+    "stamp": [
+      "免费",
+      "★ 开放 ★",
+      "永远",
+      "如此"
+    ],
     "h1a": "所有的知识，",
     "h1b": "属于所有人",
     "h1c": "，直到永远。",
@@ -301,6 +316,9 @@
     "searchButton": "搜索",
     "indexed": "已收录",
     "shelves": "书架",
+    "shelvesKicker": "§ 书架",
+    "shelvesPick": "选你的笔记本",
+    "seeAllShelves": "查看全部 {n} 本笔记本",
     "startTrack": "从一条学习路径开始",
     "seeAll": "查看全部",
     "timelineTitle": "馆藏时间线",
@@ -343,11 +361,19 @@
     "ctaTitle": "一起建造这座图书馆",
     "ctaText": "写一节课，推荐一部自由作品，或改正一个错误。所有内容在收入之前都会经过审阅。",
     "ctaButton": "提交投稿",
+    "dedicationQuote": "这个研究所承载着一个名字，和一份承诺。",
+    "dedicationLink": "阅读献词",
     "questionsTitle": "从一个问题开始",
     "shelvesHint": "学科很多。可以只看基础内容，或选择你想学习的阶段。",
     "tryLabel": "试试：",
+    "startText": "还没打开过课程？指南五分钟帮你找到学习路线。",
+    "journalWindow": "报纸",
+    "onAir": "正在播出 · 露西亚电台",
+    "listen": "收听",
+    "allEpisodes": "全部节目",
+    "radioLive": "全天音乐、新闻和讨论，网速慢也能听。",
     "onThisDay": "历史上的今天",
-    "onThisDaySource": "维基百科为今天的日期选出的事件。文字来自维基百科，CC BY-SA 许可。"
+    "onThisDaySource": "这一天人民的斗争与胜利，由团队挑选并取自维基百科。维基百科文字，CC BY-SA 许可。"
   },
   "areas": {
     "portugues": [
@@ -686,6 +712,12 @@
     "continue": "从上次停下的地方继续",
     "resume": "继续学习",
     "ready": "已写好 {a}／{b} 节课",
+    "essentialTag": "基础",
+    "stageShort": {
+      "fundamental": "基础",
+      "medio": "中学",
+      "superior": "高等"
+    },
     "underConstruction": "建设中",
     "helpWrite": "帮助编写这条学习路线",
     "planned": "筹备中",
@@ -2905,6 +2937,9 @@
     "eyebrow": "这里的全部内容",
     "title": "更多",
     "lead": "菜单里放不下的内容，都集中在这里。",
+    "searchPlaceholder": "查找栏目：“词汇表”“小志”“辅导”……",
+    "mostUsed": "你最常用",
+    "footnote": "菜单里放不下的，都在这一屏",
     "critical": "批判性阅读",
     "items": {
       "tools": "调音器、代码编辑器、元素周期表等。",

@@ -15,9 +15,10 @@ export function DailyQuote({ quotes }: { quotes: Quote[] }) {
   const hydrated = day >= 0;
   const quote = quotes[Math.max(day, 0) % quotes.length];
   return (
-    <section className={`mx-auto max-w-4xl px-4 py-10 text-center ${hydrated ? "" : "invisible"}`} lang="pt-BR">
-      <blockquote className="text-3xl italic leading-snug">“{quote.texto}”</blockquote>
-      <p className="mt-4 font-mono text-xs uppercase tracking-widest text-gold">
+    <section className={`mx-auto max-w-4xl px-4 py-14 text-center ${hydrated ? "" : "invisible"}`} lang="pt-BR">
+      <p aria-hidden className="text-lg tracking-[0.5em] text-prelo-texto">★ ★ ★</p>
+      <blockquote className="mt-4 text-3xl italic leading-snug text-balance sm:text-4xl">“{quote.texto}”</blockquote>
+      <p className="rotulo mt-5">
         {quote.autor} · {quote.fonte}
       </p>
     </section>
