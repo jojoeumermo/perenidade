@@ -41,7 +41,7 @@ export default async function Memorial({ params }: PageProps<"/[lang]/memorial">
             )}
             <div className="min-w-0">
               <p className="font-mono text-xs text-gold">
-                {tribute.born} – {tribute.died} · {tribute.place}
+                {tribute.born === "—" ? tribute.died : `${tribute.born} – ${tribute.died}`} · {tribute.place}
               </p>
               <h2 className="mt-2 text-3xl font-semibold">{tribute.name}</h2>
               <p className="mt-3 text-lg leading-relaxed">{tribute.body}</p>
