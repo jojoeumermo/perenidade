@@ -339,7 +339,7 @@ export function TerminalLinux() {
           <div className="mt-4 border-t border-rule pt-3">
             <p className="font-semibold">{exercicio.titulo}</p>
             <p className="mt-1">{exercicio.enunciado}</p>
-            {exercicio.dicas.slice(0, dica).map((d, i) => <p key={i} className="mt-1 text-ink-soft">💡 {d}</p>)}
+            {exercicio.dicas.slice(0, dica).map((d, i) => <p key={i} className="mt-1 text-ink-soft">{d}</p>)}
             <p className="mt-3 flex flex-wrap gap-2">
               <button type="button" className="cursor-pointer bg-ink px-3 py-1.5 font-semibold text-parchment hover:bg-oxblood" onClick={conferir}>Conferir</button>
               {dica < exercicio.dicas.length && <button type="button" className="cursor-pointer underline" onClick={() => setDica((n) => n + 1)}>Dica</button>}

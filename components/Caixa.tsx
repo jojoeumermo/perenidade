@@ -129,7 +129,7 @@ export function Caixa({ ferramentas, sugeridas, area, nomes, s, lang, laboratori
               aria-current={atual === `lab:${l.id}` ? "true" : undefined}
               className={`shrink-0 cursor-pointer whitespace-nowrap border px-2.5 py-1 ${atual === `lab:${l.id}` ? "border-ink bg-ink text-parchment" : "border-[#c21f16]/50 bg-parchment-deep hover:border-ink"}`}
             >
-              <span aria-hidden>🧪 </span>{l.nome}
+              <span aria-hidden></span>{l.nome}
             </button>
           ))}
         </nav>

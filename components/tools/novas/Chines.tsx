@@ -51,8 +51,8 @@ export function DicionarioChines() {
               <span className="text-3xl" lang="zh-CN">{simp}</span>
               {trad && <span className="text-lg text-ink-soft" lang="zh-TW" title="Forma tradicional">{trad}</span>}
               <span className="font-mono text-oxblood">{pinyinComAcento(pin)}</span>
-              <button type="button" onClick={() => falar(simp, "zh-CN", 0.7)} className="cursor-pointer text-xs underline">🔊 ouvir</button>
-              {[...simp].length === 1 && <a href={`escrita-chinesa?c=${encodeURIComponent(simp)}`} className="text-xs underline">🖌️ escrever</a>}
+              <button type="button" onClick={() => falar(simp, "zh-CN", 0.7)} className="cursor-pointer text-xs underline">ouvir</button>
+              {[...simp].length === 1 && <a href={`escrita-chinesa?c=${encodeURIComponent(simp)}`} className="text-xs underline">escrever</a>}
               <span className="basis-full text-sm" lang="en">{glosas}</span>
             </li>
           ))}
@@ -122,7 +122,7 @@ export function EscritaChinesa() {
             {!disponivel && <p className="max-w-[260px] text-sm text-oxblood">Este caractere não está no recorte do site (cerca de mil caracteres comuns).</p>}
             <div className="mt-2 flex flex-wrap justify-center gap-2">
               <BotaoClaro onClick={() => { setModo("ver"); setAviso(""); void escritor.current?.animateCharacter(); }}>▶ Ver os traços</BotaoClaro>
-              <BotaoClaro onClick={() => { setModo("treinar"); setAviso("Desenhe cada traço na ordem, com o dedo ou o mouse."); }}>✍️ Treinar</BotaoClaro>
+              <BotaoClaro onClick={() => { setModo("treinar"); setAviso("Desenhe cada traço na ordem, com o dedo ou o mouse."); }}>Treinar</BotaoClaro>
               <BotaoClaro onClick={() => falar(char, "zh-CN", 0.7)}>🔊</BotaoClaro>
             </div>
             {aviso && <p className="mt-2 max-w-[260px] text-sm">{aviso}</p>}

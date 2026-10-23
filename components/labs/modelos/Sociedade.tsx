@@ -17,7 +17,7 @@ export function Probabilidade() {
   const medias = useMemo(() => mediasDeDados(2000, k, semente), [k, semente]);
   const caixas = useMemo(() => { const h = Array(25).fill(0); for (const m of medias) h[Math.min(24, Math.floor(((m - 1) / 5) * 25))]++; return h; }, [medias]);
   return (
-    <Bancada titulo="Probabilidade" subtitulo="Quando o acaso vira regra" acoes={<Botao onClick={() => setSemente(semente + 1)}>🎲 Outra semente ({semente})</Botao>}>
+    <Bancada titulo="Probabilidade" subtitulo="Quando o acaso vira regra" acoes={<Botao onClick={() => setSemente(semente + 1)}>Outra semente ({semente})</Botao>}>
       <Escolha rotulo="Experimento" valor={qual} opcoes={[["moedas", "Moedas"], ["monty", "Monty Hall"], ["aniversario", "Aniversários"], ["tlc", "Médias de dados"]]} mudar={setQual} />
       <div className="mt-4 grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <div>
@@ -171,7 +171,7 @@ export function Riqueza() {
   const ordenado = [...w].sort((a, b) => b - a);
   const top10 = ordenado.slice(0, 12).reduce((s, x) => s + x, 0) / ordenado.reduce((s, x) => s + x, 0);
   return (
-    <Bancada titulo="Riqueza (modelo yard-sale)" subtitulo="Todo mundo começa igual e as trocas são cara ou coroa" acoes={<Botao onClick={() => setSemente(semente + 1)}>🎲 Outra semente</Botao>}>
+    <Bancada titulo="Riqueza (modelo yard-sale)" subtitulo="Todo mundo começa igual e as trocas são cara ou coroa" acoes={<Botao onClick={() => setSemente(semente + 1)}>Outra semente</Botao>}>
       <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <div>
           <svg viewBox="0 0 240 120" className="w-full rounded bg-[#17130e]" role="img" aria-label="Riqueza de cada pessoa, da maior para a menor">

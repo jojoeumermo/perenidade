@@ -175,7 +175,7 @@ export function Capacitor() {
           <Deslizante rotulo="Resistor" valor={ir} min={0} max={RS_RC.length - 1} mudar={(x) => { setIr(x); setRodando(false); setT(0); }} formato={(i) => ohms(RS_RC[i])} />
           <Escolha rotulo="Capacitor" valor={c} opcoes={CAPACITORES} mudar={(x) => { setC(x); setRodando(false); setT(0); }} />
           <div className="flex flex-wrap gap-2">
-            <BotaoClaro onClick={() => iniciar(true)} desligado={rodando}>⚡ Carregar</BotaoClaro>
+            <BotaoClaro onClick={() => iniciar(true)} desligado={rodando}>Carregar</BotaoClaro>
             <BotaoClaro onClick={() => iniciar(false)} desligado={rodando}>⤵ Descarregar</BotaoClaro>
           </div>
           <p className="text-xs text-ink-soft">A animação mostra sempre cinco τ em cinco segundos; o tempo de verdade está na leitura “Tempo”. A linha amarela marca 63%.</p>

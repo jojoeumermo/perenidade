@@ -161,7 +161,7 @@ export function LabRedes() {
             {exercicio.solucao && resultado && !resultado.every((r) => r.passou) && <details className="inline"><summary className="cursor-pointer underline">Ver a solução</summary><pre className="mt-2 whitespace-pre-wrap border border-rule bg-parchment p-2 font-mono text-xs">{exercicio.solucao}</pre></details>}
             <button type="button" className="cursor-pointer underline" onClick={() => abrirExercicio(null)}>Sair do exercício</button>
           </p>
-          {exercicio.dicas.slice(0, dica).map((d, i) => <p key={i} className="mt-1 text-ink-soft">💡 {d}</p>)}
+          {exercicio.dicas.slice(0, dica).map((d, i) => <p key={i} className="mt-1 text-ink-soft">{d}</p>)}
           {resultado && (
             <ul className="mt-3 space-y-1 font-mono text-xs">
               {resultado.map((r, i) => <li key={i} className={r.passou ? "text-ok" : "text-oxblood"}>{r.passou ? "✓" : "✗"} {r.verificacao.texto}{!r.passou && ` — ${r.detalhe}`}</li>)}

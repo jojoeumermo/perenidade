@@ -90,7 +90,7 @@ function testeParaTexto(ps: Pergunta[]) {
     .join("\n\n");
 }
 
-const TIPOS: [TipoDePergunta, string][] = [["escolha", "🔘 Escolha"], ["vf", "✅ Verdadeiro ou falso"], ["numero", "🔢 Número"], ["lacunas", "✍️ Completar"], ["ordenar", "↕️ Pôr em ordem"]];
+const TIPOS: [TipoDePergunta, string][] = [["escolha", "Escolha"], ["vf", "Verdadeiro ou falso"], ["numero", "Número"], ["lacunas", "Completar"], ["ordenar", "↕️ Pôr em ordem"]];
 
 function FormTeste({ spec, mudar }: { spec: string; mudar: (s: string) => void }) {
   const [ps, setPs] = useState(() => testeDe(spec));
@@ -110,8 +110,8 @@ function FormTeste({ spec, mudar }: { spec: string; mudar: (s: string) => void }
         </label>
         {p.tipo === "escolha" && (
           <div className="mt-2 space-y-2">
-            <label className={rotulo}>✅ Resposta certa<input value={p.certa} onChange={(e) => trocar({ ...p, certa: e.target.value })} placeholder="Marte" className={`${campo} mt-1 border-ok/60`} /></label>
-            <p className={rotulo}>❌ Respostas erradas (e, se quiser, por que estão erradas)</p>
+            <label className={rotulo}>Resposta certa<input value={p.certa} onChange={(e) => trocar({ ...p, certa: e.target.value })} placeholder="Marte" className={`${campo} mt-1 border-ok/60`} /></label>
+            <p className={rotulo}>Respostas erradas (e, se quiser, por que estão erradas)</p>
             <Linhas itens={p.erradas} mudar={(erradas) => trocar({ ...p, erradas })} novo={() => ({ texto: "", porque: "" })} rotuloNovo="outra errada" linha={(e, t) => (
               <div className="grid gap-1 sm:grid-cols-2">
                 <input value={e.texto} onChange={(ev) => t({ ...e, texto: ev.target.value })} placeholder="Lua" aria-label="Resposta errada" className={campo} />
@@ -151,7 +151,7 @@ function FormTeste({ spec, mudar }: { spec: string; mudar: (s: string) => void }
             </div>
           </div>
         )}
-        <label className={`${rotulo} mt-2`}>💡 Explicação para quem errar (opcional)<input value={p.explicacao} onChange={(e) => trocar({ ...p, explicacao: e.target.value })} className={`${campo} mt-1`} /></label>
+        <label className={`${rotulo} mt-2`}>Explicação para quem errar (opcional)<input value={p.explicacao} onChange={(e) => trocar({ ...p, explicacao: e.target.value })} className={`${campo} mt-1`} /></label>
       </div>
     )} />
   );
@@ -318,8 +318,8 @@ function FormCena({ spec, mudar }: { spec: string; mudar: (s: string) => void })
       <label className={rotulo}>Endereço da imagem do site (envie em Materiais e arquivos e cole aqui)<input value={v.imagem} onChange={(e) => salvar({ ...v, imagem: e.target.value })} placeholder="/arquivos/…" className={`${campo} mt-1`} /></label>
       <label className={rotulo}>Descrição da imagem (para quem não enxerga)<input value={v.descricao} onChange={(e) => salvar({ ...v, descricao: e.target.value })} className={`${campo} mt-1`} /></label>
       <div className="flex gap-1">
-        <button type="button" aria-pressed={!v.encontrar} onClick={() => salvar({ ...v, encontrar: false })} className={`cursor-pointer border-2 px-3 py-1 text-sm font-bold ${!v.encontrar ? "border-ink bg-ink text-parchment" : "border-ink/20"}`}>👆 Explorar (toca e lê)</button>
-        <button type="button" aria-pressed={v.encontrar} onClick={() => salvar({ ...v, encontrar: true })} className={`cursor-pointer border-2 px-3 py-1 text-sm font-bold ${v.encontrar ? "border-ink bg-ink text-parchment" : "border-ink/20"}`}>🔍 Encontrar (jogo)</button>
+        <button type="button" aria-pressed={!v.encontrar} onClick={() => salvar({ ...v, encontrar: false })} className={`cursor-pointer border-2 px-3 py-1 text-sm font-bold ${!v.encontrar ? "border-ink bg-ink text-parchment" : "border-ink/20"}`}>Explorar (toca e lê)</button>
+        <button type="button" aria-pressed={v.encontrar} onClick={() => salvar({ ...v, encontrar: true })} className={`cursor-pointer border-2 px-3 py-1 text-sm font-bold ${v.encontrar ? "border-ink bg-ink text-parchment" : "border-ink/20"}`}>Encontrar (jogo)</button>
       </div>
       {/^\/(arquivos|imagens)\//.test(v.imagem) && (
         <div>

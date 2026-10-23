@@ -470,7 +470,7 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
               <div className="flex flex-wrap gap-2 text-xs">
                 {frases.map((f, k) => (
                   <button key={k} type="button" onClick={() => void gravar(i, k)} disabled={Boolean(gravando) && !(gravando?.bloco === i && gravando.linha === k)} className="cursor-pointer border border-ink px-2 py-1 hover:border-oxblood disabled:opacity-40">
-                    {gravando?.bloco === i && gravando.linha === k ? "■ Parar" : `🎙 Gravar: ${f.split("|")[0].trim().slice(0, 24)}`}
+                    {gravando?.bloco === i && gravando.linha === k ? "■ Parar" : `Gravar: ${f.split("|")[0].trim().slice(0, 24)}`}
                   </button>
                 ))}
               </div>

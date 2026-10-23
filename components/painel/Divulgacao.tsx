@@ -146,7 +146,7 @@ export function Divulgacao({ me }: { me: Me }) {
         <span className={`block font-semibold leading-snug ${compacto ? "text-xs" : ""}`}>{item.titulo}</span>
         {!compacto && (
           <span className="mt-1 flex flex-wrap gap-1 text-[0.7rem]">
-            {item.responsavel && <span className="border border-rule px-1">👤 {item.responsavel}</span>}
+            {item.responsavel && <span className="border border-rule px-1">{item.responsavel}</span>}
             {item.devolvido && <span className="border border-oxblood px-1 text-oxblood">devolvido</span>}
             {atrasado && <span className="border border-oxblood px-1 text-oxblood">data passou</span>}
             {item.aprovado_por && (item.situacao === "pronto" || item.situacao === "publicado") && <span className="border border-ok px-1 text-ok">✓ {item.aprovado_por}</span>}

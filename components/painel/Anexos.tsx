@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { type Anexo, cifrarArquivo, deBase64Comum, decifrarArquivo, extensaoDe, identificar, LIMITE_BYTES, LIMITE_POR_MENSAGEM, paraBase64Comum, picosDe, tamanhoLegivel, type TipoDeAnexo } from "@/lib/anexos";
 import { BackendError, rpc } from "@/lib/backend";
 import { Aviso, botao, botaoClaro, elo, textoDoErro } from "./comum";
+import { Selo } from "@/components/Selo";
 
 // Tudo o que um arquivo de conversa passa acontece neste aparelho: conferir o tipo pelos bytes, redesenhar a imagem
 // (sem os dados embutidos pela câmera), medir o áudio, cifrar com uma chave só dele, e, do outro lado, baixar o
@@ -181,7 +182,7 @@ async function baixar(anexo: Anexo, conversa: string): Promise<{ url: string; by
 
 const duracaoLegivel = (segundos?: number) => (segundos === undefined ? "" : `${Math.floor(segundos / 60)}:${String(Math.floor(segundos % 60)).padStart(2, "0")}`);
 
-const icone: Record<TipoDeAnexo, string> = { imagem: "🖼", video: "🎞", audio: "🎙", pdf: "📄", docx: "📝" };
+const icone: Record<TipoDeAnexo, string> = { imagem: "imagem", video: "video", audio: "microfone", pdf: "folha", docx: "caderno" };
 
 /** Um arquivo recebido: baixa e abre ao aparecer (fotos, áudio, vídeo) ou quando a pessoa pede (documentos, ver uma vez). */
 export function AnexoVisto({ anexo, estado, conversa, minha, aoAbrirGaleria }: { anexo: Anexo; estado?: EstadoDoAnexo; conversa: string; minha: boolean; aoAbrirGaleria?: () => void }) {
@@ -221,7 +222,7 @@ export function AnexoVisto({ anexo, estado, conversa, minha, aoAbrirGaleria }: {
 
   const rodape = (
     <span className="block text-[0.7rem] opacity-70">
-      {icone[anexo.tipo]} {anexo.nome} · {tamanhoLegivel(anexo.tamanho)}{anexo.duracao !== undefined ? ` · ${duracaoLegivel(anexo.duracao)}` : ""}
+      <Selo nome={icone[anexo.tipo]} className="mr-1 inline h-4 w-4 align-[-3px]" />{anexo.nome} · {tamanhoLegivel(anexo.tamanho)}{anexo.duracao !== undefined ? ` · ${duracaoLegivel(anexo.duracao)}` : ""}
     </span>
   );
 
@@ -231,7 +232,7 @@ export function AnexoVisto({ anexo, estado, conversa, minha, aoAbrirGaleria }: {
       <div className="my-1 border border-dashed border-current/40 px-2 py-1.5 text-sm">
         <p className="flex items-center gap-2">
           <span aria-hidden>{esgotado ? "◌" : "①"}</span>
-          <span className="flex-1">{minha ? `${icone[anexo.tipo]} Enviado para ver uma vez` : esgotado ? `${icone[anexo.tipo]} Aberto (era para ver uma vez)` : `${icone[anexo.tipo]} ${anexo.tipo === "imagem" ? "Foto" : anexo.tipo === "video" ? "Vídeo" : "Arquivo"} para ver uma vez`}</span>
+          <span className="flex-1">{minha ? `Enviado para ver uma vez` : esgotado ? `Aberto (era para ver uma vez)` : `${anexo.tipo === "imagem" ? "Foto" : anexo.tipo === "video" ? "Vídeo" : "Arquivo"} para ver uma vez`}</span>
           {!esgotado && !janela && <button type="button" className={`${botaoClaro} px-2 py-0.5 text-xs`} disabled={ocupado} onClick={() => void abrir()}>{ocupado ? "Abrindo…" : "Abrir uma vez"}</button>}
         </p>
         {aviso && <Aviso texto={aviso} />}
@@ -244,7 +245,7 @@ export function AnexoVisto({ anexo, estado, conversa, minha, aoAbrirGaleria }: {
     return (
       <div className="my-1 border border-current/30 px-2 py-1.5 text-sm">
         <p className="flex flex-wrap items-center gap-2">
-          <span aria-hidden className="text-xl">{icone[anexo.tipo]}</span>
+          <Selo nome={icone[anexo.tipo]} className="h-6 w-6" />
           <span className="min-w-0 flex-1">
             <span className="block truncate font-semibold">{anexo.nome}</span>
             <span className="block text-[0.7rem] opacity-70">{anexo.tipo.toUpperCase()} · {tamanhoLegivel(anexo.tamanho)}</span>
@@ -262,7 +263,7 @@ export function AnexoVisto({ anexo, estado, conversa, minha, aoAbrirGaleria }: {
     return (
       <div className="my-1 text-sm">
         <p className="flex items-center gap-2">
-          <span aria-hidden>{icone[anexo.tipo]}</span>
+          <Selo nome={icone[anexo.tipo]} className="h-4 w-4" />
           <span className="flex-1 opacity-80">{aviso || (ocupado ? "Abrindo…" : "Arquivo")}</span>
           {aviso && <button type="button" className={`${elo} text-xs`} onClick={() => void abrir()}>Tentar de novo</button>}
         </p>
@@ -504,10 +505,10 @@ export function Gravador({ aoGravar, aoAvisar, fechar }: { aoGravar: (preparado:
             onClick={() => { if (fase === "travado") parar(); }}
             onKeyDown={(e) => { if ((e.key === " " || e.key === "Enter") && fase === "pronto") { e.preventDefault(); void comecar().then(() => setFase("travado")); } }}
           >
-            {fase === "pronto" ? "🎙 Segure para gravar" : fase === "travado" ? "■ Parar" : fase === "preparando" ? "Preparando…" : "● Gravando… solte para parar"}
+            {fase === "pronto" ? "Segure para gravar" : fase === "travado" ? "■ Parar" : fase === "preparando" ? "Preparando…" : "● Gravando… solte para parar"}
           </button>
           {(fase === "gravando" || fase === "travado") && <span className="font-mono" aria-live="polite">{duracaoLegivel(segundos)}</span>}
-          {fase === "gravando" && <button type="button" className={botaoClaro} onPointerDown={(e) => e.preventDefault()} onPointerUp={() => setFase("travado")}>🔒 Travar</button>}
+          {fase === "gravando" && <button type="button" className={botaoClaro} onPointerDown={(e) => e.preventDefault()} onPointerUp={() => setFase("travado")}>Travar</button>}
           {fase === "pronto" && <button type="button" className={elo} onClick={fechar}>Cancelar</button>}
           <span className="basis-full text-xs text-ink-soft">A gravação fica neste aparelho até você enviar. Sem transcrição: nenhum serviço de fora ouve o áudio.</span>
         </>
@@ -535,7 +536,7 @@ export function Preparados({ itens, mudar }: { itens: Preparado[]; mudar: (itens
           ) : item.tipo === "video" ? (
             <video src={item.url} muted playsInline preload="metadata" className="h-20 w-full bg-black object-cover" />
           ) : (
-            <p className="flex h-20 items-center justify-center text-3xl">{icone[item.tipo]}</p>
+            <p className="flex h-20 items-center justify-center"><Selo nome={icone[item.tipo]} className="h-10 w-10" /></p>
           )}
           <p className="mt-1 truncate font-semibold" title={item.nome}>{item.nome}</p>
           <p className="text-ink-soft">{tamanhoLegivel(item.bytes.length)}{item.duracao !== undefined ? ` · ${duracaoLegivel(item.duracao)}` : ""}</p>

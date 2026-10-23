@@ -212,7 +212,7 @@ export function Cartoes({ spec }: { spec: string }) {
         <span className="font-mono text-xs">{fill(t.blocks.cardOf, { i: (i % pares.length) + 1, n: pares.length })}</span>
         <button type="button" className={claro} onClick={() => { setI((n) => (n + 1) % pares.length); setVirado(false); }}>→</button>
         <button type="button" className={claro} onClick={() => setVirado((v) => !v)}>{t.blocks.flip}</button>
-        {lingua && <button type="button" className={claro} onClick={() => falar(p.a, lingua)}>🔊 {t.blocks.listen}</button>}
+        {lingua && <button type="button" className={claro} onClick={() => falar(p.a, lingua)}>{t.blocks.listen}</button>}
       </div>
     </div>
   );

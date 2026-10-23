@@ -60,8 +60,8 @@ export function Sudoku() {
               <button type="button" onClick={() => por(0)} className="cursor-pointer rounded border-2 border-ink/40 py-2 text-sm">apagar</button>
             </div>
             <div className="flex flex-wrap gap-2">
-              <BotaoClaro onClick={() => setLapis(!lapis)}>{lapis ? "✏️ Lápis ligado" : "✏️ Lápis (notas)"}</BotaoClaro>
-              <BotaoClaro onClick={() => { const d = dicaSudoku(grade, solucao); if (d) { setSel(d.casa); setAviso(`Dica para a linha ${Math.floor(d.casa / 9) + 1}, coluna ${(d.casa % 9) + 1}: ${d.motivo}. Pense: que número falta ali?`); } }}>💡 Dica</BotaoClaro>
+              <BotaoClaro onClick={() => setLapis(!lapis)}>{lapis ? "Lápis ligado" : "Lápis (notas)"}</BotaoClaro>
+              <BotaoClaro onClick={() => { const d = dicaSudoku(grade, solucao); if (d) { setSel(d.casa); setAviso(`Dica para a linha ${Math.floor(d.casa / 9) + 1}, coluna ${(d.casa % 9) + 1}: ${d.motivo}. Pense: que número falta ali?`); } }}>Dica</BotaoClaro>
               <BotaoClaro onClick={() => setMostrarErros(!mostrarErros)}>{mostrarErros ? "Esconder erros" : "Conferir"}</BotaoClaro>
             </div>
             {aviso && <p className="text-sm">{aviso}</p>}

@@ -124,7 +124,7 @@ export function Ondas() {
     return () => { osc.stop(); void ctx.close(); };
   }, [tocando, tipo, n]);
   return (
-    <Bancada titulo="Ondas e Fourier" subtitulo="Toda onda periódica é uma soma de senos" acoes={<Botao primario onClick={() => setTocando(!tocando)}>{tocando ? "🔇 Parar" : "🔊 Ouvir (220 Hz)"}</Botao>}>
+    <Bancada titulo="Ondas e Fourier" subtitulo="Toda onda periódica é uma soma de senos" acoes={<Botao primario onClick={() => setTocando(!tocando)}>{tocando ? "Parar" : "Ouvir (220 Hz)"}</Botao>}>
       <Escolha rotulo="Onda que queremos montar" valor={tipo} opcoes={[["quadrada", "Quadrada"], ["serra", "Dente de serra"], ["triangular", "Triangular"]]} mudar={setTipo} />
       <svg viewBox="0 0 300 120" className="mt-3 w-full rounded bg-[#17130e]" role="img" aria-label="Soma de senos"><line x1={0} x2={300} y1={60} y2={60} stroke="#ffffff22" /><polyline fill="none" stroke="#ffd27a" strokeWidth={1.5} points={pts} /></svg>
       <div className="mt-3 grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">

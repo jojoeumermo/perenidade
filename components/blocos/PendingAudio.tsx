@@ -22,5 +22,5 @@ export function PendingAudio({ path }: { path: string }) {
       if (criado) URL.revokeObjectURL(criado);
     };
   }, [path]);
-  return src ? <audio controls preload="none" src={src} className="h-9" /> : <span className="font-mono text-xs text-ink-soft">🎙 …</span>;
+  return src ? <audio controls preload="none" src={src} className="h-9" /> : <span className="font-mono text-xs text-ink-soft">…</span>;
 }

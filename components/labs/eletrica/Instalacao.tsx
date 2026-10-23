@@ -48,7 +48,7 @@ export function Instalacao() {
           {fios.length === 0 && <li className="text-ink-soft">Nenhum fio passado ainda.</li>}
         </ol>
         <p className="mt-3 flex flex-wrap gap-2">
-          <button type="button" onClick={() => setResultado(avaliar(fios))} className="cursor-pointer bg-[#c21f16] px-5 py-2 font-bold text-white hover:bg-[#a51810]">⚡ Ligar o disjuntor</button>
+          <button type="button" onClick={() => setResultado(avaliar(fios))} className="cursor-pointer bg-[#c21f16] px-5 py-2 font-bold text-white hover:bg-[#a51810]">Ligar o disjuntor</button>
           <button type="button" onClick={() => { setFios([]); setResultado(null); }} className="cursor-pointer border-2 border-ink px-3 py-1.5">Começar de novo</button>
         </p>
       </div>
