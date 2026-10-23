@@ -61,15 +61,15 @@ function Calculadoras() {
 
 type Id = "multimetro" | "circuitos" | "instalacao" | "contas" | "led" | "capacitor" | "logica" | "fonte" | "sensor";
 const MODULOS: { id: Id; nome: string; icone: string; resumo: string }[] = [
-  { id: "multimetro", nome: "Multímetro na bancada", icone: "🔎", resumo: "Medir tensão, resistência e continuidade" },
-  { id: "circuitos", nome: "Série e paralelo", icone: "💡", resumo: "Três lâmpadas e uma bateria" },
-  { id: "instalacao", nome: "Ligar luz e tomada", icone: "🏠", resumo: "Fase, neutro, retorno e terra" },
-  { id: "contas", nome: "Contas do eletricista", icone: "🧮", resumo: "Ohm, potência e conta de luz" },
-  { id: "led", nome: "LED e resistor", icone: "🔴", resumo: "A primeira montagem na protoboard" },
-  { id: "capacitor", nome: "Capacitor e o tempo", icone: "⏱️", resumo: "Carga e descarga no osciloscópio" },
-  { id: "logica", nome: "Portas lógicas", icone: "🧠", resumo: "E, OU, NÃO e o somador de 4 bits" },
-  { id: "fonte", nome: "Fonte de alimentação", icone: "🔌", resumo: "Da tomada à tensão contínua" },
-  { id: "sensor", nome: "Sensor de luz", icone: "🌙", resumo: "O poste que acende sozinho" },
+  { id: "multimetro", nome: "Multímetro na bancada", icone: "multimetro", resumo: "Medir tensão, resistência e continuidade" },
+  { id: "circuitos", nome: "Série e paralelo", icone: "lampada2", resumo: "Três lâmpadas e uma bateria" },
+  { id: "instalacao", nome: "Ligar luz e tomada", icone: "casa", resumo: "Fase, neutro, retorno e terra" },
+  { id: "contas", nome: "Contas do eletricista", icone: "calculadora", resumo: "Ohm, potência e conta de luz" },
+  { id: "led", nome: "LED e resistor", icone: "led", resumo: "A primeira montagem na protoboard" },
+  { id: "capacitor", nome: "Capacitor e o tempo", icone: "capacitor", resumo: "Carga e descarga no osciloscópio" },
+  { id: "logica", nome: "Portas lógicas", icone: "porta", resumo: "E, OU, NÃO e o somador de 4 bits" },
+  { id: "fonte", nome: "Fonte de alimentação", icone: "fonte", resumo: "Da tomada à tensão contínua" },
+  { id: "sensor", nome: "Sensor de luz", icone: "sensor", resumo: "O poste que acende sozinho" },
 ];
 
 /**

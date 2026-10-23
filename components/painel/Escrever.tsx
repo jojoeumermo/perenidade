@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { Selo } from "../Selo";
 import { useEffect, useState } from "react";
 import { areaSlugs, licenses } from "@/lib/areas";
 import { sendFile, UploadError, uploadMessages } from "@/lib/upload";
@@ -124,22 +125,22 @@ interface Rascunho {
   questoes: Questao[];
 }
 
-/** Cada tipo em cartão: ícone, nome curto e para que serve. */
+/** Cada tipo em cartão: selo desenhado (components/Selo.tsx), nome curto e para que serve. */
 const CARTOES_DE_TIPO: Partial<Record<TipoId, [string, string, string]>> = {
-  aula: ["📖", "Aula de uma trilha", "Texto com blocos, jogos e testes, numa trilha da sua disciplina."],
-  avulso: ["📎", "Material avulso", "Resumo, lista de exercícios, roteiro ou um PDF pronto, fora das trilhas."],
-  temas: ["🗺️", "Próximas aulas", "Os temas que faltam numa trilha."],
-  video: ["🎬", "Vídeo indicado", "Um vídeo bom de outro lugar, com o porquê."],
-  pratica: ["🗣️", "Prática de idioma", "Exercícios curtos e lúdicos para uma aula de língua."],
-  verbete: ["🔤", "Verbete do glossário", "Uma palavra explicada em linguagem simples."],
-  checagem: ["✔️", "Checagem de fato", "O que é verdade e o que não é, com fonte."],
-  debate: ["💬", "Resposta para debate", "Como responder a um argumento comum."],
-  frase: ["❝", "Frase da página inicial", "Uma citação com autoria e fonte."],
-  memorial: ["🕯️", "Nome para o Memorial", "Alguém da luta do povo para lembrar."],
-  sugestao: ["💡", "Sugestão", "Uma ideia para o site ou para uma disciplina."],
-  artigo: ["📰", "Matéria para o jornal", "Texto jornalístico (jornalismo)."],
-  obra: ["📚", "Obra para o acervo", "A ficha de um livro (curadoria)."],
-  traducao: ["🌍", "Tradução", "Uma aula em outro idioma."],
+  aula: ["livro", "Aula de uma trilha", "Texto com blocos, jogos e testes, numa trilha da sua disciplina."],
+  avulso: ["clipe", "Material avulso", "Resumo, lista de exercícios, roteiro ou um PDF pronto, fora das trilhas."],
+  temas: ["mapa", "Próximas aulas", "Os temas que faltam numa trilha."],
+  video: ["claquete", "Vídeo indicado", "Um vídeo bom de outro lugar, com o porquê."],
+  pratica: ["fala", "Prática de idioma", "Exercícios curtos e lúdicos para uma aula de língua."],
+  verbete: ["letras", "Verbete do glossário", "Uma palavra explicada em linguagem simples."],
+  checagem: ["check", "Checagem de fato", "O que é verdade e o que não é, com fonte."],
+  debate: ["balao", "Resposta para debate", "Como responder a um argumento comum."],
+  frase: ["aspas", "Frase da página inicial", "Uma citação com autoria e fonte."],
+  memorial: ["vela", "Nome para o Memorial", "Alguém da luta do povo para lembrar."],
+  sugestao: ["lampada", "Sugestão", "Uma ideia para o site ou para uma disciplina."],
+  artigo: ["jornal", "Matéria para o jornal", "Texto jornalístico (jornalismo)."],
+  obra: ["livros", "Obra para o acervo", "A ficha de um livro (curadoria)."],
+  traducao: ["globo", "Tradução", "Uma aula em outro idioma."],
 };
 const GRUPOS_DE_TIPOS: [string, TipoId[]][] = [
   ["Para a sua disciplina", ["aula", "avulso", "temas", "video", "pratica"] as TipoId[]],
@@ -148,6 +149,7 @@ const GRUPOS_DE_TIPOS: [string, TipoId[]][] = [
 ];
 
 const rotuloPequeno = "block font-mono text-[0.7rem] uppercase tracking-widest text-ink-soft";
+const tarjaDoGrupo = "inline-block bg-ink px-2 py-0.5 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-parchment";
 const campoFino = "mt-1 w-full border border-rule bg-parchment px-3 py-2";
 const semFontes = (fontes: SourceDraft[]) => fontes.every((f) => !f.titulo.trim() && !f.autor.trim() && !f.url.trim());
 
@@ -440,13 +442,13 @@ export function Escrever({ me }: { me: Me }) {
             if (!daqui.length) return null;
             return (
               <div key={grupo}>
-                <p className={rotuloPequeno}>{grupo}</p>
-                <div className="mt-1 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                <p className={tarjaDoGrupo}>{grupo}</p>
+                <div className="mt-2 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {daqui.map((tipoId) => {
-                    const [icone, curto, sobre] = CARTOES_DE_TIPO[tipoId] ?? ["📝", (tipos[tipoId] as Tipo).rotulo, ""];
+                    const [icone, curto, sobre] = CARTOES_DE_TIPO[tipoId] ?? ["folha", (tipos[tipoId] as Tipo).rotulo, ""];
                     return (
-                      <button key={tipoId} type="button" aria-pressed={id === tipoId} onClick={() => { setId(tipoId); setEscolhendo(false); }} className={`flex cursor-pointer items-start gap-3 border-2 p-3 text-left hover:border-oxblood ${id === tipoId ? "border-oxblood bg-parchment-deep" : "border-ink/20 bg-parchment"}`}>
-                        <span aria-hidden className="text-3xl leading-none">{icone}</span>
+                      <button key={tipoId} type="button" aria-pressed={id === tipoId} onClick={() => { setId(tipoId); setEscolhendo(false); }} className={`group flex cursor-pointer items-start gap-3 border-2 p-3 text-left transition-[transform,box-shadow] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:border-ink hover:shadow-[4px_4px_0_var(--prelo)] ${id === tipoId ? "border-ink bg-folha shadow-[4px_4px_0_var(--prelo)]" : "border-ink/25 bg-parchment"}`}>
+                        <span className="selo h-11 w-11 group-hover:border-[#c21f16]"><Selo nome={icone} className="h-7 w-7" /></span>
                         <span><span className="block font-bold">{curto}</span><span className="block text-xs text-ink-soft">{sobre}</span></span>
                       </button>
                     );
@@ -458,7 +460,7 @@ export function Escrever({ me }: { me: Me }) {
         </div>
       ) : (
         <p className="flex flex-wrap items-center gap-3">
-          <span aria-hidden className="flex h-10 w-10 items-center justify-center rounded-lg bg-parchment text-2xl">{CARTOES_DE_TIPO[id]?.[0] ?? "📝"}</span>
+          <span className="selo h-11 w-11"><Selo nome={CARTOES_DE_TIPO[id]?.[0] ?? "folha"} className="h-7 w-7" /></span>
           <span><span className={rotuloPequeno}>Você está escrevendo</span><span className="font-bold">{CARTOES_DE_TIPO[id]?.[1] ?? tipo.rotulo}</span></span>
           <button type="button" className={`${elo} ml-auto text-sm`} onClick={() => setEscolhendo(true)}>Trocar o tipo</button>
         </p>
@@ -610,7 +612,7 @@ export function Escrever({ me }: { me: Me }) {
           )}
           {id === "avulso" && (
             <div className="mt-5 border-2 border-dashed border-ink/40 bg-parchment-deep p-3 font-sans text-sm">
-              <p className="font-semibold">📎 Tem o material pronto num arquivo?</p>
+              <p className="flex items-center gap-2 font-semibold"><Selo nome="clipe" className="h-5 w-5" /> Tem o material pronto num arquivo?</p>
               <p className="text-ink-soft">Suba o PDF (resumo, lista de exercícios, apostila, mapa mental, até 8 MB) e escreva embaixo umas linhas dizendo o que é e para quem serve. O arquivo passa pela revisão junto com o texto.</p>
               <label className={`mt-2 inline-block cursor-pointer border-2 border-ink px-3 py-1.5 font-bold hover:border-oxblood ${enviandoArquivo ? "opacity-50" : ""}`}>
                 {enviandoArquivo ? "Enviando…" : "Escolher o PDF"}
@@ -743,7 +745,7 @@ export function Escrever({ me }: { me: Me }) {
     </form>
   );
 
-  if (!comQuestoes || foco) return <div className={foco ? "mx-auto max-w-5xl" : ""}>{formulario}</div>;
+  if (!comQuestoes || foco) return <div className={foco ? "escrita-em-foco mx-auto w-full max-w-[96rem]" : ""}>{formulario}</div>;
   const alternarGuia = () => {
     setItem("lucia:escrever-guia", guiaAberto ? "0" : "1");
     setGuiaAberto(!guiaAberto);
