@@ -722,6 +722,11 @@
       "medio": "Secundaria",
       "superior": "Superior"
     },
+    "notebookName": "Nombre",
+    "notebookClass": "Asignatura",
+    "freeStamp": "Libre ★ para siempre",
+    "trackKicker": "Ruta",
+    "summaryTitle": "Índice",
     "underConstruction": "En construcción",
     "helpWrite": "Ayuda a escribir esta ruta",
     "planned": "en preparación",

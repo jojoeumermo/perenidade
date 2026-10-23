@@ -101,7 +101,21 @@ export default async function LessonPage({ params }: Props) {
   const outras = tambemEmOutras(lang, track, lesson.slug);
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! md:grid-cols-[16rem_1fr]">
+    <div className="pagina-da-aula pont">
+      {/* A faixa preta da aula: de que trilha ela é e em que ponto da trilha a pessoa está. */}
+      <div className="faixa-da-aula no-print no-focus bg-[#1f1a14] text-[#e9dcbc] app:max-md:hidden">
+        <div className="mx-auto flex max-w-[80rem] flex-wrap items-center gap-x-5 gap-y-1 px-4 py-2.5 font-mono text-xs uppercase tracking-[0.08em] sm:px-6 lg:px-8">
+          <Link href={to(`/trilhas/${track.slug}`)} className="text-[#f4ecd8] hover:text-white" {...originalLang(track.translated)}>
+            ← {track.title}
+          </Link>
+          <span className="text-[#b3a584]">{fill(t.lesson.position, { i: index + 1, n: track.lessons.length })}</span>
+          <span aria-hidden className="h-1.5 min-w-24 max-w-md flex-1 bg-[#3a3020]">
+            <span className="block h-full bg-[#c21f16]" style={{ width: `${Math.round(((index + 1) / track.lessons.length) * 100)}%` }} />
+          </span>
+          <span className="ml-auto text-[#b3a584]">{fill(t.tracks.minutes, { n: lesson.minutes })}</span>
+        </div>
+      </div>
+    <div className="mx-auto grid max-w-[80rem] gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! sm:px-6 md:grid-cols-[15rem_1fr] lg:px-8">
       <DadosEstruturados dados={[recursoDeAula(lang, track, lesson), migalhas(lang, [[t.nav.disciplines, "/trilhas"], [track.title, `/trilhas/${track.slug}`], [lesson.title, `/trilhas/${track.slug}/${lesson.slug}`]])]} />
       <ReadingChrome />
       <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} />
@@ -109,7 +123,7 @@ export default async function LessonPage({ params }: Props) {
 
       {/* No aplicativo o texto vem primeiro, como em um leitor de livros; a lista das aulas da disciplina fica depois dele. */}
       <aside className="indice-da-trilha no-print no-focus font-sans text-sm app:max-md:order-2 app:max-md:border-t app:max-md:border-rule app:max-md:pt-6 md:sticky md:top-6 md:self-start">
-        <Link href={to(`/estantes/${track.area}`)} className="text-ink-soft hover:text-oxblood">← {t.areas[track.area][0]}</Link>
+        <Link href={to(`/estantes/${track.area}`)} className="font-mono text-xs uppercase tracking-[0.1em] text-ink-soft hover:text-prelo-texto">← {t.areas[track.area][0]}</Link>
         <h2 className="mt-3 font-serif text-xl font-semibold" {...originalLang(track.translated)}>
           <Link href={to(`/trilhas/${track.slug}`)} className="hover:text-oxblood">{track.title}</Link>
         </h2>
@@ -121,11 +135,11 @@ export default async function LessonPage({ params }: Props) {
         </div>
         {toc.length > 1 && (
           <nav aria-label={t.lesson.inThisLesson} className="mt-8 hidden md:block" {...originalLang(lesson.translated)}>
-            <p className="font-mono text-xs uppercase tracking-widest text-gold">{t.lesson.inThisLesson}</p>
-            <ul className="mt-3 space-y-1.5 text-ink-soft">
+            <p className="rotulo">{t.lesson.inThisLesson}</p>
+            <ul className="mt-3 space-y-2 text-ink-soft">
               {toc.map((section) => (
                 <li key={section.id}>
-                  <a href={`#${section.id}`} className="hover:text-oxblood">{section.title}</a>
+                  <a href={`#${section.id}`} className="block border-l-4 border-transparent pl-2.5 hover:border-[#c21f16] hover:text-ink">{section.title}</a>
                 </li>
               ))}
             </ul>
@@ -135,14 +149,13 @@ export default async function LessonPage({ params }: Props) {
 
       {/* Nas telas largas, o cartão de quem ensina ocupa o espaço livre à direita do título; nas outras, fica no fim da aula. */}
       <div className="min-w-0 xl:grid xl:grid-cols-[minmax(0,1fr)_14rem] xl:items-start xl:gap-10">
-      <article className="min-w-0 max-w-prose">
-        <p className="font-mono text-xs text-gold">
-          {t.areas[track.area][0]} · {t.stages[track.stage]} · {fill(t.lesson.position, { i: index + 1, n: track.lessons.length })} ·{" "}
-          {fill(t.tracks.minutes, { n: lesson.minutes })}
+      <article className="folha-da-aula min-w-0">
+        <p className="rotulo">
+          {t.areas[track.area][0]} · {t.stages[track.stage]} · {fill(t.lesson.position, { i: index + 1, n: track.lessons.length })}
         </p>
         <div {...originalLang(lesson.translated)}>
-          <h1 className="mt-2 text-4xl font-semibold app:max-md:text-[2rem] app:max-md:leading-[1.15] sm:text-5xl">{lesson.title}</h1>
-          <p className="mt-3 text-xl italic text-ink-soft app:max-md:text-lg">{lesson.summary}</p>
+          <h1 className="mt-2.5 text-[2.5rem] font-semibold leading-[1.05] text-balance app:max-md:text-[2rem] app:max-md:leading-[1.15] sm:text-[3.4rem]">{lesson.title}</h1>
+          <p className="mt-3 text-[1.4rem] italic leading-snug text-ink-soft app:max-md:text-lg">{lesson.summary}</p>
         </div>
 
         <Untranslated lang={lang} t={t} show={!lesson.translated} />
@@ -228,6 +241,7 @@ export default async function LessonPage({ params }: Props) {
       </div>
       </div>
       <CaixaDaAula t={t} lang={lang} area={track.area} sugeridas={lesson.tools} />
+    </div>
     </div>
   );
 }
