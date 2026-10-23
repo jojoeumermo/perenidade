@@ -4,7 +4,7 @@ sobretitulo: "O que pode e o que não pode"
 resumo: "Em poucas linhas: como usar o conteúdo do Instituto Lúcia, o que cada espaço aceita e o que fazemos quando algo sai da regra."
 ---
 
-RASCUNHO, REVISÃO JURÍDICA PENDENTE. Texto preparado por IA, em revisão. A versão completa está nos [Termos de uso](/termos).
+RASCUNHO, REVISÃO JURÍDICA PENDENTE. A versão completa está nos [Termos de uso](/termos).
 
 ## Pode
 

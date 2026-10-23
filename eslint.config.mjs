@@ -27,8 +27,8 @@ const eslintConfig = defineConfig([
     // Pacotes oficiais dos editores avançados (PhotoCraft, FilmCraft, Blockbench, three.js…), baixados por
     // scripts/editores.mjs e publicados sem modificação. Nada ali é código nosso.
     "estudio/site/**",
-    // Pastas de trabalho das ferramentas de desenvolvimento (podem conter cópias do projeto já montadas).
-    ".claude/**",
+    // Pastas ocultas das ferramentas locais de cada pessoa (podem conter cópias do projeto já montadas).
+    ".*/**",
     // O painel de monitoramento tem o próprio projeto, com a própria configuração.
     "sentinela/**",
   ]),

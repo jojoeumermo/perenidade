@@ -4,7 +4,7 @@ sobretitulo: "Área infantil do Instituto Lúcia"
 resumo: "O que o Cantinho da Lua oferece para crianças de 4 a 12 anos, como acompanhar, o que fica guardado (quase nada) e como apagar."
 ---
 
-Texto preparado por IA, em revisão por educador. RASCUNHO, REVISÃO JURÍDICA PENDENTE nas partes de privacidade.
+Texto em revisão por educador. RASCUNHO, REVISÃO JURÍDICA PENDENTE nas partes de privacidade.
 
 ## O que é
 

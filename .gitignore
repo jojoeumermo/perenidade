@@ -54,8 +54,6 @@ next-env.d.ts
 # livros digitais gerados a cada montagem do site (npm run epub)
 /public/epub/
 
-# Configuração local do app Claude (prévia do servidor de desenvolvimento)
-/.claude/
 .tarefas-aplicadas.json
 
 # Pacotes dos editores avançados, baixados e conferidos por scripts/editores.mjs (publicados à parte, não vão para o Git)

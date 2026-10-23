@@ -4,7 +4,7 @@ sobretitulo: "Como a gente se trata aqui"
 resumo: "As regras de convivência nos espaços do Instituto Lúcia onde as pessoas participam: comunidade, mural, vitrine de saúde, encontros e a equipe."
 ---
 
-RASCUNHO, REVISÃO JURÍDICA PENDENTE. Texto preparado por IA, em revisão.
+RASCUNHO, REVISÃO JURÍDICA PENDENTE.
 
 Vale para a Comunidade, o Mural dos Trabalhadores, a vitrine Saúde Solidária, os encontros (cineclube, clube de leitura, aulas ao vivo), o painel da equipe e qualquer espaço novo que o instituto abrir.
 
