@@ -4503,6 +4503,10 @@
       "webgpu": "Rapide (WebGPU)",
       "cpu": "Compatible (sans carte graphique)",
       "help": "Si le logiciel se fige ou affiche « graphics device was lost », restez en mode stable ; sur un ordinateur plus faible, utilisez le compatible. Le rapide exploite mieux la carte graphique, mais se fige sur certains appareils."
+    },
+    "tips": {
+      "sculptgl": "Faire tourner la caméra : glissez avec le bouton gauche sur le fond, hors du modèle (ou avec le droit). Si l’onglet se ferme quand vous glissez avec le bouton droit, c’est le geste de souris du navigateur (Opera, Vivaldi ou extensions de gestes), pas le programme : utilisez le bouton gauche sur le fond ou désactivez les gestes de souris dans les réglages du navigateur.",
+      "effectcraft": "La première fois, EffectCraft télécharge environ 17 Mo et peut rester quelques minutes sur « Loading… » avec une connexion lente : patientez, ensuite il reste en cache. Il s’ouvre déjà en mode compatible, celui qui bloque le moins ; s’il bloque encore, fermez les autres onglets et rechargez."
     }
   },
   "blocks": {

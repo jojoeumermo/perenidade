@@ -91,21 +91,24 @@ export function CartoesDoEstudio({ s, area = "edicao-de-video" }: { s: S; area?:
 type Modo = "webgl" | "webgpu" | "cpu";
 const CHAVE_MODO = "lucia:estudio:modo";
 const MUDOU_MODO = "lucia:estudio:modo-mudou";
-const lerModo = (): Modo => {
+// O EffectCraft começa no compatível (sem a placa de vídeo nos quadros): mesmo no estável ele travava em muitos
+// computadores. Cada programa guarda a própria escolha; os outros começam no estável.
+const padraoDo = (id: string): Modo => (id === "effectcraft" ? "cpu" : "webgl");
+const lerModo = (id: string): Modo => {
   try {
-    const m = window.localStorage.getItem(CHAVE_MODO);
-    return m === "webgpu" || m === "cpu" ? m : "webgl";
+    const m = window.localStorage.getItem(`${CHAVE_MODO}:${id}`) ?? (id === "effectcraft" ? null : window.localStorage.getItem(CHAVE_MODO));
+    return m === "webgpu" || m === "cpu" || m === "webgl" ? m : padraoDo(id);
   } catch {
-    return "webgl";
+    return padraoDo(id);
   }
 };
 const assinarModo = (avisar: () => void) => {
   window.addEventListener(MUDOU_MODO, avisar);
   return () => window.removeEventListener(MUDOU_MODO, avisar);
 };
-function guardarModo(m: Modo) {
+function guardarModo(id: string, m: Modo) {
   try {
-    window.localStorage.setItem(CHAVE_MODO, m);
+    window.localStorage.setItem(`${CHAVE_MODO}:${id}`, m);
   } catch {
     // sem armazenamento: vale só nesta página
   }
@@ -116,9 +119,9 @@ function guardarModo(m: Modo) {
  * O programa aberto dentro do institutolucia.org: um quadro de outra origem (o estúdio), que não alcança a sessão nem
  * os dados do site. Tela cheia pelo navegador, sem sair da página.
  */
-export function QuadroDoEditor({ s, id, nome }: { s: Pick<S, "insideNote" | "fullscreen" | "notYet" | "render">; id: EditorAvancado["id"]; nome: string }) {
+export function QuadroDoEditor({ s, id, nome }: { s: Pick<S, "insideNote" | "fullscreen" | "notYet" | "render" | "tips">; id: EditorAvancado["id"]; nome: string }) {
   const quadro = useRef<HTMLIFrameElement>(null);
-  const modo = useSyncExternalStore(assinarModo, lerModo, () => "webgl" as Modo);
+  const modo = useSyncExternalStore(assinarModo, () => lerModo(id), () => padraoDo(id));
   const base = enderecoDo(id);
   if (!base) return <p className="mt-6 text-oxblood">{s.notYet}</p>;
   const ed = editor(id);
@@ -133,7 +136,7 @@ export function QuadroDoEditor({ s, id, nome }: { s: Pick<S, "insideNote" | "ful
         {wgpu && (
           <label className="flex flex-wrap items-center gap-2">
             <span className="font-semibold">{s.render.label}</span>
-            <select value={modo} onChange={(e) => guardarModo(e.target.value as Modo)} className="border-2 border-ink bg-parchment px-2 py-1">
+            <select value={modo} onChange={(e) => guardarModo(id, e.target.value as Modo)} className="border-2 border-ink bg-parchment px-2 py-1">
               <option value="webgl">{s.render.webgl}</option>
               <option value="webgpu">{s.render.webgpu}</option>
               <option value="cpu">{s.render.cpu}</option>
@@ -143,6 +146,7 @@ export function QuadroDoEditor({ s, id, nome }: { s: Pick<S, "insideNote" | "ful
         <button type="button" onClick={() => void quadro.current?.requestFullscreen?.()} className="cursor-pointer border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{s.fullscreen}</button>
       </p>
       {wgpu && <p className="mt-1 font-sans text-xs text-ink-soft">{s.render.help}</p>}
+      {(id === "sculptgl" || id === "effectcraft") && <p className="mt-2 border-l-4 border-[#c21f16] bg-folha px-3 py-2 font-sans text-sm">{s.tips[id]}</p>}
       <iframe
         key={endereco}
         ref={quadro}

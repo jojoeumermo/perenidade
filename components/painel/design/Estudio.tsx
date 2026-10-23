@@ -428,7 +428,9 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
       const h = el.clientHeight;
       // Medida de zero (a tela ainda montando, a aba escondida): espera a próxima.
       if (w < 60 || h < 60) return;
-      setTamanhoDoPalco({ w, h });
+      // Só muda com diferença de verdade: um pixel a mais ou a menos (barra de rolagem, arredondamento) fazia a página
+      // ser recentralizada sem parar com o zoom bem afastado, e a arte tremia.
+      setTamanhoDoPalco((antes) => (Math.abs(antes.w - w) > 2 || Math.abs(antes.h - h) > 2 ? { w, h } : antes));
       const folgaV = CABECA_DO_PALCO + (celular ? 24 : 92);
       setAjuste(Math.max(0.05, Math.min((w - 2 * (celular ? 16 : MARGEM_DO_PALCO)) / doc.w, (h - folgaV) / doc.h, 2)));
     };
@@ -1471,9 +1473,10 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
   const largura = doc.w * escala;
   const altura = doc.h * escala;
   const margemPalco = celular ? 16 : MARGEM_DO_PALCO;
-  const interno = { w: Math.max(tamanhoDoPalco.w, largura + 2 * margemPalco), h: Math.max(tamanhoDoPalco.h, altura + CABECA_DO_PALCO + (celular ? 24 : 92)) };
-  const esquerda = Math.max(margemPalco, (interno.w - largura) / 2);
-  const topo = Math.max(CABECA_DO_PALCO, (interno.h - altura) / 2 + (celular ? 0 : 6));
+  // Medidas inteiras e um pixel de folga: o miolo nunca passa do palco por arredondamento (e a barra não pisca).
+  const interno = { w: Math.floor(Math.max(tamanhoDoPalco.w - 1, largura + 2 * margemPalco)), h: Math.floor(Math.max(tamanhoDoPalco.h - 1, altura + CABECA_DO_PALCO + (celular ? 24 : 92))) };
+  const esquerda = Math.round(Math.max(margemPalco, (interno.w - largura) / 2));
+  const topo = Math.round(Math.max(CABECA_DO_PALCO, (interno.h - altura) / 2 + (celular ? 0 : 6)));
   const editandoCamada = editando ? (doc.camadas.find((c) => c.id === editando) as CamadaTexto | undefined) : undefined;
 
   // Em tela cheia de verdade: o editor vai direto no corpo da página (as animações do painel não o prendem).
@@ -1494,7 +1497,7 @@ export function Estudio({ me, abertura, fechar, laboratorio = false }: { me: Me;
             ref={palco}
             tabIndex={0}
             aria-label="Palco: a arte"
-            className="estudio-palco absolute inset-0 overflow-auto outline-none [scrollbar-color:#5a4e3c_transparent] [scrollbar-width:thin]"
+            className="estudio-palco absolute inset-0 overflow-auto outline-none [scrollbar-color:#5a4e3c_transparent] [scrollbar-gutter:stable] [scrollbar-width:thin]"
             onPointerDownCapture={() => {
               // Só quem chegou ao palco pelo mouse liga o modo foco com Tab; pelo teclado, o Tab segue adiante.
               focoPeloMouse.current = true;
