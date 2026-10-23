@@ -119,7 +119,7 @@ function guardarModo(id: string, m: Modo) {
  * O programa aberto dentro do institutolucia.org: um quadro de outra origem (o estúdio), que não alcança a sessão nem
  * os dados do site. Tela cheia pelo navegador, sem sair da página.
  */
-export function QuadroDoEditor({ s, id, nome }: { s: Pick<S, "insideNote" | "fullscreen" | "notYet" | "render" | "tips">; id: EditorAvancado["id"]; nome: string }) {
+export function QuadroDoEditor({ s, id, nome }: { s: Pick<S, "insideNote" | "fullscreen" | "notYet" | "render"> & { tips?: S["tips"] }; id: EditorAvancado["id"]; nome: string }) {
   const quadro = useRef<HTMLIFrameElement>(null);
   const modo = useSyncExternalStore(assinarModo, () => lerModo(id), () => padraoDo(id));
   const base = enderecoDo(id);
@@ -146,7 +146,7 @@ export function QuadroDoEditor({ s, id, nome }: { s: Pick<S, "insideNote" | "ful
         <button type="button" onClick={() => void quadro.current?.requestFullscreen?.()} className="cursor-pointer border-2 border-ink px-3 py-1.5 font-semibold hover:border-oxblood hover:text-oxblood">{s.fullscreen}</button>
       </p>
       {wgpu && <p className="mt-1 font-sans text-xs text-ink-soft">{s.render.help}</p>}
-      {(id === "sculptgl" || id === "effectcraft") && <p className="mt-2 border-l-4 border-[#c21f16] bg-folha px-3 py-2 font-sans text-sm">{s.tips[id]}</p>}
+      {(id === "sculptgl" || id === "effectcraft") && s.tips && <p className="mt-2 border-l-4 border-[#c21f16] bg-folha px-3 py-2 font-sans text-sm">{s.tips[id]}</p>}
       <iframe
         key={endereco}
         ref={quadro}
