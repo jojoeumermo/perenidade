@@ -14,7 +14,7 @@ import { catalogo, episodio } from "@/lib/podcast-servidor";
 import { site } from "@/lib/site";
 
 // Cada episódio é montado na primeira visita e refeito a cada cinco minutos: correção no painel chega logo.
-export const revalidate = 300;
+export const revalidate = 1800;
 export const dynamicParams = true;
 
 export function generateStaticParams() {

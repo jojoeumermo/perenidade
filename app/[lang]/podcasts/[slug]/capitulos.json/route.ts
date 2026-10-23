@@ -2,7 +2,7 @@
 import { episodio } from "@/lib/podcast-servidor";
 
 // Capítulos no formato do Podcasting 2.0: os tocadores que o leem mostram os marcadores do episódio.
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export async function GET(_request: Request, { params }: RouteContext<"/[lang]/podcasts/[slug]/capitulos.json">) {
   const e = await episodio((await params).slug);

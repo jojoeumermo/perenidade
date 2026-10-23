@@ -15,8 +15,8 @@ import { minutos } from "@/lib/podcast";
 import { catalogo } from "@/lib/podcast-servidor";
 import { site } from "@/lib/site";
 
-// Episódio publicado no painel aparece aqui em até cinco minutos.
-export const revalidate = 300;
+// Episódio publicado no painel aparece aqui em até meia hora (refazer a página com menos frequência poupa a cota da Vercel).
+export const revalidate = 1800;
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/podcasts">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);

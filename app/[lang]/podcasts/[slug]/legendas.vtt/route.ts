@@ -2,7 +2,7 @@
 import { episodio } from "@/lib/podcast-servidor";
 
 // As legendas do episódio (WebVTT): transcrição com tempo para leitores de tela, tocadores e o feed.
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export async function GET(_request: Request, { params }: RouteContext<"/[lang]/podcasts/[slug]/legendas.vtt">) {
   const e = await episodio((await params).slug);
