@@ -722,6 +722,11 @@
       "medio": "Secondaire",
       "superior": "Supérieur"
     },
+    "notebookName": "Nom",
+    "notebookClass": "Matière",
+    "freeStamp": "Libre ★ pour toujours",
+    "trackKicker": "Parcours",
+    "summaryTitle": "Sommaire",
     "underConstruction": "En construction",
     "helpWrite": "Aidez à écrire ce parcours",
     "planned": "en préparation",

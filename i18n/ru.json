@@ -730,6 +730,11 @@
       "medio": "Средняя",
       "superior": "Высшая"
     },
+    "notebookName": "Название",
+    "notebookClass": "Предмет",
+    "freeStamp": "Свободно ★ навсегда",
+    "trackKicker": "Курс",
+    "summaryTitle": "Содержание",
     "underConstruction": "В разработке",
     "helpWrite": "Помогите написать этот курс",
     "planned": "готовится",

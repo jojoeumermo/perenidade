@@ -65,19 +65,89 @@ export function TrackProgress({ ids }: { ids: string[] }) {
   const count = ids.filter((id) => done.has(id)).length;
   const percent = ids.length ? Math.round((count / ids.length) * 100) : 0;
   return (
-    <div className="font-mono text-xs text-ink-soft">
+    <div className="font-mono text-xs uppercase tracking-[0.12em] text-ink-soft">
+      <p>{fill(t.tracks.completed, { a: count, b: ids.length })}</p>
       <div
         role="progressbar"
         aria-valuenow={percent}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-label={t.tracks.progress}
-        className="h-1.5 bg-rule"
+        className="mt-2 h-3.5 border-2 border-ink bg-parchment"
       >
-        <div className="h-full bg-gold" style={{ width: `${percent}%` }} />
+        <div className="h-full bg-[#c21f16]" style={{ width: `${percent}%` }} />
       </div>
-      <p className="mt-1.5">{fill(t.tracks.completed, { a: count, b: ids.length })}</p>
     </div>
+  );
+}
+
+/** O botão do cartão de progresso da trilha: começa pela primeira aula ou continua pela primeira ainda não feita. */
+export function ContinuarTrilha({ lessons, comecar, continuar }: { lessons: LessonLink[]; comecar: string; continuar: string }) {
+  const done = useCompleted();
+  const { t } = useI18n();
+  const prontas = lessons.filter((lesson) => lesson.ready !== false);
+  const proxima = prontas.find((lesson) => !done.has(lesson.id)) ?? prontas[0];
+  if (!proxima) return null;
+  const comecou = prontas.some((lesson) => done.has(lesson.id));
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-4">
+      {comecou && (
+        <p className="min-w-0 flex-1 text-lg">
+          {t.lesson.next} <strong>{proxima.title}</strong>
+        </p>
+      )}
+      <L href={proxima.path} className="botao botao-prelo">
+        {comecou ? continuar : comecar} →
+      </L>
+    </div>
+  );
+}
+
+/**
+ * O sumário da trilha numa folha pautada: o número na margem vermelha, a caixinha que se marca quando a aula é feita,
+ * o título em letra de livro e, nas aulas ainda não escritas, a etiqueta "em preparação". A próxima a fazer fica marcada.
+ */
+export function Sumario({ lessons }: { lessons: LessonLink[] }) {
+  const done = useCompleted();
+  const { t } = useI18n();
+  const proxima = lessons.find((lesson) => lesson.ready !== false && !done.has(lesson.id));
+  return (
+    <ol className="sumario-pautado pauta border-2 border-ink shadow-[6px_6px_0_var(--sombra)]">
+      {lessons.map((lesson, i) => {
+        const feita = done.has(lesson.id);
+        const aqui = lesson.id === proxima?.id;
+        const numero = <span className={`absolute left-0 w-[70px] text-center font-mono text-[0.8rem] ${aqui ? "font-medium text-prelo-texto" : "text-ink-soft"}`}>{String(i + 1).padStart(2, "0")}</span>;
+        const caixa = (
+          <span aria-hidden className={`flex h-[22px] w-[22px] shrink-0 items-center justify-center border-2 text-sm font-extrabold ${feita ? "border-ink bg-ok text-white" : aqui ? "border-[#c21f16] bg-folha" : lesson.ready === false ? "border-dashed border-ink-soft" : "border-ink"}`}>
+            {feita ? "✓" : ""}
+          </span>
+        );
+        const linha = "relative flex min-h-16 items-center gap-4 py-2 pr-5 pl-[90px] sm:pr-6";
+        if (lesson.ready === false) {
+          return (
+            <li key={lesson.id} className={`${linha} text-ink-soft`}>
+              {numero}
+              {caixa}
+              <span className="min-w-0 flex-1 text-[1.2rem] italic leading-snug">{lesson.title}</span>
+              <span className="hidden shrink-0 font-mono text-[0.68rem] uppercase tracking-[0.1em] sm:inline">{t.tracks.planned}</span>
+            </li>
+          );
+        }
+        return (
+          <li key={lesson.id}>
+            <L href={lesson.path} className={`${linha} text-ink hover:bg-[rgb(194_31_22/0.06)] hover:text-ink ${aqui ? "bg-[rgb(194_31_22/0.09)]" : ""}`}>
+              {numero}
+              {caixa}
+              <span className={`min-w-0 flex-1 text-[1.25rem] leading-snug ${aqui ? "font-semibold" : ""}`}>
+                {lesson.title}
+                {feita && <span className="sr-only"> ({t.tracks.doneMark})</span>}
+              </span>
+              {aqui && <span className="shrink-0 bg-[#c21f16] px-2 py-1 font-mono text-[0.65rem] uppercase tracking-[0.1em] text-white">{t.lesson.next.replace(/[:：]\s*$/, "")}</span>}
+            </L>
+          </li>
+        );
+      })}
+    </ol>
   );
 }
 

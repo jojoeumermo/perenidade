@@ -718,6 +718,11 @@
       "medio": "中学",
       "superior": "高等"
     },
+    "notebookName": "名称",
+    "notebookClass": "学科",
+    "freeStamp": "永远 ★ 自由",
+    "trackKicker": "学习路线",
+    "summaryTitle": "目录",
     "underConstruction": "建设中",
     "helpWrite": "帮助编写这条学习路线",
     "planned": "筹备中",
