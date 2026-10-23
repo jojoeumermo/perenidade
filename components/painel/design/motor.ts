@@ -1697,7 +1697,10 @@ export async function paraPsd(doc: Documento): Promise<Blob> {
   const filhos: CamadaPsd[] = [{ name: "Fundo", left: 0, top: 0, canvas: telaDoFundo(doc, false) }];
   for (const c of doc.camadas) {
     if (c.soGuia) continue;
-    const camada: CamadaPsd = { name: nomeDaCamada(c), left: 0, top: 0, canvas: telaDaCamada(doc, c), opacity: c.opacidade, hidden: Boolean(c.oculta) };
+    // Cada camada vai recortada no tamanho do que tem desenhado: uma tela do tamanho da página por camada somava
+    // centenas de megabytes numa arte com muitas camadas e derrubava o navegador em computadores com pouca memória.
+    const recorte = recortarTela(telaDaCamada(doc, c));
+    const camada: CamadaPsd = { name: nomeDaCamada(c), left: recorte.left, top: recorte.top, canvas: recorte.canvas, opacity: c.opacidade, hidden: Boolean(c.oculta) };
     const simples = c.tipo === "texto" && !c.fundo && c.rot === 0 && !c.curva && !c.contorno && !c.vazado && !c.sombra && !c.marcador && semMarcas(c.texto) === c.texto;
     if (c.tipo === "texto" && simples) {
       const alinhamento = c.alinhar === "center" ? "center" : c.alinhar === "right" ? "right" : "left";
@@ -1716,5 +1719,41 @@ export async function paraPsd(doc: Documento): Promise<Blob> {
   const composta = document.createElement("canvas");
   desenhar(composta, doc, 1, { exportar: true });
   const dados = writePsd({ width: doc.w, height: doc.h, children: filhos, canvas: composta }, { generateThumbnail: true, invalidateTextLayers: true });
+  // Devolve a memória das telas na hora (o navegador só solta quando a tela some de vez).
+  for (const f of filhos) if (f.canvas) (f.canvas as HTMLCanvasElement).width = 0;
+  composta.width = 0;
   return new Blob([dados], { type: "image/vnd.adobe.photoshop" });
+}
+
+/** Recorta uma tela no retângulo do que tem desenhado (o resto é transparente) e solta a tela original. */
+function recortarTela(tela: HTMLCanvasElement): { left: number; top: number; canvas: HTMLCanvasElement } {
+  const ctx = tela.getContext("2d", { willReadFrequently: true });
+  if (!ctx) return { left: 0, top: 0, canvas: tela };
+  const { width: w, height: h } = tela;
+  const alfa = ctx.getImageData(0, 0, w, h).data;
+  let x0 = w;
+  let y0 = h;
+  let x1 = -1;
+  let y1 = -1;
+  for (let y = 0; y < h; y++) {
+    const linha = y * w * 4;
+    for (let x = 0; x < w; x++) {
+      if (alfa[linha + x * 4 + 3] === 0) continue;
+      if (x < x0) x0 = x;
+      if (x > x1) x1 = x;
+      if (y < y0) y0 = y;
+      y1 = y;
+    }
+  }
+  if (x1 < 0) {
+    tela.width = 1;
+    tela.height = 1;
+    return { left: 0, top: 0, canvas: tela };
+  }
+  const recorte = document.createElement("canvas");
+  recorte.width = x1 - x0 + 1;
+  recorte.height = y1 - y0 + 1;
+  recorte.getContext("2d")?.drawImage(tela, x0, y0, recorte.width, recorte.height, 0, 0, recorte.width, recorte.height);
+  tela.width = 0;
+  return { left: x0, top: y0, canvas: recorte };
 }

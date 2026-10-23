@@ -4503,6 +4503,10 @@
       "webgpu": "Rápido (WebGPU)",
       "cpu": "Compatible (sin tarjeta de video)",
       "help": "Si el programa se congela o muestra “graphics device was lost”, quédate en el modo estable; en una computadora más débil, usa el compatible. El rápido aprovecha mejor la tarjeta de video, pero se congela en algunos equipos."
+    },
+    "tips": {
+      "sculptgl": "Girar la cámara: arrastra con el botón izquierdo sobre el fondo, fuera del modelo (o con el derecho). Si la pestaña se cierra al arrastrar con el botón derecho, es el gesto de ratón del navegador (Opera, Vivaldi o extensiones de gestos), no el programa: usa el botón izquierdo sobre el fondo o desactiva los gestos del ratón en la configuración del navegador.",
+      "effectcraft": "La primera vez, EffectCraft descarga unos 17 MB y puede quedarse unos minutos en “Loading…” con internet lento: espera, después queda guardado. Ya abre en el modo compatible, el que menos se traba; si aún se traba, cierra otras pestañas y recarga."
     }
   },
   "blocks": {

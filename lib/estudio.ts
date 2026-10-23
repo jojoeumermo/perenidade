@@ -59,6 +59,15 @@ export const editor = (id: string) => EDITORES.find((e) => e.id === id);
 export const ESTUDIO_URL = (process.env.NEXT_PUBLIC_ESTUDIO_URL ?? "").replace(/\/$/, "");
 
 export const enderecoDo = (id: EditorAvancado["id"]) => (ESTUDIO_URL ? `${ESTUDIO_URL}/${editor(id)?.caminho ?? `${id}/`}` : "");
+/**
+ * O endereço para abrir um editor numa aba à parte, no modo estável (WebGL, só a tela usa a placa de vídeo). O WebGPU
+ * completo derrubava o navegador inteiro em computadores com a placa ou o driver instável; quem quiser escolhe no quadro.
+ */
+export const enderecoEstavelDo = (id: EditorAvancado["id"]) => {
+  const base = enderecoDo(id);
+  const ed = editor(id);
+  return base && ed?.wgpu ? `${base}?${ed.consulta?.webgl ?? "webgl"}` : base;
+};
 
 /** O laboratório de segurança (Kali) fica no mesmo estúdio isolado, onde o WebAssembly do emulador é permitido. */
 export const URL_KALI = ESTUDIO_URL ? `${ESTUDIO_URL}/kali/` : "";

@@ -4503,6 +4503,10 @@
       "webgpu": "Fast (WebGPU)",
       "cpu": "Compatible (no graphics card)",
       "help": "If the program freezes or shows “graphics device was lost”, stay on stable; on a weaker computer, use compatible. Fast makes better use of the graphics card but freezes on some devices."
+    },
+    "tips": {
+      "sculptgl": "Rotate the camera: drag with the left button on the background, outside the model (or with the right button). If the tab closes when you drag with the right button, that is your browser's mouse gesture (Opera, Vivaldi or gesture extensions), not the program: use the left button on the background or turn off mouse gestures in the browser settings.",
+      "effectcraft": "The first time, EffectCraft downloads about 17 MB and may stay on “Loading…” for a few minutes on a slow connection: wait, then it stays cached. It already opens in compatible mode, the one that freezes least; if it still freezes, close other tabs and reload."
     }
   },
   "blocks": {
