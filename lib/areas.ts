@@ -168,6 +168,7 @@ export const LABS = {
   simulacoes: "/laboratorios/simulacoes",
   eletrica: "/laboratorios/eletrica",
   modelos: "/laboratorios/modelos",
+  quimica: "/laboratorios/quimica",
 } as const;
 export type LabId = keyof typeof LABS;
 
@@ -181,6 +182,7 @@ export const areaLabs: Partial<Record<AreaSlug, LabId[]>> = {
   manutencao: ["montador", "eletrica"],
   eletricista: ["eletrica"],
   fisica: ["eletrica", "modelos"],
+  quimica: ["quimica"],
   matematica: ["modelos"],
   biologia: ["modelos"],
   astronomia: ["modelos"],

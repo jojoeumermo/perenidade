@@ -23,6 +23,7 @@ export default async function Page({ params }: PageProps<"/[lang]/laboratorios">
     [s.eletrica, s.eletricaLead, "/laboratorios/eletrica", "raio"],
     [s.ia, s.iaLead, "/laboratorios/ia", "rede-neural"],
     [s.modelos, s.modelosLead, "/laboratorios/modelos", "probabilidade"],
+    [s.quimica, s.quimicaLead, "/laboratorios/quimica", "tubo"],
     [s.escritorio, s.escritorioLead, "/laboratorios/escritorio", "folha"],
     [s.design, s.designLead, "/laboratorios/design", "paleta"],
     [s.seguranca, s.segurancaLead, "/laboratorios/seguranca", "escudo"],

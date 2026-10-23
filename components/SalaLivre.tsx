@@ -72,7 +72,7 @@ const MODELOS: { nome: string; icone: string; sobre: string; titulo: string; cor
   { nome: "Em branco", icone: "folha", sobre: "Comece do zero.", titulo: "Nova sala", corpo: "## Para começar · 10 min\n\n" },
 ];
 
-const ICONES_LAB: Record<string, string> = { ide: "terminal", linux: "pinguim", redes: "rede", seguranca: "escudo", montador: "chip", ia: "rede-neural", escritorio: "folha", simulacoes: "microscopio", eletrica: "raio", modelos: "probabilidade" };
+const ICONES_LAB: Record<string, string> = { ide: "terminal", linux: "pinguim", redes: "rede", seguranca: "escudo", montador: "chip", ia: "rede-neural", escritorio: "folha", simulacoes: "microscopio", eletrica: "raio", modelos: "probabilidade", quimica: "tubo" };
 
 const novaId = () => `s${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 
