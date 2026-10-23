@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { areaSlugs } from "@/lib/areas";
 import { areasPublicas } from "@/lib/interdicao";
-import { can, getClient, hasBackend, leads, manages, type Me, porNivel, type Role, rpc, signOut, useMe } from "@/lib/backend";
+import { can, getClient, hasBackend, leads, manages, type Me, nivelDe, porNivel, type Role, rpc, signOut, useMe } from "@/lib/backend";
 import { limparIndice } from "@/lib/busca-local";
 import { registerDevice } from "@/lib/device";
 import { avisar, avisosDisponiveis, escolherModo, type ModoDeAviso, modoDeAviso, permissaoDeAviso } from "@/lib/notificacoes";
@@ -23,6 +23,8 @@ import { Avatar } from "./Avatar";
 import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
 import { Estatisticas } from "./Estatisticas";
 import { TermoDeVoluntario } from "./Termo";
+import { abrirTutorial, TutorialDoPainel } from "./Tutorial";
+import { TermosAceitos } from "./PessoasExtras";
 import { SaudeNoPainel } from "./Saude";
 import { RadioNoAr } from "./RadioNoAr";
 import { ErrosRelatados } from "./Erros";
@@ -152,6 +154,7 @@ const icones: Record<string, string> = {
   contribuicoes: "M12 14a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM8.5 13 7 21l5-3 5 3-1.5-8",
   saude: "M20.8 8.6a5 5 0 0 0-8.8-3.2A5 5 0 0 0 3.2 8.6c0 5.4 8.8 10.9 8.8 10.9s8.8-5.5 8.8-10.9zM12 8v6M9 11h6",
   erros: "M8 8a4 4 0 0 1 8 0v6a4 4 0 0 1-8 0zM12 10v8M4 9h4M16 9h4M4 15h4M16 15h4M9 4l1.5 2M15 4l-1.5 2",
+  termos: "M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 15h7M9 18h4",
 };
 
 function Icone({ id, className = "h-[18px] w-[18px]" }: { id: string; className?: string }) {
@@ -427,9 +430,13 @@ function SenhaNova({ recarregar, sair }: { recarregar: () => void; sair: () => v
   );
 }
 
-function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarregar: () => void; sair: () => void; aba: string; menu: boolean; setMenu: (aberto: boolean) => void }) {
+function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarregar: () => void; sair: () => void; aba: string; menu: boolean; setMenu: (aberto: boolean) => void }) {
   const router = useRouter();
   const { lang } = useI18n();
+  // Prévia por função: a coordenação vê o painel como uma função veria (menu, seções e botões). Os dados continuam os
+  // da conta dela (o banco confere a permissão de verdade em cada pedido), e a escolha não sai deste aparelho.
+  const [previa, setPrevia] = useState<{ papel: Role["papel"]; disciplina: string | null } | null>(null);
+  const eu: Me = previa && leads(euReal) ? previaComo(euReal, previa.papel, previa.disciplina) : euReal;
   const resumo = useLista<Resumo>("painel_resumo");
   // O que espera por esta pessoa no podcast (aprovação, comentários, perguntas, pedidos de arte).
   const podcast = useLista<number>("podcast_contagem");
@@ -485,12 +492,14 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   // A supervisão é um papel próprio: can() só estende a vice-coordenação à coordenação, não à supervisão.
   const supervisiona = can(eu, "supervisao");
   // O que a galera posta, para a coordenação acompanhar: o número do menu e o aviso do navegador.
-  const atividadeNova = useAtividadeAoVivo(lidera || can(eu, "vice"), aba === "atividade");
+  // Quem acompanha o que a galera posta: coordenação, coordenação pedagógica, supervisão, revisão e mediação.
+  const acompanha = can(eu, "coordenacao", "supervisao", "revisao", "mediacao");
+  const atividadeNova = useAtividadeAoVivo(acompanha, aba === "atividade");
   // Cada função enxerga só as ferramentas dela. A coordenação e a vice-coordenação enxergam todas.
   const secoes: Secao[] = (
     [
       { id: "mesa", nome: "Mesa", sobre: "O que espera por você hoje.", grupo: "", mostra: true, conta: eu.avisos },
-      { id: "atividade", nome: "Atividade do site", sobre: "Tudo o que a galera posta no site e no painel, na hora em que acontece, com aviso por e-mail se você quiser.", grupo: "", mostra: lidera || can(eu, "vice"), conta: atividadeNova || undefined },
+      { id: "atividade", nome: "Atividade do site", sobre: "Tudo o que a galera posta no site e no painel, na hora em que acontece, com aviso por e-mail se você quiser.", grupo: "", mostra: acompanha, conta: atividadeNova || undefined },
       { id: "conversas", nome: "Conversas e reuniões", sobre: "Os canais de cada departamento, grupos, mensagens diretas e as reuniões por vídeo, num lugar só e cifrado de ponta a ponta.", grupo: "", mostra: voluntario, conta: aba === "conversas" || aba === "reunioes" ? 0 : presenca.dados?.conversas },
       { id: "rede", nome: "Mural da equipe", sobre: "Publicações e pedidos de ajuda para todos ou por função, cifrados neste aparelho.", grupo: "", mostra: voluntario },
       { id: "escrever", nome: "Escrever", sobre: "Aulas, matérias, verbetes e tudo o que vai para o site.", grupo: "Produção", mostra: produz },
@@ -522,6 +531,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       { id: "reunioes", nome: "Reuniões", sobre: "A agenda de reuniões, dentro de Conversas e reuniões.", grupo: "Pessoas", mostra: voluntario && aba === "reunioes" },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar + (r.pedidos ?? 0) : undefined },
       { id: "saude", nome: soSaude || !lidera ? "Meu perfil na vitrine" : "Saúde Solidária", sobre: "A vitrine de profissionais de saúde voluntários: o perfil de cada um, o termo, a conferência do registro e a chave geral.", grupo: "Pessoas", mostra: can(eu, "coordenacao", "saude") },
+      { id: "termos", nome: "Termos assinados", sobre: "O termo de voluntário, o termo de adesão e o da vitrine de saúde, aceitos por cada pessoa: o texto exato, a versão, a data e a impressão digital. Ninguém apaga.", grupo: "Pessoas", mostra: can(eu, "coordenacao", "supervisao") },
       { id: "estatisticas", nome: "Estatísticas", sobre: "O que os estudantes procuram e o que a equipe produz, por disciplina: a base para decidir o que entra e o que sai.", grupo: "Pessoas", mostra: lidera || can(eu, "vice") },
       { id: "avisos", nome: "Avisos à equipe", sobre: "Um quadro que aparece por cima do painel de toda a equipe, ou só de algumas funções, até cada pessoa fechar.", grupo: "Pessoas", mostra: eu.supervisao === true || lidera || supervisiona },
       { id: "site", nome: "Controles do site", sobre: "A faixa do alto e a pausa geral de envios.", grupo: "Site", mostra: lidera },
@@ -595,8 +605,9 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   const ambiente = lidera ? "Coordenação" : supervisiona ? "Supervisão" : voluntario ? "Equipe" : "Comunidade";
 
   return (
-    <div className={`painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid ${compacto ? "lg:grid-cols-[4.25rem_minmax(0,1fr)]" : "lg:grid-cols-[17.5rem_minmax(0,1fr)]"}`}>
+    <div className={`painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid ${compacto ? "lg:grid-cols-[4.75rem_minmax(0,1fr)]" : "lg:grid-cols-[17.5rem_minmax(0,1fr)]"}`}>
       <TraduzirPainel />
+      <TutorialDoPainel />
       {irPara && <IrPara secoes={secoes} fechar={() => setIrPara(false)} ir={ir} />}
       {/* Aviso da coordenação, da vice ou da supervisão: aparece por cima de tudo até a pessoa apertar "Entendi". */}
       {(voluntario || eu.supervisao) && <QuadroDeAvisos />}
@@ -620,7 +631,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       </div>
 
       {/* No celular, o menu aberto ocupa a tela toda (sem sobra clara embaixo) e o rodapé dele fica no fim. */}
-      <aside id="menu-do-painel" className={`painel-lado no-print ${compacto ? "painel-compacto" : ""} bg-[#17130e] text-[#efe4c8] max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r-4 lg:border-[#c21f16] ${menu ? "flex flex-col" : "hidden"}`}>
+      <aside id="menu-do-painel" data-tour="menu" className={`painel-lado no-print ${compacto ? "painel-compacto" : ""} bg-[#17130e] text-[#efe4c8] max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r-4 lg:border-[#c21f16] ${menu ? "flex flex-col" : "hidden"}`}>
         <div className={`hidden pt-6 lg:block ${compacto ? "px-3" : "px-5"}`}>
           <L href="/" className="flex items-center gap-3" title={compacto ? "Instituto Lúcia · voltar ao site" : undefined}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -632,7 +643,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
               </span>
             )}
           </L>
-          <button type="button" onClick={() => setIrPara(true)} title="Ir para uma seção (Ctrl K)" className={`mt-5 flex w-full cursor-pointer items-center gap-2 border border-[#3a3226] py-2 text-left text-[#b9ad90] transition-colors hover:border-[#d4a24c] hover:text-white ${compacto ? "justify-center px-0" : "px-3"}`}>
+          <button type="button" onClick={() => setIrPara(true)} title="Ir para uma seção (Ctrl K)" data-tour="ir-para" className={`mt-5 flex w-full cursor-pointer items-center gap-2 border border-[#3a3226] py-2 text-left text-[#b9ad90] transition-colors hover:border-[#d4a24c] hover:text-white ${compacto ? "justify-center px-0" : "px-3"}`}>
             <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="6.5" /><path d="M16 16l4.5 4.5" /></svg>
             {!compacto && <span className="flex-1">Ir para…</span>}
             {!compacto && <kbd className="font-mono text-[0.62rem] text-[#8f8468]">Ctrl K</kbd>}
@@ -686,7 +697,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           ))}
         </nav>
         <div className={`border-t border-[#3a3226] pt-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] ${compacto ? "px-2" : "px-4"}`}>
-          <p className={`flex items-center gap-3 ${compacto ? "lg:justify-center" : ""}`}>
+          <p className={`flex items-center gap-3 ${compacto ? "lg:justify-center" : ""}`} data-tour="conta">
             <button type="button" onClick={() => ir("conta")} title="Minha conta" className="cursor-pointer">
               <Avatar nome={eu.nome} avatar={eu.avatar} className="h-10 w-10" texto="font-sans font-black italic" />
             </button>
@@ -696,7 +707,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
             </span>
           </p>
           <p className={`mt-3 flex flex-wrap items-center gap-2 ${compacto ? "lg:flex-col" : ""}`}>
-            <button type="button" onClick={alternarCompacto} aria-pressed={compacto} title={compacto ? "Mostrar os nomes das seções" : "Recolher o menu (só ícones)"} className="hidden cursor-pointer border border-[#3a3226] p-1.5 text-[#b9ad90] hover:border-[#d4a24c] hover:text-white lg:block">
+            <button type="button" onClick={alternarCompacto} aria-pressed={compacto} data-tour="recolher" title={compacto ? "Mostrar os nomes das seções" : "Recolher o menu (só ícones)"} className="hidden cursor-pointer border border-[#3a3226] p-1.5 text-[#b9ad90] hover:border-[#d4a24c] hover:text-white lg:block">
               <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{compacto ? <path d="M9 6l6 6-6 6M4 4v16" /> : <path d="M15 6l-6 6 6 6M20 4v16" />}</svg>
             </button>
             <button type="button" onClick={alternarFoco} aria-pressed={foco} title={foco ? "Sair do modo foco: mostrar todas as seções" : "Modo foco: só o essencial no menu"} className={`cursor-pointer border p-1.5 hover:border-[#d4a24c] hover:text-white ${foco ? "border-[#d4a24c] text-[#d4a24c]" : "border-[#3a3226] text-[#b9ad90]"}`}>
@@ -717,21 +728,53 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
       </aside>
 
       <div className={`min-w-0 ${menu ? "hidden lg:block" : ""}`}>
-        {/* A abertura de cada seção, no desenho de cartaz do site: faixa preta, título pesado e a cunha com a estrela. */}
-        <header key={`cabeca-${atual.id}`} className="painel-cabeca jornal-preto jornal-cartaz no-print">
-          <div className={`relative z-[1] pr-[24cqw] pl-5 sm:pl-8 ${amplo ? "py-3" : "py-6"}`}>
-            <p className="font-mono text-[0.65rem] uppercase tracking-[0.25em] text-[#d4a24c]">{atual.grupo || ambiente}</p>
-            <h1 className="mt-1.5 flex items-center gap-3 font-sans text-3xl font-black uppercase italic leading-none tracking-tight sm:text-4xl">
-              <Icone id={atual.id} className="h-7 w-7 text-[#e0372b] sm:h-8 sm:w-8" />
-              {atual.nome}
-            </h1>
-            {!amplo && <p className="mt-2.5 max-w-2xl text-[#cdbb91]">{atual.sobre}</p>}
+        {/* O alto de cada seção: a barra fina com o caminho e os atalhos, e o título no papel, com o selo da seção. */}
+        <header key={`cabeca-${atual.id}`} className="painel-cabeca no-print border-b-[3px] border-ink bg-parchment">
+          <div className="painel-barra flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-rule px-5 py-2.5 sm:px-8">
+            <p className="min-w-0 truncate font-mono text-[0.66rem] uppercase tracking-[0.2em] text-ink-soft">
+              Painel · {ambiente}
+              {atual.grupo ? ` · ${atual.grupo}` : ""}
+              {amplo && <span className="ml-2 font-sans text-sm font-bold normal-case tracking-normal text-ink">{atual.nome}</span>}
+            </p>
+            <span className="ml-auto flex flex-wrap items-center gap-2">
+              {leads(euReal) && <PreviaDeFuncao previa={previa} mudar={setPrevia} />}
+              <button type="button" onClick={() => setIrPara(true)} className="hidden cursor-pointer items-center gap-2 border-2 border-ink bg-folha px-3 py-1 text-xs text-ink-soft hover:border-[#c21f16] hover:text-ink md:flex">
+                <svg aria-hidden viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="6.5" /><path d="M16 16l4.5 4.5" /></svg>
+                Ir para… <kbd className="font-mono text-[0.6rem]">Ctrl K</kbd>
+              </button>
+              <button type="button" onClick={abrirTutorial} className="cursor-pointer border-2 border-ink px-3 py-1 text-xs font-bold hover:bg-ink hover:text-parchment">
+                Tutorial
+              </button>
+              {produz && atual.id !== "escrever" && (
+                <button type="button" onClick={() => ir("escrever")} className="cursor-pointer border-2 border-ink bg-[#c21f16] px-3 py-1 text-xs font-extrabold text-white shadow-[2px_2px_0_var(--sombra)] hover:bg-[#a51810]">
+                  ＋ Escrever
+                </button>
+              )}
+            </span>
           </div>
-          <span className="jornal-cunha jornal-cunha-vermelha painel-cunha" aria-hidden>
-            <Star className="jornal-cunha-estrela" />
-          </span>
+          {previa && (
+            <p role="status" className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b-2 border-ink bg-[#c21f16] px-5 py-2 text-sm font-semibold text-white sm:px-8">
+              <span>
+                Prévia: você está vendo o painel como <strong>{papeis[previa.papel]}</strong>
+                {previa.disciplina ? ` (${previa.disciplina})` : ""}. O menu e os botões são os dessa função; os dados e as ações continuam com a sua conta.
+              </span>
+              <button type="button" onClick={() => setPrevia(null)} className="ml-auto cursor-pointer border-2 border-white px-2.5 py-0.5 text-xs font-bold hover:bg-white hover:text-[#c21f16]">
+                Sair da prévia
+              </button>
+            </p>
+          )}
+          {!amplo && (
+            <div className="pont px-5 pt-6 pb-6 sm:px-8">
+              <h1 className="flex items-center gap-3.5 font-serif text-[2.1rem] font-semibold leading-none sm:text-[2.6rem]">
+                <span className="selo h-12 w-12 shrink-0 bg-folha shadow-[3px_3px_0_var(--prelo)]">
+                  <Icone id={atual.id} className="h-7 w-7 text-prelo-texto" />
+                </span>
+                {atual.nome}
+              </h1>
+              <p className="mt-3 max-w-2xl text-[0.95rem] leading-relaxed text-ink-soft">{atual.sobre}</p>
+            </div>
+          )}
         </header>
-        <div className="jornal-fio" />
         <div key={atual.id} className={`painel-conteudo mx-auto ${amplo ? "max-w-none px-2 py-2 sm:px-3" : atual.id === "rede" ? "max-w-7xl px-4 py-6 sm:px-6" : "max-w-5xl px-5 py-7 sm:px-8"}`}>
           {eu.suspenso && <p className="mb-6 border-l-4 border-oxblood bg-parchment-deep px-4 py-3 text-oxblood">Esta conta está suspensa: você pode ler, mas não enviar.</p>}
           {interditado && (
@@ -795,6 +838,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
           {atual.id === "interdicao" && <Interdicao me={eu} aoMudar={estadoDoSite.recarregar} />}
           {atual.id === "registro" && <RegistroDeAtividades />}
           {atual.id === "estatisticas" && <Estatisticas />}
+          {atual.id === "termos" && <TermosAceitos />}
           {atual.id === "saude" && <SaudeNoPainel me={eu} />}
           {atual.id === "erros" && <ErrosRelatados />}
           {atual.id === "conta" && (
@@ -812,7 +856,7 @@ function Dentro({ eu, recarregar, sair, aba, menu, setMenu }: { eu: Me; recarreg
   );
 }
 
-/** A primeira tela: só o que pede atenção agora. */
+/** A primeira tela: o que pede atenção agora, a manchete do dia e, ao lado, os atalhos de trabalho. */
 function Mesa({ me, resumo, recarregar, ir, secoes }: { me: Me; resumo: Resumo | null; recarregar: () => void; ir: (aba: string) => void; secoes: Secao[] }) {
   const { t } = useI18n();
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
@@ -840,89 +884,126 @@ function Mesa({ me, resumo, recarregar, ir, secoes }: { me: Me; resumo: Resumo |
           ["Anúncios do mural", r.mural, "mural"],
           ["Trabalhos na Gaveta Aberta", r.gaveta ?? 0, "gaveta"],
         ] as [string, number, string][]
-      ).filter(([, total]) => total > 0)
+      ).filter(([, total, destino]) => total > 0 && secoes.some((secao) => secao.id === destino))
     : [];
+  const [manchete, ...demais] = pendencias;
+  const total = pendencias.reduce((soma, [, n]) => soma + n, 0);
 
   const hora = new Date().getHours();
   const saudacao = hora < 5 ? "Boa noite" : hora < 12 ? "Bom dia" : hora < 18 ? "Boa tarde" : "Boa noite";
-  const hoje = new Date().toLocaleDateString(localDoPainel(), { weekday: "long", day: "numeric", month: "long" });
+  const hoje = new Date().toLocaleDateString(localDoPainel(), { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  const produz = can(me, "coordenacao", "supervisao", "curadoria", "educacao", "revisao", "traducao", "jornalismo", "design", "marketing");
 
   return (
-    <div className="space-y-10">
-      <section className="painel-surge">
-        <p className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-ink-soft">{hoje}</p>
-        <h2 className="mt-1 font-serif text-4xl font-semibold leading-tight">
-          {saudacao}, <span className="italic text-oxblood">{me.nome.split(" ")[0]}</span>.
-        </h2>
-        {me.papeis.length > 0 ? (
-          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Suas funções">
-            {porNivel(me.papeis).map((papel) => (
-              <li key={papel.id} title={oQueFaz[papel.papel]} className="flex items-center gap-1.5 border-2 border-ink bg-parchment-deep px-3 py-1.5">
-                <Star className="h-3.5 w-3.5 text-[#c21f16]" />
-                <strong>{papeis[papel.papel]}</strong>
-                {papel.disciplina && <span className="text-ink-soft"> · {nomeDaArea(papel.disciplina)}</span>}
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-2 max-w-2xl text-ink-soft">Você participa da comunidade e pode escrever e enviar contribuições. Para revisar, traduzir, ensinar ou cuidar de uma disciplina, peça uma função abaixo.</p>
-        )}
-      </section>
+    <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_19rem]">
+      <div className="min-w-0 space-y-10">
+        <section className="painel-surge border-b-[3px] border-double border-ink pb-6" data-tour="mesa">
+          <p className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-ink-soft">{hoje}</p>
+          <h2 className="mt-1.5 font-serif text-[2.6rem] font-semibold leading-none sm:text-5xl">
+            {saudacao}, <span className="italic text-prelo-texto">{me.nome.split(" ")[0]}</span>.
+          </h2>
+          {me.papeis.length > 0 ? (
+            <ul className="mt-4 flex flex-wrap gap-2" aria-label="Suas funções">
+              {porNivel(me.papeis).map((papel) => (
+                <li key={papel.id} title={oQueFaz[papel.papel]} className="flex items-center gap-1.5 border-2 border-ink bg-folha px-3 py-1.5 shadow-[2px_2px_0_var(--sombra)]">
+                  <Star className="h-3.5 w-3.5 text-[#c21f16]" />
+                  <strong>{papeis[papel.papel]}</strong>
+                  {papel.disciplina && <span className="text-ink-soft"> · {nomeDaArea(papel.disciplina)}</span>}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="mt-3 max-w-2xl text-ink-soft">Você participa da comunidade e pode escrever e enviar contribuições. Para revisar, traduzir, ensinar ou cuidar de uma disciplina, peça uma função abaixo.</p>
+          )}
+        </section>
 
-      <section>
-        <h2 className="jornal-secao">
-          <span className="jornal-editoria">Esperando por você</span>
-        </h2>
-        {pendencias.length === 0 ? (
-          <p className="painel-surge mt-4 flex items-center gap-3 border-2 border-ink bg-parchment-deep px-4 py-5">
-            {r ? (
-              <>
-                <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6 shrink-0 text-ok" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12.5l5 5L20 6.5" /></svg>
-                <span className="text-base font-semibold">Nada pendente. Tudo em dia.</span>
-              </>
-            ) : (
-              <span className="painel-carregando text-ink-soft">Carregando…</span>
+        <section aria-labelledby="pede-voce">
+          <h2 id="pede-voce" className="font-serif text-3xl font-semibold leading-tight">
+            {!r ? <span className="painel-carregando text-ink-soft">Carregando…</span> : total === 0 ? "Nada esperando por você." : <>Hoje, <span className="italic text-prelo-texto">{total} {total === 1 ? "coisa pede" : "coisas pedem"}</span> você.</>}
+          </h2>
+          {r && total === 0 && (
+            <p className="painel-surge mt-4 flex items-center gap-3 border-2 border-ink bg-folha px-4 py-4 shadow-[4px_4px_0_var(--sombra)]">
+              <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6 shrink-0 text-ok" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12.5l5 5L20 6.5" /></svg>
+              <span className="text-base font-semibold">Tudo em dia. Aproveite para escrever ou para olhar as tarefas.</span>
+            </p>
+          )}
+          {manchete && (
+            <button type="button" onClick={() => ir(manchete[2])} className="painel-surge group mt-5 flex w-full cursor-pointer flex-wrap items-center gap-5 border-2 border-ink bg-folha p-5 text-left shadow-[6px_6px_0_var(--prelo)] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 sm:p-6">
+              <span className="font-sans text-6xl font-black leading-none tracking-tight text-prelo-texto tabular-nums">{manchete[1]}</span>
+              <span className="min-w-0 flex-1">
+                <span className="block font-mono text-[0.68rem] uppercase tracking-[0.2em] text-prelo-texto">Manchete · o mais urgente</span>
+                <span className="mt-1 block font-serif text-2xl font-semibold leading-tight">{manchete[0]}</span>
+              </span>
+              <span className="botao botao-tinta botao-menor">Abrir →</span>
+            </button>
+          )}
+          {demais.length > 0 && (
+            <ul className="mt-6 border-2 border-ink bg-folha shadow-[4px_4px_0_var(--sombra)]">
+              {demais.map(([titulo, n, destino], i) => (
+                <li key={titulo} className={i ? "border-t border-dashed border-rule" : ""}>
+                  <button type="button" onClick={() => ir(destino)} style={{ animationDelay: `${i * 35}ms` }} className="painel-surge group flex w-full cursor-pointer items-center gap-4 px-4 py-3 text-left hover:bg-parchment">
+                    <span className="w-12 shrink-0 text-right font-sans text-2xl font-black text-prelo-texto tabular-nums">{n}</span>
+                    <span className="min-w-0 flex-1 font-semibold">{titulo}</span>
+                    <span aria-hidden className="painel-seta text-lg text-ink-soft">→</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+
+        {me.papeis.length > 0 && <Atalhos secoes={secoes} ir={ir} icone={(id) => <Icone id={id} />} />}
+
+        {me.papeis.length > 0 && <ParaVoceHoje me={me} ir={ir} />}
+
+        {me.papeis.length > 0 && <Situacao lidera={can(me, "coordenacao")} supervisiona={can(me, "supervisao")} ir={ir} />}
+
+        <Recados recarregar={recarregar} />
+
+        {me.papeis.length > 0 && !can(me, "marketing") && <SugerirAoMarketing />}
+
+        {/* Quem não tem função pede a primeira; quem já tem pode pedir outra: uma pessoa acumula quantas a coordenação confiar. */}
+        {!can(me, "coordenacao") && <Candidatura me={me} />}
+      </div>
+
+      <aside className="space-y-6 xl:sticky xl:top-20 xl:self-start">
+        {produz && (
+          <button type="button" className="botao botao-prelo w-full justify-center py-3.5 text-base" onClick={() => ir("escrever")} data-tour="escrever">
+            ＋ Escrever
+          </button>
+        )}
+        <div className="border-2 border-ink bg-folha p-4 shadow-[4px_4px_0_var(--sombra)]">
+          <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-prelo-texto">Atalhos de trabalho</p>
+          <ul className="mt-2 divide-y divide-dashed divide-rule">
+            {me.papeis.length > 0 && (
+              <li><button type="button" className="flex w-full cursor-pointer items-center gap-2.5 py-2 text-left font-semibold hover:text-prelo-texto" onClick={() => ir("conversas")}><Icone id="conversas" /> Conversas e reuniões</button></li>
             )}
-          </p>
-        ) : (
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {pendencias.map(([titulo, total, destino], i) => (
-              <button key={titulo} type="button" onClick={() => ir(destino)} style={{ animationDelay: `${i * 45}ms` }} className="painel-quadro painel-surge flex cursor-pointer items-center gap-4 p-4 text-left">
-                <span className="font-sans text-5xl font-black leading-none tracking-tight text-oxblood tabular-nums">{total}</span>
-                <span className="min-w-0 flex-1 font-medium leading-snug">{titulo}</span>
-                <span aria-hidden className="painel-seta text-lg text-ink-soft">→</span>
-              </button>
-            ))}
-          </div>
+            {(r?.minhas ?? 0) > 0 && (
+              <li><button type="button" className="flex w-full cursor-pointer items-center gap-2.5 py-2 text-left font-semibold hover:text-prelo-texto" onClick={() => ir("minhas")}><Icone id="minhas" /> Meus envios <span className="ml-auto font-mono text-xs text-ink-soft">{r?.minhas}</span></button></li>
+            )}
+            {me.papeis.length > 0 && (
+              <li><button type="button" className="flex w-full cursor-pointer items-center gap-2.5 py-2 text-left font-semibold hover:text-prelo-texto" onClick={() => ir("tarefas")}><Icone id="tarefas" /> Tarefas de 5 a 30 minutos</button></li>
+            )}
+            <li><button type="button" className="flex w-full cursor-pointer items-center gap-2.5 py-2 text-left font-semibold hover:text-prelo-texto" onClick={() => ir("caderno")}><Icone id="caderno" /> Caderno de estudos</button></li>
+            <li><button type="button" className="flex w-full cursor-pointer items-center gap-2.5 py-2 text-left font-semibold hover:text-prelo-texto" onClick={() => ir("conta")}><Icone id="conta" /> Minha conta</button></li>
+          </ul>
+        </div>
+        {me.papeis.length > 0 && (
+          <details className="border-2 border-dashed border-ink bg-parchment p-4">
+            <summary className="cursor-pointer font-semibold">Guia de primeiros passos da sua função</summary>
+            <div className="mt-3">
+              <PorOndeComecar me={me} ir={ir} />
+            </div>
+          </details>
         )}
-        <p className="mt-5 flex flex-wrap gap-3">
-          <button type="button" className={botao} onClick={() => ir("escrever")}>Escrever</button>
-          {me.papeis.length > 0 && <button type="button" className={botaoClaro} onClick={() => ir("conversas")}>Abrir as conversas</button>}
-          {(r?.minhas ?? 0) > 0 && <button type="button" className={botaoClaro} onClick={() => ir("minhas")}>Meus envios ({r?.minhas})</button>}
-        </p>
-      </section>
-
-      {me.papeis.length > 0 && <Atalhos secoes={secoes} ir={ir} icone={(id) => <Icone id={id} />} />}
-
-      {me.papeis.length > 0 && <ParaVoceHoje me={me} ir={ir} />}
-
-      {me.papeis.length > 0 && (
-        <details className="painel-cartao p-4">
-          <summary className="cursor-pointer font-semibold">Guia de primeiros passos da sua função</summary>
-          <div className="mt-3">
-            <PorOndeComecar me={me} ir={ir} />
-          </div>
-        </details>
-      )}
-
-      {me.papeis.length > 0 && <Situacao lidera={can(me, "coordenacao")} supervisiona={can(me, "supervisao")} ir={ir} />}
-
-      <Recados recarregar={recarregar} />
-
-      {me.papeis.length > 0 && !can(me, "marketing") && <SugerirAoMarketing />}
-
-      {/* Quem não tem função pede a primeira; quem já tem pode pedir outra: uma pessoa acumula quantas a coordenação confiar. */}
-      {!can(me, "coordenacao") && <Candidatura me={me} />}
+        <div className="cartao-preto p-4 text-sm">
+          <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[#e0837a]">Primeira vez aqui?</p>
+          <p className="mt-1.5 leading-snug text-[#e9dcbc]">O tutorial mostra onde fica cada coisa e o que cada parte do painel faz.</p>
+          <button type="button" className="mt-3 cursor-pointer border-2 border-[#f4ecd8] bg-[#c21f16] px-3 py-1.5 font-bold text-white hover:bg-[#a51810]" onClick={abrirTutorial}>
+            Ver o tutorial
+          </button>
+        </div>
+      </aside>
     </div>
   );
 }
@@ -1170,3 +1251,63 @@ function Curriculo({ me, recarregar }: { me: Me; recarregar: () => void }) {
   );
 }
 
+
+const PAPEIS_DA_PREVIA: Role["papel"][] = ["vice", "supervisao", "curadoria", "mediacao", "educacao", "educacao_secundaria", "revisao", "traducao", "jornalismo", "mentoria", "design", "marketing", "desenvolvimento", "representante", "porta_voz", "saude"];
+const POR_DISCIPLINA: Role["papel"][] = ["educacao", "educacao_secundaria", "mentoria", "representante"];
+
+/** A conta como se tivesse só a função escolhida: o resto (nome, id, preferências) continua o de quem está olhando. */
+function previaComo(eu: Me, papel: Role["papel"], disciplina: string | null): Me {
+  const papeisDaPrevia: Role[] = [{ id: `previa-${papel}`, papel, disciplina }];
+  return {
+    ...eu,
+    papeis: papeisDaPrevia,
+    nivel: nivelDe(papeisDaPrevia),
+    supervisao: papel === "vice" || papel === "supervisao",
+    desenha: ["design", "marketing", "jornalismo"].includes(papel),
+    convites: [],
+    termo_voluntario: true,
+  };
+}
+
+/** "Ver como…": a coordenação escolhe uma função (e a disciplina, quando a função é por disciplina). */
+function PreviaDeFuncao({ previa, mudar }: { previa: { papel: Role["papel"]; disciplina: string | null } | null; mudar: (p: { papel: Role["papel"]; disciplina: string | null } | null) => void }) {
+  const { t } = useI18n();
+  const [papel, setPapel] = useState<Role["papel"] | "">(previa?.papel ?? "");
+  const [disciplina, setDisciplina] = useState(previa?.disciplina ?? areaSlugs[0]);
+  const porDisciplina = papel !== "" && POR_DISCIPLINA.includes(papel);
+  return (
+    <span className="flex items-center gap-1.5" title="Ver o painel como uma função veria">
+      <label className="sr-only" htmlFor="previa-papel">Ver como</label>
+      <select
+        id="previa-papel"
+        value={papel}
+        onChange={(e) => {
+          const novo = e.target.value as Role["papel"] | "";
+          setPapel(novo);
+          mudar(novo ? { papel: novo, disciplina: POR_DISCIPLINA.includes(novo) ? disciplina : null } : null);
+        }}
+        className="max-w-44 cursor-pointer border-2 border-ink bg-folha px-1.5 py-0.5 text-xs font-semibold"
+      >
+        <option value="">Ver como… (prévia)</option>
+        {PAPEIS_DA_PREVIA.map((p) => (
+          <option key={p} value={p}>{papeis[p]}</option>
+        ))}
+      </select>
+      {porDisciplina && (
+        <select
+          aria-label="Disciplina da prévia"
+          value={disciplina}
+          onChange={(e) => {
+            setDisciplina(e.target.value);
+            if (papel) mudar({ papel, disciplina: e.target.value });
+          }}
+          className="max-w-36 cursor-pointer border-2 border-ink bg-folha px-1.5 py-0.5 text-xs"
+        >
+          {areaSlugs.map((a) => (
+            <option key={a} value={a}>{t.areas[a][0]}</option>
+          ))}
+        </select>
+      )}
+    </span>
+  );
+}
