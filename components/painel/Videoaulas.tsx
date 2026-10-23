@@ -171,7 +171,7 @@ function Gravar({ me, enviado }: { me: Me; enviado: () => void }) {
       const { data, error } = await supabase.functions.invoke<{ texto?: string; vtt?: string; erro?: string }>("transcrever-audio", { body: corpo });
       if (error || !data || data.erro || !data.texto) {
         const e = data?.erro;
-        setAviso(e === "desligada" ? "A transcrição automática ainda não foi ligada no serviço (falta a chave)." : e === "cota" ? "O serviço de transcrição atingiu a cota de agora. Tente mais tarde." : "A transcrição não respondeu. Tente de novo ou escreva à mão.");
+        setAviso(e === "desligada" ? "A transcrição automática ainda não foi ligada: a coordenação precisa guardar a chave do serviço de Whisper (gratuita, na Groq) como segredo GROQ_API_KEY no Supabase. Até lá, escreva a transcrição à mão ou importe um .vtt." : e === "sem_permissao" ? "A transcrição é só para quem tem função no painel. Saia e entre de novo se acabou de receber a função." : e === "cota" ? "O serviço de transcrição atingiu a cota de agora. Tente mais tarde." : "A transcrição não respondeu. Tente de novo ou escreva à mão.");
         return;
       }
       setForm((f) => ({ ...f, transcricao: data.texto ?? "", legenda: data.vtt || f.legenda }));
@@ -311,7 +311,11 @@ function Gravar({ me, enviado }: { me: Me; enviado: () => void }) {
           </label>
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <button type="button" className={`${botaoClaro} rounded-md px-3 py-1.5 text-sm`} disabled={!pronto || transcrevendo} onClick={() => void transcrever()}>{transcrevendo ? "Transcrevendo…" : "Transcrever automaticamente (Whisper)"}</button>
-            <span className="text-xs text-ink-soft">Preenche a transcrição e a legenda a partir do vídeo; revise antes de enviar.</span>
+            <span className="text-xs text-ink-soft">
+              {pronto
+                ? "Manda o vídeo ao Whisper e preenche a transcrição e a legenda (vídeos de até 25 MB, uns 10 minutos). Revise antes de enviar."
+                : "Primeiro grave ou escolha o vídeo no passo 1: o botão acende quando o vídeo estiver pronto."}
+            </span>
           </div>
           <label className="mt-4 block text-sm font-semibold">
             Legendas em WebVTT (opcional, arquivo .vtt)
