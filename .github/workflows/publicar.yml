@@ -1,12 +1,13 @@
 name: Publicar contribuições aprovadas
 
-# De hora em hora, leva para o acervo o que a coordenação aprovou no painel.
+# De três em três horas, leva para o acervo o que a coordenação aprovou no painel (cada rodada que publica gera uma
+# publicação nova na Vercel, e cada publicação esvazia o cache das bordas: de hora em hora, isso estourava a cota).
 # Cada rodada vira um registro no histórico: para desfazer uma publicação, basta reverter esse registro.
 # A rotina só roda depois de criada a variável PUBLICAR com o valor "sim" (Settings → Secrets and variables →
 # Actions → Variables). Antes disso ela é pulada e não consome minutos. Para pausar as publicações, apague a variável.
 on:
   schedule:
-    - cron: "17 * * * *"
+    - cron: "17 */3 * * *"
   workflow_dispatch:
 
 permissions:

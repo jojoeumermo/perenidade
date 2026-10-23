@@ -2,8 +2,24 @@ name: Verificação
 
 on:
   pull_request:
+    paths-ignore:
+      - "content/**"
+      - "docs/**"
+      - "historico/**"
+      - "*.md"
   push:
     branches: [master]
+    # Aula, matéria e documentação não mudam o código: a verificação (uns dez minutos de máquina) fica para quando ele muda.
+    paths-ignore:
+      - "content/**"
+      - "docs/**"
+      - "historico/**"
+      - "*.md"
+
+# Vários envios seguidos: só o último é verificado, os anteriores são cancelados.
+concurrency:
+  group: verificacao-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
