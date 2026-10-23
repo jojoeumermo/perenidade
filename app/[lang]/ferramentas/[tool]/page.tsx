@@ -30,6 +30,7 @@ import { Cores, Escala, FrequenciaCardiaca, Fusos, MaisValia, Rcp } from "@/comp
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
 import { Moldura } from "@/components/tools/Vitrine";
+import { Selo } from "@/components/Selo";
 import { ICONES, textosDe } from "@/components/tools/vitrine-dados";
 import { areaLabs, areaTools, LABS, tools, universalTools, type AreaSlug, type LabId, type ToolId } from "@/lib/areas";
 import { withLangs } from "@/lib/params";
@@ -126,7 +127,7 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
         ← {s.title}
       </Link>
       <div className="mt-6">
-        <PageHeading eyebrow={`${ICONES[tool] ?? ""} ${s.eyebrow}`} title={name}>
+        <PageHeading eyebrow={s.eyebrow} title={name}>
           {description}
         </PageHeading>
       </div>
@@ -138,7 +139,7 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
             <section>
               <h2 className="font-mono text-xs uppercase tracking-widest text-oxblood">{s.related}</h2>
               <ul className="mt-2 space-y-1.5">
-                {parecidas.map((x) => <li key={x}><Link href={localePath(lang, `/ferramentas/${x}`)} className="flex items-center gap-2 hover:text-oxblood"><span aria-hidden>{ICONES[x] ?? "🛠️"}</span><span className="font-semibold">{names[x][0]}</span></Link></li>)}
+                {parecidas.map((x) => <li key={x}><Link href={localePath(lang, `/ferramentas/${x}`)} className="flex items-center gap-2 hover:text-oxblood"><Selo nome={ICONES[x] ?? "ferramentas"} className="h-5 w-5" /><span className="font-semibold">{names[x][0]}</span></Link></li>)}
               </ul>
             </section>
           )}
@@ -146,7 +147,7 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
             <section>
               <h2 className="font-mono text-xs uppercase tracking-widest text-oxblood">{s.relatedLabs}</h2>
               <ul className="mt-2 space-y-1.5">
-                {labIds.map((x) => <li key={x}><Link href={localePath(lang, LABS[x])} className="flex items-center gap-2 font-semibold hover:text-oxblood"><span aria-hidden>🧪</span>{nomesDosLabs[x] ?? x}</Link></li>)}
+                {labIds.map((x) => <li key={x}><Link href={localePath(lang, LABS[x])} className="flex items-center gap-2 font-semibold hover:text-oxblood"><Selo nome="frasco" className="h-5 w-5" />{nomesDosLabs[x] ?? x}</Link></li>)}
               </ul>
             </section>
           )}

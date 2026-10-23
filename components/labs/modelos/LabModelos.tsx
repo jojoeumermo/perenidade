@@ -9,19 +9,19 @@ import { Cooperacao, GraficosEnganosos, Probabilidade, Riqueza, Segregacao } fro
 
 type Id = "probabilidade" | "graficos" | "segregacao" | "cooperacao" | "riqueza" | "epidemia" | "predador" | "gravidade" | "ondas" | "automatos" | "regex" | "navegador" | "sensores";
 const MODULOS: { id: Id; nome: string; icone: string; resumo: string; grupo: string }[] = [
-  { id: "probabilidade", nome: "Probabilidade", icone: "🎲", resumo: "Moedas, Monty Hall, aniversários", grupo: "Pensamento crítico e sociedade" },
-  { id: "graficos", nome: "Gráficos que enganam", icone: "📊", resumo: "Eixo cortado e outros truques", grupo: "Pensamento crítico e sociedade" },
-  { id: "segregacao", nome: "Segregação", icone: "🏘️", resumo: "O modelo de Schelling", grupo: "Pensamento crítico e sociedade" },
-  { id: "cooperacao", nome: "Cooperação", icone: "🤝", resumo: "O dilema do prisioneiro", grupo: "Pensamento crítico e sociedade" },
-  { id: "riqueza", nome: "Riqueza", icone: "💰", resumo: "Como a riqueza se concentra", grupo: "Pensamento crítico e sociedade" },
-  { id: "epidemia", nome: "Epidemia", icone: "🦠", resumo: "SIR, vacina e imunidade coletiva", grupo: "Ciências" },
-  { id: "predador", nome: "Predador e presa", icone: "🦊", resumo: "Ciclos de Lotka-Volterra", grupo: "Ciências" },
-  { id: "gravidade", nome: "Gravidade", icone: "🪐", resumo: "Órbitas e lançamentos", grupo: "Ciências" },
-  { id: "ondas", nome: "Ondas e Fourier", icone: "〰️", resumo: "Somar senos e ouvir", grupo: "Ciências" },
-  { id: "automatos", nome: "Autômatos", icone: "🧬", resumo: "Jogo da Vida e regra 110", grupo: "Computação" },
-  { id: "regex", nome: "Expressões regulares", icone: "🔎", resumo: "Achar padrões em texto", grupo: "Computação" },
-  { id: "navegador", nome: "O que o navegador conta", icone: "🕵️", resumo: "Rastreamento sem permissão", grupo: "Computação" },
-  { id: "sensores", nome: "Laboratório no celular", icone: "📱", resumo: "Acelerômetro e gravidade", grupo: "Computação" },
+  { id: "probabilidade", nome: "Probabilidade", icone: "probabilidade", resumo: "Moedas, Monty Hall, aniversários", grupo: "Pensamento crítico e sociedade" },
+  { id: "graficos", nome: "Gráficos que enganam", icone: "barras", resumo: "Eixo cortado e outros truques", grupo: "Pensamento crítico e sociedade" },
+  { id: "segregacao", nome: "Segregação", icone: "segregacao", resumo: "O modelo de Schelling", grupo: "Pensamento crítico e sociedade" },
+  { id: "cooperacao", nome: "Cooperação", icone: "aperto", resumo: "O dilema do prisioneiro", grupo: "Pensamento crítico e sociedade" },
+  { id: "riqueza", nome: "Riqueza", icone: "riqueza", resumo: "Como a riqueza se concentra", grupo: "Pensamento crítico e sociedade" },
+  { id: "epidemia", nome: "Epidemia", icone: "epidemia", resumo: "SIR, vacina e imunidade coletiva", grupo: "Ciências" },
+  { id: "predador", nome: "Predador e presa", icone: "predador", resumo: "Ciclos de Lotka-Volterra", grupo: "Ciências" },
+  { id: "gravidade", nome: "Gravidade", icone: "planeta", resumo: "Órbitas e lançamentos", grupo: "Ciências" },
+  { id: "ondas", nome: "Ondas e Fourier", icone: "ondas", resumo: "Somar senos e ouvir", grupo: "Ciências" },
+  { id: "automatos", nome: "Autômatos", icone: "automatos", resumo: "Jogo da Vida e regra 110", grupo: "Computação" },
+  { id: "regex", nome: "Expressões regulares", icone: "regex", resumo: "Achar padrões em texto", grupo: "Computação" },
+  { id: "navegador", nome: "O que o navegador conta", icone: "rastro", resumo: "Rastreamento sem permissão", grupo: "Computação" },
+  { id: "sensores", nome: "Laboratório no celular", icone: "sensor", resumo: "Acelerômetro e gravidade", grupo: "Computação" },
 ];
 
 /** O Laboratório de modelos: 13 simulações que seguem o roteiro preveja, rode, compare, explique. */

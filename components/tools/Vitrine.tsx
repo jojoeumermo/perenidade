@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { fill, localePath } from "@/i18n/config";
 import { useI18n } from "../I18n";
+import { Selo } from "../Selo";
 import { ICONES, type ItemDaVitrine, type Textos } from "./vitrine-dados";
 
 // A vitrine das ferramentas de prática (busca, matérias, favoritas e as últimas usadas) e a moldura de cada
@@ -42,14 +43,14 @@ function useMemoria() {
 
 function Cartao({ i, lang, favorita, alternar, s, offline }: { i: ItemDaVitrine; lang: string; favorita: boolean; alternar: () => void; s: Textos; offline: string }) {
   return (
-    <div className="group relative flex gap-3 rounded-md border-2 border-ink/15 bg-parchment-deep p-4 transition hover:-translate-y-0.5 hover:border-ink hover:shadow-[3px_3px_0_#17130e]">
-      <span aria-hidden className="grid h-12 w-12 shrink-0 place-items-center rounded-md bg-parchment text-2xl">{ICONES[i.id] ?? "🛠️"}</span>
+    <div className="cartao sobe group relative flex gap-3 p-4">
+      <span className="selo h-12 w-12"><Selo nome={ICONES[i.id] ?? "ferramentas"} /></span>
       <span className="min-w-0 flex-1">
         <Link href={localePath(lang, `/ferramentas/${i.id}`)} className="font-serif text-xl font-semibold leading-tight after:absolute after:inset-0 group-hover:text-oxblood">{i.nome}</Link>
         <span className="mt-0.5 block text-sm text-ink-soft">{i.descricao}</span>
         <span className="mt-2 flex flex-wrap gap-1.5 text-[0.65rem] font-semibold uppercase tracking-wider">
           {i.materias && <span className="text-gold">{i.materias}</span>}
-          {i.offline && <span className="rounded border border-rule px-1 text-ink-soft">{offline}</span>}
+          {i.offline && <span className="border border-ink px-1 text-ink-soft">{offline}</span>}
         </span>
       </span>
       <button type="button" onClick={alternar} aria-pressed={favorita} aria-label={`${favorita ? s.unfavorite : s.favorite}: ${i.nome}`} title={favorita ? s.unfavorite : s.favorite} className={`relative z-10 h-8 w-8 shrink-0 cursor-pointer rounded-full text-lg ${favorita ? "text-[#c9a227]" : "text-ink/25 hover:text-[#c9a227]"}`}>★</button>
@@ -64,8 +65,8 @@ function Faixa({ titulo, lista, lang }: { titulo: string; lista: ItemDaVitrine[]
       <h2 className="font-mono text-xs uppercase tracking-widest text-oxblood">{titulo}</h2>
       <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
         {lista.map((i) => (
-          <Link key={i.id} href={localePath(lang, `/ferramentas/${i.id}`)} className="flex shrink-0 items-center gap-2 rounded-full border-2 border-ink/20 bg-parchment px-3 py-1.5 text-sm font-semibold hover:border-ink">
-            <span aria-hidden>{ICONES[i.id] ?? "🛠️"}</span>{i.nome}
+          <Link key={i.id} href={localePath(lang, `/ferramentas/${i.id}`)} className="chip shrink-0 gap-2 font-semibold">
+            <Selo nome={ICONES[i.id] ?? "ferramentas"} className="h-5 w-5" />{i.nome}
           </Link>
         ))}
       </div>
@@ -133,7 +134,7 @@ export function Vitrine({ itens, grupos, laboratorios, s }: { itens: ItemDaVitri
       })}
 
       <section className="mt-12 rounded-md border-2 border-ink bg-[#17130e] p-5 text-[#f4ecd8]">
-        <h2 className="font-serif text-2xl font-semibold">🧪 {s.labsTitle}</h2>
+        <h2 className="flex items-center gap-2.5 font-serif text-2xl font-semibold"><Selo nome="frasco" className="h-7 w-7" /> {s.labsTitle}</h2>
         <p className="mt-1 text-sm text-[#f4ecd8]/80">{s.labsText}</p>
         <div className="mt-3 flex flex-wrap gap-2">
           {laboratorios.map((l) => <Link key={l.href} href={l.href} className="rounded-full border border-[#f4ecd8]/40 px-3 py-1 text-sm hover:bg-white/10">{l.nome}</Link>)}
@@ -158,8 +159,8 @@ export function Moldura({ id, s, children }: { id: string; s: Textos; children: 
     <div>
       <p className="mt-4 flex flex-wrap gap-2 font-sans text-sm">
         <button type="button" aria-pressed={favorita} onClick={() => mudar((x) => ({ ...x, favoritas: favorita ? x.favoritas.filter((f) => f !== id) : [...x.favoritas, id] }))} className={`${botao} ${favorita ? "border-[#c9a227] text-[#8a6d0f]" : ""}`}><span aria-hidden>{favorita ? "★" : "☆"}</span>{favorita ? s.unfavorite : s.favorite}</button>
-        <button type="button" onClick={() => void caixa.current?.requestFullscreen?.().catch(() => undefined)} className={botao}><span aria-hidden>⛶</span>{s.focus}</button>
-        <button type="button" onClick={() => { void navigator.clipboard.writeText(window.location.href).then(() => { setCopiado(true); window.setTimeout(() => setCopiado(false), 2000); }).catch(() => undefined); }} className={botao}><span aria-hidden>🔗</span>{copiado ? s.linkCopied : s.copyLink}</button>
+        <button type="button" onClick={() => void caixa.current?.requestFullscreen?.().catch(() => undefined)} className={botao}><Selo nome="tela" className="h-4 w-4" />{s.focus}</button>
+        <button type="button" onClick={() => { void navigator.clipboard.writeText(window.location.href).then(() => { setCopiado(true); window.setTimeout(() => setCopiado(false), 2000); }).catch(() => undefined); }} className={botao}><Selo nome="clipe" className="h-4 w-4" />{copiado ? s.linkCopied : s.copyLink}</button>
       </p>
       <div ref={caixa} className="mt-2 overflow-auto bg-parchment [&:fullscreen]:p-6">{children}</div>
     </div>

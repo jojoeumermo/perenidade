@@ -388,10 +388,13 @@ export function FormularioDoBloco({ tipo, spec, mudar }: { tipo: Interativo; spe
   }
 }
 
-/** Ícone e gaveta de cada bloco no menu "＋ bloco". */
-export const VITRINE: Record<Interativo, [string, "Jogos" | "Testes" | "Línguas" | "Ciência e matemática" | "Outros"]> = {
-  teste: ["📝", "Testes"], memoria: ["🃏", "Jogos"], forca: ["🪢", "Jogos"], cacapalavras: ["🔎", "Jogos"], arrastar: ["🧺", "Jogos"], cena: ["🖼️", "Jogos"], cartoes: ["🗂️", "Línguas"],
-  frase: ["🧩", "Línguas"], pronuncia: ["🗣️", "Línguas"], musica: ["🎵", "Línguas"], grafico: ["📈", "Ciência e matemática"], geometria: ["📐", "Ciência e matemática"], calculadora: ["🧮", "Ciência e matemática"],
-  dados: ["📊", "Ciência e matemática"], simulacao: ["⚽", "Ciência e matemática"], molecula: ["⚛️", "Ciência e matemática"], mapa: ["🗺️", "Outros"], linhadotempo: ["⏳", "Outros"], diagrama: ["🔀", "Outros"],
-  programacao: ["🧱", "Ciência e matemática"], rodar: ["💻", "Ciência e matemática"], desenho: ["✏️", "Outros"], ferramenta: ["🧰", "Outros"], recurso: ["🧪", "Outros"],
+/** Selo desenhado (components/Selo.tsx) e grupo de cada bloco no menu "＋ bloco". */
+export const VITRINE: Record<Interativo, [string, "Escrever" | "Imagem, som e tempo" | "Contas e ciência" | "Conferir o que aprendeu" | "Jogos" | "Línguas e música" | "Ferramentas"]> = {
+  teste: ["check", "Conferir o que aprendeu"], cartoes: ["cartoes", "Conferir o que aprendeu"], arrastar: ["mao", "Conferir o que aprendeu"],
+  memoria: ["cartoes", "Jogos"], forca: ["forca", "Jogos"], cacapalavras: ["lupa", "Jogos"], cena: ["imagem", "Jogos"], frase: ["quebracabeca", "Jogos"],
+  pronuncia: ["boca", "Línguas e música"], musica: ["nota", "Línguas e música"],
+  grafico: ["grafico", "Contas e ciência"], geometria: ["geometria", "Contas e ciência"], calculadora: ["calculadora", "Contas e ciência"], dados: ["barras", "Contas e ciência"],
+  simulacao: ["alvo", "Contas e ciência"], molecula: ["molecula", "Contas e ciência"], programacao: ["tijolos", "Contas e ciência"], rodar: ["terminal", "Contas e ciência"],
+  mapa: ["mapa", "Imagem, som e tempo"], linhadotempo: ["linhadotempo", "Imagem, som e tempo"], diagrama: ["fluxo", "Imagem, som e tempo"],
+  desenho: ["lapis", "Ferramentas"], ferramenta: ["ferramentas", "Ferramentas"], recurso: ["frasco", "Ferramentas"],
 };
