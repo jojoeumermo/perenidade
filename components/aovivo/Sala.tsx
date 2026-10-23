@@ -442,7 +442,7 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
 
         {!conduzo && aula.status === "ao_vivo" && canal === "aberto" && (
           <p>
-            <button type="button" className={mao ? botao : claro} onClick={() => void levantarMao()} aria-pressed={mao}>✋ {mao ? s.lowerHand : s.raiseHand}</button>
+            <button type="button" className={mao ? botao : claro} onClick={() => void levantarMao()} aria-pressed={mao}>{mao ? s.lowerHand : s.raiseHand}</button>
           </p>
         )}
         {aviso && <p role="alert" className="font-sans text-sm text-oxblood">{aviso}</p>}

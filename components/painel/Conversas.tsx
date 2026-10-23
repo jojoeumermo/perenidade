@@ -1987,7 +1987,7 @@ function EnqueteVista({ enquete, votos, minha, votar }: { enquete: Enquete; voto
   const total = votos.length;
   return (
     <div className={`my-1 border px-2 py-1.5 text-sm ${minha ? "border-parchment/40" : "border-rule bg-parchment"}`}>
-      <p className="font-semibold">📊 {enquete.pergunta}</p>
+      <p className="font-semibold">{enquete.pergunta}</p>
       <p className="text-[0.7rem] opacity-70">{enquete.varias ? "Pode marcar mais de uma" : "Marque uma"} · {total} {total === 1 ? "voto" : "votos"}</p>
       <ul className="mt-1 space-y-1">
         {enquete.opcoes.map((opcao, i) => {
@@ -2017,7 +2017,7 @@ function EventoVista({ evento, rsvps, minha, responder }: { evento: Evento; rsvp
   const grupos: [Rsvp, string][] = [["vou", "Vou"], ["talvez", "Talvez"], ["nao", "Não vou"]];
   return (
     <div className={`my-1 border px-2 py-1.5 text-sm ${minha ? "border-parchment/40" : "border-rule bg-parchment"}`}>
-      <p className="font-semibold">📅 {evento.titulo}</p>
+      <p className="font-semibold">{evento.titulo}</p>
       <p className="text-xs">{quando.toLocaleString(localDoPainel(), { weekday: "long", day: "2-digit", month: "long", hour: "2-digit", minute: "2-digit" })}{evento.local ? ` · ${evento.local}` : ""}</p>
       <p className="mt-1 flex flex-wrap gap-1">
         {grupos.map(([valor, nome]) => (

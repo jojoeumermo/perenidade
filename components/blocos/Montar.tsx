@@ -228,7 +228,7 @@ function UmaFrase({ texto, traducao, lingua }: { texto: string; traducao: string
       </div>
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <button type="button" className={botao} disabled={!resposta.length || conferida === true} onClick={() => setConferida(comparar(montada) === comparar(texto))}>{t.blocks.check}</button>
-        {lingua && <button type="button" className={claro} aria-label={`${t.blocks.listen}: ${texto}`} onClick={() => falar(texto, lingua)}>🔊 {t.blocks.listen}</button>}
+        {lingua && <button type="button" className={claro} aria-label={`${t.blocks.listen}: ${texto}`} onClick={() => falar(texto, lingua)}>{t.blocks.listen}</button>}
         {conferida !== null && <span role="status" className={`font-semibold ${conferida ? "text-ok" : "text-oxblood"}`}>{conferida ? t.blocks.right : t.blocks.wrong}</span>}
       </div>
     </div>

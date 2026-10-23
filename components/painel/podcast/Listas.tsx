@@ -92,7 +92,7 @@ export function Agenda({ painel }: { painel: PainelDoPodcast }) {
   const eventos = useMemo(() => {
     const lista: { dia: string; texto: string; tipo: "gravacao" | "previsto" | "no_ar" | "post"; id?: string }[] = [];
     for (const e of painel.episodios) {
-      if (e.gravacao_em) lista.push({ dia: e.gravacao_em.slice(0, 10), texto: `🎙 ${e.titulo}`, tipo: "gravacao" });
+      if (e.gravacao_em) lista.push({ dia: e.gravacao_em.slice(0, 10), texto: `${e.titulo}`, tipo: "gravacao" });
       if (e.publicar_em && e.status !== "publicado") lista.push({ dia: e.publicar_em.slice(0, 10), texto: `◷ ${e.titulo}`, tipo: "previsto" });
       if (e.publicado_em) lista.push({ dia: iso(new Date(e.publicado_em)), texto: `★ ${e.titulo}`, tipo: "no_ar" });
     }
@@ -143,7 +143,7 @@ export function Agenda({ painel }: { painel: PainelDoPodcast }) {
         <button type="button" className={botaoClaro} onClick={exportar}>Exportar para o calendário (.ics)</button>
       </div>
       <p className="flex flex-wrap gap-4 text-xs text-ink-soft">
-        <span>🎙 gravação</span>
+        <span>gravação</span>
         <span>◷ publicação prevista</span>
         <span>★ no ar</span>
         <span>rede: postagem agendada</span>

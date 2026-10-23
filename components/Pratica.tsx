@@ -431,7 +431,7 @@ export function Pratica({ id, exercicios, lingua, s, previa = false, semPlacar =
           {!semPlacar && (
             <>
               <span title={s.xp}>★ {progresso.xp} {s.xp}</span>
-              <span title={s.streak}>🔥 {fill(s.streakDays, { n: progresso.sequencia })}</span>
+              <span title={s.streak}>{fill(s.streakDays, { n: progresso.sequencia })}</span>
             </>
           )}
           <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => guardarProgresso({ ...lerProgresso(), som: !progresso.som })}>{progresso.som ? s.soundOn : s.soundOff}</button>

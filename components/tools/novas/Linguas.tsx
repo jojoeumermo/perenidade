@@ -99,7 +99,7 @@ export function TonsDoMandarim() {
         <section className="mt-6 rounded-md border-2 border-ink p-4">
           <h3 className="font-semibold">Treino de ouvido</h3>
           <div className="mt-2 flex flex-wrap items-center gap-2">
-            <BotaoClaro onClick={nova}>🔊 Tocar um tom</BotaoClaro>
+            <BotaoClaro onClick={nova}>Tocar um tom</BotaoClaro>
             {pergunta !== null && <BotaoClaro onClick={() => tocarTom(tom(pergunta).contorno, tom(pergunta).dur)}>Repetir</BotaoClaro>}
             <span className="text-sm text-ink-soft">{acertos.total ? `${acertos.certo} de ${acertos.total}` : ""}</span>
           </div>
@@ -236,7 +236,7 @@ export function Alfabetos() {
                 <p className="mt-2 text-center"><span className="text-3xl">{sel[0]}</span> <span className="font-mono">{sel[1]}</span></p>
                 {qual !== "hangul" && sel[2] && <p className="text-center text-xs text-ink-soft">{sel[2]}</p>}
                 {qual === "hangul" && sel[2] && <p className="text-center text-xs text-ink-soft">sílaba de exemplo: {sel[2]}</p>}
-                <p className="mt-1 text-center"><button type="button" className="cursor-pointer underline" onClick={() => ouvir(sel)}>🔊 ouvir</button></p>
+                <p className="mt-1 text-center"><button type="button" className="cursor-pointer underline" onClick={() => ouvir(sel)}>ouvir</button></p>
               </div>
             ) : <p className="w-48 text-sm text-ink-soft">Toque numa letra para ouvir e treinar a escrita por cima dela.</p>}
           </div>

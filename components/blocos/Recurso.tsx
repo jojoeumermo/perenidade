@@ -95,7 +95,7 @@ function QrNoCelular({ abrir, titulo }: { abrir: string; titulo: string }) {
   };
   return (
     <>
-      <button type="button" onClick={mostrar} aria-expanded={!!imagem} className="cursor-pointer underline hover:text-oxblood">📱 No celular</button>
+      <button type="button" onClick={mostrar} aria-expanded={!!imagem} className="cursor-pointer underline hover:text-oxblood">No celular</button>
       {imagem && (
         <span className="flex w-full flex-wrap items-center gap-4 border-t border-ink/20 pt-2">
           {/* eslint-disable-next-line @next/next/no-img-element -- imagem gerada no aparelho (data:) */}
@@ -112,7 +112,7 @@ function Quadro({ src, titulo, altura, abrir }: { src: string; titulo: string; a
   return (
     <figure className="my-6 border-2 border-ink">
       <figcaption className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-ink bg-parchment-deep px-3 py-2 font-sans text-sm">
-        <strong>🧪 {titulo}</strong>
+        <strong>{titulo}</strong>
         <span className="flex flex-wrap gap-3"><a href={abrir} target="_blank" rel="noopener" className="underline hover:text-oxblood">Abrir em tela cheia ↗</a><QrNoCelular abrir={abrir} titulo={titulo} /></span>
       </figcaption>
       {aberto ? (

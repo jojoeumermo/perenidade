@@ -143,7 +143,7 @@ function Sorteio({ sala }: { sala: string }) {
         <p className="mt-2 text-xs text-[#f4ecd8]/70">{restam.length} de {nomes.length} ainda não saíram</p>
       </div>
       <div className="mt-3 flex gap-2 text-sm">
-        <button type="button" onClick={sortear} disabled={!restam.length || girando !== null} className="cursor-pointer rounded bg-[#c21f16] px-4 py-1.5 font-bold text-white disabled:opacity-40">🎲 Sortear</button>
+        <button type="button" onClick={sortear} disabled={!restam.length || girando !== null} className="cursor-pointer rounded bg-[#c21f16] px-4 py-1.5 font-bold text-white disabled:opacity-40">Sortear</button>
         <button type="button" onClick={() => setSaiu([])} className="cursor-pointer underline">Recomeçar</button>
       </div>
     </div>

@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Selo } from "@/components/Selo";
 import { type Borne, CHAVES, type Chave, ler, type Peca } from "./multimetro";
 
 type Ponta = { peca: string; terminal: 0 | 1 } | null;
@@ -130,7 +131,7 @@ export function MultimetroVisual({ pecas, missoes = [], titulo = "Bancada" }: { 
         <ul className="mt-3 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
           {pecas.map((p) => (
             <li key={p.id} className={`border-2 p-2 ${mesmaPeca?.id === p.id ? "border-ink bg-parchment-deep" : "border-ink/20"}`}>
-              <p className="flex items-center gap-2 font-semibold"><span aria-hidden className="text-xl">{p.icone}</span>{p.nome}{(p.dc || p.ac) ? <span className="ml-auto text-[0.65rem] font-bold uppercase text-[#c21f16]">energizada</span> : null}</p>
+              <p className="flex items-center gap-2 font-semibold"><Selo nome={p.icone} className="h-6 w-6 shrink-0" />{p.nome}{(p.dc || p.ac) ? <span className="ml-auto text-[0.65rem] font-bold uppercase text-[#c21f16]">energizada</span> : null}</p>
               <div className="mt-1 grid grid-cols-2 gap-1">
                 {p.terminais.map((t, i) => {
                   const temVermelha = vermelha?.peca === p.id && vermelha.terminal === i;
