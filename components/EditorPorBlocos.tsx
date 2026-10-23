@@ -242,7 +242,7 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
     }
   };
   const opcoes: OpcaoDeBloco[] = [
-    ...NO_MENU.filter((t) => upload || t !== "anexo").map((t): OpcaoDeBloco => ({ chave: t, nome: NOMES[t], sobre: SOBRE[t], selo: SELO_DO_TIPO[t], grupo: GRUPO_DO_TIPO[t], inserir: (i) => inserir(i, t) })),
+    ...NO_MENU.filter((t) => upload || t !== "anexo").map((t): OpcaoDeBloco => ({ chave: t, nome: NOMES[t], sobre: SOBRE[t] ?? "", selo: SELO_DO_TIPO[t] ?? "folha", grupo: GRUPO_DO_TIPO[t] ?? "Escrever", inserir: (i) => inserir(i, t) })),
     ...INTERATIVOS.map((k): OpcaoDeBloco => ({ chave: k, nome: MODELOS_INTERATIVOS[k].nome, sobre: MODELOS_INTERATIVOS[k].ajuda.split(/(?<=\.)\s/)[0], selo: VITRINE[k][0], grupo: VITRINE[k][1], inserir: (i) => inserir(i, "interativo", ["```" + k, MODELOS_INTERATIVOS[k].modelo, "```"].join("\n")) })),
   ];
   const achadas = opcoes.filter((o) => casa(`${o.nome} ${o.sobre} ${o.grupo}`));
