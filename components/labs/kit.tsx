@@ -7,14 +7,15 @@
  * tinta e bordô, com a área do instrumento escura para os gráficos saltarem aos olhos.
  */
 import { useState } from "react";
+import { Selo, temSelo } from "../Selo";
 
 export function Bancada({ titulo, subtitulo, children, acoes }: { titulo: string; subtitulo?: string; children: React.ReactNode; acoes?: React.ReactNode }) {
   return (
-    <section className="overflow-hidden rounded-md border-2 border-ink bg-parchment shadow-[4px_4px_0_#17130e]">
-      <header className="flex flex-wrap items-center gap-3 border-b-2 border-ink bg-ink px-4 py-2.5 text-parchment">
-        <div className="min-w-0">
-          <h2 className="font-serif text-xl font-semibold leading-tight">{titulo}</h2>
-          {subtitulo && <p className="text-xs text-parchment/75">{subtitulo}</p>}
+    <section className="overflow-hidden border-2 border-ink bg-folha shadow-[7px_7px_0_var(--sombra)]">
+      <header className="flex flex-wrap items-center gap-3 border-b-2 border-ink bg-[#1f1a14] px-5 py-3.5 text-[#f4ecd8]">
+        <div className="min-w-0 flex-1">
+          <h2 className="font-serif text-[1.65rem] font-semibold leading-tight">{titulo}</h2>
+          {subtitulo && <p className="mt-0.5 text-sm text-[#cdbb91]">{subtitulo}</p>}
         </div>
         {acoes && <div className="ml-auto flex flex-wrap gap-2">{acoes}</div>}
       </header>
@@ -27,7 +28,7 @@ export function Deslizante({ rotulo, valor, min, max, passo = 1, mudar, formato 
   return (
     <label className="block text-sm">
       <span className="flex justify-between gap-2"><span className="font-semibold">{rotulo}</span><span className="font-mono tabular-nums text-oxblood">{formato ? formato(valor) : valor}</span></span>
-      <input type="range" min={min} max={max} step={passo} value={valor} onChange={(e) => mudar(Number(e.target.value))} className="mt-1 w-full accent-[#7A1F1F]" />
+      <input type="range" min={min} max={max} step={passo} value={valor} onChange={(e) => mudar(Number(e.target.value))} className="mt-1 w-full accent-[#c21f16]" />
     </label>
   );
 }
@@ -38,7 +39,7 @@ export function Escolha<T extends string>({ rotulo, valor, opcoes, mudar }: { ro
       <p className="font-semibold">{rotulo}</p>
       <div className="mt-1 flex flex-wrap gap-1.5">
         {opcoes.map(([id, nome]) => (
-          <button key={id} type="button" aria-pressed={valor === id} onClick={() => mudar(id)} className={`cursor-pointer rounded border-2 px-2.5 py-1 text-xs font-semibold ${valor === id ? "border-ink bg-ink text-parchment" : "border-ink/30 bg-parchment hover:border-ink"}`}>{nome}</button>
+          <button key={id} type="button" aria-pressed={valor === id} onClick={() => mudar(id)} className={`cursor-pointer border-2 px-2.5 py-1 text-xs font-semibold ${valor === id ? "border-ink bg-ink text-parchment shadow-[2px_2px_0_var(--prelo)]" : "border-ink bg-folha hover:shadow-[2px_2px_0_var(--sombra)]"}`}>{nome}</button>
         ))}
       </div>
     </div>
@@ -47,20 +48,20 @@ export function Escolha<T extends string>({ rotulo, valor, opcoes, mudar }: { ro
 
 export function Botao({ children, onClick, primario = false, desligado = false, titulo }: { children: React.ReactNode; onClick: () => void; primario?: boolean; desligado?: boolean; titulo?: string }) {
   return (
-    <button type="button" title={titulo} disabled={desligado} onClick={onClick} className={`cursor-pointer rounded border-2 px-3 py-1.5 text-sm font-semibold disabled:cursor-not-allowed disabled:opacity-40 ${primario ? "border-[#c21f16] bg-[#c21f16] text-white hover:bg-oxblood" : "border-parchment/40 bg-transparent text-inherit hover:border-current"}`}>
+    <button type="button" title={titulo} disabled={desligado} onClick={onClick} className={`cursor-pointer border-2 px-3.5 py-1.5 text-sm font-extrabold disabled:cursor-not-allowed disabled:opacity-40 ${primario ? "border-[#f4ecd8] bg-[#c21f16] text-white shadow-[3px_3px_0_#f4ecd8] hover:bg-[#a51810]" : "border-[#f4ecd8]/60 bg-transparent text-inherit hover:border-current"}`}>
       {children}
     </button>
   );
 }
 
 export function BotaoClaro({ children, onClick, desligado = false }: { children: React.ReactNode; onClick: () => void; desligado?: boolean }) {
-  return <button type="button" disabled={desligado} onClick={onClick} className="cursor-pointer rounded border-2 border-ink bg-parchment px-3 py-1.5 text-sm font-semibold hover:border-oxblood hover:text-oxblood disabled:opacity-40">{children}</button>;
+  return <button type="button" disabled={desligado} onClick={onClick} className="botao botao-papel botao-menor disabled:opacity-40">{children}</button>;
 }
 
 export function Leitura({ rotulo, valor, destaque = false }: { rotulo: string; valor: string; destaque?: boolean }) {
   return (
-    <div className={`rounded border-2 px-3 py-2 ${destaque ? "border-[#c21f16]" : "border-ink/20"} bg-parchment-deep`}>
-      <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-ink-soft">{rotulo}</p>
+    <div className={`border-2 px-3 py-2 ${destaque ? "border-[#c21f16] shadow-[3px_3px_0_var(--prelo)]" : "border-ink"} bg-parchment`}>
+      <p className="font-mono text-[0.62rem] uppercase tracking-[0.16em] text-ink-soft">{rotulo}</p>
       <p className="font-mono text-xl font-semibold tabular-nums">{valor}</p>
     </div>
   );
@@ -72,7 +73,7 @@ export function Grafico({ series, altura = 90, max, rotulos }: { series: [string
   const topo = max ?? Math.max(1e-9, ...series.flatMap(([, v]) => v));
   return (
     <div>
-      <svg viewBox={`0 0 300 ${altura}`} className="w-full rounded bg-[#17130e]" preserveAspectRatio="none" role="img" aria-label="Gráfico da evolução">
+      <svg viewBox={`0 0 300 ${altura}`} className="w-full border-2 border-ink bg-[#17130e]" preserveAspectRatio="none" role="img" aria-label="Gráfico da evolução">
         {[0.25, 0.5, 0.75].map((f) => <line key={f} x1={0} x2={300} y1={altura * f} y2={altura * f} stroke="#ffffff14" />)}
         {series.map(([cor, v], k) => (
           <polyline key={k} fill="none" stroke={cor} strokeWidth={2} vectorEffect="non-scaling-stroke" points={v.map((y, i) => `${(i / (n - 1)) * 300},${altura - (Math.min(y, topo) / topo) * (altura - 4) - 2}`).join(" ")} />
@@ -88,10 +89,10 @@ export function PrevejaRode({ pergunta, explicacao, limites, aprofundar }: { per
   const [previsao, setPrevisao] = useState("");
   const [visto, setVisto] = useState(false);
   return (
-    <div className="rounded border-2 border-dashed border-ink/40 bg-parchment-deep p-4 text-sm">
-      <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-oxblood">Preveja · rode · compare · explique</p>
+    <div className="border-2 border-dashed border-ink bg-parchment p-4 text-sm">
+      <p className="rotulo text-[0.68rem]">Preveja · rode · compare · explique</p>
       <p className="mt-1 text-base font-semibold">{pergunta}</p>
-      <label className="mt-2 block">Sua previsão (fica só aqui)<textarea value={previsao} onChange={(e) => setPrevisao(e.target.value)} rows={2} className="mt-1 w-full border-2 border-ink/30 bg-parchment p-2" placeholder="Eu acho que…" /></label>
+      <label className="mt-2 block">Sua previsão (fica só aqui)<textarea value={previsao} onChange={(e) => setPrevisao(e.target.value)} rows={2} className="mt-1 w-full border-2 border-ink bg-folha p-2" placeholder="Eu acho que…" /></label>
       {!visto ? (
         <button type="button" onClick={() => setVisto(true)} className="mt-2 cursor-pointer font-semibold underline">Já rodei: comparar e ver a explicação</button>
       ) : (
@@ -109,11 +110,18 @@ export function PrevejaRode({ pergunta, explicacao, limites, aprofundar }: { per
 /** A navegação lateral dos laboratórios com vários módulos. */
 export function Modulos<T extends string>({ itens, atual, escolher }: { itens: { id: T; nome: string; icone: string; resumo: string }[]; atual: T; escolher: (id: T) => void }) {
   return (
-    <nav aria-label="Módulos do laboratório" className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible">
+    <nav aria-label="Módulos do laboratório" className="flex gap-3 overflow-x-auto pr-1.5 pb-2 lg:flex-col lg:overflow-visible">
+      <p className="hidden font-mono text-xs uppercase tracking-[0.2em] lg:block">{itens.length} experimentos</p>
       {itens.map((m) => (
-        <button key={m.id} type="button" aria-current={atual === m.id ? "page" : undefined} onClick={() => escolher(m.id)} className={`flex min-w-52 cursor-pointer items-start gap-3 rounded-md border-2 px-3 py-2 text-left lg:min-w-0 ${atual === m.id ? "border-ink bg-ink text-parchment" : "border-ink/25 bg-parchment hover:border-ink"}`}>
-          <span className="text-2xl leading-none" aria-hidden>{m.icone}</span>
-          <span><span className="block text-sm font-semibold">{m.nome}</span><span className={`block text-xs ${atual === m.id ? "text-parchment/75" : "text-ink-soft"}`}>{m.resumo}</span></span>
+        <button key={m.id} type="button" aria-current={atual === m.id ? "page" : undefined} onClick={() => escolher(m.id)} className={`flex min-w-56 cursor-pointer items-center gap-3.5 border-2 px-3.5 py-3 text-left transition-[transform,box-shadow] lg:min-w-0 ${atual === m.id ? "border-[#1f1a14] bg-[#1f1a14] text-[#f4ecd8] shadow-[4px_4px_0_var(--prelo)]" : "border-ink bg-folha hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_var(--sombra)]"}`}>
+          {temSelo(m.icone) ? (
+            <span className={`selo h-[2.9rem] w-[2.9rem] ${atual === m.id ? "border-[#f4ecd8] bg-[#c21f16] text-[#f4ecd8] [--prelo-texto:#f4ecd8]" : ""}`}>
+              <Selo nome={m.icone} className="h-[1.9rem] w-[1.9rem]" />
+            </span>
+          ) : (
+            <span className="text-2xl leading-none" aria-hidden>{m.icone}</span>
+          )}
+          <span className="min-w-0"><span className="block text-[0.95rem] font-extrabold leading-tight">{m.nome}</span><span className={`mt-0.5 block text-[0.78rem] leading-snug ${atual === m.id ? "text-[#cdbb91]" : "text-ink-soft"}`}>{m.resumo}</span></span>
         </button>
       ))}
     </nav>

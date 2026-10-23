@@ -4,14 +4,14 @@
 // página do servidor poder chamar.
 import type { Dict } from "@/i18n/types";
 
-/** Um ícone para cada ferramenta (emoji: leve, sem arquivo e legível em qualquer tela). */
+/** Um selo desenhado para cada ferramenta (o nome do desenho em components/Selo.tsx). */
 export const ICONES: Record<string, string> = {
-  resolvedor: "🧮", calculadora: "🔢", graficos: "📈", estatistica: "📊", "conversor-de-unidades": "📏", "tabela-verdade": "✅", "tabela-periodica": "⚗️",
-  "massa-molar": "⚖️", balanceamento: "🧪", punnett: "🧬", "sistema-solar": "🪐", python: "🐍", php: "🐘", html: "🌐", "bases-numericas": "💾", cronometro: "⏱️",
-  redacao: "✍️", silabario: "🔤", dicionario: "📖", pronuncia: "🗣️", frases: "💬", afinador: "🎸", metronomo: "🥁", teclado: "🎹", "leitura-de-notas": "🎼",
-  cores: "🎨", "escala-cartografica": "🗺️", "fusos-horarios": "🌍", "juros-compostos": "💰", "mais-valia": "🏭", rcp: "❤️‍🩹", "frequencia-cardiaca": "💓",
-  ide: "💻", simulacoes: "🔬", "fisica-simulada": "🎯", reacoes: "💥",
-  "algoritmos": "🔢", "criptografia": "🔐", "grafos": "🕸️", "sudoku": "🧩", "referencias-abnt": "📚", "palavras-geradoras": "🧱", "solidos": "🧊", "contas-do-dia-a-dia": "🧾", "tons-do-mandarim": "🎵", "alfabetos": "🔠", "ceu": "🌙", "calculadoras-de-eletronica": "🔌", "direitos-trabalhistas": "⚖️", "dicionario-chines": "📕", "escrita-chinesa": "🖌️", "corretor-ortografico": "📝",
+  resolvedor: "abaco", calculadora: "calculadora", graficos: "grafico", estatistica: "barras", "conversor-de-unidades": "regua", "tabela-verdade": "check", "tabela-periodica": "frasco",
+  "massa-molar": "balanca", balanceamento: "tubo", punnett: "dna", "sistema-solar": "planeta", python: "py", php: "php", html: "tags", "bases-numericas": "binario", cronometro: "cronometro",
+  redacao: "caneta", silabario: "silabas", dicionario: "livro", pronuncia: "boca", frases: "balao", afinador: "diapasao", metronomo: "metronomo", teclado: "teclado", "leitura-de-notas": "nota",
+  cores: "paleta", "escala-cartografica": "mapa", "fusos-horarios": "fuso", "juros-compostos": "moedas", "mais-valia": "fabrica", rcp: "coracao", "frequencia-cardiaca": "pulso",
+  ide: "terminal", simulacoes: "microscopio", "fisica-simulada": "alvo", reacoes: "reacao",
+  algoritmos: "fluxo", criptografia: "cadeado", grafos: "grafo", sudoku: "quebracabeca", "referencias-abnt": "livros", "palavras-geradoras": "tijolos", solidos: "cubo", "contas-do-dia-a-dia": "recibo", "tons-do-mandarim": "onda", alfabetos: "letras", ceu: "lua", "calculadoras-de-eletronica": "tomada", "direitos-trabalhistas": "balanca", "dicionario-chines": "hanzi", "escrita-chinesa": "pincel", "corretor-ortografico": "lapis",
 };
 
 export interface ItemDaVitrine {

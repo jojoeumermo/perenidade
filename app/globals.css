@@ -2550,3 +2550,29 @@ main#conteudo:not(:has(.painel)) :is(input, textarea, select)[class~="border-2"]
     display: none;
   }
 }
+
+/* Papel impresso não tem canto arredondado: cartões, quadros e pílulas de texto do site público ficam retos.
+   Círculos de verdade (foto, botão de tocar, ponto de aviso) continuam redondos: não têm espaçamento lateral. */
+main#conteudo:not(:has(.painel)) :is(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl),
+main#conteudo:not(:has(.painel)) :is(a, button, span, label, input, select, p, li, div)[class~="rounded-full"]:is([class*="px-"], [class*="pl-"]) {
+  border-radius: 0;
+}
+
+/* ───── A folha de escrever do painel ─────
+   Os voluntários pediram espaço: a caixa de texto começa alta e cresce com a tela; no modo foco o menu some, a
+   página inteira vira a folha (até 96rem de largura) e a caixa ocupa quase a altura toda da janela. */
+#painel-corpo {
+  min-height: 26rem;
+  resize: vertical;
+  line-height: 1.65;
+}
+html[data-escrita-foco="1"] .painel-conteudo {
+  max-width: none !important;
+}
+html[data-escrita-foco="1"] #painel-corpo {
+  min-height: calc(100dvh - 16rem);
+  font-size: 1.05rem;
+}
+html[data-escrita-foco="1"] .painel-cabeca {
+  display: none;
+}

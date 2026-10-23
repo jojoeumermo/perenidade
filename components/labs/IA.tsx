@@ -9,13 +9,13 @@ import { Bancada, Modulos } from "./kit";
 
 type Modulo = "rede" | "vizinhos" | "kmedias" | "sobreajuste" | "palavra" | "vies" | "python";
 const MODULOS: { id: Modulo; nome: string; icone: string; resumo: string }[] = [
-  { id: "rede", nome: "Playground de rede neural", icone: "🧠", resumo: "Camadas, ativação e fronteira de decisão" },
-  { id: "vizinhos", nome: "k vizinhos", icone: "📍", resumo: "Classificar pelo que está perto" },
-  { id: "kmedias", nome: "Agrupamento", icone: "🫧", resumo: "Achar grupos sem respostas" },
-  { id: "sobreajuste", nome: "Ajuste demais", icone: "〰️", resumo: "Aprender ou decorar?" },
-  { id: "palavra", nome: "A próxima palavra", icone: "💬", resumo: "Um modelo de linguagem em miniatura" },
-  { id: "vies", nome: "Viés em algoritmos", icone: "⚖️", resumo: "Quando o dado carrega preconceito" },
-  { id: "python", nome: "Caderno de Python", icone: "🐍", resumo: "Os mesmos modelos em código" },
+  { id: "rede", nome: "Playground de rede neural", icone: "rede-neural", resumo: "Camadas, ativação e fronteira de decisão" },
+  { id: "vizinhos", nome: "k vizinhos", icone: "vizinhos", resumo: "Classificar pelo que está perto" },
+  { id: "kmedias", nome: "Agrupamento", icone: "agrupamento", resumo: "Achar grupos sem respostas" },
+  { id: "sobreajuste", nome: "Ajuste demais", icone: "sobreajuste", resumo: "Aprender ou decorar?" },
+  { id: "palavra", nome: "A próxima palavra", icone: "proxima-palavra", resumo: "Um modelo de linguagem em miniatura" },
+  { id: "vies", nome: "Viés em algoritmos", icone: "vies", resumo: "Quando o dado carrega preconceito" },
+  { id: "python", nome: "Caderno de Python", icone: "caderno-python", resumo: "Os mesmos modelos em código" },
 ];
 
 const EXEMPLOS = [

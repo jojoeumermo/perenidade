@@ -9,6 +9,7 @@ import { Interativo } from "./blocos/Interativo";
 import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
 import { PendingImage } from "./LessonMedia";
 import { Markdown } from "./Markdown";
+import { Selo } from "./Selo";
 
 /**
  * Editor por blocos: o mesmo texto em Markdown, mostrado como uma pilha de blocos (parágrafo, título, lista, imagem,
@@ -61,6 +62,44 @@ const MODELOS: Record<Tipo, string> = {
 /** Os tipos que são só texto: dá para trocar um pelo outro sem perder o conteúdo. */
 const DE_TEXTO: Tipo[] = ["paragrafo", "titulo", "subtitulo", "lista", "numerada", "citacao"];
 const NO_MENU: Tipo[] = ["paragrafo", "titulo", "subtitulo", "lista", "numerada", "citacao", "imagem", "video", "formula", "conta", "questao", "codigo", "anexo", "tabela"];
+
+/** O menu "＋ bloco" por objetivo: o que a pessoa quer fazer na aula, não o nome técnico do bloco. */
+const GRUPOS_DO_MENU = ["Escrever", "Imagem, som e tempo", "Contas e ciência", "Conferir o que aprendeu", "Jogos", "Línguas e música", "Ferramentas"] as const;
+type GrupoDoMenu = (typeof GRUPOS_DO_MENU)[number];
+interface OpcaoDeBloco {
+  chave: string;
+  nome: string;
+  sobre: string;
+  selo: string;
+  grupo: GrupoDoMenu;
+  inserir: (i: number) => void;
+}
+const BLOCOS_RECENTES = "lucia:blocos-recentes";
+const SOBRE: Partial<Record<Tipo, string>> = {
+  paragrafo: "Texto corrido.",
+  titulo: "Abre uma parte nova da aula.",
+  subtitulo: "Divide uma parte em pedaços.",
+  lista: "Itens com marcador.",
+  numerada: "Passos em ordem.",
+  citacao: "Um trecho de alguém, com destaque.",
+  imagem: "Foto, mapa ou desenho, com legenda e fonte.",
+  video: "Um vídeo do YouTube ou de outro site.",
+  formula: "Uma fórmula escrita como no caderno.",
+  conta: "Uma conta resolvida linha por linha.",
+  questao: "Uma pergunta com resposta e dica.",
+  codigo: "Um trecho de programa.",
+  anexo: "Um PDF para baixar.",
+  tabela: "Linhas e colunas.",
+};
+const SELO_DO_TIPO: Partial<Record<Tipo, string>> = {
+  paragrafo: "paragrafo", titulo: "titulo", subtitulo: "titulo", lista: "lista", numerada: "numerada", citacao: "aspas", imagem: "imagem", video: "video",
+  formula: "formula", conta: "abaco", questao: "pergunta", codigo: "tags", anexo: "clipe", tabela: "tabela",
+};
+const GRUPO_DO_TIPO: Partial<Record<Tipo, GrupoDoMenu>> = {
+  paragrafo: "Escrever", titulo: "Escrever", subtitulo: "Escrever", lista: "Escrever", numerada: "Escrever", citacao: "Escrever", tabela: "Escrever",
+  imagem: "Imagem, som e tempo", video: "Imagem, som e tempo", anexo: "Imagem, som e tempo",
+  formula: "Contas e ciência", conta: "Contas e ciência", codigo: "Contas e ciência", questao: "Conferir o que aprendeu",
+};
 const LINGUAGENS = ["python", "php", "javascript", "html", "css", "sql", "bash", "texto"];
 
 /** O nome que aparece no alto do bloco: o dos interativos vem da lista deles ("Gráfico de função", "Forca"…). */
@@ -184,37 +223,81 @@ export function EditorPorBlocos({ value, onChange, upload = false }: { value: st
     }
   }
 
+  // Os blocos lembrados por último ficam no alto do menu (só neste aparelho).
+  const [recentes, setRecentes] = useState<string[]>(() => {
+    try {
+      const lido = JSON.parse(localStorage.getItem(BLOCOS_RECENTES) ?? "[]");
+      return Array.isArray(lido) ? lido.filter((x): x is string => typeof x === "string").slice(0, 6) : [];
+    } catch {
+      return [];
+    }
+  });
+  const lembrar = (chave: string) => {
+    const lista = [chave, ...recentes.filter((x) => x !== chave)].slice(0, 6);
+    setRecentes(lista);
+    try {
+      localStorage.setItem(BLOCOS_RECENTES, JSON.stringify(lista));
+    } catch {
+      // sem armazenamento, sem lembrança
+    }
+  };
+  const opcoes: OpcaoDeBloco[] = [
+    ...NO_MENU.filter((t) => upload || t !== "anexo").map((t): OpcaoDeBloco => ({ chave: t, nome: NOMES[t], sobre: SOBRE[t], selo: SELO_DO_TIPO[t], grupo: GRUPO_DO_TIPO[t], inserir: (i) => inserir(i, t) })),
+    ...INTERATIVOS.map((k): OpcaoDeBloco => ({ chave: k, nome: MODELOS_INTERATIVOS[k].nome, sobre: MODELOS_INTERATIVOS[k].ajuda.split(/(?<=\.)\s/)[0], selo: VITRINE[k][0], grupo: VITRINE[k][1], inserir: (i) => inserir(i, "interativo", ["```" + k, MODELOS_INTERATIVOS[k].modelo, "```"].join("\n")) })),
+  ];
+  const achadas = opcoes.filter((o) => casa(`${o.nome} ${o.sobre} ${o.grupo}`));
+  const botaoDeBloco = (o: OpcaoDeBloco, i: number) => (
+    <button
+      key={o.chave}
+      type="button"
+      role="menuitem"
+      title={o.sobre}
+      onClick={() => {
+        lembrar(o.chave);
+        o.inserir(i);
+      }}
+      className="group flex min-w-0 cursor-pointer items-start gap-2.5 border-2 border-transparent px-2 py-2 text-left hover:border-ink hover:bg-folha"
+    >
+      <span className="selo h-9 w-9 group-hover:border-[#c21f16]">
+        <Selo nome={o.selo} className="h-6 w-6" />
+      </span>
+      <span className="min-w-0">
+        <span className="block text-[0.82rem] font-bold leading-tight text-ink">{o.nome}</span>
+        <span className="mt-0.5 block line-clamp-2 text-[0.72rem] leading-snug text-ink-soft">{o.sobre}</span>
+      </span>
+    </button>
+  );
+
   const menuDeInsercao = (i: number) => (
     <div className="relative my-1 flex justify-center">
-      <button type="button" onClick={() => { setMenu(menu === i ? null : i); setBusca(""); }} aria-expanded={menu === i} className="cursor-pointer border border-dashed border-rule px-3 py-0.5 font-sans text-xs text-ink-soft hover:border-oxblood hover:text-oxblood">
+      <button type="button" onClick={() => { setMenu(menu === i ? null : i); setBusca(""); }} aria-expanded={menu === i} className="cursor-pointer border-2 border-dashed border-rule px-3 py-0.5 font-sans text-xs font-semibold text-ink-soft hover:border-[#c21f16] hover:text-prelo-texto">
         ＋ bloco
       </button>
       {menu === i && (
-        <div role="menu" className="absolute top-7 z-20 max-h-[28rem] w-[26rem] max-w-[90vw] overflow-y-auto border-2 border-ink bg-parchment p-2 font-sans text-xs shadow-lg">
-          <input autoFocus value={busca} onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => { if (e.key === "Escape") setMenu(null); }} placeholder="Procurar bloco…" aria-label="Procurar bloco" className="mb-2 w-full border border-rule bg-parchment-deep px-2 py-1" />
-          <div className="grid grid-cols-2 gap-1">
-            {NO_MENU.filter((t) => (upload || t !== "anexo") && casa(NOMES[t])).map((t) => (
-              <button key={t} type="button" role="menuitem" onClick={() => inserir(i, t)} className="cursor-pointer border border-rule px-2 py-1 text-left hover:border-oxblood">
-                {NOMES[t]}
-              </button>
-            ))}
+        <div role="menu" className="absolute top-8 z-20 max-h-[32rem] w-[44rem] max-w-[92vw] overflow-y-auto border-2 border-ink bg-parchment font-sans text-xs shadow-[6px_6px_0_var(--prelo)]">
+          <div className="sticky top-0 z-10 border-b-2 border-ink bg-parchment p-2.5">
+            <input autoFocus value={busca} onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => { if (e.key === "Escape") setMenu(null); }} placeholder="Procurar bloco: teste, mapa, fórmula, forca…" aria-label="Procurar bloco" className="w-full border-2 border-ink bg-folha px-3 py-2 text-sm" />
           </div>
-          {(["Jogos", "Testes", "Línguas", "Ciência e matemática", "Outros"] as const).map((gaveta) => {
-            const itens = INTERATIVOS.filter((k) => VITRINE[k][1] === gaveta && casa(MODELOS_INTERATIVOS[k].nome));
-            return itens.length ? (
-              <div key={gaveta}>
-                <p className="mt-3 font-mono uppercase tracking-wider text-oxblood">{gaveta}</p>
-                <div className="mt-1 grid grid-cols-2 gap-1">
-                  {itens.map((k) => (
-                    <button key={k} type="button" role="menuitem" onClick={() => inserir(i, "interativo", ["```" + k, MODELOS_INTERATIVOS[k].modelo, "```"].join("\n"))} className="flex cursor-pointer items-center gap-2 border-2 border-ink/15 bg-parchment-deep px-2 py-2 text-left text-sm font-semibold hover:border-oxblood">
-                      <span className="text-xl" aria-hidden>{VITRINE[k][0]}</span>
-                      {MODELOS_INTERATIVOS[k].nome}
-                    </button>
-                  ))}
+          <div className="p-2.5">
+            {!busca && recentes.length > 0 && (
+              <div className="mb-3">
+                <p className="mb-1 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-prelo-texto">Usados por último</p>
+                <div className="grid grid-cols-2 gap-1 sm:grid-cols-3">
+                  {recentes.map((chave) => opcoes.find((o) => o.chave === chave)).filter((o): o is OpcaoDeBloco => Boolean(o)).map((o) => botaoDeBloco(o, i))}
                 </div>
               </div>
-            ) : null;
-          })}
+            )}
+            {achadas.length === 0 && <p className="p-3 text-sm text-ink-soft">Nenhum bloco com esse nome.</p>}
+            {GRUPOS_DO_MENU.map((grupo) => {
+              const daqui = achadas.filter((o) => o.grupo === grupo);
+              return daqui.length ? (
+                <div key={grupo} className="mb-3">
+                  <p className="mb-1 inline-block bg-ink px-2 py-0.5 font-mono text-[0.66rem] uppercase tracking-[0.16em] text-parchment">{grupo}</p>
+                  <div className="grid grid-cols-2 gap-1 sm:grid-cols-3">{daqui.map((o) => botaoDeBloco(o, i))}</div>
+                </div>
+              ) : null;
+            })}
+          </div>
         </div>
       )}
     </div>
