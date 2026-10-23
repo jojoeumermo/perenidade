@@ -43,7 +43,7 @@ export async function GET(_request: Request, { params }: RouteContext<"/[lang]/i
     entries.push({ kind: "autor", title: author.name, href: `/autores#${author.slug}`, area: "", context: author.years, text: author.bio });
   }
   for (const tribute of getTributes(lang)) {
-    entries.push({ kind: "memorial", title: tribute.name, href: `/memorial#${tribute.slug}`, area: "", context: `${tribute.born} – ${tribute.died}`, text: tribute.body });
+    entries.push({ kind: "memorial", title: tribute.name, href: `/memorial#${tribute.slug}`, area: "", context: tribute.born === "—" ? tribute.died : `${tribute.born} – ${tribute.died}`, text: tribute.body });
   }
   for (const term of getGlossaryIndex(lang)) {
     entries.push({ kind: "verbete", title: term.term, href: `/glossario#${term.slug}`, area: "", context: "", text: `${term.summary} ${plainText(term.body)}` });
