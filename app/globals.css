@@ -2576,3 +2576,87 @@ html[data-escrita-foco="1"] #painel-corpo {
 html[data-escrita-foco="1"] .painel-cabeca {
   display: none;
 }
+
+/* ───── Painel no desenho do Caderno do Povo ─────
+   O menu completo é a régua escura com a tarja vermelha na seção aberta. Recolhido, vira o trilho minimalista: só os
+   ícones, em quadrados de contorno, a seção aberta em vermelho cheio com a sombra dura e o número no canto. */
+.painel-lado {
+  background: #17130e;
+}
+.painel-item {
+  font-size: 0.9rem;
+  border-left-width: 4px;
+}
+.painel-item-ativo {
+  background: #2a231a;
+  border-left-color: #c21f16;
+  box-shadow: inset 0 0 0 1px #3a3226;
+}
+@media (min-width: 64rem) {
+  .painel-compacto nav {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .painel-compacto .painel-item,
+  .painel-compacto .painel-item:hover {
+    width: 2.9rem;
+    height: 2.9rem;
+    margin: 0.35rem auto;
+    justify-content: center;
+    border: 2px solid #3a3226;
+    padding: 0;
+    gap: 0;
+  }
+  .painel-compacto .painel-item:hover {
+    border-color: #d4a24c;
+    background: #221c15;
+  }
+  .painel-compacto .painel-item-ativo,
+  .painel-compacto .painel-item-ativo:hover {
+    border-color: #c21f16;
+    background: #c21f16;
+    box-shadow: 3px 3px 0 #000;
+  }
+  .painel-compacto .painel-item-ativo svg {
+    color: #fff;
+  }
+  .painel-compacto .painel-item svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  .painel-compacto .painel-conta {
+    position: absolute;
+    top: -0.45rem;
+    right: -0.45rem;
+    min-width: 1.15rem;
+    border: 2px solid #17130e;
+    padding: 0.05rem 0.25rem;
+    font-size: 0.6rem;
+  }
+}
+/* O miolo do painel no papel pontilhado; cartões e quadros com contorno de tinta e sombra dura. */
+.painel > div:last-child {
+  background-color: var(--parchment);
+}
+.painel-cartao {
+  background: var(--folha);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--sombra);
+}
+.painel-quadro {
+  background: var(--folha);
+  border: 2px solid var(--ink);
+  border-top: 5px solid var(--prelo);
+}
+.painel-quadro:hover {
+  box-shadow: 5px 5px 0 var(--sombra);
+}
+.painel-conteudo :is(section, div, article, li, form, details)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
+  background-color: var(--folha);
+}
+.painel-conteudo :is(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl) {
+  border-radius: 0;
+}
+:root:is([data-contrast], [data-eink]) .painel-compacto .painel-item-ativo {
+  box-shadow: none;
+}
