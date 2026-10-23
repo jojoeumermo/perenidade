@@ -9,59 +9,59 @@ import { hasBackend, rpc, useMe } from "@/lib/backend";
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
 import { useI18n } from "./I18n";
 
+/** Abre a janela do "Mais" (components/MaisGaveta.tsx), que mora uma vez só no layout. */
+export const ABRIR_MAIS = "lucia:abrir-mais";
+export const abrirMais = () => window.dispatchEvent(new Event(ABRIR_MAIS));
+
 export function NavLinks() {
   const pathname = usePathname();
   const { lang, t } = useI18n();
   const novo = useEpisodioNovo();
   // No menu só o que se usa todo dia, mais a Dedicatória (de onde vem o nome). Memorial e o resto continuam em "Mais".
-  const links: [string, string, string][] = [
-    [t.nav.disciplines, "/trilhas", ""],
-    [t.nav.library, "/acervo", ""],
-    [t.nav.journal, "/jornal", ""],
-    [t.nav.podcasts, "/podcasts", ""],
-    [t.nav.community, "/comunidade", ""],
-    [t.nav.health, "/saude", ""],
-    [t.nav.dedication, "/dedicatoria", ""],
-    [t.nav.more, "/explorar", ""],
+  const links: [string, string][] = [
+    [t.nav.disciplines, "/trilhas"],
+    [t.nav.library, "/acervo"],
+    [t.nav.journal, "/jornal"],
+    [t.nav.podcasts, "/podcasts"],
+    [t.nav.community, "/comunidade"],
+    [t.nav.health, "/saude"],
+    [t.nav.dedication, "/dedicatoria"],
   ];
-  const link = (label: React.ReactNode, path: string, name?: string, show = "") => {
-    const href = localePath(lang, path);
-    const active = pathname === href || pathname.startsWith(`${href}/`);
-    return (
-      <Link
-        key={path}
-        href={href}
-        aria-current={active ? "page" : undefined}
-        aria-label={name}
-        className={`whitespace-nowrap py-2 hover:text-oxblood ${show} ${active ? "text-oxblood underline decoration-gold underline-offset-8" : ""}`}
-      >
-        {label}
-        {path === "/podcasts" && novo && (
-          <>
-            <span aria-hidden className="ml-1 inline-block h-2 w-2 -translate-y-1.5 rounded-full bg-[#c21f16]" />
-            <span className="sr-only"> · {t.radio.newEpisode}</span>
-          </>
-        )}
-      </Link>
-    );
-  };
+  const item = "item-do-menu whitespace-nowrap border-b-4 py-2.5";
   return (
     <>
-      {links.map(([label, path, show]) => link(label, path, undefined, show))}
-      {/* Contribuir é a porta de entrada de quem quer ajudar: um contorno discreto a separa do resto. */}
-      {link(<span className="border border-oxblood px-2.5 py-1 text-oxblood">{t.nav.contribute}</span>, "/contribuir")}
-      {/* O único destaque do menu: as letras de "Apoie" mudam de cor, uma depois da outra. */}
-      {link(
-        <span className="apoie font-semibold">
-          {[...t.nav.support].map((letter, i) => (
-            <span key={i} aria-hidden style={{ animationDelay: `${i * -0.35}s` }}>
-              {letter}
-            </span>
-          ))}
-        </span>,
-        "/apoie",
-        t.nav.support,
-      )}
+      {links.map(([label, path]) => {
+        const href = localePath(lang, path);
+        const active = pathname === href || pathname.startsWith(`${href}/`) || (path === "/trilhas" && pathname.includes("/estantes/"));
+        return (
+          <Link key={path} href={href} aria-current={active ? "page" : undefined} className={`${item} ${active ? "border-[#c21f16] font-bold" : "border-transparent hover:border-[#c21f16]"}`}>
+            {label}
+            {path === "/podcasts" && novo && (
+              <>
+                <span aria-hidden className="ml-1 inline-block h-2 w-2 -translate-y-1.5 rounded-full bg-[#c21f16]" />
+                <span className="sr-only"> · {t.radio.newEpisode}</span>
+              </>
+            )}
+          </Link>
+        );
+      })}
+      {/* "Mais" abre a janela flutuante com o resto do site; sem JavaScript, o link leva à página /explorar. */}
+      <Link
+        href={localePath(lang, "/explorar")}
+        aria-haspopup="dialog"
+        aria-current={pathname === localePath(lang, "/explorar") ? "page" : undefined}
+        onClick={(e) => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+          e.preventDefault();
+          abrirMais();
+        }}
+        className={`${item} inline-flex items-center gap-1.5 border-transparent hover:border-[#c21f16]`}
+      >
+        {t.nav.more}
+        <svg aria-hidden viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M2.5 4.5 6 8l3.5-3.5" />
+        </svg>
+      </Link>
     </>
   );
 }

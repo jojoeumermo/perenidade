@@ -11,6 +11,14 @@
   --rule: #cdbb91;
   --ok: #2f5d34;
   --apoie-luz: 38%;
+  /* Caderno do Povo: a folha dos cartões, a sombra dura dos cartazes, o vermelho do prelo como texto
+     e as linhas do papel pontilhado e do pautado. */
+  --folha: #fbf6e8;
+  --sombra: #1f1a14;
+  --prelo-texto: #c21f16;
+  --pontos: #cdbb91;
+  --linha-pauta: #e3d3aa;
+  --margem-pauta: #e0837a;
   /* Altura da barra de botões do aparelho que as abas de baixo precisam pular. No navegador é sempre zero:
      o DuckDuckGo do Android informa a altura das barras do sistema mesmo sem "viewport-fit=cover", e o
      env() deixava um vão embaixo das abas (e outro no topo). Só o aplicativo, que vai de borda a borda, usa o valor real. */
@@ -32,6 +40,12 @@
     --rule: #3a3020;
     --ok: #8fc796;
     --apoie-luz: 68%;
+    --folha: #241d14;
+    --sombra: #000;
+    --prelo-texto: #e0837a;
+    --pontos: #3a3020;
+    --linha-pauta: #31291c;
+    --margem-pauta: #7d3029;
   }
 }
 
@@ -45,6 +59,12 @@
   --rule: #3a3020;
   --ok: #8fc796;
   --apoie-luz: 68%;
+  --folha: #241d14;
+  --sombra: #000;
+  --prelo-texto: #e0837a;
+  --pontos: #3a3020;
+  --linha-pauta: #31291c;
+  --margem-pauta: #7d3029;
 }
 
 /* "app:" vale só quando o site roda como aplicativo (PWA instalado ou WebView do Android): veja isApp em lib/prefs.ts. */
@@ -59,6 +79,10 @@
   --color-oxblood: var(--oxblood);
   --color-rule: var(--rule);
   --color-ok: var(--ok);
+  --color-folha: var(--folha);
+  --color-prelo: var(--prelo);
+  --color-prelo-texto: var(--prelo-texto);
+  --color-sombra: var(--sombra);
   --color-s-trilho: var(--s-trilho);
   --color-s-lado: var(--s-lado);
   --color-s-chat: var(--s-chat);
@@ -242,6 +266,27 @@ body {
 :root:is([data-contrast], [data-eink], [data-leitor]) .aba-ativa {
   background: var(--ink) !important;
 }
+/* As abas pretas do celular viram papel com contorno; a aba aberta fica em tinta cheia. */
+:root:is([data-contrast], [data-eink], [data-leitor]) .abas-do-celular {
+  background: var(--parchment) !important;
+  border-color: var(--ink) !important;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .abas-do-celular a {
+  color: var(--ink) !important;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .abas-do-celular .aba-aberta {
+  background: var(--ink) !important;
+  color: var(--parchment) !important;
+}
+@media (monochrome), (update: slow) {
+  .abas-do-celular {
+    background: var(--parchment);
+    border-color: var(--ink);
+  }
+  .abas-do-celular a {
+    color: var(--ink);
+  }
+}
 /* No leitor de tinta as abas viram uma linha de botões; a aba aberta já vem marcada em preto. */
 :root[data-leitor] .aba-ativa {
   display: none !important;
@@ -253,10 +298,329 @@ body {
 }
 
 .paper {
-  background-image: radial-gradient(color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1px);
-  background-size: 22px 22px;
+  background-image: radial-gradient(circle, color-mix(in srgb, var(--pontos) 70%, transparent) 1.1px, transparent 1.4px);
+  background-size: 20px 20px;
 }
 
+/* ───── Caderno do Povo: as peças que repetem em todo o site ─────
+   Papel pontilhado nas áreas de escolha, pautado na leitura, cartões com contorno de tinta e sombra dura
+   (preta ou vermelha), botões que sobem ao passar o mouse e afundam ao clicar, como um carimbo.
+   Ficam na camada de componentes: uma classe utilitária ao lado (p-6, mt-4…) sempre ganha. */
+@layer components {
+  .pont {
+    background-color: var(--parchment);
+    background-image: radial-gradient(circle, var(--pontos) 1.1px, transparent 1.4px);
+    background-size: 20px 20px;
+  }
+  .pauta {
+    background-color: var(--folha);
+    background-image:
+      linear-gradient(90deg, transparent 70px, var(--margem-pauta) 70px, var(--margem-pauta) 72px, transparent 72px),
+      repeating-linear-gradient(var(--folha) 0 35px, var(--linha-pauta) 35px 36px);
+  }
+  .cartao {
+    border: 2px solid var(--ink);
+    background-color: var(--folha);
+    box-shadow: 6px 6px 0 var(--sombra);
+  }
+  .cartao-v {
+    border: 2px solid var(--ink);
+    background-color: var(--folha);
+    box-shadow: 6px 6px 0 var(--prelo);
+  }
+  /* Cartão preto dos cartazes: as cores são as mesmas nos dois temas. */
+  .cartao-preto {
+    border: 2px solid #1f1a14;
+    background-color: #1f1a14;
+    color: #f4ecd8;
+    box-shadow: 6px 6px 0 var(--prelo);
+  }
+  .cartao-vermelho {
+    border: 2px solid #1f1a14;
+    background-color: var(--prelo);
+    color: #fff;
+    box-shadow: 6px 6px 0 #1f1a14;
+  }
+  .sombra {
+    box-shadow: 6px 6px 0 var(--sombra);
+  }
+  .sombra-v {
+    box-shadow: 6px 6px 0 var(--prelo);
+  }
+  .sombra-p {
+    box-shadow: 4px 4px 0 var(--sombra);
+  }
+  .sombra-pv {
+    box-shadow: 4px 4px 0 var(--prelo);
+  }
+  /* Cartão que é link: sobe um pouco ao passar o mouse e afunda ao clicar. */
+  .sobe {
+    transition: transform 0.14s ease, box-shadow 0.14s ease;
+  }
+  .sobe:hover {
+    transform: translate(-3px, -3px);
+  }
+  .sobe:active {
+    transform: translate(2px, 2px);
+  }
+
+  .botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 2px solid var(--ink);
+    padding: 0.7rem 1.15rem;
+    font-family: var(--font-ui), system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--sombra);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s;
+  }
+  .botao:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--sombra);
+  }
+  .botao:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0 0 0 var(--sombra);
+  }
+  .botao:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
+  }
+  .botao-prelo {
+    background-color: var(--prelo);
+    color: #fff;
+  }
+  .botao-prelo:hover {
+    color: #fff;
+  }
+  .botao-tinta {
+    background-color: var(--ink);
+    color: var(--parchment);
+    box-shadow: 4px 4px 0 var(--prelo);
+  }
+  .botao-tinta:hover {
+    color: var(--parchment);
+    box-shadow: 6px 6px 0 var(--prelo);
+  }
+  .botao-tinta:active {
+    box-shadow: 0 0 0 var(--prelo);
+  }
+  .botao-papel {
+    background-color: var(--parchment);
+    color: var(--ink);
+  }
+  .botao-papel:hover {
+    color: var(--ink);
+  }
+  .botao-menor {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.85rem;
+    box-shadow: 3px 3px 0 var(--sombra);
+  }
+  .botao-menor.botao-tinta {
+    box-shadow: 3px 3px 0 var(--prelo);
+  }
+
+  /* Rótulo de arquivo: letra de máquina, espaçada, no vermelho do prelo. */
+  .rotulo {
+    font-family: var(--font-archive), ui-monospace, monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--prelo-texto);
+  }
+  /* Tarja de seção: a etiqueta preta (ou vermelha) e o fio até o fim da linha. */
+  .tarja {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+  .tarja::after {
+    content: "";
+    flex: 1;
+    border-top: 2px solid var(--ink);
+  }
+  .tarja-nome {
+    background-color: var(--ink);
+    color: var(--parchment);
+    padding: 0.4rem 0.75rem;
+    font-family: var(--font-archive), ui-monospace, monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .tarja-v::after {
+    border-color: var(--prelo);
+  }
+  .tarja-v .tarja-nome {
+    background-color: var(--prelo);
+    color: #fff;
+  }
+  .tarja-conta {
+    order: 3;
+    font-family: var(--font-archive), ui-monospace, monospace;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+  }
+  /* O grito do lambe-lambe. */
+  .lambe {
+    font-family: var(--font-ui), system-ui, sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.92;
+  }
+  /* Carimbo redondo, torto, no vermelho do prelo. */
+  .carimbo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--prelo-texto);
+    border-radius: 9999px;
+    color: var(--prelo-texto);
+    text-align: center;
+    font-family: var(--font-archive), ui-monospace, monospace;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+  .carimbo-reto {
+    display: inline-block;
+    border: 3px solid currentColor;
+    padding: 0.35rem 0.7rem;
+    font-family: var(--font-archive), ui-monospace, monospace;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  /* O caderno das estantes: capa colorida, espiral à esquerda e a etiqueta pautada com o nome. */
+  .caderno {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #1f1a14;
+    color: #f4ecd8;
+    text-decoration: none;
+    box-shadow: 6px 6px 0 var(--sombra);
+    transition: transform 0.15s ease;
+  }
+  .caderno::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 18px;
+    bottom: 18px;
+    width: 8px;
+    background-image: radial-gradient(circle, #f4ecd8 3px, transparent 3.5px);
+    background-size: 8px 22px;
+  }
+  .caderno:hover {
+    transform: translate(-3px, -3px) rotate(-0.6deg);
+    color: #f4ecd8;
+  }
+  .caderno-v {
+    box-shadow: 6px 6px 0 var(--prelo);
+  }
+  .etiqueta {
+    border: 1.5px solid #1f1a14;
+    background-color: #fbf6e8;
+    background-image: repeating-linear-gradient(#fbf6e8 0 21px, #e6d6b0 21px 22px);
+    color: #1f1a14;
+  }
+  /* Abas de pasta de arquivo (filtros das estantes, editorias). */
+  .aba-pasta {
+    border: 2px solid var(--ink);
+    border-bottom: 0;
+    background-color: var(--parchment-deep);
+    color: var(--ink);
+    padding: 0.6rem 1rem 0.7rem;
+    font-family: var(--font-archive), ui-monospace, monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .aba-pasta[aria-pressed="true"],
+  .aba-pasta[aria-current="page"] {
+    background-color: var(--prelo);
+    color: #fff;
+  }
+  /* Chip de sugestão ("Experimente"). */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1.5px solid var(--ink);
+    background-color: var(--folha);
+    color: var(--ink);
+    padding: 0.35rem 0.75rem;
+    font-family: var(--font-ui), system-ui, sans-serif;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: box-shadow 0.12s, transform 0.12s;
+  }
+  .chip:hover {
+    color: var(--ink);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--prelo);
+  }
+  /* Fio grosso entre as faixas de uma página. */
+  .faixa-fio {
+    border-top: 3px solid var(--ink);
+  }
+  /* Selo desenhado (no lugar de emoji): um quadrado com contorno e o desenho em traço. */
+  .selo {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 2px solid var(--ink);
+    background-color: var(--parchment);
+    color: var(--ink);
+  }
+  .selo-prelo {
+    border-color: #1f1a14;
+    background-color: var(--prelo);
+    color: #fff;
+  }
+}
+
+/* Alto contraste, tinta eletrônica e leitor: sem sombra, sem cor chapada, só contorno. */
+:root:is([data-contrast], [data-eink], [data-leitor]) :is(.cartao, .cartao-v, .cartao-preto, .cartao-vermelho, .caderno, .sombra, .sombra-v, .sombra-p, .sombra-pv, .botao) {
+  box-shadow: none !important;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) :is(.cartao-preto, .cartao-vermelho, .caderno) {
+  border-color: var(--ink) !important;
+  background: var(--parchment) !important;
+  color: var(--ink) !important;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .caderno::before {
+  display: none;
+}
+:root:is([data-light], [data-eink], [data-contrast]) :is(.pont, .pauta) {
+  background-image: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sobe:hover,
+  .botao:hover,
+  .caderno:hover,
+  .chip:hover {
+    transform: none;
+  }
+}
 :focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
@@ -907,6 +1271,12 @@ body {
   --oxblood: #ffe600;
   --rule: #fff;
   --ok: #7dff7d;
+  --folha: #000;
+  --sombra: #ffe600;
+  --prelo-texto: #ffe600;
+  --pontos: transparent;
+  --linha-pauta: #333;
+  --margem-pauta: #ffe600;
 }
 :root[data-contrast] .paper {
   background-image: none;
@@ -929,6 +1299,12 @@ body {
   --oxblood: #000;
   --rule: #000;
   --ok: #000;
+  --folha: #f2f2f2;
+  --sombra: #000;
+  --prelo-texto: #000;
+  --pontos: transparent;
+  --linha-pauta: #bbb;
+  --margem-pauta: #000;
 }
 :root[data-eink] .paper {
   background-image: none;
@@ -952,6 +1328,7 @@ body {
     --ink: #f2ead6;
     --ink-soft: #c9bd9e;
     --rule: #3d3d3d;
+    --folha: #0c0c0c;
   }
   :root[data-black]:not([data-theme="light"]) .paper {
     background-image: none;
@@ -963,6 +1340,7 @@ body {
   --ink: #f2ead6;
   --ink-soft: #c9bd9e;
   --rule: #3d3d3d;
+  --folha: #0c0c0c;
 }
 :root[data-black][data-theme="dark"] .paper {
   background-image: none;
@@ -2052,4 +2430,62 @@ html[data-escrita-foco="1"] .painel {
 /* Mural da equipe: a faixa da comunidade ganha um tracejado discreto, como o cabeçalho de um fórum. */
 .mural-faixa {
   background-image: repeating-linear-gradient(135deg, color-mix(in srgb, var(--parchment) 14%, transparent) 0 2px, transparent 2px 14px);
+}
+
+/* ───── O desenho novo nas páginas que ainda usam as classes antigas ─────
+   Cartões de fio fino ganham o contorno de tinta e a sombra dura; botões escuros e bordô ganham a sombra do
+   carimbo; títulos de seção, o fio de tinta. Só no site público: o painel tem o desenho dele. */
+main#conteudo:not(:has(.painel)) :is(a, div, section, article, li, details, form, aside, blockquote, figure)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
+  border: 2px solid var(--ink);
+  background-color: var(--folha);
+  box-shadow: 5px 5px 0 var(--sombra);
+}
+main#conteudo:not(:has(.painel)) :is(div, section, article, li, details, form, aside, a, figure)[class~="border-2"][class~="border-ink"][class~="bg-parchment-deep"] {
+  background-color: var(--folha);
+  box-shadow: 5px 5px 0 var(--sombra);
+}
+main#conteudo:not(:has(.painel)) a:is([class~="border"][class~="border-rule"], [class~="border-2"][class~="border-ink"])[class~="bg-parchment-deep"] {
+  transition: transform 0.14s ease, box-shadow 0.14s ease;
+}
+main#conteudo:not(:has(.painel)) a:is([class~="border"][class~="border-rule"], [class~="border-2"][class~="border-ink"])[class~="bg-parchment-deep"]:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--prelo);
+}
+main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-ink"][class~="text-parchment"]:not(.botao) {
+  border: 2px solid var(--ink);
+  font-weight: 700;
+  box-shadow: 4px 4px 0 var(--prelo);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s;
+}
+main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao) {
+  border: 2px solid var(--ink);
+  background-color: var(--prelo);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 4px 4px 0 var(--sombra);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-ink"][class~="text-parchment"]:not(.botao, :disabled):hover,
+main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao, :disabled):hover {
+  transform: translate(-2px, -2px);
+}
+main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-ink"][class~="text-parchment"]:not(.botao, :disabled):active,
+main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao, :disabled):active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+main#conteudo:not(:has(.painel)) h2[class~="border-b"][class~="border-rule"] {
+  border-bottom: 2px solid var(--ink);
+}
+main#conteudo:not(:has(.painel)) :is(input, textarea, select)[class~="border-2"][class~="border-ink"] {
+  background-color: var(--folha);
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) main#conteudo :is(a, div, section, article, li, details, form, aside, blockquote, figure, button) {
+  box-shadow: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  main#conteudo a:hover,
+  main#conteudo button:hover {
+    transform: none !important;
+  }
 }

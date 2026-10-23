@@ -57,6 +57,7 @@
     "more": "More",
     "search": "Search",
     "support": "Support",
+    "supportLong": "Support the Institute",
     "panel": "Panel",
     "hello": "Hi, {name}",
     "helloLabel": "Hi, {name}: open the panel",
@@ -296,6 +297,20 @@
   },
   "home": {
     "eyebrow": "Library of Alexandria · community edition",
+    "kicker": "★ Learn for free · contribute if you like",
+    "posterLabel": "Street poster no. 1",
+    "poster": [
+      "Knowledge",
+      "belongs to",
+      "the people."
+    ],
+    "posterText": "Nobody pays to get in, nobody owns what is here.",
+    "stamp": [
+      "Free",
+      "★ open ★",
+      "for",
+      "ever"
+    ],
     "h1a": "All knowledge,",
     "h1b": "for everyone",
     "h1c": ", forever.",
@@ -305,6 +320,9 @@
     "searchButton": "Search",
     "indexed": "indexed",
     "shelves": "The shelves",
+    "shelvesKicker": "§ The shelves",
+    "shelvesPick": "Pick your notebook",
+    "seeAllShelves": "See all {n} notebooks",
     "startTrack": "Start with a track",
     "seeAll": "See all",
     "timelineTitle": "Timeline of the collection",
@@ -347,11 +365,19 @@
     "ctaTitle": "Help build the library",
     "ctaText": "Write a lesson, suggest a free work or fix a mistake. Everything is reviewed before it is accepted.",
     "ctaButton": "Send a contribution",
+    "dedicationQuote": "This institute carries a name, and a commitment.",
+    "dedicationLink": "Read the dedication",
     "questionsTitle": "Start from a question",
     "shelvesHint": "There are many. Choose the essentials or the stage you want to study.",
     "tryLabel": "Try:",
+    "startText": "Haven’t opened a lesson yet? The guide finds your track in five minutes.",
+    "journalWindow": "From the newspaper",
+    "onAir": "On air · Radio Lúcia",
+    "listen": "Listen",
+    "allEpisodes": "All episodes",
+    "radioLive": "Music, news and debates all day, to listen with little data.",
     "onThisDay": "On this day",
-    "onThisDaySource": "Events selected by Wikipedia for today's date. Text from Wikipedia, CC BY-SA license."
+    "onThisDaySource": "People’s struggles and victories on this date, chosen by the team and drawn from Wikipedia. Wikipedia text, CC BY-SA license."
   },
   "areas": {
     "portugues": [
@@ -690,6 +716,12 @@
     "continue": "Pick up where you left off",
     "resume": "Resume",
     "ready": "{a} of {b} lessons ready",
+    "essentialTag": "Essential",
+    "stageShort": {
+      "fundamental": "Primary",
+      "medio": "Secondary",
+      "superior": "Higher ed."
+    },
     "underConstruction": "Under construction",
     "helpWrite": "Help write this track",
     "planned": "in preparation",
@@ -2974,6 +3006,9 @@
     "eyebrow": "Everything that is here",
     "title": "More",
     "lead": "What did not fit in the menu, gathered in one place.",
+    "searchPlaceholder": "Find a section: “glossary”, “zines”, “tutoring”…",
+    "mostUsed": "You use most",
+    "footnote": "Everything that didn’t fit in the menu, on one screen",
     "critical": "Critical reading",
     "items": {
       "tools": "Tuner, code editor, periodic table and others.",

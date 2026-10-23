@@ -57,6 +57,7 @@
     "more": "Más",
     "search": "Buscar",
     "support": "Apoya",
+    "supportLong": "Apoya al Instituto",
     "panel": "Panel",
     "hello": "Hola, {name}",
     "helloLabel": "Hola, {name}: abrir el panel",
@@ -296,6 +297,20 @@
   },
   "home": {
     "eyebrow": "Biblioteca de Alejandría · edición comunitaria",
+    "kicker": "★ Aprende gratis · contribuye si quieres",
+    "posterLabel": "Cartel callejero n.º 1",
+    "poster": [
+      "El saber",
+      "es del",
+      "pueblo."
+    ],
+    "posterText": "Nadie paga para entrar, nadie es dueño de lo que hay aquí.",
+    "stamp": [
+      "Gratis",
+      "★ libre ★",
+      "para",
+      "siempre"
+    ],
     "h1a": "Todo el conocimiento,",
     "h1b": "para todos",
     "h1c": ", para siempre.",
@@ -305,6 +320,9 @@
     "searchButton": "Buscar",
     "indexed": "indexadas",
     "shelves": "Los estantes",
+    "shelvesKicker": "§ Los estantes",
+    "shelvesPick": "Elige tu cuaderno",
+    "seeAllShelves": "Ver los {n} cuadernos",
     "startTrack": "Empieza por una ruta",
     "seeAll": "Ver todas",
     "timelineTitle": "Línea de tiempo del acervo",
@@ -347,11 +365,19 @@
     "ctaTitle": "Ayuda a construir la biblioteca",
     "ctaText": "Escribe una lección, propón una obra libre o corrige un error. Todo pasa por revisión antes de entrar.",
     "ctaButton": "Enviar una contribución",
+    "dedicationQuote": "Este instituto lleva un nombre, y un compromiso.",
+    "dedicationLink": "Lee la dedicatoria",
     "questionsTitle": "Empieza por una pregunta",
     "shelvesHint": "Son muchas. Elige lo esencial o la etapa que quieres estudiar.",
     "tryLabel": "Prueba:",
+    "startText": "¿Todavía no abriste ninguna clase? La guía encuentra tu ruta en cinco minutos.",
+    "journalWindow": "Del periódico",
+    "onAir": "Al aire · Radio Lúcia",
+    "listen": "Escuchar",
+    "allEpisodes": "Todos los episodios",
+    "radioLive": "Música, noticias y debates todo el día, para escuchar con poco internet.",
     "onThisDay": "Un día como hoy",
-    "onThisDaySource": "Hechos seleccionados por Wikipedia para la fecha de hoy. Texto de Wikipedia, licencia CC BY-SA."
+    "onThisDaySource": "Luchas y conquistas del pueblo en esta fecha, elegidas por el equipo y tomadas de Wikipedia. Texto de Wikipedia, licencia CC BY-SA."
   },
   "areas": {
     "portugues": [
@@ -690,6 +716,12 @@
     "continue": "Continúa donde lo dejaste",
     "resume": "Retomar",
     "ready": "{a} de {b} lecciones listas",
+    "essentialTag": "Esencial",
+    "stageShort": {
+      "fundamental": "Primaria",
+      "medio": "Secundaria",
+      "superior": "Superior"
+    },
     "underConstruction": "En construcción",
     "helpWrite": "Ayuda a escribir esta ruta",
     "planned": "en preparación",
@@ -2974,6 +3006,9 @@
     "eyebrow": "Todo lo que hay aquí",
     "title": "Más",
     "lead": "Lo que no cupo en el menú, reunido en un solo lugar.",
+    "searchPlaceholder": "Buscar una sección: «glosario», «zines», «refuerzo»…",
+    "mostUsed": "Lo que más usas",
+    "footnote": "Todo lo que no cupo en el menú, en una sola pantalla",
     "critical": "Lectura crítica",
     "items": {
       "tools": "Afinador, editor de código, tabla periódica y otras.",
