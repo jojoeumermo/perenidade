@@ -71,7 +71,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/uso",
     "/contribuidores",
     "/direitos",
-    "/divulgue",
     "/criancas",
     "/criancas/adultos",
     "/criancas/letras",
