@@ -45,9 +45,9 @@ export async function abrirNoAvancado(ed: ReturnType<typeof useEditor>) {
     ed.progresso(0.2, "Montando o PSD");
     usarVariaveis(variaveisDaPagina(ed.projeto, ed.pagina));
     baixarArquivo(await paraPsd(ed.doc), `${nomeDeArquivo(ed.titulo)}.psd`);
-    const endereco = enderecoDo("photocraft");
-    if (endereco) window.open(endereco, "_blank", "noopener");
-    ed.avisar(endereco ? "PSD baixado. O editor avançado abriu em outra aba: abra o arquivo nele (File › Open…)." : "PSD baixado. O editor avançado ainda não está no ar; o arquivo abre em qualquer editor que leia PSD.", "info");
+    // O editor não abre sozinho: abrir o PSD e um programa pesado de uma vez derrubava o navegador em muitos
+    // computadores. A pessoa abre quando quiser, pelo Estúdio de design › Editor avançado (no modo estável).
+    ed.avisar(enderecoDo("photocraft") ? "PSD baixado. Para editar, abra o PhotoCraft em Estúdio de design › Editor avançado e abra o arquivo nele (File › Open…)." : "PSD baixado. O arquivo abre em qualquer editor que leia PSD.", "info");
   } catch {
     ed.avisar("Não deu para montar o PSD.", "erro");
   } finally {

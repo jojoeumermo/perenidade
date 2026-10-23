@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import type { Me } from "@/lib/backend";
-import { type Compatibilidade, conferirCompatibilidade, EDITORES, enderecoDo } from "@/lib/estudio";
+import { type Compatibilidade, conferirCompatibilidade, EDITORES, enderecoEstavelDo } from "@/lib/estudio";
 import { rpc } from "@/lib/backend";
 import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
 import { CampoArquivo } from "../Campos";
@@ -104,7 +104,7 @@ export function EstudioDeDesign({ me }: { me: Me }) {
   const [recarga, setRecarga] = useState(0);
   // O editor abre em tela cheia por cima do painel; ao sair, volta para a entrada do estúdio.
   const [abertura, setAbertura] = useState<Abertura | null>(null);
-  const endereco = enderecoDo("photocraft");
+  const endereco = enderecoEstavelDo("photocraft");
   return (
     <div>
       <div className="mb-4 grid gap-3 md:grid-cols-2">
