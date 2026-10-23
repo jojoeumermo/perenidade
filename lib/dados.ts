@@ -6,7 +6,7 @@
 import { buscarJson } from "./externo";
 
 export interface Indicador {
-  id: "salario" | "ipca" | "selic" | "desocupacao" | "populacao";
+  id: "salario" | "ipca" | "selic" | "desocupacao" | "populacao" | "rendimento" | "informalidade" | "dolar" | "rotativo" | "endividamento" | "comprometimento" | "inadimplencia";
   valor: number;
   /** Data de referência, AAAA-MM-DD. */
   referencia: string;
@@ -52,7 +52,31 @@ const series: [Indicador["id"], number][] = [
   ["ipca", 13522],
   ["selic", 432],
   ["desocupacao", 24369],
+  ["dolar", 1],
+  ["rotativo", 22022],
+  ["endividamento", 29037],
+  ["comprometimento", 29034],
+  ["inadimplencia", 21112],
 ];
+
+/**
+ * O último valor de uma tabela do IBGE (SIDRA) para o Brasil. O período vem como AAAAMM (trimestre móvel que
+ * termina naquele mês) ou AAAA0T (trimestre); `trimestral` diz qual dos dois.
+ */
+async function sidra(agregado: number, variavel: number, trimestral = false): Promise<{ valor: number; referencia: string } | null> {
+  const dados = await buscarJson<{ resultados?: { series?: { serie?: Record<string, string> }[] }[] }[]>(
+    `https://servicodados.ibge.gov.br/api/v3/agregados/${agregado}/periodos/-1/variaveis/${variavel}?localidades=N1%5Ball%5D`,
+    { guardar: 86400 },
+  );
+  const bruta = Array.isArray(dados) ? dados[0]?.resultados?.[0]?.series?.[0]?.serie : undefined;
+  const serie: Record<string, string> = bruta && typeof bruta === "object" && !Array.isArray(bruta) ? bruta : {};
+  const periodo = Object.keys(serie).filter((k) => /^\d{6}$/.test(k)).sort().pop();
+  const valor = periodo ? Number(serie[periodo]) : NaN;
+  if (!periodo || !Number.isFinite(valor)) return null;
+  const mes = trimestral ? Number(periodo.slice(4)) * 3 : Number(periodo.slice(4));
+  if (mes < 1 || mes > 12) return null;
+  return { valor, referencia: `${periodo.slice(0, 4)}-${String(mes).padStart(2, "0")}-01` };
+}
 
 export async function indicadores(): Promise<Indicador[]> {
   const lidos = await Promise.all(
@@ -70,6 +94,9 @@ export async function indicadores(): Promise<Indicador[]> {
   const ano = Object.keys(serieIbge).filter((k) => /^\d{4}$/.test(k)).sort().pop();
   const populacao = ano ? Number(serieIbge[ano]) : NaN;
   const lista = lidos.filter((item): item is Indicador => item !== null);
+  const [rendimento, informalidade] = await Promise.all([sidra(6390, 5933), sidra(8529, 12466, true)]);
+  if (rendimento) lista.push({ id: "rendimento", ...rendimento, fonte: "IBGE, PNAD Contínua", link: "https://sidra.ibge.gov.br/tabela/6390" });
+  if (informalidade) lista.push({ id: "informalidade", ...informalidade, fonte: "IBGE, PNAD Contínua", link: "https://sidra.ibge.gov.br/tabela/8529" });
   if (ano && Number.isFinite(populacao)) {
     lista.push({ id: "populacao", valor: populacao, referencia: `${ano}-07-01`, fonte: "IBGE, estimativa da população", link: "https://sidra.ibge.gov.br/tabela/6579" });
   }
