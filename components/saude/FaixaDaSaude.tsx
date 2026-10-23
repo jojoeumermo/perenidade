@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { hasBackend, rpc } from "@/lib/backend";
 import { AVISO_CURTO, novoNaVitrine, type Profissional, registroCompleto } from "@/lib/saude";
 
@@ -13,12 +13,15 @@ import { AVISO_CURTO, novoNaVitrine, type Profissional, registroCompleto } from 
  * Um profissional: o cartão dele em resumo. Vários: os nomes em ordem alfabética, sem rolagem automática nem ranking.
  * O contato só na vitrine, depois da tela de ciência.
  */
+const abertaEm = typeof window === "undefined" ? 0 : Date.now();
+const nunca = () => () => {};
+
 export function FaixaDaSaude({ estaticos, href }: { estaticos: Profissional[]; href: string }) {
   const [doBanco, setDoBanco] = useState<Profissional[]>([]);
   const [desligada, setDesligada] = useState(false);
-  const [agora, setAgora] = useState(0);
+  // A hora de quem abriu a página (no servidor não há "agora": a data seria a do build).
+  const agora = useSyncExternalStore(nunca, () => abertaEm, () => 0);
   useEffect(() => {
-    setAgora(Date.now());
     if (!hasBackend) return;
     let vivo = true;
     rpc<{ desligada: boolean; perfis: Profissional[] }>("saude_vitrine")

@@ -69,10 +69,11 @@ export function TutorialDoPainel({ pronto = true }: { pronto?: boolean }) {
 
   useLayoutEffect(() => {
     if (passo === null) return;
-    medir();
+    const quadro = window.requestAnimationFrame(medir);
     window.addEventListener("resize", medir);
     window.addEventListener("scroll", medir, true);
     return () => {
+      window.cancelAnimationFrame(quadro);
       window.removeEventListener("resize", medir);
       window.removeEventListener("scroll", medir, true);
     };
