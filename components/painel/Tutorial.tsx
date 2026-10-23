@@ -32,25 +32,29 @@ const PASSOS: Passo[] = [
  * O tutorial guiado do painel: na primeira vez que a pessoa abre o painel neste aparelho, um passeio aponta cada parte
  * (com um recorte em volta e o quadro de explicação ao lado). Esc fecha, as setas andam. O botão "Tutorial" reabre.
  */
-export function TutorialDoPainel() {
+export function TutorialDoPainel({ pronto = true }: { pronto?: boolean }) {
   const [passo, setPasso] = useState<number | null>(null);
   const [caixa, setCaixa] = useState<DOMRect | null>(null);
 
   useEffect(() => {
     const abrir = () => setPasso(0);
     window.addEventListener(ABRIR, abrir);
+    return () => window.removeEventListener(ABRIR, abrir);
+  }, []);
+
+  // Abre sozinho só na primeira vez, e só quando nada mais está por cima (o termo de voluntário, por exemplo).
+  useEffect(() => {
+    if (!pronto) return;
     let visto = "1";
     try {
       visto = localStorage.getItem(VISTO) ?? "";
     } catch {
       // sem armazenamento: não abre sozinho para não aparecer em toda página
     }
-    const primeira = visto ? 0 : window.setTimeout(() => setPasso(0), 900);
-    return () => {
-      window.removeEventListener(ABRIR, abrir);
-      if (primeira) window.clearTimeout(primeira);
-    };
-  }, []);
+    if (visto) return;
+    const primeira = window.setTimeout(() => setPasso(0), 900);
+    return () => window.clearTimeout(primeira);
+  }, [pronto]);
 
   const atual = passo === null ? null : PASSOS[passo];
 

@@ -607,7 +607,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
   return (
     <div className={`painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid ${compacto ? "lg:grid-cols-[4.75rem_minmax(0,1fr)]" : "lg:grid-cols-[17.5rem_minmax(0,1fr)]"}`}>
       <TraduzirPainel />
-      <TutorialDoPainel />
+      <TutorialDoPainel pronto={!(voluntario && eu.termo_voluntario === false)} />
       {irPara && <IrPara secoes={secoes} fechar={() => setIrPara(false)} ir={ir} />}
       {/* Aviso da coordenação, da vice ou da supervisão: aparece por cima de tudo até a pessoa apertar "Entendi". */}
       {(voluntario || eu.supervisao) && <QuadroDeAvisos />}
