@@ -2,6 +2,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { Selo } from "@/components/Selo";
 import { COOLERS, CPUS, conferir, DISCOS, type Escolha, FONTES, GABINETES, GPUS, PLACAS, RAMS } from "./pecas";
 
 /**
@@ -18,14 +19,14 @@ const PEDIDOS = [
 
 type Categoria = "placa" | "cpu" | "cooler" | "ram" | "discos" | "gpu" | "fonte" | "gabinete";
 const CATEGORIAS: { id: Categoria; nome: string; icone: string; lista: { id: string; nome: string }[] }[] = [
-  { id: "gabinete", nome: "Gabinete", icone: "🗄️", lista: GABINETES },
-  { id: "placa", nome: "Placa-mãe", icone: "🟩", lista: PLACAS },
-  { id: "cpu", nome: "Processador", icone: "🔲", lista: CPUS },
-  { id: "cooler", nome: "Cooler", icone: "🌀", lista: COOLERS },
-  { id: "ram", nome: "Memória", icone: "📏", lista: RAMS },
-  { id: "discos", nome: "Armazenamento", icone: "💾", lista: DISCOS },
-  { id: "gpu", nome: "Placa de vídeo", icone: "🎮", lista: GPUS },
-  { id: "fonte", nome: "Fonte", icone: "🔌", lista: FONTES },
+  { id: "gabinete", nome: "Gabinete", icone: "caixa", lista: GABINETES },
+  { id: "placa", nome: "Placa-mãe", icone: "chip", lista: PLACAS },
+  { id: "cpu", nome: "Processador", icone: "chip", lista: CPUS },
+  { id: "cooler", nome: "Cooler", icone: "engrenagem", lista: COOLERS },
+  { id: "ram", nome: "Memória", icone: "regua", lista: RAMS },
+  { id: "discos", nome: "Armazenamento", icone: "pasta", lista: DISCOS },
+  { id: "gpu", nome: "Placa de vídeo", icone: "tela", lista: GPUS },
+  { id: "fonte", nome: "Fonte", icone: "tomada", lista: FONTES },
 ];
 
 /** O sintoma que cada tipo de erro produz ao apertar o botão de ligar. */
@@ -171,7 +172,7 @@ export function BancadaVisual() {
           <div className="flex flex-wrap gap-1.5">
             {CATEGORIAS.map((c) => {
               const feito = c.id === "discos" ? e.discos.length > 0 : Boolean(e[c.id]);
-              return <button key={c.id} type="button" aria-pressed={categoria === c.id} onClick={() => setCategoria(c.id)} className={`cursor-pointer rounded border-2 px-2 py-1 text-xs font-semibold ${categoria === c.id ? "border-ink bg-ink text-parchment" : feito ? "border-[#2e8b57] text-[#2e8b57]" : "border-ink/25"}`}><span aria-hidden>{c.icone}</span> {c.nome}{feito ? " ✓" : ""}</button>;
+              return <button key={c.id} type="button" aria-pressed={categoria === c.id} onClick={() => setCategoria(c.id)} className={`cursor-pointer rounded border-2 px-2 py-1 text-xs font-semibold ${categoria === c.id ? "border-ink bg-ink text-parchment" : feito ? "border-[#2e8b57] text-[#2e8b57]" : "border-ink/25"}`}><Selo nome={c.icone} className="mr-1 inline h-4 w-4 align-[-3px]" />{c.nome}{feito ? " ✓" : ""}</button>;
             })}
           </div>
           <ul className="mt-3 grid gap-2">

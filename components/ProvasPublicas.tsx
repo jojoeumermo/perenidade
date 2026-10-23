@@ -196,7 +196,7 @@ export function ProvasPublicas({ s }: { s: S }) {
                   {q.contexto && <div className="mt-2 font-serif" lang="pt-BR"><Markdown lang={lang}>{q.contexto}</Markdown></div>}
                   {q.imagens.length > 0 && (
                     <p className="mt-1 text-xs">
-                      {q.imagens.map((url, k) => <a key={url} href={url} target="_blank" rel="noopener noreferrer nofollow" className="mr-3 underline hover:text-oxblood">🖼 {s.publicImage} {q.imagens.length > 1 ? k + 1 : ""}</a>)}
+                      {q.imagens.map((url, k) => <a key={url} href={url} target="_blank" rel="noopener noreferrer nofollow" className="mr-3 underline hover:text-oxblood">{s.publicImage} {q.imagens.length > 1 ? k + 1 : ""}</a>)}
                     </p>
                   )}
                   {q.enunciado && <p className="mt-2 font-serif text-lg" lang="pt-BR">{q.enunciado}</p>}

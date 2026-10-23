@@ -68,7 +68,7 @@ export function Algoritmos() {
           <span className="rounded bg-ink p-1 text-parchment"><Botao primario onClick={() => { if (passo >= total - 1) { setPasso(0); setRodando(true); } else setRodando(!ativo); }}>{ativo ? "⏸ Pausar" : "▶ Rodar"}</Botao></span>
           <BotaoClaro onClick={() => setPasso((p) => Math.max(0, p - 1))} desligado={ativo}>◀ Voltar</BotaoClaro>
           <BotaoClaro onClick={() => setPasso((p) => Math.min(total - 1, p + 1))} desligado={ativo}>Avançar ▶</BotaoClaro>
-          <BotaoClaro onClick={() => { setSemente((s) => s + 1); reiniciar(); }}>🎲 Outra lista</BotaoClaro>
+          <BotaoClaro onClick={() => { setSemente((s) => s + 1); reiniciar(); }}>Outra lista</BotaoClaro>
         </div>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <Deslizante rotulo="Tamanho da lista" valor={n} min={5} max={20} mudar={(v) => { setN(v); reiniciar(); }} />
@@ -150,7 +150,7 @@ export function Criptografia() {
         <Bancada titulo="Cifrar e decifrar com senha" subtitulo="AES-GCM de 256 bits, chave tirada da senha com PBKDF2">
           <label className="block text-sm font-semibold">Mensagem<textarea value={segredo} onChange={(e) => setSegredo(e.target.value.slice(0, 2000))} rows={2} className={campo} /></label>
           <label className="mt-2 block text-sm font-semibold">Senha<input value={senha} onChange={(e) => setSenha(e.target.value.slice(0, 200))} className={campo} /></label>
-          <div className="mt-3 flex flex-wrap gap-2"><BotaoClaro onClick={() => void cifrar()}>🔒 Cifrar</BotaoClaro><BotaoClaro onClick={() => void decifrar()} desligado={!cifrado}>🔓 Decifrar</BotaoClaro></div>
+          <div className="mt-3 flex flex-wrap gap-2"><BotaoClaro onClick={() => void cifrar()}>Cifrar</BotaoClaro><BotaoClaro onClick={() => void decifrar()} desligado={!cifrado}>Decifrar</BotaoClaro></div>
           {cifrado && <label className="mt-3 block text-sm font-semibold">Texto cifrado (sal . vetor . cifra, em base64; pode editar para ver o que acontece)<textarea value={cifrado} onChange={(e) => setCifrado(e.target.value)} rows={3} className={`${campo} text-xs`} /></label>}
           {aberto && <p className="mt-2 rounded border-2 border-[#1d6b3a] bg-parchment-deep p-2 text-sm">✓ {aberto}</p>}
           {erro && <p className="mt-2 text-sm text-oxblood">{erro}</p>}

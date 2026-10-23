@@ -38,7 +38,7 @@ function Cartao({ e, abrir, series }: { e: ResumoDoEpisodio; abrir: () => void; 
         </span>
       </span>
       <span className="mt-2 flex flex-wrap gap-1.5 font-mono text-[0.65rem]">
-        {e.gravacao_em && e.status !== "publicado" && <span className="bg-parchment-deep px-1">🎙 {dia(e.gravacao_em)}</span>}
+        {e.gravacao_em && e.status !== "publicado" && <span className="bg-parchment-deep px-1">{dia(e.gravacao_em)}</span>}
         {e.publicar_em && e.status !== "publicado" && <span className="bg-parchment-deep px-1">◷ {dia(e.publicar_em)}</span>}
         {e.publicado_em && <span className="bg-parchment-deep px-1">★ {dia(e.publicado_em.slice(0, 10))}</span>}
         {e.duracao > 0 && <span className="bg-parchment-deep px-1">{minutos(e.duracao)}</span>}

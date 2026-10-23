@@ -321,7 +321,7 @@ export function IDE({ perfil, exercicio, aoConcluir }: { perfil: Perfil; exercic
             {dicasVistas < exercicio.dicas.length && <button type="button" className={elo} onClick={() => setDicasVistas((n) => n + 1)}>{s.dica} ({dicasVistas + 1}/{exercicio.dicas.length})</button>}
             {exercicio.solucao && resultado && !resultado.every(Boolean) && <button type="button" className={elo} onClick={() => setVerSolucao((v) => !v)}>{s.solucao}</button>}
           </p>
-          {exercicio.dicas.slice(0, dicasVistas).map((d, i) => <p key={i} className="mt-1 text-ink-soft">💡 {d}</p>)}
+          {exercicio.dicas.slice(0, dicasVistas).map((d, i) => <p key={i} className="mt-1 text-ink-soft">{d}</p>)}
           {verSolucao && exercicio.solucao?.map((a) => <pre key={a.nome} className="mt-2 overflow-x-auto border border-rule bg-parchment p-3 font-mono text-xs"><strong>{a.nome}</strong>{"\n"}{a.conteudo}</pre>)}
         </section>
       )}

@@ -71,7 +71,7 @@ export function Circuitos() {
       <div className="mt-4 grid gap-3 md:grid-cols-3">
         {ls.map((l, i) => (
           <div key={i} className="border-2 border-ink/20 bg-parchment-deep p-3">
-            <p className="font-bold">💡 Lâmpada {i + 1}</p>
+            <p className="font-bold">Lâmpada {i + 1}</p>
             <label className="mt-1 block">Resistência: <strong className="font-mono">{l.ohm} Ω</strong><input type="range" min={2} max={60} value={l.ohm} onChange={(e) => mudar(i, { ohm: Number(e.target.value) })} className="w-full" /></label>
             <label className="flex items-center gap-2"><input type="checkbox" checked={l.chave} onChange={(e) => mudar(i, { chave: e.target.checked })} />chave dela ligada</label>
             <label className="flex items-center gap-2"><input type="checkbox" checked={l.queimada} onChange={(e) => mudar(i, { queimada: e.target.checked })} />queimada</label>

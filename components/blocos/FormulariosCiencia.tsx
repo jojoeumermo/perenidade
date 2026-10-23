@@ -64,13 +64,13 @@ export function FormGrafico({ spec, mudar }: { spec: string; mudar: (s: string) 
   return (
     <div className="space-y-4">
       <div>
-        <p className={rotulo}>📈 Funções (até quatro): escreva depois do “y =”, como 2*x + 1 ou a*x^2</p>
+        <p className={rotulo}>Funções (até quatro): escreva depois do “y =”, como 2*x + 1 ou a*x^2</p>
         <Linhas itens={v.funcoes} mudar={(f) => salvar({ ...v, funcoes: f.slice(0, 4) })} novo={() => ""} rotuloNovo="outra função" linha={(f, t) => (
           <span className="flex items-center gap-2"><span className="font-mono text-sm">y =</span><input value={f} onChange={(e) => t(e.target.value)} placeholder="a*x^2 + b*x + c" aria-label="Função" className={`${campo} font-mono`} /></span>
         )} />
       </div>
       <div>
-        <p className={rotulo}>🎚️ Controles deslizantes: cada letra da função que a pessoa pode mexer</p>
+        <p className={rotulo}>Controles deslizantes: cada letra da função que a pessoa pode mexer</p>
         <Linhas itens={v.controles} mudar={(c) => salvar({ ...v, controles: c.slice(0, 6) })} novo={() => ({ nome: "", valor: "1", min: "-5", max: "5" })} rotuloNovo="controle" linha={(c, t) => (
           <div className="grid grid-cols-4 gap-1">
             <input value={c.nome} onChange={(e) => t({ ...c, nome: e.target.value.replace(/[^a-z]/gi, "").slice(0, 8) })} placeholder="letra" aria-label="Letra" className={`${campo} font-mono`} />
@@ -85,7 +85,7 @@ export function FormGrafico({ spec, mudar }: { spec: string; mudar: (s: string) 
         <label className={rotulo}>e vai até<input value={v.xmax} onChange={(e) => salvar({ ...v, xmax: e.target.value })} className={`${campo} mt-1`} /></label>
       </div>
       <div>
-        <p className={rotulo}>📍 Pontos marcados (opcional)</p>
+        <p className={rotulo}>Pontos marcados (opcional)</p>
         <Linhas itens={v.pontos} mudar={(p) => salvar({ ...v, pontos: p })} novo={() => ({ x: "", y: "", nome: "" })} rotuloNovo="ponto" linha={(p, t) => (
           <div className="grid grid-cols-3 gap-1">
             <input value={p.x} onChange={(e) => t({ ...p, x: e.target.value })} placeholder="x" aria-label="x" className={campo} />
@@ -114,7 +114,7 @@ export function FormCalculadora({ spec, mudar }: { spec: string; mudar: (s: stri
   return (
     <div className="space-y-4">
       <div className={cartao}>
-        <p className={rotulo}>🧮 O que a calculadora calcula</p>
+        <p className={rotulo}>O que a calculadora calcula</p>
         <div className="mt-1 grid gap-1 sm:grid-cols-[6rem_1fr]">
           <input value={v.nome} onChange={(e) => salvar({ ...v, nome: e.target.value.replace(/[^\w]/g, "").slice(0, 16) })} placeholder="v" aria-label="Nome do resultado" className={`${campo} font-mono`} />
           <input value={v.formula} onChange={(e) => salvar({ ...v, formula: e.target.value })} placeholder="Fórmula, como d / t" aria-label="Fórmula" className={`${campo} font-mono`} />
@@ -154,7 +154,7 @@ export function FormDados({ spec, mudar }: { spec: string; mudar: (s: string) =>
       <div className="grid gap-2 sm:grid-cols-2">
         <label className={rotulo}>Tipo de gráfico
           <select value={v.tipo} onChange={(e) => salvar({ ...v, tipo: e.target.value as typeof v.tipo })} className={`${campo} mt-1`}>
-            <option value="barras">📊 Barras</option><option value="linhas">📈 Linhas</option><option value="pizza">🥧 Pizza</option>
+            <option value="barras">Barras</option><option value="linhas">Linhas</option><option value="pizza">Pizza</option>
           </select>
         </label>
         <label className={rotulo}>Título<input value={v.titulo} onChange={(e) => salvar({ ...v, titulo: e.target.value })} placeholder="Chuva em 2024" className={`${campo} mt-1`} /></label>
@@ -189,7 +189,7 @@ export function FormDados({ spec, mudar }: { spec: string; mudar: (s: string) =>
 // ───────────── Simulação física ─────────────
 
 type ObjetoSim = { tipo: "bola" | "caixa" | "rampa" | "pendulo"; nome: string; x: string; y: string; x2: string; y2: string; tamanho: string; altura: string; angulo: string; cor: string; fixo: boolean; vx: string; vy: string };
-const NOMES_SIM = { bola: "⚽ Bola", caixa: "📦 Caixa", rampa: "📐 Rampa", pendulo: "🕰️ Pêndulo" } as const;
+const NOMES_SIM = { bola: "Bola", caixa: "Caixa", rampa: "Rampa", pendulo: "Pêndulo" } as const;
 const CORES_SIM = ["", "azul", "vermelho", "verde", "amarelo", "laranja", "roxo", "preto", "cinza"];
 
 export function FormSimulacao({ spec, mudar }: { spec: string; mudar: (s: string) => void }) {
@@ -270,11 +270,11 @@ export function FormMapa({ spec, mudar }: { spec: string; mudar: (s: string) => 
     <div className="space-y-3">
       <label className={rotulo}>Título<input value={v.titulo} onChange={(e) => salvar({ ...v, titulo: e.target.value })} placeholder="A viagem de Vasco da Gama (1497–1498)" className={`${campo} mt-1`} /></label>
       <div className="grid gap-2 sm:grid-cols-2">
-        <label className={rotulo}>🗺️ Onde o mapa abre (região ou país)<input list="focos-do-mapa" value={v.foco} onChange={(e) => salvar({ ...v, foco: e.target.value })} className={`${campo} mt-1`} /><datalist id="focos-do-mapa">{FOCOS.map((f) => <option key={f} value={f} />)}</datalist></label>
+        <label className={rotulo}>Onde o mapa abre (região ou país)<input list="focos-do-mapa" value={v.foco} onChange={(e) => salvar({ ...v, foco: e.target.value })} className={`${campo} mt-1`} /><datalist id="focos-do-mapa">{FOCOS.map((f) => <option key={f} value={f} />)}</datalist></label>
         <label className={rotulo}>Países pintados (separados por vírgula)<input value={v.destaques} onChange={(e) => salvar({ ...v, destaques: e.target.value })} placeholder="Portugal, Índia" className={`${campo} mt-1`} /></label>
       </div>
       <div>
-        <p className={rotulo}>📍 Lugares marcados: latitude e longitude (no Google Maps, clique com o botão direito no lugar e copie os números)</p>
+        <p className={rotulo}>Lugares marcados: latitude e longitude (no Google Maps, clique com o botão direito no lugar e copie os números)</p>
         <Linhas itens={v.pontos} mudar={(p) => salvar({ ...v, pontos: p })} novo={() => ({ lat: "", lon: "", nome: "" })} rotuloNovo="lugar" linha={(p, t) => (
           <div className="grid grid-cols-3 gap-1">
             <input value={p.lat} onChange={(e) => t({ ...p, lat: e.target.value })} placeholder="latitude (-22,9)" aria-label="Latitude" className={campo} />
@@ -284,7 +284,7 @@ export function FormMapa({ spec, mudar }: { spec: string; mudar: (s: string) => 
         )} />
       </div>
       <div>
-        <p className={rotulo}>➜ Rotas (opcional): pares “latitude longitude” separados por &gt;</p>
+        <p className={rotulo}>Rotas (opcional): pares “latitude longitude” separados por &gt;</p>
         <Linhas itens={v.rotas} mudar={(r) => salvar({ ...v, rotas: r })} novo={() => ({ trecho: "", nome: "" })} rotuloNovo="rota" linha={(r, t) => (
           <div className="grid gap-1 sm:grid-cols-[1fr_12rem]">
             <input value={r.trecho} onChange={(e) => t({ ...r, trecho: e.target.value })} placeholder="38,72 -9,14 > 14,9 -23,5 > 11,25 75,78" aria-label="Trecho da rota" className={`${campo} font-mono`} />
@@ -309,7 +309,7 @@ export function FormMusica({ spec, mudar }: { spec: string; mudar: (s: string) =
   };
   return (
     <div className="space-y-3">
-      <label className={rotulo}>🎵 Endereço do áudio no site (envie em Materiais e arquivos; só com licença livre ou em domínio público)<input value={v.audio} onChange={(e) => salvar({ ...v, audio: e.target.value })} placeholder="/arquivos/…mp3" className={`${campo} mt-1 font-mono`} /></label>
+      <label className={rotulo}>Endereço do áudio no site (envie em Materiais e arquivos; só com licença livre ou em domínio público)<input value={v.audio} onChange={(e) => salvar({ ...v, audio: e.target.value })} placeholder="/arquivos/…mp3" className={`${campo} mt-1 font-mono`} /></label>
       <label className={rotulo}>Crédito: título, autoria e licença<input value={v.credito} onChange={(e) => salvar({ ...v, credito: e.target.value })} placeholder="Título — autoria (domínio público)" className={`${campo} mt-1`} /></label>
       <label className={rotulo}>Língua da letra (para a voz e o destaque)<input value={v.lingua} onChange={(e) => salvar({ ...v, lingua: e.target.value })} placeholder="es-ES" className={`${campo} mt-1 max-w-40`} /></label>
       <div>
@@ -334,7 +334,7 @@ export function FormFerramenta({ spec, mudar }: { spec: string; mudar: (s: strin
   const salvar = (n: typeof v) => { setV(n); mudar(`${n.nome} | ${n.texto || "Abrir a ferramenta"}`); };
   return (
     <div className="grid gap-2 sm:grid-cols-2">
-      <label className={rotulo}>🧰 Qual ferramenta<select value={v.nome} onChange={(e) => salvar({ ...v, nome: e.target.value })} className={`${campo} mt-1`}><option value="">Escolha…</option>{tools.map((t) => <option key={t} value={t}>{t.replace(/-/g, " ")}</option>)}</select></label>
+      <label className={rotulo}>Qual ferramenta<select value={v.nome} onChange={(e) => salvar({ ...v, nome: e.target.value })} className={`${campo} mt-1`}><option value="">Escolha…</option>{tools.map((t) => <option key={t} value={t}>{t.replace(/-/g, " ")}</option>)}</select></label>
       <label className={rotulo}>Texto do botão<input value={v.texto} onChange={(e) => salvar({ ...v, texto: e.target.value })} placeholder="Abrir o simulador do sistema solar" className={`${campo} mt-1`} /></label>
     </div>
   );
@@ -342,7 +342,7 @@ export function FormFerramenta({ spec, mudar }: { spec: string; mudar: (s: strin
 
 // ───────────── Recurso do site (laboratório, obra, estúdio, PhET) ─────────────
 
-const NOMES_DE_RECURSO: Record<TipoDeRecurso, string> = { laboratorio: "🧪 Laboratório do site", obra: "📚 Obra do acervo", estudio: "🎨 Editor do Estúdio de prática", phet: "🔬 Simulação do PhET" };
+const NOMES_DE_RECURSO: Record<TipoDeRecurso, string> = { laboratorio: "Laboratório do site", obra: "Obra do acervo", estudio: "Editor do Estúdio de prática", phet: "Simulação do PhET" };
 
 export function FormRecurso({ spec, mudar }: { spec: string; mudar: (s: string) => void }) {
   const lido = lerRecurso(spec);

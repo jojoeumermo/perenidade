@@ -117,7 +117,7 @@ export function PalavrasGeradoras() {
         <section className="mt-5 rounded-md bg-[#17130e] p-5 text-center text-[#f4ecd8]">
           <p className="font-serif text-5xl font-bold tracking-widest sm:text-6xl">{atual.palavra}</p>
           <p className="mt-3 flex justify-center gap-3 font-mono text-2xl">{atual.silabas.map((s, i) => <button key={i} type="button" onClick={() => ouvir(s)} className="cursor-pointer rounded border border-[#f4ecd8]/40 px-3 py-1 hover:bg-white/10">{s}</button>)}</p>
-          <button type="button" onClick={() => ouvir(atual.palavra)} className="mt-3 cursor-pointer text-sm underline">🔊 Ouvir a palavra</button>
+          <button type="button" onClick={() => ouvir(atual.palavra)} className="mt-3 cursor-pointer text-sm underline">Ouvir a palavra</button>
         </section>
         <details className="mt-4 rounded border border-rule p-3" open>
           <summary className="cursor-pointer font-semibold">Antes de ler: conversar</summary>
@@ -131,7 +131,7 @@ export function PalavrasGeradoras() {
         </div>
         <div className="mt-4 flex min-h-16 flex-wrap items-center gap-3 rounded-md border-2 border-dashed border-ink/40 p-3">
           <span className="font-serif text-4xl font-bold tracking-widest">{palavra || "…"}</span>
-          {palavra && <button type="button" onClick={() => ouvir(palavra)} className="cursor-pointer underline">🔊 ouvir</button>}
+          {palavra && <button type="button" onClick={() => ouvir(palavra)} className="cursor-pointer underline">ouvir</button>}
           {palavra && valida && !achadas.includes(palavra) && <button type="button" onClick={() => { setAchadas((a) => [...a, palavra]); setMontada([]); }} className="cursor-pointer rounded bg-[#1d6b3a] px-3 py-1 font-semibold text-white">✓ É uma palavra! Guardar</button>}
           {palavra && !valida && montada.length >= 2 && <span className="text-sm text-ink-soft">Não está na nossa lista. Será que existe? Pergunte ao grupo.</span>}
           {palavra && <button type="button" onClick={() => setMontada((m) => m.slice(0, -1))} className="ml-auto cursor-pointer underline">apagar uma</button>}
@@ -140,7 +140,7 @@ export function PalavrasGeradoras() {
         <section className="mt-5 rounded-md border-2 border-ink p-4">
           <h3 className="font-semibold">Ditado</h3>
           <div className="mt-2 flex flex-wrap items-center gap-2">
-            <BotaoClaro onClick={() => { const w = atual.palavras[Math.floor(Math.random() * atual.palavras.length)]; setDitado(w); setResposta(""); setConferido(null); ouvir(w); }}>🔊 Ditar uma palavra</BotaoClaro>
+            <BotaoClaro onClick={() => { const w = atual.palavras[Math.floor(Math.random() * atual.palavras.length)]; setDitado(w); setResposta(""); setConferido(null); ouvir(w); }}>Ditar uma palavra</BotaoClaro>
             {ditado && <BotaoClaro onClick={() => ouvir(ditado)}>Repetir</BotaoClaro>}
           </div>
           {ditado && (

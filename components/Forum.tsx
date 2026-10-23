@@ -12,6 +12,7 @@ import { errorText } from "@/i18n/core";
 import { compartilhar, quente, usePreferencias } from "./comunidade/preferencias";
 import { L, useI18n } from "./I18n";
 import { Markdown } from "./Markdown";
+import { Selo } from "./Selo";
 
 type S = Dict["community"];
 type Selo = keyof S["badges"];
@@ -282,7 +283,7 @@ function TopicList({ s }: { s: S }) {
     setDraft((d) => ({ ...d, area: d.area || area }));
     requestAnimationFrame(() => document.getElementById("nova-conversa")?.scrollIntoView({ behavior: "smooth", block: "start" }));
   };
-  const orders: [string, string, string][] = [["alta", "🔥", s.hot], ["novos", "✨", s.new], ["melhores", "🏆", s.top], ["sem_resposta", "❓", s.unanswered]];
+  const orders: [string, string, string][] = [["alta", "fogo", s.hot], ["novos", "estrela", s.new], ["melhores", "trofeu", s.top], ["sem_resposta", "pergunta", s.unanswered]];
   const kinds: [string, string][] = [["", s.kinds.all], ["duvida", s.kinds.question], ["conversa", s.kinds.talk]];
   const nomeDaSala = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
   const segue = (slug: string) => pref.seguidas.includes(slug);
@@ -364,7 +365,7 @@ function TopicList({ s }: { s: S }) {
               <div className="flex flex-wrap items-center gap-1.5">
                 {orders.map(([value, icone, label]) => (
                   <button key={value} type="button" onClick={() => filtrar(() => setOrder(value))} aria-pressed={order === value} className={`flex cursor-pointer items-center gap-1 rounded-full px-3 py-1.5 font-semibold ${order === value ? "bg-ink text-parchment" : "text-ink-soft hover:bg-parchment-deep"}`}>
-                    <span aria-hidden>{icone}</span>{label}
+                    <Selo nome={icone} className="h-4 w-4" />{label}
                   </button>
                 ))}
                 {order === "melhores" && (
@@ -485,7 +486,7 @@ function TopicList({ s }: { s: S }) {
                     );
                   }
                   const respostas = (
-                    <L href={`/comunidade?t=${row.id}`} className={acao}><span aria-hidden>💬</span>{plural(lang, row.respostas, s.replies)}</L>
+                    <L href={`/comunidade?t=${row.id}`} className={acao}><Selo nome="balao" className="h-4 w-4" />{plural(lang, row.respostas, s.replies)}</L>
                   );
                   if (compacto) {
                     return (
@@ -513,15 +514,15 @@ function TopicList({ s }: { s: S }) {
                           <span className={`rounded-full px-2 py-0.5 font-semibold ${row.tipo === "duvida" ? "bg-oxblood/10 text-oxblood" : "bg-parchment-deep"}`}>{row.tipo === "duvida" ? s.kinds.question : s.kinds.talk}</span>
                           {row.tipo === "duvida" && row.resolvida && <span className="rounded-full bg-ok/15 px-2 py-0.5 font-semibold text-ok">✓ {s.solved}</span>}
                           {row.alvo && row.alvo_titulo && <L href={row.alvo} className="rounded-full border border-gold px-2 py-0.5 hover:text-oxblood">{s.about}: {row.alvo_titulo}</L>}
-                          {row.trancado && <span className="rounded-full bg-parchment-deep px-2 py-0.5">🔒 {s.locked}</span>}
+                          {row.trancado && <span className="rounded-full bg-parchment-deep px-2 py-0.5">{s.locked}</span>}
                           {row.oculto && <span className="rounded-full bg-parchment-deep px-2 py-0.5">{row.retido ? s.pending : s.hidden}</span>}
                         </p>
                         {row.trecho && <p className="mt-1.5 line-clamp-3 text-ink-soft">{row.trecho}</p>}
                         <p className="-ml-2 mt-1.5 flex flex-wrap items-center gap-0.5 text-xs font-semibold text-ink-soft">
                           {respostas}
                           <button type="button" onClick={() => void dividir(row)} className={acao}><span aria-hidden>↗</span>{aviso?.id === row.id ? aviso.texto : s.share}</button>
-                          <button type="button" onClick={() => salvar(row)} aria-pressed={salva(row.id)} className={acao}><span aria-hidden>{salva(row.id) ? "🔖" : "🏷️"}</span>{salva(row.id) ? s.savedDone : s.save}</button>
-                          <button type="button" onClick={() => esconder(row.id)} className={acao}><span aria-hidden>🙈</span>{s.hidePost}</button>
+                          <button type="button" onClick={() => salvar(row)} aria-pressed={salva(row.id)} className={acao}><Selo nome="alfinete" className="h-4 w-4" />{salva(row.id) ? s.savedDone : s.save}</button>
+                          <button type="button" onClick={() => esconder(row.id)} className={acao}><Selo nome="mudo" className="h-4 w-4" />{s.hidePost}</button>
                         </p>
                       </div>
                     </li>
@@ -729,7 +730,7 @@ function TopicView({ id, s }: { id: string; s: S }) {
         <div className="min-w-0 flex-1">
           <p className="text-xs text-ink-soft">
             {topic.autor || "—"}<SeloDoAutor selo={topic.autor_selo} s={s} /> · {date.format(new Date(topic.criado_em))}
-            {topic.trancado && ` · 🔒 ${s.locked}`}
+            {topic.trancado && ` · ${s.locked}`}
             {topic.oculto && ` · ${topic.retido ? s.pending : s.hidden}`}
           </p>
           <h2 className="mt-1 font-serif text-3xl font-semibold leading-tight">{topic.titulo}</h2>
@@ -741,7 +742,7 @@ function TopicView({ id, s }: { id: string; s: S }) {
             <Markdown lang={lang}>{topic.corpo}</Markdown>
           </div>
           <p className="-ml-2 mt-3 flex flex-wrap items-center gap-x-1 gap-y-1 text-xs text-ink-soft">
-            <span className={acao.replace("cursor-pointer ", "")}><span aria-hidden>💬</span>{plural(lang, replies.length, s.replies)}</span>
+            <span className={acao.replace("cursor-pointer ", "")}><Selo nome="balao" className="h-4 w-4" />{plural(lang, replies.length, s.replies)}</span>
             <button type="button" onClick={() => void dividir(topic.id, linkDaConversa(), topic.titulo)} className={acao}><span aria-hidden>↗</span>{copiado === topic.id ? s.copied : s.share}</button>
             <button type="button" aria-pressed={salva} onClick={() => mudarPref((p) => ({ ...p, salvas: salva ? p.salvas.filter((x) => x.id !== topic.id) : [{ id: topic.id, titulo: topic.titulo, sala: topic.disciplina, tipo: topic.tipo, em: new Date().toISOString() }, ...p.salvas].slice(0, 300) }))} className={acao}><span aria-hidden>{salva ? "🔖" : "🏷️"}</span>{salva ? s.savedDone : s.save}</button>
             <L href={`/denunciar?item=${encodeURIComponent(`/comunidade?t=${topic.id}`)}`} className={acao}><span aria-hidden>⚑</span>{t.common.report}</L>
@@ -755,7 +756,7 @@ function TopicView({ id, s }: { id: string; s: S }) {
       {topic.retido ? (
         <p className="mt-6 text-ink-soft">{s.held}</p>
       ) : topic.trancado ? (
-        <p className="mt-6 text-ink-soft">🔒 {s.locked}</p>
+        <p className="mt-6 text-ink-soft">{s.locked}</p>
       ) : logged ? (
         <form
           className="mt-5"
@@ -813,9 +814,9 @@ function TopicView({ id, s }: { id: string; s: S }) {
                       <p className="-ml-2 mt-1 flex flex-wrap items-center gap-x-1 gap-y-1 text-xs text-ink-soft">
                         <Util kind="resposta" id={item.id} points={item.pontos} mine={item.meu_voto} s={s} disabled={!logged} deitado />
                         {podeResponder && !item.oculto && (
-                          <button type="button" className={acao} onClick={() => { setParaQuem(item); setResposta(""); }}><span aria-hidden>💬</span>{s.replyHere}</button>
+                          <button type="button" className={acao} onClick={() => { setParaQuem(item); setResposta(""); }}><Selo nome="balao" className="h-4 w-4" />{s.replyHere}</button>
                         )}
-                        <button type="button" className={acao} onClick={() => void dividir(item.id, `${linkDaConversa()}#r-${item.id}`, topic.titulo)}><span aria-hidden>🔗</span>{copiado === item.id ? s.copied : s.linkToReply}</button>
+                        <button type="button" className={acao} onClick={() => void dividir(item.id, `${linkDaConversa()}#r-${item.id}`, topic.titulo)}><Selo nome="clipe" className="h-4 w-4" />{copiado === item.id ? s.copied : s.linkToReply}</button>
                         {topic.tipo === "duvida" && (topic.meu || topic.pode_cuidar) && !item.oculto && (
                           <button type="button" className={acao} onClick={() => act("resposta_aceitar", { p_topico: topic.id, p_resposta: item.aceita ? null : item.id })}>
                             <span aria-hidden>✓</span>{item.aceita ? s.unaccept : s.accept}
