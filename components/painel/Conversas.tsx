@@ -19,7 +19,7 @@ import type { Membro } from "./Equipe";
 import { Formatado } from "./Formatado";
 import { AnexoVisto, type EstadoDoAnexo, Galeria, Gravador, type ItemDaGaleria, Preparados, type Preparado, preparar, soltar, subir } from "./Anexos";
 import { Alertas, AparelhoPendente, Aparelhos, ComoFunciona, enviarCifrado, Seguranca, TextoAberto, useAbertos, useChaveiro } from "./Sigilo";
-import { baixarIcs, Historico, NovaReuniao, type Proposta as PropostaDeReuniao, Propostas, type Reuniao, tipos as tiposDeReuniao } from "./Reunioes";
+import { AbrirAgora, baixarIcs, Historico, NovaReuniao, type Proposta as PropostaDeReuniao, Propostas, type Reuniao, tipos as tiposDeReuniao } from "./Reunioes";
 
 type Tipo = "direta" | "grupo" | "departamento";
 
@@ -933,6 +933,7 @@ function AgendaDeReunioes({ gere, aoVivo, proximas, passadas, propostas, erroDas
       </div>
       {aba === "agora" && (
         <div className="space-y-6">
+          {gere && <AbrirAgora escuro entrar={(r) => { recarregar(); entrar(r); }} />}
           {aoVivo.length > 0 && <section><h3 className="font-mono text-xs uppercase tracking-widest text-s-acento">Ao vivo agora</h3><ul className="mt-2 space-y-2">{aoVivo.map(linha)}</ul></section>}
           <section>
             <h3 className="font-mono text-xs uppercase tracking-widest text-s-ouro">Próximas</h3>
