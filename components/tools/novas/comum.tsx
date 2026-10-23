@@ -1,8 +1,8 @@
 // Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-// A moldura das ferramentas novas: "Como usar" em três linhas, as atividades guiadas e, quando o texto explicativo foi
-// preparado com ajuda de IA, o aviso de que está em revisão. Os exercícios estão em português.
+// A moldura das ferramentas novas: "Como usar" em três linhas, as atividades guiadas e, quando o texto explicativo ainda
+// não passou pela equipe, o aviso de que está em revisão. Os exercícios estão em português.
 
 export function ComoUsar({ passos, atividades, revisao = false, fonte }: { passos: [string, string, string]; atividades: string[]; revisao?: boolean; fonte?: React.ReactNode }) {
   return (
@@ -17,7 +17,7 @@ export function ComoUsar({ passos, atividades, revisao = false, fonte }: { passo
       </section>
       {(revisao || fonte) && (
         <p className="border-l-4 border-gold pl-3 text-xs text-ink-soft md:col-span-2">
-          {revisao && <><strong>Explicações preparadas com ajuda de IA, em revisão pela equipe.</strong> </>}
+          {revisao && <><strong>Explicações em revisão pela equipe.</strong> </>}
           {fonte}
         </p>
       )}

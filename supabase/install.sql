@@ -12558,15 +12558,32 @@ begin
             order by t.aceito_em desc), '[]'::jsonb) from termos_aceites t where t.usuario = v);
 end $$;
 
-/** Para a coordenação: todos os aceites (inclusive de contas já apagadas), sem o texto, que se lê pelo id. */
+/**
+ * Para a coordenação, a coordenação pedagógica e a supervisão (o respaldo jurídico do voluntariado): todos os aceites,
+ * inclusive de contas já apagadas, sem o texto, que se lê pelo id. Os aceites de antes do registro integral (só a data,
+ * guardada no perfil ou no termo de adesão antigo) entram marcados como "antigo", para nenhum voluntário ficar de fora.
+ */
 create or replace function public.termos_aceites_listar(p_texto_de uuid default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   perform interno.eu();
-  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  if not (interno.coord() or interno.tem('vice') or interno.tem('supervisao')) then perform interno.erro('sem_permissao'); end if;
   if p_texto_de is not null then return (select to_jsonb(t) - 'navegador' from termos_aceites t where t.id = p_texto_de); end if;
-  return (select coalesce(jsonb_agg(jsonb_build_object('id', t.id, 'nome', t.nome, 'termo', t.termo, 'versao', t.versao, 'sha256', t.sha256, 'dados', t.dados, 'aceito_em', t.aceito_em,
-            'conta_apagada', t.usuario is null or not exists (select 1 from perfis f where f.id = t.usuario)) order by t.aceito_em desc), '[]'::jsonb)
-          from (select * from termos_aceites order by aceito_em desc limit 2000) t);
+  return (select coalesce(jsonb_agg(x order by x ->> 'aceito_em' desc), '[]'::jsonb) from (
+    select jsonb_build_object('id', t.id, 'nome', t.nome, 'termo', t.termo, 'versao', t.versao, 'sha256', t.sha256, 'dados', t.dados, 'aceito_em', t.aceito_em,
+             'conta_apagada', t.usuario is null or not exists (select 1 from perfis f where f.id = t.usuario), 'antigo', false) as x
+      from (select * from termos_aceites order by aceito_em desc limit 2000) t
+    union all
+    select jsonb_build_object('id', null, 'nome', f.nome, 'termo', 'voluntario', 'versao', coalesce(f.termo_voluntario_versao, 'anterior'), 'sha256', '', 'dados', '{}'::jsonb,
+             'aceito_em', f.termo_voluntario_em, 'conta_apagada', false, 'antigo', true)
+      from perfis f
+     where f.termo_voluntario_em is not null
+       and not exists (select 1 from termos_aceites t where t.usuario = f.id and t.termo = 'voluntario')
+    union all
+    select jsonb_build_object('id', null, 'nome', a.nome_completo, 'termo', 'adesao', 'versao', a.versao, 'sha256', '', 'dados', '{}'::jsonb,
+             'aceito_em', a.aceito_em, 'conta_apagada', false, 'antigo', true)
+      from termos_adesao a
+     where not exists (select 1 from termos_aceites t where t.usuario = a.usuario and t.termo = 'adesao')
+  ) aceites);
 end $$;
 
 -- ───────────────────────────── Saúde Solidária: a vitrine de profissionais de saúde ─────────────────────────────
@@ -13068,8 +13085,9 @@ alter table interno.atividade enable row level security;
 alter table interno.atividade_assinaturas enable row level security;
 
 /** Quem acompanha a atividade do site: coordenação e coordenação pedagógica. */
+-- Quem acompanha a Atividade do site: a coordenação, a coordenação pedagógica, a supervisão, a revisão e a mediação.
 create or replace function interno.acompanha() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
-  select interno.coord() or interno.tem('vice')
+  select interno.coord() or interno.tem('vice') or interno.tem('supervisao') or interno.tem('revisao') or interno.tem('mediacao')
 $$;
 
 /**

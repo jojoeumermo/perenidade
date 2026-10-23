@@ -1,6 +1,6 @@
 # Cantinho da Lua (área infantil): relatório de conformidade
 
-Documento interno, para a revisão jurídica. Não é publicado no site. Preparado por IA, em revisão. Outubro de 2026.
+Documento interno, para a revisão jurídica. Não é publicado no site. Em revisão. Outubro de 2026.
 
 ## O que existe
 

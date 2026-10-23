@@ -4,7 +4,7 @@ sobretitulo: "Se uma obra sua está no acervo"
 resumo: "Como pedir a retirada de uma obra do acervo, o que o pedido precisa ter, em quanto tempo respondemos e como contestar uma retirada."
 ---
 
-RASCUNHO, REVISÃO JURÍDICA PENDENTE. Texto preparado por IA, em revisão. Atualizado em 21 de outubro de 2026.
+RASCUNHO, REVISÃO JURÍDICA PENDENTE. Atualizado em 21 de outubro de 2026.
 
 ## O que o acervo é
 

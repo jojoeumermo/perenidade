@@ -1,6 +1,6 @@
 # Cargos múltiplos e evolução do chat — relatório final
 
-Branch: `worktree-chat-e-cargos` (worktree em `.claude/worktrees/chat-e-cargos`, a partir de `origin/master` em `938aac6`). **Nada foi publicado, nada tocou o banco de produção.** Todo o trabalho rodou contra o banco em memória (`scripts/banco-local.mjs`) e o servidor local de teste (`scripts/backend-local.mjs`), com contas falsas.
+Branch: `worktree-chat-e-cargos` (worktree própria, a partir de `origin/master` em `938aac6`). **Nada foi publicado, nada tocou o banco de produção.** Todo o trabalho rodou contra o banco em memória (`scripts/banco-local.mjs`) e o servidor local de teste (`scripts/backend-local.mjs`), com contas falsas.
 
 Commits, na ordem: `14b691a` (Passo Zero), `fb4eeb0` (Parte A: cargos), `1f41971` (Etapa 1: confiança), `6fa01df` (Etapa 2: mensagens), `653fbaa` (Etapa 3: mídia), `5db97c2` (Etapa 4: organização e grupos).
 
@@ -143,7 +143,7 @@ Por que o banco primeiro: o site novo chama funções novas (`chat_aparelho_pedi
 ## Como retomar o trabalho (para quem continuar)
 
 ```bash
-git -C .claude/worktrees/chat-e-cargos status
+git -C ../chat-e-cargos status
 npm run testar:banco
 ```
 
