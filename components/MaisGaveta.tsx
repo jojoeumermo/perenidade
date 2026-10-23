@@ -48,7 +48,14 @@ export interface TextosDoMais {
 export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: TextosDoMais }) {
   const { lang, t } = useI18n();
   const pathname = usePathname();
-  const [aberta, setAberta] = useState(false);
+  // A janela guarda em que página foi aberta: trocou de página, ela some sozinha (sem efeito que feche).
+  const [abertaEm, setAbertaEm] = useState<string | null>(null);
+  const aberta = abertaEm !== null && abertaEm === pathname;
+  const setAberta = (valor: boolean) => setAbertaEm(valor ? pathname : null);
+  const pathnameAtual = useRef(pathname);
+  useEffect(() => {
+    pathnameAtual.current = pathname;
+  }, [pathname]);
   const [busca, setBusca] = useState("");
   const [usados, setUsados] = useState<Record<string, number>>({});
   const campo = useRef<HTMLInputElement>(null);
@@ -59,16 +66,11 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
       antes.current = document.activeElement as HTMLElement | null;
       setUsados(lerUsados());
       setBusca("");
-      setAberta(true);
+      setAbertaEm(pathnameAtual.current);
     };
     window.addEventListener(ABRIR_MAIS, abrir);
     return () => window.removeEventListener(ABRIR_MAIS, abrir);
   }, []);
-
-  // Trocou de página: a janela fecha.
-  useEffect(() => {
-    setAberta(false);
-  }, [pathname]);
 
   useEffect(() => {
     if (!aberta) return;
@@ -76,7 +78,7 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
     raiz.style.setProperty("overflow", "hidden");
     const foco = window.setTimeout(() => campo.current?.focus(), 30);
     const tecla = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setAberta(false);
+      if (e.key === "Escape") setAbertaEm(null);
     };
     window.addEventListener("keydown", tecla);
     return () => {

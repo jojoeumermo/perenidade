@@ -56,8 +56,7 @@ export function VolunteerForm({ s, id = "candidatura", tarefas = [] }: { s: Dict
     setState("sending");
     setError("");
     try {
-      const { sobrenome: _sobrenome, ...resto } = draft;
-      await rpc("voluntariar", { p: { ...resto, nome: nomeCompleto, instagram, disciplina: bySubject ? draft.disciplina : "" } });
+      await rpc("voluntariar", { p: { nome: nomeCompleto, instagram, email: draft.email, papel: draft.papel, mensagem: draft.mensagem, site: draft.site, disciplina: bySubject ? draft.disciplina : "" } });
       setDraft(empty);
       setState("sent");
     } catch (failure) {
