@@ -299,6 +299,16 @@ function TopicList({ s }: { s: S }) {
       window.setTimeout(() => setAviso((a) => (a?.id === row.id ? null : a)), 2000);
     }
   };
+  const [buscaSala, setBuscaSala] = useState("");
+  const todasAsSalas = useMemo(() => {
+    const q = buscaSala.trim().toLocaleLowerCase(lang);
+    return (areaSlugs as readonly string[])
+      .map((slug) => [slug, nomeDaSala(slug)] as [string, string])
+      .filter(([slug, nome]) => !q || nome.toLocaleLowerCase(lang).includes(q) || slug.includes(q))
+      .sort((x, y) => x[1].localeCompare(y[1], lang));
+    // nomeDaSala só muda com o idioma.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [buscaSala, lang]);
   const ranking = useMemo(() => Object.entries(salas?.salas ?? {}).filter(([slug, n]) => n > 0 && isSala(slug)).sort((a, b) => b[1] - a[1]), [salas]);
   const visiveis = feed === "salvas" ? null : (list ?? []).filter((r) => !pref.escondidas.includes(r.id) || escondidaAgora.includes(r.id));
   const compacto = pref.vista === "compacto";
@@ -329,7 +339,31 @@ function TopicList({ s }: { s: S }) {
         <Regras s={s} />
       </details>
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem] xl:grid-cols-[13rem_minmax(0,1fr)_18rem]">
+        {/* A coluna das comunidades, como a do Reddit: os feeds e todas as salas, mesmo as que ainda estão vazias. */}
+        <nav aria-label={s.rooms} className="hidden xl:sticky xl:top-4 xl:block xl:max-h-[calc(100vh-2rem)] xl:self-start xl:overflow-y-auto">
+          <ul className="space-y-0.5 border-b border-rule pb-3">
+            {([["todas", s.feedAll], ["minhas", s.feedMine], ["salvas", s.feedSaved]] as const).map(([id, nome]) => (
+              <li key={id}>
+                <button type="button" onClick={() => filtrar(() => { setFeed(id); setArea(""); })} className={`w-full cursor-pointer rounded-md px-3 py-1.5 text-left ${feed === id && !area ? "bg-parchment-deep font-semibold" : "hover:bg-parchment-deep"}`}>{nome}</button>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 px-3 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-ink-soft">{s.rooms}</p>
+          <input type="search" value={buscaSala} onChange={(e) => setBuscaSala(e.target.value)} placeholder={`${s.rooms}…`} aria-label={s.rooms} className="mx-1 mt-2 w-[calc(100%-0.5rem)] rounded-md border border-rule bg-parchment px-2 py-1 text-sm" />
+          <ul className="mt-2 space-y-0.5">
+            {todasAsSalas.map(([slug, nome]) => (
+              <li key={slug}>
+                <button type="button" onClick={() => filtrar(() => { setFeed("todas"); setArea(slug); })} aria-current={area === slug ? "page" : undefined} className={`flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1 text-left ${area === slug ? "bg-parchment-deep font-semibold" : "hover:bg-parchment-deep"}`}>
+                  <Bolinha slug={slug} nome={nome} />
+                  <span className="min-w-0 flex-1 truncate">{nome}</span>
+                  {(salas?.salas[slug] ?? 0) > 0 && <span className="font-mono text-[0.65rem] text-ink-soft">{salas?.salas[slug]}</span>}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         <div className="min-w-0">
           {/* Os três feeds: tudo, as salas que a pessoa segue e o que ela salvou. */}
           <div role="tablist" aria-label={s.rooms} className="flex gap-1 border-b border-rule">
@@ -344,13 +378,13 @@ function TopicList({ s }: { s: S }) {
           {feed === "todas" && area && (
             <section className="mt-4 overflow-hidden rounded-md border-2 border-ink">
               <div className="h-16 bg-[linear-gradient(120deg,#7A1F1F,#c21f16_60%,#b8860b)]" />
-              <div className="-mt-8 flex flex-wrap items-end gap-3 px-4">
+              <div className="-mt-8 flex flex-wrap items-start gap-3 px-4">
                 <Bolinha slug={area} nome={nomeDaSala(area)} grande />
-                <div className="min-w-0 pb-1">
+                <div className="min-w-0 pt-9 pb-1">
                   <h2 className="font-serif text-2xl font-semibold leading-tight">{nomeDaSala(area)}</h2>
                   <p className="text-xs text-ink-soft">{s.roomOf}/{area} · {plural(lang, salas?.salas[area] ?? 0, s.roomPosts)}</p>
                 </div>
-                <div className="ml-auto flex flex-wrap gap-2 pb-1">
+                <div className="ml-auto flex flex-wrap gap-2 pt-9 pb-1">
                   <button type="button" onClick={() => seguir(area)} aria-pressed={segue(area)} className={`cursor-pointer rounded-full px-4 py-1.5 font-semibold ${segue(area) ? "border-2 border-ink" : "bg-ink text-parchment hover:bg-oxblood"}`}>{segue(area) ? `✓ ${s.following}` : s.follow}</button>
                   <L href={`/estantes/${area}`} className="rounded-full border-2 border-ink/30 px-4 py-1.5 hover:border-ink">{s.goToDiscipline} →</L>
                 </div>

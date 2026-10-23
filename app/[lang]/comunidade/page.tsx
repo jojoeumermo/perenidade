@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/comunidade
 export default async function Comunidade({ params }: PageProps<"/[lang]/comunidade">) {
   const { t } = await loadLang(params);
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
+    <div className="mx-auto max-w-6xl xl:max-w-[88rem] px-4 py-12">
       <Cartaz eyebrow={t.community.eyebrow} title={t.community.title} slogan={t.slogans.comunidade} tone="vermelho">
         {t.community.lead}
       </Cartaz>
