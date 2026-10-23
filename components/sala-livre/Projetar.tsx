@@ -79,10 +79,10 @@ export function Projetar({ sala, lang, fechar }: { sala: Sala; lang: string; fec
         <strong className="max-w-[30ch] truncate">{sala.titulo}</strong>
         {atual && <TempoDaTela inicio={inicio} minutos={atual.minutos} />}
         <span className="ml-auto font-mono">{i + 2} / {lista.length + 1}</span>
-        <button type="button" onClick={() => setGaveta(!gaveta)} aria-pressed={gaveta} className={botao}>🧰 Ferramentas</button>
-        <button type="button" onClick={() => setQuadro(!quadro)} aria-pressed={quadro} className={botao}>✏️ Quadro</button>
-        <button type="button" onClick={() => setPreta(!preta)} aria-pressed={preta} className={botao} title="Tecla B">⬛ Tela preta</button>
-        <button type="button" onClick={apresentador} className={botao} title="Abre uma segunda janela com notas, próxima tela e relógio">🧑‍🏫 Apresentador</button>
+        <button type="button" onClick={() => setGaveta(!gaveta)} aria-pressed={gaveta} className={botao}>Ferramentas</button>
+        <button type="button" onClick={() => setQuadro(!quadro)} aria-pressed={quadro} className={botao}>Quadro</button>
+        <button type="button" onClick={() => setPreta(!preta)} aria-pressed={preta} className={botao} title="Tecla B">Tela preta</button>
+        <button type="button" onClick={apresentador} className={botao} title="Abre uma segunda janela com notas, próxima tela e relógio">Apresentador</button>
         <button type="button" onClick={() => (document.fullscreenElement ? void document.exitFullscreen() : void caixa.current?.requestFullscreen?.().catch(() => undefined))} className={botao}>Tela cheia</button>
         <button type="button" onClick={fechar} className={botao}>Sair (Esc)</button>
       </div>
@@ -165,7 +165,7 @@ export function Apresentador({ salaId, lang }: { salaId: string; lang: string })
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-[#17130e] font-sans text-[#f4ecd8]">
       <div className="flex flex-wrap items-center gap-3 border-b border-white/15 px-4 py-2 text-sm">
-        <strong className="truncate">🧑‍🏫 {sala.titulo}</strong>
+        <strong className="truncate">{sala.titulo}</strong>
         <span className={`rounded px-2 py-0.5 text-xs ${ligada ? "bg-[#1d6b3a]" : "bg-[#c21f16]"}`}>{ligada ? "ligado à projeção" : "abra a projeção na outra janela"}</span>
         <span className="ml-auto font-mono text-lg tabular-nums">{agora ? new Date(agora).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }) : ""}</span>
         <span className="font-mono tabular-nums" title="Desde que o apresentador abriu">aula: {mmss(agora ? agora - comeco : 0)}{planejado ? ` / ${planejado} min` : ""}</span>
