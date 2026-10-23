@@ -72,8 +72,10 @@ const policy = (script: string) =>
     `media-src 'self' https: blob: ${service}`.trim(),
     "worker-src 'self' blob:",
     "manifest-src 'self'",
-    // blob: é a prévia, no próprio aparelho, de um PDF ou DOCX recebido nas conversas (nunca um endereço de fora).
-    `frame-src blob: ${captcha} ${jitsi} https://phet.colorado.edu ${videos} ${estudio}${vlibrasCodigo}`.trim(),
+    // 'self': os laboratórios e editores do próprio site abertos dentro da Sala livre e da caixa das aulas (sem ele, o
+    // navegador recusava o quadro e mostrava "este conteúdo está bloqueado"). blob: é a prévia, no próprio aparelho, de um
+    // PDF ou DOCX recebido nas conversas (nunca um endereço de fora).
+    `frame-src 'self' blob: ${captcha} ${jitsi} https://phet.colorado.edu ${videos} ${estudio}${vlibrasCodigo}`.trim(),
     // Só o próprio site embute as páginas dele (os laboratórios abrem dentro da caixa das aulas); ninguém de fora.
     "frame-ancestors 'self'",
     "base-uri 'self'",
