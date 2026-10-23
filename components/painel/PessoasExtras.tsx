@@ -51,7 +51,7 @@ export function FotosParaAprovar() {
 }
 
 interface Aceite {
-  id: string;
+  id: string | null;
   nome: string;
   termo: string;
   versao: string;
@@ -59,49 +59,87 @@ interface Aceite {
   dados: Record<string, unknown>;
   aceito_em: string;
   conta_apagada: boolean;
+  /** Aceite de antes do registro integral: só a data e a versão, sem o texto guardado. */
+  antigo?: boolean;
 }
 const NOME_DO_TERMO: Record<string, string> = { voluntario: "Termo de voluntário (entrada no painel)", adesao: "Termo de adesão (horas e certificados)", saude: "Termo da vitrine Saúde Solidária" };
 
-/** Todos os termos aceitos, para sempre: nem a coordenação apaga. Dá para abrir o texto exato que a pessoa leu. */
+/**
+ * Os termos assinados, para sempre: nem a coordenação apaga. Dá para abrir o texto exato que a pessoa leu e baixar a
+ * lista inteira numa planilha (CSV), o respaldo jurídico do voluntariado. A coordenação, a coordenação pedagógica e a
+ * supervisão veem esta lista.
+ */
 export function TermosAceitos() {
   const lista = useLista<Aceite[]>("termos_aceites_listar");
   const [aberto, setAberto] = useState<{ id: string; texto: string } | null>(null);
   const [busca, setBusca] = useState("");
+  const [tipo, setTipo] = useState("");
   const [erro, setErro] = useState("");
-  const vistos = (lista.dados ?? []).filter((a) => `${a.nome} ${a.termo}`.toLowerCase().includes(busca.toLowerCase()));
+  const todos = lista.dados ?? [];
+  const vistos = todos.filter((a) => (!tipo || a.termo === tipo) && `${a.nome} ${a.termo}`.toLowerCase().includes(busca.toLowerCase()));
+  const pessoas = new Set(todos.filter((a) => a.termo === "voluntario").map((a) => a.nome)).size;
+
+  function baixarPlanilha() {
+    const linhas = [["nome", "termo", "versao", "aceito_em", "sha256", "registro", "conta_apagada"], ...vistos.map((a) => [a.nome, NOME_DO_TERMO[a.termo] ?? a.termo, a.versao, a.aceito_em, a.sha256, a.antigo ? "anterior ao registro integral" : "texto guardado", a.conta_apagada ? "sim" : "não"])];
+    const csv = linhas.map((l) => l.map((c) => `"${String(c ?? "").replace(/"/g, '""')}"`).join(";")).join("\r\n");
+    const url = URL.createObjectURL(new Blob([`﻿${csv}`], { type: "text/csv;charset=utf-8" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `termos-assinados-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <section>
-      <h2 className="font-serif text-2xl font-semibold">Termos aceitos</h2>
-      <p className="mt-1 max-w-3xl text-ink-soft">Cada aceite fica guardado com o texto inteiro que a pessoa leu, a versão, a data e uma impressão digital (SHA-256) do texto. Ninguém altera nem apaga, nem a coordenação; se a conta for apagada, o aceite continua (é a prova do voluntariado e da licença do que foi publicado).</p>
+      <p className="max-w-3xl text-ink-soft">Cada aceite fica guardado com o texto inteiro que a pessoa leu, a versão, a data e uma impressão digital (SHA-256) do texto. Ninguém altera nem apaga, nem a coordenação; se a conta for apagada, o aceite continua. É a prova do voluntariado, sem vínculo de emprego (Lei nº 9.608/1998), e da licença do que foi publicado.</p>
       <Aviso texto={lista.erro || erro} />
-      <label className="mt-3 block max-w-sm text-sm">Buscar<input type="search" value={busca} onChange={(e) => setBusca(e.target.value)} className="mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2" /></label>
-      <ul className="mt-3 divide-y divide-rule border-y border-rule">
-        {vistos.map((a) => (
-          <li key={a.id} className="flex flex-wrap items-baseline justify-between gap-2 py-2">
-            <span>
+      <div className="mt-5 grid gap-3 sm:grid-cols-3">
+        <p className="painel-cartao p-4"><span className="block font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-soft">Aceites guardados</span><span className="font-serif text-3xl font-semibold">{todos.length}</span></p>
+        <p className="painel-cartao p-4"><span className="block font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-soft">Voluntários com termo</span><span className="font-serif text-3xl font-semibold">{pessoas}</span></p>
+        <p className="painel-cartao p-4"><span className="block font-mono text-[0.66rem] uppercase tracking-[0.18em] text-ink-soft">Sem o texto (antigos)</span><span className="font-serif text-3xl font-semibold">{todos.filter((a) => a.antigo).length}</span></p>
+      </div>
+      <div className="mt-5 flex flex-wrap items-end gap-3">
+        <label className="block min-w-60 flex-1 text-sm">Buscar pelo nome<input type="search" value={busca} onChange={(e) => setBusca(e.target.value)} className="mt-1 w-full border-2 border-ink bg-folha px-3 py-2" /></label>
+        <label className="block text-sm">
+          Termo
+          <select value={tipo} onChange={(e) => setTipo(e.target.value)} className="mt-1 block border-2 border-ink bg-folha px-3 py-2">
+            <option value="">Todos</option>
+            {Object.entries(NOME_DO_TERMO).map(([id, nome]) => <option key={id} value={id}>{nome}</option>)}
+          </select>
+        </label>
+        <button type="button" className="botao botao-tinta botao-menor" onClick={baixarPlanilha} disabled={!vistos.length}>Baixar a lista (CSV)</button>
+      </div>
+      <ul className="mt-4 divide-y divide-rule border-y-2 border-ink">
+        {vistos.map((a, i) => (
+          <li key={a.id ?? `antigo-${a.termo}-${a.nome}-${i}`} className="flex flex-wrap items-baseline justify-between gap-2 py-3">
+            <span className="min-w-0">
               <span className={rotulo}>{NOME_DO_TERMO[a.termo] ?? a.termo} · versão {a.versao} · {dataHora(a.aceito_em)}</span>
               <span className="block font-semibold">{a.nome}{a.conta_apagada ? " (conta apagada)" : ""}</span>
               {a.dados?.menor === true && <span className="block text-xs text-oxblood">Menor de idade: responsável {String(a.dados.responsavel ?? "não informado")}</span>}
-              <span className="block break-all font-mono text-[0.65rem] text-ink-soft">{a.sha256}</span>
+              {a.antigo ? <span className="block text-xs text-ink-soft">Aceite anterior ao registro integral: ficou guardada a data, não o texto.</span> : <span className="block break-all font-mono text-[0.65rem] text-ink-soft">{a.sha256}</span>}
             </span>
-            <button
-              type="button"
-              className={elo}
-              onClick={async () => {
-                try {
-                  const r = await rpc<{ texto: string }>("termos_aceites_listar", { p_texto_de: a.id });
-                  setAberto({ id: a.id, texto: r.texto });
-                } catch (falha) {
-                  setErro(textoDoErro(falha));
-                }
-              }}
-            >
-              Ler o texto aceito
-            </button>
-            {aberto?.id === a.id && <pre className="mt-2 w-full whitespace-pre-wrap border border-rule bg-parchment-deep p-3 font-sans text-sm">{aberto.texto}</pre>}
+            {a.id && (
+              <button
+                type="button"
+                className={elo}
+                onClick={async () => {
+                  try {
+                    const r = await rpc<{ texto: string }>("termos_aceites_listar", { p_texto_de: a.id });
+                    setAberto({ id: a.id as string, texto: r.texto });
+                  } catch (falha) {
+                    setErro(textoDoErro(falha));
+                  }
+                }}
+              >
+                Ler o texto aceito
+              </button>
+            )}
+            {aberto?.id === a.id && a.id && <pre className="mt-2 w-full whitespace-pre-wrap border-2 border-ink bg-folha p-3 font-sans text-sm">{aberto.texto}</pre>}
           </li>
         ))}
       </ul>
+      {lista.dados && vistos.length === 0 && <p className="mt-4 text-ink-soft">Nenhum termo encontrado.</p>}
     </section>
   );
 }
