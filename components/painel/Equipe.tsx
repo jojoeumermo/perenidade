@@ -9,6 +9,7 @@ import { contextoDoMural } from "@/lib/sigilo";
 import { safeLink } from "@/lib/text";
 import { previewFile } from "@/lib/upload";
 import { useI18n } from "../I18n";
+import { EstanteDoAprendizado } from "./Aprendizado";
 import { Avatar } from "./Avatar";
 import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, localDoPainel, papeis, rotulo, textoDoErro, useAcao, useLista } from "./comum";
 import { Formatado } from "./Formatado";
@@ -282,6 +283,8 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
   const [salvas, setSalvas] = useState<string[]>(() => (typeof window !== "undefined" ? lerLista(CHAVE_DAS_SALVAS) : []));
   const [fios, setFios] = useState<string[]>(endereco.pub ? [endereco.pub] : []);
   const [escrevendo, setEscrevendo] = useState(false);
+  /** O título que a estante do aprendizado sugere para a publicação (oficina ou ensaio de aula). */
+  const [proposta, setProposta] = useState("");
   const [aviso, setAviso] = useState("");
   const [agora, setAgora] = useState(() => Date.now());
   const dados = canais.dados;
@@ -473,10 +476,20 @@ export function Equipe({ usuario, lider, modera = lider, aprendiz, recarregar: r
         </header>
 
         {lugar === "aprendizado" && <TermoDoAprendizado aceito={aprendiz} recarregar={() => recarregarConta?.()} />}
+        {lugar === "aprendizado" && (
+          <EstanteDoAprendizado
+            propor={(titulo) => {
+              setProposta(titulo);
+              setEscrevendo(true);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          />
+        )}
 
         {lugar !== "salvas" && (
           <Compor
-            key={lugar}
+            key={`${lugar}:${proposta}`}
+            tituloInicial={lugar === "aprendizado" ? proposta : ""}
             canais={dados.canais}
             inicial={geral ? "geral" : lugar}
             escolher={geral}
@@ -614,7 +627,8 @@ function ItemDoMenu({ id, nome, ativo, trocar, conta }: { id: string; nome: stri
 }
 
 /** A caixa de criar publicação: fechada, uma linha; aberta, título, texto, etiqueta (e, nos pedidos, para quem). */
-function Compor({ canais, inicial, escolher, eu, aberto, setAberto, ocupado, publicar }: {
+function Compor({ canais, inicial, escolher, eu, aberto, setAberto, ocupado, publicar, tituloInicial = "" }: {
+  tituloInicial?: string;
   canais: string[];
   inicial: string;
   escolher: boolean;
@@ -625,7 +639,7 @@ function Compor({ canais, inicial, escolher, eu, aberto, setAberto, ocupado, pub
   publicar: (canal: string, corpo: string, extras: { para?: string | null; etiqueta?: Etiqueta | null }) => Promise<boolean>;
 }) {
   const [canal, setCanal] = useState(inicial);
-  const [titulo, setTitulo] = useState("");
+  const [titulo, setTitulo] = useState(tituloInicial);
   const [texto, setTexto] = useState("");
   const [etiqueta, setEtiqueta] = useState<Etiqueta | null>(null);
   const [para, setPara] = useState<Role["papel"]>("design");
