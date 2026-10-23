@@ -167,7 +167,9 @@ function JanelaDeContato({ p, fechar }: { p: Profissional; fechar: () => void })
   const caixa = useRef<HTMLDivElement>(null);
   const data = new Date().toLocaleDateString("pt-BR");
   const descricao = [p.profissao, registroCompleto(p), p.abordagem].filter(Boolean).join(" · ");
-  const mensagem = `Olá, ${primeiroNome(p.nome)}! Cheguei até você pela vitrine Saúde Solidária do Instituto Lúcia. Meu código de encaminhamento é ${codigo}.`;
+  // O nome de quem procura é obrigatório: o profissional sabe com quem está falando desde a primeira mensagem.
+  const nomeValido = nome.trim().replace(/\s+/g, " ").length >= 2 && /\p{L}/u.test(nome);
+  const mensagem = `Olá, ${primeiroNome(p.nome)}! Meu nome é ${nome.trim().replace(/\s+/g, " ")}. Cheguei até você pela vitrine Saúde Solidária do Instituto Lúcia. Meu código de encaminhamento é ${codigo}.`;
 
   useEffect(() => {
     const tecla = (e: KeyboardEvent) => e.key === "Escape" && fechar();
@@ -181,7 +183,7 @@ function JanelaDeContato({ p, fechar }: { p: Profissional; fechar: () => void })
 
   async function seguir() {
     try {
-      if (nome.trim()) window.localStorage.setItem(NOME_GUARDADO, nome.trim());
+      if (nomeValido) window.localStorage.setItem(NOME_GUARDADO, nome.trim());
     } catch {
       // sem armazenamento
     }
@@ -218,14 +220,15 @@ function JanelaDeContato({ p, fechar }: { p: Profissional; fechar: () => void })
               {AVISO_COMPLETO.map((a) => <li key={a}>{a}</li>)}
             </ul>
             <label className="mt-5 block">
-              <span className="font-semibold">Seu primeiro nome</span> <span className="text-ink-soft">(opcional; só aparece no cartão e fica neste aparelho)</span>
-              <input value={nome} onChange={(e) => setNome(e.target.value.slice(0, 40))} maxLength={40} autoComplete="given-name" className="mt-1 block w-full border-2 border-ink bg-parchment-deep px-3 py-2" />
+              <span className="font-semibold">Seu nome</span> <span className="text-ink-soft">(obrigatório; vai no cartão e na mensagem para o profissional e fica só neste aparelho)</span>
+              <input value={nome} onChange={(e) => setNome(e.target.value.slice(0, 60))} maxLength={60} required aria-required="true" autoComplete="name" placeholder="Como você quer ser chamado" className="mt-1 block w-full border-2 border-ink bg-folha px-3 py-2" />
+              {nome.length > 0 && !nomeValido && <span role="status" className="mt-1 block text-sm text-oxblood">Escreva o seu nome para continuar.</span>}
             </label>
             <label className="mt-4 flex items-start gap-3 border-2 border-ink bg-parchment-deep p-3">
               <input type="checkbox" checked={ciente} onChange={(e) => setCiente(e.target.checked)} className="mt-1 h-5 w-5 shrink-0" />
               <span>{CIENCIA}</span>
             </label>
-            <button type="button" disabled={!ciente} onClick={() => void seguir()} className="mt-5 w-full cursor-pointer bg-ink px-5 py-3 font-bold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-40">
+            <button type="button" disabled={!ciente || !nomeValido} onClick={() => void seguir()} className="mt-5 w-full cursor-pointer bg-ink px-5 py-3 font-bold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-40">
               Continuar
             </button>
           </div>

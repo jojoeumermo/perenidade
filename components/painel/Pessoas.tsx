@@ -32,6 +32,8 @@ interface Inscricao {
   status: string;
   criado_em: string;
   tem_conta: boolean;
+  /** O Instagram que a pessoa informou (sem o @), quando informou. */
+  instagram?: string | null;
 }
 
 interface Pessoa {
@@ -296,7 +298,14 @@ export function Pessoas({ me }: { me: Me }) {
               </p>
               <p className="mt-1 font-serif text-xl font-semibold">{item.nome}</p>
               <p className="font-mono text-xs text-ink-soft">
-                {item.email} · {item.tem_conta ? "já tem conta no site" : "ainda sem conta"}
+                {item.email}
+                {item.instagram && (
+                  <>
+                    {" · "}
+                    <a href={`https://www.instagram.com/${item.instagram}/`} target="_blank" rel="noopener noreferrer" className="underline hover:text-oxblood">@{item.instagram}</a>
+                  </>
+                )}
+                {" · "}{item.tem_conta ? "já tem conta no site" : "ainda sem conta"}
               </p>
               <p className="mt-2 whitespace-pre-line" data-original>{item.mensagem}</p>
               <div className="mt-3 flex gap-3">
