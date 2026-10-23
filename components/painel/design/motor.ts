@@ -201,6 +201,9 @@ export const FORMATOS = [
   { id: "certificado", nome: "Certificado A4 deitado (297 × 210 mm)", curto: "Certificado", w: 1754, h: 1240, mm: [297, 210], grupo: "Impressos" },
   { id: "convite", nome: "Convite (127 × 178 mm)", curto: "Convite", w: 1500, h: 2100, mm: [127, 178], grupo: "Impressos" },
   { id: "cracha", nome: "Crachá (54 × 86 mm)", curto: "Crachá", w: 638, h: 1011, mm: [54, 85.6], grupo: "Impressos" },
+  { id: "estampa", nome: "Estampa de camiseta (20 × 25 cm)", curto: "Estampa", w: 2362, h: 2953, mm: [200, 250], grupo: "Roupa e adesivo" },
+  { id: "adesivo", nome: "Adesivo redondo (8 cm)", curto: "Adesivo", w: 945, h: 945, mm: [80, 80], grupo: "Roupa e adesivo" },
+  { id: "tag", nome: "Etiqueta de roupa (5 × 9 cm)", curto: "Etiqueta", w: 591, h: 1063, mm: [50, 90], grupo: "Roupa e adesivo" },
 ] as const satisfies readonly { id: string; nome: string; curto: string; w: number; h: number; mm?: readonly [number, number]; grupo: string }[];
 export type FormatoId = (typeof FORMATOS)[number]["id"];
 type FormatoQualquer = (typeof FORMATOS)[number] & { mm?: readonly [number, number] };

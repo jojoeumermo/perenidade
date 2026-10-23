@@ -8,7 +8,7 @@
 
 import { COR, type Documento, elemento, forma, type FormatoId, imagem, marca, texto } from "./motor";
 
-export type GrupoDeModelo = "Posts" | "Stories" | "Carrossel" | "Datas" | "Impressos" | "Site e vídeo" | "Capas e marca";
+export type GrupoDeModelo = "Posts" | "Stories" | "Carrossel" | "Datas" | "Impressos" | "Site e vídeo" | "Capas e marca" | "Streetwear e ativismo";
 
 export interface Modelo {
   id: string;
@@ -76,7 +76,7 @@ function carrosselFinal(): Documento {
   return d;
 }
 
-export const MODELOS: Modelo[] = [
+const MODELOS_DA_MARCA: Modelo[] = [
   {
     id: "post-proposito",
     nome: "Propósito (título grande)",
@@ -614,7 +614,188 @@ export const MODELOS: Modelo[] = [
   },
 ];
 
-export const GRUPOS: GrupoDeModelo[] = ["Posts", "Stories", "Carrossel", "Datas", "Impressos", "Site e vídeo", "Capas e marca"];
+// ───── Streetwear e ativismo ─────
+// Estampas, drops, lookbook, adesivo e etiqueta para quem faz roupa e arte de rua militante. Vão sem a marca do
+// instituto: são de quem cria. As estampas saem melhor em PNG sem fundo (Exportar › sem a cor do fundo).
+
+const STREETWEAR: Modelo[] = [
+  {
+    id: "estampa-punho",
+    nome: "Estampa: punho e arco (serigrafia)",
+    formato: "estampa",
+    grupo: "Streetwear e ativismo",
+    montar: () => {
+      const d = base(2362, 2953, { cor: COR["Preto de arquivo"], textura: "serigrafia" });
+      d.camadas = [
+        texto({ x: 181, y: 330, w: 2000, texto: "Organizar", fonte: "sans", tamanho: 300, peso: 900, italico: true, cor: COR["Vermelho vivo"], alinhar: "center", maiusculas: true, curva: 38, textura: true, nome: "Arco de cima" }),
+        elemento({ x: 581, y: 700, w: 1200, h: 1400, desenho: "punho-cartaz", cor: COR.Pergaminho, textura: true, nome: "Punho" }),
+        texto({ x: 181, y: 2200, w: 2000, texto: "Lutar", fonte: "sans", tamanho: 420, peso: 900, italico: true, cor: COR.Pergaminho, alinhar: "center", maiusculas: true, textura: true, nome: "Palavra de baixo" }),
+        texto({ x: 181, y: 2700, w: 2000, texto: "Vencer", fonte: "mono", tamanho: 90, peso: 500, cor: COR["Vermelho vivo"], alinhar: "center", espacamento: 0.4, maiusculas: true, nome: "Assinatura" }),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "estampa-tipografica",
+    nome: "Estampa: palavras empilhadas (vazado)",
+    formato: "estampa",
+    grupo: "Streetwear e ativismo",
+    montar: () => {
+      const d = base(2362, 2953, { cor: COR["Pergaminho claro"] });
+      const linha = (y: number, t: string, vazado: boolean, cor: string) =>
+        texto({ x: 120, y, w: 2122, texto: t, fonte: "sans", tamanho: 520, peso: 900, italico: true, entrelinha: 0.85, espacamento: -0.03, cor, alinhar: "center", maiusculas: true, vazado, contorno: vazado ? COR.Tinta : "", espContorno: vazado ? 14 : 0, nome: t });
+      d.camadas = [
+        linha(300, "O povo", false, COR.Tinta),
+        linha(860, "não", true, COR.Tinta),
+        linha(1420, "esquece", false, COR["Vermelho da gráfica"]),
+        forma("linha", { x: 300, y: 2140, w: 1762, h: 12, preenchimento: COR.Tinta, espessura: 12, nome: "Fio" }),
+        texto({ x: 120, y: 2240, w: 2122, texto: "Memória · Verdade · Justiça", fonte: "mono", tamanho: 96, peso: 500, cor: COR.Tinta, alinhar: "center", espacamento: 0.24, maiusculas: true, nome: "Lema" }),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "estampa-estrela",
+    nome: "Estampa: estrela, raios e faixa",
+    formato: "estampa",
+    grupo: "Streetwear e ativismo",
+    montar: () => {
+      const d = base(2362, 2953, { cor: COR["Preto de arquivo"] });
+      d.camadas = [
+        forma("raios", { x: 181, y: 300, w: 2000, h: 2000, preenchimento: COR["Vermelho da gráfica"], nome: "Raios" }),
+        forma("estrela", { x: 631, y: 750, w: 1100, h: 1100, preenchimento: COR.Ouro, nome: "Estrela" }),
+        elemento({ x: 181, y: 2160, w: 2000, h: 330, desenho: "pincelada", cor: COR.Pergaminho, nome: "Pincelada" }),
+        texto({ x: 221, y: 2262, w: 1920, texto: "Terra, teto e trabalho", fonte: "sans", tamanho: 124, peso: 900, italico: true, cor: COR["Preto de arquivo"], alinhar: "center", maiusculas: true, nome: "Faixa" }),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "post-drop",
+    nome: "Novo drop (lançamento de peça)",
+    formato: "post",
+    grupo: "Streetwear e ativismo",
+    montar: () => {
+      const d = base(1080, 1350, { cor: COR["Preto de arquivo"] });
+      d.camadas = [
+        imagem({ x: 0, y: 0, w: 1080, h: 1350, src: "/imagens/galeria/kustodiev-bolchevique.webp", credito: "Troque pela foto da peça. Boris Kustodiev, O bolchevique, 1920. Domínio público.", filtro: "duotom", opacidade: 0.55, nome: "Foto da peça" }),
+        texto({ x: 72, y: 80, w: 600, texto: "Novo drop", fonte: "mono", tamanho: 30, peso: 500, cor: COR.Pergaminho, espacamento: 0.3, maiusculas: true, nome: "Etiqueta" }),
+        texto({ x: 72, y: 720, w: 936, texto: "Coleção\nChão de fábrica", fonte: "sans", tamanho: 100, peso: 900, italico: true, entrelinha: 0.9, cor: COR.Pergaminho, maiusculas: true, sombra: COR["Vermelho da gráfica"], sombraX: 8, sombraY: 8, nome: "Nome da coleção" }),
+        texto({ x: 72, y: 1060, w: 700, texto: "Camiseta 100% algodão, serigrafia feita à mão. Edição limitada.", fonte: "sans", tamanho: 32, peso: 500, entrelinha: 1.3, cor: COR.Pergaminho, nome: "Descrição" }),
+        texto({ x: 72, y: 1220, w: 420, texto: "Link na bio", fonte: "sans", tamanho: 26, peso: 800, cor: COR.Tinta, fundo: COR.Pergaminho, recuo: 16, alinhar: "center", espacamento: 0.1, maiusculas: true, nome: "Chamada" }),
+        elemento({ x: 790, y: 1040, w: 230, h: 230, desenho: "selo", cor: COR["Vermelho da gráfica"], fundo: COR.Pergaminho, conteudo: "R$ 79", nome: "Preço" }),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "story-lookbook",
+    nome: "Lookbook (story)",
+    formato: "story",
+    grupo: "Streetwear e ativismo",
+    montar: () => {
+      const d = base(1080, 1920, { cor: COR.Papel, textura: "papel" });
+      d.camadas = [
+        imagem({ x: 80, y: 220, w: 920, h: 1180, src: "/imagens/galeria/greve-geral-1917.webp", credito: "Troque pela foto do look.", filtro: "pb", borda: COR.Tinta, espessura: 8, nome: "Foto do look" }),
+        elemento({ x: 380, y: 190, w: 320, h: 70, desenho: "fita", cor: "rgba(240,207,142,0.8)", nome: "Fita" }),
+        texto({ x: 80, y: 90, w: 920, texto: "Look 01", fonte: "mono", tamanho: 34, peso: 500, cor: COR["Bordô"], espacamento: 0.3, maiusculas: true, nome: "Número do look" }),
+        texto({ x: 80, y: 1440, w: 920, texto: "Moletom “Memória”\nBoné “Organizar”", fonte: "sans", tamanho: 64, peso: 900, italico: true, entrelinha: 1, cor: COR.Tinta, maiusculas: true, nome: "Peças" }),
+        texto({ x: 80, y: 1620, w: 700, texto: "Tamanhos P ao GG · envio para todo o Brasil", fonte: "sans", tamanho: 32, peso: 500, cor: COR["Tinta suave"], nome: "Detalhes" }),
+        elemento({ x: 780, y: 1600, w: 200, h: 200, desenho: "seta-mao", cor: COR["Vermelho da gráfica"], nome: "Seta" }),
+        elemento({ x: 240, y: 1730, w: 600, h: 130, desenho: "figurinha", soGuia: true, nome: "Guia da figurinha de link" }),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "post-frase-de-rua",
+    nome: "Frase de rua (pincel)",
+    formato: "quadrado",
+    grupo: "Streetwear e ativismo",
+    montar: () => {
+      const d = base(1080, 1080, { cor: COR["Pergaminho claro"], textura: "serigrafia" });
+      d.camadas = [
+        elemento({ x: 60, y: 290, w: 960, h: 480, desenho: "pincelada", cor: COR["Vermelho da gráfica"], nome: "Pincelada" }),
+        texto({ x: 80, y: 330, w: 920, texto: "A rua\né nossa", fonte: "manuscrita", tamanho: 170, entrelinha: 1, peso: 700, cor: COR.Pergaminho, alinhar: "center", rot: -4, nome: "Frase" }),
+        texto({ x: 80, y: 860, w: 920, texto: "@seu.perfil", fonte: "mono", tamanho: 30, peso: 500, cor: COR.Tinta, alinhar: "center", espacamento: 0.2, nome: "Perfil" }),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "story-do-papel-a-camiseta",
+    nome: "Do papel à camiseta (bastidores)",
+    formato: "story",
+    grupo: "Streetwear e ativismo",
+    montar: () => {
+      const d = base(1080, 1920, { cor: COR["Preto de arquivo"] });
+      const passo = (n: string, y: number, titulo: string, corpo: string) => [
+        texto({ x: 80, y, w: 160, texto: n, fonte: "sans", tamanho: 150, peso: 900, italico: true, cor: COR["Vermelho vivo"], nome: `Número ${n}` }),
+        texto({ x: 280, y: y + 20, w: 720, texto: titulo, fonte: "sans", tamanho: 58, peso: 900, cor: COR.Pergaminho, maiusculas: true, nome: `Passo ${n}` }),
+        texto({ x: 280, y: y + 100, w: 720, texto: corpo, fonte: "sans", tamanho: 34, peso: 500, entrelinha: 1.3, cor: COR.Fio, nome: `Explicação ${n}` }),
+      ];
+      d.camadas = [
+        texto({ x: 80, y: 120, w: 920, texto: "Bastidores", fonte: "mono", tamanho: 32, peso: 500, cor: COR["Vermelho vivo"], espacamento: 0.3, maiusculas: true, nome: "Etiqueta" }),
+        texto({ x: 80, y: 180, w: 920, texto: "Do papel\nà camiseta", fonte: "sans", tamanho: 130, peso: 900, italico: true, entrelinha: 0.92, cor: COR.Pergaminho, maiusculas: true, nome: "Título" }),
+        ...passo("1", 620, "O desenho", "Rascunho no caderno, depois vetor. A ideia vem da rua e da história."),
+        ...passo("2", 960, "A tela", "A arte vai para a tela de serigrafia, uma cor de cada vez."),
+        ...passo("3", 1300, "A tinta", "Cada peça é puxada à mão por quem trabalha com a gente, com pagamento justo."),
+        texto({ x: 80, y: 1720, w: 920, texto: "@seu.perfil", fonte: "mono", tamanho: 30, peso: 500, cor: COR.Fio, alinhar: "center", espacamento: 0.2, nome: "Perfil" }),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "adesivo-carimbo",
+    nome: "Adesivo redondo (carimbo)",
+    formato: "adesivo",
+    grupo: "Streetwear e ativismo",
+    montar: () => {
+      const d = base(945, 945, { cor: COR["Vermelho da gráfica"] });
+      d.camadas = [
+        elemento({ x: 40, y: 40, w: 865, h: 865, desenho: "carimbo", cor: COR.Pergaminho, conteudo: "Antifascista", conteudo2: "Sempre", nome: "Carimbo" }),
+        elemento({ x: 302, y: 290, w: 340, h: 380, desenho: "punho", cor: COR.Pergaminho, nome: "Punho" }),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "adesivo-palavra",
+    nome: "Adesivo redondo (palavra de ordem)",
+    formato: "adesivo",
+    grupo: "Streetwear e ativismo",
+    montar: () => {
+      const d = base(945, 945, { cor: COR.Tinta });
+      d.camadas = [
+        forma("elipse", { x: 30, y: 30, w: 885, h: 885, preenchimento: COR.Ouro, nome: "Círculo" }),
+        texto({ x: 80, y: 300, w: 785, texto: "Estude.\nOrganize.\nLute.", fonte: "sans", tamanho: 120, peso: 900, italico: true, entrelinha: 0.95, cor: COR.Tinta, alinhar: "center", maiusculas: true, nome: "Palavras" }),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "tag-de-roupa",
+    nome: "Etiqueta de roupa (tag)",
+    formato: "tag",
+    grupo: "Streetwear e ativismo",
+    montar: () => {
+      const d = base(591, 1063, { cor: COR.Papel, textura: "papel" });
+      d.camadas = [
+        forma("elipse", { x: 265, y: 50, w: 60, h: 60, preenchimento: COR["Pergaminho claro"], borda: COR.Tinta, espessura: 3, nome: "Furo" }),
+        texto({ x: 50, y: 180, w: 491, texto: "Vista\nsua luta", fonte: "sans", tamanho: 92, peso: 900, italico: true, entrelinha: 0.92, cor: COR.Tinta, alinhar: "center", maiusculas: true, nome: "Lema" }),
+        forma("estrela", { x: 245, y: 440, w: 100, h: 100, preenchimento: COR["Vermelho da gráfica"], nome: "Estrela" }),
+        texto({ x: 50, y: 590, w: 491, texto: "Feita à mão por trabalhadores, com pagamento justo.", fonte: "serifa", tamanho: 32, peso: 400, entrelinha: 1.25, cor: COR.Tinta, alinhar: "center", nome: "Texto" }),
+        texto({ x: 50, y: 820, w: 491, texto: "Lavar do avesso · não usar alvejante · secar à sombra", fonte: "mono", tamanho: 20, peso: 500, entrelinha: 1.4, cor: COR["Tinta suave"], alinhar: "center", maiusculas: true, nome: "Cuidados" }),
+        texto({ x: 50, y: 960, w: 491, texto: "@seu.perfil", fonte: "mono", tamanho: 24, peso: 500, cor: COR["Bordô"], alinhar: "center", nome: "Perfil" }),
+      ];
+      return d;
+    },
+  },
+];
+
+export const MODELOS: Modelo[] = [...MODELOS_DA_MARCA, ...STREETWEAR];
+
+export const GRUPOS: GrupoDeModelo[] = ["Posts", "Stories", "Carrossel", "Datas", "Impressos", "Site e vídeo", "Capas e marca", "Streetwear e ativismo"];
 
 /** As páginas que o modelo cria (uma, ou todas as do carrossel completo). */
 export const paginasDoModelo = (m: Modelo) => (m.paginas ? m.paginas() : [m.montar()]);

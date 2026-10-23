@@ -69,7 +69,7 @@ export function Gavetas({ celular }: { celular: boolean }) {
 // ───── Modelos ─────
 
 const miniaturas = new Map<string, string>();
-const ROTULO_DO_FORMATO: Partial<Record<FormatoId, string>> = { post: "4:5", carrossel: "4:5", quadrado: "Quadrado", story: "Story", avatar: "1:1", "cartaz-a4": "A4", "cartaz-a3": "A3", "folheto-a5": "A5", certificado: "A4", convite: "Convite", cracha: "Crachá", video: "16:9", banner: "OG", "banner-site": "Faixa", "capa-noticia": "16:9", "capa-rede": "Capa", "capa-podcast": "Podcast" };
+const ROTULO_DO_FORMATO: Partial<Record<FormatoId, string>> = { post: "4:5", carrossel: "4:5", quadrado: "Quadrado", story: "Story", avatar: "1:1", "cartaz-a4": "A4", "cartaz-a3": "A3", "folheto-a5": "A5", certificado: "A4", convite: "Convite", cracha: "Crachá", video: "16:9", banner: "OG", "banner-site": "Faixa", "capa-noticia": "16:9", "capa-rede": "Capa", "capa-podcast": "Podcast", estampa: "Estampa", adesivo: "Adesivo", tag: "Etiqueta" };
 const FILTROS: { id: string; nome: string; vale: (m: Modelo) => boolean }[] = [
   { id: "todos", nome: "Todos", vale: () => true },
   { id: "post", nome: "Post", vale: (m) => m.formato === "post" },
@@ -79,6 +79,7 @@ const FILTROS: { id: string; nome: string; vale: (m: Modelo) => boolean }[] = [
   { id: "datas", nome: "Datas", vale: (m) => m.grupo === "Datas" },
   { id: "impressos", nome: "Impressos", vale: (m) => m.grupo === "Impressos" },
   { id: "site", nome: "Site e vídeo", vale: (m) => m.grupo === "Site e vídeo" || m.grupo === "Capas e marca" },
+  { id: "streetwear", nome: "Streetwear", vale: (m) => m.grupo === "Streetwear e ativismo" },
 ];
 const semAcento = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
 
