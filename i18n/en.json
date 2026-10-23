@@ -147,6 +147,8 @@
     "segurancaKaliForaDoAr": "The lab is not yet live at the institute's address.",
     "eletrica": "Electrical lab",
     "eletricaLead": "A real multimeter on the bench, series and parallel, wiring a light and an outlet, the electrician's math and an electronics bench: LED and resistor, capacitor on the oscilloscope, logic gates, power supply and light sensor.",
+    "quimica": "Chemistry lab",
+    "quimicaLead": "Acid-base titration with a truly calculated pH curve and four indicators, dilution in a beaker, and the pH scale of household things, with a red-cabbage indicator.",
     "modelos": "Models lab",
     "modelosLead": "Probability, misleading charts, segregation, cooperation, wealth, epidemics, predator and prey, orbits, waves, cellular automata, regular expressions and your phone as an instrument: predict, run, compare, explain."
   },
