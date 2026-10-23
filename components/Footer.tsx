@@ -35,7 +35,6 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
       title: t.footer.community,
       links: [
         [t.nav.volunteers, "/voluntarios"],
-        [t.nav.volunteerTasks, "/voluntarie-se"],
         [t.nav.contribute, "/contribuir"],
         [t.nav.community, "/comunidade"],
         [t.nav.journal, "/jornal"],
@@ -44,8 +43,6 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
         [t.nav.mural, "/mural"],
         [t.nav.health, "/saude"],
         [t.nav.rightsGuide, "/direitos"],
-        [t.nav.events, "/eventos"],
-        [t.nav.spreadKit, "/divulgue"],
         [t.nav.materials, "/materiais"],
         [t.nav.factCheck, "/checagens"],
         [t.nav.debates, "/debates"],
@@ -77,36 +74,40 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
 
   // No celular, dentro do aplicativo, o rodapé some: tudo o que ele lista está em "Mais".
   return (
-    <footer className="no-print no-focus mt-20 border-t border-rule app:max-md:hidden pb-[calc(4rem+var(--recuo-baixo))] md:pb-0">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 font-sans text-sm sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="rodape-do-site no-print no-focus mt-20 border-t-[3px] border-ink bg-parchment app:max-md:hidden pb-[calc(4rem+var(--recuo-baixo))] md:pb-0">
+      <div className="mx-auto grid max-w-[78rem] gap-10 px-4 py-12 font-sans text-sm sm:grid-cols-2 sm:px-6 lg:grid-cols-[1.3fr_1fr_1fr_1fr] lg:px-8">
         <div>
-          <p className="font-serif text-2xl font-semibold">{site.name}</p>
-          <p className="mt-2 text-ink-soft">{t.footer.tagline}</p>
-          <p className="mt-4 font-serif text-lg italic text-oxblood">{t.footer.slogan}</p>
-          <a href={site.instagram} target="_blank" rel="noopener noreferrer me" className="mt-4 inline-flex items-center gap-2 text-ink-soft hover:text-oxblood">
+          <Link href={localePath(lang, "/")} className="flex items-center gap-3 text-ink hover:text-ink">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/marca-96.png" alt="" width={44} height={44} className="h-11 w-11" loading="lazy" />
+            <span className="font-serif text-[1.65rem] font-semibold leading-none">{site.name}</span>
+          </Link>
+          <p className="mt-3 font-serif text-lg leading-snug text-ink-soft">{t.footer.tagline}</p>
+          <p className="mt-4 font-serif text-lg italic text-prelo-texto">{t.footer.slogan}</p>
+          <a href={site.instagram} target="_blank" rel="noopener noreferrer me" className="botao botao-papel botao-menor mt-5">
             <InstagramIcon />
             <span>
-              {t.footer.instagram} <span className="font-mono text-xs">@institutoluciaorg</span>
+              {t.footer.instagram} <span className="font-mono text-xs font-normal">@institutoluciaorg</span>
             </span>
           </a>
         </div>
         {columns.map((column) => (
           <nav key={column.title} aria-label={column.title}>
-            <p className="font-mono text-xs uppercase tracking-widest text-gold">{column.title}</p>
-            <ul className="mt-3 space-y-2 text-ink-soft">
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink">{column.title}</p>
+            <ul className="mt-3 space-y-2 border-t-2 border-ink pt-3 text-ink-soft">
               {column.links.map(([label, href]) => (
                 <li key={href}>
-                  <Link href={localePath(lang, href)} className="hover:text-oxblood">{label}</Link>
+                  <Link href={localePath(lang, href)} className="hover:text-prelo-texto hover:underline">{label}</Link>
                 </li>
               ))}
             </ul>
           </nav>
         ))}
       </div>
-      <p className="border-t border-rule px-4 py-4 text-center font-mono text-xs text-ink-soft">
+      <p className="border-t-2 border-ink px-4 py-4 text-center font-mono text-xs text-ink-soft">
         {t.footer.legal}
         {" · "}
-        <Link href={localePath(lang, "/entrar")} rel="nofollow" className="underline hover:text-oxblood">
+        <Link href={localePath(lang, "/entrar")} rel="nofollow" className="underline hover:text-prelo-texto">
           {t.footer.team}
         </Link>
       </p>

@@ -57,6 +57,7 @@
     "more": "Mais",
     "search": "Buscar",
     "support": "Apoie",
+    "supportLong": "Apoie o Instituto",
     "panel": "Painel",
     "hello": "Olá, {name}",
     "helloLabel": "Olá, {name}: abrir o painel",
@@ -296,6 +297,20 @@
   },
   "home": {
     "eyebrow": "Biblioteca de Alexandria · edição comunitária",
+    "kicker": "★ Aprenda de graça · contribua se quiser",
+    "posterLabel": "Lambe-lambe nº 1",
+    "poster": [
+      "O saber",
+      "é do",
+      "povo."
+    ],
+    "posterText": "Ninguém paga para entrar, ninguém é dono do que está aqui.",
+    "stamp": [
+      "Grátis",
+      "★ livre ★",
+      "para",
+      "sempre"
+    ],
     "h1a": "Todo o conhecimento,",
     "h1b": "para todos",
     "h1c": ", para sempre.",
@@ -305,6 +320,9 @@
     "searchButton": "Buscar",
     "indexed": "indexadas",
     "shelves": "As estantes",
+    "shelvesKicker": "§ As estantes",
+    "shelvesPick": "Escolha o seu caderno",
+    "seeAllShelves": "Ver os {n} cadernos",
     "startTrack": "Comece por uma trilha",
     "seeAll": "Ver todas",
     "timelineTitle": "Linha do tempo do acervo",
@@ -347,11 +365,19 @@
     "ctaTitle": "Ajude a construir a biblioteca",
     "ctaText": "Escreva uma aula, indique uma obra livre ou corrija um erro. Tudo passa por revisão antes de entrar.",
     "ctaButton": "Enviar uma contribuição",
+    "dedicationQuote": "Este instituto leva um nome, e um compromisso.",
+    "dedicationLink": "Leia a dedicatória",
     "questionsTitle": "Comece por uma pergunta",
     "shelvesHint": "São muitas. Escolha o essencial ou a etapa que você quer estudar.",
     "tryLabel": "Experimente:",
+    "startText": "Ainda não abriu nenhuma aula? O guia acha a sua trilha em cinco minutos.",
+    "journalWindow": "Do jornal",
+    "onAir": "No ar · Rádio Lúcia",
+    "listen": "Ouvir",
+    "allEpisodes": "Todos os episódios",
+    "radioLive": "Música, notícias e debates o dia todo, para ouvir com pouca internet.",
     "onThisDay": "Neste dia",
-    "onThisDaySource": "Fatos selecionados pela Wikipédia para a data de hoje. Texto da Wikipédia, licença CC BY-SA."
+    "onThisDaySource": "Lutas e conquistas do povo nesta data: as escolhidas pela equipe e as que a Wikipédia registra. Texto da Wikipédia, licença CC BY-SA."
   },
   "areas": {
     "portugues": [
@@ -690,6 +716,12 @@
     "continue": "Continue de onde parou",
     "resume": "Retomar",
     "ready": "{a} de {b} aulas prontas",
+    "essentialTag": "Essencial",
+    "stageShort": {
+      "fundamental": "Fundamental",
+      "medio": "Médio",
+      "superior": "Superior"
+    },
     "underConstruction": "Em construção",
     "helpWrite": "Ajude a escrever esta trilha",
     "planned": "em preparação",
@@ -2974,6 +3006,9 @@
     "eyebrow": "Tudo o que há aqui",
     "title": "Mais",
     "lead": "O que não coube no menu, reunido em um só lugar.",
+    "searchPlaceholder": "Procurar uma seção: “glossário”, “zines”, “reforço”…",
+    "mostUsed": "Você usa mais",
+    "footnote": "Tudo o que não coube no menu, numa tela só",
     "critical": "Leitura crítica",
     "items": {
       "tools": "Afinador, editor de código, tabela periódica e outras.",

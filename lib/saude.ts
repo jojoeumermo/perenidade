@@ -23,6 +23,17 @@ export interface Profissional {
   foto: string;
   /** Data em que a coordenação conferiu o registro no conselho (perfis do painel). */
   verificado_em?: string | null;
+  /** Data da autorização da própria pessoa (perfis publicados pelo arquivo). */
+  autorizado_em?: string | null;
+}
+
+/** Quantos dias um profissional novo fica no cartão da página inicial. Depois disso continua só na vitrine. */
+export const DIAS_NA_INICIAL = 30;
+
+/** O profissional entrou na vitrine há menos de DIAS_NA_INICIAL dias? Sem data, não vai para a inicial. */
+export function novoNaVitrine(p: Pick<Profissional, "verificado_em" | "autorizado_em">, agora = Date.now()): boolean {
+  const desde = Date.parse(p.autorizado_em ?? p.verificado_em ?? "");
+  return Number.isFinite(desde) && agora - desde < DIAS_NA_INICIAL * 86_400_000 && agora >= desde;
 }
 
 /** O e-mail de contato do instituto (dúvida, denúncia, pedido de remoção). */

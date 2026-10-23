@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { localePath } from "@/i18n/config";
 import { useI18n } from "./I18n";
+import { abrirMais } from "./NavLinks";
 
 const icons: Record<string, React.ReactNode> = {
   home: <path d="M3 11.5 12 4l9 7.5M5.5 10v9.5h13V10" />,
@@ -15,8 +16,8 @@ const icons: Record<string, React.ReactNode> = {
 };
 
 /**
- * Navegação de celular: fica embaixo, ao alcance do polegar. Em telas largas não aparece
- * (lá o menu do topo cabe inteiro). "Mais" leva à página que reúne todo o resto do site.
+ * Navegação de celular: fica embaixo, ao alcance do polegar, na faixa preta com o fio vermelho do prelo. Em telas
+ * largas não aparece (lá o menu do topo cabe inteiro). "Mais" abre a janela com todo o resto do site.
  */
 export function BottomNav() {
   const pathname = usePathname();
@@ -29,7 +30,7 @@ export function BottomNav() {
     ["more", t.nav.more, "/explorar"],
   ];
   return (
-    <nav aria-label={t.nav.main} className="app-abas no-print no-focus fixed inset-x-0 bottom-0 z-30 border-t-[3px] border-ink bg-parchment pb-[var(--recuo-baixo)] md:hidden">
+    <nav aria-label={t.nav.main} className="app-abas abas-do-celular no-print no-focus fixed inset-x-0 bottom-0 z-30 border-t-[3px] border-[#c21f16] bg-[#1f1a14] pb-[var(--recuo-baixo)] md:hidden">
       <ul className="grid grid-cols-5">
         {items.map(([icon, label, path]) => {
           const href = localePath(lang, path);
@@ -39,10 +40,14 @@ export function BottomNav() {
               <Link
                 href={href}
                 aria-current={active ? "page" : undefined}
-                className={`relative flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 font-sans text-[0.7rem] leading-tight ${active ? "font-bold text-oxblood" : "text-ink-soft hover:text-oxblood"}`}
+                aria-haspopup={path === "/explorar" ? "dialog" : undefined}
+                onClick={(e) => {
+                  if (path !== "/explorar" || e.metaKey || e.ctrlKey) return;
+                  e.preventDefault();
+                  abrirMais();
+                }}
+                className={`aba-do-celular relative flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 font-sans text-[0.7rem] leading-tight ${active ? "aba-aberta bg-[#c21f16] font-bold text-white" : "text-[#e9dcbc] hover:text-white"}`}
               >
-                {/* A aba aberta ganha a tarja vermelha do jornal por cima do fio preto. */}
-                {active && <span aria-hidden className="aba-ativa absolute inset-x-2 -top-[3px] h-[5px] bg-[#c21f16]" />}
                 <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={active ? 2.1 : 1.8} strokeLinecap="round" strokeLinejoin="round">
                   {icons[icon]}
                 </svg>

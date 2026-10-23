@@ -43,9 +43,9 @@ export function Strip({ fallback }: { fallback: string }) {
 
   return (
     <>
-      <div data-saida className="bg-ink px-4 py-1.5 text-center font-mono text-xs tracking-wide text-parchment max-md:truncate max-md:bg-[#1f1a14] max-md:px-3 max-md:py-1 max-md:text-[0.66rem] max-md:text-[#f4ecd8]">{saved.faixa || fallback}</div>
+      <div data-saida className="faixa-de-avisos bg-[#1f1a14] px-4 py-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.08em] text-[#e9dcbc] max-md:truncate max-md:px-3 max-md:py-1.5 max-md:text-[0.62rem]">{saved.faixa || fallback}</div>
       {saved.pausa && (
-        <p role="status" className="bg-oxblood px-4 py-1.5 text-center font-sans text-xs text-parchment">
+        <p role="status" className="bg-[#c21f16] px-4 py-1.5 text-center font-sans text-xs font-semibold text-white">
           {t.errors.envios_pausados}
           {saved.motivo && ` ${saved.motivo}`}
         </p>

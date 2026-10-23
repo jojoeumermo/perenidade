@@ -35,17 +35,17 @@ export function NesteDia({ s, lang }: { s: Dict["home"]; lang: string }) {
 
   if (!fatos) return null;
   return (
-    <section className="mx-auto max-w-6xl px-4 py-10" aria-labelledby="neste-dia">
-      <div className="border border-rule bg-parchment-deep p-6 sm:p-8">
-        <h2 id="neste-dia" className="text-3xl font-semibold">
-          {s.onThisDay} <span className="font-normal text-ink-soft">· {dia}</span>
+    <section className="mx-auto max-w-[78rem] px-4 py-12 sm:px-6 lg:px-8" aria-labelledby="neste-dia">
+      <div className="cartao p-6 sm:p-8">
+        <h2 id="neste-dia" className="flex flex-wrap items-baseline gap-x-3 text-3xl font-semibold">
+          {s.onThisDay} <span className="font-mono text-base font-normal tracking-[0.1em] text-prelo-texto">{dia}</span>
         </h2>
         <ol className="mt-6 grid gap-6 sm:grid-cols-3">
           {fatos.map((fato) => (
-            <li key={`${fato.ano}${fato.texto.slice(0, 20)}`} className="border-t-2 border-oxblood pt-3">
-              <p className="font-sans text-sm font-semibold text-oxblood">{fato.ano}</p>
-              <p className="mt-1">
-                <a href={fato.link} target="_blank" rel="noopener noreferrer nofollow" className="hover:text-oxblood">
+            <li key={`${fato.ano}${fato.texto.slice(0, 20)}`} className="border-t-[3px] border-[#c21f16] pt-3">
+              <p className="lambe text-2xl text-prelo-texto">{fato.ano}</p>
+              <p className="mt-1.5 text-lg leading-snug">
+                <a href={fato.link} target="_blank" rel="noopener noreferrer nofollow" className="hover:text-prelo-texto hover:underline">
                   {fato.texto}
                 </a>
               </p>

@@ -57,6 +57,7 @@
     "more": "Plus",
     "search": "Rechercher",
     "support": "Soutenir",
+    "supportLong": "Soutenez l’Institut",
     "panel": "Panneau",
     "hello": "Bonjour, {name}",
     "helloLabel": "Bonjour, {name} : ouvrir le panneau",
@@ -296,6 +297,20 @@
   },
   "home": {
     "eyebrow": "Bibliothèque d'Alexandrie · édition communautaire",
+    "kicker": "★ Apprenez gratuitement · contribuez si vous voulez",
+    "posterLabel": "Affiche de rue nº 1",
+    "poster": [
+      "Le savoir",
+      "appartient",
+      "au peuple."
+    ],
+    "posterText": "Personne ne paie pour entrer, personne ne possède ce qui est ici.",
+    "stamp": [
+      "Gratuit",
+      "★ libre ★",
+      "pour",
+      "toujours"
+    ],
     "h1a": "Tout le savoir,",
     "h1b": "pour tous",
     "h1c": ", pour toujours.",
@@ -305,6 +320,9 @@
     "searchButton": "Rechercher",
     "indexed": "indexées",
     "shelves": "Les étagères",
+    "shelvesKicker": "§ Les étagères",
+    "shelvesPick": "Choisissez votre cahier",
+    "seeAllShelves": "Voir les {n} cahiers",
     "startTrack": "Commencez par un parcours",
     "seeAll": "Tout voir",
     "timelineTitle": "Frise de la bibliothèque",
@@ -347,11 +365,19 @@
     "ctaTitle": "Aidez à construire la bibliothèque",
     "ctaText": "Écrivez un cours, indiquez une œuvre libre ou corrigez une erreur. Tout est relu avant d'être accepté.",
     "ctaButton": "Envoyer une contribution",
+    "dedicationQuote": "Cet institut porte un nom, et un engagement.",
+    "dedicationLink": "Lire la dédicace",
     "questionsTitle": "Partir d'une question",
     "shelvesHint": "Il y en a beaucoup. Choisissez l'essentiel ou l'étape que vous voulez étudier.",
     "tryLabel": "Essayez :",
+    "startText": "Pas encore ouvert de cours ? Le guide trouve votre parcours en cinq minutes.",
+    "journalWindow": "Du journal",
+    "onAir": "À l’antenne · Radio Lúcia",
+    "listen": "Écouter",
+    "allEpisodes": "Tous les épisodes",
+    "radioLive": "Musique, infos et débats toute la journée, à écouter avec peu de connexion.",
     "onThisDay": "Ce jour-là",
-    "onThisDaySource": "Événements choisis par Wikipédia pour la date d'aujourd'hui. Texte de Wikipédia, licence CC BY-SA."
+    "onThisDaySource": "Luttes et conquêtes populaires à cette date, choisies par l’équipe et tirées de Wikipédia. Texte de Wikipédia, licence CC BY-SA."
   },
   "areas": {
     "portugues": [
@@ -690,6 +716,12 @@
     "continue": "Reprendre là où vous vous êtes arrêté",
     "resume": "Reprendre",
     "ready": "{a} sur {b} cours prêts",
+    "essentialTag": "Essentiel",
+    "stageShort": {
+      "fundamental": "Primaire",
+      "medio": "Secondaire",
+      "superior": "Supérieur"
+    },
     "underConstruction": "En construction",
     "helpWrite": "Aidez à écrire ce parcours",
     "planned": "en préparation",
@@ -2974,6 +3006,9 @@
     "eyebrow": "Tout ce qu'il y a ici",
     "title": "Plus",
     "lead": "Ce qui ne tenait pas dans le menu, réuni au même endroit.",
+    "searchPlaceholder": "Chercher une rubrique : « glossaire », « zines », « soutien »…",
+    "mostUsed": "Vos plus utilisées",
+    "footnote": "Tout ce qui n’a pas tenu dans le menu, sur un seul écran",
     "critical": "Lecture critique",
     "items": {
       "tools": "Accordeur, éditeur de code, tableau périodique et autres.",
