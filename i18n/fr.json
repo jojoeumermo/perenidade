@@ -3407,7 +3407,10 @@
     "recoveryLabel": "Code de récupération (XXXXX-XXXXX)",
     "recoveryButton": "Utiliser le code",
     "recoveryBad": "Ce code n'est pas valable (incorrect ou déjà utilisé). Vous avez cinq essais par heure.",
-    "recoveryDone": "C'est fait : l'application d'authentification a été retirée du compte. Configurez celle de votre nouveau téléphone dans Mon compte."
+    "recoveryDone": "C'est fait : l'application d'authentification a été retirée du compte. Configurez celle de votre nouveau téléphone dans Mon compte.",
+    "nickname": "Comment voulez-vous être appelé(e) sur le site ? (facultatif)",
+    "nicknameExample": "Ex. : Rosa du quartier, Jo 47",
+    "nicknameHint": "Un pseudonyme suffit : personne n'a besoin d'utiliser son vrai nom ici. C'est ce nom qui apparaît dans la communauté. Laissez vide et le site choisit un nom de code d'une combattante ou d'un combattant de l'histoire."
   },
   "radio": {
     "back15": "Reculer de 15 secondes",

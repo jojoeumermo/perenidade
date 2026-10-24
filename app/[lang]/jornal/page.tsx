@@ -131,9 +131,16 @@ export default async function Jornal({ params }: PageProps<"/[lang]/jornal">) {
                 </Link>
               </h2>
               {lead.subtitle && <p className="mt-3 font-serif text-[1.35rem] leading-snug text-ink-soft">{lead.subtitle}</p>}
+              {lead.image ? (
+                <figure className="mt-6">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={lead.image} alt="" width={1200} height={700} decoding="async" className="aspect-[16/9] w-full border-2 border-ink object-cover shadow-[6px_6px_0_var(--sombra)]" />
+                  <figcaption className="mt-2 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-ink-soft">{lead.imageCredit}</figcaption>
+                </figure>
+              ) : null}
               <p className="jornal-texto jornal-capitular mt-6 border-t-2 border-ink pt-5 text-lg leading-relaxed sm:columns-2 sm:gap-8">{opening(lead)}</p>
               {assinatura(lead)}
-              <div className="mt-8">{giro}</div>
+              {!lead.image && <div className="mt-8">{giro}</div>}
             </article>
             <aside className="flex flex-col gap-6 lg:border-l-2 lg:border-ink lg:pl-8">
               {calls.map((a) => (
@@ -147,6 +154,7 @@ export default async function Jornal({ params }: PageProps<"/[lang]/jornal">) {
                   {assinatura(a)}
                 </article>
               ))}
+              {lead.image && giro}
               <MaisLidas recentes={rest.slice(2, 5).concat(calls).slice(0, 3).map(chamada)} todas={articles.map(chamada)} titulo={s.mostRead} tituloSemContagem={s.readNow} />
             </aside>
           </div>
@@ -165,7 +173,17 @@ export default async function Jornal({ params }: PageProps<"/[lang]/jornal">) {
                 </h2>
                 <ul className="mt-6 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
                   {f.itens.map((a, j) => (
-                    <li key={a.slug} className={`${j % 3 === 1 ? "cartao-v" : "cartao"} flex flex-col p-5`} {...originalLang(a.translated)}>
+                    <li key={a.slug} className={`${j % 3 === 1 ? "cartao-v" : "cartao"} flex flex-col overflow-hidden`} {...originalLang(a.translated)}>
+                      {a.image ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={a.image} alt="" width={600} height={300} loading="lazy" decoding="async" className="aspect-[2/1] w-full border-b-2 border-ink object-cover" />
+                      ) : (
+                        // Sem foto: a faixa listrada com a estrela, como o papel de embrulho dos cartazes.
+                        <span aria-hidden className="jornal-sem-foto flex aspect-[3/1] items-center justify-center border-b-2 border-ink">
+                          <Star className="h-9 w-9 text-[#c21f16]" />
+                        </span>
+                      )}
+                      <div className="flex flex-1 flex-col p-5">
                       {chapeu(a)}
                       <h3 className="mt-1.5 font-serif text-[1.45rem] font-semibold leading-[1.15]">
                         <Link href={to(a.slug)} className="text-ink hover:text-ink hover:underline hover:decoration-[#c21f16] hover:decoration-2">
@@ -174,6 +192,7 @@ export default async function Jornal({ params }: PageProps<"/[lang]/jornal">) {
                       </h3>
                       {a.subtitle && <p className="mt-2 line-clamp-3 leading-snug text-ink-soft">{a.subtitle}</p>}
                       <div className="mt-auto">{assinatura(a)}</div>
+                      </div>
                     </li>
                   ))}
                 </ul>

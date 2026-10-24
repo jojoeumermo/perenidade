@@ -46,6 +46,8 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [again, setAgain] = useState("");
+  // Como a pessoa quer ser chamada no site: pode ser apelido. Vazio, o banco sorteia um codinome.
+  const [apelido, setApelido] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "wrong" | "failed" | "unconfirmed" | "resent" | "invalid" | "confirm" | "saved" | "code" | "badCode" | "leaked">("idle");
   const [detail, setDetail] = useState("");
   /** O aplicativo autenticador cadastrado na conta que acabou de acertar a senha. */
@@ -216,7 +218,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     }
     try {
       const supabase = await getClient();
-      const { data, error } = await supabase.auth.signUp({ email: address, password, options: { data: code ? { convite: code } : {}, captchaToken: token || undefined, emailRedirectTo: back } });
+      const { data, error } = await supabase.auth.signUp({ email: address, password, options: { data: { ...(code ? { convite: code } : {}), ...(apelido.trim() ? { apelido: apelido.trim().slice(0, 40) } : {}) }, captchaToken: token || undefined, emailRedirectTo: back } });
       if (error) throw error;
       // Tira o código do endereço: ele já foi gasto e não precisa ficar no histórico do navegador.
       window.history.replaceState(null, "", `/${lang}/entrar`);
@@ -266,6 +268,13 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     </>
   );
   const weak = !senhaForte(password) || password !== again;
+  const campoApelido = (
+    <label className="block">
+      {s.nickname}
+      <input value={apelido} onChange={(e) => setApelido(e.target.value)} maxLength={40} autoComplete="nickname" placeholder={s.nicknameExample} className={field} />
+      <span className="mt-1.5 block text-ink-soft">{s.nicknameHint}</span>
+    </label>
+  );
   const fingerprint = finger && (
     <div className="space-y-2">
       <button type="button" disabled={state === "sending" || waiting} onClick={() => void enterWithFingerprint()} className={known ? `${primary} flex items-center justify-center gap-2.5` : secondary}>
@@ -337,6 +346,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
           {s.email}
           <input type="email" required autoComplete="email" value={address} readOnly={Boolean(invite.email)} onChange={(e) => setEmail(e.target.value)} className={`${field} ${invite.email ? "opacity-70" : ""}`} />
         </label>
+        {campoApelido}
         {twice}
         <Captcha action="convite" lang={lang} round={round} onToken={receive} />
         <button type="submit" disabled={state === "sending" || !address.includes("@") || waiting || weak} className={primary}>{s.create}</button>
@@ -356,6 +366,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
           {s.email}
           <input type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className={field} />
         </label>
+        {campoApelido}
         {twice}
         <Captcha action="cadastro" lang={lang} round={round} onToken={receive} />
         <button type="submit" disabled={state === "sending" || !email.includes("@") || waiting || weak} className={primary}>{s.create}</button>
