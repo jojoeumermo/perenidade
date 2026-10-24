@@ -38,9 +38,17 @@ export function Ouvir({ episodio, fila, programa, rotulo, pausar, grande = false
       aria-pressed={tocando}
       aria-label={`${tocando ? pausar : rotulo}: ${episodio.titulo}`}
       title={tocando ? pausar : rotulo}
-      className={`flex shrink-0 cursor-pointer items-center justify-center rounded-full bg-oxblood font-sans text-parchment shadow-[0_2px_0_var(--ink)] transition-transform hover:scale-105 hover:bg-ink active:scale-95 ${grande ? "h-16 w-16 text-2xl" : "h-11 w-11 text-base"} ${className}`}
+      className={`flex shrink-0 cursor-pointer items-center justify-center rounded-full bg-oxblood font-sans text-[#f4ecd8] shadow-[0_2px_0_var(--ink)] transition-transform hover:scale-105 hover:bg-ink active:scale-95 ${grande ? "h-16 w-16 text-2xl" : "h-11 w-11 text-base"} ${className}`}
     >
-      <span aria-hidden className={tocando ? "" : "translate-x-[2px]"}>{tocando ? "❚❚" : "▶"}</span>
+      {tocando ? (
+        <svg aria-hidden viewBox="0 0 24 24" className={grande ? "h-7 w-7" : "h-[18px] w-[18px]"} fill="currentColor">
+          <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" />
+        </svg>
+      ) : (
+        <svg aria-hidden viewBox="0 0 24 24" className={`${grande ? "h-7 w-7" : "h-[18px] w-[18px]"} translate-x-[1px]`} fill="currentColor">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      )}
     </button>
   );
 }

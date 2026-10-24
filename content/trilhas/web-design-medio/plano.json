@@ -1,0 +1,54 @@
+[
+  {
+    "slug": "html-semantico-cada-coisa-no-seu-lugar",
+    "titulo": "HTML semântico: cada coisa no seu lugar"
+  },
+  {
+    "slug": "acessibilidade-quem-fica-de-fora-de-um-site-mal-feito",
+    "titulo": "Acessibilidade: quem fica de fora de um site mal feito"
+  },
+  {
+    "slug": "contraste-tamanho-de-letra-e-navegacao-pelo-teclado",
+    "titulo": "Contraste, tamanho de letra e navegação pelo teclado"
+  },
+  {
+    "slug": "formularios-que-qualquer-pessoa-consegue-preencher",
+    "titulo": "Formulários que qualquer pessoa consegue preencher"
+  },
+  {
+    "slug": "flexbox-alinhar-elementos-sem-sofrimento",
+    "titulo": "Flexbox: alinhar elementos sem sofrimento"
+  },
+  {
+    "slug": "grid-montar-o-layout-da-pagina",
+    "titulo": "Grid: montar o layout da página"
+  },
+  {
+    "slug": "design-responsivo-do-celular-para-o-computador",
+    "titulo": "Design responsivo: do celular para o computador"
+  },
+  {
+    "slug": "tipografia-na-tela-escolher-e-combinar-fontes",
+    "titulo": "Tipografia na tela: escolher e combinar fontes"
+  },
+  {
+    "slug": "sites-leves-cortar-peso-para-a-internet-de-pacote-de-dados",
+    "titulo": "Sites leves: cortar peso para a internet de pacote de dados"
+  },
+  {
+    "slug": "imagens-otimizadas-formatos-compressao-e-carregamento",
+    "titulo": "Imagens otimizadas: formatos, compressão e carregamento"
+  },
+  {
+    "slug": "cores-identidade-visual-e-consistencia",
+    "titulo": "Cores, identidade visual e consistência"
+  },
+  {
+    "slug": "testar-no-celular-de-verdade-e-com-leitor-de-tela",
+    "titulo": "Testar no celular de verdade e com leitor de tela"
+  },
+  {
+    "slug": "projeto-o-site-de-uma-associacao-ou-sindicato",
+    "titulo": "Projeto: o site de uma associação ou sindicato"
+  }
+]

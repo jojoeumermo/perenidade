@@ -300,7 +300,7 @@
   "home": {
     "eyebrow": "Library of Alexandria · community edition",
     "kicker": "★ Learn for free · contribute if you like",
-    "posterLabel": "Street poster no. 1",
+    "posterLabel": "Street poster no. {n}",
     "poster": [
       "Knowledge",
       "belongs to",
@@ -317,8 +317,8 @@
     "h1b": "for everyone",
     "h1c": ", forever.",
     "lead": "Learn for free. Contribute if you wish. Nothing is lost: every lesson is versioned, reviewed by the community and preserved.",
-    "searchLabel": "Search the whole collection",
-    "searchPlaceholder": "Search the whole collection…",
+    "searchLabel": "Search only the Instituto Lúcia library (this site's lessons, works and glossary)",
+    "searchPlaceholder": "Search this site's library…",
     "searchButton": "Search",
     "indexed": "indexed",
     "shelves": "The shelves",
@@ -379,7 +379,8 @@
     "allEpisodes": "All episodes",
     "radioLive": "Music, news and debates all day, to listen with little data.",
     "onThisDay": "On this day",
-    "onThisDaySource": "People’s struggles and victories on this date, chosen by the team and drawn from Wikipedia. Wikipedia text, CC BY-SA license."
+    "onThisDaySource": "People’s struggles and victories on this date, chosen by the team and drawn from Wikipedia. Wikipedia text, CC BY-SA license.",
+    "searchHint": "The search looks only in here (lessons, works, glossary and everything else the institute has published): it is not a web search."
   },
   "areas": {
     "portugues": [
@@ -701,6 +702,30 @@
     "eletricista": [
       "Electrician",
       "Electricity from the basics to wiring a house, with safety first: multimeter, breaker panel, outlets, electric shower and the trade as a living."
+    ],
+    "fotografia": [
+      "Photography",
+      "Light, composition and technique to shoot with your phone, document struggles and protect the people in the picture."
+    ],
+    "web-design": [
+      "Web design",
+      "HTML, CSS and accessibility to build light, free websites published at no cost."
+    ],
+    "alemao": [
+      "German",
+      "From scratch to reading the news and Brecht in the original, without paying for a course."
+    ],
+    "ciencias-sociais": [
+      "Social sciences",
+      "Sociology, anthropology and political science together, with methods for doing research alongside the community."
+    ],
+    "ciencia-politica": [
+      "Political science",
+      "State, power, parties and movements, from classical and Marxist theory to imperialism in Latin America."
+    ],
+    "formacao-militante": [
+      "Militant education",
+      "Revolutionary theory and organizing practice for those who want to grow as agents of the struggle."
     ]
   },
   "tracks": {
@@ -2717,8 +2742,19 @@
       "roundButton": "Open the news round-up",
       "confirmed": "Done: your e-mail is confirmed and you will receive the next newsletter.",
       "left": "Done: your e-mail has left the newsletter list.",
-      "badLink": "This link is no longer valid. Subscribe again if you want."
-    }
+      "badLink": "This link is no longer valid. Subscribe again if you want.",
+      "bandLabel": "The paper's newsletter",
+      "bandTitle": "New stories in your inbox, with no ads."
+    },
+    "republish": "Free to republish",
+    "edition": "Issue no. {n}",
+    "all": "All",
+    "sections": "Sections",
+    "mostRead": "Most read this week",
+    "readNow": "Read now",
+    "press": "On the press",
+    "pressText": "Our volunteer journalists are writing. Meanwhile, the news round-up brings the headlines of the country's people's press.",
+    "writeForUs": "Write for the paper"
   },
   "factCheck": {
     "eyebrow": "Against disinformation",
@@ -3066,7 +3102,66 @@
       "usePolicy": "What is and isn't allowed, in a few lines.",
       "events": "Film club, reading club and other gatherings.",
       "spreadKit": "Posters, flyer, zine and QR cards to print."
-    }
+    },
+    "short": {
+      "/trilhas": "all subjects",
+      "/comecar": "first steps",
+      "/perguntas": "everyday questions",
+      "/acervo": "free works",
+      "/ao-vivo": "video and chat",
+      "/videoaulas": "short, with transcript",
+      "/videos": "free channels",
+      "/caderno": "summaries and cards",
+      "/meu-estudo": "your progress",
+      "/nivelamento": "where to start",
+      "/turma": "lessons in one link",
+      "/professores": "in the classroom",
+      "/contribuir/guia": "how to help",
+      "/reforco": "a volunteer answers",
+      "/ferramentas": "tuner, code…",
+      "/laboratorios": "Linux, electrics, chemistry…",
+      "/sala-livre": "for teaching",
+      "/questoes": "past exams",
+      "/glossario": "hard terms",
+      "/autores": "who wrote them",
+      "/guia": "trusted sources",
+      "/gaveta": "student work",
+      "/jornal": "written by the team",
+      "/noticias": "people's outlets",
+      "/podcasts": "for the bus ride",
+      "/radio": "music and talk",
+      "/checagens": "rumours checked",
+      "/falacias": "argument tricks",
+      "/debates": "short answers",
+      "/dados": "wages, inflation…",
+      "/linha-do-tempo": "revolts and struggles",
+      "/galeria": "posters of struggle",
+      "/memorial": "those we remember",
+      "/materiais": "zines, posters",
+      "/mural": "trades and co-ops",
+      "/comunidade": "forum by subject",
+      "/saude": "solidarity care",
+      "/direitos": "work, health, housing",
+      "/relatar-erro": "tell us what broke",
+      "/voluntarios": "review, translate, teach",
+      "/contribuir": "lesson, work, fix",
+      "/apoie": "server and domain",
+      "/contribuidores": "who has helped",
+      "/conduta": "how we get along",
+      "/uso": "what is allowed",
+      "/direitos-autorais": "licences of works",
+      "/sobre": "what the institute is",
+      "/quem-somos": "the team",
+      "/dedicatoria": "where the name comes from",
+      "/meus-dados": "download or delete",
+      "/privacidade": "what we keep",
+      "/termos": "the site's rules"
+    },
+    "highlights": "Start here",
+    "startText": "New here? Start with a question from your life, or pick a subject.",
+    "followText": "New lessons, calls for volunteers and the institute's agenda.",
+    "supportText": "No ads, no owner: the community pays for the server.",
+    "memoryNote": "Only this device remembers what you open most. Nothing goes to the server."
   },
   "support": {
     "eyebrow": "Crowdfunding",
@@ -4030,14 +4125,24 @@
     "guestLead": "Thank you for taking part. Here you can read and accept the voice use agreement and test your microphone.",
     "plays": "plays",
     "guests": "Guests",
-    "download": "Download the audio",
+    "download": "Download to listen offline",
     "notes": "Episode notes",
     "citedWorks": "Works cited",
     "sources": "Sources",
     "transcript": "Transcript",
     "downloadCaptions": "Download the captions (.vtt)",
     "conversation": "Conversation",
-    "more": "Up next"
+    "more": "Up next",
+    "heroTitle": "To listen to on the bus, in the kitchen or on your work break.",
+    "newEpisode": "New episode",
+    "recordWithUs": "Record with us",
+    "recordWithUsText": "Send a topic, a question, or come and record an episode.",
+    "openToAll": "Open to the community",
+    "sortNewest": "Newest",
+    "sortShortest": "Shortest",
+    "sortBy": "Sort episodes",
+    "size": "{n} MB",
+    "withTranscript": "with transcript"
   },
   "loose": {
     "eyebrow": "Stand-alone material",

@@ -300,7 +300,7 @@
   "home": {
     "eyebrow": "Biblioteca de Alejandría · edición comunitaria",
     "kicker": "★ Aprende gratis · contribuye si quieres",
-    "posterLabel": "Cartel callejero n.º 1",
+    "posterLabel": "Cartel callejero n.º {n}",
     "poster": [
       "El saber",
       "es del",
@@ -317,8 +317,8 @@
     "h1b": "para todos",
     "h1c": ", para siempre.",
     "lead": "Aprende gratis. Contribuye si quieres. Nada se pierde: cada lección está versionada, revisada por la comunidad y preservada.",
-    "searchLabel": "Buscar en todo el acervo",
-    "searchPlaceholder": "Busca en todo el acervo…",
+    "searchLabel": "Buscar solo en la biblioteca del Instituto Lúcia (clases, obras y glosario del sitio)",
+    "searchPlaceholder": "Busca en la biblioteca del sitio…",
     "searchButton": "Buscar",
     "indexed": "indexadas",
     "shelves": "Los estantes",
@@ -379,7 +379,8 @@
     "allEpisodes": "Todos los episodios",
     "radioLive": "Música, noticias y debates todo el día, para escuchar con poco internet.",
     "onThisDay": "Un día como hoy",
-    "onThisDaySource": "Luchas y conquistas del pueblo en esta fecha, elegidas por el equipo y tomadas de Wikipedia. Texto de Wikipedia, licencia CC BY-SA."
+    "onThisDaySource": "Luchas y conquistas del pueblo en esta fecha, elegidas por el equipo y tomadas de Wikipedia. Texto de Wikipedia, licencia CC BY-SA.",
+    "searchHint": "La búsqueda mira solo aquí dentro (clases, obras, glosario y todo lo que el instituto publicó): no es una búsqueda en internet."
   },
   "areas": {
     "portugues": [
@@ -701,6 +702,30 @@
     "eletricista": [
       "Electricista",
       "Electricidad de lo básico a la instalación de una casa, con la seguridad primero: multímetro, tablero, enchufes, ducha eléctrica y el oficio como ingreso."
+    ],
+    "fotografia": [
+      "Fotografía",
+      "Luz, composición y técnica para fotografiar con el celular, documentar la lucha y proteger a quien aparece en la imagen."
+    ],
+    "web-design": [
+      "Diseño web",
+      "HTML, CSS y accesibilidad para hacer sitios livianos, libres y publicados gratis."
+    ],
+    "alemao": [
+      "Alemán",
+      "De cero a leer noticias y a Brecht en el original, sin pagar un curso."
+    ],
+    "ciencias-sociais": [
+      "Ciencias sociales",
+      "Sociología, antropología y ciencia política juntas, con métodos para investigar junto con la comunidad."
+    ],
+    "ciencia-politica": [
+      "Ciencia política",
+      "Estado, poder, partidos y movimientos, de la teoría clásica y marxista al imperialismo en América Latina."
+    ],
+    "formacao-militante": [
+      "Formación militante",
+      "Teoría revolucionaria y práctica de organización para quien quiere formarse como sujeto de la lucha."
     ]
   },
   "tracks": {
@@ -2717,8 +2742,19 @@
       "roundButton": "Abrir la ronda de noticias",
       "confirmed": "Listo: tu correo está confirmado y recibirás el próximo boletín.",
       "left": "Listo: tu correo salió de la lista del boletín.",
-      "badLink": "Este enlace ya no vale. Pide el boletín de nuevo, si quieres."
-    }
+      "badLink": "Este enlace ya no vale. Pide el boletín de nuevo, si quieres.",
+      "bandLabel": "Boletín del periódico",
+      "bandTitle": "Las notas nuevas en tu correo, sin anuncios."
+    },
+    "republish": "Libre para republicar",
+    "edition": "Edición n.º {n}",
+    "all": "Todo",
+    "sections": "Secciones",
+    "mostRead": "Lo más leído de la semana",
+    "readNow": "Para leer ahora",
+    "press": "En prensa",
+    "pressText": "Los periodistas voluntarios están escribiendo. Mientras tanto, el resumen de noticias trae los titulares de la prensa popular del país.",
+    "writeForUs": "Escribe para el periódico"
   },
   "factCheck": {
     "eyebrow": "Contra la desinformación",
@@ -3066,7 +3102,66 @@
       "usePolicy": "Lo que se puede y lo que no, en pocas líneas.",
       "events": "Cineclub, club de lectura y otros encuentros.",
       "spreadKit": "Carteles, folleto, fanzine y tarjetas con QR para imprimir."
-    }
+    },
+    "short": {
+      "/trilhas": "todas las materias",
+      "/comecar": "primeros pasos",
+      "/perguntas": "dudas cotidianas",
+      "/acervo": "obras libres",
+      "/ao-vivo": "video y chat",
+      "/videoaulas": "cortas, con transcripción",
+      "/videos": "canales gratuitos",
+      "/caderno": "resúmenes y tarjetas",
+      "/meu-estudo": "tu progreso",
+      "/nivelamento": "por dónde empezar",
+      "/turma": "clases en un enlace",
+      "/professores": "en el aula",
+      "/contribuir/guia": "cómo ayudar",
+      "/reforco": "responde un voluntario",
+      "/ferramentas": "afinador, código…",
+      "/laboratorios": "Linux, electricidad, química…",
+      "/sala-livre": "para dar clase",
+      "/questoes": "exámenes anteriores",
+      "/glossario": "términos difíciles",
+      "/autores": "quién escribió",
+      "/guia": "fuentes confiables",
+      "/gaveta": "trabajos de estudiantes",
+      "/jornal": "notas del equipo",
+      "/noticias": "medios populares",
+      "/podcasts": "para el autobús",
+      "/radio": "música y palabra",
+      "/checagens": "bulos verificados",
+      "/falacias": "trucos de argumento",
+      "/debates": "respuestas cortas",
+      "/dados": "salario, inflación…",
+      "/linha-do-tempo": "revueltas y luchas",
+      "/galeria": "carteles de lucha",
+      "/memorial": "a quienes recordamos",
+      "/materiais": "zines, carteles",
+      "/mural": "oficios y cooperativas",
+      "/comunidade": "foro por materia",
+      "/saude": "atención solidaria",
+      "/direitos": "trabajo, salud, vivienda",
+      "/relatar-erro": "cuéntanos qué falló",
+      "/voluntarios": "revisa, traduce, enseña",
+      "/contribuir": "clase, obra, corrección",
+      "/apoie": "servidor y dominio",
+      "/contribuidores": "quién ya ayudó",
+      "/conduta": "cómo convivimos",
+      "/uso": "qué se puede y qué no",
+      "/direitos-autorais": "licencias de las obras",
+      "/sobre": "qué es el instituto",
+      "/quem-somos": "el equipo",
+      "/dedicatoria": "de dónde viene el nombre",
+      "/meus-dados": "descargar o borrar",
+      "/privacidade": "qué guardamos",
+      "/termos": "las reglas del sitio"
+    },
+    "highlights": "Empieza aquí",
+    "startText": "¿Nunca estudiaste aquí? Empieza por una pregunta de tu vida o elige una materia.",
+    "followText": "Clases nuevas, convocatorias de voluntariado y la agenda del instituto.",
+    "supportText": "Sin anuncios y sin dueño: el servidor lo paga la comunidad.",
+    "memoryNote": "Solo este aparato recuerda lo que más abres. Nada va al servidor."
   },
   "support": {
     "eyebrow": "Financiación colectiva",
@@ -4030,14 +4125,24 @@
     "guestLead": "Gracias por participar. Aquí lees y aceptas el término de uso de voz y pruebas tu micrófono.",
     "plays": "reproducciones",
     "guests": "Invitados",
-    "download": "Descargar el audio",
+    "download": "Descargar para escuchar sin internet",
     "notes": "Notas del episodio",
     "citedWorks": "Obras citadas",
     "sources": "Fuentes",
     "transcript": "Transcripción",
     "downloadCaptions": "Descargar los subtítulos (.vtt)",
     "conversation": "Conversación",
-    "more": "Para escuchar después"
+    "more": "Para escuchar después",
+    "heroTitle": "Para escuchar en el autobús, en la cocina o en el descanso del trabajo.",
+    "newEpisode": "Episodio nuevo",
+    "recordWithUs": "Graba con nosotros",
+    "recordWithUsText": "Envía un tema, una pregunta o ven a grabar un episodio.",
+    "openToAll": "Abierto a la comunidad",
+    "sortNewest": "Más nuevos",
+    "sortShortest": "Más cortos",
+    "sortBy": "Ordenar los episodios",
+    "size": "{n} MB",
+    "withTranscript": "con transcripción"
   },
   "loose": {
     "eyebrow": "Material suelto",

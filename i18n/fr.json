@@ -300,7 +300,7 @@
   "home": {
     "eyebrow": "Bibliothèque d'Alexandrie · édition communautaire",
     "kicker": "★ Apprenez gratuitement · contribuez si vous voulez",
-    "posterLabel": "Affiche de rue nº 1",
+    "posterLabel": "Affiche de rue nº {n}",
     "poster": [
       "Le savoir",
       "appartient",
@@ -317,8 +317,8 @@
     "h1b": "pour tous",
     "h1c": ", pour toujours.",
     "lead": "Apprenez gratuitement. Contribuez si vous le voulez. Rien ne se perd : chaque cours est versionné, relu par la communauté et préservé.",
-    "searchLabel": "Chercher dans toute la bibliothèque",
-    "searchPlaceholder": "Chercher dans toute la bibliothèque…",
+    "searchLabel": "Chercher uniquement dans la bibliothèque de l'Instituto Lúcia (cours, œuvres et glossaire du site)",
+    "searchPlaceholder": "Cherchez dans la bibliothèque du site…",
     "searchButton": "Rechercher",
     "indexed": "indexées",
     "shelves": "Les étagères",
@@ -379,7 +379,8 @@
     "allEpisodes": "Tous les épisodes",
     "radioLive": "Musique, infos et débats toute la journée, à écouter avec peu de connexion.",
     "onThisDay": "Ce jour-là",
-    "onThisDaySource": "Luttes et conquêtes populaires à cette date, choisies par l’équipe et tirées de Wikipédia. Texte de Wikipédia, licence CC BY-SA."
+    "onThisDaySource": "Luttes et conquêtes populaires à cette date, choisies par l’équipe et tirées de Wikipédia. Texte de Wikipédia, licence CC BY-SA.",
+    "searchHint": "La recherche ne porte que sur ce site (cours, œuvres, glossaire et tout ce que l'institut a publié) : ce n'est pas une recherche sur internet."
   },
   "areas": {
     "portugues": [
@@ -701,6 +702,30 @@
     "eletricista": [
       "Électricien",
       "L'électricité, des bases à l'installation d'une maison, la sécurité d'abord : multimètre, tableau, prises, douche électrique et le métier comme revenu."
+    ],
+    "fotografia": [
+      "Photographie",
+      "Lumière, composition et technique pour photographier au téléphone, documenter les luttes et protéger les personnes à l'image."
+    ],
+    "web-design": [
+      "Web design",
+      "HTML, CSS et accessibilité pour créer des sites légers, libres et publiés gratuitement."
+    ],
+    "alemao": [
+      "Allemand",
+      "De zéro à la lecture de la presse et de Brecht dans le texte, sans payer de cours."
+    ],
+    "ciencias-sociais": [
+      "Sciences sociales",
+      "Sociologie, anthropologie et science politique réunies, avec des méthodes pour enquêter avec la communauté."
+    ],
+    "ciencia-politica": [
+      "Science politique",
+      "État, pouvoir, partis et mouvements, de la théorie classique et marxiste à l'impérialisme en Amérique latine."
+    ],
+    "formacao-militante": [
+      "Formation militante",
+      "Théorie révolutionnaire et pratique d'organisation pour se former comme sujet de la lutte."
     ]
   },
   "tracks": {
@@ -2717,8 +2742,19 @@
       "roundButton": "Ouvrir la revue de presse",
       "confirmed": "C'est fait : votre e-mail est confirmé et vous recevrez la prochaine lettre.",
       "left": "C'est fait : votre e-mail a quitté la liste de la lettre.",
-      "badLink": "Ce lien n'est plus valable. Abonnez-vous à nouveau si vous le voulez."
-    }
+      "badLink": "Ce lien n'est plus valable. Abonnez-vous à nouveau si vous le voulez.",
+      "bandLabel": "La lettre du journal",
+      "bandTitle": "Les nouveaux articles dans votre boîte, sans pub."
+    },
+    "republish": "Libre de republication",
+    "edition": "Édition nº {n}",
+    "all": "Tout",
+    "sections": "Rubriques",
+    "mostRead": "Les plus lus de la semaine",
+    "readNow": "À lire maintenant",
+    "press": "Sous presse",
+    "pressText": "Nos journalistes bénévoles écrivent. En attendant, la revue de presse rassemble les titres de la presse populaire du pays.",
+    "writeForUs": "Écrivez pour le journal"
   },
   "factCheck": {
     "eyebrow": "Contre la désinformation",
@@ -3066,7 +3102,66 @@
       "usePolicy": "Ce qui est permis ou non, en quelques lignes.",
       "events": "Ciné-club, club de lecture et autres rencontres.",
       "spreadKit": "Affiches, tract, fanzine et cartes QR à imprimer."
-    }
+    },
+    "short": {
+      "/trilhas": "toutes les matières",
+      "/comecar": "premiers pas",
+      "/perguntas": "questions du quotidien",
+      "/acervo": "œuvres libres",
+      "/ao-vivo": "vidéo et discussion",
+      "/videoaulas": "courtes, transcrites",
+      "/videos": "chaînes gratuites",
+      "/caderno": "résumés et fiches",
+      "/meu-estudo": "vos progrès",
+      "/nivelamento": "par où commencer",
+      "/turma": "cours en un lien",
+      "/professores": "en classe",
+      "/contribuir/guia": "comment aider",
+      "/reforco": "un bénévole répond",
+      "/ferramentas": "accordeur, code…",
+      "/laboratorios": "Linux, électricité, chimie…",
+      "/sala-livre": "pour enseigner",
+      "/questoes": "anciens examens",
+      "/glossario": "termes difficiles",
+      "/autores": "qui a écrit",
+      "/guia": "sources fiables",
+      "/gaveta": "travaux d'élèves",
+      "/jornal": "articles de l'équipe",
+      "/noticias": "médias populaires",
+      "/podcasts": "pour le bus",
+      "/radio": "musique et paroles",
+      "/checagens": "rumeurs vérifiées",
+      "/falacias": "pièges d'argument",
+      "/debates": "réponses courtes",
+      "/dados": "salaire, inflation…",
+      "/linha-do-tempo": "révoltes et luttes",
+      "/galeria": "affiches de lutte",
+      "/memorial": "ceux qu'on n'oublie pas",
+      "/materiais": "zines, affiches",
+      "/mural": "métiers et coopératives",
+      "/comunidade": "forum par matière",
+      "/saude": "soins solidaires",
+      "/direitos": "travail, santé, logement",
+      "/relatar-erro": "dites-nous ce qui casse",
+      "/voluntarios": "relire, traduire, enseigner",
+      "/contribuir": "cours, œuvre, correction",
+      "/apoie": "serveur et domaine",
+      "/contribuidores": "qui a aidé",
+      "/conduta": "comment on vit ensemble",
+      "/uso": "ce qui est permis",
+      "/direitos-autorais": "licences des œuvres",
+      "/sobre": "ce qu'est l'institut",
+      "/quem-somos": "l'équipe",
+      "/dedicatoria": "d'où vient le nom",
+      "/meus-dados": "télécharger ou effacer",
+      "/privacidade": "ce que l'on garde",
+      "/termos": "les règles du site"
+    },
+    "highlights": "Commencez ici",
+    "startText": "Première fois ? Partez d'une question de votre vie, ou choisissez une matière.",
+    "followText": "Nouveaux cours, appels aux bénévoles et l'agenda de l'institut.",
+    "supportText": "Sans pub ni propriétaire : c'est la communauté qui paie le serveur.",
+    "memoryNote": "Seul cet appareil retient ce que vous ouvrez le plus. Rien ne part au serveur."
   },
   "support": {
     "eyebrow": "Financement participatif",
@@ -4030,14 +4125,24 @@
     "guestLead": "Merci de participer. Ici, vous pouvez lire et accepter l'accord d'usage de la voix et tester votre microphone.",
     "plays": "écoutes",
     "guests": "Invités",
-    "download": "Télécharger l'audio",
+    "download": "Télécharger pour écouter hors ligne",
     "notes": "Notes de l'épisode",
     "citedWorks": "Œuvres citées",
     "sources": "Sources",
     "transcript": "Transcription",
     "downloadCaptions": "Télécharger les sous-titres (.vtt)",
     "conversation": "Conversation",
-    "more": "À suivre"
+    "more": "À suivre",
+    "heroTitle": "À écouter dans le bus, à la cuisine ou à la pause du travail.",
+    "newEpisode": "Nouvel épisode",
+    "recordWithUs": "Enregistrez avec nous",
+    "recordWithUsText": "Proposez un sujet, une question, ou venez enregistrer un épisode.",
+    "openToAll": "Ouvert à la communauté",
+    "sortNewest": "Plus récents",
+    "sortShortest": "Plus courts",
+    "sortBy": "Trier les épisodes",
+    "size": "{n} Mo",
+    "withTranscript": "avec transcription"
   },
   "loose": {
     "eyebrow": "Matériel à part",

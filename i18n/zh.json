@@ -296,7 +296,7 @@
   "home": {
     "eyebrow": "亚历山大图书馆 · 社区版",
     "kicker": "★ 免费学习 · 愿意就来贡献",
-    "posterLabel": "街头海报 第1号",
+    "posterLabel": "街头海报 第{n}号",
     "poster": [
       "知识",
       "属于",
@@ -313,8 +313,8 @@
     "h1b": "属于所有人",
     "h1c": "，直到永远。",
     "lead": "免费学习。愿意的话，也可以贡献内容。什么都不会丢失：每一节课都有版本记录，经社区审阅并得到保存。",
-    "searchLabel": "搜索全部馆藏",
-    "searchPlaceholder": "搜索全部馆藏…",
+    "searchLabel": "只在 Instituto Lúcia 图书馆中搜索（本站的课程、作品和词汇表）",
+    "searchPlaceholder": "搜索本站图书馆……",
     "searchButton": "搜索",
     "indexed": "已收录",
     "shelves": "书架",
@@ -375,7 +375,8 @@
     "allEpisodes": "全部节目",
     "radioLive": "全天音乐、新闻和讨论，网速慢也能听。",
     "onThisDay": "历史上的今天",
-    "onThisDaySource": "这一天人民的斗争与胜利，由团队挑选并取自维基百科。维基百科文字，CC BY-SA 许可。"
+    "onThisDaySource": "这一天人民的斗争与胜利，由团队挑选并取自维基百科。维基百科文字，CC BY-SA 许可。",
+    "searchHint": "只搜索本站内容（课程、作品、词汇表以及研究所发布的其他内容），不是互联网搜索。"
   },
   "areas": {
     "portugues": [
@@ -697,6 +698,30 @@
     "eletricista": [
       "电工",
       "从基础知识到住宅布线，安全第一：万用表、配电箱、插座、电热淋浴器，以及以此谋生的手艺。"
+    ],
+    "fotografia": [
+      "摄影",
+      "光线、构图与技术：用手机拍摄，记录斗争，保护画面中的人。"
+    ],
+    "web-design": [
+      "网页设计",
+      "学习 HTML、CSS 与无障碍设计，制作轻量、自由并免费发布的网站。"
+    ],
+    "alemao": [
+      "德语",
+      "从零开始，到能读新闻和布莱希特原著，无需付费上课。"
+    ],
+    "ciencias-sociais": [
+      "社会科学",
+      "社会学、人类学与政治学融为一体，学习与社区共同开展研究的方法。"
+    ],
+    "ciencia-politica": [
+      "政治学",
+      "国家、权力、政党与运动：从古典与马克思主义理论到拉丁美洲的帝国主义。"
+    ],
+    "formacao-militante": [
+      "活动家培养",
+      "为想成为斗争主体的人提供革命理论与组织实践。"
     ]
   },
   "tracks": {
@@ -2648,8 +2673,19 @@
       "roundButton": "打开新闻速览",
       "confirmed": "好了：你的邮箱已确认，你会收到下一期简报。",
       "left": "好了：你的邮箱已退出简报名单。",
-      "badLink": "这个链接已经失效。如有需要，请重新订阅。"
-    }
+      "badLink": "这个链接已经失效。如有需要，请重新订阅。",
+      "bandLabel": "报纸简报",
+      "bandTitle": "新文章发到你的邮箱，没有广告。"
+    },
+    "republish": "可自由转载",
+    "edition": "第{n}期",
+    "all": "全部",
+    "sections": "栏目",
+    "mostRead": "本周最多阅读",
+    "readNow": "现在就读",
+    "press": "付印中",
+    "pressText": "志愿记者们正在写稿。在此期间，新闻速览汇集全国人民媒体的头条。",
+    "writeForUs": "为报纸撰稿"
   },
   "factCheck": {
     "eyebrow": "反对虚假信息",
@@ -2997,7 +3033,66 @@
       "usePolicy": "简明的可做与不可做。",
       "events": "电影俱乐部、读书会和其他聚会。",
       "spreadKit": "可打印的海报、传单、小册子和二维码卡片。"
-    }
+    },
+    "short": {
+      "/trilhas": "全部学科",
+      "/comecar": "第一步",
+      "/perguntas": "日常问题",
+      "/acervo": "自由作品",
+      "/ao-vivo": "视频与聊天",
+      "/videoaulas": "短视频，附文字稿",
+      "/videos": "免费频道",
+      "/caderno": "摘要与卡片",
+      "/meu-estudo": "你的进度",
+      "/nivelamento": "从哪里开始",
+      "/turma": "一个链接的课",
+      "/professores": "课堂使用",
+      "/contribuir/guia": "如何帮忙",
+      "/reforco": "志愿者回答",
+      "/ferramentas": "调音器、代码…",
+      "/laboratorios": "Linux、电工、化学…",
+      "/sala-livre": "用于上课",
+      "/questoes": "历年试题",
+      "/glossario": "难懂的词",
+      "/autores": "作者是谁",
+      "/guia": "可靠来源",
+      "/gaveta": "学生作品",
+      "/jornal": "编辑部文章",
+      "/noticias": "人民媒体",
+      "/podcasts": "路上收听",
+      "/radio": "音乐与言语",
+      "/checagens": "谣言核查",
+      "/falacias": "辩论陷阱",
+      "/debates": "简短回答",
+      "/dados": "工资、通胀…",
+      "/linha-do-tempo": "起义与斗争",
+      "/galeria": "斗争海报",
+      "/memorial": "我们铭记的人",
+      "/materiais": "小册子、海报",
+      "/mural": "手艺与合作社",
+      "/comunidade": "按学科的论坛",
+      "/saude": "互助医疗",
+      "/direitos": "劳动、健康、住房",
+      "/relatar-erro": "告诉我们哪里坏了",
+      "/voluntarios": "校对、翻译、教学",
+      "/contribuir": "课程、作品、更正",
+      "/apoie": "服务器和域名",
+      "/contribuidores": "已帮助过的人",
+      "/conduta": "相处之道",
+      "/uso": "可以做什么",
+      "/direitos-autorais": "作品许可",
+      "/sobre": "研究所是什么",
+      "/quem-somos": "团队",
+      "/dedicatoria": "名字的由来",
+      "/meus-dados": "下载或删除",
+      "/privacidade": "我们保存什么",
+      "/termos": "网站规则"
+    },
+    "highlights": "从这里开始",
+    "startText": "第一次来？从你生活中的一个问题开始，或者选一门学科。",
+    "followText": "新课程、志愿者招募和研究所的日程。",
+    "supportText": "没有广告，没有老板：服务器由社区出钱。",
+    "memoryNote": "只有这台设备记得你最常打开什么，不会上传到服务器。"
   },
   "support": {
     "eyebrow": "众筹",
@@ -3957,14 +4052,24 @@
     "guestLead": "感谢参与。你可以在这里阅读并接受声音使用协议，并测试麦克风。",
     "plays": "次收听",
     "guests": "嘉宾",
-    "download": "下载音频",
+    "download": "下载离线收听",
     "notes": "节目说明",
     "citedWorks": "引用的著作",
     "sources": "资料来源",
     "transcript": "文字稿",
     "downloadCaptions": "下载字幕（.vtt）",
     "conversation": "讨论",
-    "more": "接下来收听"
+    "more": "接下来收听",
+    "heroTitle": "在公交上、厨房里或工作间隙收听。",
+    "newEpisode": "新一期",
+    "recordWithUs": "和我们一起录",
+    "recordWithUsText": "提一个选题、一个问题，或来录一期节目。",
+    "openToAll": "向社区开放",
+    "sortNewest": "最新",
+    "sortShortest": "最短",
+    "sortBy": "排序",
+    "size": "{n} MB",
+    "withTranscript": "附文字稿"
   },
   "loose": {
     "eyebrow": "单篇资料",
