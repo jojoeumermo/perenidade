@@ -2884,7 +2884,8 @@
       "copy": "Copier le résumé",
       "copied": "Résumé copié.",
       "reset": "Recommencer",
-      "note": "Le résultat est une suggestion fondée sur vos réponses, pas un verdict."
+      "note": "Le résultat est une suggestion fondée sur vos réponses, pas un verdict.",
+      "kicker": "Faites-le vous-même"
     },
     "verdicts": {
       "title": "Ce que veut dire chaque étiquette",
@@ -2959,7 +2960,10 @@
         "registro-br": "Montre qui a enregistré une adresse terminée par .br.",
         "bellingcat": "Guides d'enquête en sources ouvertes."
       }
-    }
+    },
+    "startCheck": "Vérifier un message",
+    "published": "Vérifications publiées : {n}",
+    "checksTitle": "Vérifications publiées"
   },
   "debates": {
     "eyebrow": "Des arguments sous la main",

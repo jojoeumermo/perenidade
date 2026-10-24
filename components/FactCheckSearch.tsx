@@ -43,30 +43,38 @@ export function FactCheckSearch({ s }: { s: Dict["factCheck"] }) {
   }
 
   return (
-    <section className="mt-10 border-2 border-ink bg-parchment-deep p-5 font-sans sm:p-6">
-      <h2 className="font-serif text-2xl font-semibold">{s.searchTitle}</h2>
-      <p className="mt-1 text-ink-soft">{s.searchLead}</p>
-      <form className="mt-4 flex gap-2" onSubmit={(e) => { e.preventDefault(); void buscar(); }}>
-        <input value={busca} onChange={(e) => setBusca(e.target.value)} maxLength={100} placeholder={s.searchPlaceholder} aria-label={s.searchTitle} className="min-w-0 flex-1 border-2 border-ink bg-parchment px-3 py-2" />
-        <button type="submit" disabled={estado === "busy" || busca.trim().length < 3} className="cursor-pointer bg-ink px-5 py-2 font-medium text-parchment hover:bg-oxblood disabled:opacity-50">{s.searchButton}</button>
+    <section aria-labelledby="ja-foi-checado" className="cartao-v p-6 font-sans sm:p-9">
+      <p className="rotulo">{s.eyebrow}</p>
+      <h2 id="ja-foi-checado" className="mt-2 font-serif text-[2.2rem] font-medium leading-[1.05] sm:text-5xl">{s.searchTitle}</h2>
+      <p className="mt-3 max-w-2xl font-serif text-xl leading-snug text-ink-soft">{s.searchLead}</p>
+      <form className="mt-6 flex max-w-2xl shadow-[5px_5px_0_var(--sombra)]" onSubmit={(e) => { e.preventDefault(); void buscar(); }}>
+        <input value={busca} onChange={(e) => setBusca(e.target.value)} maxLength={100} placeholder={s.searchPlaceholder} aria-label={s.searchTitle} className="min-h-12 min-w-0 flex-1 border-2 border-r-0 border-ink bg-parchment px-4 py-3 text-base text-ink outline-none placeholder:text-ink-soft" />
+        <button type="submit" disabled={estado === "busy" || busca.trim().length < 3} className="cursor-pointer border-2 border-ink bg-[#c21f16] px-5 font-extrabold text-white hover:bg-[#a51810] disabled:cursor-not-allowed disabled:opacity-60 sm:px-7">{s.searchButton}</button>
       </form>
-      <p role="status" className="mt-2 min-h-5 text-oxblood">{estado === "none" ? s.searchNone : estado === "fail" ? s.searchFail : ""}</p>
-      <ul className="mt-2 space-y-4">
-        {lista.map((item, i) => (
-          <li key={i} className="border-t border-rule pt-3">
-            <p className="font-serif text-lg">“{item.alegacao}”{item.autor && <span className="text-ink-soft"> ({item.autor})</span>}</p>
-            <ul className="mt-1 space-y-1">
-              {item.avaliacoes.map((avaliacao) => (
-                <li key={avaliacao.link}>
-                  <strong>{avaliacao.veredito || "—"}</strong>, {avaliacao.agencia}:{" "}
-                  <a href={avaliacao.link} target="_blank" rel="noopener noreferrer nofollow" className="underline hover:text-oxblood">{avaliacao.titulo || avaliacao.link}</a>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
-      <p className="mt-3 text-xs text-ink-soft">{s.searchSource}</p>
+      <p role="status" className="mt-3 min-h-6 font-semibold text-prelo-texto">{estado === "none" ? s.searchNone : estado === "fail" ? s.searchFail : ""}</p>
+      {lista.length > 0 && (
+        <ul className="mt-2 flex flex-col border-t-2 border-ink">
+          {lista.map((item, i) => (
+            <li key={i} className="border-b-[1.5px] border-dashed border-rule py-5">
+              <p className="font-serif text-xl leading-snug">
+                “{item.alegacao}”{item.autor && <span className="text-ink-soft"> ({item.autor})</span>}
+              </p>
+              <ul className="mt-3 flex flex-col gap-2.5">
+                {item.avaliacoes.map((avaliacao) => (
+                  <li key={avaliacao.link} className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <span className="border-2 border-ink px-2 py-0.5 font-mono text-xs font-semibold uppercase tracking-[0.08em]">{avaliacao.veredito || "—"}</span>
+                    <span className="text-sm text-ink-soft">{avaliacao.agencia}</span>
+                    <a href={avaliacao.link} target="_blank" rel="noopener noreferrer nofollow" className="font-semibold text-ink underline decoration-[#c21f16] decoration-2 underline-offset-4 hover:text-prelo-texto">
+                      {avaliacao.titulo || avaliacao.link} ↗
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      )}
+      <p className="mt-4 text-sm text-ink-soft">{s.searchSource}</p>
     </section>
   );
 }
