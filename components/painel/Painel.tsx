@@ -62,6 +62,9 @@ import { Traducoes } from "./Traducoes";
 import { Recados, SegundoFator } from "./Seguranca";
 import { type Controles, Site } from "./Site";
 import { Videoaulas } from "./Videoaulas";
+import { GuiaDaSecao } from "./GuiaDaSecao";
+import { Icone } from "./icones";
+import { MenuDoPainel } from "./Menu";
 
 interface Resumo {
   fila: number;
@@ -104,65 +107,6 @@ interface Secao {
   mostra: boolean;
   /** Quantas coisas esperam por alguém nesta seção. */
   conta?: number;
-}
-
-/** Um ícone de traço para cada seção do menu, no mesmo desenho dos ícones do site. */
-const icones: Record<string, string> = {
-  mesa: "M4 20V9l8-5 8 5v11M9 20v-6h6v6",
-  conversas: "M4 5h16v11H10l-4.5 4v-4H4z",
-  rede: "M4 4h16v16H4zM8 9h8M8 13h5",
-  escrever: "M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4",
-  videoaulas: "M3 6h12v12H3zM15 10l6-3v10l-6-3",
-  minhas: "M4 6h16M4 12h16M4 18h10",
-  juntas: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.7-5 6-5s6 2 6 5M16 11a3 3 0 1 0 0-6M18 20c0-2.2-1-3.9-2.6-4.6",
-  fila: "M4 7l2 2 4-4M4 17l2 2 4-4M13 7h7M13 17h7",
-  triagem: "M3 5h18l-7 8v6l-4 2v-8z",
-  materiais: "M3 6h6l2 2h10v11H3z",
-  fontes: "M4 5h6a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4zM20 5h-6a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h7z",
-  comunidade: "M4 5h12v8H9l-4 3v-3H4zM18 9h2v8h-1v3l-4-3h-4",
-  reforco: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6",
-  mural: "M3 4h18v12H3zM8 20h8M12 16v4",
-  boletim: "M3 6h18v12H3zM3 6l9 7 9-7",
-  pessoas: "M8 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M18 8v6M15 11h6",
-  horas: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2",
-  site: "M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M14 4v4M8 10v4M16 16v4",
-  abertura: "M3 4h18v16H3zM3 9h18M7 13h10M7 16h6",
-  podcast: "M9 3h6v11H9zM5 11a7 7 0 0 0 14 0M12 18v3M8 21h8",
-  apoiadores: "M20.8 8.6a5 5 0 0 0-8.8-3.2A5 5 0 0 0 3.2 8.6c0 5.4 8.8 10.9 8.8 10.9s8.8-5.5 8.8-10.9z",
-  seguranca: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
-  registro: "M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5",
-  estatisticas: "M4 20V10M10 20V4M16 20v-8M22 20H2",
-  emissoras: "M3 9h18v11H3zM7 9l10-5M8.5 12a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M14 13h4M14 16h4",
-  reunioes: "M3 7h12v10H3zM15 10l6-3v10l-6-3M6 20h6",
-  curriculo: "M4 4h16v16H4zM4 10h16M10 10v10",
-  atividade: "M3 12h4l3-8 4 16 3-8h4",
-  conta: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4.4 3.6-8 8-8s8 3.6 8 8",
-  aovivo: "M3 7h13v10H3zM16 10l5-3v10l-5-3M6 4h7",
-  estudio: "M4 20l4-1 11-11-3-3L5 16zM13 8l3 3M4 20v-4",
-  escritorio: "M4 4h16v16H4zM4 9h16M9 9v11M12 13h5M12 16h5",
-  caderno: "M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h11M9 8h6M9 11h4",
-  avisos: "M4 11h3l7-5v12l-7-5H4zM17 9a4 4 0 0 1 0 6M19.5 6.5a8 8 0 0 1 0 11",
-  traducoes: "M4 5h8M8 3v2M5 5c0 4 3 7 6 8M11 5c-1 3-3 6-6 8M13 21l4-9 4 9M14.5 18h5",
-  divulgacao: "M3 10v4h3l7 5V5l-7 5zM17 9a4 4 0 0 1 0 6M19.5 6.5a8 8 0 0 1 0 11",
-  supervisao: "M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z",
-  tecnico: "M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12",
-  interdicao: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM5.6 5.6l12.8 12.8",
-  gaveta: "M3 4h18v6H3zM3 10v10h18V10M10 7h4M10 15h4",
-  tarefas: "M4 4h16v16H4zM8 9l2 2 4-4M8 15h8",
-  "acervo-dentro": "M5 4v16M9 4v16M13 5l4 15M3 20h18",
-  exercicios: "M4 3h12v18H4zM8 7h4M8 11h4M14 20l6-6-2-2-6 6v2z",
-  contribuicoes: "M12 14a5 5 0 1 0 0-10 5 5 0 0 0 0 10zM8.5 13 7 21l5-3 5 3-1.5-8",
-  saude: "M20.8 8.6a5 5 0 0 0-8.8-3.2A5 5 0 0 0 3.2 8.6c0 5.4 8.8 10.9 8.8 10.9s8.8-5.5 8.8-10.9zM12 8v6M9 11h6",
-  erros: "M8 8a4 4 0 0 1 8 0v6a4 4 0 0 1-8 0zM12 10v8M4 9h4M16 9h4M4 15h4M16 15h4M9 4l1.5 2M15 4l-1.5 2",
-  termos: "M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 15h7M9 18h4",
-};
-
-function Icone({ id, className = "h-[18px] w-[18px]" }: { id: string; className?: string }) {
-  return (
-    <svg aria-hidden viewBox="0 0 24 24" className={`shrink-0 ${className}`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d={icones[id] ?? icones.mesa} />
-    </svg>
-  );
 }
 
 /** Sem acento e em minúsculas, para a busca do "Ir para" achar "seguranca" em "Segurança". */
@@ -258,7 +202,7 @@ function Tema() {
   }
 
   return (
-    <button type="button" onClick={trocar} className="cursor-pointer underline hover:text-white">
+    <button type="button" onClick={trocar} className="cursor-pointer underline hover:text-prelo-texto">
       Claro / escuro
     </button>
   );
@@ -605,7 +549,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
   const ambiente = lidera ? "Coordenação" : supervisiona ? "Supervisão" : voluntario ? "Equipe" : "Comunidade";
 
   return (
-    <div className={`painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid ${compacto ? "lg:grid-cols-[4.75rem_minmax(0,1fr)]" : "lg:grid-cols-[17.5rem_minmax(0,1fr)]"}`}>
+    <div className={`painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid ${compacto ? "lg:grid-cols-[4.5rem_minmax(0,1fr)]" : "lg:grid-cols-[20rem_minmax(0,1fr)]"}`}>
       <TraduzirPainel />
       <TutorialDoPainel pronto={!(voluntario && eu.termo_voluntario === false)} />
       {irPara && <IrPara secoes={secoes} fechar={() => setIrPara(false)} ir={ir} />}
@@ -630,102 +574,40 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
         </span>
       </div>
 
-      {/* No celular, o menu aberto ocupa a tela toda (sem sobra clara embaixo) e o rodapé dele fica no fim. */}
-      <aside id="menu-do-painel" data-tour="menu" className={`painel-lado no-print ${compacto ? "painel-compacto" : ""} bg-[#17130e] text-[#efe4c8] max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:border-r-4 lg:border-[#c21f16] ${menu ? "flex flex-col" : "hidden"}`}>
-        <div className={`hidden pt-6 lg:block ${compacto ? "px-3" : "px-5"}`}>
-          <L href="/" className="flex items-center gap-3" title={compacto ? "Instituto Lúcia · voltar ao site" : undefined}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/marca-96.png" alt="" width={44} height={44} className="h-11 w-11" />
-            {!compacto && (
-              <span>
-                <span className="block font-serif text-xl font-semibold leading-none">Instituto Lúcia</span>
-                <span className="mt-1.5 inline-block bg-[#c21f16] px-1.5 py-0.5 font-sans text-[0.6rem] font-extrabold uppercase italic tracking-[0.14em] text-white">Painel · {ambiente}</span>
-              </span>
-            )}
-          </L>
-          <button type="button" onClick={() => setIrPara(true)} title="Ir para uma seção (Ctrl K)" data-tour="ir-para" className={`mt-5 flex w-full cursor-pointer items-center gap-2 border border-[#3a3226] py-2 text-left text-[#b9ad90] transition-colors hover:border-[#d4a24c] hover:text-white ${compacto ? "justify-center px-0" : "px-3"}`}>
-            <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="6.5" /><path d="M16 16l4.5 4.5" /></svg>
-            {!compacto && <span className="flex-1">Ir para…</span>}
-            {!compacto && <kbd className="font-mono text-[0.62rem] text-[#8f8468]">Ctrl K</kbd>}
-          </button>
-        </div>
-        <nav aria-label="Seções do painel" className={`flex-1 overflow-y-auto overflow-x-hidden py-5 [scrollbar-color:#4a4032_transparent] [scrollbar-width:thin] ${compacto ? "px-3 lg:px-1.5" : "px-3"}`}>
-          {/* As seções que a pessoa fixou (na Mesa, em "Escolher atalhos") ficam no alto do menu. */}
-          {atalhos.fixadas.length > 0 && !compacto && (
-            <div className="mb-4">
-              <p className="painel-grupo px-2 pb-1.5 font-mono text-[0.6rem] uppercase tracking-[0.25em] text-[#d4a24c]">★ Fixadas</p>
-              <ul>
-                {atalhos.fixadas.map((id) => secoes.find((secao) => secao.id === id)).filter((secao): secao is Secao => !!secao).map((secao) => (
-                  <li key={secao.id}>
-                    <button type="button" onClick={() => ir(secao.id)} aria-current={secao.id === atual.id ? "page" : undefined} className={`painel-item relative flex w-full cursor-pointer items-center gap-2.5 px-3 py-2 text-left ${secao.id === atual.id ? "painel-item-ativo" : ""}`}>
-                      <Icone id={secao.id} />
-                      <span className="min-w-0 flex-1 truncate">{secao.nome}</span>
-                      {Boolean(secao.conta) && <span className="painel-conta min-w-6 bg-[#c21f16] px-1.5 py-0.5 text-center font-mono text-[0.7rem] font-semibold leading-none text-white">{secao.conta}</span>}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {grupos.map((grupo) => (
-            <div key={grupo || "inicio"} className="mb-4">
-              {grupo && (compacto ? <hr className="mx-2 mb-2 hidden border-[#3a3226] lg:block" /> : null)}
-              {grupo && <p className={`painel-grupo px-2 pb-1.5 font-mono text-[0.6rem] uppercase tracking-[0.25em] text-[#d4a24c] ${compacto ? "lg:hidden" : ""}`}>{grupo}</p>}
-              <ul>
-                {noMenu
-                  .filter((secao) => secao.grupo === grupo)
-                  .map((secao) => {
-                    const ativa = secao.id === atual.id;
-                    return (
-                      <li key={secao.id}>
-                        <button
-                          type="button"
-                          onClick={() => ir(secao.id)}
-                          aria-current={ativa ? "page" : undefined}
-                          title={compacto ? secao.nome : undefined}
-                          className={`painel-item relative flex w-full cursor-pointer items-center gap-2.5 py-2 text-left ${compacto ? "px-3 lg:justify-center lg:px-0" : "px-3"} ${ativa ? "painel-item-ativo" : ""}`}
-                        >
-                          <Icone id={secao.id} />
-                          <span className={`min-w-0 flex-1 truncate ${compacto ? "lg:hidden" : ""}`}>{secao.nome}</span>
-                          {Boolean(secao.conta) && <span className={`painel-conta min-w-6 bg-[#c21f16] px-1.5 py-0.5 text-center font-mono text-[0.7rem] font-semibold leading-none text-white ${compacto ? "lg:absolute lg:top-0.5 lg:right-1 lg:min-w-4 lg:px-1 lg:text-[0.6rem]" : ""}`}>{secao.conta}</span>}
-                        </button>
-                      </li>
-                    );
-                  })}
-              </ul>
-            </div>
-          ))}
-        </nav>
-        <div className={`border-t border-[#3a3226] pt-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] ${compacto ? "px-2" : "px-4"}`}>
-          <p className={`flex items-center gap-3 ${compacto ? "lg:justify-center" : ""}`} data-tour="conta">
-            <button type="button" onClick={() => ir("conta")} title="Minha conta" className="cursor-pointer">
-              <Avatar nome={eu.nome} avatar={eu.avatar} className="h-10 w-10" texto="font-sans font-black italic" />
-            </button>
-            <span className={`min-w-0 ${compacto ? "lg:hidden" : ""}`}>
-              <span className="block truncate font-semibold">{eu.nome}</span>
-              <span className="block truncate text-xs text-[#b9ad90]" title={todasAsFuncoes.join(" · ") || undefined}>{funcao}</span>
-            </span>
-          </p>
-          <p className={`mt-3 flex flex-wrap items-center gap-2 ${compacto ? "lg:flex-col" : ""}`}>
-            <button type="button" onClick={alternarCompacto} aria-pressed={compacto} data-tour="recolher" title={compacto ? "Mostrar os nomes das seções" : "Recolher o menu (só ícones)"} className="hidden cursor-pointer border border-[#3a3226] p-1.5 text-[#b9ad90] hover:border-[#d4a24c] hover:text-white lg:block">
-              <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{compacto ? <path d="M9 6l6 6-6 6M4 4v16" /> : <path d="M15 6l-6 6 6 6M20 4v16" />}</svg>
-            </button>
-            <button type="button" onClick={alternarFoco} aria-pressed={foco} title={foco ? "Sair do modo foco: mostrar todas as seções" : "Modo foco: só o essencial no menu"} className={`cursor-pointer border p-1.5 hover:border-[#d4a24c] hover:text-white ${foco ? "border-[#d4a24c] text-[#d4a24c]" : "border-[#3a3226] text-[#b9ad90]"}`}>
+      {/* O menu: o trilho das áreas e a lista da área (components/painel/Menu.tsx). No celular, a folha inteira. */}
+      <MenuDoPainel
+        secoes={noMenu}
+        atual={atual}
+        ir={ir}
+        fixadas={compacto ? [] : atalhos.fixadas}
+        compacto={compacto}
+        alternarCompacto={alternarCompacto}
+        aberto={menu}
+        eu={{ nome: eu.nome, avatar: eu.avatar }}
+        funcao={funcao}
+        todasAsFuncoes={todasAsFuncoes}
+        ambiente={ambiente}
+        ferramentas={
+          <>
+            <button type="button" onClick={alternarFoco} aria-pressed={foco} title={foco ? "Sair do modo foco: mostrar todas as seções" : "Modo foco: só o essencial no menu"} className={`cursor-pointer border-2 border-ink p-1.5 hover:bg-ink hover:text-parchment ${foco ? "bg-ink text-parchment" : ""}`}>
               <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="3" /><circle cx="12" cy="12" r="8" /></svg>
+              <span className="sr-only">Modo foco</span>
             </button>
-            <button type="button" onClick={alternarTelaCheia} aria-pressed={telaCheia} title={telaCheia ? "Sair da tela cheia" : "Tela cheia"} className="cursor-pointer border border-[#3a3226] p-1.5 text-[#b9ad90] hover:border-[#d4a24c] hover:text-white">
+            <button type="button" onClick={alternarTelaCheia} aria-pressed={telaCheia} title={telaCheia ? "Sair da tela cheia" : "Tela cheia"} className="cursor-pointer border-2 border-ink p-1.5 hover:bg-ink hover:text-parchment">
               <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{telaCheia ? <path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" /> : <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />}</svg>
+              <span className="sr-only">Tela cheia</span>
             </button>
-          </p>
-          <p className={`mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs ${compacto ? "lg:hidden" : ""}`}>
-            <L href="/" className="underline hover:text-white">← Voltar ao site</L>
+          </>
+        }
+        rodape={
+          <>
+            <L href="/" className="underline hover:text-prelo-texto">← Voltar ao site</L>
             <Tema />
-            <button type="button" onClick={sair} className="cursor-pointer underline hover:text-white">Sair</button>
+            <button type="button" onClick={sair} className="cursor-pointer underline hover:text-prelo-texto">Sair</button>
             <IdiomaDoPainel />
-          </p>
-          {compacto && <p className="mt-3 hidden justify-center lg:flex"><button type="button" onClick={sair} title="Sair" className="cursor-pointer text-xs text-[#b9ad90] underline hover:text-white">Sair</button></p>}
-        </div>
-      </aside>
+          </>
+        }
+      />
 
       <div className={`min-w-0 ${menu ? "hidden lg:block" : ""}`}>
         {/* O alto de cada seção: a barra fina com o caminho e os atalhos, e o título no papel, com o selo da seção. */}
@@ -742,6 +624,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
                 <svg aria-hidden viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="6.5" /><path d="M16 16l4.5 4.5" /></svg>
                 Ir para… <kbd className="font-mono text-[0.6rem]">Ctrl K</kbd>
               </button>
+              {amplo && <GuiaDaSecao key={`guia-${atual.id}`} id={atual.id} nome={atual.nome} />}
               <button type="button" onClick={abrirTutorial} className="cursor-pointer border-2 border-ink px-3 py-1 text-xs font-bold hover:bg-ink hover:text-parchment">
                 Tutorial
               </button>
@@ -772,6 +655,9 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
                 {atual.nome}
               </h1>
               <p className="mt-3 max-w-2xl text-[0.95rem] leading-relaxed text-ink-soft">{atual.sobre}</p>
+              <div className="mt-4">
+                <GuiaDaSecao key={atual.id} id={atual.id} nome={atual.nome} />
+              </div>
             </div>
           )}
         </header>
@@ -856,6 +742,74 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
   );
 }
 
+type Tipo = "revisar" | "responder" | "fazer";
+/** O tipo de cada pendência, pelo destino: o que se revisa, o que se responde e o que se faz. */
+const tipoDoDestino: Record<string, Tipo> = {
+  fila: "revisar",
+  triagem: "revisar",
+  juntas: "revisar",
+  gaveta: "revisar",
+  mural: "revisar",
+  horas: "revisar",
+  comunidade: "responder",
+  reforco: "responder",
+  rede: "responder",
+  pessoas: "responder",
+  supervisao: "responder",
+};
+const nomeDoTipo: Record<Tipo, string> = { revisar: "Revisar", responder: "Responder", fazer: "Fazer" };
+const acaoDoTipo: Record<Tipo, string> = { revisar: "Revisar →", responder: "Abrir →", fazer: "Fazer →" };
+const desenhoDoTipo: Record<Tipo, string> = {
+  revisar: "M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12zM12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z",
+  responder: "M4 5h16v11H9l-5 4z",
+  fazer: "M5 12.5l4.5 4.5L19 7.5",
+};
+
+/**
+ * A caixa de entrada da Mesa: tudo o que chegou para a pessoa, do mais urgente para o resto, com o filtro por tipo
+ * (revisar, responder, fazer). Um clique leva direto ao trabalho. Nada aqui é obrigatório.
+ */
+function CaixaDeEntrada({ pendencias, ir }: { pendencias: [string, number, string][]; ir: (aba: string) => void }) {
+  const [filtro, setFiltro] = useState<Tipo | "tudo">("tudo");
+  const linhas = pendencias.map(([titulo, n, destino]) => ({ titulo, n, destino, tipo: tipoDoDestino[destino] ?? ("fazer" as Tipo) }));
+  const tipos = (["revisar", "responder", "fazer"] as Tipo[]).filter((t) => linhas.some((l) => l.tipo === t));
+  const vistas = filtro === "tudo" ? linhas : linhas.filter((l) => l.tipo === filtro);
+  return (
+    <div className="mt-5">
+      {tipos.length > 1 && (
+        <p role="group" aria-label="Filtrar a caixa de entrada" className="flex flex-wrap gap-1.5">
+          {(["tudo", ...tipos] as const).map((t) => (
+            <button key={t} type="button" aria-pressed={filtro === t} onClick={() => setFiltro(t)} className={`cursor-pointer border-2 border-ink px-3 py-1 text-[0.82rem] font-semibold ${filtro === t ? "bg-ink text-parchment" : "bg-folha hover:bg-parchment-deep"}`}>
+              {t === "tudo" ? "Tudo" : nomeDoTipo[t]}
+            </button>
+          ))}
+        </p>
+      )}
+      <ul className="mt-4 border-2 border-ink shadow-[6px_6px_0_var(--sombra)]">
+        {vistas.map((l, i) => (
+          <li key={l.titulo} className={i ? "border-t-[1.5px] border-rule" : ""}>
+            <button type="button" onClick={() => ir(l.destino)} style={{ animationDelay: `${i * 35}ms` }} className="painel-surge group grid w-full cursor-pointer grid-cols-[2.6rem_minmax(0,1fr)_auto] items-center gap-4 bg-folha px-4 py-3.5 text-left hover:bg-parchment sm:px-5">
+              <span className={`flex h-10 w-10 items-center justify-center border-2 border-ink ${i === 0 && filtro === "tudo" ? "bg-[#c21f16] text-white" : l.tipo === "fazer" ? "bg-parchment-deep" : "bg-folha"}`}>
+                <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d={desenhoDoTipo[l.tipo]} />
+                </svg>
+              </span>
+              <span className="min-w-0">
+                <span className={`block font-mono text-[0.66rem] font-semibold uppercase tracking-[0.14em] ${i === 0 && filtro === "tudo" ? "text-prelo-texto" : "text-ink-soft"}`}>
+                  {nomeDoTipo[l.tipo]} · {l.n} {l.n === 1 ? "item" : "itens"}
+                </span>
+                <span className="block font-serif text-[1.3rem] font-semibold leading-snug">{l.titulo}</span>
+              </span>
+              <span className="whitespace-nowrap text-sm font-extrabold group-hover:text-prelo-texto max-sm:hidden">{acaoDoTipo[l.tipo]}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-3 text-[0.85rem] text-ink-soft">Feito o que dá, a lista some. Nada aqui é obrigatório: é só o que chegou para você.</p>
+    </div>
+  );
+}
+
 /** A primeira tela: o que pede atenção agora, a manchete do dia e, ao lado, os atalhos de trabalho. */
 function Mesa({ me, resumo, recarregar, ir, secoes }: { me: Me; resumo: Resumo | null; recarregar: () => void; ir: (aba: string) => void; secoes: Secao[] }) {
   const { t } = useI18n();
@@ -886,7 +840,6 @@ function Mesa({ me, resumo, recarregar, ir, secoes }: { me: Me; resumo: Resumo |
         ] as [string, number, string][]
       ).filter(([, total, destino]) => total > 0 && secoes.some((secao) => secao.id === destino))
     : [];
-  const [manchete, ...demais] = pendencias;
   const total = pendencias.reduce((soma, [, n]) => soma + n, 0);
 
   const hora = new Date().getHours();
@@ -927,29 +880,7 @@ function Mesa({ me, resumo, recarregar, ir, secoes }: { me: Me; resumo: Resumo |
               <span className="text-base font-semibold">Tudo em dia. Aproveite para escrever ou para olhar as tarefas.</span>
             </p>
           )}
-          {manchete && (
-            <button type="button" onClick={() => ir(manchete[2])} className="painel-surge group mt-5 flex w-full cursor-pointer flex-wrap items-center gap-5 border-2 border-ink bg-folha p-5 text-left shadow-[6px_6px_0_var(--prelo)] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 sm:p-6">
-              <span className="font-sans text-6xl font-black leading-none tracking-tight text-prelo-texto tabular-nums">{manchete[1]}</span>
-              <span className="min-w-0 flex-1">
-                <span className="block font-mono text-[0.68rem] uppercase tracking-[0.2em] text-prelo-texto">Manchete · o mais urgente</span>
-                <span className="mt-1 block font-serif text-2xl font-semibold leading-tight">{manchete[0]}</span>
-              </span>
-              <span className="botao botao-tinta botao-menor">Abrir →</span>
-            </button>
-          )}
-          {demais.length > 0 && (
-            <ul className="mt-6 border-2 border-ink bg-folha shadow-[4px_4px_0_var(--sombra)]">
-              {demais.map(([titulo, n, destino], i) => (
-                <li key={titulo} className={i ? "border-t border-dashed border-rule" : ""}>
-                  <button type="button" onClick={() => ir(destino)} style={{ animationDelay: `${i * 35}ms` }} className="painel-surge group flex w-full cursor-pointer items-center gap-4 px-4 py-3 text-left hover:bg-parchment">
-                    <span className="w-12 shrink-0 text-right font-sans text-2xl font-black text-prelo-texto tabular-nums">{n}</span>
-                    <span className="min-w-0 flex-1 font-semibold">{titulo}</span>
-                    <span aria-hidden className="painel-seta text-lg text-ink-soft">→</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
+          {pendencias.length > 0 && <CaixaDeEntrada pendencias={pendencias} ir={ir} />}
         </section>
 
         {me.papeis.length > 0 && <Atalhos secoes={secoes} ir={ir} icone={(id) => <Icone id={id} />} />}
