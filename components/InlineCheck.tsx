@@ -24,17 +24,18 @@ export function InlineCheck({ spec }: { spec: string }) {
   const right = chosen !== null && options[chosen]?.right;
 
   return (
-    <div className="no-print border-l-2 border-gold bg-parchment-deep p-4 font-sans text-base">
-      <p className="font-medium">{question}</p>
-      <div className="mt-3 flex flex-wrap gap-2">
+    <div className="no-print border-2 border-ink bg-parchment p-5 font-sans text-base shadow-[4px_4px_0_var(--sombra)]">
+      <p className="font-mono text-[0.72rem] font-semibold uppercase tracking-[0.2em] text-prelo-texto">{t.lesson.quickCheck}</p>
+      <p className="mt-1.5 font-serif text-[1.25rem] leading-snug">{question}</p>
+      <div className="mt-3 flex flex-col gap-2">
         {options.map((option, i) => (
           <button
             key={i}
             type="button"
             onClick={() => setChosen(i)}
             aria-pressed={chosen === i}
-            className={`cursor-pointer border-2 bg-parchment px-3 py-1.5 text-left text-sm ${
-              chosen === i ? (option.right ? "border-ok text-ok" : "border-gold") : "border-rule hover:border-gold"
+            className={`cursor-pointer border-2 border-ink px-4 py-2.5 text-left font-serif text-[1.05rem] ${
+              chosen === i ? (option.right ? "bg-[#2f5d34] text-white" : "bg-folha line-through decoration-[#c21f16] decoration-2") : "bg-folha hover:bg-parchment-deep"
             }`}
           >
             {option.text}

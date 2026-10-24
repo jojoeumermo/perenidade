@@ -7,6 +7,9 @@ import { DadosEstruturados } from "@/components/DadosEstruturados";
 import { migalhas, recursoDeAula } from "@/lib/dados-estruturados";
 import { notFound } from "next/navigation";
 import { AntesDaAula } from "@/components/AntesDaAula";
+import { BarraDaAula } from "@/components/aula/BarraDaAula";
+import { MargemDaAula } from "@/components/aula/MargemDaAula";
+import { areaLabs, areaTools, universalTools } from "@/lib/areas";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { CartaoDoEducador, EducadoresDaDisciplina } from "@/components/Educadores";
 import { PhetLista } from "@/components/labs/Phet";
@@ -99,23 +102,25 @@ export default async function LessonPage({ params }: Props) {
   // O que é bom ter visto antes e as aulas parecidas em outras disciplinas ("também em Química").
   const requisitos = requisitosDaAula(lang, track, lesson.slug);
   const outras = tambemEmOutras(lang, track, lesson.slug);
+  // A palavra do glossário da margem: a primeira que a própria aula define ou, senão, a primeira do glossário que aparece no texto.
+  const corpo = lesson.body.toLowerCase();
+  const termo =
+    (lesson.terms[0] && { slug: getGlossary(lang).find((g) => g.term.toLowerCase() === lesson.terms[0].term.toLowerCase())?.slug ?? "", term: lesson.terms[0].term, summary: lesson.terms[0].summary }) ||
+    terms.find((g) => new RegExp(`(?<![\\p{L}])${g.term.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![\\p{L}])`, "u").test(corpo));
+  // O cartão preto do laboratório: o da disciplina ou, sem laboratório, a primeira ferramenta da caixa.
+  const labDaArea = (areaLabs[track.area] ?? [])[0];
+  const ferramenta = [...lesson.tools, ...((areaTools[track.area] ?? []) as string[]), ...universalTools][0];
+  const laboratorio = labDaArea
+    ? { id: `lab:${labDaArea}`, nome: (t.labs as unknown as Record<string, string>)[labDaArea] ?? labDaArea }
+    : ferramenta
+      ? { id: ferramenta, nome: (t.toolNames as Record<string, string[]>)[ferramenta]?.[0] ?? ferramenta }
+      : undefined;
 
   return (
     <div className="pagina-da-aula pont">
-      {/* A faixa preta da aula: de que trilha ela é e em que ponto da trilha a pessoa está. */}
-      <div className="faixa-da-aula no-print no-focus bg-[#1f1a14] text-[#e9dcbc] app:max-md:hidden">
-        <div className="mx-auto flex max-w-[80rem] flex-wrap items-center gap-x-5 gap-y-1 px-4 py-2.5 font-mono text-xs uppercase tracking-[0.08em] sm:px-6 lg:px-8">
-          <Link href={to(`/trilhas/${track.slug}`)} className="text-[#f4ecd8] hover:text-white" {...originalLang(track.translated)}>
-            ← {track.title}
-          </Link>
-          <span className="text-[#b3a584]">{fill(t.lesson.position, { i: index + 1, n: track.lessons.length })}</span>
-          <span aria-hidden className="h-1.5 min-w-24 max-w-md flex-1 bg-[#3a3020]">
-            <span className="block h-full bg-[#c21f16]" style={{ width: `${Math.round(((index + 1) / track.lessons.length) * 100)}%` }} />
-          </span>
-          <span className="ml-auto text-[#b3a584]">{fill(t.tracks.minutes, { n: lesson.minutes })}</span>
-        </div>
-      </div>
-    <div className="mx-auto grid max-w-[80rem] gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! sm:px-6 md:grid-cols-[15rem_1fr] lg:px-8">
+      {/* A faixa preta da aula: a trilha, a posição, quanto já foi lido e os botões de ouvir, anotar, alargar e focar. */}
+      <BarraDaAula voltar={to(`/trilhas/${track.slug}`)} trilha={track.title} posicao={fill(t.lesson.position, { i: index + 1, n: track.lessons.length })} minutos={fill(t.tracks.minutes, { n: lesson.minutes })} aula={id} ferramentas={t.tools.box.open} />
+    <div className="grade-da-aula mx-auto grid max-w-[86rem] gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! sm:px-6 md:grid-cols-[14rem_minmax(0,1fr)] lg:px-8 xl:grid-cols-[14rem_minmax(0,1fr)_15rem]">
       <DadosEstruturados dados={[recursoDeAula(lang, track, lesson), migalhas(lang, [[t.nav.disciplines, "/trilhas"], [track.title, `/trilhas/${track.slug}`], [lesson.title, `/trilhas/${track.slug}/${lesson.slug}`]])]} />
       <ReadingChrome />
       <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} />
@@ -147,9 +152,7 @@ export default async function LessonPage({ params }: Props) {
         )}
       </aside>
 
-      {/* Nas telas largas, o cartão de quem ensina ocupa o espaço livre à direita do título; nas outras, fica no fim da aula. */}
-      <div className="min-w-0 xl:grid xl:grid-cols-[minmax(0,1fr)_14rem] xl:items-start xl:gap-10">
-      <article className="folha-da-aula min-w-0">
+      <article className="folha-da-aula min-w-0 justify-self-center">
         <p className="rotulo">
           {t.areas[track.area][0]} · {t.stages[track.stage]} · {fill(t.lesson.position, { i: index + 1, n: track.lessons.length })}
         </p>
@@ -169,9 +172,9 @@ export default async function LessonPage({ params }: Props) {
 
         <div {...originalLang(lesson.translated)}>
           <div id="texto-da-aula" className="mt-8">
-            <Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode}>{lesson.body}</Markdown>
+            <Markdown lang={lang} terms={terms} tryCode={t.lesson.tryCode} sala={track.area}>{lesson.body}</Markdown>
           </div>
-          {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} registro={ligado("meu-estudo") ? id : undefined} />}
+          {lesson.quiz.length > 0 && <Quiz key={id} questions={lesson.quiz} registro={id} guardarNoAparelho={ligado("meu-estudo")} />}
           {exercicios.length > 0 && <ExerciciosComExplicacao exercicios={exercicios} aula={id} s={estudo.exercicios} corrigir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} praticar="/meu-estudo/praticar" />}
           {lesson.practice.length > 0 && <Pratica key={`pratica-${id}`} id={id} exercicios={lesson.practice} lingua={linguaDe(track.area)} s={t.practice} semPlacar={ligado("pratica-sem-placar")} lead={ligado("pratica-sem-placar") ? estudo.praticaSemPlacar.lead : undefined} />}
           <SourceList sources={lesson.sources} title={t.lesson.sources} />
@@ -236,9 +239,13 @@ export default async function LessonPage({ params }: Props) {
           <p className="no-print hidden md:block">{t.lesson.keys}</p>
         </footer>
       </article>
-      <div className="no-print mt-1 hidden xl:block">
-        <CartaoDoEducador area={track.area} lang={lang} nomes={t.areas as Record<string, string[]>} />
-      </div>
+      {/* A margem: anotação, palavra do glossário, laboratório e quem ensina. No celular e no texto largo, vem depois da aula. */}
+      <div className="coluna-da-margem min-w-0 xl:sticky xl:top-[calc(var(--altura-topo,0px)+4rem)] xl:self-start xl:pt-40 max-xl:md:col-start-2">
+        <MargemDaAula aula={id} termo={termo} laboratorio={laboratorio}>
+          <div className="hidden xl:block">
+            <CartaoDoEducador area={track.area} lang={lang} nomes={t.areas as Record<string, string[]>} />
+          </div>
+        </MargemDaAula>
       </div>
       <CaixaDaAula t={t} lang={lang} area={track.area} sugeridas={lesson.tools} />
     </div>
