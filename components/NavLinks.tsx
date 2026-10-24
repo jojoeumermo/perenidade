@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fill, localeNames, localePath, locales } from "@/i18n/config";
 import { hasBackend, rpc, useMe } from "@/lib/backend";
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
@@ -11,7 +11,8 @@ import { useI18n } from "./I18n";
 
 /** Abre a janela do "Mais" (components/MaisGaveta.tsx), que mora uma vez só no layout. */
 export const ABRIR_MAIS = "lucia:abrir-mais";
-export const abrirMais = () => window.dispatchEvent(new Event(ABRIR_MAIS));
+export const SAIR_MAIS = "lucia:sair-mais";
+export const abrirMais = (mouse = false) => window.dispatchEvent(new CustomEvent(ABRIR_MAIS, { detail: { mouse } }));
 
 export function NavLinks() {
   const pathname = usePathname();
@@ -28,6 +29,9 @@ export function NavLinks() {
     [t.nav.dedication, "/dedicatoria"],
   ];
   const item = "item-do-menu whitespace-nowrap border-b-4 py-2.5";
+  // Passar o mouse por cima do "Mais" abre a janela depois de um instante (quem só atravessa o menu não a abre);
+  // sair do botão sem entrar na janela fecha. Toque e teclado continuam pelo clique.
+  const espera = useRef<number | undefined>(undefined);
   return (
     <>
       {links.map(([label, path]) => {
@@ -53,7 +57,18 @@ export function NavLinks() {
         onClick={(e) => {
           if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
           e.preventDefault();
+          window.clearTimeout(espera.current);
           abrirMais();
+        }}
+        onPointerEnter={(e) => {
+          if (e.pointerType !== "mouse") return;
+          window.clearTimeout(espera.current);
+          espera.current = window.setTimeout(() => abrirMais(true), 220);
+        }}
+        onPointerLeave={(e) => {
+          if (e.pointerType !== "mouse") return;
+          window.clearTimeout(espera.current);
+          window.dispatchEvent(new Event(SAIR_MAIS));
         }}
         className={`${item} inline-flex items-center gap-1.5 border-transparent hover:border-[#c21f16]`}
       >
@@ -278,7 +293,7 @@ export function NewsLink() {
       aria-label={t.nav.news}
       title={t.nav.news}
       aria-current={active ? "page" : undefined}
-      className={`flex h-8 w-7 shrink-0 items-center justify-center hover:text-oxblood sm:w-8 ${active ? "text-oxblood" : "text-ink-soft"}`}
+      className={`max-[419px]:hidden flex h-8 w-7 shrink-0 items-center justify-center hover:text-oxblood sm:w-8 ${active ? "text-oxblood" : "text-ink-soft"}`}
     >
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
         <path d="M4 5h13v14H6a2 2 0 0 1-2-2z" />

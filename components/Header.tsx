@@ -3,16 +3,38 @@ import Link from "next/link";
 import { localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { site } from "@/lib/site";
+import { InstagramIcon } from "./Footer";
 import { AccountLink, AppBack, LanguageSwitcher, NavLinks, NewsLink, PodcastLink, RadioLink } from "./NavLinks";
 import { Strip } from "./Strip";
 import { ThemeToggle } from "./ThemeToggle";
 import { TopoFixo } from "./TopoFixo";
 
-/** Os dois botões de quem quer ajudar: contribuir com aulas e apoiar o instituto. */
+/**
+ * O perfil do instituto no Instagram, sempre à vista: muita gente chega pelos cartazes impressos, e o @ precisa estar
+ * no alto de toda página. "compacto" é o quadrado do celular, só com o desenho da câmera.
+ */
+function Instagram({ t, menor = false, compacto = false }: { t: Dict; menor?: boolean; compacto?: boolean }) {
+  const rotulo = `${t.footer.instagram} @${site.instagramUser}`;
+  if (compacto)
+    return (
+      <a href={site.instagram} target="_blank" rel="noopener noreferrer me" aria-label={rotulo} title={rotulo} className="botao-instagram botao-instagram-compacto">
+        <InstagramIcon className="h-5 w-5" />
+      </a>
+    );
+  return (
+    <a href={site.instagram} target="_blank" rel="noopener noreferrer me" aria-label={rotulo} title={rotulo} className={`botao botao-instagram ${menor ? "botao-menor" : ""} whitespace-nowrap`}>
+      <InstagramIcon className={menor ? "h-4 w-4" : "h-[1.15rem] w-[1.15rem]"} />
+      <span className="font-mono text-[0.8rem] font-semibold tracking-tight">@{site.instagramUser}</span>
+    </a>
+  );
+}
+
+/** Os botões de quem quer ajudar: contribuir com aulas, apoiar o instituto e seguir no Instagram. */
 function Ajudar({ lang, t, menor = false }: { lang: Locale; t: Dict; menor?: boolean }) {
   const tamanho = menor ? "botao-menor" : "";
   return (
     <>
+      <Instagram t={t} menor={menor} />
       <Link href={localePath(lang, "/contribuir")} className={`botao botao-papel ${tamanho} whitespace-nowrap`}>
         {t.nav.contribute}
       </Link>
@@ -60,6 +82,9 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
             <PodcastLink />
             <RadioLink />
             <ThemeToggle />
+            <span className="ml-1 md:hidden">
+              <Instagram t={t} compacto />
+            </span>
             <span className="ml-3 hidden items-center gap-3 xl:flex">
               <Ajudar lang={lang} t={t} />
             </span>

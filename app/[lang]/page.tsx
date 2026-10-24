@@ -5,6 +5,8 @@ import { DailyQuote } from "@/components/DailyQuote";
 import { NesteDia } from "@/components/NesteDia";
 import { Star } from "@/components/Masthead";
 import { Experimente, type Sugestao } from "@/components/inicio/Experimente";
+import { LambeDoDia } from "@/components/inicio/LambeDoDia";
+import { lambesDaSemana } from "@/lib/lambes";
 import { JanelaContinue, JanelaNoAr } from "@/components/inicio/Janelas";
 import { FaixaDaSaude } from "@/components/saude/FaixaDaSaude";
 import saude from "@/content/saude/profissionais.json";
@@ -109,21 +111,14 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               />
               <button className="cursor-pointer border-2 border-ink bg-[#c21f16] px-6 font-sans text-base font-extrabold text-white hover:bg-[#a51810] sm:px-7">{h.searchButton}</button>
             </form>
+            <p className="mt-3 max-w-[39rem] font-sans text-sm text-ink-soft">{h.searchHint}</p>
             <Experimente rotulo={h.tryLabel} sugestoes={sugestoes} />
           </div>
 
           {/* O lambe-lambe colado torto, com os números do acervo e o carimbo. */}
           <div className="relative px-2 pt-4 pb-8 max-md:hidden">
             <div className="cartao-preto -rotate-2 px-9 pt-10 pb-8">
-              <p className="font-mono text-xs uppercase tracking-[0.28em] text-[#e0837a]">{h.posterLabel}</p>
-              <p className="lambe mt-4 text-[3.6rem] text-[#f4ecd8] xl:text-[3.7rem]">
-                {h.poster[0]}
-                <br />
-                {h.poster[1]}
-                <br />
-                <span className="bg-[#f4ecd8] px-2.5 text-[#c21f16]">{h.poster[2]}</span>
-              </p>
-              <p className="mt-6 text-[1.2rem] leading-snug text-[#e9dcbc]">{h.posterText}</p>
+              <LambeDoDia dias={lambesDaSemana(lang)} rotulo={h.posterLabel} />
               <dl className="mt-7 grid grid-cols-3 border-t-[1.5px] border-[#5a4e3c] pt-5">
                 {[
                   [numero(lang, areas), t.common.disciplines.other.replace("{n}", "").trim()],
@@ -138,7 +133,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
                 ))}
               </dl>
             </div>
-            <div aria-hidden className="carimbo absolute right-0 bottom-0 h-32 w-32 rotate-[14deg] bg-[color-mix(in_srgb,var(--parchment)_90%,transparent)] text-[0.72rem]">
+            <div aria-hidden className="carimbo absolute -top-4 -right-3 z-10 h-28 w-28 rotate-[14deg] bg-[color-mix(in_srgb,var(--parchment)_94%,transparent)] text-[0.66rem]">
               <span>
                 {h.stamp[0]}
                 <br />

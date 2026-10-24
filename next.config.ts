@@ -109,6 +109,8 @@ const common = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // O servidor de desenvolvimento não escreve arquivos de instrução na raiz do projeto.
+  agentRules: false,
   // O build gera mais de dezesseis mil páginas. Na Vercel há um só processo para todas, com oito páginas ao mesmo tempo,
   // e o prazo de cada uma conta também a espera na fila: com o padrão de 60 s, até o robots.txt estourava quando o
   // processo estava ocupado, e o build caía (o mesmo commit passava numa tentativa e falhava na outra). Cinco minutos
