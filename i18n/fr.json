@@ -862,7 +862,41 @@
     "beforeKnow": "Je connais déjà, continuer",
     "beforeDone": "terminé",
     "beforeMissing": "pas encore",
-    "alsoInTitle": "Aussi dans d'autres disciplines"
+    "alsoInTitle": "Aussi dans d'autres disciplines",
+    "readProgress": "Vous avez lu {n} % de ce cours",
+    "listen": "Écouter",
+    "stopListening": "Arrêter",
+    "annotate": "Annoter",
+    "width": "Largeur du texte",
+    "widthNormal": "Normale",
+    "widthWide": "Large",
+    "focus": "Mode concentration",
+    "focusExit": "Quitter la concentration",
+    "myNote": "Votre note",
+    "notePlaceholder": "Écrivez ici. C'est gardé seulement sur cet appareil.",
+    "noteSaved": "Gardé sur cet appareil",
+    "glossaryWord": "Mot du glossaire",
+    "lab": "Laboratoire",
+    "labText": "Passez à la pratique : le laboratoire de cette matière s'ouvre à côté du cours.",
+    "labOpen": "Ouvrir",
+    "quizOf": "Testez ce que vous avez appris · {i} sur {n}",
+    "nextQuestion": "Question suivante",
+    "seeResult": "Voir le résultat",
+    "blocks": {
+      "provocacao": "Avant de commencer",
+      "provocacaoPrompt": "Qu'en pensez-vous ? Écrivez-le avant de lire : cela reste sur votre appareil.",
+      "navidareal": "Dans la vraie vie",
+      "escondido": "Pourquoi on vous l'a caché",
+      "formula": "À retenir",
+      "historia": "Une histoire de lutte",
+      "realidade": "Dans votre réalité",
+      "realidadePrompt": "Votre réponse (reste sur votre appareil)",
+      "leve": "Emportez-le dans votre communauté",
+      "roda": "Discutez-en dans le salon",
+      "rodaLink": "Ouvrir le salon de cette matière dans la communauté",
+      "ouvirTrecho": "Écouter ce passage"
+    },
+    "quickCheck": "Question rapide"
   },
   "library": {
     "areasTitle": "Domaines",
@@ -1075,7 +1109,10 @@
       "checkNone": "Rien à signaler.",
       "checkNote": "Le texte n'est envoyé au correcteur libre LanguageTool que lorsque vous appuyez sur le bouton ou activez la vérification pendant l'écriture.",
       "checkFailed": "Le correcteur n'a pas répondu. Réessayez dans une minute.",
-      "checkStale": "Le texte a changé : vérifiez à nouveau."
+      "checkStale": "Le texte a changé : vérifiez à nouveau.",
+      "fullscreen": "Plein écran",
+      "exitFullscreen": "Quitter le plein écran",
+      "blocksMenu": "Bloc de cours"
     },
     "sourcesField": {
       "title": "Sources",
@@ -2015,7 +2052,10 @@
       "choose": "Choisissez un outil",
       "bigger": "Plus haut",
       "smaller": "Plus bas",
-      "suggested": "suggéré pour ce cours"
+      "suggested": "suggéré pour ce cours",
+      "resize": "Faites glisser pour redimensionner la boîte",
+      "maximize": "Plein écran",
+      "restore": "Revenir à la taille précédente"
     },
     "solver": {
       "modes": {

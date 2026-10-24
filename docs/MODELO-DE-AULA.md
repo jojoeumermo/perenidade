@@ -64,6 +64,60 @@ Confira: 7/12 é um pouco mais que a metade, e 1/3 + 1/4 também é.
 - Para somar, primeiro iguale os denominadores.
 ````
 
+## A aula-experiência
+
+O instituto não é um site de aulas: é uma escola da vida. Uma aula boa não é um texto para decorar, é uma experiência que parte da vida de quem trabalha, mostra a quem serve o que costuma ficar escondido e termina com algo para levar ao bairro. Não há ponto, ranking nem sequência de dias: a pessoa estuda porque quer entender e mudar a própria realidade.
+
+Além das seis partes acima, a aula pode (e deve, sempre que couber) usar os **blocos da aula-experiência**. Cada um é um bloco de código com o nome dele, escrito em texto simples. No painel › Escrever, o menu **Bloco da aula** põe o esqueleto de cada um no texto.
+
+| Bloco | Para quê | Onde costuma ficar |
+| --- | --- | --- |
+| `provocacao` | Uma pergunta da vida real, que a aula vai responder. A pessoa pode escrever o que pensa antes de ler (fica só no aparelho dela). | No começo, antes da primeira seção |
+| `navidareal` | A caixa preta: onde aquilo aparece no dia a dia, num caso concreto. | Logo depois da explicação |
+| `formula` | A fórmula ou a regra em destaque. A primeira linha vai grande, numa caixa; as outras viram a legenda, em palavras. | No meio da explicação |
+| `historia` | Uma história de luta ligada ao conteúdo, com lugar e ano no título (`# A greve de 1917, São Paulo`). | Onde ajudar a dar sentido |
+| `escondido` | Por que isso te foi escondido: o que a escola e a mídia deixam de fora, e a quem isso serve. Sempre com fonte. | Perto do fim |
+| `realidade` | Um exercício sobre a vida de quem estuda, com espaço para responder (fica só no aparelho). | Antes do resumo |
+| `leve` | Leve para a sua comunidade: como ensinar isso a outra pessoa, em passos curtos. | No fim |
+| `roda` | Perguntas para discutir na sala da disciplina, com o link direto para ela. | No fim |
+
+Formato de cada um:
+
+````markdown
+```provocacao
+Por que o ônibus te joga para a frente quando o motorista freia, se ninguém te empurrou?
+```
+
+```formula
+F = m · a
+força (em newtons) = massa (em quilogramas) × aceleração
+```
+
+```historia
+# A greve geral de 1917, São Paulo
+Texto da história, com **negrito** e *itálico* se precisar. Linha em branco separa parágrafos.
+```
+
+```leve
+- Chame alguém da sua casa e faça o teste do carrinho.
+- Termine com uma pergunta.
+```
+````
+
+Dentro dos blocos vale texto simples: parágrafos (linha em branco entre eles), listas com `- ` ou `1. `, **negrito**, *itálico*, `código` e links para páginas do próprio site (`[Máquinas simples](/trilhas/fisica-fundamental/maquinas-simples)`). Uma primeira linha começando com `# ` vira o título do bloco.
+
+Algumas regras para a experiência funcionar:
+
+- **Comece pela vida, não pela definição.** A provocação vem antes do conceito.
+- **Um caso concreto vale mais que três adjetivos.** Nada de panfleto vazio: toda afirmação política tem fonte.
+- **Escreva para quem lê pouco.** Frases curtas, uma ideia por frase, palavra difícil explicada na primeira vez (ou ligada ao glossário).
+- **Feche com ação.** `realidade`, `leve` e `roda` fazem a aula sair da tela.
+- **Sem gamificação.** Nada de pontos, prêmios, sequência de dias ou competição.
+
+Veja a aula `content/trilhas/fisica-fundamental/forca-e-as-leis-de-newton.md`, que usa os blocos.
+
+Na página, a aula ainda tem, sem que quem escreve precise fazer nada: a margem com a anotação da pessoa, a palavra do glossário e o laboratório da disciplina; o teste de uma pergunta por vez; ouvir a aula em voz alta; a largura do texto e o modo foco.
+
 ## Revisão e créditos
 
 Cada aula leva os créditos de quem escreveu (`autores`) e, depois de revisada, de quem revisou:

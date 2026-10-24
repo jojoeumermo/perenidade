@@ -862,7 +862,41 @@
     "beforeKnow": "I know this, continue",
     "beforeDone": "done",
     "beforeMissing": "not yet",
-    "alsoInTitle": "Also in other subjects"
+    "alsoInTitle": "Also in other subjects",
+    "readProgress": "You have read {n}% of this lesson",
+    "listen": "Listen",
+    "stopListening": "Stop",
+    "annotate": "Take notes",
+    "width": "Text width",
+    "widthNormal": "Normal",
+    "widthWide": "Wide",
+    "focus": "Focus mode",
+    "focusExit": "Leave focus",
+    "myNote": "Your note",
+    "notePlaceholder": "Write here. It stays only on this device.",
+    "noteSaved": "Saved on this device",
+    "glossaryWord": "Glossary word",
+    "lab": "Lab",
+    "labText": "Get hands-on: this subject's lab opens next to the lesson.",
+    "labOpen": "Open",
+    "quizOf": "Test what you learned · {i} of {n}",
+    "nextQuestion": "Next question",
+    "seeResult": "See the result",
+    "blocks": {
+      "provocacao": "Before you start",
+      "provocacaoPrompt": "What do you think? Write it down before reading: it stays on your device.",
+      "navidareal": "In real life",
+      "escondido": "Why this was kept from you",
+      "formula": "Keep this",
+      "historia": "A story of struggle",
+      "realidade": "In your own life",
+      "realidadePrompt": "Your answer (stays on your device)",
+      "leve": "Take it to your community",
+      "roda": "Talk it over in the room",
+      "rodaLink": "Open this subject's room in the community",
+      "ouvirTrecho": "Listen to this part"
+    },
+    "quickCheck": "Quick check"
   },
   "library": {
     "areasTitle": "Areas",
@@ -1075,7 +1109,10 @@
       "checkNone": "Nothing to point out.",
       "checkNote": "The text goes to the open-source LanguageTool checker only when you press the button or turn on checking as you write.",
       "checkFailed": "The checker did not answer. Try again in a minute.",
-      "checkStale": "The text has changed: check again."
+      "checkStale": "The text has changed: check again.",
+      "fullscreen": "Full screen",
+      "exitFullscreen": "Exit full screen",
+      "blocksMenu": "Lesson block"
     },
     "sourcesField": {
       "title": "Sources",
@@ -2015,7 +2052,10 @@
       "choose": "Choose a tool",
       "bigger": "Taller",
       "smaller": "Shorter",
-      "suggested": "suggested for this lesson"
+      "suggested": "suggested for this lesson",
+      "resize": "Drag to resize the toolbox",
+      "maximize": "Full screen",
+      "restore": "Back to the previous size"
     },
     "solver": {
       "modes": {

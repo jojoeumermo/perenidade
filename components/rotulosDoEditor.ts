@@ -30,4 +30,19 @@ export const editorPt: EditorLabels = {
   checkNote: "O texto vai ao conferidor do instituto (LanguageTool, de código aberto) ao apertar o botão ou, se você ligar, alguns segundos depois de parar de digitar. Os apontamentos ficam sublinhados no texto.",
   checkFailed: "A conferência não respondeu. Tente de novo em um minuto.",
   checkStale: "O texto mudou: confira de novo.",
+  fullscreen: "Tela cheia",
+  exitFullscreen: "Sair da tela cheia",
+  experiencia: {
+    titulo: "Bloco da aula",
+    nomes: {
+      provocacao: "Antes de começar (provocação)",
+      navidareal: "Na vida real",
+      escondido: "Por que isso te foi escondido",
+      formula: "Fórmula em destaque",
+      historia: "Uma história de luta",
+      realidade: "Na sua realidade (exercício)",
+      leve: "Leve para a sua comunidade",
+      roda: "Discuta na sala",
+    },
+  },
 };

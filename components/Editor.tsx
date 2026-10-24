@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { hasBackend, rpc } from "@/lib/backend";
 import { htmlLang } from "@/i18n/config";
 import { cleanImage, sendFile, UploadError, uploadMessages } from "@/lib/upload";
@@ -31,6 +32,11 @@ export interface EditorLabels {
   sending: string;
   check: string;
   checking: string;
+  /** Tela cheia para escrever sem nada em volta (opcional: sem o texto, em português). */
+  fullscreen?: string;
+  exitFullscreen?: string;
+  /** O menu dos blocos da aula-experiência (provocação, na vida real…): o nome do menu e o de cada bloco. */
+  experiencia?: { titulo: string; nomes: Record<string, string> };
   /** Conferir sozinho enquanto a pessoa escreve (opcional: sem o texto, "Conferir enquanto escrevo"). */
   checkLive?: string;
   /** Aviso de que o conferidor do instituto não respondeu e o serviço público entrou de reserva. */
@@ -381,7 +387,7 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     ["↗", labels.link, "link"],
     ["▶", labels.video, "video"],
     ["∑", labels.math, "conta"],
-    ...(upload ? [["▣", labels.image, "imagem"] as [string, string, string], ["📎", "Anexo em PDF", "anexo"] as [string, string, string]] : []),
+    ...(upload ? [["▣", labels.image, "imagem"] as [string, string, string], ["PDF", "Anexo em PDF", "anexo"] as [string, string, string]] : []),
   ];
 
   function apply(name: string, mark: string) {
@@ -395,9 +401,42 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
     else prefix(mark);
   }
 
-  return (
-    <div>
-      <div className="flex flex-wrap items-center gap-1 border-2 border-b-0 border-ink bg-parchment px-2 py-1.5">
+  // Os esqueletos dos blocos da aula-experiência (components/aula/Blocos.tsx), para quem escreve não decorar o formato.
+  const esqueletos: Record<string, string> = {
+    provocacao: "```provocacao\nUma pergunta da vida de quem trabalha, que a aula vai responder.\n```",
+    navidareal: "```navidareal\nOnde isso aparece no dia a dia, num caso concreto.\n```",
+    escondido: "```escondido\nO que a escola e a mídia costumam deixar de fora, e a quem isso serve.\n```",
+    formula: "```formula\nF = m · a\nO que cada letra quer dizer, em palavras.\n```",
+    historia: "```historia\n# Nome do caso, lugar e ano\nA história de luta ligada ao conteúdo.\n```",
+    realidade: "```realidade\nUma pergunta sobre a vida de quem estuda, para responder por escrito.\n```",
+    leve: "```leve\n- Como explicar isso para alguém da sua casa\n- Uma pergunta para começar a conversa\n```",
+    roda: "```roda\n- Uma pergunta para discutir na sala da disciplina\n```",
+  };
+  const [telaCheia, setTelaCheia] = useState(false);
+  useEffect(() => {
+    if (!telaCheia) return;
+    const raiz = document.documentElement;
+    raiz.style.setProperty("overflow", "hidden");
+    const tecla = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setTelaCheia(false);
+    };
+    window.addEventListener("keydown", tecla);
+    return () => {
+      raiz.style.removeProperty("overflow");
+      window.removeEventListener("keydown", tecla);
+    };
+  }, [telaCheia]);
+  const nomeCheia = labels.fullscreen ?? (lang === "pt" ? "Tela cheia" : "Full screen");
+  const nomeSair = labels.exitFullscreen ?? (lang === "pt" ? "Sair da tela cheia" : "Exit full screen");
+
+  const conteudo = (
+    <div
+      className={telaCheia ? "editor-tela-cheia fixed inset-0 z-[70] flex flex-col overflow-y-auto bg-parchment px-3 py-3 font-sans text-sm text-ink sm:px-8 sm:py-6" : undefined}
+      role={telaCheia ? "dialog" : undefined}
+      aria-modal={telaCheia ? true : undefined}
+      aria-label={telaCheia ? nomeCheia : undefined}
+    >
+      <div className="sticky top-0 z-10 flex flex-wrap items-center gap-1 border-2 border-b-0 border-ink bg-parchment px-2 py-1.5">
         {comBlocos && (
           <span role="group" aria-label="Modo do editor" className="mr-2 flex">
             <button type="button" aria-pressed={!porBlocos} onClick={() => escolherBlocos(false)} className={`cursor-pointer border px-2 py-1 text-xs ${!porBlocos ? "border-ink bg-ink text-parchment" : "border-rule"}`}>Texto</button>
@@ -409,18 +448,40 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
             {symbol}
           </button>
         ))}
+        {labels.experiencia && !porBlocos && (
+          <select
+            aria-label={labels.experiencia.titulo}
+            value=""
+            disabled={preview}
+            onChange={(e) => {
+              const bloco = esqueletos[e.target.value];
+              if (bloco) insertBlock(bloco);
+            }}
+            className="cursor-pointer border border-rule bg-parchment px-1.5 py-1 text-sm hover:border-gold"
+          >
+            <option value="">{labels.experiencia.titulo}…</option>
+            {Object.keys(esqueletos).map((k) => (
+              <option key={k} value={k}>
+                {labels.experiencia!.nomes[k] ?? k}
+              </option>
+            ))}
+          </select>
+        )}
         <button type="button" onClick={() => setPreview((p) => !p)} className="ml-auto cursor-pointer px-2 text-sm underline hover:text-oxblood">
           {preview ? labels.write : labels.preview}
+        </button>
+        <button type="button" onClick={() => setTelaCheia((v) => !v)} aria-pressed={telaCheia} className="cursor-pointer border-2 border-ink px-2.5 py-1 text-sm font-semibold hover:bg-ink hover:text-parchment">
+          {telaCheia ? nomeSair : `⤢ ${nomeCheia}`}
         </button>
       </div>
       {porBlocos && !preview ? (
         <EditorPorBlocos value={value} onChange={onChange} upload={upload} />
       ) : preview ? (
-        <div className="min-h-64 border-2 border-ink bg-parchment p-5 font-serif">
+        <div className={`border-2 border-ink bg-parchment p-5 font-serif ${telaCheia ? "mx-auto w-full max-w-4xl flex-1" : "min-h-[28rem]"}`}>
           <Markdown lang={lang}>{value || labels.empty}</Markdown>
         </div>
       ) : (
-        <div className="relative">
+        <div className={`relative ${telaCheia ? "flex min-h-0 flex-1 flex-col" : ""}`}>
           <div ref={fundo} aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden whitespace-pre-wrap break-words border-2 border-transparent bg-parchment-deep px-3 py-2 font-mono text-transparent">
             {marcado()}
           </div>
@@ -436,7 +497,7 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
             placeholder={placeholder}
             spellCheck
             lang={htmlLang[lang]}
-            className="relative w-full border-2 border-ink bg-transparent px-3 py-2 font-mono"
+            className={`relative w-full resize-y border-2 border-ink bg-transparent px-3 py-2 font-mono leading-relaxed ${telaCheia ? "min-h-0 flex-1 text-[1.05rem]" : "min-h-[26rem] md:min-h-[34rem]"}`}
           />
         </div>
       )}
@@ -503,6 +564,8 @@ export function MarkdownEditor({ id, value, onChange, labels, rows = 16, placeho
       )}
     </div>
   );
+  // Na tela cheia, o editor sai da página e vai direto para o corpo do documento: nenhuma coluna do painel o aperta.
+  return telaCheia && typeof document !== "undefined" ? createPortal(conteudo, document.body) : conteudo;
 }
 
 /** Lista de fontes. Todo material de ensino precisa de pelo menos uma. */

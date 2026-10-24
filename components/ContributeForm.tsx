@@ -284,7 +284,7 @@ function Form({ s }: { s: Dict["contribute"] }) {
             {isLesson ? (
               // O mesmo editor do Escrever do painel, em modo público (sem envio de arquivos). Os blocos só em português,
               // a língua em que os rótulos dele existem.
-              <MarkdownEditor id="conteudo-md" value={draft.body} onChange={(value) => update("body", value)} labels={s.editor} placeholder={s.bodyPlaceholder} blocos={lang === "pt"} />
+              <MarkdownEditor id="conteudo-md" value={draft.body} onChange={(value) => update("body", value)} labels={{ ...s.editor, experiencia: { titulo: s.editor.blocksMenu, nomes: t.lesson.blocks } }} placeholder={s.bodyPlaceholder} blocos={lang === "pt"} />
             ) : (
               <textarea id="conteudo-md" value={draft.body} onChange={(e) => update("body", e.target.value)} rows={6} className="w-full border-2 border-ink bg-parchment-deep px-3 py-2" />
             )}

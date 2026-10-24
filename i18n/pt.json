@@ -862,7 +862,41 @@
     "beforeKnow": "Já sei isso, seguir",
     "beforeDone": "concluída",
     "beforeMissing": "ainda não",
-    "alsoInTitle": "Também em outras disciplinas"
+    "alsoInTitle": "Também em outras disciplinas",
+    "readProgress": "Você leu {n}% desta aula",
+    "listen": "Ouvir",
+    "stopListening": "Parar",
+    "annotate": "Anotar",
+    "width": "Largura do texto",
+    "widthNormal": "Normal",
+    "widthWide": "Larga",
+    "focus": "Modo foco",
+    "focusExit": "Sair do foco",
+    "myNote": "Sua anotação",
+    "notePlaceholder": "Escreva aqui. Fica guardado só neste aparelho.",
+    "noteSaved": "Guardado neste aparelho",
+    "glossaryWord": "Palavra do glossário",
+    "lab": "Laboratório",
+    "labText": "Ponha a mão na massa: o laboratório desta disciplina abre ao lado da aula.",
+    "labOpen": "Abrir",
+    "quizOf": "Teste o que você aprendeu · {i} de {n}",
+    "nextQuestion": "Próxima pergunta",
+    "seeResult": "Ver o resultado",
+    "blocks": {
+      "provocacao": "Antes de começar",
+      "provocacaoPrompt": "O que você acha? Escreva antes de ler: fica só no seu aparelho.",
+      "navidareal": "Na vida real",
+      "escondido": "Por que isso te foi escondido",
+      "formula": "Para guardar",
+      "historia": "Uma história de luta",
+      "realidade": "Na sua realidade",
+      "realidadePrompt": "Sua resposta (fica só no seu aparelho)",
+      "leve": "Leve para a sua comunidade",
+      "roda": "Discuta na sala",
+      "rodaLink": "Abrir a sala desta disciplina na comunidade",
+      "ouvirTrecho": "Ouvir este trecho"
+    },
+    "quickCheck": "Pergunta rápida"
   },
   "library": {
     "areasTitle": "Áreas",
@@ -1075,7 +1109,10 @@
       "checkNone": "Nenhum apontamento.",
       "checkNote": "O texto vai ao conferidor LanguageTool, de código aberto, só quando você aperta o botão ou liga a conferência enquanto escreve.",
       "checkFailed": "A conferência não respondeu. Tente de novo em um minuto.",
-      "checkStale": "O texto mudou: confira de novo."
+      "checkStale": "O texto mudou: confira de novo.",
+      "fullscreen": "Tela cheia",
+      "exitFullscreen": "Sair da tela cheia",
+      "blocksMenu": "Bloco da aula"
     },
     "sourcesField": {
       "title": "Fontes",
@@ -2015,7 +2052,10 @@
       "choose": "Escolha uma ferramenta",
       "bigger": "Aumentar",
       "smaller": "Diminuir",
-      "suggested": "sugerida para esta aula"
+      "suggested": "sugerida para esta aula",
+      "resize": "Arraste para mudar o tamanho da caixa",
+      "maximize": "Tela cheia",
+      "restore": "Voltar ao tamanho anterior"
     },
     "solver": {
       "modes": {

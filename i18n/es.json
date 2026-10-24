@@ -862,7 +862,41 @@
     "beforeKnow": "Ya lo sé, seguir",
     "beforeDone": "hecha",
     "beforeMissing": "todavía no",
-    "alsoInTitle": "También en otras disciplinas"
+    "alsoInTitle": "También en otras disciplinas",
+    "readProgress": "Leíste el {n}% de esta clase",
+    "listen": "Escuchar",
+    "stopListening": "Parar",
+    "annotate": "Anotar",
+    "width": "Ancho del texto",
+    "widthNormal": "Normal",
+    "widthWide": "Ancha",
+    "focus": "Modo foco",
+    "focusExit": "Salir del foco",
+    "myNote": "Tu nota",
+    "notePlaceholder": "Escribe aquí. Se guarda solo en este aparato.",
+    "noteSaved": "Guardado en este aparato",
+    "glossaryWord": "Palabra del glosario",
+    "lab": "Laboratorio",
+    "labText": "Manos a la obra: el laboratorio de esta materia se abre junto a la clase.",
+    "labOpen": "Abrir",
+    "quizOf": "Pon a prueba lo que aprendiste · {i} de {n}",
+    "nextQuestion": "Siguiente pregunta",
+    "seeResult": "Ver el resultado",
+    "blocks": {
+      "provocacao": "Antes de empezar",
+      "provocacaoPrompt": "¿Qué piensas? Escríbelo antes de leer: se queda en tu aparato.",
+      "navidareal": "En la vida real",
+      "escondido": "Por qué esto te lo ocultaron",
+      "formula": "Para guardar",
+      "historia": "Una historia de lucha",
+      "realidade": "En tu realidad",
+      "realidadePrompt": "Tu respuesta (se queda en tu aparato)",
+      "leve": "Llévalo a tu comunidad",
+      "roda": "Debátelo en la sala",
+      "rodaLink": "Abrir la sala de esta materia en la comunidad",
+      "ouvirTrecho": "Escuchar este fragmento"
+    },
+    "quickCheck": "Pregunta rápida"
   },
   "library": {
     "areasTitle": "Áreas",
@@ -1075,7 +1109,10 @@
       "checkNone": "Ninguna observación.",
       "checkNote": "El texto va al corrector de código abierto LanguageTool solo cuando aprietas el botón o activas la revisión mientras escribes.",
       "checkFailed": "La revisión no respondió. Inténtalo de nuevo en un minuto.",
-      "checkStale": "El texto cambió: revísalo de nuevo."
+      "checkStale": "El texto cambió: revísalo de nuevo.",
+      "fullscreen": "Pantalla completa",
+      "exitFullscreen": "Salir de pantalla completa",
+      "blocksMenu": "Bloque de la clase"
     },
     "sourcesField": {
       "title": "Fuentes",
@@ -2015,7 +2052,10 @@
       "choose": "Elige una herramienta",
       "bigger": "Agrandar",
       "smaller": "Achicar",
-      "suggested": "sugerida para esta clase"
+      "suggested": "sugerida para esta clase",
+      "resize": "Arrastra para cambiar el tamaño de la caja",
+      "maximize": "Pantalla completa",
+      "restore": "Volver al tamaño anterior"
     },
     "solver": {
       "modes": {
