@@ -965,6 +965,170 @@ body {
   color: var(--ink-soft);
   font-style: italic;
 }
+/* ---- Os blocos da aula-experiência (components/aula/Blocos.tsx) ---- */
+.prose-lesson .bloco {
+  position: relative;
+  margin: 2rem 0;
+  border: 2px solid var(--ink);
+  padding: 1.35rem 1.5rem;
+  font-style: normal;
+}
+.prose-lesson .bloco-rotulo {
+  margin: 0;
+  font-family: var(--font-archive), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--prelo-texto);
+}
+.prose-lesson .bloco-titulo {
+  margin: 0.45rem 0 0;
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.prose-lesson .bloco-texto {
+  margin-top: 0.5rem;
+}
+.prose-lesson .bloco-texto > * + * {
+  margin-top: 0.75em;
+}
+.prose-lesson .bloco-lista {
+  margin: 0;
+  padding-left: 1.3em;
+  list-style: disc;
+}
+.prose-lesson .bloco-numerada {
+  list-style: decimal;
+}
+.prose-lesson .bloco-campo {
+  margin-top: 0.4rem;
+  display: block;
+  width: 100%;
+  resize: vertical;
+  border: 2px solid var(--ink);
+  background: var(--folha);
+  padding: 0.6rem 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 1rem;
+  color: var(--ink);
+}
+/* A provocação: a pergunta grande, em vermelho, sobre papel, com a sombra do prelo. */
+.prose-lesson .bloco-provocacao {
+  margin-top: 0;
+  background: var(--folha);
+  box-shadow: 6px 6px 0 var(--prelo);
+}
+.prose-lesson .bloco-pergunta {
+  margin-top: 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.prose-lesson .bloco-preto {
+  background: #1f1a14;
+  color: #f4ecd8;
+  box-shadow: 6px 6px 0 var(--prelo);
+}
+.prose-lesson .bloco-preto .bloco-rotulo {
+  color: #e0837a;
+}
+.prose-lesson .bloco-preto a {
+  color: #f4ecd8;
+}
+.prose-lesson .bloco-escondido {
+  border-color: var(--prelo-texto);
+  border-width: 3px;
+  background: var(--folha);
+}
+.prose-lesson .bloco-carimbo {
+  position: absolute;
+  top: -1.1rem;
+  right: 1rem;
+  display: flex;
+  height: 2.4rem;
+  width: 2.4rem;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--prelo-texto);
+  border-radius: 9999px;
+  background: var(--parchment);
+  color: var(--prelo-texto);
+  transform: rotate(-12deg);
+}
+.prose-lesson .bloco-historia {
+  background: var(--parchment-deep);
+  box-shadow: 6px 6px 0 var(--sombra);
+}
+.prose-lesson .bloco-tarja {
+  display: inline-block;
+  background: var(--prelo);
+  color: #fff;
+  padding: 0.25rem 0.6rem;
+}
+.prose-lesson .bloco-realidade {
+  border-style: dashed;
+  background: var(--folha);
+}
+.prose-lesson .bloco-leve {
+  background: var(--ok);
+  border-color: var(--ok);
+  color: #fff;
+  box-shadow: 6px 6px 0 var(--sombra);
+}
+:root[data-theme="dark"] .prose-lesson .bloco-leve {
+  background: #2f5d34;
+  border-color: #2f5d34;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .prose-lesson .bloco-leve {
+    background: #2f5d34;
+    border-color: #2f5d34;
+  }
+}
+.prose-lesson .bloco-leve .bloco-rotulo {
+  color: #fff;
+}
+.prose-lesson .bloco-roda {
+  background: var(--folha);
+  box-shadow: 4px 4px 0 var(--sombra);
+}
+.prose-lesson .bloco-formula {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+.prose-lesson .bloco-formula-caixa {
+  border: 2px solid var(--ink);
+  background: var(--folha);
+  box-shadow: 4px 4px 0 var(--sombra);
+  padding: 0.6rem 2.5rem;
+  font-size: 2.6rem;
+  font-style: italic;
+  line-height: 1.2;
+  text-align: center;
+}
+.prose-lesson .bloco-formula-legenda {
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+:root:is([data-contrast], [data-eink]) .prose-lesson :is(.bloco, .bloco-formula-caixa) {
+  box-shadow: none;
+}
+@media print {
+  .prose-lesson :is(.bloco, .bloco-formula-caixa) {
+    box-shadow: none;
+    background: #fff;
+    color: #000;
+  }
+}
+
 .prose-lesson code {
   font-family: var(--font-archive), monospace;
   font-size: 0.82em;
@@ -2085,7 +2249,7 @@ body {
 /* Caixa de ferramentas aberta no computador: a página abre espaço à direita e a aula continua inteira à vista. */
 @media (min-width: 1024px) {
   html.caixa-aberta body {
-    padding-right: 28rem;
+    padding-right: var(--largura-caixa, 28rem);
   }
 }
 
@@ -2740,4 +2904,68 @@ main#conteudo .ide-area :is(div, section)[class~="border-2"][class~="border-ink"
   background: transparent;
   color: var(--ink);
   outline: 2px solid var(--ink);
+}
+
+/* ---- Os modos da página de aula (components/aula/BarraDaAula.tsx) ---- */
+/* Texto largo: a folha cresce e a margem desce para baixo da aula. */
+@media (min-width: 1024px) {
+  :root[data-aula-larga] .grade-da-aula {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    max-width: 100rem;
+  }
+  :root[data-aula-larga] .folha-da-aula {
+    max-width: 72rem;
+    width: 100%;
+  }
+  :root[data-aula-larga] .coluna-da-margem {
+    grid-column: 2;
+    position: static;
+    padding-top: 0;
+  }
+  :root[data-aula-larga] .coluna-da-margem .margem-da-aula {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    max-width: 72rem;
+    justify-self: center;
+  }
+}
+/* Modo foco: só a faixa da aula e a folha, larga e no meio. O resto do site sai da frente até a pessoa sair do foco. */
+:root[data-aula-foco] :is(.cabecalho-site, .faixa-de-avisos, .rodape-do-site, .indice-da-trilha, .coluna-da-margem, .abas-do-celular) {
+  display: none !important;
+}
+:root[data-aula-foco] .faixa-da-aula {
+  top: 0;
+}
+:root[data-aula-foco] .grade-da-aula {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 76rem;
+}
+:root[data-aula-foco] .folha-da-aula {
+  max-width: 64rem;
+  width: 100%;
+}
+:root[data-aula-foco] .folha-da-aula .prose-lesson {
+  font-size: 1.22em;
+}
+/* Com a caixa de ferramentas aberta e larga, a aula vira uma coluna só: o índice sai e a margem desce para o fim. */
+@media (min-width: 1024px) {
+  html.caixa-aberta .grade-da-aula {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  html.caixa-aberta .grade-da-aula .indice-da-trilha {
+    display: none;
+  }
+  html.caixa-aberta .grade-da-aula .coluna-da-margem {
+    grid-column: auto;
+    position: static;
+    padding-top: 0;
+  }
+}
+/* No celular, a aula vem primeiro; a lista das aulas da trilha, depois. */
+@media (max-width: 767.98px) {
+  .grade-da-aula .indice-da-trilha {
+    order: 3;
+    border-top: 2px solid var(--ink);
+    padding-top: 1.5rem;
+  }
 }

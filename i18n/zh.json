@@ -857,7 +857,41 @@
     "beforeKnow": "我已经会了，继续",
     "beforeDone": "已完成",
     "beforeMissing": "尚未",
-    "alsoInTitle": "其他学科中的相关内容"
+    "alsoInTitle": "其他学科中的相关内容",
+    "readProgress": "你已读完本课的 {n}%",
+    "listen": "收听",
+    "stopListening": "停止",
+    "annotate": "记笔记",
+    "width": "正文宽度",
+    "widthNormal": "标准",
+    "widthWide": "加宽",
+    "focus": "专注模式",
+    "focusExit": "退出专注",
+    "myNote": "你的笔记",
+    "notePlaceholder": "写在这里。只保存在这台设备上。",
+    "noteSaved": "已保存在本设备",
+    "glossaryWord": "词汇表",
+    "lab": "实验室",
+    "labText": "动手试试：本学科的实验室会在课程旁边打开。",
+    "labOpen": "打开",
+    "quizOf": "检验所学 · 第 {i} 题，共 {n} 题",
+    "nextQuestion": "下一题",
+    "seeResult": "查看结果",
+    "blocks": {
+      "provocacao": "开始之前",
+      "provocacaoPrompt": "你怎么看？读之前先写下来：只保存在你的设备上。",
+      "navidareal": "在现实生活中",
+      "escondido": "为什么这被瞒着你",
+      "formula": "记住",
+      "historia": "一段斗争的故事",
+      "realidade": "在你的现实中",
+      "realidadePrompt": "你的回答（只保存在你的设备上）",
+      "leve": "带回你的社区",
+      "roda": "在讨论室里讨论",
+      "rodaLink": "打开社区里本学科的讨论室",
+      "ouvirTrecho": "收听这一段"
+    },
+    "quickCheck": "小测验"
   },
   "library": {
     "areasTitle": "领域",
@@ -1069,7 +1103,10 @@
       "checkNone": "没有需要注意的地方。",
       "checkNote": "只有在你按下按钮或开启\"边写边检查\"时，文字才会发送到开源检查服务 LanguageTool。",
       "checkFailed": "检查服务没有响应。请一分钟后再试。",
-      "checkStale": "文字已更改：请重新检查。"
+      "checkStale": "文字已更改：请重新检查。",
+      "fullscreen": "全屏",
+      "exitFullscreen": "退出全屏",
+      "blocksMenu": "课程模块"
     },
     "sourcesField": {
       "title": "资料来源",
@@ -1946,7 +1983,10 @@
       "choose": "选择工具",
       "bigger": "放大",
       "smaller": "缩小",
-      "suggested": "本课推荐"
+      "suggested": "本课推荐",
+      "resize": "拖动以调整工具箱大小",
+      "maximize": "全屏",
+      "restore": "恢复原来大小"
     },
     "solver": {
       "modes": {

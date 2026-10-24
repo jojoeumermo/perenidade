@@ -34,6 +34,10 @@ quiz:
     explicacao: "Um newton é a força que dá a uma massa de 1 kg a aceleração de 1 m/s²."
 ---
 
+```provocacao
+Por que o ônibus te joga para a frente quando o motorista freia de repente, se ninguém te empurrou?
+```
+
 ## O que é força
 
 Empurrar um carro, puxar uma gaveta, chutar uma bola, amassar o pão. Em todos esses casos, age uma **força**. Em física, força é tudo aquilo capaz de **mudar o movimento** de um corpo (pô-lo em movimento, pará-lo, desviá-lo) ou de **deformá-lo**.
@@ -54,13 +58,18 @@ Parece contrariar a experiência: uma bola chutada no gramado para sozinha. Mas 
 
 **No ônibus.** Quando o motorista freia de repente, os passageiros são "jogados" para a frente. Nenhuma força os empurrou: o ônibus parou, e os corpos, por inércia, seguiram.
 
-**O cinto de segurança.** Em uma batida a 60 km/h, o carro para em uma fração de segundo. Quem está sem cinto continua a 60 km/h até encontrar o painel ou o para-brisa. O cinto é a força que faz o corpo parar junto com o carro.
+```navidareal
+O cinto de segurança existe por causa da primeira lei. Em uma batida a 60 km/h, o carro para em uma fração de segundo. Quem está sem cinto **continua a 60 km/h** até encontrar o painel ou o para-brisa. O cinto é a força que faz o corpo parar junto com o carro.
+```
 
 ## Segunda lei: força, massa e aceleração
 
 **Aceleração** é a mudança da velocidade: aumentar, diminuir ou mudar de direção. A segunda lei diz quanto um corpo acelera:
 
-**força = massa × aceleração**
+```formula
+F = m · a
+força (em newtons) = massa (em quilogramas) × aceleração (em metros por segundo, a cada segundo)
+```
 
 Daí saem duas conclusões que qualquer pessoa conhece do trabalho:
 
@@ -104,6 +113,20 @@ O **atrito** é a força que aparece quando uma superfície esfrega ou tenta esf
 
 As leis de Newton valem para a coluna de quem carrega peso. Levantar uma carga exige do corpo uma força pelo menos igual ao peso dela. Com a coluna dobrada, os músculos das costas têm de fazer uma força muitas vezes maior, por causa do efeito de alavanca (veja [Máquinas simples](/trilhas/fisica-fundamental/maquinas-simples)). Não há postura que torne segura uma carga excessiva. Limitar o peso carregado e usar equipamentos é questão de saúde e de direito.
 
+```escondido
+A física costuma aparecer na escola como conta solta, longe do corpo de quem trabalha. Mas é ela que define quanto peso uma pessoa pode carregar sem se machucar, e por que a **NR-17** (a norma de ergonomia do trabalho) existe. Saber calcular força é saber cobrar condições seguras.
+```
+
+```realidade
+Pense no seu dia de hoje (no trabalho, em casa, no caminho). Onde você usou força para mudar o movimento de alguma coisa? Escreva dois exemplos e diga qual das três leis aparece em cada um.
+```
+
+```leve
+- Chame alguém da sua casa e faça o teste do carrinho: empurre uma sacola vazia e uma cheia com a mesma força. Pergunte: qual andou mais?
+- Explique a primeira lei com o ônibus, que todo mundo conhece.
+- Termine com a pergunta: por que caminhão carregado precisa de mais distância para frear?
+```
+
 ## Para pesquisar e debater
 
 1. Explique, pela inércia, por que não se deve levar criança no colo dentro do carro.
@@ -112,3 +135,8 @@ As leis de Newton valem para a coluna de quem carrega peso. Levantar uma carga e
 4. No seu trabalho, onde o atrito ajuda e onde atrapalha?
 
 **Resposta do 2:** 3 m/s².
+
+```roda
+- Na sua cidade, que trabalhos ainda exigem carregar peso demais? O que a física diz sobre isso?
+- Conte um caso em que o cinto de segurança fez diferença.
+```

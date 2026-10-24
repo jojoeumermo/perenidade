@@ -9,6 +9,7 @@ import "katex/dist/katex.min.css";
 import { localePath } from "@/i18n/config";
 import { eInterativo } from "@/lib/interativos";
 import { Interativo } from "./blocos/Interativo";
+import { Escondido, Formula, Historia, Leve, NaVidaReal, Provocacao, Realidade, Roda } from "./aula/Blocos";
 import { InlineCheck } from "./InlineCheck";
 import { AnexoPendente, PendingImage, VideoEmbed } from "./LessonMedia";
 import { KeyboardDiagram, Staff } from "./Staff";
@@ -100,7 +101,7 @@ function Calculation({ spec }: { spec: string }) {
 // HTML cru não é interpretado. Imagens só as guardadas no próprio site (/arquivos, /imagens): nada de
 // terceiros é carregado, e toda imagem publicada passou pela equipe. Vídeo só aparece quando a pessoa pede.
 // Links internos ("/acervo/...") ganham o prefixo do idioma atual.
-export function Markdown({ children, lang, terms, tryCode }: { children: string; lang: string; terms?: GlossaryLink[]; tryCode?: string }) {
+export function Markdown({ children, lang, terms, tryCode, sala }: { children: string; lang: string; terms?: GlossaryLink[]; tryCode?: string; sala?: string }) {
   return (
     <div className="prose-lesson">
       <ReactMarkdown
@@ -152,6 +153,15 @@ export function Markdown({ children, lang, terms, tryCode }: { children: string;
             if (language === "verificar") return <InlineCheck spec={source} />;
             if (language === "video") return <VideoEmbed spec={source} />;
             if (language === "conta") return <Calculation spec={source} />;
+            // Os blocos da aula-experiência (components/aula/Blocos.tsx).
+            if (language === "provocacao") return <Provocacao spec={source} />;
+            if (language === "navidareal") return <NaVidaReal spec={source} />;
+            if (language === "escondido") return <Escondido spec={source} />;
+            if (language === "formula") return <Formula spec={source} />;
+            if (language === "historia") return <Historia spec={source} />;
+            if (language === "realidade") return <Realidade spec={source} />;
+            if (language === "leve") return <Leve spec={source} />;
+            if (language === "roda") return <Roda spec={source} sala={sala} />;
             if (eInterativo(language)) return <Interativo tipo={language} spec={source} />;
             const runnable = (language === "python" || language === "php") && tryCode;
             return (
