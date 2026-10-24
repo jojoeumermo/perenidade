@@ -1246,8 +1246,8 @@ create or replace function interno.primeiro_nome(p_nome text) returns text langu
 create or replace function interno.nome_papel(p text) returns text language sql immutable as $$
   select case p when 'coordenacao' then 'coordenação' when 'vice' then 'coordenação pedagógica' when 'supervisao' then 'supervisão' when 'curadoria' then 'curadoria'
     when 'mediacao' then 'mediação' when 'educacao' then 'educação' when 'educacao_secundaria' then 'educação secundária' when 'revisao' then 'revisão'
-    when 'traducao' then 'tradução' when 'jornalismo' then 'jornalismo, rádio e podcast' when 'mentoria' then 'aula de reforço' when 'design' then 'design'
-    when 'marketing' then 'marketing e divulgação' when 'desenvolvimento' then 'desenvolvimento' when 'representante' then 'representante do departamento' when 'porta_voz' then 'porta-voz' when 'saude' then 'profissional de saúde'
+    when 'traducao' then 'tradução' when 'jornalismo' then 'comunicação (jornal, rádio e podcast)' when 'mentoria' then 'aula de reforço' when 'design' then 'design'
+    when 'marketing' then 'comunicação (marketing e divulgação)' when 'desenvolvimento' then 'desenvolvimento' when 'representante' then 'representante do departamento' when 'porta_voz' then 'porta-voz' when 'saude' then 'profissional de saúde'
     else coalesce(p, '') end
 $$;
 
@@ -1393,6 +1393,34 @@ end $$;
 
 -- ───────────────────────────── Conta ─────────────────────────────
 
+/**
+ * O nome público de quem acaba de chegar. Se a pessoa escreveu como quer ser chamada no cadastro (pode ser apelido:
+ * ninguém precisa usar o nome de verdade), vale esse; senão, sai um codinome legível, com o nome de uma lutadora ou um
+ * lutador da história e um número curto ("Dandara 47"), sem nada do e-mail nem da conta de origem.
+ */
+create or replace function interno.codinome(p_pedido text default null) returns text language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare
+  v_nomes text[] := array['Dandara', 'Zumbi', 'Aqualtune', 'Tereza de Benguela', 'Luísa Mahin', 'Maria Felipa', 'Luiz Gama', 'André Rebouças',
+    'Esperança Garcia', 'João Cândido', 'Chico Mendes', 'Margarida Alves', 'Lélia', 'Carolina de Jesus', 'Pagu', 'Olga', 'Rosa', 'Clara',
+    'Louise Michel', 'Bartolina Sisa', 'Tupac Amaru', 'Juana Azurduy', 'Sandino', 'Nise', 'Tia Ciata', 'Antônio Conselheiro', 'Bárbara de Alencar',
+    'Joana Angélica', 'Gregório Bezerra', 'Enedina', 'Ana Montenegro', 'Laudelina', 'Elizabeth Teixeira', 'Sepé Tiaraju', 'Ajuricaba', 'Mandela',
+    'Angela', 'Thomas Sankara', 'Frantz Fanon', 'Paulo Freire', 'Darcy', 'Nzinga', 'Manuela Sáenz', 'Violeta', 'Victor Jara', 'Lampião', 'Maria Bonita',
+    'Mestre Bimba', 'Anastácia', 'Zeferina'];
+  v_pedido text := btrim(regexp_replace(coalesce(p_pedido, ''), '\s+', ' ', 'g'));
+  v_nome text;
+  i integer;
+begin
+  -- O apelido escolhido: letras (com acento), números, espaço, ponto, hífen e apóstrofo; nada de @ nem endereço.
+  if char_length(v_pedido) between 2 and 40 and v_pedido ~ '^[[:alpha:]0-9][[:alpha:]0-9 .''-]*$' and v_pedido !~* '(https?|www\.|@)' then
+    return v_pedido;
+  end if;
+  for i in 1..40 loop
+    v_nome := v_nomes[1 + floor(random() * array_length(v_nomes, 1))::int] || ' ' || (case when i < 20 then 10 + floor(random() * 90) else 100 + floor(random() * 900) end)::int;
+    if not exists (select 1 from perfis where nome = v_nome) then return v_nome; end if;
+  end loop;
+  return v_nome;
+end $$;
+
 /** Perfil e papéis de quem está logado; cria o perfil na primeira visita. Sem login, devolve null. */
 create or replace function public.eu() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare
@@ -1402,9 +1430,9 @@ begin
   if v is null then return null; end if;
   if not exists (select 1 from perfis where id = v) then
     if not exists (select 1 from auth.users u where u.id = v) then return null; end if;
-    -- O nome público nasce como um codinome sorteado: nada do e-mail nem da conta de origem aparece no site.
-    -- A pessoa troca quando quiser, no painel.
-    v_nome := 'Estudante ' || (10000 + floor(random() * 90000))::int;
+    -- O nome público nasce como o apelido escolhido no cadastro ou um codinome sorteado: nada do e-mail nem da conta de
+    -- origem aparece no site. A pessoa troca quando quiser, no painel.
+    v_nome := interno.codinome((select u.raw_user_meta_data ->> 'apelido' from auth.users u where u.id = v));
     insert into perfis (id, nome) values (v, v_nome) on conflict do nothing;
   end if;
   update perfis set visto_em = now(), origem = interno.origem()
@@ -1688,7 +1716,7 @@ declare v uuid := interno.eu();
 begin
   if not interno.gere_cargos() then perform interno.erro('sem_permissao'); end if;
   if coalesce(p_papel, '') not in ('vice', 'supervisao', 'curadoria', 'mediacao', 'educacao', 'educacao_secundaria', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento', 'representante', 'porta_voz', 'saude') then perform interno.erro('invalido:papel'); end if;
-  if p_papel = 'representante' and coalesce(p_disciplina, '') not in ('educacao', 'curadoria', 'mediacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'desenvolvimento', 'saude')
+  if p_papel = 'representante' and coalesce(p_disciplina, '') not in ('educacao', 'curadoria', 'mediacao', 'revisao', 'traducao', 'jornalismo', 'marketing', 'mentoria', 'design', 'desenvolvimento', 'saude')
      and coalesce(p_disciplina, '') !~ '^grupo-(percursos|linguagens|ciencias|tecnologia|humanidades|teoria|lutas|oficios|hobbies)$' then perform interno.erro('invalido:departamento'); end if;
   if not interno.pode_conceder(p_papel) then perform interno.erro('sem_permissao'); end if;
   -- Educação, educação secundária e reforço são por disciplina: sem ela, a pessoa enxergaria a fila de todas.
@@ -3583,7 +3611,10 @@ create or replace function interno.ve_canal(p_canal text) returns boolean langua
   select case
     when p_canal in ('geral', 'pedidos', 'aprendizado') then interno.voluntario()
     when p_canal = 'coordenacao' then interno.coord()
-    when p_canal in ('supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'jornalismo', 'mentoria', 'design', 'marketing', 'desenvolvimento') then interno.supervisor() or interno.tem(p_canal)
+    -- O Departamento de Comunicação reúne o jornal, a rádio e o podcast (jornalismo) e o marketing: o marketing lê e escreve
+    -- no canal do departamento, sem ganhar os poderes do jornal; o canal próprio do marketing continua dele.
+    when p_canal = 'jornalismo' then interno.supervisor() or interno.tem('jornalismo') or interno.tem('marketing')
+    when p_canal in ('supervisao', 'curadoria', 'mediacao', 'educacao', 'revisao', 'traducao', 'mentoria', 'design', 'marketing', 'desenvolvimento') then interno.supervisor() or interno.tem(p_canal)
     else false end
 $$;
 
@@ -4570,7 +4601,7 @@ begin
        or coalesce((select (valor ->> 'pausa')::boolean from configuracoes where chave = 'site'), false) then
       raise exception 'convite_obrigatorio' using errcode = 'P0001';
     end if;
-    insert into perfis (id, nome) values (new.id, 'Estudante ' || (10000 + floor(random() * 90000))::int) on conflict do nothing;
+    insert into perfis (id, nome) values (new.id, interno.codinome(new.raw_user_meta_data ->> 'apelido')) on conflict do nothing;
     return new;
   end if;
   select * into c from convites where selo = interno.selo(v_codigo) for update;
@@ -4578,7 +4609,7 @@ begin
   if c.email <> '' and lower(coalesce(new.email, '')) <> c.email then raise exception 'convite_de_outro_email' using errcode = 'P0001'; end if;
   update convites set usos = usos + 1 where id = c.id;
   insert into convites_usos (usuario, convite) values (new.id, c.id) on conflict do nothing;
-  insert into perfis (id, nome) values (new.id, 'Estudante ' || (10000 + floor(random() * 90000))::int) on conflict do nothing;
+  insert into perfis (id, nome) values (new.id, interno.codinome(new.raw_user_meta_data ->> 'apelido')) on conflict do nothing;
   if c.papel is not null then
     insert into papeis (usuario, papel, disciplina, concedido_por) values (new.id, c.papel, c.disciplina, c.criado_por) on conflict do nothing;
   end if;
@@ -5006,6 +5037,9 @@ create or replace function interno.no_departamento(p_usuario uuid, p_departament
                         or (p_departamento = 'educacao' and p.papel = 'representante' and p.disciplina like 'grupo-%')
                         -- A educação secundária conversa com a educação; o marketing, com o design (como no resto do painel).
                         or (p_departamento = 'educacao' and p.papel = 'educacao_secundaria') or (p_departamento = 'design' and p.papel = 'marketing')
+                        -- O marketing faz parte do Departamento de Comunicação (o grupo "jornalismo", nome interno que não muda).
+                        or (p_departamento = 'jornalismo' and p.papel = 'marketing')
+                        or (p_departamento = 'jornalismo' and p.papel = 'representante' and p.disciplina = 'marketing')
                         -- A supervisão acompanha os grupos das funções para manter a conversa em ordem; o da coordenação, não.
                         or (p.papel = 'supervisao' and p_departamento <> 'coordenacao')))
 $$;
@@ -5078,8 +5112,8 @@ create trigger lucia_departamentos after update of suspenso on interno.perfis fo
 insert into interno.conversas (tipo, nome, departamento) values
   ('departamento', 'Toda a equipe', 'geral'), ('departamento', 'Coordenação', 'coordenacao'), ('departamento', 'Curadoria', 'curadoria'),
   ('departamento', 'Mediação', 'mediacao'), ('departamento', 'Educação', 'educacao'), ('departamento', 'Revisão', 'revisao'),
-  ('departamento', 'Tradução', 'traducao'), ('departamento', 'Jornalismo, rádio e podcast', 'jornalismo'), ('departamento', 'Aula de reforço', 'mentoria'),
-  ('departamento', 'Design', 'design'), ('departamento', 'Desenvolvimento', 'desenvolvimento'), ('departamento', 'Marketing e divulgação', 'marketing'),
+  ('departamento', 'Tradução', 'traducao'), ('departamento', 'Departamento de Comunicação', 'jornalismo'), ('departamento', 'Aula de reforço', 'mentoria'),
+  ('departamento', 'Design', 'design'), ('departamento', 'Desenvolvimento', 'desenvolvimento'), ('departamento', 'Comunicação · Marketing e divulgação', 'marketing'),
   ('departamento', 'Supervisão', 'supervisao')
 on conflict (departamento) do update set nome = excluded.nome, tipo = 'departamento';
 
@@ -13361,6 +13395,17 @@ begin
     perform cron.schedule('lucia-contagens-faxina', '41 4 * * 0', $c$delete from interno.contagens where dia < now() - interval '2 years'$c$);
   end if;
 exception when others then null;
+end $$;
+
+-- ───────────────────────────── Codinomes ─────────────────────────────
+-- Quem nunca trocou o "Estudante 12345" do começo ganha um codinome legível (uma vez só: o nome novo não casa mais com a
+-- regra, então rodar de novo não muda nada). Nome que a pessoa escolheu nunca é tocado.
+do $$
+declare r record;
+begin
+  for r in select id from interno.perfis where nome ~ '^Estudante [0-9]{5}$' loop
+    update interno.perfis set nome = interno.codinome(null) where id = r.id;
+  end loop;
 end $$;
 
 -- ───────────────────────────── Tranca final ─────────────────────────────

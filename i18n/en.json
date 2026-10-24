@@ -3407,7 +3407,10 @@
     "recoveryLabel": "Recovery code (XXXXX-XXXXX)",
     "recoveryButton": "Use the code",
     "recoveryBad": "That code is not valid (wrong or already used). You have five tries per hour.",
-    "recoveryDone": "Done: the authenticator app was removed from the account. Set up the one on your new phone in My account."
+    "recoveryDone": "Done: the authenticator app was removed from the account. Set up the one on your new phone in My account.",
+    "nickname": "What should we call you on the site? (optional)",
+    "nicknameExample": "E.g. Rosa from the block, Joe 47",
+    "nicknameHint": "A nickname is fine: nobody needs to use their real name here. This is the name shown in the community. Leave it blank and the site picks a code name from a fighter in history."
   },
   "radio": {
     "back15": "Back 15 seconds",

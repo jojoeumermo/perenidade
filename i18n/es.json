@@ -3407,7 +3407,10 @@
     "recoveryLabel": "Código de recuperación (XXXXX-XXXXX)",
     "recoveryButton": "Usar el código",
     "recoveryBad": "Ese código no vale (incorrecto o ya usado). Son cinco intentos por hora.",
-    "recoveryDone": "Listo: la aplicación de autenticación salió de la cuenta. Registra la del celular nuevo en Mi cuenta."
+    "recoveryDone": "Listo: la aplicación de autenticación salió de la cuenta. Registra la del celular nuevo en Mi cuenta.",
+    "nickname": "¿Cómo quieres que te llamen en el sitio? (opcional)",
+    "nicknameExample": "Ej.: Rosa del barrio, Pepe 47",
+    "nicknameHint": "Puede ser un apodo: nadie necesita usar su nombre real aquí. Es el nombre que aparece en la comunidad. Déjalo en blanco y el sitio elige un nombre en clave de una luchadora o un luchador de la historia."
   },
   "radio": {
     "back15": "Retroceder 15 segundos",
