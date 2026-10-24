@@ -75,10 +75,10 @@ const comunidades: Record<string, { nome: string; sobre: string }> = {
   educacao: { nome: "Educadores", sobre: "O canal de quem escreve e dá aulas." },
   revisao: { nome: "Revisão", sobre: "O canal de quem revisa as aulas e os textos." },
   traducao: { nome: "Tradução", sobre: "O canal de quem traduz." },
-  jornalismo: { nome: "Jornal e rádio", sobre: "O canal do jornal, da rádio e do podcast." },
+  jornalismo: { nome: "Comunicação", sobre: "O canal do Departamento de Comunicação: jornal, rádio, podcast e marketing." },
   mentoria: { nome: "Reforço", sobre: "O canal de quem dá reforço escolar." },
   design: { nome: "Design", sobre: "O canal de quem desenha as artes e as páginas." },
-  marketing: { nome: "Marketing e divulgação", sobre: "O canal de quem divulga o instituto." },
+  marketing: { nome: "Comunicação · Marketing", sobre: "O canal de quem divulga o instituto, dentro do Departamento de Comunicação." },
   desenvolvimento: { nome: "Desenvolvimento", sobre: "O canal de quem programa o site." },
 };
 

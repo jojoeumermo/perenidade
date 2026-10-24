@@ -172,6 +172,9 @@ export interface Article extends Localized {
   author: string;
   date: string;
   section: string;
+  /** Foto ou cartaz da matéria, guardado no próprio site (começa com "/"), e o crédito dela. */
+  image: string;
+  imageCredit: string;
   sources: Source[];
   body: string;
   minutes: number;
@@ -654,6 +657,13 @@ export const getArticles = cache((lang: Locale): Article[] =>
       author: text(data, "autor", file),
       date: dateOf(data, "data", file),
       section: optional(data, "editoria") ?? "",
+      image: (() => {
+        const imagem = optional(data, "imagem") ?? "";
+        if (imagem && !/^\/[a-z0-9/_.-]+\.(webp|jpg|jpeg|png|avif)$/i.test(imagem)) fail(file, `"imagem" deve ser um arquivo do próprio site, como /imagens/jornal/foto.webp`);
+        if (imagem && !optional(data, "credito_imagem")) fail(file, `com "imagem", diga de quem é em "credito_imagem"`);
+        return imagem;
+      })(),
+      imageCredit: optional(data, "credito_imagem") ?? "",
       sources: parseSources(data.fontes, file, true),
       body,
       minutes: minutesOf(body),

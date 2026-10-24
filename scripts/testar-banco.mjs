@@ -66,9 +66,25 @@ await espera("banco antigo, instalado antes da regra, é virado uma única vez",
 }, (r) => r === true);
 
 // ── Conta e coordenação ──
+// O codinome: o nome de uma lutadora ou de um lutador da história e um número curto.
+const codinome = /^[\p{L} .'-]+ \d{2,3}$/u;
 await espera("sem login, eu() é nulo", () => rpc(anon, "eu"), (r) => r === null);
 for (const chave of Object.keys(ids)) await espera(`perfil de ${chave} nasce no primeiro acesso`, () => rpc(como(ids[chave]), "eu"), (r) => r.id === ids[chave] && r.papeis.length === 0);
-await espera("o nome público nasce como codinome, sem nada do e-mail", () => rpc(como(ids.leitora), "eu"), (r) => /^Estudante \d{5}$/.test(r.nome));
+await espera("o nome público nasce como codinome, sem nada do e-mail", () => rpc(como(ids.leitora), "eu"), (r) => codinome.test(r.nome) && !r.nome.includes("leitora"));
+await espera("quem escolhe como quer ser chamado no cadastro já nasce com esse nome", async () => {
+  const id = (await dono("insert into auth.users (email, raw_user_meta_data) values ('apelido@teste.local', $1) returning id", [JSON.stringify({ apelido: "Zé da Laje" })])).rows[0].id;
+  return rpc(como(id), "eu");
+}, (r) => r.nome === "Zé da Laje");
+await espera("apelido com endereço vira codinome", async () => {
+  const id = (await dono("insert into auth.users (email, raw_user_meta_data) values ('apelido2@teste.local', $1) returning id", [JSON.stringify({ apelido: "www.golpe.com" })])).rows[0].id;
+  return rpc(como(id), "eu");
+}, (r) => codinome.test(r.nome));
+await espera("perfil antigo com Estudante e número ganha codinome ao instalar de novo; nome escolhido fica", async () => {
+  await dono("update interno.perfis set nome = 'Estudante 12345' where id = $1", [ids.leitora]);
+  await banco.instalarDeNovo();
+  return (await dono("select nome from interno.perfis where id = $1", [ids.leitora])).rows[0].nome;
+}, (n) => codinome.test(n));
+await dono("delete from auth.users where email in ('apelido@teste.local', 'apelido2@teste.local')");
 for (const chave of Object.keys(ids)) await rpc(como(ids[chave]), "perfil_salvar", { p_nome: nomes[chave], p_bio: "" });
 await recusa("anônimo não se promove", () => rpc(anon, "promover_coordenacao", { p_email: "troll@teste.local" }), "permission denied");
 await recusa("logado não se promove", () => rpc(como(ids.troll), "promover_coordenacao", { p_email: "troll@teste.local" }), "permission denied");
@@ -440,7 +456,7 @@ await recusa("quem não lidera não passa a coordenação", () => rpc(como(ids.v
 // ── Convites: não existe cadastro aberto ──
 let convite;
 // ── Cadastro aberto: participante da comunidade, sem função ──
-await espera("qualquer pessoa cria conta sem convite e nasce sem função, com codinome", async () => { ids.povo = await criarUsuario("povo@teste.local", "Maria do Povo"); return rpc(como(ids.povo), "eu"); }, (r) => r.papeis.length === 0 && /^Estudante \d{5}$/.test(r.nome));
+await espera("qualquer pessoa cria conta sem convite e nasce sem função, com codinome", async () => { ids.povo = await criarUsuario("povo@teste.local", "Maria do Povo"); return rpc(como(ids.povo), "eu"); }, (r) => r.papeis.length === 0 && codinome.test(r.nome));
 await espera("quem se cadastrou pergunta, e a pergunta aparece na hora", async () => { const t = await rpc(como(ids.povo), "topico_criar", { p_titulo: "O que é mais-valia?", p_corpo: "Li a palavra na aula e não entendi direito.", p_disciplina: null, p_tipo: "duvida" }); await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "topico", p_alvo: t.id, p_acao: "ocultar" }); return t; }, (r) => r.retido === false && r.bloqueado === false);
 await recusa("quem se cadastrou não entra no painel da equipe", () => rpc(como(ids.povo), "fila"), "sem_permissao");
 await recusa("nem faz triagem", () => rpc(como(ids.povo), "triagem_fila"), "sem_permissao");
@@ -463,7 +479,7 @@ await espera("o banco guarda o selo, nunca o código", () => dono("select selo f
 await espera("a página de entrada reconhece o convite", () => rpc(anon, "convite_ver", { p_codigo: convite.codigo }), (r) => r.valido && r.email === "quimica@teste.local" && r.papel === "educacao");
 await espera("de convite que não existe, não diz nada", () => rpc(anon, "convite_ver", { p_codigo: "abc" }), (r) => r.valido === false && Object.keys(r).length === 1);
 await recusa("convite pessoal não serve para outro e-mail", () => criarUsuario("outra@teste.local", "Outra", convite.codigo), "convite_de_outro_email");
-await espera("quem foi convidada cria a conta e já chega com a função", async () => { ids.quimica = await criarUsuario("quimica@teste.local", "Quitéria", convite.codigo); return rpc(como(ids.quimica), "eu"); }, (r) => r.papeis.length === 1 && r.papeis[0].papel === "educacao" && r.papeis[0].disciplina === "quimica" && /^Estudante \d{5}$/.test(r.nome));
+await espera("quem foi convidada cria a conta e já chega com a função", async () => { ids.quimica = await criarUsuario("quimica@teste.local", "Quitéria", convite.codigo); return rpc(como(ids.quimica), "eu"); }, (r) => r.papeis.length === 1 && r.papeis[0].papel === "educacao" && r.papeis[0].disciplina === "quimica" && codinome.test(r.nome));
 await espera("o código gasto não fica guardado junto da conta", () => dono("select raw_user_meta_data from auth.users where id = $1", [ids.quimica]), (r) => !("convite" in r.rows[0].raw_user_meta_data));
 await recusa("convite pessoal vale uma vez só", () => criarUsuario("quimica2@teste.local", "Q2", convite.codigo), "convite_invalido");
 await espera("aceite fica no registro de atividades", () => rpc(como(ids.coord), "auditoria_listar", { p_pagina: 0, p_acao: "convite_aceito" }), (r) => r.length === 1);
@@ -1039,7 +1055,7 @@ await espera("quem tem função já está no grupo do departamento e no da equip
   return JSON.stringify(deps) === JSON.stringify(["design", "geral"]);
 });
 await espera("a coordenação e a vice-coordenação estão em todos os treze grupos (com o da supervisão)", async () => [(await rpc(como(ids.coord), "chat_conversas")).filter((c) => c.tipo === "departamento").length, (await rpc(como(ids.vice), "chat_conversas")).filter((c) => c.tipo === "departamento").length], (r) => r[0] === 13 && r[1] === 13);
-await espera("o grupo do jornalismo é também o da rádio e do podcast", () => departamento("jornal", "jornalismo"), (r) => r?.nome === "Jornalismo, rádio e podcast");
+await espera("o grupo do jornalismo é o Departamento de Comunicação (jornal, rádio e podcast)", () => departamento("jornal", "jornalismo"), (r) => r?.nome === "Departamento de Comunicação");
 await recusa("ninguém sai do grupo do próprio departamento", async () => rpc(como(ids.designer), "chat_sair", { p_id: (await departamento("designer", "design")).id }), "departamento_fixo");
 await recusa("nem a coordenação põe ou tira gente do grupo de departamento", async () => rpc(como(ids.coord), "chat_grupo_mudar", { p_id: (await departamento("coord", "design")).id, p_tirar: [ids.designer] }), "departamento_fixo");
 await recusa("ninguém apaga um grupo de departamento", async () => rpc(como(ids.coord), "chat_grupo_apagar", { p_id: (await departamento("coord", "design")).id }), "sem_permissao");
@@ -2073,7 +2089,9 @@ await recusa("marketing não define o perfil do Instagram", () => rpc(mkt, "divu
 await recusa("o perfil só aceita endereço do Instagram", () => rpc(C1, "divulgacao_instagram_salvar", { p_url: "https://golpe.exemplo/login" }), "invalido:instagram");
 await espera("coordenação indica o perfil e o marketing vê", async () => { await rpc(C1, "divulgacao_instagram_salvar", { p_url: "https://www.instagram.com/institutolucia" }); return rpc(mkt, "divulgacao_listar"); }, (r) => r.instagram === "https://www.instagram.com/institutolucia");
 await espera("marketing prepara materiais, como o design", () => rpc(mkt, "material_salvar", { p: { credito_autor: "Equipe do instituto", credito_origem: "Feito pelo instituto", licenca: "cc-by-sa", tipo: "cartaz", titulo: "Cartaz da aula aberta", descricao: "Cartaz A3.", campanha: "", url: "https://exemplo.org/cartaz" } }), (r) => Boolean(r.id));
-await espera("marketing vê o canal dele e o do design no mural da equipe", () => rpc(mkt, "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "aprendizado", "design", "marketing"]));
+await espera("marketing vê o canal dele, o do design e o do Departamento de Comunicação no mural da equipe", () => rpc(mkt, "equipe_canais"), (r) => JSON.stringify(r.canais) === JSON.stringify(["geral", "pedidos", "aprendizado", "jornalismo", "design", "marketing"]));
+await espera("marketing entra sozinho no grupo do Departamento de Comunicação", () => rpc(mkt, "chat_conversas"), (r) => r.some((c) => c.tipo === "departamento" && c.departamento === "jornalismo" && c.nome === "Departamento de Comunicação"));
+await recusa("estar na Comunicação não dá ao marketing os poderes da rádio", () => rpc(mkt, "radio_canal_salvar", { p_id: null, p_nome: "Canal novo", p_descricao: "", p_ordem: 1 }), "sem_permissao");
 await espera("marketing apaga um item do calendário", () => rpc(mkt, "divulgacao_apagar", { p_id: post.id }), (r) => r.ok);
 
 // Coordenação e vice-coordenação editam contas (menos o e-mail) e redefinem senhas.

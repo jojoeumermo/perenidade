@@ -164,7 +164,12 @@ export function Departamentos({ pessoas }: { pessoas: PessoaDaEquipe[] }) {
     nome: GRUPOS_DEPARTAMENTO[`grupo-${g.id}`] ?? g.id,
     disciplinas: g.areas as readonly string[],
   }));
-  const funcoes = (["curadoria", "mediacao", "revisao", "traducao", "jornalismo", "mentoria", "design", "desenvolvimento", "saude"] as const).map((f) => ({ id: f, nome: papeis[f] }));
+  // O Departamento de Comunicação reúne duas funções: o jornal, a rádio e o podcast (jornalismo) e o marketing.
+  const funcoes: { id: string; nome: string; papeis: string[] }[] = [
+    ...(["curadoria", "mediacao", "revisao", "traducao"] as const).map((f) => ({ id: f, nome: papeis[f], papeis: [f] })),
+    { id: "jornalismo", nome: "Departamento de Comunicação (jornal, rádio, podcast e marketing)", papeis: ["jornalismo", "marketing"] },
+    ...(["mentoria", "design", "desenvolvimento", "saude"] as const).map((f) => ({ id: f, nome: papeis[f], papeis: [f] })),
+  ];
   return (
     <section>
       <h2 className="font-serif text-2xl font-semibold">Departamentos</h2>
@@ -188,8 +193,8 @@ export function Departamentos({ pessoas }: { pessoas: PessoaDaEquipe[] }) {
         {funcoes.map((f) => (
           <li key={f.id} className="painel-cartao p-4">
             <p className="font-semibold">{f.nome}</p>
-            <p className="mt-1 text-sm"><strong>Representantes:</strong> {reps(f.id).map((p) => p.nome).join(", ") || "ninguém ainda"}</p>
-            <p className="text-sm"><strong>Pessoas:</strong> {pessoas.filter((p) => p.papeis.some((r) => r.papel === f.id)).length}</p>
+            <p className="mt-1 text-sm"><strong>Representantes:</strong> {f.papeis.flatMap((id) => reps(id)).map((p) => p.nome).filter((n, i, l) => l.indexOf(n) === i).join(", ") || "ninguém ainda"}</p>
+            <p className="text-sm"><strong>Pessoas:</strong> {pessoas.filter((p) => p.papeis.some((r) => f.papeis.includes(r.papel))).length}</p>
           </li>
         ))}
       </ul>

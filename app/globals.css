@@ -873,6 +873,10 @@ body {
   letter-spacing: -0.015em;
   text-wrap: balance;
 }
+/* O lugar da foto que a matéria não tem: listras de papel de embrulho. */
+.jornal-sem-foto {
+  background: repeating-linear-gradient(135deg, var(--parchment-deep) 0 10px, color-mix(in srgb, var(--parchment-deep) 80%, var(--ink)) 10px 20px);
+}
 .jornal-texto {
   text-align: justify;
   hyphens: auto;
