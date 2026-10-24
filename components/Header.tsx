@@ -34,7 +34,15 @@ function Ajudar({ lang, t, menor = false }: { lang: Locale; t: Dict; menor?: boo
   const tamanho = menor ? "botao-menor" : "";
   return (
     <>
-      <Instagram t={t} menor={menor} />
+      {/* Com pouco espaço, o Instagram vira o quadrado com a câmera; o @ inteiro só aparece em tela bem larga. */}
+      <span className={menor ? "contents" : "hidden 2xl:contents"}>
+        <Instagram t={t} menor={menor} />
+      </span>
+      {!menor && (
+        <span className="2xl:hidden">
+          <Instagram t={t} compacto />
+        </span>
+      )}
       <Link href={localePath(lang, "/contribuir")} className={`botao botao-papel ${tamanho} whitespace-nowrap`}>
         {t.nav.contribute}
       </Link>
@@ -61,7 +69,7 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
       </div>
       <header className="cabecalho-site app-barra no-print no-focus sticky top-0 z-40 border-b-[3px] border-ink bg-parchment app:z-30 app:pt-[env(safe-area-inset-top,0px)]">
         <TopoFixo />
-        <div className="linha-de-cima mx-auto flex max-w-[78rem] items-center gap-x-2 px-3 py-3 app:px-4 app:py-2 sm:gap-x-4 sm:px-6 md:pt-5 md:pb-3 lg:px-8">
+        <div className="linha-de-cima mx-auto flex max-w-[78rem] 2xl:max-w-[92rem] items-center gap-x-2 px-3 py-3 app:px-4 app:py-2 sm:gap-x-4 sm:px-6 md:pt-5 md:pb-3 lg:px-8">
           <AppBack />
           {/* A marca do instituto (o livro aberto com a estrela) não muda nunca. */}
           <Link href={localePath(lang, "/")} aria-label={site.name} className="flex min-w-0 shrink-0 items-center gap-2.5 text-ink hover:text-ink sm:gap-3.5">

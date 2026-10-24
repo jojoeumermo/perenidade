@@ -141,7 +141,7 @@ export function AccountLink() {
       href={localePath(lang, "/painel")}
       aria-label={fill(t.nav.helloLabel, { name })}
       title={t.nav.openPanel}
-      className="conta-saudacao flex min-w-[3.75rem] max-w-[10rem] flex-col items-end overflow-hidden font-sans leading-none text-ink-soft hover:text-oxblood"
+      className="conta-saudacao flex min-w-[3.75rem] max-w-[12rem] flex-col items-end overflow-hidden font-sans leading-none text-ink-soft hover:text-oxblood"
     >
       <span className="max-w-full truncate py-px text-xs sm:text-sm">{fill(t.nav.hello, { name })}</span>
       <span aria-hidden className="mt-0.5 font-mono text-[0.625rem] uppercase tracking-wider">
