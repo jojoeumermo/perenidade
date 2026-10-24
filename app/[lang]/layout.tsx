@@ -104,7 +104,19 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
             <OpeningNotice initial={abertura} close={t.a11y.close} />
             <MaisGaveta
               secoes={secoesDoSite(lang, t)}
-              textos={{ titulo: t.more.title, busca: t.more.searchPlaceholder, maisUsadas: t.more.mostUsed, rodape: t.more.footnote, instagram: t.footer.instagram }}
+              textos={{
+                titulo: t.more.title,
+                busca: t.more.searchPlaceholder,
+                maisUsadas: t.more.mostUsed,
+                rodape: t.more.footnote,
+                instagram: t.footer.instagram,
+                comeceAqui: t.more.highlights,
+                comeceTexto: t.more.startText,
+                sigaTexto: t.more.followText,
+                apoieTexto: t.more.supportText,
+                apoie: t.nav.supportLong,
+                lembranca: t.more.memoryNote,
+              }}
             />
           </OutsidePanel>
           <OutsidePanel mostrarNasCriancas>

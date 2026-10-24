@@ -2,10 +2,17 @@
 // Os nomes e descrições de cada disciplina ficam nos dicionários (i18n/), um por idioma.
 
 export const groups = [
+  // A teoria revolucionária abre a lista: é o que faz do instituto uma escola da vida, e não só um site de aulas.
+  // Começa pela formação militante (a pessoa como sujeito da luta), passa pela política básica (o Estado, as
+  // instituições, o voto) e só então chega ao capitalismo e às correntes.
+  {
+    id: "teoria",
+    areas: ["formacao-militante", "politica", "ciencia-politica", "estado", "instituicoes", "eleicoes", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo"],
+  },
   { id: "percursos", areas: ["alfabetizacao", "enem"] },
   {
     id: "linguagens",
-    areas: ["portugues", "literatura", "ingles", "ingles-infantil", "espanhol", "frances", "chines", "russo", "artes", "desenho", "design", "musica", "samba-e-cultura", "danca", "teatro", "cinema", "educacao-fisica"],
+    areas: ["portugues", "literatura", "ingles", "ingles-infantil", "espanhol", "frances", "chines", "russo", "alemao", "artes", "desenho", "design", "musica", "samba-e-cultura", "danca", "teatro", "cinema", "educacao-fisica"],
   },
   {
     id: "ciencias",
@@ -13,13 +20,14 @@ export const groups = [
   },
   {
     id: "tecnologia",
-    areas: ["informatica", "programacao", "engenharia-de-sistemas", "redes-e-seguranca", "inteligencia-artificial", "manutencao", "edicao-de-video", "edicao-de-foto", "modelagem-3d"],
+    areas: ["informatica", "programacao", "engenharia-de-sistemas", "redes-e-seguranca", "inteligencia-artificial", "manutencao", "web-design", "fotografia", "edicao-de-video", "edicao-de-foto", "modelagem-3d"],
   },
   {
     id: "humanidades",
     areas: [
       "historia",
       "geografia",
+      "ciencias-sociais",
       "sociologia",
       "antropologia",
       "filosofia",
@@ -36,8 +44,6 @@ export const groups = [
       "arquivologia",
     ],
   },
-  // A teoria começa pela política básica (política e cidadania, o Estado, as instituições, o voto) e só então chega ao capitalismo e às correntes.
-  { id: "teoria", areas: ["politica", "estado", "instituicoes", "eleicoes", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo"] },
   {
     id: "lutas",
     areas: [
@@ -73,9 +79,9 @@ export const essential: readonly AreaSlug[] = ["alfabetizacao", "portugues", "ma
  * Uma disciplina pode estar em mais de uma etapa (português e matemática acompanham a vida escolar inteira).
  */
 export const stageAreas: Record<"fundamental" | "medio" | "superior", readonly AreaSlug[]> = {
-  fundamental: ["alfabetizacao", "samba-e-cultura", "eletricista", "portugues", "matematica", "ingles", "ingles-infantil", "espanhol", "artes", "desenho", "musica", "danca", "educacao-fisica", "historia", "geografia", "biologia", "informatica", "primeiros-socorros", "educacao-sexual", "meio-ambiente"],
-  medio: ["enem", "samba-e-cultura", "eletricista", "portugues", "literatura", "ingles", "espanhol", "frances", "chines", "russo", "artes", "teatro", "cinema", "educacao-fisica", "matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "historia", "geografia", "sociologia", "filosofia", "economia", "politica", "estado", "instituicoes", "eleicoes", "neurodiversidade", "costureira", "midia", "meio-ambiente", "trabalho", "primeiros-socorros", "educacao-sexual", "edicao-de-foto", "modelagem-3d"],
-  superior: ["literatura", "design", "cinema", "matematica", "fisica", "quimica", "biologia", "astronomia", "programacao", "engenharia-de-sistemas", "redes-e-seguranca", "inteligencia-artificial", "manutencao", "historia", "geografia", "sociologia", "antropologia", "filosofia", "economia", "politica", "direito", "psicologia", "neurodiversidade", "servico-social", "teologia", "educacao-popular", "midia", "arquitetura", "arquivologia", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo", "sindicalismo", "luta-negra", "feminismo", "lgbtqia", "deficiencia", "povos-indigenas", "luta-pela-terra", "favelas", "luta-dos-professores", "movimento-estudantil", "pessoas-idosas", "edicao-de-foto", "modelagem-3d"],
+  fundamental: ["formacao-militante", "fotografia", "web-design", "alemao", "ciencias-sociais", "ciencia-politica", "alfabetizacao", "samba-e-cultura", "eletricista", "portugues", "matematica", "ingles", "ingles-infantil", "espanhol", "artes", "desenho", "musica", "danca", "educacao-fisica", "historia", "geografia", "biologia", "informatica", "primeiros-socorros", "educacao-sexual", "meio-ambiente"],
+  medio: ["formacao-militante", "fotografia", "web-design", "alemao", "ciencias-sociais", "ciencia-politica", "enem", "samba-e-cultura", "eletricista", "portugues", "literatura", "ingles", "espanhol", "frances", "chines", "russo", "artes", "teatro", "cinema", "educacao-fisica", "matematica", "fisica", "quimica", "biologia", "astronomia", "informatica", "programacao", "historia", "geografia", "sociologia", "filosofia", "economia", "politica", "estado", "instituicoes", "eleicoes", "neurodiversidade", "costureira", "midia", "meio-ambiente", "trabalho", "primeiros-socorros", "educacao-sexual", "edicao-de-foto", "modelagem-3d"],
+  superior: ["formacao-militante", "fotografia", "web-design", "alemao", "ciencias-sociais", "ciencia-politica", "literatura", "design", "cinema", "matematica", "fisica", "quimica", "biologia", "astronomia", "programacao", "engenharia-de-sistemas", "redes-e-seguranca", "inteligencia-artificial", "manutencao", "historia", "geografia", "sociologia", "antropologia", "filosofia", "economia", "politica", "direito", "psicologia", "neurodiversidade", "servico-social", "teologia", "educacao-popular", "midia", "arquitetura", "arquivologia", "capitalismo", "marxismo", "socialismo", "comunismo", "ideologia-e-politica", "dependencia", "imperialismo", "ecossocialismo", "sindicalismo", "luta-negra", "feminismo", "lgbtqia", "deficiencia", "povos-indigenas", "luta-pela-terra", "favelas", "luta-dos-professores", "movimento-estudantil", "pessoas-idosas", "edicao-de-foto", "modelagem-3d"],
 };
 
 /** Etapas do currículo comum, usadas para organizar as trilhas dentro de cada disciplina. */
@@ -154,6 +160,12 @@ export const areaTools: Partial<Record<AreaSlug, string[]>> = {
   "redes-e-seguranca": ["criptografia", "grafos"],
   frances: ["pronuncia"],
   russo: ["pronuncia", "alfabetos"],
+  alemao: ["pronuncia", "frases"],
+  "web-design": ["html", "cores"],
+  fotografia: ["cores"],
+  "ciencias-sociais": ["estatistica"],
+  "ciencia-politica": ["estatistica"],
+  "formacao-militante": ["mais-valia", "direitos-trabalhistas"],
 };
 
 /** Os laboratórios do site (páginas inteiras) que também abrem dentro da caixa das aulas, ao lado do texto. */
@@ -192,6 +204,7 @@ export const areaLabs: Partial<Record<AreaSlug, LabId[]>> = {
   literatura: ["escritorio"],
   design: ["escritorio"],
   midia: ["escritorio"],
+  "web-design": ["ide", "escritorio"],
 };
 
 /** Ferramentas que servem a qualquer aula: ficam sempre na caixa de ferramentas. */

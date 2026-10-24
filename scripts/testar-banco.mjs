@@ -3235,6 +3235,17 @@ await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), 
   await recusa("educador não vê as estatísticas", () => rpc(como(r4.mat), "painel_estatisticas"), "sem_permissao");
 }
 
+// Contagens anônimas: qualquer um soma, ninguém se identifica; só a equipe que escreve vê o quadro das aulas.
+await espera("visitante conta uma leitura do jornal", () => rpc(anon, "contar", { p_tipo: "jornal_leu", p_alvo: "uma-materia" }), (r) => JSON.stringify(r) === "{}");
+await espera("tipo desconhecido é ignorado sem erro", () => rpc(anon, "contar", { p_tipo: "qualquer", p_alvo: "x" }), (r) => JSON.stringify(r) === "{}");
+await espera("alvo com caractere estranho é ignorado", async () => { await rpc(anon, "contar", { p_tipo: "aula_abriu", p_alvo: "<script>" }); return dono("select count(*)::int as n from interno.contagens where alvo like '%<%'"); }, (r) => r.rows[0].n === 0);
+await espera("a mesma origem não infla o número", async () => { for (let i = 0; i < 6; i++) await rpc(anon, "contar", { p_tipo: "jornal_leu", p_alvo: "outra-materia" }); return dono("select total from interno.contagens where alvo = 'outra-materia'"); }, (r) => r.rows[0].total <= 3);
+await espera("as mais lidas saem só com totais", () => rpc(anon, "jornal_mais_lidas"), (r) => Array.isArray(r) && r.some((x) => x.slug === "uma-materia") && Object.keys(r[0]).sort().join() === "slug,total");
+await espera("a tabela das contagens não guarda quem", async () => (await dono("select column_name from information_schema.columns where table_schema = 'interno' and table_name = 'contagens'")).rows.map((c) => c.column_name).sort().join(), (r) => r === "alvo,dia,tipo,total");
+await recusa("visitante não vê o quadro das aulas", () => rpc(anon, "aulas_funcionam"), "sem_permissao");
+await recusa("estudante não vê o quadro das aulas", () => rpc(como(ids.leitora), "aulas_funcionam"), "sem_permissao");
+await espera("a coordenação vê o quadro das aulas", async () => { await rpc(anon, "contar", { p_tipo: "aula_terminou", p_alvo: "fisica/leis-de-newton" }); return rpc(como(ids.coord), "aulas_funcionam"); }, (r) => r.some((x) => x.aula === "fisica/leis-de-newton" && x.terminou >= 1));
+
 // Token sem papel nenhum: as funções "só do serviço" recusam (antes, o nulo deixava passar).
 await espera("token sem papel não passa pela trava do serviço", async () => {
   await dono("select set_config('request.jwt.claims', '{}', false)");

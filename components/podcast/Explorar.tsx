@@ -7,6 +7,7 @@ import { htmlLang, localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { type Episodio, minutos, type Serie, TEMAS } from "@/lib/podcast";
 import { Capa } from "./Capa";
+import { megas } from "./Destaque";
 import { Ouvir } from "./Ouvir";
 
 type Filtro = { tipo: "tudo" } | { tipo: "serie"; slug: string } | { tipo: "tema"; tema: string } | { tipo: "disciplina"; slug: string };
@@ -42,36 +43,46 @@ function Estante({ titulo, children, id }: { titulo: string; children: React.Rea
   );
 }
 
-/** A lista completa, como a de episódios de um programa: número, capa, título, data, duração e o play. */
+/** A lista completa, como a de episódios de um programa: número, play, título, série e data, duração e tamanho. */
 export function ListaDeEpisodios({ episodios, s, lang, programa }: { episodios: Episodio[]; s: Dict["podcast"]; lang: Locale; programa: string }) {
-  const data = new Intl.DateTimeFormat(htmlLang[lang], { day: "numeric", month: "short", year: "numeric", timeZone: "America/Sao_Paulo" });
+  const data = new Intl.DateTimeFormat(htmlLang[lang], { day: "numeric", month: "short", timeZone: "America/Sao_Paulo" });
   return (
-    <ol className="mt-4 border-t-4 border-ink">
-      {episodios.map((e, i) => (
-        <li key={e.id} className="grid grid-cols-[3.5rem_minmax(0,1fr)_auto] items-center gap-3 border-b border-rule py-3 sm:grid-cols-[2rem_4rem_minmax(0,1fr)_8rem_5rem_auto]">
-          <span className="hidden text-right font-mono text-sm text-ink-soft sm:block">{e.numero ?? episodios.length - i}</span>
-          <Link href={localePath(lang, `/podcasts/${e.slug}`)} tabIndex={-1} aria-hidden>
-            <Capa caminho={e.capa_mini || e.capa} titulo={e.titulo} className="border border-ink" />
-          </Link>
-          <div className="min-w-0" lang="pt-BR">
-            <Link href={localePath(lang, `/podcasts/${e.slug}`)} className="line-clamp-2 font-serif text-lg font-semibold leading-snug hover:text-oxblood">
-              {e.titulo}
-            </Link>
-            <p className="truncate font-sans text-xs text-ink-soft">
-              {[e.serie?.titulo, e.temporada ? `${s.season} ${e.temporada}` : "", ...e.temas.map((tema) => s.themes[tema as keyof typeof s.themes] ?? tema)].filter(Boolean).join(" · ")}
-            </p>
-            <p className="font-mono text-[0.68rem] text-ink-soft sm:hidden">
-              {data.format(new Date(e.publicado_em))} · {minutos(e.duracao)}
-            </p>
-          </div>
-          <span className="hidden font-mono text-xs text-ink-soft sm:block">{data.format(new Date(e.publicado_em))}</span>
-          <span className="hidden font-mono text-xs text-ink-soft sm:block">{minutos(e.duracao)}</span>
-          <Ouvir episodio={e} fila={episodios} programa={programa} rotulo={s.listen} pausar={s.pause} />
-        </li>
-      ))}
+    <ol className="mt-5 border-2 border-b-0 border-ink bg-folha shadow-[6px_6px_0_var(--sombra)]">
+      {episodios.map((e, i) => {
+        const mb = megas(e.audio_bytes);
+        return (
+          <li key={e.id} className="grid grid-cols-[3rem_minmax(0,1fr)] items-center gap-4 border-b-2 border-ink px-4 py-3.5 hover:bg-parchment sm:grid-cols-[3.5rem_3rem_minmax(0,1fr)_auto] sm:gap-5">
+            <span aria-hidden className={`hidden font-serif text-[2rem] font-semibold leading-none sm:block ${i === 0 ? "text-prelo-texto" : "text-ink-soft"}`}>
+              {e.numero ?? episodios.length - i}
+            </span>
+            <Ouvir episodio={e} fila={episodios} programa={programa} rotulo={s.listen} pausar={s.pause} className="h-12! w-12! bg-ink! hover:bg-[#c21f16]!" />
+            <div className="min-w-0" lang="pt-BR">
+              <Link href={localePath(lang, `/podcasts/${e.slug}`)} className="line-clamp-2 font-serif text-xl font-semibold leading-snug text-ink hover:text-ink hover:underline hover:decoration-[#c21f16] hover:decoration-2">
+                {e.titulo}
+              </Link>
+              <p className="truncate font-sans text-[0.82rem] text-ink-soft">
+                {[e.serie?.titulo ?? programa, data.format(new Date(e.publicado_em))].filter(Boolean).join(" · ")}
+                <span className="sm:hidden"> · {minutos(e.duracao)}</span>
+              </p>
+            </div>
+            <span className="hidden whitespace-nowrap font-mono text-xs uppercase text-ink-soft sm:block">
+              {minutos(e.duracao)}
+              {mb > 0 && ` · ↓ ${s.size.replace("{n}", String(mb))}`}
+            </span>
+          </li>
+        );
+      })}
     </ol>
   );
 }
+
+const CORES_DAS_SERIES = [
+  "bg-[#c21f16] text-white shadow-[6px_6px_0_var(--sombra)]",
+  "bg-[#1f1a14] text-[#f4ecd8] shadow-[6px_6px_0_var(--prelo)]",
+  "bg-[#2f5d34] text-[#f4ecd8] shadow-[6px_6px_0_var(--sombra)]",
+  "bg-[#6e1f1a] text-[#f4ecd8] shadow-[6px_6px_0_var(--prelo)]",
+  "bg-[#8a5f1c] text-[#f4ecd8] shadow-[6px_6px_0_var(--sombra)]",
+];
 
 /**
  * A estante do podcast, no jeito dos aplicativos de áudio: botões de filtro no alto (séries, temas, disciplinas) e,
@@ -79,6 +90,7 @@ export function ListaDeEpisodios({ episodios, s, lang, programa }: { episodios: 
  */
 export function Explorar({ episodios, series, s, lang, programa, areas }: { episodios: Episodio[]; series: Serie[]; s: Dict["podcast"]; lang: Locale; programa: string; areas: Record<string, string> }) {
   const [filtro, setFiltro] = useState<Filtro>({ tipo: "tudo" });
+  const [ordem, setOrdem] = useState<"novos" | "curtos">("novos");
   const temas = useMemo(() => TEMAS.filter((tema) => episodios.some((e) => e.temas.includes(tema))), [episodios]);
   const disciplinas = useMemo(() => [...new Set(episodios.map((e) => e.disciplina).filter((d): d is string => Boolean(d)))], [episodios]);
   const nomeTema = (tema: string) => s.themes[tema as keyof typeof s.themes] ?? tema;
@@ -101,7 +113,7 @@ export function Explorar({ episodios, series, s, lang, programa, areas }: { epis
           : s.all;
 
   const chip = (ativo: boolean) =>
-    `shrink-0 cursor-pointer rounded-full border-2 px-4 py-1.5 font-sans text-sm font-semibold ${ativo ? "border-ink bg-ink text-parchment" : "border-ink/30 hover:border-ink"}`;
+    `shrink-0 cursor-pointer border-2 border-ink px-3.5 py-1.5 font-sans text-sm font-semibold ${ativo ? "bg-ink text-parchment" : "bg-folha hover:bg-parchment-deep"}`;
   const igual = (outro: Filtro) => JSON.stringify(outro) === JSON.stringify(filtro);
 
   return (
@@ -129,31 +141,42 @@ export function Explorar({ episodios, series, s, lang, programa, areas }: { epis
 
       {filtro.tipo === "tudo" ? (
         <>
-          <Estante id="recentes" titulo={s.recent}>
-            {episodios.slice(0, 12).map((e) => (
-              <Cartao key={e.id} e={e} fila={episodios} s={s} lang={lang} programa={programa} />
-            ))}
-          </Estante>
-          {series.length > 0 && (
-            <section aria-labelledby="series" className="mt-10">
-              <h2 id="series" className="jornal-secao">
-                <span className="jornal-editoria">{s.series}</span>
-              </h2>
-              <ul className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                {series.map((serie) => (
-                  <li key={serie.slug}>
-                    <button type="button" onClick={() => setFiltro({ tipo: "serie", slug: serie.slug })} className="group block w-full cursor-pointer text-left">
-                      <Capa caminho={serie.capa_mini || serie.capa} titulo={serie.titulo} className="border-2 border-ink transition-transform group-hover:-translate-y-0.5" />
-                      <span className="mt-2 block font-serif text-lg font-semibold leading-snug group-hover:text-oxblood" lang="pt-BR">{serie.titulo}</span>
-                      <span className="block font-sans text-xs text-ink-soft">
-                        {episodios.filter((e) => e.serie?.slug === serie.slug).length} {s.episodes}
+          <section aria-labelledby="series" className="mt-10">
+            <h2 id="series" className="font-serif text-[2.3rem] font-medium">{s.series}</h2>
+            <ul className="mt-5 grid grid-cols-2 gap-6 lg:grid-cols-4">
+              {series.map((serie, i) => (
+                <li key={serie.slug}>
+                  <button
+                    type="button"
+                    onClick={() => setFiltro({ tipo: "serie", slug: serie.slug })}
+                    className={`flex aspect-square w-full cursor-pointer flex-col border-2 border-ink p-4 text-left transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 sm:p-5 ${CORES_DAS_SERIES[i % CORES_DAS_SERIES.length]}`}
+                  >
+                    <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em]">
+                      {episodios.filter((e) => e.serie?.slug === serie.slug).length} {s.episodes}
+                    </span>
+                    <span className="mt-auto line-clamp-3 font-sans text-[1.35rem] font-black uppercase italic leading-[0.95] sm:text-[1.8rem]" lang="pt-BR">
+                      {serie.titulo}
+                    </span>
+                    {serie.descricao && (
+                      <span className="mt-1.5 line-clamp-2 font-serif text-sm opacity-90" lang="pt-BR">
+                        {serie.descricao}
                       </span>
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
+                    )}
+                  </button>
+                </li>
+              ))}
+              <li>
+                <Link
+                  href={localePath(lang, "/podcasts/microfone")}
+                  className="flex aspect-square w-full flex-col border-2 border-dashed border-ink bg-parchment-deep p-4 text-ink shadow-[6px_6px_0_var(--prelo)] hover:text-ink sm:p-5"
+                >
+                  <span className="font-mono text-[0.68rem] uppercase tracking-[0.18em]">{s.openToAll}</span>
+                  <span className="mt-auto font-sans text-[1.35rem] font-black uppercase italic leading-[0.95] sm:text-[1.8rem]">{s.recordWithUs}</span>
+                  <span className="mt-1.5 font-serif text-sm text-ink-soft">{s.recordWithUsText}</span>
+                </Link>
+              </li>
+            </ul>
+          </section>
           {temas.map((tema) => {
             const lista = episodios.filter((e) => e.temas.includes(tema));
             return (
@@ -164,11 +187,18 @@ export function Explorar({ episodios, series, s, lang, programa, areas }: { epis
               </Estante>
             );
           })}
-          <section aria-labelledby="todos" className="mt-12">
-            <h2 id="todos" className="jornal-secao">
-              <span className="jornal-editoria">{s.allEpisodes}</span>
-            </h2>
-            <ListaDeEpisodios episodios={episodios} s={s} lang={lang} programa={programa} />
+          <section aria-labelledby="todos" className="mt-14">
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <h2 id="todos" className="font-serif text-[2.3rem] font-medium">{s.allEpisodes}</h2>
+              <div role="group" aria-label={s.sortBy} className="flex gap-1.5 font-mono text-xs uppercase">
+                {(["novos", "curtos"] as const).map((o) => (
+                  <button key={o} type="button" aria-pressed={ordem === o} onClick={() => setOrdem(o)} className={`cursor-pointer border-2 border-ink px-3 py-1.5 ${ordem === o ? "bg-ink text-parchment" : "bg-folha hover:bg-parchment-deep"}`}>
+                    {o === "novos" ? s.sortNewest : s.sortShortest}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <ListaDeEpisodios episodios={ordem === "curtos" ? [...episodios].sort((x, y) => x.duracao - y.duracao) : episodios} s={s} lang={lang} programa={programa} />
           </section>
         </>
       ) : (

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { SourceList } from "@/components/Cards";
 import { Markdown } from "@/components/Markdown";
 import { Masthead } from "@/components/Masthead";
+import { ContarLeitura } from "@/components/jornal/MaisLidas";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { defaultLocale, fill, htmlLang, localePath } from "@/i18n/config";
@@ -36,6 +37,7 @@ export default async function Materia({ params }: PageProps<"/[lang]/jornal/[slu
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-8">
+      <ContarLeitura slug={article.slug} />
       <Masthead lang={lang} s={t.journal} slogan={t.slogans.jornal} small />
       <div className="mt-6" {...originalLang(article.translated)}>
         <span className="jornal-editoria">{article.section || t.journal.eyebrow}</span>

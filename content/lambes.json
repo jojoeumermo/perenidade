@@ -1,0 +1,992 @@
+[
+  {
+    "id": "o-saber-e-do-povo",
+    "pt": { "linhas": ["O saber", "é do", "povo."], "texto": "Ninguém paga para entrar, ninguém é dono do que está aqui." },
+    "en": { "linhas": ["Knowledge", "belongs to", "the people."], "texto": "Nobody pays to get in, nobody owns what is here." },
+    "es": { "linhas": ["El saber", "es del", "pueblo."], "texto": "Nadie paga para entrar, nadie es dueño de lo que hay aquí." },
+    "fr": { "linhas": ["Le savoir", "appartient", "au peuple."], "texto": "Personne ne paie pour entrer, personne ne possède ce qui est ici." },
+    "ru": { "linhas": ["Знание", "принадлежит", "народу."], "texto": "Никто не платит за вход, и ничто здесь никому не принадлежит." },
+    "zh": { "linhas": ["知识", "属于", "人民。"], "texto": "进来不用付钱，这里的一切不属于任何人。" }
+  },
+  {
+    "id": "educacao-nao-e-mercadoria",
+    "pt": { "linhas": ["Educação", "não é", "mercadoria."], "texto": "Escola não é loja e aluno não é cliente. Aprender é direito de quem trabalha." },
+    "en": { "linhas": ["Education", "is not a", "commodity."], "texto": "Schools are not shops and students are not customers. Learning is a worker's right." },
+    "es": { "linhas": ["Educación", "no es", "mercancía."], "texto": "La escuela no es tienda ni el alumno es cliente. Aprender es derecho de quien trabaja." },
+    "fr": { "linhas": ["L'éducation", "n'est pas", "à vendre."], "texto": "L'école n'est pas une boutique, l'élève n'est pas un client. Apprendre est un droit." },
+    "ru": { "linhas": ["Образование", "не", "товар."], "texto": "Школа — не магазин, ученик — не клиент. Учиться — право каждого, кто трудится." },
+    "zh": { "linhas": ["教育", "不是", "商品。"], "texto": "学校不是商店，学生不是顾客。学习是劳动者的权利。" }
+  },
+  {
+    "id": "ninguem-solta-a-mao",
+    "pt": { "linhas": ["Ninguém", "solta a mão", "de ninguém."], "texto": "Quando um cai, a roda segura. Quando um some, a gente vai procurar." },
+    "en": { "linhas": ["No one", "lets go", "of anyone."], "texto": "When one falls, the circle holds. When one goes missing, we go looking." },
+    "es": { "linhas": ["Nadie", "suelta", "a nadie."], "texto": "Cuando uno cae, la ronda sostiene. Cuando uno falta, salimos a buscarlo." },
+    "fr": { "linhas": ["Personne", "ne lâche", "personne."], "texto": "Quand l'un tombe, le cercle tient. Quand l'un disparaît, on part le chercher." },
+    "ru": { "linhas": ["Никто", "не бросит", "никого."], "texto": "Если кто-то падает, круг держит. Если кто-то пропал, мы идём искать." },
+    "zh": { "linhas": ["谁也", "不放开", "谁的手。"], "texto": "有人跌倒，大家扶住；有人不见，大家去找。" }
+  },
+  {
+    "id": "a-luta-e-todo-dia",
+    "pt": { "linhas": ["A luta", "é todo", "dia."], "texto": "Não é só na data marcada: é no ponto de ônibus, no trabalho, na fila do posto." },
+    "en": { "linhas": ["The fight", "is every", "day."], "texto": "Not only on the marked date: at the bus stop, at work, in the clinic line." },
+    "es": { "linhas": ["La lucha", "es todos", "los días."], "texto": "No solo en la fecha marcada: en la parada, en el trabajo, en la fila del centro de salud." },
+    "fr": { "linhas": ["La lutte,", "c'est tous", "les jours."], "texto": "Pas seulement le jour prévu : à l'arrêt de bus, au travail, dans la file du dispensaire." },
+    "ru": { "linhas": ["Борьба", "каждый", "день."], "texto": "Не только в назначенный день: на остановке, на работе, в очереди в поликлинику." },
+    "zh": { "linhas": ["斗争", "在每", "一天。"], "texto": "不只在约定的日子：在车站，在工地，在诊所排队时。" }
+  },
+  {
+    "id": "ocupar-resistir-produzir",
+    "pt": { "linhas": ["Ocupar,", "resistir,", "produzir."], "texto": "Terra parada não alimenta ninguém. Quem planta tem direito ao chão." },
+    "en": { "linhas": ["Occupy,", "resist,", "produce."], "texto": "Idle land feeds no one. Those who plant have a right to the ground." },
+    "es": { "linhas": ["Ocupar,", "resistir,", "producir."], "texto": "La tierra ociosa no alimenta a nadie. Quien siembra tiene derecho al suelo." },
+    "fr": { "linhas": ["Occuper,", "résister,", "produire."], "texto": "La terre en friche ne nourrit personne. Qui sème a droit au sol." },
+    "ru": { "linhas": ["Занять,", "выстоять,", "растить."], "texto": "Пустая земля никого не кормит. Кто сеет, тот имеет право на землю." },
+    "zh": { "linhas": ["占领，", "抵抗，", "生产。"], "texto": "闲置的土地养不活人。耕种的人有权拥有土地。" }
+  },
+  {
+    "id": "diploma-nao-e-sabedoria",
+    "pt": { "linhas": ["Diploma", "não é", "sabedoria."], "texto": "O que você sabe do seu ofício vale, com ou sem carimbo do Estado." },
+    "en": { "linhas": ["A diploma", "is not", "wisdom."], "texto": "What you know of your trade counts, with or without the state's stamp." },
+    "es": { "linhas": ["Un título", "no es", "sabiduría."], "texto": "Lo que sabes de tu oficio vale, con o sin sello del Estado." },
+    "fr": { "linhas": ["Un diplôme", "n'est pas", "le savoir."], "texto": "Ce que tu sais de ton métier compte, avec ou sans tampon de l'État." },
+    "ru": { "linhas": ["Диплом —", "ещё не", "знание."], "texto": "То, что ты знаешь о своём деле, ценно — с печатью государства или без." },
+    "zh": { "linhas": ["文凭", "不等于", "学问。"], "texto": "你对自己手艺的了解，有没有国家盖章都算数。" }
+  },
+  {
+    "id": "o-fascismo-nao-passara",
+    "pt": { "linhas": ["O fascismo", "não", "passará."], "texto": "Nem na rua, nem na escola, nem no grupo da família." },
+    "en": { "linhas": ["Fascism", "shall not", "pass."], "texto": "Not in the street, not at school, not in the family group chat." },
+    "es": { "linhas": ["El fascismo", "no", "pasará."], "texto": "Ni en la calle, ni en la escuela, ni en el grupo de la familia." },
+    "fr": { "linhas": ["Le fascisme", "ne passera", "pas."], "texto": "Ni dans la rue, ni à l'école, ni dans le groupe de la famille." },
+    "ru": { "linhas": ["Фашизм", "не", "пройдёт."], "texto": "Ни на улице, ни в школе, ни в семейном чате." },
+    "zh": { "linhas": ["法西斯", "不得", "通过。"], "texto": "不在街头，不在学校，也不在家庭群里。" }
+  },
+  {
+    "id": "estudo-e-revolta-popular",
+    "pt": { "linhas": ["Estudo é", "revolta", "popular."], "texto": "Aqui se estuda por revolta popular, não por vício de diploma." },
+    "en": { "linhas": ["Study", "is popular", "revolt."], "texto": "Here we study out of popular revolt, not out of a craving for diplomas." },
+    "es": { "linhas": ["Estudiar", "es revuelta", "popular."], "texto": "Aquí se estudia por revuelta popular, no por vicio de títulos." },
+    "fr": { "linhas": ["Étudier,", "c'est la", "révolte."], "texto": "Ici, on étudie par révolte populaire, pas par manie du diplôme." },
+    "ru": { "linhas": ["Учёба —", "народный", "бунт."], "texto": "Здесь учатся из народного бунта, а не из погони за дипломом." },
+    "zh": { "linhas": ["学习", "是人民的", "反抗。"], "texto": "我们在这里学习，是出于人民的反抗，不是为了文凭。" }
+  },
+  {
+    "id": "sozinho-ninguem-negocia",
+    "pt": { "linhas": ["Sozinho,", "ninguém", "negocia."], "texto": "No sindicato, o salário é conversa de muitos, não pedido de um." },
+    "en": { "linhas": ["Alone,", "nobody", "bargains."], "texto": "In a union, wages are a talk among many, not a plea from one." },
+    "es": { "linhas": ["Solo,", "nadie", "negocia."], "texto": "En el sindicato, el salario es charla de muchos, no ruego de uno." },
+    "fr": { "linhas": ["Seul,", "personne ne", "négocie."], "texto": "Au syndicat, le salaire se discute à plusieurs, il ne se quémande pas seul." },
+    "ru": { "linhas": ["Один", "ничего не", "добьётся."], "texto": "В профсоюзе зарплата — разговор многих, а не просьба одного." },
+    "zh": { "linhas": ["一个人", "谈不了", "工资。"], "texto": "在工会里，工资是大家一起谈，不是一个人去求。" }
+  },
+  {
+    "id": "vidas-negras-importam",
+    "pt": { "linhas": ["Vidas", "negras", "importam."], "texto": "Cada jovem negro morto pela polícia tinha nome, mãe e futuro." },
+    "en": { "linhas": ["Black", "lives", "matter."], "texto": "Every young Black person killed by police had a name, a mother, a future." },
+    "es": { "linhas": ["Las vidas", "negras", "importan."], "texto": "Cada joven negro asesinado por la policía tenía nombre, madre y futuro." },
+    "fr": { "linhas": ["Les vies", "noires", "comptent."], "texto": "Chaque jeune Noir tué par la police avait un nom, une mère, un avenir." },
+    "ru": { "linhas": ["Жизни", "чёрных", "важны."], "texto": "У каждого чернокожего парня, убитого полицией, были имя, мать и будущее." },
+    "zh": { "linhas": ["黑人的", "命也是", "命。"], "texto": "每个被警察杀害的黑人青年，都有名字、母亲和未来。" }
+  },
+  {
+    "id": "nem-uma-a-menos",
+    "pt": { "linhas": ["Nem uma", "a", "menos."], "texto": "Toda mulher tem o direito de voltar viva para casa." },
+    "en": { "linhas": ["Not one", "woman", "less."], "texto": "Every woman has the right to come home alive." },
+    "es": { "linhas": ["Ni una", "mujer", "menos."], "texto": "Toda mujer tiene derecho a volver viva a casa." },
+    "fr": { "linhas": ["Pas une", "de", "moins."], "texto": "Toute femme a le droit de rentrer vivante chez elle." },
+    "ru": { "linhas": ["Ни одной", "женщины", "меньше."], "texto": "Каждая женщина имеет право вернуться домой живой." },
+    "zh": { "linhas": ["一个", "都不能", "少。"], "texto": "每个女人都有权活着回家。" }
+  },
+  {
+    "id": "amar-nao-e-crime",
+    "pt": { "linhas": ["Amar", "não é", "crime."], "texto": "Ninguém deve ter medo de andar de mão dada no próprio bairro." },
+    "en": { "linhas": ["Love", "is not", "a crime."], "texto": "No one should fear holding hands in their own neighborhood." },
+    "es": { "linhas": ["Amar", "no es", "delito."], "texto": "Nadie debería temer ir de la mano por su propio barrio." },
+    "fr": { "linhas": ["Aimer", "n'est pas", "un crime."], "texto": "Personne ne devrait avoir peur de se tenir la main dans son quartier." },
+    "ru": { "linhas": ["Любить", "не", "запрещено."], "texto": "Никто не должен бояться держаться за руки в своём районе." },
+    "zh": { "linhas": ["爱", "不是", "罪。"], "texto": "没有人应该害怕在自己街区里牵手。" }
+  },
+  {
+    "id": "sem-terra-indigena-sem-futuro",
+    "pt": { "linhas": ["Sem terra", "indígena,", "sem futuro."], "texto": "Onde a floresta está de pé, tem povo que cuida dela há séculos. Demarcação já." },
+    "en": { "linhas": ["Indigenous", "land is", "our future."], "texto": "Where the forest still stands, there are peoples who have cared for it for centuries." },
+    "es": { "linhas": ["Territorio", "indígena", "es futuro."], "texto": "Donde el bosque sigue en pie, hay pueblos que lo cuidan hace siglos." },
+    "fr": { "linhas": ["Sans terre", "indigène,", "nul avenir."], "texto": "Là où la forêt est encore debout, des peuples en prennent soin depuis des siècles." },
+    "ru": { "linhas": ["Без земли", "коренных", "нет завтра."], "texto": "Там, где лес ещё стоит, его веками берегут коренные народы." },
+    "zh": { "linhas": ["原住民", "土地", "是未来。"], "texto": "森林还挺立的地方，有世代守护它的民族。" }
+  },
+  {
+    "id": "moradia-e-direito",
+    "pt": { "linhas": ["Moradia", "é direito,", "não favor."], "texto": "Enquanto prédio vazio espera valorizar, tem família dormindo na calçada." },
+    "en": { "linhas": ["Housing", "is a right,", "not a perk."], "texto": "While empty buildings wait to gain value, families sleep on the sidewalk." },
+    "es": { "linhas": ["La vivienda", "es derecho,", "no favor."], "texto": "Mientras hay edificios vacíos esperando valorizarse, hay familias durmiendo en la vereda." },
+    "fr": { "linhas": ["Se loger,", "c'est un", "droit."], "texto": "Tant que des immeubles vides attendent la plus-value, des familles dorment sur le trottoir." },
+    "ru": { "linhas": ["Жильё —", "право,", "не милость."], "texto": "Пока пустые дома ждут, когда подорожают, семьи спят на тротуаре." },
+    "zh": { "linhas": ["住房", "是权利，", "不是恩赐。"], "texto": "空楼等着升值，一家人却睡在人行道上。" }
+  },
+  {
+    "id": "favela-nao-e-problema",
+    "pt": { "linhas": ["Favela", "não é", "problema."], "texto": "Problema é a falta de escola, de emprego e de respeito. A favela resolve a vida todo dia." },
+    "en": { "linhas": ["The favela", "is not the", "problem."], "texto": "The problem is the lack of schools, jobs and respect. The favela solves things every day." },
+    "es": { "linhas": ["La villa", "no es el", "problema."], "texto": "El problema es la falta de escuela, de trabajo y de respeto. La villa resuelve todos los días." },
+    "fr": { "linhas": ["Le problème", "n'est pas", "la favela."], "texto": "Le problème, c'est le manque d'écoles, d'emplois et de respect. La favela se débrouille chaque jour." },
+    "ru": { "linhas": ["Фавела —", "не", "проблема."], "texto": "Проблема — нехватка школ, работы и уважения. Фавела каждый день находит решения." },
+    "zh": { "linhas": ["贫民区", "不是", "问题。"], "texto": "问题是缺学校、缺工作、缺尊重。贫民区每天都在想办法。" }
+  },
+  {
+    "id": "saude-nao-se-vende",
+    "pt": { "linhas": ["Saúde", "não se", "vende."], "texto": "Do posto da esquina ao transplante: saúde pública, para todo mundo, sem cartão de crédito." },
+    "en": { "linhas": ["Health", "is not", "for sale."], "texto": "From the corner clinic to a transplant: public health for everyone, no credit card needed." },
+    "es": { "linhas": ["La salud", "no se", "vende."], "texto": "Del centro de salud al trasplante: salud pública para todos, sin tarjeta de crédito." },
+    "fr": { "linhas": ["La santé", "ne se vend", "pas."], "texto": "Du dispensaire du coin à la greffe : santé publique pour tous, sans carte bancaire." },
+    "ru": { "linhas": ["Здоровье", "не", "продаётся."], "texto": "От поликлиники за углом до пересадки органов: медицина для всех, без кредитки." },
+    "zh": { "linhas": ["健康", "不能", "买卖。"], "texto": "从街角诊所到器官移植：公共医疗属于所有人，不用信用卡。" }
+  },
+  {
+    "id": "escola-publica-e-nossa",
+    "pt": { "linhas": ["Escola", "pública", "é nossa."], "texto": "Quem estudou nela sabe: falta verba, não falta gente boa. Defender é cuidar." },
+    "en": { "linhas": ["Public", "schools", "are ours."], "texto": "Anyone who went to one knows: they lack money, not good people. Defending them is caring." },
+    "es": { "linhas": ["La escuela", "pública es", "nuestra."], "texto": "Quien estudió en ella sabe: falta plata, no falta buena gente. Defenderla es cuidarla." },
+    "fr": { "linhas": ["L'école", "publique", "est à nous."], "texto": "Qui y a étudié le sait : il manque des moyens, pas des gens bien. La défendre, c'est en prendre soin." },
+    "ru": { "linhas": ["Публичная", "школа —", "наша."], "texto": "Кто в ней учился, знает: не хватает денег, а не хороших людей. Защищать — значит беречь." },
+    "zh": { "linhas": ["公立", "学校", "是我们的。"], "texto": "在那里读过书的人都知道：缺的是经费，不是好人。守护它就是爱护它。" }
+  },
+  {
+    "id": "historia-contada-por-nos",
+    "pt": { "linhas": ["História", "contada", "por nós."], "texto": "Os livros oficiais esquecem greves, revoltas e quilombos. A gente pesquisa e conta de novo." },
+    "en": { "linhas": ["History", "told", "by us."], "texto": "Official textbooks forget strikes, revolts and quilombos. We dig it up and tell it again." },
+    "es": { "linhas": ["La historia", "la contamos", "nosotros."], "texto": "Los libros oficiales olvidan huelgas, revueltas y quilombos. Investigamos y la contamos de nuevo." },
+    "fr": { "linhas": ["L'histoire", "racontée", "par nous."], "texto": "Les manuels officiels oublient grèves, révoltes et quilombos. Nous cherchons et racontons à nouveau." },
+    "ru": { "linhas": ["История", "нашими", "словами."], "texto": "Официальные учебники забывают забастовки, восстания и киломбо. Мы ищем и рассказываем заново." },
+    "zh": { "linhas": ["历史", "由我们", "讲述。"], "texto": "官方课本忘记了罢工、起义和逃奴村。我们自己去查，重新讲。" }
+  },
+  {
+    "id": "ditadura-nunca-mais",
+    "pt": { "linhas": ["Ditadura", "nunca", "mais."], "texto": "Tortura não é passado distante: tem gente viva que lembra. Nós também lembramos." },
+    "en": { "linhas": ["Never", "again", "tyranny."], "texto": "Torture is not some distant past: people still alive remember it. So do we." },
+    "es": { "linhas": ["Dictadura", "nunca", "más."], "texto": "La tortura no es pasado lejano: hay gente viva que la recuerda. Nosotros también." },
+    "fr": { "linhas": ["Dictature,", "plus", "jamais."], "texto": "La torture n'est pas un passé lointain : des vivants s'en souviennent. Nous aussi." },
+    "ru": { "linhas": ["Диктатура —", "больше", "никогда."], "texto": "Пытки — не далёкое прошлое: живые люди их помнят. И мы помним." },
+    "zh": { "linhas": ["独裁", "永不", "再来。"], "texto": "酷刑不是遥远的过去：还有活着的人记得。我们也记得。" }
+  },
+  {
+    "id": "ler-e-um-direito",
+    "pt": { "linhas": ["Ler", "é um", "direito."], "texto": "Livro caro afasta. Aqui o acervo é aberto e a leitura não pede licença." },
+    "en": { "linhas": ["Reading", "is a", "right."], "texto": "Expensive books keep people out. Here the shelves are open and reading needs no permission." },
+    "es": { "linhas": ["Leer", "es un", "derecho."], "texto": "El libro caro aleja. Aquí el acervo está abierto y leer no pide permiso." },
+    "fr": { "linhas": ["Lire", "est un", "droit."], "texto": "Le livre cher éloigne. Ici, le fonds est ouvert et la lecture ne demande pas la permission." },
+    "ru": { "linhas": ["Читать —", "это", "право."], "texto": "Дорогая книга отталкивает. Здесь полки открыты, и чтение не просит разрешения." },
+    "zh": { "linhas": ["阅读", "是一种", "权利。"], "texto": "贵书把人挡在外面。这里书架敞开，读书不必请示。" }
+  },
+  {
+    "id": "ninguem-aprende-sozinho",
+    "pt": { "linhas": ["Ninguém", "aprende", "sozinho."], "texto": "Dúvida dividida é meia resposta. No grupo de estudo, o saber circula." },
+    "en": { "linhas": ["Nobody", "learns", "alone."], "texto": "A shared question is half an answer. In a study group, knowledge moves." },
+    "es": { "linhas": ["Nadie", "aprende", "solo."], "texto": "Una duda compartida es media respuesta. En el grupo de estudio, el saber circula." },
+    "fr": { "linhas": ["Personne", "n'apprend", "seul."], "texto": "Une question partagée, c'est une demi-réponse. Le groupe d'étude fait circuler le savoir." },
+    "ru": { "linhas": ["Учимся", "только", "вместе."], "texto": "Общий вопрос — уже полответа. В учебном кругу знание ходит по рукам." },
+    "zh": { "linhas": ["没人", "能独自", "学会。"], "texto": "共同的问题就是一半的答案。学习小组让知识流动起来。" }
+  },
+  {
+    "id": "quem-faz-tambem-pensa",
+    "pt": { "linhas": ["Quem faz", "também", "pensa."], "texto": "A mão que levanta a parede sabe fazer conta, ler o mundo e decidir." },
+    "en": { "linhas": ["Workers", "think", "too."], "texto": "The hand that raises a wall can do the math, read the world and decide." },
+    "es": { "linhas": ["Quien hace", "también", "piensa."], "texto": "La mano que levanta la pared sabe hacer cuentas, leer el mundo y decidir." },
+    "fr": { "linhas": ["L'ouvrier", "pense", "aussi."], "texto": "La main qui monte le mur sait compter, lire le monde et décider." },
+    "ru": { "linhas": ["Рабочий", "тоже", "думает."], "texto": "Рука, что кладёт кирпич, умеет считать, читать мир и решать." },
+    "zh": { "linhas": ["劳动者", "也会", "思考。"], "texto": "砌墙的手也会算账、读懂世界、做出决定。" }
+  },
+  {
+    "id": "quem-produz-a-riqueza",
+    "pt": { "linhas": ["Quem produz", "a riqueza", "é o povo."], "texto": "Nenhum lucro nasce sem alguém acordando cedo para trabalhar." },
+    "en": { "linhas": ["Workers", "make the", "wealth."], "texto": "No profit is born without someone getting up early to go to work." },
+    "es": { "linhas": ["La riqueza", "la hace", "el pueblo."], "texto": "Ninguna ganancia nace sin alguien que madruga para trabajar." },
+    "fr": { "linhas": ["Le travail", "crée la", "richesse."], "texto": "Aucun profit ne naît sans quelqu'un qui se lève tôt pour aller bosser." },
+    "ru": { "linhas": ["Богатство", "создаёт", "народ."], "texto": "Никакая прибыль не рождается без того, кто встаёт рано на работу." },
+    "zh": { "linhas": ["财富", "由劳动者", "创造。"], "texto": "没有人早起去干活，就没有任何利润。" }
+  },
+  {
+    "id": "greve-e-direito",
+    "pt": { "linhas": ["Greve", "é", "direito."], "texto": "Parar junto é a forma mais antiga de ser ouvido por quem não quer escutar." },
+    "en": { "linhas": ["Striking", "is a", "right."], "texto": "Stopping together is the oldest way to be heard by those who refuse to listen." },
+    "es": { "linhas": ["La huelga", "es un", "derecho."], "texto": "Parar juntos es la forma más antigua de ser oídos por quien no quiere escuchar." },
+    "fr": { "linhas": ["La grève", "est un", "droit."], "texto": "S'arrêter ensemble, c'est la plus vieille façon de se faire entendre de qui ne veut pas écouter." },
+    "ru": { "linhas": ["Забастовка", "— наше", "право."], "texto": "Остановиться вместе — самый древний способ быть услышанными теми, кто не хочет слушать." },
+    "zh": { "linhas": ["罢工", "是", "权利。"], "texto": "一起停下来，是让不愿听的人听见我们最古老的办法。" }
+  },
+  {
+    "id": "cozinha-solidaria",
+    "pt": { "linhas": ["Cozinha", "solidária", "alimenta."], "texto": "Onde o Estado falta, a vizinhança cozinha junto e ninguém come sozinho." },
+    "en": { "linhas": ["Shared", "kitchens", "feed all."], "texto": "Where the state fails, neighbors cook together and no one eats alone." },
+    "es": { "linhas": ["Olla", "común", "alimenta."], "texto": "Donde el Estado falta, el barrio cocina junto y nadie come solo." },
+    "fr": { "linhas": ["La cantine", "solidaire", "nourrit."], "texto": "Là où l'État manque, le voisinage cuisine ensemble et personne ne mange seul." },
+    "ru": { "linhas": ["Общий", "котёл", "кормит."], "texto": "Где нет государства, соседи готовят вместе, и никто не ест в одиночку." },
+    "zh": { "linhas": ["互助", "厨房", "养活人。"], "texto": "国家缺席的地方，邻居们一起做饭，没有人独自吃饭。" }
+  },
+  {
+    "id": "a-classe-nao-tem-fronteira",
+    "pt": { "linhas": ["A classe", "não tem", "fronteira."], "texto": "O operário daqui e o de lá têm o mesmo patrão, disfarçado de nação." },
+    "en": { "linhas": ["Class", "knows no", "borders."], "texto": "The worker here and the worker there share the same boss, dressed up as a nation." },
+    "es": { "linhas": ["La clase", "no tiene", "fronteras."], "texto": "El obrero de aquí y el de allá tienen el mismo patrón, disfrazado de nación." },
+    "fr": { "linhas": ["La classe", "n'a pas de", "frontières."], "texto": "L'ouvrier d'ici et celui de là-bas ont le même patron, déguisé en nation." },
+    "ru": { "linhas": ["У класса", "нет", "границ."], "texto": "У рабочего здесь и рабочего там один хозяин, переодетый в нацию." },
+    "zh": { "linhas": ["阶级", "没有", "国界。"], "texto": "这里的工人和那里的工人，有同一个装扮成国家的老板。" }
+  },
+  {
+    "id": "imigrante-nao-e-inimigo",
+    "pt": { "linhas": ["Imigrante", "não é", "inimigo."], "texto": "Quem atravessa fronteira para trabalhar é vizinho, colega, irmão de classe." },
+    "en": { "linhas": ["Migrants", "are not the", "enemy."], "texto": "Those who cross borders to work are neighbors, coworkers, kin of the same class." },
+    "es": { "linhas": ["Migrante", "no es", "enemigo."], "texto": "Quien cruza fronteras para trabajar es vecino, compañero, hermano de clase." },
+    "fr": { "linhas": ["Le migrant", "n'est pas", "l'ennemi."], "texto": "Qui traverse une frontière pour travailler est un voisin, un collègue, un frère de classe." },
+    "ru": { "linhas": ["Мигрант —", "не", "враг."], "texto": "Кто пересекает границу ради работы — сосед, коллега, брат по классу." },
+    "zh": { "linhas": ["移民", "不是", "敌人。"], "texto": "越境来打工的人，是邻居、同事、阶级兄弟。" }
+  },
+  {
+    "id": "floresta-em-pe",
+    "pt": { "linhas": ["A floresta", "vale mais", "em pé."], "texto": "Boi e soja não fazem chuva. Sem mata, falta água na torneira da cidade." },
+    "en": { "linhas": ["Forests are", "worth more", "standing."], "texto": "Cattle and soy don't make rain. Without forest, the city's taps run dry." },
+    "es": { "linhas": ["El bosque", "vale más", "en pie."], "texto": "La vaca y la soja no hacen lluvia. Sin monte, falta agua en el grifo de la ciudad." },
+    "fr": { "linhas": ["La forêt", "vaut plus", "debout."], "texto": "Le bœuf et le soja ne font pas la pluie. Sans forêt, le robinet de la ville s'assèche." },
+    "ru": { "linhas": ["Живой лес", "дороже", "прибыли."], "texto": "Скот и соя не дают дождя. Без леса в городских кранах кончается вода." },
+    "zh": { "linhas": ["森林", "站着", "才值钱。"], "texto": "牛和大豆不会下雨。没有森林，城里的水龙头就会干。" }
+  },
+  {
+    "id": "cuidar-tambem-e-trabalho",
+    "pt": { "linhas": ["Cuidar", "também é", "trabalho."], "texto": "Quem lava, cozinha e cuida de criança e de idoso sustenta o mundo sem salário." },
+    "en": { "linhas": ["Care", "is", "work too."], "texto": "Those who wash, cook and look after kids and elders hold up the world without pay." },
+    "es": { "linhas": ["Cuidar", "también es", "trabajo."], "texto": "Quien lava, cocina y cuida a niños y ancianos sostiene el mundo sin salario." },
+    "fr": { "linhas": ["Le soin,", "c'est du", "travail."], "texto": "Qui lave, cuisine et s'occupe des enfants et des aînés tient le monde sans salaire." },
+    "ru": { "linhas": ["Забота —", "тоже", "труд."], "texto": "Кто стирает, готовит и смотрит за детьми и стариками, держит мир без зарплаты." },
+    "zh": { "linhas": ["照护", "也是", "劳动。"], "texto": "洗衣、做饭、照顾孩子和老人的人，没有工资却撑起了世界。" }
+  },
+  {
+    "id": "mentira-nao-e-opiniao",
+    "pt": { "linhas": ["Mentira", "não é", "opinião."], "texto": "Antes de passar adiante, pergunte: quem ganha se eu acreditar nisso?" },
+    "en": { "linhas": ["A lie", "is not an", "opinion."], "texto": "Before you forward it, ask: who gains if I believe this?" },
+    "es": { "linhas": ["Mentir", "no es", "opinar."], "texto": "Antes de reenviar, pregúntate: ¿quién gana si me lo creo?" },
+    "fr": { "linhas": ["Le mensonge", "n'est pas", "un avis."], "texto": "Avant de faire suivre, demande-toi : qui gagne si j'y crois ?" },
+    "ru": { "linhas": ["Ложь —", "не", "мнение."], "texto": "Прежде чем переслать, спроси: кому выгодно, чтобы я в это поверил?" },
+    "zh": { "linhas": ["谎言", "不是", "观点。"], "texto": "转发之前问一句：我信了，谁得利？" }
+  },
+  {
+    "id": "juventude-quer-viver",
+    "pt": { "linhas": ["Juventude", "quer", "viver."], "texto": "Jovem de periferia quer estudar, trabalhar e voltar para casa sem levar tiro." },
+    "en": { "linhas": ["The young", "want to", "live."], "texto": "Young people from the outskirts want to study, work and come home without being shot." },
+    "es": { "linhas": ["La juventud", "quiere", "vivir."], "texto": "El joven de periferia quiere estudiar, trabajar y volver a casa sin un balazo." },
+    "fr": { "linhas": ["La jeunesse", "veut", "vivre."], "texto": "Les jeunes des quartiers veulent étudier, travailler et rentrer sans prendre une balle." },
+    "ru": { "linhas": ["Молодёжь", "хочет", "жить."], "texto": "Молодёжь окраин хочет учиться, работать и возвращаться домой без пули." },
+    "zh": { "linhas": ["青年", "要", "活下去。"], "texto": "郊区的年轻人想读书、工作，平安回家不挨枪子。" }
+  },
+  {
+    "id": "velhice-com-dignidade",
+    "pt": { "linhas": ["Velhice", "com", "dignidade."], "texto": "Quem trabalhou a vida inteira merece aposentadoria, remédio e respeito, não fila." },
+    "en": { "linhas": ["Old age", "with", "dignity."], "texto": "Those who worked a lifetime deserve a pension, medicine and respect, not a queue." },
+    "es": { "linhas": ["Vejez", "con", "dignidad."], "texto": "Quien trabajó toda la vida merece jubilación, remedios y respeto, no una fila." },
+    "fr": { "linhas": ["Vieillir", "dans la", "dignité."], "texto": "Qui a travaillé toute sa vie mérite retraite, soins et respect, pas une file d'attente." },
+    "ru": { "linhas": ["Достойная", "старость —", "право."], "texto": "Кто работал всю жизнь, заслуживает пенсии, лекарств и уважения, а не очереди." },
+    "zh": { "linhas": ["老年", "要有", "尊严。"], "texto": "劳动了一辈子的人，应得养老金、药品和尊重，而不是排长队。" }
+  },
+  {
+    "id": "nada-sobre-nos-sem-nos",
+    "pt": { "linhas": ["Nada sobre", "nós sem", "nós."], "texto": "Pessoa com deficiência decide sobre a própria vida. Rampa, intérprete e respeito não são favor." },
+    "en": { "linhas": ["Nothing", "about us", "without us."], "texto": "Disabled people decide about their own lives. Ramps, interpreters and respect are not favors." },
+    "es": { "linhas": ["Nada", "sin", "nosotros."], "texto": "Las personas con discapacidad deciden sobre su vida. Rampa, intérprete y respeto no son favores." },
+    "fr": { "linhas": ["Rien sur", "nous sans", "nous."], "texto": "Les personnes handicapées décident de leur vie. Rampes, interprètes et respect ne sont pas des faveurs." },
+    "ru": { "linhas": ["Ничего", "о нас", "без нас."], "texto": "Люди с инвалидностью сами решают о своей жизни. Пандус, переводчик и уважение — не милость." },
+    "zh": { "linhas": ["关于我们", "的事要", "有我们。"], "texto": "残障者为自己的生活做主。坡道、翻译和尊重都不是施舍。" }
+  },
+  {
+    "id": "comida-sem-veneno",
+    "pt": { "linhas": ["Comida", "de verdade,", "sem veneno."], "texto": "O agrotóxico que vai na lavoura chega no prato e no corpo de quem colhe." },
+    "en": { "linhas": ["Real", "food, no", "poison."], "texto": "The pesticide sprayed on the field ends up on the plate and in the bodies of those who harvest." },
+    "es": { "linhas": ["Comida", "de verdad,", "sin veneno."], "texto": "El agrotóxico que va al cultivo llega al plato y al cuerpo de quien cosecha." },
+    "fr": { "linhas": ["Manger", "vrai, sans", "poison."], "texto": "Le pesticide répandu au champ finit dans l'assiette et dans le corps de qui récolte." },
+    "ru": { "linhas": ["Еда", "без", "яда."], "texto": "Пестицид с поля попадает в тарелку и в тело того, кто собирает урожай." },
+    "zh": { "linhas": ["粮食", "不要", "农药。"], "texto": "洒在田里的农药，最后进了饭碗，也进了收割者的身体。" }
+  },
+  {
+    "id": "saber-guardado-apodrece",
+    "pt": { "linhas": ["Saber", "guardado", "apodrece."], "texto": "Conhecimento que não circula vira privilégio. Copie, empreste, ensine." },
+    "en": { "linhas": ["Hoarded", "knowledge", "rots."], "texto": "Knowledge that doesn't circulate becomes privilege. Copy it, lend it, teach it." },
+    "es": { "linhas": ["Saber", "guardado", "se pudre."], "texto": "El saber que no circula se vuelve privilegio. Copia, presta, enseña." },
+    "fr": { "linhas": ["Le savoir", "gardé", "pourrit."], "texto": "Un savoir qui ne circule pas devient un privilège. Copie, prête, enseigne." },
+    "ru": { "linhas": ["Спрятанное", "знание", "гниёт."], "texto": "Знание, которое не ходит по рукам, становится привилегией. Копируй, одалживай, учи." },
+    "zh": { "linhas": ["藏起来的", "知识", "会腐烂。"], "texto": "不流通的知识会变成特权。复制、借出、传授。" }
+  },
+  {
+    "id": "quem-ensina-aprende",
+    "pt": { "linhas": ["Quem ensina", "também", "aprende."], "texto": "Aqui não tem professor dono da verdade. Tem roda, pergunta e troca." },
+    "en": { "linhas": ["Who teaches", "also", "learns."], "texto": "There's no teacher who owns the truth here. There's a circle, questions and exchange." },
+    "es": { "linhas": ["El que", "enseña", "aprende."], "texto": "Aquí no hay maestro dueño de la verdad. Hay ronda, pregunta e intercambio." },
+    "fr": { "linhas": ["Enseigner,", "c'est", "apprendre."], "texto": "Ici, pas de prof propriétaire de la vérité. Il y a le cercle, la question, l'échange." },
+    "ru": { "linhas": ["Кто учит —", "тот и", "учится."], "texto": "Здесь нет учителя, владеющего истиной. Есть круг, вопрос и обмен." },
+    "zh": { "linhas": ["教的人", "也在", "学习。"], "texto": "这里没有掌握真理的老师。只有围坐、提问和交流。" }
+  },
+  {
+    "id": "fascismo-se-combate-junto",
+    "pt": { "linhas": ["Fascismo", "se combate", "junto."], "texto": "O ódio se organiza rápido. A resposta é se organizar mais: no bairro, no trabalho, na escola." },
+    "en": { "linhas": ["Fascism is", "fought", "together."], "texto": "Hatred organizes fast. The answer is to organize more: in the neighborhood, at work, at school." },
+    "es": { "linhas": ["Al fascismo", "se lo frena", "juntos."], "texto": "El odio se organiza rápido. La respuesta es organizarse más: en el barrio, el trabajo, la escuela." },
+    "fr": { "linhas": ["Le fascisme", "se combat", "ensemble."], "texto": "La haine s'organise vite. La réponse : s'organiser davantage, au quartier, au travail, à l'école." },
+    "ru": { "linhas": ["С фашизмом", "борются", "вместе."], "texto": "Ненависть организуется быстро. Ответ — организоваться сильнее: в районе, на работе, в школе." },
+    "zh": { "linhas": ["一起", "对抗", "法西斯。"], "texto": "仇恨组织得很快。回应就是更好地组织起来：在街区、在单位、在学校。" }
+  },
+  {
+    "id": "racismo-nao-e-piada",
+    "pt": { "linhas": ["Racismo", "não é", "piada."], "texto": "Riu junto, normalizou. Calar diante do racismo é escolher um lado." },
+    "en": { "linhas": ["Racism", "is not a", "joke."], "texto": "Laugh along and you normalize it. Silence in the face of racism is picking a side." },
+    "es": { "linhas": ["El racismo", "no es", "chiste."], "texto": "Si te ríes, lo normalizas. Callar ante el racismo es elegir un bando." },
+    "fr": { "linhas": ["Le racisme", "n'est pas", "une blague."], "texto": "Rire avec, c'est banaliser. Se taire face au racisme, c'est choisir un camp." },
+    "ru": { "linhas": ["Расизм —", "не", "шутка."], "texto": "Посмеялся — значит, смирился. Молчать перед расизмом — значит выбрать сторону." },
+    "zh": { "linhas": ["种族歧视", "不是", "玩笑。"], "texto": "跟着笑，就是纵容。面对种族歧视沉默，就是选边站。" }
+  },
+  {
+    "id": "aquilombar-e-resistir",
+    "pt": { "linhas": ["Aquilombar", "é", "resistir."], "texto": "Desde a primeira fuga da senzala, o povo negro sabe se organizar em comunidade." },
+    "en": { "linhas": ["Quilombos", "still", "resist."], "texto": "Since the first escape from the slave quarters, Black people have known how to organize as community." },
+    "es": { "linhas": ["El quilombo", "aún", "resiste."], "texto": "Desde la primera fuga de la senzala, el pueblo negro sabe organizarse en comunidad." },
+    "fr": { "linhas": ["Le quilombo", "résiste", "encore."], "texto": "Depuis la première fuite des quartiers d'esclaves, le peuple noir sait s'organiser en communauté." },
+    "ru": { "linhas": ["Киломбо", "всё ещё", "стоит."], "texto": "С первого побега из барака рабов чёрный народ умеет организовываться общиной." },
+    "zh": { "linhas": ["逃奴村", "依然", "在抵抗。"], "texto": "自从第一个人逃出奴隶棚屋，黑人就懂得以社群组织起来。" }
+  },
+  {
+    "id": "meu-corpo-minhas-regras",
+    "pt": { "linhas": ["Meu corpo,", "minhas", "regras."], "texto": "Ninguém decide pela mulher: nem marido, nem patrão, nem juiz." },
+    "en": { "linhas": ["My body,", "my", "rules."], "texto": "No one decides for a woman: not her husband, not her boss, not a judge." },
+    "es": { "linhas": ["Mi cuerpo,", "mis", "reglas."], "texto": "Nadie decide por la mujer: ni marido, ni patrón, ni juez." },
+    "fr": { "linhas": ["Mon corps,", "mon", "choix."], "texto": "Personne ne décide à la place d'une femme : ni mari, ni patron, ni juge." },
+    "ru": { "linhas": ["Моё тело —", "мои", "правила."], "texto": "Никто не решает за женщину: ни муж, ни начальник, ни судья." },
+    "zh": { "linhas": ["我的身体", "我", "做主。"], "texto": "没有人能替女人做决定：丈夫不能，老板不能，法官也不能。" }
+  },
+  {
+    "id": "salario-nao-e-esmola",
+    "pt": { "linhas": ["Salário", "não é", "esmola."], "texto": "Quem trabalha o mês inteiro não pode chegar no dia 15 sem dinheiro para o ônibus." },
+    "en": { "linhas": ["Wages", "are not", "charity."], "texto": "Whoever works all month shouldn't run out of bus fare by the 15th." },
+    "es": { "linhas": ["El salario", "no es", "limosna."], "texto": "Quien trabaja todo el mes no puede llegar al 15 sin plata para el colectivo." },
+    "fr": { "linhas": ["Un salaire", "n'est pas", "l'aumône."], "texto": "Qui travaille tout le mois ne devrait pas manquer de quoi payer le bus dès le 15." },
+    "ru": { "linhas": ["Зарплата —", "не", "подачка."], "texto": "Тот, кто работает весь месяц, не должен к 15-му числу сидеть без денег на автобус." },
+    "zh": { "linhas": ["工资", "不是", "施舍。"], "texto": "干了整个月的活，不该到十五号就连车费都没了。" }
+  },
+  {
+    "id": "tempo-livre-e-direito",
+    "pt": { "linhas": ["Tempo livre", "também é", "direito."], "texto": "Ninguém nasceu para viver no trânsito e no serviço. A gente quer tempo para ler, amar e descansar." },
+    "en": { "linhas": ["Free time", "is a right", "too."], "texto": "Nobody was born to live in traffic and at work. We want time to read, love and rest." },
+    "es": { "linhas": ["El tiempo", "libre es", "derecho."], "texto": "Nadie nació para vivir en el tráfico y en el trabajo. Queremos tiempo para leer, amar y descansar." },
+    "fr": { "linhas": ["Le temps", "libre est", "un droit."], "texto": "Personne n'est né pour vivre dans les transports et au boulot. On veut du temps pour lire, aimer, se reposer." },
+    "ru": { "linhas": ["Свободное", "время —", "право."], "texto": "Никто не рождён жить в пробках и на работе. Мы хотим время, чтобы читать, любить и отдыхать." },
+    "zh": { "linhas": ["空闲", "也是", "权利。"], "texto": "没有人生来就该活在通勤和上班里。我们想要时间读书、相爱、休息。" }
+  },
+  {
+    "id": "aplicativo-tem-patrao",
+    "pt": { "linhas": ["Aplicativo", "também tem", "patrão."], "texto": "Chamam de parceiro quem pedala doze horas sem seguro, sem férias e sem chão." },
+    "en": { "linhas": ["The app", "is still a", "boss."], "texto": "They call \"partner\" the one who rides twelve hours with no insurance, no vacation, no safety net." },
+    "es": { "linhas": ["La app", "también es", "patrón."], "texto": "Llaman socio a quien pedalea doce horas sin seguro, sin vacaciones y sin red." },
+    "fr": { "linhas": ["L'appli,", "c'est aussi", "un patron."], "texto": "On appelle partenaire celui qui pédale douze heures sans assurance, sans congés, sans filet." },
+    "ru": { "linhas": ["Приложение", "тоже", "хозяин."], "texto": "Партнёром называют того, кто крутит педали двенадцать часов без страховки и отпуска." },
+    "zh": { "linhas": ["外卖平台", "也是", "老板。"], "texto": "他们把骑十二个小时、没保险没假期的人叫作“合作伙伴”。" }
+  },
+  {
+    "id": "transporte-e-direito",
+    "pt": { "linhas": ["Transporte", "é", "direito."], "texto": "Quem não consegue pagar a passagem não chega na escola, no posto nem no emprego." },
+    "en": { "linhas": ["Transit", "is a", "right."], "texto": "If you can't pay the fare, you don't reach school, the clinic or the job." },
+    "es": { "linhas": ["Transporte", "es un", "derecho."], "texto": "Quien no puede pagar el boleto no llega a la escuela, al centro de salud ni al trabajo." },
+    "fr": { "linhas": ["Se déplacer", "est un", "droit."], "texto": "Qui ne peut pas payer le ticket n'arrive ni à l'école, ni au dispensaire, ni au travail." },
+    "ru": { "linhas": ["Проезд —", "это", "право."], "texto": "Кто не может заплатить за проезд, не доберётся ни до школы, ни до врача, ни до работы." },
+    "zh": { "linhas": ["出行", "是", "权利。"], "texto": "付不起车费的人，到不了学校、诊所和工作的地方。" }
+  },
+  {
+    "id": "a-cidade-e-de-quem-mora",
+    "pt": { "linhas": ["A cidade", "é de quem", "mora nela."], "texto": "Praça, calçada e rua são lugares de encontro, não corredor apressado para o shopping." },
+    "en": { "linhas": ["The city", "belongs to", "its people."], "texto": "Squares, sidewalks and streets are for meeting, not for rushing to the mall." },
+    "es": { "linhas": ["La ciudad", "es de quien", "la habita."], "texto": "Plaza, vereda y calle son lugares de encuentro, no pasillos rápidos al shopping." },
+    "fr": { "linhas": ["La ville", "est à qui", "l'habite."], "texto": "Places, trottoirs et rues sont faits pour se retrouver, pas pour filer au centre commercial." },
+    "ru": { "linhas": ["Город", "принадлежит", "жителям."], "texto": "Площадь, тротуар и улица — места встреч, а не коридор к торговому центру." },
+    "zh": { "linhas": ["城市", "属于", "居民。"], "texto": "广场、人行道和街道是相聚的地方，不是通往商场的过道。" }
+  },
+  {
+    "id": "biblioteca-e-trincheira",
+    "pt": { "linhas": ["Biblioteca", "aberta é", "trincheira."], "texto": "Cada livro emprestado é uma porta que ninguém mais consegue fechar." },
+    "en": { "linhas": ["Libraries", "are our", "trenches."], "texto": "Every book lent is a door no one can shut again." },
+    "es": { "linhas": ["Biblioteca", "abierta es", "trinchera."], "texto": "Cada libro prestado es una puerta que ya nadie puede cerrar." },
+    "fr": { "linhas": ["Un livre", "prêté,", "une porte."], "texto": "Chaque livre prêté est une porte que personne ne pourra plus fermer." },
+    "ru": { "linhas": ["Библиотека", "— наш", "окоп."], "texto": "Каждая выданная книга — дверь, которую уже никто не закроет." },
+    "zh": { "linhas": ["图书馆", "是我们的", "战壕。"], "texto": "每借出一本书，就打开一扇再也关不上的门。" }
+  },
+  {
+    "id": "perguntar-nao-e-ofensa",
+    "pt": { "linhas": ["Perguntar", "não é", "ofensa."], "texto": "Desconfie de quem se irrita com pergunta. Quem tem razão explica." },
+    "en": { "linhas": ["Asking", "is not an", "offense."], "texto": "Be wary of anyone who gets angry at questions. Those who are right can explain." },
+    "es": { "linhas": ["Preguntar", "no es", "ofender."], "texto": "Desconfía de quien se enoja con las preguntas. Quien tiene razón, explica." },
+    "fr": { "linhas": ["Questionner", "n'est pas", "offenser."], "texto": "Méfie-toi de qui s'énerve devant une question. Qui a raison explique." },
+    "ru": { "linhas": ["Спросить —", "не", "оскорбить."], "texto": "Не верь тому, кто злится на вопросы. Кто прав, тот объяснит." },
+    "zh": { "linhas": ["提问", "不是", "冒犯。"], "texto": "当心那些被问题激怒的人。有理的人会解释。" }
+  },
+  {
+    "id": "siga-o-dinheiro",
+    "pt": { "linhas": ["Siga", "o", "dinheiro."], "texto": "Toda notícia tem dono. Saber quem paga ajuda a entender o que está sendo dito." },
+    "en": { "linhas": ["Follow", "the", "money."], "texto": "Every news story has an owner. Knowing who pays helps you understand what is being said." },
+    "es": { "linhas": ["Sigue", "el", "dinero."], "texto": "Toda noticia tiene dueño. Saber quién paga ayuda a entender lo que se dice." },
+    "fr": { "linhas": ["Suivez", "l'argent,", "toujours."], "texto": "Chaque info a un propriétaire. Savoir qui paie aide à comprendre ce qui est dit." },
+    "ru": { "linhas": ["Ищи,", "кому", "выгодно."], "texto": "У каждой новости есть хозяин. Знать, кто платит, — значит понимать, что говорят." },
+    "zh": { "linhas": ["追踪", "钱的", "去向。"], "texto": "每条新闻都有主人。知道谁出钱，才能听懂在说什么。" }
+  },
+  {
+    "id": "mulher-vai-aonde-quiser",
+    "pt": { "linhas": ["Mulher", "vai aonde", "quiser."], "texto": "Na assembleia, na obra, na universidade, na direção do sindicato." },
+    "en": { "linhas": ["Women go", "wherever", "they want."], "texto": "To the assembly, the building site, the university, the head of the union." },
+    "es": { "linhas": ["La mujer", "va adonde", "quiera."], "texto": "A la asamblea, a la obra, a la universidad, al frente del sindicato." },
+    "fr": { "linhas": ["Une femme", "va où elle", "veut."], "texto": "À l'assemblée, sur le chantier, à l'université, à la tête du syndicat." },
+    "ru": { "linhas": ["Женщина", "идёт куда", "хочет."], "texto": "На собрание, на стройку, в университет, во главе профсоюза." },
+    "zh": { "linhas": ["女人", "想去哪", "就去哪。"], "texto": "去集会，去工地，去大学，去领导工会。" }
+  },
+  {
+    "id": "gente-trans-existe",
+    "pt": { "linhas": ["Gente trans", "existe e", "resiste."], "texto": "Respeitar o nome, garantir emprego e escola: o mínimo para quem já enfrenta tanto." },
+    "en": { "linhas": ["Trans folks", "exist and", "resist."], "texto": "Respect the name, guarantee work and school: the least for people who already face so much." },
+    "es": { "linhas": ["Gente trans", "existe y", "resiste."], "texto": "Respetar el nombre, garantizar trabajo y escuela: lo mínimo para quien ya enfrenta tanto." },
+    "fr": { "linhas": ["Trans,", "on existe,", "on résiste."], "texto": "Respecter le prénom, garantir emploi et école : le minimum pour qui affronte déjà tant." },
+    "ru": { "linhas": ["Транс-люди", "живут и", "борются."], "texto": "Уважать имя, дать работу и учёбу — минимум для тех, кто и так столько выносит." },
+    "zh": { "linhas": ["跨性别者", "存在，", "也抵抗。"], "texto": "尊重名字，保障工作和上学：这是对承受太多的人最起码的。" }
+  },
+  {
+    "id": "linguas-indigenas-vivem",
+    "pt": { "linhas": ["Línguas", "indígenas", "vivem."], "texto": "Mais de cem línguas resistem neste chão. Cada uma é uma biblioteca inteira." },
+    "en": { "linhas": ["Native", "languages", "live on."], "texto": "More than a hundred languages still resist on this land. Each one is a whole library." },
+    "es": { "linhas": ["Las lenguas", "indígenas", "viven."], "texto": "Más de cien lenguas resisten en este suelo. Cada una es una biblioteca entera." },
+    "fr": { "linhas": ["Les langues", "indigènes", "vivent."], "texto": "Plus de cent langues résistent sur cette terre. Chacune est une bibliothèque entière." },
+    "ru": { "linhas": ["Языки", "коренных", "живы."], "texto": "Больше ста языков живут на этой земле. Каждый — целая библиотека." },
+    "zh": { "linhas": ["原住民", "语言", "还活着。"], "texto": "这片土地上还有一百多种语言在坚持。每一种都是一座图书馆。" }
+  },
+  {
+    "id": "pagar-nao-e-merito",
+    "pt": { "linhas": ["Faculdade", "cara não", "é mérito."], "texto": "Mensalidade alta não prova inteligência. Prova quem nasceu com dinheiro." },
+    "en": { "linhas": ["Paying", "isn't", "merit."], "texto": "Pricey tuition proves nothing about intelligence. It proves who was born with money." },
+    "es": { "linhas": ["Pagar", "no es", "mérito."], "texto": "Una cuota alta no prueba inteligencia. Prueba quién nació con plata." },
+    "fr": { "linhas": ["Payer", "n'est pas", "un mérite."], "texto": "Des frais élevés ne prouvent pas l'intelligence. Ils prouvent qui est né riche." },
+    "ru": { "linhas": ["Платить —", "не", "заслуга."], "texto": "Высокая плата за учёбу ничего не говорит об уме. Только о том, кто родился с деньгами." },
+    "zh": { "linhas": ["付钱", "不等于", "有本事。"], "texto": "高昂学费证明不了聪明，只证明谁生来有钱。" }
+  },
+  {
+    "id": "nunca-e-tarde-para-aprender",
+    "pt": { "linhas": ["Nunca é", "tarde para", "aprender."], "texto": "Tem gente que aprendeu a ler aos setenta. A sala de aula não tem idade." },
+    "en": { "linhas": ["It's never", "too late to", "learn."], "texto": "Some people learned to read at seventy. The classroom has no age." },
+    "es": { "linhas": ["Nunca es", "tarde para", "aprender."], "texto": "Hay quien aprendió a leer a los setenta. El aula no tiene edad." },
+    "fr": { "linhas": ["Il n'est", "jamais trop", "tard."], "texto": "Certains ont appris à lire à soixante-dix ans. La salle de classe n'a pas d'âge." },
+    "ru": { "linhas": ["Учиться", "никогда не", "поздно."], "texto": "Кто-то научился читать в семьдесят. У класса нет возраста." },
+    "zh": { "linhas": ["学习", "永远", "不晚。"], "texto": "有人七十岁才学会认字。课堂没有年龄限制。" }
+  },
+  {
+    "id": "educacao-popular-liberta",
+    "pt": { "linhas": ["Educação", "popular", "liberta."], "texto": "Partir do que o povo vive para entender o mundo e mudá-lo." },
+    "en": { "linhas": ["Popular", "education", "liberates."], "texto": "Start from what people live through to understand the world and change it." },
+    "es": { "linhas": ["Educación", "popular", "libera."], "texto": "Partir de lo que el pueblo vive para entender el mundo y cambiarlo." },
+    "fr": { "linhas": ["L'éducation", "populaire", "libère."], "texto": "Partir de ce que vit le peuple pour comprendre le monde et le changer." },
+    "ru": { "linhas": ["Учёба", "снизу —", "свобода."], "texto": "Начинать с того, что проживает народ, чтобы понять мир и изменить его." },
+    "zh": { "linhas": ["大众", "教育", "使人自由。"], "texto": "从人民的亲身经历出发，去理解世界，去改变世界。" }
+  },
+  {
+    "id": "o-patrao-precisa-de-nos",
+    "pt": { "linhas": ["O patrão", "precisa", "de nós."], "texto": "Sem trabalhador não roda máquina, não sai entrega, não abre loja. A força é nossa." },
+    "en": { "linhas": ["Bosses", "need", "us."], "texto": "Without workers no machine runs, no delivery leaves, no shop opens. The power is ours." },
+    "es": { "linhas": ["El patrón", "nos", "necesita."], "texto": "Sin trabajadores no anda la máquina, no sale el pedido, no abre la tienda. La fuerza es nuestra." },
+    "fr": { "linhas": ["Le patron", "a besoin", "de nous."], "texto": "Sans travailleurs, pas de machine qui tourne, pas de livraison, pas de boutique ouverte." },
+    "ru": { "linhas": ["Хозяину", "нужны", "мы."], "texto": "Без рабочих не крутится станок, не едет доставка, не открывается магазин. Сила — наша." },
+    "zh": { "linhas": ["老板", "离不开", "我们。"], "texto": "没有工人，机器不转，货不出门，店不开张。力量在我们手里。" }
+  },
+  {
+    "id": "organize-seu-local-de-trabalho",
+    "pt": { "linhas": ["Organize", "o chão de", "fábrica."], "texto": "Comece com uma conversa no intervalo. Toda grande greve começou assim." },
+    "en": { "linhas": ["Organize", "your", "workplace."], "texto": "Start with a chat on your break. Every big strike started that way." },
+    "es": { "linhas": ["Organiza", "tu lugar", "de trabajo."], "texto": "Empieza con una charla en el descanso. Toda gran huelga empezó así." },
+    "fr": { "linhas": ["Organise", "ton lieu de", "travail."], "texto": "Commence par une discussion à la pause. Toutes les grandes grèves ont commencé ainsi." },
+    "ru": { "linhas": ["Организуй", "свой", "цех."], "texto": "Начни с разговора в перерыве. Так начиналась каждая большая забастовка." },
+    "zh": { "linhas": ["组织", "你的", "工作场所。"], "texto": "从休息时的一次聊天开始。每一次大罢工都是这样开始的。" }
+  },
+  {
+    "id": "esgoto-tratado-e-saude",
+    "pt": { "linhas": ["Esgoto", "tratado", "é saúde."], "texto": "Criança que brinca perto de vala aberta adoece. Saneamento é direito, não promessa." },
+    "en": { "linhas": ["Clean", "sewers mean", "health."], "texto": "Kids who play by open ditches get sick. Sanitation is a right, not a promise." },
+    "es": { "linhas": ["Saneamiento", "es", "salud."], "texto": "El niño que juega cerca de una zanja abierta se enferma. El saneamiento es derecho, no promesa." },
+    "fr": { "linhas": ["Des égouts,", "c'est la", "santé."], "texto": "L'enfant qui joue près d'un fossé ouvert tombe malade. L'assainissement est un droit, pas une promesse." },
+    "ru": { "linhas": ["Канализация", "— это", "здоровье."], "texto": "Ребёнок, играющий у открытой канавы, болеет. Канализация — право, а не обещание." },
+    "zh": { "linhas": ["下水道", "就是", "健康。"], "texto": "在露天污水沟边玩的孩子会生病。卫生设施是权利，不是承诺。" }
+  },
+  {
+    "id": "lugar-de-crianca-e-na-escola",
+    "pt": { "linhas": ["Lugar de", "criança é", "na escola."], "texto": "Não no farol vendendo bala, não na lavoura, não no trabalho dos pais." },
+    "en": { "linhas": ["Children", "belong in", "school."], "texto": "Not at traffic lights selling candy, not in the fields, not doing their parents' jobs." },
+    "es": { "linhas": ["Los niños,", "a la", "escuela."], "texto": "No en el semáforo vendiendo caramelos, no en el campo, no en el trabajo de los padres." },
+    "fr": { "linhas": ["L'enfant", "a sa place", "à l'école."], "texto": "Pas au feu rouge à vendre des bonbons, pas aux champs, pas au travail des parents." },
+    "ru": { "linhas": ["Место", "детей —", "в школе."], "texto": "Не на светофоре с конфетами, не в поле, не на работе вместо родителей." },
+    "zh": { "linhas": ["孩子", "应该在", "学校。"], "texto": "不是在红绿灯下卖糖，不是在田里，也不是替父母干活。" }
+  },
+  {
+    "id": "ciencia-nao-tem-endereco",
+    "pt": { "linhas": ["Ciência", "não tem", "endereço."], "texto": "Na cozinha, na roça, na oficina e na rua também se pesquisa, se testa e se descobre." },
+    "en": { "linhas": ["Science", "has no", "address."], "texto": "In kitchens, fields, workshops and streets people also research, test and discover." },
+    "es": { "linhas": ["La ciencia", "no tiene", "domicilio."], "texto": "En la cocina, el campo, el taller y la calle también se investiga, se prueba y se descubre." },
+    "fr": { "linhas": ["La science", "n'a pas", "d'adresse."], "texto": "Dans la cuisine, aux champs, à l'atelier et dans la rue, on cherche, on teste, on découvre aussi." },
+    "ru": { "linhas": ["У науки", "нет", "адреса."], "texto": "На кухне, в поле, в мастерской и на улице тоже исследуют, проверяют и открывают." },
+    "zh": { "linhas": ["科学", "没有", "门牌号。"], "texto": "在厨房、田地、作坊和街头，人们也在研究、试验和发现。" }
+  },
+  {
+    "id": "sem-elas-nada-se-move",
+    "pt": { "linhas": ["Sem elas", "nada", "se move."], "texto": "Mulheres negras sustentam a casa, o bairro e a economia, e são as últimas a serem ouvidas." },
+    "en": { "linhas": ["Black women", "hold", "it up."], "texto": "Black women hold up the home, the neighborhood and the economy, and are the last to be heard." },
+    "es": { "linhas": ["Sin ellas", "nada se", "mueve."], "texto": "Las mujeres negras sostienen la casa, el barrio y la economía, y son las últimas en ser oídas." },
+    "fr": { "linhas": ["Sans elles,", "rien ne", "bouge."], "texto": "Les femmes noires tiennent la maison, le quartier et l'économie, et sont les dernières écoutées." },
+    "ru": { "linhas": ["Без них", "ничего не", "движется."], "texto": "Чернокожие женщины держат дом, район и экономику — и их слушают последними." },
+    "zh": { "linhas": ["没有她们", "什么都", "动不了。"], "texto": "黑人女性撑起家庭、街区和经济，却最后才被听见。" }
+  },
+  {
+    "id": "nenhuma-guerra-e-nossa",
+    "pt": { "linhas": ["Nenhuma", "guerra", "é nossa."], "texto": "Quem lucra com bomba nunca vai para o front. Quem morre é sempre filho de trabalhador." },
+    "en": { "linhas": ["No war", "is", "ours."], "texto": "Those who profit from bombs never go to the front. Those who die are always workers' kids." },
+    "es": { "linhas": ["Ninguna", "guerra es", "nuestra."], "texto": "Quien lucra con bombas nunca va al frente. Quien muere siempre es hijo de obrero." },
+    "fr": { "linhas": ["Leurs", "guerres,", "nos morts."], "texto": "Ceux qui profitent des bombes ne vont jamais au front. Ceux qui meurent sont toujours des enfants d'ouvriers." },
+    "ru": { "linhas": ["Ни одна", "война", "не наша."], "texto": "Кто наживается на бомбах, никогда не идёт на фронт. Гибнут всегда дети рабочих." },
+    "zh": { "linhas": ["没有", "一场战争", "属于我们。"], "texto": "靠炸弹发财的人从不上前线。死去的总是工人的孩子。" }
+  },
+  {
+    "id": "povo-ajuda-povo",
+    "pt": { "linhas": ["Povo", "ajuda", "povo."], "texto": "Quando a enchente leva tudo, quem chega primeiro com água e colchão é o vizinho." },
+    "en": { "linhas": ["People", "help", "people."], "texto": "When the flood takes everything, the first to arrive with water and mattresses are the neighbors." },
+    "es": { "linhas": ["El pueblo", "ayuda al", "pueblo."], "texto": "Cuando la inundación se lleva todo, el primero en llegar con agua y colchón es el vecino." },
+    "fr": { "linhas": ["Le peuple", "aide le", "peuple."], "texto": "Quand l'inondation emporte tout, les premiers à venir avec de l'eau et des matelas, ce sont les voisins." },
+    "ru": { "linhas": ["Народ", "помогает", "народу."], "texto": "Когда наводнение уносит всё, первыми с водой и матрасами приходят соседи." },
+    "zh": { "linhas": ["人民", "帮", "人民。"], "texto": "洪水冲走一切时，最先带着水和床垫赶来的是邻居。" }
+  },
+  {
+    "id": "o-clima-e-luta-de-classe",
+    "pt": { "linhas": ["O clima", "é luta", "de classe."], "texto": "Quem perde a casa na enchente não tem jatinho. A conta do clima tem endereço." },
+    "en": { "linhas": ["Climate", "is class", "struggle."], "texto": "Those who lose their homes in floods don't own private jets. The climate bill has an address." },
+    "es": { "linhas": ["El clima", "es lucha", "de clases."], "texto": "Quien pierde la casa en la inundación no tiene avión privado. La cuenta del clima tiene dirección." },
+    "fr": { "linhas": ["Le climat", "est lutte", "de classes."], "texto": "Ceux qui perdent leur maison dans les crues n'ont pas de jet privé. La facture du climat a une adresse." },
+    "ru": { "linhas": ["Климат —", "борьба", "классов."], "texto": "Дом в наводнении теряет не владелец частного самолёта. У счёта за климат есть адрес." },
+    "zh": { "linhas": ["气候", "是阶级", "斗争。"], "texto": "在洪水中失去家园的，不是坐私人飞机的人。气候的账单有地址。" }
+  },
+  {
+    "id": "agua-nao-e-negocio",
+    "pt": { "linhas": ["Água", "não é", "negócio."], "texto": "Rio, poço e nascente são de todos. Privatizar a água é cobrar pela sede." },
+    "en": { "linhas": ["Water", "is not a", "business."], "texto": "Rivers, wells and springs belong to everyone. Privatizing water is charging for thirst." },
+    "es": { "linhas": ["El agua", "no es", "negocio."], "texto": "Río, pozo y manantial son de todos. Privatizar el agua es cobrar la sed." },
+    "fr": { "linhas": ["L'eau", "est un bien", "commun."], "texto": "Rivières, puits et sources sont à tout le monde. Privatiser l'eau, c'est faire payer la soif." },
+    "ru": { "linhas": ["Вода —", "не", "бизнес."], "texto": "Реки, колодцы и родники — общие. Приватизировать воду — значит брать плату за жажду." },
+    "zh": { "linhas": ["水", "不是", "生意。"], "texto": "河流、水井和泉眼属于所有人。把水私有化，就是向口渴收钱。" }
+  },
+  {
+    "id": "vacina-e-cuidado-coletivo",
+    "pt": { "linhas": ["Vacina", "é cuidado", "coletivo."], "texto": "Quem se vacina protege também o bebê, o idoso e quem não pode tomar a dose." },
+    "en": { "linhas": ["Vaccines", "are shared", "care."], "texto": "Getting vaccinated also protects the baby, the elder and whoever can't take the shot." },
+    "es": { "linhas": ["Vacunarse", "es cuidado", "colectivo."], "texto": "Quien se vacuna protege también al bebé, al anciano y a quien no puede recibir la dosis." },
+    "fr": { "linhas": ["Vacciné,", "je protège", "les autres."], "texto": "Se faire vacciner protège aussi le bébé, l'aîné et ceux qui ne peuvent pas recevoir la dose." },
+    "ru": { "linhas": ["Прививка —", "общая", "забота."], "texto": "Привившись, ты защищаешь и младенца, и старика, и того, кому прививку нельзя." },
+    "zh": { "linhas": ["接种", "是集体的", "关怀。"], "texto": "打疫苗也在保护婴儿、老人和不能接种的人。" }
+  },
+  {
+    "id": "odio-nao-e-liberdade",
+    "pt": { "linhas": ["Ódio", "não é", "liberdade."], "texto": "Liberdade de expressão não inclui ameaçar quem é diferente de você." },
+    "en": { "linhas": ["Hate", "is not", "freedom."], "texto": "Free speech doesn't include threatening those who are different from you." },
+    "es": { "linhas": ["El odio", "no es", "libertad."], "texto": "La libertad de expresión no incluye amenazar a quien es distinto de ti." },
+    "fr": { "linhas": ["La haine", "n'est pas", "la liberté."], "texto": "La liberté d'expression n'inclut pas le droit de menacer qui est différent de toi." },
+    "ru": { "linhas": ["Ненависть", "— не", "свобода."], "texto": "Свобода слова не включает угрозы тем, кто не похож на тебя." },
+    "zh": { "linhas": ["仇恨", "不是", "自由。"], "texto": "言论自由不包括威胁和你不一样的人。" }
+  },
+  {
+    "id": "juntas-perdemos-o-medo",
+    "pt": { "linhas": ["Juntas", "perdemos o", "medo."], "texto": "O medo isola. A roda devolve a voz a quem foi calado por tempo demais." },
+    "en": { "linhas": ["Together", "we lose", "our fear."], "texto": "Fear isolates. The circle gives the voice back to those silenced for too long." },
+    "es": { "linhas": ["Juntas", "perdemos", "el miedo."], "texto": "El miedo aísla. La ronda devuelve la voz a quien estuvo callado demasiado tiempo." },
+    "fr": { "linhas": ["Ensemble,", "on n'a plus", "peur."], "texto": "La peur isole. Le cercle rend la voix à qui a été réduit au silence trop longtemps." },
+    "ru": { "linhas": ["Вместе", "нам не", "страшно."], "texto": "Страх разъединяет. Круг возвращает голос тем, кого слишком долго заставляли молчать." },
+    "zh": { "linhas": ["在一起", "就不再", "害怕。"], "texto": "恐惧让人孤立。围坐在一起，让被压抑太久的人重新发声。" }
+  },
+  {
+    "id": "funk-tambem-e-cultura",
+    "pt": { "linhas": ["Funk", "também é", "cultura."], "texto": "Do baile ao cordel, do rap à viola: a periferia cria e o mundo copia." },
+    "en": { "linhas": ["Baile funk", "is culture", "too."], "texto": "From the baile to cordel, from rap to the viola: the outskirts create and the world copies." },
+    "es": { "linhas": ["El funk", "también es", "cultura."], "texto": "Del baile al cordel, del rap a la viola: la periferia crea y el mundo copia." },
+    "fr": { "linhas": ["Le funk,", "c'est aussi", "la culture."], "texto": "Du bal funk au cordel, du rap à la viola : la périphérie crée, le monde copie." },
+    "ru": { "linhas": ["Фанк —", "тоже", "культура."], "texto": "От бала до кордела, от рэпа до виолы: окраина творит, а мир копирует." },
+    "zh": { "linhas": ["放克", "也是", "文化。"], "texto": "从街头舞会到民间诗歌，从说唱到吉他：郊区创造，世界模仿。" }
+  },
+  {
+    "id": "a-rua-tambem-e-escola",
+    "pt": { "linhas": ["A rua", "também", "é escola."], "texto": "Muro pintado, sarau na praça e roda de conversa ensinam o que a TV esconde." },
+    "en": { "linhas": ["The street", "is a school", "too."], "texto": "Painted walls, poetry in the square and street circles teach what TV hides." },
+    "es": { "linhas": ["La calle", "también es", "escuela."], "texto": "Muro pintado, recital en la plaza y ronda de charla enseñan lo que la tele esconde." },
+    "fr": { "linhas": ["La rue,", "c'est aussi", "une école."], "texto": "Mur peint, scène ouverte sur la place et cercle de parole enseignent ce que la télé cache." },
+    "ru": { "linhas": ["Улица —", "тоже", "школа."], "texto": "Расписанная стена, стихи на площади и разговор в кругу учат тому, что скрывает телевизор." },
+    "zh": { "linhas": ["街头", "也是", "学校。"], "texto": "墙上的画、广场上的诗会和围坐的谈话，教给你电视藏起来的东西。" }
+  },
+  {
+    "id": "mais-livro-menos-bala",
+    "pt": { "linhas": ["Mais livro,", "menos", "bala."], "texto": "Cada centavo gasto em blindado podia virar professor, biblioteca e merenda." },
+    "en": { "linhas": ["More books,", "fewer", "bullets."], "texto": "Every cent spent on armored cars could become teachers, libraries and school meals." },
+    "es": { "linhas": ["Más libros,", "menos", "balas."], "texto": "Cada centavo gastado en blindados podría ser maestro, biblioteca y comedor escolar." },
+    "fr": { "linhas": ["Des livres,", "pas des", "balles."], "texto": "Chaque centime dépensé en blindés pourrait devenir prof, bibliothèque et cantine." },
+    "ru": { "linhas": ["Книги,", "а не", "пули."], "texto": "Каждая копейка на броневики могла бы стать учителем, библиотекой и школьным обедом." },
+    "zh": { "linhas": ["多些书，", "少些", "子弹。"], "texto": "花在装甲车上的每一分钱，本可以变成老师、图书馆和学校午餐。" }
+  },
+  {
+    "id": "juro-alto-e-assalto",
+    "pt": { "linhas": ["Juro alto", "é assalto", "legal."], "texto": "O cartão cobra mais de 400% ao ano. Quem ganha com a dívida do povo nunca passa aperto." },
+    "en": { "linhas": ["Usury", "is legal", "robbery."], "texto": "Credit cards charge over 400% a year. Those who profit from people's debt never go short." },
+    "es": { "linhas": ["La usura", "es robo", "legal."], "texto": "La tarjeta cobra más de 400% al año. Quien gana con la deuda del pueblo nunca pasa apuros." },
+    "fr": { "linhas": ["L'usure", "est un vol", "légal."], "texto": "La carte de crédit facture plus de 400 % par an. Ceux qui vivent de la dette du peuple ne manquent de rien." },
+    "ru": { "linhas": ["Проценты —", "законный", "грабёж."], "texto": "Кредитка берёт больше 400% годовых. Кто наживается на долгах народа, сам никогда не бедствует." },
+    "zh": { "linhas": ["高利贷", "是合法的", "抢劫。"], "texto": "信用卡年息超过百分之四百。靠人民债务发财的人从不缺钱。" }
+  },
+  {
+    "id": "morador-de-rua-e-gente",
+    "pt": { "linhas": ["Morador", "de rua", "é gente."], "texto": "Tem nome, tem história, tem direito. Quem passa e não olha também está escolhendo." },
+    "en": { "linhas": ["Homeless", "people are", "people."], "texto": "They have names, stories and rights. Walking by without looking is also a choice." },
+    "es": { "linhas": ["Quien vive", "en la calle", "es persona."], "texto": "Tiene nombre, historia y derechos. Pasar sin mirar también es elegir." },
+    "fr": { "linhas": ["Sans-abri,", "mais pas", "sans nom."], "texto": "Ils ont un nom, une histoire, des droits. Passer sans regarder, c'est aussi choisir." },
+    "ru": { "linhas": ["Бездомный", "— тоже", "человек."], "texto": "У него есть имя, история и права. Пройти мимо, не глядя, — тоже выбор." },
+    "zh": { "linhas": ["露宿者", "也是", "人。"], "texto": "他们有名字、有故事、有权利。路过不看，也是一种选择。" }
+  },
+  {
+    "id": "sofrimento-nao-e-fraqueza",
+    "pt": { "linhas": ["Sofrimento", "não é", "fraqueza."], "texto": "Exaustão tem causa: salário baixo, medo, jornada sem fim. Cuidar da cabeça é também mudar a vida." },
+    "en": { "linhas": ["Suffering", "is not", "weakness."], "texto": "Exhaustion has causes: low pay, fear, endless hours. Caring for the mind also means changing life." },
+    "es": { "linhas": ["Sufrir", "no es", "debilidad."], "texto": "El agotamiento tiene causas: sueldo bajo, miedo, jornadas sin fin. Cuidar la mente es cambiar la vida." },
+    "fr": { "linhas": ["Souffrir", "n'est pas", "faiblesse."], "texto": "L'épuisement a des causes : bas salaires, peur, journées sans fin. Soigner la tête, c'est changer la vie." },
+    "ru": { "linhas": ["Страдание", "— не", "слабость."], "texto": "У истощения есть причины: низкая зарплата, страх, бесконечный рабочий день. Беречь душу — значит менять жизнь." },
+    "zh": { "linhas": ["痛苦", "不是", "软弱。"], "texto": "疲惫是有原因的：低工资、恐惧、无尽的工时。照顾心灵，也是改变生活。" }
+  },
+  {
+    "id": "sindicato-e-a-gente-junto",
+    "pt": { "linhas": ["Sindicato", "é a gente", "junto."], "texto": "Sindicato não é prédio nem diretor: é cada colega que aparece na assembleia." },
+    "en": { "linhas": ["The union", "is all of", "us."], "texto": "The union isn't a building or a director: it's every coworker who shows up to the meeting." },
+    "es": { "linhas": ["Sindicato", "somos", "todos."], "texto": "El sindicato no es un edificio ni un dirigente: es cada compañero que va a la asamblea." },
+    "fr": { "linhas": ["Syndicat,", "c'est", "nous tous."], "texto": "Le syndicat, ce n'est ni un bâtiment ni un chef : c'est chaque collègue qui vient à l'assemblée." },
+    "ru": { "linhas": ["Профсоюз —", "это", "все мы."], "texto": "Профсоюз — не здание и не председатель, а каждый коллега, пришедший на собрание." },
+    "zh": { "linhas": ["工会", "就是", "我们大家。"], "texto": "工会不是一栋楼，也不是某个领导，而是每个来开会的同事。" }
+  },
+  {
+    "id": "quem-decide-e-a-assembleia",
+    "pt": { "linhas": ["Quem decide", "é a", "assembleia."], "texto": "Nada de decisão de cima. A gente discute, vota e cumpre junto." },
+    "en": { "linhas": ["The people", "assembled", "decide."], "texto": "No decisions from above. We discuss, vote and carry out together." },
+    "es": { "linhas": ["Decide", "la", "asamblea."], "texto": "Nada de decisiones desde arriba. Discutimos, votamos y cumplimos juntos." },
+    "fr": { "linhas": ["C'est", "l'assemblée", "qui décide."], "texto": "Pas de décision venue d'en haut. On discute, on vote et on applique ensemble." },
+    "ru": { "linhas": ["Решает", "общее", "собрание."], "texto": "Никаких решений сверху. Мы обсуждаем, голосуем и выполняем вместе." },
+    "zh": { "linhas": ["大会", "说了", "算。"], "texto": "不要自上而下的决定。我们一起讨论、表决、执行。" }
+  },
+  {
+    "id": "de-baixo-para-cima",
+    "pt": { "linhas": ["De baixo", "para", "cima."], "texto": "Mudança de verdade nunca veio de cima. Sempre começou na base, na periferia, no chão de fábrica." },
+    "en": { "linhas": ["From the", "bottom", "up."], "texto": "Real change never came from above. It always started at the base, in the outskirts, on the shop floor." },
+    "es": { "linhas": ["Desde", "abajo,", "siempre."], "texto": "El cambio de verdad nunca vino de arriba. Siempre empezó en la base, en la periferia, en el piso de fábrica." },
+    "fr": { "linhas": ["Depuis", "la", "base."], "texto": "Le vrai changement n'est jamais venu d'en haut. Il a toujours commencé à la base, en périphérie, à l'atelier." },
+    "ru": { "linhas": ["Только", "снизу", "вверх."], "texto": "Настоящие перемены никогда не приходили сверху. Они начинались внизу, на окраине, в цеху." },
+    "zh": { "linhas": ["自下", "而", "上。"], "texto": "真正的改变从来不是从上面来的。总是从基层、从郊区、从车间开始。" }
+  },
+  {
+    "id": "nossos-passos-vem-de-longe",
+    "pt": { "linhas": ["Nossos", "passos vêm", "de longe."], "texto": "Cada direito que temos foi arrancado por quem veio antes. Honrar é continuar." },
+    "en": { "linhas": ["Our steps", "come from", "far away."], "texto": "Every right we have was wrested by those who came before. Honoring them means carrying on." },
+    "es": { "linhas": ["Venimos", "de muy", "lejos."], "texto": "Cada derecho que tenemos fue arrancado por quienes vinieron antes. Honrarlos es seguir." },
+    "fr": { "linhas": ["Nos pas", "viennent", "de loin."], "texto": "Chaque droit que nous avons a été arraché par celles et ceux d'avant. Les honorer, c'est continuer." },
+    "ru": { "linhas": ["Наш путь", "начался", "давно."], "texto": "Каждое наше право вырвали те, кто был до нас. Чтить их — значит продолжать." },
+    "zh": { "linhas": ["我们的", "路来自", "远方。"], "texto": "我们拥有的每一项权利，都是前人争来的。纪念他们，就是继续走下去。" }
+  },
+  {
+    "id": "valorizar-quem-ensina",
+    "pt": { "linhas": ["Valorizar", "quem", "ensina."], "texto": "Professor com salário atrasado e sala lotada não é vocação, é descaso." },
+    "en": { "linhas": ["Value", "those who", "teach."], "texto": "A teacher with late pay and a packed classroom is not a calling, it's neglect." },
+    "es": { "linhas": ["Valorar", "a quien", "enseña."], "texto": "Docente con sueldo atrasado y aula llena no es vocación, es abandono." },
+    "fr": { "linhas": ["Respect", "pour qui", "enseigne."], "texto": "Un prof payé en retard dans une classe bondée, ce n'est pas une vocation, c'est du mépris." },
+    "ru": { "linhas": ["Уважай", "тех, кто", "учит."], "texto": "Учитель с задержанной зарплатой и переполненным классом — это не призвание, а пренебрежение." },
+    "zh": { "linhas": ["尊重", "教书的", "人。"], "texto": "工资拖欠、教室爆满的老师，那不是奉献，是被漠视。" }
+  },
+  {
+    "id": "fome-e-escolha-politica",
+    "pt": { "linhas": ["Fome é", "escolha", "política."], "texto": "Este país produz comida de sobra. Se tem gente com fome, é porque alguém decidiu assim." },
+    "en": { "linhas": ["Hunger is a", "political", "choice."], "texto": "This country grows food to spare. If people go hungry, someone decided it that way." },
+    "es": { "linhas": ["El hambre", "es decisión", "política."], "texto": "Este país produce comida de sobra. Si hay gente con hambre, es porque alguien lo decidió." },
+    "fr": { "linhas": ["La faim,", "un choix", "politique."], "texto": "Ce pays produit de quoi manger en surplus. Si des gens ont faim, quelqu'un l'a décidé." },
+    "ru": { "linhas": ["Голод —", "выбор", "власти."], "texto": "Эта страна производит еду с избытком. Если люди голодают, значит, кто-то так решил." },
+    "zh": { "linhas": ["饥饿", "是政治", "选择。"], "texto": "这个国家生产的粮食绰绰有余。有人挨饿，是因为有人这样决定。" }
+  },
+  {
+    "id": "nosso-jeito-de-falar",
+    "pt": { "linhas": ["Nosso jeito", "de falar", "é saber."], "texto": "Sotaque, gíria e o português da quebrada também carregam ciência e história." },
+    "en": { "linhas": ["The way we", "talk is", "knowledge."], "texto": "Accents, slang and the speech of the block also carry science and history." },
+    "es": { "linhas": ["Nuestra", "habla es", "saber."], "texto": "El acento, la jerga y el habla del barrio también cargan ciencia e historia." },
+    "fr": { "linhas": ["Notre façon", "de parler", "est savoir."], "texto": "L'accent, l'argot et le parler du quartier portent aussi science et histoire." },
+    "ru": { "linhas": ["Наша речь", "— тоже", "знание."], "texto": "Акцент, сленг и язык района тоже несут науку и историю." },
+    "zh": { "linhas": ["我们的", "说话方式", "也是学问。"], "texto": "口音、俚语和街坊的说话方式，也承载着科学和历史。" }
+  },
+  {
+    "id": "escola-sem-racismo",
+    "pt": { "linhas": ["Escola", "sem", "racismo."], "texto": "Ensinar a história da África e dos povos indígenas não é favor: é lei e é justiça." },
+    "en": { "linhas": ["Schools", "without", "racism."], "texto": "Teaching the history of Africa and of Indigenous peoples is no favor: it's the law, and it's justice." },
+    "es": { "linhas": ["Escuela", "sin", "racismo."], "texto": "Enseñar la historia de África y de los pueblos indígenas no es un favor: es ley y es justicia." },
+    "fr": { "linhas": ["L'école", "sans", "racisme."], "texto": "Enseigner l'histoire de l'Afrique et des peuples autochtones n'est pas une faveur : c'est la loi, c'est juste." },
+    "ru": { "linhas": ["Школа", "без", "расизма."], "texto": "Преподавать историю Африки и коренных народов — не одолжение, а закон и справедливость." },
+    "zh": { "linhas": ["校园", "拒绝", "种族歧视。"], "texto": "讲授非洲和原住民的历史不是恩惠：这是法律，也是正义。" }
+  },
+  {
+    "id": "creche-e-direito",
+    "pt": { "linhas": ["Creche", "é", "direito."], "texto": "Sem creche, a mãe não estuda nem trabalha. Cuidar das crianças é tarefa de todo mundo." },
+    "en": { "linhas": ["Childcare", "is a", "right."], "texto": "Without childcare, mothers can't study or work. Raising kids is everyone's job." },
+    "es": { "linhas": ["El cuidado", "infantil es", "derecho."], "texto": "Sin guardería, la madre no estudia ni trabaja. Cuidar a los niños es tarea de todos." },
+    "fr": { "linhas": ["La crèche", "est un", "droit."], "texto": "Sans crèche, la mère n'étudie ni ne travaille. S'occuper des enfants, c'est l'affaire de tous." },
+    "ru": { "linhas": ["Детсад —", "это", "право."], "texto": "Без детсада мать не может ни учиться, ни работать. Забота о детях — дело всех." },
+    "zh": { "linhas": ["托儿所", "是", "权利。"], "texto": "没有托儿所，母亲既不能上学也不能工作。照顾孩子是大家的事。" }
+  },
+  {
+    "id": "assedio-nao-e-elogio",
+    "pt": { "linhas": ["Assédio", "não é", "elogio."], "texto": "No ônibus, na rua ou no trabalho: se ela não quis, é violência." },
+    "en": { "linhas": ["Harassment", "is not a", "compliment."], "texto": "On the bus, in the street or at work: if she didn't want it, it's violence." },
+    "es": { "linhas": ["El acoso", "no es", "piropo."], "texto": "En el colectivo, en la calle o en el trabajo: si ella no quiso, es violencia." },
+    "fr": { "linhas": ["Harceler", "n'est pas", "flatter."], "texto": "Dans le bus, dans la rue ou au travail : si elle n'a pas voulu, c'est de la violence." },
+    "ru": { "linhas": ["Приставать", "— не", "комплимент."], "texto": "В автобусе, на улице или на работе: если она не хотела — это насилие." },
+    "zh": { "linhas": ["骚扰", "不是", "恭维。"], "texto": "在公交上、街上或单位里：她不愿意，就是暴力。" }
+  },
+  {
+    "id": "os-velhos-guardam-a-memoria",
+    "pt": { "linhas": ["Os velhos", "guardam a", "memória."], "texto": "Escute quem viveu greve, enchente e ditadura. Conversa com avó também é aula." },
+    "en": { "linhas": ["Elders", "carry the", "memory."], "texto": "Listen to those who lived through strikes, floods and dictatorship. Talking with grandma is a lesson too." },
+    "es": { "linhas": ["Los viejos", "guardan la", "memoria."], "texto": "Escucha a quien vivió huelgas, inundaciones y dictadura. Charlar con la abuela también es clase." },
+    "fr": { "linhas": ["Les anciens", "gardent la", "mémoire."], "texto": "Écoute qui a vécu grèves, crues et dictature. Parler avec sa grand-mère, c'est aussi un cours." },
+    "ru": { "linhas": ["Старики", "хранят", "память."], "texto": "Слушай тех, кто пережил забастовки, наводнения и диктатуру. Разговор с бабушкой — тоже урок." },
+    "zh": { "linhas": ["老人", "守护着", "记忆。"], "texto": "听听经历过罢工、洪水和独裁的人。和奶奶聊天也是上课。" }
+  },
+  {
+    "id": "libras-tambem-e-lingua",
+    "pt": { "linhas": ["Libras", "também é", "língua."], "texto": "Surdo não é mudo nem incapaz. Escola que não ensina Libras deixa gente para trás." },
+    "en": { "linhas": ["Sign", "language is", "language."], "texto": "Deaf doesn't mean mute or incapable. Schools that don't teach sign language leave people behind." },
+    "es": { "linhas": ["La lengua", "de señas es", "lengua."], "texto": "Ser sordo no es ser mudo ni incapaz. La escuela que no enseña lengua de señas deja gente atrás." },
+    "fr": { "linhas": ["Signer,", "c'est aussi", "parler."], "texto": "Être sourd, ce n'est être ni muet ni incapable. L'école sans langue des signes laisse des gens de côté." },
+    "ru": { "linhas": ["Жестовый", "язык —", "тоже язык."], "texto": "Глухой — не немой и не неспособный. Школа без жестового языка оставляет людей позади." },
+    "zh": { "linhas": ["手语", "也是", "语言。"], "texto": "聋人不是哑巴，也不是无能。不教手语的学校会把人落下。" }
+  },
+  {
+    "id": "vida-antes-do-lucro",
+    "pt": { "linhas": ["Vida", "antes do", "lucro."], "texto": "Quando a conta não fecha, quem paga é sempre o trabalhador. Bora inverter essa ordem." },
+    "en": { "linhas": ["Lives", "before", "profits."], "texto": "When the numbers don't add up, workers always pay. Time to turn that order around." },
+    "es": { "linhas": ["Vida", "antes que", "lucro."], "texto": "Cuando las cuentas no cierran, siempre paga el trabajador. Hay que dar vuelta ese orden." },
+    "fr": { "linhas": ["La vie", "avant le", "profit."], "texto": "Quand les comptes ne tombent pas juste, c'est toujours le travailleur qui paie. Inversons l'ordre." },
+    "ru": { "linhas": ["Жизнь", "важнее", "прибыли."], "texto": "Когда не сходятся цифры, платит всегда рабочий. Пора перевернуть этот порядок." },
+    "zh": { "linhas": ["生命", "高于", "利润。"], "texto": "账算不平时，买单的总是工人。是时候把顺序倒过来了。" }
+  },
+  {
+    "id": "o-que-e-publico-e-nosso",
+    "pt": { "linhas": ["O que é", "público", "é nosso."], "texto": "Correio, metrô, luz e escola foram pagos com o nosso imposto. Vender é entregar o que é de todos." },
+    "en": { "linhas": ["What's", "public is", "ours."], "texto": "Post offices, subways, power and schools were paid with our taxes. Selling them gives away what is everyone's." },
+    "es": { "linhas": ["Lo público", "es de", "todos."], "texto": "Correo, metro, luz y escuela se pagaron con nuestros impuestos. Venderlos es regalar lo de todos." },
+    "fr": { "linhas": ["Le public", "est à", "nous."], "texto": "Poste, métro, électricité et école ont été payés par nos impôts. Les vendre, c'est brader le bien de tous." },
+    "ru": { "linhas": ["Общее —", "значит", "наше."], "texto": "Почта, метро, свет и школы оплачены нашими налогами. Продать их — значит отдать то, что принадлежит всем." },
+    "zh": { "linhas": ["公共的", "就是", "我们的。"], "texto": "邮政、地铁、电和学校都是用我们的税建的。卖掉它们，就是把大家的东西送人。" }
+  },
+  {
+    "id": "terreiro-tambem-e-sagrado",
+    "pt": { "linhas": ["Terreiro", "também é", "sagrado."], "texto": "Atacar casa de axé é racismo. Toda fé merece respeito, e a de matriz africana também." },
+    "en": { "linhas": ["Terreiros", "are sacred", "too."], "texto": "Attacking Afro-Brazilian temples is racism. Every faith deserves respect, African-rooted ones included." },
+    "es": { "linhas": ["El terreiro", "también es", "sagrado."], "texto": "Atacar una casa de axé es racismo. Toda fe merece respeto, también la de raíz africana." },
+    "fr": { "linhas": ["Le terreiro", "est sacré", "lui aussi."], "texto": "Attaquer un lieu de culte afro-brésilien, c'est du racisme. Toute foi mérite le respect." },
+    "ru": { "linhas": ["Террейру —", "тоже", "святыня."], "texto": "Нападать на храмы афробразильских религий — это расизм. Любая вера заслуживает уважения." },
+    "zh": { "linhas": ["非裔圣所", "也是", "神圣的。"], "texto": "攻击非洲裔宗教场所就是种族主义。每一种信仰都值得尊重。" }
+  },
+  {
+    "id": "gremio-e-escola-de-luta",
+    "pt": { "linhas": ["Grêmio", "é escola", "de luta."], "texto": "Organizar o grêmio ensina a debater, votar, discordar e decidir. Não cai na prova, mas fica." },
+    "en": { "linhas": ["Organized", "students", "learn more."], "texto": "Running a student union teaches debate, voting, dissent and decision. It's not on the test, but it stays." },
+    "es": { "linhas": ["Estudiante", "organizado", "aprende."], "texto": "El centro de estudiantes enseña a debatir, votar, discrepar y decidir. No entra en el examen, pero queda." },
+    "fr": { "linhas": ["Élèves", "organisés", "apprennent."], "texto": "Un conseil d'élèves apprend à débattre, voter, contester, décider. Ce n'est pas au contrôle, mais ça reste." },
+    "ru": { "linhas": ["Ученики", "вместе —", "сила."], "texto": "Школьный совет учит спорить, голосовать, не соглашаться и решать. Этого нет на экзамене, но это остаётся." },
+    "zh": { "linhas": ["组织起来的", "学生", "学得更多。"], "texto": "办学生会教人辩论、投票、提出异议、做决定。考试不考，但会留下来。" }
+  },
+  {
+    "id": "escravidao-nao-acabou",
+    "pt": { "linhas": ["Escravidão", "não", "acabou."], "texto": "Todo ano tem gente resgatada em fazenda, oficina e obra. Denunciar é dever de quem sabe." },
+    "en": { "linhas": ["Slavery", "hasn't", "ended."], "texto": "Every year people are rescued from farms, sweatshops and building sites. Those who know must report it." },
+    "es": { "linhas": ["Esclavitud", "no", "terminó."], "texto": "Cada año rescatan gente en estancias, talleres y obras. Denunciar es deber de quien sabe." },
+    "fr": { "linhas": ["L'esclavage", "n'est pas", "fini."], "texto": "Chaque année, on libère des gens dans des fermes, des ateliers et des chantiers. Qui sait doit dénoncer." },
+    "ru": { "linhas": ["Рабство", "не", "кончилось."], "texto": "Каждый год людей освобождают на фермах, в цехах и на стройках. Кто знает — обязан сообщить." },
+    "zh": { "linhas": ["奴役", "还没有", "结束。"], "texto": "每年都有人从农场、作坊和工地被解救出来。知情者有责任举报。" }
+  },
+  {
+    "id": "familia-e-quem-acolhe",
+    "pt": { "linhas": ["Família", "é quem", "acolhe."], "texto": "Muita gente LGBTQIA+ é expulsa de casa. Família de verdade é quem abre a porta." },
+    "en": { "linhas": ["Family is", "who shows", "up."], "texto": "Many LGBTQIA+ people are thrown out of home. Real family is whoever opens the door." },
+    "es": { "linhas": ["Familia", "es quien", "acoge."], "texto": "Mucha gente LGBTQIA+ es echada de su casa. Familia de verdad es quien abre la puerta." },
+    "fr": { "linhas": ["La famille,", "c'est qui", "accueille."], "texto": "Beaucoup de personnes LGBTQIA+ sont mises à la porte. La vraie famille, c'est qui ouvre la porte." },
+    "ru": { "linhas": ["Семья —", "те, кто", "принял."], "texto": "Многих ЛГБТК+ выгоняют из дома. Настоящая семья — те, кто открывает дверь." },
+    "zh": { "linhas": ["家人", "是接纳你", "的人。"], "texto": "很多LGBTQIA+的人被赶出家门。真正的家人，是为你开门的人。" }
+  },
+  {
+    "id": "lama-nao-e-acidente",
+    "pt": { "linhas": ["Lama", "não é", "acidente."], "texto": "Quando a barragem rompe, não é tragédia natural: é economia de quem lucra com a mina." },
+    "en": { "linhas": ["The mud", "was no", "accident."], "texto": "When a mining dam bursts, it's no natural disaster: it's the savings of those who profit from the mine." },
+    "es": { "linhas": ["El barro", "no fue", "accidente."], "texto": "Cuando la represa minera revienta, no es tragedia natural: es el ahorro de quien lucra con la mina." },
+    "fr": { "linhas": ["Cette boue", "n'est pas", "un hasard."], "texto": "Quand le barrage minier cède, ce n'est pas la nature : c'est l'économie de qui profite de la mine." },
+    "ru": { "linhas": ["Прорыв", "дамбы —", "не случай."], "texto": "Когда рушится дамба рудника, это не стихия, а экономия тех, кто наживается на шахте." },
+    "zh": { "linhas": ["溃坝", "不是", "意外。"], "texto": "矿坝决堤不是天灾，是靠矿山赚钱的人省下的成本。" }
+  },
+  {
+    "id": "mutirao-levanta-a-casa",
+    "pt": { "linhas": ["Mutirão", "levanta", "a casa."], "texto": "Laje batida em mutirão, feijão para todo mundo no fim. Assim a periferia construiu este país." },
+    "en": { "linhas": ["Together", "we raise", "the roof."], "texto": "A slab poured by the neighbors, beans for everyone at the end. That's how the outskirts built this country." },
+    "es": { "linhas": ["En minga", "se levanta", "la casa."], "texto": "La losa se llena entre vecinos y al final hay porotos para todos. Así la periferia construyó el país." },
+    "fr": { "linhas": ["Ensemble,", "on bâtit", "la maison."], "texto": "La dalle coulée entre voisins, des haricots pour tous à la fin. C'est ainsi que la périphérie a bâti le pays." },
+    "ru": { "linhas": ["Всем миром", "строим", "дом."], "texto": "Перекрытие заливают всем двором, а потом всех кормят фасолью. Так окраины построили страну." },
+    "zh": { "linhas": ["一起", "盖起", "房子。"], "texto": "邻居们一起浇楼板，最后大家一起吃豆子饭。郊区就是这样建起这个国家的。" }
+  },
+  {
+    "id": "ambulante-nao-e-bandido",
+    "pt": { "linhas": ["Ambulante", "não é", "bandido."], "texto": "Quem vende na rua está ganhando a vida. Rapa que leva a mercadoria leva o pão de uma família." },
+    "en": { "linhas": ["Street", "vendors are", "workers."], "texto": "Selling in the street is earning a living. Seizing their goods takes bread from a family." },
+    "es": { "linhas": ["Ambulante", "no es", "delito."], "texto": "Quien vende en la calle se gana la vida. Quitarle la mercadería es quitarle el pan a una familia." },
+    "fr": { "linhas": ["Vendeur", "de rue,", "pas voyou."], "texto": "Vendre dans la rue, c'est gagner sa vie. Saisir la marchandise, c'est prendre le pain d'une famille." },
+    "ru": { "linhas": ["Торговать", "на улице —", "не грех."], "texto": "Кто торгует на улице, зарабатывает на жизнь. Отнять товар — значит отнять хлеб у семьи." },
+    "zh": { "linhas": ["小贩", "不是", "罪犯。"], "texto": "在街上摆摊是在讨生活。没收货物，就是夺走一家人的饭碗。" }
+  },
+  {
+    "id": "domestica-tem-direitos",
+    "pt": { "linhas": ["Doméstica", "tem", "direitos."], "texto": "Carteira assinada, folga e respeito. Quem limpa a casa dos outros não é \"quase da família\"." },
+    "en": { "linhas": ["Domestic", "work is", "real work."], "texto": "A signed contract, days off and respect. Whoever cleans other people's homes is not \"almost family\"." },
+    "es": { "linhas": ["Empleadas", "con", "derechos."], "texto": "Contrato en regla, francos y respeto. Quien limpia casas ajenas no es \"casi de la familia\"." },
+    "fr": { "linhas": ["Le ménage", "est un vrai", "métier."], "texto": "Contrat déclaré, repos et respect. Qui nettoie la maison des autres n'est pas « presque de la famille »." },
+    "ru": { "linhas": ["Домашний", "труд —", "настоящий."], "texto": "Официальный договор, выходные и уважение. Кто убирает чужой дом, не «почти член семьи»." },
+    "zh": { "linhas": ["家政工", "也有", "权利。"], "texto": "正式合同、休息日和尊重。给别人打扫房子的人，不是“半个家里人”。" }
+  },
+  {
+    "id": "programa-livre-e-bem-comum",
+    "pt": { "linhas": ["Programa", "livre é", "bem comum."], "texto": "Ferramenta que ninguém pode estudar nem modificar prende quem usa. Aqui a gente prefere o livre." },
+    "en": { "linhas": ["Free", "software,", "free minds."], "texto": "A tool no one can study or change traps its users. Here we choose free software." },
+    "es": { "linhas": ["Software", "libre es", "bien común."], "texto": "Una herramienta que nadie puede estudiar ni modificar atrapa a quien la usa. Aquí preferimos lo libre." },
+    "fr": { "linhas": ["Le logiciel", "libre est", "à nous."], "texto": "Un outil que personne ne peut étudier ni modifier enferme qui l'utilise. Ici, on préfère le libre." },
+    "ru": { "linhas": ["Свободный", "код —", "общий."], "texto": "Инструмент, который нельзя изучить и изменить, держит пользователя в плену. Мы выбираем свободное." },
+    "zh": { "linhas": ["自由", "软件是", "公共财富。"], "texto": "没人能研究、修改的工具会困住使用者。我们这里选择自由软件。" }
+  },
+  {
+    "id": "ninguem-morre-pelo-patrao",
+    "pt": { "linhas": ["Ninguém", "morre pelo", "patrão."], "texto": "Andaime sem trava, máquina sem proteção, turno sem pausa: tudo isso tem nome e responsável." },
+    "en": { "linhas": ["No job", "is worth", "a life."], "texto": "Unsecured scaffolding, unguarded machines, shifts with no break: all of it has a name and someone responsible." },
+    "es": { "linhas": ["Ningún", "empleo vale", "una vida."], "texto": "Andamio sin traba, máquina sin protección, turno sin pausa: todo eso tiene nombre y responsable." },
+    "fr": { "linhas": ["Nul emploi", "ne vaut", "une vie."], "texto": "Échafaudage non fixé, machine sans protection, poste sans pause : tout cela a un nom et un responsable." },
+    "ru": { "linhas": ["Работа", "не стоит", "жизни."], "texto": "Леса без креплений, станок без защиты, смена без перерыва — у всего этого есть имя и виновный." },
+    "zh": { "linhas": ["没有工作", "值得用命", "去换。"], "texto": "没固定的脚手架、没防护的机器、不歇的班次：这些都有名字，也有责任人。" }
+  },
+  {
+    "id": "cuidar-de-quem-cuida",
+    "pt": { "linhas": ["Cuidar", "de quem", "cuida."], "texto": "Enfermeira, cuidadora e mãe também cansam. Quem segura todo mundo precisa ser segurado." },
+    "en": { "linhas": ["Care for", "those who", "care."], "texto": "Nurses, caregivers and mothers get tired too. Those who hold everyone up need holding too." },
+    "es": { "linhas": ["Cuidar a", "quien", "cuida."], "texto": "La enfermera, la cuidadora y la madre también se cansan. Quien sostiene a todos necesita sostén." },
+    "fr": { "linhas": ["Soigner", "celles qui", "soignent."], "texto": "Infirmières, aides-soignantes et mères se fatiguent aussi. Qui porte tout le monde a besoin d'être portée." },
+    "ru": { "linhas": ["Заботься", "о тех, кто", "заботится."], "texto": "Медсёстры, сиделки и матери тоже устают. Тем, кто держит всех, тоже нужна опора." },
+    "zh": { "linhas": ["照顾好", "每一个", "照护者。"], "texto": "护士、护工和母亲也会累。撑起所有人的人，也需要有人撑着。" }
+  },
+  {
+    "id": "conheca-seus-vizinhos",
+    "pt": { "linhas": ["Conheça", "seus", "vizinhos."], "texto": "Saber o nome de quem mora ao lado é o começo de toda organização de bairro." },
+    "en": { "linhas": ["Know", "your", "neighbors."], "texto": "Knowing the name of the person next door is where every neighborhood organization begins." },
+    "es": { "linhas": ["Conoce", "a tus", "vecinos."], "texto": "Saber el nombre de quien vive al lado es el comienzo de toda organización barrial." },
+    "fr": { "linhas": ["Connais", "tes", "voisins."], "texto": "Connaître le nom de qui habite à côté, c'est le début de toute organisation de quartier." },
+    "ru": { "linhas": ["Знай", "своих", "соседей."], "texto": "Знать по имени тех, кто живёт рядом, — начало любой организации района." },
+    "zh": { "linhas": ["认识", "你的", "邻居。"], "texto": "知道隔壁住的是谁，是一切街区组织的起点。" }
+  },
+  {
+    "id": "outro-mundo-e-possivel",
+    "pt": { "linhas": ["Outro mundo", "é", "possível."], "texto": "Jornada de oito horas, férias, escola pública: tudo isso um dia já foi chamado de utopia." },
+    "en": { "linhas": ["Another", "world is", "possible."], "texto": "The eight-hour day, paid holidays, public schools: all of it was once called utopia." },
+    "es": { "linhas": ["Otro mundo", "es", "posible."], "texto": "La jornada de ocho horas, las vacaciones, la escuela pública: todo eso alguna vez se llamó utopía." },
+    "fr": { "linhas": ["Un autre", "monde est", "possible."], "texto": "La journée de huit heures, les congés, l'école publique : tout cela a un jour été traité d'utopie." },
+    "ru": { "linhas": ["Другой мир", "—", "возможен."], "texto": "Восьмичасовой день, отпуск, бесплатная школа — всё это когда-то называли утопией." },
+    "zh": { "linhas": ["另一个", "世界是", "可能的。"], "texto": "八小时工作制、带薪假期、公立学校：这些都曾被叫作空想。" }
+  },
+  {
+    "id": "ideia-nao-se-queima",
+    "pt": { "linhas": ["Ideia", "não se", "queima."], "texto": "Toda vez que proibiram livros, o povo deu um jeito de copiar, esconder e passar adiante." },
+    "en": { "linhas": ["Ideas", "don't", "burn."], "texto": "Every time books were banned, people found a way to copy, hide and pass them on." },
+    "es": { "linhas": ["Las ideas", "no se", "queman."], "texto": "Cada vez que prohibieron libros, el pueblo se las arregló para copiarlos, esconderlos y pasarlos." },
+    "fr": { "linhas": ["Les idées", "ne brûlent", "pas."], "texto": "Chaque fois qu'on a interdit des livres, le peuple a trouvé moyen de les copier, cacher et faire circuler." },
+    "ru": { "linhas": ["Идеи", "не", "сгорают."], "texto": "Каждый раз, когда запрещали книги, народ находил способ их копировать, прятать и передавать." },
+    "zh": { "linhas": ["思想", "烧不", "掉。"], "texto": "每次禁书，人民总能想办法抄写、藏好、传下去。" }
+  },
+  {
+    "id": "cota-e-reparacao",
+    "pt": { "linhas": ["Cota", "é", "reparação."], "texto": "Séculos de escravidão não se apagam com discurso. Vaga reservada é justiça histórica." },
+    "en": { "linhas": ["Quotas", "are", "reparation."], "texto": "Centuries of slavery are not erased by speeches. A reserved seat is historical justice." },
+    "es": { "linhas": ["Las cuotas", "son", "reparación."], "texto": "Siglos de esclavitud no se borran con discursos. El cupo reservado es justicia histórica." },
+    "fr": { "linhas": ["Les quotas", "sont une", "réparation."], "texto": "Des siècles d'esclavage ne s'effacent pas avec des discours. La place réservée est une justice historique." },
+    "ru": { "linhas": ["Квоты —", "это", "возмещение."], "texto": "Века рабства не стереть речами. Зарезервированное место — историческая справедливость." },
+    "zh": { "linhas": ["配额", "是", "补偿。"], "texto": "几百年的奴隶制不是几句话就能抹掉的。保留名额是历史的正义。" }
+  },
+  {
+    "id": "mar-nao-e-condominio",
+    "pt": { "linhas": ["Mar", "não é", "condomínio."], "texto": "Pescador artesanal perde a praia para resort e porto. O litoral é de quem vive dele." },
+    "en": { "linhas": ["The beach", "isn't", "private."], "texto": "Small-scale fishers lose the shore to resorts and ports. The coast belongs to those who live from it." },
+    "es": { "linhas": ["El mar", "no es", "condominio."], "texto": "El pescador artesanal pierde la playa ante resorts y puertos. La costa es de quien vive de ella." },
+    "fr": { "linhas": ["La mer", "n'est pas", "privée."], "texto": "Les pêcheurs artisanaux perdent la plage au profit des resorts et des ports. Le littoral est à qui en vit." },
+    "ru": { "linhas": ["Море —", "не", "частное."], "texto": "Рыбаки теряют берег из-за курортов и портов. Побережье принадлежит тем, кто им живёт." },
+    "zh": { "linhas": ["大海", "不是", "私人的。"], "texto": "小渔民的海滩被度假村和港口夺走。海岸属于靠它生活的人。" }
+  },
+  {
+    "id": "horta-de-bairro-alimenta",
+    "pt": { "linhas": ["Horta", "de bairro", "alimenta."], "texto": "Canteiro, laje e terreno baldio viram comida, remédio e encontro entre vizinhos." },
+    "en": { "linhas": ["Community", "gardens", "feed us."], "texto": "Planters, rooftops and empty lots become food, medicine and a place for neighbors to meet." },
+    "es": { "linhas": ["La huerta", "del barrio", "alimenta."], "texto": "Cantero, terraza y baldío se vuelven comida, remedio y encuentro entre vecinos." },
+    "fr": { "linhas": ["Le potager", "du quartier", "nourrit."], "texto": "Bacs, toits et terrains vagues deviennent nourriture, remède et lieu de rencontre entre voisins." },
+    "ru": { "linhas": ["Грядки", "во дворе —", "еда."], "texto": "Клумба, крыша и пустырь становятся едой, лекарством и местом встречи соседей." },
+    "zh": { "linhas": ["社区", "菜园", "养人。"], "texto": "花坛、屋顶和空地变成食物、草药，也变成邻居相聚的地方。" }
+  },
+  {
+    "id": "o-nordeste-construiu",
+    "pt": { "linhas": ["O Nordeste", "construiu", "este país."], "texto": "Quem migrou para as obras do Sul levantou prédio, metrô e estádio. Preconceito nenhum apaga isso." },
+    "en": { "linhas": ["Migrant", "hands built", "the city."], "texto": "Those who migrated to southern building sites raised towers, subways and stadiums. No prejudice erases that." },
+    "es": { "linhas": ["La ciudad", "la hicieron", "migrantes."], "texto": "Quienes migraron a las obras del sur levantaron edificios, metros y estadios. Ningún prejuicio borra eso." },
+    "fr": { "linhas": ["Bâtie par", "des mains", "migrantes."], "texto": "Ceux qui ont migré vers les chantiers du Sud ont élevé immeubles, métros et stades. Aucun préjugé n'efface ça." },
+    "ru": { "linhas": ["Город", "построили", "мигранты."], "texto": "Те, кто приехал на стройки юга, возвели дома, метро и стадионы. Никакие предрассудки этого не сотрут." },
+    "zh": { "linhas": ["城市", "是移民", "建起来的。"], "texto": "去南方工地打工的人盖起了楼房、地铁和体育场。任何偏见都抹不掉这一点。" }
+  },
+  {
+    "id": "a-luta-tambem-tem-festa",
+    "pt": { "linhas": ["A luta", "também", "tem festa."], "texto": "Sarau, roda de samba e almoço coletivo também são organização. Sem alegria, ninguém aguenta." },
+    "en": { "linhas": ["Joy is", "part of the", "struggle."], "texto": "Poetry nights, samba circles and shared lunches are organizing too. Without joy, nobody lasts." },
+    "es": { "linhas": ["La lucha", "también es", "fiesta."], "texto": "Recital, ronda de samba y almuerzo colectivo también son organización. Sin alegría nadie aguanta." },
+    "fr": { "linhas": ["La lutte", "a aussi", "ses fêtes."], "texto": "Scène ouverte, cercle de samba et repas collectif, c'est aussi de l'organisation. Sans joie, on ne tient pas." },
+    "ru": { "linhas": ["В борьбе", "есть место", "празднику."], "texto": "Вечер стихов, круг самбы и общий обед — тоже организация. Без радости никто не выдержит." },
+    "zh": { "linhas": ["斗争", "也有", "欢乐。"], "texto": "诗会、桑巴圈和集体午餐也是组织工作。没有欢乐，谁也撑不下去。" }
+  },
+  {
+    "id": "nosso-luto-vira-luta",
+    "pt": { "linhas": ["Nosso luto", "vira", "luta."], "texto": "Mães que perderam filhos para a violência transformam dor em organização e cobrança." },
+    "en": { "linhas": ["Our grief", "becomes", "struggle."], "texto": "Mothers who lost children to violence turn pain into organizing and demands." },
+    "es": { "linhas": ["Nuestro", "duelo se", "hace lucha."], "texto": "Madres que perdieron hijos por la violencia convierten el dolor en organización y reclamo." },
+    "fr": { "linhas": ["Notre deuil", "devient", "combat."], "texto": "Des mères qui ont perdu leurs enfants dans la violence transforment la douleur en organisation et en exigence." },
+    "ru": { "linhas": ["Наше горе", "становится", "борьбой."], "texto": "Матери, потерявшие детей из-за насилия, превращают боль в организацию и требования." },
+    "zh": { "linhas": ["我们的", "悲痛化作", "斗争。"], "texto": "因暴力失去孩子的母亲们，把痛苦变成组织和追责。" }
+  },
+  {
+    "id": "ler-tambem-e-discordar",
+    "pt": { "linhas": ["Ler", "também é", "discordar."], "texto": "Leia com lápis na mão. Discuta, risque, anote na margem. Livro bom aguenta pergunta." },
+    "en": { "linhas": ["Read,", "then", "argue back."], "texto": "Read with a pencil in hand. Argue, underline, write in the margins. A good book can take questions." },
+    "es": { "linhas": ["Leer", "también es", "discutir."], "texto": "Lee con lápiz en mano. Discute, subraya, anota al margen. Un buen libro aguanta preguntas." },
+    "fr": { "linhas": ["Lire,", "c'est aussi", "discuter."], "texto": "Lis le crayon à la main. Discute, souligne, annote la marge. Un bon livre supporte les questions." },
+    "ru": { "linhas": ["Читать —", "значит", "спорить."], "texto": "Читай с карандашом в руке. Спорь, подчёркивай, пиши на полях. Хорошая книга выдержит вопросы." },
+    "zh": { "linhas": ["读书", "也是", "在争论。"], "texto": "拿着铅笔读。争论、划线、在页边写字。好书经得起提问。" }
+  },
+  {
+    "id": "despejo-e-violencia",
+    "pt": { "linhas": ["Despejo", "é", "violência."], "texto": "Tirar família de casa no meio do inverno, com criança na escola, não tem nada de lei e ordem." },
+    "en": { "linhas": ["Eviction", "is", "violence."], "texto": "Throwing a family out in the middle of winter, with kids in school, has nothing to do with law and order." },
+    "es": { "linhas": ["El desalojo", "es", "violencia."], "texto": "Echar a una familia en pleno invierno, con chicos en la escuela, no tiene nada de ley y orden." },
+    "fr": { "linhas": ["L'expulsion", "est une", "violence."], "texto": "Mettre une famille dehors en plein hiver, avec des enfants scolarisés, n'a rien à voir avec l'ordre." },
+    "ru": { "linhas": ["Выселение", "— это", "насилие."], "texto": "Выгнать семью посреди зимы, когда дети ходят в школу, — это не закон и порядок." },
+    "zh": { "linhas": ["强拆", "就是", "暴力。"], "texto": "在寒冬里把一家人赶出门，孩子还在上学，这跟法律和秩序毫无关系。" }
+  },
+  {
+    "id": "america-latina-unida",
+    "pt": { "linhas": ["América", "Latina", "unida."], "texto": "Do México à Patagônia, a mesma história de saque, resistência e esperança teimosa." },
+    "en": { "linhas": ["Latin", "America", "united."], "texto": "From Mexico to Patagonia, the same story of plunder, resistance and stubborn hope." },
+    "es": { "linhas": ["América", "Latina", "unida."], "texto": "De México a la Patagonia, la misma historia de saqueo, resistencia y esperanza terca." },
+    "fr": { "linhas": ["Amérique", "latine", "unie."], "texto": "Du Mexique à la Patagonie, la même histoire de pillage, de résistance et d'espoir têtu." },
+    "ru": { "linhas": ["Латинская", "Америка", "едина."], "texto": "От Мексики до Патагонии — одна история грабежа, сопротивления и упрямой надежды." },
+    "zh": { "linhas": ["拉丁", "美洲", "团结。"], "texto": "从墨西哥到巴塔哥尼亚，同样是掠夺、反抗和倔强希望的历史。" }
+  }
+]

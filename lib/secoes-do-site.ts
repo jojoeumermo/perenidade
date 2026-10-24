@@ -6,11 +6,10 @@ import { textosDoEstudo } from "@/lib/textos-estudo";
 
 export interface SecaoDoSite {
   title: string;
-  items: { label: string; path: string; description: string }[];
+  items: { label: string; path: string; description: string; short: string }[];
 }
 
 type Item = [string, string, string];
-const itens = (lista: Item[]) => lista.map(([label, path, description]) => ({ label, path, description }));
 
 /**
  * Tudo o que não cabe no menu do topo, por objetivo. A mesma lista abre na janela do "Mais" (no cabeçalho e nas
@@ -21,6 +20,9 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
   // Recursos novos (lib/recursos.ts): só entram na lista quando ligados.
   const novos = textosDoEstudo(lang).s;
   const d = t.more.items as Record<string, string>;
+  const curtas = t.more.short as Record<string, string>;
+  // A descrição curta (duas ou três palavras) vai ao lado do nome na janela do "Mais"; a longa fica na dica e no celular.
+  const itens = (lista: Item[]) => lista.map(([label, path, description]) => ({ label, path, description, short: curtas[path] ?? "" }));
   const se = (recurso: Parameters<typeof ligado>[0], item: Item): Item[] => (ligado(recurso) ? [item] : []);
   return [
     {

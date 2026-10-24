@@ -13283,6 +13283,86 @@ begin
 exception when others then null;
 end $$;
 
+-- ───────────────────────────── Contagens anônimas ─────────────────────────────
+-- Para saber se uma aula funciona e o que se lê no jornal sem vigiar ninguém: cada linha é só um total por dia
+-- (tipo, alvo, dia). Nada de conta, cookie, endereço de rede ou identificador. O freio contra quem insiste em inflar
+-- um número usa o mesmo limite do resto do banco, que guarda a origem embaralhada por dois dias e depois esquece.
+
+create table if not exists interno.contagens (
+  tipo text not null check (tipo in ('jornal_leu', 'aula_abriu', 'aula_terminou', 'aula_teste', 'aula_acertou', 'aula_ajudou', 'aula_nao_ajudou', 'episodio_ouviu')),
+  alvo text not null check (alvo ~ '^[a-z0-9/_-]{1,160}$'),
+  dia date not null default (now() at time zone 'America/Sao_Paulo')::date,
+  total integer not null default 0,
+  primary key (tipo, alvo, dia)
+);
+
+/** Soma um à contagem do dia. Responde sempre vazio: quem chama não fica sabendo de nada. */
+create or replace function public.contar(p_tipo text, p_alvo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if p_tipo not in ('jornal_leu', 'aula_abriu', 'aula_terminou', 'aula_teste', 'aula_acertou', 'aula_ajudou', 'aula_nao_ajudou', 'episodio_ouviu') then return '{}'::jsonb; end if;
+  if coalesce(p_alvo, '') !~ '^[a-z0-9/_-]{1,160}$' then return '{}'::jsonb; end if;
+  begin
+    perform interno.limite('contar:' || p_tipo || ':' || p_alvo, 3, 60);
+    perform interno.limite('contar', 120, 60);
+  exception when others then
+    return '{}'::jsonb;
+  end;
+  insert into contagens (tipo, alvo, total) values (p_tipo, p_alvo, 1)
+  on conflict (tipo, alvo, dia) do update set total = contagens.total + 1;
+  return '{}'::jsonb;
+end $$;
+
+/** As matérias mais lidas nos últimos sete dias (só os totais, públicos por natureza). */
+create or replace function public.jornal_mais_lidas() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('slug', alvo, 'total', soma) order by soma desc), '[]'::jsonb)
+  from (select alvo, sum(total) as soma from contagens where tipo = 'jornal_leu' and dia > (now() at time zone 'America/Sao_Paulo')::date - 7
+        group by alvo order by sum(total) desc limit 5) x
+$$;
+
+/**
+ * Para a equipe melhorar as aulas: por aula, quantos abriram, terminaram, fizeram e acertaram o teste e disseram que
+ * ajudou ou não, nos últimos noventa dias. Só para quem escreve, revisa ou coordena.
+ */
+create or replace function public.aulas_funcionam(p_dias integer default 90) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  if not (interno.coord() or interno.tem('supervisao') or interno.tem('educacao') or interno.tem('revisao') or interno.tem('curadoria')) then
+    perform interno.erro('sem_permissao');
+  end if;
+  return coalesce((
+    select jsonb_agg(jsonb_build_object('aula', alvo, 'abriu', abriu, 'terminou', terminou, 'teste', teste, 'acertou', acertou, 'ajudou', ajudou, 'nao_ajudou', nao_ajudou) order by abriu desc)
+    from (
+      select alvo,
+        coalesce(sum(total) filter (where tipo = 'aula_abriu'), 0) as abriu,
+        coalesce(sum(total) filter (where tipo = 'aula_terminou'), 0) as terminou,
+        coalesce(sum(total) filter (where tipo = 'aula_teste'), 0) as teste,
+        coalesce(sum(total) filter (where tipo = 'aula_acertou'), 0) as acertou,
+        coalesce(sum(total) filter (where tipo = 'aula_ajudou'), 0) as ajudou,
+        coalesce(sum(total) filter (where tipo = 'aula_nao_ajudou'), 0) as nao_ajudou
+      from contagens where tipo like 'aula_%' and dia > (now() at time zone 'America/Sao_Paulo')::date - least(greatest(coalesce(p_dias, 90), 1), 365)
+      group by alvo
+    ) x
+  ), '[]'::jsonb);
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where p.prokind = 'f' and n.nspname = 'public' and p.proname in ('contar', 'jornal_mais_lidas', 'aulas_funcionam') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+
+-- Os totais diários de mais de dois anos viram um só por mês? Não: simplesmente saem, a pergunta é sempre sobre agora.
+do $$
+begin
+  if exists (select 1 from pg_extension where extname = 'pg_cron') then
+    perform cron.schedule('lucia-contagens-faxina', '41 4 * * 0', $c$delete from interno.contagens where dia < now() - interval '2 years'$c$);
+  end if;
+exception when others then null;
+end $$;
+
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança
 -- por linha até a próxima execução deste arquivo. Aqui, no fim, toda tabela do esquema interno fica com a segurança por

@@ -8,6 +8,7 @@ export const site = {
   support: "https://benfeitoria.com/projeto/instituto-lucia-28cx",
   /** Perfil do instituto no Instagram: aparece no rodapé e na página "Mais". */
   instagram: "https://www.instagram.com/institutoluciaorg/",
+  instagramUser: "institutoluciaorg",
   /** Endereço de contato do instituto: é para lá que vão os pedidos sobre o boletim do jornal. */
   newsletter: "institutolucia@tutamail.com",
   /**

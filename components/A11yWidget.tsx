@@ -68,14 +68,26 @@ export function A11yWidget() {
           ref={panelRef}
           role="dialog"
           aria-label={t.a11y.title}
-          className="absolute bottom-14 right-0 max-h-[75vh] w-[min(21rem,calc(100vw-2rem))] space-y-5 overflow-y-auto border-2 border-ink bg-parchment p-5 text-ink"
+          className="absolute bottom-14 right-0 max-h-[78vh] w-[min(22rem,calc(100vw-1.5rem))] space-y-5 overflow-y-auto border-2 border-ink bg-folha p-5 text-ink shadow-[6px_6px_0_var(--sombra)]"
         >
-          <div className="flex items-center justify-between">
-            <h2 className="font-serif text-xl font-semibold">{t.a11y.title}</h2>
-            <button type="button" onClick={() => setOpen(false)} aria-label={t.a11y.close} className="cursor-pointer px-1 text-lg hover:text-oxblood">
-              ✕
+          <div className="flex items-center justify-between border-b-2 border-ink pb-3">
+            <div>
+              <p className="rotulo">{t.a11y.button}</p>
+              <h2 className="font-serif text-2xl font-semibold leading-tight">{t.a11y.title}</h2>
+            </div>
+            <button type="button" onClick={() => setOpen(false)} aria-label={t.a11y.close} className="flex h-10 w-10 cursor-pointer items-center justify-center border-2 border-ink hover:bg-ink hover:text-parchment">
+              <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+                <path d="M6 6l12 12M18 6 6 18" />
+              </svg>
             </button>
           </div>
+
+          {/* O VLibras no alto, em destaque: quem precisa de Libras não deve ter de rolar a janela para achar. */}
+          {ligado("vlibras") && (
+            <div className="border-2 border-ink bg-ink p-4 text-parchment shadow-[4px_4px_0_var(--prelo)] [&_.text-ink-soft]:text-[#e9dcbc] [&_button]:border-parchment">
+              <AtivarVLibras />
+            </div>
+          )}
 
           <fieldset>
             <legend className="font-semibold">{t.a11y.textSize}</legend>
@@ -123,8 +135,6 @@ export function A11yWidget() {
             )}
             <span role="status" className="sr-only">{speaking ? t.a11y.reading : ""}</span>
           </div>
-
-          {ligado("vlibras") && <AtivarVLibras />}
 
           <button type="button" onClick={resetPrefs} className="cursor-pointer text-ink-soft underline hover:text-oxblood">
             {t.a11y.reset}

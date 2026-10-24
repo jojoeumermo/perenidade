@@ -428,6 +428,32 @@ body {
     box-shadow: 3px 3px 0 var(--prelo);
   }
 
+  /* O Instagram do topo: tinta preta com a sombra vermelha, o @ em letra de máquina. */
+  .botao-instagram {
+    background-color: var(--ink);
+    color: var(--parchment);
+    box-shadow: 4px 4px 0 var(--prelo);
+  }
+  .botao-instagram:hover {
+    color: var(--parchment);
+    box-shadow: 6px 6px 0 var(--prelo);
+  }
+  .botao-instagram:active {
+    box-shadow: 0 0 0 var(--prelo);
+  }
+  .botao-instagram.botao-menor {
+    box-shadow: 3px 3px 0 var(--prelo);
+  }
+  .botao-instagram-compacto {
+    display: inline-flex;
+    height: 2.4rem;
+    width: 2.4rem;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--prelo);
+  }
+
   /* Rótulo de arquivo: letra de máquina, espaçada, no vermelho do prelo. */
   .rotulo {
     font-family: var(--font-archive), ui-monospace, monospace;

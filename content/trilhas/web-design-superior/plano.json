@@ -1,0 +1,54 @@
+[
+  {
+    "slug": "a-internet-como-territorio-em-disputa-plataformas-monopolios-e-a-web-aberta",
+    "titulo": "A internet como território em disputa: plataformas, monopólios e a web aberta"
+  },
+  {
+    "slug": "software-livre-e-licencas-gpl-mit-e-creative-commons",
+    "titulo": "Software livre e licenças: GPL, MIT e Creative Commons"
+  },
+  {
+    "slug": "pesquisa-com-quem-vai-usar-o-site",
+    "titulo": "Pesquisa com quem vai usar o site"
+  },
+  {
+    "slug": "arquitetura-da-informacao-menus-paginas-e-caminhos",
+    "titulo": "Arquitetura da informação: menus, páginas e caminhos"
+  },
+  {
+    "slug": "sistema-de-design-componentes-reutilizaveis",
+    "titulo": "Sistema de design: componentes reutilizáveis"
+  },
+  {
+    "slug": "um-pouco-de-javascript-quando-usar-e-quando-evitar",
+    "titulo": "Um pouco de JavaScript: quando usar e quando evitar"
+  },
+  {
+    "slug": "geradores-de-site-estatico-e-paginas-sem-servidor",
+    "titulo": "Geradores de site estático e páginas sem servidor"
+  },
+  {
+    "slug": "git-para-versionar-e-trabalhar-em-coletivo",
+    "titulo": "Git para versionar e trabalhar em coletivo"
+  },
+  {
+    "slug": "dominio-hospedagem-e-publicacao-gratuita",
+    "titulo": "Domínio, hospedagem e publicação gratuita"
+  },
+  {
+    "slug": "seguranca-e-privacidade-sem-rastreadores-sem-vazamento",
+    "titulo": "Segurança e privacidade: sem rastreadores, sem vazamento"
+  },
+  {
+    "slug": "desempenho-medido-lighthouse-e-testes-de-velocidade",
+    "titulo": "Desempenho medido: Lighthouse e testes de velocidade"
+  },
+  {
+    "slug": "normas-de-acessibilidade-wcag-na-pratica",
+    "titulo": "Normas de acessibilidade (WCAG) na prática"
+  },
+  {
+    "slug": "manter-o-site-vivo-atualizacao-backup-e-passagem-de-bastao",
+    "titulo": "Manter o site vivo: atualização, backup e passagem de bastão"
+  }
+]
