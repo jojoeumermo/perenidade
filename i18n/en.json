@@ -2884,7 +2884,8 @@
       "copy": "Copy the summary",
       "copied": "Summary copied.",
       "reset": "Start over",
-      "note": "The result is a suggestion based on your answers, not a verdict."
+      "note": "The result is a suggestion based on your answers, not a verdict.",
+      "kicker": "Do it yourself"
     },
     "verdicts": {
       "title": "What each label means",
@@ -2959,7 +2960,10 @@
         "registro-br": "Shows who registered an address ending in .br.",
         "bellingcat": "Guides to open-source investigation."
       }
-    }
+    },
+    "startCheck": "Check a message",
+    "published": "Published fact-checks: {n}",
+    "checksTitle": "Published fact-checks"
   },
   "debates": {
     "eyebrow": "Arguments at hand",

@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Markdown } from "@/components/Markdown";
-import { PageHeading } from "@/components/PageHeading";
+import { Capa, Corpo } from "@/components/pagina/Capa";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
@@ -19,10 +19,21 @@ export default async function Glossario({ params }: PageProps<"/[lang]/glossario
   const { lang, t } = await loadLang(params);
   const terms = getGlossaryIndex(lang);
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
-      <PageHeading eyebrow={t.glossary.eyebrow} title={t.glossary.title}>
+    <>
+      <Capa
+        rotulo={t.glossary.eyebrow}
+        titulo={t.glossary.title}
+        lado={
+          <div className="cartao-preto -rotate-1 p-6">
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-[#e0837a]">{t.glossary.eyebrow}</p>
+            <p className="mt-2 font-serif text-[3.2rem] font-semibold leading-none text-[#f4ecd8]">{new Intl.NumberFormat(lang).format(terms.length)}</p>
+            <p className="mt-3 text-lg leading-snug text-[#e9dcbc]">{t.glossary.lead}</p>
+          </div>
+        }
+      >
         {t.glossary.lead}
-      </PageHeading>
+      </Capa>
+      <Corpo largura="estreita">
       <Untranslated lang={lang} t={t} show={terms.some((term) => !term.translated)} />
       <GlossaryList
         s={t.glossary}
@@ -40,6 +51,7 @@ export default async function Glossario({ params }: PageProps<"/[lang]/glossario
         {t.glossary.missing}{" "}
         <Link href={localePath(lang, "/contribuir")} className="underline hover:text-oxblood">{t.nav.contribute}</Link>.
       </p>
-    </div>
+      </Corpo>
+    </>
   );
 }

@@ -2884,7 +2884,8 @@
       "copy": "Copiar o resumo",
       "copied": "Resumo copiado.",
       "reset": "Começar de novo",
-      "note": "O resultado é uma sugestão a partir das suas respostas, não um veredito."
+      "note": "O resultado é uma sugestão a partir das suas respostas, não um veredito.",
+      "kicker": "Faça você mesmo"
     },
     "verdicts": {
       "title": "O que quer dizer cada selo",
@@ -2959,7 +2960,10 @@
         "registro-br": "Mostra quem registrou um endereço terminado em .br.",
         "bellingcat": "Guias de investigação com fontes abertas (em inglês)."
       }
-    }
+    },
+    "startCheck": "Checar uma mensagem",
+    "published": "Checagens publicadas: {n}",
+    "checksTitle": "Checagens publicadas"
   },
   "debates": {
     "eyebrow": "Argumentos à mão",

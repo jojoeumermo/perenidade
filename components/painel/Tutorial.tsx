@@ -18,14 +18,15 @@ interface Passo {
 
 // O caminho de quem chega: do menu ao trabalho do dia, em poucos passos e sem jargão.
 const PASSOS: Passo[] = [
-  { titulo: "Bem-vindo ao painel", texto: "Este é o lugar de trabalho da equipe do Instituto Lúcia. Em um minuto, este passeio mostra onde fica cada coisa. Dá para pular quando quiser e rever depois pelo botão Tutorial, no alto." },
-  { alvo: "menu", titulo: "O menu", texto: "Aqui ficam as seções do painel, separadas por área (Produção, Atendimento, Pessoas…). Cada pessoa vê só as seções da função que recebeu. O número vermelho ao lado é o que está esperando por você." },
-  { alvo: "recolher", titulo: "Menu recolhido", texto: "Este botão recolhe o menu num trilho fino, só com os ícones, para sobrar mais espaço na tela. Clique de novo para ver os nomes." },
-  { alvo: "ir-para", titulo: "Ir para…", texto: "Procure qualquer seção pelo nome (fila, horas, rádio). O atalho é Ctrl+K, ou a tecla / fora de um campo de texto." },
-  { alvo: "mesa", titulo: "A Mesa", texto: "A primeira tela: o que pede a sua atenção hoje. A manchete é o mais urgente; embaixo, o resto da lista. Clique numa linha para ir direto ao trabalho." },
-  { alvo: "escrever", titulo: "Escrever", texto: "Aulas, matérias, verbetes e tudo o que vai para o site começam aqui. O texto passa pela revisão antes de ir ao ar, e o rascunho fica guardado sozinho." },
-  { alvo: "conta", titulo: "Você", texto: "Seu nome, sua função e a sua conta (nome, senha, foto e a proteção com o código do celular). Aqui também ficam o tema claro ou escuro e a saída." },
-  { titulo: "Pronto", texto: "É isso. As conversas da equipe ficam em Conversas e reuniões, e as tarefas rápidas em Tarefas. Na dúvida, chame a coordenação pelas conversas." },
+  { titulo: "Bem-vindo ao painel", texto: "Este é o lugar de trabalho da equipe do Instituto Lúcia. Em dois minutos, este passeio mostra onde fica cada coisa. Pode pular quando quiser e rever depois pelo botão Tutorial, no alto da tela." },
+  { alvo: "menu", titulo: "O menu tem duas partes", texto: "À esquerda, o trilho escuro com as áreas: Hoje, Produção, Atendimento, Pessoas, Site, Segurança e Você. Clique num ícone e, ao lado, aparecem as seções daquela área. O número vermelho mostra o que está esperando por você." },
+  { alvo: "ir-para", titulo: "Ir para…", texto: "Não achou? Escreva aqui o nome do que procura (fila, horas, rádio) e aperte Enter. De qualquer lugar do painel, o atalho é Ctrl+K." },
+  { alvo: "recolher", titulo: "Mais espaço", texto: "Este botão esconde a lista e deixa só o trilho de ícones. Clique num ícone do trilho para a lista voltar." },
+  { alvo: "mesa", titulo: "A Mesa", texto: "É a primeira tela. Mostra tudo o que chegou para você hoje: o que revisar, o que responder e o que fazer. Clique numa linha e você vai direto para o trabalho." },
+  { titulo: "Cada seção tem o seu passo a passo", texto: "No alto de toda seção há o botão Como funciona esta seção. Ele explica, em poucos passos, o que fazer ali. Na primeira vez que você abrir uma seção, ele mesmo oferece ajuda." },
+  { alvo: "escrever", titulo: "Escrever", texto: "Aulas, matérias, verbetes e tudo o que vai para o site começam aqui. Nada vai ao ar sem passar pela revisão. O rascunho fica guardado sozinho." },
+  { alvo: "conta", titulo: "Você", texto: "Clique na sua foto para abrir Minha conta: o seu nome, a senha, a proteção com o código do celular e a sua faixa de assinatura de e-mail." },
+  { titulo: "Pronto", texto: "É isso. As conversas da equipe ficam em Conversas e reuniões, e as tarefas rápidas em Tarefas. Ficou com dúvida? Chame a coordenação nas conversas. Ninguém precisa saber tudo no primeiro dia." },
 ];
 
 /**

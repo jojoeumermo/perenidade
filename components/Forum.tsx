@@ -13,6 +13,7 @@ import { compartilhar, quente, usePreferencias } from "./comunidade/preferencias
 import { L, useI18n } from "./I18n";
 import { Markdown } from "./Markdown";
 import { Selo } from "./Selo";
+import { Traco } from "./comunidade/Tracos";
 
 type S = Dict["community"];
 type Selo = keyof S["badges"];
@@ -73,7 +74,9 @@ interface Salas {
   sem_resposta: number;
 }
 
-const field = "mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2";
+const field = "mt-1.5 w-full border-2 border-ink bg-folha px-3 py-2.5 text-base";
+/** As etiquetas dos cartões (Dúvida, Resolvida, Trancada…): letra de máquina, retas, sem cor chapada à toa. */
+const etiqueta = "inline-flex items-center gap-1 px-2 py-0.5 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.14em]";
 const ALVO = /^\/(trilhas|acervo)\/[a-z0-9/-]{2,200}$/;
 const POR_PAGINA = 30;
 const isSala = (x: string) => (areaSlugs as readonly string[]).includes(x);
@@ -90,14 +93,14 @@ function relativo(iso: string, lang: string): string {
 /** O selo de quem escreveu: a função mais próxima do estudo, escrita por extenso (não depende só de cor). */
 function SeloDoAutor({ selo, s }: { selo?: Selo | null; s: S }) {
   if (!selo) return null;
-  return <span className="ml-1 border border-gold px-1 font-mono text-[0.65rem] uppercase tracking-wider text-gold">{s.badges[selo]}</span>;
+  return <span className="ml-1 border-[1.5px] border-current px-1 font-mono text-[0.62rem] uppercase tracking-wider text-prelo-texto">{s.badges[selo]}</span>;
 }
 
 /** A bolinha da sala, com a inicial: o "ícone" de cada sala na lista. */
 function Bolinha({ slug, nome, grande = false }: { slug: string; nome: string; grande?: boolean }) {
   const tons = ["#7A1F1F", "#1e56c8", "#2e7d32", "#b8860b", "#7b3fa0", "#c2410c", "#0f766e", "#be185d"];
   const cor = tons[[...slug].reduce((a, c) => a + c.charCodeAt(0), 0) % tons.length];
-  return <span aria-hidden className={`grid shrink-0 place-items-center rounded-full font-serif font-bold text-white ${grande ? "h-16 w-16 border-4 border-parchment text-3xl" : "h-5 w-5 text-[0.65rem]"}`} style={{ background: cor }}>{nome.slice(0, 1)}</span>;
+  return <span aria-hidden className={`grid shrink-0 place-items-center border-[#1f1a14] font-serif font-bold text-white ${grande ? "h-20 w-20 border-[3px] text-4xl shadow-[4px_4px_0_var(--sombra)]" : "h-6 w-6 border-[1.5px] text-[0.75rem]"}`} style={{ background: cor }}>{nome.slice(0, 1)}</span>;
 }
 
 /** Voto "útil", em pé como as setas de um fórum: um clique marca, outro tira. Os votos contra de antes continuam contados. */
@@ -120,11 +123,11 @@ function Util({ kind, id, points, mine, s, disabled, deitado = false }: { kind: 
       aria-pressed={marcado}
       title={marcado ? s.usefulUnmark : s.usefulMark}
       aria-label={`${marcado ? s.usefulUnmark : s.usefulMark} (${state.points})`}
-      className={`flex shrink-0 cursor-pointer items-center rounded-md font-mono leading-tight disabled:cursor-not-allowed disabled:opacity-60 ${deitado ? "gap-1.5 px-2 py-0.5 text-xs" : "w-11 flex-col py-1 text-xs"} ${marcado ? "bg-oxblood/10 text-oxblood" : "text-ink-soft hover:bg-parchment-deep hover:text-oxblood"}`}
+      className={`flex shrink-0 cursor-pointer items-center border-2 font-mono leading-tight disabled:cursor-not-allowed disabled:opacity-60 ${deitado ? "min-h-9 gap-1.5 px-2.5 py-1 text-xs" : "w-14 flex-col gap-0.5 py-2 text-xs"} ${marcado ? "border-[#c21f16] bg-[#c21f16] text-white" : "border-ink bg-parchment text-ink hover:text-prelo-texto"}`}
     >
-      <span aria-hidden className={deitado ? "" : "text-base"}>{marcado ? "▲" : "△"}</span>
-      <span className="text-sm font-semibold">{state.points}</span>
-      {!deitado && <span className="text-[0.55rem] uppercase">{s.useful}</span>}
+      <Traco nome="sobe" cheio={marcado} className={deitado ? "h-3.5 w-3.5" : "h-4 w-4"} />
+      <span className={deitado ? "text-sm font-semibold" : "text-base font-semibold"}>{state.points}</span>
+      {!deitado && <span className="text-[0.55rem] uppercase tracking-wider">{s.useful}</span>}
     </button>
   );
 }
@@ -132,17 +135,20 @@ function Util({ kind, id, points, mine, s, disabled, deitado = false }: { kind: 
 export function Forum({ s }: { s: S }) {
   const params = useSearchParams();
   const topic = params.get("t");
-  if (!hasBackend) return <p className="mt-10 text-lg text-ink-soft">{s.offline}</p>;
+  if (!hasBackend) return <p className="cartao mt-10 p-6 text-lg text-ink-soft">{s.offline}</p>;
   return topic && /^[0-9a-f-]{36}$/.test(topic) ? <TopicView id={topic} s={s} /> : <TopicList s={s} />;
 }
 
 function Regras({ s }: { s: S }) {
   return (
-    <ul className="mt-2 list-disc space-y-1 pl-5 text-ink-soft">
-      {s.rules.map((rule) => (
-        <li key={rule}>{rule}</li>
+    <ol className="mt-3 space-y-3 text-ink-soft">
+      {s.rules.map((rule, i) => (
+        <li key={rule} className="flex gap-3">
+          <span aria-hidden className="font-mono text-xs font-semibold text-prelo-texto">{String(i + 1).padStart(2, "0")}</span>
+          <span className="min-w-0 flex-1">{rule}</span>
+        </li>
       ))}
-    </ul>
+    </ol>
   );
 }
 
@@ -153,18 +159,18 @@ function Escrita({ valor, mudar, s, linhas, minimo, rotulo, foco = false }: { va
   return (
     <div>
       <div className="flex items-end justify-between gap-2">
-        <span>{rotulo}</span>
-        <span role="tablist" className="flex text-xs">
-          <button type="button" role="tab" aria-selected={!ver} onClick={() => setVer(false)} className={`cursor-pointer border-b-2 px-2 py-1 ${!ver ? "border-oxblood font-semibold" : "border-transparent text-ink-soft"}`}>{s.write}</button>
-          <button type="button" role="tab" aria-selected={ver} onClick={() => setVer(true)} className={`cursor-pointer border-b-2 px-2 py-1 ${ver ? "border-oxblood font-semibold" : "border-transparent text-ink-soft"}`}>{s.preview}</button>
+        <span className="font-semibold">{rotulo}</span>
+        <span role="tablist" className="flex">
+          <button type="button" role="tab" aria-selected={!ver} onClick={() => setVer(false)} className={`aba-pasta min-h-10 py-1.5! ${!ver ? "bg-ink! text-parchment!" : ""}`}>{s.write}</button>
+          <button type="button" role="tab" aria-selected={ver} onClick={() => setVer(true)} className={`aba-pasta -ml-0.5 min-h-10 py-1.5! ${ver ? "bg-ink! text-parchment!" : ""}`}>{s.preview}</button>
         </span>
       </div>
       {ver ? (
-        <div className="mt-1 min-h-24 border-2 border-dashed border-ink/40 bg-parchment px-3 py-2 font-serif">{valor.trim() ? <Markdown lang={lang}>{valor}</Markdown> : <p className="font-sans text-ink-soft">{s.nothingToPreview}</p>}</div>
+        <div className="mt-1.5 min-h-28 border-2 border-dashed border-ink bg-folha px-4 py-3 font-serif">{valor.trim() ? <Markdown lang={lang}>{valor}</Markdown> : <p className="font-sans text-ink-soft">{s.nothingToPreview}</p>}</div>
       ) : (
         <textarea value={valor} onChange={(e) => mudar(e.target.value)} rows={linhas} maxLength={8000} required minLength={minimo} aria-label={rotulo} className={field} autoFocus={foco} />
       )}
-      <p className="mt-0.5 text-right font-mono text-[0.65rem] text-ink-soft">{valor.length}/8000</p>
+      <p className="mt-1 text-right font-mono text-[0.68rem] text-ink-soft">{valor.length}/8000</p>
     </div>
   );
 }

@@ -61,27 +61,39 @@ export function ComoChecar({ s }: { s: S }) {
     }
   }
 
+  const opcao = (ativa: boolean) =>
+    `flex min-h-11 cursor-pointer items-center border-2 border-ink px-4 py-2 text-[0.95rem] leading-snug focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--gold)] ${
+      ativa ? "bg-ink text-parchment shadow-[3px_3px_0_var(--prelo)]" : "bg-parchment text-ink hover:shadow-[3px_3px_0_var(--prelo)]"
+    }`;
+
   return (
-    <section aria-labelledby="como-checar" className="no-print mt-10 border-2 border-ink p-5 font-sans text-sm">
-      <h2 id="como-checar" className="font-serif text-2xl font-semibold">{s.title}</h2>
-      <p className="mt-1 text-ink-soft">{s.lead}</p>
-      <label className="mt-4 block">
+    <section aria-labelledby="como-checar-titulo" id="como-checar" className="cartao no-print scroll-mt-40 p-6 font-sans sm:p-9">
+      <p className="rotulo">{s.kicker}</p>
+      <h2 id="como-checar-titulo" className="mt-2 font-serif text-[2.2rem] font-medium leading-[1.05] sm:text-5xl">
+        {s.title}
+      </h2>
+      <p className="mt-3 max-w-2xl font-serif text-xl leading-snug text-ink-soft">{s.lead}</p>
+      <label className="mt-7 block text-sm font-semibold">
         {s.claim}
-        <textarea value={alegacao} onChange={(e) => setAlegacao(e.target.value)} rows={3} maxLength={2000} placeholder={s.claimPlaceholder} className="mt-1 w-full border-2 border-ink bg-parchment-deep px-3 py-2" />
+        <textarea value={alegacao} onChange={(e) => setAlegacao(e.target.value)} rows={3} maxLength={2000} placeholder={s.claimPlaceholder} className="mt-2 block w-full border-2 border-ink bg-parchment px-4 py-3 font-serif text-lg text-ink outline-none placeholder:text-ink-soft focus:shadow-[4px_4px_0_var(--prelo)]" />
       </label>
-      <ol className="mt-5 space-y-5">
+      <ol className="mt-8 flex flex-col">
         {s.items.map((item, passo) => (
-          <li key={item.q}>
-            <fieldset>
-              <legend className="font-semibold">
-                <span className="font-mono text-gold">{passo + 1}.</span> {item.q}
+          <li key={item.q} className="grid grid-cols-[3rem_minmax(0,1fr)] gap-x-4 border-t-2 border-ink py-6 sm:grid-cols-[4.5rem_minmax(0,1fr)] sm:gap-x-6">
+            <span aria-hidden className={`font-serif text-5xl font-semibold leading-none sm:text-6xl ${respostas[passo] !== null ? "text-ink" : "text-prelo-texto"}`}>
+              {passo + 1}
+            </span>
+            <fieldset className="min-w-0">
+              <legend className="font-serif text-[1.45rem] font-semibold leading-tight">
+                <span className="sr-only">{passo + 1}. </span>
+                {item.q}
               </legend>
-              <p className="mt-0.5 text-ink-soft">{item.help}</p>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {item.options.map((opcao, i) => (
-                  <label key={opcao} className={`cursor-pointer border px-3 py-1.5 focus-within:outline focus-within:outline-2 ${respostas[passo] === i ? "border-ink bg-ink text-parchment" : "border-rule bg-parchment-deep hover:border-ink"}`}>
+              <p className="mt-1.5 leading-snug text-ink-soft">{item.help}</p>
+              <div className="mt-4 flex flex-wrap gap-2.5">
+                {item.options.map((texto, i) => (
+                  <label key={texto} className={opcao(respostas[passo] === i)}>
                     <input type="radio" name={`passo-${passo}`} className="sr-only" checked={respostas[passo] === i} onChange={() => marcar(passo, i)} />
-                    {opcao}
+                    {texto}
                   </label>
                 ))}
               </div>
@@ -89,18 +101,18 @@ export function ComoChecar({ s }: { s: S }) {
           </li>
         ))}
       </ol>
-      <div role="status" aria-live="polite" className="mt-6 border-t border-rule pt-4">
+      <div role="status" aria-live="polite" className={resultado ? "cartao-preto p-6 sm:p-7" : "border-2 border-dashed border-ink p-6"}>
         {resultado ? (
           <>
-            <p className="font-mono text-xs uppercase tracking-widest text-gold">{s.result}</p>
-            <p className="mt-1 text-lg font-semibold">{s.results[resultado]}</p>
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-[#e0837a]">{s.result}</p>
+            <p className="mt-2 font-serif text-2xl leading-snug sm:text-[1.7rem]">{s.results[resultado]}</p>
           </>
         ) : (
-          <p className="text-ink-soft">{s.pending}</p>
+          <p className="text-lg text-ink-soft">{s.pending}</p>
         )}
       </div>
-      <p className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
-        <button type="button" disabled={!resultado} onClick={() => void copiar()} className="cursor-pointer bg-ink px-4 py-2 font-medium text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-50">
+      <p className="mt-6 flex flex-wrap items-center gap-4">
+        <button type="button" disabled={!resultado} onClick={() => void copiar()} className="botao botao-tinta">
           {copiado ? s.copied : s.copy}
         </button>
         <button
@@ -110,12 +122,12 @@ export function ComoChecar({ s }: { s: S }) {
             setRespostas(s.items.map(() => null));
             setCopiado(false);
           }}
-          className="cursor-pointer underline hover:text-oxblood"
+          className="botao botao-papel"
         >
           {s.reset}
         </button>
       </p>
-      <p className="mt-3 text-xs text-ink-soft">{s.note}</p>
+      <p className="mt-4 text-sm text-ink-soft">{s.note}</p>
     </section>
   );
 }

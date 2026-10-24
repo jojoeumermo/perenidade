@@ -4,7 +4,7 @@ import Link from "next/link";
 import { DadosEstruturados } from "@/components/DadosEstruturados";
 import { livro, migalhas } from "@/lib/dados-estruturados";
 import { notFound } from "next/navigation";
-import { Capa } from "@/components/AcervoBrowser";
+import { CapaDoLivro as Capa } from "@/components/acervo/CapaDoLivro";
 import { licenseName } from "@/components/Cards";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
