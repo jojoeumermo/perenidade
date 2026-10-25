@@ -17,6 +17,7 @@ export const icones: Record<string, string> = {
   reforco: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6",
   mural: "M3 4h18v12H3zM8 20h8M12 16v4",
   boletim: "M3 6h18v12H3zM3 6l9 7 9-7",
+  biblioteca: "M4 4h4v16H4zM10 4h4v16h-4zM16 5l3.5-1 3 15.5-3.5 1z",
   assembleias: "M4 20h16M6 20V10M10 20V10M14 20V10M18 20V10M3 10l9-6 9 6z",
   pautas: "M4 5h16v15H4zM4 9h16M8 3v4M16 3v4M8 13h3M8 16h6",
   departamentos: "M3 21h18M5 21V8l7-4 7 4v13M9 21v-5h6v5M9 11h.01M15 11h.01",

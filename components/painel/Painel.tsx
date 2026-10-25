@@ -29,6 +29,7 @@ import { Agradecimentos, CuidadoDaEquipe, FeriasNaMesa, Termometro } from "./Cui
 import { Departamentos } from "./Departamentos";
 import { Assembleias } from "./Assembleias";
 import { Pautas } from "./Pautas";
+import { Biblioteca, PrimeiraSemana } from "./Biblioteca";
 import { abrirTutorial, TutorialDoPainel } from "./Tutorial";
 import { TermosAceitos } from "./PessoasExtras";
 import { SaudeNoPainel } from "./Saude";
@@ -582,6 +583,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
       { id: "seguranca", nome: "Segurança e sucessão", sobre: "Segundo fator obrigatório, coordenação pedagógica e ordem de sucessão.", grupo: "Segurança", mostra: lidera },
       { id: "interdicao", nome: "Interdição e expurgo", sobre: "Tirar o site ou uma área do ar por um tempo, e apagar de uma vez uma chuva de spam.", grupo: "Segurança", mostra: lidera || supervisiona, conta: r?.pedidos_supervisao },
       { id: "registro", nome: "Registro de atividades", sobre: "Tudo o que foi decidido, por quem e quando.", grupo: "Segurança", mostra: lidera || supervisiona },
+      { id: "biblioteca", nome: "Biblioteca da equipe", sobre: "Formação militante da equipe, estatuto, conduta, modelos de trabalho e as ferramentas de estudo, num lugar só.", grupo: "Você", mostra: voluntario },
       { id: "contribuicoes", nome: "Minhas contribuições", sobre: "O que você fez, as horas estimadas, os selos e o comprovante de voluntariado.", grupo: "Você", mostra: voluntario },
       { id: "conta", nome: "Minha conta", sobre: "Seu nome, sua senha e a proteção da sua conta.", grupo: "Você", mostra: true },
     ] satisfies Secao[]
@@ -879,6 +881,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
           {atual.id === "departamentos" && <Departamentos me={eu} ir={ir} />}
           {atual.id === "assembleias" && <Assembleias me={eu} />}
           {atual.id === "pautas" && <Pautas me={eu} ir={ir} />}
+          {atual.id === "biblioteca" && <Biblioteca ir={ir} />}
           {atual.id === "estatisticas" && (
             <>
               <Estatisticas />
@@ -1042,6 +1045,7 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
         </section>
 
         <FeriasNaMesa />
+        {me.papeis.length > 0 && <PrimeiraSemana me={me} ir={ir} />}
 
         <section aria-labelledby="pede-voce">
           <h2 id="pede-voce" className="font-serif text-3xl font-semibold leading-tight">

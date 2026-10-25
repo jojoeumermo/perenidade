@@ -437,6 +437,14 @@ export const GUIAS: Record<string, Guia> = {
     ],
   },
   // ── Você ──
+  biblioteca: {
+    paraQue: "Formação militante da equipe, estatuto, conduta, modelos de trabalho e as ferramentas de estudo.",
+    passos: [
+      { titulo: "Comece pela formação", texto: "O Despertar e as trilhas de formação militante são para a equipe também: dá para fazer em grupo, no núcleo." },
+      { titulo: "Conheça as regras", texto: "Estatuto, código de conduta e política de uso abrem no site, numa aba nova." },
+      { titulo: "Use os modelos", texto: "O guia da aula, o checklist de revisão e os modelos do Estúdio levam direto à seção certa." },
+    ],
+  },
   contribuicoes: {
     paraQue: "O que você fez, as horas estimadas, os selos e o comprovante de voluntariado.",
     passos: [
