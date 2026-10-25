@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-import Link from "next/link";
+import Link from "@/components/Link";
 import type { ReactNode } from "react";
 import { fill } from "@/i18n/config";
 import type { CoreDict } from "@/i18n/core";

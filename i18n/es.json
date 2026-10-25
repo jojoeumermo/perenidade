@@ -787,6 +787,9 @@
     "offlineSaved": "Guardado en este dispositivo. Puedes abrir las clases sin conexión.",
     "offlineFailed": "No se pudo guardar ahora. Revisa la conexión e inténtalo de nuevo.",
     "offlineUnsupported": "Este navegador no permite guardar páginas.",
+    "offlineSize": "Ocupa {tamanho} en este aparato.",
+    "offlineRemove": "Quitar del aparato",
+    "offlineRemoved": "Las clases de esta ruta salieron del aparato.",
     "epub": "Descargar el itinerario como libro digital (EPUB)",
     "epubHint": "se abre en Kindle (con Enviar a Kindle), Kobo y aplicaciones de lectura",
     "jump": "Ir a",
@@ -1574,8 +1577,8 @@
     "reset": "Restaurar valores por defecto",
     "black": "Negro absoluto",
     "blackHint": "Fondo totalmente negro en el tema oscuro: gasta menos batería en pantallas AMOLED.",
-    "light": "Modo ligero",
-    "lightHint": "Oculta las imágenes y el reproductor de radio, quita las animaciones y usa las fuentes del propio dispositivo. Bueno para conexiones lentas."
+    "light": "Ahorro de datos (modo ligero)",
+    "lightHint": "Oculta imágenes, videos y el reproductor de radio, quita las animaciones y usa las fuentes del propio dispositivo. Se activa solo cuando el celular está en ahorro de datos."
   },
   "data": {
     "eyebrow": "Tus datos son tuyos",

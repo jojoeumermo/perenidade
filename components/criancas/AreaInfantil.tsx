@@ -1,7 +1,7 @@
 // Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/Link";
 import { ATIVIDADES, type AtividadeId } from "./atividades";
 import { CabecalhoInfantil, Mascote } from "./comum";
 import { Contas } from "./Contas";

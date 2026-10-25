@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import NextLink from "next/link";
+import NextLink from "./Link";
 import { createContext, useContext, type ComponentProps } from "react";
 import { localePath, type Locale } from "@/i18n/config";
 import type { CoreDict } from "@/i18n/core";

@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-import Link from "next/link";
+import Link from "@/components/Link";
 import ReactMarkdown, { defaultUrlTransform } from "react-markdown";
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";

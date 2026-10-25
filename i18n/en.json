@@ -787,6 +787,9 @@
     "offlineSaved": "Saved on this device. You can open the lessons without a connection.",
     "offlineFailed": "Could not save right now. Check your connection and try again.",
     "offlineUnsupported": "This browser cannot save pages.",
+    "offlineSize": "Takes up {tamanho} on this device.",
+    "offlineRemove": "Remove from this device",
+    "offlineRemoved": "This track's lessons were removed from the device.",
     "epub": "Download the track as an e-book (EPUB)",
     "epubHint": "opens on Kindle (through Send to Kindle), Kobo and reading apps",
     "jump": "Jump to",
@@ -1574,8 +1577,8 @@
     "reset": "Restore defaults",
     "black": "Pure black",
     "blackHint": "A fully black background in the dark theme: uses less battery on AMOLED screens.",
-    "light": "Light mode",
-    "lightHint": "Hides images and the radio player, removes animations and uses your device's own fonts. Good for slow connections."
+    "light": "Data saver (light mode)",
+    "lightHint": "Hides images, videos and the radio player, removes animations and uses your device's own fonts. Turns on by itself when your phone is in data saver mode."
   },
   "data": {
     "eyebrow": "Your data is yours",
