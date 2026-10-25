@@ -3004,7 +3004,10 @@
       "transcript": "阅读文字稿",
       "hideTranscript": "隐藏文字稿",
       "keys": "快捷键：空格播放或暂停，方向键前后 5 秒，< 和 > 调节速度，M 静音，C 打开字幕，F 全屏。",
-      "error": "暂时无法播放这个视频。"
+      "error": "暂时无法播放这个视频。",
+      "listen": "只听声音",
+      "watch": "显示画面",
+      "listening": "只听声音：画面已隐藏。文字稿在下方。"
     },
     "comments": {
       "title": "评论",
@@ -3029,7 +3032,12 @@
         "mediacao": "调解",
         "equipe": "团队"
       }
-    }
+    },
+    "youtubeWatch": "在学院的 YouTube 上观看",
+    "youtubeNote": "YouTube 播放器只有在你点击后才加载，不带广告 cookie。",
+    "ownCopy": "不经过 Google 观看（学院的副本）",
+    "backToYoutube": "在 YouTube 上观看",
+    "transcriptTitle": "文字稿"
   },
   "more": {
     "eyebrow": "这里的全部内容",
@@ -4264,7 +4272,10 @@
     "mediaFailed": "无法打开摄像头、屏幕或麦克风。请检查浏览器权限。",
     "recordFailed": "此浏览器无法录制视频。",
     "chatHeld": "你的消息已收到，经调解员审阅后对所有人显示。",
-    "chatPending": "等待审阅"
+    "chatPending": "等待审阅",
+    "youtubeLive": "学院 YouTube 直播",
+    "youtubeWatch": "观看直播",
+    "youtubeNote": "YouTube 播放器只有在你点击后才加载，不带广告 cookie。课程聊天仍在本网站。"
   },
   "notebook": {
     "eyebrow": "自习室",
