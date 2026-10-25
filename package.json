@@ -45,7 +45,10 @@
     "sincronizar": "node scripts/sincronizar.mjs",
     "proximo": "node scripts/proximo.mjs",
     "pendencias": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/pendencias.mjs",
-    "importar:catalogo": "node scripts/importar-catalogo.mjs"
+    "importar:catalogo": "node scripts/importar-catalogo.mjs",
+    "testar:isolamento": "node scripts/testar-isolamento.mjs",
+    "testar:aovivo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-aovivo.mjs",
+    "testar:depositos": "node scripts/testar-depositos.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
@@ -66,7 +69,7 @@
     "matter-js": "^0.20.0",
     "mermaid": "^11.17.2",
     "minisearch": "^7.2.0",
-    "next": "16.3.8",
+    "next": "16.4.3",
     "opentype.js": "1.3.4",
     "php-wasm": "^0.2.0",
     "pyodide": "^314.0.7",
@@ -95,7 +98,7 @@
     "@types/topojson-client": "^3.1.5",
     "dictionary-pt": "4.0.0",
     "eslint": "^9",
-    "eslint-config-next": "16.3.8",
+    "eslint-config-next": "16.4.3",
     "hanzi-writer-data": "2.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"

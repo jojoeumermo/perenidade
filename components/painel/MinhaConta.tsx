@@ -414,7 +414,7 @@ function SegurancaDaConta({ me, protecao, recarregar }: { me: Me; protecao: Prot
                 <ol className="grid grid-cols-2 gap-1 font-mono text-sm">{codigos.map((c) => <li key={c}>{c}</li>)}</ol>
                 <p className="mt-2 flex flex-wrap gap-3 text-sm">
                   <button type="button" className={elo} onClick={() => baixar("instituto-lucia-codigos-de-recuperacao.txt", textoDosCodigos(codigos))}>Baixar (.txt)</button>
-                  <button type="button" className={elo} onClick={() => { const w = window.open("", "_blank", "noopener,width=600,height=700"); if (w) { w.document.body.innerText = textoDosCodigos(codigos); w.print(); } }}>Imprimir</button>
+                  <button type="button" className={elo} onClick={() => { const w = window.open("", "_blank", "width=600,height=700"); if (w) { w.document.body.innerText = textoDosCodigos(codigos); w.print(); } }}>Imprimir</button>
                   <button type="button" className={elo} onClick={() => setCodigos(null)}>Já guardei: esconder</button>
                 </p>
               </div>

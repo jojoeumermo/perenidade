@@ -4,6 +4,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { WorkspaceSvg } from "blockly/core";
 import { type CategoriaDeBlocos, lerProgramacao, lerRodar, saidaConfere } from "@/lib/interativos-mais";
+import { ISOLAR_WORKER } from "@/lib/isolamento";
 import { useI18n } from "../I18n";
 
 // Programação por blocos (Blockly) e código para rodar (Python ou JavaScript). O programa roda numa linha de execução
@@ -18,7 +19,7 @@ type Linha = { texto: string; erro: boolean };
 
 /** Roda JavaScript num Worker descartável: console.log vira saída; erro e tempo esgotado também. */
 function rodarJs(codigo: string, aoSair: (l: Linha) => void, aoFim: () => void) {
-  const fonte = `let __laco=200000;const __p=(e)=>(...m)=>postMessage({t:e,x:m.map((v)=>{try{return typeof v==="object"?JSON.stringify(v):String(v)}catch(_){return String(v)}}).join(" ")});self.console={log:__p("o"),info:__p("o"),warn:__p("e"),error:__p("e")};self.alert=__p("o");self.prompt=()=>null;(async()=>{try{${codigo}\n}catch(e){postMessage({t:"e",x:e==="LACO"?"__LACO__":String(e&&e.message||e)})}postMessage({t:"fim"})})();`;
+  const fonte = `${ISOLAR_WORKER}let __laco=200000;const __p=(e)=>(...m)=>postMessage({t:e,x:m.map((v)=>{try{return typeof v==="object"?JSON.stringify(v):String(v)}catch(_){return String(v)}}).join(" ")});self.console={log:__p("o"),info:__p("o"),warn:__p("e"),error:__p("e")};self.alert=__p("o");self.prompt=()=>null;(async()=>{try{${codigo}\n}catch(e){postMessage({t:"e",x:e==="LACO"?"__LACO__":String(e&&e.message||e)})}postMessage({t:"fim"})})();`;
   const url = URL.createObjectURL(new Blob([fonte], { type: "text/javascript" }));
   const w = new Worker(url);
   const relogio = window.setTimeout(() => {
