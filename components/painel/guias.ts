@@ -255,6 +255,17 @@ export const GUIAS: Record<string, Guia> = {
     ],
   },
   // ── Pessoas ──
+  departamentos: {
+    paraQue: "A página de cada departamento: meta do mês, quadro da semana, pedidos de outros departamentos, quem responde e como trabalha.",
+    passos: [
+      { titulo: "Escolha o departamento", texto: "Os botões do alto trocam de departamento. O seu aparece primeiro; o número vermelho é de pedidos abertos." },
+      { titulo: "Peça o que precisa", texto: "Na página de outro departamento, Pedir algo: o que é, os detalhes e o prazo. Quem responde por ele é avisado." },
+      { titulo: "Cuide dos pedidos", texto: "Em Pedidos: Aceitar, Pôr no quadro, Feito ou Recusar (com a resposta). Quem pediu recebe um recado." },
+      { titulo: "Use o quadro da semana", texto: "No Quadro, ＋ cria um cartão; avançar → leva de A fazer até Feito. Cartão de pedido que chega ao Feito fecha o pedido sozinho." },
+      { titulo: "Deixe o bastão", texto: "Em Como trabalhamos, deixe a passagem de bastão quando sair de uma função ou ficar fora um tempo." },
+    ],
+    dica: "Quem responde pelo departamento (o representante, a coordenação) escreve o como trabalhamos e a meta do mês.",
+  },
   pessoas: {
     paraQue: "Convidar, confiar funções e acompanhar a equipe.",
     passos: [
@@ -425,3 +436,41 @@ export const GUIAS: Record<string, Guia> = {
     ],
   },
 };
+
+/** O glossário do painel: as palavras que aparecem nas seções, em linguagem simples (Ctrl K › Glossário do painel). */
+export const GLOSSARIO: [string, string][] = [
+  ["Banimento", "Tirar de uma conta o direito de escrever na Comunidade. Fica no registro e a coordenação é avisada; dá para desfazer."],
+  ["Cifra de ponta a ponta", "As Conversas e o Mural da equipe são embaralhados no seu aparelho: nem o servidor lê."],
+  ["Código de segurança", "Uma sequência que você confere com a outra pessoa para ter certeza de que fala com ela nas Conversas."],
+  ["Códigos de recuperação", "Códigos de uso único para entrar se você perder o celular do segundo fator. Guarde em papel."],
+  ["Coordenação pedagógica", "A vice-coordenação: cuida das aulas e assina certificados junto com a coordenação."],
+  ["Curadoria", "Quem decide o que vai ao ar e cuida do acervo."],
+  ["Departamento", "O grupo de quem faz o mesmo tipo de trabalho (Comunicação, Pedagógico, Mediação…), com página, quadro e pedidos."],
+  ["Despertar", "O percurso de formação do zero à consciência de classe, em cinco etapas, com tarefas no mundo real."],
+  ["Disciplina", "A matéria (Matemática, História, Defesa pessoal…). Cada disciplina tem trilhas por etapa."],
+  ["Expurgo", "Apagar de uma vez uma chuva de spam. Não tem volta."],
+  ["Fila de revisão", "O que espera alguém ler e decidir antes de ir ao ar."],
+  ["Gaveta Aberta", "Trabalhos de estudantes (TCC, artigos, apostilas) publicados no site, com o termo deles."],
+  ["Horas confirmadas", "As horas de voluntariado já conferidas; contam para o certificado comunitário."],
+  ["Interdição", "Tirar o site, ou só uma área, do ar por um tempo (ataque, erro grave)."],
+  ["Mediação", "Quem cuida da Comunidade, do Mural dos Trabalhadores e da Gaveta Aberta."],
+  ["Meta do mês", "O número que o departamento combinou de alcançar no mês (posts, aulas, respostas)."],
+  ["Modo foco", "Deixa no menu só as seções essenciais."],
+  ["Modo leve", "Tira animações, sombras e texturas: bom para aparelho fraco e internet ruim."],
+  ["Mural dos Trabalhadores", "Anúncios de trabalho e serviço conferidos pela mediação."],
+  ["Núcleo", "Um grupo de estudo no bairro, na escola ou no trabalho, que faz as aulas junto."],
+  ["Parecer", "O que a revisão escreve ao decidir: o que está bom e o que mudar."],
+  ["Passagem de bastão", "O recado de quem sai de uma função para quem chega: o que estava fazendo e onde estão as coisas."],
+  ["Pedido entre departamentos", "Um departamento pede algo a outro, com prazo. Quem responde aceita, faz ou recusa explicando."],
+  ["Quadro da semana", "Os cartões do departamento: a fazer, fazendo, esperando aprovação e feito."],
+  ["Rascunho", "O que você está escrevendo. Fica guardado sozinho, neste aparelho e na sua conta."],
+  ["Representante", "A pessoa que responde por um departamento, nomeada pela coordenação."],
+  ["Retido", "Mensagem segurada pelo filtro de palavras, esperando a mediação."],
+  ["Segundo fator", "O código de seis números do aplicativo autenticador, pedido depois da senha."],
+  ["Supervisão", "Quem cuida das proteções reversíveis: pausar envios, modo de segurança, suspender em emergência."],
+  ["Termo de voluntário", "O combinado que todo mundo aceita ao entrar na equipe: é voluntário, sem pagamento, e o que se publica fica livre."],
+  ["Triagem", "A primeira leitura do que o público envia: o que passa vai para a fila de revisão."],
+  ["Trilha", "Uma sequência de aulas de uma disciplina, numa etapa (fundamental, médio, superior)."],
+  ["Ver como", "Prévia do painel como outra função vê: o menu e os botões mudam; os dados continuam os seus."],
+  ["Vitrine de saúde", "A página de profissionais de saúde voluntários. Área sensível, com termo e conferência do registro."],
+];
