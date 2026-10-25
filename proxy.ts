@@ -8,7 +8,7 @@ import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao }
 // nem montar página, para não gastar nada com eles, e a visita fica anotada no registro de atividades do painel
 // (só o caminho pedido e o programa usado, sem endereço de rede). O bloqueio de quem insiste fica com a rede
 // de proteção na frente do site, que enxerga o tráfego inteiro.
-const bait = /^\/(wp-[^/]*|wordpress|administrator|admin|adminer|phpmyadmin|pma|mysql|cgi-bin|vendor|backup|backups|bkp|old|config|credentials|secrets?|server-status|server-info|actuator|console|debug|telescope|horizon|laravel|drupal|joomla|magento|xmlrpc|autodiscover|owa|ecp|boaform|hnap1|shell|cmd|eval|solr|jenkins|_profiler|_ignition|graphql|swagger|api-docs|api\/v\d|\.env[^/]*|\.git|\.svn|\.hg|\.aws|\.ssh|\.docker|\.vscode|\.idea|\.ds_store|\.htaccess|\.htpasswd)(\/|$)/i;
+const bait = /^\/(wp-[^/]*|wordpress|administrator|admin|adminer|phpmyadmin|pma|mysql|cgi-bin|vendor|backup|backups|bkp|old|config|credentials|secrets?|server-status|server-info|actuator|console|debug|telescope|horizon|laravel|drupal|joomla|magento|xmlrpc|autodiscover|owa|ecp|boaform|hnap1|shell|cmd|eval|solr|jenkins|_profiler|_ignition|graphql|swagger|api-docs|cpanel|webmail|plesk|manager|hudson|zabbix|grafana|kibana|elmah|trace\.axd|latest\/meta-data|computeMetadata|owncloud|nextcloud|remote|webdav|api\/v\d|\.env[^/]*|\.git|\.svn|\.hg|\.aws|\.ssh|\.docker|\.vscode|\.idea|\.ds_store|\.htaccess|\.htpasswd)(\/|$)/i;
 const baitFile = /\.(php\d?|phtml|asp|aspx|jsp|jspx|cgi|pl|env|sql|sqlite|db|bak|old|orig|swp|ini|conf|cfg|ya?ml|log|pem|key|p12|pfx|tar|tgz|gz|rar|7z)$/i;
 
 const backend = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/$/, "");

@@ -18,6 +18,16 @@ Por isso a nossa História é contada do ponto de vista de quem a fez com as pr�
 
 Mas o instituto não é só de teoria política. Quem quer aprender inglês, matemática, música, informática, programação ou um ofício para ganhar a vida encontra aqui o mesmo cuidado. Educação é ferramenta de emancipação em qualquer área.
 
+## Mais do que aulas
+
+O Instituto Lúcia não é um curso on-line. É uma escola da vida. Aqui a gente estuda para entender o mundo e para mudá-lo: formar cidadãs e cidadãos que saibam de que lado estão e que caminhem junto com a classe trabalhadora.
+
+Ninguém deveria precisar de um diploma do Estado, nem pagar milhares de reais, para ter direito ao conhecimento. A faculdade cara não é a única porta: o saber que ela vende foi produzido pelo povo e pode ser devolvido a ele, de graça, com rigor e com fonte.
+
+Por isso cada aula tenta ser uma experiência e não uma apostila: parte da vida de quem estuda, conta a história de quem lutou, propõe uma tarefa no mundo real e termina com uma pergunta: o que você vai fazer com isso? E por isso existem o percurso [Despertar](/despertar), os núcleos de estudo, as conversas da comunidade e o jornal. Estudar aqui é um ato de organização.
+
+Não usamos pontos, rankings nem truques para prender ninguém. Quem estuda aqui estuda por revolta, por curiosidade e por esperança, não por vício.
+
 ## Como funciona
 
 - **As disciplinas** se dividem em trilhas, do ensino fundamental ao superior. Cada aula é curta, termina com um teste e mostra as fontes em que se apoia.
