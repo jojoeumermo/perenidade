@@ -150,6 +150,9 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
               <Link href={`${to("/caderno")}?abrir=${encodeURIComponent(ready.map((item) => item.path).join(","))}&titulo=${encodeURIComponent(track.title)}`} className="underline hover:text-prelo-texto">
                 {t.tracks.studyInNotebook}
               </Link>
+              <Link href={to(`/trilhas/${track.slug}/nucleo`)} className="underline hover:text-prelo-texto">
+                {t.kit.kitLink}
+              </Link>
               <Link href={to("/estudo-em-grupo")} className="underline hover:text-prelo-texto">
                 {t.tracks.studyGroup}
               </Link>
