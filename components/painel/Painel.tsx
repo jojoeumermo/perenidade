@@ -30,6 +30,7 @@ import { Departamentos } from "./Departamentos";
 import { Assembleias } from "./Assembleias";
 import { Pautas } from "./Pautas";
 import { Biblioteca, PrimeiraSemana } from "./Biblioteca";
+import { RetornoDosAlunos } from "./RetornoDosAlunos";
 import { abrirTutorial, TutorialDoPainel } from "./Tutorial";
 import { TermosAceitos } from "./PessoasExtras";
 import { SaudeNoPainel } from "./Saude";
@@ -885,6 +886,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
           {atual.id === "estatisticas" && (
             <>
               <Estatisticas />
+              <RetornoDosAlunos />
               <CuidadoDaEquipe />
             </>
           )}
