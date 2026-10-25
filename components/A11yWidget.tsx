@@ -123,7 +123,7 @@ export function A11yWidget() {
               <p className="mt-2 text-xs text-oxblood">{t.a11y.noSpeech}</p>
             ) : (
               <div className="mt-2 flex flex-wrap gap-2">
-                <button type="button" onClick={startReading} className="cursor-pointer bg-ink px-4 py-2 font-medium text-parchment hover:bg-oxblood">
+                <button type="button" onClick={() => startReading()} className="cursor-pointer bg-ink px-4 py-2 font-medium text-parchment hover:bg-oxblood">
                   {speaking ? t.a11y.readAgain : t.a11y.readPage}
                 </button>
                 {speaking && (

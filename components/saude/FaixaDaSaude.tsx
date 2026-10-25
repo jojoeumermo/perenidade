@@ -44,7 +44,7 @@ export function FaixaDaSaude({ estaticos, href }: { estaticos: Profissional[]; h
   if (desligada || todos.length === 0) return null;
   const um = todos.length === 1 ? todos[0] : null;
   return (
-    <section className="mx-auto max-w-[78rem] px-4 pt-12 sm:px-6 lg:px-8 max-md:pt-8">
+    <section className="mx-auto max-w-[78rem] px-4 py-12 sm:px-6 lg:px-8 max-md:py-8">
       <div className="cartao-v grid gap-5 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-7">
         <div>
           <p className="rotulo">Saúde Solidária</p>

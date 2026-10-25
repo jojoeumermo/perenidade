@@ -240,6 +240,7 @@ export default async function LessonPage({ params }: Props) {
             <Link href={`${to("/comunidade")}?nova=1&alvo=${encodeURIComponent(path(lesson.slug))}&titulo=${encodeURIComponent(lesson.title)}&sala=${track.area}`} className="underline hover:text-oxblood">{t.common.askCommunity}</Link>{" · "}
             <Link href={`${to("/caderno")}?abrir=${encodeURIComponent(path(lesson.slug))}&titulo=${encodeURIComponent(lesson.title)}`} className="underline hover:text-oxblood">{t.lesson.studyInNotebook}</Link>
             <a href={to(`${path(lesson.slug)}/texto`)} className="underline hover:text-oxblood">{t.lesson.plainText}</a>
+            <Link href={to(`${path(lesson.slug)}/zine`)} className="underline hover:text-oxblood">{t.kit.zineLink}</Link>
             <CiteButton citation={`${lesson.authors.join(", ") || site.name}. “${lesson.title}”. ${track.title}. ${site.name}.`} />
             <Link href={to(`/denunciar?item=${encodeURIComponent(path(lesson.slug))}`)} className="underline hover:text-oxblood">
               {t.common.report}
@@ -249,7 +250,7 @@ export default async function LessonPage({ params }: Props) {
         </footer>
       </article>
       {/* A margem: anotação, palavra do glossário, laboratório e quem ensina. No celular e no texto largo, vem depois da aula. */}
-      <div className="coluna-da-margem min-w-0 xl:sticky xl:top-[calc(var(--altura-topo,0px)+4rem)] xl:self-start xl:pt-40 max-xl:md:col-start-2">
+      <div className="coluna-da-margem min-w-0 xl:self-start xl:pt-40 max-xl:md:col-start-2">
         <MargemDaAula aula={id} termo={termo} laboratorio={laboratorio}>
           <div className="hidden xl:block">
             <CartaoDoEducador area={track.area} lang={lang} nomes={t.areas as Record<string, string[]>} />
