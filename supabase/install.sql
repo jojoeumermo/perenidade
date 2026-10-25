@@ -785,6 +785,8 @@ alter table interno.conversa_membros add column if not exists digitando_em times
 alter table interno.conversa_membros add column if not exists digitando text not null default '' check (digitando in ('', 'texto', 'audio'));
 -- Cada pessoa escolhe se mostra o "visto por último" e a confirmação de leitura. Quem esconde também não vê o dos outros.
 alter table interno.perfis add column if not exists chat_visto boolean not null default true;
+-- Férias de verdade (ver "Cuidado com a equipe"): até quando a pessoa está fora.
+alter table interno.perfis add column if not exists ferias_ate date;
 alter table interno.perfis add column if not exists chat_leitura boolean not null default true;
 -- Retrato: um ícone pré-definido ("p:estrela") para todo mundo; coordenação, coordenação pedagógica e supervisão podem
 -- subir uma imagem própria, pequena (WebP em data URI, redesenhada no navegador, sem dados da câmera).
@@ -4870,7 +4872,8 @@ begin
       -- Quem esconde o "visto por último" não o mostra e não vê o dos outros.
       'online', case when f.id = auth.uid() or (f.chat_visto and coalesce((select p.chat_visto from perfis p where p.id = auth.uid()), true)) then f.visto_em > now() - interval '2 minutes' end,
       'visto_em', case when f.id = auth.uid() or (f.chat_visto and coalesce((select p.chat_visto from perfis p where p.id = auth.uid()), true)) then f.visto_em end,
-      'papeis', (select jsonb_agg(jsonb_build_object('papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina) from papeis p where p.usuario = f.id))
+      'papeis', (select jsonb_agg(jsonb_build_object('papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina) from papeis p where p.usuario = f.id),
+      'ferias_ate', case when f.ferias_ate >= current_date then f.ferias_ate end)
       order by f.nome), '[]'::jsonb)
     from perfis f where not f.suspenso and exists (select 1 from papeis p where p.usuario = f.id));
 end $$;
@@ -13735,6 +13738,191 @@ begin
   end loop;
 end $$;
 revoke all on function interno.entrada_situacao_json(text) from public;
+
+-- ───────────────────────────── Cuidado com a equipe ─────────────────────────────
+-- Cinco ideias do painel:
+--   1. agradecer em público, no mural da Mesa (sem pontos nem ranking);
+--   2. férias de verdade: a pessoa marca até quando e a equipe vê na lista de quem está na equipe;
+--   3. o termômetro de bem-estar da semana, anônimo de fato;
+--   4. a caixa de críticas anônimas;
+--   5. o botão de pânico: a conta pode ter sido tomada ou a pessoa está em risco.
+-- Anonimato: o termômetro e as críticas não guardam quem respondeu nem a hora exata. Para não deixar a mesma pessoa
+-- responder duas vezes (ou encher a caixa), fica só um resumo embaralhado com um sal secreto do banco, que a API não lê.
+
+insert into interno.configuracoes (chave, valor) values ('cuidado_sal', to_jsonb(gen_random_uuid()::text || gen_random_uuid()::text)) on conflict do nothing;
+
+create table if not exists interno.agradecimentos (
+  id uuid primary key default gen_random_uuid(),
+  de uuid references interno.perfis (id) on delete set null,
+  para uuid not null references interno.perfis (id) on delete cascade,
+  texto text not null check (char_length(texto) between 3 and 280),
+  criado_em timestamptz not null default now()
+);
+create index if not exists agradecimentos_criado on interno.agradecimentos (criado_em desc);
+
+create table if not exists interno.bem_estar (
+  semana date not null,
+  marca text not null check (marca ~ '^[0-9a-f]{32}$'),
+  nivel smallint not null check (nivel between 1 and 5),
+  primary key (semana, marca)
+);
+
+create table if not exists interno.criticas (
+  id uuid primary key default gen_random_uuid(),
+  para text not null default 'geral' check (para ~ '^[a-z_]{2,30}$'),
+  texto text not null check (char_length(texto) between 10 and 2000),
+  lida boolean not null default false,
+  -- Só o dia: a hora exata permitiria cruzar com quem estava no painel naquele minuto.
+  dia date not null default current_date
+);
+create table if not exists interno.criticas_cotas (
+  marca text not null check (marca ~ '^[0-9a-f]{32}$'),
+  dia date not null,
+  total integer not null default 0,
+  primary key (marca, dia)
+);
+revoke all on interno.agradecimentos, interno.bem_estar, interno.criticas, interno.criticas_cotas from public;
+
+/** O resumo embaralhado de uma pessoa num período (semana ou dia), com o sal secreto. */
+create or replace function interno.cuidado_marca(p_usuario uuid, p_periodo date) returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select md5(coalesce((select valor #>> '{}' from configuracoes where chave = 'cuidado_sal'), '') || ':' || p_usuario::text || ':' || p_periodo::text)
+$$;
+create or replace function interno.semana_atual() returns date language sql stable as $$
+  select date_trunc('week', (now() at time zone 'America/Sao_Paulo'))::date
+$$;
+/** Quem cuida da equipe: coordenação, coordenação pedagógica e supervisão. */
+create or replace function interno.cuida_da_equipe() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or interno.tem('vice') or interno.tem('supervisao')
+$$;
+
+/** Agradecer alguém da equipe em público: aparece no mural da Mesa e a pessoa recebe um recado. */
+create or replace function public.agradecer(p_para uuid, p_texto text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_texto text := interno.txt(p_texto, 'texto', 3, 280); a agradecimentos;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  if p_para is null or p_para = v or not interno.voluntario_e(p_para) then perform interno.erro('invalido:para'); end if;
+  perform interno.limite('agradecer', 20, 1440);
+  insert into agradecimentos (de, para, texto) values (v, p_para, v_texto) returning * into a;
+  perform interno.avisar(p_para, format('%s agradeceu você no mural da equipe: “%s”', coalesce((select interno.nome_visto(nome) from perfis where id = v), 'Alguém da equipe'), left(v_texto, 200)));
+  return jsonb_build_object('id', a.id);
+end $$;
+
+create or replace function public.agradecimentos_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'texto', a.texto, 'criado_em', a.criado_em, 'meu', a.de = auth.uid(), 'para_mim', a.para = auth.uid(),
+            'de', coalesce((select interno.nome_visto(nome) from perfis where id = a.de), ''), 'para', coalesce((select interno.nome_visto(nome) from perfis where id = a.para), ''))
+            order by a.criado_em desc), '[]'::jsonb)
+          from (select * from agradecimentos order by criado_em desc limit 30) a);
+end $$;
+
+create or replace function public.agradecimento_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  delete from agradecimentos where id = p_id and (de = v or interno.cuida_da_equipe());
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Férias de verdade: até a data (no máximo 120 dias à frente). Sem data, volta. */
+create or replace function public.ferias_marcar(p_ate date) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if p_ate is not null and (p_ate < current_date or p_ate > current_date + 120) then perform interno.erro('invalido:ate'); end if;
+  update perfis set ferias_ate = p_ate where id = v;
+  return jsonb_build_object('ferias_ate', p_ate);
+end $$;
+
+create or replace function public.ferias_ver() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  return jsonb_build_object('ferias_ate', (select case when ferias_ate >= current_date then ferias_ate end from perfis where id = interno.eu()));
+end $$;
+
+/** O termômetro da semana: de 1 (no limite) a 5 (muito bem). Dá para mudar a resposta na mesma semana. */
+create or replace function public.bem_estar_responder(p_nivel integer) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_semana date := interno.semana_atual();
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  if p_nivel is null or p_nivel < 1 or p_nivel > 5 then perform interno.erro('invalido:nivel'); end if;
+  insert into bem_estar (semana, marca, nivel) values (v_semana, interno.cuidado_marca(v, v_semana), p_nivel)
+  on conflict (semana, marca) do update set nivel = excluded.nivel;
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.bem_estar_situacao() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_semana date := interno.semana_atual();
+begin
+  return jsonb_build_object('respondeu', exists (select 1 from bem_estar where semana = v_semana and marca = interno.cuidado_marca(v, v_semana)));
+end $$;
+
+/** Para quem cuida da equipe: as últimas oito semanas. Com menos de cinco respostas, só o total (senão dá para adivinhar quem). */
+create or replace function public.bem_estar_resumo() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.cuida_da_equipe() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('semana', s.semana, 'respostas', s.n,
+            'media', case when s.n >= 5 then s.media end,
+            'baixas', case when s.n >= 5 then s.baixas end) order by s.semana desc), '[]'::jsonb)
+          from (select semana, count(*)::int as n, round(avg(nivel), 1) as media, count(*) filter (where nivel <= 2)::int as baixas
+                from bem_estar where semana > interno.semana_atual() - 56 group by semana) s);
+end $$;
+
+/** A caixa de críticas: anônima. No máximo três por dia por pessoa (contadas por um resumo embaralhado). */
+create or replace function public.critica_enviar(p_texto text, p_para text default 'geral') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_texto text := interno.txt(p_texto, 'texto', 10, 2000); v_para text := coalesce(nullif(btrim(p_para), ''), 'geral'); v_total integer;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  if v_para !~ '^[a-z_]{2,30}$' then perform interno.erro('invalido:para'); end if;
+  insert into criticas_cotas (marca, dia, total) values (interno.cuidado_marca(v, current_date), current_date, 1)
+  on conflict (marca, dia) do update set total = criticas_cotas.total + 1 returning total into v_total;
+  if v_total > 3 then perform interno.erro('muitos_pedidos'); end if;
+  if random() < 0.05 then delete from criticas_cotas where dia < current_date - 2; end if;
+  insert into criticas (para, texto) values (v_para, v_texto);
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.criticas_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.cuida_da_equipe() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', c.id, 'para', c.para, 'texto', c.texto, 'lida', c.lida, 'dia', c.dia) order by c.dia desc, c.lida), '[]'::jsonb)
+          from (select * from criticas where dia > current_date - 365 order by dia desc limit 200) c);
+end $$;
+
+create or replace function public.critica_marcar(p_id uuid, p_lida boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.cuida_da_equipe() then perform interno.erro('sem_permissao'); end if;
+  update criticas set lida = coalesce(p_lida, true) where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/**
+ * O botão de pânico: encerra as sessões da conta em todos os aparelhos (o navegador sai também) e avisa a coordenação,
+ * que deve falar com a pessoa por outro canal antes de qualquer coisa. Fica no registro.
+ */
+create or replace function public.panico(p_motivo text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_nome text := coalesce((select interno.nome_visto(nome) from perfis where id = v), 'Alguém da equipe'); v_motivo text := left(btrim(coalesce(p_motivo, '')), 200);
+begin
+  perform interno.limite('panico', 5, 60);
+  perform interno.registrar('panico', v_nome, jsonb_build_object('motivo', v_motivo));
+  perform interno.avisar_lideranca(format('%s apertou o botão de pânico no painel%s. As sessões da conta foram encerradas em todos os aparelhos. Fale com a pessoa por outro canal antes de qualquer coisa.',
+    v_nome, case when v_motivo <> '' then ' (' || v_motivo || ')' else '' end), v);
+  if to_regclass('auth.refresh_tokens') is not null then execute 'delete from auth.refresh_tokens where user_id::text = $1' using v::text; end if;
+  if to_regclass('auth.sessions') is not null then execute 'delete from auth.sessions where user_id = $1' using v; end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('agradecer', 'agradecimentos_listar', 'agradecimento_apagar', 'ferias_marcar', 'ferias_ver', 'bem_estar_responder',
+             'bem_estar_situacao', 'bem_estar_resumo', 'critica_enviar', 'criticas_listar', 'critica_marcar', 'panico') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+revoke all on function interno.cuidado_marca(uuid, date) from public;
 
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança

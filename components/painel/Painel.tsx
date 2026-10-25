@@ -25,6 +25,7 @@ import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
 import { Estatisticas } from "./Estatisticas";
 import { TermoDeVoluntario } from "./Termo";
 import { AgoraAoVivo, Continuar, DicaDoTutorial, meuDepartamento, NoSiteAgora, SuasHoras } from "./MesaAoLado";
+import { Agradecimentos, CuidadoDaEquipe, FeriasNaMesa, Termometro } from "./Cuidado";
 import { abrirTutorial, TutorialDoPainel } from "./Tutorial";
 import { TermosAceitos } from "./PessoasExtras";
 import { SaudeNoPainel } from "./Saude";
@@ -813,7 +814,12 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
           {atual.id === "gaveta" && <GavetaFila />}
           {atual.id === "boletim" && <Boletim />}
           {atual.id === "pessoas" && <Pessoas me={eu} />}
-          {atual.id === "supervisao" && <Supervisao />}
+          {atual.id === "supervisao" && (
+            <>
+              <Supervisao />
+              <CuidadoDaEquipe />
+            </>
+          )}
           {atual.id === "reunioes" && <Conversas me={eu} inicial="reunioes" />}
           {atual.id === "horas" && <Horas me={eu} />}
           {atual.id === "site" && <Site />}
@@ -830,7 +836,12 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
           {atual.id === "interdicao" && <Interdicao me={eu} aoMudar={estadoDoSite.recarregar} />}
           {atual.id === "registro" && <RegistroDeAtividades />}
-          {atual.id === "estatisticas" && <Estatisticas />}
+          {atual.id === "estatisticas" && (
+            <>
+              <Estatisticas />
+              <CuidadoDaEquipe />
+            </>
+          )}
           {atual.id === "termos" && <TermosAceitos />}
           {atual.id === "saude" && <SaudeNoPainel me={eu} />}
           {atual.id === "erros" && <ErrosRelatados />}
@@ -987,6 +998,8 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
           )}
         </section>
 
+        <FeriasNaMesa />
+
         <section aria-labelledby="pede-voce">
           <h2 id="pede-voce" className="font-serif text-3xl font-semibold leading-tight">
             {!r ? <span className="painel-carregando text-ink-soft">Carregando…</span> : total === 0 ? "Nada esperando por você." : <>Hoje, <span className="italic text-prelo-texto">{total} {total === 1 ? "coisa pede" : "coisas pedem"}</span> você.</>}
@@ -1006,6 +1019,8 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
           {me.papeis.length > 0 && <SuasHoras me={me} ir={ir} />}
         </div>
 
+        {me.papeis.length > 0 && <Agradecimentos />}
+
         {me.papeis.length > 0 && <Atalhos secoes={secoes} ir={ir} icone={(id) => <Icone id={id} />} />}
 
         {me.papeis.length > 0 && <ParaVoceHoje me={me} ir={ir} />}
@@ -1022,6 +1037,7 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
 
       <aside className="space-y-6 xl:sticky xl:top-20 xl:self-start">
         <AgoraAoVivo me={me} ir={ir} />
+        {me.papeis.length > 0 && <Termometro />}
         {produz && (
           <button type="button" className="botao botao-prelo w-full justify-center py-3.5 text-base" onClick={() => ir("escrever")} data-tour="escrever">
             ＋ Escrever

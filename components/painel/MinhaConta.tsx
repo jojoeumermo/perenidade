@@ -12,9 +12,10 @@ import { Abas, Aviso, botao, botaoClaro, campo, dataHora, elo, oQueFaz, papeis, 
 import { IdiomaDoPainel } from "./Idioma";
 import { minutosOcioso, OPCOES_OCIOSO } from "./ocioso";
 import { FaixaDeEmail } from "./FaixaDeEmail";
+import { CuidadoNaConta } from "./Cuidado";
 import { Digital, SegundoFator } from "./Seguranca";
 
-type Aba = "perfil" | "assinatura" | "seguranca" | "privacidade" | "aparelhos" | "atividade";
+type Aba = "perfil" | "assinatura" | "seguranca" | "privacidade" | "aparelhos" | "atividade" | "cuidado";
 
 interface Protecao {
   segundo_fator: boolean;
@@ -96,6 +97,7 @@ export function MinhaConta({ me, recarregar, sair, curriculo, avisosETrava }: { 
           { id: "privacidade", nome: "Privacidade e avisos" },
           { id: "aparelhos", nome: "Aparelhos" },
           { id: "atividade", nome: "Atividade" },
+          { id: "cuidado", nome: "Cuidado" },
         ]}
         atual={aba}
         escolher={setAba}
@@ -106,6 +108,7 @@ export function MinhaConta({ me, recarregar, sair, curriculo, avisosETrava }: { 
       {aba === "privacidade" && <Privacidade me={me} recarregar={recarregar} sair={sair} avisosETrava={avisosETrava} />}
       {aba === "aparelhos" && <AparelhosDaConta dias={p?.sessao_dias ?? 60} />}
       {aba === "atividade" && <Atividade />}
+      {aba === "cuidado" && <CuidadoNaConta me={me} sair={sair} />}
       <div className="mt-8 border-t border-rule pt-5">
         <button type="button" className={botaoClaro} onClick={sair}>Sair do painel</button>
       </div>
