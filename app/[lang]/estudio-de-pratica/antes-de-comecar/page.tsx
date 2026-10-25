@@ -1,6 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
-import Link from "next/link";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { localePath } from "@/i18n/config";
@@ -19,10 +18,7 @@ export default async function AntesDeComecar({ params }: PageProps<"/[lang]/estu
   const secao = "mt-10 font-serif text-2xl font-semibold";
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
-      <Link href={localePath(lang, "/estudio-de-pratica")} className="font-sans text-sm text-ink-soft hover:text-oxblood">← {b.back}</Link>
-      <div className="mt-6">
-        <PageHeading eyebrow={s.title} title={b.title}>{b.lead}</PageHeading>
-      </div>
+      <PageHeading eyebrow={s.title} title={b.title} voltar={{ href: localePath(lang, "/estudio-de-pratica"), texto: b.back }}>{b.lead}</PageHeading>
       <ul className="mt-6 space-y-1 border-l-4 border-gold pl-3 font-sans text-sm">
         <li>{s.alpha}</li>
         <li>{s.local}</li>

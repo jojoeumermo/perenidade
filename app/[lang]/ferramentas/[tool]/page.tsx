@@ -123,14 +123,9 @@ export default async function Ferramenta({ params }: PageProps<"/[lang]/ferramen
   const nomesDosLabs = t.labs as unknown as Record<string, string>;
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
-      <Link href={localePath(lang, "/ferramentas")} className="font-sans text-sm text-ink-soft hover:text-oxblood">
-        ← {s.title}
-      </Link>
-      <div className="mt-6">
-        <PageHeading eyebrow={s.eyebrow} title={name}>
-          {description}
-        </PageHeading>
-      </div>
+      <PageHeading eyebrow={s.eyebrow} title={name} voltar={{ href: localePath(lang, "/ferramentas"), texto: s.title }}>
+        {description}
+      </PageHeading>
       {lang !== "pt" && NOVAS_EM_PT.has(tool) && <p className="mt-4 border-l-4 border-gold bg-parchment-deep px-3 py-2 font-sans text-sm">{t.labs.ptOnly}</p>}
       <Moldura id={tool} s={textosDe(t)}>{body[tool]}</Moldura>
       {(parecidas.length > 0 || labIds.length > 0) && (
