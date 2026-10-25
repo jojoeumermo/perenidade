@@ -14785,7 +14785,9 @@ $$;
 create or replace function interno.rede_post_json(p interno.rede_posts, p_com_original boolean default true) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
 begin
   return jsonb_build_object('id', p.id, 'texto', p.texto, 'comunidade', p.comunidade, 'criado_em', p.criado_em, 'aviso', p.aviso, 'cita', p.cita, 'chamado', p.chamado,
-    'alcance', p.alcance, 'meu', p.autor = auth.uid(), 'retido', case when p.autor = auth.uid() then p.retido or p.oculto else false end,
+    'alcance', p.alcance, 'posicao', p.posicao, 'meu', p.autor = auth.uid(), 'retido', case when p.autor = auth.uid() then p.retido or p.oculto else false end,
+    'modero', interno.cuida() or exists (select 1 from rede_moderadores m where m.comunidade = p.comunidade and m.usuario = auth.uid())
+              or (p.comunidade like 'fechado-%' and exists (select 1 from rede_espaco_membros m where m.espaco = p.comunidade and m.usuario = auth.uid() and m.cuida)),
     'autor', jsonb_build_object('id', p.autor, 'nome', coalesce((select interno.nome_visto(nome) from perfis where id = p.autor), 'Conta apagada'),
                                 'avatar', (select avatar from perfis where id = p.autor), 'equipe', interno.voluntario_e(p.autor)),
     'respostas', (select count(*) from rede_posts r where r.resposta_a = p.id and not r.oculto),
@@ -14850,6 +14852,8 @@ begin
     if not found or o.oculto or o.alcance <> 'publico' or interno.rede_bloqueado(v, o.autor) then perform interno.erro('nao_encontrado'); end if;
   end if;
   if v_texto = '' and v_repost is null then perform interno.erro('invalido:texto'); end if;
+  if not interno.rede_espaco_entra(nullif(btrim(coalesce(p ->> 'comunidade', '')), '')) then perform interno.erro('sem_permissao'); end if;
+  if nullif(p ->> 'posicao', '') is not null and (v_resposta is null or p ->> 'posicao' not in ('favor', 'contra', 'sintese')) then perform interno.erro('invalido:posicao'); end if;
   if p ? 'cita' and jsonb_typeof(p -> 'cita') = 'object' then
     if coalesce(p -> 'cita' ->> 'tipo', '') not in ('aula', 'obra', 'materia') or coalesce(p -> 'cita' ->> 'caminho', '') !~ '^/(trilhas|acervo|jornal)/[a-z0-9/-]{2,200}$' then
       perform interno.erro('invalido:cita');
@@ -14870,8 +14874,8 @@ begin
   v_av := interno.veredito(v_texto || ' ' || coalesce(v_chamado ->> 'onde', ''), interno.cuida(), v);
   v_veredito := v_av ->> 'veredito';
   if v_veredito = 'publicar' and interno.aprovacao_manual() and not interno.cuida() then v_veredito := 'revisar'; v_av := jsonb_build_object('veredito', 'revisar', 'motivo', 'modo_seguranca'); end if;
-  insert into rede_posts (autor, texto, comunidade, resposta_a, repost_de, cita, chamado, alcance, aviso, oculto, retido, avaliacao, motivo)
-  values (v, v_texto, nullif(btrim(coalesce(p ->> 'comunidade', '')), ''), v_resposta, v_repost, v_cita, v_chamado, v_alcance, left(btrim(coalesce(p ->> 'aviso', '')), 80),
+  insert into rede_posts (autor, texto, comunidade, resposta_a, repost_de, cita, chamado, alcance, aviso, posicao, oculto, retido, avaliacao, motivo)
+  values (v, v_texto, nullif(btrim(coalesce(p ->> 'comunidade', '')), ''), v_resposta, v_repost, v_cita, v_chamado, v_alcance, left(btrim(coalesce(p ->> 'aviso', '')), 80), nullif(p ->> 'posicao', ''),
           v_veredito <> 'publicar', v_veredito = 'revisar', case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end, coalesce(v_av ->> 'motivo', ''))
   returning * into x;
   if v_resposta is not null and o.autor is distinct from v and x.oculto = false then
@@ -14894,6 +14898,8 @@ begin
       and case p_modo
         when 'seguindo' then p.resposta_a is null and (p.autor = auth.uid() or exists (select 1 from rede_seguindo s where s.quem = auth.uid() and s.segue = p.autor))
         when 'comunidade' then p.resposta_a is null and p.comunidade = p_comunidade
+        when 'minhas' then p.resposta_a is null and (p.comunidade in (select c.comunidade from rede_comunidades_seguidas c where c.usuario = auth.uid())
+                                                      or p.comunidade in (select m.espaco from rede_espaco_membros m where m.usuario = auth.uid()))
         when 'perfil' then p.autor = p_usuario
         when 'chamados' then p.chamado is not null and (p.chamado ->> 'quando')::timestamptz > now() - interval '6 hours'
         else p.resposta_a is null end
@@ -14997,6 +15003,173 @@ begin
   for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
            where n.nspname = 'public' and p.proname in ('rede_confirmar_idade', 'rede_config', 'rede_eu', 'rede_postar', 'rede_linha', 'rede_post_ver', 'rede_novos', 'rede_apagar',
              'rede_apoiar', 'rede_vou', 'rede_seguir', 'rede_bloquear', 'rede_perfil', 'rede_moderacao_publica') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+
+-- ───────────────────────────── Rede Lúcia, segunda parte ─────────────────────────────
+-- Espaços fechados (organização que não pode ficar aberta: entra só com convite de quem cuida do espaço, contra
+-- infiltração), comunidades que a pessoa segue (a linha "Minhas comunidades"), moderadores por comunidade, a posição
+-- nos fios de debate (a favor, contra, síntese), a busca nos posts com hashtags, o aviso de menção e a portabilidade
+-- (baixar tudo o que a pessoa escreveu).
+
+alter table interno.rede_posts add column if not exists posicao text check (posicao is null or posicao in ('favor', 'contra', 'sintese'));
+
+create table if not exists interno.rede_espacos (
+  slug text primary key check (slug ~ '^fechado-[a-z0-9-]{2,50}$'),
+  nome text not null check (char_length(nome) between 3 and 60),
+  descricao text not null default '' check (char_length(descricao) <= 300),
+  criado_por uuid references interno.perfis (id) on delete set null,
+  codigo text not null check (codigo ~ '^[A-Za-z0-9]{12}$'),
+  criado_em timestamptz not null default now()
+);
+create table if not exists interno.rede_espaco_membros (
+  espaco text not null references interno.rede_espacos (slug) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  cuida boolean not null default false,
+  entrou_em timestamptz not null default now(),
+  primary key (espaco, usuario)
+);
+create table if not exists interno.rede_comunidades_seguidas (
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  comunidade text not null check (comunidade ~ '^[a-z0-9-]{2,60}$'),
+  primary key (usuario, comunidade)
+);
+create table if not exists interno.rede_moderadores (
+  comunidade text not null check (comunidade ~ '^[a-z0-9-]{2,60}$'),
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  primary key (comunidade, usuario)
+);
+revoke all on interno.rede_espacos, interno.rede_espaco_membros, interno.rede_comunidades_seguidas, interno.rede_moderadores from public;
+
+/** Espaço fechado: só quem é membro vê e escreve. As outras comunidades são abertas. */
+create or replace function interno.rede_espaco_entra(p_comunidade text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_comunidade is null or p_comunidade not like 'fechado-%'
+    or exists (select 1 from rede_espaco_membros m where m.espaco = p_comunidade and m.usuario = auth.uid())
+$$;
+
+-- A regra de quem vê um post passa a conferir também o espaço fechado.
+create or replace function interno.rede_ve(p interno.rede_posts) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select (not p.oculto or p.autor = auth.uid())
+    and not interno.rede_bloqueado(auth.uid(), p.autor)
+    and interno.rede_espaco_entra(p.comunidade)
+    and (p.alcance = 'publico' or p.autor = auth.uid()
+         or (p.alcance = 'seguidores' and exists (select 1 from rede_seguindo s where s.quem = auth.uid() and s.segue = p.autor))
+         or (p.alcance = 'equipe' and interno.voluntario()))
+$$;
+
+/** Abrir um espaço fechado: só a equipe abre (quem abre cuida dele e convida). */
+create or replace function public.rede_espaco_criar(p_nome text, p_descricao text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_nome text := interno.txt(p_nome, 'nome', 3, 60); v_slug text; v_codigo text;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('rede_espaco', 5, 1440);
+  v_slug := 'fechado-' || left(trim(both '-' from regexp_replace(lower(translate(v_nome, 'áàâãäéèêëíìîïóòôõöúùûüçñ', 'aaaaaeeeeiiiiooooouuuucn')), '[^a-z0-9]+', '-', 'g')), 40) || '-' || substr(md5(random()::text), 1, 4);
+  v_codigo := substr(md5(random()::text || clock_timestamp()::text), 1, 12);
+  insert into rede_espacos (slug, nome, descricao, criado_por, codigo) values (v_slug, v_nome, interno.txt(coalesce(p_descricao, ''), 'descricao', 0, 300), v, v_codigo);
+  insert into rede_espaco_membros (espaco, usuario, cuida) values (v_slug, v, true);
+  return jsonb_build_object('slug', v_slug, 'codigo', v_codigo);
+end $$;
+
+/** Entrar num espaço fechado pelo código do convite. */
+create or replace function public.rede_espaco_entrar(p_codigo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); e rede_espacos;
+begin
+  perform interno.limite('rede_espaco_entrar', 20, 60);
+  select * into e from rede_espacos where codigo = p_codigo;
+  if not found then perform interno.erro('convite_vencido'); end if;
+  insert into rede_espaco_membros (espaco, usuario) values (e.slug, v) on conflict do nothing;
+  return jsonb_build_object('slug', e.slug, 'nome', e.nome);
+end $$;
+
+/** Quem cuida troca o código (o convite antigo deixa de valer) ou tira alguém. */
+create or replace function public.rede_espaco_cuidar(p_slug text, p_acao text, p_usuario uuid default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_codigo text;
+begin
+  if not exists (select 1 from rede_espaco_membros where espaco = p_slug and usuario = v and cuida) and not interno.cuida() then perform interno.erro('sem_permissao'); end if;
+  if p_acao = 'novo_codigo' then
+    v_codigo := substr(md5(random()::text || clock_timestamp()::text), 1, 12);
+    update rede_espacos set codigo = v_codigo where slug = p_slug;
+    return jsonb_build_object('codigo', v_codigo);
+  elsif p_acao = 'tirar' and p_usuario is not null and p_usuario <> v then
+    delete from rede_espaco_membros where espaco = p_slug and usuario = p_usuario;
+    return jsonb_build_object('ok', true);
+  end if;
+  perform interno.erro('invalido:acao');
+end $$;
+
+/** Os espaços fechados de que a pessoa faz parte (com o código, para quem cuida). */
+create or replace function public.rede_meus_espacos() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  return (select coalesce(jsonb_agg(jsonb_build_object('slug', e.slug, 'nome', e.nome, 'descricao', e.descricao, 'cuido', m.cuida, 'codigo', case when m.cuida then e.codigo end,
+            'membros', (select count(*) from rede_espaco_membros x where x.espaco = e.slug)) order by e.nome), '[]'::jsonb)
+          from rede_espaco_membros m join rede_espacos e on e.slug = m.espaco where m.usuario = v);
+end $$;
+
+create or replace function public.rede_comunidade_seguir(p_comunidade text, p_sim boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if coalesce(p_comunidade, '') !~ '^[a-z0-9-]{2,60}$' or p_comunidade like 'fechado-%' then perform interno.erro('invalido:comunidade'); end if;
+  if coalesce(p_sim, true) then insert into rede_comunidades_seguidas (usuario, comunidade) values (v, p_comunidade) on conflict do nothing;
+  else delete from rede_comunidades_seguidas where usuario = v and comunidade = p_comunidade; end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.rede_comunidades_minhas() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(comunidade order by comunidade), '[]'::jsonb) from rede_comunidades_seguidas where usuario = auth.uid()
+$$;
+
+/** Moderadores por comunidade: a mediação nomeia; quem modera oculta posts daquela comunidade. */
+create or replace function public.rede_moderador_definir(p_comunidade text, p_usuario uuid, p_sim boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.cuida() then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_sim, true) then insert into rede_moderadores (comunidade, usuario) values (p_comunidade, p_usuario) on conflict do nothing;
+  else delete from rede_moderadores where comunidade = p_comunidade and usuario = p_usuario; end if;
+  perform interno.registrar('rede_moderador', p_comunidade, jsonb_build_object('usuario', p_usuario, 'sim', coalesce(p_sim, true)));
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.rede_moderar(p_id uuid, p_ocultar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x rede_posts;
+begin
+  select * into x from rede_posts where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (interno.cuida() or exists (select 1 from rede_moderadores where comunidade = x.comunidade and usuario = v)
+          or (x.comunidade like 'fechado-%' and exists (select 1 from rede_espaco_membros where espaco = x.comunidade and usuario = v and cuida))) then
+    perform interno.erro('sem_permissao');
+  end if;
+  update rede_posts set oculto = coalesce(p_ocultar, true), retido = false where id = p_id;
+  perform interno.registrar(case when coalesce(p_ocultar, true) then 'comunidade_ocultar' else 'comunidade_mostrar' end, p_id::text, jsonb_build_object('tipo', 'post', 'por', 'moderador'));
+  if coalesce(p_ocultar, true) then perform interno.avisar(x.autor, 'Um post seu na Rede Lúcia foi ocultado pela moderação da comunidade. Releia as regras; se achar que houve engano, use a página Denunciar.'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Busca nos posts (texto e #hashtags), respeitando quem pode ver. */
+create or replace function public.rede_buscar(p_termo text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v_termo text := btrim(left(coalesce(p_termo, ''), 80));
+begin
+  if char_length(v_termo) < 2 then return '[]'::jsonb; end if;
+  perform interno.limite('rede_buscar', 120, 60);
+  return coalesce((select jsonb_agg(interno.rede_post_json(x) order by x.criado_em desc) from (
+    select p.* from rede_posts p where interno.rede_ve(p) and position(lower(v_termo) in lower(p.texto)) > 0 order by p.criado_em desc limit 40) x), '[]'::jsonb);
+end $$;
+
+/** Portabilidade: tudo o que a pessoa escreveu na rede, para baixar. */
+create or replace function public.rede_meus_posts() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('id', id, 'texto', texto, 'comunidade', comunidade, 'criado_em', criado_em, 'resposta_a', resposta_a, 'repost_de', repost_de,
+           'cita', cita, 'chamado', chamado, 'alcance', alcance, 'aviso', aviso, 'posicao', posicao) order by criado_em), '[]'::jsonb)
+  from rede_posts where autor = auth.uid()
+$$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('rede_espaco_criar', 'rede_espaco_entrar', 'rede_espaco_cuidar', 'rede_meus_espacos', 'rede_comunidade_seguir', 'rede_comunidades_minhas',
+             'rede_moderador_definir', 'rede_moderar', 'rede_buscar', 'rede_meus_posts') loop
     execute format('revoke all on function %s from public', f.assinatura);
     execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
   end loop;

@@ -5005,7 +5005,7 @@
     "denunciaEnviar": "Send the report",
     "denunciaFeita": "Report sent to moderation. Thank you.",
     "retido": "Waiting for moderation: only you see it.",
-    "buscar": "Search loaded posts",
+    "buscar": "Search the network (text and #hashtags)",
     "erros": {
       "dado_pessoal": "The post has a phone number, CPF or e-mail. Remove the personal data and post again.",
       "confirme_idade": "Confirm you are 16 or older.",
@@ -5021,6 +5021,33 @@
       "quebrada": "Hood culture",
       "educacao-publica": "Public education",
       "saude-publica": "Public health"
-    }
+    },
+    "minhas": "My communities",
+    "espacos": "Closed spaces",
+    "espacosAjuda": "Organizing that can't be open: only people with the invite get in.",
+    "entrarConvite": "Join with an invite",
+    "convitePlaceholder": "invite code",
+    "abrirEspaco": "Open a closed space",
+    "nomeEspaco": "Space name",
+    "codigoConvite": "Invite code",
+    "seguirComunidade": "Follow this community",
+    "deixarComunidade": "Unfollow",
+    "posicao": "Position",
+    "posicoes": {
+      "favor": "For",
+      "contra": "Against",
+      "sintese": "Synthesis"
+    },
+    "semPosicao": "No position",
+    "virarPauta": "Turn into a story idea",
+    "pautaFeita": "Idea added to the panel's bank.",
+    "ocultar": "Hide",
+    "baixar": "Download my posts",
+    "silenciar": "Mute words",
+    "silenciarAjuda": "Posts with these words disappear from your screen (on this device only). Separate with commas.",
+    "membros": "members",
+    "copiar": "Copy",
+    "buscando": "Searching…",
+    "resultados": "Search results"
   }
 }
