@@ -12,7 +12,8 @@ const PUBLICO = "https://api.languagetool.org/v2";
 const janela = new Map<string, { ate: number; n: number }>();
 
 export async function POST(request: Request) {
-  const origem = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  // Atrás da Cloudflare, o primeiro endereço do X-Forwarded-For é o da borda (o mesmo para muita gente): vale o do visitante.
+  const origem = request.headers.get("cf-connecting-ip")?.trim() || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
   const agora = Date.now();
   const atual = janela.get(origem);
   if (!atual || atual.ate < agora) janela.set(origem, { ate: agora + 60_000, n: 1 });

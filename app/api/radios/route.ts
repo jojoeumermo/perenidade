@@ -31,7 +31,7 @@ export async function GET(pedido: Request) {
       `https://${servidor}/json/stations/search?countrycode=BR&${campo}=${encodeURIComponent(busca)}&hidebroken=true&order=votes&reverse=true&limit=30`,
       { guardar: 21600, prazo: 6000 },
     );
-    if (lista === null) continue;
+    if (!Array.isArray(lista)) continue;
     const emissoras = lista
       .filter((item) => item.stationuuid && item.name)
       .map((item) => ({
