@@ -15,7 +15,11 @@ export const instagramConfigurado = () => Boolean(process.env.INSTAGRAM_USER_ID 
 export const agendaConfigurada = () => Boolean(process.env.CRON_SECRET && process.env.CRON_SECRET.length >= 24);
 
 /** As imagens só podem vir do depósito público de publicações do próprio banco do instituto. */
-export const urlDePublicacao = (url: string) => Boolean(supabase) && url.startsWith(`${supabase}/storage/v1/object/public/estudio-publicacoes/`) && /^[\w:/.-]+\.jpg$/.test(url);
+export const urlDePublicacao = (url: string) => {
+  const pasta = `${supabase}/storage/v1/object/public/estudio-publicacoes/`;
+  // Sem "..", "//" nem nada fora de letras, números, "-", "_" e "/": o endereço não sai do depósito de publicações.
+  return Boolean(supabase) && url.startsWith(pasta) && /^[\w-]+(\/[\w-]+)*\.jpg$/.test(url.slice(pasta.length));
+};
 
 /** Chama uma função do banco como a pessoa (com o token da sessão dela) ou, sem token, como visitante. */
 export async function rpcNoBanco<T>(funcao: string, argumentos: Record<string, unknown>, tokenDaPessoa?: string): Promise<{ ok: true; dados: T } | { ok: false; erro: string }> {
