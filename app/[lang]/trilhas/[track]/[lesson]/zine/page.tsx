@@ -5,19 +5,21 @@ import type { ReactNode } from "react";
 import { BotaoImprimir } from "@/components/BotaoImprimir";
 import Link from "@/components/Link";
 import { loadLang } from "@/i18n";
-import { defaultLocale, fill, localePath } from "@/i18n/config";
-import { getTrack, getTracks } from "@/lib/content";
-import { withLangs } from "@/lib/params";
+import { fill, localePath } from "@/i18n/config";
+import { getTrack } from "@/lib/content";
 import { paginaMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { blocoDaAula, cortar, qrSvg, secoesDaAula } from "@/lib/zine";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]/zine">;
 
-export const dynamicParams = false;
+// Montada na primeira visita e guardada (um dia), em vez de na montagem do site: são milhares de folhas que quase
+// ninguém abre ao mesmo tempo, e montá-las todas de uma vez estouraria o tempo de montagem.
+export const revalidate = 86400;
+export const dynamicParams = true;
 
 export function generateStaticParams() {
-  return withLangs(getTracks(defaultLocale).flatMap((track) => track.lessons.filter((l) => l.body.trim()).map((lesson) => ({ track: track.slug, lesson: lesson.slug }))));
+  return [];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
