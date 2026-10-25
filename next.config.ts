@@ -122,7 +122,11 @@ const nextConfig: NextConfig = {
   // O otimizador de imagens (/_next/image) só serve o que o próprio build importou (o busto da dedicatória): nenhum
   // endereço de fora, nenhum arquivo enviado depois, nenhum SVG. Fecha a porta das falhas desse serviço para o resto.
   images: {
-    localPatterns: [{ pathname: "/_next/static/media/**", search: "" }],
+    // Na Vercel, os arquivos do build ficam em /_next/static/immutable/media; fora dela, em /_next/static/media.
+    localPatterns: [
+      { pathname: "/_next/static/media/**", search: "" },
+      { pathname: "/_next/static/immutable/media/**", search: "" },
+    ],
     remotePatterns: [],
     dangerouslyAllowSVG: false,
   },
