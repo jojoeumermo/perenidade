@@ -9,6 +9,7 @@ import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, GRUPOS_DEPA
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Convites } from "./Convites";
 import { Departamentos, FotosParaAprovar, TermosAceitos } from "./PessoasExtras";
+import { ListaDePessoas } from "./ListaDePessoas";
 
 interface Candidatura {
   id: string;
@@ -48,6 +49,7 @@ interface Pessoa {
   /** A coordenação redefiniu a senha e a pessoa ainda não escolheu outra. */
   trocar_senha?: boolean;
   visto_em: string;
+  criado_em?: string;
   /** O nível da pessoa na hierarquia de cargos (o maior entre os papéis dela). */
   nivel: number;
   papeis: Role[];
@@ -69,7 +71,7 @@ const suspensoPor: Record<string, string> = { coordenacao: "pela coordenação",
  * A ficha de uma pessoa da equipe, aberta pela coordenação: acertar nome e apresentação, redefinir a senha de quem
  * esqueceu e suspender ou reativar. O e-mail não muda por aqui, e nada disso aparece na própria ficha de quem está vendo.
  */
-function Ficha({ pessoa, me, depois }: { pessoa: Pessoa; me: Me; depois: () => void }) {
+function Ficha({ pessoa, me, depois, estreita = false }: { pessoa: Pessoa; me: Me; depois: () => void; estreita?: boolean }) {
   const lider = leads(me);
   const [nome, setNome] = useState(pessoa.nome);
   const [bio, setBio] = useState(pessoa.bio ?? "");
@@ -95,7 +97,7 @@ function Ficha({ pessoa, me, depois }: { pessoa: Pessoa; me: Me; depois: () => v
   }
 
   return (
-    <div className="mt-3 grid gap-5 border-t border-rule pt-4 lg:grid-cols-3">
+    <div className={`mt-3 grid gap-5 border-t border-rule pt-4 ${estreita ? "" : "lg:grid-cols-3"}`}>
       <section>
         <h3 className="font-semibold">Nome e apresentação</h3>
         <p className="text-xs text-ink-soft">Para acertar um nome ofensivo, um dado pessoal exposto ou o pedido de quem não consegue entrar. O e-mail não muda por aqui.</p>
@@ -230,17 +232,12 @@ export function Pessoas({ me }: { me: Me }) {
   const semDisciplina = novo.papel === "saude";
   /** Quem vai receber a função: escolhida na busca, não numa lista com todo mundo. */
   const [quem, setQuem] = useState<PessoaAchada | null>(null);
-  const [filtro, setFiltro] = useState("");
+  /** Pessoas escolhidas na tabela para receber a mesma função de uma vez. */
+  const [lote, setLote] = useState<string[]>([]);
   const [aba, setAba] = useState<"equipe" | "funcao" | "convites" | "pedidos" | "departamentos" | "fotos" | "termos">("equipe");
   const aprova = can(me, "coordenacao", "vice");
-  /** A ficha aberta: uma de cada vez, para a lista continuar curta. */
-  const [aberta, setAberta] = useState<string | null>(null);
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? nomeDoDepartamento(slug)) : "todo o site");
   const pendentes = coordena ? (pedidos.dados?.filter((pedido) => pedido.status === "pendente") ?? []) : [];
-  const visiveis = pessoas.dados?.filter((pessoa) => `${pessoa.nome} ${pessoa.email}`.toLowerCase().includes(filtro.toLowerCase())) ?? [];
-  const [grupo, setGrupo] = useState<"equipe" | "comunidade">("equipe");
-  const daEquipe = visiveis.filter((pessoa) => pessoa.papeis.length > 0);
-  const daComunidade = visiveis.filter((pessoa) => pessoa.papeis.length === 0);
   // Quem foi escolhido na busca já vem com o nível: a tela avisa antes de o banco recusar.
   const alvoForaDoAlcance = quem !== null && quem.nivel !== undefined && !podeMexer({ id: quem.id, nivel: quem.nivel });
 
@@ -393,6 +390,31 @@ export function Pessoas({ me }: { me: Me }) {
           </label>
           )}
         </div>
+        {lote.length > 0 && (
+          <div className="mt-3 border-2 border-ink bg-[#f9e7a6] p-3 text-[#1f1a14]">
+            <p className="font-semibold">Para {lote.length} {lote.length === 1 ? "pessoa" : "pessoas"} de uma vez:</p>
+            <p className="text-sm">{(pessoas.dados ?? []).filter((p) => lote.includes(p.id)).map((p) => p.nome).join(", ")}</p>
+            <p className="mt-2 flex flex-wrap gap-3">
+              <button
+                type="button"
+                className={botao}
+                disabled={acao.ocupado || (porDisciplina && !novo.disciplina)}
+                onClick={async () => {
+                  const alvos = (pessoas.dados ?? []).filter((p) => lote.includes(p.id) && podeMexer(p));
+                  let feitos = 0;
+                  for (const alvo of alvos) {
+                    if ((await acao.agir("papel_conceder", { p_usuario: alvo.id, p_papel: novo.papel, p_disciplina: semDisciplina ? null : novo.disciplina || null }, "")) !== null) feitos++;
+                  }
+                  acao.setAviso(`${papeis[novo.papel]} confiada a ${feitos} de ${lote.length} ${lote.length === 1 ? "pessoa" : "pessoas"}${alvos.length < lote.length ? " (as outras estão no seu nível ou acima)" : ""}.`);
+                  setLote([]);
+                }}
+              >
+                Confiar a {lote.length === 1 ? "esta pessoa" : `estas ${lote.length} pessoas`}
+              </button>
+              <button type="button" className={elo} onClick={() => setLote([])}>Desfazer a seleção</button>
+            </p>
+          </div>
+        )}
         {alvoForaDoAlcance && <Aviso texto={`${quem?.nome} está no seu nível ou acima na hierarquia: só quem está acima confia ou retira funções dessa pessoa.`} />}
         <button
           type="button"
@@ -415,72 +437,66 @@ export function Pessoas({ me }: { me: Me }) {
 
       <section hidden={aba !== "equipe"}>
         <Aviso texto={pessoas.erro} />
-        <input value={filtro} onChange={(e) => setFiltro(e.target.value)} placeholder={coordena ? "Filtrar por nome ou e-mail" : "Filtrar por nome"} aria-label="Filtrar pessoas" className={campo} />
-        {/* A equipe (quem tem alguma função) fica separada de quem só participa da comunidade. */}
-        <p className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Quem mostrar">
-          {([["equipe", `Voluntários da equipe (${daEquipe.length})`], ["comunidade", `Só comunidade (${daComunidade.length})`]] as const).map(([valor, rotulo]) => (
-            <button key={valor} type="button" aria-pressed={grupo === valor} onClick={() => setGrupo(valor)} className={`cursor-pointer border-2 px-3 py-1.5 font-sans text-sm ${grupo === valor ? "border-ink bg-ink text-parchment" : "border-rule hover:border-ink"}`}>
-              {rotulo}
-            </button>
-          ))}
-        </p>
-        <ul className="mt-3 divide-y divide-rule border-y border-rule">
-          {(grupo === "equipe" ? daEquipe : daComunidade).map((pessoa) => (
-            <li key={pessoa.id} className="py-3">
-              <p className="font-serif text-xl font-semibold">
-                {pessoa.nome} {pessoa.id === me.id && <span className="font-sans text-sm text-ink-soft">(você)</span>} {pessoa.suspenso && <span className="font-sans text-sm text-oxblood">(suspensa)</span>}
-              </p>
-              <p className="font-mono text-xs text-ink-soft">
-                {pessoa.email ? `${pessoa.email} · ` : ""}último acesso em {data(pessoa.visto_em)}
-              </p>
-              {/* Todos os papéis, como etiquetas, o de maior nível primeiro. O ✕ só aparece onde o banco deixaria retirar. */}
-              <ul className="mt-1 flex flex-wrap gap-2" aria-label={`Funções de ${pessoa.nome}`}>
-                {pessoa.papeis.length === 0 && <li className="text-ink-soft">Sem função: participa da comunidade.</li>}
-                {porNivel(pessoa.papeis).map((papel) => (
-                  <li key={papel.id} className="border border-rule bg-parchment-deep px-2 py-1">
-                    {papeis[papel.papel]} · {nomeDaArea(papel.disciplina)}
-                    {podeTirar(pessoa, papel) && (
-                      <button type="button" title="Retirar função" aria-label={`Retirar de ${pessoa.nome} a função ${papeis[papel.papel]}`} className="ml-1 cursor-pointer px-1 hover:text-oxblood" onClick={() => acao.agir("papel_remover", { p_id: papel.id }, "Função retirada.")}>
-                        ✕
-                      </button>
-                    )}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-1 flex flex-wrap gap-4">
-                {podeMexer(pessoa) && (
-                  <button type="button" className={elo} onClick={() => { setQuem({ id: pessoa.id, nome: pessoa.nome, email: pessoa.email || papeis[porNivel(pessoa.papeis)[0]?.papel] || "", nivel: pessoa.nivel }); setAba("funcao"); }}>
-                    Confiar mais uma função
-                  </button>
+        <ListaDePessoas
+          pessoas={pessoas.dados ?? []}
+          eu={me.id}
+          candidaturas={pendentes.length + novas.length}
+          verCandidaturas={() => coordena && setAba("pedidos")}
+          nomeDaArea={nomeDaArea}
+          emLote={(ids) => {
+            setLote(ids);
+            setQuem(null);
+            setAba("funcao");
+          }}
+          ficha={(item) => {
+            const pessoa = item as Pessoa;
+            return (
+              <div className="space-y-4">
+                <section>
+                  <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-prelo-texto">Funções</p>
+                  {/* Todos os papéis, o de maior nível primeiro. O "tirar" só aparece onde o banco deixaria retirar. */}
+                  <ul className="mt-1.5 space-y-1" aria-label={`Funções de ${pessoa.nome}`}>
+                    {pessoa.papeis.length === 0 && <li className="text-sm text-ink-soft">Sem função: participa da comunidade.</li>}
+                    {porNivel(pessoa.papeis).map((papel) => (
+                      <li key={papel.id} className="flex items-center justify-between gap-2 border border-rule bg-parchment px-2 py-1 text-sm">
+                        <span>{papeis[papel.papel]} · {nomeDaArea(papel.disciplina)}</span>
+                        {podeTirar(pessoa, papel) && (
+                          <button type="button" className={`${elo} text-xs`} aria-label={`Retirar de ${pessoa.nome} a função ${papeis[papel.papel]}`} disabled={acao.ocupado} onClick={() => acao.agir("papel_remover", { p_id: papel.id }, "Função retirada.")}>
+                            Tirar
+                          </button>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                  {podeMexer(pessoa) && (
+                    <button type="button" className={`${elo} mt-2 text-sm font-bold`} onClick={() => { setLote([]); setQuem({ id: pessoa.id, nome: pessoa.nome, email: pessoa.email || papeis[porNivel(pessoa.papeis)[0]?.papel] || "", nivel: pessoa.nivel }); setAba("funcao"); }}>
+                      ＋ Dar uma função
+                    </button>
+                  )}
+                </section>
+                {coordena && (
+                  <section>
+                    <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-prelo-texto">Conta</p>
+                    <Ficha pessoa={pessoa} me={me} depois={pessoas.recarregar} estreita />
+                  </section>
                 )}
                 {coordena && (
-                  <button type="button" className={elo} aria-expanded={aberta === pessoa.id} onClick={() => setAberta(aberta === pessoa.id ? null : pessoa.id)}>
-                    {aberta === pessoa.id ? "Fechar a ficha" : pessoa.id === me.id ? "Sua conta" : "Abrir a ficha: nome, senha, suspensão"}
-                  </button>
+                  <section>
+                    <p className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-prelo-texto">Histórico</p>
+                    <Lances usuario={pessoa.id} nomeDaArea={nomeDaArea} />
+                  </section>
                 )}
-              </p>
-              {coordena && aberta === pessoa.id && <Ficha pessoa={pessoa} me={me} depois={pessoas.recarregar} />}
-              {coordena && <HistoricoDeCargos usuario={pessoa.id} nomeDaArea={nomeDaArea} />}
-            </li>
-          ))}
-        </ul>
+              </div>
+            );
+          }}
+        />
       </section>
       <Aviso texto={acao.aviso} />
     </div>
   );
 }
 
-/** Quem confiou e quem retirou cada função desta pessoa, com data. Só carrega quando a coordenação abre. */
-function HistoricoDeCargos({ usuario, nomeDaArea }: { usuario: string; nomeDaArea: (slug: string | null) => string }) {
-  const [aberto, setAberto] = useState(false);
-  return (
-    <details className="mt-1 text-xs text-ink-soft" onToggle={(e) => setAberto(e.currentTarget.open)}>
-      <summary className="cursor-pointer hover:text-ink">Histórico de funções</summary>
-      {aberto && <Lances usuario={usuario} nomeDaArea={nomeDaArea} />}
-    </details>
-  );
-}
-
+/** Quem confiou e quem retirou cada função desta pessoa, com data (na ficha, para a coordenação). */
 function Lances({ usuario, nomeDaArea }: { usuario: string; nomeDaArea: (slug: string | null) => string }) {
   const lista = useLista<Lance[]>("papeis_historico_listar", { p_usuario: usuario });
   if (lista.erro) return <Aviso texto={lista.erro} />;
