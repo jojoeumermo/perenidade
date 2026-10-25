@@ -45,14 +45,16 @@ function chunks(text: string): string[] {
 }
 
 /** Lê o trecho selecionado ou, sem seleção, o conteúdo principal da página. */
-export function startReading() {
+/** Lê o trecho selecionado ou, sem seleção, o texto dos `alvos` (seletores CSS, na ordem); sem alvos, a página inteira. */
+export function startReading(alvos?: string[]) {
   if (!speechSupported()) return;
   const synth = window.speechSynthesis;
   synth.cancel();
 
   const selection = window.getSelection()?.toString().trim() ?? "";
   const main = document.getElementById("conteudo");
-  const text = selection || main?.innerText || "";
+  const trechos = alvos?.map((alvo) => document.querySelector<HTMLElement>(alvo)?.innerText.trim() ?? "").filter(Boolean) ?? [];
+  const text = selection || (trechos.length > 0 ? trechos.join(". ") : main?.innerText || "");
   // Conteúdo ainda não traduzido fica marcado com o idioma original, para a voz certa ser usada.
   const lang = main?.querySelector<HTMLElement>("[data-content-lang]")?.dataset.contentLang ?? document.documentElement.lang;
   const voice = synth.getVoices().find((v) => v.lang.toLowerCase().startsWith(lang.toLowerCase().split("-")[0]));

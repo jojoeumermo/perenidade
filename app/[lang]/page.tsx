@@ -8,6 +8,7 @@ import { Experimente, type Sugestao } from "@/components/inicio/Experimente";
 import { LambeDoDia } from "@/components/inicio/LambeDoDia";
 import { lambesDaSemana } from "@/lib/lambes";
 import { JanelaContinue, JanelaNoAr } from "@/components/inicio/Janelas";
+import { type EstanteDoApp, InicioDoApp } from "@/components/inicio/InicioDoApp";
 import { FaixaDaSaude } from "@/components/saude/FaixaDaSaude";
 import { territorios } from "@/lib/territorios";
 import saude from "@/content/saude/profissionais.json";
@@ -80,10 +81,36 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
     { label: t.nav.tools, path: "/ferramentas" },
   ];
 
+  // As estantes da fileira do aplicativo: as que já têm aula, as mais cheias primeiro.
+  const aulasPorEstante = new Map<string, number>();
+  for (const track of tracks) aulasPorEstante.set(track.area, (aulasPorEstante.get(track.area) ?? 0) + track.lessons.length);
+  const estantesDoApp: EstanteDoApp[] = groups
+    .flatMap((group) => group.areas.map((slug) => ({ slug, grupo: t.groups[group.id], n: aulasPorEstante.get(slug) ?? 0 })))
+    .filter((estante) => estante.n > 0)
+    .sort((a, b) => b.n - a.n)
+    .slice(0, 12)
+    .map((estante) => ({ slug: estante.slug, nome: t.areas[estante.slug][0], etapa: estante.grupo, aulas: `${numero(lang, estante.n)} ${estante.n === 1 ? t.common.lessons.one : t.common.lessons.other}` }));
+
   return (
     <>
+      <InicioDoApp
+        busca={to("/busca")}
+        estantes={estantesDoApp}
+        textos={{
+          busca: h.searchPlaceholder,
+          buscaRotulo: h.searchLabel,
+          buscar: h.searchButton,
+          continuar: t.tracks.continue,
+          retomar: t.tracks.resume,
+          comecar: t.nav.start,
+          comecarTexto: h.startText,
+          estantes: h.shelvesPick,
+          verTodas: fill(h.seeAllShelves, { n: areas }),
+        }}
+      />
       {/* ── O alto: busca e lambe-lambe no papel pontilhado ── */}
-      <section className="pont border-b-[3px] border-ink">
+      {/* No aplicativo, o começo é o InicioDoApp acima: o lambe-lambe grande fica para o site. */}
+      <section className="pont border-b-[3px] border-ink app:max-md:hidden">
         <div className="mx-auto grid max-w-[78rem] items-center gap-12 px-4 pt-14 pb-16 sm:px-6 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-14 lg:px-8 lg:pt-[4.5rem] lg:pb-20 max-md:pt-7 max-md:pb-9">
           <div className="min-w-0">
             <p className="rotulo">{h.kicker}</p>
