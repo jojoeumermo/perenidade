@@ -13,6 +13,9 @@ export const ANOTAR = "lucia:anotar";
 
 type Modo = "normal" | "larga" | "foco";
 
+// O "Ouvir" lê só a aula: título, resumo e texto (sem menus, margem, exercícios nem rodapé).
+const TRECHOS_DA_AULA = [".folha-da-aula h1", ".folha-da-aula h1 + p", "#texto-da-aula"];
+
 function aplicar(modo: Modo) {
   const raiz = document.documentElement;
   raiz.toggleAttribute("data-aula-larga", modo === "larga");
@@ -117,7 +120,7 @@ export function BarraDaAula({ voltar, trilha, posicao, minutos, aula, ferramenta
         <span className="text-[#b3a584] max-sm:hidden">{minutos}</span>
         <span className="ml-auto flex flex-wrap items-center gap-1">
           {podeOuvir && (
-            <button type="button" className={botao} aria-pressed={falando} onClick={() => (falando ? stopReading() : startReading())}>
+            <button type="button" className={botao} aria-pressed={falando} onClick={() => (falando ? stopReading() : startReading(TRECHOS_DA_AULA))}>
               {falando ? l.stopListening : l.listen}
             </button>
           )}

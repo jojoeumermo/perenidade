@@ -40,6 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/despertar",
     "/territorios",
     "/receba",
+    "/nucleos",
     "/comecar",
     "/guia",
     "/videos",
