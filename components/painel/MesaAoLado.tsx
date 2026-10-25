@@ -27,11 +27,11 @@ const DEPARTAMENTOS: { papeis: Role["papel"][]; nome: string; secoes: string[] }
 /** O departamento principal da pessoa (o da função de maior nível) e as seções dele que ela enxerga. */
 export function meuDepartamento(me: Me, visiveis: string[]): { nome: string; secoes: string[] } | null {
   for (const papel of porNivel(me.papeis)) {
-    if (papel.papel === "representante" && papel.disciplina === "saude") return { nome: "Saúde Solidária", secoes: ["saude", "termos"].filter((id) => visiveis.includes(id)) };
+    if (papel.papel === "representante" && papel.disciplina === "saude") return { nome: "Saúde Solidária", secoes: ["departamentos", "saude", "termos"].filter((id) => visiveis.includes(id)) };
     const d = DEPARTAMENTOS.find((x) => x.papeis.includes(papel.papel));
     if (!d) continue;
-    const secoes = d.secoes.filter((id) => visiveis.includes(id));
-    if (secoes.length >= 2) return { nome: d.nome, secoes };
+    const secoes = ["departamentos", ...d.secoes].filter((id) => visiveis.includes(id));
+    if (secoes.length >= 3) return { nome: d.nome, secoes };
   }
   return null;
 }

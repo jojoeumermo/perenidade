@@ -26,6 +26,7 @@ import { Estatisticas } from "./Estatisticas";
 import { TermoDeVoluntario } from "./Termo";
 import { AgoraAoVivo, Continuar, DicaDoTutorial, meuDepartamento, NoSiteAgora, SuasHoras } from "./MesaAoLado";
 import { Agradecimentos, CuidadoDaEquipe, FeriasNaMesa, Termometro } from "./Cuidado";
+import { Departamentos } from "./Departamentos";
 import { abrirTutorial, TutorialDoPainel } from "./Tutorial";
 import { TermosAceitos } from "./PessoasExtras";
 import { SaudeNoPainel } from "./Saude";
@@ -212,7 +213,7 @@ function trocarTema() {
 }
 
 /** "g" e uma letra: vai direto à seção (se a pessoa enxerga a seção). */
-const ATALHOS_G: Record<string, string> = { m: "mesa", e: "escrever", c: "conversas", f: "fila", h: "horas", t: "tarefas", a: "atividade", v: "videoaulas", r: "rede", p: "pessoas", o: "conta" };
+const ATALHOS_G: Record<string, string> = { d: "departamentos", m: "mesa", e: "escrever", c: "conversas", f: "fila", h: "horas", t: "tarefas", a: "atividade", v: "videoaulas", r: "rede", p: "pessoas", o: "conta" };
 
 /** A lista dos atalhos de teclado do painel ("?" abre e fecha). */
 function AjudaDoTeclado({ secoes, fechar }: { secoes: Secao[]; fechar: () => void }) {
@@ -526,6 +527,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
       { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da mediação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mediacao"), conta: r?.mural },
       { id: "gaveta", nome: "Gaveta Aberta", sobre: "Trabalhos de estudantes esperando a decisão: conferir, publicar ou recusar.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.gaveta },
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
+      { id: "departamentos", nome: "Departamentos", sobre: "Cada departamento com a meta do mês, o quadro da semana, os pedidos de outros departamentos com prazo, quem responde e como trabalha.", grupo: "Pessoas", mostra: voluntario },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: manages(eu), conta: r?.candidaturas },
       { id: "supervisao", nome: "Supervisão", sobre: "Proteções reversíveis, a equipe sem e-mails e os pedidos de voluntariado.", grupo: "Pessoas", mostra: supervisiona, conta: r?.candidaturas },
       // As reuniões moram dentro de Conversas e reuniões; o endereço antigo (?aba=reunioes) abre a agenda de lá.
@@ -836,6 +838,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
           {atual.id === "interdicao" && <Interdicao me={eu} aoMudar={estadoDoSite.recarregar} />}
           {atual.id === "registro" && <RegistroDeAtividades />}
+          {atual.id === "departamentos" && <Departamentos me={eu} ir={ir} />}
           {atual.id === "estatisticas" && (
             <>
               <Estatisticas />
