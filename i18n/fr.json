@@ -5005,7 +5005,7 @@
     "denunciaEnviar": "Envoyer le signalement",
     "denunciaFeita": "Signalement envoyé à la modération. Merci.",
     "retido": "En attente de modération : vous seul le voyez.",
-    "buscar": "Chercher dans les messages chargés",
+    "buscar": "Chercher dans le réseau (texte et #hashtags)",
     "erros": {
       "dado_pessoal": "Le message contient un téléphone, un CPF ou un e-mail. Retirez la donnée personnelle et republiez.",
       "confirme_idade": "Confirmez que vous avez 16 ans ou plus.",
@@ -5021,6 +5021,33 @@
       "quebrada": "Culture des quartiers",
       "educacao-publica": "Éducation publique",
       "saude-publica": "Santé publique"
-    }
+    },
+    "minhas": "Mes communautés",
+    "espacos": "Espaces fermés",
+    "espacosAjuda": "Une organisation qui ne peut pas être ouverte : seules les personnes invitées entrent.",
+    "entrarConvite": "Entrer avec une invitation",
+    "convitePlaceholder": "code d’invitation",
+    "abrirEspaco": "Ouvrir un espace fermé",
+    "nomeEspaco": "Nom de l’espace",
+    "codigoConvite": "Code d’invitation",
+    "seguirComunidade": "Suivre cette communauté",
+    "deixarComunidade": "Ne plus suivre",
+    "posicao": "Position",
+    "posicoes": {
+      "favor": "Pour",
+      "contra": "Contre",
+      "sintese": "Synthèse"
+    },
+    "semPosicao": "Sans position",
+    "virarPauta": "En faire un sujet",
+    "pautaFeita": "Sujet créé dans la banque du panneau.",
+    "ocultar": "Masquer",
+    "baixar": "Télécharger mes messages",
+    "silenciar": "Masquer des mots",
+    "silenciarAjuda": "Les messages avec ces mots disparaissent de votre écran (sur cet appareil seulement). Séparez par des virgules.",
+    "membros": "membres",
+    "copiar": "Copier",
+    "buscando": "Recherche…",
+    "resultados": "Résultats de la recherche"
   }
 }

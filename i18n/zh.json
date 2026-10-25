@@ -4932,7 +4932,7 @@
     "denunciaEnviar": "提交举报",
     "denunciaFeita": "举报已提交给审核。谢谢。",
     "retido": "等待审核：只有你能看到。",
-    "buscar": "在已加载的帖子中搜索",
+    "buscar": "在网络中搜索（文字和 #话题）",
     "erros": {
       "dado_pessoal": "帖子里有电话、CPF 或电子邮件。请删除个人信息后重新发布。",
       "confirme_idade": "请确认你已满 16 岁。",
@@ -4948,6 +4948,33 @@
       "quebrada": "街区文化",
       "educacao-publica": "公共教育",
       "saude-publica": "公共卫生"
-    }
+    },
+    "minhas": "我的社群",
+    "espacos": "封闭空间",
+    "espacosAjuda": "不能公开的组织工作：只有收到邀请的人才能进入。",
+    "entrarConvite": "凭邀请加入",
+    "convitePlaceholder": "邀请码",
+    "abrirEspaco": "开设封闭空间",
+    "nomeEspaco": "空间名称",
+    "codigoConvite": "邀请码",
+    "seguirComunidade": "关注这个社群",
+    "deixarComunidade": "取消关注",
+    "posicao": "立场",
+    "posicoes": {
+      "favor": "赞成",
+      "contra": "反对",
+      "sintese": "综合"
+    },
+    "semPosicao": "无立场",
+    "virarPauta": "变成选题",
+    "pautaFeita": "已加入面板的选题库。",
+    "ocultar": "隐藏",
+    "baixar": "下载我的帖子",
+    "silenciar": "屏蔽词语",
+    "silenciarAjuda": "含有这些词的帖子会从你的屏幕上消失（仅限本设备）。用逗号分隔。",
+    "membros": "位成员",
+    "copiar": "复制",
+    "buscando": "搜索中…",
+    "resultados": "搜索结果"
   }
 }
