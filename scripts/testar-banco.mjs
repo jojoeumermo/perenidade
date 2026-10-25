@@ -2791,6 +2791,30 @@ await espera("a jornalista vê o convite e entra pelo código", async () => { co
 await recusa("convite com código errado não serve", () => rpc(como(ids.med), "chat_convite_usar", { p_codigo: "aaaaaaaaaa" }), "convite_vencido");
 await recusa("quem não é da equipe não usa convite", () => rpc(como(ids.aluna), "chat_convite_usar", { p_codigo: codigoConvite }), "sem_permissao");
 
+// Rede Lúcia: posts curtos, fio, repost, chamado com "Eu vou", seguir, bloquear, alcance, 16 anos, dado pessoal.
+await recusa("sem confirmar os 16 anos, não publica", () => rpc(como(ids.aluna), "rede_postar", { p: { texto: "Oi, rede!" } }), "confirme_idade");
+await rpc(como(ids.aluna), "rede_confirmar_idade");
+await rpc(como(ids.prof), "rede_confirmar_idade");
+await rpc(como(ids.vol), "rede_confirmar_idade");
+await recusa("telefone no post é recusado", () => rpc(como(ids.aluna), "rede_postar", { p: { texto: "me chama no (81) 98765-4321" } }), "dado_pessoal");
+let postRede, chamadoRede;
+await espera("a aluna publica um post curto citando uma aula", () => rpc(como(ids.aluna), "rede_postar", { p: { texto: "Acabei a aula de mais-valia e entendi meu contracheque.", cita: { tipo: "aula", caminho: "/trilhas/introducao-ao-marxismo/mais-valia", titulo: "Mais-valia" } } }), (r) => r.id && r.cita.tipo === "aula" && (postRede = r.id));
+await espera("o educador responde em fio e a aluna é avisada", async () => { await rpc(como(ids.prof), "rede_postar", { p: { texto: "Boa! A próxima é sobre jornada de trabalho.", resposta_a: postRede } }); return [await rpc(anon, "rede_post_ver", { p_id: postRede }), await rpc(como(ids.aluna), "avisos_meus")]; },
+  ([fio, avisos]) => fio.respostas.length === 1 && fio.post.respostas === 1 && avisos.some((a) => a.texto.includes("respondeu ao seu post")));
+await espera("o visitante lê a linha do tempo pública, sem as respostas", () => rpc(anon, "rede_linha", { p_modo: "tudo" }), (r) => r.some((p) => p.id === postRede) && !r.some((p) => p.resposta_a));
+await espera("o educador chama para um mutirão e a aluna diz que vai", async () => { chamadoRede = await rpc(como(ids.prof), "rede_postar", { p: { texto: "Mutirão de alfabetização no sábado!", chamado: { tipo: "mutirao", quando: new Date(Date.now() + 3 * 86400000).toISOString(), onde: "Praça do Derby, Recife" }, comunidade: "educacao" } }); await rpc(como(ids.aluna), "rede_vou", { p_id: chamadoRede.id, p_sim: true }); return rpc(anon, "rede_linha", { p_modo: "chamados" }); },
+  (r) => r.some((p) => p.id === chamadoRede.id && p.vou === 1 && p.chamado.onde.includes("Derby")));
+await espera("repost com comentário leva o original junto", () => rpc(como(ids.vol), "rede_postar", { p: { texto: "Todo mundo deveria fazer essa aula.", repost_de: postRede } }), (r) => r.original && r.original.id === postRede);
+await espera("só quem segue vê o post para seguidores", async () => { const so = await rpc(como(ids.aluna), "rede_postar", { p: { texto: "Só para quem me acompanha.", alcance: "seguidores" } }); await rpc(como(ids.vol), "rede_seguir", { p_usuario: ids.aluna, p_sim: true }); return [so.id, await rpc(como(ids.vol), "rede_linha", { p_modo: "seguindo" }), await rpc(anon, "rede_linha", { p_modo: "tudo" })]; },
+  ([id, seguidora, visitante]) => seguidora.some((p) => p.id === id) && !visitante.some((p) => p.id === id));
+await espera("bloquear tira da linha dos dois e desfaz o seguir", async () => { await rpc(como(ids.aluna), "rede_bloquear", { p_usuario: ids.vol, p_sim: true }); return [await rpc(como(ids.vol), "rede_linha", { p_modo: "tudo" }), await rpc(como(ids.vol), "rede_perfil", { p_usuario: ids.aluna })]; },
+  ([linha, perfil]) => !linha.some((p) => p.autor.id === ids.aluna) && perfil.sigo === false);
+await recusa("bloqueada, não responde", () => rpc(como(ids.vol), "rede_postar", { p: { texto: "Respondendo mesmo assim.", resposta_a: postRede } }), "nao_encontrado");
+await espera("perfil invisível não abre para os outros", async () => { await rpc(como(ids.prof), "rede_config", { p_invisivel: true }); return rpc(como(ids.aluna), "rede_perfil", { p_usuario: ids.prof }); }, (r) => r.invisivel === true && !("bio" in r));
+await rpc(como(ids.prof), "rede_config", { p_invisivel: false });
+await espera("post com palavra do filtro espera a mediação, na mesma fila do fórum", async () => { const r = await rpc(como(ids.aluna), "rede_postar", { p: { texto: "palavrão novo aqui na rede" } }); return [r, await rpc(como(ids.med), "comunidade_retidos")]; }, ([r, fila]) => r.retido === true && fila.some((x) => x.tipo === "post" && x.id === r.id));
+await espera("o registro público de moderação não mostra nomes", () => rpc(anon, "rede_moderacao_publica"), (r) => Array.isArray(r) && r.every((s) => !("nome" in s)));
+
 // Transmissão pelo YouTube do instituto: a chave só para quem conduz; o site só vê o código público.
 let aulaTransmitida;
 await espera("o educador marca outra aula, com sala do Jitsi (endereço longo cabe)", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova({ titulo: "Frações no YouTube", sala_externa: `https://meet.jit.si/lucia-${"x".repeat(300)}` }) }), (r) => Boolean(r.id) && r.sala_externa.length > 300 && (aulaTransmitida = r.id));
