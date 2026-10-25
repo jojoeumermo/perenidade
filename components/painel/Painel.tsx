@@ -31,6 +31,7 @@ import { Assembleias } from "./Assembleias";
 import { Pautas } from "./Pautas";
 import { Biblioteca, PrimeiraSemana } from "./Biblioteca";
 import { RetornoDosAlunos } from "./RetornoDosAlunos";
+import { ConquistasDaEquipe, Nucleos } from "./Nucleos";
 import { abrirTutorial, TutorialDoPainel } from "./Tutorial";
 import { TermosAceitos } from "./PessoasExtras";
 import { SaudeNoPainel } from "./Saude";
@@ -564,6 +565,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
       { id: "gaveta", nome: "Gaveta Aberta", sobre: "Trabalhos de estudantes esperando a decisão: conferir, publicar ou recusar.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.gaveta },
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
       { id: "assembleias", nome: "Assembleias", sobre: "Decisões da equipe por voto: secreto de verdade, com o resultado só no fim.", grupo: "Pessoas", mostra: voluntario },
+      { id: "nucleos", nome: "Núcleos", sobre: "O mapa dos núcleos de estudo por estado e cidade, sem endereço nem nome de quem participa.", grupo: "Pessoas", mostra: voluntario },
       { id: "departamentos", nome: "Departamentos", sobre: "Cada departamento com a meta do mês, o quadro da semana, os pedidos de outros departamentos com prazo, quem responde e como trabalha.", grupo: "Pessoas", mostra: voluntario },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: manages(eu), conta: r?.candidaturas },
       { id: "supervisao", nome: "Supervisão", sobre: "Proteções reversíveis, a equipe sem e-mails e os pedidos de voluntariado.", grupo: "Pessoas", mostra: supervisiona, conta: r?.candidaturas },
@@ -883,6 +885,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
           {atual.id === "assembleias" && <Assembleias me={eu} />}
           {atual.id === "pautas" && <Pautas me={eu} ir={ir} />}
           {atual.id === "biblioteca" && <Biblioteca ir={ir} />}
+          {atual.id === "nucleos" && <Nucleos me={eu} />}
           {atual.id === "estatisticas" && (
             <>
               <Estatisticas />
@@ -1069,6 +1072,8 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
         </div>
 
         {me.papeis.length > 0 && <Agradecimentos />}
+
+        {me.papeis.length > 0 && <ConquistasDaEquipe />}
 
         {me.papeis.length > 0 && <Atalhos secoes={secoes} ir={ir} icone={(id) => <Icone id={id} />} />}
 

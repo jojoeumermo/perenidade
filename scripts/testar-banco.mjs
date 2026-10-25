@@ -2767,6 +2767,14 @@ await espera("o educador diz o que sabe fazer e a equipe vê", async () => { awa
 // Registro de acessos sensíveis: ler os termos assinados fica no registro (uma linha por hora).
 await espera("abrir os termos assinados fica no registro, sem repetir na mesma hora", async () => { await rpc(coord2, "termos_aceites_listar"); await rpc(coord2, "termos_aceites_listar"); return dono("select count(*)::int as n from interno.auditoria where acao = 'acesso_termos_aceitos'"); }, (r) => r.rows[0].n === 1);
 
+// Núcleos e conquistas: o núcleo só com cidade e estado; as conquistas são da equipe inteira.
+let nucleo;
+await recusa("estado que não existe é recusado", () => rpc(como(ids.prof), "nucleo_salvar", { p_id: null, p: { nome: "Núcleo da laje", cidade: "Recife", uf: "XX" } }), "invalido:nucleo");
+await espera("o educador cadastra um núcleo e passa a acompanhar", () => rpc(como(ids.prof), "nucleo_salvar", { p_id: null, p: { nome: "Núcleo da laje", cidade: "Recife", uf: "pe", tipo: "bairro", encontros: "sábados às 15h", pessoas: 8 } }), (r) => r.id && (nucleo = r.id));
+await espera("a equipe vê o núcleo, sem endereço", () => rpc(como(ids.med), "nucleos_listar"), (r) => r.some((n) => n.id === nucleo && n.uf === "PE" && n.acompanha && !("endereco" in n) && !n.mexo));
+await recusa("quem não cadastrou nem acompanha não muda o núcleo", () => rpc(como(ids.med), "nucleo_salvar", { p_id: nucleo, p: { ativo: false } }), "sem_permissao");
+await espera("as conquistas da equipe somam o instituto inteiro", () => rpc(como(ids.prof), "conquistas_da_equipe"), (r) => r.nucleos >= 1 && r.pessoas >= 5 && typeof r.aulas === "number");
+
 // Transmissão pelo YouTube do instituto: a chave só para quem conduz; o site só vê o código público.
 let aulaTransmitida;
 await espera("o educador marca outra aula, com sala do Jitsi (endereço longo cabe)", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova({ titulo: "Frações no YouTube", sala_externa: `https://meet.jit.si/lucia-${"x".repeat(300)}` }) }), (r) => Boolean(r.id) && r.sala_externa.length > 300 && (aulaTransmitida = r.id));

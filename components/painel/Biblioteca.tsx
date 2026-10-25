@@ -30,6 +30,7 @@ const ESTANTES: [string, Item[]][] = [
       { nome: "Política de uso", sobre: "O que pode e o que não pode no site.", href: "/uso" },
       { nome: "Direitos autorais", sobre: "Licenças, créditos e o que fazer com material de terceiros.", href: "/direitos-autorais" },
       { nome: "Privacidade", sobre: "O que o instituto guarda e o que não guarda de ninguém.", href: "/privacidade" },
+      { nome: "Contas do instituto", sobre: "A prestação de contas: o que entra, o que sai e para onde vai, mês a mês.", href: "/apoie" },
     ],
   ],
   [
