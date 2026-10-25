@@ -2,6 +2,7 @@
 import type { MetadataRoute } from "next";
 import { defaultLocale, htmlLang, locales } from "@/i18n/config";
 import { areaSlugs, tools } from "@/lib/areas";
+import { territorios } from "@/lib/territorios";
 import { getArticles, getBooks, getTracks } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
 import { site } from "@/lib/site";
@@ -37,6 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/falacias",
     "/perguntas",
     "/despertar",
+    "/territorios",
     "/comecar",
     "/guia",
     "/videos",
@@ -84,6 +86,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
   for (const area of areaSlugs) paths.push(`/estantes/${area}`);
   for (const tool of tools) paths.push(`/ferramentas/${tool}`);
+  for (const territorio of territorios) paths.push(`/territorios/${territorio.slug}`);
   // A data real da última alteração, lida do histórico do Git, só para o que tem arquivo próprio (aula, trilha, obra, matéria).
   const datas = new Map<string, string>();
   const anotar = (path: string, file?: string) => {

@@ -106,7 +106,8 @@
     "usePolicy": "Política de uso",
     "events": "Agenda de encontros",
     "spreadKit": "Kit de divulgação",
-    "despertar": "Despertar"
+    "despertar": "Despertar",
+    "territories": "Territórios"
   },
   "labs": {
     "eyebrow": "Praticar de verdade",
@@ -3156,7 +3157,8 @@
       "usePolicy": "O que pode e o que não pode, em poucas linhas.",
       "events": "Cineclube, clube de leitura e outros encontros.",
       "spreadKit": "Cartazes, folheto, zine e cartões com QR para imprimir.",
-      "despertar": "Do zero à consciência de classe, em cinco etapas, com tarefas no mundo real."
+      "despertar": "Do zero à consciência de classe, em cinco etapas, com tarefas no mundo real.",
+      "territories": "Coletivos de cultura e luta que caminham com o instituto: matérias, aulas, fotos e encontros."
     },
     "short": {
       "/trilhas": "todas as matérias",
@@ -3211,7 +3213,8 @@
       "/meus-dados": "baixar ou apagar",
       "/privacidade": "o que guardamos",
       "/termos": "as regras do site",
-      "/despertar": "formação militante"
+      "/despertar": "formação militante",
+      "/territorios": "coletivos parceiros"
     },
     "highlights": "Comece aqui",
     "startText": "Nunca estudou por aqui? Comece por uma pergunta da sua vida, ou escolha uma disciplina.",
@@ -4876,5 +4879,30 @@
     "groupTitle": "Faça o Despertar num núcleo",
     "groupText": "Cada etapa tem um roteiro de encontro de uma hora e perguntas para a roda. Junte três pessoas e comece.",
     "groupCta": "Achar ou montar um núcleo"
+  },
+  "territorios": {
+    "eyebrow": "Coletivos que caminham com o instituto",
+    "title": "Territórios",
+    "lead": "Coletivos de cultura, arte e luta que caminham junto com o Instituto Lúcia. Cada território traz o seu olhar para o site: matérias no jornal, aulas, fotos e encontros.",
+    "partner": "Território parceiro do Instituto Lúcia · Nº {n}",
+    "open": "Conhecer o território",
+    "follow": "Seguir",
+    "people": "Quem faz",
+    "editions": "As edições",
+    "editionsTitle": "Cada série é uma revista.",
+    "byCollective": "Pelo coletivo",
+    "journalKicker": "No Jornal Revolucionário Lúcia",
+    "journalTitle": "Editoria {editoria}",
+    "journalAll": "Ver o jornal",
+    "journalEmpty": "As primeiras análises estão sendo escritas. Pautas na mesa:",
+    "learnKicker": "Aprenda com o território · trilhas",
+    "learnTitle": "A quebrada também é escola.",
+    "lessons": "{n} aulas",
+    "soon": "Em preparação",
+    "capsuleKicker": "Cápsula · em preparação",
+    "nextTitle": "Territórios são coletivos que caminham com o Instituto Lúcia. O próximo pode ser o seu.",
+    "nextText": "Coletivo de cultura, arte, esporte, moradia ou estudo? Escreva contando quem vocês são, onde atuam e o que fazem.",
+    "nextCta": "Trazer o meu coletivo",
+    "all": "Todos os territórios"
   }
 }
