@@ -19,6 +19,7 @@ import type { Membro } from "./Equipe";
 import { FerramentasDoAutor } from "./FerramentasDoAutor";
 import { GuiaDaAula } from "./GuiaDaAula";
 import { EditorDePratica } from "./Pratica";
+import { Verificador } from "./Verificador";
 
 type TipoId = keyof typeof tipos;
 interface Campo {
@@ -731,6 +732,8 @@ export function Escrever({ me }: { me: Me }) {
           </section>
         );
       })()}
+
+      <Verificador titulo={titulo} corpo={corpo} fontes={cleanSources(fontes).length} exigeFonte={tipo.fonte} minimo={tipo.corpo.min} />
 
       <Aviso texto={aviso} />
 
