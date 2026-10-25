@@ -3217,3 +3217,39 @@ main#conteudo .ide-area :is(div, section)[class~="border-2"][class~="border-ink"
 .painel-leve .pont {
   background-image: none !important;
 }
+
+/* O cabeçalho das páginas antigas (components/PageHeading.tsx) vira a capa de papel do Caderno do Povo: a faixa vai de
+   ponta a ponta, logo abaixo do cabeçalho do site, com o fio de tinta embaixo; o texto continua alinhado à coluna da
+   página (margem negativa até a borda da tela e o mesmo tanto de recuo por dentro). */
+main#conteudo {
+  overflow-x: clip;
+}
+main#conteudo .cabeca-da-pagina {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 3rem calc(50vw - 50%) 3rem;
+  border-bottom: 3px solid var(--ink);
+  margin-bottom: 2.75rem;
+}
+main#conteudo :is(.py-12, .pt-12) > .cabeca-da-pagina:first-child,
+main#conteudo :is(.py-12, .pt-12) > :first-child > .cabeca-da-pagina:first-child {
+  margin-top: -3rem;
+}
+main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
+  margin-top: -2.5rem;
+}
+@media (max-width: 767px) {
+  main#conteudo .cabeca-da-pagina {
+    padding-top: 2rem;
+    padding-bottom: 2.25rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media print {
+  main#conteudo .cabeca-da-pagina {
+    margin: 0 0 1.5rem;
+    padding: 0 0 1rem;
+    background: none;
+  }
+}

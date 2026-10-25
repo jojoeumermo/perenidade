@@ -31,14 +31,10 @@ export default async function Page({ params }: PageProps<"/[lang]/laboratorios">
   ];
   return (
     <>
-      <section className="pont border-b-[3px] border-ink">
-        <div className="mx-auto max-w-[78rem] px-4 pt-12 pb-10 sm:px-6 lg:px-8">
-          <PageHeading eyebrow={s.eyebrow} title={s.title}>
-            {s.lead}
-          </PageHeading>
-        </div>
-      </section>
       <div className="mx-auto max-w-[78rem] px-4 py-12 sm:px-6 lg:px-8">
+        <PageHeading eyebrow={s.eyebrow} title={s.title}>
+          {s.lead}
+        </PageHeading>
         <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
           {itens.map(([nome, lead, path, selo], i) => (
             <Link key={path} href={localePath(lang, path)} className={`sobe group flex flex-col p-5 text-ink hover:text-ink ${i % 2 ? "cartao-v" : "cartao"}`}>
