@@ -273,6 +273,15 @@ export const GUIAS: Record<string, Guia> = {
     ],
     dica: "No voto secreto, o banco guarda que você votou num lugar e o voto em outro, sem ligação entre os dois.",
   },
+  nucleos: {
+    paraQue: "O mapa dos núcleos de estudo: grupos que fazem as aulas juntos no bairro, na escola ou no trabalho.",
+    passos: [
+      { titulo: "Veja o mapa", texto: "Cada quadradinho é um estado; quanto mais vermelho, mais núcleos. Clique para ver os núcleos dele." },
+      { titulo: "Cadastre um núcleo", texto: "＋ Cadastrar um núcleo: nome, cidade, estado, onde se encontra e quando. Você passa a acompanhar." },
+      { titulo: "Mantenha em dia", texto: "Se o núcleo parar, marque como parado; se voltar, marque de novo." },
+    ],
+    dica: "Nunca ponha endereço nem nome de quem participa: núcleo de formação militante é alvo de perseguição.",
+  },
   departamentos: {
     paraQue: "A página de cada departamento: meta do mês, quadro da semana, pedidos de outros departamentos, quem responde e como trabalha.",
     passos: [
