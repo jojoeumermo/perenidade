@@ -20,6 +20,11 @@ interface Nucleo {
   acompanha: string;
   atualizado_em: string;
   mexo: boolean;
+  publico: boolean;
+  ponto: string;
+  contato: string;
+  /** Quem pode pôr no mapa público do site (coordenação e vice). */
+  publica: boolean;
 }
 
 /** O Brasil em quadradinhos, um por estado, mais ou menos onde cada um fica no mapa (linha, coluna). */
@@ -47,6 +52,7 @@ export function Nucleos({ me }: { me: Me }) {
   const lista = useLista<Nucleo[]>("nucleos_listar");
   const acao = useAcao(lista.recarregar);
   const [uf, setUf] = useState<string | null>(null);
+  const [editando, setEditando] = useState<string | null>(null);
   const [novo, setNovo] = useState<{ nome: string; cidade: string; uf: string; tipo: string; encontros: string; pessoas: string } | null>(null);
   const ativos = (lista.dados ?? []).filter((n) => n.ativo);
   const porUf = (sigla: string) => ativos.filter((n) => n.uf === sigla).length;
@@ -160,11 +166,21 @@ export function Nucleos({ me }: { me: Me }) {
                 <p className="text-xs text-ink-soft">
                   {[n.encontros, n.pessoas ? `${n.pessoas} pessoas` : "", n.acompanha ? `acompanhado por ${n.acompanha}` : "", `atualizado em ${data(n.atualizado_em)}`].filter(Boolean).join(" · ")}
                 </p>
+                {n.publico && <p className="mt-1 text-xs font-semibold text-[#2f6b3a]">No mapa público do site{n.ponto ? ` · ${n.ponto}` : ""}</p>}
                 {n.mexo && (
-                  <button type="button" className={`${elo} mt-1 text-xs`} disabled={acao.ocupado} onClick={() => void acao.agir("nucleo_salvar", { p_id: n.id, p: { ativo: !n.ativo } }, n.ativo ? "Marcado como parado." : "Marcado como ativo de novo.")}>
-                    {n.ativo ? "Marcar como parado" : "Voltou a se encontrar"}
-                  </button>
+                  <p className="mt-1 flex flex-wrap gap-x-3">
+                    <button type="button" className={`${elo} text-xs`} disabled={acao.ocupado} onClick={() => void acao.agir("nucleo_salvar", { p_id: n.id, p: { ativo: !n.ativo } }, n.ativo ? "Marcado como parado." : "Marcado como ativo de novo.")}>
+                      {n.ativo ? "Marcar como parado" : "Voltou a se encontrar"}
+                    </button>
+                    <button type="button" className={`${elo} text-xs`} onClick={() => setEditando(editando === n.id ? null : n.id)}>Ponto público e contato</button>
+                    {n.publica && (
+                      <button type="button" className={`${elo} text-xs`} disabled={acao.ocupado} onClick={() => void acao.agir("nucleo_salvar", { p_id: n.id, p: { publico: !n.publico } }, n.publico ? "Saiu do mapa público." : "Está no mapa público do site.")}>
+                        {n.publico ? "Tirar do mapa público" : "Pôr no mapa público"}
+                      </button>
+                    )}
+                  </p>
                 )}
+                {editando === n.id && <PontoEContato nucleo={n} acao={acao} fechar={() => setEditando(null)} />}
               </li>
             ))}
           </ul>
@@ -172,6 +188,38 @@ export function Nucleos({ me }: { me: Me }) {
       </div>
       <p className="text-xs text-ink-soft">Quem cadastrou, quem acompanha e a coordenação mudam o núcleo. {me.papeis.length > 0 ? "Para formar um núcleo, o Despertar tem o roteiro dos encontros." : ""}</p>
     </div>
+  );
+}
+
+/**
+ * O que o núcleo mostra se a coordenação o puser no mapa público: um ponto de encontro público (praça, biblioteca,
+ * sindicato) e o contato do próprio núcleo. Nunca a casa ou o telefone de alguém.
+ */
+function PontoEContato({ nucleo, acao, fechar }: { nucleo: Nucleo; acao: ReturnType<typeof useAcao>; fechar: () => void }) {
+  const [ponto, setPonto] = useState(nucleo.ponto);
+  const [contato, setContato] = useState(nucleo.contato);
+  return (
+    <form
+      className="mt-2 space-y-2 border-t border-rule pt-2 text-sm"
+      onSubmit={async (e) => {
+        e.preventDefault();
+        if ((await acao.agir("nucleo_salvar", { p_id: nucleo.id, p: { ponto, contato } }, "Guardado.")) !== null) fechar();
+      }}
+    >
+      <label className="block">
+        Ponto de encontro público (opcional)
+        <input value={ponto} onChange={(e) => setPonto(e.target.value)} maxLength={120} className={campo} placeholder="Biblioteca comunitária, praça, sede do sindicato" />
+      </label>
+      <label className="block">
+        Contato do núcleo (opcional)
+        <input value={contato} onChange={(e) => setContato(e.target.value)} className={campo} placeholder="https://instagram.com/…" inputMode="url" />
+      </label>
+      <p className="text-xs text-ink-soft">Nunca a casa nem o telefone de uma pessoa: só lugar público e contato do próprio núcleo.</p>
+      <p className="flex gap-2">
+        <button type="submit" className={botao} disabled={acao.ocupado}>Guardar</button>
+        <button type="button" className={botaoClaro} onClick={fechar}>Cancelar</button>
+      </p>
+    </form>
   );
 }
 
