@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "@/components/Link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { localePath } from "@/i18n/config";
 import { hasBackend, rpc, storageUrl } from "@/lib/backend";
 import { arquivoPublico, relogio } from "@/lib/podcast";
@@ -78,6 +78,8 @@ export function RadioPlayer() {
   const graph = useRef<{ context: AudioContext; analyser: AnalyserNode } | null>(null);
   const track = queue[index];
   const episode = track?.podcast;
+  // No aplicativo, tocar no tocador abre a tela cheia do episódio (capa grande, controles grandes).
+  const [cheio, setCheio] = useState(false);
   // O desenho das frequências só é possível para arquivos do nosso próprio depósito (que liberam a leitura do som).
   const own = Boolean(track && track.url.startsWith(storageUrl("")) && !episode);
 
@@ -248,12 +250,62 @@ export function RadioPlayer() {
             >
               {rate}×
             </button>
+            <button type="button" className={`${button} hidden app:max-md:block`} onClick={() => setCheio(true)} aria-label={t.radio.openEpisode} title={t.radio.openEpisode} aria-expanded={cheio}>
+              <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 15l7-7 7 7" />
+              </svg>
+            </button>
             <button type="button" className={button} onClick={radio.close} aria-label={t.radio.close} title={t.radio.close}>✕</button>
           </div>
           <div className="mx-auto flex max-w-6xl items-center gap-2 px-3 pb-2 font-mono text-[0.65rem] tabular-nums sm:px-4">
             <span className="w-11 text-right opacity-75">{relogio(time)}</span>
             <Wave picos={episode.picos} time={time} duration={total} label={t.radio.position} />
             <span className="w-11 opacity-75">{relogio(total)}</span>
+          </div>
+        </div>
+      )}
+      {track && episode && cheio && (
+        <div role="dialog" aria-modal="true" aria-label={track.titulo} className="tocador-cheio no-print fixed inset-0 z-50 flex flex-col bg-[#1f1a14] px-6 pt-[calc(0.5rem+env(safe-area-inset-top,0px))] pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] font-sans text-[#f4ecd8]">
+          <div className="-mx-3 flex items-center">
+            <button type="button" onClick={() => setCheio(false)} aria-label={t.a11y.close} className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full">
+              <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 9l7 7 7-7" />
+              </svg>
+            </button>
+            <span className="flex-1 text-center font-mono text-[0.68rem] uppercase tracking-[0.16em] text-[#d9ccac]">{t.nav.podcasts}</span>
+            <span className="h-11 w-11" />
+          </div>
+          <div className="relative mx-auto mt-5 aspect-square w-full max-w-[22rem] overflow-hidden rounded-[1.4rem] bg-[#c21f16] shadow-[6px_6px_0_#6e1f1a]">
+            {episode.capa ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={arquivoPublico(episode.capa)} alt="" className="h-full w-full object-cover" />
+            ) : (
+              <span className="absolute inset-x-5 bottom-5 font-serif text-[2rem] font-semibold leading-none text-white">{track.titulo}</span>
+            )}
+          </div>
+          <h2 className="mt-6 font-serif text-[1.6rem] font-semibold leading-tight">{track.titulo}</h2>
+          <p className="mt-1 text-sm text-[#d9ccac]">{chapter ? chapter.titulo : track.artista}</p>
+          <div className="mt-5">
+            <Wave picos={episode.picos} time={time} duration={total} label={t.radio.position} />
+            <p className="mt-1.5 flex justify-between font-mono text-xs tabular-nums text-[#b3a584]">
+              <span>{relogio(time)}</span>
+              <span>{relogio(total)}</span>
+            </p>
+          </div>
+          <div className="mt-4 flex items-center justify-between">
+            <button type="button" className="h-11 w-14 cursor-pointer font-mono text-sm font-bold" onClick={() => radio.setRate(RATES[(RATES.indexOf(rate) + 1) % RATES.length] ?? 1)} aria-label={`${t.radio.speed}: ${rate}×`}>
+              {rate}×
+            </button>
+            <button type="button" className="h-14 w-14 cursor-pointer font-mono text-sm font-bold" onClick={() => radio.skip(-15)} aria-label={t.radio.back15}>↺15</button>
+            <button type="button" onClick={radio.toggle} aria-label={playing ? t.radio.pause : t.radio.play} className="flex h-[4.75rem] w-[4.75rem] cursor-pointer items-center justify-center rounded-full bg-[#f4ecd8] text-3xl text-[#1f1a14]">
+              {playing ? "⏸" : "▶"}
+            </button>
+            <button type="button" className="h-14 w-14 cursor-pointer font-mono text-sm font-bold" onClick={() => radio.skip(30)} aria-label={t.radio.forward30}>30↻</button>
+            <Link href={localePath(lang, episode.href)} onClick={() => setCheio(false)} className="flex h-11 w-14 items-center justify-center text-[#f4ecd8]" aria-label={t.radio.openEpisode}>
+              <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round">
+                <path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01" />
+              </svg>
+            </Link>
           </div>
         </div>
       )}
