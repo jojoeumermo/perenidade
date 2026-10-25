@@ -2759,6 +2759,11 @@ await espera("a jornalista assume a pauta (é da Comunicação)", () => rpc(como
 await recusa("quem não criou nem é do departamento não mexe na pauta", () => rpc(como(ids.med), "pauta_salvar", { p_id: pautaNova, p: { status: "descartada" } }), "sem_permissao");
 await espera("o calendário único junta a pauta com o resto", () => rpc(como(ids.med), "calendario_equipe", { p_de: new Date().toISOString().slice(0, 10), p_ate: new Date(Date.now() + 10 * 86400000).toISOString().slice(0, 10) }), (r) => r.some((e) => e.tipo === "pauta" && e.titulo.includes("entregadores")));
 
+// Ofícios: a equipe acha quem sabe o quê; e a chegada, para a primeira semana guiada.
+await recusa("mais de dez ofícios é recusado", () => rpc(como(ids.prof), "perfil_oficios_salvar", { p_oficios: Array.from({ length: 11 }, (_, i) => `ofício ${i}`) }), "invalido:oficios");
+await espera("o educador diz o que sabe fazer e a equipe vê", async () => { await rpc(como(ids.prof), "perfil_oficios_salvar", { p_oficios: ["edito vídeo", " falo espanhol ", "edito vídeo"] }); return [await rpc(como(ids.prof), "perfil_extras"), await rpc(como(ids.mentora), "equipe_membros")]; },
+  ([eu, equipe]) => eu.oficios.length === 2 && eu.chegada && equipe.some((m) => m.id === ids.prof && m.oficios.includes("falo espanhol")));
+
 // Transmissão pelo YouTube do instituto: a chave só para quem conduz; o site só vê o código público.
 let aulaTransmitida;
 await espera("o educador marca outra aula, com sala do Jitsi (endereço longo cabe)", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova({ titulo: "Frações no YouTube", sala_externa: `https://meet.jit.si/lucia-${"x".repeat(300)}` }) }), (r) => Boolean(r.id) && r.sala_externa.length > 300 && (aulaTransmitida = r.id));
