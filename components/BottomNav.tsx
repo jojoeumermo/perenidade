@@ -48,9 +48,12 @@ export function BottomNav() {
                 }}
                 className={`aba-do-celular relative flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 font-sans text-[0.7rem] leading-tight ${active ? "aba-aberta bg-[#c21f16] font-bold text-white" : "text-[#e9dcbc] hover:text-white"}`}
               >
-                <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={active ? 2.1 : 1.8} strokeLinecap="round" strokeLinejoin="round">
-                  {icons[icon]}
-                </svg>
+                {/* No aplicativo, a aba aberta ganha uma cápsula vermelha atrás do ícone (veja "Caderno de Bolso" em globals.css). */}
+                <span className="aba-icone">
+                  <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={active ? 2.1 : 1.8} strokeLinecap="round" strokeLinejoin="round">
+                    {icons[icon]}
+                  </svg>
+                </span>
                 <span className="max-w-full truncate">{label}</span>
               </Link>
             </li>
