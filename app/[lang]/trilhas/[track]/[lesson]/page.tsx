@@ -29,7 +29,9 @@ import { fileHistory } from "@/lib/history";
 import { lessonId } from "@/lib/ids";
 import { withLangs } from "@/lib/params";
 import { linguaDe } from "@/lib/pratica";
-import { paginaMeta } from "@/lib/seo";
+import { ogDe, paginaMeta } from "@/lib/seo";
+import { Compartilhar } from "@/components/Compartilhar";
+import { aulaEmUmMinuto } from "@/lib/compartilhar";
 import { site } from "@/lib/site";
 import { ExerciciosComExplicacaoSobDemanda as ExerciciosComExplicacao, IssoAjudouSobDemanda as IssoAjudou, RegistroDeConclusaoSobDemanda as RegistroDeConclusao } from "@/components/estudo/NaAula";
 import { exerciciosDaAula } from "@/lib/exercicios-conteudo";
@@ -197,6 +199,13 @@ export default async function LessonPage({ params }: Props) {
 
         <CompleteButton id={id} next={next && { path: path(next.slug), title: next.title }} />
         {ligado("ajudou") && <IssoAjudou aula={id} s={estudo.ajudou} sugerir={`/contribuir?corrigir=${encodeURIComponent(path(lesson.slug))}`} />}
+        <Compartilhar
+          url={`${site.url}${to(path(lesson.slug))}`}
+          texto={`${t.compartilhar.aula} ${lesson.title}`}
+          imagem={ogDe(lang, lesson.title, `${track.title} · ${t.areas[track.area][0]}`, t.nav.disciplines)[0].url}
+          mensagem={aulaEmUmMinuto({ titulo: lesson.title, trilha: `${track.title} · ${t.areas[track.area][0]}`, resumo: lesson.summary, termos: lesson.terms, pergunta: lesson.quiz[0]?.question, url: `${site.url}${to(path(lesson.slug))}`, s: t.compartilhar })}
+          s={t.compartilhar}
+        />
 
         <nav aria-label={t.lesson.neighbors} className="no-print mt-12 flex justify-between gap-6 border-t border-rule pt-6 font-sans text-sm app:max-md:flex-col app:max-md:gap-3">
           {prev ? <Link href={to(path(prev.slug))} data-prev className={`hover:text-oxblood ${vizinha}`}>← {prev.title}</Link> : <span />}
