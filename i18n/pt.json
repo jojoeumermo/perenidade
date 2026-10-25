@@ -3466,7 +3466,8 @@
     "recoveryDone": "Pronto: o aplicativo autenticador saiu da conta. Cadastre o do celular novo em Minha conta.",
     "nickname": "Como quer ser chamado(a) no site? (opcional)",
     "nicknameExample": "Ex.: Rosa da Vila, Zé 47",
-    "nicknameHint": "Pode ser apelido: ninguém precisa usar o nome de verdade aqui. É esse nome que aparece na comunidade. Deixe em branco e o site escolhe um codinome com o nome de uma lutadora ou de um lutador da história."
+    "nicknameHint": "Pode ser apelido: ninguém precisa usar o nome de verdade aqui. É esse nome que aparece na comunidade. Deixe em branco e o site escolhe um codinome com o nome de uma lutadora ou de um lutador da história.",
+    "blocked": "Muitas tentativas erradas a partir daqui. Por segurança, espere {min} minutos e tente de novo. Se esqueceu a senha, peça à coordenação para redefinir."
   },
   "radio": {
     "back15": "Voltar 15 segundos",
