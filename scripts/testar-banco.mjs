@@ -2815,6 +2815,11 @@ await rpc(como(ids.prof), "rede_config", { p_invisivel: false });
 await espera("post com palavra do filtro espera a mediação, na mesma fila do fórum", async () => { const r = await rpc(como(ids.aluna), "rede_postar", { p: { texto: "palavrão novo aqui na rede" } }); return [r, await rpc(como(ids.med), "comunidade_retidos")]; }, ([r, fila]) => r.retido === true && fila.some((x) => x.tipo === "post" && x.id === r.id));
 await espera("o registro público de moderação não mostra nomes", () => rpc(anon, "rede_moderacao_publica"), (r) => Array.isArray(r) && r.every((s) => !("nome" in s)));
 
+// Canais no celular: a coordenação guarda os endereços do WhatsApp e do Telegram; qualquer visitante lê.
+await recusa("quem não é da coordenação não troca os canais", () => rpc(como(ids.prof), "canais_salvar", { p: { whatsapp: "https://whatsapp.com/channel/0029VaAbCdEfGhIjKl" } }), "sem_permissao");
+await recusa("endereço que não é do WhatsApp é recusado", () => rpc(como(ids.coord), "canais_salvar", { p: { whatsapp: "https://exemplo.com/golpe" } }), "invalido:whatsapp");
+await espera("a coordenação guarda os canais e o visitante lê", async () => { await rpc(como(ids.coord), "canais_salvar", { p: { whatsapp: "https://whatsapp.com/channel/0029VaAbCdEfGhIjKl", telegram: "https://t.me/institutolucia" } }); return rpc(anon, "canais"); }, (r) => r.whatsapp.includes("0029VaAbCdEfGhIjKl") && r.telegram === "https://t.me/institutolucia");
+
 // Rede Lúcia, segunda parte: espaços fechados, comunidades seguidas, posição no debate, busca, moderadores, portabilidade.
 let espaco;
 await recusa("quem não é da equipe não abre espaço fechado", () => rpc(como(ids.aluna), "rede_espaco_criar", { p_nome: "Núcleo da fábrica" }), "sem_permissao");

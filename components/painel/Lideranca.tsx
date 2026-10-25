@@ -355,6 +355,7 @@ const acoes: Record<string, string> = {
   equipe_chave_definida: "definiu a chave da equipe",
   equipe_sala: "mudou o endereço da sala de voz e vídeo",
   site_configurado: "mudou os controles do site",
+  canais_configurados: "trocou os endereços dos canais do WhatsApp e do Telegram",
   comunidade_modo_seguranca: "ligou ou desligou o modo de segurança da Comunidade",
   site_pausa: "pausou ou retomou os envios do público",
   usuario_editado: "acertou o nome ou a apresentação de",
