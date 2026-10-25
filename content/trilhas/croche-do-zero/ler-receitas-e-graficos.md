@@ -15,9 +15,6 @@ fontes:
   - titulo: "Reading Instructions & Other Basics"
     autor: "Craft Yarn Council"
     url: "https://www.craftyarncouncil.com/read_instructions.html"
-  - titulo: "How to Read Crochet Diagrams"
-    autor: "Yarnspirations"
-    url: "https://www.yarnspirations.com/blogs/how-to/how-to-read-crochet-diagrams"
   - titulo: "How to Follow a Stitch Diagram in Crochet"
     autor: "Dummies (Wiley)"
     url: "https://www.dummies.com/article/home-auto-hobbies/crafts/knitting-crocheting/how-to-follow-a-stitch-diagram-in-crochet-197712/"
@@ -113,7 +110,7 @@ O crochê pode ser seguido por receita escrita ou por **gráfico**, e o gráfico
 | vários pontos que saem do mesmo ponto, em leque | leque (vários pontos no mesmo ponto) |
 | arquinho embaixo do ponto | trabalhar só na alça de trás (∩) ou da frente (∪) |
 
-Os **tracinhos** na haste mostram **quantas laçadas** fazer antes de entrar no ponto. Os símbolos às vezes aparecem esticados para ficar claro onde vão: **não estique os pontos** para imitar o desenho. E confira sempre a **legenda** do gráfico: a receita pode usar outros símbolos além destes, e até o ponto baixo tem dois desenhos comuns, o X e o +.
+Os **tracinhos** na haste mostram **quantas laçadas** fazer antes de entrar no ponto. E confira sempre a **legenda** do gráfico: a receita pode usar outros símbolos além destes, e até o ponto baixo tem dois desenhos comuns, o X e o +.
 
 ## Em que direção ler
 
