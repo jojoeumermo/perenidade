@@ -1875,7 +1875,7 @@ let inscricaoMail;
 await espera("candidatura pelo formulário: quem se candidatou e a coordenação recebem e-mail", async () => {
   inscricaoMail = await rpc(anonDe("198.51.100.120"), "voluntariar", { p: { nome: "Rosa Ribeiro", email: "Rosa.Ribeiro@Exemplo.org", papel: "revisao", mensagem: "Sou revisora de textos há dez anos e quero ajudar o instituto." } });
   return [await caixa("rosa.ribeiro@exemplo.org"), await caixa("coord@teste.local", "inscricao_nova")];
-}, ([pessoa, coordenacao]) => pessoa.rows.length === 1 && pessoa.rows[0].tipo === "inscricao_recebida" && pessoa.rows[0].texto.includes("Rosa Ribeiro") && pessoa.rows[0].texto.includes("revisão")
+}, ([pessoa, coordenacao]) => pessoa.rows.length === 1 && pessoa.rows[0].tipo === "inscricao_recebida" && pessoa.rows[0].texto.startsWith("Olá, Rosa.") && pessoa.rows[0].texto.includes("revisão")
   && coordenacao.rows.some((m) => m.texto.includes("Rosa Ribeiro") && m.texto.includes("rosa.ribeiro@exemplo.org") && m.texto.includes("/pt/painel")));
 await espera("aceita a candidatura, o convite vai sozinho para o e-mail da pessoa", async () => {
   const r = await rpc(coordenacao, "inscricao_decidir", { p_id: inscricaoMail.id, p_aceitar: true });
@@ -2661,6 +2661,13 @@ await espera("a aluna se inscreve", () => rpc(como(ids.aluna), "aula_ao_vivo_ins
 await recusa("o bate-papo só abre perto da hora", () => rpc(como(ids.aluna), "aula_chat_enviar", { p_aula: aulaViva, p_corpo: "Oi!" }), "topico_trancado");
 await recusa("quem não conduz não começa a aula", () => rpc(como(ids.aluna), "aula_ao_vivo_estado", { p_id: aulaViva, p_status: "ao_vivo" }), "sem_permissao");
 await espera("o educador começa a aula", () => rpc(como(ids.prof), "aula_ao_vivo_estado", { p_id: aulaViva, p_status: "ao_vivo" }), (r) => r.status === "ao_vivo");
+// A sala é um canal aberto: quem conduz registra a chave pública da aba e assina o vídeo; quem assiste confere com a lista.
+const chaveDaSala = "BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+await recusa("quem só assiste não registra chave da sala", () => rpc(como(ids.aluna), "aula_ao_vivo_sala_chave", { p_id: aulaViva, p_publica: chaveDaSala }), "sem_permissao");
+await recusa("visitante também não", () => rpc(anon, "aula_ao_vivo_sala_chave", { p_id: aulaViva, p_publica: chaveDaSala }), "entre_primeiro");
+await recusa("chave em formato estranho é recusada", () => rpc(como(ids.prof), "aula_ao_vivo_sala_chave", { p_id: aulaViva, p_publica: "<script>" }), "invalido:publica");
+await espera("quem conduz registra a chave e qualquer visitante a recebe com a aula", async () => { await rpc(como(ids.prof), "aula_ao_vivo_sala_chave", { p_id: aulaViva, p_publica: chaveDaSala }); await rpc(como(ids.mentora), "aula_ao_vivo_sala_chave", { p_id: aulaViva, p_publica: "BQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ" }); return rpc(anon, "aula_ao_vivo_ver", { p_id: aulaViva }); }, (r) => Array.isArray(r.chaves) && r.chaves.includes(chaveDaSala) && r.chaves.length === 2);
+await espera("no máximo cinco chaves por pessoa em cada aula", async () => { for (let i = 0; i < 7; i++) await rpc(como(ids.prof), "aula_ao_vivo_sala_chave", { p_id: aulaViva, p_publica: "B" + String(i).repeat(86) }); return rpc(anon, "aula_ao_vivo_ver", { p_id: aulaViva }); }, (r) => r.chaves.length === 6);
 await espera("quem se inscreveu é avisado", () => rpc(como(ids.aluna), "avisos_meus"), (r) => r.some((a) => a.texto.includes("começou agora")));
 await espera("a aluna pergunta no bate-papo", () => rpc(como(ids.aluna), "aula_chat_enviar", { p_aula: aulaViva, p_corpo: "Não entendi a divisão de frações.", p_tipo: "pergunta" }), (r) => r.id && r.tipo === "pergunta" && (fala = r.id));
 let falaRetida;
@@ -3241,6 +3248,17 @@ await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), 
     await rpc(como(ids.coord), "papel_conceder", { p_usuario: r4.mat, p_papel: "representante", p_disciplina: "saude" });
     return [await rpc(como(r4.mat), "saude_fila"), await rpc(como(r4.mat), "saude_registro_listar", { p_usuario: r4.sau })];
   }, ([fila, registro]) => fila.perfis.some((x) => x.id === r4.sau) && registro.length > 0);
+  await espera("o representante com aplicativo cadastrado e só a senha não vê a fila da saúde", async () => {
+    await dono("create table if not exists auth.mfa_factors (user_id uuid, status text)");
+    await dono("insert into auth.mfa_factors values ($1, 'verified')", [r4.mat]);
+    try {
+      const so = await rpc(como(r4.mat), "saude_fila").then(() => "viu", (e) => String(e.message));
+      const comCodigo = await rpc({ ...como(r4.mat), aal: "aal2" }, "saude_fila").then(() => "viu", (e) => String(e.message));
+      return [so, comCodigo];
+    } finally {
+      await dono("drop table auth.mfa_factors");
+    }
+  }, ([so, comCodigo]) => /sem_permissao/.test(so) && comCodigo === "viu");
   await espera("sem o papel, volta a não ver", async () => {
     const papel = (await rpc(como(r4.mat), "eu")).papeis.find((x) => x.papel === "representante" && x.disciplina === "saude");
     await rpc(como(ids.coord), "papel_remover", { p_id: papel.id });
@@ -3273,6 +3291,38 @@ await espera("a tabela das contagens não guarda quem", async () => (await dono(
 await recusa("visitante não vê o quadro das aulas", () => rpc(anon, "aulas_funcionam"), "sem_permissao");
 await recusa("estudante não vê o quadro das aulas", () => rpc(como(ids.leitora), "aulas_funcionam"), "sem_permissao");
 await espera("a coordenação vê o quadro das aulas", async () => { await rpc(anon, "contar", { p_tipo: "aula_terminou", p_alvo: "fisica/leis-de-newton" }); return rpc(como(ids.coord), "aulas_funcionam"); }, (r) => r.some((x) => x.aula === "fisica/leis-de-newton" && x.terminou >= 1));
+
+// Segundo fator nas checagens que olham a linha do papel direto (a disciplina exata de quem ensina): quem cadastrou o
+// aplicativo só usa a função depois do código, como em todas as outras.
+await espera("educador com aplicativo cadastrado e só a senha não cria exercício nem marca aula ao vivo", async () => {
+  await dono("create table if not exists auth.mfa_factors (user_id uuid, status text)");
+  await dono("insert into auth.mfa_factors values ($1, 'verified')", [ids.prof]);
+  try {
+    const exercicio = await rpc(como(ids.prof), "exercicio_salvar", { p: exercicioBase({ titulo: "Corte de 45 segundos" }) }).then(() => "criou", (e) => String(e.message));
+    const aula = await rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova({ titulo: "Frações, segunda parte" }) }).then(() => "marcou", (e) => String(e.message));
+    const comCodigo = await rpc({ ...como(ids.prof), aal: "aal2" }, "exercicio_salvar", { p: exercicioBase({ titulo: "Corte de 45 segundos" }) }).then(() => "criou", (e) => String(e.message));
+    return [exercicio, aula, comCodigo];
+  } finally {
+    await dono("drop table auth.mfa_factors");
+  }
+}, ([exercicio, aula, comCodigo]) => /sem_permissao/.test(exercicio) && /sem_permissao/.test(aula) && comCodigo === "criou");
+
+// E-mails para endereço que ninguém conferiu: o texto do visitante vai sem link, domínio nem endereço de e-mail.
+await espera("o texto do visitante perde ponto, barra, arroba e dois-pontos", () => dono("select interno.sem_link($1) as t", ["Ana https://golpe.com/x ana@golpe.com golpe。com"]), (r) => !/[.:/@。]/.test(r.rows[0].t) && r.rows[0].t.startsWith("Ana https"));
+await espera("o recebemos da candidatura cumprimenta só pelo primeiro nome, sem link", async () => {
+  await rpc({ papel: "anon", ip: "198.51.100.150" }, "voluntariar", { p: { nome: "Golpista www.golpe.com/pix Silva", email: "vitima@exemplo.org", papel: "mediacao", mensagem: "Quero muito ajudar a manter o debate em ordem e com respeito." } });
+  return dono("select texto from interno.emails where para = 'vitima@exemplo.org' and tipo = 'inscricao_recebida'");
+}, (r) => r.rows.length === 1 && r.rows[0].texto.startsWith("Olá, Golpista.") && !r.rows[0].texto.includes("golpe"));
+await espera("o recebemos do reforço leva o assunto sem domínio", async () => {
+  await rpc({ papel: "anon", ip: "198.51.100.151" }, "reforco_pedir", { p: { disciplina: "historia", assunto: "Acesse golpe.com agora", duvida: "Não entendi a matéria da Revolução Francesa, alguém explica?", email: "outra-vitima@exemplo.org" } });
+  return dono("select texto from interno.emails where para = 'outra-vitima@exemplo.org' and tipo = 'reforco_recebido'");
+}, (r) => r.rows.length === 1 && r.rows[0].texto.includes("Acesse golpe com agora") && !r.rows[0].texto.includes("golpe.com"));
+await espera("teto geral do dia: o e-mail que passa do teto não entra na fila", async () => {
+  await dono("insert into interno.emails (para, tipo, assunto, texto) select 'massa' || g || '@exemplo.org', 'boletim_confirmar', 'x', 'x' from generate_series(1, 300) g");
+  await rpc({ papel: "anon", ip: "198.51.100.152" }, "boletim_assinar", { p_email: "depois-do-teto@exemplo.org" });
+  return dono("select count(*)::int as n from interno.emails where para = 'depois-do-teto@exemplo.org'");
+}, (r) => r.rows[0].n === 0);
+await dono("delete from interno.emails where para like 'massa%@exemplo.org'");
 
 // Token sem papel nenhum: as funções "só do serviço" recusam (antes, o nulo deixava passar).
 await espera("token sem papel não passa pela trava do serviço", async () => {
