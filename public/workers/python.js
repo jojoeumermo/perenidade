@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+// Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 // Roda Python dentro do navegador, em uma linha de execução separada, para a página não travar.
 // Antes de tudo: o código de quem estuda não alcança a sessão, o chaveiro nem outro Worker (veja isolar.js).
 importScripts("/workers/isolar.js");
