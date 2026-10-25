@@ -1,5 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 // Roda Lua 5.4 (o interpretador oficial, compilado para WebAssembly pelo projeto wasmoon) numa linha de execução separada.
+// Antes de tudo: o código de quem estuda não alcança a sessão, o chaveiro nem outro Worker (veja isolar.js).
+importScripts("/workers/isolar.js");
 importScripts("/lua/index.js");
 const fabrica = new wasmoon.LuaFactory("/lua/glue.wasm");
 
