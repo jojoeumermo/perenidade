@@ -6,6 +6,7 @@ import { getClient, type Me, rpc } from "@/lib/backend";
 import { BuscaDePessoa, type PessoaAchada } from "./BuscaDePessoa";
 import { Aviso, botao, botaoClaro, campo, data, elo, textoDoErro, useAcao, useLista } from "./comum";
 import type { Membro } from "./Equipe";
+import { RedeDeApoio } from "./Biblioteca";
 
 // Cuidado com a equipe (supabase/install.sql, "Cuidado com a equipe"): agradecer em público, férias de verdade, o
 // termômetro de bem-estar da semana, a caixa de críticas anônimas e o botão de pânico. O termômetro e as críticas
@@ -213,6 +214,8 @@ export function CuidadoNaConta({ me, sair }: { me: Me; sair: () => void }) {
           </p>
         )}
       </section>
+
+      <RedeDeApoio />
 
       {voluntario && (
         <section aria-labelledby="critica-titulo" className="painel-cartao p-5">

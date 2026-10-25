@@ -13,6 +13,7 @@ import { BuscaDePessoa } from "./BuscaDePessoa";
 import type { Membro } from "./Equipe";
 import { editorPt, fontesPt } from "./Escrever";
 import { SugestoesDaRevisao } from "./Sugestoes";
+import { Esteira, LadoALado } from "./Esteira";
 
 interface Resumo {
   id: string;
@@ -102,6 +103,7 @@ export function Fila({ me, minhas = false, juntas = false, triagem = false }: { 
               {item.nome_autor || "sem nome"} · {origem[item.como] ?? item.como} · {naTriagem(item) ? "aguardando a triagem" : (situacoes[item.status] ?? item.status)}
               {item.pareceres > 0 && ` · ${item.pareceres} parecer(es)`}
             </p>
+            {propria && <Esteira status={item.status} triagem={item.triagem} pareceres={item.pareceres} publico={item.como === "publico"} />}
             {minhas && item.nota && <p className="mt-1">Recado da curadoria: {item.nota}</p>}
           </li>
         ))}
@@ -332,6 +334,12 @@ function Edicao({ id, c, edicao, setEdicao, mudou, exigeFonte, podeImagem, ocupa
       </label>
       <MarkdownEditor id="edicao-corpo" value={edicao.corpo} onChange={(corpo) => setEdicao({ ...edicao, corpo })} labels={editorPt} upload={podeImagem} blocos />
       {exigeFonte && <SourcesField value={edicao.fontes} onChange={(fontes) => setEdicao({ ...edicao, fontes })} labels={fontesPt} />}
+      <details>
+        <summary className="cursor-pointer text-sm font-semibold">Ver as mudanças lado a lado</summary>
+        <div className="mt-2">
+          <LadoALado antes={c.corpo} depois={edicao.corpo} />
+        </div>
+      </details>
       <p className="font-mono text-xs text-ink-soft">{rascunho.salvoEm ? `Rascunho guardado às ${horaDoRascunho(rascunho.salvoEm)}.` : "O rascunho desta edição é guardado sozinho enquanto você escreve."}</p>
       <div className="flex gap-4">
         <button

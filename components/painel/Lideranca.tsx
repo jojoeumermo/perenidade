@@ -285,6 +285,15 @@ interface Registro {
 }
 
 const acoes: Record<string, string> = {
+  acesso_emails_da_equipe: "abriu a lista da equipe com os e-mails",
+  acesso_termos_aceitos: "abriu a lista de termos assinados",
+  acesso_termo_aceito: "leu o termo assinado de",
+  acesso_saude_registro: "abriu o registro da vitrine de saúde de",
+  acesso_saude_fila: "abriu a fila da vitrine de saúde",
+  panico: "apertou o botão de pânico:",
+  departamento_salvo: "mudou a página do departamento",
+  votacao_aberta: "abriu a votação",
+  votacao_encerrada: "encerrou a votação",
   papel_confiado: "confiou uma função a",
   papel_retirado: "retirou uma função de",
   pedido_aceito: "aceitou o pedido de voluntariado de",
