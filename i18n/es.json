@@ -105,7 +105,8 @@
     "conduct": "Código de conducta",
     "usePolicy": "Política de uso",
     "events": "Agenda de encuentros",
-    "spreadKit": "Kit de difusión"
+    "spreadKit": "Kit de difusión",
+    "despertar": "Despertar"
   },
   "labs": {
     "eyebrow": "Practicar de verdad",
@@ -380,7 +381,12 @@
     "radioLive": "Música, noticias y debates todo el día, para escuchar con poco internet.",
     "onThisDay": "Un día como hoy",
     "onThisDaySource": "Luchas y conquistas del pueblo en esta fecha, elegidas por el equipo y tomadas de Wikipedia. Texto de Wikipedia, licencia CC BY-SA.",
-    "searchHint": "La búsqueda mira solo aquí dentro (clases, obras, glosario y todo lo que el instituto publicó): no es una búsqueda en internet."
+    "searchHint": "La búsqueda mira solo aquí dentro (clases, obras, glosario y todo lo que el instituto publicó): no es una búsqueda en internet.",
+    "moreKicker": "Más que clases",
+    "moreTitle": "Aquí estudiamos para cambiar la vida.",
+    "moreText": "El Instituto Lúcia es una escuela de la vida: formamos gente que sabe de qué lado está y camina junto a la clase trabajadora. Sin diploma del Estado, sin cuotas, sin adicción: por rebeldía, curiosidad y esperanza.",
+    "moreStart": "Empezar el Despertar",
+    "moreManifesto": "Leer el manifiesto"
   },
   "areas": {
     "portugues": [
@@ -3149,7 +3155,8 @@
       "conduct": "Las reglas de convivencia en los espacios participativos.",
       "usePolicy": "Lo que se puede y lo que no, en pocas líneas.",
       "events": "Cineclub, club de lectura y otros encuentros.",
-      "spreadKit": "Carteles, folleto, fanzine y tarjetas con QR para imprimir."
+      "spreadKit": "Carteles, folleto, fanzine y tarjetas con QR para imprimir.",
+      "despertar": "De cero a la conciencia de clase, en cinco etapas, con tareas en el mundo real."
     },
     "short": {
       "/trilhas": "todas las materias",
@@ -3203,7 +3210,8 @@
       "/dedicatoria": "de dónde viene el nombre",
       "/meus-dados": "descargar o borrar",
       "/privacidade": "qué guardamos",
-      "/termos": "las reglas del sitio"
+      "/termos": "las reglas del sitio",
+      "/despertar": "formación militante"
     },
     "highlights": "Empieza aquí",
     "startText": "¿Nunca estudiaste aquí? Empieza por una pregunta de tu vida o elige una materia.",
@@ -3782,7 +3790,7 @@
     "title": "Materiales",
     "lead": "Fanzines, volantes, carteles y pancartas hechos por el instituto. Descárgalos, imprímelos y pásalos.",
     "kitTitle": "Kit de agitación: piezas para imprimir ya",
-    "kitLead": "Carteles callejeros, pancarta de muro, folletos, zine, tarjetas, pegatinas y marcapáginas con código QR, dibujados aquí mismo en vector: se imprimen nítidos en cualquier tamaño. Elige la pieza y la tinta y haz clic en Imprimir (en el celular, usa “Guardar como PDF” y llévalo a una copistería).",
+    "kitLead": "Diecinueve piezas, todas con el Instagram @institutoluciaorg: carteles y lambe de calle, cartel de evento y de aula, pancarta de muro, folletos, volante de puerta de fábrica, invitación al núcleo, fanzine, tarjetas, papelitos, pegatinas, banner de mesa y marcapáginas, con código QR y en vector. ¿Imprimiste algo sin el @? Usa la hoja de pegatinas del @ para pegarlas encima. Elige la pieza y la tinta y haz clic en Imprimir (en el móvil, usa “Guardar como PDF” y llévalo a una copistería).",
     "fromTeam": "Zines y carteles de la coordinación",
     "description": "Fanzines, volantes, carteles y pancartas del Instituto Lúcia para descargar, imprimir y repartir.",
     "empty": "Todavía no hay materiales publicados.",
@@ -4840,5 +4848,32 @@
   },
   "salaLivre": {
     "description": "Arme y proyecte su clase con todo lo que ofrece el instituto: laboratorios, libros del acervo, editores de foto, video y 3D, simulaciones, juegos y pruebas. Queda solo en su navegador."
+  },
+  "despertar": {
+    "eyebrow": "Recorrido de formación · de cero a la organización",
+    "title": "Despertar.",
+    "lead": "Nadie nace sabiendo que es explotado. La conciencia de clase se aprende: en la vida, en el estudio y en la lucha colectiva.",
+    "start": "Empezar por la etapa 1",
+    "group": "Estudiar en grupo",
+    "stats": {
+      "stages": "etapas",
+      "lessons": "clases listas",
+      "tasks": "tareas en el mundo real",
+      "price": "reales · sin diploma del Estado"
+    },
+    "intro": "Cada etapa tiene clases cortas de varias disciplinas, una lectura del acervo, una tarea en el mundo real y un encuentro en el núcleo. Se puede hacer solo, pero el recorrido fue pensado para vivirlo juntos.",
+    "lesson": "Clase",
+    "soon": "En preparación",
+    "reading": "Lectura",
+    "circle": "Guía del encuentro en el núcleo: preguntas para la ronda",
+    "task": "Tarea en el mundo real",
+    "finalTask": "Tarea final",
+    "endKicker": "Al final del recorrido",
+    "certTitle": "Certificado comunitario",
+    "certText": "Reconocido por el instituto y firmado por tu núcleo, no por el Estado. Vale por lo que aprendiste y por lo que hiciste con eso.",
+    "groupKicker": "Mejor en grupo",
+    "groupTitle": "Haz el Despertar en un núcleo",
+    "groupText": "Cada etapa tiene una guía de encuentro de una hora y preguntas para la ronda. Junta a tres personas y empieza.",
+    "groupCta": "Encontrar o armar un núcleo"
   }
 }

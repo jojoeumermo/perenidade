@@ -18,6 +18,16 @@ That is why our History is told from the point of view of those who made it with
 
 But the institute is not only about political theory. Anyone who wants to learn English, mathematics, music, computing, programming or a trade to earn a living finds the same care here. Education is a tool of emancipation in every field.
 
+## More than lessons
+
+Instituto Lúcia is not an online course. It is a school for life. Here we study to understand the world and to change it: to educate citizens who know which side they are on and who walk with the working class.
+
+Nobody should need a state diploma, or pay thousands, to have the right to knowledge. Expensive universities are not the only door: the knowledge they sell was produced by the people and can be given back to them, for free, with rigor and with sources.
+
+That is why every lesson tries to be an experience and not a handout: it starts from the learner's life, tells the story of those who fought, proposes a real-world task and ends with a question: what will you do with this? And that is why there is the [Awaken](/despertar) path, study groups, community conversations and the newspaper. Studying here is an act of organizing.
+
+We use no points, rankings or tricks to hook anyone. People study here out of revolt, curiosity and hope, not addiction.
+
 ## How it works
 
 - **Subjects** are divided into tracks, from primary school to higher education. Each lesson is short, ends with a quiz and shows the sources it relies on.
