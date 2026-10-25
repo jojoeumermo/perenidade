@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { type Me, rpc } from "@/lib/backend";
 import { Avatar } from "./Avatar";
+import { RetornoDosAlunos } from "./RetornoDosAlunos";
 import { Abas, Aviso, botao, botaoClaro, campo, data, elo, papeis, textoDoErro, useAcao } from "./comum";
 
 // A página de cada departamento (prancheta "Painel — Departamento"): para que serve, a meta do mês, o quadro da semana,
@@ -63,6 +64,9 @@ interface Pessoa {
   avatar: string | null;
   responde: boolean;
   ferias_ate: string | null;
+  oficios?: string[];
+  /** Desde quando está numa função deste departamento. */
+  desde?: string | null;
   papeis: { papel: keyof typeof papeis; disciplina: string | null }[];
 }
 interface Departamento {
@@ -82,7 +86,7 @@ interface Departamento {
   bastoes: { id: string; texto: string; autor: string; criado_em: string; meu: boolean }[];
 }
 type Coluna = "fazer" | "fazendo" | "aprovacao" | "feito";
-type Aba = "geral" | "pedidos" | "quadro" | "pessoas" | "como";
+type Aba = "geral" | "pedidos" | "quadro" | "pessoas" | "como" | "retorno";
 
 const COLUNAS: [Coluna, string][] = [
   ["fazer", "A fazer"],
@@ -190,6 +194,8 @@ export function Departamentos({ me, ir }: { me: Me; ir: (aba: string) => void })
                 { id: "quadro", nome: "Quadro" },
                 { id: "pessoas", nome: `Pessoas · ${atual.pessoas.length}` },
                 { id: "como", nome: "Como trabalhamos" },
+                // O retorno dos alunos é de quem cuida das aulas.
+                ...(["educacao", "curadoria", "revisao"].includes(atual.id) ? [{ id: "retorno" as Aba, nome: "Retorno dos alunos" }] : []),
               ]}
               atual={aba}
               escolher={setAba}
@@ -201,6 +207,7 @@ export function Departamentos({ me, ir }: { me: Me; ir: (aba: string) => void })
           {aba === "quadro" && <Quadro dep={atual} mexe={mexe} depois={recarregar} />}
           {aba === "pessoas" && <Pessoas dep={atual} />}
           {aba === "como" && <ComoTrabalhamos dep={atual} me={me} depois={recarregar} />}
+          {aba === "retorno" && <RetornoDosAlunos />}
         </>
       )}
     </div>
@@ -479,6 +486,8 @@ function Quadro({ dep, mexe, depois }: { dep: Departamento; mexe: boolean; depoi
 }
 
 function Pessoas({ dep }: { dep: Departamento }) {
+  const [agora] = useState(() => Date.now());
+  const meses = (desde?: string | null) => (desde ? Math.floor((agora - new Date(desde).getTime()) / (30 * 86_400_000)) : 0);
   if (dep.pessoas.length === 0) return <p className="text-ink-soft">Ninguém neste departamento ainda. A coordenação confia funções em Voluntários e convites.</p>;
   return (
     <ul className="grid gap-3 sm:grid-cols-2">
@@ -491,7 +500,13 @@ function Pessoas({ dep }: { dep: Departamento }) {
               {p.responde && <span className="ml-1.5 bg-ink px-1 text-[0.62rem] font-semibold text-parchment">responde</span>}
               {p.ferias_ate && <span className="ml-1.5 bg-[#f9e7a6] px-1 text-[0.62rem] font-semibold text-[#1f1a14]">de férias até {dia(p.ferias_ate)}</span>}
             </span>
-            <span className="block text-xs text-ink-soft">{(p.papeis ?? []).map((papel) => papeis[papel.papel] ?? papel.papel).join(" · ")}</span>
+            <span className="block text-xs text-ink-soft">
+              {(p.papeis ?? []).map((papel) => papeis[papel.papel] ?? papel.papel).join(" · ")}
+              {p.desde && ` · ${meses(p.desde) < 1 ? "chegou este mês" : meses(p.desde) === 1 ? "há 1 mês" : `há ${meses(p.desde)} meses`}`}
+            </span>
+            {p.oficios && p.oficios.length > 0 && <span className="block text-xs text-prelo-texto">Sabe: {p.oficios.join(", ")}</span>}
+            {/* Rodízio de funções: depois de um ano, a sugestão (só para quem responde) é ensinar alguém a fazer junto. */}
+            {dep.respondo && meses(p.desde) >= 12 && <span className="mt-0.5 block text-xs italic text-ink-soft">Mais de um ano na função: que tal ensinar alguém a fazer junto (rodízio)?</span>}
           </span>
         </li>
       ))}

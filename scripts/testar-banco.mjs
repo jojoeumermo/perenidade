@@ -2737,6 +2737,36 @@ await espera("a coordenação põe a meta do mês e o como trabalhamos", () => r
 await espera("a jornalista deixa a passagem de bastão", async () => { await rpc(como(ids.jornal), "departamento_bastao_deixar", { p_departamento: "jornalismo", p_texto: "As pautas estão no banco de pautas; a capa do episódio 42 está com a Paula." }); return rpc(como(ids.prof), "departamento_ver", { p_id: "jornalismo" }); }, (r) => r.bastoes.some((b) => b.texto.includes("episódio 42")) && r.pessoas.some((p) => p.id === ids.jornal));
 await recusa("quem não é do departamento não deixa bastão", () => rpc(como(ids.prof), "departamento_bastao_deixar", { p_departamento: "jornalismo", p_texto: "Não sou daqui, mas quis escrever." }), "sem_permissao");
 
+// Assembleias: a coordenação abre; voto secreto não liga pessoa e voto; resultado só no fim.
+let votacao;
+const daquiAUmDia = new Date(Date.now() + 86400000).toISOString();
+await recusa("o educador não abre votação para a equipe toda", () => rpc(como(ids.prof), "votacao_criar", { p: { titulo: "Reunião aos sábados?", opcoes: ["Sim", "Não"], encerra_em: daquiAUmDia } }), "sem_permissao");
+await recusa("votação precisa de pelo menos duas opções", () => rpc(coord2, "votacao_criar", { p: { titulo: "Só uma opção", opcoes: ["Sim"], encerra_em: daquiAUmDia } }), "invalido:opcoes");
+await espera("a coordenação abre uma votação secreta e a equipe é avisada", async () => { votacao = await rpc(coord2, "votacao_criar", { p: { titulo: "Mudar a reunião geral para sábado?", descricao: "Hoje é domingo às 19h.", opcoes: ["Sim, sábado", "Não, fica domingo", "Tanto faz"], encerra_em: daquiAUmDia, secreta: true } }); return rpc(como(ids.prof), "avisos_meus"); },
+  (r) => votacao.id && r.some((a) => a.texto.includes("Votação aberta") && a.texto.includes("sábado")));
+await espera("o educador vota e não vê o resultado antes do fim", async () => { await rpc(como(ids.prof), "votar", { p_id: votacao.id, p_opcao: 1 }); return rpc(como(ids.prof), "votacoes_listar"); }, (r) => r.some((v) => v.id === votacao.id && v.votei && v.votantes === 1 && v.resultado === null));
+await recusa("ninguém vota duas vezes", () => rpc(como(ids.prof), "votar", { p_id: votacao.id, p_opcao: 0 }), "ja_votou");
+await recusa("quem não é da equipe não vota", () => rpc(como(ids.aluna), "votar", { p_id: votacao.id, p_opcao: 0 }), "sem_permissao");
+await espera("no voto secreto, o voto não guarda quem votou", () => dono("select count(*)::int as n from interno.votacao_votos where votacao = $1 and usuario is not null", [votacao.id]), (r) => r.rows[0].n === 0);
+await espera("encerrada, o resultado aparece sem nomes", async () => { await rpc(como(ids.mentora), "votar", { p_id: votacao.id, p_opcao: 1 }); await rpc(coord2, "votacao_encerrar", { p_id: votacao.id }); return rpc(como(ids.prof), "votacoes_listar"); },
+  (r) => { const v = r.find((x) => x.id === votacao.id); return v.encerrada && v.resultado[1].votos === 2 && v.resultado[1].quem === null; });
+await recusa("depois do fim, ninguém vota", () => rpc(como(ids.jornal), "votar", { p_id: votacao.id, p_opcao: 0 }), "encerrada");
+
+// Banco de pautas e calendário único.
+let pautaNova;
+await espera("qualquer pessoa da equipe propõe uma pauta", () => rpc(como(ids.prof), "pauta_salvar", { p_id: null, p: { titulo: "A greve dos entregadores", tipo: "jornal", data_prevista: emTresDias } }), (r) => r.id && r.status === "ideia" && r.mexo && (pautaNova = r.id));
+await espera("a jornalista assume a pauta (é da Comunicação)", () => rpc(como(ids.jornal), "pauta_salvar", { p_id: pautaNova, p: { status: "apurando", responsavel: ids.jornal } }), (r) => r.status === "apurando" && r.responsavel === ids.jornal);
+await recusa("quem não criou nem é do departamento não mexe na pauta", () => rpc(como(ids.med), "pauta_salvar", { p_id: pautaNova, p: { status: "descartada" } }), "sem_permissao");
+await espera("o calendário único junta a pauta com o resto", () => rpc(como(ids.med), "calendario_equipe", { p_de: new Date().toISOString().slice(0, 10), p_ate: new Date(Date.now() + 10 * 86400000).toISOString().slice(0, 10) }), (r) => r.some((e) => e.tipo === "pauta" && e.titulo.includes("entregadores")));
+
+// Ofícios: a equipe acha quem sabe o quê; e a chegada, para a primeira semana guiada.
+await recusa("mais de dez ofícios é recusado", () => rpc(como(ids.prof), "perfil_oficios_salvar", { p_oficios: Array.from({ length: 11 }, (_, i) => `ofício ${i}`) }), "invalido:oficios");
+await espera("o educador diz o que sabe fazer e a equipe vê", async () => { await rpc(como(ids.prof), "perfil_oficios_salvar", { p_oficios: ["edito vídeo", " falo espanhol ", "edito vídeo"] }); return [await rpc(como(ids.prof), "perfil_extras"), await rpc(como(ids.mentora), "equipe_membros")]; },
+  ([eu, equipe]) => eu.oficios.length === 2 && eu.chegada && equipe.some((m) => m.id === ids.prof && m.oficios.includes("falo espanhol")));
+
+// Registro de acessos sensíveis: ler os termos assinados fica no registro (uma linha por hora).
+await espera("abrir os termos assinados fica no registro, sem repetir na mesma hora", async () => { await rpc(coord2, "termos_aceites_listar"); await rpc(coord2, "termos_aceites_listar"); return dono("select count(*)::int as n from interno.auditoria where acao = 'acesso_termos_aceitos'"); }, (r) => r.rows[0].n === 1);
+
 // Transmissão pelo YouTube do instituto: a chave só para quem conduz; o site só vê o código público.
 let aulaTransmitida;
 await espera("o educador marca outra aula, com sala do Jitsi (endereço longo cabe)", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova({ titulo: "Frações no YouTube", sala_externa: `https://meet.jit.si/lucia-${"x".repeat(300)}` }) }), (r) => Boolean(r.id) && r.sala_externa.length > 300 && (aulaTransmitida = r.id));
