@@ -20,6 +20,8 @@ export interface Aula {
   encerrada_em: string | null;
   gravacao: string;
   sala_externa: string;
+  /** A transmissão pelo canal do instituto no YouTube (supabase/functions/youtube), quando quem conduz a criou. */
+  youtube?: string | null;
   educador: { id: string; nome: string };
   co_educadores: { id: string; nome: string }[];
   inscritos: number;

@@ -1513,7 +1513,7 @@ begin
   foreach k in array array['portfolio', 'lattes', 'site', 'instagram', 'youtube', 'linkedin', 'github'] loop
     u := btrim(coalesce(p ->> k, ''));
     if u <> '' then
-      if u !~ '^https://[^\s]{3,300}$' then perform interno.erro('invalido:' || k); end if;
+      if char_length(u) > 300 or u !~ '^https://[^\s]{3,}$' then perform interno.erro('invalido:' || k); end if;
       v_novo := v_novo || jsonb_build_object(k, u);
     end if;
   end loop;
@@ -8835,6 +8835,11 @@ create table if not exists interno.videoaulas (
   constraint videoaulas_720p check (least(largura, altura) <= 720)
 );
 create index if not exists videoaulas_disciplina on interno.videoaulas (disciplina, status, revisado_em desc);
+-- A cópia no canal do instituto no YouTube (ver "YouTube do instituto", mais abaixo): o código do vídeo e como foi o envio.
+alter table interno.videoaulas add column if not exists youtube text check (youtube is null or youtube ~ '^[A-Za-z0-9_-]{11}$');
+alter table interno.videoaulas add column if not exists youtube_situacao text not null default '' check (youtube_situacao in ('', 'enviando', 'no_ar', 'travado', 'erro'));
+alter table interno.videoaulas add column if not exists youtube_erro text not null default '' check (char_length(youtube_erro) <= 300);
+alter table interno.videoaulas add column if not exists youtube_em timestamptz;
 revoke all on interno.videoaulas from public;
 do $$
 begin
@@ -8850,8 +8855,15 @@ create or replace function interno.videoaula_json(v interno.videoaulas, p_comple
   select jsonb_build_object('id', v.id, 'disciplina', v.disciplina, 'trilha', v.trilha, 'titulo', v.titulo, 'descricao', v.descricao,
     'nome_autor', v.nome_autor, 'caminho', v.caminho, 'tipo', v.tipo, 'duracao', v.duracao, 'largura', v.largura, 'altura', v.altura,
     'tamanho', v.tamanho, 'status', v.status, 'nota', v.nota, 'criado_em', v.criado_em, 'revisado_em', v.revisado_em,
-    'tem_legenda', v.legenda <> '', 'tem_transcricao', v.transcricao <> '', 'minha', v.autor = auth.uid())
+    'tem_legenda', v.legenda <> '', 'tem_transcricao', v.transcricao <> '', 'minha', v.autor = auth.uid(),
+    'youtube', v.youtube,
+    'youtube_situacao', v.youtube_situacao, 'youtube_erro', v.youtube_erro)
   || case when p_completa then jsonb_build_object('transcricao', v.transcricao, 'legenda', v.legenda, 'fontes', v.fontes) else '{}'::jsonb end
+$$;
+
+/** Para o site: a cópia do YouTube só quando está liberada ('travado': o Google deixa privado até a auditoria do projeto). */
+create or replace function interno.videoaula_youtube_publico(v interno.videoaulas) returns jsonb language sql stable as $$
+  select jsonb_build_object('youtube', case when v.youtube_situacao = 'no_ar' then v.youtube end)
 $$;
 
 /**
@@ -8976,14 +8988,21 @@ end $$;
 
 /** Para o site: as aulas no ar (sem transcrição nem legenda, que vêm com videoaula_ver). Qualquer visitante lê. */
 create or replace function public.videoaulas_publicas(p_disciplina text default null) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
-  select coalesce(jsonb_agg(interno.videoaula_json(x, false) - 'minha' - 'nota' - 'status' order by x.revisado_em desc), '[]'::jsonb)
+  select coalesce(jsonb_agg(interno.videoaula_json(x, false) - 'minha' - 'nota' - 'status' - 'youtube_situacao' - 'youtube_erro' || interno.videoaula_youtube_publico(x) order by x.revisado_em desc), '[]'::jsonb)
   from videoaulas x where x.status = 'aprovada' and (p_disciplina is null or x.disciplina = p_disciplina)
 $$;
 
 create or replace function public.videoaula_ver(p_id uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
-  select interno.videoaula_json(x, true) - 'minha' - 'nota' from videoaulas x
+  select interno.videoaula_json(x, true) - 'minha' - 'nota' - 'youtube_situacao' - 'youtube_erro' || interno.videoaula_youtube_publico(x) from videoaulas x
   where x.id = p_id and (x.status = 'aprovada' or (auth.uid() is not null and (x.autor = auth.uid() or interno.videoaula_revisa(x.disciplina))))
 $$;
+
+/** Para a curadoria e a coordenação: as aulas no ar com a situação da cópia no YouTube. */
+create or replace function public.videoaulas_no_ar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.revisa() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(interno.videoaula_json(x, false) - 'minha' order by x.revisado_em desc) from videoaulas x where x.status = 'aprovada'), '[]'::jsonb);
+end $$;
 
 -- As funções das aulas em vídeo: as de "public" abertas pela API (cada uma confere quem chama), as de "interno" fechadas.
 do $$
@@ -9016,6 +9035,56 @@ begin
     execute 'create policy "videoaulas_remocao" on storage.objects for delete to authenticated using (bucket_id = ''videoaulas'''
          || ' and ((storage.foldername(name))[1] = auth.uid()::text or interno.coord()))';
   end if;
+end $$;
+
+-- ───────────────────────────── YouTube do instituto ─────────────────────────────
+-- As aulas aprovadas ganham uma cópia no canal do instituto no YouTube, e as aulas ao vivo podem ser transmitidas por
+-- ele. Quem fala com o YouTube é só a função "youtube" do serviço de contas (supabase/functions/youtube), com a
+-- autorização do canal guardada nos segredos do serviço: ninguém da equipe recebe a senha nem o acesso ao canal.
+-- Quem ensina recebe só a chave de transmissão da própria aula, que vale para aquela aula e mais nada.
+-- As funções abaixo que gravam ou leem dados internos conferem interno.servico(): só a função do serviço chama.
+
+/** Quem pode mandar uma aula aprovada ao YouTube (ou tentar de novo): a curadoria e a coordenação. */
+create or replace function public.youtube_pode_enviar(p_id uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select auth.uid() is not null and interno.revisa() and exists (select 1 from videoaulas where id = p_id and status = 'aprovada')
+$$;
+
+/** Para a função do serviço: o que vai na página do vídeo no YouTube. */
+create or replace function public.youtube_videoaula_dados(p_id uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  return (select jsonb_build_object('id', v.id, 'titulo', v.titulo, 'descricao', v.descricao, 'nome_autor', v.nome_autor, 'disciplina', v.disciplina,
+            'trilha', v.trilha, 'caminho', v.caminho, 'tipo', v.tipo, 'tamanho', v.tamanho, 'legenda', v.legenda, 'fontes', v.fontes,
+            'youtube', v.youtube, 'situacao', v.youtube_situacao)
+          from videoaulas v where v.id = p_id and v.status = 'aprovada');
+end $$;
+
+/** Para a função do serviço: anota como foi o envio (enviando, no ar com o código do vídeo, ou erro com o motivo). */
+create or replace function public.youtube_videoaula_marcar(p_id uuid, p_situacao text, p_youtube text default null, p_erro text default '') returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  if p_situacao not in ('enviando', 'no_ar', 'travado', 'erro') then perform interno.erro('invalido:situacao'); end if;
+  if p_youtube is not null and p_youtube !~ '^[A-Za-z0-9_-]{11}$' then perform interno.erro('invalido:youtube'); end if;
+  -- "Enviando" só vale para quem ainda não está no ar nem enviando há menos de 15 minutos: dois cliques não mandam duas cópias.
+  if p_situacao = 'enviando' then
+    update videoaulas set youtube_situacao = 'enviando', youtube_erro = '', youtube_em = now()
+    where id = p_id and status = 'aprovada' and youtube is null
+      and (youtube_situacao <> 'enviando' or youtube_em < now() - interval '15 minutes');
+    return jsonb_build_object('ok', found);
+  end if;
+  update videoaulas set youtube_situacao = p_situacao, youtube = coalesce(p_youtube, youtube), youtube_erro = left(coalesce(p_erro, ''), 300) where id = p_id;
+  return jsonb_build_object('ok', found);
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('youtube_pode_enviar', 'youtube_videoaula_dados', 'youtube_videoaula_marcar') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
 end $$;
 
 -- ═══════════════════════════════ Plataforma: avisos, rascunhos, aulas ao vivo e estúdio ═══════════════════════════════
@@ -9067,15 +9136,32 @@ create table if not exists interno.aulas_ao_vivo (
   educador uuid not null references interno.perfis (id) on delete cascade,
   co_educadores uuid[] not null default '{}',
   -- Sala de fora (Jitsi, Meet), para turmas grandes demais para o vídeo direto entre navegadores.
-  sala_externa text not null default '' check (sala_externa = '' or sala_externa ~ '^https://[^\s]{3,500}$'),
+  sala_externa text not null default '' check (sala_externa = '' or (char_length(sala_externa) <= 508 and sala_externa ~ '^https://[^\s]{3,}$')),
   status text not null default 'agendada' check (status in ('agendada', 'ao_vivo', 'encerrada', 'cancelada')),
   iniciada_em timestamptz,
   encerrada_em timestamptz,
-  gravacao text not null default '' check (gravacao = '' or gravacao ~ '^(https://[^\s]{3,500}|/[a-z]{2}/videoaulas[^\s]{0,200})$'),
+  gravacao text not null default '' check (gravacao = '' or (char_length(gravacao) <= 508 and gravacao ~ '^(https://[^\s]{3,}|/[a-z]{2}/videoaulas[^\s]{0,200})$')),
   criado_em timestamptz not null default now(),
   atualizado_em timestamptz not null default now()
 );
 create index if not exists aulas_ao_vivo_inicio on interno.aulas_ao_vivo (inicio);
+-- A regra antiga ({3,500}) passava do limite de repetição do Postgres e recusava qualquer sala ou gravação.
+alter table interno.aulas_ao_vivo drop constraint if exists aulas_ao_vivo_sala_externa_check;
+alter table interno.aulas_ao_vivo add constraint aulas_ao_vivo_sala_externa_check check (sala_externa = '' or (char_length(sala_externa) <= 508 and sala_externa ~ '^https://[^\s]{3,}$'));
+alter table interno.aulas_ao_vivo drop constraint if exists aulas_ao_vivo_gravacao_check;
+alter table interno.aulas_ao_vivo add constraint aulas_ao_vivo_gravacao_check check (gravacao = '' or (char_length(gravacao) <= 508 and gravacao ~ '^(https://[^\s]{3,}|/[a-z]{2}/videoaulas[^\s]{0,200})$'));
+-- A transmissão pelo canal do instituto no YouTube (o código é público: é o que o site mostra no tocador).
+alter table interno.aulas_ao_vivo add column if not exists youtube text check (youtube is null or youtube ~ '^[A-Za-z0-9_-]{11}$');
+-- A chave de transmissão de cada aula: só quem conduz a aula lê (youtube_transmissao_ver). Nunca aparece no site.
+create table if not exists interno.transmissoes (
+  aula uuid primary key references interno.aulas_ao_vivo (id) on delete cascade,
+  broadcast text not null check (broadcast ~ '^[A-Za-z0-9_-]{11}$'),
+  stream text not null check (char_length(stream) between 1 and 100),
+  rtmp text not null check (char_length(rtmp) <= 310 and rtmp ~ '^rtmps?://[^\s]{3,}$'),
+  chave text not null check (char_length(chave) between 4 and 200),
+  criado_em timestamptz not null default now()
+);
+revoke all on interno.transmissoes from public;
 create table if not exists interno.aulas_inscricoes (
   aula uuid not null references interno.aulas_ao_vivo (id) on delete cascade,
   usuario uuid not null references interno.perfis (id) on delete cascade,
@@ -9427,7 +9513,7 @@ create table if not exists interno.reunioes (
   duracao integer not null default 60 check (duracao between 15 and 480),
   tipo text not null default 'aberta' check (tipo in ('aberta', 'coordenacao', 'convidados')),
   recorrencia text not null default '' check (recorrencia in ('', 'semanal', 'quinzenal')),
-  link_pauta text not null default '' check (link_pauta = '' or link_pauta ~ '^https://[^\s]{3,500}$'),
+  link_pauta text not null default '' check (link_pauta = '' or (char_length(link_pauta) <= 508 and link_pauta ~ '^https://[^\s]{3,}$')),
   -- O nome da sala é sorteado no banco: longo e imprevisível, nunca adivinhável pelo título.
   sala text not null default ('InstitutoLucia-' || replace(gen_random_uuid()::text, '-', '')),
   status text not null default 'agendada' check (status in ('agendada', 'ao_vivo', 'encerrada', 'cancelada')),
@@ -9437,6 +9523,9 @@ create table if not exists interno.reunioes (
   encerrada_em timestamptz,
   criado_em timestamptz not null default now()
 );
+-- A regra antiga do link da pauta ({3,500}) passava do limite de repetição do Postgres e recusava qualquer link.
+alter table interno.reunioes drop constraint if exists reunioes_link_pauta_check;
+alter table interno.reunioes add constraint reunioes_link_pauta_check check (link_pauta = '' or (char_length(link_pauta) <= 508 and link_pauta ~ '^https://[^\s]{3,}$'));
 create index if not exists reunioes_inicio on interno.reunioes (inicio);
 create table if not exists interno.reunioes_convites (
   reuniao uuid not null references interno.reunioes (id) on delete cascade,
@@ -9676,7 +9765,7 @@ end $$;
 create or replace function interno.aula_json(a interno.aulas_ao_vivo, p_completa boolean) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
   select jsonb_build_object(
     'id', a.id, 'titulo', a.titulo, 'descricao', a.descricao, 'disciplina', a.disciplina, 'trilha', a.trilha, 'inicio', a.inicio, 'duracao', a.duracao,
-    'status', a.status, 'iniciada_em', a.iniciada_em, 'encerrada_em', a.encerrada_em, 'gravacao', a.gravacao, 'sala_externa', a.sala_externa,
+    'status', a.status, 'iniciada_em', a.iniciada_em, 'encerrada_em', a.encerrada_em, 'gravacao', a.gravacao, 'sala_externa', a.sala_externa, 'youtube', a.youtube,
     'educador', jsonb_build_object('id', a.educador, 'nome', coalesce((select nome from perfis where id = a.educador), '')),
     'co_educadores', coalesce((select jsonb_agg(jsonb_build_object('id', f.id, 'nome', f.nome) order by f.nome) from perfis f where f.id = any (a.co_educadores)), '[]'::jsonb),
     'inscritos', (select count(*) from aulas_inscricoes i where i.aula = a.id),
@@ -9776,7 +9865,9 @@ begin
       perform interno.avisar(r.usuario, format('A aula ao vivo "%s" começou agora. Entre pela agenda de aulas ao vivo.', left(a.titulo, 100)));
     end loop;
   elsif p_status = 'encerrada' then
-    update aulas_ao_vivo set status = 'encerrada', encerrada_em = now(), atualizado_em = now() where id = p_id returning * into a;
+    update aulas_ao_vivo set status = 'encerrada', encerrada_em = now(), atualizado_em = now(),
+      gravacao = case when gravacao = '' and youtube is not null then 'https://www.youtube.com/watch?v=' || youtube else gravacao end
+    where id = p_id returning * into a;
     insert into aulas_chat (aula, autor, nome, corpo, tipo) values (a.id, v, '', 'A aula terminou. Obrigado a quem participou.', 'sistema');
   elsif p_status = 'cancelada' then
     update aulas_ao_vivo set status = 'cancelada', atualizado_em = now() where id = p_id returning * into a;
@@ -9818,11 +9909,46 @@ begin
     and k.publica not in (select x.publica from aulas_sala_chaves x where x.aula = p_id and x.usuario = v order by x.criado_em desc limit 5);
   return jsonb_build_object('ok', true);
 end $$;
+
+-- ───────────────────────────── Transmissão pelo YouTube do instituto ─────────────────────────────
+
+/** Quem pode pedir a chave de transmissão: quem conduz a aula, enquanto ela está marcada ou no ar. */
+create or replace function public.youtube_transmissao_pode(p_aula uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select exists (select 1 from aulas_ao_vivo a where a.id = p_aula and a.status in ('agendada', 'ao_vivo') and interno.conduz(a))
+$$;
+
+/** A chave da transmissão, para quem conduz a aula (nada para os outros). */
+create or replace function public.youtube_transmissao_ver(p_aula uuid) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('youtube', t.broadcast, 'rtmp', t.rtmp, 'chave', t.chave, 'criado_em', t.criado_em)
+  from transmissoes t join aulas_ao_vivo a on a.id = t.aula where t.aula = p_aula and interno.conduz(a)
+$$;
+
+/** Para a função do serviço: o que vai na página da transmissão no YouTube, e a transmissão já criada, se houver. */
+create or replace function public.youtube_transmissao_dados(p_aula uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  return (select jsonb_build_object('id', a.id, 'titulo', a.titulo, 'descricao', a.descricao, 'disciplina', a.disciplina, 'inicio', a.inicio,
+            'duracao', a.duracao, 'status', a.status, 'educador', coalesce((select nome from perfis where id = a.educador), ''),
+            'youtube', t.broadcast, 'stream', t.stream, 'rtmp', t.rtmp, 'chave', t.chave)
+          from aulas_ao_vivo a left join transmissoes t on t.aula = a.id where a.id = p_aula);
+end $$;
+
+/** Para a função do serviço: guarda a transmissão criada no YouTube e a chave dela. */
+create or replace function public.youtube_transmissao_gravar(p_aula uuid, p_broadcast text, p_stream text, p_rtmp text, p_chave text) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if not interno.servico() then perform interno.erro('sem_permissao'); end if;
+  insert into transmissoes (aula, broadcast, stream, rtmp, chave) values (p_aula, p_broadcast, p_stream, p_rtmp, p_chave)
+  on conflict (aula) do update set broadcast = excluded.broadcast, stream = excluded.stream, rtmp = excluded.rtmp, chave = excluded.chave, criado_em = now();
+  update aulas_ao_vivo set youtube = p_broadcast, atualizado_em = now() where id = p_aula;
+  return jsonb_build_object('ok', true);
+end $$;
+
 do $$
 declare f record;
 begin
   for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
-           where n.nspname = 'public' and p.proname = 'aula_ao_vivo_sala_chave' loop
+           where n.nspname = 'public' and p.proname in ('aula_ao_vivo_sala_chave', 'youtube_transmissao_pode', 'youtube_transmissao_ver', 'youtube_transmissao_dados', 'youtube_transmissao_gravar') loop
     execute format('revoke all on function %s from public', f.assinatura);
     execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
   end loop;

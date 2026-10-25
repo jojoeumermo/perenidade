@@ -3073,7 +3073,10 @@
       "transcript": "Leer la transcripción",
       "hideTranscript": "Ocultar la transcripción",
       "keys": "Atajos: espacio reproduce y pausa, las flechas avanzan 5 segundos, < y > cambian la velocidad, M silencia, C activa los subtítulos, F pantalla completa.",
-      "error": "No es posible reproducir este video ahora."
+      "error": "No es posible reproducir este video ahora.",
+      "listen": "Solo audio",
+      "watch": "Ver la imagen",
+      "listening": "Solo audio: la imagen está oculta. La transcripción sigue abajo."
     },
     "comments": {
       "title": "Comentarios",
@@ -3098,7 +3101,12 @@
         "mediacao": "Mediación",
         "equipe": "Equipo"
       }
-    }
+    },
+    "youtubeWatch": "Ver en el YouTube del instituto",
+    "youtubeNote": "El reproductor de YouTube solo se carga cuando haces clic, sin cookies de publicidad.",
+    "ownCopy": "Ver sin Google (copia del instituto)",
+    "backToYoutube": "Ver en YouTube",
+    "transcriptTitle": "Transcripción"
   },
   "more": {
     "eyebrow": "Todo lo que hay aquí",
@@ -4337,7 +4345,10 @@
     "mediaFailed": "No se pudo encender la cámara, la pantalla o el micrófono. Revisa el permiso del navegador.",
     "recordFailed": "Este navegador no graba video.",
     "chatHeld": "Tu mensaje fue recibido y aparece para todos después de la lectura de la mediación.",
-    "chatPending": "esperando mediación"
+    "chatPending": "esperando mediación",
+    "youtubeLive": "Transmisión en el YouTube del instituto",
+    "youtubeWatch": "Ver la transmisión",
+    "youtubeNote": "El reproductor de YouTube solo se carga cuando haces clic, sin cookies de publicidad. El chat de la clase sigue aquí en el sitio."
   },
   "notebook": {
     "eyebrow": "Sala de estudio",

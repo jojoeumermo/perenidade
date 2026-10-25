@@ -11,6 +11,7 @@ import { type Presente, Sala, temTempoReal, transmitir, useSinal } from "@/lib/t
 import { lerSalaJitsi } from "@/lib/jitsi";
 import { safeLink } from "@/lib/text";
 import { JitsiSala } from "../JitsiSala";
+import { TocadorYoutube } from "../TocadorYoutube";
 import { L, useI18n } from "../I18n";
 import { CartaoDeAula, type LiveStrings } from "./Agenda";
 
@@ -420,6 +421,13 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
               </>
             )}
           </p>
+        )}
+
+        {aula.youtube && (aula.status === "ao_vivo" || aula.status === "agendada") && (
+          <section aria-label={s.youtubeLive} className="space-y-2">
+            <p className="font-mono text-xs uppercase tracking-widest text-gold">{s.youtubeLive}</p>
+            <TocadorYoutube id={aula.youtube} titulo={aula.titulo} aoVivo textos={{ assistir: s.youtubeWatch, aviso: s.youtubeNote }} />
+          </section>
         )}
 
         {salaJitsi && aula.status !== "cancelada" && aula.status !== "encerrada" && (
