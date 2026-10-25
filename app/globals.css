@@ -3172,3 +3172,15 @@ main#conteudo .ide-area :is(div, section)[class~="border-2"][class~="border-ink"
     box-shadow: 0 6px 18px rgb(0 0 0 / 0.28);
   }
 }
+
+/* Modo leve do painel (botão no rodapé do menu e Ctrl K): sem animação, sem sombra e sem textura de papel. */
+.painel-leve *,
+.painel-leve *::before,
+.painel-leve *::after {
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+}
+.painel-leve .pont {
+  background-image: none !important;
+}
