@@ -255,6 +255,17 @@ export const GUIAS: Record<string, Guia> = {
     ],
   },
   // ── Pessoas ──
+  departamentos: {
+    paraQue: "A página de cada departamento: meta do mês, quadro da semana, pedidos de outros departamentos, quem responde e como trabalha.",
+    passos: [
+      { titulo: "Escolha o departamento", texto: "Os botões do alto trocam de departamento. O seu aparece primeiro; o número vermelho é de pedidos abertos." },
+      { titulo: "Peça o que precisa", texto: "Na página de outro departamento, Pedir algo: o que é, os detalhes e o prazo. Quem responde por ele é avisado." },
+      { titulo: "Cuide dos pedidos", texto: "Em Pedidos: Aceitar, Pôr no quadro, Feito ou Recusar (com a resposta). Quem pediu recebe um recado." },
+      { titulo: "Use o quadro da semana", texto: "No Quadro, ＋ cria um cartão; avançar → leva de A fazer até Feito. Cartão de pedido que chega ao Feito fecha o pedido sozinho." },
+      { titulo: "Deixe o bastão", texto: "Em Como trabalhamos, deixe a passagem de bastão quando sair de uma função ou ficar fora um tempo." },
+    ],
+    dica: "Quem responde pelo departamento (o representante, a coordenação) escreve o como trabalhamos e a meta do mês.",
+  },
   pessoas: {
     paraQue: "Convidar, confiar funções e acompanhar a equipe.",
     passos: [

@@ -13924,6 +13924,275 @@ begin
 end $$;
 revoke all on function interno.cuidado_marca(uuid, date) from public;
 
+-- ───────────────────────────── Departamentos ─────────────────────────────
+-- Cada departamento ganha uma página no painel (seção "Departamentos"): para que serve, a meta do mês, o quadro da
+-- semana (a fazer, fazendo, esperando aprovação, feito), os pedidos de outros departamentos com prazo, quem responde,
+-- "como trabalhamos" e a passagem de bastão de quem sai de uma função. Os departamentos são os mesmos das conversas
+-- (interno.no_departamento): jornalismo (a Comunicação), design, educacao, mentoria, curadoria, revisao, traducao,
+-- mediacao, desenvolvimento, saude e coordenacao. Quem responde pelo departamento: o representante dele, a
+-- coordenação e a coordenação pedagógica.
+
+create table if not exists interno.departamentos_info (
+  id text primary key check (id in ('jornalismo', 'design', 'educacao', 'mentoria', 'curadoria', 'revisao', 'traducao', 'mediacao', 'desenvolvimento', 'saude', 'coordenacao')),
+  descricao text not null default '' check (char_length(descricao) <= 400),
+  como text not null default '' check (char_length(como) <= 6000),
+  meta_titulo text not null default '' check (char_length(meta_titulo) <= 80),
+  meta_alvo integer check (meta_alvo is null or meta_alvo between 1 and 100000),
+  meta_feito integer not null default 0 check (meta_feito between 0 and 100000),
+  atualizado_em timestamptz not null default now(),
+  atualizado_por uuid references interno.perfis (id) on delete set null
+);
+
+create table if not exists interno.departamento_pedidos (
+  id uuid primary key default gen_random_uuid(),
+  de text not null check (de ~ '^[a-z_]{2,30}$'),
+  para text not null references interno.departamentos_info (id) on delete cascade,
+  autor uuid references interno.perfis (id) on delete set null,
+  titulo text not null check (char_length(titulo) between 3 and 140),
+  detalhe text not null default '' check (char_length(detalhe) <= 2000),
+  prazo date,
+  status text not null default 'aberto' check (status in ('aberto', 'aceito', 'feito', 'recusado')),
+  responsavel uuid references interno.perfis (id) on delete set null,
+  resposta text not null default '' check (char_length(resposta) <= 1000),
+  criado_em timestamptz not null default now(),
+  atualizado_em timestamptz not null default now()
+);
+create index if not exists departamento_pedidos_para on interno.departamento_pedidos (para, status, criado_em desc);
+
+create table if not exists interno.departamento_quadro (
+  id uuid primary key default gen_random_uuid(),
+  departamento text not null references interno.departamentos_info (id) on delete cascade,
+  titulo text not null check (char_length(titulo) between 3 and 140),
+  etiqueta text not null default '' check (char_length(etiqueta) <= 30),
+  coluna text not null default 'fazer' check (coluna in ('fazer', 'fazendo', 'aprovacao', 'feito')),
+  dono uuid references interno.perfis (id) on delete set null,
+  prazo date,
+  pedido uuid references interno.departamento_pedidos (id) on delete set null,
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  atualizado_em timestamptz not null default now()
+);
+create index if not exists departamento_quadro_dep on interno.departamento_quadro (departamento, coluna, atualizado_em desc);
+
+-- A passagem de bastão: quem sai de uma função (ou entra de férias longas) deixa o que estava fazendo, onde estão as
+-- coisas e quem procurar. Fica guardada para quem chega.
+create table if not exists interno.departamento_bastoes (
+  id uuid primary key default gen_random_uuid(),
+  departamento text not null references interno.departamentos_info (id) on delete cascade,
+  autor uuid references interno.perfis (id) on delete set null,
+  texto text not null check (char_length(texto) between 10 and 4000),
+  criado_em timestamptz not null default now()
+);
+revoke all on interno.departamentos_info, interno.departamento_pedidos, interno.departamento_quadro, interno.departamento_bastoes from public;
+
+insert into interno.departamentos_info (id, descricao) values
+  ('jornalismo', 'Jornal Revolucionário Lúcia, podcast, rádio, Instagram e divulgação. Fazemos o instituto chegar a quem trabalha.'),
+  ('design', 'Cartazes, capas, posts e a identidade do instituto, sempre com a marca de sempre.'),
+  ('educacao', 'As aulas, as trilhas e as disciplinas: quem escreve, grava e dá aula.'),
+  ('mentoria', 'O reforço: dúvidas de estudantes respondidas com calma.'),
+  ('curadoria', 'O acervo e a decisão final sobre o que vai ao ar.'),
+  ('revisao', 'A leitura atenta antes de publicar: conteúdo, fontes e linguagem simples.'),
+  ('traducao', 'As aulas em outros idiomas.'),
+  ('mediacao', 'A Comunidade, o Mural dos Trabalhadores e a Gaveta Aberta em ordem e acolhedores.'),
+  ('desenvolvimento', 'O site e o painel: erros, melhorias e segurança.'),
+  ('saude', 'A vitrine de profissionais de saúde voluntários. Área sensível.'),
+  ('coordenacao', 'A coordenação do instituto: pessoas, decisões e prestação de contas.')
+on conflict (id) do nothing;
+
+/** Quem responde pelo departamento: o representante dele, a coordenação e a coordenação pedagógica. */
+create or replace function interno.responde_departamento(p_departamento text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.coord() or interno.tem('vice')
+    or (interno.sessao_confiavel() and exists (select 1 from papeis where usuario = auth.uid() and papel = 'representante' and disciplina = p_departamento))
+$$;
+
+/** Quem é do departamento de fato (sem a coordenação e a supervisão, que entram em todos). */
+create or replace function interno.membro_direto(p_usuario uuid, p_departamento text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select exists (select 1 from papeis p join perfis f on f.id = p.usuario where p.usuario = p_usuario and not f.suspenso and (
+    p.papel = p_departamento or (p.papel = 'representante' and p.disciplina = p_departamento)
+    or (p_departamento = 'jornalismo' and p.papel = 'marketing') or (p_departamento = 'design' and p.papel = 'marketing')
+    or (p_departamento = 'educacao' and p.papel = 'educacao_secundaria') or (p_departamento = 'coordenacao' and p.papel in ('coordenacao', 'vice'))))
+$$;
+
+create or replace function interno.departamento_pedido_json(x interno.departamento_pedidos) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('id', x.id, 'de', x.de, 'para', x.para, 'titulo', x.titulo, 'detalhe', x.detalhe, 'prazo', x.prazo, 'status', x.status, 'resposta', x.resposta,
+    'criado_em', x.criado_em, 'atualizado_em', x.atualizado_em, 'meu', x.autor = auth.uid(),
+    'autor', coalesce((select interno.nome_visto(nome) from perfis where id = x.autor), ''),
+    'responsavel', coalesce((select interno.nome_visto(nome) from perfis where id = x.responsavel), ''))
+$$;
+
+/** A lista dos departamentos, com quantas pessoas e quantos pedidos abertos cada um tem, e os meus. */
+create or replace function public.departamentos_resumo() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', d.id, 'descricao', d.descricao,
+            'pessoas', (select count(*) from perfis f where interno.membro_direto(f.id, d.id)),
+            'pedidos', (select count(*) from departamento_pedidos p where p.para = d.id and p.status in ('aberto', 'aceito')),
+            'meu', interno.membro_direto(auth.uid(), d.id), 'respondo', interno.responde_departamento(d.id)) order by d.id), '[]'::jsonb)
+          from departamentos_info d);
+end $$;
+
+/** Tudo de um departamento: a página inteira. Qualquer pessoa da equipe lê (os departamentos trabalham juntos). */
+create or replace function public.departamento_ver(p_id text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare d departamentos_info;
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  select * into d from departamentos_info where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object(
+    'id', d.id, 'descricao', d.descricao, 'como', d.como, 'meta_titulo', d.meta_titulo, 'meta_alvo', d.meta_alvo, 'meta_feito', d.meta_feito, 'atualizado_em', d.atualizado_em,
+    'meu', interno.membro_direto(auth.uid(), d.id), 'respondo', interno.responde_departamento(d.id),
+    'pessoas', (select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', interno.nome_visto(f.nome), 'avatar', f.avatar,
+                  'responde', exists (select 1 from papeis r where r.usuario = f.id and r.papel = 'representante' and r.disciplina = d.id),
+                  'ferias_ate', case when f.ferias_ate >= current_date then f.ferias_ate end,
+                  'papeis', (select jsonb_agg(jsonb_build_object('papel', p.papel, 'disciplina', p.disciplina)) from papeis p where p.usuario = f.id))
+                  order by exists (select 1 from papeis r where r.usuario = f.id and r.papel = 'representante' and r.disciplina = d.id) desc, f.nome), '[]'::jsonb)
+                from perfis f where interno.membro_direto(f.id, d.id)),
+    'recebidos', (select coalesce(jsonb_agg(interno.departamento_pedido_json(x) order by x.status = 'aberto' desc, x.prazo nulls last, x.criado_em desc), '[]'::jsonb)
+                  from (select * from departamento_pedidos where para = d.id and (status in ('aberto', 'aceito') or atualizado_em > now() - interval '30 days') limit 100) x),
+    'enviados', (select coalesce(jsonb_agg(interno.departamento_pedido_json(x) order by x.criado_em desc), '[]'::jsonb)
+                 from (select * from departamento_pedidos where de = d.id and (status in ('aberto', 'aceito') or atualizado_em > now() - interval '30 days') limit 100) x),
+    'quadro', (select coalesce(jsonb_agg(jsonb_build_object('id', q.id, 'titulo', q.titulo, 'etiqueta', q.etiqueta, 'coluna', q.coluna, 'prazo', q.prazo, 'pedido', q.pedido,
+                 'dono', q.dono, 'dono_nome', coalesce((select interno.nome_visto(nome) from perfis where id = q.dono), ''), 'atualizado_em', q.atualizado_em)
+                 order by q.coluna, q.prazo nulls last, q.atualizado_em desc), '[]'::jsonb)
+               from departamento_quadro q where q.departamento = d.id and (q.coluna <> 'feito' or q.atualizado_em > now() - interval '14 days')),
+    'feitos_no_mes', (select count(*) from departamento_quadro q where q.departamento = d.id and q.coluna = 'feito' and q.atualizado_em >= date_trunc('month', now())),
+    'bastoes', (select coalesce(jsonb_agg(jsonb_build_object('id', b.id, 'texto', b.texto, 'criado_em', b.criado_em, 'meu', b.autor = auth.uid(),
+                  'autor', coalesce((select interno.nome_visto(nome) from perfis where id = b.autor), '')) order by b.criado_em desc), '[]'::jsonb)
+                from (select * from departamento_bastoes where departamento = d.id order by criado_em desc limit 20) b));
+end $$;
+
+/** Quem responde pelo departamento muda a apresentação, o "como trabalhamos" e a meta do mês. */
+create or replace function public.departamento_salvar(p_id text, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.responde_departamento(p_id) then perform interno.erro('sem_permissao'); end if;
+  update departamentos_info set
+    descricao = interno.txt(coalesce(p ->> 'descricao', descricao), 'descricao', 0, 400),
+    como = interno.txt(coalesce(p ->> 'como', como), 'como', 0, 6000),
+    meta_titulo = interno.txt(coalesce(p ->> 'meta_titulo', meta_titulo), 'meta_titulo', 0, 80),
+    meta_alvo = case when p ? 'meta_alvo' then nullif((p ->> 'meta_alvo')::integer, 0) else meta_alvo end,
+    meta_feito = case when p ? 'meta_feito' then greatest(0, coalesce((p ->> 'meta_feito')::integer, 0)) else meta_feito end,
+    atualizado_em = now(), atualizado_por = v
+  where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  perform interno.registrar('departamento_salvo', p_id, '{}'::jsonb);
+  return public.departamento_ver(p_id);
+exception when invalid_text_representation or numeric_value_out_of_range then perform interno.erro('invalido:meta');
+end $$;
+
+/** Pedir algo a outro departamento, com prazo. Quem responde pelo departamento que recebe é avisado. */
+create or replace function public.departamento_pedir(p_para text, p_de text, p_titulo text, p_detalhe text default '', p_prazo date default null) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x departamento_pedidos; r record;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  if not exists (select 1 from departamentos_info where id = p_para) then perform interno.erro('invalido:para'); end if;
+  if coalesce(p_de, '') !~ '^[a-z_]{2,30}$' then perform interno.erro('invalido:de'); end if;
+  if p_prazo is not null and (p_prazo < current_date or p_prazo > current_date + 365) then perform interno.erro('invalido:prazo'); end if;
+  perform interno.limite('departamento_pedir', 30, 1440);
+  insert into departamento_pedidos (de, para, autor, titulo, detalhe, prazo)
+  values (p_de, p_para, v, interno.txt(p_titulo, 'titulo', 3, 140), interno.txt(p_detalhe, 'detalhe', 0, 2000), p_prazo)
+  returning * into x;
+  for r in select distinct p.usuario from papeis p where p.papel = 'representante' and p.disciplina = p_para and p.usuario <> v loop
+    perform interno.avisar(r.usuario, format('Pedido novo para o departamento: “%s”%s. Veja em Departamentos.', left(x.titulo, 100), case when x.prazo is not null then ' (prazo ' || to_char(x.prazo, 'DD/MM') || ')' else '' end));
+  end loop;
+  return interno.departamento_pedido_json(x);
+end $$;
+
+/** Aceitar, marcar como feito ou recusar um pedido: quem é do departamento que recebeu. Quem pediu é avisado. */
+create or replace function public.departamento_pedido_mudar(p_id uuid, p_status text, p_resposta text default '') returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x departamento_pedidos;
+begin
+  select * into x from departamento_pedidos where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if p_status not in ('aberto', 'aceito', 'feito', 'recusado') then perform interno.erro('invalido:status'); end if;
+  if not (interno.membro_direto(v, x.para) or interno.responde_departamento(x.para) or (x.autor = v and p_status = 'aberto')) then perform interno.erro('sem_permissao'); end if;
+  if p_status = 'recusado' and char_length(btrim(coalesce(p_resposta, ''))) < 5 then perform interno.erro('invalido:resposta'); end if;
+  update departamento_pedidos set status = p_status, resposta = left(coalesce(nullif(btrim(p_resposta), ''), resposta), 1000),
+    responsavel = case when p_status in ('aceito', 'feito') then coalesce(responsavel, v) else responsavel end, atualizado_em = now()
+  where id = p_id returning * into x;
+  if x.autor is distinct from v then
+    perform interno.avisar(x.autor, format('Seu pedido “%s” foi %s.%s', left(x.titulo, 100),
+      case p_status when 'aceito' then 'aceito' when 'feito' then 'feito' when 'recusado' then 'recusado' else 'reaberto' end,
+      case when x.resposta <> '' then ' ' || left(x.resposta, 200) else '' end));
+  end if;
+  return interno.departamento_pedido_json(x);
+end $$;
+
+/** O quadro da semana: criar ou mudar um cartão (quem é do departamento ou responde por ele). */
+create or replace function public.departamento_quadro_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); q departamento_quadro; v_dep text := coalesce(p ->> 'departamento', ''); v_dono uuid; v_prazo date;
+begin
+  if p_id is not null then
+    select * into q from departamento_quadro where id = p_id for update;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+    v_dep := q.departamento;
+  end if;
+  if not exists (select 1 from departamentos_info where id = v_dep) then perform interno.erro('invalido:departamento'); end if;
+  if not (interno.membro_direto(v, v_dep) or interno.responde_departamento(v_dep)) then perform interno.erro('sem_permissao'); end if;
+  begin
+    v_dono := nullif(p ->> 'dono', '')::uuid;
+    v_prazo := nullif(p ->> 'prazo', '')::date;
+  exception when others then perform interno.erro('invalido:cartao');
+  end;
+  if v_dono is not null and not interno.membro_direto(v_dono, v_dep) and not interno.no_departamento(v_dono, v_dep) then perform interno.erro('invalido:dono'); end if;
+  if coalesce(p ->> 'coluna', 'fazer') not in ('fazer', 'fazendo', 'aprovacao', 'feito') then perform interno.erro('invalido:coluna'); end if;
+  if p_id is null then
+    perform interno.limite('departamento_quadro', 120, 1440);
+    insert into departamento_quadro (departamento, titulo, etiqueta, coluna, dono, prazo, pedido, criado_por)
+    values (v_dep, interno.txt(p ->> 'titulo', 'titulo', 3, 140), interno.txt(coalesce(p ->> 'etiqueta', ''), 'etiqueta', 0, 30), coalesce(p ->> 'coluna', 'fazer'), v_dono, v_prazo,
+            (select id from departamento_pedidos where id = nullif(p ->> 'pedido', '')::uuid and para = v_dep), v)
+    returning * into q;
+  else
+    update departamento_quadro set titulo = interno.txt(coalesce(p ->> 'titulo', titulo), 'titulo', 3, 140), etiqueta = interno.txt(coalesce(p ->> 'etiqueta', etiqueta), 'etiqueta', 0, 30),
+      coluna = coalesce(p ->> 'coluna', coluna), dono = case when p ? 'dono' then v_dono else dono end, prazo = case when p ? 'prazo' then v_prazo else prazo end, atualizado_em = now()
+    where id = p_id returning * into q;
+  end if;
+  -- Cartão de um pedido que chegou ao "feito": o pedido também fica feito (e quem pediu é avisado).
+  if q.coluna = 'feito' and q.pedido is not null and exists (select 1 from departamento_pedidos where id = q.pedido and status in ('aberto', 'aceito')) then
+    perform public.departamento_pedido_mudar(q.pedido, 'feito', '');
+  end if;
+  return jsonb_build_object('id', q.id, 'coluna', q.coluna);
+end $$;
+
+create or replace function public.departamento_quadro_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); q departamento_quadro;
+begin
+  select * into q from departamento_quadro where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (q.criado_por = v or interno.responde_departamento(q.departamento)) then perform interno.erro('sem_permissao'); end if;
+  delete from departamento_quadro where id = p_id;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Deixar a passagem de bastão: quem é do departamento (ou acabou de sair dele, até 30 dias depois). */
+create or replace function public.departamento_bastao_deixar(p_departamento text, p_texto text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); b departamento_bastoes;
+begin
+  if not exists (select 1 from departamentos_info where id = p_departamento) then perform interno.erro('invalido:departamento'); end if;
+  if not (interno.membro_direto(v, p_departamento) or interno.responde_departamento(p_departamento)
+          or exists (select 1 from papeis_historico h where h.usuario = v and (h.papel = p_departamento or h.disciplina = p_departamento) and h.removido_em > now() - interval '30 days')) then
+    perform interno.erro('sem_permissao');
+  end if;
+  perform interno.limite('departamento_bastao', 10, 1440);
+  insert into departamento_bastoes (departamento, autor, texto) values (p_departamento, v, interno.txt(p_texto, 'texto', 10, 4000)) returning * into b;
+  return jsonb_build_object('id', b.id);
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('departamentos_resumo', 'departamento_ver', 'departamento_salvar', 'departamento_pedir', 'departamento_pedido_mudar',
+             'departamento_quadro_salvar', 'departamento_quadro_apagar', 'departamento_bastao_deixar') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança
 -- por linha até a próxima execução deste arquivo. Aqui, no fim, toda tabela do esquema interno fica com a segurança por
