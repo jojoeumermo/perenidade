@@ -135,6 +135,14 @@ export const GUIAS: Record<string, Guia> = {
       { titulo: "Comente com cuidado", texto: "Enviar o comentário manda a sua devolutiva. Elogie o que deu certo antes de corrigir." },
     ],
   },
+  pautas: {
+    paraQue: "O banco de pautas e o calendário único da equipe.",
+    passos: [
+      { titulo: "Proponha uma pauta", texto: "Em Banco de pautas, escreva a ideia, para onde vai (jornal, podcast, Instagram, aula…) e a data prevista." },
+      { titulo: "Cuide de uma", texto: "Abra a pauta e aperte Eu cuido desta. Mude a situação conforme anda: apurando, produzindo, em revisão, publicada." },
+      { titulo: "Olhe o calendário", texto: "O Calendário junta pautas, posts, aulas ao vivo e reuniões dos próximos 30 dias. Clique para ir à seção certa." },
+    ],
+  },
   minhas: {
     paraQue: "O que você enviou e em que pé está.",
     passos: [
@@ -255,6 +263,16 @@ export const GUIAS: Record<string, Guia> = {
     ],
   },
   // ── Pessoas ──
+  assembleias: {
+    paraQue: "Decisões da equipe por voto, com voto secreto de verdade e o resultado só no fim.",
+    passos: [
+      { titulo: "Leia o contexto", texto: "Cada votação mostra a pergunta, os argumentos e até quando dá para votar." },
+      { titulo: "Vote uma vez", texto: "Escolha a opção e aperte Votar. O voto é final." },
+      { titulo: "Veja o resultado no fim", texto: "Durante a votação, só aparece quantos votaram. No fim, o resultado fica em Decididas." },
+      { titulo: "Abrir uma votação", texto: "A coordenação abre para a equipe toda; o representante, para o departamento dele." },
+    ],
+    dica: "No voto secreto, o banco guarda que você votou num lugar e o voto em outro, sem ligação entre os dois.",
+  },
   departamentos: {
     paraQue: "A página de cada departamento: meta do mês, quadro da semana, pedidos de outros departamentos, quem responde e como trabalha.",
     passos: [
