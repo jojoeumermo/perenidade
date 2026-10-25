@@ -688,6 +688,17 @@ alter table interno.conversa_mensagens add column if not exists ordem bigint gen
 alter table interno.conversas drop constraint if exists conversas_tipo_check;
 alter table interno.conversas add constraint conversas_tipo_check check (tipo in ('direta', 'grupo', 'departamento'));
 alter table interno.conversas add column if not exists departamento text;
+-- Amigos, como no Stoat: um pede, o outro aceita. Amizade aceita libera a conversa privada entre os dois (o consentimento
+-- dos dois lados substitui a regra de só falar em privado com a liderança ou com quem colabora junto).
+create table if not exists interno.amizades (
+  de uuid not null references interno.perfis (id) on delete cascade,
+  para uuid not null references interno.perfis (id) on delete cascade,
+  aceita boolean not null default false,
+  criado_em timestamptz not null default now(),
+  aceita_em timestamptz,
+  primary key (de, para),
+  check (de <> para)
+);
 alter table interno.conversas drop constraint if exists conversas_departamento_check;
 -- Grupo de departamento que deixou de existir (de uma versão anterior) vira grupo comum: a conversa e as mensagens ficam,
 -- só sai do conjunto dos fixos. Assim a regra abaixo nunca para a instalação.
@@ -789,6 +800,11 @@ alter table interno.perfis add column if not exists chat_visto boolean not null 
 alter table interno.perfis add column if not exists ferias_ate date;
 -- Os ofícios de cada pessoa ("edito vídeo", "falo espanhol"): para a equipe achar quem sabe o quê.
 alter table interno.perfis add column if not exists oficios text[] not null default '{}';
+-- Nas Conversas, no jeito do Stoat: a presença escolhida (invisível aparece como fora para os outros), uma frase de
+-- status e a capa do cartão de perfil (uma das cores prontas: sem envio de imagem).
+alter table interno.perfis add column if not exists presenca text not null default 'online' check (presenca in ('online', 'ausente', 'ocupado', 'invisivel'));
+alter table interno.perfis add column if not exists frase text not null default '' check (char_length(frase) <= 80);
+alter table interno.perfis add column if not exists capa text not null default 'vermelho' check (capa in ('vermelho', 'noite', 'ouro', 'verde', 'azul', 'roxo', 'rosa', 'pergaminho'));
 alter table interno.perfis add column if not exists chat_leitura boolean not null default true;
 -- Retrato: um ícone pré-definido ("p:estrela") para todo mundo; coordenação, coordenação pedagógica e supervisão podem
 -- subir uma imagem própria, pequena (WebP em data URI, redesenhada no navegador, sem dados da câmera).
@@ -4885,7 +4901,9 @@ begin
       'id', f.id, 'nome', interno.nome_visto(f.nome), 'bio', f.bio, 'avatar', f.avatar, 'eu', f.id = auth.uid(), 'por_aqui', f.visto_em > now() - interval '90 minutes',
       'privado', interno.privado_permitido(f.id),
       -- Quem esconde o "visto por último" não o mostra e não vê o dos outros.
-      'online', case when f.id = auth.uid() or (f.chat_visto and coalesce((select p.chat_visto from perfis p where p.id = auth.uid()), true)) then f.visto_em > now() - interval '2 minutes' end,
+      'online', case when f.presenca = 'invisivel' and f.id <> auth.uid() then false when f.id = auth.uid() or (f.chat_visto and coalesce((select p.chat_visto from perfis p where p.id = auth.uid()), true)) then f.visto_em > now() - interval '2 minutes' end,
+      'presenca', case when f.presenca = 'invisivel' and f.id <> auth.uid() then 'online' else f.presenca end, 'frase', f.frase, 'capa', f.capa,
+      'desde', (select min(p.criado_em) from papeis p where p.usuario = f.id),
       'visto_em', case when f.id = auth.uid() or (f.chat_visto and coalesce((select p.chat_visto from perfis p where p.id = auth.uid()), true)) then f.visto_em end,
       'papeis', (select jsonb_agg(jsonb_build_object('papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina) from papeis p where p.usuario = f.id),
       'ferias_ate', case when f.ferias_ate >= current_date then f.ferias_ate end, 'oficios', to_jsonb(f.oficios))
@@ -5614,6 +5632,7 @@ end $$;
 create or replace function interno.privado_permitido(p_usuario uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select interno.gere_cargos()
     or exists (select 1 from papeis where usuario = p_usuario and papel in ('coordenacao', 'vice', 'supervisao'))
+    or exists (select 1 from amizades a where a.aceita and ((a.de = auth.uid() and a.para = p_usuario) or (a.para = auth.uid() and a.de = p_usuario)))
     or exists (select 1 from contribuicoes c where c.status = 'pendente'
                and (c.autor = auth.uid() or exists (select 1 from colaboradores k where k.contribuicao = c.id and k.usuario = auth.uid()))
                and (c.autor = p_usuario or exists (select 1 from colaboradores k where k.contribuicao = c.id and k.usuario = p_usuario)))
@@ -14554,6 +14573,142 @@ declare f record;
 begin
   for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
            where n.nspname = 'public' and p.proname in ('nucleos_listar', 'nucleo_salvar', 'conquistas_da_equipe') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+
+-- ───────────────────────────── Conversas no jeito do Stoat: perfil, amigos e convites ─────────────────────────────
+
+/** A presença, a frase de status e a capa do cartão de perfil (de quem está logado). */
+create or replace function public.chat_perfil_salvar(p_presenca text, p_frase text, p_capa text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if coalesce(p_presenca, '') not in ('online', 'ausente', 'ocupado', 'invisivel') then perform interno.erro('invalido:presenca'); end if;
+  if coalesce(p_capa, '') not in ('vermelho', 'noite', 'ouro', 'verde', 'azul', 'roxo', 'rosa', 'pergaminho') then perform interno.erro('invalido:capa'); end if;
+  update perfis set presenca = p_presenca, frase = interno.txt(coalesce(p_frase, ''), 'frase', 0, 80), capa = p_capa where id = v;
+  return jsonb_build_object('presenca', p_presenca, 'frase', btrim(coalesce(p_frase, '')), 'capa', p_capa);
+end $$;
+
+create or replace function public.chat_perfil_meu() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  return (select jsonb_build_object('presenca', presenca, 'frase', frase, 'capa', capa) from perfis where id = interno.eu());
+end $$;
+
+/** Pedir amizade (a quem é da equipe). Se o outro já tinha pedido, a amizade fica aceita na hora. */
+create or replace function public.amizade_pedir(p_para uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  if p_para is null or p_para = v or not interno.voluntario_e(p_para) then perform interno.erro('invalido:para'); end if;
+  perform interno.limite('amizade_pedir', 40, 1440);
+  if exists (select 1 from amizades where de = p_para and para = v) then
+    update amizades set aceita = true, aceita_em = coalesce(aceita_em, now()) where de = p_para and para = v;
+    perform interno.avisar(p_para, format('%s aceitou a sua amizade nas Conversas. Agora vocês conversam no privado.', coalesce((select interno.nome_visto(nome) from perfis where id = v), 'Alguém')));
+    return jsonb_build_object('aceita', true);
+  end if;
+  insert into amizades (de, para) values (v, p_para) on conflict do nothing;
+  if found then
+    perform interno.avisar(p_para, format('%s quer ser seu amigo nas Conversas. Aceite em Conversas › Mensagens diretas › Amigos.', coalesce((select interno.nome_visto(nome) from perfis where id = v), 'Alguém')));
+  end if;
+  return jsonb_build_object('aceita', false);
+end $$;
+
+create or replace function public.amizade_responder(p_de uuid, p_aceitar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if not exists (select 1 from amizades where de = p_de and para = v and not aceita) then perform interno.erro('nao_encontrado'); end if;
+  if coalesce(p_aceitar, false) then
+    update amizades set aceita = true, aceita_em = now() where de = p_de and para = v;
+    perform interno.avisar(p_de, format('%s aceitou a sua amizade nas Conversas. Agora vocês conversam no privado.', coalesce((select interno.nome_visto(nome) from perfis where id = v), 'Alguém')));
+  else
+    delete from amizades where de = p_de and para = v;
+  end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.amizade_desfazer(p_outro uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  delete from amizades where (de = v and para = p_outro) or (de = p_outro and para = v);
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.amizades_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  return jsonb_build_object(
+    'amigos', (select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', interno.nome_visto(f.nome), 'avatar', f.avatar, 'frase', f.frase,
+                 'presenca', case when f.presenca = 'invisivel' then 'online' else f.presenca end,
+                 'online', f.presenca <> 'invisivel' and f.chat_visto and f.visto_em > now() - interval '2 minutes') order by f.nome), '[]'::jsonb)
+               from amizades a join perfis f on f.id = case when a.de = v then a.para else a.de end where a.aceita and (a.de = v or a.para = v)),
+    'recebidos', (select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', interno.nome_visto(f.nome), 'avatar', f.avatar, 'criado_em', a.criado_em) order by a.criado_em desc), '[]'::jsonb)
+                  from amizades a join perfis f on f.id = a.de where a.para = v and not a.aceita),
+    'enviados', (select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', interno.nome_visto(f.nome), 'avatar', f.avatar, 'criado_em', a.criado_em) order by a.criado_em desc), '[]'::jsonb)
+                 from amizades a join perfis f on f.id = a.para where a.de = v and not a.aceita));
+end $$;
+
+-- Convites para grupos: um código curto que vale alguns dias. Quem entra recebe as chaves da conversa do aparelho de
+-- alguém que já está nela (a cifra repassa sozinha), então as mensagens aparecem assim que alguém do grupo abrir o painel.
+create table if not exists interno.chat_convites (
+  codigo text primary key check (codigo ~ '^[A-Za-z0-9]{10}$'),
+  conversa uuid not null references interno.conversas (id) on delete cascade,
+  criado_por uuid references interno.perfis (id) on delete set null,
+  expira_em timestamptz not null,
+  usos integer not null default 0,
+  maximo integer check (maximo is null or maximo between 1 and 100),
+  criado_em timestamptz not null default now()
+);
+revoke all on interno.amizades, interno.chat_convites from public;
+
+/** Criar um convite: só para grupo (os canais de departamento seguem a função), por quem pode mudar o grupo. */
+create or replace function public.chat_convite_criar(p_conversa uuid, p_dias integer default 7, p_maximo integer default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); c conversas; v_codigo text;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  select * into c from conversas where id = p_conversa;
+  if not found or c.tipo <> 'grupo' or c.departamento is not null then perform interno.erro('invalido:conversa'); end if;
+  if not exists (select 1 from conversa_membros m where m.conversa = c.id and m.usuario = v and (m.admin or not c.so_admins_mudam)) then perform interno.erro('sem_permissao'); end if;
+  if coalesce(p_dias, 7) not between 1 and 30 then perform interno.erro('invalido:dias'); end if;
+  perform interno.limite('chat_convite', 20, 1440);
+  v_codigo := substr(md5(random()::text || clock_timestamp()::text || v::text), 1, 10);
+  insert into chat_convites (codigo, conversa, criado_por, expira_em, maximo) values (v_codigo, c.id, v, now() + make_interval(days => coalesce(p_dias, 7)), p_maximo);
+  return jsonb_build_object('codigo', v_codigo, 'expira_em', now() + make_interval(days => coalesce(p_dias, 7)));
+end $$;
+
+create or replace function public.chat_convite_ver(p_codigo text) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare k chat_convites;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  select * into k from chat_convites where codigo = p_codigo;
+  if not found or k.expira_em < now() or (k.maximo is not null and k.usos >= k.maximo) then return jsonb_build_object('valido', false); end if;
+  return jsonb_build_object('valido', true, 'conversa', k.conversa, 'nome', (select nome from conversas where id = k.conversa),
+    'membros', (select count(*) from conversa_membros where conversa = k.conversa), 'ja_estou', exists (select 1 from conversa_membros where conversa = k.conversa and usuario = auth.uid()),
+    'de', coalesce((select interno.nome_visto(nome) from perfis where id = k.criado_por), ''));
+end $$;
+
+create or replace function public.chat_convite_usar(p_codigo text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); k chat_convites;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  perform interno.limite('chat_convite_usar', 30, 60);
+  select * into k from chat_convites where codigo = p_codigo for update;
+  if not found or k.expira_em < now() or (k.maximo is not null and k.usos >= k.maximo) then perform interno.erro('convite_vencido'); end if;
+  if exists (select 1 from conversa_membros where conversa = k.conversa and usuario = v) then return jsonb_build_object('conversa', k.conversa); end if;
+  if (select count(*) from conversa_membros where conversa = k.conversa) >= 61 then perform interno.erro('invalido:membros'); end if;
+  insert into conversa_membros (conversa, usuario) values (k.conversa, v);
+  update chat_convites set usos = usos + 1 where codigo = p_codigo;
+  update conversas set movida_em = now() where id = k.conversa;
+  perform interno.chat_aviso(k.conversa, 'convite', v, null);
+  return jsonb_build_object('conversa', k.conversa);
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('chat_perfil_salvar', 'chat_perfil_meu', 'amizade_pedir', 'amizade_responder', 'amizade_desfazer', 'amizades_listar',
+             'chat_convite_criar', 'chat_convite_ver', 'chat_convite_usar') loop
     execute format('revoke all on function %s from public', f.assinatura);
     execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
   end loop;

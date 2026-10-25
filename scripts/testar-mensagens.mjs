@@ -76,6 +76,12 @@ confere("link e menção dentro da linha", () => {
 confere("negrito com link dentro vira só negrito (sem exagero)", () => formatar("*veja https://x.org*")[0].pedacos[0].tipo === "negrito");
 confere("sem formatação para a lista de conversas", () => semFormatacao("*oi* _tudo_ bem\n- sim") === "oi tudo bem\nsim");
 
+confere("||spoiler|| fica escondido e some da prévia", () => { const [linha] = formatar("o fim é ||ela vence|| mesmo"); return linha.pedacos[1].tipo === "spoiler" && linha.pedacos[1].valor === "ela vence" && semFormatacao("o fim é ||ela vence||") === "o fim é ▒▒▒"; });
+confere(":estrela: vira emoji do instituto; :nada: fica texto", () => { const [linha] = formatar("valeu :estrela: e :nada:"); return linha.pedacos.some((p) => p.tipo === "emoji" && p.nome === "estrela") && linha.pedacos.some((p) => p.tipo === "texto" && p.valor.includes(":nada:")); });
+confere("> citação em bloco", () => { const linhas = formatar("> o povo unido\njamais será vencido"); return linhas[0].citacao === true && linhas[0].pedacos[0].valor === "o povo unido" && !linhas[1].citacao; });
+confere("bloco de código vai como está", () => { const linhas = formatar("veja:\n```\n*não* é negrito\n```\nfim"); return linhas.length === 3 && linhas[1].codigo === "*não* é negrito" && linhas[2].pedacos[0].valor === "fim"; });
+confere("os emojis do instituto entram nas reações", () => reacoes.includes(":estrela:") && desempacotar(empacotar({ texto: "", emoji: ":punho:" })).emoji === ":punho:");
+
 console.log(`${certos} conferências certas${falhas.length ? `, ${falhas.length} com problema.` : "."}`);
 for (const falha of falhas) console.log(`  ✗ ${falha}`);
 process.exit(falhas.length ? 1 : 0);
