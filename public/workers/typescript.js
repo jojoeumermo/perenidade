@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+// Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 // Confere os tipos e traduz TypeScript para JavaScript dentro do navegador, numa linha de execução separada.
 // O compilador é o oficial (pacote typescript), servido pelo próprio site. Devolve o JavaScript pronto (cada arquivo
 // vira um módulo, com require entre eles) e os erros de tipo; quem roda é o executor de JavaScript da IDE.

@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+// Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 // Roda C e C++ (o essencial: iostream, cstdio, cmath, cstring, cstdlib, ctime) com o interpretador JSCPP, numa linha
 // de execução separada. Não é um compilador de verdade: serve para aprender a linguagem, não para bibliotecas grandes.
 // O JSCPP vem em módulos CommonJS; um require mínimo os carrega do próprio site.
