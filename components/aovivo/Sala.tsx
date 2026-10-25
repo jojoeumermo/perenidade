@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { fill, htmlLang } from "@/i18n/config";
 import { errorText } from "@/i18n/core";
-import { type Aula, type Fala, faixaPreta, Transmissao } from "@/lib/aovivo";
+import { type Aula, conferirEducadores, Credencial, type Fala, faixaPreta, provaDaPresenca, Transmissao } from "@/lib/aovivo";
 import { BackendError, evaluatePost, hasBackend, rpc, useMe } from "@/lib/backend";
 import { type Presente, Sala, temTempoReal, transmitir, useSinal } from "@/lib/tempo-real";
 import { lerSalaJitsi } from "@/lib/jitsi";
@@ -223,6 +223,38 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
   const gravador = useRef<MediaRecorder | null>(null);
   const pedacos = useRef<Blob[]>([]);
   const eu = useRef<Presente>({ chave: chaveDoNavegador(), nome: nome || s.someone, papel: conduzo ? "educador" : "aluno" });
+  // As chaves de quem conduz, como o banco as conhece agora (a aula é relida a cada 30 s e a cada aviso da sala).
+  const chaves = useRef<string[] | undefined>(aula.chaves);
+  const ultimaLista = useRef<Presente[]>([]);
+
+  /**
+   * Confere quem diz conduzir (chave registrada no banco e presença assinada) antes de mostrar e de pedir o vídeo. Quem diz
+   * conduzir sem a assinatura conferir aparece e é tratado como quem assiste: não manda vídeo para ninguém.
+   */
+  const reconferir = useCallback(async () => {
+    const lista = ultimaLista.current;
+    const transmissor = transmissao.current;
+    if (!transmissor) return;
+    const conferidos = await conferirEducadores(aula.id, lista, chaves.current);
+    if (transmissao.current !== transmissor) return;
+    transmissor.educadores = conferidos;
+    const visiveis = chaves.current === undefined ? lista : lista.map((p) => (p.papel === "educador" && p.chave !== eu.current.chave && !conferidos.has(p.chave) ? { ...p, papel: "aluno" as const } : p));
+    setPresentes(visiveis);
+    await transmissor.aoPresenca(visiveis);
+    // Quem assiste pede o vídeo a quem ensina (cobre quem chegou antes de a câmera ligar).
+    if (eu.current.papel === "aluno") transmissor.pedir(visiveis.filter((p) => p.papel === "educador"));
+  }, [aula.id]);
+
+  // A aula é relida a cada 30 s e cada leitura traz uma lista nova: só confere de novo quando as chaves mudam de verdade
+  // (senão quem assiste pediria o vídeo de novo a cada leitura, e a imagem religaria).
+  const chavesVistas = useRef(JSON.stringify(aula.chaves ?? null));
+  useEffect(() => {
+    const agora = JSON.stringify(aula.chaves ?? null);
+    if (agora === chavesVistas.current) return;
+    chavesVistas.current = agora;
+    chaves.current = aula.chaves;
+    void reconferir();
+  }, [aula.chaves, reconferir]);
 
   // Entra na sala (presença + sinais). O vídeo só liga quando quem ensina aperta o botão.
   useEffect(() => {
@@ -230,22 +262,26 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
     const nova = new Sala(
       aula.id,
       presente,
-      (de, dados) => void transmissao.current?.aoSinal(de, dados),
+      (de, dados, assinatura) => void transmissao.current?.aoSinal(de, dados, assinatura),
       (lista) => {
-        setPresentes(lista);
-        void transmissao.current?.aoPresenca(lista);
-        // Quem assiste pede o vídeo a quem ensina (cobre quem chegou antes de a câmera ligar).
-        if (presente.papel === "aluno") transmissao.current?.pedir(lista.filter((p) => p.papel === "educador"));
+        ultimaLista.current = lista;
+        void reconferir();
       },
     );
     sala.current = nova;
-    transmissao.current = new Transmissao(nova, presente, (de, fluxo) =>
-      setFluxos((antes) => {
-        const proximo = { ...antes };
-        if (fluxo) proximo[de] = fluxo;
-        else delete proximo[de];
-        return proximo;
-      }),
+    transmissao.current = new Transmissao(
+      nova,
+      presente,
+      (de, fluxo) =>
+        setFluxos((antes) => {
+          const proximo = { ...antes };
+          if (fluxo) proximo[de] = fluxo;
+          else delete proximo[de];
+          return proximo;
+        }),
+      aula.id,
+      // Com o banco que já guarda as chaves da sala, a conferência vale; com o antigo, a sala segue como antes.
+      chaves.current !== undefined,
     );
     void nova.entrar().then((ok) => setCanal(ok ? "aberto" : "sem"));
     return () => {
@@ -254,7 +290,32 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
       nova.sair();
       sala.current = null;
     };
-  }, [aula.id]);
+  }, [aula.id, reconferir]);
+
+  // Quem conduz: gera a chave desta aba, registra a parte pública no banco e passa a assinar a presença e os sinais.
+  // Sem isso, quem assiste não aceita o vídeo desta aba (é o que impede um estranho de se passar por quem ensina).
+  useEffect(() => {
+    if (!conduzo || chaves.current === undefined) return;
+    let vivo = true;
+    void (async () => {
+      try {
+        const credencial = await Credencial.nova();
+        await rpc("aula_ao_vivo_sala_chave", { p_id: aula.id, p_publica: credencial.publica });
+        const prova = await credencial.assinar(provaDaPresenca(aula.id, eu.current.chave));
+        if (!vivo) return;
+        if (transmissao.current) transmissao.current.credencial = credencial;
+        eu.current = { ...eu.current, publica: credencial.publica, prova };
+        await sala.current?.atualizar({ publica: credencial.publica, prova });
+        // As outras abas releem a aula (e as chaves) na hora.
+        transmitir("aula_ao_vivo_sala_chave", aula.id);
+      } catch (e) {
+        if (vivo) setAviso(errorText(t, e instanceof BackendError ? e.code : "falha"));
+      }
+    })();
+    return () => {
+      vivo = false;
+    };
+  }, [aula.id, conduzo, t]);
 
   async function ligar(modo: "camera" | "tela" | "audio") {
     setAviso("");

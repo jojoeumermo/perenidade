@@ -2,6 +2,8 @@
 // Confere os tipos e traduz TypeScript para JavaScript dentro do navegador, numa linha de execução separada.
 // O compilador é o oficial (pacote typescript), servido pelo próprio site. Devolve o JavaScript pronto (cada arquivo
 // vira um módulo, com require entre eles) e os erros de tipo; quem roda é o executor de JavaScript da IDE.
+// Antes de tudo: o código de quem estuda não alcança a sessão, o chaveiro nem outro Worker (veja isolar.js).
+importScripts("/workers/isolar.js");
 importScripts("/typescript/typescript.js");
 
 const LIB = "/typescript/";

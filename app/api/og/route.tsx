@@ -10,10 +10,14 @@ export const runtime = "nodejs";
 
 const UA_ANTIGO = "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; de-at) AppleWebKit/533.21.1 (KHTML, like Gecko) Version/5.0.5 Safari/533.21.1";
 const fontes = new Map<string, Promise<ArrayBuffer | null>>();
+/** Cada título diferente é uma entrada nova: sem teto, quem variasse o endereço enchia a memória do servidor. */
+const MAXIMO_DE_FONTES = 200;
 
 async function fonte(familia: string, peso: number, texto: string): Promise<ArrayBuffer | null> {
   const chave = `${familia}|${peso}|${texto}`;
   if (!fontes.has(chave)) {
+    // A mais antiga sai primeiro (o Map guarda a ordem em que entraram).
+    while (fontes.size >= MAXIMO_DE_FONTES) fontes.delete(fontes.keys().next().value!);
     fontes.set(
       chave,
       (async () => {

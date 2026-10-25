@@ -26,6 +26,42 @@ const marca = Math.random().toString(36).slice(2, 10);
 
 export const temTempoReal = hasBackend && !localBackend;
 
+/**
+ * O canal "painel" é aberto (qualquer um com a chave pública do site entra nele), então quem repetisse avisos sem parar
+ * faria todos os painéis abertos reler as listas sem parar. Aqui cada tipo de aviso passa no máximo uma vez a cada dois
+ * segundos (o último do intervalo sai no fim dele, para nada se perder) e, no total, até 60 por minuto.
+ */
+const INTERVALO = 2000;
+const POR_MINUTO = 60;
+const ultimoPorTipo = new Map<string, number>();
+const adiados = new Map<string, Sinal>();
+let minuto = { inicio: 0, total: 0 };
+
+function entregar(sinal: Sinal) {
+  const agora = Date.now();
+  if (agora - minuto.inicio > 60_000) minuto = { inicio: agora, total: 0 };
+  if (++minuto.total > POR_MINUTO) return;
+  ultimoPorTipo.set(sinal.tipo, agora);
+  window.dispatchEvent(new CustomEvent<Sinal>(PAINEL_REMOTO, { detail: sinal }));
+}
+
+function repassar(sinal: Sinal) {
+  const espera = INTERVALO - (Date.now() - (ultimoPorTipo.get(sinal.tipo) ?? 0));
+  if (espera <= 0) {
+    entregar(sinal);
+    return;
+  }
+  const jaAdiado = adiados.has(sinal.tipo);
+  adiados.set(sinal.tipo, sinal);
+  if (jaAdiado) return;
+  window.setTimeout(() => {
+    const ultimo = adiados.get(sinal.tipo);
+    adiados.delete(sinal.tipo);
+    if (ultimo) entregar(ultimo);
+  }, espera);
+  if (ultimoPorTipo.size > 300) ultimoPorTipo.clear();
+}
+
 function abrir(): Promise<RealtimeChannel | null> {
   canal ??= (async () => {
     if (!temTempoReal || typeof window === "undefined") return null;
@@ -34,8 +70,8 @@ function abrir(): Promise<RealtimeChannel | null> {
       const aberto = supabase.channel("painel", { config: { broadcast: { self: false } } });
       aberto.on("broadcast", { event: "mudou" }, ({ payload }) => {
         const sinal = payload as Sinal;
-        if (!sinal || typeof sinal.tipo !== "string" || sinal.de === marca) return;
-        window.dispatchEvent(new CustomEvent<Sinal>(PAINEL_REMOTO, { detail: { tipo: sinal.tipo.slice(0, 60), alvo: typeof sinal.alvo === "string" ? sinal.alvo.slice(0, 80) : undefined } }));
+        if (!sinal || typeof sinal.tipo !== "string" || sinal.de === marca || !/^[a-z0-9_]{1,60}$/.test(sinal.tipo)) return;
+        repassar({ tipo: sinal.tipo, alvo: typeof sinal.alvo === "string" ? sinal.alvo.slice(0, 80) : undefined });
       });
       aberto.subscribe();
       return aberto;
@@ -78,6 +114,9 @@ export interface Presente {
   papel: "educador" | "aluno";
   /** Está com a mão levantada. */
   mao?: boolean;
+  /** Quem conduz: a chave pública desta aba (registrada no banco) e a assinatura da própria presença. */
+  publica?: string;
+  prova?: string;
 }
 
 /**
@@ -91,7 +130,7 @@ export class Sala {
   constructor(
     private readonly id: string,
     eu: Presente,
-    private readonly aoSinal: (de: string, dados: Record<string, unknown>) => void,
+    private readonly aoSinal: (de: string, dados: Record<string, unknown>, assinatura: string) => void,
     private readonly aoPresenca: (presentes: Presente[]) => void,
   ) {
     this.eu = eu;
@@ -104,13 +143,14 @@ export class Sala {
       const supabase = await getClient();
       const canal = supabase.channel(`aula:${this.id}`, { config: { broadcast: { self: false }, presence: { key: this.eu.chave } } });
       canal.on("broadcast", { event: "sinal" }, ({ payload }) => {
-        const p = payload as { para?: string; de?: string; dados?: Record<string, unknown> };
-        if (!p || typeof p.de !== "string" || !p.dados || (p.para !== "*" && p.para !== this.eu.chave)) return;
-        this.aoSinal(p.de, p.dados);
+        const p = payload as { para?: string; de?: string; dados?: Record<string, unknown>; assinatura?: unknown };
+        if (!p || typeof p.de !== "string" || !p.dados || typeof p.dados !== "object" || (p.para !== "*" && p.para !== this.eu.chave)) return;
+        this.aoSinal(p.de, p.dados, typeof p.assinatura === "string" ? p.assinatura.slice(0, 200) : "");
       });
       canal.on("presence", { event: "sync" }, () => {
         const estado = canal.presenceState<Presente>();
-        this.aoPresenca(Object.values(estado).flatMap((lista) => lista.map((item) => ({ chave: String(item.chave ?? ""), nome: String(item.nome ?? "").slice(0, 60), papel: item.papel === "educador" ? "educador" : "aluno", mao: Boolean(item.mao) }))));
+        const texto = (valor: unknown) => (typeof valor === "string" ? valor.slice(0, 200) : undefined);
+        this.aoPresenca(Object.values(estado).flatMap((lista) => lista.map((item) => ({ chave: String(item.chave ?? ""), nome: String(item.nome ?? "").slice(0, 60), papel: item.papel === "educador" ? "educador" : "aluno", mao: Boolean(item.mao), publica: texto(item.publica), prova: texto(item.prova) }))));
       });
       await new Promise<void>((resolver, recusar) => {
         canal.subscribe((status) => {
@@ -127,9 +167,9 @@ export class Sala {
     }
   }
 
-  /** Manda um sinal para um navegador ("para" é a chave dele) ou para todos ("*"). */
-  enviar(para: string, dados: Record<string, unknown>) {
-    void this.canal?.send({ type: "broadcast", event: "sinal", payload: { para, de: this.eu.chave, dados } }).catch(() => undefined);
+  /** Manda um sinal para um navegador ("para" é a chave dele) ou para todos ("*"), com a assinatura de quem conduz. */
+  enviar(para: string, dados: Record<string, unknown>, assinatura?: string) {
+    void this.canal?.send({ type: "broadcast", event: "sinal", payload: { para, de: this.eu.chave, dados, ...(assinatura ? { assinatura } : {}) } }).catch(() => undefined);
   }
 
   /** Atualiza o que os outros veem de mim (a mão levantada, por exemplo). */

@@ -1,5 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 // Roda Ruby 3.4 (o interpretador oficial, compilado para WebAssembly pelo projeto ruby.wasm) numa linha de execução separada.
+// Antes de tudo: o código de quem estuda não alcança a sessão, o chaveiro nem outro Worker (veja isolar.js).
+importScripts("/workers/isolar.js");
 importScripts("/ruby/browser.umd.js");
 let modulo = null;
 
