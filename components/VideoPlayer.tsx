@@ -23,6 +23,9 @@ export interface PlayerLabels {
   hideTranscript: string;
   keys: string;
   error: string;
+  listen: string;
+  watch: string;
+  listening: string;
 }
 
 const VELOCIDADES = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
@@ -54,6 +57,8 @@ export function VideoPlayer({ src, legenda, transcricao, titulo, labels }: { src
   const [volume, setVolume] = useState(1);
   const [legendas, setLegendas] = useState(Boolean(legenda));
   const [verTexto, setVerTexto] = useState(false);
+  // Só ouvir: a imagem some (o som continua) e a transcrição abre, para acompanhar com a tela apagada ou de longe.
+  const [soOuvir, setSoOuvir] = useState(false);
   const [erro, setErro] = useState(false);
   const idTexto = useId();
   const faixa = useMemo(() => (legenda ? URL.createObjectURL(new Blob([legenda], { type: "text/vtt" })) : ""), [legenda]);
@@ -144,10 +149,16 @@ export function VideoPlayer({ src, legenda, transcricao, titulo, labels }: { src
             }}
             onDurationChange={(e) => Number.isFinite(e.currentTarget.duration) && setDuracao(e.currentTarget.duration)}
             onError={() => setErro(true)}
-            className="block aspect-video w-full bg-black"
+            className={soOuvir ? "hidden" : "block aspect-video w-full bg-black"}
           >
             {faixa && <track kind="captions" src={faixa} srcLang="pt-BR" label="Português" default={legendas} />}
           </video>
+        )}
+        {soOuvir && !erro && (
+          <p className="flex min-h-24 items-center gap-3 px-5 py-4 font-sans text-sm text-parchment">
+            <svg aria-hidden viewBox="0 0 24 24" className="h-8 w-8 shrink-0 text-[#f0cf8e]" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M3 14v-2a9 9 0 0 1 18 0v2M3 14a2 2 0 0 1 2-2h1v7H5a2 2 0 0 1-2-2zM21 14a2 2 0 0 0-2-2h-1v7h1a2 2 0 0 0 2-2z" /></svg>
+            {labels.listening}
+          </p>
         )}
         <div className="flex flex-wrap items-center gap-x-1 gap-y-1 border-t border-white/20 px-1 py-1 font-sans text-sm text-parchment">
           <button type="button" onClick={alternar} aria-label={tocando ? labels.pause : labels.play} className={botao}>
@@ -211,6 +222,18 @@ export function VideoPlayer({ src, legenda, transcricao, titulo, labels }: { src
               <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 5h18v14H3z" /><path d="M12 12h7v5h-7z" fill="currentColor" /></svg>
             </button>
           )}
+          <button
+            type="button"
+            onClick={() => {
+              setSoOuvir(!soOuvir);
+              if (!soOuvir && transcricao) setVerTexto(true);
+            }}
+            aria-pressed={soOuvir}
+            title={soOuvir ? labels.watch : labels.listen}
+            className={`${botao} text-xs font-semibold`}
+          >
+            {soOuvir ? labels.watch : labels.listen}
+          </button>
           <button type="button" onClick={telaCheia} aria-label={labels.fullscreen} title={labels.fullscreen} className={botao}>
             <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
           </button>
@@ -251,4 +274,7 @@ export const playerPt: PlayerLabels = {
   hideTranscript: "Esconder a transcrição",
   keys: "Atalhos: espaço toca e pausa, setas andam 5 segundos, < e > mudam a velocidade, M tira o som, C liga as legendas, F tela cheia.",
   error: "Não foi possível tocar este vídeo agora.",
+  listen: "Só ouvir",
+  watch: "Ver a imagem",
+  listening: "Só o som: a imagem está escondida. A transcrição acompanha logo abaixo.",
 };
