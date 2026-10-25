@@ -23,6 +23,7 @@ import { Avatar } from "./Avatar";
 import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
 import { Estatisticas } from "./Estatisticas";
 import { TermoDeVoluntario } from "./Termo";
+import { AgoraAoVivo, Continuar, DicaDoTutorial, meuDepartamento, NoSiteAgora, SuasHoras } from "./MesaAoLado";
 import { abrirTutorial, TutorialDoPainel } from "./Tutorial";
 import { TermosAceitos } from "./PessoasExtras";
 import { SaudeNoPainel } from "./Saude";
@@ -581,6 +582,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
         secoes={noMenu}
         atual={atual}
         ir={ir}
+        departamento={foco ? null : meuDepartamento(eu, noMenu.map((secao) => secao.id))}
         fixadas={compacto ? [] : atalhos.fixadas}
         compacto={compacto}
         alternarCompacto={alternarCompacto}
@@ -677,7 +679,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
               )}
             </p>
           )}
-          {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} secoes={secoes} />}
+          {atual.id === "mesa" && <Mesa me={eu} resumo={r ?? null} recarregar={() => { recarregar(); resumo.recarregar(); }} ir={ir} secoes={secoes} acompanha={acompanha} />}
           {voluntario && <Repasse usuario={eu.id} />}
           {atual.id === "conversas" && <Conversas me={eu} />}
           {atual.id === "rede" && <Equipe usuario={eu.id} lider={leads(eu)} modera={lidera || supervisiona} aprendiz={eu.aprendizado} recarregar={recarregar} />}
@@ -813,7 +815,7 @@ function CaixaDeEntrada({ pendencias, ir }: { pendencias: [string, number, strin
 }
 
 /** A primeira tela: o que pede atenção agora, a manchete do dia e, ao lado, os atalhos de trabalho. */
-function Mesa({ me, resumo, recarregar, ir, secoes }: { me: Me; resumo: Resumo | null; recarregar: () => void; ir: (aba: string) => void; secoes: Secao[] }) {
+function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resumo: Resumo | null; recarregar: () => void; ir: (aba: string) => void; secoes: Secao[]; acompanha: boolean }) {
   const { t } = useI18n();
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
   const r = resumo;
@@ -885,6 +887,12 @@ function Mesa({ me, resumo, recarregar, ir, secoes }: { me: Me; resumo: Resumo |
           {pendencias.length > 0 && <CaixaDeEntrada pendencias={pendencias} ir={ir} />}
         </section>
 
+        {/* Continuar de onde parou e as horas do certificado, como na prancheta do painel moderno. */}
+        <div className="grid gap-4 empty:hidden sm:grid-cols-2">
+          <Continuar />
+          {me.papeis.length > 0 && <SuasHoras me={me} ir={ir} />}
+        </div>
+
         {me.papeis.length > 0 && <Atalhos secoes={secoes} ir={ir} icone={(id) => <Icone id={id} />} />}
 
         {me.papeis.length > 0 && <ParaVoceHoje me={me} ir={ir} />}
@@ -900,6 +908,7 @@ function Mesa({ me, resumo, recarregar, ir, secoes }: { me: Me; resumo: Resumo |
       </div>
 
       <aside className="space-y-6 xl:sticky xl:top-20 xl:self-start">
+        <AgoraAoVivo me={me} ir={ir} />
         {produz && (
           <button type="button" className="botao botao-prelo w-full justify-center py-3.5 text-base" onClick={() => ir("escrever")} data-tour="escrever">
             ＋ Escrever
@@ -929,13 +938,8 @@ function Mesa({ me, resumo, recarregar, ir, secoes }: { me: Me; resumo: Resumo |
             </div>
           </details>
         )}
-        <div className="cartao-preto p-4 text-sm">
-          <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[#e0837a]">Primeira vez aqui?</p>
-          <p className="mt-1.5 leading-snug text-[#e9dcbc]">O tutorial mostra onde fica cada coisa e o que cada parte do painel faz.</p>
-          <button type="button" className="mt-3 cursor-pointer border-2 border-[#f4ecd8] bg-[#c21f16] px-3 py-1.5 font-bold text-white hover:bg-[#a51810]" onClick={abrirTutorial}>
-            Ver o tutorial
-          </button>
-        </div>
+        <NoSiteAgora acompanha={acompanha} ir={ir} />
+        <DicaDoTutorial abrir={abrirTutorial} />
       </aside>
     </div>
   );
