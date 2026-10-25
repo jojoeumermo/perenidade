@@ -61,8 +61,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          git config user.name "Publicação do Instituto Lúcia"
-          git config user.email "publicacao@users.noreply.github.com"
+          # O autor precisa ser a conta dona do repositório: a Vercel bloqueia publicações de autores fora da equipe.
+          git config user.name "jojoeumermo"
+          git config user.email "90794708+jojoeumermo@users.noreply.github.com"
           git commit -m "Publica contribuições aprovadas no painel"
           git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${GITHUB_REF_NAME}"
       # Só depois de o arquivo estar no acervo o painel passa a mostrar o item como publicado.

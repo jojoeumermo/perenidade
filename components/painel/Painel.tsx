@@ -433,6 +433,8 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
   // Quem produz para o site: educação, curadoria, revisão, tradução, jornalismo, design, marketing e a liderança.
   const produz = can(eu, "coordenacao", "supervisao", "curadoria", "educacao", "revisao", "traducao", "jornalismo", "design", "marketing");
   const lidera = can(eu, "coordenacao");
+  // O representante do Departamento de Saúde cuida da vitrine junto com a coordenação.
+  const cuidaDaSaude = lidera || eu.papeis.some((p) => p.papel === "representante" && p.disciplina === "saude");
   // A supervisão é um papel próprio: can() só estende a vice-coordenação à coordenação, não à supervisão.
   const supervisiona = can(eu, "supervisao");
   // O que a galera posta, para a coordenação acompanhar: o número do menu e o aviso do navegador.
@@ -474,7 +476,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
       // As reuniões moram dentro de Conversas e reuniões; o endereço antigo (?aba=reunioes) abre a agenda de lá.
       { id: "reunioes", nome: "Reuniões", sobre: "A agenda de reuniões, dentro de Conversas e reuniões.", grupo: "Pessoas", mostra: voluntario && aba === "reunioes" },
       { id: "horas", nome: "Horas e certificados", sobre: "Termo de adesão, horas de trabalho e certificados.", grupo: "Pessoas", mostra: voluntario, conta: r ? r.horas + r.testemunhar + (r.pedidos ?? 0) : undefined },
-      { id: "saude", nome: soSaude || !lidera ? "Meu perfil na vitrine" : "Saúde Solidária", sobre: "A vitrine de profissionais de saúde voluntários: o perfil de cada um, o termo, a conferência do registro e a chave geral.", grupo: "Pessoas", mostra: can(eu, "coordenacao", "saude") },
+      { id: "saude", nome: cuidaDaSaude ? "Saúde Solidária" : "Meu perfil na vitrine", sobre: "A vitrine de profissionais de saúde voluntários: o perfil de cada um, o termo, a conferência do registro e a chave geral.", grupo: "Pessoas", mostra: can(eu, "coordenacao", "saude") || cuidaDaSaude },
       { id: "termos", nome: "Termos assinados", sobre: "O termo de voluntário, o termo de adesão e o da vitrine de saúde, aceitos por cada pessoa: o texto exato, a versão, a data e a impressão digital. Ninguém apaga.", grupo: "Pessoas", mostra: can(eu, "coordenacao", "supervisao") },
       { id: "estatisticas", nome: "Estatísticas", sobre: "O que os estudantes procuram e o que a equipe produz, por disciplina: a base para decidir o que entra e o que sai.", grupo: "Pessoas", mostra: lidera || can(eu, "vice") },
       { id: "avisos", nome: "Avisos à equipe", sobre: "Um quadro que aparece por cima do painel de toda a equipe, ou só de algumas funções, até cada pessoa fechar.", grupo: "Pessoas", mostra: eu.supervisao === true || lidera || supervisiona },

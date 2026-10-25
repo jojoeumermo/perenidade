@@ -72,7 +72,8 @@ const paraEnviar = (f: Campos) => ({
 
 /** A seção Saúde Solidária do painel: o perfil do próprio profissional e, para a coordenação, a fila e a chave geral. */
 export function SaudeNoPainel({ me }: { me: Me }) {
-  const coordena = can(me, "coordenacao", "vice");
+  // Quem cuida da vitrine: a coordenação e o representante do Departamento de Saúde (o banco confere de novo).
+  const coordena = can(me, "coordenacao", "vice") || me.papeis.some((p) => p.papel === "representante" && p.disciplina === "saude");
   const profissional = me.papeis.some((p) => p.papel === "saude");
   return (
     <div className="space-y-10">
