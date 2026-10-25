@@ -105,7 +105,8 @@
     "conduct": "Código de conduta",
     "usePolicy": "Política de uso",
     "events": "Agenda de encontros",
-    "spreadKit": "Kit de divulgação"
+    "spreadKit": "Kit de divulgação",
+    "despertar": "Despertar"
   },
   "labs": {
     "eyebrow": "Praticar de verdade",
@@ -380,7 +381,12 @@
     "radioLive": "Música, notícias e debates o dia todo, para ouvir com pouca internet.",
     "onThisDay": "Neste dia",
     "onThisDaySource": "Lutas e conquistas do povo nesta data: as escolhidas pela equipe e as que a Wikipédia registra. Texto da Wikipédia, licença CC BY-SA.",
-    "searchHint": "A busca procura só aqui dentro (aulas, obras, glossário e o resto do que o instituto publicou): não é uma busca na internet."
+    "searchHint": "A busca procura só aqui dentro (aulas, obras, glossário e o resto do que o instituto publicou): não é uma busca na internet.",
+    "moreKicker": "Mais do que aulas",
+    "moreTitle": "Aqui a gente estuda para mudar a vida.",
+    "moreText": "O Instituto Lúcia é uma escola da vida: formamos gente que sabe de que lado está e que caminha junto com a classe trabalhadora. Sem diploma do Estado, sem mensalidade, sem vício: por revolta, curiosidade e esperança.",
+    "moreStart": "Começar o Despertar",
+    "moreManifesto": "Ler o manifesto"
   },
   "areas": {
     "portugues": [
@@ -3149,7 +3155,8 @@
       "conduct": "As regras de convivência nos espaços com participação.",
       "usePolicy": "O que pode e o que não pode, em poucas linhas.",
       "events": "Cineclube, clube de leitura e outros encontros.",
-      "spreadKit": "Cartazes, folheto, zine e cartões com QR para imprimir."
+      "spreadKit": "Cartazes, folheto, zine e cartões com QR para imprimir.",
+      "despertar": "Do zero à consciência de classe, em cinco etapas, com tarefas no mundo real."
     },
     "short": {
       "/trilhas": "todas as matérias",
@@ -3203,7 +3210,8 @@
       "/dedicatoria": "de onde vem o nome",
       "/meus-dados": "baixar ou apagar",
       "/privacidade": "o que guardamos",
-      "/termos": "as regras do site"
+      "/termos": "as regras do site",
+      "/despertar": "formação militante"
     },
     "highlights": "Comece aqui",
     "startText": "Nunca estudou por aqui? Comece por uma pergunta da sua vida, ou escolha uma disciplina.",
@@ -4840,5 +4848,32 @@
   },
   "salaLivre": {
     "description": "Monte e projete a sua aula com tudo o que o instituto oferece: laboratórios, livros do acervo, editores de foto, vídeo e 3D, simulações, jogos e testes. Fica só no seu navegador."
+  },
+  "despertar": {
+    "eyebrow": "Percurso de formação · do zero à organização",
+    "title": "Despertar.",
+    "lead": "Ninguém nasce sabendo que é explorado. A consciência de classe se aprende: na vida, no estudo e na luta coletiva.",
+    "start": "Começar pela etapa 1",
+    "group": "Estudar em grupo num núcleo",
+    "stats": {
+      "stages": "etapas",
+      "lessons": "aulas prontas",
+      "tasks": "tarefas no mundo real",
+      "price": "reais · sem diploma do Estado"
+    },
+    "intro": "Cada etapa tem aulas curtas de várias disciplinas, uma leitura do acervo, uma tarefa no mundo real e um encontro no núcleo. Dá para fazer sozinho, mas o percurso foi pensado para ser vivido junto.",
+    "lesson": "Aula",
+    "soon": "Em preparação",
+    "reading": "Leitura",
+    "circle": "Roteiro do encontro no núcleo: perguntas para a roda",
+    "task": "Tarefa no mundo real",
+    "finalTask": "Tarefa final",
+    "endKicker": "No fim do percurso",
+    "certTitle": "Certificado comunitário",
+    "certText": "Reconhecido pelo instituto e assinado pelo seu núcleo, não pelo Estado. Vale pelo que você aprendeu e pelo que fez com isso.",
+    "groupKicker": "Melhor em grupo",
+    "groupTitle": "Faça o Despertar num núcleo",
+    "groupText": "Cada etapa tem um roteiro de encontro de uma hora e perguntas para a roda. Junte três pessoas e comece.",
+    "groupCta": "Achar ou montar um núcleo"
   }
 }
