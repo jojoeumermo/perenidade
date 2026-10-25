@@ -2764,6 +2764,9 @@ await recusa("mais de dez ofícios é recusado", () => rpc(como(ids.prof), "perf
 await espera("o educador diz o que sabe fazer e a equipe vê", async () => { await rpc(como(ids.prof), "perfil_oficios_salvar", { p_oficios: ["edito vídeo", " falo espanhol ", "edito vídeo"] }); return [await rpc(como(ids.prof), "perfil_extras"), await rpc(como(ids.mentora), "equipe_membros")]; },
   ([eu, equipe]) => eu.oficios.length === 2 && eu.chegada && equipe.some((m) => m.id === ids.prof && m.oficios.includes("falo espanhol")));
 
+// Registro de acessos sensíveis: ler os termos assinados fica no registro (uma linha por hora).
+await espera("abrir os termos assinados fica no registro, sem repetir na mesma hora", async () => { await rpc(coord2, "termos_aceites_listar"); await rpc(coord2, "termos_aceites_listar"); return dono("select count(*)::int as n from interno.auditoria where acao = 'acesso_termos_aceitos'"); }, (r) => r.rows[0].n === 1);
+
 // Transmissão pelo YouTube do instituto: a chave só para quem conduz; o site só vê o código público.
 let aulaTransmitida;
 await espera("o educador marca outra aula, com sala do Jitsi (endereço longo cabe)", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova({ titulo: "Frações no YouTube", sala_externa: `https://meet.jit.si/lucia-${"x".repeat(300)}` }) }), (r) => Boolean(r.id) && r.sala_externa.length > 300 && (aulaTransmitida = r.id));

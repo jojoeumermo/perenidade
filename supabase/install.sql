@@ -1234,6 +1234,18 @@ begin
   if random() < 0.01 then delete from auditoria where criado_em < now() - interval '400 days'; end if;
 end $$;
 
+/**
+ * Registro de acessos sensíveis (uma das ideias do painel): quem abriu os e-mails da equipe, os termos assinados ou o
+ * registro da vitrine de saúde fica no Registro de atividades. No máximo uma linha por pessoa, tipo e alvo por hora,
+ * para o registro não virar ruído.
+ */
+create or replace function interno.registrar_acesso(p_tipo text, p_alvo text default '') returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if auth.uid() is null then return; end if;
+  if exists (select 1 from auditoria where quem = auth.uid() and acao = 'acesso_' || p_tipo and alvo = left(coalesce(p_alvo, ''), 300) and criado_em > now() - interval '1 hour') then return; end if;
+  perform interno.registrar('acesso_' || p_tipo, coalesce(p_alvo, ''), '{}'::jsonb);
+end $$;
+
 create or replace function interno.avisar(p_para uuid, p_texto text) returns void language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   if p_para is null or not exists (select 1 from perfis where id = p_para) then return; end if;
@@ -1679,6 +1691,7 @@ end $$;
 create or replace function public.voluntarios_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   if not interno.gere_cargos() then perform interno.erro('sem_permissao'); end if;
+  if interno.lider() then perform interno.registrar_acesso('emails_da_equipe'); end if;
   return (
     select coalesce(jsonb_agg(jsonb_build_object(
       'id', f.id, 'nome', interno.nome_visto(f.nome), 'bio', f.bio, 'email', case when interno.lider() then u.email else '' end, 'suspenso', f.suspenso, 'suspensao', f.suspensao, 'trocar_senha', f.trocar_senha,
@@ -12857,6 +12870,7 @@ create or replace function public.termos_aceites_listar(p_texto_de uuid default 
 begin
   perform interno.eu();
   if not (interno.coord() or interno.tem('vice') or interno.tem('supervisao')) then perform interno.erro('sem_permissao'); end if;
+  perform interno.registrar_acesso(case when p_texto_de is null then 'termos_aceitos' else 'termo_aceito' end, coalesce((select nome from termos_aceites where id = p_texto_de), ''));
   if p_texto_de is not null then return (select to_jsonb(t) - 'navegador' from termos_aceites t where t.id = p_texto_de); end if;
   return (select coalesce(jsonb_agg(x order by x ->> 'aceito_em' desc), '[]'::jsonb) from (
     select jsonb_build_object('id', t.id, 'nome', t.nome, 'termo', t.termo, 'versao', t.versao, 'sha256', t.sha256, 'dados', t.dados, 'aceito_em', t.aceito_em,
@@ -13150,6 +13164,7 @@ create or replace function public.saude_registro_listar(p_usuario uuid default n
 declare v uuid := interno.eu(); alvo uuid := coalesce(p_usuario, v);
 begin
   if alvo <> v and not interno.saude_gere() then perform interno.erro('sem_permissao'); end if;
+  if alvo <> v then perform interno.registrar_acesso('saude_registro', coalesce((select nome from perfis where id = alvo), '')); end if;
   return (select coalesce(jsonb_agg(jsonb_build_object('acao', r.acao, 'em', r.em, 'por', coalesce(f.nome, ''), 'detalhe', r.detalhe) order by r.em desc), '[]'::jsonb)
           from (select * from saude_registro where usuario = alvo order by em desc limit 300) r left join perfis f on f.id = r.por);
 end $$;
@@ -13182,6 +13197,7 @@ create or replace function public.saude_fila() returns jsonb language plpgsql se
 begin
   perform interno.eu();
   if not interno.saude_gere() then perform interno.erro('sem_permissao'); end if;
+  perform interno.registrar_acesso('saude_fila');
   return jsonb_build_object('desligada', interno.saude_desligada(),
     'perfis', (select coalesce(jsonb_agg(interno.saude_json(s, true) order by lower(s.nome)), '[]'::jsonb) from saude_perfis s));
 end $$;
