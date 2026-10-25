@@ -106,7 +106,8 @@
     "usePolicy": "Use policy",
     "events": "Events",
     "spreadKit": "Outreach kit",
-    "despertar": "Awaken"
+    "despertar": "Awaken",
+    "territories": "Territories"
   },
   "labs": {
     "eyebrow": "Real practice",
@@ -3072,7 +3073,10 @@
       "transcript": "Read the transcript",
       "hideTranscript": "Hide the transcript",
       "keys": "Shortcuts: space plays and pauses, arrows move 5 seconds, < and > change the speed, M mutes, C turns captions on, F full screen.",
-      "error": "This video cannot be played right now."
+      "error": "This video cannot be played right now.",
+      "listen": "Audio only",
+      "watch": "Show the picture",
+      "listening": "Audio only: the picture is hidden. The transcript follows below."
     },
     "comments": {
       "title": "Comments",
@@ -3097,7 +3101,12 @@
         "mediacao": "Moderation",
         "equipe": "Team"
       }
-    }
+    },
+    "youtubeWatch": "Watch on the institute’s YouTube",
+    "youtubeNote": "The YouTube player only loads when you click, without advertising cookies.",
+    "ownCopy": "Watch without Google (institute copy)",
+    "backToYoutube": "Watch on YouTube",
+    "transcriptTitle": "Transcript"
   },
   "more": {
     "eyebrow": "Everything that is here",
@@ -3156,7 +3165,8 @@
       "usePolicy": "What is and isn't allowed, in a few lines.",
       "events": "Film club, reading club and other gatherings.",
       "spreadKit": "Posters, flyer, zine and QR cards to print.",
-      "despertar": "From zero to class consciousness, in five stages, with real-world tasks."
+      "despertar": "From zero to class consciousness, in five stages, with real-world tasks.",
+      "territories": "Culture and struggle collectives that walk with the institute: articles, lessons, photos and meetings."
     },
     "short": {
       "/trilhas": "all subjects",
@@ -3211,7 +3221,8 @@
       "/meus-dados": "download or delete",
       "/privacidade": "what we keep",
       "/termos": "the site's rules",
-      "/despertar": "political education"
+      "/despertar": "political education",
+      "/territorios": "partner collectives"
     },
     "highlights": "Start here",
     "startText": "New here? Start with a question from your life, or pick a subject.",
@@ -4334,7 +4345,10 @@
     "mediaFailed": "Couldn't turn on the camera, screen or microphone. Check the browser permission.",
     "recordFailed": "This browser can't record video.",
     "chatHeld": "Your message was received and appears for everyone after moderation reads it.",
-    "chatPending": "awaiting moderation"
+    "chatPending": "awaiting moderation",
+    "youtubeLive": "Broadcast on the institute’s YouTube",
+    "youtubeWatch": "Watch the broadcast",
+    "youtubeNote": "The YouTube player only loads when you click, without advertising cookies. The class chat stays here on the site."
   },
   "notebook": {
     "eyebrow": "Study room",
@@ -4876,5 +4890,30 @@
     "groupTitle": "Do Awaken in a study group",
     "groupText": "Each stage has a one-hour meeting guide and questions for the circle. Gather three people and start.",
     "groupCta": "Find or start a group"
+  },
+  "territorios": {
+    "eyebrow": "Collectives that walk with the institute",
+    "title": "Territories",
+    "lead": "Culture, art and struggle collectives that walk together with Instituto Lúcia. Each territory brings its own view to the site: journal articles, lessons, photos and meetings.",
+    "partner": "Partner territory of Instituto Lúcia · No. {n}",
+    "open": "Visit the territory",
+    "follow": "Follow",
+    "people": "Who makes it",
+    "editions": "The editions",
+    "editionsTitle": "Each series is a magazine.",
+    "byCollective": "By the collective",
+    "journalKicker": "In the Jornal Revolucionário Lúcia",
+    "journalTitle": "{editoria} section",
+    "journalAll": "See the journal",
+    "journalEmpty": "The first pieces are being written. Stories on the table:",
+    "learnKicker": "Learn with the territory · tracks",
+    "learnTitle": "The hood is a school too.",
+    "lessons": "{n} lessons",
+    "soon": "In preparation",
+    "capsuleKicker": "Capsule · in preparation",
+    "nextTitle": "Territories are collectives that walk with Instituto Lúcia. The next one could be yours.",
+    "nextText": "A culture, art, sports, housing or study collective? Write to us saying who you are, where you work and what you do.",
+    "nextCta": "Bring my collective",
+    "all": "All territories"
   }
 }

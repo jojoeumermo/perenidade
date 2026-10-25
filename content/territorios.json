@@ -1,0 +1,36 @@
+{
+  "territorios": [
+    {
+      "slug": "na-atividade",
+      "numero": 1,
+      "nome": "Na Atividade",
+      "linha": "Moda, design, audiovisual e linguagens periféricas.",
+      "sobre": "Um corre independente que documenta a quebrada com o olhar de quem vive nela. Cada série de fotos é uma revista: o bairro como cenário, a roupa como linguagem e as pessoas da rua como modelo.",
+      "quem": "Território criativo fundado e dirigido por Julia Ramos: social mídia, produtora e designer de moda, fotógrafa de todas as edições. Agora junto com o Instituto Lúcia, na luta pela cultura de quem trabalha.",
+      "instagram": "na.atividade.com.br",
+      "pessoas": [
+        { "nome": "Julia Ramos", "papel": "Fundadora, fotógrafa e designer de moda", "instagram": "rvmxs.s" }
+      ],
+      "temas": ["Cultura de quebrada é política", "Funk", "Pixo", "Baile", "Moda"],
+      "edicoes": [
+        { "titulo": "Corre", "tipo": "Editorial de moda periférica", "ano": "2025", "cor": "preto" },
+        { "titulo": "Resenha", "tipo": "Editorial de moda periférica", "ano": "2025", "cor": "papel" },
+        { "titulo": "Conceito", "tipo": "Ensaio", "ano": "2025", "cor": "vermelho" },
+        { "titulo": "Vestindo minha pele", "tipo": "Uma análise", "ano": "", "cor": "papel" },
+        { "titulo": "Retratos do baile", "tipo": "Vivências reais de todas as quebradas", "ano": "", "cor": "preto" }
+      ],
+      "editoria": "Cultura de Quebrada",
+      "pautas": [
+        "Funk relíquia, pixação e Tony Country: como as vertentes da quebrada ganharam potência",
+        "Consciência ou apropriação: quem cria e quem lucra com a moda de rua",
+        "O pixo como assinatura de quem a cidade não vê"
+      ],
+      "trilhas": ["funk-pixo-e-baile", "moda-periferica-e-apropriacao", "editorial-de-rua-com-o-celular"],
+      "capsula": {
+        "nome": "Corre × Lúcia",
+        "texto": "Camisetas, moletons e bonés desenhados pela Na Atividade com o Instituto Lúcia e fotografados pela Julia. Cada peça vai trazer um código na etiqueta que abre uma aula: vestir também é estudar. Parte de cada venda mantém o instituto gratuito.",
+        "pecas": ["Camiseta “Organizar”", "Moletom “O povo não esquece”", "Boné e tag “Vista sua luta”"]
+      }
+    }
+  ]
+}

@@ -102,7 +102,8 @@
     "usePolicy": "使用政策",
     "events": "活动日程",
     "spreadKit": "宣传材料包",
-    "despertar": "觉醒"
+    "despertar": "觉醒",
+    "territories": "领地"
   },
   "labs": {
     "eyebrow": "真正的实践",
@@ -3003,7 +3004,10 @@
       "transcript": "阅读文字稿",
       "hideTranscript": "隐藏文字稿",
       "keys": "快捷键：空格播放或暂停，方向键前后 5 秒，< 和 > 调节速度，M 静音，C 打开字幕，F 全屏。",
-      "error": "暂时无法播放这个视频。"
+      "error": "暂时无法播放这个视频。",
+      "listen": "只听声音",
+      "watch": "显示画面",
+      "listening": "只听声音：画面已隐藏。文字稿在下方。"
     },
     "comments": {
       "title": "评论",
@@ -3028,7 +3032,12 @@
         "mediacao": "调解",
         "equipe": "团队"
       }
-    }
+    },
+    "youtubeWatch": "在学院的 YouTube 上观看",
+    "youtubeNote": "YouTube 播放器只有在你点击后才加载，不带广告 cookie。",
+    "ownCopy": "不经过 Google 观看（学院的副本）",
+    "backToYoutube": "在 YouTube 上观看",
+    "transcriptTitle": "文字稿"
   },
   "more": {
     "eyebrow": "这里的全部内容",
@@ -3087,7 +3096,8 @@
       "usePolicy": "简明的可做与不可做。",
       "events": "电影俱乐部、读书会和其他聚会。",
       "spreadKit": "可打印的海报、传单、小册子和二维码卡片。",
-      "despertar": "从零到阶级意识，五个阶段，配有现实任务。"
+      "despertar": "从零到阶级意识，五个阶段，配有现实任务。",
+      "territories": "与学院同行的文化与斗争团体：文章、课程、照片和聚会。"
     },
     "short": {
       "/trilhas": "全部学科",
@@ -3142,7 +3152,8 @@
       "/meus-dados": "下载或删除",
       "/privacidade": "我们保存什么",
       "/termos": "网站规则",
-      "/despertar": "政治教育"
+      "/despertar": "政治教育",
+      "/territorios": "合作团体"
     },
     "highlights": "从这里开始",
     "startText": "第一次来？从你生活中的一个问题开始，或者选一门学科。",
@@ -4261,7 +4272,10 @@
     "mediaFailed": "无法打开摄像头、屏幕或麦克风。请检查浏览器权限。",
     "recordFailed": "此浏览器无法录制视频。",
     "chatHeld": "你的消息已收到，经调解员审阅后对所有人显示。",
-    "chatPending": "等待审阅"
+    "chatPending": "等待审阅",
+    "youtubeLive": "学院 YouTube 直播",
+    "youtubeWatch": "观看直播",
+    "youtubeNote": "YouTube 播放器只有在你点击后才加载，不带广告 cookie。课程聊天仍在本网站。"
   },
   "notebook": {
     "eyebrow": "自习室",
@@ -4803,5 +4817,30 @@
     "groupTitle": "在小组里完成《觉醒》",
     "groupText": "每个阶段都有一小时的聚会指南和讨论问题。召集三个人就能开始。",
     "groupCta": "寻找或组建小组"
+  },
+  "territorios": {
+    "eyebrow": "与学院同行的团体",
+    "title": "领地",
+    "lead": "与露西亚学院同行的文化、艺术与斗争团体。每个领地都把自己的视角带到网站：报纸文章、课程、照片和聚会。",
+    "partner": "露西亚学院合作领地 · 第 {n} 号",
+    "open": "了解这个领地",
+    "follow": "关注",
+    "people": "成员",
+    "editions": "各期作品",
+    "editionsTitle": "每个系列都是一本杂志。",
+    "byCollective": "由团体制作",
+    "journalKicker": "在《露西亚革命报》",
+    "journalTitle": "{editoria} 栏目",
+    "journalAll": "查看报纸",
+    "journalEmpty": "第一批文章正在撰写。正在准备的选题：",
+    "learnKicker": "跟领地学习 · 课程路径",
+    "learnTitle": "街区也是学校。",
+    "lessons": "{n} 节课",
+    "soon": "准备中",
+    "capsuleKicker": "联名系列 · 准备中",
+    "nextTitle": "领地是与露西亚学院同行的团体。下一个可能就是你们。",
+    "nextText": "文化、艺术、体育、住房或学习团体？写信告诉我们你们是谁、在哪里活动、做什么。",
+    "nextCta": "带来我的团体",
+    "all": "所有领地"
   }
 }

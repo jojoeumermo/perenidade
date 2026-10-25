@@ -2607,6 +2607,15 @@ await recusa("recusar exige nota", () => rpc(curadoria2, "videoaula_decidir", { 
 await espera("a revisão aprova", () => rpc(curadoria2, "videoaula_decidir", { p_id: video.id, p_aprovar: true }), (r) => r.ok === true);
 await espera("aprovada, entra na lista pública da disciplina e o visitante lê o arquivo", async () => [await rpc(anon, "videoaulas_publicas", { p_disciplina: "matematica" }), await rpc(anon, "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0].some((x) => x.id === video.id && !("nota" in x)) && r[1] === true);
 await espera("o visitante abre a aula com a transcrição", () => rpc(anon, "videoaula_ver", { p_id: video.id }), (r) => r.id === video.id && "transcricao" in r);
+// YouTube do instituto: só a revisão manda; só o serviço lê os dados e marca; o site só mostra a cópia liberada.
+await espera("a revisão pode mandar a aula aprovada ao YouTube; quem enviou, não", async () => [await rpc(curadoria2, "youtube_pode_enviar", { p_id: video.id }), await rpc(como(ids.prof), "youtube_pode_enviar", { p_id: video.id })], (r) => r[0] === true && r[1] === false);
+await recusa("conta comum não lê os dados de envio ao YouTube", () => rpc(curadoria2, "youtube_videoaula_dados", { p_id: video.id }), "sem_permissao");
+await recusa("conta comum não marca o envio ao YouTube", () => rpc(curadoria2, "youtube_videoaula_marcar", { p_id: video.id, p_situacao: "no_ar", p_youtube: "abcdefghijk" }), "sem_permissao");
+await espera("o serviço lê os dados e marca o envio uma vez só (dois cliques não mandam duas cópias)", async () => [await rpc(servico, "youtube_videoaula_dados", { p_id: video.id }), await rpc(servico, "youtube_videoaula_marcar", { p_id: video.id, p_situacao: "enviando" }), await rpc(servico, "youtube_videoaula_marcar", { p_id: video.id, p_situacao: "enviando" })], ([d, a, b]) => d.caminho === video.caminho && a.ok === true && b.ok === false);
+await espera("travada pelo Google, a cópia do YouTube não aparece no site, só no painel", async () => { await rpc(servico, "youtube_videoaula_marcar", { p_id: video.id, p_situacao: "travado", p_youtube: "abcdefghijk" }); return [await rpc(anon, "videoaula_ver", { p_id: video.id }), await rpc(curadoria2, "videoaulas_no_ar")]; }, ([pub, painel]) => pub.youtube === null && painel.some((x) => x.id === video.id && x.youtube_situacao === "travado" && x.youtube === "abcdefghijk"));
+await espera("liberada, a cópia aparece no site (sem a situação interna)", async () => { await rpc(servico, "youtube_videoaula_marcar", { p_id: video.id, p_situacao: "no_ar", p_youtube: "abcdefghijk" }); return rpc(anon, "videoaulas_publicas"); }, (r) => r.some((x) => x.id === video.id && x.youtube === "abcdefghijk" && !("youtube_situacao" in x) && !("youtube_erro" in x)));
+await recusa("código de vídeo inválido é recusado", () => rpc(servico, "youtube_videoaula_marcar", { p_id: video.id, p_situacao: "no_ar", p_youtube: "x' or 1=1" }), "invalido:youtube");
+await recusa("só a revisão vê a lista do painel com a situação no YouTube", () => rpc(como(ids.prof), "videoaulas_no_ar"), "sem_permissao");
 await recusa("quem enviou não apaga a aula que está no ar", () => rpc(como(ids.prof), "videoaula_apagar", { p_id: video.id }), "sem_permissao");
 await espera("a coordenação apaga e recebe o caminho do arquivo", () => rpc({ ...como(ids.coord), aal: "aal2" }, "videoaula_apagar", { p_id: video.id }), (r) => r.caminho === video.caminho);
 await espera("apagado o registro, quem enviou e a coordenação ainda leem o arquivo (para tirá-lo do depósito)", async () => [await rpc(como(ids.prof), "videoaula_pode_ler", { p_nome: video.caminho }), await rpc({ ...como(ids.coord), aal: "aal2" }, "videoaula_pode_ler", { p_nome: video.caminho })], (r) => r[0] === true && r[1] === true);
@@ -2678,6 +2687,25 @@ await recusa("encerrada, o bate-papo fecha", () => rpc(como(ids.aluna), "aula_ch
 await recusa("aula encerrada não se edita", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: aulaViva, p: aulaNova() }), "ja_decidida");
 await espera("sem gravação, a aula encerrada sai da agenda pública", () => rpc(anon, "aulas_ao_vivo_listar"), (r) => !r.some((a) => a.id === aulaViva));
 await espera("o educador vê a aula entre as dele", () => rpc(como(ids.prof), "aulas_ao_vivo_minhas"), (r) => r.some((a) => a.id === aulaViva));
+// O cartão do educador aceita os links do currículo (a regra antiga recusava qualquer endereço).
+await espera("o educador põe o portfólio e o Lattes no cartão", async () => { await rpc(como(ids.prof), "perfil_curriculo", { p: { portfolio: "https://exemplo.org/portfolio", lattes: "https://lattes.cnpq.br/123", formacao: "Licenciatura em Matemática" } }); return dono("select curriculo from interno.perfis where id = $1", [ids.prof]); }, (r) => r.rows[0].curriculo.portfolio === "https://exemplo.org/portfolio" && r.rows[0].curriculo.lattes);
+await recusa("link que não é https é recusado no cartão", () => rpc(como(ids.prof), "perfil_curriculo", { p: { site: "http://inseguro.org" } }), "invalido:site");
+// Transmissão pelo YouTube do instituto: a chave só para quem conduz; o site só vê o código público.
+let aulaTransmitida;
+await espera("o educador marca outra aula, com sala do Jitsi (endereço longo cabe)", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova({ titulo: "Frações no YouTube", sala_externa: `https://meet.jit.si/lucia-${"x".repeat(300)}` }) }), (r) => Boolean(r.id) && r.sala_externa.length > 300 && (aulaTransmitida = r.id));
+await espera("dá para pôr o link da gravação", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: aulaTransmitida, p: aulaNova({ titulo: "Frações no YouTube", gravacao: "https://peertube.example.org/w/abc123" }) }), (r) => r.gravacao === "https://peertube.example.org/w/abc123");
+await espera("e tirar de novo", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: aulaTransmitida, p: aulaNova({ titulo: "Frações no YouTube", gravacao: "" }) }), (r) => r.gravacao === "");
+await espera("quem conduz pode pedir a transmissão; a aluna, não", async () => [await rpc(como(ids.mentora), "youtube_transmissao_pode", { p_aula: aulaTransmitida }), await rpc(como(ids.aluna), "youtube_transmissao_pode", { p_aula: aulaTransmitida })], (r) => r[0] === true && r[1] === false);
+const transmissao = { p_aula: null, p_broadcast: "abcdefghijk", p_stream: "fluxo-1", p_rtmp: "rtmp://a.rtmp.youtube.com/live2", p_chave: "abcd-efgh-ijkl-mnop" };
+await recusa("só o serviço grava a transmissão", () => rpc(como(ids.prof), "youtube_transmissao_gravar", { ...transmissao, p_aula: aulaTransmitida }), "sem_permissao");
+await recusa("só o serviço lê os dados da transmissão", () => rpc(como(ids.prof), "youtube_transmissao_dados", { p_aula: aulaTransmitida }), "sem_permissao");
+await espera("gravada pelo serviço, quem conduz vê a chave, a aluna não, e o site vê só o código público", async () => {
+  await rpc(servico, "youtube_transmissao_gravar", { ...transmissao, p_aula: aulaTransmitida });
+  return [await rpc(como(ids.mentora), "youtube_transmissao_ver", { p_aula: aulaTransmitida }), await rpc(como(ids.aluna), "youtube_transmissao_ver", { p_aula: aulaTransmitida }), await rpc(anon, "aula_ao_vivo_ver", { p_id: aulaTransmitida })];
+}, ([conduz, aluna, pub]) => conduz.chave === transmissao.p_chave && aluna === null && pub.youtube === "abcdefghijk" && !JSON.stringify(pub).includes(transmissao.p_chave));
+await espera("ao encerrar, a transmissão vira a gravação da aula", async () => { await rpc(como(ids.prof), "aula_ao_vivo_estado", { p_id: aulaTransmitida, p_status: "ao_vivo" }); return rpc(como(ids.prof), "aula_ao_vivo_estado", { p_id: aulaTransmitida, p_status: "encerrada" }); }, (r) => r.gravacao === "https://www.youtube.com/watch?v=abcdefghijk");
+await espera("encerrada, ninguém mais pede a chave", () => rpc(como(ids.prof), "youtube_transmissao_pode", { p_aula: aulaTransmitida }), (r) => r === false);
+await espera("a coordenação apaga a aula transmitida (a chave vai junto)", async () => { await rpc(coord2, "aula_ao_vivo_apagar", { p_id: aulaTransmitida }); return dono("select count(*)::int as n from interno.transmissoes where aula = $1", [aulaTransmitida]); }, (r) => r.rows[0].n === 0);
 await espera("a coordenação apaga a aula", () => rpc(coord2, "aula_ao_vivo_apagar", { p_id: aulaViva }), (r) => r.ok === true);
 
 // ── Estúdio de design ──

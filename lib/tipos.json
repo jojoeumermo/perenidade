@@ -40,7 +40,7 @@
     "corpo": { "rotulo": "Texto", "min": 300, "editor": true },
     "campos": [
       { "nome": "subtitulo", "rotulo": "Subtítulo (linha fina)", "tipo": "texto", "max": 220 },
-      { "nome": "editoria", "rotulo": "Editoria (ex.: Trabalho, Educação, Internacional)", "tipo": "texto", "max": 40 }
+      { "nome": "editoria", "rotulo": "Editoria (escolha uma ou escreva outra)", "tipo": "texto", "max": 40, "opcoes": ["Trabalho", "Educação", "Saúde", "Moradia", "Internacional", "Memória", "Cultura de Quebrada", "Movimentos", "Meio ambiente"] }
     ]
   },
   "checagem": {

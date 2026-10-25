@@ -12,6 +12,7 @@ import { Comentarios } from "./Comentarios";
 import { EstadoVazio } from "./EstadoVazio";
 import { L, useI18n } from "./I18n";
 import { useTrackOptions } from "./useTrackOptions";
+import { TocadorYoutube } from "./TocadorYoutube";
 import { VideoPlayer } from "./VideoPlayer";
 
 /** Uma aula em vídeo como o site recebe: sem nota, situação nem dados de quem revisou. */
@@ -30,6 +31,8 @@ interface Aula {
   transcricao?: string;
   legenda?: string;
   fontes?: { titulo: string; autor?: string; url?: string }[];
+  /** A cópia no canal do instituto no YouTube, quando já está liberada. */
+  youtube?: string | null;
 }
 
 type Estado<T> = { dados: T | null; falhou: boolean };
@@ -76,6 +79,9 @@ function Aberta({ id, s }: { id: string; s: Textos }) {
   const { lang, t } = useI18n();
   const tracks = useTrackOptions(lang);
   const [aula, setAula] = useState<{ de: string; aula: Aula | null; endereco: string } | null>(null);
+  // Com cópia no YouTube, o tocador dele vem primeiro (não gasta a cota de transferência do instituto); a cópia do
+  // instituto fica a um clique, para quem não quer o Google e para quando o YouTube sair do ar.
+  const [daCasa, setDaCasa] = useState(false);
   useEffect(() => {
     let vivo = true;
     rpc<Aula | null>("videoaula_ver", { p_id: id })
@@ -106,7 +112,29 @@ function Aberta({ id, s }: { id: string; s: Textos }) {
         )}
       </p>
       <div lang="pt-BR">
-        <VideoPlayer src={aula.endereco} titulo={a.titulo} legenda={a.legenda || undefined} transcricao={a.transcricao || undefined} labels={s.player} />
+        {a.youtube && !daCasa ? (
+          <>
+            <TocadorYoutube id={a.youtube} titulo={a.titulo} textos={{ assistir: s.youtubeWatch, aviso: s.youtubeNote }} />
+            <p className="mt-2 font-sans text-sm">
+              <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => setDaCasa(true)}>{s.ownCopy}</button>
+            </p>
+            {a.transcricao && (
+              <details className="mt-3">
+                <summary className="cursor-pointer font-sans text-sm font-semibold">{s.transcriptTitle}</summary>
+                <div className="mt-2 max-h-96 overflow-y-auto border-l-2 border-gold pl-4 whitespace-pre-line">{a.transcricao}</div>
+              </details>
+            )}
+          </>
+        ) : (
+          <>
+            <VideoPlayer src={aula.endereco} titulo={a.titulo} legenda={a.legenda || undefined} transcricao={a.transcricao || undefined} labels={s.player} />
+            {a.youtube && (
+              <p className="mt-2 font-sans text-sm">
+                <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => setDaCasa(false)}>{s.backToYoutube}</button>
+              </p>
+            )}
+          </>
+        )}
       </div>
       {a.descricao && <p className="mt-4 whitespace-pre-line text-lg" lang="pt-BR">{a.descricao}</p>}
       {a.fontes && a.fontes.length > 0 && (

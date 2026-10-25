@@ -793,7 +793,121 @@ const STREETWEAR: Modelo[] = [
   },
 ];
 
-export const MODELOS: Modelo[] = [...MODELOS_DA_MARCA, ...STREETWEAR];
+// ───── Instagram do instituto: campanhas ─────
+// As peças de campanha do perfil @institutoluciaorg: chamada de militância, a collab com o Território Na Atividade,
+// o chamado de voluntariado, a apresentação de quem chegou e o dia de eleição (sem pedir voto em candidato: no dia da
+// votação a lei proíbe propaganda de partido e candidato, então a peça chama para votar e defender a democracia).
+
+const CAMPANHAS: Modelo[] = [
+  {
+    id: "insta-militancia",
+    nome: "Militância: ninguém muda nada sozinho",
+    formato: "post",
+    grupo: "Posts",
+    montar: () => {
+      const d = base(1080, 1350, { cor: COR["Preto de arquivo"] });
+      d.camadas = [
+        forma("raios", { x: 340, y: -120, w: 1100, h: 1100, preenchimento: "#2a231b", nome: "Raios" }),
+        forma("estrela", { x: 640, y: 120, w: 380, h: 380, preenchimento: COR["Vermelho da gráfica"], nome: "Estrela" }),
+        ...cabecalho(1080, 72, "Formação militante", COR.Pergaminho, COR["Vermelho vivo"]),
+        texto({ x: 88, y: 470, w: 904, texto: "Ninguém muda\nnada ==sozinho==.", fonte: "sans", tamanho: 100, peso: 900, italico: true, entrelinha: 0.92, espacamento: -0.02, cor: COR.Pergaminho, maiusculas: true, destaque: COR["Vermelho vivo"], nome: "Título" }),
+        texto({ x: 88, y: 790, w: 820, texto: "Estude de onde vem a exploração, conheça quem lutou antes de nós e aprenda a se organizar. De graça, no celular, com núcleos de estudo no seu bairro.", fonte: "serifa", tamanho: 40, peso: 400, entrelinha: 1.3, cor: COR.Fio, nome: "Texto" }),
+        texto({ x: 88, y: 1080, w: 520, texto: "Comece o Despertar", fonte: "sans", tamanho: 30, peso: 800, cor: COR.Branco, fundo: COR["Vermelho da gráfica"], recuo: 20, alinhar: "center", espacamento: 0.04, maiusculas: true, nome: "Botão" }),
+        texto({ x: 88, y: 1230, w: 904, texto: "institutolucia.org/despertar  ·  @institutoluciaorg", fonte: "mono", tamanho: 24, peso: 500, cor: COR["Ouro claro"], espacamento: 0.08, nome: "Endereço" }),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "insta-collab-territorio",
+    nome: "Collab: Território Na Atividade × Instituto Lúcia",
+    formato: "post",
+    grupo: "Posts",
+    montar: () => {
+      const d = base(1080, 1350, { cor: "#fbf8f1" });
+      d.camadas = [
+        texto({ x: 70, y: 60, w: 600, texto: "Editorial de moda periférica", fonte: "mono", tamanho: 22, peso: 500, cor: COR.Tinta, espacamento: 0.22, maiusculas: true, nome: "Chapéu" }),
+        texto({ x: 410, y: 60, w: 600, texto: "2026", fonte: "mono", tamanho: 22, peso: 500, cor: COR.Tinta, alinhar: "right", nome: "Ano" }),
+        texto({ x: 70, y: 120, w: 940, texto: "Na Atividade\n× Lúcia", fonte: "serifa", tamanho: 112, peso: 600, entrelinha: 0.95, espacamento: -0.02, cor: COR.Tinta, alinhar: "center", nome: "Título" }),
+        imagem({ x: 150, y: 470, w: 780, h: 600, src: "/imagens/galeria/greve-geral-1917.webp", credito: "Troque pela foto da Julia Ramos.", filtro: "pb", borda: COR.Tinta, espessura: 4, nome: "Foto da Julia" }),
+        texto({ x: 70, y: 1100, w: 940, texto: "Cultura de quebrada é política. Moda, funk, pixo e baile entram no instituto: matérias, aulas e uma cápsula feita junto.", fonte: "serifa", tamanho: 34, peso: 400, entrelinha: 1.3, cor: COR["Tinta suave"], alinhar: "center", nome: "Texto" }),
+        texto({ x: 70, y: 1250, w: 940, texto: "@na.atividade.com.br  ×  @institutoluciaorg", fonte: "mono", tamanho: 24, peso: 600, cor: COR["Vermelho da gráfica"], alinhar: "center", espacamento: 0.06, nome: "Perfis" }),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "insta-voluntariado",
+    nome: "Voluntariado: como funciona",
+    formato: "post",
+    grupo: "Posts",
+    montar: () => {
+      const d = base(1080, 1350, { cor: COR["Vermelho da gráfica"], bordaCima: COR.Tinta, bordaBaixo: COR.Tinta, espessura: 20 });
+      const passo = (n: string, y: number, titulo: string, corpo: string) => [
+        texto({ x: 88, y, w: 120, texto: n, fonte: "sans", tamanho: 96, peso: 900, italico: true, cor: COR.Tinta, nome: `Número ${n}` }),
+        texto({ x: 220, y: y + 8, w: 770, texto: titulo, fonte: "sans", tamanho: 40, peso: 900, cor: COR.Branco, maiusculas: true, nome: `Passo ${n}` }),
+        texto({ x: 220, y: y + 62, w: 770, texto: corpo, fonte: "serifa", tamanho: 32, peso: 400, entrelinha: 1.25, cor: COR.Pergaminho, nome: `Explicação ${n}` }),
+      ];
+      d.camadas = [
+        ...cabecalho(1080, 72, "Voluntariado", COR.Branco, COR.Branco),
+        texto({ x: 88, y: 200, w: 904, texto: "Vem fazer\n==junto.==", fonte: "sans", tamanho: 130, peso: 900, italico: true, entrelinha: 0.9, cor: COR.Branco, maiusculas: true, destaque: COR.Tinta, nome: "Título" }),
+        ...passo("1", 520, "Escolha o que sabe fazer", "Ensinar, revisar, traduzir, desenhar, gravar, cuidar da comunidade ou do código."),
+        ...passo("2", 720, "Mande a candidatura", "Um formulário curto no site. Não precisa de conta nem de diploma."),
+        ...passo("3", 920, "Entre para a equipe", "A coordenação responde, você entra no painel e escolhe a primeira tarefa."),
+        ...faixa(1080, 1160, 100, "Sem chefe · no seu tempo", "institutolucia.org/voluntarios"),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "insta-novos-voluntarios",
+    nome: "Chegou gente nova na equipe",
+    formato: "post",
+    grupo: "Posts",
+    montar: () => {
+      const d = base(1080, 1350, { pontilhado: true, bordaCima: COR["Bordô"], bordaBaixo: COR["Bordô"], espessura: 20 });
+      const pessoa = (i: number, nome: string, funcao: string) => {
+        const x = 88 + (i % 2) * 460;
+        const y = 560 + Math.floor(i / 2) * 200;
+        return [
+          forma("elipse", { x, y, w: 130, h: 130, preenchimento: COR.Papel, borda: COR.Tinta, espessura: 4, nome: `Foto ${i + 1}` }),
+          texto({ x: x + 150, y: y + 22, w: 290, texto: nome, fonte: "serifa", tamanho: 40, peso: 600, cor: COR.Tinta, nome: `Nome ${i + 1}` }),
+          texto({ x: x + 150, y: y + 76, w: 290, texto: funcao, fonte: "mono", tamanho: 20, peso: 500, cor: COR["Bordô"], espacamento: 0.12, maiusculas: true, nome: `Função ${i + 1}` }),
+        ];
+      };
+      d.camadas = [
+        ...cabecalho(1080, 72, "Boas-vindas", COR.Tinta, COR["Bordô"]),
+        texto({ x: 88, y: 230, w: 904, texto: "Chegou gente\nnova na ==luta==.", fonte: "serifa", tamanho: 120, peso: 600, entrelinha: 0.95, espacamento: -0.02, cor: COR.Tinta, destaque: COR["Vermelho da gráfica"], nome: "Título" }),
+        ...pessoa(0, "[Nome]", "Educação · Biologia"),
+        ...pessoa(1, "[Nome]", "Comunicação"),
+        ...pessoa(2, "[Nome]", "Revisão"),
+        ...pessoa(3, "[Nome]", "Saúde Solidária"),
+        texto({ x: 88, y: 1180, w: 904, texto: "Quer chegar também? institutolucia.org/voluntarios  ·  @institutoluciaorg", fonte: "mono", tamanho: 22, peso: 500, cor: COR["Bordô"], espacamento: 0.06, nome: "Chamada" }),
+      ];
+      return d;
+    },
+  },
+  {
+    id: "insta-dia-de-eleicao",
+    nome: "Dia de eleição: vá votar (sem candidato)",
+    formato: "post",
+    grupo: "Datas",
+    montar: () => {
+      const d = base(1080, 1350, { cor: COR.Tinta });
+      d.camadas = [
+        forma("raios", { x: -300, y: 350, w: 1700, h: 1700, preenchimento: "#2a231b", nome: "Raios" }),
+        ...cabecalho(1080, 72, "Hoje é dia de eleição", COR.Pergaminho, COR["Ouro claro"]),
+        texto({ x: 88, y: 300, w: 904, texto: "A democracia\nse defende\n==votando.==", fonte: "sans", tamanho: 120, peso: 900, italico: true, entrelinha: 0.9, espacamento: -0.02, cor: COR.Pergaminho, maiusculas: true, destaque: COR["Vermelho vivo"], nome: "Título" }),
+        texto({ x: 88, y: 760, w: 840, texto: "Escola pública, SUS, salário e o direito de se organizar dependem de quem governa. Vá votar, leve seu documento com foto e chame quem ainda não foi.", fonte: "serifa", tamanho: 40, peso: 400, entrelinha: 1.3, cor: COR.Fio, nome: "Texto" }),
+        texto({ x: 88, y: 1060, w: 420, texto: "Vá votar", fonte: "sans", tamanho: 34, peso: 900, cor: COR.Branco, fundo: COR["Vermelho da gráfica"], recuo: 22, alinhar: "center", espacamento: 0.06, maiusculas: true, nome: "Botão" }),
+        texto({ x: 88, y: 1230, w: 904, texto: "@institutoluciaorg  ·  educação popular", fonte: "mono", tamanho: 24, peso: 500, cor: COR["Ouro claro"], espacamento: 0.08, nome: "Endereço" }),
+      ];
+      return d;
+    },
+  },
+];
+
+export const MODELOS: Modelo[] = [...CAMPANHAS, ...MODELOS_DA_MARCA, ...STREETWEAR];
 
 export const GRUPOS: GrupoDeModelo[] = ["Posts", "Stories", "Carrossel", "Datas", "Impressos", "Site e vídeo", "Capas e marca", "Streetwear e ativismo"];
 
