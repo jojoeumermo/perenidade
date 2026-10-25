@@ -787,6 +787,8 @@ alter table interno.conversa_membros add column if not exists digitando text not
 alter table interno.perfis add column if not exists chat_visto boolean not null default true;
 -- Férias de verdade (ver "Cuidado com a equipe"): até quando a pessoa está fora.
 alter table interno.perfis add column if not exists ferias_ate date;
+-- Os ofícios de cada pessoa ("edito vídeo", "falo espanhol"): para a equipe achar quem sabe o quê.
+alter table interno.perfis add column if not exists oficios text[] not null default '{}';
 alter table interno.perfis add column if not exists chat_leitura boolean not null default true;
 -- Retrato: um ícone pré-definido ("p:estrela") para todo mundo; coordenação, coordenação pedagógica e supervisão podem
 -- subir uma imagem própria, pequena (WebP em data URI, redesenhada no navegador, sem dados da câmera).
@@ -4873,7 +4875,7 @@ begin
       'online', case when f.id = auth.uid() or (f.chat_visto and coalesce((select p.chat_visto from perfis p where p.id = auth.uid()), true)) then f.visto_em > now() - interval '2 minutes' end,
       'visto_em', case when f.id = auth.uid() or (f.chat_visto and coalesce((select p.chat_visto from perfis p where p.id = auth.uid()), true)) then f.visto_em end,
       'papeis', (select jsonb_agg(jsonb_build_object('papel', p.papel, 'disciplina', p.disciplina) order by p.papel, p.disciplina) from papeis p where p.usuario = f.id),
-      'ferias_ate', case when f.ferias_ate >= current_date then f.ferias_ate end)
+      'ferias_ate', case when f.ferias_ate >= current_date then f.ferias_ate end, 'oficios', to_jsonb(f.oficios))
       order by f.nome), '[]'::jsonb)
     from perfis f where not f.suspenso and exists (select 1 from papeis p where p.usuario = f.id));
 end $$;
@@ -14046,6 +14048,9 @@ begin
     'pessoas', (select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', interno.nome_visto(f.nome), 'avatar', f.avatar,
                   'responde', exists (select 1 from papeis r where r.usuario = f.id and r.papel = 'representante' and r.disciplina = d.id),
                   'ferias_ate', case when f.ferias_ate >= current_date then f.ferias_ate end,
+                  'oficios', to_jsonb(f.oficios),
+                  -- Desde quando a pessoa está nesta função (para o rodízio: depois de um ano, ensinar alguém).
+                  'desde', (select min(p.criado_em) from papeis p where p.usuario = f.id and (p.papel = d.id or p.disciplina = d.id or (d.id = 'jornalismo' and p.papel = 'marketing') or (d.id = 'coordenacao' and p.papel in ('coordenacao', 'vice')))),
                   'papeis', (select jsonb_agg(jsonb_build_object('papel', p.papel, 'disciplina', p.disciplina)) from papeis p where p.usuario = f.id))
                   order by exists (select 1 from papeis r where r.usuario = f.id and r.papel = 'representante' and r.disciplina = d.id) desc, f.nome), '[]'::jsonb)
                 from perfis f where interno.membro_direto(f.id, d.id)),
@@ -14416,6 +14421,34 @@ declare f record;
 begin
   for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
            where n.nspname = 'public' and p.proname in ('votacoes_listar', 'votacao_criar', 'votar', 'votacao_encerrar', 'pautas_listar', 'pauta_salvar', 'calendario_equipe') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+
+-- ───────────────────────────── Ofícios e chegada ─────────────────────────────
+/** Os meus ofícios e quando cheguei à equipe (a primeira função), para a primeira semana guiada. */
+create or replace function public.perfil_extras() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  return jsonb_build_object('oficios', (select to_jsonb(oficios) from perfis where id = v), 'chegada', (select min(criado_em) from papeis where usuario = v));
+end $$;
+
+/** Guardar os ofícios: até dez, cada um com 2 a 40 caracteres. */
+create or replace function public.perfil_oficios_salvar(p_oficios text[]) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_lista text[];
+begin
+  select coalesce(array_agg(distinct btrim(o)) filter (where btrim(o) <> ''), '{}') into v_lista from unnest(coalesce(p_oficios, '{}')) o;
+  if cardinality(v_lista) > 10 or exists (select 1 from unnest(v_lista) o where char_length(o) < 2 or char_length(o) > 40) then perform interno.erro('invalido:oficios'); end if;
+  update perfis set oficios = v_lista where id = v;
+  return jsonb_build_object('oficios', to_jsonb(v_lista));
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('perfil_extras', 'perfil_oficios_salvar') loop
     execute format('revoke all on function %s from public', f.assinatura);
     execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
   end loop;
