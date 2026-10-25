@@ -46,6 +46,7 @@ export function MenuDoPainel({
   ambiente,
   ferramentas,
   rodape,
+  departamento,
 }: {
   secoes: ItemDoMenu[];
   atual: ItemDoMenu;
@@ -62,6 +63,8 @@ export function MenuDoPainel({
   ferramentas: ReactNode;
   /** Voltar ao site, tema, sair e idioma. */
   rodape: ReactNode;
+  /** O departamento da pessoa e as seções dele: ficam no alto, de qualquer área. */
+  departamento?: { nome: string; secoes: string[] } | null;
 }) {
   // A área que está aberta na lista: começa na da seção atual; um clique no trilho troca.
   const [escolhida, setEscolhida] = useState<string | null>(null);
@@ -74,6 +77,8 @@ export function MenuDoPainel({
   const daArea = secoes.filter((s) => s.grupo === area);
   const presas = fixadas.map((id) => secoes.find((s) => s.id === id)).filter((s): s is ItemDoMenu => Boolean(s));
   const nomeDaArea = AREAS.find((a) => a.grupo === area)?.nome ?? area;
+  const doDepartamento = (departamento?.secoes ?? []).map((id) => secoes.find((s) => s.id === id)).filter((s): s is ItemDoMenu => Boolean(s));
+  const [departamentoAberto, setDepartamentoAberto] = useState(true);
 
   const Linha = ({ s }: { s: ItemDoMenu }) => {
     const ativa = s.id === atual.id;
@@ -180,6 +185,27 @@ export function MenuDoPainel({
             </div>
           ) : (
             <>
+              {departamento && doDepartamento.length > 0 && (
+                <div className="mb-5">
+                  <button
+                    type="button"
+                    onClick={() => setDepartamentoAberto(!departamentoAberto)}
+                    aria-expanded={departamentoAberto}
+                    className="painel-grupo flex w-full cursor-pointer items-center justify-between px-2.5 pb-1.5 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-gold"
+                  >
+                    <span>Meu departamento</span>
+                    <span aria-hidden>{departamentoAberto ? "▾" : "▸"}</span>
+                  </button>
+                  <p className="truncate px-2.5 pb-1 text-xs font-bold text-ink">{departamento.nome}</p>
+                  {departamentoAberto && (
+                    <ul>
+                      {doDepartamento.map((s) => (
+                        <Linha key={s.id} s={s} />
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
               {presas.length > 0 && (
                 <div className="mb-5">
                   <p className="painel-grupo px-2.5 pb-1.5 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-gold">★ Fixadas</p>
