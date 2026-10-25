@@ -2697,6 +2697,27 @@ await espera("o educador vê a aula entre as dele", () => rpc(como(ids.prof), "a
 // O cartão do educador aceita os links do currículo (a regra antiga recusava qualquer endereço).
 await espera("o educador põe o portfólio e o Lattes no cartão", async () => { await rpc(como(ids.prof), "perfil_curriculo", { p: { portfolio: "https://exemplo.org/portfolio", lattes: "https://lattes.cnpq.br/123", formacao: "Licenciatura em Matemática" } }); return dono("select curriculo from interno.perfis where id = $1", [ids.prof]); }, (r) => r.rows[0].curriculo.portfolio === "https://exemplo.org/portfolio" && r.rows[0].curriculo.lattes);
 await recusa("link que não é https é recusado no cartão", () => rpc(como(ids.prof), "perfil_curriculo", { p: { site: "http://inseguro.org" } }), "invalido:site");
+// Cuidado com a equipe: agradecer, férias, termômetro, críticas anônimas e botão de pânico.
+await recusa("ninguém agradece a si mesmo", () => rpc(como(ids.prof), "agradecer", { p_para: ids.prof, p_texto: "Obrigado, eu!" }), "invalido:para");
+await recusa("quem não é da equipe não recebe agradecimento no mural", () => rpc(como(ids.prof), "agradecer", { p_para: ids.aluna, p_texto: "Valeu pela ajuda!" }), "invalido:para");
+await espera("o educador agradece a mentora em público e ela recebe o recado", async () => { await rpc(como(ids.prof), "agradecer", { p_para: ids.mentora, p_texto: "Obrigado por dar a aula de frações comigo!" }); return [await rpc(como(ids.mentora), "agradecimentos_listar"), await rpc(como(ids.mentora), "avisos_meus")]; },
+  ([lista, avisos]) => lista.some((a) => a.para_mim && a.texto.includes("frações")) && avisos.some((a) => a.texto.includes("agradeceu você")));
+await recusa("quem não é da equipe não lê o mural de agradecimentos", () => rpc(como(ids.aluna), "agradecimentos_listar"), "sem_permissao");
+await recusa("férias de mais de 120 dias são recusadas", () => rpc(como(ids.prof), "ferias_marcar", { p_ate: new Date(Date.now() + 200 * 86400000).toISOString().slice(0, 10) }), "invalido:ate");
+await espera("o educador marca férias e a equipe vê", async () => { const ate = new Date(Date.now() + 10 * 86400000).toISOString().slice(0, 10); await rpc(como(ids.prof), "ferias_marcar", { p_ate: ate }); return [ate, await rpc(como(ids.prof), "ferias_ver"), await rpc(como(ids.mentora), "equipe_membros")]; },
+  ([ate, minhas, equipe]) => minhas.ferias_ate === ate && equipe.some((m) => m.id === ids.prof && m.ferias_ate === ate));
+await espera("e volta das férias", async () => { await rpc(como(ids.prof), "ferias_marcar", { p_ate: null }); return rpc(como(ids.prof), "ferias_ver"); }, (r) => r.ferias_ate === null);
+await espera("o termômetro da semana: responde, muda a resposta e não guarda quem", async () => { await rpc(como(ids.prof), "bem_estar_responder", { p_nivel: 2 }); await rpc(como(ids.prof), "bem_estar_responder", { p_nivel: 4 }); return [await rpc(como(ids.prof), "bem_estar_situacao"), await dono("select count(*)::int as n, max(nivel)::int as nivel from interno.bem_estar"), await dono("select column_name from information_schema.columns where table_schema = 'interno' and table_name = 'bem_estar'")]; },
+  ([situacao, linhas, colunas]) => situacao.respondeu === true && linhas.rows[0].n === 1 && linhas.rows[0].nivel === 4 && !colunas.rows.some((c) => /usuario|autor|quem|criado/.test(c.column_name)));
+await espera("com menos de cinco respostas, a coordenação vê só o total", () => rpc(coord2, "bem_estar_resumo"), (r) => r[0].respostas === 1 && r[0].media === null);
+await recusa("o educador não vê o termômetro da equipe", () => rpc(como(ids.prof), "bem_estar_resumo"), "sem_permissao");
+await espera("crítica anônima chega à coordenação sem nome e sem hora", async () => { await rpc(como(ids.prof), "critica_enviar", { p_texto: "As reuniões de domingo cansam a equipe.", p_para: "coordenacao" }); return [await rpc(coord2, "criticas_listar"), await dono("select column_name from information_schema.columns where table_schema = 'interno' and table_name = 'criticas'")]; },
+  ([lista, colunas]) => lista.some((c) => c.texto.includes("domingo") && !("autor" in c)) && !colunas.rows.some((c) => /usuario|autor|quem|criado_em/.test(c.column_name)));
+await recusa("no máximo três críticas por dia", async () => { for (let i = 0; i < 3; i++) await rpc(como(ids.prof), "critica_enviar", { p_texto: `Mais uma crítica número ${i}.` }); }, "muitos_pedidos");
+await recusa("o educador não lê a caixa de críticas", () => rpc(como(ids.prof), "criticas_listar"), "sem_permissao");
+await espera("o botão de pânico avisa a coordenação e fica no registro", async () => { await rpc(como(ids.mentora), "panico", { p_motivo: "perdi o celular" }); return [await rpc(coord2, "avisos_meus"), await dono("select count(*)::int as n from interno.auditoria where acao = 'panico'")]; },
+  ([avisos, registro]) => avisos.some((a) => a.texto.includes("botão de pânico") && a.texto.includes("perdi o celular")) && registro.rows[0].n >= 1);
+
 // Transmissão pelo YouTube do instituto: a chave só para quem conduz; o site só vê o código público.
 let aulaTransmitida;
 await espera("o educador marca outra aula, com sala do Jitsi (endereço longo cabe)", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova({ titulo: "Frações no YouTube", sala_externa: `https://meet.jit.si/lucia-${"x".repeat(300)}` }) }), (r) => Boolean(r.id) && r.sala_externa.length > 300 && (aulaTransmitida = r.id));
