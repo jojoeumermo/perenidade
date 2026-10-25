@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { type Me, rpc } from "@/lib/backend";
 import { Avatar } from "./Avatar";
+import { RetornoDosAlunos } from "./RetornoDosAlunos";
 import { Abas, Aviso, botao, botaoClaro, campo, data, elo, papeis, textoDoErro, useAcao } from "./comum";
 
 // A página de cada departamento (prancheta "Painel — Departamento"): para que serve, a meta do mês, o quadro da semana,
@@ -85,7 +86,7 @@ interface Departamento {
   bastoes: { id: string; texto: string; autor: string; criado_em: string; meu: boolean }[];
 }
 type Coluna = "fazer" | "fazendo" | "aprovacao" | "feito";
-type Aba = "geral" | "pedidos" | "quadro" | "pessoas" | "como";
+type Aba = "geral" | "pedidos" | "quadro" | "pessoas" | "como" | "retorno";
 
 const COLUNAS: [Coluna, string][] = [
   ["fazer", "A fazer"],
@@ -193,6 +194,8 @@ export function Departamentos({ me, ir }: { me: Me; ir: (aba: string) => void })
                 { id: "quadro", nome: "Quadro" },
                 { id: "pessoas", nome: `Pessoas · ${atual.pessoas.length}` },
                 { id: "como", nome: "Como trabalhamos" },
+                // O retorno dos alunos é de quem cuida das aulas.
+                ...(["educacao", "curadoria", "revisao"].includes(atual.id) ? [{ id: "retorno" as Aba, nome: "Retorno dos alunos" }] : []),
               ]}
               atual={aba}
               escolher={setAba}
@@ -204,6 +207,7 @@ export function Departamentos({ me, ir }: { me: Me; ir: (aba: string) => void })
           {aba === "quadro" && <Quadro dep={atual} mexe={mexe} depois={recarregar} />}
           {aba === "pessoas" && <Pessoas dep={atual} />}
           {aba === "como" && <ComoTrabalhamos dep={atual} me={me} depois={recarregar} />}
+          {aba === "retorno" && <RetornoDosAlunos />}
         </>
       )}
     </div>
