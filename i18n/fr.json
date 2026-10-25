@@ -105,7 +105,9 @@
     "conduct": "Code de conduite",
     "usePolicy": "Politique d'utilisation",
     "events": "Rencontres",
-    "spreadKit": "Kit de diffusion"
+    "spreadKit": "Kit de diffusion",
+    "despertar": "Éveil",
+    "territories": "Territoires"
   },
   "labs": {
     "eyebrow": "Pratique réelle",
@@ -380,7 +382,12 @@
     "radioLive": "Musique, infos et débats toute la journée, à écouter avec peu de connexion.",
     "onThisDay": "Ce jour-là",
     "onThisDaySource": "Luttes et conquêtes populaires à cette date, choisies par l’équipe et tirées de Wikipédia. Texte de Wikipédia, licence CC BY-SA.",
-    "searchHint": "La recherche ne porte que sur ce site (cours, œuvres, glossaire et tout ce que l'institut a publié) : ce n'est pas une recherche sur internet."
+    "searchHint": "La recherche ne porte que sur ce site (cours, œuvres, glossaire et tout ce que l'institut a publié) : ce n'est pas une recherche sur internet.",
+    "moreKicker": "Plus que des cours",
+    "moreTitle": "Ici, on étudie pour changer la vie.",
+    "moreText": "L'Institut Lúcia est une école de la vie : nous formons des gens qui savent de quel côté ils sont et qui marchent avec la classe travailleuse. Sans diplôme d'État, sans frais, sans dépendance : par révolte, curiosité et espoir.",
+    "moreStart": "Commencer l'Éveil",
+    "moreManifesto": "Lire le manifeste"
   },
   "areas": {
     "portugues": [
@@ -3149,7 +3156,9 @@
       "conduct": "Les règles de vie commune dans les espaces participatifs.",
       "usePolicy": "Ce qui est permis ou non, en quelques lignes.",
       "events": "Ciné-club, club de lecture et autres rencontres.",
-      "spreadKit": "Affiches, tract, fanzine et cartes QR à imprimer."
+      "spreadKit": "Affiches, tract, fanzine et cartes QR à imprimer.",
+      "despertar": "De zéro à la conscience de classe, en cinq étapes, avec des tâches dans le monde réel.",
+      "territories": "Collectifs de culture et de lutte qui marchent avec l’institut : articles, cours, photos et rencontres."
     },
     "short": {
       "/trilhas": "toutes les matières",
@@ -3203,7 +3212,9 @@
       "/dedicatoria": "d'où vient le nom",
       "/meus-dados": "télécharger ou effacer",
       "/privacidade": "ce que l'on garde",
-      "/termos": "les règles du site"
+      "/termos": "les règles du site",
+      "/despertar": "formation militante",
+      "/territorios": "collectifs partenaires"
     },
     "highlights": "Commencez ici",
     "startText": "Première fois ? Partez d'une question de votre vie, ou choisissez une matière.",
@@ -3458,7 +3469,8 @@
     "recoveryDone": "C'est fait : l'application d'authentification a été retirée du compte. Configurez celle de votre nouveau téléphone dans Mon compte.",
     "nickname": "Comment voulez-vous être appelé(e) sur le site ? (facultatif)",
     "nicknameExample": "Ex. : Rosa du quartier, Jo 47",
-    "nicknameHint": "Un pseudonyme suffit : personne n'a besoin d'utiliser son vrai nom ici. C'est ce nom qui apparaît dans la communauté. Laissez vide et le site choisit un nom de code d'une combattante ou d'un combattant de l'histoire."
+    "nicknameHint": "Un pseudonyme suffit : personne n'a besoin d'utiliser son vrai nom ici. C'est ce nom qui apparaît dans la communauté. Laissez vide et le site choisit un nom de code d'une combattante ou d'un combattant de l'histoire.",
+    "blocked": "Trop de tentatives erronées depuis ici. Par sécurité, attendez {min} minutes et réessayez. Si vous avez oublié votre mot de passe, demandez à la coordination de le réinitialiser."
   },
   "radio": {
     "back15": "Reculer de 15 secondes",
@@ -3782,7 +3794,7 @@
     "title": "Matériel",
     "lead": "Fanzines, tracts, affiches et banderoles faits par l'institut. Téléchargez, imprimez et faites passer.",
     "kitTitle": "Kit d’agitation : pièces à imprimer tout de suite",
-    "kitLead": "Affiches de rue, banderole murale, tracts, zine, cartes, autocollants et marque-pages avec code QR, dessinés ici en vectoriel : ils s’impriment nets à toute taille. Choisissez la pièce et l’encre, puis cliquez sur Imprimer (sur téléphone, « Enregistrer en PDF » et allez chez un imprimeur).",
+    "kitLead": "Dix-neuf pièces, toutes avec l'Instagram @institutoluciaorg : affiches et collages de rue, affiche d'événement et de salle de classe, banderole, tracts, tract de sortie d'usine, invitation au groupe d'étude, fanzine, cartes, papillons, autocollants, chevalet de table et marque-pages, avec QR code et en vectoriel. Vous avez imprimé sans le @ ? Utilisez la planche d'autocollants du @ pour le coller par-dessus. Choisissez la pièce et l'encre, puis cliquez sur Imprimer (sur téléphone, « Enregistrer en PDF » et allez chez un imprimeur).",
     "fromTeam": "Zines et affiches de la coordination",
     "description": "Fanzines, tracts, affiches et banderoles de l'Institut Lúcia à télécharger, imprimer et distribuer.",
     "empty": "Aucun matériel publié pour l'instant.",
@@ -4840,5 +4852,57 @@
   },
   "salaLivre": {
     "description": "Construisez et projetez votre cours avec tout ce que propose l'institut : laboratoires, livres du fonds, éditeurs photo, vidéo et 3D, simulations, jeux et quiz. Tout reste dans votre navigateur."
+  },
+  "despertar": {
+    "eyebrow": "Parcours de formation · de zéro à l'organisation",
+    "title": "Éveil.",
+    "lead": "Personne ne naît en sachant qu'il est exploité. La conscience de classe s'apprend : dans la vie, dans l'étude et dans la lutte collective.",
+    "start": "Commencer par l'étape 1",
+    "group": "Étudier en groupe",
+    "stats": {
+      "stages": "étapes",
+      "lessons": "cours prêts",
+      "tasks": "tâches dans le monde réel",
+      "price": "reais · sans diplôme d'État"
+    },
+    "intro": "Chaque étape réunit des cours courts de plusieurs matières, une lecture de la bibliothèque, une tâche dans le monde réel et une rencontre en groupe. On peut le faire seul, mais le parcours est fait pour être vécu ensemble.",
+    "lesson": "Cours",
+    "soon": "En préparation",
+    "reading": "Lecture",
+    "circle": "Guide de la rencontre en groupe : questions pour le cercle",
+    "task": "Tâche dans le monde réel",
+    "finalTask": "Tâche finale",
+    "endKicker": "À la fin du parcours",
+    "certTitle": "Certificat communautaire",
+    "certText": "Reconnu par l'institut et signé par votre groupe, pas par l'État. Il vaut ce que vous avez appris et ce que vous en avez fait.",
+    "groupKicker": "Mieux à plusieurs",
+    "groupTitle": "Faites l'Éveil en groupe",
+    "groupText": "Chaque étape a un guide de rencontre d'une heure et des questions pour le cercle. Réunissez trois personnes et commencez.",
+    "groupCta": "Trouver ou créer un groupe"
+  },
+  "territorios": {
+    "eyebrow": "Collectifs qui marchent avec l’institut",
+    "title": "Territoires",
+    "lead": "Des collectifs de culture, d’art et de lutte qui marchent avec l’Instituto Lúcia. Chaque territoire apporte son regard au site : articles du journal, cours, photos et rencontres.",
+    "partner": "Territoire partenaire de l’Instituto Lúcia · Nº {n}",
+    "open": "Découvrir le territoire",
+    "follow": "Suivre",
+    "people": "Qui le fait",
+    "editions": "Les éditions",
+    "editionsTitle": "Chaque série est un magazine.",
+    "byCollective": "Par le collectif",
+    "journalKicker": "Dans le Jornal Revolucionário Lúcia",
+    "journalTitle": "Rubrique {editoria}",
+    "journalAll": "Voir le journal",
+    "journalEmpty": "Les premières analyses sont en cours d’écriture. Sujets sur la table :",
+    "learnKicker": "Apprendre avec le territoire · parcours",
+    "learnTitle": "Le quartier aussi est une école.",
+    "lessons": "{n} cours",
+    "soon": "En préparation",
+    "capsuleKicker": "Capsule · en préparation",
+    "nextTitle": "Les territoires sont des collectifs qui marchent avec l’Instituto Lúcia. Le prochain peut être le vôtre.",
+    "nextText": "Un collectif de culture, d’art, de sport, de logement ou d’étude ? Écrivez-nous en disant qui vous êtes, où vous agissez et ce que vous faites.",
+    "nextCta": "Amener mon collectif",
+    "all": "Tous les territoires"
   }
 }

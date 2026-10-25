@@ -105,7 +105,9 @@
     "conduct": "Código de conduta",
     "usePolicy": "Política de uso",
     "events": "Agenda de encontros",
-    "spreadKit": "Kit de divulgação"
+    "spreadKit": "Kit de divulgação",
+    "despertar": "Despertar",
+    "territories": "Territórios"
   },
   "labs": {
     "eyebrow": "Praticar de verdade",
@@ -380,7 +382,12 @@
     "radioLive": "Música, notícias e debates o dia todo, para ouvir com pouca internet.",
     "onThisDay": "Neste dia",
     "onThisDaySource": "Lutas e conquistas do povo nesta data: as escolhidas pela equipe e as que a Wikipédia registra. Texto da Wikipédia, licença CC BY-SA.",
-    "searchHint": "A busca procura só aqui dentro (aulas, obras, glossário e o resto do que o instituto publicou): não é uma busca na internet."
+    "searchHint": "A busca procura só aqui dentro (aulas, obras, glossário e o resto do que o instituto publicou): não é uma busca na internet.",
+    "moreKicker": "Mais do que aulas",
+    "moreTitle": "Aqui a gente estuda para mudar a vida.",
+    "moreText": "O Instituto Lúcia é uma escola da vida: formamos gente que sabe de que lado está e que caminha junto com a classe trabalhadora. Sem diploma do Estado, sem mensalidade, sem vício: por revolta, curiosidade e esperança.",
+    "moreStart": "Começar o Despertar",
+    "moreManifesto": "Ler o manifesto"
   },
   "areas": {
     "portugues": [
@@ -3149,7 +3156,9 @@
       "conduct": "As regras de convivência nos espaços com participação.",
       "usePolicy": "O que pode e o que não pode, em poucas linhas.",
       "events": "Cineclube, clube de leitura e outros encontros.",
-      "spreadKit": "Cartazes, folheto, zine e cartões com QR para imprimir."
+      "spreadKit": "Cartazes, folheto, zine e cartões com QR para imprimir.",
+      "despertar": "Do zero à consciência de classe, em cinco etapas, com tarefas no mundo real.",
+      "territories": "Coletivos de cultura e luta que caminham com o instituto: matérias, aulas, fotos e encontros."
     },
     "short": {
       "/trilhas": "todas as matérias",
@@ -3203,7 +3212,9 @@
       "/dedicatoria": "de onde vem o nome",
       "/meus-dados": "baixar ou apagar",
       "/privacidade": "o que guardamos",
-      "/termos": "as regras do site"
+      "/termos": "as regras do site",
+      "/despertar": "formação militante",
+      "/territorios": "coletivos parceiros"
     },
     "highlights": "Comece aqui",
     "startText": "Nunca estudou por aqui? Comece por uma pergunta da sua vida, ou escolha uma disciplina.",
@@ -3458,7 +3469,8 @@
     "recoveryDone": "Pronto: o aplicativo autenticador saiu da conta. Cadastre o do celular novo em Minha conta.",
     "nickname": "Como quer ser chamado(a) no site? (opcional)",
     "nicknameExample": "Ex.: Rosa da Vila, Zé 47",
-    "nicknameHint": "Pode ser apelido: ninguém precisa usar o nome de verdade aqui. É esse nome que aparece na comunidade. Deixe em branco e o site escolhe um codinome com o nome de uma lutadora ou de um lutador da história."
+    "nicknameHint": "Pode ser apelido: ninguém precisa usar o nome de verdade aqui. É esse nome que aparece na comunidade. Deixe em branco e o site escolhe um codinome com o nome de uma lutadora ou de um lutador da história.",
+    "blocked": "Muitas tentativas erradas a partir daqui. Por segurança, espere {min} minutos e tente de novo. Se esqueceu a senha, peça à coordenação para redefinir."
   },
   "radio": {
     "back15": "Voltar 15 segundos",
@@ -3782,7 +3794,7 @@
     "title": "Materiais",
     "lead": "Zines, panfletos, cartazes e banners feitos pelo instituto. Baixe, imprima e passe adiante.",
     "kitTitle": "Kit de agitação: peças para imprimir agora",
-    "kitLead": "Cartazes lambe-lambe, faixa de muro, folhetos, zine, cartões, adesivos e marcadores com QR code, desenhados aqui mesmo e em vetor: imprimem nítidos em qualquer tamanho. Escolha a peça, a tinta e clique em Imprimir (no celular, use “Salvar como PDF” e leve a uma copiadora).",
+    "kitLead": "Dezenove peças, todas com o Instagram @institutoluciaorg: lambe-lambes e lambe de rua, cartaz de evento e de sala de aula, faixa de muro, folhetos, panfleto de boca de fábrica, convite de núcleo, zine, cartões, filipetas, adesivos, banner de mesa e marcadores, com QR code e em vetor. Imprimiu algo sem o @? Use a folha de adesivos do @ para colar por cima. Escolha a peça, a tinta e clique em Imprimir (no celular, use “Salvar como PDF” e leve a uma copiadora).",
     "fromTeam": "Zines e cartazes da coordenação",
     "description": "Zines, panfletos, cartazes e banners do Instituto Lúcia para baixar, imprimir e distribuir.",
     "empty": "Ainda não há materiais publicados.",
@@ -4840,5 +4852,57 @@
   },
   "salaLivre": {
     "description": "Monte e projete a sua aula com tudo o que o instituto oferece: laboratórios, livros do acervo, editores de foto, vídeo e 3D, simulações, jogos e testes. Fica só no seu navegador."
+  },
+  "despertar": {
+    "eyebrow": "Percurso de formação · do zero à organização",
+    "title": "Despertar.",
+    "lead": "Ninguém nasce sabendo que é explorado. A consciência de classe se aprende: na vida, no estudo e na luta coletiva.",
+    "start": "Começar pela etapa 1",
+    "group": "Estudar em grupo num núcleo",
+    "stats": {
+      "stages": "etapas",
+      "lessons": "aulas prontas",
+      "tasks": "tarefas no mundo real",
+      "price": "reais · sem diploma do Estado"
+    },
+    "intro": "Cada etapa tem aulas curtas de várias disciplinas, uma leitura do acervo, uma tarefa no mundo real e um encontro no núcleo. Dá para fazer sozinho, mas o percurso foi pensado para ser vivido junto.",
+    "lesson": "Aula",
+    "soon": "Em preparação",
+    "reading": "Leitura",
+    "circle": "Roteiro do encontro no núcleo: perguntas para a roda",
+    "task": "Tarefa no mundo real",
+    "finalTask": "Tarefa final",
+    "endKicker": "No fim do percurso",
+    "certTitle": "Certificado comunitário",
+    "certText": "Reconhecido pelo instituto e assinado pelo seu núcleo, não pelo Estado. Vale pelo que você aprendeu e pelo que fez com isso.",
+    "groupKicker": "Melhor em grupo",
+    "groupTitle": "Faça o Despertar num núcleo",
+    "groupText": "Cada etapa tem um roteiro de encontro de uma hora e perguntas para a roda. Junte três pessoas e comece.",
+    "groupCta": "Achar ou montar um núcleo"
+  },
+  "territorios": {
+    "eyebrow": "Coletivos que caminham com o instituto",
+    "title": "Territórios",
+    "lead": "Coletivos de cultura, arte e luta que caminham junto com o Instituto Lúcia. Cada território traz o seu olhar para o site: matérias no jornal, aulas, fotos e encontros.",
+    "partner": "Território parceiro do Instituto Lúcia · Nº {n}",
+    "open": "Conhecer o território",
+    "follow": "Seguir",
+    "people": "Quem faz",
+    "editions": "As edições",
+    "editionsTitle": "Cada série é uma revista.",
+    "byCollective": "Pelo coletivo",
+    "journalKicker": "No Jornal Revolucionário Lúcia",
+    "journalTitle": "Editoria {editoria}",
+    "journalAll": "Ver o jornal",
+    "journalEmpty": "As primeiras análises estão sendo escritas. Pautas na mesa:",
+    "learnKicker": "Aprenda com o território · trilhas",
+    "learnTitle": "A quebrada também é escola.",
+    "lessons": "{n} aulas",
+    "soon": "Em preparação",
+    "capsuleKicker": "Cápsula · em preparação",
+    "nextTitle": "Territórios são coletivos que caminham com o Instituto Lúcia. O próximo pode ser o seu.",
+    "nextText": "Coletivo de cultura, arte, esporte, moradia ou estudo? Escreva contando quem vocês são, onde atuam e o que fazem.",
+    "nextCta": "Trazer o meu coletivo",
+    "all": "Todos os territórios"
   }
 }
