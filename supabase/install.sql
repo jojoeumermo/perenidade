@@ -14470,6 +14470,95 @@ begin
   end loop;
 end $$;
 
+-- ───────────────────────────── Núcleos e conquistas da equipe ─────────────────────────────
+-- O mapa de núcleos: os grupos de estudo que fazem as aulas juntos (no bairro, na escola, no trabalho), por cidade e
+-- estado. Só dentro do painel e sem endereço nem nome de participante: núcleo de formação militante é alvo de
+-- perseguição, então o painel guarda o mínimo (cidade, tipo, quem da equipe acompanha). As conquistas são da equipe
+-- inteira, nunca de uma pessoa: sem ranking.
+
+create table if not exists interno.nucleos (
+  id uuid primary key default gen_random_uuid(),
+  nome text not null check (char_length(nome) between 3 and 80),
+  cidade text not null check (char_length(cidade) between 2 and 80),
+  uf text not null check (uf in ('AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO','EX')),
+  tipo text not null default 'bairro' check (tipo in ('bairro', 'escola', 'trabalho', 'universidade', 'online', 'outro')),
+  encontros text not null default '' check (char_length(encontros) <= 200),
+  pessoas integer check (pessoas is null or pessoas between 1 and 500),
+  acompanha uuid references interno.perfis (id) on delete set null,
+  ativo boolean not null default true,
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  atualizado_em timestamptz not null default now()
+);
+create index if not exists nucleos_uf on interno.nucleos (uf, cidade);
+revoke all on interno.nucleos from public;
+
+create or replace function public.nucleos_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('id', n.id, 'nome', n.nome, 'cidade', n.cidade, 'uf', n.uf, 'tipo', n.tipo, 'encontros', n.encontros, 'pessoas', n.pessoas,
+            'ativo', n.ativo, 'atualizado_em', n.atualizado_em, 'acompanha', coalesce((select interno.nome_visto(nome) from perfis where id = n.acompanha), ''),
+            'mexo', n.criado_por = auth.uid() or n.acompanha = auth.uid() or interno.coord() or interno.tem('vice'))
+            order by n.uf, n.cidade, n.nome), '[]'::jsonb) from nucleos n);
+end $$;
+
+/** Cadastrar (qualquer pessoa da equipe, que passa a acompanhar o núcleo) ou mudar (quem cadastrou, quem acompanha, a coordenação). */
+create or replace function public.nucleo_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); n nucleos; v_pessoas integer;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  begin
+    v_pessoas := nullif(p ->> 'pessoas', '')::integer;
+  exception when others then perform interno.erro('invalido:pessoas');
+  end;
+  if p_id is null then
+    perform interno.limite('nucleo_salvar', 20, 1440);
+    insert into nucleos (nome, cidade, uf, tipo, encontros, pessoas, acompanha, criado_por)
+    values (interno.txt(p ->> 'nome', 'nome', 3, 80), interno.txt(p ->> 'cidade', 'cidade', 2, 80), upper(coalesce(p ->> 'uf', '')), coalesce(p ->> 'tipo', 'bairro'),
+            interno.txt(coalesce(p ->> 'encontros', ''), 'encontros', 0, 200), v_pessoas, v, v)
+    returning * into n;
+  else
+    select * into n from nucleos where id = p_id for update;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+    if not (n.criado_por = v or n.acompanha = v or interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+    update nucleos set nome = interno.txt(coalesce(p ->> 'nome', nome), 'nome', 3, 80), cidade = interno.txt(coalesce(p ->> 'cidade', cidade), 'cidade', 2, 80),
+      uf = upper(coalesce(p ->> 'uf', uf)), tipo = coalesce(p ->> 'tipo', tipo), encontros = interno.txt(coalesce(p ->> 'encontros', encontros), 'encontros', 0, 200),
+      pessoas = case when p ? 'pessoas' then v_pessoas else pessoas end, ativo = coalesce((p ->> 'ativo')::boolean, ativo), atualizado_em = now()
+    where id = p_id returning * into n;
+  end if;
+  return jsonb_build_object('id', n.id);
+exception when check_violation then perform interno.erro('invalido:nucleo');
+end $$;
+
+/** As conquistas da equipe inteira: o que o instituto já pôs no ar, no total e neste mês. Nada por pessoa. */
+create or replace function public.conquistas_da_equipe() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v_mes timestamptz := date_trunc('month', now());
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return jsonb_build_object(
+    'aulas', (select count(*) from contribuicoes where tipo = 'aula' and status = 'publicada'),
+    'aulas_mes', (select count(*) from contribuicoes where tipo = 'aula' and status in ('aprovada', 'publicada') and revisado_em >= v_mes),
+    'materias', (select count(*) from contribuicoes where tipo = 'artigo' and status = 'publicada'),
+    'videoaulas', (select count(*) from videoaulas where status = 'aprovada'),
+    'horas', coalesce((select round(sum(horas)) from horas where status = 'confirmada'), 0),
+    'horas_mes', coalesce((select round(sum(horas)) from horas where status = 'confirmada' and dia >= v_mes::date), 0),
+    'pessoas', (select count(distinct usuario) from papeis),
+    'pedidos_feitos_mes', (select count(*) from departamento_pedidos where status = 'feito' and atualizado_em >= v_mes),
+    'nucleos', (select count(*) from nucleos where ativo));
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('nucleos_listar', 'nucleo_salvar', 'conquistas_da_equipe') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança
 -- por linha até a próxima execução deste arquivo. Aqui, no fim, toda tabela do esquema interno fica com a segurança por
