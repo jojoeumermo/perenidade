@@ -86,11 +86,15 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
             <span className="contents max-lg:hidden">
               <LanguageSwitcher />
             </span>
-            <NewsLink />
+            {/* O jornal também está na gaveta "Mais"; no aplicativo a barra de cima não cabe tudo numa linha. */}
+            <span className="contents app:max-md:hidden">
+              <NewsLink />
+            </span>
             <PodcastLink />
             <RadioLink />
             <ThemeToggle />
-            <span className="ml-1 md:hidden">
+            {/* No aplicativo o Instagram mora na gaveta "Mais": a barra de cima fica só com o que é do aplicativo. */}
+            <span className="ml-1 app:hidden md:hidden">
               <Instagram t={t} compacto />
             </span>
             <span className="ml-3 hidden items-center gap-3 xl:flex">
