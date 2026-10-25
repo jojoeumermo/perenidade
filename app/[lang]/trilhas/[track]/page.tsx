@@ -8,12 +8,14 @@ import { notFound } from "next/navigation";
 import { CaixaDaAula } from "@/components/CaixaDaAula";
 import { Markdown } from "@/components/Markdown";
 import { SaveOffline } from "@/components/Offline";
+import { Compartilhar } from "@/components/Compartilhar";
 import { CertificadoDaTrilha } from "@/components/CertificadoDaTrilha";
 import { PlanoDeEstudos } from "@/components/PlanoDeEstudos";
 import { ContinuarTrilha, Sumario, TrackProgress } from "@/components/Progress";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
+import { site } from "@/lib/site";
 import { defaultLocale, fill, localePath, plural } from "@/i18n/config";
 import { getTrack, getTracks, idiomasDe } from "@/lib/content";
 import { lessonId } from "@/lib/ids";
@@ -142,6 +144,7 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
             </p>
           )}
           {ready.length > 0 && <SaveOffline paths={[to(`/trilhas/${track.slug}`), ...ready.map((item) => to(item.path))]} s={t.tracks} />}
+          <Compartilhar url={`${site.url}${to(`/trilhas/${track.slug}`)}`} texto={`${t.compartilhar.trilha} ${track.title}`} s={t.compartilhar} />
           {ready.length > 0 && (
             <p className="mt-4 flex flex-wrap gap-x-5 gap-y-1 font-sans text-sm">
               <Link href={`${to("/caderno")}?abrir=${encodeURIComponent(ready.map((item) => item.path).join(","))}&titulo=${encodeURIComponent(track.title)}`} className="underline hover:text-prelo-texto">

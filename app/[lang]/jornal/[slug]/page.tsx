@@ -11,6 +11,9 @@ import { loadLang } from "@/i18n";
 import { defaultLocale, fill, htmlLang, localePath } from "@/i18n/config";
 import { getArticles, getGlossary } from "@/lib/content";
 import { withLangs } from "@/lib/params";
+import { paginaMeta } from "@/lib/seo";
+import { site } from "@/lib/site";
+import { Compartilhar } from "@/components/Compartilhar";
 
 export const dynamicParams = false;
 
@@ -21,10 +24,10 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/jornal/[slug]">): Promise<Metadata> {
-  const { lang } = await loadLang(params);
+  const { lang, t } = await loadLang(params);
   const { slug } = await params;
   const article = getArticles(lang).find((item) => item.slug === slug);
-  return article ? { title: article.title, description: article.subtitle } : {};
+  return article ? paginaMeta(lang, `/jornal/${article.slug}`, article.title, article.subtitle, { titulo: article.title, subtitulo: article.subtitle, kicker: article.section || t.journal.eyebrow }) : {};
 }
 
 export default async function Materia({ params }: PageProps<"/[lang]/jornal/[slug]">) {
@@ -54,6 +57,7 @@ export default async function Materia({ params }: PageProps<"/[lang]/jornal/[slu
         </div>
         <SourceList sources={article.sources} title={t.common.sources} />
       </div>
+      <Compartilhar url={`${site.url}${localePath(lang, `/jornal/${article.slug}`)}`} texto={`${t.compartilhar.materia} ${article.title}`} s={t.compartilhar} />
       <p className="no-print mt-10 border-t-4 border-ink pt-4 font-sans text-sm">
         <Link href={localePath(lang, "/jornal")} className="font-semibold uppercase tracking-wide hover:text-oxblood">← {t.journal.back}</Link>
       </p>

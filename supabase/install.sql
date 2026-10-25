@@ -11266,7 +11266,7 @@ begin
   if not (interno.coord() or interno.tem('supervisao')) then perform interno.erro('sem_permissao'); end if;
   return (select coalesce(jsonb_object_agg(acao, jsonb_build_object('nome', interno.nome_visto(nome), 'em', criado_em, 'detalhes', detalhes)), '{}'::jsonb)
           from (select distinct on (acao) acao, nome, criado_em, detalhes from auditoria
-                where acao in ('site_configurado', 'comunidade_modo_seguranca', 'chat_controlado', 'dicionario_salvo', 'seguranca_configurada', 'assistente_configurado', 'seguranca_sessoes')
+                where acao in ('site_configurado', 'comunidade_modo_seguranca', 'chat_controlado', 'dicionario_salvo', 'seguranca_configurada', 'assistente_configurado', 'seguranca_sessoes', 'canais_configurados')
                 order by acao, criado_em desc) x);
 end $$;
 
@@ -15170,6 +15170,38 @@ begin
   for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
            where n.nspname = 'public' and p.proname in ('rede_espaco_criar', 'rede_espaco_entrar', 'rede_espaco_cuidar', 'rede_meus_espacos', 'rede_comunidade_seguir', 'rede_comunidades_minhas',
              'rede_moderador_definir', 'rede_moderar', 'rede_buscar', 'rede_meus_posts') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+
+-- ───────────────────────────── Canais no celular ─────────────────────────────
+-- Os endereços públicos do canal do WhatsApp e do grupo/canal do Telegram do instituto, mostrados na página "Receba no
+-- seu celular". Quem cria os canais é a coordenação, fora do site; aqui só fica o endereço.
+
+create or replace function public.canais() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('whatsapp', coalesce(valor ->> 'whatsapp', ''), 'telegram', coalesce(valor ->> 'telegram', ''))
+  from (select coalesce((select valor from configuracoes where chave = 'canais'), '{}'::jsonb) as valor) c
+$$;
+
+create or replace function public.canais_salvar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_whats text := btrim(coalesce(p ->> 'whatsapp', '')); v_tele text := btrim(coalesce(p ->> 'telegram', '')); v jsonb;
+begin
+  perform interno.eu();
+  if not interno.coord() then perform interno.erro('sem_permissao'); end if;
+  if v_whats <> '' and v_whats !~ '^https://(www\.)?(whatsapp\.com/channel/|chat\.whatsapp\.com/)[A-Za-z0-9]{10,60}$' then perform interno.erro('invalido:whatsapp'); end if;
+  if v_tele <> '' and v_tele !~ '^https://t\.me/\+?[A-Za-z0-9_]{3,64}$' then perform interno.erro('invalido:telegram'); end if;
+  v := jsonb_build_object('whatsapp', v_whats, 'telegram', v_tele);
+  insert into configuracoes (chave, valor) values ('canais', v) on conflict (chave) do update set valor = excluded.valor;
+  perform interno.registrar('canais_configurados', '', v);
+  return v;
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('canais', 'canais_salvar') loop
     execute format('revoke all on function %s from public', f.assinatura);
     execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
   end loop;
