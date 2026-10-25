@@ -3073,7 +3073,10 @@
       "transcript": "Read the transcript",
       "hideTranscript": "Hide the transcript",
       "keys": "Shortcuts: space plays and pauses, arrows move 5 seconds, < and > change the speed, M mutes, C turns captions on, F full screen.",
-      "error": "This video cannot be played right now."
+      "error": "This video cannot be played right now.",
+      "listen": "Audio only",
+      "watch": "Show the picture",
+      "listening": "Audio only: the picture is hidden. The transcript follows below."
     },
     "comments": {
       "title": "Comments",
@@ -3098,7 +3101,12 @@
         "mediacao": "Moderation",
         "equipe": "Team"
       }
-    }
+    },
+    "youtubeWatch": "Watch on the institute’s YouTube",
+    "youtubeNote": "The YouTube player only loads when you click, without advertising cookies.",
+    "ownCopy": "Watch without Google (institute copy)",
+    "backToYoutube": "Watch on YouTube",
+    "transcriptTitle": "Transcript"
   },
   "more": {
     "eyebrow": "Everything that is here",
@@ -4337,7 +4345,10 @@
     "mediaFailed": "Couldn't turn on the camera, screen or microphone. Check the browser permission.",
     "recordFailed": "This browser can't record video.",
     "chatHeld": "Your message was received and appears for everyone after moderation reads it.",
-    "chatPending": "awaiting moderation"
+    "chatPending": "awaiting moderation",
+    "youtubeLive": "Broadcast on the institute’s YouTube",
+    "youtubeWatch": "Watch the broadcast",
+    "youtubeNote": "The YouTube player only loads when you click, without advertising cookies. The class chat stays here on the site."
   },
   "notebook": {
     "eyebrow": "Study room",

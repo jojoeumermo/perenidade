@@ -3073,7 +3073,10 @@
       "transcript": "Lire la transcription",
       "hideTranscript": "Cacher la transcription",
       "keys": "Raccourcis : espace lance et met en pause, les flèches déplacent de 5 secondes, < et > changent la vitesse, M coupe le son, C active les sous-titres, F plein écran.",
-      "error": "Cette vidéo ne peut pas être lue pour le moment."
+      "error": "Cette vidéo ne peut pas être lue pour le moment.",
+      "listen": "Audio seul",
+      "watch": "Afficher l’image",
+      "listening": "Audio seul : l’image est masquée. La transcription suit ci-dessous."
     },
     "comments": {
       "title": "Commentaires",
@@ -3098,7 +3101,12 @@
         "mediacao": "Médiation",
         "equipe": "Équipe"
       }
-    }
+    },
+    "youtubeWatch": "Regarder sur le YouTube de l’institut",
+    "youtubeNote": "Le lecteur YouTube ne se charge que lorsque vous cliquez, sans cookies publicitaires.",
+    "ownCopy": "Regarder sans Google (copie de l’institut)",
+    "backToYoutube": "Regarder sur YouTube",
+    "transcriptTitle": "Transcription"
   },
   "more": {
     "eyebrow": "Tout ce qu'il y a ici",
@@ -4337,7 +4345,10 @@
     "mediaFailed": "Impossible d'allumer la caméra, l'écran ou le microphone. Vérifiez l'autorisation du navigateur.",
     "recordFailed": "Ce navigateur ne peut pas enregistrer de vidéo.",
     "chatHeld": "Votre message a été reçu et apparaît pour tout le monde après la lecture de la médiation.",
-    "chatPending": "en attente de médiation"
+    "chatPending": "en attente de médiation",
+    "youtubeLive": "Diffusion sur le YouTube de l’institut",
+    "youtubeWatch": "Regarder la diffusion",
+    "youtubeNote": "Le lecteur YouTube ne se charge que lorsque vous cliquez, sans cookies publicitaires. Le chat du cours reste ici, sur le site."
   },
   "notebook": {
     "eyebrow": "Salle d'étude",

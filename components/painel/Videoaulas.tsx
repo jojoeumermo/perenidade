@@ -22,6 +22,7 @@ import {
   type Formato,
   type Medidas,
 } from "@/lib/videoaula";
+import { linkDoYoutube, mensagemDoCanal, pedirAoCanal } from "@/lib/canal-youtube";
 import { cleanSources, SourcesField, type SourceDraft } from "../Editor";
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
@@ -50,6 +51,42 @@ interface Videoaula {
   transcricao?: string;
   legenda?: string;
   fontes?: { titulo: string; autor?: string; url?: string }[];
+  /** A cópia no canal do instituto no YouTube (supabase/functions/youtube). */
+  youtube?: string | null;
+  youtube_situacao?: "" | "enviando" | "no_ar" | "travado" | "erro";
+  youtube_erro?: string;
+}
+
+/** Como está a cópia de uma aula aprovada no YouTube do instituto, em uma linha (com o link para pôr numa aula). */
+function NoYoutube({ aula }: { aula: Videoaula }) {
+  const [copiado, setCopiado] = useState(false);
+  if (aula.status !== "aprovada") return null;
+  const situacao = aula.youtube_situacao ?? "";
+  if (situacao === "no_ar" && aula.youtube) {
+    const link = linkDoYoutube(aula.youtube);
+    return (
+      <p className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+        <span className="rounded-sm bg-[#c21f16] px-1.5 py-0.5 font-semibold text-white">YouTube</span>
+        <a href={link} target="_blank" rel="noopener noreferrer" className={`${elo} font-mono`}>{link.replace("https://", "")}</a>
+        <button
+          type="button"
+          className={elo}
+          onClick={() => {
+            navigator.clipboard?.writeText(link).then(() => setCopiado(true), () => undefined);
+          }}
+        >
+          {copiado ? "Copiado" : "Copiar o link (para pôr num bloco de vídeo de uma aula)"}
+        </button>
+      </p>
+    );
+  }
+  const textos: Record<string, string> = {
+    enviando: "Indo para o YouTube do instituto…",
+    travado: "Já está no YouTube, mas o Google deixa privado até liberar o canal. Enquanto isso, o site toca a cópia do instituto.",
+    erro: "Não foi para o YouTube. A curadoria pode tentar de novo em “No ar”.",
+    "": "Ainda não foi para o YouTube do instituto.",
+  };
+  return <p className="mt-2 text-xs text-ink-soft">{textos[situacao] ?? textos[""]}</p>;
 }
 
 /** O vídeo pronto para enviar, gravado aqui ou escolhido no aparelho. */
@@ -702,6 +739,7 @@ function Minhas({ lista, erro, recarregar, gravar }: { lista: Videoaula[] | null
               </p>
               <p className="mt-1 font-semibold leading-snug">{aula.titulo}</p>
               {aula.nota && <p className="mt-2 border-l-2 border-gold pl-2 text-sm">Nota da curadoria: {aula.nota}</p>}
+              <NoYoutube aula={aula} />
               {aula.status !== "aprovada" && (
                 <button
                   type="button"
@@ -788,7 +826,16 @@ function Revisar({ me, fila, erro, recarregar }: { me: Me; fila: Videoaula[]; er
                       <textarea value={notas[aula.id] ?? ""} onChange={(e) => setNotas({ ...notas, [aula.id]: e.target.value })} maxLength={1000} rows={2} className={campo} />
                     </label>
                     <div className="flex flex-wrap gap-2">
-                      <button type="button" className={`${botao} rounded-md`} disabled={acao.ocupado} onClick={() => acao.agir("videoaula_decidir", { p_id: aula.id, p_aprovar: true, p_nota: notas[aula.id] ?? "" }, "Aula aprovada. Ela já está no ar.")}>
+                      <button
+                        type="button"
+                        className={`${botao} rounded-md`}
+                        disabled={acao.ocupado}
+                        onClick={async () => {
+                          const ok = await acao.agir("videoaula_decidir", { p_id: aula.id, p_aprovar: true, p_nota: notas[aula.id] ?? "" }, "Aula aprovada. Ela já está no ar e vai também para o YouTube do instituto.");
+                          // O envio ao YouTube segue sozinho; se o canal não estiver ligado ou falhar, dá para tentar de novo em "No ar".
+                          if (ok !== null) void pedirAoCanal({ acao: "enviar", id: aula.id });
+                        }}
+                      >
                         Aprovar e pôr no ar
                       </button>
                       <button type="button" className={`${botaoClaro} rounded-md`} disabled={acao.ocupado || (notas[aula.id] ?? "").trim().length < 5} onClick={() => acao.agir("videoaula_decidir", { p_id: aula.id, p_aprovar: false, p_nota: notas[aula.id] ?? "" }, "Aula recusada. Quem gravou lê a sua nota.")}>
@@ -806,21 +853,49 @@ function Revisar({ me, fila, erro, recarregar }: { me: Me; fila: Videoaula[]; er
   );
 }
 
-/** Só a coordenação: as aulas que estão no ar, com o botão de tirar do ar. */
+/** Só a coordenação: as aulas que estão no ar, a cópia de cada uma no YouTube e o botão de tirar do ar. */
 function NoAr() {
   const { t } = useI18n();
-  const lista = useLista<Videoaula[]>("videoaulas_publicas");
+  const lista = useLista<Videoaula[]>("videoaulas_no_ar");
   const acao = useAcao(lista.recarregar);
   const [nota, setNota] = useState<Record<string, string>>({});
+  const [canal, setCanal] = useState<boolean | null>(null);
+  const [indo, setIndo] = useState("");
+  useEffect(() => {
+    void pedirAoCanal({ acao: "situacao" }).then((r) => setCanal(r.ligado ?? false));
+  }, []);
+  async function aoCanal(acaoNoCanal: "enviar" | "liberar", id: string) {
+    setIndo(id);
+    acao.setAviso(acaoNoCanal === "enviar" ? "Mandando ao YouTube… (pode levar um ou dois minutos)" : "Conferindo no YouTube…");
+    const r = await pedirAoCanal({ acao: acaoNoCanal, id });
+    setIndo("");
+    acao.setAviso(r.erro ? mensagemDoCanal(r.erro) : r.travado ? "O vídeo está no YouTube, mas o Google ainda o deixa privado: falta a auditoria do projeto (docs/YOUTUBE.md)." : "Pronto: a aula está no YouTube do instituto.");
+    lista.recarregar();
+  }
   return (
     <section>
+      <p className="mb-3 flex flex-wrap items-center gap-2 text-sm">
+        <span className={`inline-block h-2.5 w-2.5 rounded-full ${canal ? "bg-ok" : canal === false ? "bg-oxblood" : "bg-rule"}`} aria-hidden />
+        {canal === null ? "Conferindo o canal do YouTube…" : canal ? "Canal do YouTube ligado: cada aula aprovada vai sozinha para lá, como não listada." : "Canal do YouTube desligado: as aulas tocam só pela cópia do instituto. Para ligar, veja docs/YOUTUBE.md."}
+      </p>
       <Aviso texto={lista.erro || acao.aviso} />
       {lista.dados?.length === 0 && <p className="text-ink-soft">Nenhuma aula em vídeo no ar ainda.</p>}
       <ul className="divide-y divide-rule border-y border-rule">
         {lista.dados?.map((aula) => (
           <li key={aula.id} className="flex flex-wrap items-end justify-between gap-3 py-3">
-            <span>
+            <span className="min-w-0">
               <strong>{aula.titulo}</strong> · {t.areas[aula.disciplina as keyof typeof t.areas]?.[0] ?? aula.disciplina} · {aula.nome_autor}
+              <NoYoutube aula={aula} />
+              {canal && (aula.youtube_situacao === "" || aula.youtube_situacao === "erro" || (aula.youtube_situacao === "enviando" && !aula.youtube)) && (
+                <button type="button" className={`${elo} mt-1 text-sm`} disabled={Boolean(indo)} onClick={() => void aoCanal("enviar", aula.id)}>
+                  {indo === aula.id ? "Mandando…" : aula.youtube_situacao === "erro" ? "Tentar de novo no YouTube" : "Mandar ao YouTube"}
+                </button>
+              )}
+              {canal && aula.youtube_situacao === "travado" && (
+                <button type="button" className={`${elo} mt-1 text-sm`} disabled={Boolean(indo)} onClick={() => void aoCanal("liberar", aula.id)}>
+                  {indo === aula.id ? "Conferindo…" : "Conferir de novo se o Google liberou"}
+                </button>
+              )}
             </span>
             <span className="flex flex-wrap items-end gap-2">
               <input value={nota[aula.id] ?? ""} onChange={(e) => setNota({ ...nota, [aula.id]: e.target.value })} placeholder="Motivo" aria-label={`Motivo para tirar do ar: ${aula.titulo}`} className="painel-campo border-2 border-ink bg-parchment-deep px-2 py-1" />

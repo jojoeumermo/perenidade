@@ -3073,7 +3073,10 @@
       "transcript": "Ler a transcrição",
       "hideTranscript": "Esconder a transcrição",
       "keys": "Atalhos: espaço toca e pausa, setas andam 5 segundos, < e > mudam a velocidade, M tira o som, C liga as legendas, F tela cheia.",
-      "error": "Não foi possível tocar este vídeo agora."
+      "error": "Não foi possível tocar este vídeo agora.",
+      "listen": "Só ouvir",
+      "watch": "Ver a imagem",
+      "listening": "Só o som: a imagem está escondida. A transcrição acompanha logo abaixo."
     },
     "comments": {
       "title": "Comentários",
@@ -3098,7 +3101,12 @@
         "mediacao": "Mediação",
         "equipe": "Equipe"
       }
-    }
+    },
+    "youtubeWatch": "Assistir pelo YouTube do instituto",
+    "youtubeNote": "O tocador do YouTube só carrega quando você clica, sem cookies de propaganda.",
+    "ownCopy": "Assistir sem o Google (cópia do instituto)",
+    "backToYoutube": "Assistir pelo YouTube",
+    "transcriptTitle": "Transcrição"
   },
   "more": {
     "eyebrow": "Tudo o que há aqui",
@@ -4337,7 +4345,10 @@
     "mediaFailed": "Não deu para ligar a câmera, a tela ou o microfone. Confira a permissão do navegador.",
     "recordFailed": "Este navegador não grava vídeo.",
     "chatHeld": "Sua fala foi recebida e aparece para todos depois da leitura da mediação.",
-    "chatPending": "aguardando mediação"
+    "chatPending": "aguardando mediação",
+    "youtubeLive": "Transmissão pelo YouTube do instituto",
+    "youtubeWatch": "Assistir à transmissão",
+    "youtubeNote": "O tocador do YouTube só carrega quando você clica, sem cookies de propaganda. O bate-papo da aula continua aqui no site."
   },
   "notebook": {
     "eyebrow": "Sala de estudo",
