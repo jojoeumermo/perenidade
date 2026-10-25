@@ -5155,5 +5155,35 @@
     "semAulas": "Ce parcours n'a pas encore de cours prêts.",
     "kitLink": "Kit du noyau à imprimer",
     "zineLink": "Fanzine à imprimer"
+  },
+  "nucleos": {
+    "eyebrow": "Noyaux d'étude",
+    "title": "Étudier ensemble, près de chez soi",
+    "lead": "Des groupes qui suivent ensemble les cours de l'institut : dans le quartier, l'occupation, le syndicat, l'école. Seuls les noyaux qui l'ont voulu apparaissent ici, avec un lieu de rencontre public, jamais le domicile de quelqu'un.",
+    "carregando": "Chargement des noyaux…",
+    "nenhum": "Il n'y a pas encore de noyau sur la carte. Et si vous lanciez le premier ?",
+    "estados": "Par État",
+    "todos": "Tous",
+    "quando": "Quand :",
+    "onde": "Où :",
+    "contato": "Contacter le noyau",
+    "montarTitulo": "Montez un noyau",
+    "montarTexto": "Il suffit de trois personnes et d'une heure par semaine. Choisissez un parcours et imprimez le kit : affiche d'appel, guide de l'animateur, déroulé de chaque rencontre et feuille de présence.",
+    "escolherTrilha": "Choisir le parcours",
+    "despertar": "Commencer par l'Éveil (formation à partir de zéro)",
+    "aparecerTitulo": "Vous voulez que votre noyau apparaisse ici ?",
+    "aparecerTexto": "Demandez à quelqu'un de l'équipe de l'institut d'inscrire le noyau dans le panneau. La coordination vérifie et ne publie que la ville, la façon de se réunir, un lieu public et le contact du noyau lui-même.",
+    "seguranca": "Par sécurité : ne diffusez ni l'adresse, ni le nom, ni le visage des participants. Un noyau de formation peut être la cible de persécutions.",
+    "tipos": {
+      "bairro": "Dans le quartier",
+      "escola": "À l'école",
+      "trabalho": "Au travail",
+      "universidade": "À l'université",
+      "online": "En ligne",
+      "outro": "Autre"
+    },
+    "exterior": "Étranger",
+    "menu": "Noyaux d'étude",
+    "menuDescricao": "Des groupes qui étudient ensemble près de chez vous, et le kit pour monter le vôtre."
   }
 }

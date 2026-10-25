@@ -5155,5 +5155,35 @@
     "semAulas": "Esta trilha ainda não tem aulas prontas.",
     "kitLink": "Kit do núcleo para imprimir",
     "zineLink": "Zine para imprimir"
+  },
+  "nucleos": {
+    "eyebrow": "Núcleos de estudo",
+    "title": "Estudar junto, perto de casa",
+    "lead": "Grupos que fazem as aulas do instituto juntos: no bairro, na ocupação, no sindicato, na escola. Aqui aparecem só os núcleos que quiseram aparecer, com um lugar público de encontro, nunca a casa de ninguém.",
+    "carregando": "Carregando os núcleos…",
+    "nenhum": "Ainda não há núcleo no mapa. Que tal começar o primeiro?",
+    "estados": "Por estado",
+    "todos": "Todos",
+    "quando": "Quando:",
+    "onde": "Onde:",
+    "contato": "Falar com o núcleo",
+    "montarTitulo": "Monte um núcleo",
+    "montarTexto": "Bastam três pessoas e uma hora por semana. Escolha uma trilha e imprima o kit: cartaz de chamada, guia de quem media, roteiro de cada encontro e lista de presença.",
+    "escolherTrilha": "Escolher a trilha",
+    "despertar": "Começar pelo Despertar (formação do zero)",
+    "aparecerTitulo": "Quer que o seu núcleo apareça aqui?",
+    "aparecerTexto": "Peça a alguém da equipe do instituto para cadastrar o núcleo no painel. A coordenação confere e publica só a cidade, como vocês se encontram, um ponto público e o contato do próprio núcleo.",
+    "seguranca": "Por segurança: não divulgue endereço, nome ou rosto de quem participa. Núcleo de formação pode ser alvo de perseguição.",
+    "tipos": {
+      "bairro": "No bairro",
+      "escola": "Na escola",
+      "trabalho": "No trabalho",
+      "universidade": "Na universidade",
+      "online": "Pela internet",
+      "outro": "Outro"
+    },
+    "exterior": "Exterior",
+    "menu": "Núcleos de estudo",
+    "menuDescricao": "Grupos que estudam juntos perto de você, e o kit para montar o seu."
   }
 }
