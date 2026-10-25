@@ -14193,6 +14193,234 @@ begin
   end loop;
 end $$;
 
+-- ───────────────────────────── Assembleias e votações ─────────────────────────────
+-- A equipe decide junto. A coordenação e a coordenação pedagógica abrem votações para toda a equipe; o representante de
+-- um departamento, para o departamento dele. O voto secreto é secreto de fato: o banco guarda que a pessoa votou (um
+-- resumo embaralhado com o sal secreto, para ninguém votar duas vezes) separado do voto, sem nada que ligue um ao outro.
+-- O resultado só aparece depois do fim da votação (durante, só quantos votaram), para ninguém ir atrás da maioria.
+
+create table if not exists interno.votacoes (
+  id uuid primary key default gen_random_uuid(),
+  titulo text not null check (char_length(titulo) between 5 and 160),
+  descricao text not null default '' check (char_length(descricao) <= 4000),
+  opcoes text[] not null check (cardinality(opcoes) between 2 and 8),
+  departamento text check (departamento is null or departamento ~ '^[a-z_]{2,30}$'),
+  secreta boolean not null default true,
+  encerra_em timestamptz not null,
+  encerrada_em timestamptz,
+  criada_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now()
+);
+create table if not exists interno.votacao_presencas (
+  votacao uuid not null references interno.votacoes (id) on delete cascade,
+  marca text not null check (marca ~ '^[0-9a-f]{32}$'),
+  primary key (votacao, marca)
+);
+create table if not exists interno.votacao_votos (
+  id uuid primary key default gen_random_uuid(),
+  votacao uuid not null references interno.votacoes (id) on delete cascade,
+  opcao smallint not null check (opcao between 0 and 7),
+  -- Só no voto aberto: quem votou em quê aparece no resultado.
+  usuario uuid references interno.perfis (id) on delete set null
+);
+create index if not exists votacao_votos_votacao on interno.votacao_votos (votacao);
+revoke all on interno.votacoes, interno.votacao_presencas, interno.votacao_votos from public;
+
+/** Esta pessoa vota nesta votação? Toda a equipe, ou quem é do departamento (e quem responde por ele). */
+create or replace function interno.vota_em(v interno.votacoes, p_usuario uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.voluntario_e(p_usuario) and (v.departamento is null or interno.membro_direto(p_usuario, v.departamento)
+    or exists (select 1 from papeis p where p.usuario = p_usuario and (p.papel in ('coordenacao', 'vice') or (p.papel = 'representante' and p.disciplina = v.departamento))))
+$$;
+
+/** A marca de presença de uma pessoa numa votação (o sal secreto e a votação; nada que leve à pessoa sem o sal). */
+create or replace function interno.votacao_marca(p_votacao uuid, p_usuario uuid) returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select md5(coalesce((select valor #>> '{}' from configuracoes where chave = 'cuidado_sal'), '') || ':voto:' || p_votacao::text || ':' || coalesce(p_usuario::text, ''))
+$$;
+revoke all on function interno.votacao_marca(uuid, uuid) from public;
+
+create or replace function interno.votacao_json(v interno.votacoes) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('id', v.id, 'titulo', v.titulo, 'descricao', v.descricao, 'opcoes', to_jsonb(v.opcoes), 'departamento', v.departamento, 'secreta', v.secreta,
+    'encerra_em', v.encerra_em, 'terminou_em', least(coalesce(v.encerrada_em, v.encerra_em), v.encerra_em), 'encerrada', v.encerrada_em is not null or v.encerra_em <= now(), 'criado_em', v.criado_em,
+    'criada_por', coalesce((select interno.nome_visto(nome) from perfis where id = v.criada_por), ''),
+    'minha', v.criada_por = auth.uid(),
+    'posso_votar', interno.vota_em(v, auth.uid()),
+    'votei', exists (select 1 from votacao_presencas p where p.votacao = v.id and p.marca = interno.votacao_marca(v.id, auth.uid())),
+    'votantes', (select count(*) from votacao_presencas p where p.votacao = v.id),
+    'aptos', (select count(*) from perfis f where interno.vota_em(v, f.id)),
+    'resultado', case when v.encerrada_em is not null or v.encerra_em <= now() then
+      (select jsonb_agg(jsonb_build_object('opcao', o.i - 1, 'texto', o.t, 'votos', (select count(*) from votacao_votos w where w.votacao = v.id and w.opcao = o.i - 1),
+         'quem', case when not v.secreta then (select coalesce(jsonb_agg(interno.nome_visto(f.nome) order by f.nome), '[]'::jsonb) from votacao_votos w join perfis f on f.id = w.usuario where w.votacao = v.id and w.opcao = o.i - 1) end)
+         order by o.i)
+       from unnest(v.opcoes) with ordinality as o(t, i)) end)
+$$;
+
+create or replace function public.votacoes_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(interno.votacao_json(v) order by (v.encerrada_em is null and v.encerra_em > now()) desc, v.encerra_em desc), '[]'::jsonb)
+          from votacoes v where v.criado_em > now() - interval '365 days' and (v.departamento is null or interno.vota_em(v, auth.uid()) or interno.coord() or interno.tem('vice')));
+end $$;
+
+/** Abrir uma votação: a coordenação (para a equipe ou um departamento) ou o representante (para o departamento dele). */
+create or replace function public.votacao_criar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x votacoes; v_dep text := nullif(btrim(coalesce(p ->> 'departamento', '')), ''); v_opcoes text[]; v_fim timestamptz;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  if not (interno.coord() or interno.tem('vice') or (v_dep is not null and interno.responde_departamento(v_dep))) then perform interno.erro('sem_permissao'); end if;
+  select coalesce(array_agg(btrim(o #>> '{}')) filter (where btrim(o #>> '{}') <> ''), '{}') into v_opcoes from jsonb_array_elements(coalesce(p -> 'opcoes', '[]'::jsonb)) o;
+  if cardinality(v_opcoes) < 2 or cardinality(v_opcoes) > 8 or exists (select 1 from unnest(v_opcoes) t where char_length(t) > 120) then perform interno.erro('invalido:opcoes'); end if;
+  begin
+    v_fim := (p ->> 'encerra_em')::timestamptz;
+  exception when others then perform interno.erro('invalido:encerra_em');
+  end;
+  if v_fim is null or v_fim < now() + interval '1 hour' or v_fim > now() + interval '60 days' then perform interno.erro('invalido:encerra_em'); end if;
+  perform interno.limite('votacao_criar', 10, 1440);
+  insert into votacoes (titulo, descricao, opcoes, departamento, secreta, encerra_em, criada_por)
+  values (interno.txt(p ->> 'titulo', 'titulo', 5, 160), interno.txt(coalesce(p ->> 'descricao', ''), 'descricao', 0, 4000), v_opcoes, v_dep, coalesce((p ->> 'secreta')::boolean, true), v_fim, v)
+  returning * into x;
+  perform interno.registrar('votacao_aberta', x.titulo, jsonb_build_object('id', x.id, 'departamento', v_dep));
+  insert into avisos (para, texto)
+  select f.id, left(format('Votação aberta%s: “%s”. Vote até %s, em Assembleias.', case when v_dep is not null then ' no departamento' else '' end, x.titulo, to_char(x.encerra_em at time zone 'America/Sao_Paulo', 'DD/MM HH24:MI')), 500)
+  from perfis f where f.id <> v and interno.vota_em(x, f.id);
+  return interno.votacao_json(x);
+end $$;
+
+/** Votar uma vez. No voto secreto, a presença e o voto ficam em lugares separados, sem ligação. */
+create or replace function public.votar(p_id uuid, p_opcao integer) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x votacoes;
+begin
+  select * into x from votacoes where id = p_id;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if x.encerrada_em is not null or x.encerra_em <= now() then perform interno.erro('encerrada'); end if;
+  if not interno.vota_em(x, v) then perform interno.erro('sem_permissao'); end if;
+  if p_opcao is null or p_opcao < 0 or p_opcao >= cardinality(x.opcoes) then perform interno.erro('invalido:opcao'); end if;
+  insert into votacao_presencas (votacao, marca) values (x.id, interno.votacao_marca(x.id, v)) on conflict do nothing;
+  if not found then perform interno.erro('ja_votou'); end if;
+  insert into votacao_votos (votacao, opcao, usuario) values (x.id, p_opcao, case when x.secreta then null else v end);
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.votacao_encerrar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x votacoes;
+begin
+  select * into x from votacoes where id = p_id for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if not (x.criada_por = v or interno.coord()) then perform interno.erro('sem_permissao'); end if;
+  update votacoes set encerrada_em = coalesce(encerrada_em, now()) where id = p_id returning * into x;
+  perform interno.registrar('votacao_encerrada', x.titulo, jsonb_build_object('id', x.id));
+  return interno.votacao_json(x);
+end $$;
+
+-- ───────────────────────────── Banco de pautas e calendário editorial ─────────────────────────────
+-- Todas as ideias de matéria, episódio, post, aula e vídeo num lugar só, com quem cuida e a data prevista; e o
+-- calendário único que junta as pautas, os posts da divulgação, as aulas ao vivo e as reuniões.
+
+create table if not exists interno.pautas (
+  id uuid primary key default gen_random_uuid(),
+  titulo text not null check (char_length(titulo) between 3 and 160),
+  descricao text not null default '' check (char_length(descricao) <= 3000),
+  tipo text not null default 'jornal' check (tipo in ('jornal', 'podcast', 'instagram', 'aula', 'video', 'radio', 'outro')),
+  status text not null default 'ideia' check (status in ('ideia', 'apurando', 'produzindo', 'revisao', 'publicada', 'descartada')),
+  responsavel uuid references interno.perfis (id) on delete set null,
+  data_prevista date,
+  link text not null default '' check (link = '' or (char_length(link) <= 500 and link ~ '^https://[^\s]{3,}$')),
+  criado_por uuid references interno.perfis (id) on delete set null,
+  criado_em timestamptz not null default now(),
+  atualizado_em timestamptz not null default now()
+);
+create index if not exists pautas_status on interno.pautas (status, data_prevista);
+revoke all on interno.pautas from public;
+
+/** O departamento de cada tipo de pauta: quem cuida dele também mexe em qualquer pauta do tipo. */
+create or replace function interno.pauta_departamento(p_tipo text) returns text language sql immutable as $$
+  select case p_tipo when 'aula' then 'educacao' when 'video' then 'educacao' else 'jornalismo' end
+$$;
+
+create or replace function interno.pauta_json(x interno.pautas) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select jsonb_build_object('id', x.id, 'titulo', x.titulo, 'descricao', x.descricao, 'tipo', x.tipo, 'status', x.status, 'data_prevista', x.data_prevista, 'link', x.link,
+    'responsavel', x.responsavel, 'responsavel_nome', coalesce((select interno.nome_visto(nome) from perfis where id = x.responsavel), ''),
+    'criado_por', coalesce((select interno.nome_visto(nome) from perfis where id = x.criado_por), ''), 'criado_em', x.criado_em, 'atualizado_em', x.atualizado_em,
+    'mexo', x.criado_por = auth.uid() or x.responsavel = auth.uid() or interno.membro_direto(auth.uid(), interno.pauta_departamento(x.tipo)) or interno.responde_departamento(interno.pauta_departamento(x.tipo)))
+$$;
+
+create or replace function public.pautas_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(interno.pauta_json(x) order by x.data_prevista nulls last, x.atualizado_em desc), '[]'::jsonb)
+          from pautas x where x.status not in ('publicada', 'descartada') or x.atualizado_em > now() - interval '60 days');
+end $$;
+
+/** Propor (qualquer pessoa da equipe) ou mudar uma pauta (quem criou, quem cuida dela e o departamento do tipo). */
+create or replace function public.pauta_salvar(p_id uuid, p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x pautas; v_resp uuid; v_data date;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  begin
+    v_resp := nullif(p ->> 'responsavel', '')::uuid;
+    v_data := nullif(p ->> 'data_prevista', '')::date;
+  exception when others then perform interno.erro('invalido:pauta');
+  end;
+  if v_resp is not null and not interno.voluntario_e(v_resp) then perform interno.erro('invalido:responsavel'); end if;
+  if p_id is null then
+    perform interno.limite('pauta_salvar', 60, 1440);
+    insert into pautas (titulo, descricao, tipo, status, responsavel, data_prevista, link, criado_por)
+    values (interno.txt(p ->> 'titulo', 'titulo', 3, 160), interno.txt(coalesce(p ->> 'descricao', ''), 'descricao', 0, 3000), coalesce(p ->> 'tipo', 'jornal'),
+            coalesce(p ->> 'status', 'ideia'), v_resp, v_data, btrim(coalesce(p ->> 'link', '')), v)
+    returning * into x;
+  else
+    select * into x from pautas where id = p_id for update;
+    if not found then perform interno.erro('nao_encontrado'); end if;
+    if not (x.criado_por = v or x.responsavel = v or interno.membro_direto(v, interno.pauta_departamento(x.tipo)) or interno.responde_departamento(interno.pauta_departamento(x.tipo))) then
+      perform interno.erro('sem_permissao');
+    end if;
+    update pautas set titulo = interno.txt(coalesce(p ->> 'titulo', titulo), 'titulo', 3, 160), descricao = interno.txt(coalesce(p ->> 'descricao', descricao), 'descricao', 0, 3000),
+      tipo = coalesce(p ->> 'tipo', tipo), status = coalesce(p ->> 'status', status), responsavel = case when p ? 'responsavel' then v_resp else responsavel end,
+      data_prevista = case when p ? 'data_prevista' then v_data else data_prevista end, link = case when p ? 'link' then btrim(coalesce(p ->> 'link', '')) else link end, atualizado_em = now()
+    where id = p_id returning * into x;
+  end if;
+  if x.responsavel is not null and x.responsavel <> v then
+    perform interno.avisar(x.responsavel, format('Você está cuidando da pauta “%s”. Veja em Pautas e calendário.', left(x.titulo, 100)));
+  end if;
+  return interno.pauta_json(x);
+exception when check_violation then perform interno.erro('invalido:pauta');
+end $$;
+
+/** O calendário único: pautas com data, posts da divulgação, aulas ao vivo e reuniões, de um período (até 120 dias). */
+create or replace function public.calendario_equipe(p_de date, p_ate date) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v_de date := coalesce(p_de, current_date); v_ate date := least(coalesce(p_ate, current_date + 30), coalesce(p_de, current_date) + 120);
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return coalesce((select jsonb_agg(e order by e ->> 'dia', e ->> 'hora') from (
+    select jsonb_build_object('tipo', 'pauta', 'subtipo', x.tipo, 'id', x.id, 'titulo', x.titulo, 'dia', x.data_prevista, 'hora', '', 'situacao', x.status,
+             'quem', coalesce((select interno.nome_visto(nome) from perfis where id = x.responsavel), '')) as e
+      from pautas x where x.data_prevista between v_de and v_ate and x.status <> 'descartada'
+    union all
+    select jsonb_build_object('tipo', 'post', 'subtipo', d.formato, 'id', d.id, 'titulo', d.titulo, 'dia', d.data_prevista, 'hora', '', 'situacao', d.situacao, 'quem', '')
+      from divulgacao d where d.data_prevista between v_de and v_ate
+    union all
+    select jsonb_build_object('tipo', 'aula', 'subtipo', a.disciplina, 'id', a.id, 'titulo', a.titulo, 'dia', (a.inicio at time zone 'America/Sao_Paulo')::date,
+             'hora', to_char(a.inicio at time zone 'America/Sao_Paulo', 'HH24:MI'), 'situacao', a.status, 'quem', coalesce((select interno.nome_visto(nome) from perfis where id = a.educador), ''))
+      from aulas_ao_vivo a where a.status <> 'cancelada' and (a.inicio at time zone 'America/Sao_Paulo')::date between v_de and v_ate
+    union all
+    select jsonb_build_object('tipo', 'reuniao', 'subtipo', r.tipo, 'id', r.id, 'titulo', r.titulo, 'dia', (r.inicio at time zone 'America/Sao_Paulo')::date,
+             'hora', to_char(r.inicio at time zone 'America/Sao_Paulo', 'HH24:MI'), 'situacao', r.status, 'quem', '')
+      from reunioes r where r.status <> 'cancelada' and (r.inicio at time zone 'America/Sao_Paulo')::date between v_de and v_ate and (interno.reuniao_entra(r) or r.tipo = 'aberta')
+  ) eventos), '[]'::jsonb);
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('votacoes_listar', 'votacao_criar', 'votar', 'votacao_encerrar', 'pautas_listar', 'pauta_salvar', 'calendario_equipe') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança
 -- por linha até a próxima execução deste arquivo. Aqui, no fim, toda tabela do esquema interno fica com a segurança por
