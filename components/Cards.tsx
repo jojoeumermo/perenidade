@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-import Link from "next/link";
+import Link from "@/components/Link";
 import { fill, localePath, type Locale } from "@/i18n/config";
 import type { Book, Source, Track } from "@/lib/content";
 import { lessonId } from "@/lib/ids";

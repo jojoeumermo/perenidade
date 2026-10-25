@@ -51,15 +51,29 @@ export const isApp = () =>
     navigator.userAgent.indexOf("; wv)") > -1 ||
     (navigator as { standalone?: boolean }).standalone === true);
 
-export const prefsScript = `(function(){try{var d=document.documentElement;if(matchMedia("(display-mode: standalone), (display-mode: minimal-ui)").matches||navigator.userAgent.indexOf("; wv)")>-1||navigator.standalone===true){d.setAttribute("data-app","");var c=function(){var m=document.querySelector('meta[name="viewport"]');if(m&&m.content.indexOf("viewport-fit")<0)m.content+=", viewport-fit=cover, interactive-widget=resizes-content";return m};if(!c())document.addEventListener("DOMContentLoaded",c)}}catch(e){}try{var d=document.documentElement;if(${readerDevice}.test(navigator.userAgent)){d.setAttribute("data-leitor","");d.setAttribute("data-eink","")}}catch(e){}try{var d=document.documentElement,t=localStorage.getItem("${KEYS.theme}");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);var p=JSON.parse(localStorage.getItem("${KEYS.a11y}")||"{}");if(p.scale>100)d.style.fontSize=p.scale+"%";["contrast","eink","spacing","focus","black","light"].forEach(function(k){if(p[k])d.setAttribute("data-"+k,"")})}catch(e){}})()`;
+export const prefsScript = `(function(){try{var d=document.documentElement;if(matchMedia("(display-mode: standalone), (display-mode: minimal-ui)").matches||navigator.userAgent.indexOf("; wv)")>-1||navigator.standalone===true){d.setAttribute("data-app","");var c=function(){var m=document.querySelector('meta[name="viewport"]');if(m&&m.content.indexOf("viewport-fit")<0)m.content+=", viewport-fit=cover, interactive-widget=resizes-content";return m};if(!c())document.addEventListener("DOMContentLoaded",c)}}catch(e){}try{var d=document.documentElement;if(${readerDevice}.test(navigator.userAgent)){d.setAttribute("data-leitor","");d.setAttribute("data-eink","")}}catch(e){}try{var d=document.documentElement,t=localStorage.getItem("${KEYS.theme}");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);var p=JSON.parse(localStorage.getItem("${KEYS.a11y}")||"{}");if(p.scale>100)d.style.fontSize=p.scale+"%";["contrast","eink","spacing","focus","black","light"].forEach(function(k){if(p[k])d.setAttribute("data-"+k,"")});if(p.light===undefined&&((navigator.connection&&navigator.connection.saveData)||matchMedia("(prefers-reduced-data: reduce)").matches))d.setAttribute("data-light","")}catch(e){}})()`;
+
+/**
+ * O aparelho pede economia de dados: o modo "Economizar dados" do Android e do Chrome (navigator.connection.saveData,
+ * o mesmo do cabeçalho Save-Data) ou a preferência prefers-reduced-data. Vale enquanto a pessoa não escolher.
+ */
+export function pedeEconomia(): boolean {
+  if (typeof window === "undefined") return false;
+  const conexao = (navigator as { connection?: { saveData?: boolean } }).connection;
+  return conexao?.saveData === true || window.matchMedia("(prefers-reduced-data: reduce)").matches;
+}
+
+function comEconomia(guardado: Partial<Prefs>): Prefs {
+  return { ...defaultPrefs, light: guardado.light ?? pedeEconomia(), ...guardado };
+}
 
 export function readPrefs(): Prefs {
-  return { ...defaultPrefs, ...parse<Partial<Prefs>>(getItem(KEYS.a11y), {}) };
+  return comEconomia(parse<Partial<Prefs>>(getItem(KEYS.a11y), {}));
 }
 
 export function usePrefs(): Prefs {
   const raw = useStored(KEYS.a11y);
-  return useMemo(() => ({ ...defaultPrefs, ...parse<Partial<Prefs>>(raw, {}) }), [raw]);
+  return useMemo(() => comEconomia(parse<Partial<Prefs>>(raw, {})), [raw]);
 }
 
 export function setPrefs(patch: Partial<Prefs>) {
@@ -73,5 +87,5 @@ export function setPrefs(patch: Partial<Prefs>) {
 
 export function resetPrefs() {
   setItem(KEYS.a11y, null);
-  applyPrefs(defaultPrefs);
+  applyPrefs(comEconomia({}));
 }

@@ -2,7 +2,7 @@
 import GithubSlugger from "github-slugger";
 import type { Metadata } from "next";
 import { ExerciciosDaAula } from "@/components/ExerciciosDaAula";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { DadosEstruturados } from "@/components/DadosEstruturados";
 import { migalhas, recursoDeAula } from "@/lib/dados-estruturados";
 import { notFound } from "next/navigation";

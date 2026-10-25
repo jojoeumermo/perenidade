@@ -787,6 +787,9 @@
     "offlineSaved": "Gardé sur cet appareil. Vous pouvez ouvrir les cours sans connexion.",
     "offlineFailed": "Impossible d'enregistrer pour le moment. Vérifiez la connexion et réessayez.",
     "offlineUnsupported": "Ce navigateur ne peut pas garder de pages.",
+    "offlineSize": "Occupe {tamanho} sur cet appareil.",
+    "offlineRemove": "Retirer de l'appareil",
+    "offlineRemoved": "Les cours de ce parcours ont été retirés de l'appareil.",
     "epub": "Télécharger le parcours en livre numérique (EPUB)",
     "epubHint": "s'ouvre sur Kindle (via Send to Kindle), Kobo et les applications de lecture",
     "jump": "Aller à",
@@ -1574,8 +1577,8 @@
     "reset": "Rétablir les réglages",
     "black": "Noir pur",
     "blackHint": "Un fond entièrement noir dans le thème sombre : consomme moins de batterie sur les écrans AMOLED.",
-    "light": "Mode léger",
-    "lightHint": "Cache les images et le lecteur de radio, retire les animations et utilise les polices de votre appareil. Bon pour les connexions lentes."
+    "light": "Économie de données (mode léger)",
+    "lightHint": "Cache les images, les vidéos et le lecteur de radio, retire les animations et utilise les polices de votre appareil. S'active tout seul quand le téléphone est en mode économie de données."
   },
   "data": {
     "eyebrow": "Vos données sont à vous",
