@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Forum } from "@/components/Forum";
+import { ComunidadeComRede } from "@/components/comunidade/ComunidadeComRede";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
 
@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/comunidade
   return paginaMeta(lang, "/comunidade", t.community.title, t.community.lead);
 }
 
-/** Conversas: a lista com a barra de ferramentas presa no alto, as salas e as regras ao lado (ou recolhidas, no celular). */
+/** A Comunidade: a Rede Lúcia (linha do tempo de posts curtos) e o fórum (tópicos por sala), numa página só. */
 export default async function Comunidade({ params }: PageProps<"/[lang]/comunidade">) {
   const { t } = await loadLang(params);
   return (
@@ -24,7 +24,7 @@ export default async function Comunidade({ params }: PageProps<"/[lang]/comunida
         <p className="max-w-xl text-ink-soft">{t.community.lead}</p>
       </header>
       <Suspense>
-        <Forum s={t.community} />
+        <ComunidadeComRede forum={t.community} rede={t.rede} />
       </Suspense>
     </div>
   );
