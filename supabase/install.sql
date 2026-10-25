@@ -13419,6 +13419,78 @@ begin
   end loop;
 end $$;
 
+-- ───────────────────────────── Bloqueio de entrada por tentativas ─────────────────────────────
+-- Quem erra a senha (ou o código do autenticador) muitas vezes fica 15 minutos sem poder tentar de novo. A conta é por
+-- origem embaralhada (interno.origem: o endereço de rede vira um resumo e nunca é guardado em claro) e pelo par
+-- origem + conta: 5 erros na mesma conta, ou 10 em contas diferentes, a partir do mesmo lugar, em 15 minutos. Ninguém
+-- consegue trancar a conta de outra pessoa de outro lugar (o bloqueio é sempre de quem tenta). A tentativa certa limpa
+-- os erros do par, e só quem acabou de entrar com aquela conta consegue limpar.
+
+create table if not exists interno.entradas_falhas (
+  origem text not null,
+  conta text not null,
+  quando timestamptz not null default now()
+);
+create index if not exists entradas_falhas_origem on interno.entradas_falhas (origem, quando);
+
+create or replace function interno.entrada_situacao_json(p_conta text) returns jsonb
+language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare
+  v_origem text := interno.origem();
+  v_desde timestamptz := now() - interval '15 minutes';
+  v_par integer;
+  v_todas integer;
+  v_primeira timestamptz;
+begin
+  select count(*) into v_par from entradas_falhas where origem = v_origem and conta = p_conta and quando > v_desde;
+  select count(*), min(quando) into v_todas, v_primeira from entradas_falhas where origem = v_origem and quando > v_desde;
+  if v_par >= 5 or v_todas >= 10 then
+    return jsonb_build_object('bloqueado', true, 'segundos', greatest(60, ceil(extract(epoch from (
+      (select min(quando) from entradas_falhas where origem = v_origem and quando > v_desde and (v_todas >= 10 or conta = p_conta)) + interval '15 minutes' - now())))::integer));
+  end if;
+  return jsonb_build_object('bloqueado', false, 'restam', least(5 - v_par, 10 - v_todas));
+end $$;
+
+/** Antes de tentar: a origem está bloqueada para esta conta? (O e-mail vira um resumo, nunca é guardado.) */
+create or replace function public.entrada_situacao(p_email text) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.limite('entrada_situacao', 60, 15);
+  return interno.entrada_situacao_json(md5('conta:' || lower(btrim(coalesce(p_email, '')))));
+end $$;
+
+/** Depois de um erro de senha ou de código: anota e devolve a situação. */
+create or replace function public.entrada_falhou(p_email text) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_conta text := md5('conta:' || lower(btrim(coalesce(p_email, ''))));
+begin
+  perform interno.limite('entrada_falhou', 40, 15);
+  insert into entradas_falhas (origem, conta) values (interno.origem(), v_conta);
+  if random() < 0.05 then delete from entradas_falhas where quando < now() - interval '1 day'; end if;
+  return interno.entrada_situacao_json(v_conta);
+end $$;
+
+/** Entrou: limpa os erros do par. Só vale para quem está com a sessão daquela conta aberta. */
+create or replace function public.entrada_certa() returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_email text := lower(coalesce((select email from auth.users where id = auth.uid()), ''));
+begin
+  if auth.uid() is null or v_email = '' then return jsonb_build_object('ok', false); end if;
+  delete from entradas_falhas where origem = interno.origem() and conta = md5('conta:' || v_email);
+  return jsonb_build_object('ok', true);
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where p.prokind = 'f' and n.nspname = 'public' and p.proname in ('entrada_situacao', 'entrada_falhou', 'entrada_certa') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+revoke all on function interno.entrada_situacao_json(text) from public;
+
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança
 -- por linha até a próxima execução deste arquivo. Aqui, no fim, toda tabela do esquema interno fica com a segurança por

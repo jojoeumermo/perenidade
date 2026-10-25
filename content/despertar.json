@@ -1,0 +1,115 @@
+{
+  "etapas": [
+    {
+      "id": "olhar",
+      "titulo": "Olhar a própria vida",
+      "pergunta": "Por que eu trabalho tanto e ganho tão pouco?",
+      "texto": "Tudo começa pelo que você já vive: o preço do pão, o aluguel que sobe, a passagem, o patrão, o aplicativo que fica com a maior parte. Antes de qualquer teoria, aprender a dar nome ao que acontece no seu dia.",
+      "aulas": [
+        "o-que-e-o-capitalismo/salario-o-preco-da-forca-de-trabalho",
+        "marxismo-fundamental/o-que-e-uma-classe-social",
+        "marxismo-fundamental/o-que-e-exploracao",
+        "economia-fundamental/juros-o-preco-do-dinheiro",
+        "capitalismo-contemporaneo/capitalismo-de-plataforma-e-uberizacao",
+        "direitos-no-trabalho/o-que-e-a-clt"
+      ],
+      "leituras": ["o-capital-para-criancas"],
+      "tarefa": "Faça a conta: quantas horas do seu mês pagam o seu salário, e quantas ficam com o patrão? Use a calculadora de mais-valia da caixa de ferramentas.",
+      "roda": [
+        "O que mais pesa no seu bolso todo mês? Quem ganha com isso?",
+        "Você já sentiu que trabalhou mais do que recebeu? Conte como foi.",
+        "Quem decide o seu salário, e quem decide o preço das coisas?"
+      ]
+    },
+    {
+      "id": "sistema",
+      "titulo": "Entender o sistema",
+      "pergunta": "Classe, exploração, Estado e ideologia: como tudo se encaixa?",
+      "texto": "O que parece azar ou culpa individual tem uma engrenagem por trás. Aqui entram as ideias que explicam essa engrenagem: mais-valia, luta de classes, racismo e a fábrica de consensos da mídia.",
+      "aulas": [
+        "o-que-e-o-capitalismo/o-que-e-o-capitalismo",
+        "introducao-ao-marxismo/mais-valia",
+        "introducao-ao-marxismo/luta-de-classes",
+        "como-o-capitalismo-surgiu/escravidao-e-capitalismo",
+        "introducao-ao-marxismo/ideologia",
+        "introducao-ao-marxismo/alienacao",
+        "midia-fundamental/como-identificar-uma-noticia-falsa",
+        "introducao-ao-marxismo/como-ler-o-manifesto-comunista"
+      ],
+      "leituras": ["manifesto-do-partido-comunista"],
+      "tarefa": "Assista a um telejornal inteiro e anote: quem fala, quem é ouvido como especialista e quem nunca aparece.",
+      "roda": [
+        "Por que a classe trabalhadora brasileira é, em sua maioria, negra? O que a escravidão tem a ver com o salário de hoje?",
+        "Que ideia você aprendeu na escola ou na TV que hoje parece servir a alguém?",
+        "Se o lucro vem do trabalho, por que quem trabalha fica com tão pouco?"
+      ]
+    },
+    {
+      "id": "historia",
+      "titulo": "Conhecer a história",
+      "pergunta": "Quem lutou antes de nós?",
+      "texto": "Nada do que temos hoje caiu do céu: férias, salário mínimo, voto, escola pública. Cada direito tem nome, data e gente que pagou caro por ele. Conhecer essa história é saber que a luta funciona.",
+      "aulas": [
+        "lutas-do-povo/palmares-e-os-quilombos",
+        "lutas-do-povo/canudos",
+        "lutas-do-povo/a-greve-geral-de-1917",
+        "lutas-do-povo/revolta-da-chibata",
+        "historia-do-brasil/o-golpe-de-1964-e-a-ditadura",
+        "dependencia-e-america-latina/as-ditaduras-do-cone-sul-e-o-projeto-economico-por-tras-delas",
+        "lutas-do-povo/as-greves-do-abc"
+      ],
+      "leituras": [],
+      "tarefa": "Converse com alguém mais velho da sua família ou do bairro sobre como era trabalhar e viver antes. O que mudou, e por quê?",
+      "roda": [
+        "Qual luta desta etapa mais te marcou? Por quê?",
+        "Que direito que você tem hoje foi conquistado por uma greve ou por uma revolta?",
+        "Quem do seu bairro ou da sua família já lutou por alguma coisa? Essa história está escrita em algum lugar?"
+      ]
+    },
+    {
+      "id": "organizar",
+      "titulo": "Organizar-se",
+      "pergunta": "Sozinho ninguém muda nada. Como a gente se junta?",
+      "texto": "Consciência sem organização vira desabafo. Aqui você conhece as formas de se juntar (sindicato, movimento, núcleo, assembleia), aprende a falar em público e a cuidar da própria segurança e da dos companheiros.",
+      "aulas": [
+        "primeiros-passos-na-militancia/por-que-se-organizar-ninguem-muda-a-vida-sozinho",
+        "marxismo-fundamental/o-que-e-um-sindicato",
+        "marxismo-fundamental/o-que-e-uma-greve",
+        "marxismo-fundamental/o-que-e-solidariedade-de-classe",
+        "organizacao-de-base/como-conduzir-uma-reuniao-pauta-tempo-e-encaminhamentos",
+        "oratoria-e-lideranca/falar-em-uma-assembleia",
+        "seguranca-e-cuidado-na-militancia/celular-seguro-senha-criptografia-e-aplicativos",
+        "direito-fundamental/abordagem-policial-seus-direitos"
+      ],
+      "leituras": [],
+      "tarefa": "Vá a uma assembleia, reunião de sindicato, encontro de movimento ou conselho do seu bairro. Só observe: quem fala, como se decide, o que fica para depois.",
+      "roda": [
+        "O que você viu na reunião que foi? O que funcionou e o que não funcionou?",
+        "Qual problema do seu bairro ou do seu trabalho só se resolve com mais gente junto?",
+        "O que te dá medo de se organizar? Como o coletivo pode cuidar disso?"
+      ]
+    },
+    {
+      "id": "agir",
+      "titulo": "Agir e liderar",
+      "pergunta": "De militante a quadro: como liderar sem largar a base?",
+      "texto": "Quem aprendeu tem a tarefa de ensinar. Esta etapa forma quem vai puxar núcleos, conduzir lutas e, se for o caso, disputar a política institucional sem esquecer de onde veio e para quem trabalha.",
+      "aulas": [
+        "organizacao-de-base/formar-um-nucleo-de-estudo",
+        "educacao-popular-fundamental/quem-foi-paulo-freire",
+        "educacao-popular-fundamental/circulos-de-cultura",
+        "eleicoes-partidos-e-voto/o-que-e-um-partido-e-como-se-cria-um",
+        "eleicoes-partidos-e-voto/depois-da-eleicao-como-cobrar",
+        "formacao-militante-superior/etica-militante-coerencia-disciplina-e-camaradagem",
+        "formacao-militante-superior/analise-de-conjuntura-como-fazer"
+      ],
+      "leituras": [],
+      "tarefa": "Puxe um encontro de estudo com pelo menos três pessoas do seu bairro, do trabalho ou da escola, usando o roteiro de uma das etapas.",
+      "roda": [
+        "O que você aprendeu no Despertar que quer ensinar a alguém? Para quem?",
+        "Como liderar sem mandar? O que diferencia uma liderança de um chefe?",
+        "Que luta concreta o seu núcleo pode abraçar nos próximos meses?"
+      ]
+    }
+  ]
+}

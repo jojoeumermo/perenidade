@@ -151,6 +151,22 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       {/* ── Saúde Solidária, entre a busca e as janelas (some sozinha depois do prazo) ── */}
       <FaixaDaSaude estaticos={saude.profissionais as Profissional[]} href={to("/saude")} />
 
+      {/* ── Mais do que aulas: o instituto forma gente para a luta, e o Despertar é a porta de entrada ── */}
+      <section className="capa-preta relative overflow-hidden border-y-4 border-[#c21f16] bg-[#1f1a14] text-[#f4ecd8]">
+        <Star className="pointer-events-none absolute -right-14 -bottom-20 h-72 w-72 rotate-12 text-[#c21f16] max-md:h-44 max-md:w-44" />
+        <div className="relative mx-auto grid max-w-[78rem] items-center gap-8 px-4 py-14 sm:px-6 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:px-8 max-md:py-10">
+          <div className="min-w-0">
+            <p className="font-mono text-xs uppercase tracking-[0.22em] text-[#e0837a]">{h.moreKicker}</p>
+            <h2 className="mt-3 text-[2.5rem] font-medium leading-[1.02] text-balance sm:text-[3.2rem]">{h.moreTitle}</h2>
+            <p className="mt-4 max-w-[40rem] text-[1.2rem] leading-relaxed text-[#e9dcbc]">{h.moreText}</p>
+          </div>
+          <div className="flex flex-col items-start gap-4 md:items-end">
+            <Link href={to("/despertar")} className="botao botao-prelo text-lg">{h.moreStart} →</Link>
+            <Link href={to("/sobre")} className="font-sans font-bold text-[#f4ecd8] underline decoration-[#c21f16] decoration-2 underline-offset-4 hover:text-white">{h.moreManifesto}</Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── As três janelas ── */}
       <section>
         <div className="mx-auto grid max-w-[78rem] gap-8 px-4 py-14 sm:px-6 md:grid-cols-3 lg:px-8 max-md:py-8">

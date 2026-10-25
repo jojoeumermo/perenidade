@@ -48,7 +48,9 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   const [again, setAgain] = useState("");
   // Como a pessoa quer ser chamada no site: pode ser apelido. Vazio, o banco sorteia um codinome.
   const [apelido, setApelido] = useState("");
-  const [state, setState] = useState<"idle" | "sending" | "wrong" | "failed" | "unconfirmed" | "resent" | "invalid" | "confirm" | "saved" | "code" | "badCode" | "leaked">("idle");
+  const [state, setState] = useState<"idle" | "sending" | "wrong" | "failed" | "unconfirmed" | "resent" | "invalid" | "confirm" | "saved" | "code" | "badCode" | "leaked" | "blocked">("idle");
+  /** Minutos que faltam para poder tentar de novo, depois de muitos erros. */
+  const [espera, setEspera] = useState(15);
   const [detail, setDetail] = useState("");
   /** O aplicativo autenticador cadastrado na conta que acabou de acertar a senha. */
   const [factor, setFactor] = useState("");
@@ -153,13 +155,33 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
     }
   }
 
+  /** Situação do bloqueio por tentativas (ver install.sql): true quando esta origem está bloqueada para a conta. */
+  async function bloqueado(funcao: "entrada_situacao" | "entrada_falhou", conta: string) {
+    try {
+      const r = await rpc<{ bloqueado: boolean; segundos?: number }>(funcao, { p_email: conta });
+      if (r?.bloqueado) {
+        setEspera(Math.max(1, Math.ceil((r.segundos ?? 900) / 60)));
+        return true;
+      }
+    } catch {
+      // Banco antigo, sem o bloqueio: segue como antes.
+    }
+    return false;
+  }
+
   async function enter() {
     setState("sending");
     setFingerNote("");
+    if (!localBackend && (await bloqueado("entrada_situacao", email))) {
+      setState("blocked");
+      done();
+      return;
+    }
     try {
       const supabase = await getClient();
       const { error } = await supabase.auth.signInWithPassword({ email, password: localBackend ? "local" : password, options: { captchaToken: token || undefined } });
       if (error) throw error;
+      void rpc("entrada_certa").catch(() => undefined);
       await finish();
     } catch (failure) {
       // O motivo exato ajuda a coordenação a consertar: senha errada é uma coisa, serviço fora do ar é outra.
@@ -171,6 +193,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         return;
       }
       setDetail(code === "invalid_credentials" ? "" : [reason.status, code, reason.message].filter(Boolean).join(" · ").slice(0, 200));
+      if (code === "invalid_credentials" && !localBackend && (await bloqueado("entrada_falhou", email))) return setState("blocked");
       setState(code === "invalid_credentials" ? "wrong" : "failed");
     } finally {
       done();
@@ -204,6 +227,8 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       setState("idle");
     } catch {
       setDigits("");
+      // O código do autenticador também conta: seis números se adivinham, com tempo.
+      if (!localBackend && (await bloqueado("entrada_falhou", `codigo:${email || me.status}`))) return setState("blocked");
       setState("badCode");
     }
   }
@@ -304,7 +329,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
   }
   if (state === "confirm") return <p role="status" className="mt-8 border-l-2 border-ok pl-4 text-lg">{s.confirm}</p>;
 
-  if (factor && (state === "code" || state === "badCode" || state === "sending")) {
+  if (factor && (state === "code" || state === "badCode" || state === "sending" || state === "blocked")) {
     return (
       <form className="mt-8 max-w-md space-y-5 font-sans text-sm" onSubmit={(e) => { e.preventDefault(); void confirmCode(); }}>
         <h2 className="font-serif text-2xl font-semibold">{s.codeTitle}</h2>
@@ -314,6 +339,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
         </label>
         <button type="submit" disabled={state === "sending" || digits.replace(/\D/g, "").length !== 6} className={primary}>{s.codeConfirm}</button>
         {state === "badCode" && <p role="alert" className="text-oxblood">{s.codeWrong}</p>}
+        {state === "blocked" && <p role="alert" className="border-l-2 border-oxblood pl-3 text-oxblood">{s.blocked.replace("{min}", String(espera))}</p>}
         <CodigoDeRecuperacao s={s} pronto={() => { me.reload(); setState("idle"); }} />
         <p>
           <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => void signOut().then(() => { setFactor(""); setPassword(""); setState("idle"); })}>
@@ -411,6 +437,7 @@ export function SignIn({ s }: { s: Dict["auth"] }) {
       <Captcha action="entrar" lang={lang} round={round} onToken={receive} />
       <button type="submit" disabled={state === "sending" || !email.includes("@") || waiting || password.length < 1} className={primary}>{s.enter}</button>
       {state === "wrong" && <p role="alert" className="text-oxblood">{s.wrong}</p>}
+      {state === "blocked" && <p role="alert" className="border-l-2 border-oxblood pl-3 text-oxblood">{s.blocked.replace("{min}", String(espera))}</p>}
       {expired && state === "idle" && <p role="alert" className="border-l-2 border-oxblood pl-3 text-oxblood">{s.expired}</p>}
       {state === "unconfirmed" && (
         <div role="alert" className="space-y-3 border-l-2 border-oxblood pl-3">
