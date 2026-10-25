@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { notFound } from "next/navigation";
 import { ListaDeHabilidades } from "@/components/estudo/Habilidades";
 import { Markdown } from "@/components/Markdown";

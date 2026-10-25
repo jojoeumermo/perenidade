@@ -1,5 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
-import Link from "next/link";
+import Link from "@/components/Link";
 
 /**
  * O alto das páginas que ainda não usam a <Capa> (components/pagina/Capa.tsx): o mesmo desenho da capa de papel do

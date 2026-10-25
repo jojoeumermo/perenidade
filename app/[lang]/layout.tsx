@@ -25,9 +25,12 @@ import { secoesDoSite } from "@/lib/secoes-do-site";
 import { site } from "@/lib/site";
 
 // O chinês usa as fontes do próprio sistema; o russo, o recorte cirílico das mesmas famílias.
-const serif = EB_Garamond({ variable: "--font-serif-display", subsets: ["latin", "latin-ext", "cyrillic"] });
-const ui = Inter({ variable: "--font-ui", subsets: ["latin", "latin-ext", "cyrillic"] });
-const mono = IBM_Plex_Mono({ variable: "--font-archive", subsets: ["latin", "latin-ext", "cyrillic"], weight: ["400", "500"] });
+// `subsets` só diz o que o navegador baixa antes de tudo (preload): os recortes latin-ext e cirílico continuam no CSS e
+// vêm sozinhos, pela faixa de caracteres, na página que precisar deles. Pré-carregar os três recortes custava 12
+// arquivos (400 KB) a quem abre a página em português num plano de dados curto.
+const serif = EB_Garamond({ variable: "--font-serif-display", subsets: ["latin"] });
+const ui = Inter({ variable: "--font-ui", subsets: ["latin"] });
+const mono = IBM_Plex_Mono({ variable: "--font-archive", subsets: ["latin"], weight: ["400", "500"] });
 // A letra escrita à mão do estúdio de design (bilhetes, legendas de foto revelada): só carrega quando alguém usa.
 const mao = Caveat({ variable: "--font-hand", subsets: ["latin", "latin-ext"], preload: false });
 

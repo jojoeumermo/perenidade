@@ -1,7 +1,7 @@
 // Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/Link";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { hasBackend, rpc } from "@/lib/backend";
 import { AVISO_CURTO, novoNaVitrine, type Profissional, registroCompleto } from "@/lib/saude";

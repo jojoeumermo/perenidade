@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/Link";
 import { useEffect, useRef, useState } from "react";
 import { hasBackend, rpc } from "@/lib/backend";
 import { speechSupported, startReading, stopReading, useSpeaking } from "@/lib/speech";

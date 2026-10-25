@@ -783,6 +783,9 @@
     "offlineSaved": "已保存到本设备。没有网络也能打开这些课程。",
     "offlineFailed": "暂时无法保存。请检查网络后再试。",
     "offlineUnsupported": "此浏览器不支持保存页面。",
+    "offlineSize": "在此设备上占用 {tamanho}。",
+    "offlineRemove": "从设备中移除",
+    "offlineRemoved": "此学习路径的课程已从设备中移除。",
     "epub": "把本课程下载为电子书（EPUB）",
     "epubHint": "可在 Kindle（通过 Send to Kindle）、Kobo 和阅读应用中打开",
     "jump": "跳转到",
@@ -1505,8 +1508,8 @@
     "reset": "恢复默认设置",
     "black": "纯黑",
     "blackHint": "深色主题使用纯黑背景：在 AMOLED 屏幕上更省电。",
-    "light": "轻量模式",
-    "lightHint": "隐藏图片和电台播放器，去掉动画，使用设备自带字体。适合网速慢的时候。"
+    "light": "省流量（轻量模式）",
+    "lightHint": "隐藏图片、视频和电台播放器，去掉动画，使用设备自带字体。手机开启省流量模式时会自动打开。"
   },
   "data": {
     "eyebrow": "你的数据属于你",

@@ -787,6 +787,9 @@
     "offlineSaved": "Guardada neste aparelho. Dá para abrir as aulas sem conexão.",
     "offlineFailed": "Não deu para guardar agora. Confira a conexão e tente de novo.",
     "offlineUnsupported": "Este navegador não permite guardar páginas.",
+    "offlineSize": "Ocupa {tamanho} neste aparelho.",
+    "offlineRemove": "Tirar do aparelho",
+    "offlineRemoved": "As aulas desta trilha saíram do aparelho.",
     "epub": "Baixar a trilha como livro digital (EPUB)",
     "epubHint": "abre no Kindle (pelo Enviar para o Kindle), no Kobo e em aplicativos de leitura",
     "jump": "Ir para",
@@ -1574,8 +1577,8 @@
     "reset": "Restaurar o padrão",
     "black": "Preto absoluto",
     "blackHint": "Fundo totalmente preto no tema escuro: gasta menos bateria em telas AMOLED.",
-    "light": "Modo leve",
-    "lightHint": "Esconde imagens e o tocador da rádio, tira as animações e usa as fontes do próprio aparelho. Bom para internet lenta."
+    "light": "Economia de dados (modo leve)",
+    "lightHint": "Esconde imagens, vídeos e o tocador da rádio, tira as animações e usa as fontes do próprio aparelho. Liga sozinho quando o celular está em economia de dados."
   },
   "data": {
     "eyebrow": "Seus dados são seus",

@@ -1,6 +1,6 @@
 // Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { Cartaz } from "@/components/Cartaz";
 import { Vitrine } from "@/components/saude/Vitrine";
 import { Untranslated } from "@/components/Untranslated";

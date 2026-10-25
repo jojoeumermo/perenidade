@@ -6,7 +6,7 @@
  * do próprio navegador, nunca microfone), o PORTÃO DE ADULTO e a mascote. Nada sai do aparelho, nada identifica a
  * criança: o que fica guardado (mudo, lembrete de pausa) fica só neste navegador e o adulto apaga quando quiser.
  */
-import Link from "next/link";
+import Link from "@/components/Link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 

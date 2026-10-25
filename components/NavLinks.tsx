@@ -1,7 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/Link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { fill, localeNames, localePath, locales } from "@/i18n/config";
