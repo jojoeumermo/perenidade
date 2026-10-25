@@ -5155,5 +5155,35 @@
     "semAulas": "This track has no ready lessons yet.",
     "kitLink": "Printable nucleus kit",
     "zineLink": "Printable zine"
+  },
+  "nucleos": {
+    "eyebrow": "Study nuclei",
+    "title": "Studying together, close to home",
+    "lead": "Groups that take the institute's lessons together: in the neighbourhood, the occupation, the union, the school. Only nuclei that chose to appear are shown here, with a public meeting place, never anyone's home.",
+    "carregando": "Loading the nuclei…",
+    "nenhum": "There is no nucleus on the map yet. How about starting the first one?",
+    "estados": "By state",
+    "todos": "All",
+    "quando": "When:",
+    "onde": "Where:",
+    "contato": "Contact the nucleus",
+    "montarTitulo": "Start a nucleus",
+    "montarTexto": "All it takes is three people and one hour a week. Choose a track and print the kit: call-out poster, facilitator's guide, a plan for each meeting and the attendance list.",
+    "escolherTrilha": "Choose the track",
+    "despertar": "Start with Awakening (training from scratch)",
+    "aparecerTitulo": "Want your nucleus to appear here?",
+    "aparecerTexto": "Ask someone on the institute team to register the nucleus in the panel. The coordination checks it and publishes only the city, how you meet, a public place and the nucleus's own contact.",
+    "seguranca": "For safety: don't share participants' addresses, names or faces. Training nuclei can be targets of persecution.",
+    "tipos": {
+      "bairro": "In the neighbourhood",
+      "escola": "At school",
+      "trabalho": "At work",
+      "universidade": "At university",
+      "online": "Online",
+      "outro": "Other"
+    },
+    "exterior": "Abroad",
+    "menu": "Study nuclei",
+    "menuDescricao": "Groups that study together near you, and the kit to start your own."
   }
 }
