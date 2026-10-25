@@ -2,6 +2,8 @@
 // Roda C e C++ (o essencial: iostream, cstdio, cmath, cstring, cstdlib, ctime) com o interpretador JSCPP, numa linha
 // de execução separada. Não é um compilador de verdade: serve para aprender a linguagem, não para bibliotecas grandes.
 // O JSCPP vem em módulos CommonJS; um require mínimo os carrega do próprio site.
+// Antes de tudo: o código de quem estuda não alcança a sessão, o chaveiro nem outro Worker (veja isolar.js).
+importScripts("/workers/isolar.js");
 const BASE = "/jscpp/";
 const EXTERNOS = { lodash: BASE + "lodash.js", "pegjs-util": BASE + "PEGUtil.js", printf: BASE + "printf.js" };
 const SIMULADOS = { util: { inspect: (x) => JSON.stringify(x) }, stream: { Stream: function Stream() {} } };

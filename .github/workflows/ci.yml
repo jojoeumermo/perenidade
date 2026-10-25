@@ -84,5 +84,11 @@ jobs:
       - run: npm run testar:interdicao
       # A porta de saída para os serviços abertos: só https, só a lista, redirecionamento só dentro da lista.
       - run: npm run testar:externo
+      # Os executores de código (IDE, aulas, ferramentas) não alcançam a sessão, o chaveiro das conversas nem outro Worker.
+      - run: npm run testar:isolamento
+      # A sala das aulas ao vivo: só quem conduz, com a chave registrada e o vídeo assinado, transmite para os alunos.
+      - run: npm run testar:aovivo
+      # Os depósitos de arquivos: o install.sql cria todas as regras e as que contam envios (podcast, Gaveta) funcionam.
+      - run: npm run testar:depositos
       # O build lê e valida todo o conteúdo de content/: arquivo inválido falha aqui.
       - run: npm run build

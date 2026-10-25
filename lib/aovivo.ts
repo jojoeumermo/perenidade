@@ -1,7 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { amarraDoSinal, type Credencial, sinalAceito } from "./aovivo-conferencia";
 import type { Presente, Sala } from "./tempo-real";
+
+export { conferirEducadores, Credencial, provaDaPresenca } from "./aovivo-conferencia";
 
 /** Uma aula ao vivo, como o banco a devolve. */
 export interface Aula {
@@ -24,6 +27,11 @@ export interface Aula {
   inscritos: number;
   inscrito: boolean;
   conduzo: boolean;
+  /**
+   * As chaves públicas de quem conduz (registradas por aula_ao_vivo_sala_chave). Ausente quando o banco ainda não tem a
+   * conferência: aí a sala segue como antes.
+   */
+  chaves?: string[];
   mensagens?: number | null;
 }
 
@@ -76,17 +84,34 @@ export class Transmissao {
   private esperando = new Map<string, RTCIceCandidateInit[]>();
   /** O meu fluxo (câmera ou tela + microfone), quando ensino. */
   local: MediaStream | null = null;
+  /** Quem conduz de verdade (conferido): chave do navegador → chave pública. */
+  educadores = new Map<string, string>();
+  /** A minha chave, quando conduzo (assina o que mando). */
+  credencial: Credencial | null = null;
 
   constructor(
     private readonly sala: Sala,
     private readonly eu: Presente,
     private readonly aoFluxo: (de: string, fluxo: MediaStream | null) => void,
+    private readonly aula = "",
+    /** A conferência das assinaturas está ligada (o banco já tem as chaves da sala). */
+    private readonly exigir = false,
   ) {}
+
+  /** Manda um sinal, assinado quando conduzo. */
+  private enviar(para: string, dados: Record<string, unknown>) {
+    const credencial = this.credencial;
+    if (!credencial) {
+      this.sala.enviar(para, dados);
+      return;
+    }
+    void credencial.assinar(amarraDoSinal(this.aula, this.eu.chave, para, dados)).then((assinatura) => this.sala.enviar(para, dados, assinatura), () => undefined);
+  }
 
   private criar(chave: string): RTCPeerConnection {
     const pc = new RTCPeerConnection({ iceServers: STUN });
     pc.onicecandidate = (e) => {
-      if (e.candidate) this.sala.enviar(chave, { t: "ice", c: e.candidate.toJSON() as unknown as Record<string, unknown> });
+      if (e.candidate) this.enviar(chave, { t: "ice", c: e.candidate.toJSON() as unknown as Record<string, unknown> });
     };
     pc.ontrack = (e) => {
       const fluxo = e.streams[0] ?? new MediaStream([e.track]);
@@ -115,7 +140,7 @@ export class Transmissao {
     try {
       const oferta = await pc.createOffer();
       await pc.setLocalDescription(oferta);
-      this.sala.enviar(chave, { t: "oferta", sdp: oferta.sdp ?? "" });
+      this.enviar(chave, { t: "oferta", sdp: oferta.sdp ?? "" });
     } catch {
       // a ligação com esta pessoa falhou; ela pode pedir de novo
     }
@@ -133,16 +158,20 @@ export class Transmissao {
     }
     if (this.eu.papel !== "educador" || !this.local) return;
     for (const p of presentes) {
-      // Entre dois educadores, quem tem a chave menor oferece (senão os dois ofereceriam ao mesmo tempo).
-      if (p.chave === this.eu.chave || this.pcs.has(p.chave) || (p.papel === "educador" && this.eu.chave > p.chave)) continue;
+      // Entre dois educadores, quem tem a chave menor oferece (senão os dois ofereceriam ao mesmo tempo). Quem diz conduzir
+      // sem a assinatura conferir conta como quem assiste.
+      const educador = p.papel === "educador" && (!this.exigir || this.educadores.has(p.chave));
+      if (p.chave === this.eu.chave || this.pcs.has(p.chave) || (educador && this.eu.chave > p.chave)) continue;
       await this.oferecer(p.chave);
     }
   }
 
   /** Um sinal chegou de outro navegador: oferta, resposta, candidato de rede ou pedido para (re)ligar. */
-  async aoSinal(de: string, dados: Record<string, unknown>) {
+  async aoSinal(de: string, dados: Record<string, unknown>, assinatura = "") {
     const t = dados.t;
     try {
+      const aceito = await sinalAceito({ exigir: this.exigir, aula: this.aula, eu: this.eu, de, dados, assinatura, educadores: this.educadores, temLigacao: this.pcs.has(de) });
+      if (!aceito) return;
       if (t === "oferta" && typeof dados.sdp === "string") {
         const pc = this.pcs.get(de) ?? this.criar(de);
         this.porMeusTrilhos(pc);
@@ -151,7 +180,7 @@ export class Transmissao {
         this.esperando.delete(de);
         const resposta = await pc.createAnswer();
         await pc.setLocalDescription(resposta);
-        this.sala.enviar(de, { t: "resposta", sdp: resposta.sdp ?? "" });
+        this.enviar(de, { t: "resposta", sdp: resposta.sdp ?? "" });
       } else if (t === "resposta" && typeof dados.sdp === "string") {
         const pc = this.pcs.get(de);
         if (pc && pc.signalingState === "have-local-offer") {
@@ -176,7 +205,7 @@ export class Transmissao {
 
   /** Quem assiste pede o vídeo a todo mundo que ensina (ao entrar, ou quando a imagem cai). */
   pedir(educadores: Presente[]) {
-    for (const p of educadores) if (p.chave !== this.eu.chave) this.sala.enviar(p.chave, { t: "pedir" });
+    for (const p of educadores) if (p.chave !== this.eu.chave) this.enviar(p.chave, { t: "pedir" });
   }
 
   /** Troca a câmera pela tela (ou o contrário) sem refazer as ligações. */

@@ -918,6 +918,7 @@ create table if not exists interno.emails (
 );
 create index if not exists emails_fila on interno.emails (status, criado_em);
 create index if not exists emails_para on interno.emails (para, tipo, criado_em);
+create index if not exists emails_tipo on interno.emails (tipo, criado_em);
 
 -- Calendário editorial do marketing e divulgação: o que vai para as redes do instituto, em que formato e quando, e o
 -- material aprovado de cada post. Não guarda senha nem credencial de rede social nenhuma: o acesso ao Instagram é dado
@@ -1055,6 +1056,18 @@ begin
   execute 'select exists (select 1 from auth.mfa_factors m where m.user_id = $1 and m.status = ''verified'')' into v using auth.uid();
   return coalesce(v, false);
 end $$;
+
+/**
+ * A sessão vale para usar uma função da equipe? Conta logada, não suspensa e, se a pessoa cadastrou o aplicativo
+ * autenticador, sessão confirmada com o código. É a mesma regra de interno.tem, para as checagens que precisam olhar a
+ * linha do papel direto (a disciplina exata, o departamento do representante): sem ela, uma senha roubada sozinha abria
+ * essas funções mesmo de quem tem o segundo fator.
+ */
+create or replace function interno.sessao_confiavel() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select auth.uid() is not null
+    and (interno.aal2() or not interno.tem_fator())
+    and not exists (select 1 from perfis where id = auth.uid() and suspenso)
+$$;
 
 /**
  * A pessoa tem este papel? Com a exigência de segundo fator ligada, coordenação, vice-coordenação, supervisão, curadoria e mediação
@@ -1257,11 +1270,30 @@ $$;
  */
 alter table interno.perfis add column if not exists emails_desligados text[] not null default '{}';
 
+/**
+ * Texto digitado por um visitante que vai num e-mail para um endereço que ninguém conferiu (o "recebemos o seu pedido"):
+ * sem ponto, dois-pontos, barra, arroba e companhia, não sobra link, domínio nem endereço de e-mail que o leitor de e-mail
+ * transforme em link. Sem isso, o formulário servia para mandar golpe com o nome do instituto para qualquer pessoa.
+ */
+create or replace function interno.sem_link(p text) returns text language sql immutable as $$
+  select btrim(regexp_replace(regexp_replace(coalesce(p, ''), '[.:/\\@<>#?=&%~{}|^*+$\[\]。．｡․﹒]', ' ', 'g'), '\s+', ' ', 'g'))
+$$;
+
+/** Os e-mails que qualquer visitante dispara (para o endereço que digitar): cada tipo tem um teto por dia, somando todos. */
+create or replace function interno.email_teto_do_dia(p_tipo text) returns integer language sql immutable as $$
+  select case p_tipo when 'inscricao_recebida' then 300 when 'reforco_recebido' then 300 when 'boletim_confirmar' then 300 else null end
+$$;
+
 create or replace function interno.email(p_para text, p_tipo text, p_assunto text, p_texto text, p_sair text default '', p_max integer default 3)
 returns boolean language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v_para text := lower(btrim(coalesce(p_para, '')));
 begin
   if v_para !~ '^[^@[:space:]]+@[^@[:space:]]+[.][^@[:space:]]+$' or char_length(v_para) > 200 then return false; end if;
+  -- Teto geral do dia para os e-mails que um visitante dispara: protege a cota do serviço de envio (e os convites).
+  if interno.email_teto_do_dia(p_tipo) is not null
+     and (select count(*) from emails where tipo = p_tipo and criado_em > now() - interval '1 day') >= interno.email_teto_do_dia(p_tipo) then
+    return false;
+  end if;
   -- Quem é da equipe escolhe, em Minha conta, os avisos por e-mail que não quer receber (convites e segurança sempre chegam).
   if exists (select 1 from auth.users u join perfis f on f.id = u.id where lower(u.email) = v_para and p_tipo = any(f.emails_desligados)) then return false; end if;
   if (select count(*) from emails where para = v_para and tipo = p_tipo and criado_em > now() - interval '1 day') >= coalesce(p_max, 3) then return false; end if;
@@ -2248,7 +2280,7 @@ create or replace function interno.decide(c interno.contribuicoes) returns boole
     interno.coord() or interno.tem('supervisao')
     or (c.tipo in ('obra', 'verbete', 'memorial', 'video', 'frase', 'debate') and interno.curador())
     or (c.tipo not in ('obra', 'verbete', 'memorial', 'video', 'frase', 'debate') and (interno.tem('revisao')
-        or (c.disciplina is not null and exists (select 1 from papeis p where p.usuario = auth.uid() and p.papel in ('educacao', 'educacao_secundaria') and p.disciplina = c.disciplina)))))
+        or (c.disciplina is not null and interno.sessao_confiavel() and exists (select 1 from papeis p where p.usuario = auth.uid() and p.papel in ('educacao', 'educacao_secundaria') and p.disciplina = c.disciplina)))))
 $$;
 
 /**
@@ -3402,7 +3434,7 @@ begin
   if v is not null and (select count(*) from reforco where autor = v and status in ('aberto', 'em_atendimento')) >= 3 then perform interno.erro('limite_pedidos'); end if;
   insert into reforco (autor, email, disciplina, assunto, duvida) values (v, v_email, v_disc, v_assunto, v_duvida) returning id into v_id;
   perform interno.email(v_email, 'reforco_recebido', 'Recebemos seu pedido de aula de reforço',
-    E'Olá.\n\nRecebemos o seu pedido de reforço sobre "' || v_assunto || E'".\n\nAlguém da equipe que ensina essa disciplina vai ler a sua dúvida e responder por este mesmo endereço. '
+    E'Olá.\n\nRecebemos o seu pedido de reforço sobre "' || left(interno.sem_link(v_assunto), 80) || E'".\n\nAlguém da equipe que ensina essa disciplina vai ler a sua dúvida e responder por este mesmo endereço. '
     || E'Às vezes leva alguns dias. Confira também a caixa de spam.\n\nSe não foi você quem pediu, é só ignorar esta mensagem.');
   return jsonb_build_object('id', v_id);
 end $$;
@@ -4932,11 +4964,11 @@ begin
   if exists (select 1 from inscricoes where email = v_email and papel = v_papel and status = 'pendente') then perform interno.erro('ja_pediu'); end if;
   insert into inscricoes (nome, email, papel, disciplina, mensagem, instagram) values (v_nome, v_email, v_papel, v_disc, v_mensagem, v_instagram) returning id into v_id;
   perform interno.email(v_email, 'inscricao_recebida', 'Recebemos seu pedido de voluntariado',
-    'Olá, ' || v_nome || E'.\n\nRecebemos seu pedido para atuar como voluntário(a) no Instituto Lúcia, na função de ' || interno.nome_papel(v_papel) || E'.\n\n'
+    'Olá, ' || coalesce(nullif(left(split_part(interno.sem_link(v_nome), ' ', 1), 40), ''), 'tudo bem') || E'.\n\nRecebemos seu pedido para atuar como voluntário(a) no Instituto Lúcia, na função de ' || interno.nome_papel(v_papel) || E'.\n\n'
     || E'A coordenação lê cada pedido e responde por este mesmo endereço. Se o pedido for aceito, chega aqui o link para você criar a sua conta e entrar no painel da equipe.\n\n'
     || 'Se não foi você quem enviou este pedido, é só ignorar esta mensagem.');
-  perform interno.email_lideranca('inscricao_nova', 'Novo pedido de voluntariado: ' || left(v_nome, 60),
-    v_nome || ' (' || v_email || coalesce(', Instagram @' || v_instagram, '') || ') quer atuar na função de ' || interno.nome_papel(v_papel) || E'.\n\nLeia o pedido e decida no painel: ' || interno.endereco() || '/pt/painel?aba=pessoas');
+  perform interno.email_lideranca('inscricao_nova', 'Novo pedido de voluntariado: ' || left(interno.sem_link(v_nome), 60),
+    interno.sem_link(v_nome) || ' (' || v_email || coalesce(', Instagram @' || v_instagram, '') || ') quer atuar na função de ' || interno.nome_papel(v_papel) || E'.\n\nLeia o pedido e decida no painel: ' || interno.endereco() || '/pt/painel?aba=pessoas');
   return jsonb_build_object('id', v_id);
 end $$;
 
@@ -6883,6 +6915,21 @@ create or replace function interno.gaveta_pode_enviar() returns boolean language
     and (interno.voluntario() or not coalesce((select (valor ->> 'pausa')::boolean from configuracoes where chave = 'site'), false))
 $$;
 
+/**
+ * O PDF em si (o envio vai direto ao depósito, antes de gaveta_enviar registrar a ficha): o nome que o site dá, na própria
+ * pasta, no máximo 6 por dia (a ficha aceita 5; sobra um para tentar de novo) e 60 guardados por conta. Sem isso, o
+ * cadastro aberto deixava qualquer conta encher o depósito com PDFs de 10 MB sem ficha nenhuma.
+ */
+create or replace function interno.gaveta_arquivo_pode(p_nome text) returns boolean language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_dia integer; v_total integer;
+begin
+  if v is null or coalesce(p_nome, '') !~ ('^' || v::text || '/[0-9a-f-]{36}[.]pdf$') then return false; end if;
+  select count(*) filter (where o.created_at > now() - interval '1 day'), count(*) into v_dia, v_total
+  from storage.objects o where o.bucket_id = 'gaveta' and o.name like v::text || '/%';
+  return coalesce(v_dia, 0) < 6 and coalesce(v_total, 0) < 60;
+end $$;
+revoke all on function interno.gaveta_arquivo_pode(text) from public, anon;
+
 -- ───────────────────────────── Permissões ─────────────────────────────
 
 -- As funções internas não podem ser chamadas de fora; as públicas, sim (cada uma faz a própria conferência).
@@ -7400,7 +7447,7 @@ create or replace function interno.podcast_pode(p_funcao text) returns boolean l
   select interno.coord()
     -- A "supervisão do podcast" deixou de ser um cargo próprio: a supervisão geral e o representante do jornalismo
     -- a exercem (quem foi nomeado antes pela função podcast_funcoes continua valendo, pelo caso abaixo).
-    or (p_funcao = 'supervisao' and (interno.tem('supervisao') or exists (select 1 from papeis where usuario = auth.uid() and papel = 'representante' and disciplina = 'jornalismo')))
+    or (p_funcao = 'supervisao' and (interno.tem('supervisao') or (interno.sessao_confiavel() and exists (select 1 from papeis where usuario = auth.uid() and papel = 'representante' and disciplina = 'jornalismo'))))
     or (
     auth.uid() is not null and (interno.aal2() or not interno.tem_fator())
     and not exists (select 1 from perfis where id = auth.uid() and suspenso)
@@ -8652,6 +8699,23 @@ end $$;
 -- "podcast" é público para leitura (o áudio no ar e as capas); só o departamento envia e apaga, e o design envia capas.
 -- "podcast-producao" é fechado: versões de trabalho, trilhas, termos dos convidados e perguntas gravadas.
 -- O limite de 50 MB por arquivo é o do plano gratuito do serviço; arquivo maior entra como link (Internet Archive, Drive).
+/**
+ * "Pergunte ao podcast" com áudio: qualquer conta grava a pergunta no site, e o arquivo vai para a própria pasta antes da
+ * pergunta ser registrada. Sem limite, o cadastro aberto deixava qualquer conta encher o depósito (50 MB por arquivo, de
+ * qualquer tipo). Agora só entra áudio com o nome que o site dá, na própria pasta, no máximo 5 por dia (o mesmo limite
+ * das perguntas) e 20 guardados por conta.
+ */
+create or replace function interno.podcast_pergunta_pode_enviar(p_nome text) returns boolean language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v uuid := auth.uid(); v_dia integer; v_total integer;
+begin
+  if v is null or exists (select 1 from perfis where id = v and suspenso) then return false; end if;
+  if coalesce(p_nome, '') !~ ('^perguntas/' || v::text || '/p-[a-z0-9]{8,80}[.](webm|ogg|mp4|m4a|mp3|wav)$') then return false; end if;
+  select count(*) filter (where o.created_at > now() - interval '1 day'), count(*) into v_dia, v_total
+  from storage.objects o where o.bucket_id = 'podcast-producao' and o.name like 'perguntas/' || v::text || '/%';
+  return coalesce(v_dia, 0) < 5 and coalesce(v_total, 0) < 20;
+end $$;
+revoke all on function interno.podcast_pergunta_pode_enviar(text) from public, anon;
+
 do $$
 begin
   if exists (select 1 from pg_namespace where nspname = 'storage') then
@@ -8678,11 +8742,12 @@ begin
     execute 'drop policy if exists "podcast_producao_envio" on storage.objects';
     execute 'create policy "podcast_producao_envio" on storage.objects for insert to authenticated with check (bucket_id = ''podcast-producao'' and ('
          || '((storage.foldername(name))[1] in (''ep'', ''trilhas'', ''termos'') and interno.podcaster())'
-         || ' or ((storage.foldername(name))[1] = ''perguntas'' and (storage.foldername(name))[2] = auth.uid()::text)))';
+         || ' or ((storage.foldername(name))[1] = ''perguntas'' and interno.podcast_pergunta_pode_enviar(name))))';
     execute 'drop policy if exists "podcast_producao_remocao" on storage.objects';
     execute 'create policy "podcast_producao_remocao" on storage.objects for delete to authenticated using (bucket_id = ''podcast-producao'' and interno.podcaster())';
 
     execute 'grant usage on schema interno to authenticated';
+    execute 'grant execute on function interno.podcast_pergunta_pode_enviar(text) to authenticated';
     execute 'grant execute on function interno.podcaster() to authenticated';
     execute 'grant execute on function interno.podcast_pode(text) to authenticated';
     execute 'grant execute on function interno.podcast_revisor() to authenticated';
@@ -8726,7 +8791,7 @@ begin
     on conflict (id) do update set public = false, file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
 
     execute 'drop policy if exists "gaveta_envio" on storage.objects';
-    execute 'create policy "gaveta_envio" on storage.objects for insert to authenticated with check (bucket_id = ''gaveta'' and (storage.foldername(name))[1] = auth.uid()::text and interno.gaveta_pode_enviar())';
+    execute 'create policy "gaveta_envio" on storage.objects for insert to authenticated with check (bucket_id = ''gaveta'' and (storage.foldername(name))[1] = auth.uid()::text and interno.gaveta_pode_enviar() and interno.gaveta_arquivo_pode(name))';
     execute 'drop policy if exists "gaveta_leitura" on storage.objects';
     execute 'create policy "gaveta_leitura" on storage.objects for select to anon, authenticated using (bucket_id = ''gaveta'' and interno.gaveta_le(name))';
     execute 'drop policy if exists "gaveta_remocao" on storage.objects';
@@ -8735,6 +8800,7 @@ begin
     execute 'grant usage on schema interno to anon, authenticated';
     execute 'grant execute on function interno.gaveta_le(text) to anon, authenticated';
     execute 'grant execute on function interno.gaveta_pode_enviar() to authenticated';
+    execute 'grant execute on function interno.gaveta_arquivo_pode(text) to authenticated';
     execute 'grant execute on function interno.media() to authenticated';
   end if;
 end $$;
@@ -9168,14 +9234,14 @@ end $$;
 /** Quem manda aviso para a equipe: coordenação, vice-coordenação e a supervisão (do podcast ou como função própria). */
 create or replace function interno.supervisiona() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select interno.coord() or interno.tem('supervisao')
-    or exists (select 1 from podcast_funcoes f where f.usuario = auth.uid() and f.funcao = 'supervisao')
+    or (interno.sessao_confiavel() and exists (select 1 from podcast_funcoes f where f.usuario = auth.uid() and f.funcao = 'supervisao'))
 $$;
 
 /** Este aviso é para mim? Vazio é para a equipe toda; "podcast" é a equipe do podcast; o resto são funções. */
 create or replace function interno.aviso_para_mim(p_para text[]) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select cardinality(p_para) = 0
-    or exists (select 1 from papeis p where p.usuario = auth.uid() and p.papel = any (p_para))
-    or ('podcast' = any (p_para) and exists (select 1 from podcast_funcoes f where f.usuario = auth.uid()))
+    or (interno.sessao_confiavel() and exists (select 1 from papeis p where p.usuario = auth.uid() and p.papel = any (p_para)))
+    or ('podcast' = any (p_para) and interno.sessao_confiavel() and exists (select 1 from podcast_funcoes f where f.usuario = auth.uid()))
 $$;
 
 create or replace function public.aviso_geral_enviar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -9257,6 +9323,10 @@ declare v uuid := interno.eu(); v_agora timestamptz := now();
 begin
   if p_chave !~ '^[a-z0-9:_-]{1,80}$' then perform interno.erro('invalido:chave'); end if;
   if p_dados is null or jsonb_typeof(p_dados) <> 'object' or pg_column_size(p_dados) > 204800 then perform interno.erro('invalido:dados'); end if;
+  -- Teto por conta (o cadastro é aberto): 4 MB somando todos os rascunhos. Passou, o rascunho fica só no aparelho.
+  if (select coalesce(sum(pg_column_size(r.dados)), 0) from rascunhos r where r.usuario = v and r.chave <> p_chave) + pg_column_size(p_dados) > 4194304 then
+    perform interno.erro('rascunhos_cheios');
+  end if;
   insert into rascunhos (usuario, chave, dados, atualizado_em) values (v, p_chave, p_dados, v_agora)
   on conflict (usuario, chave) do update set dados = excluded.dados, atualizado_em = v_agora;
   delete from rascunhos r where r.usuario = v and r.chave in (select chave from rascunhos where usuario = v order by atualizado_em desc offset 40);
@@ -9666,13 +9736,31 @@ end $$;
 
 /** Quem dá aula: educação e educação secundária (qualquer disciplina) e a coordenação. */
 create or replace function interno.educador() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
-  select interno.coord() or exists (select 1 from papeis p where p.usuario = auth.uid() and p.papel in ('educacao', 'educacao_secundaria'))
+  select interno.coord() or (interno.sessao_confiavel() and exists (select 1 from papeis p where p.usuario = auth.uid() and p.papel in ('educacao', 'educacao_secundaria')))
 $$;
 
 /** A pessoa conduz esta aula (é quem marcou, foi chamada como co-educadora, ou é da coordenação)? */
 create or replace function interno.conduz(a interno.aulas_ao_vivo) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select auth.uid() is not null and (a.educador = auth.uid() or auth.uid() = any (a.co_educadores) or interno.coord())
 $$;
+
+-- As chaves de quem conduz a sala. O canal de tempo real da sala é aberto (quem assiste nem precisa de conta), e antes
+-- qualquer um podia dizer "sou o educador" e mandar vídeo para os alunos. Agora quem conduz gera um par de chaves na aba,
+-- registra só a parte pública aqui e assina a presença e cada sinal de vídeo; quem assiste confere com estas chaves.
+create table if not exists interno.aulas_sala_chaves (
+  aula uuid not null references interno.aulas_ao_vivo (id) on delete cascade,
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  publica text not null check (publica ~ '^B[A-Za-z0-9_-]{86}$'),
+  criado_em timestamptz not null default now(),
+  primary key (aula, publica)
+);
+create index if not exists aulas_sala_chaves_usuario on interno.aulas_sala_chaves (aula, usuario, criado_em desc);
+alter table interno.aulas_sala_chaves enable row level security;
+revoke all on interno.aulas_sala_chaves from public;
+do $$
+begin
+  if exists (select 1 from pg_roles where rolname = 'anon') then execute 'revoke all on interno.aulas_sala_chaves from anon, authenticated'; end if;
+end $$;
 
 create or replace function interno.aula_json(a interno.aulas_ao_vivo, p_completa boolean) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
   select jsonb_build_object(
@@ -9683,6 +9771,8 @@ create or replace function interno.aula_json(a interno.aulas_ao_vivo, p_completa
     'inscritos', (select count(*) from aulas_inscricoes i where i.aula = a.id),
     'inscrito', auth.uid() is not null and exists (select 1 from aulas_inscricoes i where i.aula = a.id and i.usuario = auth.uid()),
     'conduzo', interno.conduz(a),
+    -- As chaves públicas de quem conduz (uma por aba aberta): quem assiste só aceita vídeo assinado por uma delas.
+    'chaves', coalesce((select jsonb_agg(k.publica order by k.criado_em) from aulas_sala_chaves k where k.aula = a.id), '[]'::jsonb),
     'mensagens', case when p_completa then (select count(*) from aulas_chat m where m.aula = a.id and not m.oculta) else null end)
 $$;
 
@@ -9802,6 +9892,24 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
+/**
+ * Quem conduz registra a chave pública desta aba para a sala (até cinco por pessoa: mais de uma aba ou aparelho). A chave
+ * privada nunca sai do navegador. Quem assiste recebe a lista em aula_ao_vivo_ver e só aceita vídeo assinado por uma delas.
+ */
+create or replace function public.aula_ao_vivo_sala_chave(p_id uuid, p_publica text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); a aulas_ao_vivo;
+begin
+  select * into a from aulas_ao_vivo where id = p_id;
+  if not found or not interno.conduz(a) then perform interno.erro('sem_permissao'); end if;
+  if a.status in ('encerrada', 'cancelada') then perform interno.erro('topico_trancado'); end if;
+  if coalesce(p_publica, '') !~ '^B[A-Za-z0-9_-]{86}$' then perform interno.erro('invalido:publica'); end if;
+  perform interno.limite('aula_sala_chave', 60, 60);
+  insert into aulas_sala_chaves (aula, usuario, publica) values (p_id, v, p_publica) on conflict do nothing;
+  delete from aulas_sala_chaves k where k.aula = p_id and k.usuario = v
+    and k.publica not in (select x.publica from aulas_sala_chaves x where x.aula = p_id and x.usuario = v order by x.criado_em desc limit 5);
+  return jsonb_build_object('ok', true);
+end $$;
+
 -- ───────────────────────────── Transmissão pelo YouTube do instituto ─────────────────────────────
 
 /** Quem pode pedir a chave de transmissão: quem conduz a aula, enquanto ela está marcada ou no ar. */
@@ -9840,7 +9948,7 @@ do $$
 declare f record;
 begin
   for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
-           where n.nspname = 'public' and p.proname in ('youtube_transmissao_pode', 'youtube_transmissao_ver', 'youtube_transmissao_dados', 'youtube_transmissao_gravar') loop
+           where n.nspname = 'public' and p.proname in ('aula_ao_vivo_sala_chave', 'youtube_transmissao_pode', 'youtube_transmissao_ver', 'youtube_transmissao_dados', 'youtube_transmissao_gravar') loop
     execute format('revoke all on function %s from public', f.assinatura);
     execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
   end loop;
@@ -12157,7 +12265,7 @@ create index if not exists exercicios_pratica_aula on interno.exercicios_pratica
 
 /** Quem ensina a disciplina (educação ou educação secundária dela), a curadoria e a coordenação. */
 create or replace function interno.ensina(p_disciplina text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
-  select interno.coord() or interno.curador() or exists (select 1 from papeis p where p.usuario = auth.uid() and p.papel in ('educacao', 'educacao_secundaria') and p.disciplina = p_disciplina)
+  select interno.coord() or interno.curador() or (interno.sessao_confiavel() and exists (select 1 from papeis p where p.usuario = auth.uid() and p.papel in ('educacao', 'educacao_secundaria') and p.disciplina = p_disciplina))
 $$;
 revoke all on function interno.ensina(text) from public, anon, authenticated;
 
@@ -12377,7 +12485,7 @@ revoke all on interno.cadernos_prontos from public;
 
 create or replace function interno.revisa_caderno(p_disciplina text) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select interno.coord() or interno.curador() or interno.tem('revisao') or interno.tem('supervisao')
-    or (p_disciplina is not null and exists (select 1 from papeis where usuario = auth.uid() and papel in ('educacao', 'educacao_secundaria') and disciplina = p_disciplina))
+    or (p_disciplina is not null and interno.sessao_confiavel() and exists (select 1 from papeis where usuario = auth.uid() and papel in ('educacao', 'educacao_secundaria') and disciplina = p_disciplina))
 $$;
 
 create or replace function interno.caderno_pronto_json(c interno.cadernos_prontos) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
@@ -12561,7 +12669,9 @@ alter table interno.disciplina_convites enable row level security;
 
 /** Ensina esta disciplina por função (educação ou educação secundária), não por convite. */
 create or replace function interno.leciona(p_disc text, p_usuario uuid default null) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
-  select p_disc is not null and exists (select 1 from papeis p join perfis f on f.id = p.usuario
+  -- Perguntando por quem chama, vale a mesma regra das outras funções: com o aplicativo cadastrado, só depois do código.
+  select p_disc is not null and (p_usuario is not null or interno.sessao_confiavel())
+    and exists (select 1 from papeis p join perfis f on f.id = p.usuario
                                         where p.usuario = coalesce(p_usuario, auth.uid()) and not f.suspenso
                                           and p.papel in ('educacao', 'educacao_secundaria') and p.disciplina = p_disc)
 $$;
@@ -13129,7 +13239,7 @@ $$;
  */
 create or replace function interno.saude_gere() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select interno.coord() or interno.tem('vice')
-    or exists (select 1 from papeis where usuario = auth.uid() and papel = 'representante' and disciplina = 'saude')
+    or (interno.sessao_confiavel() and exists (select 1 from papeis where usuario = auth.uid() and papel = 'representante' and disciplina = 'saude'))
 $$;
 create or replace function interno.saude_le_tudo() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select interno.saude_gere()

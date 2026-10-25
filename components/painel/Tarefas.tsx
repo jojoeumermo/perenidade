@@ -1179,7 +1179,8 @@ export function MinhasContribuicoes() {
   const horas = (d.minutos / 60).toLocaleString("pt-BR", { maximumFractionDigits: 1 });
   function comprovante() {
     const linhas = d!.tarefas.filter((x) => x.status !== "entregue").map((x) => `<tr><td>${new Date(x.quando).toLocaleDateString("pt-BR")}</td><td>${infoDe(x.tipo).nome}</td><td>${x.titulo.replace(/</g, "&lt;")}</td><td style="text-align:right">${x.minutos} min</td></tr>`).join("");
-    const w = window.open("", "_blank", "noopener,width=800,height=900");
+    // Sem "noopener": com ele o navegador devolve null e a janela do comprovante nunca recebia o texto.
+    const w = window.open("", "_blank", "width=800,height=900");
     if (!w) return;
     w.document.write(`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Comprovante de voluntariado</title><style>body{font-family:Georgia,serif;margin:40px;color:#1f1a14}h1{font-size:24px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border-bottom:1px solid #ccc;padding:4px;text-align:left}p{font-size:14px}</style></head><body><h1>Instituto Lúcia — comprovante de voluntariado</h1><p><strong>${d!.nome.replace(/</g, "&lt;")}</strong> fez as tarefas abaixo como voluntária ou voluntário do Instituto Lúcia (escola e biblioteca comunitária, gratuita), somando cerca de <strong>${horas} horas</strong> estimadas.</p><table><thead><tr><th>Data</th><th>Tipo</th><th>Tarefa</th><th style="text-align:right">Tempo</th></tr></thead><tbody>${linhas}</tbody></table><p style="margin-top:24px;font-size:12px">Emitido pelo painel em ${new Date().toLocaleDateString("pt-BR")}. Tempo estimado pelo tamanho de cada tarefa. Para o certificado oficial de horas, veja Horas e certificados no painel.</p><script>window.onload=()=>window.print()</script></body></html>`);
     w.document.close();
