@@ -68,6 +68,8 @@ export function EducadoresDaDisciplina({ area, lang, nomes }: { area: string; la
   const [i, setI] = useState(0);
   if (!hasBackend || !lista) return null;
   const daArea = lista.filter((e) => e.disciplinas?.includes(area));
+  // Disciplina sem educador ainda: o cartão não aparece (volta sozinho quando alguém entra como educador).
+  if (daArea.length === 0) return null;
   const atual = daArea[((i % Math.max(daArea.length, 1)) + daArea.length) % Math.max(daArea.length, 1)];
   return (
     <aside className="no-print mt-10 border-2 border-ink bg-parchment-deep p-4 font-sans text-sm">
@@ -113,7 +115,8 @@ export function CartaoDoEducador({ area, lang, nomes }: { area: string; lang: Lo
   if (!hasBackend || !lista) return null;
   const daArea = lista.filter((e) => e.disciplinas?.includes(area));
   const n = daArea.length;
-  const atual = n > 0 ? daArea[((i % n) + n) % n] : undefined;
+  if (n === 0) return null;
+  const atual = daArea[((i % n) + n) % n];
   return (
     <aside className="no-print border-2 border-ink bg-parchment-deep font-sans text-sm shadow-[5px_5px_0_var(--ink)]">
       <p className="flex items-center justify-between bg-oxblood px-3 py-1.5 font-mono text-[0.65rem] uppercase tracking-[0.25em] text-parchment">

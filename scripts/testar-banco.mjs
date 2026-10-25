@@ -3236,6 +3236,16 @@ await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), 
   await espera("o registro guarda cada passo, com o antes e o depois da edição", () => rpc(como(ids.coord), "saude_registro_listar", { p_usuario: r4.sau }),
     (r) => ["termo_aceito", "assinatura_enviada", "assinatura_conferida", "perfil_editado_pela_coordenacao", "texto_aprovado", "verificacao_anexada"].every((a) => r.some((x) => x.acao === a)) && r.some((x) => x.detalhe?.antes && x.detalhe?.depois));
   await recusa("outro profissional não lê o registro de ninguém", () => rpc(como(r4.mat), "saude_registro_listar", { p_usuario: r4.sau }), "sem_permissao");
+  await recusa("quem não cuida da vitrine não vê a fila da saúde", () => rpc(como(r4.mat), "saude_fila"), "sem_permissao");
+  await espera("o representante do Departamento de Saúde vê a fila e o registro", async () => {
+    await rpc(como(ids.coord), "papel_conceder", { p_usuario: r4.mat, p_papel: "representante", p_disciplina: "saude" });
+    return [await rpc(como(r4.mat), "saude_fila"), await rpc(como(r4.mat), "saude_registro_listar", { p_usuario: r4.sau })];
+  }, ([fila, registro]) => fila.perfis.some((x) => x.id === r4.sau) && registro.length > 0);
+  await espera("sem o papel, volta a não ver", async () => {
+    const papel = (await rpc(como(r4.mat), "eu")).papeis.find((x) => x.papel === "representante" && x.disciplina === "saude");
+    await rpc(como(ids.coord), "papel_remover", { p_id: papel.id });
+    return rpc(como(r4.mat), "saude_fila").then(() => "viu", (e) => String(e.message));
+  }, (r) => /sem_permissao/.test(r));
   await recusa("o registro não se apaga", () => dono("delete from interno.saude_registro"), "não se alteram");
   await espera("conta suspensa: some", async () => { await dono("update interno.perfis set suspenso = true where id = $1", [r4.sau]); const r = await vitrine(); await dono("update interno.perfis set suspenso = false where id = $1", [r4.sau]); return r; }, (r) => r.perfis.length === 0);
   await espera("editar o perfil tira da vitrine até a coordenação olhar de novo", async () => { await rpc(como(r4.sau), "saude_salvar", { p: { ...perfil, bio: "Atendo adultos e adolescentes." } }); return vitrine(); }, (r) => r.perfis.length === 0);

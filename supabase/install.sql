@@ -12818,7 +12818,7 @@ create or replace function public.saude_editar(p_usuario uuid, p jsonb) returns 
 declare s saude_perfis; antes jsonb; v_motivo text;
 begin
   perform interno.eu();
-  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  if not interno.saude_gere() then perform interno.erro('sem_permissao'); end if;
   select interno.saude_publico(x) into antes from saude_perfis x where x.usuario = p_usuario;
   if antes is null then perform interno.erro('nao_encontrado'); end if;
   v_motivo := interno.saude_aplicar(p_usuario, p);
@@ -12867,7 +12867,7 @@ end $$;
 create or replace function public.saude_assinatura_conferir(p_usuario uuid, p_ok boolean, p_nota text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); s saude_perfis;
 begin
-  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  if not interno.saude_gere() then perform interno.erro('sem_permissao'); end if;
   select * into s from saude_perfis where usuario = p_usuario for update;
   if not found or s.assinatura_arquivo = '' then perform interno.erro('nao_encontrado'); end if;
   if coalesce(p_ok, false) then
@@ -12884,7 +12884,7 @@ end $$;
 create or replace function public.saude_verificacao_anexar(p_usuario uuid, p_arquivo text, p_link text, p_situacao text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); s saude_perfis;
 begin
-  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  if not interno.saude_gere() then perform interno.erro('sem_permissao'); end if;
   if coalesce(p_arquivo, '') <> '' and p_arquivo !~ ('^' || v::text || '/[a-z0-9]{8,40}\.(webp|jpg|pdf)$') then perform interno.erro('invalido:arquivo'); end if;
   if coalesce(p_link, '') <> '' and p_link !~ '^https://[^[:space:]]{4,255}$' then perform interno.erro('invalido:link'); end if;
   update saude_perfis set verificacao_arquivo = coalesce(nullif(p_arquivo, ''), verificacao_arquivo), verificacao_link = coalesce(p_link, ''),
@@ -12899,7 +12899,7 @@ end $$;
 create or replace function public.saude_registro_listar(p_usuario uuid default null) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); alvo uuid := coalesce(p_usuario, v);
 begin
-  if alvo <> v and not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  if alvo <> v and not interno.saude_gere() then perform interno.erro('sem_permissao'); end if;
   return (select coalesce(jsonb_agg(jsonb_build_object('acao', r.acao, 'em', r.em, 'por', coalesce(f.nome, ''), 'detalhe', r.detalhe) order by r.em desc), '[]'::jsonb)
           from (select * from saude_registro where usuario = alvo order by em desc limit 300) r left join perfis f on f.id = r.por);
 end $$;
@@ -12931,7 +12931,7 @@ end $$;
 create or replace function public.saude_fila() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   perform interno.eu();
-  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  if not interno.saude_gere() then perform interno.erro('sem_permissao'); end if;
   return jsonb_build_object('desligada', interno.saude_desligada(),
     'perfis', (select coalesce(jsonb_agg(interno.saude_json(s, true) order by lower(s.nome)), '[]'::jsonb) from saude_perfis s));
 end $$;
@@ -12941,7 +12941,7 @@ create or replace function public.saude_decidir(p_usuario uuid, p_acao text, p_v
 language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu(); s saude_perfis;
 begin
-  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  if not interno.saude_gere() then perform interno.erro('sem_permissao'); end if;
   select * into s from saude_perfis where usuario = p_usuario for update;
   if not found then perform interno.erro('nao_encontrado'); end if;
   if p_acao = 'verificar' then
@@ -12967,7 +12967,7 @@ end $$;
 create or replace function public.saude_chave(p_desligar boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   perform interno.eu();
-  if not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+  if not interno.saude_gere() then perform interno.erro('sem_permissao'); end if;
   insert into configuracoes (chave, valor) values ('saude', jsonb_build_object('desligada', coalesce(p_desligar, false)))
   on conflict (chave) do update set valor = configuracoes.valor || jsonb_build_object('desligada', coalesce(p_desligar, false));
   perform interno.registrar(case when p_desligar then 'saude_desligada' else 'saude_ligada' end, '', '{}'::jsonb);
@@ -12987,8 +12987,17 @@ $$;
 create or replace function interno.saude_deposita() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select interno.tem('saude') or interno.coord() or interno.tem('vice')
 $$;
-create or replace function interno.saude_le_tudo() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+/**
+ * Quem cuida da vitrine de saúde: a coordenação, a coordenação pedagógica e o representante do Departamento de Saúde
+ * (o papel "representante" com o departamento "saude", nomeado pela coordenação). Saúde é área sensível: só essas
+ * pessoas conferem registros, publicam, suspendem e ligam ou desligam a chave geral.
+ */
+create or replace function interno.saude_gere() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select interno.coord() or interno.tem('vice')
+    or exists (select 1 from papeis where usuario = auth.uid() and papel = 'representante' and disciplina = 'saude')
+$$;
+create or replace function interno.saude_le_tudo() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.saude_gere()
 $$;
 do $$
 begin
@@ -13002,6 +13011,7 @@ begin
     execute 'create policy "saude_leitura" on storage.objects for select to authenticated using (bucket_id = ''saude'' and ((storage.foldername(name))[1] = auth.uid()::text or interno.saude_le_tudo()))';
     execute 'grant execute on function interno.saude_deposita() to authenticated';
     execute 'grant execute on function interno.saude_le_tudo() to authenticated';
+    execute 'grant execute on function interno.saude_gere() to authenticated';
   end if;
 end $$;
 
@@ -13069,6 +13079,7 @@ revoke all on function interno.saude_publico(interno.saude_perfis) from public, 
 -- As duas regras do depósito "saude" são lidas pelas políticas do Storage com o papel de quem envia: ficam só para authenticated.
 revoke all on function interno.saude_deposita() from public, anon;
 revoke all on function interno.saude_le_tudo() from public, anon;
+revoke all on function interno.saude_gere() from public, anon;
 do $$
 declare f text;
 begin
