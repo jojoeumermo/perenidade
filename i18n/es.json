@@ -5005,7 +5005,7 @@
     "denunciaEnviar": "Enviar la denuncia",
     "denunciaFeita": "Denuncia enviada a la mediación. Gracias.",
     "retido": "Esperando la mediación: solo tú la ves.",
-    "buscar": "Buscar en las publicaciones cargadas",
+    "buscar": "Buscar en la red (texto y #hashtags)",
     "erros": {
       "dado_pessoal": "La publicación tiene teléfono, CPF o correo. Quita el dato personal y publica de nuevo.",
       "confirme_idade": "Confirma que tienes 16 años o más.",
@@ -5021,6 +5021,33 @@
       "quebrada": "Cultura de barrio",
       "educacao-publica": "Educación pública",
       "saude-publica": "Salud pública"
-    }
+    },
+    "minhas": "Mis comunidades",
+    "espacos": "Espacios cerrados",
+    "espacosAjuda": "Organización que no puede quedar abierta: entra solo quien recibió la invitación.",
+    "entrarConvite": "Entrar con invitación",
+    "convitePlaceholder": "código de invitación",
+    "abrirEspaco": "Abrir espacio cerrado",
+    "nomeEspaco": "Nombre del espacio",
+    "codigoConvite": "Código de invitación",
+    "seguirComunidade": "Seguir esta comunidad",
+    "deixarComunidade": "Dejar de seguir",
+    "posicao": "Posición",
+    "posicoes": {
+      "favor": "A favor",
+      "contra": "En contra",
+      "sintese": "Síntesis"
+    },
+    "semPosicao": "Sin posición",
+    "virarPauta": "Convertir en tema",
+    "pautaFeita": "Tema creado en el banco del panel.",
+    "ocultar": "Ocultar",
+    "baixar": "Descargar mis publicaciones",
+    "silenciar": "Silenciar palabras",
+    "silenciarAjuda": "Las publicaciones con estas palabras desaparecen de tu pantalla (solo en este aparato). Separa con comas.",
+    "membros": "miembros",
+    "copiar": "Copiar",
+    "buscando": "Buscando…",
+    "resultados": "Resultados de la búsqueda"
   }
 }

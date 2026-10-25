@@ -13,7 +13,7 @@ import { Formatado } from "../painel/Formatado";
 // em supabase/install.sql, "Rede Lúcia".
 
 type Textos = Dict["rede"];
-type Modo = "tudo" | "seguindo" | "chamados" | "comunidade" | "perfil";
+type Modo = "tudo" | "seguindo" | "minhas" | "chamados" | "comunidade" | "perfil";
 
 interface Autor {
   id: string;
@@ -30,7 +30,11 @@ interface Post {
   cita: { tipo: "aula" | "obra" | "materia"; caminho: string; titulo: string } | null;
   chamado: { tipo: "ato" | "mutirao" | "assembleia" | "roda"; quando: string; onde: string } | null;
   alcance: "publico" | "seguidores" | "equipe";
+  /** Numa resposta de debate: a favor, contra ou síntese. */
+  posicao: "favor" | "contra" | "sintese" | null;
   meu: boolean;
+  /** Quem está vendo modera esta comunidade (ou cuida do espaço fechado). */
+  modero: boolean;
   retido: boolean;
   autor: Autor;
   respostas: number;
@@ -40,6 +44,14 @@ interface Post {
   vou_eu: boolean;
   resposta_a: { id: string; autor: string } | null;
   original: Post | null;
+}
+interface Espaco {
+  slug: string;
+  nome: string;
+  descricao: string;
+  cuido: boolean;
+  codigo: string | null;
+  membros: number;
 }
 interface Perfil {
   id?: string;
@@ -56,6 +68,15 @@ interface Perfil {
 
 /** As comunidades de luta e organização (as das disciplinas vêm das estantes). */
 export const LUTAS = ["moradia", "trabalho", "antirracismo", "feminismo", "lgbt", "terra", "quebrada", "educacao-publica", "saude-publica"] as const;
+
+const CHAVE_SILENCIADAS = "lucia:rede-silenciadas";
+function lerSilenciadas(): string[] {
+  try {
+    return (localStorage.getItem(CHAVE_SILENCIADAS) ?? "").split(",").map((p) => p.trim().toLowerCase()).filter(Boolean);
+  } catch {
+    return [];
+  }
+}
 
 const iniciais = (nome: string) => nome.split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0]?.toUpperCase()).join("");
 const corDe = (id: string) => {
@@ -84,11 +105,40 @@ export function Rede({ s }: { s: Textos }) {
   const [posts, setPosts] = useState<Post[] | null>(null);
   const [erro, setErro] = useState("");
   const [busca, setBusca] = useState("");
+  const [achados, setAchados] = useState<Post[] | null>(null);
+  const [silenciadas, setSilenciadas] = useState<string[]>([]);
+  const [seguidas, setSeguidas] = useState<string[]>([]);
+  const [espacos, setEspacos] = useState<Espaco[]>([]);
   const [novos, setNovos] = useState(0);
   const [versao, setVersao] = useState(0);
   const carregadoEm = useRef(new Date().toISOString());
   const recarregar = useCallback(() => setVersao((v) => v + 1), []);
-  const nomeDaComunidade = (slug: string) => (s.lutasLista as Record<string, string>)[slug] ?? (t.areas as Record<string, string[]>)[slug]?.[0] ?? slug;
+  const nomeDaComunidade = (slug: string) => espacos.find((e) => e.slug === slug)?.nome ?? (s.lutasLista as Record<string, string>)[slug] ?? (t.areas as Record<string, string[]>)[slug]?.[0] ?? slug;
+  const equipe = logado && me.status === "in" && me.me.papeis.length > 0;
+
+  // As palavras silenciadas ficam neste aparelho; as comunidades seguidas e os espaços fechados, na conta.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- o que a pessoa silenciou só existe no navegador
+    setSilenciadas(lerSilenciadas());
+  }, []);
+  useEffect(() => {
+    if (!logado) return;
+    rpc<string[]>("rede_comunidades_minhas").then(setSeguidas).catch(() => undefined);
+    rpc<Espaco[]>("rede_meus_espacos").then(setEspacos).catch(() => undefined);
+  }, [logado, versao]);
+  // A busca vai ao servidor (texto e #hashtags), um pouco depois de parar de digitar.
+  useEffect(() => {
+    const termo = busca.trim();
+    if (termo.length < 2) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- limpar a busca é imediato
+      setAchados(null);
+      return;
+    }
+    const espera = window.setTimeout(() => {
+      void rpc<Post[]>("rede_buscar", { p_termo: termo }).then(setAchados).catch(() => setAchados([]));
+    }, 400);
+    return () => window.clearTimeout(espera);
+  }, [busca]);
 
   useEffect(() => {
     if (!hasBackend || fio) return;
@@ -125,11 +175,11 @@ export function Rede({ s }: { s: Textos }) {
     setPosts(null);
   };
   const vistos = useMemo(() => {
-    const termo = busca.trim().toLowerCase();
-    return termo ? (posts ?? []).filter((p) => `${p.texto} ${p.autor.nome}`.toLowerCase().includes(termo)) : (posts ?? []);
-  }, [posts, busca]);
+    const lista = achados ?? posts ?? [];
+    return silenciadas.length ? lista.filter((p) => !silenciadas.some((palavra) => p.texto.toLowerCase().includes(palavra))) : lista;
+  }, [posts, achados, silenciadas]);
 
-  const menu: [Modo, string][] = [["tudo", s.tudo], ["seguindo", s.seguindo], ["chamados", s.chamados]];
+  const menu: [Modo, string][] = [["tudo", s.tudo], ["seguindo", s.seguindo], ["minhas", s.minhas], ["chamados", s.chamados]];
 
   return (
     <div className="mt-4 grid gap-6 lg:grid-cols-[13rem_minmax(0,1fr)] xl:grid-cols-[13rem_minmax(0,1fr)_18rem]">
@@ -140,7 +190,7 @@ export function Rede({ s }: { s: Textos }) {
         <ul className="mt-4 flex flex-wrap gap-1 lg:flex-col">
           {menu.map(([id, nome]) => (
             <li key={id}>
-              <button type="button" onClick={() => abrir(id)} aria-pressed={modo === id && !fio} disabled={id === "seguindo" && !logado} className={`w-full cursor-pointer rounded-full px-3 py-2 text-left font-sans text-[0.95rem] font-semibold disabled:cursor-not-allowed disabled:opacity-40 ${modo === id && !fio ? "bg-ink text-parchment" : "hover:bg-parchment-deep"}`}>
+              <button type="button" onClick={() => abrir(id)} aria-pressed={modo === id && !fio} disabled={(id === "seguindo" || id === "minhas") && !logado} className={`w-full cursor-pointer rounded-full px-3 py-2 text-left font-sans text-[0.95rem] font-semibold disabled:cursor-not-allowed disabled:opacity-40 ${modo === id && !fio ? "bg-ink text-parchment" : "hover:bg-parchment-deep"}`}>
                 {nome}
               </button>
             </li>
@@ -153,6 +203,7 @@ export function Rede({ s }: { s: Textos }) {
             </li>
           )}
         </ul>
+        {logado && <EspacosFechados s={s} espacos={espacos} equipe={equipe} abrir={(slug) => abrir("comunidade", { comunidade: slug })} mudou={recarregar} atual={modo === "comunidade" ? comunidade : null} />}
         <p className="mt-5 font-mono text-[0.62rem] uppercase tracking-[0.2em] text-ink-soft">{s.lutas}</p>
         <ul className="mt-1.5 flex flex-wrap gap-1 lg:flex-col">
           {LUTAS.map((slug) => (
@@ -173,8 +224,26 @@ export function Rede({ s }: { s: Textos }) {
         ) : (
           <>
             {modo === "perfil" && perfil && <CabecaDoPerfil id={perfil} s={s} logado={logado} mudou={recarregar} />}
-            {modo === "comunidade" && comunidade && <h2 className="mb-3 font-serif text-2xl font-semibold">{nomeDaComunidade(comunidade)}</h2>}
-            {modo !== "perfil" && <Escrever key={comunidade ?? "geral"} s={s} logado={logado} equipe={logado && me.status === "in" && me.me.papeis.length > 0} comunidade={comunidade} nomeDaComunidade={nomeDaComunidade} postou={recarregar} lang={lang} />}
+            {modo === "comunidade" && comunidade && (
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                <h2 className="font-serif text-2xl font-semibold">{nomeDaComunidade(comunidade)}</h2>
+                {logado && !comunidade.startsWith("fechado-") && (
+                  <button
+                    type="button"
+                    className={`cursor-pointer rounded-full px-4 py-1.5 font-sans text-sm font-bold ${seguidas.includes(comunidade) ? "border-2 border-ink" : "bg-ink text-parchment"}`}
+                    onClick={async () => {
+                      const sim = !seguidas.includes(comunidade);
+                      await rpc("rede_comunidade_seguir", { p_comunidade: comunidade, p_sim: sim }).catch(() => undefined);
+                      setSeguidas(sim ? [...seguidas, comunidade] : seguidas.filter((c) => c !== comunidade));
+                    }}
+                  >
+                    {seguidas.includes(comunidade) ? s.deixarComunidade : s.seguirComunidade}
+                  </button>
+                )}
+              </div>
+            )}
+            {achados && <p className="mb-2 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-ink-soft">{s.resultados} · {achados.length}</p>}
+            {modo !== "perfil" && !achados && <Escrever key={comunidade ?? "geral"} s={s} logado={logado} equipe={equipe} comunidade={comunidade} nomeDaComunidade={nomeDaComunidade} postou={recarregar} lang={lang} />}
             <p className="mt-4 border-b-2 border-ink pb-2 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-ink-soft">{s.regua}</p>
             {novos > 0 && (
               <button type="button" onClick={recarregar} className="mt-2 w-full cursor-pointer rounded-full bg-[#c21f16] px-4 py-2 font-sans text-sm font-bold text-white">
@@ -187,7 +256,7 @@ export function Rede({ s }: { s: Textos }) {
             <ul className="mt-1">
               {vistos.map((post) => (
                 <li key={post.id} className="border-b border-rule">
-                  <CartaoDoPost post={post} s={s} logado={logado} mudou={recarregar} abrirFio={setFio} abrirPerfil={(id) => abrir("perfil", { perfil: id })} abrirComunidade={(c) => abrir("comunidade", { comunidade: c })} nomeDaComunidade={nomeDaComunidade} />
+                  <CartaoDoPost post={post} s={s} logado={logado} equipe={equipe} mudou={recarregar} abrirFio={setFio} abrirPerfil={(id) => abrir("perfil", { perfil: id })} abrirComunidade={(c) => abrir("comunidade", { comunidade: c })} nomeDaComunidade={nomeDaComunidade} />
                 </li>
               ))}
             </ul>
@@ -199,8 +268,77 @@ export function Rede({ s }: { s: Textos }) {
       <aside className="hidden space-y-5 xl:block xl:sticky xl:top-24 xl:self-start">
         <input type="search" value={busca} onChange={(e) => setBusca(e.target.value)} placeholder={s.buscar} aria-label={s.buscar} className="w-full rounded-full border-2 border-ink bg-folha px-4 py-2 font-sans text-sm" />
         <ProximosChamados s={s} abrirFio={setFio} />
-        <Seguranca s={s} logado={logado} />
+        <Seguranca key={silenciadas.join(",")} s={s} logado={logado} silenciadas={silenciadas} silenciar={(lista) => { setSilenciadas(lista); try { localStorage.setItem(CHAVE_SILENCIADAS, lista.join(", ")); } catch { /* sem armazenamento */ } }} />
       </aside>
+    </div>
+  );
+}
+
+function EspacosFechados({ s, espacos, equipe, abrir, mudou, atual }: { s: Textos; espacos: Espaco[]; equipe: boolean; abrir: (slug: string) => void; mudou: () => void; atual: string | null }) {
+  const [codigo, setCodigo] = useState("");
+  const [nome, setNome] = useState("");
+  const [abrindo, setAbrindo] = useState(false);
+  const [recado, setRecado] = useState("");
+  const cuidado = espacos.find((e) => e.slug === atual && e.cuido);
+  return (
+    <div className="mt-5">
+      <p className="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-ink-soft" title={s.espacosAjuda}>{s.espacos}</p>
+      <ul className="mt-1.5 flex flex-wrap gap-1 lg:flex-col">
+        {espacos.map((e) => (
+          <li key={e.slug}>
+            <button type="button" onClick={() => abrir(e.slug)} aria-pressed={atual === e.slug} className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-1 text-left font-sans text-sm ${atual === e.slug ? "bg-parchment-deep font-semibold" : "hover:bg-parchment-deep"}`}>
+              <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-ink text-[0.62rem] font-extrabold text-parchment">●</span>
+              <span className="min-w-0 truncate">{e.nome}</span>
+              <span className="ml-auto text-[0.62rem] text-ink-soft">{e.membros}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+      {cuidado?.codigo && (
+        <p className="mt-1.5 rounded-md bg-parchment-deep px-2 py-1 font-sans text-[0.7rem]">
+          {s.codigoConvite}: <code className="select-all font-mono">{cuidado.codigo}</code>
+        </p>
+      )}
+      <form
+        className="mt-2 flex gap-1"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          try {
+            const r = await rpc<{ slug: string }>("rede_espaco_entrar", { p_codigo: codigo.trim() });
+            setCodigo("");
+            mudou();
+            abrir(r.slug);
+          } catch {
+            setRecado(s.erro);
+          }
+        }}
+      >
+        <input value={codigo} onChange={(e) => setCodigo(e.target.value)} placeholder={s.convitePlaceholder} aria-label={s.entrarConvite} className="min-w-0 flex-1 rounded-md border border-rule bg-folha px-2 py-1 font-mono text-xs" />
+        <button type="submit" disabled={codigo.trim().length !== 12} className="cursor-pointer rounded-md bg-ink px-2 py-1 font-sans text-xs font-bold text-parchment disabled:opacity-40">{s.entrar}</button>
+      </form>
+      {equipe && (abrindo ? (
+        <form
+          className="mt-2 space-y-1"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            try {
+              const r = await rpc<{ slug: string }>("rede_espaco_criar", { p_nome: nome, p_descricao: "" });
+              setNome("");
+              setAbrindo(false);
+              mudou();
+              abrir(r.slug);
+            } catch {
+              setRecado(s.erro);
+            }
+          }}
+        >
+          <input value={nome} onChange={(e) => setNome(e.target.value)} maxLength={60} placeholder={s.nomeEspaco} aria-label={s.nomeEspaco} className="w-full rounded-md border border-rule bg-folha px-2 py-1 font-sans text-xs" />
+          <button type="submit" disabled={nome.trim().length < 3} className="cursor-pointer rounded-md bg-[#c21f16] px-2 py-1 font-sans text-xs font-bold text-white disabled:opacity-40">{s.abrirEspaco}</button>
+        </form>
+      ) : (
+        <button type="button" className="mt-1.5 cursor-pointer font-sans text-xs font-semibold underline" onClick={() => setAbrindo(true)}>+ {s.abrirEspaco}</button>
+      ))}
+      {recado && <p className="mt-1 font-sans text-[0.7rem] text-oxblood">{recado}</p>}
     </div>
   );
 }
@@ -223,6 +361,7 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
   const [cita, setCita] = useState<string | null>(null);
   const [chamado, setChamado] = useState<{ tipo: string; quando: string; onde: string } | null>(null);
   const [onde, setOnde] = useState(comunidade ?? "");
+  const [posicao, setPosicao] = useState("");
   const [ocupado, setOcupado] = useState(false);
   const [mensagem, setMensagem] = useState("");
   const [idade, setIdade] = useState(false);
@@ -262,6 +401,7 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
           aviso: aviso ?? "",
           comunidade: onde || null,
           resposta_a: respondendo?.id ?? null,
+          posicao: respondendo && posicao ? posicao : null,
           repost_de: repostando?.id ?? null,
           cita: citacao(),
           chamado: chamado && chamado.quando ? { tipo: chamado.tipo, quando: new Date(chamado.quando).toISOString(), onde: chamado.onde } : undefined,
@@ -333,6 +473,14 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
         {!respondendo && cita === null && <button type="button" className="cursor-pointer rounded-md bg-parchment-deep px-2 py-1 font-semibold hover:bg-rule" onClick={() => setCita("")}>+ {s.citarAula}</button>}
         {!respondendo && !chamado && <button type="button" className="cursor-pointer rounded-md bg-parchment-deep px-2 py-1 font-semibold hover:bg-rule" onClick={() => setChamado({ tipo: "ato", quando: "", onde: "" })}>+ {s.chamado}</button>}
         {aviso === null && <button type="button" className="cursor-pointer rounded-md bg-parchment-deep px-2 py-1 font-semibold hover:bg-rule" onClick={() => setAviso("")}>+ {s.aviso}</button>}
+        {respondendo && (
+          <select value={posicao} onChange={(e) => setPosicao(e.target.value)} aria-label={s.posicao} className="rounded-md border border-rule bg-parchment px-1.5 py-1">
+            <option value="">{s.semPosicao}</option>
+            {Object.entries(s.posicoes).map(([id, nome]) => (
+              <option key={id} value={id}>{nome}</option>
+            ))}
+          </select>
+        )}
         {!respondendo && (
           <select value={onde} onChange={(e) => setOnde(e.target.value)} aria-label={s.comunidade} className="rounded-md border border-rule bg-parchment px-1.5 py-1">
             <option value="">{s.semComunidade}</option>
@@ -382,10 +530,11 @@ function tempoDesde(iso: string, lang: string) {
   return new Date(iso).toLocaleDateString(lang);
 }
 
-function CartaoDoPost({ post, s, logado, mudou, abrirFio, abrirPerfil, abrirComunidade, nomeDaComunidade, embutido = false }: {
+function CartaoDoPost({ post, s, logado, equipe = false, mudou, abrirFio, abrirPerfil, abrirComunidade, nomeDaComunidade, embutido = false }: {
   post: Post;
   s: Textos;
   logado: boolean;
+  equipe?: boolean;
   mudou: () => void;
   abrirFio: (id: string) => void;
   abrirPerfil: (id: string) => void;
@@ -399,6 +548,7 @@ function CartaoDoPost({ post, s, logado, mudou, abrirFio, abrirPerfil, abrirComu
   const [vou, setVou] = useState({ n: post.vou ?? 0, eu: post.vou_eu });
   const [repostando, setRepostando] = useState(false);
   const [denunciando, setDenunciando] = useState(false);
+  const [recado, setRecado] = useState("");
   const acaoClasse = "flex cursor-pointer items-center gap-1.5 py-1 hover:text-prelo-texto disabled:cursor-not-allowed disabled:opacity-50";
   const cita = post.cita;
   return (
@@ -420,6 +570,9 @@ function CartaoDoPost({ post, s, logado, mudou, abrirFio, abrirPerfil, abrirComu
           {post.alcance !== "publico" && <span className="text-[0.7rem] text-ink-soft">· {s.alcances[post.alcance]}</span>}
         </p>
         {post.resposta_a && <p className="font-sans text-xs text-ink-soft">{s.respondendo} {post.resposta_a.autor}</p>}
+        {post.posicao && (
+          <span className={`mt-1 inline-block rounded px-1.5 py-0.5 font-mono text-[0.6rem] font-semibold uppercase tracking-[0.12em] ${post.posicao === "favor" ? "bg-ok/20" : post.posicao === "contra" ? "bg-oxblood/15 text-oxblood" : "bg-gold/30"}`}>{s.posicoes[post.posicao]}</span>
+        )}
         {post.retido && <p className="font-sans text-xs font-semibold text-oxblood">{s.retido}</p>}
         {post.aviso && !aberto ? (
           <p className="mt-1.5 flex flex-wrap items-center gap-2 rounded-md bg-parchment-deep px-3 py-2 font-sans text-sm">
@@ -483,6 +636,19 @@ function CartaoDoPost({ post, s, logado, mudou, abrirFio, abrirPerfil, abrirComu
             >
               {s.apoiar} · {apoios.n}
             </button>
+            {equipe && post.texto && (
+              <button
+                type="button"
+                className={acaoClasse}
+                onClick={async () => {
+                  await rpc("pauta_salvar", { p_id: null, p: { titulo: post.texto.slice(0, 160), descricao: `Da Rede Lúcia, post de ${post.autor.nome}.`, tipo: post.cita?.tipo === "aula" ? "aula" : "jornal" } })
+                    .then(() => setRecado(s.pautaFeita), () => setRecado(s.erro));
+                }}
+              >
+                {s.virarPauta}
+              </button>
+            )}
+            {post.modero && !post.meu && <button type="button" className={acaoClasse} onClick={async () => { await rpc("rede_moderar", { p_id: post.id, p_ocultar: true }).catch(() => undefined); mudou(); }}>{s.ocultar}</button>}
             {post.meu ? (
               <button type="button" className={acaoClasse} onClick={async () => { await rpc("rede_apagar", { p_id: post.id }).catch(() => undefined); mudou(); }}>{s.apagar}</button>
             ) : (
@@ -490,6 +656,7 @@ function CartaoDoPost({ post, s, logado, mudou, abrirFio, abrirPerfil, abrirComu
             )}
           </div>
         )}
+        {recado && <p className="mt-1 font-sans text-xs text-ink-soft" role="status">{recado}</p>}
         {repostando && (
           <div className="mt-2">
             <Escrever s={s} logado={logado} equipe={false} comunidade={null} nomeDaComunidade={nomeDaComunidade} postou={mudou} lang={lang} repostando={post} cancelar={() => setRepostando(false)} />
@@ -638,8 +805,17 @@ function ProximosChamados({ s, abrirFio }: { s: Textos; abrirFio: (id: string) =
   );
 }
 
-function Seguranca({ s }: { s: Textos; logado: boolean }) {
+function Seguranca({ s, logado, silenciadas, silenciar }: { s: Textos; logado: boolean; silenciadas: string[]; silenciar: (lista: string[]) => void }) {
   const [registro, setRegistro] = useState<{ semana: string; ocultados: number; banimentos: number }[] | null>(null);
+  const [palavras, setPalavras] = useState(silenciadas.join(", "));
+  async function baixar() {
+    const posts = await rpc<unknown[]>("rede_meus_posts").catch(() => []);
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(new Blob([JSON.stringify(posts, null, 2)], { type: "application/json" }));
+    link.download = "rede-lucia-meus-posts.json";
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
   return (
     <section className="border-2 border-dashed border-ink bg-parchment p-4 font-sans text-sm">
       <p className="font-mono text-[0.62rem] uppercase tracking-[0.2em] text-ink-soft">{s.seguranca}</p>
@@ -658,6 +834,12 @@ function Seguranca({ s }: { s: Textos; logado: boolean }) {
           ))}
         </ul>
       </details>
+      <details className="mt-2">
+        <summary className="cursor-pointer font-semibold">{s.silenciar}</summary>
+        <p className="mt-1 text-xs text-ink-soft">{s.silenciarAjuda}</p>
+        <input value={palavras} onChange={(e) => setPalavras(e.target.value)} onBlur={() => silenciar(palavras.split(",").map((p) => p.trim().toLowerCase()).filter(Boolean))} className="mt-1 w-full border border-rule bg-folha px-2 py-1 text-xs" aria-label={s.silenciar} />
+      </details>
+      {logado && <button type="button" className="mt-2 cursor-pointer text-xs font-semibold underline" onClick={() => void baixar()}>{s.baixar}</button>}
     </section>
   );
 }

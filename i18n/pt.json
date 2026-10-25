@@ -5005,7 +5005,7 @@
     "denunciaEnviar": "Enviar a denúncia",
     "denunciaFeita": "Denúncia enviada à mediação. Obrigado.",
     "retido": "Esperando a mediação: só você vê.",
-    "buscar": "Buscar nos posts carregados",
+    "buscar": "Buscar na rede (texto e #hashtags)",
     "erros": {
       "dado_pessoal": "O post tem telefone, CPF ou e-mail. Tire o dado pessoal e poste de novo.",
       "confirme_idade": "Confirme que tem 16 anos ou mais.",
@@ -5021,6 +5021,33 @@
       "quebrada": "Cultura de quebrada",
       "educacao-publica": "Educação pública",
       "saude-publica": "Saúde pública"
-    }
+    },
+    "minhas": "Minhas comunidades",
+    "espacos": "Espaços fechados",
+    "espacosAjuda": "Organização que não pode ficar aberta: entra só quem recebeu o convite.",
+    "entrarConvite": "Entrar com convite",
+    "convitePlaceholder": "código do convite",
+    "abrirEspaco": "Abrir espaço fechado",
+    "nomeEspaco": "Nome do espaço",
+    "codigoConvite": "Código do convite",
+    "seguirComunidade": "Seguir esta comunidade",
+    "deixarComunidade": "Deixar de seguir",
+    "posicao": "Posição",
+    "posicoes": {
+      "favor": "A favor",
+      "contra": "Contra",
+      "sintese": "Síntese"
+    },
+    "semPosicao": "Sem posição",
+    "virarPauta": "Virar pauta",
+    "pautaFeita": "Pauta criada no banco do painel.",
+    "ocultar": "Ocultar",
+    "baixar": "Baixar meus posts",
+    "silenciar": "Silenciar palavras",
+    "silenciarAjuda": "Posts com estas palavras somem da sua tela (só neste aparelho). Separe por vírgula.",
+    "membros": "membros",
+    "copiar": "Copiar",
+    "buscando": "Buscando…",
+    "resultados": "Resultados da busca"
   }
 }
