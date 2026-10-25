@@ -2603,6 +2603,39 @@ html[data-escrita-foco="1"] .painel {
   --s-ok: #2f5d34;
   color-scheme: light;
 }
+/* O tema do Stoat (o padrão das Conversas, gatilho "Chat Interno"): cinzas neutros, o coral de destaque, a bolinha
+   verde e os cantos mais redondos. A marca, o nome e as imagens são os do instituto. */
+.salas[data-tema="stoat"] {
+  --s-trilho: #141414;
+  --s-lado: #1e1e1e;
+  --s-chat: #242424;
+  --s-campo: #363636;
+  --s-hover: rgba(255, 255, 255, 0.04);
+  --s-ativo: rgba(255, 255, 255, 0.08);
+  --s-linha: #2d2d2d;
+  --s-texto: #f6f6f6;
+  --s-suave: #c8c8c8;
+  --s-mudo: #848484;
+  --s-acento: #fd6671;
+  --s-acento-suave: #fd8a92;
+  --s-ouro: #faa352;
+  --s-mencao: rgba(251, 255, 0, 0.06);
+  --s-ok: #3abf7e;
+  color-scheme: dark;
+}
+.salas[data-tema="stoat"] .rounded {
+  border-radius: 0.375rem;
+}
+.salas[data-tema="stoat"] .rounded-lg {
+  border-radius: 0.75rem;
+}
+.salas[data-tema="stoat"] textarea {
+  font-size: 0.95rem;
+}
+.salas[data-tema="stoat"] .font-serif {
+  font-family: var(--font-ui), system-ui, sans-serif;
+  letter-spacing: -0.01em;
+}
 .salas-rolagem {
   scrollbar-width: thin;
   scrollbar-color: var(--s-linha) transparent;

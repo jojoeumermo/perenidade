@@ -7,6 +7,7 @@
 // Este arquivo não depende do navegador, para poder ser testado no Node (scripts/testar-mensagens.mjs).
 
 import { type Anexo, anexoValido, LIMITE_POR_MENSAGEM } from "./anexos.ts";
+import { EMOJIS_DO_INSTITUTO } from "./emojis-do-instituto.ts";
 
 export interface Citacao {
   /** A mensagem citada, para a tela rolar até ela. */
@@ -61,7 +62,8 @@ export interface Conteudo {
 }
 
 const PREFIXO = "j1.";
-const EMOJIS_DE_REACAO = ["👍", "❤️", "😂", "😮", "😢", "🙏", "✊", "🌱"];
+// Os emojis de sempre e os do instituto (":estrela:"), que a tela desenha com o traço da casa.
+const EMOJIS_DE_REACAO = ["👍", "❤️", "😂", "😮", "😢", "🙏", "✊", "🌱", ":estrela:", ":punho:", ":cravo:", ":feito:"];
 export const reacoes = EMOJIS_DE_REACAO;
 
 /** Texto puro vai como está; o que leva algo a mais vai como JSON com o prefixo. */
@@ -176,11 +178,19 @@ export type Pedaco =
   | { tipo: "negrito" | "italico" | "tachado" | "mono"; valor: string }
   | { tipo: "link"; valor: string; href: string }
   | { tipo: "mencao"; valor: string; id: string }
+  /** ||texto|| escondido até clicar, como no Stoat. */
+  | { tipo: "spoiler"; valor: string }
+  /** :nome: de um emoji do instituto. */
+  | { tipo: "emoji"; valor: string; nome: string }
   | { tipo: "quebra" };
 
 export interface Linha {
   /** Item de lista ("- ", "* " ou "1. "), com o número quando for numerada. */
   item?: { numero?: number };
+  /** Linha que começa com "> ": citação em bloco. */
+  citacao?: boolean;
+  /** Linha de dentro de um bloco de código (entre ```): vai como está, sem formatação. */
+  codigo?: string;
   pedacos: Pedaco[];
 }
 
@@ -197,6 +207,15 @@ function pedacosDe(valor: string, membros: { id: string; nome: string }[]): Peda
     solto = "";
   };
   while (i < valor.length) {
+    if (valor.startsWith("||", i)) {
+      const fim = valor.indexOf("||", i + 2);
+      if (fim > i + 2) {
+        despejar();
+        saida.push({ tipo: "spoiler", valor: valor.slice(i + 2, fim) });
+        i = fim + 2;
+        continue;
+      }
+    }
     const marca = valor[i];
     const tipo = MARCAS[marca];
     const antes = i === 0 ? " " : valor[i - 1];
@@ -254,21 +273,55 @@ function textoComLinksEMencoes(valor: string, membros: { id: string; nome: strin
     ultimo = indice + bruto.length;
   }
   if (ultimo < valor.length) saida.push({ tipo: "texto", valor: valor.slice(ultimo) });
+  return saida.flatMap((pedaco) => (pedaco.tipo === "texto" ? comEmojis(pedaco.valor) : [pedaco]));
+}
+
+/** :nome: dos emojis do instituto vira desenho; o resto do texto fica como está. */
+function comEmojis(valor: string): Pedaco[] {
+  if (!valor.includes(":")) return [{ tipo: "texto", valor }];
+  const saida: Pedaco[] = [];
+  let ultimo = 0;
+  for (const achado of valor.matchAll(/:([a-z]{2,12}):/g)) {
+    const nome = achado[1];
+    if (!(nome in EMOJIS_DO_INSTITUTO)) continue;
+    const indice = achado.index ?? 0;
+    if (indice > ultimo) saida.push({ tipo: "texto", valor: valor.slice(ultimo, indice) });
+    saida.push({ tipo: "emoji", valor: achado[0], nome });
+    ultimo = indice + achado[0].length;
+  }
+  if (ultimo < valor.length) saida.push({ tipo: "texto", valor: valor.slice(ultimo) });
   return saida;
 }
 
 /** O texto de uma mensagem, pronto para a tela desenhar: linhas (com itens de lista) de pedaços formatados. */
 export function formatar(valor: string, membros: { id: string; nome: string }[] = []): Linha[] {
-  return valor.split("\n").map((linha) => {
+  let noCodigo = false;
+  const saida: Linha[] = [];
+  for (const linha of valor.split("\n")) {
+    // ``` abre e fecha um bloco de código: o que está dentro vai como está.
+    if (/^\s*```/.test(linha)) {
+      noCodigo = !noCodigo;
+      continue;
+    }
+    if (noCodigo) {
+      saida.push({ codigo: linha, pedacos: [] });
+      continue;
+    }
+    const citacao = /^>\s?/.exec(linha);
+    if (citacao) {
+      saida.push({ citacao: true, pedacos: pedacosDe(linha.slice(citacao[0].length), membros) });
+      continue;
+    }
     const item = /^(?:[-*•]\s+|(\d{1,2})[.)]\s+)/.exec(linha);
-    if (item) return { item: { numero: item[1] ? Number(item[1]) : undefined }, pedacos: pedacosDe(linha.slice(item[0].length), membros) };
-    return { pedacos: pedacosDe(linha, membros) };
-  });
+    if (item) saida.push({ item: { numero: item[1] ? Number(item[1]) : undefined }, pedacos: pedacosDe(linha.slice(item[0].length), membros) });
+    else saida.push({ pedacos: pedacosDe(linha, membros) });
+  }
+  return saida;
 }
 
 /** O texto sem as marcas de formatação, para a lista de conversas e as citações. */
 export function semFormatacao(valor: string): string {
   return formatar(valor)
-    .map((linha) => linha.pedacos.map((pedaco) => ("valor" in pedaco ? pedaco.valor : "")).join(""))
+    .map((linha) => (linha.codigo !== undefined ? linha.codigo : linha.pedacos.map((pedaco) => (pedaco.tipo === "spoiler" ? "▒▒▒" : "valor" in pedaco ? pedaco.valor : "")).join("")))
     .join("\n");
 }

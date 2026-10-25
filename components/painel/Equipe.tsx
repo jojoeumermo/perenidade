@@ -58,6 +58,11 @@ export interface Membro {
   ferias_ate?: string | null;
   /** O que a pessoa sabe fazer (Minha conta › Perfil). */
   oficios?: string[];
+  /** Nas Conversas, no jeito do Stoat: a presença escolhida, a frase de status, a capa do cartão e desde quando está na equipe. */
+  presenca?: string;
+  frase?: string;
+  capa?: string;
+  desde?: string | null;
   /** Com o painel aberto nos últimos dois minutos. */
   online: boolean;
   visto_em: string;

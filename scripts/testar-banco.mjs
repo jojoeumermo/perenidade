@@ -2775,6 +2775,22 @@ await espera("a equipe vê o núcleo, sem endereço", () => rpc(como(ids.med), "
 await recusa("quem não cadastrou nem acompanha não muda o núcleo", () => rpc(como(ids.med), "nucleo_salvar", { p_id: nucleo, p: { ativo: false } }), "sem_permissao");
 await espera("as conquistas da equipe somam o instituto inteiro", () => rpc(como(ids.prof), "conquistas_da_equipe"), (r) => r.nucleos >= 1 && r.pessoas >= 5 && typeof r.aulas === "number");
 
+// Conversas no jeito do Stoat: presença, amigos (que liberam o privado) e convites para grupos.
+await recusa("presença que não existe é recusada", () => rpc(como(ids.prof), "chat_perfil_salvar", { p_presenca: "dormindo", p_frase: "", p_capa: "vermelho" }), "invalido:presenca");
+await espera("invisível aparece como fora para a equipe, com a frase", async () => { await rpc(como(ids.prof), "chat_perfil_salvar", { p_presenca: "invisivel", p_frase: "Escrevendo a aula de frações", p_capa: "azul" }); return rpc(como(ids.mentora), "equipe_membros"); },
+  (r) => { const p = r.find((m) => m.id === ids.prof); return p.online === false && p.presenca === "online" && p.frase.includes("frações") && p.capa === "azul"; });
+await espera("e volta a aparecer", async () => { await rpc(como(ids.prof), "chat_perfil_salvar", { p_presenca: "online", p_frase: "", p_capa: "azul" }); return rpc(como(ids.prof), "chat_perfil_meu"); }, (r) => r.presenca === "online");
+await espera("o educador pede amizade à designer e ela recebe o pedido", async () => { await rpc(como(ids.prof), "amizade_pedir", { p_para: ids.designer }); return rpc(como(ids.designer), "amizades_listar"); }, (r) => r.recebidos.some((x) => x.id === ids.prof));
+await espera("aceita, os dois viram amigos", async () => { await rpc(como(ids.designer), "amizade_responder", { p_de: ids.prof, p_aceitar: true }); return rpc(como(ids.prof), "amizades_listar"); }, (r) => r.amigos.some((x) => x.id === ids.designer) && r.enviados.length === 0);
+await espera("amigos conversam no privado", () => rpc(como(ids.prof), "chat_direta", { p_usuario: ids.designer }), (r) => Boolean(r));
+await recusa("ninguém pede amizade a si mesmo", () => rpc(como(ids.prof), "amizade_pedir", { p_para: ids.prof }), "invalido:para");
+let grupoConvite, codigoConvite;
+await espera("o educador cria um grupo e um convite", async () => { grupoConvite = await rpc(como(ids.prof), "chat_grupo_criar", { p_nome: "Mutirão de frações", p_membros: [ids.mentora] }); const id = typeof grupoConvite === "string" ? grupoConvite : grupoConvite.id; grupoConvite = id; const c = await rpc(como(ids.prof), "chat_convite_criar", { p_conversa: id }); codigoConvite = c.codigo; return c; }, (r) => /^[A-Za-z0-9]{10}$/.test(r.codigo));
+await espera("a jornalista vê o convite e entra pelo código", async () => { const ver = await rpc(como(ids.jornal), "chat_convite_ver", { p_codigo: codigoConvite }); const usou = await rpc(como(ids.jornal), "chat_convite_usar", { p_codigo: codigoConvite }); return [ver, usou, await dono("select count(*)::int as n from interno.conversa_membros where conversa = $1 and usuario = $2", [grupoConvite, ids.jornal])]; },
+  ([ver, usou, membro]) => ver.valido && ver.nome === "Mutirão de frações" && usou.conversa === grupoConvite && membro.rows[0].n === 1);
+await recusa("convite com código errado não serve", () => rpc(como(ids.med), "chat_convite_usar", { p_codigo: "aaaaaaaaaa" }), "convite_vencido");
+await recusa("quem não é da equipe não usa convite", () => rpc(como(ids.aluna), "chat_convite_usar", { p_codigo: codigoConvite }), "sem_permissao");
+
 // Transmissão pelo YouTube do instituto: a chave só para quem conduz; o site só vê o código público.
 let aulaTransmitida;
 await espera("o educador marca outra aula, com sala do Jitsi (endereço longo cabe)", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova({ titulo: "Frações no YouTube", sala_externa: `https://meet.jit.si/lucia-${"x".repeat(300)}` }) }), (r) => Boolean(r.id) && r.sala_externa.length > 300 && (aulaTransmitida = r.id));

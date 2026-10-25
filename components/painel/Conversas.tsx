@@ -17,6 +17,8 @@ import { Aviso, botao, botaoClaro, campo, dataHora, elo, localDoPainel, papeis, 
 import { Avatar } from "./Avatar";
 import type { Membro } from "./Equipe";
 import { Formatado } from "./Formatado";
+import { Amigos, Bolinha, CartaoDePerfil, COMANDOS, ConviteDoGrupo, CORES_DE_PRESENCA, EntrarPorConvite, MeuStatus, type Presenca, rodarComando } from "./ConversasStoat";
+import { EmojiDaReacao } from "./EmojiDoInstituto";
 import { AnexoVisto, type EstadoDoAnexo, Galeria, Gravador, type ItemDaGaleria, Preparados, type Preparado, preparar, soltar, subir } from "./Anexos";
 import { Alertas, AparelhoPendente, Aparelhos, ComoFunciona, enviarCifrado, Seguranca, TextoAberto, useAbertos, useChaveiro } from "./Sigilo";
 import { AbrirAgora, baixarIcs, Historico, NovaReuniao, type Proposta as PropostaDeReuniao, Propostas, type Reuniao, tipos as tiposDeReuniao } from "./Reunioes";
@@ -238,7 +240,15 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
   const [recolhidas, setRecolhidas] = useState<string[]>([]);
   const [achadas, setAchadas] = useState<Indexada[]>([]);
   const [aviso, setAviso] = useState("");
-  const [tema, setTema] = useState<"escuro" | "pergaminho">(() => (getItem(CHAVE_DO_TEMA_DA_SALA) === "pergaminho" ? "pergaminho" : "escuro"));
+  const [tema, setTema] = useState<"stoat" | "escuro" | "pergaminho">(() => {
+    const guardado = getItem(CHAVE_DO_TEMA_DA_SALA);
+    return guardado === "pergaminho" || guardado === "escuro" ? guardado : "stoat";
+  });
+  const [meuStatus, setMeuStatus] = useState(false);
+  const [minhaPresenca, setMinhaPresenca] = useState<Presenca>("online");
+  useEffect(() => {
+    rpc<{ presenca: Presenca }>("chat_perfil_meu").then((r) => setMinhaPresenca(r.presenca)).catch(() => undefined);
+  }, []);
   const [trava, setTrava] = useState<"conferindo" | "travada" | "aberta">(() => (travaLigada() && !estaDestravado() ? "travada" : "aberta"));
   const [pedindoTrava, setPedindoTrava] = useState<string | null>(null);
   const [agora] = useState(() => Date.now());
@@ -392,7 +402,7 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
     }
   }
   const abrirReuniao = (r: Reuniao) => { setReuniaoVista(r.id); setTela("reuniao"); setAberta(null); };
-  const trocarTema = () => setTema((t) => { const novo = t === "escuro" ? "pergaminho" : "escuro"; setItem(CHAVE_DO_TEMA_DA_SALA, novo === "pergaminho" ? "pergaminho" : null); return novo; });
+  const trocarTema = () => setTema((t) => { const novo = t === "stoat" ? "escuro" : t === "escuro" ? "pergaminho" : "stoat"; setItem(CHAVE_DO_TEMA_DA_SALA, novo === "stoat" ? null : novo); return novo; });
 
   const aberto = tela !== "conversa" || aberta !== null;
   const linhaDeCanal = (conversa: Conversa) => (
@@ -427,6 +437,7 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
 
   return (
     <div className="salas relative grid h-[calc(100dvh-10rem)] min-h-[22rem] overflow-hidden rounded-lg border border-s-linha shadow-xl lg:h-[calc(100dvh-6.25rem)] lg:min-h-[28rem] lg:grid-cols-[4.5rem_16.5rem_minmax(0,1fr)]" data-tema={tema}>
+      <EntrarPorConvite entrar={(conversa) => { setEspaco("instituto"); setTela("conversa"); setAberta(conversa); lista.recarregar(); }} />
       {/* Trilho: os espaços, as reuniões ao vivo e os atalhos. */}
       <nav aria-label="Espaços" className={`salas-rolagem flex-col items-center gap-2 overflow-y-auto bg-s-trilho py-3 ${aberto ? "hidden lg:flex" : "hidden lg:flex"}`}>
         <BotaoDoTrilho rotulo="Mensagens diretas" ativo={espaco === "diretas"} conta={naoLidasDiretas} fazer={() => { setEspaco("diretas"); setTela("conversa"); setAberta(null); }}>
@@ -456,12 +467,23 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
       {/* Canais. */}
       <aside className={`min-h-0 flex-col border-r border-s-linha bg-s-lado ${aberto ? "hidden lg:flex" : "flex"}`}>
         <div className="relative">
-          <button type="button" className="flex h-12 w-full cursor-pointer items-center justify-between border-b border-s-linha px-4 text-left font-semibold shadow-[0_1px_0_rgba(0,0,0,0.25)] hover:bg-[var(--s-hover)]" aria-expanded={menuDoEspaco} onClick={() => setMenuDoEspaco(!menuDoEspaco)}>
-            <span className="truncate">{espaco === "instituto" ? "Instituto Lúcia" : "Mensagens diretas"}</span>
+          <button
+            type="button"
+            className={`relative flex w-full cursor-pointer items-end justify-between border-b border-s-linha px-4 text-left font-semibold shadow-[0_1px_0_rgba(0,0,0,0.25)] hover:brightness-110 ${espaco === "instituto" ? "h-28 pb-2.5 text-white" : "h-12 items-center hover:bg-[var(--s-hover)]"}`}
+            style={espaco === "instituto" ? { background: "linear-gradient(160deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.65)), linear-gradient(135deg, #c21f16, #6e1f1a 60%, #1f1a14)" } : undefined}
+            aria-expanded={menuDoEspaco}
+            onClick={() => setMenuDoEspaco(!menuDoEspaco)}
+          >
+            {espaco === "instituto" && (
+              // A marca não muda nunca: só aparece em marca-d'água na faixa.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src="/marca-96.png" alt="" aria-hidden className="pointer-events-none absolute top-2.5 right-3 h-12 w-12 opacity-90" />
+            )}
+            <span className="relative truncate">{espaco === "instituto" ? "Instituto Lúcia" : "Mensagens diretas"}</span>
             <IconeDaSala nome="seta" className={`h-4 w-4 transition-transform ${menuDoEspaco ? "rotate-180" : ""}`} />
           </button>
           {menuDoEspaco && (
-            <ul role="menu" className="absolute inset-x-2 top-12 z-30 rounded-md border border-s-linha bg-s-trilho p-1.5 text-sm shadow-2xl">
+            <ul role="menu" className={`absolute inset-x-2 z-30 rounded-md border border-s-linha bg-s-trilho p-1.5 text-sm shadow-2xl ${espaco === "instituto" ? "top-28" : "top-12"}`}>
               {/* As duas abas de espaço também aqui: no celular o trilho fica escondido. */}
               {([
                 [espaco === "instituto" ? "Ir para mensagens diretas" : "Ir para o Instituto", () => setEspaco(espaco === "instituto" ? "diretas" : "instituto")],
@@ -534,6 +556,7 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
             </>
           ) : (
             <>
+              {categoria("amigos", "Amigos", <Amigos equipe={membros.dados ?? []} conversar={(usuario) => void conversarCom(usuario)} />)}
               {categoria("diretas", "Mensagens diretas", diretas.length ? diretas.map(linhaDeCanal) : <li className="px-2 py-1 text-xs text-s-mudo">Nenhuma conversa privada ainda.</li>)}
               {pessoas.length > 0 && categoria("iniciar", "Conversa de trabalho", (
                 <>
@@ -554,16 +577,19 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
             </p>
           </div>
         )}
-        <div className="flex items-center gap-2 border-t border-s-linha bg-s-trilho px-2 py-2">
-          <span className="relative">
-            <Avatar nome={me.nome} avatar={euMembro?.avatar} className="h-8 w-8 rounded-full" />
-            <span className="absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full border-2 border-s-trilho bg-s-ok" title="online" />
-          </span>
-          <span className="min-w-0 flex-1">
-            <span className="block truncate text-sm font-semibold">{me.nome}</span>
-            <span className="block truncate text-[0.68rem] text-s-mudo">cifrado neste aparelho</span>
-          </span>
-          <button type="button" className="cursor-pointer rounded p-1.5 text-s-suave hover:bg-[var(--s-ativo)] hover:text-s-texto" title={tema === "escuro" ? "Tema pergaminho" : "Tema escuro"} aria-label="Trocar o tema da sala" onClick={trocarTema}><IconeDaSala nome="sol" className="h-4 w-4" /></button>
+        <div className="relative flex items-center gap-2 border-t border-s-linha bg-s-trilho px-2 py-2">
+          {meuStatus && <MeuStatus fechar={() => setMeuStatus(false)} mudou={(p) => { setMinhaPresenca(p); membros.recarregar(); }} />}
+          <button type="button" className="flex min-w-0 flex-1 cursor-pointer items-center gap-2 rounded-md p-0.5 text-left hover:bg-[var(--s-hover)]" aria-expanded={meuStatus} title="Presença, frase de status e capa do cartão" onClick={() => setMeuStatus(!meuStatus)}>
+            <span className="relative shrink-0">
+              <Avatar nome={me.nome} avatar={euMembro?.avatar} className="h-8 w-8 rounded-full" />
+              <span className="absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full border-2 border-s-trilho" style={{ backgroundColor: CORES_DE_PRESENCA[minhaPresenca] }} />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate text-sm font-semibold">{me.nome}</span>
+              <span className="block truncate text-[0.68rem] text-s-mudo">{euMembro?.frase || "cifrado neste aparelho"}</span>
+            </span>
+          </button>
+          <button type="button" className="cursor-pointer rounded p-1.5 text-s-suave hover:bg-[var(--s-ativo)] hover:text-s-texto" title={tema === "stoat" ? "Tema tinta e bordô" : tema === "escuro" ? "Tema pergaminho" : "Tema Stoat"} aria-label="Trocar o tema da sala" onClick={trocarTema}><IconeDaSala nome="sol" className="h-4 w-4" /></button>
           <button type="button" className="cursor-pointer rounded p-1.5 text-s-suave hover:bg-[var(--s-ativo)] hover:text-s-texto" title="Aparelhos e segurança" aria-label="Aparelhos e segurança" onClick={() => { setTela("seguranca"); setAberta(null); }}><IconeDaSala nome="engrenagem" className="h-4 w-4" /></button>
         </div>
       </aside>
@@ -623,6 +649,7 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
             equipe={membros.dados ?? []}
             conversas={todas}
             resumo={todas.find((conversa) => conversa.id === aberta)}
+            conversarCom={(usuario) => void conversarCom(usuario)}
             voltar={() => { setAberta(null); lista.recarregar(); }}
             mudou={lista.recarregar}
           />
@@ -963,7 +990,7 @@ interface Vista {
 }
 
 /** Uma conversa aberta: as mensagens, quem está por aqui, a autodestruição e a caixa de escrever. */
-function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: { id: string; chaveiro: Chaveiro; me: Me; equipe: Membro[]; conversas: Conversa[]; resumo?: Conversa; voltar: () => void; mudou: () => void }) {
+function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, voltar, mudou }: { id: string; chaveiro: Chaveiro; me: Me; equipe: Membro[]; conversas: Conversa[]; resumo?: Conversa; conversarCom: (usuario: string) => void; voltar: () => void; mudou: () => void }) {
   const conversa = useLista<Aberta>("chat_ver", { p_id: id });
   const { recarregar } = conversa;
   const [texto, setTexto] = useState(() => getItem(chaveDoRascunho(id)));
@@ -990,6 +1017,8 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
   const [membrosAbertos, setMembrosAbertos] = useState(() => typeof window !== "undefined" && window.innerWidth >= 1280);
   const [menuDoCanal, setMenuDoCanal] = useState(false);
   const [maisAberto, setMaisAberto] = useState(false);
+  /** O cartão de perfil aberto (clicar no nome ou na foto de alguém). */
+  const [perfil, setPerfil] = useState<string | null>(null);
   const caixa = useRef<HTMLTextAreaElement>(null);
   const escolha = useRef<HTMLInputElement>(null);
   const fim = useRef<HTMLDivElement>(null);
@@ -1138,11 +1167,24 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
   }
 
   async function enviar(arquivos: Preparado[] = preparados) {
-    const limpo = texto.trim();
+    let limpo = texto.trim();
     if ((!limpo && arquivos.length === 0) || ocupado) return;
     setOcupado(true);
     setAviso("");
     try {
+      // Os comandos com barra (/tarefa, /pauta, /dado…): rodam aqui, no aparelho de quem digitou.
+      if (!editando && arquivos.length === 0 && limpo.startsWith("/")) {
+        const feito = await rodarComando(limpo, me);
+        if (feito) {
+          if (feito.abrir && emGrupo) setCompondo(feito.abrir);
+          if (feito.aviso) setAviso(feito.aviso);
+          if (!feito.mandar) {
+            setTexto("");
+            return;
+          }
+          limpo = feito.mandar;
+        }
+      }
       if (editando) {
         await enviarCifrado(chaveiro, id, empacotar({ texto: limpo }), contextoDaConversa(id, me.id), (corpo) => rpc("chat_enviar", { p_id: id, p_corpo: corpo, p_tipo: "edicao", p_alvo: editando.id }));
         setEditando(null);
@@ -1160,7 +1202,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
         if (arquivos.length) { soltar(arquivos); setPreparados([]); }
       }
       // Só limpa a caixa se ela ainda tem o que foi enviado: o que a pessoa digitou durante o envio fica.
-      setTexto((atual) => (atual.trim() === limpo ? "" : atual));
+      setTexto((atual) => (atual.trim() === limpo || atual.trim().startsWith("/") ? "" : atual));
       setItem(chaveDoRascunho(id), null);
       avisarDigitando("");
       recarregar();
@@ -1461,7 +1503,9 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                         {continua ? (
                           <span className="invisible block pt-1 text-right text-[0.62rem] text-s-mudo group-hover:visible">{hora(mensagem.criado_em)}</span>
                         ) : (
-                          <Avatar nome={mensagem.minha ? me.nome : mensagem.nome} avatar={avatarDe(mensagem.autor)} className="mt-0.5 h-10 w-10 rounded-full" />
+                          <button type="button" className="mt-0.5 shrink-0 cursor-pointer rounded-full" aria-label={`Perfil de ${mensagem.minha ? me.nome : mensagem.nome}`} onClick={() => mensagem.autor && setPerfil(mensagem.autor)}>
+                            <Avatar nome={mensagem.minha ? me.nome : mensagem.nome} avatar={avatarDe(mensagem.autor)} className="h-10 w-10 rounded-full" />
+                          </button>
                         )}
                       </div>
                       <div className="min-w-0 flex-1">
@@ -1474,7 +1518,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                         )}
                         {!continua && (
                           <p className="flex flex-wrap items-baseline gap-x-2">
-                            <span className="font-semibold" style={{ color: corDoNome(mensagem.autor) }}>{mensagem.minha ? me.nome : mensagem.nome}</span>
+                            <button type="button" className="cursor-pointer font-semibold hover:underline" style={{ color: corDoNome(mensagem.autor) }} onClick={() => mensagem.autor && setPerfil(mensagem.autor)}>{mensagem.minha ? me.nome : mensagem.nome}</button>
                             {mensagem.autor && verificado(mensagem.autor) && <span title="Identidade verificada pessoalmente" className="text-xs text-s-ok">✓</span>}
                             <span className="text-xs text-s-mudo">{hora(mensagem.criado_em)}</span>
                           </p>
@@ -1519,12 +1563,12 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                                 key={grupo.emoji}
                                 type="button"
                                 title={grupo.quem.map((quem) => (quem.minha ? "você" : quem.nome)).join(", ")}
-                                aria-label={`${grupo.emoji} de ${grupo.quem.map((quem) => (quem.minha ? "você" : quem.nome)).join(", ")}`}
+                                aria-label={`${grupo.emoji.replace(/:/g, "")} de ${grupo.quem.map((quem) => (quem.minha ? "você" : quem.nome)).join(", ")}`}
                                 onClick={() => void reagir(vista, grupo.emoji)}
                                 onContextMenu={(e) => { e.preventDefault(); setQuemReagiu(quemReagiu === mensagem.id ? null : mensagem.id); }}
                                 className={`cursor-pointer rounded-md border px-1.5 py-0.5 text-xs ${grupo.quem.some((quem) => quem.minha) ? "border-s-acento-suave bg-[var(--s-ativo)]" : "border-transparent bg-s-campo hover:border-s-linha"}`}
                               >
-                                {grupo.emoji} <span className="font-semibold">{grupo.quem.length}</span>
+                                <EmojiDaReacao emoji={grupo.emoji} /> <span className="font-semibold">{grupo.quem.length}</span>
                               </button>
                             ))}
                             <button type="button" className="cursor-pointer rounded-md bg-s-campo px-1.5 py-0.5 text-xs text-s-mudo opacity-0 group-hover:opacity-100 hover:text-s-texto" aria-label="Quem reagiu" onClick={() => setQuemReagiu(quemReagiu === mensagem.id ? null : mensagem.id)}>quem?</button>
@@ -1553,7 +1597,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                       {reagindo === mensagem.id && (
                         <p role="group" aria-label="Reagir" className="absolute -top-10 right-4 z-20 flex gap-0.5 rounded-md border border-s-linha bg-s-trilho p-1 text-lg shadow-2xl">
                           {reacoes.map((emoji) => (
-                            <button key={emoji} type="button" className="cursor-pointer rounded px-1 hover:bg-[var(--s-ativo)]" aria-label={`Reagir com ${emoji}`} onClick={() => void reagir(vista, emoji)}>{emoji}</button>
+                            <button key={emoji} type="button" className="cursor-pointer rounded px-1 hover:bg-[var(--s-ativo)]" aria-label={`Reagir com ${emoji.replace(/:/g, "")}`} onClick={() => void reagir(vista, emoji)}><EmojiDaReacao emoji={emoji} /></button>
                           ))}
                         </p>
                       )}
@@ -1604,6 +1648,18 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                   <span className="flex-1 font-semibold">Editando a mensagem (até 15 minutos depois de enviada)</span>
                   <button type="button" className="cursor-pointer text-s-mudo underline hover:text-s-texto" onClick={() => { setEditando(null); setTexto(getItem(chaveDoRascunho(id))); }}>Cancelar</button>
                 </div>
+              )}
+              {!editando && /^\/[a-z]*$/.test(texto) && (
+                <ul role="listbox" aria-label="Comandos" className="absolute bottom-full left-4 z-20 mb-1 w-80 rounded-md border border-s-linha bg-s-trilho p-1 text-sm shadow-2xl">
+                  {COMANDOS.filter((c) => c.nome.startsWith(texto.slice(1))).map((c) => (
+                    <li key={c.nome}>
+                      <button type="button" role="option" aria-selected={false} className="block w-full cursor-pointer rounded px-2 py-1.5 text-left hover:bg-[var(--s-ativo)]" onMouseDown={(e) => { e.preventDefault(); setTexto(`/${c.nome} `); caixa.current?.focus(); }}>
+                        <span className="font-mono font-semibold">{c.uso}</span>
+                        <span className="block text-[0.7rem] text-s-mudo">{c.sobre}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
               )}
               {sugestao && sugeridos.length > 0 && (
                 <ul role="listbox" aria-label="Mencionar alguém" className="absolute bottom-full left-4 z-20 mb-1 w-64 rounded-md border border-s-linha bg-s-trilho p-1 text-sm shadow-2xl">
@@ -1661,19 +1717,23 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, voltar, mudou }: 
                   {editando ? "Guardar" : ocupado && andamento ? "Enviando…" : "Enviar"}
                 </button>
               </div>
-              <p className="mt-1 hidden text-[0.66rem] text-s-mudo sm:block">*negrito* · _itálico_ · ~tachado~ · `mono` · @nome · Enter envia, Shift+Enter quebra a linha · arraste ou cole arquivos</p>
+              <p className="mt-1 hidden text-[0.66rem] text-s-mudo sm:block">*negrito* · _itálico_ · ~tachado~ · `mono` · ||spoiler|| · &gt; citação · :estrela: · /comandos · @nome · Enter envia, Shift+Enter quebra a linha · arraste ou cole arquivos</p>
             </form>
             {aviso && <p className="px-4 pb-2 text-sm text-s-acento-suave" role="status">{aviso}</p>}
           </>
         )}
       </div>
-      {emGrupo && membrosAbertos && <MembrosDaSala membros={dados.membros} equipe={equipe} corDoNome={corDoNome} />}
+      {emGrupo && membrosAbertos && <MembrosDaSala membros={dados.membros} equipe={equipe} corDoNome={corDoNome} abrir={setPerfil} />}
+      {perfil && (() => {
+        const membro = equipe.find((m) => m.id === perfil);
+        return membro ? <CartaoDePerfil membro={membro} me={me} fechar={() => setPerfil(null)} conversar={conversarCom} /> : null;
+      })()}
     </div>
   );
 }
 
 /** Quem está na conversa, como a lista de membros do Discord: por função, quem está por aqui primeiro, depois o resto. */
-function MembrosDaSala({ membros, equipe, corDoNome }: { membros: MembroDaConversa[]; equipe: Membro[]; corDoNome: (autor: string | null) => string }) {
+function MembrosDaSala({ membros, equipe, corDoNome, abrir }: { membros: MembroDaConversa[]; equipe: Membro[]; corDoNome: (autor: string | null) => string; abrir: (id: string) => void }) {
   const ordem: string[] = ["coordenacao", "vice", "supervisao", "curadoria", "educacao", "educacao_secundaria", "revisao", "traducao", "jornalismo", "design", "marketing", "mediacao", "mentoria", "desenvolvimento", "porta_voz", "representante", "saude"];
   const funcaoDe = (id: string) => {
     const funcoes = equipe.find((m) => m.id === id)?.papeis.map((p) => p.papel) ?? [];
@@ -1687,18 +1747,26 @@ function MembrosDaSala({ membros, equipe, corDoNome }: { membros: MembroDaConver
     grupos.set(f, [...(grupos.get(f) ?? []), m]);
   }
   const blocos = [...grupos.entries()].sort((a, b) => (a[0] === "" ? 1 : b[0] === "" ? -1 : ordem.indexOf(a[0]) - ordem.indexOf(b[0])));
-  const linha = (m: MembroDaConversa, apagado = false) => (
-    <li key={m.id} className={`flex items-center gap-2.5 rounded px-2 py-1 hover:bg-[var(--s-hover)] ${apagado ? "opacity-45" : ""}`}>
-      <span className="relative shrink-0">
-        <Avatar nome={m.nome} avatar={m.avatar} className="h-8 w-8 rounded-full" />
-        {!apagado && m.online && <span className="absolute -right-0.5 -bottom-0.5 h-3 w-3 rounded-full border-2 border-s-lado bg-s-ok" title="online" />}
-      </span>
-      <span className="min-w-0 flex-1 truncate text-sm" style={{ color: apagado ? undefined : corDoNome(m.id) }}>
-        {m.eu ? `${m.nome} (você)` : m.nome}
-        {m.admin && <span className="ml-1 text-[0.62rem] text-s-ouro" title="Administra o grupo">★</span>}
-      </span>
-    </li>
-  );
+  const linha = (m: MembroDaConversa, apagado = false) => {
+    const daEquipe = equipe.find((e) => e.id === m.id);
+    return (
+      <li key={m.id}>
+        <button type="button" onClick={() => abrir(m.id)} className={`flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 py-1 text-left hover:bg-[var(--s-hover)] ${apagado ? "opacity-45" : ""}`}>
+          <span className="relative shrink-0">
+            <Avatar nome={m.nome} avatar={m.avatar} className="h-8 w-8 rounded-full" />
+            {!apagado && <Bolinha presenca={daEquipe?.presenca} online={m.online} />}
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-sm" style={{ color: apagado ? undefined : corDoNome(m.id) }}>
+              {m.eu ? `${m.nome} (você)` : m.nome}
+              {m.admin && <span className="ml-1 text-[0.62rem] text-s-ouro" title="Administra o grupo">★</span>}
+            </span>
+            {daEquipe?.frase && <span className="block truncate text-[0.68rem] text-s-mudo">{daEquipe.frase}</span>}
+          </span>
+        </button>
+      </li>
+    );
+  };
   return (
     <aside className="salas-rolagem hidden w-60 shrink-0 overflow-y-auto border-l border-s-linha bg-s-lado px-2 py-4 md:block" aria-label="Membros">
       {blocos.map(([funcao, lista]) => (
@@ -1927,6 +1995,7 @@ function Grupo({ dados, me, equipe, chaveiro, conversa, depois, saiu, enviarFoto
           <button type="button" className={botaoClaro} disabled={!novo} onClick={() => void fazer("chat_grupo_mudar", { p_id: dados.id, p_incluir: [novo] }, () => { setNovo(""); depois(); })}>Pôr no grupo</button>
         </div>
       )}
+      {!fixo && edita && <ConviteDoGrupo conversa={dados.id} />}
       {!fixo && (
         <p className="flex flex-wrap gap-5">
           <button type="button" className={elo} onClick={() => { if (window.confirm("Sair deste grupo?")) void fazer("chat_sair", { p_id: dados.id }, saiu); }}>Sair do grupo</button>
@@ -1954,6 +2023,7 @@ function textoDoAviso(mensagem: Mensagem, me: Me): string {
     case "descricao": return `${por} mudou a descrição do grupo`;
     case "foto": return `${por} trocou a foto do grupo`;
     case "entrou": return `${por} pôs ${alvo} no grupo`;
+    case "convite": return `${por} entrou pelo convite`;
     case "tirado": return `${por} tirou ${alvo} do grupo`;
     case "saiu": return `${por} saiu do grupo`;
     case "admin": return `${por} tornou ${alvo} administrador`;
