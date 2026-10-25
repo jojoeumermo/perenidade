@@ -106,7 +106,8 @@
     "usePolicy": "Politique d'utilisation",
     "events": "Rencontres",
     "spreadKit": "Kit de diffusion",
-    "despertar": "Éveil"
+    "despertar": "Éveil",
+    "territories": "Territoires"
   },
   "labs": {
     "eyebrow": "Pratique réelle",
@@ -3156,7 +3157,8 @@
       "usePolicy": "Ce qui est permis ou non, en quelques lignes.",
       "events": "Ciné-club, club de lecture et autres rencontres.",
       "spreadKit": "Affiches, tract, fanzine et cartes QR à imprimer.",
-      "despertar": "De zéro à la conscience de classe, en cinq étapes, avec des tâches dans le monde réel."
+      "despertar": "De zéro à la conscience de classe, en cinq étapes, avec des tâches dans le monde réel.",
+      "territories": "Collectifs de culture et de lutte qui marchent avec l’institut : articles, cours, photos et rencontres."
     },
     "short": {
       "/trilhas": "toutes les matières",
@@ -3211,7 +3213,8 @@
       "/meus-dados": "télécharger ou effacer",
       "/privacidade": "ce que l'on garde",
       "/termos": "les règles du site",
-      "/despertar": "formation militante"
+      "/despertar": "formation militante",
+      "/territorios": "collectifs partenaires"
     },
     "highlights": "Commencez ici",
     "startText": "Première fois ? Partez d'une question de votre vie, ou choisissez une matière.",
@@ -4876,5 +4879,30 @@
     "groupTitle": "Faites l'Éveil en groupe",
     "groupText": "Chaque étape a un guide de rencontre d'une heure et des questions pour le cercle. Réunissez trois personnes et commencez.",
     "groupCta": "Trouver ou créer un groupe"
+  },
+  "territorios": {
+    "eyebrow": "Collectifs qui marchent avec l’institut",
+    "title": "Territoires",
+    "lead": "Des collectifs de culture, d’art et de lutte qui marchent avec l’Instituto Lúcia. Chaque territoire apporte son regard au site : articles du journal, cours, photos et rencontres.",
+    "partner": "Territoire partenaire de l’Instituto Lúcia · Nº {n}",
+    "open": "Découvrir le territoire",
+    "follow": "Suivre",
+    "people": "Qui le fait",
+    "editions": "Les éditions",
+    "editionsTitle": "Chaque série est un magazine.",
+    "byCollective": "Par le collectif",
+    "journalKicker": "Dans le Jornal Revolucionário Lúcia",
+    "journalTitle": "Rubrique {editoria}",
+    "journalAll": "Voir le journal",
+    "journalEmpty": "Les premières analyses sont en cours d’écriture. Sujets sur la table :",
+    "learnKicker": "Apprendre avec le territoire · parcours",
+    "learnTitle": "Le quartier aussi est une école.",
+    "lessons": "{n} cours",
+    "soon": "En préparation",
+    "capsuleKicker": "Capsule · en préparation",
+    "nextTitle": "Les territoires sont des collectifs qui marchent avec l’Instituto Lúcia. Le prochain peut être le vôtre.",
+    "nextText": "Un collectif de culture, d’art, de sport, de logement ou d’étude ? Écrivez-nous en disant qui vous êtes, où vous agissez et ce que vous faites.",
+    "nextCta": "Amener mon collectif",
+    "all": "Tous les territoires"
   }
 }
