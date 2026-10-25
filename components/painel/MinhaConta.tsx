@@ -13,6 +13,7 @@ import { IdiomaDoPainel } from "./Idioma";
 import { minutosOcioso, OPCOES_OCIOSO } from "./ocioso";
 import { FaixaDeEmail } from "./FaixaDeEmail";
 import { CuidadoNaConta } from "./Cuidado";
+import { Oficios } from "./Biblioteca";
 import { Digital, SegundoFator } from "./Seguranca";
 
 type Aba = "perfil" | "assinatura" | "seguranca" | "privacidade" | "aparelhos" | "atividade" | "cuidado";
@@ -103,6 +104,7 @@ export function MinhaConta({ me, recarregar, sair, curriculo, avisosETrava }: { 
         escolher={setAba}
       />
       {aba === "perfil" && <Perfil me={me} recarregar={recarregar} curriculo={curriculo} />}
+      {aba === "perfil" && me.papeis.length > 0 && <Oficios />}
       {aba === "assinatura" && <FaixaDeEmail me={me} />}
       {aba === "seguranca" && <SegurancaDaConta me={me} protecao={p ?? null} recarregar={recarregarTudo} />}
       {aba === "privacidade" && <Privacidade me={me} recarregar={recarregar} sair={sair} avisosETrava={avisosETrava} />}

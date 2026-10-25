@@ -56,6 +56,8 @@ export interface Membro {
   por_aqui: boolean;
   /** De férias até esta data (Minha conta › Cuidado). */
   ferias_ate?: string | null;
+  /** O que a pessoa sabe fazer (Minha conta › Perfil). */
+  oficios?: string[];
   /** Com o painel aberto nos últimos dois minutos. */
   online: boolean;
   visto_em: string;
@@ -1083,6 +1085,7 @@ function Gente({ membros, erro }: { membros: Membro[] | null; erro: string }) {
                 {membro.ferias_ate && <span className="ml-1.5 rounded-sm bg-[#f9e7a6] px-1 text-[0.65rem] font-semibold text-[#1f1a14]" title={`De férias até ${new Date(`${membro.ferias_ate}T12:00:00`).toLocaleDateString()}`}>de férias</span>}
               </span>
               <span className="block text-xs leading-snug text-ink-soft">{membro.papeis.map((papel) => `${papeis[papel.papel]}${papel.disciplina ? ` · ${nomeDaArea(papel.disciplina)}` : ""}`).join(" · ")}</span>
+              {membro.oficios && membro.oficios.length > 0 && <span className="block text-xs leading-snug text-prelo-texto">Sabe: {membro.oficios.join(", ")}</span>}
             </span>
           </li>
         ))}
