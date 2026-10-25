@@ -119,6 +119,13 @@ const nextConfig: NextConfig = {
   // Só em desenvolvimento: abrir o painel também em 127.0.0.1 faz de conta que é um segundo aparelho (outro navegador, outras
   // chaves), o que serve para testar a aprovação de aparelhos das conversas sem dois computadores.
   allowedDevOrigins: ["127.0.0.1"],
+  // O otimizador de imagens (/_next/image) só serve o que o próprio build importou (o busto da dedicatória): nenhum
+  // endereço de fora, nenhum arquivo enviado depois, nenhum SVG. Fecha a porta das falhas desse serviço para o resto.
+  images: {
+    localPatterns: [{ pathname: "/_next/static/media/**", search: "" }],
+    remotePatterns: [],
+    dangerouslyAllowSVG: false,
+  },
   async headers() {
     return [
       { source: "/((?!workers/).*)", headers: [{ key: "Content-Security-Policy", value: pages }, ...common] },
