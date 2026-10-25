@@ -249,7 +249,7 @@ export default async function LessonPage({ params }: Props) {
         </footer>
       </article>
       {/* A margem: anotação, palavra do glossário, laboratório e quem ensina. No celular e no texto largo, vem depois da aula. */}
-      <div className="coluna-da-margem min-w-0 xl:sticky xl:top-[calc(var(--altura-topo,0px)+4rem)] xl:self-start xl:pt-40 max-xl:md:col-start-2">
+      <div className="coluna-da-margem min-w-0 xl:self-start xl:pt-40 max-xl:md:col-start-2">
         <MargemDaAula aula={id} termo={termo} laboratorio={laboratorio}>
           <div className="hidden xl:block">
             <CartaoDoEducador area={track.area} lang={lang} nomes={t.areas as Record<string, string[]>} />
