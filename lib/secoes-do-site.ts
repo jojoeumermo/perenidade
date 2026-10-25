@@ -72,6 +72,7 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
         [n.community, "/comunidade", d.community ?? n.community],
         [n.territories, "/territorios", d.territories],
         [t.receba.menu, "/receba", t.receba.menuDescricao],
+        [t.nucleos.menu, "/nucleos", t.nucleos.menuDescricao],
         [n.health, "/saude", d.health],
         [n.rightsGuide, "/direitos", d.rightsGuide],
         [n.reportBug, "/relatar-erro", d.bugs],

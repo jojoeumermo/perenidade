@@ -2773,6 +2773,14 @@ await recusa("estado que não existe é recusado", () => rpc(como(ids.prof), "nu
 await espera("o educador cadastra um núcleo e passa a acompanhar", () => rpc(como(ids.prof), "nucleo_salvar", { p_id: null, p: { nome: "Núcleo da laje", cidade: "Recife", uf: "pe", tipo: "bairro", encontros: "sábados às 15h", pessoas: 8 } }), (r) => r.id && (nucleo = r.id));
 await espera("a equipe vê o núcleo, sem endereço", () => rpc(como(ids.med), "nucleos_listar"), (r) => r.some((n) => n.id === nucleo && n.uf === "PE" && n.acompanha && !("endereco" in n) && !n.mexo));
 await recusa("quem não cadastrou nem acompanha não muda o núcleo", () => rpc(como(ids.med), "nucleo_salvar", { p_id: nucleo, p: { ativo: false } }), "sem_permissao");
+await recusa("quem acompanha não põe o núcleo no mapa público sozinho", () => rpc(como(ids.prof), "nucleo_salvar", { p_id: nucleo, p: { publico: true } }), "sem_permissao");
+await recusa("contato do núcleo precisa ser um endereço https", () => rpc(como(ids.prof), "nucleo_salvar", { p_id: nucleo, p: { contato: "81 99999-0000" } }), "invalido:nucleo");
+await espera("quem acompanha põe o ponto público e o contato; a coordenação publica; o visitante vê", async () => {
+  await rpc(como(ids.prof), "nucleo_salvar", { p_id: nucleo, p: { ponto: "Biblioteca comunitária do bairro", contato: "https://instagram.com/nucleodalaje" } });
+  const antes = await rpc(anon, "nucleos_publicos");
+  await rpc(como(ids.coord), "nucleo_salvar", { p_id: nucleo, p: { publico: true } });
+  return [antes, await rpc(anon, "nucleos_publicos")];
+}, ([antes, depois]) => !antes.some((n) => n.nome === "Núcleo da laje") && depois.some((n) => n.nome === "Núcleo da laje" && n.ponto.includes("Biblioteca") && !("acompanha" in n) && !("pessoas" in n)));
 await espera("as conquistas da equipe somam o instituto inteiro", () => rpc(como(ids.prof), "conquistas_da_equipe"), (r) => r.nucleos >= 1 && r.pessoas >= 5 && typeof r.aulas === "number");
 
 // Conversas no jeito do Stoat: presença, amigos (que liberam o privado) e convites para grupos.
