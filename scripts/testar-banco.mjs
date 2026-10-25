@@ -3243,6 +3243,15 @@ await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), 
   await espera("o registro guarda cada passo, com o antes e o depois da edição", () => rpc(como(ids.coord), "saude_registro_listar", { p_usuario: r4.sau }),
     (r) => ["termo_aceito", "assinatura_enviada", "assinatura_conferida", "perfil_editado_pela_coordenacao", "texto_aprovado", "verificacao_anexada"].every((a) => r.some((x) => x.acao === a)) && r.some((x) => x.detalhe?.antes && x.detalhe?.depois));
   await recusa("outro profissional não lê o registro de ninguém", () => rpc(como(r4.mat), "saude_registro_listar", { p_usuario: r4.sau }), "sem_permissao");
+  // Bloqueio de entrada: 5 erros na mesma conta trancam a origem para ela por 15 minutos; 10 em contas diferentes, para todas.
+  await dono("delete from interno.entradas_falhas");
+  await espera("sem erros, a entrada está liberada", () => rpc(anon, "entrada_situacao", { p_email: "alvo@teste.local" }), (r) => r.bloqueado === false && r.restam === 5);
+  await espera("cinco erros na mesma conta: bloqueado por uns 15 minutos", async () => { for (let i = 0; i < 5; i++) await rpc(anon, "entrada_falhou", { p_email: "Alvo@Teste.local " }); return rpc(anon, "entrada_situacao", { p_email: "alvo@teste.local" }); },
+    (r) => r.bloqueado === true && r.segundos > 800 && r.segundos <= 900);
+  await espera("outra conta, da mesma origem, ainda entra (até dez erros no total)", () => rpc(anon, "entrada_situacao", { p_email: "outra@teste.local" }), (r) => r.bloqueado === false && r.restam === 5);
+  await espera("dez erros em contas diferentes: a origem fica bloqueada para todas", async () => { for (let i = 0; i < 5; i++) await rpc(anon, "entrada_falhou", { p_email: `conta${i}@teste.local` }); return rpc(anon, "entrada_situacao", { p_email: "nova@teste.local" }); }, (r) => r.bloqueado === true);
+  await espera("quem não entrou não limpa os erros de ninguém", async () => { await rpc(anon, "entrada_certa"); return dono("select count(*)::int as n from interno.entradas_falhas"); }, (r) => r.rows[0].n === 10);
+  await dono("delete from interno.entradas_falhas");
   await recusa("quem não cuida da vitrine não vê a fila da saúde", () => rpc(como(r4.mat), "saude_fila"), "sem_permissao");
   await espera("o representante do Departamento de Saúde vê a fila e o registro", async () => {
     await rpc(como(ids.coord), "papel_conceder", { p_usuario: r4.mat, p_papel: "representante", p_disciplina: "saude" });

@@ -29,6 +29,7 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
       title: t.lists.study,
       items: itens([
         [n.disciplines, "/trilhas", t.tracks.lead],
+        [n.despertar, "/despertar", d.despertar],
         [n.start, "/comecar", d.start],
         [n.questions, "/perguntas", d.questions],
         [n.library, "/acervo", t.library.lead],
@@ -69,6 +70,7 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
         [n.materials, "/materiais", d.materials],
         [n.mural, "/mural", d.mural],
         [n.community, "/comunidade", d.community ?? n.community],
+        [n.territories, "/territorios", d.territories],
         [n.health, "/saude", d.health],
         [n.rightsGuide, "/direitos", d.rightsGuide],
         [n.reportBug, "/relatar-erro", d.bugs],

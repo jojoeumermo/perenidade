@@ -11,9 +11,10 @@ import { Avatar, AVATARES } from "./Avatar";
 import { Abas, Aviso, botao, botaoClaro, campo, dataHora, elo, oQueFaz, papeis, textoDoErro, useAcao, useLista } from "./comum";
 import { IdiomaDoPainel } from "./Idioma";
 import { minutosOcioso, OPCOES_OCIOSO } from "./ocioso";
+import { FaixaDeEmail } from "./FaixaDeEmail";
 import { Digital, SegundoFator } from "./Seguranca";
 
-type Aba = "perfil" | "seguranca" | "privacidade" | "aparelhos" | "atividade";
+type Aba = "perfil" | "assinatura" | "seguranca" | "privacidade" | "aparelhos" | "atividade";
 
 interface Protecao {
   segundo_fator: boolean;
@@ -89,6 +90,8 @@ export function MinhaConta({ me, recarregar, sair, curriculo, avisosETrava }: { 
       <Abas<Aba>
         opcoes={[
           { id: "perfil", nome: "Perfil" },
+          // A faixa de e-mail é de quem está na equipe (qualquer função).
+          ...(me.papeis.length > 0 ? [{ id: "assinatura" as Aba, nome: "Faixa de e-mail" }] : []),
           { id: "seguranca", nome: "Segurança" },
           { id: "privacidade", nome: "Privacidade e avisos" },
           { id: "aparelhos", nome: "Aparelhos" },
@@ -98,6 +101,7 @@ export function MinhaConta({ me, recarregar, sair, curriculo, avisosETrava }: { 
         escolher={setAba}
       />
       {aba === "perfil" && <Perfil me={me} recarregar={recarregar} curriculo={curriculo} />}
+      {aba === "assinatura" && <FaixaDeEmail me={me} />}
       {aba === "seguranca" && <SegurancaDaConta me={me} protecao={p ?? null} recarregar={recarregarTudo} />}
       {aba === "privacidade" && <Privacidade me={me} recarregar={recarregar} sair={sair} avisosETrava={avisosETrava} />}
       {aba === "aparelhos" && <AparelhosDaConta dias={p?.sessao_dias ?? 60} />}

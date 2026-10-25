@@ -420,15 +420,25 @@ export function Escrever({ me }: { me: Me }) {
       );
     }
     if (c.tipo === "longo") return <textarea value={valor} onChange={(e) => mudar(c.nome, e.target.value)} maxLength={c.max} rows={4} className={campoFino} />;
+    // Texto com sugestões (a editoria do jornal, por exemplo): a lista ajuda, mas dá para escrever outra.
+    const sugestoes = c.tipo === "texto" && c.opcoes?.length ? `sugestoes-${c.nome}` : undefined;
     return (
-      <input
-        value={valor}
-        onChange={(e) => mudar(c.nome, e.target.value)}
-        maxLength={c.max ?? 300}
-        type={c.tipo === "url" ? "url" : "text"}
-        placeholder={c.tipo === "url" ? "https://…" : c.tipo === "caminho" ? "/trilhas/…" : ""}
-        className={`${campoFino} ${c.tipo === "url" || c.tipo === "caminho" ? "font-mono" : ""}`}
-      />
+      <>
+        <input
+          value={valor}
+          onChange={(e) => mudar(c.nome, e.target.value)}
+          maxLength={c.max ?? 300}
+          type={c.tipo === "url" ? "url" : "text"}
+          list={sugestoes}
+          placeholder={c.tipo === "url" ? "https://…" : c.tipo === "caminho" ? "/trilhas/…" : ""}
+          className={`${campoFino} ${c.tipo === "url" || c.tipo === "caminho" ? "font-mono" : ""}`}
+        />
+        {sugestoes && (
+          <datalist id={sugestoes}>
+            {c.opcoes?.map((opcao) => <option key={opcao} value={opcao} />)}
+          </datalist>
+        )}
+      </>
     );
   }
 
