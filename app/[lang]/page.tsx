@@ -9,6 +9,7 @@ import { LambeDoDia } from "@/components/inicio/LambeDoDia";
 import { lambesDaSemana } from "@/lib/lambes";
 import { JanelaContinue, JanelaNoAr } from "@/components/inicio/Janelas";
 import { FaixaDaSaude } from "@/components/saude/FaixaDaSaude";
+import { territorios } from "@/lib/territorios";
 import saude from "@/content/saude/profissionais.json";
 import type { Profissional } from "@/lib/saude";
 import { loadLang } from "@/i18n";
@@ -225,6 +226,26 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           </p>
         </div>
       </section>
+
+      {/* ── Territórios: o coletivo parceiro mais recente, com a faixa dos temas ── */}
+      {territorios.length > 0 && (() => {
+        const territorio = territorios[territorios.length - 1];
+        return (
+          <section className="border-b-[3px] border-ink">
+            <div className="mx-auto flex max-w-[78rem] flex-wrap items-center justify-between gap-x-10 gap-y-5 px-4 py-10 sm:px-6 lg:px-8">
+              <div className="min-w-0">
+                <p className="font-mono text-xs uppercase tracking-[0.22em] text-prelo-texto">{t.territorios.partner.replace("{n}", String(territorio.numero).padStart(2, "0"))}</p>
+                <h2 className="mt-2 font-serif text-[2.4rem] font-semibold leading-none sm:text-[3rem]">{territorio.nome} <span className="text-prelo-texto">×</span> Lúcia</h2>
+                <p className="mt-3 max-w-2xl text-lg text-ink-soft">{territorio.linha} {territorio.temas[0]}.</p>
+              </div>
+              <div className="flex flex-wrap items-center gap-4">
+                <Link href={to(`/territorios/${territorio.slug}`)} className="botao botao-tinta">{t.territorios.open} →</Link>
+                <Link href={to("/territorios")} className="font-sans font-bold text-ink underline decoration-[#c21f16] decoration-2 underline-offset-4 hover:text-prelo-texto">{t.territorios.title}</Link>
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       <DailyQuote quotes={getQuotes()} />
 
