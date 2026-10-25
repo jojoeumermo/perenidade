@@ -2901,6 +2901,11 @@ begin
     update comentarios set oculto = (p_acao = 'ocultar'), retido = false,
       avaliacao = case when p_acao = 'mostrar' and avaliacao = 'bloqueada' then 'revista' else avaliacao end where id = p_alvo;
     v_achou := found;
+  elsif p_tipo = 'post' and p_acao in ('ocultar', 'mostrar') then
+    select retido, autor, avaliacao = 'bloqueada', oculto into v_retido, v_autor, v_bloqueada, v_oculto from rede_posts where id = p_alvo;
+    update rede_posts set oculto = (p_acao = 'ocultar'), retido = false,
+      avaliacao = case when p_acao = 'mostrar' and avaliacao = 'bloqueada' then 'revista' else avaliacao end where id = p_alvo;
+    v_achou := found;
   elsif p_tipo = 'aula_chat' and p_acao in ('ocultar', 'mostrar') then
     select retido, autor, avaliacao = 'bloqueada', oculta into v_retido, v_autor, v_bloqueada, v_oculto from aulas_chat where id = p_alvo;
     update aulas_chat set oculta = (p_acao = 'ocultar'), retido = false,
@@ -2963,6 +2968,10 @@ begin
       select m.criado_em, jsonb_build_object('tipo', 'aula_chat', 'id', m.id, 'topico', null, 'titulo', 'Bate-papo da aula ao vivo: ' || coalesce((select titulo from aulas_ao_vivo where id = m.aula), ''), 'corpo', m.corpo, 'autor', coalesce(f.nome, ''), 'criado_em', m.criado_em,
         'autor_id', case when interno.media() then m.autor end, 'filtro', interno.vetado(m.corpo), 'motivo', m.motivo)
       from aulas_chat m left join perfis f on f.id = m.autor where m.retido
+      union all
+      select r.criado_em, jsonb_build_object('tipo', 'post', 'id', r.id, 'topico', null, 'titulo', 'Post na Rede Lúcia' || case when r.comunidade is not null then ' · ' || r.comunidade else '' end, 'corpo', r.texto, 'autor', coalesce(f.nome, ''), 'criado_em', r.criado_em,
+        'autor_id', case when interno.media() then r.autor end, 'filtro', interno.vetado(r.texto), 'motivo', r.motivo)
+      from rede_posts r left join perfis f on f.id = r.autor where r.retido
     ) x);
 end $$;
 
@@ -14709,6 +14718,285 @@ begin
   for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
            where n.nspname = 'public' and p.proname in ('chat_perfil_salvar', 'chat_perfil_meu', 'amizade_pedir', 'amizade_responder', 'amizade_desfazer', 'amizades_listar',
              'chat_convite_criar', 'chat_convite_ver', 'chat_convite_usar') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+
+-- ───────────────────────────── Rede Lúcia ─────────────────────────────
+-- A Comunidade vira uma pequena rede de formação militante: além do fórum (o lado Reddit), a linha do tempo de posts
+-- curtos (o lado Twitter), com respostas em fio, repost com comentário, seguir pessoas, citar aula, obra ou matéria e
+-- chamados à ação (ato, mutirão, assembleia) com "Eu vou". Em ordem de tempo, sem algoritmo, sem "em alta" e sem número
+-- de seguidores em destaque. Segurança desde o começo:
+--   - pseudônimo (o nome que a pessoa escolhe) e perfil invisível opcional;
+--   - alcance escolhido em cada post (todos, só quem segue, só a equipe);
+--   - aviso de conteúdo; bloquear pessoas;
+--   - filtro de CPF, telefone e e-mail;
+--   - limite de posts para contas novas;
+--   - a mesma moderação automática e a mesma fila da mediação do fórum;
+--   - rede para maiores de 16 anos (a pessoa confirma uma vez).
+
+alter table interno.perfis add column if not exists rede_invisivel boolean not null default false;
+alter table interno.perfis add column if not exists rede_16 boolean not null default false;
+
+create table if not exists interno.rede_posts (
+  id uuid primary key default gen_random_uuid(),
+  autor uuid references interno.perfis (id) on delete cascade,
+  texto text not null default '' check (char_length(texto) <= 500),
+  comunidade text check (comunidade is null or comunidade ~ '^[a-z0-9-]{2,60}$'),
+  resposta_a uuid references interno.rede_posts (id) on delete cascade,
+  repost_de uuid references interno.rede_posts (id) on delete cascade,
+  cita jsonb,
+  chamado jsonb,
+  alcance text not null default 'publico' check (alcance in ('publico', 'seguidores', 'equipe')),
+  aviso text not null default '' check (char_length(aviso) <= 80),
+  oculto boolean not null default false,
+  retido boolean not null default false,
+  avaliacao text check (avaliacao is null or avaliacao in ('publicada', 'revisao', 'bloqueada', 'revista')),
+  motivo text not null default '',
+  criado_em timestamptz not null default now(),
+  check (char_length(texto) > 0 or repost_de is not null)
+);
+create index if not exists rede_posts_tempo on interno.rede_posts (criado_em desc);
+create index if not exists rede_posts_autor on interno.rede_posts (autor, criado_em desc);
+create index if not exists rede_posts_comunidade on interno.rede_posts (comunidade, criado_em desc);
+create index if not exists rede_posts_fio on interno.rede_posts (resposta_a, criado_em);
+create table if not exists interno.rede_seguindo (quem uuid not null references interno.perfis (id) on delete cascade, segue uuid not null references interno.perfis (id) on delete cascade, criado_em timestamptz not null default now(), primary key (quem, segue), check (quem <> segue));
+create table if not exists interno.rede_apoios (post uuid not null references interno.rede_posts (id) on delete cascade, usuario uuid not null references interno.perfis (id) on delete cascade, primary key (post, usuario));
+create table if not exists interno.rede_vou (post uuid not null references interno.rede_posts (id) on delete cascade, usuario uuid not null references interno.perfis (id) on delete cascade, primary key (post, usuario));
+create table if not exists interno.rede_bloqueios (quem uuid not null references interno.perfis (id) on delete cascade, bloqueado uuid not null references interno.perfis (id) on delete cascade, criado_em timestamptz not null default now(), primary key (quem, bloqueado), check (quem <> bloqueado));
+revoke all on interno.rede_posts, interno.rede_seguindo, interno.rede_apoios, interno.rede_vou, interno.rede_bloqueios from public;
+
+/** Um bloqueou o outro (em qualquer direção)? */
+create or replace function interno.rede_bloqueado(p_a uuid, p_b uuid) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select p_a is not null and p_b is not null and exists (select 1 from rede_bloqueios where (quem = p_a and bloqueado = p_b) or (quem = p_b and bloqueado = p_a))
+$$;
+
+/** Quem está vendo pode ver este post? (oculto só para quem escreveu; alcance; bloqueio.) */
+create or replace function interno.rede_ve(p interno.rede_posts) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select (not p.oculto or p.autor = auth.uid())
+    and not interno.rede_bloqueado(auth.uid(), p.autor)
+    and (p.alcance = 'publico' or p.autor = auth.uid()
+         or (p.alcance = 'seguidores' and exists (select 1 from rede_seguindo s where s.quem = auth.uid() and s.segue = p.autor))
+         or (p.alcance = 'equipe' and interno.voluntario()))
+$$;
+
+-- Em plpgsql (e não sql): ela chama a si mesma para o post original de um repost.
+create or replace function interno.rede_post_json(p interno.rede_posts, p_com_original boolean default true) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  return jsonb_build_object('id', p.id, 'texto', p.texto, 'comunidade', p.comunidade, 'criado_em', p.criado_em, 'aviso', p.aviso, 'cita', p.cita, 'chamado', p.chamado,
+    'alcance', p.alcance, 'meu', p.autor = auth.uid(), 'retido', case when p.autor = auth.uid() then p.retido or p.oculto else false end,
+    'autor', jsonb_build_object('id', p.autor, 'nome', coalesce((select interno.nome_visto(nome) from perfis where id = p.autor), 'Conta apagada'),
+                                'avatar', (select avatar from perfis where id = p.autor), 'equipe', interno.voluntario_e(p.autor)),
+    'respostas', (select count(*) from rede_posts r where r.resposta_a = p.id and not r.oculto),
+    'apoios', (select count(*) from rede_apoios a where a.post = p.id),
+    'apoiei', exists (select 1 from rede_apoios a where a.post = p.id and a.usuario = auth.uid()),
+    'vou', case when p.chamado is not null then (select count(*) from rede_vou v where v.post = p.id) end,
+    'vou_eu', exists (select 1 from rede_vou v where v.post = p.id and v.usuario = auth.uid()),
+    'resposta_a', case when p.resposta_a is not null then (select jsonb_build_object('id', o.id, 'autor', coalesce((select interno.nome_visto(nome) from perfis where id = o.autor), '')) from rede_posts o where o.id = p.resposta_a) end,
+    'original', case when p_com_original and p.repost_de is not null then (select case when interno.rede_ve(o) then interno.rede_post_json(o, false) end from rede_posts o where o.id = p.repost_de) end);
+end $$;
+
+/** Uma vez só: a rede é para maiores de 16 anos. */
+create or replace function public.rede_confirmar_idade() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  update perfis set rede_16 = true where id = interno.eu();
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.rede_config(p_invisivel boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  update perfis set rede_invisivel = coalesce(p_invisivel, false) where id = interno.eu();
+  return jsonb_build_object('invisivel', coalesce(p_invisivel, false));
+end $$;
+
+create or replace function public.rede_eu() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  return (select jsonb_build_object('id', id, 'nome', interno.nome_visto(nome), 'avatar', avatar, 'rede_16', rede_16, 'invisivel', rede_invisivel) from perfis where id = interno.eu());
+end $$;
+
+/** Publicar: post, resposta, repost com comentário, citação e chamado à ação. */
+create or replace function public.rede_postar(p jsonb) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu(); x rede_posts; o rede_posts;
+  v_texto text := btrim(coalesce(p ->> 'texto', ''));
+  v_resposta uuid; v_repost uuid; v_cita jsonb; v_chamado jsonb; v_quando timestamptz;
+  v_alcance text := coalesce(nullif(p ->> 'alcance', ''), 'publico');
+  v_av jsonb; v_veredito text;
+begin
+  perform interno.aberta('comunidade');
+  if not coalesce((select rede_16 from perfis where id = v), false) then perform interno.erro('confirme_idade'); end if;
+  if char_length(v_texto) > 500 then perform interno.erro('invalido:texto'); end if;
+  if v_alcance not in ('publico', 'seguidores', 'equipe') then perform interno.erro('invalido:alcance'); end if;
+  if v_alcance = 'equipe' and not interno.voluntario() then perform interno.erro('invalido:alcance'); end if;
+  -- Contas com menos de uma semana publicam pouco: freia conta criada em massa para tumultuar.
+  if (select criado_em from perfis where id = v) > now() - interval '7 days' then perform interno.limite('rede_post_novo', 8, 1440);
+  else perform interno.limite('rede_post', 80, 1440); end if;
+  -- Dado pessoal não vai para a rede: CPF, telefone e e-mail.
+  if v_texto ~ '\d{3}\.?\d{3}\.?\d{3}-?\d{2}' or v_texto ~ '\(?\d{2}\)?\s?9\d{4}[-\s]?\d{4}' or v_texto ~* '[a-z0-9._%+-]+@[a-z0-9-]+\.[a-z.]{2,}' then
+    perform interno.erro('dado_pessoal');
+  end if;
+  begin
+    v_resposta := nullif(p ->> 'resposta_a', '')::uuid;
+    v_repost := nullif(p ->> 'repost_de', '')::uuid;
+  exception when others then perform interno.erro('invalido:post');
+  end;
+  if v_resposta is not null then
+    select * into o from rede_posts where id = v_resposta;
+    if not found or not interno.rede_ve(o) or o.oculto then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  if v_repost is not null then
+    select * into o from rede_posts where id = v_repost;
+    if not found or o.oculto or o.alcance <> 'publico' or interno.rede_bloqueado(v, o.autor) then perform interno.erro('nao_encontrado'); end if;
+  end if;
+  if v_texto = '' and v_repost is null then perform interno.erro('invalido:texto'); end if;
+  if p ? 'cita' and jsonb_typeof(p -> 'cita') = 'object' then
+    if coalesce(p -> 'cita' ->> 'tipo', '') not in ('aula', 'obra', 'materia') or coalesce(p -> 'cita' ->> 'caminho', '') !~ '^/(trilhas|acervo|jornal)/[a-z0-9/-]{2,200}$' then
+      perform interno.erro('invalido:cita');
+    end if;
+    v_cita := jsonb_build_object('tipo', p -> 'cita' ->> 'tipo', 'caminho', p -> 'cita' ->> 'caminho', 'titulo', left(coalesce(p -> 'cita' ->> 'titulo', ''), 200));
+  end if;
+  if p ? 'chamado' and jsonb_typeof(p -> 'chamado') = 'object' then
+    begin
+      v_quando := (p -> 'chamado' ->> 'quando')::timestamptz;
+    exception when others then perform interno.erro('invalido:chamado');
+    end;
+    if coalesce(p -> 'chamado' ->> 'tipo', '') not in ('ato', 'mutirao', 'assembleia', 'roda') or v_quando is null or v_quando < now() or v_quando > now() + interval '365 days'
+       or char_length(coalesce(p -> 'chamado' ->> 'onde', '')) not between 3 and 160 then
+      perform interno.erro('invalido:chamado');
+    end if;
+    v_chamado := jsonb_build_object('tipo', p -> 'chamado' ->> 'tipo', 'quando', v_quando, 'onde', btrim(p -> 'chamado' ->> 'onde'));
+  end if;
+  v_av := interno.veredito(v_texto || ' ' || coalesce(v_chamado ->> 'onde', ''), interno.cuida(), v);
+  v_veredito := v_av ->> 'veredito';
+  if v_veredito = 'publicar' and interno.aprovacao_manual() and not interno.cuida() then v_veredito := 'revisar'; v_av := jsonb_build_object('veredito', 'revisar', 'motivo', 'modo_seguranca'); end if;
+  insert into rede_posts (autor, texto, comunidade, resposta_a, repost_de, cita, chamado, alcance, aviso, oculto, retido, avaliacao, motivo)
+  values (v, v_texto, nullif(btrim(coalesce(p ->> 'comunidade', '')), ''), v_resposta, v_repost, v_cita, v_chamado, v_alcance, left(btrim(coalesce(p ->> 'aviso', '')), 80),
+          v_veredito <> 'publicar', v_veredito = 'revisar', case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end, coalesce(v_av ->> 'motivo', ''))
+  returning * into x;
+  if v_resposta is not null and o.autor is distinct from v and x.oculto = false then
+    perform interno.avisar(o.autor, format('%s respondeu ao seu post na Rede Lúcia: “%s”', coalesce((select interno.nome_visto(nome) from perfis where id = v), 'Alguém'), left(v_texto, 120)));
+  end if;
+  return interno.rede_post_json(x);
+exception when check_violation then perform interno.erro('invalido:post');
+end $$;
+
+/** A linha do tempo, em ordem de tempo (40 por vez): de todos, de quem sigo, de uma comunidade, de um perfil ou os chamados. */
+create or replace function public.rede_linha(p_modo text default 'tudo', p_comunidade text default null, p_usuario uuid default null, p_antes timestamptz default null) returns jsonb
+language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  if p_modo = 'perfil' and p_usuario is not null and p_usuario is distinct from auth.uid() and coalesce((select rede_invisivel from perfis where id = p_usuario), false) then
+    return '[]'::jsonb;
+  end if;
+  return coalesce((select jsonb_agg(interno.rede_post_json(x) order by case when p_modo = 'chamados' then (x.chamado ->> 'quando')::timestamptz end, x.criado_em desc) from (
+    select p.* from rede_posts p
+    where interno.rede_ve(p) and (p_antes is null or p.criado_em < p_antes)
+      and case p_modo
+        when 'seguindo' then p.resposta_a is null and (p.autor = auth.uid() or exists (select 1 from rede_seguindo s where s.quem = auth.uid() and s.segue = p.autor))
+        when 'comunidade' then p.resposta_a is null and p.comunidade = p_comunidade
+        when 'perfil' then p.autor = p_usuario
+        when 'chamados' then p.chamado is not null and (p.chamado ->> 'quando')::timestamptz > now() - interval '6 hours'
+        else p.resposta_a is null end
+    order by p.criado_em desc limit 40) x), '[]'::jsonb);
+end $$;
+
+/** Um post e o fio das respostas. */
+create or replace function public.rede_post_ver(p_id uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare x rede_posts;
+begin
+  select * into x from rede_posts where id = p_id;
+  if not found or not interno.rede_ve(x) then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('post', interno.rede_post_json(x),
+    'respostas', (select coalesce(jsonb_agg(interno.rede_post_json(r) order by r.criado_em), '[]'::jsonb) from rede_posts r where r.resposta_a = x.id and interno.rede_ve(r)));
+end $$;
+
+/** Quantos posts novos chegaram desde a última olhada (o aviso "N posts novos", sem recarregar a lista sozinho). */
+create or replace function public.rede_novos(p_desde timestamptz) returns integer language sql stable security definer set search_path = interno, pg_temp as $$
+  select count(*)::int from rede_posts p where p.criado_em > p_desde and p.resposta_a is null and interno.rede_ve(p) and p.autor is distinct from auth.uid()
+$$;
+
+create or replace function public.rede_apagar(p_id uuid) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  delete from rede_posts where id = p_id and autor = interno.eu();
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+create or replace function public.rede_apoiar(p_id uuid, p_sim boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x rede_posts;
+begin
+  select * into x from rede_posts where id = p_id;
+  if not found or not interno.rede_ve(x) then perform interno.erro('nao_encontrado'); end if;
+  if coalesce(p_sim, true) then insert into rede_apoios (post, usuario) values (p_id, v) on conflict do nothing;
+  else delete from rede_apoios where post = p_id and usuario = v; end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** "Eu vou" num chamado (ato, mutirão, assembleia). */
+create or replace function public.rede_vou(p_id uuid, p_sim boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); x rede_posts;
+begin
+  select * into x from rede_posts where id = p_id;
+  if not found or x.chamado is null or not interno.rede_ve(x) then perform interno.erro('nao_encontrado'); end if;
+  if coalesce(p_sim, true) then insert into rede_vou (post, usuario) values (p_id, v) on conflict do nothing;
+  else delete from rede_vou where post = p_id and usuario = v; end if;
+  return jsonb_build_object('ok', true, 'vou', (select count(*) from rede_vou where post = p_id));
+end $$;
+
+create or replace function public.rede_seguir(p_usuario uuid, p_sim boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if p_usuario is null or p_usuario = v or not exists (select 1 from perfis where id = p_usuario) or interno.rede_bloqueado(v, p_usuario) then perform interno.erro('invalido:usuario'); end if;
+  if coalesce(p_sim, true) then
+    perform interno.limite('rede_seguir', 200, 1440);
+    insert into rede_seguindo (quem, segue) values (v, p_usuario) on conflict do nothing;
+  else delete from rede_seguindo where quem = v and segue = p_usuario; end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** Bloquear: some da linha dos dois, desfaz o seguir nos dois sentidos e ninguém responde a ninguém. */
+create or replace function public.rede_bloquear(p_usuario uuid, p_sim boolean) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu();
+begin
+  if p_usuario is null or p_usuario = v then perform interno.erro('invalido:usuario'); end if;
+  if coalesce(p_sim, true) then
+    insert into rede_bloqueios (quem, bloqueado) values (v, p_usuario) on conflict do nothing;
+    delete from rede_seguindo where (quem = v and segue = p_usuario) or (quem = p_usuario and segue = v);
+  else delete from rede_bloqueios where quem = v and bloqueado = p_usuario; end if;
+  return jsonb_build_object('ok', true);
+end $$;
+
+/** O perfil na rede: sem número de seguidores; diz só se a pessoa segue você e se você segue. Perfil invisível não abre. */
+create or replace function public.rede_perfil(p_usuario uuid) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare f perfis;
+begin
+  select * into f from perfis where id = p_usuario;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if f.rede_invisivel and f.id is distinct from auth.uid() then return jsonb_build_object('invisivel', true, 'nome', interno.nome_visto(f.nome)); end if;
+  return jsonb_build_object('id', f.id, 'nome', interno.nome_visto(f.nome), 'avatar', f.avatar, 'bio', f.bio, 'invisivel', false,
+    'equipe', interno.voluntario_e(f.id), 'funcoes', (select coalesce(jsonb_agg(distinct p.papel), '[]'::jsonb) from papeis p where p.usuario = f.id),
+    'sigo', exists (select 1 from rede_seguindo where quem = auth.uid() and segue = f.id),
+    'me_segue', exists (select 1 from rede_seguindo where quem = f.id and segue = auth.uid()),
+    'bloqueei', exists (select 1 from rede_bloqueios where quem = auth.uid() and bloqueado = f.id),
+    'eu', f.id = auth.uid());
+end $$;
+
+/** O registro público de moderação: quantos posts e mensagens a mediação ocultou e quantas contas baniu, por semana. Sem nomes. */
+create or replace function public.rede_moderacao_publica() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('semana', s.semana, 'ocultados', s.ocultados, 'banimentos', s.banimentos) order by s.semana desc), '[]'::jsonb)
+  from (select date_trunc('week', criado_em)::date as semana,
+               count(*) filter (where acao = 'comunidade_ocultar')::int as ocultados,
+               count(*) filter (where acao = 'mediacao_banir')::int as banimentos
+        from auditoria where acao in ('comunidade_ocultar', 'mediacao_banir') and criado_em > now() - interval '120 days'
+        group by 1) s
+$$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('rede_confirmar_idade', 'rede_config', 'rede_eu', 'rede_postar', 'rede_linha', 'rede_post_ver', 'rede_novos', 'rede_apagar',
+             'rede_apoiar', 'rede_vou', 'rede_seguir', 'rede_bloquear', 'rede_perfil', 'rede_moderacao_publica') loop
     execute format('revoke all on function %s from public', f.assinatura);
     execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
   end loop;
