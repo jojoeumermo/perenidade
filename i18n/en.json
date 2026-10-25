@@ -105,7 +105,8 @@
     "conduct": "Code of conduct",
     "usePolicy": "Use policy",
     "events": "Events",
-    "spreadKit": "Outreach kit"
+    "spreadKit": "Outreach kit",
+    "despertar": "Awaken"
   },
   "labs": {
     "eyebrow": "Real practice",
@@ -380,7 +381,12 @@
     "radioLive": "Music, news and debates all day, to listen with little data.",
     "onThisDay": "On this day",
     "onThisDaySource": "People’s struggles and victories on this date, chosen by the team and drawn from Wikipedia. Wikipedia text, CC BY-SA license.",
-    "searchHint": "The search looks only in here (lessons, works, glossary and everything else the institute has published): it is not a web search."
+    "searchHint": "The search looks only in here (lessons, works, glossary and everything else the institute has published): it is not a web search.",
+    "moreKicker": "More than lessons",
+    "moreTitle": "Here we study to change our lives.",
+    "moreText": "Instituto Lúcia is a school for life: we educate people who know which side they are on and who walk with the working class. No state diploma, no fees, no addiction: out of revolt, curiosity and hope.",
+    "moreStart": "Start Awaken",
+    "moreManifesto": "Read the manifesto"
   },
   "areas": {
     "portugues": [
@@ -3149,7 +3155,8 @@
       "conduct": "How we treat each other in participatory spaces.",
       "usePolicy": "What is and isn't allowed, in a few lines.",
       "events": "Film club, reading club and other gatherings.",
-      "spreadKit": "Posters, flyer, zine and QR cards to print."
+      "spreadKit": "Posters, flyer, zine and QR cards to print.",
+      "despertar": "From zero to class consciousness, in five stages, with real-world tasks."
     },
     "short": {
       "/trilhas": "all subjects",
@@ -3203,7 +3210,8 @@
       "/dedicatoria": "where the name comes from",
       "/meus-dados": "download or delete",
       "/privacidade": "what we keep",
-      "/termos": "the site's rules"
+      "/termos": "the site's rules",
+      "/despertar": "political education"
     },
     "highlights": "Start here",
     "startText": "New here? Start with a question from your life, or pick a subject.",
@@ -3782,7 +3790,7 @@
     "title": "Materials",
     "lead": "Zines, leaflets, posters and banners made by the institute. Download, print and pass them on.",
     "kitTitle": "Outreach kit: pieces to print right now",
-    "kitLead": "Street posters, a wall banner, flyers, a zine, cards, stickers and bookmarks with a QR code, drawn right here in vector: they print sharp at any size. Pick the piece and the ink, then click Print (on a phone, use “Save as PDF” and take it to a print shop).",
+    "kitLead": "Nineteen pieces, all with the Instagram @institutoluciaorg: posters and street paste-ups, event and classroom posters, wall banner, flyers, factory-gate leaflet, study-group invitation, zine, cards, slips, stickers, table banner and bookmarks, with QR code and in vector. Printed something without the @? Use the @ sticker sheet to paste over it. Pick the piece and the ink, then click Print (on a phone, use “Save as PDF” and take it to a print shop).",
     "fromTeam": "Zines and posters from the coordination",
     "description": "Zines, leaflets, posters and banners by Instituto Lúcia to download, print and hand out.",
     "empty": "No materials have been published yet.",
@@ -4840,5 +4848,32 @@
   },
   "salaLivre": {
     "description": "Build and project your own lesson with everything the institute offers: labs, library books, photo, video and 3D editors, simulations, games and quizzes. It stays only in your browser."
+  },
+  "despertar": {
+    "eyebrow": "Learning path · from zero to organizing",
+    "title": "Awaken.",
+    "lead": "Nobody is born knowing they are exploited. Class consciousness is learned: in life, in study and in collective struggle.",
+    "start": "Start with stage 1",
+    "group": "Study in a group",
+    "stats": {
+      "stages": "stages",
+      "lessons": "ready lessons",
+      "tasks": "real-world tasks",
+      "price": "reais · no state diploma"
+    },
+    "intro": "Each stage has short lessons from several subjects, a reading from the library, a real-world task and a study-group meeting. You can do it alone, but the path was made to be lived together.",
+    "lesson": "Lesson",
+    "soon": "Coming soon",
+    "reading": "Reading",
+    "circle": "Study-group meeting guide: questions for the circle",
+    "task": "Real-world task",
+    "finalTask": "Final task",
+    "endKicker": "At the end of the path",
+    "certTitle": "Community certificate",
+    "certText": "Recognized by the institute and signed by your study group, not by the state. It is worth what you learned and what you did with it.",
+    "groupKicker": "Better together",
+    "groupTitle": "Do Awaken in a study group",
+    "groupText": "Each stage has a one-hour meeting guide and questions for the circle. Gather three people and start.",
+    "groupCta": "Find or start a group"
   }
 }
