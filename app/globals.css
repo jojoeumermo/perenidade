@@ -3253,3 +3253,61 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
     background: none;
   }
 }
+
+/* A zine de uma folha (app/[lang]/trilhas/[track]/[lesson]/zine): A4 deitada, 4 por 2 quadros. Os tracejados são as
+   dobras; o corte é o vinco do meio, entre os dois quadros centrais. */
+.folha-livrinho {
+  display: grid;
+  grid-template-columns: repeat(4, 74.25mm);
+  grid-template-rows: repeat(2, 105mm);
+  width: 297mm;
+  height: 210mm;
+  background: #fff;
+  outline: 1px solid var(--ink);
+}
+.livrinho-quadro {
+  outline: 1px dashed rgb(23 19 14 / 0.25);
+}
+@page livrinho {
+  size: A4 landscape;
+  margin: 0;
+}
+@media print {
+  html:has(.folha-livrinho) body {
+    page: livrinho;
+  }
+  .folha-livrinho {
+    outline: none;
+  }
+  main#conteudo:has(.folha-livrinho) > div {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  .livrinho-moldura {
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+}
+
+/* O kit do núcleo (app/[lang]/trilhas/[track]/nucleo): cada parte numa folha A4 em pé. */
+@page kit {
+  size: A4;
+  margin: 12mm;
+}
+@media print {
+  html:has(.kit-do-nucleo) body {
+    page: kit;
+  }
+  main#conteudo:has(.kit-do-nucleo) > div {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  .kit-do-nucleo {
+    margin: 0 !important;
+  }
+  .kit-do-nucleo > .folha-do-kit {
+    border: 0;
+    padding: 0;
+    break-after: page;
+  }
+}
