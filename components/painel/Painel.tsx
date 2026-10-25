@@ -3,7 +3,8 @@
 
 import { Atalhos, useAtalhos } from "./Atalhos";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import nesteDia from "@/content/neste-dia.json";
 import { areaSlugs } from "@/lib/areas";
 import { areasPublicas } from "@/lib/interdicao";
 import { can, getClient, hasBackend, leads, manages, type Me, nivelDe, porNivel, type Role, rpc, signOut, useMe } from "@/lib/backend";
@@ -118,18 +119,29 @@ const simples = (texto: string) => texto.normalize("NFD").replace(/\p{M}/gu, "")
  * cada uma faz. Setas escolhem, Enter abre, Esc fecha. Com mais de vinte seções, é o caminho mais curto.
  */
 // Montada só enquanto está aberta: cada abertura começa com a busca vazia e o cursor no campo.
-function IrPara({ secoes, fechar, ir }: { secoes: Secao[]; fechar: () => void; ir: (id: string) => void }) {
+interface Comando {
+  id: string;
+  nome: string;
+  sobre: string;
+  fazer: () => void;
+}
+
+function IrPara({ secoes, comandos, fechar, ir }: { secoes: Secao[]; comandos: Comando[]; fechar: () => void; ir: (id: string) => void }) {
   const [busca, setBusca] = useState("");
   const [indice, setIndice] = useState(0);
+  // As seções primeiro e, depois, os comandos (escrever uma aula, trocar o tema, modo leve…), na mesma lista.
   const achadas = useMemo(() => {
     const termo = simples(busca.trim());
-    if (!termo) return secoes;
-    return secoes.filter((secao) => simples(`${secao.nome} ${secao.grupo} ${secao.sobre}`).includes(termo));
-  }, [busca, secoes]);
+    const itens = [...secoes.map((secao) => ({ ...secao, comando: null as Comando | null })), ...comandos.map((c) => ({ id: `comando:${c.id}`, nome: c.nome, sobre: c.sobre, grupo: "Comandos", mostra: true, conta: undefined, comando: c }))];
+    if (!termo) return itens;
+    return itens.filter((item) => simples(`${item.nome} ${item.grupo} ${item.sobre}`).includes(termo));
+  }, [busca, secoes, comandos]);
 
   const escolher = (id: string) => {
     fechar();
-    ir(id);
+    const item = achadas.find((x) => x.id === id);
+    if (item?.comando) item.comando.fazer();
+    else ir(id);
   };
   return (
     <div className="painel-veu fixed inset-0 z-50 flex items-start justify-center bg-[#17130e]/60 px-4 pt-[12vh]" onClick={fechar}>
@@ -154,22 +166,27 @@ function IrPara({ secoes, fechar, ir }: { secoes: Secao[]; fechar: () => void; i
                 setIndice((i) => Math.max(i - 1, 0));
               } else if (e.key === "Enter" && achadas[indice]) escolher(achadas[indice].id);
             }}
-            placeholder="Ir para… (fila, horas, rádio)"
+            placeholder="Ir para… ou um comando (fila, escrever aula, modo leve)"
             className="min-w-0 flex-1 bg-transparent py-3.5 text-base outline-none placeholder:text-ink-soft"
           />
           <kbd className="font-mono text-[0.65rem] text-ink-soft">Esc</kbd>
         </label>
         <ul className="max-h-[55vh] overflow-y-auto py-1">
-          {achadas.length === 0 && <li className="px-4 py-3 text-ink-soft">Nenhuma seção com esse nome.</li>}
+          {achadas.length === 0 && <li className="px-4 py-3 text-ink-soft">Nenhuma seção ou comando com esse nome.</li>}
           {achadas.map((secao, i) => (
             <li key={secao.id}>
+              {secao.comando && (i === 0 || !achadas[i - 1].comando) && <p className="px-4 pt-3 pb-1 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-ink-soft">Comandos</p>}
               <button
                 type="button"
                 onMouseEnter={() => setIndice(i)}
                 onClick={() => escolher(secao.id)}
                 className={`flex w-full cursor-pointer items-center gap-3 px-4 py-2.5 text-left ${i === indice ? "bg-ink text-parchment" : ""}`}
               >
-                <Icone id={secao.id} className={`h-5 w-5 ${i === indice ? "text-[#e0372b]" : "text-oxblood"}`} />
+                {secao.comando ? (
+                  <span aria-hidden className={`flex h-5 w-5 items-center justify-center font-mono text-sm font-bold ${i === indice ? "text-[#e0372b]" : "text-oxblood"}`}>›</span>
+                ) : (
+                  <Icone id={secao.id} className={`h-5 w-5 ${i === indice ? "text-[#e0372b]" : "text-oxblood"}`} />
+                )}
                 <span className="min-w-0 flex-1">
                   <span className="block font-semibold">{secao.nome}</span>
                   <span className={`block truncate text-xs ${i === indice ? "text-[#cdbb91]" : "text-ink-soft"}`}>{secao.sobre}</span>
@@ -186,6 +203,49 @@ function IrPara({ secoes, fechar, ir }: { secoes: Secao[]; fechar: () => void; i
 
 
 
+function trocarTema() {
+  const atual = document.documentElement.getAttribute("data-theme") ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  const novo = atual === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", novo);
+  setItem(KEYS.theme, novo);
+}
+
+/** "g" e uma letra: vai direto à seção (se a pessoa enxerga a seção). */
+const ATALHOS_G: Record<string, string> = { m: "mesa", e: "escrever", c: "conversas", f: "fila", h: "horas", t: "tarefas", a: "atividade", v: "videoaulas", r: "rede", p: "pessoas", o: "conta" };
+
+/** A lista dos atalhos de teclado do painel ("?" abre e fecha). */
+function AjudaDoTeclado({ secoes, fechar }: { secoes: Secao[]; fechar: () => void }) {
+  const nome = (id: string) => secoes.find((secao) => secao.id === id)?.nome;
+  const linhas: [string, string][] = [
+    ["Ctrl K", "Ir para uma seção ou rodar um comando"],
+    ["/", "Ir para… (fora de campos de texto)"],
+    ["?", "Abrir e fechar esta lista"],
+    ...Object.entries(ATALHOS_G)
+      .filter(([, id]) => nome(id))
+      .map(([letra, id]) => [`g ${letra}`, nome(id) as string] as [string, string]),
+    ["Esc", "Fechar janelas e caixas"],
+  ];
+  return (
+    <div className="painel-veu fixed inset-0 z-50 flex items-start justify-center bg-[#17130e]/60 px-4 pt-[10vh]" onClick={fechar}>
+      <div role="dialog" aria-modal="true" aria-label="Atalhos de teclado" className="w-full max-w-md border-2 border-ink bg-parchment p-5 text-ink" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="font-serif text-2xl font-semibold">Atalhos de teclado</h2>
+          <button type="button" onClick={fechar} className="cursor-pointer border-2 border-ink px-2 py-0.5 text-xs font-bold hover:bg-ink hover:text-parchment">Fechar</button>
+        </div>
+        <dl className="mt-4 divide-y divide-dashed divide-rule">
+          {linhas.map(([tecla, o]) => (
+            <div key={tecla} className="flex items-center justify-between gap-4 py-1.5">
+              <dt><kbd className="border border-ink bg-folha px-1.5 py-0.5 font-mono text-xs">{tecla}</kbd></dt>
+              <dd className="text-right">{o}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-3 text-xs text-ink-soft">“g” e uma letra: aperte g, solte, e aperte a letra logo depois.</p>
+      </div>
+    </div>
+  );
+}
+
 /** Claro ou escuro, como no site: a escolha fica guardada no navegador. */
 function Tema() {
   // O cabeçalho do site não existe aqui dentro, então é o painel que reaplica o tema e as preferências de leitura.
@@ -195,15 +255,8 @@ function Tema() {
     applyPrefs(readPrefs());
   }, []);
 
-  function trocar() {
-    const atual = document.documentElement.getAttribute("data-theme") ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    const novo = atual === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", novo);
-    setItem(KEYS.theme, novo);
-  }
-
   return (
-    <button type="button" onClick={trocar} className="cursor-pointer underline hover:text-prelo-texto">
+    <button type="button" onClick={trocarTema} className="cursor-pointer underline hover:text-prelo-texto">
       Claro / escuro
     </button>
   );
@@ -515,6 +568,8 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
   // (Dentro só monta no navegador, depois de carregar a conta: dá para ler o armazenamento já na primeira renderização.)
   const [compacto, setCompacto] = useState(() => getItem(KEYS.painelCompacto) === "1");
   const [foco, setFoco] = useState(() => getItem(KEYS.painelFoco) === "1");
+  const [leve, setLeve] = useState(() => getItem(KEYS.painelLeve) === "1");
+  const [ajudaDoTeclado, setAjudaDoTeclado] = useState(false);
   const [telaCheia, setTelaCheia] = useState(false);
   useEffect(() => {
     const mudou = () => setTelaCheia(Boolean(document.fullscreenElement));
@@ -523,20 +578,63 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
   }, []);
   const alternarCompacto = () => { setCompacto((c) => { setItem(KEYS.painelCompacto, c ? "0" : "1"); return !c; }); };
   const alternarFoco = () => { setFoco((f) => { setItem(KEYS.painelFoco, f ? "0" : "1"); return !f; }); };
+  const alternarLeve = () => { setLeve((l) => { setItem(KEYS.painelLeve, l ? "0" : "1"); return !l; }); };
+  const abrirEm = (caminho: string) => {
+    setMenu(false);
+    router.push(`/${lang}/painel?${caminho}`, { scroll: false });
+    window.scrollTo(0, 0);
+  };
+  const tem = (id: string) => secoes.some((secao) => secao.id === id);
+  const comandos: Comando[] = [
+    ...(tem("escrever") ? [{ id: "aula", nome: "Escrever uma aula", sobre: "Abre o Escrever já no tipo aula de uma trilha.", fazer: () => abrirEm("aba=escrever&tipo=aula") }] : []),
+    ...(tem("escrever") ? [{ id: "artigo", nome: "Escrever uma matéria para o jornal", sobre: "Abre o Escrever no tipo matéria.", fazer: () => abrirEm("aba=escrever&tipo=artigo") }] : []),
+    ...(tem("videoaulas") ? [{ id: "gravar", nome: "Gravar uma aula em vídeo", sobre: "Abre as Aulas em vídeo para gravar.", fazer: () => ir("videoaulas") }] : []),
+    ...(tem("aovivo") ? [{ id: "marcar", nome: "Marcar uma aula ao vivo", sobre: "Abre a agenda das aulas ao vivo.", fazer: () => ir("aovivo") }] : []),
+    { id: "tema", nome: "Trocar claro / escuro", sobre: "Muda o tema do painel e do site neste aparelho.", fazer: trocarTema },
+    { id: "leve", nome: leve ? "Sair do modo leve" : "Modo leve", sobre: "Sem animações, sombras e texturas: bom para aparelho fraco e internet ruim.", fazer: alternarLeve },
+    { id: "foco", nome: foco ? "Sair do modo foco" : "Modo foco", sobre: "Só o essencial no menu.", fazer: alternarFoco },
+    { id: "recolher", nome: compacto ? "Abrir o menu" : "Recolher o menu", sobre: "Deixa só o trilho de ícones, no computador.", fazer: alternarCompacto },
+    { id: "tutorial", nome: "Abrir o tutorial", sobre: "O passeio pelo painel, do começo.", fazer: abrirTutorial },
+    { id: "teclado", nome: "Atalhos de teclado", sobre: "A lista de atalhos do painel.", fazer: () => setAjudaDoTeclado(true) },
+    { id: "sair", nome: "Sair do painel", sobre: "Fecha a sua sessão neste aparelho.", fazer: sair },
+  ];
   const alternarTelaCheia = () => {
     if (document.fullscreenElement) void document.exitFullscreen();
     else void document.documentElement.requestFullscreen?.().catch(() => undefined);
   };
-  // Ctrl+K (ou Cmd+K) de qualquer lugar; "/" fora de campos de texto.
+  // Ctrl+K (ou Cmd+K) de qualquer lugar; "/" fora de campos de texto; "?" mostra os atalhos; "g" e uma letra vai
+  // direto a uma seção (g m: Mesa, g e: Escrever, g c: Conversas…), como nos programas de e-mail.
+  const irRef = useRef(ir);
   useEffect(() => {
+    irRef.current = ir;
+  });
+  useEffect(() => {
+    let g = 0;
     const tecla = (e: KeyboardEvent) => {
       const escrevendo = e.target instanceof HTMLElement && (e.target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName));
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setIrPara((aberto) => !aberto);
-      } else if (e.key === "/" && !escrevendo) {
+        return;
+      }
+      if (escrevendo || e.ctrlKey || e.metaKey || e.altKey) return;
+      if (e.key === "/") {
         e.preventDefault();
         setIrPara(true);
+      } else if (e.key === "?") {
+        e.preventDefault();
+        setAjudaDoTeclado((aberta) => !aberta);
+      } else if (e.key === "Escape") {
+        setAjudaDoTeclado(false);
+      } else if (e.key.toLowerCase() === "g") {
+        g = Date.now();
+      } else if (Date.now() - g < 1200) {
+        const destino = ATALHOS_G[e.key.toLowerCase()];
+        g = 0;
+        if (destino) {
+          e.preventDefault();
+          irRef.current(destino);
+        }
       }
     };
     window.addEventListener("keydown", tecla);
@@ -552,10 +650,11 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
   const ambiente = lidera ? "Coordenação" : supervisiona ? "Supervisão" : voluntario ? "Equipe" : "Comunidade";
 
   return (
-    <div className={`painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid ${compacto ? "lg:grid-cols-[4.5rem_minmax(0,1fr)]" : "lg:grid-cols-[20rem_minmax(0,1fr)]"}`}>
+    <div className={`painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid ${leve ? "painel-leve" : ""} ${compacto ? "lg:grid-cols-[4.5rem_minmax(0,1fr)]" : "lg:grid-cols-[20rem_minmax(0,1fr)]"}`}>
       <TraduzirPainel />
       <TutorialDoPainel pronto={!(voluntario && eu.termo_voluntario === false)} />
-      {irPara && <IrPara secoes={secoes} fechar={() => setIrPara(false)} ir={ir} />}
+      {irPara && <IrPara secoes={secoes} comandos={comandos} fechar={() => setIrPara(false)} ir={ir} />}
+      {ajudaDoTeclado && <AjudaDoTeclado secoes={secoes} fechar={() => setAjudaDoTeclado(false)} />}
       {/* Aviso da coordenação, da vice ou da supervisão: aparece por cima de tudo até a pessoa apertar "Entendi". */}
       {(voluntario || eu.supervisao) && <QuadroDeAvisos />}
       {/* O termo de voluntário: quem tem função aceita uma vez; quem recusa sai. Banco antigo não manda o campo e nada aparece. */}
@@ -596,6 +695,10 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
             <button type="button" onClick={alternarFoco} aria-pressed={foco} title={foco ? "Sair do modo foco: mostrar todas as seções" : "Modo foco: só o essencial no menu"} className={`cursor-pointer border-2 border-ink p-1.5 hover:bg-ink hover:text-parchment ${foco ? "bg-ink text-parchment" : ""}`}>
               <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="3" /><circle cx="12" cy="12" r="8" /></svg>
               <span className="sr-only">Modo foco</span>
+            </button>
+            <button type="button" onClick={alternarLeve} aria-pressed={leve} title={leve ? "Sair do modo leve" : "Modo leve: sem animações, sombras e texturas"} className={`cursor-pointer border-2 border-ink p-1.5 hover:bg-ink hover:text-parchment ${leve ? "bg-ink text-parchment" : ""}`}>
+              <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3c-4 4-6 7-6 10a6 6 0 0 0 12 0c0-3-2-6-6-10z" /></svg>
+              <span className="sr-only">Modo leve</span>
             </button>
             <button type="button" onClick={alternarTelaCheia} aria-pressed={telaCheia} title={telaCheia ? "Sair da tela cheia" : "Tela cheia"} className="cursor-pointer border-2 border-ink p-1.5 hover:bg-ink hover:text-parchment">
               <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{telaCheia ? <path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" /> : <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />}</svg>
@@ -849,6 +952,9 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
   const hora = new Date().getHours();
   const saudacao = hora < 5 ? "Boa noite" : hora < 12 ? "Bom dia" : hora < 18 ? "Boa tarde" : "Boa noite";
   const hoje = new Date().toLocaleDateString(localDoPainel(), { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  // Data de luta: se hoje está no quadro "Neste dia" (content/neste-dia.json), a Mesa lembra.
+  const diaMes = `${String(new Date().getMonth() + 1).padStart(2, "0")}-${String(new Date().getDate()).padStart(2, "0")}`;
+  const dataDeLuta = (nesteDia.fatos as { dia: string; ano: number; texto: string; link: string }[]).find((f) => f.dia === diaMes);
   const produz = can(me, "coordenacao", "supervisao", "curadoria", "educacao", "revisao", "traducao", "jornalismo", "design", "marketing");
 
   return (
@@ -859,6 +965,13 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
           <h2 className="mt-1.5 font-serif text-[2.6rem] font-semibold leading-none sm:text-5xl">
             {saudacao}, <span className="italic text-prelo-texto">{me.nome.split(" ")[0]}</span>.
           </h2>
+          {dataDeLuta && (
+            <p className="mt-3 max-w-2xl border-l-4 border-[#c21f16] pl-3 text-[0.95rem] leading-snug">
+              <span className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-prelo-texto">Hoje, em {dataDeLuta.ano} · </span>
+              {dataDeLuta.texto}{" "}
+              <a href={dataDeLuta.link} target="_blank" rel="noopener noreferrer" className="text-xs text-ink-soft underline hover:text-prelo-texto">fonte</a>
+            </p>
+          )}
           {me.papeis.length > 0 ? (
             <ul className="mt-4 flex flex-wrap gap-2" aria-label="Suas funções">
               {porNivel(me.papeis).map((papel) => (
