@@ -245,7 +245,13 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
     if (eu.current.papel === "aluno") transmissor.pedir(visiveis.filter((p) => p.papel === "educador"));
   }, [aula.id]);
 
+  // A aula é relida a cada 30 s e cada leitura traz uma lista nova: só confere de novo quando as chaves mudam de verdade
+  // (senão quem assiste pediria o vídeo de novo a cada leitura, e a imagem religaria).
+  const chavesVistas = useRef(JSON.stringify(aula.chaves ?? null));
   useEffect(() => {
+    const agora = JSON.stringify(aula.chaves ?? null);
+    if (agora === chavesVistas.current) return;
+    chavesVistas.current = agora;
     chaves.current = aula.chaves;
     void reconferir();
   }, [aula.chaves, reconferir]);
