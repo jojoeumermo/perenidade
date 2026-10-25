@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { type Aula } from "@/lib/aovivo";
 import { areaSlugs } from "@/lib/areas";
-import { can, type Me } from "@/lib/backend";
+import { can, rpc, type Me } from "@/lib/backend";
+import { linkDoYoutube, mensagemDoCanal, pedirAoCanal } from "@/lib/canal-youtube";
 import { JITSI_DOMINIO, novaSalaJitsi } from "@/lib/jitsi";
 import { useI18n } from "../I18n";
 import { useTrackOptions } from "../useTrackOptions";
@@ -63,6 +64,7 @@ export function AulasAoVivo({ me }: { me: Me }) {
   const [editando, setEditando] = useState<Aula | "nova" | null>(null);
   const [agora, setAgora] = useState(() => Date.now());
   const [passadasAbertas, setPassadasAbertas] = useState(false);
+  const [transmitir, setTransmitir] = useState<string | null>(null);
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
   const abrirSala = (id: string) => `/${lang}/ao-vivo/sala?aula=${id}`;
 
@@ -148,6 +150,7 @@ export function AulasAoVivo({ me }: { me: Me }) {
             <button type="button" className="cursor-pointer rounded-md border border-[#cdbb91]/50 px-4 py-2.5 hover:border-[#f3ead8]" onClick={() => copiar(aula)}>Copiar o endereço</button>
             <button type="button" className="cursor-pointer rounded-md px-4 py-2.5 text-[#cdbb91] hover:text-[#f3ead8]" disabled={acao.ocupado} onClick={() => encerrar(aula)}>Encerrar a aula</button>
           </div>
+          <TransmitirNoYoutube aula={aula} escuro />
         </section>
       ))}
 
@@ -165,6 +168,7 @@ export function AulasAoVivo({ me }: { me: Me }) {
               <a href={abrirSala(proxima.id)} target="_blank" rel="noopener noreferrer" className={`${botaoClaro} rounded-md py-1.5`}>Abrir a sala ↗</a>
               <button type="button" className={`${botao} rounded-md py-1.5`} disabled={acao.ocupado} onClick={() => comecar(proxima)}>Começar agora</button>
             </div>
+            <TransmitirNoYoutube aula={proxima} />
           </div>
         </section>
       )}
@@ -201,9 +205,13 @@ export function AulasAoVivo({ me }: { me: Me }) {
                           <button type="button" className={elo} onClick={() => setEditando(aula)}>Alterar</button>
                           <button type="button" className={elo} disabled={acao.ocupado} onClick={() => comecar(aula)}>Começar agora</button>
                           <button type="button" className={elo} onClick={() => copiar(aula)}>Copiar o endereço</button>
+                          {aula.id !== proxima?.id && (
+                            <button type="button" className={elo} aria-expanded={transmitir === aula.id} onClick={() => setTransmitir(transmitir === aula.id ? null : aula.id)}>Transmitir pelo YouTube</button>
+                          )}
                           <button type="button" className={`${elo} text-ink-soft`} disabled={acao.ocupado} onClick={() => cancelar(aula)}>Cancelar</button>
                           {can(me, "coordenacao") && <button type="button" className={`${elo} text-oxblood`} disabled={acao.ocupado} onClick={() => apagar(aula)}>Apagar</button>}
                         </p>
+                        {transmitir === aula.id && <TransmitirNoYoutube aula={aula} aberto />}
                       </div>
                     </li>
                   ))}
@@ -243,6 +251,87 @@ export function AulasAoVivo({ me }: { me: Me }) {
 
       {editando && <Marcar me={me} aula={editando === "nova" ? null : editando} fechar={() => setEditando(null)} depois={lista.recarregar} />}
     </div>
+  );
+}
+
+/**
+ * A transmissão pelo canal do instituto no YouTube, para turmas grandes: quem conduz pede a chave desta aula e
+ * transmite pelo OBS (computador) ou pelo Larix Broadcaster (celular). Ninguém recebe a senha nem o acesso ao canal: a
+ * chave só serve para esta aula. A transmissão começa sozinha quando o programa manda imagem e termina quando ele para.
+ */
+function TransmitirNoYoutube({ aula, escuro = false, aberto = false }: { aula: Aula; escuro?: boolean; aberto?: boolean }) {
+  const [dados, setDados] = useState<{ rtmp: string; chave: string; youtube: string } | null>(null);
+  const [aviso, setAviso] = useState("");
+  const [ocupado, setOcupado] = useState(false);
+  const [verChave, setVerChave] = useState(false);
+  useEffect(() => {
+    if (!aula.youtube) return;
+    let vivo = true;
+    rpc<{ rtmp: string; chave: string; youtube: string } | null>("youtube_transmissao_ver", { p_aula: aula.id })
+      .then((r) => vivo && r && setDados(r))
+      .catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, [aula.id, aula.youtube]);
+
+  async function gerar() {
+    setOcupado(true);
+    setAviso("");
+    const r = await pedirAoCanal({ acao: "transmissao", aula: aula.id });
+    setOcupado(false);
+    if (r.erro || !r.rtmp || !r.chave || !r.youtube) return setAviso(mensagemDoCanal(r.erro ?? "servico"));
+    setDados({ rtmp: r.rtmp, chave: r.chave, youtube: r.youtube });
+    setAviso("Transmissão criada no canal do instituto. Ponha o servidor e a chave no programa de transmissão.");
+  }
+  async function encerrarNoYoutube() {
+    if (!window.confirm("Encerrar a transmissão no YouTube? Ela normalmente termina sozinha quando o programa para de transmitir.")) return;
+    setOcupado(true);
+    const r = await pedirAoCanal({ acao: "encerrar", aula: aula.id });
+    setOcupado(false);
+    setAviso(r.erro ? mensagemDoCanal(r.erro) : "Transmissão encerrada no YouTube. A gravação fica no canal e entra na aula quando você a encerrar aqui.");
+  }
+  const copiar = (texto: string, oQue: string) => void navigator.clipboard?.writeText(texto).then(() => setAviso(`${oQue} copiado.`), () => setAviso(texto));
+
+  const caixa = escuro ? "mt-5 rounded-lg border border-[#cdbb91]/40 p-4 text-sm text-[#f3ead8]" : "mt-4 rounded-lg border border-rule bg-parchment p-4 text-sm";
+  const fraco = escuro ? "text-[#cdbb91]" : "text-ink-soft";
+  const campoFixo = `min-w-0 flex-1 truncate rounded border px-2 py-1 font-mono text-xs ${escuro ? "border-[#cdbb91]/40 bg-black/30" : "border-rule bg-parchment-deep"}`;
+  return (
+    <details className={caixa} open={aberto || Boolean(dados)}>
+      <summary className="cursor-pointer font-semibold">Transmitir pelo YouTube do instituto</summary>
+      <p className={`mt-2 ${fraco}`}>
+        Para turmas grandes: a aula passa no canal do instituto (não listada) e aqui no site, com o bate-papo do site. Use o OBS no computador ou o
+        Larix Broadcaster no celular. A chave vale só para esta aula; ninguém recebe a senha do canal.
+      </p>
+      {!dados ? (
+        <button type="button" className={`${escuro ? "bg-[#c21f16] text-white hover:bg-[#a51912]" : "bg-ink text-parchment hover:bg-oxblood"} mt-3 cursor-pointer rounded-md px-4 py-2 font-semibold disabled:opacity-50`} disabled={ocupado} onClick={() => void gerar()}>
+          {ocupado ? "Criando a transmissão…" : "Criar a transmissão e a chave desta aula"}
+        </button>
+      ) : (
+        <div className="mt-3 space-y-2">
+          <div className="flex items-center gap-2">
+            <span className="w-20 shrink-0 text-xs font-semibold">Servidor</span>
+            <code className={campoFixo}>{dados.rtmp}</code>
+            <button type="button" className={elo} onClick={() => copiar(dados.rtmp, "Servidor")}>Copiar</button>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-20 shrink-0 text-xs font-semibold">Chave</span>
+            <code className={campoFixo}>{verChave ? dados.chave : "•".repeat(Math.min(24, dados.chave.length))}</code>
+            <button type="button" className={elo} onClick={() => setVerChave(!verChave)}>{verChave ? "Esconder" : "Mostrar"}</button>
+            <button type="button" className={elo} onClick={() => copiar(dados.chave, "Chave")}>Copiar</button>
+          </div>
+          <p className={`text-xs ${fraco}`}>
+            No OBS: Configurações › Transmissão › Serviço “Personalizado”, cole o servidor e a chave. No Larix: Configurações › Conexões › nova, cole
+            “servidor/chave” no endereço. Não mande a chave para ninguém: quem tem a chave transmite no canal do instituto.
+          </p>
+          <p className="flex flex-wrap gap-x-4 gap-y-1">
+            <a href={linkDoYoutube(dados.youtube)} target="_blank" rel="noopener noreferrer" className={elo}>Ver a transmissão no YouTube ↗</a>
+            <button type="button" className={elo} disabled={ocupado} onClick={() => void encerrarNoYoutube()}>Encerrar no YouTube</button>
+          </p>
+        </div>
+      )}
+      {aviso && <p role="status" className={`mt-2 ${escuro ? "text-[#f0cf8e]" : "text-oxblood"}`}>{aviso}</p>}
+    </details>
   );
 }
 
