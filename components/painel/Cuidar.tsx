@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { can, type Me, recoverPending } from "@/lib/backend";
 import { Abas, Aviso, botao, botaoClaro, campo, data, elo, rotulo, useAcao, useLista } from "./comum";
+import { RespostasProntas } from "./RespostasProntas";
 
 interface Denuncia {
   id: string;
@@ -236,6 +237,7 @@ function Retidos({ media, aoBanir }: { media: boolean; aoBanir: () => void }) {
                       Motivo do banimento (fica no registro e vai para a coordenação)
                       <input value={banir.motivo} onChange={(e) => setBanir({ ...banir, motivo: e.target.value })} maxLength={300} className={campo} />
                     </label>
+                    <RespostasProntas tipo="banimento" usar={(texto) => setBanir({ ...banir, motivo: texto })} />
                     <label className="mt-2 flex items-start gap-2">
                       <input type="checkbox" checked={banir.origem} onChange={(e) => setBanir({ ...banir, origem: e.target.checked })} className="mt-1 h-4 w-4" />
                       <span>Caso extremo: barrar também a origem de rede desta pessoa (vale para qualquer conta e para envios sem conta vindos da mesma rede)</span>
@@ -328,6 +330,7 @@ function Denuncias() {
             {item.status === "aberta" ? (
               <div className="mt-3">
                 <input value={notas[item.id] ?? ""} onChange={(e) => setNotas({ ...notas, [item.id]: e.target.value })} placeholder="O que foi feito" aria-label="O que foi feito" maxLength={2000} className={campo} />
+                <RespostasProntas tipo="denuncia" usar={(texto) => setNotas({ ...notas, [item.id]: texto })} />
                 <button type="button" className={`mt-2 ${botaoClaro}`} disabled={acao.ocupado} onClick={() => acao.agir("denuncia_resolver", { p_id: item.id, p_nota: notas[item.id] ?? "" }, "Denúncia resolvida.")}>
                   Marcar como resolvida
                 </button>
@@ -649,6 +652,7 @@ export function MuralFila({ me }: { me: Me }) {
                     Motivo da retirada, para quem anunciou (obrigatório)
                     <input value={notas[item.id] ?? ""} onChange={(e) => setNotas({ ...notas, [item.id]: e.target.value })} maxLength={500} className={campo} />
                   </label>
+                  <RespostasProntas tipo="mural" usar={(texto) => setNotas({ ...notas, [item.id]: texto })} />
                   <button
                     type="button"
                     className={`mt-3 ${botaoClaro}`}
@@ -667,6 +671,7 @@ export function MuralFila({ me }: { me: Me }) {
                   Nota para quem enviou (obrigatória ao recusar)
                   <input value={notas[item.id] ?? ""} onChange={(e) => setNotas({ ...notas, [item.id]: e.target.value })} maxLength={500} className={campo} />
                 </label>
+                <RespostasProntas tipo="mural" usar={(texto) => setNotas({ ...notas, [item.id]: texto })} />
                 <div className="mt-3 flex flex-wrap gap-3">
                   <button type="button" className={botao} disabled={acao.ocupado} onClick={() => acao.agir("mural_decidir", { p_id: item.id, p_aprovar: true, p_nota: notas[item.id] ?? "" }, "Anúncio no ar por 180 dias.")}>
                     Aprovar

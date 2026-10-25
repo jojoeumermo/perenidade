@@ -26,6 +26,7 @@ import { Estatisticas } from "./Estatisticas";
 import { TermoDeVoluntario } from "./Termo";
 import { AgoraAoVivo, Continuar, DicaDoTutorial, meuDepartamento, NoSiteAgora, SuasHoras } from "./MesaAoLado";
 import { Agradecimentos, CuidadoDaEquipe, FeriasNaMesa, Termometro } from "./Cuidado";
+import { Departamentos } from "./Departamentos";
 import { abrirTutorial, TutorialDoPainel } from "./Tutorial";
 import { TermosAceitos } from "./PessoasExtras";
 import { SaudeNoPainel } from "./Saude";
@@ -66,6 +67,7 @@ import { Recados, SegundoFator } from "./Seguranca";
 import { type Controles, Site } from "./Site";
 import { Videoaulas } from "./Videoaulas";
 import { GuiaDaSecao } from "./GuiaDaSecao";
+import { GLOSSARIO } from "./guias";
 import { Icone } from "./icones";
 import { MenuDoPainel } from "./Menu";
 
@@ -212,7 +214,37 @@ function trocarTema() {
 }
 
 /** "g" e uma letra: vai direto à seção (se a pessoa enxerga a seção). */
-const ATALHOS_G: Record<string, string> = { m: "mesa", e: "escrever", c: "conversas", f: "fila", h: "horas", t: "tarefas", a: "atividade", v: "videoaulas", r: "rede", p: "pessoas", o: "conta" };
+const ATALHOS_G: Record<string, string> = { d: "departamentos", m: "mesa", e: "escrever", c: "conversas", f: "fila", h: "horas", t: "tarefas", a: "atividade", v: "videoaulas", r: "rede", p: "pessoas", o: "conta" };
+
+/** O glossário do painel: as palavras das seções, em linguagem simples, com busca. */
+function Glossario({ fechar }: { fechar: () => void }) {
+  const [busca, setBusca] = useState("");
+  const termo = simples(busca.trim());
+  const vistos = termo ? GLOSSARIO.filter(([palavra, sentido]) => simples(`${palavra} ${sentido}`).includes(termo)) : GLOSSARIO;
+  return (
+    <div className="painel-veu fixed inset-0 z-50 flex items-start justify-center bg-[#17130e]/60 px-4 pt-[8vh]" onClick={fechar}>
+      <div role="dialog" aria-modal="true" aria-label="Glossário do painel" className="flex max-h-[84vh] w-full max-w-xl flex-col border-2 border-ink bg-parchment text-ink" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between gap-3 border-b-2 border-ink p-4">
+          <h2 className="font-serif text-2xl font-semibold">Glossário do painel</h2>
+          <button type="button" onClick={fechar} className="cursor-pointer border-2 border-ink px-2 py-0.5 text-xs font-bold hover:bg-ink hover:text-parchment">Fechar</button>
+        </div>
+        <label className="border-b border-rule px-4 py-2">
+          <span className="sr-only">Procurar no glossário</span>
+          <input autoFocus value={busca} onChange={(e) => setBusca(e.target.value)} onKeyDown={(e) => e.key === "Escape" && fechar()} placeholder="Procurar uma palavra" className="w-full bg-transparent py-1.5 outline-none placeholder:text-ink-soft" />
+        </label>
+        <dl className="min-h-0 flex-1 divide-y divide-dashed divide-rule overflow-y-auto px-4 py-2">
+          {vistos.map(([palavra, sentido]) => (
+            <div key={palavra} className="py-2">
+              <dt className="font-semibold">{palavra}</dt>
+              <dd className="text-[0.92rem] leading-snug text-ink-soft">{sentido}</dd>
+            </div>
+          ))}
+          {vistos.length === 0 && <p className="py-3 text-ink-soft">Nenhuma palavra com isso. Pergunte no Mural da equipe.</p>}
+        </dl>
+      </div>
+    </div>
+  );
+}
 
 /** A lista dos atalhos de teclado do painel ("?" abre e fecha). */
 function AjudaDoTeclado({ secoes, fechar }: { secoes: Secao[]; fechar: () => void }) {
@@ -526,6 +558,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
       { id: "mural", nome: "Mural dos Trabalhadores", sobre: "Anúncios esperando a decisão da coordenação ou da mediação.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "mediacao"), conta: r?.mural },
       { id: "gaveta", nome: "Gaveta Aberta", sobre: "Trabalhos de estudantes esperando a decisão: conferir, publicar ou recusar.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "curadoria", "mediacao"), conta: r?.gaveta },
       { id: "boletim", nome: "Boletim do jornal", sobre: "Quem pediu para receber o jornal por e-mail.", grupo: "Atendimento", mostra: can(eu, "coordenacao", "jornalismo") },
+      { id: "departamentos", nome: "Departamentos", sobre: "Cada departamento com a meta do mês, o quadro da semana, os pedidos de outros departamentos com prazo, quem responde e como trabalha.", grupo: "Pessoas", mostra: voluntario },
       { id: "pessoas", nome: "Voluntários e convites", sobre: "Convidar, confiar funções e acompanhar a equipe.", grupo: "Pessoas", mostra: manages(eu), conta: r?.candidaturas },
       { id: "supervisao", nome: "Supervisão", sobre: "Proteções reversíveis, a equipe sem e-mails e os pedidos de voluntariado.", grupo: "Pessoas", mostra: supervisiona, conta: r?.candidaturas },
       // As reuniões moram dentro de Conversas e reuniões; o endereço antigo (?aba=reunioes) abre a agenda de lá.
@@ -571,6 +604,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
   const [foco, setFoco] = useState(() => getItem(KEYS.painelFoco) === "1");
   const [leve, setLeve] = useState(() => getItem(KEYS.painelLeve) === "1");
   const [ajudaDoTeclado, setAjudaDoTeclado] = useState(false);
+  const [glossario, setGlossario] = useState(false);
   const [telaCheia, setTelaCheia] = useState(false);
   useEffect(() => {
     const mudou = () => setTelaCheia(Boolean(document.fullscreenElement));
@@ -597,6 +631,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
     { id: "recolher", nome: compacto ? "Abrir o menu" : "Recolher o menu", sobre: "Deixa só o trilho de ícones, no computador.", fazer: alternarCompacto },
     { id: "tutorial", nome: "Abrir o tutorial", sobre: "O passeio pelo painel, do começo.", fazer: abrirTutorial },
     { id: "teclado", nome: "Atalhos de teclado", sobre: "A lista de atalhos do painel.", fazer: () => setAjudaDoTeclado(true) },
+    { id: "glossario", nome: "Glossário do painel", sobre: "O que quer dizer triagem, parecer, retido, passagem de bastão e as outras palavras do painel.", fazer: () => setGlossario(true) },
     { id: "sair", nome: "Sair do painel", sobre: "Fecha a sua sessão neste aparelho.", fazer: sair },
   ];
   const alternarTelaCheia = () => {
@@ -656,6 +691,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
       <TutorialDoPainel pronto={!(voluntario && eu.termo_voluntario === false)} />
       {irPara && <IrPara secoes={secoes} comandos={comandos} fechar={() => setIrPara(false)} ir={ir} />}
       {ajudaDoTeclado && <AjudaDoTeclado secoes={secoes} fechar={() => setAjudaDoTeclado(false)} />}
+      {glossario && <Glossario fechar={() => setGlossario(false)} />}
       {/* Aviso da coordenação, da vice ou da supervisão: aparece por cima de tudo até a pessoa apertar "Entendi". */}
       {(voluntario || eu.supervisao) && <QuadroDeAvisos />}
       {/* O termo de voluntário: quem tem função aceita uma vez; quem recusa sai. Banco antigo não manda o campo e nada aparece. */}
@@ -836,6 +872,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
           {atual.id === "seguranca" && <SegurancaSucessao me={eu} />}
           {atual.id === "interdicao" && <Interdicao me={eu} aoMudar={estadoDoSite.recarregar} />}
           {atual.id === "registro" && <RegistroDeAtividades />}
+          {atual.id === "departamentos" && <Departamentos me={eu} ir={ir} />}
           {atual.id === "estatisticas" && (
             <>
               <Estatisticas />

@@ -2718,6 +2718,25 @@ await recusa("o educador não lê a caixa de críticas", () => rpc(como(ids.prof
 await espera("o botão de pânico avisa a coordenação e fica no registro", async () => { await rpc(como(ids.mentora), "panico", { p_motivo: "perdi o celular" }); return [await rpc(coord2, "avisos_meus"), await dono("select count(*)::int as n from interno.auditoria where acao = 'panico'")]; },
   ([avisos, registro]) => avisos.some((a) => a.texto.includes("botão de pânico") && a.texto.includes("perdi o celular")) && registro.rows[0].n >= 1);
 
+// Departamentos: pedidos entre departamentos com prazo, quadro da semana, meta e passagem de bastão.
+await espera("o educador vê os departamentos e sabe qual é o dele", () => rpc(como(ids.prof), "departamentos_resumo"), (r) => r.some((d) => d.id === "educacao" && d.meu) && r.some((d) => d.id === "jornalismo" && !d.meu));
+await recusa("quem não é da equipe não vê os departamentos", () => rpc(como(ids.aluna), "departamento_ver", { p_id: "jornalismo" }), "sem_permissao");
+let pedidoDep;
+const emTresDias = new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 10);
+await espera("a educação pede uma arte à Comunicação, com prazo", () => rpc(como(ids.prof), "departamento_pedir", { p_para: "jornalismo", p_de: "educacao", p_titulo: "Arte para a trilha de Alemão", p_detalhe: "Capa e um post de lançamento.", p_prazo: emTresDias }), (r) => r.id && r.status === "aberto" && (pedidoDep = r.id));
+await recusa("prazo no passado é recusado", () => rpc(como(ids.prof), "departamento_pedir", { p_para: "jornalismo", p_de: "educacao", p_titulo: "Arte velha", p_prazo: "2020-01-01" }), "invalido:prazo");
+await recusa("quem pediu não aceita o próprio pedido no lugar da Comunicação", () => rpc(como(ids.prof), "departamento_pedido_mudar", { p_id: pedidoDep, p_status: "aceito" }), "sem_permissao");
+await recusa("recusar exige dizer por quê", () => rpc(como(ids.jornal), "departamento_pedido_mudar", { p_id: pedidoDep, p_status: "recusado", p_resposta: "" }), "invalido:resposta");
+await espera("a jornalista aceita e o educador é avisado", async () => { await rpc(como(ids.jornal), "departamento_pedido_mudar", { p_id: pedidoDep, p_status: "aceito" }); return rpc(como(ids.prof), "avisos_meus"); }, (r) => r.some((a) => a.texto.includes("Arte para a trilha de Alemão") && a.texto.includes("aceito")));
+let cartaoDep;
+await recusa("o educador não mexe no quadro da Comunicação", () => rpc(como(ids.prof), "departamento_quadro_salvar", { p_id: null, p: { departamento: "jornalismo", titulo: "Intrometido" } }), "sem_permissao");
+await espera("a jornalista põe o pedido no quadro da semana", () => rpc(como(ids.jornal), "departamento_quadro_salvar", { p_id: null, p: { departamento: "jornalismo", titulo: "Capa de Alemão", etiqueta: "Design", pedido: pedidoDep, dono: ids.jornal, prazo: emTresDias } }), (r) => r.id && (cartaoDep = r.id));
+await espera("o cartão chega ao feito e o pedido fica feito sozinho", async () => { await rpc(como(ids.jornal), "departamento_quadro_salvar", { p_id: cartaoDep, p: { coluna: "feito" } }); return rpc(como(ids.prof), "departamento_ver", { p_id: "jornalismo" }); }, (r) => r.recebidos.some((x) => x.id === pedidoDep && x.status === "feito") && r.quadro.some((q) => q.id === cartaoDep && q.coluna === "feito") && r.feitos_no_mes >= 1);
+await recusa("o educador não muda a meta da Comunicação", () => rpc(como(ids.prof), "departamento_salvar", { p_id: "jornalismo", p: { meta_titulo: "posts", meta_alvo: 24 } }), "sem_permissao");
+await espera("a coordenação põe a meta do mês e o como trabalhamos", () => rpc(coord2, "departamento_salvar", { p_id: "jornalismo", p: { meta_titulo: "posts publicados", meta_alvo: 24, meta_feito: 18, como: "Reunião às segundas. Toda peça passa por outra pessoa antes de sair." } }), (r) => r.meta_alvo === 24 && r.meta_feito === 18 && r.como.includes("segundas"));
+await espera("a jornalista deixa a passagem de bastão", async () => { await rpc(como(ids.jornal), "departamento_bastao_deixar", { p_departamento: "jornalismo", p_texto: "As pautas estão no banco de pautas; a capa do episódio 42 está com a Paula." }); return rpc(como(ids.prof), "departamento_ver", { p_id: "jornalismo" }); }, (r) => r.bastoes.some((b) => b.texto.includes("episódio 42")) && r.pessoas.some((p) => p.id === ids.jornal));
+await recusa("quem não é do departamento não deixa bastão", () => rpc(como(ids.prof), "departamento_bastao_deixar", { p_departamento: "jornalismo", p_texto: "Não sou daqui, mas quis escrever." }), "sem_permissao");
+
 // Transmissão pelo YouTube do instituto: a chave só para quem conduz; o site só vê o código público.
 let aulaTransmitida;
 await espera("o educador marca outra aula, com sala do Jitsi (endereço longo cabe)", () => rpc(como(ids.prof), "aula_ao_vivo_salvar", { p_id: null, p: aulaNova({ titulo: "Frações no YouTube", sala_externa: `https://meet.jit.si/lucia-${"x".repeat(300)}` }) }), (r) => Boolean(r.id) && r.sala_externa.length > 300 && (aulaTransmitida = r.id));
