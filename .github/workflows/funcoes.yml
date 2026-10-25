@@ -1,7 +1,7 @@
 name: Publicar funções do Supabase
 
 # Sempre que o código das funções muda no master, publica todas as funções de supabase/functions no Supabase de
-# produção (enviar-emails, assistente, avaliar-comunidade, transcrever-audio e transcrever-podcast). Sem isso, o
+# produção (enviar-emails, assistente, avaliar-comunidade, transcrever-audio, transcrever-podcast e youtube). Sem isso, o
 # Supabase continua rodando o código antigo. Publicar não liga nada: o assistente segue desligado nos Controles do site.
 # Só roda depois de criada a variável FUNCOES com o valor "sim" e do segredo SUPABASE_ACCESS_TOKEN (um token pessoal
 # do Supabase: supabase.com › Account › Access Tokens). A variável SUPABASE_PROJECT_REF guarda o código do projeto.

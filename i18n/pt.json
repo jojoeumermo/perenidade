@@ -106,7 +106,8 @@
     "usePolicy": "Política de uso",
     "events": "Agenda de encontros",
     "spreadKit": "Kit de divulgação",
-    "despertar": "Despertar"
+    "despertar": "Despertar",
+    "territories": "Territórios"
   },
   "labs": {
     "eyebrow": "Praticar de verdade",
@@ -3072,7 +3073,10 @@
       "transcript": "Ler a transcrição",
       "hideTranscript": "Esconder a transcrição",
       "keys": "Atalhos: espaço toca e pausa, setas andam 5 segundos, < e > mudam a velocidade, M tira o som, C liga as legendas, F tela cheia.",
-      "error": "Não foi possível tocar este vídeo agora."
+      "error": "Não foi possível tocar este vídeo agora.",
+      "listen": "Só ouvir",
+      "watch": "Ver a imagem",
+      "listening": "Só o som: a imagem está escondida. A transcrição acompanha logo abaixo."
     },
     "comments": {
       "title": "Comentários",
@@ -3097,7 +3101,12 @@
         "mediacao": "Mediação",
         "equipe": "Equipe"
       }
-    }
+    },
+    "youtubeWatch": "Assistir pelo YouTube do instituto",
+    "youtubeNote": "O tocador do YouTube só carrega quando você clica, sem cookies de propaganda.",
+    "ownCopy": "Assistir sem o Google (cópia do instituto)",
+    "backToYoutube": "Assistir pelo YouTube",
+    "transcriptTitle": "Transcrição"
   },
   "more": {
     "eyebrow": "Tudo o que há aqui",
@@ -3156,7 +3165,8 @@
       "usePolicy": "O que pode e o que não pode, em poucas linhas.",
       "events": "Cineclube, clube de leitura e outros encontros.",
       "spreadKit": "Cartazes, folheto, zine e cartões com QR para imprimir.",
-      "despertar": "Do zero à consciência de classe, em cinco etapas, com tarefas no mundo real."
+      "despertar": "Do zero à consciência de classe, em cinco etapas, com tarefas no mundo real.",
+      "territories": "Coletivos de cultura e luta que caminham com o instituto: matérias, aulas, fotos e encontros."
     },
     "short": {
       "/trilhas": "todas as matérias",
@@ -3211,7 +3221,8 @@
       "/meus-dados": "baixar ou apagar",
       "/privacidade": "o que guardamos",
       "/termos": "as regras do site",
-      "/despertar": "formação militante"
+      "/despertar": "formação militante",
+      "/territorios": "coletivos parceiros"
     },
     "highlights": "Comece aqui",
     "startText": "Nunca estudou por aqui? Comece por uma pergunta da sua vida, ou escolha uma disciplina.",
@@ -4334,7 +4345,10 @@
     "mediaFailed": "Não deu para ligar a câmera, a tela ou o microfone. Confira a permissão do navegador.",
     "recordFailed": "Este navegador não grava vídeo.",
     "chatHeld": "Sua fala foi recebida e aparece para todos depois da leitura da mediação.",
-    "chatPending": "aguardando mediação"
+    "chatPending": "aguardando mediação",
+    "youtubeLive": "Transmissão pelo YouTube do instituto",
+    "youtubeWatch": "Assistir à transmissão",
+    "youtubeNote": "O tocador do YouTube só carrega quando você clica, sem cookies de propaganda. O bate-papo da aula continua aqui no site."
   },
   "notebook": {
     "eyebrow": "Sala de estudo",
@@ -4876,5 +4890,30 @@
     "groupTitle": "Faça o Despertar num núcleo",
     "groupText": "Cada etapa tem um roteiro de encontro de uma hora e perguntas para a roda. Junte três pessoas e comece.",
     "groupCta": "Achar ou montar um núcleo"
+  },
+  "territorios": {
+    "eyebrow": "Coletivos que caminham com o instituto",
+    "title": "Territórios",
+    "lead": "Coletivos de cultura, arte e luta que caminham junto com o Instituto Lúcia. Cada território traz o seu olhar para o site: matérias no jornal, aulas, fotos e encontros.",
+    "partner": "Território parceiro do Instituto Lúcia · Nº {n}",
+    "open": "Conhecer o território",
+    "follow": "Seguir",
+    "people": "Quem faz",
+    "editions": "As edições",
+    "editionsTitle": "Cada série é uma revista.",
+    "byCollective": "Pelo coletivo",
+    "journalKicker": "No Jornal Revolucionário Lúcia",
+    "journalTitle": "Editoria {editoria}",
+    "journalAll": "Ver o jornal",
+    "journalEmpty": "As primeiras análises estão sendo escritas. Pautas na mesa:",
+    "learnKicker": "Aprenda com o território · trilhas",
+    "learnTitle": "A quebrada também é escola.",
+    "lessons": "{n} aulas",
+    "soon": "Em preparação",
+    "capsuleKicker": "Cápsula · em preparação",
+    "nextTitle": "Territórios são coletivos que caminham com o Instituto Lúcia. O próximo pode ser o seu.",
+    "nextText": "Coletivo de cultura, arte, esporte, moradia ou estudo? Escreva contando quem vocês são, onde atuam e o que fazem.",
+    "nextCta": "Trazer o meu coletivo",
+    "all": "Todos os territórios"
   }
 }
