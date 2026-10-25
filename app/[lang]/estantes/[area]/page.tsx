@@ -44,12 +44,9 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
-      <Link href={to("/trilhas")} className="font-sans text-sm text-ink-soft hover:text-oxblood">← {t.tracks.title}</Link>
-      <div className="mt-6">
-        <PageHeading eyebrow={t.shelf.eyebrow} title={t.areas[area][0]}>
-          {t.areas[area][1]}
-        </PageHeading>
-      </div>
+      <PageHeading eyebrow={t.shelf.eyebrow} title={t.areas[area][0]} voltar={{ href: to("/trilhas"), texto: t.tracks.title }}>
+        {t.areas[area][1]}
+      </PageHeading>
 
       {/* As partes da disciplina: as trilhas (o caminho principal) e, ao lado, o que os educadores secundários publicam fora delas. */}
       <nav aria-label={t.shelf.sections} className="mt-8 flex flex-wrap gap-2 font-sans text-sm">

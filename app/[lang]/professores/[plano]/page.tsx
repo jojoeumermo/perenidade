@@ -51,12 +51,7 @@ export default async function Page({ params }: Props) {
     }
   return (
     <div className="mx-auto max-w-3xl px-4 py-12">
-      <p className="no-print font-sans text-sm">
-        <Link href={localePath(lang, "/professores")} className="text-ink-soft hover:text-oxblood">
-          ← {s.professores.olho}
-        </Link>
-      </p>
-      <PageHeading eyebrow={s.professores.plano} title={plano.titulo}>
+      <PageHeading eyebrow={s.professores.plano} title={plano.titulo} voltar={{ href: localePath(lang, "/professores"), texto: s.professores.olho }}>
         {plano.resumo}
       </PageHeading>
       <Untranslated lang={lang} t={t} show={lang !== "pt"} />
