@@ -7,7 +7,13 @@
   painel. Por isso a cópia é nossa (abaixo).
 - **Arquivos dos depósitos:** só no Supabase. Os aprovados também vão para `public/arquivos` no repositório.
 
-## Cópia semanal do banco (manual, 10 minutos)
+## Cópia automática (rotina "Cópia do banco", todo domingo)
+Fica em GitHub → Actions → Cópia do banco → a execução → Artifacts (90 dias), cifrada com `BACKUP_SENHA`.
+Para abrir: baixar o `.zip`, extrair e rodar `gpg -d lucia-banco-AAAA-MM-DD.dump.gpg > banco.dump` (pede a senha).
+Restaurar num projeto de teste: rodar o `install.sql` nele e depois
+`pg_restore --data-only --no-owner -d "<conexão do projeto de teste>" banco.dump`.
+
+## Cópia manual (se a rotina parar)
 1. Instalar uma vez o Supabase CLI (`npm i -g supabase`) e entrar (`supabase login`).
 2. `supabase db dump --project-ref yuciphgaejrkamvwllcb --data-only -f lucia-dados-AAAA-MM-DD.sql`
 3. Cifrar antes de guardar: `gpg -c lucia-dados-AAAA-MM-DD.sql` (senha forte, guardada no gerenciador de senhas).
