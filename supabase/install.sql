@@ -15494,6 +15494,48 @@ begin
   end loop;
 end $$;
 
+-- ───────────────────────────── Voluntário sumido ─────────────────────────────
+-- Uma vez por dia, a coordenação e a vice recebem um aviso com quem da equipe não aparece há mais de 30 dias (sem contar
+-- quem marcou férias). Cada pessoa entra no aviso uma vez só por sumiço; quando ela volta a entrar, sai da lista e pode
+-- entrar de novo num sumiço futuro. O aviso é para cuidar (perguntar se está tudo bem), não para cobrar.
+
+create table if not exists interno.sumidos_avisados (
+  usuario uuid primary key references interno.perfis (id) on delete cascade,
+  avisado_em timestamptz not null default now()
+);
+revoke all on interno.sumidos_avisados from public;
+
+create or replace function interno.avisar_sumidos() returns integer language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_nomes text; v_n integer;
+begin
+  -- Quem voltou depois do aviso sai da lista.
+  delete from sumidos_avisados a using perfis f where f.id = a.usuario and f.visto_em > a.avisado_em;
+  with novos as (
+    select f.id, interno.nome_visto(f.nome) as nome from perfis f
+    where not f.suspenso and f.visto_em < now() - interval '30 days'
+      and (f.ferias_ate is null or f.ferias_ate < current_date)
+      and exists (select 1 from papeis p where p.usuario = f.id)
+      and not exists (select 1 from sumidos_avisados a where a.usuario = f.id)
+    order by f.visto_em limit 50
+  ), marcados as (
+    insert into sumidos_avisados (usuario) select id from novos returning usuario
+  )
+  select count(*), string_agg(n.nome, ', ' order by n.nome) into v_n, v_nomes from novos n;
+  if v_n > 0 then
+    perform interno.avisar_lideranca('Sem aparecer no painel há mais de 30 dias: ' || v_nomes || '. Que tal mandar uma mensagem perguntando se está tudo bem? (Voluntários e convites › Sumidas)');
+  end if;
+  return v_n;
+end $$;
+revoke all on function interno.avisar_sumidos() from public, anon, authenticated;
+
+do $$
+begin
+  if exists (select 1 from pg_extension where extname = 'pg_cron') then
+    perform cron.schedule('lucia-sumidos', '0 12 * * *', 'select interno.avisar_sumidos()');
+  end if;
+exception when others then null;
+end $$;
+
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança
 -- por linha até a próxima execução deste arquivo. Aqui, no fim, toda tabela do esquema interno fica com a segurança por
