@@ -219,6 +219,7 @@
   "nivelamento": {
     "olho": "Sin nota",
     "titulo": "¿Por dónde empezar?",
+    "menu": "Prueba de nivel",
     "descricao": "Unas preguntas rápidas que solo sugieren por qué clase empezar. Puedes saltarlas; no hay nota.",
     "lead": "Unas preguntas, una por clase, para sugerir por dónde empezar. No es un examen: no hay nota, nadie ve el resultado y puedes saltarlo cuando quieras.",
     "antesTitulo": "Antes de empezar",
