@@ -41,6 +41,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/territorios",
     "/receba",
     "/nucleos",
+    "/turmas",
+    "/relatorio",
     "/seguranca-digital",
     "/status",
     "/comecar",

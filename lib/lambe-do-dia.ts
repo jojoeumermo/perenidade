@@ -10,6 +10,11 @@ export function diaDe(data: Date): number {
   return Math.floor((data.getTime() - 3 * 3600 * 1000) / 86_400_000);
 }
 
+/** O número da semana em Brasília, contando de segunda a domingo (o dia 0, 01/01/1970, foi uma quinta). */
+export function semanaDe(data: Date): number {
+  return Math.floor((diaDe(data) + 3) / 7);
+}
+
 const mdc = (a: number, b: number): number => (b === 0 ? a : mdc(b, a % b));
 
 /**
