@@ -54,6 +54,11 @@ jobs:
           # lib/areas.ts e os dicionários: as disciplinas criadas, editadas ou removidas em Disciplinas e trilhas.
           git add -A -- content public/arquivos historico lib/areas.ts i18n
           if git diff --cached --quiet; then echo "sim=nao" >> "$GITHUB_OUTPUT"; else echo "sim=sim" >> "$GITHUB_OUTPUT"; fi
+      # O build gera mais de vinte mil páginas e passou da memória da máquina do GitHub (7 GB): a máquina "perdia a
+      # comunicação" no meio. 8 GB de área de troca dão folga sem mudar nada do build.
+      - if: steps.novo.outputs.sim == 'sim'
+        name: Memória extra para o build
+        run: sudo fallocate -l 8G /swapfile2 && sudo chmod 600 /swapfile2 && sudo mkswap /swapfile2 && sudo swapon /swapfile2 && free -h
       # O build confere cada arquivo novo com as mesmas regras do site: conteúdo inválido não entra.
       - if: steps.novo.outputs.sim == 'sim'
         run: npm run build
