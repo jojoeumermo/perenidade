@@ -219,6 +219,7 @@
   "nivelamento": {
     "olho": "Sans note",
     "titulo": "Par où commencer ?",
+    "menu": "Test de positionnement",
     "descricao": "Quelques questions rapides qui suggèrent seulement par quelle leçon commencer. Tu peux passer ; il n'y a pas de note.",
     "lead": "Quelques questions, une par leçon, pour suggérer par où commencer. Ce n'est pas un examen : pas de note, personne ne voit le résultat et tu peux passer quand tu veux.",
     "antesTitulo": "Avant de commencer",

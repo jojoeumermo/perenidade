@@ -14685,6 +14685,12 @@ create table if not exists interno.nucleos (
   atualizado_em timestamptz not null default now()
 );
 create index if not exists nucleos_uf on interno.nucleos (uf, cidade);
+-- O mapa público é opcional e moderado: o núcleo só aparece no site quando a coordenação (ou a vice) publica. Mesmo
+-- assim, só o que o núcleo escolheu mostrar: o ponto de encontro público (praça, biblioteca, sindicato) e um contato
+-- do próprio núcleo (perfil, grupo), nunca o de uma pessoa.
+alter table interno.nucleos add column if not exists publico boolean not null default false;
+alter table interno.nucleos add column if not exists ponto text not null default '' check (char_length(ponto) <= 120);
+alter table interno.nucleos add column if not exists contato text not null default '' check (contato = '' or contato ~ '^https://[^[:space:]]{4,200}$');
 revoke all on interno.nucleos from public;
 
 create or replace function public.nucleos_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
@@ -14693,6 +14699,7 @@ begin
   if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
   return (select coalesce(jsonb_agg(jsonb_build_object('id', n.id, 'nome', n.nome, 'cidade', n.cidade, 'uf', n.uf, 'tipo', n.tipo, 'encontros', n.encontros, 'pessoas', n.pessoas,
             'ativo', n.ativo, 'atualizado_em', n.atualizado_em, 'acompanha', coalesce((select interno.nome_visto(nome) from perfis where id = n.acompanha), ''),
+            'publico', n.publico, 'ponto', n.ponto, 'contato', n.contato, 'publica', interno.coord() or interno.tem('vice'),
             'mexo', n.criado_por = auth.uid() or n.acompanha = auth.uid() or interno.coord() or interno.tem('vice'))
             order by n.uf, n.cidade, n.nome), '[]'::jsonb) from nucleos n);
 end $$;
@@ -14716,7 +14723,10 @@ begin
     select * into n from nucleos where id = p_id for update;
     if not found then perform interno.erro('nao_encontrado'); end if;
     if not (n.criado_por = v or n.acompanha = v or interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
-    update nucleos set nome = interno.txt(coalesce(p ->> 'nome', nome), 'nome', 3, 80), cidade = interno.txt(coalesce(p ->> 'cidade', cidade), 'cidade', 2, 80),
+    -- Pôr no mapa público (ou tirar) é decisão da coordenação ou da vice.
+    if p ? 'publico' and coalesce((p ->> 'publico')::boolean, false) <> n.publico and not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+    update nucleos set ponto = interno.txt(coalesce(p ->> 'ponto', ponto), 'ponto', 0, 120), contato = btrim(coalesce(p ->> 'contato', contato)),
+      publico = coalesce((p ->> 'publico')::boolean, publico), nome = interno.txt(coalesce(p ->> 'nome', nome), 'nome', 3, 80), cidade = interno.txt(coalesce(p ->> 'cidade', cidade), 'cidade', 2, 80),
       uf = upper(coalesce(p ->> 'uf', uf)), tipo = coalesce(p ->> 'tipo', tipo), encontros = interno.txt(coalesce(p ->> 'encontros', encontros), 'encontros', 0, 200),
       pessoas = case when p ? 'pessoas' then v_pessoas else pessoas end, ativo = coalesce((p ->> 'ativo')::boolean, ativo), atualizado_em = now()
     where id = p_id returning * into n;
@@ -15372,6 +15382,16 @@ begin
     execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
   end loop;
 end $$;
+
+-- ───────────────────────────── Mapa público dos núcleos ─────────────────────────────
+/** Os núcleos que a coordenação pôs no mapa público: cidade, estado, como se encontram e o contato do próprio núcleo. */
+create or replace function public.nucleos_publicos() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('nome', nome, 'cidade', cidade, 'uf', uf, 'tipo', tipo, 'encontros', encontros, 'ponto', ponto, 'contato', contato)
+           order by uf, cidade, nome), '[]'::jsonb)
+  from nucleos where ativo and publico
+$$;
+revoke all on function public.nucleos_publicos() from public;
+grant execute on function public.nucleos_publicos() to anon, authenticated, service_role;
 
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança

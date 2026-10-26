@@ -4,50 +4,32 @@ import { localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { site } from "@/lib/site";
 import { InstagramIcon } from "./Footer";
-import { AccountLink, AppBack, LanguageSwitcher, NavLinks, NewsLink, PodcastLink, RadioLink } from "./NavLinks";
+import { AccountLink, AppBack, HeaderSearch, LanguageSwitcher, NavLinks, NewsLink, PodcastLink, RadioLink } from "./NavLinks";
 import { Strip } from "./Strip";
 import { ThemeToggle } from "./ThemeToggle";
 import { TopoFixo } from "./TopoFixo";
 
 /**
- * O perfil do instituto no Instagram, sempre à vista: muita gente chega pelos cartazes impressos, e o @ precisa estar
- * no alto de toda página. "compacto" é o quadrado do celular, só com o desenho da câmera.
+ * O perfil do instituto no Instagram, sempre à vista: muita gente chega pelos cartazes impressos. É um botão só com o
+ * desenho da câmera, nas cores do próprio Instagram, para ser reconhecido de longe sem precisar do @ escrito.
+ * "menor" é a versão da segunda linha, quando a tela não é tão larga.
  */
-function Instagram({ t, menor = false, compacto = false }: { t: Dict; menor?: boolean; compacto?: boolean }) {
+function Instagram({ t, menor = false }: { t: Dict; menor?: boolean }) {
   const rotulo = `${t.footer.instagram} @${site.instagramUser}`;
-  if (compacto)
-    return (
-      <a href={site.instagram} target="_blank" rel="noopener noreferrer me" aria-label={rotulo} title={rotulo} className="botao-instagram botao-instagram-compacto">
-        <InstagramIcon className="h-5 w-5" />
-      </a>
-    );
   return (
-    <a href={site.instagram} target="_blank" rel="noopener noreferrer me" aria-label={rotulo} title={rotulo} className={`botao botao-instagram ${menor ? "botao-menor" : ""} whitespace-nowrap`}>
-      <InstagramIcon className={menor ? "h-4 w-4" : "h-[1.15rem] w-[1.15rem]"} />
-      <span className="font-mono text-[0.8rem] font-semibold tracking-tight">@{site.instagramUser}</span>
+    <a href={site.instagram} target="_blank" rel="noopener noreferrer me" aria-label={rotulo} title={rotulo} className={`botao botao-instagram-cor ${menor ? "botao-menor" : ""}`}>
+      <InstagramIcon className={menor ? "h-[1.1rem] w-[1.1rem]" : "h-[1.35rem] w-[1.35rem]"} />
     </a>
   );
 }
 
-/** Os botões de quem quer ajudar: contribuir com aulas, apoiar o instituto e seguir no Instagram. */
+/** Os botões de quem quer ajudar: seguir no Instagram e apoiar o instituto. "Contribuir" mora no "Mais". */
 function Ajudar({ lang, t, menor = false }: { lang: Locale; t: Dict; menor?: boolean }) {
-  const tamanho = menor ? "botao-menor" : "";
   return (
     <>
-      {/* Com pouco espaço, o Instagram vira o quadrado com a câmera; o @ inteiro só aparece em tela bem larga. */}
-      <span className={menor ? "contents" : "hidden 2xl:contents"}>
-        <Instagram t={t} menor={menor} />
-      </span>
-      {!menor && (
-        <span className="2xl:hidden">
-          <Instagram t={t} compacto />
-        </span>
-      )}
-      <Link href={localePath(lang, "/contribuir")} className={`botao botao-papel ${tamanho} whitespace-nowrap`}>
-        {t.nav.contribute}
-      </Link>
-      <Link href={localePath(lang, "/apoie")} className={`botao botao-prelo ${tamanho} whitespace-nowrap`}>
-        {t.nav.supportLong}
+      <Instagram t={t} menor={menor} />
+      <Link href={localePath(lang, "/apoie")} className={`botao botao-prelo ${menor ? "botao-menor" : ""} whitespace-nowrap`}>
+        {t.nav.support}
       </Link>
     </>
   );
@@ -77,25 +59,36 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
             <img src="/marca-96.png" alt="" width={52} height={52} className="h-10 w-10 shrink-0 sm:h-12 sm:w-12 xl:h-[3.25rem] xl:w-[3.25rem]" />
             <span className="min-w-0">
               <span className="marca-nome block whitespace-nowrap text-xl font-semibold leading-none tracking-tight sm:text-[1.7rem] xl:text-[2rem]">{site.name}</span>
-              <span className="marca-sub mt-1.5 hidden font-mono text-[0.62rem] uppercase tracking-[0.22em] text-ink-soft lg:block">{t.home.eyebrow}</span>
+              <span aria-hidden className="marca-sub mt-1.5 hidden font-mono text-[0.62rem] uppercase tracking-[0.22em] text-ink-soft lg:block">{t.home.eyebrow}</span>
             </span>
           </Link>
           {/* Se faltar espaço, quem encolhe é o "Olá, Fulano" (com reticências), nunca a marca nem os ícones. */}
           <div className="ml-auto flex min-w-0 items-center gap-1 app:gap-3 sm:gap-2 lg:gap-3">
-            <AccountLink />
-            <span className="contents max-lg:hidden">
-              <LanguageSwitcher />
+            {/* No computador, na ordem do desenho: a busca, a rádio, o tema e o idioma; depois a conta, o Instagram e o apoio. */}
+            {/* Num invólucro: no toque, toda ligação do cabeçalho é forçada a aparecer (globals.css, pointer: coarse). */}
+            <span className="hidden lg:contents">
+              <HeaderSearch />
             </span>
-            {/* O jornal também está na gaveta "Mais"; no aplicativo a barra de cima não cabe tudo numa linha. */}
-            <span className="contents app:max-md:hidden">
+            <span className="contents md:hidden">
+              <AccountLink />
+            </span>
+            {/* O jornal já está no menu do computador; no aplicativo a barra de cima não cabe tudo numa linha. */}
+            <span className="contents md:hidden app:max-md:hidden">
               <NewsLink />
             </span>
             <PodcastLink />
             <RadioLink />
             <ThemeToggle />
+            <span className="contents max-lg:hidden">
+              <LanguageSwitcher globo />
+            </span>
+            <span aria-hidden className="mx-1 hidden h-7 w-px bg-rule md:block" />
+            <span className="contents max-md:hidden">
+              <AccountLink />
+            </span>
             {/* No aplicativo o Instagram mora na gaveta "Mais": a barra de cima fica só com o que é do aplicativo. */}
             <span className="ml-1 app:hidden md:hidden">
-              <Instagram t={t} compacto />
+              <Instagram t={t} menor />
             </span>
             <span className="ml-3 hidden items-center gap-3 xl:flex">
               <Ajudar lang={lang} t={t} />

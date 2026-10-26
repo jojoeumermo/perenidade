@@ -1,4 +1,4 @@
-// Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+// Instituto Lúcia. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Faz o site abrir sem internet. Guarda as páginas que a pessoa já visitou (e as trilhas que ela
 // mandou guardar) e os arquivos fixos do site. Nada do painel nem da entrada é guardado.
