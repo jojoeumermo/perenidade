@@ -86,6 +86,11 @@ export class Transmissao {
   local: MediaStream | null = null;
   /** Quem conduz de verdade (conferido): chave do navegador → chave pública. */
   educadores = new Map<string, string>();
+  /**
+   * Como as ligações saem: por padrão, direto entre os navegadores (STUN). Com o servidor de retransmissão configurado
+   * (/api/aovivo/rede), só por ele ("relay"): ninguém na sala vê o endereço de rede de ninguém.
+   */
+  rede: RTCConfiguration = { iceServers: STUN };
   /** A minha chave, quando conduzo (assina o que mando). */
   credencial: Credencial | null = null;
 
@@ -109,7 +114,7 @@ export class Transmissao {
   }
 
   private criar(chave: string): RTCPeerConnection {
-    const pc = new RTCPeerConnection({ iceServers: STUN });
+    const pc = new RTCPeerConnection(this.rede);
     pc.onicecandidate = (e) => {
       if (e.candidate) this.enviar(chave, { t: "ice", c: e.candidate.toJSON() as unknown as Record<string, unknown> });
     };
