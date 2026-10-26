@@ -126,6 +126,8 @@ const nextConfig: NextConfig = {
     localPatterns: [
       { pathname: "/_next/static/media/**", search: "" },
       { pathname: "/_next/static/immutable/media/**", search: "" },
+      // As fotos dos coletivos parceiros (public/territorios), usadas com autorização deles.
+      { pathname: "/territorios/**", search: "" },
     ],
     remotePatterns: [],
     dangerouslyAllowSVG: false,

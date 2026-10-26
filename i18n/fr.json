@@ -4916,7 +4916,12 @@
     "nextTitle": "Les territoires sont des collectifs qui marchent avec l’Instituto Lúcia. Le prochain peut être le vôtre.",
     "nextText": "Un collectif de culture, d’art, de sport, de logement ou d’étude ? Écrivez-nous en disant qui vous êtes, où vous agissez et ce que vous faites.",
     "nextCta": "Amener mon collectif",
-    "all": "Tous les territoires"
+    "all": "Tous les territoires",
+    "press": "Dans la presse",
+    "podcastKicker": "Podcast · en préparation",
+    "launchKicker": "Lancement · en présentiel · date bientôt",
+    "followUpdates": "Suivre sur Instagram",
+    "reels": "Les vidéos sont sur Instagram"
   },
   "rede": {
     "abaRede": "Réseau",
