@@ -5136,5 +5136,25 @@
     "exterior": "海外",
     "menu": "学习小组",
     "menuDescricao": "在你附近一起学习的小组，以及成立小组的工具包。"
+  },
+  "status": {
+    "eyebrow": "网站状态",
+    "title": "一切正常吗？",
+    "lead": "刚刚从你的设备检查：网站、数据库和搜索。",
+    "site": "网站",
+    "siteAjuda": "页面、课程和馆藏。",
+    "banco": "数据库",
+    "bancoAjuda": "社区、账号、团队面板。",
+    "busca": "搜索",
+    "buscaAjuda": "查找课程和作品的索引。",
+    "conferindo": "检查中……",
+    "tudoOk": "一切正常。",
+    "problema": "有服务没有响应。如果持续，请几分钟后再试。",
+    "noAr": "正常",
+    "fora": "无响应",
+    "semBanco": "此副本未连接",
+    "conferidoAs": "检查于 {hora}。",
+    "deNovo": "再检查一次",
+    "foraDoAr": "如果整个网站宕机，学院会在 Instagram（@institutoluciaorg）发布阅读镜像的地址，里面有全部课程和馆藏。"
   }
 }

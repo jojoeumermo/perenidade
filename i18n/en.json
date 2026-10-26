@@ -5209,5 +5209,25 @@
     "exterior": "Abroad",
     "menu": "Study nuclei",
     "menuDescricao": "Groups that study together near you, and the kit to start your own."
+  },
+  "status": {
+    "eyebrow": "Site status",
+    "title": "Is everything up?",
+    "lead": "Checked right now, from your device: the site, the database and search.",
+    "site": "Site",
+    "siteAjuda": "Pages, lessons and the collection.",
+    "banco": "Database",
+    "bancoAjuda": "Community, accounts, team panel.",
+    "busca": "Search",
+    "buscaAjuda": "The index to find lessons and works.",
+    "conferindo": "Checking…",
+    "tudoOk": "Everything is up.",
+    "problema": "Something didn't respond. If it continues, try again in a few minutes.",
+    "noAr": "up",
+    "fora": "no response",
+    "semBanco": "not connected in this copy",
+    "conferidoAs": "Checked at {hora}.",
+    "deNovo": "Check again",
+    "foraDoAr": "If the whole site goes down, the institute posts on Instagram (@institutoluciaorg) the address of a reading mirror with all the lessons and the collection."
   }
 }

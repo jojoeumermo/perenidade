@@ -69,3 +69,7 @@ next-env.d.ts
 /estudio/site/kali/
 /estudio/site/_headers
 /estudio/site/.assetsignore
+
+# O espelho estático (scripts/gerar-espelho.mjs) é gerado, não guardado
+/espelho/
+/espelho.zip
