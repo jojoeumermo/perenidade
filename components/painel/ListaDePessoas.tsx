@@ -39,7 +39,7 @@ const DEPARTAMENTO: Partial<Record<Role["papel"], [string, string]>> = {
   traducao: ["Tradução", "#3d5a80"],
   mediacao: ["Comunidade e mediação", "#7b4b94"],
   desenvolvimento: ["Desenvolvimento", "#1f3a5f"],
-  saude: ["Saúde Solidária", "#b5446e"],
+  saude: ["Mural de Saúde", "#b5446e"],
 };
 const NOMES_REPRESENTANTE: Record<string, string> = { jornalismo: "jornalismo", marketing: "marketing", saude: "saude" };
 

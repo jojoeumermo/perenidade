@@ -13,6 +13,11 @@ register(
     encodeURIComponent(`
 export async function resolve(especificador, contexto, proximo) {
   if (especificador.startsWith("@/")) especificador = ${JSON.stringify(RAIZ)} + especificador.slice(2);
+  // O site importa JSON sem "with { type: 'json' }" (o Next aceita); aqui o atributo entra sozinho.
+  if (/\\.json$/i.test(especificador)) {
+    const achado = await proximo(especificador, { ...contexto, importAttributes: { ...contexto.importAttributes, type: "json" } });
+    return { ...achado, importAttributes: { ...achado.importAttributes, type: "json" } };
+  }
   try {
     return await proximo(especificador, contexto);
   } catch (erro) {

@@ -98,7 +98,7 @@ function Retrato({ p }: { p: Panorama }) {
         <Numero valor={porcento(p.reforco_atendidos_90d, p.reforco_validos_90d)} nome="Reforço atendido" nota={`${p.reforco_atendidos_90d} de ${p.reforco_validos_90d} pedidos em 90 dias (sem os cancelados).`} />
         <Numero valor={tempo(p.reforco_espera_mediana_horas)} nome="Espera típica do reforço" nota="Mediana entre o pedido e o atendimento." />
         <Numero valor={p.reforco_aberto_mais_antigo_dias ? `${p.reforco_aberto_mais_antigo_dias} d` : "—"} nome="Reforço aberto mais antigo" nota="Dias desde o pedido que ainda espera." alerta={p.reforco_aberto_mais_antigo_dias > 7} />
-        <Numero valor={p.erros_abertos} nome="Erros relatados em aberto" nota={`Saúde Solidária: ${p.saude_publicados} na vitrine, ${p.saude_aguardando} aguardando.`} alerta={p.erros_abertos > 0} />
+        <Numero valor={p.erros_abertos} nome="Erros relatados em aberto" nota={`Mural de Saúde: ${p.saude_publicados} publicados, ${p.saude_aguardando} aguardando.`} alerta={p.erros_abertos > 0} />
       </div>
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         <div>

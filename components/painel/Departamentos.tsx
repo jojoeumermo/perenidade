@@ -21,7 +21,7 @@ export const NOMES_DOS_DEPARTAMENTOS: Record<string, string> = {
   traducao: "Tradução",
   mediacao: "Comunidade e mediação",
   desenvolvimento: "Desenvolvimento",
-  saude: "Saúde Solidária",
+  saude: "Mural de Saúde",
   coordenacao: "Coordenação",
 };
 const nomeDe = (id: string) => NOMES_DOS_DEPARTAMENTOS[id] ?? id;
