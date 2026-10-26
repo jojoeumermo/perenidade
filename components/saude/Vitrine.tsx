@@ -12,12 +12,13 @@ import {
   linkDoInstagram,
   linkDoWhatsapp,
   nomeDaModalidade,
-  nomeDoValor,
+  nomeDoPublico,
   primeiroNome,
   type Profissional,
+  profissaoValida,
   registroCompleto,
 } from "@/lib/saude";
-import { Star } from "../Masthead";
+import { NOME_VITRINE } from "@/lib/mural-saude";
 import { desenharCartao } from "./cartao";
 
 const NOME_GUARDADO = "lucia:saude-nome";
@@ -67,16 +68,16 @@ export function Vitrine({ estaticos }: { estaticos: Profissional[] }) {
   const areas = useMemo(() => [...new Set(todos.flatMap((p) => p.areas))].sort((a, b) => a.localeCompare(b, "pt-BR")), [todos]);
   const vistos = area ? todos.filter((p) => p.areas.includes(area)) : todos;
 
-  if (desligada) return <p className="mt-10 border-2 border-ink p-6 text-center font-sans">A vitrine está pausada no momento. Em emergência: SAMU 192 · Bombeiros 193 · CVV 188.</p>;
-  if (todos.length === 0) return <p className="mt-10 border-2 border-dashed border-rule p-10 text-center font-sans text-ink-soft">Em breve.</p>;
+  if (desligada) return <p className="mt-10 border-2 border-[#221C17] p-6 text-center font-sans">O mural está pausado no momento. Em emergência: SAMU 192 · Bombeiros 193 · CVV 188.</p>;
+  if (todos.length === 0) return <p className="mt-10 border border-dashed border-[#221C17]/40 p-10 text-center font-sans text-[#221C17]/75">Ainda não há profissionais no mural.</p>;
 
   return (
     <div className="mt-10">
       {areas.length > 1 && todos.length > 1 && (
         <div role="group" aria-label="Filtrar por área" className="mb-6 flex flex-wrap gap-2 font-sans text-sm">
-          <button type="button" aria-pressed={!area} onClick={() => setArea("")} className={`cursor-pointer border-2 px-3 py-1 ${!area ? "border-ink bg-ink text-parchment" : "border-ink/30 hover:border-ink"}`}>Todas as áreas</button>
+          <button type="button" aria-pressed={!area} onClick={() => setArea("")} className={`cursor-pointer border px-3 py-1 ${!area ? "border-[#221C17] bg-[#221C17] text-[#F4EBDB]" : "border-[#221C17]/30 hover:border-[#221C17]"}`}>Todas as áreas</button>
           {areas.map((a) => (
-            <button key={a} type="button" aria-pressed={area === a} onClick={() => setArea(a)} className={`cursor-pointer border-2 px-3 py-1 ${area === a ? "border-ink bg-ink text-parchment" : "border-ink/30 hover:border-ink"}`}>{a}</button>
+            <button key={a} type="button" aria-pressed={area === a} onClick={() => setArea(a)} className={`cursor-pointer border px-3 py-1 ${area === a ? "border-[#221C17] bg-[#221C17] text-[#F4EBDB]" : "border-[#221C17]/30 hover:border-[#221C17]"}`}>{a}</button>
           ))}
         </div>
       )}
@@ -92,54 +93,52 @@ export function Vitrine({ estaticos }: { estaticos: Profissional[] }) {
   );
 }
 
-/** O cartão de cada profissional: foto, nome, registro em carimbo, abordagem, áreas, modalidade e o botão de contato. */
+/**
+ * O cartão de cada profissional, em campos fixos: nome, a palavra da profissão, o registro e o link para conferir no
+ * conselho; depois abordagem, áreas, público, modalidade, cidade, idiomas e o texto curto. Sem etiqueta, sem estrela,
+ * sem valor, sem nota: o mural só mostra contatos, em ordem alfabética.
+ */
 export function CartaoDoProfissional({ p, unico = false, abrir }: { p: Profissional; unico?: boolean; abrir?: () => void }) {
   const consulta = CONSULTA_DO_CONSELHO[p.conselho.toUpperCase()];
+  const publico = (p.publico ?? []).map((x) => nomeDoPublico[x]).filter(Boolean);
+  const lugar = [p.cidade, p.estado].filter(Boolean).join(" / ");
+  const rotulo = "text-xs uppercase tracking-wider text-[#221C17]/70";
   return (
-    <article className={`saude-cartao relative border-2 border-ink bg-parchment shadow-[8px_8px_0_0_var(--color-ink)] ${unico ? "grid md:grid-cols-[minmax(0,24rem)_1fr]" : "flex h-full flex-col"}`}>
-      <div className="relative overflow-hidden border-b-2 border-ink md:border-b-0 md:border-r-2" style={unico ? undefined : { borderRight: 0 }}>
-        {p.foto ? (
-          // eslint-disable-next-line @next/next/no-img-element
+    <article className={`saude-cartao relative border border-[#221C17]/40 bg-[#FBF6EC] text-[#221C17] ${unico ? "grid md:grid-cols-[minmax(0,20rem)_1fr]" : "flex h-full flex-col"}`}>
+      {p.foto ? (
+        <div className={`relative overflow-hidden border-b border-[#221C17]/20 ${unico ? "md:border-b-0 md:border-r" : ""}`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={p.foto} alt={`Foto de ${p.nome}`} className={`w-full object-cover ${unico ? "aspect-[4/5] h-full" : "aspect-[4/5]"}`} loading="lazy" />
-        ) : (
-          <div aria-hidden className="flex aspect-[4/5] w-full items-center justify-center bg-[#17130e] font-serif text-7xl text-[#d4a24c]">{p.nome.split(/\s+/).map((x) => x[0]).slice(0, 2).join("")}</div>
-        )}
-        <span className="absolute left-0 top-4 flex items-center gap-1.5 bg-[#c21f16] px-3 py-1 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-white">
-          <Star className="h-3 w-3" /> Saúde Solidária
-        </span>
-      </div>
+        </div>
+      ) : (
+        <div aria-hidden className={`flex aspect-[4/5] items-center justify-center border-b border-[#221C17]/20 bg-[#EFE4D0] font-serif text-6xl text-[#221C17]/60 ${unico ? "md:border-b-0 md:border-r" : ""}`}>{p.nome.split(/\s+/).map((x) => x[0]).slice(0, 2).join("")}</div>
+      )}
       <div className={`flex flex-1 flex-col p-5 ${unico ? "md:p-8" : ""}`}>
-        <p className="font-mono text-[0.7rem] uppercase tracking-[0.25em] text-oxblood">{p.profissao}</p>
-        <h3 className={`mt-1 font-serif font-semibold leading-tight ${unico ? "text-4xl md:text-5xl" : "text-3xl"}`}>{p.nome}</h3>
-        <p className="mt-3"><span className="jornal-carimbo inline-block font-mono text-sm">{registroCompleto(p)}</span></p>
-        {p.abordagem && (
-          <p className="mt-4 font-sans">
-            <span className="block font-mono text-[0.65rem] uppercase tracking-widest text-ink-soft">Abordagem</span>
-            <span className="text-lg">{p.abordagem}</span>
-          </p>
+        <h3 className={`font-serif font-semibold leading-tight ${unico ? "text-4xl md:text-[2.6rem]" : "text-3xl"}`}>{p.nome}</h3>
+        <p className="mt-1 font-sans text-lg">{profissaoValida(p)} · <span className="font-mono">{registroCompleto(p)}</span></p>
+        {consulta && <p className="mt-1 font-sans text-sm"><a href={consulta} target="_blank" rel="noopener noreferrer nofollow" className="underline hover:no-underline">Conferir registro no site do conselho ↗</a></p>}
+        <dl className="mt-4 space-y-2 font-sans text-[0.95rem]">
+          {p.abordagem && <div><dt className={rotulo}>Abordagem</dt><dd>{p.abordagem}</dd></div>}
+          {p.areas.length > 0 && <div><dt className={rotulo}>Áreas de atuação</dt><dd>{p.areas.join(" · ")}</dd></div>}
+          {publico.length > 0 && <div><dt className={rotulo}>Público</dt><dd>{publico.join(" · ")}</dd></div>}
+          {p.modalidade && <div><dt className={rotulo}>Modalidade</dt><dd className="inline-flex items-center gap-1"><Icone d={ICONES.local} className="h-4 w-4" />{nomeDaModalidade[p.modalidade]}{lugar ? ` · ${lugar}` : ""}</dd></div>}
+          {(p.idiomas ?? []).length > 0 && <div><dt className={rotulo}>Idiomas</dt><dd>{(p.idiomas ?? []).join(" · ")}</dd></div>}
+        </dl>
+        {p.bio && (
+          <div className="mt-4">
+            <p className={`font-sans ${rotulo}`}>Sobre meu trabalho</p>
+            <p className="mt-1 whitespace-pre-line font-serif text-lg leading-relaxed">{p.bio}</p>
+          </div>
         )}
-        {p.areas.length > 0 && (
-          <ul className="mt-3 flex flex-wrap gap-1.5 font-sans text-sm" aria-label="Áreas de atendimento">
-            {p.areas.map((a) => <li key={a} className="border border-ink/30 bg-parchment-deep px-2 py-0.5">{a}</li>)}
-          </ul>
-        )}
-        {(p.modalidade || p.valor) && (
-          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-sans text-sm text-ink-soft">
-            {p.modalidade && <span className="inline-flex items-center gap-1"><Icone d={ICONES.local} className="h-4 w-4" />{nomeDaModalidade[p.modalidade]}{p.cidade ? ` · ${p.cidade}` : ""}</span>}
-            {p.valor && <span>{nomeDoValor[p.valor]}</span>}
-          </p>
-        )}
-        {p.bio && <p className="mt-4 whitespace-pre-line font-serif text-lg leading-relaxed">{p.bio}</p>}
         <div className="mt-auto pt-5">
           {abrir && (
-            <button type="button" onClick={abrir} className="w-full cursor-pointer bg-[#c21f16] px-5 py-3 font-sans font-bold uppercase tracking-wide text-white hover:bg-[#a51810] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-ink">
+            <button type="button" onClick={abrir} className="w-full cursor-pointer border border-[#221C17] bg-[#221C17] px-5 py-3 font-sans font-semibold text-[#F4EBDB] hover:bg-[#3a3029] focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-[#221C17]">
               Ver contato
             </button>
           )}
-          <p className="mt-3 font-sans text-xs leading-snug text-ink-soft">
-            {p.verificado_em ? `Registro conferido em ${new Date(`${p.verificado_em}T12:00:00`).toLocaleDateString("pt-BR")}. ` : "Registro informado no perfil. "}
-            {consulta && <><a href={consulta} target="_blank" rel="noopener noreferrer nofollow" className="underline hover:text-oxblood">Confira no site do conselho ↗</a>. </>}
-            O Instituto não responde pelo atendimento. Dúvida ou denúncia: <a href={`mailto:${EMAIL_DE_CONTATO}`} className="underline">{EMAIL_DE_CONTATO}</a>.
+          <p className="mt-3 font-sans text-xs leading-snug text-[#221C17]/75">
+            {p.verificado_em ? `Registro conferido pela coordenação do mural em ${new Date(`${p.verificado_em}T12:00:00`).toLocaleDateString("pt-BR")}. ` : "Registro informado no perfil. "}
+            O Instituto não indica nem responde pelo atendimento. Dúvida ou denúncia: <a href={`mailto:${EMAIL_DE_CONTATO}`} className="underline">{EMAIL_DE_CONTATO}</a>.
           </p>
         </div>
       </div>
@@ -166,10 +165,10 @@ function JanelaDeContato({ p, fechar }: { p: Profissional; fechar: () => void })
   const codigo = useMemo(() => codigoDoCartao(p.nome), [p.nome]);
   const caixa = useRef<HTMLDivElement>(null);
   const data = new Date().toLocaleDateString("pt-BR");
-  const descricao = [p.profissao, registroCompleto(p), p.abordagem].filter(Boolean).join(" · ");
+  const descricao = [profissaoValida(p), registroCompleto(p), p.abordagem].filter(Boolean).join(" · ");
   // O nome de quem procura é obrigatório: o profissional sabe com quem está falando desde a primeira mensagem.
   const nomeValido = nome.trim().replace(/\s+/g, " ").length >= 2 && /\p{L}/u.test(nome);
-  const mensagem = `Olá, ${primeiroNome(p.nome)}! Meu nome é ${nome.trim().replace(/\s+/g, " ")}. Cheguei até você pela vitrine Saúde Solidária do Instituto Lúcia. Meu código de encaminhamento é ${codigo}.`;
+  const mensagem = `Olá, ${primeiroNome(p.nome)}! Meu nome é ${nome.trim().replace(/\s+/g, " ")}. Encontrei o seu contato no ${NOME_VITRINE} do Instituto Lúcia. Meu código de encaminhamento é ${codigo}.`;
 
   useEffect(() => {
     const tecla = (e: KeyboardEvent) => e.key === "Escape" && fechar();
@@ -208,10 +207,10 @@ function JanelaDeContato({ p, fechar }: { p: Profissional; fechar: () => void })
 
   return (
     <div role="dialog" aria-modal aria-labelledby="saude-contato-titulo" className="fixed inset-0 z-50 flex items-center justify-center bg-[#17130e]/85 p-3 sm:p-6" onClick={(e) => e.target === e.currentTarget && fechar()}>
-      <div ref={caixa} className="max-h-[94dvh] w-full max-w-2xl overflow-y-auto border-4 border-ink bg-parchment font-sans shadow-2xl">
-        <div className="jornal-preto flex items-center justify-between gap-3 px-5 py-3">
-          <p id="saude-contato-titulo" className="flex items-center gap-2 font-black uppercase italic tracking-tight text-[#f4ecd8]"><Star className="h-4 w-4 text-[#d4a24c]" /> Contato: {p.nome}</p>
-          <button type="button" onClick={fechar} aria-label="Fechar" className="cursor-pointer px-2 text-2xl leading-none text-[#f4ecd8] hover:text-[#d4a24c]">×</button>
+      <div ref={caixa} className="max-h-[94dvh] w-full max-w-2xl overflow-y-auto border border-[#221C17] bg-[#F4EBDB] font-sans text-[#221C17] shadow-2xl">
+        <div className="flex items-center justify-between gap-3 border-b border-[#221C17]/30 px-5 py-3">
+          <p id="saude-contato-titulo" className="font-semibold">{NOME_VITRINE} · contato: {p.nome}</p>
+          <button type="button" onClick={fechar} aria-label="Fechar" className="cursor-pointer px-2 text-2xl leading-none hover:opacity-70">×</button>
         </div>
         {passo === 1 ? (
           <div className="p-5 sm:p-7">
@@ -220,61 +219,61 @@ function JanelaDeContato({ p, fechar }: { p: Profissional; fechar: () => void })
               {AVISO_COMPLETO.map((a) => <li key={a}>{a}</li>)}
             </ul>
             <label className="mt-5 block">
-              <span className="font-semibold">Seu nome</span> <span className="text-ink-soft">(obrigatório; vai no cartão e na mensagem para o profissional e fica só neste aparelho)</span>
-              <input value={nome} onChange={(e) => setNome(e.target.value.slice(0, 60))} maxLength={60} required aria-required="true" autoComplete="name" placeholder="Como você quer ser chamado" className="mt-1 block w-full border-2 border-ink bg-folha px-3 py-2" />
-              {nome.length > 0 && !nomeValido && <span role="status" className="mt-1 block text-sm text-oxblood">Escreva o seu nome para continuar.</span>}
+              <span className="font-semibold">Seu nome</span> <span className="text-[#221C17]/75">(obrigatório; vai no cartão e na mensagem para o profissional e fica só neste aparelho)</span>
+              <input value={nome} onChange={(e) => setNome(e.target.value.slice(0, 60))} maxLength={60} required aria-required="true" autoComplete="name" placeholder="Como você quer ser chamado" className="mt-1 block w-full border border-[#221C17] bg-[#FBF6EC] px-3 py-2" />
+              {nome.length > 0 && !nomeValido && <span role="status" className="mt-1 block text-sm font-semibold">Escreva o seu nome para continuar.</span>}
             </label>
-            <label className="mt-4 flex items-start gap-3 border-2 border-ink bg-parchment-deep p-3">
+            <label className="mt-4 flex items-start gap-3 border border-[#221C17]/50 bg-[#FBF6EC] p-3">
               <input type="checkbox" checked={ciente} onChange={(e) => setCiente(e.target.checked)} className="mt-1 h-5 w-5 shrink-0" />
               <span>{CIENCIA}</span>
             </label>
-            <button type="button" disabled={!ciente || !nomeValido} onClick={() => void seguir()} className="mt-5 w-full cursor-pointer bg-ink px-5 py-3 font-bold text-parchment hover:bg-oxblood disabled:cursor-not-allowed disabled:opacity-40">
+            <button type="button" disabled={!ciente || !nomeValido} onClick={() => void seguir()} className="mt-5 w-full cursor-pointer bg-[#221C17] px-5 py-3 font-semibold text-[#F4EBDB] hover:bg-[#3a3029] disabled:cursor-not-allowed disabled:opacity-40">
               Continuar
             </button>
           </div>
         ) : (
           <div className="p-5 sm:p-7">
             <h2 className="font-serif text-2xl font-semibold">Seu cartão de encaminhamento</h2>
-            <p className="mt-1 text-ink-soft">Baixe e mande junto com a primeira mensagem: assim {primeiroNome(p.nome)} sabe que você chegou pelo Instituto Lúcia. O código é sorteado aqui e não fica guardado em lugar nenhum.</p>
-            {erro && <p role="status" className="mt-3 text-oxblood">{erro}</p>}
+            <p className="mt-1 text-[#221C17]/80">Baixe e mande junto com a primeira mensagem: assim {primeiroNome(p.nome)} sabe que você encontrou o contato no mural. O código é sorteado aqui e não fica guardado em lugar nenhum.</p>
+            {erro && <p role="status" className="mt-3 font-semibold">{erro}</p>}
             {imagem && (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={imagem.url} alt={`Cartão de encaminhamento para ${p.nome}, código ${codigo}`} className="mx-auto mt-4 w-full max-w-sm border-2 border-ink" />
+              <img src={imagem.url} alt={`Cartão de encaminhamento para ${p.nome}, código ${codigo}`} className="mx-auto mt-4 w-full max-w-sm border border-[#221C17]" />
             )}
             <p className="mt-3 text-center font-mono text-sm">Código: <strong>{codigo}</strong></p>
             <div className="mt-4 grid gap-2 sm:grid-cols-2">
               {imagem && (
-                <a href={imagem.url} download={arquivo} className="flex items-center justify-center gap-2 border-2 border-ink bg-parchment-deep px-4 py-3 font-bold hover:border-oxblood">
+                <a href={imagem.url} download={arquivo} className="flex items-center justify-center gap-2 border border-[#221C17] bg-[#FBF6EC] px-4 py-3 font-semibold hover:bg-[#EFE4D0]">
                   <Icone d={ICONES.baixar} /> Baixar o cartão
                 </a>
               )}
               {podeCompartilhar && (
-                <button type="button" onClick={() => void compartilhar()} className="flex cursor-pointer items-center justify-center gap-2 border-2 border-ink bg-parchment-deep px-4 py-3 font-bold hover:border-oxblood">
+                <button type="button" onClick={() => void compartilhar()} className="flex cursor-pointer items-center justify-center gap-2 border border-[#221C17] bg-[#FBF6EC] px-4 py-3 font-semibold hover:bg-[#EFE4D0]">
                   Compartilhar o cartão
                 </button>
               )}
               {p.contatos.whatsapp && (
-                <a href={linkDoWhatsapp(p.contatos.whatsapp, mensagem)} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-center gap-2 bg-[#1f3a2d] px-4 py-3 font-bold text-white hover:bg-[#152a20]">
+                <a href={linkDoWhatsapp(p.contatos.whatsapp, mensagem)} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-center gap-2 border border-[#221C17] bg-[#221C17] px-4 py-3 font-semibold text-[#F4EBDB] hover:bg-[#3a3029]">
                   <Icone d={ICONES.whatsapp} /> WhatsApp
                 </a>
               )}
               {p.contatos.instagram && (
-                <a href={linkDoInstagram(p.contatos.instagram)} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-center gap-2 bg-[#6e1f1a] px-4 py-3 font-bold text-white hover:bg-[#561813]">
+                <a href={linkDoInstagram(p.contatos.instagram)} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-center gap-2 border border-[#221C17] bg-[#221C17] px-4 py-3 font-semibold text-[#F4EBDB] hover:bg-[#3a3029]">
                   <Icone d={ICONES.instagram} /> Instagram @{p.contatos.instagram}
                 </a>
               )}
               {p.contatos.email && (
-                <a href={`mailto:${p.contatos.email}?subject=${encodeURIComponent("Contato pela vitrine Saúde Solidária")}&body=${encodeURIComponent(mensagem)}`} className="flex items-center justify-center gap-2 border-2 border-ink px-4 py-3 font-bold hover:border-oxblood">
+                <a href={`mailto:${p.contatos.email}?subject=${encodeURIComponent(`Contato pelo ${NOME_VITRINE}`)}&body=${encodeURIComponent(mensagem)}`} className="flex items-center justify-center gap-2 border border-[#221C17] px-4 py-3 font-semibold hover:bg-[#EFE4D0]">
                   <Icone d={ICONES.email} /> E-mail
                 </a>
               )}
               {p.contatos.site && (
-                <a href={p.contatos.site} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-center gap-2 border-2 border-ink px-4 py-3 font-bold hover:border-oxblood">
+                <a href={p.contatos.site} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-center gap-2 border border-[#221C17] px-4 py-3 font-semibold hover:bg-[#EFE4D0]">
                   <Icone d={ICONES.site} /> Site
                 </a>
               )}
             </div>
-            <p className="mt-4 text-xs text-ink-soft">Os botões abrem sites e aplicativos de terceiros, com as regras de privacidade deles. Não mande dados de saúde, exames ou documentos pelo site do instituto.</p>
+            <p className="mt-4 text-xs text-[#221C17]/75">Os botões abrem sites e aplicativos de terceiros, com as regras de privacidade deles. Não mande dados de saúde, exames ou documentos pelo site do instituto.</p>
           </div>
         )}
       </div>

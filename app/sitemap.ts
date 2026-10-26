@@ -71,6 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/instituto",
     "/sala-livre",
     "/saude/termo",
+    "/saude/neutralidade",
     "/direitos-autorais",
     "/conduta",
     "/uso",
