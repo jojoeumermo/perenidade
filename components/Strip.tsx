@@ -47,10 +47,9 @@ export function Strip({ fallback }: { fallback: string }) {
 
   return (
     <>
-      {/* No computador a faixa só aparece quando a coordenação escreveu um aviso: o texto padrão era ruído no alto de
-          toda página. No celular ela fica sempre, porque os cinco toques nela são a saída rápida (no computador, Esc três vezes).
-          No Mural de Saúde, a faixa só diz o que o mural é: nada de chamada do instituto nem de gratuidade. */}
-      <div data-saida className={`faixa-de-avisos ${saved.faixa && !noMural ? "" : "md:hidden"} bg-[#1f1a14] px-4 py-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.08em] text-[#e9dcbc] max-md:truncate max-md:px-3 max-md:py-1.5 max-md:text-[0.62rem]`}>{noMural ? `${NOME_VITRINE} · contatos de profissionais com registro ativo` : saved.faixa || fallback}</div>
+      {/* A faixa preta fica sempre no alto (os cinco toques nela são a saída rápida no celular). No Mural de Saúde, ela só
+          diz o que o mural é: nada de chamada do instituto nem de gratuidade. */}
+      <div data-saida className={`faixa-de-avisos bg-[#1f1a14] px-4 py-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.08em] text-[#e9dcbc] max-md:truncate max-md:px-3 max-md:py-1.5 max-md:text-[0.62rem]`}>{noMural ? `${NOME_VITRINE} · contatos de profissionais com registro ativo` : saved.faixa || fallback}</div>
       {saved.pausa && (
         <p role="status" className="bg-[#c21f16] px-4 py-1.5 text-center font-sans text-xs font-semibold text-white">
           {t.errors.envios_pausados}
