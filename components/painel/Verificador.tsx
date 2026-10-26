@@ -13,6 +13,40 @@ const CPF = /\b\d{3}\.?\d{3}\.?\d{3}-?\d{2}\b/;
 const TELEFONE = /(?:\(?\b\d{2}\)?\s?)9\d{4}[-\s]?\d{4}\b/;
 const EMAIL = /\b[\w.+-]+@[\w-]+\.[\w.-]+\b/;
 
+// Linguagem simples: palavras de repartição que têm troca fácil, e termos que pedem explicação na primeira vez.
+const TROCAS: [RegExp, string, string][] = [
+  [/\boutrossim\b/i, "outrossim", "além disso"],
+  [/\bdestarte\b/i, "destarte", "assim"],
+  [/\bademais\b/i, "ademais", "além disso"],
+  [/\bmormente\b/i, "mormente", "principalmente"],
+  [/\bporquanto\b/i, "porquanto", "porque"],
+  [/\bconquanto\b/i, "conquanto", "embora"],
+  [/\bdoravante\b/i, "doravante", "daqui em diante"],
+  [/\bhodiernamente\b/i, "hodiernamente", "hoje"],
+  [/\bsupracitad[oa]s?\b/i, "supracitado", "citado acima"],
+  [/\bprecípu[oa]s?\b/i, "precípuo", "principal"],
+  [/\bdirimir\b/i, "dirimir", "resolver"],
+  [/\belencar\b/i, "elencar", "listar"],
+  [/\bvislumbrar\b/i, "vislumbrar", "ver"],
+  [/\bensejar\b/i, "ensejar", "causar"],
+  [/\bhaja vista\b/i, "haja vista", "porque"],
+  [/\bno que tange\b/i, "no que tange", "sobre"],
+  [/\bà guisa de\b/i, "à guisa de", "como"],
+  [/\bimperioso\b/i, "imperioso", "necessário"],
+];
+const TERMOS = ["hegemonia", "dialética", "superestrutura", "materialismo histórico", "mais-valia", "alienação", "práxis", "proletariado", "burguesia", "imperialismo", "neoliberalismo", "epistemologia", "paradigma", "lumpemproletariado", "acumulação primitiva"];
+const EXPLICA = /\b(ou seja|isto é|quer dizer|significa|é quando|chamamos de|é o nome)\b|\]\(\/[a-z]{2}\/glossario/i;
+
+/** As frases com mais de 30 palavras (fora de código, tabela e lista). */
+function frasesLongas(texto: string) {
+  return texto
+    .replace(/```[\s\S]*?```/g, "")
+    .split(/\n\s*\n/)
+    .filter((p) => !/^\s*(\||>|- |\d+\.|#)/.test(p))
+    .flatMap((p) => p.replace(/\s+/g, " ").split(/(?<=[.!?])\s+/))
+    .filter((frase) => frase.split(" ").length > 30);
+}
+
 export function conferir({ titulo, corpo, fontes, exigeFonte, minimo }: { titulo: string; corpo: string; fontes: number; exigeFonte: boolean; minimo: number }): Conferencia[] {
   const lista: Conferencia[] = [];
   const t = titulo.trim();
@@ -35,6 +69,21 @@ export function conferir({ titulo, corpo, fontes, exigeFonte, minimo }: { titulo
   if (longos) lista.push({ nivel: "atencao", texto: `${longos === 1 ? "Um parágrafo passa" : `${longos} parágrafos passam`} de 140 palavras. Quebre em partes menores: lê-se melhor no celular.` });
   if (palavras > 700 && !/^#{2,3}\s/m.test(texto)) lista.push({ nivel: "atencao", texto: "Texto longo sem subtítulos (## ou ###). Subtítulos ajudam a achar as partes." });
   if (/[A-ZÁÉÍÓÚÂÊÔÃÕÇ]{12,}/.test(texto.replace(/`[^`]*`/g, ""))) lista.push({ nivel: "atencao", texto: "Há palavras inteiras em maiúsculas. No texto corrido, parece grito: prefira negrito." });
+
+  // Linguagem simples: sugere, não barra.
+  const longas = frasesLongas(texto);
+  if (longas.length) lista.push({ nivel: "atencao", texto: `Linguagem simples: ${longas.length === 1 ? "uma frase passa" : `${longas.length} frases passam`} de 30 palavras. Comece por esta: “${longas[0].split(" ").slice(0, 8).join(" ")}…”` });
+  for (const [, palavra, simples] of TROCAS.filter(([busca]) => busca.test(texto)).slice(0, 3)) {
+    lista.push({ nivel: "atencao", texto: `Linguagem simples: troque “${palavra}” por “${simples}”.` });
+  }
+  const minusculo = texto.toLowerCase();
+  let semExplicacao = 0;
+  for (const termo of TERMOS) {
+    const onde = minusculo.indexOf(termo);
+    if (onde < 0 || EXPLICA.test(texto.slice(Math.max(0, onde - 80), onde + termo.length + 220))) continue;
+    lista.push({ nivel: "atencao", texto: `Linguagem simples: “${termo}” aparece sem explicação. Na primeira vez, diga com outras palavras (“ou seja…”) ou ligue ao glossário.` });
+    if (++semExplicacao >= 3) break;
+  }
   return lista;
 }
 
