@@ -5209,5 +5209,25 @@
     "exterior": "Étranger",
     "menu": "Noyaux d'étude",
     "menuDescricao": "Des groupes qui étudient ensemble près de chez vous, et le kit pour monter le vôtre."
+  },
+  "status": {
+    "eyebrow": "État du site",
+    "title": "Tout fonctionne ?",
+    "lead": "Vérifié à l'instant, depuis votre appareil : le site, la base de données et la recherche.",
+    "site": "Site",
+    "siteAjuda": "Les pages, les cours et le fonds.",
+    "banco": "Base de données",
+    "bancoAjuda": "Communauté, comptes, panneau de l'équipe.",
+    "busca": "Recherche",
+    "buscaAjuda": "L'index pour trouver cours et œuvres.",
+    "conferindo": "Vérification…",
+    "tudoOk": "Tout fonctionne.",
+    "problema": "Quelque chose n'a pas répondu. Si cela continue, réessayez dans quelques minutes.",
+    "noAr": "en ligne",
+    "fora": "pas de réponse",
+    "semBanco": "non connecté dans cette copie",
+    "conferidoAs": "Vérifié à {hora}.",
+    "deNovo": "Vérifier à nouveau",
+    "foraDoAr": "Si tout le site tombe, l'institut publie sur Instagram (@institutoluciaorg) l'adresse d'un miroir de lecture avec tous les cours et le fonds."
   }
 }
