@@ -459,7 +459,7 @@ export const GUIAS: Record<string, Guia> = {
   biblioteca: {
     paraQue: "Formação militante da equipe, estatuto, conduta, modelos de trabalho e as ferramentas de estudo.",
     passos: [
-      { titulo: "Comece pela formação", texto: "O Despertar e as trilhas de formação militante são para a equipe também: dá para fazer em grupo, no núcleo." },
+      { titulo: "Comece pela formação", texto: "O percurso Consciência de classe e as trilhas de formação militante são para a equipe também: dá para fazer em grupo, no núcleo." },
       { titulo: "Conheça as regras", texto: "Estatuto, código de conduta e política de uso abrem no site, numa aba nova." },
       { titulo: "Use os modelos", texto: "O guia da aula, o checklist de revisão e os modelos do Estúdio levam direto à seção certa." },
     ],
@@ -491,7 +491,7 @@ export const GLOSSARIO: [string, string][] = [
   ["Coordenação pedagógica", "A vice-coordenação: cuida das aulas e assina certificados junto com a coordenação."],
   ["Curadoria", "Quem decide o que vai ao ar e cuida do acervo."],
   ["Departamento", "O grupo de quem faz o mesmo tipo de trabalho (Comunicação, Pedagógico, Mediação…), com página, quadro e pedidos."],
-  ["Despertar", "O percurso de formação do zero à consciência de classe, em cinco etapas, com tarefas no mundo real."],
+  ["Consciência de classe", "O percurso de formação do zero à consciência de classe, em dez etapas, com tarefas no mundo real."],
   ["Disciplina", "A matéria (Matemática, História, Defesa pessoal…). Cada disciplina tem trilhas por etapa."],
   ["Expurgo", "Apagar de uma vez uma chuva de spam. Não tem volta."],
   ["Fila de revisão", "O que espera alguém ler e decidir antes de ir ao ar."],

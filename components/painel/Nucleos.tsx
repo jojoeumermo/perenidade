@@ -186,7 +186,7 @@ export function Nucleos({ me }: { me: Me }) {
           </ul>
         </section>
       </div>
-      <p className="text-xs text-ink-soft">Quem cadastrou, quem acompanha e a coordenação mudam o núcleo. {me.papeis.length > 0 ? "Para formar um núcleo, o Despertar tem o roteiro dos encontros." : ""}</p>
+      <p className="text-xs text-ink-soft">Quem cadastrou, quem acompanha e a coordenação mudam o núcleo. {me.papeis.length > 0 ? "Para formar um núcleo, o percurso Consciência de classe tem o roteiro dos encontros." : ""}</p>
     </div>
   );
 }
