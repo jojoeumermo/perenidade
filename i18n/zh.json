@@ -4843,7 +4843,12 @@
     "nextTitle": "领地是与露西亚学院同行的团体。下一个可能就是你们。",
     "nextText": "文化、艺术、体育、住房或学习团体？写信告诉我们你们是谁、在哪里活动、做什么。",
     "nextCta": "带来我的团体",
-    "all": "所有领地"
+    "all": "所有领地",
+    "press": "媒体报道",
+    "podcastKicker": "播客 · 准备中",
+    "launchKicker": "发布会 · 线下 · 日期待定",
+    "followUpdates": "在 Instagram 关注",
+    "reels": "视频在 Instagram 上"
   },
   "rede": {
     "abaRede": "网络",
