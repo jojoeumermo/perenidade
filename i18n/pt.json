@@ -5209,5 +5209,25 @@
     "exterior": "Exterior",
     "menu": "Núcleos de estudo",
     "menuDescricao": "Grupos que estudam juntos perto de você, e o kit para montar o seu."
+  },
+  "status": {
+    "eyebrow": "Status do site",
+    "title": "Está tudo no ar?",
+    "lead": "Conferido agora, do seu aparelho: o site, o banco e a busca.",
+    "site": "Site",
+    "siteAjuda": "As páginas, as aulas e o acervo.",
+    "banco": "Banco",
+    "bancoAjuda": "Comunidade, contas, painel da equipe.",
+    "busca": "Busca",
+    "buscaAjuda": "O índice para procurar aulas e obras.",
+    "conferindo": "Conferindo…",
+    "tudoOk": "Tudo no ar.",
+    "problema": "Alguma coisa não respondeu. Se continuar, tente de novo em alguns minutos.",
+    "noAr": "no ar",
+    "fora": "não respondeu",
+    "semBanco": "não ligado nesta cópia",
+    "conferidoAs": "Conferido às {hora}.",
+    "deNovo": "Conferir de novo",
+    "foraDoAr": "Se o site inteiro sair do ar, o instituto publica no Instagram (@institutoluciaorg) o endereço de um espelho de leitura, com todas as aulas e o acervo."
   }
 }
