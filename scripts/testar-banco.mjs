@@ -2838,6 +2838,18 @@ await recusa("outra pessoa não pega a aula reservada dentro do prazo", () => rp
 await recusa("quem escreveu não revisa a própria aula", async () => { await rpc(como(ids.prof), "aula_reserva_mudar", { p_trilha: "historia-antiga", p_aula: "aula-nova-teste", p_acao: "revisao" }); return rpc(como(ids.prof), "aula_reserva_mudar", { p_trilha: "historia-antiga", p_aula: "aula-nova-teste", p_acao: "revisar" }); }, "sem_permissao");
 await espera("outra pessoa revisa e conclui a revisão por pares", async () => { await rpc(como(ids.vol), "aula_reserva_mudar", { p_trilha: "historia-antiga", p_aula: "aula-nova-teste", p_acao: "revisar" }); await rpc(como(ids.vol), "aula_reserva_mudar", { p_trilha: "historia-antiga", p_aula: "aula-nova-teste", p_acao: "feita" }); return rpc(como(ids.prof), "aulas_reservas_listar"); }, (r) => r.some((a) => a.aula === "aula-nova-teste" && a.situacao === "feita" && a.minha));
 
+// Voluntário sumido: a coordenação recebe um aviso uma vez só, e a pessoa sai da lista quando volta.
+await espera("quem da equipe some há 40 dias entra no aviso uma vez só", () => banco.exclusivo(async () => {
+  await banco.pg.query("update interno.perfis set visto_em = now() - interval '40 days' where id = $1", [ids.mentora]);
+  const primeiro = (await banco.pg.query("select interno.avisar_sumidos() as n")).rows[0].n;
+  const segundo = (await banco.pg.query("select interno.avisar_sumidos() as n")).rows[0].n;
+  const aviso = (await banco.pg.query("select count(*)::int as n from interno.avisos where texto like 'Sem aparecer no painel há mais de 30 dias:%' and para = $1", [ids.coord])).rows[0].n;
+  await banco.pg.query("update interno.perfis set visto_em = now() where id = $1", [ids.mentora]);
+  await banco.pg.query("select interno.avisar_sumidos()");
+  const depois = (await banco.pg.query("select count(*)::int as n from interno.sumidos_avisados where usuario = $1", [ids.mentora])).rows[0].n;
+  return [primeiro, segundo, aviso, depois];
+}), ([primeiro, segundo, aviso, depois]) => primeiro >= 1 && segundo === 0 && aviso >= 1 && depois === 0);
+
 // Canais no celular: a coordenação guarda os endereços do WhatsApp e do Telegram; qualquer visitante lê.
 await recusa("quem não é da coordenação não troca os canais", () => rpc(como(ids.prof), "canais_salvar", { p: { whatsapp: "https://whatsapp.com/channel/0029VaAbCdEfGhIjKl" } }), "sem_permissao");
 await recusa("endereço que não é do WhatsApp é recusado", () => rpc(como(ids.coord), "canais_salvar", { p: { whatsapp: "https://exemplo.com/golpe" } }), "invalido:whatsapp");
