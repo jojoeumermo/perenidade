@@ -1,0 +1,9 @@
+# Instituto Lúcia — regras do gitleaks (rotina "Segurança"). Usa as regras padrão e só libera o que é público de propósito.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Valores públicos por natureza"
+# A impressão digital pública do certificado do aplicativo Android (também publicada em .well-known/assetlinks.json).
+regexTarget = "line"
+regexes = ['''android:apk-key-hash:[A-Za-z0-9_-]{43}''']
