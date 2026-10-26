@@ -9,15 +9,58 @@
       "quem": "Território criativo fundado e dirigido por Julia Ramos: social mídia, produtora e designer de moda, fotógrafa de todas as edições. Agora junto com o Instituto Lúcia, na luta pela cultura de quem trabalha.",
       "instagram": "na.atividade.com.br",
       "pessoas": [
-        { "nome": "Julia Ramos", "papel": "Fundadora, fotógrafa e designer de moda", "instagram": "rvmxs.s" }
+        {
+          "nome": "Julia Ramos",
+          "papel": "Fundadora, fotógrafa e designer de moda",
+          "instagram": "rvmxs.s"
+        }
       ],
-      "temas": ["Cultura de quebrada é política", "Funk", "Pixo", "Baile", "Moda"],
+      "temas": [
+        "Cultura de quebrada é política",
+        "Funk",
+        "Pixo",
+        "Baile",
+        "Moda"
+      ],
       "edicoes": [
-        { "titulo": "Corre", "tipo": "Editorial de moda periférica", "ano": "2025", "cor": "preto" },
-        { "titulo": "Resenha", "tipo": "Editorial de moda periférica", "ano": "2025", "cor": "papel" },
-        { "titulo": "Conceito", "tipo": "Ensaio", "ano": "2025", "cor": "vermelho" },
-        { "titulo": "Vestindo minha pele", "tipo": "Uma análise", "ano": "", "cor": "papel" },
-        { "titulo": "Retratos do baile", "tipo": "Vivências reais de todas as quebradas", "ano": "", "cor": "preto" }
+        {
+          "titulo": "Corre",
+          "tipo": "Editorial de moda periférica",
+          "ano": "2025",
+          "cor": "preto",
+          "imagem": "/territorios/na-atividade/capa-corre.webp",
+          "alt": "Capa do editorial CORRE"
+        },
+        {
+          "titulo": "Resenha",
+          "tipo": "Editorial de moda periférica",
+          "ano": "2025",
+          "cor": "papel"
+        },
+        {
+          "titulo": "Conceito",
+          "tipo": "Ensaio",
+          "ano": "2025",
+          "cor": "vermelho",
+          "imagem": "/territorios/na-atividade/capa-conceito.webp",
+          "alt": "Capa do editorial Conceito: três jovens fotografados de baixo, numa estação"
+        },
+        {
+          "titulo": "Vestindo minha pele",
+          "tipo": "Uma análise",
+          "ano": "",
+          "cor": "papel",
+          "imagem": "/territorios/na-atividade/capa-vestindo-minha-pele.webp",
+          "alt": "Capa de Vestindo minha pele: duas pessoas posando sobre fundo vermelho"
+        },
+        {
+          "titulo": "Retratos do baile",
+          "tipo": "Vivências reais de todas as quebradas",
+          "ano": "",
+          "cor": "preto",
+          "imagem": "/territorios/na-atividade/capa-retratos-do-baile.webp",
+          "alt": "Capa de Retratos do baile: um grupo grande na escada de um baile"
+        }
       ],
       "editoria": "Cultura de Quebrada",
       "pautas": [
@@ -25,11 +68,63 @@
         "Consciência ou apropriação: quem cria e quem lucra com a moda de rua",
         "O pixo como assinatura de quem a cidade não vê"
       ],
-      "trilhas": ["funk-pixo-e-baile", "moda-periferica-e-apropriacao", "editorial-de-rua-com-o-celular"],
+      "trilhas": [
+        "funk-pixo-e-baile",
+        "moda-periferica-e-apropriacao",
+        "editorial-de-rua-com-o-celular"
+      ],
       "capsula": {
         "nome": "Corre × Lúcia",
         "texto": "Camisetas, moletons e bonés desenhados pela Na Atividade com o Instituto Lúcia e fotografados pela Julia. Cada peça vai trazer um código na etiqueta que abre uma aula: vestir também é estudar. Parte de cada venda mantém o instituto gratuito.",
-        "pecas": ["Camiseta “Organizar”", "Moletom “O povo não esquece”", "Boné e tag “Vista sua luta”"]
+        "pecas": [
+          "Camiseta “Organizar”",
+          "Moletom “O povo não esquece”",
+          "Boné e tag “Vista sua luta”"
+        ]
+      },
+      "foto": {
+        "src": "/territorios/na-atividade/capa-corre.webp",
+        "alt": "Capa do editorial CORRE: três jovens numa calçada pichada do centro da cidade"
+      },
+      "fotoAtras": {
+        "src": "/territorios/na-atividade/capa-conceito.webp",
+        "alt": "Capa do editorial Conceito"
+      },
+      "destaques": [
+        {
+          "chapeu": "Uma análise · Julia Ramos",
+          "titulo": "Funk relíquia, pixação e Tony Country: como as vertentes da quebrada ganharam potência",
+          "resumo": "O que o Estado criminaliza, a indústria depois quer vender. Uma leitura de quem estava no baile.",
+          "imagem": "/territorios/na-atividade/analise-funk-reliquia.webp",
+          "alt": "Ilustração da análise: rosto de coringa com boné vermelho e cartas de baralho"
+        },
+        {
+          "chapeu": "Moda e classe",
+          "titulo": "Consciência ou apropriação: quem cria e quem lucra com a moda de rua",
+          "resumo": "",
+          "imagem": "/territorios/na-atividade/bazar.webp",
+          "alt": "Bazar de roupas num galpão com luz vermelha"
+        },
+        {
+          "chapeu": "Rua",
+          "titulo": "Zurc na rua: o pixo como assinatura de quem a cidade não vê",
+          "resumo": "",
+          "imagem": "/territorios/na-atividade/pixo-zurc.webp",
+          "alt": "Placa laranja pichada com latas de spray ao lado"
+        }
+      ],
+      "imprensa": {
+        "veiculo": "Agência Pública",
+        "titulo": "consciência ou apropriação? Jovens disputam o mercado da moda",
+        "url": "https://apublica.org/2025/11/consciencia-vs-apropriacao-jovens-disputam-mercado-da-moda"
+      },
+      "credito": "Fotos e capas: Julia Ramos / Na Atividade (@na.atividade.com.br), usadas com autorização. As imagens não estão sob a licença livre do site.",
+      "podcast": {
+        "titulo": "Moda, funk e pixo: a cultura de quebrada é política",
+        "com": "Com Julia Ramos"
+      },
+      "lancamento": {
+        "titulo": "Mostra das fotos, roda de conversa e o primeiro núcleo do Coletivo"
       }
     }
   ]
