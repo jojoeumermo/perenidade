@@ -90,5 +90,8 @@ jobs:
       - run: npm run testar:aovivo
       # Os depósitos de arquivos: o install.sql cria todas as regras e as que contam envios (podcast, Gaveta) funcionam.
       - run: npm run testar:depositos
+      # O build gera mais de vinte mil páginas e passa da memória da máquina do GitHub (7 GB): 8 GB de área de troca.
+      - name: Memória extra para o build
+        run: sudo fallocate -l 8G /swapfile2 && sudo chmod 600 /swapfile2 && sudo mkswap /swapfile2 && sudo swapon /swapfile2 && free -h
       # O build lê e valida todo o conteúdo de content/: arquivo inválido falha aqui.
       - run: npm run build
