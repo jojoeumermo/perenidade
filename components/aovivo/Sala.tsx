@@ -283,7 +283,15 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
       // Com o banco que já guarda as chaves da sala, a conferência vale; com o antigo, a sala segue como antes.
       chaves.current !== undefined,
     );
-    void nova.entrar().then((ok) => setCanal(ok ? "aberto" : "sem"));
+    // O servidor de retransmissão, quando existe: busca antes de entrar, para nenhuma ligação sair direta.
+    const transmissor = transmissao.current;
+    void fetch(`/api/aovivo/rede?aula=${encodeURIComponent(aula.id)}`, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: { iceServers?: RTCIceServer[] | null } | null) => {
+        if (d?.iceServers?.length && transmissor) transmissor.rede = { iceServers: d.iceServers, iceTransportPolicy: "relay" };
+      })
+      .catch(() => undefined)
+      .finally(() => void nova.entrar().then((ok) => setCanal(ok ? "aberto" : "sem")));
     return () => {
       transmissao.current?.fechar();
       transmissao.current = null;
