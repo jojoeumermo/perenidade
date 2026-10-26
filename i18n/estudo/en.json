@@ -219,6 +219,7 @@
   "nivelamento": {
     "olho": "No grade",
     "titulo": "Where to start?",
+    "menu": "Placement quiz",
     "descricao": "A few quick questions that only suggest which lesson to start with. You can skip it; there is no grade.",
     "lead": "A few questions, one per lesson, to suggest where to start. It is not a test: there is no grade, nobody sees the result and you can skip it whenever you want.",
     "antesTitulo": "Before you start",

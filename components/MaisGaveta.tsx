@@ -9,10 +9,12 @@ import type { SecaoDoSite } from "@/lib/secoes-do-site";
 import { site } from "@/lib/site";
 import { normalize } from "@/lib/text";
 import { useI18n } from "./I18n";
-import { InstagramIcon } from "./Footer";
-import { ABRIR_MAIS, LanguageSwitcher, SAIR_MAIS } from "./NavLinks";
+import { ABRIR_MAIS, LanguageSwitcher, MAIS_NO_MENU, SAIR_MAIS } from "./NavLinks";
 
 const USADOS = "lucia:mais-usados";
+
+/** Quem somos, as regras e os dados da pessoa: no computador vão para a linha miúda do pé da janela, não para as colunas. */
+const NO_RODAPE = ["/sobre", "/quem-somos", "/dedicatoria", "/conduta", "/uso", "/direitos-autorais", "/privacidade", "/termos", "/meus-dados"];
 
 function lerUsados(): Record<string, number> {
   try {
@@ -142,6 +144,12 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
     () => secoes.map((s) => ({ ...s, items: s.items.filter((i) => !termo || normalize(`${i.label} ${i.description}`).includes(termo)) })).filter((s) => s.items.length > 0),
     [secoes, termo],
   );
+  // No computador as colunas não repetem o menu do topo nem o que vai para o pé da janela; com busca, entra tudo.
+  const colunas = useMemo(
+    () => filtradas.map((s) => ({ ...s, items: termo ? s.items : s.items.filter((i) => !MAIS_NO_MENU.includes(i.path) && !NO_RODAPE.includes(i.path)) })).filter((s) => s.items.length > 0),
+    [filtradas, termo],
+  );
+  const rodape = useMemo(() => secoes.flatMap((s) => s.items).filter((i) => NO_RODAPE.includes(i.path)), [secoes]);
   const todas = useMemo(() => secoes.flatMap((s) => s.items), [secoes]);
   const preferidas = Object.entries(usados)
     .sort((a, b) => b[1] - a[1])
@@ -197,13 +205,23 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
         <div className="min-h-0 flex-1 overflow-y-auto px-4 pt-4 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))] md:px-7 md:pt-5">
           {filtradas.length === 0 && <p className="py-6 text-lg text-ink-soft">{t.lists.none}</p>}
 
-          {/* No computador: as seções correm em três colunas equilibradas (o grupo grande continua na coluna seguinte),
-              e a coluna da direita traz os destaques: onde começar ou o que a pessoa mais abre, o Instagram e o apoio. */}
-          <div className="hidden gap-8 md:grid md:grid-cols-[minmax(0,1fr)_15rem] xl:grid-cols-[minmax(0,1fr)_17rem]">
-            <div className="gap-x-7 md:columns-2 lg:columns-3">
-              {filtradas.map((secao, i) => (
-                <nav key={secao.title} aria-label={secao.title} className="mb-5">
-                  <p className={`mb-1.5 inline-block break-after-avoid px-2.5 py-1 font-mono text-[0.72rem] uppercase tracking-[0.18em] ${i === 1 ? "bg-[#c21f16] text-white" : "bg-ink text-parchment"}`}>{secao.title}</p>
+          {/* No computador: uma linha de atalhos (o que a pessoa mais abre, ou por onde começar) e as seções em quatro
+              colunas, só com os nomes; a descrição fica na dica. Nada que já esteja no menu do topo se repete aqui. */}
+          <div className="hidden md:block">
+            {!termo && preferidas.length > 0 && (
+              <p className="mb-5 flex flex-wrap items-center gap-2 border-b border-rule pb-4">
+                <span className="mr-2 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-prelo-texto">{textos.maisUsadas}</span>
+                {preferidas.map((item) => (
+                  <Link key={item.path} href={localePath(lang, item.path)} onClick={() => ir(item.path)} className="bg-ink px-3.5 py-1.5 font-sans text-sm font-semibold text-parchment hover:bg-[#c21f16] hover:text-white">
+                    {item.label}
+                  </Link>
+                ))}
+              </p>
+            )}
+            <div className="gap-x-9 md:columns-3 lg:columns-4">
+              {colunas.map((secao, i) => (
+                <nav key={secao.title} aria-label={secao.title} className="mb-6">
+                  <p className={`mb-2 break-after-avoid border-b-2 pb-1.5 font-mono text-[0.72rem] uppercase tracking-[0.18em] ${i === 1 ? "border-[#c21f16] text-prelo-texto" : "border-ink"}`}>{secao.title}</p>
                   <ul>
                     {secao.items.map((item) => (
                       <li key={item.path} className="break-inside-avoid">
@@ -211,10 +229,9 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
                           href={localePath(lang, item.path)}
                           onClick={() => ir(item.path)}
                           title={item.description}
-                          className="mais-item group flex min-w-0 items-baseline gap-2 border-b border-dashed border-rule px-2 py-[0.3rem] font-sans text-[0.93rem] text-ink hover:bg-ink hover:text-parchment"
+                          className="mais-item block py-[0.32rem] font-sans text-[0.95rem] font-medium text-ink underline-offset-4 hover:text-prelo-texto hover:underline"
                         >
-                          <span className="shrink-0 font-semibold">{item.label}</span>
-                          {item.short && <span className="min-w-0 truncate text-[0.78rem] text-ink-soft group-hover:text-[#cdbb91]">{item.short}</span>}
+                          {item.label}
                         </Link>
                       </li>
                     ))}
@@ -222,47 +239,6 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
                 </nav>
               ))}
             </div>
-
-            <aside className="flex flex-col gap-4 self-start">
-              <div className="border-2 border-ink bg-ink p-4 text-parchment shadow-[4px_4px_0_var(--prelo)]">
-                <p className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[#e0837a]">{preferidas.length > 0 ? textos.maisUsadas : textos.comeceAqui}</p>
-                {preferidas.length > 0 ? (
-                  <ul className="mt-2 flex flex-col gap-1.5">
-                    {preferidas.map((item) => (
-                      <li key={item.path}>
-                        <Link href={localePath(lang, item.path)} onClick={() => ir(item.path)} className="font-sans font-bold text-parchment underline-offset-4 hover:text-white hover:underline">
-                          {item.label} →
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <>
-                    <p className="mt-2 text-[1.05rem] leading-snug">{textos.comeceTexto}</p>
-                    <p className="mt-3 flex flex-col gap-1.5 font-sans font-bold">
-                      <Link href={localePath(lang, "/perguntas")} onClick={() => ir("/perguntas")} className="text-parchment hover:text-white hover:underline">
-                        {t.nav.questions} →
-                      </Link>
-                      <Link href={localePath(lang, "/comecar")} onClick={() => ir("/comecar")} className="text-parchment hover:text-white hover:underline">
-                        {t.nav.start} →
-                      </Link>
-                    </p>
-                  </>
-                )}
-                <p className="mt-3 border-t border-[#5a4e3c] pt-2 text-xs leading-snug text-[#cdbb91]">{textos.lembranca}</p>
-              </div>
-              <a href={site.instagram} target="_blank" rel="noopener noreferrer me" className="group block border-2 border-ink bg-parchment p-4 text-ink shadow-[4px_4px_0_var(--sombra)] hover:text-ink">
-                <span className="flex items-center gap-2 font-sans font-extrabold">
-                  <InstagramIcon className="h-5 w-5" /> {textos.instagram}
-                </span>
-                <span className="mt-1 block font-mono text-sm font-semibold text-prelo-texto group-hover:underline">@{site.instagramUser} ↗</span>
-                <span className="mt-1.5 block text-sm leading-snug text-ink-soft">{textos.sigaTexto}</span>
-              </a>
-              <Link href={localePath(lang, "/apoie")} onClick={() => ir("/apoie")} className="block border-2 border-ink bg-[#c21f16] p-4 text-white shadow-[4px_4px_0_var(--sombra)] hover:text-white">
-                <span className="block font-sans font-extrabold">{textos.apoie} →</span>
-                <span className="mt-1 block text-sm leading-snug text-white/90">{textos.apoieTexto}</span>
-              </Link>
-            </aside>
           </div>
 
           {/* No celular: os grupos recolhidos; com busca, abertos. */}
@@ -305,7 +281,14 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
           </div>
 
           <p className="mt-2 flex flex-wrap items-center justify-between gap-3 border-t border-rule pt-3 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-ink-soft">
-            <span>{textos.rodape}</span>
+            <span className="md:hidden">{textos.rodape}</span>
+            <span className="hidden flex-wrap gap-x-4 gap-y-1 font-sans text-[0.8rem] normal-case tracking-normal md:flex">
+              {rodape.map((item) => (
+                <Link key={item.path} href={localePath(lang, item.path)} onClick={() => ir(item.path)} className="text-ink-soft hover:text-prelo-texto hover:underline">
+                  {item.label}
+                </Link>
+              ))}
+            </span>
             <a href={site.instagram} target="_blank" rel="noopener noreferrer me" className="text-ink underline hover:text-prelo-texto">
               {textos.instagram} · @{site.instagramUser} ↗
             </a>

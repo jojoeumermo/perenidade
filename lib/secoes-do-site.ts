@@ -38,7 +38,7 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
         [n.videos, "/videos", d.videos],
         [n.notebook, "/caderno", d.notebook],
         ...se("meu-estudo", [novos.meuEstudo.titulo, "/meu-estudo", novos.meuEstudo.descricao]),
-        ...se("nivelamento", [novos.nivelamento.titulo, "/nivelamento", novos.nivelamento.descricao]),
+        ...se("nivelamento", [novos.nivelamento.menu, "/nivelamento", novos.nivelamento.descricao]),
         ...se("turma", [novos.turma.titulo, "/turma", novos.turma.descricao]),
         ...se("professores", [novos.professores.titulo, "/professores", novos.professores.descricao]),
         ...se("guia-contribuir", [novos.guia.titulo, "/contribuir/guia", novos.guia.descricao]),
