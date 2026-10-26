@@ -3051,15 +3051,25 @@ begin
   return jsonb_build_object('ok', true);
 end $$;
 
-create or replace function public.denunciar(p_alvo text, p_motivo text, p_detalhes text, p_site text default '') returns jsonb
+drop function if exists public.denunciar(text, text, text, text);
+create or replace function public.denunciar(p_alvo text, p_motivo text, p_detalhes text, p_site text default '', p_urgente boolean default false) returns jsonb
 language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v_post uuid;
 begin
   perform interno.aberta('contribuir');
   if coalesce(p_site, '') <> '' then return jsonb_build_object('ok', true); end if;
   perform interno.limite('denunciar', 6, 60);
   insert into denuncias (alvo, motivo, detalhes, autor)
   values (interno.txt(p_alvo, 'alvo', 1, 300), interno.txt(p_motivo, 'motivo', 2, 80), interno.txt(p_detalhes, 'detalhes', 20, 4000), auth.uid());
-  return jsonb_build_object('ok', true);
+  if coalesce(p_urgente, false) and auth.uid() is not null then
+    perform interno.limite('denunciar_urgente', 3, 1440);
+    v_post := (substring(p_alvo from 'post=([0-9a-f-]{36})'))::uuid;
+    if v_post is not null then
+      update rede_posts set retido = true, oculto = true where id = v_post and autor <> auth.uid();
+    end if;
+    perform interno.avisar_lideranca('Denúncia urgente de exposição de dados: ' || left(p_alvo, 160) || '. Abra Cuidar da Comunidade › Denúncias.', auth.uid());
+  end if;
+  return jsonb_build_object('ok', true, 'retido', v_post is not null);
 end $$;
 
 create or replace function public.denuncias_listar() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
@@ -15392,6 +15402,9 @@ create or replace function public.nucleos_publicos() returns jsonb language sql 
 $$;
 revoke all on function public.nucleos_publicos() from public;
 grant execute on function public.nucleos_publicos() to anon, authenticated, service_role;
+
+revoke all on function public.denunciar(text, text, text, text, boolean) from public;
+grant execute on function public.denunciar(text, text, text, text, boolean) to anon, authenticated, service_role;
 
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança

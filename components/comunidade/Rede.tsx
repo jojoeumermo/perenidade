@@ -954,6 +954,7 @@ function CartaoDoPost({ post, s, logado, equipe = false, mudou, abrirFio, abrirP
 function Denunciar({ post, s, fechar }: { post: Post; s: Textos; fechar: () => void }) {
   const [motivo, setMotivo] = useState("");
   const [detalhes, setDetalhes] = useState("");
+  const [urgente, setUrgente] = useState(false);
   const [feito, setFeito] = useState("");
   return (
     <form
@@ -961,7 +962,7 @@ function Denunciar({ post, s, fechar }: { post: Post; s: Textos; fechar: () => v
       onSubmit={async (e) => {
         e.preventDefault();
         try {
-          await rpc("denunciar", { p_alvo: `/comunidade?post=${post.id}`, p_motivo: motivo, p_detalhes: detalhes, p_site: "" });
+          await rpc("denunciar", { p_alvo: `/comunidade?post=${post.id}`, p_motivo: urgente ? s.expondo : motivo, p_detalhes: detalhes, p_site: "", p_urgente: urgente });
           setFeito(s.denunciaFeita);
         } catch {
           setFeito(s.erro);
@@ -973,10 +974,14 @@ function Denunciar({ post, s, fechar }: { post: Post; s: Textos; fechar: () => v
         <p>{feito} <button type="button" className="underline" onClick={fechar}>{s.cancelar}</button></p>
       ) : (
         <>
-          <input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={80} placeholder={s.denunciaMotivo} aria-label={s.denunciaMotivo} className="w-full rounded-md border border-rule bg-folha px-2 py-1" />
+          <label className="flex items-start gap-2 font-semibold text-oxblood">
+            <input type="checkbox" checked={urgente} onChange={(e) => setUrgente(e.target.checked)} className="mt-1" />
+            {s.expondo}
+          </label>
+          {!urgente && <input value={motivo} onChange={(e) => setMotivo(e.target.value)} maxLength={80} placeholder={s.denunciaMotivo} aria-label={s.denunciaMotivo} className="w-full rounded-md border border-rule bg-folha px-2 py-1" />}
           <textarea value={detalhes} onChange={(e) => setDetalhes(e.target.value)} maxLength={4000} rows={3} placeholder={s.denunciaDetalhes} aria-label={s.denunciaDetalhes} className="w-full rounded-md border border-rule bg-folha px-2 py-1" />
           <p className="flex gap-2">
-            <button type="submit" disabled={motivo.trim().length < 2 || detalhes.trim().length < 20} className={`${pilula} bg-ink py-1.5 text-parchment`}>{s.denunciaEnviar}</button>
+            <button type="submit" disabled={(!urgente && motivo.trim().length < 2) || detalhes.trim().length < 20} className={`${pilula} bg-ink py-1.5 text-parchment`}>{s.denunciaEnviar}</button>
             <button type="button" className="cursor-pointer underline" onClick={fechar}>{s.cancelar}</button>
           </p>
         </>
@@ -1122,7 +1127,8 @@ function Seguranca({ s, logado, silenciadas, silenciar }: { s: Textos; logado: b
         <p className="mt-1 text-xs text-ink-soft">{s.silenciarAjuda}</p>
         <input value={palavras} onChange={(e) => setPalavras(e.target.value)} onBlur={() => silenciar(palavras.split(",").map((p) => p.trim().toLowerCase()).filter(Boolean))} className="mt-1 w-full rounded-md border border-rule bg-parchment px-2 py-1 text-xs" aria-label={s.silenciar} />
       </details>
-      {logado && <button type="button" className="mt-2 cursor-pointer text-[13px] font-bold text-oxblood hover:underline" onClick={() => void baixar()}>{s.baixar}</button>}
+      <L href="/seguranca-digital" className="mt-2 inline-block text-[13px] font-bold text-oxblood hover:underline">{s.guia} →</L>
+      {logado && <button type="button" className="mt-2 block cursor-pointer text-[13px] font-bold text-oxblood hover:underline" onClick={() => void baixar()}>{s.baixar}</button>}
     </section>
   );
 }

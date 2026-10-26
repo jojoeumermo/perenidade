@@ -1210,6 +1210,7 @@
     "submit": "Envoyer le signalement",
     "notReady": "Indiquez l'élément et décrivez le problème (au moins 20 caractères) pour continuer.",
     "reasons": [
+      "On m'expose (mes données ou photos)",
       "Droit d'auteur",
       "Information erronée",
       "Contenu offensant ou discours de haine",
@@ -5073,7 +5074,8 @@
     "abaTudo": "Tout",
     "verTudo": "Tout voir",
     "levarNucleo": "Apporter à un noyau",
-    "levado": "Lien copié : collez-le dans le groupe de votre noyau."
+    "levado": "Lien copié : collez-le dans le groupe de votre noyau.",
+    "expondo": "On m'expose : retirer tout de suite"
   },
   "compartilhar": {
     "titulo": "Partager",

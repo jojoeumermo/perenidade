@@ -2824,6 +2824,13 @@ await rpc(como(ids.prof), "rede_config", { p_invisivel: false });
 await espera("post com palavra do filtro espera a mediação, na mesma fila do fórum", async () => { const r = await rpc(como(ids.aluna), "rede_postar", { p: { texto: "palavrão novo aqui na rede" } }); return [r, await rpc(como(ids.med), "comunidade_retidos")]; }, ([r, fila]) => r.retido === true && fila.some((x) => x.tipo === "post" && x.id === r.id));
 await espera("o registro público de moderação não mostra nomes", () => rpc(anon, "rede_moderacao_publica"), (r) => Array.isArray(r) && r.every((s) => !("nome" in s)));
 
+// "Estão me expondo": quem tem conta tira o post da Rede do ar na hora, até a mediação olhar.
+await espera("denúncia urgente de exposição retém o post da Rede", async () => {
+  const post = await rpc(como(ids.prof), "rede_postar", { p: { texto: "Post que alguém diz que expõe dados de outra pessoa." } });
+  await rpc(como(ids.aluna), "denunciar", { p_alvo: `/comunidade?post=${post.id}`, p_motivo: "Estão me expondo", p_detalhes: "Publicaram meu endereço de casa para me atacar.", p_site: "", p_urgente: true });
+  return [post.id, await rpc(anon, "rede_linha", { p_modo: "tudo" })];
+}, ([id, linha]) => !linha.some((p) => p.id === id));
+
 // Canais no celular: a coordenação guarda os endereços do WhatsApp e do Telegram; qualquer visitante lê.
 await recusa("quem não é da coordenação não troca os canais", () => rpc(como(ids.prof), "canais_salvar", { p: { whatsapp: "https://whatsapp.com/channel/0029VaAbCdEfGhIjKl" } }), "sem_permissao");
 await recusa("endereço que não é do WhatsApp é recusado", () => rpc(como(ids.coord), "canais_salvar", { p: { whatsapp: "https://exemplo.com/golpe" } }), "invalido:whatsapp");
