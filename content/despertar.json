@@ -13,7 +13,9 @@
         "capitalismo-contemporaneo/capitalismo-de-plataforma-e-uberizacao",
         "direitos-no-trabalho/o-que-e-a-clt"
       ],
-      "leituras": ["o-capital-para-criancas"],
+      "leituras": [
+        "o-capital-para-criancas"
+      ],
       "tarefa": "Faça a conta: quantas horas do seu mês pagam o seu salário, e quantas ficam com o patrão? Use a calculadora de mais-valia da caixa de ferramentas.",
       "roda": [
         "O que mais pesa no seu bolso todo mês? Quem ganha com isso?",
@@ -24,39 +26,89 @@
     {
       "id": "sistema",
       "titulo": "Entender o sistema",
-      "pergunta": "Classe, exploração, Estado e ideologia: como tudo se encaixa?",
-      "texto": "O que parece azar ou culpa individual tem uma engrenagem por trás. Aqui entram as ideias que explicam essa engrenagem: mais-valia, luta de classes, racismo e a fábrica de consensos da mídia.",
+      "pergunta": "De onde vem o lucro, e por que sempre falta para quem trabalha?",
+      "texto": "O que parece azar ou culpa individual tem uma engrenagem por trás. Aqui entram as ideias que explicam essa engrenagem: mercadoria, mais-valia, lucro, desemprego e crise.",
       "aulas": [
         "o-que-e-o-capitalismo/o-que-e-o-capitalismo",
-        "introducao-ao-marxismo/mais-valia",
-        "introducao-ao-marxismo/luta-de-classes",
-        "como-o-capitalismo-surgiu/escravidao-e-capitalismo",
+        "marxismo-fundamental/o-que-e-trabalho",
+        "introducao-ao-marxismo/02-mais-valia",
+        "o-que-e-o-capitalismo/de-onde-vem-o-lucro",
+        "o-que-e-o-capitalismo/por-que-existe-desemprego",
+        "o-que-e-o-capitalismo/quem-sao-os-donos-concentracao-e-monopolio",
+        "o-que-e-o-capitalismo/o-que-e-uma-crise",
+        "introducao-ao-marxismo/luta-de-classes"
+      ],
+      "leituras": [],
+      "tarefa": "Escolha um produto que você usa todo dia e descubra quem o fabrica, quanto ganha quem fabrica e quanto custa na prateleira. Anote a diferença.",
+      "roda": [
+        "Se o lucro vem do trabalho, por que quem trabalha fica com tão pouco?",
+        "Por que, numa crise, quem perde o emprego é quem trabalha, e não quem é dono?",
+        "Quem são os donos das empresas que estão perto de você?"
+      ]
+    },
+    {
+      "id": "ideologia",
+      "titulo": "Quem conta a história",
+      "pergunta": "Por que tanta gente defende o que a prejudica?",
+      "texto": "Ninguém pensa sozinho: a escola, a igreja, a TV e o celular ensinam o que é normal e o que é impossível. Aqui entram a ideologia, a alienação, a fábrica de notícias e o medo do comunismo que atravessa a história.",
+      "aulas": [
         "introducao-ao-marxismo/ideologia",
         "introducao-ao-marxismo/alienacao",
         "midia-fundamental/como-identificar-uma-noticia-falsa",
+        "o-que-e-imperialismo/como-reconhecer-o-imperialismo-no-noticiario",
+        "comunismo-fundamental/mitos-sobre-o-comunismo",
+        "comunismo-medio/anticomunismo-historia-de-uma-perseguicao",
         "introducao-ao-marxismo/como-ler-o-manifesto-comunista"
       ],
-      "leituras": ["manifesto-do-partido-comunista"],
+      "leituras": [
+        "manifesto-do-partido-comunista"
+      ],
       "tarefa": "Assista a um telejornal inteiro e anote: quem fala, quem é ouvido como especialista e quem nunca aparece.",
       "roda": [
-        "Por que a classe trabalhadora brasileira é, em sua maioria, negra? O que a escravidão tem a ver com o salário de hoje?",
         "Que ideia você aprendeu na escola ou na TV que hoje parece servir a alguém?",
-        "Se o lucro vem do trabalho, por que quem trabalha fica com tão pouco?"
+        "Por que a palavra \"comunismo\" assusta tanta gente que nunca leu sobre ele?",
+        "De onde vêm as notícias que chegam ao seu celular? Quem paga por elas?"
+      ]
+    },
+    {
+      "id": "raca-genero-e-classe",
+      "titulo": "Raça, gênero e classe",
+      "pergunta": "Por que a exploração pesa mais sobre umas pessoas do que sobre outras?",
+      "texto": "A classe trabalhadora brasileira tem cor e tem gênero. A escravidão, o machismo e a perseguição a quem foge da norma não são assuntos à parte: fazem parte da mesma engrenagem e da mesma luta.",
+      "aulas": [
+        "como-o-capitalismo-surgiu/escravidao-e-capitalismo",
+        "historia-do-brasil/a-escravidao-no-brasil",
+        "luta-negra-fundamental/quilombos-palmares-zumbi-e-dandara",
+        "marxismo-superior/marxismo-e-questao-racial-clovis-moura-e-angela-davis",
+        "marxismo-superior/marxismo-e-feminismo-kollontai-e-a-reproducao-social",
+        "feminismo-fundamental/a-lei-maria-da-penha",
+        "historia-do-movimento-lgbtqia/a-rebeliao-de-stonewall",
+        "ecossocialismo-basico/racismo-ambiental"
+      ],
+      "leituras": [],
+      "tarefa": "Na sua rua ou no seu trabalho, observe: quem faz os serviços mais pesados e mais mal pagos? Quem manda? Anote sem nomes e leve para a roda.",
+      "roda": [
+        "Por que a classe trabalhadora brasileira é, em sua maioria, negra? O que a escravidão tem a ver com o salário de hoje?",
+        "Quem cuida da casa, dos filhos e dos doentes na sua família? Esse trabalho é pago?",
+        "Dividir a classe por cor, gênero ou orientação ajuda a quem?"
       ]
     },
     {
       "id": "historia",
-      "titulo": "Conhecer a história",
+      "titulo": "Conhecer a história do Brasil",
       "pergunta": "Quem lutou antes de nós?",
       "texto": "Nada do que temos hoje caiu do céu: férias, salário mínimo, voto, escola pública. Cada direito tem nome, data e gente que pagou caro por ele. Conhecer essa história é saber que a luta funciona.",
       "aulas": [
+        "historia-do-brasil/independencia-para-quem",
         "lutas-do-povo/palmares-e-os-quilombos",
         "lutas-do-povo/canudos",
+        "lutas-do-povo/revolta-dos-males",
         "lutas-do-povo/a-greve-geral-de-1917",
         "lutas-do-povo/revolta-da-chibata",
+        "historia-do-brasil/a-era-vargas",
         "historia-do-brasil/o-golpe-de-1964-e-a-ditadura",
-        "dependencia-e-america-latina/as-ditaduras-do-cone-sul-e-o-projeto-economico-por-tras-delas",
-        "lutas-do-povo/as-greves-do-abc"
+        "lutas-do-povo/as-greves-do-abc",
+        "historia-do-brasil/a-redemocratizacao-e-a-constituicao-de-1988"
       ],
       "leituras": [],
       "tarefa": "Converse com alguém mais velho da sua família ou do bairro sobre como era trabalhar e viver antes. O que mudou, e por quê?",
@@ -67,11 +119,82 @@
       ]
     },
     {
+      "id": "mundo",
+      "titulo": "As lutas pelo mundo",
+      "pergunta": "O que o povo de outros países já conquistou, e como?",
+      "texto": "Do Haiti que derrotou a escravidão à Palestina de hoje, do Vietnã a Cuba: a luta dos trabalhadores e dos povos é internacional. Conhecer essas experiências é aprender com acertos e erros de quem veio antes.",
+      "aulas": [
+        "lutas-do-povo/01-revolucao-haitiana",
+        "lutas-do-povo/02-comuna-de-paris",
+        "revolucoes-socialistas/a-revolucao-russa-de-1917",
+        "revolucoes-socialistas/a-revolucao-chinesa",
+        "revolucoes-socialistas/che-guevara-e-a-revolucao-cubana",
+        "revolucoes-socialistas/vietna-a-guerra-de-libertacao",
+        "revolucoes-socialistas/as-revolucoes-africanas-cabral-machel-e-sankara",
+        "lutas-do-povo/a-luta-contra-o-apartheid",
+        "lutas-do-povo/a-luta-do-povo-palestino"
+      ],
+      "leituras": [],
+      "tarefa": "Escolha uma das lutas desta etapa e conte a história dela, em cinco minutos, para alguém que nunca ouviu falar.",
+      "roda": [
+        "O que essas lutas têm em comum com as do Brasil?",
+        "Por que tão pouca gente aprende sobre o Haiti ou sobre o Vietnã na escola?",
+        "O que uma revolução precisa ter para durar?"
+      ]
+    },
+    {
+      "id": "imperialismo",
+      "titulo": "O Brasil no mundo",
+      "pergunta": "Por que um país tão rico tem um povo tão pobre?",
+      "texto": "O Brasil exporta soja, minério e petróleo e importa tecnologia e dívida. Imperialismo e dependência explicam por que a riqueza daqui enriquece outros lugares, e o que isso tem a ver com o seu emprego.",
+      "aulas": [
+        "o-que-e-imperialismo/colonialismo-e-imperialismo-qual-e-a-diferenca",
+        "o-que-e-imperialismo/lenin-e-o-imperialismo-como-fase-do-capitalismo",
+        "dependencia-e-america-latina/o-que-quer-dizer-dependencia",
+        "dependencia-e-america-latina/divida-externa-como-se-paga-e-nunca-se-quita",
+        "o-que-e-imperialismo/o-fmi-o-banco-mundial-e-os-planos-de-ajuste",
+        "o-que-e-imperialismo/bases-militares-sancoes-e-bloqueios",
+        "dependencia-e-america-latina/as-ditaduras-do-cone-sul-e-o-projeto-economico-por-tras-delas",
+        "ecossocialismo-basico/quem-polui-e-quem-paga-justica-climatica"
+      ],
+      "leituras": [],
+      "tarefa": "Olhe as etiquetas de cinco coisas da sua casa: onde foram feitas? E o que o Brasil vende para esses países?",
+      "roda": [
+        "Quem ganha quando o Brasil vende soja e minério sem processar?",
+        "O que a dívida pública e a dívida externa têm a ver com o posto de saúde do seu bairro?",
+        "Existe soberania num país que não controla a própria tecnologia?"
+      ]
+    },
+    {
+      "id": "estado",
+      "titulo": "Estado, direitos e democracia",
+      "pergunta": "A quem o Estado serve, e o que dá para arrancar dele?",
+      "texto": "Polícia, imposto, lei, eleição: o Estado está em toda parte. Aqui você estuda para que ele serve, como funcionam os três poderes, o que a Constituição garante no papel e por que o fascismo é a ameaça que sempre volta.",
+      "aulas": [
+        "ciencia-politica-fundamental/o-que-e-o-estado-e-para-que-serve",
+        "introducao-ao-marxismo/o-estado",
+        "politica-fundamental/os-tres-poderes",
+        "direito-fundamental/o-que-diz-a-constituicao-de-1988",
+        "o-que-e-o-capitalismo/estado-impostos-e-orcamento-publico",
+        "antifascismo/o-que-e-fascismo",
+        "antifascismo/como-o-fascismo-chega-ao-poder",
+        "antifascismo/o-integralismo-no-brasil"
+      ],
+      "leituras": [],
+      "tarefa": "Descubra quanto a sua cidade gastou no último ano com saúde, educação e segurança (o portal da transparência da prefeitura mostra). Compare.",
+      "roda": [
+        "Que direito da Constituição você nunca viu sair do papel no seu bairro?",
+        "Quem paga mais imposto, proporcionalmente: quem ganha pouco ou quem ganha muito?",
+        "Por que o fascismo cresce justamente nas crises?"
+      ]
+    },
+    {
       "id": "organizar",
       "titulo": "Organizar-se",
       "pergunta": "Sozinho ninguém muda nada. Como a gente se junta?",
       "texto": "Consciência sem organização vira desabafo. Aqui você conhece as formas de se juntar (sindicato, movimento, núcleo, assembleia), aprende a falar em público e a cuidar da própria segurança e da dos companheiros.",
       "aulas": [
+        "primeiros-passos-na-militancia/consciencia-de-classe-descobrir-de-que-lado-voce-esta",
         "primeiros-passos-na-militancia/por-que-se-organizar-ninguem-muda-a-vida-sozinho",
         "marxismo-fundamental/o-que-e-um-sindicato",
         "marxismo-fundamental/o-que-e-uma-greve",
@@ -91,7 +214,7 @@
     },
     {
       "id": "agir",
-      "titulo": "Agir e liderar",
+      "titulo": "Agir, liderar e construir outro mundo",
       "pergunta": "De militante a quadro: como liderar sem largar a base?",
       "texto": "Quem aprendeu tem a tarefa de ensinar. Esta etapa forma quem vai puxar núcleos, conduzir lutas e, se for o caso, disputar a política institucional sem esquecer de onde veio e para quem trabalha.",
       "aulas": [
@@ -101,14 +224,18 @@
         "eleicoes-partidos-e-voto/o-que-e-um-partido-e-como-se-cria-um",
         "eleicoes-partidos-e-voto/depois-da-eleicao-como-cobrar",
         "formacao-militante-superior/etica-militante-coerencia-disciplina-e-camaradagem",
-        "formacao-militante-superior/analise-de-conjuntura-como-fazer"
+        "formacao-militante-superior/analise-de-conjuntura-como-fazer",
+        "socialismo-fundamental/o-que-e-socialismo",
+        "comunismo-fundamental/comunismo-e-socialismo-qual-e-a-diferenca",
+        "ecossocialismo-basico/o-que-e-ecossocialismo"
       ],
       "leituras": [],
       "tarefa": "Puxe um encontro de estudo com pelo menos três pessoas do seu bairro, do trabalho ou da escola, usando o roteiro de uma das etapas.",
       "roda": [
-        "O que você aprendeu no Despertar que quer ensinar a alguém? Para quem?",
+        "O que você aprendeu neste percurso que quer ensinar a alguém? Para quem?",
         "Como liderar sem mandar? O que diferencia uma liderança de um chefe?",
-        "Que luta concreta o seu núcleo pode abraçar nos próximos meses?"
+        "Que luta concreta o seu núcleo pode abraçar nos próximos meses?",
+        "O que você mudaria primeiro no seu bairro se o povo decidisse?"
       ]
     }
   ]

@@ -106,7 +106,7 @@
     "usePolicy": "Política de uso",
     "events": "Agenda de encontros",
     "spreadKit": "Kit de divulgação",
-    "despertar": "Despertar",
+    "despertar": "Consciência de classe",
     "territories": "Territórios"
   },
   "labs": {
@@ -386,7 +386,7 @@
     "moreKicker": "Mais do que aulas",
     "moreTitle": "Aqui a gente estuda para mudar a vida.",
     "moreText": "O Instituto Lúcia é uma escola da vida: formamos gente que sabe de que lado está e que caminha junto com a classe trabalhadora. Sem diploma do Estado, sem mensalidade, sem vício: por revolta, curiosidade e esperança.",
-    "moreStart": "Começar o Despertar",
+    "moreStart": "Começar o percurso",
     "moreManifesto": "Ler o manifesto"
   },
   "areas": {
@@ -3171,7 +3171,7 @@
       "usePolicy": "O que pode e o que não pode, em poucas linhas.",
       "events": "Cineclube, clube de leitura e outros encontros.",
       "spreadKit": "Cartazes, folheto, zine e cartões com QR para imprimir.",
-      "despertar": "Do zero à consciência de classe, em cinco etapas, com tarefas no mundo real.",
+      "despertar": "Do zero à consciência de classe, em dez etapas, com tarefas no mundo real.",
       "territories": "Coletivos de cultura e luta que caminham com o instituto: matérias, aulas, fotos e encontros."
     },
     "short": {
@@ -4869,7 +4869,7 @@
   },
   "despertar": {
     "eyebrow": "Percurso de formação · do zero à organização",
-    "title": "Despertar.",
+    "title": "Consciência de classe.",
     "lead": "Ninguém nasce sabendo que é explorado. A consciência de classe se aprende: na vida, no estudo e na luta coletiva.",
     "start": "Começar pela etapa 1",
     "group": "Estudar em grupo num núcleo",
@@ -4890,7 +4890,7 @@
     "certTitle": "Certificado comunitário",
     "certText": "Reconhecido pelo instituto e assinado pelo seu núcleo, não pelo Estado. Vale pelo que você aprendeu e pelo que fez com isso.",
     "groupKicker": "Melhor em grupo",
-    "groupTitle": "Faça o Despertar num núcleo",
+    "groupTitle": "Faça o percurso num núcleo",
     "groupText": "Cada etapa tem um roteiro de encontro de uma hora e perguntas para a roda. Junte três pessoas e comece.",
     "groupCta": "Achar ou montar um núcleo"
   },
@@ -5194,7 +5194,7 @@
     "montarTitulo": "Monte um núcleo",
     "montarTexto": "Bastam três pessoas e uma hora por semana. Escolha uma trilha e imprima o kit: cartaz de chamada, guia de quem media, roteiro de cada encontro e lista de presença.",
     "escolherTrilha": "Escolher a trilha",
-    "despertar": "Começar pelo Despertar (formação do zero)",
+    "despertar": "Começar pelo percurso Consciência de classe (formação do zero)",
     "aparecerTitulo": "Quer que o seu núcleo apareça aqui?",
     "aparecerTexto": "Peça a alguém da equipe do instituto para cadastrar o núcleo no painel. A coordenação confere e publica só a cidade, como vocês se encontram, um ponto público e o contato do próprio núcleo.",
     "seguranca": "Por segurança: não divulgue endereço, nome ou rosto de quem participa. Núcleo de formação pode ser alvo de perseguição.",
