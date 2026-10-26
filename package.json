@@ -17,6 +17,8 @@
     "conferir:links": "node scripts/conferir-links.mjs",
     "conferir:painel": "node scripts/textos-do-painel.mjs --conferir",
     "testar:banco": "node scripts/testar-banco.mjs",
+    "testar:mural": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=DEP0205 --import ./scripts/carregar-ts.mjs scripts/testar-mural-saude.mjs && node scripts/mural-saude-sincronizar.mjs --conferir",
+    "mural:sincronizar": "node scripts/mural-saude-sincronizar.mjs",
     "testar:moderacao": "node scripts/testar-moderacao.mjs",
     "testar:assistente": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/testar-assistente.mjs",
     "testar:ferramentas": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-ferramentas.mjs",

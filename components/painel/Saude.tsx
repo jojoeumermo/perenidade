@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import { can, type Me, rpc } from "@/lib/backend";
+import { categoria, categoriaLigada, conferirCampos, conselhosLigados, NOME_DO_CAMPO, NOME_VITRINE, REGRAS, TEXTOS } from "@/lib/mural-saude";
 import { CONSULTA_DO_CONSELHO, type Profissional } from "@/lib/saude";
 import { TERMO_SAUDE, textoDoTermo } from "@/lib/termos";
 import { abrirArquivoDaSaude, cleanImage, sendSaudeFile, UploadError, uploadMessages } from "@/lib/upload";
@@ -29,6 +30,9 @@ interface PerfilDoPainel extends Profissional {
   verificacao_link: string;
   verificacao_situacao: string;
   proxima_revisao: string | null;
+  categoria_ligada: boolean;
+  aviso_politico_em: string | null;
+  bloqueio: { motivo: string; sugestao: string; campo: string } | null;
 }
 interface Passo {
   acao: string;
@@ -37,7 +41,7 @@ interface Passo {
   detalhe: Record<string, unknown>;
 }
 const SITUACAO: Record<PerfilDoPainel["status"], string> = { rascunho: "rascunho", aguardando: "esperando a coordenação", publicado: "publicado", suspenso: "suspenso", removido: "removido a pedido" };
-const CONSELHOS = ["CRP", "CRM", "COREN", "CRN", "CREFITO", "CRESS", "CRO", "CRFa", "CREF", "CRF", "CRBM"];
+const PUBLICOS = REGRAS.publicos as Record<string, string>;
 const UFS = "AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO".split(" ");
 /** O assinador e o validador oficiais do governo federal (assinatura eletrônica avançada pela conta gov.br). */
 const ASSINADOR = "https://assinador.iti.br/";
@@ -51,6 +55,9 @@ const NOMES_DOS_PASSOS: Record<string, string> = {
   assinatura_conferida: "Assinatura gov.br conferida",
   assinatura_devolvida: "Assinatura gov.br devolvida",
   verificacao_anexada: "Prova da consulta ao conselho anexada",
+  texto_bloqueado: "Texto barrado pelo filtro de publicidade (regra e campo, sem o texto)",
+  aviso_politico_lido: "Aviso sobre o posicionamento do Instituto lido",
+  aguardando_novo_aceite: "Termo novo: esperando um novo aceite",
   verificar: "Registro conferido no conselho",
   publicar: "Publicado",
   aguardar: "Devolvido para ajuste",
@@ -61,16 +68,17 @@ const NOMES_DOS_PASSOS: Record<string, string> = {
 type Campos = Record<string, string>;
 const camposDe = (p: PerfilDoPainel): Campos => ({
   nome: p.nome, profissao: p.profissao, conselho: p.conselho || "CRP", uf: p.uf, registro: p.registro, abordagem: p.abordagem, areas: p.areas.join(", "),
-  modalidade: p.modalidade ?? "online", cidade: p.cidade ?? "", valor: p.valor ?? "social", bio: p.bio,
+  modalidade: p.modalidade ?? "online", cidade: p.cidade ?? "", estado: p.estado ?? "", publico: (p.publico ?? []).join(","), idiomas: (p.idiomas ?? []).join(","), bio: p.bio,
   whatsapp: p.contatos.whatsapp ?? "", instagram: p.contatos.instagram ?? "", email: p.contatos.email ?? "", site: p.contatos.site ?? "",
   foto: p.foto_guardada, foto_autorizada: p.foto_autorizada ? "1" : "",
 });
 const paraEnviar = (f: Campos) => ({
   ...f, areas: f.areas.split(",").map((x) => x.trim()).filter(Boolean), contatos: { whatsapp: f.whatsapp, instagram: f.instagram, email: f.email, site: f.site },
+  publico: f.publico.split(",").filter(Boolean), idiomas: f.idiomas.split(",").filter(Boolean),
   foto_autorizada: f.foto_autorizada === "1", foto: f.foto,
 });
 
-/** A seção Saúde Solidária do painel: o perfil do próprio profissional e, para a coordenação, a fila e a chave geral. */
+/** A seção do Mural de Saúde no painel: o perfil do próprio profissional e, para a coordenação, a fila e a chave geral. */
 export function SaudeNoPainel({ me }: { me: Me }) {
   // Quem cuida da vitrine: a coordenação e o representante do Departamento de Saúde (o banco confere de novo).
   const coordena = can(me, "coordenacao", "vice") || me.papeis.some((p) => p.papel === "representante" && p.disciplina === "saude");
@@ -102,21 +110,35 @@ function CamposDoPerfil({ f, mudar, aviso }: { f: Campos; mudar: (k: string, v: 
     }
     aviso("Este navegador não gravou a foto em WebP. Tente outro navegador.");
   }
+  const cat = categoria(f.conselho);
+  const conselhos = [...new Set([...conselhosLigados(), f.conselho].filter(Boolean))];
+  const lista = (campo: string) => f[campo].split(",").filter(Boolean);
+  const alternar = (campo: string, valor: string, marcado: boolean) => mudar(campo, (marcado ? [...lista(campo), valor] : lista(campo).filter((x) => x !== valor)).join(","));
+  const bloqueio = conferirCampos({ nome: f.nome, abordagem: f.abordagem, areas: f.areas, cidade: f.cidade, bio: f.bio });
   return (
     <>
+      {!categoriaLigada(f.conselho) && <p className="mt-3 border-l-4 border-oxblood bg-parchment-deep px-3 py-2 text-sm">{TEXTOS.categoriaDesligada}</p>}
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        <label className="block">Nome como aparece<input value={f.nome} onChange={(e) => mudar("nome", e.target.value)} maxLength={80} className={campo} /></label>
-        <label className="block">Profissão<input value={f.profissao} onChange={(e) => mudar("profissao", e.target.value)} maxLength={60} placeholder="Psicóloga, médico, nutricionista…" className={campo} /></label>
-        <label className="block">Conselho<select value={f.conselho} onChange={(e) => mudar("conselho", e.target.value)} className={campo}>{CONSELHOS.map((c) => <option key={c}>{c}</option>)}</select></label>
+        <label className="block sm:col-span-2">Nome completo ou nome social<input value={f.nome} onChange={(e) => mudar("nome", e.target.value)} maxLength={80} className={campo} /><span className="text-xs text-ink-soft">Sem “Dr.” ou “Dra.”: o mural ainda não confere título de doutorado.</span></label>
+        <label className="block">Conselho<select value={f.conselho} onChange={(e) => mudar("conselho", e.target.value)} className={campo}>{conselhos.map((c) => <option key={c} value={c}>{c}{categoriaLigada(c) ? "" : " (categoria ainda fechada no mural)"}</option>)}</select></label>
+        <label className="block">Profissão<select value={f.profissao} onChange={(e) => mudar("profissao", e.target.value)} className={campo}><option value="">—</option>{(cat?.profissoes ?? []).map((x) => <option key={x}>{x}</option>)}</select></label>
+        <label className="block">Número de registro<input value={f.registro} onChange={(e) => mudar("registro", e.target.value)} maxLength={30} placeholder={cat?.exemploDoRegistro ?? "05/12345"} className={campo} /><span className="text-xs text-ink-soft">Região/número, sem a sigla: aparece como “{f.conselho} {f.registro || cat?.exemploDoRegistro}”.</span></label>
         <label className="block">UF do registro<select value={f.uf} onChange={(e) => mudar("uf", e.target.value)} className={campo}><option value="">—</option>{UFS.map((u) => <option key={u}>{u}</option>)}</select></label>
-        <label className="block sm:col-span-2">Número de registro<input value={f.registro} onChange={(e) => mudar("registro", e.target.value)} maxLength={30} placeholder="05/12345" className={campo} /></label>
-        <label className="block sm:col-span-2">Abordagem ou especialidade<input value={f.abordagem} onChange={(e) => mudar("abordagem", e.target.value)} maxLength={120} className={campo} /></label>
-        <label className="block sm:col-span-2">Áreas de atendimento (separadas por vírgula)<input value={f.areas} onChange={(e) => mudar("areas", e.target.value)} placeholder="ansiedade, luto, adolescentes" className={campo} /></label>
+        <label className="block sm:col-span-2">Abordagem teórica (opcional)<input value={f.abordagem} onChange={(e) => mudar("abordagem", e.target.value)} maxLength={120} className={campo} /></label>
+        <label className="block sm:col-span-2">Áreas de atuação, separadas por vírgula (opcional)<input value={f.areas} onChange={(e) => mudar("areas", e.target.value)} placeholder="ansiedade, luto, orientação profissional" className={campo} /></label>
+        <fieldset className="sm:col-span-2"><legend>Público atendido (opcional)</legend><div className="mt-1 flex flex-wrap gap-3">{Object.entries(PUBLICOS).map(([k, nome]) => <label key={k} className="flex items-center gap-1.5"><input type="checkbox" checked={lista("publico").includes(k)} onChange={(e) => alternar("publico", k, e.target.checked)} />{nome}</label>)}</div></fieldset>
         <label className="block">Modalidade<select value={f.modalidade} onChange={(e) => mudar("modalidade", e.target.value)} className={campo}><option value="online">On-line</option><option value="presencial">Presencial</option><option value="ambas">On-line e presencial</option></select></label>
         <label className="block">Cidade (se presencial)<input value={f.cidade} onChange={(e) => mudar("cidade", e.target.value)} maxLength={80} className={campo} /></label>
-        <label className="block sm:col-span-2">Valor<select value={f.valor} onChange={(e) => mudar("valor", e.target.value)} className={campo}><option value="gratuito">Gratuito</option><option value="social">Valor social</option><option value="ambos">Gratuito ou valor social</option></select><span className="text-xs text-ink-soft">Sem números: o valor é combinado direto com cada pessoa.</span></label>
-        <label className="block sm:col-span-2">Sobre (até 900 caracteres)<textarea value={f.bio} onChange={(e) => mudar("bio", e.target.value)} maxLength={900} rows={5} className={campo} /><span className="text-xs text-ink-soft">Sem preço, sem promessa de cura ou resultado, sem “o melhor”, sem depoimento de paciente, sem CPF ou endereço residencial.</span></label>
+        <label className="block">Estado (se presencial)<select value={f.estado} onChange={(e) => mudar("estado", e.target.value)} className={campo}><option value="">—</option>{UFS.map((u) => <option key={u}>{u}</option>)}</select></label>
+        <fieldset className="sm:col-span-2"><legend>Idiomas de atendimento (opcional)</legend><div className="mt-1 flex flex-wrap gap-3">{REGRAS.idiomas.map((x) => <label key={x} className="flex items-center gap-1.5"><input type="checkbox" checked={lista("idiomas").includes(x)} onChange={(e) => alternar("idiomas", x, e.target.checked)} />{x}</label>)}</div></fieldset>
+        <label className="block sm:col-span-2">Sobre meu trabalho (até {REGRAS.sobreMaximo} caracteres)<textarea value={f.bio} onChange={(e) => mudar("bio", e.target.value)} maxLength={REGRAS.sobreMaximo} rows={4} className={campo} /><span className="text-xs text-ink-soft">{TEXTOS.orientacaoDoSobre} ({f.bio.length}/{REGRAS.sobreMaximo})</span></label>
       </div>
+      {bloqueio && (
+        <div role="status" className="mt-3 border-l-4 border-oxblood bg-parchment-deep px-3 py-2 text-sm">
+          <p><strong>{NOME_DO_CAMPO[bloqueio.campo] ?? bloqueio.campo}:</strong> {bloqueio.motivo}</p>
+          <p className="mt-1">Sugestão: {bloqueio.sugestao}</p>
+        </div>
+      )}
       <h4 className="mt-5 font-semibold">Contato autorizado</h4>
       <div className="mt-2 grid gap-3 sm:grid-cols-2">
         <label className="block">WhatsApp profissional (com DDD)<input value={f.whatsapp} onChange={(e) => mudar("whatsapp", e.target.value)} placeholder="+55 21 90000-0000" className={campo} /></label>
@@ -124,11 +146,12 @@ function CamposDoPerfil({ f, mudar, aviso }: { f: Campos; mudar: (k: string, v: 
         <label className="block">E-mail profissional<input type="email" value={f.email} onChange={(e) => mudar("email", e.target.value)} className={campo} /></label>
         <label className="block">Site ou agenda (https)<input type="url" value={f.site} onChange={(e) => mudar("site", e.target.value)} placeholder="https://…" className={campo} /></label>
       </div>
-      <h4 className="mt-5 font-semibold">Foto</h4>
+      <h4 className="mt-5 font-semibold">Foto (opcional)</h4>
+      <p className="mt-1 text-sm text-ink-soft">{TEXTOS.orientacaoDaFoto}</p>
       <div className="mt-2 flex flex-wrap items-center gap-3">
         <label className={`${botaoClaro} cursor-pointer`}>Escolher foto<input type="file" accept="image/jpeg,image/png,image/webp" className="sr-only" onChange={(e) => { void foto(e.target.files?.[0]); e.target.value = ""; }} /></label>
         {f.foto && <button type="button" className={botaoClaro} onClick={() => mudar("foto", "")}>Tirar a foto</button>}
-        <label className="flex items-center gap-2"><input type="checkbox" checked={f.foto_autorizada === "1"} onChange={(e) => mudar("foto_autorizada", e.target.checked ? "1" : "")} />Uso da foto na vitrine autorizado pelo profissional (pode desfazer quando quiser)</label>
+        <label className="flex items-center gap-2"><input type="checkbox" checked={f.foto_autorizada === "1"} onChange={(e) => mudar("foto_autorizada", e.target.checked ? "1" : "")} />Uso da foto no mural autorizado pelo profissional (pode desfazer quando quiser)</label>
       </div>
     </>
   );
@@ -167,9 +190,9 @@ async function imprimirTermo(): Promise<string> {
   const janela = window.open("", "_blank", "noopener=no");
   if (!janela) return "O navegador bloqueou a janela. Libere janelas para institutolucia.org e tente de novo.";
   const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  janela.document.title = `Termo Saúde Solidária ${a.versao}`;
+  janela.document.title = `Termo ${NOME_VITRINE} ${a.versao}`;
   janela.document.body.innerHTML = `<main style="font:15px/1.5 Georgia,serif;max-width:46rem;margin:2rem auto;padding:0 1rem;color:#111">
-    <p style="font:12px monospace">Instituto Lúcia · Saúde Solidária · versão ${esc(a.versao)}</p>
+    <p style="font:12px monospace">Instituto Lúcia · ${esc(NOME_VITRINE)} · versão ${esc(a.versao)}</p>
     <div style="white-space:pre-wrap">${esc(a.texto)}</div>
     <hr><p style="font:12px monospace">Aceito no painel em ${esc(new Date(a.aceito_em).toLocaleString("pt-BR"))} (horário do aparelho).<br>
     Nome digitado: ${esc(a.dados.nome_digitado ?? "")} · Registro: ${esc(a.dados.registro ?? "")}<br>
@@ -185,15 +208,16 @@ function MeuPerfil() {
   const [form, setForm] = useState<Campos | null>(null);
   const [aviso, setAviso] = useState("");
   const [ocupado, setOcupado] = useState(false);
-  const [termo, setTermo] = useState({ nome: "", registro: "", marcadas: [] as number[] });
+  const [termo, setTermo] = useState({ nome: "", registro: "", marcadas: [] as number[], etica: false, politica: false });
   const p = perfil.dados;
   if (!p) return <Aviso texto={perfil.erro} />;
   const f = form ?? camposDe(p);
   const mudar = (k: string, v: string) => setForm({ ...f, [k]: v });
   const termoEmDia = p.termo_versao === p.termo_vigente;
   const assinaturaEmDia = !!p.assinatura_arquivo && p.assinatura_versao === p.termo_vigente;
-  // As cláusulas que pedem marcação uma a uma (natureza de mural, voluntariado, responsabilidade, dados, imagem, emergência, publicidade, remoção).
-  const criticas = [1, 2, 4, 6, 7, 8, 9, 10];
+  // As cláusulas que pedem marcação uma a uma (natureza de mural, independência política, nome fora de política,
+  // publicidade, responsabilidade, condições, dados, foto, emergência, ocultação e remoção).
+  const criticas = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11];
   const esperandoAprovacao = p.texto_aprovado_em === null && p.status !== "rascunho";
 
   async function fazer(acao: () => Promise<string>) {
@@ -208,14 +232,17 @@ function MeuPerfil() {
     }
   }
   const salvar = () => fazer(async () => {
-    const r = await rpc<{ ok: boolean; motivo?: string }>("saude_salvar", { p: paraEnviar(f) });
-    if (!r.ok) return r.motivo ?? "Não deu para salvar.";
+    const r = await rpc<{ ok: boolean; motivo?: string; sugestao?: string }>("saude_salvar", { p: paraEnviar(f) });
+    if (!r.ok) return [r.motivo ?? "Não deu para salvar.", r.sugestao ? `Sugestão: ${r.sugestao}` : ""].filter(Boolean).join(" ");
     setForm(null);
     perfil.recarregar();
     return "Salvo ✓ O perfil sai do ar até a coordenação conferir de novo (ela foi avisada).";
   });
   const aceitarTermo = () => fazer(async () => {
-    await rpc("saude_termo_aceitar", { p_texto: textoDoTermo(TERMO_SAUDE, [`Nome digitado: ${termo.nome.trim()}`, `Registro informado: ${termo.registro.trim()}`]), p_nome: termo.nome.trim(), p_registro: termo.registro.trim() });
+    await rpc("saude_termo_aceitar", {
+      p_texto: textoDoTermo(TERMO_SAUDE, [`Nome digitado: ${termo.nome.trim()}`, `Registro informado: ${termo.registro.trim()}`, `Declaração: ${TEXTOS.declaracaoEtica}`, `Declaração: ${TEXTOS.declaracaoPolitica}`]),
+      p_nome: termo.nome.trim(), p_registro: termo.registro.trim(), p_etica: termo.etica, p_politica: termo.politica,
+    });
     perfil.recarregar();
     return "Termo aceito ✓ Agora baixe a versão para assinar no gov.br (logo abaixo).";
   });
@@ -228,16 +255,31 @@ function MeuPerfil() {
     return "PDF assinado enviado ✓ A coordenação vai conferir a assinatura no validador do governo.";
   });
 
+  if (!p.aviso_politico_em) {
+    return (
+      <section className="max-w-2xl border-2 border-ink bg-parchment p-6">
+        <p className={rotulo}>{NOME_VITRINE}</p>
+        <h2 className="font-serif text-3xl font-semibold">{TEXTOS.avisoPolitico.titulo}</h2>
+        <p className="mt-3 text-lg">{TEXTOS.avisoPolitico.texto}</p>
+        <p className="mt-2"><a href="/pt/sobre" target="_blank" rel="noopener" className="underline hover:text-oxblood">{TEXTOS.avisoPolitico.link} ↗</a></p>
+        <Aviso texto={aviso} />
+        <button type="button" className={`mt-5 ${botao}`} disabled={ocupado} onClick={() => void fazer(async () => { await rpc("saude_aviso_ciente"); perfil.recarregar(); return ""; })}>{TEXTOS.avisoPolitico.botao}</button>
+      </section>
+    );
+  }
+
   return (
     <section className="space-y-6">
       <header>
-        <p className={rotulo}>Saúde Solidária · seu perfil</p>
-        <h2 className="font-serif text-3xl font-semibold">Seu cartão na vitrine</h2>
-        <p className="mt-1 max-w-3xl text-ink-soft">A vitrine é um mural de contatos: as pessoas veem o seu cartão e falam direto com você. O instituto não agenda, não intermedeia e não recebe dado de paciente. O seu cartão só aparece quando tudo abaixo estiver em dia.</p>
+        <p className={rotulo}>{NOME_VITRINE} · seu perfil</p>
+        <h2 className="font-serif text-3xl font-semibold">Seu cartão no mural</h2>
+        <p className="mt-1 max-w-3xl text-ink-soft">O mural é só um mural de contatos: as pessoas veem o seu cartão e falam direto com você. O instituto não agenda, não intermedeia, não indica e não recebe dado de paciente. O seu cartão só aparece quando tudo abaixo estiver em dia, e o conteúdo dele é de sua responsabilidade perante o seu conselho.</p>
       </header>
       <Aviso texto={aviso} />
       <div className="painel-cartao max-w-3xl p-4">
-        <p><strong>Situação:</strong> {SITUACAO[p.status]}{p.apto ? " · aparecendo na vitrine" : ""}</p>
+        <p><strong>Situação:</strong> {SITUACAO[p.status]}{p.apto ? " · aparecendo no mural" : ""}</p>
+        {!p.categoria_ligada && <p className="mt-2 text-sm">{TEXTOS.categoriaDesligada}</p>}
+        {p.bloqueio && <p className="mt-2 text-sm"><strong>Texto fora das regras de publicidade:</strong> {p.bloqueio.motivo} Sugestão: {p.bloqueio.sugestao}</p>}
         {p.faltam.length > 0 && <ul className="mt-2 list-disc pl-5 text-sm text-ink-soft">{p.faltam.map((x) => <li key={x}>Falta: {x}</li>)}</ul>}
         {p.verificacao_nota && <p className="mt-2 text-sm">Recado da coordenação: {p.verificacao_nota}</p>}
         <Registro />
@@ -268,7 +310,11 @@ function MeuPerfil() {
             <label className="block">Nome completo<input value={termo.nome} onChange={(e) => setTermo({ ...termo, nome: e.target.value })} maxLength={120} className={campo} /></label>
             <label className="block">Número de registro<input value={termo.registro} onChange={(e) => setTermo({ ...termo, registro: e.target.value })} maxLength={40} className={campo} /></label>
           </div>
-          <button type="button" className={`mt-4 ${botao}`} disabled={ocupado || termo.nome.trim().length < 5 || termo.registro.trim().length < 3 || !criticas.every((i) => termo.marcadas.includes(i))} onClick={() => void aceitarTermo()}>Li e aceito o termo</button>
+          <div className="mt-4 space-y-2 border-t border-rule pt-3">
+            <label className="flex items-start gap-2"><input type="checkbox" checked={termo.etica} onChange={(e) => setTermo({ ...termo, etica: e.target.checked })} className="mt-1" /><span>{TEXTOS.declaracaoEtica}</span></label>
+            <label className="flex items-start gap-2"><input type="checkbox" checked={termo.politica} onChange={(e) => setTermo({ ...termo, politica: e.target.checked })} className="mt-1" /><span>{TEXTOS.declaracaoPolitica}</span></label>
+          </div>
+          <button type="button" className={`mt-4 ${botao}`} disabled={ocupado || termo.nome.trim().length < 5 || termo.registro.trim().length < 3 || !termo.etica || !termo.politica || !criticas.every((i) => termo.marcadas.includes(i))} onClick={() => void aceitarTermo()}>Li e aceito o termo</button>
         </section>
       )}
 
@@ -297,14 +343,14 @@ function MeuPerfil() {
           <CamposDoPerfil f={f} mudar={mudar} aviso={setAviso} />
           <p className="mt-5 flex flex-wrap gap-3">
             <button type="button" className={botao} disabled={ocupado || f.nome.trim().length < 2 || f.profissao.trim().length < 2 || !f.registro.trim()} onClick={() => void salvar()}>Salvar e aprovar este texto</button>
-            {p.status !== "removido" && <button type="button" className={botaoClaro} disabled={ocupado} onClick={async () => { if (window.confirm("Sair da vitrine agora? O cartão some na hora.")) { await rpc("saude_sair").catch(() => null); perfil.recarregar(); } }}>Sair da vitrine</button>}
+            {p.status !== "removido" && <button type="button" className={botaoClaro} disabled={ocupado} onClick={async () => { if (window.confirm("Sair do mural agora? O cartão some na hora.")) { await rpc("saude_sair").catch(() => null); perfil.recarregar(); } }}>Sair do mural</button>}
           </p>
           <p className="mt-2 text-xs text-ink-soft">Salvar conta como a sua aprovação do texto final. Toda mudança tira o cartão do ar até a coordenação conferir de novo.</p>
         </section>
         <aside>
           <p className={rotulo}>Prévia</p>
           <div className="mt-2">
-            <CartaoDoProfissional p={{ ...p, ...f, conselho: f.conselho, areas: f.areas.split(",").map((x) => x.trim()).filter(Boolean), modalidade: f.modalidade as Profissional["modalidade"], valor: f.valor as Profissional["valor"], contatos: { whatsapp: f.whatsapp, instagram: f.instagram }, foto: f.foto_autorizada === "1" ? f.foto : "" }} />
+            <CartaoDoProfissional p={{ ...p, ...f, conselho: f.conselho, areas: f.areas.split(",").map((x) => x.trim()).filter(Boolean), modalidade: f.modalidade as Profissional["modalidade"], publico: f.publico.split(",").filter(Boolean), idiomas: f.idiomas.split(",").filter(Boolean), contatos: { whatsapp: f.whatsapp, instagram: f.instagram }, foto: f.foto_autorizada === "1" ? f.foto : "" }} />
           </div>
         </aside>
       </div>
@@ -339,8 +385,8 @@ function EditarPeloCoordenacao({ p, depois }: { p: PerfilDoPainel; depois: () =>
       <button type="button" className={`mt-4 ${botao}`} disabled={ocupado} onClick={async () => {
         setOcupado(true);
         try {
-          const r = await rpc<{ ok: boolean; motivo?: string }>("saude_editar", { p_usuario: p.id, p: paraEnviar(f) });
-          setAviso(r.ok ? "Salvo ✓ Esperando a aprovação do profissional." : (r.motivo ?? "Não deu para salvar."));
+          const r = await rpc<{ ok: boolean; motivo?: string; sugestao?: string }>("saude_editar", { p_usuario: p.id, p: paraEnviar(f) });
+          setAviso(r.ok ? "Salvo ✓ Esperando a aprovação do profissional." : [r.motivo ?? "Não deu para salvar.", r.sugestao ? `Sugestão: ${r.sugestao}` : ""].filter(Boolean).join(" "));
           if (r.ok) depois();
         } catch (erro) {
           setAviso(textoDoErro(erro));
@@ -379,16 +425,16 @@ function Fila() {
   return (
     <section className="space-y-5">
       <header>
-        <p className={rotulo}>Saúde Solidária · coordenação</p>
-        <h2 className="font-serif text-3xl font-semibold">Profissionais da vitrine</h2>
-        <p className="mt-1 max-w-3xl text-ink-soft">Um perfil só aparece com tudo em dia: cargo de profissional de saúde, termo vigente aceito, termo assinado no gov.br e conferido aqui, registro conferido no conselho há menos de 180 dias, texto aprovado pelo próprio profissional e publicação. Qualquer item que falhar tira o perfil na hora. Para dar o cargo: Voluntários e convites › Confiar função › Profissional de saúde.</p>
+        <p className={rotulo}>{NOME_VITRINE} · coordenação</p>
+        <h2 className="font-serif text-3xl font-semibold">Profissionais do mural</h2>
+        <p className="mt-1 max-w-3xl text-ink-soft">Um perfil só aparece com tudo em dia: cargo de profissional de saúde, termo vigente aceito, termo assinado no gov.br e conferido aqui, registro conferido no conselho há menos de 180 dias, texto aprovado pelo próprio profissional e publicação. Por cima disso, as regras de publicidade do mural: categoria aberta (por ora, só psicologia), as duas declarações do termo vigente e o texto passando pelo filtro. Qualquer item que falhar tira o perfil na hora. Para dar o cargo: Voluntários e convites › Confiar função › Profissional de saúde.</p>
       </header>
       <Aviso texto={fila.erro || acao.aviso || avisoArquivo} />
       {d && (
         <div className={`max-w-3xl border-2 p-4 ${d.desligada ? "border-[#c21f16] bg-parchment-deep" : "border-ink"}`}>
-          <p className="font-semibold">Chave geral: {d.desligada ? "vitrine DESLIGADA (ninguém aparece)" : "vitrine ligada"}</p>
-          <p className="mt-1 text-sm text-ink-soft">Use em emergência (denúncia grave, dúvida jurídica): desliga a vitrine inteira na hora, sem publicar o site de novo. Vale também para os cartões publicados pelo arquivo do site.</p>
-          <button type="button" className={`mt-2 ${d.desligada ? botao : botaoClaro}`} disabled={acao.ocupado} onClick={() => { if (d.desligada || window.confirm("Desligar a vitrine inteira agora?")) void acao.agir("saude_chave", { p_desligar: !d.desligada }, d.desligada ? "Vitrine ligada." : "Vitrine desligada."); }}>{d.desligada ? "Ligar a vitrine" : "Desligar a vitrine"}</button>
+          <p className="font-semibold">Chave geral: {d.desligada ? "mural DESLIGADO (ninguém aparece)" : "mural ligado"}</p>
+          <p className="mt-1 text-sm text-ink-soft">Use em emergência (denúncia grave, dúvida jurídica): desliga o mural inteiro na hora, sem publicar o site de novo. Vale também para os cartões publicados pelo arquivo do site.</p>
+          <button type="button" className={`mt-2 ${d.desligada ? botao : botaoClaro}`} disabled={acao.ocupado} onClick={() => { if (d.desligada || window.confirm("Desligar o mural inteiro agora?")) void acao.agir("saude_chave", { p_desligar: !d.desligada }, d.desligada ? "Mural ligado." : "Mural desligado."); }}>{d.desligada ? "Ligar o mural" : "Desligar o mural"}</button>
         </div>
       )}
       {vencendo.length > 0 && (
@@ -396,7 +442,7 @@ function Fila() {
           <strong>Conferências vencendo nos próximos 30 dias:</strong> {vencendo.map((p) => `${p.nome} (${dia(p.proxima_revisao ?? "")})`).join(", ")}. Registro vencido tira o cartão do ar sozinho.
         </div>
       )}
-      {d?.perfis.length === 0 && <p className="text-ink-soft">Nenhum profissional no painel ainda. (Os perfis publicados pelo arquivo content/saude/profissionais.json aparecem direto na vitrine.)</p>}
+      {d?.perfis.length === 0 && <p className="text-ink-soft">Nenhum profissional no painel ainda. (Os perfis publicados pelo arquivo do site só aparecem com o termo vigente aceito.)</p>}
       <ul className="space-y-4">
         {d?.perfis.map((p) => {
           const consulta = CONSULTA_DO_CONSELHO[p.conselho.toUpperCase()];
@@ -407,7 +453,8 @@ function Fila() {
               <CartaoDoProfissional p={p} />
               <div>
                 <p className={rotulo}>{SITUACAO[p.status]} · atualizado em {dataHora(p.atualizado_em)}</p>
-                <p className="mt-1">{p.apto ? "✓ Aparecendo na vitrine." : `Falta: ${p.faltam.join("; ")}.`}</p>
+                <p className="mt-1">{p.apto ? "✓ Aparecendo no mural." : `Falta: ${p.faltam.join("; ")}.`}</p>
+                {p.bloqueio && <p className="mt-1 text-sm">Texto fora das regras: {p.bloqueio.motivo}</p>}
                 <p className="mt-1 text-sm text-ink-soft">Termo: {p.termo_versao ? `versão ${p.termo_versao}` : "não aceito"} · Registro conferido em: {p.verificado_em ? dia(p.verificado_em) : "nunca"}{p.proxima_revisao ? ` (próxima até ${dia(p.proxima_revisao)})` : ""} · Texto aprovado em: {p.texto_aprovado_em ? dataHora(p.texto_aprovado_em) : "esperando o profissional"}</p>
 
                 <div className="mt-3 border-t border-rule pt-3">

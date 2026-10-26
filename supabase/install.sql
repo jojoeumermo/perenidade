@@ -12961,6 +12961,15 @@ alter table interno.saude_perfis add column if not exists assinatura_conferida_p
 alter table interno.saude_perfis add column if not exists verificacao_arquivo text not null default '' check (char_length(verificacao_arquivo) <= 200);
 alter table interno.saude_perfis add column if not exists verificacao_link text not null default '' check (verificacao_link = '' or verificacao_link ~ '^https://[^[:space:]]{4,255}$');
 alter table interno.saude_perfis add column if not exists verificacao_situacao text not null default '' check (char_length(verificacao_situacao) <= 120);
+-- Mural de Saúde (2026-10-25): campos estruturados do cartão e as declarações registradas com data e versão. A coluna
+-- "valor" fica guardada (nada se apaga), mas não é mais lida, gravada nem mostrada: gratuidade e preço não entram.
+alter table interno.saude_perfis add column if not exists publico text[] not null default '{}' check (publico <@ array['criancas', 'adolescentes', 'adultos', 'idosos', 'casais']);
+alter table interno.saude_perfis add column if not exists idiomas text[] not null default '{}' check (cardinality(idiomas) <= 12);
+alter table interno.saude_perfis add column if not exists estado text not null default '' check (estado = '' or estado ~ '^[A-Z]{2}$');
+alter table interno.saude_perfis add column if not exists declaracao_etica_em timestamptz;
+alter table interno.saude_perfis add column if not exists declaracao_etica_versao text;
+alter table interno.saude_perfis add column if not exists aviso_politico_em timestamptz;
+alter table interno.saude_perfis add column if not exists aviso_politico_versao text;
 
 -- Tudo o que acontece com um perfil da vitrine, para sempre (no mínimo cinco anos, como diz a Privacidade): quem fez,
 -- o quê e quando, com o antes e o depois quando faz sentido. Ninguém altera nem apaga, nem a coordenação.
@@ -12984,7 +12993,10 @@ language sql security definer set search_path = interno, pg_temp as $$
   insert into saude_registro (usuario, por, acao, detalhe) values (p_usuario, auth.uid(), p_acao, coalesce(p_detalhe, '{}'::jsonb))
 $$;
 
-create or replace function interno.saude_termo_vigente() returns text language sql immutable as $$ select '2026-10-20'::text $$;
+-- >>> mural-de-saude (gerado por scripts/mural-saude-sincronizar.mjs a partir de content/saude/regras.json: não edite à mão)
+create or replace function interno.saude_regras() returns jsonb language sql immutable as $$ select $regras${"termoVersao":"2026-10-25","sobreMaximo":500,"categorias":{"psicologia":{"ligada":true,"conselho":"CRP","profissoes":["Psicóloga","Psicólogo","Psicóloga(o)"],"consulta":"https://cadastro.cfp.org.br/","formatoDoRegistro":"^[0-9]{2}/[0-9]{1,6}$","exemploDoRegistro":"05/12345"},"medicina":{"ligada":false,"conselho":"CRM"},"enfermagem":{"ligada":false,"conselho":"COREN"},"nutricao":{"ligada":false,"conselho":"CRN"},"fisioterapia":{"ligada":false,"conselho":"CREFITO"},"servico_social":{"ligada":false,"conselho":"CRESS"},"odontologia":{"ligada":false,"conselho":"CRO"},"fonoaudiologia":{"ligada":false,"conselho":"CRFA"},"educacao_fisica":{"ligada":false,"conselho":"CREF"},"farmacia":{"ligada":false,"conselho":"CRF"},"biomedicina":{"ligada":false,"conselho":"CRBM"}},"publicos":["criancas","adolescentes","adultos","idosos","casais"],"idiomas":["Português","Libras","Inglês","Espanhol","Francês","Italiano","Alemão","Guarani","Árabe","Chinês","Russo","Japonês"],"bloqueio":[{"grupo":"preco","termos":["gratis","gratuit*","de graca","sem custo","sem custos","custo zero","valor social","valores sociais","preco social","precos sociais","custo social","desconto*","promoc*","cupom","cupons","pacote*","primeira consulta","primeira sessao","sorteio*","sorteamos","barato*","baratinho","valor acessivel","valores acessiveis","preco acessivel","precos acessiveis","preco popular","precos populares","voluntari*","atendimento social"],"motivo":"O texto fala de preço, gratuidade ou vantagem financeira. Pelo Código de Ética do Psicólogo (art. 20, d), o preço não pode ser usado como forma de propaganda, e isso inclui gratuidade, valor social, desconto, pacote e sorteio.","sugestao":"Tire a referência a valor. As condições do atendimento são tratadas diretamente com cada pessoa."},{"grupo":"resultado","termos":["garantia","garantias","garantido","garantida","garantidos","garantimos","garanto","cura","curas","curar","curamos","curado","curada","resultado garantido","resultados garantidos","100%","100 por cento","sucesso garantido"],"motivo":"O texto promete cura ou resultado. O Código de Ética (art. 20, e) proíbe a previsão taxativa de resultados.","sugestao":"Descreva o que você faz e para quem, sem prometer resultado. Ex.: \"Acompanhamento psicológico de adultos com ansiedade\"."},{"grupo":"comparacao","termos":["o melhor","a melhor","os melhores","as melhores","melhor psicologa","melhor psicologo","numero 1","numero um","n 1","referencia","referencias","recomendado por","recomendada por","mais procurado","mais procurada","lider"],"motivo":"O texto compara você a outros profissionais ou se apresenta como destaque. O Código de Ética (art. 20, f) proíbe a autopromoção em detrimento de outros profissionais, e o mural não classifica ninguém.","sugestao":"Fale da sua formação, abordagem e experiência, sem adjetivos de comparação."},{"grupo":"depoimento","termos":["depoiment*","antes e depois","relato de paciente","relatos de pacientes","avaliacao de paciente","avaliacoes de pacientes","estrelas","nota 10"],"motivo":"Depoimentos, avaliações e \"antes e depois\" de pacientes não entram no mural: expõem quem foi atendido e beiram o sensacionalismo (Código de Ética, arts. 9 e 20, h).","sugestao":"Tire o depoimento ou a avaliação e descreva apenas o seu trabalho."},{"grupo":"pratica","termos":["constelac* familiar*","constelac* sistemic*","reiki","taro","tarot","taroloc*","astrolog*","mapa astral","numerolog*","thetahealing","barra de access","cristaloterapia"],"motivo":"O texto associa a psicologia a práticas que não são reconhecidas pela profissão. O Código de Ética (art. 20, c) só permite divulgar técnicas reconhecidas, e a Nota Técnica CFP 1/2023 aponta a incompatibilidade das constelações familiares com a psicologia.","sugestao":"Tire a prática da sua apresentação como profissional. Se você exerce outra atividade, divulgue-a separadamente, fora do mural."},{"grupo":"religiao","termos":["pastor","pastora","padre","reverendo","reverenda","bispo","bispa","apostolo","apostola","missionari*","presbiter*","diacono","diaconisa","evangelista","frei","freira","rabino","pai de santo","mae de santo","babalorixa","ialorixa","psicologa crista","psicologo cristao","psicologia crista","psicologa evangelica","psicologo evangelico","psicologa catolica","psicologo catolico"],"motivo":"O texto liga a identificação profissional a um título ou vertente religiosa. A Res. CFP 07/2023 veda usar o título de psicóloga ou psicólogo associado a vertentes religiosas.","sugestao":"Mantenha só a identificação profissional e a abordagem teórica."},{"grupo":"titulo","termos":["dr","dra","doutor","doutora"],"motivo":"\"Dr.\" e \"Dra.\" só podem ser usados por quem tem doutorado (Código de Ética, art. 20, b). O mural ainda não tem como conferir esse título, então não aceita o tratamento.","sugestao":"Use só o seu nome completo ou nome social. Se tiver doutorado, escreva \"doutorado em ...\" no texto \"Sobre meu trabalho\" quando o mural passar a conferir títulos."}],"padroesEspeciais":[{"grupo":"preco","regex":"r\\$\\s*[0-9]|[0-9]+\\s*reais","motivo":"O texto traz um preço. Pelo Código de Ética do Psicólogo (art. 20, d), o preço não pode ser usado como forma de propaganda.","sugestao":"Tire o valor. As condições do atendimento são tratadas diretamente com cada pessoa."},{"grupo":"documento","regex":"[0-9]{3}\\.?[0-9]{3}\\.?[0-9]{3}-?[0-9]{2}","motivo":"O texto parece trazer um CPF.","sugestao":"Tire o número: o mural não mostra documentos pessoais."}]}$regras$::jsonb $$;
+create or replace function interno.saude_termo_vigente() returns text language sql immutable as $$ select '2026-10-25'::text $$;
+-- <<< mural-de-saude
 
 create or replace function interno.saude_desligada() returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
   select coalesce((select (valor ->> 'desligada')::boolean from configuracoes where chave = 'saude'), false)
@@ -13000,6 +13012,88 @@ create or replace function interno.saude_apto(s interno.saude_perfis) returns bo
     and exists (select 1 from papeis p join perfis f on f.id = p.usuario where p.usuario = s.usuario and p.papel = 'saude' and not f.suspenso)
 $$;
 
+/** Minúsculas e sem acento (a base dos padrões de preço e CPF). Igual a semAcento() de lib/mural-saude.ts. */
+create or replace function interno.saude_sem_acento(p text) returns text language sql immutable as $$
+  select translate(lower(coalesce(p, '')), 'áàâãäªéèêëíìîïóòôõöºúùûüçñ', 'aaaaaaeeeeiiiioooooouuuucn')
+$$;
+
+/**
+ * O texto como o filtro do mural enxerga, igual a normalizar() de lib/mural-saude.ts: sem acento e sem caixa, números
+ * que imitam letras trocados (gr4tis), pontuação virando espaço; com p_juntar, letras soltas em sequência viram uma
+ * palavra (g r a t i s).
+ */
+create or replace function interno.saude_normalizar(p text, p_juntar boolean default false) returns text language plpgsql immutable as $$
+declare v text; w text; saida text[] := '{}'; soltas text := '';
+begin
+  v := btrim(regexp_replace(translate(interno.saude_sem_acento(p), '431057@$', 'aeiostas'), '[^a-z0-9%]+', ' ', 'g'));
+  if not coalesce(p_juntar, false) then return v; end if;
+  foreach w in array string_to_array(v, ' ') loop
+    if char_length(w) = 1 then soltas := soltas || w; continue; end if;
+    if soltas <> '' then saida := saida || soltas; end if;
+    soltas := '';
+    if w <> '' then saida := saida || w; end if;
+  end loop;
+  if soltas <> '' then saida := saida || soltas; end if;
+  return array_to_string(saida, ' ');
+end $$;
+
+/** O padrão de um termo da lista de bloqueio, igual a padraoDoTermo() de lib/mural-saude.ts ("*" aceita qualquer final). */
+create or replace function interno.saude_padrao(p_termo text) returns text language sql immutable as $$
+  select '(^| )' || string_agg(case when w like '%*' then interno.saude_normalizar(left(w, -1)) || '[a-z0-9%]*' else interno.saude_normalizar(w) end, ' ' order by i) || '( |$)'
+  from unnest(regexp_split_to_array(btrim(p_termo), '\s+')) with ordinality as t (w, i)
+$$;
+
+/**
+ * Confere os campos de texto livre de um perfil ({campo: texto}) contra content/saude/regras.json (lista de bloqueio e
+ * padrões especiais). Devolve {grupo, campo, motivo, sugestao} da primeira regra quebrada, ou null.
+ */
+create or replace function interno.saude_conferir(p_campos jsonb) returns jsonb language plpgsql immutable as $$
+declare r jsonb := interno.saude_regras(); c record; e jsonb; g jsonb; t text; cru text; n1 text; n2 text; pad text;
+begin
+  for c in select key, value from jsonb_each_text(coalesce(p_campos, '{}'::jsonb)) loop
+    continue when coalesce(btrim(c.value), '') = '';
+    cru := interno.saude_sem_acento(c.value);
+    for e in select x from jsonb_array_elements(r -> 'padroesEspeciais') x loop
+      if cru ~ (e ->> 'regex') then return jsonb_build_object('grupo', e ->> 'grupo', 'campo', c.key, 'motivo', e ->> 'motivo', 'sugestao', e ->> 'sugestao'); end if;
+    end loop;
+    n1 := interno.saude_normalizar(c.value, false);
+    n2 := interno.saude_normalizar(c.value, true);
+    for g in select x from jsonb_array_elements(r -> 'bloqueio') x loop
+      for t in select jsonb_array_elements_text(g -> 'termos') loop
+        pad := interno.saude_padrao(t);
+        if n1 ~ pad or n2 ~ pad then return jsonb_build_object('grupo', g ->> 'grupo', 'campo', c.key, 'motivo', g ->> 'motivo', 'sugestao', g ->> 'sugestao'); end if;
+      end loop;
+    end loop;
+  end loop;
+  return null;
+end $$;
+
+/** A categoria profissional de um conselho (CRP → psicologia), pelas regras do mural. */
+create or replace function interno.saude_categoria(p_conselho text) returns text language sql immutable as $$
+  select k from jsonb_each(interno.saude_regras() -> 'categorias') as c (k, v) where v ->> 'conselho' = upper(btrim(coalesce(p_conselho, ''))) limit 1
+$$;
+/** A categoria está aberta no mural? Por ora, só a psicologia. */
+create or replace function interno.saude_categoria_ligada(p_conselho text) returns boolean language sql immutable as $$
+  select coalesce((interno.saude_regras() -> 'categorias' -> interno.saude_categoria(p_conselho) ->> 'ligada')::boolean, false)
+$$;
+
+/** Os campos de texto livre que vão a público, para o filtro. */
+create or replace function interno.saude_campos_livres(s interno.saude_perfis) returns jsonb language sql immutable as $$
+  select jsonb_build_object('nome', s.nome, 'abordagem', s.abordagem, 'areas', array_to_string(s.areas, ' · '), 'cidade', s.cidade, 'bio', s.bio)
+$$;
+
+/**
+ * O que a vitrine mostra: as 7 condições de saude_apto, que não mudam, e, por cima delas, as regras de publicidade do
+ * mural: categoria aberta, as duas declarações da versão vigente do termo e o texto passando pelo filtro.
+ */
+create or replace function interno.saude_visivel(s interno.saude_perfis) returns boolean language sql stable security definer set search_path = interno, pg_temp as $$
+  select interno.saude_apto(s)
+    and interno.saude_categoria_ligada(s.conselho)
+    and s.declaracao_etica_versao = interno.saude_termo_vigente()
+    and s.aviso_politico_versao = interno.saude_termo_vigente()
+    and interno.saude_conferir(interno.saude_campos_livres(s)) is null
+$$;
+
 /** Texto que não pode ir para a vitrine: preço, promessa de resultado, "o melhor", depoimento. Devolve o motivo ou null. */
 create or replace function interno.saude_texto_proibido(p text) returns text language sql immutable as $$
   select case
@@ -13013,11 +13107,14 @@ $$;
 
 create or replace function interno.saude_json(s interno.saude_perfis, p_completo boolean) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
   select jsonb_build_object('id', s.usuario, 'nome', s.nome, 'profissao', s.profissao, 'conselho', upper(s.conselho), 'uf', s.uf, 'registro', s.registro,
-           'abordagem', s.abordagem, 'areas', to_jsonb(s.areas), 'modalidade', s.modalidade, 'cidade', s.cidade, 'valor', s.valor, 'bio', s.bio,
+           'abordagem', s.abordagem, 'areas', to_jsonb(s.areas), 'modalidade', s.modalidade, 'cidade', s.cidade, 'estado', s.estado, 'bio', s.bio,
+           'publico', to_jsonb(s.publico), 'idiomas', to_jsonb(s.idiomas), 'categoria', coalesce(interno.saude_categoria(s.conselho), ''),
            'contatos', s.contatos, 'foto', case when s.foto_autorizada then s.foto else '' end, 'verificado_em', s.verificado_em)
     || case when p_completo then jsonb_build_object('status', s.status, 'foto_autorizada', s.foto_autorizada, 'foto_guardada', s.foto, 'texto_aprovado_em', s.texto_aprovado_em,
            'termo_versao', s.termo_versao, 'termo_vigente', interno.saude_termo_vigente(), 'verificacao_nota', s.verificacao_nota, 'atualizado_em', s.atualizado_em,
-           'apto', interno.saude_apto(s),
+           'apto', interno.saude_visivel(s), 'categoria_ligada', interno.saude_categoria_ligada(s.conselho),
+           'aviso_politico_em', case when s.aviso_politico_versao = interno.saude_termo_vigente() then s.aviso_politico_em end,
+           'bloqueio', interno.saude_conferir(interno.saude_campos_livres(s)),
            'assinatura_arquivo', s.assinatura_arquivo, 'assinatura_sha256', s.assinatura_sha256, 'assinatura_versao', s.assinatura_versao,
            'assinatura_enviada_em', s.assinatura_enviada_em, 'assinatura_conferida_em', s.assinatura_conferida_em,
            'verificacao_arquivo', s.verificacao_arquivo, 'verificacao_link', s.verificacao_link, 'verificacao_situacao', s.verificacao_situacao,
@@ -13029,7 +13126,10 @@ create or replace function interno.saude_json(s interno.saude_perfis, p_completo
              case when s.verificado_em is null or s.verificado_em <= current_date - 180 then 'a coordenação conferir o registro no conselho' end,
              case when s.texto_aprovado_em is null then 'o profissional aprovar o texto do perfil' end,
              case when s.status <> 'publicado' then 'a coordenação publicar' end,
-             case when interno.saude_desligada() then 'a vitrine está desligada' end], null))) else '{}'::jsonb end
+             case when not interno.saude_categoria_ligada(s.conselho) then 'a sua categoria ser aberta no mural (por ora, só psicologia)' end,
+             case when s.aviso_politico_versao is distinct from interno.saude_termo_vigente() or s.declaracao_etica_versao is distinct from interno.saude_termo_vigente() then 'as declarações do termo vigente' end,
+             case when interno.saude_conferir(interno.saude_campos_livres(s)) is not null then 'ajustar o texto do perfil às regras de publicidade' end,
+             case when interno.saude_desligada() then 'o mural está desligado' end], null))) else '{}'::jsonb end
 $$;
 
 /** O meu perfil na vitrine (quem tem o cargo de profissional de saúde). */
@@ -13052,15 +13152,31 @@ end $$;
  * Instagram. Devolve o motivo da recusa, ou null quando gravou. Não mexe em situação, aprovação nem conferência.
  */
 create or replace function interno.saude_aplicar(p_usuario uuid, p jsonb) returns text language plpgsql security definer set search_path = interno, pg_temp as $$
-declare v_motivo text; v_contatos jsonb := '{}'::jsonb; v_areas text[];
+declare v_contatos jsonb := '{}'::jsonb; v_areas text[]; v_bloqueio jsonb; v_cat jsonb; v_publico text[]; v_idiomas text[]; r jsonb := interno.saude_regras();
 begin
-  v_motivo := interno.saude_texto_proibido(coalesce(p ->> 'bio', '') || ' ' || coalesce(p ->> 'abordagem', '') || ' ' || coalesce(p ->> 'profissao', ''));
-  if v_motivo is not null then return v_motivo; end if;
+  select coalesce(array_agg(left(btrim(x), 40)), '{}') into v_areas from (select jsonb_array_elements_text(coalesce(p -> 'areas', '[]'::jsonb)) x limit 12) a where btrim(x) <> '';
+  -- Todo texto livre passa pelo filtro do mural antes de gravar (também na edição da coordenação).
+  v_bloqueio := interno.saude_conferir(jsonb_build_object('nome', coalesce(p ->> 'nome', ''), 'abordagem', coalesce(p ->> 'abordagem', ''),
+    'areas', array_to_string(v_areas, ' · '), 'cidade', coalesce(p ->> 'cidade', ''), 'bio', coalesce(p ->> 'bio', '')));
+  if v_bloqueio is not null then return v_bloqueio::text; end if;
+  if char_length(coalesce(p ->> 'bio', '')) > (r ->> 'sobreMaximo')::int then
+    return jsonb_build_object('grupo', 'tamanho', 'campo', 'bio', 'motivo', 'O texto "Sobre meu trabalho" tem no máximo ' || (r ->> 'sobreMaximo') || ' caracteres.', 'sugestao', 'Encurte o texto.')::text;
+  end if;
+  -- A profissão vem da categoria (lista fechada) e o registro segue o formato do conselho.
+  v_cat := r -> 'categorias' -> interno.saude_categoria(p ->> 'conselho');
+  if v_cat is null then return jsonb_build_object('grupo', 'categoria', 'campo', 'conselho', 'motivo', 'Escolha o conselho na lista.', 'sugestao', '')::text; end if;
+  if v_cat ? 'profissoes' and not (v_cat -> 'profissoes') ? coalesce(p ->> 'profissao', '') then
+    return jsonb_build_object('grupo', 'profissao', 'campo', 'profissao', 'motivo', 'Escolha a profissão na lista da sua categoria.', 'sugestao', '')::text;
+  end if;
+  if v_cat ? 'formatoDoRegistro' and coalesce(btrim(p ->> 'registro'), '') !~ (v_cat ->> 'formatoDoRegistro') then
+    return jsonb_build_object('grupo', 'registro', 'campo', 'registro', 'motivo', 'Escreva o registro no formato ' || (v_cat ->> 'exemploDoRegistro') || ' (região/número), sem a sigla do conselho.', 'sugestao', '')::text;
+  end if;
+  select coalesce(array_agg(distinct x), '{}') into v_publico from jsonb_array_elements_text(coalesce(p -> 'publico', '[]'::jsonb)) x where (r -> 'publicos') ? x;
+  select coalesce(array_agg(distinct x), '{}') into v_idiomas from jsonb_array_elements_text(coalesce(p -> 'idiomas', '[]'::jsonb)) x where (r -> 'idiomas') ? x;
   if coalesce(p -> 'contatos' ->> 'whatsapp', '') ~ '^\+?[0-9 ()-]{10,20}$' then v_contatos := v_contatos || jsonb_build_object('whatsapp', regexp_replace(p -> 'contatos' ->> 'whatsapp', '[^0-9]', '', 'g')); end if;
   if coalesce(p -> 'contatos' ->> 'instagram', '') ~ '^@?[A-Za-z0-9._]{1,30}$' then v_contatos := v_contatos || jsonb_build_object('instagram', ltrim(p -> 'contatos' ->> 'instagram', '@')); end if;
   if coalesce(p -> 'contatos' ->> 'email', '') ~ '^[^@\s]+@[^@\s]+\.[^@\s]+$' and char_length(p -> 'contatos' ->> 'email') <= 120 then v_contatos := v_contatos || jsonb_build_object('email', p -> 'contatos' ->> 'email'); end if;
   if coalesce(p -> 'contatos' ->> 'site', '') ~ '^https://[^\s<>"]{4,200}$' then v_contatos := v_contatos || jsonb_build_object('site', p -> 'contatos' ->> 'site'); end if;
-  select coalesce(array_agg(left(btrim(x), 40)), '{}') into v_areas from (select jsonb_array_elements_text(coalesce(p -> 'areas', '[]'::jsonb)) x limit 12) a where btrim(x) <> '';
   if coalesce(p ->> 'foto', '') <> '' and (p ->> 'foto' !~ '^data:image/webp;base64,[A-Za-z0-9+/=]+$' or char_length(p ->> 'foto') > 60000) then perform interno.erro('invalido:foto'); end if;
   insert into saude_perfis (usuario) values (p_usuario) on conflict do nothing;
   update saude_perfis set
@@ -13068,7 +13184,8 @@ begin
     conselho = upper(coalesce(nullif(btrim(p ->> 'conselho'), ''), '')), uf = upper(coalesce(p ->> 'uf', '')), registro = interno.txt(p ->> 'registro', 'registro', 1, 30),
     abordagem = interno.txt(p ->> 'abordagem', 'abordagem', 0, 120), areas = v_areas,
     modalidade = coalesce(nullif(p ->> 'modalidade', ''), 'online'), cidade = interno.txt(p ->> 'cidade', 'cidade', 0, 80),
-    valor = coalesce(nullif(p ->> 'valor', ''), 'social'), bio = interno.txt(p ->> 'bio', 'bio', 0, 900), contatos = v_contatos,
+    estado = case when coalesce(p ->> 'estado', '') ~ '^[A-Z]{2}$' then p ->> 'estado' else '' end, publico = v_publico, idiomas = v_idiomas,
+    bio = interno.txt(p ->> 'bio', 'bio', 0, (r ->> 'sobreMaximo')::int), contatos = v_contatos,
     foto = case when p ? 'foto' then coalesce(p ->> 'foto', '') else foto end, foto_autorizada = coalesce((p ->> 'foto_autorizada')::boolean, false),
     atualizado_em = now()
   where usuario = p_usuario;
@@ -13078,7 +13195,8 @@ end $$;
 /** Os campos públicos de um perfil, para o registro guardar o antes e o depois de cada edição. */
 create or replace function interno.saude_publico(s interno.saude_perfis) returns jsonb language sql immutable as $$
   select jsonb_build_object('nome', s.nome, 'profissao', s.profissao, 'conselho', s.conselho, 'uf', s.uf, 'registro', s.registro, 'abordagem', s.abordagem,
-    'areas', to_jsonb(s.areas), 'modalidade', s.modalidade, 'cidade', s.cidade, 'valor', s.valor, 'bio', s.bio, 'contatos', s.contatos,
+    'areas', to_jsonb(s.areas), 'modalidade', s.modalidade, 'cidade', s.cidade, 'estado', s.estado, 'publico', to_jsonb(s.publico), 'idiomas', to_jsonb(s.idiomas),
+    'bio', s.bio, 'contatos', s.contatos,
     'foto_autorizada', s.foto_autorizada, 'foto_trocada', md5(s.foto))
 $$;
 
@@ -13093,10 +13211,13 @@ begin
   perform interno.limite('saude_salvar', 40, 60);
   select interno.saude_publico(x) into antes from saude_perfis x where x.usuario = v;
   v_motivo := interno.saude_aplicar(v, p);
-  if v_motivo is not null then return jsonb_build_object('ok', false, 'motivo', v_motivo); end if;
+  if v_motivo is not null then
+    perform interno.saude_registrar(v, 'texto_bloqueado', jsonb_build_object('regra', v_motivo::jsonb ->> 'grupo', 'campo', v_motivo::jsonb ->> 'campo'));
+    return jsonb_build_object('ok', false, 'motivo', v_motivo::jsonb ->> 'motivo', 'sugestao', v_motivo::jsonb ->> 'sugestao', 'campo', v_motivo::jsonb ->> 'campo', 'regra', v_motivo::jsonb ->> 'grupo');
+  end if;
   update saude_perfis set status = case when status = 'removido' then 'removido' when status = 'suspenso' then 'suspenso' else 'aguardando' end,
     texto_aprovado_em = now() where usuario = v returning * into s;
-  perform interno.avisar_lideranca('Perfil da vitrine de saúde atualizado: confira o registro e publique em Saúde Solidária.', v);
+  perform interno.avisar_lideranca('Perfil da vitrine de saúde atualizado: confira o registro e publique em Mural de Saúde.', v);
   perform interno.registrar('saude_perfil_salvo', v::text, '{}'::jsonb);
   perform interno.saude_registrar(v, 'perfil_salvo_e_aprovado', jsonb_build_object('antes', antes, 'depois', interno.saude_publico(s)));
   return jsonb_build_object('ok', true, 'perfil', interno.saude_json(s, true));
@@ -13114,10 +13235,13 @@ begin
   select interno.saude_publico(x) into antes from saude_perfis x where x.usuario = p_usuario;
   if antes is null then perform interno.erro('nao_encontrado'); end if;
   v_motivo := interno.saude_aplicar(p_usuario, p);
-  if v_motivo is not null then return jsonb_build_object('ok', false, 'motivo', v_motivo); end if;
+  if v_motivo is not null then
+    perform interno.saude_registrar(p_usuario, 'texto_bloqueado', jsonb_build_object('regra', v_motivo::jsonb ->> 'grupo', 'campo', v_motivo::jsonb ->> 'campo', 'na_edicao_da_coordenacao', true));
+    return jsonb_build_object('ok', false, 'motivo', v_motivo::jsonb ->> 'motivo', 'sugestao', v_motivo::jsonb ->> 'sugestao', 'campo', v_motivo::jsonb ->> 'campo', 'regra', v_motivo::jsonb ->> 'grupo');
+  end if;
   update saude_perfis set status = case when status in ('removido', 'suspenso') then status else 'aguardando' end, texto_aprovado_em = null
   where usuario = p_usuario returning * into s;
-  perform interno.avisar(p_usuario, 'A coordenação ajustou o texto do seu cartão na vitrine de saúde. Ele só volta ao ar depois que você conferir e aprovar no painel (Saúde Solidária).');
+  perform interno.avisar(p_usuario, 'A coordenação ajustou o texto do seu cartão na vitrine de saúde. Ele só volta ao ar depois que você conferir e aprovar no painel (Mural de Saúde).');
   perform interno.saude_registrar(p_usuario, 'perfil_editado_pela_coordenacao', jsonb_build_object('antes', antes, 'depois', interno.saude_publico(s)));
   return jsonb_build_object('ok', true, 'perfil', interno.saude_json(s, true));
 end $$;
@@ -13150,7 +13274,7 @@ begin
   update saude_perfis set assinatura_arquivo = p_arquivo, assinatura_sha256 = p_sha256, assinatura_versao = interno.saude_termo_vigente(),
     assinatura_enviada_em = now(), assinatura_conferida_em = null, assinatura_conferida_por = null, atualizado_em = now()
   where usuario = v returning * into s;
-  perform interno.avisar_lideranca('Termo assinado no gov.br enviado para a vitrine de saúde: confira a assinatura em Saúde Solidária.', v);
+  perform interno.avisar_lideranca('Termo assinado no gov.br enviado para a vitrine de saúde: confira a assinatura em Mural de Saúde.', v);
   perform interno.saude_registrar(v, 'assinatura_enviada', jsonb_build_object('arquivo', p_arquivo, 'sha256', p_sha256, 'versao', interno.saude_termo_vigente()));
   return interno.saude_json(s, true);
 end $$;
@@ -13197,15 +13321,36 @@ begin
           from (select * from saude_registro where usuario = alvo order by em desc limit 300) r left join perfis f on f.id = r.por);
 end $$;
 
-/** O profissional aceita o termo vigente (o texto inteiro fica em termos_aceites, para sempre). */
-create or replace function public.saude_termo_aceitar(p_texto text, p_nome text, p_registro text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+/**
+ * A tela de aviso antes do cadastro: o Instituto tem posicionamento político declarado e o mural é independente dele.
+ * O profissional só segue para o perfil depois de registrar que leu (com data e a versão vigente do termo).
+ */
+create or replace function public.saude_aviso_ciente() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); s saude_perfis;
+begin
+  if not interno.tem('saude') then perform interno.erro('sem_permissao'); end if;
+  insert into saude_perfis (usuario, nome) values (v, coalesce((select nome from perfis where id = v), '')) on conflict do nothing;
+  update saude_perfis set aviso_politico_em = now(), aviso_politico_versao = interno.saude_termo_vigente() where usuario = v returning * into s;
+  perform interno.saude_registrar(v, 'aviso_politico_lido', jsonb_build_object('versao', interno.saude_termo_vigente()));
+  return interno.saude_json(s, true);
+end $$;
+
+/**
+ * O profissional aceita o termo vigente (o texto inteiro fica em termos_aceites, para sempre), com as duas declarações
+ * obrigatórias: a de responsabilidade pela publicidade e a de independência política. Sem a tela de aviso lida, não aceita.
+ */
+drop function if exists public.saude_termo_aceitar(text, text, text);
+create or replace function public.saude_termo_aceitar(p_texto text, p_nome text, p_registro text, p_etica boolean default false, p_politica boolean default false) returns jsonb
+language plpgsql security definer set search_path = interno, pg_temp as $$
 declare v uuid := interno.eu();
 begin
   if not interno.tem('saude') then perform interno.erro('sem_permissao'); end if;
-  perform public.termo_registrar('saude', interno.saude_termo_vigente(), p_texto, jsonb_build_object('nome_digitado', left(coalesce(p_nome, ''), 120), 'registro', left(coalesce(p_registro, ''), 40)));
-  insert into saude_perfis (usuario) values (v) on conflict do nothing;
-  update saude_perfis set termo_versao = interno.saude_termo_vigente(), atualizado_em = now() where usuario = v;
-  perform interno.saude_registrar(v, 'termo_aceito', jsonb_build_object('versao', interno.saude_termo_vigente(), 'registro', left(coalesce(p_registro, ''), 40)));
+  if not coalesce(p_etica, false) or not coalesce(p_politica, false) then perform interno.erro('saude_declaracoes'); end if;
+  if not exists (select 1 from saude_perfis where usuario = v and aviso_politico_versao = interno.saude_termo_vigente()) then perform interno.erro('saude_aviso_primeiro'); end if;
+  perform public.termo_registrar('saude', interno.saude_termo_vigente(), p_texto, jsonb_build_object('nome_digitado', left(coalesce(p_nome, ''), 120), 'registro', left(coalesce(p_registro, ''), 40),
+    'declaracao_etica', true, 'declaracao_politica', true));
+  update saude_perfis set termo_versao = interno.saude_termo_vigente(), declaracao_etica_em = now(), declaracao_etica_versao = interno.saude_termo_vigente(), atualizado_em = now() where usuario = v;
+  perform interno.saude_registrar(v, 'termo_aceito', jsonb_build_object('versao', interno.saude_termo_vigente(), 'registro', left(coalesce(p_registro, ''), 40), 'declaracao_etica', true, 'declaracao_politica', true));
   return jsonb_build_object('ok', true);
 end $$;
 
@@ -13273,7 +13418,7 @@ end $$;
 create or replace function public.saude_vitrine() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
   select jsonb_build_object('desligada', interno.saude_desligada(),
     'perfis', case when interno.saude_desligada() then '[]'::jsonb
-                   else (select coalesce(jsonb_agg(interno.saude_json(s, false) order by lower(s.nome)), '[]'::jsonb) from saude_perfis s where interno.saude_apto(s)) end)
+                   else (select coalesce(jsonb_agg(interno.saude_json(s, false) order by lower(s.nome)), '[]'::jsonb) from saude_perfis s where interno.saude_visivel(s)) end)
 $$;
 
 -- O depósito fechado da vitrine: termos assinados (PDF) e capturas da consulta ao conselho. Cada um envia para a própria
@@ -13370,6 +13515,27 @@ revoke all on function interno.saude_json(interno.saude_perfis, boolean) from pu
 revoke all on function interno.saude_registrar(uuid, text, jsonb) from public, anon, authenticated;
 revoke all on function interno.saude_aplicar(uuid, jsonb) from public, anon, authenticated;
 revoke all on function interno.saude_publico(interno.saude_perfis) from public, anon, authenticated;
+revoke all on function interno.saude_conferir(jsonb) from public, anon, authenticated;
+revoke all on function interno.saude_visivel(interno.saude_perfis) from public, anon, authenticated;
+revoke all on function interno.saude_campos_livres(interno.saude_perfis) from public, anon, authenticated;
+
+-- Mural de Saúde, termo 2026-10-25 (roda uma vez só; rodar o arquivo de novo não repete): todos os perfis ficam
+-- esperando o novo aceite, a nova assinatura e a nova aprovação do texto (pela regra do termo vigente, saem do ar
+-- sozinhos), e cada profissional recebe o aviso no painel. Quem é de categoria ainda fechada recebe o aviso próprio.
+do $$
+declare s record;
+begin
+  if coalesce((select (valor ->> 'termo_2026_10_25')::boolean from interno.configuracoes where chave = 'saude_migracoes'), false) then return; end if;
+  for s in select usuario, conselho from interno.saude_perfis where status <> 'removido' and termo_versao is distinct from interno.saude_termo_vigente() loop
+    update interno.saude_perfis set texto_aprovado_em = null where usuario = s.usuario;
+    perform interno.avisar(s.usuario, case when interno.saude_categoria_ligada(s.conselho)
+      then 'O termo do Mural de Saúde mudou (versão ' || interno.saude_termo_vigente() || ') para seguir as normas de publicidade do seu conselho. O seu cartão saiu do ar até você ler o aviso, aceitar o novo termo, assinar no gov.br e aprovar o texto de novo no painel.'
+      else 'O Mural de Saúde está aberto, por enquanto, só para a psicologia. O seu perfil continua guardado, mas saiu do ar até as normas de publicidade do seu conselho serem revisadas.' end);
+    perform interno.saude_registrar(s.usuario, 'aguardando_novo_aceite', jsonb_build_object('versao', interno.saude_termo_vigente()));
+  end loop;
+  insert into interno.configuracoes (chave, valor) values ('saude_migracoes', jsonb_build_object('termo_2026_10_25', true))
+  on conflict (chave) do update set valor = interno.configuracoes.valor || jsonb_build_object('termo_2026_10_25', true);
+end $$;
 -- As duas regras do depósito "saude" são lidas pelas políticas do Storage com o papel de quem envia: ficam só para authenticated.
 revoke all on function interno.saude_deposita() from public, anon;
 revoke all on function interno.saude_le_tudo() from public, anon;
@@ -13380,7 +13546,7 @@ begin
   foreach f in array array['disciplina_convidar(uuid, text, text, text)', 'disciplina_convites()', 'disciplina_convite_revogar(uuid)',
     'traducao_convidar(text, text, uuid)', 'traducao_coautor_tirar(text, text, uuid)', 'fotos_pendentes()', 'foto_decidir(uuid, boolean)',
     'termo_registrar(text, text, text, jsonb)', 'termos_meus()', 'termos_aceites_listar(uuid)',
-    'saude_meu()', 'saude_salvar(jsonb)', 'saude_termo_aceitar(text, text, text)', 'saude_sair()', 'saude_fila()', 'saude_decidir(uuid, text, date, text)',
+    'saude_meu()', 'saude_salvar(jsonb)', 'saude_termo_aceitar(text, text, text, boolean, boolean)', 'saude_aviso_ciente()', 'saude_sair()', 'saude_fila()', 'saude_decidir(uuid, text, date, text)',
     'saude_chave(boolean)', 'saude_vitrine()', 'erro_relatar(jsonb)', 'erros_listar()', 'erro_mudar(uuid, text, text)',
     'saude_editar(uuid, jsonb)', 'saude_aprovar_texto()', 'saude_assinatura_enviar(text, text)', 'saude_assinatura_conferir(uuid, boolean, text)',
     'saude_verificacao_anexar(uuid, text, text, text)', 'saude_registro_listar(uuid)'] loop

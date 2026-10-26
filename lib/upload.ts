@@ -79,7 +79,7 @@ export async function previewFile(path: string): Promise<string> {
 }
 
 /**
- * Saúde Solidária: o termo assinado no gov.br (PDF) e a captura da consulta ao conselho vão para o depósito fechado
+ * Mural de Saúde: o termo assinado no gov.br (PDF) e a captura da consulta ao conselho vão para o depósito fechado
  * "saude", na pasta de quem envia. Só a própria pessoa e a coordenação leem. Devolve o caminho e o SHA-256 do arquivo,
  * calculado no aparelho.
  */

@@ -20,14 +20,14 @@ const DEPARTAMENTOS: { papeis: Role["papel"][]; nome: string; secoes: string[] }
   { papeis: ["traducao"], nome: "Tradução", secoes: ["traducoes", "fila", "escrever"] },
   { papeis: ["mediacao"], nome: "Mediação", secoes: ["comunidade", "mural", "gaveta", "reforco"] },
   { papeis: ["mentoria"], nome: "Reforço", secoes: ["reforco", "aovivo", "escrever"] },
-  { papeis: ["saude"], nome: "Saúde Solidária", secoes: ["saude"] },
+  { papeis: ["saude"], nome: "Mural de Saúde", secoes: ["saude"] },
   { papeis: ["desenvolvimento"], nome: "Desenvolvimento", secoes: ["erros", "tecnico"] },
 ];
 
 /** O departamento principal da pessoa (o da função de maior nível) e as seções dele que ela enxerga. */
 export function meuDepartamento(me: Me, visiveis: string[]): { nome: string; secoes: string[] } | null {
   for (const papel of porNivel(me.papeis)) {
-    if (papel.papel === "representante" && papel.disciplina === "saude") return { nome: "Saúde Solidária", secoes: ["departamentos", "saude", "termos"].filter((id) => visiveis.includes(id)) };
+    if (papel.papel === "representante" && papel.disciplina === "saude") return { nome: "Mural de Saúde", secoes: ["departamentos", "saude", "termos"].filter((id) => visiveis.includes(id)) };
     const d = DEPARTAMENTOS.find((x) => x.papeis.includes(papel.papel));
     if (!d) continue;
     const secoes = ["departamentos", ...d.secoes].filter((id) => visiveis.includes(id));
