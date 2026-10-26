@@ -77,7 +77,7 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
             <img src="/marca-96.png" alt="" width={52} height={52} className="h-10 w-10 shrink-0 sm:h-12 sm:w-12 xl:h-[3.25rem] xl:w-[3.25rem]" />
             <span className="min-w-0">
               <span className="marca-nome block whitespace-nowrap text-xl font-semibold leading-none tracking-tight sm:text-[1.7rem] xl:text-[2rem]">{site.name}</span>
-              <span className="marca-sub mt-1.5 hidden font-mono text-[0.62rem] uppercase tracking-[0.22em] text-ink-soft lg:block">{t.home.eyebrow}</span>
+              <span aria-hidden className="marca-sub mt-1.5 hidden font-mono text-[0.62rem] uppercase tracking-[0.22em] text-ink-soft lg:block">{t.home.eyebrow}</span>
             </span>
           </Link>
           {/* Se faltar espaço, quem encolhe é o "Olá, Fulano" (com reticências), nunca a marca nem os ícones. */}

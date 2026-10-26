@@ -14,7 +14,7 @@ export const ANOTAR = "lucia:anotar";
 type Modo = "normal" | "larga" | "foco";
 
 // O "Ouvir" lê só a aula: título, resumo e texto (sem menus, margem, exercícios nem rodapé).
-const TRECHOS_DA_AULA = [".folha-da-aula h1", ".folha-da-aula h1 + p", "#texto-da-aula"];
+export const TRECHOS_DA_AULA = [".folha-da-aula h1", ".folha-da-aula h1 + p", "#texto-da-aula"];
 
 function aplicar(modo: Modo) {
   const raiz = document.documentElement;
