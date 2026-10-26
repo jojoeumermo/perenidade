@@ -30,7 +30,7 @@ const PECAS: { id: Peca; nome: string; papel: string; pagina: string; w: number;
   { id: "folheto", nome: "Folheto A5", papel: "A5 retrato (dois por folha A4)", pagina: "A5 portrait", w: 148, h: 210 },
   { id: "boca-de-fabrica", nome: "Panfleto de boca de fábrica “Quantas horas são suas?”", papel: "A5 retrato", pagina: "A5 portrait", w: 148, h: 210, nova: true },
   { id: "voluntario", nome: "Panfleto “Vem fazer junto”", papel: "A5 retrato", pagina: "A5 portrait", w: 148, h: 210 },
-  { id: "convite-nucleo", nome: "Convite para o núcleo de estudo (Despertar)", papel: "A5 retrato, preencha na tela", pagina: "A5 portrait", w: 148, h: 210, nova: true },
+  { id: "convite-nucleo", nome: "Convite para o núcleo de estudo (Consciência de classe)", papel: "A5 retrato, preencha na tela", pagina: "A5 portrait", w: 148, h: 210, nova: true },
   { id: "zine", nome: "Zine de uma folha", papel: "A4 paisagem, dobrado em 8", pagina: "A4 landscape", w: 297, h: 210 },
   { id: "cartoes", nome: "Cartões com QR (10 por folha)", papel: "A4 retrato, recortar", pagina: "A4 portrait", w: 210, h: 297 },
   { id: "filipetas", nome: "Filipetas com QR (16 por folha)", papel: "A4 retrato, recortar nas linhas", pagina: "A4 portrait", w: 210, h: 297, nova: true },
@@ -596,7 +596,7 @@ function BannerDeMesa({ c, modo, qr }: { c: Cores; modo: Modo; qr: string }) {
   );
 }
 
-/** Convite para o estudo coletivo do Despertar (A5), com dia, lugar e contato preenchidos na tela. */
+/** Convite para o estudo coletivo do percurso Consciência de classe (A5), com dia, lugar e contato preenchidos na tela. */
 function ConviteNucleo({ c, modo, qr, ev }: { c: Cores; modo: Modo; qr: string; ev: Evento }) {
   const mm = (n: number) => `${n}mm`;
   const tinta = modo === "tinta";
