@@ -14,19 +14,20 @@ export const ABRIR_MAIS = "lucia:abrir-mais";
 export const SAIR_MAIS = "lucia:sair-mais";
 export const abrirMais = (mouse = false) => window.dispatchEvent(new CustomEvent(ABRIR_MAIS, { detail: { mouse } }));
 
+/** O que já está no menu do topo do computador: a janela do "Mais" não repete. */
+export const MAIS_NO_MENU = ["/trilhas", "/acervo", "/jornal", "/podcasts", "/comunidade", "/apoie"];
+
 export function NavLinks() {
   const pathname = usePathname();
   const { lang, t } = useI18n();
   const novo = useEpisodioNovo();
-  // No menu só o que se usa todo dia, mais a Dedicatória (de onde vem o nome). Memorial e o resto continuam em "Mais".
+  // No menu só o que se usa todo dia. Saúde, Dedicatória e o resto moram no "Mais" (MAIS_NO_MENU diz quais não repetem lá).
   const links: [string, string][] = [
     [t.nav.disciplines, "/trilhas"],
     [t.nav.library, "/acervo"],
     [t.nav.journal, "/jornal"],
     [t.nav.podcasts, "/podcasts"],
     [t.nav.community, "/comunidade"],
-    [t.nav.health, "/saude"],
-    [t.nav.dedication, "/dedicatoria"],
   ];
   const item = "item-do-menu whitespace-nowrap border-b-4 py-2.5";
   // Passar o mouse por cima do "Mais" abre a janela depois de um instante (quem só atravessa o menu não a abre);
@@ -136,27 +137,117 @@ export function AccountLink() {
       </Link>
     );
   }
+  return <MenuDaConta name={name} />;
+}
+
+/**
+ * A conta no alto: a inicial num círculo, como a foto de perfil de um aplicativo. O clique abre um menu curto com o
+ * "Olá, Fulano" e os caminhos da pessoa; sair continua no painel, que também apaga o que é da conta neste aparelho.
+ */
+function MenuDaConta({ name }: { name: string }) {
+  const { lang, t } = useI18n();
+  const pathname = usePathname();
+  // O menu guarda em que página foi aberto: trocou de página, ele some sozinho.
+  const [abertoEm, setAbertoEm] = useState<string | null>(null);
+  const aberto = abertoEm === pathname;
+  const caixa = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!aberto) return;
+    const fora = (e: PointerEvent) => {
+      if (!caixa.current?.contains(e.target as Node)) setAbertoEm(null);
+    };
+    const tecla = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setAbertoEm(null);
+    };
+    document.addEventListener("pointerdown", fora);
+    document.addEventListener("keydown", tecla);
+    return () => {
+      document.removeEventListener("pointerdown", fora);
+      document.removeEventListener("keydown", tecla);
+    };
+  }, [aberto]);
+  const itens: [string, string][] = [
+    [t.nav.notebook, "/caderno"],
+    [t.nav.myData, "/meus-dados"],
+  ];
+  return (
+    <div ref={caixa} className="relative shrink-0">
+      <button
+        type="button"
+        onClick={() => setAbertoEm(aberto ? null : pathname)}
+        aria-expanded={aberto}
+        aria-haspopup="menu"
+        aria-label={fill(t.nav.helloLabel, { name })}
+        title={fill(t.nav.hello, { name })}
+        className="conta-saudacao flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-ink bg-[#6e1f1a] font-serif text-xl font-semibold leading-none text-[#f4ecd8] hover:bg-[#c21f16] hover:text-white aria-expanded:shadow-[0_0_0_3px_var(--parchment),0_0_0_5px_#c21f16]"
+      >
+        <span aria-hidden>{[...name][0]?.toLocaleUpperCase(lang)}</span>
+      </button>
+      {aberto && (
+        <div role="menu" className="menu-da-conta absolute right-0 top-[calc(100%+0.6rem)] z-50 w-60 border-2 border-ink bg-folha font-sans text-[0.95rem] text-ink shadow-[6px_6px_0_var(--prelo)]">
+          <p className="border-b border-rule px-4 pt-3.5 pb-3 font-serif text-[1.35rem] font-semibold leading-tight">{fill(t.nav.hello, { name })}</p>
+          <Link role="menuitem" href={localePath(lang, "/painel")} className="flex items-center justify-between px-4 py-2.5 font-bold text-ink hover:bg-ink hover:text-parchment">
+            {t.nav.panel} <span aria-hidden className="text-prelo-texto">→</span>
+          </Link>
+          {itens.map(([label, path]) => (
+            <Link key={path} role="menuitem" href={localePath(lang, path)} className="block px-4 py-2.5 text-ink last:mb-1.5 hover:bg-ink hover:text-parchment">
+              {label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** O campo de busca do alto, no computador: leva à busca do site (a tecla "/" faz o mesmo de qualquer página). */
+export function HeaderSearch() {
+  const { lang, t } = useI18n();
   return (
     <Link
-      href={localePath(lang, "/painel")}
-      aria-label={fill(t.nav.helloLabel, { name })}
-      title={t.nav.openPanel}
-      className="conta-saudacao flex min-w-[3.75rem] max-w-[12rem] flex-col items-end overflow-hidden font-sans leading-none text-ink-soft hover:text-oxblood"
+      href={localePath(lang, "/busca")}
+      className="busca-do-topo flex h-11 w-[15rem] items-center gap-2.5 border-2 border-ink bg-folha px-3 font-sans text-[0.95rem] text-ink-soft hover:text-ink xl:w-[17rem]"
     >
-      <span className="max-w-full truncate py-px text-xs sm:text-sm">{fill(t.nav.hello, { name })}</span>
-      <span aria-hidden className="mt-0.5 font-mono text-[0.625rem] uppercase tracking-wider">
-        {t.nav.panel} →
-      </span>
+      <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px] shrink-0 text-ink" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+        <circle cx="10.5" cy="10.5" r="6.5" />
+        <path d="M15.5 15.5 20 20" />
+      </svg>
+      <span className="flex-1">{t.nav.search}</span>
+      <kbd aria-hidden className="border border-rule px-1.5 py-px font-mono text-[0.7rem] text-ink-soft">/</kbd>
     </Link>
   );
 }
 
 /** Troca o idioma mantendo a pessoa na mesma página. */
-export function LanguageSwitcher({ wide = false }: { wide?: boolean }) {
+export function LanguageSwitcher({ wide = false, globo = false }: { wide?: boolean; globo?: boolean }) {
   const pathname = usePathname();
   const router = useRouter();
   const { lang, t } = useI18n();
   const rest = pathname.split("/").slice(2).join("/");
+  // "globo": no alto do computador aparece só o globo e a sigla; o seletor de verdade fica por cima, transparente,
+  // e abre a lista com o nome de cada idioma escrito por inteiro.
+  if (globo)
+    return (
+      <span className="relative flex h-11 items-center gap-1.5 px-1.5 font-mono text-[0.8rem] uppercase tracking-[0.08em] text-ink hover:text-oxblood">
+        <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18" />
+        </svg>
+        <span aria-hidden>{lang}</span>
+        <select
+          aria-label={t.common.language}
+          value={lang}
+          onChange={(e) => router.push(`/${e.target.value}${rest ? `/${rest}` : ""}`)}
+          className="absolute inset-0 cursor-pointer opacity-0"
+        >
+          {locales.map((code) => (
+            <option key={code} value={code} lang={code}>
+              {localeNames[code]}
+            </option>
+          ))}
+        </select>
+      </span>
+    );
   return (
     <select
       aria-label={t.common.language}

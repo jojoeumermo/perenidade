@@ -444,6 +444,26 @@ body {
   .botao-instagram.botao-menor {
     box-shadow: 3px 3px 0 var(--prelo);
   }
+  /* O Instagram ao lado do "Apoie": só a câmera, num quadrado com as cores do próprio Instagram, para chamar o olho. */
+  .botao-instagram-cor {
+    aspect-ratio: 1;
+    padding: 0;
+    height: 2.95rem;
+    color: #fff;
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .botao-instagram-cor:hover {
+    color: #fff;
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .botao-instagram-cor:active {
+    box-shadow: 0 0 0 var(--ink);
+  }
+  .botao-instagram-cor.botao-menor {
+    height: 2.4rem;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
   .botao-instagram-compacto {
     display: inline-flex;
     height: 2.4rem;
@@ -3254,6 +3274,13 @@ main#conteudo .ide-area :is(div, section)[class~="border-2"][class~="border-ink"
     border-top-width: 0;
     border-radius: 1rem;
     box-shadow: 0 6px 18px rgb(0 0 0 / 0.28);
+  }
+
+  /* A inicial da conta na barra bordô: o círculo vermelho com o fio dourado, para não sumir no fundo. */
+  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .conta-saudacao {
+    border-color: #d4a24c;
+    background: #c21f16;
+    color: #fff;
   }
 
   /* As capas das disciplinas e as tarjas dos grupos seguem o mesmo canto do resto do aplicativo:

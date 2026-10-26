@@ -219,6 +219,7 @@
   "nivelamento": {
     "olho": "Sem nota",
     "titulo": "Por onde começar?",
+    "menu": "Teste de nivelamento",
     "descricao": "Algumas perguntas rápidas que só sugerem por qual aula começar. Pode pular; não tem nota.",
     "lead": "Algumas perguntas, uma por aula, para sugerir por onde começar. Não é prova: não tem nota, ninguém vê o resultado e você pode pular quando quiser.",
     "antesTitulo": "Antes de começar",
