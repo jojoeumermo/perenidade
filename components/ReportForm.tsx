@@ -23,7 +23,7 @@ export function ReportForm({ s }: { s: Dict["report"] }) {
   async function send() {
     setState({ status: "sending" });
     try {
-      await rpc("denunciar", { p_alvo: item.trim(), p_motivo: reason, p_detalhes: details.trim(), p_site: trap });
+      await rpc("denunciar", { p_alvo: item.trim(), p_motivo: reason, p_detalhes: details.trim(), p_site: trap, p_urgente: reason === s.reasons[0] });
       setDetails("");
       setState({ status: "sent" });
     } catch (error) {
