@@ -106,7 +106,7 @@
     "usePolicy": "Use policy",
     "events": "Events",
     "spreadKit": "Outreach kit",
-    "despertar": "Awaken",
+    "despertar": "Class consciousness",
     "territories": "Territories"
   },
   "labs": {
@@ -386,7 +386,7 @@
     "moreKicker": "More than lessons",
     "moreTitle": "Here we study to change our lives.",
     "moreText": "Instituto Lúcia is a school for life: we educate people who know which side they are on and who walk with the working class. No state diploma, no fees, no addiction: out of revolt, curiosity and hope.",
-    "moreStart": "Start Awaken",
+    "moreStart": "Start the course",
     "moreManifesto": "Read the manifesto"
   },
   "areas": {
@@ -3171,7 +3171,7 @@
       "usePolicy": "What is and isn't allowed, in a few lines.",
       "events": "Film club, reading club and other gatherings.",
       "spreadKit": "Posters, flyer, zine and QR cards to print.",
-      "despertar": "From zero to class consciousness, in five stages, with real-world tasks.",
+      "despertar": "From zero to class consciousness, in ten stages, with real-world tasks.",
       "territories": "Culture and struggle collectives that walk with the institute: articles, lessons, photos and meetings."
     },
     "short": {
@@ -4869,7 +4869,7 @@
   },
   "despertar": {
     "eyebrow": "Learning path · from zero to organizing",
-    "title": "Awaken.",
+    "title": "Class consciousness.",
     "lead": "Nobody is born knowing they are exploited. Class consciousness is learned: in life, in study and in collective struggle.",
     "start": "Start with stage 1",
     "group": "Study in a group",
@@ -4890,7 +4890,7 @@
     "certTitle": "Community certificate",
     "certText": "Recognized by the institute and signed by your study group, not by the state. It is worth what you learned and what you did with it.",
     "groupKicker": "Better together",
-    "groupTitle": "Do Awaken in a study group",
+    "groupTitle": "Do the course in a study group",
     "groupText": "Each stage has a one-hour meeting guide and questions for the circle. Gather three people and start.",
     "groupCta": "Find or start a group"
   },
@@ -5194,7 +5194,7 @@
     "montarTitulo": "Start a nucleus",
     "montarTexto": "All it takes is three people and one hour a week. Choose a track and print the kit: call-out poster, facilitator's guide, a plan for each meeting and the attendance list.",
     "escolherTrilha": "Choose the track",
-    "despertar": "Start with Awakening (training from scratch)",
+    "despertar": "Start with the Class consciousness course (training from scratch)",
     "aparecerTitulo": "Want your nucleus to appear here?",
     "aparecerTexto": "Ask someone on the institute team to register the nucleus in the panel. The coordination checks it and publishes only the city, how you meet, a public place and the nucleus's own contact.",
     "seguranca": "For safety: don't share participants' addresses, names or faces. Training nuclei can be targets of persecution.",
