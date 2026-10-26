@@ -1210,6 +1210,7 @@
     "submit": "Enviar denúncia",
     "notReady": "Informe o item e descreva o problema (pelo menos 20 caracteres) para continuar.",
     "reasons": [
+      "Estão me expondo (meus dados ou fotos)",
       "Direitos autorais",
       "Informação errada",
       "Conteúdo ofensivo ou discurso de ódio",
@@ -5073,7 +5074,8 @@
     "abaTudo": "Tudo",
     "verTudo": "Ver tudo",
     "levarNucleo": "Levar para um núcleo",
-    "levado": "Link copiado: cole no grupo do seu núcleo."
+    "levado": "Link copiado: cole no grupo do seu núcleo.",
+    "expondo": "Estão me expondo: tirar do ar já"
   },
   "compartilhar": {
     "titulo": "Compartilhar",

@@ -1210,6 +1210,7 @@
     "submit": "Send report",
     "notReady": "Enter the item and describe the problem (at least 20 characters) to continue.",
     "reasons": [
+      "Someone is exposing me (my data or photos)",
       "Copyright",
       "Wrong information",
       "Offensive content or hate speech",
@@ -5073,7 +5074,8 @@
     "abaTudo": "Everything",
     "verTudo": "See everything",
     "levarNucleo": "Take to a nucleus",
-    "levado": "Link copied: paste it in your nucleus group."
+    "levado": "Link copied: paste it in your nucleus group.",
+    "expondo": "Someone is exposing me: take it down now"
   },
   "compartilhar": {
     "titulo": "Share",
