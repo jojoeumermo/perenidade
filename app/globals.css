@@ -2682,29 +2682,29 @@ html[data-escrita-foco="1"] .painel {
 /* ───── O desenho novo nas páginas que ainda usam as classes antigas ─────
    Cartões de fio fino ganham o contorno de tinta e a sombra dura; botões escuros e bordô ganham a sombra do
    carimbo; títulos de seção, o fio de tinta. Só no site público: o painel tem o desenho dele. */
-main#conteudo:not(:has(.painel)) :is(a, div, section, article, li, details, form, aside, blockquote, figure)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
+main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, div, section, article, li, details, form, aside, blockquote, figure)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
   border: 2px solid var(--ink);
   background-color: var(--folha);
   box-shadow: 5px 5px 0 var(--sombra);
 }
-main#conteudo:not(:has(.painel)) :is(div, section, article, li, details, form, aside, a, figure)[class~="border-2"][class~="border-ink"][class~="bg-parchment-deep"] {
+main#conteudo:not(:has(.painel, .rede-lucia)) :is(div, section, article, li, details, form, aside, a, figure)[class~="border-2"][class~="border-ink"][class~="bg-parchment-deep"] {
   background-color: var(--folha);
   box-shadow: 5px 5px 0 var(--sombra);
 }
-main#conteudo:not(:has(.painel)) a:is([class~="border"][class~="border-rule"], [class~="border-2"][class~="border-ink"])[class~="bg-parchment-deep"] {
+main#conteudo:not(:has(.painel, .rede-lucia)) a:is([class~="border"][class~="border-rule"], [class~="border-2"][class~="border-ink"])[class~="bg-parchment-deep"] {
   transition: transform 0.14s ease, box-shadow 0.14s ease;
 }
-main#conteudo:not(:has(.painel)) a:is([class~="border"][class~="border-rule"], [class~="border-2"][class~="border-ink"])[class~="bg-parchment-deep"]:hover {
+main#conteudo:not(:has(.painel, .rede-lucia)) a:is([class~="border"][class~="border-rule"], [class~="border-2"][class~="border-ink"])[class~="bg-parchment-deep"]:hover {
   transform: translate(-2px, -2px);
   box-shadow: 7px 7px 0 var(--prelo);
 }
-main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-ink"][class~="text-parchment"]:not(.botao) {
+main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button)[class~="bg-ink"][class~="text-parchment"]:not(.botao) {
   border: 2px solid var(--ink);
   font-weight: 700;
   box-shadow: 4px 4px 0 var(--prelo);
   transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s;
 }
-main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao) {
+main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao) {
   border: 2px solid var(--ink);
   background-color: var(--prelo);
   color: #fff;
@@ -2712,19 +2712,19 @@ main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-oxblood"][class~="tex
   box-shadow: 4px 4px 0 var(--sombra);
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
-main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-ink"][class~="text-parchment"]:not(.botao, :disabled):hover,
-main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao, :disabled):hover {
+main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button)[class~="bg-ink"][class~="text-parchment"]:not(.botao, :disabled):hover,
+main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao, :disabled):hover {
   transform: translate(-2px, -2px);
 }
-main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-ink"][class~="text-parchment"]:not(.botao, :disabled):active,
-main#conteudo:not(:has(.painel)) :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao, :disabled):active {
+main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button)[class~="bg-ink"][class~="text-parchment"]:not(.botao, :disabled):active,
+main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao, :disabled):active {
   transform: translate(3px, 3px);
   box-shadow: none;
 }
-main#conteudo:not(:has(.painel)) h2[class~="border-b"][class~="border-rule"] {
+main#conteudo:not(:has(.painel, .rede-lucia)) h2[class~="border-b"][class~="border-rule"] {
   border-bottom: 2px solid var(--ink);
 }
-main#conteudo:not(:has(.painel)) :is(input, textarea, select)[class~="border-2"][class~="border-ink"] {
+main#conteudo:not(:has(.painel, .rede-lucia)) :is(input, textarea, select)[class~="border-2"][class~="border-ink"] {
   background-color: var(--folha);
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) main#conteudo :is(a, div, section, article, li, details, form, aside, blockquote, figure, button) {
@@ -2801,10 +2801,10 @@ main#conteudo:not(:has(.painel)) :is(input, textarea, select)[class~="border-2"]
 /* Papel impresso não tem canto arredondado: cartões, quadros e pílulas de texto do site público ficam retos.
    Círculos de verdade (foto, botão de tocar, ponto de aviso) continuam redondos: não têm espaçamento lateral.
    O aplicativo é a exceção (Caderno de Bolso): lá todo canto é arredondado, para não misturar reto com redondo. */
-:root:not([data-app]) main#conteudo:not(:has(.painel)) :is(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl),
-:root:not([data-app]) main#conteudo:not(:has(.painel)) :is(a, button, span, label, input, select, p, li, div)[class~="rounded-full"]:is([class*="px-"], [class*="pl-"]),
-:root[data-app]:is([data-contrast], [data-eink], [data-leitor]) main#conteudo:not(:has(.painel)) :is(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl),
-:root[data-app]:is([data-contrast], [data-eink], [data-leitor]) main#conteudo:not(:has(.painel)) :is(a, button, span, label, input, select, p, li, div)[class~="rounded-full"]:is([class*="px-"], [class*="pl-"]) {
+:root:not([data-app]) main#conteudo:not(:has(.painel, .rede-lucia)) :is(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl),
+:root:not([data-app]) main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button, span, label, input, select, p, li, div)[class~="rounded-full"]:is([class*="px-"], [class*="pl-"]),
+:root[data-app]:is([data-contrast], [data-eink], [data-leitor]) main#conteudo:not(:has(.painel, .rede-lucia)) :is(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl),
+:root[data-app]:is([data-contrast], [data-eink], [data-leitor]) main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button, span, label, input, select, p, li, div)[class~="rounded-full"]:is([class*="px-"], [class*="pl-"]) {
   border-radius: 0;
 }
 
