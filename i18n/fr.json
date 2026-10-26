@@ -3157,7 +3157,7 @@
       "live": "Le programme des cours en direct, avec vidéo et discussion sur le site même.",
       "notebook": "Réunissez des cours et des textes et obtenez-en un résumé, des cartes mémoire, un quiz, une carte, une frise et un audio. Tout dans votre navigateur.",
       "community": "Le forum de celles et ceux qui étudient : questions, réponses et débats, modéré et sans publicité.",
-      "health": "Des professionnels de santé bénévoles, gratuits ou à tarif social : vous leur parlez directement.",
+      "health": "Tableau des contacts de professionnels de santé dont l'inscription est active : vous leur parlez directement.",
       "bugs": "Quelque chose bloque ou s'affiche mal ? Dites-le à ceux qui maintiennent le code.",
       "freeRoom": "Construisez et projetez votre cours avec les laboratoires, livres, éditeurs, simulations et jeux du site.",
       "rightsGuide": "Santé publique, aide sociale, prestations, aide juridique et signalements au Brésil, avec les sources officielles.",
@@ -3208,7 +3208,7 @@
       "/materiais": "zines, affiches",
       "/mural": "métiers et coopératives",
       "/comunidade": "forum par matière",
-      "/saude": "soins solidaires",
+      "/saude": "tableau de contacts",
       "/direitos": "travail, santé, logement",
       "/relatar-erro": "dites-nous ce qui casse",
       "/voluntarios": "relire, traduire, enseigner",
@@ -4849,11 +4849,8 @@
     "privacy": "La vidéo passe par le serveur de visioconférence configuré par l'institut (Jitsi). Rien n'est enregistré."
   },
   "saude": {
-    "eyebrow": "Tableau de contacts",
-    "title": "Santé solidaire",
-    "slogan": "Prendre soin, c'est aussi l'affaire du peuple",
-    "lead": "Des professionnels de santé bénévoles, qui reçoivent gratuitement ou à tarif social, laissent ici leur contact. Vous leur parlez directement : l'institut ne fait que diffuser, il ne fournit ni ne garantit les soins.",
-    "description": "Contacts de professionnels de santé bénévoles, gratuits ou à tarif social. L'Instituto Lúcia ne fait que les diffuser : il ne fournit ni ne garantit les soins."
+    "title": "Tableau santé",
+    "description": "Tableau des contacts de professionnels de santé dont l'inscription est active. L'Instituto Lúcia ne fait que publier les contacts et ne fournit ni n'organise de soins. Les conditions de la prise en charge se règlent directement avec le professionnel."
   },
   "bugs": {
     "eyebrow": "Aidez-nous à réparer",

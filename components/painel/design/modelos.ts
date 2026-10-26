@@ -177,27 +177,6 @@ const MODELOS_DA_MARCA: Modelo[] = [
     },
   },
   {
-    id: "post-saude",
-    nome: "Saúde Solidária (cartão de profissional)",
-    formato: "post",
-    grupo: "Posts",
-    montar: () => {
-      const d = base(1080, 1350, { cor: COR["Pergaminho claro"], bordaCima: COR.Verde, bordaBaixo: COR.Verde, espessura: 20 });
-      d.camadas = [
-        ...cabecalho(1080, 72, "Saúde Solidária", COR.Tinta, COR.Verde),
-        imagem({ x: 88, y: 230, w: 380, h: 380, src: "/imagens/galeria/kollwitz-pao.webp", credito: "Foto de quem atende (com autorização).", mascara: "circulo", borda: COR.Verde, espessura: 10, nome: "Foto" }),
-        elemento({ x: 380, y: 520, w: 110, h: 110, desenho: "icone", icone: "saude", cor: COR.Pergaminho, fundo: COR.Verde, espessura: 2.2, nome: "Ícone" }),
-        texto({ x: 520, y: 260, w: 472, texto: "Nome da profissional", fonte: "serifa", tamanho: 64, peso: 600, entrelinha: 1, nome: "Nome" }),
-        texto({ x: 520, y: 410, w: 472, texto: "Psicóloga · CRP 00/00000", fonte: "mono", tamanho: 22, peso: 500, cor: COR.Verde, espacamento: 0.08, maiusculas: true, nome: "Registro" }),
-        texto({ x: 520, y: 470, w: 180, texto: "Atende de graça", fonte: "sans", tamanho: 18, peso: 800, cor: COR.Branco, fundo: COR.Verde, recuo: 10, alinhar: "center", espacamento: 0.08, maiusculas: true, nome: "Tarja" }),
-        texto({ x: 88, y: 700, w: 904, texto: "**Atendimento:** online, por vídeo\n**Quando:** terças, das 18h às 21h\n**Para quem:** estudantes e voluntários do instituto", fonte: "serifa", tamanho: 40, peso: 400, entrelinha: 1.5, marcador: "estrela", destaque: COR.Verde, nome: "Detalhes" }),
-        texto({ x: 88, y: 1010, w: 904, texto: "“Cuidar também é um ato político.”", fonte: "serifa", tamanho: 46, peso: 500, italico: true, cor: COR.Verde, nome: "Frase" }),
-        ...faixa(1080, 1160, 100, "Agende pelo site", "{link}/saude"),
-      ];
-      return d;
-    },
-  },
-  {
     id: "post-memoria",
     nome: "Memória (álbum de fotos)",
     formato: "post",
@@ -881,7 +860,7 @@ const CAMPANHAS: Modelo[] = [
         ...pessoa(0, "[Nome]", "Educação · Biologia"),
         ...pessoa(1, "[Nome]", "Comunicação"),
         ...pessoa(2, "[Nome]", "Revisão"),
-        ...pessoa(3, "[Nome]", "Saúde Solidária"),
+        ...pessoa(3, "[Nome]", "Tradução"),
         texto({ x: 88, y: 1180, w: 904, texto: "Quer chegar também? institutolucia.org/voluntarios  ·  @institutoluciaorg", fonte: "mono", tamanho: 22, peso: 500, cor: COR["Bordô"], espacamento: 0.06, nome: "Chamada" }),
       ];
       return d;

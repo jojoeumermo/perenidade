@@ -1,5 +1,5 @@
 {
-  "_sobre": "Profissionais da vitrine Saúde Solidária publicados pela coordenação antes do cadastro pelo painel. Cada entrada tem a autorização da própria pessoa para o nome, a foto e o contato (combinada com a coordenação). Só o que a pessoa informou: nada é inventado. Quando ela entrar no painel com o cargo de profissional de saúde, o perfil passa a ser mantido por lá e sai daqui.",
+  "_sobre": "Profissionais do Mural de Saúde publicados pela coordenação antes do cadastro pelo painel. Só aparecem com \"termo_versao\" igual à versão vigente do termo (termoVersao em content/saude/regras.json), de categoria aberta (por ora, só psicologia) e com o texto passando pelo filtro do mural: quem aceitou uma versão antiga fica fora do ar até aceitar a nova. Cada entrada tem a autorização da própria pessoa para o nome, a foto e o contato (combinada com a coordenação). Só o que a pessoa informou: nada é inventado. Quando ela entrar no painel com o cargo de profissional de saúde, o perfil passa a ser mantido por lá e sai daqui.",
   "profissionais": [
     {
       "id": "jessica-correia",
@@ -11,7 +11,6 @@
       "abordagem": "Terapia Cognitivo-Comportamental (TCC)",
       "areas": [],
       "modalidade": null,
-      "valor": null,
       "bio": "",
       "contatos": { "instagram": "itsjesscorreia", "whatsapp": "5521997444092" },
       "foto": "/saude/jessica-correia.webp",

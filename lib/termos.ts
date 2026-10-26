@@ -6,6 +6,7 @@
 //
 // Textos com base na Lei nº 9.608/1998 (serviço voluntário), na Lei nº 9.610/1998 (direitos autorais), na LGPD (Lei nº
 // 13.709/2018) e no Código Civil. Ainda sem revisão de advogado: a revisão jurídica pode mudar a redação.
+import regrasDoMural from "@/content/saude/regras.json";
 
 export interface Termo {
   id: "voluntario" | "adesao" | "saude";
@@ -58,25 +59,27 @@ export const TERMO_ADESAO: Termo = {
 };
 
 /**
- * O termo da vitrine Saúde Solidária. RASCUNHO PARA REVISÃO DE ADVOGADO (o texto-base veio da coordenação): não tratar
- * como definitivo. A vitrine é um mural de contatos; o instituto não presta, intermedeia nem garante atendimento.
+ * O termo do Mural de Saúde. RASCUNHO PARA REVISÃO DE ADVOGADO: não tratar como definitivo. O mural é um mural de
+ * contatos; o instituto não presta, intermedeia nem garante atendimento. A versão vem de content/saude/regras.json
+ * (termoVersao), a mesma que o banco exige: mudou a versão, todo perfil sai do ar até um novo aceite.
  */
 export const TERMO_SAUDE: Termo = {
   id: "saude",
-  versao: "2026-10-20",
-  titulo: "Termo de adesão, voluntariado e ciência de responsabilidades — Saúde Solidária (Instituto Lúcia)",
+  versao: regrasDoMural.termoVersao,
+  titulo: "Termo de adesão e ciência de responsabilidades — Mural de Saúde (Instituto Lúcia)",
   clausulas: [
-    "Objeto. Aceito que o Instituto Lúcia divulgue, na seção Saúde Solidária de institutolucia.org, o meu nome, profissão, registro no conselho, áreas, biografia, foto (se eu autorizar) e a forma de contato que eu indicar.",
-    "Natureza da divulgação. A seção funciona como um mural de contatos: o instituto apenas exibe o contato que autorizei. Não presta, organiza, intermedeia, agenda, acompanha nem garante atendimentos, não participa da relação entre mim e o paciente e não oferece canal de comunicação entre nós. Não há vínculo de emprego, sociedade, parceria ou representação entre mim e o instituto.",
-    "Voluntariado. Atuo de forma voluntária, sem remuneração do instituto. A divulgação não me obriga a atender ninguém, nem obriga o instituto a me indicar.",
+    "Objeto. Aceito que o Instituto Lúcia divulgue, no Mural de Saúde de institutolucia.org, o meu nome completo ou nome social, a palavra da minha profissão, o meu registro no conselho, a abordagem, as áreas de atuação, o público, a modalidade, a cidade, os idiomas, o texto \"Sobre meu trabalho\", a foto (se eu autorizar) e a forma de contato que eu indicar.",
+    "Natureza da divulgação. O mural funciona como um mural de contatos: o instituto apenas exibe o contato que autorizei. Não presta, organiza, intermedeia, agenda, acompanha nem garante atendimentos, não participa da relação entre mim e o paciente e não oferece canal de comunicação entre nós. Não há vínculo de emprego, sociedade, parceria ou representação entre mim e o instituto. O instituto não indica, não avalia e não classifica profissionais: os perfis aparecem em ordem alfabética.",
+    "Independência política. O Instituto Lúcia tem posicionamento político declarado, e o mural é mantido de forma independente dessas posições. Participar do mural não significa que eu apoie as posições políticas do instituto, nem o contrário. Eu não falo em nome do instituto, e o instituto não fala em meu nome.",
+    "Nome e imagem fora de política. O meu nome e a minha imagem nunca entram em material político, divulgação de campanha ou redes sociais do instituto. Eles aparecem só no mural, enquanto eu quiser.",
     "Minhas declarações. Declaro que: (a) meu registro está ativo e sem restrição ao exercício; (b) cumpro as normas do meu conselho, inclusive de ética, sigilo, registro documental, publicidade e atendimento a distância; (c) as informações que forneci são verdadeiras e vou atualizar qualquer mudança; (d) o texto do meu perfil foi aprovado por mim e é de minha autoria e responsabilidade.",
+    "Publicidade. Sou responsável pelo conteúdo do meu perfil perante o meu conselho. Não uso o preço como forma de propaganda (nem gratuidade, valor social, desconto, pacote ou sorteio), não prometo resultados, não me comparo a colegas, não divulgo depoimentos nem antes e depois, não associo a profissão a práticas não reconhecidas nem a títulos ou vertentes religiosas e só uso títulos que eu tenha. O mural confere o texto automaticamente, mas essa conferência não tira a minha responsabilidade.",
     "Responsabilidade. Respondo pessoalmente pelos atendimentos que prestar e pelo conteúdo que divulgar. O instituto não presta serviço de saúde, não garante qualidade nem resultado de atendimento e não responde pelos meus atos profissionais. Comprometo-me a isentar o instituto de reclamações decorrentes dos meus atendimentos e do meu perfil, nos limites da lei, e a avisá-lo de qualquer reclamação, sanção ou mudança no meu registro. [Revisão jurídica: alcance e validade desta cláusula.]",
-    "Valores. Qualquer combinação de valor é feita diretamente entre mim e a pessoa atendida. O instituto não recebe, repassa nem cobra quantia alguma.",
+    "Condições do atendimento. As condições do atendimento são tratadas diretamente entre mim e a pessoa atendida. O instituto não recebe, repassa nem cobra quantia alguma, e a divulgação não me obriga a atender ninguém.",
     "Dados. Não peço que pacientes enviem dados de saúde ou documentos pelo site do instituto. Os dados dos atendimentos ficam sob minha responsabilidade, conforme a LGPD e as normas do meu conselho. Autorizo o tratamento dos meus dados profissionais pelo instituto para esta divulgação, nos termos da Política de privacidade.",
-    "Imagem. Autorizo ou não o uso da minha foto, conforme marcar no perfil, e posso revogar a qualquer momento.",
-    "Emergências. A seção não é serviço de urgência, e o instituto mostra o aviso com SAMU (192), Bombeiros (193) e CVV (188).",
-    "Conferência, suspensão e remoção. Autorizo a conferência do meu registro a cada seis meses. O instituto pode suspender ou remover meu perfil a qualquer momento, sem aviso, em caso de dúvida, denúncia ou sanção. Posso pedir a remoção quando quiser, e o perfil sai do ar na hora.",
-    "Publicidade. Não prometo resultados, não uso linguagem sensacionalista, não divulgo preços, depoimentos ou antes e depois, e sigo as normas de publicidade do meu conselho.",
+    "Foto. Autorizo ou não o uso da minha foto, conforme marcar no perfil, e posso revogar a qualquer momento. A foto é profissional e nunca mostra paciente, teste psicológico ou caso atendido.",
+    "Emergências. O mural não é serviço de urgência, e o instituto mostra o aviso com SAMU (192), Bombeiros (193) e CVV (188).",
+    "Conferência, ocultação e remoção. Autorizo a conferência do meu registro a cada seis meses. O instituto pode ocultar, suspender ou remover meu perfil a qualquer momento, sem aviso, em caso de dúvida, denúncia, sanção ou conteúdo que viole as normas do meu conselho. Posso pedir a remoção quando quiser, e o perfil sai do ar na hora.",
     "Aceite eletrônico. Li e aceito este termo, e reconheço o registro eletrônico do aceite (data, hora, versão e o texto exato, com impressão digital SHA-256) como prova da minha concordância. Aplicam-se as leis do Brasil.",
   ],
 };

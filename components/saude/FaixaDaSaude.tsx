@@ -2,64 +2,41 @@
 "use client";
 
 import Link from "@/components/Link";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { hasBackend, rpc } from "@/lib/backend";
-import { AVISO_CURTO, novoNaVitrine, type Profissional, registroCompleto } from "@/lib/saude";
+import { NOME_VITRINE } from "@/lib/mural-saude";
+import { AVISO_CURTO } from "@/lib/saude";
 
 /**
- * O cartão da Saúde Solidária na página inicial, entre a busca e as janelas. Mostra só quem entrou na vitrine nos
- * últimos DIAS_NA_INICIAL dias (os do arquivo e os do painel que cumprem todas as condições); passado o prazo, o
- * cartão some da inicial e a pessoa continua na vitrine. Some também se a chave geral estiver desligada.
- * Um profissional: o cartão dele em resumo. Vários: os nomes em ordem alfabética, sem rolagem automática nem ranking.
- * O contato só na vitrine, depois da tela de ciência.
+ * O cartão do Mural de Saúde na página inicial, entre a busca e as janelas. Neutro e SEM nenhum nome: mostrar um
+ * profissional sozinho na inicial seria indicação ou destaque, o que as normas de publicidade não permitem. Só leva
+ * ao mural, onde todos aparecem em ordem alfabética. Some se a chave geral do mural estiver desligada.
  */
-const abertaEm = typeof window === "undefined" ? 0 : Date.now();
-const nunca = () => () => {};
-
-export function FaixaDaSaude({ estaticos, href }: { estaticos: Profissional[]; href: string }) {
-  const [doBanco, setDoBanco] = useState<Profissional[]>([]);
+export function FaixaDaSaude({ href }: { href: string }) {
   const [desligada, setDesligada] = useState(false);
-  // A hora de quem abriu a página (no servidor não há "agora": a data seria a do build).
-  const agora = useSyncExternalStore(nunca, () => abertaEm, () => 0);
   useEffect(() => {
     if (!hasBackend) return;
     let vivo = true;
-    rpc<{ desligada: boolean; perfis: Profissional[] }>("saude_vitrine")
+    rpc<{ desligada: boolean }>("saude_vitrine")
       .then((r) => {
-        if (!vivo) return;
-        setDesligada(r.desligada);
-        setDoBanco(r.perfis ?? []);
+        if (vivo) setDesligada(r.desligada);
       })
       .catch(() => undefined);
     return () => {
       vivo = false;
     };
   }, []);
-  // Quem já está no painel não aparece duas vezes (o cartão do arquivo sai quando o perfil do painel é publicado).
-  const nomes = new Set(doBanco.map((p) => p.nome.toLowerCase()));
-  // A conta do prazo só no navegador: a página é montada uma vez e a data do servidor ficaria parada.
-  const todos = agora
-    ? [...doBanco, ...estaticos.filter((p) => !nomes.has(p.nome.toLowerCase()))].filter((p) => novoNaVitrine(p, agora)).sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"))
-    : [];
-  if (desligada || todos.length === 0) return null;
-  const um = todos.length === 1 ? todos[0] : null;
+  if (desligada) return null;
   return (
-    <section className="mx-auto max-w-[78rem] px-4 py-12 sm:px-6 lg:px-8 max-md:py-8">
-      <div className="cartao-v grid gap-5 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-7">
+    <section className="mx-auto max-w-[78rem] px-4 py-12 sm:px-6 lg:px-8 max-md:py-8" lang="pt-BR">
+      <div className="grid gap-5 border border-[#221C17]/40 bg-[#F4EBDB] p-6 text-[#221C17] sm:grid-cols-[1fr_auto] sm:items-center sm:p-7">
         <div>
-          <p className="rotulo">Saúde Solidária</p>
-          <h2 className="mt-1.5 text-[2rem] font-semibold leading-tight">Profissionais de saúde voluntários</h2>
-          {um ? (
-            <p className="mt-2 text-lg">
-              <strong>{um.nome}</strong> · {um.profissao} · {registroCompleto(um)}{um.abordagem ? ` · ${um.abordagem}` : ""}
-            </p>
-          ) : (
-            <p className="mt-2 text-lg">{todos.map((p) => `${p.nome} (${p.profissao})`).join(" · ")}</p>
-          )}
-          <p className="mt-2 max-w-3xl font-sans text-sm text-ink-soft">{AVISO_CURTO}</p>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#221C17]/70">{NOME_VITRINE}</p>
+          <h2 className="mt-1.5 text-[2rem] font-semibold leading-tight">Mural de profissionais de saúde</h2>
+          <p className="mt-2 max-w-3xl font-sans text-sm">{AVISO_CURTO}</p>
         </div>
-        <Link href={href} className="botao botao-tinta">
-          Ver {um ? "o cartão" : "os cartões"} →
+        <Link href={href} className="border border-[#221C17] bg-[#221C17] px-5 py-3 text-center font-sans font-semibold text-[#F4EBDB] hover:bg-[#3a3029]">
+          Ver o mural →
         </Link>
       </div>
     </section>

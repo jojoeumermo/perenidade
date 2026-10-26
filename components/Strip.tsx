@@ -1,8 +1,10 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { hasBackend, rpc } from "@/lib/backend";
+import { NOME_VITRINE } from "@/lib/mural-saude";
 import { getItem, KEYS, parse, setItem, useStored } from "@/lib/storage";
 import { useI18n } from "./I18n";
 
@@ -24,6 +26,8 @@ const FRESH = 10 * 60 * 1000;
 export function Strip({ fallback }: { fallback: string }) {
   const { t } = useI18n();
   const saved = parse<Saved>(useStored(KEYS.site), {});
+  // No Mural de Saúde, a faixa só diz o que o mural é: nada de chamada do instituto nem de gratuidade.
+  const noMural = /\/saude(\/|$)/.test(usePathname() ?? "");
 
   useEffect(() => {
     if (!hasBackend) return;
@@ -43,7 +47,7 @@ export function Strip({ fallback }: { fallback: string }) {
 
   return (
     <>
-      <div data-saida className="faixa-de-avisos bg-[#1f1a14] px-4 py-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.08em] text-[#e9dcbc] max-md:truncate max-md:px-3 max-md:py-1.5 max-md:text-[0.62rem]">{saved.faixa || fallback}</div>
+      <div data-saida className="faixa-de-avisos bg-[#1f1a14] px-4 py-2 text-center font-mono text-[0.72rem] uppercase tracking-[0.08em] text-[#e9dcbc] max-md:truncate max-md:px-3 max-md:py-1.5 max-md:text-[0.62rem]">{noMural ? `${NOME_VITRINE} · contatos de profissionais com registro ativo` : saved.faixa || fallback}</div>
       {saved.pausa && (
         <p role="status" className="bg-[#c21f16] px-4 py-1.5 text-center font-sans text-xs font-semibold text-white">
           {t.errors.envios_pausados}

@@ -465,7 +465,7 @@ interface MeuAceite {
 function TermosQueAceitei() {
   const lista = useLista<MeuAceite[]>("termos_meus");
   const [aberto, setAberto] = useState("");
-  const nomes: Record<string, string> = { voluntario: "Termo de voluntário", adesao: "Termo de adesão (horas e certificados)", saude: "Termo da vitrine Saúde Solidária" };
+  const nomes: Record<string, string> = { voluntario: "Termo de voluntário", adesao: "Termo de adesão (horas e certificados)", saude: "Termo do Mural de Saúde" };
   return (
     <section className={cartao}>
       <h2 className="font-serif text-xl font-semibold">Termos que você aceitou</h2>
