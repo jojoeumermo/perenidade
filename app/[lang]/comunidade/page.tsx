@@ -14,15 +14,9 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/comunidade
 export default async function Comunidade({ params }: PageProps<"/[lang]/comunidade">) {
   const { t } = await loadLang(params);
   return (
-    <div className="mx-auto max-w-6xl xl:max-w-[88rem] px-4 pt-6 pb-12">
-      {/* Cabeçalho curto: numa rede, o conteúdo vem primeiro. */}
-      <header className="flex flex-wrap items-end justify-between gap-x-6 gap-y-1 border-b-[3px] border-ink pb-3">
-        <div>
-          <p className="rotulo">{t.community.eyebrow}</p>
-          <h1 className="mt-1 font-serif text-4xl font-semibold leading-none">{t.community.title}</h1>
-        </div>
-        <p className="max-w-xl text-ink-soft">{t.community.lead}</p>
-      </header>
+    <div className="pb-8">
+      {/* Na tela, a Rede tem a própria marca (o desenho do RedeLucia); o título da página fica para o leitor de tela. */}
+      <h1 className="sr-only">{t.community.title}</h1>
       <Suspense>
         <ComunidadeComRede forum={t.community} rede={t.rede} />
       </Suspense>
