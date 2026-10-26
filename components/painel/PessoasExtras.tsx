@@ -62,7 +62,7 @@ interface Aceite {
   /** Aceite de antes do registro integral: só a data e a versão, sem o texto guardado. */
   antigo?: boolean;
 }
-const NOME_DO_TERMO: Record<string, string> = { voluntario: "Termo de voluntário (entrada no painel)", adesao: "Termo de adesão (horas e certificados)", saude: "Termo da vitrine Saúde Solidária" };
+const NOME_DO_TERMO: Record<string, string> = { voluntario: "Termo de voluntário (entrada no painel)", adesao: "Termo de adesão (horas e certificados)", saude: "Termo do Mural de Saúde" };
 
 /**
  * Os termos assinados, para sempre: nem a coordenação apaga. Dá para abrir o texto exato que a pessoa leu e baixar a

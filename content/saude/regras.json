@@ -1,0 +1,111 @@
+{
+  "_sobre": "Regras e textos do Mural de Saúde, num lugar só. Base: Código de Ética Profissional do Psicólogo (Res. CFP 10/2005, art. 20), Res. CFP 03/2007 (arts. 53 a 58), Nota Técnica CFP 1/2022, Nota Técnica CFP 1/2023, Res. CFP 07/2023 e a cartilha de publicidade do CRP-MG (abril de 2026). Não é parecer jurídico: a aplicação é conservadora. Depois de mudar este arquivo, rode npm run mural:sincronizar (leva a lista de bloqueio, as categorias e a versão do termo para o banco) e npm run testar:mural.",
+  "nome": "Mural de Saúde",
+  "termoVersao": "2026-10-25",
+  "categorias": {
+    "psicologia": { "ligada": true, "conselho": "CRP", "profissoes": ["Psicóloga", "Psicólogo", "Psicóloga(o)"], "consulta": "https://cadastro.cfp.org.br/", "formatoDoRegistro": "^[0-9]{2}/[0-9]{1,6}$", "exemploDoRegistro": "05/12345" },
+    "medicina": { "ligada": false, "conselho": "CRM" },
+    "enfermagem": { "ligada": false, "conselho": "COREN" },
+    "nutricao": { "ligada": false, "conselho": "CRN" },
+    "fisioterapia": { "ligada": false, "conselho": "CREFITO" },
+    "servico_social": { "ligada": false, "conselho": "CRESS" },
+    "odontologia": { "ligada": false, "conselho": "CRO" },
+    "fonoaudiologia": { "ligada": false, "conselho": "CRFA" },
+    "educacao_fisica": { "ligada": false, "conselho": "CREF" },
+    "farmacia": { "ligada": false, "conselho": "CRF" },
+    "biomedicina": { "ligada": false, "conselho": "CRBM" }
+  },
+  "publicos": { "criancas": "Crianças", "adolescentes": "Adolescentes", "adultos": "Adultos", "idosos": "Idosos", "casais": "Casais" },
+  "idiomas": ["Português", "Libras", "Inglês", "Espanhol", "Francês", "Italiano", "Alemão", "Guarani", "Árabe", "Chinês", "Russo", "Japonês"],
+  "sobreMaximo": 500,
+  "textos": {
+    "descricao": "Mural de contatos de profissionais de saúde com registro ativo. O Instituto Lúcia apenas divulga contatos e não presta nem organiza atendimentos. As condições do atendimento são tratadas diretamente com o profissional.",
+    "avisoCurto": "Mural de contatos de profissionais com registro ativo no conselho. O Instituto Lúcia apenas divulga contatos e não presta, organiza nem garante atendimentos. Não é serviço de emergência: SAMU 192, Bombeiros 193, CVV 188.",
+    "avisoCompleto": [
+      "Leia antes de entrar em contato. Esta seção é um mural de contatos e só lista profissionais que aceitaram divulgar o próprio contato.",
+      "O Instituto Lúcia não presta, organiza, agenda, acompanha nem garante atendimentos, e não participa de nenhuma conversa entre você e o profissional.",
+      "As condições do atendimento são tratadas diretamente com o profissional.",
+      "Os textos de cada perfil são de autoria e responsabilidade do profissional. O conteúdo desta seção tem caráter informativo e não substitui consulta.",
+      "O Instituto não indica, não avalia e não classifica profissionais: os perfis aparecem em ordem alfabética.",
+      "Isto não é serviço de emergência. Em urgência, ligue 192 (SAMU) ou 193 (Bombeiros). Em crise emocional, ligue 188 (CVV, 24 horas).",
+      "Não envie dados de saúde, exames ou documentos por este site: o instituto não os recebe nem guarda. Os links de contato levam a ferramentas de terceiros, que têm as próprias regras de privacidade.",
+      "Antes de iniciar o atendimento, confira o registro do profissional no site do conselho."
+    ],
+    "ciencia": "Entendi que o Instituto Lúcia apenas divulga este contato e não presta, organiza nem garante o atendimento.",
+    "comoFunciona": [
+      ["Escolha", "Os perfis aparecem em ordem alfabética: não há ranking, destaque nem indicação. Leia a abordagem, o público atendido e a modalidade."],
+      ["Baixe o cartão", "Ao tocar em Ver contato, você lê os avisos e baixa um cartão de encaminhamento com um código. Ele fica só no seu aparelho."],
+      ["Fale direto", "Mande o cartão ao profissional pelo contato que ele autorizou. As condições do atendimento são tratadas diretamente com o profissional."]
+    ],
+    "convite": "Profissionais com registro ativo no conselho da sua categoria podem pedir para aparecer no mural. Por enquanto, o mural está aberto só para a psicologia: as outras categorias entram depois que as normas de publicidade de cada conselho forem revisadas. Escreva para {email}: a coordenação cria o seu acesso ao painel, onde você preenche o perfil, aceita o termo e aprova o texto antes de ir ao ar.",
+    "orientacaoDaFoto": "Use uma foto profissional e adequada ao exercício da profissão. Recomenda-se separar perfil pessoal e profissional. Nunca use foto de paciente, de teste psicológico ou de caso atendido.",
+    "orientacaoDoSobre": "Linguagem informativa, até 500 caracteres. Sem preço ou condição de pagamento, sem gratuidade, sem promessa de resultado, sem comparação com colegas, sem depoimento, sem práticas estranhas à profissão e sem referência religiosa junto à identificação profissional.",
+    "avisoPolitico": {
+      "titulo": "Antes de criar o seu perfil",
+      "texto": "O Instituto Lúcia tem posicionamento político declarado. O mural de saúde é independente dessas posições. Participar não significa apoiá-las.",
+      "link": "Ler o posicionamento do Instituto",
+      "botao": "Entendi, quero continuar"
+    },
+    "declaracaoEtica": "Declaro que o conteúdo do meu perfil respeita o Código de Ética Profissional e as normas de publicidade do meu conselho, e que sou responsável por ele.",
+    "declaracaoPolitica": "Li o aviso sobre o posicionamento do Instituto e entendo que participar do mural não significa apoiar posições políticas do Instituto, nem o contrário.",
+    "neutralidade": {
+      "titulo": "Neutralidade do mural",
+      "paragrafos": [
+        "O Mural de Saúde é só um mural de contatos de profissionais com registro ativo no conselho.",
+        "Ele é mantido de forma independente das posições políticas do Instituto Lúcia. Aparecer no mural não significa apoiar essas posições, e o Instituto não fala em nome dos profissionais, nem eles em nome do Instituto.",
+        "O nome e a imagem dos profissionais nunca entram em material político, divulgação de campanha ou redes do Instituto.",
+        "O Instituto não indica, não avalia e não classifica profissionais. Os perfis aparecem em ordem alfabética, sem destaque, sem nota e sem ranking.",
+        "Os textos de cada perfil são do próprio profissional, que responde por eles perante o seu conselho."
+      ]
+    },
+    "categoriaDesligada": "O mural está aberto, por enquanto, só para a psicologia. O seu perfil continua guardado, mas fica fora do ar até as normas de publicidade do seu conselho serem revisadas."
+  },
+  "bloqueio": [
+    {
+      "grupo": "preco",
+      "termos": ["gratis", "gratuit*", "de graca", "sem custo", "sem custos", "custo zero", "valor social", "valores sociais", "preco social", "precos sociais", "custo social", "desconto*", "promoc*", "cupom", "cupons", "pacote*", "primeira consulta", "primeira sessao", "sorteio*", "sorteamos", "barato*", "baratinho", "valor acessivel", "valores acessiveis", "preco acessivel", "precos acessiveis", "preco popular", "precos populares", "voluntari*", "atendimento social"],
+      "motivo": "O texto fala de preço, gratuidade ou vantagem financeira. Pelo Código de Ética do Psicólogo (art. 20, d), o preço não pode ser usado como forma de propaganda, e isso inclui gratuidade, valor social, desconto, pacote e sorteio.",
+      "sugestao": "Tire a referência a valor. As condições do atendimento são tratadas diretamente com cada pessoa."
+    },
+    {
+      "grupo": "resultado",
+      "termos": ["garantia", "garantias", "garantido", "garantida", "garantidos", "garantimos", "garanto", "cura", "curas", "curar", "curamos", "curado", "curada", "resultado garantido", "resultados garantidos", "100%", "100 por cento", "sucesso garantido"],
+      "motivo": "O texto promete cura ou resultado. O Código de Ética (art. 20, e) proíbe a previsão taxativa de resultados.",
+      "sugestao": "Descreva o que você faz e para quem, sem prometer resultado. Ex.: \"Acompanhamento psicológico de adultos com ansiedade\"."
+    },
+    {
+      "grupo": "comparacao",
+      "termos": ["o melhor", "a melhor", "os melhores", "as melhores", "melhor psicologa", "melhor psicologo", "numero 1", "numero um", "n 1", "referencia", "referencias", "recomendado por", "recomendada por", "mais procurado", "mais procurada", "lider"],
+      "motivo": "O texto compara você a outros profissionais ou se apresenta como destaque. O Código de Ética (art. 20, f) proíbe a autopromoção em detrimento de outros profissionais, e o mural não classifica ninguém.",
+      "sugestao": "Fale da sua formação, abordagem e experiência, sem adjetivos de comparação."
+    },
+    {
+      "grupo": "depoimento",
+      "termos": ["depoiment*", "antes e depois", "relato de paciente", "relatos de pacientes", "avaliacao de paciente", "avaliacoes de pacientes", "estrelas", "nota 10"],
+      "motivo": "Depoimentos, avaliações e \"antes e depois\" de pacientes não entram no mural: expõem quem foi atendido e beiram o sensacionalismo (Código de Ética, arts. 9 e 20, h).",
+      "sugestao": "Tire o depoimento ou a avaliação e descreva apenas o seu trabalho."
+    },
+    {
+      "grupo": "pratica",
+      "termos": ["constelac* familiar*", "constelac* sistemic*", "reiki", "taro", "tarot", "taroloc*", "astrolog*", "mapa astral", "numerolog*", "thetahealing", "barra de access", "cristaloterapia"],
+      "motivo": "O texto associa a psicologia a práticas que não são reconhecidas pela profissão. O Código de Ética (art. 20, c) só permite divulgar técnicas reconhecidas, e a Nota Técnica CFP 1/2023 aponta a incompatibilidade das constelações familiares com a psicologia.",
+      "sugestao": "Tire a prática da sua apresentação como profissional. Se você exerce outra atividade, divulgue-a separadamente, fora do mural."
+    },
+    {
+      "grupo": "religiao",
+      "termos": ["pastor", "pastora", "padre", "reverendo", "reverenda", "bispo", "bispa", "apostolo", "apostola", "missionari*", "presbiter*", "diacono", "diaconisa", "evangelista", "frei", "freira", "rabino", "pai de santo", "mae de santo", "babalorixa", "ialorixa", "psicologa crista", "psicologo cristao", "psicologia crista", "psicologa evangelica", "psicologo evangelico", "psicologa catolica", "psicologo catolico"],
+      "motivo": "O texto liga a identificação profissional a um título ou vertente religiosa. A Res. CFP 07/2023 veda usar o título de psicóloga ou psicólogo associado a vertentes religiosas.",
+      "sugestao": "Mantenha só a identificação profissional e a abordagem teórica."
+    },
+    {
+      "grupo": "titulo",
+      "termos": ["dr", "dra", "doutor", "doutora"],
+      "motivo": "\"Dr.\" e \"Dra.\" só podem ser usados por quem tem doutorado (Código de Ética, art. 20, b). O mural ainda não tem como conferir esse título, então não aceita o tratamento.",
+      "sugestao": "Use só o seu nome completo ou nome social. Se tiver doutorado, escreva \"doutorado em ...\" no texto \"Sobre meu trabalho\" quando o mural passar a conferir títulos."
+    }
+  ],
+  "padroesEspeciais": [
+    { "grupo": "preco", "regex": "r\\$\\s*[0-9]|[0-9]+\\s*reais", "motivo": "O texto traz um preço. Pelo Código de Ética do Psicólogo (art. 20, d), o preço não pode ser usado como forma de propaganda.", "sugestao": "Tire o valor. As condições do atendimento são tratadas diretamente com cada pessoa." },
+    { "grupo": "documento", "regex": "[0-9]{3}\\.?[0-9]{3}\\.?[0-9]{3}-?[0-9]{2}", "motivo": "O texto parece trazer um CPF.", "sugestao": "Tire o número: o mural não mostra documentos pessoais." }
+  ]
+}

@@ -3159,7 +3159,7 @@
       "live": "Agenda de aulas ao vivo, com vídeo e bate-papo no próprio site.",
       "notebook": "Junte aulas e textos e tire deles resumo, cartões, questionário, mapa, linha do tempo e áudio. Tudo no seu navegador.",
       "community": "O fórum de quem estuda: perguntas, respostas e debates, com moderação e sem anúncio.",
-      "health": "Profissionais de saúde voluntários, com atendimento gratuito ou por valor social: você fala direto com eles.",
+      "health": "Mural de contatos de profissionais de saúde com registro ativo: você fala direto com eles.",
       "bugs": "Algo travou ou apareceu errado? Conte para quem cuida do código.",
       "freeRoom": "Monte e projete a sua aula com laboratórios, livros, editores, simulações e jogos do site.",
       "rightsGuide": "SUS, CRAS, benefícios, Defensoria e canais de denúncia, com a fonte oficial.",
@@ -3210,7 +3210,7 @@
       "/materiais": "zines, cartazes",
       "/mural": "ofícios e cooperativas",
       "/comunidade": "fórum por disciplina",
-      "/saude": "atendimento solidário",
+      "/saude": "mural de contatos",
       "/direitos": "trabalho, saúde, moradia",
       "/relatar-erro": "conte o que quebrou",
       "/voluntarios": "revise, traduza, ensine",
@@ -4851,11 +4851,8 @@
     "privacy": "O vídeo passa pelo servidor de videochamada configurado pelo instituto (Jitsi). Nada é gravado."
   },
   "saude": {
-    "eyebrow": "Mural de contatos",
-    "title": "Saúde Solidária",
-    "slogan": "Cuidar também é coisa do povo",
-    "lead": "Profissionais de saúde voluntários que atendem de graça ou por valor social deixam aqui o contato. Você fala direto com eles: o instituto só divulga, não presta nem garante atendimento.",
-    "description": "Contatos de profissionais de saúde voluntários, com atendimento gratuito ou por valor social. O Instituto Lúcia só divulga: não presta nem garante atendimento."
+    "title": "Mural de Saúde",
+    "description": "Mural de contatos de profissionais de saúde com registro ativo. O Instituto Lúcia apenas divulga contatos e não presta nem organiza atendimentos. As condições do atendimento são tratadas diretamente com o profissional."
   },
   "bugs": {
     "eyebrow": "Ajude a consertar",

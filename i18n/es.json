@@ -3159,7 +3159,7 @@
       "live": "Agenda de clases en vivo, con video y chat en el propio sitio.",
       "notebook": "Junta clases y textos y saca de ellos resumen, tarjetas, cuestionario, mapa, línea de tiempo y audio. Todo en tu navegador.",
       "community": "El foro de quien estudia: preguntas, respuestas y debates, con moderación y sin anuncios.",
-      "health": "Profesionales de la salud voluntarios, con atención gratuita o a precio social: usted habla directamente con ellos.",
+      "health": "Mural de contactos de profesionales de la salud con registro activo: usted habla directamente con ellos.",
       "bugs": "¿Algo se trabó o apareció mal? Cuénteselo a quien cuida el código.",
       "freeRoom": "Arme y proyecte su clase con los laboratorios, libros, editores, simulaciones y juegos del sitio.",
       "rightsGuide": "Salud pública, asistencia social, beneficios, defensoría y denuncias en Brasil, con fuentes oficiales.",
@@ -3210,7 +3210,7 @@
       "/materiais": "zines, carteles",
       "/mural": "oficios y cooperativas",
       "/comunidade": "foro por materia",
-      "/saude": "atención solidaria",
+      "/saude": "mural de contactos",
       "/direitos": "trabajo, salud, vivienda",
       "/relatar-erro": "cuéntanos qué falló",
       "/voluntarios": "revisa, traduce, enseña",
@@ -4851,11 +4851,8 @@
     "privacy": "El video pasa por el servidor de videollamadas configurado por el instituto (Jitsi). No se graba nada."
   },
   "saude": {
-    "eyebrow": "Mural de contactos",
-    "title": "Salud Solidaria",
-    "slogan": "Cuidar también es cosa del pueblo",
-    "lead": "Profesionales de la salud voluntarios que atienden gratis o a precio social dejan aquí su contacto. Usted habla directamente con ellos: el instituto solo divulga, no presta ni garantiza la atención.",
-    "description": "Contactos de profesionales de la salud voluntarios, con atención gratuita o a precio social. El Instituto Lúcia solo divulga: no presta ni garantiza la atención."
+    "title": "Mural de Salud",
+    "description": "Mural de contactos de profesionales de la salud con registro activo. El Instituto Lúcia solo divulga contactos y no presta ni organiza atenciones. Las condiciones de la atención se tratan directamente con el profesional."
   },
   "bugs": {
     "eyebrow": "Ayude a arreglarlo",

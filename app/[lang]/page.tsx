@@ -11,8 +11,6 @@ import { JanelaContinue, JanelaNoAr } from "@/components/inicio/Janelas";
 import { type EstanteDoApp, InicioDoApp } from "@/components/inicio/InicioDoApp";
 import { FaixaDaSaude } from "@/components/saude/FaixaDaSaude";
 import { territorios } from "@/lib/territorios";
-import saude from "@/content/saude/profissionais.json";
-import type { Profissional } from "@/lib/saude";
 import { loadLang } from "@/i18n";
 import { fill, htmlLang, localePath } from "@/i18n/config";
 import { essential, groups, type Stage, stages } from "@/lib/areas";
@@ -31,7 +29,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]">): Promis
 const numero = (lang: string, n: number) => new Intl.NumberFormat(lang).format(n);
 
 /**
- * A inicial no desenho do Caderno do Povo: o lambe-lambe e a busca no papel pontilhado, a Saúde Solidária logo
+ * A inicial no desenho do Caderno do Povo: o lambe-lambe e a busca no papel pontilhado, o Mural de Saúde logo
  * abaixo, as três janelas (onde parou, o jornal, o que está no ar), as estantes de cadernos e, no fim, a frase
  * do dia, os fatos de luta da data, as perguntas e a dedicatória.
  */
@@ -176,8 +174,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         </div>
       </section>
 
-      {/* ── Saúde Solidária, entre a busca e as janelas (some sozinha depois do prazo) ── */}
-      <FaixaDaSaude estaticos={saude.profissionais as Profissional[]} href={to("/saude")} />
+      {/* ── Mural de Saúde, entre a busca e as janelas: cartão neutro, sem nenhum nome ── */}
+      <FaixaDaSaude href={to("/saude")} />
 
       {/* ── Mais do que aulas: o instituto forma gente para a luta, e o Despertar é a porta de entrada ── */}
       <section className="capa-preta relative overflow-hidden border-y-4 border-[#c21f16] bg-[#1f1a14] text-[#f4ecd8]">

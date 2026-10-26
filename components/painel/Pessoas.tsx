@@ -228,7 +228,7 @@ export function Pessoas({ me }: { me: Me }) {
   const [novo, setNovo] = useState<{ papel: Role["papel"]; disciplina: string }>({ papel: concediveis.includes("educacao") ? "educacao" : (concediveis[0] ?? "educacao"), disciplina: "" });
   // Educação, educação secundária e reforço são por disciplina; o representante, pelo departamento: o banco recusa sem eles.
   const porDisciplina = novo.papel === "educacao" || novo.papel === "educacao_secundaria" || novo.papel === "mentoria" || novo.papel === "representante";
-  // Profissional de saúde não tem disciplina: o cargo vale só para a vitrine Saúde Solidária.
+  // Profissional de saúde não tem disciplina: o cargo vale só para o Mural de Saúde.
   const semDisciplina = novo.papel === "saude";
   /** Quem vai receber a função: escolhida na busca, não numa lista com todo mundo. */
   const [quem, setQuem] = useState<PessoaAchada | null>(null);
@@ -357,7 +357,7 @@ export function Pessoas({ me }: { me: Me }) {
             </select>
           </label>
           {semDisciplina ? (
-            <p className="self-end pb-2 text-sm text-ink-soft">Sem disciplina: o cargo vale para a vitrine Saúde Solidária. Se a pessoa também ensina, confie a função de educação separadamente.</p>
+            <p className="self-end pb-2 text-sm text-ink-soft">Sem disciplina: o cargo vale para o Mural de Saúde. Se a pessoa também ensina, confie a função de educação separadamente.</p>
           ) : (
           <label className="block">
             {novo.papel === "representante" ? "Departamento" : porDisciplina ? "Disciplina" : "Disciplina (opcional)"}
