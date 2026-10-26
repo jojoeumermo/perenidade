@@ -3401,3 +3401,28 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
     break-after: page;
   }
 }
+
+/* Páginas de território: a letra de revista das capas (lib/fontes-territorio.ts) e o letreiro dos temas, que passa
+   sem parar e fica parado para quem pede menos movimento ou está no modo leve. */
+.territorio-play {
+  font-family: var(--font-play, var(--font-serif-display)), Georgia, serif;
+}
+.letreiro-trilho {
+  animation: letreiro 40s linear infinite;
+}
+.letreiro:hover .letreiro-trilho {
+  animation-play-state: paused;
+}
+@keyframes letreiro {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .letreiro-trilho {
+    animation: none;
+  }
+}
+:root[data-light] .letreiro-trilho {
+  animation: none;
+}

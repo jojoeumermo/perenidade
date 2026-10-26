@@ -6,6 +6,14 @@ export interface Edicao {
   tipo: string;
   ano: string;
   cor: "preto" | "papel" | "vermelho";
+  /** A capa de verdade da edição (foto do coletivo), quando já chegou. */
+  imagem?: string;
+  alt?: string;
+}
+
+export interface Foto {
+  src: string;
+  alt: string;
 }
 
 export interface Territorio {
@@ -23,6 +31,14 @@ export interface Territorio {
   pautas: string[];
   trilhas: string[];
   capsula?: { nome: string; texto: string; pecas: string[] };
+  foto?: Foto;
+  fotoAtras?: Foto;
+  destaques?: { chapeu: string; titulo: string; resumo: string; imagem: string; alt: string }[];
+  imprensa?: { veiculo: string; titulo: string; url: string };
+  /** De quem são as fotos e em que termos o site as usa (não entram na licença livre). */
+  credito?: string;
+  podcast?: { titulo: string; com: string };
+  lancamento?: { titulo: string };
 }
 
 /** Os coletivos parceiros, na ordem em que chegaram (content/territorios.json). */
