@@ -2831,6 +2831,13 @@ await espera("denúncia urgente de exposição retém o post da Rede", async () 
   return [post.id, await rpc(anon, "rede_linha", { p_modo: "tudo" })];
 }, ([id, linha]) => !linha.some((p) => p.id === id));
 
+// Fila de aulas a escrever: reservar, limite, revisão por pares.
+await recusa("quem não é da equipe não reserva aula", () => rpc(como(ids.aluna), "aula_reservar", { p_trilha: "historia-antiga", p_aula: "aula-nova-teste", p_titulo: "Aula nova" }), "sem_permissao");
+await espera("o educador reserva uma aula e ela aparece com o nome dele", async () => { await rpc(como(ids.prof), "aula_reservar", { p_trilha: "historia-antiga", p_aula: "aula-nova-teste", p_titulo: "Aula nova" }); return rpc(como(ids.vol), "aulas_reservas_listar"); }, (r) => r.some((a) => a.aula === "aula-nova-teste" && a.quem && !a.minha));
+await recusa("outra pessoa não pega a aula reservada dentro do prazo", () => rpc(como(ids.vol), "aula_reservar", { p_trilha: "historia-antiga", p_aula: "aula-nova-teste", p_titulo: "Aula nova" }), "reservada");
+await recusa("quem escreveu não revisa a própria aula", async () => { await rpc(como(ids.prof), "aula_reserva_mudar", { p_trilha: "historia-antiga", p_aula: "aula-nova-teste", p_acao: "revisao" }); return rpc(como(ids.prof), "aula_reserva_mudar", { p_trilha: "historia-antiga", p_aula: "aula-nova-teste", p_acao: "revisar" }); }, "sem_permissao");
+await espera("outra pessoa revisa e conclui a revisão por pares", async () => { await rpc(como(ids.vol), "aula_reserva_mudar", { p_trilha: "historia-antiga", p_aula: "aula-nova-teste", p_acao: "revisar" }); await rpc(como(ids.vol), "aula_reserva_mudar", { p_trilha: "historia-antiga", p_aula: "aula-nova-teste", p_acao: "feita" }); return rpc(como(ids.prof), "aulas_reservas_listar"); }, (r) => r.some((a) => a.aula === "aula-nova-teste" && a.situacao === "feita" && a.minha));
+
 // Canais no celular: a coordenação guarda os endereços do WhatsApp e do Telegram; qualquer visitante lê.
 await recusa("quem não é da coordenação não troca os canais", () => rpc(como(ids.prof), "canais_salvar", { p: { whatsapp: "https://whatsapp.com/channel/0029VaAbCdEfGhIjKl" } }), "sem_permissao");
 await recusa("endereço que não é do WhatsApp é recusado", () => rpc(como(ids.coord), "canais_salvar", { p: { whatsapp: "https://exemplo.com/golpe" } }), "invalido:whatsapp");
