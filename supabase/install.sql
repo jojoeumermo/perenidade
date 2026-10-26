@@ -15536,6 +15536,90 @@ begin
 exception when others then null;
 end $$;
 
+-- ───────────────────────────── Turma do mês ─────────────────────────────
+-- Todo mês uma trilha começa no dia 1, para estudar junto em quatro semanas, com um encontro por semana na sala de
+-- vídeo (lib/turma-do-mes.ts escolhe a trilha). Aqui fica só quem entrou na turma: o progresso de cada aula continua
+-- no aparelho de cada um, como em todo o site.
+create table if not exists interno.turmas_mes (
+  mes text not null check (mes ~ '^[0-9]{4}-(0[1-9]|1[0-2])$'),
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  criado_em timestamptz not null default now(),
+  primary key (mes, usuario)
+);
+revoke all on interno.turmas_mes from public;
+
+-- A sala do encontro de cada mês: um nome sorteado na primeira inscrição, que só quem está na turma recebe.
+create table if not exists interno.turmas_salas (
+  mes text primary key check (mes ~ '^[0-9]{4}-(0[1-9]|1[0-2])$'),
+  sala text not null check (sala ~ '^InstitutoLucia-Turma-[A-Za-z0-9-]{8,60}$')
+);
+revoke all on interno.turmas_salas from public;
+
+/** Quantas pessoas estão na turma do mês e se quem pergunta está nela (sem sessão, `eu` é falso). A sala vai só para quem entrou. */
+create or replace function public.turma_mes(p_mes text) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  with eu as (select auth.uid() is not null and exists (select 1 from turmas_mes where mes = p_mes and usuario = auth.uid()) as dentro)
+  select jsonb_build_object(
+    'inscritos', (select count(*) from turmas_mes where mes = p_mes),
+    'eu', (select dentro from eu),
+    'sala', case when (select dentro from eu) then (select sala from turmas_salas where mes = p_mes) end)
+$$;
+
+/** Entrar (p_entrar verdadeiro) ou sair da turma. Só a turma deste mês ou a do próximo. */
+create or replace function public.turma_mes_entrar(p_mes text, p_entrar boolean default true) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); v_agora text := to_char(now() at time zone 'America/Sao_Paulo', 'YYYY-MM');
+        v_prox text := to_char((now() at time zone 'America/Sao_Paulo') + interval '1 month', 'YYYY-MM');
+begin
+  if p_mes is null or p_mes not in (v_agora, v_prox) then perform interno.erro('invalido:mes'); end if;
+  if coalesce(p_entrar, true) then
+    insert into turmas_mes (mes, usuario) values (p_mes, v) on conflict do nothing;
+    insert into turmas_salas (mes, sala) values (p_mes, 'InstitutoLucia-Turma-' || p_mes || '-' || substr(md5(gen_random_uuid()::text), 1, 12)) on conflict do nothing;
+  else
+    delete from turmas_mes where mes = p_mes and usuario = v;
+  end if;
+  return public.turma_mes(p_mes);
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('turma_mes', 'turma_mes_entrar') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+
+-- ───────────────────────────── Relatório trimestral ─────────────────────────────
+-- O que o instituto fez em cada trimestre, em números que qualquer pessoa pode conferir: contas novas, voluntários
+-- que entraram, contribuições publicadas, tarefas feitas, núcleos criados, posts na Comunidade, certificados e o
+-- dinheiro (só dos meses com relatório de contas publicado). Contagens, nunca nomes. A página /relatorio junta isso
+-- com o que sai do próprio conteúdo (aulas publicadas no trimestre, pelo histórico do repositório).
+create or replace function public.relatorio_trimestral(p_ano int, p_tri int) returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+declare v_ini timestamptz; v_fim timestamptz; v_mes_ini date; v_mes_fim date;
+begin
+  if p_ano is null or p_ano < 2024 or p_ano > 2100 or p_tri is null or p_tri not between 1 and 4 then perform interno.erro('invalido:trimestre'); end if;
+  v_mes_ini := make_date(p_ano, (p_tri - 1) * 3 + 1, 1);
+  v_mes_fim := (v_mes_ini + interval '3 months')::date;
+  v_ini := v_mes_ini::timestamp at time zone 'America/Sao_Paulo';
+  v_fim := v_mes_fim::timestamp at time zone 'America/Sao_Paulo';
+  return jsonb_build_object(
+    'ano', p_ano, 'tri', p_tri,
+    'contas', (select count(*) from perfis where criado_em >= v_ini and criado_em < v_fim),
+    'voluntarios', (select count(*) from inscricoes where status = 'aceita' and decidido_em >= v_ini and decidido_em < v_fim),
+    'contribuicoes', (select count(*) from contribuicoes where status in ('publicada', 'aprovada', 'resolvida') and coalesce(publicado_em, revisado_em) >= v_ini and coalesce(publicado_em, revisado_em) < v_fim),
+    'tarefas', (select count(*) from tarefas where status in ('aprovada', 'concluida') and coalesce(revisada_em, entregue_em) >= v_ini and coalesce(revisada_em, entregue_em) < v_fim),
+    'nucleos', (select count(*) from nucleos where criado_em >= v_ini and criado_em < v_fim),
+    'nucleos_ativos', (select count(*) from nucleos where ativo and criado_em < v_fim),
+    'posts', (select count(*) from rede_posts where not oculto and criado_em >= v_ini and criado_em < v_fim),
+    'certificados', (select count(*) from certificados_alunos where emitido_em >= v_ini and emitido_em < v_fim),
+    'turma', (select count(*) from turmas_mes where mes in (to_char(v_mes_ini, 'YYYY-MM'), to_char(v_mes_ini + interval '1 month', 'YYYY-MM'), to_char(v_mes_ini + interval '2 months', 'YYYY-MM'))),
+    'contas_meses', (select count(*) from apoio_relatorios where status = 'publicado' and mes >= v_mes_ini and mes < v_mes_fim),
+    'entradas', (select coalesce(sum((dados ->> 'total_entradas')::numeric), 0) from apoio_relatorios where status = 'publicado' and mes >= v_mes_ini and mes < v_mes_fim),
+    'saidas', (select coalesce(sum((dados ->> 'total_saidas')::numeric), 0) from apoio_relatorios where status = 'publicado' and mes >= v_mes_ini and mes < v_mes_fim));
+end $$;
+revoke all on function public.relatorio_trimestral(int, int) from public;
+grant execute on function public.relatorio_trimestral(int, int) to anon, authenticated, service_role;
+
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança
 -- por linha até a próxima execução deste arquivo. Aqui, no fim, toda tabela do esquema interno fica com a segurança por
