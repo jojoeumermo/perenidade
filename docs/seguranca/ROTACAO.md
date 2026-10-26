@@ -14,6 +14,8 @@ compartilhada, print, conversa ou registro.
 | `YOUTUBE_CLIENT_SECRET` e `YOUTUBE_REFRESH_TOKEN` | Edge Functions | canal | 12 meses ou suspeita | ver `docs/YOUTUBE.md` |
 | `CRON_SECRET` / `ESTUDIO_CRON_SECRET` | Vercel, GitHub, banco (`interno.segredos`) | agenda do Instagram | 12 meses | sortear 32+ caracteres e trocar nos três lugares ao mesmo tempo |
 | Chaves de IA (Anthropic, Groq, Cerebras, Gemini, OpenRouter, OpenAI) | Edge Functions | assistente, moderação, transcrição | 12 meses | painel de cada provedor; pôr limite de gasto mensal |
+| `CLOUDFLARE_TURN_TOKEN` (e `CLOUDFLARE_TURN_KEY_ID`) | Vercel | aulas ao vivo (retransmissão) | 12 meses | Cloudflare → Realtime → Servidor TURN → criar chave nova, trocar na Vercel, apagar a antiga |
+| `BACKUP_DB_URL`, `BACKUP_SENHA` | GitHub Actions | cópia do banco | 12 meses (a senha do banco) | trocar a senha do banco no Supabase e o segredo; a `BACKUP_SENHA` antiga continua abrindo as cópias antigas |
 | `GOOGLE_FACTCHECK_KEY`, `GOOGLE_SAFE_BROWSING_KEY` | Vercel / Edge Functions | checagens, moderação | 12 meses | Google Cloud → restringir a chave à API usada |
 
 Depois de trocar: conferir que a rotina correspondente roda verde e anotar a data aqui.
