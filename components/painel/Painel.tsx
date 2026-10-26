@@ -32,6 +32,7 @@ import { Pautas } from "./Pautas";
 import { Biblioteca, PrimeiraSemana } from "./Biblioteca";
 import { RetornoDosAlunos } from "./RetornoDosAlunos";
 import { ConquistasDaEquipe, Nucleos } from "./Nucleos";
+import { FilaDeAulas } from "./FilaDeAulas";
 import { abrirTutorial, TutorialDoPainel } from "./Tutorial";
 import { TermosAceitos } from "./PessoasExtras";
 import { SaudeNoPainel } from "./Saude";
@@ -546,6 +547,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
       { id: "estudio", nome: "Estúdio de design", sobre: "Estúdio rápido (modelos da marca) e editor avançado (PhotoCraft): posts, stories, cartazes e capas com a identidade do instituto.", grupo: "Produção", mostra: eu.desenha === true || can(eu, "coordenacao", "design", "jornalismo") },
       { id: "escritorio", nome: "Escritório", sobre: "Documentos, planilhas e apresentações (WordCraft, GridCraft e DeckCraft), dentro do painel.", grupo: "Produção", mostra: true },
       { id: "caderno", nome: "Caderno de estudos", sobre: "Fontes, resumo, cartões, questionário, mapa e leitura em voz alta: a sala de estudo para preparar aulas e episódios.", grupo: "Produção", mostra: true },
+      { id: "aulas-a-escrever", nome: "Aulas a escrever", sobre: "As aulas previstas nas trilhas que ainda não têm texto: reservar, escrever com o modelo e pedir revisão de um colega.", grupo: "Produção", mostra: produz },
       { id: "tarefas", nome: "Tarefas", sobre: "Microtarefas do acervo e das aulas para 5, 15 ou 30 minutos, a revisão rápida, mutirões e projetos.", grupo: "Produção", mostra: voluntario },
       { id: "acervo-dentro", nome: "Acervo por dentro", sobre: "Cada obra com o selo da ficha (completa, parcial ou faltando), para escolher o que cuidar: só a curadoria mexe no acervo.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "revisao") },
       { id: "exercicios", nome: "Exercícios de prática", sobre: "Exercícios ligados às aulas (vídeo, animação, imagem) com o programa do Estúdio de prática, e as entregas para comentar.", grupo: "Produção", mostra: can(eu, "coordenacao", "curadoria", "educacao") },
@@ -886,6 +888,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
           {atual.id === "pautas" && <Pautas me={eu} ir={ir} />}
           {atual.id === "biblioteca" && <Biblioteca ir={ir} />}
           {atual.id === "nucleos" && <Nucleos me={eu} />}
+          {atual.id === "aulas-a-escrever" && <FilaDeAulas />}
           {atual.id === "estatisticas" && (
             <>
               <Estatisticas />

@@ -273,6 +273,16 @@ export const GUIAS: Record<string, Guia> = {
     ],
     dica: "No voto secreto, o banco guarda que você votou num lugar e o voto em outro, sem ligação entre os dois.",
   },
+  "aulas-a-escrever": {
+    paraQue: "As aulas previstas nas trilhas que ainda não têm texto, cada uma como uma tarefa que alguém pega.",
+    passos: [
+      { titulo: "Pegue uma aula", texto: "Eu escrevo esta reserva a aula para você por 14 dias. Cada pessoa escreve até três de cada vez." },
+      { titulo: "Escreva com o modelo", texto: "Escrever com o modelo abre o Escrever já na trilha e no tema, com o guia da aula ao lado." },
+      { titulo: "Peça revisão de um par", texto: "Pronta, Pedir revisão de um par: outra pessoa da equipe lê e marca Revisão concluída." },
+      { titulo: "Envie", texto: "Revisada, Enviar pelo Escrever manda para a fila de revisão oficial." },
+    ],
+    dica: "Prazo vencido há uma semana libera a aula para outra pessoa. Sem pressa: Mais 7 dias estica o prazo.",
+  },
   nucleos: {
     paraQue: "O mapa dos núcleos de estudo: grupos que fazem as aulas juntos no bairro, na escola ou no trabalho.",
     passos: [

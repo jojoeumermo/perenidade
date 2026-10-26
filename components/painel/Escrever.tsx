@@ -168,10 +168,17 @@ export function Escrever({ me }: { me: Me }) {
   // Os tipos aparecem em cartões no alto; depois de escolher, fica só uma faixa com "Trocar o tipo".
   const [escolhendo, setEscolhendo] = useState(() => !(pedido && (disponiveis as string[]).includes(pedido)));
   const [enviandoArquivo, setEnviandoArquivo] = useState(false);
-  const [titulo, setTitulo] = useState("");
+  // ?trilha=…&tema=… (o "Escrever com o modelo" da fila de aulas a escrever) já abre na trilha e com o tema da aula.
+  const deFora = typeof window === "undefined" ? null : new URLSearchParams(window.location.search);
+  const [titulo, setTitulo] = useState(() => deFora?.get("tema")?.slice(0, 200) ?? "");
   const [corpo, setCorpo] = useState("");
   const [disciplina, setDisciplina] = useState("");
-  const [valores, setValores] = useState<Record<string, string>>({});
+  const [valores, setValores] = useState<Record<string, string>>(() => {
+    const trilha = deFora?.get("trilha");
+    const inicio: Record<string, string> = {};
+    if (trilha) inicio.trilha = trilha;
+    return inicio;
+  });
   const [fontes, setFontes] = useState<SourceDraft[]>([{ titulo: "", autor: "", url: "" }]);
   const [questoes, setQuestoes] = useState<Questao[]>([]);
   const [colegas, setColegas] = useState<PessoaAchada[]>([]);
