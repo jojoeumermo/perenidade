@@ -791,7 +791,7 @@ const CAMPANHAS: Modelo[] = [
         ...cabecalho(1080, 72, "Formação militante", COR.Pergaminho, COR["Vermelho vivo"]),
         texto({ x: 88, y: 470, w: 904, texto: "Ninguém muda\nnada ==sozinho==.", fonte: "sans", tamanho: 100, peso: 900, italico: true, entrelinha: 0.92, espacamento: -0.02, cor: COR.Pergaminho, maiusculas: true, destaque: COR["Vermelho vivo"], nome: "Título" }),
         texto({ x: 88, y: 790, w: 820, texto: "Estude de onde vem a exploração, conheça quem lutou antes de nós e aprenda a se organizar. De graça, no celular, com núcleos de estudo no seu bairro.", fonte: "serifa", tamanho: 40, peso: 400, entrelinha: 1.3, cor: COR.Fio, nome: "Texto" }),
-        texto({ x: 88, y: 1080, w: 520, texto: "Comece o Despertar", fonte: "sans", tamanho: 30, peso: 800, cor: COR.Branco, fundo: COR["Vermelho da gráfica"], recuo: 20, alinhar: "center", espacamento: 0.04, maiusculas: true, nome: "Botão" }),
+        texto({ x: 88, y: 1080, w: 520, texto: "Comece o percurso", fonte: "sans", tamanho: 30, peso: 800, cor: COR.Branco, fundo: COR["Vermelho da gráfica"], recuo: 20, alinhar: "center", espacamento: 0.04, maiusculas: true, nome: "Botão" }),
         texto({ x: 88, y: 1230, w: 904, texto: "institutolucia.org/despertar  ·  @institutoluciaorg", fonte: "mono", tamanho: 24, peso: 500, cor: COR["Ouro claro"], espacamento: 0.08, nome: "Endereço" }),
       ];
       return d;
