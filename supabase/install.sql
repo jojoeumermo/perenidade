@@ -15406,6 +15406,94 @@ grant execute on function public.nucleos_publicos() to anon, authenticated, serv
 revoke all on function public.denunciar(text, text, text, text, boolean) from public;
 grant execute on function public.denunciar(text, text, text, text, boolean) to anon, authenticated, service_role;
 
+-- ───────────────────────────── Fila de aulas a escrever ─────────────────────────────
+-- Cada aula prevista no roteiro de uma trilha (content/trilhas/<trilha>/plano.json) vira uma tarefa que alguém da equipe
+-- reserva: "eu escrevo esta". A reserva tem prazo sugerido de 14 dias; vencida há uma semana, outra pessoa pode pegar.
+-- Pronta, vai para a revisão por pares: outra pessoa da equipe revisa antes de ir para a fila de revisão de sempre.
+
+create table if not exists interno.aulas_reservas (
+  trilha text not null check (trilha ~ '^[a-z0-9-]{2,80}$'),
+  aula text not null check (aula ~ '^[a-z0-9-]{2,120}$'),
+  titulo text not null default '' check (char_length(titulo) <= 200),
+  usuario uuid not null references interno.perfis (id) on delete cascade,
+  revisor uuid references interno.perfis (id) on delete set null,
+  situacao text not null default 'escrevendo' check (situacao in ('escrevendo', 'revisao', 'feita')),
+  reservada_em timestamptz not null default now(),
+  prazo date not null default ((now() + interval '14 days')::date),
+  primary key (trilha, aula)
+);
+revoke all on interno.aulas_reservas from public;
+
+create or replace function public.aulas_reservas_listar() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  return (select coalesce(jsonb_agg(jsonb_build_object('trilha', r.trilha, 'aula', r.aula, 'titulo', r.titulo, 'situacao', r.situacao, 'prazo', r.prazo,
+            'quem', coalesce((select interno.nome_visto(nome) from perfis where id = r.usuario), ''), 'minha', r.usuario = auth.uid(),
+            'revisor', coalesce((select interno.nome_visto(nome) from perfis where id = r.revisor), ''), 'reviso', r.revisor = auth.uid(),
+            'vencida', r.situacao = 'escrevendo' and r.prazo < current_date)), '[]'::jsonb) from aulas_reservas r);
+end $$;
+
+/** "Eu escrevo esta": no máximo três aulas sendo escritas por pessoa; a de outra pessoa só se o prazo venceu há uma semana. */
+create or replace function public.aula_reservar(p_trilha text, p_aula text, p_titulo text default '') returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r aulas_reservas;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  if (select count(*) from aulas_reservas where usuario = v and situacao = 'escrevendo') >= 3 then perform interno.erro('limite:tres_aulas'); end if;
+  select * into r from aulas_reservas where trilha = p_trilha and aula = p_aula for update;
+  if found then
+    if r.usuario = v then return jsonb_build_object('ok', true); end if;
+    if not (r.situacao = 'escrevendo' and r.prazo < current_date - 7) then perform interno.erro('reservada'); end if;
+    perform interno.avisar(r.usuario, 'A aula "' || left(r.titulo, 120) || '" passou do prazo e outra pessoa da equipe pegou para escrever. Se já tinha um rascunho, combine com ela nas Conversas.');
+    delete from aulas_reservas where trilha = p_trilha and aula = p_aula;
+  end if;
+  insert into aulas_reservas (trilha, aula, titulo, usuario) values (p_trilha, p_aula, interno.txt(coalesce(p_titulo, ''), 'titulo', 0, 200), v);
+  perform interno.registrar('aula_reservada', p_trilha || '/' || p_aula);
+  return jsonb_build_object('ok', true);
+exception when check_violation then perform interno.erro('invalido:aula');
+end $$;
+
+/** Liberar (quem reservou ou a coordenação), pedir revisão, revisar (outra pessoa), concluir (quem revisa) e mais prazo. */
+create or replace function public.aula_reserva_mudar(p_trilha text, p_aula text, p_acao text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r aulas_reservas;
+begin
+  if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
+  select * into r from aulas_reservas where trilha = p_trilha and aula = p_aula for update;
+  if not found then perform interno.erro('nao_encontrado'); end if;
+  if p_acao = 'liberar' then
+    if r.usuario <> v and not (interno.coord() or interno.tem('vice')) then perform interno.erro('sem_permissao'); end if;
+    delete from aulas_reservas where trilha = p_trilha and aula = p_aula;
+  elsif p_acao = 'revisao' then
+    if r.usuario <> v then perform interno.erro('sem_permissao'); end if;
+    update aulas_reservas set situacao = 'revisao', revisor = null where trilha = p_trilha and aula = p_aula;
+  elsif p_acao = 'revisar' then
+    if r.usuario = v or r.situacao <> 'revisao' then perform interno.erro('sem_permissao'); end if;
+    update aulas_reservas set revisor = v where trilha = p_trilha and aula = p_aula;
+    perform interno.avisar(r.usuario, interno.nome_visto((select nome from perfis where id = v)) || ' vai revisar a sua aula "' || left(r.titulo, 120) || '".');
+  elsif p_acao = 'feita' then
+    if not (r.revisor = v or interno.coord()) then perform interno.erro('sem_permissao'); end if;
+    update aulas_reservas set situacao = 'feita' where trilha = p_trilha and aula = p_aula;
+    perform interno.avisar(r.usuario, 'A revisão por pares da sua aula "' || left(r.titulo, 120) || '" terminou. Agora é enviar pelo Escrever para a fila de revisão.');
+  elsif p_acao = 'prazo' then
+    if r.usuario <> v then perform interno.erro('sem_permissao'); end if;
+    update aulas_reservas set prazo = greatest(prazo, current_date) + 7 where trilha = p_trilha and aula = p_aula;
+  else
+    perform interno.erro('invalido:acao');
+  end if;
+  perform interno.registrar('aula_reserva_' || p_acao, p_trilha || '/' || p_aula);
+  return jsonb_build_object('ok', true);
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('aulas_reservas_listar', 'aula_reservar', 'aula_reserva_mudar') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to anon, authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
+
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança
 -- por linha até a próxima execução deste arquivo. Aqui, no fim, toda tabela do esquema interno fica com a segurança por
