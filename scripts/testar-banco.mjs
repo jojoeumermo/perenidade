@@ -2855,6 +2855,18 @@ await recusa("quem não é da coordenação não troca os canais", () => rpc(com
 await recusa("endereço que não é do WhatsApp é recusado", () => rpc(como(ids.coord), "canais_salvar", { p: { whatsapp: "https://exemplo.com/golpe" } }), "invalido:whatsapp");
 await espera("a coordenação guarda os canais e o visitante lê", async () => { await rpc(como(ids.coord), "canais_salvar", { p: { whatsapp: "https://whatsapp.com/channel/0029VaAbCdEfGhIjKl", telegram: "https://t.me/institutolucia" } }); return rpc(anon, "canais"); }, (r) => r.whatsapp.includes("0029VaAbCdEfGhIjKl") && r.telegram === "https://t.me/institutolucia");
 
+// Turma do mês: entrar e sair da turma deste mês; mês velho é recusado; o visitante só vê a contagem.
+const mesAgora = new Intl.DateTimeFormat("sv-SE", { timeZone: "America/Sao_Paulo" }).format(new Date()).slice(0, 7);
+await recusa("visitante sem conta não entra na turma", () => rpc(anon, "turma_mes_entrar", { p_mes: mesAgora }), "entre_primeiro");
+await recusa("turma de um mês que já passou é recusada", () => rpc(como(ids.aluna), "turma_mes_entrar", { p_mes: "2024-01" }), "invalido:mes");
+await espera("a aluna entra na turma do mês e o visitante vê a contagem", async () => { const eu = await rpc(como(ids.aluna), "turma_mes_entrar", { p_mes: mesAgora }); return [eu, await rpc(anon, "turma_mes", { p_mes: mesAgora })]; }, ([eu, visitante]) => eu.eu === true && eu.inscritos >= 1 && /^InstitutoLucia-Turma-/.test(eu.sala) && visitante.eu === false && visitante.sala === null && visitante.inscritos === eu.inscritos);
+await espera("a aluna sai da turma", () => rpc(como(ids.aluna), "turma_mes_entrar", { p_mes: mesAgora, p_entrar: false }), (r) => r.eu === false);
+
+// Relatório trimestral: só contagens, para qualquer visitante; trimestre inválido é recusado.
+await recusa("trimestre 5 não existe", () => rpc(anon, "relatorio_trimestral", { p_ano: 2026, p_tri: 5 }), "invalido:trimestre");
+await espera("o visitante lê os números do trimestre, sem nenhum nome", () => rpc(anon, "relatorio_trimestral", { p_ano: Number(mesAgora.slice(0, 4)), p_tri: Math.ceil(Number(mesAgora.slice(5)) / 3) }),
+  (r) => r.contas >= 1 && typeof r.entradas === "number" && !("nome" in r));
+
 // Rede Lúcia, segunda parte: espaços fechados, comunidades seguidas, posição no debate, busca, moderadores, portabilidade.
 let espaco;
 await recusa("quem não é da equipe não abre espaço fechado", () => rpc(como(ids.aluna), "rede_espaco_criar", { p_nome: "Núcleo da fábrica" }), "sem_permissao");

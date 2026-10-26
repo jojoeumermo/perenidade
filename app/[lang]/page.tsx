@@ -6,6 +6,8 @@ import { NesteDia } from "@/components/NesteDia";
 import { Star } from "@/components/Masthead";
 import { Experimente, type Sugestao } from "@/components/inicio/Experimente";
 import { LambeDoDia } from "@/components/inicio/LambeDoDia";
+import { AulaDaSemana } from "@/components/inicio/AulaDaSemana";
+import { aulasDaSemana } from "@/lib/aula-da-semana";
 import { lambesDaSemana } from "@/lib/lambes";
 import { JanelaContinue, JanelaNoAr } from "@/components/inicio/Janelas";
 import { type EstanteDoApp, InicioDoApp } from "@/components/inicio/InicioDoApp";
@@ -251,6 +253,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           </p>
         </div>
       </section>
+
+      <AulaDaSemana semanas={aulasDaSemana(lang)} lang={lang} url={site.url} s={t.aulaDaSemana} sc={t.compartilhar} area={Object.fromEntries(Object.entries(t.areas).map(([k, v]) => [k, v[0]]))} />
 
       {/* ── Territórios: o coletivo parceiro mais recente, com a faixa dos temas ── */}
       {territorios.length > 0 && (() => {
