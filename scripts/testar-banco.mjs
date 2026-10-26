@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 //
 // Prova as regras do banco: quem pode o quê. Uso: npm run testar:banco
+import fs from "node:fs";
 import {
   abrirCopia, abrirPedido, abrirTexto, aparelhoCertificado, assinarTexto, certificarAparelho, cifrar, contextoDaConversa, contextoDaIdentidade, contextoDoEmbrulho, contextoDoMural,
   decifrar, deBase64, desembrulhar, desembrulharBytes, embrulhar, embrulharBytes, exportarIdentidade, importarIdentidade, novaChave, novaChaveDeRecuperacao, novaIdentidade,
@@ -3373,13 +3374,37 @@ await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), 
 
   // Vitrine de saúde: cada condição que falha tira o perfil.
   const vitrine = () => rpc(anon, "saude_vitrine");
-  const perfil = { nome: "Sara Saúde", profissao: "Psicóloga", conselho: "CRP", uf: "RJ", registro: "05/00000 (fictício de teste)", abordagem: "Terapia Cognitivo-Comportamental", areas: ["ansiedade", "luto"], modalidade: "online", valor: "social", bio: "Atendo adultos.", contatos: { instagram: "@sara.teste", whatsapp: "+55 21 90000-0000" }, foto_autorizada: false };
+  const perfil = { nome: "Sara Saúde", profissao: "Psicóloga", conselho: "CRP", uf: "RJ", registro: "05/00000", abordagem: "Terapia Cognitivo-Comportamental", areas: ["ansiedade", "luto"], modalidade: "online", publico: ["adultos", "inventado"], idiomas: ["Português", "Klingon"], bio: "Atendo adultos.", contatos: { instagram: "@sara.teste", whatsapp: "+55 21 90000-0000" }, foto_autorizada: false };
   await recusa("quem não é profissional de saúde não tem perfil", () => rpc(como(r4.mat), "saude_meu"), "sem_permissao");
   await espera("preço na biografia é recusado com o motivo", () => rpc(como(r4.sau), "saude_salvar", { p: { ...perfil, bio: "Sessão por R$ 50." } }), (r) => r.ok === false && /preço/.test(r.motivo));
   await espera("promessa de cura é recusada", () => rpc(como(r4.sau), "saude_salvar", { p: { ...perfil, bio: "Garanto a cura da ansiedade." } }), (r) => r.ok === false);
+  // Mural de Saúde: o filtro do servidor pega gratuidade, preço social e os disfarces, com motivo e sugestão.
+  for (const [rotulo, campos] of [
+    ["gratuidade", { bio: "Atendimento gratuito para adultos." }], ["letras soltas", { bio: "Sessões g r á t i s." }], ["números no lugar de letras", { bio: "Primeira sessão gr4tis!" }],
+    ["valor social", { bio: "Trabalho com VALOR SOCIAL." }], ["voluntariado", { abordagem: "Atendimento voluntário" }], ["Dra. sem doutorado conferido", { nome: "Dra. Sara Saúde" }],
+    ["constelação familiar", { areas: ["Constelação Familiar"] }], ["título religioso", { bio: "Psicóloga cristã, atendo famílias." }], ["depoimento", { bio: "Veja os depoimentos." }],
+    ["comparação", { bio: "A melhor do bairro." }], ["100%", { bio: "Resultado 100%." }],
+  ]) {
+    await espera(`o filtro bloqueia ${rotulo}`, () => rpc(como(r4.sau), "saude_salvar", { p: { ...perfil, ...campos } }), (r) => r.ok === false && r.motivo.length > 20 && typeof r.sugestao === "string");
+  }
+  // Cada termo de content/saude/regras.json é barrado também no servidor (a mesma lista, levada pelo mural:sincronizar).
+  {
+    const regrasDoMural = JSON.parse(fs.readFileSync(new URL("../content/saude/regras.json", import.meta.url), "utf8"));
+    const termos = regrasDoMural.bloqueio.flatMap((g) => g.termos.map((t) => [g.grupo, t.replace(/\*/g, "")]));
+    const r = await dono("select t.grupo, t.termo, interno.saude_conferir(jsonb_build_object('bio', 'Atendo adultos. ' || t.termo || '.')) ->> 'grupo' as achado from jsonb_to_recordset($1::jsonb) as t (grupo text, termo text)", [JSON.stringify(termos.map(([grupo, termo]) => ({ grupo, termo })))]);
+    await espera(`o servidor barra os ${termos.length} termos da lista, cada um no grupo certo`, async () => r.rows.filter((x) => x.achado !== x.grupo).map((x) => x.termo), (fora) => fora.length === 0);
+  }
+  await espera("texto informativo passa no filtro (procura, curadoria e preferência não confundem)", () => rpc(como(r4.sau), "saude_salvar", { p: { ...perfil, bio: "Acompanho quem procura ajuda com ansiedade; fiz curadoria de grupos e tenho preferência por atendimento on-line." } }), (r) => r.ok === true);
+  await espera("profissão fora da lista da categoria é recusada", () => rpc(como(r4.sau), "saude_salvar", { p: { ...perfil, profissao: "Terapeuta holística" } }), (r) => r.ok === false && /lista/.test(r.motivo));
+  await espera("registro fora do formato do CRP é recusado", () => rpc(como(r4.sau), "saude_salvar", { p: { ...perfil, registro: "CRP 0500000" } }), (r) => r.ok === false && /formato/.test(r.motivo));
+  await espera("a tentativa bloqueada fica no registro, sem o texto", () => rpc(como(r4.sau), "saude_registro_listar"), (r) => r.some((x) => x.acao === "texto_bloqueado" && x.detalhe.regra === "preco" && !JSON.stringify(x.detalhe).includes("gratuito")));
   await espera("perfil salvo fica esperando e fora da vitrine", async () => { await rpc(como(r4.sau), "saude_salvar", { p: perfil }); return vitrine(); }, (r) => r.perfis.length === 0);
-  await espera("o que falta aparece para o profissional", () => rpc(como(r4.sau), "saude_meu"), (r) => r.faltam.length >= 3 && r.contatos.whatsapp === "5521900000000" && r.contatos.instagram === "sara.teste");
-  await rpc(como(r4.sau), "saude_termo_aceitar", { p_texto: "Texto do termo da vitrine de saúde, rascunho para revisão jurídica.", p_nome: "Sara Saúde", p_registro: "05/00000" });
+  await espera("o que falta aparece para o profissional", () => rpc(como(r4.sau), "saude_meu"), (r) => r.faltam.length >= 3 && r.contatos.whatsapp === "5521900000000" && r.contatos.instagram === "sara.teste" && !("valor" in r) && r.publico.join() === "adultos" && r.idiomas.join() === "Português");
+  const aceite2 = { p_texto: "Texto do termo do mural de saúde, rascunho para revisão jurídica.", p_nome: "Sara Saúde", p_registro: "05/00000" };
+  await recusa("sem a tela de aviso lida, o termo não é aceito", () => rpc(como(r4.sau), "saude_termo_aceitar", { ...aceite2, p_etica: true, p_politica: true }), "saude_aviso_primeiro");
+  await espera("a tela de aviso fica registrada com a versão vigente", () => rpc(como(r4.sau), "saude_aviso_ciente"), (r) => Boolean(r.aviso_politico_em));
+  await recusa("sem as duas declarações, o termo não é aceito", () => rpc(como(r4.sau), "saude_termo_aceitar", { ...aceite2, p_etica: true, p_politica: false }), "saude_declaracoes");
+  await rpc(como(r4.sau), "saude_termo_aceitar", { ...aceite2, p_etica: true, p_politica: true });
   await recusa("registro conferido há mais de 180 dias não vale", () => rpc(como(ids.coord), "saude_decidir", { p_usuario: r4.sau, p_acao: "verificar", p_verificado_em: "2025-01-01", p_nota: "" }), "invalido:data");
   // A data de hoje do próprio banco (à noite, no Brasil, a data em UTC já é a de amanhã).
   const hojeNoBanco = (await dono("select current_date::text as d")).rows[0].d;
@@ -3398,6 +3423,13 @@ await espera("arquivado, some da aula", async () => { await rpc(como(ids.prof), 
     (r) => r.perfis.length === 1 && r.perfis[0].nome === "Sara Saúde" && !("status" in r.perfis[0]) && !("verificacao_nota" in r.perfis[0]) && r.perfis[0].foto === "");
   await espera("chave geral desligada: some na hora", async () => { await rpc(como(ids.coord), "saude_chave", { p_desligar: true }); return vitrine(); }, (r) => r.desligada === true && r.perfis.length === 0);
   await rpc(como(ids.coord), "saude_chave", { p_desligar: false });
+  // As regras do mural ficam por cima das 7 condições: cada uma tira o perfil da vitrine sozinha.
+  const semMexer = async (sql, desfaz) => { await dono(sql, [r4.sau]); const r = await vitrine(); await dono(desfaz, [r4.sau]); return r; };
+  await espera("perfil antigo com termo proibido no texto: some", () => semMexer("update interno.saude_perfis set bio = 'Sessões gratuitas.' where usuario = $1", "update interno.saude_perfis set bio = 'Atendo adultos.' where usuario = $1"), (r) => r.perfis.length === 0);
+  await espera("categoria desligada (CRM): nunca aparece", () => semMexer("update interno.saude_perfis set conselho = 'CRM' where usuario = $1", "update interno.saude_perfis set conselho = 'CRP' where usuario = $1"), (r) => r.perfis.length === 0);
+  await espera("declaração de uma versão antiga do termo: some", () => semMexer("update interno.saude_perfis set declaracao_etica_versao = '2020-01-01' where usuario = $1", "update interno.saude_perfis set declaracao_etica_versao = interno.saude_termo_vigente() where usuario = $1"), (r) => r.perfis.length === 0);
+  await espera("aviso político de uma versão antiga: some", () => semMexer("update interno.saude_perfis set aviso_politico_versao = '2020-01-01' where usuario = $1", "update interno.saude_perfis set aviso_politico_versao = interno.saude_termo_vigente() where usuario = $1"), (r) => r.perfis.length === 0);
+  await espera("de volta ao normal, aparece de novo, sem valor nem gratuidade no que vai a público", vitrine, (r) => r.perfis.length === 1 && !("valor" in r.perfis[0]) && r.perfis[0].categoria === "psicologia");
   await espera("registro vencido: some sozinho", async () => { await dono("update interno.saude_perfis set verificado_em = current_date - 181 where usuario = $1", [r4.sau]); const r = await vitrine(); await dono("update interno.saude_perfis set verificado_em = current_date where usuario = $1", [r4.sau]); return r; }, (r) => r.perfis.length === 0);
   await espera("termo de versão antiga: some", async () => { await dono("update interno.saude_perfis set termo_versao = '2020-01-01' where usuario = $1", [r4.sau]); const r = await vitrine(); await dono("update interno.saude_perfis set termo_versao = interno.saude_termo_vigente() where usuario = $1", [r4.sau]); return r; }, (r) => r.perfis.length === 0);
   await espera("assinatura de outra versão do termo: some", async () => { await dono("update interno.saude_perfis set assinatura_versao = '2020-01-01' where usuario = $1", [r4.sau]); const r = await vitrine(); await dono("update interno.saude_perfis set assinatura_versao = interno.saude_termo_vigente() where usuario = $1", [r4.sau]); return r; }, (r) => r.perfis.length === 0);

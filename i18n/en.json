@@ -3157,7 +3157,7 @@
       "live": "Schedule of live classes, with video and chat on the site itself.",
       "notebook": "Gather lessons and texts and get summary, flashcards, quiz, map, timeline and audio from them. All in your browser.",
       "community": "The learners' forum: questions, answers and debates, moderated and ad-free.",
-      "health": "Volunteer health professionals offering free or social-rate care: you talk to them directly.",
+      "health": "A board of contacts of health professionals with an active registration: you talk to them directly.",
       "bugs": "Something froze or looked wrong? Tell the people who maintain the code.",
       "freeRoom": "Build and project your lesson with the site's labs, books, editors, simulations and games.",
       "rightsGuide": "Public health, social assistance, benefits, free legal aid and hotlines in Brazil, with official sources.",
@@ -3208,7 +3208,7 @@
       "/materiais": "zines, posters",
       "/mural": "trades and co-ops",
       "/comunidade": "forum by subject",
-      "/saude": "solidarity care",
+      "/saude": "contact board",
       "/direitos": "work, health, housing",
       "/relatar-erro": "tell us what broke",
       "/voluntarios": "review, translate, teach",
@@ -4849,11 +4849,8 @@
     "privacy": "The video goes through the video-call server set up by the institute (Jitsi). Nothing is recorded."
   },
   "saude": {
-    "eyebrow": "Contact board",
-    "title": "Solidarity Health",
-    "slogan": "Care belongs to the people too",
-    "lead": "Volunteer health professionals who see people for free or at a social rate leave their contact here. You talk to them directly: the institute only publicises; it neither provides nor guarantees care.",
-    "description": "Contacts of volunteer health professionals offering free or social-rate care. Instituto Lúcia only publicises them: it neither provides nor guarantees care."
+    "title": "Health Board",
+    "description": "A board of contacts of health professionals with an active registration. Instituto Lúcia only publishes contacts and neither provides nor arranges care. The terms of care are agreed directly with the professional."
   },
   "bugs": {
     "eyebrow": "Help us fix it",

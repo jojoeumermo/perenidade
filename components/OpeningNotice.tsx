@@ -85,7 +85,8 @@ export function OpeningNotice({ initial, close }: { initial: Notice | null; clos
   const aviso = remote ?? initial;
   // O último dia vale até 23h59min59s no horário de Brasília, esteja o aparelho onde estiver.
   const today = hydrated ? new Date().toLocaleDateString("sv-SE", { timeZone: "America/Sao_Paulo" }) : "";
-  const inside = /\/(painel|entrar|apoie)(\/|$)/.test(pathname);
+  // No Mural de Saúde não entra aviso nem convite do instituto: o mural é independente das posições dele.
+  const inside = /\/(painel|entrar|apoie|saude)(\/|$)/.test(pathname);
   const avisoVale = Boolean(aviso?.ativo && aviso.titulo && (!aviso.ate || today <= aviso.ate));
   // Sem aviso em vigor, entra o convite ao apoio, uma vez a cada trinta dias.
   const notice = avisoVale ? aviso : CONVITE;

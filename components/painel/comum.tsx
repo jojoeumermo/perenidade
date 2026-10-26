@@ -51,7 +51,7 @@ export const oQueFaz: Record<Role["papel"], string> = {
   marketing: "Departamento de Comunicação. Divulga o instituto: posts e artes para as redes sociais, cartazes de chamada, campanhas de voluntariado e de apoio, cortes do podcast. Monta o calendário de posts e stories do Instagram e usa o kit da marca e os materiais do painel, como o design. O acesso ao Instagram é dado pela coordenação pela própria Meta; o site nunca guarda senha de rede social.",
   desenvolvimento: "Cuida do código: vê o estado técnico do site (publicação, avaliação automática, faxina, sinais de varredura) e atende pedidos de ajuda das outras funções.",
   representante: "Primeira entrada e organizador de um departamento, nomeado pela coordenação, coordenação pedagógica ou supervisão: administra o grupo do departamento nas conversas, combina e delega tarefas, sem ser chefe. Não dá nem tira funções. O departamento é tudo o que a área engloba: o de Tecnologia, por exemplo, reúne informática, programação, modelagem 3D, edição de vídeo e de foto. Um departamento pode ter mais de um representante.",
-  saude: "Profissional de saúde voluntário que aparece na vitrine Saúde Solidária: preenche o próprio perfil (registro no conselho, abordagem, contato), aceita o termo da vitrine e aprova o texto antes de ir ao ar. A coordenação confere o registro no conselho a cada seis meses. Não vê o resto do painel nem dado de ninguém.",
+  saude: "Profissional de saúde com registro ativo que aparece no Mural de Saúde: preenche o próprio perfil (registro no conselho, abordagem, contato), aceita o termo da vitrine e aprova o texto antes de ir ao ar. A coordenação confere o registro no conselho a cada seis meses. Não vê o resto do painel nem dado de ninguém.",
   porta_voz: "Um título, não uma função de trabalho: soma-se ao que a pessoa já faz (mediação, tradução, aulas…). O porta-voz leva a palavra do instituto a escolas, sindicatos, movimentos e eventos, em qualquer cidade, e traz de volta o que ouviu. Nomeado pela coordenação, coordenação pedagógica ou supervisão.",
 };
 
@@ -82,6 +82,8 @@ export const situacoes: Record<string, string> = {
 const erros: Record<string, string> = {
   entre_primeiro: "Entre na sua conta para continuar.",
   sem_permissao: "Você não tem permissão para isso.",
+  saude_declaracoes: "Marque as duas declarações para aceitar o termo do mural.",
+  saude_aviso_primeiro: "Leia o aviso sobre o posicionamento do Instituto antes de aceitar o termo.",
   muitos_pedidos: "Muitos pedidos em pouco tempo. Tente de novo mais tarde.",
   fixadas_demais: "Já há três publicações fixadas neste canal. Solte uma antes de fixar outra.",
   falta_fonte: "Cite pelo menos uma fonte.",

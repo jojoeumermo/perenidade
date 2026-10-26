@@ -7,7 +7,7 @@
 /** Cada área e os caminhos (depois do idioma) que ela fecha. Área nova: acrescente aqui, no banco e no painel. */
 export const areasPublicas = [
   { id: "comunidade", nome: "Comunidade", caminhos: ["/comunidade"] },
-  { id: "mural", nome: "Mural dos Trabalhadores e Saúde Solidária", caminhos: ["/mural", "/saude"] },
+  { id: "mural", nome: "Mural dos Trabalhadores e Mural de Saúde", caminhos: ["/mural", "/saude"] },
   { id: "reforco", nome: "Aula de reforço", caminhos: ["/reforco"] },
   { id: "contribuir", nome: "Contribuir, denunciar e relatar erros", caminhos: ["/contribuir", "/denunciar", "/relatar-erro"] },
   { id: "jornal", nome: "Jornal, notícias e boletim", caminhos: ["/jornal", "/noticias"] },
