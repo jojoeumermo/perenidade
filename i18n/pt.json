@@ -4916,7 +4916,12 @@
     "nextTitle": "Territórios são coletivos que caminham com o Instituto Lúcia. O próximo pode ser o seu.",
     "nextText": "Coletivo de cultura, arte, esporte, moradia ou estudo? Escreva contando quem vocês são, onde atuam e o que fazem.",
     "nextCta": "Trazer o meu coletivo",
-    "all": "Todos os territórios"
+    "all": "Todos os territórios",
+    "press": "Na imprensa",
+    "podcastKicker": "Podcast · em preparação",
+    "launchKicker": "Lançamento · presencial · data em breve",
+    "followUpdates": "Acompanhar no Instagram",
+    "reels": "Os vídeos estão no Instagram"
   },
   "rede": {
     "abaRede": "Rede",
