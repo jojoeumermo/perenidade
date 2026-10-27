@@ -47,7 +47,7 @@ const BOTOES_DE_QUEM_CONDUZ = [...BOTOES_DE_QUEM_ASSISTE, "participants-pane", "
  * de quem entra) está aqui; o resto do visual é do servidor. Sem gravação. Ao sair da sala, avisa quem embutiu.
  * Se o servidor estiver fora do ar, dá para trocar: a escolha fica neste aparelho, e todos da sala precisam usar o mesmo.
  */
-export function JitsiSala({ sala, servidor: servidorDaSala, nome, conduzo, lang, assunto, aoSair, aoEntrar }: { sala: string; servidor?: string; nome: string; conduzo: boolean; lang: string; assunto?: string; aoSair?: () => void; aoEntrar?: () => void }) {
+export function JitsiSala({ sala, servidor: servidorDaSala, nome, conduzo, lang, assunto, aoSair, aoEntrar, video }: { sala: string; servidor?: string; nome: string; conduzo: boolean; lang: string; assunto?: string; aoSair?: () => void; aoEntrar?: () => void; /** Chamada de canal: todo mundo entra falando, com a câmera ligada só se for de vídeo. */ video?: boolean }) {
   const { t } = useI18n();
   const caixa = useRef<HTMLDivElement>(null);
   const [erro, setErro] = useState(false);
@@ -57,19 +57,21 @@ export function JitsiSala({ sala, servidor: servidorDaSala, nome, conduzo, lang,
   // cada nova renderização de quem embute (funções novas a cada vez): se entrassem na lista do efeito, a sala era
   // desmontada e montada de novo sem parar, e todo mundo via a pessoa "saindo e entrando" o tempo todo.
   const avisos = useRef({ aoSair, aoEntrar });
-  const dados = useRef({ nome, assunto, conduzo, lang });
+  const dados = useRef({ nome, assunto, conduzo, lang, video });
   const apiAtual = useRef<JitsiApi | null>(null);
   useEffect(() => {
     avisos.current = { aoSair, aoEntrar };
   }, [aoSair, aoEntrar]);
   useEffect(() => {
-    dados.current = { nome, assunto, conduzo, lang };
+    dados.current = { nome, assunto, conduzo, lang, video };
     apiAtual.current?.executeCommand("displayName", nome);
     if (conduzo && assunto) apiAtual.current?.executeCommand("subject", assunto);
-  }, [nome, assunto, conduzo, lang]);
+  }, [nome, assunto, conduzo, lang, video]);
   useEffect(() => {
     let api: JitsiApi | null = null;
-    const { nome, assunto, conduzo, lang } = dados.current;
+    const { nome, assunto, conduzo, lang, video } = dados.current;
+    // Na chamada de um canal não há quem conduza: todo mundo tem os mesmos botões e entra com o microfone aberto.
+    const doCanal = video !== undefined;
     let vivo = true;
     void Promise.resolve().then(() => vivo && setErro(false));
     carregarApi(servidor)
@@ -85,13 +87,13 @@ export function JitsiSala({ sala, servidor: servidorDaSala, nome, conduzo, lang,
           configOverwrite: {
             prejoinConfig: { enabled: false },
             disableDeepLinking: true,
-            startWithAudioMuted: !conduzo,
-            startWithVideoMuted: !conduzo,
+            startWithAudioMuted: doCanal ? false : !conduzo,
+            startWithVideoMuted: doCanal ? !video : !conduzo,
             defaultLanguage: lang,
             subject: assunto ?? "",
             disableThirdPartyRequests: true,
             enableWelcomePage: false,
-            toolbarButtons: conduzo ? BOTOES_DE_QUEM_CONDUZ : BOTOES_DE_QUEM_ASSISTE,
+            toolbarButtons: conduzo || doCanal ? BOTOES_DE_QUEM_CONDUZ : BOTOES_DE_QUEM_ASSISTE,
             // Sem gravação, sem transmissão para fora: a sala é só para quem está nela.
             fileRecordingsEnabled: false,
             liveStreamingEnabled: false,
