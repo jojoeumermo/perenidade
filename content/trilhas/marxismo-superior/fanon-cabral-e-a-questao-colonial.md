@@ -3,6 +3,9 @@ titulo: "Fanon, Cabral e a questão colonial"
 resumo: "Dois pensadores e militantes das lutas de libertação africanas: Frantz Fanon, psiquiatra que apoiou a independência da Argélia, e Amílcar Cabral, agrônomo marxista que dirigiu a luta da Guiné-Bissau e de Cabo Verde. O que eles acrescentaram ao marxismo."
 autores: ["Instituto Lúcia"]
 fontes:
+  - titulo: "Amílcar Cabral"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/Am%C3%ADlcar_Cabral"
   - titulo: "Frantz Fanon"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Frantz_Fanon"
@@ -22,7 +25,7 @@ quiz:
     resposta: 0
     explicacao: "Ele trabalhava como psiquiatra na Argélia."
   - pergunta: "Que partido Amílcar Cabral fundou?"
-    opcoes: ["O PAIGC, em 1959", "O PCB, em 1922", "O MPLA, em 1990"]
+    opcoes: ["O PAIGC", "O PCB", "O Partido dos Panteras Negras"]
     resposta: 0
     explicacao: "Partido Africano para a Independência da Guiné e Cabo Verde."
   - pergunta: "Sobre o que é Os Condenados da Terra (1961), de Fanon?"
@@ -47,7 +50,7 @@ Trabalhando como médico na Argélia, **apoiou a guerra de independência** cont
 
 ## Amílcar Cabral
 
-**Amílcar Cabral** (1924–1973), agrônomo e **teórico marxista**, nasceu na Guiné e cresceu em Cabo Verde. Estudou em Lisboa, onde conviveu com outros jovens africanos que lutariam pela independência. Em **1959**, fundou o **PAIGC**, partido pela independência da **Guiné e de Cabo Verde**, e dirigiu a luta contra o colonialismo português. Foi **assassinado em 1973**, em Conacri. Um de seus textos mais conhecidos é **"A arma da teoria"**.
+**Amílcar Cabral** (1924–1973), agrônomo e **teórico marxista**, nasceu na Guiné e cresceu em Cabo Verde. Estudou em Lisboa, onde conviveu com outros jovens africanos que lutariam pela independência. Fundou o **PAIGC** (as fontes dão 1956 ou 1959), partido pela independência da **Guiné e de Cabo Verde**, e dirigiu a luta contra o colonialismo português. Foi **assassinado em 1973**, em Conacri. Um de seus textos mais conhecidos é **"A arma da teoria"**.
 
 ## O que eles acrescentaram
 
@@ -73,7 +76,7 @@ O que Fanon e Cabral acrescentaram ao marxismo, segundo a aula?
 
 - **Fanon** (1925–1961): psiquiatra, **humanista marxista**, apoiou a independência da **Argélia**.
 - **Os Condenados da Terra** (1961): as lutas de descolonização.
-- **Cabral** (1924–1973): marxista, fundou o **PAIGC** (1959); assassinado em 1973.
+- **Cabral** (1924–1973): marxista, fundou o **PAIGC** (1956 ou 1959, conforme a fonte); assassinado em 1973.
 - Nas colônias, a luta de classes se mistura com a **luta nacional e racial**.
 
 ```realidade
