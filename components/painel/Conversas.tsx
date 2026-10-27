@@ -199,6 +199,19 @@ const ICONES_DA_SALA = {
   menu: "M5 12h.01M12 12h.01M19 12h.01",
   sol: "M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM12 1.5v2M12 20.5v2M1.5 12h2M20.5 12h2",
   escudo: "M12 3l7 3v5c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6z",
+  telefone: "M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z",
+  camera: "M3 7h12v10H3zM15 10.5l6-3.5v10l-6-3.5",
+  desligar: "M3 15.5c5-4.7 13-4.7 18 0l-2.2 2.5-3.3-1.4v-2.4a10 10 0 0 0-7 0v2.4L5.2 18z",
+  responder: "M10 7L4 12l6 5M4 12h11a5 5 0 0 1 5 5v1",
+  encaminhar: "M14 7l6 5-6 5M20 12H9a5 5 0 0 0-5 5v1",
+  rosto: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM8.5 14.5a4 4 0 0 0 7 0M9 9.5h.01M15 9.5h.01",
+  lapis: "M4 20h4l11-11-4-4L4 16zM13.5 6.5l4 4",
+  lixo: "M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13",
+  relogio: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 7v5l3 2",
+  bloqueio: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM5.6 5.6l12.8 12.8",
+  enquete: "M5 20V10M12 20V4M19 20v-7",
+  enviar: "M5 12h14M13 6l6 6-6 6",
+  microfone: "M9 3h6v11H9zM5 11a7 7 0 0 0 14 0M12 18v3",
 } as const;
 function IconeDaSala({ nome, className = "h-5 w-5" }: { nome: keyof typeof ICONES_DA_SALA; className?: string }) {
   return (
@@ -209,6 +222,9 @@ function IconeDaSala({ nome, className = "h-5 w-5" }: { nome: keyof typeof ICONE
 }
 
 const CHAVE_DO_TEMA_DA_SALA = "lucia:salas-tema";
+
+/** Uma chamada de voz ou de vídeo num canal: a reunião ao vivo ligada à conversa, com quem está nela agora. */
+type ChamadaDoCanal = Reuniao & { conversa: string; video: boolean; na_sala: { id: string; nome: string }[] };
 type Espaco = "instituto" | "diretas";
 type Tela = "conversa" | "grupo" | "favoritas" | "relatos" | "privadas" | "agenda" | "reuniao" | "seguranca";
 
@@ -240,10 +256,15 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
   const [recolhidas, setRecolhidas] = useState<string[]>([]);
   const [achadas, setAchadas] = useState<Indexada[]>([]);
   const [aviso, setAviso] = useState("");
+  // O padrão é o tema Noite do Caderno do Povo; Papel e Stoat ficam na troca de tema.
   const [tema, setTema] = useState<"stoat" | "escuro" | "pergaminho">(() => {
     const guardado = getItem(CHAVE_DO_TEMA_DA_SALA);
-    return guardado === "pergaminho" || guardado === "escuro" ? guardado : "stoat";
+    return guardado === "pergaminho" || guardado === "stoat" ? guardado : "escuro";
   });
+  // As chamadas acontecendo agora nas minhas conversas (como os canais de voz do Discord).
+  const chamadas = useLista<ChamadaDoCanal[]>("chat_chamadas");
+  const [lugarNaConversa, setLugarNaConversa] = useState<HTMLDivElement | null>(null);
+  const [chamadasVistas, setChamadasVistas] = useState<string[]>([]);
   const [meuStatus, setMeuStatus] = useState(false);
   const [minhaPresenca, setMinhaPresenca] = useState<Presenca>("online");
   useEffect(() => {
@@ -255,6 +276,14 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
   useRelogio(lista.recarregar, 8000);
   useRelogio(membros.recarregar, 30000);
   useRelogio(reunioes.recarregar, 30000);
+  useRelogio(chamadas.recarregar, 10000);
+  // Enquanto a pessoa está numa chamada, o sinal de vida a cada 30 segundos (quem fecha a aba sem sair para de contar).
+  const idDaChamada = chamada?.id;
+  useEffect(() => {
+    if (!idDaChamada) return;
+    const relogio = window.setInterval(() => void rpc("reuniao_presenca", { p_id: idDaChamada, p_entrou: true }).catch(() => undefined), 30000);
+    return () => window.clearInterval(relogio);
+  }, [idDaChamada]);
   // Busca no índice deste aparelho: só o que ele já abriu.
   useEffect(() => {
     const termoDeBusca = busca.trim();
@@ -310,6 +339,11 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
   const propostasPendentes = (propostasDeReuniao.dados ?? []).filter((p) => p.status === "pendente").length;
   const reuniaoAberta = listaDeReunioes.find((r) => r.id === reuniaoVista) ?? null;
   const euMembro = (membros.dados ?? []).find((m) => m.eu);
+  const listaDeChamadas = chamadas.dados ?? [];
+  const chamadaDe = (conversa: string) => listaDeChamadas.find((c) => c.conversa === conversa);
+  // A chamada que alguém acabou de começar numa conversa minha e eu ainda não vi: vira o convite no alto da sala.
+  const chamadaNova = listaDeChamadas.find((c) => c.organizador.id !== me.id && chamada?.id !== c.id && !chamadasVistas.includes(c.id) && !c.na_sala.some((p) => p.id === me.id));
+  const nomeDaConversa = (id: string) => todas.find((c) => c.id === id)?.nome ?? "";
 
   /** Abrir uma conversa trancada pede a digital (uma vez por alguns minutos). */
   async function abrirConversa(conversa: Conversa) {
@@ -368,9 +402,17 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
   // ───── Reuniões como canais de voz ─────
   async function entrarNaChamada(r: Reuniao) {
     setChamada(r);
-    setReuniaoVista(r.id);
-    setTela("reuniao");
-    setAberta(null);
+    const doCanal = (r as Partial<ChamadaDoCanal>).conversa;
+    if (doCanal) {
+      // A chamada de um canal abre em cima das mensagens daquele canal, como uma ligação no Discord.
+      setChamadasVistas((vistas) => [...vistas, r.id]);
+      setTela("conversa");
+      setAberta(doCanal);
+    } else {
+      setReuniaoVista(r.id);
+      setTela("reuniao");
+      setAberta(null);
+    }
     try {
       await rpc("reuniao_presenca", { p_id: r.id, p_entrou: true });
     } catch {
@@ -387,6 +429,18 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
         // idem
       }
       reunioes.recarregar();
+      chamadas.recarregar();
+    }
+  }
+  /** Começar uma chamada de voz ou de vídeo na conversa (todo mundo dela é avisado) e já entrar nela. */
+  async function iniciarChamada(conversa: string, video: boolean) {
+    setAviso("");
+    try {
+      const r = await rpc<ChamadaDoCanal>("chat_chamada_iniciar", { p_conversa: conversa, p_video: video });
+      chamadas.recarregar();
+      await entrarNaChamada(r);
+    } catch (erro) {
+      setAviso(textoDoErro(erro));
     }
   }
   async function mudarEstado(r: Reuniao, status: Reuniao["status"], mensagem: string) {
@@ -402,7 +456,8 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
     }
   }
   const abrirReuniao = (r: Reuniao) => { setReuniaoVista(r.id); setTela("reuniao"); setAberta(null); };
-  const trocarTema = () => setTema((t) => { const novo = t === "stoat" ? "escuro" : t === "escuro" ? "pergaminho" : "stoat"; setItem(CHAVE_DO_TEMA_DA_SALA, novo === "stoat" ? null : novo); return novo; });
+  // Noite (o padrão) → Papel → Stoat → Noite.
+  const trocarTema = () => setTema((t) => { const novo = t === "escuro" ? "pergaminho" : t === "pergaminho" ? "stoat" : "escuro"; setItem(CHAVE_DO_TEMA_DA_SALA, novo === "escuro" ? null : novo); return novo; });
 
   const aberto = tela !== "conversa" || aberta !== null;
   const linhaDeCanal = (conversa: Conversa) => (
@@ -414,6 +469,9 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
       chaveiro={chaveiro}
       pedindoTrava={pedindoTrava === conversa.id}
       menuAberto={menu === conversa.id}
+      chamada={chamadaDe(conversa.id)}
+      estouNaChamada={Boolean(chamada && chamada.id === chamadaDe(conversa.id)?.id)}
+      entrarNaChamada={() => { const c = chamadaDe(conversa.id); if (c) void entrarNaChamada(c); }}
       abrir={() => void abrirConversa(conversa)}
       alternarMenu={() => setMenu(menu === conversa.id ? null : conversa.id)}
       marcar={(campos) => {
@@ -423,9 +481,9 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
     />
   );
   const categoria = (id: string, titulo: string, conteudo: ReactNode, acao?: { rotulo: string; fazer: () => void }) => (
-    <div className="mt-4 first:mt-1">
-      <div className="group flex items-center justify-between px-1">
-        <button type="button" className="flex cursor-pointer items-center gap-0.5 font-mono text-[0.68rem] font-semibold uppercase tracking-wider text-s-mudo hover:text-s-texto" aria-expanded={!recolhidas.includes(id)} onClick={() => setRecolhidas((r) => (r.includes(id) ? r.filter((x) => x !== id) : [...r, id]))}>
+    <div className="mt-5 first:mt-2">
+      <div className="group flex items-center justify-between px-2">
+        <button type="button" className="salas-rot flex cursor-pointer items-center gap-1 text-s-mudo hover:text-s-texto" aria-expanded={!recolhidas.includes(id)} onClick={() => setRecolhidas((r) => (r.includes(id) ? r.filter((x) => x !== id) : [...r, id]))}>
           <IconeDaSala nome="seta" className={`h-3 w-3 transition-transform ${recolhidas.includes(id) ? "-rotate-90" : ""}`} />
           {titulo}
         </button>
@@ -444,9 +502,16 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
           <IconeDaSala nome="conversa" className="h-6 w-6" />
         </BotaoDoTrilho>
         <span className="h-0.5 w-8 rounded bg-s-linha" aria-hidden="true" />
-        <BotaoDoTrilho rotulo="Instituto Lúcia" ativo={espaco === "instituto"} conta={naoLidasInstituto} fazer={() => { setEspaco("instituto"); setTela("conversa"); setAberta(null); }}>
-          <IconeDaSala nome="estrela" className="h-6 w-6" />
+        <BotaoDoTrilho rotulo="Instituto Lúcia" ativo={espaco === "instituto"} conta={naoLidasInstituto} marca fazer={() => { setEspaco("instituto"); setTela("conversa"); setAberta(null); }}>
+          {/* A marca original, sem redesenho: o espaço do instituto é ela. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/marca-96.png" alt="" className="h-12 w-12 rounded-full" />
         </BotaoDoTrilho>
+        {listaDeChamadas.map((c) => (
+          <BotaoDoTrilho key={c.id} rotulo={`${c.video ? "Chamada de vídeo" : "Chamada de voz"} em ${nomeDaConversa(c.conversa) || c.titulo} · ${c.na_sala.length} na chamada`} ativo={chamada?.id === c.id} vivo fazer={() => { if (chamada?.id === c.id) { setTela("conversa"); setAberta(c.conversa); } else void entrarNaChamada(c); }}>
+            <IconeDaSala nome={c.video ? "camera" : "telefone"} className="h-6 w-6" />
+          </BotaoDoTrilho>
+        ))}
         {aoVivo.map((r) => (
           <BotaoDoTrilho key={r.id} rotulo={`Ao vivo: ${r.titulo}`} vermelho fazer={() => (r.posso_entrar && r.sala ? void entrarNaChamada(r) : abrirReuniao(r))}>
             <IconeDaSala nome="voz" className="h-6 w-6" />
@@ -469,21 +534,20 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
         <div className="relative">
           <button
             type="button"
-            className={`relative flex w-full cursor-pointer items-end justify-between border-b border-s-linha px-4 text-left font-semibold shadow-[0_1px_0_rgba(0,0,0,0.25)] hover:brightness-110 ${espaco === "instituto" ? "h-28 pb-2.5 text-white" : "h-12 items-center hover:bg-[var(--s-hover)]"}`}
-            style={espaco === "instituto" ? { background: "linear-gradient(160deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.65)), linear-gradient(135deg, #c21f16, #6e1f1a 60%, #1f1a14)" } : undefined}
+            className="flex h-14 w-full cursor-pointer items-center justify-between gap-2 border-b border-s-linha px-4 text-left hover:bg-[var(--s-hover)]"
             aria-expanded={menuDoEspaco}
             onClick={() => setMenuDoEspaco(!menuDoEspaco)}
           >
-            {espaco === "instituto" && (
-              // A marca não muda nunca: só aparece em marca-d'água na faixa.
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src="/marca-96.png" alt="" aria-hidden className="pointer-events-none absolute top-2.5 right-3 h-12 w-12 opacity-90" />
-            )}
-            <span className="relative truncate">{espaco === "instituto" ? "Instituto Lúcia" : "Mensagens diretas"}</span>
-            <IconeDaSala nome="seta" className={`h-4 w-4 transition-transform ${menuDoEspaco ? "rotate-180" : ""}`} />
+            <span className="min-w-0">
+              <span className="block truncate font-serif text-[1.2rem] leading-tight font-semibold">{espaco === "instituto" ? "Instituto Lúcia" : "Mensagens diretas"}</span>
+              <span className="salas-rot block truncate text-[0.6rem] text-s-mudo">
+                {espaco === "instituto" ? `${(membros.dados ?? []).length} pessoas · ${(membros.dados ?? []).filter((m) => m.online).length} agora` : `${diretas.length} conversas`}
+              </span>
+            </span>
+            <IconeDaSala nome="seta" className={`h-4 w-4 shrink-0 text-s-suave transition-transform ${menuDoEspaco ? "rotate-180" : ""}`} />
           </button>
           {menuDoEspaco && (
-            <ul role="menu" className={`absolute inset-x-2 z-30 rounded-md border border-s-linha bg-s-trilho p-1.5 text-sm shadow-2xl ${espaco === "instituto" ? "top-28" : "top-12"}`}>
+            <ul role="menu" className="absolute inset-x-2 top-14 z-30 rounded-md border border-s-linha bg-s-trilho p-1.5 text-sm shadow-2xl">
               {/* As duas abas de espaço também aqui: no celular o trilho fica escondido. */}
               {([
                 [espaco === "instituto" ? "Ir para mensagens diretas" : "Ir para o Instituto", () => setEspaco(espaco === "instituto" ? "diretas" : "instituto")],
@@ -501,13 +565,16 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
             </ul>
           )}
         </div>
-        <div className="space-y-1.5 px-2 pt-2">
-          <input value={busca} onChange={(e) => setBusca(e.target.value)} type="search" placeholder="Procurar" aria-label="Procurar pessoa, canal ou mensagem" className="h-8 w-full rounded bg-s-trilho px-2.5 text-sm text-s-texto placeholder:text-s-mudo focus:outline focus:outline-2 focus:outline-s-acento" />
-          <div className="flex flex-wrap gap-1 text-[0.72rem]" role="group" aria-label="Filtrar">
+        <div className="space-y-2 px-3 pt-3">
+          <label className="flex h-9 items-center gap-2 border border-s-linha bg-s-chat px-2.5 text-s-mudo focus-within:border-s-ouro">
+            <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
+            <input value={busca} onChange={(e) => setBusca(e.target.value)} type="search" placeholder="Procurar ou pular para…" aria-label="Procurar pessoa, canal ou mensagem" className="min-w-0 flex-1 bg-transparent text-[0.9rem] text-s-texto outline-none placeholder:text-s-mudo" />
+          </label>
+          <div className="flex flex-wrap gap-1 text-xs" role="group" aria-label="Filtrar">
             {([["todas", "Todas"], ["nao_lidas", "Não lidas"], ["fixadas", "Fixadas"]] as const).map(([valor, nome]) => (
-              <button key={valor} type="button" aria-pressed={filtro === valor && !arquivadas} onClick={() => { setFiltro(valor); setArquivadas(false); }} className={`cursor-pointer rounded-full px-2 py-0.5 ${filtro === valor && !arquivadas ? "bg-s-acento text-white" : "bg-s-trilho text-s-suave hover:text-s-texto"}`}>{nome}</button>
+              <button key={valor} type="button" aria-pressed={filtro === valor && !arquivadas} onClick={() => { setFiltro(valor); setArquivadas(false); }} className={`cursor-pointer rounded border px-2 py-0.5 font-semibold ${filtro === valor && !arquivadas ? "border-s-acento bg-s-acento text-white" : "border-s-linha text-s-suave hover:text-s-texto"}`}>{nome}</button>
             ))}
-            {quantasArquivadas > 0 && <button type="button" aria-pressed={arquivadas} onClick={() => setArquivadas(!arquivadas)} className={`cursor-pointer rounded-full px-2 py-0.5 ${arquivadas ? "bg-s-acento text-white" : "bg-s-trilho text-s-suave hover:text-s-texto"}`}>Arquivadas {quantasArquivadas}</button>}
+            {quantasArquivadas > 0 && <button type="button" aria-pressed={arquivadas} onClick={() => setArquivadas(!arquivadas)} className={`cursor-pointer rounded border px-2 py-0.5 font-semibold ${arquivadas ? "border-s-acento bg-s-acento text-white" : "border-s-linha text-s-suave hover:text-s-texto"}`}>Arquivadas {quantasArquivadas}</button>}
           </div>
         </div>
         <div className="salas-rolagem min-h-0 flex-1 overflow-y-auto px-2 pb-3">
@@ -568,13 +635,20 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
           )}
         </div>
         {chamada && (
-          <div className="border-t border-s-linha bg-s-trilho px-3 py-2 text-sm">
-            <p className="flex items-center gap-1.5 font-semibold text-s-ok"><IconeDaSala nome="voz" className="h-4 w-4" /> Voz conectada</p>
-            <p className="truncate text-xs text-s-suave">{chamada.titulo}</p>
-            <p className="mt-1.5 flex gap-2">
-              <button type="button" className="cursor-pointer rounded bg-s-campo px-2 py-1 text-xs hover:bg-[var(--s-ativo)]" onClick={() => { setReuniaoVista(chamada.id); setTela("reuniao"); setAberta(null); }}>Abrir</button>
-              <button type="button" className="cursor-pointer rounded bg-s-acento px-2 py-1 text-xs text-white" onClick={() => void sairDaChamada()}>Sair</button>
-            </p>
+          <div className="flex items-center gap-2 border-t border-s-linha bg-s-trilho px-3 py-2.5">
+            <span className="salas-ao-vivo flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-s-verde text-white"><IconeDaSala nome={(chamada as Partial<ChamadaDoCanal>).video === false ? "telefone" : "camera"} className="h-4 w-4" /></span>
+            <button
+              type="button"
+              className="min-w-0 flex-1 cursor-pointer text-left"
+              title="Voltar para a chamada"
+              onClick={() => { const doCanal = (chamada as Partial<ChamadaDoCanal>).conversa; if (doCanal) { setTela("conversa"); setAberta(doCanal); } else { setReuniaoVista(chamada.id); setTela("reuniao"); setAberta(null); } }}
+            >
+              <span className="block text-sm font-bold text-s-ok">Chamada conectada</span>
+              <span className="block truncate text-xs text-s-suave">{chamada.titulo}</span>
+            </button>
+            <button type="button" className="flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-full bg-s-acento text-white hover:brightness-110" title="Sair da chamada" aria-label="Sair da chamada" onClick={() => void sairDaChamada()}>
+              <IconeDaSala nome="desligar" className="h-4 w-4" />
+            </button>
           </div>
         )}
         <div className="relative flex items-center gap-2 border-t border-s-linha bg-s-trilho px-2 py-2">
@@ -589,13 +663,25 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
               <span className="block truncate text-[0.68rem] text-s-mudo">{euMembro?.frase || "cifrado neste aparelho"}</span>
             </span>
           </button>
-          <button type="button" className="cursor-pointer rounded p-1.5 text-s-suave hover:bg-[var(--s-ativo)] hover:text-s-texto" title={tema === "stoat" ? "Tema tinta e bordô" : tema === "escuro" ? "Tema pergaminho" : "Tema Stoat"} aria-label="Trocar o tema da sala" onClick={trocarTema}><IconeDaSala nome="sol" className="h-4 w-4" /></button>
+          <button type="button" className="cursor-pointer rounded p-1.5 text-s-suave hover:bg-[var(--s-ativo)] hover:text-s-texto" title={tema === "escuro" ? "Trocar para o tema Papel" : tema === "pergaminho" ? "Trocar para o tema Stoat" : "Trocar para o tema Noite"} aria-label="Trocar o tema da sala" onClick={trocarTema}><IconeDaSala nome="sol" className="h-4 w-4" /></button>
           <button type="button" className="cursor-pointer rounded p-1.5 text-s-suave hover:bg-[var(--s-ativo)] hover:text-s-texto" title="Aparelhos e segurança" aria-label="Aparelhos e segurança" onClick={() => { setTela("seguranca"); setAberta(null); }}><IconeDaSala nome="engrenagem" className="h-4 w-4" /></button>
         </div>
       </aside>
 
       {/* O meio: a conversa, a reunião ou uma das telas da sala. */}
-      <section className={`min-h-0 min-w-0 flex-col bg-s-chat ${aberto ? "flex" : "hidden lg:flex"}`}>
+      <section className={`relative min-h-0 min-w-0 flex-col bg-s-chat ${aberto || chamadaNova ? "flex" : "hidden lg:flex"}`}>
+        {/* Alguém começou uma chamada numa conversa minha: o convite fica no alto até eu entrar ou dispensar. */}
+        {chamadaNova && (
+          <div role="alert" className="salas-folha absolute inset-x-3 top-3 z-40 flex flex-wrap items-center gap-3 px-4 py-3">
+            <span className="salas-ao-vivo flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-s-verde text-white"><IconeDaSala nome={chamadaNova.video ? "camera" : "telefone"} className="h-5 w-5" /></span>
+            <p className="min-w-0 flex-1 text-sm">
+              <strong className="block text-[0.95rem]">{chamadaNova.organizador.nome.split(" ")[0]} começou uma chamada {chamadaNova.video ? "de vídeo" : "de voz"}</strong>
+              <span className="text-s-suave">em {nomeDaConversa(chamadaNova.conversa) ? `#${nomeDaConversa(chamadaNova.conversa)}` : "uma conversa"}{chamadaNova.na_sala.length ? ` · ${chamadaNova.na_sala.length} na chamada` : ""}</span>
+            </p>
+            <button type="button" className="cursor-pointer rounded bg-s-verde px-4 py-2 text-sm font-bold text-white hover:brightness-110" onClick={() => void entrarNaChamada(chamadaNova)}>Entrar</button>
+            <button type="button" className="cursor-pointer rounded border border-s-linha px-3 py-2 text-sm font-semibold text-s-suave hover:text-s-texto" onClick={() => setChamadasVistas((vistas) => [...vistas, chamadaNova.id])}>Agora não</button>
+          </div>
+        )}
         {tela === "grupo" ? (
           <TelaDaSala titulo="Criar grupo" voltar={() => setTela("conversa")}>
             <NovoGrupo membros={membros.dados ?? []} fechar={() => setTela("conversa")} criado={(id) => { setTela("conversa"); setEspaco("instituto"); setAberta(id); lista.recarregar(); }} />
@@ -652,6 +738,12 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
             conversarCom={(usuario) => void conversarCom(usuario)}
             voltar={() => { setAberta(null); lista.recarregar(); }}
             mudou={lista.recarregar}
+            chamada={chamadaDe(aberta)}
+            estouNaChamada={Boolean(chamada && chamada.id === chamadaDe(aberta)?.id)}
+            iniciarChamada={(video) => void iniciarChamada(aberta, video)}
+            entrarNaChamada={() => { const c = chamadaDe(aberta); if (c) void entrarNaChamada(c); }}
+            sairDaChamada={() => void sairDaChamada()}
+            lugarDaChamada={setLugarNaConversa}
           />
         ) : (
           <BoasVindas
@@ -671,10 +763,14 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
       {chamada && (
         <CamadaDaChamada
           chamada={chamada}
-          lugar={tela === "reuniao" && reuniaoVista === chamada.id ? lugarDaChamada : null}
+          lugar={
+            tela === "reuniao" && reuniaoVista === chamada.id ? lugarDaChamada
+            : tela === "conversa" && aberta && (chamada as Partial<ChamadaDoCanal>).conversa === aberta ? lugarNaConversa
+            : null
+          }
           me={me}
           lang={lang}
-          abrir={() => { setReuniaoVista(chamada.id); setTela("reuniao"); setAberta(null); }}
+          abrir={() => { const doCanal = (chamada as Partial<ChamadaDoCanal>).conversa; if (doCanal) { setTela("conversa"); setAberta(doCanal); } else { setReuniaoVista(chamada.id); setTela("reuniao"); setAberta(null); } }}
           sair={() => void sairDaChamada()}
         />
       )}
@@ -682,7 +778,7 @@ export function Conversas({ me, inicial }: { me: Me; inicial?: "reunioes" }) {
   );
 }
 
-function BotaoDoTrilho({ rotulo, ativo = false, conta = 0, vermelho = false, verde = false, fazer, children }: { rotulo: string; ativo?: boolean; conta?: number; vermelho?: boolean; verde?: boolean; fazer: () => void; children: ReactNode }) {
+function BotaoDoTrilho({ rotulo, ativo = false, conta = 0, vermelho = false, verde = false, marca = false, vivo = false, fazer, children }: { rotulo: string; ativo?: boolean; conta?: number; vermelho?: boolean; verde?: boolean; marca?: boolean; vivo?: boolean; fazer: () => void; children: ReactNode }) {
   return (
     <span className="group relative flex w-full justify-center">
       {/* A pílula do lado: alta quando ativo, baixinha quando há algo não lido. */}
@@ -693,7 +789,10 @@ function BotaoDoTrilho({ rotulo, ativo = false, conta = 0, vermelho = false, ver
         aria-label={rotulo}
         aria-pressed={ativo}
         onClick={fazer}
-        className={`salas-trilho-botao relative flex h-12 w-12 cursor-pointer items-center justify-center ${ativo ? "bg-s-acento text-white" : vermelho ? "bg-s-campo text-s-acento hover:bg-s-acento hover:text-white" : verde ? "bg-s-campo text-s-ok hover:bg-[#2f5d34] hover:text-white" : "bg-s-campo text-s-suave hover:bg-s-acento hover:text-white"}`}
+        className={`salas-trilho-botao relative flex h-12 w-12 cursor-pointer items-center justify-center ${
+          marca ? `bg-transparent ${ativo ? "ring-2 ring-s-ouro ring-offset-2 ring-offset-[var(--s-trilho)]" : "opacity-85 hover:opacity-100"}`
+          : vivo ? `salas-ao-vivo ${ativo ? "bg-s-verde text-white" : "bg-s-campo text-s-ok hover:bg-s-verde hover:text-white"}`
+          : ativo ? "bg-s-acento text-white" : vermelho ? "bg-s-campo text-s-acento hover:bg-s-acento hover:text-white" : verde ? "bg-s-campo text-s-ok hover:bg-s-verde hover:text-white" : "bg-s-campo text-s-suave hover:bg-s-acento hover:text-white"}`}
       >
         {children}
         {vermelho && <span className="absolute -right-0.5 -bottom-0.5 h-3.5 w-3.5 animate-pulse rounded-full border-2 border-s-trilho bg-s-acento" aria-hidden="true" />}
@@ -703,7 +802,7 @@ function BotaoDoTrilho({ rotulo, ativo = false, conta = 0, vermelho = false, ver
   );
 }
 
-function LinhaDeCanal({ conversa, ativa, previa, chaveiro, pedindoTrava, menuAberto, abrir, alternarMenu, marcar }: { conversa: Conversa; ativa: boolean; previa: { texto: string; mencao: boolean }; chaveiro: Chaveiro; pedindoTrava: boolean; menuAberto: boolean; abrir: () => void; alternarMenu: () => void; marcar: (campos: Record<string, unknown>) => void }) {
+function LinhaDeCanal({ conversa, ativa, previa, chaveiro, pedindoTrava, menuAberto, chamada, estouNaChamada, entrarNaChamada, abrir, alternarMenu, marcar }: { conversa: Conversa; ativa: boolean; previa: { texto: string; mencao: boolean }; chaveiro: Chaveiro; pedindoTrava: boolean; menuAberto: boolean; chamada?: ChamadaDoCanal; estouNaChamada: boolean; entrarNaChamada: () => void; abrir: () => void; alternarMenu: () => void; marcar: (campos: Record<string, unknown>) => void }) {
   const pendentes = conversa.nao_lidas > 0 || conversa.marcada_nao_lida;
   const direta = conversa.tipo === "direta";
   return (
@@ -715,7 +814,7 @@ function LinhaDeCanal({ conversa, ativa, previa, chaveiro, pedindoTrava, menuAbe
         onContextMenu={(e) => { e.preventDefault(); alternarMenu(); }}
         aria-current={ativa ? "true" : undefined}
         title={previa.texto}
-        className={`group flex w-full cursor-pointer items-center gap-2 rounded px-2 py-1.5 pr-7 text-left text-[0.92rem] ${ativa ? "bg-[var(--s-ativo)] text-s-texto" : pendentes && !conversa.silenciada ? "font-semibold text-s-texto hover:bg-[var(--s-hover)]" : conversa.silenciada ? "text-s-mudo hover:bg-[var(--s-hover)]" : "text-s-suave hover:bg-[var(--s-hover)] hover:text-s-texto"}`}
+        className={`group flex w-full cursor-pointer items-center gap-2.5 rounded px-2.5 py-[0.4rem] pr-7 text-left text-[0.95rem] ${ativa ? "bg-[var(--s-ativo)] font-semibold text-s-texto" : pendentes && !conversa.silenciada ? "font-bold text-s-texto hover:bg-[var(--s-hover)]" : conversa.silenciada ? "text-s-mudo hover:bg-[var(--s-hover)]" : "font-medium text-s-suave hover:bg-[var(--s-hover)] hover:text-s-texto"}`}
       >
         {direta ? (
           <Rosto nome={conversa.nome} online={Boolean(conversa.online)} tipo="direta" pequeno />
@@ -727,14 +826,25 @@ function LinhaDeCanal({ conversa, ativa, previa, chaveiro, pedindoTrava, menuAbe
         <span className="min-w-0 flex-1">
           <span className="block truncate">
             {conversa.nome}
-            {conversa.apagar_apos && <span title={`Autodestruição: ${nomeDoPrazo(conversa.apagar_apos)}`} className="ml-1 font-normal text-s-mudo">⏱</span>}
-            {conversa.fechada && <span title="Fechada pela coordenação por enquanto" className="ml-1 font-normal text-s-mudo">⛔</span>}
+            {conversa.apagar_apos && <span title={`Autodestruição: ${nomeDoPrazo(conversa.apagar_apos)}`} className="ml-1.5 inline-block align-[-2px] font-normal text-s-mudo"><IconeDaSala nome="relogio" className="h-3.5 w-3.5" /></span>}
+            {conversa.fechada && <span title="Fechada pela coordenação por enquanto" className="ml-1.5 inline-block align-[-2px] font-normal text-s-mudo"><IconeDaSala nome="bloqueio" className="h-3.5 w-3.5" /></span>}
           </span>
-          {direta && <span className="block truncate text-[0.7rem] font-normal text-s-mudo">{pedindoTrava ? "Confirme a digital…" : previa.texto}</span>}
+          {direta && <span className="block truncate text-xs font-normal text-s-mudo">{pedindoTrava ? "Confirme a digital…" : previa.texto}</span>}
         </span>
-        {previa.mencao && <span title="Você foi mencionado" className="rounded-full bg-[#d4372b] px-1.5 font-mono text-[0.62rem] font-bold text-white">@</span>}
-        {pendentes && conversa.nao_lidas > 0 && !previa.mencao && <span className={`rounded-full px-1.5 font-mono text-[0.62rem] font-bold ${conversa.silenciada ? "bg-s-campo text-s-suave" : "bg-[#d4372b] text-white"}`}>{conversa.nao_lidas}</span>}
+        {chamada && <span title={`${chamada.na_sala.length} na chamada`} className="text-s-ok"><IconeDaSala nome={chamada.video ? "camera" : "telefone"} className="h-4 w-4" /></span>}
+        {previa.mencao && <span title="Você foi mencionado" className="flex h-5 min-w-5 items-center justify-center rounded-full bg-s-acento px-1.5 font-mono text-[0.68rem] font-bold text-white">@</span>}
+        {pendentes && conversa.nao_lidas > 0 && !previa.mencao && <span className={`flex h-5 min-w-5 items-center justify-center rounded-full px-1.5 font-mono text-[0.68rem] font-bold ${conversa.silenciada ? "bg-s-campo text-s-suave" : "bg-s-acento text-white"}`}>{conversa.nao_lidas}</span>}
       </button>
+      {/* Quem está na chamada deste canal, logo embaixo, como os canais de voz do Discord. */}
+      {chamada && (
+        <button type="button" onClick={entrarNaChamada} className="mb-1 ml-9 flex max-w-[calc(100%-2.25rem)] cursor-pointer items-center gap-1.5 rounded px-1.5 py-1 text-left text-xs text-s-suave hover:bg-[var(--s-hover)] hover:text-s-texto" title={estouNaChamada ? "Você está nesta chamada" : "Entrar na chamada"}>
+          <span className="flex -space-x-1.5">
+            {chamada.na_sala.slice(0, 4).map((p) => <Avatar key={p.id} nome={p.nome} className="h-5 w-5 rounded-full ring-2 ring-[var(--s-lado)]" texto="text-[0.55rem]" />)}
+          </span>
+          <span className="truncate">{chamada.na_sala.length ? `${chamada.na_sala.map((p) => p.nome.split(" ")[0]).slice(0, 2).join(", ")}${chamada.na_sala.length > 2 ? ` +${chamada.na_sala.length - 2}` : ""}` : "Chamada aberta"}</span>
+          <span className="salas-rot ml-auto shrink-0 text-[0.58rem] text-s-ok">{estouNaChamada ? "você está" : "entrar"}</span>
+        </button>
+      )}
       <button type="button" aria-label={`Opções da conversa ${conversa.nome}`} aria-expanded={menuAberto} className="absolute top-1.5 right-1 cursor-pointer rounded px-1 text-s-mudo opacity-0 group-hover:opacity-100 hover:text-s-texto focus:opacity-100" onClick={alternarMenu}><IconeDaSala nome="menu" className="h-4 w-4" /></button>
       {menuAberto && (
         <ul role="menu" className="absolute top-8 right-0 z-30 w-56 rounded-md border border-s-linha bg-s-trilho p-1.5 text-sm shadow-2xl">
@@ -927,7 +1037,7 @@ function CamadaDaChamada({ chamada, lugar, me, lang, abrir, sair }: { chamada: R
         </div>
       )}
       <div className="min-h-0 flex-1 bg-black">
-        <JitsiSala sala={chamada.sala ?? ""} nome={me.nome} conduzo={chamada.conduzo} lang={lang} assunto={chamada.titulo} aoSair={sair} />
+        <JitsiSala sala={chamada.sala ?? ""} nome={me.nome} conduzo={chamada.conduzo} lang={lang} assunto={chamada.titulo} aoSair={sair} video={(chamada as Partial<ChamadaDoCanal>).video} />
       </div>
     </div>,
     document.body,
@@ -990,7 +1100,14 @@ interface Vista {
 }
 
 /** Uma conversa aberta: as mensagens, quem está por aqui, a autodestruição e a caixa de escrever. */
-function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, voltar, mudou }: { id: string; chaveiro: Chaveiro; me: Me; equipe: Membro[]; conversas: Conversa[]; resumo?: Conversa; conversarCom: (usuario: string) => void; voltar: () => void; mudou: () => void }) {
+function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, voltar, mudou, chamada, estouNaChamada, iniciarChamada, entrarNaChamada, sairDaChamada, lugarDaChamada }: {
+  id: string; chaveiro: Chaveiro; me: Me; equipe: Membro[]; conversas: Conversa[]; resumo?: Conversa; conversarCom: (usuario: string) => void; voltar: () => void; mudou: () => void;
+  /** A chamada acontecendo nesta conversa, se houver; e se eu estou nela. */
+  chamada?: ChamadaDoCanal; estouNaChamada: boolean;
+  iniciarChamada: (video: boolean) => void; entrarNaChamada: () => void; sairDaChamada: () => void;
+  /** O lugar, em cima das mensagens, onde a chamada (que mora numa camada própria) se encaixa. */
+  lugarDaChamada: (el: HTMLDivElement | null) => void;
+}) {
   const conversa = useLista<Aberta>("chat_ver", { p_id: id });
   const { recarregar } = conversa;
   const [texto, setTexto] = useState(() => getItem(chaveDoRascunho(id)));
@@ -1321,6 +1438,16 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
     const arroba = /(?:^|\s)@([^\s@]*)$/.exec(antes);
     setSugestao(arroba ? { inicio: cursor - arroba[1].length - 1, termo: arroba[1] } : null);
   }
+  /** Negrito e itálico pela barra: põe o sinal em volta do que está selecionado (ou no cursor). */
+  function marcarTexto(sinal: string) {
+    const el = caixa.current;
+    if (!el) return;
+    const inicio = el.selectionStart ?? texto.length;
+    const fim = el.selectionEnd ?? inicio;
+    const novo = `${texto.slice(0, inicio)}${sinal}${texto.slice(inicio, fim)}${sinal}${texto.slice(fim)}`;
+    aoDigitar(novo, fim + 1);
+    window.requestAnimationFrame(() => { el.focus(); el.setSelectionRange(inicio + 1, fim + 1); });
+  }
   const sugeridos = sugestao ? outros.filter((membro) => membro.nome.toLowerCase().includes(sugestao.termo.toLowerCase())).slice(0, 6) : [];
   function mencionar(membro: MembroDaConversa) {
     if (!sugestao) return;
@@ -1335,12 +1462,20 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
   /** A cor do nome de cada pessoa, pela função (como as cores de cargo do Discord). */
   const corDoNome = (autor: string | null) => {
     const funcoes = equipe.find((membro) => membro.id === autor)?.papeis.map((p) => p.papel) ?? [];
-    if (funcoes.includes("coordenacao") || funcoes.includes("vice")) return "var(--s-acento-suave)";
-    if (funcoes.includes("supervisao")) return "#8fb8d8";
-    if (funcoes.some((f) => f === "educacao" || f === "educacao_secundaria")) return "var(--s-ouro)";
-    if (funcoes.includes("design") || funcoes.includes("marketing")) return "#c99ad6";
-    if (funcoes.includes("jornalismo")) return "#8fc796";
+    // Cores dos tokens da sala: cada uma lê bem nos três temas.
+    if (funcoes.includes("coordenacao") || funcoes.includes("vice")) return "var(--s-ouro)";
+    if (funcoes.some((f) => f === "educacao" || f === "educacao_secundaria")) return "var(--s-ok)";
+    if (funcoes.some((f) => f === "supervisao" || f === "jornalismo" || f === "marketing" || f === "porta_voz")) return "var(--s-azul)";
+    if (funcoes.includes("design") || funcoes.includes("curadoria")) return "var(--s-acento-suave)";
     return "var(--s-texto)";
+  };
+  /** A etiqueta do cargo ao lado do nome, nos canais e grupos (na conversa privada não precisa). */
+  const cargoDe = (autor: string | null) => {
+    if (dados.tipo === "direta" || !autor) return "";
+    const ordem = ["coordenacao", "vice", "supervisao", "educacao", "educacao_secundaria", "curadoria", "revisao", "jornalismo", "marketing", "design", "traducao", "mediacao", "desenvolvimento"];
+    const funcoes = equipe.find((membro) => membro.id === autor)?.papeis.map((p) => p.papel as string) ?? [];
+    const principal = ordem.find((papel) => funcoes.includes(papel));
+    return principal ? ((papeis as Record<string, string>)[principal] ?? "").toLowerCase() : "";
   };
   const avatarDe = (autor: string | null) => dados.membros.find((membro) => membro.id === autor)?.avatar ?? equipe.find((membro) => membro.id === autor)?.avatar;
   const itemDoMenu = "block w-full cursor-pointer rounded px-2.5 py-1.5 text-left hover:bg-s-acento hover:text-white";
@@ -1348,10 +1483,10 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
   return (
     <div className="flex min-h-0 flex-1">
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-        <header className="flex h-12 shrink-0 items-center gap-2 border-b border-s-linha px-3 shadow-[0_1px_0_rgba(0,0,0,0.2)]">
-          <button type="button" aria-label="Voltar às conversas" className="cursor-pointer px-1 text-xl text-s-suave lg:hidden" onClick={voltar}>←</button>
+        <header className="flex h-14 shrink-0 items-center gap-2.5 border-b border-s-linha px-4">
+          <button type="button" aria-label="Voltar às conversas" className="cursor-pointer px-1 text-s-suave lg:hidden" onClick={voltar}><svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg></button>
           {dados.tipo === "direta" ? <Rosto nome={nome} online={Boolean(outro?.online)} tipo="direta" avatar={outro?.avatar} pequeno /> : <IconeDaSala nome="cerquilha" className="h-5 w-5 shrink-0 text-s-mudo" />}
-          <h2 className="truncate font-semibold">
+          <h2 className="max-w-[45%] shrink-0 truncate text-base font-bold">
             {nome}
             {outro && verificado(outro.id) && <span title="Identidade verificada pessoalmente" className="ml-1.5 text-xs font-normal text-s-ok">✓ verificado</span>}
           </h2>
@@ -1364,7 +1499,28 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                 : dados.descricao || `${dados.tipo === "departamento" ? "Canal do departamento · " : ""}${dados.membros.length} pessoas${outros.some((membro) => membro.online !== null) ? ` · ${dados.membros.filter((membro) => membro.online).length} online` : ""}`}
           </p>
           <span className="flex-1 sm:hidden" />
-          {dados.apagar_apos && <span title={`Autodestruição: ${nomeDoPrazo(dados.apagar_apos)}`} className="text-sm text-s-mudo">⏱</span>}
+          <span title="Cifrado de ponta a ponta neste aparelho: o servidor não lê" className="salas-rot hidden shrink-0 items-center gap-1.5 border border-s-linha px-2 py-1 text-[0.58rem] text-s-ok 2xl:flex">
+            <IconeDaSala nome="cadeado" className="h-3 w-3" />ponta a ponta
+          </span>
+          {dados.apagar_apos && <span title={`Autodestruição: ${nomeDoPrazo(dados.apagar_apos)}`} className="text-s-mudo"><IconeDaSala nome="relogio" className="h-4 w-4" /></span>}
+          {/* As chamadas do canal, como no Discord: voz ou vídeo para todo mundo da conversa, que é avisado. */}
+          {chamada ? (
+            !estouNaChamada && (
+              <button type="button" className="salas-ao-vivo flex shrink-0 cursor-pointer items-center gap-1.5 rounded bg-s-verde px-3 py-1.5 text-sm font-bold text-white hover:brightness-110" onClick={entrarNaChamada}>
+                <IconeDaSala nome={chamada.video ? "camera" : "telefone"} className="h-4 w-4" />
+                <span className="hidden xl:inline">Entrar na chamada</span>
+              </button>
+            )
+          ) : dados.posso_enviar ? (
+            <>
+              <button type="button" className="cursor-pointer rounded p-1.5 text-s-suave hover:bg-[var(--s-hover)] hover:text-s-texto" title="Começar uma chamada de voz (todo mundo da conversa é avisado)" aria-label="Começar chamada de voz" onClick={() => iniciarChamada(false)}>
+                <IconeDaSala nome="telefone" className="h-5 w-5" />
+              </button>
+              <button type="button" className="cursor-pointer rounded p-1.5 text-s-suave hover:bg-[var(--s-hover)] hover:text-s-texto" title="Começar uma chamada de vídeo (todo mundo da conversa é avisado)" aria-label="Começar chamada de vídeo" onClick={() => iniciarChamada(true)}>
+                <IconeDaSala nome="camera" className="h-5 w-5" />
+              </button>
+            </>
+          ) : null}
           {fixadas.length > 0 && (
             <button type="button" className="relative cursor-pointer rounded p-1.5 text-s-suave hover:text-s-texto" title="Mensagens fixadas" aria-label="Ir para a mensagem fixada" onClick={() => irPara(fixadas[0].mensagem.id)}>
               <IconeDaSala nome="alfinete" className="h-5 w-5" />
@@ -1401,6 +1557,30 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
           </span>
         </header>
 
+        {/* A chamada deste canal: com a pessoa dentro, a sala abre aqui em cima das mensagens; fora, a faixa de quem está. */}
+        {chamada && estouNaChamada && (
+          <div className="flex h-[min(46vh,26rem)] shrink-0 flex-col border-b border-s-linha bg-black">
+            <div ref={lugarDaChamada} className="min-h-0 flex-1" />
+            <div className="flex shrink-0 items-center gap-3 bg-s-trilho px-4 py-2">
+              <span className="salas-rot text-[0.6rem] text-s-ok">{chamada.video ? "Chamada de vídeo" : "Chamada de voz"} · {chamada.na_sala.length} na chamada</span>
+              <span className="flex -space-x-1.5">{chamada.na_sala.slice(0, 6).map((p) => <Avatar key={p.id} nome={p.nome} className="h-6 w-6 rounded-full ring-2 ring-[var(--s-trilho)]" texto="text-[0.55rem]" />)}</span>
+              <span className="min-w-0 flex-1 truncate text-xs text-s-mudo" title="Troque de canal à vontade: a chamada continua num quadrinho.">Troque de canal à vontade: a chamada continua num quadrinho.</span>
+              <button type="button" className="flex cursor-pointer items-center gap-1.5 rounded bg-s-acento px-3 py-1.5 text-sm font-bold text-white hover:brightness-110" onClick={sairDaChamada}>
+                <IconeDaSala nome="desligar" className="h-4 w-4" /> Sair
+              </button>
+            </div>
+          </div>
+        )}
+        {chamada && !estouNaChamada && (
+          <div className="flex shrink-0 flex-wrap items-center gap-3 border-b border-s-linha bg-[color-mix(in_srgb,var(--s-ok)_10%,transparent)] px-4 py-2.5">
+            <span className="salas-ao-vivo flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-s-verde text-white"><IconeDaSala nome={chamada.video ? "camera" : "telefone"} className="h-4 w-4" /></span>
+            <p className="min-w-0 flex-1 text-sm">
+              <strong>{chamada.video ? "Chamada de vídeo" : "Chamada de voz"} acontecendo</strong>
+              <span className="text-s-suave"> · {chamada.na_sala.length ? `na chamada: ${chamada.na_sala.map((p) => p.nome.split(" ")[0]).join(", ")}` : `começada por ${chamada.organizador.nome.split(" ")[0]}`}</span>
+            </p>
+            <button type="button" className="cursor-pointer rounded bg-s-verde px-4 py-1.5 text-sm font-bold text-white hover:brightness-110" onClick={entrarNaChamada}>Entrar</button>
+          </div>
+        )}
         {gerir && dados.tipo !== "direta" ? (
           <div className="salas-rolagem min-h-0 flex-1 overflow-y-auto">
             <Grupo dados={dados} me={me} equipe={equipe} chaveiro={chaveiro} conversa={id} depois={() => { recarregar(); mudou(); }} saiu={voltar} enviarFoto={async (arquivo) => {
@@ -1467,17 +1647,23 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                 const anterior = vistas[indice - 1]?.mensagem;
                 const outroDia = !anterior || new Date(anterior.criado_em).toDateString() !== new Date(mensagem.criado_em).toDateString();
                 const separador = outroDia ? (
-                  <div className="mx-4 my-3 flex items-center gap-3 text-[0.7rem] font-semibold text-s-mudo" role="separator">
+                  <div className="salas-rot mx-5 my-4 flex items-center gap-3 text-[0.62rem] text-s-mudo" role="separator">
                     <span className="h-px flex-1 bg-s-linha" />
                     {diaDe(mensagem.criado_em)}
                     <span className="h-px flex-1 bg-s-linha" />
                   </div>
                 ) : null;
                 if (mensagem.tipo === "sistema") {
+                  const deChamada = mensagem.detalhe?.evento === "chamada" || mensagem.detalhe?.evento === "chamada_fim";
                   return (
                     <div key={mensagem.id} id={`m-${mensagem.id}`}>
                       {separador}
-                      <p className="flex items-center gap-3 px-4 py-1 text-sm text-s-suave"><span className="w-10 text-center text-s-ok">→</span>{textoDoAviso(mensagem, me)} <span className="text-xs text-s-mudo">{hora(mensagem.criado_em)}</span></p>
+                      <p className="flex items-center gap-4 px-5 py-1.5 text-sm text-s-suave">
+                        <span className={`flex w-10 justify-center ${deChamada ? "text-s-ok" : "text-s-mudo"}`}><IconeDaSala nome={deChamada ? (mensagem.detalhe?.texto === "video" ? "camera" : "telefone") : "enviar"} className="h-4 w-4" /></span>
+                        <span>{textoDoAviso(mensagem, me)}</span>
+                        <span className="font-mono text-[0.7rem] text-s-mudo">{hora(mensagem.criado_em)}</span>
+                        {mensagem.detalhe?.evento === "chamada" && chamada && !estouNaChamada && <button type="button" className="cursor-pointer font-semibold text-s-ok underline" onClick={entrarNaChamada}>Entrar</button>}
+                      </p>
                     </div>
                   );
                 }
@@ -1489,7 +1675,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                 return (
                   <div key={mensagem.id} id={`m-${mensagem.id}`} className={destacada === mensagem.id ? "painel-surge" : ""}>
                     {separador}
-                    <div className={`group relative flex gap-4 px-4 py-0.5 ${continua ? "" : "mt-3"} ${meMenciona ? "border-l-2 border-s-ouro bg-[var(--s-mencao)] pl-[0.875rem]" : "hover:bg-[var(--s-hover)]"} ${destacada === mensagem.id || marcada ? "bg-[var(--s-ativo)]" : ""}`}>
+                    <div className={`group relative flex gap-4 px-5 py-1 ${continua ? "" : "mt-3"} ${meMenciona ? "bg-[var(--s-mencao)] shadow-[inset_3px_0_0_var(--s-ouro)]" : "hover:bg-[var(--s-hover)]"} ${destacada === mensagem.id || marcada ? "bg-[var(--s-ativo)]" : ""}`}>
                       {selecionadas && (
                         <input
                           type="checkbox"
@@ -1501,7 +1687,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                       )}
                       <div className="w-10 shrink-0">
                         {continua ? (
-                          <span className="invisible block pt-1 text-right text-[0.62rem] text-s-mudo group-hover:visible">{hora(mensagem.criado_em)}</span>
+                          <span className="invisible block pt-1 text-right font-mono text-[0.66rem] text-s-mudo group-hover:visible">{hora(mensagem.criado_em)}</span>
                         ) : (
                           <button type="button" className="mt-0.5 shrink-0 cursor-pointer rounded-full" aria-label={`Perfil de ${mensagem.minha ? me.nome : mensagem.nome}`} onClick={() => mensagem.autor && setPerfil(mensagem.autor)}>
                             <Avatar nome={mensagem.minha ? me.nome : mensagem.nome} avatar={avatarDe(mensagem.autor)} className="h-10 w-10 rounded-full" />
@@ -1518,9 +1704,10 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                         )}
                         {!continua && (
                           <p className="flex flex-wrap items-baseline gap-x-2">
-                            <button type="button" className="cursor-pointer font-semibold hover:underline" style={{ color: corDoNome(mensagem.autor) }} onClick={() => mensagem.autor && setPerfil(mensagem.autor)}>{mensagem.minha ? me.nome : mensagem.nome}</button>
-                            {mensagem.autor && verificado(mensagem.autor) && <span title="Identidade verificada pessoalmente" className="text-xs text-s-ok">✓</span>}
-                            <span className="text-xs text-s-mudo">{hora(mensagem.criado_em)}</span>
+                            <button type="button" className="cursor-pointer text-[0.95rem] font-bold hover:underline" style={{ color: corDoNome(mensagem.autor) }} onClick={() => mensagem.autor && setPerfil(mensagem.autor)}>{mensagem.minha ? me.nome : mensagem.nome}</button>
+                            {cargoDe(mensagem.autor) && <span className="salas-rot border px-1.5 py-px text-[0.55rem] tracking-[0.12em]" style={{ color: corDoNome(mensagem.autor), borderColor: corDoNome(mensagem.autor) }}>{cargoDe(mensagem.autor)}</span>}
+                            {mensagem.autor && verificado(mensagem.autor) && <span title="Identidade verificada pessoalmente" className="text-xs text-s-ok">verificado</span>}
+                            <span className="font-mono text-[0.7rem] text-s-mudo">{hora(mensagem.criado_em)}</span>
                           </p>
                         )}
                         {conteudo?.encaminhada && <p className="text-[0.72rem] italic text-s-mudo">↪ Encaminhada</p>}
@@ -1529,7 +1716,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                             <AnexoVisto anexo={anexo} estado={mensagem.anexos.find((estado) => estado.id === anexo.id)} conversa={id} minha={mensagem.minha} />
                           </div>
                         ))}
-                        <div className={`whitespace-pre-line break-words leading-relaxed ${vista.autoria === "invalida" ? "rounded border border-s-acento p-1" : ""}`}>
+                        <div className={`whitespace-pre-line break-words text-[0.97rem] leading-[1.55] ${vista.autoria === "invalida" ? "rounded border border-s-acento p-1" : ""}`}>
                           {conteudo ? (
                             <>
                               {conteudo.texto && <Formatado texto={conteudo.texto} membros={membrosDaConversa} eu={me.id} />}
@@ -1541,9 +1728,9 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                           {(vista.editada || dados.fixadas.includes(mensagem.id) || favoritas.has(mensagem.id) || mensagem.expira_em || mensagem.minha) && (
                             <span className="ml-1.5 inline-flex items-center gap-1 align-baseline text-[0.65rem] text-s-mudo">
                               {vista.editada && <span>(editada)</span>}
-                              {dados.fixadas.includes(mensagem.id) && <span title="Fixada">📌</span>}
-                              {favoritas.has(mensagem.id) && <span title="Favorita">★</span>}
-                              {mensagem.expira_em && <span title={`Autodestruição: ${new Date(mensagem.expira_em).toLocaleString(localDoPainel())}`}>⏱ {restante(mensagem.expira_em)}</span>}
+                              {dados.fixadas.includes(mensagem.id) && <span title="Fixada" className="text-s-ouro"><IconeDaSala nome="alfinete" className="h-3 w-3" /></span>}
+                              {favoritas.has(mensagem.id) && <span title="Favorita" className="text-s-ouro"><IconeDaSala nome="estrela" className="h-3 w-3" /></span>}
+                              {mensagem.expira_em && <span className="inline-flex items-center gap-0.5" title={`Autodestruição: ${new Date(mensagem.expira_em).toLocaleString(localDoPainel())}`}><IconeDaSala nome="relogio" className="h-3 w-3" /> {restante(mensagem.expira_em)}</span>}
                               {tiques(mensagem)}
                             </span>
                           )}
@@ -1629,7 +1816,7 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
               </p>
             )}
             <form
-              className={`relative shrink-0 px-4 pb-4 ${arrastando ? "outline outline-2 -outline-offset-4 outline-dashed outline-s-acento" : ""} ${dados.posso_enviar ? "" : "hidden"}`}
+              className={`relative shrink-0 px-5 pt-1 pb-5 ${arrastando ? "outline outline-2 -outline-offset-4 outline-dashed outline-s-acento" : ""} ${dados.posso_enviar ? "" : "hidden"}`}
               onSubmit={(e) => { e.preventDefault(); void enviar(); }}
               onDragOver={(e) => { if (e.dataTransfer.types.includes("Files")) { e.preventDefault(); setArrastando(true); } }}
               onDragLeave={() => setArrastando(false)}
@@ -1680,11 +1867,12 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                   {emGrupo && <li><button type="button" role="menuitem" className={itemDoMenu} onClick={() => { setMaisAberto(false); setCompondo("evento"); }}>Criar evento</button></li>}
                 </ul>
               )}
-              <div className={`flex items-end gap-2 bg-s-campo px-3 py-2 ${citando || editando ? "rounded-b-lg" : "rounded-lg"}`}>
+              <div className="salas-folha">
+              <div className="flex items-end gap-3 px-3.5 pt-3 pb-2">
                 {!editando && (
                   <>
                     <input ref={escolha} type="file" multiple accept="image/*,video/*,audio/*,.pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" className="hidden" onChange={(e) => { void anexar([...(e.target.files ?? [])]); e.target.value = ""; }} />
-                    <button type="button" className="mb-0.5 flex h-6 w-6 shrink-0 cursor-pointer items-center justify-center rounded-full bg-s-suave text-s-campo hover:bg-s-texto" title="Arquivo, áudio, enquete ou evento" aria-label="Anexar ou criar" aria-expanded={maisAberto} disabled={ocupado} onClick={() => setMaisAberto(!maisAberto)}>
+                    <button type="button" className="mb-0.5 flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-full bg-s-campo text-s-suave hover:bg-s-acento hover:text-white" title="Arquivo, áudio, enquete ou evento" aria-label="Anexar ou criar" aria-expanded={maisAberto} disabled={ocupado} onClick={() => setMaisAberto(!maisAberto)}>
                       <IconeDaSala nome="mais" className="h-4 w-4" />
                     </button>
                   </>
@@ -1711,19 +1899,34 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
                   maxLength={MAXIMO}
                   aria-label={`Mensagem para ${nome}`}
                   placeholder={preparados.length ? "Legenda (opcional)" : dados.tipo === "direta" ? `Conversar com @${nome}` : `Conversar em #${nome}`}
-                  className="max-h-40 min-h-6 min-w-0 flex-1 resize-none bg-transparent py-0.5 text-s-texto outline-none placeholder:text-s-mudo"
+                  className="max-h-40 min-h-6 min-w-0 flex-1 resize-none bg-transparent py-0.5 text-[0.97rem] text-s-texto outline-none placeholder:text-s-mudo"
                 />
-                <button type="submit" className="mb-0.5 shrink-0 cursor-pointer rounded px-2 py-0.5 text-sm font-semibold text-s-acento-suave disabled:cursor-default disabled:opacity-30" disabled={ocupado || (!texto.trim() && preparados.length === 0)} aria-label={editando ? "Guardar" : "Enviar"}>
+              </div>
+              {/* A barra de ferramentas: formatação, enquete, evento, áudio e o Enviar. */}
+              <div className="flex items-center gap-0.5 px-2.5 pb-2 text-s-suave">
+                {!editando && (
+                  <>
+                    <button type="button" className="h-8 w-8 cursor-pointer rounded text-sm font-extrabold hover:bg-[var(--s-hover)] hover:text-s-texto" title="Negrito (*texto*)" aria-label="Negrito" onClick={() => marcarTexto("*")}>B</button>
+                    <button type="button" className="h-8 w-8 cursor-pointer rounded font-serif text-base italic hover:bg-[var(--s-hover)] hover:text-s-texto" title="Itálico (_texto_)" aria-label="Itálico" onClick={() => marcarTexto("_")}>I</button>
+                    {emGrupo && <button type="button" className="flex h-8 w-8 cursor-pointer items-center justify-center rounded hover:bg-[var(--s-hover)] hover:text-s-texto" title="Criar enquete" aria-label="Criar enquete" onClick={() => setCompondo("enquete")}><IconeDaSala nome="enquete" className="h-4 w-4" /></button>}
+                    {emGrupo && <button type="button" className="flex h-8 w-8 cursor-pointer items-center justify-center rounded hover:bg-[var(--s-hover)] hover:text-s-texto" title="Criar evento" aria-label="Criar evento" onClick={() => setCompondo("evento")}><IconeDaSala nome="agenda" className="h-4 w-4" /></button>}
+                    <button type="button" className="flex h-8 w-8 cursor-pointer items-center justify-center rounded hover:bg-[var(--s-hover)] hover:text-s-texto" title="Gravar áudio" aria-label="Gravar áudio" onClick={() => setGravando(true)}><IconeDaSala nome="microfone" className="h-4 w-4" /></button>
+                  </>
+                )}
+                <p className="hidden min-w-0 flex-1 truncate px-2 text-xs text-s-mudo md:block"><b className="font-mono">/</b> comandos · <b className="font-mono">@</b> chamar alguém · ||spoiler|| · Shift+Enter quebra a linha</p>
+                <span className="flex-1 md:hidden" />
+                <button type="submit" className="flex h-8 shrink-0 cursor-pointer items-center gap-1.5 rounded bg-s-acento px-3.5 text-sm font-bold text-white hover:brightness-110 disabled:cursor-default disabled:opacity-40" disabled={ocupado || (!texto.trim() && preparados.length === 0)} aria-label={editando ? "Guardar" : "Enviar"}>
                   {editando ? "Guardar" : ocupado && andamento ? "Enviando…" : "Enviar"}
+                  {!editando && !ocupado && <IconeDaSala nome="enviar" className="h-3.5 w-3.5" />}
                 </button>
               </div>
-              <p className="mt-1 hidden text-[0.66rem] text-s-mudo sm:block">*negrito* · _itálico_ · ~tachado~ · `mono` · ||spoiler|| · &gt; citação · :estrela: · /comandos · @nome · Enter envia, Shift+Enter quebra a linha · arraste ou cole arquivos</p>
+              </div>
             </form>
             {aviso && <p className="px-4 pb-2 text-sm text-s-acento-suave" role="status">{aviso}</p>}
           </>
         )}
       </div>
-      {emGrupo && membrosAbertos && <MembrosDaSala membros={dados.membros} equipe={equipe} corDoNome={corDoNome} abrir={setPerfil} />}
+      {emGrupo && membrosAbertos && <MembrosDaSala membros={dados.membros} equipe={equipe} corDoNome={corDoNome} abrir={setPerfil} naChamada={chamada?.na_sala ?? []} />}
       {perfil && (() => {
         const membro = equipe.find((m) => m.id === perfil);
         return membro ? <CartaoDePerfil membro={membro} me={me} fechar={() => setPerfil(null)} conversar={conversarCom} /> : null;
@@ -1733,14 +1936,17 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
 }
 
 /** Quem está na conversa, como a lista de membros do Discord: por função, quem está por aqui primeiro, depois o resto. */
-function MembrosDaSala({ membros, equipe, corDoNome, abrir }: { membros: MembroDaConversa[]; equipe: Membro[]; corDoNome: (autor: string | null) => string; abrir: (id: string) => void }) {
+function MembrosDaSala({ membros, equipe, corDoNome, abrir, naChamada }: { membros: MembroDaConversa[]; equipe: Membro[]; corDoNome: (autor: string | null) => string; abrir: (id: string) => void; naChamada: { id: string; nome: string }[] }) {
+  const [todosOsLonge, setTodosOsLonge] = useState(false);
+  const naChamadaIds = new Set(naChamada.map((p) => p.id));
   const ordem: string[] = ["coordenacao", "vice", "supervisao", "curadoria", "educacao", "educacao_secundaria", "revisao", "traducao", "jornalismo", "design", "marketing", "mediacao", "mentoria", "desenvolvimento", "porta_voz", "representante", "saude"];
   const funcaoDe = (id: string) => {
     const funcoes = equipe.find((m) => m.id === id)?.papeis.map((p) => p.papel) ?? [];
     return ordem.find((papel) => funcoes.includes(papel as never)) ?? "";
   };
-  const online = membros.filter((m) => m.online !== false);
-  const longe = membros.filter((m) => m.online === false);
+  const emChamada = membros.filter((m) => naChamadaIds.has(m.id));
+  const online = membros.filter((m) => m.online !== false && !naChamadaIds.has(m.id));
+  const longe = membros.filter((m) => m.online === false && !naChamadaIds.has(m.id));
   const grupos = new Map<string, MembroDaConversa[]>();
   for (const m of online) {
     const f = funcaoDe(m.id);
@@ -1751,34 +1957,46 @@ function MembrosDaSala({ membros, equipe, corDoNome, abrir }: { membros: MembroD
     const daEquipe = equipe.find((e) => e.id === m.id);
     return (
       <li key={m.id}>
-        <button type="button" onClick={() => abrir(m.id)} className={`flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 py-1 text-left hover:bg-[var(--s-hover)] ${apagado ? "opacity-45" : ""}`}>
+        <button type="button" onClick={() => abrir(m.id)} className={`flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2 py-1.5 text-left hover:bg-[var(--s-hover)] ${apagado ? "opacity-55" : ""}`}>
           <span className="relative shrink-0">
             <Avatar nome={m.nome} avatar={m.avatar} className="h-8 w-8 rounded-full" />
             {!apagado && <Bolinha presenca={daEquipe?.presenca} online={m.online} />}
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-sm" style={{ color: apagado ? undefined : corDoNome(m.id) }}>
+            <span className={`block truncate text-sm ${apagado ? "font-medium" : "font-semibold"}`} style={{ color: apagado ? undefined : corDoNome(m.id) }}>
               {m.eu ? `${m.nome} (você)` : m.nome}
-              {m.admin && <span className="ml-1 text-[0.62rem] text-s-ouro" title="Administra o grupo">★</span>}
+              {m.admin && <span className="ml-1 inline-block align-[-1px] text-s-ouro" title="Administra o grupo"><IconeDaSala nome="estrela" className="h-3 w-3" /></span>}
             </span>
-            {daEquipe?.frase && <span className="block truncate text-[0.68rem] text-s-mudo">{daEquipe.frase}</span>}
+            {!apagado && daEquipe?.frase && <span className="block truncate text-xs text-s-mudo">{daEquipe.frase}</span>}
           </span>
         </button>
       </li>
     );
   };
   return (
-    <aside className="salas-rolagem hidden w-60 shrink-0 overflow-y-auto border-l border-s-linha bg-s-lado px-2 py-4 md:block" aria-label="Membros">
+    <aside className="salas-rolagem hidden w-64 shrink-0 overflow-y-auto border-l border-s-linha bg-s-lado px-2.5 py-4 md:block" aria-label="Membros">
+      {emChamada.length > 0 && (
+        <section className="mb-4">
+          <h3 className="salas-rot px-2 text-[0.6rem] text-s-ok">Na chamada — {emChamada.length}</h3>
+          <ul className="mt-1">{emChamada.map((m) => linha(m))}</ul>
+        </section>
+      )}
       {blocos.map(([funcao, lista]) => (
         <section key={funcao || "outros"} className="mb-4">
-          <h3 className="px-2 font-mono text-[0.66rem] font-semibold uppercase tracking-wider text-s-mudo">{funcao ? (papeis as Record<string, string>)[funcao] ?? funcao : "Por aqui"} — {lista.length}</h3>
+          <h3 className="salas-rot px-2 text-[0.6rem] text-s-mudo">{funcao ? (papeis as Record<string, string>)[funcao] ?? funcao : "Por aqui"} — {lista.length}</h3>
           <ul className="mt-1">{lista.map((m) => linha(m))}</ul>
         </section>
       ))}
       {longe.length > 0 && (
         <section>
-          <h3 className="px-2 font-mono text-[0.66rem] font-semibold uppercase tracking-wider text-s-mudo">Ausentes — {longe.length}</h3>
-          <ul className="mt-1">{longe.map((m) => linha(m, true))}</ul>
+          <h3 className="salas-rot px-2 text-[0.6rem] text-s-mudo">Fora agora — {longe.length}</h3>
+          {/* Quem está fora fica recolhido: a lista não pode ser só de ausentes. */}
+          <ul className="mt-1">{(todosOsLonge ? longe : longe.slice(0, 8)).map((m) => linha(m, true))}</ul>
+          {longe.length > 8 && (
+            <button type="button" className="mx-2 mt-2 w-[calc(100%-1rem)] cursor-pointer rounded border border-s-linha py-1.5 text-xs font-semibold text-s-suave hover:text-s-texto" onClick={() => setTodosOsLonge(!todosOsLonge)}>
+              {todosOsLonge ? "Mostrar menos" : `Ver as ${longe.length} pessoas`}
+            </button>
+          )}
         </section>
       )}
     </aside>
@@ -1791,16 +2009,16 @@ function Acoes({ vista, favorita, fixada, editavel, citar, reagir, encaminhar, f
   citar: () => void; reagir: () => void; encaminhar: () => void; fixar: (sim: boolean) => void; favoritar: (sim: boolean) => void; editar?: () => void; apagar?: () => void;
 }) {
   const pronta = Boolean(vista.conteudo);
-  const item = "flex h-8 w-8 cursor-pointer items-center justify-center text-s-suave hover:bg-[var(--s-ativo)] hover:text-s-texto disabled:opacity-40";
+  const item = "flex h-8 w-9 cursor-pointer items-center justify-center text-s-suave hover:bg-[var(--s-ativo)] hover:text-s-texto disabled:opacity-40";
   return (
-    <span role="group" aria-label="Ações da mensagem" className="absolute -top-4 right-4 z-10 hidden overflow-hidden rounded-md border border-s-linha bg-s-lado text-sm shadow-lg group-hover:flex focus-within:flex">
-      <button type="button" className={item} title="Reagir" aria-label="Reagir" onClick={reagir}>☺</button>
-      <button type="button" className={item} disabled={!pronta} title="Responder" aria-label="Responder" onClick={citar}>↩</button>
-      <button type="button" className={item} disabled={!pronta} title="Encaminhar" aria-label="Encaminhar" onClick={encaminhar}>↪</button>
-      <button type="button" className={item} title={fixada ? "Desafixar" : "Fixar"} aria-label={fixada ? "Desafixar" : "Fixar"} aria-pressed={fixada} onClick={() => fixar(!fixada)}>📌</button>
-      <button type="button" className={item} title={favorita ? "Tirar das favoritas" : "Favoritar"} aria-label={favorita ? "Tirar das favoritas" : "Favoritar"} aria-pressed={favorita} onClick={() => favoritar(!favorita)}>{favorita ? "★" : "☆"}</button>
-      {editavel && editar && <button type="button" className={item} disabled={!pronta} title="Editar" aria-label="Editar" onClick={editar}>✎</button>}
-      {apagar && <button type="button" className={`${item} hover:text-s-acento`} title="Apagar para todos" aria-label="Apagar para todos" onClick={apagar}>🗑</button>}
+    <span role="group" aria-label="Ações da mensagem" className="salas-folha absolute -top-5 right-5 z-10 hidden overflow-hidden text-sm group-hover:flex focus-within:flex" style={{ borderWidth: 1, boxShadow: "3px 3px 0 var(--s-sombra)" }}>
+      <button type="button" className={item} title="Reagir" aria-label="Reagir" onClick={reagir}><IconeDaSala nome="rosto" className="h-[1.05rem] w-[1.05rem]" /></button>
+      <button type="button" className={item} disabled={!pronta} title="Responder" aria-label="Responder" onClick={citar}><IconeDaSala nome="responder" className="h-[1.05rem] w-[1.05rem]" /></button>
+      <button type="button" className={item} disabled={!pronta} title="Encaminhar" aria-label="Encaminhar" onClick={encaminhar}><IconeDaSala nome="encaminhar" className="h-[1.05rem] w-[1.05rem]" /></button>
+      <button type="button" className={`${item} ${fixada ? "text-s-ouro" : ""}`} title={fixada ? "Desafixar" : "Fixar"} aria-label={fixada ? "Desafixar" : "Fixar"} aria-pressed={fixada} onClick={() => fixar(!fixada)}><IconeDaSala nome="alfinete" className="h-[1.05rem] w-[1.05rem]" /></button>
+      <button type="button" className={`${item} ${favorita ? "text-s-ouro" : ""}`} title={favorita ? "Tirar das favoritas" : "Favoritar"} aria-label={favorita ? "Tirar das favoritas" : "Favoritar"} aria-pressed={favorita} onClick={() => favoritar(!favorita)}><IconeDaSala nome="estrela" className="h-[1.05rem] w-[1.05rem]" /></button>
+      {editavel && editar && <button type="button" className={item} disabled={!pronta} title="Editar" aria-label="Editar" onClick={editar}><IconeDaSala nome="lapis" className="h-[1.05rem] w-[1.05rem]" /></button>}
+      {apagar && <button type="button" className={`${item} hover:text-s-acento`} title="Apagar para todos" aria-label="Apagar para todos" onClick={apagar}><IconeDaSala nome="lixo" className="h-[1.05rem] w-[1.05rem]" /></button>}
     </span>
   );
 }
@@ -2033,6 +2251,11 @@ function textoDoAviso(mensagem: Mensagem, me: Me): string {
     case "so_admins_mudam": return `${por} definiu que só administradores mudam o grupo`;
     case "todos_mudam": return `${por} liberou nome, descrição e foto para todo mundo`;
     case "autodestruicao": return d.texto === "0" || !d.texto ? `${por} desligou a autodestruição` : `${por} ligou a autodestruição: as mensagens somem em ${nomeDoPrazo(Number(d.texto)).toLowerCase()}`;
+    case "chamada": return `${por} começou uma chamada ${d.texto === "video" ? "de vídeo" : "de voz"}`;
+    case "chamada_fim": {
+      const minutos = Math.max(1, Math.round(Number(d.texto || 0) / 60));
+      return `A chamada terminou · durou ${minutos < 60 ? `${minutos} min` : `${Math.floor(minutos / 60)} h ${minutos % 60} min`}`;
+    }
     default: return `${por}: ${d.evento}`;
   }
 }
