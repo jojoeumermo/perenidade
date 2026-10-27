@@ -93,6 +93,11 @@
   --color-s-mudo: var(--s-mudo);
   --color-s-acento: var(--s-acento);
   --color-s-ouro: var(--s-ouro);
+  --color-s-ok: var(--s-ok);
+  --color-s-acento-suave: var(--s-acento-suave);
+  --color-s-folha: var(--s-folha);
+  --color-s-azul: var(--s-azul);
+  --color-s-verde: var(--s-verde);
   --color-e-fundo: var(--e-fundo);
   --color-e-painel: var(--e-painel);
   --color-e-campo: var(--e-campo);
@@ -2587,12 +2592,16 @@ html[data-escrita-foco="1"] .painel {
   --s-linha: #30281e;
   --s-texto: #efe4c8;
   --s-suave: #b3a584;
-  --s-mudo: #85785e;
+  --s-mudo: #9a8b6c;
   --s-acento: #c21f16;
   --s-acento-suave: #e0837a;
   --s-ouro: #d4a24c;
-  --s-mencao: rgba(212, 162, 76, 0.1);
-  --s-ok: #6fbf7a;
+  --s-mencao: rgba(212, 162, 76, 0.12);
+  --s-ok: #8fc796;
+  --s-folha: #241d14;
+  --s-sombra: #000000;
+  --s-azul: #9dbbe6;
+  --s-verde: #2f5d34;
   --parchment: var(--s-chat);
   --parchment-deep: var(--s-lado);
   --ink: var(--s-texto);
@@ -2615,12 +2624,16 @@ html[data-escrita-foco="1"] .painel {
   --s-linha: #d5c398;
   --s-texto: #1f1a14;
   --s-suave: #5a4e3c;
-  --s-mudo: #85765a;
+  --s-mudo: #6a5d44;
   --s-acento: #c21f16;
-  --s-acento-suave: #6e1f1a;
-  --s-ouro: #8a5f1c;
-  --s-mencao: rgba(212, 162, 76, 0.2);
+  --s-acento-suave: #8f1a12;
+  --s-ouro: #7d5518;
+  --s-mencao: rgba(212, 162, 76, 0.22);
   --s-ok: #2f5d34;
+  --s-folha: #fbf6e8;
+  --s-sombra: #1f1a14;
+  --s-azul: #2c4a78;
+  --s-verde: #2f5d34;
   color-scheme: light;
 }
 /* O tema do Stoat (o padrão das Conversas, gatilho "Chat Interno"): cinzas neutros, o coral de destaque, a bolinha
@@ -2641,6 +2654,10 @@ html[data-escrita-foco="1"] .painel {
   --s-ouro: #faa352;
   --s-mencao: rgba(251, 255, 0, 0.06);
   --s-ok: #3abf7e;
+  --s-folha: #2b2b2b;
+  --s-sombra: transparent;
+  --s-azul: #8fb8d8;
+  --s-verde: #2a7a52;
   color-scheme: dark;
 }
 .salas[data-tema="stoat"] .rounded {
@@ -2660,13 +2677,51 @@ html[data-escrita-foco="1"] .painel {
   scrollbar-width: thin;
   scrollbar-color: var(--s-linha) transparent;
 }
+/* No Caderno do Povo (Noite e Papel) a sala é papel impresso: cantos retos. Só o tema Stoat arredonda; círculos de
+   verdade (fotos, bolinhas, contadores) continuam redondos nos três. */
+.salas:not([data-tema="stoat"]) :is(.rounded, .rounded-md, .rounded-lg, .rounded-xl, .rounded-t-lg, .rounded-b-lg) {
+  border-radius: 0;
+}
+/* A peça em destaque da sala (o campo de escrever, a enquete, o cartão da chamada): contorno de tinta e sombra dura. */
+.salas-folha {
+  border: 2px solid var(--s-texto);
+  background-color: var(--s-folha);
+  box-shadow: 4px 4px 0 var(--s-sombra);
+}
+.salas[data-tema="stoat"] .salas-folha {
+  border: 1px solid var(--s-linha);
+  border-radius: 0.75rem;
+  box-shadow: none;
+}
+/* O rótulo de arquivo da sala: letra de máquina, maiúsculas, espaçada. */
+.salas-rot {
+  font-family: var(--font-archive), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.salas[data-tema="stoat"] .salas-rot {
+  font-family: var(--font-ui), system-ui, sans-serif;
+  letter-spacing: 0.04em;
+}
+/* A chamada acontecendo: a bolinha verde que pulsa devagar (parada para quem pediu menos movimento). */
+@keyframes salas-ao-vivo {
+  50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--s-ok) 25%, transparent); }
+}
+.salas-ao-vivo {
+  animation: salas-ao-vivo 1.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .salas-ao-vivo { animation: none; }
+}
 /* O botão do trilho: círculo que vira quadrado arredondado, com a pílula de "ativo" ou "não lido" do lado. */
 .salas-trilho-botao {
-  border-radius: 1.5rem;
+  border-radius: 9999px;
   transition: border-radius 0.18s, background-color 0.18s, color 0.18s;
 }
-.salas-trilho-botao:hover,
-.salas-trilho-botao[aria-pressed="true"] {
+.salas[data-tema="stoat"] .salas-trilho-botao:hover,
+.salas[data-tema="stoat"] .salas-trilho-botao[aria-pressed="true"] {
   border-radius: 1rem;
 }
 .salas-pilula {
