@@ -6,6 +6,9 @@ fontes:
   - titulo: "Sewing machine"
     autor: "Wikipédia (em inglês)"
     url: "https://en.wikipedia.org/wiki/Sewing_machine"
+  - titulo: "Elias Howe"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/Elias_Howe"
   - titulo: "Lockstitch"
     autor: "Wikipédia (em inglês)"
     url: "https://en.wikipedia.org/wiki/Lockstitch"
@@ -52,7 +55,7 @@ Ao fim desta aula você vai entender como a máquina forma o ponto, conhecer as 
 
 A primeira máquina de costura **prática e muito usada** foi criada em **1829** por **Barthélemy Thimonnier**, um alfaiate francês. Em **1830**, ele e seus sócios abriram a primeira fábrica de roupas feitas à máquina, para produzir **uniformes do exército francês**. A fábrica foi **queimada**, segundo os relatos, por **trabalhadores com medo de perder o sustento**.
 
-Depois vieram outras máquinas: em **1832**, Walter Hunt fez a primeira máquina de **ponto fixo** dos Estados Unidos; Elias Howe patenteou a sua em **1845**; e, em **1851**, Isaac Singer patenteou uma máquina com **agulha vertical**, **calcador** para segurar o tecido e um sistema de **tensão**, movida a **pedal**, que deixava as duas mãos livres.
+Depois vieram outras máquinas: em **1832**, Walter Hunt fez a primeira máquina de **ponto fixo** dos Estados Unidos; Elias Howe recebeu a patente da sua em **1846**; e, em **1851**, Isaac Singer patenteou uma máquina com **agulha vertical**, **calcador** para segurar o tecido e um sistema de **tensão**, movida a **pedal**, que deixava as duas mãos livres.
 
 ## Como a máquina faz o ponto
 

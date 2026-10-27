@@ -27,7 +27,7 @@ quiz:
     resposta: 1
     explicacao: "Provavelmente só então foi considerado politicamente seguro."
   - pergunta: "Como Goya estava quando começou as gravuras?"
-    opcoes: ["Jovem e saudável", "Com 62 anos, com saúde precária e quase surdo", "Com 20 anos"]
+    opcoes: ["Jovem e saudável", "Com mais de 60 anos, com saúde precária e quase surdo", "Com 20 anos"]
     resposta: 1
     explicacao: "E mesmo assim continuava como primeiro pintor da corte."
 ---
@@ -46,7 +46,7 @@ Ao fim desta aula você vai conhecer a série "Os Desastres da Guerra", de Goya,
 
 ## As 82 gravuras
 
-Entre **1810 e 1820**, já com **62 anos**, **saúde precária** e **quase surdo**, Goya criou **82 gravuras**: **"Os Desastres da Guerra"**. Ele não disse publicamente por que as fez, mas os historiadores da arte as veem como um **protesto visual** contra:
+Entre **1810 e 1820**, já com **mais de 60 anos** (nasceu em 1746), **saúde precária** e **quase surdo**, Goya criou **82 gravuras**: **"Os Desastres da Guerra"**. Ele não disse publicamente por que as fez, mas os historiadores da arte as veem como um **protesto visual** contra:
 
 - a violência do **levante de 2 de maio de 1808**;
 - a **guerra cruel** que se seguiu (a Guerra Peninsular, 1808-1814);

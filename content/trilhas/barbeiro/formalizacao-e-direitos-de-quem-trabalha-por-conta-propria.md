@@ -3,6 +3,9 @@ titulo: "Formalização e direitos de quem trabalha por conta própria"
 resumo: "O MEI para barbeiro, o que custa e o que garante no INSS, os limites de faturamento com a lei de 2026, o perdão das dívidas antigas, a parceria com a barbearia pela Lei 12.592 e os direitos de saúde de quem não tem carteira assinada."
 autores: ["Instituto Lúcia"]
 fontes:
+  - titulo: "Emenda Constitucional nº 103, de 2019 (reforma da Previdência), arts. 18 e 19"
+    autor: "Presidência da República"
+    url: "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc103.htm"
   - titulo: "Ocupações permitidas ao MEI"
     autor: "Portal do Empreendedor (gov.br)"
     url: "https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/quero-ser-mei/atividades-permitidas"
@@ -69,7 +72,7 @@ Na **lista oficial de ocupações** do MEI, há a ocupação **"barbeiro indepen
 
 Segundo o Portal do Empreendedor, o MEI com as contribuições **em dia** tem direito a:
 
-- **aposentadoria por idade** (62 anos para mulheres e 65 para homens, com 15 anos de contribuição);
+- **aposentadoria por idade**: para quem começou a contribuir depois da reforma de 2019, 62 anos e 15 anos de contribuição para mulheres, e 65 anos e 20 anos de contribuição para homens (quem já contribuía antes da reforma segue a regra de transição, com 15 anos de contribuição para os dois);
 - **aposentadoria por invalidez**;
 - **auxílio-doença**;
 - **salário-maternidade**;

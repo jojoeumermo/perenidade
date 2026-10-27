@@ -17,7 +17,7 @@ glossario:
   - termo: "charge"
     definicao: "Desenho de humor que satiriza um fato público; do francês \"charge\", carga."
 quiz:
-  - pergunta: "Por que Daumier foi preso em 1831?"
+  - pergunta: "Por que Daumier foi preso em 1832?"
     opcoes: ["Por roubo", "Por uma caricatura, \"Gargântua\", que ridicularizava o rei Luís Filipe", "Por dívida"]
     resposta: 1
     explicacao: "Ficou seis meses preso e passou o tempo retratando os presos."
@@ -49,7 +49,7 @@ Ao fim desta aula você vai conhecer Honoré Daumier e entender como a caricatur
 
 ## Preso por um desenho
 
-Em **1831**, a caricatura **"Gargântua"**, que **ridicularizava o rei Luís Filipe**, rendeu a Daumier **seis meses de prisão**. Na cadeia, ele passou o tempo **desenhando os presos**. Ao sair, foi trabalhar na revista **La Caricature** e depois na **Le Charivari**.
+Em **dezembro de 1831**, Daumier publicou a caricatura **"Gargântua"**, que **ridicularizava o rei Luís Filipe**. Ela lhe rendeu uma condenação a **seis meses de prisão**, e ele foi preso em **1832**. Na cadeia, ele passou o tempo **desenhando os presos**. Ao sair, foi trabalhar na revista **La Caricature** e depois na **Le Charivari**.
 
 São conhecidas **mais de 4.000 litografias** de Daumier, com uma **visão crítica** dos acontecimentos da época, às vezes irônica, às vezes direta. No seu tempo, foi chamado de **"Michelangelo da caricatura"**.
 
@@ -82,7 +82,7 @@ Qual é a diferença entre caricatura e charge?
 ## Resumo
 
 - **Daumier** (1808-1879): mais de **4.000 litografias** críticas.
-- Foi **preso seis meses** (1831) por caricaturar o rei **Luís Filipe**.
+- Foi condenado a **seis meses de prisão** e preso em **1832** por caricaturar o rei **Luís Filipe** (caricatura de 1831).
 - **Caricatura** exagera traços; **charge** satiriza fatos públicos e é alvo frequente da **censura**.
 
 ```realidade
