@@ -6,6 +6,9 @@ fontes:
   - titulo: "O Estado e a Revolução"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/O_Estado_e_a_Revolu%C3%A7%C3%A3o"
+  - titulo: "The State and Revolution"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/The_State_and_Revolution"
   - titulo: "O Estado e a Revolução (capítulo 1)"
     autor: "V. I. Lenin, no Marxists Internet Archive"
     url: "https://www.marxists.org/portugues/lenin/1917/08/estadoerevolucao/cap1.htm"
@@ -17,10 +20,10 @@ glossario:
   - termo: "aparelho de Estado"
     definicao: "O conjunto concreto do Estado: burocracia, polícia, exército, tribunais."
 quiz:
-  - pergunta: "Quando O Estado e a Revolução foi publicado?"
-    opcoes: ["Em setembro de 1917, às vésperas da Revolução de Outubro", "Em 1848", "Em 1991"]
+  - pergunta: "Quando Lenin escreveu O Estado e a Revolução?"
+    opcoes: ["Entre 1916 e 1917, às vésperas da Revolução de Outubro", "Em 1848", "Em 1991"]
     resposta: 0
-    explicacao: "Lenin começou o rascunho no exílio, na Suíça, em 1916."
+    explicacao: "Lenin começou o rascunho no exílio, na Suíça, em 1916, e terminou o livro em 1917. A publicação saiu em 1918."
   - pergunta: "Para Lenin, seguindo Marx, o que é o Estado?"
     opcoes: ["Um órgão de dominação de classe, de opressão de uma classe por outra", "Um conciliador de classes", "Uma associação de amigos"]
     resposta: 0
@@ -41,7 +44,7 @@ Ao fim desta aula você vai conhecer o livro O Estado e a Revolução, de Lenin,
 
 ## O contexto
 
-**Vladimir Lenin** começou a escrever o livro no **exílio**, na **Suíça**, em **1916**, e o publicou em **setembro de 1917**, às **vésperas da Revolução de Outubro**. Naquele momento, os **sovietes**, conselhos de trabalhadores e camponeses, eram o governo de fato de Petrogrado e de outras cidades.
+**Vladimir Lenin** começou a escrever o livro no **exílio**, na **Suíça**, em **1916**, e o terminou em **1917**, às **vésperas da Revolução de Outubro**. O livro foi publicado em **1918**. Naquele momento, os **sovietes**, conselhos de trabalhadores e camponeses, eram o governo de fato de Petrogrado e de outras cidades.
 
 ## O Estado como dominação de classe
 
@@ -75,7 +78,7 @@ Por que, para Lenin, não basta ganhar as eleições e ocupar os cargos do Estad
 
 ## Resumo
 
-- Escrito em **1916–1917**, publicado em **setembro de 1917**.
+- Escrito em **1916–1917**, publicado em **1918**.
 - O Estado é **órgão de dominação de classe**.
 - A emancipação exige **destruir o aparelho de Estado** burguês.
 - Os **sovietes** como nova forma de poder.
