@@ -39,7 +39,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/perguntas",
     "/despertar",
     "/territorios",
-    "/receba",
     "/nucleos",
     "/turmas",
     "/relatorio",

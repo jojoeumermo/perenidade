@@ -71,7 +71,6 @@ export function secoesDoSite(lang: Locale, t: Dict): SecaoDoSite[] {
         [n.mural, "/mural", d.mural],
         [n.community, "/comunidade", d.community ?? n.community],
         [n.territories, "/territorios", d.territories],
-        [t.receba.menu, "/receba", t.receba.menuDescricao],
         [t.nucleos.menu, "/nucleos", t.nucleos.menuDescricao],
         [t.turmaDoMes.menu, "/turmas", t.turmaDoMes.menuDescricao],
         [n.health, "/saude", d.health],
