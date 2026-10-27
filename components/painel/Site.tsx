@@ -247,7 +247,6 @@ function Formulario({ inicial, recarregar, aviso, setAviso, mudancas }: { inicia
           <Mudado m={mudancas.site_configurado} />
         </Cartao>
 
-        <CanaisNoCelular mudanca={mudancas.canais_configurados} />
         <Emails />
         <ControlesDoChat mudanca={mudancas.chat_controlado} />
         <DicionarioDoInstituto mudanca={mudancas.dicionario_salvo} />
@@ -331,50 +330,6 @@ function ModeracaoCartao({ mudanca }: { mudanca?: { nome: string; em: string } }
 }
 
 /** Quanto tempo uma sessão parada continua valendo (Minha conta mostra o mesmo prazo a cada pessoa). */
-/** Os endereços do canal do WhatsApp e do Telegram, mostrados na página pública "Receba no seu celular". */
-function CanaisNoCelular({ mudanca }: { mudanca?: { nome: string; em: string } }) {
-  const canais = useLista<{ whatsapp: string; telegram: string }>("canais", {}, { quieta: true });
-  const acao = useAcao(canais.recarregar);
-  const [whatsapp, setWhatsapp] = useState<string | null>(null);
-  const [telegram, setTelegram] = useState<string | null>(null);
-  const atual = canais.dados ?? { whatsapp: "", telegram: "" };
-  const prontos = [atual.whatsapp, atual.telegram].filter(Boolean).length;
-  return (
-    <Cartao id="canais" titulo="Canais no celular (WhatsApp e Telegram)" selo={<Selo tipo={prontos ? "ok" : "neutro"}>{prontos ? `${prontos} de 2 no ar` : "em preparação"}</Selo>}>
-      <p className="mt-1">Os endereços que aparecem na página Receba no seu celular. Crie o canal no próprio WhatsApp ou Telegram e cole aqui o link de convite.</p>
-      <label className="mt-3 block">
-        Canal do WhatsApp
-        <input value={whatsapp ?? atual.whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="https://whatsapp.com/channel/…" className={campo} inputMode="url" />
-      </label>
-      <label className="mt-3 block">
-        Telegram
-        <input value={telegram ?? atual.telegram} onChange={(e) => setTelegram(e.target.value)} placeholder="https://t.me/…" className={campo} inputMode="url" />
-      </label>
-      <div className="mt-3 flex flex-wrap gap-3">
-        <button
-          type="button"
-          className={botao}
-          disabled={acao.ocupado || (whatsapp === null && telegram === null)}
-          onClick={async () => {
-            if (await acao.agir("canais_salvar", { p: { whatsapp: whatsapp ?? atual.whatsapp, telegram: telegram ?? atual.telegram } }, "Canais guardados ✓")) {
-              setWhatsapp(null);
-              setTelegram(null);
-            }
-          }}
-        >
-          Guardar os canais
-        </button>
-        <a href="/pt/receba" target="_blank" rel="noopener noreferrer" className={elo}>Ver a página</a>
-      </div>
-      <SaibaMais>
-        <p>Só a coordenação muda. O site aceita só endereços do WhatsApp (canal ou grupo) e do Telegram, para ninguém trocar por um link de golpe.</p>
-        <p>Deixe em branco o que ainda não existe: a página mostra “em preparação”.</p>
-      </SaibaMais>
-      <Aviso texto={acao.aviso} />
-      <Mudado m={mudanca} />
-    </Cartao>
-  );
-}
 
 function PrazoDasSessoes({ mudanca }: { mudanca?: { nome: string; em: string } }) {
   const protecao = useLista<{ sessao_dias: number }>("conta_protecao", {}, { quieta: true });
