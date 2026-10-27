@@ -3,6 +3,9 @@ titulo: "Do fordismo ao toyotismo"
 resumo: "A linha de montagem de Henry Ford (1913) e o sistema Toyota (1947–1975) mudaram o jeito de trabalhar no mundo inteiro. O que cada um propunha, o que mudou para quem trabalha e como isso prepara o terreno para a uberização."
 autores: ["Instituto Lúcia"]
 fontes:
+  - titulo: "Assembly line"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/Assembly_line"
   - titulo: "Fordismo"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Fordismo"
@@ -20,7 +23,7 @@ quiz:
   - pergunta: "Quem idealizou o fordismo, e quando?"
     opcoes: ["Henry Ford, em 1913", "Taiichi Ohno, em 1975", "Karl Marx, em 1867"]
     resposta: 0
-    explicacao: "Em 1914 Ford introduziu a primeira linha de montagem automatizada."
+    explicacao: "A linha de montagem móvel de Ford começou a funcionar em 7 de outubro de 1913, na fábrica de Highland Park."
   - pergunta: "Qual era a ideia central do fordismo?"
     opcoes: ["Produção em massa ligada ao consumo em massa", "Produzir só sob encomenda", "Trabalho artesanal"]
     resposta: 0
@@ -41,7 +44,7 @@ Ao fim desta aula você vai conhecer o fordismo e o toyotismo e entender o que c
 
 ## O fordismo
 
-O **fordismo** é o sistema de **produção em massa** com **linha de montagem** criado em **1913** pelo empresário **Henry Ford**, da Ford Motor Company. Em **janeiro de 1914**, Ford introduziu a primeira **linha de montagem automatizada** na indústria de automóveis.
+O **fordismo** é o sistema de **produção em massa** com **linha de montagem** criado em **1913** pelo empresário **Henry Ford**, da Ford Motor Company. Em **7 de outubro de 1913**, na fábrica de Highland Park, começou a funcionar a primeira **linha de montagem móvel** da indústria de automóveis, movida por esteiras.
 
 Ford seguiu os princípios de **padronização e simplificação** de **Frederick Taylor**: cada trabalhador fazia uma **tarefa curta e repetida**. Suas fábricas eram **verticalizadas**: a empresa era dona de tudo, da plantação de seringueiras à siderúrgica.
 
