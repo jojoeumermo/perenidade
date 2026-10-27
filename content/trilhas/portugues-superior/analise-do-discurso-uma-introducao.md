@@ -99,7 +99,7 @@ Uma análise passo a passo:
 4. **"Crescer com a gente".** O futuro da pessoa aparece ligado ao da empresa, como se os interesses fossem os mesmos.
 5. **O silêncio.** O anúncio não diz salário, jornada nem direitos. O que fica de fora também produz sentido.
 
-Agora compare com a forma como um sindicato poderia anunciar a mesma vaga: "Vaga para auxiliar administrativo, carteira assinada, jornada de 44 horas semanais, salário de acordo com o piso da categoria." São formações discursivas diferentes, cada uma ligada a uma posição na relação de trabalho.
+Agora compare com a forma como um sindicato poderia anunciar a mesma vaga: "Vaga para auxiliar administrativo, carteira assinada, jornada de 40 horas semanais, salário de acordo com o piso da categoria." São formações discursivas diferentes, cada uma ligada a uma posição na relação de trabalho.
 
 ```verificar
 Na manchete 'Morre jovem durante operação policial', o que a análise do discurso observaria primeiro?

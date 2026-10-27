@@ -16,11 +16,14 @@ fontes:
   - titulo: "Censo Demográfico 2022: indígenas, primeiros resultados do universo"
     autor: "IBGE"
     ano: "2023"
+  - titulo: "Censo 2022: Etnias e Línguas Indígenas"
+    autor: "IBGE"
+    url: "https://agenciadenoticias.ibge.gov.br/media/com_mediaibge/arquivos/b585c49fcba7fa962e3d5b3344aa7f78.pdf"
 quiz:
   - pergunta: "Quantas pessoas se declararam indígenas no Censo de 2022?"
     opcoes: ["Cerca de 170 mil", "Cerca de 1,7 milhão", "Cerca de 17 milhões"]
     resposta: 1
-    explicacao: "Foram 1.693.535 pessoas, o equivalente a 0,83% da população do país."
+    explicacao: "Foram 1.694.836 pessoas, o equivalente a cerca de 0,83% da população do país."
   - pergunta: "Por que se fala em povos indígenas, no plural?"
     opcoes: ["Por costume", "Porque são centenas de povos diferentes, com línguas, histórias e costumes próprios", "Porque moram em vários estados"]
     resposta: 1
@@ -39,7 +42,7 @@ A colonização trouxe guerras, escravização e, principalmente, doenças contr
 
 ## Quantos são e onde vivem
 
-No **Censo de 2022**, **1.693.535** pessoas se declararam indígenas, 0,83% da população do Brasil. É quase o dobro do registrado em 2010, em parte porque o IBGE melhorou a forma de perguntar e em parte porque mais pessoas passaram a afirmar a sua origem.
+No **Censo de 2022**, foram contadas **1.694.836** pessoas indígenas, cerca de 0,83% da população do Brasil. É quase o dobro do registrado em 2010, em parte porque o IBGE melhorou a forma de perguntar e em parte porque mais pessoas passaram a afirmar a sua origem.
 
 - Pouco mais da metade vive na **Amazônia Legal**.
 - O estado com mais indígenas é o Amazonas, seguido pela Bahia.
@@ -47,7 +50,7 @@ No **Censo de 2022**, **1.693.535** pessoas se declararam indígenas, 0,83% da p
 
 ## Povos, no plural
 
-Não existe "o índio" genérico, de cocar e arco e flecha. Existem **povos**: Guarani, Yanomami, Tikuna, Pataxó, Xavante, Kaingang, Terena, Munduruku, Guajajara e centenas de outros. O Censo de 2010 registrou **305 povos**, que falam **274 línguas** diferentes. Um Guarani e um Yanomami têm línguas tão distantes entre si quanto o português e o japonês.
+Não existe "o índio" genérico, de cocar e arco e flecha. Existem **povos**: Guarani, Yanomami, Tikuna, Pataxó, Xavante, Kaingang, Terena, Munduruku, Guajajara e centenas de outros. O Censo de 2010 registrou **305 povos** e **274 línguas**; o de 2022, **391 etnias** e **295 línguas** indígenas. Um Guarani e um Yanomami têm línguas tão distantes entre si quanto o português e o japonês.
 
 Cada povo tem a sua história, a sua organização, as suas festas, os seus conhecimentos sobre plantas, rios e animais. Alguns têm contato com os não indígenas há quinhentos anos; outros, há poucas décadas; e há grupos que vivem isolados por escolha, na Amazônia.
 
