@@ -73,3 +73,7 @@ next-env.d.ts
 # O espelho estático (scripts/gerar-espelho.mjs) é gerado, não guardado
 /espelho/
 /espelho.zip
+
+# Resultados dos testes de ponta a ponta (Playwright)
+/test-results/
+/playwright-report/
