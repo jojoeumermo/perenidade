@@ -4,17 +4,20 @@ resumo: "Agrônomo e teórico marxista, Amílcar Cabral fundou o PAIGC e dirigiu
 autores: ["Instituto Lúcia"]
 fontes:
   - titulo: "Amílcar Cabral"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/Am%C3%ADlcar_Cabral"
+  - titulo: "Amílcar Cabral"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Am%C3%ADlcar_Cabral"
 glossario:
   - termo: "PAIGC"
-    definicao: "Partido Africano para a Independência da Guiné e Cabo Verde, fundado em 1959."
+    definicao: "Partido Africano para a Independência da Guiné e Cabo Verde, fundado em 1956 ou 1959, conforme a fonte."
   - termo: "agrônomo"
     definicao: "Profissional que estuda a agricultura e o uso da terra."
   - termo: "reafricanização"
     definicao: "Movimento de valorização da cultura e da identidade africanas contra a imposição colonial."
 quiz:
-  - pergunta: "Que partido Amílcar Cabral fundou em 1959?"
+  - pergunta: "Que partido Amílcar Cabral ajudou a fundar?"
     opcoes: ["O PAIGC", "O MPLA", "O PT"]
     resposta: 0
     explicacao: "Partido Africano para a Independência da Guiné e Cabo Verde."
@@ -48,7 +51,7 @@ Em **1945**, com uma bolsa, entrou no **Instituto Superior de Agronomia**, em **
 
 ## O PAIGC
 
-Em **1959**, com Aristides Pereira, o irmão **Luís Cabral** e outros, fundou o partido clandestino **Partido Africano para a Independência da Guiné e Cabo Verde (PAIGC)**. No mesmo ano, em **3 de agosto**, o partido participou da **greve dos trabalhadores do porto de Pidjiguiti**, reprimida pelo governo colonial com a **morte de 50 manifestantes**.
+Com Aristides Pereira, o irmão **Luís Cabral** e outros, fundou o partido clandestino **Partido Africano para a Independência da Guiné e Cabo Verde (PAIGC)**. As fontes divergem sobre a data: algumas dão **1956**, outras **1959**. Em **3 de agosto de 1959**, o partido participou da **greve dos trabalhadores do porto de Pidjiguiti**, reprimida pelo governo colonial com a **morte de 50 manifestantes**.
 
 Cabral também assinou o **Manifesto de 1956** em Angola, sendo um dos fundadores do **MPLA**, e participou da **Conferência de Bandung** (1955).
 
@@ -74,14 +77,14 @@ O que mostra o massacre de Pidjiguiti, em 1959?
 
 1. **1924**: nasce em Bafatá.
 2. **1945**: entra na Agronomia em Lisboa.
-3. **1959**: funda o **PAIGC**; massacre de **Pidjiguiti**.
+3. **1956 ou 1959** (as fontes divergem): funda o **PAIGC**. **1959**: massacre de **Pidjiguiti**.
 4. **1973**: é assassinado em **Conacri**.
 
 ## Resumo
 
 - **Amílcar Cabral** (1924–1973): agrônomo e **teórico marxista**.
 - Estudou em **Lisboa**, onde conviveu com outros líderes africanos.
-- **1959**: funda o **PAIGC**.
+- Funda o **PAIGC** (1956 ou 1959, conforme a fonte).
 - Massacre de **Pidjiguiti** (3/8/1959).
 - Assassinado em **20/1/1973**; um texto conhecido: **"A arma da teoria"**.
 

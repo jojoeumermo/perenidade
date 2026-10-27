@@ -4,6 +4,9 @@ resumo: "Nelson Mandela passou 27 anos preso por lutar contra o apartheid na Áf
 autores: ["Instituto Lúcia"]
 fontes:
   - titulo: "Nelson Mandela"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/Nelson_Mandela"
+  - titulo: "Nelson Mandela"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Nelson_Mandela"
 glossario:
@@ -72,9 +75,9 @@ Por que o CNA passou da não violência à luta armada?
 
 **Quantos anos Mandela tinha quando foi libertado, e quantos quando virou presidente?**
 
-1. Nasceu em **1918**.
-2. Libertado em **1990**: 1990 − 1918 = **72 anos**.
-3. Presidente em **1994**: 1994 − 1918 = **76 anos**.
+1. Nasceu em **18 de julho de 1918**.
+2. Libertado em **11 de fevereiro de 1990**: 1990 − 1918 = 72, mas ele ainda não tinha feito aniversário naquele ano. Tinha **71 anos**.
+3. Tomou posse como presidente em **10 de maio de 1994**: 1994 − 1918 = 76, menos 1, porque o aniversário era só em julho: **75 anos**.
 
 ## Resumo
 
