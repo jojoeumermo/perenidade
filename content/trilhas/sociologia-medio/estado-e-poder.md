@@ -6,6 +6,9 @@ fontes:
   - titulo: "Monopólio da violência"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Monop%C3%B3lio_da_viol%C3%AAncia"
+  - titulo: "Politics as a Vocation"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/Politics_as_a_Vocation"
 glossario:
   - termo: "Estado"
     definicao: "Para Weber, a entidade que detém o monopólio do uso legítimo da força num território."
@@ -19,7 +22,7 @@ quiz:
     resposta: 0
     explicacao: "A definição está em A política como vocação."
   - pergunta: "Quando Weber apresentou essa definição?"
-    opcoes: ["Numa conferência em Munique em 1918, publicada em 1919", "Em 1500", "Em 2010"]
+    opcoes: ["Numa conferência em Munique em 28 de janeiro de 1919, publicada no mesmo ano", "Em 1500", "Em 2010"]
     resposta: 0
     explicacao: "Tornou-se clássica para o pensamento político ocidental."
   - pergunta: "O que esse monopólio pressupõe, segundo Weber?"
@@ -38,7 +41,7 @@ Ao fim desta aula você vai entender a definição de Estado de Max Weber e a id
 
 ## A definição de Weber
 
-Numa conferência na **Universidade de Munique**, em **1918**, publicada em **1919** com o título **A política como vocação**, **Max Weber** apresentou uma definição de **Estado** que se tornou **clássica**: o Estado é aquele que detém o **monopólio do uso legítimo da força física** dentro de um determinado **território**.
+Numa conferência em **Munique**, em **28 de janeiro de 1919**, publicada no mesmo ano com o título **A política como vocação**, **Max Weber** apresentou uma definição de **Estado** que se tornou **clássica**: o Estado é aquele que detém o **monopólio do uso legítimo da força física** dentro de um determinado **território**.
 
 ## As três partes
 
@@ -79,7 +82,7 @@ Por que uma milícia que controla um bairro desafia a definição de Estado de W
 
 ## Resumo
 
-- **Weber**, **A política como vocação** (1918/1919).
+- **Weber**, **A política como vocação** (1919).
 - **Estado**: **monopólio** do uso **legítimo** da **força física** num **território**.
 - O monopólio **pressupõe legitimação**.
 - Pergunta crítica: **legítimo para quem?**
