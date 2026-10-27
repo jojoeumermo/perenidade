@@ -9,6 +9,9 @@ fontes:
   - titulo: "Mudança do clima"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Mudan%C3%A7a_do_clima"
+  - titulo: "Nitrous oxide"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/Nitrous_oxide"
 glossario:
   - termo: "efeito estufa"
     definicao: "Retenção de parte do calor da Terra por gases da atmosfera."
@@ -55,7 +58,7 @@ O físico e matemático francês **Jean-Baptiste Fourier** foi o primeiro a form
 
 ## O que mudou
 
-As atividades humanas, sobretudo a **queima de combustíveis fósseis** e o **desmatamento**, aumentaram muito a quantidade desses gases. Hoje a atmosfera tem cerca de **50% mais CO₂** do que no fim da era pré-industrial. O **óxido nitroso**, ligado principalmente ao uso de **fertilizantes**, passou de cerca de **270 ppb** antes da era industrial para cerca de **325 ppb** em **2005**. E os **CFCs**, que **não existiam** antes da indústria, também se acumularam.
+As atividades humanas, sobretudo a **queima de combustíveis fósseis** e o **desmatamento**, aumentaram muito a quantidade desses gases. Hoje a atmosfera tem cerca de **50% mais CO₂** do que no fim da era pré-industrial. O **óxido nitroso**, ligado principalmente ao uso de **fertilizantes**, passou de cerca de **270 ppb** em **1750** para **339 ppb** em **2025**, um aumento de mais de 20%. E os **CFCs**, que **não existiam** antes da indústria, também se acumularam.
 
 ```verificar
 Por que o efeito estufa é, ao mesmo tempo, necessário e perigoso?
@@ -67,12 +70,12 @@ Por que o efeito estufa é, ao mesmo tempo, necessário e perigoso?
 
 ## Exemplo resolvido
 
-**Em quanto aumentou a concentração de óxido nitroso entre a era pré-industrial e 2005?**
+**Em quanto aumentou a concentração de óxido nitroso entre 1750 e 2025?**
 
-1. Antes: cerca de **270 ppb**.
-2. Em 2005: cerca de **325 ppb**.
-3. 325 − 270 = **55 ppb**.
-4. 55 ÷ 270 ≈ 0,20: um aumento de cerca de **20%**.
+1. Em 1750: cerca de **270 ppb**.
+2. Em 2025: **339 ppb**.
+3. 339 − 270 = **69 ppb**.
+4. 69 ÷ 270 ≈ 0,26: um aumento de cerca de **26%**.
 
 ## Resumo
 

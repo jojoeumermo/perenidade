@@ -6,6 +6,9 @@ fontes:
   - titulo: "Inflação"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Infla%C3%A7%C3%A3o"
+  - titulo: "Índice Nacional de Preços ao Consumidor (INPC)"
+    autor: "IBGE"
+    url: "https://www.ibge.gov.br/estatisticas/economicas/precos-e-custos/9258-indice-nacional-de-precos-ao-consumidor.html"
 glossario:
   - termo: "inflação"
     definicao: "Aumento geral dos preços de bens e serviços numa economia."
@@ -18,10 +21,10 @@ quiz:
     opcoes: ["Um aumento geral nos preços de bens e serviços", "A queda de um só preço", "O aumento do salário"]
     resposta: 0
     explicacao: "Com ela, cada real compra menos."
-  - pergunta: "Qual índice mede a inflação para famílias com renda de 1 a 6 salários mínimos?"
+  - pergunta: "Qual índice mede a inflação para famílias com renda de 1 a 5 salários mínimos?"
     opcoes: ["O INPC", "O IPCA", "O PIB"]
     resposta: 0
-    explicacao: "O IPCA abrange famílias com renda de até 40 salários mínimos."
+    explicacao: "O IPCA abrange famílias com renda de 1 a 40 salários mínimos."
   - pergunta: "Quando terminou a hiperinflação no Brasil?"
     opcoes: ["Em 1994, com o Plano Real", "Em 1500", "Em 2020"]
     resposta: 0
@@ -48,8 +51,8 @@ Como os preços não sobem todos juntos, a inflação é medida por **índices d
 
 No Brasil, duas medidas da inflação ao consumidor são:
 
-- o **INPC**, para famílias com renda de **1 a 6 salários mínimos**;
-- o **IPCA**, para famílias com renda de **até 40 salários mínimos**.
+- o **INPC**, para famílias com renda de **1 a 5 salários mínimos** em que a pessoa de referência é assalariada;
+- o **IPCA**, para famílias com renda de **1 a 40 salários mínimos**, qualquer que seja a fonte.
 
 ## A hiperinflação
 
@@ -81,7 +84,7 @@ Um salário de R$ 2.000 não teve reajuste num ano em que a inflação foi de 5%
 
 - **Inflação**: aumento **geral** dos preços; reduz o **poder de compra**.
 - **Deflação**: queda continuada dos preços.
-- No Brasil: **INPC** (1 a 6 salários mínimos) e **IPCA** (até 40).
+- No Brasil: **INPC** (1 a 5 salários mínimos) e **IPCA** (1 a 40).
 - **Hiperinflação** até **1994**, quando veio o **Plano Real**.
 - Salário sem reajuste pela inflação, na prática, **diminui**.
 

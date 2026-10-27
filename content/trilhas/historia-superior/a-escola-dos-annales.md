@@ -6,6 +6,9 @@ fontes:
   - titulo: "Escola dos Annales"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Escola_dos_Annales"
+  - titulo: "Fernand Braudel"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/Fernand_Braudel"
 glossario:
   - termo: "historiografia"
     definicao: "O modo como a história é escrita, e o estudo desses modos."
@@ -25,7 +28,7 @@ quiz:
   - pergunta: "Quem foi o principal nome da segunda geração dos Annales?"
     opcoes: ["Fernand Braudel", "Marc Bloch", "Napoleão"]
     resposta: 0
-    explicacao: "A sua obra sobre o Mediterrâneo é de 1946."
+    explicacao: "A sua obra sobre o Mediterrâneo é de 1949."
 ---
 
 ```provocacao
@@ -49,7 +52,7 @@ No lugar do **tempo breve** dos acontecimentos, propunham estudar os **processos
 ## As gerações
 
 - **Primeira geração**: **Bloch** e **Febvre**. Marc Bloch foi **morto pela Gestapo** durante a ocupação alemã da França, na Segunda Guerra Mundial. Febvre continuou a abordagem nos anos 1940 e 1950.
-- **Segunda geração**: **Fernand Braudel**, orientado por Febvre, um dos nomes mais conhecidos da escola. A sua obra **O Mediterrâneo e o mundo mediterrânico na época de Felipe II**, de **1946**, foi muito influente nos anos 1960 e 1970.
+- **Segunda geração**: **Fernand Braudel**, orientado por Febvre, um dos nomes mais conhecidos da escola. A sua obra **O Mediterrâneo e o mundo mediterrânico na época de Felipe II**, publicada em **1949**, foi muito influente nos anos 1960 e 1970.
 - **Terceira geração**: conduzida por **Jacques Le Goff** e outros.
 
 ```verificar

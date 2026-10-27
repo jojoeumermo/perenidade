@@ -41,7 +41,7 @@ Ao fim desta aula você vai entender a ideia de inconsciente e como Freud propô
 
 ## O inconsciente antes de Freud
 
-Freud **não inventou** a palavra **inconsciente**. Filósofos como **Kierkegaard** e **Nietzsche** já a usavam, e em **1890** o psicólogo **William James** discutiu as ideias de vários autores sobre o tema. O que Freud fez foi colocar o inconsciente no **centro** de um novo modelo da mente e criar um **método** para chegar até ele.
+Freud **não inventou** a palavra **inconsciente**. Filósofos e psicólogos já a usavam antes dele: em **1890**, por exemplo, o psicólogo **William James** discutiu as ideias de vários autores sobre o tema. O que Freud fez foi colocar o inconsciente no **centro** de um novo modelo da mente e criar um **método** para chegar até ele.
 
 ## A Interpretação dos Sonhos
 
