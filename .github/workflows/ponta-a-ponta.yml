@@ -1,0 +1,37 @@
+name: Testes de ponta a ponta
+
+# Os fluxos que não podem quebrar (e2e/fluxos.spec.ts), num navegador de verdade, contra o banco de teste local.
+# Só roda quando alguém manda (Actions › Testes de ponta a ponta › Run workflow) ou num pull request com a etiqueta
+# "ponta-a-ponta": cada execução leva uns 15 minutos, e os minutos do GitHub Actions são contados.
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [labeled, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  fluxos:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.pull_request.labels.*.name, 'ponta-a-ponta')
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "1"
+      # O Chrome já vem instalado nas máquinas do GitHub: o Playwright usa ele (channel "chrome").
+      - run: npx playwright test --project=computador
+        env:
+          CI: "1"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: failure()
+        with:
+          name: rastros-dos-testes
+          path: test-results/
+          retention-days: 7
