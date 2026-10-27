@@ -3,6 +3,9 @@ titulo: "O movimento abolicionista negro: Luiz Gama, André Rebouças e José do
 resumo: "A abolição não foi presente de princesa. Três homens negros estiveram entre as principais vozes da campanha: um advogado que tinha sido escravizado, um engenheiro e um jornalista. Quem foram e o que fizeram."
 autores: ["Instituto Lúcia"]
 fontes:
+  - titulo: "Confederação Abolicionista"
+    autor: "Wikipédia"
+    url: "https://pt.wikipedia.org/wiki/Confedera%C3%A7%C3%A3o_Abolicionista"
   - titulo: "Luiz Gama"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Luiz_Gama"
@@ -60,7 +63,7 @@ Morreu em **1882**, seis anos antes da abolição. É o **Patrono da Abolição 
 
 ## José do Patrocínio: o jornalista
 
-**José do Patrocínio** (Campos dos Goytacazes, 1853 – Rio de Janeiro, 1905) era filho de uma jovem escravizada. Como jornalista, começou em **1879** a campanha pela abolição na imprensa. Dirigiu o jornal **Gazeta da Tarde** e, em **agosto de 1883**, articulou a **Confederação Abolicionista**, que juntou todos os clubes abolicionistas do país.
+**José do Patrocínio** (Campos dos Goytacazes, 1853 – Rio de Janeiro, 1905) era filho de uma jovem escravizada. Como jornalista, começou em **1879** a campanha pela abolição na imprensa. Dirigiu o jornal **Gazeta da Tarde** e, em **maio de 1883**, articulou a **Confederação Abolicionista**, que juntou todos os clubes abolicionistas do país.
 
 O manifesto da Confederação, redigido por ele e assinado também por André Rebouças, pedia a **libertação total** e apontava a **reforma agrária** como importante depois da abolição.
 

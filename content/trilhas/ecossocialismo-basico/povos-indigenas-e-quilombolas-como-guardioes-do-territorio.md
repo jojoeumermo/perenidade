@@ -3,6 +3,9 @@ titulo: "Povos indígenas e quilombolas como guardiões do território"
 resumo: "As imagens de satélite confirmam o que esses povos dizem há séculos: onde eles vivem, a floresta fica de pé."
 autores: ["Instituto Lúcia"]
 fontes:
+  - titulo: "STF considera inconstitucional trecho de lei que institui marco temporal para terras indígenas"
+    autor: "Supremo Tribunal Federal"
+    url: "https://noticias.stf.jus.br/postsnoticias/stf-considera-inconstitucional-trecho-de-lei-que-institui-marco-temporal-para-terras-indigenas/"
   - titulo: "Constituição da República Federativa do Brasil, artigos 231 e 232 e artigo 68 do Ato das Disposições Constitucionais Transitórias"
     autor: "Brasil"
     ano: "1988"
@@ -32,7 +35,7 @@ quiz:
   - pergunta: "O que é a tese do 'marco temporal'?"
     opcoes: ["A data de fundação da Funai", "A ideia de que os povos indígenas só teriam direito às terras que ocupavam em 5 de outubro de 1988, data da Constituição", "O prazo para plantar árvores"]
     resposta: 1
-    explicacao: "O Supremo Tribunal Federal rejeitou a tese em 2023; no mesmo ano, o Congresso aprovou lei que a adota, e a disputa continua."
+    explicacao: "O Supremo Tribunal Federal rejeitou a tese em 2023; o Congresso aprovou lei que a adota, e em dezembro de 2025 o STF declarou inconstitucional esse trecho da lei."
 ---
 
 Nos mapas feitos por satélite, as terras indígenas da Amazônia aparecem como grandes manchas verdes cercadas por áreas desmatadas. A imagem dispensa muitos argumentos.
@@ -67,7 +70,7 @@ A distância entre a lei e a realidade é grande. Muitas terras indígenas aguar
 
 Uma das maiores disputas atuais é a tese do **marco temporal**: a ideia de que os indígenas só teriam direito às terras que ocupavam na data da promulgação da Constituição, 5 de outubro de 1988. Os povos indígenas respondem que muitos tinham sido **expulsos** antes dessa data, e que o direito é "originário", isto é, anterior a qualquer data.
 
-Em setembro de 2023, o **Supremo Tribunal Federal** rejeitou a tese. No mesmo ano, o Congresso aprovou uma lei que a adota. A disputa continua.
+Em setembro de 2023, o **Supremo Tribunal Federal** rejeitou a tese. No mesmo ano, o Congresso aprovou uma lei que a adota (Lei 14.701). Em **dezembro de 2025**, o STF considerou **inconstitucional** o trecho dessa lei que institui o marco temporal.
 
 ```verificar
 Por que os povos indígenas consideram injusta a tese do marco temporal?

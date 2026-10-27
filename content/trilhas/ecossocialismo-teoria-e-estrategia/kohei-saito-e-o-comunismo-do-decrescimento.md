@@ -28,7 +28,7 @@ quiz:
   - pergunta: "Como se chama o livro de Saito de 2023?"
     opcoes: ["Marx no Antropoceno: rumo à ideia de comunismo do decrescimento", "O Príncipe", "A Riqueza das Nações"]
     resposta: 0
-    explicacao: "A tradução em inglês saiu em 2024."
+    explicacao: "Foi publicado em inglês pela Cambridge University Press."
   - pergunta: "Que prêmio Saito ganhou em 2018?"
     opcoes: ["O Prêmio Memorial Deutscher, de pesquisa marxista", "O Nobel", "O Oscar"]
     resposta: 0
@@ -59,7 +59,7 @@ O **Antropoceno** é o nome proposto para a época em que a **atividade humana**
 
 ## O comunismo do decrescimento
 
-Em **fevereiro de 2023**, publicou **Marx no Antropoceno: rumo à ideia de comunismo do decrescimento**, traduzido para o inglês em **2024**. A proposta é unir o **comunismo** ao **decrescimento**: em vez de crescer sem fim, organizar a sociedade para **produzir o necessário**, dentro dos **limites do planeta**.
+Em **fevereiro de 2023**, publicou, em inglês, **Marx no Antropoceno: rumo à ideia de comunismo do decrescimento**. Em **2024**, saiu a tradução em inglês de **O Capital no Antropoceno**, com o título *Slow Down*. A proposta é unir o **comunismo** ao **decrescimento**: em vez de crescer sem fim, organizar a sociedade para **produzir o necessário**, dentro dos **limites do planeta**.
 
 ```verificar
 O que é o "comunismo do decrescimento" de Saito?
