@@ -6,6 +6,9 @@ fontes:
   - titulo: "BRICS"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/BRICS"
+  - titulo: "BRICS"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/BRICS"
 glossario:
   - termo: "BRICS"
     definicao: "Grupo de países emergentes iniciado por Brasil, Rússia, Índia, China e África do Sul."
@@ -19,7 +22,7 @@ quiz:
     resposta: 0
     explicacao: "A África do Sul entrou em 2011, e o grupo virou BRICS."
   - pergunta: "Que países entraram como membros plenos em 1º de janeiro de 2024?"
-    opcoes: ["Egito, Emirados Árabes Unidos, Arábia Saudita, Etiópia e Irã", "Japão e Coreia do Sul", "Canadá e Austrália"]
+    opcoes: ["Egito, Emirados Árabes Unidos, Etiópia e Irã", "Japão e Coreia do Sul", "Canadá e Austrália"]
     resposta: 0
     explicacao: "Em janeiro de 2025, a Indonésia também entrou."
   - pergunta: "Que instituição financeira os BRICS criaram?"
@@ -42,7 +45,7 @@ O grupo começou com **quatro países**: **Brasil, Rússia, Índia e China**, so
 
 ## A ampliação
 
-Em **1º de janeiro de 2024**, o grupo foi oficialmente ampliado, com a entrada de **Egito, Emirados Árabes Unidos, Arábia Saudita, Etiópia e Irã** como membros plenos. Em **6 de janeiro de 2025**, a **Indonésia** também entrou.
+Em **1º de janeiro de 2024**, o grupo foi oficialmente ampliado, com a entrada de **Egito, Emirados Árabes Unidos, Etiópia e Irã** como membros plenos. A **Arábia Saudita** também foi convidada e costuma ser contada no grupo, mas **não confirmou publicamente** a adesão. Em **6 de janeiro de 2025**, a **Indonésia** também entrou.
 
 ## O que o grupo é
 
@@ -73,7 +76,7 @@ O que significa "mundo multipolar"?
 ## Resumo
 
 - **BRIC**: Brasil, Rússia, Índia e China; **África do Sul** em **2011** (BRICS).
-- **2024**: entram **Egito, Emirados, Arábia Saudita, Etiópia e Irã**; **2025**: **Indonésia**.
+- **2024**: entram **Egito, Emirados, Etiópia e Irã** (a Arábia Saudita foi convidada, mas não confirmou); **2025**: **Indonésia**.
 - Aliança **política e estratégica**, não bloco econômico formal.
 - **Novo Banco de Desenvolvimento**; visto como **alternativa ao G7**.
 - Parte da discussão sobre um **mundo multipolar**.
