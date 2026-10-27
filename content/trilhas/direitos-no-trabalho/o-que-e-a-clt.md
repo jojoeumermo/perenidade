@@ -6,7 +6,7 @@ fontes:
   - titulo: "Consolidação das Leis do Trabalho (Decreto-Lei nº 5.452, de 1º de maio de 1943)"
     autor: "Presidência da República"
     url: "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
-  - titulo: "Constituição da República Federativa do Brasil, artigo 7º"
+  - titulo: "Constituição da República Federativa do Brasil, artigo 7º (com a redação da Emenda Constitucional nº 141, de 2026)"
     autor: "Presidência da República"
     ano: "1988"
     url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
@@ -15,9 +15,9 @@ fontes:
     url: "https://www.dieese.org.br/"
 quiz:
   - pergunta: "Qual é a jornada máxima normal de trabalho prevista na Constituição?"
-    opcoes: ["8 horas por dia e 44 por semana", "10 horas por dia e 60 por semana", "6 horas por dia e 30 por semana"]
+    opcoes: ["8 horas por dia e 40 por semana", "10 horas por dia e 60 por semana", "6 horas por dia e 30 por semana"]
     resposta: 0
-    explicacao: "É o que diz o artigo 7º, inciso XIII. O que passar disso é hora extra."
+    explicacao: "É o que diz o artigo 7º, inciso XIII, com a redação da Emenda Constitucional nº 141, de 2026, que baixou o limite semanal de 44 para 40 horas. O que passar disso é hora extra."
   - pergunta: "Quanto a mais vale, no mínimo, uma hora extra?"
     opcoes: ["10%", "50%", "100%"]
     resposta: 1
@@ -44,9 +44,9 @@ A CLT vale para quem é **empregado**: trabalha para outra pessoa ou empresa, de
 | --- | --- |
 | Carteira assinada | registro do contrato, que prova o vínculo e conta para a aposentadoria |
 | Salário mínimo | nenhum empregado pode receber menos por uma jornada completa |
-| Jornada | no máximo 8 horas por dia e 44 por semana |
+| Jornada | no máximo 8 horas por dia e 40 por semana (eram 44 até a Emenda Constitucional nº 141, de 2026) |
 | Hora extra | pelo menos 50% a mais que a hora normal |
-| Descanso semanal | um dia de folga remunerada por semana, de preferência aos domingos |
+| Descanso semanal | folga remunerada toda semana, de preferência aos domingos; a Emenda Constitucional nº 141, de 2026, ampliou o repouso para dois dias, com vigência dois meses depois da sua publicação |
 | Férias | 30 dias por ano, pagos com um terço a mais |
 | 13º salário | um salário extra por ano, proporcional aos meses trabalhados |
 | FGTS | depósito mensal de 8% do salário, feito pelo empregador, em uma conta do trabalhador |
