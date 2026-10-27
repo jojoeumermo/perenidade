@@ -58,7 +58,7 @@ Em **5 de outubro de 1988**, a Constituição foi promulgada. Ulysses Guimarães
 | --- | --- |
 | **Direitos individuais** | proibição da tortura e da censura; liberdade de expressão, de reunião e de associação; o racismo como crime inafiançável e imprescritível |
 | **Direitos políticos** | voto direto e secreto; voto facultativo aos 16 anos e para os analfabetos; plebiscito, referendo e projeto de lei de iniciativa popular |
-| **Trabalho** | jornada de 44 horas semanais, 13º salário, férias com um terço a mais, licença-maternidade de 120 dias, seguro-desemprego, direito de greve, liberdade sindical |
+| **Trabalho** | jornada de 44 horas semanais (reduzida para 40 pela Emenda Constitucional nº 141, de 2026), 13º salário, férias com um terço a mais, licença-maternidade de 120 dias, seguro-desemprego, direito de greve, liberdade sindical |
 | **Saúde** | "direito de todos e dever do Estado"; criação do Sistema Único de Saúde (SUS) |
 | **Educação** | direito de todos; ensino fundamental obrigatório e gratuito |
 | **Seguridade social** | saúde, previdência e assistência social reunidas; aposentadoria para o trabalhador rural |

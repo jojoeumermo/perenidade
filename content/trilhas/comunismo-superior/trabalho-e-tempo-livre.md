@@ -3,6 +3,9 @@ titulo: "Trabalho e tempo livre"
 resumo: "O reino da necessidade e o reino da liberdade: por que a redução da jornada é, para Marx, a condição fundamental de uma vida livre."
 autores: ["Instituto Lúcia"]
 fontes:
+  - titulo: "Constituição da República Federativa do Brasil de 1988 (art. 7º, XIII, com a redação da Emenda Constitucional nº 141, de 2026)"
+    autor: "Presidência da República"
+    url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
   - titulo: "O Capital: Crítica da Economia Política, Livro III, capítulo 48"
     autor: "Karl Marx"
     ano: "1894"
@@ -71,7 +74,7 @@ Até um economista não marxista, **John Maynard Keynes**, previu em **1930**, n
 
 ## A luta pela jornada
 
-A história do movimento operário é, em grande parte, a história da luta pelo tempo: a jornada de dez horas, a de oito horas, o descanso semanal, as férias. No Brasil, a Constituição de 1988 fixou a jornada máxima em **44 horas semanais**, e há hoje um debate amplo sobre o fim da **escala 6x1** e a redução da jornada.
+A história do movimento operário é, em grande parte, a história da luta pelo tempo: a jornada de dez horas, a de oito horas, o descanso semanal, as férias. No Brasil, a Constituição de 1988 fixou a jornada máxima em **44 horas semanais**. Depois de um longo debate sobre o fim da **escala 6x1**, a **Emenda Constitucional nº 141, de 2026**, reduziu esse limite para **40 horas semanais**.
 
 ## Para pesquisar e debater
 

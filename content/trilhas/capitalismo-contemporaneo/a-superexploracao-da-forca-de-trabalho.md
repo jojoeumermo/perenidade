@@ -84,4 +84,4 @@ O conceito ajuda a entender por que, no Brasil, lutas aparentemente "mínimas" (
 
 ## Para pesquisar e debater
 
-Calcule, para a sua família, a jornada real de trabalho somando horas de deslocamento, horas extras e segundo emprego. Compare com as 44 horas semanais da Constituição.
+Calcule, para a sua família, a jornada real de trabalho somando horas de deslocamento, horas extras e segundo emprego. Compare com as 40 horas semanais da Constituição (limite fixado pela Emenda Constitucional nº 141, de 2026).

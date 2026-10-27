@@ -1,6 +1,6 @@
 ---
 titulo: "O marco temporal"
-resumo: "Pela tese do marco temporal, um povo só teria direito às terras que ocupava em 5 de outubro de 1988. De onde veio a tese, como o Supremo a derrubou em 2023, como o Congresso reagiu e por que o movimento indígena diz que ela ignora a história."
+resumo: "Pela tese do marco temporal, um povo só teria direito às terras que ocupava em 5 de outubro de 1988. De onde veio a tese, como o Supremo a derrubou em 2023, como o Congresso reagiu, como o Supremo voltou a derrubá-la em 2025 e por que o movimento indígena diz que ela ignora a história."
 autores: ["Instituto Lúcia"]
 fontes:
   - titulo: "Marco temporal das terras indígenas"
@@ -9,6 +9,9 @@ fontes:
   - titulo: "Constituição da República Federativa do Brasil de 1988 (art. 231)"
     autor: "Presidência da República"
     url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+  - titulo: "STF considera inconstitucional trecho de lei que institui marco temporal para terras indígenas"
+    autor: "Supremo Tribunal Federal"
+    url: "https://noticias.stf.jus.br/postsnoticias/stf-considera-inconstitucional-trecho-de-lei-que-institui-marco-temporal-para-terras-indigenas/"
 glossario:
   - termo: "marco temporal"
     definicao: "Tese de que só seriam terras indígenas as que estavam ocupadas por indígenas em 5 de outubro de 1988."
@@ -33,6 +36,10 @@ quiz:
     opcoes: ["Não fez nada", "Aprovou a Lei 14.701 com o marco temporal e depois derrubou vetos do presidente", "Aprovou a demarcação de todas as terras"]
     resposta: 1
     explicacao: "Em 14 de novembro de 2023, derrubou a maior parte dos vetos."
+  - pergunta: "O que o STF decidiu sobre a Lei 14.701 em dezembro de 2025?"
+    opcoes: ["Considerou inconstitucional o trecho que institui o marco temporal", "Aprovou o marco temporal", "Mandou vender as terras indígenas"]
+    resposta: 0
+    explicacao: "A maioria acompanhou o relator, Gilmar Mendes, e fixou prazo de dez anos para a União concluir as demarcações."
 ---
 
 ```provocacao
@@ -67,7 +74,11 @@ Por que se diz que o marco temporal "premia quem expulsou"?
 
 ## A reação do Congresso
 
-A bancada ruralista reagiu na hora. Em **outubro de 2023**, o Congresso aprovou em regime de urgência a **Lei 14.701**, que pôs o marco temporal em lei. O **presidente vetou** os pontos principais. Em **14 de novembro de 2023**, o Congresso **derrubou a maior parte dos vetos** e ainda retirou outras proteções às terras indígenas, como a proibição de **ampliar** terras já demarcadas. O Ministério Público considerou a lei **inconstitucional**. A disputa continua.
+A bancada ruralista reagiu na hora. Em **outubro de 2023**, o Congresso aprovou em regime de urgência a **Lei 14.701**, que pôs o marco temporal em lei. O **presidente vetou** os pontos principais. Em **14 de novembro de 2023**, o Congresso **derrubou a maior parte dos vetos** e ainda retirou outras proteções às terras indígenas, como a proibição de **ampliar** terras já demarcadas. O Ministério Público considerou a lei **inconstitucional**.
+
+## A nova decisão do STF
+
+A lei foi levada ao STF (ADC 87 e ADIs 7582, 7583 e 7586). Em sessão virtual encerrada em **19 de dezembro de 2025**, o Plenário, seguindo o relator, ministro **Gilmar Mendes**, considerou **inconstitucional o trecho da Lei 14.701** que institui o marco temporal, reafirmando a decisão de 2023. O STF também reconheceu a **demora** na demarcação, que a Constituição mandava concluir em cinco anos, e fixou um prazo de **dez anos** para a União terminar os processos pendentes. As regras valem até que o Congresso aprove uma nova lei que respeite esses parâmetros.
 
 ## Exemplo resolvido
 
@@ -78,6 +89,7 @@ A bancada ruralista reagiu na hora. Em **outubro de 2023**, o Congresso aprovou 
 3. **21/9/2023**: o STF forma maioria **contra** o marco.
 4. **Outubro de 2023**: o Congresso aprova a **Lei 14.701**.
 5. **14/11/2023**: o Congresso **derruba os vetos** do presidente.
+6. **19/12/2025**: o STF considera **inconstitucional** o trecho da lei com o marco temporal.
 
 ## Resumo
 
@@ -85,7 +97,7 @@ A bancada ruralista reagiu na hora. Em **outubro de 2023**, o Congresso aprovou 
 - Surgiu no caso **Raposa Serra do Sol** (2009).
 - Movimento indígena e MPF: a tese ignora as **expulsões** anteriores.
 - **2023**: o **STF derruba** a tese; o **Congresso aprova a Lei 14.701** e derruba vetos.
-- A disputa entre os poderes **continua**.
+- **Dezembro de 2025**: o STF declara **inconstitucional** o trecho da lei com o marco temporal e fixa **dez anos** para concluir as demarcações.
 
 ```realidade
 Procure notícias recentes sobre o marco temporal. Em que pé está a disputa hoje?
