@@ -52,7 +52,13 @@ Ou seja: o etarismo vai do **preconceito pessoal** às **regras das instituiçõ
 
 ## Também contra os jovens
 
-O termo também descreve a **opressão dos mais jovens pelos mais velhos**: negar direitos a jovens, **desconsiderar as ideias** de adolescentes e crianças por serem "novos demais".
+O termo também descreve a **opressão dos mais jovens pelos mais velhos**. Um exemplo é um folheto publicado em **1976** pelo movimento **Youth Liberation**, de Ann Arbor, nos Estados Unidos. Em **1983**, num conselho municipal do Reino Unido, um vereador lembrou que a discriminação pela idade funciona **tanto contra os jovens quanto contra os idosos**.
+
+Nesse sentido, o etarismo inclui negar aos mais jovens direitos reservados aos adultos e **desconsiderar as ideias e as contribuições** de adolescentes e crianças por serem considerados "novos demais".
+
+## Por que isso importa
+
+O etarismo não é só uma piada ou um comentário. Quando vira **prática** e **regra de instituição**, ele tira oportunidades: emprego, crédito, formação, participação. Por isso Butler o comparou ao **sexismo** e ao **racismo**: são formas de discriminação que classificam as pessoas por uma característica e as tratam como inferiores por causa dela.
 
 ```verificar
 Uma empresa que só contrata pessoas com menos de 40 anos, sem justificativa, pratica qual elemento do etarismo?
