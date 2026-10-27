@@ -9583,6 +9583,10 @@ create table if not exists interno.reunioes (
 alter table interno.reunioes drop constraint if exists reunioes_link_pauta_check;
 alter table interno.reunioes add constraint reunioes_link_pauta_check check (link_pauta = '' or (char_length(link_pauta) <= 508 and link_pauta ~ '^https://[^\s]{3,}$'));
 create index if not exists reunioes_inicio on interno.reunioes (inicio);
+-- A chamada de um canal (como no Discord): a reunião nasce dentro de uma conversa, ao vivo, e vale para quem está nela.
+alter table interno.reunioes add column if not exists conversa uuid references interno.conversas (id) on delete cascade;
+alter table interno.reunioes add column if not exists video boolean not null default true;
+create index if not exists reunioes_conversa on interno.reunioes (conversa) where conversa is not null;
 create table if not exists interno.reunioes_convites (
   reuniao uuid not null references interno.reunioes (id) on delete cascade,
   usuario uuid not null references interno.perfis (id) on delete cascade,
@@ -9596,6 +9600,8 @@ create table if not exists interno.reunioes_presencas (
   saiu_em timestamptz
 );
 create index if not exists reunioes_presencas_reuniao on interno.reunioes_presencas (reuniao);
+-- O sinal de vida de quem está na chamada: quem fechou o navegador sem sair deixa de contar depois de um minuto e meio.
+alter table interno.reunioes_presencas add column if not exists visto_em timestamptz not null default now();
 create table if not exists interno.reunioes_propostas (
   id uuid primary key default gen_random_uuid(),
   autor uuid not null references interno.perfis (id) on delete cascade,
@@ -9621,7 +9627,8 @@ create or replace function interno.reuniao_entra(r interno.reunioes) returns boo
   select auth.uid() is not null and (
     r.organizador = auth.uid() or interno.gere_cargos()
     or (r.tipo = 'aberta' and interno.voluntario())
-    or (r.tipo = 'convidados' and exists (select 1 from reunioes_convites c where c.reuniao = r.id and c.usuario = auth.uid())))
+    or (r.tipo = 'convidados' and exists (select 1 from reunioes_convites c where c.reuniao = r.id and c.usuario = auth.uid()))
+    or (r.conversa is not null and interno.na_conversa(r.conversa)))
 $$;
 
 create or replace function interno.reuniao_json(r interno.reunioes) returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
@@ -9635,6 +9642,10 @@ create or replace function interno.reuniao_json(r interno.reunioes) returns json
     'sala', case when interno.reuniao_entra(r) and r.status in ('agendada', 'ao_vivo') then r.sala end,
     'convidados', (select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', interno.nome_visto(f.nome)) order by f.nome), '[]'::jsonb) from reunioes_convites c join perfis f on f.id = c.usuario where c.reuniao = r.id),
     'presentes', (select count(distinct p.usuario) from reunioes_presencas p where p.reuniao = r.id),
+    'conversa', r.conversa, 'video', r.video,
+    'na_sala', (select coalesce(jsonb_agg(jsonb_build_object('id', f.id, 'nome', interno.nome_visto(f.nome)) order by p.entrou_em), '[]'::jsonb)
+                from (select distinct on (usuario) usuario, entrou_em from reunioes_presencas where reuniao = r.id and saiu_em is null and visto_em > now() - interval '90 seconds' order by usuario, entrou_em) p
+                join perfis f on f.id = p.usuario),
     'presencas', case when r.organizador = auth.uid() or interno.gere_cargos()
       then (select coalesce(jsonb_agg(jsonb_build_object('nome', interno.nome_visto(f.nome), 'entrou_em', p.entrou_em, 'saiu_em', p.saiu_em) order by p.entrou_em), '[]'::jsonb) from reunioes_presencas p join perfis f on f.id = p.usuario where p.reuniao = r.id)
       else '[]'::jsonb end)
@@ -9678,7 +9689,7 @@ begin
   perform interno.eu();
   if not interno.voluntario() then perform interno.erro('sem_permissao'); end if;
   return (select coalesce(jsonb_agg(interno.reuniao_json(r) order by r.inicio desc), '[]'::jsonb)
-          from reunioes r where r.inicio > now() - interval '180 days' and (interno.reuniao_entra(r) or r.tipo = 'aberta'));
+          from reunioes r where r.inicio > now() - interval '180 days' and r.conversa is null and (interno.reuniao_entra(r) or r.tipo = 'aberta'));
 end $$;
 
 /** Começar, encerrar (para todos) ou cancelar. Quem organiza e quem gere cargos. */
@@ -9728,11 +9739,19 @@ begin
   select * into r from reunioes where id = p_id;
   if not found or not interno.reuniao_entra(r) then perform interno.erro('nao_encontrado'); end if;
   if p_entrou then
-    if not exists (select 1 from reunioes_presencas where reuniao = p_id and usuario = v and saiu_em is null) then
+    -- Chamar de novo com a pessoa já na sala é o sinal de vida (a cada 30 segundos, enquanto a chamada está aberta).
+    update reunioes_presencas set visto_em = now() where reuniao = p_id and usuario = v and saiu_em is null;
+    if not found then
       insert into reunioes_presencas (reuniao, usuario) values (p_id, v);
     end if;
   else
     update reunioes_presencas set saiu_em = now() where reuniao = p_id and usuario = v and saiu_em is null;
+    -- A chamada de um canal acaba quando a última pessoa sai.
+    if r.conversa is not null and r.status = 'ao_vivo' and not exists (
+         select 1 from reunioes_presencas where reuniao = p_id and saiu_em is null and visto_em > now() - interval '90 seconds') then
+      update reunioes set status = 'encerrada', encerrada_em = now() where id = p_id;
+      perform interno.chat_aviso(r.conversa, 'chamada_fim', null, extract(epoch from now() - coalesce(r.iniciada_em, r.inicio))::int::text);
+    end if;
   end if;
   return jsonb_build_object('ok', true);
 end $$;
@@ -15619,6 +15638,67 @@ begin
 end $$;
 revoke all on function public.relatorio_trimestral(int, int) from public;
 grant execute on function public.relatorio_trimestral(int, int) to anon, authenticated, service_role;
+
+-- ───────────────────────────── Chamadas nos canais ─────────────────────────────
+-- Como no Discord: qualquer pessoa de uma conversa (canal de departamento, grupo ou privada) começa uma chamada de voz
+-- ou de vídeo ali mesmo, e todo mundo da conversa é avisado para entrar. É uma reunião ao vivo ligada à conversa, com
+-- sala sorteada que só quem está na conversa recebe; acaba sozinha quando a última pessoa sai (ou some sem sair).
+
+/** Encerra as chamadas de canal sem ninguém: quem fechou a aba sem sair para de contar depois de 90 segundos. */
+create or replace function interno.chamadas_limpar() returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+declare r reunioes;
+begin
+  for r in select * from reunioes x where x.conversa is not null and x.status = 'ao_vivo' and coalesce(x.iniciada_em, x.inicio) < now() - interval '2 minutes'
+             and not exists (select 1 from reunioes_presencas p where p.reuniao = x.id and p.saiu_em is null and p.visto_em > now() - interval '90 seconds') loop
+    update reunioes set status = 'encerrada', encerrada_em = now() where id = r.id;
+    update reunioes_presencas set saiu_em = coalesce(saiu_em, visto_em) where reuniao = r.id and saiu_em is null;
+  end loop;
+end $$;
+
+/** Começar uma chamada na conversa (ou devolver a que já está acontecendo nela) e avisar todo mundo da conversa. */
+create or replace function public.chat_chamada_iniciar(p_conversa uuid, p_video boolean default false) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare v uuid := interno.eu(); r reunioes; c conversas; v_nome text; v_quem text;
+begin
+  if not interno.na_conversa(p_conversa) then perform interno.erro('sem_permissao'); end if;
+  perform interno.chamadas_limpar();
+  select * into r from reunioes where conversa = p_conversa and status = 'ao_vivo' order by iniciada_em desc limit 1;
+  if found then return interno.reuniao_json(r); end if;
+  select * into c from conversas where id = p_conversa;
+  v_quem := coalesce((select interno.primeiro_nome(nome) from perfis where id = v), 'Alguém');
+  v_nome := case when c.tipo = 'direta' then 'Chamada com ' || v_quem else 'Chamada em #' || coalesce(nullif(c.nome, ''), 'canal') end;
+  insert into reunioes (titulo, inicio, duracao, tipo, status, iniciada_em, organizador, conversa, video)
+  values (left(v_nome, 140), now(), 60, 'convidados', 'ao_vivo', now(), v, p_conversa, coalesce(p_video, false))
+  returning * into r;
+  -- O sino de todo mundo da conversa (menos quem começou), e o aviso dentro da própria conversa.
+  insert into avisos (para, texto)
+  select m.usuario, left(v_quem || ' começou uma chamada ' || case when r.video then 'de vídeo' else 'de voz' end ||
+         case when c.tipo = 'direta' then ' com você' else ' em #' || coalesce(nullif(c.nome, ''), 'canal') end || '. Entre pelas Conversas.', 500)
+  from conversa_membros m where m.conversa = p_conversa and m.usuario <> v;
+  perform interno.chat_aviso(p_conversa, 'chamada', null, case when r.video then 'video' else 'voz' end);
+  perform interno.registrar('chamada_iniciada', r.id::text, jsonb_build_object('conversa', p_conversa, 'video', r.video));
+  return interno.reuniao_json(r);
+end $$;
+
+/** As chamadas acontecendo agora nas conversas em que estou, com quem está em cada uma. */
+create or replace function public.chat_chamadas() returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  perform interno.eu();
+  if not interno.voluntario() then return '[]'::jsonb; end if;
+  perform interno.chamadas_limpar();
+  return (select coalesce(jsonb_agg(interno.reuniao_json(r) order by r.iniciada_em desc), '[]'::jsonb)
+          from reunioes r join conversa_membros m on m.conversa = r.conversa and m.usuario = auth.uid()
+          where r.conversa is not null and r.status = 'ao_vivo');
+end $$;
+
+do $$
+declare f record;
+begin
+  for f in select p.oid::regprocedure as assinatura from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+           where n.nspname = 'public' and p.proname in ('chat_chamada_iniciar', 'chat_chamadas') loop
+    execute format('revoke all on function %s from public', f.assinatura);
+    execute format('grant execute on function %s to authenticated, service_role', f.assinatura);
+  end loop;
+end $$;
 
 -- ───────────────────────────── Tranca final ─────────────────────────────
 -- O laço do começo só alcança as tabelas que já existiam quando ele rodou: as criadas mais abaixo ficariam sem segurança

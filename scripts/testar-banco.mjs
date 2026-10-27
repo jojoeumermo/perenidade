@@ -2867,6 +2867,21 @@ await recusa("trimestre 5 não existe", () => rpc(anon, "relatorio_trimestral", 
 await espera("o visitante lê os números do trimestre, sem nenhum nome", () => rpc(anon, "relatorio_trimestral", { p_ano: Number(mesAgora.slice(0, 4)), p_tri: Math.ceil(Number(mesAgora.slice(5)) / 3) }),
   (r) => r.contas >= 1 && typeof r.entradas === "number" && !("nome" in r));
 
+// Chamadas nos canais, como no Discord: quem está na conversa começa, todo mundo dela é avisado e entra; acaba sozinha.
+let chamada;
+const geralDoDesigner = await departamento("designer", "geral");
+await recusa("quem não está na conversa não começa chamada nela", () => rpc(como(ids.aluna), "chat_chamada_iniciar", { p_conversa: geralDoDesigner.id }), "sem_permissao");
+await espera("o designer começa uma chamada de voz no canal da equipe", async () => { chamada = await rpc(como(ids.designer), "chat_chamada_iniciar", { p_conversa: geralDoDesigner.id, p_video: false }); return chamada; },
+  (r) => r.status === "ao_vivo" && r.video === false && r.conversa === geralDoDesigner.id && /^InstitutoLucia-/.test(r.sala));
+await espera("começar de novo devolve a mesma chamada, sem abrir outra", () => rpc(como(ids.coord), "chat_chamada_iniciar", { p_conversa: geralDoDesigner.id, p_video: true }), (r) => r.id === chamada.id);
+await espera("a coordenação vê a chamada do canal, com a sala, e foi avisada", async () => [await rpc(como(ids.coord), "chat_chamadas"), await rpc(como(ids.coord), "avisos_meus")],
+  ([lista, avisos]) => lista.some((c) => c.id === chamada.id && c.sala) && avisos.some((a) => a.texto.includes("começou uma chamada de voz")));
+await espera("a chamada de canal não aparece na agenda de reuniões", () => rpc(como(ids.coord), "reunioes_listar"), (r) => !r.some((x) => x.id === chamada.id));
+await espera("quem entra aparece na sala", async () => { await rpc(como(ids.designer), "reuniao_presenca", { p_id: chamada.id, p_entrou: true }); return rpc(como(ids.coord), "chat_chamadas"); },
+  (r) => r.find((c) => c.id === chamada.id)?.na_sala.some((p) => p.id === ids.designer));
+await espera("a última pessoa sai e a chamada acaba, com o aviso no canal", async () => { await rpc(como(ids.designer), "reuniao_presenca", { p_id: chamada.id, p_entrou: false }); return [await rpc(como(ids.coord), "chat_chamadas"), await rpc(como(ids.coord), "chat_ver", { p_id: geralDoDesigner.id })]; },
+  ([lista, conversa]) => !lista.some((c) => c.id === chamada.id) && conversa.mensagens.some((x) => x.tipo === "sistema" && x.detalhe?.evento === "chamada_fim"));
+
 // Rede Lúcia, segunda parte: espaços fechados, comunidades seguidas, posição no debate, busca, moderadores, portabilidade.
 let espaco;
 await recusa("quem não é da equipe não abre espaço fechado", () => rpc(como(ids.aluna), "rede_espaco_criar", { p_nome: "Núcleo da fábrica" }), "sem_permissao");
