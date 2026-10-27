@@ -5100,27 +5100,6 @@
     "episodio": "En el podcast del Instituto Lúcia:",
     "checagem": "Verificación del Instituto Lúcia:"
   },
-  "receba": {
-    "eyebrow": "Recíbelo en tu celular",
-    "title": "Las clases llegan adonde ya estás",
-    "lead": "Entra al canal del Instituto Lúcia en WhatsApp o en Telegram y recibe, cada semana, una clase corta, los artículos del periódico y las convocatorias de la comunidad. Gratis y sin anuncios.",
-    "whatsappTitulo": "Canal en WhatsApp",
-    "whatsappTexto": "En el canal solo escribe el instituto. Nadie ve tu número y sales cuando quieras.",
-    "whatsappBotao": "Entrar al canal de WhatsApp",
-    "telegramTitulo": "Telegram",
-    "telegramTexto": "Para quien prefiere Telegram: los mismos mensajes, también sin mostrar tu número.",
-    "telegramBotao": "Entrar en Telegram",
-    "qr": "¿En la computadora? Apunta la cámara del celular al código.",
-    "preparando": "Este canal se está preparando. Vuelve pronto.",
-    "outros": "Mientras tanto",
-    "instagram": "Sigue a @institutoluciaorg en Instagram",
-    "boletim": "Suscríbete al boletín del periódico por correo",
-    "encaminhar": "¿Te gustó una clase? Al final de cada una está la “Clase en 1 minuto”, lista para mandar al grupo de la familia, del trabajo o del barrio.",
-    "seguranca": "Cuidado con las estafas: el instituto nunca pide dinero, contraseña ni código por WhatsApp o Telegram.",
-    "carregando": "Cargando los canales…",
-    "menu": "Recíbelo en el celular",
-    "menuDescricao": "El canal del instituto en WhatsApp y Telegram: una clase corta por semana, sin mostrar tu número."
-  },
   "kit": {
     "zineTitulo": "Fanzine de la clase",
     "zineLead": "La clase en una hoja A4 doblada en un librito de 8 páginas, para quien no tiene internet. Imprime, dobla y pásalo.",
