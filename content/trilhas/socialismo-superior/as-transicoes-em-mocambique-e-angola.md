@@ -3,6 +3,9 @@ titulo: "As transições em Moçambique e Angola"
 resumo: "Em 1975, Moçambique e Angola conquistaram a independência de Portugal, com governos de orientação socialista: a FRELIMO e o MPLA. A luta de libertação, a tentativa de construir o socialismo e as guerras civis apoiadas pelo apartheid."
 autores: ["Instituto Lúcia"]
 fontes:
+  - titulo: "Mozambican Civil War"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/Mozambican_Civil_War"
   - titulo: "Frente de Libertação de Moçambique"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Frente_de_Liberta%C3%A7%C3%A3o_de_Mo%C3%A7ambique"
@@ -31,7 +34,7 @@ quiz:
   - pergunta: "Quem apoiou a RENAMO na guerra civil de Moçambique?"
     opcoes: ["Os governos de minoria branca da Rodésia e da África do Sul do apartheid", "A URSS", "Cuba"]
     resposta: 0
-    explicacao: "A guerra civil durou de 1976 a 1992."
+    explicacao: "A guerra civil durou de 1977 a 1992."
   - pergunta: "Até quando durou a guerra civil em Angola?"
     opcoes: ["De 1975 a 2002", "De 1961 a 1965", "Até hoje"]
     resposta: 0
@@ -52,7 +55,7 @@ A **FRELIMO** (Frente de Libertação de Moçambique) foi fundada em **25 de jun
 
 **Samora Machel** liderou a guerra de independência e foi o **primeiro presidente** do país, de **1975 até a sua morte**, em **1986**, num acidente de avião em território sul-africano. Em **1977**, a FRELIMO se transformou em **partido marxista-leninista** e governou como **partido único** até **1994**.
 
-O novo governo enfrentou uma **guerra civil** (1976–1992) contra a **RENAMO**, grupo anticomunista apoiado pelos governos de **minoria branca da Rodésia** e pela **África do Sul do apartheid**. Em **1990**, uma nova Constituição permitiu outros partidos.
+O novo governo enfrentou uma **guerra civil** (1977–1992) contra a **RENAMO**, grupo anticomunista apoiado pelos governos de **minoria branca da Rodésia** e pela **África do Sul do apartheid**. Em **1990**, uma nova Constituição permitiu outros partidos.
 
 ## Angola
 
@@ -74,7 +77,7 @@ Por que a África do Sul do apartheid apoiou a RENAMO?
 
 1. **Independência**: as duas em **1975**, depois de guerras contra o colonialismo português.
 2. **Governo**: **FRELIMO** em Moçambique e **MPLA** em Angola, de orientação **socialista**.
-3. **Guerras civis**: Moçambique (1976–1992, contra a RENAMO); Angola (1975–2002, contra UNITA e FNLA).
+3. **Guerras civis**: Moçambique (1977–1992, contra a RENAMO); Angola (1975–2002, contra UNITA e FNLA).
 4. **Resultado**: os dois partidos continuam no poder.
 
 ## Resumo

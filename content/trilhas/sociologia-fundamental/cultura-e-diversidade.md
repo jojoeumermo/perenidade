@@ -3,6 +3,9 @@ titulo: "Cultura e diversidade"
 resumo: "Cultura é tudo o que aprendemos vivendo em sociedade, e cada povo tem a sua. A diversidade cultural é defendida pela UNESCO, que aprovou uma Declaração Universal sobre o tema e, em 2005, uma convenção para protegê-la. O Dia Mundial da Diversidade Cultural é 21 de maio."
 autores: ["Instituto Lúcia"]
 fontes:
+  - titulo: "World Day for Cultural Diversity for Dialogue and Development"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/World_Day_for_Cultural_Diversity_for_Dialogue_and_Development"
   - titulo: "Diversidade cultural"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Diversidade_cultural"
@@ -20,7 +23,7 @@ quiz:
   - pergunta: "Quando é o Dia Mundial da Diversidade Cultural para o Diálogo e o Desenvolvimento?"
     opcoes: ["21 de maio", "1º de janeiro", "25 de dezembro"]
     resposta: 0
-    explicacao: "Foi criado pela Assembleia Geral da ONU em 2001."
+    explicacao: "Foi criado pela Assembleia Geral da ONU em 2002, depois da Declaração da UNESCO de 2001."
   - pergunta: "Para que serve a Convenção da UNESCO de 2005?"
     opcoes: ["Para proteger e promover a diversidade das expressões culturais diante da homogeneização", "Para acabar com as culturas locais", "Para criar uma cultura única no mundo"]
     resposta: 0
@@ -49,7 +52,7 @@ Para a antropologia, **cultura** é, nas palavras de **E. B. Tylor**, o **todo c
 
 ## Proteger a diversidade
 
-A **UNESCO**, a organização da ONU para educação, ciência e cultura, defende a diversidade cultural desde a sua fundação, em **1945**. Depois da **Declaração Universal sobre a Diversidade Cultural** da UNESCO, a **Assembleia Geral da ONU** criou, em **2001**, o **Dia Mundial da Diversidade Cultural para o Diálogo e o Desenvolvimento**, celebrado em **21 de maio**.
+A **UNESCO**, a organização da ONU para educação, ciência e cultura, defende a diversidade cultural desde a sua fundação, em **1945**. Depois da **Declaração Universal sobre a Diversidade Cultural** da UNESCO, a **Assembleia Geral da ONU** criou, em **2002**, o **Dia Mundial da Diversidade Cultural para o Diálogo e o Desenvolvimento**, celebrado em **21 de maio**.
 
 Em **outubro de 2005**, a UNESCO aprovou a **Convenção sobre a Proteção e Promoção da Diversidade das Expressões Culturais**, para defender a diversidade diante da **homogeneização** da cultura provocada pela **globalização** e pelo **livre comércio**.
 
@@ -79,7 +82,7 @@ Por que a UNESCO se preocupa com a homogeneização da cultura?
 - **Cultura**: hábitos **adquiridos** em sociedade (Tylor); **todo povo** tem cultura.
 - **Diversidade cultural**: muitas culturas que **convivem** e se transformam.
 - **UNESCO**: defende a diversidade desde **1945**.
-- **21 de maio**: Dia Mundial da Diversidade Cultural (ONU, **2001**).
+- **21 de maio**: Dia Mundial da Diversidade Cultural (ONU, **2002**).
 - **Convenção de 2005**: contra a **homogeneização**.
 
 ```realidade
