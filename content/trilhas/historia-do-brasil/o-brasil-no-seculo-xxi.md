@@ -3,6 +3,9 @@ titulo: "O Brasil no século XXI"
 resumo: "Objetivo: organizar os principais fatos do Brasil recente, das políticas sociais às reformas de corte de direitos e à pandemia, e pensar os problemas que continuam em aberto."
 autores: ["Instituto Lúcia"]
 fontes:
+  - titulo: "Brasil sai do mapa da fome após três anos"
+    autor: "O Povo"
+    url: "https://www.opovo.com.br/noticias/brasil/2025/07/28/brasil-sai-do-mapa-da-fome-anuncia-onu.html"
   - titulo: "Panorama do Censo Demográfico 2022"
     autor: "Instituto Brasileiro de Geografia e Estatística (IBGE)"
     ano: "2022"
@@ -58,7 +61,7 @@ Nas duas primeiras décadas do século, um conjunto de políticas ampliou o aces
 
 No mesmo período, o salário mínimo teve aumentos acima da inflação por vários anos seguidos, e o número de vagas no ensino superior cresceu.
 
-Em 2014, a FAO, o órgão das Nações Unidas para a alimentação, retirou o Brasil do **Mapa da Fome**. Nos anos seguintes, com a crise econômica, o desmonte de políticas e a pandemia, a fome voltou a crescer, e o país retornou ao mapa.
+Em 2014, a FAO, o órgão das Nações Unidas para a alimentação, retirou o Brasil do **Mapa da Fome**. Nos anos seguintes, com a crise econômica, o desmonte de políticas e a pandemia, a fome voltou a crescer, e o país retornou ao mapa. Em julho de 2025, o relatório da FAO, com dados de 2022 a 2024, tirou o Brasil do Mapa da Fome outra vez.
 
 Duas observações ajudam a ler esse período. Cada uma dessas medidas respondeu a **décadas de pressão** de movimentos sociais: o movimento negro, o de mulheres, o das domésticas, o dos sem-terra. E as estruturas que produzem a desigualdade (a concentração da terra, o sistema de impostos que pesa mais sobre quem ganha menos, o peso dos juros da dívida pública no orçamento) permaneceram essencialmente as mesmas.
 

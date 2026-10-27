@@ -62,7 +62,7 @@ Esses números **não são contagens exatas**. Eles são calculados pelos histor
 
 ## O Brasil no centro do tráfico
 
-O **Brasil foi o país que mais recebeu africanos escravizados**. Dos cerca de 12 milhões levados às Américas, estima-se que **5,5 milhões** chegaram ao Brasil, entre **1540 e a década de 1860**. Só entre **1700 e 1800**, foram **1,7 milhão**. Com o café, a partir dos anos 1830, o tráfico cresceu ainda mais.
+O **Brasil foi o país que mais recebeu africanos escravizados**. Dos cerca de 12 milhões levados às Américas, estima-se que cerca de **5,5 milhões** foram trazidos ao Brasil, entre **1540 e a década de 1860**. Só entre **1700 e 1800**, foram **1,7 milhão**. Com o café, a partir dos anos 1830, o tráfico cresceu ainda mais.
 
 O Brasil foi também o **último país das Américas a abolir a escravidão**, em **13 de maio de 1888**.
 
