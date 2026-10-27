@@ -6,13 +6,16 @@ fontes:
   - titulo: "Comuna de Paris"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Comuna_de_Paris"
+  - titulo: "Paris Commune"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/Paris_Commune"
 glossario:
   - termo: "comuna"
     definicao: "Governo local autônomo de uma cidade."
   - termo: "mandato revogável"
     definicao: "Cargo que pode ser retirado pelos eleitores a qualquer momento."
   - termo: "Semana Sangrenta"
-    definicao: "Período de 22 a 28 de maio de 1871 em que o exército esmagou a Comuna."
+    definicao: "Período de 21 a 28 de maio de 1871 em que o exército esmagou a Comuna."
 quiz:
   - pergunta: "Quanto tempo durou a Comuna de Paris?"
     opcoes: ["72 dias, de 18 de março a 28 de maio de 1871", "10 anos", "Um dia"]
@@ -26,8 +29,8 @@ quiz:
     opcoes: ["Uma professora que lutou na Comuna como combatente e enfermeira", "A rainha da França", "Uma general prussiana"]
     resposta: 0
     explicacao: "Foi presa e deportada depois da derrota."
-  - pergunta: "Quantos parisienses morreram na Semana Sangrenta, segundo a fonte?"
-    opcoes: ["Mais de 20 mil", "Nenhum", "Cerca de 10"]
+  - pergunta: "Quantas pessoas morreram na Semana Sangrenta?"
+    opcoes: ["Entre 10 mil e 20 mil, conforme a estimativa", "Nenhuma", "Cerca de 10"]
     resposta: 0
     explicacao: "Depois, mais de 40 mil foram feitos prisioneiros."
 ---
@@ -59,7 +62,7 @@ As **mulheres** participaram de várias formas: fizeram uniformes, cuidaram de f
 
 ## O fim
 
-O exército francês, apoiado pelas forças alemãs, derrotou a Comuna. A **Semana Sangrenta**, de **22 a 28 de maio**, deixou **mais de 20 mil parisienses mortos**. Ao fim, **mais de 40 mil** foram feitos prisioneiros. **Engels** apontou a Comuna como exemplo do que seria a **ditadura do proletariado**.
+O exército francês, apoiado pelas forças alemãs, derrotou a Comuna. A **Semana Sangrenta**, de **21 a 28 de maio**, deixou milhares de mortos: as estimativas vão de **10 mil a 15 mil**, e algumas chegam a **20 mil**. Ao fim, **mais de 40 mil** foram feitos prisioneiros. **Engels** apontou a Comuna como exemplo do que seria a **ditadura do proletariado**.
 
 ```verificar
 Por que a Comuna pagava salário de operário aos cargos públicos?
@@ -84,7 +87,7 @@ Por que a Comuna pagava salário de operário aos cargos públicos?
 - **18 de março a 28 de maio**: **72 dias** de Comuna.
 - Mandatos **revogáveis** e **salário de operário** para os cargos públicos.
 - Participação das **mulheres**, como **Louise Michel**.
-- **Semana Sangrenta**: mais de **20 mil mortos**.
+- **Semana Sangrenta** (21 a 28 de maio): entre **10 mil e 20 mil mortos**, conforme a estimativa.
 
 ```realidade
 Você acha que os políticos de hoje deveriam ganhar o mesmo que um trabalhador comum? E poder ser demitidos pelos eleitores?

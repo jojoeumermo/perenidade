@@ -1,6 +1,6 @@
 ---
 titulo: "Racismo religioso: o que é e como denunciar"
-resumo: "Ataques a terreiros, ofensas a quem usa guias e roupas brancas, expulsão de pais e mães de santo de bairros: é o racismo religioso. A lei brasileira pune com 2 a 5 anos de reclusão quem pratica, induz ou incita discriminação por religião. O Dia Nacional de Combate à Intolerância Religiosa é 21 de janeiro."
+resumo: "Ataques a terreiros, ofensas a quem usa guias e roupas brancas, expulsão de pais e mães de santo de bairros: é o racismo religioso. A lei brasileira pune com 1 a 3 anos de reclusão quem pratica, induz ou incita discriminação por religião, e com 2 a 5 anos quando isso é feito pelos meios de comunicação ou pela internet. O Dia Nacional de Combate à Intolerância Religiosa é 21 de janeiro."
 autores: ["Instituto Lúcia"]
 fontes:
   - titulo: "Lei nº 7.716/1989 (crimes resultantes de preconceito de raça ou de cor)"
@@ -21,9 +21,9 @@ glossario:
     definicao: "Tipo de pena de prisão para crimes mais graves."
 quiz:
   - pergunta: "O que diz o artigo 20 da Lei nº 7.716/1989?"
-    opcoes: ["Que é crime praticar, induzir ou incitar discriminação ou preconceito de raça, por religião, etnia ou procedência nacional", "Que só a ofensa física é crime", "Que a religião não é protegida"]
+    opcoes: ["Que é crime praticar, induzir ou incitar discriminação ou preconceito de raça, cor, etnia, religião ou procedência nacional", "Que só a ofensa física é crime", "Que a religião não é protegida"]
     resposta: 0
-    explicacao: "A pena é de reclusão de dois a cinco anos."
+    explicacao: "A pena é de reclusão de um a três anos e multa; de dois a cinco anos se o crime for cometido pelos meios de comunicação, pelas redes sociais ou pela internet."
   - pergunta: "Quando é o Dia Nacional de Combate à Intolerância Religiosa?"
     opcoes: ["21 de janeiro", "13 de maio", "25 de dezembro"]
     resposta: 0
@@ -52,9 +52,9 @@ Muitos estudiosos e militantes chamam isso de **racismo religioso**, e não só 
 
 A **Constituição** garante a **liberdade de crença** e a **proteção aos locais de culto** (art. 5º, VI). E a **Lei nº 7.716/1989**, no **artigo 20**, diz que é crime:
 
-> **praticar, induzir ou incitar** a **discriminação ou preconceito** de raça, **por religião**, etnia ou procedência nacional.
+> **praticar, induzir ou incitar** a **discriminação ou preconceito** de raça, cor, etnia, **religião** ou procedência nacional.
 
-A pena é de **reclusão de dois a cinco anos**.
+A pena é de **reclusão de um a três anos e multa**. Se o crime for cometido pelos **meios de comunicação**, pelas **redes sociais** ou pela **internet**, a pena sobe para **dois a cinco anos e multa** (§ 2º, com a redação da Lei nº 14.532, de 2023).
 
 ## O 21 de janeiro
 
@@ -90,7 +90,7 @@ Um vizinho picha "fora macumba" no muro de um terreiro. Segundo a lei, isso é s
 
 - **Racismo religioso**: ataques às religiões de matriz africana, ligados ao **racismo**.
 - **Constituição**: liberdade de crença e proteção aos **locais de culto**.
-- **Lei nº 7.716/1989, art. 20**: discriminação **por religião** é crime; **2 a 5 anos** de reclusão.
+- **Lei nº 7.716/1989, art. 20**: discriminação **por religião** é crime; **1 a 3 anos** de reclusão, e **2 a 5 anos** se for pela mídia ou pela internet.
 - **21 de janeiro**: Dia Nacional de Combate à Intolerância Religiosa (Lei nº 11.635/2007).
 - Denunciar: **provas**, **boletim de ocorrência**, **Disque 100**, **Defensoria**.
 
