@@ -72,7 +72,7 @@ O que significava a política de "tutela"?
 
 O SPI foi extinto e substituído pela **Fundação Nacional do Índio (Funai)**, criada pela **Lei nº 5.371, de 5 de dezembro de 1967**, em plena ditadura. A justificativa era corrigir os erros do SPI, mas, dominada por militares, a Funai **reproduziu os mesmos problemas**, seguindo a ideia de que os indígenas eram incapazes e deviam ser assimilados.
 
-Hoje o órgão se chama **Fundação Nacional dos Povos Indígenas** (desde 2022 com esse nome) e está ligado ao **Ministério dos Povos Indígenas**.
+Hoje o órgão se chama **Fundação Nacional dos Povos Indígenas** (desde 2023 com esse nome; até 2022 se chamava Fundação Nacional do Índio) e está ligado ao **Ministério dos Povos Indígenas**.
 
 ## Exemplo resolvido
 
