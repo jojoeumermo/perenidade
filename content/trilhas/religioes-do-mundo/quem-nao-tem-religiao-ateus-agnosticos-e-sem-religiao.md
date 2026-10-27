@@ -41,7 +41,7 @@ Ao fim desta aula você vai entender quem são as pessoas sem religião e as dif
 
 ## Os números
 
-O **Censo 2022** do IBGE, com resultados divulgados em **junho de 2025**, mostrou que **9,3%** dos brasileiros se declararam **sem religião**. Em **2010**, eram **7,9%**. No mesmo período, os **católicos** passaram de **65,1%** para **56,7%**, e os **evangélicos**, de **21,6%** para **26,9%**.
+O **Censo 2022** do IBGE, com resultados divulgados em **junho de 2025**, mostrou que **9,3%** dos brasileiros se declararam **sem religião**. Em **2010**, eram **7,9%**. No mesmo período, os **católicos** caíram para **56,7%**, e os **evangélicos** passaram de **21,6%** para **26,9%**.
 
 ## Muitas formas de não ter religião
 

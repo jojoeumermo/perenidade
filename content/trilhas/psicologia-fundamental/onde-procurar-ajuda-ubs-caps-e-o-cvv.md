@@ -44,7 +44,7 @@ Ao fim desta aula você vai conhecer os serviços que oferecem ajuda para o sofr
 
 ## O CVV: alguém para ouvir
 
-O **Centro de Valorização da Vida (CVV)** presta um serviço **voluntário, sigiloso e gratuito** de **apoio emocional**, com atendimento **presencial**, por **chat** e, principalmente, pelo **telefone 188**, com chamada **gratuita e anônima**. São mais de **120 postos** e cerca de **3.400 voluntários**, que se revezam para atender **24 horas por dia**, nos **365 dias** do ano. Desde **2017**, uma parceria com o Ministério da Saúde tornou as ligações gratuitas.
+O **Centro de Valorização da Vida (CVV)** presta um serviço **voluntário, sigiloso e gratuito** de **apoio emocional**, com atendimento **presencial**, por **chat** e, principalmente, pelo **telefone 188**, com chamada **gratuita e anônima**. São **postos em todo o país** e **milhares de voluntários**, que se revezam para atender **24 horas por dia**, nos **365 dias** do ano. Desde **2017**, uma parceria com o Ministério da Saúde tornou as ligações gratuitas.
 
 ## A UBS: a porta do SUS
 
