@@ -57,6 +57,12 @@ Antes da chegada de Cabral, eram faladas cerca de **1.300 línguas** nativas. Ho
 
 As línguas indígenas se dividem em dois grandes **troncos linguísticos**: o **tupi** e o **macro-jê**.
 
+## O nome de cada povo
+
+Os habitantes originais das Américas **nunca se viram como um só povo**. Cada povo tem a sua língua, a sua história e o seu modo de vida, e muitos tinham rivalidades entre si. Por isso, a palavra "índio", que junta todos numa coisa só, é criticada.
+
+Além disso, o nome mais conhecido de muitos povos **não é o nome que eles usam para si mesmos**. Muitas vezes é um nome dado pelos europeus ou por povos inimigos, às vezes ofensivo. É o caso dos **caiapós**: o nome lhes foi dado por povos tupis e significa "semelhante a macaco". Conhecer o nome que cada povo dá a si mesmo é uma forma de **respeito**.
+
 ```verificar
 Existe "a língua indígena" do Brasil?
 - Sim, o tupi
