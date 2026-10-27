@@ -10,7 +10,7 @@ fontes:
   - titulo: "O Estado e a revolução"
     autor: "Vladímir Lênin"
     ano: "1917"
-    url: "https://www.marxists.org/portugues/lenin/1917/08/estado-e-revolucao/index.htm"
+    url: "https://www.marxists.org/portugues/lenin/1917/08/estadoerevolucao/index.htm"
   - titulo: "A origem da família, da propriedade privada e do Estado"
     autor: "Friedrich Engels"
     ano: "1884"
