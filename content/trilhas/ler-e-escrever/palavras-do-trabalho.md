@@ -3,9 +3,10 @@ titulo: "Palavras do trabalho"
 resumo: "Ler as palavras da carteira, do contracheque e do dia de serviço, e conhecer os pedaços que aparecem muito nelas: ÃO, LH, NH, CH e RR."
 autores: ["Instituto Lúcia"]
 fontes:
-  - titulo: "Constituição da República Federativa do Brasil, artigo 7º (direitos dos trabalhadores urbanos e rurais)"
+  - titulo: "Constituição da República Federativa do Brasil, artigo 7º (direitos dos trabalhadores urbanos e rurais), com a redação da Emenda Constitucional nº 141, de 2026"
     autor: "Brasil"
     ano: "1988"
+    url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
   - titulo: "Consolidação das Leis do Trabalho (Decreto-Lei nº 5.452, de 1º de maio de 1943)"
     autor: "Presidência da República"
     ano: "1943"
@@ -35,7 +36,7 @@ quiz:
     resposta: 0
     explicacao: "Líquido é o que sobra depois de tirar os descontos. É o que cai na conta ou vem no envelope."
   - pergunta: "Segundo a Constituição, a jornada normal de trabalho é de até:"
-    opcoes: ["12 horas por dia", "8 horas por dia e 44 por semana", "6 horas por dia e 50 por semana"]
+    opcoes: ["12 horas por dia", "8 horas por dia e 40 por semana", "6 horas por dia e 50 por semana"]
     resposta: 1
     explicacao: "É o que diz o artigo 7º. O que passar disso é hora extra, que vale pelo menos 50% a mais."
 ---
@@ -75,7 +76,7 @@ Muitas dessas palavras são **direitos**. A Constituição de 1988, no artigo 7�
 - **salário mínimo**;
 - **décimo terceiro**;
 - **FGTS**;
-- jornada normal de até **8 horas por dia e 44 por semana**;
+- jornada normal de até **8 horas por dia e 40 por semana** (eram 44 até a Emenda Constitucional nº 141, de 2026);
 - **hora extra** paga com pelo menos **50% a mais**;
 - **férias** pagas, com **um terço a mais** que o salário.
 

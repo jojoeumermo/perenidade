@@ -7,6 +7,9 @@ fontes:
     autor: "Lynn Marecek e outros (OpenStax)"
     ano: "2020"
     url: "https://openstax.org/books/prealgebra-2e/pages/7-5-systems-of-measurement"
+  - titulo: "Constituição da República Federativa do Brasil, artigo 7º, XIII (redação da Emenda Constitucional nº 141, de 2026)"
+    autor: "Presidência da República"
+    url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
   - titulo: "The International System of Units (SI)"
     autor: "Bureau International des Poids et Mesures (BIPM)"
     url: "https://www.bipm.org/en/measurement-units"
@@ -108,7 +111,7 @@ Para converter:
 - de minutos para horas e minutos, divida por 60: 200 minutos = 3 horas e 20 minutos (3 × 60 = 180, sobram 20);
 - de horas e minutos para número com vírgula, divida os minutos por 60: 2 h 45 min = 2,75 h, porque 45 ÷ 60 = 0,75.
 
-Essa conta importa no contracheque. Se a hora de trabalho vale R$ 12 e você fez 2 h 45 min a mais, o valor é 2,75 × 12 = R$ 33, e não 2,45 × 12. A Constituição limita a jornada normal a 8 horas por dia e 44 por semana; o que passa disso é hora extra. Anotar os seus horários, em horas e minutos, é o primeiro passo para conferir se o pagamento veio certo.
+Essa conta importa no contracheque. Se a hora de trabalho vale R$ 12 e você fez 2 h 45 min a mais, o valor é 2,75 × 12 = R$ 33, e não 2,45 × 12. A Constituição limita a jornada normal a 8 horas por dia e 40 por semana (limite fixado pela Emenda Constitucional nº 141, de 2026); o que passa disso é hora extra. Anotar os seus horários, em horas e minutos, é o primeiro passo para conferir se o pagamento veio certo.
 
 ## Para praticar
 
