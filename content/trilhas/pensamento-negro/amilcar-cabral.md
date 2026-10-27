@@ -53,7 +53,7 @@ Em **1945**, com uma bolsa, entrou no **Instituto Superior de Agronomia**, em **
 
 Com Aristides Pereira, o irmão **Luís Cabral** e outros, fundou o partido clandestino **Partido Africano para a Independência da Guiné e Cabo Verde (PAIGC)**. As fontes divergem sobre a data: algumas dão **1956**, outras **1959**. Em **3 de agosto de 1959**, o partido participou da **greve dos trabalhadores do porto de Pidjiguiti**, reprimida pelo governo colonial com a **morte de 50 manifestantes**.
 
-Cabral também assinou o **Manifesto de 1956** em Angola, sendo um dos fundadores do **MPLA**, e participou da **Conferência de Bandung** (1955).
+Cabral também assinou o **Manifesto de 1956** em Angola, sendo um dos fundadores do **MPLA**.
 
 ## O assassinato
 
