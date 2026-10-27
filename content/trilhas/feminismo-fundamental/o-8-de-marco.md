@@ -3,6 +3,9 @@ titulo: "O 8 de março"
 resumo: "O Dia Internacional da Mulher não nasceu para dar flores. Ele vem da proposta de uma socialista alemã em 1910 e de uma passeata de operárias russas em 1917. Como a data surgiu e por que é um dia de luta."
 autores: ["Instituto Lúcia"]
 fontes:
+  - titulo: "International Women's Day"
+    autor: "Wikipedia (em inglês)"
+    url: "https://en.wikipedia.org/wiki/International_Women%27s_Day"
   - titulo: "Dia Internacional das Mulheres"
     autor: "Wikipédia"
     url: "https://pt.wikipedia.org/wiki/Dia_Internacional_das_Mulheres"
@@ -39,7 +42,7 @@ Ao fim desta aula você vai saber como nasceu o Dia Internacional da Mulher e po
 
 ## Um dia das mulheres
 
-A ideia de um dia das mulheres surgiu depois que o **Partido Socialista da América** organizou um **Dia das Mulheres** em **Nova York**, em **20 de fevereiro de 1909**, pela **igualdade de direitos** e pelo **voto feminino**.
+A ideia de um dia das mulheres surgiu depois que o **Partido Socialista da América** organizou um **Dia das Mulheres** em **Nova York**, em **28 de fevereiro de 1909**, pela **igualdade de direitos** e pelo **voto feminino**.
 
 ## A proposta de Clara Zetkin
 
