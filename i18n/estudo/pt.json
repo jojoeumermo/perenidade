@@ -181,7 +181,19 @@
     "montarOutra": "Montar outra sequência",
     "linkQuebrado": "Este link de turma está incompleto ou foi alterado na cópia. Peça o link de novo ao professor.",
     "minhasTurmas": "Minhas turmas",
-    "esquecer": "Tirar da lista"
+    "esquecer": "Tirar da lista",
+    "buscarAula": "Procurar aula pelo nome",
+    "buscarDica": "Em todas as disciplinas. Ex.: frações, CLT, fotossíntese",
+    "ouEscolha": "Ou escolha pela disciplina e pela trilha",
+    "nenhumResultado": "Nenhuma aula com esse nome.",
+    "suasSequencias": "Sequências guardadas neste aparelho",
+    "editar": "Editar",
+    "mostrarTurma": "Mostrar para a turma",
+    "apontar": "Aponte a câmera do celular para o código",
+    "fechar": "Fechar",
+    "whatsapp": "Mandar no WhatsApp",
+    "mensagemWhatsapp": "{titulo}: siga as aulas neste link {link}",
+    "nAulas": "{n} aulas"
   },
   "professores": {
     "olho": "Para professores",

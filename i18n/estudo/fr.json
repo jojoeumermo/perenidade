@@ -181,7 +181,19 @@
     "montarOutra": "Composer une autre suite",
     "linkQuebrado": "Ce lien de classe est incomplet ou a été modifié en le copiant. Redemande le lien à ton enseignant.",
     "minhasTurmas": "Mes classes",
-    "esquecer": "Retirer de la liste"
+    "esquecer": "Retirer de la liste",
+    "buscarAula": "Chercher une leçon par son nom",
+    "buscarDica": "Dans toutes les matières. Ex. : fractions, photosynthèse",
+    "ouEscolha": "Ou choisissez par matière et par parcours",
+    "nenhumResultado": "Aucune leçon avec ce nom.",
+    "suasSequencias": "Séquences enregistrées sur cet appareil",
+    "editar": "Modifier",
+    "mostrarTurma": "Montrer à la classe",
+    "apontar": "Pointez l’appareil photo du téléphone vers le code",
+    "fechar": "Fermer",
+    "whatsapp": "Envoyer sur WhatsApp",
+    "mensagemWhatsapp": "{titulo} : suivez les leçons sur ce lien {link}",
+    "nAulas": "{n} leçons"
   },
   "professores": {
     "olho": "Pour les enseignants",

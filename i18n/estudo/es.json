@@ -181,7 +181,19 @@
     "montarOutra": "Armar otra secuencia",
     "linkQuebrado": "Este enlace de grupo está incompleto o se alteró al copiarlo. Pide el enlace de nuevo al profesor.",
     "minhasTurmas": "Mis grupos",
-    "esquecer": "Quitar de la lista"
+    "esquecer": "Quitar de la lista",
+    "buscarAula": "Buscar clase por nombre",
+    "buscarDica": "En todas las materias. Ej.: fracciones, fotosíntesis",
+    "ouEscolha": "O elige por materia y por trayecto",
+    "nenhumResultado": "Ninguna clase con ese nombre.",
+    "suasSequencias": "Secuencias guardadas en este dispositivo",
+    "editar": "Editar",
+    "mostrarTurma": "Mostrar a la clase",
+    "apontar": "Apunta la cámara del móvil al código",
+    "fechar": "Cerrar",
+    "whatsapp": "Enviar por WhatsApp",
+    "mensagemWhatsapp": "{titulo}: sigue las clases en este enlace {link}",
+    "nAulas": "{n} clases"
   },
   "professores": {
     "olho": "Para docentes",
