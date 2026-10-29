@@ -1,5 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import fs from "node:fs";
+import GithubSlugger from "github-slugger";
 import path from "node:path";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -41,6 +42,24 @@ function paraOPublico(texto: string) {
   return saida.join("\n");
 }
 
+/**
+ * Os títulos de um nível, com o mesmo id que o rehype-slug dá na página: ele numera todos os títulos em ordem, então
+ * todos passam pelo slugger e só os do nível pedido ficam. Blocos de código (o esqueleto do modelo) não contam.
+ */
+function titulos(texto: string, nivel: number): { id: string; titulo: string }[] {
+  const slugger = new GithubSlugger();
+  return texto
+    .replace(/```[\s\S]*?```/g, "")
+    .split("\n")
+    .flatMap((linha) => {
+      const achado = /^(#{1,6})\s+(.+)$/.exec(linha);
+      if (!achado) return [];
+      const titulo = achado[2].replace(/[*_`]/g, "").trim();
+      const id = slugger.slug(titulo);
+      return achado[1].length === nivel ? [{ id, titulo }] : [];
+    });
+}
+
 export async function generateMetadata({ params }: PageProps<"/[lang]/contribuir/guia">): Promise<Metadata> {
   const { lang } = await loadLang(params);
   const { s } = textosDoEstudo(lang);
@@ -59,39 +78,71 @@ export default async function Page({ params }: PageProps<"/[lang]/contribuir/gui
   const guia = parseFrontmatter(ler("content/contribuir/guia.md"));
   const titulo = typeof guia.data.titulo === "string" ? guia.data.titulo : s.guia.titulo;
   const resumo = typeof guia.data.resumo === "string" ? guia.data.resumo : s.guia.descricao;
+  const textoDoGuia = paraOPublico(guia.content);
+  const textoDoModelo = paraOPublico(semTitulo(ler("docs/MODELO-DE-AULA.md")));
+  const textoDaRevisao = paraOPublico(semTitulo(ler("docs/CHECKLIST-DE-REVISAO.md")));
+  const capitulos = [
+    { id: "como-ajudar", nome: s.guia.comoAjudar, secoes: titulos(textoDoGuia, 2) },
+    { id: "modelo", nome: s.guia.modelo, secoes: titulos(textoDoModelo, 3) },
+    { id: "revisar", nome: s.guia.checklist, secoes: titulos(textoDaRevisao, 3) },
+  ];
+  const sumario = (
+    <ol className="grid gap-4 font-sans text-sm">
+      {capitulos.map((capitulo, i) => (
+        <li key={capitulo.id}>
+          <a href={`#${capitulo.id}`} className="flex items-baseline gap-2 font-bold hover:text-oxblood">
+            <span className="font-mono text-xs text-prelo-texto">{i + 1}</span>
+            {capitulo.nome}
+          </a>
+          {capitulo.secoes.length > 0 && (
+            <ul className="mt-1.5 grid gap-1 border-l-2 border-rule pl-3" lang="pt-BR">
+              {capitulo.secoes.map((secao) => (
+                <li key={secao.id}>
+                  <a href={`#${secao.id}`} className="text-ink-soft hover:text-oxblood">
+                    {secao.titulo}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ol>
+  );
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
-      <PageHeading eyebrow={s.guia.olho} title={titulo}>
-        {resumo}
-      </PageHeading>
-      <Untranslated lang={lang} t={t} show={lang !== "pt"} />
-      <nav aria-label={s.guia.nestaPagina} className="mt-6 flex flex-wrap gap-x-5 gap-y-1 font-sans text-sm">
-        <a href="#modelo" className="underline hover:text-oxblood">
-          {s.guia.modelo}
-        </a>
-        <a href="#revisar" className="underline hover:text-oxblood">
-          {s.guia.checklist}
-        </a>
-      </nav>
-      <div className="mt-8" lang="pt-BR">
-        <Markdown lang={lang}>{paraOPublico(guia.content)}</Markdown>
+    <div className="mx-auto max-w-6xl px-4 py-12">
+      <div>
+        <PageHeading eyebrow={s.guia.olho} title={titulo}>
+          {resumo}
+        </PageHeading>
+        <Untranslated lang={lang} t={t} show={lang !== "pt"} />
       </div>
-      <section id="modelo" aria-labelledby="guia-modelo" className="mt-12 border-t border-rule pt-6" lang="pt-BR">
-        <h2 id="guia-modelo" className="text-3xl font-semibold">
-          {s.guia.modelo}
-        </h2>
-        <div className="mt-4">
-          <Markdown lang={lang}>{paraOPublico(semTitulo(ler("docs/MODELO-DE-AULA.md")))}</Markdown>
+      <div className="mt-10 grid gap-10 lg:grid-cols-[15rem_minmax(0,1fr)]">
+        {/* O sumário: fixo ao lado no computador; no celular, recolhido no alto. */}
+        <nav aria-label={s.guia.nestaPagina} className="no-print">
+          <details className="cartao p-4 lg:hidden">
+            <summary className="cursor-pointer font-sans text-sm font-bold">{s.guia.nestaPagina}</summary>
+            <div className="mt-4">{sumario}</div>
+          </details>
+          <div className="sticky top-24 hidden max-h-[calc(100vh-7rem)] overflow-y-auto lg:block">
+            <p className="mb-4 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft">{s.guia.nestaPagina}</p>
+            {sumario}
+          </div>
+        </nav>
+        <div className="min-w-0 max-w-3xl">
+          {capitulos.map((capitulo, i) => (
+            <section key={capitulo.id} id={capitulo.id} aria-labelledby={`${capitulo.id}-titulo`} className={`scroll-mt-24 ${i ? "mt-16" : ""}`} lang="pt-BR">
+              <h2 id={`${capitulo.id}-titulo`} className="guia-capitulo">
+                <span className="guia-capitulo-numero">{i + 1}</span>
+                <span lang={lang === "pt" ? undefined : "pt-BR"}>{capitulo.nome}</span>
+              </h2>
+              <div className="mt-6">
+                <Markdown lang={lang}>{[textoDoGuia, textoDoModelo, textoDaRevisao][i]}</Markdown>
+              </div>
+            </section>
+          ))}
         </div>
-      </section>
-      <section id="revisar" aria-labelledby="guia-revisar" className="mt-12 border-t border-rule pt-6" lang="pt-BR">
-        <h2 id="guia-revisar" className="text-3xl font-semibold">
-          {s.guia.checklist}
-        </h2>
-        <div className="mt-4">
-          <Markdown lang={lang}>{paraOPublico(semTitulo(ler("docs/CHECKLIST-DE-REVISAO.md")))}</Markdown>
-        </div>
-      </section>
+      </div>
     </div>
   );
 }
