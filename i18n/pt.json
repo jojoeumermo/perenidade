@@ -1118,7 +1118,20 @@
     "lead": "Para lembrar quem tombou lutando por justiça, por terra, por liberdade. Enquanto forem lembrados, continuam presentes.",
     "add": "Falta alguém aqui? O memorial é construído pela comunidade.",
     "addLink": "Proponha um nome",
-    "present": "Presente!"
+    "present": "Presente!",
+    "plaque": "{n} nomes, tombados entre {de} e {ate}.",
+    "where": "Onde tombaram",
+    "all": "Todas",
+    "regions": {
+      "brasil": "Brasil",
+      "america-latina": "América Latina e Caribe",
+      "africa": "África",
+      "america-do-norte": "Estados Unidos e Canadá",
+      "europa": "Europa",
+      "asia": "Ásia"
+    },
+    "close": "Fechar a homenagem",
+    "noPortrait": "Para quem não tem retrato livre, fica uma vela acesa. Os retratos são de domínio público ou de licença livre, com a fonte em cada homenagem."
   },
   "contribute": {
     "eyebrow": "Construção coletiva",

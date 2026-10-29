@@ -1118,7 +1118,20 @@
     "lead": "Para recordar a quienes cayeron luchando por la justicia, por la tierra, por la libertad. Mientras se les recuerde, siguen presentes.",
     "add": "¿Falta alguien aquí? El memorial lo construye la comunidad.",
     "addLink": "Propón un nombre",
-    "present": "¡Presente!"
+    "present": "¡Presente!",
+    "plaque": "{n} nombres, caídos entre {de} y {ate}.",
+    "where": "Dónde cayeron",
+    "all": "Todas",
+    "regions": {
+      "brasil": "Brasil",
+      "america-latina": "América Latina y el Caribe",
+      "africa": "África",
+      "america-do-norte": "Estados Unidos y Canadá",
+      "europa": "Europa",
+      "asia": "Asia"
+    },
+    "close": "Cerrar el homenaje",
+    "noPortrait": "Para quien no tiene retrato libre, queda una vela encendida. Los retratos son de dominio público o de licencia libre, con la fuente en cada homenaje."
   },
   "contribute": {
     "eyebrow": "Construcción colectiva",
