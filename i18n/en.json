@@ -159,7 +159,40 @@
     "quimica": "Chemistry lab",
     "quimicaLead": "Acid-base titration with a truly calculated pH curve and four indicators, dilution in a beaker, and the pH scale of household things, with a red-cabbage indicator.",
     "modelos": "Models lab",
-    "modelosLead": "Probability, misleading charts, segregation, cooperation, wealth, epidemics, predator and prey, orbits, waves, cellular automata, regular expressions and your phone as an instrument: predict, run, compare, explain."
+    "modelosLead": "Probability, misleading charts, segregation, cooperation, wealth, epidemics, predator and prey, orbits, waves, cellular automata, regular expressions and your phone as an instrument: predict, run, compare, explain.",
+    "jogos": {
+      "title": "Training games",
+      "card": "Strike!, the timeline of struggles and Who said it?: playing is studying too.",
+      "lead": "Short games to learn from history and from the practice of struggle: steer a strike, put historical facts in order and recognize who said each quote.",
+      "strike": "Strike!",
+      "timeline": "Timeline",
+      "quotes": "Who said it?",
+      "start": "Start",
+      "next": "Next",
+      "again": "Play again",
+      "check": "Check the order",
+      "seeEnd": "See the outcome",
+      "end": "Outcome",
+      "round": "Round {i} of {n}",
+      "source": "source",
+      "up": "Move up",
+      "down": "Move down",
+      "right": "Right!",
+      "wrong": "Not this time.",
+      "realLife": "In real struggles:",
+      "studyMore": "To study more",
+      "strikeIntro": "The factory announced cuts and you are in the middle of organizing. In six decisions, see how each choice affects the workers' unity, the strike fund, the pressure on the company and the neighbourhood's support.",
+      "strikeMeters": "Strike meters",
+      "strikeUnity": "Unity",
+      "strikeFund": "Fund",
+      "strikePressure": "Pressure",
+      "strikeSupport": "Support",
+      "timelineIntro": "Five facts from the history of struggles, out of order. Put them from oldest to newest and check.",
+      "timelineHow": "Use the arrows to change the order: the oldest on top.",
+      "timelineScore": "{n} of {total} in the right place.",
+      "quotesIntro": "Eight quotes from people who fought and thought about the struggle. For each one, choose who said it; then the source appears.",
+      "quotesScore": "You got {n} of {total} right."
+    }
   },
   "lists": {
     "bankEyebrow": "To practise",
@@ -849,7 +882,42 @@
     "searchPlaceholder": "Search for a subject or a topic (e.g. photosynthesis, samba, Python)…",
     "searchClear": "Clear",
     "filterRevolution": "Revolution and organising",
-    "filterRevolutionHint": "Revolutionary theory and people's struggles: for those who come wanting to understand the system, get organised and change it."
+    "filterRevolutionHint": "Revolutionary theory and people's struggles: for those who come wanting to understand the system, get organised and change it.",
+    "guide": {
+      "kicker": "Where to start",
+      "title": "Build your path",
+      "lead": "Two questions and we suggest where to start, with the first lesson of each subject. You can redo it whenever you like.",
+      "q1": "What do you want right now?",
+      "goals": {
+        "luta": "Understand politics and get organized",
+        "escola": "Finish school and read better",
+        "enem": "Pass the ENEM exam",
+        "oficio": "Learn a trade to make a living",
+        "linguas": "Learn another language",
+        "tecnologia": "Work with computers and technology"
+      },
+      "q2": "Where are you starting from?",
+      "starts": {
+        "fundamental": "From scratch",
+        "medio": "I've studied a bit",
+        "superior": "I want to go deeper"
+      },
+      "resultSteps": "Your path, step by step",
+      "resultOptions": "Pick one of these paths",
+      "step": "Step {n}",
+      "option": "Path {n}",
+      "lessons": {
+        "one": "lesson ready",
+        "other": "lessons ready"
+      },
+      "first": "First lesson",
+      "open": "Start",
+      "whole": "See the whole subject",
+      "redo": "Answer again",
+      "also": "Or explore every subject below.",
+      "extraDespertar": "Want a full route? Follow the Class consciousness course, in twelve stages.",
+      "extraNivelamento": "Not sure of your level? Take the placement test."
+    }
   },
   "lesson": {
     "position": "lesson {i} of {n}",
@@ -3051,7 +3119,21 @@
     "find": "Find a term",
     "count": "{n} term(s)",
     "usedIn": "Appears in:",
-    "none": "No term matches this filter."
+    "none": "No term matches this filter.",
+    "dict": {
+      "kicker": "Dictionary",
+      "title": "Look up any Portuguese word",
+      "lead": "Beyond the institute's terms, here you can look up the meaning of any word in Portuguese, with definitions from Wiktionary, the free collaborative dictionary.",
+      "label": "Word to look up in the dictionary",
+      "placeholder": "Type a word, such as trabalho",
+      "button": "Look up",
+      "loading": "Looking up…",
+      "none": "No definition found for “{p}”. Check the spelling.",
+      "error": "The dictionary did not respond right now. Try again in a moment.",
+      "source": "Source",
+      "license": "license",
+      "inGlossary": "Also in the institute's glossary:"
+    }
   },
   "videos": {
     "eyebrow": "To watch",
@@ -3186,7 +3268,7 @@
       "usePolicy": "What is and isn't allowed, in a few lines.",
       "events": "Film club, reading club and other gatherings.",
       "spreadKit": "Posters, flyer, zine and QR cards to print.",
-      "despertar": "From zero to class consciousness, in ten stages, with real-world tasks.",
+      "despertar": "From zero to class consciousness, in twelve stages, with real-world tasks.",
       "territories": "Culture and struggle collectives that walk with the institute: articles, lessons, photos and meetings."
     },
     "short": {
@@ -3891,7 +3973,16 @@
     "latest": "Latest",
     "byOutlet": "By outlet",
     "empty": "The headlines could not be fetched right now. Try again in a few minutes.",
-    "note": "The institute does not write, edit or answer for these texts: it shows only the title, date and link that each outlet distributes publicly. The institute's own stories are in the Journal."
+    "note": "The institute does not write, edit or answer for these texts: it shows only the title, date and link that each outlet distributes publicly. The institute's own stories are in the Journal.",
+    "edition": "Edition of {date}",
+    "updatedShort": "Updated at {time}",
+    "earOutlets": {
+      "one": "outlet",
+      "other": "outlets"
+    },
+    "earOutletsText": "from popular, independent and public media",
+    "earRefresh": "Brasília time. Headlines refresh every fifteen minutes.",
+    "ownPaper": "From the institute:"
   },
   "gallery": {
     "eyebrow": "Art and press of the struggle",
@@ -3899,7 +3990,13 @@
     "lead": "Before radio and television, the wall was the newspaper of working people. These posters, prints and photographs were made to call, to teach and to denounce. Each one comes with who made it, when and why.",
     "description": "Historical posters, prints and photographs of the workers' struggle, in the public domain, with context and source.",
     "publicDomain": "Public domain image. Source:",
-    "note": "Only public domain works are shown here, stored on this site with their source. A poster is a document of its time: showing it is not endorsing everything that was done in its name."
+    "note": "Only public domain works are shown here, stored on this site with their source. A poster is a document of its time: showing it is not endorsing everything that was done in its name.",
+    "labelCollection": "Collection",
+    "labelCount": {
+      "one": "poster",
+      "other": "posters"
+    },
+    "labelPd": "Public domain"
   },
   "volunteer": {
     "title": "Volunteer application",
@@ -5289,12 +5386,11 @@
   },
   "relatorio": {
     "rotulo": "Accountability",
-    "titulo": "Quarterly report",
-    "lead": "What the Instituto Lúcia did every three months, in numbers anyone can check. Counts only: no names appear here.",
-    "escolha": "Quarter",
-    "trimestre": "Q{tri} {ano}",
+    "titulo": "Half-year report",
+    "lead": "What the Instituto Lúcia did every six months, in numbers anyone can check. Counts only: no names appear here.",
+    "escolha": "Half-year",
     "carregando": "Loading the numbers…",
-    "semDados": "The quarter's numbers aren't available right now. Please try again later.",
+    "semDados": "The half-year's numbers aren't available right now. Please try again later.",
     "contas": "new accounts",
     "voluntarios": "volunteers accepted",
     "contribuicoes": "contributions published",
@@ -5303,9 +5399,9 @@
     "posts": "Community posts",
     "certificados": "certificates issued",
     "turma": "class-of-the-month sign-ups",
-    "nucleosAtivos": "Active study groups at the end of the quarter: {n}",
-    "dinheiroTitulo": "Money this quarter",
-    "semContas": "No month in this quarter has a published accounts report yet.",
+    "nucleosAtivos": "Active study groups at the end of the half-year: {n}",
+    "dinheiroTitulo": "Money this half-year",
+    "semContas": "No month in this half-year has a published accounts report yet.",
     "entradas": "Income",
     "saidas": "Spending",
     "saldo": "Balance",
@@ -5316,8 +5412,12 @@
     "comoTexto": "The counts come straight from the site's database when you open this page. The money comes from the monthly accounts reports, which need two coordinators to be published. If a number looks wrong, use Report an error.",
     "historico": "Site change history",
     "verContas": "See the accounts month by month",
-    "menu": "Quarterly report",
-    "menuDescricao": "What the institute did every three months, in numbers you can check."
+    "menu": "Half-year report",
+    "menuDescricao": "What the institute did every six months, in numbers you can check.",
+    "semestres": [
+      "First half of {ano}",
+      "Second half of {ano}"
+    ]
   },
   "faixas": {
     "/trilhas": "Subjects · from primary school to university · short lessons, in order, with a test at the end",
@@ -5453,5 +5553,53 @@
     "suggest": "Suggest a station",
     "emptyFilter": "No station in this region plays here. Untick the filter to see the others.",
     "siteShort": "Website"
+  },
+  "eixos": {
+    "eyebrow": "Political placement",
+    "title": "The 12 axes test",
+    "description": "Find out where you stand on 12 political axes, from economics to social values, and which ideologies are closest to your ideas.",
+    "lead": "Say how much you agree with each statement. At the end you see where you stand on each of the 12 axes and the three ideologies closest to your answers. There are no right answers: the test is for thinking and studying, not for labelling anyone.",
+    "chooseLevel": "Choose the test length",
+    "levels": {
+      "1": {
+        "name": "Quick",
+        "count": "{n} questions",
+        "desc": "An overview in a few minutes."
+      },
+      "2": {
+        "name": "Standard",
+        "count": "{n} questions",
+        "desc": "A balance between time and precision."
+      },
+      "3": {
+        "name": "Full",
+        "count": "{n} questions",
+        "desc": "The most detailed picture: eight questions per axis."
+      }
+    },
+    "privacy": "Your answers stay only on this device, so you can stop and continue later. Nothing is sent to the institute.",
+    "question": "Question {i} of {n}",
+    "progress": "Test progress",
+    "answers": [
+      "Strongly agree",
+      "Agree",
+      "Not sure / neutral",
+      "Disagree",
+      "Strongly disagree"
+    ],
+    "back": "← Previous question",
+    "quit": "Quit and erase answers",
+    "keys": "Shortcuts: keys 1 to 5 answer; the left arrow goes back.",
+    "resultTitle": "Your result",
+    "resultNote": "{nivel} test, {n} questions.",
+    "balanced": "You sit in the middle of this axis: your answers pulled both ways.",
+    "closest": "The ideologies closest to your answers",
+    "proximity": "{p}% match",
+    "redo": "Take it again",
+    "fullVersion": "Continue to the full version",
+    "methodTitle": "How the result is calculated",
+    "methodText": "Each statement pulls one axis toward one side. Strongly agreeing counts a full point toward the statement's side, agreeing counts half a point, disagreeing pulls toward the other side and neutral doesn't pull. The percentage shows where your answers went on each axis. Ideologies are compared by the distance between your twelve numbers and each one's typical position, which is an approximation: every current has many variations.",
+    "card": "New: the 12 political axes test",
+    "cardText": "Economy, state, nation and social values: see where you stand and which ideologies are closest to your ideas."
   }
 }

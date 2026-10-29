@@ -40,6 +40,10 @@ export const KEYS = {
   // Os itens já conferidos na revisão guiada da redação.
   essayCheck: "lucia:redacao-revisao",
   tools: "lucia:ferramentas",
+  // A resposta do guia das disciplinas ("objetivo:etapa"), para o caminho sugerido continuar ali na próxima visita.
+  guia: "lucia:guia",
+  // O andamento e as respostas do teste dos 12 eixos (nivelamento), para continuar depois; nada sai do aparelho.
+  eixos: "lucia:eixos",
 } as const;
 
 const listeners = new Set<() => void>();

@@ -1,11 +1,13 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { DisciplineBrowser, type DisciplineGroup } from "@/components/DisciplineBrowser";
+import { GuiaDasDisciplinas } from "@/components/GuiaDasDisciplinas";
 import { PageHeading } from "@/components/PageHeading";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
 import { essential, groups, stages, type Stage } from "@/lib/areas";
 import { getTracks } from "@/lib/content";
+import { caminhosDoGuia } from "@/lib/guia-disciplinas";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/trilhas">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
@@ -34,6 +36,7 @@ export default async function Disciplinas({ params }: PageProps<"/[lang]/trilhas
       <PageHeading eyebrow={t.tracks.eyebrow} title={t.tracks.title}>
         {t.tracks.lead}
       </PageHeading>
+      <GuiaDasDisciplinas caminhos={caminhosDoGuia(tracks, stages)} s={t.tracks.guide} etapas={stages} />
       <DisciplineBrowser groups={data} s={t.tracks} stageNames={t.stages} />
     </div>
   );

@@ -159,7 +159,40 @@
     "quimica": "Laboratoire de chimie",
     "quimicaLead": "Titrage acide-base avec une vraie courbe de pH calculée et quatre indicateurs, dilution dans le bécher et l’échelle de pH des produits de la maison, avec l’indicateur au chou rouge.",
     "modelos": "Laboratoire de modèles",
-    "modelosLead": "Probabilités, graphiques trompeurs, ségrégation, coopération, richesse, épidémie, prédateur et proie, orbites, ondes, automates, expressions régulières et le téléphone comme instrument : prédire, lancer, comparer, expliquer."
+    "modelosLead": "Probabilités, graphiques trompeurs, ségrégation, coopération, richesse, épidémie, prédateur et proie, orbites, ondes, automates, expressions régulières et le téléphone comme instrument : prédire, lancer, comparer, expliquer.",
+    "jogos": {
+      "title": "Jeux de formation",
+      "card": "Grève !, la frise des luttes et Qui l'a dit ? : jouer, c'est aussi étudier.",
+      "lead": "Des jeux courts pour apprendre de l'histoire et de la pratique de la lutte : diriger une grève, remettre des faits historiques dans l'ordre et reconnaître qui a dit chaque phrase.",
+      "strike": "Grève !",
+      "timeline": "Frise chronologique",
+      "quotes": "Qui l'a dit ?",
+      "start": "Commencer",
+      "next": "Suivant",
+      "again": "Rejouer",
+      "check": "Vérifier l'ordre",
+      "seeEnd": "Voir le dénouement",
+      "end": "Dénouement",
+      "round": "Manche {i} sur {n}",
+      "source": "source",
+      "up": "Monter",
+      "down": "Descendre",
+      "right": "Bravo !",
+      "wrong": "Pas cette fois.",
+      "realLife": "Dans les vraies luttes :",
+      "studyMore": "Pour étudier davantage",
+      "strikeIntro": "L'usine a annoncé des coupes et tu es au cœur de l'organisation. En six décisions, vois comment chaque choix touche l'unité des travailleurs, la caisse de grève, la pression sur l'entreprise et le soutien du quartier.",
+      "strikeMeters": "Jauges de la grève",
+      "strikeUnity": "Unité",
+      "strikeFund": "Caisse",
+      "strikePressure": "Pression",
+      "strikeSupport": "Soutien",
+      "timelineIntro": "Cinq faits de l'histoire des luttes, dans le désordre. Range-les du plus ancien au plus récent et vérifie.",
+      "timelineHow": "Utilise les flèches pour changer l'ordre : le plus ancien en haut.",
+      "timelineScore": "{n} sur {total} à la bonne place.",
+      "quotesIntro": "Huit phrases de celles et ceux qui ont lutté et pensé la lutte. Pour chacune, choisis qui l'a dite ; la source apparaît ensuite.",
+      "quotesScore": "Tu as trouvé {n} sur {total}."
+    }
   },
   "lists": {
     "bankEyebrow": "Pour s'entraîner",
@@ -849,7 +882,42 @@
     "searchPlaceholder": "Chercher une discipline ou un thème (ex. : photosynthèse, samba, Python)…",
     "searchClear": "Effacer",
     "filterRevolution": "Révolution et militantisme",
-    "filterRevolutionHint": "La théorie révolutionnaire et les luttes du peuple : pour qui arrive avec l'envie de comprendre le système, de s'organiser et de le transformer."
+    "filterRevolutionHint": "La théorie révolutionnaire et les luttes du peuple : pour qui arrive avec l'envie de comprendre le système, de s'organiser et de le transformer.",
+    "guide": {
+      "kicker": "Par où commencer",
+      "title": "Construis ton chemin",
+      "lead": "Deux questions et nous te suggérons par où commencer, avec la première leçon de chaque matière. Tu peux recommencer quand tu veux.",
+      "q1": "Que veux-tu maintenant ?",
+      "goals": {
+        "luta": "Comprendre la politique et m'organiser",
+        "escola": "Finir mes études et mieux lire",
+        "enem": "Réussir l'ENEM",
+        "oficio": "Apprendre un métier pour travailler",
+        "linguas": "Apprendre une autre langue",
+        "tecnologia": "Me servir de l'ordinateur et de la technologie"
+      },
+      "q2": "D'où pars-tu ?",
+      "starts": {
+        "fundamental": "De zéro",
+        "medio": "J'ai un peu étudié",
+        "superior": "Je veux approfondir"
+      },
+      "resultSteps": "Ton chemin, étape par étape",
+      "resultOptions": "Choisis l'un de ces chemins",
+      "step": "Étape {n}",
+      "option": "Chemin {n}",
+      "lessons": {
+        "one": "leçon prête",
+        "other": "leçons prêtes"
+      },
+      "first": "Première leçon",
+      "open": "Commencer",
+      "whole": "Voir toute la matière",
+      "redo": "Répondre à nouveau",
+      "also": "Ou explore toutes les matières ci-dessous.",
+      "extraDespertar": "Tu veux un parcours complet ? Suis le parcours Conscience de classe, en douze étapes.",
+      "extraNivelamento": "Tu ne connais pas ton niveau ? Fais le test de niveau."
+    }
   },
   "lesson": {
     "position": "cours {i} sur {n}",
@@ -3051,7 +3119,21 @@
     "find": "Chercher un terme",
     "count": "{n} terme(s)",
     "usedIn": "Apparaît dans :",
-    "none": "Aucun terme ne correspond à ce filtre."
+    "none": "Aucun terme ne correspond à ce filtre.",
+    "dict": {
+      "kicker": "Dictionnaire",
+      "title": "Cherche n'importe quel mot du portugais",
+      "lead": "En plus des termes de l'institut, consulte ici le sens de n'importe quel mot portugais, avec les définitions du Wiktionnaire, le dictionnaire libre et collaboratif.",
+      "label": "Mot à chercher dans le dictionnaire",
+      "placeholder": "Tape un mot, comme trabalho",
+      "button": "Chercher",
+      "loading": "Recherche…",
+      "none": "Aucune définition trouvée pour « {p} ». Vérifie l'orthographe.",
+      "error": "Le dictionnaire n'a pas répondu pour l'instant. Réessaie dans un moment.",
+      "source": "Source",
+      "license": "licence",
+      "inGlossary": "Aussi dans le glossaire de l'institut :"
+    }
   },
   "videos": {
     "eyebrow": "À regarder",
@@ -3186,7 +3268,7 @@
       "usePolicy": "Ce qui est permis ou non, en quelques lignes.",
       "events": "Ciné-club, club de lecture et autres rencontres.",
       "spreadKit": "Affiches, tract, fanzine et cartes QR à imprimer.",
-      "despertar": "De zéro à la conscience de classe, en dix étapes, avec des tâches dans le monde réel.",
+      "despertar": "De zéro à la conscience de classe, en douze étapes, avec des tâches dans le monde réel.",
       "territories": "Collectifs de culture et de lutte qui marchent avec l’institut : articles, cours, photos et rencontres."
     },
     "short": {
@@ -3891,7 +3973,16 @@
     "latest": "Les plus récents",
     "byOutlet": "Par média",
     "empty": "Les titres n'ont pas pu être récupérés pour le moment. Réessayez dans quelques minutes.",
-    "note": "L'institut n'écrit pas, ne modifie pas et ne répond pas de ces textes : il montre seulement le titre, la date et le lien que chaque média diffuse publiquement. Les articles de l'institut lui-même sont dans le Journal."
+    "note": "L'institut n'écrit pas, ne modifie pas et ne répond pas de ces textes : il montre seulement le titre, la date et le lien que chaque média diffuse publiquement. Les articles de l'institut lui-même sont dans le Journal.",
+    "edition": "Édition du {date}",
+    "updatedShort": "Mis à jour à {time}",
+    "earOutlets": {
+      "one": "média",
+      "other": "médias"
+    },
+    "earOutletsText": "de la presse populaire, indépendante et publique",
+    "earRefresh": "Heure de Brasília. Les titres se renouvellent toutes les quinze minutes.",
+    "ownPaper": "De l'institut :"
   },
   "gallery": {
     "eyebrow": "Art et presse de la lutte",
@@ -3899,7 +3990,13 @@
     "lead": "Avant la radio et la télévision, le mur était le journal de qui travaille. Ces affiches, gravures et photographies ont été faites pour appeler, enseigner et dénoncer. Chacune vient avec qui l'a faite, quand et pourquoi.",
     "description": "Affiches, gravures et photographies historiques de la lutte ouvrière, dans le domaine public, avec contexte et source.",
     "publicDomain": "Image du domaine public. Source :",
-    "note": "Seules des œuvres du domaine public sont montrées ici, gardées sur ce site avec leur source. Une affiche est un document de son époque : la montrer n'est pas approuver tout ce qui a été fait en son nom."
+    "note": "Seules des œuvres du domaine public sont montrées ici, gardées sur ce site avec leur source. Une affiche est un document de son époque : la montrer n'est pas approuver tout ce qui a été fait en son nom.",
+    "labelCollection": "Fonds",
+    "labelCount": {
+      "one": "affiche",
+      "other": "affiches"
+    },
+    "labelPd": "Domaine public"
   },
   "volunteer": {
     "title": "Candidature bénévole",
@@ -5289,12 +5386,11 @@
   },
   "relatorio": {
     "rotulo": "Reddition de comptes",
-    "titulo": "Rapport trimestriel",
-    "lead": "Ce que l'Instituto Lúcia a fait tous les trois mois, en chiffres que chacun peut vérifier. Uniquement des décomptes : aucun nom n'apparaît ici.",
-    "escolha": "Trimestre",
-    "trimestre": "{tri}e trimestre {ano}",
+    "titulo": "Rapport semestriel",
+    "lead": "Ce que l'Instituto Lúcia a fait tous les six mois, en chiffres que chacun peut vérifier. Uniquement des décomptes : aucun nom n'apparaît ici.",
+    "escolha": "Semestre",
     "carregando": "Chargement des chiffres…",
-    "semDados": "Les chiffres du trimestre ne sont pas disponibles pour le moment. Réessayez plus tard.",
+    "semDados": "Les chiffres du semestre ne sont pas disponibles pour le moment. Réessayez plus tard.",
     "contas": "nouveaux comptes",
     "voluntarios": "bénévoles acceptés",
     "contribuicoes": "contributions publiées",
@@ -5303,9 +5399,9 @@
     "posts": "publications dans la Communauté",
     "certificados": "certificats délivrés",
     "turma": "inscriptions aux groupes du mois",
-    "nucleosAtivos": "Noyaux actifs à la fin du trimestre : {n}",
-    "dinheiroTitulo": "Argent du trimestre",
-    "semContas": "Aucun mois de ce trimestre n'a encore de rapport de comptes publié.",
+    "nucleosAtivos": "Noyaux actifs à la fin du semestre : {n}",
+    "dinheiroTitulo": "Argent du semestre",
+    "semContas": "Aucun mois de ce semestre n'a encore de rapport de comptes publié.",
     "entradas": "Recettes",
     "saidas": "Dépenses",
     "saldo": "Solde",
@@ -5316,8 +5412,12 @@
     "comoTexto": "Les décomptes viennent directement de la base de données du site au moment où vous ouvrez cette page. L'argent vient des rapports de comptes mensuels, qui doivent être validés par deux personnes de la coordination. Si un chiffre semble faux, utilisez Signaler une erreur.",
     "historico": "Historique des modifications du site",
     "verContas": "Voir les comptes mois par mois",
-    "menu": "Rapport trimestriel",
-    "menuDescricao": "Ce que l'institut a fait tous les trois mois, en chiffres vérifiables."
+    "menu": "Rapport semestriel",
+    "menuDescricao": "Ce que l'institut a fait tous les six mois, en chiffres vérifiables.",
+    "semestres": [
+      "1er semestre {ano}",
+      "2e semestre {ano}"
+    ]
   },
   "faixas": {
     "/trilhas": "Disciplines · du primaire au supérieur · cours courts, dans l'ordre, avec un test à la fin",
@@ -5453,5 +5553,53 @@
     "suggest": "Proposer une station",
     "emptyFilter": "Aucune station de cette région ne joue ici. Décochez le filtre pour voir les autres.",
     "siteShort": "Site"
+  },
+  "eixos": {
+    "eyebrow": "Positionnement politique",
+    "title": "Le test des 12 axes",
+    "description": "Découvre où tu te situes sur 12 axes politiques, de l'économie aux mœurs, et quelles idéologies sont les plus proches de tes idées.",
+    "lead": "Dis à quel point tu es d'accord avec chaque phrase. À la fin, tu vois où tu te situes sur chacun des 12 axes et les trois idéologies les plus proches de tes réponses. Il n'y a pas de bonne réponse : le test sert à réfléchir et à étudier, pas à étiqueter qui que ce soit.",
+    "chooseLevel": "Choisis la longueur du test",
+    "levels": {
+      "1": {
+        "name": "Rapide",
+        "count": "{n} questions",
+        "desc": "Une vue d'ensemble en quelques minutes."
+      },
+      "2": {
+        "name": "Standard",
+        "count": "{n} questions",
+        "desc": "L'équilibre entre temps et précision."
+      },
+      "3": {
+        "name": "Complet",
+        "count": "{n} questions",
+        "desc": "Le portrait le plus détaillé : huit questions par axe."
+      }
+    },
+    "privacy": "Tes réponses restent seulement sur cet appareil, pour que tu puisses t'arrêter et reprendre plus tard. Rien n'est envoyé à l'institut.",
+    "question": "Question {i} sur {n}",
+    "progress": "Avancement du test",
+    "answers": [
+      "Tout à fait d'accord",
+      "D'accord",
+      "Je ne sais pas / neutre",
+      "Pas d'accord",
+      "Pas du tout d'accord"
+    ],
+    "back": "← Question précédente",
+    "quit": "Quitter et effacer les réponses",
+    "keys": "Raccourcis : les touches 1 à 5 répondent ; la flèche gauche revient en arrière.",
+    "resultTitle": "Ton résultat",
+    "resultNote": "Test {nivel}, {n} questions.",
+    "balanced": "Tu es au milieu de cet axe : tes réponses ont tiré des deux côtés.",
+    "closest": "Les idéologies les plus proches de tes réponses",
+    "proximity": "{p} % de proximité",
+    "redo": "Recommencer",
+    "fullVersion": "Continuer jusqu'à la version complète",
+    "methodTitle": "Comment le résultat est calculé",
+    "methodText": "Chaque phrase tire un axe d'un côté. Être tout à fait d'accord compte un point entier du côté de la phrase, être d'accord un demi-point, ne pas être d'accord tire de l'autre côté et le neutre ne tire pas. Le pourcentage montre où sont allées tes réponses sur chaque axe. Les idéologies sont comparées par la distance entre tes douze nombres et la position typique de chacune, qui est une approximation : chaque courant a de nombreuses variantes.",
+    "card": "Nouveau : le test des 12 axes politiques",
+    "cardText": "Économie, État, nation et mœurs : vois où tu te situes et quelles idéologies sont les plus proches de tes idées."
   }
 }

@@ -159,7 +159,40 @@
     "quimica": "Laboratório de química",
     "quimicaLead": "Titulação ácido-base com a curva de pH calculada de verdade e quatro indicadores, diluição no béquer e a escala de pH das coisas de casa, com o indicador de repolho roxo.",
     "modelos": "Laboratório de modelos",
-    "modelosLead": "Probabilidade, gráficos que enganam, segregação, cooperação, riqueza, epidemia, predador e presa, órbitas, ondas, autômatos, expressões regulares e o celular como instrumento: preveja, rode, compare e explique."
+    "modelosLead": "Probabilidade, gráficos que enganam, segregação, cooperação, riqueza, epidemia, predador e presa, órbitas, ondas, autômatos, expressões regulares e o celular como instrumento: preveja, rode, compare e explique.",
+    "jogos": {
+      "title": "Jogos de formação",
+      "card": "Greve!, linha do tempo das lutas e Quem disse?: jogar também é estudar.",
+      "lead": "Jogos curtos para aprender com a história e com a prática da luta: decidir os rumos de uma greve, pôr fatos históricos em ordem e reconhecer quem disse cada frase.",
+      "strike": "Greve!",
+      "timeline": "Linha do tempo",
+      "quotes": "Quem disse?",
+      "start": "Começar",
+      "next": "Próxima",
+      "again": "Jogar de novo",
+      "check": "Conferir a ordem",
+      "seeEnd": "Ver o desfecho",
+      "end": "Desfecho",
+      "round": "Rodada {i} de {n}",
+      "source": "fonte",
+      "up": "Subir",
+      "down": "Descer",
+      "right": "Acertou!",
+      "wrong": "Não foi dessa vez.",
+      "realLife": "Na luta real:",
+      "studyMore": "Para estudar mais",
+      "strikeIntro": "A fábrica anunciou cortes e você está no meio da organização. Em seis decisões, veja como cada escolha mexe com a unidade da categoria, o fundo de greve, a pressão sobre a empresa e o apoio do bairro.",
+      "strikeMeters": "Medidores da greve",
+      "strikeUnity": "Unidade",
+      "strikeFund": "Fundo",
+      "strikePressure": "Pressão",
+      "strikeSupport": "Apoio",
+      "timelineIntro": "Cinco fatos da história das lutas, fora de ordem. Ponha do mais antigo ao mais recente e confira.",
+      "timelineHow": "Use as setas para mudar a ordem: o mais antigo em cima.",
+      "timelineScore": "{n} de {total} no lugar certo.",
+      "quotesIntro": "Oito frases de quem lutou e pensou a luta. Para cada uma, escolha quem disse; depois aparece a fonte.",
+      "quotesScore": "Você acertou {n} de {total}."
+    }
   },
   "lists": {
     "bankEyebrow": "Para treinar",
@@ -849,7 +882,42 @@
     "searchPlaceholder": "Buscar uma disciplina ou um tema (ex.: fotossíntese, samba, Python)…",
     "searchClear": "Limpar",
     "filterRevolution": "Revolução e militância",
-    "filterRevolutionHint": "A teoria revolucionária e as lutas do povo: para quem chega querendo entender o sistema, se organizar e transformar."
+    "filterRevolutionHint": "A teoria revolucionária e as lutas do povo: para quem chega querendo entender o sistema, se organizar e transformar.",
+    "guide": {
+      "kicker": "Por onde começar",
+      "title": "Monte o seu caminho",
+      "lead": "Duas perguntas e a gente sugere por onde começar, já com a primeira aula de cada disciplina. Dá para refazer quando quiser.",
+      "q1": "O que você quer agora?",
+      "goals": {
+        "luta": "Entender a política e me organizar",
+        "escola": "Terminar os estudos e ler melhor",
+        "enem": "Passar no ENEM",
+        "oficio": "Aprender um ofício para trabalhar",
+        "linguas": "Aprender outra língua",
+        "tecnologia": "Mexer com computador e tecnologia"
+      },
+      "q2": "De onde você parte?",
+      "starts": {
+        "fundamental": "Do zero",
+        "medio": "Já estudei um pouco",
+        "superior": "Quero aprofundar"
+      },
+      "resultSteps": "Seu caminho, passo a passo",
+      "resultOptions": "Escolha um destes caminhos",
+      "step": "Passo {n}",
+      "option": "Caminho {n}",
+      "lessons": {
+        "one": "aula pronta",
+        "other": "aulas prontas"
+      },
+      "first": "Primeira aula",
+      "open": "Começar",
+      "whole": "Ver a disciplina inteira",
+      "redo": "Refazer as perguntas",
+      "also": "Ou explore todas as disciplinas aqui embaixo.",
+      "extraDespertar": "Quer um roteiro completo? Siga o percurso Consciência de classe, em doze etapas.",
+      "extraNivelamento": "Não sabe o seu nível? Faça o teste de nivelamento."
+    }
   },
   "lesson": {
     "position": "aula {i} de {n}",
@@ -3051,7 +3119,21 @@
     "find": "Procurar um termo",
     "count": "{n} termo(s)",
     "usedIn": "Aparece em:",
-    "none": "Nenhum termo com esse filtro."
+    "none": "Nenhum termo com esse filtro.",
+    "dict": {
+      "kicker": "Dicionário",
+      "title": "Procure qualquer palavra do português",
+      "lead": "Além dos termos do instituto, aqui você consulta o sentido de qualquer palavra da língua, com as definições do Wikcionário, o dicionário livre e colaborativo.",
+      "label": "Palavra para procurar no dicionário",
+      "placeholder": "Digite uma palavra, como trabalho",
+      "button": "Procurar",
+      "loading": "Procurando…",
+      "none": "Nenhuma definição encontrada para “{p}”. Confira a grafia.",
+      "error": "O dicionário não respondeu agora. Tente de novo daqui a pouco.",
+      "source": "Fonte",
+      "license": "licença",
+      "inGlossary": "Também no glossário do instituto:"
+    }
   },
   "videos": {
     "eyebrow": "Para assistir",
@@ -3186,7 +3268,7 @@
       "usePolicy": "O que pode e o que não pode, em poucas linhas.",
       "events": "Cineclube, clube de leitura e outros encontros.",
       "spreadKit": "Cartazes, folheto, zine e cartões com QR para imprimir.",
-      "despertar": "Do zero à consciência de classe, em dez etapas, com tarefas no mundo real.",
+      "despertar": "Do zero à consciência de classe, em doze etapas, com tarefas no mundo real.",
       "territories": "Coletivos de cultura e luta que caminham com o instituto: matérias, aulas, fotos e encontros."
     },
     "short": {
@@ -3891,7 +3973,16 @@
     "latest": "Últimas",
     "byOutlet": "Por veículo",
     "empty": "Não foi possível buscar as manchetes agora. Tente de novo em alguns minutos.",
-    "note": "O instituto não escreve, não edita e não responde por estes textos: mostra só o título, a data e o link que cada veículo distribui publicamente. As matérias do próprio instituto ficam no Jornal."
+    "note": "O instituto não escreve, não edita e não responde por estes textos: mostra só o título, a data e o link que cada veículo distribui publicamente. As matérias do próprio instituto ficam no Jornal.",
+    "edition": "Edição de {date}",
+    "updatedShort": "Atualizado às {time}",
+    "earOutlets": {
+      "one": "veículo",
+      "other": "veículos"
+    },
+    "earOutletsText": "da imprensa popular, independente e pública",
+    "earRefresh": "Horário de Brasília. As manchetes se renovam a cada quinze minutos.",
+    "ownPaper": "Do instituto:"
   },
   "gallery": {
     "eyebrow": "Arte e imprensa de luta",
@@ -3899,7 +3990,13 @@
     "lead": "Antes do rádio e da televisão, a parede era o jornal de quem trabalhava. Estes cartazes, gravuras e fotografias foram feitos para convocar, ensinar e denunciar. Cada um vem com quem fez, quando e por quê.",
     "description": "Cartazes, gravuras e fotografias históricas da luta dos trabalhadores, em domínio público, com contexto e fonte.",
     "publicDomain": "Imagem em domínio público. Fonte:",
-    "note": "Só entram aqui obras em domínio público, guardadas no próprio site e com a fonte indicada. Um cartaz é um documento do seu tempo: mostrá-lo não é assinar embaixo de tudo o que foi feito em nome dele."
+    "note": "Só entram aqui obras em domínio público, guardadas no próprio site e com a fonte indicada. Um cartaz é um documento do seu tempo: mostrá-lo não é assinar embaixo de tudo o que foi feito em nome dele.",
+    "labelCollection": "Acervo",
+    "labelCount": {
+      "one": "cartaz",
+      "other": "cartazes"
+    },
+    "labelPd": "Domínio público"
   },
   "volunteer": {
     "title": "Candidatura a voluntário",
@@ -5289,12 +5386,11 @@
   },
   "relatorio": {
     "rotulo": "Prestação de contas",
-    "titulo": "Relatório do trimestre",
-    "lead": "O que o Instituto Lúcia fez a cada três meses, em números que qualquer pessoa pode conferir. Só contagens: nenhum nome aparece aqui.",
-    "escolha": "Trimestre",
-    "trimestre": "{tri}º trimestre de {ano}",
+    "titulo": "Relatório do semestre",
+    "lead": "O que o Instituto Lúcia fez a cada seis meses, em números que qualquer pessoa pode conferir. Só contagens: nenhum nome aparece aqui.",
+    "escolha": "Semestre",
     "carregando": "Carregando os números…",
-    "semDados": "Os números do trimestre não estão disponíveis agora. Tente de novo mais tarde.",
+    "semDados": "Os números do semestre não estão disponíveis agora. Tente de novo mais tarde.",
     "contas": "contas novas",
     "voluntarios": "voluntários aceitos",
     "contribuicoes": "contribuições publicadas",
@@ -5303,9 +5399,9 @@
     "posts": "posts na Comunidade",
     "certificados": "certificados emitidos",
     "turma": "inscrições nas turmas do mês",
-    "nucleosAtivos": "Núcleos ativos no fim do trimestre: {n}",
-    "dinheiroTitulo": "Dinheiro do trimestre",
-    "semContas": "Nenhum mês deste trimestre tem relatório de contas publicado ainda.",
+    "nucleosAtivos": "Núcleos ativos no fim do semestre: {n}",
+    "dinheiroTitulo": "Dinheiro do semestre",
+    "semContas": "Nenhum mês deste semestre tem relatório de contas publicado ainda.",
     "entradas": "Entradas",
     "saidas": "Saídas",
     "saldo": "Saldo",
@@ -5316,8 +5412,12 @@
     "comoTexto": "As contagens saem direto do banco do site, na hora em que você abre esta página. O dinheiro vem dos relatórios mensais de contas, que precisam de duas pessoas da coordenação para serem publicados. Se algum número parecer errado, use o Relatar erro.",
     "historico": "Histórico de mudanças do site",
     "verContas": "Ver as contas mês a mês",
-    "menu": "Relatório do trimestre",
-    "menuDescricao": "O que o instituto fez a cada três meses, em números que você confere."
+    "menu": "Relatório do semestre",
+    "menuDescricao": "O que o instituto fez a cada seis meses, em números que você confere.",
+    "semestres": [
+      "1º semestre de {ano}",
+      "2º semestre de {ano}"
+    ]
   },
   "faixas": {
     "/trilhas": "Disciplinas · do fundamental ao superior · aulas curtas, em ordem, com teste no fim",
@@ -5453,5 +5553,53 @@
     "suggest": "Indicar uma emissora",
     "emptyFilter": "Nenhuma emissora desta frente toca aqui. Desmarque o filtro para ver as outras.",
     "siteShort": "Site"
+  },
+  "eixos": {
+    "eyebrow": "Nivelamento político",
+    "title": "Teste dos 12 eixos",
+    "description": "Descubra onde você está em 12 eixos políticos, da economia aos costumes, e quais ideologias ficam mais perto das suas ideias.",
+    "lead": "Responda o quanto concorda com cada frase. No fim, você vê onde está em cada um dos 12 eixos e as três ideologias mais próximas das suas respostas. Não há resposta certa: o teste serve para pensar e estudar, não para rotular ninguém.",
+    "chooseLevel": "Escolha o tamanho do teste",
+    "levels": {
+      "1": {
+        "name": "Rápido",
+        "count": "{n} perguntas",
+        "desc": "Uma visão geral em poucos minutos."
+      },
+      "2": {
+        "name": "Padrão",
+        "count": "{n} perguntas",
+        "desc": "O equilíbrio entre tempo e precisão."
+      },
+      "3": {
+        "name": "Completo",
+        "count": "{n} perguntas",
+        "desc": "O retrato mais detalhado: oito perguntas por eixo."
+      }
+    },
+    "privacy": "Suas respostas ficam só neste aparelho, para você poder parar e continuar depois. Nada é enviado ao instituto.",
+    "question": "Pergunta {i} de {n}",
+    "progress": "Andamento do teste",
+    "answers": [
+      "Concordo totalmente",
+      "Concordo",
+      "Não sei / neutro",
+      "Discordo",
+      "Discordo totalmente"
+    ],
+    "back": "← Voltar uma pergunta",
+    "quit": "Sair e apagar as respostas",
+    "keys": "Atalhos: as teclas de 1 a 5 respondem; a seta para a esquerda volta.",
+    "resultTitle": "Seu resultado",
+    "resultNote": "Teste {nivel}, {n} perguntas.",
+    "balanced": "Você fica no meio deste eixo: suas respostas puxaram para os dois lados.",
+    "closest": "As ideologias mais próximas das suas respostas",
+    "proximity": "{p}% de proximidade",
+    "redo": "Fazer de novo",
+    "fullVersion": "Continuar até a versão completa",
+    "methodTitle": "Como o resultado é calculado",
+    "methodText": "Cada frase puxa um eixo para um dos lados. Concordar totalmente vale um ponto inteiro para o lado da frase, concordar vale meio ponto, discordar puxa para o outro lado e o neutro não puxa. A porcentagem mostra para onde foram as suas respostas em cada eixo. As ideologias são comparadas pela distância entre os seus doze números e a posição típica de cada uma, que é uma aproximação: dentro de cada corrente há muitas variações.",
+    "card": "Novo: o teste dos 12 eixos políticos",
+    "cardText": "Economia, Estado, nação e costumes: veja onde você está e quais ideologias ficam mais perto das suas ideias."
   }
 }

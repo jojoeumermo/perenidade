@@ -28,6 +28,7 @@ export default async function Page({ params }: PageProps<"/[lang]/laboratorios">
     [s.design, s.designLead, "/laboratorios/design", "paleta"],
     [s.seguranca, s.segurancaLead, "/laboratorios/seguranca", "escudo"],
     [s.simulacoes, s.simulacoesLead, "/laboratorios/simulacoes", "microscopio"],
+    [s.jogos.title, s.jogos.card, "/laboratorios/jogos", "punho"],
   ];
   return (
     <>

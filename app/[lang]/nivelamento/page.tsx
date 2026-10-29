@@ -2,9 +2,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Nivelamento, type TesteDeNivelamento } from "@/components/estudo/Nivelamento";
+import Link from "@/components/Link";
 import { PageHeading } from "@/components/PageHeading";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
+import { localePath } from "@/i18n/config";
 import { getTracks } from "@/lib/content";
 import type { ExercicioNovo } from "@/lib/exercicios";
 import { exerciciosDaTrilha } from "@/lib/exercicios-conteudo";
@@ -61,6 +63,11 @@ export default async function Page({ params }: PageProps<"/[lang]/nivelamento">)
         {s.nivelamento.lead}
       </PageHeading>
       <Untranslated lang={lang} t={t} show={!traduzido} />
+      {/* O teste dos 12 eixos políticos mora ao lado (app/[lang]/nivelamento/eixos). */}
+      <Link href={localePath(lang, "/nivelamento/eixos")} className="mt-8 block border-2 border-ink bg-ink p-5 text-parchment shadow-[5px_5px_0_var(--sombra)] transition-transform hover:-translate-y-0.5">
+        <span className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-[#f0b323]">{t.eixos.card} →</span>
+        <span className="mt-1.5 block font-serif text-xl leading-snug">{t.eixos.cardText}</span>
+      </Link>
       <Nivelamento testes={testes} s={s.nivelamento} />
     </div>
   );

@@ -8,7 +8,9 @@ import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
 import { localePath } from "@/i18n/config";
 import { GlossaryList } from "@/components/GlossaryList";
+import { Dicionario } from "@/components/glossario/Dicionario";
 import { getGlossaryIndex } from "@/lib/content";
+import { normalize } from "@/lib/text";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/glossario">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
@@ -35,6 +37,8 @@ export default async function Glossario({ params }: PageProps<"/[lang]/glossario
       </Capa>
       <Corpo largura="estreita">
       <Untranslated lang={lang} t={t} show={terms.some((term) => !term.translated)} />
+      {/* O dicionário da língua: qualquer palavra, além dos termos do instituto (fontes livres; veja components/glossario/Dicionario.tsx). */}
+      <Dicionario s={t.glossary.dict} termos={Object.fromEntries(terms.map((term) => [normalize(term.term), { slug: term.slug, term: term.term }]))} />
       <GlossaryList
         s={t.glossary}
         items={terms.map((term) => ({
