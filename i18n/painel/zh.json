@@ -8066,5 +8066,15 @@
  "Você participa da comunidade e pode escrever e enviar contribuições. Para revisar, traduzir, ensinar ou cuidar de uma disciplina, peça uma função mais abaixo.": "你是社区的一员，可以撰写和提交投稿。想要审核、翻译、授课或负责一门学科，请在下方申请一个职务。",
  "{0} · passo {1} de {2}": "{0} · 第 {1} 步，共 {2} 步",
  "{0} de {1} passos": "{1} 步中已完成 {0} 步",
- "Tutorial · {0} de {1}": "教程 · 第 {0} 步，共 {1} 步"
+ "Tutorial · {0} de {1}": "教程 · 第 {0} 步，共 {1} 步",
+ "{0} de {1} aulas na tela. Os filtros ajudam a achar uma aula.": "屏幕上显示 {1} 节课中的 {0} 节。用筛选更容易找到课程。",
+ "Aprovadas": "已通过",
+ "Mostrar mais 30": "再显示 30 条",
+ "Nada esperando revisão. Quando chegar uma contribuição, ela aparece aqui e você recebe um recado na Mesa.": "没有待审核的内容。有投稿时会出现在这里，你也会在桌面上收到通知。",
+ "Nada publicado por esta fila ainda.": "这个队列还没有发布过内容。",
+ "Não aprovadas": "未通过",
+ "Nenhuma aprovada esperando a próxima publicação do site.": "没有等待下次网站发布的已通过内容。",
+ "Nenhuma contribuição recusada.": "没有被拒绝的投稿。",
+ "Nenhuma correção resolvida ainda.": "还没有已解决的更正。",
+ "Resolvidas": "已解决"
 }

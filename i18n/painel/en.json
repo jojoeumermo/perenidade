@@ -8066,5 +8066,15 @@
  "Você participa da comunidade e pode escrever e enviar contribuições. Para revisar, traduzir, ensinar ou cuidar de uma disciplina, peça uma função mais abaixo.": "You take part in the community and can write and send contributions. To review, translate, teach or look after a subject, ask for a role further down.",
  "{0} · passo {1} de {2}": "{0} · step {1} of {2}",
  "{0} de {1} passos": "{0} of {1} steps",
- "Tutorial · {0} de {1}": "Tutorial · {0} of {1}"
+ "Tutorial · {0} de {1}": "Tutorial · {0} of {1}",
+ "{0} de {1} aulas na tela. Os filtros ajudam a achar uma aula.": "{0} of {1} lessons on screen. The filters help you find a lesson.",
+ "Aprovadas": "Approved",
+ "Mostrar mais 30": "Show 30 more",
+ "Nada esperando revisão. Quando chegar uma contribuição, ela aparece aqui e você recebe um recado na Mesa.": "Nothing waiting for review. When a contribution arrives, it shows up here and you get a note on the Desk.",
+ "Nada publicado por esta fila ainda.": "Nothing published through this queue yet.",
+ "Não aprovadas": "Not approved",
+ "Nenhuma aprovada esperando a próxima publicação do site.": "No approved items waiting for the next site update.",
+ "Nenhuma contribuição recusada.": "No rejected contributions.",
+ "Nenhuma correção resolvida ainda.": "No corrections resolved yet.",
+ "Resolvidas": "Resolved"
 }

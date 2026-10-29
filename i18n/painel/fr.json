@@ -7875,5 +7875,15 @@
  "Você participa da comunidade e pode escrever e enviar contribuições. Para revisar, traduzir, ensinar ou cuidar de uma disciplina, peça uma função mais abaixo.": "Vous participez à la communauté et pouvez écrire et envoyer des contributions. Pour relire, traduire, enseigner ou vous occuper d’une matière, demandez un rôle plus bas.",
  "{0} · passo {1} de {2}": "{0} · étape {1} sur {2}",
  "{0} de {1} passos": "{0} étapes sur {1}",
- "Tutorial · {0} de {1}": "Tutoriel · {0} sur {1}"
+ "Tutorial · {0} de {1}": "Tutoriel · {0} sur {1}",
+ "{0} de {1} aulas na tela. Os filtros ajudam a achar uma aula.": "{0} leçons sur {1} à l’écran. Les filtres aident à trouver une leçon.",
+ "Aprovadas": "Approuvées",
+ "Mostrar mais 30": "Afficher 30 de plus",
+ "Nada esperando revisão. Quando chegar uma contribuição, ela aparece aqui e você recebe um recado na Mesa.": "Rien n’attend de relecture. Quand une contribution arrive, elle apparaît ici et vous recevez un mot sur la Table.",
+ "Nada publicado por esta fila ainda.": "Rien n’a encore été publié par cette file.",
+ "Não aprovadas": "Non approuvées",
+ "Nenhuma aprovada esperando a próxima publicação do site.": "Aucune contribution approuvée n’attend la prochaine publication du site.",
+ "Nenhuma contribuição recusada.": "Aucune contribution refusée.",
+ "Nenhuma correção resolvida ainda.": "Aucune correction résolue pour l’instant.",
+ "Resolvidas": "Résolues"
 }
