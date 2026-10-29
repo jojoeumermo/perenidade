@@ -7,12 +7,21 @@ export interface Lambe {
   carimbo?: [string, string];
 }
 
+/**
+ * O jeito do cartaz, que acompanha o tom do texto: o grito vermelho (o de sempre), a pergunta no anil, a memória no
+ * preto de luto, a festa no amarelo do ipê, a terra no verde da mata, o cordel no papel com a xilogravura grande e o
+ * classificado de poste, com as tirinhas de destacar.
+ */
+export const FORMATOS = ["grito", "pergunta", "memoria", "festa", "terra", "cordel", "classificado"] as const;
+export type Formato = (typeof FORMATOS)[number];
+
 /** O lambe-lambe de um dia, como chega à página inicial. */
 export interface LambeDoDia {
   dia: number;
   numero: number;
   lambe: Lambe;
   xilo: string;
+  formato: Formato;
 }
 
 /** O número do dia no fuso de Brasília: o cartaz troca à meia-noite daqui, para todo mundo ao mesmo tempo. */
