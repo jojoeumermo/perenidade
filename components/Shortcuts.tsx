@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { localePath } from "@/i18n/config";
 import { KEYS, notifyStored } from "@/lib/storage";
+import { ABRIR_BUSCA, buscaDoTopoVisivel } from "./BuscaDoTopo";
 import { useI18n } from "./I18n";
 
 const typing = (target: EventTarget | null) =>
@@ -104,7 +105,9 @@ export function Shortcuts() {
       if (e.ctrlKey || e.metaKey || e.altKey || typing(e.target)) return;
       if (e.key === "/") {
         e.preventDefault();
-        router.push(localePath(lang, "/busca"));
+        // No computador a busca do alto se abre ali mesmo; onde ela não aparece (celular, aplicativo), vai à página de busca.
+        if (buscaDoTopoVisivel()) window.dispatchEvent(new Event(ABRIR_BUSCA));
+        else router.push(localePath(lang, "/busca"));
       } else if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
         const link = document.querySelector<HTMLAnchorElement>(e.key === "ArrowLeft" ? "a[data-prev]" : "a[data-next]");
         if (link) router.push(link.getAttribute("href") ?? "");

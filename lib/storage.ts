@@ -23,6 +23,8 @@ export const KEYS = {
   session: "lucia:sessao",
   // Primeiro nome da conta, para o cabeçalho dizer "Olá" sem esperar o serviço; sai junto com a sessão.
   name: "lucia:nome",
+  // O ícone da conta (o de Minha conta), para o cabeçalho mostrar o rosto certo de imediato; sai junto com a sessão.
+  avatar: "lucia:avatar",
   notes: "lucia:fichamento",
   radio: "lucia:radio",
   device: "lucia:aparelho",
