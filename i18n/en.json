@@ -3187,7 +3187,8 @@
     "eyebrow": "To watch",
     "title": "Videos",
     "lead": "Free lessons and channels, chosen by the curators. Videos open on their original site.",
-    "own": "Looking for lessons recorded by the institute itself? See the video lessons."
+    "own": "Looking for lessons recorded by the institute itself? See the video lessons.",
+    "all": "All"
   },
   "videoLessons": {
     "eyebrow": "Recorded by the institute",

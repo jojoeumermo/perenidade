@@ -3187,7 +3187,8 @@
     "eyebrow": "À regarder",
     "title": "Vidéos",
     "lead": "Des cours et des chaînes gratuits, choisis par la curation. Les vidéos s'ouvrent sur leur site d'origine.",
-    "own": "Vous cherchez les cours enregistrés par l'institut lui-même ? Voyez les cours en vidéo."
+    "own": "Vous cherchez les cours enregistrés par l'institut lui-même ? Voyez les cours en vidéo.",
+    "all": "Tous"
   },
   "videoLessons": {
     "eyebrow": "Enregistrés par l'institut",
