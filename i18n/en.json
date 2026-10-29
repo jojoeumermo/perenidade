@@ -1118,7 +1118,20 @@
     "lead": "To remember those who fell fighting for justice, for land, for freedom. As long as they are remembered, they remain present.",
     "add": "Is someone missing here? The memorial is built by the community.",
     "addLink": "Propose a name",
-    "present": "Present!"
+    "present": "Present!",
+    "plaque": "{n} names, fallen between {de} and {ate}.",
+    "where": "Where they fell",
+    "all": "All",
+    "regions": {
+      "brasil": "Brazil",
+      "america-latina": "Latin America and the Caribbean",
+      "africa": "Africa",
+      "america-do-norte": "United States and Canada",
+      "europa": "Europe",
+      "asia": "Asia"
+    },
+    "close": "Close the tribute",
+    "noPortrait": "For those without a free portrait, a candle stays lit. The portraits are in the public domain or under free licenses, with the source in each tribute."
   },
   "contribute": {
     "eyebrow": "Collective construction",

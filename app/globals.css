@@ -3752,3 +3752,142 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 :root[data-light] :is(.eixos-nivel, .eixos-resposta) {
   transition: none;
 }
+
+/* O muro do memorial (components/memorial/MuroDoMemorial.tsx): retratos em preto e branco com a tarja de luto
+   atravessando o canto, como os que as Mães da Praça de Maio carregam. Aberta, a homenagem ocupa a largura do muro, com
+   o retrato à esquerda. Os filtros ativos ficam em tinta, não em vermelho: aqui é luto. */
+.aba-luto[aria-pressed="true"] {
+  background-color: var(--ink);
+  color: var(--parchment);
+}
+.muro-conta {
+  margin-left: 0.3rem;
+  opacity: 0.65;
+}
+.muro-letra {
+  cursor: pointer;
+  border: 1px solid var(--rule);
+  padding: 0.25rem 0.5rem;
+  font-family: var(--font-archive), ui-monospace, monospace;
+  font-size: 0.75rem;
+}
+.muro-letra:hover {
+  border-color: var(--ink);
+}
+.muro-letra-ativa {
+  border-color: var(--ink);
+  background-color: var(--ink);
+  color: var(--parchment);
+}
+.muro-cartao {
+  display: block;
+  cursor: pointer;
+  list-style: none;
+}
+.muro-cartao::-webkit-details-marker {
+  display: none;
+}
+.muro-cartao:focus-visible {
+  outline: 3px solid var(--oxblood);
+  outline-offset: 4px;
+}
+.muro-retrato {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  max-width: 100%;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  background-color: var(--parchment-deep);
+  box-shadow: 4px 4px 0 var(--sombra);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.muro-retrato img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.04);
+}
+.muro-retrato::after {
+  content: "";
+  position: absolute;
+  top: 0.8rem;
+  right: -2rem;
+  height: 0.62rem;
+  width: 6.6rem;
+  background-color: #16120e;
+  box-shadow: 0 0 0 1px rgb(244 236 216 / 0.45);
+  transform: rotate(45deg);
+}
+.muro-vela-brilho {
+  fill: var(--gold);
+  opacity: 0.1;
+}
+.muro-vela-chama {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: muro-vela 3.2s ease-in-out infinite alternate;
+}
+@keyframes muro-vela {
+  from {
+    transform: scale(0.97, 1.02) rotate(-1.5deg);
+  }
+  to {
+    transform: scale(1.02, 0.97) rotate(1.5deg);
+  }
+}
+.muro-cartao:hover .muro-retrato {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--sombra);
+}
+.muro-cartao:hover .muro-nome {
+  color: var(--oxblood);
+}
+.muro-item:has(> .muro-ficha[open]) {
+  grid-column: 1 / -1;
+}
+.muro-ficha[open] {
+  display: flow-root;
+  border-top: 8px solid var(--ink);
+  background-color: var(--parchment-deep);
+  padding: 1.5rem;
+}
+.muro-ficha[open] .muro-nome {
+  font-size: 1.55rem;
+}
+.muro-ficha[open] > .muro-cartao .muro-retrato {
+  background-color: var(--parchment);
+}
+@media (min-width: 640px) {
+  .muro-ficha[open] > .muro-cartao {
+    float: left;
+    width: 13rem;
+    margin-right: 2.25rem;
+  }
+  .muro-ficha[open] > .muro-homenagem {
+    overflow: hidden;
+  }
+}
+@media (max-width: 639.98px) {
+  .muro-ficha[open] > .muro-cartao {
+    max-width: 12rem;
+  }
+  .muro-ficha[open] > .muro-homenagem {
+    margin-top: 1.25rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .muro-retrato {
+    transition: none;
+  }
+  .muro-vela-chama {
+    animation: none;
+  }
+}
+:root[data-light] .muro-retrato {
+  transition: none;
+}
+:root[data-light] .muro-vela-chama {
+  animation: none;
+}
