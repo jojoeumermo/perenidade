@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { Capa, Corpo, Secao } from "@/components/pagina/Capa";
-import { RelatorioTrimestral } from "@/components/RelatorioTrimestral";
+import { RelatorioSemestral } from "@/components/RelatorioSemestral";
 import { loadLang } from "@/i18n";
 import { fill, localePath } from "@/i18n/config";
 import { numerosDoSite } from "@/lib/apoio-numeros";
@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/relatorio"
   return paginaMeta(lang, "/relatorio", t.relatorio.titulo, t.relatorio.lead);
 }
 
-/** Prestação de contas a cada trimestre: o que foi feito, em números conferíveis, e para onde foi o dinheiro. */
+/** Prestação de contas a cada semestre: o que foi feito, em números conferíveis, e para onde foi o dinheiro. */
 export default async function Relatorio({ params }: PageProps<"/[lang]/relatorio">) {
   const { lang, t } = await loadLang(params);
   const s = t.relatorio;
@@ -23,7 +23,7 @@ export default async function Relatorio({ params }: PageProps<"/[lang]/relatorio
     <>
       <Capa rotulo={s.rotulo} titulo={s.titulo}>{s.lead}</Capa>
       <Corpo largura="media">
-        <RelatorioTrimestral lang={lang} s={s} />
+        <RelatorioSemestral lang={lang} s={s} />
 
         <Secao titulo={s.acervoTitulo} className="mt-16">
           <p className="mt-4 max-w-3xl font-serif text-xl leading-relaxed">

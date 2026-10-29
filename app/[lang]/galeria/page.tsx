@@ -1,6 +1,6 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
-import { Cartaz } from "@/components/Cartaz";
+import { VaralDaGaleria } from "@/components/galeria/VaralDaGaleria";
 import { GaleriaGrade } from "@/components/GaleriaGrade";
 import { Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
@@ -20,9 +20,7 @@ export default async function Galeria({ params }: PageProps<"/[lang]/galeria">) 
   const pieces = getGallery();
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
-      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.slogans.galeria} tone="vermelho">
-        {s.lead}
-      </Cartaz>
+      <VaralDaGaleria lang={lang} s={s} slogan={t.slogans.galeria} pecas={pieces} />
       <Untranslated lang={lang} t={t} show={lang !== defaultLocale} />
       <GaleriaGrade pecas={pieces} publicDomain={s.publicDomain} />
       <p className="mt-12 border-t border-rule pt-4 font-sans text-sm text-ink-soft">{s.note}</p>
