@@ -3187,7 +3187,8 @@
     "eyebrow": "Para assistir",
     "title": "Vídeos",
     "lead": "Aulas e canais gratuitos, escolhidos pela curadoria. Os vídeos abrem no site de origem.",
-    "own": "Procura aulas gravadas pelo próprio instituto? Veja as aulas em vídeo."
+    "own": "Procura aulas gravadas pelo próprio instituto? Veja as aulas em vídeo.",
+    "all": "Todos"
   },
   "videoLessons": {
     "eyebrow": "Gravadas pelo instituto",
