@@ -30,11 +30,11 @@ const TEXTOS: Record<string, { abrir: string; fechar: string; nota: string; lice
  * Simulações do PhET (Universidade do Colorado), embutidas pelo iframe oficial, sem cópia nem modificação, com a
  * atribuição exigida pela licença e o logotipo do PhET intacto dentro da própria simulação.
  */
-export function PhetLista({ area, compacto = false }: { area?: string; compacto?: boolean }) {
+export function PhetLista({ area, compacto = false, ids }: { area?: string; compacto?: boolean; /** Só estas, nesta ordem (a aula mostra as mais ligadas ao assunto dela). */ ids?: string[] }) {
   const { lang } = useI18n();
   const s = TEXTOS[lang] ?? TEXTOS.pt;
   const [aberta, setAberta] = useState<string | null>(null);
-  const lista = (sims as Sim[]).filter((sim) => !area || sim.areas.includes(area));
+  const lista = ids ? ids.flatMap((id) => (sims as Sim[]).filter((sim) => sim.id === id)) : (sims as Sim[]).filter((sim) => !area || sim.areas.includes(area));
   if (lista.length === 0) return <p className="mt-6 text-ink-soft">{s.nenhuma}</p>;
   return (
     <div className={compacto ? "mt-4 space-y-3" : "mt-8 grid gap-4 md:grid-cols-2"}>

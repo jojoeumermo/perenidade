@@ -119,6 +119,13 @@ const nextConfig: NextConfig = {
   // processo estava ocupado, e o build caía (o mesmo commit passava numa tentativa e falhava na outra). Cinco minutos
   // por página tiram essa loteria sem esconder nada: uma página de fato travada continua derrubando o build.
   staticPageGenerationTimeout: 300,
+  // As páginas que saem na primeira visita, e não no build, leem o conteúdo na hora: a aula e a obra nos idiomas sem
+  // tradução (lib/params.ts), o texto puro da aula, o zine e o kit do núcleo. Isto garante que a função da Vercel leve
+  // a pasta content/ junto, mesmo quando o rastreio automático não a enxerga.
+  outputFileTracingIncludes: {
+    "/*/trilhas/**": ["./content/**/*", "./historico/**/*"],
+    "/*/acervo/*": ["./content/**/*", "./historico/**/*", "./public/capas/**/*"],
+  },
   // Só em desenvolvimento: abrir o painel também em 127.0.0.1 faz de conta que é um segundo aparelho (outro navegador, outras
   // chaves), o que serve para testar a aprovação de aparelhos das conversas sem dois computadores.
   allowedDevOrigins: ["127.0.0.1"],
@@ -134,6 +141,14 @@ const nextConfig: NextConfig = {
     ],
     remotePatterns: [],
     dangerouslyAllowSVG: false,
+  },
+  // O percurso mudou de nome (Despertar virou Consciência de classe): o endereço novo, impresso nos materiais, leva à
+  // mesma página, que continua em /despertar para não quebrar link nenhum já espalhado.
+  async redirects() {
+    return [
+      { source: "/:lang(pt|en|es|fr|ru|zh)/consciencia-de-classe", destination: "/:lang/despertar", permanent: false },
+      { source: "/consciencia-de-classe", destination: "/pt/despertar", permanent: false },
+    ];
   },
   async headers() {
     return [

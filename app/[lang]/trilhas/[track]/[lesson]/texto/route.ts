@@ -1,17 +1,17 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import { defaultLocale, isLocale } from "@/i18n/config";
 import { getTrack, getTracks } from "@/lib/content";
-import { withLangs } from "@/lib/params";
+import { nosIdiomasDoTexto } from "@/lib/params";
 import { site } from "@/lib/site";
 
-// A aula em texto puro, gerada no build. Serve para conexões fracas, leitores de tela simples
+// A aula em texto puro, gerada no build nos idiomas em que o texto existe (as outras versões, na primeira visita). Serve para conexões fracas, leitores de tela simples
 // e para quem prefere o terminal: curl <endereço da aula>/texto
 export const dynamic = "force-static";
-export const dynamicParams = false;
+export const dynamicParams = true;
 
 export function generateStaticParams() {
-  return withLangs(
-    getTracks(defaultLocale).flatMap((track) => track.lessons.map((lesson) => ({ track: track.slug, lesson: lesson.slug }))),
+  return nosIdiomasDoTexto(
+    getTracks(defaultLocale).flatMap((track) => track.lessons.map((lesson) => ({ params: { track: track.slug, lesson: lesson.slug }, file: lesson.file }))),
   );
 }
 

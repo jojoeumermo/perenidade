@@ -11,12 +11,14 @@ import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
 import { defaultLocale, fill, localePath } from "@/i18n/config";
 import { getAuthors, getBook, getBooks, idiomasDe } from "@/lib/content";
-import { withLangs } from "@/lib/params";
+import { nosIdiomasDoTexto } from "@/lib/params";
 
-export const dynamicParams = false;
+// O build monta cada obra só nos idiomas em que o texto dela existe; as outras versões saem na primeira visita (veja
+// lib/params.ts). Obra que não existe continua dando 404 (notFound abaixo).
+export const dynamicParams = true;
 
 export function generateStaticParams() {
-  return withLangs(getBooks(defaultLocale).map((book) => ({ id: book.id })));
+  return nosIdiomasDoTexto(getBooks(defaultLocale).map((book) => ({ params: { id: book.id }, file: book.file })));
 }
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/acervo/[id]">): Promise<Metadata> {
