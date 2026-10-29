@@ -18,7 +18,24 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/professore
   return paginaMeta(lang, "/professores", s.professores.titulo, s.professores.descricao);
 }
 
-/** Para professores (recurso "professores"): o guia de uso em sala e os planos de aula. Desligado, a página não existe. */
+/** O guia em partes: a abertura (antes do primeiro "## ") e cada seção, com o título separado do texto. */
+function secoesDoGuia(corpo: string): { abertura: string; secoes: { titulo: string; texto: string }[] } {
+  const [abertura, ...resto] = corpo.split(/\n(?=## )/);
+  const temAbertura = !abertura.startsWith("## ");
+  const blocos = temAbertura ? resto : [abertura, ...resto];
+  return {
+    abertura: temAbertura ? abertura.trim() : "",
+    secoes: blocos.map((bloco) => {
+      const [linha, ...texto] = bloco.split("\n");
+      return { titulo: linha.replace(/^##\s+/, "").trim(), texto: texto.join("\n").trim() };
+    }),
+  };
+}
+
+/**
+ * Para professores (recurso "professores"): o guia de uso em sala, cada seção num cartão, e os planos de aula em fichas.
+ * Desligado, a página não existe.
+ */
 export default async function Page({ params }: PageProps<"/[lang]/professores">) {
   if (!ligado("professores")) notFound();
   const { lang, t } = await loadLang(params);
@@ -26,8 +43,9 @@ export default async function Page({ params }: PageProps<"/[lang]/professores">)
   const guia = guiaDoProfessor();
   const planos = planosDeAula();
   const to = (caminho: string) => localePath(lang, caminho);
+  const { abertura, secoes } = secoesDoGuia(guia.corpo);
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <div className="mx-auto max-w-5xl px-4 py-12">
       <PageHeading eyebrow={s.professores.olho} title={guia.titulo}>
         {guia.resumo}
       </PageHeading>
@@ -48,22 +66,38 @@ export default async function Page({ params }: PageProps<"/[lang]/professores">)
           {s.professores.verPlanos}
         </a>
       </nav>
-      <div className="mt-8" lang="pt-BR">
-        <Markdown lang={lang}>{guia.corpo}</Markdown>
+      <div lang="pt-BR">
+        {abertura && (
+          <div className="mt-8 max-w-3xl">
+            <Markdown lang={lang}>{abertura}</Markdown>
+          </div>
+        )}
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {secoes.map((secao, i) => (
+            <section key={secao.titulo} aria-label={secao.titulo} className={`${i % 3 === 1 ? "cartao-v" : "cartao"} p-6 sm:p-7`}>
+              <p className="font-mono text-xs text-prelo-texto">{String(i + 1).padStart(2, "0")}</p>
+              <h2 className="mt-1 font-serif text-[1.55rem] font-semibold leading-tight">{secao.titulo}</h2>
+              <div className="mt-3">
+                <Markdown lang={lang}>{secao.texto}</Markdown>
+              </div>
+            </section>
+          ))}
+        </div>
       </div>
-      <section id="planos" aria-labelledby="planos-titulo" className="mt-12 border-t border-rule pt-6">
-        <h2 id="planos-titulo" className="text-3xl font-semibold">
+      <section id="planos" aria-labelledby="planos-titulo" className="mt-14 scroll-mt-24">
+        <h2 id="planos-titulo" className="border-b-[3px] border-double border-ink pb-2 font-serif text-[1.9rem] font-semibold leading-tight">
           {s.professores.planos}
         </h2>
-        <ul className="mt-4 space-y-4 font-sans text-sm">
+        <ul className="mt-6 grid gap-5 font-sans text-sm sm:grid-cols-2 lg:grid-cols-3">
           {planos.map((p) => (
-            <li key={p.slug} className="border border-rule bg-parchment-deep p-4" lang="pt-BR">
-              <Link href={to(`/professores/${p.slug}`)} className="font-serif text-xl font-semibold underline hover:text-oxblood">
+            <li key={p.slug} className="cartao flex flex-col p-5" lang="pt-BR">
+              <Link href={to(`/professores/${p.slug}`)} className="font-serif text-xl font-semibold leading-snug underline decoration-rule underline-offset-4 hover:text-oxblood hover:decoration-[#c21f16]">
                 {p.titulo}
               </Link>
-              <p className="mt-1 text-ink-soft">{p.resumo}</p>
-              <p className="mt-1 font-mono text-xs text-ink-soft">
-                {p.duracao} · {p.publico}
+              <p className="mt-2 leading-relaxed text-ink-soft">{p.resumo}</p>
+              <p className="mt-auto flex flex-wrap gap-2 pt-4 font-mono text-[0.7rem]">
+                <span className="border border-ink px-2 py-0.5">{p.duracao}</span>
+                <span className="border border-ink px-2 py-0.5">{p.publico}</span>
               </p>
             </li>
           ))}
