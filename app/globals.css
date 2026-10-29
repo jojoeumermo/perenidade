@@ -1727,6 +1727,12 @@ body {
 :root[data-leitor] :is(.flex, .grid) > :is(a, span, button) {
   margin-right: 0.6em;
 }
+/* Etiqueta ou botão com borda (ou fundo) e respiro em cima e embaixo que virou texto corrido: a caixa invadia a linha
+   de cima e cortava a letra (as etiquetas da trilha, "10 de 10 aulas prontas"). Vira um bloquinho dentro da linha. */
+:root[data-leitor] :is(.flex, .grid) > :is(a, span, label):is([class*="py-"], [class^="p-"], [class*=" p-"]):is([class*="border"], [class*="bg-"]):not([class*="block"], [class*="flex"], [class*="grid"], [class*="hidden"], [class*="inline"], [class*="table"], [class*="contents"]) {
+  display: inline-block;
+  margin-bottom: 0.45em;
+}
 /* O botão de acessibilidade é só um ícone, e os ícones somem no leitor: ele passa a dizer o próprio nome. */
 :root[data-leitor] .fixed > button[title]::after {
   content: attr(title);
@@ -1967,6 +1973,10 @@ body {
   }
   :root :is(.flex, .grid) > :is(a, span, button) {
     margin-right: 0.6em;
+  }
+  :root :is(.flex, .grid) > :is(a, span, label):is([class*="py-"], [class^="p-"], [class*=" p-"]):is([class*="border"], [class*="bg-"]):not([class*="block"], [class*="flex"], [class*="grid"], [class*="hidden"], [class*="inline"], [class*="table"], [class*="contents"]) {
+    display: inline-block;
+    margin-bottom: 0.45em;
   }
   :root .fixed > button[title]::after {
     content: attr(title);
