@@ -8,7 +8,7 @@ import tipos from "@/lib/tipos.json";
 import { cleanSources, MarkdownEditor, SourcesField, type SourceDraft } from "../Editor";
 import { useI18n } from "../I18n";
 import { Markdown } from "../Markdown";
-import { Aviso, botao, botaoClaro, campo, data, dataHora, elo, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
+import { Abas, Aviso, botao, botaoClaro, campo, data, dataHora, elo, PAINEL_MUDOU, papeis, rotulo, situacoes, textoDoErro, useAcao, useLista } from "./comum";
 import { BuscaDePessoa } from "./BuscaDePessoa";
 import type { Membro } from "./Equipe";
 import { editorPt, fontesPt } from "./Escrever";
@@ -50,6 +50,14 @@ interface Completa extends Resumo {
 const nomeDoTipo = (tipo: string) => (tipos as Record<string, { rotulo: string }>)[tipo]?.rotulo ?? (tipo === "correcao" ? "Correção" : tipo);
 /** Veio de fora e a mediação ainda não leu. */
 const naTriagem = (item: Resumo) => item.status === "pendente" && item.triagem === "aguardando";
+/** As situações da fila, na ordem do trabalho, e o que dizer quando uma está vazia. */
+const SITUACOES_DA_FILA = [
+  { id: "pendente", nome: "Esperando revisão", vazia: "Nada esperando revisão. Quando chegar uma contribuição, ela aparece aqui e você recebe um recado na Mesa." },
+  { id: "aprovada", nome: "Aprovadas", vazia: "Nenhuma aprovada esperando a próxima publicação do site." },
+  { id: "publicada", nome: "No ar", vazia: "Nada publicado por esta fila ainda." },
+  { id: "recusada", nome: "Não aprovadas", vazia: "Nenhuma contribuição recusada." },
+  { id: "resolvida", nome: "Resolvidas", vazia: "Nenhuma correção resolvida ainda." },
+];
 const origem: Record<string, string> = { publico: "contribuição pública", educacao: "educador(a) da disciplina", jornalismo: "jornalismo", curadoria: "curadoria", revisao: "revisão", traducao: "tradução" };
 
 /**
@@ -74,19 +82,11 @@ export function Fila({ me, minhas = false, juntas = false, triagem = false }: { 
           só isso que falta; e libere o resto. Julgar se o conteúdo está certo não é desta etapa: isso é da fila de revisão.
         </p>
       )}
-      {!propria && !triagem && (
-        <div className="flex flex-wrap gap-2">
-          {["pendente", "aprovada", "publicada", "recusada", "resolvida"].map((opcao) => (
-            <button key={opcao} type="button" onClick={() => setStatus(opcao)} aria-pressed={status === opcao} className={`cursor-pointer border-2 px-3 py-1.5 ${status === opcao ? "border-ink bg-ink text-parchment" : "border-rule hover:border-gold"}`}>
-              {opcao}
-            </button>
-          ))}
-        </div>
-      )}
+      {!propria && !triagem && <Abas opcoes={SITUACOES_DA_FILA} atual={status} escolher={setStatus} />}
       <Aviso texto={lista.erro} />
       {lista.dados?.length === 0 && (
         <p className="mt-4 border border-rule bg-parchment-deep px-4 py-6 text-center text-ink-soft">
-          {minhas ? "Você ainda não enviou nada." : juntas ? "Ninguém chamou você para trabalhar junto por enquanto. Quando chamar, a contribuição aparece aqui e você recebe um recado na Mesa." : triagem ? "Nada esperando a triagem." : "Nada nesta situação."}
+          {minhas ? "Você ainda não enviou nada." : juntas ? "Ninguém chamou você para trabalhar junto por enquanto. Quando chamar, a contribuição aparece aqui e você recebe um recado na Mesa." : triagem ? "Nada esperando a triagem." : (SITUACOES_DA_FILA.find((s) => s.id === status)?.vazia ?? "Nada nesta situação.")}
         </p>
       )}
       <ul className="mt-4 divide-y divide-rule border-y border-rule">
