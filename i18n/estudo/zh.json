@@ -181,7 +181,19 @@
     "montarOutra": "编排另一组课程",
     "linkQuebrado": "这个班级链接不完整，或在复制时被改动。请再向老师要一次链接。",
     "minhasTurmas": "我的班级",
-    "esquecer": "从列表中移除"
+    "esquecer": "从列表中移除",
+    "buscarAula": "按名称查找课程",
+    "buscarDica": "在所有学科中查找，例如：分数、光合作用",
+    "ouEscolha": "或按学科和课程线选择",
+    "nenhumResultado": "没有这个名称的课程。",
+    "suasSequencias": "保存在本设备上的课程序列",
+    "editar": "编辑",
+    "mostrarTurma": "展示给全班",
+    "apontar": "用手机相机扫描二维码",
+    "fechar": "关闭",
+    "whatsapp": "通过 WhatsApp 发送",
+    "mensagemWhatsapp": "{titulo}：通过此链接学习课程 {link}",
+    "nAulas": "{n} 节课"
   },
   "professores": {
     "olho": "教师专区",

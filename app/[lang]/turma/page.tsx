@@ -24,7 +24,7 @@ export default async function Page({ params }: PageProps<"/[lang]/turma">) {
   const { lang, t } = await loadLang(params);
   const { s, traduzido } = textosDoEstudo(lang);
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
+    <div className="mx-auto max-w-5xl px-4 py-12">
       <PageHeading eyebrow={s.turma.olho} title={s.turma.titulo}>
         {s.turma.lead}
       </PageHeading>
