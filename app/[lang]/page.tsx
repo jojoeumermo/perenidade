@@ -5,7 +5,7 @@ import { DailyQuote } from "@/components/DailyQuote";
 import { NesteDia } from "@/components/NesteDia";
 import { Star } from "@/components/Masthead";
 import { Experimente, type Sugestao } from "@/components/inicio/Experimente";
-import { LambeDoDia } from "@/components/inicio/LambeDoDia";
+import { CarimboDoDia, LambeDoDia } from "@/components/inicio/LambeDoDia";
 import { AulaDaSemana } from "@/components/inicio/AulaDaSemana";
 import { aulasDaSemana } from "@/lib/aula-da-semana";
 import { lambesDaSemana } from "@/lib/lambes";
@@ -64,6 +64,8 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
       return { slug, name: t.areas[slug][0], description: t.areas[slug][1], essential: essential.includes(slug), counts, palavras };
     }),
   }));
+  // O lambe-lambe do dia (com o carimbo e a xilogravura do mesmo tema), escolhido pelo navegador entre os próximos dias.
+  const lambes = lambesDaSemana(lang);
   const [, pontuacao = "", resto = h.h1c] = /^([,，、;:.!?]*)([\s\S]*)$/.exec(h.h1c) ?? [];
   const started = tracks.filter((track) => track.lessons.length > 0).sort((a, b) => b.lessons.length - a.lessons.length);
   const questions = getQuestions().slice(0, 4);
@@ -143,10 +145,10 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <Experimente rotulo={h.tryLabel} sugestoes={sugestoes} />
           </div>
 
-          {/* O lambe-lambe colado torto, com os números do acervo e o carimbo. */}
+          {/* O lambe-lambe colado torto, com os números do acervo e o carimbo do dia. */}
           <div className="relative px-2 pt-4 pb-8 max-md:hidden">
             <div className="cartao-preto -rotate-2 px-9 pt-10 pb-8">
-              <LambeDoDia dias={lambesDaSemana(lang)} rotulo={h.posterLabel} />
+              <LambeDoDia dias={lambes} rotulo={h.posterLabel} />
               <dl className="mt-7 grid grid-cols-3 border-t-[1.5px] border-[#5a4e3c] pt-5">
                 {[
                   [numero(lang, areas), t.common.disciplines.other.replace("{n}", "").trim()],
@@ -162,15 +164,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
               </dl>
             </div>
             <div aria-hidden className="carimbo absolute -top-4 -right-3 z-10 h-28 w-28 rotate-[14deg] bg-[color-mix(in_srgb,var(--parchment)_94%,transparent)] text-[0.66rem]">
-              <span>
-                {h.stamp[0]}
-                <br />
-                {h.stamp[1]}
-                <br />
-                {h.stamp[2]}
-                <br />
-                {h.stamp[3]}
-              </span>
+              <CarimboDoDia dias={lambes.map((d) => ({ dia: d.dia, carimbo: d.lambe.carimbo }))} reserva={h.stamp} />
             </div>
           </div>
         </div>
