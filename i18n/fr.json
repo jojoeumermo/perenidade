@@ -1118,7 +1118,20 @@
     "lead": "Pour se souvenir de celles et ceux qui sont tombés en luttant pour la justice, pour la terre, pour la liberté. Tant qu'on se souvient d'eux, ils restent présents.",
     "add": "Il manque quelqu'un ici ? Le mémorial est construit par la communauté.",
     "addLink": "Proposer un nom",
-    "present": "Présent !"
+    "present": "Présent !",
+    "plaque": "{n} noms, tombés entre {de} et {ate}.",
+    "where": "Où ils sont tombés",
+    "all": "Toutes",
+    "regions": {
+      "brasil": "Brésil",
+      "america-latina": "Amérique latine et Caraïbes",
+      "africa": "Afrique",
+      "america-do-norte": "États-Unis et Canada",
+      "europa": "Europe",
+      "asia": "Asie"
+    },
+    "close": "Fermer l’hommage",
+    "noPortrait": "Pour celles et ceux sans portrait libre, une bougie reste allumée. Les portraits sont dans le domaine public ou sous licence libre, avec la source dans chaque hommage."
   },
   "contribute": {
     "eyebrow": "Construction collective",

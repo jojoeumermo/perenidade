@@ -7,6 +7,7 @@ import { areaSlugs, licenses, stages, tools, type AreaSlug, type License, type S
 import { parseFrontmatter } from "./frontmatter";
 import { type Exercicio, validarPratica } from "./pratica";
 import { plainText } from "./text";
+import { regiaoDoLocal, type RegiaoDoMemorial } from "./memorial";
 
 // O cache do React vale para uma página só. Na montagem do site, cada uma das milhares de páginas relia e conferia
 // o acervo inteiro. Ali o conteúdo não muda no meio do caminho, então o que foi lido fica guardado enquanto o
@@ -143,6 +144,8 @@ export interface Tribute extends Localized {
   photo?: string;
   photoCredit?: string;
   photoSource?: string;
+  /** Onde a pessoa tombou, pelo país do "local" da ficha original (lib/memorial.ts). */
+  region?: RegiaoDoMemorial;
 }
 
 export interface ContentPage extends Localized {
@@ -596,6 +599,8 @@ export const getTributes = cache((lang: Locale): Tribute[] =>
       born: text(data, "nascimento", file),
       died: text(data, "morte", file),
       place: text(data, "local", file),
+      // O país sai do original em português: a tradução troca o nome ("Brazil", "Бразилия").
+      region: regiaoDoLocal(String(parse(file).data.local ?? "")),
       ...portrait(data, file),
       body,
       translated,
