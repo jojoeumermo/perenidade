@@ -216,12 +216,15 @@ export function MenuDoPainel({
                   </ul>
                 </div>
               )}
-              <p className="painel-grupo px-2.5 pb-1.5 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-gold">{nomeDaArea}</p>
-              <ul>
-                {daArea.map((s) => (
-                  <Linha key={s.id} s={s} />
-                ))}
-              </ul>
+              {/* Trocar de área no trilho remonta a lista, que entra deslizando de leve (painel-troca). */}
+              <div key={nomeDaArea} className="painel-troca">
+                <p className="painel-grupo px-2.5 pb-1.5 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-gold">{nomeDaArea}</p>
+                <ul>
+                  {daArea.map((s) => (
+                    <Linha key={s.id} s={s} />
+                  ))}
+                </ul>
+              </div>
             </>
           )}
         </div>

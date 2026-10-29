@@ -2278,16 +2278,20 @@ body {
   }
 }
 
-/* No toque, todo link e botão do cabeçalho e do rodapé tem pelo menos 44 px de altura (o visual no computador não muda). */
-@media (pointer: coarse) {
-  header a,
-  header button,
-  header select,
-  footer a,
-  footer button {
-    min-height: 2.75rem;
-    display: inline-flex;
-    align-items: center;
+/* Área de toque de 44 px no cabeçalho e no rodapé (o visual no computador não muda). Fica na camada base para não vencer o "hidden" das utilidades:
+   fora dela, o "Voltar" do aplicativo e os ícones que somem em tela estreita apareciam no celular e empurravam
+   o cabeçalho para fora da tela. */
+@layer base {
+  @media (pointer: coarse) {
+    header a,
+    header button,
+    header select,
+    footer a,
+    footer button {
+      min-height: 2.75rem;
+      display: inline-flex;
+      align-items: center;
+    }
   }
 }
 
@@ -3521,4 +3525,138 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
   height: 1rem;
   border: 1.5px solid #1f1a14;
   background: radial-gradient(circle at 0 100%, #23408e 0 0.5rem, #f7f3ea 0.53rem);
+}
+
+/* A faixa da rádio: lambe-lambe preto colado torto na parede pontilhada, com a borda de baixo rasgada. */
+.lambe-colado {
+  transform: rotate(-0.6deg);
+  filter: drop-shadow(8px 8px 0 #1f1a14);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .lambe-colado { filter: drop-shadow(8px 8px 0 #c21f16); }
+}
+:root[data-theme="dark"] .lambe-colado {
+  filter: drop-shadow(8px 8px 0 #c21f16);
+}
+.lambe-rasgo {
+  clip-path: polygon(0 0, 100% 0, 100% 94%, 97% 97%, 94% 94.5%, 90% 98%, 86% 95%, 82% 97.5%, 77% 94.5%, 72% 98%, 67% 95%, 62% 97%, 57% 94%, 52% 98%, 47% 95.5%, 42% 97.5%, 37% 94.5%, 32% 98%, 27% 95%, 22% 97%, 17% 94.5%, 12% 98%, 7% 95%, 3% 97.5%, 0 95%);
+}
+.lambe-reticula {
+  background-image: radial-gradient(rgba(244, 236, 216, 0.1) 1.1px, transparent 1.4px);
+  background-size: 7px 7px;
+}
+.lambe-cunha {
+  clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%);
+}
+.lambe-fita {
+  background: rgba(233, 220, 188, 0.85);
+}
+/* Contraste, papel eletrônico e leitura: o cartaz vira um quadro simples, sem rasgo, fitas nem cunha. */
+:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-colado {
+  transform: none;
+  filter: none;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-rasgo {
+  clip-path: none;
+  border: 2px solid var(--ink);
+  background: var(--parchment) !important;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-rasgo * {
+  color: var(--ink) !important;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) :is(.lambe-reticula, .lambe-cunha, .lambe-fita) {
+  display: none;
+}
+
+/* O equalizador do "tocando agora" na página da rádio. */
+@keyframes radio-eq {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+.radio-eq span {
+  display: inline-block;
+  width: 3px;
+  height: 14px;
+  background: var(--prelo-texto);
+  transform-origin: bottom;
+  animation: radio-eq 0.9s ease-in-out infinite;
+}
+.radio-eq span:nth-child(2) { animation-delay: 0.2s; }
+.radio-eq span:nth-child(3) { animation-delay: 0.45s; }
+@media (prefers-reduced-motion: reduce) {
+  .radio-eq span { animation: none; }
+}
+:root[data-light] .radio-eq span {
+  animation: none;
+}
+
+/* ── O painel com movimento ──
+   Resposta rápida ao toque, a troca de área do menu e de conversa deslizando, e janelas, gavetas e detalhes abrindo
+   suaves. Nada passa de um quinto de segundo. Tudo some no modo leve (fora de .painel-leve aqui, e lá a regra corta
+   animação e transição) e para quem pede menos movimento no sistema. A parte do toque fica na camada de componentes:
+   a transição ou a escala escrita nas classes do próprio elemento continua valendo. */
+@keyframes painel-troca {
+  from { opacity: 0; transform: translateX(10px); }
+}
+@keyframes painel-folha {
+  from { opacity: 0; transform: translateY(-8px); }
+}
+@keyframes painel-gaveta {
+  from { opacity: 0.4; transform: translateX(2.5rem); }
+}
+@keyframes painel-janela {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+}
+@keyframes painel-abre {
+  from { opacity: 0; transform: translateY(-4px); }
+}
+@layer components {
+  @media (prefers-reduced-motion: no-preference) {
+    .painel:not(.painel-leve) :is(button, a, summary, [role="tab"], [role="option"]) {
+      transition: scale 0.09s ease-out, transform 0.12s ease, translate 0.12s ease, background-color 0.12s ease-out, color 0.12s ease-out, border-color 0.12s ease-out, box-shadow 0.12s ease-out, opacity 0.12s ease-out;
+    }
+    .painel:not(.painel-leve) :is(button, summary, [role="tab"]):not(:disabled, .botao, [class*="w-full"]):active {
+      scale: 0.96;
+    }
+    .painel:not(.painel-leve) :is(a, button[class*="w-full"]):not(.botao):active {
+      translate: 0 1px;
+    }
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .painel-troca {
+    animation: painel-troca 0.18s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .painel details[open] > :not(summary) {
+    animation: painel-abre 0.16s ease-out both;
+  }
+  .painel [class~="fixed"][class~="inset-0"] {
+    animation: painel-veu 0.15s ease-out;
+  }
+  .painel [class~="fixed"][class~="inset-0"][class~="justify-end"] > :last-child {
+    animation: painel-gaveta 0.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .painel [class~="fixed"][class~="inset-0"][class~="justify-center"] > :not([aria-hidden]) {
+    animation: painel-janela 0.18s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 1023px) {
+  .painel-menu {
+    animation: painel-folha 0.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+}
+
+/* Na Mesa, os títulos dos blocos de dentro (Para você hoje, as filas, a saúde do acervo, os atalhos) seguem o desenho
+   da Mesa: etiqueta preta em letra de máquina e fio fino. O vermelho fica só para o que precisa da pessoa. */
+.mesa .jornal-secao::after {
+  height: 2px;
+}
+.mesa .jornal-editoria {
+  background: var(--ink);
+  color: var(--parchment);
+  font-family: var(--font-archive), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  padding: 0.3rem 0.6rem;
 }
