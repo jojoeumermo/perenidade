@@ -1703,14 +1703,35 @@ body {
 :root[data-leitor] main a[class*="border"] {
   text-decoration: none !important;
 }
-/* Tema e rádio não fazem sentido em tela de tinta. */
+/* Tema e rádio não fazem sentido em tela de tinta. O quadrado colorido do Instagram também sai: o desenho da câmera
+   some no leitor e sobrava um quadrado cinza. */
 :root[data-leitor] body header.no-print button,
-:root[data-leitor] body header.no-print a[href$="/radio"] {
+:root[data-leitor] body header.no-print a[href$="/radio"],
+:root[data-leitor] body header.no-print .botao-instagram-cor {
   display: none !important;
+}
+/* Nada de fundo escuro com letra clara dentro das páginas: no leitor a letra clara ficava sobre o branco e sumia, e o
+   botão de fundo vermelho virava um retângulo preto sem letra. Tudo vira tinta preta sobre o branco, com contorno nos
+   botões. */
+:root[data-leitor] main :is(.botao, .cartao-preto, .cartao-vermelho, .capa-preta, .jornal-preto, .jornal-raios, [class*="bg-[#1f1a14]"], [class*="bg-[#c21f16]"], [class*="bg-[#6e1f1a]"], [class*="bg-[#a51810]"], [class~="bg-ink"], [class~="bg-oxblood"]) {
+  background: #fff !important;
+  color: #000 !important;
+}
+:root[data-leitor] main :is(a, button, span):is(.botao, [class*="bg-[#c21f16]"], [class*="bg-[#1f1a14]"], [class~="bg-ink"]) {
+  border: 1px solid #000 !important;
+}
+:root[data-leitor] main :is([class*="text-[#f4ecd8]"], [class*="text-[#e9dcbc]"], [class*="text-[#d9ccac]"], [class*="text-[#fde8e4]"], [class*="text-[#fde4e1]"], [class*="text-[#e0837a]"], [class*="text-[#b3a584]"], [class*="text-[#d4a24c]"], [class*="text-[#f0cf8e]"], [class~="text-white"], [class~="text-parchment"]) {
+  color: #000 !important;
 }
 /* Itens que ficavam lado a lado (flex) viram texto corrido: um respiro entre eles para não grudarem. */
 :root[data-leitor] :is(.flex, .grid) > :is(a, span, button) {
   margin-right: 0.6em;
+}
+/* Etiqueta ou botão com borda (ou fundo) e respiro em cima e embaixo que virou texto corrido: a caixa invadia a linha
+   de cima e cortava a letra (as etiquetas da trilha, "10 de 10 aulas prontas"). Vira um bloquinho dentro da linha. */
+:root[data-leitor] :is(.flex, .grid) > :is(a, span, label):is([class*="py-"], [class^="p-"], [class*=" p-"]):is([class*="border"], [class*="bg-"]):not([class*="block"], [class*="flex"], [class*="grid"], [class*="hidden"], [class*="inline"], [class*="table"], [class*="contents"]) {
+  display: inline-block;
+  margin-bottom: 0.45em;
 }
 /* O botão de acessibilidade é só um ícone, e os ícones somem no leitor: ele passa a dizer o próprio nome. */
 :root[data-leitor] .fixed > button[title]::after {
@@ -1933,13 +1954,29 @@ body {
   :root main a[class*="border"] {
     text-decoration: none !important;
   }
-  /* Tema e rádio não fazem sentido em tela de tinta. */
+  /* Tema e rádio não fazem sentido em tela de tinta (nem o quadrado colorido do Instagram). */
   :root body header.no-print button,
-  :root body header.no-print a[href$="/radio"] {
+  :root body header.no-print a[href$="/radio"],
+  :root body header.no-print .botao-instagram-cor {
     display: none !important;
+  }
+  /* Nada de fundo escuro com letra clara dentro das páginas (veja o mesmo trecho no leitor reconhecido pelo nome). */
+  :root main :is(.botao, .cartao-preto, .cartao-vermelho, .capa-preta, .jornal-preto, .jornal-raios, [class*="bg-[#1f1a14]"], [class*="bg-[#c21f16]"], [class*="bg-[#6e1f1a]"], [class*="bg-[#a51810]"], [class~="bg-ink"], [class~="bg-oxblood"]) {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  :root main :is(a, button, span):is(.botao, [class*="bg-[#c21f16]"], [class*="bg-[#1f1a14]"], [class~="bg-ink"]) {
+    border: 1px solid #000 !important;
+  }
+  :root main :is([class*="text-[#f4ecd8]"], [class*="text-[#e9dcbc]"], [class*="text-[#d9ccac]"], [class*="text-[#fde8e4]"], [class*="text-[#fde4e1]"], [class*="text-[#e0837a]"], [class*="text-[#b3a584]"], [class*="text-[#d4a24c]"], [class*="text-[#f0cf8e]"], [class~="text-white"], [class~="text-parchment"]) {
+    color: #000 !important;
   }
   :root :is(.flex, .grid) > :is(a, span, button) {
     margin-right: 0.6em;
+  }
+  :root :is(.flex, .grid) > :is(a, span, label):is([class*="py-"], [class^="p-"], [class*=" p-"]):is([class*="border"], [class*="bg-"]):not([class*="block"], [class*="flex"], [class*="grid"], [class*="hidden"], [class*="inline"], [class*="table"], [class*="contents"]) {
+    display: inline-block;
+    margin-bottom: 0.45em;
   }
   :root .fixed > button[title]::after {
     content: attr(title);
@@ -2877,11 +2914,18 @@ main#conteudo:not(:has(.painel, .rede-lucia)) :is(input, textarea, select)[class
 
 /* Papel impresso não tem canto arredondado: cartões, quadros e pílulas de texto do site público ficam retos.
    Círculos de verdade (foto, botão de tocar, ponto de aviso) continuam redondos: não têm espaçamento lateral.
-   O aplicativo é a exceção (Caderno de Bolso): lá todo canto é arredondado, para não misturar reto com redondo. */
-:root:not([data-app]) main#conteudo:not(:has(.painel, .rede-lucia)) :is(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl),
-:root:not([data-app]) main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button, span, label, input, select, p, li, div)[class~="rounded-full"]:is([class*="px-"], [class*="pl-"]),
-:root[data-app]:is([data-contrast], [data-eink], [data-leitor]) main#conteudo:not(:has(.painel, .rede-lucia)) :is(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl),
-:root[data-app]:is([data-contrast], [data-eink], [data-leitor]) main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button, span, label, input, select, p, li, div)[class~="rounded-full"]:is([class*="px-"], [class*="pl-"]) {
+   O celular (navegador e aplicativo) é a exceção: lá todo canto é arredondado, para não misturar reto com redondo
+   (app/celular.css). O leitor de tinta continua reto em qualquer largura. */
+@media (min-width: 768px) {
+  :root:not([data-app]) main#conteudo:not(:has(.painel, .rede-lucia)) :is(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl),
+  :root:not([data-app]) main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button, span, label, input, select, p, li, div)[class~="rounded-full"]:is([class*="px-"], [class*="pl-"]),
+  :root[data-app]:is([data-contrast], [data-eink], [data-leitor]) main#conteudo:not(:has(.painel, .rede-lucia)) :is(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl),
+  :root[data-app]:is([data-contrast], [data-eink], [data-leitor]) main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button, span, label, input, select, p, li, div)[class~="rounded-full"]:is([class*="px-"], [class*="pl-"]) {
+    border-radius: 0;
+  }
+}
+:root[data-leitor] main#conteudo:not(:has(.painel, .rede-lucia)) :is(.rounded, .rounded-sm, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl),
+:root[data-leitor] main#conteudo:not(:has(.painel, .rede-lucia)) :is(a, button, span, label, input, select, p, li, div)[class~="rounded-full"]:is([class*="px-"], [class*="pl-"]) {
   border-radius: 0;
 }
 
@@ -3147,229 +3191,6 @@ main#conteudo .ide-area :is(div, section)[class~="border-2"][class~="border-ink"
   .painel-menu .painel-item,
   .painel-menu .painel-area {
     transition: none;
-  }
-}
-
-/* ---- Caderno de Bolso: o visual próprio do aplicativo ----
-   Só vale com <html data-app> (aplicativo de Android ou site instalado) e tela de celular; o site no navegador não muda.
-   A identidade é a mesma do site (papel, tinta, vermelho do prelo, as três letras), com os gestos de aplicativo:
-   abas com cápsula, cantos arredondados, toque que afunda em vez de sombra que salta, gaveta que sobe de baixo e
-   tocador solto acima das abas. Alto contraste, tinta eletrônica e leitor de tinta ficam de fora: lá vale o desenho reto. */
-@keyframes folha-sobe {
-  from {
-    transform: translateY(100%);
-  }
-}
-@media (max-width: 767.98px) {
-  :root[data-app] {
-    -webkit-tap-highlight-color: transparent;
-  }
-  :root[data-app] body {
-    overscroll-behavior-y: none;
-  }
-  :root[data-app] :is(.abas-do-celular, .app-barra, .botao, .aba-do-celular) {
-    -webkit-user-select: none;
-    user-select: none;
-  }
-
-  /* Abas de baixo: fundo de tinta, a aba aberta marcada por uma cápsula vermelha atrás do ícone. */
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .abas-do-celular {
-    border-top: 0;
-    padding-top: 0.3rem;
-    box-shadow: 0 -1px 0 rgb(244 236 216 / 0.08);
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .aba-do-celular {
-    background: transparent;
-    gap: 0.2rem;
-    color: #d9ccac;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .aba-do-celular.aba-aberta {
-    background: transparent;
-    color: #fff;
-  }
-  :root[data-app] .aba-icone {
-    display: flex;
-    height: 1.9rem;
-    width: 3.5rem;
-    align-items: center;
-    justify-content: center;
-    border-radius: 999px;
-    transition: background-color 0.18s ease, transform 0.12s ease;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .aba-aberta .aba-icone {
-    background: #c21f16;
-  }
-  :root[data-app] .aba-do-celular:active .aba-icone {
-    transform: scale(0.92);
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .aba-do-celular:not(.aba-aberta):active .aba-icone {
-    background: rgb(244 236 216 / 0.12);
-  }
-
-  /* Cartões e botões com canto de aplicativo. A sombra deslocada fica, mais curta; ao tocar, o botão afunda. */
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main :is(.cartao, .cartao-v, .cartao-preto, .cartao-vermelho) {
-    border-radius: 1rem;
-    box-shadow: 4px 4px 0 var(--sombra);
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main :is(.cartao-v, .cartao-preto) {
-    box-shadow: 4px 4px 0 var(--prelo);
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main :is(.cartao-vermelho) {
-    box-shadow: 4px 4px 0 #1f1a14;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) :is(main, .mais-janela) .botao {
-    min-height: 2.9rem;
-    border-radius: 0.9rem;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) :is(main, .mais-janela) .botao-menor {
-    min-height: 2.5rem;
-    border-radius: 0.75rem;
-  }
-  :root[data-app] :is(.botao, .sobe):hover {
-    transform: none;
-  }
-  :root[data-app] .botao:active {
-    transform: scale(0.97);
-  }
-  :root[data-app] .sobe:active {
-    transform: scale(0.985);
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"]), select, textarea) {
-    border-radius: 0.85rem;
-  }
-
-  /* Um canto só em todo o aplicativo. Caixas de borda grossa com sombra deslocada (cartões feitos à mão nas páginas)
-     ganham o mesmo canto dos cartões; botões de borda grossa, o dos botões. */
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main :is(div, a, section, article, aside, li, figure, details)[class*="border-2"][class*="shadow-["] {
-    border-radius: 1rem;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main :is(button, a)[class*="border-2"]:not(.botao) {
-    border-radius: 0.8rem;
-  }
-  /* Campo e botão colados (a busca do início, o boletim): os dois viram uma peça só, com canto só por fora. */
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main :is(form, div, span, label):has(> input[class~="border-r-0"]) {
-    border-radius: 0.9rem;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main input[class~="border-r-0"] {
-    border-radius: 0.9rem 0 0 0.9rem;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main input[class~="border-r-0"] + :is(button, a) {
-    border-radius: 0 0.9rem 0.9rem 0;
-  }
-  /* Campo sem borda própria dentro de uma moldura (a busca das disciplinas): quem tem o canto é a moldura. */
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main :is(form, div, span, label)[class*="border-2"]:has(> input[class~="bg-transparent"]) {
-    border-radius: 0.9rem;
-    overflow: hidden;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main input[class~="bg-transparent"] {
-    border-radius: 0;
-  }
-  /* Moldura só com sombra em volta de um campo (a busca do acervo): o canto acompanha o do campo. */
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main :is(form, div, span, label)[class*="shadow-["]:has(> input) {
-    border-radius: 0.9rem;
-  }
-  /* Botões de escolha (filtros, ordem, estantes) viram pílulas. */
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) main button[aria-pressed] {
-    border-radius: 999px;
-  }
-  /* Barra de cima: a faixa bordô do instituto com o fio dourado, nos dois temas, e os botões de ícone redondos. */
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .cabecalho-site {
-    background: #6e1f1a;
-    color: #f4ecd8;
-    border-bottom: 3px solid #d4a24c;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .cabecalho-site :is(a, button) {
-    color: #f4ecd8;
-  }
-  :root[data-app] .cabecalho-site .ml-auto {
-    gap: 0.4rem;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .cabecalho-site .ml-auto :is(a, button):has(> svg:only-child) {
-    display: inline-flex;
-    height: 2.5rem;
-    width: 2.5rem;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    border-radius: 999px;
-    background: rgb(244 236 216 / 0.1);
-  }
-  :root[data-app] .cabecalho-site .ml-auto :is(a, button):has(> svg:only-child):active {
-    transform: scale(0.92);
-  }
-
-  /* O alto da trilha: a faixa bordô de capa de caderno, com o texto em papel. */
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .topo-da-trilha {
-    background: #6e1f1a;
-    color: #f4ecd8;
-    border-bottom-color: #d4a24c;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .topo-da-trilha :is(.text-ink-soft, nav, nav a) {
-    color: #e9dcbc;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .topo-da-trilha .rotulo {
-    color: #f0cf8e;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .topo-da-trilha [class*="bg-folha"] {
-    border-radius: 999px;
-    border-color: #f4ecd8;
-    background: rgb(244 236 216 / 0.12);
-    color: #f4ecd8;
-  }
-  /* "Mais" vira uma gaveta que sobe de baixo, com a alça no alto. */
-  :root[data-app] .mais-veu {
-    align-items: flex-end;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .mais-janela {
-    height: 88dvh;
-    border-radius: 1.5rem 1.5rem 0 0;
-    overflow: hidden;
-  }
-  :root[data-app] .mais-janela::before {
-    content: "";
-    display: block;
-    flex-shrink: 0;
-    width: 2.75rem;
-    height: 5px;
-    margin: 0.6rem auto 0;
-    border-radius: 999px;
-    background: var(--rule);
-  }
-  :root[data-app] .mais-janela > div:first-of-type {
-    border-bottom-width: 1px;
-    padding-top: 0.6rem;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    :root[data-app] .mais-janela {
-      animation: folha-sobe 0.22s ease-out;
-    }
-  }
-
-  /* O tocador da rádio e do podcast solto acima das abas, como um cartão. */
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .radio-player {
-    margin: 0 0.6rem 0.5rem;
-    border-top-width: 0;
-    border-radius: 1rem;
-    box-shadow: 0 6px 18px rgb(0 0 0 / 0.28);
-  }
-
-  /* A inicial da conta na barra bordô: o círculo vermelho com o fio dourado, para não sumir no fundo. */
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .conta-saudacao {
-    border-color: #d4a24c;
-    background: #c21f16;
-    color: #fff;
-  }
-
-  /* As capas das disciplinas e as tarjas dos grupos seguem o mesmo canto do resto do aplicativo:
-     o caderno fica com a lombada mais reta, como um caderno de verdade. */
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .caderno {
-    border-radius: 0.35rem 1rem 1rem 0.35rem;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .etiqueta {
-    border-radius: 0.5rem;
-  }
-  :root[data-app]:not([data-contrast], [data-eink], [data-leitor]) .tarja-nome {
-    border-radius: 0.5rem;
   }
 }
 

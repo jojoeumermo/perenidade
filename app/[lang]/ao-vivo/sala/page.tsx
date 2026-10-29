@@ -16,7 +16,7 @@ export default async function Sala({ params }: PageProps<"/[lang]/ao-vivo/sala">
   const { lang, t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <Link href={localePath(lang, "/ao-vivo")} className="font-sans text-sm text-ink-soft hover:text-oxblood">← {t.live.title}</Link>
+      <Link href={localePath(lang, "/ao-vivo")} className="voltar-da-pagina font-sans text-sm text-ink-soft hover:text-oxblood">← {t.live.title}</Link>
       <Suspense>
         <SalaDeAula s={t.live} />
       </Suspense>

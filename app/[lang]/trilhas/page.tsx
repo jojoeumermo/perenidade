@@ -32,7 +32,7 @@ export default async function Disciplinas({ params }: PageProps<"/[lang]/trilhas
     }),
   }));
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
+    <div className="estantes-do-site mx-auto max-w-6xl px-4 py-12">
       <PageHeading eyebrow={t.tracks.eyebrow} title={t.tracks.title}>
         {t.tracks.lead}
       </PageHeading>

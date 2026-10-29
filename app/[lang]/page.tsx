@@ -10,7 +10,8 @@ import { JanelaAulaDaSemana } from "@/components/inicio/AulaDaSemana";
 import { aulasDaSemana } from "@/lib/aula-da-semana";
 import { lambesDaSemana } from "@/lib/lambes";
 import { JanelaContinue, JanelaNoAr } from "@/components/inicio/Janelas";
-import { type EstanteDoApp, InicioDoApp } from "@/components/inicio/InicioDoApp";
+import { type EstanteDoCelular, InicioDoCelular } from "@/components/celular/InicioDoCelular";
+import { corDaCapa } from "@/lib/capas";
 import { FaixaDaSaude } from "@/components/saude/FaixaDaSaude";
 import { territorios } from "@/lib/territorios";
 import { loadLang } from "@/i18n";
@@ -66,6 +67,14 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
   }));
   // O lambe-lambe do dia (com o carimbo e a xilogravura do mesmo tema), escolhido pelo navegador entre os próximos dias.
   const lambes = lambesDaSemana(lang);
+  // A tiragem do cartaz, como num cartaz de gráfica: os números do acervo.
+  const tiragem = `${h.posterPrint}: ${[
+    [numero(lang, areas), t.common.disciplines.other.replace("{n}", "").trim()],
+    [numero(lang, lessons), t.common.lessons.other.replace("{n}", "").trim()],
+    [numero(lang, works), t.common.works.other.replace("{n}", "").trim()],
+  ]
+    .map(([valor, nome]) => `${valor} ${nome}`)
+    .join(" · ")}`;
   const [, pontuacao = "", resto = h.h1c] = /^([,，、;:.!?]*)([\s\S]*)$/.exec(h.h1c) ?? [];
   const started = tracks.filter((track) => track.lessons.length > 0).sort((a, b) => b.lessons.length - a.lessons.length);
   const questions = getQuestions().slice(0, 4);
@@ -83,21 +92,24 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
     { label: t.nav.tools, path: "/ferramentas" },
   ];
 
-  // As estantes da fileira do aplicativo: as que já têm aula, as mais cheias primeiro.
+  // As estantes da fileira do celular: as que já têm aula, as mais cheias primeiro, cada uma com a cor da sua capa.
   const aulasPorEstante = new Map<string, number>();
   for (const track of tracks) aulasPorEstante.set(track.area, (aulasPorEstante.get(track.area) ?? 0) + track.lessons.length);
-  const estantesDoApp: EstanteDoApp[] = groups
+  const estantesDoCelular: EstanteDoCelular[] = groups
     .flatMap((group) => group.areas.map((slug) => ({ slug, grupo: t.groups[group.id], n: aulasPorEstante.get(slug) ?? 0 })))
     .filter((estante) => estante.n > 0)
     .sort((a, b) => b.n - a.n)
     .slice(0, 12)
-    .map((estante) => ({ slug: estante.slug, nome: t.areas[estante.slug][0], etapa: estante.grupo, aulas: `${numero(lang, estante.n)} ${estante.n === 1 ? t.common.lessons.one : t.common.lessons.other}` }));
+    .map((estante) => ({ slug: estante.slug, nome: t.areas[estante.slug][0], etapa: estante.grupo, aulas: `${numero(lang, estante.n)} ${estante.n === 1 ? t.common.lessons.one : t.common.lessons.other}`, cor: corDaCapa(estante.slug) }));
+  const territorio = territorios.at(-1);
 
   return (
     <>
-      <InicioDoApp
+      {/* ── No celular (navegador e aplicativo): o início de aplicativo. A inicial do computador vem depois, intacta,
+          e some no celular (app/celular.css esconde o que vem depois deste bloco). ── */}
+      <InicioDoCelular
         busca={to("/busca")}
-        estantes={estantesDoApp}
+        estantes={estantesDoCelular}
         textos={{
           busca: h.searchPlaceholder,
           buscaRotulo: h.searchLabel,
@@ -108,7 +120,56 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           comecarTexto: h.startText,
           estantes: h.shelvesPick,
           verTodas: fill(h.seeAllShelves, { n: areas }),
+          muro: t.celular.muro,
         }}
+        lambe={<LambeDoDia dias={lambes} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />}
+        aulaDaSemana={<JanelaAulaDaSemana semanas={aulasDaSemana(lang)} lang={lang} url={site.url} s={t.aulaDaSemana} sc={t.compartilhar} area={Object.fromEntries(Object.entries(t.areas).map(([k, v]) => [k, v[0]]))} />}
+        extras={
+          <>
+            <Link href={to("/despertar")} className="block rounded-[1.25rem] border-[1.5px] border-[#1f1a14] bg-[#1f1a14] p-5 text-[#f4ecd8] shadow-[4px_4px_0_#c21f16] hover:text-[#f4ecd8]">
+              <span className="block font-mono text-[0.66rem] uppercase tracking-[0.18em] text-[#e0837a]">{h.moreKicker}</span>
+              <span className="mt-2 block font-serif text-[1.6rem] font-medium leading-[1.08]">{h.moreTitle}</span>
+              <span className="mt-4 inline-block rounded-full bg-[#c21f16] px-4 py-2 font-sans text-sm font-extrabold text-white">{h.moreStart} →</span>
+            </Link>
+            <Link href={to(articles.length > 0 ? "/jornal" : "/noticias")} className="flex items-center gap-3 rounded-[1.25rem] border-[1.5px] border-ink bg-folha p-4 text-ink shadow-[3px_3px_0_var(--sombra)] hover:text-ink">
+              <span aria-hidden className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[0.9rem] border-[1.5px] border-[#1f1a14] bg-[#c21f16] text-white">
+                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 5h13v14H6a2 2 0 0 1-2-2z" />
+                  <path d="M17 9h3v8a2 2 0 0 1-2 2" />
+                  <path d="M7.5 9h6M7.5 12.5h6M7.5 16h3.5" />
+                </svg>
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block font-mono text-[0.62rem] uppercase tracking-[0.16em] text-prelo-texto">
+                  {t.journal.nameTop} {t.journal.nameBottom}
+                </span>
+                <span className="mt-0.5 block font-sans text-[0.98rem] font-bold leading-snug">{articles[0]?.title ?? t.journal.newsletter.roundTitle}</span>
+              </span>
+              <span aria-hidden className="font-sans text-xl text-ink-soft">›</span>
+            </Link>
+            {territorio && (
+              <Link href={to(`/territorios/${territorio.slug}`)} className="block rounded-[1.25rem] border-[1.5px] border-ink bg-folha p-5 text-ink shadow-[3px_3px_0_var(--prelo)] hover:text-ink">
+                <span className="block font-mono text-[0.62rem] uppercase tracking-[0.18em] text-prelo-texto">{t.territorios.partner.replace("{n}", String(territorio.numero).padStart(2, "0"))}</span>
+                <span className="mt-1.5 block font-serif text-[1.7rem] font-semibold leading-none">
+                  {territorio.nome} <span className="text-prelo-texto">×</span> Lúcia
+                </span>
+                <span className="mt-2 block text-[1.02rem] leading-snug text-ink-soft">
+                  {territorio.linha} {territorio.temas[0]}.
+                </span>
+              </Link>
+            )}
+            <Link href={to("/contribuir")} className="block rounded-[1.25rem] border-[1.5px] border-[#1f1a14] bg-[#c21f16] p-5 text-white shadow-[3px_3px_0_#1f1a14] hover:text-white">
+              <span className="lambe block text-[1.75rem]">{h.ctaTitle}</span>
+              <span className="mt-2 block text-[1.02rem] leading-snug text-[#fde8e4]">{h.ctaText}</span>
+              <span className="mt-4 inline-block rounded-full bg-[#1f1a14] px-4 py-2 font-sans text-sm font-extrabold text-[#f4ecd8]">{h.ctaButton} →</span>
+            </Link>
+            <Link href={to("/dedicatoria")} className="block rounded-[1.25rem] bg-[#1f1a14] px-5 py-6 text-center text-[#f4ecd8] hover:text-[#f4ecd8]">
+              <span aria-hidden className="block text-lg tracking-[0.5em] text-[#c21f16]">★ ★ ★</span>
+              <span className="mt-3 block font-serif text-[1.45rem] italic leading-snug">“{h.dedicationQuote}”</span>
+              <span className="mt-3 block font-mono text-[0.7rem] uppercase tracking-[0.22em] text-[#e0837a]">{h.dedicationLink} →</span>
+            </Link>
+          </>
+        }
       />
       {/* ── O alto: busca e lambe-lambe no papel pontilhado ── */}
       {/* No aplicativo, o começo é o InicioDoApp acima: o lambe-lambe grande fica para o site. */}
@@ -147,18 +208,7 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
 
           {/* O lambe-lambe colado torto, com a fita, a xilogravura e o carimbo do dia; os números do acervo vão na tiragem. */}
           <div className="relative px-2 pt-6 pb-10 max-md:hidden">
-            <LambeDoDia
-              dias={lambes}
-              rotulo={h.posterLabel}
-              reserva={h.stamp}
-              tiragem={`${h.posterPrint}: ${[
-                [numero(lang, areas), t.common.disciplines.other.replace("{n}", "").trim()],
-                [numero(lang, lessons), t.common.lessons.other.replace("{n}", "").trim()],
-                [numero(lang, works), t.common.works.other.replace("{n}", "").trim()],
-              ]
-                .map(([valor, nome]) => `${valor} ${nome}`)
-                .join(" · ")}`}
-            />
+            <LambeDoDia dias={lambes} rotulo={h.posterLabel} reserva={h.stamp} tiragem={tiragem} />
           </div>
         </div>
       </section>

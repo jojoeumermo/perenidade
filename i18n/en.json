@@ -5601,5 +5601,25 @@
     "methodText": "Each statement pulls one axis toward one side. Strongly agreeing counts a full point toward the statement's side, agreeing counts half a point, disagreeing pulls toward the other side and neutral doesn't pull. The percentage shows where your answers went on each axis. Ideologies are compared by the distance between your twelve numbers and each one's typical position, which is an approximation: every current has many variations.",
     "card": "New: the 12 political axes test",
     "cardText": "Economy, state, nation and social values: see where you stand and which ideologies are closest to your ideas."
+  },
+  "celular": {
+    "compartilhar": "Share",
+    "folhaDaAula": "Contents and tools",
+    "concluirSeguir": "Finish and continue",
+    "anterior": "Previous lesson",
+    "letra": "Text size",
+    "letraMenor": "Smaller text",
+    "letraMaior": "Larger text",
+    "aulasDaTrilha": "Lessons in this track",
+    "ferramentas": "Tools",
+    "atalhos": "Shortcuts",
+    "bomDia": "Good morning",
+    "boaTarde": "Good afternoon",
+    "boaNoite": "Good evening",
+    "muro": "On the wall today",
+    "tema": "Theme",
+    "claro": "Light",
+    "escuro": "Dark",
+    "secoes": "All sections"
   }
 }

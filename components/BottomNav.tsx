@@ -42,13 +42,20 @@ export function BottomNav() {
                 aria-current={active ? "page" : undefined}
                 aria-haspopup={path === "/explorar" ? "dialog" : undefined}
                 onClick={(e) => {
-                  if (path !== "/explorar" || e.metaKey || e.ctrlKey) return;
+                  if (e.metaKey || e.ctrlKey) return;
+                  // Tocar de novo na aba aberta sobe a página até o começo, como nos aplicativos.
+                  if (active && path !== "/explorar") {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+                    return;
+                  }
+                  if (path !== "/explorar") return;
                   e.preventDefault();
                   abrirMais();
                 }}
                 className={`aba-do-celular relative flex min-h-14 flex-col items-center justify-center gap-0.5 px-1 py-1.5 font-sans text-[0.7rem] leading-tight ${active ? "aba-aberta bg-[#c21f16] font-bold text-white" : "text-[#e9dcbc] hover:text-white"}`}
               >
-                {/* No aplicativo, a aba aberta ganha uma cápsula vermelha atrás do ícone (veja "Caderno de Bolso" em globals.css). */}
+                {/* No celular, a aba aberta ganha uma cápsula vermelha atrás do ícone (veja app/celular.css). */}
                 <span className="aba-icone">
                   <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={active ? 2.1 : 1.8} strokeLinecap="round" strokeLinejoin="round">
                     {icons[icon]}

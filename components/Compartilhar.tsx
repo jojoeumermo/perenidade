@@ -51,7 +51,7 @@ export function Compartilhar({ url, texto, imagem, mensagem, s }: { url: string;
   const botao = "cursor-pointer border-2 border-ink px-3 py-1.5 font-semibold text-ink no-underline hover:border-oxblood hover:text-oxblood";
 
   return (
-    <section aria-label={s.titulo} className="no-print mt-10 border-t-[3px] border-ink pt-4 font-sans text-sm">
+    <section id="compartilhar" aria-label={s.titulo} className="no-print mt-10 border-t-[3px] border-ink pt-4 font-sans text-sm">
       <p className="rotulo">{s.titulo}</p>
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <a className={`${botao} border-ink bg-ink text-parchment hover:bg-oxblood hover:text-parchment`} href={`https://wa.me/?text=${encodeURIComponent(curto)}`} target="_blank" rel="noopener noreferrer">

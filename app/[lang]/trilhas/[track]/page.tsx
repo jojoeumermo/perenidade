@@ -1,4 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { corDaCapa } from "@/lib/capas";
 import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { DadosEstruturados } from "@/components/DadosEstruturados";
@@ -57,7 +58,8 @@ export default async function TrackPage({ params }: PageProps<"/[lang]/trilhas/[
       <DadosEstruturados dados={[curso(lang, track), migalhas(lang, [[t.nav.disciplines, "/trilhas"], [t.areas[track.area][0], `/estantes/${track.area}`], [track.title, `/trilhas/${track.slug}`]])]} />
       {/* ── O alto: a capa do caderno, colada torta, e a ficha da trilha no papel pontilhado ── */}
       {/* No aplicativo este alto vira o topo bordô da trilha (veja "Caderno de Bolso" em globals.css). */}
-      <section className="topo-da-trilha pont border-b-[3px] border-ink">
+      {/* No celular esta faixa vira a capa do caderno, na cor da disciplina (app/celular.css). */}
+      <section className="topo-da-trilha pont border-b-[3px] border-ink" style={{ "--cor-da-capa": corDaCapa(track.area) } as React.CSSProperties}>
         <div className="mx-auto max-w-[78rem] px-4 pt-6 pb-14 sm:px-6 lg:px-8 max-md:pb-10">
           <nav aria-label={t.nav.disciplines} className="font-mono text-xs uppercase tracking-[0.1em] text-ink-soft">
             <Link href={to("/trilhas")} className="hover:text-prelo-texto">{t.nav.disciplines}</Link>
