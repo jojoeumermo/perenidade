@@ -61,3 +61,41 @@ export function AulaDaSemana({ semanas, lang, url, s, sc, area }: { semanas: Aul
     </section>
   );
 }
+
+/**
+ * A aula da semana em cartão, junto das outras janelas do alto da inicial (continuar, jornal, rádio): o título, a
+ * pergunta para pensar, o botão de estudar e o atalho para mandar a aula em um minuto no WhatsApp do grupo.
+ */
+export function JanelaAulaDaSemana({ semanas, lang, url, s, sc, area }: { semanas: Aula[]; lang: Locale; url: string; s: Dict["aulaDaSemana"]; sc: Dict["compartilhar"]; area: Record<string, string> }) {
+  const agora = useSyncExternalStore(nunca, () => semanaDe(new Date()), () => semanas[0]?.semana ?? 0);
+  const aula = semanas.find((x) => x.semana === agora) ?? semanas.at(agora > (semanas.at(-1)?.semana ?? 0) ? -1 : 0);
+  if (!aula) return null;
+  const caminho = localePath(lang, `/trilhas/${aula.trilha}/${aula.aula}`);
+  const [, mes, dia] = aula.inicio.split("-");
+  const mensagem = aulaEmUmMinuto({ titulo: aula.titulo, trilha: aula.trilhaTitulo, resumo: aula.resumo, termos: aula.termos, pergunta: aula.pergunta, url: `${url}${caminho}`, s: sc });
+  return (
+    <article className="cartao flex flex-col p-6" aria-labelledby="aula-da-semana">
+      <p className="rotulo">
+        {s.titulo} · {dia}/{mes}
+      </p>
+      <p className="mt-2 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-ink-soft">
+        {area[aula.area] ?? aula.trilhaTitulo} · {fill(s.minutos, { n: aula.minutos })}
+      </p>
+      <h2 id="aula-da-semana" className="mt-2 text-[1.7rem] font-semibold leading-tight text-balance">
+        <Link href={caminho} className="text-ink hover:text-prelo-texto">{aula.titulo}</Link>
+      </h2>
+      {aula.pergunta && (
+        <p className="mt-3 border-l-4 border-[#c21f16] pl-3 font-sans text-[0.95rem] leading-snug">
+          <strong className="block text-[0.68rem] uppercase tracking-[0.16em] text-prelo-texto">{s.pergunta}</strong>
+          <span className="line-clamp-3">{aula.pergunta}</span>
+        </p>
+      )}
+      <p className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-5">
+        <Link href={caminho} className="botao botao-tinta">{s.estudar} →</Link>
+        <a href={`https://wa.me/?text=${encodeURIComponent(mensagem)}`} target="_blank" rel="noopener noreferrer" className="font-sans text-sm font-bold underline decoration-[#c21f16] decoration-2 underline-offset-4 hover:text-prelo-texto">
+          {sc.whatsapp}
+        </a>
+      </p>
+    </article>
+  );
+}

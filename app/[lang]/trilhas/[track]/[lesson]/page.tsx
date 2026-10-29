@@ -126,7 +126,7 @@ export default async function LessonPage({ params }: Props) {
     <div className="grade-da-aula mx-auto grid max-w-[86rem] gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! sm:px-6 md:grid-cols-[14rem_minmax(0,1fr)] lg:px-8 xl:grid-cols-[14rem_minmax(0,1fr)_15rem]">
       <DadosEstruturados dados={[recursoDeAula(lang, track, lesson), migalhas(lang, [[t.nav.disciplines, "/trilhas"], [track.title, `/trilhas/${track.slug}`], [lesson.title, `/trilhas/${track.slug}/${lesson.slug}`]])]} />
       <ReadingChrome />
-      <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} />
+      <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} area={track.area} />
       {(ligado("meu-estudo") || ligado("metas")) && <RegistroDeConclusao />}
 
       {/* No aplicativo o texto vem primeiro, como em um leitor de livros; a lista das aulas da disciplina fica depois dele. */}

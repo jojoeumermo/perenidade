@@ -5,7 +5,8 @@ import Link from "@/components/Link";
 import { useState } from "react";
 import { fill, localePath, plural } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
-import { stageAreas, stages, type AreaSlug, type Stage } from "@/lib/areas";
+import { areaSlugs, stageAreas, stages, type AreaSlug, type Stage } from "@/lib/areas";
+import { useLastLesson } from "@/lib/progress";
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
 import { normalize } from "@/lib/text";
 import { useI18n } from "./I18n";
@@ -27,7 +28,10 @@ export interface DisciplineGroup {
   areas: DisciplineCard[];
 }
 
-type Filter = "todas" | "essencial" | Stage;
+type Filter = "todas" | "essencial" | "revolucao" | Stage;
+
+/** Os grupos do filtro "Revolução e militância": a teoria revolucionária e as lutas do povo. */
+const REVOLUCAO = ["teoria", "lutas"];
 
 /** Na página inicial, quantas disciplinas cada grupo mostra antes de "ver todas": duas linhas na tela larga. */
 const PRIMEIRAS = 6;
@@ -45,15 +49,18 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
   const [abertos, setAbertos] = useState<string[]>([]);
   const [busca, setBusca] = useState("");
   const termos = normalize(busca).split(/\s+/).filter(Boolean);
-  const filter: Filter = hydrated && (stored === "essencial" || (stages as readonly string[]).includes(stored)) ? (stored as Filter) : "todas";
-  const options: [Filter, string][] = [["todas", s.filterAll], ["essencial", s.filterEssential], ...stages.map((stage): [Filter, string] => [stage, stageNames[stage]])];
+  const filter: Filter = hydrated && (stored === "essencial" || stored === "revolucao" || (stages as readonly string[]).includes(stored)) ? (stored as Filter) : "todas";
+  const options: [Filter, string][] = [["todas", s.filterAll], ["essencial", s.filterEssential], ["revolucao", s.filterRevolution], ...stages.map((stage): [Filter, string] => [stage, stageNames[stage]])];
+  // O caderno da última aula estudada leva o caquinho de azulejo na etiqueta (só um por estante).
+  const ultima = useLastLesson()?.area;
 
   const total = (card: DisciplineCard): [number, number] =>
-    filter === "todas" || filter === "essencial" ? stages.reduce<[number, number]>((sum, stage) => [sum[0] + card.counts[stage][0], sum[1] + card.counts[stage][1]], [0, 0]) : card.counts[filter];
+    filter === "todas" || filter === "essencial" || filter === "revolucao" ? stages.reduce<[number, number]>((sum, stage) => [sum[0] + card.counts[stage][0], sum[1] + card.counts[stage][1]], [0, 0]) : card.counts[filter];
   const casa = (card: DisciplineCard) => !termos.length || termos.every((termo) => normalize(`${card.name} ${card.description} ${card.palavras ?? ""}`).includes(termo));
-  const shown = (card: DisciplineCard) => casa(card) && (filter === "todas" ? true : filter === "essencial" ? card.essential : stageAreas[filter].includes(card.slug as AreaSlug));
+  const shown = (card: DisciplineCard) => casa(card) && (filter === "todas" || filter === "revolucao" ? true : filter === "essencial" ? card.essential : stageAreas[filter].includes(card.slug as AreaSlug));
   // As mais completas primeiro (mais aulas prontas); no empate, vale a ordem de sempre.
   const visible = groups
+    .filter((group) => filter !== "revolucao" || REVOLUCAO.includes(group.id))
     .map((group) => ({
       ...group,
       areas: group.areas
@@ -65,8 +72,8 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
     .filter((group) => group.areas.length > 0);
 
   const Title = labels ? "h3" : "h2";
-  // As capas dos cadernos: cores do cartaz, a mesma para a mesma disciplina em qualquer página.
-  const capa = (slug: string) => CAPAS[[...slug].reduce((soma, letra) => soma + letra.charCodeAt(0), 0) % CAPAS.length];
+  // As capas dos cadernos: cores do cartaz e dos panos, a mesma para a mesma disciplina em qualquer página.
+  const capa = (slug: string) => COR_DA_AREA.get(slug) ?? CAPAS[[...slug].reduce((soma, letra) => soma + letra.charCodeAt(0), 0) % CAPAS.length];
 
   return (
     <div>
@@ -86,6 +93,7 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
         ))}
       </div>
       {filter === "essencial" && <p className="mt-3 font-sans text-sm text-ink-soft">{s.filterEssentialHint}</p>}
+      {filter === "revolucao" && <p className="mt-3 font-sans text-sm text-ink-soft">{s.filterRevolutionHint}</p>}
       {visible.length > 1 && !labels && (
         <nav aria-label={s.jump} className="no-print mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 font-sans text-sm">
           <span className="text-ink-soft">{s.jump}:</span>
@@ -112,7 +120,7 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
             <div className="mt-6 grid grid-cols-2 gap-5 sm:gap-7 lg:grid-cols-4">
               {cards.map((card, i) => {
                 const [ready, planned] = total(card);
-                const anchor = filter === "todas" || filter === "essencial" ? "" : `#${filter}`;
+                const anchor = filter === "todas" || filter === "essencial" || filter === "revolucao" ? "" : `#${filter}`;
                 const cor = capa(card.slug);
                 const etapa = card.essential ? s.essentialTag : stages.filter((stage) => card.counts[stage][1] > 0).map((stage) => s.stageShort[stage]).join(" · ");
                 return (
@@ -125,7 +133,8 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
                     <span className="flex items-start justify-between gap-2 pt-4 pr-4 pl-8 font-mono text-[0.62rem] uppercase tracking-[0.16em] sm:pt-5 sm:pr-5 sm:pl-9 sm:text-[0.68rem]">
                       <span className="line-clamp-2">{etapa}</span>
                     </span>
-                    <span className="etiqueta mx-3 mt-4 ml-8 block px-3 py-2.5 sm:mr-5 sm:ml-9 sm:px-3.5 sm:py-3">
+                    <span className="etiqueta relative mx-3 mt-4 ml-8 block px-3 py-2.5 sm:mr-5 sm:ml-9 sm:px-3.5 sm:py-3">
+                      {ultima === card.slug && <span aria-hidden className="caquinho-de-azulejo" />}
                       <span className="block text-[1.2rem] font-semibold leading-[1.05] sm:text-[1.5rem]">{card.name}</span>
                       <span className="mt-1 block line-clamp-3 text-[0.85rem] leading-snug text-[#5a4e3c] sm:text-[0.95rem]">{card.description}</span>
                     </span>
@@ -153,4 +162,8 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
   );
 }
 
-const CAPAS = ["#6e1f1a", "#2f5d34", "#8a5f1c", "#1f1a14", "#c21f16", "#5a4e3c", "#23485c", "#6b3b5a"];
+// As capas: as cores do cartaz e as dos panos (anil, turquesa, rosa, laranja, roxo do ipê, barro), escurecidas até o
+// creme das letras ter contraste de leitura (4,5:1) em todas, sem dois tons quase iguais. Cada disciplina tem a sua,
+// com passo 5 sobre 13 cores, para vizinhas na estante quase nunca repetirem.
+const CAPAS = ["#6e1f1a", "#23408e", "#2f5d34", "#a6491a", "#1f1a14", "#b5375e", "#166e6a", "#8a5f1c", "#c21f16", "#5b3a8c", "#23485c", "#7a4a2a", "#6b3b5a"];
+const COR_DA_AREA = new Map<string, string>(areaSlugs.map((slug, i) => [slug, CAPAS[(i * 5) % CAPAS.length]]));

@@ -3511,3 +3511,14 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 @media (prefers-reduced-motion: reduce) {
   .busca-aberta { animation: none; }
 }
+
+/* O caquinho de azulejo: um quadradinho azul no canto da etiqueta do caderno estudado por último (um só por estante). */
+.caquinho-de-azulejo {
+  position: absolute;
+  top: -1.5px;
+  right: -1.5px;
+  width: 1rem;
+  height: 1rem;
+  border: 1.5px solid #1f1a14;
+  background: radial-gradient(circle at 0 100%, #23408e 0 0.5rem, #f7f3ea 0.53rem);
+}

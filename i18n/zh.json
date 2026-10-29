@@ -842,7 +842,9 @@
     "certPrintHint": "在打印窗口中选择“另存为 PDF”、A4 纸张，并打开“背景图形”。",
     "searchLabel": "搜索学科",
     "searchPlaceholder": "搜索学科或主题（例如：光合作用、桑巴、Python）…",
-    "searchClear": "清除"
+    "searchClear": "清除",
+    "filterRevolution": "革命与行动",
+    "filterRevolutionHint": "革命理论和人民斗争：为想要理解制度、组织起来并改变它的人准备。"
   },
   "lesson": {
     "position": "第 {i} 课，共 {n} 课",
