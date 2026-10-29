@@ -3935,7 +3935,28 @@
     "withdraw": "Retirar um anúncio",
     "withdrawLabel": "Código do anúncio",
     "codeTitle": "Guarde este código",
-    "codeText": "É com ele que você retira o anúncio quando quiser. Ele não será mostrado de novo."
+    "codeText": "É com ele que você retira o anúncio quando quiser. Ele não será mostrado de novo.",
+    "how": {
+      "title": "Como usar o mural",
+      "steps": [
+        [
+          "Procure",
+          "Escolha o estado e a cidade e busque pelo que precisa: lavadeira, eletricista, bolo, aula de violão."
+        ],
+        [
+          "Anuncie de graça",
+          "Para quem vive do próprio trabalho: cooperativas, autônomos, artesãos, artistas, coletivos. Sem intermediário."
+        ],
+        [
+          "A coordenação lê",
+          "O anúncio aparece no mural depois de lido pela coordenação. O contato fica à vista de quem abrir o mural."
+        ],
+        [
+          "Renove ou retire",
+          "Cada anúncio vale 180 dias e pode ser renovado; com o código que você recebe, dá para retirá-lo quando quiser."
+        ]
+      ]
+    }
   },
   "tutoring": {
     "eyebrow": "Ninguém estuda sozinho",
@@ -4272,7 +4293,31 @@
     "withdrawn": "Ficha retirada.",
     "exerciseFor": "Entrega do exercício: {titulo}",
     "exerciseHint": "Mande o link do vídeo exportado. O educador da disciplina comenta; publicar na Gaveta para todo mundo continua com a mediação.",
-    "feedback": "Comentário do educador"
+    "feedback": "Comentário do educador",
+    "howItWorks": {
+      "title": "Como a Gaveta funciona",
+      "steps": [
+        [
+          "Escolha o trabalho",
+          "TCC, monografia, dissertação ou tese, artigo, projeto, relatório, apostila, código, apresentação: o que ficou parado depois da entrega."
+        ],
+        [
+          "Conte por que vale a pena",
+          "Um comentário seu, de 40 a 2.000 caracteres: do que trata e a quem pode servir."
+        ],
+        [
+          "Link ou PDF, com licença livre",
+          "Um link para onde ele já está (repositório, Zenodo, GitHub, Drive) ou o PDF de até 10 MB, sob CC BY, CC BY-SA ou CC0."
+        ],
+        [
+          "A mediação confere",
+          "O trabalho aparece depois da leitura da mediação, e você recebe um recado no painel. Dá para tirar do ar quando quiser."
+        ]
+      ],
+      "teachTitle": "Tem um trabalho parado na gaveta?",
+      "teachText": "Publique com um comentário seu. É de graça e precisa de uma conta, também gratuita.",
+      "teachLink": "Publicar um trabalho"
+    }
   },
   "podcast": {
     "title": "Podcasts",

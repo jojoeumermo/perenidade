@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Mural } from "@/components/Mural";
 import { Cartaz } from "@/components/Cartaz";
+import { ComoFunciona } from "@/components/ComoFunciona";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
 
@@ -28,6 +29,7 @@ export default async function MuralPage({ params }: PageProps<"/[lang]/mural">) 
         </ul>
       </section>
       <Mural s={s} />
+      <ComoFunciona s={s.how} />
     </div>
   );
 }

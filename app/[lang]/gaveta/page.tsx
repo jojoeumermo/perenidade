@@ -1,6 +1,7 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { Metadata } from "next";
 import { Cartaz } from "@/components/Cartaz";
+import { ComoFunciona } from "@/components/ComoFunciona";
 import { Gaveta } from "@/components/Gaveta";
 import { Markdown } from "@/components/Markdown";
 import { loadLang } from "@/i18n";
@@ -23,6 +24,7 @@ export default async function GavetaPage({ params }: PageProps<"/[lang]/gaveta">
       <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={s.tagline} tone="vermelho">
         {s.lead}
       </Cartaz>
+      <ComoFunciona s={s.howItWorks} href="#publicar" />
       <Gaveta s={s} termo={<Markdown lang={lang}>{termo.body}</Markdown>} />
     </div>
   );
