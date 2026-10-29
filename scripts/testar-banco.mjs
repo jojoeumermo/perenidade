@@ -17,7 +17,7 @@ const falhas = [];
 async function espera(nome, promessa, conferir) {
   try {
     const valor = await promessa();
-    if (conferir && !conferir(valor)) throw new Error(`resultado inesperado: ${JSON.stringify(valor)?.slice(0, 200)}`);
+    if (conferir && !(await conferir(valor))) throw new Error(`resultado inesperado: ${JSON.stringify(valor)?.slice(0, 200)}`);
     certos++;
   } catch (erro) {
     falhas.push(`${nome}: ${erro.message}`);
@@ -245,7 +245,7 @@ await recusa("quem escreveu não aprova a própria mensagem", () => rpc(como(ids
 await recusa("jornalista não vê a fila de mediação", () => rpc(como(ids.jornal), "comunidade_retidos"), "sem_permissao");
 await espera("mediador vê a fila de mediação", () => rpc(como(ids.med), "comunidade_retidos"), (r) => r.length === 1 && r[0].id === topico.id && r[0].filtro === false && r[0].motivo === "endereco");
 await recusa("quem escreveu não edita pela porta da mediação", () => rpc(como(ids.leitora), "comunidade_editar", { p_tipo: "topico", p_alvo: topico.id, p_titulo: "Outro título qualquer", p_corpo: "Outro corpo qualquer aqui." }), "sem_permissao");
-await espera("mediador edita antes de aprovar", async () => { await rpc(como(ids.med), "comunidade_editar", { p_tipo: "topico", p_alvo: topico.id, p_titulo: "Dúvida sobre frações", p_corpo: "Como eu somo frações com denominadores diferentes?" }); return rpc(como(ids.med), "topico_ver", { p_id: topico.id }); }, (r) => r.corpo.startsWith("Como eu somo") && r.autor === "Lia Leitora");
+await espera("mediador edita antes de aprovar", async () => { await rpc(como(ids.med), "comunidade_editar", { p_tipo: "topico", p_alvo: topico.id, p_titulo: "Dúvida sobre frações", p_corpo: "Como eu somo frações com denominadores diferentes?" }); return rpc(como(ids.med), "topico_ver", { p_id: topico.id }); }, async (r) => r.corpo.startsWith("Como eu somo") && r.autor === (await dono("select rede_codinome from interno.perfis where id = $1", [ids.leitora])).rows[0].rede_codinome);
 await recusa("edição da mediação respeita o tamanho mínimo", () => rpc(como(ids.med), "comunidade_editar", { p_tipo: "topico", p_alvo: topico.id, p_titulo: "x", p_corpo: "Como eu somo frações?" }), "invalido:titulo");
 await espera("mediador aprova e o público passa a ver", async () => { await rpc(como(ids.med), "comunidade_cuidar", { p_tipo: "topico", p_alvo: topico.id, p_acao: "mostrar" }); return [await rpc(anon, "topicos_listar"), await rpc(como(ids.med), "comunidade_retidos")]; }, (r) => r[0].length === 1 && r[0][0].retido === false && r[1].length === 0);
 await espera("quem escreveu é avisado da aprovação", () => rpc(como(ids.leitora), "avisos_meus"), (r) => r.some((a) => a.texto.includes("foi aprovada")));
@@ -257,7 +257,7 @@ await espera("trocar para baixo", () => rpc(como(ids.prof), "votar", { p_tipo: "
 await espera("retirar o voto", () => rpc(como(ids.prof), "votar", { p_tipo: "topico", p_alvo: topico.id, p_valor: 0 }), (r) => r.pontos === 0);
 await recusa("voto com valor inválido", () => rpc(como(ids.prof), "votar", { p_tipo: "topico", p_alvo: topico.id, p_valor: 50 }), "invalido:voto");
 await espera("voto em resposta", () => rpc(como(ids.leitora), "votar", { p_tipo: "resposta", p_alvo: resposta.id, p_valor: 1 }), (r) => r.pontos === 1);
-await espera("lista pública mostra o tópico", () => rpc(anon, "topicos_listar"), (r) => r.length === 1 && r[0].respostas === 1 && r[0].autor === "Lia Leitora");
+await espera("lista pública mostra o tópico, com o autor pelo codinome", () => rpc(anon, "topicos_listar"), async (r) => r.length === 1 && r[0].respostas === 1 && r[0].autor === (await dono("select rede_codinome from interno.perfis where id = $1", [ids.leitora])).rows[0].rede_codinome);
 await espera("o período de hoje mostra o tópico novo", () => rpc(anon, "topicos_listar", { p_ordem: "melhores", p_periodo: "dia" }), (r) => r.length === 1);
 await espera("a resposta de outra pessoa não leva o selo de autor", async () => (await rpc(anon, "topico_ver", { p_id: topico.id })).respostas, (r) => r.length === 1 && r[0].do_autor === false);
 await espera("tópico com respostas e meu voto", () => rpc(como(ids.leitora), "topico_ver", { p_id: topico.id }), (r) => r.respostas.length === 1 && r.respostas[0].meu_voto === 1 && r.meu === true && r.pode_cuidar === false);
@@ -2805,11 +2805,28 @@ await recusa("sem confirmar os 16 anos, não publica", () => rpc(como(ids.aluna)
 await rpc(como(ids.aluna), "rede_confirmar_idade");
 await rpc(como(ids.prof), "rede_confirmar_idade");
 await rpc(como(ids.vol), "rede_confirmar_idade");
+// Codinome sempre: ninguém posta sem confirmar o codinome; a equipe não usa o nome civil; ninguém usa o da equipe nem o do instituto.
+await recusa("sem codinome confirmado, não publica", () => rpc(como(ids.aluna), "rede_postar", { p: { texto: "Oi, rede!" } }), "confirme_codinome");
+await recusa("a equipe não usa o nome civil como codinome", () => rpc(como(ids.prof), "rede_codinome_definir", { p_codinome: "Paulo" }), "codinome_civil");
+await recusa("nem começando pelo primeiro nome", () => rpc(como(ids.prof), "rede_codinome_definir", { p_codinome: "Paulo das Aulas" }), "codinome_civil");
+await recusa("ninguém usa o nome de alguém da equipe", () => rpc(como(ids.aluna), "rede_codinome_definir", { p_codinome: "Paulo Professor" }), "codinome_usado");
+await recusa("nem o nome do instituto", () => rpc(como(ids.aluna), "rede_codinome_definir", { p_codinome: "Instituto Lúcia" }), "codinome_reservado");
+await recusa("nem endereço ou arroba", () => rpc(como(ids.aluna), "rede_codinome_definir", { p_codinome: "@aluna" }), "invalido:codinome");
+await espera("a aluna escolhe o codinome", () => rpc(como(ids.aluna), "rede_codinome_definir", { p_codinome: "Andorinha Vermelha" }), (r) => r.nome === "Andorinha Vermelha" && r.codinome_ok === true);
+await recusa("codinome repetido não vale, nem com acento e caixa diferentes", () => rpc(como(ids.vol), "rede_codinome_definir", { p_codinome: "andorinha vermélha" }), "codinome_usado");
+await espera("o educador e a voluntária escolhem os seus", async () => [await rpc(como(ids.prof), "rede_codinome_definir", { p_codinome: "Mestre Giz" }), await rpc(como(ids.vol), "rede_codinome_definir", { p_codinome: "Formiga Operária" })], ([a, b]) => a.nome === "Mestre Giz" && b.nome === "Formiga Operária");
+await espera("rede_eu traz o codinome, não o nome civil", () => rpc(como(ids.prof), "rede_eu"), (r) => r.nome === "Mestre Giz" && r.codinome_ok === true && !JSON.stringify(r).includes("Paulo Professor"));
 await recusa("telefone no post é recusado", () => rpc(como(ids.aluna), "rede_postar", { p: { texto: "me chama no (81) 98765-4321" } }), "dado_pessoal");
 let postRede, chamadoRede;
 await espera("a aluna publica um post curto citando uma aula", () => rpc(como(ids.aluna), "rede_postar", { p: { texto: "Acabei a aula de mais-valia e entendi meu contracheque.", cita: { tipo: "aula", caminho: "/trilhas/introducao-ao-marxismo/mais-valia", titulo: "Mais-valia" } } }), (r) => r.id && r.cita.tipo === "aula" && (postRede = r.id));
 await espera("o educador responde em fio e a aluna é avisada", async () => { await rpc(como(ids.prof), "rede_postar", { p: { texto: "Boa! A próxima é sobre jornada de trabalho.", resposta_a: postRede } }); return [await rpc(anon, "rede_post_ver", { p_id: postRede }), await rpc(como(ids.aluna), "avisos_meus")]; },
-  ([fio, avisos]) => fio.respostas.length === 1 && fio.post.respostas === 1 && avisos.some((a) => a.texto.includes("respondeu ao seu post")));
+  ([fio, avisos]) => fio.respostas.length === 1 && fio.post.respostas === 1 && avisos.some((a) => a.texto.includes("Mestre Giz respondeu ao seu post")) && !JSON.stringify(fio).includes("Paulo"));
+await espera("na Rede, os avisos são só da própria conta: o aviso da equipe fica no painel", async () => {
+  await dono("insert into interno.avisos (para, texto) values ($1, 'Aviso da equipe: aprovar a foto de outra pessoa.')", [ids.aluna]);
+  return [await rpc(como(ids.aluna), "rede_avisos"), await rpc(como(ids.aluna), "avisos_meus")];
+}, ([rede, painel]) => rede.some((a) => a.texto.includes("respondeu ao seu post")) && !rede.some((a) => a.texto.startsWith("Aviso da equipe")) && painel.some((a) => a.texto.startsWith("Aviso da equipe")));
+await espera("o perfil na Rede: codinome e selo de equipe, sem cargo, bio nem ícone do painel", () => rpc(anon, "rede_perfil", { p_usuario: ids.prof }),
+  (r) => r.nome === "Mestre Giz" && r.equipe === true && r.funcoes === undefined && r.avatar === null && !JSON.stringify(r).includes("Paulo"));
 await espera("o visitante lê a linha do tempo pública, sem as respostas", () => rpc(anon, "rede_linha", { p_modo: "tudo" }), (r) => r.some((p) => p.id === postRede) && !r.some((p) => p.resposta_a));
 await espera("o educador chama para um mutirão e a aluna diz que vai", async () => { chamadoRede = await rpc(como(ids.prof), "rede_postar", { p: { texto: "Mutirão de alfabetização no sábado!", chamado: { tipo: "mutirao", quando: new Date(Date.now() + 3 * 86400000).toISOString(), onde: "Praça do Derby, Recife" }, comunidade: "educacao" } }); await rpc(como(ids.aluna), "rede_vou", { p_id: chamadoRede.id, p_sim: true }); return rpc(anon, "rede_linha", { p_modo: "chamados" }); },
   (r) => r.some((p) => p.id === chamadoRede.id && p.vou === 1 && p.chamado.onde.includes("Derby")));

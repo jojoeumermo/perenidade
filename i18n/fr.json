@@ -5029,7 +5029,12 @@
     "erros": {
       "dado_pessoal": "Le message contient un téléphone, un CPF ou un e-mail. Retirez la donnée personnelle et republiez.",
       "confirme_idade": "Confirmez que vous avez 16 ans ou plus.",
-      "muitos_pedidos": "Trop de messages en peu de temps. Les nouveaux comptes publient moins les premiers jours."
+      "muitos_pedidos": "Trop de messages en peu de temps. Les nouveaux comptes publient moins les premiers jours.",
+      "confirme_codinome": "Choisissez votre nom de code avant de publier.",
+      "codinome_civil": "Ce nom de code ressemble à votre vrai nom. Choisissez-en un autre.",
+      "codinome_usado": "Quelqu'un utilise déjà ce nom de code. Choisissez-en un autre.",
+      "codinome_reservado": "Ce nom est réservé. Choisissez-en un autre.",
+      "invalido:codinome": "Utilisez de 3 à 30 lettres ou chiffres, sans @ ni adresse."
     },
     "lutasLista": {
       "moradia": "Logement et occupations",
@@ -5087,7 +5092,12 @@
     "verTudo": "Tout voir",
     "levarNucleo": "Apporter à un noyau",
     "levado": "Lien copié : collez-le dans le groupe de votre noyau.",
-    "expondo": "On m'expose : retirer tout de suite"
+    "expondo": "On m'expose : retirer tout de suite",
+    "semCodinome": "Personne sans nom de code",
+    "codinomeTitulo": "Choisissez votre nom de code",
+    "codinomeTexto": "Sur le Réseau, personne n'apparaît sous son vrai nom, pas même l'équipe. Choisissez un nom de code de 3 à 30 lettres : ni votre nom, ni un surnom connu dans le quartier, ni rien qui mène à vous.",
+    "codinomeCampo": "Nom de code",
+    "codinomeUsar": "Utiliser ce nom de code"
   },
   "compartilhar": {
     "titulo": "Partager",
