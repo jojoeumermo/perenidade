@@ -4817,7 +4817,28 @@
     "step2": "Elige una herramienta: resumen, mapa, tarjetas, cuestionario…",
     "step3": "Toma notas, practica y vuelve mañana: el repaso trae cada tarjeta el día justo.",
     "back": "Respuesta",
-    "question": "Pregunta"
+    "question": "Pregunta",
+    "howItWorks": {
+      "title": "Cómo usar el cuaderno",
+      "steps": [
+        [
+          "Reúne las fuentes",
+          "Clases, obras y entradas del sitio, un texto pegado o archivos .txt y .md de tu dispositivo. Nada se envía a ningún lugar."
+        ],
+        [
+          "Entiende",
+          "Resumen con las frases del propio texto, preguntas a las fuentes (responde el texto, no una máquina), mapa, línea de tiempo y audio a dos voces."
+        ],
+        [
+          "Practica",
+          "Tarjetas para voltear y repetir las que faltaron, y un cuestionario con las preguntas de las clases y huecos al azar. Sin nota."
+        ],
+        [
+          "Organiza",
+          "Notas y plan de estudio en el propio cuaderno. Para no perder nada, descarga la copia de seguridad."
+        ]
+      ]
+    }
   },
   "practiceStudio": {
     "inside": "Abrir aquí",

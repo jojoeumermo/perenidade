@@ -4817,7 +4817,28 @@
     "step2": "Pick a tool: summary, map, cards, quiz…",
     "step3": "Take notes, practise and come back tomorrow: review brings each card back on the right day.",
     "back": "Answer",
-    "question": "Question"
+    "question": "Question",
+    "howItWorks": {
+      "title": "How to use the notebook",
+      "steps": [
+        [
+          "Gather sources",
+          "Lessons, works and glossary entries from the site, pasted text or .txt and .md files from your device. Nothing is sent anywhere."
+        ],
+        [
+          "Understand",
+          "A summary made of the text’s own sentences, questions to your sources (the text answers, not a machine), a map, a timeline and two-voice audio."
+        ],
+        [
+          "Practice",
+          "Cards to flip and repeat the ones you missed, and a quiz with the lessons’ questions and random gaps. No grades."
+        ],
+        [
+          "Organize",
+          "Notes and a study plan inside the notebook. So you lose nothing, download the backup copy."
+        ]
+      ]
+    }
   },
   "practiceStudio": {
     "inside": "Open here",
