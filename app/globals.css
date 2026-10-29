@@ -4283,3 +4283,63 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 :root[data-light] .carta-frente {
   transition: none;
 }
+
+/* As perguntas do dia a dia (app/[lang]/perguntas): a pergunta num balão de fala, com o rabinho embaixo, e o que
+   estudar em etiquetas (aula, obra, ferramenta). */
+.pergunta-balao {
+  position: relative;
+  border: 2px solid var(--ink);
+  background-color: var(--folha);
+  padding: 1rem 1.25rem;
+  font-family: var(--font-serif-display), Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.18;
+  text-wrap: balance;
+  box-shadow: 4px 4px 0 var(--sombra);
+}
+.pergunta-balao::before,
+.pergunta-balao::after {
+  content: "";
+  position: absolute;
+  left: 2rem;
+  border-style: solid;
+}
+.pergunta-balao::before {
+  bottom: -1.05rem;
+  border-width: 1.05rem 1.05rem 0 0;
+  border-color: var(--ink) transparent transparent transparent;
+}
+.pergunta-balao::after {
+  bottom: -0.68rem;
+  left: calc(2rem + 2px);
+  border-width: 0.72rem 0.72rem 0 0;
+  border-color: var(--folha) transparent transparent transparent;
+}
+.pergunta:nth-child(even) .pergunta-balao {
+  background-color: color-mix(in srgb, #f0b323 20%, var(--folha));
+}
+.pergunta:nth-child(even) .pergunta-balao::after {
+  border-top-color: color-mix(in srgb, #f0b323 20%, var(--folha));
+}
+.pergunta-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  border: 1.5px solid var(--ink);
+  background-color: var(--parchment);
+  padding: 0.3rem 0.65rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.pergunta-link:hover {
+  box-shadow: 3px 3px 0 var(--prelo);
+  color: var(--ink);
+}
+.pergunta-tipo {
+  font-family: var(--font-archive), ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--prelo-texto, #c21f16);
+}

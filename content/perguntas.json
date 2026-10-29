@@ -1,6 +1,7 @@
 [
   {
     "pergunta": "Por que eu trabalho tanto e o dinheiro nunca sobra?",
+    "tema": "trabalho",
     "resposta": "O salário paga só uma parte do valor que o trabalho produz. Entender de onde vem o lucro ajuda a enxergar que o aperto no fim do mês não é falha pessoal.",
     "links": [
       {
@@ -15,6 +16,7 @@
   },
   {
     "pergunta": "Quais são os meus direitos no trabalho?",
+    "tema": "trabalho",
     "resposta": "Jornada, hora extra, férias, décimo terceiro, FGTS: os direitos básicos estão na CLT e na Constituição, e vale conhecê-los antes de precisar deles.",
     "links": [
       {
@@ -29,6 +31,7 @@
   },
   {
     "pergunta": "Por que a dívida do cartão cresce tão rápido?",
+    "tema": "trabalho",
     "resposta": "Por causa dos juros compostos: a cada mês, os juros são cobrados também sobre os juros do mês anterior. Faça a conta com os seus números.",
     "links": [
       {
@@ -47,6 +50,7 @@
   },
   {
     "pergunta": "Por que existem ricos e pobres?",
+    "tema": "sociedade",
     "resposta": "A desigualdade não é obra do acaso nem do merecimento: ela nasce da forma como a sociedade organiza a produção e reparte o que é produzido.",
     "links": [
       {
@@ -61,6 +65,7 @@
   },
   {
     "pergunta": "Socialismo e comunismo são a mesma coisa?",
+    "tema": "sociedade",
     "resposta": "Não exatamente. As duas palavras têm história e significados próprios, muito diferentes das caricaturas que circulam por aí.",
     "links": [
       {
@@ -75,6 +80,7 @@
   },
   {
     "pergunta": "Como saber se uma notícia é verdadeira?",
+    "tema": "tecnologia",
     "resposta": "Pergunte quem escreveu, de onde vem o dado e se outras fontes confirmam. E, na dúvida, não compartilhe.",
     "links": [
       {
@@ -93,6 +99,7 @@
   },
   {
     "pergunta": "Sofro violência em casa. O que a lei garante?",
+    "tema": "direitos",
     "resposta": "A Lei Maria da Penha protege contra a violência física, psicológica, sexual, patrimonial e moral, e prevê medidas de proteção urgentes. O Ligue 180 atende de graça, 24 horas.",
     "links": [
       {
@@ -103,6 +110,7 @@
   },
   {
     "pergunta": "Parei de estudar cedo. Dá para retomar a matemática?",
+    "tema": "estudar",
     "resposta": "Dá. Quase sempre o que trava é uma base que ficou para trás. Comece pelas frações, pelos decimais e pelas porcentagens, que aparecem em toda conta do dia a dia.",
     "links": [
       {
@@ -121,6 +129,7 @@
   },
   {
     "pergunta": "Nunca mexi direito em computador. Por onde começo?",
+    "tema": "tecnologia",
     "resposta": "Pelo básico: o que existe dentro da máquina, como a informação é guardada e como a internet funciona. Com isso, o resto fica mais fácil.",
     "links": [
       {
@@ -135,6 +144,7 @@
   },
   {
     "pergunta": "Quero aprender a programar do zero. É possível?",
+    "tema": "tecnologia",
     "resposta": "É. Antes de qualquer linguagem vem a lógica: aprender a explicar um problema passo a passo. Depois, Python e PHP, praticando aqui mesmo.",
     "links": [
       {
@@ -153,6 +163,7 @@
   },
   {
     "pergunta": "Quero aprender música, mas não sei ler partitura.",
+    "tema": "estudar",
     "resposta": "Ninguém nasce sabendo. A partitura anota quatro coisas que o seu ouvido já conhece, e dá para aprender uma de cada vez.",
     "links": [
       {
@@ -171,6 +182,7 @@
   },
   {
     "pergunta": "Dá para aprender inglês sem pagar curso?",
+    "tema": "estudar",
     "resposta": "Dá para ir bem longe. Comece pelos sons e pelas primeiras frases, e use a ferramenta de pronúncia para treinar o ouvido.",
     "links": [
       {
@@ -185,6 +197,7 @@
   },
   {
     "pergunta": "A inteligência artificial vai tirar o meu emprego?",
+    "tema": "trabalho",
     "resposta": "A tecnologia não decide sozinha: quem decide como ela é usada são empresas e governos. Entender o que essas máquinas fazem, e o que não fazem, é o primeiro passo para discutir o assunto.",
     "links": [
       {
@@ -195,6 +208,7 @@
   },
   {
     "pergunta": "Por que se fala tanto em aquecimento global?",
+    "tema": "sociedade",
     "resposta": "Porque a temperatura média do planeta já subiu mais de um grau, e as consequências caem com mais força sobre quem menos contribuiu para o problema.",
     "links": [
       {
@@ -205,6 +219,7 @@
   },
   {
     "pergunta": "Por onde eu começo a entender política?",
+    "tema": "sociedade",
     "resposta": "Pelo que você já vive: o trabalho, o salário, o aluguel. A lista de leitura parte daí e vai, passo a passo, até os textos mais longos.",
     "links": [
       {
@@ -219,6 +234,7 @@
   },
   {
     "pergunta": "Como funciona o ENEM e para que serve a nota?",
+    "tema": "estudar",
     "resposta": "São 180 questões e uma redação, em dois domingos. A nota abre vagas em universidades públicas, bolsas e financiamento, e muita gente tem direito a não pagar a inscrição.",
     "links": [
       {
@@ -229,6 +245,7 @@
   },
   {
     "pergunta": "Conheço um adulto que não sabe ler. Como posso ajudar?",
+    "tema": "estudar",
     "resposta": "Comece pelo nome da pessoa e pelas palavras da vida dela, nunca por cartilha de criança. E procure a Educação de Jovens e Adultos mais próxima: é um direito.",
     "links": [
       {
@@ -243,6 +260,7 @@
   },
   {
     "pergunta": "Alguém passou mal na minha frente. O que eu faço?",
+    "tema": "saude",
     "resposta": "Primeiro, a sua segurança e o pedido de socorro: 192. Depois, o que dá para fazer com as mãos até a ajuda chegar.",
     "links": [
       {
@@ -261,6 +279,7 @@
   },
   {
     "pergunta": "A polícia me parou. Quais são os meus direitos?",
+    "tema": "direitos",
     "resposta": "Você tem direito de saber o motivo, de ficar calado, de não ser humilhado e de avisar alguém se for levado. Conhecer a regra ajuda a manter a calma.",
     "links": [
       {
@@ -275,6 +294,7 @@
   },
   {
     "pergunta": "Para que serve um sindicato?",
+    "tema": "trabalho",
     "resposta": "Sozinho, o trabalhador negocia com o patrão em desvantagem. Junto, a conversa é outra: é o sindicato que assina o acordo que vale para a categoria inteira.",
     "links": [
       {
@@ -289,6 +309,7 @@
   },
   {
     "pergunta": "Como criar um grêmio na minha escola?",
+    "tema": "estudar",
     "resposta": "É um direito garantido em lei desde 1985, em escola pública e particular. Quem escreve as regras e escolhe a diretoria são os estudantes, pelo voto secreto.",
     "links": [
       {
@@ -307,6 +328,7 @@
   },
   {
     "pergunta": "Minhas senhas são seguras?",
+    "tema": "tecnologia",
     "resposta": "Senha comprida vale mais do que senha complicada, e nunca se repete a mesma em dois lugares. Ligar a verificação em duas etapas fecha a porta que a senha deixa aberta.",
     "links": [
       {
@@ -317,6 +339,7 @@
   },
   {
     "pergunta": "Meu computador está lento. Preciso comprar outro?",
+    "tema": "tecnologia",
     "resposta": "Quase nunca. Limpar, trocar o disco por um SSD, pôr mais memória ou instalar um sistema leve costuma resolver, por muito menos.",
     "links": [
       {
@@ -331,6 +354,7 @@
   },
   {
     "pergunta": "Ando esgotado e sem vontade de nada. Isso é normal?",
+    "tema": "saude",
     "resposta": "Cansaço que não passa é sinal, não é frescura. Há atendimento gratuito no SUS, e para conversar agora existe o 188, a qualquer hora.",
     "links": [
       {
@@ -345,6 +369,7 @@
   },
   {
     "pergunta": "Sou professora. Como sei se recebo o piso?",
+    "tema": "trabalho",
     "resposta": "O piso do magistério é definido por lei federal e reajustado todo ano. Vale para a jornada de 40 horas, e a lei também reserva um terço da jornada para o trabalho fora da sala.",
     "links": [
       {
@@ -355,6 +380,7 @@
   },
   {
     "pergunta": "Tenho mais de 60 anos. Que direitos a lei me dá?",
+    "tema": "direitos",
     "resposta": "Prioridade no atendimento, transporte gratuito a partir dos 65, proteção contra abandono e violência e, para quem não tem renda, um benefício de um salário mínimo.",
     "links": [
       {
@@ -365,6 +391,7 @@
   },
   {
     "pergunta": "Fé e luta por justiça combinam?",
+    "tema": "sociedade",
     "resposta": "Para muita gente, uma leva à outra. Nas comunidades de base da América Latina, ler a Bíblia e organizar o bairro sempre andaram juntos.",
     "links": [
       {
@@ -379,6 +406,7 @@
   },
   {
     "pergunta": "Por que a favela existe?",
+    "tema": "sociedade",
     "resposta": "Porque a cidade formal nunca teve lugar para quem a constrói. A favela é a casa que o povo fez sozinho, onde deu.",
     "links": [
       {
