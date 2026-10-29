@@ -2570,6 +2570,24 @@ html[data-escrita-foco="1"] .painel {
   .cabecalho-site .linha-de-cima img { transition: none; }
 }
 
+/* ───────────── Sotaques do Brasil ───────────── */
+/* O fio das fitas: quatro pixels de cor sob a faixa preta, como as fitas do Bonfim amarradas na grade. As cores são as
+   dos panos (prelo, ipê, anil, papel, mata, rosa, laranja, turquesa, bordô), fora da ordem do arco-íris. */
+.fio-das-fitas {
+  height: 4px;
+  background: repeating-linear-gradient(90deg, #c21f16 0 56px, #f0b323 56px 78px, #23408e 78px 120px, #f4ecd8 120px 130px, #2e6b4f 130px 168px, #e4577f 168px 186px, #ea7a24 186px 214px, #1f8a85 214px 240px, #6e1f1a 240px 262px);
+}
+:root[data-eink] :is(.fio-das-fitas, .festa),
+:root[data-contrast] .festa {
+  display: none;
+}
+/* A onda do calçadão: a pedra portuguesa do chão, só no pé do site. */
+.onda-do-calcadao {
+  height: 16px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='16' viewBox='0 0 48 16'%3E%3Cpath d='M0 12 Q12 2 24 12 T48 12 V16 H0 Z' fill='%231f1a14'/%3E%3C/svg%3E") repeat-x;
+  background-size: 48px 16px;
+}
+
 /* Kit de divulgação: na impressão sai só a peça escolhida, no tamanho real e com as cores de fundo. */
 @media print {
   :root[data-imprimir-peca] body * { visibility: hidden !important; }
@@ -3041,7 +3059,7 @@ main#conteudo .ide-area :is(div, section)[class~="border-2"][class~="border-ink"
   }
 }
 /* Modo foco: só a faixa da aula e a folha, larga e no meio. O resto do site sai da frente até a pessoa sair do foco. */
-:root[data-aula-foco] :is(.cabecalho-site, .faixa-de-avisos, .rodape-do-site, .indice-da-trilha, .coluna-da-margem, .abas-do-celular) {
+:root[data-aula-foco] :is(.cabecalho-site, .faixa-de-avisos, .fio-das-fitas, .festa, .rodape-do-site, .indice-da-trilha, .coluna-da-margem, .abas-do-celular) {
   display: none !important;
 }
 :root[data-aula-foco] .faixa-da-aula {
@@ -3480,4 +3498,16 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 }
 :root[data-light] .letreiro-trilho {
   animation: none;
+}
+
+/* A busca do alto se alonga para a esquerda, a partir da caixa de sempre. */
+@keyframes busca-alonga {
+  from { clip-path: inset(-1rem -1rem -40rem calc(100% - 17rem)); }
+  to { clip-path: inset(-1rem -1rem -40rem -1rem); }
+}
+.busca-aberta {
+  animation: busca-alonga 0.18s ease-out backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .busca-aberta { animation: none; }
 }
