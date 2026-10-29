@@ -28,7 +28,8 @@ import { defaultLocale, fill, htmlLang, localePath, plural } from "@/i18n/config
 import { getGlossary, getTrack, getTracks, requisitosDaAula, tambemEmOutras, idiomasDe } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
 import { lessonId } from "@/lib/ids";
-import { withLangs } from "@/lib/params";
+import { normalize } from "@/lib/text";
+import { nosIdiomasDoTexto } from "@/lib/params";
 import { linguaDe } from "@/lib/pratica";
 import { ogDe, paginaMeta } from "@/lib/seo";
 import { Compartilhar } from "@/components/Compartilhar";
@@ -45,11 +46,13 @@ import { mapaDaAula } from "@/lib/curriculo-conteudo";
 
 type Props = PageProps<"/[lang]/trilhas/[track]/[lesson]">;
 
-export const dynamicParams = false;
+// O build monta cada aula só nos idiomas em que o texto dela existe; as outras versões saem na primeira visita (veja
+// lib/params.ts). Aula que não existe continua dando 404 (notFound abaixo).
+export const dynamicParams = true;
 
 export function generateStaticParams() {
-  return withLangs(
-    getTracks(defaultLocale).flatMap((track) => track.lessons.map((lesson) => ({ track: track.slug, lesson: lesson.slug }))),
+  return nosIdiomasDoTexto(
+    getTracks(defaultLocale).flatMap((track) => track.lessons.map((lesson) => ({ params: { track: track.slug, lesson: lesson.slug }, file: lesson.file }))),
   );
 }
 
@@ -89,6 +92,17 @@ export default async function LessonPage({ params }: Props) {
   const prev = track.lessons[index - 1];
   const next = track.lessons[index + 1];
   const id = lessonId(track.slug, lesson.slug);
+  // As simulações do PhET desta aula: as da área da disciplina que mais têm a ver com o título, o resumo e os termos da
+  // aula (por palavra em comum), até três; sem nenhuma em comum, as três primeiras da área. A lista inteira fica nos
+  // laboratórios, para a aula não virar um catálogo.
+  const simsDaAula = (() => {
+    const radicais = (texto: string) => new Set(normalize(texto).split(/[^a-z0-9]+/).filter((p) => p.length >= 4).map((p) => p.slice(0, 5)));
+    const daAula = radicais(`${lesson.title} ${lesson.summary} ${lesson.terms.map((termo) => termo.term).join(" ")}`);
+    const daArea = sims.filter((sim) => sim.areas.includes(track.area));
+    const pontuadas = daArea.map((sim, i) => ({ id: sim.id, i, pontos: [...radicais(`${sim.titulo} ${sim.temas}`)].filter((r) => daAula.has(r)).length }));
+    const ligadas = pontuadas.filter((p) => p.pontos > 0).sort((a, b) => b.pontos - a.pontos || a.i - b.i);
+    return (ligadas.length ? ligadas : pontuadas).slice(0, 3).map((p) => p.id);
+  })();
   const history = fileHistory(lesson.file);
   const toc = sections(lesson.body);
   const updated = history.updated && new Intl.DateTimeFormat(htmlLang[lang], { timeZone: "UTC" }).format(new Date(history.updated));
@@ -218,10 +232,13 @@ export default async function LessonPage({ params }: Props) {
 
         <ExerciciosDaAula aula={path(lesson.slug)} s={t.practiceStudio.exercises} />
 
-        {sims.some((sim) => sim.areas.includes(track.area)) && (
+        {simsDaAula.length > 0 && (
           <section className="no-print mt-10">
             <h2 className="font-serif text-2xl font-semibold">{t.labs.simulacoes}</h2>
-            <PhetLista area={track.area} compacto />
+            <PhetLista ids={simsDaAula} compacto />
+            <p className="mt-3 font-sans text-sm">
+              <Link href={localePath(lang, "/laboratorios/simulacoes")} className="underline underline-offset-4 hover:text-oxblood">{t.labs.simulacoes} →</Link>
+            </p>
           </section>
         )}
         <div className="xl:hidden">

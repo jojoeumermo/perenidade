@@ -1,14 +1,16 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 import type { MetadataRoute } from "next";
-import { defaultLocale, htmlLang, locales } from "@/i18n/config";
+import { defaultLocale, htmlLang, type Locale, locales } from "@/i18n/config";
 import { areaSlugs, tools } from "@/lib/areas";
 import { territorios } from "@/lib/territorios";
-import { getArticles, getBooks, getTracks } from "@/lib/content";
+import { getArticles, getBooks, getTracks, idiomasDe } from "@/lib/content";
 import { fileHistory } from "@/lib/history";
 import { site } from "@/lib/site";
 
 // Mapa do site para os buscadores. Cada endereço aparece uma vez por idioma, com a indicação das
-// versões nos outros idiomas (hreflang), para o buscador mostrar a versão certa a cada pessoa.
+// versões nos outros idiomas (hreflang), para o buscador mostrar a versão certa a cada pessoa. Aula e obra entram só
+// nos idiomas em que o texto existe: as outras versões mostram o texto em português e já apontam o português como
+// canônico (lib/seo.ts), então anunciá-las aqui era mandar o buscador atrás de cópia.
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "",
@@ -95,6 +97,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const territorio of territorios) paths.push(`/territorios/${territorio.slug}`);
   // A data real da última alteração, lida do histórico do Git, só para o que tem arquivo próprio (aula, trilha, obra, matéria).
   const datas = new Map<string, string>();
+  const soEm = new Map<string, readonly Locale[]>();
   const anotar = (path: string, file?: string) => {
     if (!file) return;
     const { updated } = fileHistory(file);
@@ -105,6 +108,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     let ultima = "";
     for (const lesson of track.lessons) {
       paths.push(`/trilhas/${track.slug}/${lesson.slug}`);
+      soEm.set(`/trilhas/${track.slug}/${lesson.slug}`, idiomasDe(lesson.file));
       anotar(`/trilhas/${track.slug}/${lesson.slug}`, lesson.file);
       const d = datas.get(`/trilhas/${track.slug}/${lesson.slug}`);
       if (d && d > ultima) ultima = d;
@@ -113,6 +117,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
   for (const book of getBooks(defaultLocale)) {
     paths.push(`/acervo/${book.id}`);
+    soEm.set(`/acervo/${book.id}`, idiomasDe(book.file));
     anotar(`/acervo/${book.id}`, (book as { file?: string }).file);
   }
   for (const article of getArticles(defaultLocale)) {
@@ -120,9 +125,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     anotar(`/jornal/${article.slug}`, (article as { file?: string }).file);
   }
   return paths.flatMap((path) => {
-    const languages = { ...Object.fromEntries(locales.map((code) => [htmlLang[code], `${site.url}/${code}${path}`])), "x-default": `${site.url}/${defaultLocale}${path}` };
+    const idiomas = soEm.get(path) ?? locales;
+    const languages = { ...Object.fromEntries(idiomas.map((code) => [htmlLang[code], `${site.url}/${code}${path}`])), "x-default": `${site.url}/${defaultLocale}${path}` };
     const data = datas.get(path);
-    return locales.map((lang) => ({
+    return idiomas.map((lang) => ({
       url: `${site.url}/${lang}${path}`,
       ...(data ? { lastModified: new Date(data) } : {}),
       alternates: { languages },
