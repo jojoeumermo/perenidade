@@ -48,7 +48,10 @@ export const viewport: Viewport = {
   ],
 };
 
-export const dynamicParams = false;
+// O idioma que não existe dá 404 em loadLang. Aqui fica liberado para as páginas abaixo decidirem por si: cada rota
+// dinâmica diz o seu (dynamicParams = false na maioria). Com false aqui, valia para todas, e as que saem na primeira
+// visita (aula e obra nos idiomas sem tradução, zine da aula, kit do núcleo, episódio de podcast) davam 404.
+export const dynamicParams = true;
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));

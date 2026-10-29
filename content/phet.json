@@ -3,7 +3,8 @@
     "id": "circuit-construction-kit-dc",
     "titulo": "Kit de construção de circuitos (CC)",
     "areas": [
-      "fisica"
+      "fisica",
+      "eletricista"
     ],
     "temas": "corrente, resistência, lei de Ohm, série e paralelo",
     "licenca": "CC BY 4.0",
@@ -171,5 +172,804 @@
     "conferida_em": "2026-10-18",
     "url": "https://phet.colorado.edu/sims/html/area-builder/latest/area-builder_pt_BR.html",
     "pagina": "https://phet.colorado.edu/pt_BR/simulations/area-builder"
+  },
+  {
+    "id": "ohms-law",
+    "titulo": "Lei de Ohm",
+    "areas": [
+      "fisica",
+      "eletricista"
+    ],
+    "temas": "tensão, corrente e resistência",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/ohms-law/latest/ohms-law_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/ohms-law"
+  },
+  {
+    "id": "resistance-in-a-wire",
+    "titulo": "Resistência em um Fio",
+    "areas": [
+      "fisica",
+      "eletricista"
+    ],
+    "temas": "resistividade, comprimento e espessura do fio",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/resistance-in-a-wire/latest/resistance-in-a-wire_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/resistance-in-a-wire"
+  },
+  {
+    "id": "circuit-construction-kit-ac",
+    "titulo": "Kit para Montar um Circuito: AC",
+    "areas": [
+      "fisica",
+      "eletricista"
+    ],
+    "temas": "corrente alternada, capacitores, indutores",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/circuit-construction-kit-ac/latest/circuit-construction-kit-ac_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/circuit-construction-kit-ac"
+  },
+  {
+    "id": "faradays-law",
+    "titulo": "Lei de Faraday",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "indução eletromagnética, ímã e bobina",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/faradays-law/latest/faradays-law_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/faradays-law"
+  },
+  {
+    "id": "faradays-electromagnetic-lab",
+    "titulo": "Laboratório Eletromagnético de Faraday",
+    "areas": [
+      "fisica",
+      "eletricista"
+    ],
+    "temas": "eletroímã, gerador, transformador",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/faradays-electromagnetic-lab/latest/faradays-electromagnetic-lab_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/faradays-electromagnetic-lab"
+  },
+  {
+    "id": "coulombs-law",
+    "titulo": "Lei de Coulomb",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "força elétrica entre cargas, distância",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/coulombs-law/latest/coulombs-law_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/coulombs-law"
+  },
+  {
+    "id": "charges-and-fields",
+    "titulo": "Cargas e Campos",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "campo elétrico, potencial elétrico, linhas de campo",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/charges-and-fields/latest/charges-and-fields_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/charges-and-fields"
+  },
+  {
+    "id": "capacitor-lab-basics",
+    "titulo": "Laboratório do Capacitor: Básico",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "capacitância, carga elétrica, energia armazenada",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/capacitor-lab-basics/latest/capacitor-lab-basics_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/capacitor-lab-basics"
+  },
+  {
+    "id": "balloons-and-static-electricity",
+    "titulo": "Balões e Eletricidade Estática",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "eletrização por atrito, atração e repulsão",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/balloons-and-static-electricity/latest/balloons-and-static-electricity_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/balloons-and-static-electricity"
+  },
+  {
+    "id": "john-travoltage",
+    "titulo": "John Travoltagem",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "eletricidade estática, descarga elétrica",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/john-travoltage/latest/john-travoltage_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/john-travoltage"
+  },
+  {
+    "id": "masses-and-springs",
+    "titulo": "Massas e Molas",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "oscilação, constante elástica, energia",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/masses-and-springs/latest/masses-and-springs_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/masses-and-springs"
+  },
+  {
+    "id": "hookes-law",
+    "titulo": "Lei de Hooke",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "força elástica, deformação de molas",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/hookes-law/latest/hookes-law_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/hookes-law"
+  },
+  {
+    "id": "pendulum-lab",
+    "titulo": "Laboratório do Pêndulo",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "período, comprimento do fio, gravidade",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/pendulum-lab/latest/pendulum-lab_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/pendulum-lab"
+  },
+  {
+    "id": "collision-lab",
+    "titulo": "Laboratório de Colisões",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "quantidade de movimento, colisões elásticas e inelásticas",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/collision-lab/latest/collision-lab_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/collision-lab"
+  },
+  {
+    "id": "vector-addition",
+    "titulo": "Adição de Vetores",
+    "areas": [
+      "fisica",
+      "matematica"
+    ],
+    "temas": "vetores, componentes, soma de vetores",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/vector-addition/latest/vector-addition_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/vector-addition"
+  },
+  {
+    "id": "energy-skate-park",
+    "titulo": "Energia na Pista de Skate",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "energia potencial e cinética, atrito, conservação da energia",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/energy-skate-park/latest/energy-skate-park_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/energy-skate-park"
+  },
+  {
+    "id": "energy-forms-and-changes",
+    "titulo": "Formas de Energia e Transformações",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "energia térmica, mecânica, elétrica e luminosa",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/energy-forms-and-changes/latest/energy-forms-and-changes_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/energy-forms-and-changes"
+  },
+  {
+    "id": "friction",
+    "titulo": "Atrito",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "atrito, calor, temperatura",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/friction/latest/friction_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/friction"
+  },
+  {
+    "id": "density",
+    "titulo": "Densidade",
+    "areas": [
+      "fisica",
+      "quimica"
+    ],
+    "temas": "massa, volume, densidade dos materiais",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/density/latest/density_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/density"
+  },
+  {
+    "id": "buoyancy",
+    "titulo": "Flutuabilidade",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "empuxo, densidade, flutuação",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/buoyancy/latest/buoyancy_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/buoyancy"
+  },
+  {
+    "id": "under-pressure",
+    "titulo": "Sob Pressão",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "pressão em líquidos, profundidade, densidade",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/under-pressure/latest/under-pressure_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/under-pressure"
+  },
+  {
+    "id": "gas-properties",
+    "titulo": "Propriedades dos Gases",
+    "areas": [
+      "fisica",
+      "quimica"
+    ],
+    "temas": "pressão, volume, temperatura, gases ideais",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/gas-properties/latest/gas-properties_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/gas-properties"
+  },
+  {
+    "id": "waves-intro",
+    "titulo": "Ondas: Intro",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "amplitude, frequência, comprimento de onda, som",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/waves-intro/latest/waves-intro_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/waves-intro"
+  },
+  {
+    "id": "wave-interference",
+    "titulo": "Interferência de Onda",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "interferência, difração, fenda dupla",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/wave-interference/latest/wave-interference_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/wave-interference"
+  },
+  {
+    "id": "bending-light",
+    "titulo": "Desvio da Luz",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "refração, reflexão, índice de refração",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/bending-light/latest/bending-light_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/bending-light"
+  },
+  {
+    "id": "geometric-optics",
+    "titulo": "Óptica Geométrica",
+    "areas": [
+      "fisica"
+    ],
+    "temas": "lentes, espelhos, formação de imagem",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/geometric-optics/latest/geometric-optics_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/geometric-optics"
+  },
+  {
+    "id": "color-vision",
+    "titulo": "Visão Colorida",
+    "areas": [
+      "fisica",
+      "biologia"
+    ],
+    "temas": "luz, cores, filtros, visão",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/color-vision/latest/color-vision_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/color-vision"
+  },
+  {
+    "id": "blackbody-spectrum",
+    "titulo": "Espectro de Corpo Negro",
+    "areas": [
+      "fisica",
+      "astronomia"
+    ],
+    "temas": "radiação térmica, temperatura e cor das estrelas",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/blackbody-spectrum/latest/blackbody-spectrum_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/blackbody-spectrum"
+  },
+  {
+    "id": "molecules-and-light",
+    "titulo": "Moléculas e Luz",
+    "areas": [
+      "fisica",
+      "quimica"
+    ],
+    "temas": "absorção de luz, vibração das moléculas, efeito estufa",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/molecules-and-light/latest/molecules-and-light_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/molecules-and-light"
+  },
+  {
+    "id": "greenhouse-effect",
+    "titulo": "Efeito Estufa",
+    "areas": [
+      "fisica",
+      "meio-ambiente"
+    ],
+    "temas": "radiação infravermelha, gases do efeito estufa, temperatura da Terra",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/greenhouse-effect/latest/greenhouse-effect_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/greenhouse-effect"
+  },
+  {
+    "id": "gravity-force-lab-basics",
+    "titulo": "Laboratório de Força Gravitacional: Básico",
+    "areas": [
+      "fisica",
+      "astronomia"
+    ],
+    "temas": "gravitação universal, massa e distância",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/gravity-force-lab-basics/latest/gravity-force-lab-basics_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/gravity-force-lab-basics"
+  },
+  {
+    "id": "my-solar-system",
+    "titulo": "Meu Sistema Solar",
+    "areas": [
+      "fisica",
+      "astronomia"
+    ],
+    "temas": "órbitas, gravidade, massa dos astros",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/my-solar-system/latest/my-solar-system_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/my-solar-system"
+  },
+  {
+    "id": "keplers-laws",
+    "titulo": "Leis de Kepler",
+    "areas": [
+      "fisica",
+      "astronomia"
+    ],
+    "temas": "órbitas elípticas, períodos, lei das áreas",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/keplers-laws/latest/keplers-laws_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/keplers-laws"
+  },
+  {
+    "id": "rutherford-scattering",
+    "titulo": "Espalhamento de Rutherford",
+    "areas": [
+      "fisica",
+      "quimica"
+    ],
+    "temas": "modelo atômico, núcleo, partículas alfa",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/rutherford-scattering/latest/rutherford-scattering_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/rutherford-scattering"
+  },
+  {
+    "id": "models-of-the-hydrogen-atom",
+    "titulo": "Modelos do Átomo de Hidrogênio",
+    "areas": [
+      "fisica",
+      "quimica"
+    ],
+    "temas": "modelos atômicos, Bohr, espectro do hidrogênio",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/models-of-the-hydrogen-atom/latest/models-of-the-hydrogen-atom_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/models-of-the-hydrogen-atom"
+  },
+  {
+    "id": "projectile-data-lab",
+    "titulo": "Lab Dados de Projéteis",
+    "areas": [
+      "fisica",
+      "matematica"
+    ],
+    "temas": "lançamento de projéteis, dados de experimentos, estatística",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/projectile-data-lab"
+  },
+  {
+    "id": "states-of-matter",
+    "titulo": "Estados da Matéria",
+    "areas": [
+      "quimica",
+      "fisica"
+    ],
+    "temas": "sólido, líquido e gás, mudanças de estado, pressão",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/states-of-matter/latest/states-of-matter_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/states-of-matter"
+  },
+  {
+    "id": "beers-law-lab",
+    "titulo": "Laboratório da Lei de Beer",
+    "areas": [
+      "quimica"
+    ],
+    "temas": "absorbância, concentração, cor das soluções",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/beers-law-lab/latest/beers-law-lab_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/beers-law-lab"
+  },
+  {
+    "id": "concentration",
+    "titulo": "Concentração",
+    "areas": [
+      "quimica"
+    ],
+    "temas": "soluto, solvente, solução saturada",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/concentration/latest/concentration_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/concentration"
+  },
+  {
+    "id": "molarity",
+    "titulo": "Molaridade",
+    "areas": [
+      "quimica"
+    ],
+    "temas": "mol, volume, concentração molar",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/molarity/latest/molarity_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/molarity"
+  },
+  {
+    "id": "acid-base-solutions",
+    "titulo": "Soluções Ácido-Base",
+    "areas": [
+      "quimica"
+    ],
+    "temas": "ácidos e bases fortes e fracos, pH, condutividade",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/acid-base-solutions/latest/acid-base-solutions_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/acid-base-solutions"
+  },
+  {
+    "id": "reactants-products-and-leftovers",
+    "titulo": "Reagentes, Produtos e Excesso",
+    "areas": [
+      "quimica"
+    ],
+    "temas": "estequiometria, reagente limitante, reagente em excesso",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/reactants-products-and-leftovers/latest/reactants-products-and-leftovers_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/reactants-products-and-leftovers"
+  },
+  {
+    "id": "molecule-shapes",
+    "titulo": "Geometria Molecular",
+    "areas": [
+      "quimica"
+    ],
+    "temas": "geometria das moléculas, ângulos de ligação, pares de elétrons",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/molecule-shapes/latest/molecule-shapes_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/molecule-shapes"
+  },
+  {
+    "id": "molecule-polarity",
+    "titulo": "Polaridade da Molécula",
+    "areas": [
+      "quimica"
+    ],
+    "temas": "eletronegatividade, polaridade, momento de dipolo",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/molecule-polarity/latest/molecule-polarity_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/molecule-polarity"
+  },
+  {
+    "id": "isotopes-and-atomic-mass",
+    "titulo": "Isótopos e Massa Atômica",
+    "areas": [
+      "quimica"
+    ],
+    "temas": "isótopos, abundância, massa atômica",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/isotopes-and-atomic-mass/latest/isotopes-and-atomic-mass_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/isotopes-and-atomic-mass"
+  },
+  {
+    "id": "build-a-molecule",
+    "titulo": "Monte uma Molécula",
+    "areas": [
+      "quimica"
+    ],
+    "temas": "fórmulas moleculares, ligações químicas",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/build-a-molecule/latest/build-a-molecule_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/build-a-molecule"
+  },
+  {
+    "id": "diffusion",
+    "titulo": "Difusão",
+    "areas": [
+      "quimica",
+      "biologia"
+    ],
+    "temas": "difusão das partículas, temperatura, massa",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/diffusion/latest/diffusion_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/diffusion"
+  },
+  {
+    "id": "gene-expression-essentials",
+    "titulo": "Fundamentos da Expressão Genética",
+    "areas": [
+      "biologia"
+    ],
+    "temas": "DNA, RNA, transcrição, tradução, proteínas",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/gene-expression-essentials/latest/gene-expression-essentials_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/gene-expression-essentials"
+  },
+  {
+    "id": "neuron",
+    "titulo": "Neurônio",
+    "areas": [
+      "biologia"
+    ],
+    "temas": "impulso nervoso, potencial de ação, íons",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/neuron/latest/neuron_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/neuron"
+  },
+  {
+    "id": "plinko-probability",
+    "titulo": "Probabilidade Plinko",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "probabilidade, distribuição binomial, histograma",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/plinko-probability/latest/plinko-probability_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/plinko-probability"
+  },
+  {
+    "id": "unit-rates",
+    "titulo": "Taxas Unitárias",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "razão, preço por unidade, proporção",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/unit-rates/latest/unit-rates_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/unit-rates"
+  },
+  {
+    "id": "proportion-playground",
+    "titulo": "Parque da Proporção",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "razão e proporção",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/proportion-playground/latest/proportion-playground_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/proportion-playground"
+  },
+  {
+    "id": "graphing-slope-intercept",
+    "titulo": "Inclinação e Intersecção",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "função do 1º grau, coeficiente angular e coeficiente linear",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/graphing-slope-intercept/latest/graphing-slope-intercept_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/graphing-slope-intercept"
+  },
+  {
+    "id": "graphing-quadratics",
+    "titulo": "Gráfico de Quadráticas",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "função do 2º grau, vértice, raízes",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/graphing-quadratics/latest/graphing-quadratics_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/graphing-quadratics"
+  },
+  {
+    "id": "function-builder",
+    "titulo": "Gerador de Funções",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "funções, entrada e saída, composição de funções",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/function-builder/latest/function-builder_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/function-builder"
+  },
+  {
+    "id": "equality-explorer",
+    "titulo": "Explorador da Igualdade",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "equações, balança, incógnita",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/equality-explorer/latest/equality-explorer_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/equality-explorer"
+  },
+  {
+    "id": "number-line-integers",
+    "titulo": "Reta Numérica: Inteiros",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "números negativos, reta numérica, comparação de números",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/number-line-integers/latest/number-line-integers_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/number-line-integers"
+  },
+  {
+    "id": "area-model-multiplication",
+    "titulo": "Modelo de Área: Multiplicação",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "multiplicação, área, propriedade distributiva",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/area-model-multiplication/latest/area-model-multiplication_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/area-model-multiplication"
+  },
+  {
+    "id": "fractions-intro",
+    "titulo": "Frações: Intro",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "frações, partes do todo, frações equivalentes",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/fractions-intro/latest/fractions-intro_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/fractions-intro"
+  },
+  {
+    "id": "mean-share-and-balance",
+    "titulo": "Média: Distribuição e Equilíbrio",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "média como divisão justa",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/mean-share-and-balance/latest/mean-share-and-balance_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/mean-share-and-balance"
+  },
+  {
+    "id": "center-and-variability",
+    "titulo": "Centro e Variabilidade",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "média, mediana, dispersão dos dados",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/center-and-variability/latest/center-and-variability_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/center-and-variability"
+  },
+  {
+    "id": "least-squares-regression",
+    "titulo": "Regressão por Quadrados Mínimos",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "regressão linear, correlação, dados",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/least-squares-regression/latest/least-squares-regression_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/least-squares-regression"
+  },
+  {
+    "id": "curve-fitting",
+    "titulo": "Ajuste de Curva",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "ajuste de curvas, polinômios, dados",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/curve-fitting/latest/curve-fitting_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/curve-fitting"
+  },
+  {
+    "id": "trig-tour",
+    "titulo": "Tour Trigonométrico",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "seno, cosseno, tangente, círculo trigonométrico",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/trig-tour/latest/trig-tour_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/trig-tour"
+  },
+  {
+    "id": "calculus-grapher",
+    "titulo": "Gráfico de Cálculo",
+    "areas": [
+      "matematica"
+    ],
+    "temas": "derivada, integral, gráficos de funções",
+    "licenca": "CC BY 4.0",
+    "conferida_em": "2026-10-29",
+    "url": "https://phet.colorado.edu/sims/html/calculus-grapher/latest/calculus-grapher_pt_BR.html",
+    "pagina": "https://phet.colorado.edu/pt_BR/simulations/calculus-grapher"
   }
 ]

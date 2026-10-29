@@ -634,11 +634,33 @@ export const getGlossaryIndex = cache((lang: Locale): IndexedTerm[] => {
       }
     }
   }
+  // Onde cada termo aparece: o texto de cada aula vira uma lista de palavras uma vez só, e cada posição consulta os
+  // termos que começam por aquela palavra (o resto da sequência é conferido depois). Antes era cada termo contra o
+  // texto inteiro de cada aula, milhões de buscas em texto longo: a página do glossário passava de 5 minutos no build
+  // e segurava as outras páginas do mesmo processo (a /guia caía junto), o que levou a publicação aos 45 minutos.
+  const porPrimeira = new Map<string, { partes: string[]; term: IndexedTerm }[]>();
+  for (const [key, term] of terms) {
+    const partes = key.trim().split(" ");
+    if (!partes[0]) continue;
+    const lista = porPrimeira.get(partes[0]);
+    if (lista) lista.push({ partes, term });
+    else porPrimeira.set(partes[0], [{ partes, term }]);
+  }
   for (const track of tracks) {
     for (const lesson of track.lessons) {
-      const text = plain(`${lesson.title} ${lesson.summary} ${lesson.body}`);
-      for (const [key, term] of terms) {
-        if (!text.includes(key)) continue;
+      const palavras = plain(`${lesson.title} ${lesson.summary} ${lesson.body}`).trim().split(" ");
+      const achados = new Set<IndexedTerm>();
+      for (let i = 0; i < palavras.length; i++) {
+        const candidatos = porPrimeira.get(palavras[i]);
+        if (!candidatos) continue;
+        for (const { partes, term } of candidatos) {
+          if (achados.has(term)) continue;
+          let k = 1;
+          while (k < partes.length && palavras[i + k] === partes[k]) k++;
+          if (k === partes.length) achados.add(term);
+        }
+      }
+      for (const term of achados) {
         if (!term.areas.includes(track.area)) term.areas.push(track.area);
         if (term.lessons.length < 5) term.lessons.push({ href: `/trilhas/${track.slug}/${lesson.slug}`, title: lesson.title });
       }
