@@ -11,6 +11,8 @@ export interface LastLesson {
   path: string;
   title: string;
   track: string;
+  /** A disciplina da trilha (as gravadas antes de 29/10/2026 não têm). */
+  area?: string;
 }
 
 export function useCompleted(): Set<string> {

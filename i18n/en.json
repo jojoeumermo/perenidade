@@ -846,7 +846,9 @@
     "certPrintHint": "In the print window, choose “Save as PDF”, A4 paper and turn on “Background graphics”.",
     "searchLabel": "Search for a subject",
     "searchPlaceholder": "Search for a subject or a topic (e.g. photosynthesis, samba, Python)…",
-    "searchClear": "Clear"
+    "searchClear": "Clear",
+    "filterRevolution": "Revolution and organising",
+    "filterRevolutionHint": "Revolutionary theory and people's struggles: for those who come wanting to understand the system, get organised and change it."
   },
   "lesson": {
     "position": "lesson {i} of {n}",
