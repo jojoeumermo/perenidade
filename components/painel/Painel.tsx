@@ -303,7 +303,7 @@ function Tema() {
 /** Tela inteira para os estados em que o painel ainda não abriu (carregando, sem conta, segundo fator). */
 function Porta({ children }: { children: React.ReactNode }) {
   return (
-    <div className="painel relative flex min-h-screen items-center justify-center overflow-hidden bg-[#17130e] px-4 py-10 font-sans text-sm text-[#efe4c8]">
+    <div className="painel painel-porta relative flex min-h-screen items-center justify-center overflow-hidden bg-[#17130e] px-4 py-10 font-sans text-sm text-[#efe4c8]">
       <Star className="pointer-events-none absolute -right-24 -bottom-28 h-[28rem] w-[28rem] rotate-12 text-[#6e1f1a]" />
       <TraduzirPainel />
       <div className="painel-surge relative w-full max-w-md">
