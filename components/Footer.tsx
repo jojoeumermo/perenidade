@@ -119,7 +119,7 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
         ))}
       </div>
       <nav aria-label={t.footer.rules} className="mx-auto max-w-[78rem] px-4 pb-6 sm:px-6 lg:px-8">
-        <ul className="flex flex-wrap gap-x-5 gap-y-1.5 border-t border-rule pt-4 font-sans text-[0.8rem] text-ink-soft">
+        <ul className="flex flex-wrap justify-center gap-x-5 gap-y-1.5 border-t border-rule pt-4 font-sans text-[0.8rem] text-ink-soft">
           {regras.map(([label, href]) => (
             <li key={href}>
               <Link href={localePath(lang, href)} className="text-ink-soft hover:text-prelo-texto hover:underline">
@@ -131,17 +131,18 @@ export function Footer({ lang, t }: { lang: Locale; t: Dict }) {
       </nav>
       {/* A onda do calçadão e a faixa preta do pé, como a pedra portuguesa do chão. */}
       <div aria-hidden className="onda-do-calcadao" />
+      {/* A assinatura em cima, no centro, e o texto legal embaixo: as duas linhas centradas, sem nada caindo de lado. */}
       <div className="bg-[#1f1a14] pb-[calc(4rem+var(--recuo-baixo))] text-[#e9dcbc] md:pb-0">
-        <p className="mx-auto flex max-w-[78rem] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-4 font-mono text-xs sm:px-6 lg:px-8">
-          <span>
+        <div className="mx-auto flex max-w-[78rem] flex-col items-center gap-1.5 px-4 py-4 text-center font-mono text-xs sm:px-6 lg:px-8">
+          <span className="uppercase tracking-[0.18em] text-[#f0b323]">{t.footer.made}</span>
+          <p className="text-balance">
             {t.footer.legal}
             {" · "}
             <Link href={localePath(lang, "/entrar")} rel="nofollow" className="text-[#e9dcbc] underline hover:text-white">
               {t.footer.team}
             </Link>
-          </span>
-          <span className="ml-auto uppercase tracking-[0.18em] text-[#f0b323]">{t.footer.made}</span>
-        </p>
+          </p>
+        </div>
       </div>
     </footer>
   );
