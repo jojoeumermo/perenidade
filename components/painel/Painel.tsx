@@ -20,7 +20,6 @@ import { L, useI18n } from "../I18n";
 import { Star } from "../Masthead";
 import { AulasAoVivo } from "./AoVivo";
 import { AtividadeDoSite, useAtividadeAoVivo } from "./Atividade";
-import { Avatar } from "./Avatar";
 import { AvisosEquipe, QuadroDeAvisos } from "./Avisos";
 import { Estatisticas } from "./Estatisticas";
 import { TermoDeVoluntario } from "./Termo";
@@ -689,7 +688,6 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
   }, []);
   const essenciais = ["mesa", "conversas", "escrever", "minhas", "fila", "caderno", "horas", "conta"];
   const noMenu = foco ? secoes.filter((secao) => essenciais.includes(secao.id) || secao.id === atual.id) : secoes;
-  const grupos = [...new Set(noMenu.map((secao) => secao.grupo))];
   // O principal primeiro (o de maior nível) e, quando há mais de dois, "+N": a linha do menu é curta. A lista inteira vai no título.
   const todasAsFuncoes = [...new Set(porNivel(eu.papeis).map((papel) => papeis[papel.papel]))];
   const funcao = !voluntario ? "Comunidade" : todasAsFuncoes.length <= 2 ? todasAsFuncoes.join(" · ") : `${todasAsFuncoes[0]} +${todasAsFuncoes.length - 1}`;
@@ -699,7 +697,13 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
   return (
     <div className={`painel min-h-screen bg-parchment font-sans text-sm text-ink lg:grid ${leve ? "painel-leve" : ""} ${compacto ? "lg:grid-cols-[4.5rem_minmax(0,1fr)]" : "lg:grid-cols-[20rem_minmax(0,1fr)]"}`}>
       <TraduzirPainel />
-      <TutorialDoPainel pronto={!(voluntario && eu.termo_voluntario === false)} />
+      <TutorialDoPainel
+        pronto={!(voluntario && eu.termo_voluntario === false)}
+        extras={[
+          { rotulo: "Glossário do painel", fazer: () => setGlossario(true) },
+          { rotulo: "Atalhos de teclado", fazer: () => setAjudaDoTeclado(true) },
+        ]}
+      />
       {irPara && <IrPara secoes={secoes} comandos={comandos} fechar={() => setIrPara(false)} ir={ir} />}
       {ajudaDoTeclado && <AjudaDoTeclado secoes={secoes} fechar={() => setAjudaDoTeclado(false)} />}
       {glossario && <Glossario fechar={() => setGlossario(false)} />}
@@ -715,10 +719,17 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
           <span className="font-mono text-[0.6rem] uppercase tracking-[0.25em] text-[#f0cf8e]">{ambiente}</span>
         </span>
         <span className="flex shrink-0 items-center gap-2">
-          <button type="button" onClick={() => setIrPara(true)} aria-label="Ir para uma seção" className="cursor-pointer border border-[#f4ecd8]/50 p-1.5">
+          <button type="button" onClick={() => setIrPara(true)} aria-label="Ir para uma seção" data-tour="ir-para" className="cursor-pointer border border-[#f4ecd8]/50 p-1.5">
             <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="11" cy="11" r="6.5" /><path d="M16 16l4.5 4.5" /></svg>
           </button>
-          <button type="button" onClick={() => setMenu(!menu)} aria-expanded={menu} aria-controls="menu-do-painel" className="cursor-pointer border border-[#f4ecd8]/50 px-3 py-1.5 font-semibold">
+          <button
+            type="button"
+            onClick={() => setMenu(!menu)}
+            aria-expanded={menu}
+            aria-controls="menu-do-painel"
+            data-tour="menu-celular"
+            className="cursor-pointer border border-[#f4ecd8]/50 px-3 py-1.5 font-semibold"
+          >
             {menu ? "Fechar" : "Menu"}
           </button>
         </span>
@@ -775,12 +786,12 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
             </p>
             <span className="ml-auto flex flex-wrap items-center gap-2">
               {leads(euReal) && <PreviaDeFuncao previa={previa} mudar={setPrevia} />}
-              <button type="button" onClick={() => setIrPara(true)} className="hidden cursor-pointer items-center gap-2 border-2 border-ink bg-folha px-3 py-1 text-xs text-ink-soft hover:border-[#c21f16] hover:text-ink md:flex">
+              <button type="button" onClick={() => setIrPara(true)} data-tour="ir-para" className="hidden cursor-pointer items-center gap-2 border-2 border-ink bg-folha px-3 py-1 text-xs text-ink-soft hover:border-[#c21f16] hover:text-ink md:flex">
                 <svg aria-hidden viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="6.5" /><path d="M16 16l4.5 4.5" /></svg>
                 Ir para… <kbd className="font-mono text-[0.6rem]">Ctrl K</kbd>
               </button>
               {amplo && <GuiaDaSecao key={`guia-${atual.id}`} id={atual.id} nome={atual.nome} />}
-              <button type="button" onClick={abrirTutorial} className="cursor-pointer border-2 border-ink px-3 py-1 text-xs font-bold hover:bg-ink hover:text-parchment">
+              <button type="button" onClick={abrirTutorial} data-tour="tutorial" className="cursor-pointer border-2 border-ink px-3 py-1 text-xs font-bold hover:bg-ink hover:text-parchment">
                 Tutorial
               </button>
               {produz && atual.id !== "escrever" && (

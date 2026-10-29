@@ -183,7 +183,7 @@ export function PrimeiraSemana({ me, ir }: { me: Me; ir: (aba: string) => void }
     <section aria-labelledby="primeira-semana" className="border-2 border-ink bg-[#f9e7a6] p-5 text-[#1f1a14] shadow-[4px_4px_0_var(--sombra)]">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h2 id="primeira-semana" className="font-serif text-2xl font-semibold">Sua primeira semana</h2>
-        <span className="font-mono text-xs">{prontos} de {PASSOS.length}</span>
+        <span className="font-mono text-xs">{`${prontos} de ${PASSOS.length} passos`}</span>
       </div>
       <p className="mt-1 text-sm">Bem-vindo à equipe. Cinco passos para se achar, no seu tempo:</p>
       <ol className="mt-3 space-y-1.5">
