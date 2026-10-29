@@ -3103,7 +3103,17 @@
     "beforeTitle": "Avant de débattre : connaissez les sophismes",
     "beforeText": "Homme de paille, faux dilemme, attaque personnelle : les pièges les plus courants et comment répondre à chacun.",
     "beforeLink": "Ouvrir le guide des sophismes",
-    "fallacies": "Sophismes dans cette phrase"
+    "fallacies": "Sophismes dans cette phrase",
+    "themes": {
+      "economia": "Économie et État",
+      "trabalho": "Travail et syndicats",
+      "seguranca": "Sécurité et droits humains",
+      "igualdade": "Racisme et égalité",
+      "escola": "École et jeunesse",
+      "socialismo": "Socialisme et mouvements"
+    },
+    "allThemes": "Tous les thèmes",
+    "sourcesAndMore": "Sources et pour approfondir"
   },
   "fallacies": {
     "eyebrow": "Penser par soi-même",
@@ -3129,7 +3139,8 @@
     "inDebates": "Apparaît dans les fiches de débat",
     "remember": "Montrer un sophisme ne prouve pas que la conclusion est fausse : cela montre seulement que cet argument ne la soutient pas. Et la meilleure réponse n'est presque jamais le nom latin, mais la bonne question.",
     "toDebates": "Voir les fiches de débat",
-    "toChecks": "Voir les vérifications"
+    "toChecks": "Voir les vérifications",
+    "close": "Fermer la fiche"
   },
   "questions": {
     "eyebrow": "Par où commencer",

@@ -1,5 +1,6 @@
 ---
 afirmacao: "Racismo no Brasil não dá em nada."
+tema: "igualdade"
 resposta: "Racismo é crime inafiançável e imprescritível, segundo a Constituição. Desde 2023, a injúria racial (ofender alguém por causa da cor ou da origem) tem a mesma pena do crime de racismo: de dois a cinco anos de prisão."
 fontes:
   - titulo: "Constituição da República Federativa do Brasil de 1988"

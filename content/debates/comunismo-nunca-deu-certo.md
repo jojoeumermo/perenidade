@@ -1,5 +1,6 @@
 ---
 afirmacao: "O comunismo nunca deu certo."
+tema: "socialismo"
 resposta: "Depende do que se mede. Países governados por partidos comunistas transformaram nações pobres e agrárias: a União Soviética se industrializou e foi decisiva na derrota do nazismo, Cuba alfabetizou a população em massa, e a China tirou centenas de milhões de pessoas da pobreza extrema, segundo o Banco Mundial. Também houve repressão, censura e fomes graves. Estudar as conquistas e os erros, sem propaganda de nenhum lado, ensina mais do que um slogan."
 falacias: [generalizacao-apressada, escolha-a-dedo]
 fontes:

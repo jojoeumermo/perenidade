@@ -8,7 +8,7 @@ import type { Dict } from "@/i18n/types";
 import { normalize } from "@/lib/text";
 import { CopiarLink } from "../CopiarLink";
 import { useI18n } from "../I18n";
-import { campoDeBusca } from "./ListaComBusca";
+import { campoDeBusca } from "./campoDeBusca";
 
 export interface ChecagemNaLista {
   id: string;

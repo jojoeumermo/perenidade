@@ -3103,7 +3103,17 @@
     "beforeTitle": "Antes de debater: conheça as falácias",
     "beforeText": "Espantalho, falso dilema, ataque à pessoa: os truques mais comuns e como responder a cada um.",
     "beforeLink": "Abrir o guia das falácias",
-    "fallacies": "Falácias nesta frase"
+    "fallacies": "Falácias nesta frase",
+    "themes": {
+      "economia": "Economia e Estado",
+      "trabalho": "Trabalho e sindicatos",
+      "seguranca": "Segurança e direitos humanos",
+      "igualdade": "Racismo e igualdade",
+      "escola": "Escola e juventude",
+      "socialismo": "Socialismo e movimentos"
+    },
+    "allThemes": "Todos os temas",
+    "sourcesAndMore": "Fontes e para se aprofundar"
   },
   "fallacies": {
     "eyebrow": "Pensar com a própria cabeça",
@@ -3129,7 +3139,8 @@
     "inDebates": "Aparece nos cartões de debate",
     "remember": "Apontar uma falácia não prova que a conclusão é falsa: só mostra que aquele argumento não a sustenta. E a melhor resposta quase nunca é o nome em latim, e sim a pergunta certa.",
     "toDebates": "Ver os cartões de debate",
-    "toChecks": "Ver as checagens de fatos"
+    "toChecks": "Ver as checagens de fatos",
+    "close": "Fechar a ficha"
   },
   "questions": {
     "eyebrow": "Por onde começar",

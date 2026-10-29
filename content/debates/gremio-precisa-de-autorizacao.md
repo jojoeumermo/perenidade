@@ -1,5 +1,6 @@
 ---
 afirmacao: "Grêmio só existe se a direção da escola deixar."
+tema: "escola"
 resposta: "A organização dos estudantes é um direito assegurado em lei desde 1985. O grêmio é uma entidade autônoma: o estatuto é aprovado em assembleia dos estudantes e a diretoria é eleita pelo voto direto e secreto."
 fontes:
   - titulo: "Lei nº 7.398, de 4 de novembro de 1985"
