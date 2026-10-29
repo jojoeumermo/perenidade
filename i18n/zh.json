@@ -3075,7 +3075,17 @@
   "questions": {
     "eyebrow": "从哪里开始",
     "title": "从一个问题开始",
-    "lead": "劳动者的疑问是学习的好起点。选一个问题，看看接下来该学什么。"
+    "lead": "劳动者的疑问是学习的好起点。选一个问题，看看接下来该学什么。",
+    "themes": {
+      "trabalho": "工作与金钱",
+      "direitos": "权利与保护",
+      "sociedade": "社会与政治",
+      "estudar": "重新开始学习",
+      "tecnologia": "电脑、网络与信息",
+      "saude": "健康与照护"
+    },
+    "jump": "主题",
+    "whereToStudy": "从哪里学起"
   },
   "glossary": {
     "eyebrow": "词汇",
