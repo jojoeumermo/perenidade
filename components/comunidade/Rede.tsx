@@ -21,7 +21,9 @@ type Aba = "seguindo" | "minhas" | "tudo";
 
 interface Autor {
   id: string;
+  /** O codinome da pessoa na Rede (o banco antigo mandava o nome do painel: sem a marca "codinome", ele não aparece). */
   nome: string;
+  codinome?: boolean;
   avatar: string | null;
   equipe: boolean;
 }
@@ -60,6 +62,7 @@ interface Espaco {
 interface Perfil {
   id?: string;
   nome: string;
+  codinome?: boolean;
   avatar?: string | null;
   bio?: string;
   invisivel: boolean;
@@ -68,6 +71,14 @@ interface Perfil {
   me_segue?: boolean;
   bloqueei?: boolean;
   eu?: boolean;
+}
+/** Quem está na Rede: o codinome (já confirmado ou não) e uma sugestão para quem ainda não tem. */
+interface RedeEu {
+  id: string;
+  nome: string | null;
+  codinome?: boolean;
+  codinome_ok?: boolean;
+  sugestao?: string;
 }
 interface Aviso {
   id: string;
@@ -100,6 +111,12 @@ function lerSilenciadas(): string[] {
   }
 }
 
+/**
+ * O nome de alguém na Rede: sempre o codinome. Se a resposta não marcar que é codinome (o banco ainda sem a mudança de
+ * 29/10/2026), a tela mostra "sem codinome" em vez de arriscar o nome civil.
+ */
+const nomeNaRede = (quem: { nome: string; codinome?: boolean }, s: Textos) => (quem.codinome && quem.nome ? quem.nome : s.semCodinome);
+
 const iniciais = (nome: string) => nome.split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0]?.toUpperCase()).join("");
 const corDe = (id: string) => {
   if (COR_DA_LUTA[id]) return COR_DA_LUTA[id];
@@ -109,10 +126,10 @@ const corDe = (id: string) => {
   return cores[h % cores.length];
 };
 
-function Rosto({ autor, tamanho = "h-11 w-11" }: { autor: Pick<Autor, "id" | "nome">; tamanho?: string }) {
+function Rosto({ autor, tamanho = "h-11 w-11" }: { autor: Pick<Autor, "id" | "nome" | "codinome">; tamanho?: string }) {
   return (
     <span aria-hidden className={`flex shrink-0 items-center justify-center rounded-xl font-sans text-sm font-extrabold text-white ${tamanho}`} style={{ backgroundColor: corDe(autor.id) }}>
-      {iniciais(autor.nome)}
+      {autor.codinome ? iniciais(autor.nome) : "·"}
     </span>
   );
 }
@@ -177,6 +194,7 @@ export function Rede({ s, abrirForum }: { s: Textos; abrirForum?: () => void }) 
   const [espacos, setEspacos] = useState<Espaco[]>([]);
   const [novos, setNovos] = useState(0);
   const [versao, setVersao] = useState(0);
+  const [redeEu, setRedeEu] = useState<RedeEu | null>(null);
   const carregadoEm = useRef(new Date().toISOString());
   const caixa = useRef<HTMLTextAreaElement>(null);
   const recarregar = useCallback(() => setVersao((v) => v + 1), []);
@@ -193,6 +211,11 @@ export function Rede({ s, abrirForum }: { s: Textos; abrirForum?: () => void }) 
     // eslint-disable-next-line react-hooks/set-state-in-effect -- o que a pessoa silenciou só existe no navegador
     setSilenciadas(lerSilenciadas());
   }, []);
+  // O codinome de quem está na Rede (nunca o nome do painel).
+  useEffect(() => {
+    if (!logado) return;
+    rpc<RedeEu>("rede_eu").then(setRedeEu).catch(() => setRedeEu(null));
+  }, [logado]);
   useEffect(() => {
     if (!logado) return;
     rpc<string[]>("rede_comunidades_minhas").then(setSeguidas).catch(() => undefined);
@@ -364,7 +387,7 @@ export function Rede({ s, abrirForum }: { s: Textos; abrirForum?: () => void }) 
           <>
             {vista === "perfil" && perfil && <CabecaDoPerfil id={perfil} s={s} logado={logado} mudou={recarregar} />}
             {achados && <p className="border-b border-rule px-[18px] py-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-soft">{s.resultados} · {achados.length}</p>}
-            {vista !== "perfil" && vista !== "chamados" && !achados && <Escrever key={comunidade ?? "geral"} s={s} logado={logado} equipe={equipe} comunidade={comunidade} nomeDaComunidade={nomeDaComunidade} postou={recarregar} lang={lang} caixa={caixa} eu={me.status === "in" ? me.me.nome : ""} />}
+            {vista !== "perfil" && vista !== "chamados" && !achados && <Escrever key={comunidade ?? "geral"} s={s} logado={logado} equipe={equipe} comunidade={comunidade} nomeDaComunidade={nomeDaComunidade} postou={recarregar} lang={lang} caixa={caixa} redeEu={redeEu} mudouCodinome={setRedeEu} />}
             {novos > 0 && (
               <button type="button" onClick={recarregar} className={`${pilula} m-3 w-[calc(100%-1.5rem)] bg-[#c21f16] text-white`}>
                 {s.novos.replace("{n}", String(novos))}
@@ -482,13 +505,13 @@ function IndiceDeComunidades({ s, logado, seguidas, nome, abrir, seguir }: { s: 
   );
 }
 
-/** Os avisos da conta (moderação, menções, recados da equipe), com "marcar como lido". */
+/** Os avisos da própria conta (respostas, moderação do que a pessoa escreveu, segurança da conta), com "marcar como lido". O sino da equipe fica no painel. */
 function Avisos({ s }: { s: Textos }) {
   const { lang } = useI18n();
   const [lista, setLista] = useState<Aviso[] | null>(null);
   const [versao, setVersao] = useState(0);
   useEffect(() => {
-    rpc<Aviso[]>("avisos_meus").then(setLista).catch(() => setLista([]));
+    rpc<Aviso[]>("rede_avisos").then(setLista).catch(() => setLista([]));
   }, [versao]);
   const ler = async (id?: string) => {
     await rpc("aviso_ler", { p_id: id ?? null }).catch(() => undefined);
@@ -594,7 +617,7 @@ function EspacosFechados({ s, espacos, equipe, abrir, mudou }: { s: Textos; espa
   );
 }
 
-function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lang, respondendo, repostando, cancelar, caixa, eu = "" }: {
+function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lang, respondendo, repostando, cancelar, caixa, redeEu = null, mudouCodinome }: {
   s: Textos;
   logado: boolean;
   equipe: boolean;
@@ -606,7 +629,8 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
   repostando?: Post;
   cancelar?: () => void;
   caixa?: React.RefObject<HTMLTextAreaElement | null>;
-  eu?: string;
+  redeEu?: RedeEu | null;
+  mudouCodinome?: (eu: RedeEu) => void;
 }) {
   const [texto, setTexto] = useState("");
   const [alcance, setAlcance] = useState<Post["alcance"]>("publico");
@@ -618,7 +642,10 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
   const [ocupado, setOcupado] = useState(false);
   const [mensagem, setMensagem] = useState("");
   const [idade, setIdade] = useState(false);
+  const [pedeCodinome, setPedeCodinome] = useState(false);
   const embutido = Boolean(respondendo || repostando);
+  // O codinome confirmado de quem escreve; sem ele, o primeiro post abre a escolha.
+  const eu = redeEu?.codinome && redeEu.codinome_ok && redeEu.nome ? redeEu.nome : "";
 
   if (!logado) {
     return (
@@ -670,6 +697,7 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
     } catch (e) {
       const codigo = e instanceof BackendError ? e.code : "";
       if (codigo === "confirme_idade") setIdade(true);
+      else if (codigo === "confirme_codinome") setPedeCodinome(true);
       else setMensagem((s.erros as Record<string, string>)[codigo] ?? s.erro);
     } finally {
       setOcupado(false);
@@ -681,7 +709,7 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
     <div className={embutido ? "rounded-xl border-[1.5px] border-ink bg-parchment p-3" : "grid grid-cols-[44px_minmax(0,1fr)] gap-3 border-b border-rule bg-parchment px-[18px] py-4"}>
       {!embutido && <span aria-hidden className="flex h-11 w-11 items-center justify-center rounded-xl bg-parchment-deep font-sans text-sm font-extrabold">{iniciais(eu) || "·"}</span>}
       <div className="min-w-0">
-        {respondendo && <p className="mb-2 font-sans text-xs text-ink-soft">{s.respondendo} <strong>{respondendo.autor.nome}</strong></p>}
+        {respondendo && <p className="mb-2 font-sans text-xs text-ink-soft">{s.respondendo} <strong>{nomeNaRede(respondendo.autor, s)}</strong></p>}
         {repostando && <p className="mb-2 font-sans text-xs text-ink-soft">{s.repostando}</p>}
         <label className="block">
           <span className="sr-only">{s.escrever}</span>
@@ -689,7 +717,7 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
         </label>
         {repostando && (
           <div className="mb-2 border-l-4 border-rule pl-3 text-sm text-ink-soft">
-            <strong>{repostando.autor.nome}</strong>: {repostando.texto.slice(0, 160)}
+            <strong>{nomeNaRede(repostando.autor, s)}</strong>: {repostando.texto.slice(0, 160)}
           </div>
         )}
         {aviso !== null && (
@@ -762,6 +790,18 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
           </button>
         </div>
         {mensagem && <p className="mt-2 font-sans text-sm text-oxblood" role="alert">{mensagem}</p>}
+        {(pedeCodinome || (redeEu?.codinome && !redeEu.codinome_ok && !embutido)) && (
+          <EscolherCodinome
+            s={s}
+            sugestao={redeEu?.nome || redeEu?.sugestao || ""}
+            pronto={(nome) => {
+              mudouCodinome?.({ ...(redeEu ?? { id: "" }), nome, codinome: true, codinome_ok: true });
+              const tentarDeNovo = pedeCodinome;
+              setPedeCodinome(false);
+              if (tentarDeNovo && (texto.trim() || repostando)) void postar();
+            }}
+          />
+        )}
         {idade && (
           <div className="mt-3 rounded-xl border-[1.5px] border-ink bg-parchment-deep p-3 font-sans text-sm">
             <p className="font-semibold">{s.idadeTitulo}</p>
@@ -780,6 +820,48 @@ function Escrever({ s, logado, equipe, comunidade, nomeDaComunidade, postou, lan
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+/** A escolha do codinome: aparece antes do primeiro post (e a quem ainda não confirmou o que recebeu). */
+function EscolherCodinome({ s, sugestao, pronto }: { s: Textos; sugestao: string; pronto: (nome: string) => void }) {
+  const [nome, setNome] = useState(sugestao);
+  const [ocupado, setOcupado] = useState(false);
+  const [erro, setErro] = useState("");
+  const salvar = async () => {
+    setOcupado(true);
+    setErro("");
+    try {
+      const r = await rpc<{ nome: string }>("rede_codinome_definir", { p_codinome: nome });
+      pronto(r.nome);
+    } catch (e) {
+      const codigo = e instanceof BackendError ? e.code : "";
+      setErro((s.erros as Record<string, string>)[codigo] ?? s.erro);
+    } finally {
+      setOcupado(false);
+    }
+  };
+  return (
+    <div className="mt-3 rounded-xl border-[1.5px] border-ink bg-parchment-deep p-3 font-sans text-sm">
+      <p className="font-semibold">{s.codinomeTitulo}</p>
+      <p className="mt-1">{s.codinomeTexto}</p>
+      <form
+        className="mt-2 flex flex-wrap items-end gap-2"
+        onSubmit={(e) => {
+          e.preventDefault();
+          void salvar();
+        }}
+      >
+        <label className="min-w-0 flex-1">
+          <span className="text-xs">{s.codinomeCampo}</span>
+          <input value={nome} onChange={(e) => setNome(e.target.value)} aria-label={s.codinomeCampo} minLength={3} maxLength={30} autoComplete="off" spellCheck={false} className="mt-1 w-full rounded-md border border-rule bg-parchment px-2 py-1.5 text-sm" />
+        </label>
+        <button type="submit" disabled={ocupado || nome.trim().length < 3} className={`${pilula} bg-ink text-parchment`}>
+          {s.codinomeUsar}
+        </button>
+      </form>
+      {erro && <p className="mt-2 text-oxblood" role="alert">{erro}</p>}
     </div>
   );
 }
@@ -818,12 +900,12 @@ function CartaoDoPost({ post, s, logado, equipe = false, mudou, abrirFio, abrirP
   const cita = post.cita;
   return (
     <article className={`grid grid-cols-[44px_minmax(0,1fr)] gap-3 ${embutido ? "rounded-xl border border-rule bg-parchment p-3" : `border-b px-[18px] py-4 ${escuro ? "border-[#3a3020] bg-[#1f1a14] text-[#f4ecd8]" : "border-rule bg-folha"}`} ${post.retido ? "opacity-70" : ""}`}>
-      <button type="button" onClick={() => abrirPerfil(post.autor.id)} className="cursor-pointer self-start" aria-label={post.autor.nome}>
+      <button type="button" onClick={() => abrirPerfil(post.autor.id)} className="cursor-pointer self-start" aria-label={nomeNaRede(post.autor, s)}>
         <Rosto autor={post.autor} tamanho={embutido ? "h-8 w-8" : "h-11 w-11"} />
       </button>
       <div className="min-w-0">
         <p className="flex flex-wrap items-baseline gap-x-1.5 font-sans text-sm">
-          <button type="button" onClick={() => abrirPerfil(post.autor.id)} className="cursor-pointer font-bold hover:underline">{post.autor.nome}</button>
+          <button type="button" onClick={() => abrirPerfil(post.autor.id)} className="cursor-pointer font-bold hover:underline">{nomeNaRede(post.autor, s)}</button>
           {post.autor.equipe && <span className="rounded bg-ink px-1 text-[0.6rem] font-semibold uppercase tracking-wider text-parchment">{s.daEquipe}</span>}
           {post.chamado && !embutido && <span className={suave}>· {s.chamado.toLowerCase()}</span>}
           {post.comunidade && (
@@ -924,7 +1006,7 @@ function CartaoDoPost({ post, s, logado, equipe = false, mudou, abrirFio, abrirP
                 type="button"
                 className={acaoClasse}
                 onClick={async () => {
-                  await rpc("pauta_salvar", { p_id: null, p: { titulo: post.texto.slice(0, 160), descricao: `Da Rede Lúcia, post de ${post.autor.nome}.`, tipo: post.cita?.tipo === "aula" ? "aula" : "jornal" } })
+                  await rpc("pauta_salvar", { p_id: null, p: { titulo: post.texto.slice(0, 160), descricao: `Da Rede Lúcia, post de ${nomeNaRede(post.autor, s)}.`, tipo: post.cita?.tipo === "aula" ? "aula" : "jornal" } })
                     .then(() => setRecado(s.pautaFeita), () => setRecado(s.erro));
                 }}
               >
@@ -1032,7 +1114,7 @@ function CabecaDoPerfil({ id, s, logado, mudou }: { id: string; s: Textos; logad
     rpc<Perfil>("rede_perfil", { p_usuario: id }).then((r) => { setP(r); setInvisivel(r.invisivel); }).catch(() => undefined);
   }, [id, versao]);
   if (!p) return null;
-  if (p.invisivel && !p.eu) return <p className="border-b border-rule bg-folha px-[18px] py-4 font-sans">{p.nome} · {s.invisivel}</p>;
+  if (p.invisivel && !p.eu) return <p className="border-b border-rule bg-folha px-[18px] py-4 font-sans">{nomeNaRede(p, s)} · {s.invisivel}</p>;
   const fazer = async (funcao: string, args: Record<string, unknown>) => {
     await rpc(funcao, args).catch(() => undefined);
     setVersao((v) => v + 1);
@@ -1041,9 +1123,9 @@ function CabecaDoPerfil({ id, s, logado, mudou }: { id: string; s: Textos; logad
   return (
     <div className="border-b border-rule bg-folha px-[18px] py-5">
       <div className="flex items-start gap-3">
-        <Rosto autor={{ id: p.id ?? id, nome: p.nome }} tamanho="h-16 w-16 text-lg" />
+        <Rosto autor={{ id: p.id ?? id, nome: p.nome, codinome: p.codinome }} tamanho="h-16 w-16 text-lg" />
         <div className="min-w-0 flex-1">
-          <p className="font-serif text-[1.7rem] font-semibold leading-tight">{p.nome}</p>
+          <p className="font-serif text-[1.7rem] font-semibold leading-tight">{nomeNaRede(p, s)}</p>
           <p className="font-sans text-xs text-ink-soft">{[p.equipe ? s.daEquipe : "", p.me_segue ? s.meSegue : ""].filter(Boolean).join(" · ")}</p>
           {p.bio && <p className="mt-1.5 whitespace-pre-line font-sans text-sm" data-original>{p.bio}</p>}
         </div>
@@ -1094,6 +1176,7 @@ function ProximosChamados({ s, abrirFio }: { s: Textos; abrirFio: (id: string) =
 
 /** À direita: a segurança de quem participa, com o registro público de moderação, palavras silenciadas e baixar posts. */
 function Seguranca({ s, logado, silenciadas, silenciar }: { s: Textos; logado: boolean; silenciadas: string[]; silenciar: (lista: string[]) => void }) {
+  const { lang } = useI18n();
   const [registro, setRegistro] = useState<{ semana: string; ocultados: number; banimentos: number }[] | null>(null);
   const [palavras, setPalavras] = useState(silenciadas.join(", "));
   async function baixar() {
@@ -1118,7 +1201,7 @@ function Seguranca({ s, logado, silenciadas, silenciar }: { s: Textos; logado: b
         <p className="mt-1 text-xs text-ink-soft">{s.moderacaoTexto}</p>
         <ul className="mt-1 text-xs">
           {(registro ?? []).map((r) => (
-            <li key={r.semana}>{new Date(`${r.semana}T12:00:00`).toLocaleDateString()}: {r.ocultados} {s.ocultados} · {r.banimentos} {s.banidas}</li>
+            <li key={r.semana}>{new Date(`${r.semana}T12:00:00`).toLocaleDateString(lang)}: {r.ocultados} {s.ocultados} · {r.banimentos} {s.banidas}</li>
           ))}
         </ul>
       </details>

@@ -5029,7 +5029,12 @@
     "erros": {
       "dado_pessoal": "O post tem telefone, CPF ou e-mail. Tire o dado pessoal e poste de novo.",
       "confirme_idade": "Confirme que tem 16 anos ou mais.",
-      "muitos_pedidos": "Muitos posts em pouco tempo. Contas novas postam menos nos primeiros dias."
+      "muitos_pedidos": "Muitos posts em pouco tempo. Contas novas postam menos nos primeiros dias.",
+      "confirme_codinome": "Escolha o seu codinome antes de postar.",
+      "codinome_civil": "Esse codinome parece o seu nome de verdade. Escolha outro.",
+      "codinome_usado": "Alguém já usa esse codinome. Escolha outro.",
+      "codinome_reservado": "Esse nome é reservado. Escolha outro.",
+      "invalido:codinome": "Use de 3 a 30 letras ou números, sem @ nem endereço."
     },
     "lutasLista": {
       "moradia": "Moradia e ocupações",
@@ -5087,7 +5092,12 @@
     "verTudo": "Ver tudo",
     "levarNucleo": "Levar para um núcleo",
     "levado": "Link copiado: cole no grupo do seu núcleo.",
-    "expondo": "Estão me expondo: tirar do ar já"
+    "expondo": "Estão me expondo: tirar do ar já",
+    "semCodinome": "Pessoa sem codinome",
+    "codinomeTitulo": "Escolha o seu codinome",
+    "codinomeTexto": "Na Rede, ninguém aparece com o nome de verdade, nem a equipe. Escolha um codinome de 3 a 30 letras: não use o seu nome, um apelido conhecido no bairro nem nada que leve até você.",
+    "codinomeCampo": "Codinome",
+    "codinomeUsar": "Usar este codinome"
   },
   "compartilhar": {
     "titulo": "Compartilhar",
