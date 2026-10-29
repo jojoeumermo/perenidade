@@ -3935,7 +3935,28 @@
     "withdraw": "Retirar un anuncio",
     "withdrawLabel": "Código del anuncio",
     "codeTitle": "Guarda este código",
-    "codeText": "Con él retiras el anuncio cuando quieras. No se mostrará de nuevo."
+    "codeText": "Con él retiras el anuncio cuando quieras. No se mostrará de nuevo.",
+    "how": {
+      "title": "Cómo usar el mural",
+      "steps": [
+        [
+          "Busca",
+          "Elige el estado y la ciudad y busca lo que necesitas: lavandera, electricista, torta, clases de guitarra."
+        ],
+        [
+          "Anuncia gratis",
+          "Para quien vive de su propio trabajo: cooperativas, autónomos, artesanos, artistas, colectivos. Sin intermediarios."
+        ],
+        [
+          "La coordinación lo lee",
+          "El anuncio aparece en el mural después de que la coordinación lo lee. El contacto queda a la vista de quien abra el mural."
+        ],
+        [
+          "Renueva o retira",
+          "Cada anuncio vale 180 días y se puede renovar; con el código que recibes, puedes retirarlo cuando quieras."
+        ]
+      ]
+    }
   },
   "tutoring": {
     "eyebrow": "Nadie estudia a solas",
@@ -4272,7 +4293,31 @@
     "withdrawn": "Ficha retirada.",
     "exerciseFor": "Entrega del ejercicio: {titulo}",
     "exerciseHint": "Envía el enlace del video exportado. El educador de la disciplina comenta; publicarlo en el Cajón para todos sigue pasando por la mediación.",
-    "feedback": "Comentario del educador"
+    "feedback": "Comentario del educador",
+    "howItWorks": {
+      "title": "Cómo funciona el Cajón Abierto",
+      "steps": [
+        [
+          "Elige el trabajo",
+          "Tesis, monografía, artículo, proyecto, informe, apuntes, código, presentación: lo que quedó parado después de la entrega."
+        ],
+        [
+          "Cuenta por qué vale la pena",
+          "Un comentario tuyo, de 40 a 2.000 caracteres: de qué trata y a quién le puede servir."
+        ],
+        [
+          "Enlace o PDF, con licencia libre",
+          "Un enlace adonde ya está (repositorio, Zenodo, GitHub, Drive) o el PDF de hasta 10 MB, con CC BY, CC BY-SA o CC0."
+        ],
+        [
+          "La mediación lo revisa",
+          "El trabajo aparece después de la lectura de la mediación, y recibes un aviso en el panel. Puedes retirarlo cuando quieras."
+        ]
+      ],
+      "teachTitle": "¿Tienes un trabajo guardado en el cajón?",
+      "teachText": "Publícalo con un comentario tuyo. Es gratis y necesita una cuenta, también gratuita.",
+      "teachLink": "Publicar un trabajo"
+    }
   },
   "podcast": {
     "title": "Pódcasts",
