@@ -1481,7 +1481,8 @@ function Janela({ id, chaveiro, me, equipe, conversas, resumo, conversarCom, vol
   const itemDoMenu = "block w-full cursor-pointer rounded px-2.5 py-1.5 text-left hover:bg-s-acento hover:text-white";
 
   return (
-    <div className="flex min-h-0 flex-1">
+    // Trocar de conversa remonta a janela (key={aberta}): ela entra deslizando de leve (painel-troca, no globals.css).
+    <div className="painel-troca flex min-h-0 flex-1">
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         <header className="flex h-14 shrink-0 items-center gap-2.5 border-b border-s-linha px-4">
           <button type="button" aria-label="Voltar às conversas" className="cursor-pointer px-1 text-s-suave lg:hidden" onClick={voltar}><svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg></button>

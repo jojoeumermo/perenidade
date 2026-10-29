@@ -3425,7 +3425,20 @@
         "corrected": "Corrigido em {data}: {motivo}",
         "previousVersion": "Antes da correção: entradas {e}, saídas {s}, saldo {b}.",
         "back": "Voltar ao Apoie"
-      }
+      },
+      "leadMark": "com ou sem",
+      "intro": "Não temos patrocinador, não vendemos curso e não vendemos os seus dados. Quem pode ajudar a pagar a conta garante o acesso de quem não pode. É assim que a classe trabalhadora sempre construiu o que é seu: juntando o pouco de cada um.",
+      "stamp": "Ninguém perde acesso a nada",
+      "pickTitle": "Escolha o seu tijolo · por mês",
+      "pickLabel": "Faixas de apoio",
+      "yourBrick": "O seu é o tijolo vermelho.",
+      "supportWith": "Apoiar com {valor} por mês",
+      "pickNote": "Abre a Benfeitoria em outra aba: lá, escolha a faixa {nome}. Este site não recebe nem guarda dados de pagamento. Dá para mudar ou cancelar lá quando quiser.",
+      "whereLabel": "Conta aberta",
+      "moreNav": "Mais sobre o apoio",
+      "navOther": "Sem dinheiro? Outras formas de ajudar",
+      "navCancel": "Como cancelar",
+      "navFaq": "Perguntas"
     }
   },
   "auth": {
@@ -5398,5 +5411,46 @@
     "/eventos": "Agenda de encontros · cineclube, clube de leitura e outros encontros",
     "/status": "Situação do site · se o site, o banco e a busca estão no ar agora",
     "/fora-do-ar": "Fora do ar · esta parte do site está fechada por enquanto"
+  },
+  "radioPagina": {
+    "posterKicker": "Instituto Lúcia · ouça daqui",
+    "posterLines": [
+      "Rádios",
+      "do povo"
+    ],
+    "posterSub": "Emissoras populares, comunitárias e de trabalhadores, do Brasil e do mundo.",
+    "directory": "Diretório",
+    "playHere": {
+      "one": "toca aqui",
+      "other": "tocam aqui"
+    },
+    "stampStations": {
+      "one": "emissora",
+      "other": "emissoras"
+    },
+    "stampFronts": {
+      "one": "frente",
+      "other": "frentes"
+    },
+    "nowPlaying": "Tocando agora",
+    "paused": "Em pausa",
+    "startWith": "Para começar",
+    "keepsPlaying": "o som continua quando você troca de página",
+    "resume": "Voltar a tocar",
+    "tabsLabel": "Frentes",
+    "tabs": {
+      "todas": "Todas",
+      "brasil": "Brasil",
+      "latina": "América Latina",
+      "mundo": "Mundo"
+    },
+    "onlyHere": "Só as que tocam aqui ({n})",
+    "playsHere": "toca aqui",
+    "opensSite": "abre no site dela",
+    "listenAtSite": "Ouvir {nome} no site da emissora",
+    "missing": "Falta uma rádio do seu bairro, sindicato ou movimento?",
+    "suggest": "Indicar uma emissora",
+    "emptyFilter": "Nenhuma emissora desta frente toca aqui. Desmarque o filtro para ver as outras.",
+    "siteShort": "Site"
   }
 }

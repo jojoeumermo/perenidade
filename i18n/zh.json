@@ -3356,7 +3356,20 @@
         "corrected": "于 {data} 更正：{motivo}",
         "previousVersion": "更正前：收入 {e}，支出 {s}，结余 {b}。",
         "back": "返回支持页面"
-      }
+      },
+      "leadMark": "无论你是否捐助",
+      "intro": "我们没有赞助商，不卖课程，也不出卖你的数据。有能力分担开销的人，保障了没有能力的人也能使用。工人阶级向来就是这样建设属于自己的东西的：把每个人的一点点汇集起来。",
+      "stamp": "所有人都能照常使用",
+      "pickTitle": "选择你的砖 · 每月",
+      "pickLabel": "支持档位",
+      "yourBrick": "红色的那块砖就是你的。",
+      "supportWith": "每月支持 {valor}",
+      "pickNote": "将在新标签页打开 Benfeitoria：请在那里选择“{nome}”档。本网站不接收也不保存任何支付数据。你可以随时在那里更改或取消。",
+      "whereLabel": "账目公开",
+      "moreNav": "关于支持的更多信息",
+      "navOther": "没有钱？还有其他帮忙方式",
+      "navCancel": "如何取消",
+      "navFaq": "常见问题"
     }
   },
   "auth": {
@@ -5325,5 +5338,43 @@
     "/eventos": "聚会日程 · 电影俱乐部、读书会和其他聚会",
     "/status": "网站状态 · 网站、数据库和搜索现在是否正常",
     "/fora-do-ar": "暂停 · 网站这一部分暂时关闭"
+  },
+  "radioPagina": {
+    "posterKicker": "Instituto Lúcia · 在这里收听",
+    "posterLines": [
+      "人民",
+      "电台"
+    ],
+    "posterSub": "来自巴西和世界各地的人民电台、社区电台和工人电台。",
+    "directory": "目录",
+    "playHere": {
+      "other": "个可在此播放"
+    },
+    "stampStations": {
+      "other": "个电台"
+    },
+    "stampFronts": {
+      "other": "个地区"
+    },
+    "nowPlaying": "正在播放",
+    "paused": "已暂停",
+    "startWith": "从这里开始",
+    "keepsPlaying": "切换页面时声音不会中断",
+    "resume": "继续播放",
+    "tabsLabel": "地区",
+    "tabs": {
+      "todas": "全部",
+      "brasil": "巴西",
+      "latina": "拉丁美洲",
+      "mundo": "世界"
+    },
+    "onlyHere": "只看可在此播放的（{n}）",
+    "playsHere": "可在此播放",
+    "opensSite": "在电台网站打开",
+    "listenAtSite": "到电台网站收听{nome}",
+    "missing": "缺少你所在街区、工会或运动的电台？",
+    "suggest": "推荐一个电台",
+    "emptyFilter": "这个地区没有可在此播放的电台。取消勾选即可查看其他电台。",
+    "siteShort": "网站"
   }
 }

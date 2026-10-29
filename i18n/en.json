@@ -3425,7 +3425,20 @@
         "corrected": "Corrected on {data}: {motivo}",
         "previousVersion": "Before the correction: income {e}, expenses {s}, balance {b}.",
         "back": "Back to Support"
-      }
+      },
+      "leadMark": "with or without",
+      "intro": "We have no sponsor, we don't sell courses and we don't sell your data. Those who can help pay the bill guarantee access for those who cannot. That is how the working class has always built what is its own: by pooling the little each one has.",
+      "stamp": "Nobody loses access to anything",
+      "pickTitle": "Choose your brick · per month",
+      "pickLabel": "Support tiers",
+      "yourBrick": "Yours is the red brick.",
+      "supportWith": "Support with {valor} a month",
+      "pickNote": "Opens Benfeitoria in another tab: there, choose the {nome} tier. This site does not receive or store payment data. You can change or cancel there whenever you want.",
+      "whereLabel": "Open books",
+      "moreNav": "More about supporting",
+      "navOther": "No money? Other ways to help",
+      "navCancel": "How to cancel",
+      "navFaq": "Questions"
     }
   },
   "auth": {
@@ -5398,5 +5411,46 @@
     "/eventos": "Gatherings · film club, reading club and other meetings",
     "/status": "Site status · whether the site, the database and search are up right now",
     "/fora-do-ar": "Offline · this part of the site is closed for now"
+  },
+  "radioPagina": {
+    "posterKicker": "Instituto Lúcia · listen from here",
+    "posterLines": [
+      "People's",
+      "radios"
+    ],
+    "posterSub": "Grassroots, community and workers' stations, from Brazil and the world.",
+    "directory": "Directory",
+    "playHere": {
+      "one": "plays here",
+      "other": "play here"
+    },
+    "stampStations": {
+      "one": "station",
+      "other": "stations"
+    },
+    "stampFronts": {
+      "one": "region",
+      "other": "regions"
+    },
+    "nowPlaying": "Now playing",
+    "paused": "Paused",
+    "startWith": "To start",
+    "keepsPlaying": "the sound keeps going when you change pages",
+    "resume": "Resume",
+    "tabsLabel": "Regions",
+    "tabs": {
+      "todas": "All",
+      "brasil": "Brazil",
+      "latina": "Latin America",
+      "mundo": "World"
+    },
+    "onlyHere": "Only those that play here ({n})",
+    "playsHere": "plays here",
+    "opensSite": "opens on its website",
+    "listenAtSite": "Listen to {nome} on the station's website",
+    "missing": "Missing a radio from your neighborhood, union or movement?",
+    "suggest": "Suggest a station",
+    "emptyFilter": "No station in this region plays here. Untick the filter to see the others.",
+    "siteShort": "Website"
   }
 }

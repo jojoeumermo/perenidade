@@ -3425,7 +3425,20 @@
         "corrected": "Corrigé le {data} : {motivo}",
         "previousVersion": "Avant la correction : recettes {e}, dépenses {s}, solde {b}.",
         "back": "Revenir à Soutenir"
-      }
+      },
+      "leadMark": "avec ou sans",
+      "intro": "Nous n'avons pas de sponsor, nous ne vendons pas de cours et nous ne vendons pas vos données. Ceux qui peuvent aider à payer la facture garantissent l'accès de ceux qui ne peuvent pas. C'est ainsi que la classe ouvrière a toujours construit ce qui lui appartient : en mettant en commun le peu de chacun.",
+      "stamp": "Personne ne perd aucun accès",
+      "pickTitle": "Choisissez votre brique · par mois",
+      "pickLabel": "Paliers de soutien",
+      "yourBrick": "La vôtre est la brique rouge.",
+      "supportWith": "Soutenir avec {valor} par mois",
+      "pickNote": "Ouvre Benfeitoria dans un autre onglet : là-bas, choisissez le palier {nome}. Ce site ne reçoit ni ne conserve aucune donnée de paiement. Vous pouvez modifier ou annuler là-bas quand vous le souhaitez.",
+      "whereLabel": "Comptes ouverts",
+      "moreNav": "En savoir plus sur le soutien",
+      "navOther": "Pas d'argent ? D'autres façons d'aider",
+      "navCancel": "Comment annuler",
+      "navFaq": "Questions"
     }
   },
   "auth": {
@@ -5398,5 +5411,46 @@
     "/eventos": "Agenda des rencontres · ciné-club, club de lecture et autres rencontres",
     "/status": "État du site · si le site, la base de données et la recherche fonctionnent",
     "/fora-do-ar": "Hors ligne · cette partie du site est fermée pour l'instant"
+  },
+  "radioPagina": {
+    "posterKicker": "Instituto Lúcia · écoutez d'ici",
+    "posterLines": [
+      "Radios",
+      "du peuple"
+    ],
+    "posterSub": "Stations populaires, communautaires et ouvrières, du Brésil et du monde.",
+    "directory": "Annuaire",
+    "playHere": {
+      "one": "joue ici",
+      "other": "jouent ici"
+    },
+    "stampStations": {
+      "one": "station",
+      "other": "stations"
+    },
+    "stampFronts": {
+      "one": "région",
+      "other": "régions"
+    },
+    "nowPlaying": "En écoute",
+    "paused": "En pause",
+    "startWith": "Pour commencer",
+    "keepsPlaying": "le son continue quand vous changez de page",
+    "resume": "Reprendre",
+    "tabsLabel": "Régions",
+    "tabs": {
+      "todas": "Toutes",
+      "brasil": "Brésil",
+      "latina": "Amérique latine",
+      "mundo": "Monde"
+    },
+    "onlyHere": "Seulement celles qui jouent ici ({n})",
+    "playsHere": "joue ici",
+    "opensSite": "s'ouvre sur son site",
+    "listenAtSite": "Écouter {nome} sur le site de la station",
+    "missing": "Il manque une radio de votre quartier, syndicat ou mouvement ?",
+    "suggest": "Proposer une station",
+    "emptyFilter": "Aucune station de cette région ne joue ici. Décochez le filtre pour voir les autres.",
+    "siteShort": "Site"
   }
 }
