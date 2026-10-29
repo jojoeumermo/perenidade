@@ -5452,5 +5452,25 @@
     "suggest": "Proposer une station",
     "emptyFilter": "Aucune station de cette région ne joue ici. Décochez le filtre pour voir les autres.",
     "siteShort": "Site"
+  },
+  "celular": {
+    "compartilhar": "Partager",
+    "folhaDaAula": "Sommaire et outils",
+    "concluirSeguir": "Terminer et continuer",
+    "anterior": "Leçon précédente",
+    "letra": "Taille du texte",
+    "letraMenor": "Texte plus petit",
+    "letraMaior": "Texte plus grand",
+    "aulasDaTrilha": "Leçons du parcours",
+    "ferramentas": "Outils",
+    "atalhos": "Raccourcis",
+    "bomDia": "Bonjour",
+    "boaTarde": "Bon après-midi",
+    "boaNoite": "Bonsoir",
+    "muro": "Sur le mur aujourd’hui",
+    "tema": "Thème",
+    "claro": "Clair",
+    "escuro": "Sombre",
+    "secoes": "Toutes les rubriques"
   }
 }

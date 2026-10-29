@@ -8,6 +8,7 @@ import { migalhas, recursoDeAula } from "@/lib/dados-estruturados";
 import { notFound } from "next/navigation";
 import { AntesDaAula } from "@/components/AntesDaAula";
 import { BarraDaAula } from "@/components/aula/BarraDaAula";
+import { AcoesDaAula } from "@/components/celular/AcoesDaAula";
 import { MargemDaAula } from "@/components/aula/MargemDaAula";
 import { OuvirAula } from "@/components/aula/OuvirAula";
 import { areaLabs, areaTools, universalTools } from "@/lib/areas";
@@ -126,6 +127,12 @@ export default async function LessonPage({ params }: Props) {
     <div className="grade-da-aula mx-auto grid max-w-[86rem] gap-10 px-4 py-12 app:max-md:gap-8 app:max-md:px-5 app:max-md:pt-4! sm:px-6 md:grid-cols-[14rem_minmax(0,1fr)] lg:px-8 xl:grid-cols-[14rem_minmax(0,1fr)_15rem]">
       <DadosEstruturados dados={[recursoDeAula(lang, track, lesson), migalhas(lang, [[t.nav.disciplines, "/trilhas"], [track.title, `/trilhas/${track.slug}`], [lesson.title, `/trilhas/${track.slug}/${lesson.slug}`]])]} />
       <ReadingChrome />
+      <AcoesDaAula
+        id={id}
+        anterior={prev && { id: lessonId(track.slug, prev.slug), path: path(prev.slug), title: prev.title }}
+        proxima={next && { id: lessonId(track.slug, next.slug), path: path(next.slug), title: next.title }}
+        aulas={track.plan.map((item) => ({ id: lessonId(track.slug, item.slug), path: path(item.slug), title: item.title, ready: item.ready }))}
+      />
       <RememberLesson path={path(lesson.slug)} title={lesson.title} track={track.title} area={track.area} />
       {(ligado("meu-estudo") || ligado("metas")) && <RegistroDeConclusao />}
 
@@ -155,7 +162,8 @@ export default async function LessonPage({ params }: Props) {
         )}
       </aside>
 
-      <article className="folha-da-aula min-w-0 justify-self-center">
+      {/* No celular, a posição e a trilha aparecem na barra de cima (components/celular/BarraDoCelular.tsx). */}
+      <article className="folha-da-aula min-w-0 justify-self-center" data-posicao={fill(t.lesson.position, { i: index + 1, n: track.lessons.length })} data-trilha={track.title}>
         <p className="rotulo">
           {t.areas[track.area][0]} · {t.stages[track.stage]} · {fill(t.lesson.position, { i: index + 1, n: track.lessons.length })}
         </p>
@@ -209,7 +217,7 @@ export default async function LessonPage({ params }: Props) {
           s={t.compartilhar}
         />
 
-        <nav aria-label={t.lesson.neighbors} className="no-print mt-12 flex justify-between gap-6 border-t border-rule pt-6 font-sans text-sm app:max-md:flex-col app:max-md:gap-3">
+        <nav aria-label={t.lesson.neighbors} data-vizinhas className="no-print mt-12 flex justify-between gap-6 border-t border-rule pt-6 font-sans text-sm app:max-md:flex-col app:max-md:gap-3">
           {prev ? <Link href={to(path(prev.slug))} data-prev className={`hover:text-oxblood ${vizinha}`}>← {prev.title}</Link> : <span />}
           {next ? <Link href={to(path(next.slug))} data-next className={`text-right hover:text-oxblood app:max-md:order-first ${vizinha}`}>{next.title} →</Link> : <span />}
         </nav>

@@ -40,7 +40,7 @@ export default async function BookPage({ params }: PageProps<"/[lang]/acervo/[id
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 app:max-md:px-5">
       <DadosEstruturados dados={[livro(lang, book), migalhas(lang, [[t.nav.library, "/acervo"], [t.areas[book.area][0], `/estantes/${book.area}`], [book.title, `/acervo/${book.id}`]])]} />
-      <Link href={to("/acervo")} className="font-sans text-sm text-ink-soft hover:text-oxblood app:max-md:hidden">← {t.library.back}</Link>
+      <Link href={to("/acervo")} className="voltar-da-pagina font-sans text-sm text-ink-soft hover:text-oxblood app:max-md:hidden">← {t.library.back}</Link>
       {/* A capa ao lado do título: a da edição (fonte aberta, guardada no site) ou a desenhada da coleção. */}
       <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-end app:max-md:mt-2 app:max-md:items-center">
         <figure className="shrink-0 self-center sm:self-auto">

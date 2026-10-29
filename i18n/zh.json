@@ -5376,5 +5376,25 @@
     "suggest": "推荐一个电台",
     "emptyFilter": "这个地区没有可在此播放的电台。取消勾选即可查看其他电台。",
     "siteShort": "网站"
+  },
+  "celular": {
+    "compartilhar": "分享",
+    "folhaDaAula": "目录和工具",
+    "concluirSeguir": "完成并继续",
+    "anterior": "上一课",
+    "letra": "字号",
+    "letraMenor": "缩小字号",
+    "letraMaior": "放大字号",
+    "aulasDaTrilha": "本路线的课程",
+    "ferramentas": "工具",
+    "atalhos": "快捷入口",
+    "bomDia": "早上好",
+    "boaTarde": "下午好",
+    "boaNoite": "晚上好",
+    "muro": "今日墙报",
+    "tema": "主题",
+    "claro": "浅色",
+    "escuro": "深色",
+    "secoes": "所有栏目"
   }
 }

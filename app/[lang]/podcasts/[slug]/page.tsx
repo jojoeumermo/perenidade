@@ -52,7 +52,7 @@ export default async function PaginaDoEpisodio({ params }: PageProps<"/[lang]/po
 
   return (
     <article className="mx-auto max-w-6xl px-4 py-8">
-      <Link href={localePath(lang, "/podcasts")} className="font-sans text-sm text-ink-soft hover:text-oxblood">← {s.title}</Link>
+      <Link href={localePath(lang, "/podcasts")} className="voltar-da-pagina font-sans text-sm text-ink-soft hover:text-oxblood">← {s.title}</Link>
 
       <header className="mt-6 grid gap-6 md:grid-cols-[minmax(0,20rem)_1fr]">
         <Capa caminho={e.capa} titulo={e.titulo} numero={e.numero} grande className="border-4 border-ink" />
