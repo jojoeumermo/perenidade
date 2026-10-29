@@ -784,7 +784,7 @@ function Dentro({ eu: euReal, recarregar, sair, aba, menu, setMenu }: { eu: Me; 
                 Tutorial
               </button>
               {produz && atual.id !== "escrever" && (
-                <button type="button" onClick={() => ir("escrever")} className="cursor-pointer border-2 border-ink bg-[#c21f16] px-3 py-1 text-xs font-extrabold text-white shadow-[2px_2px_0_var(--sombra)] hover:bg-[#a51810]">
+                <button type="button" onClick={() => ir("escrever")} data-tour="escrever" className="cursor-pointer border-2 border-ink bg-[#c21f16] px-3 py-1 text-xs font-extrabold text-white shadow-[2px_2px_0_var(--sombra)] hover:bg-[#a51810]">
                   ＋ Escrever
                 </button>
               )}
@@ -931,15 +931,22 @@ const tipoDoDestino: Record<string, Tipo> = {
 };
 const nomeDoTipo: Record<Tipo, string> = { revisar: "Revisar", responder: "Responder", fazer: "Fazer" };
 const acaoDoTipo: Record<Tipo, string> = { revisar: "Revisar →", responder: "Abrir →", fazer: "Fazer →" };
-const desenhoDoTipo: Record<Tipo, string> = {
-  revisar: "M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12zM12 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z",
-  responder: "M4 5h16v11H9l-5 4z",
-  fazer: "M5 12.5l4.5 4.5L19 7.5",
-};
+
+/** Título de seção da Mesa, no desenho aprovado: a etiqueta (vermelha no que pede você, preta no resto) e o fio. */
+function TituloDaMesa({ id, tom = "tinta", children, direita }: { id: string; tom?: "prelo" | "tinta" | "papel"; children: React.ReactNode; direita?: React.ReactNode }) {
+  const etiqueta = tom === "prelo" ? "bg-[#c21f16] px-2.5 py-1.5 text-white" : tom === "tinta" ? "bg-ink px-2.5 py-1.5 text-parchment" : "";
+  return (
+    <h2 id={id} className="flex items-center gap-3 font-mono text-xs font-medium uppercase tracking-[0.2em]">
+      <span className={etiqueta}>{children}</span>
+      <span aria-hidden className="flex-1 border-t-2 border-ink" />
+      {direita}
+    </h2>
+  );
+}
 
 /**
  * A caixa de entrada da Mesa: tudo o que chegou para a pessoa, do mais urgente para o resto, com o filtro por tipo
- * (revisar, responder, fazer). Um clique leva direto ao trabalho. Nada aqui é obrigatório.
+ * (revisar, responder, fazer). A linha inteira é o botão: um clique leva direto ao trabalho. Nada aqui é obrigatório.
  */
 function CaixaDeEntrada({ pendencias, ir }: { pendencias: [string, number, string][]; ir: (aba: string) => void }) {
   const [filtro, setFiltro] = useState<Tipo | "tudo">("tudo");
@@ -947,42 +954,42 @@ function CaixaDeEntrada({ pendencias, ir }: { pendencias: [string, number, strin
   const tipos = (["revisar", "responder", "fazer"] as Tipo[]).filter((t) => linhas.some((l) => l.tipo === t));
   const vistas = filtro === "tudo" ? linhas : linhas.filter((l) => l.tipo === filtro);
   return (
-    <div className="mt-5">
+    <div className="flex flex-col gap-3">
       {tipos.length > 1 && (
         <p role="group" aria-label="Filtrar a caixa de entrada" className="flex flex-wrap gap-1.5">
           {(["tudo", ...tipos] as const).map((t) => (
-            <button key={t} type="button" aria-pressed={filtro === t} onClick={() => setFiltro(t)} className={`cursor-pointer border-2 border-ink px-3 py-1 text-[0.82rem] font-semibold ${filtro === t ? "bg-ink text-parchment" : "bg-folha hover:bg-parchment-deep"}`}>
+            <button key={t} type="button" aria-pressed={filtro === t} onClick={() => setFiltro(t)} className={`cursor-pointer border-[1.5px] border-ink px-3 py-1 text-[0.82rem] font-semibold ${filtro === t ? "bg-ink text-parchment" : "bg-folha hover:bg-parchment-deep"}`}>
               {t === "tudo" ? "Tudo" : nomeDoTipo[t]}
             </button>
           ))}
         </p>
       )}
-      <ul className="mt-4 border-2 border-ink shadow-[6px_6px_0_var(--sombra)]">
+      <ul className="border-2 border-ink bg-folha shadow-[6px_6px_0_var(--sombra)]">
         {vistas.map((l, i) => (
-          <li key={l.titulo} className={i ? "border-t-[1.5px] border-rule" : ""}>
-            <button type="button" onClick={() => ir(l.destino)} style={{ animationDelay: `${i * 35}ms` }} className="painel-surge group grid w-full cursor-pointer grid-cols-[2.6rem_minmax(0,1fr)_auto] items-center gap-4 bg-folha px-4 py-3.5 text-left hover:bg-parchment sm:px-5">
-              <span className={`flex h-10 w-10 items-center justify-center border-2 border-ink ${i === 0 && filtro === "tudo" ? "bg-[#c21f16] text-white" : l.tipo === "fazer" ? "bg-parchment-deep" : "bg-folha"}`}>
-                <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d={desenhoDoTipo[l.tipo]} />
-                </svg>
-              </span>
-              <span className="min-w-0">
-                <span className={`block font-mono text-[0.66rem] font-semibold uppercase tracking-[0.14em] ${i === 0 && filtro === "tudo" ? "text-prelo-texto" : "text-ink-soft"}`}>
-                  {nomeDoTipo[l.tipo]} · {l.n} {l.n === 1 ? "item" : "itens"}
+          <li key={l.titulo} className={i ? "border-t border-rule" : ""}>
+            <button type="button" onClick={() => ir(l.destino)} style={{ animationDelay: `${i * 35}ms` }} className="painel-surge group flex w-full cursor-pointer flex-wrap items-center gap-x-5 gap-y-2.5 px-5 py-[1.1rem] text-left hover:bg-parchment max-sm:px-4">
+              <span className={`w-[5.75rem] shrink-0 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.14em] ${i === 0 && filtro === "tudo" ? "text-prelo-texto" : "text-ink-soft"}`}>{nomeDoTipo[l.tipo]}</span>
+              <span className="flex min-w-0 flex-[1_1_16rem] flex-col gap-0.5">
+                <span className="font-serif text-[1.3rem] font-semibold leading-snug">{l.titulo}</span>
+                <span className="text-[0.84rem] text-ink-soft">
+                  {l.n} {l.n === 1 ? "item" : "itens"}
                 </span>
-                <span className="block font-serif text-[1.3rem] font-semibold leading-snug">{l.titulo}</span>
               </span>
-              <span className="whitespace-nowrap text-sm font-extrabold group-hover:text-prelo-texto max-sm:hidden">{acaoDoTipo[l.tipo]}</span>
+              <span className="min-h-10 border-2 border-ink bg-ink px-4 py-2 text-sm font-bold whitespace-nowrap text-parchment shadow-[3px_3px_0_var(--prelo)] group-hover:bg-[#c21f16] group-hover:text-white">{acaoDoTipo[l.tipo]}</span>
             </button>
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-[0.85rem] text-ink-soft">Feito o que dá, a lista some. Nada aqui é obrigatório: é só o que chegou para você.</p>
+      <p className="text-[0.85rem] text-ink-soft">Feito o que dá, a lista some. Nada aqui é obrigatório: é só o que chegou para você.</p>
     </div>
   );
 }
 
-/** A primeira tela: o que pede atenção agora, a manchete do dia e, ao lado, os atalhos de trabalho. */
+/**
+ * A primeira tela, no desenho aprovado: a saudação com o resumo do dia, o que precisa da pessoa, como está a casa, o
+ * que fazer se sobrar tempo, o movimento da equipe e do site e, por fim, os atalhos e os guias. Tudo o que a Mesa tinha
+ * continua aqui; só mudou de lugar para a tela não ficar poluída.
+ */
 function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resumo: Resumo | null; recarregar: () => void; ir: (aba: string) => void; secoes: Secao[]; acompanha: boolean }) {
   const { t } = useI18n();
   const nomeDaArea = (slug: string | null) => (slug ? (t.areas[slug as keyof typeof t.areas]?.[0] ?? slug) : "");
@@ -1013,6 +1020,7 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
       ).filter(([, total, destino]) => total > 0 && secoes.some((secao) => secao.id === destino))
     : [];
   const total = pendencias.reduce((soma, [, n]) => soma + n, 0);
+  const voluntario = me.papeis.length > 0;
 
   const hora = new Date().getHours();
   const saudacao = hora < 5 ? "Boa noite" : hora < 12 ? "Bom dia" : hora < 18 ? "Boa tarde" : "Boa noite";
@@ -1020,103 +1028,126 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
   // Data de luta: se hoje está no quadro "Neste dia" (content/neste-dia.json), a Mesa lembra.
   const diaMes = `${String(new Date().getMonth() + 1).padStart(2, "0")}-${String(new Date().getDate()).padStart(2, "0")}`;
   const dataDeLuta = (nesteDia.fatos as { dia: string; ano: number; texto: string; link: string }[]).find((f) => f.dia === diaMes);
-  const produz = can(me, "coordenacao", "supervisao", "curadoria", "educacao", "revisao", "traducao", "jornalismo", "design", "marketing");
+  const resumoDoDia = !r ? null : total === 0 ? "Tudo em dia." : total === 1 ? "Uma coisa espera por você." : `${total} coisas esperam por você.`;
+  const atalhoDeTrabalho = "flex cursor-pointer items-center gap-2 border-[1.5px] border-ink bg-folha px-3 py-2 text-[0.88rem] font-semibold hover:bg-parchment-deep";
 
   return (
-    <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_19rem]">
-      <div className="min-w-0 space-y-10">
-        <section className="painel-surge border-b-[3px] border-double border-ink pb-6" data-tour="mesa">
-          <p className="font-mono text-[0.68rem] uppercase tracking-[0.22em] text-ink-soft">{hoje}</p>
-          <h2 className="mt-1.5 font-serif text-[2.6rem] font-semibold leading-none sm:text-5xl">
-            {saudacao}, <span className="italic text-prelo-texto">{me.nome.split(" ")[0]}</span>.
-          </h2>
-          {dataDeLuta && (
-            <p className="mt-3 max-w-2xl border-l-4 border-[#c21f16] pl-3 text-[0.95rem] leading-snug">
-              <span className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-prelo-texto">Hoje, em {dataDeLuta.ano} · </span>
-              {dataDeLuta.texto}{" "}
-              <a href={dataDeLuta.link} target="_blank" rel="noopener noreferrer" className="text-xs text-ink-soft underline hover:text-prelo-texto">fonte</a>
-            </p>
-          )}
-          {me.papeis.length > 0 ? (
-            <ul className="mt-4 flex flex-wrap gap-2" aria-label="Suas funções">
-              {porNivel(me.papeis).map((papel) => (
-                <li key={papel.id} title={oQueFaz[papel.papel]} className="flex items-center gap-1.5 border-2 border-ink bg-folha px-3 py-1.5 shadow-[2px_2px_0_var(--sombra)]">
-                  <Star className="h-3.5 w-3.5 text-[#c21f16]" />
-                  <strong>{papeis[papel.papel]}</strong>
-                  {papel.disciplina && <span className="text-ink-soft"> · {nomeDaArea(papel.disciplina)}</span>}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="mt-3 max-w-2xl text-ink-soft">Você participa da comunidade e pode escrever e enviar contribuições. Para revisar, traduzir, ensinar ou cuidar de uma disciplina, peça uma função abaixo.</p>
-          )}
-        </section>
-
-        <FeriasNaMesa />
-        {me.papeis.length > 0 && <PrimeiraSemana me={me} ir={ir} />}
-
-        <section aria-labelledby="pede-voce">
-          <h2 id="pede-voce" className="font-serif text-3xl font-semibold leading-tight">
-            {!r ? <span className="painel-carregando text-ink-soft">Carregando…</span> : total === 0 ? "Nada esperando por você." : <>Hoje, <span className="italic text-prelo-texto">{total} {total === 1 ? "coisa pede" : "coisas pedem"}</span> você.</>}
-          </h2>
-          {r && total === 0 && (
-            <p className="painel-surge mt-4 flex items-center gap-3 border-2 border-ink bg-folha px-4 py-4 shadow-[4px_4px_0_var(--sombra)]">
-              <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6 shrink-0 text-ok" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M4 12.5l5 5L20 6.5" /></svg>
-              <span className="text-base font-semibold">Tudo em dia. Aproveite para escrever ou para olhar as tarefas.</span>
-            </p>
-          )}
-          {pendencias.length > 0 && <CaixaDeEntrada pendencias={pendencias} ir={ir} />}
-        </section>
-
-        {/* Continuar de onde parou e as horas do certificado, como na prancheta do painel moderno. */}
-        <div className="grid gap-4 empty:hidden sm:grid-cols-2">
-          <Continuar />
-          {me.papeis.length > 0 && <SuasHoras me={me} ir={ir} />}
+    <div className="mesa flex flex-col gap-9">
+      {/* ── A saudação, o resumo do dia, a data de luta e as funções ── */}
+      <section className="painel-surge flex flex-col gap-3" data-tour="mesa">
+        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+          <div className="flex min-w-0 flex-col gap-1.5">
+            <p className="font-mono text-[0.68rem] uppercase tracking-[0.2em] text-ink-soft">{hoje}</p>
+            <h2 className="font-serif text-[2.5rem] font-medium leading-[1.05] max-sm:text-[2.1rem]">
+              {saudacao}, <em className="text-prelo-texto">{me.nome.split(" ")[0]}</em>.
+            </h2>
+          </div>
+          <p className="font-serif text-xl text-ink-soft">{resumoDoDia ?? <span className="painel-carregando">Carregando…</span>}</p>
         </div>
+        {dataDeLuta && (
+          <p className="max-w-2xl border-l-4 border-[#c21f16] pl-3 text-[0.95rem] leading-snug">
+            <span className="font-mono text-[0.66rem] uppercase tracking-[0.18em] text-prelo-texto">Hoje, em {dataDeLuta.ano} · </span>
+            {dataDeLuta.texto}{" "}
+            <a href={dataDeLuta.link} target="_blank" rel="noopener noreferrer" className="text-xs text-ink-soft underline hover:text-prelo-texto">fonte</a>
+          </p>
+        )}
+        {voluntario ? (
+          <ul className="flex flex-wrap gap-1.5" aria-label="Suas funções">
+            {porNivel(me.papeis).map((papel) => (
+              <li key={papel.id} title={oQueFaz[papel.papel]} className="flex items-center gap-1.5 border-[1.5px] border-ink bg-folha px-2.5 py-1 text-[0.82rem]">
+                <Star className="h-3 w-3 text-[#c21f16]" />
+                <strong>{papeis[papel.papel]}</strong>
+                {papel.disciplina && <span className="text-ink-soft"> · {nomeDaArea(papel.disciplina)}</span>}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="max-w-2xl text-ink-soft">Você participa da comunidade e pode escrever e enviar contribuições. Para revisar, traduzir, ensinar ou cuidar de uma disciplina, peça uma função mais abaixo.</p>
+        )}
+      </section>
 
-        {me.papeis.length > 0 && <Agradecimentos />}
+      <FeriasNaMesa />
+      {voluntario && <PrimeiraSemana me={me} ir={ir} />}
 
-        {me.papeis.length > 0 && <ConquistasDaEquipe />}
-
-        {me.papeis.length > 0 && <Atalhos secoes={secoes} ir={ir} icone={(id) => <Icone id={id} />} />}
-
-        {me.papeis.length > 0 && <ParaVoceHoje me={me} ir={ir} />}
-
-        {me.papeis.length > 0 && <Situacao lidera={can(me, "coordenacao")} supervisiona={can(me, "supervisao")} ir={ir} />}
-
+      {/* ── Precisa de você: o que está ao vivo, a caixa de entrada, o termômetro da semana e os recados ── */}
+      <section aria-labelledby="pede-voce" className="flex flex-col gap-3.5">
+        <TituloDaMesa id="pede-voce" tom="prelo">
+          Precisa de você
+        </TituloDaMesa>
+        <AgoraAoVivo me={me} ir={ir} />
+        {!r && <p className="painel-carregando text-ink-soft">Carregando…</p>}
+        {r && total === 0 && (
+          <div className="painel-surge flex flex-wrap items-center gap-x-6 gap-y-3 border-2 border-ink bg-folha px-6 py-5 max-sm:px-4">
+            <span aria-hidden className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-ok text-ok">
+              <svg viewBox="0 0 22 22" className="h-[22px] w-[22px]" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 11 L9 16 L18 6" /></svg>
+            </span>
+            <span className="flex min-w-0 flex-[1_1_16rem] flex-col gap-1">
+              <strong className="font-serif text-2xl font-semibold">Nada esperando por você.</strong>
+              <span className="text-[0.9rem] text-ink-soft">Bom momento para escrever, revisar uma aula ou agradecer alguém da equipe.</span>
+            </span>
+          </div>
+        )}
+        {pendencias.length > 0 && <CaixaDeEntrada pendencias={pendencias} ir={ir} />}
+        {voluntario && <Termometro />}
         <Recados recarregar={recarregar} />
+      </section>
 
-        {me.papeis.length > 0 && !can(me, "marketing") && <SugerirAoMarketing />}
-
-        {/* Quem não tem função pede a primeira; quem já tem pode pedir outra: uma pessoa acumula quantas a coordenação confiar. */}
-        {!can(me, "coordenacao") && <Candidatura me={me} />}
+      {/* ── O seu trabalho em andamento: o último rascunho e as horas do certificado ── */}
+      <div className="grid gap-4 empty:hidden sm:grid-cols-2">
+        <Continuar />
+        {voluntario && <SuasHoras me={me} ir={ir} />}
       </div>
 
-      <aside className="space-y-6 xl:sticky xl:top-20 xl:self-start">
-        <AgoraAoVivo me={me} ir={ir} />
-        {me.papeis.length > 0 && <Termometro />}
-        {produz && (
-          <button type="button" className="botao botao-prelo w-full justify-center py-3.5 text-base" onClick={() => ir("escrever")} data-tour="escrever">
-            ＋ Escrever
-          </button>
-        )}
-        <div className="border-2 border-ink bg-folha p-4 shadow-[4px_4px_0_var(--sombra)]">
-          <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-prelo-texto">Atalhos de trabalho</p>
-          <ul className="mt-2 divide-y divide-dashed divide-rule">
-            {me.papeis.length > 0 && (
-              <li><button type="button" className="flex w-full cursor-pointer items-center gap-2.5 py-2 text-left font-semibold hover:text-prelo-texto" onClick={() => ir("conversas")}><Icone id="conversas" /> Conversas e reuniões</button></li>
-            )}
-            {(r?.minhas ?? 0) > 0 && (
-              <li><button type="button" className="flex w-full cursor-pointer items-center gap-2.5 py-2 text-left font-semibold hover:text-prelo-texto" onClick={() => ir("minhas")}><Icone id="minhas" /> Meus envios <span className="ml-auto font-mono text-xs text-ink-soft">{r?.minhas}</span></button></li>
-            )}
-            {me.papeis.length > 0 && (
-              <li><button type="button" className="flex w-full cursor-pointer items-center gap-2.5 py-2 text-left font-semibold hover:text-prelo-texto" onClick={() => ir("tarefas")}><Icone id="tarefas" /> Tarefas de 5 a 30 minutos</button></li>
-            )}
-            <li><button type="button" className="flex w-full cursor-pointer items-center gap-2.5 py-2 text-left font-semibold hover:text-prelo-texto" onClick={() => ir("caderno")}><Icone id="caderno" /> Caderno de estudos</button></li>
-            <li><button type="button" className="flex w-full cursor-pointer items-center gap-2.5 py-2 text-left font-semibold hover:text-prelo-texto" onClick={() => ir("conta")}><Icone id="conta" /> Minha conta</button></li>
-          </ul>
+      {/* ── Como está a casa: a equipe, os envios, a faixa do alto e o que a equipe já fez junto ── */}
+      {voluntario && (
+        <section aria-labelledby="como-esta" className="flex flex-col gap-3.5">
+          <TituloDaMesa id="como-esta">Como está a casa</TituloDaMesa>
+          <Situacao lidera={can(me, "coordenacao")} supervisiona={can(me, "supervisao")} ir={ir} />
+          <ConquistasDaEquipe />
+        </section>
+      )}
+
+      {/* ── Se sobrar tempo: as tarefas de 5, 15 ou 30 minutos ── */}
+      {voluntario && <ParaVoceHoje me={me} ir={ir} />}
+
+      {/* ── Movimento: o que chegou no site e os agradecimentos da equipe (some quando não há nada) ── */}
+      <section aria-labelledby="movimento" className="flex flex-col gap-3.5 has-[>div:empty]:hidden">
+        <TituloDaMesa id="movimento" tom="papel">
+          Movimento
+        </TituloDaMesa>
+        <div className="grid items-start gap-4 empty:hidden md:grid-cols-2">
+          <NoSiteAgora acompanha={acompanha} ir={ir} />
+          {voluntario && <Agradecimentos />}
         </div>
-        {me.papeis.length > 0 && (
+      </section>
+
+      {/* ── Atalhos: os de trabalho e as seções fixadas ── */}
+      <section aria-labelledby="atalhos-de-trabalho" className="flex flex-col gap-3.5">
+        <TituloDaMesa id="atalhos-de-trabalho" tom="papel">
+          Atalhos de trabalho
+        </TituloDaMesa>
+        <ul className="flex flex-wrap gap-2">
+          {voluntario && (
+            <li><button type="button" className={atalhoDeTrabalho} onClick={() => ir("conversas")}><Icone id="conversas" /> Conversas e reuniões</button></li>
+          )}
+          {(r?.minhas ?? 0) > 0 && (
+            <li><button type="button" className={atalhoDeTrabalho} onClick={() => ir("minhas")}><Icone id="minhas" /> Meus envios <span className="font-mono text-xs text-ink-soft">{r?.minhas}</span></button></li>
+          )}
+          {voluntario && (
+            <li><button type="button" className={atalhoDeTrabalho} onClick={() => ir("tarefas")}><Icone id="tarefas" /> Tarefas de 5 a 30 minutos</button></li>
+          )}
+          <li><button type="button" className={atalhoDeTrabalho} onClick={() => ir("caderno")}><Icone id="caderno" /> Caderno de estudos</button></li>
+          <li><button type="button" className={atalhoDeTrabalho} onClick={() => ir("conta")}><Icone id="conta" /> Minha conta</button></li>
+        </ul>
+      </section>
+      {voluntario && <Atalhos secoes={secoes} ir={ir} icone={(id) => <Icone id={id} />} />}
+
+      {/* ── Para a equipe e para quem chega: a sugestão à divulgação, o pedido de função e os guias ── */}
+      {voluntario && !can(me, "marketing") && <SugerirAoMarketing />}
+      {/* Quem não tem função pede a primeira; quem já tem pode pedir outra: uma pessoa acumula quantas a coordenação confiar. */}
+      {!can(me, "coordenacao") && <Candidatura me={me} />}
+      <div className="grid items-start gap-4 md:grid-cols-2">
+        {voluntario && (
           <details className="border-2 border-dashed border-ink bg-parchment p-4">
             <summary className="cursor-pointer font-semibold">Guia de primeiros passos da sua função</summary>
             <div className="mt-3">
@@ -1124,9 +1155,8 @@ function Mesa({ me, resumo, recarregar, ir, secoes, acompanha }: { me: Me; resum
             </div>
           </details>
         )}
-        <NoSiteAgora acompanha={acompanha} ir={ir} />
         <DicaDoTutorial abrir={abrirTutorial} />
-      </aside>
+      </div>
     </div>
   );
 }
@@ -1170,18 +1200,19 @@ function Situacao({ lidera, supervisiona, ir }: { lidera: boolean; supervisiona:
   const membros = useLista<Membro[]>("equipe_membros");
   const site = useLista<Controles>("site");
   const online = membros.dados?.filter((membro) => membro.online && !membro.eu).length ?? 0;
-  const quadro = "painel-quadro painel-surge p-4 text-left";
-  const alerta = "painel-quadro painel-quadro-alerta painel-surge p-4 text-left";
+  const celula = "painel-surge flex min-w-0 flex-col gap-1 border-r border-b border-rule px-4 py-3.5 text-left";
+  const clicavel = `${celula} cursor-pointer hover:bg-parchment`;
+  const etiqueta = "font-mono text-[0.62rem] uppercase tracking-[0.16em] text-ink-soft";
+  const etiquetaDeAlerta = "font-mono text-[0.62rem] uppercase tracking-[0.16em] text-prelo-texto";
+  const valor = "font-serif text-2xl font-semibold leading-tight";
+  const detalhe = "text-[0.8rem] leading-snug text-ink-soft";
   return (
-    <section>
-      <h2 className="jornal-secao">
-        <span className="jornal-editoria">Como estamos</span>
-      </h2>
-      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <button type="button" onClick={() => ir("conversas")} className={`${quadro} cursor-pointer`}>
-          <span className="block text-ink-soft">Equipe</span>
-          <span className="mt-1 block font-serif text-2xl font-semibold leading-tight">{membros.dados ? <>{membros.dados.length} {membros.dados.length === 1 ? "pessoa" : "pessoas"}</> : "…"}</span>
-          <span className="mt-1 flex items-center gap-1.5 text-ink-soft">
+    <div className="overflow-hidden border-2 border-ink bg-folha">
+      <div className="-mr-px -mb-px grid grid-cols-[repeat(auto-fit,minmax(11rem,1fr))]">
+        <button type="button" onClick={() => ir("conversas")} className={clicavel}>
+          <span className={etiqueta}>Equipe</span>
+          <span className={valor}>{membros.dados ? <>{membros.dados.length} {membros.dados.length === 1 ? "pessoa" : "pessoas"}</> : "…"}</span>
+          <span className={`flex items-center gap-1.5 ${detalhe}`}>
             {online > 0 && <span aria-hidden className="painel-pulso inline-block h-2 w-2 rounded-full bg-ok" />}
             {online > 0 ? `${online} online agora` : "Ninguém mais online agora"}
           </span>
@@ -1189,34 +1220,34 @@ function Situacao({ lidera, supervisiona, ir }: { lidera: boolean; supervisiona:
         {site.dados &&
           (lidera ? (
             <>
-              <button type="button" onClick={() => ir(site.dados?.pausa ? "site" : "triagem")} className={`${site.dados.pausa ? alerta : quadro} cursor-pointer`}>
-                <span className="block text-ink-soft">Envios do público</span>
-                <span className={`mt-1 block font-serif text-2xl font-semibold leading-tight ${site.dados.pausa ? "text-oxblood" : ""}`}>{site.dados.pausa ? "Pausados" : "Abertos"}</span>
-                <span className="mt-1 block text-ink-soft">{site.dados.pausa ? "Ninguém de fora envia nada até você reabrir (Controles do site)" : "Ver o que chegou na triagem · pausar em Controles do site"}</span>
+              <button type="button" onClick={() => ir(site.dados?.pausa ? "site" : "triagem")} className={`${clicavel} ${site.dados.pausa ? "bg-parchment" : ""}`}>
+                <span className={site.dados.pausa ? etiquetaDeAlerta : etiqueta}>Envios do público{site.dados.pausa ? " · atenção" : ""}</span>
+                <span className={`${valor} ${site.dados.pausa ? "text-oxblood" : ""}`}>{site.dados.pausa ? "Pausados" : "Abertos"}</span>
+                <span className={detalhe}>{site.dados.pausa ? "Ninguém de fora envia nada até você reabrir (Controles do site)" : "Ver o que chegou na triagem · pausar em Controles do site"}</span>
               </button>
-              <button type="button" onClick={() => ir("site")} className={`${quadro} cursor-pointer`}>
-                <span className="block text-ink-soft">Faixa do alto</span>
-                <span className="mt-1 block font-serif text-2xl font-semibold leading-tight">{site.dados.faixa ? "Com chamado" : "Texto de sempre"}</span>
-                <span className="mt-1 block truncate text-ink-soft">{site.dados.faixa || "Nenhum chamado no ar"}</span>
+              <button type="button" onClick={() => ir("site")} className={clicavel}>
+                <span className={etiqueta}>Faixa do alto</span>
+                <span className={valor}>{site.dados.faixa ? "Com chamado" : "Texto de sempre"}</span>
+                <span className={`truncate ${detalhe}`}>{site.dados.faixa || "Nenhum chamado no ar"}</span>
               </button>
             </>
           ) : supervisiona ? (
-            <button type="button" onClick={() => ir("supervisao")} className={`${site.dados.pausa ? alerta : `${quadro} hover:border-ink`} cursor-pointer`}>
-              <span className="block text-ink-soft">Envios do público</span>
-              <span className={`mt-1 block font-serif text-2xl font-semibold leading-tight ${site.dados.pausa ? "text-oxblood" : ""}`}>{site.dados.pausa ? "Pausados" : "Abertos"}</span>
-              <span className="mt-1 block text-ink-soft">{site.dados.pausa ? "Ninguém de fora envia nada até a pausa sair" : "A pausa e o modo de segurança estão em Supervisão"}</span>
+            <button type="button" onClick={() => ir("supervisao")} className={`${clicavel} ${site.dados.pausa ? "bg-parchment" : ""}`}>
+              <span className={site.dados.pausa ? etiquetaDeAlerta : etiqueta}>Envios do público{site.dados.pausa ? " · atenção" : ""}</span>
+              <span className={`${valor} ${site.dados.pausa ? "text-oxblood" : ""}`}>{site.dados.pausa ? "Pausados" : "Abertos"}</span>
+              <span className={detalhe}>{site.dados.pausa ? "Ninguém de fora envia nada até a pausa sair" : "A pausa e o modo de segurança estão em Supervisão"}</span>
             </button>
           ) : (
             site.dados.pausa && (
-              <div className={alerta}>
-                <span className="block text-ink-soft">Envios do público</span>
-                <span className="mt-1 block font-serif text-2xl font-semibold leading-tight text-oxblood">Pausados</span>
-                <span className="mt-1 block text-ink-soft">A coordenação pausou o que vem de fora. O trabalho da equipe segue normal.</span>
+              <div className={`${celula} bg-parchment`}>
+                <span className={etiquetaDeAlerta}>Envios do público · atenção</span>
+                <span className={`${valor} text-oxblood`}>Pausados</span>
+                <span className={detalhe}>A coordenação pausou o que vem de fora. O trabalho da equipe segue normal.</span>
               </div>
             )
           ))}
       </div>
-    </section>
+    </div>
   );
 }
 

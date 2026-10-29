@@ -3425,7 +3425,20 @@
         "corrected": "Corregido el {data}: {motivo}",
         "previousVersion": "Antes de la corrección: entradas {e}, salidas {s}, saldo {b}.",
         "back": "Volver a Apoyo"
-      }
+      },
+      "leadMark": "con o sin",
+      "intro": "No tenemos patrocinador, no vendemos cursos y no vendemos tus datos. Quien puede ayudar a pagar la cuenta garantiza el acceso de quien no puede. Así ha construido siempre la clase trabajadora lo que es suyo: juntando lo poco de cada uno.",
+      "stamp": "Nadie pierde acceso a nada",
+      "pickTitle": "Elige tu ladrillo · por mes",
+      "pickLabel": "Niveles de apoyo",
+      "yourBrick": "El tuyo es el ladrillo rojo.",
+      "supportWith": "Apoyar con {valor} al mes",
+      "pickNote": "Abre Benfeitoria en otra pestaña: allí, elige el nivel {nome}. Este sitio no recibe ni guarda datos de pago. Puedes cambiar o cancelar allí cuando quieras.",
+      "whereLabel": "Cuentas abiertas",
+      "moreNav": "Más sobre el apoyo",
+      "navOther": "¿Sin dinero? Otras formas de ayudar",
+      "navCancel": "Cómo cancelar",
+      "navFaq": "Preguntas"
     }
   },
   "auth": {
@@ -5398,5 +5411,46 @@
     "/eventos": "Agenda de encuentros · cineclub, club de lectura y otros encuentros",
     "/status": "Estado del sitio · si el sitio, la base de datos y la búsqueda están funcionando",
     "/fora-do-ar": "Fuera de servicio · esta parte del sitio está cerrada por ahora"
+  },
+  "radioPagina": {
+    "posterKicker": "Instituto Lúcia · escucha desde aquí",
+    "posterLines": [
+      "Radios",
+      "del pueblo"
+    ],
+    "posterSub": "Emisoras populares, comunitarias y de trabajadores, de Brasil y del mundo.",
+    "directory": "Directorio",
+    "playHere": {
+      "one": "suena aquí",
+      "other": "suenan aquí"
+    },
+    "stampStations": {
+      "one": "emisora",
+      "other": "emisoras"
+    },
+    "stampFronts": {
+      "one": "frente",
+      "other": "frentes"
+    },
+    "nowPlaying": "Sonando ahora",
+    "paused": "En pausa",
+    "startWith": "Para empezar",
+    "keepsPlaying": "el sonido sigue cuando cambias de página",
+    "resume": "Reanudar",
+    "tabsLabel": "Frentes",
+    "tabs": {
+      "todas": "Todas",
+      "brasil": "Brasil",
+      "latina": "América Latina",
+      "mundo": "Mundo"
+    },
+    "onlyHere": "Solo las que suenan aquí ({n})",
+    "playsHere": "suena aquí",
+    "opensSite": "se abre en su sitio",
+    "listenAtSite": "Escuchar {nome} en el sitio de la emisora",
+    "missing": "¿Falta una radio de tu barrio, sindicato o movimiento?",
+    "suggest": "Sugerir una emisora",
+    "emptyFilter": "Ninguna emisora de este frente suena aquí. Desmarca el filtro para ver las demás.",
+    "siteShort": "Sitio"
   }
 }
