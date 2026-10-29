@@ -2,9 +2,12 @@
 import type { Metadata, Viewport } from "next";
 import { Caveat, EB_Garamond, Inter, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
+// O celular (navegador e aplicativo) com cara de aplicativo: só vale até 767,98 px e fora do leitor de tinta.
+import "../celular.css";
 import { A11yWidget } from "@/components/A11yWidget";
 import { DadosEstruturados } from "@/components/DadosEstruturados";
 import { BottomNav } from "@/components/BottomNav";
+import { BarraDoCelular } from "@/components/celular/BarraDoCelular";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { I18nProvider } from "@/components/I18n";
@@ -95,6 +98,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           {/* O painel da equipe é uma tela à parte: lá dentro o site público não aparece. */}
           <OutsidePanel>
             <Header lang={lang} t={t} />
+            <BarraDoCelular />
           </OutsidePanel>
           <main id="conteudo" className="flex-1">
             {children}

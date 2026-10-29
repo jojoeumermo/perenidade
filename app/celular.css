@@ -1,0 +1,1156 @@
+/* Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE). */
+
+/* ───── Edição de bolso: o site no celular, no navegador e no aplicativo, com cara de aplicativo ─────
+   O desenho está no canvas "Instituto Lúcia — Design", página Aplicativo (fileira "Celular refeito de ponta a ponta").
+   A identidade é a mesma do site (papel, tinta, o vermelho do prelo, o fio das fitas, as três letras); o que muda é o
+   jeito de usar: barra de cima de aplicativo (voltar, título, buscar), abas embaixo, cartões e campos de canto redondo,
+   fileiras que correm de lado, folhas que sobem de baixo e a barra de ações da aula ao alcance do polegar.
+
+   Duas cercas valem para TODAS as regras deste arquivo:
+   1. Só em tela de celular (até 767,98 px). O computador não muda em nada.
+   2. Fora do leitor de tinta (Kindle, Kobo: <html data-leitor>). Lá continua o desenho de livro de sempre, preto no
+      branco e numa coluna só (veja "Leitor digital" em globals.css); as peças novas levam a classe no-leitor. */
+
+@keyframes folha-sobe {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* ───── Medidas e cores do celular ───── */
+  :root:not([data-leitor]) {
+    --altura-barra: 3.5rem;
+    --altura-abas: 4.1rem;
+    --cel-fio: #e0d2ae;
+    --cel-raio: 1.15rem;
+    --cel-raio-campo: 1rem;
+    --cel-sombra: 3px 3px 0 var(--sombra);
+  }
+  :root[data-theme="dark"]:not([data-leitor]) {
+    --cel-fio: #2f271b;
+  }
+}
+@media (max-width: 767.98px) and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not([data-leitor]) {
+    --cel-fio: #2f271b;
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* ───── A casca: barra de cima, abas, tocador e botões soltos ───── */
+
+  /* O cabeçalho do computador sai; no lugar entra a barra do celular (components/celular/BarraDoCelular.tsx).
+     A faixa preta do alto continua no navegador: os cinco toques nela são a saída rápida. */
+  :root:not([data-leitor]) .cabecalho-site {
+    display: none;
+  }
+  :root:not([data-leitor]) .barra-do-celular {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display: block;
+    background: var(--parchment);
+    color: var(--ink);
+    border-bottom: 1px solid var(--cel-fio);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  :root[data-app]:not([data-leitor]) .barra-do-celular {
+    padding-top: env(safe-area-inset-top, 0px);
+    border-bottom: 0;
+  }
+  /* No aplicativo não há faixa preta: o fio das fitas corre embaixo da barra. */
+  :root[data-app]:not([data-leitor]) .barra-do-celular::after {
+    content: "";
+    display: block;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, #c21f16 0 56px, #f0b323 56px 78px, #23408e 78px 120px, #f4ecd8 120px 130px, #2e6b4f 130px 168px, #e4577f 168px 186px, #ea7a24 186px 214px, #1f8a85 214px 240px, #6e1f1a 240px 262px);
+  }
+  :root[data-rolou]:not([data-leitor]) .barra-do-celular {
+    box-shadow: 0 1px 0 var(--cel-fio), 0 6px 14px rgb(31 26 20 / 0.08);
+  }
+  .barra-do-celular .barra-linha {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    height: var(--altura-barra);
+    padding: 0 0.5rem 0 0.25rem;
+  }
+  .barra-do-celular[data-raiz] .barra-linha {
+    padding-left: 1rem;
+  }
+  .barra-do-celular .barra-marca {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--ink);
+  }
+  .barra-do-celular .barra-marca img {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+  }
+  .barra-do-celular :is(.barra-marca span, .barra-titulo-raiz) {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: var(--font-serif-display), Georgia, serif;
+    font-size: 1.32rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .barra-do-celular .barra-titulo-raiz {
+    flex: 1;
+    opacity: 0;
+    transform: translateY(0.35rem);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+  .barra-do-celular .barra-titulo-raiz[data-visivel] {
+    opacity: 1;
+    transform: none;
+  }
+  .barra-do-celular .barra-titulo {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: var(--font-ui), system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    opacity: 0;
+    transform: translateY(0.35rem);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+  .barra-do-celular .barra-titulo[data-visivel] {
+    opacity: 1;
+    transform: none;
+  }
+  .barra-do-celular .barra-centro {
+    min-width: 0;
+    flex: 1;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .barra-do-celular .barra-sobre {
+    display: block;
+    font-family: var(--font-archive), ui-monospace, monospace;
+    font-size: 0.64rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--prelo-texto);
+  }
+  .barra-do-celular .barra-centro .barra-titulo {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    opacity: 1;
+    transform: none;
+  }
+  .barra-do-celular .barra-acoes {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.15rem;
+    margin-left: auto;
+  }
+  .barra-do-celular .barra-icone {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    font-family: var(--font-serif-display), Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  .barra-do-celular .barra-icone:active {
+    background: rgb(31 26 20 / 0.08);
+  }
+  .barra-do-celular .barra-icone[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--parchment);
+  }
+  /* A conta na barra: a inicial no círculo bordô, ou "Entrar" numa pílula. */
+  .barra-do-celular .barra-acoes > a:not(.barra-icone) {
+    display: inline-flex;
+    height: 2.25rem;
+    align-items: center;
+    margin: 0 0.25rem;
+    padding: 0 0.9rem;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    background: var(--folha);
+    color: var(--ink);
+    font-family: var(--font-ui), system-ui, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .barra-do-celular .conta-saudacao {
+    width: 2.25rem;
+    height: 2.25rem;
+    margin: 0 0.25rem;
+    font-size: 1.15rem;
+  }
+  /* A régua de leitura da aula, embaixo da barra. */
+  .barra-do-celular .barra-lido {
+    height: 3px;
+    background: var(--parchment-deep);
+  }
+  .barra-do-celular .barra-lido > span {
+    display: block;
+    height: 100%;
+    width: 100%;
+    transform-origin: left;
+    background: #c21f16;
+  }
+  :root[data-app]:not([data-leitor]) .barra-do-celular:has(.barra-lido)::after {
+    display: none;
+  }
+  /* Rolando o texto da aula para baixo, a barra sai da frente; rolando para cima, volta. */
+  :root:not([data-leitor]) .barra-do-celular {
+    transition: transform 0.2s ease-out, box-shadow 0.2s;
+  }
+  :root[data-lendo]:not([data-leitor]) .barra-do-celular {
+    transform: translateY(calc(-100% + 3px));
+  }
+
+  /* A régua antiga do aplicativo (ReadingChrome) dá lugar à da barra. */
+  :root:not([data-leitor]) .regua-de-leitura {
+    display: none !important;
+  }
+
+  /* As abas de baixo, iguais no navegador e no aplicativo: fundo de tinta e a cápsula vermelha atrás do ícone. */
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .abas-do-celular {
+    border-top: 0;
+    padding-top: 0.35rem;
+    padding-bottom: calc(0.3rem + var(--recuo-baixo));
+    box-shadow: 0 -1px 0 rgb(244 236 216 / 0.08);
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .aba-do-celular {
+    min-height: 3.5rem;
+    gap: 0.2rem;
+    background: transparent;
+    color: #d9ccac;
+    font-weight: 600;
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .aba-do-celular.aba-aberta {
+    background: transparent;
+    color: #fff;
+    font-weight: 700;
+  }
+  :root:not([data-leitor]) .aba-icone {
+    display: flex;
+    height: 1.9rem;
+    width: 3.5rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    transition: background-color 0.18s ease, transform 0.12s ease;
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .aba-aberta .aba-icone {
+    background: #c21f16;
+  }
+  :root:not([data-leitor]) .aba-do-celular:active .aba-icone {
+    transform: scale(0.92);
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .aba-do-celular:not(.aba-aberta):active .aba-icone {
+    background: rgb(244 236 216 / 0.12);
+  }
+  /* Na leitura da aula as abas dão lugar à barra de ações (components/celular/AcoesDaAula.tsx). */
+  :root:not([data-leitor]) body:has(.acoes-da-aula) .abas-do-celular {
+    display: none;
+  }
+  :root:not([data-leitor]) body:has(.acoes-da-aula) {
+    --altura-abas: 4.6rem;
+  }
+
+  /* O tocador da rádio e do podcast solto acima das abas, como um cartão. */
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .radio-player {
+    bottom: calc(var(--altura-abas) + var(--recuo-baixo) + 0.4rem);
+    margin: 0 0.6rem 0.4rem;
+    border-top-width: 0;
+    border-radius: 1rem;
+    box-shadow: 0 6px 18px rgb(0 0 0 / 0.28);
+    overflow: hidden;
+  }
+  /* O botão de acessibilidade fica menor e acima das abas; o "voltar ao topo" sai (tocar na aba aberta sobe a página). */
+  :root:not([data-leitor]) .app-flutua {
+    bottom: calc(var(--altura-abas) + var(--recuo-baixo) + 0.75rem);
+    right: 0.75rem;
+  }
+  :root:not([data-leitor]) .app-flutua > button:last-child {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  :root:not([data-leitor]) .voltar-ao-topo {
+    display: none !important;
+  }
+  /* No aplicativo não há rodapé: o conteúdo termina acima das abas. (No navegador quem dá esse respiro é o rodapé.) */
+  :root[data-app]:not([data-leitor]) main#conteudo {
+    padding-bottom: calc(var(--altura-abas) + var(--recuo-baixo) + 1.25rem);
+  }
+  :root[data-app]:not([data-leitor]) main#conteudo:has(.painel) {
+    padding-bottom: var(--recuo-baixo);
+  }
+
+  /* Toque de aplicativo: sem o realce azul do navegador e sem seleção de texto nos botões. */
+  :root:not([data-leitor]) {
+    -webkit-tap-highlight-color: transparent;
+  }
+  :root:not([data-leitor]) :is(.abas-do-celular, .barra-do-celular, .botao, .chip, .aba-pasta) {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* ───── As peças: cartões, botões, campos, filtros e títulos com canto de aplicativo ───── */
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) main :is(.cartao, .cartao-v, .cartao-preto, .cartao-vermelho) {
+    border-width: 1.5px;
+    border-radius: var(--cel-raio);
+    box-shadow: var(--cel-sombra);
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) main :is(.cartao-v, .cartao-preto) {
+    box-shadow: 3px 3px 0 var(--prelo);
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) main .cartao-vermelho {
+    box-shadow: 3px 3px 0 #1f1a14;
+  }
+  :root:not([data-leitor]) :is(main, .mais-janela) .botao {
+    min-height: 3rem;
+    border-width: 1.5px;
+    border-radius: 0.95rem;
+    box-shadow: 3px 3px 0 var(--sombra);
+  }
+  :root:not([data-leitor]) :is(main, .mais-janela) .botao-tinta {
+    box-shadow: 3px 3px 0 var(--prelo);
+  }
+  :root:not([data-leitor]) :is(main, .mais-janela) .botao-menor {
+    min-height: 2.6rem;
+    border-radius: 0.8rem;
+    box-shadow: 2px 2px 0 var(--sombra);
+  }
+  :root:not([data-leitor]) :is(.botao, .sobe, .caderno, .chip):hover {
+    transform: none;
+  }
+  :root:not([data-leitor]) .botao:active {
+    transform: scale(0.97);
+    box-shadow: 0 0 0 var(--sombra);
+  }
+  :root:not([data-leitor]) :is(.sobe, .caderno):active {
+    transform: scale(0.985);
+  }
+  :root:not([data-leitor]) main :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"]), select, textarea) {
+    border-radius: var(--cel-raio-campo);
+  }
+  /* Caixas de borda grossa com sombra deslocada (cartões feitos à mão nas páginas) ganham o canto dos cartões;
+     botões de borda grossa, o dos botões. */
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) main :is(div, a, section, article, aside, li, figure, details, ol, ul)[class*="border-2"][class*="shadow-["] {
+    border-width: 1.5px;
+    border-radius: var(--cel-raio);
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) main :is(button, a)[class*="border-2"]:not(.botao) {
+    border-radius: 0.85rem;
+  }
+  /* Campo e botão colados (a busca do início, o boletim): uma peça só, com canto só por fora. */
+  :root:not([data-leitor]) main :is(form, div, span, label):has(> input[class~="border-r-0"]) {
+    border-radius: var(--cel-raio-campo);
+  }
+  :root:not([data-leitor]) main input[class~="border-r-0"] {
+    border-radius: var(--cel-raio-campo) 0 0 var(--cel-raio-campo);
+  }
+  :root:not([data-leitor]) main input[class~="border-r-0"] + :is(button, a) {
+    border-radius: 0 var(--cel-raio-campo) var(--cel-raio-campo) 0;
+  }
+  /* Campo sem borda própria dentro de uma moldura: quem tem o canto é a moldura. */
+  :root:not([data-leitor]) main :is(form, div, span, label)[class*="border-2"]:has(> input[class~="bg-transparent"]) {
+    border-width: 1.5px;
+    border-radius: var(--cel-raio-campo);
+    overflow: hidden;
+    box-shadow: none;
+  }
+  :root:not([data-leitor]) main input[class~="bg-transparent"] {
+    border-radius: 0;
+  }
+  :root:not([data-leitor]) main :is(form, div, span, label)[class*="shadow-["]:has(> input) {
+    border-radius: var(--cel-raio-campo);
+    box-shadow: none;
+  }
+  /* Botões de escolha (filtros, ordem) viram pílulas. */
+  :root:not([data-leitor]) main button[aria-pressed]:not(.barra-icone) {
+    border-radius: 999px;
+  }
+  /* As abas de pasta (filtros das estantes, editorias) viram uma fileira de pílulas que corre de lado. */
+  :root:not([data-leitor]) main [role="group"]:has(> .aba-pasta) {
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 0.15rem 1rem 0.35rem;
+    overflow-x: auto;
+    border-bottom: 0;
+    scrollbar-width: none;
+  }
+  :root:not([data-leitor]) main [role="group"]:has(> .aba-pasta)::-webkit-scrollbar {
+    display: none;
+  }
+  :root:not([data-leitor]) main .aba-pasta {
+    flex-shrink: 0;
+    min-height: 2.4rem;
+    padding: 0 1rem;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    background: var(--folha);
+    font-family: var(--font-ui), system-ui, sans-serif;
+    font-size: 0.86rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  :root:not([data-leitor]) main .aba-pasta:is([aria-pressed="true"], [aria-current="page"]) {
+    background: var(--ink);
+    color: var(--parchment);
+  }
+  :root:not([data-leitor]) main .chip {
+    min-height: 2.4rem;
+    border-radius: 999px;
+    padding: 0 0.95rem;
+  }
+  /* A tarja de seção vira a etiqueta arredondada, sem o fio comprido. */
+  :root:not([data-leitor]) main .tarja::after {
+    border-top-width: 1px;
+    border-color: var(--cel-fio);
+  }
+  :root:not([data-leitor]) main .tarja-nome {
+    border-radius: 0.5rem;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.68rem;
+  }
+  /* O caderno das estantes: lombada reta, os outros cantos redondos. */
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .caderno {
+    border-width: 1.5px;
+    border-radius: 0.35rem 1rem 1rem 0.35rem;
+    box-shadow: 3px 3px 0 var(--sombra);
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .caderno-v {
+    box-shadow: 3px 3px 0 var(--prelo);
+  }
+  :root:not([data-leitor]) .etiqueta {
+    border-radius: 0.45rem;
+  }
+  :root:not([data-leitor]) .selo {
+    border-radius: 0.85rem;
+  }
+
+  /* Os cartões e botões das páginas antigas (fio fino e fundo de papel fundo; fundo de tinta), que o globals.css
+     já desenha como cartão de contorno grosso: aqui ganham o canto e a sombra curta do celular. */
+  :root:not([data-leitor]) main#conteudo :is(a, div, section, article, li, details, form, aside, blockquote, figure)[class~="border"][class~="border-rule"][class~="bg-parchment-deep"],
+  :root:not([data-leitor]) main#conteudo :is(div, section, article, li, details, form, aside, a, figure)[class~="border-2"][class~="border-ink"][class~="bg-parchment-deep"] {
+    border-width: 1.5px;
+    border-radius: var(--cel-raio);
+    box-shadow: var(--cel-sombra);
+  }
+  :root:not([data-leitor]) main#conteudo :is(a, button)[class~="bg-ink"][class~="text-parchment"]:not(.botao),
+  :root:not([data-leitor]) main#conteudo :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao) {
+    border-width: 1.5px;
+    border-radius: 0.95rem;
+    box-shadow: 3px 3px 0 var(--prelo);
+  }
+  :root:not([data-leitor]) main#conteudo :is(a, button)[class~="bg-oxblood"][class~="text-parchment"]:not(.botao) {
+    box-shadow: 3px 3px 0 var(--sombra);
+  }
+  /* Um canto só no celular: tudo o que é botão (link ou botão com recheio e fundo ou contorno) e toda caixa de contorno
+     grosso das páginas ganha canto redondo, para não misturar reto com redondo. Quem já tem canto próprio fica como está. */
+  :root:not([data-leitor]) main#conteudo :is(a, button)[class*="px-"][class*="py-"]:is([class*="bg-"], [class*="border"]):not(.botao, .chip, .aba-pasta, .barra-icone, .carimbo, .carimbo-reto, [class*="rounded"]) {
+    border-radius: 0.85rem;
+  }
+  :root:not([data-leitor]) main#conteudo :is(div, article, section, aside, figure, li, details, form, blockquote):is([class*="border-2"], [class*="border-[1.5px]"], [class*="border-[3px]"]):is([class*="bg-"], [class*="shadow"]):not(.caderno, .carimbo, [class*="rounded"]) {
+    border-radius: var(--cel-raio);
+  }
+  /* Os cartazes de contorno grosso (o alto do Apoie) cortam o que fica no canto, para o fundo de dentro não vazar. */
+  :root:not([data-leitor]) main#conteudo div[class*="border-[3px]"][class*="shadow"]:not(.caderno, [class*="rounded"]) {
+    overflow: hidden;
+  }
+  :root:not([data-leitor]) .rodape-do-site .botao {
+    border-width: 1.5px;
+    border-radius: 0.8rem;
+    box-shadow: 2px 2px 0 var(--sombra);
+  }
+  /* A página "Mais" sem JavaScript (/explorar): cada grupo numa lista de aplicativo, sem caixas empilhadas. */
+  :root:not([data-leitor]) main#conteudo .lista-explorar {
+    border-width: 1.5px;
+    border-radius: var(--cel-raio);
+    background: var(--folha);
+    box-shadow: var(--cel-sombra);
+  }
+  :root:not([data-leitor]) main#conteudo .lista-explorar > a[class~="border"][class~="border-rule"][class~="bg-parchment-deep"] {
+    border: 0;
+    border-bottom: 1px solid var(--cel-fio);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+  :root:not([data-leitor]) main#conteudo .lista-explorar > a:last-child {
+    border-bottom: 0;
+  }
+
+  /* A régua de progresso das trilhas, redonda. */
+  :root:not([data-leitor]) .regua-da-trilha {
+    height: 0.6rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--parchment-deep);
+    overflow: hidden;
+  }
+  :root:not([data-leitor]) .regua-da-trilha > div {
+    border-radius: 999px;
+  }
+  /* O botão solto de ferramentas: na aula as ferramentas estão na folha da aula; no resto, uma pílula acima das abas. */
+  :root:not([data-leitor]) body:has(.acoes-da-aula) .botao-da-caixa {
+    display: none;
+  }
+  :root:not([data-leitor]) .botao-da-caixa {
+    bottom: calc(var(--altura-abas) + var(--recuo-baixo) + 4.25rem);
+    border-width: 1.5px;
+    border-radius: 999px;
+    box-shadow: 2px 2px 0 var(--sombra);
+  }
+
+  /* ───── O alto das páginas: o título grande de aplicativo ───── */
+  :root:not([data-leitor]) main#conteudo .cabeca-da-pagina {
+    padding-top: 1.25rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom-width: 1.5px;
+  }
+  :root:not([data-leitor]) main#conteudo .cabeca-da-pagina h1 {
+    margin-top: 0.4rem;
+    font-size: 2.35rem;
+    line-height: 1.02;
+  }
+  :root:not([data-leitor]) main#conteudo .cabeca-da-pagina > div {
+    margin-top: 0.6rem;
+    font-size: 1.08rem;
+    line-height: 1.45;
+  }
+  /* O "← Acervo", "← Jornal" de dentro das páginas: a barra de cima já tem o voltar. */
+  :root:not([data-leitor]) main#conteudo .voltar-da-pagina {
+    display: none;
+  }
+  /* O "← Disciplinas" de dentro da faixa: a barra de cima já tem o voltar. */
+  :root:not([data-leitor]) main#conteudo .cabeca-da-pagina > p.no-print:first-child {
+    display: none;
+  }
+  :root:not([data-leitor]) main#conteudo > div[class*="py-12"],
+  :root:not([data-leitor]) main#conteudo > div[class*="py-10"] {
+    padding-top: 1.25rem;
+  }
+  :root:not([data-leitor]) main#conteudo :is(.py-12, .pt-12) > .cabeca-da-pagina:first-child,
+  :root:not([data-leitor]) main#conteudo :is(.py-12, .pt-12) > :first-child > .cabeca-da-pagina:first-child,
+  :root:not([data-leitor]) main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
+    margin-top: -1.25rem;
+  }
+
+  /* ───── O rodapé: no celular fica só a marca, as regras e a faixa preta (o resto mora no "Mais") ───── */
+  :root:not([data-leitor]) .rodape-do-site {
+    margin-top: 2.5rem;
+    border-top-width: 1.5px;
+  }
+  :root:not([data-leitor]) .rodape-do-site > div:first-child {
+    padding-top: 1.75rem;
+    padding-bottom: 1.25rem;
+    gap: 1rem;
+  }
+  :root:not([data-leitor]) .rodape-do-site > div:first-child > :not(:first-child) {
+    display: none;
+  }
+  :root:not([data-leitor]) .rodape-do-site > div:last-child {
+    padding-bottom: calc(var(--altura-abas) + var(--recuo-baixo));
+  }
+
+  /* ───── Início ───── */
+  /* A inicial do computador vem logo depois do bloco do celular, sem mudar nada na estrutura dela: tudo o que segue o
+     bloco some no celular. */
+  :root:not([data-leitor]) main#conteudo > .inicio-do-celular ~ * {
+    display: none;
+  }
+  :root:not([data-leitor]) .inicio-do-celular {
+    display: block;
+  }
+  /* O lambe-lambe do dia, o mesmo do computador, na medida do cartão do celular. */
+  :root:not([data-leitor]) .lambe-do-celular .lambe {
+    margin-top: 0.75rem;
+    font-size: 2.45rem;
+    overflow-wrap: anywhere;
+  }
+  :root:not([data-leitor]) .lambe-do-celular .lambe + p {
+    margin-top: 0.9rem;
+    font-size: 1.05rem;
+  }
+  :root:not([data-leitor]) .lambe-do-celular .xilogravura {
+    margin-top: 0.5rem;
+    height: 2rem;
+    width: 6rem;
+  }
+
+  /* ───── Disciplinas: cada grupo vira uma fileira de cadernos que corre de lado ───── */
+  :root:not([data-leitor]) .estantes-do-site [role="search"] {
+    margin-top: 0.75rem;
+    border-width: 1.5px;
+    border-radius: var(--cel-raio-campo);
+    box-shadow: none;
+    overflow: hidden;
+  }
+  :root:not([data-leitor]) .estantes-do-site [role="group"]:has(> .aba-pasta) {
+    margin-top: 1rem;
+  }
+  :root:not([data-leitor]) .estantes-do-site > div > nav[aria-label] {
+    display: none;
+  }
+  :root:not([data-leitor]) .estantes-do-site section[id^="grupo-"] > :is(h2, h3) {
+    margin-top: 1.9rem;
+  }
+  :root:not([data-leitor]) .estantes-do-site section[id^="grupo-"] > .grid {
+    display: flex;
+    gap: 0.9rem;
+    margin: 0.85rem -1rem 0;
+    padding: 0.2rem 1rem 0.6rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 1rem;
+    scrollbar-width: none;
+  }
+  :root:not([data-leitor]) .estantes-do-site section[id^="grupo-"] > .grid::-webkit-scrollbar {
+    display: none;
+  }
+  :root:not([data-leitor]) .estantes-do-site section[id^="grupo-"] > .grid > .caderno {
+    width: 9.25rem;
+    min-height: 12rem;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+  :root:not([data-leitor]) .estantes-do-site section[id^="grupo-"] > .grid > .caderno {
+    min-height: 10.75rem;
+  }
+  :root:not([data-leitor]) .estantes-do-site .caderno > span:first-child > span {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: none;
+  }
+  :root:not([data-leitor]) .estantes-do-site .caderno .etiqueta {
+    margin: 0.75rem 0.6rem 0 1.75rem;
+    padding: 0.5rem 0.55rem;
+  }
+  :root:not([data-leitor]) .estantes-do-site .caderno .etiqueta > span:last-child {
+    display: none;
+  }
+  :root:not([data-leitor]) .estantes-do-site .caderno .etiqueta > span:nth-last-child(2) {
+    font-size: 1.08rem;
+  }
+  :root:not([data-leitor]) .estantes-do-site .caderno > span:first-child {
+    padding: 0.75rem 0.6rem 0 1.75rem;
+    font-size: 0.56rem;
+  }
+  :root:not([data-leitor]) .estantes-do-site .caderno > span:last-child {
+    padding: 0.75rem 0.6rem 0.75rem 1.75rem;
+    font-size: 0.62rem;
+  }
+  :root:not([data-leitor]) .estantes-do-site .caderno::before {
+    left: 8px;
+    width: 6px;
+    background-size: 6px 16px;
+    background-image: radial-gradient(circle, #f4ecd8 2.4px, transparent 2.8px);
+  }
+  :root:not([data-leitor]) .estantes-do-site section[id^="grupo-"] > button {
+    margin-top: 0.5rem;
+  }
+
+  /* ───── Estante (uma disciplina): a capa colorida no alto, as partes em pílulas e as trilhas em cartões ───── */
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .estante-da-disciplina .cabeca-da-pagina {
+    background: var(--cor-da-capa, #6e1f1a);
+    color: #f4ecd8;
+    border-bottom: 3px solid #1f1a14;
+    position: relative;
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .estante-da-disciplina .cabeca-da-pagina::before {
+    content: "";
+    position: absolute;
+    left: 0.7rem;
+    top: 1.25rem;
+    bottom: 1.25rem;
+    width: 8px;
+    background-image: radial-gradient(circle, #f4ecd8 3px, transparent 3.5px);
+    background-size: 8px 20px;
+    opacity: 0.85;
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .estante-da-disciplina .cabeca-da-pagina .rotulo {
+    color: #f0cf8e;
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .estante-da-disciplina .cabeca-da-pagina > div {
+    color: #e9dcbc;
+  }
+  :root:not([data-leitor]) .estante-da-disciplina > nav[aria-label] {
+    flex-wrap: nowrap;
+    margin: 0 -1rem;
+    padding: 0.2rem 1rem 0.3rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  :root:not([data-leitor]) .estante-da-disciplina > nav[aria-label] > a {
+    flex-shrink: 0;
+    display: inline-flex;
+    min-height: 2.4rem;
+    align-items: center;
+    padding: 0 1rem;
+    border-width: 1.5px;
+    border-color: var(--ink);
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  :root:not([data-leitor]) .estante-da-disciplina > nav[aria-label] > a:not(:first-child) {
+    background: var(--folha);
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .estante-da-disciplina .cabeca-da-pagina > * {
+    padding-left: 1.35rem;
+  }
+  :root:not([data-leitor]) main#conteudo .estante-da-disciplina section > h2::before {
+    display: none;
+  }
+  :root:not([data-leitor]) main#conteudo .estante-da-disciplina section > h2 {
+    margin-top: 2rem;
+    padding-bottom: 0;
+    border-bottom: 0;
+    font-family: var(--font-archive), ui-monospace, monospace;
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--prelo-texto);
+  }
+  :root:not([data-leitor]) main#conteudo .estante-da-disciplina section > h2 + div {
+    margin-top: 0.6rem;
+    gap: 0.85rem;
+  }
+
+  /* ───── Trilha: a capa colorida, o progresso num cartão e o sumário em lista de aplicativo ───── */
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .topo-da-trilha {
+    background: var(--cor-da-capa, #6e1f1a);
+    color: #f4ecd8;
+    border-bottom: 3px solid #1f1a14;
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .topo-da-trilha :is(.text-ink-soft, nav, nav a) {
+    color: #e9dcbc;
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .topo-da-trilha .rotulo {
+    color: #f0cf8e;
+  }
+  :root:not([data-leitor]) .topo-da-trilha > div {
+    padding-top: 0.75rem;
+    padding-bottom: 1.5rem;
+  }
+  :root:not([data-leitor]) .topo-da-trilha > div > nav {
+    display: none;
+  }
+  :root:not([data-leitor]) .topo-da-trilha > div > .grid {
+    margin-top: 0.75rem;
+    gap: 0;
+  }
+  :root:not([data-leitor]) .topo-da-trilha h1 {
+    font-size: 2.15rem;
+    line-height: 1.04;
+  }
+  :root:not([data-leitor]) .topo-da-trilha h1 + p {
+    margin-top: 0.6rem;
+    font-size: 1.1rem;
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .topo-da-trilha p.font-mono > span {
+    border-radius: 999px;
+    border-color: rgb(244 236 216 / 0.55);
+    background: rgb(244 236 216 / 0.12);
+    color: #f4ecd8;
+  }
+  :root:not([data-leitor]) .topo-da-trilha p.font-mono {
+    margin-top: 1rem;
+    gap: 0.4rem;
+  }
+  :root:not([data-leitor]) .topo-da-trilha p.font-mono > span {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.66rem;
+  }
+  :root:not([data-leitor]) .topo-da-trilha .cartao-v {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    color: var(--ink);
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .topo-da-trilha .cartao-v .text-ink-soft {
+    color: var(--ink-soft);
+  }
+  /* No sumário, o número da aula num círculo; a aula feita troca o número pelo visto, e a caixinha vazia sai. */
+  :root:not([data-leitor]) .sumario-pautado > li span[aria-hidden][class*="h-[22px]"]:not([class~="bg-ok"]) {
+    display: none;
+  }
+  :root:not([data-leitor]) .sumario-pautado > li:has([class~="bg-ok"]) span.absolute {
+    visibility: hidden;
+  }
+  :root:not([data-leitor]) .sumario-pautado > li span[aria-hidden][class~="bg-ok"] {
+    position: absolute;
+    left: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    border-color: var(--ok);
+  }
+  :root:not([data-leitor]) .sumario-pautado {
+    border-width: 1.5px;
+    border-radius: var(--cel-raio);
+    background: var(--folha);
+    background-image: none;
+    box-shadow: var(--cel-sombra);
+    overflow: hidden;
+  }
+  :root:not([data-leitor]) .sumario-pautado > li + li {
+    border-top: 1px solid var(--cel-fio);
+  }
+  :root:not([data-leitor]) .sumario-pautado > li > a,
+  :root:not([data-leitor]) .sumario-pautado > li:not(:has(> a)) {
+    min-height: 3.6rem;
+    gap: 0.75rem;
+    padding: 0.55rem 0.9rem 0.55rem 3.4rem;
+  }
+  :root:not([data-leitor]) .sumario-pautado > li span.absolute {
+    left: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--cel-fio);
+    border-radius: 999px;
+    font-size: 0.72rem;
+  }
+  :root:not([data-leitor]) .sumario-pautado > li span[aria-hidden][class*="h-[22px]"] {
+    border-width: 1.5px;
+    border-radius: 999px;
+  }
+  :root:not([data-leitor]) .sumario-pautado > li :is(.text-\[1\.25rem\], .text-\[1\.2rem\]) {
+    font-family: var(--font-ui), system-ui, sans-serif;
+    font-size: 0.98rem;
+    line-height: 1.3;
+  }
+  :root:not([data-leitor]) .sumario-pautado > li a > span:last-child.shrink-0 {
+    border-radius: 0.4rem;
+  }
+
+  /* ───── Aula: a leitura de tela cheia ───── */
+  :root:not([data-leitor]) .faixa-da-aula {
+    display: none;
+  }
+  :root:not([data-leitor]) .grade-da-aula {
+    gap: 2rem;
+    padding: 1.1rem 1.25rem 0;
+  }
+  :root:not([data-leitor]) .grade-da-aula > .indice-da-trilha {
+    order: 2;
+    border-top: 1px solid var(--cel-fio);
+    padding-top: 1.5rem;
+  }
+  :root:not([data-leitor]) .folha-da-aula h1 {
+    font-size: 2.1rem;
+    line-height: 1.08;
+  }
+  :root:not([data-leitor]) .folha-da-aula h1 + p {
+    font-size: 1.2rem;
+  }
+  :root:not([data-leitor]):not([data-spacing]) main .prose-lesson {
+    font-size: 1.1875rem;
+    line-height: 1.72;
+  }
+  :root:not([data-leitor]) main .prose-lesson :is(p, li) {
+    hyphens: auto;
+  }
+  /* O "concluir" e a navegação entre aulas moram na barra de ações embaixo; os de dentro do texto saem. */
+  :root:not([data-leitor]) body:has(.acoes-da-aula) .folha-da-aula :is(nav[data-vizinhas], .concluir-da-aula) {
+    display: none;
+  }
+  /* A barra de ações também sai da frente enquanto o texto rola para baixo, e volta ao subir. */
+  :root:not([data-leitor]) .acoes-da-aula {
+    transition: transform 0.2s ease-out;
+  }
+  :root[data-lendo]:not([data-leitor]) .acoes-da-aula {
+    transform: translateY(100%);
+  }
+
+  /* A barra de ações da aula: sumário, aula anterior e "Concluir e seguir", ao alcance do polegar. */
+  :root:not([data-leitor]) .acoes-da-aula {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 35;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem calc(0.7rem + var(--recuo-baixo));
+    background: var(--parchment);
+    border-top: 1px solid var(--cel-fio);
+  }
+  :root:not([data-leitor]) .acoes-da-aula :is(a, button) {
+    display: inline-flex;
+    height: 3.25rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1.5px solid var(--ink);
+    border-radius: 1rem;
+    background: var(--folha);
+    color: var(--ink);
+    font-family: var(--font-ui), system-ui, sans-serif;
+    font-size: 0.97rem;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  :root:not([data-leitor]) .acoes-da-aula .acao-icone {
+    width: 3.25rem;
+  }
+  :root:not([data-leitor]) .acoes-da-aula .acao-principal {
+    flex: 1;
+    min-width: 0;
+    padding: 0 0.9rem;
+    background: #c21f16;
+    color: #fff;
+    box-shadow: 3px 3px 0 var(--sombra);
+  }
+  :root:not([data-leitor]) .acoes-da-aula .acao-principal[data-feita] {
+    background: var(--ok);
+  }
+  :root:not([data-leitor]) .acoes-da-aula .acao-principal span {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  :root:not([data-leitor]) .acoes-da-aula :is(a, button):active {
+    transform: scale(0.97);
+  }
+
+  /* ───── As folhas que sobem de baixo (Mais, a folha da aula) ───── */
+  :root:not([data-leitor]) .mais-veu {
+    align-items: flex-end;
+  }
+  :root:not([data-leitor]):not([data-contrast], [data-eink]) .mais-janela {
+    height: auto;
+    max-height: calc(100dvh - 3rem);
+    border-radius: 1.6rem 1.6rem 0 0;
+    border-top: 1.5px solid var(--ink);
+    overflow: hidden;
+  }
+  :root:not([data-leitor]) .mais-janela::before {
+    content: "";
+    display: block;
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 5px;
+    margin: 0.6rem auto 0;
+    border-radius: 999px;
+    background: var(--rule);
+  }
+  :root:not([data-leitor]) .mais-janela > div:first-of-type {
+    padding-top: 0.75rem;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--cel-fio);
+  }
+  :root:not([data-leitor]) .mais-janela > div:first-of-type > label {
+    min-height: 2.9rem;
+    border-width: 1.5px;
+    border-radius: var(--cel-raio-campo);
+    background: var(--folha);
+  }
+  :root:not([data-leitor]) .mais-janela > div:first-of-type > label input {
+    min-height: 0;
+  }
+  :root:not([data-leitor]) .mais-janela > div:first-of-type > button {
+    width: 2.9rem;
+    height: 2.9rem;
+    border-width: 1.5px;
+    border-radius: 999px;
+    box-shadow: none;
+  }
+  :root:not([data-leitor]) .mais-janela .lista-de-app .linha-de-app[class*="cursor-pointer"] {
+    min-height: 3rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :root:not([data-leitor]) :is(.mais-janela, .folha-que-sobe) {
+      animation: folha-sobe 0.22s ease-out;
+    }
+  }
+  :root:not([data-leitor]) .folha-que-sobe-veu {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: flex-end;
+    background: rgb(31 26 20 / 0.48);
+  }
+  :root:not([data-leitor]) .folha-que-sobe {
+    display: flex;
+    max-height: calc(100dvh - 3.5rem);
+    width: 100%;
+    flex-direction: column;
+    border-top: 1.5px solid var(--ink);
+    border-radius: 1.6rem 1.6rem 0 0;
+    background: var(--parchment);
+    color: var(--ink);
+    padding-bottom: var(--recuo-baixo);
+  }
+  :root:not([data-leitor]) .folha-que-sobe::before {
+    content: "";
+    display: block;
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 5px;
+    margin: 0.6rem auto 0;
+    border-radius: 999px;
+    background: var(--rule);
+  }
+
+  /* O que aparece em fileiras dentro das folhas e das páginas novas. */
+  :root:not([data-leitor]) .lista-de-app {
+    overflow: hidden;
+    border: 1.5px solid var(--ink);
+    border-radius: var(--cel-raio);
+    background: var(--folha);
+  }
+  :root:not([data-leitor]) .lista-de-app > * + * {
+    border-top: 1px solid var(--cel-fio);
+  }
+  :root:not([data-leitor]) .lista-de-app .linha-de-app {
+    display: flex;
+    min-height: 3.2rem;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.9rem;
+    color: var(--ink);
+    font-family: var(--font-ui), system-ui, sans-serif;
+    font-size: 0.97rem;
+    font-weight: 600;
+  }
+  :root:not([data-leitor]) .lista-de-app .linha-de-app:active {
+    background: rgb(31 26 20 / 0.06);
+  }
+  :root:not([data-leitor]) .ladrilho-de-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--ink);
+    font-family: var(--font-ui), system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+  }
+  :root:not([data-leitor]) .ladrilho-de-app > span:first-child {
+    display: flex;
+    width: 3.6rem;
+    height: 3.6rem;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #1f1a14;
+    border-radius: 1.15rem;
+    box-shadow: 2px 2px 0 #1f1a14;
+  }
+  :root:not([data-leitor]) .ladrilho-de-app:active > span:first-child {
+    transform: scale(0.94);
+  }
+  :root:not([data-leitor]) .fileira-de-lado {
+    display: flex;
+    gap: 0.9rem;
+    margin: 0 -1rem;
+    padding: 0.2rem 1rem 0.6rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 1rem;
+    scrollbar-width: none;
+  }
+  :root:not([data-leitor]) .fileira-de-lado::-webkit-scrollbar {
+    display: none;
+  }
+  :root:not([data-leitor]) .fileira-de-lado > * {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  /* ───── Acervo: as vitrines correm com o dedo, sem andar sozinhas ───── */
+  :root:not([data-leitor]) .carrossel .carrossel-janela {
+    overflow-x: auto;
+    mask-image: none;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    scroll-padding-left: 1rem;
+    padding: 0 1rem;
+  }
+  :root:not([data-leitor]) .carrossel .carrossel-janela::-webkit-scrollbar {
+    display: none;
+  }
+  :root:not([data-leitor]) .carrossel .carrossel-trilho {
+    animation: none;
+  }
+  :root:not([data-leitor]) .carrossel .carrossel-trilho > li[aria-hidden="true"] {
+    display: none;
+  }
+  :root:not([data-leitor]) .carrossel .carrossel-trilho > li {
+    scroll-snap-align: start;
+  }
+  :root:not([data-leitor]) .carrossel button[aria-pressed] {
+    display: none;
+  }
+
+  /* ───── Busca: o campo grande de aplicativo ───── */
+  :root:not([data-leitor]) .busca-do-site input[type="search"] {
+    min-height: 3.25rem;
+    border-radius: 999px;
+    padding-left: 1.25rem;
+  }
+}
+
+/* No alto contraste e na tinta eletrônica do celular, as peças novas ficam só no contorno. */
+@media (max-width: 767.98px) {
+  :root:is([data-contrast], [data-eink]):not([data-leitor]) .barra-do-celular {
+    border-bottom: 2px solid var(--ink);
+    box-shadow: none;
+  }
+  :root:is([data-contrast], [data-eink]):not([data-leitor]) .acoes-da-aula .acao-principal {
+    background: var(--ink);
+    color: var(--parchment);
+    box-shadow: none;
+  }
+  :root:is([data-contrast], [data-eink]):not([data-leitor]) .ladrilho-de-app > span:first-child {
+    background: var(--parchment) !important;
+    color: var(--ink) !important;
+    border-color: var(--ink);
+    box-shadow: none;
+  }
+}
+
+/* As peças novas não existem fora do celular nem no leitor de tinta. */
+.barra-do-celular,
+.acoes-da-aula,
+.inicio-do-celular {
+  display: none;
+}
+@media (max-width: 767.98px) {
+  :root:not([data-leitor]) .acoes-da-aula {
+    display: flex;
+  }
+}

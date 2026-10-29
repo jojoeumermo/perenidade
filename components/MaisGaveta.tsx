@@ -8,7 +8,9 @@ import { localePath } from "@/i18n/config";
 import type { SecaoDoSite } from "@/lib/secoes-do-site";
 import { site } from "@/lib/site";
 import { normalize } from "@/lib/text";
+import { KEYS, setItem, useStored } from "@/lib/storage";
 import { useI18n } from "./I18n";
+import { Ladrilhos } from "./celular/Atalhos";
 import { ABRIR_MAIS, LanguageSwitcher, MAIS_NO_MENU, SAIR_MAIS } from "./NavLinks";
 
 const USADOS = "lucia:mais-usados";
@@ -52,6 +54,53 @@ export interface TextosDoMais {
   apoieTexto: string;
   apoie: string;
   lembranca: string;
+}
+
+/** A conta no alto da folha do celular: quem entrou vê o nome e o caminho do painel; quem não entrou, o "Entrar". */
+function ContaNoMais({ aoAbrir }: { aoAbrir: (path: string) => void }) {
+  const { lang, t } = useI18n();
+  const sessao = useStored(KEYS.session);
+  const nome = useStored(KEYS.name);
+  const path = sessao ? "/painel" : "/entrar";
+  return (
+    <Link href={localePath(lang, path)} onClick={() => aoAbrir(path)} className="flex items-center gap-3 rounded-[1.15rem] border-[1.5px] border-[#1f1a14] bg-[#1f1a14] px-3.5 py-3 text-[#f4ecd8] shadow-[3px_3px_0_#c21f16] hover:text-[#f4ecd8]">
+      <span aria-hidden className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[#d4a24c] bg-[#6e1f1a] font-serif text-xl font-semibold">
+        {sessao && nome ? [...nome][0]?.toLocaleUpperCase(lang) : "★"}
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block truncate font-sans text-base font-bold">{sessao && nome ? nome : t.nav.signIn}</span>
+        {sessao && <span className="block truncate font-sans text-[0.8rem] text-[#d9ccac]">{t.nav.openPanel}</span>}
+      </span>
+      <span aria-hidden className="font-sans text-2xl leading-none">›</span>
+    </Link>
+  );
+}
+
+/** Claro ou escuro, como o botão do cabeçalho do computador, numa chave de duas posições. */
+function TemaNoMais() {
+  const { t } = useI18n();
+  const [escuro, setEscuro] = useState(false);
+  useEffect(() => {
+    const raiz = document.documentElement;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- o tema só existe no navegador
+    setEscuro((raiz.getAttribute("data-theme") ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")) === "dark");
+  }, []);
+  const escolher = (valor: "light" | "dark") => {
+    document.documentElement.setAttribute("data-theme", valor);
+    setItem(KEYS.theme, valor);
+    setEscuro(valor === "dark");
+  };
+  const opcao = "h-9 flex-1 cursor-pointer rounded-full border-0 font-sans text-[0.82rem] font-bold";
+  return (
+    <div role="group" aria-label={t.celular.tema} className="flex flex-1 rounded-full border-[1.5px] border-ink bg-folha p-1">
+      <button type="button" aria-pressed={!escuro} onClick={() => escolher("light")} className={`${opcao} ${escuro ? "bg-transparent text-ink" : "bg-ink text-parchment"}`}>
+        {t.celular.claro}
+      </button>
+      <button type="button" aria-pressed={escuro} onClick={() => escolher("dark")} className={`${opcao} ${escuro ? "bg-ink text-parchment" : "bg-transparent text-ink"}`}>
+        {t.celular.escuro}
+      </button>
+    </div>
+  );
 }
 
 export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: TextosDoMais }) {
@@ -241,43 +290,70 @@ export function MaisGaveta({ secoes, textos }: { secoes: SecaoDoSite[]; textos: 
             </div>
           </div>
 
-          {/* No celular: os grupos recolhidos; com busca, abertos. */}
-          <div className="space-y-3 md:hidden">
+          {/* No celular: a conta, os ladrilhos do dia a dia, o que a pessoa mais abre e cada grupo numa lista de aplicativo
+              (o primeiro aberto, os outros recolhidos; com busca, todos abertos). No fim, o tema, o idioma e o apoio. */}
+          <div className="mais-do-celular space-y-5 md:hidden">
+            {!termo && <ContaNoMais aoAbrir={ir} />}
+            {!termo && <Ladrilhos chaves={["radio", "podcasts", "journal", "news", "glossary", "labs", "questionBank", "health"]} rotulo={t.celular.atalhos} aoAbrir={ir} />}
             {preferidas.length > 0 && !termo && (
               <p className="flex flex-wrap items-center gap-2">
                 <span className="rotulo mr-1">{textos.maisUsadas}</span>
                 {preferidas.map((item) => (
-                  <Link key={item.path} href={localePath(lang, item.path)} onClick={() => ir(item.path)} className="chip font-semibold">
+                  <Link key={item.path} href={localePath(lang, item.path)} onClick={() => ir(item.path)} className="chip rounded-full font-semibold">
                     {item.label}
                   </Link>
                 ))}
               </p>
             )}
-            {filtradas.map((secao) => (
-              <details key={secao.title} open={Boolean(termo)} className="border-2 border-ink bg-parchment">
-                <summary className="flex cursor-pointer items-center justify-between px-4 py-3 font-mono text-xs uppercase tracking-[0.18em]">
-                  {secao.title}
-                  <span className="text-ink-soft">{secao.items.length}</span>
+            {filtradas.map((secao, i) => (
+              <details key={secao.title} open={Boolean(termo) || i === 0} className="lista-de-app group">
+                <summary className="linha-de-app cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                  <span className="flex-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.16em] text-prelo-texto">{secao.title}</span>
+                  <span className="font-mono text-xs text-ink-soft">{secao.items.length}</span>
+                  <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 text-ink-soft transition-transform group-open:rotate-90" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 5l7 7-7 7" />
+                  </svg>
                 </summary>
-                <ul className="border-t-2 border-ink">
+                <ul>
                   {secao.items.map((item) => (
-                    <li key={item.path}>
-                      <Link href={localePath(lang, item.path)} onClick={() => ir(item.path)} className="flex items-center justify-between gap-3 border-b border-rule px-4 py-3 last:border-b-0">
-                        <span className="min-w-0">
-                          <span className="block font-semibold leading-snug">{item.label}</span>
-                          <span className="mt-0.5 block line-clamp-2 font-sans text-[0.8rem] leading-snug text-ink-soft">{item.description}</span>
+                    <li key={item.path} className="border-t border-[var(--cel-fio)]">
+                      <Link href={localePath(lang, item.path)} onClick={() => ir(item.path)} className="linha-de-app">
+                        <span className="min-w-0 flex-1">
+                          <span className="block leading-snug">{item.label}</span>
+                          {item.short && <span className="mt-0.5 block truncate text-[0.78rem] font-normal text-ink-soft">{item.short}</span>}
                         </span>
-                        <span aria-hidden className="font-sans text-2xl leading-none text-ink-soft">›</span>
+                        <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 shrink-0 text-ink-soft" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M9 5l7 7-7 7" />
+                        </svg>
                       </Link>
                     </li>
                   ))}
                 </ul>
               </details>
             ))}
-            <label className="flex items-center justify-between gap-4 border-2 border-ink bg-parchment px-4 py-2 font-sans [&_select]:max-w-none">
-              {t.common.language}
-              <LanguageSwitcher wide />
-            </label>
+            {!termo && (
+              <div className="flex items-center gap-2.5">
+                <TemaNoMais />
+                <label className="flex h-11 shrink-0 items-center gap-1.5 rounded-full border-[1.5px] border-ink bg-folha px-3 font-sans text-sm font-bold [&_select]:max-w-[7.5rem] [&_select]:border-0 [&_select]:bg-transparent">
+                  <span className="sr-only">{t.common.language}</span>
+                  <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px] shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18" />
+                  </svg>
+                  <LanguageSwitcher wide />
+                </label>
+              </div>
+            )}
+            {!termo && (
+              <div className="grid grid-cols-2 gap-2.5">
+                <a href={site.instagram} target="_blank" rel="noopener noreferrer me" className="botao botao-instagram-cor h-12 w-full gap-2 text-sm">
+                  @{site.instagramUser}
+                </a>
+                <Link href={localePath(lang, "/apoie")} onClick={() => ir("/apoie")} className="botao botao-prelo h-12 w-full">
+                  {textos.apoie}
+                </Link>
+              </div>
+            )}
           </div>
 
           <p className="mt-2 flex flex-wrap items-center justify-between gap-3 border-t border-rule pt-3 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-ink-soft">

@@ -73,7 +73,7 @@ export function TrackProgress({ ids }: { ids: string[] }) {
         aria-valuemin={0}
         aria-valuemax={100}
         aria-label={t.tracks.progress}
-        className="mt-2 h-3.5 border-2 border-ink bg-parchment"
+        className="regua-da-trilha mt-2 h-3.5 border-2 border-ink bg-parchment"
       >
         <div className="h-full bg-[#c21f16]" style={{ width: `${percent}%` }} />
       </div>
@@ -155,7 +155,7 @@ export function CompleteButton({ id, next }: { id: string; next?: { path: string
   const done = useCompleted().has(id);
   const { t } = useI18n();
   return (
-    <div className="no-print mt-12 flex flex-wrap items-center gap-4 font-sans text-sm">
+    <div className="concluir-da-aula no-print mt-12 flex flex-wrap items-center gap-4 font-sans text-sm">
       <button
         type="button"
         aria-pressed={done}

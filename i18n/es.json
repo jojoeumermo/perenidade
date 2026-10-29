@@ -5452,5 +5452,25 @@
     "suggest": "Sugerir una emisora",
     "emptyFilter": "Ninguna emisora de este frente suena aquí. Desmarca el filtro para ver las demás.",
     "siteShort": "Sitio"
+  },
+  "celular": {
+    "compartilhar": "Compartir",
+    "folhaDaAula": "Índice y herramientas",
+    "concluirSeguir": "Terminar y seguir",
+    "anterior": "Clase anterior",
+    "letra": "Tamaño de la letra",
+    "letraMenor": "Letra más pequeña",
+    "letraMaior": "Letra más grande",
+    "aulasDaTrilha": "Clases de la ruta",
+    "ferramentas": "Herramientas",
+    "atalhos": "Atajos",
+    "bomDia": "Buenos días",
+    "boaTarde": "Buenas tardes",
+    "boaNoite": "Buenas noches",
+    "muro": "En el muro de hoy",
+    "tema": "Tema",
+    "claro": "Claro",
+    "escuro": "Oscuro",
+    "secoes": "Todas las secciones"
   }
 }

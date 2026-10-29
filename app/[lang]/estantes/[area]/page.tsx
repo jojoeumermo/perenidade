@@ -1,4 +1,5 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
+import { corDaCapa } from "@/lib/capas";
 import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { PodcastsRelacionados } from "@/components/podcast/Relacionados";
@@ -43,7 +44,8 @@ export default async function Shelf({ params }: PageProps<"/[lang]/estantes/[are
   const heading = "mt-12 border-b border-rule pb-3 text-3xl font-semibold";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-12">
+    // No celular a faixa do alto vira a capa do caderno, na cor da disciplina (app/celular.css).
+    <div className="estante-da-disciplina mx-auto max-w-6xl px-4 py-12" style={{ "--cor-da-capa": corDaCapa(area) } as React.CSSProperties}>
       <PageHeading eyebrow={t.shelf.eyebrow} title={t.areas[area][0]} voltar={{ href: to("/trilhas"), texto: t.tracks.title }}>
         {t.areas[area][1]}
       </PageHeading>
