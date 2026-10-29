@@ -137,13 +137,15 @@ function Editor({ inicial, destinatarios, depois, fechar }: { inicial: Edicao | 
     () => desenhoDoBoletim({ assunto: assunto || "Assunto da edição", texto, sair: `${origem}/pt/jornal?boletim=sair&codigo=exemplo`, blocos: semChave(blocos), preheader }, new Date(), { escuro, claro: !escuro }),
     [assunto, texto, origem, blocos, preheader, escuro],
   );
-  // A prévia é escrita num quadro vazio à parte (sem programas): o e-mail não herda nem estraga o estilo do painel.
+  // A prévia é escrita num quadro vazio à parte (sem programas): o e-mail não herda nem estraga o estilo do painel. O
+  // quadro segue a política de segurança do painel, que não deixa carregar as fontes do Google: a prévia vai sem o link
+  // delas (as letras de reserva do próprio e-mail entram no lugar) e com as imagens do site pelo endereço desta página.
   const quadro = useRef<HTMLIFrameElement>(null);
   useEffect(() => {
     const doc = quadro.current?.contentDocument;
     if (!doc) return;
     doc.open();
-    doc.write(html);
+    doc.write(html.replace(/<link[^>]+fonts\.googleapis\.com[^>]*>/g, "").replaceAll("https://institutolucia.org/", "/"));
     doc.close();
   }, [html, tela]);
   const pronto = assunto.trim().length >= 5 && texto.trim().length >= 50;
