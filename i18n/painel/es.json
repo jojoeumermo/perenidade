@@ -8066,5 +8066,15 @@
  "Você participa da comunidade e pode escrever e enviar contribuições. Para revisar, traduzir, ensinar ou cuidar de uma disciplina, peça uma função mais abaixo.": "Participas en la comunidad y puedes escribir y enviar contribuciones. Para revisar, traducir, enseñar o cuidar de una disciplina, pide una función más abajo.",
  "{0} · passo {1} de {2}": "{0} · paso {1} de {2}",
  "{0} de {1} passos": "{0} de {1} pasos",
- "Tutorial · {0} de {1}": "Tutorial · {0} de {1}"
+ "Tutorial · {0} de {1}": "Tutorial · {0} de {1}",
+ "{0} de {1} aulas na tela. Os filtros ajudam a achar uma aula.": "{0} de {1} clases en pantalla. Los filtros ayudan a encontrar una clase.",
+ "Aprovadas": "Aprobadas",
+ "Mostrar mais 30": "Mostrar 30 más",
+ "Nada esperando revisão. Quando chegar uma contribuição, ela aparece aqui e você recebe um recado na Mesa.": "Nada esperando revisión. Cuando llegue una contribución, aparece aquí y recibes un aviso en la Mesa.",
+ "Nada publicado por esta fila ainda.": "Nada publicado por esta cola todavía.",
+ "Não aprovadas": "No aprobadas",
+ "Nenhuma aprovada esperando a próxima publicação do site.": "Ninguna aprobada esperando la próxima publicación del sitio.",
+ "Nenhuma contribuição recusada.": "Ninguna contribución rechazada.",
+ "Nenhuma correção resolvida ainda.": "Ninguna corrección resuelta todavía.",
+ "Resolvidas": "Resueltas"
 }

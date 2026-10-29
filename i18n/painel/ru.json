@@ -8066,5 +8066,15 @@
  "Você participa da comunidade e pode escrever e enviar contribuições. Para revisar, traduzir, ensinar ou cuidar de uma disciplina, peça uma função mais abaixo.": "Вы участник сообщества и можете писать и отправлять материалы. Чтобы проверять, переводить, преподавать или вести предмет, попросите роль ниже.",
  "{0} · passo {1} de {2}": "{0} · шаг {1} из {2}",
  "{0} de {1} passos": "{0} из {1} шагов",
- "Tutorial · {0} de {1}": "Обучение · {0} из {1}"
+ "Tutorial · {0} de {1}": "Обучение · {0} из {1}",
+ "{0} de {1} aulas na tela. Os filtros ajudam a achar uma aula.": "На экране {0} из {1} уроков. Фильтры помогут найти нужный.",
+ "Aprovadas": "Одобренные",
+ "Mostrar mais 30": "Показать ещё 30",
+ "Nada esperando revisão. Quando chegar uma contribuição, ela aparece aqui e você recebe um recado na Mesa.": "Ничего не ждёт проверки. Когда придёт материал, он появится здесь, а вы получите сообщение на «Рабочем столе».",
+ "Nada publicado por esta fila ainda.": "Через эту очередь пока ничего не опубликовано.",
+ "Não aprovadas": "Не одобренные",
+ "Nenhuma aprovada esperando a próxima publicação do site.": "Нет одобренных материалов, ожидающих следующего обновления сайта.",
+ "Nenhuma contribuição recusada.": "Отклонённых материалов нет.",
+ "Nenhuma correção resolvida ainda.": "Пока нет решённых исправлений.",
+ "Resolvidas": "Решённые"
 }

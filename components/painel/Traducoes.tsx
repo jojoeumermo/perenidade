@@ -65,6 +65,10 @@ export function Traducoes({ irEscrever }: { irEscrever: () => void }) {
   const [trilha, setTrilha] = useState("");
   const [busca, setBusca] = useState("");
   const [ordem, setOrdem] = useState<"posicao" | "curtas" | "longas">("posicao");
+  // A lista vem de 30 em 30 (eram mais de mil aulas numa página só); mudar um filtro volta para as 30 primeiras.
+  const [mostrar, setMostrar] = useState({ filtros: "", quantas: 30 });
+  const filtros = `${idioma}|${area}|${trilha}|${busca}|${ordem}`;
+  const quantas = mostrar.filtros === filtros ? mostrar.quantas : 30;
   const [editando, setEditando] = useState<{ trilha: Trilha; aula: Aula; idioma: string } | null>(null);
 
   useEffect(() => {
@@ -136,7 +140,7 @@ export function Traducoes({ irEscrever }: { irEscrever: () => void }) {
           <p className="text-xs text-ink-soft">O site não rastreia visitas: “as mais lidas” usa a posição na trilha, porque quem começa uma trilha lê as primeiras aulas.</p>
           {trilhas && <p className="text-sm">{lista.length} {lista.length === 1 ? "aula" : "aulas"} sem tradução para o {idiomas[idioma]} com esses filtros.</p>}
           <ul className="divide-y divide-rule border-y border-rule">
-            {lista.slice(0, 300).map(({ trilha: x, aula }) => {
+            {lista.slice(0, quantas).map(({ trilha: x, aula }) => {
               const alvo = `/trilhas/${x.slug}/${aula.slug}`;
               const ocupada = ocupadas.get(alvo);
               return (
@@ -158,7 +162,14 @@ export function Traducoes({ irEscrever }: { irEscrever: () => void }) {
               );
             })}
           </ul>
-          {lista.length > 300 && <p className="text-sm text-ink-soft">Mostrando as 300 primeiras: use os filtros para ver as outras.</p>}
+          {lista.length > quantas && (
+            <p className="flex flex-wrap items-center gap-3 text-sm">
+              <button type="button" className={botaoClaro} onClick={() => setMostrar({ filtros, quantas: quantas + 30 })}>
+                Mostrar mais 30
+              </button>
+              <span className="text-ink-soft">{`${quantas} de ${lista.length} aulas na tela. Os filtros ajudam a achar uma aula.`}</span>
+            </p>
+          )}
           <p className="text-sm text-ink-soft">Prefere o formulário? A tradução também pode ser enviada em <button type="button" className={elo} onClick={irEscrever}>Escrever → Tradução</button>, com o endereço da aula.</p>
         </div>
       )}

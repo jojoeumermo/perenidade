@@ -140,8 +140,10 @@ export function MenuDoPainel({
   const achadas = useMemo(() => (termo ? secoes.filter((s) => simples(`${s.nome} ${s.grupo} ${s.sobre}`).includes(termo)) : []), [termo, secoes]);
   const presas = fixadas.map((id) => secoes.find((s) => s.id === id)).filter((s): s is ItemDoMenu => Boolean(s));
   const doDepartamento = (departamento?.secoes ?? []).map((id) => secoes.find((s) => s.id === id)).filter((s): s is ItemDoMenu => Boolean(s));
-  // Um grupo fica aberto se a pessoa abriu, ou, enquanto ela não mexeu nele, se a seção de agora é dele.
+  // Um grupo fica aberto se a pessoa abriu, ou, enquanto ela não mexeu nele, se a seção de agora é dele. Se a seção de
+  // agora já está no departamento ou nas fixadas, a área dela não abre sozinha: seria a mesma linha duas vezes.
   const estaAberto = (chave: string, padrao: boolean) => grupos[chave] ?? padrao;
+  const jaNoAlto = [...doDepartamento, ...presas].some((s) => s.id === atual.id);
   const guardar = (novo: Record<string, boolean>) => {
     setGrupos(novo);
     setItem(KEYS.painelGrupos, JSON.stringify(novo));
@@ -281,7 +283,7 @@ export function MenuDoPainel({
               )}
               {areas.map((a) => {
                 const chave = `area:${a.grupo}`;
-                const padrao = a.grupo === atual.grupo || a.grupo === "";
+                const padrao = a.grupo === "" || (a.grupo === atual.grupo && !jaNoAlto);
                 return (
                   <Grupo
                     key={chave}
