@@ -44,6 +44,8 @@ export const KEYS = {
   guia: "lucia:guia",
   // O andamento e as respostas do teste dos 12 eixos (nivelamento), para continuar depois; nada sai do aparelho.
   eixos: "lucia:eixos",
+  // Os grupos do menu do painel que a pessoa abriu ou fechou ({"Produção": true, ...}).
+  painelGrupos: "lucia:painel-grupos",
 } as const;
 
 const listeners = new Set<() => void>();
