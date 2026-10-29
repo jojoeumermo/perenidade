@@ -51,45 +51,103 @@ export function ListaDeContribuidores() {
 
 const dataBr = (iso: string) => iso.split("-").reverse().join("/");
 
+// Os serviços agrupados pelo que a pessoa precisa. Serviço novo no JSON sem grupo aqui cai em "Outros serviços".
+const GRUPOS_DE_DIREITOS: { id: string; nome: string; texto: string; servicos: string[] }[] = [
+  { id: "saude", nome: "Saúde", texto: "Atendimento de graça e apoio emocional.", servicos: ["sus", "cvv"] },
+  { id: "assistencia", nome: "Assistência social e benefícios", texto: "A porta de entrada costuma ser o CRAS do bairro, onde se faz o Cadastro Único.", servicos: ["cras", "cadunico", "bolsa-familia", "bpc", "tarifa-social"] },
+  { id: "trabalho", nome: "Trabalho e aposentadoria", texto: "Para quem perdeu o emprego, adoeceu ou vai se aposentar.", servicos: ["seguro-desemprego", "inss"] },
+  { id: "justica", nome: "Justiça e denúncia", texto: "Advogado de graça e onde denunciar violência e violação de direitos.", servicos: ["defensoria", "denuncia"] },
+];
+
+/**
+ * O guia de direitos: os números de emergência como teclas de telefone (tocar liga, no celular) e os serviços agrupados
+ * pelo que a pessoa precisa, cada um com o que é, quem pode procurar e onde ir à vista; documentos, regras e a fonte
+ * oficial abrem no cartão. Os endereços #sus, #cras... continuam valendo.
+ */
 export function GuiaDeDireitos() {
+  const agrupados = new Set(GRUPOS_DE_DIREITOS.flatMap((g) => g.servicos));
+  const grupos = [...GRUPOS_DE_DIREITOS, { id: "outros", nome: "Outros serviços", texto: "", servicos: direitos.servicos.map((d) => d.id).filter((id) => !agrupados.has(id)) }]
+    .map((g) => ({ ...g, itens: g.servicos.map((id) => direitos.servicos.find((d) => d.id === id)).filter((d) => d !== undefined) }))
+    .filter((g) => g.itens.length > 0);
   return (
     <div className="mt-8">
-      <section aria-labelledby="emergencia" className="border-4 border-[#c21f16] bg-parchment-deep p-5">
-        <h2 id="emergencia" className="text-2xl font-semibold">Emergência e apoio imediato</h2>
-        <ul className="mt-3 grid gap-3 font-sans sm:grid-cols-2 lg:grid-cols-3">
+      <section aria-labelledby="emergencia" className="border-4 border-[#c21f16] bg-parchment-deep p-5 sm:p-6">
+        <h2 id="emergencia" className="font-serif text-2xl font-semibold">Emergência e apoio imediato</h2>
+        <p className="mt-1 font-sans text-sm text-ink-soft">Ligações de graça, de qualquer telefone, 24 horas. No celular, toque no número para ligar.</p>
+        <ul className="mt-4 grid gap-3 font-sans sm:grid-cols-2 lg:grid-cols-3">
           {direitos.emergencia.map((e) => (
-            <li key={e.numero} className="flex items-start gap-3">
-              <a href={`tel:${e.numero}`} className="min-w-16 border-2 border-ink bg-ink px-2 py-1 text-center font-mono text-2xl font-bold text-parchment">{e.numero}</a>
-              <span><strong>{e.nome}</strong><br /><span className="text-sm text-ink-soft">{e.quando}</span></span>
+            <li key={e.numero}>
+              <a href={`tel:${e.numero}`} className="direito-tecla">
+                <span className="direito-numero">{e.numero}</span>
+                <span className="min-w-0">
+                  <strong className="block leading-tight">{e.nome}</strong>
+                  <span className="mt-0.5 block text-sm leading-snug text-ink-soft">{e.quando}</span>
+                </span>
+              </a>
             </li>
           ))}
         </ul>
       </section>
-      <div className="mt-8 space-y-4">
-        {direitos.servicos.map((s) => (
-          <details key={s.id} id={s.id} className="group border-[3px] border-ink bg-parchment-deep">
-            <summary className="cursor-pointer list-none p-4 text-xl font-semibold group-open:border-b-2 group-open:border-ink">
-              <span className="mr-2 text-oxblood group-open:hidden">+</span><span className="mr-2 hidden text-oxblood group-open:inline">−</span>{s.titulo}
-            </summary>
-            <dl className="space-y-3 p-4 font-sans">
-              <div><dt className="font-semibold">O que é</dt><dd>{s.o_que}</dd></div>
-              <div><dt className="font-semibold">Quem pode procurar</dt><dd>{s.quem}</dd></div>
-              <div><dt className="font-semibold">Onde ir</dt><dd>{s.onde}</dd></div>
-              <div><dt className="font-semibold">Documentos que costumam pedir</dt><dd>{s.documentos}</dd></div>
-              {s.depende && <div><dt className="font-semibold">Do que depende</dt><dd>{s.depende}</dd></div>}
-              <div>
-                <dt className="font-semibold">Fonte oficial</dt>
-                <dd>
-                  <ul className="list-disc pl-5">
-                    {s.fontes.map((f) => <li key={f.url}><a href={f.url} {...externo} className="underline hover:text-oxblood">{f.nome}</a> <span className="text-xs text-ink-soft">(site de terceiros)</span></li>)}
-                  </ul>
-                </dd>
-              </div>
-            </dl>
-          </details>
+      <nav aria-label="Assuntos do guia" className="no-print mt-8 flex flex-wrap items-baseline gap-x-4 gap-y-2 border-y-2 border-ink py-3 font-sans text-sm">
+        <span className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft">Assuntos</span>
+        {grupos.map((g) => (
+          <a key={g.id} href={`#grupo-${g.id}`} className="font-semibold underline decoration-rule underline-offset-4 hover:decoration-[#c21f16]">
+            {g.nome}
+          </a>
         ))}
-      </div>
-      <p className="mt-6 font-sans text-sm text-ink-soft">Links conferidos em {dataBr(direitos.conferido_em)}. Achou um link quebrado ou uma informação desatualizada? <a href="mailto:institutolucia@tutamail.com?subject=Guia%20de%20direitos" className="underline">Avise</a>.</p>
+      </nav>
+      {grupos.map((g) => (
+        <section key={g.id} id={`grupo-${g.id}`} aria-labelledby={`grupo-${g.id}-titulo`} className="mt-10 scroll-mt-24">
+          <h2 id={`grupo-${g.id}-titulo`} className="border-b-[3px] border-double border-ink pb-2 font-serif text-[1.7rem] font-semibold leading-tight">{g.nome}</h2>
+          {g.texto && <p className="mt-2 font-sans text-sm text-ink-soft">{g.texto}</p>}
+          <div className="mt-5 grid gap-5 md:grid-cols-2">
+            {g.itens.map((d) => (
+              <article key={d.id} id={d.id} className="cartao flex scroll-mt-24 flex-col p-5 sm:p-6">
+                <h3 className="font-serif text-[1.45rem] font-semibold leading-tight">{d.titulo}</h3>
+                <p className="mt-2 font-sans leading-relaxed">{d.o_que}</p>
+                <dl className="mt-4 grid gap-3 font-sans text-sm leading-relaxed">
+                  <div>
+                    <dt className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-gold">Quem pode procurar</dt>
+                    <dd className="mt-0.5">{d.quem}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-gold">Onde ir</dt>
+                    <dd className="mt-0.5">{d.onde}</dd>
+                  </div>
+                </dl>
+                <details className="checagem-completa mt-auto border-t-2 border-ink pt-4 [&:not([open])]:mt-5">
+                  <summary className="checagem-abrir">Documentos, regras e fonte oficial</summary>
+                  <dl className="mt-4 grid gap-3 font-sans text-sm leading-relaxed">
+                    <div>
+                      <dt className="font-semibold">Documentos que costumam pedir</dt>
+                      <dd>{d.documentos}</dd>
+                    </div>
+                    {d.depende && (
+                      <div>
+                        <dt className="font-semibold">Do que depende</dt>
+                        <dd>{d.depende}</dd>
+                      </div>
+                    )}
+                    <div>
+                      <dt className="font-semibold">Fonte oficial</dt>
+                      <dd>
+                        <ul className="list-disc pl-5">
+                          {d.fontes.map((f) => (
+                            <li key={f.url}>
+                              <a href={f.url} {...externo} className="underline hover:text-oxblood">{f.nome}</a> <span className="text-xs text-ink-soft">(site de terceiros)</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </dd>
+                    </div>
+                  </dl>
+                </details>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+      <p className="mt-8 font-sans text-sm text-ink-soft">Links conferidos em {dataBr(direitos.conferido_em)}. Achou um link quebrado ou uma informação desatualizada? <a href="mailto:institutolucia@tutamail.com?subject=Guia%20de%20direitos" className="underline">Avise</a>.</p>
     </div>
   );
 }
