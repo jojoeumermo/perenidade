@@ -3935,7 +3935,28 @@
     "withdraw": "Retirer une annonce",
     "withdrawLabel": "Code de l'annonce",
     "codeTitle": "Gardez ce code",
-    "codeText": "Vous en aurez besoin pour retirer l'annonce quand vous le voudrez. Il ne sera plus affiché."
+    "codeText": "Vous en aurez besoin pour retirer l'annonce quand vous le voudrez. Il ne sera plus affiché.",
+    "how": {
+      "title": "Comment utiliser le panneau",
+      "steps": [
+        [
+          "Cherchez",
+          "Choisissez l’État et la ville et cherchez ce qu’il vous faut : blanchisseuse, électricien, gâteau, cours de guitare."
+        ],
+        [
+          "Publiez gratuitement",
+          "Pour qui vit de son travail : coopératives, indépendants, artisans, artistes, collectifs. Sans intermédiaire."
+        ],
+        [
+          "La coordination lit",
+          "L’annonce apparaît sur le panneau après lecture par la coordination. Le contact est visible par quiconque ouvre le panneau."
+        ],
+        [
+          "Renouvelez ou retirez",
+          "Chaque annonce vaut 180 jours et peut être renouvelée ; avec le code reçu, vous la retirez quand vous voulez."
+        ]
+      ]
+    }
   },
   "tutoring": {
     "eyebrow": "Personne n'étudie seul",
@@ -4272,7 +4293,31 @@
     "withdrawn": "Publication retirée.",
     "exerciseFor": "Remise d'exercice : {titulo}",
     "exerciseHint": "Envoyez le lien de la vidéo exportée. L'éducateur de la discipline commente ; la publier dans le Tiroir pour tout le monde passe toujours par la médiation.",
-    "feedback": "Commentaire de l'éducateur"
+    "feedback": "Commentaire de l'éducateur",
+    "howItWorks": {
+      "title": "Comment fonctionne le Tiroir ouvert",
+      "steps": [
+        [
+          "Choisissez le travail",
+          "Mémoire, thèse, article, projet, rapport, fiches, code, présentation : ce qui est resté au fond d’un tiroir après la remise."
+        ],
+        [
+          "Dites pourquoi il en vaut la peine",
+          "Un commentaire de vous, de 40 à 2 000 caractères : de quoi il parle et à qui il peut servir."
+        ],
+        [
+          "Lien ou PDF, sous licence libre",
+          "Un lien vers l’endroit où il se trouve déjà (dépôt, Zenodo, GitHub, Drive) ou le PDF jusqu’à 10 Mo, sous CC BY, CC BY-SA ou CC0."
+        ],
+        [
+          "La médiation vérifie",
+          "Le travail apparaît après la lecture de la médiation, et vous recevez un mot dans le panneau. Vous pouvez le retirer quand vous voulez."
+        ]
+      ],
+      "teachTitle": "Un travail dort dans un tiroir ?",
+      "teachText": "Publiez-le avec un commentaire de vous. C’est gratuit et il faut un compte, gratuit lui aussi.",
+      "teachLink": "Publier un travail"
+    }
   },
   "podcast": {
     "title": "Podcasts",

@@ -3935,7 +3935,28 @@
     "withdraw": "Remove an ad",
     "withdrawLabel": "Ad code",
     "codeTitle": "Keep this code",
-    "codeText": "You will need it to remove the ad whenever you want. It will not be shown again."
+    "codeText": "You will need it to remove the ad whenever you want. It will not be shown again.",
+    "how": {
+      "title": "How to use the board",
+      "steps": [
+        [
+          "Search",
+          "Pick the state and the city and search for what you need: laundress, electrician, cake, guitar lessons."
+        ],
+        [
+          "Post for free",
+          "For people who live from their own work: cooperatives, self-employed workers, artisans, artists, collectives. No middlemen."
+        ],
+        [
+          "The coordination reads it",
+          "The ad appears on the board after the coordination reads it. The contact is visible to anyone who opens the board."
+        ],
+        [
+          "Renew or remove",
+          "Each ad lasts 180 days and can be renewed; with the code you receive, you can remove it whenever you want."
+        ]
+      ]
+    }
   },
   "tutoring": {
     "eyebrow": "Nobody studies alone",
@@ -4272,7 +4293,31 @@
     "withdrawn": "Entry taken down.",
     "exerciseFor": "Exercise hand-in: {titulo}",
     "exerciseHint": "Send the link to the exported video. The subject's educator comments; publishing it in the Drawer for everyone still goes through moderation.",
-    "feedback": "Educator's comment"
+    "feedback": "Educator's comment",
+    "howItWorks": {
+      "title": "How the Open Drawer works",
+      "steps": [
+        [
+          "Pick the work",
+          "Thesis, dissertation, article, project, report, study notes, code, presentation: whatever sat idle after it was handed in."
+        ],
+        [
+          "Say why it is worth it",
+          "A comment of your own, from 40 to 2,000 characters: what it is about and who it can help."
+        ],
+        [
+          "Link or PDF, under a free license",
+          "A link to where it already is (repository, Zenodo, GitHub, Drive) or a PDF of up to 10 MB, under CC BY, CC BY-SA or CC0."
+        ],
+        [
+          "Moderation checks it",
+          "The work appears after moderation reads it, and you get a note in the panel. You can take it down whenever you want."
+        ]
+      ],
+      "teachTitle": "Got a work sitting in a drawer?",
+      "teachText": "Publish it with a comment of your own. It is free and needs an account, also free.",
+      "teachLink": "Publish a work"
+    }
   },
   "podcast": {
     "title": "Podcasts",
