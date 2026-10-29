@@ -5634,5 +5634,42 @@
     "claro": "Clair",
     "escuro": "Sombre",
     "secoes": "Toutes les rubriques"
+  },
+  "timeline": {
+    "brasil": "Au Brésil",
+    "fora": "En Amérique latine et dans le monde",
+    "where": "Où",
+    "theme": "Thème",
+    "allPlaces": "Partout",
+    "allThemes": "Tous les thèmes",
+    "lanes": {
+      "brasil": "Brésil",
+      "america-latina": "Amérique latine et Caraïbes",
+      "mundo": "Monde"
+    },
+    "themes": {
+      "trabalho": "Travail",
+      "negra": "Lutte noire",
+      "indigena": "Peuples autochtones",
+      "mulheres": "Femmes",
+      "terra": "Terre, eau et forêt",
+      "democracia": "Démocratie et droits",
+      "revolucao": "Révolutions",
+      "lgbt": "LGBTQIA+",
+      "anticolonial": "Contre le colonialisme"
+    },
+    "count": {
+      "one": "événement",
+      "other": "événements"
+    },
+    "centuries": {
+      "18": "XVIIe et XVIIIe siècles",
+      "19": "XIXe siècle",
+      "20": "XXe siècle",
+      "21": "XXIe siècle"
+    },
+    "jump": "Aller à",
+    "today": "Aujourd’hui",
+    "none": "Aucun événement avec ces filtres."
   }
 }

@@ -5555,5 +5555,41 @@
     "claro": "浅色",
     "escuro": "深色",
     "secoes": "所有栏目"
+  },
+  "timeline": {
+    "brasil": "在巴西",
+    "fora": "在拉丁美洲和世界",
+    "where": "地区",
+    "theme": "主题",
+    "allPlaces": "全部地区",
+    "allThemes": "全部主题",
+    "lanes": {
+      "brasil": "巴西",
+      "america-latina": "拉丁美洲和加勒比",
+      "mundo": "世界"
+    },
+    "themes": {
+      "trabalho": "劳工",
+      "negra": "黑人斗争",
+      "indigena": "原住民",
+      "mulheres": "妇女",
+      "terra": "土地、水与森林",
+      "democracia": "民主与权利",
+      "revolucao": "革命",
+      "lgbt": "LGBTQIA+",
+      "anticolonial": "反殖民"
+    },
+    "count": {
+      "other": "件事"
+    },
+    "centuries": {
+      "18": "17—18世纪",
+      "19": "19世纪",
+      "20": "20世纪",
+      "21": "21世纪"
+    },
+    "jump": "跳转到",
+    "today": "今天",
+    "none": "没有符合这些筛选条件的事件。"
   }
 }

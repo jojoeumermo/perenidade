@@ -7,6 +7,7 @@ import { areaSlugs, licenses, stages, tools, type AreaSlug, type License, type S
 import { parseFrontmatter } from "./frontmatter";
 import { type Exercicio, validarPratica } from "./pratica";
 import { plainText } from "./text";
+import { type Acontecimento, lugaresDaLinha, type LugarDaLinha, temasDaLinha, type TemaDaLinha } from "./linha-do-tempo";
 import { regiaoDoLocal, type RegiaoDoMemorial } from "./memorial";
 
 // O cache do React vale para uma página só. Na montagem do site, cada uma das milhares de páginas relia e conferia
@@ -901,6 +902,24 @@ export const getGallery = cache((): GalleryPiece[] => {
 
 /** Perguntas do dia a dia ("por que o aluguel é tão caro?") com os materiais que ajudam a responder. */
 export const getQuestions = cache((): Question[] => readJson<Question[]>("content/perguntas.json", []));
+
+/** Os acontecimentos da linha do tempo das lutas, do mais antigo ao mais recente (no mesmo ano, na ordem do arquivo). */
+export const getTimeline = cache((): Acontecimento[] => {
+  const file = "content/linha-do-tempo.json";
+  const items = readJson<unknown>(file, []);
+  if (!Array.isArray(items)) fail(file, "precisa ser uma lista de acontecimentos");
+  return items
+    .map((item, i): Acontecimento => {
+      const { ano, onde, temas, texto } = (item ?? {}) as Record<string, unknown>;
+      const onde_ = onde as LugarDaLinha;
+      if (!Number.isInteger(ano)) fail(file, `item ${i + 1}: "ano" precisa ser um número inteiro`);
+      if (!lugaresDaLinha.includes(onde_)) fail(file, `item ${i + 1}: "onde" precisa ser ${lugaresDaLinha.join(", ")}`);
+      if (!Array.isArray(temas) || temas.some((tema) => !temasDaLinha.includes(tema as TemaDaLinha))) fail(file, `item ${i + 1}: "temas" só aceita ${temasDaLinha.join(", ")}`);
+      if (typeof texto !== "string" || !texto.trim()) fail(file, `item ${i + 1}: falta o "texto"`);
+      return { ano: ano as number, onde: onde_, temas: temas as TemaDaLinha[], texto: (texto as string).trim() };
+    })
+    .sort((a, b) => a.ano - b.ano);
+});
 
 /** Páginas de texto corrido (sobre, voluntários, linha do tempo, guia de fontes…), em content/paginas. */
 export const getPage = cache((slug: string, lang: Locale): ContentPage => {
