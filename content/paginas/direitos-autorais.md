@@ -4,7 +4,7 @@ sobretitulo: "Se uma obra sua está no acervo"
 resumo: "Como pedir a retirada de uma obra do acervo, o que o pedido precisa ter, em quanto tempo respondemos e como contestar uma retirada."
 ---
 
-RASCUNHO, REVISÃO JURÍDICA PENDENTE. Atualizado em 21 de outubro de 2026.
+Atualizado em 29 de outubro de 2026.
 
 ## O que o acervo é
 
@@ -32,4 +32,7 @@ Quem publicou a obra (ou quem tem autorização para ela) pode enviar uma **cont
 
 ## O que a lei diz
 
-No Brasil, a obra entra em domínio público 70 anos depois da morte do autor, contados a partir de 1º de janeiro do ano seguinte (Lei nº 9.610/1998, art. 41). Uma tradução tem direitos próprios, mesmo de obra antiga. O Marco Civil da Internet (Lei nº 12.965/2014) trata da responsabilidade de quem hospeda conteúdo; é por isso que retiramos assim que somos avisados.
+- **Domínio público:** no Brasil, a obra entra em domínio público 70 anos depois da morte de quem a criou, contados a partir de 1º de janeiro do ano seguinte (Lei 9.610/1998, art. 41). Antes disso, reproduzir a obra depende de autorização prévia e expressa de quem tem os direitos (art. 29).
+- **Tradução tem dono próprio:** uma tradução é obra protegida por si mesma (art. 7º, XI). Um livro antigo em domínio público pode ter uma tradução recente protegida, e é aí que mais se erra.
+- **Citar pode:** a lei permite citar trechos de qualquer obra para estudo, crítica ou polêmica, na medida necessária e indicando o nome do autor e a origem (art. 46, III). As aulas do instituto citam assim.
+- **E a internet:** o Marco Civil da Internet (Lei 12.965/2014) deixou as violações de direitos autorais para uma lei específica (art. 19, § 2º); enquanto ela não vem, vale a Lei de Direitos Autorais. Por isso não esperamos ordem judicial: retiramos assim que somos avisados e conferimos depois.
