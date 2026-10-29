@@ -5,7 +5,7 @@ import { DailyQuote } from "@/components/DailyQuote";
 import { NesteDia } from "@/components/NesteDia";
 import { Star } from "@/components/Masthead";
 import { Experimente, type Sugestao } from "@/components/inicio/Experimente";
-import { CarimboDoDia, LambeDoDia } from "@/components/inicio/LambeDoDia";
+import { LambeDoDia } from "@/components/inicio/LambeDoDia";
 import { JanelaAulaDaSemana } from "@/components/inicio/AulaDaSemana";
 import { aulasDaSemana } from "@/lib/aula-da-semana";
 import { lambesDaSemana } from "@/lib/lambes";
@@ -145,27 +145,20 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
             <Experimente rotulo={h.tryLabel} sugestoes={sugestoes} />
           </div>
 
-          {/* O lambe-lambe colado torto, com os números do acervo e o carimbo do dia. */}
-          <div className="relative px-2 pt-4 pb-8 max-md:hidden">
-            <div className="cartao-preto -rotate-2 px-9 pt-10 pb-8">
-              <LambeDoDia dias={lambes} rotulo={h.posterLabel} />
-              <dl className="mt-7 grid grid-cols-3 border-t-[1.5px] border-[#5a4e3c] pt-5">
-                {[
-                  [numero(lang, areas), t.common.disciplines.other.replace("{n}", "").trim()],
-                  [numero(lang, lessons), t.common.lessons.other.replace("{n}", "").trim()],
-                  [numero(lang, works), t.common.works.other.replace("{n}", "").trim()],
-                ].map(([valor, nome]) => (
-                  <div key={nome}>
-                    <dt className="sr-only">{nome}</dt>
-                    <dd className="text-[2.35rem] font-semibold leading-none text-[#f4ecd8]">{valor}</dd>
-                    <dd aria-hidden className="mt-1.5 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-[#b3a584]">{nome}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-            <div aria-hidden className="carimbo absolute -top-4 -right-3 z-10 h-28 w-28 rotate-[14deg] bg-[color-mix(in_srgb,var(--parchment)_94%,transparent)] text-[0.66rem]">
-              <CarimboDoDia dias={lambes.map((d) => ({ dia: d.dia, carimbo: d.lambe.carimbo }))} reserva={h.stamp} />
-            </div>
+          {/* O lambe-lambe colado torto, com a fita, a xilogravura e o carimbo do dia; os números do acervo vão na tiragem. */}
+          <div className="relative px-2 pt-6 pb-10 max-md:hidden">
+            <LambeDoDia
+              dias={lambes}
+              rotulo={h.posterLabel}
+              reserva={h.stamp}
+              tiragem={`${h.posterPrint}: ${[
+                [numero(lang, areas), t.common.disciplines.other.replace("{n}", "").trim()],
+                [numero(lang, lessons), t.common.lessons.other.replace("{n}", "").trim()],
+                [numero(lang, works), t.common.works.other.replace("{n}", "").trim()],
+              ]
+                .map(([valor, nome]) => `${valor} ${nome}`)
+                .join(" · ")}`}
+            />
           </div>
         </div>
       </section>

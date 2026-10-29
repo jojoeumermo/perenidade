@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Locale } from "@/i18n/config";
-import { type Lambe, type LambeDoDia, diaDe } from "./lambe-do-dia";
+import { FORMATOS, type Formato, type Lambe, type LambeDoDia, diaDe } from "./lambe-do-dia";
 
 interface Entrada {
   id: string;
@@ -10,8 +10,10 @@ interface Entrada {
   dia: string;
   /** A vinheta de xilogravura do mesmo tema ("motivo/ceu/chao", veja lib/xilogravuras.ts). */
   xilo: string;
+  /** O jeito do cartaz (veja FORMATOS em lib/lambe-do-dia.ts); sem ele, o grito vermelho. */
+  formato?: Formato;
   pt: Lambe;
-  [lang: string]: Lambe | string;
+  [lang: string]: Lambe | string | undefined;
 }
 
 let lidos: Entrada[] | null = null;
@@ -26,6 +28,7 @@ function todos(): Entrada[] {
       if (!Array.isArray(carimbo) || carimbo.length !== 2) throw new Error(`content/lambes.json: "${item.id}" precisa das duas linhas do carimbo`);
       if (!/^\d{2}-\d{2}$/.test(item.dia) || dias.has(item.dia)) throw new Error(`content/lambes.json: "${item.id}" tem o dia "${item.dia}" inválido ou repetido`);
       if (typeof item.xilo !== "string" || item.xilo.split("/").length !== 3) throw new Error(`content/lambes.json: "${item.id}" precisa da xilogravura`);
+      if (item.formato !== undefined && !(FORMATOS as readonly string[]).includes(item.formato)) throw new Error(`content/lambes.json: "${item.id}" tem o formato "${item.formato}", que não existe`);
       dias.add(item.dia);
     }
     if (dias.size !== 366) throw new Error(`content/lambes.json: são ${dias.size} dias, precisam ser os 366 do ano`);
@@ -51,6 +54,6 @@ export function lambesDaSemana(lang: Locale, dias = 40): LambeDoDia[] {
     const achado = porDia.get(mesEDia(dia)) ?? { item: lista[0], numero: 1 };
     const traduzido = achado.item[lang];
     const lambe = typeof traduzido === "object" && traduzido ? traduzido : achado.item.pt;
-    return { dia, numero: achado.numero, lambe: { ...lambe, carimbo: lambe.carimbo ?? achado.item.pt.carimbo }, xilo: achado.item.xilo };
+    return { dia, numero: achado.numero, lambe: { ...lambe, carimbo: lambe.carimbo ?? achado.item.pt.carimbo }, xilo: achado.item.xilo, formato: achado.item.formato ?? "grito" };
   });
 }
