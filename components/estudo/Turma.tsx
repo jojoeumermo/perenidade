@@ -1,17 +1,18 @@
 // Instituto Lúcia — © Jonathan Santos. Licença: AGPL-3.0-or-later (veja LICENSE).
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { fill, localePath } from "@/i18n/config";
 import { hoje } from "@/lib/estudo";
-import { lembrarTurma, lerTurmas } from "@/lib/meu-estudo";
+import { esquecerTurma, lembrarTurma, lerTurmas, type TurmaGuardada } from "@/lib/meu-estudo";
 import { useCompleted } from "@/lib/progress";
 import { useHydrated } from "@/lib/storage";
+import { normalize } from "@/lib/text";
 import type { TextosDoEstudo } from "@/lib/textos-estudo";
 import { codificarSequencia, codigoDaSequencia, type Comprovante, gerarComprovante, lerComprovantes, lerSequencia, MAX_AULAS, type Sequencia } from "@/lib/turma";
 import { CopyButton } from "../CopyButton";
 import { L, useI18n } from "../I18n";
-import { baixar } from "./guardado";
+import { baixar, useGuardado } from "./guardado";
 import { type Indice, useIndice } from "./indice";
 import { Barra } from "./Barra";
 
@@ -25,37 +26,67 @@ const campo = "mt-1 w-full border-2 border-ink bg-parchment px-3 py-2";
 const nomeDaAula = (indice: Indice | null, id: string) => indice?.aulas.get(id)?.titulo ?? id;
 
 /** O QR Code do link (o mesmo gerador que o painel usa), para projetar na sala. Link longo demais: sem QR. */
-function QrDoLink({ texto, rotulo }: { texto: string; rotulo: string }) {
+function QrDoLink({ texto, rotulo, largura = 240, className = "mt-3 border border-rule bg-white p-1" }: { texto: string; rotulo: string; largura?: number; className?: string }) {
   const [imagem, setImagem] = useState("");
   useEffect(() => {
     let vivo = true;
     import("qrcode")
-      .then((qrcode) => qrcode.toDataURL(texto, { errorCorrectionLevel: "L", margin: 1, width: 240, color: { dark: "#1f1a14", light: "#ffffff" } }))
+      .then((qrcode) => qrcode.toDataURL(texto, { errorCorrectionLevel: "L", margin: 1, width: largura, color: { dark: "#1f1a14", light: "#ffffff" } }))
       .then((url) => vivo && setImagem(url))
       .catch(() => vivo && setImagem(""));
     return () => {
       vivo = false;
     };
-  }, [texto]);
+  }, [texto, largura]);
   // eslint-disable-next-line @next/next/no-img-element -- imagem gerada no aparelho (data:), não há o que otimizar
-  return imagem ? <img src={imagem} alt={rotulo} width={240} height={240} className="mt-3 border border-rule bg-white p-1" /> : null;
+  return imagem ? <img src={imagem} alt={rotulo} width={largura} height={largura} className={className} /> : null;
+}
+
+/** "Mostrar para a turma": o título e o QR grandes, numa janela por cima de tudo, para projetar no quadro. */
+function MostrarParaATurma({ s, titulo, link }: { s: S; titulo: string; link: string }) {
+  const janela = useRef<HTMLDialogElement>(null);
+  return (
+    <>
+      <button type="button" className={botao} onClick={() => janela.current?.showModal()}>
+        {s.mostrarTurma}
+      </button>
+      <dialog ref={janela} aria-labelledby="tu-projetar-titulo" className="m-auto max-h-[96vh] w-[min(96vw,48rem)] max-w-none border-4 border-ink bg-parchment p-6 text-ink backdrop:bg-black/80 sm:p-10">
+        <div className="flex flex-col items-center text-center">
+          <h2 id="tu-projetar-titulo" className="font-serif text-4xl font-semibold leading-tight text-balance sm:text-5xl">
+            {titulo}
+          </h2>
+          <QrDoLink texto={link} rotulo={s.qr} largura={420} className="mt-6 h-auto w-full max-w-[26rem] border-4 border-ink bg-white p-2" />
+          <p className="mt-4 font-sans text-xl font-semibold">{s.apontar}</p>
+          <form method="dialog" className="mt-6">
+            <button type="submit" className={claro}>
+              {s.fechar}
+            </button>
+          </form>
+        </div>
+      </dialog>
+    </>
+  );
 }
 
 // ───────────── Professor: montar a sequência ─────────────
 
-function MontarSequencia({ s, indice }: { s: S; indice: Indice | null }) {
+function MontarSequencia({ s, indice, inicial }: { s: S; indice: Indice | null; inicial?: Sequencia | null }) {
   const { lang } = useI18n();
   const [area, setArea] = useState("");
   const [trilha, setTrilha] = useState("");
-  const [aulas, setAulas] = useState<string[]>([]);
-  const [titulo, setTitulo] = useState("");
-  const [recado, setRecado] = useState("");
+  const [busca, setBusca] = useState("");
+  const [aulas, setAulas] = useState<string[]>(inicial?.aulas ?? []);
+  const [titulo, setTitulo] = useState(inicial?.titulo ?? "");
+  const [recado, setRecado] = useState(inicial?.recado ?? "");
   const [link, setLink] = useState("");
 
   if (!indice) return <p className="mt-4 text-ink-soft">{s.carregandoAulas}</p>;
   const areas = [...new Map(indice.trilhas.map(([, , a, nome]) => [a, nome])).entries()].sort((x, y) => x[1].localeCompare(y[1], lang));
   const trilhas = indice.trilhas.filter(([, , a]) => a === area);
   const escolhida = indice.trilhas.find(([slug]) => slug === trilha);
+  // A busca procura no nome de todas as aulas publicadas, de todas as disciplinas, sem precisar escolher a trilha antes.
+  const termo = normalize(busca.trim());
+  const achadas = termo.length < 2 ? [] : [...indice.aulas.values()].filter((a) => normalize(a.titulo).includes(termo)).slice(0, 25);
   const adicionar = (ids: string[]) => {
     setAulas((atual) => [...atual, ...ids.filter((id) => !atual.includes(id))].slice(0, MAX_AULAS));
     setLink("");
@@ -78,9 +109,33 @@ function MontarSequencia({ s, indice }: { s: S; indice: Indice | null }) {
   }
 
   return (
-    <div className="mt-4 space-y-6">
-      <fieldset>
+    <div className="mt-4 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <fieldset className="min-w-0">
         <legend className="font-semibold">{s.passo1}</legend>
+        <label className="mt-2 block">
+          {s.buscarAula}
+          <input type="search" value={busca} onChange={(e) => setBusca(e.target.value.slice(0, 60))} placeholder={s.buscarDica} className={campo} />
+        </label>
+        {termo.length >= 2 && (
+          <ul className="mt-2 max-h-72 space-y-1 overflow-y-auto border border-rule bg-parchment p-2">
+            {achadas.length === 0 && <li className="text-ink-soft">{s.nenhumResultado}</li>}
+            {achadas.map((a) => {
+              const ja = aulas.includes(a.id);
+              return (
+                <li key={a.id} className="flex items-center justify-between gap-3">
+                  <span className="min-w-0">
+                    {a.titulo}
+                    <span className="block text-xs text-ink-soft">{a.tituloDaTrilha}</span>
+                  </span>
+                  <button type="button" className="shrink-0 cursor-pointer underline hover:text-oxblood disabled:cursor-default disabled:no-underline disabled:text-ink-soft" disabled={ja || aulas.length >= MAX_AULAS} onClick={() => adicionar([a.id])} aria-label={fill(s.adicionarAula, { aula: a.titulo })}>
+                    {ja ? s.jaEsta : s.adicionar}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        <p className="mt-4 font-semibold text-ink-soft">{s.ouEscolha}</p>
         <div className="mt-2 grid gap-3 sm:grid-cols-2">
           <label className="block">
             {s.disciplina}
@@ -128,6 +183,8 @@ function MontarSequencia({ s, indice }: { s: S; indice: Indice | null }) {
         )}
       </fieldset>
 
+      {/* A sequência fica à vista ao lado (no computador) enquanto as aulas são escolhidas. */}
+      <div className="min-w-0 space-y-6 lg:sticky lg:top-24 lg:self-start lg:border-l-2 lg:border-ink lg:pl-8">
       <section aria-labelledby="tu-ordem">
         <h3 id="tu-ordem" className="font-semibold">
           {fill(s.passo2, { n: aulas.length, max: MAX_AULAS })}
@@ -185,11 +242,61 @@ function MontarSequencia({ s, indice }: { s: S; indice: Indice | null }) {
               </a>
             </p>
             <p className="mt-2 font-mono text-xs">{fill(s.codigo, { codigo: codigoDaSequencia({ v: 1, titulo: titulo.trim(), aulas }) })}</p>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <MostrarParaATurma s={s} titulo={titulo.trim()} link={link} />
+              <a href={`https://wa.me/?text=${encodeURIComponent(fill(s.mensagemWhatsapp, { titulo: titulo.trim(), link }))}`} target="_blank" rel="noopener noreferrer" className={claro}>
+                {s.whatsapp}
+              </a>
+            </div>
             <QrDoLink texto={link} rotulo={s.qr} />
           </div>
         )}
       </div>
+      </div>
     </div>
+  );
+}
+
+// ───────────── Professor: as sequências guardadas no aparelho ─────────────
+
+/** As sequências montadas (ou abertas) neste aparelho: copiar o link de novo, abrir, editar ou tirar da lista. */
+function SuasSequencias({ s, onEditar }: { s: S; onEditar: (seq: Sequencia) => void }) {
+  const { lang } = useI18n();
+  const [turmas, recarregar] = useGuardado<TurmaGuardada[]>(lerTurmas, []);
+  if (turmas.length === 0) return null;
+  return (
+    <section className={cartao} aria-labelledby="tu-suas">
+      <h2 id="tu-suas" className="font-serif text-2xl font-semibold">
+        {s.suasSequencias}
+      </h2>
+      <ul className="mt-2 divide-y divide-rule">
+        {turmas.map((t) => {
+          const endereco = `${localePath(lang, "/turma")}#${t.link}`;
+          const seq = lerSequencia(t.link);
+          return (
+            <li key={t.codigo} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 py-3">
+              <span className="min-w-0">
+                <a href={endereco} className="font-semibold underline hover:text-oxblood">
+                  {t.titulo}
+                </a>
+                <span className="block font-mono text-xs text-ink-soft">{fill(s.codigo, { codigo: t.codigo })} · {fill(s.nAulas, { n: t.aulas.length })}</span>
+              </span>
+              <span className="flex flex-wrap gap-x-4 gap-y-1">
+                <CopyButton text={`${window.location.origin}${endereco}`} label={s.copiarLink} done={s.copiado} />
+                {seq && (
+                  <button type="button" className="cursor-pointer underline hover:text-oxblood" onClick={() => onEditar(seq)}>
+                    {s.editar}
+                  </button>
+                )}
+                <button type="button" className="cursor-pointer text-ink-soft underline hover:text-oxblood" onClick={() => { esquecerTurma(t.codigo); recarregar(); }}>
+                  {s.esquecer}
+                </button>
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
   );
 }
 
@@ -391,6 +498,8 @@ export function Turma({ s }: { s: S }) {
   }, []);
 
   const seq = useMemo(() => (fragmento ? lerSequencia(fragmento) : null), [fragmento]);
+  // "Editar" uma sequência guardada recomeça a montagem com ela (a chave nova remonta o formulário).
+  const [edicao, setEdicao] = useState<{ chave: number; seq: Sequencia } | null>(null);
   if (!hidratado) return null;
   if (fragmento && !seq)
     return (
@@ -410,8 +519,15 @@ export function Turma({ s }: { s: S }) {
           {s.montarTitulo}
         </h2>
         <p className="mt-1 text-ink-soft">{s.montarLead}</p>
-        <MontarSequencia s={s} indice={indice} />
+        <MontarSequencia key={edicao?.chave ?? 0} s={s} indice={indice} inicial={edicao?.seq} />
       </section>
+      <SuasSequencias
+        s={s}
+        onEditar={(escolhida) => {
+          setEdicao({ chave: Date.now(), seq: escolhida });
+          document.getElementById("tu-montar")?.scrollIntoView({ block: "start" });
+        }}
+      />
       <section className={cartao} aria-labelledby="tu-conferir">
         <h2 id="tu-conferir" className="font-serif text-2xl font-semibold">
           {s.conferirTitulo}
