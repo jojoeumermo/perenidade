@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { GUIAS } from "./guias";
 
 const VISTAS = "lucia:guias-vistos";
+/** A pessoa pediu para as seções não oferecerem mais o passo a passo na primeira visita (o botão continua). */
+const SEM_CONVITE = "lucia:guias-sem-convite";
 
 function vistos(): string[] {
   try {
@@ -14,7 +16,15 @@ function vistos(): string[] {
     return [];
   }
 }
-function marcarVisto(id: string) {
+/** Sem convite se a pessoa pediu, e enquanto o passeio do painel (components/painel/Tutorial.tsx) não foi visto: uma ajuda de cada vez. */
+function semConvite() {
+  try {
+    return localStorage.getItem(SEM_CONVITE) === "1" || !localStorage.getItem("lucia:tutorial-painel");
+  } catch {
+    return true;
+  }
+}
+export function marcarVisto(id: string) {
   try {
     localStorage.setItem(VISTAS, JSON.stringify([...new Set([...vistos(), id])]));
   } catch {
@@ -36,7 +46,7 @@ export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- o que já foi visto só existe no navegador
-    setConvite(Boolean(guia) && !vistos().includes(id));
+    setConvite(Boolean(guia) && !vistos().includes(id) && !semConvite());
   }, [id, guia]);
 
   useEffect(() => {
@@ -66,7 +76,7 @@ export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
 
   return (
     <>
-      <button ref={botao} type="button" onClick={abrir} className="no-print inline-flex cursor-pointer items-center gap-2 border-2 border-ink bg-folha px-3 py-1.5 text-[0.82rem] font-bold shadow-[3px_3px_0_var(--sombra)] hover:-translate-x-px hover:-translate-y-px">
+      <button ref={botao} type="button" onClick={abrir} data-tour="como-funciona" className="no-print inline-flex cursor-pointer items-center gap-2 border-2 border-ink bg-folha px-3 py-1.5 text-[0.82rem] font-bold shadow-[3px_3px_0_var(--sombra)] hover:-translate-x-px hover:-translate-y-px">
         <svg aria-hidden viewBox="0 0 24 24" className="h-4 w-4 text-prelo-texto" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
           <circle cx="12" cy="12" r="9" />
           <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17.2h.01" />
@@ -91,6 +101,21 @@ export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
           >
             Agora não
           </button>
+          <button
+            type="button"
+            onClick={() => {
+              setConvite(false);
+              marcarVisto(id);
+              try {
+                localStorage.setItem(SEM_CONVITE, "1");
+              } catch {
+                // sem armazenamento
+              }
+            }}
+            className="cursor-pointer underline hover:text-white"
+          >
+            Não oferecer em outras seções
+          </button>
         </p>
       )}
 
@@ -98,7 +123,7 @@ export function GuiaDaSecao({ id, nome }: { id: string; nome: string }) {
         <div className="no-print fixed inset-0 z-[60] flex items-center justify-center bg-[#17130e]/60 px-4" onClick={fechar}>
           <div role="dialog" aria-modal="true" aria-labelledby="guia-titulo" className="w-full max-w-lg border-2 border-[#1f1a14] bg-[#fbf6e8] p-6 text-[#1f1a14] shadow-[8px_8px_0_#c21f16] sm:p-7" onClick={(e) => e.stopPropagation()}>
             <p className="font-mono text-[0.66rem] uppercase tracking-[0.2em] text-[#c21f16]">
-              {nome} · passo {passo + 1} de {guia.passos.length}
+              {`${nome} · passo ${passo + 1} de ${guia.passos.length}`}
             </p>
             {passo === 0 && <p className="mt-2 text-[0.95rem] leading-snug text-[#5a4e3c]">{guia.paraQue}</p>}
             <h2 id="guia-titulo" className="mt-3 flex items-start gap-3 font-serif text-[1.7rem] font-semibold leading-tight">

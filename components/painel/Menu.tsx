@@ -6,6 +6,7 @@ import { getItem, KEYS, setItem } from "@/lib/storage";
 import { L } from "../I18n";
 import { Avatar } from "./Avatar";
 import { Icone } from "./icones";
+import { experimentou } from "./Tutorial";
 
 export interface ItemDoMenu {
   id: string;
@@ -59,10 +60,10 @@ function Linha({ s, ativa, aoIr }: { s: ItemDoMenu; ativa: boolean; aoIr: (id: s
 }
 
 /** Um grupo do menu: o cabeçalho (ícone, nome, o que espera e a seta) abre e fecha a lista das seções. */
-function Grupo({ nome, desenho, itens, aberto, aoAlternar, atual, aoIr, conta, nota }: { nome: string; desenho: string; itens: ItemDoMenu[]; aberto: boolean; aoAlternar: () => void; atual: string; aoIr: (id: string) => void; conta?: number; nota?: string }) {
+function Grupo({ nome, desenho, itens, aberto, aoAlternar, atual, aoIr, conta, nota, tour }: { nome: string; desenho: string; itens: ItemDoMenu[]; aberto: boolean; aoAlternar: () => void; atual: string; aoIr: (id: string) => void; conta?: number; nota?: string; tour?: string }) {
   const temAtual = itens.some((s) => s.id === atual);
   return (
-    <li>
+    <li data-tour={tour}>
       <button type="button" onClick={aoAlternar} aria-expanded={aberto} className={`painel-cabeca flex w-full cursor-pointer items-center gap-2.5 px-2.5 py-2 text-left ${temAtual && !aberto ? "painel-cabeca-atual" : ""}`}>
         <Desenho d={desenho} className="h-[19px] w-[19px] shrink-0" />
         <span className="min-w-0 flex-1 truncate font-semibold">{nome}</span>
@@ -144,6 +145,7 @@ export function MenuDoPainel({
   const guardar = (novo: Record<string, boolean>) => {
     setGrupos(novo);
     setItem(KEYS.painelGrupos, JSON.stringify(novo));
+    experimentou("areas");
   };
   const irPara = (id: string) => {
     setBusca("");
@@ -154,8 +156,8 @@ export function MenuDoPainel({
     <>
       {/* Recolhido (só no computador): o trilho dos ícones das áreas. Um clique abre o menu já com aquela área aberta. */}
       {compacto && (
-        <aside id="trilho-do-painel" data-tour="menu" aria-label="Menu do painel" className="painel-menu no-print hidden lg:sticky lg:top-0 lg:flex lg:h-screen">
-          <nav aria-label="Áreas do painel" className="painel-trilho flex w-[4.5rem] shrink-0 flex-col items-center gap-1.5 border-r-[3px] border-[#c21f16] bg-[#1f1a14] py-4 text-[#cdbb91]">
+        <aside id="trilho-do-painel" aria-label="Menu do painel" className="painel-menu no-print hidden lg:sticky lg:top-0 lg:flex lg:h-screen">
+          <nav aria-label="Áreas do painel" data-tour="areas" className="painel-trilho flex w-[4.5rem] shrink-0 flex-col items-center gap-1.5 border-r-[3px] border-[#c21f16] bg-[#1f1a14] py-4 text-[#cdbb91]">
             <L href="/" title="Instituto Lúcia · voltar ao site" className="mb-2 shrink-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/marca-96.png" alt="Instituto Lúcia" width={44} height={44} className="h-11 w-11" />
@@ -198,7 +200,6 @@ export function MenuDoPainel({
 
       <aside
         id="menu-do-painel"
-        data-tour="menu"
         aria-label="Menu do painel"
         className={`painel-menu no-print flex-col border-ink bg-parchment text-ink lg:sticky lg:top-0 lg:h-screen lg:border-r-2 max-lg:min-h-[calc(100dvh-3.5rem-env(safe-area-inset-top,0px))] ${aberto ? "flex" : "hidden"} ${compacto ? "lg:hidden" : "lg:flex"}`}
       >
@@ -237,7 +238,7 @@ export function MenuDoPainel({
         </div>
 
         {/* Todas as áreas, uma embaixo da outra; cada uma abre e fecha. */}
-        <nav aria-label="Áreas do painel" className="min-h-0 flex-1 overflow-y-auto px-2 pt-3 pb-4 [scrollbar-width:thin]">
+        <nav aria-label="Áreas do painel" data-tour="areas" className="min-h-0 flex-1 overflow-y-auto px-2 pt-3 pb-4 [scrollbar-width:thin]">
           {termo ? (
             <div>
               <p className="painel-grupo px-2.5 pb-1.5 font-mono text-[0.62rem] uppercase tracking-[0.22em] text-gold">Achadas</p>
@@ -256,6 +257,7 @@ export function MenuDoPainel({
               {departamento && doDepartamento.length > 0 && (
                 <Grupo
                   nome="Meu departamento"
+                  tour="departamento"
                   nota={departamento.nome}
                   desenho="M3 21h18M5 21V8l7-4 7 4v13M9 21v-6h6v6"
                   itens={doDepartamento}

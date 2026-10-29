@@ -3221,6 +3221,38 @@ main#conteudo .ide-area :is(div, section)[class~="border-2"][class~="border-ink"
   }
 }
 
+/* O tutorial do painel: o "feito" do passo de experimentar dá um pulinho e o carimbo do fim cai na folha. O véu é uma
+   sombra só, e fica também no modo leve (que tira as sombras do resto). */
+.tutorial-feito {
+  animation: tutorial-pulo 0.35s ease-out;
+}
+.tutorial-carimbo {
+  animation: tutorial-carimbo 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) 0.15s both;
+}
+@keyframes tutorial-pulo {
+  0% {
+    scale: 0.96;
+  }
+  60% {
+    scale: 1.02;
+  }
+}
+@keyframes tutorial-carimbo {
+  from {
+    opacity: 0;
+    scale: 1.8;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tutorial-feito,
+  .tutorial-carimbo {
+    animation: none;
+  }
+}
+.painel-leve .tutorial-veu {
+  box-shadow: 0 0 0 9999px rgb(23 19 14 / 0.62) !important;
+}
+
 /* Modo leve do painel (botão no rodapé do menu e Ctrl K): sem animação, sem sombra e sem textura de papel. */
 .painel-leve *,
 .painel-leve *::before,
