@@ -66,7 +66,7 @@ export default async function TerritorioPage({ params }: PageProps<"/[lang]/terr
             <p className={`${tag} text-[#e0837a]`}>{s.partner.replace("{n}", String(territorio.numero).padStart(2, "0"))}</p>
             <div className="mt-5 flex items-center gap-5">
               {territorio.slug === "na-atividade" && <MarcaNaAtividade className="h-[54px] w-auto shrink-0" />}
-              <h1 className="territorio-play text-[3.4rem] font-black leading-[0.95] tracking-[-0.02em] sm:text-[4rem]">{territorio.nome}</h1>
+              <h1 className="territorio-play min-w-0 text-[clamp(2.4rem,11vw,3.4rem)] font-black leading-[0.95] tracking-[-0.02em] sm:text-[4rem]">{territorio.nome}</h1>
             </div>
             <p className="territorio-play mt-6 text-[1.6rem] font-semibold leading-[1.25]">{territorio.linha} {territorio.sobre.split(". ")[0]}.</p>
             <p className="mt-4 max-w-[33rem] font-sans text-[0.95rem] leading-relaxed text-[#cdbb91]">{territorio.quem}</p>
@@ -91,9 +91,9 @@ export default async function TerritorioPage({ params }: PageProps<"/[lang]/terr
             <Untranslated lang={lang} t={t} show={lang !== "pt"} />
           </div>
           {territorio.foto ? (
-            <div className="relative mx-auto w-full max-w-[30rem] pt-6 pr-6">
+            <div className="relative mx-auto w-full max-w-[30rem] px-4 pt-6 pr-10 sm:px-0 sm:pr-6">
               {territorio.fotoAtras && (
-                <Image src={territorio.fotoAtras.src} alt="" width={640} height={640} sizes="(min-width: 768px) 28rem, 85vw" className="absolute top-0 right-0 aspect-square h-auto w-[88%] rotate-[4deg] border-2 border-[#f4ecd8] object-cover opacity-90" />
+                <Image src={territorio.fotoAtras.src} alt="" width={640} height={640} sizes="(min-width: 768px) 28rem, 85vw" className="absolute top-0 right-4 aspect-square h-auto w-[84%] rotate-[4deg] border-2 border-[#f4ecd8] object-cover opacity-90 sm:right-0 sm:w-[88%]" />
               )}
               <Image src={territorio.foto.src} alt={territorio.foto.alt} width={640} height={640} priority sizes="(min-width: 768px) 28rem, 85vw" className="relative aspect-square h-auto w-[92%] -rotate-2 border-2 border-[#f4ecd8] object-cover shadow-[10px_10px_0_#e01b22]" />
             </div>
@@ -147,14 +147,14 @@ export default async function TerritorioPage({ params }: PageProps<"/[lang]/terr
           ) : principal ? (
             <div className="mt-6 grid gap-6 md:grid-cols-[2fr_1fr_1fr]">
               <article>
-                <Image src={principal.imagem} alt={principal.alt} width={512} height={640} sizes="(min-width: 768px) 38rem, 92vw" className="aspect-video h-auto w-full border border-ink/30 object-cover object-[50%_35%]" />
+                <Image src={principal.imagem} alt={principal.alt} width={512} height={640} sizes="(min-width: 768px) 38rem, 92vw" className="aspect-[4/3] h-auto w-full border border-ink/30 bg-[#1f1a14] object-contain" />
                 <p className={`mt-3 ${tag} text-[#c21f16]`}>{principal.chapeu}</p>
                 <h3 className="mt-1 font-serif text-[1.75rem] font-semibold leading-[1.1]">{principal.titulo}</h3>
                 {principal.resumo && <p className="mt-2 text-ink-soft">{principal.resumo}</p>}
               </article>
               {outros.map((d) => (
                 <article key={d.titulo}>
-                  <Image src={d.imagem} alt={d.alt} width={360} height={640} sizes="(min-width: 768px) 18rem, 92vw" className="aspect-[4/3] h-auto w-full border border-ink/30 object-cover" />
+                  <Image src={d.imagem} alt={d.alt} width={360} height={640} sizes="(min-width: 768px) 18rem, 92vw" className="aspect-[3/4] h-auto w-full border border-ink/30 object-cover" />
                   <p className={`mt-3 ${tag} text-[#c21f16]`}>{d.chapeu}</p>
                   <h3 className="mt-1 font-serif text-[1.35rem] font-semibold leading-[1.15]">{d.titulo}</h3>
                 </article>

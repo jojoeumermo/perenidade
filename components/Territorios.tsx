@@ -16,7 +16,7 @@ export function CapaDaEdicao({ edicao, perfil, assinatura, grande = false }: { e
   if (edicao.imagem) {
     return (
       <figure className="relative max-w-full overflow-hidden border-[1.5px] border-[#1f1a14] bg-[#fbf8f1] shadow-[6px_6px_0_#1f1a14] transition-shadow hover:shadow-[6px_6px_0_#c21f16]">
-        <Image src={edicao.imagem} alt={edicao.alt ?? edicao.titulo} width={640} height={800} sizes={grande ? "(min-width: 768px) 30rem, 90vw" : "(min-width: 1024px) 15rem, 45vw"} className="aspect-[4/5] h-auto w-full object-cover" />
+        <Image src={edicao.imagem} alt={edicao.alt ?? edicao.titulo} width={640} height={800} sizes={grande ? "(min-width: 768px) 30rem, 90vw" : "(min-width: 1024px) 15rem, 45vw"} className="aspect-[4/5] h-auto w-full object-contain" />
         <figcaption className="sr-only">{edicao.titulo} · {edicao.tipo}</figcaption>
       </figure>
     );
