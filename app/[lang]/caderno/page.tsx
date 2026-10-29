@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { CadernoDeEstudos } from "@/components/caderno/Caderno";
 import { Cartaz } from "@/components/Cartaz";
+import { ComoFunciona } from "@/components/ComoFunciona";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
 
@@ -19,6 +20,7 @@ export default async function Caderno({ params }: PageProps<"/[lang]/caderno">) 
         {t.notebook.lead}
       </Cartaz>
       <CadernoDeEstudos s={t.notebook} />
+      <ComoFunciona s={t.notebook.howItWorks} />
     </div>
   );
 }

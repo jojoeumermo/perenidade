@@ -4817,7 +4817,28 @@
     "step2": "Choisissez un outil : résumé, carte, fiches, questionnaire…",
     "step3": "Prenez des notes, entraînez-vous et revenez demain : la révision ramène chaque fiche au bon jour.",
     "back": "Réponse",
-    "question": "Question"
+    "question": "Question",
+    "howItWorks": {
+      "title": "Comment utiliser le cahier",
+      "steps": [
+        [
+          "Rassemblez les sources",
+          "Leçons, œuvres et notices du site, un texte collé ou des fichiers .txt et .md de votre appareil. Rien n’est envoyé nulle part."
+        ],
+        [
+          "Comprenez",
+          "Un résumé fait des phrases du texte lui-même, des questions aux sources (c’est le texte qui répond, pas une machine), une carte, une frise et un audio à deux voix."
+        ],
+        [
+          "Entraînez-vous",
+          "Des cartes à retourner et à répéter quand vous ne saviez pas, et un questionnaire avec les questions des leçons et des trous tirés au sort. Sans note."
+        ],
+        [
+          "Organisez",
+          "Notes et plan d’étude dans le cahier. Pour ne rien perdre, téléchargez la copie de sauvegarde."
+        ]
+      ]
+    }
   },
   "practiceStudio": {
     "inside": "Ouvrir ici",
