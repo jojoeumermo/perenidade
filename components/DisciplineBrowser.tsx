@@ -5,7 +5,8 @@ import Link from "@/components/Link";
 import { useState } from "react";
 import { fill, localePath, plural } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
-import { areaSlugs, stageAreas, stages, type AreaSlug, type Stage } from "@/lib/areas";
+import { stageAreas, stages, type AreaSlug, type Stage } from "@/lib/areas";
+import { corDaCapa } from "@/lib/capas";
 import { useLastLesson } from "@/lib/progress";
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
 import { normalize } from "@/lib/text";
@@ -73,7 +74,7 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
 
   const Title = labels ? "h3" : "h2";
   // As capas dos cadernos: cores do cartaz e dos panos, a mesma para a mesma disciplina em qualquer página.
-  const capa = (slug: string) => COR_DA_AREA.get(slug) ?? CAPAS[[...slug].reduce((soma, letra) => soma + letra.charCodeAt(0), 0) % CAPAS.length];
+  const capa = corDaCapa;
 
   return (
     <div>
@@ -161,9 +162,3 @@ export function DisciplineBrowser({ groups, s, stageNames, labels = false }: { l
     </div>
   );
 }
-
-// As capas: as cores do cartaz e as dos panos (anil, turquesa, rosa, laranja, roxo do ipê, barro), escurecidas até o
-// creme das letras ter contraste de leitura (4,5:1) em todas, sem dois tons quase iguais. Cada disciplina tem a sua,
-// com passo 5 sobre 13 cores, para vizinhas na estante quase nunca repetirem.
-const CAPAS = ["#6e1f1a", "#23408e", "#2f5d34", "#a6491a", "#1f1a14", "#b5375e", "#166e6a", "#8a5f1c", "#c21f16", "#5b3a8c", "#23485c", "#7a4a2a", "#6b3b5a"];
-const COR_DA_AREA = new Map<string, string>(areaSlugs.map((slug, i) => [slug, CAPAS[(i * 5) % CAPAS.length]]));

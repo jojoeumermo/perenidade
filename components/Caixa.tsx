@@ -158,7 +158,7 @@ export function Caixa({ ferramentas, sugeridas, area, nomes, s, lang, laboratori
           aria-label={b.openLabel}
           aria-expanded={false}
           aria-controls="caixa-de-ferramentas"
-          className="fixed bottom-[calc(8.25rem+env(safe-area-inset-bottom,0px))] right-3 z-40 flex xl:hidden items-center gap-2 border-2 border-ink bg-parchment px-3 py-2.5 font-medium shadow-[3px_3px_0_var(--ink)] hover:border-oxblood hover:text-oxblood md:bottom-20 md:right-4"
+          className="botao-da-caixa fixed bottom-[calc(8.25rem+env(safe-area-inset-bottom,0px))] right-3 z-40 flex xl:hidden items-center gap-2 border-2 border-ink bg-parchment px-3 py-2.5 font-medium shadow-[3px_3px_0_var(--ink)] hover:border-oxblood hover:text-oxblood md:bottom-20 md:right-4"
         >
           <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 8h18v12H3zM8 8V5h8v3M3 13h18M10 13v2h4v-2" />

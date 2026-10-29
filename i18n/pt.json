@@ -5601,5 +5601,25 @@
     "methodText": "Cada frase puxa um eixo para um dos lados. Concordar totalmente vale um ponto inteiro para o lado da frase, concordar vale meio ponto, discordar puxa para o outro lado e o neutro não puxa. A porcentagem mostra para onde foram as suas respostas em cada eixo. As ideologias são comparadas pela distância entre os seus doze números e a posição típica de cada uma, que é uma aproximação: dentro de cada corrente há muitas variações.",
     "card": "Novo: o teste dos 12 eixos políticos",
     "cardText": "Economia, Estado, nação e costumes: veja onde você está e quais ideologias ficam mais perto das suas ideias."
+  },
+  "celular": {
+    "compartilhar": "Compartilhar",
+    "folhaDaAula": "Sumário e ferramentas",
+    "concluirSeguir": "Concluir e seguir",
+    "anterior": "Aula anterior",
+    "letra": "Tamanho da letra",
+    "letraMenor": "Letra menor",
+    "letraMaior": "Letra maior",
+    "aulasDaTrilha": "Aulas da trilha",
+    "ferramentas": "Ferramentas",
+    "atalhos": "Atalhos",
+    "bomDia": "Bom dia",
+    "boaTarde": "Boa tarde",
+    "boaNoite": "Boa noite",
+    "muro": "No muro de hoje",
+    "tema": "Tema",
+    "claro": "Claro",
+    "escuro": "Escuro",
+    "secoes": "Todas as seções"
   }
 }
