@@ -242,7 +242,6 @@ export default async function LessonPage({ params }: Props) {
             <Link href={`${to("/comunidade")}?nova=1&alvo=${encodeURIComponent(path(lesson.slug))}&titulo=${encodeURIComponent(lesson.title)}&sala=${track.area}`} className="underline hover:text-oxblood">{t.common.askCommunity}</Link>{" · "}
             <Link href={`${to("/caderno")}?abrir=${encodeURIComponent(path(lesson.slug))}&titulo=${encodeURIComponent(lesson.title)}`} className="underline hover:text-oxblood">{t.lesson.studyInNotebook}</Link>
             <a href={to(`${path(lesson.slug)}/texto`)} className="underline hover:text-oxblood">{t.lesson.plainText}</a>
-            <Link href={to(`${path(lesson.slug)}/zine`)} className="underline hover:text-oxblood">{t.kit.zineLink}</Link>
             <CiteButton citation={`${lesson.authors.join(", ") || site.name}. “${lesson.title}”. ${track.title}. ${site.name}.`} />
             <Link href={to(`/denunciar?item=${encodeURIComponent(path(lesson.slug))}`)} className="underline hover:text-oxblood">
               {t.common.report}
