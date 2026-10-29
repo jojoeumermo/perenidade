@@ -5,9 +5,21 @@ import { abrir, entrarComo, rpc, sessao } from "./ajuda";
 // Os fluxos que não podem quebrar: estudar uma aula, buscar, entrar, postar na Comunidade, o painel de cada cargo,
 // contribuir e imprimir material. Rodam contra o banco de teste local (playwright.config.ts).
 
-test("abrir uma aula e marcar como concluída", async ({ page }) => {
-  await abrir(page, "/pt/trilhas/historia-antiga/pre-historia-os-primeiros-seres-humanos");
+test("abrir uma aula e marcar como concluída", async ({ page, isMobile }) => {
+  const aula = "/pt/trilhas/historia-antiga/pre-historia-os-primeiros-seres-humanos";
+  await abrir(page, aula);
   await expect(page.getByRole("heading", { level: 1, name: /Pré-história/ })).toBeVisible();
+  if (isMobile) {
+    // No celular, a aula se conclui pela barra de baixo, que marca a aula neste aparelho e já abre a próxima.
+    await expect(async () => {
+      await page.getByRole("button", { name: "Concluir e seguir" }).click({ timeout: 5000 });
+      await expect(page).not.toHaveURL(/pre-historia-os-primeiros-seres-humanos$/, { timeout: 5000 });
+    }).toPass({ timeout: 90_000 });
+    // De volta à aula, a marca continua: a barra oferece a próxima no lugar de "Concluir e seguir".
+    await abrir(page, aula);
+    await expect(page.locator(".acoes-da-aula")).toContainText("Próxima:");
+    return;
+  }
   // Clicado antes de a página terminar de carregar, o clique se perde: repete até a marca aparecer.
   await expect(async () => {
     await page.getByRole("button", { name: /Marcar como concluída|Aula concluída/ }).first().click({ timeout: 5000 });
@@ -51,11 +63,15 @@ test("postar na Rede Lúcia e ver o post na linha", async ({ page }) => {
   await expect(page.getByText(texto)).toBeVisible();
 });
 
-test("o painel abre com o menu da função de quem entra", async ({ page }) => {
+test("o painel abre com o menu da função de quem entra", async ({ page, isMobile }) => {
   const s = await entrarComo(page, "jornal@local");
   // Na primeira vez, o termo de voluntariado vem antes de tudo: aceito direto no banco local.
   await rpc(s.access_token, "termo_voluntario_aceitar").catch(() => null);
+  // O passeio do painel abre sozinho na primeira visita e cobre a tela; aqui ele já foi visto.
+  await page.addInitScript(() => window.localStorage.setItem("lucia:tutorial-painel", String(Date.now())));
   await abrir(page, "/pt/painel");
+  // No celular, o menu fica atrás do botão Menu, na barra do alto.
+  if (isMobile) await page.getByRole("button", { name: "Menu", exact: true }).click();
   // O menu agrupa as telas por assunto; quem produz conteúdo tem o grupo Produção.
   await expect(page.getByRole("button", { name: "Produção" })).toBeVisible();
 });

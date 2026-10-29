@@ -38,8 +38,14 @@ export async function entrarComo(page: Page, email: string) {
 
 /** Abre a página e espera o navegador terminar de carregar: antes disso, clique e digitação se perdem. */
 export async function abrir(page: Page, caminho: string) {
-  // O aviso de apoio que abre por cima da página na primeira visita fica fechado nos testes.
-  await page.addInitScript(() => window.localStorage.setItem("lucia:aviso", JSON.stringify({ fechado: 1, apoio: Date.now() })));
+  // O convite ao apoio da primeira visita fica fechado nos testes. O aviso de abertura em vigor muda de versão (e só
+  // a versão fechada fica fechada): ele é fechado pelo botão, como a pessoa faria, e continua fechado nas próximas
+  // páginas e recargas do mesmo teste, porque o registro só é criado quando ainda não existe.
+  await page.addInitScript(() => {
+    if (!window.localStorage.getItem("lucia:aviso")) window.localStorage.setItem("lucia:aviso", JSON.stringify({ apoio: Date.now() }));
+  });
   await page.goto(caminho);
   await page.waitForLoadState("networkidle");
+  const aviso = page.locator("dialog[open]").getByRole("button", { name: "Fechar" }).first();
+  if (await aviso.waitFor({ timeout: 3000 }).then(() => true, () => false)) await aviso.click();
 }
