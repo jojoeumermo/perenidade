@@ -46,7 +46,6 @@ export function AulaDaSemana({ semanas, lang, url, s, sc, area }: { semanas: Aul
           )}
           <div className="mt-6 flex flex-wrap items-center gap-4">
             <Link href={caminho} className="botao botao-tinta">{s.estudar} →</Link>
-            <Link href={`${caminho}/zine`} className="font-sans font-bold text-ink underline decoration-[#c21f16] decoration-2 underline-offset-4 hover:text-prelo-texto">{s.zine}</Link>
           </div>
           <p className="mt-4 font-sans text-sm text-ink-soft">{s.pauta}</p>
           <div className="mt-5">

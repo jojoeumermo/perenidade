@@ -109,6 +109,9 @@ const common = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Endereço que nenhuma rota atende ganha a página de app/global-not-found.tsx: o layout do site vive dentro de
+  // [lang], e sem isso o Next mostrava a tela branca dele, em inglês.
+  experimental: { globalNotFound: true },
   // O servidor de desenvolvimento não escreve arquivos de instrução na raiz do projeto.
   agentRules: false,
   // O build gera mais de dezesseis mil páginas. Na Vercel há um só processo para todas, com oito páginas ao mesmo tempo,
