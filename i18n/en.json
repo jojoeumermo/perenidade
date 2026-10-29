@@ -3145,7 +3145,17 @@
   "questions": {
     "eyebrow": "Where to begin",
     "title": "Start from a question",
-    "lead": "The questions working people ask are a good place to start studying. Pick one and see where to go next."
+    "lead": "The questions working people ask are a good place to start studying. Pick one and see where to go next.",
+    "themes": {
+      "trabalho": "Work and money",
+      "direitos": "Rights and protection",
+      "sociedade": "Society and politics",
+      "estudar": "Going back to study",
+      "tecnologia": "Computers, the internet and information",
+      "saude": "Health and care"
+    },
+    "jump": "Topics",
+    "whereToStudy": "Where to study"
   },
   "glossary": {
     "eyebrow": "Vocabulary",

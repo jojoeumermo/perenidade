@@ -278,8 +278,12 @@ export interface Quote {
   fonte: string;
 }
 
+/** Os assuntos das perguntas, na ordem em que a página os mostra (o campo "tema" de content/perguntas.json). */
+export const questionThemes = ["trabalho", "direitos", "sociedade", "estudar", "tecnologia", "saude"] as const;
+
 export interface Question {
   pergunta: string;
+  tema?: (typeof questionThemes)[number];
   resposta: string;
   links: { titulo: string; href: string }[];
 }

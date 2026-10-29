@@ -3145,7 +3145,17 @@
   "questions": {
     "eyebrow": "Par où commencer",
     "title": "Partir d'une question",
-    "lead": "Les questions que se posent celles et ceux qui travaillent sont un bon point de départ pour étudier. Choisissez-en une et voyez où aller ensuite."
+    "lead": "Les questions que se posent celles et ceux qui travaillent sont un bon point de départ pour étudier. Choisissez-en une et voyez où aller ensuite.",
+    "themes": {
+      "trabalho": "Travail et argent",
+      "direitos": "Droits et protection",
+      "sociedade": "Société et politique",
+      "estudar": "Reprendre les études",
+      "tecnologia": "Ordinateur, internet et information",
+      "saude": "Santé et soin"
+    },
+    "jump": "Sujets",
+    "whereToStudy": "Par où étudier"
   },
   "glossary": {
     "eyebrow": "Vocabulaire",

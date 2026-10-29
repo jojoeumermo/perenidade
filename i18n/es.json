@@ -3145,7 +3145,17 @@
   "questions": {
     "eyebrow": "Por dónde empezar",
     "title": "Empieza por una pregunta",
-    "lead": "Las dudas de quien trabaja son un buen comienzo para estudiar. Elige una y mira por dónde seguir."
+    "lead": "Las dudas de quien trabaja son un buen comienzo para estudiar. Elige una y mira por dónde seguir.",
+    "themes": {
+      "trabalho": "Trabajo y dinero",
+      "direitos": "Derechos y protección",
+      "sociedade": "Sociedad y política",
+      "estudar": "Volver a estudiar",
+      "tecnologia": "Computadora, internet e información",
+      "saude": "Salud y cuidado"
+    },
+    "jump": "Temas",
+    "whereToStudy": "Por dónde estudiar"
   },
   "glossary": {
     "eyebrow": "Vocabulario",
