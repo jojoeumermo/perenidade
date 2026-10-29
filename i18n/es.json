@@ -5634,5 +5634,42 @@
     "claro": "Claro",
     "escuro": "Oscuro",
     "secoes": "Todas las secciones"
+  },
+  "timeline": {
+    "brasil": "En Brasil",
+    "fora": "En América Latina y el mundo",
+    "where": "Dónde",
+    "theme": "Tema",
+    "allPlaces": "En todas partes",
+    "allThemes": "Todos los temas",
+    "lanes": {
+      "brasil": "Brasil",
+      "america-latina": "América Latina y el Caribe",
+      "mundo": "Mundo"
+    },
+    "themes": {
+      "trabalho": "Trabajo",
+      "negra": "Lucha negra",
+      "indigena": "Pueblos indígenas",
+      "mulheres": "Mujeres",
+      "terra": "Tierra, agua y bosque",
+      "democracia": "Democracia y derechos",
+      "revolucao": "Revoluciones",
+      "lgbt": "LGBTQIA+",
+      "anticolonial": "Contra el colonialismo"
+    },
+    "count": {
+      "one": "acontecimiento",
+      "other": "acontecimientos"
+    },
+    "centuries": {
+      "18": "Siglos XVII y XVIII",
+      "19": "Siglo XIX",
+      "20": "Siglo XX",
+      "21": "Siglo XXI"
+    },
+    "jump": "Ir a",
+    "today": "Hoy",
+    "none": "Ningún acontecimiento con estos filtros."
   }
 }

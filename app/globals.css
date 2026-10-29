@@ -3891,3 +3891,193 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 :root[data-light] .muro-vela-chama {
   animation: none;
 }
+
+/* A linha do tempo das lutas (components/linha/LinhaDoTempo.tsx): o trilho no meio, o Brasil à esquerda, a América
+   Latina e o mundo à direita, e cada ano é um carimbo em cima do trilho. As cores dos lugares são as das bandeirinhas
+   (verde, vermelho, anil) e só marcam a borda do cartão e as abas. No celular, o trilho passa para a esquerda. */
+.linha-aba-brasil[aria-pressed="true"] {
+  background-color: #2e6b4f;
+}
+.linha-aba-america-latina[aria-pressed="true"] {
+  background-color: #c21f16;
+}
+.linha-aba-mundo[aria-pressed="true"] {
+  background-color: #23408e;
+}
+.linha-tema {
+  cursor: pointer;
+  border: 1.5px solid var(--ink);
+  background-color: var(--folha);
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.82rem;
+}
+.linha-tema:hover {
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.linha-tema[aria-pressed="true"] {
+  background-color: var(--ink);
+  color: var(--parchment);
+}
+.linha-seculo {
+  position: relative;
+  margin-top: 4.5rem;
+}
+.linha-seculo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1.5px);
+  width: 3px;
+  background-color: var(--ink);
+}
+.linha-seculo-titulo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.linha-romano {
+  background-color: var(--parchment);
+  padding: 0 0.8rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: clamp(3rem, 7vw, 5.25rem);
+  font-style: italic;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+.linha-seculo-titulo h2 {
+  background-color: var(--parchment);
+  padding: 0.45rem 0.7rem 0.2rem;
+}
+.linha-colunas {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 7rem minmax(0, 1fr);
+  margin-top: 1.5rem;
+  font-family: var(--font-archive), ui-monospace, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.linha-colunas > :first-child {
+  text-align: right;
+}
+.linha-colunas > :last-child {
+  grid-column: 3;
+}
+.linha-anos {
+  position: relative;
+  display: grid;
+  gap: 1.6rem;
+  margin-top: 1rem;
+}
+.linha-ano {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 7rem minmax(0, 1fr);
+  align-items: start;
+}
+.linha-marco {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  padding-top: 0.6rem;
+}
+.linha-marco span {
+  border: 2.5px solid var(--ink);
+  background-color: var(--parchment);
+  padding: 0.15rem 0.55rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.linha-br {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  gap: 0.9rem;
+}
+.linha-fora {
+  grid-column: 3;
+  grid-row: 1;
+  display: grid;
+  gap: 0.9rem;
+}
+.linha-cartao {
+  position: relative;
+  border: 1.5px solid var(--ink);
+  border-left-width: 6px;
+  background-color: var(--folha);
+  padding: 0.85rem 1.1rem 1rem;
+  box-shadow: 3px 3px 0 var(--sombra);
+}
+/* O fio que liga o cartão ao trilho. */
+.linha-br .linha-cartao::after,
+.linha-fora .linha-cartao::after {
+  content: "";
+  position: absolute;
+  top: 1.35rem;
+  width: 1.4rem;
+  border-top: 2px dashed var(--ink-soft);
+}
+.linha-br .linha-cartao::after {
+  right: -1.5rem;
+}
+.linha-fora .linha-cartao::after {
+  left: -1.55rem;
+}
+.linha-brasil {
+  border-left-color: #2e6b4f;
+}
+.linha-america-latina {
+  border-left-color: #c21f16;
+}
+.linha-mundo {
+  border-left-color: #23408e;
+}
+.linha-cartao strong {
+  font-weight: 700;
+}
+.linha-fecho {
+  border-top: 5px double var(--ink);
+  padding-top: 1.5rem;
+}
+@media (max-width: 767.98px) {
+  .linha-seculo::before {
+    left: 1.05rem;
+  }
+  .linha-seculo-titulo {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .linha-colunas {
+    display: none;
+  }
+  .linha-ano {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.6rem;
+    padding-left: 2.6rem;
+  }
+  .linha-marco {
+    grid-column: 1;
+    justify-content: flex-start;
+    margin-left: -2.6rem;
+    padding-top: 0;
+  }
+  .linha-br,
+  .linha-fora {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .linha-br .linha-cartao::after,
+  .linha-fora .linha-cartao::after {
+    display: none;
+  }
+}
