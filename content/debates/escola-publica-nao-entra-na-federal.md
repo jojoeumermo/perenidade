@@ -1,5 +1,6 @@
 ---
 afirmacao: "Quem vem de escola pública não entra em universidade federal."
+tema: "escola"
 resposta: "Pelo menos metade das vagas de cada curso das universidades e dos institutos federais é reservada para quem fez todo o ensino médio em escola pública. É a Lei de Cotas, de 2012, renovada em 2023."
 fontes:
   - titulo: "Lei nº 12.711, de 29 de agosto de 2012 (Lei de Cotas)"

@@ -1,5 +1,6 @@
 ---
 afirmacao: "O mercado se regula sozinho."
+tema: "economia"
 resposta: "A crise de 2008 mostrou o contrário. Bancos dos Estados Unidos, com pouca fiscalização, espalharam empréstimos que não seriam pagos; quando a bolha estourou, foram os governos que salvaram o sistema com dinheiro público. A comissão criada pelo Congresso americano para investigar a crise concluiu que ela era evitável e apontou falhas graves de regulação. Mercado precisa de regras, e quem faz as regras é a sociedade."
 fontes:
   - titulo: "The Financial Crisis Inquiry Report"

@@ -1,5 +1,6 @@
 ---
 afirmacao: "Reduzir a maioridade penal diminui o crime."
+tema: "seguranca"
 resposta: "As pesquisas não mostram isso. Nos Estados Unidos, uma revisão de estudos publicada pelo CDC, o órgão federal de saúde pública, concluiu que jovens enviados à Justiça de adultos voltam a cometer crimes violentos mais do que os que ficam no sistema juvenil. No Brasil, o adolescente já responde pelo que faz, pelo Estatuto da Criança e do Adolescente, e pode ser internado por até três anos. E os jovens são muito mais vítimas do que autores da violência."
 falacias: [causa-unica]
 fontes:

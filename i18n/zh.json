@@ -3033,7 +3033,17 @@
     "beforeTitle": "辩论之前：先认识谬误",
     "beforeText": "稻草人、虚假两难、人身攻击：最常见的把戏以及如何逐一回应。",
     "beforeLink": "打开谬误指南",
-    "fallacies": "这句话中的谬误"
+    "fallacies": "这句话中的谬误",
+    "themes": {
+      "economia": "经济与国家",
+      "trabalho": "劳动与工会",
+      "seguranca": "治安与人权",
+      "igualdade": "种族主义与平等",
+      "escola": "学校与青年",
+      "socialismo": "社会主义与运动"
+    },
+    "allThemes": "全部主题",
+    "sourcesAndMore": "来源与延伸阅读"
   },
   "fallacies": {
     "eyebrow": "独立思考",
@@ -3059,7 +3069,8 @@
     "inDebates": "出现在辩论卡片中",
     "remember": "指出一个谬误并不能证明结论是错的：它只说明这个论证撑不起那个结论。最好的回应几乎从来不是拉丁文名称，而是提出恰当的问题。",
     "toDebates": "查看辩论卡片",
-    "toChecks": "查看事实核查"
+    "toChecks": "查看事实核查",
+    "close": "收起卡片"
   },
   "questions": {
     "eyebrow": "从哪里开始",

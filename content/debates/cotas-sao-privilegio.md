@@ -1,5 +1,6 @@
 ---
 afirmacao: "Cotas são um privilégio e ferem a igualdade."
+tema: "igualdade"
 resposta: "A Lei de Cotas reserva metade das vagas das universidades federais para quem estudou em escola pública, com critérios de renda e de raça. Em 2012, o Supremo Tribunal Federal decidiu por unanimidade que as cotas raciais são constitucionais: tratar de forma diferente quem parte de condições desiguais é um meio de chegar à igualdade, e não de negá-la."
 falacias: [equivoco]
 fontes:

@@ -1,5 +1,6 @@
 ---
 afirmacao: "Feminismo quer que a mulher seja superior ao homem."
+tema: "igualdade"
 resposta: "Feminismo é a luta por direitos iguais. Foi essa luta que conquistou o voto das mulheres no Brasil, em 1932, e a frase da Constituição de 1988: “homens e mulheres são iguais em direitos e obrigações”. A igualdade ainda não chegou à vida real: segundo o IBGE, as mulheres ganham em média cerca de um quinto a menos que os homens e dedicam quase o dobro de horas ao trabalho de casa."
 falacias: [espantalho]
 fontes:

@@ -1,5 +1,6 @@
 ---
 afirmacao: "Imposto é roubo."
+tema: "economia"
 resposta: "Roubo é tomar à força, sem regra nenhuma. Imposto só pode ser cobrado por lei votada no Parlamento (artigo 150 da Constituição) e paga o que é de todos: o SUS, a escola pública, a aposentadoria, a merenda. A pergunta séria é quem paga e quanto. No Brasil, quem ganha pouco paga, em proporção da renda, tanto ou mais do que quem ganha muito."
 falacias: [falsa-analogia, equivoco]
 fontes:

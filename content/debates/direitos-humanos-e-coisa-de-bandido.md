@@ -1,5 +1,6 @@
 ---
 afirmacao: "Direitos humanos é coisa de bandido."
+tema: "seguranca"
 resposta: "Direitos humanos são os direitos de todo mundo: trabalho com salário justo, saúde, educação, moradia, não ser torturado, ter um julgamento. Estão na Declaração Universal de 1948 e no artigo 5º da Constituição. Quem mais precisa deles é quem não tem dinheiro para comprar proteção."
 falacias: [espantalho, culpa-por-associacao]
 fontes:

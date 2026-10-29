@@ -24,12 +24,14 @@ export default async function Falacias({ params }: PageProps<"/[lang]/falacias">
   const names = new Map(fallacies.map((item) => [item.slug, item.name]));
   const debates = getDebates(lang);
   return (
-    <div className="mx-auto max-w-3xl px-4 py-12">
-      <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.slogans.falacias} tone="preto">
-        {s.lead}
-      </Cartaz>
-      <p className="mt-6 border-l-4 border-gold pl-4 font-sans text-sm text-ink-soft">{s.remember}</p>
-      <Untranslated lang={lang} t={t} show={fallacies.some((item) => !item.translated)} />
+    <div className="mx-auto max-w-6xl px-4 py-12">
+      <div className="mx-auto max-w-3xl">
+        <Cartaz eyebrow={s.eyebrow} title={s.title} slogan={t.slogans.falacias} tone="preto">
+          {s.lead}
+        </Cartaz>
+        <p className="mt-6 border-l-4 border-gold pl-4 font-sans text-sm text-ink-soft">{s.remember}</p>
+        <Untranslated lang={lang} t={t} show={fallacies.some((item) => !item.translated)} />
+      </div>
       <FalaciasList
         s={s}
         items={fallacies.map((item) => ({
@@ -57,7 +59,7 @@ export default async function Falacias({ params }: PageProps<"/[lang]/falacias">
           ),
         }))}
       />
-      <p className="no-print mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-rule pt-6 font-sans text-sm">
+      <p className="no-print mx-auto mt-12 flex max-w-3xl flex-wrap gap-x-6 gap-y-2 border-t border-rule pt-6 font-sans text-sm">
         <Link href={localePath(lang, "/debates")} className="underline hover:text-oxblood">{s.toDebates}</Link>
         <Link href={localePath(lang, "/checagens")} className="underline hover:text-oxblood">{s.toChecks}</Link>
       </p>

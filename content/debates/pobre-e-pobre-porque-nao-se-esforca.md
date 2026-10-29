@@ -1,5 +1,6 @@
 ---
 afirmacao: "Pobre é pobre porque não se esforça."
+tema: "economia"
 resposta: "Esforço conta, mas o ponto de partida conta muito mais. Segundo a OCDE, no Brasil os descendentes de uma família entre os 10% mais pobres levariam cerca de nove gerações para chegar à renda média do país. Quem nasce pobre começa com escola pior, menos tempo para estudar, trabalho mais cedo e nenhuma herança. E muitos dos trabalhos mais pesados, como limpar, carregar e colher, estão entre os mais mal pagos."
 falacias: [causa-unica, evidencia-anedotica]
 fontes:

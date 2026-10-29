@@ -202,9 +202,13 @@ export interface DebateCard extends Localized {
   answer: string;
   /** Falácias que a frase do cartão usa (slugs de content/falacias). */
   fallacies: string[];
+  theme?: (typeof debateThemes)[number];
   sources: Source[];
   body: string;
 }
+
+/** Os temas dos cartões de debate, para agrupar a página (o campo "tema" de content/debates). */
+export const debateThemes = ["economia", "trabalho", "seguranca", "igualdade", "escola", "socialismo"] as const;
 
 /** Os quatro selos da checagem de fatos, na ordem em que a página os explica. */
 export const verdicts = ["Falso", "Enganoso", "Falta contexto", "Verdadeiro"] as const;
@@ -777,6 +781,7 @@ export const getDebates = cache((lang: Locale): DebateCard[] => {
     claim: text(data, "afirmacao", file),
     answer: text(data, "resposta", file),
     fallacies: slugList(data.falacias, "falacias", "falacias", fallacies, file),
+    theme: data.tema === undefined ? undefined : oneOf(data, "tema", debateThemes, file),
     sources: parseSources(data.fontes, file, true),
     body,
     translated,

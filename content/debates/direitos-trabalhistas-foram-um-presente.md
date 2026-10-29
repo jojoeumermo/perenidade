@@ -1,5 +1,6 @@
 ---
 afirmacao: "Os direitos trabalhistas foram um presente do governo."
+tema: "trabalho"
 resposta: "As leis vieram depois de décadas de greves e de organização. Desde o começo do século XX, operárias e operários brasileiros paravam fábricas pela jornada de oito horas, pelo descanso semanal e pelo fim do trabalho infantil. A CLT, de 1943, reuniu em lei o que a luta já vinha arrancando."
 falacias: [causa-unica]
 fontes:

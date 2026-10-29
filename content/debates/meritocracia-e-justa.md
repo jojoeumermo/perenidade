@@ -1,5 +1,6 @@
 ---
 afirmacao: "A meritocracia é justa: cada um tem o que merece."
+tema: "economia"
 resposta: "A palavra “meritocracia” foi inventada em 1958 pelo sociólogo inglês Michael Young num livro de crítica: ele imaginou um futuro em que os vencedores se achariam merecedores de tudo e desprezariam os perdedores. Premiar o esforço é justo. Injusto é fingir que todos largam da mesma linha, quando uns herdam escola boa, contatos e patrimônio, e outros herdam dívidas."
 falacias: [peticao-de-principio, evidencia-anedotica]
 fontes:

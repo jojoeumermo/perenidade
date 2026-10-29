@@ -3103,7 +3103,17 @@
     "beforeTitle": "Before you debate: know the fallacies",
     "beforeText": "Straw man, false dilemma, personal attack: the most common tricks and how to answer each one.",
     "beforeLink": "Open the fallacy guide",
-    "fallacies": "Fallacies in this phrase"
+    "fallacies": "Fallacies in this phrase",
+    "themes": {
+      "economia": "Economy and the State",
+      "trabalho": "Work and unions",
+      "seguranca": "Public safety and human rights",
+      "igualdade": "Racism and equality",
+      "escola": "School and youth",
+      "socialismo": "Socialism and movements"
+    },
+    "allThemes": "All themes",
+    "sourcesAndMore": "Sources and further reading"
   },
   "fallacies": {
     "eyebrow": "Thinking for yourself",
@@ -3129,7 +3139,8 @@
     "inDebates": "Appears in the debate cards",
     "remember": "Pointing out a fallacy does not prove the conclusion is false: it only shows that this argument does not support it. And the best answer is almost never the Latin name, but the right question.",
     "toDebates": "See the debate cards",
-    "toChecks": "See the fact checks"
+    "toChecks": "See the fact checks",
+    "close": "Close the card"
   },
   "questions": {
     "eyebrow": "Where to begin",
