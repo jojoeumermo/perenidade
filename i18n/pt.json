@@ -3258,7 +3258,31 @@
     "youtubeNote": "O tocador do YouTube só carrega quando você clica, sem cookies de propaganda.",
     "ownCopy": "Assistir sem o Google (cópia do instituto)",
     "backToYoutube": "Assistir pelo YouTube",
-    "transcriptTitle": "Transcrição"
+    "transcriptTitle": "Transcrição",
+    "how": {
+      "title": "Como são as aulas em vídeo",
+      "steps": [
+        [
+          "Curtas e revisadas",
+          "Até 10 minutos cada, gravadas pelos educadores do instituto e revisadas antes de ir ao ar."
+        ],
+        [
+          "No seu ritmo",
+          "Mude a velocidade de 0,5 a 3 vezes, volte ou avance 10 segundos, ligue as legendas quando houver e leia a transcrição."
+        ],
+        [
+          "Sem propaganda",
+          "O tocador do YouTube só carrega quando você clica, sem cookies de propaganda; quando há, dá para assistir pela cópia do instituto, sem o Google."
+        ],
+        [
+          "Converse",
+          "Os comentários de cada aula aparecem sozinhos, sem recarregar a página."
+        ]
+      ],
+      "teachTitle": "Você ensina?",
+      "teachText": "Grave uma aula curta pelo painel. Ela passa pela revisão antes de ir ao ar, com o seu nome.",
+      "teachLink": "Seja voluntário"
+    }
   },
   "more": {
     "eyebrow": "Tudo o que há aqui",
@@ -4539,7 +4563,31 @@
     "chatPending": "aguardando mediação",
     "youtubeLive": "Transmissão pelo YouTube do instituto",
     "youtubeWatch": "Assistir à transmissão",
-    "youtubeNote": "O tocador do YouTube só carrega quando você clica, sem cookies de propaganda. O bate-papo da aula continua aqui no site."
+    "youtubeNote": "O tocador do YouTube só carrega quando você clica, sem cookies de propaganda. O bate-papo da aula continua aqui no site.",
+    "how": {
+      "title": "Como é uma aula ao vivo",
+      "steps": [
+        [
+          "Marque presença",
+          "Escolha a aula na agenda, marque presença e ponha no calendário do celular."
+        ],
+        [
+          "Entre na hora",
+          "Na hora marcada, toque em Entrar na aula. Abre no navegador, sem instalar nada."
+        ],
+        [
+          "Pergunte",
+          "No bate-papo, marque a mensagem como pergunta para quem ensina, ou levante a mão. Para falar, entre na sua conta."
+        ],
+        [
+          "Reveja depois",
+          "Quando quem ensinou publica a gravação, ela aparece em Aulas gravadas."
+        ]
+      ],
+      "teachTitle": "Quer dar uma aula ao vivo?",
+      "teachText": "Você conduz com a câmera, com a tela ou só com a voz. A gravação fica no seu aparelho e depois pode virar aula em vídeo, enviada pelo painel.",
+      "teachLink": "Seja voluntário"
+    }
   },
   "notebook": {
     "eyebrow": "Sala de estudo",
