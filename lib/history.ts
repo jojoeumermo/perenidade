@@ -165,6 +165,8 @@ function classify(file: string): Unit | null {
   }
   if (parts.length === 2 && folders[dir] && name.endsWith(".md")) return { type: "file", kind: folders[dir] };
   if (parts.length === 1 && lists[dir]) return { type: "list", kind: lists[dir] };
+  // Os acontecimentos da linha do tempo moram num JSON à parte, mas mexer neles é mexer na página.
+  if (parts.length === 1 && dir === "linha-do-tempo.json") return { type: "page", slug: "linha-do-tempo" };
   return null;
 }
 

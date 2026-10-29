@@ -5634,5 +5634,42 @@
     "claro": "Light",
     "escuro": "Dark",
     "secoes": "All sections"
+  },
+  "timeline": {
+    "brasil": "In Brazil",
+    "fora": "In Latin America and the world",
+    "where": "Where",
+    "theme": "Theme",
+    "allPlaces": "Everywhere",
+    "allThemes": "All themes",
+    "lanes": {
+      "brasil": "Brazil",
+      "america-latina": "Latin America and the Caribbean",
+      "mundo": "World"
+    },
+    "themes": {
+      "trabalho": "Labor",
+      "negra": "Black struggle",
+      "indigena": "Indigenous peoples",
+      "mulheres": "Women",
+      "terra": "Land, water and forest",
+      "democracia": "Democracy and rights",
+      "revolucao": "Revolutions",
+      "lgbt": "LGBTQIA+",
+      "anticolonial": "Against colonialism"
+    },
+    "count": {
+      "one": "event",
+      "other": "events"
+    },
+    "centuries": {
+      "18": "17th and 18th centuries",
+      "19": "19th century",
+      "20": "20th century",
+      "21": "21st century"
+    },
+    "jump": "Jump to",
+    "today": "Today",
+    "none": "No events match these filters."
   }
 }
