@@ -38,7 +38,7 @@ function lerVerbete(xml: string): Sentido[] {
 }
 
 /** Partes do verbete do Wikcionário que não são sentidos da palavra. */
-const FORA = /^(Tradu|Etimologia|Pron[uú]ncia|Ver também|Refer|Sin[oô]nimos|Ant[oô]nimos|Express|Verbetes|Locu|Descri|Notas|Anagramas|Divis|Fon|No |Na |Nos |Nas )/i;
+const FORA = /^(Tradu|Etimologia|Pron[uú]ncia|Ver também|Refer|Sin[oô]nimos|Ant[oô]nimos|Express|Verbetes|Locu|Descri|Notas|Anagrama|Rimas|Par[oô]nim|Hom[oóô]|Divis|Fon|No |Na |Nos |Nas )/i;
 
 /** O conteúdo da primeira lista numerada do trecho, com as listas de dentro (sentidos e exemplos) no lugar certo. */
 function primeiraLista(trecho: string): string | null {
@@ -79,7 +79,8 @@ function lerWikcionario(html: string): Sentido[] {
   const sentidos: Sentido[] = [];
   const titulos = [...secao.matchAll(/<h([23])[^>]*>([\s\S]*?)<\/h\1>/g)];
   titulos.forEach((titulo, i) => {
-    const classe = semHtml(titulo[2]).replace(/\s+/g, " ");
+    // "Substantivo<sup>1</sup>" e "Substantivo<sup>2</sup>" são palavras diferentes com a mesma grafia: "Substantivo 1".
+    const classe = semHtml(titulo[2].replace(/<sup[^>]*>\s*(\d+)\s*<\/sup>/g, " $1")).replace(/\s+/g, " ").trim();
     if (!classe || FORA.test(classe)) return;
     const depois = secao.slice((titulo.index ?? 0) + titulo[0].length, titulos[i + 1]?.index ?? secao.length);
     const lista = primeiraLista(depois);
