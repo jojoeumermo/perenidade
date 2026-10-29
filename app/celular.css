@@ -891,6 +891,14 @@
   :root[data-lendo]:not([data-leitor]) .acoes-da-aula {
     transform: translateY(100%);
   }
+  /* O botão de acessibilidade some junto (como já fazia no aplicativo), para não ficar por cima do texto. */
+  :root:not([data-leitor]) .app-flutua {
+    transition: opacity 0.2s ease-out;
+  }
+  :root[data-lendo]:not([data-leitor]) .app-flutua:not(:focus-within) {
+    opacity: 0;
+    pointer-events: none;
+  }
 
   /* A barra de ações da aula: sumário, aula anterior e "Concluir e seguir", ao alcance do polegar. */
   :root:not([data-leitor]) .acoes-da-aula {
