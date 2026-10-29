@@ -11,36 +11,47 @@ type Numeros = {
   posts: number; certificados: number; turma: number; contas_meses: number; entradas: number; saidas: number;
 };
 
-/** Os trimestres desde o começo do instituto até o atual, do mais novo para o mais velho. */
-function trimestres(): { ano: number; tri: number }[] {
+/** Os semestres desde o começo do instituto até o atual, do mais novo para o mais velho. */
+function semestres(): { ano: number; sem: 1 | 2 }[] {
   const [ano, mes] = new Intl.DateTimeFormat("sv-SE", { timeZone: "America/Sao_Paulo" }).format(new Date()).split("-").map(Number);
-  const lista = [];
-  for (let a = ano, t = Math.ceil(mes / 3); a > 2025 || (a === 2025 && t >= 1); t === 1 ? ((a -= 1), (t = 4)) : (t -= 1)) lista.push({ ano: a, tri: t });
+  const lista: { ano: number; sem: 1 | 2 }[] = [];
+  for (let a = ano, s: 1 | 2 = mes <= 6 ? 1 : 2; a >= 2025; s === 1 ? ((a -= 1), (s = 2)) : (s = 1)) lista.push({ ano: a, sem: s });
   return lista;
 }
 
+/** As contagens que se somam de um trimestre para o outro (os núcleos ativos são os do fim do semestre). */
+const SOMAM: (keyof Numeros)[] = ["contas", "voluntarios", "contribuicoes", "tarefas", "nucleos", "posts", "certificados", "turma", "contas_meses", "entradas", "saidas"];
+
 /**
- * O relatório do trimestre: o que o instituto fez, em contagens que qualquer pessoa confere. Os números vêm do banco
- * (public.relatorio_trimestral) e nunca trazem nome de ninguém; o dinheiro soma só os meses com relatório publicado.
+ * O relatório do semestre: o que o instituto fez, em contagens que qualquer pessoa confere. O banco responde por
+ * trimestre (public.relatorio_trimestral): cada semestre soma os dois dele, sem mudar nada no banco. Os números nunca
+ * trazem nome de ninguém; o dinheiro soma só os meses com relatório publicado.
  */
-export function RelatorioTrimestral({ lang, s }: { lang: Locale; s: Dict["relatorio"] }) {
-  const opcoes = trimestres();
+export function RelatorioSemestral({ lang, s }: { lang: Locale; s: Dict["relatorio"] }) {
+  const opcoes = semestres();
   const [escolha, setEscolha] = useState(0);
   const [numeros, setNumeros] = useState<Numeros | null>(null);
   const [falhou, setFalhou] = useState(false);
-  const { ano, tri } = opcoes[escolha];
+  const { ano, sem } = opcoes[escolha];
 
   useEffect(() => {
     if (!hasBackend) return;
     let vale = true;
-    rpc<Numeros>("relatorio_trimestral", { p_ano: ano, p_tri: tri }).then(
-      (r) => vale && (setNumeros(r), setFalhou(false)),
+    const tris = sem === 1 ? [1, 2] : [3, 4];
+    Promise.all(tris.map((tri) => rpc<Numeros>("relatorio_trimestral", { p_ano: ano, p_tri: tri }))).then(
+      ([primeiro, segundo]) => {
+        if (!vale) return;
+        const soma = { ...segundo };
+        for (const chave of SOMAM) soma[chave] = Number(primeiro[chave]) + Number(segundo[chave]);
+        setNumeros(soma);
+        setFalhou(false);
+      },
       () => vale && setFalhou(true),
     );
     return () => {
       vale = false;
     };
-  }, [ano, tri]);
+  }, [ano, sem]);
 
   const n = (v: number) => new Intl.NumberFormat(lang).format(v);
   const reais = (v: number) => new Intl.NumberFormat(lang, { style: "currency", currency: "BRL" }).format(v);
@@ -55,7 +66,7 @@ export function RelatorioTrimestral({ lang, s }: { lang: Locale; s: Dict["relato
         {s.escolha}
         <select className="border-2 border-ink bg-parchment px-3 py-2" value={escolha} onChange={(e) => (setNumeros(null), setEscolha(Number(e.target.value)))}>
           {opcoes.map((o, i) => (
-            <option key={`${o.ano}-${o.tri}`} value={i}>{fill(s.trimestre, { tri: o.tri, ano: o.ano })}</option>
+            <option key={`${o.ano}-${o.sem}`} value={i}>{fill(s.semestres[o.sem - 1], { ano: o.ano })}</option>
           ))}
         </select>
       </label>

@@ -3487,9 +3487,6 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 .letreiro-trilho {
   animation: letreiro 40s linear infinite;
 }
-.letreiro:hover .letreiro-trilho {
-  animation-play-state: paused;
-}
 @keyframes letreiro {
   to {
     transform: translateX(-50%);
@@ -3768,4 +3765,169 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) :is(.lambe-cartaz .lambe-fita, .lambe-interrogacao) {
   display: none;
+}
+
+/* A abertura da galeria (components/galeria/VaralDaGaleria.tsx): o varal de cordel da feira, com os cartazes do acervo
+   pendurados por pregadores e balançando de leve. A altura de cada um no barbante vem do componente (--cai). */
+.varal-barbante path {
+  stroke: var(--ink);
+}
+.varal-cartaz {
+  min-width: 0;
+  margin-top: calc(var(--cai) - 0.35rem);
+  transform-origin: 50% 0;
+  transform: rotate(var(--giro));
+  animation: varal-balanco var(--tempo) ease-in-out infinite alternate;
+}
+@media (max-width: 639px) {
+  .varal-cartaz {
+    margin-top: calc(var(--cai-cel) - 0.35rem);
+  }
+}
+@keyframes varal-balanco {
+  from { transform: rotate(var(--giro)); }
+  to { transform: rotate(calc(var(--giro) * -0.7)); }
+}
+.varal-folha {
+  padding: 0.3rem 0.3rem 0.85rem;
+  border: 1px solid rgba(31, 26, 20, 0.5);
+  background: #f7f1e1;
+  box-shadow: 5px 6px 0 var(--sombra);
+  transition: transform 0.2s ease;
+}
+.varal-folha:hover {
+  transform: translateY(2px) scale(1.03);
+}
+.varal-pregador {
+  position: absolute;
+  top: -0.55rem;
+  left: 50%;
+  width: 0.62rem;
+  height: 1.55rem;
+  margin-left: -0.31rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #a87a43 0 44%, #6f4d26 44% 56%, #c8995e 56%);
+  box-shadow: 1px 1px 0 rgba(31, 26, 20, 0.45);
+}
+.etiqueta-museu {
+  border: 2px solid var(--ink);
+  background: var(--folha);
+  padding: 0.7rem 1rem 0.8rem;
+  box-shadow: 4px 4px 0 var(--ink);
+  color: var(--ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .varal-cartaz {
+    animation: none;
+  }
+  .varal-folha {
+    transition: none;
+  }
+}
+/* Modo leve, contraste, papel eletrônico e leitura: o varal fica parado e reto. */
+:root:is([data-light], [data-eink], [data-contrast], [data-leitor]) .varal-cartaz {
+  animation: none;
+}
+:root:is([data-eink], [data-contrast], [data-leitor]) :is(.varal-cartaz, .etiqueta-museu) {
+  transform: none;
+}
+
+/* As orelhas da primeira página das notícias (components/noticias/PrimeiraPagina.tsx): os quadros dos lados do nome. */
+.pagina-orelha {
+  border: 2px solid var(--ink);
+  padding: 0.55rem 0.75rem 0.6rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.pagina-orelha strong {
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+/* As respostas do guia das disciplinas (components/GuiaDasDisciplinas.tsx): botões de papel; a escolhida fica em tinta. */
+.guia-opcao {
+  cursor: pointer;
+  border: 2px solid var(--ink);
+  background: var(--parchment);
+  padding: 0.55rem 0.9rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 3px 3px 0 var(--sombra);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.guia-opcao:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--sombra);
+}
+.guia-opcao[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--parchment);
+}
+@media (prefers-reduced-motion: reduce) {
+  .guia-opcao {
+    transition: none;
+  }
+}
+:root[data-light] .guia-opcao {
+  transition: none;
+}
+
+/* O teste dos 12 eixos (components/estudo/DozeEixos.tsx): os tamanhos, as cinco respostas e as barras do resultado.
+   A faixa de cima de cada resposta vai do verde (concordo) ao vermelho (discordo); as barras usam anil e ipê, cores que
+   não puxam para lado nenhum. */
+.eixos-nivel {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.eixos-nivel:hover,
+.eixos-resposta:hover {
+  transform: translate(-1px, -1px);
+}
+.eixos-resposta {
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  border: 2px solid var(--ink);
+  border-top-width: 6px;
+  background: var(--parchment);
+  padding: 0.65rem 0.5rem 0.75rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  box-shadow: 3px 3px 0 var(--sombra);
+  transition: transform 0.12s ease;
+}
+.eixos-resposta-0 { border-top-color: #2e6b4f; }
+.eixos-resposta-1 { border-top-color: #7fae8f; }
+.eixos-resposta-2 { border-top-color: #a8987a; }
+.eixos-resposta-3 { border-top-color: #e0837a; }
+.eixos-resposta-4 { border-top-color: #c21f16; }
+.eixos-resposta[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--parchment);
+}
+.eixos-barra-a {
+  background: #23408e;
+}
+.eixos-barra-b {
+  background: #f0b323;
+}
+@media (prefers-reduced-motion: reduce) {
+  .eixos-nivel,
+  .eixos-resposta {
+    transition: none;
+  }
+}
+:root[data-light] :is(.eixos-nivel, .eixos-resposta) {
+  transition: none;
 }

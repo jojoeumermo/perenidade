@@ -1,0 +1,70 @@
+{
+  "sobre": "Jogo de decisões do Instituto Lúcia. As situações são inventadas para o jogo; os fatos citados em \"Na luta real\" são históricos e verificáveis.",
+  "inicio": { "unidade": 50, "fundo": 40, "pressao": 20, "apoio": 30 },
+  "cenas": [
+    {
+      "titulo": "O anúncio",
+      "texto": "A fábrica onde você trabalha anuncia que vai cortar 10% dos salários ou demitir 50 pessoas. No intervalo, o pessoal está revoltado. O que você faz?",
+      "escolhas": [
+        { "texto": "Chamar uma assembleia para o fim do turno.", "efeito": { "unidade": 15, "pressao": 5 }, "retorno": "Quem participa da decisão sustenta a luta: a assembleia transforma revolta solta em força coletiva." },
+        { "texto": "Conversar sozinho com o chefe para pedir que poupe o seu setor.", "efeito": { "unidade": -15 }, "retorno": "A saída individual divide os colegas. Separar a categoria em setores é exatamente o que o patrão quer." },
+        { "texto": "Desabafar nas redes sociais, sem falar com ninguém da fábrica.", "efeito": { "apoio": 5, "unidade": -5 }, "retorno": "Desabafo não organiza: sem a base junto, a denúncia não vira pressão." }
+      ]
+    },
+    {
+      "titulo": "A assembleia",
+      "texto": "Trezentas pessoas lotam o pátio. O sindicato pergunta como encaminhar.",
+      "escolhas": [
+        { "texto": "Votar a greve já, com uma pauta clara: nenhum corte e nenhuma demissão.", "efeito": { "unidade": 10, "pressao": 15, "fundo": -5 }, "retorno": "Pauta simples, que todo mundo entende e repete, ajuda a manter a categoria unida." },
+        { "texto": "Esperar mais um mês para ver se a empresa desiste.", "efeito": { "unidade": -10, "pressao": -5 }, "retorno": "Esperar sem plano esfria a revolta, e a empresa ganha tempo para dividir o pessoal." },
+        { "texto": "Aprovar estado de greve, com comissão de negociação e prazo para a resposta.", "efeito": { "unidade": 10, "pressao": 8 }, "retorno": "Estado de greve com prazo mostra força e deixa a porta aberta para negociar." }
+      ]
+    },
+    {
+      "titulo": "O fundo de greve",
+      "texto": "Uma semana de greve e as contas apertam. Muita gente não sabe como pagar o aluguel.",
+      "escolhas": [
+        { "texto": "Organizar um fundo de greve com o sindicato, cozinha coletiva e doações do bairro.", "efeito": { "fundo": 25, "unidade": 10, "apoio": 10 }, "retorno": "Ninguém fica para trás, e a greve dura mais.", "historia": "Nas greves do ABC paulista, em 1979 e 1980, fundos de greve e a solidariedade de igrejas e moradores ajudaram a sustentar as famílias dos metalúrgicos." },
+        { "texto": "Cada um se vira como pode.", "efeito": { "fundo": -15, "unidade": -15 }, "retorno": "Quem aperta primeiro volta ao trabalho, e a greve começa a se desfazer pelas bordas." },
+        { "texto": "Fazer um empréstimo no banco em nome do sindicato.", "efeito": { "fundo": 10 }, "retorno": "Ajuda agora, mas a dívida fica para a próxima diretoria e para toda a categoria." }
+      ]
+    },
+    {
+      "titulo": "Os substitutos",
+      "texto": "A empresa traz trabalhadores de fora para tocar a produção e ameaça demitir os grevistas.",
+      "escolhas": [
+        { "texto": "Fazer piquete pacífico no portão e conversar com quem chega para trabalhar.", "efeito": { "pressao": 15, "unidade": 5, "apoio": 5 }, "retorno": "Muitos substitutos não sabiam da greve. Conversa no portão também é organização." },
+        { "texto": "Partir para o confronto com quem tentar entrar.", "efeito": { "pressao": 5, "apoio": -20, "unidade": -5 }, "retorno": "A briga vira desculpa para a polícia e para o noticiário falarem mal da greve." },
+        { "texto": "Denunciar a contratação à Justiça do Trabalho.", "efeito": { "pressao": 10, "fundo": -5 }, "retorno": "A lei está do seu lado nesse ponto.", "historia": "A Lei de Greve (Lei 7.783, de 1989) proíbe, em regra, contratar substitutos e demitir quem está em greve." }
+      ]
+    },
+    {
+      "titulo": "A cidade",
+      "texto": "A rádio da cidade diz que a greve prejudica todo mundo. Parte dos vizinhos começa a reclamar.",
+      "escolhas": [
+        { "texto": "Panfletar no bairro e explicar a luta no alto-falante da feira.", "efeito": { "apoio": 20, "pressao": 5 }, "retorno": "Quem entende o motivo da greve passa a apoiar: o salário cortado também sai do comércio do bairro." },
+        { "texto": "Ignorar: a luta é só da fábrica.", "efeito": { "apoio": -10 }, "retorno": "Sem explicar, a versão do patrão vira a única que a cidade ouve." },
+        { "texto": "Chamar outras categorias para um ato conjunto no centro.", "efeito": { "apoio": 10, "pressao": 10, "unidade": 5 }, "retorno": "Quando outras categorias aparecem, a greve deixa de ser problema de uma fábrica só." }
+      ]
+    },
+    {
+      "titulo": "A proposta",
+      "texto": "A empresa oferece: nenhuma demissão, mas 5% de corte nos salários, e só para quem voltar amanhã.",
+      "escolhas": [
+        { "texto": "Levar a proposta à assembleia e decidir junto.", "efeito": { "unidade": 10 }, "retorno": "Quem decidiu junto volta junto, seja qual for a decisão." },
+        { "texto": "Aceitar na hora: a comissão decide sozinha.", "efeito": { "unidade": -20 }, "retorno": "Acordo fechado por cima da base deixa ressentimento e enfraquece a próxima luta." },
+        { "texto": "Recusar e manter a greve até a pauta inteira.", "efeito": { "pressao": 10, "fundo": -10 }, "retorno": "Arriscado: só funciona se o fundo e a unidade aguentarem mais alguns dias." }
+      ]
+    }
+  ],
+  "finais": {
+    "vitoria": { "titulo": "Vitória", "texto": "A empresa recua: nenhum corte e nenhuma demissão. Unidade, fundo de greve e apoio do bairro fizeram a diferença." },
+    "parcial": { "titulo": "Acordo parcial", "texto": "As demissões caem e o corte fica menor do que o anunciado. Não é tudo, mas a categoria sai organizada para a próxima." },
+    "derrota": { "titulo": "A greve se desfez", "texto": "A categoria voltou dividida e o corte passou. Toda derrota ensina: veja onde a unidade, o fundo ou o apoio faltaram." }
+  },
+  "aulas": [
+    { "titulo": "O que é uma greve", "href": "/trilhas/marxismo-fundamental/o-que-e-uma-greve" },
+    { "titulo": "O que é um sindicato", "href": "/trilhas/marxismo-fundamental/o-que-e-um-sindicato" },
+    { "titulo": "As greves do ABC", "href": "/trilhas/lutas-do-povo/as-greves-do-abc" }
+  ]
+}
