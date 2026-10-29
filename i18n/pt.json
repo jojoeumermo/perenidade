@@ -4817,7 +4817,28 @@
     "step2": "Escolha uma ferramenta: resumo, mapa, cartões, questionário…",
     "step3": "Anote, treine e volte amanhã: a revisão traz cada cartão no dia certo.",
     "back": "Resposta",
-    "question": "Pergunta"
+    "question": "Pergunta",
+    "howItWorks": {
+      "title": "Como usar o caderno",
+      "steps": [
+        [
+          "Junte as fontes",
+          "Aulas, obras e verbetes do site, um texto colado ou arquivos .txt e .md do seu aparelho. Nada é enviado a lugar nenhum."
+        ],
+        [
+          "Entenda",
+          "Resumo com as frases do próprio texto, perguntas às fontes (quem responde é o texto, não uma máquina), mapa, linha do tempo e áudio a duas vozes."
+        ],
+        [
+          "Treine",
+          "Cartões para virar e repetir os que faltaram, e um questionário com as perguntas das aulas e lacunas sorteadas. Sem nota."
+        ],
+        [
+          "Organize",
+          "Notas e plano de estudo no próprio caderno. Para não perder nada, baixe a cópia de segurança."
+        ]
+      ]
+    }
   },
   "practiceStudio": {
     "inside": "Abrir aqui",
