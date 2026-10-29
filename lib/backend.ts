@@ -383,6 +383,7 @@ export async function signOut() {
     try {
       localStorage.removeItem(KEYS.session);
       localStorage.removeItem(KEYS.name);
+      localStorage.removeItem(KEYS.avatar);
     } catch {
       // sem armazenamento, não há sessão para apagar
     }

@@ -4,7 +4,8 @@ import { localePath, type Locale } from "@/i18n/config";
 import type { Dict } from "@/i18n/types";
 import { site } from "@/lib/site";
 import { InstagramIcon } from "./Footer";
-import { AccountLink, AppBack, HeaderSearch, LanguageSwitcher, NavLinks, NewsLink, PodcastLink, RadioLink } from "./NavLinks";
+import { BuscaDoTopo } from "./BuscaDoTopo";
+import { AccountLink, AppBack, LanguageSwitcher, NavLinks, NewsLink, PodcastLink, RadioLink } from "./NavLinks";
 import { Strip } from "./Strip";
 import { ThemeToggle } from "./ThemeToggle";
 import { TopoFixo } from "./TopoFixo";
@@ -47,7 +48,7 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
         {t.common.skip}
       </a>
       <div className="no-print app:hidden">
-        <Strip fallback={t.common.strip} />
+        <Strip fallback={t.common.strip} faixas={t.faixas} />
       </div>
       <header className="cabecalho-site app-barra no-print no-focus sticky top-0 z-40 border-b-[3px] border-ink bg-parchment app:z-30 app:pt-[env(safe-area-inset-top,0px)]">
         <TopoFixo />
@@ -67,7 +68,7 @@ export function Header({ lang, t }: { lang: Locale; t: Dict }) {
             {/* No computador, na ordem do desenho: a busca, a rádio, o tema e o idioma; depois a conta, o Instagram e o apoio. */}
             {/* Num invólucro: no toque, toda ligação do cabeçalho é forçada a aparecer (globals.css, pointer: coarse). */}
             <span className="hidden lg:contents">
-              <HeaderSearch />
+              <BuscaDoTopo />
             </span>
             <span className="contents md:hidden">
               <AccountLink />

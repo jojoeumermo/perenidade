@@ -5,7 +5,8 @@ import Link from "@/components/Link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { fill, localeNames, localePath, locales } from "@/i18n/config";
-import { hasBackend, rpc, useMe } from "@/lib/backend";
+import { hasBackend, rpc, signOut, useMe } from "@/lib/backend";
+import { AVATARES } from "./painel/Avatar";
 import { KEYS, setItem, useHydrated, useStored } from "@/lib/storage";
 import { useI18n } from "./I18n";
 
@@ -15,19 +16,22 @@ export const SAIR_MAIS = "lucia:sair-mais";
 export const abrirMais = (mouse = false) => window.dispatchEvent(new CustomEvent(ABRIR_MAIS, { detail: { mouse } }));
 
 /** O que já está no menu do topo do computador: a janela do "Mais" não repete. */
-export const MAIS_NO_MENU = ["/trilhas", "/acervo", "/jornal", "/podcasts", "/comunidade", "/apoie"];
+export const MAIS_NO_MENU = ["/trilhas", "/acervo", "/jornal", "/podcasts", "/comunidade", "/saude", "/dedicatoria", "/apoie"];
 
 export function NavLinks() {
   const pathname = usePathname();
   const { lang, t } = useI18n();
   const novo = useEpisodioNovo();
-  // No menu só o que se usa todo dia. Saúde, Dedicatória e o resto moram no "Mais" (MAIS_NO_MENU diz quais não repetem lá).
+  // No menu, o que se usa todo dia, o Mural de Saúde e a Dedicatória (Lúcia é quem inspirou tudo isto); o resto mora
+  // no "Mais" (MAIS_NO_MENU diz quais não repetem lá).
   const links: [string, string][] = [
     [t.nav.disciplines, "/trilhas"],
     [t.nav.library, "/acervo"],
     [t.nav.journal, "/jornal"],
     [t.nav.podcasts, "/podcasts"],
     [t.nav.community, "/comunidade"],
+    [t.nav.health, "/saude"],
+    [t.nav.dedication, "/dedicatoria"],
   ];
   const item = "item-do-menu whitespace-nowrap border-b-4 py-2.5";
   // Passar o mouse por cima do "Mais" abre a janela depois de um instante (quem só atravessa o menu não a abre);
@@ -111,23 +115,30 @@ export function AppBack() {
 const firstName = (name: string) => name.trim().split(/\s+/)[0].slice(0, 24);
 
 /**
- * "Entrar" para quem não tem sessão; para quem tem, "Olá, Fulano" com a palavra "Painel" embaixo (ou só "Painel",
- * enquanto o nome não chega). O nome fica guardado no navegador para aparecer de imediato na próxima página.
+ * "Entrar" para quem não tem sessão; para quem tem, o rosto da conta (o ícone escolhido em Minha conta, ou a inicial)
+ * que abre o menu da pessoa. O nome e o ícone ficam guardados no navegador para aparecer de imediato na próxima página.
  */
 export function AccountLink() {
   const { lang, t } = useI18n();
   const hydrated = useHydrated();
   const session = useStored(KEYS.session);
   const saved = useStored(KEYS.name);
+  const savedAvatar = useStored(KEYS.avatar);
   const me = useMe();
   // Antes do código do segundo fator a sessão ainda não é da pessoa: o cabeçalho não a cumprimenta nem guarda o nome.
   const confirmada = me.status === "in" && (!me.me.exige_segundo_fator || me.me.segundo_fator);
   const pendente = me.status === "in" && !confirmada;
   const loaded = confirmada ? firstName(me.me.nome) : "";
+  const loadedAvatar = confirmada ? (me.me.avatar ?? "") : "";
+  // Só guarda o nome e o ícone enquanto há sessão: depois do Sair, a resposta antiga do serviço não os escreve de volta.
   useEffect(() => {
-    if (loaded && loaded !== saved) setItem(KEYS.name, loaded);
+    if (session && loaded && loaded !== saved) setItem(KEYS.name, loaded);
     else if (pendente && saved) setItem(KEYS.name, null);
-  }, [loaded, saved, pendente]);
+  }, [session, loaded, saved, pendente]);
+  useEffect(() => {
+    if (session && confirmada && loadedAvatar !== savedAvatar) setItem(KEYS.avatar, loadedAvatar || null);
+    else if (pendente && savedAvatar) setItem(KEYS.avatar, null);
+  }, [session, confirmada, pendente, loadedAvatar, savedAvatar]);
   if (!hydrated) return null;
   const name = session && !pendente ? loaded || saved : "";
   if (!name) {
@@ -137,18 +148,37 @@ export function AccountLink() {
       </Link>
     );
   }
-  return <MenuDaConta name={name} />;
+  return <MenuDaConta name={name} avatar={confirmada ? loadedAvatar : savedAvatar} />;
+}
+
+/** O rosto da conta no alto: a imagem subida, o ícone predefinido (em creme sobre o bordô) ou a inicial. */
+function RostoDaConta({ name, avatar }: { name: string; avatar: string }) {
+  const { lang } = useI18n();
+  if (avatar.startsWith("data:image/")) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={avatar} alt="" className="h-full w-full rounded-full object-cover" />;
+  }
+  const icone = avatar.startsWith("p:") ? AVATARES.find((a) => a.id === avatar.slice(2)) : null;
+  if (icone) {
+    return (
+      <svg aria-hidden viewBox="0 0 24 24" className="h-[62%] w-[62%]" fill={icone.cheio ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d={icone.d} />
+      </svg>
+    );
+  }
+  return <span aria-hidden>{[...name][0]?.toLocaleUpperCase(lang)}</span>;
 }
 
 /**
- * A conta no alto: a inicial num círculo, como a foto de perfil de um aplicativo. O clique abre um menu curto com o
- * "Olá, Fulano" e os caminhos da pessoa; sair continua no painel, que também apaga o que é da conta neste aparelho.
+ * A conta no alto, como a foto de perfil de um aplicativo. O clique abre um menu curto com o "Olá, Fulano", os
+ * caminhos da pessoa e o Sair, que apaga daqui o que é da conta (como o Sair do painel).
  */
-function MenuDaConta({ name }: { name: string }) {
+function MenuDaConta({ name, avatar }: { name: string; avatar: string }) {
   const { lang, t } = useI18n();
   const pathname = usePathname();
   // O menu guarda em que página foi aberto: trocou de página, ele some sozinho.
   const [abertoEm, setAbertoEm] = useState<string | null>(null);
+  const [saindo, setSaindo] = useState(false);
   const aberto = abertoEm === pathname;
   const caixa = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -166,6 +196,21 @@ function MenuDaConta({ name }: { name: string }) {
       document.removeEventListener("keydown", tecla);
     };
   }, [aberto]);
+  const sair = async () => {
+    setSaindo(true);
+    try {
+      // O mesmo que o Sair do painel: o índice das conversas deste aparelho vai embora junto com a conta.
+      const [{ limparIndice }, { travarAgora }] = await Promise.all([import("@/lib/busca-local"), import("@/lib/trava")]);
+      await limparIndice().catch(() => undefined);
+      travarAgora();
+    } catch {
+      // Sem o índice para apagar, sai do mesmo jeito.
+    }
+    // Sai e fica na mesma página: o site aberto não depende de conta (só o painel, que tem o próprio Sair).
+    await signOut();
+    setAbertoEm(null);
+    setSaindo(false);
+  };
   const itens: [string, string][] = [
     [t.nav.notebook, "/caderno"],
     [t.nav.myData, "/meus-dados"],
@@ -179,9 +224,9 @@ function MenuDaConta({ name }: { name: string }) {
         aria-haspopup="menu"
         aria-label={fill(t.nav.helloLabel, { name })}
         title={fill(t.nav.hello, { name })}
-        className="conta-saudacao flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-2 border-ink bg-[#6e1f1a] font-serif text-xl font-semibold leading-none text-[#f4ecd8] hover:bg-[#c21f16] hover:text-white aria-expanded:shadow-[0_0_0_3px_var(--parchment),0_0_0_5px_#c21f16]"
+        className="conta-saudacao flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-full border-2 border-ink bg-[#6e1f1a] font-serif text-xl font-semibold leading-none text-[#f4ecd8] hover:bg-[#c21f16] hover:text-white aria-expanded:shadow-[0_0_0_3px_var(--parchment),0_0_0_5px_#c21f16]"
       >
-        <span aria-hidden>{[...name][0]?.toLocaleUpperCase(lang)}</span>
+        <RostoDaConta name={name} avatar={avatar} />
       </button>
       {aberto && (
         <div role="menu" className="menu-da-conta absolute right-0 top-[calc(100%+0.6rem)] z-50 w-60 border-2 border-ink bg-folha font-sans text-[0.95rem] text-ink shadow-[6px_6px_0_var(--prelo)]">
@@ -190,31 +235,25 @@ function MenuDaConta({ name }: { name: string }) {
             {t.nav.panel} <span aria-hidden className="text-prelo-texto">→</span>
           </Link>
           {itens.map(([label, path]) => (
-            <Link key={path} role="menuitem" href={localePath(lang, path)} className="block px-4 py-2.5 text-ink last:mb-1.5 hover:bg-ink hover:text-parchment">
+            <Link key={path} role="menuitem" href={localePath(lang, path)} className="block px-4 py-2.5 text-ink hover:bg-ink hover:text-parchment">
               {label}
             </Link>
           ))}
+          <button
+            type="button"
+            role="menuitem"
+            onClick={() => void sair()}
+            disabled={saindo}
+            className="mt-1 flex w-full cursor-pointer items-center justify-between border-t border-rule px-4 pt-2.5 pb-3 text-left font-semibold text-prelo-texto hover:bg-[#c21f16] hover:text-white disabled:cursor-wait disabled:opacity-70"
+          >
+            {saindo ? t.nav.signingOut : t.nav.signOut}
+            <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H3" />
+            </svg>
+          </button>
         </div>
       )}
     </div>
-  );
-}
-
-/** O campo de busca do alto, no computador: leva à busca do site (a tecla "/" faz o mesmo de qualquer página). */
-export function HeaderSearch() {
-  const { lang, t } = useI18n();
-  return (
-    <Link
-      href={localePath(lang, "/busca")}
-      className="busca-do-topo flex h-11 w-[15rem] items-center gap-2.5 border-2 border-ink bg-folha px-3 font-sans text-[0.95rem] text-ink-soft hover:text-ink xl:w-[17rem]"
-    >
-      <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px] shrink-0 text-ink" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
-        <circle cx="10.5" cy="10.5" r="6.5" />
-        <path d="M15.5 15.5 20 20" />
-      </svg>
-      <span className="flex-1">{t.nav.search}</span>
-      <kbd aria-hidden className="border border-rule px-1.5 py-px font-mono text-[0.7rem] text-ink-soft">/</kbd>
-    </Link>
   );
 }
 
