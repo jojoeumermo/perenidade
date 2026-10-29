@@ -1,12 +1,24 @@
 name: Segurança
 
-# Segredos no código e dependências com falha conhecida. Roda em todo envio e pedido de junção, e toda semana (falhas
-# novas aparecem em pacotes que já estavam aqui). O GitHub não oferece a varredura de segredos neste plano: o gitleaks
-# faz o papel dela, no histórico inteiro. As duas ferramentas vêm das páginas oficiais, com o resumo SHA-256 conferido.
+# Segredos no código e dependências com falha conhecida. Roda quando o código muda (envio ou pedido de junção) e toda
+# semana no histórico inteiro, aulas incluídas (falhas novas aparecem em pacotes que já estavam aqui). Aula, matéria e
+# documentação não disparam a cada envio: eram mais de cem rodadas por mês e esgotaram os minutos do GitHub.
+# O GitHub não oferece a varredura de segredos neste plano: o gitleaks faz o papel dela, no histórico inteiro.
+# As duas ferramentas vêm das páginas oficiais, com o resumo SHA-256 conferido.
 on:
   push:
     branches: [master]
+    paths-ignore:
+      - "content/**"
+      - "docs/**"
+      - "historico/**"
+      - "*.md"
   pull_request:
+    paths-ignore:
+      - "content/**"
+      - "docs/**"
+      - "historico/**"
+      - "*.md"
   schedule:
     - cron: "30 7 * * 1"
   workflow_dispatch:
