@@ -6,7 +6,7 @@ import { NesteDia } from "@/components/NesteDia";
 import { Star } from "@/components/Masthead";
 import { Experimente, type Sugestao } from "@/components/inicio/Experimente";
 import { CarimboDoDia, LambeDoDia } from "@/components/inicio/LambeDoDia";
-import { AulaDaSemana } from "@/components/inicio/AulaDaSemana";
+import { JanelaAulaDaSemana } from "@/components/inicio/AulaDaSemana";
 import { aulasDaSemana } from "@/lib/aula-da-semana";
 import { lambesDaSemana } from "@/lib/lambes";
 import { JanelaContinue, JanelaNoAr } from "@/components/inicio/Janelas";
@@ -32,7 +32,7 @@ const numero = (lang: string, n: number) => new Intl.NumberFormat(lang).format(n
 
 /**
  * A inicial no desenho do Caderno do Povo: o lambe-lambe e a busca no papel pontilhado, o Mural de Saúde logo
- * abaixo, as três janelas (onde parou, o jornal, o que está no ar), as estantes de cadernos e, no fim, a frase
+ * abaixo, as quatro janelas (onde parou, a aula da semana, o jornal, o que está no ar), as estantes de cadernos e, no fim, a frase
  * do dia, os fatos de luta da data, as perguntas e a dedicatória.
  */
 export default async function Home({ params }: PageProps<"/[lang]">) {
@@ -189,10 +189,12 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
         </div>
       </section>
 
-      {/* ── As três janelas ── */}
+      {/* ── As quatro janelas: onde parou, a aula da semana, o jornal e o que está no ar ── */}
       <section>
-        <div className="mx-auto grid max-w-[78rem] gap-8 px-4 py-14 sm:px-6 md:grid-cols-3 lg:px-8 max-md:py-8">
+        <div className="mx-auto grid max-w-[78rem] gap-8 px-4 py-14 sm:px-6 md:grid-cols-2 lg:px-8 xl:grid-cols-4 max-md:py-8">
           <JanelaContinue textos={{ continuar: t.tracks.continue, retomar: t.tracks.resume, comecar: t.nav.start, comecarTexto: h.startText }} />
+
+          <JanelaAulaDaSemana semanas={aulasDaSemana(lang)} lang={lang} url={site.url} s={t.aulaDaSemana} sc={t.compartilhar} area={Object.fromEntries(Object.entries(t.areas).map(([k, v]) => [k, v[0]]))} />
 
           {articles.length > 0 ? (
             <article className="cartao p-6">
@@ -247,8 +249,6 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
           </p>
         </div>
       </section>
-
-      <AulaDaSemana semanas={aulasDaSemana(lang)} lang={lang} url={site.url} s={t.aulaDaSemana} sc={t.compartilhar} area={Object.fromEntries(Object.entries(t.areas).map(([k, v]) => [k, v[0]]))} />
 
       {/* ── Territórios: o coletivo parceiro mais recente, com a faixa dos temas ── */}
       {territorios.length > 0 && (() => {

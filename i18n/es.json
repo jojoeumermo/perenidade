@@ -846,7 +846,9 @@
     "certPrintHint": "En la ventana de impresión, elige “Guardar como PDF”, papel A4 y activa “Gráficos de fondo”.",
     "searchLabel": "Buscar una disciplina",
     "searchPlaceholder": "Buscar una disciplina o un tema (p. ej.: fotosíntesis, samba, Python)…",
-    "searchClear": "Limpiar"
+    "searchClear": "Limpiar",
+    "filterRevolution": "Revolución y militancia",
+    "filterRevolutionHint": "La teoría revolucionaria y las luchas del pueblo: para quien llega queriendo entender el sistema, organizarse y transformarlo."
   },
   "lesson": {
     "position": "lección {i} de {n}",

@@ -846,7 +846,9 @@
     "certPrintHint": "Na janela de impressão, escolha “Salvar como PDF”, papel A4 e ligue “Gráficos de plano de fundo”.",
     "searchLabel": "Buscar uma disciplina",
     "searchPlaceholder": "Buscar uma disciplina ou um tema (ex.: fotossíntese, samba, Python)…",
-    "searchClear": "Limpar"
+    "searchClear": "Limpar",
+    "filterRevolution": "Revolução e militância",
+    "filterRevolutionHint": "A teoria revolucionária e as lutas do povo: para quem chega querendo entender o sistema, se organizar e transformar."
   },
   "lesson": {
     "position": "aula {i} de {n}",

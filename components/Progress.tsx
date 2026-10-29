@@ -176,10 +176,10 @@ export function CompleteButton({ id, next }: { id: string; next?: { path: string
 }
 
 /** Guarda a última aula aberta, para o "continue de onde parou" da página inicial. */
-export function RememberLesson({ path, title, track }: LastLesson) {
+export function RememberLesson({ path, title, track, area }: LastLesson) {
   useEffect(() => {
-    rememberLesson({ path, title, track });
-  }, [path, title, track]);
+    rememberLesson({ path, title, track, area });
+  }, [path, title, track, area]);
   return null;
 }
 
