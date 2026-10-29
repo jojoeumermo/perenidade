@@ -3076,7 +3076,21 @@
     },
     "startCheck": "Check a message",
     "published": "Published fact-checks: {n}",
-    "checksTitle": "Published fact-checks"
+    "checksTitle": "Published fact-checks",
+    "themes": {
+      "saude": "Health and vaccines",
+      "ciencia": "Science and climate",
+      "historia": "History",
+      "racismo-educacao": "Racism and education",
+      "economia-trabalho": "Economy and work",
+      "estado-democracia": "State and democracy"
+    },
+    "allThemes": "All themes",
+    "allVerdicts": "All verdicts",
+    "shortAnswer": "In short",
+    "readFull": "Read the full fact check · {n} min",
+    "closeFull": "Close the fact check",
+    "onThisPage": "On this page"
   },
   "debates": {
     "eyebrow": "Arguments at hand",

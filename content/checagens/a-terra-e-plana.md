@@ -2,6 +2,7 @@
 titulo: "A Terra é redonda, e isso se sabe há mais de dois mil anos"
 alegacao: "A Terra é plana, e a ideia de que ela é redonda é uma farsa."
 veredito: "Falso"
+tema: "ciencia"
 data: 2026-10-14
 fontes:
   - titulo: "Do céu (De Caelo), livro II"

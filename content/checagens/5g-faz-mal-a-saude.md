@@ -2,6 +2,7 @@
 titulo: "O 5G não espalha doenças"
 alegacao: "As antenas de 5G fazem mal à saúde e ajudaram a espalhar a covid-19."
 veredito: "Falso"
+tema: "saude"
 data: 2026-10-14
 fontes:
   - titulo: "Radiation: 5G mobile networks and health (perguntas e respostas)"

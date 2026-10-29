@@ -3216,7 +3216,21 @@
     },
     "startCheck": "Проверить сообщение",
     "published": "Опубликовано проверок: {n}",
-    "checksTitle": "Опубликованные проверки"
+    "checksTitle": "Опубликованные проверки",
+    "themes": {
+      "saude": "Здоровье и вакцины",
+      "ciencia": "Наука и климат",
+      "historia": "История",
+      "racismo-educacao": "Расизм и образование",
+      "economia-trabalho": "Экономика и труд",
+      "estado-democracia": "Государство и демократия"
+    },
+    "allThemes": "Все темы",
+    "allVerdicts": "Все вердикты",
+    "shortAnswer": "Коротко",
+    "readFull": "Читать проверку целиком · {n} мин",
+    "closeFull": "Свернуть проверку",
+    "onThisPage": "На этой странице"
   },
   "debates": {
     "eyebrow": "Аргументы под рукой",

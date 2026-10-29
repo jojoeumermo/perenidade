@@ -2,6 +2,7 @@
 titulo: "O racismo existe no Brasil, e os dados mostram"
 alegacao: "Não existe racismo no Brasil: aqui todos são misturados e têm as mesmas oportunidades."
 veredito: "Falso"
+tema: "racismo-educacao"
 data: 2026-10-14
 fontes:
   - titulo: "Desigualdades Sociais por Cor ou Raça no Brasil"

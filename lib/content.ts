@@ -187,7 +187,10 @@ export interface Article extends Localized {
 export interface FactCheck extends Localized {
   slug: string;
   claim: string;
+  /** A resposta curta ("O 5G não espalha doenças"). */
+  title?: string;
   verdict: string;
+  theme?: (typeof factCheckThemes)[number];
   date: string;
   sources: Source[];
   body: string;
@@ -205,6 +208,8 @@ export interface DebateCard extends Localized {
 
 /** Os quatro selos da checagem de fatos, na ordem em que a página os explica. */
 export const verdicts = ["Falso", "Enganoso", "Falta contexto", "Verdadeiro"] as const;
+/** Os temas das checagens, para agrupar a página (o campo "tema" de content/checagens). */
+export const factCheckThemes = ["saude", "ciencia", "historia", "racismo-educacao", "economia-trabalho", "estado-democracia"] as const;
 
 /** Famílias do guia das falácias: razões que não vêm ao caso, provas fracas, premissas escondidas, desvios e confusões de sentido. */
 export const fallacyFamilies = ["relevancia", "provas", "premissas", "desvio", "sentido"] as const;
@@ -705,7 +710,9 @@ export const getFactChecks = cache((lang: Locale): FactCheck[] =>
   collection("checagens", lang, ({ slug, file, data, body, translated }) => ({
     slug,
     claim: text(data, "alegacao", file),
+    title: optional(data, "titulo"),
     verdict: oneOf(data, "veredito", verdicts, file),
+    theme: data.tema === undefined ? undefined : oneOf(data, "tema", factCheckThemes, file),
     date: dateOf(data, "data", file),
     sources: parseSources(data.fontes, file, true),
     body,
