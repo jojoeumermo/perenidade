@@ -34,7 +34,9 @@ function funcoes(secao: string): { cabeca: string; cartoes: { titulo: string; re
     cartoes: blocos.map((bloco) => {
       const [linha, ...corpo] = bloco.split("\n");
       const texto = corpo.join("\n").trim();
-      const corte = texto.indexOf("\n\n");
+      let corte = texto.indexOf("\n\n");
+      // Parágrafo que anuncia uma lista ("você pode encontrar:") leva a lista junto no resumo.
+      if (corte !== -1 && texto.slice(0, corte).trimEnd().endsWith(":")) corte = texto.indexOf("\n\n", corte + 2);
       return { titulo: linha.replace(/^###\s+/, "").trim(), resumo: corte === -1 ? texto : texto.slice(0, corte), resto: corte === -1 ? "" : texto.slice(corte + 2) };
     }),
   };
