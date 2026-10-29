@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "@/components/Link";
 import { Suspense } from "react";
 import { PageHeading } from "@/components/PageHeading";
+import { ComoFunciona } from "@/components/ComoFunciona";
 import { VideoaulasPublicas } from "@/components/VideoaulasPublicas";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
@@ -24,6 +25,7 @@ export default async function Videoaulas({ params }: PageProps<"/[lang]/videoaul
       <Suspense>
         <VideoaulasPublicas s={t.videoLessons} />
       </Suspense>
+      <ComoFunciona s={t.videoLessons.how} href={localePath(lang, "/voluntarios")} />
       <p className="mt-12 font-sans text-sm">
         <Link href={localePath(lang, "/videos")} className="underline hover:text-oxblood">{t.nav.videos} →</Link>
       </p>

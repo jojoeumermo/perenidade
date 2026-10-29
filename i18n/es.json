@@ -3258,7 +3258,31 @@
     "youtubeNote": "El reproductor de YouTube solo se carga cuando haces clic, sin cookies de publicidad.",
     "ownCopy": "Ver sin Google (copia del instituto)",
     "backToYoutube": "Ver en YouTube",
-    "transcriptTitle": "Transcripción"
+    "transcriptTitle": "Transcripción",
+    "how": {
+      "title": "Cómo son las clases en video",
+      "steps": [
+        [
+          "Cortas y revisadas",
+          "Hasta 10 minutos cada una, grabadas por los educadores del instituto y revisadas antes de publicarse."
+        ],
+        [
+          "A tu ritmo",
+          "Cambia la velocidad de 0,5 a 3 veces, retrocede o avanza 10 segundos, activa los subtítulos cuando los haya y lee la transcripción."
+        ],
+        [
+          "Sin publicidad",
+          "El reproductor de YouTube solo carga cuando haces clic, sin cookies de publicidad; cuando la hay, puedes ver la copia del instituto, sin Google."
+        ],
+        [
+          "Conversa",
+          "Los comentarios de cada clase aparecen solos, sin recargar la página."
+        ]
+      ],
+      "teachTitle": "¿Enseñas?",
+      "teachText": "Graba una clase corta por el panel. Pasa por la revisión antes de publicarse, con tu nombre.",
+      "teachLink": "Sé voluntario"
+    }
   },
   "more": {
     "eyebrow": "Todo lo que hay aquí",
@@ -4539,7 +4563,31 @@
     "chatPending": "esperando mediación",
     "youtubeLive": "Transmisión en el YouTube del instituto",
     "youtubeWatch": "Ver la transmisión",
-    "youtubeNote": "El reproductor de YouTube solo se carga cuando haces clic, sin cookies de publicidad. El chat de la clase sigue aquí en el sitio."
+    "youtubeNote": "El reproductor de YouTube solo se carga cuando haces clic, sin cookies de publicidad. El chat de la clase sigue aquí en el sitio.",
+    "how": {
+      "title": "Cómo es una clase en vivo",
+      "steps": [
+        [
+          "Confirma tu presencia",
+          "Elige la clase en la agenda, confirma tu presencia y agrégala al calendario del móvil."
+        ],
+        [
+          "Entra a la hora",
+          "A la hora marcada, toca Entrar a la clase. Se abre en el navegador, sin instalar nada."
+        ],
+        [
+          "Pregunta",
+          "En el chat, marca el mensaje como pregunta para quien enseña, o levanta la mano. Para hablar, entra en tu cuenta."
+        ],
+        [
+          "Vuelve a verla",
+          "Cuando quien enseñó publica la grabación, aparece en Clases grabadas."
+        ]
+      ],
+      "teachTitle": "¿Quieres dar una clase en vivo?",
+      "teachText": "Conduces con la cámara, con la pantalla o solo con la voz. La grabación queda en tu dispositivo y después puede volverse clase en video, enviada por el panel.",
+      "teachLink": "Sé voluntario"
+    }
   },
   "notebook": {
     "eyebrow": "Sala de estudio",

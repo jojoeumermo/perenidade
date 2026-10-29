@@ -3258,7 +3258,31 @@
     "youtubeNote": "The YouTube player only loads when you click, without advertising cookies.",
     "ownCopy": "Watch without Google (institute copy)",
     "backToYoutube": "Watch on YouTube",
-    "transcriptTitle": "Transcript"
+    "transcriptTitle": "Transcript",
+    "how": {
+      "title": "What the video lessons are like",
+      "steps": [
+        [
+          "Short and reviewed",
+          "Up to 10 minutes each, recorded by the institute’s educators and reviewed before going live."
+        ],
+        [
+          "At your pace",
+          "Change the speed from 0.5 to 3 times, jump back or forward 10 seconds, turn on captions when available and read the transcript."
+        ],
+        [
+          "No advertising",
+          "The YouTube player only loads when you click, without advertising cookies; when available, you can watch the institute’s own copy, without Google."
+        ],
+        [
+          "Talk about it",
+          "Each lesson’s comments appear on their own, without reloading the page."
+        ]
+      ],
+      "teachTitle": "Do you teach?",
+      "teachText": "Record a short lesson through the panel. It is reviewed before going live, with your name on it.",
+      "teachLink": "Volunteer"
+    }
   },
   "more": {
     "eyebrow": "Everything that is here",
@@ -4539,7 +4563,31 @@
     "chatPending": "awaiting moderation",
     "youtubeLive": "Broadcast on the institute’s YouTube",
     "youtubeWatch": "Watch the broadcast",
-    "youtubeNote": "The YouTube player only loads when you click, without advertising cookies. The class chat stays here on the site."
+    "youtubeNote": "The YouTube player only loads when you click, without advertising cookies. The class chat stays here on the site.",
+    "how": {
+      "title": "What a live class is like",
+      "steps": [
+        [
+          "Sign up",
+          "Pick the class in the schedule, mark your attendance and add it to your phone’s calendar."
+        ],
+        [
+          "Join on time",
+          "At the scheduled time, tap Join the class. It opens in the browser, nothing to install."
+        ],
+        [
+          "Ask",
+          "In the chat, mark your message as a question for the teacher, or raise your hand. To speak, sign in to your account."
+        ],
+        [
+          "Watch again",
+          "When the teacher publishes the recording, it shows up under Recorded classes."
+        ]
+      ],
+      "teachTitle": "Want to teach a live class?",
+      "teachText": "You lead with your camera, your screen or just your voice. The recording stays on your device and can later become a video lesson, sent through the panel.",
+      "teachLink": "Volunteer"
+    }
   },
   "notebook": {
     "eyebrow": "Study room",

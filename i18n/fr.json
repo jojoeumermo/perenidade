@@ -3258,7 +3258,31 @@
     "youtubeNote": "Le lecteur YouTube ne se charge que lorsque vous cliquez, sans cookies publicitaires.",
     "ownCopy": "Regarder sans Google (copie de l’institut)",
     "backToYoutube": "Regarder sur YouTube",
-    "transcriptTitle": "Transcription"
+    "transcriptTitle": "Transcription",
+    "how": {
+      "title": "Comment sont les leçons vidéo",
+      "steps": [
+        [
+          "Courtes et relues",
+          "Jusqu’à 10 minutes chacune, enregistrées par les éducateurs de l’institut et relues avant publication."
+        ],
+        [
+          "À votre rythme",
+          "Changez la vitesse de 0,5 à 3 fois, reculez ou avancez de 10 secondes, activez les sous-titres quand il y en a et lisez la transcription."
+        ],
+        [
+          "Sans publicité",
+          "Le lecteur YouTube ne se charge qu’au clic, sans cookies publicitaires ; quand elle existe, regardez la copie de l’institut, sans Google."
+        ],
+        [
+          "Échangez",
+          "Les commentaires de chaque leçon apparaissent tout seuls, sans recharger la page."
+        ]
+      ],
+      "teachTitle": "Vous enseignez ?",
+      "teachText": "Enregistrez une courte leçon depuis le panneau. Elle est relue avant publication, avec votre nom.",
+      "teachLink": "Devenir bénévole"
+    }
   },
   "more": {
     "eyebrow": "Tout ce qu'il y a ici",
@@ -4539,7 +4563,31 @@
     "chatPending": "en attente de médiation",
     "youtubeLive": "Diffusion sur le YouTube de l’institut",
     "youtubeWatch": "Regarder la diffusion",
-    "youtubeNote": "Le lecteur YouTube ne se charge que lorsque vous cliquez, sans cookies publicitaires. Le chat du cours reste ici, sur le site."
+    "youtubeNote": "Le lecteur YouTube ne se charge que lorsque vous cliquez, sans cookies publicitaires. Le chat du cours reste ici, sur le site.",
+    "how": {
+      "title": "Comment se passe un cours en direct",
+      "steps": [
+        [
+          "Inscrivez-vous",
+          "Choisissez le cours dans l’agenda, confirmez votre présence et ajoutez-le au calendrier du téléphone."
+        ],
+        [
+          "Entrez à l’heure",
+          "À l’heure prévue, touchez Entrer dans le cours. Il s’ouvre dans le navigateur, rien à installer."
+        ],
+        [
+          "Posez vos questions",
+          "Dans le chat, marquez votre message comme question pour qui enseigne, ou levez la main. Pour parler, connectez-vous à votre compte."
+        ],
+        [
+          "Revoyez-le",
+          "Quand la personne qui a enseigné publie l’enregistrement, il apparaît dans Cours enregistrés."
+        ]
+      ],
+      "teachTitle": "Envie de donner un cours en direct ?",
+      "teachText": "Vous animez avec la caméra, l’écran ou seulement la voix. L’enregistrement reste sur votre appareil et peut ensuite devenir une leçon vidéo, envoyée par le panneau.",
+      "teachLink": "Devenir bénévole"
+    }
   },
   "notebook": {
     "eyebrow": "Salle d'étude",
