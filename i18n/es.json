@@ -5601,5 +5601,25 @@
     "methodText": "Cada frase tira de un eje hacia uno de los lados. Estar totalmente de acuerdo vale un punto entero hacia el lado de la frase, estar de acuerdo vale medio punto, estar en desacuerdo tira hacia el otro lado y lo neutral no tira. El porcentaje muestra hacia dónde fueron tus respuestas en cada eje. Las ideologías se comparan por la distancia entre tus doce números y la posición típica de cada una, que es una aproximación: dentro de cada corriente hay muchas variantes.",
     "card": "Nuevo: el test de los 12 ejes políticos",
     "cardText": "Economía, Estado, nación y costumbres: mira dónde estás y qué ideologías quedan más cerca de tus ideas."
+  },
+  "celular": {
+    "compartilhar": "Compartir",
+    "folhaDaAula": "Índice y herramientas",
+    "concluirSeguir": "Terminar y seguir",
+    "anterior": "Clase anterior",
+    "letra": "Tamaño de la letra",
+    "letraMenor": "Letra más pequeña",
+    "letraMaior": "Letra más grande",
+    "aulasDaTrilha": "Clases de la ruta",
+    "ferramentas": "Herramientas",
+    "atalhos": "Atajos",
+    "bomDia": "Buenos días",
+    "boaTarde": "Buenas tardes",
+    "boaNoite": "Buenas noches",
+    "muro": "En el muro de hoy",
+    "tema": "Tema",
+    "claro": "Claro",
+    "escuro": "Oscuro",
+    "secoes": "Todas las secciones"
   }
 }

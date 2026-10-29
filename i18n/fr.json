@@ -5601,5 +5601,25 @@
     "methodText": "Chaque phrase tire un axe d'un côté. Être tout à fait d'accord compte un point entier du côté de la phrase, être d'accord un demi-point, ne pas être d'accord tire de l'autre côté et le neutre ne tire pas. Le pourcentage montre où sont allées tes réponses sur chaque axe. Les idéologies sont comparées par la distance entre tes douze nombres et la position typique de chacune, qui est une approximation : chaque courant a de nombreuses variantes.",
     "card": "Nouveau : le test des 12 axes politiques",
     "cardText": "Économie, État, nation et mœurs : vois où tu te situes et quelles idéologies sont les plus proches de tes idées."
+  },
+  "celular": {
+    "compartilhar": "Partager",
+    "folhaDaAula": "Sommaire et outils",
+    "concluirSeguir": "Terminer et continuer",
+    "anterior": "Leçon précédente",
+    "letra": "Taille du texte",
+    "letraMenor": "Texte plus petit",
+    "letraMaior": "Texte plus grand",
+    "aulasDaTrilha": "Leçons du parcours",
+    "ferramentas": "Outils",
+    "atalhos": "Raccourcis",
+    "bomDia": "Bonjour",
+    "boaTarde": "Bon après-midi",
+    "boaNoite": "Bonsoir",
+    "muro": "Sur le mur aujourd’hui",
+    "tema": "Thème",
+    "claro": "Clair",
+    "escuro": "Sombre",
+    "secoes": "Toutes les rubriques"
   }
 }

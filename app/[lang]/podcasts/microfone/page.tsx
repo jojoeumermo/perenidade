@@ -17,7 +17,7 @@ export default async function Microfone({ params }: PageProps<"/[lang]/podcasts/
   const { lang, t } = await loadLang(params);
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      <Link href={localePath(lang, "/podcasts")} className="font-sans text-sm text-ink-soft hover:text-oxblood">← {t.podcast.title}</Link>
+      <Link href={localePath(lang, "/podcasts")} className="voltar-da-pagina font-sans text-sm text-ink-soft hover:text-oxblood">← {t.podcast.title}</Link>
       <div className="mt-6">
         <Cartaz eyebrow={t.podcast.eyebrow} title={t.podcast.micShort} slogan={t.slogans.podcasts} tone="preto" />
       </div>

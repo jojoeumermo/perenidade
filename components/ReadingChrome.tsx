@@ -40,7 +40,7 @@ export function ReadingChrome() {
   }, []);
 
   return (
-    <div aria-hidden className="no-print pointer-events-none fixed inset-x-0 top-[env(safe-area-inset-top,0px)] z-40 hidden h-[3px] app:max-md:block">
+    <div aria-hidden className="regua-de-leitura no-print pointer-events-none fixed inset-x-0 top-[env(safe-area-inset-top,0px)] z-40 hidden h-[3px] app:max-md:block">
       <div ref={bar} className="h-full origin-left scale-x-0 bg-oxblood" />
     </div>
   );

@@ -59,7 +59,7 @@ export default async function Materia({ params }: PageProps<"/[lang]/jornal/[slu
       </div>
       <Compartilhar url={`${site.url}${localePath(lang, `/jornal/${article.slug}`)}`} texto={`${t.compartilhar.materia} ${article.title}`} s={t.compartilhar} />
       <p className="no-print mt-10 border-t-4 border-ink pt-4 font-sans text-sm">
-        <Link href={localePath(lang, "/jornal")} className="font-semibold uppercase tracking-wide hover:text-oxblood">← {t.journal.back}</Link>
+        <Link href={localePath(lang, "/jornal")} className="voltar-da-pagina font-semibold uppercase tracking-wide hover:text-oxblood">← {t.journal.back}</Link>
       </p>
     </article>
   );
