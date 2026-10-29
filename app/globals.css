@@ -3009,8 +3009,9 @@ html[data-escrita-foco="1"] .painel-cabeca {
     font-size: 0.6rem;
   }
 }
-/* O miolo do painel no papel pontilhado; cartões e quadros com contorno de tinta e sombra dura. */
-.painel > div:last-child {
+/* O miolo do painel no papel pontilhado; cartões e quadros com contorno de tinta e sombra dura. A Porta (carregando,
+   entrar, segundo fator) fica de fora: lá o fundo é escuro e o nome do instituto, claro. */
+.painel:not(.painel-porta) > div:last-child {
   background-color: var(--parchment);
 }
 .painel-cartao {
