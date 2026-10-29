@@ -3621,6 +3621,12 @@ await espera("nenhuma função interna executável por anon ou authenticated", a
 await espera("toda tabela interna tem segurança por linha ligada", async () => (await dono("select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'interno' and c.relkind = 'r' and not c.relrowsecurity")).rows, (r) => r.length === 0);
 await espera("nenhuma tabela interna dá permissão direta a anon ou authenticated", async () => (await dono("select table_name from information_schema.role_table_grants where table_schema = 'interno' and grantee in ('anon', 'authenticated', 'PUBLIC')")).rows, (r) => r.length === 0);
 
+// Toda função pública que roda com o poder do dono fixa o caminho de busca: sem isso, quem criasse um objeto com o
+// mesmo nome num esquema que vem antes no caminho poderia fazer a função usar o objeto dele.
+await espera("toda função pública com poder de dono fixa o search_path", async () => (await dono("select p.proname from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname = 'public' and p.prosecdef and not exists (select 1 from unnest(coalesce(p.proconfig, '{}'::text[])) c where c like 'search_path=%')")).rows.map((r) => r.proname), (r) => r.length === 0);
+// O esquema público só tem funções: tabelas e visões moram em interno, longe da API.
+await espera("nenhuma tabela, visão ou sequência no esquema público", async () => (await dono("select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relkind in ('r', 'v', 'm', 'p', 'f', 'S')")).rows.map((r) => r.relname), (r) => r.length === 0);
+
 console.log(`${certos} conferências certas, ${falhas.length} com problema.`);
 for (const falha of falhas) console.log("  ✗", falha);
 process.exit(falhas.length ? 1 : 0);

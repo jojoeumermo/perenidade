@@ -8,8 +8,13 @@ import { type EstadoDaInterdicao, fechado, lerEstado, semIdioma, semInterdicao }
 // nem montar página, para não gastar nada com eles, e a visita fica anotada no registro de atividades do painel
 // (só o caminho pedido e o programa usado, sem endereço de rede). O bloqueio de quem insiste fica com a rede
 // de proteção na frente do site, que enxerga o tráfego inteiro.
-const bait = /^\/(wp-[^/]*|wordpress|administrator|admin|adminer|phpmyadmin|pma|mysql|cgi-bin|vendor|backup|backups|bkp|old|config|credentials|secrets?|server-status|server-info|actuator|console|debug|telescope|horizon|laravel|drupal|joomla|magento|xmlrpc|autodiscover|owa|ecp|boaform|hnap1|shell|cmd|eval|solr|jenkins|_profiler|_ignition|graphql|swagger|api-docs|cpanel|webmail|plesk|manager|hudson|zabbix|grafana|kibana|elmah|trace\.axd|latest\/meta-data|computeMetadata|owncloud|nextcloud|remote|webdav|api\/v\d|\.env[^/]*|\.git|\.svn|\.hg|\.aws|\.ssh|\.docker|\.vscode|\.idea|\.ds_store|\.htaccess|\.htpasswd)(\/|$)/i;
-const baitFile = /\.(php\d?|phtml|asp|aspx|jsp|jspx|cgi|pl|env|sql|sqlite|db|bak|old|orig|swp|ini|conf|cfg|ya?ml|log|pem|key|p12|pfx|tar|tgz|gz|rar|7z)$/i;
+const bait = /^\/(wp-[^/]*|wordpress|administrator|admin|adminer|phpmyadmin|pma|mysql|cgi-bin|vendor|backup|backups|bkp|old|config|credentials|secrets?|server-status|server-info|actuator|console|debug|telescope|horizon|laravel|drupal|joomla|magento|xmlrpc|autodiscover|owa|ecp|boaform|hnap1|shell|cmd|eval|solr|jenkins|_profiler|_ignition|graphql|swagger|api-docs|cpanel|webmail|plesk|manager|hudson|zabbix|grafana|kibana|elmah|trace\.axd|latest\/meta-data|computeMetadata|owncloud|nextcloud|remote|webdav|api\/v\d|\+cscoe\+|global-protect|dana-na|dana-cached|sslvpn|ssl-vpn|geoserver|druid|nacos|jolokia|struts2?|reportserver|aspnet_client|typo3|umbraco|bitrix|wls-wsat|_wpeprivate|sftp-config\.json|\.env[^/]*|\.git|\.svn|\.hg|\.aws|\.ssh|\.docker|\.vscode|\.idea|\.ds_store|\.htaccess|\.htpasswd)(\/|$)/i;
+const baitFile = /\.(php\d?|phtml|asp|aspx|ashx|asmx|axd|jsp|jspx|jsf|action|do|cgi|pl|env|sql|sqlite|db|bak|old|orig|swp|ini|conf|cfg|ya?ml|log|pem|key|p12|pfx|tar|tgz|gz|rar|7z)$/i;
+
+// Ponto ou barra invertida codificados, byte nulo ou ";" depois de "..": é tentativa de sair da pasta (travessia de
+// diretório). O navegador já transforma "\" em "/" e resolve os ".." à vista; o que sobra codificado não é de gente.
+// O site não serve nada assim: vai para o mesmo 404 das iscas.
+const estranho = /%2e|%00|%5c|\.\.;/i;
 
 const backend = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/$/, "");
 const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
@@ -55,7 +60,7 @@ async function interdicao(): Promise<EstadoDaInterdicao> {
 // pela pessoa no seletor do cabeçalho.
 export async function proxy(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl;
-  if (bait.test(pathname) || baitFile.test(pathname) || pathname.length > 300) {
+  if (bait.test(pathname) || baitFile.test(pathname) || estranho.test(pathname) || pathname.length > 300) {
     note(request, event);
     return new NextResponse(null, { status: 404, headers: { "Cache-Control": "public, max-age=3600", "X-Robots-Tag": "noindex" } });
   }
@@ -90,6 +95,6 @@ export const config = {
     // Os serviços do próprio site, só para pararem junto com o site inteiro.
     "/api/:path*",
     // As iscas com cara de arquivo, fora das pastas onde o site guarda arquivos de verdade.
-    "/((?!_next|pyodide|php|workers|arquivos|imagens)(?:.*\\.(?:php\\d?|phtml|asp|aspx|jsp|jspx|cgi|pl|env|sql|sqlite|db|bak|old|orig|swp|ini|conf|cfg|yml|yaml|log|pem|key|p12|pfx|tar|tgz|gz|rar|7z)|\\.(?:env|git|svn|hg|aws|ssh|docker|vscode|idea|ds_store|htaccess|htpasswd).*))",
+    "/((?!_next|pyodide|php|workers|arquivos|imagens)(?:.*\\.(?:php\\d?|phtml|asp|aspx|ashx|asmx|axd|jsp|jspx|jsf|action|do|cgi|pl|env|sql|sqlite|db|bak|old|orig|swp|ini|conf|cfg|yml|yaml|log|pem|key|p12|pfx|tar|tgz|gz|rar|7z)|\\.(?:env|git|svn|hg|aws|ssh|docker|vscode|idea|ds_store|htaccess|htpasswd).*))",
   ],
 };
