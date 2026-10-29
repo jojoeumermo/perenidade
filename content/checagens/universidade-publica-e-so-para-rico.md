@@ -2,6 +2,7 @@
 titulo: "A maioria dos estudantes das universidades federais não é rica"
 alegacao: "A universidade pública é só para rico."
 veredito: "Falso"
+tema: "racismo-educacao"
 data: 2026-10-14
 fontes:
   - titulo: "V Pesquisa Nacional de Perfil Socioeconômico e Cultural dos(as) Graduandos(as) das Instituições Federais de Ensino Superior"

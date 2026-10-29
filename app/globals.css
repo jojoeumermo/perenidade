@@ -3908,7 +3908,8 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 .linha-aba-mundo[aria-pressed="true"] {
   background-color: #23408e;
 }
-.linha-tema {
+.linha-tema,
+.chip-filtro {
   cursor: pointer;
   border: 1.5px solid var(--ink);
   background-color: var(--folha);
@@ -3916,10 +3917,12 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
   font-family: var(--font-ui), system-ui, sans-serif;
   font-size: 0.82rem;
 }
-.linha-tema:hover {
+.linha-tema:hover,
+.chip-filtro:hover {
   box-shadow: 2px 2px 0 var(--ink);
 }
-.linha-tema[aria-pressed="true"] {
+.linha-tema[aria-pressed="true"],
+.chip-filtro[aria-pressed="true"] {
   background-color: var(--ink);
   color: var(--parchment);
 }
@@ -4135,4 +4138,35 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
   :root:not([data-leitor]) main button.kit-ficha.kit-ficha[aria-pressed] {
     border-radius: var(--cel-raio, 1rem);
   }
+}
+
+/* A checagem completa, fechada dentro do cartão (app/[lang]/checagens): o "abrir" é um botão de papel com a seta. */
+.checagem-abrir {
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.6rem;
+  list-style: none;
+  border: 2px solid var(--ink);
+  background-color: var(--folha);
+  padding: 0.55rem 1rem;
+  font-family: var(--font-ui), system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+.checagem-abrir::-webkit-details-marker {
+  display: none;
+}
+.checagem-abrir::after {
+  content: "↓";
+}
+.checagem-completa[open] > .checagem-abrir::after {
+  content: "↑";
+}
+.checagem-abrir:hover {
+  box-shadow: 3px 3px 0 var(--prelo);
+}
+.checagem-abrir:focus-visible {
+  outline: 3px solid var(--oxblood);
+  outline-offset: 3px;
 }

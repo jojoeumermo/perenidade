@@ -2,6 +2,7 @@
 titulo: "O Brasil não tem a maior carga tributária do mundo"
 alegacao: "O Brasil tem a maior carga tributária do mundo."
 veredito: "Falso"
+tema: "economia-trabalho"
 data: 2026-10-14
 fontes:
   - titulo: "Revenue Statistics (Estatísticas de Receita Tributária), edição de 2024"

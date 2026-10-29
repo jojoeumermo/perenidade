@@ -2,6 +2,7 @@
 titulo: "Não há prova de fraude nas urnas eletrônicas"
 alegacao: "As urnas eletrônicas são fraudadas e o resultado das eleições é manipulado."
 veredito: "Falso"
+tema: "estado-democracia"
 data: 2026-10-14
 fontes:
   - titulo: "Lei nº 9.504, de 30 de setembro de 1997 (Lei das Eleições)"

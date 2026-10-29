@@ -2,6 +2,7 @@
 titulo: "Não há prova de que a reforma trabalhista criou milhões de empregos"
 alegacao: "A reforma trabalhista de 2017 criou milhões de empregos."
 veredito: "Enganoso"
+tema: "economia-trabalho"
 data: 2026-10-14
 fontes:
   - titulo: "Lei nº 13.467, de 13 de julho de 2017 (reforma trabalhista)"

@@ -2,6 +2,7 @@
 titulo: "O SUS tem problemas, mas funciona e atende a maioria dos brasileiros"
 alegacao: "O SUS não funciona."
 veredito: "Enganoso"
+tema: "estado-democracia"
 data: 2026-10-14
 fontes:
   - titulo: "Lei nº 8.080, de 19 de setembro de 1990 (Lei Orgânica da Saúde)"

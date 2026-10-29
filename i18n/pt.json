@@ -3076,7 +3076,21 @@
     },
     "startCheck": "Checar uma mensagem",
     "published": "Checagens publicadas: {n}",
-    "checksTitle": "Checagens publicadas"
+    "checksTitle": "Checagens publicadas",
+    "themes": {
+      "saude": "Saúde e vacinas",
+      "ciencia": "Ciência e clima",
+      "historia": "História",
+      "racismo-educacao": "Racismo e educação",
+      "economia-trabalho": "Economia e trabalho",
+      "estado-democracia": "Estado e democracia"
+    },
+    "allThemes": "Todos os temas",
+    "allVerdicts": "Todos os selos",
+    "shortAnswer": "Em resumo",
+    "readFull": "Ler a checagem completa · {n} min",
+    "closeFull": "Fechar a checagem",
+    "onThisPage": "Nesta página"
   },
   "debates": {
     "eyebrow": "Argumentos à mão",
