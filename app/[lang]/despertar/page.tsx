@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/despertar"
 
 /**
  * O percurso Consciência de classe (antes chamado Despertar; o endereço /despertar continua): do zero à consciência de
- * classe e à organização, em dez etapas. Cada etapa junta aulas de
+ * classe e à organização, em doze etapas. Cada etapa junta aulas de
  * várias disciplinas (as prontas abrem; as que ainda faltam escrever aparecem como "em preparação"), uma leitura do
  * acervo, uma tarefa no mundo real e o roteiro de um encontro de núcleo. O texto das etapas está em content/despertar.json.
  */

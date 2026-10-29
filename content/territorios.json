@@ -35,7 +35,9 @@
           "titulo": "Resenha",
           "tipo": "Editorial de moda periférica",
           "ano": "2025",
-          "cor": "papel"
+          "cor": "papel",
+          "imagem": "/territorios/na-atividade/capa-resenha.webp",
+          "alt": "Capa do editorial Resenha: colagem de fotos do ensaio numa moldura de papel rasgado"
         },
         {
           "titulo": "Conceito",

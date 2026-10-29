@@ -491,7 +491,7 @@ export const GLOSSARIO: [string, string][] = [
   ["Coordenação pedagógica", "A vice-coordenação: cuida das aulas e assina certificados junto com a coordenação."],
   ["Curadoria", "Quem decide o que vai ao ar e cuida do acervo."],
   ["Departamento", "O grupo de quem faz o mesmo tipo de trabalho (Comunicação, Pedagógico, Mediação…), com página, quadro e pedidos."],
-  ["Consciência de classe", "O percurso de formação do zero à consciência de classe, em dez etapas, com tarefas no mundo real."],
+  ["Consciência de classe", "O percurso de formação do zero à consciência de classe, em doze etapas, com tarefas no mundo real."],
   ["Disciplina", "A matéria (Matemática, História, Defesa pessoal…). Cada disciplina tem trilhas por etapa."],
   ["Expurgo", "Apagar de uma vez uma chuva de spam. Não tem volta."],
   ["Fila de revisão", "O que espera alguém ler e decidir antes de ir ao ar."],
