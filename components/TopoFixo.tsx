@@ -14,10 +14,12 @@ export function TopoFixo() {
     const topo = document.querySelector<HTMLElement>(".cabecalho-site");
     if (!topo) return;
     raiz.setAttribute("data-topo-fixo", "");
-    const medir = () => raiz.style.setProperty("--altura-topo", `${Math.round(topo.getBoundingClientRect().height)}px`);
+    // No celular o cabeçalho some e quem fica presa no alto é a barra do celular: vale a altura da que está à vista.
+    const barras = [topo, document.querySelector<HTMLElement>(".barra-do-celular")].filter((barra): barra is HTMLElement => Boolean(barra));
+    const medir = () => raiz.style.setProperty("--altura-topo", `${Math.round(Math.max(...barras.map((barra) => barra.getBoundingClientRect().height)))}px`);
     medir();
     const observador = new ResizeObserver(medir);
-    observador.observe(topo);
+    for (const barra of barras) observador.observe(barra);
     // Encolher a faixa diminui a página e mexe na posição da rolagem: com um limite só, a faixa encolhia, a rolagem
     // voltava para baixo do limite, ela crescia de novo, e assim sem parar. Por isso dois limites bem afastados
     // (encolhe depois de 160 px, só volta perto do topo) e nada de encolher em página que mal rola.

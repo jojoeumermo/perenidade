@@ -5452,5 +5452,25 @@
     "suggest": "Suggest a station",
     "emptyFilter": "No station in this region plays here. Untick the filter to see the others.",
     "siteShort": "Website"
+  },
+  "celular": {
+    "compartilhar": "Share",
+    "folhaDaAula": "Contents and tools",
+    "concluirSeguir": "Finish and continue",
+    "anterior": "Previous lesson",
+    "letra": "Text size",
+    "letraMenor": "Smaller text",
+    "letraMaior": "Larger text",
+    "aulasDaTrilha": "Lessons in this track",
+    "ferramentas": "Tools",
+    "atalhos": "Shortcuts",
+    "bomDia": "Good morning",
+    "boaTarde": "Good afternoon",
+    "boaNoite": "Good evening",
+    "muro": "On the wall today",
+    "tema": "Theme",
+    "claro": "Light",
+    "escuro": "Dark",
+    "secoes": "All sections"
   }
 }

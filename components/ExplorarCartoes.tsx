@@ -26,7 +26,7 @@ export function ExplorarCartoes({ sections }: { sections: SecaoDoExplorar[] }) {
       {filtradas.map((section) => (
         <section key={section.title}>
           <h2 className="mt-12 border-b border-rule pb-3 text-3xl font-semibold max-md:mt-7 max-md:border-0 max-md:px-1 max-md:pb-0 max-md:font-mono max-md:text-xs! max-md:font-normal max-md:uppercase max-md:tracking-[0.2em] max-md:text-gold">{section.title}</h2>
-          <div className="mt-6 grid gap-4 max-md:mt-2 max-md:gap-0 max-md:overflow-hidden max-md:border-2 max-md:border-ink max-md:bg-parchment-deep sm:grid-cols-2">
+          <div className="lista-explorar mt-6 grid gap-4 max-md:mt-2 max-md:gap-0 max-md:overflow-hidden max-md:border-2 max-md:border-ink max-md:bg-parchment-deep sm:grid-cols-2">
             {section.items.map((item) => (
               <L
                 key={item.path}
