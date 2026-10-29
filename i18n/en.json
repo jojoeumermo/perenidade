@@ -4077,7 +4077,18 @@
       "desenvolvimento": "Infrastructure and development",
       "curadoria": "Curator",
       "educacao_secundaria": "Secondary educator: materials and stand-alone lessons"
-    }
+    },
+    "waysTitle": "Three ways to help",
+    "way1Title": "No account",
+    "way1Text": "Send a lesson, a free work, a correction or an idea through the Contribute page. The team reads everything before it goes in.",
+    "way1Link": "Contribute",
+    "way2Title": "A quick task",
+    "way2Text": "Pick a short task, in your own time. The application form comes with it already filled in.",
+    "way2Link": "See the tasks",
+    "way3Title": "A role on the team",
+    "way3Text": "Educator, reviewer, translator, curator, moderator, designer and more. The coordination reads every application and replies by email.",
+    "way3Link": "Apply",
+    "more": "Learn more"
   },
   "povo": {
     "eyebrow": "Political awareness",

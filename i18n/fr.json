@@ -4077,7 +4077,18 @@
       "desenvolvimento": "Infrastructure et développement",
       "curadoria": "Curation",
       "educacao_secundaria": "Éducateur du secondaire : matériels et cours isolés"
-    }
+    },
+    "waysTitle": "Trois façons d’aider",
+    "way1Title": "Sans compte",
+    "way1Text": "Envoyez une leçon, une œuvre libre, une correction ou une idée par la page Contribuer. L’équipe lit tout avant publication.",
+    "way1Link": "Contribuer",
+    "way2Title": "Une tâche rapide",
+    "way2Text": "Choisissez une tâche courte, à votre rythme. Le formulaire de candidature arrive déjà rempli avec elle.",
+    "way2Link": "Voir les tâches",
+    "way3Title": "Un rôle dans l’équipe",
+    "way3Text": "Éducateur, relecteur, traducteur, curateur, médiateur, designer et d’autres. La coordination lit chaque candidature et répond par e-mail.",
+    "way3Link": "Postuler",
+    "more": "En savoir plus"
   },
   "povo": {
     "eyebrow": "Conscience politique",

@@ -4077,7 +4077,18 @@
       "desenvolvimento": "Infraestructura y desarrollo",
       "curadoria": "Curador(a)",
       "educacao_secundaria": "Educador(a) secundario(a): materiales y clases sueltas"
-    }
+    },
+    "waysTitle": "Tres formas de ayudar",
+    "way1Title": "Sin cuenta",
+    "way1Text": "Envía una clase, una obra libre, una corrección o una idea por la página Contribuir. El equipo lee todo antes de publicarlo.",
+    "way1Link": "Contribuir",
+    "way2Title": "Una tarea rápida",
+    "way2Text": "Elige una tarea corta, a tu ritmo. El formulario de candidatura ya viene con ella escrita.",
+    "way2Link": "Ver las tareas",
+    "way3Title": "Una función en el equipo",
+    "way3Text": "Educador, revisor, traductor, curador, mediador, diseñador y otras. La coordinación lee cada candidatura y responde por correo.",
+    "way3Link": "Postularse",
+    "more": "Saber más"
   },
   "povo": {
     "eyebrow": "Conciencia política",

@@ -4077,7 +4077,18 @@
       "desenvolvimento": "Infraestrutura e desenvolvimento",
       "curadoria": "Curador(a)",
       "educacao_secundaria": "Educador(a) secundário(a): materiais e aulas avulsas"
-    }
+    },
+    "waysTitle": "Três jeitos de ajudar",
+    "way1Title": "Sem conta",
+    "way1Text": "Mande uma aula, uma obra livre, uma correção ou uma ideia pela página Contribuir. Tudo é lido pela equipe antes de entrar.",
+    "way1Link": "Contribuir",
+    "way2Title": "Uma tarefa rápida",
+    "way2Text": "Escolha uma tarefa curta, no seu tempo. O formulário de candidatura já vem com ela escrita.",
+    "way2Link": "Ver as tarefas",
+    "way3Title": "Uma função na equipe",
+    "way3Text": "Educador, revisor, tradutor, curador, mediador, designer e outras. A coordenação lê cada candidatura e responde no seu e-mail.",
+    "way3Link": "Candidatar-se",
+    "more": "Saiba mais"
   },
   "povo": {
     "eyebrow": "Consciência política",
