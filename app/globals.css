@@ -3188,12 +3188,35 @@ main#conteudo .ide-area :is(div, section)[class~="border-2"][class~="border-ink"
 .painel-menu .painel-area {
   transition: background-color 0.12s, color 0.12s;
 }
+/* Os grupos do menu em árvore: o cabeçalho de cada área abre e fecha; a área da seção de agora, fechada, ganha o fio vermelho. */
+.painel-menu .painel-cabeca {
+  color: var(--ink);
+  transition: background-color 0.12s;
+}
+.painel-menu .painel-cabeca:hover {
+  background: var(--parchment-deep);
+}
+.painel-menu .painel-cabeca > svg:first-child {
+  color: var(--ink-soft);
+}
+.painel-menu .painel-cabeca[aria-expanded="true"] > svg:first-child {
+  color: var(--prelo-texto);
+}
+.painel-menu .painel-cabeca-atual {
+  box-shadow: inset 4px 0 0 var(--prelo);
+}
+.painel-menu .painel-seta {
+  color: var(--ink-soft);
+  transition: transform 0.15s;
+}
 :root:is([data-contrast], [data-eink]) .painel-menu .painel-item-ativo {
   box-shadow: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .painel-menu .painel-item,
-  .painel-menu .painel-area {
+  .painel-menu .painel-area,
+  .painel-menu .painel-cabeca,
+  .painel-menu .painel-seta {
     transition: none;
   }
 }
