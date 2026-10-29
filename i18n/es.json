@@ -3103,7 +3103,17 @@
     "beforeTitle": "Antes de debatir: conoce las falacias",
     "beforeText": "Hombre de paja, falso dilema, ataque a la persona: los trucos más comunes y cómo responder a cada uno.",
     "beforeLink": "Abrir la guía de falacias",
-    "fallacies": "Falacias en esta frase"
+    "fallacies": "Falacias en esta frase",
+    "themes": {
+      "economia": "Economía y Estado",
+      "trabalho": "Trabajo y sindicatos",
+      "seguranca": "Seguridad y derechos humanos",
+      "igualdade": "Racismo e igualdad",
+      "escola": "Escuela y juventud",
+      "socialismo": "Socialismo y movimientos"
+    },
+    "allThemes": "Todos los temas",
+    "sourcesAndMore": "Fuentes y para profundizar"
   },
   "fallacies": {
     "eyebrow": "Pensar con cabeza propia",
@@ -3129,7 +3139,8 @@
     "inDebates": "Aparece en las tarjetas de debate",
     "remember": "Señalar una falacia no prueba que la conclusión sea falsa: solo muestra que ese argumento no la sostiene. Y la mejor respuesta casi nunca es el nombre en latín, sino la pregunta correcta.",
     "toDebates": "Ver las tarjetas de debate",
-    "toChecks": "Ver las verificaciones"
+    "toChecks": "Ver las verificaciones",
+    "close": "Cerrar la ficha"
   },
   "questions": {
     "eyebrow": "Por dónde empezar",

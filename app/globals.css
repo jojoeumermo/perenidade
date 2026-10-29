@@ -3764,7 +3764,8 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
   background-color: var(--ink);
   color: var(--parchment);
 }
-.muro-conta {
+.muro-conta,
+.conta-aba {
   margin-left: 0.3rem;
   opacity: 0.65;
 }
@@ -4169,4 +4170,116 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 .checagem-abrir:focus-visible {
   outline: 3px solid var(--oxblood);
   outline-offset: 3px;
+}
+
+/* O baralho das falácias (components/FalaciasList.tsx): cada carta com a faixa da família no alto e a estrela no canto,
+   como o naipe de uma carta. Aberta, a carta ocupa a mesa inteira e a ficha desce embaixo, com a sombra na cor da família. */
+.carta-aba-relevancia[aria-pressed="true"] {
+  background-color: #c21f16;
+}
+.carta-aba-provas[aria-pressed="true"] {
+  background-color: #23408e;
+}
+.carta-aba-premissas[aria-pressed="true"] {
+  background-color: #2e6b4f;
+}
+.carta-aba-desvio[aria-pressed="true"] {
+  background-color: #f0b323;
+  color: #1f1a14;
+}
+.carta-aba-sentido[aria-pressed="true"] {
+  background-color: #6e1f1a;
+}
+.carta {
+  --naipe: #c21f16;
+  --naipe-texto: #fbf6e8;
+  height: 100%;
+}
+.carta-provas {
+  --naipe: #23408e;
+}
+.carta-premissas {
+  --naipe: #2e6b4f;
+}
+.carta-desvio {
+  --naipe: #f0b323;
+  --naipe-texto: #1f1a14;
+}
+.carta-sentido {
+  --naipe: #6e1f1a;
+}
+.carta-frente {
+  display: flex;
+  height: 100%;
+  cursor: pointer;
+  flex-direction: column;
+  list-style: none;
+  border: 2px solid var(--ink);
+  background-color: var(--folha);
+  box-shadow: 4px 4px 0 var(--sombra);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.carta-frente::-webkit-details-marker {
+  display: none;
+}
+.carta-frente:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--naipe);
+}
+.carta-frente:focus-visible {
+  outline: 3px solid var(--oxblood);
+  outline-offset: 3px;
+}
+.carta-familia {
+  display: block;
+  background-color: var(--naipe);
+  color: var(--naipe-texto);
+  padding: 0.45rem 1rem;
+  font-family: var(--font-archive), ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.carta-corpo {
+  position: relative;
+  display: block;
+  flex: 1;
+  padding: 1rem 1.1rem 1.6rem;
+}
+.carta-corpo::after {
+  content: "★";
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.45rem;
+  color: var(--naipe);
+  font-size: 1.05rem;
+}
+.baralho-item:has(> .carta[open]) {
+  grid-column: 1 / -1;
+}
+.carta[open] > .carta-frente {
+  height: auto;
+  box-shadow: none;
+}
+.carta[open] > .carta-frente:hover {
+  transform: none;
+}
+.carta-ficha {
+  border: 2px solid var(--ink);
+  border-top: 0;
+  background-color: var(--parchment-deep);
+  padding: 1.25rem 1.25rem 1.5rem;
+  box-shadow: 4px 4px 0 var(--naipe);
+}
+.carta-resposta {
+  border-left: 4px solid var(--naipe);
+  padding-left: 0.9rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .carta-frente {
+    transition: none;
+  }
+}
+:root[data-light] .carta-frente {
+  transition: none;
 }

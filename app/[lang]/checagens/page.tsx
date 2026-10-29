@@ -114,7 +114,7 @@ export default async function Checagens({ params }: PageProps<"/[lang]/checagens
                 veredito: check.verdict,
                 chaves: `${check.claim} ${check.title ?? ""} ${check.verdict} ${check.body}`,
                 node: (
-                  <article className="cartao p-6 pt-14 sm:p-8 sm:pt-14" {...originalLang(check.translated)}>
+                  <article key={check.slug} className="cartao p-6 pt-14 sm:p-8 sm:pt-14" {...originalLang(check.translated)}>
                     <p className="rotulo">{s.claim}</p>
                     <h4 className="mt-3 font-serif text-[1.6rem] font-semibold leading-[1.12] text-balance sm:text-[2rem]">“{check.claim}”</h4>
                     <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
