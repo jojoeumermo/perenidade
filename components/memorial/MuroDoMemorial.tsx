@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { flushSync } from "react-dom";
 import { CopiarLink } from "@/components/CopiarLink";
 import { useI18n } from "@/components/I18n";
 import { fill } from "@/i18n/config";
@@ -67,17 +68,28 @@ export function MuroDoMemorial({ pessoas, s }: { pessoas: PessoaDoMuro[]; s: Dic
 
   // Quem chega com #nome no endereço (um link compartilhado) encontra a homenagem já aberta.
   useEffect(() => {
-    const abrir = () => {
-      const alvo = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    const abrir = (limpar: boolean) => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      if (!id) return;
+      // Um filtro ligado pode estar escondendo quem foi compartilhado: limpa os filtros antes de abrir.
+      if (limpar && !document.getElementById(id) && pessoas.some((p) => p.id === id)) {
+        flushSync(() => {
+          setDigitado("");
+          setRegiao("");
+          setLetra("");
+        });
+      }
+      const alvo = document.getElementById(id);
       if (alvo instanceof HTMLDetailsElement) {
         alvo.open = true;
         alvo.scrollIntoView({ block: "start" });
       }
     };
-    abrir();
-    window.addEventListener("hashchange", abrir);
-    return () => window.removeEventListener("hashchange", abrir);
-  }, []);
+    abrir(false);
+    const aoMudar = () => abrir(true);
+    window.addEventListener("hashchange", aoMudar);
+    return () => window.removeEventListener("hashchange", aoMudar);
+  }, [pessoas]);
 
   return (
     <>

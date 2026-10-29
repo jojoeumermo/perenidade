@@ -4,14 +4,14 @@ import Link from "@/components/Link";
 import { SourceList } from "@/components/Cards";
 import { Markdown } from "@/components/Markdown";
 import { Capa, Corpo, Secao } from "@/components/pagina/Capa";
-import { ListaComBusca } from "@/components/critica/ListaComBusca";
+import { ChecagensAgrupadas } from "@/components/critica/ChecagensAgrupadas";
 import { ComoChecar } from "@/components/ComoChecar";
 import { FactCheckSearch } from "@/components/FactCheckSearch";
 import { originalLang, Untranslated } from "@/components/Untranslated";
 import { loadLang } from "@/i18n";
 import { paginaMeta } from "@/lib/seo";
 import { fill, localePath } from "@/i18n/config";
-import { getCheckTools, getFactChecks, verdicts } from "@/lib/content";
+import { factCheckThemes, getCheckTools, getFactChecks, verdicts } from "@/lib/content";
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/checagens">): Promise<Metadata> {
   const { lang, t } = await loadLang(params);
@@ -22,8 +22,9 @@ export async function generateMetadata({ params }: PageProps<"/[lang]/checagens"
 const inclinacoes = ["-rotate-6", "rotate-3", "-rotate-2", "rotate-6"];
 
 /**
- * A checagem de fatos no desenho do Caderno do Povo: a capa preta com o cartaz dos carimbos, a busca nas agências, o
- * passo a passo para checar sozinho, o que quer dizer cada selo, as checagens publicadas e a caixa de ferramentas.
+ * A checagem de fatos no desenho do Caderno do Povo: a capa preta com o cartaz dos carimbos, o sumário da página, a busca
+ * nas agências, o que quer dizer cada selo, as checagens publicadas agrupadas por tema (cada uma fechada, com a resposta
+ * curta à vista), o passo a passo para checar sozinho e a caixa de ferramentas.
  */
 export default async function Checagens({ params }: PageProps<"/[lang]/checagens">) {
   const { lang, t } = await loadLang(params);
@@ -68,9 +69,22 @@ export default async function Checagens({ params }: PageProps<"/[lang]/checagens
       </Capa>
 
       <Corpo largura="media" className="flex flex-col gap-16 max-md:gap-12">
-        <FactCheckSearch s={s} />
+        <nav aria-label={s.onThisPage} className="no-print -mb-6 flex flex-wrap items-baseline gap-x-5 gap-y-2 border-y-2 border-ink py-3 font-sans text-sm max-md:-mb-4">
+          <span className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-soft">{s.onThisPage}</span>
+          {[
+            ["#ja-foi-checado", s.searchTitle],
+            ["#selos", s.verdicts.title],
+            ["#checagens", `${s.checksTitle} (${checks.length})`],
+            ["#como-checar", s.steps.title],
+            ["#ferramentas-de-checagem", toolbox.title],
+          ].map(([href, nome]) => (
+            <a key={href} href={href} className="font-semibold underline decoration-rule underline-offset-4 hover:decoration-[#c21f16]">
+              {nome}
+            </a>
+          ))}
+        </nav>
 
-        <ComoChecar s={s.steps} />
+        <FactCheckSearch s={s} />
 
         <Secao titulo={s.verdicts.title} tarja="vermelha" id="selos">
           <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -90,28 +104,44 @@ export default async function Checagens({ params }: PageProps<"/[lang]/checagens
           {checks.length === 0 ? (
             <p className="text-xl text-ink-soft">{s.empty}</p>
           ) : (
-            <ListaComBusca
-              rotulo={s.title}
-              items={checks.map((check) => ({
+            <ChecagensAgrupadas
+              s={s}
+              temas={factCheckThemes}
+              vereditos={verdicts}
+              itens={checks.map((check) => ({
                 id: check.slug,
-                nome: check.claim,
-                chaves: `${check.claim} ${check.verdict} ${check.body}`,
-                meta: check.verdict,
+                tema: check.theme,
+                veredito: check.verdict,
+                chaves: `${check.claim} ${check.title ?? ""} ${check.verdict} ${check.body}`,
                 node: (
-                  <article key={check.slug} className="cartao p-6 pt-14 sm:p-9 sm:pt-14" {...originalLang(check.translated)}>
+                  <article className="cartao p-6 pt-14 sm:p-8 sm:pt-14" {...originalLang(check.translated)}>
                     <p className="rotulo">{s.claim}</p>
-                    <h3 className="mt-3 font-serif text-[1.9rem] font-semibold leading-[1.1] text-balance sm:text-[2.4rem]">“{check.claim}”</h3>
-                    <p className="jornal-carimbo mt-6 text-xl">{check.verdict}</p>
-                    <div className="mt-6 border-t-2 border-ink pt-5">
-                      <Markdown lang={lang}>{check.body}</Markdown>
+                    <h4 className="mt-3 font-serif text-[1.6rem] font-semibold leading-[1.12] text-balance sm:text-[2rem]">“{check.claim}”</h4>
+                    <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
+                      <p className="jornal-carimbo text-lg">{check.verdict}</p>
+                      {check.title && (
+                        <p className="min-w-0 flex-1 font-serif text-xl leading-snug">
+                          <span className="rotulo mr-2 align-[2px]">{s.shortAnswer}</span>
+                          {check.title}
+                          {/[.!?]$/.test(check.title) ? "" : "."}
+                        </p>
+                      )}
                     </div>
-                    <SourceList sources={check.sources} title={t.common.sources} />
+                    <details className="checagem-completa mt-6 border-t-2 border-ink pt-4">
+                      <summary className="checagem-abrir">{fill(s.readFull, { n: Math.max(1, Math.round(check.body.split(/\s+/).length / 200)) })}</summary>
+                      <div className="mt-5">
+                        <Markdown lang={lang}>{check.body}</Markdown>
+                        <SourceList sources={check.sources} title={t.common.sources} />
+                      </div>
+                    </details>
                   </article>
                 ),
               }))}
             />
           )}
         </Secao>
+
+        <ComoChecar s={s.steps} />
 
         <Secao titulo={toolbox.title} tarja="vermelha" id="ferramentas-de-checagem" descricao={toolbox.lead}>
           <div className="grid gap-7 sm:grid-cols-2">

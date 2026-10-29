@@ -2,6 +2,7 @@
 titulo: "Vacinas de RNA mensageiro não alteram o DNA"
 alegacao: "As vacinas de RNA mensageiro contra a covid-19 modificam o DNA de quem toma."
 veredito: "Falso"
+tema: "saude"
 data: 2026-10-14
 fontes:
   - titulo: "Safety and Efficacy of the BNT162b2 mRNA Covid-19 Vaccine"

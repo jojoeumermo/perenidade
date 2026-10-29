@@ -3076,7 +3076,21 @@
     },
     "startCheck": "Vérifier un message",
     "published": "Vérifications publiées : {n}",
-    "checksTitle": "Vérifications publiées"
+    "checksTitle": "Vérifications publiées",
+    "themes": {
+      "saude": "Santé et vaccins",
+      "ciencia": "Science et climat",
+      "historia": "Histoire",
+      "racismo-educacao": "Racisme et éducation",
+      "economia-trabalho": "Économie et travail",
+      "estado-democracia": "État et démocratie"
+    },
+    "allThemes": "Tous les thèmes",
+    "allVerdicts": "Tous les verdicts",
+    "shortAnswer": "En bref",
+    "readFull": "Lire la vérification complète · {n} min",
+    "closeFull": "Fermer la vérification",
+    "onThisPage": "Sur cette page"
   },
   "debates": {
     "eyebrow": "Des arguments sous la main",

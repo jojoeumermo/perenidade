@@ -2,6 +2,7 @@
 titulo: "Bolsa Família não faz as pessoas pararem de trabalhar"
 alegacao: "Quem recebe Bolsa Família não quer trabalhar: o programa sustenta preguiçosos."
 veredito: "Falso"
+tema: "economia-trabalho"
 data: 2026-10-14
 fontes:
   - titulo: "Debunking the Stereotype of the Lazy Welfare Recipient: Evidence from Cash Transfer Programs Worldwide"

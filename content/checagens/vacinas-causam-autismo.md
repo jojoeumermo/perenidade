@@ -2,6 +2,7 @@
 titulo: "Vacinas não causam autismo"
 alegacao: "Vacinas causam autismo."
 veredito: "Falso"
+tema: "saude"
 data: 2026-10-08
 fontes:
   - titulo: "Measles, Mumps, Rubella Vaccination and Autism: A Nationwide Cohort Study"

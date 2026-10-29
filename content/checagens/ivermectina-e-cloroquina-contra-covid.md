@@ -2,6 +2,7 @@
 titulo: "Ivermectina e cloroquina não funcionam contra a covid-19"
 alegacao: "Ivermectina, cloroquina e hidroxicloroquina, o chamado tratamento precoce, previnem ou curam a covid-19."
 veredito: "Falso"
+tema: "saude"
 data: 2026-10-14
 fontes:
   - titulo: "Effect of Early Treatment with Ivermectin among Patients with Covid-19 (estudo TOGETHER)"

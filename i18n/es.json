@@ -3076,7 +3076,21 @@
     },
     "startCheck": "Verificar un mensaje",
     "published": "Verificaciones publicadas: {n}",
-    "checksTitle": "Verificaciones publicadas"
+    "checksTitle": "Verificaciones publicadas",
+    "themes": {
+      "saude": "Salud y vacunas",
+      "ciencia": "Ciencia y clima",
+      "historia": "Historia",
+      "racismo-educacao": "Racismo y educación",
+      "economia-trabalho": "Economía y trabajo",
+      "estado-democracia": "Estado y democracia"
+    },
+    "allThemes": "Todos los temas",
+    "allVerdicts": "Todos los sellos",
+    "shortAnswer": "En resumen",
+    "readFull": "Leer la verificación completa · {n} min",
+    "closeFull": "Cerrar la verificación",
+    "onThisPage": "En esta página"
   },
   "debates": {
     "eyebrow": "Argumentos a mano",

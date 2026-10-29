@@ -3006,7 +3006,21 @@
     },
     "startCheck": "核查一条消息",
     "published": "已发布的核查：{n}",
-    "checksTitle": "已发布的核查"
+    "checksTitle": "已发布的核查",
+    "themes": {
+      "saude": "健康与疫苗",
+      "ciencia": "科学与气候",
+      "historia": "历史",
+      "racismo-educacao": "种族主义与教育",
+      "economia-trabalho": "经济与劳动",
+      "estado-democracia": "国家与民主"
+    },
+    "allThemes": "全部主题",
+    "allVerdicts": "全部结论",
+    "shortAnswer": "简而言之",
+    "readFull": "阅读完整核查 · {n} 分钟",
+    "closeFull": "收起核查",
+    "onThisPage": "本页内容"
   },
   "debates": {
     "eyebrow": "随手可用的论据",

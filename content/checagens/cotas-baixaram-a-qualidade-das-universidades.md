@@ -2,6 +2,7 @@
 titulo: "Estudantes cotistas têm desempenho próximo ao dos demais"
 alegacao: "As cotas baixaram a qualidade das universidades, porque os cotistas não acompanham o curso."
 veredito: "Falso"
+tema: "racismo-educacao"
 data: 2026-10-14
 fontes:
   - titulo: "Performance of Students Admitted through Affirmative Action in Brazil"

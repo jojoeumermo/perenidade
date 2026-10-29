@@ -2,6 +2,7 @@
 titulo: "A escravidão no Brasil não foi branda"
 alegacao: "A escravidão no Brasil foi mais branda e humana do que em outros países."
 veredito: "Falso"
+tema: "historia"
 data: 2026-10-14
 fontes:
   - titulo: "Slave Voyages: banco de dados do tráfico transatlântico de escravizados"

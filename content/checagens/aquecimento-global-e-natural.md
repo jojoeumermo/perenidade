@@ -2,6 +2,7 @@
 titulo: "O aquecimento global atual é causado pela atividade humana"
 alegacao: "O aquecimento global é um ciclo natural e não tem nada a ver com o ser humano."
 veredito: "Falso"
+tema: "ciencia"
 data: 2026-10-11
 fontes:
   - titulo: "Climate Change 2021: The Physical Science Basis. Sumário para formuladores de políticas (Sexto Relatório de Avaliação, Grupo de Trabalho I)"

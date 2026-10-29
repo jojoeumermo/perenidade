@@ -2,6 +2,7 @@
 titulo: "O nazismo não era de esquerda"
 alegacao: "O nazismo era de esquerda, porque o partido tinha 'socialista' no nome."
 veredito: "Falso"
+tema: "historia"
 data: 2026-10-08
 fontes:
   - titulo: "Enciclopédia do Holocausto: a ascensão dos nazistas ao poder"

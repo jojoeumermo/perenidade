@@ -2,6 +2,7 @@
 titulo: "A ditadura militar não perseguiu só quem pegou em armas"
 alegacao: "Na ditadura militar, só foi preso ou morto quem era terrorista."
 veredito: "Falso"
+tema: "historia"
 data: 2026-10-11
 fontes:
   - titulo: "Relatório da Comissão Nacional da Verdade"
