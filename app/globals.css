@@ -4343,3 +4343,36 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
   text-transform: uppercase;
   color: var(--prelo-texto, #c21f16);
 }
+
+/* O guia de direitos (components/governanca/Governanca.tsx): cada número de emergência é uma tecla grande de telefone. */
+.direito-tecla {
+  display: flex;
+  height: 100%;
+  align-items: flex-start;
+  gap: 0.85rem;
+  border: 2px solid var(--ink);
+  background-color: var(--folha);
+  padding: 0.75rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+.direito-tecla:hover {
+  box-shadow: 3px 3px 0 #c21f16;
+  color: var(--ink);
+}
+.direito-numero {
+  display: inline-flex;
+  min-width: 4.4rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--ink);
+  background-color: var(--ink);
+  padding: 0.35rem 0.5rem;
+  font-family: var(--font-archive), ui-monospace, monospace;
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--parchment);
+  box-shadow: inset 0 -4px 0 rgb(0 0 0 / 0.35);
+}
