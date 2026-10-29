@@ -119,6 +119,32 @@
       ]
     },
     {
+      "id": "nossa-america",
+      "titulo": "Nossa América",
+      "pergunta": "Por que o Brasil vive de costas para a América Latina?",
+      "texto": "José Martí chamou de Nossa América o continente que vai do México à Patagônia, dividido pelas fronteiras e unido pela mesma história de saque e de resistência. Aqui entram as ideias e as lutas que nasceram aqui: a Pátria Grande de Bolívar, o marxismo de Mariátegui, Sandino, Allende, a teologia da libertação e o bem viver dos povos andinos.",
+      "aulas": [
+        "espanhol-superior/jose-marti-e-nuestra-america",
+        "dependencia-e-america-latina/integracao-latino-americana-da-patria-grande-a-celac",
+        "marxismo-superior/mariategui-e-o-marxismo-latino-americano",
+        "marxismo-negro/anibal-quijano-e-a-colonialidade-do-poder",
+        "ciencia-politica-superior/a-doutrina-monroe-e-a-america-latina-como-quintal",
+        "ciencia-politica-superior/nicaragua-sandinista-e-as-guerras-da-america-central",
+        "revolucoes-socialistas/allende-e-a-via-chilena",
+        "fe-e-libertacao/teologia-da-libertacao",
+        "ecossocialismo-teoria-e-estrategia/bem-viver-a-contribuicao-dos-povos-andinos"
+      ],
+      "leituras": [
+        "a-unidade-da-america-indo-espanhola"
+      ],
+      "tarefa": "Abra o diretório de rádios do site, escute por meia hora uma rádio popular de outro país latino-americano e anote três problemas que o povo de lá vive iguais aos nossos.",
+      "roda": [
+        "Por que a escola ensina mais sobre a Europa do que sobre os nossos vizinhos?",
+        "O que o Brasil ganha e o que perde quando se vê como parte da América Latina?",
+        "Que luta de outro país latino-americano poderia inspirar o seu bairro?"
+      ]
+    },
+    {
       "id": "mundo",
       "titulo": "As lutas pelo mundo",
       "pergunta": "O que o povo de outros países já conquistou, e como?",
@@ -163,6 +189,31 @@
         "Quem ganha quando o Brasil vende soja e minério sem processar?",
         "O que a dívida pública e a dívida externa têm a ver com o posto de saúde do seu bairro?",
         "Existe soberania num país que não controla a própria tecnologia?"
+      ]
+    },
+    {
+      "id": "terra-cidade-e-planeta",
+      "titulo": "A terra, a cidade e o planeta",
+      "pergunta": "Quem é dono do chão, da água e do clima?",
+      "texto": "O mesmo sistema que concentra a terra no campo especula com o aluguel na cidade e derruba a floresta para vender soja. Aqui entram a reforma agrária, o direito à cidade e a crise do clima, que pesa mais sobre quem menos a causou.",
+      "aulas": [
+        "a-terra-e-quem-nela-trabalha/o-que-e-reforma-agraria",
+        "historia-da-luta-pela-terra/as-ligas-camponesas-e-francisco-juliao",
+        "historia-da-luta-pela-terra/a-fundacao-do-mst",
+        "historia-da-luta-pela-terra/chico-mendes-e-os-povos-da-floresta",
+        "direito-a-cidade/milton-santos-e-a-urbanizacao-brasileira",
+        "capitalismo-contemporaneo/renda-urbana-e-especulacao-imobiliaria",
+        "ecossocialismo-basico/marx-e-a-ruptura-metabolica",
+        "ecossocialismo-basico/agronegocio-desmatamento-e-a-comida-que-chega-a-mesa"
+      ],
+      "leituras": [
+        "a-luta-pela-terra"
+      ],
+      "tarefa": "Descubra de onde vem a água da sua torneira e para onde vai o esgoto da sua rua. Se ninguém souber responder, você já tem uma pauta para levar à associação de moradores.",
+      "roda": [
+        "Por que há tanta terra sem gente e tanta gente sem terra?",
+        "Quem decide para onde a cidade cresce, e quem é empurrado para longe?",
+        "O que a crise do clima tem a ver com o preço da comida?"
       ]
     },
     {
@@ -222,6 +273,7 @@
         "educacao-popular-fundamental/quem-foi-paulo-freire",
         "educacao-popular-fundamental/circulos-de-cultura",
         "eleicoes-partidos-e-voto/o-que-e-um-partido-e-como-se-cria-um",
+        "disputar-as-eleicoes/por-que-disputar-as-eleicoes",
         "eleicoes-partidos-e-voto/depois-da-eleicao-como-cobrar",
         "formacao-militante-superior/etica-militante-coerencia-disciplina-e-camaradagem",
         "formacao-militante-superior/analise-de-conjuntura-como-fazer",

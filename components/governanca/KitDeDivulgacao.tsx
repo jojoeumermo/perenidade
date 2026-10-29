@@ -605,8 +605,8 @@ function ConviteNucleo({ c, modo, qr, ev }: { c: Cores; modo: Modo; qr: string; 
       <div style={{ position: "absolute", inset: 0, background: tinta ? "none" : "repeating-conic-gradient(from 0deg at 90% 30%, #2a231b 0deg 6deg, #1f1a14 6deg 12deg)" }} />
       <div style={{ position: "relative", display: "flex", flexDirection: "column", height: "100%" }}>
         <p style={{ fontFamily: mono, fontSize: mm(3.4), letterSpacing: "0.22em", margin: 0, color: tinta ? "#000" : "#E0837A" }}>NÚCLEO DE ESTUDO · DE GRAÇA</p>
-        <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.86, letterSpacing: "-0.03em", fontSize: mm(22), margin: `${mm(5)} 0 0` }}>Desper
-          <br />tar.</p>
+        <p style={{ fontFamily: grito, fontWeight: 900, fontStyle: "italic", textTransform: "uppercase", lineHeight: 0.86, letterSpacing: "-0.03em", fontSize: mm(15.5), margin: `${mm(5)} 0 0` }}>Consciência
+          <br />de classe.</p>
         <p style={{ fontSize: mm(5), lineHeight: 1.3, margin: `${mm(5)} 0 0` }}>Ninguém nasce sabendo que é explorado. Venha estudar junto: uma hora por semana, com conversa, sem prova e sem pagar nada.</p>
         <div style={{ marginTop: mm(6), display: "grid", gap: mm(3), background: tinta ? "#fff" : "#F4ECD8", color: "#1F1A14", padding: mm(5), border: `${mm(0.6)} solid #1F1A14` }}>
           {[["QUANDO", ev.quando || "[dia e hora]"], ["ONDE", ev.onde || "[lugar público]"], ["FALE COM", ev.contato || INSTA]].map(([r, v]) => (
@@ -619,7 +619,7 @@ function ConviteNucleo({ c, modo, qr, ev }: { c: Cores; modo: Modo; qr: string; 
         <div style={{ marginTop: "auto", display: "flex", alignItems: "center", gap: mm(4) }}>
           <div style={{ background: "#fff", padding: mm(1) }}><Qr svg={qr} cor="#000000" tamanho={mm(22)} /></div>
           <div style={{ display: "grid", gap: mm(1.2) }}>
-            <span style={{ fontFamily: mono, fontSize: mm(3.8), fontWeight: 600 }}>institutolucia.org/despertar</span>
+            <span style={{ fontFamily: mono, fontSize: mm(3.4), fontWeight: 600 }}>institutolucia.org/consciencia-de-classe</span>
             <Insta cor={tinta ? "#000" : "#F4ECD8"} tamanho={3.4} mm={mm} />
           </div>
         </div>
