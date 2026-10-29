@@ -5029,7 +5029,12 @@
     "erros": {
       "dado_pessoal": "La publicación tiene teléfono, CPF o correo. Quita el dato personal y publica de nuevo.",
       "confirme_idade": "Confirma que tienes 16 años o más.",
-      "muitos_pedidos": "Demasiadas publicaciones en poco tiempo. Las cuentas nuevas publican menos los primeros días."
+      "muitos_pedidos": "Demasiadas publicaciones en poco tiempo. Las cuentas nuevas publican menos los primeros días.",
+      "confirme_codinome": "Elige tu seudónimo antes de publicar.",
+      "codinome_civil": "Ese seudónimo parece tu nombre real. Elige otro.",
+      "codinome_usado": "Alguien ya usa ese seudónimo. Elige otro.",
+      "codinome_reservado": "Ese nombre está reservado. Elige otro.",
+      "invalido:codinome": "Usa de 3 a 30 letras o números, sin @ ni direcciones."
     },
     "lutasLista": {
       "moradia": "Vivienda y ocupaciones",
@@ -5087,7 +5092,12 @@
     "verTudo": "Ver todo",
     "levarNucleo": "Llevar a un núcleo",
     "levado": "Enlace copiado: pégalo en el grupo de tu núcleo.",
-    "expondo": "Me están exponiendo: sacarlo ya"
+    "expondo": "Me están exponiendo: sacarlo ya",
+    "semCodinome": "Persona sin seudónimo",
+    "codinomeTitulo": "Elige tu seudónimo",
+    "codinomeTexto": "En la Red nadie aparece con su nombre real, ni siquiera el equipo. Elige un seudónimo de 3 a 30 letras: no uses tu nombre, un apodo conocido en el barrio ni nada que lleve hasta ti.",
+    "codinomeCampo": "Seudónimo",
+    "codinomeUsar": "Usar este seudónimo"
   },
   "compartilhar": {
     "titulo": "Compartir",

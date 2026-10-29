@@ -4956,7 +4956,12 @@
     "erros": {
       "dado_pessoal": "帖子里有电话、CPF 或电子邮件。请删除个人信息后重新发布。",
       "confirme_idade": "请确认你已满 16 岁。",
-      "muitos_pedidos": "短时间内发帖过多。新账号在最初几天发帖较少。"
+      "muitos_pedidos": "短时间内发帖过多。新账号在最初几天发帖较少。",
+      "confirme_codinome": "发帖前请先选一个代号。",
+      "codinome_civil": "这个代号像是你的真名，请换一个。",
+      "codinome_usado": "这个代号已经有人用了，请换一个。",
+      "codinome_reservado": "这个名字是保留的，请换一个。",
+      "invalido:codinome": "请用3到30个字母或数字，不要有@或网址。"
     },
     "lutasLista": {
       "moradia": "住房与占屋",
@@ -5014,7 +5019,12 @@
     "verTudo": "查看全部",
     "levarNucleo": "带到小组讨论",
     "levado": "链接已复制：贴到你所在小组的群里。",
-    "expondo": "有人在曝光我：立即撤下"
+    "expondo": "有人在曝光我：立即撤下",
+    "semCodinome": "尚未取代号的人",
+    "codinomeTitulo": "选一个代号",
+    "codinomeTexto": "在网络里，没有人用真名出现，团队成员也一样。选一个3到30个字的代号：不要用你的名字、街坊熟知的外号，也不要用任何能找到你的信息。",
+    "codinomeCampo": "代号",
+    "codinomeUsar": "使用这个代号"
   },
   "compartilhar": {
     "titulo": "分享",

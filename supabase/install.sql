@@ -335,6 +335,12 @@ create table if not exists interno.avisos (
   criado_em timestamptz not null default now()
 );
 create index if not exists avisos_para on interno.avisos (para, lido, criado_em desc);
+-- A categoria separa o sino da equipe (painel) do que a Rede pode mostrar: na Rede, só o que é da própria pessoa.
+alter table interno.avisos add column if not exists categoria text not null default 'equipe';
+do $$ begin
+  alter table interno.avisos add constraint avisos_categoria check (categoria in ('equipe', 'rede', 'conta'));
+exception when duplicate_object then null;
+end $$;
 
 -- Aparelhos em que cada pessoa já entrou. A marca é um número sorteado no navegador, embaralhado: não identifica a máquina.
 create table if not exists interno.aparelhos (
@@ -1269,6 +1275,13 @@ begin
   if random() < 0.02 then delete from avisos where criado_em < now() - interval '120 days'; end if;
 end $$;
 
+/** Um aviso com categoria: 'rede' (o que a pessoa escreveu na Comunidade) ou 'conta' (a segurança da própria conta). */
+create or replace function interno.avisar_em(p_para uuid, p_texto text, p_categoria text) returns void language plpgsql security definer set search_path = interno, pg_temp as $$
+begin
+  if p_para is null or not exists (select 1 from perfis where id = p_para) then return; end if;
+  insert into avisos (para, texto, categoria) values (p_para, left(p_texto, 500), case when p_categoria in ('rede', 'conta') then p_categoria else 'equipe' end);
+end $$;
+
 create or replace function interno.avisar_lideranca(p_texto text, p_menos uuid default null) returns void language plpgsql security definer set search_path = interno, pg_temp as $$
 begin
   insert into avisos (para, texto)
@@ -1286,6 +1299,23 @@ $$;
 create or replace function interno.nome_visto(p_nome text) returns text language sql stable security definer set search_path = interno, pg_temp as $$
   select case when interno.lider() or p_nome is null then p_nome else split_part(btrim(p_nome), ' ', 1) end
 $$;
+-- Codinome sempre (29/10/2026): na Rede e no fórum ninguém aparece com o nome civil, nem a equipe. O codinome mora à
+-- parte do nome do painel (que, na equipe, é o nome de verdade); a bio e o ícone do painel também não vão para a Rede.
+alter table interno.perfis add column if not exists rede_codinome text;
+alter table interno.perfis add column if not exists rede_codinome_ok boolean not null default false;
+alter table interno.perfis add column if not exists rede_bio text not null default '';
+
+/** Tira acentos, caixa e espaços repetidos, para comparar codinomes entre si e com o nome civil. */
+create or replace function interno.rede_chave(p text) returns text language sql immutable as $$
+  select lower(translate(btrim(regexp_replace(coalesce(p, ''), '\s+', ' ', 'g')), 'áàâãäéèêëíìîïóòôõöúùûüçñÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑ', 'aaaaaeeeeiiiiooooouuuucnAAAAAEEEEIIIIOOOOOUUUUCN'))
+$$;
+create unique index if not exists perfis_rede_codinome_unico on interno.perfis (interno.rede_chave(rede_codinome)) where rede_codinome is not null;
+
+/** O nome de alguém na Rede e no fórum: o codinome, nunca o nome civil. */
+create or replace function interno.rede_nome(p_usuario uuid) returns text language sql stable security definer set search_path = interno, pg_temp as $$
+  select case when p_usuario is null then 'Conta apagada' else coalesce((select nullif(rede_codinome, '') from perfis where id = p_usuario), 'Sem codinome') end
+$$;
+
 create or replace function interno.primeiro_nome(p_nome text) returns text language sql immutable as $$ select split_part(btrim(coalesce(p_nome, '')), ' ', 1) $$;
 
 create or replace function interno.nome_papel(p text) returns text language sql immutable as $$
@@ -1910,7 +1940,7 @@ begin
   end;
   update perfis set trocar_senha = true where id = p_usuario;
   perform interno.registrar('senha_redefinida', p_usuario::text, jsonb_build_object('sessoes_encerradas', v_sessoes));
-  perform interno.avisar(p_usuario, 'A coordenação redefiniu a sua senha. Entre com a senha que recebeu por um canal seguro: o painel pede que você escolha uma nova antes de abrir.');
+  perform interno.avisar_em(p_usuario, 'A coordenação redefiniu a sua senha. Entre com a senha que recebeu por um canal seguro: o painel pede que você escolha uma nova antes de abrir.', 'conta');
   return jsonb_build_object('ok', true, 'sessoes_encerradas', v_sessoes);
 end $$;
 
@@ -2011,7 +2041,7 @@ begin
   insert into aparelhos (usuario, marca, rotulo) values (v, p_marca, v_rotulo);
   if v_outros > 0 and exists (select 1 from papeis where usuario = v) then
     select nome into v_nome from perfis where id = v;
-    perform interno.avisar(v, 'Sua conta foi aberta em um aparelho novo (' || coalesce(nullif(v_rotulo, ''), 'navegador desconhecido') || '). Se não foi você, avise a coordenação agora e saia de todos os aparelhos.');
+    perform interno.avisar_em(v, 'Sua conta foi aberta em um aparelho novo (' || coalesce(nullif(v_rotulo, ''), 'navegador desconhecido') || '). Se não foi você, avise a coordenação agora e saia de todos os aparelhos.', 'conta');
     perform interno.avisar_lideranca('A conta de ' || v_nome || ' foi aberta em um aparelho novo (' || coalesce(nullif(v_rotulo, ''), 'navegador desconhecido') || ').', v);
     perform interno.registrar('aparelho_novo', v::text, jsonb_build_object('rotulo', v_rotulo));
   end if;
@@ -2033,6 +2063,12 @@ end $$;
 create or replace function public.avisos_meus() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
   select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'texto', a.texto, 'lido', a.lido, 'criado_em', a.criado_em) order by a.criado_em desc), '[]'::jsonb)
   from (select * from avisos where para = auth.uid() and auth.uid() is not null order by criado_em desc limit 40) a
+$$;
+
+/** Os avisos que a Rede mostra: só o que é da própria pessoa (o que ela escreveu e a segurança da conta), nunca o sino da equipe. */
+create or replace function public.rede_avisos() returns jsonb language sql stable security definer set search_path = interno, pg_temp as $$
+  select coalesce(jsonb_agg(jsonb_build_object('id', a.id, 'texto', a.texto, 'lido', a.lido, 'criado_em', a.criado_em, 'categoria', a.categoria) order by a.criado_em desc), '[]'::jsonb)
+  from (select * from avisos where para = auth.uid() and auth.uid() is not null and categoria in ('rede', 'conta') order by criado_em desc limit 40) a
 $$;
 
 /** Marca um recado como lido; sem id, marca todos. */
@@ -2721,7 +2757,7 @@ language sql stable security definer set search_path = interno, pg_temp as $$
   select coalesce(jsonb_agg(x.j order by x.n), '[]'::jsonb) from (
     select row_number() over () as n, jsonb_build_object(
       'id', t.id, 'titulo', t.titulo, 'disciplina', t.disciplina, 'pontos', t.pontos, 'respostas', t.respostas, 'tipo', t.tipo, 'resolvida', t.aceita is not null,
-      'trancado', t.trancado, 'oculto', t.oculto, 'retido', t.retido, 'criado_em', t.criado_em, 'autor', coalesce(f.nome, ''),
+      'trancado', t.trancado, 'oculto', t.oculto, 'retido', t.retido, 'criado_em', t.criado_em, 'autor', case when t.autor is null then '' else interno.rede_nome(t.autor) end,
       'autor_selo', interno.selo(t.autor), 'trecho', left(regexp_replace(t.corpo, '[#*_>`\[\]()!]+|\s+', ' ', 'g'), 180),
       'alvo', t.alvo, 'alvo_titulo', t.alvo_titulo,
       'ultima', coalesce((select max(r.criado_em) from respostas r where r.topico = t.id and not r.oculto), t.criado_em),
@@ -2751,7 +2787,7 @@ begin
   return jsonb_build_object(
     'id', t.id, 'titulo', t.titulo, 'corpo', t.corpo, 'disciplina', t.disciplina, 'pontos', t.pontos, 'trancado', t.trancado, 'oculto', t.oculto, 'retido', t.retido,
     'tipo', t.tipo, 'aceita', t.aceita, 'alvo', t.alvo, 'alvo_titulo', t.alvo_titulo, 'autor_selo', interno.selo(t.autor),
-    'criado_em', t.criado_em, 'autor', coalesce((select nome from perfis where id = t.autor), ''),
+    'criado_em', t.criado_em, 'autor', case when t.autor is null then '' else interno.rede_nome(t.autor) end,
     'meu', t.autor is not null and t.autor = auth.uid(),
     'meu_voto', coalesce((select valor from votos where usuario = auth.uid() and tipo = 'topico' and alvo = t.id), 0),
     'pode_cuidar', interno.cuida(), 'pode_banir', interno.media(),
@@ -2759,7 +2795,7 @@ begin
     -- Numa dúvida, a resposta escolhida vem primeiro e depois as mais bem votadas; numa conversa, a ordem é a do tempo.
     'respostas', coalesce((
       select jsonb_agg(jsonb_build_object(
-        'id', r.id, 'corpo', r.corpo, 'pontos', r.pontos, 'oculto', r.oculto, 'retido', r.retido, 'criado_em', r.criado_em, 'autor', coalesce(f.nome, ''),
+        'id', r.id, 'corpo', r.corpo, 'pontos', r.pontos, 'oculto', r.oculto, 'retido', r.retido, 'criado_em', r.criado_em, 'autor', case when r.autor is null then '' else interno.rede_nome(r.autor) end,
         'aceita', r.id = t.aceita, 'do_autor', coalesce(r.autor = t.autor, false), 'da_equipe', exists (select 1 from papeis p where p.usuario = r.autor), 'autor_selo', interno.selo(r.autor), 'pai', r.pai,
         'autor_id', case when interno.media() then r.autor end,
         'meu_voto', coalesce((select valor from votos where usuario = auth.uid() and tipo = 'resposta' and alvo = r.id), 0))
@@ -2916,10 +2952,10 @@ begin
   perform interno.registrar('comunidade_' || p_acao, p_alvo::text, jsonb_build_object('tipo', p_tipo));
   -- Quem escreveu fica sabendo de toda decisão que muda o que o público vê da mensagem dele.
   if coalesce(v_retido, false) or (coalesce(v_bloqueada, false) and p_acao = 'mostrar') then
-    perform interno.avisar(v_autor, case when p_acao = 'mostrar' then 'Sua mensagem na Comunidade foi aprovada e já aparece para todo mundo.'
-                                         else 'Sua mensagem na Comunidade não foi aprovada pela mediação. Releia as regras da página e escreva de novo.' end);
+    perform interno.avisar_em(v_autor, case when p_acao = 'mostrar' then 'Sua mensagem na Comunidade foi aprovada e já aparece para todo mundo.'
+                                         else 'Sua mensagem na Comunidade não foi aprovada pela mediação. Releia as regras da página e escreva de novo.' end, 'rede');
   elsif p_acao = 'ocultar' and v_oculto = false then
-    perform interno.avisar(v_autor, 'Uma mensagem sua na Comunidade foi ocultada pela mediação. Releia as regras da página; se achar que houve engano, use a página Denunciar.');
+    perform interno.avisar_em(v_autor, 'Uma mensagem sua na Comunidade foi ocultada pela mediação. Releia as regras da página; se achar que houve engano, use a página Denunciar.', 'rede');
   end if;
   return jsonb_build_object('ok', true);
 end $$;
@@ -5293,9 +5329,9 @@ begin
     insert into chat_aparelhos (usuario, publica, rotulo, pedido, pedido_em) values (v, p_publica, v_rotulo, p_pedido, now()) returning * into a;
   end if;
   if v_outros > 0 then
-    perform interno.avisar(v, 'As suas conversas da equipe foram abertas em um aparelho novo (' || coalesce(nullif(v_rotulo, ''), 'navegador desconhecido')
+    perform interno.avisar_em(v, 'As suas conversas da equipe foram abertas em um aparelho novo (' || coalesce(nullif(v_rotulo, ''), 'navegador desconhecido')
       || case when a.certificado is null then '). Ele só passa a ler as conversas depois que você o aprovar, em Conversas → Aparelhos. Se não foi você, remova-o lá e avise a coordenação.'
-              else '). Se não foi você, remova esse aparelho em Conversas → Aparelhos e avise a coordenação.' end);
+              else '). Se não foi você, remova esse aparelho em Conversas → Aparelhos e avise a coordenação.' end, 'conta');
   end if;
   perform interno.registrar('chat_aparelho_novo', v::text, jsonb_build_object('rotulo', v_rotulo, 'pendente', a.certificado is null));
   return interno.chat_aparelho_json(a);
@@ -10779,7 +10815,7 @@ begin
   if to_regclass('auth.mfa_factors') is not null then execute 'delete from auth.mfa_factors where user_id = $1' using v; end if;
   select nome into v_nome from perfis where id = v;
   perform interno.registrar('segundo_fator_recuperado', v::text, '{}'::jsonb);
-  perform interno.avisar(v, 'Um código de recuperação foi usado e o aplicativo autenticador saiu da sua conta. Cadastre outro em Minha conta. Se não foi você, troque a senha agora e avise a coordenação.');
+  perform interno.avisar_em(v, 'Um código de recuperação foi usado e o aplicativo autenticador saiu da sua conta. Cadastre outro em Minha conta. Se não foi você, troque a senha agora e avise a coordenação.', 'conta');
   if exists (select 1 from papeis where usuario = v) then
     perform interno.avisar_lideranca(coalesce(v_nome, 'Alguém da equipe') || ' usou um código de recuperação para tirar o aplicativo autenticador da conta.', v);
   end if;
@@ -14943,6 +14979,26 @@ end $$;
 
 alter table interno.perfis add column if not exists rede_invisivel boolean not null default false;
 alter table interno.perfis add column if not exists rede_16 boolean not null default false;
+/** Um codinome livre: o pedido, se servir e ninguém usar; senão, o nome de uma lutadora com número. */
+create or replace function interno.rede_codinome_livre(p_pedido text default null) returns text language plpgsql volatile security definer set search_path = interno, pg_temp as $$
+declare v text := interno.codinome(p_pedido); i integer;
+begin
+  for i in 1..80 loop
+    exit when not exists (select 1 from perfis where interno.rede_chave(rede_codinome) = interno.rede_chave(v));
+    v := interno.codinome(null);
+  end loop;
+  return v;
+end $$;
+
+-- Quem já tinha perfil ganha um codinome uma vez: na equipe, um sorteado (o nome do painel é o civil); no resto, o apelido
+-- que já usava em público, se servir. Antes de postar de novo, cada pessoa confirma ou troca (rede_codinome_ok).
+do $$
+declare r record;
+begin
+  for r in select id, nome from interno.perfis where rede_codinome is null loop
+    update interno.perfis set rede_codinome = interno.rede_codinome_livre(case when interno.voluntario_e(r.id) then null else r.nome end) where id = r.id;
+  end loop;
+end $$;
 
 create table if not exists interno.rede_posts (
   id uuid primary key default gen_random_uuid(),
@@ -14993,14 +15049,13 @@ begin
     'alcance', p.alcance, 'posicao', p.posicao, 'meu', p.autor = auth.uid(), 'retido', case when p.autor = auth.uid() then p.retido or p.oculto else false end,
     'modero', interno.cuida() or exists (select 1 from rede_moderadores m where m.comunidade = p.comunidade and m.usuario = auth.uid())
               or (p.comunidade like 'fechado-%' and exists (select 1 from rede_espaco_membros m where m.espaco = p.comunidade and m.usuario = auth.uid() and m.cuida)),
-    'autor', jsonb_build_object('id', p.autor, 'nome', coalesce((select interno.nome_visto(nome) from perfis where id = p.autor), 'Conta apagada'),
-                                'avatar', (select avatar from perfis where id = p.autor), 'equipe', interno.voluntario_e(p.autor)),
+    'autor', jsonb_build_object('id', p.autor, 'nome', interno.rede_nome(p.autor), 'codinome', true, 'avatar', null, 'equipe', interno.voluntario_e(p.autor)),
     'respostas', (select count(*) from rede_posts r where r.resposta_a = p.id and not r.oculto),
     'apoios', (select count(*) from rede_apoios a where a.post = p.id),
     'apoiei', exists (select 1 from rede_apoios a where a.post = p.id and a.usuario = auth.uid()),
     'vou', case when p.chamado is not null then (select count(*) from rede_vou v where v.post = p.id) end,
     'vou_eu', exists (select 1 from rede_vou v where v.post = p.id and v.usuario = auth.uid()),
-    'resposta_a', case when p.resposta_a is not null then (select jsonb_build_object('id', o.id, 'autor', coalesce((select interno.nome_visto(nome) from perfis where id = o.autor), '')) from rede_posts o where o.id = p.resposta_a) end,
+    'resposta_a', case when p.resposta_a is not null then (select jsonb_build_object('id', o.id, 'autor', interno.rede_nome(o.autor)) from rede_posts o where o.id = p.resposta_a) end,
     'original', case when p_com_original and p.repost_de is not null then (select case when interno.rede_ve(o) then interno.rede_post_json(o, false) end from rede_posts o where o.id = p.repost_de) end);
 end $$;
 
@@ -15017,9 +15072,44 @@ begin
   return jsonb_build_object('invisivel', coalesce(p_invisivel, false));
 end $$;
 
-create or replace function public.rede_eu() returns jsonb language plpgsql stable security definer set search_path = interno, pg_temp as $$
+create or replace function public.rede_eu() returns jsonb language plpgsql volatile security definer set search_path = interno, pg_temp as $$
 begin
-  return (select jsonb_build_object('id', id, 'nome', interno.nome_visto(nome), 'avatar', avatar, 'rede_16', rede_16, 'invisivel', rede_invisivel) from perfis where id = interno.eu());
+  return (select jsonb_build_object('id', id, 'nome', rede_codinome, 'codinome', true, 'codinome_ok', rede_codinome_ok, 'bio', rede_bio,
+    'sugestao', coalesce(rede_codinome, interno.rede_codinome_livre(case when interno.voluntario_e(id) then null else nome end)),
+    'rede_16', rede_16, 'invisivel', rede_invisivel) from perfis where id = interno.eu());
+end $$;
+
+/**
+ * Escolher (ou confirmar) o codinome da Rede. De 3 a 30 caracteres, sem endereço nem @, livre (sem repetir, sem contar
+ * acento e caixa). Na equipe, não pode ser o nome do painel, o primeiro nome nem começar por ele; ninguém usa o nome de
+ * alguém da equipe nem o do instituto.
+ */
+create or replace function public.rede_codinome_definir(p_codinome text) returns jsonb language plpgsql security definer set search_path = interno, pg_temp as $$
+declare
+  v uuid := interno.eu();
+  v_nome text := btrim(regexp_replace(coalesce(p_codinome, ''), '\s+', ' ', 'g'));
+  v_chave text; v_civil text;
+begin
+  perform interno.limite('rede_codinome', 12, 60);
+  if char_length(v_nome) < 3 or char_length(v_nome) > 30 or v_nome !~ '^[[:alpha:]0-9][[:alpha:]0-9 .''_-]*$' or v_nome ~* '(https?|www\.|@)' then
+    perform interno.erro('invalido:codinome');
+  end if;
+  v_chave := interno.rede_chave(v_nome);
+  if v_chave ~ '(instituto|lucia|moderac|mediac|coordenac|administra|equipe oficial)' then perform interno.erro('codinome_reservado'); end if;
+  if interno.voluntario_e(v) then
+    v_civil := interno.rede_chave((select nome from perfis where id = v));
+    if v_civil <> '' and (v_chave = v_civil or split_part(v_chave, ' ', 1) = split_part(v_civil, ' ', 1) or (position(' ' in v_civil) > 0 and position(v_civil in v_chave) > 0)) then
+      perform interno.erro('codinome_civil');
+    end if;
+  end if;
+  if exists (select 1 from perfis o where o.id <> v and interno.rede_chave(o.rede_codinome) = v_chave)
+     or exists (select 1 from papeis pa join perfis o on o.id = pa.usuario where o.id <> v and interno.rede_chave(o.nome) = v_chave) then
+    perform interno.erro('codinome_usado');
+  end if;
+  update perfis set rede_codinome = v_nome, rede_codinome_ok = true where id = v;
+  perform interno.registrar('rede_codinome', '', '{}'::jsonb);
+  return jsonb_build_object('nome', v_nome, 'codinome_ok', true);
+exception when unique_violation then perform interno.erro('codinome_usado');
 end $$;
 
 /** Publicar: post, resposta, repost com comentário, citação e chamado à ação. */
@@ -15033,6 +15123,7 @@ declare
 begin
   perform interno.aberta('comunidade');
   if not coalesce((select rede_16 from perfis where id = v), false) then perform interno.erro('confirme_idade'); end if;
+  if not coalesce((select rede_codinome_ok and rede_codinome is not null from perfis where id = v), false) then perform interno.erro('confirme_codinome'); end if;
   if char_length(v_texto) > 500 then perform interno.erro('invalido:texto'); end if;
   if v_alcance not in ('publico', 'seguidores', 'equipe') then perform interno.erro('invalido:alcance'); end if;
   if v_alcance = 'equipe' and not interno.voluntario() then perform interno.erro('invalido:alcance'); end if;
@@ -15084,7 +15175,7 @@ begin
           v_veredito <> 'publicar', v_veredito = 'revisar', case v_veredito when 'publicar' then 'publicada' when 'bloquear' then 'bloqueada' else 'revisao' end, coalesce(v_av ->> 'motivo', ''))
   returning * into x;
   if v_resposta is not null and o.autor is distinct from v and x.oculto = false then
-    perform interno.avisar(o.autor, format('%s respondeu ao seu post na Rede Lúcia: “%s”', coalesce((select interno.nome_visto(nome) from perfis where id = v), 'Alguém'), left(v_texto, 120)));
+    perform interno.avisar_em(o.autor, format('%s respondeu ao seu post na Rede Lúcia: “%s”', interno.rede_nome(v), left(v_texto, 120)), 'rede');
   end if;
   return interno.rede_post_json(x);
 exception when check_violation then perform interno.erro('invalido:post');
@@ -15183,9 +15274,9 @@ declare f perfis;
 begin
   select * into f from perfis where id = p_usuario;
   if not found then perform interno.erro('nao_encontrado'); end if;
-  if f.rede_invisivel and f.id is distinct from auth.uid() then return jsonb_build_object('invisivel', true, 'nome', interno.nome_visto(f.nome)); end if;
-  return jsonb_build_object('id', f.id, 'nome', interno.nome_visto(f.nome), 'avatar', f.avatar, 'bio', f.bio, 'invisivel', false,
-    'equipe', interno.voluntario_e(f.id), 'funcoes', (select coalesce(jsonb_agg(distinct p.papel), '[]'::jsonb) from papeis p where p.usuario = f.id),
+  if f.rede_invisivel and f.id is distinct from auth.uid() then return jsonb_build_object('invisivel', true, 'nome', interno.rede_nome(f.id), 'codinome', true); end if;
+  return jsonb_build_object('id', f.id, 'nome', interno.rede_nome(f.id), 'codinome', true, 'avatar', null, 'bio', f.rede_bio, 'invisivel', false,
+    'equipe', interno.voluntario_e(f.id),
     'sigo', exists (select 1 from rede_seguindo where quem = auth.uid() and segue = f.id),
     'me_segue', exists (select 1 from rede_seguindo where quem = f.id and segue = auth.uid()),
     'bloqueei', exists (select 1 from rede_bloqueios where quem = auth.uid() and bloqueado = f.id),
@@ -15348,7 +15439,7 @@ begin
   end if;
   update rede_posts set oculto = coalesce(p_ocultar, true), retido = false where id = p_id;
   perform interno.registrar(case when coalesce(p_ocultar, true) then 'comunidade_ocultar' else 'comunidade_mostrar' end, p_id::text, jsonb_build_object('tipo', 'post', 'por', 'moderador'));
-  if coalesce(p_ocultar, true) then perform interno.avisar(x.autor, 'Um post seu na Rede Lúcia foi ocultado pela moderação da comunidade. Releia as regras; se achar que houve engano, use a página Denunciar.'); end if;
+  if coalesce(p_ocultar, true) then perform interno.avisar_em(x.autor, 'Um post seu na Rede Lúcia foi ocultado pela moderação da comunidade. Releia as regras; se achar que houve engano, use a página Denunciar.', 'rede'); end if;
   return jsonb_build_object('ok', true);
 end $$;
 

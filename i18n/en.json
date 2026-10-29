@@ -5029,7 +5029,12 @@
     "erros": {
       "dado_pessoal": "The post has a phone number, CPF or e-mail. Remove the personal data and post again.",
       "confirme_idade": "Confirm you are 16 or older.",
-      "muitos_pedidos": "Too many posts in a short time. New accounts post less in their first days."
+      "muitos_pedidos": "Too many posts in a short time. New accounts post less in their first days.",
+      "confirme_codinome": "Choose your codename before posting.",
+      "codinome_civil": "That codename looks like your real name. Choose another one.",
+      "codinome_usado": "Someone already uses that codename. Choose another one.",
+      "codinome_reservado": "That name is reserved. Choose another one.",
+      "invalido:codinome": "Use 3 to 30 letters or numbers, with no @ or web address."
     },
     "lutasLista": {
       "moradia": "Housing and occupations",
@@ -5087,7 +5092,12 @@
     "verTudo": "See everything",
     "levarNucleo": "Take to a nucleus",
     "levado": "Link copied: paste it in your nucleus group.",
-    "expondo": "Someone is exposing me: take it down now"
+    "expondo": "Someone is exposing me: take it down now",
+    "semCodinome": "Person without a codename",
+    "codinomeTitulo": "Choose your codename",
+    "codinomeTexto": "On the Network nobody appears under their real name, not even the team. Choose a codename of 3 to 30 letters: don't use your name, a nickname people know you by, or anything that leads to you.",
+    "codinomeCampo": "Codename",
+    "codinomeUsar": "Use this codename"
   },
   "compartilhar": {
     "titulo": "Share",
