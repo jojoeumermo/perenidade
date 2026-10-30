@@ -1,0 +1,196 @@
+# Exercícios da aula "Natureza, o essencial: biologia" (trilha enem-reta-final). Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-rf-nat-corpo-01
+  tema: "Sistemas do corpo humano"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-seres-vivos-corpo-humano
+  dificuldade: 1
+  enunciado: "No sangue, quem leva o oxigênio dos pulmões até os músculos?"
+  alternativas:
+    - texto: "As plaquetas"
+      erro: "As plaquetas ajudam a formar o coágulo que fecha ferimentos. O oxigênio vai nas hemácias."
+    - texto: "Os glóbulos brancos"
+      erro: "Os glóbulos brancos (leucócitos) fazem a defesa do corpo. Quem leva oxigênio são as hemácias."
+    - texto: "O plasma, sozinho, sem as células"
+      erro: "Pouco oxigênio se dissolve no plasma. A maior parte vai presa à hemoglobina, dentro das hemácias."
+    - texto: "As hemácias, com a hemoglobina"
+      certa: true
+    - texto: "Os anticorpos"
+      erro: "Anticorpos são proteínas de defesa, que reconhecem antígenos. Eles não carregam oxigênio."
+  explicacao: "As hemácias (glóbulos vermelhos) carregam hemoglobina, uma proteína com ferro que se liga ao oxigênio nos pulmões e o solta nos tecidos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-vacina-01
+  tema: "Vacinação e imunidade"
+  area: natureza
+  habilidade: 14
+  objeto: nat-bio-saude-vacinacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No calendário de vacinação, algumas vacinas pedem mais de uma dose, ou uma dose de reforço tempos depois da
+    primeira. Uma mãe pergunta à enfermeira por que o filho precisa voltar ao posto, se já tomou a primeira dose.
+  enunciado: "Do ponto de vista da biologia, a dose de reforço serve para"
+  alternativas:
+    - texto: "trocar o sangue da criança por sangue com mais anticorpos"
+      erro: "A vacina não troca o sangue nem leva anticorpos. Ela leva antígeno, e o próprio corpo faz a resposta."
+    - texto: "matar os micróbios que sobreviveram à primeira dose"
+      erro: "A vacina não é remédio contra micróbios presentes no corpo. Ela prepara a defesa para um contato futuro."
+    - texto: "mudar o DNA das células de defesa para sempre"
+      erro: "A vacina não muda o DNA da pessoa. A memória está nas células de defesa que se multiplicam e ficam no corpo."
+    - texto: "ensinar o corpo a reconhecer um antígeno diferente do da primeira dose"
+      erro: "O reforço repete o mesmo antígeno. A ideia é fortalecer a memória daquele alvo, não criar outra."
+    - texto: "apresentar de novo o antígeno, fortalecendo a resposta e a memória imunológica"
+      certa: true
+  explicacao: "Cada encontro com o antígeno reforça a resposta adaptativa: mais anticorpos e mais células de memória, específicas para aquele alvo. A dose de reforço imita esse novo encontro, sem a doença."
+  fonte: "Questão original do Instituto Lúcia, com base em OpenStax, Biology 2e, seção 42.2 (https://openstax.org/books/biology-2e/pages/42-2-adaptive-immune-response)"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-metabolismo-01
+  tema: "Respiração, fermentação e fotossíntese"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-metabolismo
+  dificuldade: 2
+  enunciado: "Num esforço muito intenso, como uma corrida até o ônibus, o oxigênio que chega ao músculo não dá conta. Para continuar fazendo ATP, as células musculares passam a usar também:"
+  alternativas:
+    - texto: "a fotossíntese, produzindo glicose com a luz"
+      erro: "Células animais não têm cloroplastos e não fazem fotossíntese."
+    - texto: "a fermentação lática, que tira um pouco de ATP da glicose sem oxigênio"
+      certa: true
+    - texto: "a respiração aeróbica, que não depende de oxigênio"
+      erro: "A respiração aeróbica depende do oxigênio: ele recebe os elétrons no fim da cadeia respiratória."
+    - texto: "a fermentação alcoólica, produzindo álcool no músculo"
+      erro: "A fermentação alcoólica é a do fermento do pão (levedura). No músculo humano, a fermentação é lática."
+    - texto: "a digestão das proteínas do próprio sangue"
+      erro: "O músculo não digere o sangue para fazer energia. Sem oxigênio suficiente, ele recorre à fermentação."
+  explicacao: "Sem oxigênio suficiente, a cadeia respiratória não dá conta. A célula muscular faz fermentação lática: quebra a glicose sem oxigênio e obtém um pouco de ATP, bem menos do que na respiração aeróbica."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-impactos-01
+  tema: "Impactos ambientais e sustentabilidade"
+  area: natureza
+  habilidade: 12
+  objeto: nat-bio-ecologia-impactos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Para aumentar a renda da pesca, uma espécie de peixe trazida de outro continente foi solta numa represa. Ela
+    não tinha predadores ali, come ovos e filhotes de outros peixes e se reproduz depressa. Alguns anos depois, os
+    pescadores da região contam que várias espécies nativas quase sumiram da represa.
+  enunciado: "O caso descreve o efeito de"
+  alternativas:
+    - texto: "uma relação de mutualismo entre o peixe novo e os nativos"
+      erro: "No mutualismo as duas espécies ganham. Aqui as nativas perdem: é o contrário de um ganho mútuo."
+    - texto: "um aumento da biodiversidade, porque entrou uma espécie a mais"
+      erro: "Uma espécie entrou, mas várias quase sumiram. A biodiversidade da represa diminuiu."
+    - texto: "uma espécie exótica invasora, que reduz as populações nativas e a biodiversidade"
+      certa: true
+    - texto: "uma sucessão ecológica natural, sem ação humana"
+      erro: "A espécie foi solta por pessoas. Sucessão é a mudança gradual de uma comunidade, não a chegada de um invasor."
+    - texto: "uma bioacumulação de metais pesados nos peixes nativos"
+      erro: "O texto não fala de poluente. A queda das nativas vem da predação e da competição com o peixe novo."
+  explicacao: "Espécie exótica é a que vem de outro lugar; ela se torna invasora quando se espalha e prejudica as nativas. Sem predadores e comendo ovos e filhotes, o peixe novo derruba as populações nativas e a biodiversidade."
+  fonte: "Questão original do Instituto Lúcia, com base em OpenStax, Biology 2e, seção 47.3 (https://openstax.org/books/biology-2e/pages/47-3-threats-to-biodiversity)"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-plantas-01
+  tema: "Plantas e fisiologia vegetal"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-seres-vivos-plantas
+  dificuldade: 1
+  enunciado: "Que tecido leva a água e os sais minerais da raiz até as folhas?"
+  alternativas:
+    - texto: "O xilema"
+      certa: true
+    - texto: "O floema"
+      erro: "O floema leva a seiva elaborada, com açúcar, das folhas para o resto da planta. Água e sais sobem pelo xilema."
+    - texto: "A epiderme"
+      erro: "A epiderme reveste e protege a planta. Ela não é o caminho da água da raiz às folhas."
+    - texto: "O estômato"
+      erro: "O estômato é uma abertura na folha, por onde a água sai como vapor. O transporte até a folha é feito pelo xilema."
+    - texto: "O cloroplasto"
+      erro: "O cloroplasto é a organela da fotossíntese, não um tecido de transporte."
+  explicacao: "O xilema conduz a seiva bruta (água e sais minerais) da raiz para cima. O floema conduz a seiva elaborada (açúcar) das folhas para o resto da planta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-biotec-01
+  tema: "Biotecnologia: transgênicos, clonagem, PCR, vacinas e edição gênica"
+  area: natureza
+  habilidade: 11
+  objeto: nat-bio-celulas-biotecnologia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma planta transgênica recebeu um gene de bactéria que manda fazer uma proteína tóxica para certas lagartas.
+    As células da planta passam a produzir essa proteína, mesmo sendo a bactéria e a planta seres vivos muito
+    diferentes.
+  enunciado: "A planta consegue produzir uma proteína a partir de um gene de bactéria porque"
+  alternativas:
+    - texto: "a bactéria continua viva dentro da planta e faz a proteína por ela"
+      erro: "Na transgenia passa só o gene, não a bactéria. Quem faz a proteína é a própria célula da planta."
+    - texto: "as proteínas de bactéria e de planta são idênticas"
+      erro: "Se fossem idênticas, a planta já teria a proteína tóxica. O gene novo traz uma proteína que ela não tinha."
+    - texto: "a planta muda o gene até ele virar um gene de planta"
+      erro: "O gene inserido é lido como está. Não é a planta que o transforma."
+    - texto: "o gene de bactéria já vem com os ribossomos da bactéria"
+      erro: "O gene é um trecho de DNA, não traz ribossomos. A tradução é feita pelos ribossomos da célula da planta."
+    - texto: "o código genético é praticamente o mesmo nos seres vivos, e a célula da planta lê o gene e faz a proteína"
+      certa: true
+  explicacao: "O gene é transcrito em RNA mensageiro e traduzido pelos ribossomos da célula da planta. Como o código genético (a correspondência entre trincas de bases e aminoácidos) é praticamente universal, a planta monta a mesma proteína que a bactéria montaria."
+  fonte: "Questão original do Instituto Lúcia, com base em OpenStax, Biology 2e, seção 17.1 (https://openstax.org/books/biology-2e/pages/17-1-biotechnology)"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-celula-01
+  tema: "Célula, membrana e organelas"
+  area: natureza
+  habilidade: 15
+  objeto: nat-bio-celulas-celula
+  dificuldade: 2
+  enunciado: "Uma salada de alface temperada com sal fica murcha depois de meia hora. Isso acontece porque:"
+  alternativas:
+    - texto: "o sal entra nas células e elas estouram"
+      erro: "As células não estouram: elas murcham. E quem se move em maior quantidade pela membrana é a água."
+    - texto: "as células ganham água e ficam moles"
+      erro: "Ganhar água deixaria as folhas firmes (túrgidas). A folha murcha porque perde água."
+    - texto: "o sal mata as células por falta de oxigênio"
+      erro: "O sal não tira o oxigênio. O efeito vem da diferença de concentração dos dois lados da membrana."
+    - texto: "o meio fica hipertônico, e as células perdem água por osmose"
+      certa: true
+    - texto: "a parede celular se dissolve no sal"
+      erro: "O sal de cozinha não dissolve a parede celular. Ela continua lá; o que muda é a água dentro da célula."
+  explicacao: "Com sal por fora, o meio fica mais concentrado que o interior das células (hipertônico). Por osmose, a água sai das células para o meio salgado, e as folhas murcham."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-doencas-01
+  tema: "Doenças infecciosas e parasitárias"
+  area: natureza
+  habilidade: 30
+  objeto: nat-bio-saude-doencas
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num bairro de periferia, a vigilância em saúde confirmou casos de leishmaniose visceral em pessoas e em cães.
+    A doença é causada por um protozoário e transmitida pela picada do flebotomíneo, o mosquito-palha. Na cidade,
+    o cão é o principal reservatório do parasita.
+  enunciado: "Entre as ações abaixo, a que age diretamente sobre a transmissão é"
+  alternativas:
+    - texto: "ferver a água de beber de todas as casas do bairro"
+      erro: "A doença não passa pela água. Ferver a água previne outras doenças, mas não corta a picada do inseto."
+    - texto: "dar antibiótico a todos os moradores, mesmo sem sintomas"
+      erro: "O agente é um protozoário, não uma bactéria, e remédio sem diagnóstico não corta a transmissão."
+    - texto: "tirar dos quintais a matéria orgânica em decomposição e cuidar do lixo orgânico"
+      certa: true
+    - texto: "evitar apertar a mão de pessoas doentes"
+      erro: "A doença não passa de pessoa para pessoa pelo contato. Ela depende do inseto vetor."
+    - texto: "usar máscara em lugares fechados"
+      erro: "Máscara protege de doenças que passam pelo ar. A leishmaniose passa pela picada do mosquito-palha."
+  explicacao: "Sem vetor, não há transmissão. O Ministério da Saúde orienta a tirar dos quintais a matéria orgânica em decomposição e a dar destino certo ao lixo orgânico, que favorecem o mosquito-palha."
+  fonte: "Questão original do Instituto Lúcia, com base na página Leishmaniose Visceral do Ministério da Saúde (https://www.gov.br/saude/pt-br/assuntos/saude-de-a-a-z/l/leishmaniose-visceral)"
+  revisao: { status: em-revisao }

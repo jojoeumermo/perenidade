@@ -475,6 +475,13 @@ fatos:
     item: "14.8"
     trecho: "A redação que apresentar cópia dos textos da Proposta de Redação ou do Caderno de Provas terá o número de linhas copiadas desconsiderado para a contagem do número mínimo de linhas."
     conferido: "2026-10-30"
+  redacao-direitos-humanos:
+    afirmacao: "Proposta de intervenção que desrespeita os direitos humanos"
+    tipo: texto
+    valor: "recebe nota 0 na Competência 5"
+    fonte: cartilha-2026
+    trecho: "Propostas que desrespeitem os direitos humanos receberão nota 0 (zero) na Competência V."
+    conferido: "2026-10-30"
   intervencao-elementos:
     afirmacao: "Os elementos da proposta de intervenção"
     tipo: lista

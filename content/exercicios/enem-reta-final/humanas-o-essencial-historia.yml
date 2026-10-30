@@ -1,0 +1,206 @@
+# Exercícios da aula "Humanas, o essencial: história" (trilha enem-reta-final). Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-rf-hum-patrimonio-01
+  tema: "Cultura material e imaterial e patrimônio no Brasil"
+  area: humanas
+  habilidade: 5
+  objeto: hum-cultura-patrimonio
+  dificuldade: 1
+  enunciado: "Qual destes é um exemplo de patrimônio cultural imaterial?"
+  alternativas:
+    - texto: "Uma igreja barroca do século XVIII"
+      erro: "A igreja é um bem que se toca: é patrimônio material. O imaterial é o saber, a festa, a forma de expressão."
+    - texto: "Um casarão tombado no centro histórico"
+      erro: "Tombamento é a proteção típica do patrimônio material, como prédios e conjuntos urbanos."
+    - texto: "O modo de fazer panelas de barro, ensinado de mãe para filha"
+      certa: true
+    - texto: "Uma coleção de moedas antigas num museu"
+      erro: "Moedas são objetos: patrimônio material. Pergunte-se se o bem vive nas pessoas ou nas coisas."
+    - texto: "Um sítio arqueológico com pinturas rupestres"
+      erro: "Sítios arqueológicos são bens materiais. As pinturas estão na rocha, não no saber de um grupo vivo."
+  explicacao: "O patrimônio imaterial reúne saberes, celebrações, formas de expressão e lugares de prática coletiva (Decreto nº 3.551, de 2000). O ofício das paneleiras de Goiabeiras foi registrado no Livro dos Saberes em 2002."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-patrimonio-02
+  tema: "Cultura material e imaterial e patrimônio no Brasil"
+  area: humanas
+  habilidade: 3
+  objeto: hum-cultura-patrimonio
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa cidade do interior, a festa da padroeira tinha, até os anos 1980, uma procissão de carros de boi enfeitados.
+    Com o fim dos carros de boi na lavoura, a procissão passou a ser feita com tratores e caminhonetes enfeitados,
+    e os moradores mais velhos ensinam aos netos os cantos que acompanhavam os bois. (Texto do Instituto Lúcia.)
+  enunciado: "A mudança descrita mostra que as manifestações culturais"
+  alternativas:
+    - texto: "se transformam com as mudanças técnicas e econômicas, mantendo laços com a memória do grupo."
+      certa: true
+    - texto: "desaparecem sempre que uma nova tecnologia chega ao campo."
+      erro: "A festa não desapareceu: mudou e continuou. Desconfie de alternativas com 'sempre' que o texto desmente."
+    - texto: "só são autênticas quando ficam iguais ao que eram no passado."
+      erro: "Essa visão trata a cultura como peça de museu. O texto mostra uma tradição viva, que se adapta."
+    - texto: "dependem do reconhecimento oficial do Estado para existir."
+      erro: "O texto não fala de registro nem de tombamento. A festa existe porque o grupo a pratica."
+    - texto: "são impostas pela Igreja, sem participação dos moradores."
+      erro: "Os moradores enfeitam os veículos e ensinam os cantos. A participação do grupo está no centro do texto."
+  explicacao: "A troca do carro de boi pelo trator acompanha a mudança na lavoura, mas a festa e os cantos continuam, passados entre gerações. A cultura muda e permanece ao mesmo tempo."
+  fonte: "Questão original do Instituto Lúcia, no estilo da questão 58 do Enem 2023 (Inep)"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-ditadura-01
+  tema: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia"
+  area: humanas
+  habilidade: 15
+  objeto: hum-organizacao-social-ditadura
+  dificuldade: 1
+  enunciado: "Qual destes fatos marcou o endurecimento da ditadura civil-militar em dezembro de 1968?"
+  alternativas:
+    - texto: "A Lei da Anistia"
+      erro: "A Anistia é de 1979 e faz parte da abertura, não do endurecimento."
+    - texto: "A campanha Diretas Já"
+      erro: "A Diretas Já foi em 1984, já no fim da ditadura, e pedia eleição direta para presidente."
+    - texto: "A criação da Comissão Nacional da Verdade"
+      erro: "A Comissão foi criada por lei em 2011, na democracia, para investigar as violações da ditadura."
+    - texto: "A Constituição de 1988"
+      erro: "A Constituição de 1988 é o marco da redemocratização, vinte anos depois."
+    - texto: "O Ato Institucional nº 5"
+      certa: true
+  explicacao: "O AI-5, de 13 de dezembro de 1968, permitiu ao presidente pôr o Congresso em recesso e suspendeu o habeas corpus nos crimes políticos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-ditadura-02
+  tema: "Ditadura civil-militar: golpe, AI-5, repressão, resistência e anistia"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-ditadura
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    A Lei nº 6.683, de 28 de agosto de 1979, concedeu anistia a quem cometeu crimes políticos ou conexos com eles
+    entre 2 de setembro de 1961 e 15 de agosto de 1979. A lei permitiu a volta de exilados e a libertação de presos
+    políticos. Décadas depois, a Comissão Nacional da Verdade recomendou que a anistia não alcançasse agentes do Estado
+    acusados de tortura, morte e desaparecimento. (Texto do Instituto Lúcia, com base na Lei nº 6.683 e no relatório da
+    Comissão Nacional da Verdade, de 2014.)
+  enunciado: "O debate descrito no texto gira em torno de"
+  alternativas:
+    - texto: "uma lei que extinguiu os partidos políticos durante a ditadura."
+      erro: "A extinção dos partidos foi feita por ato institucional em 1965. O texto trata da anistia de 1979."
+    - texto: "uma lei da abertura política que, ao perdoar também agentes da repressão, deixou crimes graves sem julgamento."
+      certa: true
+    - texto: "uma lei que puniu os militares que participaram do golpe de 1964."
+      erro: "A lei não puniu ninguém: ela perdoou. O debate é justamente sobre quem ficou sem julgamento."
+    - texto: "uma lei que convocou eleições diretas para presidente em 1979."
+      erro: "A primeira eleição direta para presidente depois da ditadura foi em 1989. Não misture a anistia com as eleições."
+    - texto: "uma recomendação que pedia a revogação da Constituição de 1988."
+      erro: "A Comissão atuou dentro da Constituição de 1988. A recomendação era sobre o alcance da anistia."
+  explicacao: "A anistia foi conquista da luta pela volta dos exilados e pela libertação dos presos. Mas, como foi aplicada também aos agentes do Estado, torturadores não foram julgados. A Comissão Nacional da Verdade recomendou mudar esse entendimento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-vargas-01
+  tema: "Era Vargas"
+  area: humanas
+  habilidade: 21
+  objeto: hum-organizacao-social-era-vargas
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No Estado Novo, um órgão ligado diretamente ao presidente controlava jornais, rádios, cinema e teatro. Ele decidia o
+    que podia ser publicado, produzia programas de rádio e cartazes que apresentavam Getúlio Vargas como protetor dos
+    trabalhadores e organizava as grandes festas cívicas do 1º de maio. (Texto do Instituto Lúcia.)
+  enunciado: "A atuação desse órgão revela que, no Estado Novo, os meios de comunicação eram usados para"
+  alternativas:
+    - texto: "garantir a liberdade de imprensa e o debate entre partidos."
+      erro: "O órgão decidia o que podia ser publicado: isso é censura, o contrário da liberdade de imprensa."
+    - texto: "divulgar as denúncias da oposição contra o governo."
+      erro: "Com censura, a oposição não tinha espaço. A propaganda exaltava o presidente."
+    - texto: "preparar a volta da monarquia."
+      erro: "Nada no texto fala de monarquia. O Estado Novo era uma ditadura republicana."
+    - texto: "construir a imagem do governante e controlar a informação, combinando propaganda e censura."
+      certa: true
+    - texto: "promover as eleições diretas de 1938."
+      erro: "Não houve eleição presidencial no Estado Novo. O regime fechou o Congresso em 1937."
+  explicacao: "O texto descreve o Departamento de Imprensa e Propaganda (DIP), criado em 1939. Ele unia censura e propaganda para construir a imagem de Vargas como 'pai dos pobres'."
+  fonte: "Questão original do Instituto Lúcia, no estilo da questão 81 do Enem 2022 (Inep)"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-imperio-01
+  tema: "Primeiro Reinado, Regências e Segundo Reinado"
+  area: humanas
+  habilidade: 13
+  objeto: hum-organizacao-social-imperio
+  dificuldade: 2
+  enunciado: "A Lei do Ventre Livre, de 1871, declarou livres os filhos de mulheres escravizadas nascidos dali em diante. Por que ela é chamada de 'lei pela metade'?"
+  alternativas:
+    - texto: "Porque libertou só metade dos escravizados do Império."
+      erro: "A lei não libertou adultos. Ela tratava dos filhos que nasceriam depois dela."
+    - texto: "Porque o senhor podia usar o trabalho dessas crianças até os 21 anos, e as mães continuavam escravizadas."
+      certa: true
+    - texto: "Porque valia só no Rio de Janeiro."
+      erro: "A lei valia em todo o Império. O limite estava no conteúdo, não no território."
+    - texto: "Porque proibiu o tráfico só pela metade."
+      erro: "O fim do tráfico é da Lei Eusébio de Queirós, de 1850. Não confunda as leis da abolição."
+    - texto: "Porque foi revogada no ano seguinte."
+      erro: "A lei não foi revogada. A escravidão só acabou com a Lei Áurea, em 1888."
+  explicacao: "Pela Lei nº 2.040, o senhor criava a criança até os 8 anos e podia escolher entre uma indenização do Estado ou usar o trabalho dela até os 21. A mãe seguia escravizada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-mundo-atual-01
+  tema: "Conflitos contemporâneos e organismos internacionais"
+  area: humanas
+  habilidade: 7
+  objeto: hum-organizacao-social-mundo-atual
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Pela Carta das Nações Unidas, de 1945, o Conselho de Segurança tem cinco membros permanentes: Estados Unidos, Rússia,
+    China, Reino Unido e França. Para aprovar uma decisão importante, é preciso o voto favorável de nove membros, sem o
+    voto contrário de nenhum dos permanentes. (Texto do Instituto Lúcia, com base na Carta da ONU.)
+  enunciado: "Essa regra ajuda a explicar por que o Conselho de Segurança"
+  alternativas:
+    - texto: "decide todos os conflitos do mundo por maioria simples."
+      erro: "Não é maioria simples: um voto contrário de um permanente barra a decisão."
+    - texto: "foi extinto depois do fim da Guerra Fria."
+      erro: "O Conselho continua existindo. O texto descreve a regra atual."
+    - texto: "é formado só por países do hemisfério sul."
+      erro: "Os cinco permanentes são as potências vencedoras da Segunda Guerra, todas do hemisfério norte."
+    - texto: "proíbe que os membros permanentes participem de guerras."
+      erro: "Não há essa proibição. O ponto é o poder de veto, não uma regra de conduta."
+    - texto: "muitas vezes não consegue agir em conflitos que envolvem uma das grandes potências ou seus aliados."
+      certa: true
+  explicacao: "É o poder de veto. Quando um membro permanente está envolvido, pode barrar a decisão. Por isso, em casos como a Crimeia, em 2014, a reação veio pela Assembleia Geral, cujas resoluções não obrigam."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-imperio-02
+  tema: "Primeiro Reinado, Regências e Segundo Reinado"
+  area: humanas
+  habilidade: 1
+  objeto: hum-organizacao-social-imperio
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Texto I: Na década de 1880, caixeiros, tipógrafos e outros trabalhadores urbanos do Rio de Janeiro participaram de
+    comícios, jornais e associações abolicionistas.
+
+    Texto II: Escravizados fugiam em massa das fazendas paulistas nos anos 1880, muitas vezes ajudados por abolicionistas,
+    e se reuniam em quilombos perto das cidades. (Textos do Instituto Lúcia.)
+  enunciado: "Lidos juntos, os textos permitem concluir que a abolição da escravidão, em 1888, resultou"
+  alternativas:
+    - texto: "também da ação de trabalhadores urbanos, abolicionistas e dos próprios escravizados, e não só de um ato do governo."
+      certa: true
+    - texto: "apenas da vontade pessoal da princesa Isabel, sem pressão social."
+      erro: "Os dois textos mostram pressão social nas cidades e no campo. Essa é a leitura que a prova costuma desmontar."
+    - texto: "da pressão exclusiva dos fazendeiros de café, que queriam manter os escravizados."
+      erro: "Quem quer manter os escravizados não luta pela abolição. A alternativa se contradiz."
+    - texto: "da chegada de imigrantes, que exigiram a libertação como condição para vir ao Brasil."
+      erro: "Os textos não falam de imigrantes. Não traga para a questão um fato que a fonte não menciona."
+    - texto: "de uma revolta armada que derrubou a monarquia em 1888."
+      erro: "A monarquia caiu em 15 de novembro de 1889, e não por revolta armada popular. A abolição veio antes, por lei."
+  explicacao: "O Texto I mostra a ação dos trabalhadores urbanos; o Texto II, as fugas e os quilombos. A Lei Áurea coroou um processo de luta, e não foi um presente."
+  fonte: "Questão original do Instituto Lúcia, no estilo da questão 54 do Enem 2022 (Inep)"
+  revisao: { status: em-revisao }

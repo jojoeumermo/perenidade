@@ -1,44 +1,44 @@
-# Mapa curricular da trilha enem-reta-final (formato: docs/ENEM.md, seção 5). Tudo a-confirmar.
-# Formato: docs/ENEM.md, seção 5. Tudo a-confirmar.
+# Mapa curricular da trilha enem-reta-final: cada aula ligada às habilidades da Matriz do Enem e aos objetos e
+# tópicos de content/enem/matriz.yml. Formato: docs/ENEM.md, seção 5. Tudo a-confirmar até um educador conferir.
 fontes:
-  - "Matriz de Referência do Enem, Inep: https://download.inep.gov.br/download/enem/matriz_referencia.pdf"
+  - 'Matriz de Referência do Enem, Inep: https://download.inep.gov.br/download/enem/matriz_referencia.pdf'
 aulas:
   formulario-de-matematica:
     enem:
       - area: matematica
         competencia: 1
         habilidade: 3
-        resumo: "Resolver problemas com conhecimentos numéricos."
+        resumo: Resolver problemas com conhecimentos numéricos.
         situacao: a-confirmar
       - area: matematica
         competencia: 2
         habilidade: 8
-        resumo: "Resolver problemas de geometria de espaço e forma."
+        resumo: Resolver problemas de geometria de espaço e forma.
         situacao: a-confirmar
       - area: matematica
         competencia: 3
         habilidade: 11
-        resumo: "Usar escalas para ler representações do cotidiano."
+        resumo: Usar escalas para ler representações do cotidiano.
         situacao: a-confirmar
       - area: matematica
         competencia: 4
         habilidade: 16
-        resumo: "Resolver problemas com grandezas direta ou inversamente proporcionais."
+        resumo: Resolver problemas com grandezas direta ou inversamente proporcionais.
         situacao: a-confirmar
       - area: matematica
         competencia: 5
         habilidade: 21
-        resumo: "Resolver problemas cuja modelagem pede álgebra."
+        resumo: Resolver problemas cuja modelagem pede álgebra.
         situacao: a-confirmar
       - area: matematica
         competencia: 7
         habilidade: 27
-        resumo: "Calcular médias, moda, mediana ou dispersão de dados em tabelas de frequência ou gráficos."
+        resumo: Calcular médias, moda, mediana ou dispersão de dados em tabelas de frequência ou gráficos.
         situacao: a-confirmar
       - area: matematica
         competencia: 7
         habilidade: 28
-        resumo: "Resolver problemas de estatística e probabilidade."
+        resumo: Resolver problemas de estatística e probabilidade.
         situacao: a-confirmar
     objetos:
       - mat-numeros-porcentagem
@@ -69,32 +69,32 @@ aulas:
       - area: natureza
         competencia: 1
         habilidade: 1
-        resumo: "Reconhecer propriedades de ondas e oscilações e seus usos."
+        resumo: Reconhecer propriedades de ondas e oscilações e seus usos.
         situacao: a-confirmar
       - area: natureza
         competencia: 2
         habilidade: 5
-        resumo: "Dimensionar circuitos e aparelhos elétricos do dia a dia."
+        resumo: Dimensionar circuitos e aparelhos elétricos do dia a dia.
         situacao: a-confirmar
       - area: natureza
         competencia: 5
         habilidade: 17
-        resumo: "Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências."
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
         situacao: a-confirmar
       - area: natureza
         competencia: 6
         habilidade: 20
-        resumo: "Explicar causas ou efeitos do movimento de partículas, objetos ou corpos celestes."
+        resumo: Explicar causas ou efeitos do movimento de partículas, objetos ou corpos celestes.
         situacao: a-confirmar
       - area: natureza
         competencia: 6
         habilidade: 21
-        resumo: "Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos."
+        resumo: Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos.
         situacao: a-confirmar
       - area: natureza
         competencia: 6
         habilidade: 23
-        resumo: "Avaliar formas de gerar, usar ou transformar energia, com suas implicações."
+        resumo: Avaliar formas de gerar, usar ou transformar energia, com suas implicações.
         situacao: a-confirmar
     objetos:
       - nat-fis-movimento-cinematica
@@ -117,22 +117,22 @@ aulas:
       - area: natureza
         competencia: 5
         habilidade: 17
-        resumo: "Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências."
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
         situacao: a-confirmar
       - area: natureza
         competencia: 6
         habilidade: 21
-        resumo: "Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos."
+        resumo: Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos.
         situacao: a-confirmar
       - area: natureza
         competencia: 7
         habilidade: 24
-        resumo: "Usar a linguagem e a nomenclatura da química para descrever materiais e transformações."
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
         situacao: a-confirmar
       - area: natureza
         competencia: 7
         habilidade: 25
-        resumo: "Caracterizar materiais e substâncias: etapas, rendimentos e impactos de sua produção."
+        resumo: 'Caracterizar materiais e substâncias: etapas, rendimentos e impactos de sua produção.'
         situacao: a-confirmar
     objetos:
       - nat-qui-representacao-mol
@@ -141,3 +141,574 @@ aulas:
       - nat-qui-equilibrio-ph
       - nat-qui-transformacoes-gases
       - nat-qui-energia-termoquimica
+  matematica-o-essencial-numeros-e-proporcao:
+    enem:
+      - area: matematica
+        competencia: 1
+        habilidade: 2
+        resumo: Identificar padrões numéricos ou princípios de contagem.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 1
+        habilidade: 3
+        resumo: Resolver problemas com conhecimentos numéricos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 3
+        habilidade: 11
+        resumo: Usar escalas para ler representações do cotidiano.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 3
+        habilidade: 12
+        resumo: Resolver problemas com medidas de grandezas.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 4
+        habilidade: 16
+        resumo: Resolver problemas com grandezas direta ou inversamente proporcionais.
+        situacao: a-confirmar
+    objetos:
+      - mat-numeros-operacoes
+      - mat-numeros-contas-do-dia-a-dia
+      - mat-numeros-porcentagem
+      - mat-numeros-aumentos-e-descontos
+      - mat-geometria-escalas
+      - mat-geometria-unidades-de-medida
+      - mat-numeros-progressoes
+      - mat-numeros-razao-e-proporcao
+      - mat-numeros-grandezas-proporcionais
+      - mat-numeros-regra-de-tres
+  matematica-o-essencial-geometria-dados-e-funcoes:
+    enem:
+      - area: matematica
+        competencia: 2
+        habilidade: 8
+        resumo: Resolver problemas de geometria de espaço e forma.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 20
+        resumo: Interpretar gráficos cartesianos que relacionam grandezas.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 5
+        habilidade: 21
+        resumo: Resolver problemas cuja modelagem pede álgebra.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 6
+        habilidade: 24
+        resumo: Fazer inferências a partir de gráficos ou tabelas.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 6
+        habilidade: 25
+        resumo: Resolver problemas com dados de tabelas ou gráficos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 7
+        habilidade: 27
+        resumo: Calcular médias, moda, mediana ou dispersão de dados em tabelas de frequência ou gráficos.
+        situacao: a-confirmar
+      - area: matematica
+        competencia: 7
+        habilidade: 28
+        resumo: Resolver problemas de estatística e probabilidade.
+        situacao: a-confirmar
+    objetos:
+      - mat-estatistica-media-mediana-moda
+      - mat-estatistica-media-ponderada
+      - mat-estatistica-graficos
+      - mat-estatistica-tabelas
+      - mat-estatistica-probabilidade
+      - mat-estatistica-probabilidade-condicional
+      - mat-estatistica-eventos-independentes
+      - mat-geometria-areas
+      - mat-geometria-circunferencia
+      - mat-geometria-prismas-e-cilindros
+      - mat-algebra-funcoes-e-graficos
+      - mat-algebra-funcao-afim
+      - mat-algebra-funcao-quadratica
+      - mat-algebra-geometria-plano-cartesiano
+  natureza-o-essencial-fisica:
+    enem:
+      - area: natureza
+        competencia: 1
+        habilidade: 1
+        resumo: Reconhecer propriedades de ondas e oscilações e seus usos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 2
+        habilidade: 5
+        resumo: Dimensionar circuitos e aparelhos elétricos do dia a dia.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 20
+        resumo: Explicar causas ou efeitos do movimento de partículas, objetos ou corpos celestes.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 6
+        habilidade: 21
+        resumo: Usar leis da física ou da química para interpretar processos térmicos ou eletromagnéticos.
+        situacao: a-confirmar
+    objetos:
+      - nat-fis-movimento-leis-de-newton
+      - nat-fis-ondas-ondas-e-som
+      - nat-fis-calor-trocas-de-calor
+      - nat-fis-eletricidade-lei-de-ohm
+      - nat-fis-eletricidade-magnetismo
+      - nat-fis-movimento-queda-e-lancamentos
+      - nat-fis-ondas-espectro
+  natureza-o-essencial-quimica:
+    enem:
+      - area: natureza
+        competencia: 3
+        habilidade: 8
+        resumo: Identificar etapas na obtenção, transformação, uso ou reciclagem de recursos naturais e energéticos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 5
+        habilidade: 17
+        resumo: Relacionar informações em texto, gráfico, tabela, fórmula ou símbolo usadas nas ciências.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 5
+        habilidade: 19
+        resumo: Avaliar métodos das ciências que ajudam a diagnosticar ou resolver problemas sociais, econômicos ou ambientais.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 24
+        resumo: Usar a linguagem e a nomenclatura da química para descrever materiais e transformações.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 7
+        habilidade: 27
+        resumo: Avaliar propostas de intervenção no ambiente usando a química, pesando riscos e benefícios.
+        situacao: a-confirmar
+    objetos:
+      - nat-qui-agua-funcoes-inorganicas
+      - nat-qui-agua-solucoes
+      - nat-qui-agua-tratamento
+      - nat-qui-carbono-cadeias
+      - nat-qui-energia-eletroquimica
+      - nat-qui-equilibrio-le-chatelier
+      - nat-qui-sociedade-cotidiano
+  natureza-o-essencial-biologia:
+    enem:
+      - area: natureza
+        competencia: 1
+        habilidade: 4
+        resumo: Avaliar propostas de intervenção no ambiente, pensando na vida humana e na biodiversidade.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 3
+        habilidade: 11
+        resumo: Reconhecer benefícios, limites e questões éticas da biotecnologia.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 3
+        habilidade: 12
+        resumo: Avaliar impactos de atividades sociais ou econômicas no ambiente, com interesses em conflito.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 4
+        habilidade: 14
+        resumo: 'Identificar padrões nos processos vitais: equilíbrio interno, defesa, relação com o ambiente, sexualidade.'
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 4
+        habilidade: 15
+        resumo: Interpretar modelos e experimentos que explicam processos biológicos.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 8
+        habilidade: 28
+        resumo: Ligar adaptações dos organismos ao modo de vida e ao lugar onde vivem, em especial no Brasil.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 8
+        habilidade: 29
+        resumo: Interpretar experimentos e técnicas com seres vivos e suas consequências.
+        situacao: a-confirmar
+      - area: natureza
+        competencia: 8
+        habilidade: 30
+        resumo: Avaliar propostas individuais ou coletivas de cuidado com a saúde e com o ambiente.
+        situacao: a-confirmar
+    objetos:
+      - nat-bio-seres-vivos-corpo-humano
+      - nat-bio-celulas-metabolismo
+      - nat-bio-ecologia-impactos
+      - nat-bio-seres-vivos-plantas
+      - nat-bio-celulas-biotecnologia
+      - nat-bio-celulas-celula
+      - nat-bio-saude-doencas
+      - nat-bio-saude-vacinacao
+      - nat-bio-seres-vivos-animais
+  linguagens-o-essencial-leitura-e-lingua:
+    enem:
+      - area: linguagens
+        competencia: 2
+        habilidade: 5
+        resumo: Ligar palavras e expressões de um texto em língua estrangeira ao tema dele.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 2
+        habilidade: 7
+        resumo: Relacionar um texto em língua estrangeira às suas estruturas, à sua função e ao seu uso social.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 6
+        habilidade: 18
+        resumo: Identificar o que faz o tema de um texto avançar e como ele se organiza, em vários gêneros e tipos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 6
+        habilidade: 19
+        resumo: Analisar a função da linguagem que predomina num texto, em cada situação de comunicação.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 21
+        resumo: Reconhecer recursos verbais e não verbais usados para criar ou mudar comportamentos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 22
+        resumo: Relacionar opiniões, temas, assuntos e recursos linguísticos em textos diferentes.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 23
+        resumo: Inferir o objetivo de quem escreveu e o público a quem o texto se dirige, pelos argumentos usados.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 7
+        habilidade: 24
+        resumo: Reconhecer estratégias para convencer o público, como intimidação, sedução, comoção ou chantagem.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 8
+        habilidade: 25
+        resumo: Identificar as marcas das variedades linguísticas sociais, regionais e de registro.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 8
+        habilidade: 26
+        resumo: Relacionar cada variedade linguística à situação de uso em que ela aparece.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 9
+        habilidade: 28
+        resumo: Reconhecer a função e o impacto social das tecnologias da comunicação e da informação.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 9
+        habilidade: 30
+        resumo: Relacionar as tecnologias da comunicação ao desenvolvimento das sociedades e ao conhecimento que elas produzem.
+        situacao: a-confirmar
+    objetos:
+      - lin-texto-estrategias-de-leitura
+      - lin-texto-funcoes-da-linguagem
+      - lin-texto-generos-jornalisticos
+      - lin-texto-generos-opinativos
+      - lin-texto-cronica-e-conto
+      - lin-texto-generos-do-cotidiano
+      - lin-lem-espanhol-estrategias
+      - lin-lem-espanhol-generos
+      - lin-lem-ingles-estrategias
+      - lin-lingua-portuguesa-variacao
+      - lin-lingua-portuguesa-preconceito-linguistico
+      - lin-lingua-portuguesa-portugues-no-brasil
+      - lin-generos-digitais-hipertexto
+      - lin-generos-digitais-algoritmos
+      - lin-generos-digitais-desinformacao
+      - lin-argumentacao-tema-tese-argumento
+      - lin-argumentacao-estrategias
+      - lin-argumentacao-publicidade
+      - lin-recursos-expressivos-coesao-e-coerencia
+      - lin-recursos-expressivos-figuras
+      - lin-recursos-expressivos-semantica
+  linguagens-o-essencial-literatura-artes-e-corpo:
+    enem:
+      - area: linguagens
+        competencia: 3
+        habilidade: 9
+        resumo: Reconhecer que as práticas corporais nascem de necessidades do dia a dia de cada grupo social.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 3
+        habilidade: 10
+        resumo: Reconhecer quando é preciso mudar hábitos corporais por causa das necessidades do corpo em movimento.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 3
+        habilidade: 11
+        resumo: Reconhecer o corpo como meio de convivência, respeitando limites e adaptações para cada pessoa.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 4
+        habilidade: 12
+        resumo: Reconhecer as funções da arte e o trabalho dos artistas no meio em que vivem.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 4
+        habilidade: 13
+        resumo: Analisar obras de arte como forma de explicar culturas, padrões de beleza e preconceitos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 4
+        habilidade: 14
+        resumo: Valorizar a diversidade artística e as trocas entre as manifestações de diferentes grupos sociais e étnicos.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 15
+        resumo: Relacionar o texto literário ao momento histórico, social e político em que foi escrito.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 16
+        resumo: Relacionar a concepção artística de um autor ou movimento ao modo como o texto literário é construído.
+        situacao: a-confirmar
+      - area: linguagens
+        competencia: 5
+        habilidade: 17
+        resumo: Reconhecer na literatura brasileira valores sociais e humanos que continuam atuais.
+        situacao: a-confirmar
+    objetos:
+      - lin-literatura-texto-literario
+      - lin-literatura-arcadismo
+      - lin-literatura-romantismo
+      - lin-literatura-realismo-naturalismo
+      - lin-literatura-pre-modernismo
+      - lin-literatura-semana-de-22
+      - lin-literatura-primeira-geracao-modernista
+      - lin-literatura-geracao-de-30
+      - lin-literatura-geracao-de-45
+      - lin-literatura-contemporanea
+      - lin-literatura-afro-brasileira
+      - lin-literatura-marginal-e-periferica
+      - lin-artes-arte-como-linguagem
+      - lin-artes-modernismo
+      - lin-artes-contemporanea-e-urbana
+      - lin-artes-musica-brasileira
+      - lin-artes-cultura-popular
+      - lin-praticas-corporais-sociedade
+      - lin-praticas-corporais-saude-e-beleza
+      - lin-praticas-corporais-esporte-midia
+  humanas-o-essencial-historia:
+    enem:
+      - area: humanas
+        competencia: 1
+        habilidade: 1
+        resumo: Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 1
+        habilidade: 3
+        resumo: Ligar manifestações culturais de hoje aos seus processos históricos.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 1
+        habilidade: 5
+        resumo: Identificar manifestações da diversidade do patrimônio cultural e artístico.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 2
+        habilidade: 7
+        resumo: Identificar o sentido histórico e geográfico das relações de poder entre nações.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 2
+        habilidade: 8
+        resumo: Analisar a ação dos Estados sobre migrações e problemas econômicos e sociais.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 13
+        resumo: Analisar a ação de movimentos sociais em mudanças ou rupturas nas disputas pelo poder.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 15
+        resumo: Avaliar criticamente conflitos culturais, sociais, políticos, econômicos ou ambientais na história.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 21
+        resumo: Identificar o papel dos meios de comunicação na vida social.
+        situacao: a-confirmar
+    objetos:
+      - hum-cultura-patrimonio
+      - hum-organizacao-social-ditadura
+      - hum-organizacao-social-era-vargas
+      - hum-organizacao-social-imperio
+      - hum-organizacao-social-mundo-atual
+  humanas-o-essencial-geografia:
+    enem:
+      - area: humanas
+        competencia: 2
+        habilidade: 6
+        resumo: Interpretar mapas, gráficos e outras representações do espaço.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 2
+        habilidade: 7
+        resumo: Identificar o sentido histórico e geográfico das relações de poder entre nações.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 2
+        habilidade: 8
+        resumo: Analisar a ação dos Estados sobre migrações e problemas econômicos e sociais.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 2
+        habilidade: 9
+        resumo: Comparar organizações políticas e econômicas em escala local, regional ou mundial.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 4
+        habilidade: 17
+        resumo: Analisar o impacto das novas tecnologias na localização da produção.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 4
+        habilidade: 18
+        resumo: Analisar formas de produzir e fazer circular riquezas e suas consequências no espaço e na sociedade.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 4
+        habilidade: 19
+        resumo: Reconhecer as mudanças técnicas que definem o uso dos espaços rural e urbano.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 26
+        resumo: Identificar, em fontes diversas, como o espaço foi ocupado e a relação das pessoas com a paisagem.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 27
+        resumo: Analisar criticamente as relações entre sociedade e meio físico, pela história e pela geografia.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 28
+        resumo: Relacionar o uso de tecnologias aos impactos sociais e ambientais.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 29
+        resumo: Reconhecer o papel dos recursos naturais na produção do espaço e as mudanças causadas pela ação humana.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 30
+        resumo: Avaliar a relação entre preservação e destruição da vida no planeta, em várias escalas.
+        situacao: a-confirmar
+    objetos:
+      - hum-ambiente-questoes-ambientais
+      - hum-producao-espaco-agrario
+      - hum-ambiente-relevo
+      - hum-organizacao-social-geopolitica
+      - hum-ambiente-clima
+      - hum-ambiente-hidrografia
+      - hum-organizacao-social-migracoes
+      - hum-organizacao-social-urbanizacao
+      - hum-producao-globalizacao
+  humanas-o-essencial-filosofia-e-sociologia:
+    enem:
+      - area: humanas
+        competencia: 1
+        habilidade: 1
+        resumo: Interpretar, pela história ou pela geografia, fontes sobre aspectos da cultura.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 1
+        habilidade: 3
+        resumo: Ligar manifestações culturais de hoje aos seus processos históricos.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 1
+        habilidade: 4
+        resumo: Comparar pontos de vista de fontes diferentes sobre um aspecto da cultura.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 2
+        habilidade: 10
+        resumo: Reconhecer como os movimentos sociais se organizam e o papel da ação coletiva na mudança da realidade.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 11
+        resumo: Identificar registros das práticas de grupos sociais no tempo e no espaço.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 12
+        resumo: Analisar o papel da justiça como instituição na organização das sociedades.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 3
+        habilidade: 14
+        resumo: Comparar interpretações diferentes sobre fatos ligados às instituições sociais, políticas e econômicas.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 4
+        habilidade: 16
+        resumo: Identificar o papel das técnicas e tecnologias na organização do trabalho e da vida social.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 4
+        habilidade: 20
+        resumo: Escolher argumentos a favor ou contra as mudanças que as novas tecnologias impõem à vida e ao trabalho.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 22
+        resumo: Analisar lutas sociais e as conquistas que mudaram leis ou políticas públicas.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 23
+        resumo: Analisar a importância dos valores éticos na organização política das sociedades.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 24
+        resumo: Relacionar cidadania e democracia na organização das sociedades.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 5
+        habilidade: 25
+        resumo: Identificar estratégias de inclusão social.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 26
+        resumo: Identificar, em fontes diversas, como o espaço foi ocupado e a relação das pessoas com a paisagem.
+        situacao: a-confirmar
+      - area: humanas
+        competencia: 6
+        habilidade: 29
+        resumo: Reconhecer o papel dos recursos naturais na produção do espaço e as mudanças causadas pela ação humana.
+        situacao: a-confirmar
+    objetos:
+      - hum-organizacao-social-genero
+      - hum-organizacao-social-filosofia-antiga
+      - hum-organizacao-social-filosofia-contemporanea
+      - hum-organizacao-social-desigualdade
+      - hum-producao-trabalho
+      - hum-ambiente-sociedade-e-natureza
+      - hum-cultura-religiao
+      - hum-organizacao-social-etica
+      - hum-organizacao-social-racismo

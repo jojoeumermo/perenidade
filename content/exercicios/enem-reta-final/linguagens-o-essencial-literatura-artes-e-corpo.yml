@@ -1,0 +1,205 @@
+# Exercícios da aula "Linguagens, o essencial: literatura, artes e práticas corporais" (trilha enem-reta-final).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia (nenhum trecho de obra protegida).
+
+- id: enem-rf-lin-literatura-01
+  tema: "Literatura afro-brasileira"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-afro-brasileira
+  dificuldade: 1
+  enunciado: "\"Quarto de despejo\" (1960), de Carolina Maria de Jesus, nasceu de cadernos em que a autora registrava o dia a dia na favela do Canindé, em São Paulo. Que gênero dá forma ao livro e que relação ele tem com o seu tempo?"
+  alternativas:
+    - texto: "Um romance de aventuras, que inventa uma favela imaginária para divertir o leitor."
+      erro: "O livro não é ficção de aventura: são registros do cotidiano real da autora. Pense em como ele foi escrito, em cadernos, dia após dia."
+    - texto: "Um diário, que expõe a fome e a exclusão nas cidades que cresciam nos anos 1950."
+      certa: true
+    - texto: "Um soneto parnasiano, que busca a forma perfeita e evita temas sociais."
+      erro: "O livro é em prosa e é todo sobre a vida social. O Parnasianismo é de outro tempo e de outro projeto."
+    - texto: "Uma reportagem escrita por um jornalista que visitou a favela."
+      erro: "Quem escreve é a própria moradora, em primeira pessoa. Um jornalista, Audálio Dantas, ajudou a publicar, mas não é o autor."
+  explicacao: "É um diário: registros datados do cotidiano, em primeira pessoa. Ele mostra, de dentro, a fome e a exclusão nas periferias da São Paulo que se industrializava."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-literatura-02
+  tema: "Realismo e Naturalismo"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-realismo-naturalismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O comendador era homem de grande coração: doou um sino novo à igreja, com o seu nome gravado em letras de ouro,
+    bem grandes, para que Deus não tivesse dificuldade em ler. Aos empregados da fazenda, que pediam um aumento,
+    deu algo ainda mais precioso: um sermão sobre a virtude da paciência.
+    (Texto original do Instituto Lúcia, escrito à maneira da prosa realista do século 19.)
+  enunciado: "O efeito crítico do trecho se constrói principalmente pelo(a)"
+  alternativas:
+    - texto: "idealização do comendador como herói nacional, típica do Romantismo."
+      erro: "O texto parece elogiar, mas o elogio desmonta o comendador. Não há herói: há vaidade e avareza. Repare no que ele dá e no que ele nega."
+    - texto: "descrição objetiva da fazenda, sem nenhum juízo do narrador."
+      erro: "O narrador julga o tempo todo, mas de forma disfarçada. \"Para que Deus não tivesse dificuldade em ler\" é um comentário, não uma descrição neutra."
+    - texto: "linguagem visual, que distribui as palavras no espaço da página."
+      erro: "Isso é marca da poesia concreta. O trecho é prosa comum, em linhas corridas."
+    - texto: "ironia do narrador, que finge elogiar para revelar a vaidade e a mesquinhez do personagem."
+      certa: true
+    - texto: "exaltação da vida simples no campo, como na poesia árcade."
+      erro: "A fazenda aparece como lugar de exploração, não de vida simples e feliz. A alternativa descreve o Arcadismo."
+  explicacao: "O narrador diz \"grande coração\", mas mostra o contrário: a doação serve à vaidade (o nome em ouro) e o aumento vira sermão. Dizer uma coisa para mostrar outra é ironia, marca forte da prosa realista, sobretudo em Machado de Assis."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-literatura-03
+  tema: "Romance de 30 e poesia de 30"
+  area: linguagens
+  habilidade: 15
+  objeto: lin-literatura-geracao-de-30
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    O açude secou em setembro. Em outubro, morreu a última cabra. Zé Bento olhou os filhos, olhou a estrada e não disse
+    nada. De madrugada, amarrou a rede nas costas. O dono da terra mandou dizer que a dívida ficava anotada.
+    (Texto original do Instituto Lúcia, escrito à maneira do romance regionalista dos anos 1930.)
+  enunciado: "O trecho se aproxima do romance brasileiro dos anos 1930 porque"
+  alternativas:
+    - texto: "denuncia a seca, a migração forçada e a dependência do trabalhador em relação ao dono da terra."
+      certa: true
+    - texto: "idealiza o sertanejo como herói forte, que vence a natureza com coragem."
+      erro: "Zé Bento não vence nada: ele parte em silêncio. A idealização do homem do campo é mais romântica que de 30."
+    - texto: "valoriza a forma fixa e o vocabulário raro, como no Parnasianismo."
+      erro: "As frases são curtas e simples, de propósito. Não há forma fixa nem vocabulário raro."
+    - texto: "mergulha no fluxo de pensamento do personagem, sem relação com o mundo social."
+      erro: "O trecho quase não mostra pensamentos e está todo ligado ao mundo social: seca, dívida, dono da terra."
+    - texto: "trata o sertão como lugar de descanso e lazer das elites urbanas."
+      erro: "O sertão aparece como lugar de fome e de partida. Nada fala de lazer."
+  explicacao: "Seca, perda dos bens, partida e a dívida com o dono da terra: o trecho reúne os temas do romance de 30, que denunciou a miséria e as relações de poder no campo, com linguagem enxuta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-artes-01
+  tema: "Arte contemporânea e arte urbana"
+  area: linguagens
+  habilidade: 12
+  objeto: lin-artes-contemporanea-e-urbana
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num muro de escola, um coletivo de grafiteiros pintou, com autorização da direção, o rosto de uma merendeira que
+    trabalhou ali por trinta anos. A pintura foi feita durante uma semana, com os alunos ajudando a escolher as cores.
+    Ao lado, a frase: "Quem alimenta também educa".
+    (Situação fictícia, descrita pelo Instituto Lúcia.)
+  enunciado: "Nessa situação, a obra de arte urbana cumpre a função de"
+  alternativas:
+    - texto: "decorar o muro, sem ligação com a comunidade da escola."
+      erro: "A obra homenageia alguém da própria escola e foi feita com os alunos. A ligação com a comunidade é o centro dela."
+    - texto: "praticar um ato ilegal de pichação contra o patrimônio público."
+      erro: "Houve autorização da direção. Pela Lei nº 12.408/2011, o grafite consentido, com caráter artístico, não é crime."
+    - texto: "substituir as aulas de arte por uma atividade de lazer."
+      erro: "Nada indica que as aulas foram substituídas. A obra até envolveu os alunos num processo artístico."
+    - texto: "vender a imagem da escola para patrocinadores."
+      erro: "Não há patrocínio nem venda na situação. É extrapolação."
+    - texto: "dar visibilidade a uma trabalhadora pouco reconhecida, em diálogo com a comunidade."
+      certa: true
+  explicacao: "A obra põe no muro uma trabalhadora que quase nunca aparece e afirma o valor do seu trabalho. Feita com a comunidade, ela mostra uma função social da arte (H12)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-artes-02
+  tema: "Música brasileira e as culturas que a criaram"
+  area: linguagens
+  habilidade: 14
+  objeto: lin-artes-musica-brasileira
+  dificuldade: 1
+  enunciado: "A Tropicália, no fim dos anos 1960, misturou guitarra elétrica e cultura pop com ritmos e tradições brasileiras. Essa mistura retoma a ideia modernista da:"
+  alternativas:
+    - texto: "pureza nacional, que recusa tudo o que vem de fora."
+      erro: "A Tropicália fez o contrário: abraçou a guitarra e o pop. Recusar o estrangeiro foi a crítica que ela recebeu de alguns, não a proposta dela."
+    - texto: "arte pela arte, sem nenhuma relação com a sociedade."
+      erro: "A Tropicália discutiu o Brasil do seu tempo. \"Arte pela arte\" lembra o Parnasianismo."
+    - texto: "antropofagia, que propunha devorar as influências de fora e recriá-las a partir da cultura brasileira."
+      certa: true
+    - texto: "volta ao Barroco, com temas religiosos e contraste entre luz e sombra."
+      erro: "A Tropicália não retoma o Barroco. A ideia que ela retoma vem dos modernistas de 1928."
+  explicacao: "O Manifesto Antropófago, de Oswald de Andrade (1928), propunha \"devorar\" a cultura estrangeira para criar algo brasileiro. A Tropicália aplicou essa ideia à música popular."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-corpo-01
+  tema: "Práticas corporais, cultura e sociedade"
+  area: linguagens
+  habilidade: 11
+  objeto: lin-praticas-corporais-sociedade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No campinho da rua, a turma mudou as regras do futebol: o gol de quem usa cadeira de rodas vale dois, a bola é
+    maior e mais leve, e cada time tem de ter meninas e meninos. Seu Antônio, de 70 anos, virou o juiz oficial.
+    (Situação fictícia, descrita pelo Instituto Lúcia.)
+  enunciado: "As mudanças nas regras do jogo mostram que as práticas corporais podem"
+  alternativas:
+    - texto: "ser praticadas só por quem tem alto rendimento físico."
+      erro: "É o contrário: as regras foram mudadas justamente para quem não joga do jeito tradicional poder entrar."
+    - texto: "ser adaptadas para incluir pessoas diferentes e favorecer a convivência."
+      certa: true
+    - texto: "perder o valor quando fogem das regras oficiais das federações."
+      erro: "O jogo do campinho não perdeu valor: ganhou gente. Regra oficial serve à competição; aqui, o objetivo é jogar junto."
+    - texto: "afastar as pessoas mais velhas da comunidade."
+      erro: "Seu Antônio, de 70 anos, ganhou um papel no jogo. A situação aproxima as gerações."
+    - texto: "ser praticadas apenas em clubes e escolas de esporte."
+      erro: "O jogo acontece na rua, no campinho. A prática corporal é da comunidade, não só do clube."
+  explicacao: "Mudar a regra para que pessoas com deficiência, meninas e idosos participem mostra o corpo como meio de convivência, com adaptações para cada pessoa (H11)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-corpo-02
+  tema: "Corpo, saúde e padrões de beleza"
+  area: linguagens
+  habilidade: 10
+  objeto: lin-praticas-corporais-saude-e-beleza
+  dificuldade: 3
+  enunciado: "Uma propaganda de academia diz: \"Corpo de verão em 30 dias. Sem desculpas.\" e mostra só corpos muito magros e musculosos. Qual leitura crítica a prova de Linguagens costuma esperar?"
+  alternativas:
+    - texto: "A propaganda está certa, porque todo corpo saudável tem a mesma aparência."
+      erro: "Corpos saudáveis têm formas muito diferentes. Saúde se mede por hábitos e condições do corpo, não por aparência."
+    - texto: "A propaganda é neutra, porque só informa o serviço da academia."
+      erro: "\"Sem desculpas\" culpa quem não alcança o padrão, e as imagens mostram um único tipo de corpo. Isso não é neutro."
+    - texto: "Atividade física faz mal, por isso a propaganda deve ser ignorada."
+      erro: "O problema não é a atividade física, que faz bem. A OMS recomenda movimento regular. O problema é vender um padrão de beleza como meta."
+    - texto: "Ela vende um padrão de beleza como se fosse saúde e culpa quem não o atinge num prazo irreal."
+      certa: true
+    - texto: "Ela incentiva a convivência, porque mostra várias pessoas juntas."
+      erro: "Estar junto na imagem não é o tema. A propaganda fala de aparência individual e de prazo."
+  explicacao: "Prazo curto, um único tipo de corpo e \"sem desculpas\" confundem saúde com aparência e põem a culpa em quem não chega lá. A prova costuma pedir essa leitura crítica. Saúde envolve hábitos, descanso, alimentação e movimento possível na vida de cada um."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-literatura-04
+  tema: "Poesia concreta e produção contemporânea"
+  area: linguagens
+  habilidade: 16
+  objeto: lin-literatura-contemporanea
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    chão
+    chão de terra
+    chão de barro
+    chão de casa
+    chão de luta
+    chão
+    (Poema original do Instituto Lúcia.)
+  enunciado: "No poema, a repetição da palavra \"chão\", que abre e fecha o texto, produz o efeito de"
+  alternativas:
+    - texto: "ampliar o sentido da palavra, que passa do solo físico à moradia e à resistência, e voltar a ela transformada."
+      certa: true
+    - texto: "mostrar falta de vocabulário, já que o poema poderia usar sinônimos."
+      erro: "A repetição é escolha, não falta. Na poesia, repetir pode mudar o sentido a cada volta. Pergunte o que muda de um verso para o outro."
+    - texto: "descrever com precisão técnica os tipos de solo de uma região."
+      erro: "\"Chão de luta\" não é tipo de solo. O poema usa a palavra também em sentido figurado."
+    - texto: "contar uma história com começo, meio e fim, com personagens e diálogo."
+      erro: "Não há personagens nem diálogo. O poema se constrói pela variação de uma palavra, não por um enredo."
+    - texto: "seguir a forma fixa do soneto, com catorze versos rimados."
+      erro: "O poema tem seis versos curtos e sem rima. Conte os versos."
+  explicacao: "Cada verso junta um complemento a \"chão\": terra, barro, casa, luta. A palavra vai do concreto (o solo) ao social (a casa, a luta). Quando volta sozinha no fim, já carrega todos esses sentidos. É um recurso da poesia que trabalha a forma, como a concreta e muitas produções contemporâneas."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
