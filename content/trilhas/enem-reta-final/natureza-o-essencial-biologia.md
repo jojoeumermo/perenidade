@@ -108,7 +108,7 @@ Ao fim desta aula você vai ter revisado, na ordem do que mais caiu, os nove tó
 
 ## Por que estes nove
 
-Nas provas de 2022 e 2023, classificadas pelo instituto, entraram 89 questões de Ciências da Natureza. A biologia foi a parte que mais apareceu: moléculas, células e tecidos (10 questões) é o assunto mais frequente de toda a área, e identidade dos seres vivos (9) empata com ondas, da física, logo atrás. Vêm em seguida de ecologia (5) e saúde (4). Descendo ao tópico, sistemas do corpo humano teve 4 questões; respiração e fotossíntese, impactos ambientais e plantas tiveram 3 cada; e cinco tópicos tiveram 2.
+Nas provas de 2022 e 2023, classificadas pelo instituto, entraram 89 questões de Ciências da Natureza. A biologia foi a parte que mais apareceu: moléculas, células e tecidos (10 questões) é o assunto mais frequente de toda a área, e identidade dos seres vivos (9) empata com ondas, da física, logo atrás. Vêm em seguida ecologia (5) e saúde (4). Descendo ao tópico, sistemas do corpo humano teve 4 questões; respiração e fotossíntese, impactos ambientais e plantas tiveram 3 cada; e cinco tópicos tiveram 2.
 
 São só duas provas, e a contagem é nossa. Ela mostra por onde começar, não o que vai cair em {{enem:aplicacao-dia-2}}.
 

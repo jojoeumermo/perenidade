@@ -40,6 +40,13 @@ Matemática 10–14, Linguagens 20–26, Natureza 30–32, Humanas 40–44, `ene
 As páginas e funções novas do curso ficam atrás da chave `enem-curso` (`lib/recursos.ts`, `docs/RECURSOS.md`). As aulas e os
 exercícios seguem o caminho normal do repositório (aparecem como qualquer aula).
 
+Páginas (todas em `app/[lang]/enem`): `/enem` (porta), `/enem/diagnostico`, `/enem/plano`, `/enem/praticar`,
+`/enem/provas` e `/enem/provas/<ano>/<dia>`, `/enem/simulados`, `/enem/redacao` (oficina), `/enem/laboratorio-tri`,
+`/enem/sisu`, `/enem/dia-da-prova` e o arquivo `/enem/oficiais/<ano>` (a camada das provas, em JSON). Componentes em
+`components/enem`; o que fica no aparelho, em `lib/enem-aparelho.ts` (chave `lucia:enem`); o plano em `lib/enem-plano.ts`;
+a TRI em `lib/enem-tri.ts`; o Sisu em `lib/enem-sisu.ts`. O diagnóstico e os minissimulados são listas de questões
+oficiais classificadas em `content/enem/simulados/` (`validarSimulados`).
+
 ## 2. A fonte da verdade: content/enem/
 
 ### matriz.yml
