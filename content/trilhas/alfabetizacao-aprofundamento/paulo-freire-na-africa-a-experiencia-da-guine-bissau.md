@@ -1,6 +1,6 @@
 ---
 titulo: "Paulo Freire na África: a experiência da Guiné-Bissau"
-resumo: "O trabalho de Paulo Freire com o governo da Guiné-Bissau recém-independente, entre 1975 e 1976, as Cartas à Guiné-Bissau e o grande problema da experiência: alfabetizar em português, uma língua que a maioria do povo não falava."
+resumo: "O trabalho de Paulo Freire com o governo da Guiné-Bissau recém-independente, a partir de 1975, as Cartas à Guiné-Bissau e o grande problema da experiência: alfabetizar em português, uma língua que a maioria do povo não falava."
 autores: ["Instituto Lúcia"]
 fontes:
   - titulo: "Cartas à Guiné-Bissau: registros de uma experiência em processo"
@@ -53,7 +53,7 @@ O país saía da guerra com a maioria da população sem escola. Ali convivem mu
 
 ## O trabalho de Freire
 
-Em 1975, o governo da Guiné-Bissau convidou Freire e a equipe do **IDAC** (Instituto de Ação Cultural), de Genebra, para apoiar a alfabetização de adultos. Freire visitou o país várias vezes entre 1975 e 1976.
+Em 1975, o governo da Guiné-Bissau convidou Freire e a equipe do **IDAC** (Instituto de Ação Cultural), de Genebra, para apoiar a alfabetização de adultos. Freire visitou o país várias vezes a partir de então; as cartas publicadas cobrem os anos de 1975 e 1976.
 
 A proposta seguia as ideias dele:
 
