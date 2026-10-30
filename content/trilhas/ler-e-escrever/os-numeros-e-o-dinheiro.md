@@ -35,9 +35,14 @@ quiz:
     opcoes: ["R$ 3,50", "R$ 4,50", "R$ 3,00"]
     resposta: 0
     explicacao: "De 6,50 até 7 faltam 0,50. De 7 até 10 faltam 3. Somando: 3,50."
+ferramentas: [contas-do-dia-a-dia, calculadora]
 ---
 
 Quem nunca foi à escola faz conta todo dia: na feira, no ônibus, no fim do mês. Muita gente que não lê palavras lê números muito bem. Nesta aula, a gente junta as duas coisas: o número escrito com algarismos e o número escrito com letras, e tudo isso no dinheiro.
+
+## O que você vai aprender
+
+Ao fim desta aula você vai ler e escrever números com os dez algarismos e entender por que a posição muda o valor. Vai reconhecer as notas e as moedas do real, ler preços com vírgula e conferir o troco contando do preço até o valor pago.
 
 ## Os dez algarismos
 
@@ -185,6 +190,44 @@ Outro exemplo: compra de **R$ 13,20**, paga com **R$ 20**.
 
 Esse é o jeito de "completar", que muita gente já faz de cabeça. Para ver as contas no papel, passo a passo, veja a aula [As quatro operações](/trilhas/matematica-fundamental/as-quatro-operacoes).
 
+## Exemplo resolvido
+
+**Uma compra no mercadinho deu R$ 23,60. Você pagou com uma nota de R$ 50. Quanto deve voltar de troco?**
+
+Vamos fazer do jeito de quem trabalha no caixa: contar do preço até o valor pago.
+
+1. De **23,60** até **24** faltam **0,40** (quarenta centavos).
+2. De **24** até **30** faltam **6**.
+3. De **30** até **50** faltam **20**.
+4. Some o que faltou: 0,40 + 6 + 20 = **R$ 26,40**.
+
+Confira ao contrário: o preço mais o troco tem de dar o que você pagou. 23,60 + 26,40 = 50,00. Bateu.
+
+Como o troco pode chegar: uma nota de 20, uma de 5, uma moeda de 1 real, uma de 25 centavos, uma de 10 centavos e uma de 5 centavos. Some para conferir: 20 + 5 + 1 + 0,25 + 0,10 + 0,05 = 26,40.
+
+## Ouça os preços
+
+```pronuncia
+lingua: pt-BR
+três reais e cinquenta centavos | R$ 3,50
+setenta e cinco centavos | R$ 0,75
+doze reais e noventa centavos | R$ 12,90
+mil duzentos e cinquenta reais | R$ 1.250,00
+```
+
+## Número e palavra
+
+Vire duas cartas por vez e junte o número com o jeito de escrever por extenso.
+
+```memoria
+15 = QUINZE
+40 = QUARENTA
+99 = NOVENTA E NOVE
+110 = CENTO E DEZ
+300 = TREZENTOS
+500 = QUINHENTOS
+```
+
 ## Para praticar
 
 1. Escreva com letras: 8, 15, 40, 99, 300.
@@ -195,8 +238,16 @@ Esse é o jeito de "completar", que muita gente já faz de cabeça. Para ver as 
 
 **Respostas:** 1) OITO, QUINZE, QUARENTA, NOVENTA E NOVE, TREZENTOS. 2) 22, 110, 500. 3) quatro reais e vinte e cinco centavos; dezenove reais e noventa centavos; cento e cinquenta reais. 4) Oito moedas. 5) R$ 4,70.
 
+## Resumo
+
+- Com os dez algarismos, de 0 a 9, se escreve qualquer número. **A posição muda o valor**: em 25, o 2 vale vinte; em 52, vale dois.
+- **Cem centavos fazem um real.**
+- No preço, a **vírgula** separa reais de centavos; o **ponto** só separa o milhar.
+- Na dúvida sobre uma nota, **olhe o número**, não só o tamanho ou a cor.
+- Para conferir o troco, conte do preço até o valor pago e depois some: preço + troco = valor pago.
+
 ## Para pensar
 
 Pegue um papel de mercado, um panfleto ou um cupom fiscal. Leia três preços em voz alta. Depois, pense: quantos dias de trabalho custa a sua compra do mês? Os números servem para fazer conta, e também para entender a vida.
 
-Na próxima aula, você vai juntar letras e números num papel muito comum: o formulário.
+Na próxima aula, você vai escrever no papel as contas que já faz de cabeça: [Somar e tirar](/trilhas/ler-e-escrever/somar-e-tirar-as-primeiras-contas).

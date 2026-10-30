@@ -77,6 +77,8 @@ jobs:
       # A cobertura contra a Matriz e a fila de revisão (só refazem os relatórios; falham se algum arquivo estiver errado).
       - run: npm run cobertura:enem
       - run: npm run fila:enem
+      # O jogo Rumos: os baralhos passam no validador, o motor faz o que promete e todas as cartas e desfechos são alcançáveis.
+      - run: npm run testar:jogos
       # O que os recursos novos guardam no aparelho (Meu estudo, revisão dos erros, turma, metas) e a leitura das flags.
       - run: npm run testar:meu-estudo
       # O histórico de revisões das aulas (campo "revisoes") e os arquivos de exercícios com o formato certo.

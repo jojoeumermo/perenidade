@@ -1,0 +1,70 @@
+# Exercícios da aula "Ler placas, ônibus e contas" (Ler e escrever). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-placas-01
+  tema: "Palavras da rua"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Na porta está escrito EMPURRE. O que fazer?"
+  alternativas:
+    - texto: "Puxar a porta para você"
+      erro: "Puxar é o que pede a placa PUXE, que começa com PU. EMPURRE começa com EM: empurre a porta para a frente."
+    - texto: "Empurrar a porta para a frente"
+      certa: true
+    - texto: "Esperar a porta abrir sozinha"
+      erro: "A placa pede uma ação: EMPURRE. Basta a primeira sílaba, EM, para não confundir com PUXE."
+  explicacao: "EMPURRE: empurre a porta para a frente. PUXE é o contrário. A primeira sílaba já resolve: PU ou EM."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-placas-02
+  tema: "Abreviações"
+  dificuldade: 2
+  enunciado: "No letreiro do ônibus está escrito JD. ESPERANÇA. O que quer dizer JD.?"
+  alternativas:
+    - texto: "JARDIM"
+      certa: true
+    - texto: "JUNTO DE"
+      erro: "Boa tentativa de adivinhar pelas letras, mas JD. é a abreviação de JARDIM, muito usada em nome de bairro."
+    - texto: "JULHO DE"
+      erro: "Abreviação de mês costuma aparecer em data, não em letreiro. No ônibus, JD. é JARDIM, nome de bairro."
+  explicacao: "JD. = JARDIM. Outras do letreiro: AV. (avenida), R. (rua), VL. (vila), TERM. (terminal)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-placas-03
+  tema: "Consumo na conta de luz"
+  dificuldade: 2
+  tipo: numero
+  enunciado: "Na conta de luz, a leitura atual é 2.480 e a anterior é 2.360. Quantos kWh a casa gastou no mês?"
+  resposta: "120"
+  unidade: "kWh"
+  erros_comuns:
+    - resposta: "4840"
+      explicacao: "Você somou as duas leituras. O gasto do mês é a diferença: a leitura atual menos a anterior, 2.480 − 2.360."
+    - resposta: "220"
+      explicacao: "Quase. Confira as centenas: de 2.360 até 2.400 faltam 40; de 2.400 até 2.480 faltam 80. 40 + 80 = 120."
+  dica: "O gasto do mês é o número maior menos o menor."
+  explicacao: "2.480 − 2.360 = 120 kWh. Confira: 2.360 + 120 = 2.480."
+  conferir: "2480 - 2360"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-placas-04
+  tema: "Conta falsa"
+  dificuldade: 3
+  enunciado: "Chega uma mensagem de um número desconhecido: 'Sua luz será cortada hoje. Pague agora por este link.' O valor é o dobro do de sempre. O que fazer?"
+  alternativas:
+    - texto: "Pagar logo, para não ficar sem luz"
+      erro: "A pressa é justamente o que o golpe quer. Antes de pagar, confira o nome da empresa, o valor e o seu nome e endereço."
+    - texto: "Mandar a mensagem para os vizinhos pagarem também"
+      erro: "Repassar espalha o golpe. Melhor avisar que pode ser falso e conferir com a empresa."
+    - texto: "Não pagar e ligar para a empresa pelo telefone de uma conta antiga"
+      certa: true
+  explicacao: "Número desconhecido, pressa e valor fora do comum são sinais de golpe. O telefone impresso numa conta antiga é o caminho seguro para conferir."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

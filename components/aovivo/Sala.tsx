@@ -291,7 +291,21 @@ function Dentro({ aula, s, conduzo, nome, recarregar }: { aula: Aula; s: LiveStr
         if (d?.iceServers?.length && transmissor) transmissor.rede = { iceServers: d.iceServers, iceTransportPolicy: "relay" };
       })
       .catch(() => undefined)
-      .finally(() => void nova.entrar().then((ok) => setCanal(ok ? "aberto" : "sem")));
+      .finally(() => {
+        // A entrada no canal pode falhar por um tropeço da rede (celular trocando de antena, Wi-Fi fraco): tenta de novo
+        // algumas vezes, com espera crescente, antes de dizer que o vídeo não está disponível.
+        void (async () => {
+          for (let tentativa = 0; tentativa < 5; tentativa++) {
+            if (sala.current !== nova) return;
+            if (await nova.entrar()) {
+              if (sala.current === nova) setCanal("aberto");
+              return;
+            }
+            await new Promise((ok) => window.setTimeout(ok, 1500 * (tentativa + 1)));
+          }
+          if (sala.current === nova) setCanal("sem");
+        })();
+      });
     return () => {
       transmissao.current?.fechar();
       transmissao.current = null;

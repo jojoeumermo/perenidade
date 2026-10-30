@@ -16,22 +16,26 @@ fontes:
     url: "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/decreto/d11556.htm"
 quiz:
   - pergunta: "Os métodos sintéticos partem:"
-    opcoes: ["Das unidades menores (letras, sons, sílabas) para as maiores", "Do texto inteiro para as partes", "Só de imagens"]
-    resposta: 0
+    opcoes: ["Do texto inteiro para as partes", "Das unidades menores (letras, sons, sílabas) para as maiores", "Só de imagens"]
+    resposta: 1
     explicacao: "Soletração, fônico e silábico são sintéticos."
   - pergunta: "Os métodos analíticos partem:"
-    opcoes: ["Das unidades maiores (palavras, frases, textos) para as menores", "Das letras isoladas", "Dos números"]
-    resposta: 0
+    opcoes: ["Das letras isoladas", "Dos números", "Das unidades maiores (palavras, frases, textos) para as menores"]
+    resposta: 2
     explicacao: "Palavração, sentenciação e o método global são analíticos."
   - pergunta: "O que é consciência fonológica?"
     opcoes: ["A capacidade de perceber e manipular os sons da fala: rimas, sílabas, fonemas", "Saber muitas palavras", "Ter boa letra"]
     resposta: 0
     explicacao: "É um dos componentes da aprendizagem da leitura."
   - pergunta: "O que o Decreto nº 11.556, de 2023, fez com o Decreto nº 9.765, de 2019?"
-    opcoes: ["Revogou-o", "Ampliou-o", "Não teve relação"]
-    resposta: 0
+    opcoes: ["Ampliou-o", "Não teve relação", "Revogou-o"]
+    resposta: 2
     explicacao: "O artigo 37 do decreto de 2023 revoga o de 2019."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai distinguir os métodos sintéticos (alfabético, fônico, silábico) dos analíticos (palavração, sentenciação, global), situar o método de Paulo Freire entre eles e explicar os termos do debate recente sobre o método fônico, incluindo as políticas nacionais de 2019 e de 2023.
 
 ## A velha pergunta
 
@@ -88,6 +92,24 @@ Por trás da polêmica, há pontos em que muitos pesquisadores de diferentes cor
 - nenhum método funciona sem **formação de professores**, **tempo** e **condições de trabalho**.
 
 Magda Soares, em *Alfabetização: a questão dos métodos* (2016), propôs superar a guerra dos métodos com uma compreensão integrada das facetas da aprendizagem da língua escrita.
+
+## Exemplo resolvido
+
+**Classifique cada aula de alfabetização pelo tipo de método. Depois diga o que ela tem de forte e o que pode faltar.**
+
+1. **A professora mostra a letra B, diz o som /b/, junta com A e o grupo lê BA; depois BE, BI, BO, BU.** Parte da unidade menor (o som da letra) para a sílaba: **sintético, fônico** (com passagem ao silábico). Forte: ensino explícito das relações letra-som. Pode faltar: texto com sentido.
+2. **O grupo lê junto, várias vezes, um poema curto; depois a professora destaca versos, palavras e, por fim, sílabas.** Parte do todo (o texto) para as partes: **analítico, global**. Forte: sentido e prazer da leitura. Pode faltar: o estudo sistemático do código, se parar no poema.
+3. **A partir de uma foto da obra, o grupo conversa sobre o trabalho; aparece a palavra TIJOLO; ela é dividida em sílabas, as famílias são montadas e o grupo cria palavras novas.** Parte de uma palavra com sentido (**analítico**) e chega às famílias silábicas (**sintético**), com o debate no centro: o **método de Paulo Freire**, que combina os dois.
+
+Confira: em cada caso, perguntou-se por onde a aula começa (pelo menor ou pelo maior) e o que fica de fora. É o mesmo raciocínio da convergência que muitos pesquisadores apontam: ensino explícito do princípio alfabético **junto** com textos reais e compreensão.
+
+## Resumo
+
+- **Métodos sintéticos** partem das unidades menores: **alfabético** (nomes das letras), **fônico** (sons), **silábico** (sílabas).
+- **Métodos analíticos** partem das maiores: **palavração**, **sentenciação**, **global**.
+- O **método de Freire** combina: parte da palavra com sentido e chega às famílias silábicas, com o debate da realidade no centro.
+- Políticas: o **Decreto nº 9.765/2019** (Política Nacional de Alfabetização, ênfase fônica, criticada por associações de pesquisadores) foi revogado pelo **Decreto nº 11.556/2023** (Compromisso Nacional Criança Alfabetizada).
+- Pontos de convergência: ensinar o princípio alfabético de forma explícita, junto com textos reais e compreensão, com diagnóstico e com condições de trabalho para quem ensina.
 
 ## Para pesquisar e debater
 

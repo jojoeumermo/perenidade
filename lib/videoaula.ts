@@ -8,8 +8,10 @@ import { getClient, signedStorageUrl } from "./backend";
 export const DEPOSITO = "videoaulas";
 export const LIMITE_SEGUNDOS = 600;
 export const LIMITE_BYTES = 50 * 1024 * 1024;
+// 480p: o mesmo limite que o banco confere (854 × 480, em pé ou deitado). Com 1280 aqui, a câmera gravava 1280 × 480
+// e o envio voltava sempre com "confira o campo: resolucao".
 const LADO_MENOR = 480;
-const LADO_MAIOR = 1280;
+const LADO_MAIOR = 854;
 /** Taxa pensada para caber em 50 MB com folga: dez minutos a ~620 kbit/s dão uns 47 MB. */
 const TAXA_VIDEO = 560_000;
 const TAXA_AUDIO = 64_000;
@@ -32,8 +34,10 @@ export class VideoErro extends Error {}
 export function formatoDeGravacao(): Formato | null {
   if (typeof MediaRecorder === "undefined") return null;
   const opcoes: Formato[] = [
-    { mime: "video/webm;codecs=vp9,opus", tipo: "video/webm", extensao: "webm" },
+    // VP8 antes do VP9: os celulares Android o codificam no próprio chip, e o VP9 do Chrome devolvia gravações vazias
+    // em alguns tamanhos de imagem (conferido com a câmera de teste do navegador).
     { mime: "video/webm;codecs=vp8,opus", tipo: "video/webm", extensao: "webm" },
+    { mime: "video/webm;codecs=vp9,opus", tipo: "video/webm", extensao: "webm" },
     { mime: "video/webm", tipo: "video/webm", extensao: "webm" },
     { mime: "video/mp4;codecs=avc1,mp4a", tipo: "video/mp4", extensao: "mp4" },
     { mime: "video/mp4", tipo: "video/mp4", extensao: "mp4" },
@@ -44,7 +48,9 @@ export function formatoDeGravacao(): Formato | null {
 export const opcoesDoGravador = (formato: Formato): MediaRecorderOptions => ({ mimeType: formato.mime, videoBitsPerSecond: TAXA_VIDEO, audioBitsPerSecond: TAXA_AUDIO });
 
 /** A câmera ou a tela já pedidas no limite de 480p, para a gravação nascer no tamanho certo. */
-export const restricoesDeVideo = { width: { ideal: LADO_MAIOR, max: LADO_MAIOR }, height: { ideal: LADO_MENOR, max: LADO_MENOR }, frameRate: { ideal: 24, max: 30 } };
+// 848 e não 854: o codificador VP9 do Chrome devolvia a gravação vazia com 854 de largura (conferido com a câmera de teste do
+// navegador); 848 é múltiplo de 16 e grava normalmente.
+export const restricoesDeVideo = { width: { ideal: 848, max: LADO_MAIOR }, height: { ideal: LADO_MENOR, max: LADO_MENOR }, frameRate: { ideal: 24, max: 30 } };
 
 /**
  * Duração e tamanho da imagem de um vídeo. Gravações feitas no navegador costumam vir sem a duração no
@@ -91,8 +97,9 @@ export async function converterPara720p(arquivo: Blob, aoAndar: (fracao: number)
   const medidas = await medir(arquivo);
   if (medidas.duracao > LIMITE_SEGUNDOS) throw new VideoErro("longo");
   const escala = Math.min(1, LADO_MENOR / Math.min(medidas.largura, medidas.altura), LADO_MAIOR / Math.max(medidas.largura, medidas.altura));
-  const largura = Math.max(2, Math.round((medidas.largura * escala) / 2) * 2);
-  const altura = Math.max(2, Math.round((medidas.altura * escala) / 2) * 2);
+  // Múltiplos de 8, arredondados para baixo: o codificador grava normalmente e o resultado nunca passa do limite.
+  const largura = Math.max(8, Math.floor((medidas.largura * escala) / 8) * 8);
+  const altura = Math.max(8, Math.floor((medidas.altura * escala) / 8) * 8);
 
   const video = document.createElement("video");
   const endereco = URL.createObjectURL(arquivo);

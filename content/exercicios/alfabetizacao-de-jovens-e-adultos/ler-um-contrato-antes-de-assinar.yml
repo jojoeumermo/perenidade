@@ -1,0 +1,73 @@
+# Exercícios da aula "Ler um contrato antes de assinar" (Depois das primeiras letras). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: eja-contrato-01
+  tipo: numero
+  tema: "Total a prazo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Um fogão custa R$ 900 à vista ou 10 parcelas de R$ 110. Quanto se paga no total a prazo, em reais?"
+  resposta: "1100"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "900"
+      explicacao: "900 é o preço à vista. O total a prazo é o número de parcelas vezes o valor de cada uma: 10 × 110."
+    - resposta: "120"
+      explicacao: "Você somou 10 + 110. As parcelas se repetem: são 10 vezes 110, então multiplique."
+  dica: "Total a prazo = número de parcelas × valor de cada parcela."
+  explicacao: "10 × 110 = 1.100. A prazo, paga-se R$ 200 a mais que à vista."
+  conferir: "10 * 110"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-contrato-02
+  tipo: numero
+  tema: "Quanto a mais"
+  dificuldade: 2
+  enunciado: "Uma televisão custa R$ 1.500 à vista ou 12 parcelas de R$ 150. Quanto se paga a mais ao parcelar, em reais?"
+  resposta: "300"
+  unidade: "reais"
+  erros_comuns:
+    - resposta: "1800"
+      explicacao: "1.800 é o total a prazo (12 × 150). A pergunta é quanto a mais: tire o preço à vista, 1.800 − 1.500."
+    - resposta: "150"
+      explicacao: "150 é o valor de uma parcela. Calcule o total a prazo (12 × 150 = 1.800) e compare com 1.500."
+  dica: "Primeiro o total a prazo. Depois tire o preço à vista."
+  explicacao: "Total a prazo: 12 × 150 = 1.800. A mais: 1.800 − 1.500 = 300."
+  conferir: "12 * 150 - 1500"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-contrato-03
+  tema: "Direito de arrependimento"
+  dificuldade: 2
+  enunciado: "Dona Lúcia comprou um liquidificador pela internet e se arrependeu no dia em que ele chegou. O que diz o Código de Defesa do Consumidor?"
+  alternativas:
+    - texto: "Ela não pode desistir, porque já pagou"
+      erro: "Pode, sim. Em compras fora da loja, o artigo 49 dá 7 dias para desistir, contados do recebimento."
+    - texto: "Ela tem 7 dias, a contar do recebimento, para desistir"
+      certa: true
+    - texto: "Ela tem 90 dias para desistir"
+      erro: "90 dias é outro prazo do Código, o de reclamar de defeito em produto durável. Para desistir de compra fora da loja, são 7 dias."
+  explicacao: "É o direito de arrependimento (artigo 49): 7 dias para compras pela internet, telefone ou em casa, contados da assinatura ou do recebimento."
+  fonte: "Questão original do Instituto Lúcia, com base na Lei nº 8.078/1990"
+  revisao:
+    status: em-revisao
+
+- id: eja-contrato-04
+  tema: "Antes de assinar"
+  dificuldade: 1
+  enunciado: "O vendedor diz: 'É só uma formalidade, assina aqui que depois eu preencho o resto.' O que fazer?"
+  alternativas:
+    - texto: "Assinar, para não atrasar o vendedor"
+      erro: "Quem assina concorda com tudo, inclusive com o que for preenchido depois. Nunca assine com espaços em branco."
+    - texto: "Assinar e pedir cópia depois"
+      erro: "A cópia é importante, mas o problema está antes: papel com espaço em branco não se assina."
+    - texto: "Não assinar com espaços em branco; ler tudo antes, ou levar para casa"
+      certa: true
+  explicacao: "Ler antes de assinar é um direito. 'É só uma formalidade' é frase que pede atenção redobrada."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

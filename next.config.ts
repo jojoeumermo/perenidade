@@ -22,6 +22,8 @@ const captcha = "https://challenges.cloudflare.com";
 // A sala de vídeo (Sala Lúcia, Reuniões e estudo em grupo): os servidores Jitsi de lib/jitsi.ts (públicos, sem limite
 // de tempo nem login de moderador); troca-se por um próprio em NEXT_PUBLIC_JITSI_DOMAIN.
 const jitsi = SERVIDORES_JITSI.map((d) => `https://${d}`).join(" ");
+// Na Permissions-Policy cada origem vai entre aspas.
+const jitsiPermitidos = SERVIDORES_JITSI.map((d) => `"https://${d}"`).join(" ");
 // Vídeos de aula ficam em outros sites e só carregam quando a pessoa clica. Servidores PeerTube entram por NEXT_PUBLIC_VIDEO_HOSTS.
 const videos = [
   "https://www.youtube-nocookie.com",
@@ -96,9 +98,11 @@ const common = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
-  // O microfone é pedido pelo afinador e pelo gravador do painel; a câmera e a tela, só pelo gravador de aulas em vídeo.
-  // Nada é pedido antes de a pessoa clicar.
-  { key: "Permissions-Policy", value: "camera=(self), microphone=(self), display-capture=(self), geolocation=(), payment=(), usb=(), interest-cohort=()" },
+  // O microfone é pedido pelo afinador e pelo gravador do painel; a câmera e a tela, pelo gravador de aulas em vídeo e pela
+  // sala das aulas ao vivo. Nada é pedido antes de a pessoa clicar. Os servidores Jitsi entram na lista: a sala de vídeo
+  // (reuniões, chamadas, estudo em grupo) roda num quadro deles, e com só "self" o navegador negava câmera e microfone
+  // ao quadro sem nem perguntar (a chamada abria muda e sem imagem).
+  { key: "Permissions-Policy", value: `camera=(self ${jitsiPermitidos}), microphone=(self ${jitsiPermitidos}), display-capture=(self ${jitsiPermitidos}), fullscreen=(self ${jitsiPermitidos}), autoplay=(self ${jitsiPermitidos}), geolocation=(), payment=(), usb=(), interest-cohort=()` },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
   { key: "X-Permitted-Cross-Domain-Policies", value: "none" },
