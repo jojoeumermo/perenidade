@@ -200,7 +200,7 @@ export function LabRedes() {
       <p role="status" className="mt-1 min-h-5 text-xs text-ink-soft">{aviso || (ferramenta === "cabo" ? (cabeando ? `Agora clique numa porta de outro dispositivo (de ${t.dispositivos.find((d) => d.id === cabeando.dispositivo)?.nome} ${cabeando.porta}).` : "Clique numa porta (círculo) e depois noutra para ligar o cabo; clique numa porta cabeada para desligar.") : "Arraste os dispositivos; clique para configurar. No celular, toque e segure para arrastar.")}</p>
 
       <div className="mt-2 grid gap-3 lg:grid-cols-[minmax(0,1fr)_22rem]">
-        <div className="overflow-auto border-4 border-ink bg-[#f8f2e4]" style={{ maxHeight: "34rem" }}>
+        <div className="lab-quadro overflow-auto border-4 border-ink bg-[#f8f2e4]" style={{ maxHeight: "34rem" }}>
           <svg ref={svg} width={largura * zoom} height={altura * zoom} viewBox={`0 0 ${largura} ${altura}`} className="block touch-none select-none"
             onPointerMove={(e) => { if (arrasto) { const p = posicao(e); setT((atual) => ({ ...atual, dispositivos: atual.dispositivos.map((d) => (d.id === arrasto.id ? { ...d, x: Math.max(40, p.x - arrasto.dx), y: Math.max(40, p.y - arrasto.dy) } : d)) })); } }}
             onPointerUp={() => setArrasto(null)} onPointerLeave={() => setArrasto(null)}>
@@ -410,8 +410,8 @@ function Navegador({ d, t, estado, simular }: { d: Dispositivo; t: Topologia; es
   const [endereco, setEndereco] = useState("");
   const [pagina, setPagina] = useState<{ titulo: string; texto: string; servidor: string } | { erro: string } | null>(null);
   return (
-    <div className="mt-2 overflow-hidden rounded border-2 border-ink bg-white">
-      <form className="flex gap-1 border-b-2 border-ink bg-[#e9e4d8] p-1.5" onSubmit={(e) => { e.preventDefault(); const r = navegar(t, estado, d.id, endereco); simular(r); setPagina(r.pagina ?? { erro: r.resumo }); }}>
+    <div className="lab-quadro mt-2 overflow-hidden rounded border-2 border-ink bg-white">
+      <form className="lab-barra flex gap-1 border-b-2 border-ink bg-[#e9e4d8] p-1.5" onSubmit={(e) => { e.preventDefault(); const r = navegar(t, estado, d.id, endereco); simular(r); setPagina(r.pagina ?? { erro: r.resumo }); }}>
         <input value={endereco} onChange={(e) => setEndereco(e.target.value)} placeholder="http://escola.lucia ou um IP" aria-label="Endereço" className="min-w-0 flex-1 rounded border border-ink/40 bg-white px-2 py-1 font-mono text-xs" />
         <button type="submit" className={botao}>Ir</button>
       </form>
