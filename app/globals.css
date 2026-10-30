@@ -546,14 +546,14 @@ body {
     font-size: 0.75rem;
     color: var(--ink-soft);
   }
-  /* O grito do lambe-lambe. */
+  /* O grito do lambe-lambe: letra de madeira condensada, como nos cartazes de gráfica popular. */
   .lambe {
-    font-family: var(--font-ui), system-ui, sans-serif;
-    font-weight: 900;
-    font-style: italic;
+    font-family: var(--font-cartaz), "Arial Narrow", Impact, sans-serif;
+    font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.01em;
     line-height: 0.92;
+    overflow-wrap: anywhere;
   }
   /* Carimbo redondo, torto, no vermelho do prelo. */
   .carimbo {
@@ -3624,113 +3624,75 @@ a.busca-campo:focus-visible {
   padding: 0.3rem 0.6rem;
 }
 
-/* O lambe-lambe da inicial (components/inicio/LambeDoDia.tsx): o papel muda de cor com o formato do dia, uma cor por
-   cartaz (nunca o arco-íris junto). O vermelho é o grito de sempre; a fita e o carimbo são os mesmos em todos. */
+/* O lambe-lambe da inicial (components/inicio/LambeDoDia.tsx), no desenho do cartaz de gráfica popular (30/10/2026):
+   reto, sem fita nem carimbo, duas cores por cartaz. O papel muda com o tom do dia: vermelho, anil, mata, ipê e tinta.
+   A letra do grito é medida pela largura do cartaz (cqw). */
+.lambe-cartaz {
+  container-type: inline-size;
+}
 .lambe-papel {
+  min-height: 30rem;
   background: #c21f16;
-  color: #fff;
+  color: #fff8ea;
+  --lambe-destaque: #f0b323;
 }
-.lambe-numero {
-  color: #fde2dd;
+.lambe-anil .lambe-papel {
+  background: #23408e;
 }
-.lambe-xilo {
-  color: #f4ecd8;
+.lambe-mata .lambe-papel {
+  background: #2e6b4f;
 }
-.lambe-tiragem {
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
-  padding-top: 0.6rem;
-  color: rgba(255, 255, 255, 0.78);
-}
-.lambe-memoria .lambe-papel {
+.lambe-tinta .lambe-papel {
   background: #1f1a14;
-  color: #f4ecd8;
 }
-.lambe-memoria .lambe-numero {
-  color: #e0837a;
-}
-.lambe-memoria .lambe-tiragem {
-  border-color: #5a4e3c;
-  color: #b3a584;
-}
-.lambe-festa .lambe-papel {
+.lambe-ipe .lambe-papel {
   background: #f0b323;
   color: #1f1a14;
-  padding-top: 2.4rem;
+  --lambe-destaque: #a3201a;
 }
-.lambe-festa .lambe-numero {
-  color: #6e1f1a;
+.lambe-tema,
+.lambe-destaque {
+  color: var(--lambe-destaque);
 }
-.lambe-festa .lambe-xilo {
-  color: #1f1a14;
+.lambe-tiragem {
+  border-top: 2px solid currentColor;
+  padding-top: 0.75rem;
 }
-.lambe-festa .lambe-tiragem {
-  border-color: rgba(31, 26, 20, 0.35);
-  color: #4a3a12;
+/* No escuro, o cartaz de tinta ganharia o mesmo tom do fundo: um fio claro o separa da parede. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .lambe-tinta .lambe-papel {
+    outline: 1px solid var(--borda-forte);
+  }
 }
-.lambe-pergunta .lambe-papel {
-  background: #23408e;
-  color: #fff;
+:root[data-theme="dark"] .lambe-tinta .lambe-papel {
+  outline: 1px solid var(--borda-forte);
 }
-.lambe-pergunta .lambe-numero {
-  color: #c9d6f5;
-}
-.lambe-pergunta .lambe-interrogacao {
-  color: rgba(255, 255, 255, 0.13);
-}
-.lambe-terra .lambe-papel {
-  background: #2e6b4f;
-  color: #f4ecd8;
-}
-.lambe-terra .lambe-numero {
-  color: #f0cf8e;
-}
-.lambe-terra .lambe-tiragem {
-  border-color: rgba(244, 236, 216, 0.35);
-  color: #d9e6dc;
-}
-.lambe-cordel .lambe-papel,
-.lambe-classificado .lambe-papel {
-  color: #1f1a14;
-}
-.lambe-cordel .lambe-papel {
-  background: #f4ecd8;
-  border-style: double;
-  border-width: 5px;
-}
-.lambe-classificado .lambe-papel {
-  background: #fbf6e8;
-}
-.lambe-cordel .lambe-numero,
-.lambe-classificado .lambe-numero {
-  color: #6e1f1a;
-}
-.lambe-cordel .lambe-xilo,
-.lambe-classificado .lambe-xilo {
-  color: #1f1a14;
-}
-.lambe-cordel .lambe-tiragem,
-.lambe-classificado .lambe-tiragem {
-  border-color: #cdbb91;
-  color: #5a4e3c;
-}
-.lambe-tirinha {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-}
-/* Contraste, papel eletrônico e leitura: o cartaz vira quadro simples, sem cor de fundo, inclinação nem fita. */
-:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-cartaz {
-  transform: none;
-}
+/* Contraste, papel eletrônico e leitura: o cartaz vira quadro simples, preto no branco. */
 :root:is([data-contrast], [data-eink], [data-leitor]) .lambe-papel {
+  min-height: 0;
   border: 2px solid var(--ink) !important;
   background: var(--parchment) !important;
-  box-shadow: none !important;
+  outline: none;
 }
 :root:is([data-contrast], [data-eink], [data-leitor]) .lambe-papel * {
   color: var(--ink) !important;
 }
-:root:is([data-contrast], [data-eink], [data-leitor]) :is(.lambe-cartaz .lambe-fita, .lambe-interrogacao) {
+:root:is([data-contrast], [data-eink], [data-leitor]) .lambe-papel .lambe {
+  font-size: 2rem !important;
+}
+.lambe-sep {
   display: none;
+}
+:root[data-leitor] .lambe-sep {
+  display: inline;
+}
+:root[data-leitor] .lambe-papel > * + * {
+  margin-top: 0.75rem;
+}
+@media (monochrome), (update: slow) {
+  .lambe-sep {
+    display: inline;
+  }
 }
 
 /* A abertura da galeria (components/galeria/VaralDaGaleria.tsx): o varal de cordel da feira, com os cartazes do acervo
