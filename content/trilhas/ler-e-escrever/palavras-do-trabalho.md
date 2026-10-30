@@ -39,9 +39,14 @@ quiz:
     opcoes: ["12 horas por dia", "8 horas por dia e 40 por semana", "6 horas por dia e 50 por semana"]
     resposta: 1
     explicacao: "É o que diz o artigo 7º. O que passar disso é hora extra, que vale pelo menos 50% a mais."
+ferramentas: [palavras-geradoras, silabario]
 ---
 
 Você já leu [as palavras da casa](/trilhas/ler-e-escrever/palavras-da-casa). Agora vamos para o lugar onde a maioria de nós passa a maior parte do dia: o trabalho.
+
+## O que você vai aprender
+
+Ao fim desta aula você vai ler palavras que todo trabalhador encontra, como SALÁRIO, PATRÃO e FÉRIAS. Vai dividir TIJOLO em sílabas e montar palavras novas com ele. Vai conhecer os pedaços que aparecem muito (ÃO, CH, LH, NH, RR). E vai achar no contracheque o que entra e o que sai.
 
 ## Primeiro, a conversa
 
@@ -161,6 +166,40 @@ Se um desconto parecer estranho, pergunte no setor de pessoal ou no sindicato da
 
 Hoje a carteira de trabalho é, em geral, **digital**: fica no celular, num aplicativo do governo, e se entra nela com a conta gov.br. Se você tem a carteira de papel antiga, **guarde**. Ela prova os empregos de antes e pode ser importante na hora de pedir aposentadoria.
 
+## Exemplo resolvido
+
+**Como ler uma palavra nova do trabalho: MARMITA?**
+
+1. Bata palmas: MAR - MI - TA. São três pedaços.
+2. Leia o primeiro pedaço. Ele tem três letras: M, A, R. O R no fim do pedaço é como em MAR, a água salgada. Leia: **MAR**.
+3. Leia o segundo: **MI**, da família MA, ME, MI, MO, MU.
+4. Leia o terceiro: **TA**, da família de TIJOLO: TA, TE, TI, TO, TU.
+5. Junte, devagar e depois de uma vez: MAR... MI... TA... **MARMITA**.
+
+Confira: você leu uma palavra de três pedaços sem ter decorado. Só usou famílias que já conhecia.
+
+## Ouça os pedaços que aparecem muito
+
+```pronuncia
+lingua: pt-BR
+PATRÃO | ÃO
+CHEFE | CH
+TRABALHO | LH
+GANHO | NH
+FERRO | RR
+```
+
+## Separe as palavras
+
+Arraste cada palavra para o pedaço que ela tem.
+
+```arrastar
+Tem ÃO: PATRÃO, PORTÃO, PLANTÃO
+Tem LH: TRABALHO, MULHER, FOLHA
+Tem NH: GANHO, DINHEIRO, CAMINHO
+Tem CH: CHEFE, CHAVE, FICHA
+```
+
 ## Para praticar
 
 1. Escreva o nome do seu trabalho ou do seu ofício. Ache as vogais.
@@ -170,6 +209,14 @@ Hoje a carteira de trabalho é, em geral, **digital**: fica no celular, num apli
 5. Se tiver um contracheque em casa, ache as palavras PROVENTOS, DESCONTOS e LÍQUIDO.
 
 **Respostas do item 3:** PATRÃO (ÃO), CHEFE (CH), TRABALHO (LH), GANHO (NH), FERRO (RR).
+
+## Resumo
+
+- Freire escolhia palavras que pesam na vida do grupo. As do trabalho são assim: TIJOLO, ENXADA, SALÁRIO.
+- **TI - JO - LO** gera famílias que montam outras palavras.
+- Alguns pedaços aparecem muito: **ÃO, CH, LH, NH, RR**.
+- No contracheque, **proventos** é o que entra, **descontos** é o que sai e **líquido** é o que fica para você.
+- A carteira de trabalho hoje é digital, mas a de papel antiga deve ser guardada.
 
 ## Para pensar
 

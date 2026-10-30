@@ -43,6 +43,10 @@ quiz:
 
 Até aqui você leu palavras soltas: o seu nome, as coisas da casa, as palavras do trabalho, as placas da rua. Agora é hora de juntar as palavras e escrever um **texto inteiro**. O mais curto e mais útil de todos: o bilhete.
 
+## O que você vai aprender
+
+Ao fim desta aula você vai escrever um bilhete completo, com as quatro partes: para quem é, o recado, a despedida com o seu nome e o dia ou a hora. Vai saber conferir se o recado responde ao que a pessoa precisa saber. E vai mandar o primeiro bilhete escrito pelo celular.
+
 ## Você já manda bilhetes
 
 Um recado preso na geladeira. Um papel na mochila do filho para a professora. Uma mensagem no celular avisando que vai chegar tarde. Um áudio para a vizinha. Tudo isso é bilhete.
@@ -160,6 +164,52 @@ Algumas dicas:
 
 Escrever no celular todo dia é um ótimo treino. Cada "BOM DIA" no grupo da família é escrita.
 
+## Exemplo resolvido
+
+**Transformar "VOU SAIR" num bilhete completo.**
+
+O bilhete "VOU SAIR" deixa perguntas no ar. Vamos completar, parte por parte.
+
+1. **Para quem é?** Quem vai ler é a filha, a Bia. Escreva: **BIA,**
+2. **O quê?** Escreva o recado inteiro: **FUI À REUNIÃO DA ASSOCIAÇÃO.**
+3. **Quando volto?** **VOLTO ÀS 9 DA NOITE.**
+4. **O que ela precisa fazer?** **TIRE A ROUPA DO VARAL SE CHOVER.**
+5. **Quem escreveu?** **BEIJO, MÃE.**
+6. **Quando escrevi?** **SEXTA, 6 HORAS.**
+
+Leia o bilhete inteiro em voz alta:
+
+> BIA, \
+> FUI À REUNIÃO DA ASSOCIAÇÃO. \
+> VOLTO ÀS 9 DA NOITE. \
+> TIRE A ROUPA DO VARAL SE CHOVER. \
+> BEIJO, MÃE \
+> SEXTA, 6 HORAS
+
+Confira: tem para quem, o recado, a despedida com o nome e a hora. Ninguém precisa ligar para perguntar.
+
+## Monte o recado
+
+Toque nas palavras na ordem certa.
+
+```frase
+lingua: pt-BR
+VOLTO ÀS 11 HORAS | (quando a pessoa volta)
+O ALMOÇO ESTÁ NO FOGÃO | (onde está o almoço)
+FUI AO POSTO DE SAÚDE | (para onde a pessoa foi)
+```
+
+## Qual parte é esta?
+
+Arraste cada pedaço do bilhete para a parte certa.
+
+```arrastar
+Para quem é: ZÉ, MÃE, BIA
+O recado: FUI AO POSTO, VOLTO ÀS 11, O ALMOÇO ESTÁ NO FOGÃO
+Despedida e nome: UM BEIJO, CIDA; ABRAÇO, JOÃO
+Dia e hora: TERÇA, 8 HORAS; SEXTA À NOITE
+```
+
 ## Para praticar
 
 1. Escreva um bilhete para alguém da sua casa, avisando onde você vai e a que horas volta.
@@ -167,6 +217,14 @@ Escrever no celular todo dia é um ótimo treino. Cada "BOM DIA" no grupo da fam
 3. Leia em voz alta. Depois, peça a alguém para ler e diga se entendeu.
 4. Reescreva este bilhete para ficar completo: "PASSOU UM MOÇO AQUI."
 5. Mande uma mensagem escrita, não em áudio, para alguém de confiança. Pode ser só: "OI, TUDO BEM?"
+
+## Resumo
+
+- Todo bilhete tem quatro partes: **para quem é**, **o recado**, **a despedida com o seu nome** e **o dia ou a hora**.
+- Quem lê é o **destinatário**; quem escreve é o **remetente**.
+- Um bom recado responde antes da pergunta: o quê, quando, onde e o que a pessoa precisa fazer.
+- Curto e claro vale mais que comprido e confuso.
+- Errar uma letra não impede o recado de chegar. Escreva, leia em voz alta e corrija depois.
 
 ## Para pensar
 

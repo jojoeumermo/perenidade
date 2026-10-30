@@ -38,11 +38,16 @@ quiz:
     opcoes: ["Um acento", "Uma consoante", "Pelo menos uma vogal"]
     resposta: 2
     explicacao: "Não existe pedaço de palavra sem vogal. Por isso elas são as primeiras letras que a gente estuda."
+ferramentas: [silabario]
 ---
 
 Esta aula é para ler junto: quem está aprendendo e alguém que já lê. Leiam devagar. Falem as palavras em voz alta. Não tem pressa.
 
 Se você vai ajudar alguém, leia antes a aula [Para quem vai ensinar](/trilhas/ler-e-escrever/como-funciona-a-alfabetizacao-de-adultos).
+
+## O que você vai aprender
+
+Ao fim desta aula você vai reconhecer as cinco vogais, A, E, I, O, U, em letra grande e pequena. Vai achar as vogais no começo, no meio e no fim das palavras. E vai perceber que o acento e o til mudam o som.
 
 ## Você já sabe muito
 
@@ -159,6 +164,50 @@ Não precisa decorar agora. Só repare: quando o som vai pelo nariz, a escrita a
 
 Você escreve "OI" todo dia no celular. São duas vogais. Você já escreve vogais há muito tempo.
 
+## Ouça e repita
+
+Toque no alto-falante para o aparelho ler cada palavra. Repita em voz alta. Se quiser mais devagar, marque a caixa de baixo.
+
+```pronuncia
+lingua: pt-BR
+A | ARROZ
+E | ESCOLA
+I | IGREJA
+O | OVO
+U | UNHA
+AVÓ | a mulher
+AVÔ | o homem
+```
+
+## Junte cada palavra com a sua vogal
+
+Arraste cada palavra para a vogal com que ela começa. Também dá para tocar na palavra e depois no grupo.
+
+```arrastar
+Começa com A: ÁGUA, ALUGUEL, ARROZ
+Começa com E: EMPREGO, ENXADA, ESCOLA
+Começa com O: OBRA, OLHO, ÔNIBUS
+Começa com U: UNHA, URNA, UNIÃO
+```
+
+## Exemplo resolvido
+
+**Quais são as vogais da palavra TRABALHO?**
+
+1. Fale a palavra devagar e bata uma palma em cada pedaço: TRA - BA - LHO.
+2. Em cada pedaço, procure a letra que você consegue falar de boca aberta, com o ar livre. Em TRA, é o **A**. Em BA, é o **A**. Em LHO, é o **O**.
+3. Escreva as vogais na ordem: **A, A, O**.
+
+Confira: são três pedaços e três vogais. Toda sílaba tem pelo menos uma vogal, então o número bate.
+
+Agora faça você com a palavra **ESCOLA**. Os pedaços são ES - CO - LA. As vogais são E, O, A.
+
+Quer ouvir as letras e as sílabas tocando nelas? Abra o silabário.
+
+```ferramenta
+silabario | Abrir o silabário
+```
+
 ## Para praticar
 
 Façam juntos, quem aprende e quem ajuda.
@@ -170,6 +219,14 @@ Façam juntos, quem aprende e quem ajuda.
 5. Leia em voz alta: **AVÓ, AVÔ, PÃO, MÃE, OI, EU**.
 
 **Respostas da roda nas vogais:** FEIJÃO (E, I, Ã, O), MULHER (U, E), TRABALHO (A, A, O), SAÚDE (A, Ú, E), DOMINGO (O, I, O).
+
+## Resumo
+
+- As vogais são cinco: **A, E, I, O, U**. As outras 21 letras são consoantes.
+- Toda sílaba tem pelo menos uma vogal.
+- A letra grande se chama maiúscula; a pequena, minúscula.
+- O acento muda o som: **AVÓ** é aberto, **AVÔ** é fechado.
+- O til e o M ou N depois da vogal mostram que o som passa pelo nariz: MÃE, CAMPO.
 
 ## Para pensar
 

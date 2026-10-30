@@ -1,0 +1,54 @@
+# Exercícios da aula "Ler rótulo e bula" (Depois das primeiras letras). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: eja-rotulo-01
+  tema: "Lista de ingredientes"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Os ingredientes de um suco de caixinha são: 'água, açúcar, suco concentrado de laranja...'. O que tem mais nesse suco?"
+  alternativas:
+    - texto: "Suco de laranja"
+      erro: "O suco aparece só em terceiro lugar. A lista vai do que tem mais para o que tem menos."
+    - texto: "Açúcar"
+      erro: "Açúcar vem em segundo. O primeiro da lista, o que tem mais, é a água."
+    - texto: "Água"
+      certa: true
+  explicacao: "A lista de ingredientes começa pelo que está em maior quantidade. Aqui, água; depois açúcar; o suco vem só em terceiro."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-rotulo-02
+  tipo: numero
+  tema: "Doses por dia"
+  dificuldade: 2
+  enunciado: "A receita diz: '1 comprimido de 6 em 6 horas'. Quantos comprimidos por dia?"
+  resposta: "4"
+  unidade: "comprimidos"
+  erros_comuns:
+    - resposta: "6"
+      explicacao: "6 é o intervalo em horas, não o número de doses. Um dia tem 24 horas: 24 ÷ 6."
+    - resposta: "3"
+      explicacao: "3 doses seria de 8 em 8 horas. De 6 em 6: 24 ÷ 6 = 4."
+  dica: "Um dia tem 24 horas. Quantas vezes cabem 6 horas em 24?"
+  explicacao: "24 ÷ 6 = 4 doses por dia. Por exemplo: 6h, 12h, 18h e 24h (meia-noite)."
+  conferir: "24 / 6"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-rotulo-03
+  tema: "Onde está na bula"
+  dificuldade: 2
+  enunciado: "Seu Zé esqueceu a dose da manhã. Em que parte da bula ele acha o que fazer?"
+  alternativas:
+    - texto: "O que devo fazer quando eu me esquecer de usar este medicamento?"
+      certa: true
+    - texto: "Para que este medicamento é indicado?"
+      erro: "Essa parte diz para que o remédio serve. O que fazer quando esquece tem uma pergunta própria."
+    - texto: "Onde, como e por quanto tempo posso guardar?"
+      erro: "Essa parte fala de como guardar o remédio. Procure a pergunta sobre esquecer a dose."
+  explicacao: "A bula para pacientes é organizada em perguntas. Vá direto à que interessa. Na dúvida, pergunte ao farmacêutico."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

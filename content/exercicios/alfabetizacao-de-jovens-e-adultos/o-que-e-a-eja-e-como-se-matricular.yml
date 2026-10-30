@@ -1,0 +1,51 @@
+# Exercícios da aula "O que é a EJA e como se matricular" (Depois das primeiras letras). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: eja-matricula-01
+  tema: "EJA é direito"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Dona Rosa, 70 anos, acha que passou da idade de estudar. O que diz a lei?"
+  alternativas:
+    - texto: "Que a EJA só vai até os 60 anos"
+      erro: "Não existe idade máxima para a EJA. A Constituição garante a educação a quem não a teve na idade própria, em qualquer idade."
+    - texto: "Que a EJA é gratuita e é direito dela, em qualquer idade adulta"
+      certa: true
+    - texto: "Que ela só pode estudar em escola particular"
+      erro: "A rede pública é obrigada a oferecer a EJA, de graça. Não precisa pagar."
+  explicacao: "A Constituição (artigo 208) e a LDB (artigo 37) garantem a EJA gratuita a quem não estudou na idade esperada. Não há idade máxima."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-matricula-02
+  tema: "Documentos"
+  dificuldade: 1
+  enunciado: "Qual destes NÃO é preciso levar na matrícula da EJA?"
+  alternativas:
+    - texto: "Documento de identidade"
+      erro: "A identidade é pedida na matrícula. O que não precisa é diploma: quem vai para a EJA ainda não terminou os estudos."
+    - texto: "Comprovante de residência"
+      erro: "O comprovante costuma ser pedido. Uma conta de luz serve. O que não precisa é diploma."
+    - texto: "Diploma"
+      certa: true
+  explicacao: "Leva-se identidade, CPF, comprovante de residência e o histórico, se tiver. Diploma não: a EJA é para quem ainda vai terminar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-matricula-03
+  tema: "Sem histórico"
+  dificuldade: 2
+  enunciado: "Seu Antônio estudou até a 3ª série, mas perdeu o histórico escolar. O que acontece na matrícula?"
+  alternativas:
+    - texto: "A escola faz uma avaliação para saber em que etapa ele entra"
+      certa: true
+    - texto: "Ele precisa começar do zero, obrigatoriamente"
+      erro: "Não precisa. A avaliação mostra o que ele já sabe, e ele pode entrar numa etapa mais adiantada."
+    - texto: "Ele não pode se matricular sem o histórico"
+      erro: "Pode, sim. Sem histórico, a escola avalia a pessoa para achar a etapa certa."
+  explicacao: "Quem não tem documento da escola antiga passa por uma avaliação. Ninguém fica de fora por isso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

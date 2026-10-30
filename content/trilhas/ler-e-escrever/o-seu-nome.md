@@ -42,9 +42,14 @@ quiz:
     opcoes: ["ANA", "PAULA", "SOUZA"]
     resposta: 2
     explicacao: "ANA PAULA é o prenome, o nome de chamar. SOUZA é o nome de família, o sobrenome."
+ferramentas: [silabario]
 ---
 
 Esta aula também é para ler a dois. Quem ajuda vai precisar de papel, lápis e, se possível, um documento da pessoa que está aprendendo: a identidade, a certidão de nascimento ou a carteira de trabalho.
+
+## O que você vai aprender
+
+Ao fim desta aula você vai escrever o seu nome do jeito do documento, letra por letra, com os sinais que ele tem. Vai saber o que é prenome e sobrenome. E vai ter um caminho, em cinco passos, para treinar a sua assinatura.
 
 ## A palavra mais importante
 
@@ -139,6 +144,40 @@ Em qualquer papel, valem quatro regras:
 
 Essas regras valem também para quem já lê. Ler um contrato antes de assinar é assunto de uma aula mais adiante.
 
+## Exemplo resolvido
+
+**Como escrever o nome CONCEIÇÃO SOUSA letra por letra?**
+
+1. Separe as duas partes. O prenome é **CONCEIÇÃO**. O sobrenome é **SOUSA**.
+2. Bata palmas no prenome: CON - CEI - ÇÃO. São três pedaços.
+3. Escreva pedaço por pedaço, falando o som: **CON**, depois **CEI**, depois **ÇÃO**.
+4. Confira os sinais: a **cedilha** embaixo do Ç e o **til** em cima do Ã. Sem eles, o nome muda.
+5. Agora o sobrenome: SOU - SA. Olhe no documento se é SOUSA com S ou SOUZA com Z. Vale o que está na certidão.
+6. Conte as letras: CONCEIÇÃO tem 9 letras, SOUSA tem 5.
+
+Faça o mesmo com o seu nome. Quem ajuda escreve o modelo em letra grande. Você copia embaixo, pedaço por pedaço.
+
+## Ouça os nomes
+
+Toque no alto-falante e escute como cada nome se divide.
+
+```pronuncia
+lingua: pt-BR
+MA - RI - A | MARIA
+JO - SÉ | JOSÉ
+JO - ÃO | JOÃO
+CON - CEI - ÇÃO | CONCEIÇÃO
+```
+
+## Prenome ou sobrenome?
+
+Arraste cada nome para o grupo certo. Lembre: o prenome é o nome de chamar; o sobrenome é o nome de família.
+
+```arrastar
+Prenome: MARIA, JOSÉ, ANA PAULA, JOÃO
+Sobrenome: SILVA, SANTOS, SOUZA, OLIVEIRA
+```
+
 ## Para praticar
 
 1. Escreva o seu prenome cinco vezes.
@@ -146,6 +185,13 @@ Essas regras valem também para quem já lê. Ler um contrato antes de assinar �
 3. Diga o nome de cada letra, como na tabela: eme, á, erre...
 4. Escreva o nome completo de alguém da sua família: um filho, uma neta, a mãe.
 5. Ache o seu nome escrito em algum papel da casa: uma conta, uma receita, um envelope. Compare com o que você escreveu.
+
+## Resumo
+
+- Toda pessoa tem direito ao nome: o **prenome** (de chamar) e o **sobrenome** (de família).
+- Escreva o nome **como está no documento**, com acento, til e cedilha.
+- Para treinar a assinatura: copie, cubra, separe, escreva de memória e repita um pouco todo dia.
+- Assinar é dizer que concorda. Antes de assinar, peça para lerem o papel inteiro em voz alta e nunca assine papel em branco.
 
 ## Para pensar
 
