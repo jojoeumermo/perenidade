@@ -36,6 +36,7 @@
     "testar:eletrica": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-eletrica.mjs",
     "testar:blocos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-blocos.mjs",
     "testar:estudo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-estudo.mjs",
+    "testar:jogos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-jogos.mjs",
     "testar:exercicios": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-exercicios.mjs",
     "testar:meu-estudo": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./scripts/carregar-ts.mjs scripts/testar-meu-estudo.mjs",
     "testar:tarefas": "node scripts/testar-tarefas.mjs",

@@ -16,7 +16,7 @@ O Instituto Lúcia é um projeto educacional gratuito, sem fins lucrativos e sem
 
 ## Se você só estuda
 
-Nada do que você faz ao estudar sai do seu aparelho. O progresso nas aulas, os rascunhos, o fichamento, o tema claro ou escuro e as preferências de acessibilidade ficam guardados no seu navegador. Você pode baixar uma cópia ou apagar tudo na página [Meus dados](/meus-dados). Lá também dá para mandar o navegador apagar tudo sozinho depois de um tempo sem uso.
+Nada do que você faz ao estudar sai do seu aparelho. O progresso nas aulas, os rascunhos, o fichamento, o tema claro ou escuro e as preferências de acessibilidade ficam guardados no seu navegador. No jogo Rumos (em [Jogos de formação](/laboratorios/jogos)), o navegador guarda só quantas partidas você jogou em cada baralho e que desfechos já viu, para abrir cartas novas nas partidas seguintes; não há pontos nem placar, e nada disso sai do aparelho. Você pode baixar uma cópia ou apagar tudo na página [Meus dados](/meus-dados). Lá também dá para mandar o navegador apagar tudo sozinho depois de um tempo sem uso.
 
 O site não usa cookies de publicidade, não tem pixel de rede social e não carrega anúncios.
 
