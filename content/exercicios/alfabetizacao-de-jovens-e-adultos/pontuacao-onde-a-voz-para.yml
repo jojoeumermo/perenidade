@@ -1,0 +1,51 @@
+# Exercícios da aula "Pontuação: onde a voz para" (Depois das primeiras letras). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: eja-pontuacao-01
+  tema: "O sinal certo"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Que sinal termina a frase 'Que calor' quando ela mostra espanto?"
+  alternativas:
+    - texto: "Vírgula (,)"
+      erro: "A vírgula é uma pausa curta no meio da frase, não termina nada. Espanto pede exclamação."
+    - texto: "Interrogação (?)"
+      erro: "Interrogação é para pergunta. 'Que calor' aqui é um desabafo: exclamação."
+    - texto: "Exclamação (!)"
+      certa: true
+  explicacao: "Que calor! A exclamação mostra surpresa, alegria, raiva ou desabafo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-pontuacao-02
+  tema: "A vírgula muda o sentido"
+  dificuldade: 2
+  enunciado: "Você quer que a pessoa NÃO vá embora. Qual bilhete está certo?"
+  alternativas:
+    - texto: "Não, espere."
+      certa: true
+    - texto: "Não espere."
+      erro: "Sem vírgula, 'Não espere' quer dizer 'vá logo, não fique esperando'. É o contrário do que você quer."
+    - texto: "Não espere!"
+      erro: "A exclamação só dá força. Sem a vírgula depois do Não, continua querendo dizer 'não fique esperando'."
+  explicacao: "Com a vírgula, são duas ideias: 'Não' (não vá) e 'espere'. Sem ela, vira uma ordem para não esperar."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-pontuacao-03
+  tema: "Pontuar um texto"
+  dificuldade: 3
+  enunciado: "Qual é a melhor forma de pontuar: 'ontem fui à feira comprei frutas estava tudo caro'?"
+  alternativas:
+    - texto: "Ontem fui à feira, comprei frutas, estava tudo caro"
+      erro: "Quase. Faltou o ponto no fim, e são três ideias inteiras: dá para separar cada uma com ponto final."
+    - texto: "ontem fui à feira. comprei frutas. estava tudo caro."
+      erro: "Os pontos estão no lugar, mas depois do ponto a frase nova começa com letra maiúscula: Ontem, Comprei, Estava."
+    - texto: "Ontem fui à feira. Comprei frutas. Estava tudo caro."
+      certa: true
+  explicacao: "Três ideias, três frases. Cada uma começa com letra maiúscula e termina com ponto."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
