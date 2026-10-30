@@ -49,10 +49,14 @@ conferencias(ordem, conferencia, ok, detalhe) as (
          not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname in ('public', 'interno') and p.prosecdef and not exists (select 1 from unnest(coalesce(p.proconfig, '{}')) c where c like 'search_path=%')),
          (select string_agg(n.nspname || '.' || p.proname, ', ') from pg_proc p join pg_namespace n on n.oid = p.pronamespace where n.nspname in ('public', 'interno') and p.prosecdef and not exists (select 1 from unnest(coalesce(p.proconfig, '{}')) c where c like 'search_path=%'))
   union all
-  select 8, 'visitante e conta comum não entram no esquema interno',
-         not has_schema_privilege('anon', 'interno', 'usage') and not has_schema_privilege('authenticated', 'interno', 'usage')
+  -- O uso do esquema interno é liberado de propósito: as regras dos depósitos chamam funções de lá. O que importa é
+  -- que nenhuma tabela seja legível e que as funções de permissão não sejam chamáveis por visitante.
+  select 8, 'visitante e conta comum não leem tabela do interno nem chamam as funções de permissão',
+         not exists (select 1 from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'interno' and c.relkind = 'r'
+                       and (has_table_privilege('anon', c.oid, 'select') or has_table_privilege('authenticated', c.oid, 'select')))
            and not has_function_privilege('anon', 'interno.sessao_confiavel()', 'execute'),
-         null
+         (select string_agg(c.relname, ', ') from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'interno' and c.relkind = 'r'
+            and (has_table_privilege('anon', c.oid, 'select') or has_table_privilege('authenticated', c.oid, 'select')))
   union all
   select 9, 'regras dos depósitos que contam envios estão ativas',
          exists (select 1 from pg_policies where schemaname = 'storage' and policyname = 'gaveta_envio' and with_check like '%gaveta_arquivo_pode%')
