@@ -114,7 +114,27 @@
     "searchTyping": "Type to search the whole site.",
     "signOut": "Sign out",
     "signingOut": "Signing out…",
-    "searchNothing": "Nothing found for “{q}”."
+    "searchNothing": "Nothing found for “{q}”.",
+    "searchPick": "choose",
+    "searchGo": "open",
+    "searchShut": "close",
+    "searchSeeN": {
+      "one": "See {n} result",
+      "other": "See all {n} results"
+    },
+    "searchGroups": {
+      "aula": "Lessons",
+      "obra": "Works",
+      "trilha": "Tracks",
+      "autor": "Authors",
+      "memorial": "Memorial",
+      "verbete": "Glossary",
+      "materia": "Newspaper",
+      "checagem": "Fact checks",
+      "debate": "Debates",
+      "pergunta": "Questions",
+      "falacia": "Fallacies"
+    }
   },
   "labs": {
     "eyebrow": "Real practice",

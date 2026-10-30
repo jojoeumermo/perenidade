@@ -3410,6 +3410,71 @@ main#conteudo :is(.py-10, .pt-10) > .cabeca-da-pagina:first-child {
 .busca-aberta {
   animation: busca-alonga 0.18s ease-out backwards;
 }
+/* O campo calmo (30/10/2026): borda fina, sem sombra; a borda de tinta e um halo leve só com o cursor dentro. */
+.busca-campo {
+  border: 1px solid var(--rule);
+  background: var(--folha);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+a.busca-campo:hover {
+  border-color: var(--ink-soft);
+}
+a.busca-campo:focus-visible {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--prelo) 18%, transparent);
+}
+.busca-campo-aberto,
+.busca-campo:focus-within {
+  border: 1.5px solid var(--ink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--prelo) 18%, transparent);
+}
+.busca-campo input:focus-visible {
+  outline: none;
+}
+.busca-tecla {
+  border: 1px solid var(--rule);
+  background: var(--folha);
+  padding: 0 0.35rem;
+  font-family: var(--font-archive), ui-monospace, monospace;
+  font-size: 0.68rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.busca-lista {
+  border: 1.5px solid var(--ink);
+  background: var(--folha);
+  box-shadow: 0 12px 28px rgb(31 26 20 / 0.14);
+}
+.busca-item {
+  border-left: 3px solid transparent;
+}
+.busca-item-ativo {
+  border-left-color: var(--prelo);
+  background: var(--parchment-deep);
+}
+.busca-marca {
+  background: color-mix(in srgb, #f0b323 45%, transparent);
+  color: inherit;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .busca-lista {
+    border-color: var(--borda-forte);
+    box-shadow: 0 12px 28px rgb(0 0 0 / 0.5);
+  }
+}
+:root[data-theme="dark"] .busca-lista {
+  border-color: var(--borda-forte);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.5);
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) :is(.busca-campo, .busca-lista, .busca-tecla) {
+  border-color: var(--ink);
+  box-shadow: none;
+}
+:root:is([data-contrast], [data-eink], [data-leitor]) .busca-marca {
+  background: none;
+  text-decoration: underline;
+}
 @media (prefers-reduced-motion: reduce) {
   .busca-aberta { animation: none; }
 }
