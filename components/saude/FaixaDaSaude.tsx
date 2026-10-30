@@ -29,13 +29,13 @@ export function FaixaDaSaude({ href }: { href: string }) {
   if (desligada) return null;
   return (
     <section className="mx-auto max-w-[78rem] px-4 py-12 sm:px-6 lg:px-8 max-md:py-8" lang="pt-BR">
-      <div className="grid gap-5 border border-[#221C17]/40 bg-[#F4EBDB] p-6 text-[#221C17] sm:grid-cols-[1fr_auto] sm:items-center sm:p-7">
+      <div className="grid gap-5 border border-ink/40 bg-parchment-deep p-6 text-ink sm:grid-cols-[1fr_auto] sm:items-center sm:p-7">
         <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#221C17]/70">{NOME_VITRINE}</p>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-ink/70">{NOME_VITRINE}</p>
           <h2 className="mt-1.5 text-[2rem] font-semibold leading-tight">Mural de profissionais de saúde</h2>
           <p className="mt-2 max-w-3xl font-sans text-sm">{AVISO_CURTO}</p>
         </div>
-        <Link href={href} className="border border-[#221C17] bg-[#221C17] px-5 py-3 text-center font-sans font-semibold text-[#F4EBDB] hover:bg-[#3a3029]">
+        <Link href={href} className="border border-ink bg-ink px-5 py-3 text-center font-sans font-semibold text-parchment hover:bg-ink-soft">
           Ver o mural →
         </Link>
       </div>
