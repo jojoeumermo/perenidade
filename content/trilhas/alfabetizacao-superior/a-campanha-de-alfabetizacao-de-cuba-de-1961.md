@@ -12,22 +12,26 @@ fontes:
     url: "https://es.wikisource.org/wiki/Nuestra_Am%C3%A9rica"
 quiz:
   - pergunta: "Em que ano Cuba realizou a sua Campanha Nacional de Alfabetização?"
-    opcoes: ["1961", "1959", "1980"]
-    resposta: 0
+    opcoes: ["1959", "1961", "1980"]
+    resposta: 1
     explicacao: "O ano foi chamado de Ano da Educação."
   - pergunta: "Quem eram os brigadistas Conrado Benítez?"
-    opcoes: ["Jovens estudantes que foram ao campo ensinar camponeses a ler", "Soldados estrangeiros", "Professores universitários europeus"]
-    resposta: 0
+    opcoes: ["Soldados estrangeiros", "Professores universitários europeus", "Jovens estudantes que foram ao campo ensinar camponeses a ler"]
+    resposta: 2
     explicacao: "Eram cerca de 100 mil, muitos adolescentes."
   - pergunta: "Qual era a diferença do analfabetismo entre cidade e campo em Cuba em 1958?"
     opcoes: ["Cerca de 11% na cidade e 41,7% no campo", "Igual nos dois", "Maior na cidade"]
     resposta: 0
     explicacao: "A campanha se concentrou no campo."
   - pergunta: "Quando Cuba foi declarada \"território livre de analfabetismo\"?"
-    opcoes: ["Em 22 de dezembro de 1961", "Em 1º de janeiro de 1959", "Em 1990"]
-    resposta: 0
+    opcoes: ["Em 1º de janeiro de 1959", "Em 1990", "Em 22 de dezembro de 1961"]
+    resposta: 2
     explicacao: "A declaração foi feita em um ato na Praça da Revolução, em Havana."
 ---
+
+## O que você vai aprender
+
+Ao fim desta aula você vai conhecer a Campanha Nacional de Alfabetização de Cuba (1961): o ponto de partida, a organização em três grandes grupos de alfabetizadores, os resultados declarados e os debates sobre eles. E vai comparar essa campanha com as experiências brasileiras e com a da Nicarágua.
 
 ## O ponto de partida
 
@@ -72,6 +76,28 @@ O caso cubano é estudado como um exemplo de **campanha de alfabetização em ma
 ## Uma comparação com o Brasil
 
 No mesmo começo dos anos 1960, o Brasil discutia a alfabetização de adultos com as experiências de Paulo Freire e com o Programa Nacional de Alfabetização, interrompido pelo golpe de 1964. Veja [A experiência de Angicos](/trilhas/alfabetizacao-superior/a-experiencia-de-angicos).
+
+## Exemplo resolvido
+
+**Pelos registros da campanha, havia cerca de 178 mil alfabetizadores populares, 30 mil brigadistas operários e 100 mil brigadistas Conrado Benítez. Quantos alfabetizadores eram ao todo, e que parte deles eram os jovens que foram morar no campo?**
+
+1. **Some os três grupos.** 178.000 + 30.000 + 100.000 = **308.000** pessoas, aproximadamente.
+2. **Ache a parte dos brigadistas Conrado Benítez.** 100.000 de 308.000. Divida: 100.000 ÷ 308.000 ≈ 0,32.
+3. **Transforme em porcentagem.** 0,32 × 100 ≈ **32%**, quase um terço.
+4. **Interprete.** Dois terços dos alfabetizadores ensinavam onde viviam e trabalhavam (os alfabetizadores populares e os operários). Só um terço foi para o campo. A campanha não dependeu só dos jovens: dependeu de uma mobilização da sociedade inteira.
+5. **Cuidado com a fonte.** São números "aproximados", dos registros da própria campanha. Ao citar, diga de onde vêm.
+
+Confira: 178 + 30 + 100 = 308 (em milhares), e 100 é um pouco menos que um terço de 308.
+
+Para ver como a experiência se repetiu e se transformou duas décadas depois, leia [A campanha de alfabetização da Nicarágua de 1980](/trilhas/alfabetizacao-aprofundamento/a-campanha-de-alfabetizacao-da-nicaragua-de-1980).
+
+## Resumo
+
+- Depois da revolução de 1959, Cuba fez de **1961** o Ano da Educação, com a meta de eliminar o analfabetismo, muito maior no campo (41,7% em 1958, segundo os dados citados) que nas cidades.
+- Três grupos ensinaram: **alfabetizadores populares** (nos próprios bairros), **brigadistas operários** e os jovens **brigadistas Conrado Benítez**, que moraram com famílias camponesas.
+- Em **22 de dezembro de 1961**, Cuba se declarou "território livre de analfabetismo"; segundo a campanha, a taxa caiu para **3,9%**.
+- A campanha teve programas de **continuidade** depois de 1961.
+- Debates: os critérios para considerar alguém alfabetizado e o peso da propaganda nos materiais. A escala da mobilização é pouco contestada.
 
 ## Para pesquisar e debater
 
