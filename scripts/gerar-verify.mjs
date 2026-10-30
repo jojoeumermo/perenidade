@@ -33,7 +33,7 @@ depositos_faltando as (select nome from depositos_esperados where not exists (se
 -- O agendador (pg_cron) pode não existir no projeto: a tabela dele só é lida quando existe.
 rotinas_ativas as (
   select unnest(case when to_regclass('cron.job') is null then '{}'::text[]
-    else (xpath('/row/n/text()', query_to_xml('select string_agg(jobname, '','') as n from cron.job where active', false, true, '')))[1]::text::text[] end) as nome
+    else string_to_array((xpath('/row/n/text()', query_to_xml('select string_agg(jobname, '','') as n from cron.job where active', false, true, '')))[1]::text, ',') end) as nome
 ),
 conferencias(ordem, conferencia, ok, detalhe) as (
   select 1, 'todas as tabelas do install.sql existem',
