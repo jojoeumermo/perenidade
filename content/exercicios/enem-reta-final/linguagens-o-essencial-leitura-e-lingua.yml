@@ -1,0 +1,200 @@
+# Exercícios da aula "Linguagens, o essencial: leitura, gêneros e língua" (trilha enem-reta-final).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4. Textos-base originais do Instituto Lúcia.
+
+- id: enem-rf-lin-leitura-01
+  tema: "Estratégias de leitura e inferência"
+  area: linguagens
+  habilidade: 22
+  objeto: lin-texto-estrategias-de-leitura
+  dificuldade: 1
+  enunciado: "Um texto diz: \"A feira do bairro voltou a funcionar aos domingos, depois de dois meses parada por causa da obra na praça.\" Qual afirmação o texto sustenta?"
+  alternativas:
+    - texto: "A obra na praça já terminou ou deixou de atrapalhar a feira."
+      certa: true
+    - texto: "A feira é a mais barata da cidade."
+      erro: "Isso pode até ser verdade, mas o texto não fala de preço. É extrapolação: procure a linha que sustenta a alternativa."
+    - texto: "A prefeitura proibiu a feira para sempre."
+      erro: "O texto diz o contrário: a feira voltou. É inversão. Releia o verbo \"voltou\"."
+    - texto: "Os feirantes ficaram sem renda nos dois meses."
+      erro: "O texto não diz o que os feirantes fizeram nesses meses. Talvez tenham trabalhado em outro lugar. Fique no que está escrito."
+  explicacao: "Se a feira voltou depois de parar por causa da obra, o motivo da parada deixou de existir ou de atrapalhar. É a única inferência que o texto sustenta."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-lem-01
+  tema: "Espanhol: estratégias de leitura e falsos cognatos"
+  area: linguagens
+  habilidade: 5
+  objeto: lin-lem-espanhol-estrategias
+  dificuldade: 1
+  enunciado: "Num anúncio em espanhol, lê-se: \"Se busca recepcionista para oficina en el centro. Horario de lunes a viernes.\" A vaga é para trabalhar em:"
+  alternativas:
+    - texto: "uma oficina mecânica"
+      erro: "\"Oficina\" parece com a palavra do português, mas é um falso cognato. Em espanhol, oficina mecânica é \"taller\"."
+    - texto: "uma escola de artes"
+      erro: "Nada no anúncio fala de escola. Talvez você tenha pensado em \"oficina\" como curso. Em espanhol, a palavra quer dizer escritório."
+    - texto: "um escritório"
+      certa: true
+    - texto: "uma loja de roupas"
+      erro: "Loja é \"tienda\". O anúncio não fala de venda. Procure o sentido de \"oficina\" em espanhol."
+  explicacao: "Em espanhol, \"oficina\" é escritório. É um dos falsos cognatos mais comuns. \"Taller\" é a oficina mecânica ou de costura."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-lem-02
+  tema: "Inglês: estratégias de leitura (cognatos, skimming, scanning, inferência)"
+  area: linguagens
+  habilidade: 5
+  objeto: lin-lem-ingles-estrategias
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    COMMUNITY LIBRARY – NOTICE
+    Many people think the library is closed on weekends. Actually, we are open on Saturdays, from 9 a.m. to 1 p.m.
+    Bring your ID card and register for free. Children under 12 must come with a parent or a guardian.
+    (Texto original do Instituto Lúcia.)
+  enunciado: "O aviso da biblioteca comunitária tem o objetivo de"
+  alternativas:
+    - texto: "anunciar que a biblioteca passou a fechar aos sábados."
+      erro: "É o contrário. \"Actually\" quer dizer \"na verdade\", e o aviso corrige a ideia de que a biblioteca fecha no fim de semana. Cuidado com o falso cognato: não é \"atualmente\"."
+    - texto: "cobrar uma taxa de inscrição das famílias."
+      erro: "O aviso diz \"for free\": a inscrição é de graça. Releia as palavras perto de \"register\"."
+    - texto: "proibir a entrada de crianças menores de 12 anos."
+      erro: "As crianças podem entrar, desde que acompanhadas por um responsável (\"parent or guardian\"). É uma condição, não uma proibição."
+    - texto: "informar que a biblioteca vai mudar de endereço."
+      erro: "Nada no texto fala de endereço novo. É extrapolação. Use o título e as frases principais para achar o tema."
+    - texto: "corrigir uma ideia errada sobre o horário e convidar as pessoas a se inscreverem."
+      certa: true
+  explicacao: "A primeira frase traz a crença comum (a biblioteca fecha no fim de semana); \"Actually\" (na verdade) corrige: abre aos sábados de manhã. Depois, o aviso convida a se inscrever de graça, com documento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-variacao-01
+  tema: "Variação linguística"
+  area: linguagens
+  habilidade: 26
+  objeto: lin-lingua-portuguesa-variacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Num vídeo de uma campanha de prevenção ao golpe do falso empréstimo, uma senhora fala direto para a câmera:
+    "Ô, minha fia, num cai nessa não! Banco num liga pedindo senha. Desliga e vai lá na agência, que é mais garantido."
+    (Texto original do Instituto Lúcia.)
+  enunciado: "Na campanha, a escolha de uma fala informal e com marcas regionais contribui para"
+  alternativas:
+    - texto: "mostrar que pessoas mais velhas não dominam a língua portuguesa."
+      erro: "Essa leitura é preconceito linguístico. A variedade foi escolhida de propósito, para falar com um público. Pergunte: para quem a campanha fala?"
+    - texto: "criar identificação com o público e tornar o alerta mais confiável."
+      certa: true
+    - texto: "tornar a campanha engraçada e pouco séria."
+      erro: "O tom é próximo, mas o alerta é sério e traz uma orientação clara (desligar e ir à agência). Nada indica piada."
+    - texto: "ensinar a norma-padrão a quem assiste ao vídeo."
+      erro: "A campanha não ensina regra de língua. Ela ensina a se proteger de um golpe. É mudança de assunto."
+    - texto: "esconder a informação principal do público."
+      erro: "A informação está clara: banco não pede senha por telefone. A fala informal ajuda a entendê-la, não a esconde."
+  explicacao: "A variedade usada é a de muitos dos espectadores que a campanha quer proteger. Falar como eles cria proximidade e confiança: é a adequação da variedade à situação (H26)."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-digitais-01
+  tema: "Desinformação e checagem"
+  area: linguagens
+  habilidade: 28
+  objeto: lin-generos-digitais-desinformacao
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    "ATENÇÃO!!! A partir de segunda-feira, quem não atualizar o cadastro por este link vai perder o benefício. Passe para
+    todos os seus contatos antes que tirem do ar!"
+    (Mensagem fictícia, criada pelo Instituto Lúcia para esta questão.)
+  enunciado: "A mensagem apresenta características típicas de desinformação porque"
+  alternativas:
+    - texto: "usa letras maiúsculas, o que é proibido em comunicados oficiais."
+      erro: "Maiúsculas não são proibidas. O problema é o conjunto: urgência, ameaça, falta de fonte e o pedido de repasse."
+    - texto: "foi escrita em português, e os órgãos públicos só usam linguagem técnica."
+      erro: "Órgãos públicos escrevem em português e muitas vezes em linguagem simples. A língua não é o sinal de alerta."
+    - texto: "trata de um benefício, assunto que nunca aparece em notícias verdadeiras."
+      erro: "Benefícios aparecem muito em notícias verdadeiras. Por isso mesmo viram isca de golpe. O sinal está na forma da mensagem, não no assunto."
+    - texto: "pressiona com urgência e ameaça, não indica a fonte e pede compartilhamento em massa."
+      certa: true
+    - texto: "foi enviada numa segunda-feira, dia em que circulam mais boatos."
+      erro: "A mensagem fala de segunda-feira como prazo, não diz quando foi enviada. E o dia da semana não prova nada. É extrapolação."
+  explicacao: "Urgência (\"ATENÇÃO!!!\", \"antes que tirem do ar\"), ameaça (perder o benefício), ausência de autor e de fonte oficial e pedido de repasse são sinais clássicos. O certo é procurar a informação no canal oficial do órgão."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-argumentacao-01
+  tema: "Persuasão na publicidade e na propaganda"
+  area: linguagens
+  habilidade: 24
+  objeto: lin-argumentacao-publicidade
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Cartaz de uma campanha de doação de sangue: a foto de uma menina sorrindo, abraçada ao pai, e a frase
+    "Ela ganhou mais um aniversário. Alguém que ela nunca conheceu deu um pouco de si."
+    (Descrição de cartaz fictício, criado pelo Instituto Lúcia.)
+  enunciado: "Para convencer o público a doar sangue, o cartaz recorre principalmente à"
+  alternativas:
+    - texto: "comoção, ao ligar a doação à vida e à alegria de uma família."
+      certa: true
+    - texto: "intimidação, ao ameaçar quem não doa com uma punição."
+      erro: "Não há ameaça nem castigo no cartaz. A intimidação diria algo como \"se você não doar, vai acontecer…\"."
+    - texto: "apresentação de dados estatísticos sobre os estoques de sangue."
+      erro: "O cartaz não traz números. O argumento é a história da menina, não um dado."
+    - texto: "autoridade de um médico famoso que recomenda a doação."
+      erro: "Ninguém de prestígio aparece no cartaz. Quem aparece é uma família comum."
+    - texto: "comparação entre o preço da doação e o de outros serviços."
+      erro: "Doar sangue não tem preço, e o cartaz não compara nada. Releia a imagem e a frase juntas."
+  explicacao: "Imagem (a menina abraçada ao pai) e palavra (\"mais um aniversário\") mexem com a emoção. É comoção, uma das estratégias citadas na habilidade 24."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-generos-01
+  tema: "Artigo de opinião, editorial, carta aberta e resenha"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-texto-generos-opinativos
+  dificuldade: 3
+  enunciado: "Um jornal publica, sem assinatura, um texto que defende que a cidade precisa de mais linhas de ônibus à noite e termina com: \"É o mínimo que se espera de uma gestão que diz cuidar de quem trabalha.\" Qual é o gênero e o que o identifica?"
+  alternativas:
+    - texto: "Notícia, porque trata de um fato recente da cidade."
+      erro: "A notícia relata um fato com neutralidade. Este texto defende uma posição e cobra a gestão: é opinião."
+    - texto: "Artigo de opinião, porque é assinado por um especialista."
+      erro: "O artigo de opinião é assinado por quem escreve. Este não tem assinatura. Releia: o texto fala por quem?"
+    - texto: "Editorial, porque defende uma opinião em nome do próprio jornal, sem assinatura."
+      certa: true
+    - texto: "Reportagem, porque traz entrevistas e dados sobre o transporte."
+      erro: "O enunciado não fala de entrevistas nem de dados. E a reportagem informa em profundidade; ela não termina cobrando a gestão."
+    - texto: "Carta aberta, porque é dirigida a um destinatário com nome e assinatura."
+      erro: "A carta aberta tem destinatário e remetente identificados. Aqui não há assinatura nem vocativo."
+  explicacao: "O editorial é o texto de opinião do próprio veículo: defende uma tese, não leva assinatura e fala em nome do jornal. A frase final, com juízo de valor, confirma o caráter opinativo."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-lin-coesao-01
+  tema: "Coesão e coerência"
+  area: linguagens
+  habilidade: 18
+  objeto: lin-recursos-expressivos-coesao-e-coerencia
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    "A cooperativa de reciclagem dobrou a produção neste ano. Os catadores, no entanto, continuam sem carteira assinada.
+    Por isso, a associação de moradores decidiu levar o caso à Câmara."
+    (Texto original do Instituto Lúcia.)
+  enunciado: "No texto, os conectivos \"no entanto\" e \"por isso\" estabelecem, respectivamente, relações de"
+  alternativas:
+    - texto: "adição e explicação."
+      erro: "\"No entanto\" não soma ideias: ele opõe a produção maior à falta de direitos. Troque por \"e\" e veja que o sentido muda."
+    - texto: "conclusão e oposição."
+      erro: "A ordem está trocada. \"No entanto\" opõe; \"por isso\" conclui. Leia cada conectivo no seu lugar."
+    - texto: "tempo e finalidade."
+      erro: "Nenhum dos dois marca tempo ou finalidade. Finalidade seria \"para que\"; tempo, \"quando\"."
+    - texto: "comparação e condição."
+      erro: "Não há comparação (\"como\", \"tanto quanto\") nem condição (\"se\", \"caso\") nas frases."
+    - texto: "oposição e conclusão."
+      certa: true
+  explicacao: "\"No entanto\" opõe o crescimento da produção à falta de carteira assinada (oposição, como \"mas\"). \"Por isso\" apresenta a decisão da associação como consequência dessa situação (conclusão, como \"portanto\")."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

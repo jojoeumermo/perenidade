@@ -1,0 +1,203 @@
+# Exercícios da aula "Matemática, o essencial: geometria, dados e funções" (trilha enem-reta-final).
+# Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-rf-mat-media-01
+  tema: "Média, mediana e moda"
+  area: matematica
+  habilidade: 27
+  objeto: mat-estatistica-media-mediana-moda
+  dificuldade: 1
+  enunciado: "As contas de luz de uma casa, em quatro meses, foram de R$ 90, R$ 110, R$ 100 e R$ 140. Qual foi o valor médio da conta nesses meses?"
+  alternativas:
+    - texto: "R$ 110"
+      certa: true
+    - texto: "R$ 440"
+      erro: "440 é a soma das contas. Falta dividir pela quantidade de meses, 4."
+    - texto: "R$ 105"
+      erro: "105 é a mediana: em ordem (90, 100, 110, 140), a média dos dois do meio. A pergunta pede a média de todos."
+    - texto: "R$ 115"
+      erro: "Você fez a média só da menor e da maior conta, (90 + 140) ÷ 2. A média usa todos os valores."
+    - texto: "R$ 146,67"
+      erro: "A soma está certa (440), mas a divisão foi por 3. São 4 meses: divida por 4."
+  explicacao: "Soma: 90 + 110 + 100 + 140 = 440. Média: 440 ÷ 4 = 110 reais."
+  conferir: "(90 + 110 + 100 + 140) / 4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-ponderada-01
+  tema: "Média ponderada"
+  area: matematica
+  habilidade: 27
+  objeto: mat-estatistica-media-ponderada
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No processo seletivo de um curso técnico gratuito, a nota final é a média ponderada de três provas. A redação tem
+    peso 1, a prova de matemática tem peso 2 e a prova de conhecimentos gerais tem peso 2. Uma candidata tirou 8 na
+    redação, 6 em matemática e 7 em conhecimentos gerais.
+  enunciado: "A nota final dessa candidata foi"
+  alternativas:
+    - texto: "7,0."
+      erro: "Essa é a média simples, (8 + 6 + 7) ÷ 3. Com pesos, cada nota é multiplicada pelo seu peso antes de somar."
+    - texto: "34."
+      erro: "34 é a soma das notas já multiplicadas pelos pesos. Falta dividir pela soma dos pesos, 1 + 2 + 2 = 5."
+    - texto: "11,3."
+      erro: "Você dividiu 34 pelo número de provas, 3. Na média ponderada, divida pela soma dos pesos, 5."
+    - texto: "6,5."
+      erro: "Você fez a média só das duas notas de peso 2, (6 + 7) ÷ 2, e deixou a redação de fora. Ela também conta, com peso 1."
+    - texto: "6,8."
+      certa: true
+  explicacao: "Multiplique cada nota pelo peso: 8 × 1 = 8; 6 × 2 = 12; 7 × 2 = 14. Some: 34. Divida pela soma dos pesos: 34 ÷ 5 = 6,8."
+  conferir: "(8 * 1 + 6 * 2 + 7 * 2) / (1 + 2 + 2)"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-graficos-01
+  tema: "Gráficos e tabelas"
+  area: matematica
+  habilidade: 24
+  objeto: mat-estatistica-graficos
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Um cursinho popular publicou um gráfico de colunas com o número de estudantes matriculados por ano:
+    2021: 80 estudantes; 2022: 100 estudantes; 2023: 120 estudantes; 2024: 168 estudantes.
+  enunciado: "O maior aumento percentual no número de matriculados, de um ano para o ano seguinte, foi de"
+  alternativas:
+    - texto: "25%"
+      erro: "25% é o aumento de 2021 para 2022 (20 ÷ 80). Compare os três pares de anos: o de 2023 para 2024 é maior."
+    - texto: "48%"
+      erro: "48 é o aumento em número de estudantes (168 − 120), não em porcentagem. Divida pelo valor de partida: 48 ÷ 120."
+    - texto: "40%"
+      certa: true
+    - texto: "110%"
+      erro: "110% é o aumento de 2021 a 2024, somando os três anos (88 ÷ 80). A pergunta pede o maior aumento de um ano para o seguinte."
+    - texto: "cerca de 29%"
+      erro: "Você dividiu 48 por 168, o valor novo. A variação percentual divide pelo valor de partida: 48 ÷ 120."
+  explicacao: "Aumentos: de 80 para 100, 20 ÷ 80 = 25%; de 100 para 120, 20 ÷ 100 = 20%; de 120 para 168, 48 ÷ 120 = 0,4 = 40%. O maior é 40%."
+  conferir: "(168 - 120) / 120 * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-afim-01
+  tema: "Função afim"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-afim
+  dificuldade: 1
+  enunciado: "Um eletricista cobra R$ 80 pela visita e mais R$ 50 por hora de serviço. Quanto ele cobra por um serviço de 3 horas?"
+  alternativas:
+    - texto: "R$ 130"
+      erro: "Você contou só 1 hora (80 + 50). O serviço durou 3 horas: 3 × 50 = 150, mais a visita."
+    - texto: "R$ 390"
+      erro: "Você multiplicou a visita também por 3: (80 + 50) × 3. A visita é cobrada uma vez só."
+    - texto: "R$ 150"
+      erro: "Você esqueceu a visita de R$ 80. O preço é o valor fixo mais o valor por hora."
+    - texto: "R$ 230"
+      certa: true
+    - texto: "R$ 240"
+      erro: "Você fez 80 × 3, multiplicando o valor fixo pelas horas. Quem é multiplicado pelas horas é o valor por hora, 50."
+  explicacao: "Preço = 80 + 50 · h. Para h = 3: 80 + 150 = 230 reais."
+  conferir: "80 + 50 * 3"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-independentes-01
+  tema: "Eventos independentes"
+  area: matematica
+  habilidade: 28
+  objeto: mat-estatistica-eventos-independentes
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Para chegar ao trabalho, uma pessoa pega duas linhas de ônibus. Pelos registros de um mês, a linha 1 atrasa em 20%
+    dos dias e a linha 2 atrasa em 30% dos dias. Os atrasos de uma linha não dependem dos atrasos da outra.
+  enunciado: "A probabilidade de que, num dia qualquer, nenhuma das duas linhas atrase é de"
+  alternativas:
+    - texto: "50%"
+      erro: "Você subtraiu as duas taxas de 100% (100 − 20 − 30). Para eventos independentes, multiplique as chances de cada um não atrasar."
+    - texto: "6%"
+      erro: "6% é a chance de as duas atrasarem (0,2 × 0,3). A pergunta pede nenhuma atrasar: 0,8 × 0,7."
+    - texto: "44%"
+      erro: "44% é a chance de pelo menos uma atrasar, o complementar (1 − 0,56). Releia o comando: ele pede nenhuma."
+    - texto: "75%"
+      erro: "Você fez a média de 80% e 70%. Para os dois acontecerem juntos, multiplique: 0,8 × 0,7."
+    - texto: "56%"
+      certa: true
+  explicacao: "A linha 1 não atrasa com chance 1 − 0,2 = 0,8; a linha 2, com chance 1 − 0,3 = 0,7. Como são independentes, a chance de nenhuma atrasar é 0,8 × 0,7 = 0,56, ou 56%."
+  conferir: "(1 - 0.2) * (1 - 0.3) * 100"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-circunferencia-01
+  tema: "Circunferência e círculo"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-circunferencia
+  dificuldade: 2
+  enunciado: "Uma horta comunitária tem a forma de um círculo de 4 m de raio. Usando π = 3, qual é a área da horta?"
+  alternativas:
+    - texto: "24 m²"
+      erro: "24 é o comprimento da volta (2 × 3 × 4), em metros. Área é π · r²: 3 × 4²."
+    - texto: "48 m²"
+      certa: true
+    - texto: "12 m²"
+      erro: "Você fez π × r e esqueceu o quadrado. O raio entra ao quadrado: 4² = 16."
+    - texto: "144 m²"
+      erro: "Você elevou tudo ao quadrado, (3 × 4)². Só o raio vai ao quadrado: 3 × 16."
+    - texto: "192 m²"
+      erro: "Você usou 8 m, o diâmetro, como raio (3 × 64). O raio é 4 m."
+  explicacao: "A = π · r² = 3 × 4² = 3 × 16 = 48 m²."
+  conferir: "3 * 4^2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-cilindros-01
+  tema: "Prismas e cilindros"
+  area: matematica
+  habilidade: 8
+  objeto: mat-geometria-prismas-e-cilindros
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    No semiárido, uma família recebeu uma cisterna para guardar água da chuva. A cisterna tem a forma de um cilindro com
+    2 m de diâmetro e 1,5 m de altura. Considere π = 3.
+  enunciado: "A capacidade dessa cisterna, em litros, é de"
+  alternativas:
+    - texto: "18.000"
+      erro: "Você usou o diâmetro, 2 m, como raio (3 × 2² × 1,5 = 18 m³). O raio é a metade: 1 m."
+    - texto: "4,5"
+      erro: "4,5 é o volume em metros cúbicos. Falta converter: 1 m³ = 1.000 litros."
+    - texto: "9.000"
+      erro: "Você usou o comprimento da circunferência (2 × 3 × 1 = 6) no lugar da área da base. A base é um círculo: π · r²."
+    - texto: "4.500"
+      certa: true
+    - texto: "450"
+      erro: "Você multiplicou 4,5 m³ por 100. Cada metro cúbico tem 1.000 litros."
+  explicacao: "Raio: 2 ÷ 2 = 1 m. V = π · r² · h = 3 × 1² × 1,5 = 4,5 m³. Em litros: 4,5 × 1.000 = 4.500 L."
+  conferir: "3 * 1^2 * 1.5 * 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-mat-quadratica-01
+  tema: "Função quadrática"
+  area: matematica
+  habilidade: 21
+  objeto: mat-algebra-funcao-quadratica
+  dificuldade: 3
+  enunciado: "Uma bola é chutada para cima e sua altura, em metros, é dada por h(t) = −5t² + 20t, com t em segundos. Qual é a altura máxima que a bola atinge?"
+  alternativas:
+    - texto: "20 m"
+      certa: true
+    - texto: "2 m"
+      erro: "2 é o instante em que a bola chega ao ponto mais alto (o t do vértice, −20 ÷ (2 × −5)). A pergunta pede a altura: calcule h(2)."
+    - texto: "4 m"
+      erro: "4 é o instante em que a bola volta ao chão (a outra raiz de −5t² + 20t = 0), em segundos. A altura máxima está no vértice."
+    - texto: "40 m"
+      erro: "Você calculou só 20 × 2 e esqueceu o termo −5t². Em t = 2: −5 × 4 + 40."
+    - texto: "60 m"
+      erro: "O sinal do −5t² foi trocado: 20 + 40. Refaça com o sinal: −20 + 40."
+  explicacao: "Como a = −5 é negativo, a parábola tem máximo no vértice. t do vértice = −20 ÷ (2 × −5) = 2 s. h(2) = −5 × 4 + 20 × 2 = −20 + 40 = 20 m."
+  conferir: "-5 * 2^2 + 20 * 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

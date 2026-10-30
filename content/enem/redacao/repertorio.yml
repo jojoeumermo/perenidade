@@ -1,0 +1,609 @@
+# Banco de repertório da redação (Instituto Lúcia). Formato: docs/ENEM.md, seção 8, e validarRepertorio (lib/enem.ts).
+# Cada item tem fonte aberta e conferida pela equipe em 30/10/2026 (nada de link direto para PDF).
+# "coringa: true" quer dizer que o item serve a muitos temas, NÃO que pode ser decorado e colado em qualquer texto:
+# a Cartilha 2026 do Inep alerta contra o "repertório de bolso". O "como_usar" mostra a ligação com o tema.
+
+# ── Constituição Federal de 1988 ──
+
+- id: cf-art-6-direitos-sociais
+  titulo: "Constituição Federal, art. 6º: os direitos sociais"
+  eixos: [educacao, saude, trabalho, cidadania, desigualdade]
+  tipo: lei
+  resumo: >-
+    O art. 6º lista os direitos sociais: educação, saúde, alimentação, trabalho, moradia, transporte, lazer, segurança,
+    previdência social, proteção à maternidade e à infância e assistência aos desamparados. O transporte entrou na
+    lista pela Emenda Constitucional nº 90, de 2015.
+  como_usar: >-
+    Serve quando o tema trata de um direito que não chega a todos. A ligação não é "a Constituição garante, logo está
+    resolvido": é mostrar a distância entre o direito escrito e a vida real. Exemplo, num tema sobre transporte
+    público: "Embora o art. 6º da Constituição inclua o transporte entre os direitos sociais, quem mora longe do centro
+    gasta parte grande da renda e do dia para chegar ao trabalho". Diga qual direito da lista o tema envolve; citar a
+    lista inteira é enfeite.
+  fonte:
+    titulo: "Constituição da República Federativa do Brasil de 1988 (texto compilado), art. 6º"
+    autor: "Presidência da República, Planalto"
+    ano: "1988"
+    url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicaocompilado.htm"
+  coringa: true
+
+- id: cf-art-3-objetivos-da-republica
+  titulo: "Constituição Federal, art. 3º: os objetivos da República"
+  eixos: [desigualdade, minorias, cidadania, direitos-humanos]
+  tipo: lei
+  resumo: >-
+    O art. 3º diz que são objetivos fundamentais da República construir uma sociedade livre, justa e solidária,
+    garantir o desenvolvimento nacional, erradicar a pobreza e a marginalização, reduzir as desigualdades sociais e
+    regionais e promover o bem de todos, sem preconceitos de origem, raça, sexo, cor, idade e quaisquer outras formas
+    de discriminação.
+  como_usar: >-
+    Útil em temas de desigualdade e de discriminação, porque mostra que reduzir a desigualdade é obrigação do Estado,
+    não favor. Escolha o inciso que conversa com o tema: o III para pobreza e diferenças regionais (saneamento,
+    acesso à saúde), o IV para preconceito (pessoas com deficiência, racismo). Depois do artigo, explique por que o
+    objetivo ainda não foi alcançado no caso do tema. A explicação é o argumento; o artigo é o apoio.
+  fonte:
+    titulo: "Constituição da República Federativa do Brasil de 1988 (texto compilado), art. 3º"
+    autor: "Presidência da República, Planalto"
+    ano: "1988"
+    url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicaocompilado.htm"
+  coringa: true
+
+- id: cf-art-5-igualdade
+  titulo: "Constituição Federal, art. 5º: todos são iguais perante a lei"
+  eixos: [direitos-humanos, minorias, violencia]
+  tipo: lei
+  resumo: >-
+    O caput do art. 5º afirma que todos são iguais perante a lei, sem distinção de qualquer natureza, e garante a
+    inviolabilidade do direito à vida, à liberdade, à igualdade, à segurança e à propriedade. O inciso XLII diz que a
+    prática do racismo é crime inafiançável e imprescritível, sujeito à pena de reclusão.
+  como_usar: >-
+    Use para mostrar a contradição entre a igualdade formal (na lei) e a desigualdade real (na vida). Num tema sobre
+    racismo, o inciso XLII é mais específico e mais forte que o caput. Cuidado: "todos são iguais perante a lei" dito
+    sozinho, na introdução, vira frase pronta. Ligue ao grupo e à situação do tema: quem não é tratado como igual, onde
+    e de que forma.
+  fonte:
+    titulo: "Constituição da República Federativa do Brasil de 1988 (texto compilado), art. 5º"
+    autor: "Presidência da República, Planalto"
+    ano: "1988"
+    url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicaocompilado.htm"
+  coringa: true
+
+- id: cf-art-196-saude
+  titulo: "Constituição Federal, art. 196: a saúde é direito de todos e dever do Estado"
+  eixos: [saude, desigualdade]
+  tipo: lei
+  resumo: >-
+    O art. 196 diz que a saúde é direito de todos e dever do Estado, garantido por políticas sociais e econômicas que
+    reduzam o risco de doença e garantam o acesso universal e igualitário às ações e aos serviços de promoção, proteção
+    e recuperação da saúde.
+  como_usar: >-
+    Em temas de saúde, as palavras "universal e igualitário" são a ponte com o argumento: mostre quem fica de fora do
+    acesso (quem mora longe, quem não pode faltar ao trabalho, quem precisa de um serviço que a unidade não oferece).
+    Também ajuda na proposta: se é dever do Estado, o agente pode ser o Ministério da Saúde ou as secretarias de saúde.
+  fonte:
+    titulo: "Constituição da República Federativa do Brasil de 1988 (texto compilado), art. 196"
+    autor: "Presidência da República, Planalto"
+    ano: "1988"
+    url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicaocompilado.htm"
+  coringa: true
+
+- id: cf-art-205-educacao
+  titulo: "Constituição Federal, art. 205: a educação como direito de todos"
+  eixos: [educacao, cidadania, trabalho]
+  tipo: lei
+  resumo: >-
+    O art. 205 diz que a educação é direito de todos e dever do Estado e da família, promovida e incentivada com a
+    colaboração da sociedade, e que ela visa ao pleno desenvolvimento da pessoa, ao preparo para a cidadania e à
+    qualificação para o trabalho.
+  como_usar: >-
+    Além de "direito de todos", o artigo traz três finalidades da educação: desenvolver a pessoa, preparar para a
+    cidadania e qualificar para o trabalho. Escolha a que serve ao tema. Num tema sobre educação de adultos, por
+    exemplo, a qualificação para o trabalho e a cidadania explicam por que a escola tem de caber na vida de quem
+    trabalha. O artigo também aponta agentes para a proposta: Estado, família e sociedade.
+  fonte:
+    titulo: "Constituição da República Federativa do Brasil de 1988 (texto compilado), art. 205"
+    autor: "Presidência da República, Planalto"
+    ano: "1988"
+    url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicaocompilado.htm"
+  coringa: true
+
+- id: cf-art-225-meio-ambiente
+  titulo: "Constituição Federal, art. 225: o meio ambiente ecologicamente equilibrado"
+  eixos: [meio-ambiente, saude, cidadania]
+  tipo: lei
+  resumo: >-
+    O art. 225 diz que todos têm direito ao meio ambiente ecologicamente equilibrado, bem de uso comum do povo e
+    essencial à sadia qualidade de vida, e impõe ao poder público e à coletividade o dever de defendê-lo e preservá-lo
+    para as presentes e futuras gerações.
+  como_usar: >-
+    Dois pontos do artigo rendem argumento: o meio ambiente é "de uso comum do povo" (então o prejuízo é de todos, não
+    só de quem mora perto) e o dever é do poder público e da coletividade (então a proposta pode ter mais de um
+    agente). Num tema sobre calor nas cidades, ligue o "sadia qualidade de vida" à saúde de quem vive em bairros sem
+    sombra nem ventilação.
+  fonte:
+    titulo: "Constituição da República Federativa do Brasil de 1988 (texto compilado), art. 225"
+    autor: "Presidência da República, Planalto"
+    ano: "1988"
+    url: "https://www.planalto.gov.br/ccivil_03/constituicao/constituicaocompilado.htm"
+  coringa: true
+
+# ── Outras leis ──
+
+- id: eca-1990
+  titulo: "Estatuto da Criança e do Adolescente (Lei nº 8.069/1990)"
+  eixos: [educacao, violencia, direitos-humanos, saude]
+  tipo: lei
+  resumo: >-
+    A Lei nº 8.069, de 13 de julho de 1990, é o Estatuto da Criança e do Adolescente (ECA). O art. 4º diz que é dever
+    da família, da comunidade, da sociedade em geral e do poder público assegurar, com absoluta prioridade, os direitos
+    da criança e do adolescente, como vida, saúde, educação e convivência familiar e comunitária.
+  como_usar: >-
+    Use quando o tema atinge crianças e adolescentes (violência na escola, saúde, educação, internet). A expressão
+    "absoluta prioridade" é o que dá força ao argumento: se a prioridade é absoluta, a falta de política pública é mais
+    grave. O art. 4º ainda distribui o dever entre família, comunidade, sociedade e poder público, o que ajuda a
+    escolher o agente da proposta.
+  fonte:
+    titulo: "Lei nº 8.069, de 13 de julho de 1990 (Estatuto da Criança e do Adolescente)"
+    autor: "Presidência da República, Planalto"
+    ano: "1990"
+    url: "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm"
+  coringa: true
+
+- id: lei-brasileira-de-inclusao
+  titulo: "Lei Brasileira de Inclusão da Pessoa com Deficiência (Lei nº 13.146/2015)"
+  eixos: [minorias, trabalho, cidadania, educacao]
+  tipo: lei
+  resumo: >-
+    A Lei nº 13.146, de 6 de julho de 2015, institui a Lei Brasileira de Inclusão (Estatuto da Pessoa com Deficiência),
+    para assegurar o exercício dos direitos e das liberdades por pessoa com deficiência, em igualdade de condições. A
+    lei define barreira como qualquer entrave, obstáculo, atitude ou comportamento que limite a participação social da
+    pessoa. O art. 34 garante o direito ao trabalho em ambiente acessível e inclusivo.
+  como_usar: >-
+    O conceito de barreira é o que mais rende: ele desloca o problema da pessoa para o ambiente. Num tema sobre
+    trabalho, escola ou transporte, mostre que a exclusão vem da calçada sem rampa, do site sem leitura de tela ou da
+    atitude de quem contrata, e não da deficiência. Isso também orienta a proposta: remover barreiras.
+  fonte:
+    titulo: "Lei nº 13.146, de 6 de julho de 2015 (Lei Brasileira de Inclusão da Pessoa com Deficiência)"
+    autor: "Presidência da República, Planalto"
+    ano: "2015"
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm"
+  coringa: true
+
+- id: lei-maria-da-penha
+  titulo: "Lei Maria da Penha (Lei nº 11.340/2006)"
+  eixos: [violencia, direitos-humanos]
+  tipo: lei
+  resumo: >-
+    A Lei nº 11.340, de 7 de agosto de 2006, trata da violência doméstica e familiar contra a mulher: qualquer ação ou
+    omissão baseada no gênero que cause morte, lesão, sofrimento físico, sexual ou psicológico e dano moral ou
+    patrimonial. O art. 7º lista as formas de violência: física, psicológica, sexual, patrimonial e moral (e, desde
+    2026, a vicária, contra pessoas próximas para atingir a mulher).
+  como_usar: >-
+    A lista de formas de violência ajuda a mostrar que violência não é só agressão física. Num tema sobre controle
+    financeiro, isolamento ou violência pela internet, nomeie a forma (psicológica, patrimonial) e explique o caso. A
+    lei é um avanço; o argumento costuma estar no que falta para ela funcionar (atendimento, delegacias, abrigo).
+  fonte:
+    titulo: "Lei nº 11.340, de 7 de agosto de 2006 (Lei Maria da Penha)"
+    autor: "Presidência da República, Planalto"
+    ano: "2006"
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm"
+
+- id: marco-civil-da-internet
+  titulo: "Marco Civil da Internet (Lei nº 12.965/2014): o acesso como direito"
+  eixos: [tecnologia, cidadania, educacao]
+  tipo: lei
+  resumo: >-
+    A Lei nº 12.965, de 23 de abril de 2014, estabelece princípios, garantias, direitos e deveres para o uso da
+    internet no Brasil. O art. 4º põe como objetivo a promoção do direito de acesso à internet a todos. O art. 7º
+    afirma que o acesso à internet é essencial ao exercício da cidadania.
+  como_usar: >-
+    Use quando o tema mostra quem fica de fora do mundo digital: estudar, procurar emprego, pedir um benefício. A frase
+    do art. 7º ("essencial ao exercício da cidadania") permite dizer que a exclusão digital é exclusão de direitos, não
+    só falta de aparelho. Junte com um dado de acesso (por exemplo, a TIC Domicílios) para não ficar só na lei.
+  fonte:
+    titulo: "Lei nº 12.965, de 23 de abril de 2014 (Marco Civil da Internet)"
+    autor: "Presidência da República, Planalto"
+    ano: "2014"
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm"
+  coringa: true
+
+- id: lgpd-2018
+  titulo: "Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018)"
+  eixos: [tecnologia, direitos-humanos]
+  tipo: lei
+  resumo: >-
+    A Lei nº 13.709, de 14 de agosto de 2018 (LGPD), trata do uso de dados pessoais, inclusive nos meios digitais, por
+    pessoas e por empresas e órgãos públicos, para proteger os direitos de liberdade e de privacidade. O art. 14 diz que
+    o tratamento de dados de crianças e adolescentes deve ser feito no melhor interesse deles.
+  como_usar: >-
+    Serve a temas em que alguém coleta e usa informações das pessoas: aplicativos, cadastros, publicidade direcionada.
+    O argumento está em mostrar que dado pessoal é parte da privacidade, um direito, e não só um assunto técnico. Num
+    tema sobre crianças na internet, o art. 14 é mais preciso que a lei inteira.
+  fonte:
+    titulo: "Lei nº 13.709, de 14 de agosto de 2018 (Lei Geral de Proteção de Dados Pessoais)"
+    autor: "Presidência da República, Planalto"
+    ano: "2018"
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+
+- id: estatuto-da-cidade
+  titulo: "Estatuto da Cidade (Lei nº 10.257/2001): o direito a cidades sustentáveis"
+  eixos: [cidadania, meio-ambiente, desigualdade]
+  tipo: lei
+  resumo: >-
+    A Lei nº 10.257, de 10 de julho de 2001, o Estatuto da Cidade, diz que a política urbana deve ordenar as funções
+    sociais da cidade e da propriedade urbana. Entre as diretrizes está a garantia do direito a cidades sustentáveis:
+    direito à terra urbana, à moradia, ao saneamento ambiental, à infraestrutura, ao transporte, aos serviços públicos,
+    ao trabalho e ao lazer, para as presentes e futuras gerações.
+  como_usar: >-
+    Bom para temas urbanos: transporte, moradia, saneamento, calor, áreas verdes, patrimônio. A ideia de "função social
+    da cidade" permite argumentar que a cidade tem de servir a quem mora nela, e não só a quem lucra com ela. Escolha o
+    item da lista que bate com o tema e mostre um bairro ou um grupo que não tem esse direito.
+  fonte:
+    titulo: "Lei nº 10.257, de 10 de julho de 2001 (Estatuto da Cidade)"
+    autor: "Presidência da República, Planalto"
+    ano: "2001"
+    url: "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10257.htm"
+  coringa: true
+
+- id: marco-do-saneamento-2020
+  titulo: "Novo marco legal do saneamento (Lei nº 14.026/2020) e as metas para 2033"
+  eixos: [saude, desigualdade, meio-ambiente]
+  tipo: lei
+  resumo: >-
+    A Lei nº 14.026, de 15 de julho de 2020, atualizou o marco legal do saneamento básico. Ela fixou metas de
+    universalização: 99% da população com água potável e 90% com coleta e tratamento de esgoto até 31 de dezembro de
+    2033.
+  como_usar: >-
+    A meta com data é um bom ponto de comparação: ponha ao lado de um dado atual de cobertura e mostre o tamanho do que
+    falta, e para quem falta. Num tema de saúde, o saneamento explica doenças evitáveis; num de desigualdade, mostra a
+    diferença entre regiões e bairros.
+  fonte:
+    titulo: "Lei nº 14.026, de 15 de julho de 2020 (atualiza o marco legal do saneamento básico)"
+    autor: "Presidência da República, Planalto"
+    ano: "2020"
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/lei/l14026.htm"
+
+- id: lei-10639-historia-afro-brasileira
+  titulo: "Lei nº 10.639/2003: história e cultura afro-brasileira na escola"
+  eixos: [educacao, cultura, minorias]
+  tipo: lei
+  resumo: >-
+    A Lei nº 10.639, de 9 de janeiro de 2003, incluiu na Lei de Diretrizes e Bases da Educação (art. 26-A) a
+    obrigatoriedade do ensino de história e cultura afro-brasileira no ensino fundamental e médio, públicos e
+    particulares, com o estudo da história da África e dos africanos, da luta dos negros no Brasil e do papel do negro
+    na formação da sociedade nacional.
+  como_usar: >-
+    Use em temas de racismo, de memória e de patrimônio cultural, para argumentar que a escola ajuda a combater o
+    preconceito quando conta a história de todos. Também serve à proposta: o agente pode ser o Ministério da Educação
+    ou as secretarias, e a ação, a formação de professores para cumprir a lei. Dizer só que a lei existe não basta:
+    mostre o que ela muda na sala de aula.
+  fonte:
+    titulo: "Lei nº 10.639, de 9 de janeiro de 2003"
+    autor: "Presidência da República, Planalto"
+    ano: "2003"
+    url: "https://www.planalto.gov.br/ccivil_03/leis/2003/l10.639.htm"
+
+- id: lei-14532-injuria-racial
+  titulo: "Lei nº 14.532/2023: injúria racial como crime de racismo"
+  eixos: [minorias, violencia, direitos-humanos]
+  tipo: lei
+  resumo: >-
+    A Lei nº 14.532, de 11 de janeiro de 2023, alterou a Lei nº 7.716/1989 (a lei do crime racial) para tipificar como
+    crime de racismo a injúria racial, isto é, ofender a dignidade ou o decoro de alguém por motivo de raça, cor, etnia
+    ou procedência nacional, com pena de reclusão de 2 a 5 anos e multa. Ela aumenta a pena quando o crime ocorre em
+    atividades esportivas, artísticas ou culturais destinadas ao público.
+  como_usar: >-
+    Serve a temas sobre racismo no cotidiano: no estádio, no trabalho, na internet. O argumento pode partir do avanço
+    da lei e chegar ao que ainda falta (denúncia, investigação, educação). Evite tratar a lei como solução sozinha: a
+    pena vem depois da ofensa, e a proposta precisa agir antes.
+  fonte:
+    titulo: "Lei nº 14.532, de 11 de janeiro de 2023"
+    autor: "Presidência da República, Planalto"
+    ano: "2023"
+    url: "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14532.htm"
+
+- id: codigo-penal-art-149
+  titulo: "Código Penal, art. 149: reduzir alguém a condição análoga à de escravo"
+  eixos: [trabalho, direitos-humanos]
+  tipo: lei
+  resumo: >-
+    O art. 149 do Código Penal (Decreto-Lei nº 2.848/1940) define o crime de reduzir alguém a condição análoga à de
+    escravo, por trabalhos forçados, jornada exaustiva, condições degradantes de trabalho ou restrição da locomoção por
+    dívida com o empregador ou preposto.
+  como_usar: >-
+    As quatro formas do crime ajudam a desfazer a ideia de que escravidão moderna é só corrente e cadeado. Num tema
+    sobre trabalho precário ou exploração, cite a forma que bate com o caso (jornada exaustiva, dívida) e explique por
+    que ela persiste: pobreza, pouca fiscalização, distância dos centros urbanos.
+  fonte:
+    titulo: "Decreto-Lei nº 2.848, de 7 de dezembro de 1940 (Código Penal), art. 149"
+    autor: "Presidência da República, Planalto"
+    ano: "1940"
+    url: "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm"
+
+# ── Fatos históricos ──
+
+- id: declaracao-universal-dos-direitos-humanos
+  titulo: "Declaração Universal dos Direitos Humanos (ONU, 1948)"
+  eixos: [direitos-humanos, trabalho, saude, desigualdade]
+  tipo: fato-historico
+  resumo: >-
+    Adotada e proclamada pela Assembleia Geral das Nações Unidas em 10 de dezembro de 1948 (resolução 217 A III). O
+    artigo 1 diz que todas as pessoas nascem livres e iguais em dignidade e direitos. O artigo 23 trata do direito ao
+    trabalho em condições justas e a uma remuneração digna. O artigo 25 trata do direito a um padrão de vida que
+    garanta saúde e bem-estar, com alimentação, vestuário, moradia e cuidados médicos.
+  como_usar: >-
+    Escolha o artigo que conversa com o tema, em vez de citar a Declaração inteira. Num tema sobre trabalho por
+    aplicativos, o artigo 23 sustenta a ideia de remuneração digna e proteção. Num tema sobre fome ou moradia, o artigo
+    25. Contextualizar o ano (logo depois da Segunda Guerra Mundial) mostra que esses direitos nasceram para evitar
+    violações em massa.
+  fonte:
+    titulo: "Declaração Universal dos Direitos Humanos"
+    autor: "Assembleia Geral das Nações Unidas (texto em português no site do Unicef Brasil)"
+    ano: "1948"
+    url: "https://www.unicef.org/brazil/declaracao-universal-dos-direitos-humanos"
+  coringa: true
+
+- id: lei-aurea-1888
+  titulo: "A Lei Áurea (Lei nº 3.353, de 13 de maio de 1888)"
+  eixos: [minorias, desigualdade, trabalho, direitos-humanos]
+  tipo: fato-historico
+  resumo: >-
+    A Lei nº 3.353, de 13 de maio de 1888, declarou extinta a escravidão no Brasil. O texto tem dois artigos: o 1º
+    extingue a escravidão e o 2º revoga as disposições em contrário. Não prevê terra, indenização, escola ou trabalho
+    para as pessoas libertas.
+  como_usar: >-
+    O que rende argumento é o que a lei não diz: a abolição veio sem nenhuma medida de inclusão. Isso ajuda a explicar
+    desigualdades que persistem por cor ou raça (renda, moradia, escolaridade) e a persistência do trabalho análogo ao
+    de escravo. Use para ligar passado e presente, e então traga um dado ou um caso de hoje.
+  fonte:
+    titulo: "Lei nº 3.353, de 13 de maio de 1888 (Lei Áurea)"
+    autor: "Presidência da República, Planalto"
+    ano: "1888"
+    url: "https://www.planalto.gov.br/ccivil_03/leis/lim/lim3353.htm"
+  coringa: true
+
+- id: revolta-da-vacina-1904
+  titulo: "A Revolta da Vacina (Rio de Janeiro, 1904)"
+  eixos: [saude, cidadania, tecnologia]
+  tipo: fato-historico
+  resumo: >-
+    Em 1904, o governo de Rodrigues Alves, com o incentivo de Oswaldo Cruz, fez aprovar a volta da vacinação
+    obrigatória contra a varíola. Boatos sobre a vacina e a vacinação feita à força, com invasão de casas, provocaram
+    uma revolta no Rio de Janeiro em novembro. Em menos de duas semanas, houve 945 presos, 461 deportados, 110 feridos
+    e 30 mortos, e o governo desistiu da obrigatoriedade. Segundo a Fiocruz, a adesão à vacina, que vinha crescendo,
+    caiu depois do episódio.
+  como_usar: >-
+    Serve a temas de saúde pública, de vacinação e de desinformação, para mostrar que impor sem explicar gera
+    desconfiança. O argumento pode ser: informação e diálogo com a população são parte da política de saúde. Também
+    rende em temas sobre boatos e notícias falsas, ligando o boato de 1904 aos de hoje.
+  fonte:
+    titulo: "A Revolta da Vacina"
+    autor: "Fundação Oswaldo Cruz (Fiocruz)"
+    ano: "2005"
+    url: "https://fiocruz.br/noticia/2005/04/revolta-da-vacina"
+  coringa: true
+
+# ── Dados ──
+
+- id: dado-coleta-de-esgoto-censo-2022
+  titulo: "Coleta de esgoto no Brasil (Censo 2022)"
+  eixos: [desigualdade, saude, meio-ambiente, cidadania]
+  tipo: dado
+  resumo: >-
+    Segundo o Censo Demográfico 2022, do IBGE, a proporção de domicílios com acesso à rede de coleta de esgoto chegou a
+    62,5% em 2022 (44,4% em 2000 e 52,8% em 2010). O Sudeste tinha 86,2% e o Norte, 22,8%. Nos municípios de até 5 mil
+    habitantes, a cobertura era de 28,6%; nos de mais de 500 mil, de 83,4%.
+  como_usar: >-
+    O dado vale mais pela comparação do que pelo número sozinho: Norte e Sudeste, cidades pequenas e grandes. Use para
+    mostrar que o mesmo direito chega de forma desigual conforme o lugar onde se mora. Escreva o ano e a fonte no
+    texto ("segundo o Censo de 2022, do IBGE").
+  fonte:
+    titulo: "Domicílios com coleta de esgoto crescem 18 pontos percentuais desde 2000"
+    autor: "Secretaria de Comunicação Social da Presidência (Secom), a partir do Censo 2022 do IBGE"
+    ano: "2024"
+    url: "https://www.gov.br/secom/pt-br/acompanhe-a-secom/noticias/2024/02/domicilios_coleta_esgoto_crescem_18_pontos_percentuais"
+  coringa: true
+
+- id: dado-analfabetismo-censo-2022
+  titulo: "Analfabetismo no Brasil (Censo 2022)"
+  eixos: [educacao, desigualdade]
+  tipo: dado
+  resumo: >-
+    No lançamento do Pacto Nacional pela Superação do Analfabetismo e Qualificação na Educação de Jovens e Adultos, em
+    junho de 2024, o ministro da Educação citou a taxa de analfabetismo de 7% do Censo Demográfico 2022. O pacto foi
+    apresentado como voltado a 11,4 milhões de brasileiros.
+  como_usar: >-
+    Use em temas de educação de adultos, de cidadania e de acesso a serviços (quem não lê tem dificuldade com
+    documentos, contratos, receitas médicas). O número mostra o tamanho do problema; o argumento é dizer por que essas
+    pessoas não foram alfabetizadas e o que as impede de voltar a estudar.
+  fonte:
+    titulo: "Pacto nacional para 11,4 milhões de brasileiros superarem o analfabetismo foi lançado com participação de alunos de todos os estados"
+    autor: "Secretaria-Geral da Presidência da República"
+    ano: "2024"
+    url: "https://www.gov.br/secretariageral/pt-br/noticias/2024/junho/pacto-nacional-para-11-4-milhoes-de-brasileiros-superarem-o-analfabetismo-foi-lancado-com-participacao-de-alunos-de-todos-os-estados"
+
+- id: dado-resgates-trabalho-escravo-2023
+  titulo: "Resgates de trabalhadores em condição análoga à escravidão (2023)"
+  eixos: [trabalho, direitos-humanos]
+  tipo: dado
+  resumo: >-
+    Em 2023, a fiscalização do Ministério do Trabalho e Emprego resgatou 3.190 trabalhadores de condições análogas à
+    escravidão, em 598 estabelecimentos fiscalizados: o maior número dos últimos 14 anos, segundo o ministério. As
+    atividades com mais resgates foram o cultivo de café (302) e de cana-de-açúcar (258); os estados, Goiás (739),
+    Minas Gerais (651) e São Paulo (392).
+  como_usar: >-
+    O dado derruba a ideia de que a escravidão ficou no passado. Use em temas de trabalho e de direitos humanos e, se
+    quiser, junte com a Lei Áurea (1888) para mostrar a persistência. Repare que café e cana são produtos do dia a dia:
+    isso permite falar da responsabilidade de quem compra e de quem vende.
+  fonte:
+    titulo: "MTE resgata 3.190 trabalhadores de condições análogas à escravidão em 2023"
+    autor: "Ministério do Trabalho e Emprego"
+    ano: "2024"
+    url: "https://www.gov.br/trabalho-e-emprego/pt-br/noticias-e-conteudo/2024/janeiro/mte-resgata-3-190-trabalhadores-de-condicoes-analogas-a-escravidao-em-2023"
+
+- id: dado-pessoas-com-deficiencia-censo-2022
+  titulo: "Pessoas com deficiência no Brasil (Censo 2022)"
+  eixos: [minorias, educacao, desigualdade]
+  tipo: dado
+  resumo: >-
+    Pelos resultados do Censo 2022 divulgados pelo IBGE em 2025, o Brasil tinha 14,4 milhões de pessoas com
+    deficiência (7,3% das pessoas de 2 anos ou mais). Entre as pessoas de 25 anos ou mais, 25,2% das que têm
+    deficiência concluíram ao menos o ensino médio, contra 53,4% das que não têm; no ensino superior, 7,4% contra 19,5%.
+  como_usar: >-
+    A comparação da escolaridade mostra que a desigualdade começa cedo e se acumula, o que se reflete no trabalho e na
+    renda. Use em temas de inclusão, de educação e de trabalho, ligando ao conceito de barreira da Lei Brasileira de
+    Inclusão: a diferença vem do que a escola e a cidade não oferecem.
+  fonte:
+    titulo: "Pela primeira vez, IBGE divulga dados sobre pessoas com deficiência no Brasil"
+    autor: "Ministério dos Direitos Humanos e da Cidadania"
+    ano: "2025"
+    url: "https://www.gov.br/mdh/pt-br/assuntos/noticias/2025/maio/pela-primeira-vez-ibge-divulga-dados-sobre-pessoas-com-deficiencia-no-brasil"
+
+- id: dado-internet-so-pelo-celular-2024
+  titulo: "Quem acessa a internet só pelo celular (TIC Domicílios 2024)"
+  eixos: [tecnologia, desigualdade, educacao, trabalho]
+  tipo: dado
+  resumo: >-
+    Segundo a pesquisa TIC Domicílios 2024, do Cetic.br (Núcleo de Informação e Coordenação do Ponto BR), 60% dos
+    usuários de internet do Brasil se conectavam apenas pelo telefone celular. Na classe A, eram 18%; nas classes D e
+    E, 86%.
+  como_usar: >-
+    O dado mostra que estar conectado não é o mesmo que ter acesso pleno: com só o celular, é difícil estudar a
+    distância, escrever um trabalho ou preencher um cadastro longo. Use em temas de educação, de trabalho e de serviços
+    públicos digitais, sempre com a diferença entre classes, que é onde mora o argumento.
+  fonte:
+    titulo: "TIC Domicílios 2024, tabela C16A: usuários de internet, por acesso exclusivo ou simultâneo por telefone celular e computador"
+    autor: "Cetic.br, Núcleo de Informação e Coordenação do Ponto BR (NIC.br)"
+    ano: "2024"
+    url: "https://cetic.br/pt/tics/domicilios/2024/individuos/C16A/"
+  coringa: true
+
+# ── Obras ──
+
+- id: obra-quarto-de-despejo
+  titulo: "Quarto de despejo, de Carolina Maria de Jesus (1960)"
+  eixos: [desigualdade, minorias, cultura, saude]
+  tipo: obra
+  resumo: >-
+    Diário de Carolina Maria de Jesus (nascida em 1914, em Sacramento, Minas Gerais), que se mudou em 1948 para a favela
+    do Canindé, em São Paulo, e lá viveu com os três filhos. O livro, "Quarto de despejo: diário de uma favelada",
+    publicado em 1960 na edição do jornalista Audálio Dantas, retrata esse período, dia a dia, pelos olhos de quem o
+    viveu.
+  como_usar: >-
+    A obra dá voz a quem vive o problema, o que é mais forte do que falar sobre essas pessoas. Serve a temas de moradia,
+    saneamento, pobreza, trabalho informal e acesso à cultura. Para ser produtiva, diga qual aspecto do diário você usa
+    (a vida na favela contada por uma moradora, a escrita como forma de existir para a cidade) e ligue ao problema do
+    tema hoje. Se não leu o livro, não use: repertório mal conhecido vira repertório de bolso.
+  fonte:
+    titulo: "25º Café Literário: Quarto de despejo"
+    autor: "Biblioteca Mário de Andrade, Secretaria Municipal de Cultura de São Paulo"
+    ano: "2018"
+    url: "https://prefeitura.sp.gov.br/web/cultura/w/bma/programacao/23093"
+  coringa: true
+
+- id: obra-vidas-secas
+  titulo: "Vidas secas, de Graciliano Ramos"
+  eixos: [desigualdade, trabalho, meio-ambiente, educacao]
+  tipo: obra
+  resumo: >-
+    Romance dos anos 1930 sobre Fabiano, vaqueiro sertanejo, e sua família. Fabiano trabalha em terra alheia, é
+    enganado nas contas do patrão e humilhado pelo soldado amarelo, agente de um Estado que só aparece para oprimir.
+    A crítica lê a miséria do livro como problema da relação de trabalho e da propriedade da terra, e não só da seca;
+    o final, com a família indo embora, é a migração que pode repetir a exploração na cidade.
+  como_usar: >-
+    Use em temas de desigualdade, de trabalho, de migração e de ausência de direitos. A ideia mais produtiva é a de que
+    a seca não explica tudo: a pobreza vem da relação entre quem é dono da terra e quem trabalha nela. Num tema sobre
+    trabalho explorado, o capítulo das contas (Fabiano percebe que foi roubado, mas cala por medo de perder o
+    trabalho) mostra por que tanta gente não denuncia o patrão.
+  fonte:
+    titulo: "Vidas secas: trabalho, terra e migração num \"livrinho sem paisagens\" (Alea: Estudos Neolatinos, v. 21, n. 3)"
+    autor: "João Roberto Maia"
+    ano: "2019"
+    url: "https://www.scielo.br/j/alea/a/rNBYPktCKPyMkZTp875f7Gj/?lang=pt"
+  coringa: true
+
+- id: obra-o-cortico
+  titulo: "O cortiço, de Aluísio Azevedo (1890)"
+  eixos: [desigualdade, cidadania, minorias, saude]
+  tipo: obra
+  resumo: >-
+    Romance de 1890 passado num cortiço (moradia coletiva de pobres) do Rio de Janeiro no fim do século XIX, que
+    pertence ao português João Romão. Ele enriquece explorando os moradores e Bertoleza, mulher escravizada cuja carta
+    de alforria se revela falsa. O livro mostra a exploração do homem pelo homem e traz as teorias raciais da época,
+    que hoje são criticadas. Na mesma época, os cortiços eram alvo da "higienização" republicana, como na demolição do
+    Cabeça de Porco, em 1893.
+  como_usar: >-
+    Serve a temas de moradia, de saneamento e de desigualdade urbana: o cortiço do romance é a origem de problemas que
+    continuam (gente pobre empurrada para longe do centro). Também serve a temas de racismo, se você disser que as
+    ideias raciais do livro são da época e foram superadas. Não basta citar o título: diga o que no livro se parece com
+    o problema de hoje.
+  fonte:
+    titulo: "O cientificismo das teorias raciais em O cortiço e Canaã (História, Ciências, Saúde-Manguinhos, v. 18, n. 3)"
+    autor: "Luana Tieko Omena Tamano, Poliana dos Santos, Gildo Magalhães e Ana Claudia Aymoré Martins"
+    ano: "2011"
+    url: "https://www.scielo.br/j/hcsm/a/Lcng54skj7WDsgYQNFP4vBh/?lang=pt"
+  coringa: true
+
+# ── Pensadores ──
+
+- id: pensador-paulo-freire
+  titulo: "Paulo Freire: a educação bancária e a educação libertadora"
+  eixos: [educacao, cultura, cidadania]
+  tipo: pensador
+  resumo: >-
+    Em Pedagogia do oprimido, Paulo Freire critica a "educação bancária", em que o professor deposita conteúdos no
+    aluno, visto como recipiente, numa relação vertical que nega o diálogo e valoriza a memorização. A ela, opõe a
+    educação problematizadora ou libertadora, em que educador e educando aprendem juntos, pelo diálogo e pela pergunta,
+    e a pessoa toma consciência da própria realidade para transformá-la.
+  como_usar: >-
+    Use em temas de educação, sobretudo quando o problema é uma escola que não conversa com a vida de quem estuda
+    (educação de adultos, evasão, ensino que não faz sentido). O argumento: aprender parte da realidade do aluno. Evite
+    só dizer "como dizia Paulo Freire, a educação transforma": explique a diferença entre os dois tipos de educação e
+    aplique ao caso do tema.
+  fonte:
+    titulo: "Paulo Freire: da denúncia da educação bancária ao anúncio de uma pedagogia libertadora (Pro-Posições, v. 27, n. 1)"
+    autor: "M. F. Brighente e P. Mesquida"
+    ano: "2016"
+    url: "https://www.scielo.br/j/pp/a/kBxPw6PW5kxtgJBfWMBXPhy/?lang=pt"
+  coringa: true
+
+- id: pensador-milton-santos
+  titulo: "Milton Santos e O espaço do cidadão: a cidadania depende do lugar"
+  eixos: [cidadania, desigualdade, saude, educacao]
+  tipo: pensador
+  resumo: >-
+    Em O espaço do cidadão (1987), o geógrafo Milton Santos sustenta que a cidadania no Brasil é incompleta e propõe um
+    "modelo cívico-territorial": usar a gestão democrática do espaço para garantir a todos o acesso a bens e serviços
+    sociais, como educação e saúde, onde quer que morem. A resenha da obra destaca a frase atribuída ao autor: devemos
+    partir do cidadão para a economia, e não da economia para o cidadão.
+  como_usar: >-
+    Serve a temas em que o acesso depende de onde a pessoa mora: transporte, saneamento, saúde, escola, internet.
+    Explique a ideia (o lugar onde se mora decide quais direitos se tem) e mostre um caso do tema. É um repertório que
+    serve a muitos temas justamente porque trata do território; por isso mesmo, precisa ser aplicado ao recorte, ou
+    vira repertório de bolso.
+  fonte:
+    titulo: "Resenha de O espaço do cidadão, de Milton Santos (Lua Nova: Revista de Cultura e Política, n. 14)"
+    autor: "Milton de Abreu Campanário"
+    ano: "1988"
+    url: "https://www.scielo.br/j/ln/a/8gGd3By7ZhKSqHXgrkS6tSR/?lang=pt"
+  coringa: true
+
+# ── Conceitos ──
+
+- id: conceito-desenvolvimento-sustentavel
+  titulo: "Desenvolvimento sustentável (Relatório Brundtland, 1987)"
+  eixos: [meio-ambiente, trabalho, desigualdade]
+  tipo: conceito
+  resumo: >-
+    O conceito ganhou o debate público com o relatório "Nosso futuro comum", publicado em abril de 1987 pela Comissão
+    Mundial sobre Meio Ambiente e Desenvolvimento da ONU, presidida por Gro Harlem Brundtland. Desenvolvimento
+    sustentável é o que atende às necessidades do presente sem comprometer a capacidade das gerações futuras de
+    atender às suas próprias necessidades.
+  como_usar: >-
+    Use quando o tema opõe crescimento econômico e cuidado ambiental (calor nas cidades, saneamento, produção no campo).
+    A ideia de "gerações futuras" ajuda a argumentar que o custo de não agir agora será pago por quem ainda vai nascer.
+    Ligue a um caso concreto do tema; a definição sozinha, na introdução, é genérica.
+  fonte:
+    titulo: "A ONU e o meio ambiente"
+    autor: "Nações Unidas no Brasil"
+    url: "https://brasil.un.org/pt-br/91223-onu-e-o-meio-ambiente"
+  coringa: true

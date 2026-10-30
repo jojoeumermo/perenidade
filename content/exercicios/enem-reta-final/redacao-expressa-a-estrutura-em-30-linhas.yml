@@ -1,0 +1,80 @@
+# Exercícios da aula "Redação expressa: a estrutura em 30 linhas" (trilha enem-reta-final). Formato: docs/EXERCICIOS.md.
+# Aula de redação: sem etiquetas de área da Matriz (docs/ENEM.md, seção 3).
+
+- id: enem-red-estrutura-01
+  tema: "Planejar a redação"
+  dificuldade: 1
+  enunciado: "Qual é a ordem do roteiro de planejamento proposto na aula?"
+  alternativas:
+    - texto: "Introdução, desenvolvimento, conclusão e, por último, o tema"
+      erro: "Essa é a ordem dos parágrafos do texto pronto, não do planejamento. Antes de escrever qualquer parágrafo, você precisa saber o que o tema pede."
+    - texto: "Tema, recorte, tese, dois argumentos com repertório e proposta"
+      certa: true
+    - texto: "Repertório, tese, tema, proposta e recorte"
+      erro: "Começar pelo repertório é o caminho do repertório de bolso: você escolhe a citação antes de saber se ela serve ao tema. O repertório vem depois do argumento."
+    - texto: "Proposta, tema, argumentos, tese e recorte"
+      erro: "A proposta responde aos problemas dos argumentos; sem saber quais são, ela fica solta. O recorte também não pode vir no fim: é ele que guia o resto."
+  explicacao: "Cada passo depende do anterior: o recorte sai do tema, a tese responde ao recorte, os argumentos sustentam a tese e a proposta resolve os problemas apontados nos argumentos."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-red-estrutura-02
+  tema: "Recorte do tema"
+  dificuldade: 2
+  texto_base: |
+    Tema de treino: "Desafios para a permanência de adultos trabalhadores na educação de jovens e adultos no Brasil".
+  enunciado: "Qual recorte respeita o tema, sem tangenciar nem fugir?"
+  alternativas:
+    - texto: "A importância da educação para o futuro do país"
+      erro: "É o assunto geral. O tema pede a permanência de adultos que trabalham na EJA; falar de educação em geral é tangenciar."
+    - texto: "As crianças que estão fora da escola no Brasil"
+      erro: "O tema fala de adultos trabalhadores. Crianças fora da escola é outro problema: seria fuga do recorte."
+    - texto: "O que faz o adulto que trabalha abandonar a EJA (jornada, cansaço, transporte, filhos) e o que a escola e o poder público podem mudar"
+      certa: true
+    - texto: "A história da alfabetização no Brasil desde o período colonial"
+      erro: "Um pouco de história pode até contextualizar, mas, como recorte do texto inteiro, deixa de lado a palavra central do tema: permanência."
+  explicacao: "O recorte é a fatia exata do tema. Aqui, as palavras que mandam são 'permanência' e 'adultos trabalhadores': o texto precisa tratar do que impede quem trabalha de continuar estudando."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-red-estrutura-03
+  tema: "Tese"
+  dificuldade: 2
+  texto_base: |
+    Tema de treino: "A desigualdade no acesso ao saneamento básico no Brasil".
+  enunciado: "Qual destas frases funciona como tese para esse tema?"
+  alternativas:
+    - texto: "O saneamento básico é um tema muito discutido atualmente."
+      erro: "A frase não toma posição: só diz que o assunto existe. Uma tese diz o que você pensa sobre o problema."
+    - texto: "Neste texto, será abordada a questão do saneamento."
+      erro: "Anunciar o assunto não é defender um ponto de vista. Troque o anúncio por uma afirmação que possa ser discutida."
+    - texto: "Todos devem economizar água em casa."
+      erro: "É um conselho individual e não trata da desigualdade, que é a palavra central do tema. A tese precisa responder ao recorte."
+    - texto: "A falta de esgoto e de água tratada atinge mais as regiões e os bairros pobres porque o investimento público seguiu, por décadas, quem já tinha mais."
+      certa: true
+  explicacao: "A tese toma posição sobre a desigualdade (quem é mais atingido) e já sugere um argumento (a forma como o investimento foi distribuído). O texto vai precisar sustentar essa afirmação com dados e explicação."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-red-estrutura-04
+  tema: "Esqueleto de quatro parágrafos"
+  dificuldade: 3
+  texto_base: |
+    Um estudante planejou assim a redação sobre "Caminhos para enfrentar a violência nas escolas brasileiras":
+    Introdução: contexto e tese (a violência na escola cresce quando falta cuidado com a convivência).
+    Desenvolvimento 1: o bullying afasta alunos da escola; repertório: a Lei nº 13.185/2015.
+    Desenvolvimento 2: o bullying faz alunos faltarem às aulas; repertório: a mesma lei.
+    Conclusão: retomada da tese e proposta.
+  enunciado: "Qual é o principal problema desse plano?"
+  alternativas:
+    - texto: "Os dois desenvolvimentos dizem quase a mesma coisa, com o mesmo repertório, e o texto não avança"
+      certa: true
+    - texto: "A introdução não deveria trazer a tese"
+      erro: "A introdução é justamente o lugar mais comum da tese. O problema do plano está em outro ponto."
+    - texto: "A conclusão não deveria ter proposta de intervenção"
+      erro: "A proposta costuma ficar na conclusão, depois que o problema foi discutido. Isso está certo no plano."
+    - texto: "Uma lei não pode ser usada como repertório"
+      erro: "Lei é repertório legítimo, desde que ligada ao argumento. O problema é usá-la duas vezes para a mesma ideia."
+  explicacao: "Afastar da escola e fazer faltar às aulas são a mesma ideia. Cada desenvolvimento precisa de um argumento diferente, por exemplo, o bullying (D1) e a falta de profissionais de apoio, como psicólogos, na escola (D2), cada um com o seu repertório."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

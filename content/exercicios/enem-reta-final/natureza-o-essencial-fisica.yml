@@ -1,0 +1,202 @@
+# Exercícios da aula "Natureza, o essencial: física" (trilha enem-reta-final). Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-rf-nat-newton-01
+  tema: "Leis de Newton, atrito e plano inclinado"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-leis-de-newton
+  dificuldade: 1
+  enunciado: "Uma pessoa de patins empurra uma parede e sai deslizando para trás. Sobre a força que ela faz na parede e a força que a parede faz nela, é correto dizer que:"
+  alternativas:
+    - texto: "a força da pessoa é maior, porque foi ela quem empurrou"
+      erro: "Quem começa não importa. Pela terceira lei de Newton, as duas forças têm sempre o mesmo tamanho."
+    - texto: "têm o mesmo tamanho, sentidos opostos e agem em corpos diferentes"
+      certa: true
+    - texto: "se anulam, porque têm o mesmo tamanho e sentidos opostos"
+      erro: "Elas só se anulariam se agissem no mesmo corpo. Uma age na parede e a outra na pessoa: por isso a pessoa acelera."
+    - texto: "a força da parede é maior, porque a parede é mais pesada"
+      erro: "A massa muda o efeito (a parede quase não se mexe), não o tamanho da força. Ação e reação são iguais."
+    - texto: "só existe a força da pessoa; parede não faz força"
+      erro: "Se a parede não fizesse força, a pessoa não sairia deslizando. Todo empurrão recebe um empurrão de volta."
+  explicacao: "Terceira lei de Newton: ação e reação têm o mesmo tamanho, a mesma direção e sentidos opostos, e agem em corpos diferentes. A força da parede sobre a pessoa é a que a faz deslizar para trás."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-newton-02
+  tema: "Leis de Newton, atrito e plano inclinado"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-leis-de-newton
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa obra, um ajudante sobe um balde de massa com uma polia móvel. Uma ponta da corda fica presa numa viga, a
+    corda desce, contorna a polia móvel, onde o balde está pendurado, e sobe até a mão do ajudante. O balde cheio
+    tem 60 kg e sobe com velocidade constante. Use g = 10 m/s² e despreze a massa da polia e da corda.
+  enunciado: "A força que o ajudante faz na corda é de"
+  alternativas:
+    - texto: "150 N"
+      erro: "Você dividiu o peso por 4, como se houvesse duas polias móveis. Aqui há uma só: dois trechos de corda seguram o balde."
+    - texto: "600 N"
+      erro: "Esse é o peso inteiro do balde. Com a polia móvel, dois trechos de corda dividem o peso: cada um faz metade."
+    - texto: "1.200 N"
+      erro: "Você multiplicou o peso por 2. A polia móvel diminui a força: o peso é dividido entre os dois trechos de corda."
+    - texto: "300 N"
+      certa: true
+    - texto: "30 N"
+      erro: "Você dividiu a massa por 2, sem passar para peso. Primeiro calcule o peso: 60 kg × 10 m/s² = 600 N."
+  explicacao: "Velocidade constante: força resultante zero. Peso do balde: 60 × 10 = 600 N. Dois trechos de corda seguram a polia móvel, cada um com a força F do ajudante: 2F = 600 N, então F = 300 N."
+  conferir: "60 * 10 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-espectro-01
+  tema: "Espectro eletromagnético"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-espectro
+  dificuldade: 1
+  enunciado: "Entre as radiações abaixo, qual tem a maior frequência e, por isso, mais energia?"
+  alternativas:
+    - texto: "Ultravioleta"
+      certa: true
+    - texto: "Ondas de rádio"
+      erro: "As ondas de rádio ficam na ponta de menor frequência do espectro, com o maior comprimento de onda."
+    - texto: "Micro-ondas"
+      erro: "As micro-ondas têm frequência maior que o rádio, mas menor que o infravermelho, a luz visível e o ultravioleta."
+    - texto: "Infravermelho"
+      erro: "O infravermelho fica antes do vermelho visível: tem frequência menor que a luz que vemos."
+    - texto: "Luz vermelha"
+      erro: "Na luz visível, o vermelho tem a menor frequência. O ultravioleta fica além do violeta, com frequência maior."
+  explicacao: "Em ordem crescente de frequência: rádio (com as micro-ondas), infravermelho, luz visível (do vermelho ao violeta), ultravioleta, raios X e raios gama. Mais frequência, mais energia."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-som-01
+  tema: "Ondas e som: altura, intensidade, timbre, ressonância, Doppler"
+  area: natureza
+  habilidade: 1
+  objeto: nat-fis-ondas-ondas-e-som
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Barcos de pesca usam o sonar para saber a profundidade. O aparelho manda um pulso de som para o fundo e mede o
+    tempo até o eco voltar. Num ponto da costa, o eco voltou 0,4 s depois de o pulso sair. A velocidade do som na
+    água do mar é de cerca de 1.500 m/s.
+  enunciado: "A profundidade nesse ponto é de cerca de"
+  alternativas:
+    - texto: "600 m"
+      erro: "Essa é a distância de ida e volta. O som desceu e subiu: a profundidade é a metade."
+    - texto: "3.750 m"
+      erro: "Você dividiu a velocidade pelo tempo. A distância é velocidade vezes tempo: 1.500 × 0,4."
+    - texto: "68 m"
+      erro: "Você usou a velocidade do som no ar, perto de 340 m/s. O pulso anda na água, bem mais depressa."
+    - texto: "3.000 m"
+      erro: "O tempo foi lido como 4 s. Confira a vírgula: são 0,4 s."
+    - texto: "300 m"
+      certa: true
+  explicacao: "Em 0,4 s o som anda 1.500 × 0,4 = 600 m. Esse caminho é de ida e volta, então a profundidade é 600 ÷ 2 = 300 m."
+  conferir: "1500 * 0.4 / 2"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-calor-01
+  tema: "Calor sensível e latente, trocas de calor e mudanças de estado"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-calor-trocas-de-calor
+  dificuldade: 2
+  enunciado: "Quanto calor é preciso para esquentar 2 litros de água (2.000 g) de 20 °C até 70 °C? Use o calor específico da água igual a 1 cal/(g · °C)."
+  alternativas:
+    - texto: "140 kcal"
+      erro: "Você usou a temperatura final (70 °C) no lugar da variação. A conta usa quanto a temperatura mudou: 70 − 20 = 50 °C."
+    - texto: "40 kcal"
+      erro: "Você usou a temperatura inicial (20 °C). A conta usa a variação: 70 − 20 = 50 °C."
+    - texto: "100 kcal"
+      certa: true
+    - texto: "100.000 kcal"
+      erro: "O resultado em calorias (100.000 cal) foi escrito como quilocalorias. 1 kcal = 1.000 cal."
+    - texto: "50 kcal"
+      erro: "A massa entrou como 1.000 g. São 2 litros de água, ou 2.000 g."
+  explicacao: "Calor sensível: Q = m · c · ΔT = 2.000 × 1 × 50 = 100.000 cal = 100 kcal."
+  conferir: "2000 * 1 * (70 - 20) / 1000"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-ohm-01
+  tema: "Corrente, tensão, resistência e Lei de Ohm"
+  area: natureza
+  habilidade: 5
+  objeto: nat-fis-eletricidade-lei-de-ohm
+  dificuldade: 1
+  enunciado: "Um ferro de passar roupa tem resistência de 22 Ω e é ligado numa tomada de 220 V. Qual é a corrente que passa por ele?"
+  alternativas:
+    - texto: "0,1 A"
+      erro: "A divisão foi invertida (22 ÷ 220). A corrente é a tensão dividida pela resistência."
+    - texto: "10 A"
+      certa: true
+    - texto: "4.840 A"
+      erro: "Você multiplicou tensão por resistência. Pela Lei de Ohm, U = R · i, então i = U ÷ R."
+    - texto: "242 A"
+      erro: "Você somou tensão e resistência. São grandezas diferentes: use i = U ÷ R."
+    - texto: "198 A"
+      erro: "Você subtraiu a resistência da tensão. Use i = U ÷ R."
+  explicacao: "Lei de Ohm: U = R · i, então i = U ÷ R = 220 ÷ 22 = 10 A."
+  conferir: "220 / 22"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-inducao-01
+  tema: "Magnetismo, motores, geradores e transformadores"
+  area: natureza
+  habilidade: 21
+  objeto: nat-fis-eletricidade-magnetismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Muitas bicicletas de entrega têm um farol ligado a um dínamo: um pequeno gerador encostado no pneu. Dentro dele,
+    um ímã gira perto de uma bobina de fio quando a roda gira. Com a bicicleta parada, o farol apaga, mesmo com o
+    dínamo encostado no pneu.
+  enunciado: "O farol só acende com a roda girando porque"
+  alternativas:
+    - texto: "o atrito do pneu com o dínamo esquenta o fio até ele brilhar"
+      erro: "O atrito só faz o ímã girar. A energia que chega ao farol é elétrica, gerada pela indução."
+    - texto: "o ímã guarda carga elétrica e a solta quando gira"
+      erro: "Ímã não é pilha: não guarda carga. Ele cria um campo magnético, que precisa variar para gerar corrente."
+    - texto: "a bobina parada perto do ímã já produz corrente, mas fraca demais"
+      erro: "Com ímã e bobina parados, o campo através da bobina não varia e não surge corrente nenhuma."
+    - texto: "o movimento da roda aumenta a resistência do fio"
+      erro: "A resistência do fio não depende do giro. O que o giro faz é variar o campo magnético na bobina."
+    - texto: "só o campo magnético que varia através da bobina induz corrente nela"
+      certa: true
+  explicacao: "É a indução eletromagnética (lei de Faraday): corrente aparece na bobina quando o campo magnético através dela varia. O ímã girando faz o campo variar. Parado, não varia, e o farol apaga."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-nat-lancamento-01
+  tema: "Queda livre e lançamentos"
+  area: natureza
+  habilidade: 20
+  objeto: nat-fis-movimento-queda-e-lancamentos
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Num dia de chuva forte, a água sai da ponta de uma calha na horizontal, a 3,2 m de altura do chão, com
+    velocidade de 1,5 m/s. Os moradores querem pôr um tambor para recolher essa água. Use g = 10 m/s² e despreze a
+    resistência do ar.
+  enunciado: "A que distância horizontal da ponta da calha a água atinge o chão?"
+  alternativas:
+    - texto: "1,2 m"
+      certa: true
+    - texto: "4,8 m"
+      erro: "Você multiplicou a velocidade pela altura. A velocidade multiplica o tempo de queda, que sai da altura."
+    - texto: "2,4 m"
+      erro: "Você usou 1,6 s como tempo de queda (a metade da altura). O tempo vem de h = g · t² ÷ 2: 3,2 = 5 · t², t = 0,8 s."
+    - texto: "0,96 m"
+      erro: "Você usou t² = 0,64 no lugar de t. Tire a raiz: t = 0,8 s."
+    - texto: "3,2 m"
+      erro: "O alcance não é igual à altura. Ache o tempo de queda e multiplique pela velocidade horizontal."
+  explicacao: "Para baixo, a água cai como se fosse solta: 3,2 = 10 · t² ÷ 2, então t² = 0,64 e t = 0,8 s. Para o lado, a velocidade não muda: 1,5 × 0,8 = 1,2 m."
+  conferir: "1.5 * 0.8"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

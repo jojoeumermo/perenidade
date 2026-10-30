@@ -6,11 +6,11 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 | --- | --- |
 | coordenação pedagógica (orientação de estudo e fatos da prova) | 23 |
 | curadoria | 1 |
-| educador de ciências da natureza | 7 |
-| educador de ciências humanas | 3 |
-| educador de linguagens | 5 |
-| educador de matemática | 7 |
-| revisor de redação | 8 |
+| educador de ciências da natureza | 13 |
+| educador de ciências humanas | 9 |
+| educador de linguagens | 9 |
+| educador de matemática | 11 |
+| revisor de redação | 16 |
 
 ## coordenação pedagógica (orientação de estudo e fatos da prova)
 
@@ -46,14 +46,26 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 
 - [ ] aula `content/trilhas/enem-reta-final/formulario-de-fisica.md` (Formulário de física): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/formulario-de-quimica.md` (Formulário de química): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-reta-final/natureza-o-essencial-biologia.md` (Natureza, o essencial: biologia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-reta-final/natureza-o-essencial-fisica.md` (Natureza, o essencial: física): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-reta-final/natureza-o-essencial-quimica.md` (Natureza, o essencial: química): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] 6 exercícios em `content/exercicios/enem-reta-final/formulario-de-fisica.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 6 exercícios em `content/exercicios/enem-reta-final/formulario-de-quimica.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 8 exercícios em `content/exercicios/enem-reta-final/natureza-o-essencial-biologia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 8 exercícios em `content/exercicios/enem-reta-final/natureza-o-essencial-fisica.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 8 exercícios em `content/exercicios/enem-reta-final/natureza-o-essencial-quimica.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 45 questões oficiais de 2022 (`content/enem/questoes-oficiais/2022-natureza.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos
 - [ ] 44 questões oficiais de 2023 (`content/enem/questoes-oficiais/2023-natureza.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos
 - [ ] 23 objetos de conhecimento de natureza em `content/enem/matriz.yml`: confirmar a lista de habilidades de cada um
 
 ## educador de ciências humanas
 
+- [ ] aula `content/trilhas/enem-reta-final/humanas-o-essencial-filosofia-e-sociologia.md` (Humanas, o essencial: filosofia e sociologia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-reta-final/humanas-o-essencial-geografia.md` (Humanas, o essencial: geografia): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-reta-final/humanas-o-essencial-historia.md` (Humanas, o essencial: história): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] 8 exercícios em `content/exercicios/enem-reta-final/humanas-o-essencial-filosofia-e-sociologia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 8 exercícios em `content/exercicios/enem-reta-final/humanas-o-essencial-geografia.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 8 exercícios em `content/exercicios/enem-reta-final/humanas-o-essencial-historia.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 45 questões oficiais de 2022 (`content/enem/questoes-oficiais/2022-humanas.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos
 - [ ] 44 questões oficiais de 2023 (`content/enem/questoes-oficiais/2023-humanas.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos
 - [ ] 5 objetos de conhecimento de humanas em `content/enem/matriz.yml`: confirmar a lista de habilidades de cada um
@@ -62,6 +74,10 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 
 - [ ] aula `content/trilhas/enem-por-area/linguagens-interpretacao-de-texto-acima-de-tudo.md` (Linguagens: interpretação de texto acima de tudo): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-por-area/linguagens-literatura-artes-e-lingua-estrangeira.md` (Linguagens: literatura, artes e língua estrangeira): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-reta-final/linguagens-o-essencial-leitura-e-lingua.md` (Linguagens, o essencial: leitura, gêneros e língua): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo.md` (Linguagens, o essencial: literatura, artes e práticas corporais): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] 8 exercícios em `content/exercicios/enem-reta-final/linguagens-o-essencial-leitura-e-lingua.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 8 exercícios em `content/exercicios/enem-reta-final/linguagens-o-essencial-literatura-artes-e-corpo.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 45 questões oficiais de 2022 (`content/enem/questoes-oficiais/2022-linguagens.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos
 - [ ] 43 questões oficiais de 2023 (`content/enem/questoes-oficiais/2023-linguagens.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos
 - [ ] 9 objetos de conhecimento de linguagens em `content/enem/matriz.yml`: confirmar a lista de habilidades de cada um
@@ -71,7 +87,11 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 - [ ] aula `content/trilhas/enem-por-area/matematica-ler-graficos-e-tabelas.md` (Matemática: ler gráficos e tabelas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-por-area/matematica-o-que-mais-cai.md` (Matemática: o que mais cai): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-reta-final/formulario-de-matematica.md` (Formulário de matemática): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes.md` (Matemática, o essencial: geometria, dados e funções): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-reta-final/matematica-o-essencial-numeros-e-proporcao.md` (Matemática, o essencial: números, proporção e porcentagem): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] 6 exercícios em `content/exercicios/enem-reta-final/formulario-de-matematica.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 8 exercícios em `content/exercicios/enem-reta-final/matematica-o-essencial-geometria-dados-e-funcoes.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 8 exercícios em `content/exercicios/enem-reta-final/matematica-o-essencial-numeros-e-proporcao.yml`: conferir gabarito, contas, enganos e etiquetas
 - [ ] 40 questões oficiais de 2022 (`content/enem/questoes-oficiais/2022-matematica.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos
 - [ ] 41 questões oficiais de 2023 (`content/enem/questoes-oficiais/2023-matematica.yml`): confirmar habilidade, objeto e dificuldade, e revisar resolução e enganos
 - [ ] 5 objetos de conhecimento de matematica em `content/enem/matriz.yml`: confirmar a lista de habilidades de cada um
@@ -86,4 +106,12 @@ Gerado por `npm run fila:enem` (não edite à mão). Tudo aqui está **em revis�
 - [ ] aula `content/trilhas/enem-redacao/competencia-4-coesao.md` (Competência 4: coesão): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-redacao/competencia-5-a-proposta-de-intervencao.md` (Competência 5: a proposta de intervenção): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
 - [ ] aula `content/trilhas/enem-redacao/o-que-zera-a-redacao.md` (O que zera a redação): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-reta-final/redacao-expressa-a-estrutura-em-30-linhas.md` (Redação expressa: a estrutura em 30 linhas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-reta-final/redacao-expressa-a-proposta-de-intervencao-completa.md` (Redação expressa: a proposta de intervenção completa): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] aula `content/trilhas/enem-reta-final/redacao-expressa-repertorios-coringa.md` (Redação expressa: repertórios que servem a muitos temas): checklist de revisão (docs/CHECKLIST-DE-REVISAO.md)
+- [ ] 4 exercícios em `content/exercicios/enem-reta-final/redacao-expressa-a-estrutura-em-30-linhas.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 4 exercícios em `content/exercicios/enem-reta-final/redacao-expressa-a-proposta-de-intervencao-completa.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 4 exercícios em `content/exercicios/enem-reta-final/redacao-expressa-repertorios-coringa.yml`: conferir gabarito, contas, enganos e etiquetas
+- [ ] 10 propostas de treino (`content/enem/redacao/propostas.yml`)
+- [ ] 30 itens de repertório (`content/enem/redacao/repertorio.yml`): conferir cada fonte
 

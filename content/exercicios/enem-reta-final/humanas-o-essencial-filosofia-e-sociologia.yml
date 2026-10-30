@@ -1,0 +1,203 @@
+# Exercícios da aula "Humanas, o essencial: filosofia e sociologia" (trilha enem-reta-final). Formato: docs/EXERCICIOS.md e docs/ENEM.md, seção 4.
+
+- id: enem-rf-hum-genero-01
+  tema: "Gênero"
+  area: humanas
+  habilidade: 22
+  objeto: hum-organizacao-social-genero
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Depois da separação, o ex-companheiro de Rita passou a espalhar, no grupo de mensagens do bairro, que ela tinha
+    roubado dinheiro da igreja, o que não era verdade. Rita deixou de sair de casa por vergonha. (Texto do Instituto Lúcia.)
+  enunciado: "Pela Lei nº 11.340, de 2006 (Lei Maria da Penha), a conduta do ex-companheiro é uma forma de violência"
+  alternativas:
+    - texto: "física, porque Rita deixou de sair de casa."
+      erro: "Violência física é ofensa ao corpo ou à saúde. Não houve agressão ao corpo de Rita."
+    - texto: "sexual, porque ocorreu depois de uma relação amorosa."
+      erro: "Violência sexual envolve forçar ou constranger a pessoa em relação ao sexo. Nada disso está no texto."
+    - texto: "patrimonial, porque envolve dinheiro."
+      erro: "O dinheiro aparece só na mentira. Violência patrimonial é tirar, reter ou destruir bens e recursos da mulher."
+    - texto: "que a lei não prevê, porque o casal já estava separado."
+      erro: "A lei vale também para relações que já acabaram. A separação não afasta a proteção."
+    - texto: "moral, porque ele atribuiu a ela, falsamente, um crime."
+      certa: true
+  explicacao: "A violência moral é calúnia, difamação ou injúria (artigo 7º, inciso V). Acusar falsamente alguém de um crime é calúnia. A lei protege também relações íntimas que já terminaram."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-fil-antiga-01
+  tema: "Pré-socráticos, Sócrates, Platão, Aristóteles e helenísticos"
+  area: humanas
+  habilidade: 1
+  objeto: hum-organizacao-social-filosofia-antiga
+  dificuldade: 1
+  enunciado: "Para Aristóteles, a coragem é uma virtude porque fica entre dois excessos. Quais são eles?"
+  alternativas:
+    - texto: "A riqueza e a pobreza"
+      erro: "Riqueza e pobreza são condições econômicas, não vícios do caráter ligados ao medo."
+    - texto: "A fé e a razão"
+      erro: "Fé e razão são o grande tema da filosofia medieval, não da ética da virtude."
+    - texto: "A covardia (medo demais) e a temeridade (medo de menos)"
+      certa: true
+    - texto: "O mundo das Ideias e o mundo sensível"
+      erro: "Essa divisão é de Platão. Aristóteles fala de meio-termo nas ações."
+    - texto: "A água e o fogo"
+      erro: "Elementos da natureza aparecem nos pré-socráticos, como Empédocles, e não na ética de Aristóteles."
+  explicacao: "Na ética de Aristóteles, a virtude é o meio-termo entre o excesso e a falta. A coragem fica entre a covardia e a temeridade, e se forma pelo hábito."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-fil-contemporanea-01
+  tema: "Existencialismo, Hannah Arendt e Foucault"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-filosofia-contemporanea
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Ao acompanhar o julgamento de um alto funcionário nazista em Jerusalém, em 1961, Hannah Arendt esperava encontrar um
+    monstro. Encontrou um burocrata comum, que dizia ter apenas cumprido ordens e seguido a lei do seu país. Para ela, o
+    que mais assustava era a incapacidade de pensar: de se pôr no lugar do outro e de julgar o que fazia. (Texto do
+    Instituto Lúcia, com base em Eichmann em Jerusalém, de 1963.)
+  enunciado: "A ideia de Arendt descrita no texto, conhecida como banalidade do mal, sustenta que"
+  alternativas:
+    - texto: "grandes crimes podem ser cometidos por pessoas comuns que obedecem sem refletir sobre o que fazem."
+      certa: true
+    - texto: "o mal é sempre obra de pessoas com doença mental."
+      erro: "O texto diz o contrário: o funcionário era comum. O ponto é que gente normal pode participar do horror."
+    - texto: "cumprir a lei do próprio país livra a pessoa de qualquer responsabilidade."
+      erro: "Essa era a defesa do réu, que Arendt critica. Ela cobra o juízo próprio mesmo diante da lei."
+    - texto: "o mal é banal porque não teve consequências graves."
+      erro: "'Banal' não quer dizer pequeno. Quer dizer que o mal pode vir da rotina e da falta de pensamento."
+    - texto: "a obediência às ordens é a maior virtude política."
+      erro: "Arendt mostra o perigo da obediência sem pensamento. A alternativa inverte a crítica."
+  explicacao: "Arendt viu no réu não um monstro, mas alguém que deixou de pensar e julgar. A banalidade do mal é essa: crimes enormes feitos por gente comum, dentro da rotina e da obediência."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-desigualdade-01
+  tema: "Desigualdade e estratificação"
+  area: humanas
+  habilidade: 25
+  objeto: hum-organizacao-social-desigualdade
+  dificuldade: 2
+  enunciado: "Uma pesquisadora mostra que as mulheres negras pobres sofrem, ao mesmo tempo, desigualdades de classe, de raça e de gênero, que se somam e criam formas próprias de discriminação. Que conceito ela usa?"
+  alternativas:
+    - texto: "Mobilidade social"
+      erro: "Mobilidade é a possibilidade de mudar de camada social. O enunciado fala do cruzamento de desigualdades."
+    - texto: "Estamento"
+      erro: "Estamento é a camada social definida por nascimento e lei, como na Europa feudal."
+    - texto: "Meritocracia"
+      erro: "Meritocracia é a ideia de que cada um sobe pelo próprio mérito. O enunciado mostra barreiras que se somam."
+    - texto: "Interseccionalidade"
+      certa: true
+    - texto: "Anomia"
+      erro: "Anomia, em Durkheim, é a falta de regras que orientem a vida social. Não trata do cruzamento de desigualdades."
+  explicacao: "Interseccionalidade é o cruzamento de desigualdades de classe, raça e gênero, que não se somam apenas: criam situações próprias. Caiu no Enem 2022, com um gráfico do IBGE."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-trabalho-01
+  tema: "Taylorismo, fordismo, toyotismo, precarização e plataformas"
+  area: humanas
+  habilidade: 16
+  objeto: hum-producao-trabalho
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Numa fábrica de motos, as peças chegam dos fornecedores só na hora em que serão usadas, para não haver estoque
+    parado. Cada trabalhador opera várias máquinas e participa de reuniões para propor melhorias, e a produção varia
+    conforme os pedidos dos clientes. (Texto do Instituto Lúcia.)
+  enunciado: "A organização do trabalho descrita corresponde ao modelo"
+  alternativas:
+    - texto: "fordista, com produção em massa de um modelo único e grandes estoques."
+      erro: "O texto fala em estoque mínimo e produção conforme a demanda: o oposto do fordismo."
+    - texto: "toyotista, com produção flexível, estoque mínimo e trabalhador polivalente."
+      certa: true
+    - texto: "taylorista, em que o operário repete um único movimento cronometrado."
+      erro: "No texto, cada um opera várias máquinas e propõe melhorias. No taylorismo, quem pensa é só a gerência."
+    - texto: "artesanal, em que um só trabalhador faz o produto inteiro."
+      erro: "É uma fábrica com fornecedores e várias etapas, não uma oficina artesanal."
+    - texto: "escravista, em que o trabalhador é propriedade do dono."
+      erro: "Nada no texto fala de trabalho forçado ou de propriedade de pessoas."
+  explicacao: "Peças 'na hora certa' (just in time), estoque mínimo, trabalhador que opera várias máquinas e produção puxada pela demanda são marcas do toyotismo."
+  fonte: "Questão original do Instituto Lúcia, no estilo da questão 84 do Enem 2023 (Inep)"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-religiao-01
+  tema: "Religião e sociedade"
+  area: humanas
+  habilidade: 1
+  objeto: hum-cultura-religiao
+  dificuldade: 1
+  enunciado: "Para o sociólogo Émile Durkheim, o que a religião faz na vida social?"
+  alternativas:
+    - texto: "Separa o sagrado do profano e une o grupo em torno de crenças e ritos comuns."
+      certa: true
+    - texto: "É só uma ilusão individual, sem efeito sobre a sociedade."
+      erro: "Para Durkheim, a religião é um fato social: tem efeito sobre o grupo e vem de fora do indivíduo."
+    - texto: "Explica o nascimento do capitalismo pela ética protestante."
+      erro: "Essa é a tese de Max Weber, não de Durkheim."
+    - texto: "É o 'ópio do povo', que afasta da luta política."
+      erro: "A frase é de Karl Marx. Não confunda os três clássicos."
+    - texto: "Deve ser proibida pelo Estado."
+      erro: "Durkheim estuda a função da religião, não propõe proibi-la."
+  explicacao: "Durkheim vê a religião como sistema de crenças e práticas ligadas ao sagrado, que une as pessoas numa comunidade moral. Weber e Marx dão outras leituras."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-etica-01
+  tema: "Ética e moral"
+  area: humanas
+  habilidade: 23
+  objeto: hum-organizacao-social-etica
+  estilo: enem
+  dificuldade: 3
+  texto_base: |
+    Uma prefeitura discute se deve demolir uma vila de 30 famílias para abrir uma avenida que reduziria o tempo de viagem
+    de milhares de pessoas. Um vereador diz: "o certo é o que traz mais bem-estar para o maior número". Outro responde:
+    "pessoas não podem ser tratadas só como meio para um fim, nem mesmo um fim bom". (Texto do Instituto Lúcia.)
+  enunciado: "As falas dos dois vereadores expressam, respectivamente, as éticas"
+  alternativas:
+    - texto: "estoica e epicurista."
+      erro: "Estoicos e epicuristas tratam da vida boa do indivíduo (aceitar o destino, evitar a dor), não do cálculo coletivo nem do respeito à pessoa como fim."
+    - texto: "kantiana e utilitarista."
+      erro: "A ordem está trocada. 'Mais bem-estar para o maior número' é utilitarismo; 'nunca só como meio' é Kant."
+    - texto: "da virtude aristotélica e do existencialismo."
+      erro: "Nenhuma das falas fala em meio-termo ou em escolha que define a existência."
+    - texto: "relativista e cristã medieval."
+      erro: "As falas trazem critérios gerais (bem-estar de todos; dignidade da pessoa), não 'cada um tem a sua verdade' nem argumento religioso."
+    - texto: "utilitarista e kantiana."
+      certa: true
+  explicacao: "O primeiro vereador mede a ação pelas consequências para o maior número: utilitarismo (Bentham, Mill). O segundo usa a fórmula de Kant: tratar a humanidade sempre como fim, nunca só como meio."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-rf-hum-racismo-01
+  tema: "Raça, racismo e o mito da democracia racial"
+  area: humanas
+  habilidade: 11
+  objeto: hum-organizacao-social-racismo
+  estilo: enem
+  dificuldade: 2
+  texto_base: |
+    Durante muito tempo, livros escolares descreveram o Brasil como um país sem conflito racial, onde a mistura de
+    povos teria produzido convivência harmoniosa. Nos anos 1950, pesquisas de sociólogos brasileiros, entre eles
+    Florestan Fernandes, mostraram com dados a desigualdade entre brancos e negros no emprego, na renda e na escola.
+    (Texto do Instituto Lúcia.)
+  enunciado: "As pesquisas citadas contribuíram para"
+  alternativas:
+    - texto: "confirmar que a miscigenação eliminou a desigualdade racial."
+      erro: "As pesquisas mostraram o contrário: havia desigualdade, apesar da mistura."
+    - texto: "provar que raça é uma divisão biológica entre os seres humanos."
+      erro: "As pesquisas eram sobre desigualdade social. Na sociologia, raça é construção social."
+    - texto: "mostrar que o racismo no Brasil acabou com a Lei Áurea."
+      erro: "A abolição foi em 1888. As pesquisas dos anos 1950 mostram desigualdade décadas depois."
+    - texto: "questionar o mito da democracia racial, mostrando que a imagem de harmonia escondia desigualdades."
+      certa: true
+    - texto: "defender que não se fale mais em raça no Brasil."
+      erro: "Para mostrar a desigualdade, os pesquisadores precisaram justamente olhar para a raça."
+  explicacao: "O 'mito da democracia racial' é a imagem de um país sem conflito racial. Pesquisas como as de Florestan Fernandes mostraram, com dados, que a mistura de origens não trouxe igualdade."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }

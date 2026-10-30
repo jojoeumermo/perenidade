@@ -1,0 +1,81 @@
+# Exercícios da aula "Redação expressa: repertórios que servem a muitos temas" (trilha enem-reta-final).
+# Formato: docs/EXERCICIOS.md. Aula de redação: sem etiquetas de área da Matriz (docs/ENEM.md, seção 3).
+
+- id: enem-red-repertorio-01
+  tema: "Repertório legítimo"
+  dificuldade: 1
+  enunciado: "Qual destes repertórios é legítimo, isto é, vem de uma fonte reconhecida?"
+  alternativas:
+    - texto: "Uma frase inspiradora que circula nas redes sociais, atribuída a um escritor famoso, sem indicação de onde foi publicada"
+      erro: "Sem fonte, não dá para saber se a frase existe nem se o autor a disse. Frase de autoria duvidosa enfraquece o texto."
+    - texto: "“Pesquisas mostram que a maioria das pessoas concorda com isso”"
+      erro: "Que pesquisa? De quem? De quando? Dado sem fonte nem ano não convence o leitor."
+    - texto: "O art. 196 da Constituição Federal, que diz que a saúde é direito de todos e dever do Estado"
+      certa: true
+    - texto: "Um trecho copiado de um dos textos motivadores da prova"
+      erro: "O repertório deve vir de fora da prova. Copiar o texto motivador não mostra conhecimento seu, e as linhas copiadas não contam como texto seu."
+  explicacao: "Uma lei, com o artigo indicado, é uma fonte reconhecida e conferível. Legitimidade é o primeiro passo; depois, o repertório ainda precisa ser pertinente ao tema e produtivo no argumento."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-red-repertorio-02
+  tema: "Repertório de bolso"
+  dificuldade: 2
+  texto_base: |
+    Introdução de um estudante para o tema "Os limites da inclusão digital feita só pelo celular no Brasil":
+    "Segundo um pensador clássico, o conhecimento é poder. Diante disso, é fundamental discutir a internet no
+    Brasil, pois ela é muito importante para todos."
+  enunciado: "Por que esse uso de repertório tem baixa produtividade?"
+  alternativas:
+    - texto: "Porque a citação poderia ser tirada, ou trocada por outra qualquer, sem mudar o sentido do parágrafo"
+      certa: true
+    - texto: "Porque não se pode citar pensadores na introdução"
+      erro: "Pode, sim. O problema não é o lugar, é a falta de ligação: a citação não diz nada sobre o acesso só pelo celular."
+    - texto: "Porque a frase é curta demais"
+      erro: "O tamanho não é o problema. Uma citação curta pode ser muito produtiva se for explicada e ligada ao tema."
+    - texto: "Porque repertório só vale se for um dado numérico"
+      erro: "Leis, obras, fatos históricos, conceitos e pensadores também são repertório. O que conta é a ligação com o argumento."
+  explicacao: "É o retrato do repertório de bolso descrito na Cartilha 2026: genérico, sem ligação real com o recorte. Uma versão produtiva diria, por exemplo, que quem só tem o celular tem acesso limitado a estudo e trabalho, e mostraria um dado sobre isso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-red-repertorio-03
+  tema: "Repertório pertinente"
+  dificuldade: 2
+  texto_base: |
+    Tema de treino: "A persistência do trabalho análogo ao de escravo no Brasil contemporâneo".
+  enunciado: "Qual repertório é mais pertinente a esse tema?"
+  alternativas:
+    - texto: "A definição de desenvolvimento sustentável do Relatório Brundtland, de 1987"
+      erro: "É um repertório legítimo, mas fala de meio ambiente e gerações futuras. Para forçar a ligação, você gastaria linhas sem provar nada sobre o trabalho escravo hoje."
+    - texto: "O art. 196 da Constituição, sobre o direito à saúde"
+      erro: "É legítimo, mas não é o centro do tema. Saúde do trabalhador pode aparecer, mas o recorte pede a persistência de uma forma de exploração."
+    - texto: "A Revolta da Vacina, de 1904"
+      erro: "É um fato histórico de saúde pública. Não tem relação direta com o trabalho análogo ao de escravo."
+    - texto: "O dado do Ministério do Trabalho e Emprego: 3.190 trabalhadores resgatados de condições análogas à escravidão em 2023"
+      certa: true
+  explicacao: "O dado mostra que o problema existe hoje, o que responde à palavra 'persistência' do tema. Pertinente é o repertório que fala do recorte, não só de um assunto vizinho."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
+
+- id: enem-red-repertorio-04
+  tema: "Repertório coringa"
+  dificuldade: 3
+  texto_base: |
+    Um estudante usou o mesmo repertório, o art. 3º da Constituição (um dos objetivos da República é reduzir as
+    desigualdades sociais e regionais), em dois treinos:
+    Treino 1 (saneamento): "A Constituição quer reduzir as desigualdades. Portanto, o saneamento é importante."
+    Treino 2 (transporte): "A Constituição quer reduzir as desigualdades. Portanto, o transporte é importante."
+  enunciado: "O que ele precisa mudar para que o repertório funcione como coringa, e não como repertório de bolso?"
+  alternativas:
+    - texto: "Trocar o art. 3º por um repertório diferente em cada tema"
+      erro: "Não é preciso trocar: o art. 3º serve aos dois temas. O problema é a frase de ligação, que é a mesma nos dois."
+    - texto: "Escrever, em cada tema, uma ligação própria, mostrando qual desigualdade aparece (a cobertura de esgoto por região; o preço e a distância do transporte)"
+      certa: true
+    - texto: "Pôr a citação entre aspas e com o número do artigo"
+      erro: "Aspas e número dão precisão, mas não resolvem a falta de ligação com o tema."
+    - texto: "Mover a citação para a conclusão"
+      erro: "Mudar de lugar não muda o uso. Em qualquer parágrafo, o repertório precisa ser explicado e ligado ao argumento."
+  explicacao: "Coringa é o conhecimento que se aplica a vários temas, mas a ligação é refeita para cada recorte. Do jeito que está, a frase é igual nos dois treinos: sinal de repertório de bolso."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao: { status: em-revisao }
