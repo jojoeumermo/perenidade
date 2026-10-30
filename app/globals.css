@@ -4680,3 +4680,42 @@ a.busca-campo:focus-visible {
     border-radius: 999px;
   }
 }
+
+/* ───── Tema escuro, as sobras (30/10/2026) ─────
+   O que tinha ficado claro no escuro: bilhetes amarelos, quadros dos laboratórios, etiquetas e o botão de tinta.
+   Tudo aqui vale só no escuro: o tema claro, o alto contraste, a tinta eletrônica e o leitor (Kindle) não mudam.
+   Fora de camada de propósito, para passar à frente das utilidades (bg-[...], shadow-[...]) que desenham o claro. */
+@media (prefers-color-scheme: dark) {
+  /* Bilhete amarelo (anotação da aula, tarefas do Despertar): papel escuro com a tarja ipê no alto. */
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .bilhete {
+    border-color: #4a443a;
+    background-color: #23211c;
+    color: var(--ink);
+    box-shadow: inset 0 5px 0 #f0b323, 3px 3px 0 #000;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .bilhete :is(span, p, textarea) {
+    color: inherit;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .bilhete textarea::placeholder {
+    color: #a9a196;
+  }
+  :root:not([data-theme="light"], [data-contrast], [data-eink], [data-leitor]) .bilhete textarea:focus-visible {
+    outline-color: #f0b323;
+  }
+}
+/* Bilhete amarelo (anotação da aula, tarefas do Despertar): papel escuro com a tarja ipê no alto. */
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .bilhete {
+  border-color: #4a443a;
+  background-color: #23211c;
+  color: var(--ink);
+  box-shadow: inset 0 5px 0 #f0b323, 3px 3px 0 #000;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .bilhete :is(span, p, textarea) {
+  color: inherit;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .bilhete textarea::placeholder {
+  color: #a9a196;
+}
+:root[data-theme="dark"]:not([data-contrast], [data-eink], [data-leitor]) .bilhete textarea:focus-visible {
+  outline-color: #f0b323;
+}
