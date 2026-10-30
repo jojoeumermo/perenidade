@@ -105,6 +105,8 @@ export function CartaoDeExercicio({ ex, aula, s, posicao, corrigir, aoTerminar }
         </span>
         <EtiquetaDoExercicio ex={ex} s={s} />
       </p>
+      {/* No estilo ENEM, o texto-base vem antes do comando, como na prova. */}
+      {ex.textoBase && <div className="mt-3 whitespace-pre-line border border-rule bg-parchment px-4 py-3 font-serif text-base leading-relaxed">{ex.textoBase}</div>}
       <p id={`${campo}-enunciado`} className="mt-3 font-serif text-xl leading-snug">
         {ex.enunciado}
       </p>
@@ -119,6 +121,7 @@ export function CartaoDeExercicio({ ex, aula, s, posicao, corrigir, aoTerminar }
               <button key={j} type="button" disabled={fechado || tentada} onClick={() => escolher(j)} className={`cursor-pointer border-2 bg-parchment px-4 py-2 text-left disabled:cursor-default ${estado}`}>
                 {eACerta && <span aria-hidden>✓ </span>}
                 {tentada && <span aria-hidden>✗ </span>}
+                {ex.enem?.estilo === "enem" && <span className="font-mono font-semibold">{"ABCDE"[j]}) </span>}
                 {alt.texto}
                 {eACerta && <span className="sr-only"> ({s.certaSr})</span>}
                 {tentada && <span className="sr-only"> ({s.tentadaSr})</span>}
