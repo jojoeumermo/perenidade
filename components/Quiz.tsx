@@ -8,6 +8,20 @@ import type { QuizQuestion } from "@/lib/content";
 import { idDaQuestao, lerErros, refazerErro, registrarErro } from "@/lib/estudo";
 import { L, useI18n } from "./I18n";
 
+/** Uma permutação de 0..n-1 sorteada a partir de um texto (sempre a mesma para o mesmo texto). */
+function embaralhar(n: number, texto: string): number[] {
+  let semente = 2166136261;
+  for (let i = 0; i < texto.length; i++) semente = Math.imul(semente ^ texto.charCodeAt(i), 16777619) >>> 0;
+  const ordem = Array.from({ length: n }, (_, i) => i);
+  for (let i = n - 1; i > 0; i--) {
+    semente = Math.imul(semente ^ (semente >>> 15), 2246822507) >>> 0;
+    semente = (semente ^ (semente >>> 13)) >>> 0;
+    const j = semente % (i + 1);
+    [ordem[i], ordem[j]] = [ordem[j], ordem[i]];
+  }
+  return ordem;
+}
+
 /**
  * `registro` (opcional): a aula ("trilha/aula"). Com ele, o fim do teste soma um às contagens anônimas da aula e, com
  * `guardarNoAparelho`, o resultado vai para o "Meu estudo". Sem ele, nada é guardado além do caderno de erros.
@@ -30,6 +44,10 @@ export function Quiz({ questions, registro, guardarNoAparelho = false }: { quest
   const chosen = answers[atual];
   const answered = chosen !== undefined;
   const letras = "ABCDEFGH";
+  // Nas aulas a certa costuma ser a primeira ou a segunda alternativa (quem chutava "A" acertava mais da metade).
+  // A ordem na tela sai embaralhada a partir do texto da pergunta: sempre a mesma para a mesma questão, igual no
+  // servidor e no navegador, e o índice guardado continua o do arquivo.
+  const ordem = q ? embaralhar(q.options.length, q.question) : [];
 
   function responder(j: number) {
     const novas = { ...answers, [atual]: j };
@@ -58,7 +76,8 @@ export function Quiz({ questions, registro, guardarNoAparelho = false }: { quest
       </h2>
       <p className="mt-2.5 font-serif text-[1.45rem] leading-snug text-ink">{q.question}</p>
       <div className="mt-5 flex flex-col gap-3">
-        {q.options.map((option, j) => {
+        {ordem.map((j, posicao) => {
+          const option = q.options[j];
           const isAnswer = j === q.answer;
           const estado = !answered
             ? "bg-folha text-ink hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_var(--sombra)] cursor-pointer"
@@ -70,7 +89,7 @@ export function Quiz({ questions, registro, guardarNoAparelho = false }: { quest
           return (
             <button key={j} type="button" disabled={answered} onClick={() => responder(j)} className={`flex w-full items-center gap-3 border-2 border-ink px-4 py-3.5 text-left font-serif text-[1.1rem] transition-transform ${estado}`}>
               <span aria-hidden className="font-mono text-sm font-semibold">
-                {letras[j]}
+                {letras[posicao]}
               </span>
               <span className="flex-1">{option}</span>
               {answered && isAnswer && <span className="sr-only"> ({t.lesson.correct})</span>}
