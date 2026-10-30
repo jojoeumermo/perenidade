@@ -1,0 +1,67 @@
+# Exercícios da aula "O celular no dia a dia" (Depois das primeiras letras). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: eja-celular-01
+  tema: "O código de verificação"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Chegou no seu celular um código de 6 números. Logo depois, alguém liga pedindo esse código 'para confirmar o cadastro'. O que fazer?"
+  alternativas:
+    - texto: "Passar o código, porque a pessoa foi educada"
+      erro: "Golpista costuma ser educado. O código serve para entrar na sua conta; quem tem o código entra no seu lugar."
+    - texto: "Não passar o código e desligar"
+      certa: true
+    - texto: "Passar só os três primeiros números"
+      erro: "Nem parte do código. Ninguém de confiança pede código por telefone."
+  explicacao: "Senha e código não se passam para ninguém. Banco, INSS ou WhatsApp não pedem código por telefone."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-celular-02
+  tema: "Texto ou áudio"
+  dificuldade: 2
+  enunciado: "Você vai mandar para a vizinha o endereço da consulta e o horário. Qual é o melhor jeito?"
+  alternativas:
+    - texto: "Por escrito, para ela poder ler de novo e achar o endereço depois"
+      certa: true
+    - texto: "Por áudio comprido, contando tudo"
+      erro: "Áudio é ótimo para conversa, mas endereço e horário ficam difíceis de achar no meio. Por escrito ela relê quando quiser."
+    - texto: "Não mandar e esperar ela perguntar"
+      erro: "Avisar antes evita confusão. E endereço e horário são justamente o que vale mandar por escrito."
+  explicacao: "Número, endereço e horário: por escrito. Fica fácil de reler e de mostrar para alguém."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-celular-03
+  tema: "Reconhecer o golpe"
+  dificuldade: 2
+  enunciado: "Qual destas mensagens tem mais sinais de golpe?"
+  alternativas:
+    - texto: "Oi, é a Rita. Chego às 8 para o café."
+      erro: "Essa não pede nada, não tem pressa nem link. Parece uma mensagem comum."
+    - texto: "O posto de saúde lembra: sua vacina é na quinta. Leve o cartão."
+      erro: "Essa não pede dados nem dinheiro, e dá para conferir no próprio posto."
+    - texto: "Mãe, troquei de número. Me manda R$ 300 agora, é urgente!"
+      certa: true
+  explicacao: "Número novo, pedido de dinheiro e pressa: é o golpe do falso parente. Ligue para o número antigo antes de mandar qualquer coisa."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: eja-celular-04
+  tema: "A conta gov.br"
+  dificuldade: 2
+  enunciado: "Para que serve a conta gov.br?"
+  alternativas:
+    - texto: "Para pagar contas de luz e água"
+      erro: "Contas de luz e água se pagam no banco ou na lotérica. A conta gov.br dá entrada nos serviços do governo, como o Meu INSS."
+    - texto: "Para entrar nos serviços digitais do governo, como Meu INSS e Carteira de Trabalho Digital"
+      certa: true
+    - texto: "É um banco do governo"
+      erro: "Não é banco nem guarda dinheiro. É um cadastro com CPF e senha para entrar nos serviços públicos."
+  explicacao: "A conta gov.br é gratuita e dá entrada em serviços como Meu INSS, Carteira de Trabalho Digital e Meu SUS Digital."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao

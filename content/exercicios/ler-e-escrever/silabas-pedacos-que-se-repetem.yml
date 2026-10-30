@@ -1,0 +1,68 @@
+# Exercícios da aula "Sílabas: pedaços que se repetem" (Ler e escrever). Formato em docs/EXERCICIOS.md.
+# Todos em revisão: só uma pessoa da equipe troca para "revisada", com a função e a data.
+
+- id: alfa-silabas-01
+  tema: "Contar sílabas"
+  dificuldade: 1
+  nivelamento: true
+  enunciado: "Quantas sílabas (palmas) tem a palavra SINDICATO?"
+  alternativas:
+    - texto: "3"
+      erro: "Faltou uma palma. Fale bem devagar: SIN - DI - CA - TO."
+    - texto: "9"
+      erro: "9 é o número de letras. Sílaba é pedaço, não letra: SIN - DI - CA - TO."
+    - texto: "4"
+      certa: true
+  explicacao: "SIN - DI - CA - TO: quatro palmas, quatro sílabas."
+  conferir: "4"
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-silabas-02
+  tema: "Trocar pedaços"
+  dificuldade: 2
+  enunciado: "Troque os dois pedaços de BOLO de lugar. Que palavra sai?"
+  alternativas:
+    - texto: "LOBO"
+      certa: true
+    - texto: "BOLA"
+      erro: "BOLA troca uma vogal, não os pedaços. Troque BO e LO de lugar: LO + BO."
+    - texto: "OLBO"
+      erro: "Você trocou letras, não pedaços. Os pedaços são BO e LO; trocando, fica LO-BO."
+  explicacao: "BO - LO, trocando, vira LO - BO: LOBO."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-silabas-03
+  tema: "Famílias que mudam de som"
+  dificuldade: 3
+  enunciado: "Em qual palavra o C tem som de S?"
+  alternativas:
+    - texto: "CASA"
+      erro: "Em CA, o C tem som de K. O C só soa como S antes de E e de I: CE, CI."
+    - texto: "CUIA"
+      erro: "Em CU, o C também soa como K. Procure o C antes de E ou I."
+    - texto: "CEBOLA"
+      certa: true
+  explicacao: "Antes de E e I, o C tem som de S: CEBOLA, CINEMA. Antes de A, O e U, tem som de K: CASA, COPO, CUIA."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
+
+- id: alfa-silabas-04
+  tema: "A escrita de quem está aprendendo"
+  dificuldade: 2
+  enunciado: "Dona Neide escreveu AEA para PANELA. O que isso mostra?"
+  alternativas:
+    - texto: "Que ela não tem jeito para ler"
+      erro: "Não é isso. Ela pôs uma vogal para cada pedaço da palavra: já ouve as sílabas. É uma etapa do caminho."
+    - texto: "Que ela já ouve as sílabas e pôs uma letra para cada pedaço; falta descobrir a consoante de cada um"
+      certa: true
+    - texto: "Que ela escreveu letras ao acaso"
+      erro: "Não foi ao acaso: A para PA, E para NE, A para LA. Cada letra corresponde a um pedaço."
+  explicacao: "Escrever uma letra por sílaba é uma etapa que Emilia Ferreiro descreveu. Batendo palmas e procurando a consoante de cada pedaço, a pessoa chega a PANELA."
+  fonte: "Questão original do Instituto Lúcia"
+  revisao:
+    status: em-revisao
