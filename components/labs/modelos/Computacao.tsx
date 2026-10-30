@@ -56,7 +56,7 @@ export function Regex() {
       <p className="mt-3 rounded border-2 border-ink bg-white p-3 text-lg leading-relaxed">{partes}</p>
       <p className="mt-2 text-sm">{achados.length} achado(s){venceu ? " · ✓ Desafio resolvido!" : ""}</p>
       {desafio !== null && !venceu && <details className="mt-1 text-sm"><summary className="cursor-pointer underline">Dica</summary><code>{DESAFIOS[desafio].dica}</code></details>}
-      <div className="mt-4 grid gap-3 text-xs sm:grid-cols-4">
+      <div className="mt-4 grid grid-cols-1 gap-3 text-xs sm:grid-cols-4">
         {[["\\d", "um dígito"], ["\\w", "letra, dígito ou _"], ["\\s", "espaço"], [".", "qualquer caractere"], ["+", "um ou mais"], ["*", "zero ou mais"], ["{2,4}", "de 2 a 4 vezes"], ["[aeiou]", "qualquer um desses"], ["^ $", "começo e fim"], ["\\b", "borda de palavra"], ["( )", "grupo"], ["|", "ou"]].map(([s, d]) => <p key={s}><code className="font-mono font-bold">{s}</code> {d}</p>)}
       </div>
     </Bancada>
@@ -88,7 +88,7 @@ export function NavegadorRevela() {
     <Bancada titulo="O que o seu navegador conta" subtitulo="Sem pedir licença, todo site pode ler isto">
       <p className="text-sm">Estes dados foram lidos agora, no seu aparelho, e <strong>não saíram dele</strong>. Mas qualquer site que você visita consegue ler os mesmos, e muitos mandam para empresas de propaganda.</p>
       <dl className="mt-3 divide-y divide-rule rounded border-2 border-ink bg-parchment">
-        {linhas.map(([k, v]) => <div key={k} className="grid gap-1 px-3 py-2 text-sm sm:grid-cols-[14rem_1fr]"><dt className="font-semibold">{k}</dt><dd className="break-all font-mono text-xs">{v}</dd></div>)}
+        {linhas.map(([k, v]) => <div key={k} className="grid grid-cols-1 gap-1 px-3 py-2 text-sm sm:grid-cols-[14rem_1fr]"><dt className="font-semibold">{k}</dt><dd className="break-all font-mono text-xs">{v}</dd></div>)}
       </dl>
       <div className="mt-4">
         <PrevejaRode pergunta="Só com isso, sem nome nem conta, dá para reconhecer você de um site para outro?" explicacao="Muitas vezes dá: a combinação de idioma, fuso, tela, núcleos, fontes e navegador é quase única (a chamada impressão digital do navegador). Somada a cookies de terceiros e ao endereço de rede, permite seguir uma pessoa pela internet sem ela perceber." limites="Mostramos só o que se lê sem pedir licença; scripts de rastreamento vão além (fontes instaladas, desenho em canvas, áudio)." aprofundar="Abra esta página em outro navegador ou no modo anônimo: o que muda? Navegadores com proteção contra rastreamento escondem parte disso." />

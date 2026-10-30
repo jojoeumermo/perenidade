@@ -19,7 +19,7 @@ export function Probabilidade() {
   return (
     <Bancada titulo="Probabilidade" subtitulo="Quando o acaso vira regra" acoes={<Botao onClick={() => setSemente(semente + 1)}>Outra semente ({semente})</Botao>}>
       <Escolha rotulo="Experimento" valor={qual} opcoes={[["moedas", "Moedas"], ["monty", "Monty Hall"], ["aniversario", "Aniversários"], ["tlc", "Médias de dados"]]} mudar={setQual} />
-      <div className="mt-4 grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="mt-4 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <div>
           {qual === "moedas" && <><Grafico series={[["#ffd27a", serie], ["#ffffff44", serie.map(() => 0.5)]]} max={1} altura={160} rotulos={["fração de caras", "50%"]} /><p className="mt-2 text-sm">Depois de {n} lançamentos: <strong>{(serie.at(-1)! * 100).toFixed(1)}% de caras</strong>.</p></>}
           {qual === "monty" && (
@@ -67,7 +67,7 @@ export function GraficosEnganosos() {
   return (
     <Bancada titulo="Gráficos que enganam" subtitulo="O mesmo dado, contado de jeitos diferentes (dados fictícios)">
       <Escolha rotulo="Versão" valor={truque} opcoes={[["honesto", "Honesta"], ["eixo", "Eixo cortado"], ["periodo", "Período escolhido a dedo"], ["escala", "Escala esticada"]]} mudar={setTruque} />
-      <div className="mt-4 grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="mt-4 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <svg viewBox="0 0 300 200" className="w-full rounded border-2 border-ink bg-parchment" role="img" aria-label="Gráfico de barras do preço da cesta">
           <text x={10} y={16} fontSize={11} fontWeight={700} fill="#17130e">Preço da cesta básica (R$)</text>
           {valores.map((v, i) => {
@@ -111,7 +111,7 @@ export function Segregacao() {
   const reiniciar = (s: number) => { setSemente(s); setGrade(schellingInicial(L, 0.1, s)); setRodada(0); setSerie([]); setRodando(false); };
   return (
     <Bancada titulo="Segregação (modelo de Schelling)" subtitulo="Pequenas preferências, grande separação" acoes={<><Botao primario onClick={() => setRodando(!rodando)}>{rodando ? "⏸" : "▶ Rodar"}</Botao><Botao onClick={() => reiniciar(semente + 1)}>↺ Nova cidade</Botao></>}>
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <svg viewBox={`0 0 ${L} ${L}`} className="mx-auto w-full max-w-[420px] rounded border-2 border-ink" role="img" aria-label="Cidade em grade: casas azuis, laranja e vazias">
           {grade.map((v, i) => <rect key={i} x={i % L} y={Math.floor(i / L)} width={1} height={1} fill={v === 1 ? "#1a4f9c" : v === 2 ? "#e0701a" : "#f4ebdb"} />)}
         </svg>
@@ -135,7 +135,7 @@ export function Cooperacao() {
   return (
     <Bancada titulo="Cooperação (dilema do prisioneiro)" subtitulo="Trair compensa? Depende de quem está jogando">
       <p className="text-sm">Cada dupla joga {rodadas} rodadas. Os dois cooperam: 3 pontos cada. Um trai e o outro coopera: 5 para quem traiu, 0 para quem cooperou. Os dois traem: 1 cada.</p>
-      <div className="mt-4 grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="mt-4 grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <ul className="space-y-2">
           {ESTRATEGIAS.map((e) => {
             const i = presentes.indexOf(e.id);
@@ -172,7 +172,7 @@ export function Riqueza() {
   const top10 = ordenado.slice(0, 12).reduce((s, x) => s + x, 0) / ordenado.reduce((s, x) => s + x, 0);
   return (
     <Bancada titulo="Riqueza (modelo yard-sale)" subtitulo="Todo mundo começa igual e as trocas são cara ou coroa" acoes={<Botao onClick={() => setSemente(semente + 1)}>Outra semente</Botao>}>
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1fr)_16rem]">
         <div>
           <svg viewBox="0 0 240 120" className="w-full rounded bg-[#17130e]" role="img" aria-label="Riqueza de cada pessoa, da maior para a menor">
             {ordenado.map((x, i) => <rect key={i} x={i * 2} y={120 - Math.min(120, (x / Math.max(...ordenado)) * 118)} width={1.6} height={Math.min(120, (x / Math.max(...ordenado)) * 118)} fill="#ffd27a" />)}
