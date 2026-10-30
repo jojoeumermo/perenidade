@@ -30,7 +30,7 @@ quiz:
     resposta: 0
     explicacao: "O portfólio mostra o caminho de cada um em relação a si mesmo, sem comparar com os outros."
   - pergunta: "Um participante escreveu CAZA. Qual é o comentário mais útil?"
-    opcoes: ["Errado. Presta atenção.", "Você ouviu bem: o som é de Z. Aqui a escrita usa S, porque fica entre duas vogais.", "Não diga nada, para não desanimar."]
+    opcoes: ["Errado. Presta atenção.", "Você ouviu bem: o som é de Z. Em CASA esse som se escreve com S, como em MESA; outras palavras usam Z, como FAZER.", "Não diga nada, para não desanimar."]
     resposta: 1
     explicacao: "Reconhecer o que a pessoa acertou (o som) e mostrar a regra transforma o erro em pista."
 ---
@@ -100,7 +100,7 @@ Qual comentário segue esses três passos?
 
 **Montar a conversa de avaliação de Dona Cícera, depois de três meses de círculo.**
 
-1. **Abra o portfólio junto com ela.** Na primeira folha, de agosto: o nome escrito com ajuda, letra por letra, e a sondagem do campo "feira": MLC para MELANCIA (hipótese silábica).
+1. **Abra o portfólio junto com ela.** Na primeira folha, de agosto: o nome escrito com ajuda, letra por letra, e a sondagem do campo "feira": MLCA para MELANCIA (hipótese silábica).
 2. **Mostre a folha de novembro.** O nome escrito sozinha, com a assinatura que ela treinou. Na sondagem: MELAMCIA para MELANCIA. Agora ela escreve uma letra para cada som (hipótese alfabética), com um erro de ortografia (M no lugar do N).
 3. **Pergunte primeiro a ela.** "O que mudou?" Ela diz: "Agora eu leio o ônibus." Anote isso no portfólio, com a data.
 4. **Comente o erro como pista.** "Você escreveu todos os sons de MELANCIA. Repara: antes do C, a escrita usa N. Antes do P e do B é que se usa M, como em CAMPO."
